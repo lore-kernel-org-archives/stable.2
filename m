@@ -1,221 +1,138 @@
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E52D3CC303
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 19:21:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791487267; cv=none; b=HQOKJ0fUa8BQVon1trKgPSDYya9Ms05//Zrx26V2dd10X02CfvObHlxucGmJciKm0sKNhNCUpGLMsf5trjcf+OHzj/nPuNoKkayYEbEiZVNGmkl9pwhgrkkweGiR6zFKexg/LLApjYaFhpGFmOawBB7daiGmit+WZY1H4YY4tGc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791487267; c=relaxed/simple;
-	bh=PuzqVFDxI+zatQGxN40slkwNhvv2rAFAYoTUv6unPf0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mzWCCdTKX7+2vIKDQC4/CZp7zR3YaLxQbwZbmrF/JcUA3jHsp0hXAZ/XxKuZtzdfUv5nb+edB3iPazRJqE7nrF8w4kVkUdsS65sfyjwWWDRL2OIpq4189QzSKYGKytju7XwYyBA0AR5tH3kTybfvwbVMfMVBhZGeWM3i42ZrzP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=HDmkrS/J; arc=none smtp.client-ip=74.125.82.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6DC14AEBC7
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 19:29:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791487784; cv=pass; b=k1PcMbno3x1YSn1zMLxvxpTusRiy6cqkftiHhUsTBmGMiETLmNQJjxF9NEwcQdkihXSBq2MDNui/Az1nCL4gTG/dCqRksCb6sw5a9ysweLSQreY+x3BmS5vnXvAjUanvtq2NjBdiXKnu+Sjn2G99CV46IPna1KhoYJ04cNdEByM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791487784; c=relaxed/simple;
+	bh=bH3Ys777xJyJceuaHq+fKZvqaHs2+JI/CEfT6ut+TY0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=e4Gd7jR6lJDo0OZjdMX6BVjq5ehMZ9cx3IQcgCvL26xT/YdsOJojumS2CcERX/APLzYiulnKpdr2VxSYiX2rYb81GT6RSb0oS6qmbyqP/y+AFb4fJJmR0T9zsHLn7OI696AogIBfVuCvFIfj2z8aoT86+7vCqlMdx7C8MWgRpyc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wn6s8tb1; arc=pass smtp.client-ip=209.85.208.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="HDmkrS/J"
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3514b90bb89so5216198eec.1
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 12:21:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wn6s8tb1"
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a1eb6fa0f4so34672561fa.2
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 12:29:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791487781; cv=none;
+        d=google.com; s=arc-20260327;
+        b=C8I/TZbRlkYlAQ9Q8ysBIORrjwZtZIM1sCWJPh0gfLx9lnj0GIIQWAeveSXSRXeuwG
+         GPstK3ot+7WFwZ2yNQadbJ7GbghUnj3ATSJ2HAdV5k0tTjeCFw0fXHupOcwgM3pnZvxg
+         3s6iklAgedxeRLiCi0E5pH0bstLkmchGmBjBy+RndVx/8dCiJBSe7+fPPHe4QHRsPnjZ
+         Oa1NGs3l89re8EMr/isEnN5Xd7lsQhtjXw1CA6HqzDxEMFTmLDfmo07L4/Oz1ZJDAOnZ
+         K91UpFoV1sBjuv0Q9mbsfreD8+2Gziuj5xP0yMSoljN+b6NuDvqXbuOR8qCcf92cJBFm
+         oy6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bH3Ys777xJyJceuaHq+fKZvqaHs2+JI/CEfT6ut+TY0=;
+        fh=UrBOTQTS/4ukuXBQ7H047JiswT1u3hX9/oVcYBdB8vc=;
+        b=PCjiZDTPowMYsrjksB9hsqK5CBoodt4PWz4fyLxAvjzRozuizDrAK1+w+2R03YCWfX
+         9h+kpfLeXZKSDirtTqMkFlSz3ejPiyaoSryIvRkiR8FbVXg/VWUZRsTAttxmcWEXPSK0
+         yx65FO3nF1WY7/mZ+cjHhHTSjFaH5s0O6ppOZVs0JVMc2IbIm8Gi50IsN3CWJszIjsuh
+         qBsMfDo6yI5zzyQHGt4AOG+9O6qKqIJRB8TNZJre/ncI1wwiYD4Pem5rfEIbS8CJnY1x
+         p+zyBVXfg88KGjfzIJ2S0dSZx5Xe7nwPPnrRpxjgGSp1G0oYgSoX0Q0f7LeyCYvFSSe0
+         yi9Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1791487265; x=1792092065; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6KUKpLP6sK5JJfpFeLzNOR03I2+Ta+FFCS3acbpe0g0=;
-        b=HDmkrS/JNeliWZYylj0h9bjp5EvSDzWvxV6QjzRtBprKXDj5wkkEOQFKjyEkFjBaz9
-         t+FLwzSXeF1QUTUYljTl9FoAw+CNQC7Nn0zQAnp4mQmDA2vi92RubWLck8V6lunOZ8iV
-         KlwxjeAbBi9Yb819W+QQSVEIjnoEbsFWIor6y7437yDVMQO1JSkXRzdNWjYLbkqZr4KE
-         WH0WTGomqxardWuLMeUtZkOcqWSJQDQWAW1jMcd1OG3BgFA09CJcFIaqA9Ojr+IUC0Au
-         Kvo7/QH6Kc7ijLdmi0cDLbUqCAp7yqTUYhIuxsGhDmr7Syn+kK262PCzuv4XB6MQ6/Fr
-         OoSQ==
+        d=gmail.com; s=20251104; t=1791487781; x=1792092581; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bH3Ys777xJyJceuaHq+fKZvqaHs2+JI/CEfT6ut+TY0=;
+        b=Wn6s8tb1eiVxlv5gZBq8iT3KJpGjQLvnTO/AHZIgEXjIZG+Lhz3cBxz9g6pMTSivp0
+         wtTeLJOmaAiPJSlSQOd9Ej4zOx0wKZ4ym1gMaPC+5iNC/XwmE9do2x1yWrR0ZsT3WHTh
+         w+VsM0qSr/2GWJx1SzOM6Eby6osj7AxkURxNuREKFU3Ova6vf++oZ9+etNFhyam1NALj
+         Od2bQ1cx/eFsFP3UDnGod8REDTBpuxc5k3J6frNul3JoTNVqwgWMjVadxVY7lHJthEaH
+         ilc/QMDjwZp2s7n7giziRaMUj+76BvUF4Ofor4aLNHTC8T1qC9C6ChFjGbX5KO1AgKQ0
+         k8YA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791487265; x=1792092065;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6KUKpLP6sK5JJfpFeLzNOR03I2+Ta+FFCS3acbpe0g0=;
-        b=Pp8bkJxyG2Frq7c9CzOQ0R5/z+wWlRcW+woXx732xiAFUGHasElmwfWK/LWS0c1XqD
-         a/xwldJRJSOKVL0e481bliVcuEx5no5QD5stsl8BvnaqrAKYooeRAf+CJ0QZoxdb97Vk
-         HdSU32YU/2EYVXmOqLSIKRVV1G45SI7+QL2KTdByTmViiI4JB9KAPk8DiJ4lgki2B/1e
-         Ie83FmiL8f+mn2ijwmqjyC53BOr7tWIN1cE8ml3Fug0G5gpZJliX36QUiZeTPzwzE1Iw
-         IAvW4GpZpfsPHqTu5mwy6FpnIIZdor5kSsa328QeWk3RTXhOE+p8nElwEL5jZu+gYNN7
-         jShQ==
-X-Gm-Message-State: AFq9FYKCl45nmGMfspSZwXBKMqtCQRVTBu17ijZQZAes7c2bU3ta/Il5
-	VshNg93uCnktsDxU6j4do9oot+Y1kf0jY1MBHtcal3P5Fne0e1usuNr6c8hStkorFI02ZMWdo93
-	gyUG+KGhDaw==
-X-Gm-Gg: AYBFou0IMop1r6sbFYuBDnVgO0Eu22qKt68miEjiKHkX/E1LtSpfkJEYNhXgcy6QqJz
-	gXzEzGSGOnepBkeHW/cA28EhyJ0kEzqXdQ/FhRq4zbors+cSULf4W6RRFIFrunbCOpjcFfkiCUJ
-	TK0nfvGgegnhF5S/jrIL+5wCVkAysU4hmiCLJSZiEwNYD/xW5v4D4NseHT40wZrDNrs2AZ/5tHA
-	fX+GK2Fkv3gWiPhNqglfKSRO317zVsMaZ6usjcY5PRpNhX6fpEebapiHeE/AFL86KwZ3dahpyat
-	Bz3+Mt9Zar6yQxohMZfnAE1OhE6kuRFnjTsOhZ36Jqif86sfQTNqZd/dJVlJAVIKvm4DoAPM0Bv
-	tjxVppcYXsMjUKgGc7E1eWyeq/PJowJW7Re/buG4uE5q8oE3bhPpf1512GG59tOGN2m4mtN4glF
-	f1ThMVF9bFpjYZzvEzm+iJhRW6WQJ8X6iFYTegjaszUJsZB31quU83rFiWsEZ+oB4XzRhhpUZm0
-	Clj9AASwSn1nczONyZfuDoFQ/ZzpREKWGJRP3hCxCDmgzBlNKvXYV0eCcaiMVhoaMePM2s=
-X-Received: by 2002:a05:7300:3091:b0:351:bb8f:5408 with SMTP id 5a478bee46e88-351bb8f5564mr4227855eec.32.1791487254475;
-        Thu, 08 Oct 2026 12:20:54 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:bc88:5ec1:4f8a:5b23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca329d9sm104325eec.5.2026.10.08.12.20.53
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 08 Oct 2026 12:20:53 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Max Kellermann <max.kellermann@ionos.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	Jan Kara <jack@suse.cz>,
-	Theodore Ts'o <tytso@mit.edu>,
-	Jan Kara <jack@suse.com>,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.6.y 2/2] jbd2: bound shrinker scans by examined checkpoint buffers
-Date: Thu,  8 Oct 2026 15:20:46 -0400
-Message-ID: <20261008192048.98833-3-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261008192048.98833-1-artem@trailofbits.com>
-References: <20261008192048.98833-1-artem@trailofbits.com>
+        d=1e100.net; s=20260707; t=1791487781; x=1792092581;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bH3Ys777xJyJceuaHq+fKZvqaHs2+JI/CEfT6ut+TY0=;
+        b=fZzTsOJU082PgGyllqlFQFFJDH7Wg4yUPbhlEGUYy8TYJbrfuLzozkfa0TMRDnUNCX
+         qD9XX7kYv2k4C+S8ezQAotWgn7p/Wvv+fCQfKetf+ejQAgqeRbJtbpZAMkiz9Ue0GFfR
+         hVtsq/KPECrBMFoNqBKfpUCNbw7iwHnvy20ovx3M40wz0z7O/gzK0XcbhT0CtqeBb2/J
+         KP6GqjCLtZjwAt+H6PjVSzt++cke2D1FbllE+UPfz7T8dEZtXENZerCOrQ6N4gSnL0Ux
+         Bgwd5uzAXphMPDTSzb8Sv39wvq5yD6CCVYtYMElsW99v7FSHN+WXeCJOJ5NyKcokhlYy
+         KNRw==
+X-Forwarded-Encrypted: i=1; AKwUvByeUPKARocNdioExmgY9hjN4/o2YuW/ZFuSTm0jejlUIhPKn/DfgtQyVQNnQxZc5e5bSQOD4fs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ9yovlM3McmFuRC3bMiKOf+34OAPzUlAaQpnWaLE00NNgzoq03
+	5NlRzdhzSmMHbjdfWDAVngCxwkgHdvkWA4ZsfK9hVO+kgnrfi6mbx+u4AeUIdVlG1DEEXg9lrh8
+	q/RCuGhO0Zd511lJ7Xi4ZzgRUkcaFZAI=
+X-Gm-Gg: AYBFou2+UlNOt/FZrFscbhc2hQhAMDgMlwYY5CNVacK5hOyLP7uiM0L3L03rim71uXO
+	7+JQbyZ/iZyL9muZs1//VZw5dFrI263PxyLdOAMCSsSaGm2l+mPNLa1rfK44+4W5zImCMl/h+kw
+	4kZJFAfVe2EbNkGes6tD/DjFOqxz/GmHJHTgUo4ZsKEgSCyLtNuAzJvhY5F0T1jCZgC7MH+b7yp
+	Rv/Ihsp/WUf/aCUGFIJAlLU8xzWj0iEX/nTJVEkl4YXbpBm8J/OhZKyPGVNapXDpyY6v+KQ8hUg
+	oBNWiz8lIpNPWfeESobk0PyObOXr4M3oRvHXeNFh012eq9Fwm7FOLKymB1nSGkq5yu0OkfISirP
+	ba6RAz+yVmBVbUw==
+X-Received: by 2002:a05:651c:15c4:20b0:3a6:58fb:8540 with SMTP id
+ 38308e7fff4ca-3a9c2a6f0d9mr491601fa.19.1791487780457; Thu, 08 Oct 2026
+ 12:29:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260803-alpha-fp-exceptions-v1-0-c99d75608e60@gmail.com>
+ <20260803-alpha-fp-exceptions-v1-3-c99d75608e60@gmail.com>
+ <CA+=Fv5QUxT-T0XgXccAF=1_6Dz=nCpY=NQu=ruOrYjbB+q7YCA@mail.gmail.com> <CA+=Fv5S_ZrHedEVPR9Oet2Egg2hwy33pEqEXaQa0zGdQdNjWRg@mail.gmail.com>
+In-Reply-To: <CA+=Fv5S_ZrHedEVPR9Oet2Egg2hwy33pEqEXaQa0zGdQdNjWRg@mail.gmail.com>
+From: Matt Turner <mattst88@gmail.com>
+Date: Thu, 8 Oct 2026 15:29:27 -0400
+X-Gm-Features: AclHuK-YAox1Xf7NjC5L8Z-SfaibsiX2e4acSu8a9kwaQSKw1rOePouwIqBhWL0
+Message-ID: <CAEdQ38EM0FyqYZH6b30oxScZ481dGqnsqu23iePLdx2gCpqzxA@mail.gmail.com>
+Subject: Re: [PATCH 3/3] alpha: determine tininess after rounding in the FP emulation
+To: Magnus Lindholm <linmag7@gmail.com>
+Cc: Richard Henderson <richard.henderson@linaro.org>, linux-alpha@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, sparclinux@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org, 
+	"David S. Miller" <davem@davemloft.net>, Andreas Larsson <andreas@gaisler.com>, stable@vger.kernel.org, 
+	Michael Ellerman <mpe@ellerman.id.au>, Yoshinori Sato <ysato@users.sourceforge.jp>, dalias@libc.org, 
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Max Kellermann <max.kellermann@ionos.com>
+On Fri, Sep 4, 2026 at 2:13=E2=80=AFAM Magnus Lindholm <linmag7@gmail.com> =
+wrote:
+>
+> Hi everyone,
+>
+> Adding Michael, Yoshinori, Rich and Adrian directly, although this
+> is an alpha series, patch 3/3 also touches the shared soft-fp code in
+> include/math-emu/ (op-common.h, soft-fp.h), which your architectures
+> build against too (confirmed by grepping arch/{powerpc,sh,sparc} for
+> includes of those headers; parisc/m68k/mips/x86 have their own
+> separate math-emu and aren't touched).
+> The new _FP_TININESS_AFTER_ROUNDING macro defaults to 0, so the
+> intent is no behavioural change on your side. The new guard it adds
+> in op-common.h is a regular runtime `if` rather than `#if` though, so
+> it still gets compiled against your macro instantiations even if it
+> should dead-code-eliminate at -O.
+> No action needed if it builds fine for you, just flagging since it's
+> tagged for stable. Let us know if it causes any problems, or feel
+> free to ack if you're happy with it.
+> I've reviewed and tested patch 3/3 on alpha already (Reviewed-by/
+> Tested-by posted).
+>
+> Thanks,
+> Magnus
 
-[ Upstream commit 15cb16496446b94e67f7abcb049b8e2c75cd3d02 ]
+Hello all,
 
-The jbd2 shrinker currently accounts only checkpoint buffers that it
-successfully releases against nr_to_scan.  Busy buffers therefore do not
-consume the scan budget.
+Could a maintainer of this code find time to have a look?
 
-If a checkpoint transaction contains mostly busy buffers, the shrinker
-can scan its entire checkpoint list while holding journal->j_list_lock.
-Large checkpoint lists can result in excessive lock hold times and leave
-other CPUs spinning on j_list_lock, causing soft lockups or RCU stalls.
+We can take it through the alpha tree, but we'd certainly prefer some
+review first.
 
-Pass nr_to_scan into journal_shrink_one_cp_list() and decrement it for
-every buffer examined, including busy buffers.  Pass NULL from checkpoint
-cleanup paths so their existing full-list behavior is preserved.
-
-This restores the scan-budget semantics that existed before
-journal_shrink_one_cp_list() was changed to always scan a complete
-checkpoint list.
-
-[ Backport to 6.6.y: use this tree's older shrink_type enumerator names;
-  the scan-budget accounting and caller changes are otherwise unchanged. ]
-
-Fixes: b98dba273a0e ("jbd2: remove journal_clean_one_cp_list()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20260713102229.1598812-3-max.kellermann@ionos.com
-Signed-off-by: Theodore Ts'o <tytso@mit.edu>
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-This is patch 2 of 2 in the ordered 6.6.y backport series.
-This change addresses CVE-2026-89567. Both jbd2 shrinkers decrement the
-scan budget only for buffers actually freed, so busy checkpoint lists can
-hold j_list_lock unboundedly; counting examined buffers restores shrinker
-semantics.
-This needed a target-specific adjustment; I called it out in the bracketed
-backport note above.
-
-The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
-This fix also affects 6.1.y, which will need a separate backport; this
-submission contains only the 6.6.y patch.
-
- fs/jbd2/checkpoint.c | 25 +++++++++++++------------
- 1 file changed, 13 insertions(+), 12 deletions(-)
-
-diff --git a/fs/jbd2/checkpoint.c b/fs/jbd2/checkpoint.c
-index e8a7186eb8c3..0462101f683c 100644
---- a/fs/jbd2/checkpoint.c
-+++ b/fs/jbd2/checkpoint.c
-@@ -360,15 +360,16 @@ enum shrink_type {SHRINK_DESTROY, SHRINK_BUSY_STOP, SHRINK_BUSY_SKIP};
- /*
-  * journal_shrink_one_cp_list
-  *
-- * Find all the written-back checkpoint buffers in the given list
-- * and try to release them. If the whole transaction is released, set
-- * the 'released' parameter. Return the number of released checkpointed
-- * buffers.
-+ * Find written-back checkpoint buffers in the given list and try to release
-+ * them. If 'nr_to_scan' is set, scan at most that many buffers. If the whole
-+ * transaction is released, set the 'released' parameter. Return the number of
-+ * released checkpointed buffers.
-  *
-  * Called with j_list_lock held.
-  */
- static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
- 						enum shrink_type type,
-+						unsigned long *nr_to_scan,
- 						bool *released)
- {
- 	struct journal_head *last_jh;
-@@ -377,13 +378,15 @@ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
- 	int ret;
- 
- 	*released = false;
--	if (!jh)
-+	if (!jh || (nr_to_scan && !*nr_to_scan))
- 		return 0;
- 
- 	last_jh = jh->b_cpprev;
- 	do {
- 		jh = next_jh;
- 		next_jh = jh->b_cpnext;
-+		if (nr_to_scan)
-+			(*nr_to_scan)--;
- 
- 		if (type == SHRINK_DESTROY) {
- 			ret = __jbd2_journal_remove_checkpoint(jh);
-@@ -405,7 +408,7 @@ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
- next:
- 		if (need_resched())
- 			break;
--	} while (jh != last_jh);
-+	} while (jh != last_jh && (!nr_to_scan || *nr_to_scan));
- 
- 	return nr_freed;
- }
-@@ -427,7 +430,6 @@ unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal,
- 	tid_t first_tid = 0, last_tid = 0, next_tid = 0;
- 	tid_t tid = 0;
- 	unsigned long nr_freed = 0;
--	unsigned long freed;
- 	bool first_set = false;
- 
- again:
-@@ -460,10 +462,9 @@ unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal,
- 		next_transaction = transaction->t_cpnext;
- 		tid = transaction->t_tid;
- 
--		freed = journal_shrink_one_cp_list(transaction->t_checkpoint_list,
--						   SHRINK_BUSY_SKIP, &released);
--		nr_freed += freed;
--		(*nr_to_scan) -= min(*nr_to_scan, freed);
-+		nr_freed += journal_shrink_one_cp_list(transaction->t_checkpoint_list,
-+						       SHRINK_BUSY_SKIP,
-+						       nr_to_scan, &released);
- 		if (*nr_to_scan == 0)
- 			break;
- 		if (need_resched() || spin_needbreak(&journal->j_list_lock))
-@@ -515,7 +516,7 @@ void __jbd2_journal_clean_checkpoint_list(journal_t *journal, bool destroy)
- 		transaction = next_transaction;
- 		next_transaction = transaction->t_cpnext;
- 		journal_shrink_one_cp_list(transaction->t_checkpoint_list,
--					   type, &released);
-+					   type, NULL, &released);
- 		/*
- 		 * This function only frees up some memory if possible so we
- 		 * dont have an obligation to finish processing. Bail out if
--- 
-2.39.5
-
+Thanks,
+Matt
