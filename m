@@ -1,186 +1,82 @@
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+Received: from mta0.migadu.com (out-207.mta0.migadu.com [91.218.175.207])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43EDD361962
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 19:13:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A98FF3CB2FE
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 19:13:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.207
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791486796; cv=none; b=FU6IRPRxc0HMvHD6SuqEloyrMorcwA1qmX7KRvOKddt04aqIXiQb76riowvJSyM1md4EmF+dqPCnnmgZNFWX4mMznGKFqLI1CdbKb16sBjIcvb6Lb+aBH5fXl47LoEZFsGJxEjpHSAfA49qBy0lyABD2/JTHaitfVkmr+pWOOsU=
+	t=1791486798; cv=none; b=Pzlaz94+0Z+fxWM9o2n/n9m3ycO2nhV35DsS02EmQa599GPJYePAz+vJWPMTTyKXYhvnV+TKftSczXrW2jjzVGrizkDW4lWPwqsu74uJ67Jm+szkxj42furr5VR5XTZPMv/I5YDQ0m19rCI/4bw2e58heb+N2OrCqoTsX3LDhDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791486796; c=relaxed/simple;
-	bh=BJhZEjV13NfMfJ70FGMT/OSqJQFIXDnnD864pIvSPv8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=N3GPRUuSURwscyKGYG+fasKynAQHjQ8ysKMV/NweARbZ29jeP8idiXpBGwH1SSeS+wLLWnuh6OI2ddk7y0GxxpzskIONG9MlH3wGvQjNt5FGTMZYOo9/oYYMlxO/6Z87Lq+EGUW4kGmdMkmaKA618/Yko1cRI4Ua6R2kLWZUjIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=GX9DUnyK; arc=none smtp.client-ip=74.125.82.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1791486798; c=relaxed/simple;
+	bh=0GTmQaFxokRtWOJdiFeBX/Ou/YTJPcm5FTNprMVwfos=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=K6UILO1gmflOkuj6yyToAch3Qh5HLaQCVymuyHpQ5jk60/hlyPQ0x9TCa0VQQFw5KJq3FZ/n1K5JSY/50jl9/bLg1UHQAF3kkcUmxkgxutsd7q28PLYAspjFOTeRuFyWSjYFbqIec8m879XsxFXV1mpC4WDQ3GXel2jq5dEY6Lg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xSVMttUe; arc=none smtp.client-ip=91.218.175.207
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="GX9DUnyK"
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-3282db206d3so1923503eec.0
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 12:13:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1791486794; x=1792091594; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mdYp5F0mgTxGu/EPWqlstTXyTWY/Kq4qdM3AvQLOhGc=;
-        b=GX9DUnyK19tZHgmWnrk2ph/WMOxV7jIYuWcdWMFXeczyJgSuEnflyhQNVVxzLDkJ+k
-         nBlNVwEIaHlaeNoEoc6Kd73w5FFbstzr1w7fEKO/auEL76pbVbRkVv3J0n17Sx8028Cf
-         GotFzFXBaX9ZO6aKA1SoIfQplQstIJAOetwQRDBVCybAOnKoMsGx70pDkYFLWMYnRfzt
-         Pu6lQYYaWqcx46ZyIZMg/sGyYgxHoURTaoipBEwJBTbWO5zzSdux5lkC3LAEc486qMbf
-         sSRq3t0qlPmpJa5cAoWZmGrLt7jafiYjhq6UiUdCfrXcsOv7gQ3RHrxfmPqrHyGclRKQ
-         cI/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791486794; x=1792091594;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mdYp5F0mgTxGu/EPWqlstTXyTWY/Kq4qdM3AvQLOhGc=;
-        b=OvQAPIN0TklgY6PzZ6BhOaB8bxD/BxqzlvWRTgw4a/3MCzlNd4zCpUb30BiALzPgqf
-         oFRFsDtitWLU9lyAaqM9SdoJ1qs2k29E1FBrS8xU1dBmjyRcy6KI7lGHHeeycyj8upBB
-         cbIMLe7XsNqN/aJUaPrO0Y+nugXnUpB5EoqCLF9tcXnnq05iOjYY7bvRSZQNsORjxpsZ
-         29oFgyTWbpf3Y7i4QN46E9ZVfHUgUqSSb8VfTtN4J3Y5hUTkEJN7lAeokVkuB9b0bLr5
-         eGEbyqrGHJdrHWVOcdYKCvmwt+cunFeZYJpzKZ3ZdvbESnOfJsMCWfXVGz+cKgacON7N
-         AkQg==
-X-Gm-Message-State: AFq9FYKbQKwXuAhV6QHHZVAs3EJzU51TOueUMgQJ2ZPK1SP9TVEXTDJ/
-	yYGq1efXyL2WmLgK30UDYip4FijAyqqRexUGR0BcfYm8MTKlE4vEwVEB5hmyRvogf6K2++JZjXI
-	yQZZG3P+JoQ==
-X-Gm-Gg: AYBFou0YCsCUiXlgzKnw0sY0BRS+z9IyxrgStOKXaT3rjwaCeyRfEMzQ9VUFeOqg95r
-	upKtXGEdRwSKz2oLkkGVJHQRs0nKL3tyMVkIKTkJAcKNS9ucnEN6+eFu/mru01S6FrNUxtYMupn
-	1usNT8FD/yupgUmEMNgY9vz+avLB3mG6Q1MmIkSZRyYx/Xm9YXmV2alpqWX9HmDikbok9CmA5UD
-	rgQmCOhY+0AIrtZusg14Lad98Mfncu2GXuKHQuibN6awFD8pOVxVuVEGexQ1eRQNTgSipYVGri4
-	gj3M3Q1Gk6Cb0RJH5eq0PWFGhUKAVuWs75qzGSJ+PJgeRCoSl7pnuBsSc5L1b0XrFz5kjKnPV2J
-	W/bvt0I9wvrWW8sYBJ3zHo+B4lcbeXCC5rE7B13aDUGz24FdHdTJCMs2LaAo3QhEFe0YMjCrMK8
-	fSrf54rBoJvpKJFEsui7WDH1/wL4UBhIsW/puw1tAPNPadPuGV6zbXGMcS4to7jMVuUXNTJcl8u
-	VHuKm21QgjAdFh+j/mtm52oJnZadst5zKXJlgDOIfX3nHncKvCvaG+xqNG3OfdhIBicU0k=
-X-Received: by 2002:a05:693c:414b:20b0:351:1cc6:995e with SMTP id 5a478bee46e88-3515dbea38fmr8630903eec.5.1791486794211;
-        Thu, 08 Oct 2026 12:13:14 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:bc88:5ec1:4f8a:5b23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c841579sm94214eec.4.2026.10.08.12.13.13
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 08 Oct 2026 12:13:13 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Saurabh Sengar <ssengar@linux.microsoft.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Dexuan Cui <decui@microsoft.com>,
-	Helge Deller <deller@gmx.de>,
-	linux-hyperv@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.6.y 1/2] fbdev: hyperv_fb: Simplify hvfb_putmem
-Date: Thu,  8 Oct 2026 15:13:04 -0400
-Message-ID: <20261008191309.98263-2-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261008191309.98263-1-artem@trailofbits.com>
-References: <20261008191309.98263-1-artem@trailofbits.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xSVMttUe"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=0GTmQaFxokRtWOJdiFeBX/Ou/YTJPcm5FTNprMVwfos=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791486792; v=1; x=1792091592;
+ b=xSVMttUeUuIPHeQpJm6ueIo9a1dLiPPQfRC2ONMMgvy0PFzsJlXCL53TvjaaxCfPHF4Rm3i3
+ k1eXz9Sjs3hC9QIDmsUuEFQqZAz7o82gVjST5jnJ8yhVzjoJhtzCrwOr8ZwKm3PHWAswDjNyx77
+ YIHZpGxEMzUfEf5jTYCKiK8o=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 197006dd8ddca769;
+	Thu, 08 Oct 2026 19:13:12 +0000
+X-Mizu-Trace-ID: 197006dd8ddca769
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5bcc04c71f5so1646e87.0
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 12:13:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByDNGPjsBd6Jm8NMpMeDY9S1tqb0hoSaGFPFiuRpBwYpg0W0cJDPFhM5Kpo+iVSLKuZSGXhKkE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJuKJNCPqlBkPQVMqzR9v/OU7wAmPtTRHxqmyKha7XbtR20gl3i
+	mTV3X6+eqtQ1SOvn0cp/rD7ToOBNtV+pK0znY2Pn2nw+3HkDG1+OwHBXnscnxuBwK9ulsg/JH5Q
+	/kzv05tEyg2XMiWk2MyvhohIxVJ7NqaPAZtAHn8za
+X-Received: by 2002:a05:6512:3b25:b0:5b8:ebf3:3370 with SMTP id
+ 2adb3069b0e04-5bcdd51a3c2mr4841e87.5.1791486791535; Thu, 08 Oct 2026 12:13:11
+ -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261008104212.3134550-1-vdonnefort@google.com> <20261008104212.3134550-2-vdonnefort@google.com>
+In-Reply-To: <20261008104212.3134550-2-vdonnefort@google.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Thu, 8 Oct 2026 20:12:35 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTzworzPjJNdsFuOn8Jy_qDm_dhrgKqVsVKAdhzu7n6+KQ@mail.gmail.com>
+X-Gm-Features: AclHuK_YRyUU2-fzg9DOXVPL5Sq1bOD0ID3Nxy6JWAxfr7jy9NZNQ53tG52YgK0
+Message-ID: <CA+EHjTzworzPjJNdsFuOn8Jy_qDm_dhrgKqVsVKAdhzu7n6+KQ@mail.gmail.com>
+Subject: Re: [PATCH v1 1/2] KVM: arm64: Prevent 64-bit overflow when computing
+ hyp clock rate
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: maz@kernel.org, oupton@kernel.org, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, joey.gouly@arm.com, 
+	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, 
+	catalin.marinas@arm.com, will@kernel.org, kernel-team@android.com, 
+	qperret@google.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Saurabh Sengar <ssengar@linux.microsoft.com>
+On Thu, 8 Oct 2026 at 11:42, 'Vincent Donnefort' via kernel-team
+<kernel-team@android.com> wrote:
+>
+> The hypervisor clock rate is delta_cycles * NSEC_PER_SEC / delta_boot.
+> It is computed whenever a deviation occurs. If the delta between two
+> rate updates is big enough, delta_cycles * NSEC_PER_SEC will overflow.
+>
+> Prevent overflow with mul_u64_u64_div_u64(). And as a bonus, simplify
+> the clock estimation with mul_u64_u32_shr().
+>
+> Fixes: b22888917fa4 ("KVM: arm64: Sync boot clock with the nVHE/pKVM hyp")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 
-[ Upstream commit f5e728a50bb17336a20803dde488515b833ecd1d ]
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-The device object required in 'hvfb_release_phymem' function
-for 'dma_free_coherent' can also be obtained from the 'info'
-pointer, making 'hdev' parameter in 'hvfb_putmem' redundant.
-Remove the unnecessary 'hdev' argument from 'hvfb_putmem'.
-
-[ Backport to 6.6.y: Pass info->device through the target's
-  hvfb_release_phymem() helper and remove the now-redundant hdev
-  argument from each hvfb_putmem() call. ]
-
-Signed-off-by: Saurabh Sengar <ssengar@linux.microsoft.com>
-Reviewed-by: Michael Kelley <mhklinux@outlook.com>
-Tested-by: Michael Kelley <mhklinux@outlook.com>
-Link: https://lore.kernel.org/r/1740845791-19977-2-git-send-email-ssengar@linux.microsoft.com
-Signed-off-by: Wei Liu <wei.liu@kernel.org>
-Message-ID: <1740845791-19977-2-git-send-email-ssengar@linux.microsoft.com>
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-This is patch 1 of 2 in the ordered 6.6.y backport series.
-This is the prerequisite needed for the CVE-2025-21976 backport. Makes
-hvfb_putmem() derive the device from fb_info, which permits the following
-fix to move framebuffer-memory release into fb_destroy() and honor
-outstanding open references.
-
-The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
-This fix also affects 6.1.y, which will need a separate backport; this
-submission contains only the 6.6.y patch.
-
- drivers/video/fbdev/hyperv_fb.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/video/fbdev/hyperv_fb.c b/drivers/video/fbdev/hyperv_fb.c
-index 80e8ec36b7db..80e6d9682179 100644
---- a/drivers/video/fbdev/hyperv_fb.c
-+++ b/drivers/video/fbdev/hyperv_fb.c
-@@ -973,7 +973,7 @@ static phys_addr_t hvfb_get_phymem(struct hv_device *hdev,
- }
- 
- /* Release contiguous physical memory */
--static void hvfb_release_phymem(struct hv_device *hdev,
-+static void hvfb_release_phymem(struct device *device,
- 				phys_addr_t paddr, unsigned int size)
- {
- 	unsigned int order = get_order(size);
-@@ -981,7 +981,7 @@ static void hvfb_release_phymem(struct hv_device *hdev,
- 	if (order <= MAX_ORDER)
- 		__free_pages(pfn_to_page(paddr >> PAGE_SHIFT), order);
- 	else
--		dma_free_coherent(&hdev->device,
-+		dma_free_coherent(device,
- 				  round_up(size, PAGE_SIZE),
- 				  phys_to_virt(paddr),
- 				  paddr);
-@@ -1100,7 +1100,7 @@ static int hvfb_getmem(struct hv_device *hdev, struct fb_info *info)
- }
- 
- /* Release the framebuffer */
--static void hvfb_putmem(struct hv_device *hdev, struct fb_info *info)
-+static void hvfb_putmem(struct fb_info *info)
- {
- 	struct hvfb_par *par = info->par;
- 
-@@ -1109,7 +1109,7 @@ static void hvfb_putmem(struct hv_device *hdev, struct fb_info *info)
- 		iounmap(par->mmio_vp);
- 		vmbus_free_mmio(par->mem->start, screen_fb_size);
- 	} else {
--		hvfb_release_phymem(hdev, info->fix.smem_start,
-+		hvfb_release_phymem(info->device, info->fix.smem_start,
- 				    screen_fb_size);
- 	}
- 
-@@ -1223,7 +1223,7 @@ static int hvfb_probe(struct hv_device *hdev,
- 
- error:
- 	fb_deferred_io_cleanup(info);
--	hvfb_putmem(hdev, info);
-+	hvfb_putmem(info);
- error2:
- 	vmbus_close(hdev->channel);
- error1:
-@@ -1252,7 +1252,7 @@ static void hvfb_remove(struct hv_device *hdev)
- 	vmbus_close(hdev->channel);
- 	hv_set_drvdata(hdev, NULL);
- 
--	hvfb_putmem(hdev, info);
-+	hvfb_putmem(info);
- 	framebuffer_release(info);
- }
- 
--- 
-2.39.5
+Cheers,
+/fuad
