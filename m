@@ -1,75 +1,77 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB6C125AA
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 04:54:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C523E547066
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 04:58:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791435262; cv=none; b=Bm7QSrCFYx09oMKsjujn0/ck4neGn2tdIQJOcxIyIjo8bTTgzCyR6XHwVrCVyiP0eB1OUZAMaLkDNA4l2YAWEaUp7cnQk3nGZinzyTxpDS4wO4BgOlLK3X2mRXKe6HXcS70gZ8hyy9VnPqw2QI92N6ReNdXV6Pv8ZavTZ29CHS8=
+	t=1791435483; cv=none; b=lmZ6d5vWZJuNoXv++Yykmg8qanFXCfk8ES9a9AV6uEqnW5Yv4Ks5dhGwO8YmNL9XAR9YLkh4xH8609FbhTuyMPiLRTQjeUpK1BvLtXiZRITTohsJnRLeu/SSB5nqOMka7zoa5crmJplXehhe3dg9qyLSQibgXPq2gugfjjp11YM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791435262; c=relaxed/simple;
-	bh=svPYm/ErGNSTUaXVXCQZ7z4u10kek6ZBfJnn8TTMf1g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PIdvqQY5nn9+cI+Z/UdVQ5WhDMkp+9llNGfx5dlRwX+kk9OSli7mYpQldFcxkrbOKl+R26etnZXxtGzRRa8t3u/vuP8H8ewSIdy5qHTtMqyRGZ9zAAcICuVSA8owVWVkkzp9evlOqbADYfVo9AA5rypDXEBWj2ZNFgGu4g84fIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rKKRRhhO; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791435483; c=relaxed/simple;
+	bh=ry7qcL+KTYlKF1LPNpZq7A6xD2fogGghfV5zWwdZN8k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SGLKov5ksrolpbIoK3v/VlIYVkG7YqJsC1JUSH5zRZoNOhriiJJQzPjh3yDGVU+bUGwnO/tAvGqrp+T2WIFVxzZA3AO4A8Yom3jqhAZ9S8gZL8D8roI9J8kSzFeeaVN1/Xovt20wkNKedSNxZGEgdZTBCmCKcUbhQKXazJ686x8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=HYgaP9YW; arc=none smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rKKRRhhO"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3a865731ee4so2329496a91.2
-        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 21:54:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="HYgaP9YW"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-535179e995bso26185211cf.0
+        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 21:58:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791435261; x=1792040061; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GmV84PAhQf1rP81PzhsTjjy7MoGjA1NeT69P9fECqzs=;
-        b=rKKRRhhO6fZVsHPrqUcBzKJXt4eHovRSHxyQ1JkecnmVda27ljUJJ1UZub6cvPO3q1
-         el7GYpIN1pswjbuoWomYXCxMThqY0/M+nFtYUVlGjWu/atg3aoKh6JOo82hzJXCNiYSn
-         yhOZ01/RRjEEAB13WUP/PlLsqiXGL4gK3b6gScXxXDy0KzsGot2SBPW308sZxJQfHMw1
-         pDj0YchjpfXTm8Fz6N9n7YFd/nbRE4p9wB2/3e887pcICVv8THoAgtE9kGsl86QHSPJ3
-         So2IktKxGW1Tnta9Dde94/ij0lpAGLn7ymJFkiWTCzvdd8ae09Xd3apXZfbsMSkq4izO
-         FYqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791435261; x=1792040061;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=cs.unc.edu; s=google; t=1791435481; x=1792040281; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GmV84PAhQf1rP81PzhsTjjy7MoGjA1NeT69P9fECqzs=;
-        b=VBkPoZJjzmrxs+m5wwyMsrPvIzFtDrqJuQ2LVsqQRVrQdtDUmF6qaAZyYzNPHXcmEy
-         coA96IDLpOSJszPHeNWnEtT/B8+bKekQUWSM8CnvFjKuXalYMFgMv8KRoJWMBavhAWWZ
-         G7VC8b/miItS120oOZGaSekeI8ZFK7+OaFTJBPIJxFTMdHoYkmJS2T2r/JreTjN6M76L
-         mlXCoIl+XmS2ubvGf7cBpVQNSOXCQCcL+R5LH+zyS1+7urZg9t1quil5w2ZzIVtYxKpR
-         zeSytBIanoivbfKMDel04OJVE+wPed2x8BpEApMO4HkWxaHVI+XiTuUFmj+ivQyDHLn9
-         7O9w==
-X-Forwarded-Encrypted: i=1; AKwUvByceYJiZ9TTHJyPJXT8/9K/EajralotiJQxkDEN6iB2p5K51vWyigT6S0bMjxTUgKl2Xymbkfw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLbc3GLFa93dH0gh6yWDhNsX5GgSU/Yae9LLWlbTS72abZwC1yV
-	jiO6lxlcJx8+4hIMcBFJcSRpl19lD0BbCoeXF0/G0suuy50+jKQrkpvC
-X-Gm-Gg: AYBFou0H9VEEBoCXDE09hFisWLj4Nh7gc/0h5hx7oCrT6JXVtFwkwbQRJIpRgBUoxBG
-	hBZQqeEZsDUvtnWetXYxuwP4tJQ70zO/QFtQZcTWuHPGaKqg931f66XaJLXooyCdKBHCODRVz7T
-	d8PyS8N72PdbKjqOrDxN5KjAh9gqOX5+0IKa9iuQ/KDQf0NfBo+yAJ10LDCu2l9IbNhlBKHSPMK
-	ePQpVrpwoAntJGhatLkxWfijsQ/Sm4Y9xoffE9T6sXlOyUAiejPOJPG/4ZYO7hZs5D//YQcVb9N
-	hmtzqHq0jPToBNS8RAH01o1V0T9pIt2j1gWbrr2j2V+SkkFFnlmypBorEWUnchWmvIFh/dl+WQL
-	6kozfiU+x3oERCU6Kxyg7sqOI9IaHMjjkVmEfAAz7/N9+tavzl7tuaUglO0MfnJP10P1WIHWqrd
-	RSd0qEJQTnEuURTfeXAOZ76tVtTE6fhfMXmeeb2JDsg1xiz+tsXPR3mIbD7Xfi2NvShPoCtWe1L
-	wt9lw==
-X-Received: by 2002:a17:90b:5887:b0:3a7:cd7b:134 with SMTP id 98e67ed59e1d1-3a8a1974f13mr3974405a91.24.1791435261030;
-        Wed, 07 Oct 2026 21:54:21 -0700 (PDT)
-Received: from dungbv.. ([116.98.134.138])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3aa0cbea8d3sm2407809a91.16.2026.10.07.21.54.17
+        bh=PY3JPfz0mZiAP588/fUPy9pcwAQqSqz64bfxasIy4mQ=;
+        b=HYgaP9YWWNK1FVw7WE/Nxby1AnneOsngfBTfd9XnJpNa7/G3LinJonzw1zXChUatOP
+         ejg9IJhxnDQdVmLV3dV3ng8Eg00WkhNvRdNbwox6KON1MUGq0hDrbdcMZdmBphFsPX0m
+         0bl944oq+oZfJvKz3AVdHhAYEq3RzRfaB2d5+L+cm6Kc0O77dMTwUO4MvZKZMWdpzwyX
+         MgMuKnUju5yDXXwbseKE4VYuvuSQ5R1qJPDESBAwW7XK4vNfcfaOKoKGN7K9AKxL/QcJ
+         wphCDosfQoQTWtTgKB9Bls9bQGD+Wh/hH/RBvh7C41h5Zvs9VbTkQdAQ/vGMkUU2InvV
+         btAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791435481; x=1792040281;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PY3JPfz0mZiAP588/fUPy9pcwAQqSqz64bfxasIy4mQ=;
+        b=YkOOCRWKucI+bUZXo2+nTZgcznJaXboub5kLxJFOeQuG9066BsWIktkImztt6dMC7n
+         201aIT4Gaz6aEygEClTmY5P26Fy1JvropEuHIWsrhEVlW3ibrU2DPEfxCb/q0UcmU231
+         fwhC1qv1vajYcsBl7SMhKpnmmbSQro1GMfE5m9ebhXfVZPHMjgo6vqOlF58hXJVkUZt3
+         jcm74gprq+4n7AdSRDSAO49hlrb5E3u3uRkqMhlf5Yhj/dhkk9cBK3BOSmR0Ds+WMi6K
+         lDcNCebI4VidYlEBJlYnQ3d29awOwbUXSAMXOCB0qcbwYzI/5RTZ4Zz8v/9QXx/ZHZ5i
+         ad0w==
+X-Forwarded-Encrypted: i=1; AKwUvByRZtZFGIVAjKVp+5q3u90/1lIMgBX4qhUGCq0A/GQ8c+vrLoSrsSQdx8CJAfdgWhBqi6GDBV0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDSbwEXJcDRplnpVrALI8RynelSrgw5aghV14/Jf9V2zg2owW4
+	jZ+eWINnjEstlUcQgHdO/BGLl3vwHbz3rlYbUMNwltjIoCjKZWiBj6NiYPryWsKnxnI/fK0Pg26
+	VV13shA==
+X-Gm-Gg: AYBFou2Q/Mxa2FPgXGVwL2sqF4AOUOA3DrY8cTj+ReCJD3C6YceEDHY7UpmmLsRChRE
+	tENHkG9Z8o/Ir7Cc6UwhGImVaarM16uV574gdarZFdhMfsSXxjhAWy88uJDubUllRlEk6VCC2B2
+	lXOwwuxk0eRSNrjElp+JSuVq3yYf+paAkwsuwptptWEk6f8SHoq+UiG2yr+96RKr9NrcVJej26u
+	XwQYMCrRAoDJVeXd9ZI9PuXvu90krsUMAMLU6SKXIqDR043rOd4BuXSoWz7RzbMfTC/4n9WXeHn
+	z7YRoFCooJCRp8PTuFH99iwPqx3a6DDYFSsiPP7b0YWiZNOCp0k06VUYW6W996wtNQg/bk7ogaJ
+	Xg/Yt/8w0reL6JDiR8NF+KUbSY/4qmGWOyW9dEa1G8lkNvKHkxDM2fKLjWd7B1vMF6q72O1Zg40
+	k+eRjDXPFawxv/ESU6dHPIbLlPvy4w51fKrUI7Ax8vp8P+xMsKkLuVirbSLmGQ+lIVf02ZNdH4b
+	+NEHPopXh92r80/aVlgDA==
+X-Received: by 2002:a05:622a:2592:b0:535:70b5:2387 with SMTP id d75a77b69052e-535756c1070mr78376951cf.71.1791435480618;
+        Wed, 07 Oct 2026 21:58:00 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91996d82419sm37532046d6.40.2026.10.07.21.57.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 21:54:20 -0700 (PDT)
-From: Bui Viet Dung <dungvn2345@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Ivan Pravdin <ipravdin.official@gmail.com>,
-	Paul Menzel <pmenzel@molgen.mpg.de>,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bui Viet Dung <dungvn2345@gmail.com>
-Subject: [PATCH] Bluetooth: hci_vhci: Pin module for debugfs file operations
-Date: Thu,  8 Oct 2026 11:54:13 +0700
-Message-ID: <20261008045413.465999-1-dungvn2345@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Wed, 07 Oct 2026 21:58:00 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: axboe@kernel.dk
+Cc: dw@davidwei.uk,
+	hengyul@cs.unc.edu,
+	io-uring@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] io_uring/memmap: only charge pinned user memory to RLIMIT_MEMLOCK
+Date: Thu,  8 Oct 2026 00:57:33 -0400
+Message-ID: <20261008045733.773725-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261007213903.445430-3-axboe@kernel.dk>
+References: <20261007213903.445430-3-axboe@kernel.dk>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,88 +80,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-An open debugfs file retains its file_operations pointer in the
-debugfs proxy state. However, force_suspend_fops, force_wakeup_fops,
-aosp_capable_fops, and force_devcoredump_fops have no .owner set to
-THIS_MODULE. As a result, full_proxy_open_regular() calls fops_get()
-which succeeds without taking a reference to the hci_vhci module.
+On 10/7/26 3:38 PM, Jens Axboe wrote:
+> Charge RLIMIT_MEMLOCK only for regions backed by pinned user memory, which
+> is what the limit is for, and leave kernel allocations to memcg. User
+> provided ring memory keeps being charged, it is pinned.
 
-When userspace opens any of these debugfs files and later closes
-the /dev/vhci file descriptor (triggering vhci_release() and
-debugfs file removal), the open debugfs file descriptor remains valid
-in userspace. Because the module refcount was not incremented,
-the hci_vhci module can be unloaded via delete_module (rmmod hci_vhci).
+Sorry for the late reply, and thanks for picking this up.
 
-When the userspace process subsequently closes the debugfs file
-descriptor, full_proxy_release() accesses the already unmapped
-file_operations structure, resulting in a kernel page fault / oops:
+I tested both patches on top of v7.3-rc4. The test case from my patch
+prints "64 rings" again, kernel allocated buffer rings are fixed as well,
+the per-user locked_vm count is balanced after ring create, close and
+resize, and the liburing tests give the same results as before, except
+that read-before-exit.t passes again with the default limit.
 
-  BUG: unable to handle page fault for address: fffffbfff846f18b
-  #PF: supervisor read access in kernel mode
-  #PF: error_code(0x0000) - not-present page
-  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:full_proxy_release+0x8e/0x140
-  Call Trace:
-   <TASK>
-   __fput+0x39f/0xa60
-   fput_close_sync+0xff/0x200
-   __x64_sys_close+0x8c/0xf0
-   do_syscall_64+0xc3/0x590
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
-   </TASK>
-  Modules linked in: ... [last unloaded: hci_vhci(E)]
+Tested-by: Hengyu Liang <hengyul@cs.unc.edu>
 
-The issue was discovered via manual code audit of
-drivers/bluetooth/hci_vhci.c and verified on a Linux 7.3-rc6 test VM
-with CONFIG_BT_VHCI=m by keeping a debugfs file open across controller
-teardown and module unload.
+One case is not restored. v6.13 did not charge rings created with
+IORING_SETUP_NO_MMAP either. Number of rings created out of 64, as an
+unprivileged user with the default 8 MiB limit, 4096 entries each:
 
-Set .owner = THIS_MODULE on all four file_operations structures so that
-debugfs pins the module until all file descriptors are closed.
+                                     v6.13  v7.3-rc4  this series
+  io_uring_queue_init()                 64        16           64
+  io_uring_queue_init_mem()             64        21           21
 
-Fixes: 28010791193a ("Bluetooth: vhci: Prevent use-after-free by removing debugfs files early")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
----
- drivers/bluetooth/hci_vhci.c | 4 ++++
- 1 file changed, 4 insertions(+)
+PostgreSQL 18 is in the second row. It puts its rings into shared memory
+with io_uring_queue_init_mem() whenever liburing has it [1], so I expect
+the failure they reported to stay. I have not run PostgreSQL itself.
 
-diff --git a/drivers/bluetooth/hci_vhci.c b/drivers/bluetooth/hci_vhci.c
-index eddb32b30539..8f7db0102b25 100644
---- a/drivers/bluetooth/hci_vhci.c
-+++ b/drivers/bluetooth/hci_vhci.c
-@@ -155,6 +155,7 @@ static ssize_t force_suspend_write(struct file *file,
- }
- 
- static const struct file_operations force_suspend_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= force_suspend_read,
- 	.write		= force_suspend_write,
-@@ -194,6 +195,7 @@ static ssize_t force_wakeup_write(struct file *file,
- }
- 
- static const struct file_operations force_wakeup_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= force_wakeup_read,
- 	.write		= force_wakeup_write,
-@@ -263,6 +265,7 @@ static ssize_t aosp_capable_write(struct file *file,
- }
- 
- static const struct file_operations aosp_capable_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= aosp_capable_read,
- 	.write		= aosp_capable_write,
-@@ -386,6 +389,7 @@ static ssize_t force_devcd_write(struct file *file, const char __user *user_buf,
- }
- 
- static const struct file_operations force_devcoredump_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.write		= force_devcd_write,
- };
--- 
-2.43.0
+Would you take a patch on top that leaves the SQ/CQ rings uncharged for
+user memory too, as in v6.13? I can send one, or test whatever you prefer.
 
+Also, kernel allocated IORING_REGISTER_MEM_REGION regions are no longer
+charged. They have been charged since they were added in v6.14. With the
+series a user with an 8 MiB limit can register a 512 MiB one.
+
+[1] https://github.com/postgres/postgres/blob/REL_18_STABLE/src/backend/storage/aio/method_io_uring.c
