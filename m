@@ -1,88 +1,96 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4C653BE172
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 10:19:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60BD485CC4
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 10:26:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791454747; cv=none; b=hkmVlPWx7hRsEKDe867eL8W/4so7+cu5Wn5dj7LP38VPSRgPx5ZCX2uJfTX+Dh/Ip/OWA363/NL5dlMcztM+gxwEHWutOoFm2iI3fkDyqLefZukedo+4iPBEpsLg8FfHawkfIiHBhhzUbgIPRIlXHY2VrpKe+UMr/+msOqVkS0Y=
+	t=1791455180; cv=none; b=uCszu3PV3HknSKo6OE9gtWV7KEUzIDvf6+ILQfzfTsSV/ZSqafC1l85tvnwmpI8Gk95goWPO8dffnrg/U0N/OyetEBQ7YwZCyuZF74xx/p631ZV9TAEw/ERSs4ZOeb28eyJ9SwWRj3ujRI/uL3xwKVgQu6e6fTZbJBxeWiyZtK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791454747; c=relaxed/simple;
-	bh=7irScfbRf2bXjKUhGEludzZp7D8UWNmY9IRXFNnawMs=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QKO73BiPKsDx/5hT0Jj+gWacyNflPjynA9eXPipjegeIT/yXT62dOrocVtNexDnbKVew4Zv08kqM6GXWSaaz80mHTquVXMfeBXLAUvYmJMDc8TJKf+bb1mLjxobf1CNeR5nPJ3v/Y+Nb3iAseCJ/pCnk6NhelyTUmXUgJGCiBrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=jjKgvlti; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1791455180; c=relaxed/simple;
+	bh=HzR9WNnD+ifJl3sRZqNLJRURJgYZXfwYK1/idMmy6xE=;
+	h=Mime-Version:Subject:From:To:CC:In-Reply-To:Message-ID:Date:
+	 Content-Type:References; b=NPijZ8jeU2DSobJ2lm1UegmaTosK2gXBQemwKtGCOqRfHyqHsSwd7GFX4AiACPPoPhM7XW3wW9f0zfJC7dwbEU4OTimVS4eoGgFboOYgTMIxYxcLjl5pq/2Yvrm7LmaWzn3nZLIZVigWtL9Jh2uE0/cA/c+NQq8hjr03gK6Dx+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=jQoNIQBZ; arc=none smtp.client-ip=203.254.224.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="jjKgvlti"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j0mDj0PW8zMlG3;
-	Thu, 08 Oct 2026 12:19:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1791454741; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7irScfbRf2bXjKUhGEludzZp7D8UWNmY9IRXFNnawMs=;
-	b=jjKgvltiUxCGP45bIPBE9mFFVUZAVN6b9W+v4rWlu03aEk3Uh5vnOLi5do5r0ECVHNgNX/
-	HhvvgHLRuO7JtViaVTCucG4cSs4mqncavOEgCTNYml1nJzJbpzg6gYJaWmkzlVqcLR0VOI
-	FUJyOlXlEB7UIhxo7sje6+lPwqvw7Mzi9YNET3TCnft3AZQjtZtOuiDqRdBXaTGS1IK3KE
-	fGO+CJ9P1t8bBxU1ZAhGk5YYn3XL3oQlnlUUZBAMR3i8Xav+fcQLdeRQl3DBZbPdwI/Z3B
-	s8iey9vYe/xNsYv6MlYqNoUyDtFzXtTGbSpKgbitGIwHBmtD+zFNolwpuMLP5w==
-Message-ID: <154fd1c6273812a804799cb82d11655c1726a83e.camel@mailbox.org>
-Subject: Re: [PATCH] drm/sched: Fix out of bounds entity priority check
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
-	dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
- Brost	 <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>, 
-	stable@vger.kernel.org
-Date: Thu, 08 Oct 2026 12:18:24 +0200
-In-Reply-To: <20261002124622.74696-1-tvrtko.ursulin@igalia.com>
-References: <20261002124622.74696-1-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="jQoNIQBZ"
+Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
+	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261008102616epoutp01a7e2860b3aaba9587ca413f0866436dd~chv3OFBK80109101091epoutp01H
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 10:26:16 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261008102616epoutp01a7e2860b3aaba9587ca413f0866436dd~chv3OFBK80109101091epoutp01H
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791455176;
+	bh=HzR9WNnD+ifJl3sRZqNLJRURJgYZXfwYK1/idMmy6xE=;
+	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
+	b=jQoNIQBZG1PoMNBYOrZK4iaS8DB0jBSPUEpw0AeNZrr4YEDFTs2pU1sRlOOz57hT3
+	 pMmxnz+hiDTyykXcnZoyghomJzWY9DMVZ9H4o7cYfBRhRggnlsKk0fGo2+TWMT+goM
+	 /fvZe6FZrK/unjW6BvVbbs8IwIPsMn5qn3OqlzMc=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
+	20261008102615epcas2p275f7269caa86134c5081a53ee069e69a~chv2t-f9J0793507935epcas2p2h;
+	Thu,  8 Oct 2026 10:26:15 +0000 (GMT)
+Received: from epcas2p4.samsung.com (unknown [182.195.38.205]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4j0mP33rdYz3hhT9; Thu,  8 Oct
+	2026 10:26:15 +0000 (GMT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MBO-RS-META: swrufom8hw8fqtbejd8dh1e7i3t6q575
-X-MBO-RS-ID: a03e0b1a6e3e0911d2d
+Mime-Version: 1.0
+Subject: RE:(2) [PATCH v2 2/2] ext4: track zeroed out blocks of unwritten
+ extents for fast commit
+Reply-To: daejun7.park@samsung.com
+Sender: Daejun Park <daejun7.park@samsung.com>
+From: Daejun Park <daejun7.park@samsung.com>
+To: Jan Kara <jack@suse.cz>
+CC: Theodore Ts'o <tytso@mit.edu>, "linux-ext4@vger.kernel.org"
+	<linux-ext4@vger.kernel.org>, Andreas Dilger <adilger.kernel@dilger.ca>,
+	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo
+	<ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Zhang Yi <yi.zhang@huawei.com>, Zhang Yi <yi.zhang@huaweicloud.com>, Harshad
+	Shirwadkar <harshadshirwadkar@gmail.com>, Li Chen <me@linux.beauty>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, Daejun Park
+	<daejun7.park@samsung.com>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+In-Reply-To: <2lgtlg7ydx4qeau2nvv5wkcuc2jkvwdcrav7gbxmxdieptkwl4@emgyfuxuskiu>
+X-CPGS-Detection: blocking_info_exchange
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <20261008102615epcms2p2858ca95d96bd2b090f2e406aa1bad63c@epcms2p2>
+Date: Thu, 08 Oct 2026 19:26:15 +0900
+X-CMS-MailID: 20261008102615epcms2p2858ca95d96bd2b090f2e406aa1bad63c
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-223,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261008095512epcas2p243a0deff110c0cc75da1ae049b4bbb8b
+References: <2lgtlg7ydx4qeau2nvv5wkcuc2jkvwdcrav7gbxmxdieptkwl4@emgyfuxuskiu>
+	<20261008-ext4-fc-zeroout-v2-0-55cab1e24fa3@samsung.com>
+	<20261008-ext4-fc-zeroout-v2-2-55cab1e24fa3@samsung.com>
+	<CGME20261008095512epcas2p243a0deff110c0cc75da1ae049b4bbb8b@epcms2p2>
 
-On Fri, 2026-10-02 at 13:46 +0100, Tvrtko Ursulin wrote:
-> When the out of range priority at entity init time is clamped to the
-> number of run queues in the supplied scheduler the internal run-queue
-> priority needs to be adjusted as well.
->=20
-> There is no impact since none of the drivers hit the clamping path, but
-> we still need to address it by moving the entity->rq_priority assignment
-> to after the clamping is done.
->=20
-> Note that a lot of this will hopefully get removed once again when the
-> single run-queue simplification lands.
->=20
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
+On Thu, Oct 08, 2026 at 11:55:02 +0200, Jan Kara wrote:
+> Just one note: I agree with you ext4_alloc_file_blocks() is actually handled
+> correctly. But OTOH tracking a range twice isn't really an issue (only tiny
+> performance overhead compared to the extent tree operations and zeroing
+> itself). So I just wouldn't special-case ext4_alloc_file_blocks() and
+> always pass a proper handle to ext4_issue_zeroout(). That keeps the logic
+> slightly simpler: kernel zeroes out blocks => kernel tracks the range. But
+> I don't really insist, it's just a suggestion.
 
-Help me out here; we recently landed this fix [1] that Luke reported.
-Is there a relation? I guess not, since you say there is "no impact".
-
-This did not exist before CFS in drm_sched, did it? Did you discover it
-by review?
-
-
-P.
-
-
-[1] https://lore.kernel.org/dri-devel/20260915150557.62847-1-tvrtko.ursulin=
-@igalia.com/
+Thanks for the review. I wasn't sure I should do that in
+ext4_alloc_file_blocks(): f4265b8d32c4 ("ext4: add
+FALLOC_FL_WRITE_ZEROES support") issues the zeroout outside of the
+running transaction on purpose, and passing a handle there would put it
+under the conversion handle, so I left it as it is.
