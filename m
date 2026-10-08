@@ -1,74 +1,71 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FBA3358372
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 05:07:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C4835F619
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 05:11:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791436074; cv=none; b=V/hG2n43AcVOiL7rKl7LncTaGuPDJZeVLyZiOyzs7ojzTMF04ujEcpzNaHfrPFyJvgj6OHCZo5hGW+GcQaOXByYITqT/2yRlK0Ll4NPDRQaQEeAFptdJFlgN+aECzdmJ66Ec+jhRVlDmK2vRfxzw8BZXoQGhdzG7+xSaF/ucKnY=
+	t=1791436295; cv=none; b=kGchNRJ1PgVWxTggyOc3pysraH6s14lhjAP0TVnkH1BQ1tOeMoJBNLCba6KfmJRRbzBWVM92ceXTLZ1mD8cjg8YJ77Bja2IdyRS03UWZ9DnhPMIZA02XprnjwjJpln72WQlNFLfMCJ8sHkMDalxpu/bIJogIRrp+d5JnSyxgux4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791436074; c=relaxed/simple;
-	bh=9/N2e9/MNH9Xfdq0a33d7UYMPJIEu7OufUPNTx5SHoI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Qd0RFeODTNDQzq/BwQ1p4hqKVQ1VnVQmRPkZbGX5yoOigEzZ9nNzS9Jj1aPbsjNy4nhcPDGDTFpGQPIr+tUdEfe7E6e8HrasQGnvd8/UKU6id/lDy+tVwCGNYER2BFrOgiVz/wIozfx1QmrYk6WHrPyv9SQJmBKQG2GcfbXgDvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OMolIhr4; arc=none smtp.client-ip=209.85.214.173
+	s=arc-20240116; t=1791436295; c=relaxed/simple;
+	bh=gEkHXfRr76P2h8G3BI1+VQ6pxmufVkopuDC5xCXBgyI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Cc2dPPhe5hXaDmVJmar2i4anKTbCYJq8pXUrvtQAI56SWrFQFEWG3GK3M+flKPiYjdAnRz7KgFDEDtbMstj0mr7scQ+LbsO9Z6DHaV32LLEXuLJWE7XJYswSLFUHzJ6r3tAPqO4H4lQ69VIqwkWXfi+Cr5q32uI+qJBC8Ey1/j0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ClCuu4kQ; arc=none smtp.client-ip=209.85.215.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OMolIhr4"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e5378b281aso15196235ad.2
-        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 22:07:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ClCuu4kQ"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-ccca948203aso1492038a12.3
+        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 22:11:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791436072; x=1792040872; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791436294; x=1792041094; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MUva+MYne+FCUQfWg4Yu/6cO+ExcFD5nfGYNE4CV13A=;
-        b=OMolIhr4vY0l/KcsAcM6t+9/mQk2MZFzq/UOigOTQXNHPqQxnJhGZ+mCMqmfGGxo2Z
-         Dwf48O+g4U5rJQh6fGUpWUhJ0jKAExwpMkzrZoRhZnseKF+IRtYpwmR2AdjbOER6f+fD
-         9hNY9jTjtqInUgAt6egr8FJFH9A5PK74xegqC7R4N5JKl1jbacAIqm4r/LXbLObySD8v
-         IogomoryK+ZoxMXQo9pVHKa2yX3fzxepuQzbciGfU5giefls8Cl04XqtsW2h54N8RrzB
-         Um2RYAV/ZwfMxqoGxyybJmMHWKXu1xscZHYPUi60J9CXWgJ4r1DQ75dOUSkRP+qPw9r4
-         D/CQ==
+        bh=elAPkWnEdIb/cze47rnLz0VBXJ5OrbhEX1cUa7QEjhQ=;
+        b=ClCuu4kQv+qI5GVHbQrRH4g7swgmlUDruAlo+YrCgLxccAwBi7noFH4hwMQ0d8vyI7
+         0B7vhOcLZhs84ovBaB3UDAxqrnzCxB39/BPG8mT9KNsSMVnwqe9U8gi5eGEVvGefH358
+         TeeV4sNZkOP+8qP/m2M9blBVtYjET5eiyFHwAEryy/tAvsEKdaZ3Fg2opar7d0dDy1JM
+         ls4wr4oh5GdJJQPVEaync+6noFTXerCBFGDDORmamruzbSUtqGpvi2/NLBPY5bMXjVTl
+         7R5CxGBxPDbVHkNCv6ftCF77ARAS2Hwi2k+1KBy5oIduWBjINXm5auVDlMuGZq5TBTMw
+         3S6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791436072; x=1792040872;
+        d=1e100.net; s=20260707; t=1791436294; x=1792041094;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MUva+MYne+FCUQfWg4Yu/6cO+ExcFD5nfGYNE4CV13A=;
-        b=rHUaS828MNwppNvGycIZqQcOf67y/59TYiAHqvoHCiZQt1meujZtzPYJdbwV5FK/fr
-         MH7AuhfLv8m2/OEqS0W0TvmGgGf0YHlcPJGEu/Ln6SJoYwQEV8wCY1LlKrnFCl0T2YnV
-         X9Jp9ymY0GBEfmpzIbsfib5lItsJkDIrPlgQW6XLy4NUWEro0SNK2udxRkez9NLrI0kB
-         uSx7BcQeRAFqpwsZKPlVtaQESPnT2PPhIfsy+51wcrvxpCLp2vpQ409hvmZEiVMtJLpA
-         Cwys3OacdwCvSmcQGIr+fbJPBipYndBmYK6aMkilggowQK1WlhvZm5KnJIuuvxyCnVQs
-         Dt8A==
-X-Forwarded-Encrypted: i=1; AKwUvBwWrTKLGROxt1nbGytHJxoy2sP9keMJF2wADThrHze7e/Da8nNfFlejgyNjJTHK2LjJaw0shD0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqZTqQPkfoMdNJtdlW4scw8ckHximFdP2+Cl54DgeTNYXB6CLC
-	UcCi3XMLE1MtxmzAV91xU3s3gta4VbytYs5wcPbpp7FeJ+lO+KXIX4Ay
-X-Gm-Gg: AYBFou1r/x8EoXsnMiXwyFaXG4fk4c+tpJ7Y5Dcb2/FvxCiNWwPsWSgbOb/NLIAIByM
-	JOPR5HH9PUU9EPZ7m+MddLwgu/CQ6eDsiDEupYgaJi4VNvlHlhk3PwEOQAvwCgWFizqsUBCAOHa
-	MFZWibatwFmWnUehMsw8rIbKf4BTP6J9rulpREnmKUMWKJYlKeIecwPcq+fq+zcju+18bFi5saF
-	2m2AgsfxPAtxjmKh/o/48lq6zbDWcwponbmbiqp8RUur3y+nIcCwaaj/x7bhFtRwaZq9XLMMaoD
-	ZvTAVZF5mMPnfmQjqFalp136uSo4gEWsWqbRrmNoY/4rfqY2rtCF+5YSLCQZzLnDVh+pkMcUMY0
-	BMIyZm6dr/+2Guzk8iKQkh29meo/vBfbqJgVz35P+OkYjHHZodInsiM51XlotWvelTP0Hr/kWVS
-	naE2r4G4VLGGkve3o+wIsd27P/+qR3ezaNYcqosVxkNo2Ti/v2sVzKrzcxEgIKYrxY4zkRSe69Z
-	e+2/A==
-X-Received: by 2002:a17:902:ecc6:b0:2e2:ffcb:87a8 with SMTP id d9443c01a7336-2e6003941c5mr40854035ad.10.1791436071908;
-        Wed, 07 Oct 2026 22:07:51 -0700 (PDT)
+        bh=elAPkWnEdIb/cze47rnLz0VBXJ5OrbhEX1cUa7QEjhQ=;
+        b=d5lYKNLC4s9fxvKod4Cy4Sg/iTOqmL6KSl3pSv0zlRv5rusTDeiiYFDFSVM08gPEAR
+         /araIWptuDyfgzDdPJGl0sB5Mtaa6z+zY2IHOJRDKV09esXkSI7O5KmEQky6ZyjqLgpf
+         MdDQl8MN/ywHBBqZHUpikVPEl5W9CBxLBaLe4vKxC9lxNTRYswlOHUzqp1XGd9jesQ5T
+         zHJ4zdi5/xLkFmat3hCviCdvsxNoNjNAW/sQvkXdMafOhpbrWbmV2RHU8EFzL/DYBosY
+         zKPUlIakwUfsiiDHbyRtOa7RRYnKl50PXIKz3eqC9yAWOg+lJyTnSZzRjzfypDqjVLkD
+         1XhA==
+X-Forwarded-Encrypted: i=1; AKwUvBxkITKuoE6q6tV3YjP7rWEDkv/erMXQGnbJ/HD9F6UqMJn7R+ZULA8p5lHmA4WWnJJutRNWrDE=@vger.kernel.org
+X-Gm-Message-State: AFuF++ny5psOKyXjM8CV0HIsG9sMC1kdTvVF25OEv1x1uf6jiO07HTth
+	Qu1vDab1sVzRA/mHlGUE3rPmu4e5vQrnRdAXZLm8kCr7nCuOJxy28ntwY07XhA==
+X-Gm-Gg: AYBFou2D/YeIeB3BYg5zBlfbTu5IxS9CGRsJfGhNrNdf/KA9CymtTk+fWoGPNHkkc6C
+	FDqgFpM/HO//sCn5rBGwO3piYNo950LRX65TUGwjOLZOiOurPkrcLFrmVMFHNeBcEXXcl52gYZw
+	TB7tcqWWyTkEZcXlakAHYMf+GNzyqlQF2uhV1PIezAZ8eBYD7rcdKaLa56/XUhT0JwCl/sQ6C86
+	XNs6eT8rjRf0pwl9/dUkSI1k6aCO1PPD4+Ppmnao13eWr64+pIkvyQufF2GBZszZkaArCglbCpG
+	LCXYoueLRcT2bRu+24mleRnpV1ZiPAOQSbq2XXUW2mg9w+w31T3oghvPkMWEl0sY1MpkxdCWIl/
+	dHIUrbbXOl1Hb3FHhsFZdQGUIdqM5j1kQUYnAe+lj6eEXbSZgwKe8cgsstxqdxJftDCynAGI5Yg
+	1LxSqGPqSzPj5AEzE6TRzCR4R/xOYbOWvtjgKZnhGQ8L66KgV+p5AntREp5JmVMOERty4=
+X-Received: by 2002:a05:6a21:9190:b0:3e0:d33a:fd75 with SMTP id adf61e73a8af0-3e1340db79emr4497431637.53.1791436293946;
+        Wed, 07 Oct 2026 22:11:33 -0700 (PDT)
 Received: from dungbv.. ([116.98.134.138])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e604a5804fsm19541565ad.77.2026.10.07.22.07.48
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd0aa370364sm2399656a12.31.2026.10.07.22.11.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 22:07:51 -0700 (PDT)
+        Wed, 07 Oct 2026 22:11:33 -0700 (PDT)
 From: Bui Viet Dung <dungvn2345@gmail.com>
-To: Jens Axboe <axboe@kernel.dk>,
-	Pavel Begunkov <asml.silence@gmail.com>
-Cc: Willem de Bruijn <willemb@google.com>,
-	lollipopkit <a@lolli.tech>,
-	io-uring@vger.kernel.org,
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Bui Viet Dung <dungvn2345@gmail.com>
-Subject: [PATCH] io_uring/cmd_net: prevent infinite retry loop on unextractable timestamp skb
-Date: Thu,  8 Oct 2026 12:07:45 +0700
-Message-ID: <20261008050745.498415-1-dungvn2345@gmail.com>
+Subject: [PATCH] Bluetooth: 6lowpan: Pin module for 6lowpan_control debugfs file
+Date: Thu,  8 Oct 2026 12:11:29 +0700
+Message-ID: <20261008051129.508322-1-dungvn2345@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -78,53 +75,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In io_uring_cmd_timestamp(), the skb processing loop terminates whenever
-io_process_timestamp_skb() returns a non-zero value. If the failure is
-due to a full CQ ring (-ENOBUFS), the loop stops and returns -ENOBUFS,
-ending the multishot command so userspace can drain the CQ.
+An open debugfs file retains lowpan_control_fops in the debugfs proxy
+state. However, lowpan_control_fops has no .owner set to THIS_MODULE.
+As a result, full_proxy_open_regular() calls fops_get() which succeeds
+without taking a reference to the bluetooth_6lowpan module.
 
-However, if io_process_timestamp_skb() fails because
-skb_get_tx_timestamp() returns a negative error (such as -ENOENT when a
-timestamp cannot be extracted due to changed socket options or absent
-hardware timestamp data), ret is not -ENOBUFS. The unhandled skb is
-then spliced back onto the head of sk->sk_error_queue and the function
-returns -EAGAIN.
+With CONFIG_BT_6LOWPAN=m, a userspace process can keep the debugfs file
+descriptor for 6lowpan_control open across module unload
+(delete_module / rmmod bluetooth_6lowpan). When the process subsequently
+closes the file descriptor, full_proxy_release() accesses the already
+freed and unmapped lowpan_control_fops table, causing a kernel page fault
+or oops.
 
-Because -EAGAIN leaves the multishot apoll armed on EPOLLERR, and the
-unextractable skb remains in sk_error_queue asserting EPOLLERR,
-io_uring_cmd_timestamp() is immediately re-invoked on the same skb.
-This results in an infinite busy-loop consuming 100% CPU and completely
-blocking progress on any subsequent valid timestamp packets queued behind
-it.
+The issue was discovered via manual code audit of
+net/bluetooth/6lowpan.c.
 
-Only break out of the processing loop when CQ space is exhausted
-(ret == -ENOBUFS). For skbs where timestamp extraction fails, dequeue and
-consume the invalid skb matching the behavior of sock_recv_errqueue(),
-allowing the queue to make forward progress.
+Set .owner = THIS_MODULE on lowpan_control_fops so that debugfs pins
+the module until all open file descriptors have finished.
 
-The issue was discovered via manual code audit of io_uring/cmd_net.c
-and review of the error handling paths in TX_TIMESTAMP command.
-
-Fixes: 9e4ed359b8ef ("io_uring/netcmd: add tx timestamping cmd support")
+Fixes: 6b8d4a6a0314 ("Bluetooth: 6LoWPAN: Use connected oriented channel instead of fixed one")
 Cc: stable@vger.kernel.org
 Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
 ---
- io_uring/cmd_net.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/bluetooth/6lowpan.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/io_uring/cmd_net.c b/io_uring/cmd_net.c
-index 90d4ec7cc761..a5a1b8b66b1f 100644
---- a/io_uring/cmd_net.c
-+++ b/io_uring/cmd_net.c
-@@ -138,7 +138,7 @@ static int io_uring_cmd_timestamp(struct socket *sock,
- 		if (!skb)
- 			break;
- 		ret = io_process_timestamp_skb(cmd, sk, skb, issue_flags);
--		if (ret)
-+		if (ret == -ENOBUFS)
- 			break;
- 		__skb_dequeue(&list);
- 		consume_skb(skb);
+diff --git a/net/bluetooth/6lowpan.c b/net/bluetooth/6lowpan.c
+index 30f4afa18bc8..20fb20eea8e7 100644
+--- a/net/bluetooth/6lowpan.c
++++ b/net/bluetooth/6lowpan.c
+@@ -1209,6 +1209,7 @@ static int lowpan_control_open(struct inode *inode, struct file *file)
+ }
+ 
+ static const struct file_operations lowpan_control_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= lowpan_control_open,
+ 	.read		= seq_read,
+ 	.write		= lowpan_control_write,
 -- 
 2.43.0
 
