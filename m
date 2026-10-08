@@ -1,154 +1,156 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BCFA49EC7E
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 12:52:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 352AB4963B6;
+	Thu,  8 Oct 2026 12:55:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791463946; cv=none; b=LZTfzJ94G9nuQgGtSevJSiWHRje72apxVErpZtHClEqM4CxBRS3AtWg/pnnBAyDgb9nBNIbu8tSbtVeFveuzmM7rlzPbm+UqGiCQ5QZBMateCiBVz0h7XiYJ1oCRNJsNYCYR95P6jTG4c8PLiZZKf916j6H7ZS2AzhovIXWEu4o=
+	t=1791464161; cv=none; b=k2Viw8NcmNsUlvZKTn+ab4pZ7rIIgn+Z2nf8ZkOzCz8h7sTBW3zTm0bmBM/N3a0bdnwMcNmTF6AdjyK1/fJU/URa+tRXUUfkaXUqxK3h4y3cgEOdifhAlCgD9M+LNpGuXsIsK8slpcF/x+YpbUOTfbE1yrPiLixjXBSalTiPM1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791463946; c=relaxed/simple;
-	bh=InKd0aGfeFCx3LdYyd/roSH5k1JSRlrS3BGElWrnj1g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Qov9jhFpPVVLi0eDD9skY9awZdKjdXmR8QWlswQ6Mte1Z9UEikXzLROqFiguv9g7q25cE0k5FJri7wE7d35MPM5nkrWbZqOl79f6Ivc6xiBA8YwWfMlugBULEqLYuVYDdru9ZyoXXq+RAr7kEbNHjSfVsbQVMc0VI3YgcTK5o3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g4iJo2XV; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791464161; c=relaxed/simple;
+	bh=48va3AxlapOSVD/eQTsLmD4W6Vl42eZUNrqCeNyskJA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VWwli82Upk9xlyMtDeZGjgd1QGGUxrazSNf1bnBEwq1qoazFBEAvKaHm0MdRxVz+OewBI8oyMZeIp3JcwNGfiXdvIOhyVAIlmFfuxhklMCitMXNQB8K7kLyXrkzGdDM+S/Z28bjYmPW0LLgfHVWypFR6ZbvXLMbEVel4Gkwymdc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bhmLCGbp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g4iJo2XV"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a171b677d2so21436885e9.0
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 05:52:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791463943; x=1792068743; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vFDGRaN1e/ydGZumamNoz8kHvK8qVk3vu4oV3GD+iPM=;
-        b=g4iJo2XVdAOKu/5cplw4x7xD7zypKqgEZNUVuOgWzVf/XBw/3mCuaN+PLQFqWbh47T
-         NGqg7uuMY/WqBuj+ZY+huwxSgFotsme7Cbf/hjp6ED96GYl9S4HbF9itaQ7+oXO9nhQw
-         05BDGOQeEW1JAwEXlPIHAuLHoGfhDpUAhs09ac7Ob/Tu1MPwIz3NhYVeOOTTthaLqxMd
-         Td7ATOewgJHs95sOpAbHevuqfUfdT4djiPRCbHLgZiWdLm0W6T/yHjLZ8I+n9oX9aCvM
-         4fBa2Q2qr99f/4kOGdccQF6t9vKHah9+tSbDjcPfVNR57X4Ms3vMIcvg9P2bpym2hhAp
-         TxBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791463943; x=1792068743;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vFDGRaN1e/ydGZumamNoz8kHvK8qVk3vu4oV3GD+iPM=;
-        b=Xt5VOjE0kJk5hbqv7R/9vAApP/VN3P1iJfBx1pTpWi+YHcGqPUaRugXa1JxD4bXdwi
-         MM28102CaRVHDobXGwHbyd/NwhmVFvot7X3Bm0jzUFArp7zpZ3WbBTghmDBTnU7Uz5m9
-         JAFfzn4flsJMF2W6kiH0QfP6XLPtJFw17alrUg614VfsosvI0ERhU+qp5pmfckZBV9zy
-         QOi6puJPL30aTUdAR/BnJaDFEpmA7l7QW4DKYT5nooAQSmWilVjJhqyO8qOOkHrfQkJ3
-         5guTopZ8a65L8+ztdDU7NBSae2xfuzJ3LRsx4fVql/ZSqbXNZqM0CyfIUqSyy9qCVd1K
-         8nAA==
-X-Forwarded-Encrypted: i=1; AKwUvBzkZv9Wux+3TXAipr4OJH5EshnGAHefaZ+/nG/ll5DtW7E9rYg1dKSuGw2YVuwv5rC158sHRCA=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntXBpVdVmr6CsUNnqSG+JIBY+mugJ33ySlJrnGsPXJgQIe73Fe
-	Skt8ZLfiARPjsev3273PJN5KG0X3eWBbnUSFBZkatL+P1Ic8YyvuSO0t
-X-Gm-Gg: AYBFou1RbpMEBbhV2QzPxE3zh20L5S7QnL6RdJXpANSZC/azYOOMfkq4RlNE18mLB6E
-	SEDE8AeAM0jgPmvz4Z3zPS+frf0ubDeAil02USgpSPfgJwY6qSVSzWDUnGrHrsybga3yyBdCY81
-	6KymEhqL4TehrtK3W2FNcW8oDpPyUKTYUz8+XJCXbtw0b+Hk5FPglpCUMcjFD0BgOxRJyM/BH8P
-	GtPvVV5osFdzulHzaw7fw0VDapNh927ma+Us8P5//nyY8+wtZ5ltwvVxoyJxIGvKRLL0iGAvJHm
-	m/Ul4HTxyXizuwIbGivQdoe+IdNTEVYU5llOaa7Z93QqLb0ejzWltbjmqicD6xgGo11fdEiXAuP
-	xoeWL0fuS8MypcnLUQs62TfsadGwgCQl/yzvRK4z37sjYgYcnSdfr1OlSPtA8nyWWAuIhDzE8GD
-	JC1I3nqQi8UfZrPtx+FfERqui1nX5YSbyH2035JjLxZjwbbG5J9Tk9ABt/drgGncQbFhONGgtSV
-	0d/arCQuEzhIR7mNaRYsJaAoQbFe39ppQFblJ5OiMzM
-X-Received: by 2002:a05:600c:524c:b0:49c:c0d4:53d9 with SMTP id 5b1f17b1804b1-4a1802f632bmr93922995e9.14.1791463943266;
-        Thu, 08 Oct 2026 05:52:23 -0700 (PDT)
-Received: from andreayoga.wind3.hub ([31.189.41.237])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d3032csm10584338f8f.45.2026.10.08.05.52.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 05:52:22 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>,
-	Kevin Tian <kevin.tian@intel.com>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] iommufd: Keep dmabuf PFNs MMIO when filling another domain
-Date: Thu,  8 Oct 2026 14:52:03 +0200
-Message-ID: <20261008125206.11990-2-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261008125206.11990-1-parri.andrea@gmail.com>
-References: <20261008125206.11990-1-parri.andrea@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bhmLCGbp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1367A1F000FF;
+	Thu,  8 Oct 2026 12:55:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791464159;
+	bh=YCVpdCyEFTDkP6dCBo/QsDSh8W09hcMyco8GwpHFCkY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=bhmLCGbp2BgiEMgGlOj3uH5BrlGhiSmut/gERZxNNlMNYwkOuT+IJeDeK9n62Cy/w
+	 pP63NUDFySKYfK3hxY5OG+XSd+W42907JY54uf2GLozRgmE3s854rrp06YIt6IvM+J
+	 onSPZlkGp097EmCiqmD4QIqQ5sWDMy1xVitTfFUEfTQW8NL5EdRPvH+36LlgWMjPj/
+	 oPYCFHtU/BCRMI506RAPZnsu8OK2E7mIZ22Q9eLExZBNjq7iNRp07HYOCpHlb24hZX
+	 0uFnDtCqLawLH4dCiaMjgTRXptxC7MZ+esERtVfDeN8GxRy3OV9/6ho4cjIGL0bBX0
+	 BDWyRdWITuDCw==
+Message-ID: <da108ee4-e330-4656-af21-286ad3eaf53b@kernel.org>
+Date: Thu, 8 Oct 2026 13:55:53 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/74] RFC: Switch on IFE YUV, Stats and Params support
+ for sm8650
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>,
+ Richard Acayan <mailingradian@gmail.com>, Hans Verkuil
+ <hverkuil@kernel.org>, Gjorgji Rosikopulos <quic_grosikop@quicinc.com>,
+ Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, Robert Foss
+ <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Antoine Bouyer <antoine.bouyer@nxp.com>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, stable@vger.kernel.org
+References: <2bmnjEGElR9T_ArfViwpYiEKTtnqkmH2Ly0MiZJCxhhVR_O0dZOW-Cl983_7fLBFoxMc_PBuNK6FsBbK1JLXQA==@protonmail.internalid>
+ <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-A VFIO PCI dmabuf mapped into an IOAS is mapped with IOMMU_MMIO only in
-the domains present when it is mapped. A domain added later, or a copy
-of the area into another IOAS, maps the same BAR as cacheable CPU
-memory: IOMMU_CACHE set and IOMMU_MMIO clear.
+On 05/10/2026 18:13, Bryan O'Donoghue wrote:
+> This extensive series restructures CAMSS around the idea of lines and
+> outputs more closely matching the concepts in the camera hardware.
+> 
+> To begin with some bug fixing and some dependencies on the OPE series are
+> pulled in.
+> 
+> Following that a series of changes to enable the IFE hardware is introduced
+> for VFE780.
+> 
+> Supported in this drop:
+> 
+> - YUV output on the pix path
+>    YUV downscale 16 and downscale 4 work on a staging branch
+>    but with this series at 60 patches I've not included that.
+> 
+> - Stats output
+>    Bayer histogram only
+> 
+>    How many stats are intended to be brought out this way ?
+>    Consider that scene in The Terminator when the guy in the gun
+>    store.
+> 
+>    Gun store owner: "So which will it be"
+>    The Terminator: "All"
+> 
+>    More seriously once this series lands then it will be possible to bring
+>    out stats for Agatti mitigating the need for calculating stats in
+>    software.
+> 
+> - Params application
+>    AEC Bayer hist params
+> 
+>    Again there are no limits envisaged on which params are to be enabled.
+> 
+>    "All"
+> 
+> - Testing on HDK sm8650
+> 
+>    There is a repo to test this stuff out:
+> 
+>    https://github.com/0xB0D/ife-tests
+> 
+> Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+For the record sending 74 patches to the mailing list is anti-social.
 
-Once the area is in pages->domains_itree, pfn_reader_fill_span() reads
-its PFNs back from the storage domain through batch_from_domain(), which
-adds them with batch_add_pfn() as BATCH_CPU_MEMORY. Only a hole in the
-span reaches pfn_reader_fill_dmabuf() and gets BATCH_MMIO, so
-batch_to_domain() programs the later domain with the wrong prot.
+Next time why not try for the hat-trick and make it 300 ?
 
-The effect depends on the page table format. io-pgtable-arm maps the BAR
-as Normal cacheable instead of Device memory, the AMDv1 and x86_64
-generic_pt formats set the SME C-bit on it when the tables are encrypted,
-and the RISC-V format with Svpbmt maps it as normal memory instead of IO.
+Feedback to self is break this up and squash this down NAK.
 
-Read dmabuf PFNs from the recorded phys for every span, before the
-xarray and domain paths. The phys range is always available, and the
-read-back from a domain only serves to avoid re-pinning user pages.
-
-Sashiko pointed this out while reviewing an RFC that plumbs the dma-buf
-memory type through pfn_reader_fill_dmabuf().
-
-Fixes: 74014a4b55f5 ("iommufd: Have pfn_reader process DMABUF iopt_pages")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/all/20260716154123.32DC01F000E9@smtp.kernel.org/
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 ---
- drivers/iommu/iommufd/pages.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/iommu/iommufd/pages.c b/drivers/iommu/iommufd/pages.c
-index 404f31d8f7291..2f6153108add7 100644
---- a/drivers/iommu/iommufd/pages.c
-+++ b/drivers/iommu/iommufd/pages.c
-@@ -1178,6 +1178,15 @@ static int pfn_reader_fill_span(struct pfn_reader *pfns)
- 	    WARN_ON(span->last_used < start_index))
- 		return -EINVAL;
- 
-+	/*
-+	 * Always read a dmabuf from its phys, even where a domain already
-+	 * maps it: a domain can only report CPU memory PFNs, losing
-+	 * BATCH_MMIO. last_hole aliases last_used, so this covers any span.
-+	 */
-+	if (iopt_is_dmabuf(pfns->pages))
-+		return pfn_reader_fill_dmabuf(&pfns->dmabuf, &pfns->batch,
-+					      start_index, span->last_hole);
-+
- 	if (span->is_used == 1) {
- 		batch_from_xarray(&pfns->batch, &pfns->pages->pinned_pfns,
- 				  start_index, span->last_used);
-@@ -1201,10 +1210,6 @@ static int pfn_reader_fill_span(struct pfn_reader *pfns)
- 		return 0;
- 	}
- 
--	if (iopt_is_dmabuf(pfns->pages))
--		return pfn_reader_fill_dmabuf(&pfns->dmabuf, &pfns->batch,
--					      start_index, span->last_hole);
--
- 	user = &pfns->user;
- 	if (start_index >= user->upages_end) {
- 		rc = pfn_reader_user_pin(user, pfns->pages, start_index,
--- 
-2.53.0
-
+bod
