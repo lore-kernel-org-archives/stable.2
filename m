@@ -1,75 +1,79 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C22336895
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 14:17:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF9E32E151
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 14:18:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791469054; cv=none; b=LImtgNTuJzLCQlNQpRwzeSGt+4NIXVF0abD3l8fHRNXDAWWP6o8GNIP5CQVqT+kDX7UAfk+ISTeDSSs1M5kunkc0g1Xz4JGye8syPmA7KuPZ3FL2FU8419ikNHcDoHJDs5YVOZW8isLJBf16KsjasG+EHi3f+1jFpjvpg0NMu30=
+	t=1791469113; cv=none; b=oYTeob6V1lrSj/UUJd/laqYzYoS1A4V+gVYAYh2MEr7ngzQoklz5Xboyw6xOymbxZ+nwna4JHIorkSOFciTqxJJiBfu2gxjAKG4LjCSByAitw79jtMlGS/fIjP7IITeWmjT9YzkOboQxc4JkTsfWstDxioGhvFMGvGqPoN/KMe8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791469054; c=relaxed/simple;
-	bh=1Ae6EomzE/QmBGYiV5mk1M9vk5nsB1nfD2lGvptvMfI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZLRP/KsYV/vVGC9AFaNtb+elyqqyZIXMSt5Ua/h5weGYZ2fU1xRD6l3DEj9d9HyNKgjLwOvTrFKGf9pWGh7GQw35J/BLwVfH0BDkErMXah9CaCZdkroVe4OWt2Cdkvzbhr38odZZMx83WHsf+4bX1NqLTesSQcoVOKz+rh8KLlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hM6NgBE5; arc=none smtp.client-ip=209.85.215.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791469113; c=relaxed/simple;
+	bh=/gfEAsx/aV+BRpyOElitNrvIT+IG7kM7JPJmm2sUWaQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fyf4XbNputCpOvSSK9IRKnACeSzO0FBiWxxVPzN4hBfjveFTdfoMpWOWaWJOl+DRCuWxxTshKQl7cMElNQH55AlO1aDnuvOLeYHSLNm8+Oukpl4Duq4opCn+VGEdudWDp0SHzgQzDigeR9Vt095uYGZ/tEL1Nf246PGQPCItzSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=GfLA2RB+; arc=none smtp.client-ip=209.85.210.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hM6NgBE5"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc4dbda1e5dso1518603a12.2
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 07:17:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="GfLA2RB+"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-88d48da248eso2415324b3a.1
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 07:18:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791469053; x=1792073853; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Xn4NE3yaQrjXfCQOoGywwWxzBDjnXzrFJ0pgj+Z4FLs=;
-        b=hM6NgBE55NHJMV0Qq46s/4cHIK+o9C3DF267vtDzULyMtUkKddU5fEv8RloeOxaR1a
-         E1z5f8D6ROd9MN7tVx4R/4kgyR/Cg5QEE99zcx6nGcz5PDt5W7ZIPWOQG+djCGeDRjsn
-         bUDyd64oUW7duGxaQpGQTiKvYrTFZgPCzH1j9Jx7vJAnbzRHfjliOkOzl/JA91msi3mO
-         VETXHeogx2psJeAr9k/vIKmiyKsgG9OWrs4EomEYX5M4TNmxp9dG11yCkG3t0cxD3o00
-         w11GmE0qXon6K8p372cztb5VS4LW4AzUtcecZKUqaUC0zvYrlu/DbFy5D5nVCUzv0iiN
-         gYBg==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791469111; x=1792073911; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TU0SO4g5tDv/VF6Elax/PFIxpq1suhcXGP/z8OAP+qg=;
+        b=GfLA2RB+EKTgAhmGdEpc/zCWGrHuHgjV9v8snzdK+Cbeceu/C1NQduVV91jeV2EAfr
+         d3OrEtOtCZAIrudGrQhl2JfyKKQfNxReoatA7Z2msiuNGtEl3QEwuHLPBi4rHOey/rVD
+         XN1mJEnKFWFFgThgXxgZI6apiGrwP6LKpJkO5WzXank2Rkck5QhutCkoay8to/jWk396
+         Pm29NrdnScDtdprn6zMjDLDjiUQyqRni7b7NciMfnFklf+k7kaBMpvwqTb/7c75Sk1r5
+         GnifwUfB/S8n7fFsm21+HzSm3oMz35mlfyBdKbGOqk1OloMpaBiyayVQw1rzULT3tAOd
+         /6xQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791469053; x=1792073853;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Xn4NE3yaQrjXfCQOoGywwWxzBDjnXzrFJ0pgj+Z4FLs=;
-        b=vzsi86gKjGrWOdUQ15RXORMQRkoi+J2pNOZPscHFlF81zy1Txf7qYfLIOFwAdYwQ0W
-         XdTX+bHQYtOJQoUfWsSUR388sXivOXwCASief+UMb2ti8QdfUryxrW8pkcM00tE/e1hr
-         6oeZSLBfiTUaBKoWvDMwuYAB2QBLj+Q6n891tfiDvTiTyGLOTzCbp0dvWcYbzJJLnHsm
-         KSARkSwN1aJowukv6E+Bm1z11tJWTJL0gVoKvoCf9HATdcvtddriJBQpUTMptCgM/K83
-         REzIzAgIqnYrjeGimdVA1jWUIBCd4FDI3CQJz+a9YEIHed1XTDQoAbhMiURXHUD42qYG
-         IFHA==
-X-Gm-Message-State: AFq9FYKsIFeCJKNAomA8+cEPn2lPJ34BCmKvz/0neRE7Y4+Pd43dtx3e
-	oikGCWQygchs6yQYTDD/OBPZ1ikUJvV5EMqxnenbZS2zq3sGp3cK/KB4Ya1GjlXy
-X-Gm-Gg: AYBFou1+KTTt7ganSzhc59kkBo6fN0FOg2Oy25vF93LD/J+GKM87AYcZtfDf1bTtG4d
-	Rn2rsyXAvwSaHjimg2HM6MmKLd3NbUUPzDX3wDqCHQaxQxBMJiUGawuTJILKhOGuyGJeXxbjic6
-	Tx5Fmmnc1lwLE4FX5COSIiu/SbhBy1PU1uAM9a31aX3g2Gb3aCKOa7YbnbhBr5l/WDgkrHVvHpE
-	x5rq3QwDH1hMtdKS8tIZTUbVcwx1sfbNI6cI7XZGM4KAmVzzc4raqZ7mrPBZlaixt+xZpGhkH72
-	i3oPNkj85xSyK47SCot0EYW4nt3cc5jkzJ3MKmU7EBdt8Zmdgub6im9Hj9rURsa84EoE0I0SFL6
-	OkjWACQmvG8Ngw2l8dLjNb93e7+GHq2fjecI6hl1uxdYSQV3XnuUtylFNzuzihSKu8A0+9DpWCl
-	KaKlolSeq72HzRTF4Cua1WPCDj4ORdtRTzwf2GH13G47oJ3JxR1jYuV4nz3Y9AjLK4abU+E5Y+X
-	AqRoAYCCrofgPhp23121CTj86SaWCjLkoEnHu9/7fXJx0jgKxpbWsRGfO3SzOBEsiam2i7KwJzK
-	ZYt5wEn3bnOw9bwWt9zFfodhFbeha1csxR9eobvwKFSxkUjQ/+Nn07RKltVNHhIZa6XNNQj6/0x
-	cSn7AzU69IZKPaoklY/B1KgYp7m8HYtXz
-X-Received: by 2002:a17:90b:4cd0:b0:3a6:fa01:4bad with SMTP id 98e67ed59e1d1-3a8a04d5228mr5283779a91.6.1791469052693;
-        Thu, 08 Oct 2026 07:17:32 -0700 (PDT)
-Received: from desktophank.localdomain ([104.28.232.15])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9f1a50d32sm4415458a91.2.2026.10.08.07.17.31
+        d=1e100.net; s=20260707; t=1791469111; x=1792073911;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TU0SO4g5tDv/VF6Elax/PFIxpq1suhcXGP/z8OAP+qg=;
+        b=Kd4mFXH3RA18MA9SEzstIMphPBK05r4wiMbpYd86FFLdjaC8QDqSV2qV5/YzPwX3Uj
+         l/fvIEoDM1G8j+BGMcO5faXICoh61Xxn5BJqFl36KSP5QbRqM/05XT8Q5JSh/x50xFG7
+         KybyZUv60JN6vV5CdXM7Vz/phJFXII8g+jY3XQU9B0t4JTPeXi+fHaxri/0pJOR8d/at
+         lTkh5Nol77364lhiKakXgJpxPbIGTejg+is/dOiE6mH0PSaI3LjxvZL3CfHH79+cb2mT
+         e/T7Hmxz35o2cWjAREeRNFJgOfifMmixxqyLHitvNvC8V2U/c2MQ28EvyUXZSHnsUHHW
+         /bQg==
+X-Forwarded-Encrypted: i=1; AKwUvBwbelnHLT886MB7N7OfeP3IZOuOmQX/q3aUXtRJblrdkxCoJRlo+eFUQVLhOoa1fw8VeMgUcA4=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8pds8SMmBzU6murUyouE7+toEJ8oRuFMr+CquhGxnVghZfxtX
+	pIknU2sz/kEODaa9bA7ftODqIrP/gYDgm3BjZRvA0NJjNBeJ9O7UaQJOkADc2fuuJMU=
+X-Gm-Gg: AYBFou19mq5dC0LzPh8iyGo6d9q2Y4RKoMMl4zG38Jrch02rz8UTiTWNgz69L5V2Ibj
+	XkSj5q6i/0zH3QHqflCa3jiWHFO1vYa/HgBJ7SaPVGWa73cPZytwNpBwXcfqwA/DpXSeSPlrspb
+	WWbwsWiGcRV1HhddxPm91ym1MCV8GtrA36YmutA+dGpxeYk2bKL2E4S6Pw7DTAMRIo8fa+5VIR6
+	DfUcgScXmDNBIVBkZUUoFY6WZYvvs/9iNLUEQjNSA4je1fNSkYKcfBxZy4lOTfUHMo+xIT5L7mT
+	lYSfEQQ83LhPO6lOSiMbH6QuIG43DvDq/ChRUYc6bd/1RRXZ1E3wp7WmCuWYcAFnpTWnH8IbZ1w
+	7G4/U2CJYEHSoOMyQj+y4PTFtwQHMXj5No3+D0VJbZIDTr9ptUrnYF9K6IJJK49m0vaSl5qmPbj
+	W8Ztd5mN0aCOKQd+dt0ntWTctuieQbV4Hx+trKALuqXRkdnDKsiyZL57Ny9mGcWMVknAePQSWvH
+	/k+ni+D5Y79Rr0ml9W+
+X-Received: by 2002:a05:6a00:3313:b0:882:d8c4:17c9 with SMTP id d2e1a72fcca58-891b0f8f99dmr5329742b3a.23.1791469111022;
+        Thu, 08 Oct 2026 07:18:31 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:af47:f737:9040:a59])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-892bb2a5ba8sm1751275b3a.30.2026.10.08.07.18.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 07:17:32 -0700 (PDT)
-From: Ting-Han Hou <ue081723@gmail.com>
-To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
-	Ting-Han Hou <ue081723@gmail.com>
-Subject: [PATCH 5.10.y 2/2] tty: port: fix tty_port_tty_vhangup() race
-Date: Thu,  8 Oct 2026 22:17:23 +0800
-Message-ID: <20261008141723.1183340-2-ue081723@gmail.com>
+        Thu, 08 Oct 2026 07:18:30 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>
+Cc: Nitesh Shetty <nj.shetty@samsung.com>,
+	Hannes Reinecke <hare@suse.de>,
+	Kanchan Joshi <joshi.k@samsung.com>,
+	gliuxen@gmail.com,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] nvme: bound FDP config log reads to the received buffer
+Date: Thu,  8 Oct 2026 23:18:16 +0900
+Message-ID: <20261008141816.1174578-1-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026100552-unscathed-jailer-aa56@gregkh>
-References: <2026100552-unscathed-jailer-aa56@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,181 +82,185 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+nvme_query_fdp_granularity() parses the FDP Configurations log using
+sizes the controller returns, without checking that they fit the buffer
+it was given.  The log size is only bounded from above before
+kvmalloc(), so a size below the log header makes
+le16_to_cpu(h->numfdpc) read past the allocation, and a size of zero
+yields ZERO_SIZE_PTR and faults.  Each configuration descriptor is then
+dereferenced (dsze while walking, and nrg and runs on the selected one)
+without checking that the whole descriptor lies within the buffer, so a
+descriptor at or past the end is read out of bounds.  The out-of-bounds
+runs value is then exposed to userspace through
+/sys/block/nvmeXnY/queue/write_stream_granularity.
 
-[ Upstream commit b48820de8c1a596c5b99775524dfce73c6576c5d ]
+A malicious or buggy controller triggers this during namespace scan with a
+short FDP Configurations log:
 
-Drivers rely on tty_port_tty_vhangup() to synchronously hang up their
-ports before tearing down resources as part of deregistration (e.g. on
-physical disconnect).
+[    1.104828] BUG: KASAN: slab-out-of-bounds in nvme_alloc_ns+0x39a6/0x4480
+[    1.104848] Read of size 8 at addr ffff888009fd8fe0 by task kworker/u8:3/52
+[    1.104852]
+[    1.104857] CPU: 1 UID: 0 PID: 52 Comm: kworker/u8:3 Not tainted 7.3.0-rc6-00063-g0c2669a9f4a1 #1 PREEMPT(lazy)
+[    1.104862] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+[    1.104866] Workqueue: async async_run_entry_fn
+[    1.104873] Call Trace:
+[    1.104876]  <TASK>
+[    1.104878]  dump_stack_lvl+0x66/0xa0
+[    1.104886]  print_report+0xd0/0x630
+[    1.104893]  ? nvme_alloc_ns+0x39a6/0x4480
+[    1.104897]  ? __virt_addr_valid+0x209/0x3f0
+[    1.104903]  ? nvme_alloc_ns+0x39a6/0x4480
+[    1.104907]  kasan_report+0xe4/0x120
+[    1.104913]  ? nvme_alloc_ns+0x39a6/0x4480
+[    1.104919]  nvme_alloc_ns+0x39a6/0x4480
+[    1.104926]  ? __pfx_nvme_alloc_ns+0x10/0x10
+[    1.104931]  ? check_prev_add+0xfd/0xe80
+[    1.104942]  ? lock_acquire+0x18d/0x300
+[    1.104948]  ? nvme_find_get_ns+0xbb/0x2e0
+[    1.104952]  ? find_held_lock+0x2b/0x80
+[    1.104956]  ? nvme_find_get_ns+0x221/0x2e0
+[    1.104962]  ? nvme_find_get_ns+0x231/0x2e0
+[    1.104967]  ? nvme_scan_ns+0x2e1/0x8d0
+[    1.104971]  ? kfree+0x2e5/0x510
+[    1.104976]  ? __lock_acquire+0x570/0x1b00
+[    1.104982]  nvme_scan_ns+0x56a/0x8d0
+[    1.104987]  ? __pfx_nvme_scan_ns+0x10/0x10
+[    1.104994]  ? lockdep_hardirqs_on_prepare+0xdc/0x190
+[    1.104999]  ? trace_hardirqs_on+0x18/0x160
+[    1.105005]  ? kvm_clock_get_cycles+0x19/0x40
+[    1.105011]  ? __pfx_nvme_scan_ns_async+0x10/0x10
+[    1.105015]  async_run_entry_fn+0x8d/0x290
+[    1.105020]  process_one_work+0x8ac/0x1b00
+[    1.105029]  ? __pfx_process_one_work+0x10/0x10
+[    1.105034]  ? lock_acquire+0x18d/0x300
+[    1.105040]  ? lock_is_held_type+0x8f/0x100
+[    1.105046]  ? __pfx_async_run_entry_fn+0x10/0x10
+[    1.105050]  worker_thread+0x4ee/0xe70
+[    1.105056]  ? lockdep_hardirqs_on_prepare+0xdc/0x190
+[    1.105061]  ? trace_hardirqs_on+0x18/0x160
+[    1.105066]  ? __pfx_worker_thread+0x10/0x10
+[    1.105071]  ? __pfx_worker_thread+0x10/0x10
+[    1.105076]  kthread+0x2ce/0x3b0
+[    1.105080]  ? __pfx_kthread+0x10/0x10
+[    1.105085]  ret_from_fork+0x52e/0x780
+[    1.105090]  ? __pfx_ret_from_fork+0x10/0x10
+[    1.105094]  ? __switch_to+0x572/0xde0
+[    1.105101]  ? __pfx_kthread+0x10/0x10
+[    1.105105]  ret_from_fork_asm+0x1a/0x30
+[    1.105114]  </TASK>
+[    1.105116]
+[    1.105117] Allocated by task 52:
+[    1.105119]  kasan_save_stack+0x33/0x60
+[    1.105123]  kasan_save_track+0x14/0x30
+[    1.105126]  __kasan_kmalloc+0x8f/0xa0
+[    1.105129]  __kvmalloc_node_noprof+0x2e1/0x820
+[    1.105134]  nvme_alloc_ns+0x1097/0x4480
+[    1.105138]  nvme_scan_ns+0x56a/0x8d0
+[    1.105142]  async_run_entry_fn+0x8d/0x290
+[    1.105145]  process_one_work+0x8ac/0x1b00
+[    1.105148]  worker_thread+0x4ee/0xe70
+[    1.105152]  kthread+0x2ce/0x3b0
+[    1.105155]  ret_from_fork+0x52e/0x780
+[    1.105159]  ret_from_fork_asm+0x1a/0x30
+[    1.105163]
+[    1.105164] The buggy address belongs to the object at ffff888009fd8fc0
+[    1.105164]  which belongs to the cache kmalloc-32 of size 32
+[    1.105167] The buggy address is located 8 bytes to the right of
+[    1.105167]  allocated 24-byte region [ffff888009fd8fc0, ffff888009fd8fd8)
+[    1.105171]
+[    1.105172] The buggy address belongs to the physical page:
+[    1.105175] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x9fd8
+[    1.105179] flags: 0x100000000000000(node=0|zone=1)
+[    1.105183] page_type: f5(slab)
+[    1.105188] raw: 0100000000000000 ffff888008c41780 dead000000000100 dead000000000122
+[    1.105192] raw: 0000000000000000 0000000000400040 00000000f5000000 0000000000000000
+[    1.105194] page dumped because: kasan: bad access detected
+[    1.105195]
+[    1.105196] Memory state around the buggy address:
+[    1.105198]  ffff888009fd8e80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+[    1.105201]  ffff888009fd8f00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+[    1.105203] >ffff888009fd8f80: fc fc fc fc fc fc fc fc 00 00 00 fc fc fc fc fc
+[    1.105205]                                                        ^
+[    1.105207]  ffff888009fd9000: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fc
+[    1.105210]  ffff888009fd9080: fc fc fc fc fc fc fc fc 00 00 00 00 00 00 00 00
+[    1.105212] ==================================================================
 
-If tty_port_tty_vhangup() races with another hangup it may however
-return before the port has been shut down. This is in turn can lead to
-use-after-free and NULL-pointer dereferences in racing ioctls (including
-a synchronous hangup) and in processing of racing asynchronous hangups
-(carrier loss).
+Reject a log smaller than its header, zero the buffer so a short transfer
+leaves no uninitialized tail to parse, and check that a descriptor fits
+the buffer before each access.
 
-Add the missing serialisation to tty_port_tty_vhangup() and
-tty_port_hangup() so that the former does not return until the port has
-been shut down also when there is a racing hangup.
-
-Note that serial core does not use tty_port_hangup(), but it already
-holds the port mutex when clearing port->tty and shutting down the port
-in uart_hangup().
-
-Fixes: 7ca0ff9ab321 ("tty: Add a full port_close function")
-Cc: stable@kernel.org	# 2.6.32: 2b5eac0f8c6e: tty: introduce and use tty_port_tty_vhangup() helper
-Cc: stable@kernel.org	# 2.6.32
-Reported-by: syzbot+5fabc1ae99ff40690d84@syzkaller.appspotmail.com
-Link: https://lore.kernel.org/6a944641.4d659fcc.734b4.003c.GAE@google.com
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Link: https://patch.msgid.link/20260910125114.640880-1-johan@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ Ting-Han: use mutex_lock()/spin_lock_irqsave() instead of guard(),
-  scoped_guard() and the tty_port_tty class, matching the existing code
-  in this version of tty_port.c; tty_port_shutdown() has no kernel-doc
-  here, so there is none to move ]
-Assisted-by: LLM
-Signed-off-by: Ting-Han Hou <ue081723@gmail.com>
+Fixes: 30b5f20bb2dda ("nvme: register fdp parameters with the block layer")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- drivers/tty/tty_port.c | 54 +++++++++++++++++++++++++++++-------------
- include/linux/tty.h    | 14 ++---------
- 2 files changed, 40 insertions(+), 28 deletions(-)
+v2: allocate the log buffer with kvzalloc() so that if the controller
+ completes the Get Log Page with a short transfer, the uninitialized
+ tail reads as zero and is rejected by the existing dsze check instead
+ of being parsed (hardening).
+v1: https://lore.kernel.org/linux-nvme/20261008132604.1168105-1-yhlee@isslab.korea.ac.kr/
 
-diff --git a/drivers/tty/tty_port.c b/drivers/tty/tty_port.c
-index 599b749729ad..0231b90608f2 100644
---- a/drivers/tty/tty_port.c
-+++ b/drivers/tty/tty_port.c
-@@ -312,11 +312,12 @@ void tty_port_tty_set(struct tty_port *port, struct tty_struct *tty)
- }
- EXPORT_SYMBOL(tty_port_tty_set);
- 
--static void tty_port_shutdown(struct tty_port *port, struct tty_struct *tty)
-+static void tty_port_shutdown_locked(struct tty_port *port, struct tty_struct *tty)
- {
--	mutex_lock(&port->mutex);
-+	lockdep_assert_held(&port->mutex);
-+
- 	if (port->console)
--		goto out;
-+		return;
- 
- 	if (tty_port_initialized(port)) {
- 		tty_port_set_initialized(port, 0);
-@@ -330,7 +331,12 @@ static void tty_port_shutdown(struct tty_port *port, struct tty_struct *tty)
- 		if (port->ops->shutdown)
- 			port->ops->shutdown(port);
+ drivers/nvme/host/core.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index 9bcab3dc4c118..30e7b1d93447a 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -2272,13 +2272,17 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
  	}
--out:
-+}
-+
-+static void tty_port_shutdown(struct tty_port *port, struct tty_struct *tty)
-+{
-+	mutex_lock(&port->mutex);
-+	tty_port_shutdown_locked(port, tty);
- 	mutex_unlock(&port->mutex);
- }
  
-@@ -348,6 +354,7 @@ void tty_port_hangup(struct tty_port *port)
- 	struct tty_struct *tty;
- 	unsigned long flags;
- 
-+	mutex_lock(&port->mutex);
- 	spin_lock_irqsave(&port->lock, flags);
- 	port->count = 0;
- 	tty = port->tty;
-@@ -356,7 +363,8 @@ void tty_port_hangup(struct tty_port *port)
- 	port->tty = NULL;
- 	spin_unlock_irqrestore(&port->lock, flags);
- 	tty_port_set_active(port, 0);
--	tty_port_shutdown(port, tty);
-+	tty_port_shutdown_locked(port, tty);
-+	mutex_unlock(&port->mutex);
- 	tty_kref_put(tty);
- 	wake_up_interruptible(&port->open_wait);
- 	wake_up_interruptible(&port->delta_msr_wait);
-@@ -364,24 +372,38 @@ void tty_port_hangup(struct tty_port *port)
- EXPORT_SYMBOL(tty_port_hangup);
- 
- /**
-- * tty_port_tty_hangup - helper to hang up a tty
-- *
-+ * tty_port_tty_hangup - helper to hang up a tty asynchronously
-  * @port: tty port
-- * @check_clocal: hang only ttys with CLOCAL unset?
-+ * @check_clocal: hang only ttys with %CLOCAL unset?
-  */
--void __tty_port_tty_hangup(struct tty_port *port, bool check_clocal, bool async)
-+void tty_port_tty_hangup(struct tty_port *port, bool check_clocal)
- {
- 	struct tty_struct *tty = tty_port_tty_get(port);
- 
--	if (tty && (!check_clocal || !C_CLOCAL(tty))) {
--		if (async)
--			tty_hangup(tty);
--		else
--			tty_vhangup(tty);
--	}
-+	if (tty && (!check_clocal || !C_CLOCAL(tty)))
-+		tty_hangup(tty);
- 	tty_kref_put(tty);
- }
--EXPORT_SYMBOL_GPL(__tty_port_tty_hangup);
-+EXPORT_SYMBOL_GPL(tty_port_tty_hangup);
-+
-+/**
-+ * tty_port_tty_vhangup - helper to hang up a tty synchronously
-+ * @port: tty port
-+ */
-+void tty_port_tty_vhangup(struct tty_port *port)
-+{
-+	struct tty_struct *tty;
-+
-+	mutex_lock(&port->mutex);
-+	tty = tty_port_tty_get(port);
-+	mutex_unlock(&port->mutex);
-+
-+	if (tty) {
-+		tty_vhangup(tty);
-+		tty_kref_put(tty);
+ 	size = le32_to_cpu(hdr.sze);
++	if (size < sizeof(*h)) {
++		dev_warn(ctrl->device, "FDP config log too small\n");
++		return 0;
 +	}
-+}
-+EXPORT_SYMBOL_GPL(tty_port_tty_vhangup);
+ 	if (size > PAGE_SIZE * MAX_ORDER_NR_PAGES) {
+ 		dev_warn(ctrl->device, "FDP config size too large:%zu\n",
+ 			 size);
+ 		return 0;
+ 	}
  
- /**
-  * tty_port_tty_wakeup - helper to wake up a tty
-diff --git a/include/linux/tty.h b/include/linux/tty.h
-index f6e789c66943..e85296b229a8 100644
---- a/include/linux/tty.h
-+++ b/include/linux/tty.h
-@@ -622,8 +622,8 @@ extern int tty_port_carrier_raised(struct tty_port *port);
- extern void tty_port_raise_dtr_rts(struct tty_port *port);
- extern void tty_port_lower_dtr_rts(struct tty_port *port);
- extern void tty_port_hangup(struct tty_port *port);
--extern void __tty_port_tty_hangup(struct tty_port *port, bool check_clocal,
--				  bool async);
-+extern void tty_port_tty_hangup(struct tty_port *port, bool check_clocal);
-+extern void tty_port_tty_vhangup(struct tty_port *port);
- extern void tty_port_tty_wakeup(struct tty_port *port);
- extern int tty_port_block_til_ready(struct tty_port *port,
- 				struct tty_struct *tty, struct file *filp);
-@@ -641,16 +641,6 @@ static inline int tty_port_users(struct tty_port *port)
- 	return port->count + port->blocked_open;
+-	h = kvmalloc(size, GFP_KERNEL);
++	h = kvzalloc(size, GFP_KERNEL);
+ 	if (!h)
+ 		return -ENOMEM;
+ 
+@@ -2304,8 +2308,12 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
+ 	desc = log;
+ 	end = log + size - sizeof(*h);
+ 	for (i = 0; i < fdp_idx; i++) {
+-		u16 dsze = le16_to_cpu(desc->dsze);
++		u16 dsze;
+ 
++		if ((u8 *)desc + sizeof(*desc) > (u8 *)h + size)
++			goto short_desc;
++
++		dsze = le16_to_cpu(desc->dsze);
+ 		if (!dsze || log + dsze > end) {
+ 			dev_warn(ctrl->device,
+ 				 "FDP invalid config descriptor at index %d\n", i);
+@@ -2316,6 +2324,9 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
+ 		desc = log;
+ 	}
+ 
++	if ((u8 *)desc + sizeof(*desc) > (u8 *)h + size)
++		goto short_desc;
++
+ 	if (le32_to_cpu(desc->nrg) > 1) {
+ 		dev_warn(ctrl->device, "FDP NRG > 1 not supported\n");
+ 		ret = 0;
+@@ -2326,6 +2337,11 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
+ out:
+ 	kvfree(h);
+ 	return ret;
++
++short_desc:
++	dev_warn(ctrl->device, "FDP config descriptor runs past the log\n");
++	kvfree(h);
++	return 0;
  }
  
--static inline void tty_port_tty_hangup(struct tty_port *port, bool check_clocal)
--{
--	__tty_port_tty_hangup(port, check_clocal, true);
--}
--
--static inline void tty_port_tty_vhangup(struct tty_port *port)
--{
--	__tty_port_tty_hangup(port, false, false);
--}
--
- extern int tty_register_ldisc(int disc, struct tty_ldisc_ops *new_ldisc);
- extern int tty_unregister_ldisc(int disc);
- extern int tty_set_ldisc(struct tty_struct *tty, int disc);
+ static int nvme_query_fdp_info(struct nvme_ns *ns, struct nvme_ns_info *info)
 -- 
 2.43.0
 
