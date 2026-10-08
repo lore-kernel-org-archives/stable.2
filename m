@@ -1,63 +1,64 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4627D3A2551
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 19:13:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43EDD361962
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 19:13:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791486795; cv=none; b=GbyJ4eOppfoP0W6ZG6YfSlH11OQ0w5dxHQXpYi15ZzoZdrdNQ67oTqi4eRqb+LULDymJ40SODnxol4i61zQr8ZFRFwCm5DhZ1pTEKh22eHbdpu4RgFUVz1lzhK+wkDIy3UrwG1WPzCjIhnIxczK7N+GvQqCj6UgP83+wvRzyzME=
+	t=1791486796; cv=none; b=FU6IRPRxc0HMvHD6SuqEloyrMorcwA1qmX7KRvOKddt04aqIXiQb76riowvJSyM1md4EmF+dqPCnnmgZNFWX4mMznGKFqLI1CdbKb16sBjIcvb6Lb+aBH5fXl47LoEZFsGJxEjpHSAfA49qBy0lyABD2/JTHaitfVkmr+pWOOsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791486795; c=relaxed/simple;
-	bh=AxXokR9yTnXIXLj9Db4ukgIhemDv2YeEJlYdS2h6TgY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FY8H2Lo7gCn+Mk9iOeJ3xXdjlvlgRirfJTg+DHgpTxO+Jrip1dIIUnDO5O6wT2wO1YakX6jf544rBESXOYU9xLUeY2xsHE7RpnT0snZbvn3LMB4ZU0e6l/3LGXob9u+EketdBc2SL2D6WrDOzGsQB/1oq6u5RaN3S2u50HQIir0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=YsJviukk; arc=none smtp.client-ip=74.125.82.172
+	s=arc-20240116; t=1791486796; c=relaxed/simple;
+	bh=BJhZEjV13NfMfJ70FGMT/OSqJQFIXDnnD864pIvSPv8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=N3GPRUuSURwscyKGYG+fasKynAQHjQ8ysKMV/NweARbZ29jeP8idiXpBGwH1SSeS+wLLWnuh6OI2ddk7y0GxxpzskIONG9MlH3wGvQjNt5FGTMZYOo9/oYYMlxO/6Z87Lq+EGUW4kGmdMkmaKA618/Yko1cRI4Ua6R2kLWZUjIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=GX9DUnyK; arc=none smtp.client-ip=74.125.82.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="YsJviukk"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso3141687eec.0
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 12:13:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="GX9DUnyK"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-3282db206d3so1923503eec.0
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 12:13:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1791486793; x=1792091593; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gGgE3kKeoX2vWEaOMwOk44hmNWlNe6dYYIaxJ66sqbw=;
-        b=YsJviukkd+L2i+QOPAEmQWGEy+Qi3sqFfYHjM8kZPNHyxDviGTrrADrgnmRizjkq79
-         tKK+sGWtRKhBa9a8nojTQxpHNdvm/yO4ytkNFdWgK/JAtBpj4EN8nKG5A8ZALDzmDdcK
-         F6S15GWxjACHApcV91REtCeWtZnOyLoUxypA1E+ENwPcFmyLIWrxdIIHxP7YCfoAT44m
-         GREBdiqOYkSd23WbYfI0KPHbUlJeoLmFWZb0jt5KM/RM0gMW612+34Y6jH8Gn6kSVWNB
-         LJ4emMEKObjd0wF91sJN8Q2R/ifIjOS6Bg2YRvLlrVZT+VDm9Q2ZjSVxxLtE8NkhkM84
-         nT8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791486793; x=1792091593;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=trailofbits.com; s=google; t=1791486794; x=1792091594; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gGgE3kKeoX2vWEaOMwOk44hmNWlNe6dYYIaxJ66sqbw=;
-        b=rkcwRSFO7TCpPWPIQIQJPOOrV/z8nG6uB8xODoY0Xu/BM69wCXiyUYCHRHXXkOsQqE
-         zHKwJfPQ11mdCqdjocZTWxkKojdQ2EJvwdqTqdVE/j945EBTIv75eYgpddZEGNYppylW
-         PacdONQf5Jyck/Nw1zCNnh9E7hYZLLnU+1e/qyHbVjkHVHT2I5kvTrM38oX7Rdh6DEyU
-         l/35+MOJ62ZPIXEdotSHkeenfmu69NVHa1aATkAMRkL3hGGgQ3SVyw7W4WfUx71QEqzP
-         fVczDx46U1Yg1H/zqeiORokQF5BaysGHBI0Uc4ZLPenSzJEbaf0D6Bs5hrRXIZVXzqmV
-         qABg==
-X-Gm-Message-State: AFq9FYLZLPKOVCdD9/Q9/RHszcjOD35fYO7Dflt77mkrvEmiAhfA2weY
-	U1QdO5pqgQvw+phwRrCyFO1bqH/E93z97kAl6eb0O22iLjomZijfms8lyMFsdomSqF+z0GNFIm0
-	bUx56k9yx9w==
-X-Gm-Gg: AYBFou3cEPJ8eIs6dSwynQQLUtQjDsaezdBV98tk3YL0rM05LGzhnchw0BkkxxEB8dV
-	uUhKj6pn6TGgexQWKD0Ix+kalVSJFYRnFHIz3kS4bbS0iEo1jnmP7zpKWENDM1UnlMQgqOV96eZ
-	Uw5JJFlqNUeHcXDaPtyZwCCxm+QXOBJg5U0x6mlSoAwnb5OEsCZ1ZQ82ikX4qvDzjMG7L7jTQ3v
-	0EfM/iNBbjEIFCaUwD/pqNTDfzgRbH9GhZGaaZS4pqMss6ARDA4HCEDcKVCqk7nHiPmI7elJzPy
-	UV/gK9kCmlRr0cTQZfnbGWzQrnTIqji+j6ASG8ODwF6FKtSUe6dr9JP2a9JnFpCigo8MJcHFnEb
-	c4AwIlUY3/x0wrbJQjXVoIv735idMcWeKtR4W3hJlaGAOT93DLRW+t93br+h6Dti/GwzVs7dPQM
-	EIpg9J5wnrXrlekk8642a4LMGojSzSko1Vs5lT65HTcmxjLLChvV3O0hhcR2H5Pgl7gA/2r0rnV
-	9MezwC9/T+cpkriyRrd/eHxixhvyilFrr/1am9xV0fb7CSb4R8E7q4I6aMgtTAbWVRK+gnjqy9X
-	h8/qlQ==
-X-Received: by 2002:a05:7301:c8a:b0:351:7ec0:cd4e with SMTP id 5a478bee46e88-3517ec0ce24mr3629562eec.41.1791486792986;
-        Thu, 08 Oct 2026 12:13:12 -0700 (PDT)
+        bh=mdYp5F0mgTxGu/EPWqlstTXyTWY/Kq4qdM3AvQLOhGc=;
+        b=GX9DUnyK19tZHgmWnrk2ph/WMOxV7jIYuWcdWMFXeczyJgSuEnflyhQNVVxzLDkJ+k
+         nBlNVwEIaHlaeNoEoc6Kd73w5FFbstzr1w7fEKO/auEL76pbVbRkVv3J0n17Sx8028Cf
+         GotFzFXBaX9ZO6aKA1SoIfQplQstIJAOetwQRDBVCybAOnKoMsGx70pDkYFLWMYnRfzt
+         Pu6lQYYaWqcx46ZyIZMg/sGyYgxHoURTaoipBEwJBTbWO5zzSdux5lkC3LAEc486qMbf
+         sSRq3t0qlPmpJa5cAoWZmGrLt7jafiYjhq6UiUdCfrXcsOv7gQ3RHrxfmPqrHyGclRKQ
+         cI/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791486794; x=1792091594;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mdYp5F0mgTxGu/EPWqlstTXyTWY/Kq4qdM3AvQLOhGc=;
+        b=OvQAPIN0TklgY6PzZ6BhOaB8bxD/BxqzlvWRTgw4a/3MCzlNd4zCpUb30BiALzPgqf
+         oFRFsDtitWLU9lyAaqM9SdoJ1qs2k29E1FBrS8xU1dBmjyRcy6KI7lGHHeeycyj8upBB
+         cbIMLe7XsNqN/aJUaPrO0Y+nugXnUpB5EoqCLF9tcXnnq05iOjYY7bvRSZQNsORjxpsZ
+         29oFgyTWbpf3Y7i4QN46E9ZVfHUgUqSSb8VfTtN4J3Y5hUTkEJN7lAeokVkuB9b0bLr5
+         eGEbyqrGHJdrHWVOcdYKCvmwt+cunFeZYJpzKZ3ZdvbESnOfJsMCWfXVGz+cKgacON7N
+         AkQg==
+X-Gm-Message-State: AFq9FYKbQKwXuAhV6QHHZVAs3EJzU51TOueUMgQJ2ZPK1SP9TVEXTDJ/
+	yYGq1efXyL2WmLgK30UDYip4FijAyqqRexUGR0BcfYm8MTKlE4vEwVEB5hmyRvogf6K2++JZjXI
+	yQZZG3P+JoQ==
+X-Gm-Gg: AYBFou0YCsCUiXlgzKnw0sY0BRS+z9IyxrgStOKXaT3rjwaCeyRfEMzQ9VUFeOqg95r
+	upKtXGEdRwSKz2oLkkGVJHQRs0nKL3tyMVkIKTkJAcKNS9ucnEN6+eFu/mru01S6FrNUxtYMupn
+	1usNT8FD/yupgUmEMNgY9vz+avLB3mG6Q1MmIkSZRyYx/Xm9YXmV2alpqWX9HmDikbok9CmA5UD
+	rgQmCOhY+0AIrtZusg14Lad98Mfncu2GXuKHQuibN6awFD8pOVxVuVEGexQ1eRQNTgSipYVGri4
+	gj3M3Q1Gk6Cb0RJH5eq0PWFGhUKAVuWs75qzGSJ+PJgeRCoSl7pnuBsSc5L1b0XrFz5kjKnPV2J
+	W/bvt0I9wvrWW8sYBJ3zHo+B4lcbeXCC5rE7B13aDUGz24FdHdTJCMs2LaAo3QhEFe0YMjCrMK8
+	fSrf54rBoJvpKJFEsui7WDH1/wL4UBhIsW/puw1tAPNPadPuGV6zbXGMcS4to7jMVuUXNTJcl8u
+	VHuKm21QgjAdFh+j/mtm52oJnZadst5zKXJlgDOIfX3nHncKvCvaG+xqNG3OfdhIBicU0k=
+X-Received: by 2002:a05:693c:414b:20b0:351:1cc6:995e with SMTP id 5a478bee46e88-3515dbea38fmr8630903eec.5.1791486794211;
+        Thu, 08 Oct 2026 12:13:14 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:bc88:5ec1:4f8a:5b23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c841579sm94214eec.4.2026.10.08.12.13.11
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c841579sm94214eec.4.2026.10.08.12.13.13
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 08 Oct 2026 12:13:12 -0700 (PDT)
+        Thu, 08 Oct 2026 12:13:13 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
 Cc: Artem Dinaburg <artem@trailofbits.com>,
@@ -73,12 +74,13 @@ Cc: Artem Dinaburg <artem@trailofbits.com>,
 	linux-hyperv@vger.kernel.org,
 	linux-fbdev@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org
-Subject: [PATCH 6.6.y 0/2] fbdev: backport CVE-2025-21976
-Date: Thu,  8 Oct 2026 15:13:03 -0400
-Message-ID: <20261008191309.98263-1-artem@trailofbits.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 6.6.y 1/2] fbdev: hyperv_fb: Simplify hvfb_putmem
+Date: Thu,  8 Oct 2026 15:13:04 -0400
+Message-ID: <20261008191309.98263-2-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261008191309.98263-1-artem@trailofbits.com>
+References: <20261008191309.98263-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -87,25 +89,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Greg, Sasha, and maintainers,
+From: Saurabh Sengar <ssengar@linux.microsoft.com>
 
-I'm working through the smaller CVE backports still missing from 6.6.y.
-These 2 upstream changes belong together for CVE-2025-21976. They must be
-applied in this order because the later change depends on or completes the
-earlier one.
+[ Upstream commit f5e728a50bb17336a20803dde488515b833ecd1d ]
 
-The complete series is already present in 6.12.y, 6.18.y, and 7.2.y.
-These fixes also affect 6.1.y, which will need a separate backport; this
-series is only for 6.6.y.
+The device object required in 'hvfb_release_phymem' function
+for 'dma_free_coherent' can also be obtained from the 'info'
+pointer, making 'hdev' parameter in 'hvfb_putmem' redundant.
+Remove the unnecessary 'hdev' argument from 'hvfb_putmem'.
 
-Could you please consider this series for 6.6.y?
+[ Backport to 6.6.y: Pass info->device through the target's
+  hvfb_release_phymem() helper and remove the now-redundant hdev
+  argument from each hvfb_putmem() call. ]
 
-Thanks,
-Artem Dinaburg
+Signed-off-by: Saurabh Sengar <ssengar@linux.microsoft.com>
+Reviewed-by: Michael Kelley <mhklinux@outlook.com>
+Tested-by: Michael Kelley <mhklinux@outlook.com>
+Link: https://lore.kernel.org/r/1740845791-19977-2-git-send-email-ssengar@linux.microsoft.com
+Signed-off-by: Wei Liu <wei.liu@kernel.org>
+Message-ID: <1740845791-19977-2-git-send-email-ssengar@linux.microsoft.com>
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+This is patch 1 of 2 in the ordered 6.6.y backport series.
+This is the prerequisite needed for the CVE-2025-21976 backport. Makes
+hvfb_putmem() derive the device from fb_info, which permits the following
+fix to move framebuffer-memory release into fb_destroy() and honor
+outstanding open references.
 
-Series:
-  1. fbdev: hyperv_fb: Simplify hvfb_putmem
-  2. fbdev: hyperv_fb: Allow graceful removal of framebuffer
+The fix is already present in 6.12.y, 6.18.y, and 7.2.y, but not in 6.6.y.
+This fix also affects 6.1.y, which will need a separate backport; this
+submission contains only the 6.6.y patch.
 
-base: v6.6.157 (79643295eba17affbd16ca97f3ef04c90266b28c) plus stable-queue
-revision 958ddf240a33ef26b1771be944f0ea6c3b597472
+ drivers/video/fbdev/hyperv_fb.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/video/fbdev/hyperv_fb.c b/drivers/video/fbdev/hyperv_fb.c
+index 80e8ec36b7db..80e6d9682179 100644
+--- a/drivers/video/fbdev/hyperv_fb.c
++++ b/drivers/video/fbdev/hyperv_fb.c
+@@ -973,7 +973,7 @@ static phys_addr_t hvfb_get_phymem(struct hv_device *hdev,
+ }
+ 
+ /* Release contiguous physical memory */
+-static void hvfb_release_phymem(struct hv_device *hdev,
++static void hvfb_release_phymem(struct device *device,
+ 				phys_addr_t paddr, unsigned int size)
+ {
+ 	unsigned int order = get_order(size);
+@@ -981,7 +981,7 @@ static void hvfb_release_phymem(struct hv_device *hdev,
+ 	if (order <= MAX_ORDER)
+ 		__free_pages(pfn_to_page(paddr >> PAGE_SHIFT), order);
+ 	else
+-		dma_free_coherent(&hdev->device,
++		dma_free_coherent(device,
+ 				  round_up(size, PAGE_SIZE),
+ 				  phys_to_virt(paddr),
+ 				  paddr);
+@@ -1100,7 +1100,7 @@ static int hvfb_getmem(struct hv_device *hdev, struct fb_info *info)
+ }
+ 
+ /* Release the framebuffer */
+-static void hvfb_putmem(struct hv_device *hdev, struct fb_info *info)
++static void hvfb_putmem(struct fb_info *info)
+ {
+ 	struct hvfb_par *par = info->par;
+ 
+@@ -1109,7 +1109,7 @@ static void hvfb_putmem(struct hv_device *hdev, struct fb_info *info)
+ 		iounmap(par->mmio_vp);
+ 		vmbus_free_mmio(par->mem->start, screen_fb_size);
+ 	} else {
+-		hvfb_release_phymem(hdev, info->fix.smem_start,
++		hvfb_release_phymem(info->device, info->fix.smem_start,
+ 				    screen_fb_size);
+ 	}
+ 
+@@ -1223,7 +1223,7 @@ static int hvfb_probe(struct hv_device *hdev,
+ 
+ error:
+ 	fb_deferred_io_cleanup(info);
+-	hvfb_putmem(hdev, info);
++	hvfb_putmem(info);
+ error2:
+ 	vmbus_close(hdev->channel);
+ error1:
+@@ -1252,7 +1252,7 @@ static void hvfb_remove(struct hv_device *hdev)
+ 	vmbus_close(hdev->channel);
+ 	hv_set_drvdata(hdev, NULL);
+ 
+-	hvfb_putmem(hdev, info);
++	hvfb_putmem(info);
+ 	framebuffer_release(info);
+ }
+ 
+-- 
+2.39.5
