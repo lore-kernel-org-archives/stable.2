@@ -1,137 +1,142 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33AF744F561
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 12:28:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B133E4854EB
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 12:38:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791462536; cv=none; b=n3H4Iu7q96l0Iw64tvA7o2pqEOdEVUsDQsiG54FG605Fm0a5FW3Gktw9+xkG1cQJ4TzP7GdoLJxFSJBKJh0VWD8UA/zFXsb5rNpMDkThj+n66y+laxi2AybOoRlwLfQQJowS53GSvQvPmx/QndR7Gvf/0/WmBHYYSDFs6liPXpM=
+	t=1791463127; cv=none; b=AzL94Ja8AIaTqFc8MWlqkqbAqHJVuo5DSyRtBy0ApirjDAfny+5lWt8SjDaVmR0Va8Ow70SKW2ogj21ZJTxSbtCec7RCa0EXyQP9aVoLE6hy6+3DC5u1cDJOUMmLZX+XIr/4USPahdmm1r96IUWGRsbSU9fj0e/YVfqzBTyjXOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791462536; c=relaxed/simple;
-	bh=IbVo6s7b5sBB9lnd9tmlCLjiyw9VvCQfz+4RT3BW5pM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=No0/yJle9JDm1WA2UrvmDS+5TopXrcOK7+RX9lbmTMj4i+FYpmlLdpctrM/5ePeDHMfNgdD/4xcBXyIvciHUHlcT/2MJw7mkDjPUOpxlgUTqtRBr98Yuaa9B4O7caJ+F+3cKDp3coi1cCzC31cZF/YBjMhECSwc91CZp55gyIVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NfbDHTSx; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791463127; c=relaxed/simple;
+	bh=URwSaekjnL1nbkUOtrm8l0o3BrCK4LvgZ73eX1K8SxA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fgwh/UihdPChiXXECoz0PCrMZQXQq+Xf5bPbsFBuSW6H9m/VFxgteth+1vnAM8Wy4Lr9l6U54mX95ljrFwtqZ8ojBWrDD1fw+td/8yuAAAt8bugXJUh8BS4KCbJq6Brk9YTvJrXry0SOQEEu0EHXbb25HQuFIDw7P0Ow8HtaoeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=N87hV25A; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ZBmvmHeI; arc=none smtp.client-ip=103.168.172.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NfbDHTSx"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2df8c28a0b1so17697845ad.1
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 05:28:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791462534; x=1792067334; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=COAThH0ap4EmFyle9qndKOJa6dHiJ8hI93mqQf8LdaM=;
-        b=NfbDHTSxcSTnBm4E49y/qbTrOaokcCeDllIcPxd04VMni+t9gQoUXdK7fK7/W7D21L
-         yCjPNY0DV0GUepQl1+2YP3xsAJ8jvU2b2j/FyCherRbziOcXx8njM0sUWc9+QARH6tWm
-         oA4IEMMfuOJ9vJypwm9GCHcOwHCbfVwQeki4/jL+dQxsTBUSdE0FPMwofUkJRr43fZZO
-         X2dRc6gqR6QtcYdkYcjq2XG4DgNucIA2LU+vJE3477kZmfanmWPbhCCIuqKHXLKgZj2f
-         AoZ7rGSBIGZzxB6J7XCQZYyvacRYjzQQ3wQyCV6iGR6mMQjdUD5HWkl6oQp6BuRlEhIV
-         iCXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791462534; x=1792067334;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=COAThH0ap4EmFyle9qndKOJa6dHiJ8hI93mqQf8LdaM=;
-        b=O3wlTCZsWKIL0csyIIkmsGCR8vnTXkfxN39ukFuNajUKdKstHVO7jbylzQoQRc7uQm
-         2s2KNZ+OXwnfhSC0xXl2nvxkxpxeUyLHG7Hr7xWvTox8omjg7BeYnGwybopXtxLuYBNU
-         K3OqU1OojlgipEnzH4UaaiRlpCt4K3j2VU2Hpf5XsLFrQjNpYHtqmospkuQ9HsghxON4
-         RkaBrFQyELkHmqUYIoyektU/Qt1sj6tl7nA0vq45JW2SzLiWiKRyoIKpuYEEBAOzQABv
-         Ci7oQ5sYRDkRzkhK+W6UfRSM3K7oOTGPsZm5xPYL2dtXYxj74AlMaytDSsUrVwE/P8qb
-         xCSA==
-X-Forwarded-Encrypted: i=1; AKwUvBye3+M4rN62g7lN7brSyoppE8KZxqfeNzqPoUPYPv1u293WANhe6VWxWOM8/+rKBIJDDxPWhM0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLfjC1wFx72zPk9Cq1NGH5vMjVPFFxTprqWZiuXuyCbfwsel4b2
-	X5/TZwzoSGwnDtLXX2PqEJL/qtUixZb0brQqs6IbkZeJ/W6SW0gXsb3G
-X-Gm-Gg: AYBFou03floOKAoW8+ry4RwWBiP1CiqH7/kCXbQhTCFJ+88XXzGIK6ckHrJ5EQV1ZTC
-	Th4xS3LdAUjJptGeD4jRrNAhg2H23jyJydv1N86jWodTLZNLcKjyPg7dM3L51DpU6fvE9ZlzKC6
-	rkDljHxHkSlVZ9Q0dUgvTS1neGo+WqyX2h7rJQwbPY++87oTgmBBI7tlm91Irl6QG70pNNjiuGV
-	XlIgQ/FKlyUDQ3IEhdTvgNt7rfW5FmhFXlSydsUIAotpo8kR4lkm59B9rR9MOy69xkeF/JdS2Yz
-	0bFL5AxjgoF0SvceOnIgFlrgYOcEILVZLhcDzHQ1j5d8yQLaNFEiVZ8+AHePcI9UtWYYPcSvliF
-	wzYYhGxB1LAgfxbvbT9BUCH74Pm2wQthkRQazH5+4Kq9JqBdx2XosiUUWBGDhF8YNSZN/VNSedT
-	A+hLEQ2Ry5oNz8beNLvWg17epZa1bcY5xd0hEistZ/xZGC1EjniHXTcZjKzA8B6oG11A==
-X-Received: by 2002:a17:902:ce07:b0:2e2:de8e:7315 with SMTP id d9443c01a7336-2e6004d2ccemr43775815ad.38.1791462534502;
-        Thu, 08 Oct 2026 05:28:54 -0700 (PDT)
-Received: from dungbv.. ([58.186.69.27])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e60443810asm22985415ad.9.2026.10.08.05.28.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 05:28:49 -0700 (PDT)
-From: Bui Viet Dung <dungvn2345@gmail.com>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bui Viet Dung <dungvn2345@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] wifi: mac80211_hwsim: Pin module for debugfs file operations
-Date: Thu,  8 Oct 2026 19:28:38 +0700
-Message-ID: <20261008122838.224835-1-dungvn2345@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="N87hV25A";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ZBmvmHeI"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.phl.internal (Postfix) with ESMTP id E24D6EC0190
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 08:38:43 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Thu, 08 Oct 2026 08:38:43 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
+	 h=cc:cc:content-transfer-encoding:content-type:content-type
+	:date:date:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=fm3;
+	 t=1791463123; x=1791549523; bh=dh9WPB4TTDrILJK1OPNo3Cx5BDd3OlvG
+	/87qurPFaiw=; b=N87hV25ANVjI69iN1groJQ4aXS9z2Z1sQM39wwnUhUCfPQ2G
+	489PHELW7GBGBJx/ViGM37YHIZTrnb5GgRiU+JeY/cVZskEk8zW/ionsXbzh+jwY
+	R9Enh1h779xGcb3iMu5aBwROpYnXcif4BAmG4iY0lATN5+q0chPqbVlEqbtrW05v
+	uKcrXtpQge7lSUQ/UiN/n+N+YteZg5z+WM6FJppvoJNqFdl9nAzboEThg0gxdoMZ
+	ZL7sUhNYAwRNBdIXpQaFczLLTRDKSVqYtSVExFqhi/6n0GR4ytTv/UGTC2J1ZcAl
+	ea60TouvyTD4GI8flJLiDLrcykVaWwoAh5Doog==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791463123; x=
+	1791549523; bh=dh9WPB4TTDrILJK1OPNo3Cx5BDd3OlvG/87qurPFaiw=; b=Z
+	BmvmHeI33myprkcOqsuQnKUGWmB6DGOdzCxfpYbHh8zOqhfj9dyMkUuO4Tm9X4yH
+	HTyI3l63Mk6HoiEFLd22hx+3w7blDNYWz6OVVyQfMq58JzYtxl6zbxamNoi+CjKJ
+	f5P5ovkVKD5GzoHFmIDPgSHYfsezhkKR5Hu0xUu81qDNJPXFyhqr9lSNrK3m8JrO
+	OnNJWpags/Mk5VKdtCvP6azx9qAOU6UFtHxr8KueCIsdkVyr8s7Vgzg0bIC4rkOP
+	LEFz/NBX5OH7bFBP2GpT9A07NSE8hCp9Dms8FjcPxUjCeSVhsJbbMP0hP7L66mwS
+	hsLYrCZ6mhPALeW6ooX1Q==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=queasysnail.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791463123; d=queasysnail.net;
+	mf=PHNkQHF1ZWFzeXNuYWlsLm5ldD4=;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:ApBTYYncFJ5MjH0AntY+yRhoo4Qvw+9ZRxRONiedGLOiVlD
+	yQEiWGj12bpdcvIFTFwx00wksmB5et9iON7hpQhY3RRPMEhxZ/y8IO04WIqMf1Xj
+	sidlP6PL/fFyvFiqHpa3ViVTzy7ZGbG8Y7zfj2tVnKS5WNrP0fZIswRO5zcgN+qU
+	JYruW3xsRKjyQD8B7wJFrhqIdbAcEhb29Bjq1uwe/WbyXYJuMK1vcXn739q7ZxTC
+	rHDgQMnUvTuq0HCSShZWqzb6YLghN2inveSh8P6Y18kinJrcuH1W17wAjOW9Sb7/
+	72ZSH5re1dFO6Jk2Dk/Gl87JZUAK8MR2T6MnvGg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:puR7D5QmmaHowrW40k4DNSJ3lz956z5v17i4ZXoCn0g=:URwSaekjnL1nbkUOtrm8l0o3BrCK4LvgZ73eX1K8SxA=;
+X-ME-Sender: <xms:0o7HavuRKhcHOkYzWDcz2vFJGvtx9qJPPEjhiwjYWul5j5RH6mf7LA>
+    <xme:0o7Hap31ESs6UAxEogoLRUqIbscvbsy5OxJWi1lNDARnb0O4vCEqavFCy0CglYQxa
+    TnqHr6KXqelY08T63BetsofG8VMjLdLi4NZswJJmkC5QKr47te5xczi>
+X-ME-Received: <xmr:0o7HarTfC9yhOFZwExXMzJm3kIVk1PxWSZlKmjYC7ru0NeQ5JF3HsQCpHBc>
+X-ME-Proxy-Cause: dmFkZTEECNTjd/hKOLiIyIHohdObXdhDZod88zeg2NIAdyr626iHyIBahS3jQa4X7JZTmT
+    EQhWRbjleN8+H6iRXP2di62rVH6/46yHmlI6GzHWc/bJV+lLvaOb1ias6oS6UhVU0YsCQ1
+    CHq+/ZSBkIHe8HPFHgvitKIbqBGouCos5e1TrzTtd1EIsHeK6WbsB6107k0jzW2Vv4RkBs
+    9VuxmV0Bx0Sv5sq1JmVDUD8/GXn29WhDeUCoKwNwYvyqDcMuMaybd5Js/TqKNoWOpEfjIv
+    OR818v77huR8NoXOJW9BEwR3/nuqbvKVTjviFC1DNLF5pGFqU3p9K9Qer33Mo92ZKBx1N1
+    9oVMKtKlWpJtBxd/rwzLnBcLrVPDaMchSo/eRE0voWzEsgnH9LGsJLAnTA4iT3KhvO7Zru
+    DTqggReUbiWmeXhq/ZEXgfJLL15Lg4eok/CvD6cheS9tnu5rqoVPh3WYeFJcZySSbYefTx
+    bZI8WhysveTQtsYXZUHGRVdjkAbcWewWYLXtoeuMVUMTOrJJOrlzUjODeD9AuEaYt8db0d
+    1TjWqKZk+2zTJcAHSCkXirsQER3y7BYwRTA0AON3F/rEYAzHjvGhHfkkiEPe41tM0GpVlJ
+    ZvduNirgreP6ez9Z0DVm3zv5vvbObkxu27CADIByCfkoyuXvegJP7fxTTIrA
+X-ME-Proxy: <xmx:0o7Hatt1MurExZwC9vhVPgVK3asB7zH2s7unX6-ky3b7farAmwyYRw>
+    <xmx:0o7HahL273vJfBhXAte-yywpPnyoHuutV_M-ayNXInamyNN0R9oTfw>
+    <xmx:0o7Hape7WX7wKX9Ma8u5e8FMC2WA3Mh77hqzuX_uzQfJI0AM-SqlrQ>
+    <xmx:0o7HarUr6AXgP7ijPobNQJIN7TpQX388Ah7iWMAKTPuAftI0mS14kw>
+    <xmx:047HanT0Lcst7TbqQRqODuYzfQYaYIxfakfptZYqMrz1vMk0z5QrwARI>
+Feedback-ID: i934648bf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 8 Oct 2026 08:38:42 -0400 (EDT)
+Date: Thu, 8 Oct 2026 14:38:40 +0200
+From: Sabrina Dubroca <sd@queasysnail.net>
+To: Steffen Klassert <steffen.klassert@secunet.com>
+Cc: netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org,
+	herbert@gondor.apana.org.au, stable@vger.kernel.org,
+	yuantan098@gmail.com, yifanwucs@gmail.com, tomapufckgml@gmail.com,
+	bird@lzu.edu.cn, ronbogo@outlook.com, zylzyl2333@gmail.com,
+	n05ec@lzu.edu.cn, eulgyukim@snu.ac.kr, jjy600901@snu.ac.kr,
+	kuba@kernel.org
+Subject: Re: [PATCH ipsec] xfrm: espintcp: reorder operations within
+ espintcp_init_sk
+Message-ID: <aseO0MuammN_z0he@krikkit>
+References: <dcb164e6a1064fcd32c2e72fd9ee918dd1427f15.1790617484.git.sd@queasysnail.net>
+ <179085931198.434549.11976738723347461302@kernel.org>
+ <asXrPCMX747L5_tq@secunet.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <asXrPCMX747L5_tq@secunet.com>
 
-An open debugfs file retains its file_operations pointer in the
-debugfs proxy state. However, hwsim_background_cac_ops and
-hwsim_simulate_incumbent_signal_fops in mac80211_hwsim_main.c have no
-.owner set to THIS_MODULE.
+2026-10-07, 08:48:28 +0200, Steffen Klassert wrote:
+> On Thu, Oct 01, 2026 at 12:55:11PM +0000, netdev-bot+sashiko@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 1 potential
+> > issue(s) to consider.
+> > 
+> > Critical: 0 · High: 1 · Medium: 0 · Low: 0
+> > 
+> > If you believe none of the issues are legitimate, please reply to each
+> > issue of Medium severity or higher and explain why the AI is wrong.
+> > If any of them are legitimate and you plan to respin, please let patchwork
+> > know by including "pw-bot: cr" as a separate line at the end of your reply
+> > (one such reply per series is enough).
+> > 
+> > - [High] The patch does not fully close the race it targets.
+> > 
+> > --
+> > 
+> > xfrm: espintcp: reorder operations within espintcp_init_sk
+> > 
+[...]
+> Sabrina, do you plan to update this one?
 
-As a result, full_proxy_open_regular() calls fops_get() which succeeds
-without taking a reference to the mac80211_hwsim module. When a userspace
-process opens either of these debugfs files, a subsequent module unload
-(rmmod mac80211_hwsim) can succeed while the file descriptor remains open.
+Sorry Steffen, too much stuff happening at the same time and this one
+was a bit complex. Let's see if the AI is happy with v2.
 
-When the userspace process subsequently closes the descriptor,
-full_proxy_release() accesses the already unmapped file_operations
-structure, triggering a kernel oops in full_proxy_release():
-
-  BUG: unable to handle page fault for address: fffffbfff84f49e7
-  Oops: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:full_proxy_release+0x8e/0x140
-  Call Trace:
-   <TASK>
-   __fput+0x39f/0xa60
-   __x64_sys_close+0x80/0xe0
-   do_syscall_64+0xc3/0x590
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
-   </TASK>
-
-The issue was discovered via manual code audit of mac80211_hwsim_main.c
-and reproduced on a Linux 7.3-rc6 test VM with CONFIG_MAC80211_HWSIM=m.
-
-Set .owner = THIS_MODULE on both debugfs file_operations structures in
-mac80211_hwsim_main.c so that debugfs pins the module until close has
-completed.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
----
- drivers/net/wireless/virtual/mac80211_hwsim_main.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/net/wireless/virtual/mac80211_hwsim_main.c b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-index b9446577ff49..3ae46d78d68a 100644
---- a/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-+++ b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-@@ -1149,6 +1149,7 @@ static ssize_t hwsim_background_cac_write(struct file *file,
- }
- 
- static const struct file_operations hwsim_background_cac_ops = {
-+	.owner = THIS_MODULE,
- 	.write = hwsim_background_cac_write,
- 	.open = simple_open,
- 	.llseek = default_llseek,
-@@ -1209,6 +1210,7 @@ static ssize_t hwsim_simulate_incumbent_signal_write(struct file *file,
- }
- 
- static const struct file_operations hwsim_simulate_incumbent_signal_fops = {
-+	.owner	= THIS_MODULE,
- 	.open	= simple_open,
- 	.write	= hwsim_simulate_incumbent_signal_write,
- };
 -- 
-2.43.0
-
+Sabrina
