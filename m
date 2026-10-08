@@ -1,72 +1,70 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02F903876CD
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 05:24:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8CF38C2D0
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 05:29:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791437061; cv=none; b=o2wM4cl0fGeGVx6ez6mVoQrXS8sNCAbhOTogpwAF2TBz12zzxjON1LmSlwwVPzvmDIMbRuMmbs0ZW7IPELA1oRwMj/5vojrkRG7X31+e/7PFoe/9ZmG5B+LovHPYpnxDwB9ZXhrrT0+DUDEt74SSz6GdT8eAf0XaT0YRUgCmpkc=
+	t=1791437383; cv=none; b=kYhcTjQLHlfZzO1FppynxapMBYAO25tH2Ln3fSTXA3D6SmLOyyJ+NukhWh4A/OPTqOR8fbcu/FKitsZPOm7Bj1pIWm77xIwr7sYPDqYZsQqti4GoYbOUUnbqhL6IM2rQj1rp98Kuy9MNvNfZLa/stF3LVnErSioC5JuEbYBT5x4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791437061; c=relaxed/simple;
-	bh=v0Ax/0GmxO4xVaTCoct4d9rpu8qqhvU/A+t+7Gl3VBQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XO9vWo4oUIs+6ObZs9oYnR17tuDSzLp7pBjR+RO0TLAi9CU6lqMkFN6OABSOmSAlHrvKAPdg0CXu6WaKvex10kdCeX8i2fKfGjyKCLzObP/kamagLp2Y7osYmt1xLYBosKvrpZIgILdiP/eW96VrGMJJ1jl1MZSfKTShWlD4xcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cur06KKd; arc=none smtp.client-ip=209.85.216.45
+	s=arc-20240116; t=1791437383; c=relaxed/simple;
+	bh=niVvTWNk3QWOalqFTP346D6I7kaju0YJcJoHhRrZRGo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XxA3FSm9Zfn8b6nLK4HQ9+C9MzI1c6oZ33veX7dsU6cLgw7PLNSMD4PERzn5UVftGhFcF88Y53EfCb4YSvI+6GFhqpTVj4ls2HnNb/hzxKDqEWlgqFgWGz3OG6LGE1zrr+HToPYH055IDDTF5bpOydmZ8zidYd06G3Swqu+/4Tk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WGashld6; arc=none smtp.client-ip=209.85.215.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cur06KKd"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ab066bef7dso100962a91.1
-        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 22:24:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WGashld6"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1d57602e8so1151431a12.3
+        for <stable@vger.kernel.org>; Wed, 07 Oct 2026 22:29:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791437058; x=1792041858; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791437382; x=1792042182; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zfzt/oNw3kBm1sNxgf8XLAw4jjuhyZRC4MKG/SZu2ts=;
-        b=Cur06KKd0ifN+/42Ke0Yn1I8xGooulNIAOqrTP0eiDDG30bDAOoBVRmSXFCPViTtLp
-         Oo7O0cejiVEIvuR8iz41u6rc7IE6dw56fl5HXzbZaAmlrrIPkkJNibV+gFCXHDZZ2Hzi
-         rnhRVzBm5ZfSqj/kBKRnZ+kEGk4iXXqal4TqK92bMGaCkEisTQ+ft79pMKUAz0iQ8Ua9
-         mDHSJemrN+8qg4RrPpfddYgg1OxsZ/a47eUdAJWRfY1WLAKcTtR114UOOMpd3KdJv02v
-         QwR00V/3k97LF2bWP3RHA9hQ8Y01K9VjUrJg91qXvg9h3dh5YRdVB/pfh1G216YwIiyL
-         tznQ==
+        bh=Eincc2xR/aQzEUZWBEcbooh1c8vCK29qIoSJ+5aX63E=;
+        b=WGashld6RPycFq2DvZkoaHoTT+6zkPDGfIqrj7dC9DsmxxABDEdejDf/17mHTK0Pth
+         hkbH5bRZ2ca1CTZFg9zh3dCnen3jWSo+qewrI4iqIqtuPC8M0DY+6GL2trCqm7bevyDg
+         HzJiJ0cjThCoRTmFA4tTv8QNcwenK4uj9rgk8xsvOS/XbzkpVus4ZF0i1bRAv5vXEqZn
+         TrTBPbNhct0xKoA79wn4jkxLKor0pp9BhRQTEd7h6X8EluX+Q7eNo7rcXL5BDHHQdvDy
+         BcPjYpiYikkQAkLIn1R57CBQolfectDdJ/cEZvGOfLBIKSBvga4ig4ESRYDItsqwdNft
+         S0Ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791437058; x=1792041858;
+        d=1e100.net; s=20260707; t=1791437382; x=1792042182;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zfzt/oNw3kBm1sNxgf8XLAw4jjuhyZRC4MKG/SZu2ts=;
-        b=R+aV5o2iX84U8vBPz4a6tAs4fTsC1MNWL5cdSkLNWLG3TBIgEbyepF4oFTlB2gRH1E
-         jb6XfR88epEK9ggbkdtgEbZehVv+5MTIvduHMsmuX29bJ50Aqmuyy23xGGH1MBKVuEcb
-         8DU2Dm5C9ZkwtLIc7e0W93VLxoUm/hLAPxPXRcHdmgH6OfCwBZrTkNoMrBVZRtJkjCjP
-         pa+Q6nh4D0U5RB76R51/7NzjDjk8pPMkRc3X32/aB5dI+Z/huexcvIPGZ9EY0llP+F9R
-         /8Kp9hijPfcxnBUivTsDgexyJ5590rCHyoqW0b1dBGOk5D2Qaah5HXIJH+vr7Flo7VE5
-         zBjw==
-X-Forwarded-Encrypted: i=1; AKwUvByjvIBdcyDg4okjXHeXShN4kCt73CuHhrKpQAX4RdDSYdzn8HAzUt3668i66TONLwmT9ybYjsM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIYmXL5UKlvednUD3JGUkEA66X4PafkH+odinNjUs3eKBiKsPCt
-	GwcQ3cbDY4bIHNb9/ZMLS82g8jZm8GvD2F8DcFyAMmKmabRl+e6x5sDx
-X-Gm-Gg: AYBFou1PkMfiWCaWwqyilA9uqZ5fs6RCCupcmLyKKP63Icu8TYzTo0hvYWwoBgy7g1F
-	JjvWocKiBfcfSgJwcQ8fNzmPFM6GXsbbr05P1sF/UXFvir7VB10opfwhHIUzfQL7uWsYBRcxkWE
-	cdzZbhZMCBTCxVoqqWQVErcGHusZvyzP16S4B/EKrmoCT1HpsLUGy82YOxVPsKeLeVTEomaRI1v
-	jTnyUcH6OSBmXHSw9ksT+DnRxEtBKXvw/7BX6wJ2RBOgoRrBVct4C9ZR6JgH64OzBzJAE2K4YWa
-	JCM1S9aZTnDnMj4PLL5NindluYU/dHTI1j5WTTWEXX4sdddMWVsRKaQrwh+mB8lxeLbL2l/ie5W
-	yUST7cpeK4Mx594xBG8FiDdqNKxgN4cRS2FlynVjivPvFL7i+k+AzNfwe8JgkGht3dnkYDsP1jo
-	g9F2+DdgFpR7vSfpdgW/lDUQjamR+t5WO68bD6jTFsxi7XK0ysL5dkCo0CC0Pj4d7lJYo=
-X-Received: by 2002:a17:90b:28c6:b0:3a7:9e3d:b3 with SMTP id 98e67ed59e1d1-3a8a1ceeb7emr3756258a91.66.1791437058229;
-        Wed, 07 Oct 2026 22:24:18 -0700 (PDT)
+        bh=Eincc2xR/aQzEUZWBEcbooh1c8vCK29qIoSJ+5aX63E=;
+        b=bEvS2rx7VAcr58GwAcw7Asq9yfrZXgN+uGKG0tDYeFtEMPr61HgETaUnZNHl+trQsU
+         zV1zJC7/LUvWV+4SKWHKJNiJcHxrzfPdRbaqY3ajhNBLFOs8EirYOtbbL0eRIreZei7a
+         g7AHIg9C0VrJVNtgJwH4yZmTWximIBYEdMJZliVTy9RDCkYF7lcKFqS6C7JZray+IgCF
+         2NYEHdR4ar6NenHXPq+0hAbphLnYkMLlLkqY/ip3d6QSkbbq5b0/S4ICQDxbPTwSkHcN
+         zhmpKFf3jdNBfj6fjRhFhqhQiM4UMufmePOOBifToTT3T9JQMTFMP/JRaRO3RSoikvJt
+         j51g==
+X-Forwarded-Encrypted: i=1; AKwUvBwvfJp6ZAxLfAQF4qoUKaWdwd225B4gZaKf71nc6PyFSv8lLx3AYr7Waw4kIPSdB4471I1RgTQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKLNEp94HRZGzJx3j6vR4C9mv8+7rPD0cvLjnzLbn/9jmxQj2ra
+	qF58/aaPmrNEy7dNeO2tFtpbMdXoC3Co5sT/qBv7S7TgSI2TNM5pgeUF
+X-Gm-Gg: AYBFou1KJ7JRDmp+bgSQp0lesVY0U2QuqRPTct6Y1jDUEZAr3q5KA7Wkf22SE/Gaosz
+	nINZZqiU+0zwCrU8N7iFNePjWC/QM2yzkpChdJdebiK4YIO3+OwqJLnc2I9u9nimFwlQFhxi1D8
+	HvH4QS2sYw2RO7nC75HEmItmj1mSeAEtRSG7zg+lpPNNgP3vE0v2I9lGdDlNQWJhkRqFYnpGDF/
+	DDbKTlFulZVqzEiZMVV/8G2pXQlcYG6fo6QgM24iPPJOGwbH472dQoMGGDQr04lPN9VG6gD3D7y
+	s1NvjWgSg+si0T7bfo+htfklzO5hNyYQvf1Am/k0ub7GjA994z5BLDfQ4xP97Vq2Aa0G1gxo3yt
+	FSJCdZpH+TZ8qKbKAUSoQy8iI8CXdz+AuPyOyPzfarORwYoqA9WgAA7o0MCEQIp3V8Aq87UCBiS
+	E/06Brm09Hh08JHSas2rTlTXg6othUt22UH3CJaulmYrIHTrzedBUvH9VSOoAREDltxw8=
+X-Received: by 2002:a17:90b:2584:b0:3a7:cffb:8b96 with SMTP id 98e67ed59e1d1-3a8a19926b3mr3521076a91.18.1791437382014;
+        Wed, 07 Oct 2026 22:29:42 -0700 (PDT)
 Received: from dungbv.. ([116.98.134.138])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff7a7445sm2464870a91.5.2026.10.07.22.24.15
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9ff7a7445sm2484574a91.5.2026.10.07.22.29.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 22:24:17 -0700 (PDT)
+        Wed, 07 Oct 2026 22:29:41 -0700 (PDT)
 From: Bui Viet Dung <dungvn2345@gmail.com>
-To: Johannes Berg <johannes@sipsolutions.net>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Cc: Ilan Peer <ilan.peer@intel.com>,
-	linux-wireless@vger.kernel.org,
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Bui Viet Dung <dungvn2345@gmail.com>
-Subject: [PATCH] wifi: mac80211: Pin module for hwflags debugfs file operations
-Date: Thu,  8 Oct 2026 12:24:12 +0700
-Message-ID: <20261008052412.541780-1-dungvn2345@gmail.com>
+Subject: [PATCH] wifi: cfg80211: Pin module for debugfs file operations
+Date: Thu,  8 Oct 2026 12:29:36 +0700
+Message-ID: <20261008052936.555554-1-dungvn2345@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -77,14 +75,17 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 An open debugfs file retains its file_operations pointer in the
-debugfs proxy state. However, hwflags_ops in net/mac80211/debugfs.c
-has no .owner set to THIS_MODULE.
+debugfs proxy state. However, the file_operations defined by the
+DEBUGFS_READONLY_FILE and DEBUGFS_RADIO_READONLY_FILE macros, as well
+as ht40allow_map_ops in net/wireless/debugfs.c, have no .owner set to
+THIS_MODULE.
 
 As a result, full_proxy_open_regular() calls fops_get() which succeeds
-without taking a reference to the mac80211 module. When CONFIG_MAC80211=m
-and wireless debugfs is enabled, a userspace process can open the
-hwflags debugfs file and keep the file descriptor open while the module
-is unloaded (rmmod mac80211).
+without taking a reference to the cfg80211 module. When CONFIG_CFG80211=m
+and wireless debugfs is enabled, a userspace process can open any of these
+debugfs files (e.g. /sys/kernel/debug/ieee80211/phy0/rts_threshold or
+ht40allow_map) and keep the file descriptor open while the module is
+unloaded (rmmod cfg80211).
 
 When the userspace process subsequently closes the descriptor,
 full_proxy_release() accesses the already unmapped file_operations
@@ -104,30 +105,47 @@ structure, triggering a kernel oops in full_proxy_release():
    </TASK>
 
 The issue was discovered via manual code audit of
-net/mac80211/debugfs.c.
+net/wireless/debugfs.c.
 
-Set .owner = THIS_MODULE on hwflags_ops so that debugfs pins the
-module until all open file descriptors have been closed.
+Set .owner = THIS_MODULE on all debugfs file_operations tables in
+net/wireless/debugfs.c so that debugfs pins the module until all open
+file descriptors have been closed.
 
-Fixes: 3ad4fce66e4f ("wifi: mac80211: add strict mode disabling workarounds")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
 ---
- net/mac80211/debugfs.c | 1 +
- 1 file changed, 1 insertion(+)
+ net/wireless/debugfs.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/net/mac80211/debugfs.c b/net/mac80211/debugfs.c
-index e38631d7cfb4..6a84321cebd6 100644
---- a/net/mac80211/debugfs.c
-+++ b/net/mac80211/debugfs.c
-@@ -529,6 +529,7 @@ static ssize_t hwflags_write(struct file *file, const char __user *user_buf,
+diff --git a/net/wireless/debugfs.c b/net/wireless/debugfs.c
+index f9e7fff1ef25..63503dbd8938 100644
+--- a/net/wireless/debugfs.c
++++ b/net/wireless/debugfs.c
+@@ -24,6 +24,7 @@ static ssize_t name## _read(struct file *file, char __user *userbuf,	\
+ }									\
+ 									\
+ static const struct file_operations name## _ops = {			\
++	.owner = THIS_MODULE,						\
+ 	.read = name## _read,						\
+ 	.open = simple_open,						\
+ 	.llseek = generic_file_llseek,					\
+@@ -42,6 +43,7 @@ static ssize_t name## _read(struct file *file, char __user *userbuf,	\
+ }									\
+ 									\
+ static const struct file_operations name## _ops = {			\
++	.owner = THIS_MODULE,						\
+ 	.read = name## _read,						\
+ 	.open = simple_open,						\
+ 	.llseek = generic_file_llseek,					\
+@@ -113,6 +115,7 @@ static ssize_t ht40allow_map_read(struct file *file,
  }
  
- static const struct file_operations hwflags_ops = {
+ static const struct file_operations ht40allow_map_ops = {
 +	.owner = THIS_MODULE,
+ 	.read = ht40allow_map_read,
  	.open = simple_open,
- 	.read = hwflags_read,
- 	.write = hwflags_write,
+ 	.llseek = default_llseek,
 -- 
 2.43.0
 
