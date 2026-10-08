@@ -1,66 +1,187 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B30CD47206D;
-	Thu,  8 Oct 2026 08:36:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ECD0421251
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 08:45:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791448590; cv=none; b=dgTB2h2BDMGRlhRlykq1cS+F+4hCr4UwcsE04EWpK4X1YdjnVXy21KnaRyetfQ1QVC99HN6joN1eQIfBkmTXzRB8EzZ74XLGMnxfsIDqi4p5w+NFvqzC1B3icN5TmNh4veXeYLulC5UVNp9xBUE6qVKYdqE7jzYv+5yHy6AC/LM=
+	t=1791449105; cv=none; b=tNY9aDQBotzmur/BYTNz3DcKoDuSQTXAhUJhe6KfdcimXFlhEIsQwb7/KeZhrhvEg7VeGVbpYzUmEhay9a+MjLcp7JWiwlbimnBBkomVYczOgaNXGi7Cg/gPQTWew3tipmwx8b71ejXIkyl4ohR+sd/Ia7ZWVcI5hormigSQSfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791448590; c=relaxed/simple;
-	bh=52PWPkkSBeKlJQE8U411SF09zasg2JpEnqS5XrIESD4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Tp7YuFMAQhnuHSASabYItRy4gzA84sRvq49KxqbsH6NRW4/LpCG0Kl9iMTCjic7muwFYhzp8C+/QzTIfFWBlk6RqaMZHNtABWzaS5VmslYBT8jOE4e371TbYkQkGMP5o6ZxpbMNds7ZhSV/3Cj9DmnUalyCW1M51KjERrFrc+3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=E80Z7VWo; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1791449105; c=relaxed/simple;
+	bh=u3oXVAtMhpkIy8FTkaike0U6LNVunwKRWME9UqOPfNU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kcrzwku9c0Abkp2AspyAxe9ZDU2B5SXzvkqNCHzDa89aDkqDTRRfTNbf9ZYkd+TpGbhCtRSuOpJ1p/J06FHYDMEgOjMGXCqXrGLQ93J96OxeEvzZJNKDk221MtYdOgFhx6qgP5riO6wSsowe9PLB7e4r2fa1UHT5FE8CucU2ezk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LcxbX7V5; arc=none smtp.client-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="E80Z7VWo"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=9WX991k/EwP8NDLtyOX+ZpuAfd+ibtLEBSgnh2Kmjq4=; 
-	b=E80Z7VWo6wl0gv8XVreOSQhM0YJXbo/ja3JeTZ53hOlVYj2tX5Y1/TY1+RCH7/8jt/ltZnpZBlZ
-	Tejy09djcqe6HqTieYdXIbdPTaK/Z5GxCxEDL7AUQEMGXM2JpNsqj3OfAuFQaWeKYZVfaPgAQ84/P
-	U79xYVsq60JHSygtMsk8BFOgQIXacM0yf5sGD47UwMjhy8R5ZXdJj8eOBgXKneL1KBRLQHJ9ykWwj
-	6OghTPoL0ypyHYnUt5zKTVIUq3pDot64nxUS7frZgvPtrpyEpsWA67rTOAVYfFBFIEyarUBiVuezD
-	hpOVIelHd9z+3Qhjxb+essDHIZFvHMJqg0WA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xEjc0-00000001o96-0Kmo;
-	Thu, 08 Oct 2026 16:36:25 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Thu, 08 Oct 2026 19:36:24 +1100
-Date: Thu, 8 Oct 2026 19:36:24 +1100
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: =?iso-8859-1?B?Suly6W15?= Jean <jeremy.jean@oss.cyber.gouv.fr>
-Cc: horia.geanta@nxp.com, pankaj.gupta@nxp.com, gaurav.jain@nxp.com,
-	davem@davemloft.net, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] crypto: caam - reject overlong RSA CRT parameters
-Message-ID: <asdWCJgRzQuH1wH0@gondor.apana.org.au>
-References: <20260810154024.3178145-1-Jeremy.Jean@oss.cyber.gouv.fr>
- <ao4xobfWhs5Ss8Uy@gondor.apana.org.au>
- <752d9ff313bb52a7f8d2295161c1d9a4@oss.cyber.gouv.fr>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LcxbX7V5"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-33e623bd651so86896eec.0
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 01:45:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791449102; x=1792053902; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lwWsdIXelLbIWkcXFPRTLY38upfrcbnNJ647ZN9lsPA=;
+        b=LcxbX7V5XWLW9JQ3wdf03a4MZCWibSs4POCDBJSIcQLIYEOi50T2z5kkYwsWapz/xU
+         8NeE0EI6R5yx+WyaRZLhuttH0IOTE6GvjDqfKhqUcOY0LXJlZbLduF/ydIamrPFGbZSw
+         Q2fZCgmdc8UCsuzrNiI7xsYd5I7sOOgNcQ7CT6LoMUxKmLv2OGrGlIl03TdsSvcpgFh1
+         dFlVd/2HGLe8mee0uc0CsIyfWBiu4kbYqMapKdoZIplWMlCexpRjKUPxGVQrc5tH8hAZ
+         58S2HeACtgX3MLq9797wIPmOe8HAll0Wbij7xxzkIbriZBqGXbeFGJzYXORjPW/fWtro
+         EQaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791449102; x=1792053902;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lwWsdIXelLbIWkcXFPRTLY38upfrcbnNJ647ZN9lsPA=;
+        b=G3OYx4F9J0pLCOGZo+lQ4tsJONxL8bPu+SRtLk70s+/bvz/2JhGgJUq8Ag8j1NAt/3
+         Tf90Qw5CV8DwSjp8w2tPlzcV0Q07s35lZg0d9a6TcdEzjCV1dLus8sINgJLGYYbR4vRO
+         Y6yhpePYYgQScbUYqjuxWjM/CyYIP26TeOSHTFKNOvOb4TF7twNaaPl2p4285a+VFQaO
+         L1alPbrG7W/CNPORwwbWfXp+1cs2blDMMM0TSbnuQYf/L49DsMuD5oIA88tAy9sSwrmI
+         ktvaVUIZSA+1Zbhfgz84g6P/KChBzaXsAVNFlA5QrIvNnCqqEwWtZust/Pn0AHs2pKLx
+         tRzw==
+X-Forwarded-Encrypted: i=1; AKwUvBwkOSr4o0vDL9mhwMBrIFhIjhnJvPduiutSMj9e91lR+cTMr4RGZ+3QM6H/8XBWoVGBbiAD/UE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJewMBB7V+sQodpV6AVqiHPGZwSn0m54qOCaHYmhUrLZXEU6Uzz
+	tK59LMvro2+uh2oDiLo9n+GCE72zpTtUoYdxbuN57EEnuhZOFtlSNB4e
+X-Gm-Gg: AYBFou3BBFmzaRiojViBPD32Zj5WAdrIXQbue4HF+1bKe8Z9znPZLGb1VoiP49jKAQC
+	yaKOCzKV3vuhO+NTns16xfXB62duVOIiW5zQCp7hC14Op78jiu7armPmFVrV6s8wmH0/C7kwQUI
+	WFpnxh9Cwoss90lpehbXyXG/nRJZRzna/qmvd5WVXXkwsG8c033ZkBgj3fMSKctzSaA8Eh6Ft+w
+	voxQ22uRccfXFWGG+scywVXwUsX4PngpIwXNpMumKWPRu3CsrbwV7FvLaRRH5FX3f83X9K/0ZpB
+	Tgt/6JMqEPzbhwvVJpX6l0Blx/J9h2gz5EpedLe6bFguXi6wWhKHYKVVQL1a5E1Vb3omWB46Nw7
+	5WozhJiY7Pxefw5DA9VJAVkf8F/Fix+KcqBc4zhD/rcShOuMAM8dT1h3zm7fFy17Cr038j5KC7n
+	u0bEI3lqLS0xcNN4pka19zy0/jGuwXiDoSVdIXDU61c1VA8VjFxxOWxLCp8LdkZF93Jt5v/homs
+	b/rFOLLJD9beaZiQx2FFh1BKpT/SmeUGhnDiRMYMrdBpyOWxKzcWdLygQoXpSmbT3X49A==
+X-Received: by 2002:a05:7300:80c6:b0:351:8cd9:7a53 with SMTP id 5a478bee46e88-3518cd97b86mr1994736eec.0.1791449101496;
+        Thu, 08 Oct 2026 01:45:01 -0700 (PDT)
+Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351735e316fsm9920870eec.11.2026.10.08.01.44.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 01:45:01 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: "D . Wythe" <alibuda@linux.alibaba.com>,
+	Dust Li <dust.li@linux.alibaba.com>,
+	Sidraya Jayagond <sidraya@linux.ibm.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>
+Cc: Tony Lu <tonylu@linux.alibaba.com>,
+	Wen Gu <guwen@linux.alibaba.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-rdma@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>
+Subject: [PATCH net v3] net/smc: protect clcsock lifetime in smc_getname
+Date: Thu,  8 Oct 2026 16:44:44 +0800
+Message-ID: <20261008084444.787449-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <752d9ff313bb52a7f8d2295161c1d9a4@oss.cyber.gouv.fr>
 
-On Sat, Oct 03, 2026 at 11:21:44PM +0200, Jérémy Jean wrote:
->
-> I don't know for sure, but it is still getting fixed, e.g.,
-> https://lore.kernel.org/all/FF2F0DC4D3930E6A+20260923101457.204629-1-zhaojinming@uniontech.com/
+smc_getname() dereferences smc->clcsock without holding
+clcsock_release_lock. Link-group termination can release the CLC socket
+through smc_close_active_abort() while the SMC socket is still open,
+for example after shutdown(SHUT_WR).
 
-Can you please repost with a Cc to the new maintainer?
+A getsockname() caller can load smc->clcsock, then the termination worker
+can clear the pointer and call sock_release() before the caller accesses
+clcsock->ops or invokes getname(). This causes a use-after-free; if the
+worker clears the pointer before the load, it causes a NULL dereference.
+The syscall's file reference keeps the SMC socket alive but does not
+prevent asynchronous release of its CLC socket.
 
-Thanks,
+KASAN reported the following with test-only timing instrumentation:
+
+  BUG: KASAN: slab-use-after-free in smc_getname+0x19e/0x1b0
+  Read of size 8 at addr ffff888109abb4e0 by task poc/103
+  Call Trace:
+   smc_getname+0x19e/0x1b0
+   do_getsockname+0xe5/0x170
+   __sys_getsockname+0x8c/0x100
+
+  Allocated by task 95:
+   sock_alloc_inode+0x1e/0x280
+   sock_alloc+0x3d/0x240
+   __sock_create+0x7e/0x430
+   smc_create+0x121/0x240
+
+  Freed by task 0:
+   kmem_cache_free+0xcc/0x340
+   rcu_core+0x50a/0x1850
+
+  Last potentially related work creation:
+   evict+0x446/0x6c0
+   smc_clcsock_release+0xa8/0xd0
+   smc_close_active_abort+0x26a/0x3a0
+   __smc_lgr_terminate.part.0+0x137/0x2e0
+
+Hold clcsock_release_lock across the pointer check and the getname()
+callback to serialize with smc_clcsock_release(). Return -EBADF if the
+CLC socket has already been released, preserving the existing peer
+state check and the callback's return value otherwise.
+
+Fixes: b03faa1fafc8 ("net/smc: postpone release of clcsock")
+Cc: stable@vger.kernel.org
+Assisted-by: GPT-6.1-Sol
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+---
+Changes in v3:
+- Limit the fix to smc_getname(), as requested by Mahanta. The code
+  change is identical to v1 and uses the existing release mutex.
+- Drop the new clcsock_lock and the other v2 changes. Mahanta will
+  address the other readers through the broader CLC lifetime changes
+  discussed with Dust Li.
+- Rebase onto current net/main; keep the stable Cc.
+
+Review:
+https://lore.kernel.org/r/4bb7f15e-2cd8-4598-9bab-1ea5f5d2bb59@linux.ibm.com/
+v2:
+https://lore.kernel.org/r/20261003183325.2289707-1-nicoyip.dev@gmail.com/
+v1:
+https://lore.kernel.org/r/20260926180404.2721010-1-nicoyip.dev@gmail.com/
+
+Validation: W=1 builds of net/smc/ passed with IPv6 enabled and disabled.
+The KASAN excerpt is the original report; no runtime test was run for v3.
+
+ net/smc/af_smc.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
+index e9f93b3ab435b..8b3ee70f8433f 100644
+--- a/net/smc/af_smc.c
++++ b/net/smc/af_smc.c
+@@ -2784,6 +2784,7 @@ int smc_getname(struct socket *sock, struct sockaddr *addr,
+ 		int peer)
+ {
+ 	struct smc_sock *smc;
++	int rc = -EBADF;
+ 
+ 	if (peer && (sock->sk->sk_state != SMC_ACTIVE) &&
+ 	    (sock->sk->sk_state != SMC_APPCLOSEWAIT1))
+@@ -2791,7 +2792,11 @@ int smc_getname(struct socket *sock, struct sockaddr *addr,
+ 
+ 	smc = smc_sk(sock->sk);
+ 
+-	return smc->clcsock->ops->getname(smc->clcsock, addr, peer);
++	mutex_lock(&smc->clcsock_release_lock);
++	if (smc->clcsock)
++		rc = smc->clcsock->ops->getname(smc->clcsock, addr, peer);
++	mutex_unlock(&smc->clcsock_release_lock);
++	return rc;
+ }
+ 
+ int smc_sendmsg(struct socket *sock, struct msghdr *msg, size_t len)
+
+base-commit: 6d25ffca055a77787c21a36b66c253f76239411b
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.43.0
+
