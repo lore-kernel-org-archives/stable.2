@@ -1,166 +1,138 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1826E484237
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 10:03:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470843E00B8
+	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 10:09:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791453814; cv=none; b=MU+a7w0g41BHZmQaA/28BJioy04KrXKH4CYfYBKW9PKD/AyP0slxCdX/+5bnzPuU8Go05o7vfSak/xUIiCz8Ih1C1ZkocHQTOVKWYZLTABAcQE3a5Wo8yYSZjmwvKnVsJt2cWgIr2ghlwONiSTYxvmICBIeqjtYqlnCA80Hljoc=
+	t=1791454184; cv=none; b=qMN2ps/nkejWUdybrBKPSj0RVPEd0avHZEWYAJNdBb8hY6Y5TAwnDIbt224O3znL2a7ppOTgid+SFxsKHZQ2FmMqzfkDpnT17aizSG8LEvKsgsJLFL29Kf7PqH9vjnnHAxXDY1VveOb8e5T6TJhPlWDwknu7gd9lvhVIA18+LlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791453814; c=relaxed/simple;
-	bh=WNAJKn4CG1SjaBZQ0OuKZGJJcfPIxRyM7sawNyGWX2k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J2AU6V8XYwtIF55k7ye4ZnCUJaalE8ql8OdbOgml2UA/KCDnLFHNQgeiWYYjZBdZ5aKwq7o9XYxwWQqrasePsBlBYYL6jj1rp9uFnGbjsEnkrH7LBHzCii20rG+lu697PaXFdNq6vlms8Lrdy642YXHnPRIcwlgNfP/Ta0o/Rr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A5Tifa1i; arc=none smtp.client-ip=209.85.128.48
+	s=arc-20240116; t=1791454184; c=relaxed/simple;
+	bh=L1WdMwl8r798AIHKgDuSol6Int7fl9w+oTVtJlotTiQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oh5topZlRrlLXpDMHP4tgjr3HAwHGcJ+dz7T+ZUg9vSKJbUtq3CPKiBnpXxyGkRa07GmMWN76KcYiej8QxFYlwGCERTY8RbX5+UZUZcKJQaSdt69GWO6AaXn26W4yU9+zEN93WDZi77abmDfxhyD/tEpYgzHnCY9cDrUNqFRKEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=doJaCPMm; arc=none smtp.client-ip=209.85.221.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A5Tifa1i"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a0213948d3so17964855e9.2
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 03:03:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="doJaCPMm"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-487048857f6so2416162f8f.3
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 03:09:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791453811; x=1792058611; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/z+e+2G8R9kjk4W08xr2uI7ifrsGMZWDh/5vOBTpZuM=;
-        b=A5Tifa1irr3eQYm/JAePgPCC0+kZNJPFk69JthmGl+gwVQdluL63p4Dd5IMEIov2/T
-         MSIR0SSQgpmjlM5/EkYBsAEm9G//gf+6nbmgdNGTe9jxLQV29SNwgPedmw6kpOX4ClU4
-         erHqdRq6pI1JwRXaGYTxHIhbmYXAH6KhzXFgchA5yBmR77puge93m25wIw81lftngkPG
-         IwZuvaZ0XJ+1A0AdD8HTsypee+WUxKm4C++LA2xZ6lHUByO4KoYzC5jSv6s1TFui4Z7f
-         jO5tPEJJJCUcYv8Qm/+H024WMsaEFi3ayZiSvPV92p/2MQMS6BP7d94FaFUqzS2ZV+x/
-         arlQ==
+        d=gmail.com; s=20251104; t=1791454181; x=1792058981; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uEuJYz+pVbgCSCGaEVPneImA96kKSzfy+n11GiKnq8c=;
+        b=doJaCPMmRZwHCVstBNfL7lSK1xCjnDgaNEveZotjPnQrA4kcQoXcrUs18njThKz9L0
+         MxGFadUW6q5P6gCwrqzKL68JKEW4+X+uajvpfzVEv4BMYG50CFrKgOfA2IKCkNg/ItOB
+         ULU6WgQnmET53ntDJZUR5lO5kt3PyDE8vMe5HnpnjleUpgBKWf77jnzCCDbTiWisL2Hp
+         IY3Bw1ya1a5GkUZuDgHcGpR7LW/Uil1kfmRICLTeVI/6H7L78B1knatSJ3/I6qtGNfAw
+         cSjAApIwqxLop9N6TU7Ypg07U5vYqAbufiFIpGOmS5IANTc+NIe0PNsUZaq2F646Qnwr
+         e73w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791453811; x=1792058611;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/z+e+2G8R9kjk4W08xr2uI7ifrsGMZWDh/5vOBTpZuM=;
-        b=yIod/x48Dy2EqKWkvvu5e5LzZqJw1/SqIseeW5xZJ/qnRwoixpdhzbn71ah4y5Z+bD
-         DKHBaolRwg3Iz4KcPrMG9w/lt0RxOOKJrdJDYS4H4UZf/FgUJhWgYiEebI72PZf0X4ab
-         wAoBTnJdHvsLhgUG/BXU6xq+uzTlsjQe9HBNKV63aE1A5TEnI6cBZCSIXnYUFekjrfUm
-         r8u5sZSceoWWYymBc5bPUI0r9Ar6pBpP8Bn4v9VA3/7cW1L0RZJqtCwFi/sOUWamU6tx
-         N6WOWJlXWwNSRzOiKrB/Gne3H2XQB9YPhRkQ2+yMUDzhiPedP7K3WHsxuF9JOtGqmAwK
-         vprw==
-X-Forwarded-Encrypted: i=1; AKwUvBxUPm1WtbaQ4yavH3Tw684lzCMmp1K4zwO1FFIJysngGRp1tYOS0a8rhhspLmKHpoF4OugkrHU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kpPzm6JclX2zavkBGD39XAKOzrm9URYvZFne70UWioOxUmdbMi
-	3Kzi8kat1q9C49EJMa8W/MBJDcRC24Y+MwZMyfe/2xlRf5HuO34A7js9
-X-Gm-Gg: AYBFou0IQIQ/oni9aBuYF/Nsz8R05yWs+VWe1ja8Hj93HfWg4/3mcB1WPmowLIj7biY
-	KuMkZs/hKL9w51cIHluqfahuAv9CO0SgXQxDCNMRcHfL4/ddcuOlDtHa3TZEwLq+Wa5vk0kX4eb
-	MyEEpJNykgFtP/GfDR7xst+O5Vu4AiLf4ziXHV/CwY2qayLMc20ksZpT1CtFIKa/N/Kp/aUMY5S
-	dFvs5t5XMzw0S0t4Zl8zDLKiSvOWpQWyUPDBEH05jStHGyuH1EoMK/Y87Pnhdtiog0LstDVBBNy
-	Q/1ioEwiAGK+ti3v0pLkC8LXF/RvP+vVo2Wz3KtyLeQ+2xpujKofj4QTjMxly4dVASzciOdaTn7
-	OlcL4x0zORQVRBbNnm4gkpcZuq7LiKXO38iMKxOfs/7L58AKov2AlRgRnnwZzt668IRfTqVyfxy
-	PKPpj4G2olIIMDC7DG29XeaLzTYpO4EzPwPPQ/lDeRE6Ot8Gb6+KKjQpjJAMGlhgVAhgbPlGetX
-	Z5kGI7xUv3DGHId1RswgP1Ln82REQFg
-X-Received: by 2002:a05:600c:19d0:b0:4a0:1f51:ba2d with SMTP id 5b1f17b1804b1-4a18045373dmr81270255e9.22.1791453810672;
-        Thu, 08 Oct 2026 03:03:30 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791454181; x=1792058981;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uEuJYz+pVbgCSCGaEVPneImA96kKSzfy+n11GiKnq8c=;
+        b=oBgaVxYm6L8Toow5F4o3E2VUwKIQgns2E7nUCV04mHcN5VcJMQCtwoTcxq44Xhpdj6
+         +Q4nnZFCTaRIsmgAVCvKIH3pAfmy3X5LffiI8L31eoMrKk0h5QHa5iBtDnPwrO3LQ/nC
+         DGIVzxWR5S2vDfyMx9Tbvufevt6jBX27Mvk7K1EoWzT5fC+gDQ4WjvVTShqvOC1B4nOb
+         oKH56I+sn35u3txUl9hPBqV9Z0EeIetUotz8M+kFfE2f3dE3ilW0xtZkfAhcEp/Ung7I
+         N9h623WnSsS0hWVLo4Jk82ow+UgQ5aIXC886zsHBlKeXtCSRb/DdX5XdW50zNOqt6Zz0
+         MXcQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxXU+8DWXgJuimVF8q69lG6g3mVK1gmX4BYRoEEsqwN+bMXQKwvnop/xuEXhaVgP4WlDthIyfA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kojtsC74h7aSo42AMv38mvwlJxtZBS7+q7Co9g2PfVBuVFHmRX
+	UZU69n1c9kWSz3dPJMsX3IdJWr75CVeGfZUFS7tpbLtr7oLgSBn6GijUaEUoL+Ou
+X-Gm-Gg: AYBFou0+qWrA9MYqTyb36Xq8kYhyU3yAs4ZC99lkhO5gf3j8tV6/wNVBK0KCeMP4GpZ
+	LcRq1aHxLVBbr8PdvzwNAvHG4Bufg+if1wNVcSpV+I1tqsRhptxOnXlTwPOGEyCdIlWDi/hY+M/
+	RGiVGXA/ePc2gqDWXw2qIH3FAKO+RNh4cXPYkhO15iZSxgwvZXYiYd8G0o83wXjo+6BjS7jNVtQ
+	c0R3SOZwMcvXoO/fCJPjm/YGaCEtCaQE540J1v+WlZ9Ng5b7PXNwAjPk3ZEOL6xwzABZfthoScc
+	7clLFntZoK9AYiL2XrRkumf5T7qMx57QP5JuDoa7j8XBON/N3nGTTiDuaRCXXiRMmZmJ70CIkeT
+	Uk2cCG/X640dk5d+5Xv4d0a0hkOWXQGkzyQksycqrPZKj3C1WocvdTfpuUFXk47tP6VhOZHJ+5r
+	1xIvdE/MRsbODBvDaQdTc+3hOAp/wlwJfqHIJbFgUIByNBfhAN3dzcOPalqA4lR8ykTbceGBuvZ
+	00nkCV2SBQPDJd6zuHAHV5uSIkRC+32
+X-Received: by 2002:a05:600c:524f:b0:49f:d6f0:6f24 with SMTP id 5b1f17b1804b1-4a1800d3d38mr84852165e9.2.1791454181336;
+        Thu, 08 Oct 2026 03:09:41 -0700 (PDT)
 Received: from osama ([2a02:908:182:d1a0:b456:28a3:bd59:abb6])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d04c0fsm10290146f8f.10.2026.10.08.03.03.29
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1843e3356sm52932505e9.14.2026.10.08.03.09.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 03:03:30 -0700 (PDT)
-Date: Thu, 8 Oct 2026 12:03:28 +0200
+        Thu, 08 Oct 2026 03:09:38 -0700 (PDT)
 From: Osama Abdelkader <osama.abdelkader@gmail.com>
-To: Liviu Dudau <liviu.dudau@arm.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+To: Boris Brezillon <boris.brezillon@collabora.com>,
 	Steven Price <steven.price@arm.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
 	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
 	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Akash Goel <akash.goel@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Chia-I Wu <olvaffe@gmail.com>,
+	Akash Goel <akash.goel@arm.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] drm/panthor: Fix TOCTOU race between GROUP_REGISTERED
- check and erase
-Message-ID: <asdqcHJDL6PzQ7gk@osama>
-References: <20261007181220.2418060-1-osama.abdelkader@gmail.com>
- <asdaHi1t7i721Xfn@e142607>
+Subject: [PATCH v2] drm/panthor: Fix TOCTOU race between GROUP_REGISTERED check and erase
+Date: Thu,  8 Oct 2026 12:09:35 +0200
+Message-ID: <20261008100935.3059587-1-osama.abdelkader@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <asdaHi1t7i721Xfn@e142607>
 
-On Thu, Oct 08, 2026 at 09:53:50AM +0100, Liviu Dudau wrote:
-> On Wed, Oct 07, 2026 at 08:12:19PM +0200, Osama Abdelkader wrote:
-> > panthor_group_destroy() checks the GROUP_REGISTERED mark and then calls
-> > xa_erase() without holding the xarray lock across both. If the handle is
-> > destroyed by another thread in between, and a concurrent GROUP_CREATE
-> > reuses the freed ID, the first destroy erases and releases the new,
-> > still-initializing group, leading to a use-after-free in
-> > panthor_group_create().
-> > 
-> > Do the mark check and erase atomically under xa_lock().
-> > 
-> > Fixes: eec7e23d848d ("drm/panthor: Prevent potential UAF in group creation")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
-> 
-> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> 
-> As Boris mentioned, please let us know if LLM has assisted in finding the bug or in
-> the creation of the patch before we can merge the fix.
-> 
+panthor_group_destroy() checks the GROUP_REGISTERED mark and then calls
+xa_erase() without holding the xarray lock across both. If the handle is
+destroyed by another thread in between, and a concurrent GROUP_CREATE
+reuses the freed ID, the first destroy erases and releases the new,
+still-initializing group, leading to a use-after-free in
+panthor_group_create().
 
-Hi Liviu and Boris,
+Do the mark check and erase atomically under xa_lock().
 
-Thanks for the review, an LLM has assisted to find the bug but I created the fix patch myself.
-I think I have to add the tag nevertheless.
+Fixes: eec7e23d848d ("drm/panthor: Prevent potential UAF in group creation")
+Assisted-by: Claude:claude-opus-5.5
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+---
+v2:
+- added Assisted-by tag, no code changes.
+---
+ drivers/gpu/drm/panthor/panthor_sched.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-Thanks,
-Osama
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index 0493858e55d7..a343c5180e01 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -3770,12 +3770,18 @@ int panthor_group_destroy(struct panthor_file *pfile, u32 group_handle)
+ 	struct panthor_group_pool *gpool = pfile->groups;
+ 	struct panthor_device *ptdev = pfile->ptdev;
+ 	struct panthor_scheduler *sched = ptdev->scheduler;
+-	struct panthor_group *group;
++	struct panthor_group *group = NULL;
+ 
+-	if (!xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
+-		return -EINVAL;
++	/*
++	 * Check the mark and erase the entry atomically, so a concurrent
++	 * destroy + create can't make us erase a group that's still being
++	 * initialized and happens to reuse the same handle.
++	 */
++	xa_lock(&gpool->xa);
++	if (xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
++		group = __xa_erase(&gpool->xa, group_handle);
++	xa_unlock(&gpool->xa);
+ 
+-	group = xa_erase(&gpool->xa, group_handle);
+ 	if (!group)
+ 		return -EINVAL;
+ 
+-- 
+2.53.0
 
-> Best regards,
-> Liviu
-> 
-> > ---
-> >  drivers/gpu/drm/panthor/panthor_sched.c | 14 ++++++++++----
-> >  1 file changed, 10 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> > index 0493858e55d7..a343c5180e01 100644
-> > --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> > +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> > @@ -3770,12 +3770,18 @@ int panthor_group_destroy(struct panthor_file *pfile, u32 group_handle)
-> >  	struct panthor_group_pool *gpool = pfile->groups;
-> >  	struct panthor_device *ptdev = pfile->ptdev;
-> >  	struct panthor_scheduler *sched = ptdev->scheduler;
-> > -	struct panthor_group *group;
-> > +	struct panthor_group *group = NULL;
-> >  
-> > -	if (!xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
-> > -		return -EINVAL;
-> > +	/*
-> > +	 * Check the mark and erase the entry atomically, so a concurrent
-> > +	 * destroy + create can't make us erase a group that's still being
-> > +	 * initialized and happens to reuse the same handle.
-> > +	 */
-> > +	xa_lock(&gpool->xa);
-> > +	if (xa_get_mark(&gpool->xa, group_handle, GROUP_REGISTERED))
-> > +		group = __xa_erase(&gpool->xa, group_handle);
-> > +	xa_unlock(&gpool->xa);
-> >  
-> > -	group = xa_erase(&gpool->xa, group_handle);
-> >  	if (!group)
-> >  		return -EINVAL;
-> >  
-> > -- 
-> > 2.53.0
-> > 
-> 
-> -- 
-> ====================
-> | I would like to |
-> | fix the world,  |
-> | but they're not |
-> | giving me the   |
->  \ source code!  /
->   ---------------
->     ¯\_(ツ)_/¯
