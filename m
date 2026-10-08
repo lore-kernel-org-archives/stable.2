@@ -1,205 +1,136 @@
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46484DA9D7
-	for <stable@vger.kernel.org>; Thu,  8 Oct 2026 15:06:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791472025; cv=pass; b=Z6Dmel+5Nzla30sMcdJcHWYWz569yUxKl8Lfnh/re8Njai2WPV9Ciy9nbq5aT02V70qFV3j1t7WZZAIroUQeTpxmDApMnxjaMW/47Y3+5vIdJc7AREXtsHz5zroSKeTdZ5g9+ZVMb+ZRE9+6lNscCa3Mh53vqVQ/T4IOjZXZnqY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791472025; c=relaxed/simple;
-	bh=PPemHYd+f49/x1k9OhaO6TJLctq/Cqq9D6GbeCEQ3Cg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=q8OEYZiQKWNgU4Ge5mi21RwDgADfbo/FpCzhFG5yQbbPX7QZ/So0Y6TAoKqJy+Vae8f3M1fGZWYT+qMgO0sTSGgpsmVSziCRk2cG5GHxFBerDF+hQb+YiCX3ZidpnkuGtMQvI4KJFS7wIFs/vte6FnQj87xTFcxWLqBPSuhPTYc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fYecoBYW; arc=pass smtp.client-ip=74.125.224.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6604C9DE7;
+	Thu,  8 Oct 2026 15:09:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791472182; cv=none; b=QsL2ah4ITl6uLM1NKERUp7V9RvQ6SPkwe6O2oqo3dm9ZhhQQRgrsfihg9/l11FMaK6/GH9+uhlsjGZYjbpXtCWBJig3u+UjVyzkhw8PaSuk3X1jjxeJy3gy0PmD4vm/cngYe8Gew6/8EYTNJCC7bJ/hn2kFk3fiP5VWr7yeXr5s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791472182; c=relaxed/simple;
+	bh=tHtcz3IQH5dzIGfvFBX75bWxYr6B1a7IaiKSGWt7pIA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Z4gwJZVXuRt8IvHBpiK1VPeTiTMq1us0zo8mWJvbrfyhT8Nhj7jswB/BLDw3Nadz9jp9WB9TCkBOB670A24ksnX7tpS2S+jli7CQZh2gTfxLXe87cGyhrq41JpyoA/cafBC6HgMrLAJHFKiJ34kgBPRJakCC7qfnO5F24KIhZdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FzuH0tZA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fYecoBYW"
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-676858d42f8so3157192d50.2
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 08:06:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791472017; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pyrUber8GWX8W2vI+bJ1xE/X7F5F4D0PJTnoaawwm4j2BalUNE/z+9GMfJd3R7ux05
-         +7Pq34tkMAcHg5vJ1reTJZBkQ5rowWgZv6jQvSHk47Bcc0+h82yuQ439S4UaqTjE+8QP
-         Ypei1zkw94pmM4J56NZGsDbWfDsXijj9w9hd0MGFXB/jIMuTWEKiXrSYHi4ot8IOmBSm
-         I5UCnC6DBTzauGkPr+pLu/iRULm8wmv6LcHi5be/0Ko1vYoFjGQ7KvRVAabCw7IO3Lw4
-         VGxKD6dQLpYw6sfJqt0GUXm3lg2HnoAGfns1/FkELIMao49YVR+zmPRtOahy+dyuZbS/
-         46EA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7nTNII3n3G87GHhdFtHT3hqd10T6INaV8G3FhaWt9A0=;
-        fh=VJFwTG8Q6n3Muk2km6nqO85Mp8+BcggfIj1BvsckuEE=;
-        b=CLm4uudjqWty20H5+uCLr1RydsjKTpqrAFUHMJU73+7o2hmZQaDB/wsp6TCc8ANo1z
-         RaHJqxtwaVbMbCiM0JtK79iST224cPd8YJNS6c4A755C+xSPCck5c3FggilGFg/G062n
-         JuTJqI5XmRTWHQAg1tN7gIzJeQUMggbF+UUbv6ldO9YbdzjUHw9VKIozh1iPNyx/0DlL
-         tvYhLwSih96tfZ4Uc3t0YthPIlfFp+hVxf1+w2wKpWTcobXOncY66MOXUMvXop4Bkn6N
-         U572UkaIOego6xbWq+yHfwlq6LSFFP5q2DiUnVu6+1HFbbA1ioyNyMeqv98sNuse9aQ1
-         SaRw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791472017; x=1792076817; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7nTNII3n3G87GHhdFtHT3hqd10T6INaV8G3FhaWt9A0=;
-        b=fYecoBYWT0r2VLx/C4NAeQoxzaOVyN1FK5IuuDXVZabGmlslOAOK8yoOkAWeOoi6/S
-         WLrKax0fjfa0akrCn3de+XeLI6siCPFZrPaCajKmmy8/jZqea2dgUc0q6NicgAdWqQmF
-         DKGHn2K74XE4vBO3+aDzfEX1/rIcIQEL6/Gk60h4tabJPye4CE8eu3QH4OOLxdeeXuXs
-         ClWYI3GX4zbmkvo5zXcKZJkmyjcVyc0kbZnXhw+yLwHwZlyliIgLUN+4QhY6TcdeMiD+
-         FwWNbVc1UTLvyTPLJQhBW3/F5AKSXly60xUSz+rlbiXKHzwstTD5GDubdhfin6+jfKaI
-         yR6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791472017; x=1792076817;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7nTNII3n3G87GHhdFtHT3hqd10T6INaV8G3FhaWt9A0=;
-        b=JUEb1tiU39MnUJPXDE2DYjT9rdOgIef6aiM6TY7++X9REpaP9jCbJEvkQrv0g9wvEj
-         ECHdzdY+O1aYbFUEp8mpLpFVQDnP+LvADUTcOkXXGFFLOZycSW7sehQ2PUGzMqr2bLAP
-         Q9szvOB1LO61IUExwCBVdLBN+SrteDqeD/V87+RgnpadjhvyvhqhsQ0HBOkMj5QsPvA4
-         bQCltORc3+9EoVAyClwk5/KoWY5R2jIYTXzX0QjEKZY0oxKNSF+0BY7I5jD0Q/UX1shW
-         XFIwwW8uOPMOx7WZanV6/xamctcG2M+CifRB1Ruv7tUUU2sRxrtgDqBkMCiLftluG+R0
-         dgWg==
-X-Forwarded-Encrypted: i=1; AKwUvBy+d2OK5x6m0qBAA5q6TM0cxug/RVGJp7XKE3kHY0O0W25q3bz9yyYIYCjTeToZ/c2DKdUzAbo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCMxrcsAjI678hTgEVZcp8jqVsg6GRR8+pcPqCLyEIiVFJETTR
-	DoRZDqJGzpiBeg/3iTc93/jFleA8/H3dYayrx9memdawKpSRCzcBHi3/neH2LnQqxpl+BahPiPo
-	mt39YYc1lgAYftmEsU0KdZOgnawnRzP0=
-X-Gm-Gg: AYBFou1UCAIsxDUAPn/A2oR1TAcipTosQQDyD94I4yL7lyxpDGqW/4uMv+RHRjmBYeH
-	VXwgYvB0//SsWt9dYSGouQwnamEuM1TF0bERRnFEyMsXDbKOBa65R65Qglmjdo8Mw3S/m5p9cIs
-	YTRp9Cq3rWlvX8MVBJ9fVIbiivjaFgdf/FVMMW7gt03RWr4ccOlmoAclDLRHsQmLBXHo35Jff/A
-	7/0fI2Yj3l7jPjI0rR4TmmgKrxvbmavgUa6HVmNqJ01bvX5icypwWxAQjSSqkRP4AzCPymdaKOH
-	23cRB8FlrGDc+WJkirCOM10LPN6IhM3hYYhVdXdxgz524F83Ez3ZoxGjwn6MxFKYJ0KZXOFgzc0
-	U3/tB4HFv
-X-Received: by 2002:a05:690e:4199:b0:677:b923:dbd3 with SMTP id
- 956f58d0204a3-6790a49aef4mr1817579d50.154.1791472016554; Thu, 08 Oct 2026
- 08:06:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FzuH0tZA"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 25EEFC2BCF5;
+	Thu,  8 Oct 2026 15:09:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791472182;
+	bh=tHtcz3IQH5dzIGfvFBX75bWxYr6B1a7IaiKSGWt7pIA=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=FzuH0tZAURDkIp6BuYinYV5glWUitOfpdmW1MjQ9vbOtf9uug5xa7D/cZAJIPH1hG
+	 4bTI1TgtpuI0QpWUJx6c0rdTeSlpdF7xGoz9Uy2081fYOc3LY55hOWMlrQrB7TeYw8
+	 mo8f1WusU27BHoTOfz6kbWxRF8EoCM4NrUnJiedK0muEu70VXnUXD8kyNgqW71mQ3n
+	 PvnirgF/D23vkvpGG8Tds8xDF0CoPux+kDXpseTPHAgDgMqHZasxhvKqzvGCdHcewF
+	 Fc3FjcetP4ykPt5fJDXHGio+CyH0HrPTPt5jr8n8HZUWS7OOF3Xw1FKQlZEU/aU4az
+	 jgLAtNGmVZsbQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FDB1CA600C;
+	Thu,  8 Oct 2026 15:09:42 +0000 (UTC)
+From: Praveen Puglia via B4 Relay <devnull+praveenpuglia.gmail.com@kernel.org>
+Date: Thu, 08 Oct 2026 20:39:37 +0530
+Subject: [PATCH] media: i2c: cvs: Leave the privacy LED to firmware on
+ Synaptics SVP7xxx
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007163403.1643768-1-ekffu200098@gmail.com> <asaEdFRDdZlRdAc4@thinkpad>
-In-Reply-To: <asaEdFRDdZlRdAc4@thinkpad>
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-Date: Fri, 9 Oct 2026 00:06:44 +0900
-X-Gm-Features: AclHuK8DoN5ENhoGGsqTh6mQAA4XecrayQgZajzaBuMSAutJnzs0JzwLoPXtW-M
-Message-ID: <CABFDxMHsn+Dj42GU0zk-HEfYOhoEs1c+UsmLMSjNSrWfUu4MsA@mail.gmail.com>
-Subject: Re: [PATCH] mm/slub: clamp slab_min_order to MAX_PAGE_ORDER
-To: Harry Yoo <harry@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, Hao Li <hao.li@linux.dev>, 
-	linux-mm@kvack.org, Roman Gushchin <roman.gushchin@linux.dev>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261008-cvs-privacy-led-v1-1-b78d5c512cba@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBtQg4yuEi1CxxoIkxGkkO6et
+ HyL/ytkEqYMc1dBqHDmKzbovgN3bHEnZN8MRplRKzWhKxmTcNncgyd5tF4FMxjrBh2gVUko8P0
+ fl/V9P+1l4LBhAAAA
+X-Change-ID: 20261008-cvs-privacy-led-7d0f2327c31f
+To: Miguel Vadillo <miguel.vadillo@intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Mehdi Djait <mehdi.djait@linux.intel.com>
+Cc: Marco Nenciarini <mnencia@kcore.it>, linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Praveen Puglia <praveenpuglia@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2309;
+ i=praveenpuglia@gmail.com; h=from:subject:message-id;
+ bh=HkOKW4kz9V77Mdvv3KELVLj5WUPOFOQXjEg6NNQFd4c=;
+ b=owEBbQKS/ZANAwAKAY+nnsgxDLtBAcsmYgBqx7I0EjPpdtqo3fOlsDpQ/25VU/sHYrU9C62GA
+ d9yuk5KIjyJAjMEAAEKAB0WIQQFOQz1fOStysPMknmPp57IMQy7QQUCaseyNAAKCRCPp57IMQy7
+ QeZ7D/9A0UIBEfVNj5qNGFmEqbgQ3jjVB+0DkgqHFJ/mGb2ytLTE2vhZRdOcaKquBL8U3KzV3Sd
+ pmst/g/+KIAWtPBJbQz40P7TsZtToOsZ9pwMJQtgI++BSBdhQ9dg6rCcEAevDxiqgHcmuB5JDst
+ jsr6LMZCtcx9Vmzn4Wmj5bZIIRbXirGuK6yBx/bl6xoYSlBr8t5BAB9g9NTTqRmbTlAEBUZdmRZ
+ tXZkUOIrBzfqQbjVVtXzsz3XGopcIXCeZ3efwsNH/KDboHONlhtgPCcvOuNnKXbfjXxdwo+cmcU
+ DPWpP1KcuIOcrM/6bR+nZQQ/VwcF9g8KiC92Ae+YpI83jKSL8xRxWZGWHKC6zKcLJNVTLcNfUmq
+ /2SO3Ip7bTDGaG8cYGvw5x+nWOSu2V8F/yIkwln002qwaUdBl8Q0FnCFmvEHmpcboG8nw8DcJw2
+ XCBqHvc1AhxhgrHuqLhgPqiaNmoSww3F+HmSlPzsbNeuvs+pwKdS8TyZEVPsUYYhP4gjTK+mx1a
+ iEOJM3UxAfFM9CzmsEl8/GxuiwrPZTUkU902VDWulWmQNxurlbA1UbTIFEURLQ6IiEApASVDZAv
+ ZQgoDyWdsY8LT+aAez3PB86TZc3hXLRmt45ODdg005q0IfYZVokqzC4+C7RoEr6QlCbP8oRRXVb
+ be9diTGXhgKLQKg==
+X-Developer-Key: i=praveenpuglia@gmail.com; a=openpgp;
+ fpr=05390CF57CE4ADCAC3CC92798FA79EC8310CBB41
+X-Endpoint-Received: by B4 Relay for praveenpuglia@gmail.com/default with
+ auth_id=1134
+X-Original-From: Praveen Puglia <praveenpuglia@gmail.com>
+Reply-To: praveenpuglia@gmail.com
 
-Hi, Harry
+From: Praveen Puglia <praveenpuglia@gmail.com>
 
-2026=EB=85=84 10=EC=9B=94 8=EC=9D=BC (=EB=AA=A9) =EC=98=A4=EC=A0=84 2:47, H=
-arry Yoo <harry@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> On Thu, Oct 08, 2026 at 01:34:02AM +0900, Sang-Heon Jeon wrote:
-> > setup_slub_max_order() clamps slab_max_order to MAX_PAGE_ORDER, but
-> > setup_slub_min_order() has no such clamp.
-> >
-> > The buddy allocator cannot allocate more than 2^MAX_PAGE_ORDER pages
-> > at once, so slab_min_order above it makes no sense.
-> >
-> > If slab_min_order is set above MAX_PAGE_ORDER, it can even panic at
-> > boot or invoke undefined behavior in order_objects().
-> >
-> > So clamp slab_min_order to MAX_PAGE_ORDER as well.
-> >
-> > Fixes: 818cf5909701 ("slub: enforce MAX_ORDER")
->
-> I think Fixes: should be the commit that introduced slub_min_order.
+The Synaptics SVP7xxx (06cb:0701) quirk sets ICVS_HOST_PRIV_CTRL, so
+SET_DEV_HOST_ID tells the CVS firmware that the host owns the privacy
+LED. Nothing in the driver drives it, though: V4L2_CID_PRIVACY is a
+read-only placeholder. The firmware then never turns the LED on and the
+camera streams with the LED off.
 
-Thanks for your guidance. I'll switch this to 81819f0fc828 ("SLUB core") in=
- v2.
+The host has no way to drive it on these machines either. On the Dell
+Pro Max 16 Premium (MA16250) the only camera LED that INT3472 exposes
+is the IR flood LED. The out-of-tree Intel vision driver sends
+privacy_led_host = 0 for this bridge, and the LED works there.
 
-> > Cc: stable@vger.kernel.org
->
-> And no need for Cc: stable? It's been there for decades and people
-> should realize the kernel parameter is broken when it doesn't boot.
+Drop ICVS_HOST_PRIV_CTRL from the quirk (quirks 0x7a -> 0x3a). The LED
+now turns on while streaming and the stream is unaffected.
 
-Okay, I'll remove it in v2.
+Tested on a Dell Pro Max 16 Premium (MA16250) with v7.2.8.
 
-> Otherwise looks good to me.
+Fixes: 8e2b43d2c10b ("media: i2c: cvs: Add driver of Intel Computer Vision Sensing Controller(CVS)")
+Cc: stable@vger.kernel.org
+Link: https://github.com/intel/ipu6-drivers/issues/417
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Praveen Puglia <praveenpuglia@gmail.com>
+---
+This is my first kernel patch. I found and debugged this with an AI
+assistant (Claude), then verified it myself on the laptop: quirks read
+0x3a, the LED turns on and off with streaming, and the stream is
+unchanged. Tested as a rebuilt module on Fedora's v7.2.8, not on
+v7.3-rc.
 
-Thanks for the review :)
+Marco Nenciarini reproduced this on the same laptop with Debian and
+v7.2.6, and found no host-controlled privacy LED pin in the DSDT/SSDTs:
+https://github.com/intel/ipu6-drivers/issues/417#issuecomment-5996738346
+---
+ drivers/media/i2c/cvs/core.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-> > Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
-> > ---
-> > QEMU-based test results
-> >
-> > - Booted with "slab_min_order=3D20"
-> >
-> > 1) AS-IS (before fix)
-> > [    0.094926] mem auto-init: stack:all(zero), heap alloc:off, heap fre=
-e:off
-> > [    0.097776] Kernel panic - not syncing: Creation of kmalloc slab kme=
-m_cache_node size=3D64 failed. Reason -22
-> > [    0.099542] CPU: 0 UID: 0 PID: 0 Comm: swapper Not tainted 7.2.0 #1 =
-PREEMPT(undef)
-> > [    0.100903] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), B=
-IOS 1.16.3-debian-1.16.3-2 04/01/2014
-> > [    0.102607] Call Trace:
-> > [    0.103040]  <TASK>
-> > [    0.103417]  vpanic+0x32a/0x4b0
-> > [    0.103976]  panic+0x5e/0x60
-> > [    0.104491]  create_boot_cache+0xe3/0xf0
-> > [    0.105194]  kmem_cache_init+0x12d/0x410
-> > [    0.105890]  ? mem_init+0x1fc/0x210
-> > [    0.106521]  mm_core_init+0xba/0x140
-> > [    0.107153]  start_kernel+0x441/0x8b0
-> > [    0.107814]  x86_64_start_reservations+0x18/0x30
-> > [    0.108638]  x86_64_start_kernel+0x10c/0x120
-> > [    0.109401]  common_startup_64+0x13e/0x158
-> > [    0.110145]  </TASK>
-> > [    0.110584] ---[ end Kernel panic - not syncing: Creation of kmalloc=
- slab kmem_cache_node size=3D64 failed. Reason -22 ]---
-> >
-> > 2) TO-BE (after fix)
-> > [    0.008976] mem auto-init: stack:all(zero), heap alloc:off, heap fre=
-e:off
-> > [    0.011366] SLUB: HWalign=3D64, Order=3D10-10, MinObjects=3D0, CPUs=
-=3D4, Nodes=3D1
-> >
-> > Also, I'm not sure about the Fixes commit. Please change it if you know
-> > a better one.
-> >
-> > ---
-> >  mm/slub.c | 2 ++
-> >  1 file changed, 2 insertions(+)
-> >
-> > diff --git a/mm/slub.c b/mm/slub.c
-> > index 1559cbace469..8400df7c222e 100644
-> > --- a/mm/slub.c
-> > +++ b/mm/slub.c
-> > @@ -8354,6 +8354,8 @@ static int __init setup_slub_min_order(const char=
- *str, const struct kernel_para
-> >       if (ret)
-> >               return ret;
-> >
-> > +     slub_min_order =3D min_t(unsigned int, slub_min_order, MAX_PAGE_O=
-RDER);
-> > +
-> >       if (slub_min_order > slub_max_order)
-> >               slub_max_order =3D slub_min_order;
-> >
-> >
-> > base-commit: d755441b7672c74f29d1241ffdd2b067ecab1ca0
-> > --
-> > 2.43.0
-> >
->
-> --
-> Cheers,
-> Harry / Hyeonggon
+diff --git a/drivers/media/i2c/cvs/core.c b/drivers/media/i2c/cvs/core.c
+index d4a3b9c3ba..3520325717 100644
+--- a/drivers/media/i2c/cvs/core.c
++++ b/drivers/media/i2c/cvs/core.c
+@@ -72,7 +72,6 @@ static const struct icvs_device_quirk cvs_quirk_table[] = {
+ 	},	/* Lattice NX33 */
+ 	{ 0x06CB, 0x0701, ICVS_SKIP_FW_RESET |
+ 			  ICVS_HOST_SENSOR_PWR_CTRL |
+-			  ICVS_HOST_PRIV_CTRL |
+ 			  ICVS_FW_BUF_SIZE_256 |
+ 			  ICVS_FW_HEADER_SIZE_256
+ 	},	/* Synaptics SVP7xxx */
+
+---
+base-commit: 47324d3a5b3abd781295044d01d92d09f184e872
+change-id: 20261008-cvs-privacy-led-7d0f2327c31f
 
 Best regards,
-Sang-Heon Jeon
+-- 
+Praveen Puglia <praveenpuglia@gmail.com>
+
+
