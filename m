@@ -1,88 +1,125 @@
-Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A15F4594E
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 02:05:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.115
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791511555; cv=none; b=SL2+0PkYjYbSQmqVBCT0vEFkjEv1YesYK7jiUaX/zS5Czj/iXajTaxQ5HisX6Z/GPpo2jfisukuiIRwi7oNiI5OZu7SUMZVmaKowlTUJiaY/13B1Q7LdDmpiA+Ni1ulQ2qpw00eOXCqfwhgijmd46V1b5LAtjbYvYeOaw80D46o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791511555; c=relaxed/simple;
-	bh=vM/219kW0GUnhl+QaWvYEue3Yn1LeK6T8AsxRcL6/H8=;
-	h=Cc:Message-Id:Content-Type:To:Subject:From:Date:Mime-Version; b=BF0yRi65B78FS9k4ysvrw3JDj72Sly0FpKahNg+NoQJWBSGk2cWOxNqtPpiIWCOfEZ4ei6Mr34BF6WM4MNwlQQTEht+oDu2Aw0EUnosSkyjGENvHEKom/Xjpa60US3FhNemD3UFPRMBOxWbQf1NxUIFHRwxr/qoZSuV4saH/XcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=Amlbo/sc; arc=none smtp.client-ip=209.127.230.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9BBB22E3F0
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 02:10:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791511825; cv=pass; b=oRFRK/7BtNjCB8mpIxKp1EVAVShZ06N/xG+WGwgx2exmt6nc9G78CbOcMqhQmBceqwU9FfAhWkCGXlvSugibUAC0UUGKOXQA5HquBZm+Z6wTw/EzhJ5ElwAcgcFvYHHigvSsLHF8rprzTE0XpQ8TA6kyrpGMWFvUAyLMeFqrRt4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791511825; c=relaxed/simple;
+	bh=LEVAMfzTnIrU83A9+0hwO+Thr1TbDzEvww7s5Ai+Z6s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=f2erCg1eENVKvnb+SaBBgIXP3fWBiOnp4FvxmvYvzFHbJpbNcwpexPyL3zuj2ay910xAhsQRQVK93OcQKM6zpIud4uw7jSI+JZ/NxMc6qLH2APw24d6y7NZ8Nh5FNFdxFnFJxnOCxDxazWdIsKtzIF54ORz+F86GJqnNDaq70yY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kNgct5au; arc=pass smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="Amlbo/sc"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1791511546; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=LKiQnCGHUZ2nk19TVt8SnmnQqa0mKzZoQnMjcrji8Q4=;
- b=Amlbo/scsOK0nIiS0hxaLIzYqWh47nrQKI5yE0ddMoT5fLqPH4m+Vb7If/EC4ALHOmZoPQ
- SpJOvBIDHEojqu1Z/BZf9gg9AVGIhoAlDeg70J57kCaVQVEbXJE5dJ3DyqlmRCRCEONRIh
- B22gDqE4Uv7RicgK+v/9g4GBcx1wfEEIELtE/UXmrICK8LowQe78zayI9IcJYfr7FGuREe
- onK0lARt5XKhFqkvYf8c3i8EweJmcMFrxIJtkaZwKYIBNpdqc8RkaWU9jWJsLpoYX5rRqr
- IVYDJHkggOIl1YV9hREsl1i6k3EtwYzYLZAzFyaJFKgivkIMj0bCPIGT/c9KfA==
-Cc: "Guixiong Wei" <weiguixiong@bytedance.com>, 
-	"Borislav Petkov" <bp@alien8.de>, "Tony Luck" <tony.luck@intel.com>, 
-	"Muralidhara M K" <muralidhara.mk@amd.com>, <linux-edac@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-X-Mailer: git-send-email 2.55.0
-Message-Id: <20261009020447.90758-2-weiguixiong@bytedance.com>
-X-Original-From: Guixiong Wei <weiguixiong@bytedance.com>
-Content-Transfer-Encoding: 7bit
-X-Lms-Return-Path: <lba+26ac84bf9+ef8a6d+vger.kernel.org+weiguixiong@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-To: "Yazen Ghannam" <yazen.ghannam@amd.com>
-Subject: [PATCH] EDAC/mce_amd: Add missing long names for SMCA bank types
-From: "Guixiong Wei" <weiguixiong@bytedance.com>
-Date: Fri,  9 Oct 2026 10:04:24 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kNgct5au"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c318489900aso19044666b.1
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 19:10:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791511822; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RBXmvXtLvuOnTJNArw1XXv4wGZtjdo4xW8uJo1YfuJVjiC7zop6oN0moM1Y41qn7kN
+         F+7uGwMe30W703NaxOJU0IHVClIWWKcqHade+hNHGZD+Ori37UEPk+GcA7cYHkEyApPq
+         6JDhxQiEPD0b+QrVo6KZMhA0+P+rHc7oKXtl/V4wfxq9bqCmmYa/2TctbnwANKKTOZbW
+         4IYNSh4M7AR6KjepRc0Hvp+CoyJ2RbyJzydPA6tr84KZgxdbfx/m2ZjjX3c9CK0muoMx
+         PfqLAj2uUtnGhGJyiakBbytMnHJjOhNxDYuQ57f6V1khAtThy17A+fLPXR7aH2w/4jFQ
+         o63w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yCrQzglEO/A7J/yCrkORnHOdyV+MsWSTQsRZD0EiG0E=;
+        fh=gjXWEcRFHVN/nNE8LIpaF8roJ2OI8Hmbu1sqkVLLR3w=;
+        b=NVnEBlPKatLdydh9GmvGsNPUsuKohqFL7da+QNSlw93BMnfKzYwn09TvyD0B9U1cSc
+         gspcYGeeaI9+b3ELi3St8EaGA59vpW/EB1xs/jEuQn0E3bRCDD7M6Q0MUqvowPqyKQ/4
+         8XcSoNSdU1gkHGKLcjv2Hnr3GKn5l6BsJGgsV94MrbW59msLrHN18+B1HkQP0pSVB4UJ
+         OlASQQ0GfrlF4dO746jg3uSpunvV+NU9x6l9NkRdGVgWy12VinyBz/ZNOxkJiZ3S2GoO
+         thXUKhdyNMF2HFKjE5SnvjohhVRWigT5tOcubMZ2/tO6SLzz0OQFHjw+DyVoGlYZdLu0
+         KuoQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791511822; x=1792116622; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yCrQzglEO/A7J/yCrkORnHOdyV+MsWSTQsRZD0EiG0E=;
+        b=kNgct5au5wCwKWLNtoBCPHGbAjnHrJRqGe9RaVgWX0H+K+I1dJUsbZMsGwDLYf4Yvk
+         0Xel3s/XBgDmE+qKpHDtixRGjkmk77c0a4sYu66YcmzaLZg2HbNG/uHEPQfbADs8JvHv
+         uP5fpvXLiWtfRfm5k4UHoJQ/vyIgZkWQ6rh6fwRM8+vzqVJlaws68xsX11XwEFWdXAXp
+         mFVOgIVaPYZ987YgOlFNAZcd5ZAXqDhLakDX53wLRwlVF8JeRm4Uz3NjZRg88qMvqjJr
+         UdxA30mu1EdSR/RrAn1wHiIIH044Xj3p9cyyH1eI9Ccph9gn5cetQkyD/17A0Ib4GRJL
+         gXDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791511822; x=1792116622;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yCrQzglEO/A7J/yCrkORnHOdyV+MsWSTQsRZD0EiG0E=;
+        b=pAyC22CVq9RelVhpgrUPnMKFSicyHGFI9NaYEkPZgeo5J4SMtsFlJs600HmXw9+Y7+
+         XaiFuoOfFOwlR/0y5Lt27tPYGN6upQZmgZvMCxRl6Yoci4HZT9efyYWJUTGV33aeq/rs
+         1IPz+I7HZmyXKhOmCOyuJIFS+/f/gN1J1mF4sz2b+U+kuqErL+/lp0NOg3aTVn13LIe+
+         GNa2/LkjQiHHA1QkJEGZOODsbeCE3OxfXHa4n5q2R5Ddqd+zseZ1QxXMDeWalTGApz1x
+         kZT+2hYqPtMIgPLj9tu5ZjzS0HY1C0wzl/1egd0wjd4isAFPnGWL5FzPq2lnhN26i1rc
+         nQ6Q==
+X-Forwarded-Encrypted: i=1; AKwUvByYoPstgICYxN1q1LLipZBQxC/2b2g8/DmPqbP4DYhqAIBZqSSBbi+LxRJLghuDcR7IVqrridE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTJttf1/sq1K5qP1a/7EfuxaMkoiI7Q9+l/sdk//Ob6qz8wDQ1
+	ssux6mKNrUzPXG0Ff6wJpuPgXf3SCC5iU/QadI/bQtIB2n+nVdUHEatza8mq/MJvDxivQpfjqVY
+	36ib7lY0pp9GUyTlrwc91HsFqbm9hri8=
+X-Gm-Gg: AYBFou2wcQ3VHD/m9svP0HdYnafM56EZ65xuIwoe+Gsh8egYeKdNpTlsIt8g3zSl8qE
+	BnRY/nTQpfPxhbaz6Qk1OAbqcA1/lDSKGpfMetgQ/Z5J//hRtxelY0fmBsZn8dJzcYrXSbcSv/b
+	ySKEg3YYQSfd+uiHdYR95n/diVrd8yOHRq5lKERxmtQ9qDgp/mQXtyeZY/L8BXDhKW9KD0cJv1K
+	jbLlAl9DhhpHh0Nno81pZ8DbIjF4m8W0oVB2QjPJCv28KJ3swdR+I/AGgb/SiGvbf8MjXamMxPv
+	iGH0y6OVJMPzQrwv36PbWDwegTQd/qhLwtcsiQP9ap/PF4jnheMoVt1PEUATyvft++uFrVn3m4b
+	Vnh0/jtRQNw==
+X-Received: by 2002:a17:907:d516:b0:c2e:39bd:d6bb with SMTP id
+ a640c23a62f3a-c31a9a09d51mr46781466b.1.1791511821833; Thu, 08 Oct 2026
+ 19:10:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20261002173844.3537111-1-nicoyip.dev@gmail.com>
+ <179096305349.1402591.6316561110428507255@kernel.org> <20261008164917.384b8e96@kernel.org>
+In-Reply-To: <20261008164917.384b8e96@kernel.org>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Fri, 9 Oct 2026 10:10:09 +0800
+X-Gm-Features: AclHuK_MKZrYKC0pZ5TgunLeFOJeDzBazt2GlOkbI3BRXa-QDM_6-DuNBaLWb9c
+Message-ID: <CAAo+4rV243Tj28op=Pos81-g-txz59Tb-a6CP-6rbngN=rKU1Q@mail.gmail.com>
+Subject: Re: [PATCH net v4] net: pin protocol module before inet socket allocation
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: netdev-bot+sinfo@kernel.org, davem@davemloft.net, edumazet@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Commit 47b744ea5e3c ("x86/MCE/AMD: Add new MA_LLC, USR_DP,
-and USR_CP bank types") added three SMCA bank types after the bank long
-names had been moved to the MCE decoder.
+On Fri, Oct 9, 2026 at 7:49=E2=80=AFAM Jakub Kicinski <kuba@kernel.org> wro=
+te:
+>
+> On Fri, 02 Oct 2026 17:44:13 +0000 netdev-bot+sinfo@kernel.org wrote:
+> > This is an automated message. This series looks like a fix, but its
+> > commit messages seem to be missing some information:
+> >
+> >  - How the issue was discovered, e.g. hit in production, hit during
+> >    development, syzbot report, manual code inspection, LLM or static
+> >    analysis tool scan.
+>
+> You have to answer the bot's question.
 
-The new types were added to the enum, short-name table, and HWID/McaType
-mapping, but not to smca_long_names[]. As a result, an error from any of
-these banks is logged with "(null)" in place of the bank name.
+An LLM-based scan of the networking source initially identified the
+issue, I then reproduced it with l2tp_ip by racing socket (AF_INET,
+SOCK_DGRAM, IPPROTO_L2TP) against module unload on a KASAN-enabled
+kernel on QEMU.
 
-Add the missing long names.
+The reproduction used a temporary 50 ms delay between reading
+prot->slab and calling kmem_cache_alloc() to widen the reported window
+proto_unregister() destroyed the same cache before the allocation used
+it.
 
-Fixes: 47b744ea5e3c ("x86/MCE/AMD: Add new MA_LLC, USR_DP, and USR_CP bank types")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
----
- drivers/edac/mce_amd.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/edac/mce_amd.c b/drivers/edac/mce_amd.c
-index 7aee57a25b689..34a44769d1d0f 100644
---- a/drivers/edac/mce_amd.c
-+++ b/drivers/edac/mce_amd.c
-@@ -702,6 +702,7 @@ static const char * const smca_long_names[] = {
- 	[SMCA_L2_CACHE]			= "L2 Cache",
- 	[SMCA_L3_CACHE]			= "L3 Cache",
- 	[SMCA_LS ... SMCA_LS_V2]	= "Load Store Unit",
-+	[SMCA_MA_LLC]			= "Memory Attached Last Level Cache",
- 	[SMCA_MP5]			= "Microprocessor 5 Unit",
- 	[SMCA_MPART]			= "MPART Unit",
- 	[SMCA_MPASP ... SMCA_MPASP_V2]	= "MPASP Unit",
-@@ -726,6 +727,8 @@ static const char * const smca_long_names[] = {
- 	[SMCA_UMC]			= "Unified Memory Controller",
- 	[SMCA_UMC_V2]			= "Unified Memory Controller v2",
- 	[SMCA_USB]			= "USB Unit",
-+	[SMCA_USR_CP]			= "Ultra Short Reach Control Plane Controller",
-+	[SMCA_USR_DP]			= "Ultra Short Reach Data Plane Controller",
- 	[SMCA_WAFL_PHY]			= "WAFL PHY Unit",
- 	[SMCA_XGMI_PCS]			= "Ext Global Memory Interconnect PCS Unit",
- 	[SMCA_XGMI_PHY]			= "Ext Global Memory Interconnect PHY Unit",
--- 
-2.50.1 (Apple Git-155)
+Best regards,
+Chengfeng
