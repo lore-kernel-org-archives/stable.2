@@ -1,177 +1,229 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012037.outbound.protection.outlook.com [40.107.209.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D4383A5E90
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 06:57:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791529073; cv=none; b=PFW6MG1rEsTW29pE005TyEOsrRL3+lBm3ygx6wF/EOzicRHBVWLy1Aa6fvEIvYMkz2p4mT5rDKfuQCWafoy1gxACjdxRHfO+ESx7gwhCkpT8boyFYL3zkdwDLSX8DKrrLg9tqV7kIheDPTIiQAyT1BDmXMKQk2+bT+S2vCVRUwg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791529073; c=relaxed/simple;
-	bh=5ERdhktJIoJIo9p96wQTjyWFqT0l4v/JPHtR8HbIza0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IhczgcHnXkQqN/EB7/Nm9aKqYtFCn8GrjcMfhDfdd++MH1gUrp61eVRf9pcPGD/TLiwAPfyiGNmDXOm9+UQ+hjgRcFr53398GW4YZhEXvv8YHXStzAOMktFQp5tfgvUQSbijT/7cjbjczIodYuQ6rEyJ2/+/aK2gIPfxNMDJhgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RS5fKhv4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=S1JnHUi0; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79FCB36F428
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 07:00:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.37
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791529239; cv=fail; b=pKOXyPatmW5hIR9oqGEIywYxRuue688ho6OM7Fe/7wZh11p6ulGwdcHWtz5EJnPBh9Uc9lSzElsIcVhkME4FYwq/NyUrnX9B+6KzvIKME7hGSsoIaojxomEXzqQhxz820/jeqCsMbEaUof7fQbgpEXRrXzc7Rz2uzt/SK71nP5U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791529239; c=relaxed/simple;
+	bh=39Zu7q9wQVbuJgQx33iLwRp3Ru+tNJfIqPhYbBRJpbg=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=FvIPap5HYO5Gmsi2fVepTcdte0Oe65rRExeVfmoNV4tSolLFomjCJ5oHLotf/vY4NHO9FJpDJwL72a2wdg/UMjswzzUgVEynfLD62eBOUx195U4B/+fHhC5fteYmo1STHjmjgN9k91QqykycZUImDdM1iL7jqMh4Dn1DQXbLZbI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=UQV3U0hN; arc=fail smtp.client-ip=40.107.209.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RS5fKhv4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="S1JnHUi0"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6993HFpI594036
-	for <stable@vger.kernel.org>; Fri, 9 Oct 2026 06:57:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/i8NmI7i8KDIOyDpCxYcf9EtRiTu5EYcsw8myqPflEg=; b=RS5fKhv4VL+Bwy9b
-	ZZg3psc2JiyKmybpRSeKfUzHjhdhSEIytJh6dn9LAI9W0FyL+Olr3mSFZquqtgoI
-	HNs9a++2Da1inLUV/6Hvi+zP7jDRrsrbEp8KisUDYqgwDY+SQtmhb3nsPn3Yq2Bt
-	9fXzxwECcYq1yWt4nOAR9VYc0LpYaqn3Y7CAxJv4K6x1xPH0LQ5kFYZwnuf6OIBX
-	lDiVSvXy6/fhuQNt29BvWE4OU2wD8qUEVPg/jjop1lOzm3lHs72NbPBHMwGfrN6S
-	Yy6Ifqi2KtmJ4xLO+hVNGXJXczJkKur9eCIioHRYEO1wxX/NYxJw55Br0HEQZ81M
-	4IBuTg==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6baj3hyn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Fri, 09 Oct 2026 06:57:51 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-88d2d26a8d5so1416733b3a.0
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 23:57:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791529071; x=1792133871; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/i8NmI7i8KDIOyDpCxYcf9EtRiTu5EYcsw8myqPflEg=;
-        b=S1JnHUi0BvHG/MD5gNpfSk+9F5YGxOsQeQd938lBGxgeDle98ZuD4U1p7ohPIKSpAi
-         a31Yi2KzI7j1VuVF0CHGvGI5oD7S52/QOCNg9YpEFkSztsOBj66K/44bzlYPPhqGiZKA
-         NlhKukG/HkulVdWgZGs1j0bl3VJse2mcO2Jbpwl6Sj5bFDXnazMXb8qO4suMNsPPQuaB
-         hu9Xgr2FfAV4kMwpptMBvAY15ZdAdRpSEWtAiDQ72LovLJptVH+LMSvTEh0iSvJDyEqp
-         Hpi+r/Uh4yXTNmo94zh0HqBKpl45wmC4hK8PmYktFBmFjXofO17TrjptNOdiN7MkjtOq
-         NtSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791529071; x=1792133871;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/i8NmI7i8KDIOyDpCxYcf9EtRiTu5EYcsw8myqPflEg=;
-        b=KwA77efK8hoMozM9gJT5XDuMuRkeTjl5vwBTGc/wyDEyr8EYJXZ8OPsim+XQ8rrfBB
-         I5/2mzEh5i6+VqA9G86SV67FypTD1Hgedh0vmKYZyxs9Jg01ibX3Bovww6qg3lsPwo+u
-         avAFvcK6ExA9u+3tjKIHMlbTszSEESHixH3hLKx4mLxe+pivNYglfthDMUxKOFEkxctw
-         5daDg9REDhJ9+IbAH6UpPwqUYaGcN9isVEJHtGYWPapZf/i73Is8c8QHhYOO7q6cKZmG
-         FM7FAJ0OQcys6JMHfpOoQ6711iXgU1fz/DOfV7II5ZFhL9ZVbgaLJ+pWXqCQy4o/6Sy9
-         8jcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzeOvJznWEOIm3spCohftwodBqp5GrTVVRiigcg58MT7dxfGy4CL8f3XVg+6ExKYjlH7sNYC44=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2fJz9mmHSFej2Db21ddeBVgUhuv+SmdgXkpJAAx5WJnMK+H/C
-	Y4rsSfiRGk+3vQwGnO9OqlQYMFKOiaZ71Rm7dkV2xXQ9/ZSdy+EjrRoddz+E9CexpEysW/fSxWm
-	NEstwdsBp1Wf5Zkht0weDu02oKTVSsr5Pe1Cfav6IsLy/NDgTnBqRbIof+EE=
-X-Gm-Gg: AYBFou3lbTRksv4IoQJ2BgVpk3xhhrznY9xYo+unMVQ0pNhFoFfwPQ/qKfqcx8/iwUk
-	Pb5ryhRu2N1QAKUKr6fAkzZjSgCsLHCBBmeByVAX8gw9TAKkP97LVNZFwXlLysZfaBXKfjelRnm
-	WyCcmMSA7nljPROobEdp98gUCB36dSj4aGZJTmAs/MMpJ0DxdJx8uWU91AUf15L5xK68xycW9a6
-	rGDoXT3nAQiFahvHFtUW0913LlyN7QXdkG9mYgBGG0CKptEdKYIzGS6NEMuosKk0Y3EXGMWEH4I
-	SGOA3VTBVdHw/9lr1ahoyrtLaM0VxKRmUmpbNzUtEzXVgDNHU8ICFc4xxCeQdCkwNa5kSgvDYo4
-	xFl6CjhyoFD5dwIhF2Vf7MTuq74vSv14h+6/1cM4gHy7SG18=
-X-Received: by 2002:a05:6a00:2b98:b0:881:66c:53e3 with SMTP id d2e1a72fcca58-896a3a512afmr968569b3a.32.1791529070821;
-        Thu, 08 Oct 2026 23:57:50 -0700 (PDT)
-X-Received: by 2002:a05:6a00:2b98:b0:881:66c:53e3 with SMTP id d2e1a72fcca58-896a3a512afmr968556b3a.32.1791529069467;
-        Thu, 08 Oct 2026 23:57:49 -0700 (PDT)
-Received: from [10.152.209.53] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c310737esm514809b3a.10.2026.10.08.23.57.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 23:57:49 -0700 (PDT)
-Message-ID: <e6213779-bed7-4484-a230-ff3508e8ec65@oss.qualcomm.com>
-Date: Fri, 9 Oct 2026 12:27:44 +0530
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="UQV3U0hN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fovFioz1sDdEs11DYgL9B60RaBtynVu3CiQLWCnhW1KZQdUOntvsi00Xmau9JZue/LMLp5ETLMomS1u56UIjlWecyIqbyBcuFY2Y1vuANBLyca5IE2iYGoCJtQQfgga6Sa8Y/8C3L8qpFcufjOFFqCAMTcns6ufxxRezgvmMrlrb8KcwBYzXTJxlp0FQDIw1i7D3NOMVaYIJFOBMaKMI3w+L4iaat0BhwR4UdECgvQyLEOISzPVx5K9OoMNy32or05V/AIK3U7WPnU9Kwx+67y6xZGBTTzY7DM7LNfDP2Brode8ef7G7HH6h4pkqwmu9YwMfm0bD7yVjVE1Jy+OGug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TCo6wGRWu8BFdU/gNdiTea787T5Ld1Y++XjLjBclhrU=;
+ b=O0JcmDL4muW5P1y8w+NRPHrS7uJq8nNvqsnk4wNb/6eW8C1HazFiyZCcKbEeoiQ/3hVM9X43Vn1wXb47Z4zbmI2Eq7/OkNfZxMA47MhwrdpQmonufmuvFZol4Ro3bKA7cAASYwJmch50Vqyu2HV80A1tADrk1gYdCs4+SaI5iJ+fIV2ESZUGV/Jcddvn6Lkb20aa+IPK0a8NokhAS8A3WCxcflxfgS1oUohcwkpzkd0Nejk1CLXFAjPKQJZEG1/Ijc0bg3bfgQ1+SLHoBOhPY36/ti1twFYzN3kHlMXNg6lySIQzEa/mbvV/74jPak5s53/8GVhaaPYrPOzlEPVgtQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TCo6wGRWu8BFdU/gNdiTea787T5Ld1Y++XjLjBclhrU=;
+ b=UQV3U0hNzxSPbe0m0n7cSNWeP6k4/0yUnDv2M1OWDkp6QoG2pgBGmxn93yhuPi+YZ/PBbVNUKdJYfwhDQQ55BNZcTqZP4Jg/oVxZFUrwXeIV2f44g1W9QKagUhr/D6zuMp+nDYskz2W3gn9j8py0ziRt0hrGjaqoXsllCPs8rVY=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH7PR12MB5620.namprd12.prod.outlook.com (2603:10b6:510:137::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Fri, 9 Oct
+ 2026 07:00:35 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0496.010; Fri, 9 Oct 2026
+ 07:00:35 +0000
+Message-ID: <c64df6fa-6734-4c66-8f8b-52e5bd118cdb@amd.com>
+Date: Fri, 9 Oct 2026 09:00:31 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amdgpu: wait for pending page table updates before
+ switching a VM to CPU updates
+To: John Fisher <jfisher84@gmail.com>, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org, Prike Liang <Prike.Liang@amd.com>
+References: <20261008204517.392180-1-jfisher84@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261008204517.392180-1-jfisher84@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0020.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:14::7) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] wifi: ath11k: initialize CFR locks before capability
- checks
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>, Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Jianhao Xu <jianhao.xu@seu.edu.cn>
-References: <20261009060326.1162818-1-runyu.xiao@seu.edu.cn>
-Content-Language: en-US
-From: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>
-In-Reply-To: <20261009060326.1162818-1-runyu.xiao@seu.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAyNyBTYWx0ZWRfX+eRcQRVYxrSB
- pxstsXALpIVMRLqAM4o9J0DQvR1hS+3qSKnbjp7s2MuZoGSFPRA0t/lJDIfpleRKkOaeUA0M/Bf
- qJ6u2HAH8u5COSG41PUMilTMTDtH3SvosNWZFtp+YwO3NfZucciIWyuejbGHCmn3hhNnKfBbUrw
- ARoMkM6w01hcIGWPF5l3Xk/UacTNWajmgjPJUukCq5yC4Oct6vA5iS5R8pAesaAOmA0Tx4E3bd1
- qGSvKChe5uVNQZu2aRqHNwiV4Omqoe5Mip6piwqYH7M5OKBhG0HkmtCCW1nlfAnZ9WQxDOtZj3M
- kBDtWAoxXAujhv5cRb608fUkyMAlYzfdphG8PAbz92S73A68QMhrounLPbpkjsPx+/xgxWSvowf
- SKIimdpbCCxdKl5TxsUD5XOjwt/3fr+x8vYBRSRVN4A+ChXOt31U/jc/di+2CnVZ5fsnTghtuvW
- kSJWt6rYVVE+lVtr6Gg==
-X-Proofpoint-GUID: xlNmTyFvUvaV3y7ysEj_i0UuVcT5XttH
-X-Authority-Analysis: v=2.4 cv=H/dOUOYi c=1 sm=1 tr=0 ts=6ac8906f cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=ZH9U8Pc_akMW9uxFS8YA:9 a=QEXdDO2ut3YA:10
- a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-ORIG-GUID: xlNmTyFvUvaV3y7ysEj_i0UuVcT5XttH
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAyNyBTYWx0ZWRfX9OcTIIADPkPv
- d6sMuGu8voZ4p8ya8//xyv4KYsTnHC2rGF1vRyYhq0jna5Gf1LQ1TYBOObqW1IB+B7VKzbQfbq8
- NvurcREo/QckeNxsbLIJIcUdN4sdm8Q=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_02,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 phishscore=0 bulkscore=0 suspectscore=0
- lowpriorityscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
- definitions=main-2610090027
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB5620:EE_
+X-MS-Office365-Filtering-Correlation-Id: 73352ee7-86e1-4a44-7e07-08df25d3046a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|260925021911599003|11063799006|10067099003|260925021311599003|260925022911599003|56012099006|5023799004|18002099003|6133799003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	ur6m4EEznlAZW3qLiTJvqnVka+lCmI+aNlWtCtoA/0z1E3rsy9zETsm/cUzTejPSPaI3iLImi3Glvr5PwAUSEZy1Vrah27vKCiBsjJRzsuOkw4uRTN7dvhvPtrMv/A2yNIInhk2VnGmiUZ0lxWP3nrhXau8i4o0evLB91l2V1ma2SKbAVogPhMiwFZmIW8uzHTAY9Kgcxs18oy+JuOgykZW6+76LOaA4qnVFjbV0TrTNpUNXP5YiTD17bdjO72NGIiIh/FFpIFM9ZIIotTVgJSjSRjJ/5sK1tkWuASrGJcb17MdslmLxWUPvNmwSr5n0TaoO4MnrhXPvqfIjPo8JI5xz/LWAmx9H4dNUKGWyuwRu+k7PDGNAT0W5j77nxx/Xo7Xb9zrKcklNEAfp4H00xJwO75fZWXwp531AIwbRY03jlwH6t3J72a9jQijldVVWKcjXVoKnvBSQrGLSqmKLX84hQoqgUBzrMjJRNLKgR8vl6euh02K4giAJMuJ4Oi4dycUU1Dqcwk/rX9GCzQ7r0WgJJn0bU4+5D+PQN5CRehA0xwV4Pn2AJJLk1AhvkNwKA0hJtAuESxVsCbfm9o8TwyzzWjQ8FshBLTylyn0FjcwL/I7HPxzpxpoLHX0ofjj9
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(260925021911599003)(11063799006)(10067099003)(260925021311599003)(260925022911599003)(56012099006)(5023799004)(18002099003)(6133799003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Kzk5WEpXcTJ5K1RJRURNcXUySm14MlAra3o4UWR0TTZZeGNYZWx4bG0zbDhx?=
+ =?utf-8?B?M3djd1RENUZBYkZTZm4xYVA4OXZ5bEZTQTNBNEgrZThVM3NqSGJETjJXRFVV?=
+ =?utf-8?B?d1B0UGtycHlZcmxPc245b1NHTCt4MWFaS0ZDNFVhVWJTTGxDeDFIQTVSR0xN?=
+ =?utf-8?B?dSt3T015a24xRmx1OUhVQVQ0ZWtRck4yVXZpc0k3NlpIQ1pUeGxQRGFPRmMz?=
+ =?utf-8?B?eTFrR3pjcUpibVlFWFBEY1RoMThOS080YUNBRWcyRzQzWTdxWEJBNk4rMm5q?=
+ =?utf-8?B?MXdXeWx6UDJJWVhURzlGUVdUK1BleDF2dlVlZmRJS1Y4YWQ2NmwxaDdEQWlG?=
+ =?utf-8?B?MFE4ZGQyNVJyVTJwZTc3cHl4TTA2Tk9kZVhHaGFlN2pCajBUb2twbXlNRy9G?=
+ =?utf-8?B?NFMrc25QMXFudEdlU1pXSFhkR2VMb1MrZklqTG1IT2FVZ0FmR3c1R21lblVp?=
+ =?utf-8?B?MmZPRFh2bCs5c0YxZStQd0prSnJyUTNnVGdjWmxMVE1SdGlRczljYTZMWjRR?=
+ =?utf-8?B?Nm9pK0VMTjlJREFzT0NFR0xCSjAzNXZuUi9DOXVvazZlNXFoZ0hrNEJjUjUz?=
+ =?utf-8?B?V1VPaUh3Y3hVNUNZV3hRaCt4Y1YyNllTWE9DSnNxT0VudDlTQ2w4RS9QeDJn?=
+ =?utf-8?B?bk9EVXVMN1IvcjRiWkRtR3crcy8xMDRZWEczRDh2Z3JpZStJYUc0M1AwelNL?=
+ =?utf-8?B?SWpPVTlDRndBZTRSM056RkhoRUNGSlZSbEFrbEVLQWV1VDRBU0ZRVnhCaCtv?=
+ =?utf-8?B?ZUE0cGVsak9STGRDL2d6Wk44c0NGY2tlZmRxYzkyc3hZN2UxclU2eEJuTisr?=
+ =?utf-8?B?dHIyME5KcGZXQmRpd3pJRDkvVzhsSDc5WmEvaVFCdEVSVm4wUm1BdHRJblpx?=
+ =?utf-8?B?dFAwOXRBQStJbHEyMU1PcWlyVllRK2VhRVdpM1JPd0UzbnFlZXIrRVJQd1cy?=
+ =?utf-8?B?UHE0TStIcVVRbW9MNXlWaWJuRHR1QTdBRnlvc2hrL0FXUDQ0TVlGVmcxWlNt?=
+ =?utf-8?B?MldCYXZzbzdnaWUxYUlkcjBCay9ycUdwa2xUWkp1elJEZWo2a1hvMGxWNVVh?=
+ =?utf-8?B?UlBFUGRxWG9SM2FMdS9mRDl2RE5xUENOMTV5MGkvZm5kZGpQdzlGZ0UwSWJm?=
+ =?utf-8?B?M2hhMFZMUXl4Nkp2Yk12Rmw5Mi8yTERIOW0xRlJqTCs1aHNROGUyc0FoN251?=
+ =?utf-8?B?M3RHUkxoK0NxVVYyd0RxeTNXSkxmanRlMlJ1YitpSjJRZHAxNmxzOCtzRERU?=
+ =?utf-8?B?RGJ0SVJJN0dRQitqS0QwK1FNRkJneTFQdUlxQSt0dkFwcmRBLzFhYXhzb0Fh?=
+ =?utf-8?B?VS9lNFBoVjRSZ25UV2VTeEpUb1d3TW9DOEw1N1lJUjAxYXp1MDV6TVpKRXFt?=
+ =?utf-8?B?QXZGcWF1Q3BLclBaZkI1NkxZOWJLdTB4WjRBUTRKVS9NcFQ3dEpCYzgwaGVY?=
+ =?utf-8?B?OW1Ba3djYnpERTh4TDZTeGlHZDZVU1F2RmcrdVJXck5SUWVyNlhRZ0dLblhu?=
+ =?utf-8?B?OFE2TFFwVGtTWkZvbWxuV3pWL3gzdGJRcjJ6Qy9LVDY5U2dHODJxT25IV3By?=
+ =?utf-8?B?ZDVwKzdmRFZBQUZya0d3ZUppOExqQk85UmplbXNkV2hudTVaYmtYYzhhK2hq?=
+ =?utf-8?B?ZDdlT09Yb2ExUjVkUUlMMHkxN2FITGJMbE03akZveWVlamczajNuN1FLRnlD?=
+ =?utf-8?B?Rks2eHJncUFxOE1vc0xCcmNzdlo5T0NDcnBSMnhlQUE5a2NzUHhkT1dQK1U2?=
+ =?utf-8?B?aHJBSi9WMEpxKzBlMFRCU3JnOFJpejhFNHB0bGh3QVliQ2pwVjVXb0U0UytQ?=
+ =?utf-8?B?U0s2U2lUdHV6RzNqOTZlRlpmYlZubDlPMVBaS3JiMlJRMWFnT1NGMTJQbjQ1?=
+ =?utf-8?B?OVdwUDhtTUxCaVQ3SS9uaTFFM1RmazNHVk1aR0ErUFBnb09xVVBzd3NGY0sz?=
+ =?utf-8?B?ZlVQL1NROFI4MEk3WldpQ3cxczQxL0Y1dkVWUmlYYkgyUVR5dWxZb1JjNlFk?=
+ =?utf-8?B?L0xCYkVHTDRHN2NXT1RrMDVhNi80OEpvcndrT091U0wzTzcvZDBKbzg3SjdC?=
+ =?utf-8?B?amRwRXExZU9BcGh3TTZRdlEvTUtybXNFSW9tRDEzU2R2WEk4dlBSWjUrcXY1?=
+ =?utf-8?B?YWlPM0FCN0I3Z0hOQTVzZXhsTGs3Q0JwSnhHREhFVDRsRFdvd2FZTWwwN2Za?=
+ =?utf-8?B?NGhyZDVEbStqb1dFdHJFbWpVTTNnU2FqRWd6RStPZHYrRDkyb2haSVRudnZI?=
+ =?utf-8?B?Slo2WnhZbmNrbjYwazh5aWtvbHF5MCtqTTMrS0JMZUU2Zm8yS3J2WDdRczZB?=
+ =?utf-8?Q?wa/AchyO3k97jg3vZ3?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73352ee7-86e1-4a44-7e07-08df25d3046a
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 07:00:35.4584
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GMBhOyUHQ+bIy90ZDM7p56VJ055Z4WsALw3qjy1OP8opO5HSkVwwhWPdD1yFNqXh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5620
 
-
-
-On 10/9/2026 11:33 AM, Runyu Xiao wrote:
-> ath11k_cfr_init() returns before initializing cfr->lock when CFR
-> capability is absent.  However, station removal still calls
-> ath11k_cfr_decrement_peer_count(), which unconditionally takes this
-> lock.  This leaves a production path using an uninitialized spinlock.
+On 10/8/26 22:45, John Fisher wrote:
+> amdgpu_vm_make_compute() switches a VM from SDMA to CPU page table
+> updates when a KFD process acquires it. It syncs "with the last SDMA
+> update/clear" through amdgpu_bo_sync_wait() on the root PD, but that
+> walks the reservation with DMA_RESV_USAGE_READ, and the clears of the
+> VM's page tables (the root PD from amdgpu_vm_init(), and the PDs/PTs
+> the seq64 mapping allocates at the render node's open) are added there
+> by amdgpu_vm_sdma_commit() with DMA_RESV_USAGE_BOOKKEEP only:
+> amdgpu_vm_pt_clear() commits them with a NULL fence, so they do not
+> reach vm->last_update. The CPU path's own waits (amdgpu_vm_cpu_update(),
+> amdgpu_bo_kmap()) use DMA_RESV_USAGE_KERNEL. None of them waits for a
+> clear that is still queued.
 > 
-> Initialize cfr->lock for every radio before the capability check.  Keep
-> the CFR ring and lookup-table lock initialization conditional, since
-> those objects are only used after CFR capability setup.
+> When one is, the CPU writes the first entries of the new compute VM (the
+> KFD trap handler's TBA/TMA page at AMDGPU_VA_RESERVED_TRAP_START, mapped
+> during ACQUIRE_VM) into a page directory the SDMA then clears. The
+> entries are gone, the handler's page is unmapped, and the first wave
+> save of any queue of the process faults in the SQC instruction fetch at
+> the handler's address (GCVM_L2_PROTECTION_FAULT_STATUS 0x008012B1,
+> PERMISSION_FAULTS 0xb). The MES then fails REMOVE_QUEUE and SUSPEND, and
+> the device takes a MODE1 reset with VRAM lost on 7.2.9; on 7.3-rc6 the
+> queue is reset instead.
 > 
-> Fixes: 9b2e3b4ebec7 ("wifi: ath11k: Add initialization and deinitialization sequence for CFR module")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> The window is the time between the render node's open and ACQUIRE_VM.
+> ROCr spends milliseconds there and is practically never hit; a minimal
+> KFD client that opens the render node and acquires the VM at once is hit
+> most of the time. On a Radeon AI PRO R9700 (gfx1201, Resizable BAR, so
+> vm_update_mode defaults to CPU updates for compute VMs), a wave reading
+> the trap handler's page right after queue creation found it unmapped in
+> 8 of 12 runs; a 5 ms sleep between the open and ACQUIRE_VM made that 0
+> of 9, and the same sleep after queue creation instead 3 of 3.
+> 
+> The wait covered these jobs until commit 926c79ad6ecd ("drm/amdgpu:
+> promote the implicit sync to the dependent read fences") narrowed
+> amdgpu_sync_resv() from DMA_RESV_USAGE_BOOKKEEP to DMA_RESV_USAGE_READ;
+> the VM's page table jobs have been added with BOOKKEEP since commit
+> 4247084057cf ("drm/amdgpu: use DMA_RESV_USAGE_BOOKKEEP v2"), so from
+> v6.16 on the sync in amdgpu_vm_make_compute() waits for nothing of
+> them.
+> 
+> Record the clears in vm->last_update, as amdgpu_vm_update_pdes() does
+> with its updates, and wait for it, uninterruptibly, before switching the
+> update functions. The clears all go through vm->delayed, so the last one
+> covers the earlier ones; immediate clears are not recorded, as before.
+> 
+> With this, on 7.3-rc6 and on 7.2.9, the same client reads the handler
+> 10 of 10 times, 8 busy queues on the 4 compute slots complete in 5 of 5
+> runs on 7.3-rc6 and 3 of 3 on 7.2.9 (1 of 6 before), 16 and 32 queues
+> complete on 7.3-rc6, and two processes with 8 queues each complete
+> together on both, with no fault.
+> 
+> Fixes: 926c79ad6ecd ("drm/amdgpu: promote the implicit sync to the dependent read fences")
+> Cc: stable@vger.kernel.org # v6.16+
+> Cc: Prike Liang <Prike.Liang@amd.com>
+> Signed-off-by: John Fisher <jfisher84@gmail.com>
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+
 > ---
->   drivers/net/wireless/ath/ath11k/cfr.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
+> v2: wait for vm->last_update, in which amdgpu_vm_pt_clear() now records
+>     the clears, instead of every BOOKKEEP fence on the root PD; wait
+>     uninterruptibly without checking the result; keep the original
+>     comment (Christian)
+> v1: https://lore.kernel.org/amd-gfx/20261007200345.417281-1-jfisher84@gmail.com/
 > 
-> diff --git a/drivers/net/wireless/ath/ath11k/cfr.c b/drivers/net/wireless/ath/ath11k/cfr.c
-> index a91f25fb6..0708ca28b 100644
-> --- a/drivers/net/wireless/ath/ath11k/cfr.c
-> +++ b/drivers/net/wireless/ath/ath11k/cfr.c
-> @@ -956,6 +956,9 @@ int ath11k_cfr_init(struct ath11k_base *ab)
->   	struct ath11k *ar;
->   	int i, ret;
->   
-> +	for (i = 0; i < ab->num_radios; i++)
-> +		spin_lock_init(&ab->pdevs[i].ar->cfr.lock);
-> +
->   	if (!test_bit(WMI_TLV_SERVICE_CFR_CAPTURE_SUPPORT, ab->wmi_ab.svc_map) ||
->   	    !ab->hw_params.cfr_support)
->   		return 0;
-> @@ -971,7 +974,6 @@ int ath11k_cfr_init(struct ath11k_base *ab)
->   
->   		idr_init(&cfr->rx_ring.bufs_idr);
->   		spin_lock_init(&cfr->rx_ring.idr_lock);
-> -		spin_lock_init(&cfr->lock);
->   		spin_lock_init(&cfr->lut_lock);
->   
->   		num_lut_entries = min_t(u32, CFR_MAX_LUT_ENTRIES, db_cap.min_elem);
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 5 +----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 2 +-
+>  2 files changed, 2 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 29187fabc..757a037ed 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -2737,10 +2737,7 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+>  
+>  	if (vm->use_cpu_for_update) {
+>  		/* Sync with last SDMA update/clear before switching to CPU */
+> -		r = amdgpu_bo_sync_wait(vm->root.bo,
+> -					AMDGPU_FENCE_OWNER_UNDEFINED, true);
+> -		if (r)
+> -			goto unreserve_bo;
+> +		dma_fence_wait(vm->last_update, false);
+>  
+>  		vm->update_funcs = &amdgpu_vm_cpu_funcs;
+>  		r = amdgpu_vm_pt_map_tables(adev, vm);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> index c03327f12..cdbc2e931 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> @@ -427,7 +427,7 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>  	if (r)
+>  		goto exit;
+>  
+> -	r = vm->update_funcs->commit(&params, NULL);
+> +	r = vm->update_funcs->commit(&params, &vm->last_update);
+>  exit:
+>  	drm_dev_exit(idx);
+>  	return r;
 
-
-NAK. This can never happen.
