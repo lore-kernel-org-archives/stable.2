@@ -1,106 +1,164 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-50.ptr.blmpb.com (va-2-50.ptr.blmpb.com [209.127.231.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E723AB5DC;
-	Fri,  9 Oct 2026 03:31:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C853F39A7E0
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 03:59:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791516729; cv=none; b=UUO2dqM9KTehsNdI1RWFUyhn9AQ5+i8l7WNP5Lneuhx3r4uvJ5ZgXzB4y75AtQxt5a6WUYdnpQJVU9xLgV/oRZlt0pvK+gd/piPmLOCenmKnPIkTjxTGEpbRELg0sfv7pm7yoO6QRxgFnGbydUygS2ZpSKV4xFoUn/rmNq8c0xc=
+	t=1791518360; cv=none; b=t8KnOMBUiVuAW8GzMRj2tcOQWMVnPG+TAtaSy57JXYgtswWbYdZ08xfBiJdXbWePXku3mjm7TeoFqbTCBei92V0rPg7NDA3/dsSoJnStvJm3rQvmA1Sn5xXpGPPbDdUqqyVJuyMdfhz0ftcUjp0LCFG30ntdb7LXrmd7YVfxxE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791516729; c=relaxed/simple;
-	bh=DJdBDREzG7h7vTup7WhoYyl/QMwzRMYkrocwbln5h/Q=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ahdC4KvYm0s9XrO5eMPsfZpD84Bp0G1wInrcSooMw1aE4sqeGc9gvp/HS59p5ecK+8s2/GjG5zH8dJyhSVsFI+LQFBMLgCQX8cTdudPiR7gPVu8k31g3e1UHCTcZ68OduedoZqT3gct9toLfLOy8ptNkDKWuGRIkdsXBsyouZJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=dLPMMMJw; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1791518360; c=relaxed/simple;
+	bh=S3YX/IofUpGzMaHVjbZ3i/7v3orPrOdkbg+atX82QFM=;
+	h=To:From:Subject:Message-Id:Cc:Date:Mime-Version:In-Reply-To:
+	 References:Content-Type; b=qMAwPEJQU0AWrA+VaOgwcTQkuMreMLc8mdiGtte9p6lSR+cH5affuc8eCOO4K2XgUjbW9d1W6KzAILckn40ZT5TEBCjPi/Rz6v9yShXhkPP5YW1616A/0c5X2xRNxy35MvgsNTdc71ILuY7VFZ/KbBS7fX7eedNpBvUkG1rd+Nw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=JiMSmTTs; arc=none smtp.client-ip=209.127.231.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="dLPMMMJw"
-Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 50622dd9c;
-	Fri, 9 Oct 2026 11:31:55 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Antoine Tenart <atenart@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S . Miller" <davem@davemloft.net>,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH v2] crypto: inside-secure: initialize EIP93 state before requesting IRQ
-Date: Fri,  9 Oct 2026 11:31:49 +0800
-Message-Id: <20261009033149.1127441-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <asXl69ABi0_1ZKIJ@gondor.apana.org.au>
-References: <asXl69ABi0_1ZKIJ@gondor.apana.org.au>
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="JiMSmTTs"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1791518337;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=9ioF2CxfmybnWpl7CBEF+vseKEEUSR0omAyejznNhFM=;
+ b=JiMSmTTsiLz4bKcLryrud0k5yHd0SBd6BN5HdJLAVuu1J1YGfJt3UwtP9LuCc3T1rsUM6n
+ RDWw/VutWjmTb84UJHGEcXLQthsC6deD68S0A/6S+0b6LKiMcS1xlqzShTf/4YCGVGnh1B
+ g4D2rCQ/tYRFb5PnFceJBzFmFdeRmyoUgtQh0CO2TMKuPThoA0r+MvR9pshD8IpwqIRJmD
+ EZGCq/gr8pdrfyet7wXZFEVjFn0FXDJNDHYOwIjwViUeyXMYd3hXhYCSyhEf5ergGncLDL
+ a18+wMBEF1A2C7LBqNqgM6oAy0/DBsMIS0N5N2GlfEFF5XYQaPE0s+yAcM/SmQ==
+To: "Yogesh Gaur" <yogeshgaur.83@gmail.com>, "Song Liu" <song@kernel.org>, 
+	"yu kuai" <yukuai@fygo.io>
+From: "yu kuai" <yukuai@fygo.io>
+Subject: Re: [PATCH v2] md: don't hand out the array before md_alloc() has added mddev->kobj
+Message-Id: <ef73044f-592d-4bcb-9f0a-f1b45fd8b3cf@fygo.io>
+X-Lms-Return-Path: <lba+26ac86680+8e4a9c+vger.kernel.org+yukuai@fygo.io>
+Cc: <linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	"Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
+	"Christoph Hellwig" <hch@lst.de>, "Hannes Reinecke" <hare@suse.de>, 
+	"Logan Gunthorpe" <logang@deltatee.com>, 
+	<syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com>, 
+	<stable@vger.kernel.org>
+Date: Fri, 9 Oct 2026 11:58:52 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa11eb7aa1e03a1kunmf0a94a55431ab9
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSU5IVh0eShhJTR0dSU8dGlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUJCSU
-	5LVUpLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=dLPMMMJwVRjlnu86nmy5mGbxVwus/Ry5hal25mIpLf69CCgtpEYBHOQRDele3PgMtxnsMiRfpe0Rfc5DkltwT8652i881XhXE3dRTu22kKQ1Unab4sAYClROZh3j/apEI+lVeqa3WbdG4dgMd8hNQgnU6VRK1dBUEiFm4rAifzI=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=56dcQkmnI7815PCgex3ip24CJMUdwzNIUdqUHZX90Dk=;
-	h=date:mime-version:subject:message-id:from;
+Mime-Version: 1.0
+X-Original-From: yu kuai <yukuai@fygo.io>
+In-Reply-To: <20261006122904.1538-1-yogeshgaur.83@gmail.com>
+Received: from [192.168.1.104] ([39.182.0.35]) by smtp.larksuite.com with ESMTPS; Fri, 09 Oct 2026 03:58:56 +0000
+Content-Transfer-Encoding: quoted-printable
+References: <20261004055712.1293-1-yogeshgaur.83@gmail.com/> <20261006122904.1538-1-yogeshgaur.83@gmail.com>
+Reply-To: yukuai@fygo.io
+User-Agent: Mozilla Thunderbird
+Content-Type: text/plain; charset=UTF-8
 
-devm_request_threaded_irq() can invoke the handler as soon as registration
-starts. Initialize EIP93 state before requesting it and leave device
-interrupts disabled until registration succeeds.
+Hi,
 
-If IRQ registration fails after the hardware and rings are initialized,
-call eip93_cleanup() before returning. This shuts down the engine and
-clears the ring registers before devres releases the DMA rings.
+=E5=9C=A8 2026/10/6 20:29, Yogesh Gaur =E5=86=99=E9=81=93:
+> md_alloc() publishes the gendisk before it is done setting the mddev up:
+>
+> 	disk->private_data =3D mddev;
+> 	...
+> 	error =3D add_disk(disk);
+> 	if (error)
+> 		goto out_put_disk;
+>
+> 	kobject_init(&mddev->kobj, &md_ktype);
+> 	error =3D kobject_add(&mddev->kobj, &disk_to_dev(disk)->kobj, "%s", "md"=
+);
+>
+> add_disk() makes /dev/mdN openable.  mddev comes from mddev_alloc() and
+> is zeroed, so anything that gets in between add_disk() and kobject_add()
+> sees an mddev->kobj that has never been through kobject_init() - no
+> ktype, no kref, state_initialized clear.
+>
+> syzbot opens the array in that window and issues ADD_NEW_DISK:
+>
+>    kobject: '(null)' (ffff8880120640f0): is not initialized, yet kobject_=
+get() is being called.
+>    WARNING: lib/kobject.c:642 at kobject_add_internal+0xea/0xcd0 lib/kobj=
+ect.c:225
+>     kobject_add_varg lib/kobject.c:374 [inline]
+>     kobject_add+0x163/0x240 lib/kobject.c:426
+>     bind_rdev_to_array+0x80c/0xdd0 drivers/md/md.c:2621
+>     md_add_new_disk+0xe3b/0x1850 drivers/md/md.c:7684
+>     md_ioctl+0x200a/0x2610 drivers/md/md.c:8499
+>
+> bind_rdev_to_array() is not the only way in.  md_run() calls
+> sysfs_create_group(&mddev->kobj, &md_redundancy_group), and
+> internal_create_group() has its own WARN_ON(!kobj->sd), so RUN_ARRAY in
+> the same window warns too.
+>
+> Every ioctl that can reach mddev->kobj runs under reconfig_mutex, so
+> hold it across add_disk() and kobject_add().  An ioctl issued in the
+> window now waits for md_alloc() to finish instead of seeing a
+> half-built mddev, and opening the array still succeeds.  The ioctls
+> md_ioctl() serves without the mutex only read array state and return
+> -ENODEV on an array with no disks.
+>
+> Hoisting kobject_init() above add_disk() is not an option: commit
+> ca39f7502425 ("md: fix mddev->kobj lifetime") moved it below add_disk()
+> so that md_alloc()'s error paths, which free the mddev directly, never
+> see an initialised kobject.
+>
+> Fixes: ca39f7502425 ("md: fix mddev->kobj lifetime")
+> Reported-by: syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com
 
-Fixes: 9739f5f93b78 ("crypto: eip93 - Add Inside Secure SafeXcel EIP-93 crypto engine support")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
-Changes in v2:
-- Call eip93_cleanup() if IRQ registration fails after device initialization.
+Reported-by should always follow with a link to the report, and the followi=
+ng
+tag and applied:
 
- drivers/crypto/inside-secure/eip93/eip93-main.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+Closes: https://lore.kernel.org/all/6aaf3284.514bccd6.255447.0003.GAE@googl=
+e.com/
 
-diff --git a/drivers/crypto/inside-secure/eip93/eip93-main.c b/drivers/crypto/inside-secure/eip93/eip93-main.c
-index e62785952b..52b5fb1ffc 100644
---- a/drivers/crypto/inside-secure/eip93/eip93-main.c
-+++ b/drivers/crypto/inside-secure/eip93/eip93-main.c
-@@ -430,12 +430,6 @@ static int eip93_crypto_probe(struct platform_device *pdev)
- 	if (eip93->irq < 0)
- 		return eip93->irq;
- 
--	ret = devm_request_threaded_irq(eip93->dev, eip93->irq, eip93_irq_handler,
--					NULL, IRQF_ONESHOT,
--					dev_name(eip93->dev), eip93);
--	if (ret)
--		return ret;
--
- 	ret = eip93_desc_init(eip93);
- 	if (ret)
- 		return ret;
-@@ -452,6 +446,14 @@ static int eip93_crypto_probe(struct platform_device *pdev)
- 
- 	eip93_initialize(eip93, algo_flags);
- 
-+	ret = devm_request_threaded_irq(eip93->dev, eip93->irq, eip93_irq_handler,
-+					NULL, IRQF_ONESHOT,
-+					dev_name(eip93->dev), eip93);
-+	if (ret) {
-+		eip93_cleanup(eip93);
-+		return ret;
-+	}
-+
- 	/* Init finished, enable RDR interrupt */
- 	eip93_irq_enable(eip93, EIP93_INT_RDR_THRESH);
- 
+> Suggested-by: Yu Kuai <yukuai@fygo.io>
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
+> ---
+> v2: Hold reconfig_mutex across add_disk() and kobject_add() instead of
+>      refusing the open in md_open(), per Yu Kuai's review: v1 made an
+>      open that raced with md_alloc() fail.
+> v1: https://lore.kernel.org/all/20261004055712.1293-1-yogeshgaur.83@gmail=
+.com/
+>
+> Built with W=3D1 only, fix has not been runtime-tested.
+>
+>   drivers/md/md.c | 12 +++++++++++-
+>   1 file changed, 11 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/md/md.c b/drivers/md/md.c
+> index 67108c397c5a..85439f27d943 100644
+> --- a/drivers/md/md.c
+> +++ b/drivers/md/md.c
+> @@ -5906,12 +5906,22 @@ struct mddev *md_alloc(dev_t dev, char *name)
+>  =20
+>   	disk->events |=3D DISK_EVENT_MEDIA_CHANGE;
+>   	mddev->gendisk =3D disk;
+> +
+> +	/*
+> +	 * add_disk() makes the array openable before mddev->kobj exists.
+> +	 * Hold reconfig_mutex until kobject_add() is done so that ioctls
+> +	 * issued in between wait instead of using an uninitialised kobj.
+> +	 */
+> +	mddev_lock_nointr(mddev);
+>   	error =3D add_disk(disk);
+> -	if (error)
+> +	if (error) {
+> +		mddev_unlock(mddev);
+>   		goto out_put_disk;
+> +	}
+>  =20
+>   	kobject_init(&mddev->kobj, &md_ktype);
+>   	error =3D kobject_add(&mddev->kobj, &disk_to_dev(disk)->kobj, "%s", "m=
+d");
+> +	mddev_unlock(mddev);
+>   	if (error) {
+>   		/*
+>   		 * The disk is already live at this point.  Clear the hold flag
+
+--=20
+Thanks,
+Kuai
