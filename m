@@ -1,131 +1,84 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 940FB4CA777
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 11:22:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791544962; cv=pass; b=qmhtuzYg/gDBvnawopoa6aVo06i0tO7Vl8+4gzxaymFQIaBnyybebCNXwChnWdngD1b4uGSFN8QjDFDkaFxY5K3eALA1jU9gONI0kYGT7JaI6s30povUnqXXfevmbTxQpjkkAGI2KS5RiFRGMnxkcAtuqCBwhrv/BTex0tj4Q9k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791544962; c=relaxed/simple;
-	bh=RA8fsEDD5Aia9QBWoZvERTD0+3MACqfVNv505KJYqjE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nCv2LM03P88Grnsbtl7ngla+SzyuhpWlG09sEnrSlVeJBEg5urqeO9PqoLPIzAhK86zCoPYbY+ZsnZ2BvZbQhmx2iIehvibgcNpGshCUysh7dl+BlJB1tgCwQVDfv44cxaAHN69/iPWQCur3sObpO3YAFUG1DhmZUQKaIlJIE5o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nigauri.org; spf=none smtp.mailfrom=nigauri.org; dkim=pass (2048-bit key) header.d=nigauri-org.20251104.gappssmtp.com header.i=@nigauri-org.20251104.gappssmtp.com header.b=tMNM1F23; arc=pass smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nigauri.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=nigauri.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26FA43E40F5
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 11:22:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791544965; cv=none; b=H6GI964A1HbKwOygng6js5hWOsta3zpxjUYQdhANwZo5CtooD8jUy1Ms/hIah75kNOjw0Tlaznij8Zkoct7JrbSqxnA+VKD6CPaMCg7+8JI9wAe6OlX1ifpl+ojYj3uNFoBnkYKpS+HbQRLQzPi550ntfo9r1ilo0hZL6JTlTGo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791544965; c=relaxed/simple;
+	bh=BXGkEZuWz6PIaWyhn3drqwPYaoL5CeBKsRvBIJ9Izno=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NgK8AyNNRRBDdBmvoKftZ381YMIp1LaDLow+Fg1U70fEkftJZrLII0mEcSKczMIWpKBHHdw3/CaUkkz04KJ3AAaVZZSLry3RVsGSpFof27gTnRgEZasitN4hilo9hgYFI0vJZBUIH6jzVetipRt2WQvVISbhGeFZqrc24OjCOJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cZB2UcRi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nigauri-org.20251104.gappssmtp.com header.i=@nigauri-org.20251104.gappssmtp.com header.b="tMNM1F23"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so5397372f8f.1
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 04:22:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791544942; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NHdaHIjHBGTNDYKTW5Zgm+9KvcD088yFJxn5wA0JIeACd1sFMyNglgt3/56cTfyf0u
-         2LxxbiyV30jrMY5k2iEA9lRQjYHweeezw4U5xUJCmzVmF4fJA7cHFwvXEBKI3pAboKUL
-         vdVmEvwUY+onsUQTAbkzoPPmTIxqe0xGahjY1SLEIduJxQO5s6ujv+5zoupzIqTFYtEd
-         5GzvABeoVhvHH2uEFTYccwG+idzTIuRj6wcaIfn5UF6u3Uy3yEtFMUfMuf18Y0gR/LBy
-         y4jLDPuLdx3tL92A4n9Xo/6nLZO8XcX3Z0+XJy08IpNQreZWJ0VLGIwrYH7Pf2bbEsa1
-         zaeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vjZIfn36vwwRnDJGfxZP6hB0pBi/BfTnn/8/ousp3gQ=;
-        fh=od9KBiGIbiCFpoqZgticRjL7X9lEYfwMsOrVYJzZ2ig=;
-        b=oILl0El5UgU4KN/RQFOUaFY0YN29P5YESewexzP4FeUOK9djOvkpRcQUOrg551CnEs
-         ZeKsY0+bp//VXay3qOTKxquBUZP8RJ+2fblug0Pk5wAxi8gZ/PU2DOW6sHy2KLPfVtbf
-         8LUMabDTjeCPUztOXGarOb5psBD435cuoB5GyaloCf9VLeX1MAIhUh8zSVJtIard/fht
-         Dw3uV90DtpiXK4rnROti1Mc7+0F4/MFGYb4/3Wxv6FGzUcn+jtCmjx3XfmchxsuZKKqX
-         Nap3P2fzpVMOmBCuVrIi7bdh3LyD+OuiumUgEqxNU3dU4oKQ2wm7GG5gtTgD4iXFtBSg
-         WtOQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nigauri-org.20251104.gappssmtp.com; s=20251104; t=1791544942; x=1792149742; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vjZIfn36vwwRnDJGfxZP6hB0pBi/BfTnn/8/ousp3gQ=;
-        b=tMNM1F23DqkYhX3cNSTqbrxqMBC/HeIMYGg5cie7+Lfcw53AHQrMZmEwIQ7wmVJITu
-         8OafZkSuRq7T/v7rG/p2h1G7b3HAKNuT0yM0LcDFLsANUIPR0K4qtZprRYa+RD02E/WW
-         xygsuzoa+6HB9Bk/v7L+c30ryXcIj6gV34+kIjuZo0wnX6lcNEG64eNDzZI98GdsJnHH
-         q5AeDsYbxIcgb/36d0bZQ3jil/Q5uBHO4qf0Ux+Rgc3Q4vj6I2pDD1xS0S7SiRBviGq8
-         BE57fLIraGJT4TLsqDoH4eOuN4vdkSUDbzxjQY9OWOxsv/5r4L1wdqtCa8ZQWP99cLuK
-         C4cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791544942; x=1792149742;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vjZIfn36vwwRnDJGfxZP6hB0pBi/BfTnn/8/ousp3gQ=;
-        b=BiEvc8ra6+tqEdwfiJuxzd6GRJXKWVaVOiMW2SgUe3Kik44Z4hIMpIlzbdZtgtQeph
-         k6nDukbASE6N6F4Dot1ekxAcBkno/wmYGlg+ugreRSB43oSPJ0358wN9GVQ1CzcGp3to
-         mKDOlr5n5Z7CBSObOwFukovrxMYEYrfb2Gd8d8Jhpd154fDVPANavEvW8TByFqk5tm+5
-         tGS58JEc7IPHaWsXqer5cBMGhnQQb0sJKK3Ku2x6AA8wsNj+rNiwx/2DD8S6AJWHWeav
-         7l3WTcYCuayVamIk5g1u/sIynUv1VPzvMwv7hxqweK8k/MzRHhW0bkD7QGllIwROWjfC
-         BL6A==
-X-Forwarded-Encrypted: i=1; AKwUvBxblo37gab64MCgarabyFcuTZmYlbUiaOTe1DhTEg+50TliRTQCG3vyKIqmizBE8gWnKPNmVSE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKOGKyWm6MKq11nHmH3el60Gk+PDqgXrHnlaumQ3e15Bm1JFJWp
-	EIqGMk1OjajhVI2SloXKCLLfK7YRMy1SZ4u6koZYE9SPKFrTYTktWenAuTIsW40gg9/t4yIh7g3
-	VrUgz45IMXwRUKqKYGehdotIlx2DgIh+u3nZneXc=
-X-Gm-Gg: AYBFou1qxvwyh24kHjgr8LoffK015FBmD/s4a/SNTdFljD35EW3Hr2E+IGvXe12d/Ur
-	u0bgUHQu47LHMAQPTclnr1vN5xgnc3/Yd+/r6NZzSHc125G9UaKja3yZ+ERIRl2b9L1OVz/GS3X
-	JAJczg1Zi9QW1zFdOFKBuawthe3UAIX0Tq6nAgViw9inrmTsMKTF+k3yqL09CvegxKktYKFQqUN
-	0WTZOzYdQ3hK1neFieq9b0FemcdiXFNH9DE8k0rRMrC8FkWragXBnHDrz7I9yrG7d/3k6celM3y
-	e0BHHuOxpl7e56liXOTNLY/qiz8LqaeYpcm8Bw==
-X-Received: by 2002:a05:6000:240b:b0:487:169f:d339 with SMTP id
- ffacd0b85a97d-48dbacef394mr2591008f8f.54.1791544942262; Fri, 09 Oct 2026
- 04:22:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cZB2UcRi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09A5C1F0089A;
+	Fri,  9 Oct 2026 11:22:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791544954;
+	bh=O7Xi6h1I5Mb6FlicJ0w7Ua9QyL0wb103FvJh6JPXnG0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cZB2UcRisGi0IojFPdySQgrV+KJHWv4fRxJ6+jRuYzEt7Pj4pyMoxjjcHp6cjNijZ
+	 76dmfcEi2zg9G/CrgIslUcUbkrChYjvK3Ho7Zz9DvJNbHuHRKZ/yyK2RFEA0TqPNO6
+	 LDE69pnhH7SGgk+9SL9FDEqcdKbHmOY9DsNBTfA4VEvDEYbpUYy/CFmIEk9p37QySg
+	 eUmZv33JFAaiP8QEE/w4J3t/4zRV5NHE6efihViNL8Pp7FtzfcJSJOJqbKxoQAaZIM
+	 +fvnbAySD0fhiQf4LfcKaTk77eyE4LFhbTLZhFLZ7Rq+w63MfZFe2wSdaxXS0gs5Hj
+	 pE8VzlTbm7Uqg==
+From: Chao Yu <chao@kernel.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	jaegeuk@kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	Chao Yu <chao@kernel.org>,
+	stable@kernel.org,
+	Daeho Jeong <daehojeong@google.com>
+Subject: [PATCH RESEND 6.12.y 3/3] f2fs: fix to reset all pinned status during fggc
+Date: Fri,  9 Oct 2026 11:22:20 +0000
+Message-ID: <20261009112220.2276173-3-chao@kernel.org>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+In-Reply-To: <20261009112220.2276173-1-chao@kernel.org>
+References: <20261009112220.2276173-1-chao@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261004-pcf8563-irq-data-v1-1-f176763ddf2f@iav.lv>
-In-Reply-To: <20261004-pcf8563-irq-data-v1-1-f176763ddf2f@iav.lv>
-From: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
-Date: Fri, 9 Oct 2026 20:21:55 +0900
-X-Gm-Features: AclHuK8WMU2f9s206E9gcJrWGqo1xWTIQN0qw7OLhbmsPMhw7KL5K4OmY2f9m7Q
-Message-ID: <CABMQnVJzcpMqfa-J_rS9rQksoz3XCKrWYmwiD7JU0zXx6BKyPA@mail.gmail.com>
-Subject: Re: [PATCH] rtc: pcf8563: pass the driver data to the alarm interrupt handler
-To: iav@iav.lv
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, linux-rtc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: Chao Yu <chao@kernel.org>
 
-Thanks for your patch.
+[ Upstream commit 2b8704b6a8b2896ccad1f5941d9a3e2c5031a470 ]
 
-2026=E5=B9=B410=E6=9C=885=E6=97=A5(=E6=9C=88) 8:57 Igor Velkov via B4 Relay=
- <devnull+iav.iav.lv@kernel.org>:
->
-> From: Igor Velkov <iav@iav.lv>
->
-> pcf8563_irq() takes its dev_id as struct pcf8563, but probe still
-> registers the interrupt with the i2c client. The handler then takes the
-> regmap pointer from the wrong structure: the first alarm oopses, the
-> level-low INT is never acknowledged, and the interrupt gets disabled as
-> spurious.
->
-> Only an RTC that has an interrupt (client->irq > 0) reaches this path.
->
-> Fixes: 00f1bb9b8486 ("rtc: pcf8563: Switch to regmap")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Igor Velkov <iav@iav.lv>
-> ---
-> Tested on ODROID-HC4, 7.3-rc5, with the INT line wired to GPIOX_5 in the
-> device tree: the alarm interrupt fires once, the alarm flag is cleared,
-> no oops.
-> ---
->  drivers/rtc/rtc-pcf8563.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
+Otherwise, the pinned status may affect latter flow of fggc.
 
-Reviewed-by: Nobuhiro Iwamtasu <iwamatsu@nigauri.org>
+Cc: stable@kernel.org
+Fixes: 9703d69d9d15 ("f2fs: support file pinning for zoned devices")
+Cc: Daeho Jeong <daehojeong@google.com>
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Signed-off-by: Chao Yu <chao@kernel.org>
+---
+ fs/f2fs/gc.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Best regards
-  Nobuhiro
+diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+index 664260807072..6c831276d81d 100644
+--- a/fs/f2fs/gc.c
++++ b/fs/f2fs/gc.c
+@@ -2132,6 +2132,9 @@ int f2fs_gc_range(struct f2fs_sb_info *sbi,
+ 		do_garbage_collect(sbi, segno, &gc_list, FG_GC, true, false);
+ 		put_gc_inode(&gc_list);
+ 
++		/* reset all pinned status during fggc */
++		f2fs_unpin_all_sections(sbi, true);
++
+ 		if (!dry_run && get_valid_blocks(sbi, segno, true)) {
+ 			err = -EAGAIN;
+ 			goto next;
+-- 
+2.49.0
+
