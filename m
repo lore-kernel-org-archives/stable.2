@@ -1,39 +1,39 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553053BB134;
-	Fri,  9 Oct 2026 08:15:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71472C237C;
+	Fri,  9 Oct 2026 08:17:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791533750; cv=none; b=UDXvTW0h/bzbZ0VxQZ5L1HOReQyUDcfm+EshH6uCt1OPTcUuHcCloDPVCE8mskylaXNFhNT+nqVwFpyMVu7zFzOj9cUwatrNY8IKrRrC1UEYCiioUq9ipn8jmxlGTFHHEz1sWyUMqjas0ZYWylOBjIRCkoVq/Gvm4+Z7OJBLWfM=
+	t=1791533870; cv=none; b=YulgyLwCIAutwH6hfLLxoAqI9QCDWBmi5067GF6CpXlZSfL2L4T8cwDG9lputliPsyNBA37Vqh/nzH4EhrQBQGOOjWTsRApq0j1Wi7XECsKicuc6wKutYM4CgdNXyGgcpcxkO7pJYagybI0lwRlyjgv0mQgwrjdJQOdXh2ugGPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791533750; c=relaxed/simple;
-	bh=fwhjDRhQYUnsMM4tQfaTafENvxUzunf/We8G83mgylA=;
+	s=arc-20240116; t=1791533870; c=relaxed/simple;
+	bh=7HUEpun7XK+G0FWOsmFC7wia3fSXJYjkA7zrgdGRKiA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LqRIIjxT5poLW2TGfUZVRgcz7t/rsl+pLBiAz9+P84eVwGYR3C4FjD6KwfwIlmq4Z9pMJHzjWz9tA/8mq4nH0YUYX0zX+Bifvb5PDN+PljIXmgLAijPT7TR7RlF2CgaMzjyeAzfswMCoOYBumEVc4jnjyKrzxByke6UWalu7poI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; arc=none smtp.client-ip=195.135.223.130
+	 In-Reply-To:Content-Type; b=L7vwwoWx2oSksJjCIcZmVpNjXi3TWXmCFNdiRZulwhzQcyg/1IcRwKs05n69BqTxO+RwFoa6XUB58zj43rAcFOJlxAyXuQr66czVMjRoECsWqwQ4AOZqYK28wpLh+Wr7XBPp2cdQswof3ASsVGBB1Y9jAQlL2BwmhTSJsEhwkMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; arc=none smtp.client-ip=195.135.223.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id EC3CB21BCB;
-	Fri,  9 Oct 2026 08:15:41 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id CE52F1F790;
+	Fri,  9 Oct 2026 08:17:47 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9337C1368B;
-	Fri,  9 Oct 2026 08:15:41 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 754251368B;
+	Fri,  9 Oct 2026 08:17:47 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id FAvRGq2iyGpKDQAAD6G6ig
-	(envelope-from <jgross@suse.com>); Fri, 09 Oct 2026 08:15:41 +0000
-Message-ID: <8054e545-149d-48cc-9e2d-5a3cd3bd662d@suse.com>
-Date: Fri, 9 Oct 2026 10:15:40 +0200
+	id IJlUEyujyGp3DwAAD6G6ig
+	(envelope-from <jgross@suse.com>); Fri, 09 Oct 2026 08:17:47 +0000
+Message-ID: <57604f7f-fc89-4b9d-bf54-467399436fb2@suse.com>
+Date: Fri, 9 Oct 2026 10:17:46 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,13 +41,13 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/gntdev: Fix gntdev_dmabuf ref leak in
- dmabuf_exp_wait_released()
-To: Wentao Liang <vulab@iscas.ac.cn>, boris.ostrovsky@oracle.com
-Cc: linux-kernel@vger.kernel.org, oleksandr_andrushchenko@epam.com,
- oleksandr_tyshchenko@epam.com, sstabellini@kernel.org,
- xen-devel@lists.xenproject.org, stable@vger.kernel.org
-References: <20260916170956.2086505-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH] xen-pciback: Fix pcistub_device ref leak in
+ pcistub_get_gsi_from_sbdf()
+To: Wentao Liang <vulab@iscas.ac.cn>, Jiqian.Chen@amd.com
+Cc: linux-kernel@vger.kernel.org, oleksandr_tyshchenko@epam.com,
+ ray.huang@amd.com, sstabellini@kernel.org, xen-devel@lists.xenproject.org,
+ stable@vger.kernel.org
+References: <20260916171141.2086627-1-vulab@iscas.ac.cn>
 Content-Language: en-US
 From: Juergen Gross <jgross@suse.com>
 Autocrypt: addr=jgross@suse.com; keydata=
@@ -73,15 +73,15 @@ Autocrypt: addr=jgross@suse.com; keydata=
  HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
  QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
  ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20260916170956.2086505-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260916171141.2086627-1-vulab@iscas.ac.cn>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------5XtmSpn2jOOlI7yHrMJeTWOH"
+ boundary="------------PVMbtoKQccvREt1EzLZT7aiE"
 X-Rspamd-Pre-Result: action=no action;
 	module=Unknown lua;
 	unknown reason
 X-Spamd-Bar: /
-X-Rspamd-Queue-Id: EC3CB21BCB
+X-Rspamd-Queue-Id: CE52F1F790
 X-Rspamd-Pre-Result: action=no action;
 	module=Unknown lua;
 	unknown reason
@@ -93,44 +93,40 @@ X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Spamd-Result: default: False [0.00 / 50.00]
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------5XtmSpn2jOOlI7yHrMJeTWOH
-Content-Type: multipart/mixed; boundary="------------5DJvWL8YxTJ1TDGiVkey8XYO";
+--------------PVMbtoKQccvREt1EzLZT7aiE
+Content-Type: multipart/mixed; boundary="------------7uCpS5pR8FWWGFP0rwJ19PkT";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Wentao Liang <vulab@iscas.ac.cn>, boris.ostrovsky@oracle.com
-Cc: linux-kernel@vger.kernel.org, oleksandr_andrushchenko@epam.com,
- oleksandr_tyshchenko@epam.com, sstabellini@kernel.org,
- xen-devel@lists.xenproject.org, stable@vger.kernel.org
-Message-ID: <8054e545-149d-48cc-9e2d-5a3cd3bd662d@suse.com>
-Subject: Re: [PATCH] xen/gntdev: Fix gntdev_dmabuf ref leak in
- dmabuf_exp_wait_released()
-References: <20260916170956.2086505-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260916170956.2086505-1-vulab@iscas.ac.cn>
+To: Wentao Liang <vulab@iscas.ac.cn>, Jiqian.Chen@amd.com
+Cc: linux-kernel@vger.kernel.org, oleksandr_tyshchenko@epam.com,
+ ray.huang@amd.com, sstabellini@kernel.org, xen-devel@lists.xenproject.org,
+ stable@vger.kernel.org
+Message-ID: <57604f7f-fc89-4b9d-bf54-467399436fb2@suse.com>
+Subject: Re: [PATCH] xen-pciback: Fix pcistub_device ref leak in
+ pcistub_get_gsi_from_sbdf()
+References: <20260916171141.2086627-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260916171141.2086627-1-vulab@iscas.ac.cn>
 
---------------5DJvWL8YxTJ1TDGiVkey8XYO
-Content-Type: multipart/mixed; boundary="------------507C04RoOaZQOEvNpTLFrDSZ"
+--------------7uCpS5pR8FWWGFP0rwJ19PkT
+Content-Type: multipart/mixed; boundary="------------w4z6D0h0DWAil0ycWEiPBP9K"
 
---------------507C04RoOaZQOEvNpTLFrDSZ
+--------------w4z6D0h0DWAil0ycWEiPBP9K
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMTYuMDkuMjYgMTk6MDksIFdlbnRhbyBMaWFuZyB3cm90ZToNCj4gZG1hYnVmX2V4cF93
-YWl0X3JlbGVhc2VkKCkgdGFrZXMgYSByZWZlcmVuY2Ugb24gdGhlIGV4cG9ydGVkDQo+IGdu
-dGRldl9kbWFidWYgd2l0aCBkbWFidWZfZXhwX3dhaXRfb2JqX2dldF9kbWFidWYoKSBhbmQg
-cGFzc2VzIGl0IHRvDQo+IGRtYWJ1Zl9leHBfd2FpdF9vYmpfbmV3KCksIHdoaWNoIGRyb3Bz
-IHRoYXQgcmVmZXJlbmNlIGFmdGVyIGFkZGluZyB0aGUNCj4gd2FpdCBvYmplY3QgdG8gdGhl
-IHdhaXQgbGlzdC4gIFdoZW4gdGhlIHdhaXQgb2JqZWN0IGFsbG9jYXRpb24gZmFpbHMsDQo+
-IGRtYWJ1Zl9leHBfd2FpdF9vYmpfbmV3KCkgcmV0dXJucyBFUlJfUFRSKC1FTk9NRU0pIGVh
-cmx5IGFuZCB0aGUNCj4gcmVmZXJlbmNlIGlzIG5ldmVyIGRyb3BwZWQsIGxlYWtpbmcgYSBy
-ZWZlcmVuY2UgdG8gdGhlIGV4cG9ydGVkDQo+IGdudGRldl9kbWFidWYuDQo+IA0KPiBEcm9w
-IHRoZSByZWZlcmVuY2Ugb24gdGhlIGFsbG9jYXRpb24gZmFpbHVyZSBwYXRoIHNvIHRoZSBy
-ZWZlcmVuY2UgaXMNCj4gY29uc3VtZWQgd2hldGhlciB0aGUgd2FpdCBvYmplY3QgaXMgY3Jl
-YXRlZCBvciBub3QuDQo+IA0KPiBGaXhlczogOTMyZDY1NjIxNzllICgieGVuL2dudGRldjog
-QWRkIGluaXRpYWwgc3VwcG9ydCBmb3IgZG1hLWJ1ZiBVQVBJIikNCj4gQ2M6IHN0YWJsZUB2
-Z2VyLmtlcm5lbC5vcmcNCj4gU2lnbmVkLW9mZi1ieTogV2VudGFvIExpYW5nIDx2dWxhYkBp
-c2Nhcy5hYy5jbj4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNl
-LmNvbT4NCg0KDQpKdWVyZ2VuDQo=
---------------507C04RoOaZQOEvNpTLFrDSZ
+T24gMTYuMDkuMjYgMTk6MTEsIFdlbnRhbyBMaWFuZyB3cm90ZToNCj4gcGNpc3R1Yl9nZXRf
+Z3NpX2Zyb21fc2JkZigpIG9idGFpbnMgdGhlIHN0dWIgZGV2aWNlIHdpdGgNCj4gcGNpc3R1
+Yl9kZXZpY2VfZmluZCgpLCB3aGljaCByZXR1cm5zIGl0IHdpdGggaXRzIGtyZWYgaW5jcmVt
+ZW50ZWQsIGFuZA0KPiByZXR1cm5zIHBzZGV2LT5nc2kgd2l0aG91dCBkcm9wcGluZyB0aGF0
+IHJlZmVyZW5jZSBhZ2Fpbi4gIFRoZSBjYWxsZXINCj4gY2Fubm90IHJlbGVhc2UgaXQgZWl0
+aGVyLCBzbyBldmVyeSBsb29rdXAgbGVha3Mgb25lIHJlZmVyZW5jZSB0byB0aGUNCj4gc3R1
+YiBkZXZpY2UuDQo+IA0KPiBSZWxlYXNlIHRoZSByZWZlcmVuY2UgYWZ0ZXIgcmVhZGluZyBn
+c2kuDQo+IA0KPiBGaXhlczogMmZhZTZiYjdiZTMyICgieGVuL3ByaXZjbWQ6IEFkZCBuZXcg
+c3lzY2FsbCB0byBnZXQgZ3NpIGZyb20gZGV2IikNCj4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5l
+bC5vcmcNCj4gU2lnbmVkLW9mZi1ieTogV2VudGFvIExpYW5nIDx2dWxhYkBpc2Nhcy5hYy5j
+bj4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCg0K
+DQpKdWVyZ2VuDQo=
+--------------w4z6D0h0DWAil0ycWEiPBP9K
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -197,24 +193,24 @@ kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
 =3DeeAB
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------507C04RoOaZQOEvNpTLFrDSZ--
+--------------w4z6D0h0DWAil0ycWEiPBP9K--
 
---------------5DJvWL8YxTJ1TDGiVkey8XYO--
+--------------7uCpS5pR8FWWGFP0rwJ19PkT--
 
---------------5XtmSpn2jOOlI7yHrMJeTWOH
+--------------PVMbtoKQccvREt1EzLZT7aiE
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmrIoq0FAwAAAAAACgkQsN6d1ii/Ey+q
-igf9G0if6s4i2ivYNbf5VuMGEvy4KfsBLLasJmNuKmY1TLEJoSWrQyqnsJ9zu5RLQgJM1QQK2U6B
-ATXzaYtr5VoStTT+RNEEI/q1p5yjNLMJAXRfmDNZaOI4E9XG8LCL6m6ssSzdbgjRkvxClpk7I4hi
-BK8XyGxw3t00NWkmbKsSt/ZBsPSlZbdg8/8pLUgLp6TT32JtJlpNZI18scIa3X9DUZ2wzAAGnu7v
-6LeRyvAYWbl0xRw8LAenftphL4FbHeLC9AtIHXHZ0qc/7ww8kBeB0VWo0veYP8dH7SUIWw0PabFk
-aEeypY4E6F+9KGQ4XSZIImrvSu9PfBLNTAKBahsQmA==
-=xLsP
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmrIoysFAwAAAAAACgkQsN6d1ii/Ey98
+2Af/YpPQ8dl3lICFTOxJwMHYlDJSemck+tgHfkkeZVguq1vOKcyyLJTsTAzOevyvSrA0qQDWAaa/
+4pyW3h15QqMhvv5sqLgwVQ1BcGKrzYP9DJSUpvrPW6rAhAhrZVWOczvTAUR0Ig9d1FJ9OEgtuHFV
+CpcU1KInU6Ccp0XdbpcQL9drbhzzhxa5nJBYClZBGcjWny5DNi9Fa4xBIt6IxLQUVsOkQAVe+6N9
+N4sLhKkByTVc1hur6AgynWi4zlFcPrgh1haVHgq6v8G8ctDevPjaIt2NATSpKse1dHOFW4/3+njR
+kOQQU9mP0QRvmMmwhM7aEY+48WBX3zQrC72zWjhC8w==
+=KTjX
 -----END PGP SIGNATURE-----
 
---------------5XtmSpn2jOOlI7yHrMJeTWOH--
+--------------PVMbtoKQccvREt1EzLZT7aiE--
