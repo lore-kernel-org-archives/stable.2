@@ -1,35 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D61D45D910;
-	Fri,  9 Oct 2026 14:20:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D340D3C9893;
+	Fri,  9 Oct 2026 14:20:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555621; cv=none; b=WyK/PTf0a4qTaARlZmE7kzEPpdXhYu6OblXlx2UUQ4jAovngzWCmAmEfW4lz/xo5xMKiKYiZ5+w+ccfCl8b52+XkWJUasZuafHJBEEGm7s6obbYDhxsquCPr2ISJ2erw1Oi+qQXUQQTKolPi2gnBEfbyi/fKNlCuHsgDI66ekTo=
+	t=1791555623; cv=none; b=CLdNsA7qROionActB67iToZDSiMEoI+hpCmbrRxuVSkMksSHZEk94kxKuJ0U5AI1sJBqiIyaW/vpu96oJUEv0jB/g6tkPN+KagTs7aPRHghD208CtXgx0ijb/n3CIPwuuiXkmtuOGtwBDoYqCfmC7H8fzZJI8GVtQnSMCXa7GU0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791555621; c=relaxed/simple;
-	bh=4uKyMLDUljGUfYtJnxMQHcDq6AQOy7KGZLEP23PA3a4=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=VM7hDUwWrwc/lA86DDneQyH9K/QKE1/590Jv6xZzz46AQrxWBVb1zzHjOM5sJokIxZciB23IbAvHzhbhz7EDUADoz7VLHqJSqVA0X1X5SsxbztDKmAe6wccu53i85ja8mWG7ogPaejW4VEa2pVPLOh9byLbvRe6b30sxL7NtGn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IesZmGlv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791555623; c=relaxed/simple;
+	bh=fC+kt7Ff7+W1ZYIInp9wJaPLPojxAzTaqUbHa9wlReY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=le1/xA0uV3K8pa+rpebEQa2WawFi4thaBwIdt69XnSKIAS4pXkdFtO+p0PEIcEugG8tY7cB8a2cGtrSn7ESIMP1JxzFnjSnfsbkakI8G89Ako28umkLXg7TCR+fYbisEdhvr3vnPzbA5e3LpKAa49c+HHWqFnqsKfHYbA0RKWVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=veLeZsYW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IesZmGlv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 819391F0089C;
-	Fri,  9 Oct 2026 14:20:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791555610;
-	bh=3FHf7rArdR+VTdbZleZtktKDs6UXtKrMfhlvCqIMY40=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=IesZmGlvUVLEW6184WdfKkweZ4wlCg34fxNM+cqrLrDz+YXp+WeYWzVzB0txXh/vQ
-	 FACDdjn7BSDP7VcNJ49Z2UMXzCNZfxrgnqz8NQkAJ30YRVNhUHFctOjNaVYzWpFwPS
-	 Kha53hu00gXOtOROmMCczYCZkBJqTekyZVJU52wnRVW8E5XwBfKVO/4BpDBfSr4Z9a
-	 zZinaxjKLiuqTSCo4K9kMiaZJGmAGpEgWd9pV807ceMkzlj9XN7RnryObE2ESv8vX4
-	 1bzg/riXkFq/VcGCGW7CZMOKvX/h/NHltlYVztNCwS06uGYMP7BYShCJnuyUyrcxsq
-	 LM5Diqg+OffTg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 773FB39253CC;
-	Fri,  9 Oct 2026 14:20:10 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="veLeZsYW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D34581F00898;
+	Fri,  9 Oct 2026 14:20:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791555614;
+	bh=xGGzvMitAEQICQqevhAp2vjyABidXQWn6TJUYtyqnLE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=veLeZsYWrZJUDLPTndHZhOfP3FhhNB3yBHJWPrMiEfjaRqh7kgB6fEzwS7ALcmC7U
+	 cwqdISGqwBhcIrWSR5LxMR6/lWYQSEi53SqMNciNm1ZqkAy/sfkWYWHAkLAQvDIzD7
+	 7ptoLNcDyVCM37+dk1S4gZ0Adpvp0M9MFSDwLYxM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Paolo Abeni <pabeni@redhat.com>
+Subject: [PATCH 7.2 037/428] net: phy: aquantia: fix system interface type not updated in forced mode
+Date: Fri,  9 Oct 2026 16:06:14 +0200
+Message-ID: <20261009140946.906579405@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261009140946.008206689@linuxfoundation.org>
+References: <20261009140946.008206689@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,46 +45,62 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] Bluetooth: hci_vhci: Pin module for debugfs file
- operations
-From: patchwork-bot+bluetooth@kernel.org
-Message-Id: 
- <179155560901.812174.12507365136782263933.git-patchwork-notify@kernel.org>
-Date: Fri, 09 Oct 2026 14:20:09 +0000
-References: <20261008045413.465999-1-dungvn2345@gmail.com>
-In-Reply-To: <20261008045413.465999-1-dungvn2345@gmail.com>
-To: Bui Viet Dung <dungvn2345@gmail.com>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com, ipravdin.official@gmail.com,
- pmenzel@molgen.mpg.de, linux-bluetooth@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-Hello:
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-This patch was applied to bluetooth/bluetooth-next.git (master)
-by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+------------------
 
-On Thu,  8 Oct 2026 11:54:13 +0700 you wrote:
-> An open debugfs file retains its file_operations pointer in the
-> debugfs proxy state. However, force_suspend_fops, force_wakeup_fops,
-> aosp_capable_fops, and force_devcoredump_fops have no .owner set to
-> THIS_MODULE. As a result, full_proxy_open_regular() calls fops_get()
-> which succeeds without taking a reference to the hci_vhci module.
-> 
-> When userspace opens any of these debugfs files and later closes
-> the /dev/vhci file descriptor (triggering vhci_release() and
-> debugfs file removal), the open debugfs file descriptor remains valid
-> in userspace. Because the module refcount was not incremented,
-> the hci_vhci module can be unloaded via delete_module (rmmod hci_vhci).
-> 
-> [...]
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-Here is the summary with links:
-  - Bluetooth: hci_vhci: Pin module for debugfs file operations
-    https://git.kernel.org/bluetooth/bluetooth-next/c/da8aab8ed08d
+commit 6e0022b5ae3dc5b833af0fcc1578dc20a1d6bc71 upstream.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+aqr_gen1_read_status() decodes the MDIO_PHYXS_VEND_IF_STATUS register
+to determine which SerDes interface the PHY is currently using on its
+system side and stores the result in phydev->interface. phylink relies
+on this value to configure the MAC.
+
+The autoneg == AUTONEG_DISABLE check is not correct:
+MDIO_PHYXS_VEND_IF_STATUS is set by the PHY firmware based on the
+negotiated link speed, not based on whether autoneg was used to reach
+it. When the link comes up at 1G in forced mode, the register correctly
+reads SGMII, but the early return prevents phydev->interface from being
+updated. It stays at whatever value it held before (typically 2500BASE-X
+from the initial autoneg run), so phylink configures the MAC for the
+wrong interface and the link cannot come up.
+
+Remove the autoneg guard so that the system interface type is always
+decoded when the link is up.
+
+Cc: stable@vger.kernel.org
+Fixes: 110a2432c520 ("net: phy: aquantia: add downshift support")
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260923-qcom-sa8255p-emac-v15-1-e82f33720737@oss.qualcomm.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/net/phy/aquantia/aquantia_main.c |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+--- a/drivers/net/phy/aquantia/aquantia_main.c
++++ b/drivers/net/phy/aquantia/aquantia_main.c
+@@ -544,7 +544,7 @@ static int aqr_gen1_read_status(struct p
+ 	if (ret)
+ 		return ret;
+ 
+-	if (!phydev->link || phydev->autoneg == AUTONEG_DISABLE)
++	if (!phydev->link)
+ 		return 0;
+ 
+ 	/* The status register is not immediately correct on line side link up.
+@@ -594,6 +594,9 @@ static int aqr_gen1_read_status(struct p
+ 
+ 	phydev->interface = aqr_translate_interface(phydev, interface);
+ 
++	if (phydev->autoneg == AUTONEG_DISABLE)
++		return 0;
++
+ 	/* Read rate from vendor register */
+ 	return aqr_gen1_read_rate(phydev);
+ }
 
 
