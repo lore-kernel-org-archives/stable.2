@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44FD74EA36F;
-	Fri,  9 Oct 2026 14:48:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCCD62EBBAF;
+	Fri,  9 Oct 2026 14:48:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791557301; cv=none; b=RUJP7HV5jbcKkIdVk9GqQxeW9xXPtP9y6Xi8iRDledSQxjYQZAUWLAKmAv9kqpRaIXmnY8EkqpALlyYT2BG3i3Rit6jn4hrU+lYKHezw89T9ky/QreistpVBpakdjtegLEbl0CKFs7uMBAv5y2mTnwgQFBhDtc26TiVTq4+j8KU=
+	t=1791557302; cv=none; b=oSsuSkyA3iNEqUQ7L3TroPSbc+Qd8AALL/XaELYJFjSij3yLW+JEn2N8Y9jQOTmRhI8LNThO0J6+ysCNC9y8rVS5B3INh1Z0vzYa9qT0KPtM8KppWhP8ezkTLEtVp9Xr13HpMPlTxYlW6fv2vB3no18TM0ccX+OwQK5vyozxCdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791557301; c=relaxed/simple;
-	bh=qlmZ5DAJR7brrzfFoQGSqID6h6Pr1RUBCSVqoDi2ISY=;
+	s=arc-20240116; t=1791557302; c=relaxed/simple;
+	bh=t+vWU1bGqMnH33cFkKpvUv9qyvY9Q8PAtqOYxHCygww=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p/yHABS95viWmQU5DwAcyz4EmYlodBZc2vgh4vQAhhsvUzakdorNqiqMQRWz2cgkYv6UHCDOyUj5TLvBJEFG9wfQG9+FRBFj135VxAd+h31zTjVPv5Z8PsOICJZqtCZqVraiycIh/hgnYh/eA4ckKyHrvWrxeBS9gZqVpn/cyuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kpg0eZIJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hbWo5S3oImXIDwXSjxJcwFIgmwWTG7jGs0QyLvNGUSTw0e5DkrOXjkKTsqgY+NxPw1kaNTVrVO73c+VgX1JQqtokkapkGUUVoAFfkbVxQVvZTZ3AghCTwfsJ+rGefBDYpClP+bPsHelzK0MyqWIQoQ3AgrC0HsYcL62YGiJTylI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I45jDs8c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kpg0eZIJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E2C91F000FF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I45jDs8c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 478A71F00898;
 	Fri,  9 Oct 2026 14:48:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791557300;
-	bh=f2gR41s/dNLWadtsWxp/A+7Bz11tfpmzGxRaSWEkozw=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791557301;
+	bh=8/6BMd6YHWfD43iTNLmfCL9vbVOX4eDCpfrdP6izaRk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kpg0eZIJ3OvndqJEVQ3ziWiWk2VNjaj/jaKvyFejtumnhbs4AWeMa+gbvlKQP3qCc
-	 nPw4sogMc0qIln5/6YCYPRyAgG9dvdDJVBwjn6Q5jqUs+ellPECnMwOzJPC3ekiMy4
-	 uHBllV0etSKjAuVw+KXeWogNDNvNWqfIEtMfWpkU=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=I45jDs8cFF5+8RTsODCHZCwmhYfs4bKmISxNdL6WziY5JrFmA/j8Pt2ZHmVC93bxB
+	 95T9obtEyddAO3mj7NILoeHPnBPOABjRTakBZL0+VT7aAYisP38SG/vn+GEpBKP74i
+	 3MjzjPCKMO79+AiFYGTyqxLHhPq3Qjpjnn2O1zyXJenfnsHUz3huVInTtoEu2TntXi
+	 qwvjO0UEvQ1F2KLbWA+e48DY8VnKXpcC2gWcl+PI3fxScDabef/NlTWg0sMNNmu76f
+	 zzf3lw2APA1l+kNf68PiPOoxgemWjgxUdXaMmzb+KeFSF336NcyjuMdz1CnvePJnE2
+	 LRrCrGBrwNHaA==
+From: SJ Park <sj@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Subject: [PATCH 7.2 311/428] KVM: nVMX: Force MSR bitmap refresh if runtime eVMCS controls are modified
-Date: Fri,  9 Oct 2026 16:10:48 +0200
-Message-ID: <20261009140952.953799579@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261009140946.008206689@linuxfoundation.org>
-References: <20261009140946.008206689@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: damon@lists.linux.dev,
+	SeongJae Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 6.1.y v2 1/2] mm/damon/core: do non-safe region walk on kdamond_apply_schemes()
+Date: Fri,  9 Oct 2026 07:48:07 -0700
+Message-ID: <20261009144808.18317-2-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261009144808.18317-1-sj@kernel.org>
+References: <2026092949-surpass-thimble-02a8@gregkh>
+ <20261009144808.18317-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,53 +46,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+From: SeongJae Park <sj@kernel.org>
 
-------------------
+kdamond_apply_schemes() is using damon_for_each_region_safe(), which is
+safe for deallocation of the region inside the loop.  However, the loop
+internal logic does not deallocate regions.  Hence it is only wasting the
+next pointer.  Also, it causes a problem.
 
-From: Sean Christopherson <seanjc@google.com>
+When an address filter is applied, and there is a region that intersects
+with the filter, the filter splits the region on the filter boundary.  The
+intention is to let DAMOS apply action to only filtered-in address ranges.
+However, it is using damon_for_each_region_safe(), which sets the next
+region before the execution of the iteration.  Hence, the region that
+split and now will be next to the previous region, is simply ignored.  As
+a result, DAMOS applies the action to target regions bit slower than
+expected, when the address filter is used.  Shouldn't be a big problem but
+definitely better to be fixed.  damos_skip_charged_region() was working
+around the issue using a double pointer hack.
 
-commit 2abb25273c82061dd4670690c81c319c03740bf6 upstream.
+Use damon_for_each_region(), which is safe for this use case.  And drop
+the work around in damos_skip_charged_region().
 
-Force a refresh of the vmcs02 MSR bitmap during nested VM-Enter if the
-runtime eVMCS controls (pin, primary, secondary, etc.) are being updated.
-If L1 isn't intercepting TPR writes, runs L2 with TPR virtualization, and
-then runs the same L2 with TPR virtualization disabled, KVM will fail to
-refresh msr_bitmap02 and leave TPR in passthrough mode even though TPR
-virtualization is disabled.  I.e. failure to refresh the bitmap lets L2 (or
-L1 by proxy) read and write L0's TPR.
-
-Fixes: 502d2bf5f2fd ("KVM: nVMX: Implement Enlightened MSR Bitmap feature")
-Cc: stable@vger.kernel.org
-Reviewed-by: Vitaly Kuznetsov <vkuznets@redhat.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Link: https://lkml.kernel.org/r/20260227170623.95384-3-sj@kernel.org
+Signed-off-by: SeongJae Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+(cherry picked from commit 1745ccbd2907db2bdaa843e4abccde4fdaccbe5d)
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
- arch/x86/kvm/vmx/nested.c |    6 ++++++
- 1 file changed, 6 insertions(+)
+ mm/damon/core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -1758,6 +1758,9 @@ static void copy_vmcs12_to_shadow(struct
- static void copy_enlightened_to_vmcs12(struct vcpu_vmx *vmx, u32 hv_clean_fields)
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 7afbc20833ea..c65d2cbeea6b 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -858,7 +858,7 @@ static void damos_set_effective_quota(struct damos_quota *quota)
+ static void kdamond_apply_schemes(struct damon_ctx *c)
  {
- #ifdef CONFIG_KVM_HYPERV
-+	const u64 runtime_controls = HV_VMX_ENLIGHTENED_CLEAN_FIELD_CONTROL_GRP1 |
-+				     HV_VMX_ENLIGHTENED_CLEAN_FIELD_CONTROL_GRP2 |
-+				     HV_VMX_ENLIGHTENED_CLEAN_FIELD_CONTROL_PROC;
- 	struct vmcs12 *vmcs12 = vmx->nested.cached_vmcs12;
- 	struct hv_enlightened_vmcs *evmcs = nested_vmx_evmcs(vmx);
- 	struct kvm_vcpu_hv *hv_vcpu = to_hv_vcpu(&vmx->vcpu);
-@@ -1766,6 +1769,9 @@ static void copy_enlightened_to_vmcs12(s
- 	vmcs12->tpr_threshold = evmcs->tpr_threshold;
- 	vmcs12->guest_rip = evmcs->guest_rip;
+ 	struct damon_target *t;
+-	struct damon_region *r, *next_r;
++	struct damon_region *r;
+ 	struct damos *s;
  
-+	if ((hv_clean_fields & runtime_controls) != runtime_controls)
-+		vmx->nested.force_msr_bitmap_recalc = true;
-+
- 	if (unlikely(!(hv_clean_fields &
- 		       HV_VMX_ENLIGHTENED_CLEAN_FIELD_ENLIGHTENMENTSCONTROL))) {
- 		hv_vcpu->nested.pa_page_gpa = evmcs->partition_assist_page;
-
-
+ 	damon_for_each_scheme(s, c) {
+@@ -912,7 +912,7 @@ static void kdamond_apply_schemes(struct damon_ctx *c)
+ 	}
+ 
+ 	damon_for_each_target(t, c) {
+-		damon_for_each_region_safe(r, next_r, t)
++		damon_for_each_region(r, t)
+ 			damon_do_apply_schemes(c, t, r);
+ 	}
+ }
+-- 
+2.47.3
