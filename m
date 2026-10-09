@@ -1,229 +1,238 @@
-Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6544F43F4B5
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 20:08:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 186DC489877
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 20:13:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791576496; cv=none; b=jHHeUtx9OvbpJvNwDm8xQQx4l4J9f0DbI+4Nc+JOuq1DuXmSyZIiGmUPiqychYekIxYf81Zwb0giPYkN+5U6HiB2fLylDql/Hafk09oM51c6Pv0IJTaiE0gpaMDMp863j9LEaPSOW0PKDJXJuVn5Uqo/5o1zP7zZr+4OLzrYMdg=
+	t=1791576811; cv=none; b=LQJRFhcfQ9s9bLwNJCvRBAk24FNscNxaHBEnNhVlAU5rOzMoXwQ1lJ3GGlGhWfMpx2pbIGHVESeclVzTku67cF3BLz0IS8i7+tyT1vzT1E1+yPP/HqLpLjqWcBrvgIgv34IwU2UgGDJJx4hZCAE4pq7rTn+VEdAyYOlOyl0kg/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791576496; c=relaxed/simple;
-	bh=jXHWcYXno+BNZgz1rsCedAQ5lderQsw0Xd42WQkUbkc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Content-Type; b=GNEwo7+9tLwT9g2gYXtsPD23zHplZFwmzftkEI9/6hsngq69Tfw39evhPfWhmAEm/cQ046Kt2eAd00ZpX0y8X4XDwci4cc/NJktdbABVz6Pgyt59+Np0QFxaROm02K/hMdsGRfrxH0dRQiB3Dk16SW12TLDCK8TC44bT+QSPeis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=Pa2tsaSx; arc=none smtp.client-ip=209.85.216.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1791576811; c=relaxed/simple;
+	bh=VBVCzL78Ra13MLbQJJF8TciSUPmNnFPCNfvbXK94TbQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U8D3lgsFXksMoSKrOw/bi0XwBLkF4jUBKQlLedv4ONIf/bLhamM88IrYVdBpwOD6r8t8Rz9WMBC1IHNmYL3KbkSA+6KrkqdG2V7W6y5R6eZYLS9Ak/b4nfzCiDoUUsFA8voXQRsz65jHFpoA3cQLu7snzfKruO6DLSEvwEIrU0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H1/iwbJN; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="Pa2tsaSx"
-Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so13451a91.2
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 13:08:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791576494; x=1792181294;
-        h=content-type:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=tZg8ei6wJ9atRR6kZNc7NVwBjgqBLk6oCrlYr1ydMYw=;
-        b=Me+q56LMCtO3+8UJyjR5gqJBIJrnYuE5d/oX9qS5OBVAKggls6IfK0jWJz5DB6idUu
-         ph4xvETVD5Tjl2p71OYW74aQDyiPlr27pJdqlVEujgpDrDBO6nbVhuxuL4YFGZPEo6Ri
-         R2grbHIJVjD1ztf/S4mTtiIhkJ9jQnWO0N5ViLVDQRX2mVDBn2T6oPIsoKHNmOiyD4DA
-         otJKE5ds3kXlJYon3Flo8C92n/l9LjZjApm3Xt4rJFsAvDcVOOTnJemWRHhFXRkDrpQx
-         4W6lO/zV6/8qcMmCMbEqJh8HxNPhhWg9zsnvFP0Q7jSD3XIHlWyLdcxBm698SajSqgy/
-         q6Yw==
-X-Forwarded-Encrypted: i=1; AKwUvBxJcDfEmgFzYkqxljBRSsIsXeSEOVUVhjxG7tiUbBEKKnoTWnx3Bxz9WbK4/viqsJ1pc+7HDzs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPTJxpwCIHqW6DamAiBGW/SH848ues7Ih4PZr2CK1T5bwRzhZo
-	ydh4Dhwn3agD3RCR6YskOfr+S8O5VEUuCAxCj2cEvpO89tPDXtPoH7Ox+VrL/JOUgO2kPmRwSjU
-	c9Eztl6bElDOaZsqvkIGofFfJ52sdEqOfeaGuWTGtgaQLkRUwT4AeF0Gn6qZWSNlqwaMr78MZ+P
-	xQhTM2YpFCRKUAP7O5RYM8oDDBsP/3Q4Ky95U9byxL/NB4Iy4RUk9M6IvxRNSM6RpyWMsEzcBQd
-	FJ8scz5oyU=
-X-Gm-Gg: AYBFou2pj3w8O7O9Tq6WBaG0vWUj+God/Co3HxBLIcpydgfl26ZeNWPNDm2WO/e/6cF
-	SMPIEJP8QhXZX4H0BAhkjQ4SJrkyQNzEn1gWI8iVdn+DlnsfpJp31JkLXVCTiXQl+CjAtWZUZPJ
-	e0anIobWIWFOQfhrje7GXA/9uoe6wS9V0K9FcbHgCGVhMzEq6244bwsjFlql1MoRkICRwWjYNjO
-	dCiGK+DDzH/bsDs1UIQI1h3oYdkqDuwMpEDpHvC7jxg17etIFXe3wcwCBtVXfBDQjJ8IXQkL6ep
-	Bng3rHe9ndWuZd/ep3JJS+9yDIRfukwU1IVOQ0WQZ4P/xTdlD4i6yWbFwoCjBeBio2EYF/9glwx
-	UvlG5u/frZF6mUgYWnR4GmgWdXIbqtVDFvfYn34sjyyHTzQdFphi3OwMXV4KNmTbmoMByERBebt
-	CgbJ7z20nT+W55ZKEHY70s9yST3Zbt+oV6/0gfog==
-X-Received: by 2002:a17:90a:ec8c:b0:396:41d1:cbc7 with SMTP id 98e67ed59e1d1-3ab3a2902admr2988089a91.3.1791576494326;
-        Fri, 09 Oct 2026 13:08:14 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ab36bb38c9sm1618215a91.2.2026.10.09.13.08.13
-        for <stable@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 09 Oct 2026 13:08:14 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c2e41c60b42so12662566b.0
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 13:08:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H1/iwbJN"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48b06f58380so16897f8f.1
+        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 13:13:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1791576492; x=1792181292; darn=vger.kernel.org;
-        h=content-type:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tZg8ei6wJ9atRR6kZNc7NVwBjgqBLk6oCrlYr1ydMYw=;
-        b=Pa2tsaSxQqwgQnOBTI2lK08xCWEUIFRfqMhHzZSD/6NFOnzBepFoTp62uaRZ1cq/oq
-         d8xwaswL9tWWxmFRoz4UZRRu7St6+FLGPJzgtEmD3feSKjS+mSHSYCaYsFgKsi+Q6kD9
-         OU2GXNxnvVkGt2ZpnZTvkFwskfuCK/Ku4h34s=
-X-Forwarded-Encrypted: i=1; AKwUvBz+UMJ+UzZ4UaoNIgE3KjyRL5H0BYaf6cGgUXvxVsb9vo7T7AvtRneNCe9iAxKyDlL0FBG0/ls=@vger.kernel.org
-X-Received: by 2002:a17:906:f586:b0:c29:6de8:d143 with SMTP id a640c23a62f3a-c31aa00dd05mr320655766b.19.1791576492490;
-        Fri, 09 Oct 2026 13:08:12 -0700 (PDT)
-X-Received: by 2002:a17:906:f586:b0:c29:6de8:d143 with SMTP id
- a640c23a62f3a-c31aa00dd05mr320654166b.19.1791576492065; Fri, 09 Oct 2026
- 13:08:12 -0700 (PDT)
+        d=gmail.com; s=20251104; t=1791576808; x=1792181608; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6c98E3bQDB/GO0f+bN2P00CEjl+2+qvBif5l3vTdniU=;
+        b=H1/iwbJNg2TfAAn2+qNLuo2m9LEqLr/Vhxp0uO2WHc9PWl5G3ABJO5iqZYOIt6awXY
+         BFteL5NPRtRdewYm7H+/9yvRK68F6jX8a7SwYMBfe1mciWRGbtL9pIzdP3WyAjooWOXE
+         kbb2qE3V96hGcg0zD//pP/xhaFQ9oZdGNfoxDdwRESLJFlf/KcglmQKoNv6IVpWM68H0
+         u1lCy7JECa2FCl0d8ydWj229KZNsHpc7qVc3/TQGOvkOjrX5AX5vMItl48pUS0TwrnnM
+         hASi+qjsAt1K1Rwg5adiBvoGX3YoLa7Vykmj0vWaIPHKmFiAI8yuYxljtYkqF5gJu9kc
+         iFyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791576808; x=1792181608;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6c98E3bQDB/GO0f+bN2P00CEjl+2+qvBif5l3vTdniU=;
+        b=mpQ5G0M+FIYWY+N5GJGPn8KvMroX872mQZ8TeLp/cAcEqBvm4ixwfrTv69567CkLq+
+         OFef7Tl50rN84OIt9kzK2HO+L0e83B/EtCRwcEJ/jWF+qjq+CxQyNnYzBcHWm3PKXUjl
+         iLTeVbS2rQQGQhnmg4V2KMwjofkpYqETwDrj1Yz5ozvUlfjDID3PRuUX4dWCdG8mJFt4
+         y5BBikH/ljJuob8cODXg/agaoVfMSx2mwKQ9/Sl+z1QzeCqY1H3nOQhaebWy7oXrgp02
+         8L5ppfhoWwgfMyvGhsoKqGUO2m50wKM9NPPS8JhA2qd2XsoYzi0YJCOhCoL7Uu5oQ8GB
+         JFcw==
+X-Forwarded-Encrypted: i=1; AKwUvByWGeupf6aj4W5m67MyenI9ki70pJFGm5YvJKn/ocNBzkeCa1gw9Co9bsS9Va5FB+gylW57xRI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kXu4A+/VT2Cc9Qoxqi3utxIAZuEDJRSuGYoeuHfWe+eALYxnKA
+	4pAWqBLhAbkBDsbq1zXxxUsnumVJiGZw2pO+wV92K7H87Anw0K35cNcb
+X-Gm-Gg: AYBFou2SOcOmmXgWffr7hHz92ue+bt3Wsqnc3K1Fo0jYLlXqlSqp+t539ZjcRib4b2C
+	9OOWJ04UyoK2Wkf6Q+HUszxgkt31x6VUAWSjpeNZ4eWgfpbyYIMLtqp5A84Y63YERuqcmL4hoWj
+	UZ05x6FIi05xRbncNizsdecr2m1tVpUZyk0l4PeQkm0VUzuKk3v9q+Zd4c8RJrfDfUcw/NKlIMo
+	PtNZNdVWvA1FLAFo8vvwzUaBhKsgYTNWafCcAScjVhmjRKy6qcHKLipwqFhcGQOT9TkjhIhV+nD
+	eEcj5PvYHOdjTt23m3msAW8ESrxyajMBzJTdaZ1WMnVKfup8iLmWcZWHP75cEbvshJBpUTm2Zrf
+	FemuSTWHIfM6zk4GkmNYKfgWww0RbScSTiz5yCDAkv2tZcvT2+IRr9MnUTrK07mK46ceOw1xXPV
+	A3pv4N4BHTwaCCNVRH1pXGu8oLnnWL4mvlmHutauMOnT6+EtwGwHy53Cai5Bds9jblZ5WkKI2Rg
+	vcz8OCZxA5XisFISzaWHtgdCwURk+6rBjrD2VVumrpBH8kOPSE7hj3h6jGQZQJl0vIuNW485g5T
+	dVAe5vVqXI8nSVJxifHSCgUyMhXtAbWoCj6F7ayAJF8=
+X-Received: by 2002:a05:600c:4e04:b0:4a1:8dc1:7a4e with SMTP id 5b1f17b1804b1-4a18e47d752mr55640965e9.2.1791576807953;
+        Fri, 09 Oct 2026 13:13:27 -0700 (PDT)
+Received: from L-022584.energy.envision.com (dynamic-093-130-185-162.93.130.pool.telefonica.de. [93.130.185.162])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18d12fe04sm47053065e9.4.2026.10.09.13.13.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 13:13:26 -0700 (PDT)
+From: Xin Xie <xiexinet@gmail.com>
+To: netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	andrew+netdev@lunn.ch,
+	shuah@kernel.org,
+	kees@kernel.org,
+	petr.wozniak@gmail.com,
+	qingfang.deng@linux.dev,
+	fmaurer@redhat.com,
+	luka.gejak@linux.dev,
+	bigeasy@linutronix.de,
+	xiaoliang.yang_1@nxp.com,
+	skhawaja@google.com,
+	liuhangbin@gmail.com,
+	stable@vger.kernel.org,
+	sdf.kernel@gmail.com,
+	xiexinet@gmail.com
+Subject: [PATCH net v7 0/4] net: hsr: fix super-packet forwarding and ordering
+Date: Fri,  9 Oct 2026 22:13:20 +0200
+Message-ID: <20261009201324.17-1-xiexinet@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008191114.3736826-1-joe@dama.to> <20261008191114.3736826-3-joe@dama.to>
- <CACKFLikWkH6QaOG=EO_zu8cqCFRxGqtA2-+R-btp0TwUbJjVBg@mail.gmail.com>
- <asklVFvUJx8P/k1d@devvm20253.cco0.facebook.com> <CACKFLiksRwZm+Zy74G_u59yEpY5BK+xRv=r6f9Wpo6WgT_TwDQ@mail.gmail.com>
- <aslESokQPvYCWarH@devvm20253.cco0.facebook.com>
-In-Reply-To: <aslESokQPvYCWarH@devvm20253.cco0.facebook.com>
-From: Michael Chan <michael.chan@broadcom.com>
-Date: Fri, 9 Oct 2026 13:07:59 -0700
-X-Gm-Features: AclHuK8p8UVhVKv-kHOvjNgJajY-GtpjS4FA3Go4bX8piCxVrG6EMWsNdVO7SDA
-Message-ID: <CACKFLi=0uuY36A+pnHVDqRYACfC5WVXx357cgD5BDMiTfW9sRA@mail.gmail.com>
-Subject: Re: [PATCH net 2/2] bnxt_en: Pad short SW USO segments to BNXT_MIN_PKT_SIZE
-To: Joe Damato <joe@dama.to>, Michael Chan <michael.chan@broadcom.com>, netdev@vger.kernel.org, 
-	Pavan Chebbi <pavan.chebbi@broadcom.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, edumazet@google.com, 
-	horms@kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="0000000000006fa7a9065d6de8c0"
+Content-Transfer-Encoding: 8bit
 
---0000000000006fa7a9065d6de8c0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+HSR/PRP requires per-wire-frame tags/RCTs and sequence numbers, and
+duplicate discard is per frame. RX GRO and TX GSO can present multiple
+frames as one skb and violate that assumption: a super-skb is either
+rejected by a constrained lower device, or forwarded without valid
+per-frame trailers and sequence numbers. An oversized PRP aggregate
+can also truncate the RCT's 12-bit LSDU size field.
 
-On Fri, Oct 9, 2026 at 12:45=E2=80=AFPM Joe Damato <joe@dama.to> wrote:
->
-> On Fri, Oct 09, 2026 at 11:33:07AM -0700, Michael Chan wrote:
-> > Did you mean generic XDP turning around incoming packets with XDP_TX
-> > actions and transmitting them through the software stack?  This path
-> > cannot generate USO packets, right?
->
-> Hm, I'm probably missing something, but the case I'm describing is generi=
-c XDP
-> bouncing received packets back out with XDP_TX.
->
-> I could be wrong (and if so I am happy to drop this if statement from the
-> code), but IIUC generic XDP runs from __netif_receive_skb_core() after
-> software GRO, so the packet it sees can be a GRO'd UDP packet with
-> SKB_GSO_UDP_L4 set (because maybe the socket had UDP_GRO set?).
->
-> The generic XDP path seems to keep all of the gso fields. Later generic
-> XDP TX calls netdev_start_xmit without validate_xmit_skb being called
-> and so gso_size could potentially be some tiny value.
+Patch 1 keeps software GRO off while devices are direct HSR/PRP
+members, without rewriting wanted features. Fixed-on or driver-required
+GRO_HW may remain enabled.
 
-I don't know.  You may be right, but this is a highly unusual code
-path.  Other features checked in bnxt_features_check() do not get
-rechecked again.
+Patch 2 replaces the forwarding lock with one consumer to avoid
+stacked-HSR deadlocks. It preserves per-lower submission order for
+locally numbered frames, so old HSR peers that drop late sequence
+numbers keep working. Only sequence allocation holds the short counter
+lock; forwarding runs after it is released.
 
-If you decide to keep the check, please add a comment.  Thanks.
+Patch 3 segments valid GSO before per-frame processing, so each wire
+frame gets its own tag/RCT and sequence number. Patch 4 tests member
+GRO policy, GSO forwarding and local submission order.
 
---0000000000006fa7a9065d6de8c0
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+A typical GSO source is a container connected to a PRP RedBox
+interlink through veth. An existing TCP/UDP GSO skb can reach the
+interlink with GRO disabled:
 
-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
-DPVtLUtep/P3evQuAtTQRaKedjamBcUpJ7qUhBuv/Z07LlLIlB/vfNSPWe1V+njTezc8m3VfvNEC
-qEpXasPSfDgfcuUhcPR+7++oUDaTt9iqGFOjwiURxx08pL6ogSuiT41O4Xu7msabnUE6RY0O0xR5
-5UGwbpC1QSmnBq7TAy8oQg/nNw4vowEh3S2lmjdHCOdR270Ygd7jet8WQKa5ia4ZK4QdkS8+5uLt
-rMMRyM3QurndiZZJBipjPvEWJR/+jod8867f3n0CAwEAAaOCAd0wggHZMA4GA1UdDwEB/wQEAwIF
-oDAMBgNVHRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3Nl
-Y3VyZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEF
-BQcwAYYtaHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1Ud
-IAReMFwwCQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIB
-FiZodHRwczovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAy
-hjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwJAYDVR0R
-BB0wG4EZbWljaGFlbC5jaGFuQGJyb2FkY29tLmNvbTATBgNVHSUEDDAKBggrBgEFBQcDBDAfBgNV
-HSMEGDAWgBQAKTaeXHq6D68tUC3boCOFGLCgkjAdBgNVHQ4EFgQUJbO/Fi7RhZHYmATVQf6NlAH2
-qUcwDQYJKoZIhvcNAQELBQADggIBABcLQEF8mPE9o6GHJd52vmHFsKsf8vRmdMEouFxrW+GhXXzg
-2/AqqhXeeFZki82D6/5VAPkeVcgDeGZ43Bv89GHnjh/Vv0iCUGHgClZezpWdKCAXkn698xoh1+Wx
-K/c/SHMqGWfBSVm1ygKAWkmzJLF/rd4vUE0pjvZVBpNSVkjXgc80dTZcs7OvoFnt14UgvjuYe+Ia
-H/ux6819kbi0Tmmj5LwSZW8GXw3zcPmAyEYc0ZDCZk9QckL5yPzMlTAsy0Q+NMVpJ8onLj/mHgTk
-Ev8zt1OUE8MlXZj2+wgVY+az2T8rGmqRU2iOzRlJnc86qVwuwjL9AA9v4R13Yt8zYyA7jL0NiBNP
-WaOSajKBB5Z/4ZVtcvOMILD1+G+CVZX7GUWERT9NRXw/SyIEMU59lFbuvy4zxe3+RbOleCgp3pze
-q8HE2p9rkOJT3MkCNLxe+ij4RytIvPQXACsZeLdfTDUnjeXCDDJ9KugVhuqMelAZc4NissPz8FOn
-2NK++r5/QamlFqYRhsFxSBIvhkh2Q/hD3/zy4j17Yf/FUje5uyg03FblSBOk2WYpRpXEuCpyn5pb
-bYVIzfhQJgwGfO+L8BAeZIFjO1QL3s/zzn+RBlTl4wdDzh8L9eS+QEDhMcSsqb4fFRDbsoVuRjpx
-R5MunSUzk4GcmmM19m7oHhPGeKwIMYICVzCCAlMCAQEwYjBSMQswCQYDVQQGEwJCRTEZMBcGA1UE
-ChMQR2xvYmFsU2lnbiBudi1zYTEoMCYGA1UEAxMfR2xvYmFsU2lnbiBHQ0MgUjYgU01JTUUgQ0Eg
-MjAyMwIMZh03KTi4m/vsqWZxMA0GCWCGSAFlAwQCAQUAoIHHMC8GCSqGSIb3DQEJBDEiBCBgrSpV
-gX765ya1aCdY5HB+U3JKjgAUkzP5vX0nuZd7FDAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwG
-CSqGSIb3DQEJBTEPFw0yNjEwMDkyMDA4MTJaMFwGCSqGSIb3DQEJDzFPME0wCwYJYIZIAWUDBAEq
-MAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwCwYJKoZIhvcNAQEHMAsGCWCG
-SAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQBZ4+PpfmCj67JE8YrBbXCv5MLRqitDRGv3me6LQO6v
-3qd5ARUzHuRh1bWtMWIRoWTbR8bNK5tdWFPxUBPtGfucjn3nqQQxzmwPPvs6tTxCzuCcmo6xd8+U
-YkawgK5qFC7A0K7R+iIRgGzMG9CADiuponEDA7xC4WZamiX643Rz9BEazw5q0p/GbOhCAwiVZ+fN
-W6hJeXV2iw5xuRT5LOfGJdJDuYL0/sJXay3S/tkM8BvD3uYtSBICAwf8Z+IZKR0Co+/9eipBudXW
-s6N90Qyrbazgp0YBfdHBbiCZLS93LC0vt+b5VSh7BRTzDFcPDrrBIx1erQcxagIMhlily3KM
---0000000000006fa7a9065d6de8c0--
+  container/netns                  host PRP RedBox
+  prp0-peer ---- veth ---- prp0-int (interlink RX)
+                                  |
+                           split GSO into frames
+                                  |
+                           sequence number + RCT
+                              /          \
+                           LAN A        LAN B
+
+Compatibility with older PRP senders:
+
+Valid PRP frames from older senders remain supported. Patch 2
+preserves submission order for locally numbered frames without
+changing the PRP frame format or requiring peers to upgrade.
+
+Some old Linux PRP senders incorrectly append one RCT to an entire
+GSO skb. This violates the per-frame PRP requirement. Patch 3 drops
+such intact aggregates when trailing bytes extend past a known,
+nonzero IP length; zero lengths and GSO_PARTIAL are not covered by
+that check.
+
+The mixed-version test uses two PRP VMs; the host runs no PRP.
+On virtio-net/TAP paths, disabling GRO_HW in patch 1 can make the
+host segment an old sender's malformed aggregate before it reaches
+the receiving VM. The RCT then becomes transport payload, which the
+receiver cannot reliably identify or remove. In our QEMU 8.2.2 UDP
+test this produced an extra six-byte datagram; the base receiver
+delivered the original data correctly. Upgrade the sender or disable
+GSO/TSO on its HSR/PRP master; the latter avoided the failure in the
+test.
+
+Validation:
+
+On the net test kernel (7.3.0-rc5-gb0fe53dd6370), the installed
+ordered selftest passed 5/5 cases, including supervision, concurrent
+producers and sequence wrap, with complete, loss-free captures.
+
+GRO passed 11/11 with the preceding helper. The later cleanup-only
+fix does not affect GRO cases. Failure-injection checks confirmed
+error reporting and cleanup.
+
+Earlier queue-stress and PREEMPT_RT results are retained. Paired W=1
+builds had no additional diagnostics. These checks were not repeated
+for the helper update.
+
+Based on net 6dc989ea46b9 (2026-10-05). Integration preserves the
+upstream interlink promiscuous-mode exception and setup-failure
+cleanup. The series applies directly to this base.
+
+Patch 3 depends on patch 2; no stable backport is requested here.
+The remaining HSR dev->stats races are left to a separate series,
+as Paolo suggested [1]. Pre-existing shared-skb mutations are also
+handled separately.
+
+[1] https://lore.kernel.org/netdev/4fc3b9f1-4bef-4b34-ae7a-e89037cce829@redhat.com/
+
+Changes since v6, including the NIPA and Gemini review responses:
+
+- Replace recursive, one-time GRO disabling with persistent member
+  policy and restoration of the latest wanted state.
+- Preserve submission order with one consumer; remove the bitmap
+  prerequisite and use core per-CPU counters for new RX/TX drops.
+- Handle bounded 802.1Q/802.1AD VLAN stacks and reject trailing data
+  beyond a known nonzero IP length before segmentation.
+- Replace child-process signalling and fixed readiness sleeps with
+  namespace-bound sockets registered before traffic. Bound cleanup
+  under signals and preserve failures.
+- Check packet contents, retransmissions and capture completeness,
+  rather than throughput or average sizes. Use a standalone Python
+  helper, with no embedded Python in the shell entries.
+
+Veth tests do not validate hardware GRO_HW. The generic GSO bit need
+not be off, so tests now check GSO_MASK member types. The claim that
+the old test always failed was not supported by its actual feature
+state and recorded passing runs. Shared-skb mutation is a separate
+existing issue; both reports about new drop accounting are addressed
+by the per-CPU counters.
+
+Previous postings (earlier design, newest first):
+v6: https://lore.kernel.org/netdev/20260809121455.1745-1-xiexinet@gmail.com/
+v5: https://lore.kernel.org/netdev/20260807140751.1351-1-xiexinet@gmail.com/
+v4: https://lore.kernel.org/netdev/20260803222211.877-1-xiexinet@gmail.com/
+v3: https://lore.kernel.org/netdev/20260731090224.18-1-xiexinet@gmail.com/
+v2: https://lore.kernel.org/netdev/20260724161253.79-1-xiexinet@gmail.com/
+v1: https://lore.kernel.org/netdev/20260722171836.196-1-xiexinet@gmail.com/
+
+Xin Xie (4):
+  net: hsr: keep GRO disabled on HSR/PRP ports
+  net: hsr: preserve submission order without a forwarding lock
+  net: hsr: segment GSO before per-frame forwarding
+  selftests: net: hsr: verify GRO policy and ordered forwarding
+
+ .../networking/net_cachelines/net_device.rst      |    1 +
+ include/linux/netdevice.h                         |    6 +
+ net/core/dev.c                                    |   10 +
+ net/hsr/Makefile                                  |    3 +-
+ net/hsr/hsr_device.c                              |   66 +-
+ net/hsr/hsr_forward.c                             |  233 +++-
+ net/hsr/hsr_forward.h                             |   37 +
+ net/hsr/hsr_forward_queue.c                       |  294 +++++
+ net/hsr/hsr_main.h                                |   18 +
+ net/hsr/hsr_netlink.c                             |    4 +-
+ net/hsr/hsr_slave.c                               |   60 +-
+ tools/testing/selftests/net/hsr/Makefile          |    3 +
+ tools/testing/selftests/net/hsr/config            |    1 +
+ .../selftests/net/hsr/hsr_gro_superpacket.py      | 1088 +++++++++++++++++++
+ .../selftests/net/hsr/hsr_gro_superpacket.sh      |    9 +
+ .../selftests/net/hsr/hsr_ordered_forwarding.sh   |    9 +
+ 16 files changed, 1784 insertions(+), 58 deletions(-)
+ create mode 100644 net/hsr/hsr_forward_queue.c
+ create mode 100755 tools/testing/selftests/net/hsr/hsr_gro_superpacket.py
+ create mode 100755 tools/testing/selftests/net/hsr/hsr_gro_superpacket.sh
+ create mode 100755 tools/testing/selftests/net/hsr/hsr_ordered_forwarding.sh
+
+
+base-commit: 6dc989ea46b96ce170840174b4a38c4a387fb005
+-- 
+2.43.0
