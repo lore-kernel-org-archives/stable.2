@@ -1,153 +1,158 @@
-Received: from mail-oo2-f4.google.com (mail-oo2-f4.google.com [74.125.231.132])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SY5PR01CU010.outbound.protection.outlook.com (mail-australiaeastazolkn19012071.outbound.protection.outlook.com [52.103.72.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0130C286A5
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 07:45:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.132
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791531938; cv=none; b=AO2ziZhwE9Lf8fQbolm2ihD93F7texMePs+dgYelOg6N+G1E6ZJ8ZsR7O+k/MnNjCzlHTJ+YQGxIB8GMuzFR10ms22UTiIbwMQQcv8VuxtPwvON2qNOfToaQhKPC+XPhHWC+6yHEkZVNr+J9n81c+tLsjappoq7vs5rkHEdUtqE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791531938; c=relaxed/simple;
-	bh=ZwfTSJk9JG0mkL6vUHY4wYZ/zxFnLxRfeSs6ksDOhpo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=PNg0yTR0FyqePcHZ81AeaQr6aXESd8Q7J1KWumQ6KnVOdIghT3p+aI1sBIdaEVkg7NMOnV5bSKuS1YGI+f3aMEnTUDmoUqIlJn37IlT2ykk9WYGWcMSvUTWwR8Yz0hQRDuqSn7/jDeuzbnu/UQcvg7lVZrjATvuRdUneq5tnleM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S95puc0R; arc=none smtp.client-ip=74.125.231.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456824854F4;
+	Fri,  9 Oct 2026 08:02:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.72.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791532932; cv=fail; b=okMFoPHrTHANnMpMIxCL04AlEOFRsKWZ+RZszLUhEUq2FvfJgsVrQz7jJCvxj/vnkiYu2Icmqqf0Prq8XkChDo6ScWps8IKl4Zl+cLICHzdN6Ttg3JrCjoo6p7JI0JDC7R/DCYk47/ZOKu7wbUFbq6OCnsBbUVp0UmrU52N7sUk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791532932; c=relaxed/simple;
+	bh=ipDsmwEasG+9StgsDx7RDFFBjLwK9g7whjLsKxG0NSw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=ckQzxsmp2FTv0RuM9lUQYBtVtbfbq4jyox8/DmZSzOrJcvJHiRmNv3h8C4X4u3odBjoyXGpSopAtryckWm913d4jpYuR3maWbADK+ihdRbseTsa2vc4b1GeD3aNA/WIxxcnRYWxDlj4LnOc/B/ddgFKECIdE7nTUx0wth9g3NGE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=MKUUwq6K; arc=fail smtp.client-ip=52.103.72.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S95puc0R"
-Received: by mail-oo2-f4.google.com with SMTP id 006d021491bc7-6df960a7c6eso2562865eaf.0
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 00:45:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791531935; x=1792136735; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eLXuH3kNk2vtVW5LR5Zl+GGZ0SinlHLiZHSL9eCZFA0=;
-        b=S95puc0RLtS/vPtRVlKMYhIuNfW7fz6IXJGZYdNEoVXpNvL1b4UA1Jzy3SVRLOK+zE
-         En60cMn55v7/hLPqrZR1OSMgcyKd0nyDkmgwXLZ3jT256GRx7R0KngzB9oTl8JG8czTL
-         F7F0kekTy47AIPmPFk7EXsBa5Zk9ctd7re0fvFw+23UvCGy7gdyAqLpl8r5T1I9pd95p
-         zmN0YSUPGpUAaIjl3xxsyMQY7ETsvQaELoSSEbKlmiIGRos0s50cQsUykbtJmEPjRq0g
-         z2l2s+4NAq+8cTLMxN1QD2kAKHlWVzRuPkprNj26MFFd6XRSAxi6PFX5a86fiAPVJpSl
-         Hr/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791531935; x=1792136735;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eLXuH3kNk2vtVW5LR5Zl+GGZ0SinlHLiZHSL9eCZFA0=;
-        b=ggjZ3USnx1oC3ey1rsJQd9GOVMa//6jAaq/KNPcPc8G0LlycKSlqYnuhcd+UF2tlKq
-         Wnclc73xCoZhxIY/j2PcUvnQRjS1Q4qsnqiEKi+slsYIT3OFAf43VS9ToeSjvNojoynX
-         igAfDHuUMQM9iI3cT1LiXk/Q1AYsFPHcYVemEj8jWfFozXtaYEt7BEOXJ3qncWgdWwr9
-         8AhYA7ccOv+8LNWVd+jO/RdwP1/mnt1XJSYjV8WvfWfBlbDrdIQ2ap4aIkLTqREdqEcw
-         gijF4XpW4jls7P0anZoICjYd1oxHH9q8Bk7VKKnEMdq84N1abyNwcL5rnu4B0X8GRO7q
-         EejQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx/qFRwNbk82Ypaxol8QSXlC1QMkVQ34eWMT3noj9ZCTgWk3qyebQneiAqIAjerg55/6gESX6I=@vger.kernel.org
-X-Gm-Message-State: AFuF++nSNDkkCE+mqcMBAa1hPLP+6G1Ax4e1hmiKMedZp4J06ZLnhK3S
-	rmUDC1H2mCci7RxaParUaL/rUjLvnWb2EQ4DgZzJgWgIYfA4v6eormiW
-X-Gm-Gg: AYBFou3/yuk91z3m2kW2d5so5Rvt/RmBnu5vEzuAk5cgyN+YF67jx3Vlw48LlRcHjSx
-	/MaVHc/DIKYt66YCUqn9eQnPkpued9g8d3z1on+acevtpkVZXo2FmguWY/NnR5oycBdoILvKSgj
-	VOLgKmZ3QvLIlRanZE3d2X1PWP3FeMwVM5IvhjE2uXVNVcfy2Rd19f4OR9bEhgudCa2l11OtTgw
-	iZ/M3oCkWQwaAL9aFWQZ8AgrA+diGnxvaqi4tSCMcV1jxoFbLGpWitWtbZx/CM36DdwYzvSTjle
-	s+GIiMy3mSFd55AMinmXI7kFuaVG4sNQ43kl+HALCZBrJLwarEqa3ifM7Y3cZEUGvnO0rJKwYtG
-	7xMS1udxKn/8UQFPCCfBPvi/MvrqK1W/afDd1GnJUC6DoYOfmN45FIjC30Siz0/LX1qZvJ0mZTF
-	FRk+OEzrSC3vKYu9LNo4Tk7xCd3k7SJovm9aCv2Hgn+xULjehGd3SeRHEveMWM28n0w4KQXLHE6
-	1S7Zc/VG50tUow8gB2qZAqvI43iP8+HSLog
-X-Received: by 2002:a05:6820:f004:b0:6c8:d1cc:38a9 with SMTP id 006d021491bc7-6ef08c7a67bmr886377eaf.8.1791531934819;
-        Fri, 09 Oct 2026 00:45:34 -0700 (PDT)
-Received: from localhost.localdomain ([14.22.11.164])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6ef01dba775sm1138539eaf.9.2026.10.09.00.45.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 00:45:33 -0700 (PDT)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ipconfig: fix use-after-free of device list after ic_close_devs()
-Date: Fri,  9 Oct 2026 15:45:20 +0800
-Message-ID: <20261009074523.2747168-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="MKUUwq6K"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Xdp6AkH916XjyCd+8mS9ckPabfOMiGUkLfhBR2ncgtTcZ2NyYf3ZTfLvgqsEQoImvdXKeFPKnFQnGDehN1bOl+Kb4JRnZr/3FLMaSsdJG+6hbAiFadcCRUaLWJfVT+RgqXmphBt/3XLsX4s8mbZ3o/0eD5BoGc2I4CEkNdS54k6RJrr21SZ1Kz02fu9dNCjjpO2XXnRH2f6dbO5GIwkjnINJFtOO7IlWroBXT18NTT1av5lwXA4AakVC9BBa3DiKukFJcKNF4JhP/49WeXcB1Rg3pf5I5q+a6NCaYCCjud+e1ePnJKlkFO3bdysBv+aUN1JvXNPiE5fD/tnBn8rvbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ipDsmwEasG+9StgsDx7RDFFBjLwK9g7whjLsKxG0NSw=;
+ b=VHdfx7c4EUX3FNfSxW5ncdujCP9XH+/5b4pDt/k7PbIKc2F4G4Fsl6bIYKMqNMUsw0Li+AQaPaPsw1ipYtLLQk3rKKzc2yI9sOfNpMfr9kLRF5EBoDjBJE4cK6a722IBh/qh7LgtTEBC8qTeYn4lAYDvmuMEznYhQlM4jvXInFwXXbd0I0SOQTi0v2ag9ULo/rgSuZI46quENZy73buiU3Z/JflJWV7fX4tX5JgLAEmg6P8YJH1m6dg1yiuEzAA/AhCIww1frHP5aosyMIK9woJCSEsUXdUGkhm7xHh/tZCpoOVJlQTTpAcjTO57hMa2x2GSzi2/izwdIXY8+Ui5gg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ipDsmwEasG+9StgsDx7RDFFBjLwK9g7whjLsKxG0NSw=;
+ b=MKUUwq6K1Jqq0rWyWnGYyYHKS//e+47t1OzE3mBSF2rCtH6fG9oU3y09pe8XAjOCi+TbCs5LXS70YG1/w34BNLoGdrTQdxiw6uXRW7hNbH+qTIhCDg+qsijJIT7ua7sy/n/oJLf+N7jBuO4vW4fNl2NCPDWWX0TNh0zzqygxUuHCiQNp38aoNUk8bPlrW+++Tv9ty1w2wZyRnI7Oosvi2VNveha8j8sXZu9fi9mJA8wUcDQXEsCVL5+Lhkl5+Lv7QLPfB9UWK/I53cALCkq6rE1dKSH/mYAwWjAxIxeDLKD03jFVtj7gVuvUqOF+oh0r7Ax9RhVtsCmgdttQ8+9MWw==
+Received: from SYBPR01MB7881.ausprd01.prod.outlook.com (2603:10c6:10:1b0::5)
+ by ME2PR01MB5667.ausprd01.prod.outlook.com (2603:10c6:220:d3::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Fri, 9 Oct
+ 2026 08:02:00 +0000
+Received: from SYBPR01MB7881.ausprd01.prod.outlook.com
+ ([fe80::7cd2:d6e8:3fa0:5f0c]) by SYBPR01MB7881.ausprd01.prod.outlook.com
+ ([fe80::7cd2:d6e8:3fa0:5f0c%7]) with mapi id 15.21.0522.002; Fri, 9 Oct 2026
+ 08:02:00 +0000
+From: Junrui Luo <moonafterrain@outlook.com>
+To: Balbir Singh <balbirs@nvidia.com>
+CC: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Andrew Morton
+	<akpm@linux-foundation.org>, Mary Guillemard <mary@mary.zone>, Mohamed Ahmed
+	<mohamedahmedegypt2001@gmail.com>, James Jones <jajones@nvidia.com>,
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Yuhao Jiang
+	<danisjiang@gmail.com>, "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH 2/2] drm/nouveau/uvmm: reject replace across page sizes
+Thread-Topic: [PATCH 2/2] drm/nouveau/uvmm: reject replace across page sizes
+Thread-Index: AQHdRvYcklAowvA/gEmsg6OoXFvr57b0+X+A
+Date: Fri, 9 Oct 2026 08:02:00 +0000
+Message-ID: <FBF1ED94-0D02-4C4A-812B-818897A605C4@outlook.com>
+References: <20260817-nouveau-fixes-v1-0-f518d0c735f3@outlook.com>
+ <20260817-nouveau-fixes-v1-2-f518d0c735f3@outlook.com>
+ <61d42916-a391-4b98-a6fc-84175127c2e2@nvidia.com>
+In-Reply-To: <61d42916-a391-4b98-a6fc-84175127c2e2@nvidia.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SYBPR01MB7881:EE_|ME2PR01MB5667:EE_
+x-ms-office365-filtering-correlation-id: 3692f9eb-d79d-491b-a7de-08df25db98e1
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|24021099003|25010399006|31061999003|22091999003|24121999003|4140399003|8060799015|19110799012|8062599012|15080799012|53005399003|40105399003|2607281247196008|102099032|440099028|3412199025;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?S09YejRialZST1hHN1dHbjBzZWhUNCsrUk41ekFVUXFLNjc5aG04N3d4anph?=
+ =?utf-8?B?RVdsMGFLdE1INGlLYkRSY2RGaHdFUjBxYlpFVGRpbVdtaVpTUTgwQU9sbjRJ?=
+ =?utf-8?B?WWs4RFM5SEhUQkV4N21lK1NsekFFdlFPc1psc1Z3enJ1UDJWbDNsWi9jRERj?=
+ =?utf-8?B?bWdBWGhMZndoVmRCQjh5TVZJMkk0b3JWbVJjaXlOc2Jwd2RKbXErTjNXdWhM?=
+ =?utf-8?B?SlJ1emMyVEs0L0d6WjVMdDVBUmhIR1MxWmYreHR4eHZESVViWjlXYktmdGFj?=
+ =?utf-8?B?cGdtUTBmVDJEdHBoSVZwZ0Q5QjRKazFVSGZyMzN6d0EyY2xWMkgrRUZ3U0Ir?=
+ =?utf-8?B?WmpCRGZpSEs0UkhoRmR1YXZoRUkvY2ZVUFllVFo4ZmVxb3NocVJHMkdoR2g2?=
+ =?utf-8?B?YVN0czNYR0lBblVYQlRQa3JrWkZlOVIvbDl4cnFUUlBOSE1DbFA4SU5Xdy9o?=
+ =?utf-8?B?MFRjRmFjam5RMHU1TmIrSGgvc05mY3IrTko5S1JINzhyM28vYjJKSmRzUjU1?=
+ =?utf-8?B?QzRXcnpZRlFkUm9WSkxOa0QzM1MxRktuZ2pzSVExa25IWXl4MEFJMDVnejNY?=
+ =?utf-8?B?eVROdFBaSnFWUWt4Si9ORGdyWFpzOXo1VnlQUStMWi9jZklHYzFJY3JNazND?=
+ =?utf-8?B?U2hzamVUSXhJQ25KWTB6RzNjcTdYc1B2akVneFJjK1JIeUM0ZTV4dnZsVk5Y?=
+ =?utf-8?B?ZTUvZGRpaVRJZ0tTcFY2aFYvQnpyTnZJYWZYZXB4ak5oOGNSb01IVGIxMHVY?=
+ =?utf-8?B?WWpMUFo1WnkycDlwb2hCQnIvYWxKbTg2TmxFNDJ4eEdRUFRlR1JvWEpMZUIx?=
+ =?utf-8?B?TjA3b29PS2xOYWFGUDZDZlF1eVRmWjh1QmovMW1HTDQ0SzFSMUtmYWJtaGdN?=
+ =?utf-8?B?dDdKckg4Q3ZOOVozOUVRZmFVcDRBUStvck9mcHpsSXRxeFMrS2xZUytRVzl0?=
+ =?utf-8?B?TVV4bC8vZEJISGk3dDhuZ2Q4R25EdWxjS2VhSjFhTGV6aUZUUlp2a0R3VUV4?=
+ =?utf-8?B?NWJWRVBtT0hNQ3lKZmRuMFFCRmd6K01jOENXTmVQMGpObUk4dGcvSUFnK1Nv?=
+ =?utf-8?B?S1hvdXdFVndzUXlmdXNleUFyS2dpdEZpbkxwVUxreXp6eWNBejZTREJSblM1?=
+ =?utf-8?B?eHJKbitoRmVmM3NPYzJpVFdySkt5ekxBbS9PSXJIZnUxdVA3OEN5ejNSc2pj?=
+ =?utf-8?B?clpzckFmNFNhWXhQeE1oRzJ0UHJtNUdCcjQ0MnFIOEZockdvMmdLWXRsUmZG?=
+ =?utf-8?B?cm1RRDJSd3c3L1V0cVZnVlZtL2NHUnJOVTNQVXFKTzM0NGs1cVNSYjZONExz?=
+ =?utf-8?Q?7H7+tga8vELTF24kCtZngscmr1juHZ2nU4?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?SjVYeU9qR3FUYWF1TXVTQlNKV2ZsQlVXUE9xcmZHcjNTZDBIeGJxbVdIdnRa?=
+ =?utf-8?B?SVA2RDdyRDNQaGxHUWEwMHYwbG1HbFlzLzlmdC9rdTBLWTN1NFJCN1ZRNnBx?=
+ =?utf-8?B?S2lSdXhKVHJrVjZCZGJpcUpmVElPNkR4SE9SRE1OZElrbU5mSnJqbjB5bXhJ?=
+ =?utf-8?B?MjU2WE1sSjNya01MTHdtTEdTSmlWQzFzTG1qWlNyN2dkUThsZEMyb25FR2hP?=
+ =?utf-8?B?U3dYTVBpd3lwOTlBU3Y0MXRSSi9hNzBITjMvWDRWY2JnL2xjMlJIMzNGNFBM?=
+ =?utf-8?B?L1dxODdzdytyeDVhd3JNd3A3OUF1ZTdyUkFyQ0hDWXFrV1N4OEc5cWNjcllZ?=
+ =?utf-8?B?R1pZYmN4d3M3UUsrdnVGdHlsblFweXBBRVpHaEpvY0pYNXQ0QWRMeWJhMXJC?=
+ =?utf-8?B?c1ZvWitBYTRDMi9Vc2FGaHVYTE9OYUU4YXR3TUo4dVhBbGlock9GZkpIWWNL?=
+ =?utf-8?B?SW5WSU1jeDl2alQrL0lnM0RuRlBXMU44dndRbHk4R1JiaHNudjdkRDdnbTli?=
+ =?utf-8?B?NWwxTnJ1T2JTUWNjYzZEa2FISWhBUDNDb1E0bVgrYktnUFBNZmZtcWtZSktl?=
+ =?utf-8?B?a3dqaTF3cXVXdUFOS3Y2TkQvdk1tb1Y4RDdtK2RKbVBxM3l6LytkbTBpRDJu?=
+ =?utf-8?B?cDR2bTRBRTJESy90NU9HbXlHdUhpN25vWTkvYWRjTUMrc1JwN1F2aWJ3a00x?=
+ =?utf-8?B?RXFyYjlHbncwaWcvV0R6SXY5UUUzWXJNRlBkWVF5UTMxTU5zQkpHV2tjOGQv?=
+ =?utf-8?B?ZjRVT1B5WUIvSU0rb2I4MTMrdmhaVEtkNFl4QmxnbndzdC9sQmlYN2FmVTI2?=
+ =?utf-8?B?alkxRmREbE00bDJuSWlDRFVtODg1N2tlcWV3TGlSVmppSXVOREpTQ2NFZ2ZN?=
+ =?utf-8?B?ZFJNemVTQk9HbUpyNWVScG15NDVVck1JazBCUG1lbzdIS0Y2L05VU1JueDFa?=
+ =?utf-8?B?dU9NaHNadXRIbGxnb0hVMlEyZGo0czJneEhaVTB1aDYxUmpLV2lJTHFrdTZZ?=
+ =?utf-8?B?czd2QUx4bGtMS2Y2dW9EMkN3Sk5sNjl4WE5NTGU5bjV4RnJLbUc3K1hZUXNV?=
+ =?utf-8?B?UWtDTUdtMHAwTi9OVnQzcnFwZHd2VHl3NTBudVJZaFRrTHcwcE8vVXMwcUdo?=
+ =?utf-8?B?MlpIRVY5ZHF3SFJodjZMZnRxTS8rT3ZJcmJIU0dVZWtRVGF0akhQL25qOGdY?=
+ =?utf-8?B?K0dOM09Mei9sdkcrWk9VTkIvL3doeWMrTnlXQW55Y0ZEOFlMdWZnMlZsWXJK?=
+ =?utf-8?B?N3RMaHphai9CMWtFRjNVNy96N2xwc0VUZlB3OHFPdEgxRHQ4dWt3Sy9DV0Ft?=
+ =?utf-8?B?YXVmbEEyc3RPbWlSZFdCS0hFOVNvWHgzT1F1S1BHSXpyT3pURzlCVWxJVWtl?=
+ =?utf-8?B?TXdZRzIrb3lMVWc2VlFUMGxzWTJMRHRGSlhhZ1pOVnhxUWR2eC9JNElvUmlO?=
+ =?utf-8?B?TkhMNkF2RmlVcnJyZHhXQjVTb2MrdUFJVUpZT2tSV0NVbWRYOG9zUnZ4VTJu?=
+ =?utf-8?B?OUtQVGVPcmxKMkxVQmZlVGwvZG5ZRnExV050UStsbUFCQXcyWDNqVXFJbHYw?=
+ =?utf-8?B?LzFVVGlsNkcyc0Z1K3QyTEdxeGYwUTJMUDM4MG9wNTIwNjRUSmtSV2s4UHNs?=
+ =?utf-8?B?aTBNREw2dG5yTWxSQU9CZ29YSXFFcWFib3lJUmdCL282clZxRTB5Y2NjQXhQ?=
+ =?utf-8?B?b0l2Y3JKdmhiMHFOY0ZXbmNwYndNc0o5YVRNamJWeWRRS3cyaTdjbzAvUVpI?=
+ =?utf-8?B?RU40QzI2QlBQMGZHb3VRMmlpZDRDalBxeEgwclFBRDdRTzF3ZzFaZEtJSWRy?=
+ =?utf-8?B?MHJQOGZyK3pyV1h6THNVSFZCcTRBM29ITERYU0Ztc25kYVp6LzRYRXpudGFs?=
+ =?utf-8?B?UTdMU2MxYXh4YnR6Y2x0U09RT2QyZzRmOTZ0cGsxNHRCNkE9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <A52D2784EACFA24BA6CCDEA30A706BED@ausprd01.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SYBPR01MB7881.ausprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3692f9eb-d79d-491b-a7de-08df25db98e1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2026 08:02:00.2798
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ME2PR01MB5667
 
-ic_close_devs() kfree()s every ic_device node but leaves the static
-ic_first_dev and ic_dev pointers dangling behind.  When a DHCP reply
-consists of an OFFER that is never followed by an ACK (a misbehaving
-or lossy DHCP server, or a network that drops the ACK), the boot-time
-autoconfiguration loop becomes vulnerable:
-
-  1. ic_bootp_recv() accepts the OFFER and records ic_dev = <list
-     node> ("We have a winner!" state);
-  2. the retransmit round times out in ic_dynamic(), so
-     ic_close_devs() frees the whole list — node included;
-  3. the dynamic retry path (try_try_again) runs ic_open_devs() and
-     ic_dynamic() again; on failure it falls through ic_close_devs()
-     once more, where the entry point evaluates
-
-         struct net_device *selected_dev = ic_dev ? ic_dev->dev : NULL;
-
-     — an 8-byte use-after-free read against the freed ic_device.
-
-KASAN confirms (boot-time bootload, no userspace yet):
-
-  BUG: KASAN: slab-use-after-free in ic_close_devs+0x214/0x220
-  Read of size 8 by task swapper/0/1
-   Call Trace:
-    ic_close_devs+0x214/0x220
-    ip_auto_config+0x172b/0x34e0
-    do_one_initcall+0x9f/0x370
-    kernel_init_freeable+0x432/0x760
-    kernel_init+0x24/0x1f0
-  Allocated by task 1:
-    __kmalloc_cache_noprof+0x1b5/0x430 <- ip_auto_config+0x587/0x34e0
-    (ic_open_devs' kmalloc_obj of the ic_device list node)
-  Freed by task 1:
-    kfree+0x166/0x450 <- ic_close_devs+0xcb/0x220
-    (ic_close_devs freeing the same node at round end)
-
-NULL both pointers after the free loop so subsequent retry rounds
-take the clean empty-list path instead of acting on freed entries.
-
-This vulnerability was discovered by Tencent CodeBuddy Security.
-
-Cc: stable@vger.kernel.org
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
----
- net/ipv4/ipconfig.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/net/ipv4/ipconfig.c b/net/ipv4/ipconfig.c
-index 1b8585404a41..ac4851e59c3b 100644
---- a/net/ipv4/ipconfig.c
-+++ b/net/ipv4/ipconfig.c
-@@ -346,6 +346,13 @@ static void __init ic_close_devs(void)
- 		kfree(d);
- 	}
- 	rtnl_unlock();
-+
-+	/* The whole ic_device list was just kfree()'d above; clear the
-+	 * static pointers so retry rounds (e.g. dynamic retry after an
-+	 * OFFER without ACK) don't dereference them (use-after-free).
-+	 */
-+	ic_first_dev = NULL;
-+	ic_dev = NULL;
- }
-
- /*
---
-2.43.7
-
+PiBPbiBTZXAgMTgsIDIwMjYsIGF0IDY6NDTigK9BTSwgQmFsYmlyIFNpbmdoIDxiYWxiaXJzQG52
+aWRpYS5jb20+IHdyb3RlOg0KPiANCj4gV2UgYXJlIG1vdmluZyB0byBBc3Npc3RlZC1ieTogTExN
+DQoNCkdvdCBpdC4NCg0KPiBKdXN0IHdvbmRlcmluZyBob3cgdGhpcyB3YXMgdGVzdGVkL2NhdWdo
+dD8NCg0KVGhpcyB3YXMgZm91bmQgdXNpbmcgYW4gTExNLWJhc2VkIGFnZW50IHdlIGRldmVsb3Bl
+ZCBhcyBwYXJ0IG9mIG91ciByZXNlYXJjaC4gV2UgdGhlbiBjaGVja2VkIGl0IG1hbnVhbGx5Lg0K
+DQpJIGRvbid0IGhhdmUgc3VpdGFibGUgaGFyZHdhcmUgdG8gdGVzdCB0aGlzIG9uLCBzbyBJIGhh
+dmVuJ3QgdGVzdGVkIGF0IHJ1bnRpbWUuDQoNClRoYW5rcywNCkp1bnJ1aQ==
