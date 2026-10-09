@@ -1,125 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 254BA486E40;
-	Fri,  9 Oct 2026 12:54:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791550482; cv=none; b=tgYhflzIBfxVVhvbcbopL87gny0CnAK/Zq97QdfiL1Lhk2WrGDcBma+Quh5zOqPavrd8xUapvmVUeoR4BjBSdNhEr5NGLFtCwseBJBkq7MEsFVdHH4DpPVpiyjrP61C/K6ooURhzxanGTVuSyCwSBi705m6+ErSTZQ0Vbw+gsqA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791550482; c=relaxed/simple;
-	bh=CAJpIALCNKBs7+IQqpobbfwiPFOMMgsIrlFEutuXWEg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XtDuAuqKP+NcOfbZ//jKpp9CV9pKj1T7z5/3vcVo9ltWvxmGVBLW8J6aUMTcI7cmTJ1PisKmugI++9GeSXyqdpiakGeVtg/FFHdcNJEGYbA+jg+EXOOdULHkM8wwheI2RKJ/qXQNFyHX1ZBE7NMbmN8XBztzOOG8++TVDBDg51o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k0TYGnHl; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852BC435502;
+	Fri,  9 Oct 2026 12:54:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791550498; cv=pass; b=IhTkrBbFfavX5KE82sI0Gqq/tUFRqhfFIzp04H6M/c0d8IrqXDoTKe+q89MnNgFvqWcZDqRNfX1hPl2p0Wv2swKG09wvQXM7nXj76tOKdVQE7MU7GeYjvotTSYiEhNo6/sDg6auufTj8TiQeM6B584gR05XrzXKshI3aqdrv8Ek=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791550498; c=relaxed/simple;
+	bh=67LHSnnQH70Y00/BN+Oz9e7VZ7db7pj3ZvATgr+Enzs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=jXQGfJwTzyzP9fCr3Sj35zyKUW1Zoi7zobACIJsiF78XuM9mMNkF1MXSGBO6n2mTXsakN7uMbaRWcJQXDauh8Em0PQcjtIfbpcjeuoPjHesGygk4MRm9Y8z9RwOROSqPIzjOHNXr4NS7JcH9ELry3AO0JiH8/SOFV2Lx1hiFNwQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=R626ddYX; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k0TYGnHl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63A811F00893;
-	Fri,  9 Oct 2026 12:54:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791550478;
-	bh=wN9BHkt86Y/qHrXCRuKCB1Rre2zJtJsy9zYh9NyiYs0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k0TYGnHlpxTrTLdzCPG5DNTnffxT+6cnt/m7A0CJJ70Ad8A+Lt4gbwzsYt+YCY4Ej
-	 qaXwzJdtT21dBAGvz2KiZ8iv5VcRzCa0QQRVIWhAeFqa/HdOBMUnyfJChqxea27Y6L
-	 NudVqgsDKePcEPPKcWdG7pdC2YcLAmeLN+UuwhDCdEhdqCX6kCocJyRuNdHsOWi8TO
-	 D+l9ikOCvt8+xWLOzl8GhzKbAzApxUZIjyLmcIl207FEJLBY0oXCA8ByvtM5SUCRyn
-	 KjE2Js9OnMcMZYdk8SWVE8vEX2DFuQt4/lug70IpG3vaR4vNYxqRBn3uAoJIuvLOQo
-	 yqA6PemeJuCkw==
-From: Eric Biggers <ebiggers@kernel.org>
-To: linux-crypto@vger.kernel.org
-Cc: Ard Biesheuvel <ardb@kernel.org>,
-	"Jason A . Donenfeld" <Jason@zx2c4.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	linux-arm-kernel@lists.infradead.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>
-Subject: [PATCH v3 1/2] lib/crypto: arm64: Fix lost Poly1305 carry when resuming NEON state
-Date: Fri,  9 Oct 2026 14:53:53 +0200
-Message-ID: <20261009125354.315476-2-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261009125354.315476-1-ebiggers@kernel.org>
-References: <20261009125354.315476-1-ebiggers@kernel.org>
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="R626ddYX"
+ARC-Seal: i=1; a=rsa-sha256; t=1791550467; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Msswt/S1cP5xRjOX031hTAZSKM6YZ1Hd8PHxb6/Kzooey+Vv9wyHxOnkh9PTRHss7jl4nPgYLElFQ6V73NMGBtx/sjYGS6ukoHfCXLdgvox+gTXdzgDdka1LArjUIB3cpxoa0MxHWabQeNlsRqqurfB+kTz60ThfYMPADwAert8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791550467; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=WK2/xePAavyPQ7uMEHbAlzcxOMZbodYmtYkdnaWWWeg=; 
+	b=KoQx8Cs7byMYpJ3dgyl+syhgcIFVPUvnBHZDSybrpXlLs7CHUwcppGz9iUlw9dz5NB47ch1nT8X6Zvq23mbIdNNKffhHAg22Awz2FPXYVR6RdR4fbR0lV8LfRgVl0vOjG/iwIdFJN+gj3x+IotRBDzbp9gPRucqgeEOjmvuf6Fc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791550467;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=WK2/xePAavyPQ7uMEHbAlzcxOMZbodYmtYkdnaWWWeg=;
+	b=R626ddYXz8DQVyVQDhbtn+khaoZXuETG1bf8DTCaIhNRodNoy0dPinDiLMq3zhA3
+	QbvYowe7tSR21VR5fFoKYq5or2htDp+9vakrDs4fYfm1XUz8rNTbEOhCXnis2GfMJ3Q
+	ACvYMvv7hOFlG88pJDzHYX8mUqaNapuAszJVG63J5uv71E4pN7ituEHbM2UerTR9R3N
+	o7e6zSmGeFymaP2G7vgynIRvVRRx3ZKuGZv+g93Kh9oFY6PQZmm52CFsjoFUhFtxn1q
+	IjjIYQeHjnCcpnEx67UhFgZ4O8QysMLmwcVEfuS/F10aVeMsyJ8QgMT4O6ENRLu2Btt
+	QXgdWcod1w==
+Received: by smtp.zohomail.com with SMTPS id 179155046539766.00006101887811;
+	Fri, 9 Oct 2026 05:54:25 -0700 (PDT)
+From: Rong Zhang <i@rong.moe>
+Date: Fri, 09 Oct 2026 20:53:44 +0800
+Subject: [PATCH v2 02/12] platform/x86: lenovo-wmi-capdata: Do not stop the
+ AC notifier chain on error
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261009-lwmi-wmi-new-api-v2-2-402828382679@rong.moe>
+References: <20261009-lwmi-wmi-new-api-v2-0-402828382679@rong.moe>
+In-Reply-To: <20261009-lwmi-wmi-new-api-v2-0-402828382679@rong.moe>
+To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Armin Wolf <W_Armin@gmx.de>
+Cc: Charles <hanker007@gmail.com>, 
+ Navon John Lukose <navonjohnlukose@gmail.com>, 
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Rong Zhang <i@rong.moe>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-73bef
+X-ZohoMailClient: External
 
-From: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Returning NOTIFY_BAD to the AC notifier chain stops it by preventing
+later notifier blocks from being called, but our error is non-fatal for
+other AC notifier blocks, which should continue to consume the event.
 
-When poly1305_blocks_neon() resumes from a base 2^26 accumulator and the
-next update contains an odd number of full 16-byte blocks, it processes
-one leading block through poly1305_mult() so that the remaining NEON
-work has an even block count.  That requires converting the accumulator
-to the base 2^64 form used by poly1305_mult().  The final ADC of that
-conversion stores the carry into d2, but the following accumulation and
-poly1305_mult() use h2.  If the conversion carries across bit 128, the
-carry is dropped and the emitted tag is wrong.
+Return NOTIFY_DONE and add a dev_warn() on error, so that the AC
+notifier chain continues. This also aligns with hp-wmi.
 
-This was introduced by Cryptogams commit 03dc4adf91c8
-("arm/poly1305-armv*.pl: optimize branches."), which removed the
-reduction that consumed d2 shortly before Linux imported the code.
-OpenSSL's copy did not take that change.
+The function documentation was copied from elsewhere and makes no sense
+here, so correct it as well.
 
-The carry is possible because the NEON code stores the accumulator [h0,
-h1, h2, h3, h4] in a lazily reduced, redundant base 2^26 form: its final
-carry chain leaves h0, h2, h3 < 2^26, but h1 and h4 may slightly exceed
-2^26 - 1.  For example, the reachable state
-
-  h0 = 4
-  h1 = 2^26
-  h2 = 2^26 - 1
-  h3 = 2^26 - 1
-  h4 = 2^24 - 1
-
-represents 2^128 + 4, so the conversion must produce the base 2^64 limbs
-h0 = 4, h1 = 0, h2 = 1.  The low 64-bit word sums to 2^64 + 4 and the
-middle 64-bit word (including the carry from the low word) sums to 2^64,
-so both carry out.  However, the carry out of the middle word goes to
-d2, leaving h2 = 0 and the value 4 instead of 2^128 + 4.
-
-Given the above bounds, a carry across bit 128 happens exactly when
-h1 >= 2^26, h2 = h3 = 2^26 - 1, and h4 mod 2^24 = 2^24 - 1.
-
-Store the carry into h2, matching the other base 2^26 to base 2^64
-conversions in poly1305_blocks() and poly1305_emit().
-
-This bug causes an incorrect tag to be emitted.  However, this is
-unlikely to happen in practice where Poly1305 is used with a random key,
-since the random key tends to distribute the accumulator values
-throughout their valid range.  There isn't an obvious way for an
-attacker without knowledge of the r_key to cause [h0, h1, h2, h3, h4] to
-land on the precise values where this bug occurs.
-
-Fixes: f569ca164751 ("crypto: arm64/poly1305 - incorporate OpenSSL/CRYPTOGAMS NEON implementation")
+Fixes: e1a5fe662b59 ("platform/x86: Add Lenovo Capability Data 01 WMI Driver")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-[EB: Rewrote the commit message to more clearly describe the bug and
- its impact, and removed a lot of pointless LLM-generated text.]
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Signed-off-by: Rong Zhang <i@rong.moe>
 ---
- lib/crypto/arm64/poly1305-armv8.pl | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v2:
+- New patch in the series
+---
+ drivers/platform/x86/lenovo/wmi-capdata.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
-diff --git a/lib/crypto/arm64/poly1305-armv8.pl b/lib/crypto/arm64/poly1305-armv8.pl
-index f1930c6b55ce..234398ff6b60 100644
---- a/lib/crypto/arm64/poly1305-armv8.pl
-+++ b/lib/crypto/arm64/poly1305-armv8.pl
-@@ -375,7 +375,7 @@ poly1305_blocks_neon:
- 	adc	$h1,$h1,xzr
- 	lsr	$h2,x14,#24
- 	adds	$h1,$h1,x14,lsl#40
--	adc	$d2,$h2,xzr		// can be partially reduced...
-+	adc	$h2,$h2,xzr		// preserve carry into top limb
+diff --git a/drivers/platform/x86/lenovo/wmi-capdata.c b/drivers/platform/x86/lenovo/wmi-capdata.c
+index d5e961566136..58787da959b4 100644
+--- a/drivers/platform/x86/lenovo/wmi-capdata.c
++++ b/drivers/platform/x86/lenovo/wmi-capdata.c
+@@ -774,13 +774,11 @@ static int lwmi_cd_setup(struct lwmi_cd_priv *priv, enum lwmi_cd_type type)
  
- 	ldp	$d0,$d1,[$inp],#16	// load input
- 	sub	$len,$len,#16
+ /**
+  * lwmi_cd01_notifier_call() - Call method for cd01 notifier.
+- * block call chain.
+- * @nb: The notifier_block registered to lenovo-wmi-events driver.
++ * @nb: The cd01 ACPI notifier_block.
+  * @action: Unused.
+  * @data: The ACPI event.
+  *
+- * For LWMI_EVENT_THERMAL_MODE, set current_mode and notify platform_profile
+- * of a change.
++ * Refresh cached capdata on AC status change.
+  *
+  * Return: notifier_block status.
+  */
+@@ -799,8 +797,16 @@ static int lwmi_cd01_notifier_call(struct notifier_block *nb, unsigned long acti
+ 	switch (event->type) {
+ 	case ACPI_AC_NOTIFY_STATUS:
+ 		ret = lwmi_cd_cache(priv);
+-		if (ret)
+-			return NOTIFY_BAD;
++		if (ret) {
++			dev_warn(&priv->wdev->dev,
++				 "failed to refresh capdata on AC change: %d\n", ret);
++
++			/*
++			 * Our error is non-fatal for others, and we still want
++			 * the other event consumers to process it.
++			 */
++			return NOTIFY_DONE;
++		}
+ 
+ 		return NOTIFY_OK;
+ 	default:
+
 -- 
-2.56.0
+2.55.0
 
