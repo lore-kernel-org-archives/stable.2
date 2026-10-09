@@ -1,148 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 146AA4D1783;
-	Fri,  9 Oct 2026 13:50:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E5644F571;
+	Fri,  9 Oct 2026 13:50:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791553809; cv=none; b=e1+hjeSirBdmkynkNRNtEL9tELS6e1q3yKXAsT0anL14UWpIER20fxDn5DZhTLI/EaijMdPpB5AOup37E6kmIuHHFfZsKLmwez2zNaXdzG8Wi+K+tbJbqiGzn9si0CE+yNzQ7LfAaCqrnlpnJVww+bBu7YRXMUA6ZQ5Lq2w/dUU=
+	t=1791553844; cv=none; b=WOiUINarfhGgG0vvDcSJMWIKVKj6ZuhxCNfKyOyqRtfX09EZ/KmNYN++TCfUvvX3UU0fpitgYEymfZE2qOlGnEtW11afzMkXr/u9wKwl8z9WGG/eT4739/MQy6vl3IoN010s9ce7cpHFch3q0dH59MKEEo9ueoAWNxwQXCET4bE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791553809; c=relaxed/simple;
-	bh=D18RrHPud1qI2Cz1IspOwsOX9/qc/GepackvpuKD5XY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FCQLqcOVB5nau1YANVSs5XJYYWz542wd9F5QtBMAf5PAZzCns5LAcrbZeJ22GCfw4y456v/OBuDciZBVSXAyaI51qD1ZjeRMUbBqAKp2TfUd/boKzCGw0LAUzWmP/l8stw8ECbrygDmCMIhtAMn0FjgJBmqOGYmxrA4gWAHc8U0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=POPZCRVT; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="POPZCRVT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4190F1F000FF;
-	Fri,  9 Oct 2026 13:50:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791553806;
-	bh=NGYamTbhyF8fPIDsPezdQjUGd6YDkrBY2lo9+2JMLnM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=POPZCRVTopIVD6QueeAp/dbl/2w0eQjppiua1Xgapd3r3bYqxeOThVbyppGzpk+Ua
-	 FdxU9T/jq3b0gprHOqC08n2+VSwbkSBFDcXCv/mm8c9ZF9Zaq1use1gra0+sx/neEK
-	 9mZuxnkBuRKpHgwau3IiHViu0chKTSycGzEVW5YYuTfNPfGXSkD5q+YON8/dPfypzD
-	 YA7884+MinfTyzde+PG6yLPhO9XUZXFjPbF6uRZiXKo+1j+jGn3CemPeBGvzRjbkJ0
-	 Fno1psmye9lcBTBlPAMduLnRV7SnTFfNAT3v7CMc+eWrQEHmxsHMSOZ8B33jWPfSCl
-	 7ld4as1g2mg4A==
-From: SJ Park <sj@kernel.org>
-To: stable@vger.kernel.org
-Cc: damon@lists.linux.dev,
-	Liew Rui Yan <aethernet65535@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	SeongJae Park <sj@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 6.6.y v3 2/2] mm/damon/core: fix unconditionally skip last region
-Date: Fri,  9 Oct 2026 06:49:49 -0700
-Message-ID: <20261009134949.11507-3-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261009134949.11507-1-sj@kernel.org>
-References: <2026092948-moonrise-persecute-3597@gregkh>
- <20261009134949.11507-1-sj@kernel.org>
+	s=arc-20240116; t=1791553844; c=relaxed/simple;
+	bh=tdtww6O9RZvlk4Cb2qEeoL9t2+8iuYI08TrMttY4X/o=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=as1GGyjfEpii7qU/sOqosyZqixgeJMByWNoaEsSiP7t6xAH0M1UMJoj4KbagnHX2OfKWpRLVo5ZN2T15TaulqgoTNaCrwC+sYc3nS8qo7ylozfp/eoFfk7dDMTo+pqRxlLM/2VJwdb3BcOYb6JuUg1ooE6KzHiO1LhZ1QO8MCnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.127])
+	by APP-03 (Coremail) with SMTP id rQCowAC3wkAj8chqKp0nCg--.4618S2;
+	Fri, 09 Oct 2026 21:50:28 +0800 (CST)
+Message-ID: <f25629d4aa3c0132275b0a798e1491119fa8d502.camel@iscas.ac.cn>
+Subject: Re: [PATCH 2/2] drm/loongson: Handle buffer mapping failures when
+ clearing a BO
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Evanshenf <archwse@gmail.com>, dri-devel@lists.freedesktop.org
+Cc: Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
+ Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, Xi
+ Ruoyao <xry111@xry111.site>, Sui Jingfeng <suijingfeng@loongson.cn>,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org,  Christian Koenig
+ <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, Matthew Auld
+ <matthew.auld@intel.com>,  Matthew Brost <matthew.brost@intel.com>
+Date: Fri, 09 Oct 2026 21:50:27 +0800
+In-Reply-To: <20261003093415.902f89244043-2-archwse@gmail.com>
+References: <20261003093415.e64386de1e64-1-archwse@gmail.com>
+	 <20261003093415.902f89244043-2-archwse@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAC3wkAj8chqKp0nCg--.4618S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJw4xWF43Ww4kuFy8XF18Zrb_yoWrWr18pr
+	ZxC3WjkrWDXrnrKrnrGFWkCa4Sk3WSgrWagFWUtas0gw1jyr1UXF15XFWDJrW7ZasrCr12
+	9Fn3KanxW3WqvwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+	wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+	v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
+	ZFpf9x07j0fOwUUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-From: Liew Rui Yan <aethernet65535@gmail.com>
+=E5=9C=A8 2026-10-03=E5=85=AD=E7=9A=84 09:34 +0000=EF=BC=8CEvanshenf=E5=86=
+=99=E9=81=93=EF=BC=9A
+> lsdc_bo_clear() ignores the return value from lsdc_bo_kmap() and
+> writes
+> to lbo->kptr unconditionally. When the first mapping of a newly
+> allocated
+> buffer fails, kptr is still NULL and the subsequent memset accesses
+> it.
+>=20
+> Return the mapping error without touching the buffer and propagate it
+> from lsdc_gem_object_create(). Install the GEM object functions
+> before
+> clearing so that drm_gem_object_put() can release the buffer
+> correctly
+> on failure. Do not add the failed object to the tracking list or
+> return
+> an uncleared buffer to the caller.
+>=20
+> Imported buffers still skip clearing, and successfully mapped buffers
+> are cleared and unmapped as before.
+>=20
+> Tested on LS7A2000 with a one-shot range error in ttm_bo_kmap(). Its
+> -EINVAL return reached userspace, the object was destroyed once, and
+> no GEM handle was published. Normal create/map/zero/write/read/close
+> cycles passed, with the tracked BO count and VRAM usage unchanged.
+>=20
+> AI assistance was used for the lifetime analysis, fix, fault-
+> injection
+> tools, build and test execution.
+>=20
+> Fixes: f39db26c5428 ("drm: Add kms driver for loongson display
+> controller")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Evanshenf <archwse@gmail.com>
+> ---
+> =C2=A0drivers/gpu/drm/loongson/lsdc_gem.c | 12 ++++++++----
+> =C2=A0drivers/gpu/drm/loongson/lsdc_ttm.c | 10 ++++++++--
+> =C2=A0drivers/gpu/drm/loongson/lsdc_ttm.h |=C2=A0 2 +-
+> =C2=A03 files changed, 17 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c
+> b/drivers/gpu/drm/loongson/lsdc_gem.c
+> index 2fb0348..9eba4e1 100644
+> --- a/drivers/gpu/drm/loongson/lsdc_gem.c
+> +++ b/drivers/gpu/drm/loongson/lsdc_gem.c
+> @@ -157,14 +157,18 @@ struct drm_gem_object
+> *lsdc_gem_object_create(struct drm_device *ddev,
+> =C2=A0		return ERR_PTR(ret);
+> =C2=A0	}
+> =C2=A0
+> +	gobj =3D &lbo->tbo.base;
+> +	gobj->funcs =3D &lsdc_gem_object_funcs;
+> +
+> =C2=A0	if (!sg) {
+> =C2=A0		/* VRAM is filled with random data */
+> -		lsdc_bo_clear(lbo);
+> +		ret =3D lsdc_bo_clear(lbo);
+> +		if (ret) {
+> +			drm_gem_object_put(gobj);
+> +			return ERR_PTR(ret);
+> +		}
+> =C2=A0	}
+> =C2=A0
+> -	gobj =3D &lbo->tbo.base;
+> -	gobj->funcs =3D &lsdc_gem_object_funcs;
+> -
+> =C2=A0	/* tracking the BOs we created */
+> =C2=A0	mutex_lock(&ldev->gem.mutex);
+> =C2=A0	list_add_tail(&lbo->list, &ldev->gem.objects);
+> diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c
+> b/drivers/gpu/drm/loongson/lsdc_ttm.c
+> index 88536e2..7b30dea 100644
+> --- a/drivers/gpu/drm/loongson/lsdc_ttm.c
+> +++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
+> @@ -388,9 +388,13 @@ void lsdc_bo_kunmap(struct lsdc_bo *lbo)
+> =C2=A0	ttm_bo_kunmap(&lbo->kmap);
+> =C2=A0}
+> =C2=A0
+> -void lsdc_bo_clear(struct lsdc_bo *lbo)
+> +int lsdc_bo_clear(struct lsdc_bo *lbo)
+> =C2=A0{
+> -	lsdc_bo_kmap(lbo);
+> +	int ret;
+> +
+> +	ret =3D lsdc_bo_kmap(lbo);
+> +	if (ret)
+> +		return ret;
+> =C2=A0
+> =C2=A0	if (lbo->is_iomem)
+> =C2=A0		memset_io((void __iomem *)lbo->kptr, 0, lbo->size);
+> @@ -398,6 +402,8 @@ void lsdc_bo_clear(struct lsdc_bo *lbo)
+> =C2=A0		memset(lbo->kptr, 0, lbo->size);
+> =C2=A0
+> =C2=A0	lsdc_bo_kunmap(lbo);
+> +
+> +	return 0;
+> =C2=A0}
+> =C2=A0
+> =C2=A0int lsdc_bo_evict_vram(struct drm_device *ddev)
 
-Once quota set, the charge_{target,addr}_from unconditionally skips and
-resets at the last region of the tracked target, so the last region can be
-skipped even when it has not been processed.
+Well I currently don't know whether the clearing is meaningful...
 
-Example:
+It seems that drm_gem_vram_helper doesn't do this.
 
-    1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
-    2. Quota is configured to process only 100 bytes per window.
-    3. Window 1: Processes R1 (0-100).  Quota is full.  charge_{target,
-       addr}_from is saved at (Target, 100).
-    4. Window 2: The loop reaches R2.  Because R2 is
-       damon_last_region(t), the old code unconditionally returns true,
-       skipping R2 entirely and resetting the charge_{target,addr}_from.
+Cc'ing TTM maintainers for an answer.
 
-    Result: R2 is permanently skipped even though it has never been
-    processed.
+Thanks,
+Icenowy
 
-However, it is important to note that this is a very minor issue.  This is
-because it is triggered only when the previous window saved/kept
-charge_{target,addr}_from, and in the next window, all regions except the
-last region were skipped by damos_skip_charged_region().
+> diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.h
+> b/drivers/gpu/drm/loongson/lsdc_ttm.h
+> index 843e147..df47d9b 100644
+> --- a/drivers/gpu/drm/loongson/lsdc_ttm.h
+> +++ b/drivers/gpu/drm/loongson/lsdc_ttm.h
+> @@ -89,7 +89,7 @@ size_t lsdc_bo_size(struct lsdc_bo *lbo);
+> =C2=A0
+> =C2=A0int lsdc_bo_kmap(struct lsdc_bo *lbo);
+> =C2=A0void lsdc_bo_kunmap(struct lsdc_bo *lbo);
+> -void lsdc_bo_clear(struct lsdc_bo *lbo);
+> +int lsdc_bo_clear(struct lsdc_bo *lbo);
+> =C2=A0
+> =C2=A0int lsdc_bo_evict_vram(struct drm_device *ddev);
+> =C2=A0
 
-Fix this by only resetting the charge_{target,addr}_from when last region
-is reached, only skipping when it is applied or cannot split.
-
-Link: https://lore.kernel.org/20260908134739.96919-1-sj@kernel.org
-Fixes: 50585192bc2e ("mm/damon/schemes: skip already charged targets and regions")
-Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: <stable@vger.kernel.org> # v5.16.x
-(cherry picked from commit b3723b596b548c837a766aae3553c14a7b15af2b)
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/core.c | 25 ++++++++++++++-----------
- 1 file changed, 14 insertions(+), 11 deletions(-)
-
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index c86cac855b9b..c459eae4bbae 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -884,36 +884,39 @@ static bool damos_skip_charged_region(struct damon_target *t,
- {
- 	struct damos_quota *quota = &s->quota;
- 	unsigned long sz_to_skip;
-+	bool skip = false;
- 
- 	/* Skip previously charged regions */
- 	if (quota->charge_target_from) {
- 		if (t != quota->charge_target_from)
- 			return true;
--		if (r == damon_last_region(t)) {
--			quota->charge_target_from = NULL;
--			quota->charge_addr_from = 0;
--			return true;
--		}
- 		if (quota->charge_addr_from &&
--				r->ar.end <= quota->charge_addr_from)
--			return true;
-+				r->ar.end <= quota->charge_addr_from) {
-+			skip = true;
-+			goto out;
-+		}
- 
- 		if (quota->charge_addr_from && r->ar.start <
- 				quota->charge_addr_from) {
- 			sz_to_skip = ALIGN_DOWN(quota->charge_addr_from -
- 					r->ar.start, DAMON_MIN_REGION);
- 			if (!sz_to_skip) {
--				if (damon_sz_region(r) <= DAMON_MIN_REGION)
--					return true;
-+				if (damon_sz_region(r) <= DAMON_MIN_REGION) {
-+					skip = true;
-+					goto out;
-+				}
- 				sz_to_skip = DAMON_MIN_REGION;
- 			}
- 			damon_split_region_at(t, r, sz_to_skip);
--			return true;
-+			skip = true;
- 		}
-+	}
-+out:
-+	if (r == damon_last_region(t)) {
- 		quota->charge_target_from = NULL;
- 		quota->charge_addr_from = 0;
- 	}
--	return false;
-+	return skip;
- }
- 
- static void damos_update_stat(struct damos *s,
--- 
-2.47.3
