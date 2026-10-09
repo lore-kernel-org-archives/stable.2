@@ -1,110 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 082763E6392;
-	Fri,  9 Oct 2026 12:04:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A9044C64C;
+	Fri,  9 Oct 2026 12:22:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791547457; cv=none; b=gMFLxTMlyKonA1Oxy0KkjxcgX5gtNMB1uo8tPyjkbJ4/D3uoUSuKqFXgjOAeOvdsTiI2uHG0+cYw1g7vtqoss8/mh4CtQBikzeLUHfX7OdRXy+zU4ddHKXkOLhlfOFWBvA4Vd6auNp3ZbOyNO4KeBiU5uYhJenQznUaXqWMKh48=
+	t=1791548544; cv=none; b=TDONh2g//bUPBiE/t5swaafQkQyaRI0sOcTaJm7O6+qDK4aFMQKSZYMx9S7EUf805fWslliNk80bvVcTgw2WmWnbF2Iu9zLgKleiLDn+Wytfgqh6UOCvKmhbpMdyMZ69KuBnD4niLQ/OBqm4/gChSB8ThrrK0RdQyiV14nRE91k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791547457; c=relaxed/simple;
-	bh=lORZY4Mhn05+lNoB0gKe3EAnys6S7IQwNP3y7S0GEUg=;
+	s=arc-20240116; t=1791548544; c=relaxed/simple;
+	bh=464YzXGaDQUbdH+7KNEdxBgo56LjFG1riLV/FeW9DEw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EtVgDxgD2Z+AyqYagaB8iKpN8jsiQgHoBzmCC03wnmzBcmLZsXHSmdIydA9MoPmGDWsnIPo0TuhTt6LsAzVoo0sL3ZSiRW2bzq/B1gb7ehMHlERoXZMlaBacPvlT9H2QbUXJqQBc38fBW1pLhMHRPItcZtY/O0RsQAy21Fb7rjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iMAfsArL; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=KYsmH33M7MqOokNOkU8VyzQCC1aEnq8lEeF5PYZAD6QhiIhlDMMg1uQfQ92howg/CF2uw7yaTgZEojnK1kq97RW6mQBs+qAEY/appwFSL7ZWlH9MlZPe/TWzanYHo0mvPn0b3YlwW9WfZQOk7Nwy+IKV68XoXX03JtF+T61z/Ew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=4QMpZlUr; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iMAfsArL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00DF21F000FF;
-	Fri,  9 Oct 2026 12:04:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791547447;
-	bh=BljgmLXwIPPpLea6jl82aMNQWz9xy5hCV7ufsBKzDQQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iMAfsArLtoXA43Y62BuMkMte0qrPprWzB+tZ9TgKC1rx9tbHiGZQ6wMxx8QEYCPVf
-	 +pfe50pSmcsqCthSB6Si7cKbBiyQbSIdT4iEWLX4vnKdQwHT6TgxwnD4bRDr+ihHtp
-	 LDwSstov2B6NYr7CZhgmaKP4M1t1gOxmb5CcsE5qQMSM3Sne59NzGTMzbL2yLim62l
-	 opQPuufEI8p6R0hNwt/clKNjj6fkIRfyy4tpUrUYWHbZcudkYy7u6wnvAW/1o0N4AH
-	 uF+o0NRBkz446bnd/NwJgLIXm9jC/3NkCpyQ/m5eICspM4ZTcTVex2pONUUe02SiAs
-	 F8RcNqQW22cuA==
-Date: Fri, 9 Oct 2026 14:04:00 +0200
-From: Carlos Maiolino <cem@kernel.org>
-To: Henry Martin <bsdhenrymartin@gmail.com>
-Cc: "Darrick J . Wong" <djwong@kernel.org>, linux-xfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] xfs: fix out-of-bounds cursor access from rtrmap level
- off-by-one
-Message-ID: <asjVgZJijA4r1MlV@cronus.toxiclabs.cc>
-References: <20261009114503.3669142-1-bsdhenrymartin@gmail.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="4QMpZlUr"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=ZqrK1Qsencsi1WEjQh8Yxu5eRbvhSvpLF3WsCRZH2UE=; b=4Q
+	MpZlUrJY9LL0t1S1d5NYqm7eHgNjlOo1QjEUl2H173SfCZbQ5j5NCEHDUUVpORB+mpuJQS0DJizzh
+	tt6UpvKz+wTcCzv0cHf3RmaAQD9nc8fzCQLQ9z5jxwzl/ZV6kHYE5MBHOnjl8IMbsH7cusZfz2vvP
+	q1rTazV+qlU4LJM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xF9bw-009mlP-0G; Fri, 09 Oct 2026 14:22:04 +0200
+Date: Fri, 9 Oct 2026 14:22:03 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Linmao Li <lilinmao@kylinos.cn>
+Cc: Hayes Wang <hayeswang@realtek.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Chih Kai Hsu <hsu.chih.kai@realtek.com>,
+	nic_swsd <nic_swsd@realtek.com>,
+	Birger Koblitz <mail@birger-koblitz.de>,
+	Xiangqian Zhang <zhangxiangqian@kylinos.cn>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH net v2] r8152: Use BMSR to detect the link state
+Message-ID: <591ca604-b296-4469-94b5-957d9ba45ae4@lunn.ch>
+References: <20261005105249.1281648-1-lilinmao@kylinos.cn>
+ <fd3bff0e63304681b9e5f35f2f57e50e@realtek.com>
+ <7a8d21bd-3484-4120-abd6-f7290f919b7d@lunn.ch>
+ <2bd3886a-da6e-4703-bd7a-9baa32bfd2f4@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261009114503.3669142-1-bsdhenrymartin@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2bd3886a-da6e-4703-bd7a-9baa32bfd2f4@kylinos.cn>
 
-On Fri, Oct 09, 2026 at 07:45:03PM +0800, Henry Martin wrote:
-> m_rtrmap_maxlevels includes the inode root level, so a valid on-disk
-> bb_level is strictly less than m_rtrmap_maxlevels.  Both
-> xfs_rtrmapbt_verify() and xfs_iformat_rtrmap() compare with ">"
-> instead of ">=", letting a forged block with level == maxlevels pass
-> validation.
+> Hi Hayes, Andrew,
+> 
+> Thanks. Since the newer ICs notify only when the link status changes,
+> the driver cannot rely on another link up notification after the link
+> has settled, so v2 can leave the carrier off when the first read
+> returns the latched link down.
+> 
+> Before sending v3, which approach would you prefer? Both fixed the
+> problem in my tests on an RTL8153B with v7.3-rc6:
+> 
+> a) Keep carrier detection on PLA_PHYSTATUS and read BMSR once before
+>    carrier on, only to clear the latch. This is the option I asked
+>    about on v1.
+> 
+> b) Detect carrier from BMSR and read it again when the first read
+>    returns link down, as genphy_update_link() does in interrupt mode.
+> 
+> Neither depends on another notification. Neither reports a short link
+> drop that recovers before the link work runs: with a) a later speed
+> query still sees the latched link down, with b) the latch is cleared.
+> 
+> Hayes, for b): is BMSR_LSTATUS reliable as the carrier source on all
+> chips supported by r8152?
 
-So you need a maliciously crafted filesystem image and enough privileges
-to be able to mount it.
+Ideally we want a list of devices which correctly do notification on
+every change of link state, and which are broken.
 
-> The cursor is then sized for maxlevels entries while
-> bc_nlevels is set to level + 1, so the generic btree code indexes one
-> element past bc_levels[] - an out-of-bounds read/write on the cursor
-> allocation.
-> 
-> xfs_rtrmapbt_mem_verify() in the same file (from commit
-> 4a61f12eb1195 "xfs: create a shadow rmap btree during realtime rmap
-> repair") already uses ">=".
-> 
-> This vulnerability was discovered by Tencent CodeBuddy Security.
+For those that work, read the BMSR once and report the down, and then
+later on the second event, report the up.
 
-What is the "vulnerability" you are claiming here? How can this be
-exploited? For what you described, it requires a crafted filesystem
-image, which should require a privileged user to mount, so while this is
-a bug, calling it a vulnerability is a big stretch.
-So, giving you claimed it to be a vulnerability, how can it be
-exploited by a non-privileged user? Where is the reproducer? You can
-even share it off-list if you prefer.
+For those devices which are broken, double read the BMSR.  The danger
+is, somebody who quickly unplugs and replugs the cable is not going to
+get the down notification. The dhcp client will not restart, so the
+old IP address will be used, for the next hour to day, and the network
+is broken.
 
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: fc6856c6ff086 ("xfs: introduce realtime rmap btree ondisk definitions")
-> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-> ---
->  fs/xfs/libxfs/xfs_rtrmap_btree.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/xfs/libxfs/xfs_rtrmap_btree.c b/fs/xfs/libxfs/xfs_rtrmap_btree.c
-> index a15e460a1ec7..6833c924a383 100644
-> --- a/fs/xfs/libxfs/xfs_rtrmap_btree.c
-> +++ b/fs/xfs/libxfs/xfs_rtrmap_btree.c
-> @@ -256,7 +256,7 @@ xfs_rtrmapbt_verify(
->  	if (fa)
->  		return fa;
->  	level = be16_to_cpu(block->bb_level);
-> -	if (level > mp->m_rtrmap_maxlevels)
-> +	if (level >= mp->m_rtrmap_maxlevels)
->  		return __this_address;
-> 
->  	return xfs_btree_fsblock_verify(bp, mp->m_rtrmap_mxr[level != 0]);
-> @@ -888,7 +888,7 @@ xfs_iformat_rtrmap(
->  	numrecs = be16_to_cpu(dfp->bb_numrecs);
->  	level = be16_to_cpu(dfp->bb_level);
-> 
-> -	if (level > mp->m_rtrmap_maxlevels ||
-> +	if (level >= mp->m_rtrmap_maxlevels ||
->  	    xfs_rtrmap_droot_space_calc(level, numrecs) > dsize) {
->  		xfs_inode_mark_sick(ip, XFS_SICK_INO_CORE);
->  		return -EFSCORRUPTED;
-> --
-> 2.43.7
-> 
-> 
+    Andrew
+
+
+
