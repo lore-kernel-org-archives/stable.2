@@ -1,356 +1,199 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B40497384
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 09:16:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C081429818;
+	Fri,  9 Oct 2026 09:21:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791537402; cv=none; b=k3Hj4SIw5xUffYhi3NDJhGRLF+QryqUcfakEq8nAfCC+70R0NXcycTp//JssYupNXk9/RnAY6rSqQXwfR10odJajKFg5TISd3S60DN3pYPr/8NXllefS+3xthGb9IThFzAVAAkQK8eRnZM2+kIqiapUAYUUHD0Sy+o2Ud2fX5pI=
+	t=1791537689; cv=none; b=bQDgREG75auo8l+ex32g6KlS6oaYwpPyMD6AVQzbsxZdPdALN/2owwDof7J28eRRuc0au1Uu8kBLN90E9lPN+gCsIz6c03lVEhKydujOrrCE10pdoVeZb9zhVbYiEIfD5kYp/dIT750Q4V9271ijZqR0T58EBr1KdVHydsxlAzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791537402; c=relaxed/simple;
-	bh=gcAdtZ1aRPsDw8PpJMAuUtDrBXXJ/7w3pc1nYI77I8o=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=jsML21qTP5inOTJfJr9ONLQmGCGoaOZ5sLmFm5rjQ9S5dIXt656aIX9nPM2qogArdb734kbOspB0t91MbHWLXOgv0djrD5iu0F7AkLFV58e5YQjpZvFBjfYEMYr2qLPACY+rDOFD6b9OokOLUXiM2GgxQqvGIdZKJMMPbrZhkPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y4zSegmr; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791537689; c=relaxed/simple;
+	bh=qxzaWP43zMK890klSaHe9pUuha590tppejHYhCYdmWM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=HXiPmTEexuBb8Ul2lZKunX/eaZ8nC+20Y27fM0/q6kyExQQPmQ2n0sFArWpAiWAywRQhKJEZafUKKXTo29mpdoghbywDalM2wy7Z8xb7U/Qs8q/12QoQJIoQhaeEVOWFmLA1flikzYPI3/ggSFGujq5bxp+CwAiKcOVWoEBPGdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V3ckakU/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y4zSegmr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791537399; x=1823073399;
-  h=message-id:date:mime-version:subject:from:to:cc:
-   references:in-reply-to:content-transfer-encoding;
-  bh=gcAdtZ1aRPsDw8PpJMAuUtDrBXXJ/7w3pc1nYI77I8o=;
-  b=Y4zSegmr574b5hOb+zM+YSFtKgmCOocCzNH11uFXNIeRkZoz/2sx+fnn
-   z5mPm9LubUPYkY/OWuQVsoQiB8tkIUUbWbXP4Ro33ubhjSLTx1TNR3Xtn
-   5RV4+sjosWPNqZ0NSTNzfoLwc0z2wRn4rkdX9kT0dR6szDH/qiPMsHeo+
-   JPcs3aPFJmJWDqu+a2lVE6Ucf7KvsXbLL7VYlsHmIqH2g7VLUmFdTvQkc
-   WK2WLdSwi8Nk/xfLe+UDF4RXLsHLmp4HxFyu5I4EPj9EHJPkn4j7yBubo
-   5zRcbql3xtS1FH4UWj0jHnE8Y1WK6nZ1JGI4GOPccpzIIVFTlfiWl++Rn
-   g==;
-X-CSE-ConnectionGUID: qAh/J/1oShymYEkwD9sY0A==
-X-CSE-MsgGUID: 4+UZfanRSsCxSJ1Uet3rmQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="227109"
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="227109"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 02:16:38 -0700
-X-CSE-ConnectionGUID: uDzvwc0HSi+XFEEuDq+WQw==
-X-CSE-MsgGUID: EPEJEjdCRymzSCuVgyyESg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="2088209"
-Received: from slindbla-desk.ger.corp.intel.com (HELO [10.245.244.25]) ([10.245.244.25])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 02:16:36 -0700
-Message-ID: <31f7eb68-6dfa-4ea7-93a4-d4897fbe6a74@intel.com>
-Date: Fri, 9 Oct 2026 10:16:34 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V3ckakU/"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DDCA7C2BCF4;
+	Fri,  9 Oct 2026 09:21:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791537689;
+	bh=qxzaWP43zMK890klSaHe9pUuha590tppejHYhCYdmWM=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=V3ckakU/wOS5fjZI3UykxDY7NzSCB0syU5TwjQN4ZBPmVu5gnF9ovl0lMCydA+bT7
+	 27G5NE0rObBU9iPMFHgbFHhZdYnwAvhsf8ho8NxWxB48idEgRVQBcZ0Lyer2JH/P7w
+	 L3xgDTmGZS757S/mTZFSRRehrMoNdZbsMoEk45tFItRCAqUx93wtymMtVpMQdryFcW
+	 5Ie6GgqsdwKk2TQd4xKJCfsdJlLyFzIPZy7QAo9J/Zn0hVI0fQ34wIa3IsuL8RCa5N
+	 91tqdCCzF7T1pCqMa3UHHX2TyiWuMzk9COCXm/QJSQBFcbLSV1dXl8G9flpZGKs1M9
+	 tQ6X8vejdkvWA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C7B16CA6019;
+	Fri,  9 Oct 2026 09:21:28 +0000 (UTC)
+From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
+Date: Fri, 09 Oct 2026 16:52:22 +0800
+Subject: [PATCH v2] drm/nouveau/uvmm: reject replace across page sizes
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] drm/xe: skip p2p for suspected display buffers
-From: Matthew Auld <matthew.auld@intel.com>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: Matthew Brost <matthew.brost@intel.com>, stable@vger.kernel.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-References: <20261007153605.1743626-5-matthew.auld@intel.com>
- <20261007153605.1743626-8-matthew.auld@intel.com>
- <2c6a97ac21c5ef161dbac279f9b971f383b6b944.camel@linux.intel.com>
- <dbabed4e-468d-4ecf-b295-f5d8c9c4b263@intel.com>
- <bc2f4d82-5a8e-4d1b-a921-ee819ca5cac2@amd.com>
- <992d57f0-7327-4c36-adf7-6dd72137fe73@intel.com>
-Content-Language: en-GB
-In-Reply-To: <992d57f0-7327-4c36-adf7-6dd72137fe73@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261009-nouveau-fixes-v2-1-a0b71bf8df1b@outlook.com>
+X-B4-Tracking: v=1; b=H4sIAEWryGoC/3WMyw7CIBBFf6WZtRgeIsSV/2G6qHSwRGUMFKJp+
+ u9i9y7PvTlngYwpYIZTt0DCGnKg2EDuOnDTEG/IwtgYJJdHboVhkUrFoTAf3piZVNYYe9BODVd
+ ozivhdjTl0jeeQp4pfbZ8Fb/1X6kKxpnXwo7cGaW9OlOZH0T3vaMn9Ou6fgGMdF8nrAAAAA==
+X-Change-ID: 20260817-nouveau-fixes-23877845c3ab
+To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Balbir Singh <balbirs@nvidia.com>, Mary Guillemard <mary@mary.zone>, 
+ Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>, 
+ James Jones <jajones@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
+ stable@vger.kernel.org, Junrui Luo <moonafterrain@outlook.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4438;
+ i=moonafterrain@outlook.com; h=from:subject:message-id;
+ bh=6FpAwbqLK/tSxZV1GoB5Wx5YVWdL5AMEJN9IWTGboAc=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrBObxKWk9iQ8Eb7z+YiglLegTv0bxkKF7RVzbj/3+
+ vpqZkaO+46OUhYGMS4GWTFFluMFl75Z+G7R3eKzJRlmDisTyBAGLk4BmMjiPoafjHutxK33MEb7
+ /oq8tHfa+d31Yo7xjwpto4ON2U/38TqUMfxPu3fV7qLlpMTHtqIyX01uf//C1jq7wLxn1VaOsF+
+ FP1dzAQCWFku6
+X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
+ fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
+X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
+ auth_id=909
+X-Original-From: Junrui Luo <moonafterrain@outlook.com>
+Reply-To: moonafterrain@outlook.com
 
-On 08/10/2026 12:17, Matthew Auld wrote:
-> On 08/10/2026 10:55, Christian König wrote:
->> On 10/8/26 11:46, Matthew Auld wrote:
->>> On 07/10/2026 19:11, Thomas Hellström wrote:
->>>> On Wed, 2026-10-07 at 16:36 +0100, Matthew Auld wrote:
->>>>> If p2p is allowed on the CPU (like on AMD), we currently permit p2p
->>>>> for
->>>>> all exported VRAM buffers. However, in some multi-GPU setups, like
->>>>> with
->>>>> prime rendering on a dgpu and scanout/compositor using the igpu, it
->>>>> looks like the exported dma-buf window buffer can in some cases end
->>>>> up
->>>>> using p2p.
->>>>>
->>>>> However, user is reporting a kernel regression where performance here
->>>>> massively tanks across many games/workloads, where it looks like on
->>>>> each
->>>>> frame, the igpu is reading/sampling from VRAM over pcie for the
->>>>> window
->>>>> buffer, since it uses p2p. p2p is currently more intended for dgpu <-
->>>>>>
->>>>> dgpu, and not so much display buffers with igpu <-> dgpu, at least
->>>>> for
->>>>> now.
->>>>>
->>>>> We don't currently have any hints to say "please use p2p for this
->>>>> buffer, or please don't", however we can use some heuristics to try
->>>>> to
->>>>> determine if this is likely a display buffer being exported to an
->>>>> igpu,
->>>>> which probably never intended for p2p:
->>>>>
->>>>>    1. FLAG_SCANOUT being set on the buffer. Window buffers usually get
->>>>>       tagged with this, but not always.
->>>>>
->>>>>    2. Importer being a PCI device with display, which is not xe 
->>>>> driver.
->>>>>
->>>>> We also rely on the existing p2p Intel CPU whitelist to stop this
->>>>> happening on xe igpu. Currently p2p is only enabled for server CPUs,
->>>>> on
->>>>> Intel. We also limit the above to dual placement buffers.
->>>>>
->>>>> The original regression was bisected to commit 609fc8766d68 ("dma-
->>>>> buf:
->>>>> Always build with DMABUF_MOVE_NOTIFY"), however the behaviour was
->>>>> already present when enabling that knob, so this goes back even
->>>>> further.
->>>>>
->>>>> User has confirmed that along with the sticky dma-buf TT placement
->>>>> fix,
->>>>> to prevent ping-ponging, the performance is back to normal.
->>>>>
->>>>
->>>> Actually, I think this needs to be fixed on the importer side. Until we
->>>> have some some user-space hints, I don't think the exporter should
->>>> second-guess. Most sane solution IMO is if igfx importers could just
->>>> not advertise pcie p2p support?
->>>
->>> Yeah, not sure tbh. I'm not a huge fan of this patch either. But you 
->>> could argue that the SCANOUT flag is already a good implicit hint/ 
->>> signal on the exporter side, but unfortunately there were some games 
->>> where this did not reliably work. The other implicit hint/signal is 
->>> perhaps the dual placement angle. For example, in compute-runtime, it 
->>> might be that they use VRAM-only if they want p2p? AFAICT mesa for us 
->>> always uses a dual placement or just system memory for these types of 
->>> buffers.
->>>
->>> Christian, do you have any thoughts here? We have a kernel perf 
->>> regression after DMABUF_MOVE_NOTIFY was made the default after 
->>> updating to a new kernel. The gist is that this then turned on the 
->>> p2p paths, with a multi-GPU setup with an AMD igpu/APU and Xe dgpu 
->>> doing prime rendering. From the user bug report it sounds like the 
->>> dgpu linear window buffer exported to the compositor (igpu) is dual 
->>> placement VRAM + TT, and so this now attempts to keep that memory in 
->>> VRAM instead of moving it. Compositor then uses p2p to access it. It 
->>> works but performance falls off a massive cliff here.
->>>
->>> Perhaps Intel Mesa side should use tt-only for this type buffer (?), 
->>> but since this is a kernel regression I was hoping we could fix this 
->>> on the kernel side.
->>>
->>> Some questions:
->>>
->>> 1. Do you know what is the general story with p2p between igpu and 
->>> dgpu? Is this a legit thing? For igpus/APUs, advertising p2p can't be 
->>> dropped? It clearly seems to work though.
->>>
->>> 2. If this is legit, do you guys then also prevent p2p with display 
->>> buffers? Are you just doing that at the Mesa level, or is there some 
->>> magic in the kernel also?
->>
->> If I understand that correctly that the igpu is the importer and the 
->> dgpu is the exporter then yeah Thomas is right that definately needs 
->> to be fixed on the importer side.
-> 
-> Ideas on how do that? Could we do something like allow_peer2peer = false 
-> in amdgpu_gem_prime_import() if this is an APU device, or further check 
-> if the exporter side is not amdgpu, like APU + Xe?
+From: Junrui Luo <moonafterrain@outlook.com>
 
-For example: 
-https://gitlab.freedesktop.org/mwa/kernel/-/commit/7ec86c68b42655b4bb85ee90af434a617e7bec8c
+A new mapping takes over the page tables of the mappings it replaces.
+nouveau_uvmm_sm_prepare() only acquires page tables for the range no
+existing mapping covers, and the map path frees the replaced mappings
+without putting their references. That is only valid while all of them
+use the same page size, which select_page_shift() no longer guarantees.
 
-Is that something you would accept?
+Rebinding a GART BO over a 2MiB VRAM BO therefore leaves the new mapping
+owning page tables built for a different page size, and it then maps at a
+size that was never referenced over that range. Since raw map does not
+allocate, nvkm_vmm_iter() can walk down to a NULL leaf and dereference
+it. The remainders of a split have the same problem: op_map_prepare()
+recomputes a page size with select_page_shift() while the remainder keeps
+the parent's page tables, so a parent that was itself downgraded can leave
+a remainder that re-aligns to a larger size. This happens on the unmap
+path too.
 
-> 
->>
->> At least for AMD APUs we clearly support P2P both as exporter and 
->> importer, but what isn't supported is to scan out over P2P. We 
->> explicitely reject that inside DC/DAL.
->>
->> And I'm pretty sure that you should do that as well. I'm actually 
->> really suprised that this works technically and doesn't cause 
->> corruption or anything.
-> 
-> AFAICT on Intel iGPUs it will currently always end up with peer2peer = 
-> false on attach. Not 100% sure if direct scanout was happening on the 
-> p2p buffer itself, for the user report.
-> 
->>
->> Regards,
->> Christian.
->>
->>>
->>>>
->>>> Thanks,
->>>> Thomas
->>>>
->>>>> Assisted-by: LLM
->>>>> Closes:
->>>>> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9415
->>>>> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
->>>>> Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel
->>>>> GPUs")
->>>>> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->>>>> Cc: Matthew Brost <matthew.brost@intel.com>
->>>>> Cc: <stable@vger.kernel.org> # v6.12
->>>>> ---
->>>>>    drivers/gpu/drm/xe/xe_bo.c      |  3 +-
->>>>>    drivers/gpu/drm/xe/xe_bo.h      |  1 +
->>>>>    drivers/gpu/drm/xe/xe_dma_buf.c | 63 ++++++++++++++++++++++++ 
->>>>> +------
->>>>> -- 
->>>>>    3 files changed, 51 insertions(+), 16 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
->>>>> index 5065a7bac39c..e63437a261cb 100644
->>>>> --- a/drivers/gpu/drm/xe/xe_bo.c
->>>>> +++ b/drivers/gpu/drm/xe/xe_bo.c
->>>>> @@ -3658,7 +3658,7 @@ int xe_gem_create_ioctl(struct drm_device *dev,
->>>>> void *data,
->>>>>         * Display scanout is always non-coherent with the CPU
->>>>> cache.
->>>>>         */
->>>>>        if (args->flags & DRM_XE_GEM_CREATE_FLAG_SCANOUT)
->>>>> -        bo_flags |= XE_BO_FLAG_FORCE_WC;
->>>>> +        bo_flags |= XE_BO_FLAG_FORCE_WC |
->>>>> XE_BO_FLAG_SCANOUT;
->>>>>          if (args->flags & DRM_XE_GEM_CREATE_FLAG_NO_COMPRESSION) {
->>>>>            if (XE_IOCTL_DBG(xe, GRAPHICS_VER(xe) < 20))
->>>>> @@ -4228,6 +4228,7 @@ int xe_bo_dumb_create(struct drm_file
->>>>> *file_priv,
->>>>>                       DRM_XE_GEM_CPU_CACHING_WC,
->>>>> XE_BO_FLAG_VRAM_IF_DGFX(xe_device_get_root_tile(xe)) |
->>>>>                       XE_BO_FLAG_FORCE_WC |
->>>>> +                   XE_BO_FLAG_SCANOUT |
->>>>>                       XE_BO_FLAG_NEEDS_CPU_ACCESS, NULL);
->>>>>        if (IS_ERR(bo))
->>>>>            return PTR_ERR(bo);
->>>>> diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
->>>>> index 1ddf3b6d4a9e..6965c2655731 100644
->>>>> --- a/drivers/gpu/drm/xe/xe_bo.h
->>>>> +++ b/drivers/gpu/drm/xe/xe_bo.h
->>>>> @@ -56,6 +56,7 @@
->>>>>    #define XE_BO_FLAG_FORCE_USER_VRAM    BIT(25)
->>>>>    #define XE_BO_FLAG_NO_COMPRESSION    BIT(26)
->>>>>    #define XE_BO_FLAG_NEEDS_1G        BIT(27)
->>>>> +#define XE_BO_FLAG_SCANOUT        BIT(28)
->>>>>      /* this one is trigger internally only */
->>>>>    #define XE_BO_FLAG_INTERNAL_TEST    BIT(30)
->>>>> diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c
->>>>> b/drivers/gpu/drm/xe/xe_dma_buf.c
->>>>> index b973579a69b8..0a347f09cee4 100644
->>>>> --- a/drivers/gpu/drm/xe/xe_dma_buf.c
->>>>> +++ b/drivers/gpu/drm/xe/xe_dma_buf.c
->>>>> @@ -36,10 +36,40 @@ static void xe_ddebug_flip_bool(const struct
->>>>> _ddebug *desc, bool *flag)
->>>>>    #define xe_dma_buf_p2p_debug_flip(flag) do { } while (0)
->>>>>    #endif
->>>>>    +static void xe_dma_buf_move_notify(struct dma_buf_attachment
->>>>> *attach)
->>>>> +{
->>>>> +    struct drm_gem_object *obj = attach->importer_priv;
->>>>> +    struct xe_bo *bo = gem_to_xe_bo(obj);
->>>>> +    struct drm_exec *exec = XE_VALIDATION_UNSUPPORTED;
->>>>> +
->>>>> +    XE_WARN_ON(xe_bo_evict(bo, exec));
->>>>> +}
->>>>> +
->>>>> +static const struct dma_buf_attach_ops xe_dma_buf_attach_ops = {
->>>>> +    .allow_peer2peer = true,
->>>>> +    .invalidate_mappings = xe_dma_buf_move_notify
->>>>> +};
->>>>> +
->>>>> +static struct pci_dev *xe_find_parent_pci_dev(struct device *dev)
->>>>> +{
->>>>> +    while (dev) {
->>>>> +        if (dev_is_pci(dev))
->>>>> +            return to_pci_dev(dev);
->>>>> +        dev = dev->parent;
->>>>> +    }
->>>>> +    return NULL;
->>>>> +}
->>>>> +
->>>>> +static bool xe_dma_buf_attach_is_xe_device(struct dma_buf_attachment
->>>>> *attach)
->>>>> +{
->>>>> +    return attach->importer_ops == &xe_dma_buf_attach_ops;
->>>>> +}
->>>>> +
->>>>>    static int xe_dma_buf_attach(struct dma_buf *dmabuf,
->>>>>                     struct dma_buf_attachment *attach)
->>>>>    {
->>>>>        struct drm_gem_object *obj = attach->dmabuf->priv;
->>>>> +    struct xe_bo *bo = gem_to_xe_bo(obj);
->>>>>        bool verbose_p2p_dist = drm_debug_enabled(DRM_UT_DRIVER);
->>>>>          xe_dma_buf_p2p_debug_flip(&verbose_p2p_dist);
->>>>> @@ -48,7 +78,24 @@ static int xe_dma_buf_attach(struct dma_buf
->>>>> *dmabuf,
->>>>>            pci_p2pdma_distance(to_pci_dev(obj->dev->dev), attach-
->>>>>> dev, verbose_p2p_dist) < 0)
->>>>>            attach->peer2peer = false;
->>>>>    -    if (!attach->peer2peer &&
->>>>> !xe_bo_can_migrate(gem_to_xe_bo(obj), XE_PL_TT))
->>>>> +    if (attach->peer2peer && xe_bo_can_migrate(bo, XE_PL_TT)) {
->>>>> +        struct pci_dev *client =
->>>>> xe_find_parent_pci_dev(attach->dev);
->>>>> +
->>>>> +        /*
->>>>> +         * There are perf issues with using p2p with display
->>>>> buffers,
->>>>> +         * like with igpu (compositor) <-> dgpu (exported
->>>>> p2p window
->>>>> +         * buffer). Probably we need some actual userspace
->>>>> hints. We
->>>>> +         * shouldn't really assume anything. Also, note that
->>>>> some of
->>>>> +         * these buffers are not always tagged with SCANOUT.
->>>>> +         */
->>>>> +        if (bo->flags & XE_BO_FLAG_SCANOUT)
->>>>> +            attach->peer2peer = false;
->>>>> +        else if (client && pci_is_display(client) &&
->>>>> +             !xe_dma_buf_attach_is_xe_device(attach))
->>>>> +            attach->peer2peer = false;
->>>>> +    }
->>>>> +
->>>>> +    if (!attach->peer2peer && !xe_bo_can_migrate(bo, XE_PL_TT))
->>>>>            return -EOPNOTSUPP;
->>>>>          xe_pm_runtime_get(to_xe_device(obj->dev));
->>>>> @@ -349,20 +396,6 @@ xe_dma_buf_create_obj(struct drm_device *dev,
->>>>> struct dma_buf *dma_buf)
->>>>>        return ret ? ERR_PTR(ret) : &bo->ttm.base;
->>>>>    }
->>>>>    -static void xe_dma_buf_move_notify(struct dma_buf_attachment
->>>>> *attach)
->>>>> -{
->>>>> -    struct drm_gem_object *obj = attach->importer_priv;
->>>>> -    struct xe_bo *bo = gem_to_xe_bo(obj);
->>>>> -    struct drm_exec *exec = XE_VALIDATION_UNSUPPORTED;
->>>>> -
->>>>> -    XE_WARN_ON(xe_bo_evict(bo, exec));
->>>>> -}
->>>>> -
->>>>> -static const struct dma_buf_attach_ops xe_dma_buf_attach_ops = {
->>>>> -    .allow_peer2peer = true,
->>>>> -    .invalidate_mappings = xe_dma_buf_move_notify
->>>>> -};
->>>>> -
->>>>>    #if IS_ENABLED(CONFIG_DRM_XE_KUNIT_TEST)
->>>>>      struct dma_buf_test_params {
->>>
->>
-> 
+Reject the bind, and make split remainders inherit the page size of the
+mapping they are split from.
+
+Fixes: c488a94e7e14 ("drm/nouveau/uvmm: Allow larger pages")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: LLM
+Cc: stable@vger.kernel.org
+Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+---
+Changes in v2:
+- Drop patch 1, which has been merged.
+- Use the abbreviated conditional operator for page_shift (Lyude Paul).
+- Compare against remap_args.page_shift (Lyude Paul).
+- Use Assisted-by: LLM (Balbir Singh).
+- Add Lyude's Reviewed-by.
+- Link to v1: https://lore.kernel.org/r/20260817-nouveau-fixes-v1-0-f518d0c735f3@outlook.com
+---
+ drivers/gpu/drm/nouveau/nouveau_uvmm.c | 32 +++++++++++++++++++++++++++++++-
+ 1 file changed, 31 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+index f5e4756b4de4..aa5b93808f41 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+@@ -85,6 +85,8 @@ struct uvmm_map_args {
+ 	u64 addr;
+ 	u64 range;
+ 	u8 kind;
++	/* Page size to give the new mapping, or 0 to derive it from the op. */
++	u8 page_shift;
+ };
+ 
+ static int
+@@ -655,7 +657,7 @@ op_map_prepare(struct nouveau_uvmm *uvmm,
+ 
+ 	uvma->region = args->region;
+ 	uvma->kind = args->kind;
+-	uvma->page_shift = select_page_shift(uvmm, op);
++	uvma->page_shift = args->page_shift ?: select_page_shift(uvmm, op);
+ 
+ 	drm_gpuva_map(&uvmm->base, &uvma->va, op);
+ 
+@@ -684,8 +686,20 @@ nouveau_uvmm_sm_prepare(struct nouveau_uvmm *uvmm,
+ 	struct drm_gpuva_op *op;
+ 	u64 vmm_get_start = args ? args->addr : 0;
+ 	u64 vmm_get_end = args ? args->addr + args->range : 0;
++	u8 map_page_shift = 0;
+ 	int ret;
+ 
++	/* A new mapping takes over the page tables of the mappings it replaces,
++	 * so every one of them has to be using its page size. The new mapping
++	 * is the last op drm_gpuvm_sm_map_ops_create() emits.
++	 */
++	if (args) {
++		struct drm_gpuva_op *last = drm_gpuva_last_op(ops);
++
++		if (last->op == DRM_GPUVA_OP_MAP)
++			map_page_shift = select_page_shift(uvmm, &last->map);
++	}
++
+ 	drm_gpuva_for_each_op(op, ops) {
+ 		switch (op->op) {
+ 		case DRM_GPUVA_OP_MAP: {
+@@ -713,11 +727,22 @@ nouveau_uvmm_sm_prepare(struct nouveau_uvmm *uvmm,
+ 			struct uvmm_map_args remap_args = {
+ 				.kind = uvma_from_va(va)->kind,
+ 				.region = uvma_from_va(va)->region,
++				/* The remainders of the split keep the page
++				 * tables of the mapping they are split from,
++				 * so they must keep its page size too.
++				 */
++				.page_shift = uvma_from_va(va)->page_shift,
+ 			};
+ 			u64 ustart = va->va.addr;
+ 			u64 urange = va->va.range;
+ 			u64 uend = ustart + urange;
+ 
++			if (map_page_shift &&
++			    remap_args.page_shift != map_page_shift) {
++				ret = -EINVAL;
++				goto unwind;
++			}
++
+ 			op_unmap_prepare(r->unmap);
+ 
+ 			if (r->prev) {
+@@ -756,6 +781,11 @@ nouveau_uvmm_sm_prepare(struct nouveau_uvmm *uvmm,
+ 			u64 uend = ustart + urange;
+ 			u8 page_shift = uvma_from_va(va)->page_shift;
+ 
++			if (map_page_shift && page_shift != map_page_shift) {
++				ret = -EINVAL;
++				goto unwind;
++			}
++
+ 			op_unmap_prepare(u);
+ 
+ 			if (!args)
+
+---
+base-commit: f5bbbfec59b4e2fb7520a91de3df8a6174325d6a
+change-id: 20260817-nouveau-fixes-23877845c3ab
+
+Best regards,
+-- 
+Junrui Luo <moonafterrain@outlook.com>
+
 
