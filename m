@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6944740F726;
-	Fri,  9 Oct 2026 05:58:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D90414439;
+	Fri,  9 Oct 2026 05:58:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791525517; cv=none; b=KcOfpl5vRWRaOq8gJsfBKCLsjGo1yTZGj6NHhchPIkRJhRrLOJiSxZKrZNutUppUvSmil+qOAW4TfLtrHN3ivPEA2YCnELJcgKqrK7aRU/HiSKRXFNDAZrSnSFoPLMDags3LFnPwtt3eDRLcg/o+yW/6wbsvbHuGLhXohVyNn+Q=
+	t=1791525519; cv=none; b=NsVMEuOslu+RmC6ZiN7tTSuVpq1ozgih6/phRFBZGx0Ymvdx523HlZkkD9QnokDhQZzqLU7qVULTzBkNGZXv2FJQbY8PNBmDC/QaE323xrMVu3kuUlo0f+tTWLAMNF9reLlikulnfU/Ry//Kog8+wzVMyeAfbmgCVci7kIvXLSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791525517; c=relaxed/simple;
-	bh=HNHwlyulERrNgJq+D/JTK1VNH7fNkfHCHTinFuJj8YI=;
-	h=Date:To:From:Subject:Message-Id; b=mPfiSNmvcnymf5ieUQUjFwB4DQP6dwcJW5lyyz5cuhJXQC3zT4CDO9ToXk8x3gImISIkiPuPzmGzFPSUUAtfwI1jTcNyji4olNio1j6xBoAe/hDiqN8DyKPKar99HAG/ELUoV5y+3LPnMm1XdGH4w5eo9vCuirS5Kx7UQr5c4Gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=GRDsaloO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791525519; c=relaxed/simple;
+	bh=T7N6Z3Ccv1UOfGzwLyP32GsVwjB8EeRzg2I+0SsVN5c=;
+	h=Date:To:From:Subject:Message-Id; b=Gp+BMcPKQwc7bv20vHABDzkUsqv1XakdixBLBrPArcSBvmikz5PTRagzt0mjJUNpUx6sB7anrX3UlP/mzJtQyJ8Kjwmgj4TMK1hyO4OwFNzRm9NMhUINVMIWZDVL/lre4l/9BEkCeWNAXIpr/JynC1fZOWTPpHzNafZa4bjxXik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=YqtqSfDp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="GRDsaloO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ED6B1F00893;
-	Fri,  9 Oct 2026 05:58:36 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="YqtqSfDp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 903E81F00893;
+	Fri,  9 Oct 2026 05:58:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791525516;
-	bh=ZwMf04IOolWopGJqfhK2jETxsFhAkPxdUgqADRNfjGk=;
+	d=linux-foundation.org; s=korg; t=1791525518;
+	bh=Hd8MUiGCJtmOzx2ddpRr94hXpGVG8cJEVuwEmhMgVlg=;
 	h=Date:To:From:Subject;
-	b=GRDsaloOHCdZTbu2lXkmqN0LvLw47z4yoRaXIqpslwfCJ3k/ttss+tcA2xWhjF17h
-	 YL0U7FVJUmIKDWFVqyqbXmvJJKKPVtlGJ1vhGSpG8KO6fBIrtKxqzuCoge55aIRW99
-	 opdX+sNu5XQRK1XffPJ7oc8qj2KwMfqo66I8sDGc=
-Date: Thu, 08 Oct 2026 22:58:35 -0700
-To: mm-commits@vger.kernel.org,yuzhao@google.com,yuanchu@google.com,weixugc@google.com,tj@kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,muchun.song@linux.dev,mhocko@kernel.org,ljs@kernel.org,kasong@tencent.com,hannes@cmpxchg.org,david@kernel.org,chris@chrisdown.name,baohua@kernel.org,axelrasmussen@google.com,chenridong@xiaomi.com,akpm@linux-foundation.org
+	b=YqtqSfDpwfUdY4KmA2Bdu1Nm/OcagBHLpUvFQHEOKnwhYIt0NJNVe4kn7OpTb1G1S
+	 CxYYQvSXOZN+u1E1IvT/xPGI5BBdBCOWArkCH4kWTCnC11GN7G9UKffCaKdq9RCY88
+	 BktUUFmhMLt/aIRjbIpQpdIUHtkmNVyLWVqoT5LY=
+Date: Thu, 08 Oct 2026 22:58:38 -0700
+To: mm-commits@vger.kernel.org,yosry@kernel.org,stable@vger.kernel.org,nphamcs@gmail.com,hannes@cmpxchg.org,chengming.zhou@linux.dev,xialonglong@kylinos.cn,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-mglru-fix-ineffective-memory-protection-for-non-kswapd-reclaim.patch removed from -mm tree
-Message-Id: <20261009055836.3ED6B1F00893@smtp.kernel.org>
+Subject: [merged mm-stable] mm-zswap-enable-zswap_ever_enabled-in-zswap_pool_create.patch removed from -mm tree
+Message-Id: <20261009055838.903E81F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,184 +35,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: mm/mglru: fix ineffective memory protection for non-kswapd reclaim
+     Subject: mm/zswap: enable zswap_ever_enabled in zswap_pool_create()
 has been removed from the -mm tree.  Its filename was
-     mm-mglru-fix-ineffective-memory-protection-for-non-kswapd-reclaim.patch
+     mm-zswap-enable-zswap_ever_enabled-in-zswap_pool_create.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Ridong Chen <chenridong@xiaomi.com>
-Subject: mm/mglru: fix ineffective memory protection for non-kswapd reclaim
-Date: Mon, 7 Sep 2026 10:54:45 +0800
+From: Longlong Xia <xialonglong@kylinos.cn>
+Subject: mm/zswap: enable zswap_ever_enabled in zswap_pool_create()
+Date: Sun, 6 Sep 2026 21:59:38 +0800
 
-For MGLRU, memory.min/low is not honored during global proactive reclaim
-(writing to the root memory.reclaim) and global direct reclaim, because
-these paths shrink memcgs using stale protection (emin/elow).  It can be
-reproduced as follows:
+If zswap is enabled by default at boot and pool creation fails, then a
+pool is later created by updating the compressor, data written to zswap is
+corrupted on swapin.
 
-  # echo 7 > /sys/kernel/mm/lru_gen/enabled
-  # cd /sys/fs/cgroup
-  # mkdir -p a/b
-  # echo 100M > a/memory.min
-  # echo +memory > a/cgroup.subtree_control
-  # echo 100M > a/b/memory.min
-  # echo $$ > a/b/cgroup.procs
-  # dd if=/dev/zero of=/tmp/testfile bs=1M count=200
-  # cat a/b/memory.current
-  222650368
-  # echo 500M > memory.reclaim
-  -bash: echo: write error: Resource temporarily unavailable
-  # cat a/b/memory.current
-  6070272
+Enable the static key in zswap_pool_create(), covering boot-time and
+runtime pool creation with a single site.
 
-memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
-protection.  The traditional LRU path is not affected because
-shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
-visits during a top-down tree walk.
+Verified with fault injection on a stock kernel (compressor builtin,
+CONFIG_ZSWAP_DEFAULT_ON=n):
 
-Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
-moved the protection computation into lru_gen_age_node(), which only runs
-for kswapd.  Non-kswapd global reclaim reaches shrink_one() through
-lru_gen_shrink_node() -> shrink_many() without any protection computation,
-so emin/elow are whatever a previous kswapd run left behind - or zero if
-kswapd never ran on this node.  Relying on a prior kswapd pass is not
-correct either: a memcg's emin/elow are derived from its ancestors'
-memory.min/low settings and from children_min_usage, both of which change
-over time, so emin/elow go stale even after kswapd has run and must be
-recomputed at the point of reclaim.
+  1. Boot with zswap.enabled=1; pool creation fails, init completes
+     pool-less (static key off).
+  2. Echo an available compressor name to zswap.compressor.
+  3. Enable zswap.
+  4. madvise(MADV_PAGEOUT) a pattern-verified 512 MiB region, then
+     fault it back in and verify.
 
-Introduce mem_cgroup_calculate_protection_path() which computes emin/elow
-along the root-to-target path only, by iterating through the cgroup
-ancestors array top-down.  This avoids the full tree traversal that would
-be needed with mem_cgroup_calculate_protection(), limiting the cost to
-O(depth) per memcg - typically 3-5 levels.
+Step 4 reads back 131072/131072 zeroed pages (zswpin=0, zswpout=131072)
+without this patch; all pages intact (zswpin=131072) with it.
 
-Call it from shrink_one() for the non-kswapd path so that each memcg about
-to be shrunk has correct protection values.
-
-Link: https://lore.kernel.org/20260907025445.1836238-3-ridong.chen@linux.dev
-Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+Link: https://lore.kernel.org/20260906135938.3568108-1-xialonglong2025@163.com
+Fixes: 2d4d2b1cfb85 ("mm: zswap: add zswap_never_enabled()")
+Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-Assisted-by: Claude:claude-opus-4-8
-Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Chris Down <chris@chrisdown.name>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Wei Xu <weixugc@google.com>
-Cc: Yuanchu Xie <yuanchu@google.com>
-Cc: Yu Zhao <yuzhao@google.com>
+Suggested-by: Yosry Ahmed <yosry@kernel.org>
+Acked-by: Yosry Ahmed <yosry@kernel.org>
+Assisted-by: Zcode:GLM-5.3
+Cc: Chengming Zhou <chengming.zhou@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Nhat Pham <nphamcs@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- include/linux/memcontrol.h |   10 +++++++
- mm/memcontrol.c            |   45 +++++++++++++++++++++++++++++++++++
- mm/vmscan.c                |    8 +++++-
- 3 files changed, 62 insertions(+), 1 deletion(-)
+ mm/zswap.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
---- a/include/linux/memcontrol.h~mm-mglru-fix-ineffective-memory-protection-for-non-kswapd-reclaim
-+++ a/include/linux/memcontrol.h
-@@ -1921,6 +1921,16 @@ static inline bool memcg_is_dying(struct
- }
- #endif /* CONFIG_MEMCG */
+--- a/mm/zswap.c~mm-zswap-enable-zswap_ever_enabled-in-zswap_pool_create
++++ a/mm/zswap.c
+@@ -329,6 +329,8 @@ static struct zswap_pool *zswap_pool_cre
  
-+#if defined(CONFIG_MEMCG) && defined(CONFIG_LRU_GEN)
-+void mem_cgroup_calculate_protection_path(struct mem_cgroup *root,
-+					  struct mem_cgroup *memcg);
-+#else
-+static inline void mem_cgroup_calculate_protection_path(struct mem_cgroup *root,
-+							struct mem_cgroup *memcg)
-+{
-+}
-+#endif
-+
- #if defined(CONFIG_MEMCG) && defined(CONFIG_ZSWAP)
- bool obj_cgroup_may_zswap(struct obj_cgroup *objcg);
- void obj_cgroup_charge_zswap(struct obj_cgroup *objcg, size_t size);
---- a/mm/memcontrol.c~mm-mglru-fix-ineffective-memory-protection-for-non-kswapd-reclaim
-+++ a/mm/memcontrol.c
-@@ -5267,6 +5267,51 @@ void mem_cgroup_calculate_protection(str
- 	page_counter_calculate_protection(&root->memory, &memcg->memory, recursive_protection);
- }
+ 	zswap_pool_debug("created", pool);
  
-+#ifdef CONFIG_LRU_GEN
-+/**
-+ * mem_cgroup_calculate_protection_path - compute protection along a path
-+ * @root: the top ancestor of the sub-tree being checked (NULL for root_mem_cgroup)
-+ * @memcg: the target memory cgroup
-+ *
-+ * Walk the ancestor path from @root down to @memcg and compute the effective
-+ * protection at each level.  This is safe for isolated queries because it
-+ * ensures parents are computed before children.
-+ */
-+void mem_cgroup_calculate_protection_path(struct mem_cgroup *root,
-+					  struct mem_cgroup *memcg)
-+{
-+	bool recursive_protection =
-+		cgrp_dfl_root.flags & CGRP_ROOT_MEMORY_RECURSIVE_PROT;
-+	struct cgroup *cg;
-+	int root_level, i;
++	static_branch_enable(&zswap_ever_enabled);
 +
-+	if (mem_cgroup_disabled())
-+		return;
-+
-+	if (!root)
-+		root = root_mem_cgroup;
-+
-+	if (memcg == root)
-+		return;
-+
-+	root_level = root->css.cgroup->level;
-+	cg = memcg->css.cgroup;
-+
-+	rcu_read_lock();
-+	for (i = root_level + 1; i <= cg->level; i++) {
-+		struct mem_cgroup *cur;
-+
-+		cur = mem_cgroup_from_css(cgroup_css(cg->ancestors[i],
-+						     &memory_cgrp_subsys));
-+		if (cur)
-+			page_counter_calculate_protection(&root->memory,
-+							  &cur->memory,
-+							  recursive_protection);
-+	}
-+	rcu_read_unlock();
-+}
-+#endif /* CONFIG_LRU_GEN */
-+
- static int charge_memcg(struct folio *folio, struct mem_cgroup *memcg,
- 			gfp_t gfp)
- {
---- a/mm/vmscan.c~mm-mglru-fix-ineffective-memory-protection-for-non-kswapd-reclaim
-+++ a/mm/vmscan.c
-@@ -5251,7 +5251,13 @@ static int shrink_one(struct lruvec *lru
- 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
- 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+ 	return pool;
  
--	/* lru_gen_age_node() called mem_cgroup_calculate_protection() */
-+	/*
-+	 * For kswapd, mem_cgroup_calculate_protection() has already
-+	 * been called during the top-down cgroup traversal.
-+	 */
-+	if (!current_is_kswapd())
-+		mem_cgroup_calculate_protection_path(NULL, memcg);
-+
- 	if (mem_cgroup_below_min(NULL, memcg))
- 		return MEMCG_LRU_YOUNG;
- 
+ ref_fail:
+@@ -1818,7 +1820,6 @@ static int zswap_setup(void)
+ 		pr_info("loaded using pool %s\n", pool->tfm_name);
+ 		list_add_rcu(&pool->list, &zswap_pools);
+ 		zswap_has_pool = true;
+-		static_branch_enable(&zswap_ever_enabled);
+ 	} else {
+ 		pr_err("pool creation failed\n");
+ 		zswap_enabled = false;
 _
 
-Patches currently in -mm which might be from chenridong@xiaomi.com are
+Patches currently in -mm which might be from xialonglong@kylinos.cn are
 
-mm-vmscan-put-rotation-missed-folios-at-the-lru-tail.patch
 
