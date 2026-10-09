@@ -1,155 +1,195 @@
-Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 739513F5BE6
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 05:56:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C453F104C;
+	Fri,  9 Oct 2026 05:56:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791525376; cv=none; b=fxWipbyUCbnHMlZkCq3DCuoP7d7wBQLZcsbFkJk99Iy3Ypd7HgpibPpil+8fP+LnJMHKuy4aHQk+VvdEbgNrpnd3bKTRPYcYsHDdfJ2owrjsOrXEsK0x6BMP80b3KSGm9wFmxJkARxjppntlct7dK/SMD6RpOGL95OkELSkBdMI=
+	t=1791525387; cv=none; b=X1hQqaXq2ikamApYebT1emFZp8t4ga5+i/fmQBpKmplBv4KtV6PqWG8uInA2+b/XO8ffvewZpHyTdADxwAu/5D8WEEt9XktcFUf/rwKgyX33k7qI8GpGhpqqxUdbUymg/4MTB9OOppz1Ok8SDcHiYhtaDtOnwM7hInM0EhbireY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791525376; c=relaxed/simple;
-	bh=0Cd7BRJTOwMBwlto6I1RgpvE5V4HZw5T6GNxqVD2h10=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IOY4OGpYB1GGJDzS8vysaow4fxMEfhCEyJpWInjqSP5anNePhiyOPBr4W1bQLlm+SBYJq3Tjd1nMgYZTYlKujfRYIzAhL835bYIEu+ABxJ5CJFK19Q683HvXUrrWJWw/XP5Li3Gts0Oq/uzvH+1FN1M1CX5RzuAlfo/gNtwJQ5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y9kld79g; arc=none smtp.client-ip=74.125.231.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791525387; c=relaxed/simple;
+	bh=8wTihtLXtkuw7JQFjgQ/j/P/zAedA3kUDAmF/JUXAIE=;
+	h=Date:To:From:Subject:Message-Id; b=oUvPZg0SwRxgrLkN2sfYT53IYlCOIogHz1wQHW+up0PsHsVpUiTzuEOaLiZ/JRQQ4yCYJM1PUrjPv9nHDwtea35Iy9nhV0UKYVe9/zFJ6a+YAHWg3EwuVttGIXryAtBy0OJR0byJH98N/lHkbo4nMsz5SCnoHqLCV1sVzXJx920=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=wgU32E++; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y9kld79g"
-Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-451e1066971so2352580fac.0
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 22:56:14 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="wgU32E++"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57B451F000FF;
+	Fri,  9 Oct 2026 05:56:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791525373; x=1792130173; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YBM96Z0acKI7hIHci4HfMZ4VWwlNJJJw6ZcLXrahmw0=;
-        b=Y9kld79gHMe/lWTLg9dwyKVSjp3aIjP93TFwhRhltmOLMKUwSVFrbHKxxJiCOn36PU
-         Gcpfr9fDOY0UuOr+o3pPAsAcAdv93FtFOz3NPcCPND8h8To8WTkQACV12nP5Rf+3qglj
-         iuK/k7mtpt136yuPg07ccZJ4k7bsX3cPbuHvkzyBfG8hj4+NZw6EP8SDWHf7oGlXLjcK
-         hw/rsxdaAVc+kZpZ8Alr3cwYegrmBUNiEjaS9ydSksnV3TNTwB+7wtGobshlf7fjPb8o
-         S/+8gDdwh4h/W6pQsN9Go4o80v+KxC6sljZ/nZ7Nr/mIRkzZPtmSdsm3NGnWxhDggZOP
-         Yl5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791525373; x=1792130173;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YBM96Z0acKI7hIHci4HfMZ4VWwlNJJJw6ZcLXrahmw0=;
-        b=gKnOhCuFzV0V+mJuakjUeGnx7loKahX0XIWsFLWs1X5rEODuQPD5GADRYxnHDG5iGs
-         GnQjmmfPdu1outWeIMt8AvN4slgAMt1JzF96livqskTGmi2k0gWi5FMDQKNP1ni+lR30
-         qw67Lfmv4IV/hL1/Ok3UFqGvqzPOf1535VnlBXCxh5b8EZJpyBVhwTs1pfR7dULdgNQe
-         fr78bH5l4uSsFWVzdmQ2xBdypb4E92fIxWTuyWMIXwvL3wHsQTNqvPd9K9PYRV2SJsS6
-         hqCWw+Go7Tp+EdASqENfd0CbKPhR/66i+kHvZo6A/WE97o7wsGeOh35Rgip6wX5wv8xI
-         yFoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzuZSX6V6jbdkgsF9I9GnEzjdhYChnKnz0VBKOnEtv1th3kyLInyLjNgeA8OQnd6/+2TVcXpsM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLqr83Q+TLtHSfC6joAgfEw88FIzozBUxRxoG22AvOZCj/jDTuQ
-	YDuJhlvVGxchvtJhhv25gj8LAz1On4KoQ/rqk4SlWc0nZUzsykBtt+nh
-X-Gm-Gg: AYBFou0nuJrsZc90re5DMsSUg7HXPBA3T36btEl9EZSWThCtk9xooGyv3gI7N5AqXrC
-	Ql7+/BczmxU9Y2B/usaI1V92/EU0gFYb3RvPjB7hkyD23upEmH4g/wSVxsNeRzmgBtASz8VhMHq
-	vGCi4RAUPHFtZziQu1oBJXRHS0dT+3z28PTn/Z+DDD+wOMWHfmclLRLIVsByX+yvet9GABDuJhi
-	X9YqcSWhIMw2Mxw3IqvRPWyqFP58RcUvQ3NtB8JThvbD7zOAOQCCChyvH878Wl2CGvpa0GGBJk9
-	pPHkAFEIJJOHcqD7T5MgEGQCjtekpfzSuEQg25SYULZZYAh/Ogpv4jWnhPRau7AJO9H3D+UDwEH
-	Y6jYwClmFeeHUJgi97dChrOBwW1gbm/r/ekwfz3b77ARaVQH8ZGdAJHysF/XnexO2qnLYyx72Og
-	y6Q6Z77gylfAK+BuwOQSz+UMlwj694rXmSr6Hr/SG9r6Nq4+Dx81Q+lawsbrkOZxDmvXttOcc2E
-	SXZljkJcU4NNibr9ADXDxiMzGIHQuKXYi3S7A==
-X-Received: by 2002:a05:6870:3329:b0:49e:6d1c:a569 with SMTP id 586e51a60fabf-4a2a88e66a0mr909544fac.38.1791525373223;
-        Thu, 08 Oct 2026 22:56:13 -0700 (PDT)
-Received: from localhost.localdomain ([14.116.239.36])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a2a84a14c0sm1079723fac.3.2026.10.08.22.56.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 22:56:11 -0700 (PDT)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: Jon Maloy <jmaloy@redhat.com>,
-	Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
-	Ying Xue <ying.xue@windriver.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org,
-	tipc-discussion@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] tipc: fix broadcast sender hang and leak on last acker departure
-Date: Fri,  9 Oct 2026 13:56:00 +0800
-Message-ID: <20261009055601.2304158-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
+	d=linux-foundation.org; s=korg; t=1791525385;
+	bh=Yndk6fmivoBv1gAtFeZwrqYJPhqbMOGgeFUTx0s6zu4=;
+	h=Date:To:From:Subject;
+	b=wgU32E++j9B6zv9whDdskf3LNM54K1yVhKZ2BpXsdxap2Qf0xGeEqKZ8d1JXrk8PT
+	 v6HI3HBS6W2S+HQQbB6MaCu+1u2MEAMIa62/RnSnqjAzXcJE3DpQHPRdm7ap121JYV
+	 FUd8Xc5A3Rl0ZdoelEHhPq1ttf8uh1yIrPIt8n9I=
+Date: Thu, 08 Oct 2026 22:56:24 -0700
+To: mm-commits@vger.kernel.org,zhoujinmeng@bytedance.com,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,osalvador@suse.de,nphamcs@gmail.com,muchun.song@linux.dev,mhocko@kernel.org,lihongfu@kylinos.cn,hannes@cmpxchg.org,david@kernel.org,jinmengzhou22@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [merged mm-stable] mm-hugetlb-charge-folios-to-the-target-mms-memcg.patch removed from -mm tree
+Message-Id: <20261009055625.57B451F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-TIPC group broadcast senders are blocked in poll()/write() until all
-members have acked the replicast.  When a departing member held the
-last outstanding ack, tipc_group_delete_member() decrements
-grp->bc_ackers to zero but never restores *grp->open nor wakes the
-blocked senders; write() then sleeps until the send timeout and
-poll() is never woken at all.  Commit 99cc2a62e07a ("tipc: reject
-invalid and unexpected GRP_ACK_MSG to prevent bc_ackers underflow")
-noted this as a pre-existing issue.
 
-Restore the open state exactly on the 1->0 acker transition in the
-delete path, mirroring the GRP_ACK_MSG completion path, and invoke
-sk->sk_write_space() from tipc_sk_filter_rcv() when the group just
-became writable again.
+The quilt patch titled
+     Subject: mm/hugetlb: charge folios to the target mm's memcg
+has been removed from the -mm tree.  Its filename was
+     mm-hugetlb-charge-folios-to-the-target-mms-memcg.patch
 
-This vulnerability was discovered by Tencent CodeBuddy Security.
+This patch was dropped because it was merged into the mm-stable branch
+of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Cc: stable@vger.kernel.org
-Fixes: 2f487712b893 ("tipc: guarantee that group broadcast doesn't bypass group unicast")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+------------------------------------------------------
+From: Jinmeng Zhou <jinmengzhou22@gmail.com>
+Subject: mm/hugetlb: charge folios to the target mm's memcg
+Date: Thu, 3 Sep 2026 15:50:48 +0800
+
+HugeTLB folios are currently charged to the memcg of the allocating task. 
+This gives the wrong result when a userfaultfd handler populates a HugeTLB
+VMA that belongs to another process.  The UFFDIO_COPY ioctl operates on
+the userfaultfd context's mm, but get_mem_cgroup_from_current() charges
+the folio to the handler's memcg instead.
+
+This can be reproduced by placing the faulting process and its userfaultfd
+handler in different memory cgroups.  Have the target process register a
+HugeTLB mapping with userfaultfd, trigger a missing fault, and let the
+handler resolve it with UFFDIO_COPY.  The hugepage usage is then reported
+in the handler's memory.current instead of the target's.
+
+The generic userfaultfd population path avoids this problem by charging
+folios to dst_vma->vm_mm.
+
+Pass the target mm through hugetlb_alloc_folio() and charge the folio by
+using get_mem_cgroup_from_mm().  This preserves the existing charge timing
+and error handling while making HugeTLB userfaultfd population consistent
+with the generic path.
+
+Link: https://lore.kernel.org/20260903075048.3316-1-zhoujinmeng@bytedance.com
+Fixes: 8cba9576df60 ("hugetlb: memcg: account hugetlb-backed memory in memory controller")
+Signed-off-by: Jinmeng Zhou <zhoujinmeng@bytedance.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Hongfu Li <lihongfu@kylinos.cn>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: <stable@vger.kernel.org>
 ---
- net/tipc/group.c  |  9 ++++++---
- net/tipc/socket.c | 12 +++++++++++-
- 2 files changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/net/tipc/group.c b/net/tipc/group.c
-index 74f6d3dac0784..e20eb612f82ce 100644
---- a/net/tipc/group.c
-+++ b/net/tipc/group.c
-@@ -340,9 +340,12 @@ static void tipc_group_delete_member(struct tipc_group *grp,
- 	rb_erase(&m->tree_node, &grp->members);
- 	grp->member_cnt--;
+ include/linux/hugetlb.h    |    3 ++-
+ include/linux/memcontrol.h |    8 +++++---
+ mm/hugetlb.c               |    9 ++++++---
+ mm/memcontrol.c            |    6 ++++--
+ 4 files changed, 17 insertions(+), 9 deletions(-)
 
--	/* Check if we were waiting for replicast ack from this member */
--	if (grp->bc_ackers && less(m->bc_acked, grp->bc_snd_nxt - 1))
--		grp->bc_ackers--;
-+	/* If this member held the last outstanding replicast ack,
-+	 * restore the open state so blocked broadcast senders can proceed.
-+	 */
-+	if (grp->bc_ackers && less(m->bc_acked, grp->bc_snd_nxt - 1) &&
-+	    !--grp->bc_ackers)
-+		*grp->open = true;
+--- a/include/linux/hugetlb.h~mm-hugetlb-charge-folios-to-the-target-mms-memcg
++++ a/include/linux/hugetlb.h
+@@ -694,7 +694,8 @@ enum hugetlb_alloc_flag {
+ #define HUGETLB_ALLOC_USE_GLOBAL_RESERVATIONS BIT(HUGETLB_ALLOC_USE_GLOBAL_RESERVATIONS_BIT)
+ 
+ struct folio *hugetlb_alloc_folio(struct hstate *h,
+-		struct mempolicy_interpreted *mpoli, u8 alloc_flags);
++		struct mempolicy_interpreted *mpoli, struct mm_struct *mm,
++		u8 alloc_flags);
+ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
+ 				unsigned long addr, bool cow_from_owner);
+ struct folio *alloc_hugetlb_folio_nodemask(struct hstate *h, int preferred_nid,
+--- a/include/linux/memcontrol.h~mm-hugetlb-charge-folios-to-the-target-mms-memcg
++++ a/include/linux/memcontrol.h
+@@ -647,7 +647,8 @@ static inline int mem_cgroup_charge(stru
+ 	return __mem_cgroup_charge(folio, mm, gfp);
+ }
+ 
+-int mem_cgroup_charge_hugetlb(struct folio* folio, gfp_t gfp);
++int mem_cgroup_charge_hugetlb(struct folio *folio, struct mm_struct *mm,
++			      gfp_t gfp);
+ 
+ int mem_cgroup_swapin_charge_folio(struct folio *folio, unsigned short id,
+ 				   struct mm_struct *mm, gfp_t gfp);
+@@ -1146,9 +1147,10 @@ static inline int mem_cgroup_charge(stru
+ 	return 0;
+ }
+ 
+-static inline int mem_cgroup_charge_hugetlb(struct folio* folio, gfp_t gfp)
++static inline int mem_cgroup_charge_hugetlb(struct folio *folio,
++					    struct mm_struct *mm, gfp_t gfp)
+ {
+-        return 0;
++	return 0;
+ }
+ 
+ static inline int mem_cgroup_swapin_charge_folio(struct folio *folio,
+--- a/mm/hugetlb.c~mm-hugetlb-charge-folios-to-the-target-mms-memcg
++++ a/mm/hugetlb.c
+@@ -2844,6 +2844,7 @@ void wait_for_freed_hugetlb_folios(void)
+  * hugetlb_alloc_folio - Allocate a hugetlb folio.
+  * @h: Hugetlb state control block.
+  * @mpoli: Interpreted memory policy to use for allocation.
++ * @mm: Memory descriptor of the allocation target.
+  * @alloc_flags: Flags controlling the allocation behavior.
+  *
+  * Allocates a hugetlb folio and handles cgroup charging and global hstate
+@@ -2853,7 +2854,8 @@ void wait_for_freed_hugetlb_folios(void)
+  *         -ENOSPC if cgroup charging fails or no folio is available.
+  */
+ struct folio *hugetlb_alloc_folio(struct hstate *h,
+-		struct mempolicy_interpreted *mpoli, u8 alloc_flags)
++		struct mempolicy_interpreted *mpoli, struct mm_struct *mm,
++		u8 alloc_flags)
+ {
+ 	bool charge_hugetlb_cgroup_rsvd = alloc_flags &
+ 					  HUGETLB_ALLOC_CHARG_CGROUP_RSVD;
+@@ -2908,7 +2910,8 @@ struct folio *hugetlb_alloc_folio(struct
+ 
+ 	spin_unlock_irq(&hugetlb_lock);
+ 
+-	ret = mem_cgroup_charge_hugetlb(folio, gfp | __GFP_RETRY_MAYFAIL);
++	ret = mem_cgroup_charge_hugetlb(folio, mm,
++					gfp | __GFP_RETRY_MAYFAIL);
+ 	/*
+ 	 * Unconditionally increment NR_HUGETLB here because if
+ 	 * mem_cgroup_charge_hugetlb failed, freeing the page will
+@@ -3051,7 +3054,7 @@ struct folio *alloc_hugetlb_folio(struct
+ 		.nodemask = nodemask,
+ 	};
+ 
+-	folio = hugetlb_alloc_folio(h, &mpoli, alloc_flags);
++	folio = hugetlb_alloc_folio(h, &mpoli, vma->vm_mm, alloc_flags);
+ 
+ 	mpol_cond_put(mpol);
+ 
+--- a/mm/memcontrol.c~mm-hugetlb-charge-folios-to-the-target-mms-memcg
++++ a/mm/memcontrol.c
+@@ -5265,6 +5265,7 @@ int __mem_cgroup_charge(struct folio *fo
+ /**
+  * mem_cgroup_charge_hugetlb - charge the memcg for a hugetlb folio
+  * @folio: folio being charged
++ * @mm: mm context of the allocation target
+  * @gfp: reclaim mode
+  *
+  * This function is called when allocating a huge page folio, after the page has
+@@ -5274,9 +5275,10 @@ int __mem_cgroup_charge(struct folio *fo
+  * Returns ENOMEM if the memcg is already full.
+  * Returns 0 if either the charge was successful, or if we skip the charging.
+  */
+-int mem_cgroup_charge_hugetlb(struct folio *folio, gfp_t gfp)
++int mem_cgroup_charge_hugetlb(struct folio *folio, struct mm_struct *mm,
++			      gfp_t gfp)
+ {
+-	struct mem_cgroup *memcg = get_mem_cgroup_from_current();
++	struct mem_cgroup *memcg = get_mem_cgroup_from_mm(mm);
+ 	int ret = 0;
+ 
+ 	/*
+_
 
- 	list_del_init(&m->list);
- 	list_del_init(&m->small_win);
-diff --git a/net/tipc/socket.c b/net/tipc/socket.c
-index d5d70eb230b56..65cc0c4964b31 100644
---- a/net/tipc/socket.c
-+++ b/net/tipc/socket.c
-@@ -2356,8 +2356,18 @@ static void tipc_sk_filter_rcv(struct sock *sk, struct sk_buff *skb,
- 	if (unlikely(!msg_isdata(hdr)))
- 		tipc_sk_proto_rcv(sk, &inputq, xmitq);
+Patches currently in -mm which might be from jinmengzhou22@gmail.com are
 
--	if (unlikely(grp))
-+	if (unlikely(grp)) {
-+		bool was_open = tsk->group_is_open;
-+
- 		tipc_group_filter_msg(grp, &inputq, xmitq);
-+		/* A departing member may have held the last outstanding
-+		 * replicast ack, which can restore the open state inside
-+		 * tipc_group_filter_msg(); wake up senders blocked in
-+		 * poll()/write() if the group just became writable.
-+		 */
-+		if (!was_open && tsk->group_is_open)
-+			sk->sk_write_space(sk);
-+	}
 
- 	if (unlikely(!grp) && mtyp == TIPC_MCAST_MSG)
- 		tipc_mcast_filter_msg(net, &tsk->mc_method.deferredq, &inputq);
---
-2.43.7
