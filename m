@@ -1,214 +1,155 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD4D36CDF2
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 21:43:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E977E36F8E9;
+	Fri,  9 Oct 2026 21:52:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791582240; cv=none; b=jr5HgJD7iQmLnzEg84qCPpGUZgFXxc2DhKBqHrQxQPcUdIio5OPtJw5uSErNMG0CT+bisEpHdTQOF1Wb4wJfxT0FTXLEtC7N54p6BmfYMSkSUL7NfDQQk7UtAy0bxGvYA5IbIfhYiH1joWKssR8J8n180NhMJFU7Cad20rW2Ip8=
+	t=1791582723; cv=none; b=hsihU/IseoDYGriPl8qU+jEVCXFTBHH5eHBVgHH/OUMOJfgqctV4S/qFQvsV1a653GNjagjjJVTWM9K9KdThdl3xCccQjOZ3mgxfXemqzukljExFT74+9HoMcaN079OfDeoAqp6vlSyT2sTbmH/LvSD+UKuIVyMucchjfZ2eJnA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791582240; c=relaxed/simple;
-	bh=Zu0HMojq54+g3/8p46ih3C6jdzsLJb9uoo77H+0fS98=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=oU/Wnht/OPpid1tKDwbOQknhiopPxxgIGfdIl/x41fv7vdjVYjzaYPewB8AjoTZ9CLbEBz/DL83IF6AsAzVvF3NbKV3GRVjZtFRl6J1As8gnk9kdzPAUoaH+BDUJPUBFK8Yy6XurOr0rkMydnIfRScivbT21rdvy6n0QZgL8J40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=W7wlvkiD; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=FL485xi2; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791582723; c=relaxed/simple;
+	bh=vu8cOwyOk4KK0gZmnTmkJ8oYIw2D6BN4tZqdQhojPPs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=O+lfOL3DliAkmGQQDC2qSW/LN/yhuN8230MOdOKSIGnVqP+2u9Vgoh7GH7VhWVkkSfKm00KQKp19MzxBGeOyXyAneEQC90K0s7W06PNf3g45nvYt30OLX0TDZgidH3I8xwkSc3+FkCAhsb03wT0w1XH3U4UOr2zOtQnw+UIx818=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EeV+xn7N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="W7wlvkiD";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="FL485xi2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791582237;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DlNSozwHWelaDwiAeqzmQRLEfEKU54b/1DRu7LW/zDY=;
-	b=W7wlvkiDmveYUmbXMjvh5HeIVkn4KIuyWCLLc+fRXop6xmKNGvY9XAue/1CxuhPTZriUop
-	TfYfHt4yB3ggnm4LS7ul5wo21bflPBvvYV6ts+YfbVkEu87q0zvkCdLlIx+OuuwMUa6QEJ
-	9DNfTSimt97ga2aTQI+a0UGfS7g4CTM=
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-74-xOxzvFYEPPS072PRWtiHnA-1; Fri, 9 Oct 2026 21:43:56 +0000
-X-MC-Unique: xOxzvFYEPPS072PRWtiHnA-1
-X-Mimecast-MFC-AGG-ID: xOxzvFYEPPS072PRWtiHnA_1791582236
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-53514fbd4a3so3377251cf.3
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 14:43:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791582235; x=1792187035; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=DlNSozwHWelaDwiAeqzmQRLEfEKU54b/1DRu7LW/zDY=;
-        b=FL485xi2Qn19Ei5tZXhGEBLitif/n1A1c9gzkKOKsfmRj9gzeLl9ptTeOrh7iSzEnX
-         VnpIJLZ6hz4W4/u7hSPlSUiYCntq9O3DGRxS0uw4uhShuiaQIgoO43VyL4RZeDm9Yget
-         2ViiN1BWIKgekR99aNLPYioonuk1YmE9TITyYvFr382oQwAnqo1MsnCCdjh4RZGTWyic
-         ioyP/bxyIqqUMP8cl1hK8cTfAYtMPedAUiG01Ue71AU7gjwftK4gv4+xDc7C38FL0bu7
-         /yA33JGTG9LBLbeor7gzuys0js4Srs3Az2F717nurn4WKpQbm8H/IennS38XdDH4L8Rc
-         mmcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791582235; x=1792187035;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DlNSozwHWelaDwiAeqzmQRLEfEKU54b/1DRu7LW/zDY=;
-        b=1fB1ut4NBQROtAjS9SzIlXf/GYaeqpMZHRMuZKCJyXNN0zrEK6Un13oI71LuzUj/gs
-         ymMWZdSNFovfqhVEhThs1F6eWhR3zrolAKe3ey4Xd0evnx+zhLTcVRGoSZLelE7dGzA4
-         6/c3lBlrG/AzIEnOQQjk5BjqwCl5H/puMJKib06dUAwKBY7MLfDp6URmEbiJWp8uA3t4
-         Cpl6ol70a9YTIqVZzNrtRBh/F24UePhI2YDqtWUmba5mLPHwSyjL3cx1eoK0ReIS4uhX
-         UeIAcBy6VpQc5Jc/B4UP8HoULxzyuxcXZKczeJaYokH+MUKF1ScUt5tc0kQskT9LuJh1
-         YRbg==
-X-Forwarded-Encrypted: i=1; AKwUvBwOiE09qE3KOkSAoexbjJ+O4k3jxqCwL+AJsCDy7oBR2ijXQCJsUOrH/A85L0l1MkBoWMVBY0s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLhBdUpZXvi7xVOZLUg13UOUA79nd6jYruqJztb7oYjy107ne9S
-	4NkolMvGRJaFGFQO9518dZCA093wxPo8f+JJK6SO8I5xB1GanWhWAW7YdrZfQIj4cTViZ2eyV2l
-	oi+/K5eU3qf16ATSop3UkkwtjcPwTtbXqVgdlRWKxsj3rBNi2FeEFA3JMwA==
-X-Gm-Gg: AYBFou3Ivcly41YPYvaFljq3PxZZMcy7lTernxWj++dSTJwBeNp0JrY23vkuOHaUhbG
-	5EOpRM0Unr4FOjA67Xj8kYBcaI5MrHbcYOMJ5Q2bfc+HAnKtn66IAMMbZYF6PPHOe7SofMgX/bw
-	suyiHoPN9cwJNrGBvffijcQYI5zpfhghgDoFG2jeq/7G04nwpQfgW+HlM8LGEoUc4bDsjpXx2bT
-	ePfWAf/5YNCiv7q8M4EOYsX+7OVpStC3IZehv4/IOWWTsmUVetnzUw6B32vBuPgIIRUbQo7soOQ
-	pwVb9U9GLIDNYU88w+qK2CiSB0IKgb3qm/kwhAfkHmX/Ds6ob8g2YB7hhj2J0X8MydPYaeA=
-X-Received: by 2002:a05:622a:58c4:b0:535:a5fb:67fb with SMTP id d75a77b69052e-535a5fb8494mr34446321cf.71.1791582235441;
-        Fri, 09 Oct 2026 14:43:55 -0700 (PDT)
-X-Received: by 2002:a05:622a:58c4:b0:535:a5fb:67fb with SMTP id d75a77b69052e-535a5fb8494mr34446061cf.71.1791582234996;
-        Fri, 09 Oct 2026 14:43:54 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b55092856sm28672986d6.35.2026.10.09.14.43.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 14:43:54 -0700 (PDT)
-Message-ID: <b4cd38b48d85298a7a99cf30fbd8cbbdb34a347f.camel@redhat.com>
-Subject: Re: [PATCH v3] drm/nouveau: Fix memory leaks in debugfs and hwmon
- init error paths
-From: lyude@redhat.com
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: liupeng <liupeng01@kylinos.cn>, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	linux@roeck-us.net, nouveau@karolherbst.de,
- bskeggs@redhat.com, 	dri-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, 	linux-kernel@vger.kernel.org,
- linux-hwmon@vger.kernel.org, 	stable@vger.kernel.org
-Date: Fri, 09 Oct 2026 17:43:53 -0400
-In-Reply-To: <DM0MU0O43EB9.3EEKZ4C2IUP9J@kernel.org>
-References: <ea9a1d374cf3127e5047bc73807ce821022e026e.camel@redhat.com>
-	 <20261009115151.13877-1-liupeng01@kylinos.cn>
-	 <25778dca265f58185917c5948490e76184c778d3.camel@redhat.com>
-	 <DM0MU0O43EB9.3EEKZ4C2IUP9J@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EeV+xn7N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AEBA1F000FF;
+	Fri,  9 Oct 2026 21:51:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791582721;
+	bh=sGLkDmS4T9oMQexkKZv2PBhHBcGIaE3bzm/FwVFzgYY=;
+	h=From:Subject:Date:To:Cc;
+	b=EeV+xn7NGKwKc+NJj1IWDajbyBMTndMURPSqIuBYj2Q1b4YZU3nunvNMYF6I9eSCA
+	 CO+tM5fdJfkyxxA0vvpfP65o7O7IgCT6fHGEHBytaSrEDbz5swA1ipZ+iF0vCVrR6y
+	 6tXbAOSZGSGc94TjMM1+IIA4VLKasGQCERyhZjUjWlsCpr8oT5UHR5zfCFOp6Ntizc
+	 1PhHSSPRZYn30qjIGmxaheZ47NhYeDDGOUZ+Yh4c8H2t5dURuzMILecSufDYOk88An
+	 u8EwiTTNASCC02I9lNcRyaHePwo6/1tZhiFXsVzuFM36mVzKHno59OCmi5MqPnB7ju
+	 uvI4NhXE5G3Bg==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH 0/8] fs: fix a range of UAFs during rcu pathwalk caused by
+ non-rcu frees
+Date: Fri, 09 Oct 2026 23:51:50 +0200
+Message-Id: <20261009-work-fixes-rcu-v1-0-7446d2d335e6@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ7CMAwEv1L5jKOkh6LwFcQhcQ0NSCmyKSBV/
+ TtOOY7XMysoS2GFU7eC8LtomatBOHRAU6o3xjIaQ+/7IXgf8TPLA6/ly4pCC9IYKTCTPw4RTHo
+ K76M558ufdcl3plertI+clDFLqjS1U+u5XXHWc22FbfsBCilr75gAAAA=
+X-Change-ID: 20261009-work-fixes-rcu-cd9c1eec0769
+To: linux-fsdevel@vger.kernel.org
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ linux-ext4@vger.kernel.org, linux-afs@lists.infradead.org, 
+ v9fs@lists.linux.dev, linux-trace-kernel@vger.kernel.org, 
+ ntfs3@lists.linux.dev, "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-3d1b8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4343; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=vu8cOwyOk4KK0gZmnTmkJ8oYIw2D6BN4tZqdQhojPPs=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSdTPzjJfzfcKXh+pN7NCY+KF+w78OdSUdM8jNmCOgtd
+ Zg8u4ZpY0cpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBErp9hZHgmf/Ww/SQXjZ8n
+ UjM5FoVOsjJrmsp8VGHtqilXb7JN7hFmZFi8OY131Y2y6+/De5Um/I9j+mrf3DvB58mkZV+niF4
+ u42IEAA==
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On Fri, 2026-10-09 at 23:40 +0200, Danilo Krummrich wrote:
-> On Fri Oct 9, 2026 at 11:35 PM CEST, lyude wrote:
-> > Reviewed-by: Lyude Paul <lyude@redhat.com>
-> >=20
-> > Will push to drm-misc-fixes in a moment
->=20
-> Please wait, those are two unrelated fixes with two different Fixes:
-> tags, so
-> those should be two separate patches.
+While working on eliding the grace period in namespace_unlock() I went
+through what filesystems free when they're shut down and what a pathwalk
+in rcu mode can still read at that point. Since 66a97c2ec953's rcu
+pathwalk fixes that's the filesystem's job. Whatever ->permission(),
+->d_revalidate(), ->get_link(), ->d_hash() and ->d_compare() look at in
+rcu mode has to be freed after a grace period. A few filesystems don't
+do that.
 
-Thanks, I think my brain just glossed over the tags while looking at
-this.
+Most of it is hidden by umount(2). namespace_unlock() waits for a grace
+period before it drops the mounts, so a walker that was inside the
+filesystem is gone by the time the filesystem is shut down.
 
-liupeng, could you split these patches up?
+But the last reference to a mount doesn't have to go away in umount(2).
+A chdir() out of a lazily unmounted directory or the close() of the last
+file on it drops it without a grace period. A walker can then still be
+in the filesystem while ->put_super() and ->kill_sb() free what it
+reads.
 
->=20
-> I'm also not sure this is -fixes material. A memory leak in an unwind
-> path for
-> -rc7 feels wrong.
->=20
-> Thanks,
-> Danilo
->=20
-> > On Fri, 2026-10-09 at 19:51 +0800, liupeng wrote:
-> > > In nouveau_debugfs_init(), if nvif_object_ctor() fails, the
-> > > previously
-> > > allocated drm->debugfs is leaked because the function returns the
-> > > error code directly.
-> > >=20
-> > > In nouveau_hwmon_init(), if hwmon_device_register_with_info()
-> > > fails,
-> > > the allocated hwmon structure is leaked because the function
-> > > returns
-> > > the error code directly.
-> > >=20
-> > > Fix both by freeing the allocated memory and clearing the pointer
-> > > on
-> > > the error paths.
-> > >=20
-> > > Fixes: b126a200e9db ("drm/nouveau/debugfs: we need a ctrl object
-> > > for
-> > > debugfs")
-> > > Fixes: b9ed919f1c8f ("drm/nouveau/drm/pm: remove everything
-> > > except
-> > > the hwmon interfaces to THERM")
-> > > Cc: stable@vger.kernel.org
-> > > Reviewed-by: Lyude Paul <lyude@redhat.com>
-> > > Signed-off-by: liupeng <liupeng01@kylinos.cn>
-> > > ---
-> > > Changes in v3:
-> > > - Drop the extra return in nouveau_debugfs_init() as suggested by
-> > > Lyude.
-> > > - Add Reviewed-by tag.
-> > >=20
-> > > =C2=A0drivers/gpu/drm/nouveau/nouveau_debugfs.c | 14 +++++++++++---
-> > > =C2=A0drivers/gpu/drm/nouveau/nouveau_hwmon.c=C2=A0=C2=A0 |=C2=A0 2 +=
-+
-> > > =C2=A02 files changed, 13 insertions(+), 3 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-> > > b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-> > > index 47d5579c568d..338421e52f69 100644
-> > > --- a/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-> > > +++ b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-> > > @@ -295,13 +295,21 @@ nouveau_drm_debugfs_init(struct drm_minor
-> > > *minor)
-> > > =C2=A0int
-> > > =C2=A0nouveau_debugfs_init(struct nouveau_drm *drm)
-> > > =C2=A0{
-> > > +	int ret;
-> > > +
-> > > =C2=A0	drm->debugfs =3D kzalloc_obj(*drm->debugfs);
-> > > =C2=A0	if (!drm->debugfs)
-> > > =C2=A0		return -ENOMEM;
-> > > =C2=A0
-> > > -	return nvif_object_ctor(&drm->client.device.object,
-> > > "debugfsCtrl", 0,
-> > > -				NVIF_CLASS_CONTROL, NULL, 0,
-> > > -				&drm->debugfs->ctrl);
-> > > +	ret =3D nvif_object_ctor(&drm->client.device.object,
-> > > "debugfsCtrl", 0,
-> > > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 NVIF_CLASS_CONTROL, NULL, 0,
-> > > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &drm->debugfs->ctrl);
-> > > +	if (ret) {
-> > > +		kfree(drm->debugfs);
-> > > +		drm->debugfs =3D NULL;
-> > > +	}
-> > > +
-> > > +	return ret;
-> > > =C2=A0}
-> > > =C2=A0
-> > > =C2=A0void
-> > > diff --git a/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-> > > b/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-> > > index 726397ab035d..ffbe7f542ab0 100644
-> > > --- a/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-> > > +++ b/drivers/gpu/drm/nouveau/nouveau_hwmon.c
-> > > @@ -697,6 +697,8 @@ nouveau_hwmon_init(struct drm_device *dev)
-> > > =C2=A0	if (IS_ERR(hwmon_dev)) {
-> > > =C2=A0		ret =3D PTR_ERR(hwmon_dev);
-> > > =C2=A0		NV_ERROR(drm, "Unable to register hwmon device:
-> > > %d\n", ret);
-> > > +		drm->hwmon =3D NULL;
-> > > +		kfree(hwmon);
-> > > =C2=A0		return ret;
-> > > =C2=A0	}
-> > > =C2=A0
+With KASAN on vfs.fixes:
+
+- ext4_get_link() reads sb->s_fs_info and the extent status counters in
+  rcu mode for a symlink that keeps its target in a data block.
+
+  ext4_put_super() destroys the counters, clears s_fs_info and frees the
+  sbi right away. That's a NULL dereference, a use-after-free of the sbi
+  or a fault on a destroyed percpu counter, depending on where the
+  walker sits.
+
+- The unicode map of casefolded ext4, f2fs and tmpfs is freed from
+  ->put_super() while generic_ci_d_hash() and generic_ci_d_compare() use
+  it.
+
+- ntfs3 with nocase frees its sbi and mount options under ntfs_d_hash()
+  and ntfs_d_compare(). A remount frees the old mount options right away
+  too, that one needs no unmount at all.
+
+- eventfs frees an eventfs_inode after an SRCU grace period only, but
+  tracefs_d_revalidate() reads it under rcu_read_lock(). No unmount
+  needed either.
+
+The ipc patch is a different kind of bug. create_ipc_ns() leaks the
+mqueue mount and its superblock when it fails after mq_init_ns(). I ran
+into it while looking at the kern_unmount() users.
+
+afs and 9p look just as broken but nothing can reach it today. Both
+have a private bdi, and generic_shutdown_super() calls bdi_unregister(),
+which waits for a grace period before ->kill_sb() frees their private
+data. That grace period is there for the rcu readers of bdi_list and
+covers afs and 9p by accident. I don't want them to depend on that, so
+they free their private data after a grace period of their own as well.
+
+I appended the reproducers. The race reproducers hold a pathwalk inside
+the filesystem's callback for two seconds with a kprobe while the other
+side frees what it reads. For the ntfs3 remount the window is a single
+load and its dereference, so that one needs an mdelay() in the kernel.
+ext4 with a journal needs a kernel without lockdep since
+jbd2_journal_destroy() calls lockdep_unregister_key(), which waits for a
+grace period too.
+
+Clean this all up.
+
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+Christian Brauner (8):
+      ext4: free the sbi after a grace period
+      afs: free the super info after a grace period
+      9p: free the session after a grace period
+      eventfs: free the eventfs_inode after an rcu grace period too
+      ipc: drop the mqueue mount with kern_unmount() on setup failure
+      unicode: free the map after a grace period
+      ntfs3: free the sbi after a grace period
+      ntfs3: free replaced mount options after a grace period
+
+ fs/9p/v9fs.h             |  1 +
+ fs/9p/vfs_super.c        |  4 ++--
+ fs/afs/internal.h        |  2 ++
+ fs/afs/super.c           |  2 +-
+ fs/ext4/ext4.h           |  2 ++
+ fs/ext4/extents-test.c   |  2 ++
+ fs/ext4/extents.c        |  1 +
+ fs/ext4/extents_status.c |  7 ++++++-
+ fs/ext4/extents_status.h |  1 +
+ fs/ext4/super.c          | 13 +++++++++++--
+ fs/ntfs3/dir.c           | 13 +++++++++++--
+ fs/ntfs3/ntfs_fs.h       |  3 +++
+ fs/ntfs3/super.c         | 49 +++++++++++++++++++++++++++++++++++-------------
+ fs/tracefs/event_inode.c | 10 +++++++++-
+ fs/unicode/utf8-core.c   | 21 +++++++++++++++++----
+ include/linux/unicode.h  |  1 +
+ ipc/namespace.c          |  2 +-
+ 17 files changed, 107 insertions(+), 27 deletions(-)
+---
+base-commit: 3d399224425573875b6f6f1181bd8cf9a28cc7d1
+change-id: 20261009-work-fixes-rcu-cd9c1eec0769
 
