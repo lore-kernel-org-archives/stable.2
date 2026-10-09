@@ -1,126 +1,120 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76919440A25;
-	Fri,  9 Oct 2026 13:26:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F7474D98EF
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 13:32:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791552387; cv=none; b=W0bT54mMw+2EdbVEXGuu9JpFEbxXfrpfsd7oJFOQ10upmYMFdHeIIXLFrQEbyTZ3QnidNqtQka8EMRVykI1velCyqplOO4kLPUaMmZg4dW1o/iQcuYYHwFFvcvmC/gglfD9Bp8EjtPiZ4qx00JPV1dKB+XOnMKRkOg9LNVY4XZA=
+	t=1791552726; cv=none; b=VtP7iNr95corvENo8Qw/uUdpaeZss/AOZai83ZYMSIPmEuYkMDDAfqKTfJqq3dWMt+/q1t69PFhCHMICac+GktyHPBpqtmceKNXpOVqDUVpCHPAnsl7OAQnVTaQMJrSh+ELogX2zPBFz1zaGb5H6iEFeh2a/8pqdski86rHKcE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791552387; c=relaxed/simple;
-	bh=iVfJIfIE/XENcWWZ9WWJ+tx0CmQq9Yzyw64UOlG421g=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=lExq1YsGM5xWzrGHVBFh/JLi2srAAQhZgZQEe0zbBlhf0fDNbt3yxJEVVJnOzMhKv8NmvKm7+YjRe7v+l1Fn5DJ8IZY6jSon9sqc9kHmH14nbb6OCq/Vs/4W8pgAhpXwMnItlTMWQQU+Ja2I0lNH/DlSDkXSIigFrjNlaccaxkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=Mwb6ScPc; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1791552726; c=relaxed/simple;
+	bh=NFh0yxmK2GNkbGZm+6CdZSip4FpKU5TKLxjsI2sdwBs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=U9E87LSXzmUYnD35jNfImWoyh1GegKt24KB7WUqV30uqnGFiHAZzSJjLyvwPea9E0ymYaQlMhsUpvZIOEgZ7IjYE2RS2H025vSBjqEtXGg0suvuCrHBcZtWUtNoFhSyCRrfF6jhoO8yJGiSigmlyYyIbOaicpSRPSidNJs/0CDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZtCfMUgJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="Mwb6ScPc"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=VfRAaihF3W9H/OxSy62htlpGcHV+yg/dlUcG3KVF9Mc=; b=Mwb6ScPcHwAQ0frNn++S7CnnGo
-	GNY3ULWNtVcky4Z39VWOuC9tCXdVNpUclftextn2v4WP21Hj2GBbDeIzJZWAQAsfaTuguOTs+jCKY
-	wbchbRfsjX8Fr4Zu9GUkec95YOYDQYgzoZ68Ta7cwlhzsVwRDQ0RCCdR8iCqGcQM8yo74xQUeTXlu
-	Kn96WtG6mc4IhV0DibsirohuspAQVXdMHffKVO8arv4Q+wcYPw7LVZtahsi9z9t2g5l6URssU6OYn
-	ortqng8fL2weHF2xYMj6whk12A9ZPWzvuO3T20NvlJA/YeLVNAwT/3EFrxfpaxY09DHTZr+vVZ4MV
-	ws3v210g==;
-Received: from [::1] (port=53922 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xFAcC-0000000Cuxr-0nJ3;
-	Fri, 09 Oct 2026 15:26:23 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZtCfMUgJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29B891F00893
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 13:32:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791552725;
+	bh=/ewY03w2y78bL1MkLkxiNWv2++wXg6K7HMyz1TAMbSU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ZtCfMUgJgbWCuu+D1joFfyH3ZpX4c8hXvQmKXinZZ66osSQ5DjUbAJxROo4YD2AWX
+	 9MZEwdgBsNHw2jY2M2WfE0eFL0bJJ0R1r6DxxC4Uo4PQ1KrZTCWThbArYDl7+48qrP
+	 0STY+6Aq6VeS2AGt9DNw+efMnybl8eGRJ5CTIeVUVhGhiYvxz51RUgA6/EP4hDHPyP
+	 iv2ZIUXxbDqPmIAboFUxAc96q8FFvdw6lPT3qRtL/Ll5/lMpdochyIvHIkD/GFbAps
+	 r0Bpln6AbR251yZ1+qyajouOB367UtPxoWUr85t3HC1dgYlDXhoHbeAm+t3o9oP4pV
+	 0RHT9zi+wLX6Q==
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b1701294d0so1665654a12.0
+        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 06:32:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxjZwA3cdtbKOPcotnYLnmyn73pPfk6+o43dcn8Uns8zIKdj5iDUV+G4eWUnPag7Ke9KKJoAmU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLozsOaYI4AjPn3x74YBfZEqBibcAa2sB8BWmxdmHnptuj2ZOwJ
+	3e10XOPbJpIzfLucFjlp428NG0aWLRkXySJHSvPmSfIYB491dFGDns0VFiqDRZw+WoIEZgcJCaS
+	p/iUT0jUmERVj1Wdpw+v4tsjXhCYudpw=
+X-Received: by 2002:a17:907:9801:b0:c29:4fcb:2886 with SMTP id
+ a640c23a62f3a-c31a9fd831emr199212466b.39.1791552723764; Fri, 09 Oct 2026
+ 06:32:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 09 Oct 2026 15:26:23 +0200
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>, Ard Biesheuvel
- <ardb@kernel.org>, linux-crypto@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] lib/crypto: arm64: Fix lost Poly1305 carry when
- resuming NEON state
-In-Reply-To: <20261009130310.GA309826@quark>
-References: <20261008201949.561207-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <20261008201949.561207-4-Jeremy.Jean@oss.cyber.gouv.fr>
- <20261009130310.GA309826@quark>
-User-Agent: Roundcube Webmail/1.6.19
-Message-ID: <98223a03dc250211153c1013232f2ce6@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+References: <20261009080252.2805877-1-bsdhenrymartin@gmail.com>
+In-Reply-To: <20261009080252.2805877-1-bsdhenrymartin@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Fri, 9 Oct 2026 22:31:51 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd8MyiCVhdN_PaQ=aSEO3yYYQ-Qb-2TnC68o0_pbchM0mw@mail.gmail.com>
+X-Gm-Features: AclHuK9jCcVUMbiRbz7ci0w6ZwThNjnxf6Vt4C6LkeIEy1EP0_jT_RRzppcFAfU
+Message-ID: <CAKYAXd8MyiCVhdN_PaQ=aSEO3yYYQ-Qb-2TnC68o0_pbchM0mw@mail.gmail.com>
+Subject: Re: [PATCH] cifs: fix use-after-free of server info on
+ cifs_ses_add_channel error
+To: Henry Martin <bsdhenrymartin@gmail.com>
+Cc: Paulo Alcantara <pc@manguebit.org>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
+	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, 
+	Bharath SM <bharathsm@microsoft.com>, Steve French <stfrench@microsoft.com>, 
+	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-10-09 15:03, Eric Biggers wrote:
-> On Thu, Oct 08, 2026 at 08:19:50PM +0000, Jérémy Jean wrote:
->> These limbs in base 2^26 represent the value
->>       4
->>     + (2^26    ) * 2^26
->>     + (2^26 - 1) * 2^52
->>     + (2^26 - 1) * 2^78
->>     + (2^24 - 1) * 2^104
->>   = 2^128 + 4,
->> so converting back to base 2^64 must produce
->>   h0 = 4, h1 = 0, h2 = 1,
->> so that h0 + h1 * 2^64 + h2 * 2^128 = 2^128 + 4.
->> 
->> The third limb starts at bit 52, so its low 12 bits belong in h0 and
->> its upper 14 bits belong in h1. The low-word ADDS starts from
->>   4 + 2^26 * 2^26 = 2^52 + 4
->> and adds the low 64 bits of
->>   (2^26 - 1) << 52 = 2^78 - 2^52,
->> namely 2^64 - 2^52. The sum is 2^64 + 4, so it leaves h0 = 4 and
->> carry = 1.
->> 
->> The middle word contains the upper 14 bits of the third limb, all of
->> the fourth limb, and the low 24 bits of the fifth limb. The next ADC
->> adds the carry from h0 to
->>   ((2^26 - 1) >> 12) + ((2^26 - 1) << 14),
->> giving
->>   (2^14 - 1) + (2^40 - 2^14) + 1 = 2^40.
->> The following ADDS adds the low 64 bits of
->>   (2^24 - 1) << 40 = 2^64 - 2^40,
->> so the sum is 2^64, h1 wraps to 0, and carry = 1.
->> 
->> The top word starts from the remaining bits of the fifth limb,
->>   (2^24 - 1) >> 24 = 0.
->> The final ADC must add the carry from h1 and set h2 = 1. Writing the
->> carry into d2 instead leaves h2 = 0, so the reconstructed value is 4
->> instead of 2^128 + 4.
-> 
-> Thanks, but this LLM-generated "explanation" is way too verbose and
-> doesn't really say anything useful.  The new test in patch 2 is also
-> unnecessarily specialized to this exact issue and implementation, isn't
-> properly explained, and it's apparently LLM-generated too.  I'd 
-> normally
-> give a bit more time for submitters to fix things up, but since it will
-> likely just go back into the LLM, I don't think there's much point 
-> here.
-> So I went ahead and sent out a v3 that addresses these issues.
-
-I did get help from LLM for the test, but I did write the explanation 
-myself
-to explain the carry propagation in the computations. I thought it 
-explained
-the carry bug nicely enough with an example, sorry that you disagree.
-I also added a paragraph on the probability that this happens, because 
-it's
-very low and AFAICT, does not really impact current deployements.
-
-Jérémy
+On Fri, Oct 9, 2026 at 5:03=E2=80=AFPM Henry Martin <bsdhenrymartin@gmail.c=
+om> wrote:
+>
+> The error path of cifs_ses_add_channel() calls cifs_put_tcp_session()
+> before cifs_chan_clear_need_reconnect().  The latter reaches
+> cifs_ses_get_chan_index(), which dereferences server->terminate; if
+> the put was the final reference, TCP_Server_Info is already freed and
+> this is a use-after-free.  Same put-then-use pattern as the recently
+> fixed sibling in commit 717e0a25036b6.
+>
+> Reorder: clear the reconnect bit and drop chan_count under chan_lock
+> first, release the server reference last.
+>
+> This vulnerability was discovered by Tencent CodeBuddy Security.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: ee1d21794e55a ("cifs: handle when server stops supporting multicha=
+nnel")
+> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+> ---
+>  fs/smb/client/sess.c | 12 +++++++++---
+>  1 file changed, 9 insertions(+), 3 deletions(-)
+>
+> diff --git a/fs/smb/client/sess.c b/fs/smb/client/sess.c
+> index e095f41b5882..650c0f855a29 100644
+> --- a/fs/smb/client/sess.c
+> +++ b/fs/smb/client/sess.c
+> @@ -626,12 +626,16 @@ cifs_ses_add_channel(struct cifs_ses *ses,
+>
+>  out:
+>         if (rc && chan->server) {
+> -               cifs_put_tcp_session(chan->server, 0);
+> -
+>                 spin_lock(&ses->chan_lock);
+>
+> -               /* we rely on all bits beyond chan_count to be clear */
+> +               /* Clear the reconnect bitmask BEFORE dropping the server
+> +                * reference: cifs_ses_get_chan_index() dereferences
+> +                * server->terminate, and cifs_put_tcp_session() may be t=
+he
+> +                * final put that frees chan->server (use-after-free).
+> +                */
+>                 cifs_chan_clear_need_reconnect(ses, chan->server);
+> +
+> +               /* we rely on all bits beyond chan_count to be clear */
+>                 ses->chan_count--;
+>                 /*
+>                  * chan_count should never reach 0 as at least the primar=
+y
+> @@ -639,6 +643,8 @@ cifs_ses_add_channel(struct cifs_ses *ses,
+>                  */
+>                 WARN_ON(ses->chan_count < 1);
+>                 spin_unlock(&ses->chan_lock);
+> +
+> +               cifs_put_tcp_session(chan->server, 0);
+As soon as the lock is released, a new channel can be added in the
+slot indicated by the decremented chan_count. Then the final put will
+act on the new channel. Please save the server pointer under chan_lock
+and use that for cifs_put_tcp_session().
