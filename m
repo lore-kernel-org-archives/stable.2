@@ -1,201 +1,196 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012009.outbound.protection.outlook.com [52.101.43.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90444EF128;
-	Fri,  9 Oct 2026 17:47:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791568050; cv=fail; b=uDFYkdCUnl5BdMTAGNbWhV5vTwJlR2HBr1jm20BEnNUeIX2e9VvYUmoXWe3c3nXvQb/q+bQjxLKCjKkgfBpwZFvGqulrLiUngQnm67IopkIPZFtnVsj4K47JZMzxdFEsBht285CosQOGHepEx+ZpPMm471EHxwdCVwuVj95dBuI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791568050; c=relaxed/simple;
-	bh=7YHj4v6aNue5WQzhBpV3XkwgMXwEr0MiErDu8ZJUOf0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=b5Amt8XIpgawFjge9RfI8gKd/pdWsOl9s8bqL+6/UAT/c3PRX5OEZC4izxehANRNIZmiCH96tT+gLUJBYLZfakumxiXOS952t47/T+k4Dbe4vAkHxfQU0bW4FklhY2iPscnFT8VcTBcn2qilQwYio1q7OAh6tBH2Lf1ADkzubPA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=UrYI9eiN; arc=fail smtp.client-ip=52.101.43.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D344F30EC
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 17:54:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791568501; cv=none; b=OQtsIGCnHZGUhRW8krcjyeisrvKxP3QYpzQBX+/Z05nkBuh3ffM/U4nJLELRehO7F/7Xq/fcAFTaHwMJT+xF2IPTOH2aU9yiny+Qe7XgIWCV7cEXfhu57tXBFS1nGWP2wsfl/LXDEr0siMNLQN4ut3kI9SRFGMRDVv8/LpqdvwU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791568501; c=relaxed/simple;
+	bh=1Um5EiCJSDVvTwK1Tyd0ZORnY2SUAT6cpGWylov2DI0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fVUiLvoHA7r6poP6bnIMTW1z1XOEpQ2o970EZgS3jUMSvwzRotFvh0PiFBr+f88JF2BNIq+RFz8KKC0QXAT5VKbadzqvuIktAxXf9KQaBUUm/qWzRFJAN0QWnj3DDVGW8oPMmgrs3ReBwt+xDzO3xvc0Y5GWH7CffRqn//ZG5a4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=A0iXw+PB; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="UrYI9eiN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LtNAYJwWvDWv/3qws+tQrwlPlTJ7C1T1CbursGaaegBguDJvEPCeISO4DPuOgIvwZDErY8hS12KrMMsGchghoW4H8KDQthD5glyWoNw6MHZAbOaPZqNr78H7XnADyhW1lk5WKV2uJDxTPCNIFAoA9J91zt8HdCMBdnxOONg2DK2f04+HtikQXdBLHg0qmqqtOXxAf/V1Ag1Mih8K2CVcFZ8fOYXCxUA12Oa4ssL0OgsVLdZeIJx0BEIKxIb5zuwIUybeCBot7uaqIc/1JLEEUgJX2u/fX/pvO6gt+6T7/ar+qSGrY7+Nov404EQVYpBAPf73rYy9yksfIgAkLtcO5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NliuYMcgFpOkDcUF53VdUo6McQi+UJOU0PXSD4zXYd4=;
- b=h6gKBDzZII7iw1VVxKkGhHDu9aM8Wlf1uwM7ihiZl0pVQOJyK3JSgwyurJGdu51VmScgYTV5XDU0cX1u5SImALtuKMWT9BmYZryFAcDO7h4GAfAhV1pFmix+HVAKfJ2UvO1SzUtonxwazl5Rqni4dF7BjplitVsk983WX5Nx6qwy9Ni1otw1et0oVJ4uMULgiUaCi+BuQ1g+Cbig0RGtiydwK+ipVRk7K5qUuYkTVwWQXKAAsyoSS68apLeLQQKxsrATxG59lOBrXyHa3qy5x93ywBtOH6OibLSW7MIfGqNu2KKKbgODnnJpcgAxC47RTuF1AziSi7NCW63h+CppPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NliuYMcgFpOkDcUF53VdUo6McQi+UJOU0PXSD4zXYd4=;
- b=UrYI9eiNy6TdrF8ttj53hLf0tviHBryxDHgjOgGrfJtpQ/rKAHMNXCNEWJAaI7Zobk7O/cIs99PNtZGL9k5a+8ts6sHvicUY5804iUWNLVkAy7+ItFURvB/Q2McKZo1VgnkkNYjNzmR13Hwuz9fA6gWm5eqXBG01QYYa6fE+mcU=
-Received: from CH0P221CA0020.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11c::21)
- by PH8PR12MB6940.namprd12.prod.outlook.com (2603:10b6:510:1bf::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Fri, 9 Oct
- 2026 17:47:25 +0000
-Received: from CH3PEPF0000000F.namprd04.prod.outlook.com
- (2603:10b6:610:11c:cafe::9e) by CH0P221CA0020.outlook.office365.com
- (2603:10b6:610:11c::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Fri, 9
- Oct 2026 17:47:25 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH3PEPF0000000F.mail.protection.outlook.com (10.167.244.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Fri, 9 Oct 2026 17:47:24 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
- 2026 12:47:19 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
- 2026 12:47:19 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 9 Oct 2026 12:47:19 -0500
-Message-ID: <74b15e57-1387-e37c-d343-eeba1de33ceb@amd.com>
-Date: Fri, 9 Oct 2026 10:47:18 -0700
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="A0iXw+PB"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cd1e069cb19so1638198a12.0
+        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 10:54:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791568491; x=1792173291; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bC+umOfWsHMMd5xQqstPSm9nZ9qFadOsLmNye9AbZ80=;
+        b=A0iXw+PBenJQucA9MRKSCMdBIpbtEELjLYLLA6u9GZGelwN4kFCkQ/Qo4KcZWT5eEc
+         Br7gsCfLatAg1S+pObeAqhF45gn9iwVXAYibG3ORIfKTIwVijAny6pEkQfiqs0WX7Zk+
+         m4fjeQMZ//qvhn3jGPjs7UmIWCATpGwrgclAPGH7tzJrApbrwinucXCSJQLP6Zt4Lvfw
+         UFg4/Q77nFZIw8waLGOfyP3Z4EycDd/OgA1zOb8IGCh5C0716QxxW5jLtPuNmWz/yYfG
+         5Li/QFD1VIsQylPzG7LzArYMT2ea5pP1+S8LmHr3MS3880mhiB1xbHBZwXTfN3l8k8Gh
+         Vk1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791568491; x=1792173291;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bC+umOfWsHMMd5xQqstPSm9nZ9qFadOsLmNye9AbZ80=;
+        b=h1z6V0kP2aGg+jLZPWPJAotjtcvR7rhrKN9XTdR5OxjHMkuOgLRu5p1N/tiID2+m1T
+         PXWKb9WC6H/RFImFghowm2ziat1FcdGDVj92LRqTD7DC+Eh01kjNEs7MRIceSTaDCwN+
+         aj8xfZc/sVqiEsLBp+ydy4BGwPJrUhX1YFnRIv9zcC1CbOcsGsPnhDzHfgf/ZRrs6urp
+         PV7r+j4ZV+FxWweIZUjXrAjwFzk9q502ewo7VUaXivqBa5YwjzKPeBAciiuMKubfPdA/
+         r99ttVZqwfgSxlUSh11MukaPye2HGxa9EicANgPiBWIEoHlQ5+lrAXe26ksHUHcgbmkG
+         BaBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx9HyjQAZxgZ6YgSxz6o3ocdhixuq+Q1gfcURQoZTiih9+AHrJ8zmw7xDDW6MQYnIEOLwo+brM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJEQl1C3HkBIQt6S8bMUpVtkN9l7n0n9YLnijDBqBLkM/lVd+sY
+	zah31kB0FZIU6ll7SC7DSlKFJPz4qX5jDGFcygcnn+dPtqEwJm80xgOnqvT6cbz2+9Q=
+X-Gm-Gg: AYBFou27mqXejIXrjEc41Q4ZJCYKcn0YXThRBySOnOBNeVwDrgIJN1WQvIRIvemtpnT
+	oUFDfv3KsJ+yxbYrFaqTXHssXaxzKDxmzMKdg/Embq8tVvZKlKTG/svhTAgeRSf1MPU3W4BHSeE
+	q/IXOBfquVbKo5Qyqxx+6c0pFOf7D5uvEpA/JnFX5rdskd42Fw80FT4j5GIe5vXZjCkvuZnsl4f
+	FP2uCf+nhRVfq3lPx1eg0wpMTImMRBvyELr/ldokadckn40R662bT9x0bxRMrmJw7CF1yQPCB1u
+	xb6/SLsN3Er/bxnEq6LejnxGE9ayoJ9Aqa4VA4ZJSEETnMG5SDBMgEmTb1j18BhCn51ZrSTxDVK
+	9zirrYk1t4o29KrZh/JFEBQBFkGOzGgHjJo2LdruLhT87t6n9Ys+NTjzxw2xvnhYkNcIU0BcCGy
+	lD++eM4e6Q/gZYMl8+jAOihZSL0HlOTu7YQYVkKPNFMIu8sHor10qfwwru1pbQ2jvHjvqyFL2oo
+	yssObHdk0D9IXzFMPffvw==
+X-Received: by 2002:a17:90b:2688:b0:3a4:adea:50ad with SMTP id 98e67ed59e1d1-3ab3a775938mr2547113a91.27.1791568490985;
+        Fri, 09 Oct 2026 10:54:50 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:c95f:28ac:324a:cdc3])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ed040dsm5596962a91.6.2026.10.09.10.54.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 10:54:50 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Alexander Duyck <alexanderduyck@fb.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	netdev@vger.kernel.org
+Cc: kernel-team@meta.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Dimitri Daskalakis <daskald@meta.com>,
+	Mohsin Bashir <mohsin.bashr@gmail.com>,
+	Bobby Eshleman <bobbyeshleman@meta.com>,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Subject: [PATCH net] eth: fbnic: validate the Rx completion buffer index
+Date: Sat, 10 Oct 2026 02:53:58 +0900
+Message-ID: <20261009175358.1598001-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH 6.18.y] accel/amdxdna: Bound the sync_bo flush range to
- the BO size
-Content-Language: en-US
-To: Eva Crystal <0xiviel@gmail.com>, <stable@vger.kernel.org>
-CC: Min Ma <mamin506@gmail.com>, Oded Gabbay <ogabbay@kernel.org>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-References: <20261009032616.432392-1-0xiviel@gmail.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20261009032616.432392-1-0xiviel@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000F:EE_|PH8PR12MB6940:EE_
-X-MS-Office365-Filtering-Correlation-Id: d75d49cb-071d-4aa9-a27b-08df262d60c2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|23010399003|1800799024|36860700016|6133799003|18002099003|22082099003|11063799006|10067099003|260925022911599003|260925021311599003|260925021911599003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	faOmfbQxLnltujIDyz5ng6bP+VjHhuLDQjiOBb1PtVEoT6y1WD1tLAqoJw2KG87xRU7n/zyd4i5FG7xnm3TWhjior7d7ckkG9bQ/llhVI83Vl++vOkpdpFEDDc/3NIokxS2k6SOSrvLco8pYxVgkS9gadOiEdcTyN8IUSan9kgQ2LufHiNMFp/hYVFXRebyzK0yoBGPpDgxlwHCnoL3ZA/pmD3SpFrcMnoz0hZoQeJ2MawtTB1UAx3xqC+bv+hrlJAxNQQ962UesaZdEdYnmVndCnAr5mern6OjM9a+VICWdAD00PNEzE3fEETREREOXS8YaigzTOYSEmPHGqVueqfnzDLoEdUnvmgdd2bsDe0T1z7fNdIafmoAwElXLgx8k4shOMlX6lKUYbt+p2PyiDDklfijXCfXEgA8lLHMOWSGanZbU5Vn/NEFXKuJ8nc40m8PSUiSFc++Rr8TvGfwfX8mPYlaeqBRhvV8YGlWQJpgNQxBtiJ0IRifGPmLfSSAUxxersqpXW6wN9rs50hVkVWPKYYmUlQoG6cIBcC9Txbpei/Eaq4fd5BH5vUykMqKQ8Cl3SDz4tFzTzQsdwuNRWNok6lksO6xBq4EN9S/CrZoRYx5YrFwULVOa2HDSastMHjBZ0emo2LaV2s4YUoZ+NMX//ErGPQSOlNFZWMnX41vVaB4qvakX8MJycDIE9uiVWf9AHQUVLlyK7JJAgpLxKA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(23010399003)(1800799024)(36860700016)(6133799003)(18002099003)(22082099003)(11063799006)(10067099003)(260925022911599003)(260925021311599003)(260925021911599003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	wJSYp+optEwK666a8bGo7TOLFmJOit+HZTLIesA/MPH4FQdFVs8poiTlFWjVUrQ597jUrW7kwWTbVBJdJanCtzG/kMi3ypBzRy3uBd/OGnwIm+4dQwFcYLo4poXVH5KzWplj2yU0Zve67zNhegdM9V+Obt8cz/PrIXnOq344NQioffCD9t0tj/Alrci86rw50ROgW4zg+T2Z99FtzIpsT8q2APddImMhXVJzXyj5Ebpe2kasW5EENjjvb/7euiBpSY7UTqT/kP9HlWnbyGe44GmOxDZjF2XXOdXkiaH9VHEvlNUHYKPcYUUf+JswtqtqoW2OPP72cUF1I85Tp6PpCI6VDr/UfpVIqELzIMhDAniWa71FHGMPQCeN/IBkda5u3ZUpgK4dLe3Gs/nRWNA0w8b3a9smAwj2f9Ak0NV7bIl7SrzJjUz132fMJnB98kn6
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 17:47:24.8096
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d75d49cb-071d-4aa9-a27b-08df262d60c2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF0000000F.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6940
 
+The buffer ID in an address/length Rx completion descriptor is a 16 bit
+field, FBNIC_RCD_AL_BUFF_PAGE_MASK being DESC_GENMASK(15, 0) once the
+fragment bits are removed, so the device can name any index from 0 to
+65535.  fbnic_pkt_prepare() and fbnic_add_rx_frag() feed that value
+straight into fbnic_page_pool_get_head() and fbnic_page_pool_get_data(),
+which use it to subscript qt->sub0.rx_buf[] and qt->sub1.rx_buf[].
 
-On 10/8/26 20:26, Eva Crystal wrote:
-> [ Upstream commit dbc8fd7a03cbc0704e8e558a448015f620547a02 ]
->
-> amdxdna_drm_sync_bo_ioctl() passes the caller's offset and size to
-> drm_clflush_virt_range() on the BO's kernel mapping without checking
-> either against the BO size. The ioctl has no permission flags: any
-> process that can open the accel node controls the offset. Any BO with a
-> kernel mapping reaches that call: AMDXDNA_BO_DEV_HEAP, AMDXDNA_BO_DEV
-> and AMDXDNA_BO_CMD. A DEV_HEAP is vmapped, so an offset equal to its
-> size lands the flush on the vmap guard page.
->
-> Measured on 6.18.55 on an AMD Ryzen AI 9 365 NPU, firmware 1.0.0.63,
-> as a non-root user with access to the accel node: unpatched, an offset
-> equal to the 64 MiB DEV_HEAP size oopses in drm_clflush_virt_range()
-> under amdxdna_drm_sync_bo_ioctl(), 2 of 2 runs; patched, the same call
-> returns -EINVAL, 2 of 2, and an in-bounds sync returns 0, 2 of 2.
-> DEV_HEAP is the type tested; DEV and CMD are by code reading.
->
-> Upstream bounds the range in amdxdna_flush_bo(), added by commit
-> dbc8fd7a03cb ("accel/amdxdna: Add expandable device heap support").
-> This applies only that check: an offset at or past the BO's end, or
-> an overflowing offset plus size, returns -EINVAL.
->
-> Deviations from upstream: that commit adds a feature and is too large
-> for stable as a whole. It calls drm_WARN() when the check rejects a BO
-> whose type is not AMDXDNA_BO_DEV, which userspace can trigger; this
-> fix does not. Upstream bounds AMDXDNA_BO_DEV by the heap chunks it
-> spans and flushes only the overlap, reporting no error for an offset
-> past the end; 6.18 has one heap per client, so this fix uses the BO's
-> own abo->mem.size and rejects such an offset instead. As in upstream,
-> a size past the BO's end is clamped, not rejected.
->
-> Built from v6.18.55 with the test system's distro-derived config,
-> DRM_ACCEL_AMDXDNA=m. The touched file also compiles W=1 clean.
->
-> Fixes: e252e3f3488a ("accel/amdxdna: Revise device bo creation and free")
-> Cc: stable@vger.kernel.org # 6.18.x
-> Assisted-by: LLM
-> Signed-off-by: Eva Crystal <0xiviel@gmail.com>
-> ---
->   drivers/accel/amdxdna/amdxdna_gem.c | 10 +++++++++-
->   1 file changed, 9 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-> index ca747457cec7..95d04af2b993 100644
-> --- a/drivers/accel/amdxdna/amdxdna_gem.c
-> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
-> @@ -934,6 +934,7 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
->   	struct amdxdna_drm_sync_bo *args = data;
->   	struct amdxdna_gem_obj *abo;
->   	struct drm_gem_object *gobj;
-> +	u64 end, size;
->   	int ret;
->   
->   	gobj = drm_gem_object_lookup(filp, args->handle);
-> @@ -943,6 +944,13 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
->   	}
->   	abo = to_xdna_obj(gobj);
->   
-> +	if (args->offset >= abo->mem.size ||
-> +	    check_add_overflow(args->offset, args->size, &end)) {
-> +		ret = -EINVAL;
-> +		goto put_obj;
-> +	}
-> +	size = min(abo->mem.size, end) - args->offset;
-> +
+Those arrays only cover the buffers the driver posted.  They are
+allocated with size_mask + 1 entries, and size_mask comes from
+hpq_size / FBNIC_BD_FRAG_COUNT, so at the default FBNIC_HPQ_SIZE_DEFAULT
+of 256 each array holds 256 entries of 16 bytes, that is 4096 bytes.  A
+buffer ID of 65535 reaches 1048560 bytes past the start of the
+allocation.
 
-Thanks for the patch. It needs to check if size is zero. Please see
+The fill side already masks every index it computes against
+bdq->size_mask, and so does all of the ring head and tail arithmetic.
+The completion side does not.  A descriptor naming a buffer that was
+never posted makes fbnic_page_pool_get_head() decrement pagecnt_bias
+through a pointer outside the array and hand the out-of-bounds
+netmem_ref back as a struct page; page_pool_get_dma_addr() and
+page_address() then dereference it and the skb is built on whatever it
+points at.
 
-         dc1475366424 ("accel/amdxdna: return early from a zero-length 
-flush")
+Injecting an out-of-range header completion reports under KASAN:
 
-Could you help to backport this as well?
+  BUG: KASAN: slab-out-of-bounds in fbnic_page_pool_get_head
+  Read of size 8 at addr ffff88800c719008
+  The buggy address is located 8 bytes to the right of
+   allocated 4096-byte region [ffff88800c718000, ffff88800c719000)
 
-Acked-by: Lizhi Hou <lizhi.hou@amd.com>
+Check the ID against size_mask before it is used and drop the packet if
+it is out of range.  Masking it instead would keep the access in bounds
+but would silently attribute the completion to an unrelated buffer that
+the driver does own, which is worse than a drop.  Set add_frag_failed so
+the frame takes the existing error path.
 
->   	ret = amdxdna_gem_pin(abo);
->   	if (ret) {
->   		XDNA_ERR(xdna, "Pin BO %d failed, ret %d", args->handle, ret);
-> @@ -955,7 +963,7 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
->   	if (is_import_bo(abo))
->   		drm_clflush_sg(abo->base.sgt);
->   	else if (abo->mem.kva)
-> -		drm_clflush_virt_range(abo->mem.kva + args->offset, args->size);
-> +		drm_clflush_virt_range(abo->mem.kva + args->offset, size);
->   	else if (abo->base.pages)
->   		drm_clflush_pages(abo->base.pages, gobj->size >> PAGE_SHIFT);
->   	else
+Rejecting the header completion leaves pkt->buff uninitialized, and the
+payload completions that follow are handled before the metadata
+descriptor that looks at add_frag_failed, so fbnic_add_rx_frag() has to
+bail out as well or xdp_buff_add_frag() writes through a shared info
+pointer derived from a NULL data_hard_start.  Key that on
+data_hard_start, the way fbnic_put_pkt_buff() already does, so the
+buffer accounting on the normal path is untouched.
+
+Fixes: a29b8eb6e533 ("eth: fbnic: Add basic Rx handling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/net/ethernet/meta/fbnic/fbnic_txrx.c | 27 ++++++++++++++++++--
+ 1 file changed, 25 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
+index 10caacffee0f0..d85daab06c99c 100644
+--- a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
++++ b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
+@@ -985,14 +985,24 @@ static void fbnic_pkt_prepare(struct fbnic_napi_vector *nv, u64 rcd,
+ {
+ 	unsigned int hdr_pg_idx = FIELD_GET(FBNIC_RCD_AL_BUFF_PAGE_MASK, rcd);
+ 	unsigned int hdr_pg_off = FIELD_GET(FBNIC_RCD_AL_BUFF_OFF_MASK, rcd);
+-	struct page *page = fbnic_page_pool_get_head(qt, hdr_pg_idx);
+ 	unsigned int len = FIELD_GET(FBNIC_RCD_AL_BUFF_LEN_MASK, rcd);
+ 	unsigned int frame_sz, hdr_pg_start, hdr_pg_end, headroom;
+ 	unsigned char *hdr_start;
++	struct page *page;
+ 
+ 	/* data_hard_start should always be NULL when this is called */
+ 	WARN_ON_ONCE(pkt->buff.data_hard_start);
+ 
++	/* A buffer ID the device never got from us cannot name a buffer we
++	 * own, so drop the packet instead of running off the end of rx_buf[].
++	 */
++	if (unlikely(hdr_pg_idx > qt->sub0.size_mask)) {
++		pkt->add_frag_failed = true;
++		return;
++	}
++
++	page = fbnic_page_pool_get_head(qt, hdr_pg_idx);
++
+ 	/* Short-cut the end calculation if we know page is fully consumed */
+ 	hdr_pg_end = FIELD_GET(FBNIC_RCD_AL_PAGE_FIN, rcd) ?
+ 		     FBNIC_BD_FRAG_SIZE : fbnic_hdr_pg_end(hdr_pg_off, len);
+@@ -1026,10 +1036,23 @@ static void fbnic_add_rx_frag(struct fbnic_napi_vector *nv, u64 rcd,
+ 	unsigned int pg_idx = FIELD_GET(FBNIC_RCD_AL_BUFF_PAGE_MASK, rcd);
+ 	unsigned int pg_off = FIELD_GET(FBNIC_RCD_AL_BUFF_OFF_MASK, rcd);
+ 	unsigned int len = FIELD_GET(FBNIC_RCD_AL_BUFF_LEN_MASK, rcd);
+-	netmem_ref netmem = fbnic_page_pool_get_data(qt, pg_idx);
+ 	unsigned int truesize;
++	netmem_ref netmem;
+ 	bool added;
+ 
++	/* The header completion was rejected, so buff was never initialized
++	 * and add_frag_failed is already set.  There is nothing to add to.
++	 */
++	if (unlikely(!pkt->buff.data_hard_start))
++		return;
++
++	if (unlikely(pg_idx > qt->sub1.size_mask)) {
++		pkt->add_frag_failed = true;
++		return;
++	}
++
++	netmem = fbnic_page_pool_get_data(qt, pg_idx);
++
+ 	truesize = FIELD_GET(FBNIC_RCD_AL_PAGE_FIN, rcd) ?
+ 		   FBNIC_BD_FRAG_SIZE - pg_off : ALIGN(len, 128);
+ 
+-- 
+2.43.0
+
