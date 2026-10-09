@@ -1,209 +1,146 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69A363D4137
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 16:27:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22D88470E91;
+	Fri,  9 Oct 2026 16:36:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791563269; cv=none; b=LxN1Y/9ApaV76PAaOc+IiK7cFtMin224g9Rvx4iwSW16xlgv3/E5lpbaVcc62vyuMZNSV0vE2kgjYRUiE1ZA2+Y32ICmSrRoLQaSmNCnsjMELa5kwfgVdI9PRxGncI6RhaWSnIFG00kU99eUX8s90b6EyOOuqP0Kt76l/gMrrtQ=
+	t=1791563810; cv=none; b=Jon8Mcn6NAbmd+ZQLVGejhN4f9/72LeYU53PViMqBdUu0nMA5hz6HWjt4SJtOYZBNCdOUsTtXVL8F2xU2f92/XrsH9WJ760zyxSHCxQFX5G0H+OsbBUwlKcEqZsm5J3crABTH7406vte1WGTIYTNkT3jDyG42RK07a6U6xDALy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791563269; c=relaxed/simple;
-	bh=GKuZVRqWtm+ag+MQ5GK5bzcEuGQJpFghJjgwjd6B32o=;
-	h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:Cc:To; b=q8nQa5YLTrb3/s9x9rs7+uVSw/Wu1rHd9+EhSLnsO/lGtmfEXp5QbuaIs8fXWxWkb4cY+9slOBhTk68kq4k/mRvzs3SHk/GCc5HLxR7UPeY1FU06f9WbiG05qq5nRzhuDmrvfxAnpT3XM3DCD46kyRhMlnFRmwPvn+BTWayyf8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AMuw2FPb; arc=none smtp.client-ip=209.85.215.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791563810; c=relaxed/simple;
+	bh=+aAANgnZFrmg+bqHaMnKqDJhJiciOXyR0JCSjAWEXMs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FegZATPJL5kQGTNifn9/haf9nWc9HQmwwpMrmk+vmV9riPKOtyjpi0Y/3cZu5YcACgKBi2ij81krQWxXxEkVr1ylI6FdGttQnUsDDaWLvH6Ndnb3NbKRWL7uxSEqMSCMeCtRCj8kRwdXMfE3Guty4sqzpXpNQNEpLrKxdgpGj5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=TaVQEteb; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AMuw2FPb"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc7e79c1eaaso2151100a12.2
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 09:27:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791563268; x=1792168068; darn=vger.kernel.org;
-        h=to:cc:date:message-id:subject:mime-version
-         :content-transfer-encoding:content-type:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZpE/NYqZeHO4dzGVhgtndlOxsshgd/TUZ6Pu7sEuBk4=;
-        b=AMuw2FPb7GdjwGkCSMQTUXqcw9lP/hdEiGODO1kHoQBEeNA1yOzNQXNv4pjAMzkTY8
-         WNiM5kk9PaKyHOsrLXQrak8M9Uww05gGz5vrRWX09wWZ29GklRtAUSsE0CpY+KJIRusG
-         pLkYyR0FQdk8uE7HNnV2lATSMDJA6I+u4Sau9FdmsKJbFrxSkmXzaCOvf8PqyxhiicG1
-         qnif13dtxudMfb+0YIj6HVoW1g6g+i33JxsniToEnXshiZY+W1rBk7Gk9HIco440Phyn
-         kkHarkneULl7a+8iJm2XJSLzxQ3VlMlrMS7HJcuEEC/ozL87dEy1ZLv24gs4DJB4qr7Q
-         pYgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791563268; x=1792168068;
-        h=to:cc:date:message-id:subject:mime-version
-         :content-transfer-encoding:content-type:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZpE/NYqZeHO4dzGVhgtndlOxsshgd/TUZ6Pu7sEuBk4=;
-        b=RFxhwm4gfXdu60ssOMSfoHdzYKMM9x6jT6+4s281JoTJr03KtAcUfBh+IkKv1TGcu1
-         4a/uF2pS16RsAzTFUAUL0s43RSlEK04q7b9eA6OvXhWPNU2p1G88f2dKBfrkvlK92OSS
-         ZG3LABhqw5h+ncjecfWh/lWZscEmyLXX/hnLo7nuTFdVrwti7uoTroHnRidd57FPYPJU
-         s90OIUNN0p8kKRs5Vovlah+oAp5lsUJ3BatqvYLWgK1s+ogjMeyDNXdOJCOMyuSamcKV
-         K811oxB8cCtmmFIVdaEczttkcWksAWQdUObCdVHWZj7aRY75MX4sz1438NJJkm/Sczx/
-         E0PQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz3r0w7/iVxvK7eseUxMHX6dDMrzG0FeuyzoXz40Ubb18Wfd+jdHvAa1ai9gu49DAKxAeA/spg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCW7ltb5t9O3EswSctbzPzRK8gJBVQpMYuHEUxTQl8wtB5uFty
-	ShWjqW1phERRcQehcngfyh6qIo5j3Zb1oDOPZVrEgvAPH636FFm7QJxx+BAxtCZgpV8=
-X-Gm-Gg: AYBFou00fW5EQZ7p45vuCbwZLps1ANN9VTGdeIVbT7Lh9oMXZjipUK/lgSccz53Zn2Z
-	veDgJCTZ8/Ms55Ar6vLScgUHr8+RMFbpZP7+ztK2IVqJkJ3ZWY7ngRFJ37ZonfrQbLSOstBh7l2
-	R1wZCtFz74sf3j9CCWVyPz7h7ncSUUKB98XnRGz9gZv8+SPyjXvDR86Ldr+x5EVloEHxlMIPC/0
-	trlyHwFPw9+S90735zC6RDtiuzGIcUFptuZ2v92wr4jX9B5NtFtaaUlNAnaXLtxYrtkIBguvf9N
-	8kNmpR0RoPSOxL6cShUsC2WAWyNijbSDCFIqLSGDObj5ih5Ps0SxAU+jTWzpwjfzIGHVhk908KM
-	VSfVzL/71Q1+IbQXf4iXeqSbWHpjcx6v+IJUjdWJ2zWlluL4tUtV1Gzn1TGP8CWGoCiNXK+9YOT
-	mpfCJtTEwd9MjXdPR6SgNYGxs+nQsDaNBh7FTjqx0q8Pu/B7+U3PV4vbfuOTmzmvbLH6w6r0rMW
-	swAeHTikbCoHpo3YrtjjwNfEnV9miwSD0J2
-X-Received: by 2002:a17:902:f544:b0:2d9:520c:38e7 with SMTP id d9443c01a7336-2e8427f11aamr22508725ad.1.1791563267626;
-        Fri, 09 Oct 2026 09:27:47 -0700 (PDT)
-Received: from smtpclient.apple (v133-18-180-162.vir.kagoya.net. [133.18.180.162])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e4eb2sm13099855ad.74.2026.10.09.09.27.44
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 09 Oct 2026 09:27:46 -0700 (PDT)
-From: Echoo Wall <echoowall@gmail.com>
-Content-Type: text/plain;
-	charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="TaVQEteb"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 699GZPOa571712;
+	Fri, 9 Oct 2026 16:36:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pp1; bh=6WnS1Z+WYMP3nfRbFwUB3ixiVVzH
+	/TwTlKG3XdhXwx0=; b=TaVQEtebaXnKpbCtSpTT2P/CsdVfzvpR+rxSzh4OBQFM
+	7f16laA6lVCmuprlJg6FJ1pKDZSVWOZWX0CKna0H3NNfyAiu8TxVCS5AWxRxvih7
+	YX5ryTaem1Z/mkFI5jgacbi7/fnVjF7kx4kW50RdfNrLxOknEV5gxk+2uDdbekS1
+	hhnFleeYR52MWEoW1n100X1aIbAZD0XG/IRgS+S0dkkTQ4xKsD1H5pNCUsewuyIj
+	WNgNiJlQHnArzq6ocOyeNkHb/ncWzvD2el/UG4DSZzHEZjibFfFtTaNAJe+N9HdP
+	JQEaICddIwyu15Zm4yXstndNqbbVvXiO81VKpIL3jA==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h5xjvkus0-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 09 Oct 2026 16:36:28 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 699GJhwB1150431;
+	Fri, 9 Oct 2026 16:36:27 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h6hsnks01-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 09 Oct 2026 16:36:27 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 699GaNIg29164190
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 9 Oct 2026 16:36:23 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2EE6220043;
+	Fri,  9 Oct 2026 16:36:23 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5BE5320040;
+	Fri,  9 Oct 2026 16:36:19 +0000 (GMT)
+Received: from localhost.localdomain (unknown [9.124.216.129])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Fri,  9 Oct 2026 16:36:19 +0000 (GMT)
+From: Amit Machhiwal <amachhiw@linux.ibm.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+        Masami Hiramatsu <mhiramat@kernel.org>,
+        linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
+        =?UTF-8?q?Michal=20Such=C3=A1nek?= <msuchanek@suse.de>,
+        Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Harsh Prateek Bora <harshpb@linux.ibm.com>,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+        kvm-ppc@vger.kernel.org, Mark-PK Tsai <mark-pk.tsai@mediatek.com>,
+        stable@vger.kernel.org
+Subject: [PATCH 0/2] tracing: Fix early boot trace buffer allocation and tracefs init crash
+Date: Fri,  9 Oct 2026 22:05:55 +0530
+Message-ID: <20261009163557.88467-1-amachhiw@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: [REGRESSION] 6.12.111: "net: advertise TCP MSS from the configured
- MTU, not the learned PMTU" breaks TCP through relays when the peer's network
- drops ICMP
-Message-Id: <4F0FAEB6-A13B-47F3-BFF1-C706686C6F64@gmail.com>
-Date: Sat, 10 Oct 2026 00:27:29 +0800
-Cc: netdev@vger.kernel.org,
- regressions@lists.linux.dev,
- stable@vger.kernel.org
-To: Jiayuan Chen <jiayuan.chen@linux.dev>,
- Eric Dumazet <edumazet@google.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: Smr1VNDOKKJwWEIil9nnNa__2PTR1iih
+X-Proofpoint-ORIG-GUID: he5gvaUNxEV-a3_alhW7dMrc12SgFLpG
+X-Authority-Analysis: v=2.4 cv=H8NOUOYi c=1 sm=1 tr=0 ts=6ac9180d cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=TwISAZj8YnJKlnGNUAAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA2NiBTYWx0ZWRfXyaesTwI4TsMU
+ NTymUp9qzvi7lBKp/duE+WS1CTN8vMXXfESfzILXfhOGQGz4HaGn+r2MbD+5WKG3Q/YwhXt3gbm
+ Na135d83T1xT3YMKjr0tZmFg5RInXIF+/4v+6qmMcwNHxh/+SEt5rqex80GWpOCo5eFch/XqHlE
+ at8wjqJLwUmB/cahcKIaTh2lUVlfw1v9txfVQGtqIE2z+zfsA6b9GMg6yMLN7h/O7Fmj51YfZ0i
+ W/C4yjgJNETFj8RAwzLZmVvfL8mcVncyTR7Un71girdQ0JGY9yrRzaw6J6RvTqEgz4D4hR04nGu
+ Tu/yagrS+tce3w2CLkmwTEGhPD4E7MPepubb2LX81eE+PH1xNKqm+YOYKK/VqXONYrnYr4M99oQ
+ ur0d3vHY5EkTogNbfP2Y0+PLje7RxHbsjQXdWq7H3S5ZgnDL4BSD2WXOcMm++pQ51v+g5SXfNKS
+ 6ea65Mn+URvKAe2Pl7Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA2NiBTYWx0ZWRfX18RPMGxnr5Bs
+ vVWYbcu197S9D+4Hl0ArOADpgc6ZhLd17utdx6zwQkDjjW32/yWVJ2YTVLVT8/Hq3ZULLT3MeWZ
+ eTakYJfEwGhI691dU+fXhAX/yVO4e1Q=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
+ clxscore=1011 spamscore=0 priorityscore=1501 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090066
 
-Hi,
+This series addresses an early boot crash and trace buffer allocation
+failure reported on ppc64le KVM guests [1] (and reproducible under
+CONFIG_DEFERRED_STRUCT_PAGE_INIT=y with large static kernel footprints).
 
-After a routine stable update from 6.12.107 to 6.12.111 (Debian =
-trixie-security,
-6.12.111-1), TCP connections to our servers started timing out for a =
-subset of
-clients. Booting back to 6.12.107 / 6.12.101 fixed it immediately. I =
-believe the
-cause is:
+Patch 1 fixes the crash (NULL pointer dereference in __find_event_file()):
+When trace buffer allocation fails during early boot, tracing is left
+disabled.  However, tracer_init_tracefs_work_func() runs asynchronously via
+fs_initcall and traverses uninitialized event lists without checking
+tracing_disabled.  Checking tracing_disabled early averts the crash.
 
-  2640e64195948a601430d230c9864f5426574cde
-  net: advertise TCP MSS from the configured MTU, not the learned PMTU
-  (in stable 6.12.111 and 6.18.51)
+Patch 2 fixes the root cause of the early allocation failure:
+During early_trace_init(), __rb_allocate_pages() performs a heuristic check
+using si_mem_available().  Under CONFIG_DEFERRED_STRUCT_PAGE_INIT=y,
+NR_FREE_PAGES only reflects the initial non-deferred pool (e.g. 1 section
+per node) because the remaining memory has not yet been initialized.  On
+kernels with large static binary footprints (debug configs, early
+SLUB/vmalloc/ftrace records), this pool is quickly consumed, causing
+si_mem_available() to return 0 and trigger a false -ENOMEM before the buddy
+allocator has the opportunity to grow the zone on demand via
+deferred_grow_zone().  Skipping the check during SYSTEM_BOOTING allows the
+allocation to succeed.
 
-#regzbot introduced: 2640e64195948a601430d230c9864f5426574cde
+Both fixes have been verified by Michal Suchánek.
 
-Topology
---------
+[1] https://lore.kernel.org/all/arYskzbiaNzBR9MD@kunlun.suse.cz/
 
-  client ---(internet)---> relay (Linux, nftables DNAT + masquerade) =
----> server
-                                                               ^
-                                                 path MTU 1456 on this =
-hop
+Amit Machhiwal (2):
+  tracing: Do not initialize tracefs work if tracing is disabled
+  ring-buffer: Do not check si_mem_available() during SYSTEM_BOOTING
 
-- Servers have a 1500-byte interface MTU, but the path between the relay =
-and the
-  server has a PMTU of 1456 (encapsulation upstream). The server learns =
-this
-  correctly: `ip route get <relay>` shows `cache mtu 1456`.
-- Clients reach the server only through the relay (port-based DNAT, SNAT =
-to the
-  relay address).
-- Some client networks (typical corporate firewalls) drop ICMP
-  "fragmentation needed".
+ kernel/trace/ring_buffer.c | 8 +++++++-
+ kernel/trace/trace.c       | 6 ++++++
+ 2 files changed, 13 insertions(+), 1 deletion(-)
 
-Behaviour
----------
 
-Before (<=3D 6.12.110): the server's SYN-ACK advertised MSS 1416, =
-derived from the
-learned PMTU. Clients never sent segments that were too large. =
-Everything worked,
-including from networks that filter ICMP.
-
-After (6.12.111): the SYN-ACK advertises MSS 1460 from the configured =
-MTU. The
-client sends 1500-byte packets. They are dropped at the 1456 hop, and =
-the ICMP
-error never reaches the client because its network filters it. The =
-handshake
-completes, then the connection stalls: a classic PMTU black hole.
-
-Direct connections to the same servers, without the relay hop, keep =
-working, and
-so do servers still on <=3D 6.12.110 behind the same relays. That made =
-the problem
-very hard to attribute: it only appears from certain client networks, =
-only on
-relayed paths, and only after a kernel update that nothing points to.
-
-What I verified
----------------
-
-- Reproducible per host by switching only the kernel. Rebooting without =
-changing
-  the kernel does not help. Same sysctls on both kernels (309 TCP =
-parameters
-  compared), same userspace.
-- On 6.12.107 the server has `cache mtu 1456` towards the relay, so the
-  SYN-ACK MSS is derived from it (1416). With this commit the advertised
-  MSS comes from the 1500-byte device MTU (1460) instead. That matches =
-the
-  symptom exactly, but I have not yet captured a 6.12.111 SYN-ACK on the
-  affected path.
-- As a workaround we now clamp MSS on the relay
-  (`tcp flags syn tcp option maxseg size > 1416 tcp option maxseg size =
-set 1416`
-  in the forward chain). I have not yet re-tested 6.12.111 behind it.
-
-Why I think this matters
-------------------------
-
-The commit message argues that on symmetric paths nothing is lost =
-because "the
-peer usually already knows the real path MTU". That assumption does not =
-hold when:
-
-  1. the peer sits behind a firewall that drops ICMP =
-fragmentation-needed, which
-     is common in enterprise networks; and/or
-  2. the narrow hop is only on the server side (relay, tunnel or overlay =
-egress),
-     so the peer has no way to learn it other than via ICMP.
-
-In both cases the receiver-side PMTU knowledge was the only thing that =
-kept the
-connection working. The old behaviour was effectively a built-in =
-safeguard for
-these black holes, and it has been in place for a very long time.
-
-This is now shipping as a security update in LTS/stable kernels and
-distributions. It silently breaks previously working deployments, and =
-only for
-some users, so most operators will not connect the symptom to the =
-kernel. The
-6.6 / 6.1 / 5.15 backports appear to be still pending, so there may =
-still be
-time to reconsider before it spreads further.
-
-Possible ways forward (just suggestions):
-
-  - revert from stable and keep it in mainline until there is a safer =
-variant;
-  - make it opt-in (sysctl or per-route flag) for the asymmetric / DSR =
-case it
-    targets;
-  - or only ignore the learned PMTU when there is evidence of asymmetry, =
-instead
-    of unconditionally.
-
-I am happy to test patches on the affected setup.
-
-Thanks.
-Esko Mobius
+base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+-- 
+2.54.0 (Apple Git-157)
 
