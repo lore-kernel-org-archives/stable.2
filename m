@@ -1,158 +1,138 @@
-Received: from SY5PR01CU010.outbound.protection.outlook.com (mail-australiaeastazolkn19012071.outbound.protection.outlook.com [52.103.72.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f2.google.com (mail-oo2-f2.google.com [74.125.231.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456824854F4;
-	Fri,  9 Oct 2026 08:02:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.72.71
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791532932; cv=fail; b=okMFoPHrTHANnMpMIxCL04AlEOFRsKWZ+RZszLUhEUq2FvfJgsVrQz7jJCvxj/vnkiYu2Icmqqf0Prq8XkChDo6ScWps8IKl4Zl+cLICHzdN6Ttg3JrCjoo6p7JI0JDC7R/DCYk47/ZOKu7wbUFbq6OCnsBbUVp0UmrU52N7sUk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791532932; c=relaxed/simple;
-	bh=ipDsmwEasG+9StgsDx7RDFFBjLwK9g7whjLsKxG0NSw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ckQzxsmp2FTv0RuM9lUQYBtVtbfbq4jyox8/DmZSzOrJcvJHiRmNv3h8C4X4u3odBjoyXGpSopAtryckWm913d4jpYuR3maWbADK+ihdRbseTsa2vc4b1GeD3aNA/WIxxcnRYWxDlj4LnOc/B/ddgFKECIdE7nTUx0wth9g3NGE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=MKUUwq6K; arc=fail smtp.client-ip=52.103.72.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6213F476CEA
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 08:03:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791532990; cv=none; b=hrFclARWjiqe3yTlwlKvF+CqvxWhgla44TVRv19q9D2shSDw4b6OlmY+cv/NwmnZ7WNRPbje9K8mMfoYt73RjWkQR4JUii9P/xKhF3zsUXphurLaOJWJ2NLc/J+YH4JA1b8LETVaQbG7zo6f83KjKLrRpDLCvnfJAfL3kz9zTjk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791532990; c=relaxed/simple;
+	bh=PNIWbf1MaE9ijfXHPhmWrJ+aqZsWffS2Dcf0qEM2kxk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RwsilHdMiG9IDAcP+d1KGo3o7U5svRrt57kqlnB2qszLe+LtGnaw3zUg3cSluKg3I9zYl3JpdT7kynaAgGnhWwvb/pBNl9+K2U1qY2zAshSHYfObyZI/Jg9Um+s8slawp9D037tzNy9GndlazRcYAQTg2xn1gDMzQ3A9jBU2Kwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j6a09IS7; arc=none smtp.client-ip=74.125.231.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="MKUUwq6K"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Xdp6AkH916XjyCd+8mS9ckPabfOMiGUkLfhBR2ncgtTcZ2NyYf3ZTfLvgqsEQoImvdXKeFPKnFQnGDehN1bOl+Kb4JRnZr/3FLMaSsdJG+6hbAiFadcCRUaLWJfVT+RgqXmphBt/3XLsX4s8mbZ3o/0eD5BoGc2I4CEkNdS54k6RJrr21SZ1Kz02fu9dNCjjpO2XXnRH2f6dbO5GIwkjnINJFtOO7IlWroBXT18NTT1av5lwXA4AakVC9BBa3DiKukFJcKNF4JhP/49WeXcB1Rg3pf5I5q+a6NCaYCCjud+e1ePnJKlkFO3bdysBv+aUN1JvXNPiE5fD/tnBn8rvbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ipDsmwEasG+9StgsDx7RDFFBjLwK9g7whjLsKxG0NSw=;
- b=VHdfx7c4EUX3FNfSxW5ncdujCP9XH+/5b4pDt/k7PbIKc2F4G4Fsl6bIYKMqNMUsw0Li+AQaPaPsw1ipYtLLQk3rKKzc2yI9sOfNpMfr9kLRF5EBoDjBJE4cK6a722IBh/qh7LgtTEBC8qTeYn4lAYDvmuMEznYhQlM4jvXInFwXXbd0I0SOQTi0v2ag9ULo/rgSuZI46quENZy73buiU3Z/JflJWV7fX4tX5JgLAEmg6P8YJH1m6dg1yiuEzAA/AhCIww1frHP5aosyMIK9woJCSEsUXdUGkhm7xHh/tZCpoOVJlQTTpAcjTO57hMa2x2GSzi2/izwdIXY8+Ui5gg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ipDsmwEasG+9StgsDx7RDFFBjLwK9g7whjLsKxG0NSw=;
- b=MKUUwq6K1Jqq0rWyWnGYyYHKS//e+47t1OzE3mBSF2rCtH6fG9oU3y09pe8XAjOCi+TbCs5LXS70YG1/w34BNLoGdrTQdxiw6uXRW7hNbH+qTIhCDg+qsijJIT7ua7sy/n/oJLf+N7jBuO4vW4fNl2NCPDWWX0TNh0zzqygxUuHCiQNp38aoNUk8bPlrW+++Tv9ty1w2wZyRnI7Oosvi2VNveha8j8sXZu9fi9mJA8wUcDQXEsCVL5+Lhkl5+Lv7QLPfB9UWK/I53cALCkq6rE1dKSH/mYAwWjAxIxeDLKD03jFVtj7gVuvUqOF+oh0r7Ax9RhVtsCmgdttQ8+9MWw==
-Received: from SYBPR01MB7881.ausprd01.prod.outlook.com (2603:10c6:10:1b0::5)
- by ME2PR01MB5667.ausprd01.prod.outlook.com (2603:10c6:220:d3::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Fri, 9 Oct
- 2026 08:02:00 +0000
-Received: from SYBPR01MB7881.ausprd01.prod.outlook.com
- ([fe80::7cd2:d6e8:3fa0:5f0c]) by SYBPR01MB7881.ausprd01.prod.outlook.com
- ([fe80::7cd2:d6e8:3fa0:5f0c%7]) with mapi id 15.21.0522.002; Fri, 9 Oct 2026
- 08:02:00 +0000
-From: Junrui Luo <moonafterrain@outlook.com>
-To: Balbir Singh <balbirs@nvidia.com>
-CC: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
-	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Andrew Morton
-	<akpm@linux-foundation.org>, Mary Guillemard <mary@mary.zone>, Mohamed Ahmed
-	<mohamedahmedegypt2001@gmail.com>, James Jones <jajones@nvidia.com>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Yuhao Jiang
-	<danisjiang@gmail.com>, "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH 2/2] drm/nouveau/uvmm: reject replace across page sizes
-Thread-Topic: [PATCH 2/2] drm/nouveau/uvmm: reject replace across page sizes
-Thread-Index: AQHdRvYcklAowvA/gEmsg6OoXFvr57b0+X+A
-Date: Fri, 9 Oct 2026 08:02:00 +0000
-Message-ID: <FBF1ED94-0D02-4C4A-812B-818897A605C4@outlook.com>
-References: <20260817-nouveau-fixes-v1-0-f518d0c735f3@outlook.com>
- <20260817-nouveau-fixes-v1-2-f518d0c735f3@outlook.com>
- <61d42916-a391-4b98-a6fc-84175127c2e2@nvidia.com>
-In-Reply-To: <61d42916-a391-4b98-a6fc-84175127c2e2@nvidia.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SYBPR01MB7881:EE_|ME2PR01MB5667:EE_
-x-ms-office365-filtering-correlation-id: 3692f9eb-d79d-491b-a7de-08df25db98e1
-x-microsoft-antispam:
- BCL:0;ARA:14566002|24021099003|25010399006|31061999003|22091999003|24121999003|4140399003|8060799015|19110799012|8062599012|15080799012|53005399003|40105399003|2607281247196008|102099032|440099028|3412199025;
-x-microsoft-antispam-message-info:
- =?utf-8?B?S09YejRialZST1hHN1dHbjBzZWhUNCsrUk41ekFVUXFLNjc5aG04N3d4anph?=
- =?utf-8?B?RVdsMGFLdE1INGlLYkRSY2RGaHdFUjBxYlpFVGRpbVdtaVpTUTgwQU9sbjRJ?=
- =?utf-8?B?WWs4RFM5SEhUQkV4N21lK1NsekFFdlFPc1psc1Z3enJ1UDJWbDNsWi9jRERj?=
- =?utf-8?B?bWdBWGhMZndoVmRCQjh5TVZJMkk0b3JWbVJjaXlOc2Jwd2RKbXErTjNXdWhM?=
- =?utf-8?B?SlJ1emMyVEs0L0d6WjVMdDVBUmhIR1MxWmYreHR4eHZESVViWjlXYktmdGFj?=
- =?utf-8?B?cGdtUTBmVDJEdHBoSVZwZ0Q5QjRKazFVSGZyMzN6d0EyY2xWMkgrRUZ3U0Ir?=
- =?utf-8?B?WmpCRGZpSEs0UkhoRmR1YXZoRUkvY2ZVUFllVFo4ZmVxb3NocVJHMkdoR2g2?=
- =?utf-8?B?YVN0czNYR0lBblVYQlRQa3JrWkZlOVIvbDl4cnFUUlBOSE1DbFA4SU5Xdy9o?=
- =?utf-8?B?MFRjRmFjam5RMHU1TmIrSGgvc05mY3IrTko5S1JINzhyM28vYjJKSmRzUjU1?=
- =?utf-8?B?QzRXcnpZRlFkUm9WSkxOa0QzM1MxRktuZ2pzSVExa25IWXl4MEFJMDVnejNY?=
- =?utf-8?B?eVROdFBaSnFWUWt4Si9ORGdyWFpzOXo1VnlQUStMWi9jZklHYzFJY3JNazND?=
- =?utf-8?B?U2hzamVUSXhJQ25KWTB6RzNjcTdYc1B2akVneFJjK1JIeUM0ZTV4dnZsVk5Y?=
- =?utf-8?B?ZTUvZGRpaVRJZ0tTcFY2aFYvQnpyTnZJYWZYZXB4ak5oOGNSb01IVGIxMHVY?=
- =?utf-8?B?WWpMUFo1WnkycDlwb2hCQnIvYWxKbTg2TmxFNDJ4eEdRUFRlR1JvWEpMZUIx?=
- =?utf-8?B?TjA3b29PS2xOYWFGUDZDZlF1eVRmWjh1QmovMW1HTDQ0SzFSMUtmYWJtaGdN?=
- =?utf-8?B?dDdKckg4Q3ZOOVozOUVRZmFVcDRBUStvck9mcHpsSXRxeFMrS2xZUytRVzl0?=
- =?utf-8?B?TVV4bC8vZEJISGk3dDhuZ2Q4R25EdWxjS2VhSjFhTGV6aUZUUlp2a0R3VUV4?=
- =?utf-8?B?NWJWRVBtT0hNQ3lKZmRuMFFCRmd6K01jOENXTmVQMGpObUk4dGcvSUFnK1Nv?=
- =?utf-8?B?S1hvdXdFVndzUXlmdXNleUFyS2dpdEZpbkxwVUxreXp6eWNBejZTREJSblM1?=
- =?utf-8?B?eHJKbitoRmVmM3NPYzJpVFdySkt5ekxBbS9PSXJIZnUxdVA3OEN5ejNSc2pj?=
- =?utf-8?B?clpzckFmNFNhWXhQeE1oRzJ0UHJtNUdCcjQ0MnFIOEZockdvMmdLWXRsUmZG?=
- =?utf-8?B?cm1RRDJSd3c3L1V0cVZnVlZtL2NHUnJOVTNQVXFKTzM0NGs1cVNSYjZONExz?=
- =?utf-8?Q?7H7+tga8vELTF24kCtZngscmr1juHZ2nU4?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?SjVYeU9qR3FUYWF1TXVTQlNKV2ZsQlVXUE9xcmZHcjNTZDBIeGJxbVdIdnRa?=
- =?utf-8?B?SVA2RDdyRDNQaGxHUWEwMHYwbG1HbFlzLzlmdC9rdTBLWTN1NFJCN1ZRNnBx?=
- =?utf-8?B?S2lSdXhKVHJrVjZCZGJpcUpmVElPNkR4SE9SRE1OZElrbU5mSnJqbjB5bXhJ?=
- =?utf-8?B?MjU2WE1sSjNya01MTHdtTEdTSmlWQzFzTG1qWlNyN2dkUThsZEMyb25FR2hP?=
- =?utf-8?B?U3dYTVBpd3lwOTlBU3Y0MXRSSi9hNzBITjMvWDRWY2JnL2xjMlJIMzNGNFBM?=
- =?utf-8?B?L1dxODdzdytyeDVhd3JNd3A3OUF1ZTdyUkFyQ0hDWXFrV1N4OEc5cWNjcllZ?=
- =?utf-8?B?R1pZYmN4d3M3UUsrdnVGdHlsblFweXBBRVpHaEpvY0pYNXQ0QWRMeWJhMXJC?=
- =?utf-8?B?c1ZvWitBYTRDMi9Vc2FGaHVYTE9OYUU4YXR3TUo4dVhBbGlock9GZkpIWWNL?=
- =?utf-8?B?SW5WSU1jeDl2alQrL0lnM0RuRlBXMU44dndRbHk4R1JiaHNudjdkRDdnbTli?=
- =?utf-8?B?NWwxTnJ1T2JTUWNjYzZEa2FISWhBUDNDb1E0bVgrYktnUFBNZmZtcWtZSktl?=
- =?utf-8?B?a3dqaTF3cXVXdUFOS3Y2TkQvdk1tb1Y4RDdtK2RKbVBxM3l6LytkbTBpRDJu?=
- =?utf-8?B?cDR2bTRBRTJESy90NU9HbXlHdUhpN25vWTkvYWRjTUMrc1JwN1F2aWJ3a00x?=
- =?utf-8?B?RXFyYjlHbncwaWcvV0R6SXY5UUUzWXJNRlBkWVF5UTMxTU5zQkpHV2tjOGQv?=
- =?utf-8?B?ZjRVT1B5WUIvSU0rb2I4MTMrdmhaVEtkNFl4QmxnbndzdC9sQmlYN2FmVTI2?=
- =?utf-8?B?alkxRmREbE00bDJuSWlDRFVtODg1N2tlcWV3TGlSVmppSXVOREpTQ2NFZ2ZN?=
- =?utf-8?B?ZFJNemVTQk9HbUpyNWVScG15NDVVck1JazBCUG1lbzdIS0Y2L05VU1JueDFa?=
- =?utf-8?B?dU9NaHNadXRIbGxnb0hVMlEyZGo0czJneEhaVTB1aDYxUmpLV2lJTHFrdTZZ?=
- =?utf-8?B?czd2QUx4bGtMS2Y2dW9EMkN3Sk5sNjl4WE5NTGU5bjV4RnJLbUc3K1hZUXNV?=
- =?utf-8?B?UWtDTUdtMHAwTi9OVnQzcnFwZHd2VHl3NTBudVJZaFRrTHcwcE8vVXMwcUdo?=
- =?utf-8?B?MlpIRVY5ZHF3SFJodjZMZnRxTS8rT3ZJcmJIU0dVZWtRVGF0akhQL25qOGdY?=
- =?utf-8?B?K0dOM09Mei9sdkcrWk9VTkIvL3doeWMrTnlXQW55Y0ZEOFlMdWZnMlZsWXJK?=
- =?utf-8?B?N3RMaHphai9CMWtFRjNVNy96N2xwc0VUZlB3OHFPdEgxRHQ4dWt3Sy9DV0Ft?=
- =?utf-8?B?YXVmbEEyc3RPbWlSZFdCS0hFOVNvWHgzT1F1S1BHSXpyT3pURzlCVWxJVWtl?=
- =?utf-8?B?TXdZRzIrb3lMVWc2VlFUMGxzWTJMRHRGSlhhZ1pOVnhxUWR2eC9JNElvUmlO?=
- =?utf-8?B?TkhMNkF2RmlVcnJyZHhXQjVTb2MrdUFJVUpZT2tSV0NVbWRYOG9zUnZ4VTJu?=
- =?utf-8?B?OUtQVGVPcmxKMkxVQmZlVGwvZG5ZRnExV050UStsbUFCQXcyWDNqVXFJbHYw?=
- =?utf-8?B?LzFVVGlsNkcyc0Z1K3QyTEdxeGYwUTJMUDM4MG9wNTIwNjRUSmtSV2s4UHNs?=
- =?utf-8?B?aTBNREw2dG5yTWxSQU9CZ29YSXFFcWFib3lJUmdCL282clZxRTB5Y2NjQXhQ?=
- =?utf-8?B?b0l2Y3JKdmhiMHFOY0ZXbmNwYndNc0o5YVRNamJWeWRRS3cyaTdjbzAvUVpI?=
- =?utf-8?B?RU40QzI2QlBQMGZHb3VRMmlpZDRDalBxeEgwclFBRDdRTzF3ZzFaZEtJSWRy?=
- =?utf-8?B?MHJQOGZyK3pyV1h6THNVSFZCcTRBM29ITERYU0Ztc25kYVp6LzRYRXpudGFs?=
- =?utf-8?B?UTdMU2MxYXh4YnR6Y2x0U09RT2QyZzRmOTZ0cGsxNHRCNkE9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <A52D2784EACFA24BA6CCDEA30A706BED@ausprd01.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j6a09IS7"
+Received: by mail-oo2-f2.google.com with SMTP id 46e09a7af769-824f3901d55so2216473a34.1
+        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 01:03:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791532983; x=1792137783; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=abrjBZtqWK4ithY2rB/XsxNJwm1DdDO75e5ZEpU8VL4=;
+        b=j6a09IS7hRbMC4+xv+vZkh4RTWexSe62b1qUFs/0A0aiDSlyo3BOckmG6b1rDruCN9
+         2hoBArsVve4vTsWRwqxo4cgSXnbIZSUGzbYkOuLS8KUinGmIeyDyCh0nj5kE6Wrn0ePH
+         6tqc7Ku6lYw32sNyd0wrlcbSo0HaUT61e3DThbvc5pV8EkDBSts9eu3ooH/D89JZIUOz
+         AJmls8mcKJuSm2ge/YBvJp4kr21IU8H3zUimLKMOhQJAXRMuvBEXgH/1PtwuHKpKHFDd
+         igIQeK+W+YCSY7q3k/vxYsN4mslcp00QmpYTBek9iBJxPLkyF4DEq9CospV0BXDW3+rr
+         qQZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791532983; x=1792137783;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=abrjBZtqWK4ithY2rB/XsxNJwm1DdDO75e5ZEpU8VL4=;
+        b=XbUmjIBKNGTyJnm++anRooCIH+Gp1+Hz6b/IaMDLIRm1gAYV5Pxbc403/9SLSo6N6+
+         GLNxr35At+Iny4hHE2HIuBxy7YAFRC9j0Xo8BTe4oOOAFVUTUsSrAj6caH1Ptv6jSP1O
+         R9zQ3ZhU8+ONP9ivt74JKYWLvpGQ3qfXyya+bedheDKlX9eMaXkl41SHlYHExVCoBncx
+         SuDMYKZm9cLq/zjp9z9G9M4x+bfIPO04f5QZ1tdYtMhNd5/zNn+f8WwNXvgGhg9X3KHG
+         +e53YP5mvnvubxNNe7k8Ca/CuBvwlc41135uhQlYaTeEqUCkQdRR58Za738IoRsibnRS
+         cPqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzgF9/C2PbVgKFeI/1NTT4ndMCI/7pYLqrQ9GGjaQFAZ4UDlAZYT4YhuAXyngZdlygJz+YcsSw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mnHF2GTUSN+lU3o2m0jM+owiJLeHvD2o9dqvwJH/rGVlXmGGfJ
+	IjEW0STUoAlVI1y+JOtuA/cL0ffTVzQqdK84B9+QC2AJrxVk12wQFnDi
+X-Gm-Gg: AYBFou2Yv1SnEl+H/t1kuL6WX9lXLByd0tR9IAANyQqPZ0UBY3F/jXqxLHHCBNUO0vq
+	AKuW94J732vqgWxTuaSreC5QRHqLKEWNii+RdSBsK/Z3Mi+KO1ilSEzD4dKucbPpYjPshtpCdK7
+	U8AA7VA8s1aY9ATGYiKjax7j5R1fwBEdCo5+6OVTUGWQys5PpWy8IEbvFa/URILFzYMN6mdxNGJ
+	zJxJtJZtFhmrALg0PU9VGeJfns9iNe58y1uP5EpvvnpBb+3jbUnqbWdQ4JHjq16EBUWNe3/194a
+	LvrHXazvahTlEl8RgrkMGkUL/jeyoPitIA6kjO+/cqW8k4KBW/Xd6pk32NuncS84nOKhSO22Wm6
+	LFCUu8lH0vzgK1CNjVrbkzipqmer86uRy5Hq209vxLFc+uG9hF9U/c35YgSPOe2D/IBR82V4Pz5
+	d3gVX6DLyeuBukKsOA9CbE3qEMetmvgoQj8DaXQr8JXJeylLc7OASiUCmicjrxSRK0iZgfwYayR
+	/T4Ff61huj0qu5sE2RqrdDl8Cu4zKtpeR8s
+X-Received: by 2002:a05:6830:449f:b0:816:a9dc:6d05 with SMTP id 46e09a7af769-83090b2e4b5mr856599a34.4.1791532983102;
+        Fri, 09 Oct 2026 01:03:03 -0700 (PDT)
+Received: from localhost.localdomain ([14.22.11.166])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-83039d385dcsm1199706a34.21.2026.10.09.01.02.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 01:03:00 -0700 (PDT)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	Steve French <stfrench@microsoft.com>
+Cc: linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Henry Martin <bsdhenrymartin@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] cifs: fix use-after-free of server info on cifs_ses_add_channel error
+Date: Fri,  9 Oct 2026 16:02:52 +0800
+Message-ID: <20261009080252.2805877-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SYBPR01MB7881.ausprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3692f9eb-d79d-491b-a7de-08df25db98e1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2026 08:02:00.2798
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ME2PR01MB5667
+Content-Transfer-Encoding: 8bit
 
-PiBPbiBTZXAgMTgsIDIwMjYsIGF0IDY6NDTigK9BTSwgQmFsYmlyIFNpbmdoIDxiYWxiaXJzQG52
-aWRpYS5jb20+IHdyb3RlOg0KPiANCj4gV2UgYXJlIG1vdmluZyB0byBBc3Npc3RlZC1ieTogTExN
-DQoNCkdvdCBpdC4NCg0KPiBKdXN0IHdvbmRlcmluZyBob3cgdGhpcyB3YXMgdGVzdGVkL2NhdWdo
-dD8NCg0KVGhpcyB3YXMgZm91bmQgdXNpbmcgYW4gTExNLWJhc2VkIGFnZW50IHdlIGRldmVsb3Bl
-ZCBhcyBwYXJ0IG9mIG91ciByZXNlYXJjaC4gV2UgdGhlbiBjaGVja2VkIGl0IG1hbnVhbGx5Lg0K
-DQpJIGRvbid0IGhhdmUgc3VpdGFibGUgaGFyZHdhcmUgdG8gdGVzdCB0aGlzIG9uLCBzbyBJIGhh
-dmVuJ3QgdGVzdGVkIGF0IHJ1bnRpbWUuDQoNClRoYW5rcywNCkp1bnJ1aQ==
+The error path of cifs_ses_add_channel() calls cifs_put_tcp_session()
+before cifs_chan_clear_need_reconnect().  The latter reaches
+cifs_ses_get_chan_index(), which dereferences server->terminate; if
+the put was the final reference, TCP_Server_Info is already freed and
+this is a use-after-free.  Same put-then-use pattern as the recently
+fixed sibling in commit 717e0a25036b6.
+
+Reorder: clear the reconnect bit and drop chan_count under chan_lock
+first, release the server reference last.
+
+This vulnerability was discovered by Tencent CodeBuddy Security.
+
+Cc: stable@vger.kernel.org
+Fixes: ee1d21794e55a ("cifs: handle when server stops supporting multichannel")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+---
+ fs/smb/client/sess.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/fs/smb/client/sess.c b/fs/smb/client/sess.c
+index e095f41b5882..650c0f855a29 100644
+--- a/fs/smb/client/sess.c
++++ b/fs/smb/client/sess.c
+@@ -626,12 +626,16 @@ cifs_ses_add_channel(struct cifs_ses *ses,
+
+ out:
+ 	if (rc && chan->server) {
+-		cifs_put_tcp_session(chan->server, 0);
+-
+ 		spin_lock(&ses->chan_lock);
+
+-		/* we rely on all bits beyond chan_count to be clear */
++		/* Clear the reconnect bitmask BEFORE dropping the server
++		 * reference: cifs_ses_get_chan_index() dereferences
++		 * server->terminate, and cifs_put_tcp_session() may be the
++		 * final put that frees chan->server (use-after-free).
++		 */
+ 		cifs_chan_clear_need_reconnect(ses, chan->server);
++
++		/* we rely on all bits beyond chan_count to be clear */
+ 		ses->chan_count--;
+ 		/*
+ 		 * chan_count should never reach 0 as at least the primary
+@@ -639,6 +643,8 @@ cifs_ses_add_channel(struct cifs_ses *ses,
+ 		 */
+ 		WARN_ON(ses->chan_count < 1);
+ 		spin_unlock(&ses->chan_lock);
++
++		cifs_put_tcp_session(chan->server, 0);
+ 	}
+
+ 	kfree(ctx->UNC);
+--
+2.43.7
+
