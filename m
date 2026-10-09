@@ -1,35 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B79944E50D4;
-	Fri,  9 Oct 2026 14:20:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497474E5321;
+	Fri,  9 Oct 2026 14:20:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555625; cv=none; b=KEdOLdpnkRd7LiKNG8zc9Gm6Ro6tR1tjkUCfP6K450J96RP2GPOPwAVh5FS45LLH08i4Q6qq653eXaeG6moKbqV0UKQ1PJ7zVaPaDgULLJ8tCPZHaba7aN7ZJiMUJRalHXVc8W/ayUOwbXH8YXWWdw4lE7HZWTAe4Tgs+bnzV3Y=
+	t=1791555627; cv=none; b=DPYazytUjmdMgr8/IL6EpeZJs94DiOUWAf4NwgHo1bPZMTcJ965rm+Wzc2UXEb9QsV45AeN68pxWNTOBYEsr9+W9ISVo6UVsaT01tWpGEJ7IkF1cdSEf5prYE/xrN19ROBd4KP8Gzfci5e9OgJXYW7TsSxKtcwkj10taKYYoBDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791555625; c=relaxed/simple;
-	bh=jgrQTMRQ0unq2toGPHoebilsSlx4ybwMtMaMTssnMDs=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=OSBd8+AUbxARoPQ8g3+GQqgsRH1R2dMWX2ZjFlbFGA8OStJr4z4IRGVsQ0Y3pCX1j4RiRpd4H3xZ6K68x92DkHEoCe09gjivwD599KvGIozxmfgDRRrglw9RgdTcGXaLFmKbOgakVF577gkS28Urlu1GKD7Vq8hNoVmmHJfBaNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ixsi8w8n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791555627; c=relaxed/simple;
+	bh=ECwysZ4HCn7ZF3XV4/MrXXHuoNgorOG9mJ4mNYZvklA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TSuzIZfDZMIjhg6RjxJIA3PQ5UrXkdHYHyK5slWFxWOTOiZZ29UBz4FPyhCiNRW/Z28XO3CYCvCrjb8jrmwDcft6qwkFj9PCXJTREdgT+0e3ZSpkEv/sL+p3s8dDOId+C10CPxutHBPQJB8dSjiRWpk8e3fHgiPoB8mwMzlzScE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=a4LF6XrB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ixsi8w8n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 819971F000FF;
-	Fri,  9 Oct 2026 14:20:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791555616;
-	bh=D6kJidk7FTb9r8BlcxtB4jKSucroK1qPJhdHqNnFsmU=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=Ixsi8w8nI2uGNANx3SkRN7yEV8kkIXLiHJpAzQSgdXvProZhLdqE7Ej18JVw2caEE
-	 3Fw8efW5P/Zg6taPC1twkA5f5n2wGpsw5gB6iYgpNES27EeGZeYV8R7SSI0THtJSBb
-	 vStth8kOwOhcouZ8Yiw5LITG1GYIC87b7hsZ7E1QHSULCH0RV2FAFJuJg6dh9HE3cn
-	 9Co3ZW2yxXZryjJIo/Z3xEJg01hv2uqyplKDsGJPFK8ViEXxJU+1Zf7VMmBMECAP4+
-	 ooxcj3pG4E6e9HesedHauAqlJ9B+/Yr8Hb6embEmOUwuiYJBDnaketsSOtO+zbmXEM
-	 NYgqxVRc78rmQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 772BB39253CC;
-	Fri,  9 Oct 2026 14:20:16 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="a4LF6XrB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FA7B1F00893;
+	Fri,  9 Oct 2026 14:20:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791555620;
+	bh=SZcUhno50gT4lg99JTlxhRvHHW6MX7VDbTgEdu+2Zao=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=a4LF6XrBoLFjPjwAmYdDy/7mPnaYxQdXKxLEJvGwl4xDZzAHWL5fC6ipD+QZCX+il
+	 k3e6Itkeeb4sUt6pqDiwqO229mrqkQ+2q+HcvFyt52KOrDoCt4tanPYIJN+nZW7rTY
+	 fRcXxFSvCjv0Pvqg/rmmnS+vTCShV1dV5owXFe/E=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	TencentOS Corvus AI <corvus@tencent.com>,
+	Aohan Mei <henrymei@tencent.com>,
+	Pablo Neira Ayuso <pablo@netfilter.org>
+Subject: [PATCH 7.2 038/428] netfilter: nft_flow_offload: drop flowtable reference on init error path
+Date: Fri,  9 Oct 2026 16:06:15 +0200
+Message-ID: <20261009140946.929433979@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261009140946.008206689@linuxfoundation.org>
+References: <20261009140946.008206689@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,46 +46,67 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] Bluetooth: selftest: Pin module for selftest debugfs file
- operations
-From: patchwork-bot+bluetooth@kernel.org
-Message-Id: 
- <179155561501.812174.1610963869730671308.git-patchwork-notify@kernel.org>
-Date: Fri, 09 Oct 2026 14:20:15 +0000
-References: <20261008051803.526248-1-dungvn2345@gmail.com>
-In-Reply-To: <20261008051803.526248-1-dungvn2345@gmail.com>
-To: Bui Viet Dung <dungvn2345@gmail.com>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
- linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
 
-Hello:
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-This patch was applied to bluetooth/bluetooth-next.git (master)
-by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+------------------
 
-On Thu,  8 Oct 2026 12:18:03 +0700 you wrote:
-> An open debugfs file retains its file_operations pointer in the
-> debugfs proxy state. However, test_smp_fops in net/bluetooth/smp.c and
-> test_ecdh_fops in net/bluetooth/selftest.c have no .owner set to
-> THIS_MODULE.
-> 
-> As a result, full_proxy_open_regular() calls fops_get() which succeeds
-> without taking a reference to the bluetooth module. When CONFIG_BT=m
-> and selftests are enabled, a userspace process can open either
-> /sys/kernel/debug/bluetooth/selftest_smp or
-> /sys/kernel/debug/bluetooth/selftest_ecdh and keep the file descriptor
-> open while the module is unloaded (rmmod bluetooth).
-> 
-> [...]
+From: Aohan Mei <henrymei@tencent.com>
 
-Here is the summary with links:
-  - Bluetooth: selftest: Pin module for selftest debugfs file operations
-    https://git.kernel.org/bluetooth/bluetooth-next/c/839c7cdc250c
+commit 747928b5d4ff8c8de55138a54c13980e4bb88578 upstream.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+nft_flow_offload_init() bumps the flowtable use count with
+nft_use_inc() before calling nf_ct_netns_get().  When the latter
+fails, the error is returned as-is and the reference is leaked.
+
+The upper layers do not balance it either: nf_tables_newexpr()
+clears expr->ops when the expression init callback fails, so the
+nft_expr_more() iteration in nft_rule_expr_deactivate() and
+nf_tables_rule_destroy() stops right before the failed expression
+and its ->destroy callback, which would drop the reference, never
+runs.
+
+Each failed rule addition therefore leaks one flowtable reference
+and the flowtable can no longer be removed: NFT_MSG_DELFLOWTABLE
+keeps reporting -EBUSY even though no rule references it.
+
+Save the nf_ct_netns_get() return value and undo the nft_use_inc()
+when it fails, restoring the inc/dec pairing within
+nft_flow_offload_init() itself.
+
+Fixes: a3c90f7a2323 ("netfilter: nf_tables: flow offload expression")
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Cc: stable@vger.kernel.org
+Assisted-by: CodeBuddy:Kimi-K3
+Signed-off-by: Aohan Mei <henrymei@tencent.com>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ net/netfilter/nft_flow_offload.c |    7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+--- a/net/netfilter/nft_flow_offload.c
++++ b/net/netfilter/nft_flow_offload.c
+@@ -160,6 +160,7 @@ static int nft_flow_offload_init(const s
+ 	struct nft_flow_offload *priv = nft_expr_priv(expr);
+ 	u8 genmask = nft_genmask_next(ctx->net);
+ 	struct nft_flowtable *flowtable;
++	int err;
+ 
+ 	if (!tb[NFTA_FLOW_TABLE_NAME])
+ 		return -EINVAL;
+@@ -174,7 +175,11 @@ static int nft_flow_offload_init(const s
+ 
+ 	priv->flowtable = flowtable;
+ 
+-	return nf_ct_netns_get(ctx->net, ctx->family);
++	err = nf_ct_netns_get(ctx->net, ctx->family);
++	if (err < 0)
++		nft_use_dec(&flowtable->use);
++
++	return err;
+ }
+ 
+ static void nft_flow_offload_deactivate(const struct nft_ctx *ctx,
 
 
