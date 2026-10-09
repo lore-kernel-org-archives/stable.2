@@ -1,81 +1,88 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0804D25228D;
-	Fri,  9 Oct 2026 01:29:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D96255E43;
+	Fri,  9 Oct 2026 01:44:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791509363; cv=none; b=VD0SiuKmXIhrjSfHUSgFVa8xqxD8VP/d3W6hsLJ3FIAXedo61ytFmwCczuKOTjepWaBb28ccQU2lsP0um3JH/ub8xFPjjRbEHsstH1C5WL2GdHPCKj/kOGBgbgj5tsUUmOxdEuV7vtIGy/D3riE2NI3jfT1AqphOUD7gP+8O/ps=
+	t=1791510296; cv=none; b=NbAnX2Rf9GuXZMzkM/GC3vrHcwklfwHdEGprSZyz5HgfWeThHvAaQJxhqkToAeKpncUnwB9y568AS9/fsjZPRG2HBFKykKJOZGGQadi6f+wbrWy6GnwavfHO0WGVQ9+cQ+D+V6VoSz2DkqJoWFddesb82Hiom52WkHnLlNGx2QM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791509363; c=relaxed/simple;
-	bh=sEHnVK+cGI77dBADCJ0be5zStEW7wq7MOe8uU18EpjA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=q4CRsyTjFwfGCvGqeQHreGbNCqQXFT3HxTGblJCDkyDJ93a5+Akh0B6WmZNvw+HTA51eKYAWCYVnlJUfSE+luFPP2+rJX+zIbe8sPCBdeCxyrT8Fz2o8fqy2vpxHQe/RoIKPRi2T7so2JJ2rtWyDlIxqUrc+Ix8+YrQlkkF4eHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=PIvbZRxs; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1791510296; c=relaxed/simple;
+	bh=55/5YhVNQxZtPJigtWRe3PX9lLJsWU5+e8dtINtf1Dg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CrnV1oHLVf52YU6E/2ptHuIbavU3yB1PgTO2rBKdmMBiVg3+75xHcaHG1AI2++MNv85n2T6ikWz58Ux3UvCpnD2+5+0hABQorbSJysZH9GAxzZJ8va85pEgtuozOSR2wNmCb5dsqvqFfG/eRndoRFfwrGuJzKieXZQusiBUTQfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cYQ+eMiH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="PIvbZRxs"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 505d38da4;
-	Fri, 9 Oct 2026 09:29:07 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Simon Horman <horms@kernel.org>
-Cc: netdev-bot+sinfo@kernel.org,
-	Sukhdeep Singh <sukhdeeps@marvell.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH] net: atlantic: only free the PTP IRQ after a successful request
-Date: Fri,  9 Oct 2026 09:28:59 +0800
-Message-Id: <20261009012900.1098973-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261006165557.GO83879@horms.kernel.org>
-References: <20260930074023.2943213-1-runyu.xiao@seu.edu.cn> <179075425701.31693.17457011245131119734@kernel.org> <20261006165557.GO83879@horms.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cYQ+eMiH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C1751F00893;
+	Fri,  9 Oct 2026 01:44:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791510295;
+	bh=1/A3KblgG7O04DY5iw4QbfZJttJjRBoisFvTrrWGsRE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cYQ+eMiHoXmcf4WXd2UL3ryIK4DVGq7mEtGfPIWBrgSb16LXVAbiQp9vWRdVHHCsl
+	 Hl/JPKhJOvYrgSCkZVS0b/qg2j/EsRmrwVhTH2UuAsaTrA+/UBvdNkqLVkOWO5Kb/G
+	 TbIchySizIAO6xqm4MVXiFLvXV7hnXNvXfym3FbJb/bElmPwPkBvTMsMphoLYpvQ9o
+	 Ci8kyFaeanZG9Aj9t1+6/scueHNNwvW/WSxX4oumuLerfq7N4uxG00948/wXdxleU/
+	 eU9CG0UI23pZ0M8BhK71v/bbsm7jdgKo8L4cat07HBvWkxg/+aeypzkNr7+fmSQy1n
+	 3g86bsq6kq8lg==
+Date: Thu, 8 Oct 2026 18:44:54 -0700
+From: "Peter Chen (Qualcomm)" <peter.chen@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: felipe.balbi@linux.intel.com, gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+	pawell@cadence.com, rogerq@kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] usb: cdns3: Fix PCI function reference leak in
+ cdns3_pci_remove()
+Message-ID: <ashHFv7l3XWrqYzY@hu-petche-lv.qualcomm.com>
+References: <20260917160622.2161638-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa11e473a7c03a1kunm611c7a0b42a27a
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHktMVkxDHUwaHR1OHUlMHVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSUhOQ0
-	NVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=PIvbZRxsKHbGjKHSx4hyng7e9bSBxSJFujO/Rx8bkX10sxnitH7hkpFwyoOdHX05H1XqkP44bPe1/hYD0QfSBeHmNtSY43qQGmpFFEY5x8Bg1XMNl26YLSZ8kolvXelwjYOd3jgOcTK/azLOEAhqu3qCFhsbc7WTU8EMB1J18YU=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=sEHnVK+cGI77dBADCJ0be5zStEW7wq7MOe8uU18EpjA=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917160622.2161638-1-vulab@iscas.ac.cn>
 
-Hi Simon,
+On 26-09-17 16:06:22, Wentao Liang wrote:
+> cdns3_get_second_fun() returns a device obtained with pci_get_device(),
+> which takes a reference to it. cdns3_pci_remove() uses the device only
+> to check whether the second function is enabled and then returns without
+> dropping the reference.
+> 
+> Release it before returning.
+> 
+> Fixes: 7733f6c32e36 ("usb: cdns3: Add Cadence USB3 DRD Driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-> Whether the issue was actually triggered, or is only theoretical
-> (e.g. found by code inspection). If it was triggered please include
-> the symptoms, like the stack trace or error messages.
->
-> What hardware the change was tested on. For driver fixes please
-> mention the device (and if relevant firmware version) used for
-> testing, or say that the change was not tested on real hardware.
+Acked-by: Peter Chen <peter.chen@kernel.org>
 
-The issue was identified by code inspection and was not reproduced at
-runtime. In legacy INTx mode, aq_ptp_irq_alloc() skips request_irq() and
-returns -EINVAL. The aq_ndev_open() error path then calls aq_nic_stop(),
-which invokes aq_ptp_irq_free(); before this change, that path could call
-free_irq() without a matching request_irq(). The expected IRQ-core warning
-is "Trying to free already-free IRQ", but I did not capture a runtime
-warning or stack trace.
+Peter
+> ---
+>  drivers/usb/cdns3/cdns3-pci-wrap.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/usb/cdns3/cdns3-pci-wrap.c b/drivers/usb/cdns3/cdns3-pci-wrap.c
+> index 1ad722e7704d..6639751ab22f 100644
+> --- a/drivers/usb/cdns3/cdns3-pci-wrap.c
+> +++ b/drivers/usb/cdns3/cdns3-pci-wrap.c
+> @@ -188,6 +188,8 @@ static void cdns3_pci_remove(struct pci_dev *pdev)
+>  
+>  	if (!pci_is_enabled(func))
+>  		kfree(wrap);
+> +
+> +	pci_dev_put(func);
+>  }
+>  
+>  static const struct pci_device_id cdns3_pci_ids[] = {
+> -- 
+> 2.34.1
+> 
 
-I did not test this on real Aquantia Atlantic hardware or firmware.
+-- 
 
 Thanks,
-Runyu
+Peter Chen
