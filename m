@@ -1,162 +1,178 @@
-Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB134DD6C8
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 12:50:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791550214; cv=none; b=sBQEvDUivKI4O5q2Mb+OeReugIIbejW+1zmvj8fK/ak2Fp3uk/3w9EN62CncUCZ92BNpElV29GL0llwCQsaV/X69+g6BThlS/UFhr6YZIkr+l8nNcdz/65g+BZj45i8fovV+sesYJQ5J1GcZg0X/ozVEsiPH0Shcq+u5TXEEnG4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791550214; c=relaxed/simple;
-	bh=Vm/Hck2b9bM9igyRdhUPr6w4WmDAa6R5TgT2R8RCzOk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k1KmiCK/MTUBzJte5imdDCmXnul3G4gD/euSVLUbUcthsU837rL+6+adnkm/WAcH8ZseR7q52ItTIQxE3YWSfwtVRo89kvpq6vyglzC8NrXrH4/m0Kjs650sMW7E2ZRMKjzvfPc/slRi+/kaoWNPjOseKVbN/hZ7HIFtcoEN1u0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=AwftwgVG; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=D+30l+Gc; arc=none smtp.client-ip=103.168.172.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50CFD3DD526;
+	Fri,  9 Oct 2026 12:54:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791550476; cv=pass; b=RpjaAYHkOT9aMdXK2As75BBeqhvg0KCzwOllWM8/P2AezhzyS+XO4y0k1xdwXUQzhNf1Ed4v1a0y9QPuG+vSKw0opo7lvoo+HSnb9K7C3fHbtEo6RK+y81Ameme+Kzl5e7H4C82+D7/mrYJqB0VUmIWABQOnAWnaZ1hcqUSPgcE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791550476; c=relaxed/simple;
+	bh=kZA186NM8bzB3JjeswRQZNYm7ql9pSnNlxTMKmjCFdI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=hAS2E9XgamB3mZV6tbpHSL9umx0hVLtSlNOXrCy3blddK+w9Kp+hQQAHAv5doqo/tKrhSoXpkF1TPM+wAFaTWqytAl0T9v/wuOUkXI4mRvHo4HM0j82SHOyNyV3U07aCEUYqulWEOweGTdtwKV9V9h2f1kgJ9+SMjwZS4LuwwRk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=KTm2PQh9; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="AwftwgVG";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="D+30l+Gc"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 056531400126
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 08:50:08 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Fri, 09 Oct 2026 08:50:08 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1791550207; x=
-	1791636607; bh=kwuLlWvseYD+74dMnCLktedh4fOzXytMC82OiOvL5ak=; b=A
-	wftwgVGELghKG4AwtQpy25D1oTqdyYSv1F0iE+dqzNYbQyl8drsVqpsja9Im+iVr
-	AlAGCfNLzubPKjjjirM+khSbXmAMkgYIMb/dzJHKWucl31BPU/nsDn5KPYA4sm3G
-	5bBPb7qiEjKEgtAnEW0UjGL4EVmBxkXsc/xu8gBAVfSorI7FXGr/ZwDNQWCroUnF
-	ZIAdcRy0utvee4Wr6ScPnWqd+/+KoIxCMwePu/J7/inVadWDuK7WZWXHn5q5Kuh0
-	hZS3lmaVONsdtkoyZx0nu10kqz0gziTTlw/IBpGipzvfcN8BjiigjeKPf9Hf2igB
-	yp+cxfYzic08UK2uVQDqA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791550207; x=1791636607; bh=kwuLlWvseYD+74dMnCLktedh4fOzXytMC82
-	OiOvL5ak=; b=D+30l+Gce/d3Zh4f+q8ngVvAcVDQhSfZgGub0mYOK7g3qJZXjpu
-	V9MFsEObI4hcjX13BGYAQzUBVNtBrOTiq1vt5QhrC21YV1Z4tFxqxYURJ7QJphBA
-	MRPCJLPoGvR4KXM+dNr/YyiEbWNWx7vjMxMiiDPU9cMpPQcaW/XM91AH9aime9RZ
-	PJzUZwTM9Azf0JAJXiPQsJPuZ6qV+KZGops9PKV0FNnVefAoXl1VJgr2YG8PJhDC
-	vLrFLohrezJ3+1GoSF1ExImvwoSjwVf/XsRyodsNZ+TXW3//uj4uKMlL8u5ZrJ6P
-	YPCH9HbHf5XZ7vEv5UgUvPumZFUr+i7Y4vQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=shutemov.name a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791550207; d=shutemov.name;
-	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:W6XP2x9zV1kdXzJxAhA7kGtfUXzPSvSDGI6P08VZfBiuJJP
-	ZpOUt+jRwnTRa5EPQPIEztmHoxRn1aNSI/twro4fvztMEk5HCyB+nM72h/iqbaRW
-	iPvvgji4lh1bZznXgvqAjxM21Ipj1w4ndTfiMQDob3HPvkYk8nA9/kG3NZ8GBxDj
-	ayGeOclRoQjv23tgFdKqUK1IecJzatFjwUupQ5C3AoRlRshUg6Y94XKAJEkB02sc
-	bcCKNyByTsyz9sK8Q711F/EghjBnKWDK4rLvAzwlZJmIsFAtedN8G0EdB8L5LGb0
-	qFrKix5Se0hQk819Ew5kjw1zddHswdh5irVrJUw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:dPwl2ptZ8KQ3KssmzCbccTofY//b/3Xh8ddybmaiLhI=:Vm/Hck2b9bM9igyRdhUPr6w4WmDAa6R5TgT2R8RCzOk=;
-X-ME-Sender: <xms:_-LIaguEsuIEEDDbRjcyfdA_r5MOKD-R9ZuR5Ru7F_nrZcX07q3nsg>
-    <xme:_-LIalMOTtzHnsFuJNTXMrLSt3nZuHG6xA8-v4ZCFon_i-fkYpUu7RNBhvhlFFvWi
-    WOlB_4C9c-ruQbhJHELgDnziTE9WxQOsw2YlpgrG4206d8EVQIOG7g>
-X-ME-Received: <xmr:_-LIaqXREAD42QT4nykwIDeMg-hS8YPOZOamHPFYr2Rn5hYIUH5jTKrfFuc>
-X-ME-Proxy-Cause: dmFkZTERXjv5sRhphf2UpmNikN5/RjMZ9jdv2AoBQ3JcwuQkL+3XVeY6isvJ/I/LHHxVfn
-    MKwVsK/+JLYhLu9ZrsWE8W0rCySsp2zlzECQxKGDnlMSG71Ip3pNKIKK2mocz6/wEaNrkF
-    7TA6zmnT5XM08JHDewuy71GqykKz0AmDsneejn77fVdgbVpFO2viBVmYbl6T020Qj7ZyTs
-    jtSROHjwQMvePCMcSRku+ZeCkxc2CraVCmn0F5I/pbfzaxI2d1NPkMZFfe4v45ILMJqBcK
-    THyiEYkQbzTWWuGKgnbx2D9+yDexwl4Y8t54Nm+i0K06Hrd2I9AYEUu+LtwsAn8iy8tYQu
-    /RER2RoYALbg+AEeDMuIcA7xo9Bw9oVDNBUt8GBTNQKHhiYyvGnE99BcPF4Z6H9Sqjl9TU
-    SzfVqySmJTqUp+dvjCbTwthQ6ZdKtalOx/l8QeTNp5xFTmaFF1DVfNcvM3pyDPpb21Www6
-    3R3slpGbiMqAzaIIRUsYMPRPNxuTaQWRtECOrTDRwaaq/Vk38K3WtX2Pghy4rw5doBSXNq
-    E9pkEHFEX0nrwHiLAo6fFaNSULmknGZhmsHc3t4jTpHIwDKewXL9fimqBZTV9HK5kVaQnZ
-    agMSisNVLgaNkf5hzfNCMymSL//IYqaAJA7B+GsF5DUsPdmLKl9qp6ZaY0Qg
-X-ME-Proxy: <xmx:_-LIatiCMneJH0HIy2y9okd0sPi4VRQ0NWsj0kBcPJyK5DI8Z5iRnw>
-    <xmx:_-LIak1x8Jw0mvKWmn4PraDfclGS4gfCfhVK0pwixN5v79DHp4BOpQ>
-    <xmx:_-LIav10mlKaM1P9mVDFgzrLZsgdspP3VwVWh1v1YsKz6JffEdLcjA>
-    <xmx:_-LIalxN4F1GFZFaV9wpQU6VAthEXluLxW7Z0gQLgg5iDh387ajG3w>
-    <xmx:_-LIanXgaClIrAcoxotbckLmHIRKltUhrrAX1lztfmx10PQ3MqjKauD1>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 9 Oct 2026 08:50:06 -0400 (EDT)
-Date: Fri, 9 Oct 2026 13:50:05 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	David Hildenbrand <david@kernel.org>, Harry Yoo <harry@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	kernel-team@meta.com
-Subject: Re: [PATCH v2] mm: page_alloc: make defrag_mode retries follow the
- promoted order
-Message-ID: <asjivmGzSIqTzTXB@thinkstation>
-References: <20261006091815.897133-1-kirill@shutemov.name>
- <20261007155316.2010164-1-usama.arif@linux.dev>
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="KTm2PQh9"
+ARC-Seal: i=1; a=rsa-sha256; t=1791550459; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=noNgANQeCzsCMA6oxDHowyCjqq50/4WTstjwkT1fP9ebSR/Nen9eUP7BsDxQamsWDUxfgvh/51xJF9DvvFvthDCVVgjjc79t6LV+41IYkhWuLWWb/4tujRvIL3y78+tShRnfB10gk/mEmsm0XRHuzSAqcvmWE6dSXswqzmAcCUQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791550459; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=uvi+z0WjgRMy/x/Q49prELXHjobVJyKj+lHliZWCHbM=; 
+	b=Po868LdJt0+EKhkZI1OgBMiuGd1i8qWfeqqJiV4HD6XcZnJvfFkXyh6O2VH6utLzKXr+Y31pS0ZyuFmdonDMErkVOSRffTZLm7PsVbJ4tulJ9VcIk4/6eD2vpGUQlMboloVKM0JEy3NZnNOj7XeMOUmZU+JEenqD610Fn9COk2Q=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791550459;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+	bh=uvi+z0WjgRMy/x/Q49prELXHjobVJyKj+lHliZWCHbM=;
+	b=KTm2PQh9fRaoIEbOIOtsA62Q3s9V95Fm+ZjT2BoGjHZH58lPKoJmOe39jBzYSWmc
+	b55VTc4gS/XFtSsxDflx2r/fxdfgrGm71OcLGL3sdgj21NOPxUkMzeHxxG6DC1bBCnv
+	5AQZ0wNiQHO92ToiEt1waHFtQBKHewv1YPtCuy+7H66H82PhAHBnHSLX/pUbREpPUJm
+	UiAFBxyM+nz93lF5V8NOO+QdjhJW4y4eWVsNP8XG6mRQeIoV+DcW1763+QMlPNOW8Mn
+	2lTzrcwGiV9vtPxnTugKsv4ZfDyT0fKdv3XKR7AdIQPuVH9aYhlwc1aQi7glEz4BAkW
+	Av2c/P7gCA==
+Received: by smtp.zohomail.com with SMTPS id 1791550459027831.9862036035812;
+	Fri, 9 Oct 2026 05:54:19 -0700 (PDT)
+From: Rong Zhang <i@rong.moe>
+Subject: [PATCH v2 00/12] platform/x86: lenovo-wmi-{other,capdata,helpers}:
+ Improve robustness on faulty firmware
+Date: Fri, 09 Oct 2026 20:53:42 +0800
+Message-Id: <20261009-lwmi-wmi-new-api-v2-0-402828382679@rong.moe>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007155316.2010164-1-usama.arif@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNQQ6CMBREr0L+2ppSC1JX3sOwqPAL30hLWgQN6
+ d2luHQxi5fMvFkhoCcMcMlW8DhTIGc3EIcMml7bDhm1G4MuuNRKKPZcBmIpFhemR2KmOEnZykp
+ XpYZtNno09N6Vt/rH4XV/YDMlT2r0FCbnP/vnnKceCC5KrnL5r59zxtlZS86NMKUy1dU72x0Hh
+ 1DHGL/YUoxhwQAAAA==
+X-Change-ID: a504a929-lwmi-wmi-new-api-f5344d48a86a
+To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Armin Wolf <W_Armin@gmx.de>
+Cc: Charles <hanker007@gmail.com>, 
+ Navon John Lukose <navonjohnlukose@gmail.com>, 
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Rong Zhang <i@rong.moe>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-73bef
+X-ZohoMailClient: External
 
-On Wed, Oct 07, 2026 at 08:53:14AM -0700, Usama Arif wrote:
-> >  @@ -5007,14 +5034,20 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
-> >  	 * of free memory (see __compaction_suitable)
-> >  	 */
-> >  	if (did_some_progress > 0 && can_compact &&
-> > -	    should_compact_retry(gfp_mask, ac, order, alloc_flags,
-> > -				 compact_result, &compact_priority,
-> > +	    should_compact_retry(gfp_mask, ac, order, reclaim_order,
-> > +				 alloc_flags, compact_result, &compact_priority,
-> >  				 &compaction_retries))
-> >  		goto retry;
-> >  
-> > -	/* Reclaim/compaction failed to prevent the fallback */
-> > +	/*
-> > +	 * Reclaim/compaction failed to prevent the fallback. The retry
-> > +	 * budget was spent on making blocks, not on the request itself;
-> > +	 * give the fallback a fresh one before considering OOM.
-> > +	 */
-> >  	if (defrag_mode && (alloc_flags & ALLOC_NOFRAGMENT)) {
-> >  		alloc_flags &= ~ALLOC_NOFRAGMENT;
-> > +		no_progress_loops = 0;
-> > +		compaction_retries = 0;
-> 
-> Should these counters be reset only when the work order was actually
-> promoted?
-> 
-> For movable requests, and requests already at or above pageblock
-> order, `reclaim_order == order`. Their retry budget was therefore
-> spent on the request itself rather than on promoted pageblock
-> production. Resetting the counters here can give those requests
-> another 17 no-progress reclaim attempts, plus additional
-> compaction-success retries, before OOM or allocation failure.
-> 
-> How about:
-> 	if (reclaim_order != order) {
-> 		no_progress_loops = 0;
-> 		compaction_retries = 0;
-> 	}
-> 
-> instead?
+Some devices do not support LENOVO_CAPABILITY_DATA_01 and define the
+query method as a stub that returns zero buffer. Unfortunately, some
+devices do not implement the stub properly, causing WMI errors
+(including ACPI errors). This was reported by Charles.
 
-Fair enough.
+The current lenovo-wmi-* implementation enforces the binding between
+LENOVO_CAPABILITY_DATA_00+01 and LENOVO_OTHER_MODE because of a
+limitation of the device component framework. When the capdata device
+bailing out due to a WMI error, lenovo-wmi-other becomes unbound and
+unable to provide firmware-attributes or hwmon/power_supply_ext devices
+for the other functional capdata device.
 
-A movable request only gets here after 16 rounds without progress at its
-own order, so the reset would just delay the OOM kill.
+Therefore, errors must be non-fatal in order not to break the
+assumptions made by the device component framework.
 
-Will restrict it to reclaim_order != order in v3.
+Poison the capdata device by releasing the capability data list in this
+case. After that, NULL list will be passed to lenovo-wmi-other on bind.
+The latter will provide whatever is available, or unbind the components
+if nothing is available.
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+A poisoned capdata device releases or skips allocating most resources,
+e.g., the capability data list and the debugfs directory. The device
+itself is only used to satisfy the component dependency of lenovo-wmi-
+other and coordinate with the latter about the absence of the capability
+data.
+
+Meanwhile, for devices that properly stubs the WMI query method (but
+still declares >0 instances), keeping the capability data list with
+empty data is meaningless and causes lenovo-wmi-other to call
+lwmi_cd*_get_data() to retrieve nonexistent capdata in vain. These
+capdata devices are poisoned as well to save resources.
+
+In order to release or skip allocating most resources for poisoned
+devices, some preparatory work is done in prior. With the preparatory
+work, it also skips allocating most resources for the WMI devices that
+declare 0 instance.
+
+Also identify missing components using the new wmidev_exists() interface
+(introduced at the very beginning of the series), and skip adding them
+to the match list, so that all components in the list must present,
+fulfilling the binding requirement. Some devices need this because they
+either do not have the WMI GUID of LENOVO_CAPABILITY_DATA_01, or do not
+implement the query method, causing the WMI core not to create the
+corresponding WMI device. This was reported by Navon.
+
+The new WMI API is also adopted to conform to the behavior of the
+Windows WMI-ACPI driver and improve robustness on various WMI ACPI
+method implementation.
+
+Finally, add myself as a LENOVO drivers maintainer as previously
+suggested by Derek.
+
+Reported-by: Charles <hanker007@gmail.com>
+Closes: https://msgid.link/CAKtz0s8UYRQYW_0bh=0TMx47Axm-W-muEay-r3rqUBS1NHMPVw@mail.gmail.com/
+Reported-by: Navon John Lukose <navonjohnlukose@gmail.com>
+Closes: https://msgid.link/20260928190901.1369497-1-navonjohnlukose@gmail.com
+Suggested-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+Link: https://msgid.link/9789f452-d7eb-4f1e-8a13-7335332193a7@app.fastmail.com
+Suggested-by: Derek J. Clark <derekjohn.clark@gmail.com>
+Link: https://msgid.link/782FE636-A06A-4E12-9563-786374805947@gmail.com
+Signed-off-by: Rong Zhang <i@rong.moe>
+---
+Changes in v2:
+- Add PATCH 1 ("platform/wmi: Introduce wmidev_exists()") to the series
+  as discussed at https://msgid.link/83776200-4A60-4756-A99F-D5A3BB4D834A@rong.moe
+- Add PATCH 2 ("lenovo-wmi-capdata: Do not stop the AC notifier chain on
+  error") to the series, as adopting the new WMI API will intentionally
+  catch more faulty firmware and propagate more errors
+- Synchronize mutex initialization with release-acquire barriers (thanks
+  Ilpo Järvinen)
+- Refine line wrap (ditto)
+- Replace the term "poison" with "stub" (ditto)
+- Add PATCH 10 ("platform/x86: lenovo-wmi-capdata: Do not match missing
+  components") to the series to solve the report made by Navon
+- Update outdated comments, function documentations and commit messages
+- Link to v1: https://patch.msgid.link/20260914-lwmi-wmi-new-api-v1-0-7a400f2f69f8@rong.moe
+
+---
+Armin Wolf (1):
+      platform/wmi: Introduce wmidev_exists()
+
+Rong Zhang (11):
+      platform/x86: lenovo-wmi-capdata: Do not stop the AC notifier chain on error
+      platform/x86: lenovo-wmi-capdata: Only allocate sub-master info when necessary
+      platform/x86: lenovo-wmi-capdata: Store a pointer to component info
+      platform/x86: lenovo-wmi-capdata: Defer mutex initialization
+      platform/x86: lenovo-wmi-{capdata,other}: Only allocate capdata list when necessary
+      platform/x86: lenovo-wmi-capdata: Adopt new WMI API
+      platform/x86: lenovo-wmi-capdata: Register component even on WMI error
+      platform/x86: lenovo-wmi-capdata: Detect stubbed capdata device
+      platform/x86: lenovo-wmi-capdata: Do not match missing components
+      platform/x86: lenovo-wmi-helpers: Adopt new WMI API
+      MAINTAINERS: Add myself as a LENOVO drivers co-maintainer
+
+ MAINTAINERS                               |   1 +
+ drivers/platform/wmi/core.c               |  33 ++-
+ drivers/platform/x86/lenovo/wmi-capdata.c | 450 ++++++++++++++++++++++--------
+ drivers/platform/x86/lenovo/wmi-helpers.c |  61 ++--
+ drivers/platform/x86/lenovo/wmi-other.c   |  24 +-
+ include/linux/wmi.h                       |   3 +
+ 6 files changed, 400 insertions(+), 172 deletions(-)
+---
+base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+change-id: a504a929-lwmi-wmi-new-api-f5344d48a86a
+
+Thanks,
+Rong
+
