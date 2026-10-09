@@ -1,112 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B63F402429;
-	Fri,  9 Oct 2026 06:09:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853DE4334BC;
+	Fri,  9 Oct 2026 06:15:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791526176; cv=none; b=PSFTfcPjjI8CtdEdoicixAFwQdxvBEYg5Ra4gLwntRxw2iFfreDaD0XghFnjp7X0crIVDGqP8SRdQkU6WZIsOKqMgCWjn50RuF34NKPeJ7n4uThFo1kCCEGa/7ihQs8oylS2a3m6lg0OKFL8oah4FQHiCzWIk3guFLMhsqt/twk=
+	t=1791526501; cv=none; b=kSlOXtznCMKP0+oWrsYS1sq5NtxWW9PwTMlLDqKg6673iT9SBG8mibWmBGRHdlwmRrM5FlDgWD3x84kNvET0zkf5uzypKa8XiF6ZoPXoVMfWxTsnp125gIwjehiN+ioehyLquaE5FnwY9BalIqkTVaU+IKdjp0kkl2sA6/rU19M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791526176; c=relaxed/simple;
-	bh=NOFneBJpQBjYpGhResFHfedaCbPc66X6xO0MyX1Ee34=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=A+W2k+lxVMTTNg6fdh8WKQKkwRIzWNCfhQ0PC15+BFa64kcBNH0MciiSGn1474zCHf3iALZ554qfklENGYae3iAJos3/Vn7O7mJu89pJGfCLpgWtALVuVECcrJ9qjoEvzQc+u3fxq/SiB0HeDHdF0mdMa1KmqrqGSVWdFnD9nik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HWkN5Krl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791526501; c=relaxed/simple;
+	bh=NHqkr47ZkZFB+ISVSLnwJZsTAUMqVXXlawndXDTFamI=;
+	h=Date:Subject:From:To:Cc:Message-ID:MIME-Version:Content-Type; b=XRCpECIGkkyDCTEdm/U1CpXbgfUGfT6m+B9baheRjIbrF3pzK1CUt8G6zuWei+LDTBDEEzkCLydx0ZpBgdYo3BZvl99gLeVTOTmwvDKF1V7HRJsOFkQQ0jKrcm1r3HRXogM02/75ltb+74krrdCKxRAepMtY6LrbiOZbEkqu/EU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i1I2gCZG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HWkN5Krl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC7FE1F000FF;
-	Fri,  9 Oct 2026 06:09:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i1I2gCZG"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 1001E1F000FF;
+	Fri,  9 Oct 2026 06:14:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791526175;
-	bh=HaXEEt+6oUYTgk3yLziOOP26vbiRye4IPhhc+D5Un/s=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=HWkN5KrlKIk6OWt38SO9fMGwArGXNLm8Sc0PCX7ZgeMYOylWuJpHNU8t2FYDltQLn
-	 2hKVTP6VzNHCqHXVINEqZTs/LUesNwkJVsuSfNVRWiSG6EM+asdu7XUYpBPEPDbhyg
-	 xxL2L457nAJjsnW9ul382bkmFZlkcJ0BfutYNMatFDZqAAKt4pPj7uICuTiy4ojVEP
-	 ugz5q4KFQCUm7kDaKATbRD/9S7WIDuKfPfrxc0hLnTMVOL+lI7sBSP7t1MeAxfaysa
-	 lqZ9eoh+QQZamGuMRiYovi7Gku403d6K2cuOnrn5lClA+St/Yv/3lziXSu4nT82KA4
-	 ZsIxQ2m9QprXw==
-From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-To: Muchun Song <songmuchun@bytedance.com>, akpm@linux-foundation.org
-Cc: linux-mm@kvack.org, stable@vger.kernel.org, david@kernel.org,
- osalvador@suse.de, dave.hansen@linux.intel.com, luto@kernel.org,
- peterz@infradead.org, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- x86@kernel.org, hpa@zytor.com, catalin.marinas@arm.com, will@kernel.org,
- mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org,
- pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
- linux-riscv@lists.infradead.org, agordeev@linux.ibm.com,
- kevin.brodsky@arm.com, bjorn@rivosinc.com, apopple@nvidia.com,
- linux-kernel@vger.kernel.org, muchun.song@linux.dev
-Subject: Re: [PATCH 2/4] riscv/mm: fix hotplug page-table destructor handling
-In-Reply-To: <20261008073021.2512665-3-songmuchun@bytedance.com>
-References: <20261008073021.2512665-1-songmuchun@bytedance.com>
- <20261008073021.2512665-3-songmuchun@bytedance.com>
-Date: Fri, 09 Oct 2026 08:09:31 +0200
-Message-ID: <87jynrs8v8.fsf@all.your.base.are.belong.to.us>
+	s=k20260515; t=1791526500;
+	bh=CJBbIT90J7czdFuCWTD/YOZU5dDcQZ2W1ylAmd4ZyPE=;
+	h=Date:Subject:From:To:Cc;
+	b=i1I2gCZGxdjUS7rhf6Ib5bLDZScWSeZBLE0xYsus9MXyHZK6qpEKmq3Za7R/aHSOC
+	 X6k8/Ga23CSxP9hR3qWyDFOFrchzoKjOxIsHBNTuicvC0XQyEMp1I0us/pXjK5wJfM
+	 /SEzvCOnwF5qVqPlQHvFmHZWdwF7Q450tB74hDAhzYqqAGxN9BjN0Z+xaQWkB3Yo2F
+	 DpParrg+S8TJyTqD8tJr0hRjG6IGeCezD7kkwqihR91Q54euXcmrxs6oncgbmo7fX9
+	 hIJysNCNofAEYj1/W3URgAdRI9SDMYt2wNzRLC6WF3oC20gjU9e+qMZ4DyoaippXA5
+	 sRXpTByazeX8g==
+Date: Thu, 08 Oct 2026 23:14:59 -0700
+Subject: [PATCHSET v2] xfs: LLM-inspired bug fixes, part 21
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: cem@kernel.org, djwong@kernel.org
+Cc: stable@vger.kernel.org, hch@lst.de, linux-xfs@vger.kernel.org
+Message-ID: <179151614535.3163896.2744921556354655977.stgit@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 
-Muchun Song <songmuchun@bytedance.com> writes:
+Hi all,
 
-> RISC-V uses the same memory-hotplug teardown code for the linear map and
-> vmemmap, although their page-table pages are not always allocated in the
-> same way. Late linear-map allocations run page-table constructors, while
-> vmemmap and early allocations may provide constructor-free pages.
->
-> The PTE path unconditionally runs the destructor, which is wrong for
-> constructor-free vmemmap tables. The PMD path avoids that problem by
-> using is_vmemmap as a proxy for constructor state, but that assumption
-> will no longer hold once runtime vmemmap allocations use the normal
-> pgalloc helpers.
->
-> Page-table constructors record their state in PG_table. Centralize
-> page-table freeing and use PageTable() to decide whether the destructor
-> is required. Keep reserved and constructor-free pages on their existing
-> freeing paths.
->
-> Fixes: c75a74f4ba19 ("riscv: mm: Add memory hotplugging support")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> ---
->  arch/riscv/mm/init.c | 29 ++++++++++++++---------------
->  1 file changed, 14 insertions(+), 15 deletions(-)
->
-> diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
-> index 857f9a55039c..429a0b015ec1 100644
-> --- a/arch/riscv/mm/init.c
-> +++ b/arch/riscv/mm/init.c
-> @@ -1486,10 +1486,19 @@ struct execmem_info __init *execmem_arch_setup(vo=
-id)
->  #endif /* CONFIG_EXECMEM */
->=20=20
->  #ifdef CONFIG_MEMORY_HOTPLUG
-> +static void __meminit free_pagetable(struct page *page)
-> +{
-> +	if (PageReserved(page))
-> +		free_reserved_page(page);
-> +	else if (PageTable(page))
-> +		pagetable_dtor_free(page_ptdesc(page));
-> +	else
-> +		pagetable_free(page_ptdesc(page));
-> +}
+Here's a twenty-first batch of xfs fixes resulting from a LLaMma.  Mwa
+mwa mwa...
 
-Is PageReserved() enought to determine if there's no dtor to run? On
-rv64 your code is correct, but maybe for robustness?
+v2: fix various problems noted by reviewers and other lollms and
+    refactor some attr scrub functions
 
-  | if (PageTable(page))
-  |         pagetable_dtor(page_ptdesc(page));
-  |=20
-  | if (PageReserved(page))
-  |         free_reserved_page(page);
-  | else
-  |         pagetable_free(page_ptdesc(page));
+If you're going to start using this code, I strongly recommend pulling
+from my git trees, which are linked below.
 
+With a bit of luck, this should all go splendidly.
+Comments and questions are, as always, welcome.
 
-Bj=C3=B6rn
+--D
+
+kernel git tree:
+https://git.kernel.org/cgit/linux/kernel/git/djwong/xfs-linux.git/log/?h=llm-fixes-21
+---
+Commits in this patchset:
+ * xfs: check for termination during rmap btree walk
+ * xfs: don't subtract excess usage twice when computing agf_btreeblks
+ * xfs: abort directory tree repair whenever dl->aborted is set
+ * xfs: reattach dquots after changing inode ids
+ * xfs: never reset the default quota timer
+ * xfs: fix correction of unwritten extents in quota file data fork
+ * xfs: always report inode repair setup failures
+ * xfs: range-check bc_levels array access in scrub tracepoints
+ * xfs: reject absurdly large xattr value lengths in xchk_xattr_actor
+ * xfs: break out xattr entry checks into separate functions
+ * xfs: check for buffer overruns when examining local/remote xattr entries
+ * xfs: clarify various parts of the bitmap API
+ * xfs: complain loudly when dirtree checker finds broken links
+---
+ fs/xfs/scrub/newbt.h          |    1 
+ fs/xfs/scrub/repair.h         |    2 -
+ fs/xfs/scrub/trace.h          |   10 ++-
+ fs/xfs/scrub/alloc_repair.c   |   11 ++-
+ fs/xfs/scrub/attr.c           |  108 ++++++++++++++++++++++++++-------
+ fs/xfs/scrub/attr_repair.c    |   14 ++++
+ fs/xfs/scrub/bitmap.c         |   20 ++++++
+ fs/xfs/scrub/dirtree.c        |    4 +
+ fs/xfs/scrub/dirtree_repair.c |    9 +++
+ fs/xfs/scrub/inode.c          |    2 -
+ fs/xfs/scrub/inode_repair.c   |  136 +++++++++++++++++++++++++++++++++++++++--
+ fs/xfs/scrub/newbt.c          |   13 ----
+ fs/xfs/scrub/parent_repair.c  |    4 +
+ fs/xfs/scrub/quota_repair.c   |   28 ++++++++
+ fs/xfs/scrub/trace.c          |   13 ++++
+ 15 files changed, 313 insertions(+), 62 deletions(-)
+
+Unreviewed patches:
+
+[PATCHSET v2] xfs: LLM-inspired bug fixes, part 21
+  [PATCH 02/13] xfs: don't subtract excess usage twice when computing
+  [PATCH 04/13] xfs: reattach dquots after changing inode ids
+  [PATCH 06/13] xfs: fix correction of unwritten extents in quota file
+  [PATCH 10/13] xfs: break out xattr entry checks into separate
+  [PATCH 11/13] xfs: check for buffer overruns when examining
