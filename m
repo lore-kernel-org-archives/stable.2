@@ -1,87 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B3634404B;
-	Fri,  9 Oct 2026 06:18:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E95448BAA
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 06:34:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791526694; cv=none; b=lyUyuiT2RfW5byg5ns7gBJLg8WOWFU1RtsKOvyIUqEJCPc94nzZ+F6SsurF34QvXqTx6dB9Kqajhrjyaqp9hgSI9oucCG3Cv9MxOmSjRLYK361pi3HWRuhMTu80Buy4NrsAQIWIu6kkUUNEKhNYKDGtpnLZiVSLe6E+wYqZFDHI=
+	t=1791527690; cv=none; b=LxU6wcoaIFqqicoMkG88flXR9qtu1uZj7gyFxnyeEUm2u10+k50qzjRRPnWfHOoXXGRaw8HlRPO0YGXnOlrUMgY4Anf3GaJrny0aAqhNIo2DAluCYoCATztfKcgyeOoOOkkl0U/QKvbOD+yICAPAn+5WPwkyt+mp/I1RSv2OKgs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791526694; c=relaxed/simple;
-	bh=GAiff/gy9VVn+86aZv4W2D7W8C2gELB3oO/IVajcuBU=;
-	h=Date:Subject:From:To:Cc:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=km8PVhcrpAtx8GlRUiyhaT9AE4Kcd3Fvo8R3mL42fRH3uhSqSth1KVsgh/teWhC3SowUb4HU+MdPcStfTRAo6rGdjzKvQ3eHgEA9Ab/qaJzjJPU+OMYYO6r1oxIxM3Pte0VlnonDnhCpMoSVx3e9ZRwV2ue/OJdVhBwKR87Hl+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RxIM6R0W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791527690; c=relaxed/simple;
+	bh=ro/ic/vsKCEpCz/T2m2SZHX3DPlyK7OVbpXKy10IK+s=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WTjv9S8+XdAYaLnUI5IHIblU+dBoLWZ9lD/zV05EiC9+72Yad8SCm7Z5088+LkHcPs82NY0VR3KczlsqqQU/mg6Vfb/NTxhmFx350WFgSHUYzUlICRrg7i3LKfLfs68Y4u88bAXNhQBqxRp8GHeEJWU0WtnDatIoYeVAh3VCEqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mNok3SbP; arc=none smtp.client-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RxIM6R0W"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5EE091F00898;
-	Fri,  9 Oct 2026 06:18:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791526693;
-	bh=1983ktvh6/z1NTrpEceZ1PKR0rKCPieBDURZu04yUQc=;
-	h=Date:Subject:From:To:Cc:In-Reply-To:References;
-	b=RxIM6R0WxLw3bodzQzUO8ynYvh8WiylzAtxkJOlevvNuG/eSIBeumoPbVPkweW237
-	 ESF/7Vlkd1EOVD8P/9qgyzJfXSLD22EvACm7lZM2lhthfhjEp6aDM92FMV1U1EjiC9
-	 66LIt9hSfobrKMf77ak7XxNGH9kHeEOaj3qNGUhBflXMC80SipglkESmHdEc2ZlVOl
-	 cAhm75/zDRZlwxHikqZg8fgL424GrtLYK44ivIPnkBzm5rWG0Ws6zkVqBL3UKAzP0N
-	 iw9FJGG6S3iYpv68u1F0Gf/vsLxZc4k9V7Bi4ZfnLcshir8UdszvcHbH+gTlagjvA2
-	 uPBCEKJhIcuiA==
-Date: Thu, 08 Oct 2026 23:18:12 -0700
-Subject: [PATCH 13/13] xfs: complain loudly when dirtree checker finds broken
- links
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: cem@kernel.org, djwong@kernel.org
-Cc: hch@lst.de, stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Message-ID: <179151614902.3163896.7168931003277489322.stgit@frogsfrogsfrogs>
-In-Reply-To: <179151614535.3163896.2744921556354655977.stgit@frogsfrogsfrogs>
-References: <179151614535.3163896.2744921556354655977.stgit@frogsfrogsfrogs>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mNok3SbP"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3115c4451c8so5211279eec.1
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 23:34:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791527687; x=1792132487; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iUpYYLLItdOrvPTmFBwuTL2yJS4jOONcdBareKtSIxE=;
+        b=mNok3SbPp3ormoDDiRS9hnpMA7mssCyREiYLPCWFi6rmn4nYx/I+rkkiyK3nFpTT3L
+         bZEhOc1Td0zdF4BaG7i8O01P362rKCEINM2MPmyOjn9SQ1W8mWTHM2xHq3+Nt7ZzqdBo
+         zEsGO6KP2lGOHx/9AIdz8jHHxOS0EYYlS9ACNRI9n61CrHS7Js6wDSMjzZrxgnr+rgH9
+         y4tZaT57HpIIeP3heunkg+07DJJXBL+mrq+mwYtQ38//bSkb++9mI+NaLK6favQolMMJ
+         HrCsYfoE4VlL36bG8nhawZlH3YnUYLCNHqISQGgEF0F2vrv8sQjJ3P/TIFrQFrYz1H2J
+         VsJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791527687; x=1792132487;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iUpYYLLItdOrvPTmFBwuTL2yJS4jOONcdBareKtSIxE=;
+        b=Ug3rUCUgMNPa0pJAMN1AJzVR4c3ya+BzAwGjIGDzEggWBUsAVil8CznmGD+CATNkhB
+         /KCzeVGRqGcg5iPFKMqbTIl2BN8ST8QI5cF7G3ed1GJ1B/kFN8aIEI7D61NmbRNYLOwL
+         fXa/DaGwTtBn7QNOd6pj+n2m2i5P6+abiHh2HOY6f1OWP3tERUTfa74l3LU6uqjs6N5u
+         hDs58GBaAb5P0Knlm67J9xgQN7Y9olB5ESb3SXHhdqvK5LbSdnOoLLftwUCusKMabup1
+         23CloJV5UH7z61O7M1pPsyEyK8ob/cSq2xlkum6vY6uUYtthZB4QgV1WvXdM9tQV7tmT
+         2j9g==
+X-Forwarded-Encrypted: i=1; AKwUvBx7Wqo/Ubi8JylEyijNrzr7HC2tMtq7S5E3C101Z0zXdj8fdsbSgl4G965wf4NNUyEDCOp2E0E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIEHrIBDHA1hWTmOyXHulyoMPUPerMul6YZqtcx1nDxfYiR/YVQ
+	4BEWtptUb9iTsJoE6RojGF8GLj+sHw2nfQyTD3FcVQg0tleofBZtHjPB
+X-Gm-Gg: AYBFou3jU7rHkeVfg/D/ZLz1PWebj8B92bOd6532gGNYaa+sbO3mTIUCd/QiQn1Ccnp
+	U+8RbBUgrHygCTT1sh19ke2OPJinpOUZ8kR4BasUZcYusEE4/lfyt0ZQ31EejXP4rV3/NeSjV0+
+	UHrhOef2/llteoU9PdRC89m5ftCuohK5XLKnVUf+a2XZFrR0zQC5bH5/LWTqXG3YT7QslVp1y1y
+	QYzV+eET5wT6FxxAp2TMvOoc96ZOCcXe4K/8SzVpAL2H9H0Di09hg7Po4pXqTZZ6u9J9HSrIgbe
+	4bR28kv7m+IxKhW9b2BV7dWvyzLLEUFRBzFpbWsJvNNbGh+AgUrKioA8g5NitmQoj2SMfErb/VF
+	+eaG2hRPYHXdJuvvowbAQ6hWel8yd537MxIyg0FOKJBSEWVTNdi60Ke9kVDxM0cfgkgpxQG1u3W
+	4LtQkaXbZVOsJlJvj0Ns5pE4Z53eCQv99pvn4MU1Q42+fGMlWT0WjypUAXspYYlk9NSAJRAj8m0
+	lJeuxH5XFO6jgF9esO8emg=
+X-Received: by 2002:a05:7301:144a:b0:351:7cfd:21d4 with SMTP id 5a478bee46e88-3537dfb8620mr1449268eec.8.1791527687198;
+        Thu, 08 Oct 2026 23:34:47 -0700 (PDT)
+Received: from XP-PC-huhb1.xiaopeng.local ([98.98.112.197])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca67b21sm4127080eec.11.2026.10.08.23.34.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 23:34:46 -0700 (PDT)
+From: Hongbing Hu <huhb04@gmail.com>
+To: laurent.pinchart@ideasonboard.com,
+	hansg@kernel.org
+Cc: mchehab@kernel.org,
+	kieran.bingham@ideasonboard.com,
+	ribalda@chromium.org,
+	linux-media@vger.kernel.org,
+	linux5-kernel@vger.kernel.org,
+	Hongbing Hu <huhb04@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v4] media: uvcvideo: defer cancelled buffer completion until copies finish
+Date: Fri,  9 Oct 2026 14:34:32 +0800
+Message-Id: <20261009063432.1781-1-huhb04@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Darrick J. Wong <djwong@kernel.org>
+The UVC driver processes frames in URBs. A frame usually is divided
+into multiple URBs. The URB handler parses the header and the
+metadata, but leaves the expensive memcpy to a workqueue.
 
-LOLLM observed that the directory tree walk code bails out if it finds
-broken parent pointers along the way.  However, it flattens the return
-code to zero, which means that we can end up in the repair code having
-not completed the scan.  We should never proceed with a repair in this
-state, so let's mark the scrub incomplete and exit.
+At any given moment, while streaming we will have:
+- the current frame with (0-N) async memcpys waiting to happen. The
+  current frame is in queue->irqqueue. It has a refcnt of 1 + N memcpys
+- Previous frames with (N) async memcpys waiting to happen. They are
+  not in queue->irqqueue. They have a refcnt of N memcpys
 
-Cc: <stable@vger.kernel.org> # v6.10
-Fixes: 928b721a11789a ("xfs: teach online scrub to find directory tree structure problems")
-Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+With the current behaviour, when a URB completes with an error we flush
+the queue->irqqueue irrespective of whether the buffers have any
+pending memcpys.
+
+There can be situations where the memcpy occurs after we have flushed
+the frames and they are returned to the user. Instead, we should
+exploit the refcnt mechanism to return the frames only after the memcpys
+have been completed.
+
+Fixes: 01e90464e42e ("media: uvcvideo: queue: Support asynchronous buffer handling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongbing Hu <huhb04@gmail.com>
+Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- fs/xfs/scrub/dirtree.c |    4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+v4:
+- Reworded the commit message as suggested during review.
+- Documented in uvc_queue_buffer_complete() that it may be called with
+  queue->irqlock held when buf->cancelled is true.
 
+ drivers/media/usb/uvc/uvc_queue.c | 24 ++++++++++++++++++++++--
+ drivers/media/usb/uvc/uvcvideo.h  |  1 +
+ 2 files changed, 23 insertions(+), 2 deletions(-)
 
-diff --git a/fs/xfs/scrub/dirtree.c b/fs/xfs/scrub/dirtree.c
-index 887383d2e94104..11a9dea03d87ea 100644
---- a/fs/xfs/scrub/dirtree.c
-+++ b/fs/xfs/scrub/dirtree.c
-@@ -860,7 +860,8 @@ xchk_dirtree_find_paths_to_root(
- 				 * A parent pointer of @sc->ip is bad, don't
- 				 * bother continuing.
- 				 */
--				break;
-+				xchk_set_incomplete(sc);
-+				return error;
- 			}
- 			if (error == -ESTALE) {
- 				/* This had better be an invalidation. */
-@@ -981,6 +982,7 @@ xchk_dirtree(
- 		 * parent pointers are corrupt; this scan cannot be completed
- 		 * without full information.
- 		 */
-+		xchk_set_incomplete(sc);
- 		xchk_ip_xref_set_corrupt(sc, sc->ip);
- 		error = 0;
- 		goto out_scanlock;
+diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
+index 3c002c8f44..c491735cfe 100644
+--- a/drivers/media/usb/uvc/uvc_queue.c
++++ b/drivers/media/usb/uvc/uvc_queue.c
+@@ -122,6 +122,7 @@ static int uvc_buffer_prepare(struct vb2_buffer *vb)
+ 
+ 	buf->state = UVC_BUF_STATE_QUEUED;
+ 	buf->error = 0;
++	buf->cancelled = false;
+ 	buf->mem = vb2_plane_vaddr(vb, 0);
+ 	buf->length = vb2_plane_size(vb, 0);
+ 	if (vb->type != V4L2_BUF_TYPE_VIDEO_OUTPUT)
+@@ -289,10 +290,17 @@ int uvc_queue_init(struct uvc_streaming *stream, struct uvc_video_queue *queue,
+  */
+ void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
+ {
++	struct uvc_buffer *buf;
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&queue->irqlock, flags);
+-	__uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
++	while (!list_empty(&queue->irqqueue)) {
++		buf = list_first_entry(&queue->irqqueue, struct uvc_buffer, queue);
++		list_del(&buf->queue);
++		buf->error = 1;
++		buf->cancelled = true;
++		uvc_queue_buffer_release(buf);
++	}
+ 	/*
+ 	 * This must be protected by the irqlock spinlock to avoid race
+ 	 * conditions between uvc_buffer_queue and the disconnection event that
+@@ -350,13 +358,25 @@ static void uvc_queue_buffer_requeue(struct uvc_video_queue *queue,
+ 	uvc_buffer_queue(&buf->buf.vb2_buf);
+ }
+ 
++/*
++ * kref release callback for uvc_buffer.
++ *
++ * If buf->cancelled is true, this function may be called with
++ * queue->irqlock held, as uvc_queue_cancel() releases the queue's
++ * reference on cancelled buffers while holding the lock.
++ */
+ static void uvc_queue_buffer_complete(struct kref *ref)
+ {
+ 	struct uvc_buffer *buf = container_of(ref, struct uvc_buffer, ref);
+ 	struct vb2_buffer *vb = &buf->buf.vb2_buf;
+ 	struct uvc_video_queue *queue = vb2_get_drv_priv(vb->vb2_queue);
+ 
+-	if (buf->error && !uvc_no_drop_param) {
++	/*
++	 * Buffers cancelled from uvc_queue_cancel() are forced to complete as
++	 * errors. They must not be requeued by the corrupted-frame policy even
++	 * when buf->error is set.
++	 */
++	if (!buf->cancelled && buf->error && !uvc_no_drop_param) {
+ 		uvc_queue_buffer_requeue(queue, buf);
+ 		return;
+ 	}
+diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+index b6bcee4a22..1b611715fa 100644
+--- a/drivers/media/usb/uvc/uvcvideo.h
++++ b/drivers/media/usb/uvc/uvcvideo.h
+@@ -317,6 +317,7 @@ struct uvc_buffer {
+ 
+ 	enum uvc_buffer_state state;
+ 	unsigned int error;
++	bool cancelled;
+ 
+ 	void *mem;
+ 	unsigned int length;
+-- 
+2.34.1
 
