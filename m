@@ -1,125 +1,131 @@
-Received: from mail-oi2-f9.google.com (mail-oi2-f9.google.com [74.125.231.201])
+Received: from mail-yx1-f100.google.com (mail-yx1-f100.google.com [74.125.224.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF524D990D
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 11:45:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01DF33446A7
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 11:46:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791546322; cv=none; b=a5PMeLEtu8JwrYE/xdfJrVFa9nrwLcnKZk3fl/VqFq8QXq4DbYnuukIz+xLhMnuVoDf9reCbW9v2JM4RYITDhups5LbR/AGtBi6/NrlNqNvtynoKuOXLuqUZUD7dakIC1x3N2ydeyt3X4pHz4I0oPs40x6Krhc/NiKoB/yWfCYM=
+	t=1791546385; cv=none; b=EfqsmLdJTr8qlA1tw/M27XgZzBzYYTysQ260hYvQstzXFpHP0JjP+ziVQlge80TDWKSNdc5cbYNmvVeNBUyjar8VRZownUwamyORXvgid0ZbRIrdJDGVP1xVGZGqU3dYh+u3NrQCCUNR7nYq0K8U9loG9RHNHS7ujZs39BswOMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791546322; c=relaxed/simple;
-	bh=E1XMyad7VnkVzB7/p/Kp/l/hcMQbzp3Rdwh357Rvu5A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=c98w2HYOFIETJkes1w0PVypswwZZD6YDvY0QnEZKwDrnJ4FPVy2EYAFoU+5WDs1X9+UH+3nXI3r6k+e75yOTW8dlkeIea0+PFf+WrlyZWvNor46q/ByTJnSQUrxunNkUO9JmmGvyL9yFI8i79pDsT6aH1RdPffb08gFZQdSbHIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dzEDyHU2; arc=none smtp.client-ip=74.125.231.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791546385; c=relaxed/simple;
+	bh=qfn6Chi3zQPoGrRKHUmzBsOFSj22hZyuE74D1Bo2Iiw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EzwbHf14NLgN5+sooeV40mxRX+tIVAofr+LARGRGOb/S7oGRif97KOmpD/bvZojAgZnhS+r29N94fRSKMN+qkrS1Z+ucV9vOVRhSRxF9+GKbNAjEtaFscRpMQvOt54swcx8GBLqw1Fg3lb7v8hw0B0xQVNFsV25tQJGgYiVHh4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=aRcxVCoV; arc=none smtp.client-ip=74.125.224.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dzEDyHU2"
-Received: by mail-oi2-f9.google.com with SMTP id 5614622812f47-4f4cbeaed17so472838b6e.1
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 04:45:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791546313; x=1792151113; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aQv3jnCfnGYGyZdLu9hITrZVCdW0zrEfT+n6BY05h+8=;
-        b=dzEDyHU2wxFXFDt6Me4PEeRfJQtoK8Ay4yAywJ+GG3mHldb40IqHL9e9Xeqci+WqOZ
-         9OrSo3kvRB5s290L6damegaOlBHav0N2mBxyCJD9W7F7kxE1IrlebyAYkdGEfdT3ahUD
-         dhXTvsJg6PJY7INY+mi9QVxXPYrUKiRRQD0887OcU9Kwx3/QTKYEwRpCeuDlK/RovHd2
-         M2N4/KQvyIEDTCsjA7hdpejlcH3kGS2zqbli5IokLOI7bPNl4NaDV6QI5apjTH3jgC1a
-         v5Htt7iRmyE7+1C0gA+fgrGw/Qo0LXamSlDCZOHgqavnmwNFoyPWVMdM7diisDRSHv0x
-         18kA==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="aRcxVCoV"
+Received: by mail-yx1-f100.google.com with SMTP id 956f58d0204a3-677aec6ddfcso3914451d50.3
+        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 04:46:17 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791546313; x=1792151113;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aQv3jnCfnGYGyZdLu9hITrZVCdW0zrEfT+n6BY05h+8=;
-        b=pATlNXSt91jTnISvgQT3cchS2JJYfBwQgQ7Ps3GRpLM+E9EeNHwXPNjxVOQNvpFXVw
-         xG2b0vKL7m50IsoXW2zcBYekeztlfBHl9O/e4f2zNypo9Gag0F18gu+LvOMspSMjsBsE
-         yCcIcwPH/f8QAFWKW9Nem5px6CoMTP4GKOXi2R32RCwWLXGew8TuEkTSlzuNy2zAxe/Y
-         ztUkHcIaOFPl3kKHQaA6orhN5kpKFVlTVYANUpS128zsMOlPMwRkuQo4tJCCIEselv7r
-         SfQ28167oF5X8Ecxxqa/NKp6qWDLbPwYepVq1ab4TCCwMuSrKTK+EhOxwBq16E+9C0CY
-         2B5g==
-X-Forwarded-Encrypted: i=1; AKwUvBy7/+DTDGZqPrrL8Z+yi/VeHvFHzXaHFVLC6OPBEY/3qLwKls+Q8SrVDdbOhWtGUGfm7DwlnX0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nSBHQj9Wtp2tNm979OWjgWO6Luz3eboEO8DHcYb8D0rJe7vQve
-	mWo/fUTMM3/aRpPyCVOtiMC4/zsJOJx7AZehrYebVA9jTE7NA0VxH/20
-X-Gm-Gg: AYBFou0046VNjIQe8F0Ktg6SaN7RGJTL98jf1TAXKK7p0W86l6peqhEkAWivF9Ra24u
-	nmOPH6ad8DGDRskTQRtBSQ4Xd3oVNmd43SHT7iMOjJ5mZZYllfe/DpKeJzniDBgd7e3DX7azJEQ
-	vYnCVzxgmuPIqkTX7J3AQsA7d6XLbwLoRcmnjL/FHuRIDtR3Dwe12arCo/PqYAtQzlPKK7qTI5B
-	CpzVwMA0yKx8J98XquVv8oWOgj7O+fOP2skqqY6q8IG8kvsCXEb3NGH+LpIupbxO0cUMVU0qcJn
-	23xN5Ljcc3pBzalDeXmBzFgG8PGa3I2nMchTiLcz1WeMkgyk42QHV4uH0Pez6MpuAdbOxtIfIdQ
-	bcJo1NP72m0WvrbA9NOQzn2gNbmMVMwV4L+PmPqDNRKHqcIztpqfY3mnwqqJfJOUHcwU0QPhfXp
-	Z8Dq1smqyTYVQ8O2ne3O8pNIQNwB/hWARgSLYnRfIutXueOAQtTPN2SO8iEo2IwczkdfiyTSt6P
-	tKMCZMkkar2iq/7gX3qkzAVg9zFUSpi37D9
-X-Received: by 2002:a05:6808:1907:b0:4c3:cec9:fd18 with SMTP id 5614622812f47-50c4e681ad4mr1048459b6e.11.1791546312802;
-        Fri, 09 Oct 2026 04:45:12 -0700 (PDT)
-Received: from localhost.localdomain ([14.22.11.165])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-50c1a325a38sm1682405b6e.12.2026.10.09.04.45.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 04:45:11 -0700 (PDT)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: "Darrick J . Wong" <djwong@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>
-Cc: linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] xfs: fix out-of-bounds cursor access from rtrmap level off-by-one
-Date: Fri,  9 Oct 2026 19:45:03 +0800
-Message-ID: <20261009114503.3669142-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
+        d=1e100.net; s=20260707; t=1791546377; x=1792151177;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=BQ6/HQ3rrLrwxJjtL2d0lIbMN8Q2NnassUE+UKdIN9s=;
+        b=r4/PCDNtAz1uZveGozkjWwnBsNgSU0OoKDDpqnsDs6scFXdbDHPxNiYo7luqf0jfZR
+         sXqcS4ej8H9tFbXakATkARrsZTCDo6Hf7Ndf23D2s7n4JXuw/w+ry7tCLgJLmhaA987M
+         ZDtXvdyVvfa9FaVuld2ojevlqE3mNZmGOqud2kitp+fXidGA4utPbTcutxefhUyGnPeB
+         djNWiii0OdRPDQSLaPmFhieNtT1h6TWFaVuSPwEwd4CQAEYzLLjLE7jM9ZGJlbBgvZpf
+         t2hNNyEKzh++ZyxI7McGdA6JJ0DSbRQZxoCQi+gDRrxOQcZ0P54TnctSC9AWHtMTRUHB
+         AbFA==
+X-Forwarded-Encrypted: i=1; AKwUvByyP4xEsNkkp2KKydICWzj8KPTbvT3RNc6/W0Ey3yqCwrJqBDXgE2SzleEvSgYW2R2Gsk1gx+g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJFrzZpAPHN3fBGPrlGYHdQa0SJFURAEG+PlG1sT4ltZKC647jn
+	xAOPTmY0a4bqS801NU2ifl94XTx+7jpI3AoJBfv+znmVcrTe+hg+FxQtKZG5gqt9f8GDTerWBNk
+	LATvVC0UkDBnsZa9XyAgmLLcgvOZNykayMWyhil6FXqSjceje3sCQaSHNZK4fRF7Kr4u4jCRbtS
+	+iTMqc/Flpg5YHAcH3wmlCIa0ImI5r20zE1hWsxjR5uWOC6ZRrxxFc1nj1D4+tMSq3GJMjAHJlS
+	Q9+BgNS5VEpZgkAdQ==
+X-Gm-Gg: AYBFou1BbzB/72NQBTjRjKbJXZhkk7yh9vor2nWtlHTKcUZr8LMl5FDxCEG3Mnknnjj
+	3OmOYOulV0+LaDLobdPVOhOERpSEsq9FSW4VlWYVlpPLa7dalpv3n8C7i2zXVQolGHpqlxAQyrs
+	mnawOKouNoucwD6Ui3YOPhrhSU3rRX+ZxInXFoYN5Zr41aCCaRDr7LbdH4lyig4JdW6jJpM1nbu
+	2/mcLlr+MxQtOyrCGyXq+kLTzUVc4PaemKynkoZagdVSKPWzpT/N61hKIJq+rF54WSe45w2aSrp
+	eOIYv+qN9P8Ihi8NO+YGcN1W43TVtQHyKjLLZxiqGN+9KSdiMZRN0SkP3XXpvtWQGV4QKMYY0Zi
+	/StDGGqxMVZ5ln7DmMLM9qIFSGGBlz8TuJeCN7kthzxMueMG3sf6SKTcKXz6w7BD47uDvarIVQn
+	CmfXBDY5ypYr3Ot8OLoNlpo18KN/6EJAYeTuxQBDx10g==
+X-Received: by 2002:a05:690e:11c2:b0:675:5671:b554 with SMTP id 956f58d0204a3-67935f1c4bfmr549535d50.20.1791546376522;
+        Fri, 09 Oct 2026 04:46:16 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
+        by smtp-relay.gmail.com with ESMTPS id 956f58d0204a3-67935622fe0sm88728d50.9.2026.10.09.04.46.15
+        for <stable@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 09 Oct 2026 04:46:16 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30bcb065bfdso12131726eec.0
+        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 04:46:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1791546374; x=1792151174; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BQ6/HQ3rrLrwxJjtL2d0lIbMN8Q2NnassUE+UKdIN9s=;
+        b=aRcxVCoV30TPCjd3pumAc//8aV2bn3Li3hv12I5s+yKPDfsdyTtnWa6GpUfijnH9Qm
+         V+2xRzgJ53sAfL5VOWbWW/kXhfOrSzM3Q9cFJxxAtWCpPiz/z2hAzT+l/KmRWWLdPy85
+         SEwMUXFnGrsvsg3PF+u5KjtISXbYyCx6BRCkM=
+X-Forwarded-Encrypted: i=1; AKwUvBymM8ftCZHEL+BRChUn48kGPtGtlhTUc7C4pNFlvSvtcbXJX/r0J0/2HM0FPa+jmIGKREww0Wk=@vger.kernel.org
+X-Received: by 2002:a05:701b:4583:20b0:151:ece6:b171 with SMTP id a92af1059eb24-16a5dcf6262mr2016596c88.14.1791546374219;
+        Fri, 09 Oct 2026 04:46:14 -0700 (PDT)
+X-Received: by 2002:a05:701b:4583:20b0:151:ece6:b171 with SMTP id a92af1059eb24-16a5dcf6262mr2016563c88.14.1791546373450;
+        Fri, 09 Oct 2026 04:46:13 -0700 (PDT)
+Received: from [192.168.178.26] (f215227.upc-f.chello.nl. [80.56.215.227])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a442ac67sm9791902c88.18.2026.10.09.04.46.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 09 Oct 2026 04:46:12 -0700 (PDT)
+Message-ID: <448913a7-809f-4ecb-89cc-3aa3bde08c5c@broadcom.com>
+Date: Fri, 9 Oct 2026 13:46:06 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] wifi: brcmfmac: avoid sleeping tx locks in netpoll
+ context
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: linux-wireless@vger.kernel.org,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, brcm80211@lists.linux.dev,
+ brcm80211-dev-list.pdl@broadcom.com, linux-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, stable@vger.kernel.org
+References: <20260930185417.61865-1-kmehltretter@gmail.com>
+ <20261004122910.1392318-1-arend.vanspriel@broadcom.com>
+ <asR1TaKQJlPFqEvR@gmail.com>
+ <802a092a-314a-4f77-aa1d-134b3d020069@broadcom.com>
+ <asiX75kRueyFqWuO@gmail.com>
+Content-Language: en-US
+From: Arend van Spriel <arend.vanspriel@broadcom.com>
+In-Reply-To: <asiX75kRueyFqWuO@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-m_rtrmap_maxlevels includes the inode root level, so a valid on-disk
-bb_level is strictly less than m_rtrmap_maxlevels.  Both
-xfs_rtrmapbt_verify() and xfs_iformat_rtrmap() compare with ">"
-instead of ">=", letting a forged block with level == maxlevels pass
-validation.  The cursor is then sized for maxlevels entries while
-bc_nlevels is set to level + 1, so the generic btree code indexes one
-element past bc_levels[] - an out-of-bounds read/write on the cursor
-allocation.
+On 09/10/2026 09:30, Karl Mehltretter wrote:
+> On Tue, Oct 06, 2026 at 10:27:27AM +0100, Arend van Spriel wrote:
+>>>
+>>> Lockdep instrumentation in fcmode=1 and 2 confirmed that cleanup enters
+>>> without txq_lock.
+>>
+>> This is an observation unrelated to the patch, right? You mentioned in the
+>> patch it only covers fcmode=0, right?
+>>
+> 
+> Yes, the cleanup observation is unrelated to the fcmode=0 fix. I
+> mentioned it to explain why I kept brcmu_pktq_penq() for normal calls.
+> 
+> I'm looking at a separate brcmfmac FWS-path RT/netpoll fix for modes
+> 1 and 2. The prototype defers IRQ-disabled transmit to the FWS worker.
+> 
+> Are modes 1 and 2 used or recommended on SDIO devices? That would
+> help me prioritise the follow-up.
+To be honest I ported the whole shenanigan to brcmfmac, but I do not 
+recall any projects used the functionality in production. It is mainly 
+intended for SDIO devices.
 
-xfs_rtrmapbt_mem_verify() in the same file (from commit
-4a61f12eb1195 "xfs: create a shadow rmap btree during realtime rmap
-repair") already uses ">=".
-
-This vulnerability was discovered by Tencent CodeBuddy Security.
-
-Cc: stable@vger.kernel.org
-Fixes: fc6856c6ff086 ("xfs: introduce realtime rmap btree ondisk definitions")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
----
- fs/xfs/libxfs/xfs_rtrmap_btree.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/fs/xfs/libxfs/xfs_rtrmap_btree.c b/fs/xfs/libxfs/xfs_rtrmap_btree.c
-index a15e460a1ec7..6833c924a383 100644
---- a/fs/xfs/libxfs/xfs_rtrmap_btree.c
-+++ b/fs/xfs/libxfs/xfs_rtrmap_btree.c
-@@ -256,7 +256,7 @@ xfs_rtrmapbt_verify(
- 	if (fa)
- 		return fa;
- 	level = be16_to_cpu(block->bb_level);
--	if (level > mp->m_rtrmap_maxlevels)
-+	if (level >= mp->m_rtrmap_maxlevels)
- 		return __this_address;
-
- 	return xfs_btree_fsblock_verify(bp, mp->m_rtrmap_mxr[level != 0]);
-@@ -888,7 +888,7 @@ xfs_iformat_rtrmap(
- 	numrecs = be16_to_cpu(dfp->bb_numrecs);
- 	level = be16_to_cpu(dfp->bb_level);
-
--	if (level > mp->m_rtrmap_maxlevels ||
-+	if (level >= mp->m_rtrmap_maxlevels ||
- 	    xfs_rtrmap_droot_space_calc(level, numrecs) > dsize) {
- 		xfs_inode_mark_sick(ip, XFS_SICK_INO_CORE);
- 		return -EFSCORRUPTED;
---
-2.43.7
-
+Regards,
+Arend
