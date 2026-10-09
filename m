@@ -1,117 +1,112 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BFD928F5;
-	Fri,  9 Oct 2026 06:03:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B63F402429;
+	Fri,  9 Oct 2026 06:09:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791525831; cv=none; b=KtPkWL1/ZPUSyr5ZwiC/ZHh8G/aWXNwEkWeSOP50x8184rwJqNsEyiPTU8dd4SaaP4H+pKoOQbQSpz5cHJ8F5NQc8MfXV0sGs898XW457GhwUJ80AxauNsdPvxl7ozi6c4rQOjshHreNowUcRGnQhofC/3HXlSHyQtkpoYf+TLA=
+	t=1791526176; cv=none; b=PSFTfcPjjI8CtdEdoicixAFwQdxvBEYg5Ra4gLwntRxw2iFfreDaD0XghFnjp7X0crIVDGqP8SRdQkU6WZIsOKqMgCWjn50RuF34NKPeJ7n4uThFo1kCCEGa/7ihQs8oylS2a3m6lg0OKFL8oah4FQHiCzWIk3guFLMhsqt/twk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791525831; c=relaxed/simple;
-	bh=F5WYeXJaJ/+yuSod4hsqrSqgsnYbI/yq7Ye3t/eazZo=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=mLQ9rJhN3NCRUVrEIcpoTwfWZz1ou+l6RaN3/zbqGrUGlZy0pCzIx2Z3hr1CJIh43bmDYC47DtlIatRKfbnoPdvJ5Xvawr0D6fT7CGHerfRQjyCnqXw8MJrgt2WhiM/qU+96jypfc2sgmfzIV1XoZZtBuWEGqs6FZ4gKMEYt94A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=nR7oTQFg; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1791526176; c=relaxed/simple;
+	bh=NOFneBJpQBjYpGhResFHfedaCbPc66X6xO0MyX1Ee34=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=A+W2k+lxVMTTNg6fdh8WKQKkwRIzWNCfhQ0PC15+BFa64kcBNH0MciiSGn1474zCHf3iALZ554qfklENGYae3iAJos3/Vn7O7mJu89pJGfCLpgWtALVuVECcrJ9qjoEvzQc+u3fxq/SiB0HeDHdF0mdMa1KmqrqGSVWdFnD9nik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HWkN5Krl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="nR7oTQFg"
-X-UUID: 2a252ff0c3a711f18dc8c9802ae25ab1-20261009
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=gVqzy0ZFZMpxYCkrvZ5zhFgzqFeltm3jZ15hOSwBToE=;
-	b=nR7oTQFgP1Ab1KKus82NORSF5h+YcNgSOg+S7UdVg8TDFx71CiLHoHR7Y5w6bqwjvMF9og8TVpE1KD3C2YJNaQzA01m7Frszw3jayyKtUuz/O+jeqrG9R+it2lZ053JsAyCK5aupW06F2s4qLcbt/FWfGcQl0Ewn4y+0Yc9ztQw=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.20,REQID:cfab3023-40d0-4fcc-aa2d-100c05e3e193,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:291e20b,CLOUDID:e12f2595-3103-4fdb-b79c-08de0e281a5d,B
-	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
-	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA:0,
-	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 2a252ff0c3a711f18dc8c9802ae25ab1-20261009
-Received: from mtkmbs09n1.mediatek.inc [(172.21.101.35)] by mailgw02.mediatek.com
-	(envelope-from <shiming.cheng@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 968094363; Fri, 09 Oct 2026 14:03:35 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Fri, 9 Oct 2026 14:03:34 +0800
-Received: from mbjsdccf07.gcn.mediatek.inc (10.15.20.246) by
- mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Fri, 9 Oct 2026 14:03:31 +0800
-From: Shiming Cheng <shiming.cheng@mediatek.com>
-To: <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
-	<pabeni@redhat.com>, <horms@kernel.org>, <matthias.bgg@gmail.com>,
-	<angelogioacchino.delregno@collabora.com>, <willemb@google.com>,
-	<daniel.zahka@gmail.com>, <alice@isovalent.com>, <sd@queasysnail.net>,
-	<eilaimemedsnaimel@gmail.com>, <imv4bel@gmail.com>, <nbd@nbd.name>,
-	<dsahern@kernel.org>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-mediatek@lists.infradead.org>
-CC: <stable@vger.kernel.org>, <steffen.klassert@secunet.com>,
-	<shiming.cheng@mediatek.com>
-Subject: [PATCH] net: tcp: fix fraglist GRO flushing on alternating TCP PSH flag
-Date: Fri, 9 Oct 2026 14:03:08 +0800
-Message-ID: <20261009060319.6229-1-shiming.cheng@mediatek.com>
-X-Mailer: git-send-email 2.45.2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HWkN5Krl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC7FE1F000FF;
+	Fri,  9 Oct 2026 06:09:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791526175;
+	bh=HaXEEt+6oUYTgk3yLziOOP26vbiRye4IPhhc+D5Un/s=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=HWkN5KrlKIk6OWt38SO9fMGwArGXNLm8Sc0PCX7ZgeMYOylWuJpHNU8t2FYDltQLn
+	 2hKVTP6VzNHCqHXVINEqZTs/LUesNwkJVsuSfNVRWiSG6EM+asdu7XUYpBPEPDbhyg
+	 xxL2L457nAJjsnW9ul382bkmFZlkcJ0BfutYNMatFDZqAAKt4pPj7uICuTiy4ojVEP
+	 ugz5q4KFQCUm7kDaKATbRD/9S7WIDuKfPfrxc0hLnTMVOL+lI7sBSP7t1MeAxfaysa
+	 lqZ9eoh+QQZamGuMRiYovi7Gku403d6K2cuOnrn5lClA+St/Yv/3lziXSu4nT82KA4
+	 ZsIxQ2m9QprXw==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: Muchun Song <songmuchun@bytedance.com>, akpm@linux-foundation.org
+Cc: linux-mm@kvack.org, stable@vger.kernel.org, david@kernel.org,
+ osalvador@suse.de, dave.hansen@linux.intel.com, luto@kernel.org,
+ peterz@infradead.org, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ x86@kernel.org, hpa@zytor.com, catalin.marinas@arm.com, will@kernel.org,
+ mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org,
+ pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+ linux-riscv@lists.infradead.org, agordeev@linux.ibm.com,
+ kevin.brodsky@arm.com, bjorn@rivosinc.com, apopple@nvidia.com,
+ linux-kernel@vger.kernel.org, muchun.song@linux.dev
+Subject: Re: [PATCH 2/4] riscv/mm: fix hotplug page-table destructor handling
+In-Reply-To: <20261008073021.2512665-3-songmuchun@bytedance.com>
+References: <20261008073021.2512665-1-songmuchun@bytedance.com>
+ <20261008073021.2512665-3-songmuchun@bytedance.com>
+Date: Fri, 09 Oct 2026 08:09:31 +0200
+Message-ID: <87jynrs8v8.fsf@all.your.base.are.belong.to.us>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-In forwarding and tethering scenarios where fraglist GRO (is_flist) is
-enabled, TCP packet aggregation frequently fails when packets arrive
-with alternating PSH flags.
+Muchun Song <songmuchun@bytedance.com> writes:
 
-Specifically, when a sender alternates between [ACK] and [PSH, ACK]
-segments, tcpdump reveals that no aggregation occurs:
+> RISC-V uses the same memory-hotplug teardown code for the linear map and
+> vmemmap, although their page-table pages are not always allocated in the
+> same way. Late linear-map allocations run page-table constructors, while
+> vmemmap and early allocations may provide constructor-free pages.
+>
+> The PTE path unconditionally runs the destructor, which is wrong for
+> constructor-free vmemmap tables. The PMD path avoids that problem by
+> using is_vmemmap as a proxy for constructor state, but that assumption
+> will no longer hold once runtime vmemmap allocations use the normal
+> pgalloc helpers.
+>
+> Page-table constructors record their state in PG_table. Centralize
+> page-table freeing and use PageTable() to decide whether the destructor
+> is required. Keep reserved and constructor-free pages on their existing
+> freeing paths.
+>
+> Fixes: c75a74f4ba19 ("riscv: mm: Add memory hotplugging support")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+> ---
+>  arch/riscv/mm/init.c | 29 ++++++++++++++---------------
+>  1 file changed, 14 insertions(+), 15 deletions(-)
+>
+> diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
+> index 857f9a55039c..429a0b015ec1 100644
+> --- a/arch/riscv/mm/init.c
+> +++ b/arch/riscv/mm/init.c
+> @@ -1486,10 +1486,19 @@ struct execmem_info __init *execmem_arch_setup(vo=
+id)
+>  #endif /* CONFIG_EXECMEM */
+>=20=20
+>  #ifdef CONFIG_MEMORY_HOTPLUG
+> +static void __meminit free_pagetable(struct page *page)
+> +{
+> +	if (PageReserved(page))
+> +		free_reserved_page(page);
+> +	else if (PageTable(page))
+> +		pagetable_dtor_free(page_ptdesc(page));
+> +	else
+> +		pagetable_free(page_ptdesc(page));
+> +}
 
-  Before this patch:
-  ... [ACK] Seq=10835225 Len=1348
-  ... [PSH, ACK] Seq=10836573 Len=1348  <-- Triggers premature flush
-  ... [ACK] Seq=10837921 Len=1348
-  ... [PSH, ACK] Seq=10839269 Len=1348  <-- Triggers premature flush
+Is PageReserved() enought to determine if there's no dtor to run? On
+rv64 your code is correct, but maybe for robustness?
 
-The general GRO path allows the aggregation of packets with different
-PSH/FIN flags by masking them out at the beginning of `tcp_gro_receive`.
-However, the fraglist GRO path (is_flist) still enforces an unmasked
-flags comparison: `flush |= (__force int)(flags ^ tcp_flag_word(th2))`.
-This redundant check causes premature flushing on any incoming PSH packet,
-shattering aggregation and increasing softirq overhead.
+  | if (PageTable(page))
+  |         pagetable_dtor(page_ptdesc(page));
+  |=20
+  | if (PageReserved(page))
+  |         free_reserved_page(page);
+  | else
+  |         pagetable_free(page_ptdesc(page));
 
-After this patch, the redundant flags check is removed from the `is_flist`
-branch. The [ACK] and [PSH, ACK] packets are successfully aggregated into
-a single fraglist, and are safely flushed together upon encountering the
-PSH flag at `out_check_final`, preserving the required TCP push semantics.
 
-Fixes: 8d95dc474f85 ("net: add code for TCP fraglist GRO")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Shiming Cheng <shiming.cheng@mediatek.com>
----
- net/ipv4/tcp_offload.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/net/ipv4/tcp_offload.c b/net/ipv4/tcp_offload.c
-index e74d99ca9fac..54b40ec95a08 100644
---- a/net/ipv4/tcp_offload.c
-+++ b/net/ipv4/tcp_offload.c
-@@ -328,7 +328,6 @@ struct sk_buff *tcp_gro_receive(struct list_head *head, struct sk_buff *skb,
- 	flush |= skb_cmp_decrypted(p, skb);
- 
- 	if (unlikely(NAPI_GRO_CB(p)->is_flist)) {
--		flush |= (__force int)(flags ^ tcp_flag_word(th2));
- 		flush |= skb->ip_summed != p->ip_summed;
- 		flush |= skb->csum_level != p->csum_level;
- 		flush |= NAPI_GRO_CB(p)->count >= 64;
--- 
-2.45.2
-
+Bj=C3=B6rn
