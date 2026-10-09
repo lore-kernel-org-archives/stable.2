@@ -1,152 +1,220 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ACE6494827
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 08:11:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553053BB134;
+	Fri,  9 Oct 2026 08:15:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791533514; cv=none; b=urhtmnE3hUMAZ/nqhhRA/113/fXYXVkBx1i9zjjjYsbny/hVwCRiu6xmT9TtqQVYU1+H3ClJ9Pgp+7x+W42UIt77OFIaSPs4urx0ZR9xt88/qXT/IO0zM4jJmkMvjEcgqiBpngIZUapFm/FbndY/2+z/6wX91RS3r4OIarFugug=
+	t=1791533750; cv=none; b=UDXvTW0h/bzbZ0VxQZ5L1HOReQyUDcfm+EshH6uCt1OPTcUuHcCloDPVCE8mskylaXNFhNT+nqVwFpyMVu7zFzOj9cUwatrNY8IKrRrC1UEYCiioUq9ipn8jmxlGTFHHEz1sWyUMqjas0ZYWylOBjIRCkoVq/Gvm4+Z7OJBLWfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791533514; c=relaxed/simple;
-	bh=6IXEn9io4jhhi35jnInkyOCmx79vnsl9EgePJUzHTRU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MM85AoWKBZGvQAe8GATk0fHjWOruJo3LuCg7wFmifEZjnMOD97/+xgtJtlzsJ/3ngSEckVBtD8spjm4pIkvDhlUdJyAkcPKpsVADcWnfT/pyc+bMzQhvBX3+7hQix4bcJTqJWqqFdNVnW2BVZcx2Ddx/ch1rtX+7juWY5tkhAxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GCogJsH2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eANovxaN; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GCogJsH2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eANovxaN"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6993HXp11089758
-	for <stable@vger.kernel.org>; Fri, 9 Oct 2026 08:11:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	pOMaeRRKUrXuh1tFBxR1Fs/IvAupGTrOWfaFKNrQMJk=; b=GCogJsH2WLEZ3gf7
-	7h9wRYz3J0SDKdw9/2oVf/epv0mHnN0QR7gWAZ+4xiK32zHjBB3fDIsQaiGpzTlj
-	hNtEIx2sqaL/5PDb6vUrHZk0hB3mGystxTxXF2lBh9SUHofWUVK583xEmx9ROktI
-	LS0zq+0lrcQd9EfuOigI5AmO6v97yAlHPoWWqdpLJPd4oNa7yg3a9SfX4fu5lkG4
-	yUkMLSBBtVWXfwkf1XFUkl4P7nhaTxrAhF4GAHHRyMpiDldrEkbHNNEmZ2DDGZ3q
-	4yAfN9RK8i++0aGltT0/klmquKWbq1zk+Pq0QU8yt3ZEQK7xUYO5IXOiUSGraUnT
-	xU3lVA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6ekvawtw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Fri, 09 Oct 2026 08:11:47 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cb6391e89so1217087985a.1
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 01:11:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791533507; x=1792138307; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pOMaeRRKUrXuh1tFBxR1Fs/IvAupGTrOWfaFKNrQMJk=;
-        b=eANovxaNV8D40sAYmDyV7YlsAT31iB+jydxc8AHbL1OtkDKs9/guPqAilL1X0H6MhH
-         SqEaTcIxf0YiCTFXuucKE6ClvB6f+YVAYyR3RSddkVL0VC6WO7SpTc0n1zhONLt4Cl7o
-         7OwXSfH3/PqJPXoOfiUNDhpuaSqEFHthIuzJ8NQM7dd0h1tjdgcftjzZsxFxjv3+P1H2
-         yg3f/Db5LM+GCN8kXM65qVfsVgEkzYCvLZpgbboVDIOdxfSGetqLiqvJe7U04K51/OCY
-         IGb1wgJS3FozAyOLdHCzkY27gNJHGxVkKEClfE7fTed+G7pxErlN0BTQL77ERe6caQS0
-         /24g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791533507; x=1792138307;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pOMaeRRKUrXuh1tFBxR1Fs/IvAupGTrOWfaFKNrQMJk=;
-        b=kGUmMCRNrrYv82HfLAY3oGdcFCDxYd6HfHSOQsnPcocOX+FMYjZ4aDMkTSxLpbFsWF
-         FTOZQZ4tcU2z7i9OynZ6iiH+gYalx5SrHWhzdsYZsKPvkTg6t+064WspUS7j4alFY5xd
-         h0OiwFXAZHcsnHZYPhTJhQcfTr9/j3WDnP5t9l2pP5z3cr4Vf3lkzbT+NoGvApjA/44f
-         F072+0NSDV8UJsMFaS6V9xwX1eMlrRwTZafdvWOnbbwIXkwfzHUDQ8tSLg9yjZNSk6kh
-         eFHWd5HKaHUC17PSgsLvp7pwP3tfFVikuDk5mZLdiuWp6zW9wyjlqxPk/W20wlb8dEzW
-         uKpA==
-X-Forwarded-Encrypted: i=1; AKwUvBwzIOJY7sRlrBEnqh1CBkQOhlYouXL5lqwXzyaiS1bRwV3X7qWoJrBQsfM8nUhz19qAKX0FnVc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lMuXwKfo3dK53+PQynZYjcGch0QbZBz9xUQnNldsaz5erc0z13
-	DuH/hlaqsaRL2gI5kRHD8r+yqJuSQ8bPPLi8MfsbvaMeBBH7uYtgpCRWAPwUeoFmlO4yRh8ef6A
-	8VGce3u+icoCX+lFQrTPUsWfECcqq2LTNuI/u8/5hteN8yXLK/CvxWySPiYE=
-X-Gm-Gg: AYBFou3zUf0t8KKvWxae+QicUJxKOsZDWkmP4mQrCCpkbjA83R0OwRaSrpEI6cMQOHt
-	VVQPj6Eyv2C0BJakAHtzPWbfxjcpwr0ha4LurCZlgZyY5qAsCYHEL48HW8D+NjRdz3UBcUuBSyN
-	2pShfjXRRsKldrX6kld/IwLTWnL4mMtE5tnxnpCYtmd542Au1dBe3ynYgdjJ7li6rKKxlqSRchV
-	7/3GKlmBP3ejdL1TCIwBWf6B5Q5TcJJsfKmiBqryPwch1tR+bCqmwI7PJ8aWmkbPSjAZakaWPvO
-	5bFHNmQi1y7psSkvVGo4m+X/D61BJIiA3xpSSoP6CAvnqJwHbl8L5Ws1XEYDTkevKpdnUbV4xn+
-	kD3tqhhv14e7T6Vp5uf4eg6XuECo=
-X-Received: by 2002:a05:620a:4115:b0:93e:6c02:d181 with SMTP id af79cd13be357-93ebd1e23aamr162091685a.14.1791533507114;
-        Fri, 09 Oct 2026 01:11:47 -0700 (PDT)
-X-Received: by 2002:a05:620a:4115:b0:93e:6c02:d181 with SMTP id af79cd13be357-93ebd1e23aamr162088785a.14.1791533506490;
-        Fri, 09 Oct 2026 01:11:46 -0700 (PDT)
-Received: from hackbox.tail37bb1b.ts.net ([188.27.161.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be97d1esm65404655e9.8.2026.10.09.01.11.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 01:11:45 -0700 (PDT)
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Frank.Li@nxp.com, Wentao Liang <vulab@iscas.ac.cn>
-Cc: abelvesa@kernel.org, bmasney@redhat.com, festevam@gmail.com,
-        imx@lists.linux.dev, kernel@pengutronix.de,
-        linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, mturquette@baylibre.com,
-        peng.fan@nxp.com, s.hauer@pengutronix.de, sboyd@kernel.org,
-        shawnguo@kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] clk: imx: Fix clock reference leak in imx_obtain_fixed_clock_hw()
-Date: Fri,  9 Oct 2026 11:11:35 +0300
-Message-ID: <179153345648.1914323.15178647656208865959.b4-ty@b4>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260915055631.1730231-1-vulab@iscas.ac.cn>
-References: <20260915055631.1730231-1-vulab@iscas.ac.cn>
+	s=arc-20240116; t=1791533750; c=relaxed/simple;
+	bh=fwhjDRhQYUnsMM4tQfaTafENvxUzunf/We8G83mgylA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LqRIIjxT5poLW2TGfUZVRgcz7t/rsl+pLBiAz9+P84eVwGYR3C4FjD6KwfwIlmq4Z9pMJHzjWz9tA/8mq4nH0YUYX0zX+Bifvb5PDN+PljIXmgLAijPT7TR7RlF2CgaMzjyeAzfswMCoOYBumEVc4jnjyKrzxByke6UWalu7poI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id EC3CB21BCB;
+	Fri,  9 Oct 2026 08:15:41 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9337C1368B;
+	Fri,  9 Oct 2026 08:15:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id FAvRGq2iyGpKDQAAD6G6ig
+	(envelope-from <jgross@suse.com>); Fri, 09 Oct 2026 08:15:41 +0000
+Message-ID: <8054e545-149d-48cc-9e2d-5a3cd3bd662d@suse.com>
+Date: Fri, 9 Oct 2026 10:15:40 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: l1f5rIdpqrK9aP8igQq-5faTWvdDpsoJ
-X-Authority-Analysis: v=2.4 cv=csYOAF4i c=1 sm=1 tr=0 ts=6ac8a1c3 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=EiYrS7xXfcF7w+nkr41hpQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=7W_6zTuqtRk8UThwdy0A:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAzMiBTYWx0ZWRfX3esT5F4EtRvq
- rnOQON7em2PQFmpvkgwCoXVCMeojgebb5I/XRN4B8BXsDbhPWazyoHkME1j5U1JVLk41ZjtZDG7
- nX5lHb98hEUAVB/KNffqguC3Bs3zrhgBAoLWoA+8B2egNl3SOL8fbeR4P+v3KmeDqgZlXNCA5wG
- y0AIc7bK5RnLrlIwtU/yf+LkANkjSuUPBUQYtifgef+8fRLuLjfjERxln0oLNGdYxNeJj6N8Wzc
- 3f29ciioUcFPb9Ke5FlTxrRj8FzZ/dUNj5BVzUMxq/Gow1qoHHg2k5eWYD++0AGtqixgIk8Bl/F
- vqu9fD3vX9mtw9SVVUQmx9Ys2n1/r+tS7q9N1W8kHZaGsJw/Kk4gPP3Oz9gyElwwl0NTBeefDcp
- LDqj7BF2jgOqL/gpFaZWkjF58JmY8LGBBe+yOvfRy+5knxVWaqZ9ZrE3bi7TFxxOmAYGI/cOnw2
- Dg76S0FflU5p2pgkFIA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAzMiBTYWx0ZWRfX3rW3BjlenLcy
- XQVjkmA7eKob0s3frnlbRIrqCgrzsxBK1qKvone99Wpikc1McX7mxl0A7lUhzkL+/DDBojr4/sI
- SGyT9BjFOmo9Hto7N3dsMFMNBj7NqnY=
-X-Proofpoint-GUID: l1f5rIdpqrK9aP8igQq-5faTWvdDpsoJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_02,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
- lowpriorityscore=0 adultscore=0 phishscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090032
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/gntdev: Fix gntdev_dmabuf ref leak in
+ dmabuf_exp_wait_released()
+To: Wentao Liang <vulab@iscas.ac.cn>, boris.ostrovsky@oracle.com
+Cc: linux-kernel@vger.kernel.org, oleksandr_andrushchenko@epam.com,
+ oleksandr_tyshchenko@epam.com, sstabellini@kernel.org,
+ xen-devel@lists.xenproject.org, stable@vger.kernel.org
+References: <20260916170956.2086505-1-vulab@iscas.ac.cn>
+Content-Language: en-US
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <20260916170956.2086505-1-vulab@iscas.ac.cn>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------5XtmSpn2jOOlI7yHrMJeTWOH"
+X-Rspamd-Pre-Result: action=no action;
+	module=Unknown lua;
+	unknown reason
+X-Spamd-Bar: /
+X-Rspamd-Queue-Id: EC3CB21BCB
+X-Rspamd-Pre-Result: action=no action;
+	module=Unknown lua;
+	unknown reason
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: 0.00
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [0.00 / 50.00]
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------5XtmSpn2jOOlI7yHrMJeTWOH
+Content-Type: multipart/mixed; boundary="------------5DJvWL8YxTJ1TDGiVkey8XYO";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Wentao Liang <vulab@iscas.ac.cn>, boris.ostrovsky@oracle.com
+Cc: linux-kernel@vger.kernel.org, oleksandr_andrushchenko@epam.com,
+ oleksandr_tyshchenko@epam.com, sstabellini@kernel.org,
+ xen-devel@lists.xenproject.org, stable@vger.kernel.org
+Message-ID: <8054e545-149d-48cc-9e2d-5a3cd3bd662d@suse.com>
+Subject: Re: [PATCH] xen/gntdev: Fix gntdev_dmabuf ref leak in
+ dmabuf_exp_wait_released()
+References: <20260916170956.2086505-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260916170956.2086505-1-vulab@iscas.ac.cn>
 
-On Tue, 15 Sep 2026 05:56:31 +0000, Wentao Liang wrote:
-> imx_obtain_fixed_clock_hw() obtains the clock through
-> imx_obtain_fixed_clock_from_dt(), which creates a consumer reference
-> via of_clk_get_from_provider(). The reference is discarded right after
-> __clk_get_hw() returns the hardware pointer, leaking it.
-> 
-> Keep the imx_clk_fixed() fallback unchanged and drop the DT-obtained
-> consumer reference with clk_put() once the hardware pointer has been
-> extracted.
-> 
-> [...]
+--------------5DJvWL8YxTJ1TDGiVkey8XYO
+Content-Type: multipart/mixed; boundary="------------507C04RoOaZQOEvNpTLFrDSZ"
 
-Applied, thanks!
+--------------507C04RoOaZQOEvNpTLFrDSZ
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-[1/1] clk: imx: Fix clock reference leak in imx_obtain_fixed_clock_hw()
-      commit: 52d4d1b26a5bc64de95099d0a3dd8b90dba1f3a3
+T24gMTYuMDkuMjYgMTk6MDksIFdlbnRhbyBMaWFuZyB3cm90ZToNCj4gZG1hYnVmX2V4cF93
+YWl0X3JlbGVhc2VkKCkgdGFrZXMgYSByZWZlcmVuY2Ugb24gdGhlIGV4cG9ydGVkDQo+IGdu
+dGRldl9kbWFidWYgd2l0aCBkbWFidWZfZXhwX3dhaXRfb2JqX2dldF9kbWFidWYoKSBhbmQg
+cGFzc2VzIGl0IHRvDQo+IGRtYWJ1Zl9leHBfd2FpdF9vYmpfbmV3KCksIHdoaWNoIGRyb3Bz
+IHRoYXQgcmVmZXJlbmNlIGFmdGVyIGFkZGluZyB0aGUNCj4gd2FpdCBvYmplY3QgdG8gdGhl
+IHdhaXQgbGlzdC4gIFdoZW4gdGhlIHdhaXQgb2JqZWN0IGFsbG9jYXRpb24gZmFpbHMsDQo+
+IGRtYWJ1Zl9leHBfd2FpdF9vYmpfbmV3KCkgcmV0dXJucyBFUlJfUFRSKC1FTk9NRU0pIGVh
+cmx5IGFuZCB0aGUNCj4gcmVmZXJlbmNlIGlzIG5ldmVyIGRyb3BwZWQsIGxlYWtpbmcgYSBy
+ZWZlcmVuY2UgdG8gdGhlIGV4cG9ydGVkDQo+IGdudGRldl9kbWFidWYuDQo+IA0KPiBEcm9w
+IHRoZSByZWZlcmVuY2Ugb24gdGhlIGFsbG9jYXRpb24gZmFpbHVyZSBwYXRoIHNvIHRoZSBy
+ZWZlcmVuY2UgaXMNCj4gY29uc3VtZWQgd2hldGhlciB0aGUgd2FpdCBvYmplY3QgaXMgY3Jl
+YXRlZCBvciBub3QuDQo+IA0KPiBGaXhlczogOTMyZDY1NjIxNzllICgieGVuL2dudGRldjog
+QWRkIGluaXRpYWwgc3VwcG9ydCBmb3IgZG1hLWJ1ZiBVQVBJIikNCj4gQ2M6IHN0YWJsZUB2
+Z2VyLmtlcm5lbC5vcmcNCj4gU2lnbmVkLW9mZi1ieTogV2VudGFvIExpYW5nIDx2dWxhYkBp
+c2Nhcy5hYy5jbj4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNl
+LmNvbT4NCg0KDQpKdWVyZ2VuDQo=
+--------------507C04RoOaZQOEvNpTLFrDSZ
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-Best regards,
--- 
-Abel Vesa <abel.vesa@oss.qualcomm.com>
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------507C04RoOaZQOEvNpTLFrDSZ--
+
+--------------5DJvWL8YxTJ1TDGiVkey8XYO--
+
+--------------5XtmSpn2jOOlI7yHrMJeTWOH
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmrIoq0FAwAAAAAACgkQsN6d1ii/Ey+q
+igf9G0if6s4i2ivYNbf5VuMGEvy4KfsBLLasJmNuKmY1TLEJoSWrQyqnsJ9zu5RLQgJM1QQK2U6B
+ATXzaYtr5VoStTT+RNEEI/q1p5yjNLMJAXRfmDNZaOI4E9XG8LCL6m6ssSzdbgjRkvxClpk7I4hi
+BK8XyGxw3t00NWkmbKsSt/ZBsPSlZbdg8/8pLUgLp6TT32JtJlpNZI18scIa3X9DUZ2wzAAGnu7v
+6LeRyvAYWbl0xRw8LAenftphL4FbHeLC9AtIHXHZ0qc/7ww8kBeB0VWo0veYP8dH7SUIWw0PabFk
+aEeypY4E6F+9KGQ4XSZIImrvSu9PfBLNTAKBahsQmA==
+=xLsP
+-----END PGP SIGNATURE-----
+
+--------------5XtmSpn2jOOlI7yHrMJeTWOH--
