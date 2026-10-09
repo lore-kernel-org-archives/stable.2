@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCCD62EBBAF;
-	Fri,  9 Oct 2026 14:48:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6774EA397;
+	Fri,  9 Oct 2026 14:48:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791557302; cv=none; b=oSsuSkyA3iNEqUQ7L3TroPSbc+Qd8AALL/XaELYJFjSij3yLW+JEn2N8Y9jQOTmRhI8LNThO0J6+ysCNC9y8rVS5B3INh1Z0vzYa9qT0KPtM8KppWhP8ezkTLEtVp9Xr13HpMPlTxYlW6fv2vB3no18TM0ccX+OwQK5vyozxCdA=
+	t=1791557304; cv=none; b=N480JnPHQlpekr7MIDVFxHxNMtZsqUYh7fEYKeUDlTzOb6GgUVPZnkrWvPZ6xqMn3kpAiwKHDe0cUfEHnvyFb6t2bChEa8c4KGwZIbGMZuuonFICpVIm0OBjIqqSNNaocfK+ZCQKwIRgNXl+yj7dn05qIGFjYV4m7JVl9wqZkiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791557302; c=relaxed/simple;
-	bh=t+vWU1bGqMnH33cFkKpvUv9qyvY9Q8PAtqOYxHCygww=;
+	s=arc-20240116; t=1791557304; c=relaxed/simple;
+	bh=LwQTvmyYwddGaRpc53zCq+Y7nVA7+oHCy3dmK8STfhw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hbWo5S3oImXIDwXSjxJcwFIgmwWTG7jGs0QyLvNGUSTw0e5DkrOXjkKTsqgY+NxPw1kaNTVrVO73c+VgX1JQqtokkapkGUUVoAFfkbVxQVvZTZ3AghCTwfsJ+rGefBDYpClP+bPsHelzK0MyqWIQoQ3AgrC0HsYcL62YGiJTylI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I45jDs8c; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mWNHchxDwVFBB1pmPwjNBwJVMM5WHkYKe22cMQh+jDz3CT1ovgWlXRvbztjr8FhjVi4qMwK3sHkhyEamSAPh//Q6u3hvIRR6jUsSGxdMgDqoQf73/r+2t1lGA9BtpnIlfC865CfRc/bY4DVdX+HYZnr77Zc57cZS8Wvzkn+sseE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yaC2+bBK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I45jDs8c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 478A71F00898;
-	Fri,  9 Oct 2026 14:48:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791557301;
-	bh=8/6BMd6YHWfD43iTNLmfCL9vbVOX4eDCpfrdP6izaRk=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yaC2+bBK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AA4D1F00899;
+	Fri,  9 Oct 2026 14:48:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791557303;
+	bh=CsbkOaWsAnwqM1QOyKnxSWvBNO1suUF0KEQJUtIlhcI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I45jDs8cFF5+8RTsODCHZCwmhYfs4bKmISxNdL6WziY5JrFmA/j8Pt2ZHmVC93bxB
-	 95T9obtEyddAO3mj7NILoeHPnBPOABjRTakBZL0+VT7aAYisP38SG/vn+GEpBKP74i
-	 3MjzjPCKMO79+AiFYGTyqxLHhPq3Qjpjnn2O1zyXJenfnsHUz3huVInTtoEu2TntXi
-	 qwvjO0UEvQ1F2KLbWA+e48DY8VnKXpcC2gWcl+PI3fxScDabef/NlTWg0sMNNmu76f
-	 zzf3lw2APA1l+kNf68PiPOoxgemWjgxUdXaMmzb+KeFSF336NcyjuMdz1CnvePJnE2
-	 LRrCrGBrwNHaA==
-From: SJ Park <sj@kernel.org>
+	b=yaC2+bBKmEESQpCWi+gPnHMOgxQZAz7jI2HEjrMU2AJTI1ISUiC0m6CbTq1+Y8CJ8
+	 rmE75PMHrRLnOgys3ZQ/uxe+b0znnBi+VKRKP7qZBgVD/v0e+AYAYMc0oybew0KJjk
+	 lokg5QF+NANRkhJi/oM8j69gSPza/qBUu/q21yU8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: damon@lists.linux.dev,
-	SeongJae Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.1.y v2 1/2] mm/damon/core: do non-safe region walk on kdamond_apply_schemes()
-Date: Fri,  9 Oct 2026 07:48:07 -0700
-Message-ID: <20261009144808.18317-2-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261009144808.18317-1-sj@kernel.org>
-References: <2026092949-surpass-thimble-02a8@gregkh>
- <20261009144808.18317-1-sj@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Vega <vega@nebusec.ai>,
+	Ruide Cao <caoruide123@gmail.com>,
+	Ren Wei <weir@nebusec.ai>,
+	Johannes Berg <johannes.berg@intel.com>
+Subject: [PATCH 7.2 334/428] wifi: mac80211: reject invalid 320 MHz CSA bandwidth
+Date: Fri,  9 Oct 2026 16:11:11 +0200
+Message-ID: <20261009140953.479422737@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261009140946.008206689@linuxfoundation.org>
+References: <20261009140946.008206689@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,57 +48,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: SeongJae Park <sj@kernel.org>
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-kdamond_apply_schemes() is using damon_for_each_region_safe(), which is
-safe for deallocation of the region inside the loop.  However, the loop
-internal logic does not deallocate regions.  Hence it is only wasting the
-next pointer.  Also, it causes a problem.
+------------------
 
-When an address filter is applied, and there is a region that intersects
-with the filter, the filter splits the region on the filter boundary.  The
-intention is to let DAMOS apply action to only filtered-in address ranges.
-However, it is using damon_for_each_region_safe(), which sets the next
-region before the execution of the iteration.  Hence, the region that
-split and now will be next to the previous region, is simply ignored.  As
-a result, DAMOS applies the action to target regions bit slower than
-expected, when the address filter is used.  Shouldn't be a big problem but
-definitely better to be fixed.  damos_skip_charged_region() was working
-around the issue using a double pointer hack.
+From: Ruide Cao <caoruide123@gmail.com>
 
-Use damon_for_each_region(), which is safe for this use case.  And drop
-the work around in damos_skip_charged_region().
+commit 56e236759f0a8dc910c2ae7cd3c161f298ee5794 upstream.
 
-Link: https://lkml.kernel.org/r/20260227170623.95384-3-sj@kernel.org
-Signed-off-by: SeongJae Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-(cherry picked from commit 1745ccbd2907db2bdaa843e4abccde4fdaccbe5d)
-Signed-off-by: SJ Park <sj@kernel.org>
+The HT/VHT channel definition validator can receive a 320 MHz
+bandwidth indication from a received CSA frame on a non-6 GHz link.
+It warns for this unsupported width but continues with an uninitialized
+vht_operation.chan_width, which is then read by
+ieee80211_chandef_vht_oper(). With panic_on_warn enabled, this lets a
+received frame panic the kernel.
+
+Reject the channel definition before entering the VHT operation
+conversion. This preserves the existing CSA fallback while avoiding
+both the warning and the uninitialized read.
+
+Fixes: 21c3f8f95554 ("wifi: mac80211: refactor STA CSA parsing flows")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Signed-off-by: Ruide Cao <caoruide123@gmail.com>
+Signed-off-by: Ren Wei <weir@nebusec.ai>
+Link: https://patch.msgid.link/bd68e360e06135c750397cb6be003a01a834a179.1787222001.git.vega.cover-letter@nebusec.ai
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- mm/damon/core.c | 4 ++--
+ net/mac80211/spectmgmt.c |    4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 7afbc20833ea..c65d2cbeea6b 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -858,7 +858,7 @@ static void damos_set_effective_quota(struct damos_quota *quota)
- static void kdamond_apply_schemes(struct damon_ctx *c)
- {
- 	struct damon_target *t;
--	struct damon_region *r, *next_r;
-+	struct damon_region *r;
- 	struct damos *s;
+--- a/net/mac80211/spectmgmt.c
++++ b/net/mac80211/spectmgmt.c
+@@ -111,8 +111,8 @@ validate_chandef_by_ht_vht_oper(struct i
  
- 	damon_for_each_scheme(s, c) {
-@@ -912,7 +912,7 @@ static void kdamond_apply_schemes(struct damon_ctx *c)
- 	}
- 
- 	damon_for_each_target(t, c) {
--		damon_for_each_region_safe(r, next_r, t)
-+		damon_for_each_region(r, t)
- 			damon_do_apply_schemes(c, t, r);
- 	}
- }
--- 
-2.47.3
+ 	switch (chan_width) {
+ 	case NL80211_CHAN_WIDTH_320:
+-		WARN_ON(1);
+-		break;
++		chandef->chan = NULL;
++		return;
+ 	case NL80211_CHAN_WIDTH_160:
+ 		vht_oper.chan_width = IEEE80211_VHT_CHANWIDTH_80MHZ;
+ 		vht_oper.center_freq_seg1_idx = vht_oper.center_freq_seg0_idx;
+
+
