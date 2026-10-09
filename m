@@ -1,129 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E354148425F
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 08:04:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B91549363C
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 08:11:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791533066; cv=none; b=UnMK5r/3J6qWf7EowCN+XSkVyAUWD/FWb21Bve5KJpYCsFSdgOgXzIDSFotR9nQcOyPQ9W6VcW2sxohuPmh5BvLGa1BsgzgVIz25Rm4wAcGgUc8ncJ/iwDI364H/ujNq5DF1k1iSpgP3G4E2JaJn1879MlY7Pi4Yqnqqc/7Rp5Q=
+	t=1791533511; cv=none; b=jSSWbX824AiCUS6uWNPAxQXhK3L8k4nIkCb9XriFfRTGGbhb0ZL22wUD1Z8zPC12ZgXnJDwXYRWqPlYTlMPRevxwPpeg/GjIHy/+Wg5dXXccAAj0hj5BXrW4XpV+CeZ5D8b50jtWcrqzOhb8DKH8LXc34iUPwI5iiOpwhlqEs3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791533066; c=relaxed/simple;
-	bh=0y74i2STDjmKr4lBePoInGDutw/6C+poWpHkbdAVK1I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=R+NqsVq6+Jr5/drVdqy5AEfmGJnGiU0g/wZo0tvlb+vPEbZ4tlet9P8tcKNmQ4bD89aUAnKvJYMekBVZhDp9IvgSuHUK1AhJiMcKbdUWMiMZBLZHqk5Sb0B2yBF5h7HM/8zQo/7f+VjunepmCYHQOgSwiSSHxSR1cXUit5K7w98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hd2yY7Bf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791533511; c=relaxed/simple;
+	bh=gRbbps69VA7y6AulrLwCFY/nwePzdK2qYrbO3Y+LK9M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UrO1O+787NsAhPU7y+UnF6SzyzzG2iyncvl+MHlDgPI48piXpftc8qpP3w1yPCXWU9NZhvWR0nmYKSkpxsOHzM76KzLPkEZOE0OxO42C9IF9Tqk0tdHwJ3g6xewWf8VnhdVY2+1bjanNz3j1rLIBEZlIgZdjENUySkxRD6wkSMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fzcMbtO/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LWTyU4ps; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hd2yY7Bf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 667E41F000FF
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 08:04:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791533055;
-	bh=s/5A+ZClw8uFOpyIi+IWKMRcAZDloocaw/uDqLtwjvM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Hd2yY7Bf/6HQv2JT31eHw4xxh6qv2pVK2+TKA8ZZGIN+Fepttoygqwu8OGSD6E3JT
-	 WVW5BGva4e8Mp5TXySE3UdShEOmo7j3JK7BcR8aWYW3hEJ3UNo+973//1z9xefJJa1
-	 E6dytF5qet5tUAjrmBLU38VdIuerB97XgCwIzJz+JX2sgrLXbJHEjgPKVAambKGcuJ
-	 R//Qczr4xpAX5vpu8sjsHRcTlorJmH99LH/GBKvT/I+q33GJEZOmJ6gFLD+7cage1e
-	 9gUAde6xeQa1VaZt5kRBE94YLVgAmuEH6krMMIFliCM3Y0/O4oeBNttM1V1LNgi1CV
-	 o9+kr/XnqTqlA==
-Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-483d290f398so2153474fac.2
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 01:04:15 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByrSogYEyifnao9jwhXuyI7/LFKKSiF9Cv5MObLLZXSy55nKOmN7O/A2jcdwGIEk6hPBh+BsJw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPh9kLMJ5A0idZeUCg8LorIuLmQ7+cH0iftmtRYnC1Vm1riseF
-	Ie9zf0jNsQDiRvoz6Mda6zSrcU7XZELzLqC4Yzn1M6KCgOB4adYm27GEoJ0YwJcNJpgP2vawQlj
-	glWCfVQ474vZKUGS2Y6ar1XhMDF5dGkE=
-X-Received: by 2002:a05:6870:6493:b0:4a2:4d77:866d with SMTP id
- 586e51a60fabf-4a2a87ff162mr990737fac.11.1791533054730; Fri, 09 Oct 2026
- 01:04:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fzcMbtO/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LWTyU4ps"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6993HnAE251167
+	for <stable@vger.kernel.org>; Fri, 9 Oct 2026 08:11:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	laHJsYnI/7xvkYGI4cOJBcsCLbJtIbGPxkDhu0frTK4=; b=fzcMbtO/4jaXDsL7
+	gyiTrLMv+dryBtFCkSLJXLL6xRC3loCmHoBxikesbtcI2n59pEfjAbFFqVlys9cK
+	wgzZbkBfOCDuOdR728Q0enWZ9JbdarRUaf/Y5t8zWkQ/1Ad+A2Kw6W73cf/sGLo+
+	TH2ZrS7MF7HIwVJAirB8J48huJvqMPKmpX2IIIxaD6Iqfoxi4p1nQSfvtbm+Kb+X
+	IEGXn9VvZ6c8KC4cvcFOER6dWWmzUmAHOX7uIaIsBDeu2F2vtH5KcogCsxd0iW4N
+	8eJ/PG2jfE6q4ywIf0IenZsF0/s5ls/d09K0zripZ/U5DgTAYz12jurE/vDxZCiq
+	aUgBvw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fmqtqmc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Fri, 09 Oct 2026 08:11:45 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93caf6c528aso1012999885a.0
+        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 01:11:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791533505; x=1792138305; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=laHJsYnI/7xvkYGI4cOJBcsCLbJtIbGPxkDhu0frTK4=;
+        b=LWTyU4ps7R1nnh3W2ZLte7OPxr0Cn9kCJoGYhRJAsbJcr2Z+QbXNIdCATJVpPl9hCx
+         cN5SCfK/JReW/5Ruw46AYztuTqKZisaSVDyomfgN02mQAm9pZDwqlJt4BjMMdJTpy9Cx
+         Pmv8YtSrWyjoWUq190x4dUxmyaymhAtOFbChD1ZG2hxtV8pTq6VKK7YX7V7Ds8DOwv7G
+         02H6AMnAqQyg5BeDf7iv3fQ0o3sdZXqAr8U/8iAJ5mdCdnRgwnDU5h2i59tX9/4Z4/ij
+         NKrfN7nd6mEMTiAUlbzVB2a/gCEpvN06w+lMGaYy0+YBmOllfCHQMMY6mkvOggezpeek
+         Nang==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791533505; x=1792138305;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=laHJsYnI/7xvkYGI4cOJBcsCLbJtIbGPxkDhu0frTK4=;
+        b=xd+3Uq6fF0hncTZb9TE2v+n+M39pHke7IWyS4cBF2T4woYvN96FQCJg0sKaulwOl2J
+         kad2uDd9nqywgafIPFfzEpzp1vZ7xar8MF2ur3+UFzYcRHVZdA+Vthv8bnhkshu4PqQ2
+         zePOeLXjnSIFuXsQp37lZBxJAvO7AdjbIwEOnFfos8lbaeOZVihwio0Xf/W1p5rftpnG
+         WPV5GmcfacVDO/0prCPQwXGRbpj7nHANedEZ5aoug2XZKA1Ql/FjTArA2KPBmxxP1MRF
+         M7mxL8iqIG4qyEZmhWVfPi4RNi5trDJj+cUhZWXSbDCtFhBLBltL/hWnOo2E36mvjivM
+         2TTA==
+X-Forwarded-Encrypted: i=1; AKwUvBwqpjWGOGrH7VOUKtquwQKJZnE4bKD1TOadQlcuS8g48Nqig9FxXcGImSyo94STQ3VJmOqVMyY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kqVbV9NmAjBoMraEmLZ3kjX6Kmz6HvagNBP02U0m3FValFrRoH
+	U5plljk+YBZpFKVUxSMJ4POLQnTOxlH6SEo744CYiTUd6aRIsbEuhWm2QwWjTvym3zj/DBxUe8s
+	He9MxvpwEUk1OsIazoLVxahNqp+FWa4btH1iLzVC6EB+4ZoipGJk7QUQ1HKQ=
+X-Gm-Gg: AYBFou1hHm/3zuU4q9b+t/yjs5G9uNd7KNuKKX1JHh+tCmXpq2L1Vx44sQq3Fbbu4D0
+	Gyq5PiOSIefjzK/byR4l2KpkkcIDIkwNSFEn9DDNbG0mak2usOWYKz1c5dWZcT0vvjK2u/SzEaC
+	TPAYv/mFYD7kB8AWCZwhvCqOEqQNGX8U7Ak3nG5b7jA8JEFIOJXEp0HE+Vm1XEdNFhMWxiINul2
+	b+kesc2jwvlaP7FmHkzoICK6wtd6kq7gb/ZVJw1aRjsgqoJpcD+Lcr8/5XikF0fVganjPU/AFzQ
+	V7U1xH5WRtIt+HU+TR69x2j8N5dqMllDC7VoUqW5FMh26C/8cB/Um5TacuAlgXyQVug0WDKYs/V
+	kawoodjpA+WY7207MF+tl6Cs6SSI=
+X-Received: by 2002:a05:620a:270d:b0:93e:976b:5c44 with SMTP id af79cd13be357-93ebd2960d8mr145641085a.65.1791533505212;
+        Fri, 09 Oct 2026 01:11:45 -0700 (PDT)
+X-Received: by 2002:a05:620a:270d:b0:93e:976b:5c44 with SMTP id af79cd13be357-93ebd2960d8mr145636485a.65.1791533504545;
+        Fri, 09 Oct 2026 01:11:44 -0700 (PDT)
+Received: from hackbox.tail37bb1b.ts.net ([188.27.161.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be97d1esm65404655e9.8.2026.10.09.01.11.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 01:11:43 -0700 (PDT)
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Frank.Li@nxp.com, Wentao Liang <vulab@iscas.ac.cn>
+Cc: abelvesa@kernel.org, aisheng.dong@nxp.com, bmasney@redhat.com,
+        festevam@gmail.com, imx@lists.linux.dev, kernel@pengutronix.de,
+        linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, mturquette@baylibre.com,
+        peng.fan@nxp.com, s.hauer@pengutronix.de, sboyd@kernel.org,
+        stable@vger.kernel.org
+Subject: Re: [PATCH] clk: imx: Fix clock reference leak in imx_get_clk_hw_by_name()
+Date: Fri,  9 Oct 2026 11:11:34 +0300
+Message-ID: <179153345647.1914323.1489876411002078599.b4-ty@b4>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260915055515.1730145-1-vulab@iscas.ac.cn>
+References: <20260915055515.1730145-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009074523.2747168-1-bsdhenrymartin@gmail.com>
-In-Reply-To: <20261009074523.2747168-1-bsdhenrymartin@gmail.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Fri, 9 Oct 2026 10:04:03 +0200
-X-Gmail-Original-Message-ID: <CAL4WiipX3uc6FD1=saqEthm+PTCKkoY=J7cXRf9R9FTqd68raw@mail.gmail.com>
-X-Gm-Features: AclHuK8ltwaJAIjTWP05-fE44s7cCMnjL8O00smo3LgS1FtFj3W92as-vTo_gZ4
-Message-ID: <CAL4WiipX3uc6FD1=saqEthm+PTCKkoY=J7cXRf9R9FTqd68raw@mail.gmail.com>
-Subject: Re: [PATCH] ipconfig: fix use-after-free of device list after ic_close_devs()
-To: Henry Martin <bsdhenrymartin@gmail.com>
-Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
-	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAzMiBTYWx0ZWRfXwH59U3fbL1Z+
+ /0xAvp7r7gmPdwtK1laPO+eS2Ukbyse3Tzgzp9fL+LDCXkue8IAOXQEsuZBWGCiEgc3Rt56me21
+ kpx+GRqopEAgbCa/ArL04Om7W9sZCQQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAzMiBTYWx0ZWRfX7AiJ/fotIMAV
+ z1Di/Dtjia7p0pD6F9w9USxS1hTovlZmMStBE/H/EZCAb3rUm5XMT1wBNe1oNzp/qVVFgCc16s9
+ P0TSm8g8yjMeLi9wlRgQnBXFwRA3BiKnC/VLzlT0IJPp/yHwiMUhh67fy9QO+W4frX+kKt8rS2h
+ SGms9c6NW2fpZlniWfIGIjXFULDMFTOsUkDbimzJJ9/PkW2A5QHN9BlazuieZaKujrLHocv5o+H
+ +1sJlzj/mV94mmQbiML5JBpI0ywxNteLKYWbwT1i6GJRNKHGXiYeTFqCWWTwJCqp5kfZAY2qKho
+ ypnTAwiskaQ8dhbV1e/1LzM5hLj6wcfomMGfyMXVyinvAkmG7UdLhKBoMwYWqfRodpqiQC1OASy
+ BHmmGOe5D9eNinGZ3A8CWy8mzMyXYiMqwTLK61jmYJiG1Ys02znkJaiJBL96shyamCpMbr0MK1l
+ l0QjoRfrDRucjzcwqKQ==
+X-Proofpoint-GUID: UPm4kMhsdWjc6Jdw8oQJ9ZTTxQXqcy3_
+X-Proofpoint-ORIG-GUID: UPm4kMhsdWjc6Jdw8oQJ9ZTTxQXqcy3_
+X-Authority-Analysis: v=2.4 cv=IqCL47/g c=1 sm=1 tr=0 ts=6ac8a1c1 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=EiYrS7xXfcF7w+nkr41hpQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=DNK6b7R2SRMYshW6mIMA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_02,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 bulkscore=0 clxscore=1015 suspectscore=0
+ adultscore=0 impostorscore=0 priorityscore=1501 lowpriorityscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
+ definitions=main-2610090032
 
-Le ven. 9 oct. 2026 =C3=A0 09:45, Henry Martin <bsdhenrymartin@gmail.com> a=
- =C3=A9crit :
->
-> ic_close_devs() kfree()s every ic_device node but leaves the static
-> ic_first_dev and ic_dev pointers dangling behind.  When a DHCP reply
-> consists of an OFFER that is never followed by an ACK (a misbehaving
-> or lossy DHCP server, or a network that drops the ACK), the boot-time
-> autoconfiguration loop becomes vulnerable:
->
->   1. ic_bootp_recv() accepts the OFFER and records ic_dev =3D <list
->      node> ("We have a winner!" state);
->   2. the retransmit round times out in ic_dynamic(), so
->      ic_close_devs() frees the whole list =E2=80=94 node included;
->   3. the dynamic retry path (try_try_again) runs ic_open_devs() and
->      ic_dynamic() again; on failure it falls through ic_close_devs()
->      once more, where the entry point evaluates
->
->          struct net_device *selected_dev =3D ic_dev ? ic_dev->dev : NULL;
->
->      =E2=80=94 an 8-byte use-after-free read against the freed ic_device.
->
->
-> NULL both pointers after the free loop so subsequent retry rounds
-> take the clean empty-list path instead of acting on freed entries.
->
-> This vulnerability was discovered by Tencent CodeBuddy Security.
 
-This is __init code, on a boot that already failed to get a lease.
-I would not call it a vulnerability.
+On Tue, 15 Sep 2026 05:55:15 +0000, Wentao Liang wrote:
+> imx_get_clk_hw_by_name() obtains a consumer clock with
+> of_clk_get_by_name(), extracts the hardware pointer with __clk_get_hw()
+> and returns it without ever calling clk_put(), leaking the consumer
+> reference on both return paths.
+> 
+> Extract the hardware pointer first and drop the clock reference with
+> clk_put() before returning.
+> 
+> [...]
 
->
-> Cc: stable@vger.kernel.org
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Applied, thanks!
 
-Wrong tag. In 2.6.12 ic_dev was a 'struct net_device *' that was only
-compared, never dereferenced. The dereference came in v5.12 with:
+[1/1] clk: imx: Fix clock reference leak in imx_get_clk_hw_by_name()
+      commit: 8e177ca735761a1f03e1dedffd7ab00d6d0540ae
 
-Fixes: 46acf7bdbc72 ("Revert "net: ipv4: handle DSA enabled master
-network devices"")
-
-> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-> ---
->  net/ipv4/ipconfig.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->
-> diff --git a/net/ipv4/ipconfig.c b/net/ipv4/ipconfig.c
-> index 1b8585404a41..ac4851e59c3b 100644
-> --- a/net/ipv4/ipconfig.c
-> +++ b/net/ipv4/ipconfig.c
-> @@ -346,6 +346,13 @@ static void __init ic_close_devs(void)
->                 kfree(d);
->         }
->         rtnl_unlock();
-> +
-> +       /* The whole ic_device list was just kfree()'d above; clear the
-> +        * static pointers so retry rounds (e.g. dynamic retry after an
-> +        * OFFER without ACK) don't dereference them (use-after-free).
-> +        */
-> +       ic_first_dev =3D NULL;
-> +       ic_dev =3D NULL;
->  }
-
-The change looks correct, but the comment is not needed.
-
-Please send a V2 (in more than 24 hours) targeting the net tree
-([PATCH net v2]).
-
-Thanks.
-
-pw-bot: cr
+Best regards,
+-- 
+Abel Vesa <abel.vesa@oss.qualcomm.com>
