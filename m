@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E96E2F8E85;
-	Fri,  9 Oct 2026 20:33:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01DC3481FCF;
+	Fri,  9 Oct 2026 20:36:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791578014; cv=none; b=LH9iBpibzJFueeALxbNqSyoZspqH7H+vr1aPxljEgN7N8a5PsCFwpR4+uccDNTRXTqDfcGQ79j5L3fNl4dTVwctrkeLi9QE6sjMqeXH6L8ZnBdfcxbVIbjyw9SuuFlbJtYwm2VKiQkPZ4jpukEGo9CBXo3zgh177tYZC6++drbc=
+	t=1791578193; cv=none; b=HiBMb9cZxi0+DCNrnXoTWWCSjI9jBNwPJTR+CxQVRnFwBX4hqAC+xJOVHAZjoB2SJYprjodVZfvcmU2CVhP/Z872eBvNwgpufKiGfcBn2n1GKt3Ls1HPxJLlMWz+eZlquC0UjA6Bodg1aP6OxI27NrFv66RiKSFfWapuw+K+V3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791578014; c=relaxed/simple;
-	bh=V6c/kI/3dZRNk467i1IY6WwxbHEPDAcDQm+frwznitA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DzHzNlqrYX5F0NuFuAvFtAYjWJPFgzVLCwnroZkhSXxJ+i8NnaCjbBdHoDEx+nQSmp5uWd2Uubr+wkFkuE9LJMoDPJxWLMJ+jaZFjX2xF28EHmbLD7tfYAbZUN1cGibagMaw81TBDY/vwY2cHCl7k6IcMDxoa9JLFda5WZjgCJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P9fDb5c8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791578193; c=relaxed/simple;
+	bh=ru0d7M5F111NioXU6UnDgpYYW/jhAY4WwBpzEFYrCpQ=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=tSZpobNfFs0Lfg/kO0yicZLo4O/j7Q70NcM24eNnqtDZx9zAyMxkUVRSo9CUSKqSEtGbRkAeUSf13oVdRT5w3R69E27GHXMzcLLdTnch5yETMYwy90AzSf/P1ydLP+kpFe5+FzBdgsdCwbrC/zfYxzCkO+0gVOFb5RGkNRwesGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GLg1cnuJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P9fDb5c8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 283441F000FF;
-	Fri,  9 Oct 2026 20:33:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GLg1cnuJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5E1C1F000FF;
+	Fri,  9 Oct 2026 20:36:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791578013;
-	bh=aWnreVv1JvFvXL8LlcobuwrybBro3mW0bQFXS2LDkB4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=P9fDb5c8ZUCK3G53nUPYeOnWZCMIcbM8vk2VHvX+l5bTeZrPxUZYFohbmHv1zWTmk
-	 rX8S/tqjSEJygh17j0tdYOZL6sixizg8ly6+jfDc30Uei5aM7j/KKapi783xnm8Nyf
-	 dfWajST1ImDGiI62Q01/eIjJlTWpkUvQeye8+60Pktoi86SouECmyeL5hDKVb5QMni
-	 M/rHUeeuSao6t1O8LZP5dxIhkBc9fDi7ufELFg+EqUJ4BBZqwl/7Du0VnLsI4o/bB+
-	 3ckEdI09l3Td6rLBM8liiWkSc2kS05mnBiW9shA6tF5qqGJYMGDqXhVwoYRYfOW7+F
-	 wDhJVM9gZ+qRg==
-Message-ID: <b8769c67-1683-4d84-94c9-916c305dafc0@kernel.org>
-Date: Fri, 9 Oct 2026 22:33:23 +0200
+	s=k20260515; t=1791578191;
+	bh=qsvSQTb/mkLW7ftqjoW8EveuRC0YRtADluZX056tD6s=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=GLg1cnuJ6do1U7xESKZK430UTlifVgIdS04Wit5vk4OfnCoWthVvEQWbUXYt8mX30
+	 0/IFQUAJXsPkfEYmpvaVVmc07kPx74p5T2FLl26XFDkliiFbqCIdI6Frhu9gN3S5q/
+	 lqswPDyNyFXCYw+5XjMSu4eeohk7I6KZAPNJsVZnTc9fKvCU4ZOQR03N9jY7p8Cu3s
+	 QuqPJ0VKJBXqgMvfaaumrRgQIgbFjfBiYdyiKYvH1Hx+iXrWt5Ykyhcd/2pPgyrBJD
+	 EN6OBqmIGEix8m1WtBV5guB1BJuQDWtbOW+cnvJpNVemIC52kNxFo4rAONufCe3C+7
+	 UjLoQted9mjXw==
+Message-ID: <39ae6c48-7fcc-41d5-bfaf-fe626071861e@kernel.org>
+Date: Fri, 9 Oct 2026 22:36:21 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,6 +37,7 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 1/4] x86/mm: fix missing pgtable destructor for vmemmap
  tables
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 To: Muchun Song <songmuchun@bytedance.com>, akpm@linux-foundation.org
 Cc: linux-mm@kvack.org, stable@vger.kernel.org, osalvador@suse.de,
  dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org,
@@ -49,7 +50,7 @@ Cc: linux-mm@kvack.org, stable@vger.kernel.org, osalvador@suse.de,
  linux-kernel@vger.kernel.org, muchun.song@linux.dev
 References: <20261008073021.2512665-1-songmuchun@bytedance.com>
  <20261008073021.2512665-2-songmuchun@bytedance.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+ <b8769c67-1683-4d84-94c9-916c305dafc0@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
  xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
@@ -95,54 +96,56 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261008073021.2512665-2-songmuchun@bytedance.com>
+In-Reply-To: <b8769c67-1683-4d84-94c9-916c305dafc0@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/8/26 09:30, Muchun Song wrote:
-> Since commit 49f599666420 ("mm: call ctor/dtor for kernel PTEs"),
-> pte_alloc_one_kernel() runs the page-table constructor for kernel PTE
-> tables.
+On 10/9/26 22:33, David Hildenbrand (Arm) wrote:
+> On 10/8/26 09:30, Muchun Song wrote:
+>> Since commit 49f599666420 ("mm: call ctor/dtor for kernel PTEs"),
+>> pte_alloc_one_kernel() runs the page-table constructor for kernel PTE
+>> tables.
+>>
+>> HugeTLB vmemmap optimization uses pte_alloc_one_kernel() when splitting
+>> a PMD. Restoring the vmemmap backing pages does not collapse the PTE
+>> table, so a later memory hot-remove eventually frees that table through
+>> free_pagetable(). That path currently calls pagetable_free() directly
+>> without decrementing NR_PAGETABLE.
+>>
+>> Use PageTable() to identify constructor-backed tables and run the
+>> matching destructor before freeing them. Keep reserved and
+>> constructor-free tables on their existing paths. This also prepares
+>> vmemmap teardown for generic runtime allocations through the normal
+>> pgalloc helpers.
+>>
+>> Fixes: 49f599666420 ("mm: call ctor/dtor for kernel PTEs")
+>> Cc: stable@vger.kernel.org
+>> Assisted-by: LLM
+>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>> ---
+>>  arch/x86/mm/init_64.c | 2 ++
+>>  1 file changed, 2 insertions(+)
+>>
+>> diff --git a/arch/x86/mm/init_64.c b/arch/x86/mm/init_64.c
+>> index 70e682180291..a3ea627157ab 100644
+>> --- a/arch/x86/mm/init_64.c
+>> +++ b/arch/x86/mm/init_64.c
+>> @@ -1003,6 +1003,8 @@ static void __meminit free_pagetable(struct page *page)
+>>  {
+>>  	if (PageReserved(page))
+>>  		free_reserved_page(page);
+>> +	else if (PageTable(page))
+>> +		pagetable_dtor_free(page_ptdesc(page));
+>>  	else
+>>  		pagetable_free(page_ptdesc(page));
+>>  }
 > 
-> HugeTLB vmemmap optimization uses pte_alloc_one_kernel() when splitting
-> a PMD. Restoring the vmemmap backing pages does not collapse the PTE
-> table, so a later memory hot-remove eventually frees that table through
-> free_pagetable(). That path currently calls pagetable_free() directly
-> without decrementing NR_PAGETABLE.
-> 
-> Use PageTable() to identify constructor-backed tables and run the
-> matching destructor before freeing them. Keep reserved and
-> constructor-free tables on their existing paths. This also prepares
-> vmemmap teardown for generic runtime allocations through the normal
-> pgalloc helpers.
-> 
-> Fixes: 49f599666420 ("mm: call ctor/dtor for kernel PTEs")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> ---
->  arch/x86/mm/init_64.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/arch/x86/mm/init_64.c b/arch/x86/mm/init_64.c
-> index 70e682180291..a3ea627157ab 100644
-> --- a/arch/x86/mm/init_64.c
-> +++ b/arch/x86/mm/init_64.c
-> @@ -1003,6 +1003,8 @@ static void __meminit free_pagetable(struct page *page)
->  {
->  	if (PageReserved(page))
->  		free_reserved_page(page);
-> +	else if (PageTable(page))
-> +		pagetable_dtor_free(page_ptdesc(page));
->  	else
->  		pagetable_free(page_ptdesc(page));
->  }
+> pagetable_free() will do ptdesc_test_kernel(pt) -> pagetable_free_kernel(pt) ->
+> pagetable_dtor_free().
 
-pagetable_free() will do ptdesc_test_kernel(pt) -> pagetable_free_kernel(pt) ->
-pagetable_dtor_free().
+Ah, behavior depends on CONFIG_ASYNC_KERNEL_PGTABLE_FREE$ ...
 
-
-IIUC, pte_alloc_one_kernel() will set ptdesc_set_kernel(ptdesc);
+Why not do the right thing in pagetable_free() instead?
 
 -- 
 Cheers,
