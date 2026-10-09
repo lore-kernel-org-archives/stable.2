@@ -1,151 +1,86 @@
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77D964D37B3
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 12:39:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF4C44C648;
+	Fri,  9 Oct 2026 12:41:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791549583; cv=none; b=ZUo2FXwvPvTf9hol74sr52PbG4wm5eqQ+g1VDCqqdNoSQjbrIqX2kcB0Az9rKOfbD/Pt9zUmPWkz4RRdla6KJwOtcS+/9bqkKnsRhjignSFD2gTRdUMVvBXroaC1gF2SVou2EFustHxHQn6c32DufUWWlcdhwi66a9Xqal4wd8M=
+	t=1791549671; cv=none; b=nLnw9EA/tHaADje8ihlTjfbRbMd4S6jMT7mRfGytdSb0qgG59C0n8TY+PB390KGOZii0MB6lYXC3EHKwDEphxfXB2wWEOMyjMWWLIokzbBCokazcq3NJLk3AL30Escbqh1tmqs8dYotPq9k/ZMmFw90Eb7lizLKbkzR+69Mx1wI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791549583; c=relaxed/simple;
-	bh=YkFngmUHJVNtqW4md/XBpJxxkgF7T+dBARvecXA4TKU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f889ZMuXKuWQX53H5WjG4H7w0fMqtdcU6IOjxtGn/BN+lSses1hYUJLWoZR+eTl5rny80kHIWdB651CutPMEg9JkYcZYngLM6Lhv9Tq1FQahvN/7zEv4QtlKaxTSyMtfpRhr2h/4NPmLLsMAua+rfiVvqj6qNN/4CvOB8BEUXIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XQcts8ut; arc=none smtp.client-ip=209.85.208.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791549671; c=relaxed/simple;
+	bh=UHVrq+I+KSBEzMAH/uApO9fqsh4KPkEjTlaFZB3w9g8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Yx4+iRLw2or4Pcvcgf9iaDvb3W8JFMW5iL7GvfHIzpdPViypcp4MmapvHXBlhScdjQIvFGmmkHASYDhdQDjdIxKGixKi6aJZRtzOAix6f4KlFVIEF7KF8GaM7wC66qzhKML1bMHorDFNg1iyLxif3UTjD/Jk0zDp0T94HIdBPSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PBUDQDYI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XQcts8ut"
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3a9841363b5so35496021fa.2
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 05:39:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791549572; x=1792154372; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kyY83NomyQWfh4LKX7bgA+B05RDisIzsK5TyQRhxHSo=;
-        b=XQcts8utbnFWyDR2h9ZGUIOpzNZR6Z6PuazvleT+oEA/CzCd+cRYfnWZWkD0V5Jfx6
-         yXRd/OeaJpaZfZJ/ijIdMY3DuipEFnbkUSWNSlGJLNitl7x48sMzygVlFAU8Bgjjslvy
-         j/b1aY4NAvuSposZiOeMs6cSEHZicRCxIfGWZJvsSH2UC5aruO25QghzVXwxVzI+gnsk
-         /SHZdZeYEd8bqG/ADYuX0/8LoGNfPzLDMedWsMwvdvKfBU+dW+ddXU8D8rW4ftOkQ1RK
-         KZX8mK4OtWcBRAPWDmvCuOGzv4u8hOdr1xN56DY15TtFGDU975CQr86WRAJy8tFjY2zw
-         ok5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791549572; x=1792154372;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kyY83NomyQWfh4LKX7bgA+B05RDisIzsK5TyQRhxHSo=;
-        b=TnPvkyuw6YFGQu+i41WZiHiJY1sIXdZLL4oBUGA10ThKcze6JdPRnTGuvAZ3f7ythE
-         pnwLS1uHyEAsGn6wwIISHCykBQl0dPiob7CsgOiE8JESN5KQUxeJ5TMIcqgsN99GYlab
-         v0pT20C+eJuCmPP1EU3zBUeJf14AzlWbM8NguBC6uFxdJSKMADGfWiDRLR03Gh3cxGRm
-         x6b67bnIo1xydhCCsCu/agMWDbEPT6xu1uBn5Il+KLyP/9JXNJkvOH1rwoiaY6tGVrQD
-         urgYcKlm6yPMJFSZdayZ2blXxSLG1IX2puMsVfeETXI8Thfbp3g7syIHIrFso6lw/2Bi
-         3hxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw7bELJ+YM+MPOQPOXHpauRBifuD7Ui0kGCgNw1nTLK+BJw0OGdIZo4zBR1rw5vxe/hpibbbUs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJiLKXL+CeWWj2fgGsLjtq8Ps6FZ6wuRaV2616xjDI7g4L380m1
-	UZSWgeuk+o1aBxKf6+YrN6iQztHDwA9zcl7A783tw6DZi/EfqAKlty+P
-X-Gm-Gg: AYBFou17CnV6CRgHjCKYcxagRbGrYJPuCXv63esC3Ho9t3XWzkF4lbFyULc0orezoI3
-	c6IQc4fg534CcNKi7gOeMvzi2z25a3GhaJJH2QT99Hhf1ovH0GDYk2EqAeSkqrpBu3ojK1FDvL8
-	Dzg6FnMsCJcCtu7gCsfrudM2oscTVnnurLJBVilEimvqqAX93DGvU1A/BEgwfGibm3NhG3dzOJe
-	4rZfqxO2X85f4GAh6YY5vLJGyhB2Aaac12p1lzZuwZr3GZzMlZQXTV99qDWiV7/hh1NjUjtR7W5
-	DEmp7a6hP0sZcxxUPGxyhWAhb7wD+vFjQ+rBmx9nr6H+/4CvtNCIQljm73WqvwCRpnA4zuea9++
-	WYszUx5tGjye1gfGrWrfAmYl4ZnLNLXh4BS+XHDzpCqsYfZUkpN8YeLqWeipPi79fQO2rEfm6gq
-	pMje5JoQWOXik3PlQH1oOCWSvOAhclvZcsZPuQhUf3dL0Rc2808M2yNis3QAPQ/Rp6grsKVobTo
-	e3U
-X-Received: by 2002:a05:651c:549:b0:3a9:7b12:b35b with SMTP id 38308e7fff4ca-3a9c53b2811mr4542691fa.12.1791549572202;
-        Fri, 09 Oct 2026 05:39:32 -0700 (PDT)
-Received: from grower.uveon.ru ([37.230.157.20])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9c3cf5903sm6729281fa.42.2026.10.09.05.39.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 05:39:31 -0700 (PDT)
-From: Alexander Martyniuk <alexevgmart@gmail.com>
-To: pchelkin@ispras.ru,
-	stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: alexevgmart@gmail.com,
-	davem@davemloft.net,
-	johannes.berg@intel.com,
-	johannes@sipsolutions.net,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	netdev@vger.kernel.org,
-	syzbot+63a84ea9c0f57d6133fa@syzkaller.appspotmail.com,
-	thomas@cozybit.com
-Subject: [PATCH 5.10/5.15 v2] wifi: mac80211: mesh: release the channel if start fails
-Date: Fri,  9 Oct 2026 15:39:26 +0300
-Message-ID: <20261009123926.22180-1-alexevgmart@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261008220352-4a493878ce385d22bedcf4a4-pchelkin@ispras>
-References: <20261008220352-4a493878ce385d22bedcf4a4-pchelkin@ispras>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PBUDQDYI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30F1F1F00893;
+	Fri,  9 Oct 2026 12:41:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791549662;
+	bh=Psgr4KXFcCz+KML8rnciIALqUxR0nVRxU2EGq3dHPxI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PBUDQDYI9DZ9QuVtpi02ucFDiTS/4syhaJgXXj5FOhbqP5/XgzzpC7281Brap8vgK
+	 Z3oox3lSpkuuhGycvBNgwNhsG17a8+lD4PmmnmRcjy2Y9MOGSml+z55/8vf1H14U7m
+	 40+DAo4KG4vftW9W4mkM/Tp8539Ftm33gMvCvzQb/P3WgwJFFNwyhom36V9Cve3Waq
+	 yg7p/g39aqQz0KG8fZxo8oyi/d0/i6q13zFoGGCK8AAXmhWplDtMr+eiZWSuShHpl0
+	 gfr0H3j9r0mxtX81KJSK0bFWq6iGUEpZYjPSbnHIXEg7NHVjONFILuMtjqofQW+rqD
+	 aP9Xjv8BteIhA==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1xF9uF-00000001x62-3tga;
+	Fri, 09 Oct 2026 14:40:59 +0200
+Date: Fri, 9 Oct 2026 14:40:59 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org, oliver@neukum.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] USB: sierra: Fix urb leak in sierra_submit_delayed_urbs()
+Message-ID: <asjg2_2pB0dOflW_@hovoldconsulting.com>
+References: <20260916165352.2085480-1-vulab@iscas.ac.cn>
+ <aqusRqksylvOi1UK@hovoldconsulting.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqusRqksylvOi1UK@hovoldconsulting.com>
 
-From: Johannes Berg <johannes.berg@intel.com>
+On Thu, Sep 17, 2026 at 11:00:54AM +0200, Johan Hovold wrote:
+> On Wed, Sep 16, 2026 at 04:53:52PM +0000, Wentao Liang wrote:
+> > sierra_submit_delayed_urbs() takes a reference to each delayed urb
+> > with usb_get_from_anchor() before submitting it. The submit failure
+> > path releases the reference with usb_free_urb(), but on the success
+> > path the reference is never dropped: the urb is only anchored in the
+> > active list and the USB core unanchors it on completion, leaving the
+> > reference returned by usb_get_from_anchor() dangling so the urb
+> > object is never freed.
+> > 
+> > Drop the reference with usb_put_urb() after a successful submission,
+> > matching the reference handling in sierra_write() and the sierra_close()
+> > drain loop. Skip the rest of the loop body with continue on the error
+> > path, which already frees the urb.
+> > 
+> > Fixes: e6929a9020ac ("USB: support for autosuspend in sierra while online")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> 
+> This looks correct, but as Greg already asked you elsewhere, did you
+> forget to add an Assisted-by tag here as well? How was this issue found
+> and fixed?
+> 
+> Also, you need to start replying to feedback. According to the list
+> archives you have haven't replied to any of the four mails commenting on
+> your patches that I've sent you so far.
 
-commit ae97fff6495a8764bc0ef281cfe5444f701e527f upstream.
+You still haven't replied to anything I've ever sent you so I'm gonna
+start treating you like a bot.
 
-ieee80211_join_mesh() acquires a channel context and then calls
-ieee80211_start_mesh(), which can fail. In that case, the chanctx
-isn't released then interface removal will attempt to unassign it
-after it's removed from the driver, hitting:
+I've fixed up the USB serial and cdc-acm leaks you reported and given
+you credit for reporting them.
 
-  wlan0: Failed check-sdata-in-driver check, flags: 0x0
-  WARNING: net/mac80211/driver-ops.c:366 at drv_unassign_vif_chanctx
-   ieee80211_assign_link_chanctx
-   __ieee80211_link_release_channel
-   ieee80211_link_release_channel
-   ieee80211_teardown_sdata
-   unregister_netdevice_many_notify
-   _cfg80211_unregister_wdev
-   ieee80211_remove_interfaces
-   ieee80211_unregister_hw
-   mac80211_hwsim_del_radio
-   hwsim_exit_net
-
-Correctly release the channel on start failures.
-
-Assisted-by: LLM
-Reported-by: syzbot+63a84ea9c0f57d6133fa@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=63a84ea9c0f57d6133fa
-Fixes: 2b5e19677592 ("mac80211: cache mesh beacon")
-Link: https://patch.msgid.link/20260908122838.201719-21-johannes@sipsolutions.net
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-[Alexander: No such function ieee80211_link_release_channel(), so
-ieee80211_vif_release_channel() is used]
-Signed-off-by: Alexander Martyniuk <alexevgmart@gmail.com>
----
-Backport fix for CVE-2026-98326
- net/mac80211/cfg.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
-index 29bcb5f6013a..d5865f4083cf 100644
---- a/net/mac80211/cfg.c
-+++ b/net/mac80211/cfg.c
-@@ -2311,7 +2311,14 @@ static int ieee80211_join_mesh(struct wiphy *wiphy, struct net_device *dev,
- 	if (err)
- 		return err;
- 
--	return ieee80211_start_mesh(sdata);
-+	err = ieee80211_start_mesh(sdata);
-+	if (err) {
-+		mutex_lock(&sdata->local->mtx);
-+		ieee80211_vif_release_channel(sdata);
-+		mutex_unlock(&sdata->local->mtx);
-+	}
-+
-+	return err;
- }
- 
- static int ieee80211_leave_mesh(struct wiphy *wiphy, struct net_device *dev)
--- 
-2.43.0
-
+Johan
