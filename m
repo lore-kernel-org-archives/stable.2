@@ -1,158 +1,162 @@
-Received: from mta0.migadu.com (out-24.mta0.migadu.com [91.218.175.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142B64D7950
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 14:15:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9505C3164B4;
+	Fri,  9 Oct 2026 14:15:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555312; cv=none; b=C84CQRFwu20+rO9S29s3PwzqJsmMr707WWO7rjG81298aZoKA1shCEz0s35FGl8EMtyy/o7YlF7ndU0vxno42BtNdzfzbZkOEQrMmy+B8YC8RnPz8+bYDYe9LF0trkWyJ/zTvo/YbJBI/j0D3jJ8yPqvRJ6unMF8OFrLgA962FE=
+	t=1791555313; cv=none; b=u+YWtIf85xZ8c8/3qTRtOq3vWb23t+vzikC9EvxPKSFDfr5ZORCHB/6WDqtIVoQVSkic6fEdYNhwUO/Y8JDk5+WBM3CVBQdkjTwdVvCie25yFcqLwF8Xi7Ywgn4WOPGKuK9fQk1miDAHS5P+bffGPXdOaw3RlZbuCuFRWAUXfdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791555312; c=relaxed/simple;
-	bh=D7hfrm3qIlI4+AhECxlB2fjvQpfx6eid9hhS+USFrjU=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=rTsF3c1Vmn2nYsHh1EU+lebE0K33LpOuEwZTWEVA8f+kdGmrYBGIC7yJC7JKK1T5ArjCBycfE0yAjhbR6snsY+xV/OqYERfTDbnHG+Z0mFjgm2oE/nOupoMhBoIOI/UGAmXfc3rZhiHoSYhx/obHGeTvUDH4NIL5dgSF+A+t5/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=j8NTeppk; arc=none smtp.client-ip=91.218.175.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791555313; c=relaxed/simple;
+	bh=bxE/u1V9+F/Yutb8vO1sza04xL5r8KGdnxAkiSMuo0s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uEs5xwnZ88CDFjqiJRU/zcgCVbAsqpca08diOUdHTz5iEk/F46VT865QEAIzb3oYgNm8Ofx+hVwMcrgJ99NEmtMKYYDcUSs+FyTe4JBx6MtL1bBnm+K2IC/r4rrtnVZSx0IuvHZbkMWue64o8znbaQ3lQBUymcNrzefXeYGHxDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OKoB6HwY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="j8NTeppk"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=D7hfrm3qIlI4+AhECxlB2fjvQpfx6eid9hhS+USFrjU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791555306; v=1; x=1792160106;
- b=j8NTeppkVXGfC8IhWAZ+0uNt2krpxfFy33/z/lBbjk4Iovqn5lLkJ69MNhmRam47hpDvVo4r
- ClMmjS19pVnfiXmbSCvpyMaDhp/psc5s8psLKxXq8Urx6grXRx/HF0dW+KrncM1RNDSzcrVJ6c2
- Keq9+GOQmKeQeNLLEldjIsEM=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d5fd037bf9b86533;
-	Fri, 09 Oct 2026 14:15:05 +0000
-X-Mizu-Trace-ID: d5fd037bf9b86533
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OKoB6HwY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAF341F000FF;
+	Fri,  9 Oct 2026 14:15:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791555305;
+	bh=hLqitCyv/ggGVMIbGF6De4F3sdtA9RAKRxTiuAe9R1o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OKoB6HwY56aYNkrDO414G13t+HLzfD1b2AZ+tXFaVFEiTLYJzjC81fRqLM+IlSdAN
+	 PgbadfQJBusB/itbPRBP8APOCo3ZQfOAZqisSKB/o/ujEaxEtvRHwAAQe8HlYJdT8p
+	 05KDRA9kNIO727PjvEvDY9qanRIFhI8+t6mpIoiE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Krush Chavan <krushchavan@outlook.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.2 004/428] selftests/cgroup: account for zswap shrinker writeback
+Date: Fri,  9 Oct 2026 16:05:41 +0200
+Message-ID: <20261009140946.120534742@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261009140946.008206689@linuxfoundation.org>
+References: <20261009140946.008206689@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH 2/4] riscv/mm: fix hotplug page-table destructor handling
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <87jynrs8v8.fsf@all.your.base.are.belong.to.us>
-Date: Fri, 9 Oct 2026 22:14:40 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- akpm@linux-foundation.org,
- linux-mm@kvack.org,
- stable@vger.kernel.org,
- david@kernel.org,
- osalvador@suse.de,
- dave.hansen@linux.intel.com,
- luto@kernel.org,
- peterz@infradead.org,
- tglx@kernel.org,
- mingo@redhat.com,
- bp@alien8.de,
- x86@kernel.org,
- hpa@zytor.com,
- catalin.marinas@arm.com,
- will@kernel.org,
- mark.rutland@arm.com,
- linux-arm-kernel@lists.infradead.org,
- pjw@kernel.org,
- palmer@dabbelt.com,
- aou@eecs.berkeley.edu,
- alex@ghiti.fr,
- linux-riscv@lists.infradead.org,
- agordeev@linux.ibm.com,
- kevin.brodsky@arm.com,
- bjorn@rivosinc.com,
- apopple@nvidia.com,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <0E3A4E15-38DA-400D-95F2-01FFBB36304B@linux.dev>
-References: <20261008073021.2512665-1-songmuchun@bytedance.com>
- <20261008073021.2512665-3-songmuchun@bytedance.com>
- <87jynrs8v8.fsf@all.your.base.are.belong.to.us>
-To: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+
+7.2-stable review patch.  If anyone has any objections, please let me know.
+
+------------------
+
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+
+[ Upstream commit 8c7fdc0b4c64d6583fff3e8f7696237a16ff7c29 ]
+
+The test_no_invasive_cgroup_shrink selftest checks that when a cgroup has
+zswapped out more memory than memory.zswap.max, it does not trigger
+writeback for other cgroups.  To do this, it compares the writeback count
+in a control cgroup and makes sure that it is 0, and then checks the
+writeback count in an aggressor cgroup who does expect to see writeback.
+
+However, when the zswap shrinker is enabled, the victim cgroup can see
+legitimate writebacks not triggered by the aggressor.  In some Meta CI
+tests, we have seen this failure mode happen.
+
+Instead of checking that the victim cgroup has 0 writeback, compare the
+writeback values before and after the aggressor runs and check that the
+victim cgroup did not perform any additional writeback.  Note that this
+can still lead to probabilistic failures if writebacks take longer than
+5 seconds, but this should fix the systematic failure case and make
+"not ok test_no_invasive_cgroup_shrink" less likely.
+
+Link: https://lore.kernel.org/20260902194521.3652178-1-joshua.hahnjy@gmail.com
+Fixes: b5ba474f3f51 ("zswap: shrink zswap pool based on memory pressure")
+Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Krush Chavan <krushchavan@outlook.com>
+Suggested-by: Nhat Pham <nphamcs@gmail.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ tools/testing/selftests/cgroup/test_zswap.c | 28 +++++++++++++++++++--
+ 1 file changed, 26 insertions(+), 2 deletions(-)
+
+diff --git a/tools/testing/selftests/cgroup/test_zswap.c b/tools/testing/selftests/cgroup/test_zswap.c
+index 6e7b89315bbf3..eb0933ace4aca 100644
+--- a/tools/testing/selftests/cgroup/test_zswap.c
++++ b/tools/testing/selftests/cgroup/test_zswap.c
+@@ -20,6 +20,7 @@ static int page_size;
+ 
+ #define PATH_ZSWAP "/sys/module/zswap"
+ #define PATH_ZSWAP_ENABLED "/sys/module/zswap/parameters/enabled"
++#define PATH_ZSWAP_SHRINKER_ENABLED "/sys/module/zswap/parameters/shrinker_enabled"
+ 
+ static int read_int(const char *path, size_t *value)
+ {
+@@ -443,6 +444,16 @@ static int test_zswap_writeback_disabled(const char *root)
+ 	return test_zswap_writeback(root, false);
+ }
+ 
++static bool zswap_shrinker_enabled(void)
++{
++	char value[2];
++
++	if (read_text(PATH_ZSWAP_SHRINKER_ENABLED, value, sizeof(value)) <= 0)
++		return 0;
++
++	return value[0] == 'Y';
++}
++
+ /*
+  * When trying to store a memcg page in zswap, if the memcg hits its memory
+  * limit in zswap, writeback should affect only the zswapped pages of that
+@@ -452,6 +463,7 @@ static int test_no_invasive_cgroup_shrink(const char *root)
+ {
+ 	int ret = KSFT_FAIL;
+ 	unsigned int off;
++	long zswpwb_before, zswpwb_after, zswpwb_target;
+ 	size_t allocation_size = page_size * 1024;
+ 	unsigned int nr_pages = allocation_size / page_size;
+ 	char zswap_max_buf[32], mem_max_buf[32];
+@@ -487,6 +499,14 @@ static int test_no_invasive_cgroup_shrink(const char *root)
+ 	if (cg_read_key_long(zw_group, "memory.stat", "zswapped") < 1)
+ 		goto out;
+ 
++	/* If the shrinker is enabled, try to let the writebacks finish first */
++	if (zswap_shrinker_enabled())
++		sleep(5);
++
++	zswpwb_before = get_cg_wb_count(zw_group);
++	if (zswpwb_before < 0)
++		goto out;
++
+ 	/* Push wb_group memory into zswap with hard-to-compress data to trigger wb */
+ 	if (cg_enter_current(wb_group))
+ 		goto out;
+@@ -499,9 +519,13 @@ static int test_no_invasive_cgroup_shrink(const char *root)
+ 		getrandom(&wb_allocation[off], page_size/4, 0);
+ 	}
+ 
+-	/* Verify that only zswapped memory from gwb_group has been written back */
+-	if (wait_for_writeback(wb_group, 5000) > 0 && get_cg_wb_count(zw_group) == 0)
++	/* Verify that only zswapped memory from wb_group has been written back */
++	zswpwb_target = wait_for_writeback(wb_group, 5000);
++	zswpwb_after = get_cg_wb_count(zw_group);
++
++	if (zswpwb_target > 0 && zswpwb_before == zswpwb_after)
+ 		ret = KSFT_PASS;
++
+ out:
+ 	cg_enter_current(root);
+ 	if (zw_group) {
+-- 
+2.53.0
 
 
-
-> On Oct 9, 2026, at 14:09, Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org> =
-wrote:
->=20
-> Muchun Song <songmuchun@bytedance.com> writes:
->=20
->> RISC-V uses the same memory-hotplug teardown code for the linear map =
-and
->> vmemmap, although their page-table pages are not always allocated in =
-the
->> same way. Late linear-map allocations run page-table constructors, =
-while
->> vmemmap and early allocations may provide constructor-free pages.
->>=20
->> The PTE path unconditionally runs the destructor, which is wrong for
->> constructor-free vmemmap tables. The PMD path avoids that problem by
->> using is_vmemmap as a proxy for constructor state, but that =
-assumption
->> will no longer hold once runtime vmemmap allocations use the normal
->> pgalloc helpers.
->>=20
->> Page-table constructors record their state in PG_table. Centralize
->> page-table freeing and use PageTable() to decide whether the =
-destructor
->> is required. Keep reserved and constructor-free pages on their =
-existing
->> freeing paths.
->>=20
->> Fixes: c75a74f4ba19 ("riscv: mm: Add memory hotplugging support")
->> Cc: stable@vger.kernel.org
->> Assisted-by: LLM
->> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->> ---
->> arch/riscv/mm/init.c | 29 ++++++++++++++---------------
->> 1 file changed, 14 insertions(+), 15 deletions(-)
->>=20
->> diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
->> index 857f9a55039c..429a0b015ec1 100644
->> --- a/arch/riscv/mm/init.c
->> +++ b/arch/riscv/mm/init.c
->> @@ -1486,10 +1486,19 @@ struct execmem_info __init =
-*execmem_arch_setup(void)
->> #endif /* CONFIG_EXECMEM */
->>=20
->> #ifdef CONFIG_MEMORY_HOTPLUG
->> +static void __meminit free_pagetable(struct page *page)
->> +{
->> + 	if (PageReserved(page))
->> + 		free_reserved_page(page);
->> + 	else if (PageTable(page))
->> + 		pagetable_dtor_free(page_ptdesc(page));
->> + 	else
->> + 		pagetable_free(page_ptdesc(page));
->> +}
->=20
-> Is PageReserved() enought to determine if there's no dtor to run? On
-
-Yes.
-
-> rv64 your code is correct, but maybe for robustness?
->=20
->  | if (PageTable(page))
->  |         pagetable_dtor(page_ptdesc(page));
->  |=20
->  | if (PageReserved(page))
->  |         free_reserved_page(page);
->  | else
->  |         pagetable_free(page_ptdesc(page));
-
-his looks good to me as well. I'll change it in the next version. =
-Thanks!
-
-Muchun
-
->=20
->=20
-> Bj=C3=B6rn
 
