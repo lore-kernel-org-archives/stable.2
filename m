@@ -1,238 +1,121 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E6645A2BC;
-	Fri,  9 Oct 2026 14:21:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 577ED4E532F;
+	Fri,  9 Oct 2026 14:21:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555672; cv=none; b=e7IpeE0G1bopVt9L+j6w8CaoxohGZLZR3o8M4tuW5L/K0K6B09/ajTT8xPB/4fj8qYu21KQaVvlyQSZPbDiwqk6o8vberae4Ita0rhhusT+CWvO47vcbD29IWyFFnmE4RLnciI+JKIbGNDAaruV9rum2KTgpgYpMBctBZNxATHs=
+	t=1791555672; cv=none; b=M4YrbMQCBY15Drq2RUrkhAwN3uaQs79NUPBmvbCBteOgGCjb1i8oNuePd4Ha8mWHHZmpu42+ythisseM5PhrIj74sfxzckK/PqElN4vnzIp06pwYosdr3GZQQOAieBnEmXOQKgSHZLMraJpByguOKCrHJS0jlUE0y58ztxum3lI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791555672; c=relaxed/simple;
-	bh=IpaHEDOQeCRuwwxOZqwR3Eiq9DxscZux6RqoYjr/snw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MknmmApXYu/jJbcZ83m0dCGDRyIHC9lKIxG5In67mKlVrwLp9J4XvTgNEfG3oCH9zz4EkUEpzYowJ89zKbHjUDI0H+JCdET8EPS8zWPnBilx7dk/kNduMy0Ib1r9fua21cBKaVnw7ZLoQVpei29OI+Z5UMNa/K1jE1Am1k/7/b0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.127])
-	by APP-03 (Coremail) with SMTP id rQCowADX4T9G+Mhqz14oCg--.5069S2;
-	Fri, 09 Oct 2026 22:20:54 +0800 (CST)
-Message-ID: <576dcb368d9d8c96226a27474f9427e6da2db1da.camel@iscas.ac.cn>
-Subject: Re: [PATCH 2/2] drm/loongson: Handle buffer mapping failures when
- clearing a BO
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Evanshenf
-	 <archwse@gmail.com>, dri-devel@lists.freedesktop.org, Natalie Vock
-	 <natalie.vock@gmx.de>, "Paneer Selvam, Arunpravin"
-	 <Arunpravin.PaneerSelvam@amd.com>
-Cc: Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
- Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, Xi
- Ruoyao <xry111@xry111.site>, Sui Jingfeng <suijingfeng@loongson.cn>,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org, Huang Rui	
- <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, Matthew Brost	
- <matthew.brost@intel.com>
-Date: Fri, 09 Oct 2026 22:20:54 +0800
-In-Reply-To: <2b0d0a02-99a5-447a-8e3f-6154b2660425@amd.com>
-References: <20261003093415.e64386de1e64-1-archwse@gmail.com>
-	 <20261003093415.902f89244043-2-archwse@gmail.com>
-	 <f25629d4aa3c0132275b0a798e1491119fa8d502.camel@iscas.ac.cn>
-	 <2b0d0a02-99a5-447a-8e3f-6154b2660425@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	bh=XbLUZ+yF59suHVZCQIZBFpfhhg6JbJ0l7cIOnCxc5Gc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OTgQzRgwRyuzSS1tNUOznO07vsWFTraPtQ1i4EMwLfmDjPcivizkMIzjYVCLp+LY3tB/qpkxw9+qMSCA8KNviBBCI24jQeQxZqwQ1EeVj8v9H6N+znN3Arh22N7e6yN0wUz1G27fhOScxy8/6kiuNgzPjw7DvK1kx0V04UcSyTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=x69hSS/d; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="x69hSS/d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A03BD1F000FF;
+	Fri,  9 Oct 2026 14:21:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791555671;
+	bh=2J3c3AcvIteXx5lEAhxlSK75ks/hkD9NgpICJLWKqnI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=x69hSS/d8XIjrd05jAQy2KH22ePaewQO2Oe619xHh0k9Dp0VQTa5Fu7MSucxn+Xs4
+	 k7Rb1+2PH3gDPHCgWBC0S938kC2F9TZ8qvalEv65lOJ1ksRtpQTQu7n9egpj3B4Fh1
+	 wXezn/urr81yFJECxZTmPMC743nv+OJN5XEoiGe8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Mark Bloch <mbloch@nvidia.com>,
+	Anirudh Virdi <avirdi@redhat.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 097/403] net/mlx5: Fix slab-out-of-bounds when handling team device events
+Date: Fri,  9 Oct 2026 16:07:38 +0200
+Message-ID: <20261009140954.356523584@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261009140952.119038291@linuxfoundation.org>
+References: <20261009140952.119038291@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowADX4T9G+Mhqz14oCg--.5069S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3GF45uw1fZrykXrWfJr15XFb_yoW7AFWxpr
-	ZxAFyjkrWDXrnFkrnFqa4kC3WFya4Fgry7WFW5tasYg39Fyr17WF15WFWDCF9rZF17Ar12
-	vrn3G39xu3Wqy37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
-	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
-	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
-	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
-	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
-	wI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
-	v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
-	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73Uj
-	IFyTuYvjxUqiFxDUUUU
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Transfer-Encoding: 8bit
 
-=E5=9C=A8 2026-10-09=E4=BA=94=E7=9A=84 16:14 +0200=EF=BC=8CChristian K=C3=
-=B6nig=E5=86=99=E9=81=93=EF=BC=9A
-> On 10/9/26 15:50, Icenowy Zheng wrote:
-> > =E5=9C=A8 2026-10-03=E5=85=AD=E7=9A=84 09:34 +0000=EF=BC=8CEvanshenf=E5=
-=86=99=E9=81=93=EF=BC=9A
-> > > lsdc_bo_clear() ignores the return value from lsdc_bo_kmap() and
-> > > writes
-> > > to lbo->kptr unconditionally. When the first mapping of a newly
-> > > allocated
-> > > buffer fails, kptr is still NULL and the subsequent memset
-> > > accesses
-> > > it.
-> > >=20
-> > > Return the mapping error without touching the buffer and
-> > > propagate it
-> > > from lsdc_gem_object_create(). Install the GEM object functions
-> > > before
-> > > clearing so that drm_gem_object_put() can release the buffer
-> > > correctly
-> > > on failure. Do not add the failed object to the tracking list or
-> > > return
-> > > an uncleared buffer to the caller.
-> > >=20
-> > > Imported buffers still skip clearing, and successfully mapped
-> > > buffers
-> > > are cleared and unmapped as before.
-> > >=20
-> > > Tested on LS7A2000 with a one-shot range error in ttm_bo_kmap().
-> > > Its
-> > > -EINVAL return reached userspace, the object was destroyed once,
-> > > and
-> > > no GEM handle was published. Normal
-> > > create/map/zero/write/read/close
-> > > cycles passed, with the tracked BO count and VRAM usage
-> > > unchanged.
-> > >=20
-> > > AI assistance was used for the lifetime analysis, fix, fault-
-> > > injection
-> > > tools, build and test execution.
-> > >=20
-> > > Fixes: f39db26c5428 ("drm: Add kms driver for loongson display
-> > > controller")
-> > > Cc: stable@vger.kernel.org
-> > > Assisted-by: LLM
-> > > Signed-off-by: Evanshenf <archwse@gmail.com>
-> > > ---
-> > > =C2=A0drivers/gpu/drm/loongson/lsdc_gem.c | 12 ++++++++----
-> > > =C2=A0drivers/gpu/drm/loongson/lsdc_ttm.c | 10 ++++++++--
-> > > =C2=A0drivers/gpu/drm/loongson/lsdc_ttm.h |=C2=A0 2 +-
-> > > =C2=A03 files changed, 17 insertions(+), 7 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c
-> > > b/drivers/gpu/drm/loongson/lsdc_gem.c
-> > > index 2fb0348..9eba4e1 100644
-> > > --- a/drivers/gpu/drm/loongson/lsdc_gem.c
-> > > +++ b/drivers/gpu/drm/loongson/lsdc_gem.c
-> > > @@ -157,14 +157,18 @@ struct drm_gem_object
-> > > *lsdc_gem_object_create(struct drm_device *ddev,
-> > > =C2=A0		return ERR_PTR(ret);
-> > > =C2=A0	}
-> > > =C2=A0
-> > > +	gobj =3D &lbo->tbo.base;
-> > > +	gobj->funcs =3D &lsdc_gem_object_funcs;
-> > > +
-> > > =C2=A0	if (!sg) {
-> > > =C2=A0		/* VRAM is filled with random data */
-> > > -		lsdc_bo_clear(lbo);
-> > > +		ret =3D lsdc_bo_clear(lbo);
-> > > +		if (ret) {
-> > > +			drm_gem_object_put(gobj);
-> > > +			return ERR_PTR(ret);
-> > > +		}
-> > > =C2=A0	}
-> > > =C2=A0
-> > > -	gobj =3D &lbo->tbo.base;
-> > > -	gobj->funcs =3D &lsdc_gem_object_funcs;
-> > > -
-> > > =C2=A0	/* tracking the BOs we created */
-> > > =C2=A0	mutex_lock(&ldev->gem.mutex);
-> > > =C2=A0	list_add_tail(&lbo->list, &ldev->gem.objects);
-> > > diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c
-> > > b/drivers/gpu/drm/loongson/lsdc_ttm.c
-> > > index 88536e2..7b30dea 100644
-> > > --- a/drivers/gpu/drm/loongson/lsdc_ttm.c
-> > > +++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
-> > > @@ -388,9 +388,13 @@ void lsdc_bo_kunmap(struct lsdc_bo *lbo)
-> > > =C2=A0	ttm_bo_kunmap(&lbo->kmap);
-> > > =C2=A0}
-> > > =C2=A0
-> > > -void lsdc_bo_clear(struct lsdc_bo *lbo)
-> > > +int lsdc_bo_clear(struct lsdc_bo *lbo)
-> > > =C2=A0{
-> > > -	lsdc_bo_kmap(lbo);
-> > > +	int ret;
-> > > +
-> > > +	ret =3D lsdc_bo_kmap(lbo);
-> > > +	if (ret)
-> > > +		return ret;
-> > > =C2=A0
-> > > =C2=A0	if (lbo->is_iomem)
-> > > =C2=A0		memset_io((void __iomem *)lbo->kptr, 0, lbo-
-> > > >size);
-> > > @@ -398,6 +402,8 @@ void lsdc_bo_clear(struct lsdc_bo *lbo)
-> > > =C2=A0		memset(lbo->kptr, 0, lbo->size);
-> > > =C2=A0
-> > > =C2=A0	lsdc_bo_kunmap(lbo);
-> > > +
-> > > +	return 0;
-> > > =C2=A0}
-> > > =C2=A0
-> > > =C2=A0int lsdc_bo_evict_vram(struct drm_device *ddev)
-> >=20
-> > Well I currently don't know whether the clearing is meaningful...
-> >=20
-> > It seems that drm_gem_vram_helper doesn't do this.
-> >=20
-> > Cc'ing TTM maintainers for an answer.
->=20
-> Natalie and Arun are TTM maintainers now, but I will try to answer
-> here as well.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-Ah I heard about TTM maintenance change, but I used the mailing
-addresses in v7.3-rc6.=20
+------------------
 
->=20
-> OpenGL doesn't necessarily require clearing of VRAM nor isolation of
-> VRAM data between processes.
->=20
-> So it is up to the driver if they want this or not. Classically a lot
-> of drivers didn't clear VRAM allocations until explicitely asked.
+From: Anirudh Virdi <avirdi@redhat.com>
 
-Then in this case I think it's better to just remove the VRAM clearing
-code -- this driver is even not related to render acceleration at all
-now (and getting rendering to work would be so hacky because loongson
-DC's are paired with either Vivante GPUs with dedicated VRAM or
-proprietary GPUs).
+[ Upstream commit 04c824940d52871c49866a4ac67b504146f7cf35 ]
 
->=20
-> But if you clear the memory you should have proper error handling and
-> a kmap/vmap can fail at any time for multiple reasons.
+The mlx5_handle_changeupper_event() and mlx5_handle_changeinfodata_event()
+functions check for LAG masters (which includes both bonding and team
+devices) but only call bonding-specific APIs. When processing team device
+events, calling bond_slave_get_rcu() and bond_is_slave_inactive() on
+team_port structures causes KASAN to detect an out-of-bounds memory access
+since team_port is smaller than bond slave.
 
-Yes, if the other maintainers prefer to keep the memory clearing code,
-I will accept this specific patch.
+Fix this by wrapping the bond-specific API calls with a check for bonding
+devices. This allows the function to still process LAG events for both
+bonding and teams but only calls bond-specific functions when dealing with
+actual bonding devices.
 
-Thanks,
-Icenowy
+For mlx5_handle_changeinfodata_event(), keep the explicit bond check as
+mlx5 doesn't handle state information for team ports anyway.
 
->=20
-> Regards,
-> Christian.
->=20
-> >=20
-> > Thanks,
-> > Icenowy
-> >=20
-> > > diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.h
-> > > b/drivers/gpu/drm/loongson/lsdc_ttm.h
-> > > index 843e147..df47d9b 100644
-> > > --- a/drivers/gpu/drm/loongson/lsdc_ttm.h
-> > > +++ b/drivers/gpu/drm/loongson/lsdc_ttm.h
-> > > @@ -89,7 +89,7 @@ size_t lsdc_bo_size(struct lsdc_bo *lbo);
-> > > =C2=A0
-> > > =C2=A0int lsdc_bo_kmap(struct lsdc_bo *lbo);
-> > > =C2=A0void lsdc_bo_kunmap(struct lsdc_bo *lbo);
-> > > -void lsdc_bo_clear(struct lsdc_bo *lbo);
-> > > +int lsdc_bo_clear(struct lsdc_bo *lbo);
-> > > =C2=A0
-> > > =C2=A0int lsdc_bo_evict_vram(struct drm_device *ddev);
-> > > =C2=A0
-> >=20
+Tested with Mellanox ConnectX-5 on Linux 7.2.0-rc6:
+- Bonding: PASS (no regressions)
+- Team device: PASS (no KASAN errors)
+
+Fixes: 54493a08e21f ("net/mlx5: Lag, record inactive state of bond device")
+Suggested-by: Mark Bloch <mbloch@nvidia.com>
+Signed-off-by: Anirudh Virdi <avirdi@redhat.com>
+Reviewed-by: Mark Bloch <mbloch@nvidia.com>
+Link: https://patch.msgid.link/20260924064244.94045-1-avirdi@redhat.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c b/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
+index d20f9d3e30c79..353101dee4dcf 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
+@@ -1333,9 +1333,11 @@ static int mlx5_handle_changeupper_event(struct mlx5_lag *ldev,
+ 			}
+ 		}
+ 		if (i < MLX5_MAX_PORTS) {
+-			slave = bond_slave_get_rcu(ndev_tmp);
+-			if (slave)
+-				has_inactive |= bond_is_slave_inactive(slave);
++			if (netif_is_bond_master(upper)) {
++				slave = bond_slave_get_rcu(ndev_tmp);
++				if (slave)
++					has_inactive |= bond_is_slave_inactive(slave);
++			}
+ 			bond_status |= (1 << idx);
+ 		}
+ 
+@@ -1419,7 +1421,7 @@ static int mlx5_handle_changeinfodata_event(struct mlx5_lag *ldev,
+ 	bool has_inactive = 0;
+ 	int idx;
+ 
+-	if (!netif_is_lag_master(ndev))
++	if (!netif_is_bond_master(ndev))
+ 		return 0;
+ 
+ 	rcu_read_lock();
+-- 
+2.53.0
+
+
 
