@@ -1,38 +1,38 @@
 Received: from nick.sneptech.io (nick.sneptech.io [178.62.38.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A6936404E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD4C64F055E;
 	Fri,  9 Oct 2026 16:27:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.62.38.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791563230; cv=none; b=LpCmHRjCeHmEnU/aSwKuxDn+8coP04VeV15bmM8gUVSjq9Dpnt57ghdbGaoV8SvxHW+UagEJ+nKBKII4b0DJSYUAmZ1mLrmQlXAsVwzKtWlqRCT9Q5D5MdG9VJ/WqiunARGy+as0fdMwLMj8XorkUt2edMV+oRnT7zqPl9lORvs=
+	t=1791563232; cv=none; b=LZ2cLEhA6aRIbiYlkRzM8DSyD+e2VpUTrt6TgOpbeUYT1sq4Rv040EtBhwc7nErdWMSMoouzkGX/cKEWgv1MUVzOa3fGwThZi40VDebQPuyiYbgNP+RMEDGpEI/jZBGPMeNyzLpvYBFojRzt/rCNyoeK5qmcDYiDo7j2eIkYS7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791563230; c=relaxed/simple;
-	bh=9r+TMbKLM84NykY/tQPO43ydHWQ+ptnWPsGpcr5D7b0=;
+	s=arc-20240116; t=1791563232; c=relaxed/simple;
+	bh=bcwmmhNFt+qRQme4ZMk+Lwe36j5GoYDFsy1YbwtHarw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XtWk0F7iMlYWFvudlmOw9ugpR+OStHTuCZqsBsREgit58H/mdiX9TUbCDHqz4xbtfnU7DZ8H89+HyswoMP5nkegJ16iyWGpQaKC6twpRE/n8C8qT1aG6glDlEl5DB+SU4IVOyzJLqblN9bhLaMcY4YKIz2V+O8iEqOZJmAjqC7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk; spf=pass smtp.mailfrom=philpem.me.uk; dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b=ak1zTHpn; arc=none smtp.client-ip=178.62.38.78
+	 MIME-Version; b=Swaeai9+p6KyzaLMbmfRJIg6oYXREst3F29WYGor7Ki1s0lOOgeFuS9uQ4iT9NG6lLToQrk5qEozHKaHo2Gdtow/AsMGMktfnB4S6OX9s07a05SkpMU/jgnl6QSRDYB0meYYIQOLEUDbZTYtSMvsSZ7RbN8cIX9j9IvCH0blkww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk; spf=pass smtp.mailfrom=philpem.me.uk; dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b=Rvam/DNF; arc=none smtp.client-ip=178.62.38.78
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=philpem.me.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b="ak1zTHpn"
+	dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b="Rvam/DNF"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=philpem.me.uk;
 	s=mail; t=1791563215;
-	bh=9r+TMbKLM84NykY/tQPO43ydHWQ+ptnWPsGpcr5D7b0=;
+	bh=bcwmmhNFt+qRQme4ZMk+Lwe36j5GoYDFsy1YbwtHarw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ak1zTHpnllqGfhKwiRnHDnSsmzRyxMTcBjBgM0zPbIPL3R99SoRs3c/0R6jHGXphZ
-	 tLVQmAQpoauf3+8R6WG01XAw8lRETTVcMVS8reIuPvXly0O4gcmEOZiLsVEpAC01Dd
-	 nKBXAQP0fFH5pn8CyT8hULmV4AEmQAZI2BTGZkQA=
+	b=Rvam/DNFrih6t7HkkNmj4f9ItXFUiIarLCJa7eP/cXpal/Gr04VYpTO+Pw0tmxkdW
+	 1eUWbL6jdYv3TO+CEVH+09L6os+uMUXIIZBffdbIzNPmSTPictkvz29qvtOjZA2nlO
+	 bV1AwzDYBJ7mIUky/Je0FYvFrq0Y0iYrWl+g7pt8=
 Received: from wolf.philpem.me.uk (unknown [81.187.163.148])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
 	(Authenticated sender: mailrelay_wolf@philpem.me.uk)
-	by nick.sneptech.io (Postfix) with ESMTPSA id 5B81BBE773;
+	by nick.sneptech.io (Postfix) with ESMTPSA id 21F60BE76C;
 	Fri,  9 Oct 2026 16:26:55 +0000 (UTC)
 Received: from cheetah.homenet.philpem.me.uk (cheetah.homenet.philpem.me.uk [10.0.0.32])
-	by wolf.philpem.me.uk (Postfix) with ESMTPSA id 286905FB4D;
-	Fri,  9 Oct 2026 17:26:55 +0100 (BST)
+	by wolf.philpem.me.uk (Postfix) with ESMTPSA id C870C5FC4F;
+	Fri,  9 Oct 2026 17:26:54 +0100 (BST)
 From: Phil Pemberton <philpem@philpem.me.uk>
 To: linux-ide@vger.kernel.org,
 	linux-scsi@vger.kernel.org
@@ -44,9 +44,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Hannes Reinecke <hare@kernel.org>,
 	Phil Pemberton <philpem@philpem.me.uk>,
 	stable@vger.kernel.org
-Subject: [PATCH v10 07/15] scsi: scsi_devinfo: preserve full-width quirk identifiers
-Date: Fri,  9 Oct 2026 16:55:14 +0100
-Message-ID: <20261009155522.593045-8-philpem@philpem.me.uk>
+Subject: [PATCH v10 04/15] ata: libata-zpodd: publish initialized state before registering notifications
+Date: Fri,  9 Oct 2026 16:55:11 +0100
+Message-ID: <20261009155522.593045-5-philpem@philpem.me.uk>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261009155522.593045-1-philpem@philpem.me.uk>
 References: <20261009155522.593045-1-philpem@philpem.me.uk>
@@ -58,48 +58,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-strscpy_pad() reserves a byte for NUL termination, truncating quirk
-identifiers that fill their fields. An eight-character vendor such as
-MATSHITA loses its final character and fails to match. A sixteen-character
-model loses its final character too; prefix matching then allows the
-quirk to match other models with the same first fifteen characters.
+zpodd_init() installs the ACPI notification handler before assigning
+zpodd->dev and dev->zpodd. A notification delivered in that window can
+enter zpodd_wake_dev() with a NULL context pointer. In particular,
+initialization retried during EH can already have a suspended SCSI device,
+allowing the callback to reach its from_notify assignment.
 
-Copy the full vendor and model fields. Pad shorter strings with NUL for
-compatible entries and spaces for dynamic entries. Lookup uses bounded
-strnlen() and memcmp(), so full-width identifiers need no terminator.
-Shorter model names continue to match prefixes.
+Initialize the back pointer and publish dev->zpodd before installing the
+handler, so every callback observes initialized state. Keep removal of the
+handler before freeing the state, as acpi_remove_notify_handler() waits
+for queued notifications to complete.
 
-Fixes: 1b60c86dd992 ("scsi: devinfo: Replace strncpy() and manual pad")
-Link: https://lore.kernel.org/linux-ide/20260611025249.D23191F00893@smtp.kernel.org/
+Fixes: f064a20dded8 ("libata: move acpi notification code to zpodd")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Phil Pemberton <philpem@philpem.me.uk>
 ---
- drivers/scsi/scsi_devinfo.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+ drivers/ata/libata-zpodd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/scsi/scsi_devinfo.c b/drivers/scsi/scsi_devinfo.c
-index 88a911b35c94..5e37461e61e8 100644
---- a/drivers/scsi/scsi_devinfo.c
-+++ b/drivers/scsi/scsi_devinfo.c
-@@ -289,14 +289,9 @@ static void scsi_strcpy_devinfo(char *name, char *to, size_t to_length,
+diff --git a/drivers/ata/libata-zpodd.c b/drivers/ata/libata-zpodd.c
+index 581eb41ea0f3..c57c49316fbd 100644
+--- a/drivers/ata/libata-zpodd.c
++++ b/drivers/ata/libata-zpodd.c
+@@ -311,9 +311,9 @@ void zpodd_init(struct ata_device *dev)
  
- 	from_length = strlen(from);
+ 	zpodd->mech_type = mech_type;
  
--	/*
--	 * null pad and null terminate if compatible
--	 * otherwise space pad
--	 */
--	if (compatible)
--		strscpy_pad(to, from, to_length);
--	else
--		memcpy_and_pad(to, to_length, from, from_length, ' ');
-+	/* Full-width identifiers need all bytes; shorter ones are padded. */
-+	memcpy_and_pad(to, to_length, from, from_length,
-+		       compatible ? '\0' : ' ');
+-	ata_acpi_add_pm_notifier(dev);
+ 	zpodd->dev = dev;
+ 	dev->zpodd = zpodd;
++	ata_acpi_add_pm_notifier(dev);
+ 	dev_pm_qos_expose_flags(&dev->tdev, 0);
+ }
  
- 	if (from_length > to_length)
- 		 printk(KERN_WARNING "%s: %s string '%s' is too long\n",
 -- 
 2.43.0
 
