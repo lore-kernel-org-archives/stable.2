@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F73A35C6AB;
-	Fri,  9 Oct 2026 20:38:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E62C4395ACD;
+	Fri,  9 Oct 2026 20:43:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791578314; cv=none; b=lPQqDRhLvGqbyV9d6eQBdgr06O10wJTyqFjTfS5T+ZFPeaOyEJzjDXDi9A/wZN7btn2w6lyfugUObIK09O2gDaiPB9tbr2fMs3WX/UvER2J5h6qfj9z6KiZuINGb0Dfj8tt/2yEzm5QDTyAkdHGv7sZq9rrfeHuXuB4hygFURaI=
+	t=1791578592; cv=none; b=qkpToV6nDzq1StQ86GYV8SXxgoO3rerwAAtcpVvZQWzmxmH9r+JXTA+nD3Xiq2PepOe2kdUbYDpvOXXakT73Nibche2NG5fG5iYKDfOmmAxzSDCJcFx3I1VTDQkUMgcEuIWEw2xWI/6vxj9ctcUBnw7hnjszqwZZtm6r0Mpg0JA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791578314; c=relaxed/simple;
-	bh=c8a3P2CDArX4OxL7tNj7K0DkfxaUmqKkD9v76qbBMp0=;
+	s=arc-20240116; t=1791578592; c=relaxed/simple;
+	bh=N6FjwFwOZG1eWNtQeKvq39djVLP7i9vN+zdPlsY+4hk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Pa90hkvEDXLh18yhSCs4A0nghBurDEvCNuphqARaKTz1Wjz6XGw4vrURhnWBMRFbvEg9FQzyETaFJetaKCQKcX1N1+y2ejoM6fw59j9o4Nj2SlZKWzlgFDUfEMbzXxLt08oZrtB4VxKiI4FJXBubOK97OYJ53kKToa6uzUqhqsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SvqHjuD7; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=WuyQt5Ht00HqUn7zh2RIVU766N2Ziji7TZjDLvsHMU/nVUeVBUs4lxb4Sh8JRFF6YK6BmfXqDwH4vWaRoVP+f0bFFc/V3uMP9c9Gg7qS4IXPQxtGSzjoKRzfgJ74be+1yxPmp5AAFtRYoMBKJktODKmgtdtWEgmOGlJQI2qMbFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SP23AZs/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SvqHjuD7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75BA71F000FF;
-	Fri,  9 Oct 2026 20:38:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SP23AZs/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEA6F1F000FF;
+	Fri,  9 Oct 2026 20:43:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791578313;
-	bh=y/LFL9/taYy2cwYsCSPk5V+auF0O2Bb7JZnwWhgA5BM=;
+	s=k20260515; t=1791578591;
+	bh=JxCU4kgy6yuLL3vMKMbNFEILfGTC3AEpOEg/HFNIu60=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SvqHjuD7DSfowHNh97rZu6v7FwWPLex9GA7soWzWsQyNKB3v+LPC7fwAAR3ezbMLl
-	 erYo4mOcocXZC5ZmtfEJaN41zkSVTFR4PlQmnVVNWNDFcMC12BAsjhJYonIvVvu14L
-	 VlwHac6QlAjyMbDCg31XU03b5H1B/dLLPYc1U+rhhQL/sRyHgK//6KHAmxvyEgyZGm
-	 2h5t1E1zdqHKyBlZJSr3+zRABa6ESRxS+W2CUpWtixr9tF3hZ5jrpm2HsUWTamEqBu
-	 3yusekEt9FrzHkzQMrrH/q100cNJnk9dmxr/9cVSMVjwqE/VO9+dJS/7jbQQhpfhmu
-	 myCIGW/rN3tkA==
-Message-ID: <32191a71-b5b1-4913-a631-968ec299b125@kernel.org>
-Date: Fri, 9 Oct 2026 22:38:22 +0200
+	b=SP23AZs/ZMLS1F7HAiY5z7X5nF2RAOysCWRarEHnTfxNiZ6ItX8IcZVYkiT3Xyrzw
+	 Ts27Z3REnfSbgPcmeCHEvXQfI5R0zszY/WgI7oNDs5Uuk4RtQelzpmDtOVb/O1mgbC
+	 ESJ+fGuVP07bnVnyI4wWN+oqUM/udZKJQpOIxZ7jC0KEakCwnj/veq68QxurhH1xPa
+	 x4QNtZRPeZ9Z9OSE+fx43CSrHusaCl/LHAxjU2JLx+s5fnC628xxa9yw0FVkBWzqfI
+	 F/V/SeQf2YozHcliqBqzshsNtBivlYnNq0VSVj9gwdZur95pXceUhTxA42KBjet0PE
+	 DuKW2pGkIo/aQ==
+Message-ID: <d47bdf83-1db4-4601-a516-7e23488ea9cf@kernel.org>
+Date: Fri, 9 Oct 2026 22:43:02 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] riscv/mm: fix missing destructor for hotplug PUD
- tables
+Subject: Re: [PATCH 4/4] arm64/mm: fix destructor for unconstructed hotplug
+ page tables
 To: Muchun Song <songmuchun@bytedance.com>, akpm@linux-foundation.org
 Cc: linux-mm@kvack.org, stable@vger.kernel.org, osalvador@suse.de,
  dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org,
@@ -48,7 +48,7 @@ Cc: linux-mm@kvack.org, stable@vger.kernel.org, osalvador@suse.de,
  kevin.brodsky@arm.com, bjorn@rivosinc.com, apopple@nvidia.com,
  linux-kernel@vger.kernel.org, muchun.song@linux.dev
 References: <20261008073021.2512665-1-songmuchun@bytedance.com>
- <20261008073021.2512665-4-songmuchun@bytedance.com>
+ <20261008073021.2512665-5-songmuchun@bytedance.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -95,48 +95,56 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261008073021.2512665-4-songmuchun@bytedance.com>
+In-Reply-To: <20261008073021.2512665-5-songmuchun@bytedance.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 10/8/26 09:30, Muchun Song wrote:
-> Commit 8472cc4503eb ("riscv: mm: call PUD/P4D ctor in special kernel
-> pgtable alloc") made alloc_pud_late() run the PUD page-table constructor.
-> However, free_pud_table() still frees non-reserved PUD tables directly
-> without decrementing NR_PAGETABLE.
+> Commit c594b83457cc ("arm64: mm: call pagetable dtor when freeing
+> hot-removed page tables") made free_hotplug_pgtable_page()
+> unconditionally run the page-table destructor. This matches page tables
+> allocated by the arm64 mapping code, which runs the corresponding
+> constructors.
 > 
-> Free PUD tables through the common free_pagetable() helper so that
-> constructor-backed tables run the matching destructor before being
-> freed.
+> However, arm64 also uses the generic sparse-vmemmap population code.
+> Runtime intermediate page tables allocated by that code do not run a
+> page-table constructor.
+
+Why do we have that inconsistency? It seems to cause pain :)
+
+> Freeing one during memory hot-remove therefore
+> runs a destructor without a matching constructor and corrupts
+> NR_PAGETABLE accounting.
 > 
-> Fixes: 8472cc4503eb ("riscv: mm: call PUD/P4D ctor in special kernel pgtable alloc")
+> Use PageTable() to run the destructor only for page-table pages whose
+> constructor initialized them. This keeps the arm64-created page-table
+> lifecycle balanced while safely freeing constructor-free vmemmap tables.
+> 
+> Fixes: c594b83457cc ("arm64: mm: call pagetable dtor when freeing hot-removed page tables")
 > Cc: stable@vger.kernel.org
 > Assisted-by: LLM
 > Signed-off-by: Muchun Song <songmuchun@bytedance.com>
 > ---
->  arch/riscv/mm/init.c | 5 +----
->  1 file changed, 1 insertion(+), 4 deletions(-)
+>  arch/arm64/mm/mmu.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
-> index 429a0b015ec1..62077539ee78 100644
-> --- a/arch/riscv/mm/init.c
-> +++ b/arch/riscv/mm/init.c
-> @@ -1540,10 +1540,7 @@ static void __meminit free_pud_table(pud_t *pud_start, p4d_t *p4d)
->  			return;
->  	}
+> diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
+> index 7343ac9294f8..688b33095651 100644
+> --- a/arch/arm64/mm/mmu.c
+> +++ b/arch/arm64/mm/mmu.c
+> @@ -1495,7 +1495,8 @@ static void free_hotplug_page_range(struct page *page, size_t size,
 >  
-> -	if (PageReserved(page))
-> -		free_reserved_page(page);
-> -	else
-> -		__free_pages(page, 0);
-> +	free_pagetable(page);
->  	p4d_clear(p4d);
->  }
->  
+>  static void free_hotplug_pgtable_page(struct page *page)
+>  {
+> -	pagetable_dtor(page_ptdesc(page));
+> +	if (PageTable(page))
+> +		pagetable_dtor(page_ptdesc(page));
+>  	free_hotplug_page_range(page, PAGE_SIZE, NULL);
 
-Routing this through a single helper looks correct.
+That results in a __free_pages() for  ones allocated by sparse-vmemmap
+population code. Are we sure that's the right thing to do?
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+This is all so inconsistent and confusing :(
 
 -- 
 Cheers,
