@@ -1,103 +1,145 @@
-Received: from mta0.migadu.com (out-53.mta0.migadu.com [91.218.175.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from forward103d.mail.yandex.net (forward103d.mail.yandex.net [51.250.60.163])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B7F449ECB
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 06:35:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F4B3F1064
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 06:42:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.250.60.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791527758; cv=none; b=Tr9SV08WNXiC41iofBVvLUxHdk+V0kXQ/izQSBArwxZHrgAWAtJv2zwkLzWyBzcSbejPalrUDrLGyOPHhSUBDIo65xwPN+Kbe7vVvZhhzRksc5UHoGnPtTCR8MNVCI8YKhuVoQQgm0ftiCBDmC0Gwj6k/aoiKetvtKkIGIxStdo=
+	t=1791528177; cv=none; b=Wyj9I01npeAW91NTo72/10fduj3wpxib7WZaLRh6j5SrJ+rPfhArMCqrckrs9Ocj2UpNC5cVQS5nQELAjW6y7bl7pqWYZ0ems3KsIVMp6ThyI3jZsxBapRzgL2L7uWOieTOKagLLCdpPsgF5h9wDhbD3KYYr597xLiCq56YG9ls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791527758; c=relaxed/simple;
-	bh=Kt3m90GxEd2pntG610a36JDfeeYmcBGJyCrnR//SRJc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=LFKvlPtxSEgi7WaZpw0T4nmi4Hl2Wn8NpgnyD6rhkaSX2BgeAUMEHR38wCABEgb7uiSLcSyE3H44JR14mya33bx5cenhRpGkcPm4yEQuH3NVqFjdHzDT99EulWl7gB6H2Kngfi9vQH6IvOt40fWIihD1b0rR5jM0JaHxzAENy5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uL4mH5AQ; arc=none smtp.client-ip=91.218.175.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791528177; c=relaxed/simple;
+	bh=nWX99YImWgqERxzdtfcAEUyzCW9xSJj7ShH4vfnCemg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jDIrC/7MbOrxdJmKtN7L7UNr/5GlerlcRF4AP3PO5Mys/aYHctz9SECYBr/JBQHnER/qvgd5GfiBDuz+bMCJQYYk9P8xZIRY2ZpnA5Zfv1Wh/CsvDI2nuxj7Tj3qRPBekIwBe0uuXfpV6EqaLGlX+62pjPObQF3bHoXUIuDH7g0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=kCZqillw; arc=none smtp.client-ip=51.250.60.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uL4mH5AQ"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Kt3m90GxEd2pntG610a36JDfeeYmcBGJyCrnR//SRJc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791527755; v=1; x=1792132555;
- b=uL4mH5AQzidqEeF7omR4nDmMTmpaHiWRCCeAfS5uMoLHHFxtnoE2WdtULGeUxe89TkWtdTPb
- 65VjqtjY0s75wd/FjIa6FmuA+V4zp/B6f2F71wn6pY+qUUMpMX0xTYPs3fiOIE+G0KRRBhAevZI
- dMNaSUazgZLCJFHk7zGpbS4A=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b474d1347a814fa6;
-	Fri, 09 Oct 2026 06:35:22 +0000
-X-Mizu-Trace-ID: b474d1347a814fa6
-X-Migadu-Flow: FLOW_OUT
-From: Hao Ge <hao.ge@linux.dev>
-To: Suren Baghdasaryan <surenb@google.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Potapenko <glider@google.com>,
-	Marco Elver <elver@google.com>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dennis Zhou <dennis@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>,
-	Uladzislau Rezki <urezki@gmail.com>
-Cc: Hao Ge <hao.ge@linux.dev>,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	kasan-dev@googlegroups.com,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: [RFC PATCH 1/4] mm/kmsan: undo the shadow mapping when the origin mapping fails
-Date: Fri,  9 Oct 2026 14:36:16 +0800
-Message-Id: <20261009063619.112313-2-hao.ge@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261009063619.112313-1-hao.ge@linux.dev>
-References: <20261009063619.112313-1-hao.ge@linux.dev>
+	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="kCZqillw"
+Received: from mail-nwsmtp-smtp-production-main-95.iva.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-95.iva.yp-c.yandex.net [IPv6:2a02:6b8:c0c:1924:0:640:b9a6:0])
+	by forward103d.mail.yandex.net (postfix) with ESMTPS id 19692C0073;
+	Fri, 09 Oct 2026 09:42:47 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-95.iva.yp-c.yandex.net (smtp) with ESMTPSA id igIbxPLdZW20-B8EiY56m;
+	Fri, 09 Oct 2026 09:42:46 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1791528166; bh=w/p0uSKH+B7Y4zqiALv7V15It5UwoX1Lq8olu8SJTVY=;
+	h=Cc:Message-ID:References:Date:In-Reply-To:Subject:To:From;
+	b=kCZqillwQgvD3YbSabDrAYuu+YtfRo/8j2V0vwFiAr3vNa2MLZKfELVat28AyVOjY
+	 vZA3aLo6xJoFgolXkslm6agiaCTIV0yJ+7TxrxklIp1T7Bw65efMWGD3NmlKn6jgsm
+	 olU8E4paN8IshAshEih1awRNpAg3beFRdkhfVeQA=
+Authentication-Results: mail-nwsmtp-smtp-production-main-95.iva.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+From: Dmitry Antipov <dmantipov@yandex.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: lvc-patches@linuxtesting.org,
+	lvc-project@linuxtesting.org,
+	Dmitry Antipov <dmantipov@yandex.ru>,
+	Levi Zim <rsworktech@outlook.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>
+Subject: [PATCH 6.12 2/4] tcp_bpf: Fix copied value in tcp_bpf_sendmsg
+Date: Fri,  9 Oct 2026 09:42:18 +0300
+Message-ID: <20261009064220.451530-2-dmantipov@yandex.ru>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261009064220.451530-1-dmantipov@yandex.ru>
+References: <20261009064220.451530-1-dmantipov@yandex.ru>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-kmsan_vmap_pages_range_noflush() first maps the shadow pages and then
-the origin pages. If the second mapping fails, the first one is left
-mapped, and the callers do not roll it back. The next vmap of the
-same metadata range hits the stale PTEs again and BUG()s on the huge
-mapping path, or gets -EBUSY with a WARN_ON() on the small page one.
+From: Levi Zim <rsworktech@outlook.com>
 
-Undo the shadow mapping on that error path, the same way
-kmsan_ioremap_page_range() cleans up after a partial failure.
-__vunmap_range_noflush() only clears the PTEs; nothing has touched
-the shadow mapping, so no TLB flush is needed.
+commit 5153a75ef34b3f7478ca918044d0f05eed8fb3f9 upstream.
 
-Fixes: 47ebd0310e89 ("mm: kmsan: handle alloc failures in kmsan_vmap_pages_range_noflush()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hao Ge <hao.ge@linux.dev>
+bpf kselftest sockhash::test_txmsg_cork_hangs in test_sockmap.c triggers a
+kernel NULL pointer dereference:
+
+BUG: kernel NULL pointer dereference, address: 0000000000000008
+ ? __die_body+0x6e/0xb0
+ ? __die+0x8b/0xa0
+ ? page_fault_oops+0x358/0x3c0
+ ? local_clock+0x19/0x30
+ ? lock_release+0x11b/0x440
+ ? kernelmode_fixup_or_oops+0x54/0x60
+ ? __bad_area_nosemaphore+0x4f/0x210
+ ? mmap_read_unlock+0x13/0x30
+ ? bad_area_nosemaphore+0x16/0x20
+ ? do_user_addr_fault+0x6fd/0x740
+ ? prb_read_valid+0x1d/0x30
+ ? exc_page_fault+0x55/0xd0
+ ? asm_exc_page_fault+0x2b/0x30
+ ? splice_to_socket+0x52e/0x630
+ ? shmem_file_splice_read+0x2b1/0x310
+ direct_splice_actor+0x47/0x70
+ splice_direct_to_actor+0x133/0x300
+ ? do_splice_direct+0x90/0x90
+ do_splice_direct+0x64/0x90
+ ? __ia32_sys_tee+0x30/0x30
+ do_sendfile+0x214/0x300
+ __se_sys_sendfile64+0x8e/0xb0
+ __x64_sys_sendfile64+0x25/0x30
+ x64_sys_call+0xb82/0x2840
+ do_syscall_64+0x75/0x110
+ entry_SYSCALL_64_after_hwframe+0x4b/0x53
+
+This is caused by tcp_bpf_sendmsg() returning a larger value(12289) than
+size (8192), which causes the while loop in splice_to_socket() to release
+an uninitialized pipe buf.
+
+The underlying cause is that this code assumes sk_msg_memcopy_from_iter()
+will copy all bytes upon success but it actually might only copy part of
+it.
+
+This commit changes it to use the real copied bytes.
+
+Signed-off-by: Levi Zim <rsworktech@outlook.com>
+Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
+Signed-off-by: Dmitry Antipov <dmantipov@yandex.ru>
+Tested-by: Björn Töpel <bjorn@kernel.org>
+Reviewed-by: John Fastabend <john.fastabend@gmail.com>
+Link: https://lore.kernel.org/bpf/20241130-tcp-bpf-sendmsg-v1-2-bae583d014f3@outlook.com
 ---
- mm/kmsan/shadow.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ net/ipv4/tcp_bpf.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
-index 0c88d89bf0d6..2166086d3dc3 100644
---- a/mm/kmsan/shadow.c
-+++ b/mm/kmsan/shadow.c
-@@ -258,6 +258,10 @@ int kmsan_vmap_pages_range_noflush(unsigned long start, unsigned long end,
- 					    o_pages, page_shift);
- 	kmsan_leave_runtime();
- 	if (mapped) {
-+		/* Undo the shadow mapping set up above. */
-+		kmsan_enter_runtime();
-+		__vunmap_range_noflush(shadow_start, shadow_end);
-+		kmsan_leave_runtime();
- 		err = mapped;
- 		goto ret;
- 	}
+diff --git a/net/ipv4/tcp_bpf.c b/net/ipv4/tcp_bpf.c
+index 0e7e12117913..abaaf3e70ece 100644
+--- a/net/ipv4/tcp_bpf.c
++++ b/net/ipv4/tcp_bpf.c
+@@ -520,7 +520,7 @@ static int tcp_bpf_send_verdict(struct sock *sk, struct sk_psock *psock,
+ static int tcp_bpf_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
+ {
+ 	struct sk_msg tmp, *msg_tx = NULL;
+-	int copied = 0, err = 0;
++	int copied = 0, err = 0, ret = 0;
+ 	struct sk_psock *psock;
+ 	long timeo;
+ 	int flags;
+@@ -563,14 +563,14 @@ static int tcp_bpf_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
+ 			copy = msg_tx->sg.size - osize;
+ 		}
+ 
+-		err = sk_msg_memcopy_from_iter(sk, &msg->msg_iter, msg_tx,
++		ret = sk_msg_memcopy_from_iter(sk, &msg->msg_iter, msg_tx,
+ 					       copy);
+-		if (err < 0) {
++		if (ret < 0) {
+ 			sk_msg_trim(sk, msg_tx, osize);
+ 			goto out_err;
+ 		}
+ 
+-		copied += copy;
++		copied += ret;
+ 		if (psock->cork_bytes) {
+ 			if (size > psock->cork_bytes)
+ 				psock->cork_bytes = 0;
 -- 
-2.25.1
+2.56.0
 
