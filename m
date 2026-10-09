@@ -1,175 +1,129 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011056.outbound.protection.outlook.com [52.101.52.56])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9F4B49B454
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 10:34:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.56
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791542076; cv=fail; b=toN21L4Tt5M82Q61JPq38tqMVJ+fq0YVywbO7wlQygcLtfU9g94suGLwU22yxfGVWkNgyb6oqlcX/z/6aCgZTF8pmTUgy9N+dAXpNzZI4KNd2EKxyuSwDQH6DNNjbKnph5YP/peU64/hcfQHxxxmhVy8WyoRSsKgVzWs/rSGupI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791542076; c=relaxed/simple;
-	bh=MckuvQvJzOTeGRvvmQ+FxJNhFqL2JSndx1HnTpBkMiQ=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=iiyuhqqI7lgyb5dOWSavWeMc/7XSQ3bglfxlU6g5esprcP/hyXQT7vOl6QPY7WfG7LygGMn7GopbuB+Dp54WwAl6EzZPiz483m2QH4/CoEynWUaVKN4cERImnqefsl1ipQRG9yy/42dt1AQ4y8l4UPV41EUrgNXzOFXsmYB4XHg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=3SAa51cN; arc=fail smtp.client-ip=52.101.52.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C23C74A9D78;
+	Fri,  9 Oct 2026 10:42:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791542535; cv=none; b=Dn3WX1Gr2Wg2aWcKZCFyMq+9sC55xsuq9tuesgLcv0sbl9gp4laBGtedhGJbNBsZZtpCvTWP6QZBKo63mVKEqKQwlbyg9xQvQZdOdYSwzCb6HvE1S/Y+0VBc80UoEuuUVHTHXlhg8QcevboRbFU8QUPKMrFPTaX/6B/zkXkyI8o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791542535; c=relaxed/simple;
+	bh=G8zZEauSW2lGtU4vcEDrk63phvBJmfc8HD0fIorPZms=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dO4My3psi46jZ7afBxa6GF5S9Bj04IagdZClMLJl14VEG5JUlQgRTcnI/GgXLPd//VKSuiLS7kLk3zPTDzQn/Upu5j5tNpubXZNbf34v1/eD+fsF0dr9yFYBGF5qwkwcIFbIqxRlZXi5i/xy8tCsUvfrXR5Ph/11UlclnSh8hzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=l7yc3uVk; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="3SAa51cN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WlG5L2/GFiN8PIAwTeXYafmTDNAMy0SzHQC3/I1DrogArFGZbJRvh0lGZ1y2JFBLmtKTnTMJKiW8AHo/mqARoam9xXbvMWuzbbH+0lU+pubdDS6mUxvTJM4FfwoORgsvdGtCW/u3m7jszEmYww9+2qraZafjCrcLKronjSQn1Vn1F7H19p/cVWZ7dob8YvetDwqU/cU8C7rQyurYxyagPlym+5so+hCWSItg1ZU94bb61vwT7xpCTMQABWUF07os54vaZqNAI9BmTqupEMXZun5QUO5Pacp/6jEAV/uw2U/p+d+23RDhlFel9Ev6ujCjLNQ4gxOBF7TnZgZCnKl+Kg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R1r1FLfCQKFfs6DmnFGHuERcE5sgz0UtSgOBgcbwCUo=;
- b=phZD44Rf08nCdBcTzRCScpBsW3U/5tQJsSrn/9PxyOkJiHV0FVc7P32UsN37DHO41eXwNnlDYDMSdIAH6LRUFLmCl8gyGfpkn8m9tg1rwZDcdpsj6mb+tCxDkpn482zPKzf5t86L+dUoWDPFekBgZVrRNcMhd6tYlNBJIhEeRBitQKsGeslfAN42Ufw5fXvfa9ZR/xAldvP0B7uWGxyWemazULr8SoZ/TLnxQMh8yHRyWBMxcWKa5XHV08Z2sziCtiNwB1eONCBH/jM7u20iV7FHItPdc/tk2GuQEatr1e1nDFhKS0MtOmjIsvWEdRgeP3wuEewyL9fA+SnbLKTKZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R1r1FLfCQKFfs6DmnFGHuERcE5sgz0UtSgOBgcbwCUo=;
- b=3SAa51cNkhVf+KFVllqNCcDA0dxAxkDRSNgvwW518/PWBypCfMEZtgDtP+67mrFl2KkYWLCWWRUsjtnWfEBDyjohmBKcqdisjp1XT1VySxBqdwP0ntuVfX3K1Xe5vTnF5iPBSfvCwkPfzWqYafW7uJ1IyTiEbEshm/YXiofvAZk=
-Received: from SJ0PR03CA0162.namprd03.prod.outlook.com (2603:10b6:a03:338::17)
- by MN6PR12MB8471.namprd12.prod.outlook.com (2603:10b6:208:473::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 10:34:28 +0000
-Received: from MWH0EPF000C6190.namprd02.prod.outlook.com
- (2603:10b6:a03:338:cafe::7) by SJ0PR03CA0162.outlook.office365.com
- (2603:10b6:a03:338::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Fri, 9
- Oct 2026 10:34:28 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000C6190.mail.protection.outlook.com (10.167.249.101) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Fri, 9 Oct 2026 10:34:28 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
- 2026 05:34:23 -0500
-Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 9 Oct 2026 05:34:15 -0500
-From: Jesse Zhang <Jesse.Zhang@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
-	<natalie.vock@gmx.de>, <Arunpravin.PaneerSelvam@amd.com>,
-	<stable@vger.kernel.org>, Jesse Zhang <Jesse.Zhang@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: [PATCH v2] drm/ttm: return an error when kmapping a BO without pages
-Date: Fri, 9 Oct 2026 18:33:39 +0800
-Message-ID: <20261009103419.4122940-1-Jesse.Zhang@amd.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="l7yc3uVk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791542533; x=1823078533;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=G8zZEauSW2lGtU4vcEDrk63phvBJmfc8HD0fIorPZms=;
+  b=l7yc3uVkgRbuIN1sKMtjzcSm73bCVBtRN6LUD6IKXzwcw/2+U5mbJBv+
+   hWxU++kOt+sYbgv2TBb0UZIyPxirX9gTbbaSaY4zDcBW1YJ6wrO/dTxJH
+   Tp3M+mIDG+ngPIiTWALcGnFWj1amvMLpwo9R+feeRiTMgtmorrU8GY0bd
+   9+T2SQv/I1jLY8WJHLfTf4aoeLQr0ROq24vcMF9oiRUseXvepMZZM91pE
+   TwNTA7PSMdntkkjGGrgj+D5Ezi1U6fICLQNuHiFW2P0g18DeE3K4sFi1Y
+   y58OFo+bZ3kkc7WKc4/wTNEnSIJkMAzgLCOIjR64TyToEx2AoL7Z5FQIZ
+   g==;
+X-CSE-ConnectionGUID: BVYz+PnhRZaj4oos/TXQ/w==
+X-CSE-MsgGUID: HTexCIlWSz24/TTfcbOLmA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="233187"
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="233187"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 03:42:12 -0700
+X-CSE-ConnectionGUID: 4cnk+2VyRpWJ1hx8FiEWow==
+X-CSE-MsgGUID: LBnXbz/ZSYC5oGBccZMycw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="227168"
+Received: from rpolaka-mobl.amr.corp.intel.com (HELO alaakso-desk) ([10.125.109.76])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 03:42:10 -0700
+Date: Fri, 9 Oct 2026 13:42:05 +0300
+From: Antti Laakso <antti.laakso@linux.intel.com>
+To: praveenpuglia@gmail.com
+Cc: Miguel Vadillo <miguel.vadillo@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Marco Nenciarini <mnencia@kcore.it>, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] media: i2c: cvs: Leave the privacy LED to firmware on
+ Synaptics SVP7xxx
+Message-ID: <asjE_UdsewYa4kjz@alaakso-desk>
+References: <20261008-cvs-privacy-led-v1-1-b78d5c512cba@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6190:EE_|MN6PR12MB8471:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7404d0b2-f6ef-435d-27cb-08df25f0e56b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|376014|23010399003|11063799006|56012099006|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	jzbG8ntD3o/5ZrMVS9YBiF0WTtsI3Z2R6dtDeYYV2yktnkJd7KkHj330g8Sa99W5yaOMzG1oBIReTGdbVsVyH/JzdzjqrEsEKgbzMHg3s7kQbEp8NWjJ6wkEicScNTMMkDZgEd8u60K2fIX3uMc+xl+iuQBagteqValgy2qq0rWzFeNNwYsJcCFe2Bss6+E3NW6cVYViouj4Ww7afuAEFbow7sE6gBk9eA5PQnBxDiCTF9fVhGKexvUCyS3eebryiBgS8oPfesCo1a6RptVPHmjbfjX0EKMKecAzsBAyLWpG3w/6mRVL5/2lq0dlvjtMd3iCWQN8CfITE+ZfncSXqGz5ahR5aougN3kQeMVZ7xN4sbrwq6jwHIc7ym0HQh3QF1wneX7zKrIHdHs59kaMMw6/0gDqy9OabCEKGXVKc6tvjVcuZt9UKDv8IYVb/8n+h5jINietXQESEDQfXpdgHhJxbkPYyVOPwIvFxMpNMpwC89qRCyEaJDvdy0oi51Q6rd142tNgmgZY75kqt3DnyQnvK1c3cFkCcy3j+LY26LLSoVdIzbrWmlpGAUxl86oFfgeWsGYJRSCUPXvbzE9jUgAmn0kytAoTMoF4QTHcI5JTJmP6tUckx8G/lBDr2+h0liISgFwn7V37fp4h/hwH1wP3u9j6NkhhMtBT9yiOxMnjNcSRQtxozzFXo7y2D5nE9uScBlbdE6Cgr5QIj8EvMg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(23010399003)(11063799006)(56012099006)(18002099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	1a9K8X9D75UjRqB0BiAuMdSuGTmTH8A+Ps7oORGTmdR3bd7ATDcCykRaNTi8IgJYKNeqrWliGBnFkWe44qZq4ko6PRma0j5qBtfx53UXwFY69pW4SrAR8kC4klYs6T5S3tI2PqrQxBpEzxQaGYRznUTiWsqAKut0HcRBVJGUQMZ0FZ2fAmTgpFMjrfh/eWPq+A73Fmf3KyWXbzvFj+jAx63pbFL+T82nq0w1XC2IXzQelxb76i6QOt6ObfuCTzSC2Dqzl3+EXbz2vK7ZxF4vq0JMwdlN5HtNE/ZnwpK4p+Iat+9T6CR/NZpG4spMpVJVtkrnAlYf6oQfV/cKDcr7gFSLSTtUGMbEvx4Q37uDBBYRGIrSAL607pNb3FNxzzOh9aPJ4C7EtyaRmkM6QAw958vCSZPcGqoumMVHDJC7LUtUTjNsgEaiOggjW7UPyIhw
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 10:34:28.0310
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7404d0b2-f6ef-435d-27cb-08df25f0e56b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C6190.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8471
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008-cvs-privacy-led-v1-1-b78d5c512cba@gmail.com>
 
-ttm_tt objects for imported sg tables (ttm_bo_type_sg, set up by
-ttm_sg_tt_init() with TTM_TT_FLAG_EXTERNAL) only have DMA addresses and
-no pages array. ttm_bo_kmap() and ttm_bo_vmap() still dereference
-ttm->pages for them, so a driver that tries to CPU map such a BO oopses
-instead of getting an error:
+On Thu, Oct 08, 2026 at 08:39:37PM +0530, Praveen Puglia via B4 Relay wrote:
+> From: Praveen Puglia <praveenpuglia@gmail.com>
+> 
+> The Synaptics SVP7xxx (06cb:0701) quirk sets ICVS_HOST_PRIV_CTRL, so
+> SET_DEV_HOST_ID tells the CVS firmware that the host owns the privacy
+> LED. Nothing in the driver drives it, though: V4L2_CID_PRIVACY is a
+> read-only placeholder. The firmware then never turns the LED on and the
+> camera streams with the LED off.
+> 
+> The host has no way to drive it on these machines either. On the Dell
+> Pro Max 16 Premium (MA16250) the only camera LED that INT3472 exposes
+> is the IR flood LED. The out-of-tree Intel vision driver sends
+> privacy_led_host = 0 for this bridge, and the LED works there.
+> 
+> Drop ICVS_HOST_PRIV_CTRL from the quirk (quirks 0x7a -> 0x3a). The LED
+> now turns on while streaming and the stream is unaffected.
+> 
+> Tested on a Dell Pro Max 16 Premium (MA16250) with v7.2.8.
+> 
+> Fixes: 8e2b43d2c10b ("media: i2c: cvs: Add driver of Intel Computer Vision Sensing Controller(CVS)")
+> Cc: stable@vger.kernel.org
+> Link: https://github.com/intel/ipu6-drivers/issues/417
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Praveen Puglia <praveenpuglia@gmail.com>
+> ---
+> This is my first kernel patch. I found and debugged this with an AI
+> assistant (Claude), then verified it myself on the laptop: quirks read
+> 0x3a, the LED turns on and off with streaming, and the stream is
+> unchanged. Tested as a rebuilt module on Fedora's v7.2.8, not on
+> v7.3-rc.
+> 
+> Marco Nenciarini reproduced this on the same laptop with Debian and
+> v7.2.6, and found no host-controlled privacy LED pin in the DSDT/SSDTs:
+> https://github.com/intel/ipu6-drivers/issues/417#issuecomment-5996738346
+> ---
+>  drivers/media/i2c/cvs/core.c | 1 -
+>  1 file changed, 1 deletion(-)
+> 
+> diff --git a/drivers/media/i2c/cvs/core.c b/drivers/media/i2c/cvs/core.c
+> index d4a3b9c3ba..3520325717 100644
+> --- a/drivers/media/i2c/cvs/core.c
+> +++ b/drivers/media/i2c/cvs/core.c
+> @@ -72,7 +72,6 @@ static const struct icvs_device_quirk cvs_quirk_table[] = {
+>  	},	/* Lattice NX33 */
+>  	{ 0x06CB, 0x0701, ICVS_SKIP_FW_RESET |
+>  			  ICVS_HOST_SENSOR_PWR_CTRL |
+> -			  ICVS_HOST_PRIV_CTRL |
+>  			  ICVS_FW_BUF_SIZE_256 |
+>  			  ICVS_FW_HEADER_SIZE_256
+>  	},	/* Synaptics SVP7xxx */
+> 
+> ---
+> base-commit: 47324d3a5b3abd781295044d01d92d09f184e872
+> change-id: 20261008-cvs-privacy-led-7d0f2327c31f
+> 
+> Best regards,
+> -- 
+> Praveen Puglia <praveenpuglia@gmail.com>
+> 
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:ttm_bo_kmap+0x26c/0x300 [ttm]
-  Call Trace:
-   amdgpu_bo_kmap+0x89/0xb0 [amdgpu]
-   amdgpu_userq_fence_read_wptr+0x116/0x170 [amdgpu]
-   amdgpu_userq_signal_ioctl+0x3fe/0xbb0 [amdgpu]
-
-Return -EINVAL in that case, like ttm_bo_kmap_try_from_panic() already
-checks for a missing pages array.
-
-Fixes: 75a57669cbc8 ("drm/ttm: add ttm_sg_tt_init")
-Cc: stable@vger.kernel.org
-Suggested-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
----
- drivers/gpu/drm/ttm/ttm_bo_util.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
-index 3e3c201a0222..83142bfa3bc1 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-@@ -356,6 +356,10 @@ static int ttm_bo_kmap_ttm(struct ttm_buffer_object *bo,
- 	if (ret)
- 		return ret;
- 
-+	/* Imported sg tables only come with DMA addresses, no pages to map. */
-+	if (!ttm->pages)
-+		return -EINVAL;
-+
- 	if (num_pages == 1 && ttm->caching == ttm_cached &&
- 	    !(man->use_tt && (ttm->page_flags & TTM_TT_FLAG_DECRYPTED))) {
- 		/*
-@@ -419,7 +423,7 @@ EXPORT_SYMBOL(ttm_bo_kmap_try_from_panic);
-  *
-  * Returns
-  * -ENOMEM: Out of memory.
-- * -EINVAL: Invalid range.
-+ * -EINVAL: Invalid range or the BO has no pages to map.
-  */
- int ttm_bo_kmap(struct ttm_buffer_object *bo,
- 		unsigned long start_page, unsigned long num_pages,
-@@ -493,7 +497,7 @@ EXPORT_SYMBOL(ttm_bo_kunmap);
-  *
-  * Returns
-  * -ENOMEM: Out of memory.
-- * -EINVAL: Invalid range.
-+ * -EINVAL: Invalid range or the BO has no pages to map.
-  */
- int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map *map)
- {
-@@ -537,6 +541,9 @@ int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map *map)
- 		if (ret)
- 			return ret;
- 
-+		if (!ttm->pages)
-+			return -EINVAL;
-+
- 		/*
- 		 * We need to use vmap to get the desired page protection
- 		 * or to make the buffer object look contiguous.
--- 
-2.50.1
-
+Tested-by: Antti Laakso <antti.laakso@linux.intel.com>
