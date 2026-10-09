@@ -1,148 +1,185 @@
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD2633438F
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 16:52:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 019113B19C2
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 16:59:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791564747; cv=none; b=BIgNTXtDc4BpbbZleY31O/8HeTsy0ubif36Q7QX8HiORhNL7cCfCJSXPiyswQU58T8rbGChfTiaBDJPju+1Q4mXMRKs4yHKr+c4fBMm6av7OArsP67gvA7Nab9fBZ8f7ZAoc16O7qsI/0vaUuYuugwE6a2C/EJ9NL3DWZJFCIiw=
+	t=1791565148; cv=none; b=sybq62iLZkTfqJRW5kHbS3gz6Nv6k2LxfbUD3Qe2hwFl4hKkzrhRhDCamQF5KBhXjgtFLd1kYCy5MqKufD9lw3gli+ogRdX3MQk5zmVHDpA9064lxFLtxJ/y9Ovm/Sa7H8QQfatUuTRRKj1/TdUBEk8g8Ys4CUu14HG+qlIuzxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791564747; c=relaxed/simple;
-	bh=l0Lx0vO2XZUqVpwxh3mL0aU/Q7piqHu9xI9FCKJk/rk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OVGJCdAjfykXHdUaKU8DQ1FgQfHoDDKumItydQAuiNUJKTiUikNoFHRYA82kbcktvYJYFzQp3N+DrrKCyBJJ330jMS6Kc578l4wOVJQsNvbettaPrVJyeHOrnZVQoOXZFHPkRO64nAtxtxc0/OuV3BiaJ+o5MCAVW7OUFKXCaNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=ZBpckcLt; arc=none smtp.client-ip=209.85.210.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	s=arc-20240116; t=1791565148; c=relaxed/simple;
+	bh=VsmwVWOVpvaJ+Q3nzqPlKtsId4STg45BTDnclVHfZ5A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s9xN9pHOBAhdZC6pkjUE92wK06LPKmrixizFzJsxU/n7g57VsrDeH9eKjIfoYgVKAK2Kuuc0qFTWCiqpbDe6GxEFf/7H8HRAFR9FgcZYHvHux+Wivo0fMu9W/s6WGrISbkK3tG1iLRbWuuwg3p0WsGmt1aL7PPt7C2PlwaqPTvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H/PxoVih; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="ZBpckcLt"
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-8258ac98bc2so442a34.3
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 09:52:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H/PxoVih"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2dd9ec41bc4so27778045ad.2
+        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 09:59:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1791564743; x=1792169543; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wxK6siBxaUgXXbS1nQNHxY8dGyGEnMxba3O+XHHDkK4=;
-        b=ZBpckcLt/LSkM2QsCPNRfUyKnehU9OxV6CuSM6LNHtp5EMZCpMMPJHUqbY3FTiYMGC
-         ilQe24Q78OFUfpv+gtw7cL1ZQGiG3C0+tCZjuNaMLMiqgxjOqac5O+/ClxylPHLhhEK4
-         LZbXtt17HC/LXqreS7hyedpVSAqiKK6XaHLZM=
+        d=gmail.com; s=20251104; t=1791565146; x=1792169946; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8x+7zuv7UzMaKL/3w5sC9AGLBUyDe21tWW+wJXFpe54=;
+        b=H/PxoVihOdwF6MpTCjjRHDBKvMh+Wd1+CO48Rt58rN5hn9emLGLf42Rr4nDDr4Pbj0
+         U/PYoe4eZeqY/aEOjRvtd6zEEUBZEMKalcSfIVVvgPABGDkGxsA0C1JUhYyI0jOaQRr8
+         ARB29IMY5F6BbGeQ4YmvmXjNUg6oenUmGlt+jqydkXgE70ohKo8kAZRpzXQhppeSzbKa
+         dqqOu2ICfnQFdaQmS2bfawRSE7Ftg9TKgRS6HGjU2SgLbkNzLWOs0epfgFHqUJES2usG
+         jvQMolvQKfG7AEm4JYgQZjXtiuyuv+2sMC5EFP2UY+Z8zeOeZA8PU8bf8RnJT02vdtNt
+         ikKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791564743; x=1792169543;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wxK6siBxaUgXXbS1nQNHxY8dGyGEnMxba3O+XHHDkK4=;
-        b=AjmHCKUvXrFaxUUhI9TgCg0meJpol+06NKzqdbNnEiArrHTENjZwoKZ07ETkeaTNH1
-         SpL7UCZHwmXfmNM0UHlQiXg9B6IDUJbISSPiSkTh1R753woqt+5ZepImqVKN5SNPZJaj
-         htnjjQW3xLOvk5PTQ4AdYMic7yxICOo7YhGSIrm9upJ9H6gJ9PrbrAiilxgNg8sUaPiR
-         7g9urEqP0APpvmQ5rDS+bvDllIh+kGySDlxIXKULbl/T63U15F54J4vT+8rXGR4/Fezc
-         dqINLJDR76njPgFYJVJ42YPB70h3rNTgd/vZpHHEoYQp6jYFvVennEnJT/u15J32fZMs
-         yKww==
-X-Forwarded-Encrypted: i=1; AKwUvBwOUWjdhrOOxn+KAq4PWbRq84gEIAq8RG8SZIg3ASm9pT8fDSvQrx3Ly0LDGHXtuayYeCpkyN0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nEG3zQEmrYtt+5Ub46JTMOVo3wUIjkp9XMa92J3TEb0YBzMeEp
-	SXHcrS6IVJIJnVxCSp5WbQ6EIghv0C3aNSwjRJpB2VMQzlw5qm2YxI1Aw9ghChHjXIs=
-X-Gm-Gg: AYBFou0A+0INyJd5ObPv9ctThl9hOKr3wH2Ned7OB8vqyu2te5sd7ctSTBk2+yJ3mDh
-	hT7haLNKyII5qvZmrDAFrlSwbDtGv/QDiqEfruHnITAfCz/KwWSksidYREd5xLjgcoCDWSTz0j4
-	2kIhG3IcZgUdcbYc+T3SlQQCQKFPdP2UDPfBclWsSaD/7869TiOrLb3HWKy7+RCNoBVMw53z0ai
-	1fV85/Sbi4No39FDdoAFJgVb30GR++ZdvqTrb7Vq4m68mRHj2O9KKAwdei2TN+bstFhCK6TxhKO
-	tm3bLSjwW1PE49+R/rnlSodTTgzp3eNq1HtzM8/Ufx2cwYOG3baucL3oMFN82EECbGsD2XQXm8D
-	uvLfqEJHF2fILnw35haUfOo1hiPeKdB01/0CwRESHlNoJKd8nXrmiB3LB5eaNAYdzaSaRlup1Vm
-	x1b9Gd6eHt7TAM5O0ZhGOB3rwoperKUj5jBvjP8CkkTIJArrWwTDCHFa8G2M8rCk6FoJBZFkF5p
-	m+O5xc7+/DtK98XmUSyPBMOeVcrN7pSsZK55K5SHjYaXw4GF4rQ5u9jTV8/WZKivCuWxDyg8Qk=
-X-Received: by 2002:a05:6830:6d29:b0:805:9b38:6f7c with SMTP id 46e09a7af769-8309797cc66mr1926179a34.29.1791564743382;
-        Fri, 09 Oct 2026 09:52:23 -0700 (PDT)
-Received: from com-75606.corp.openai.org ([199.47.143.7])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-83039a3e016sm2174263a34.17.2026.10.09.09.52.21
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 09 Oct 2026 09:52:23 -0700 (PDT)
-From: Kyle Zeng <kylebot@openai.com>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Kyle Zeng <kylebot@openai.com>,
+        d=1e100.net; s=20260707; t=1791565146; x=1792169946;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8x+7zuv7UzMaKL/3w5sC9AGLBUyDe21tWW+wJXFpe54=;
+        b=wdZkhhpMMhHQ7uh0+BW4rUeYXhGKQaiuXA103aX1JEE3VQxByD076e7Qr+LYTZUEOG
+         P+Z6R9CC1tBFyR7dcuNaWhzy1VMoFNquQ0ar4ParjCacqcJBHZyTcWF4oBPu6aRHhkvF
+         5t6WLkQ/J8IYs6xtg22SDWPlXhmYd7OpL6PfPO+32ScHi66y3HPPU5kwVesU+y735GGH
+         b3aQii00DQP+Oap7pMjalXMwmQNVAhL28h6b3IGfDWPoHozukIg7ntSfZjMdkiNA+MR9
+         LYlxWmzpx9qaOp/bR5K2xid3t7HTdhgc8NgWeGVKHWliZbnArHmcyydjY4KrMKFVw9FQ
+         /SMg==
+X-Forwarded-Encrypted: i=1; AKwUvBx9HCXL8JbwOGZM6ECvv3rBIMXdTY6slMjz1wHKu9zEi4kE8tc6La9B+kLtnI9okk0Xxl47oNU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ4JWxI9JKGBTML/kb7cPt94B797/IZTe6+z4XgZqM2yDUrQGaj
+	sXGRnK9awikzOygLi/ckVsKzncV0BMC0n0fn1TH1/xWv7Jr6BtrCMjlw
+X-Gm-Gg: AYBFou1eBKBH8hCXiaoJS+wLXdZPnMrsvkUrSa+DeemQOIqj6dnEHS4wqTkkHLkK5xn
+	HUK+enL+Z9yGFmKEOFrdc+n/FDgRzdgaM9MjumRk/QbRfWlqzB50k2c+vLudNrznW+LxV7Tp6Vp
+	n2wkVdR6I26AdEeByPZ0kQQCTKgcRaqjCp4jWc2TkjCQEyaE/i1PjJTkma9whpQdMIC9dMCCLSR
+	ndEl7rZXlzrCiIubtGTqRyOVP5kxRNaxjK9UB4ooa3l9HrTykMJws6kUu8hJNm8LImhZPEOMnec
+	Ugv8GysL7cJtYN4wRrG89L9QOFA+R6XMqEEt5QuZy9t7VxH4UxHO/GYgsVngefrtO8h6yWXMYqH
+	IJbMOPJ/h+zICwjFx/DmewJFLXmKBO7vAh2NX6I1eZ6MJQYLUrghbt08PDZCPLVw9ZoAD/f4Ssi
+	rlqe2wGu1DxnCJos4jmG9LSvbo8zUKcflpGVqpNIoGCzSmkuYP3Rjv+3lMxNwOW4JXAcAuG0npr
+	LI7CXKn2biVC2Yss7S5QO8fn5AJ27g+0Q==
+X-Received: by 2002:a17:903:160c:b0:2e2:d9fe:51fb with SMTP id d9443c01a7336-2e84280aeecmr22910215ad.4.1791565146067;
+        Fri, 09 Oct 2026 09:59:06 -0700 (PDT)
+Received: from google.com (61-230-52-229.dynamic-ip.hinet.net. [61.230.52.229])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e2570sm14453055ad.79.2026.10.09.09.59.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 09:59:05 -0700 (PDT)
+Date: Sat, 10 Oct 2026 00:59:01 +0800
+From: Kuan-Wei Chiu <visitorckw@gmail.com>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Guan-Chun Wu <409411716@gms.tku.edu.tw>,
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH] mm/huge_memory: avoid transient none PMDs during lazyfree reclaim
-Date: Fri,  9 Oct 2026 09:52:15 -0700
-Message-ID: <20261009165214.40212-2-kylebot@openai.com>
-X-Mailer: git-send-email 2.55.0
+Subject: Re: [PATCH] lib/base64: Silence clang-24 -Wconstant-conversion with
+ diag pragmas
+Message-ID: <askdVfevxztHMyGN@google.com>
+References: <20261008-base64-silence-clang-24-constant-conversion-v1-1-0858b60b23c8@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008-base64-silence-clang-24-constant-conversion-v1-1-0858b60b23c8@kernel.org>
 
-__discard_anon_folio_pmd_locked() clears and flushes a huge PMD before
-checking whether the folio can be discarded. If the folio was redirtied
-or has unexpected references, it restores the original PMD. Reclaim holds
-the PMD lock and the anon_vma read lock, but not the owning mmap_lock.
+On Thu, Oct 08, 2026 at 01:08:49PM +0200, Nathan Chancellor wrote:
+> After a recent change in clang to warn on signed char conversions within
+> array initializers [1], there are several instances of this warning from
+> base64_rev_maps in lib/base64.c, which can break the build with W=e or
+> CONFIG_WERROR=y:
+> 
+>   lib/base64.c:58:18: error: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 131 to -125 [-Werror,-Wconstant-conversion]
+>      58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
+>         |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
+>   lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
+>      48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
+>         |                                       ~
+>      49 |         [0 ... 0x1f] = -1, \
+>      50 |         INIT_32(0x20, ch_62, ch_63), \
+>      51 |         INIT_32(0x40, ch_62, ch_63), \
+>      52 |         INIT_32(0x60, ch_62, ch_63), \
+>         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+>   ...
+>   lib/base64.c:34:42: note: expanded from macro 'INIT_1'
+>      34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
+>         |                                              ~~~~~~~~~~^~~~
+>   lib/base64.c:58:18: error: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 130 to -126 [-Werror,-Wconstant-conversion]
+>      58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
+>         |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
+>   lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
+>      48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
+>         |                                       ~
+>      49 |         [0 ... 0x1f] = -1, \
+>      50 |         INIT_32(0x20, ch_62, ch_63), \
+>      51 |         INIT_32(0x40, ch_62, ch_63), \
+>      52 |         INIT_32(0x60, ch_62, ch_63), \
+>         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+>   ...
+>   lib/base64.c:34:42: note: expanded from macro 'INIT_1'
+>      34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
+>         |                                              ~~~~~~~~~~^~~~
+>   ...
+> 
+> These are false positives, as the branch where the wraparound could
+> happen is unreachable with the values that clang reports. This is not
+> considered a bug by some clang folks [2][3], so silence the warnings
+> using the __diag macros the kernel has to workaround compiler warnings
+> when necessary.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: c4eb7ad32eab ("lib/base64: optimize base64_decode() with reverse lookup tables")
+> Closes: https://github.com/ClangBuiltLinux/linux/issues/2181
+> Link: https://github.com/llvm/llvm-project/commit/a5ef934a8d295dc03be3960f2b3744ec2e53238e [1]
+> Link: https://github.com/llvm/llvm-project/issues/223923#issuecomment-6056856245 [2]
+> Link: https://github.com/llvm/llvm-project/pull/226775#pullrequestreview-5454407389 [3]
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 
-Both zap_pmd_range() and mremap's get_old_pmd() can skip a none PMD
-without taking its lock. A concurrent munmap() or whole-VMA
-MREMAP_DONTUNMAP can therefore miss the PMD and later unlink the source
-VMA from its anon_vma, leaving a restored mapping behind. The anon_vma
-write lock taken by unlink_anon_vmas() waits for reclaim to finish, but
-does not repeat the skipped page-table walk. Once the remaining VMA
-links are removed, the folio's positive mapcount no longer guarantees a
-live anon_vma. Racing lazyfree reclaim against MREMAP_DONTUNMAP as an
-unprivileged user reproduces a KASAN use-after-free in
-folio_lock_anon_vma_read().
+Acked-by: Kuan-Wei Chiu <visitorckw@gmail.com>
 
-Use pmdp_invalidate() to keep a recognizable, non-none huge PMD while
-the discard can still fail. Concurrent unmap and move operations then
-have to synchronize on the PMD lock instead of skipping the mapping.
-Clear the invalidated PMD only after the dirty and reference checks have
-succeeded, before removing the rmap and withdrawing the deposited page
-table. The full invalidation retains the TLB flush required for the
-dirty and GUP-fast checks.
+Reading the issue comment in the link, it seems somewhat subjective and
+controversial whether the compiler should emit a warning in this
+scenario. I'm not a compiler expert, but from a user's perspective,
+it's a bit disappointing when we have to deal with this. When we are
+confident that the code is correct and have provided the compiler with
+enough context to determine that there is no runtime issue, suddenly
+getting a new warning after an upgrade is a bit frustrating. But
+anyway, let's go with this workaround to keep the compiler happy.
 
-Fixes: 735ecdfaf4e8 ("mm/vmscan: avoid split lazyfree THP during shrink_folio_list()")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-6-astra
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
----
- mm/huge_memory.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+Regards,
+Kuan-Wei
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 1e5d68acf62a..20262195385a 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -3569,11 +3569,17 @@ static bool __discard_anon_folio_pmd_locked(struct vm_area_struct *vma,
- 		return false;
- 	}
- 
--	orig_pmd = pmdp_huge_clear_flush(vma, addr, pmdp);
-+	/*
-+	 * The discard may fail, so keep the PMD non-none until we're
-+	 * committed to discarding it. Otherwise, concurrent munmap() or
-+	 * mremap() can skip the PMD without taking the PTL and later unlink
-+	 * the VMA from its anon_vma despite a restored mapping.
-+	 */
-+	orig_pmd = pmdp_invalidate(vma, addr, pmdp);
- 
- 	/*
- 	 * Syncing against concurrent GUP-fast:
--	 * - clear PMD; barrier; read refcount
-+	 * - invalidate PMD; barrier; read refcount
- 	 * - inc refcount; barrier; read PMD
- 	 */
- 	smp_mb();
-@@ -3607,6 +3613,7 @@ static bool __discard_anon_folio_pmd_locked(struct vm_area_struct *vma,
- 		return false;
- 	}
- 
-+	pmdp_huge_get_and_clear(mm, addr, pmdp);
- 	folio_remove_rmap_pmd(folio, pmd_page(orig_pmd), vma);
- 	zap_deposited_table(mm, pmdp);
- 	add_mm_counter(mm, MM_ANONPAGES, -HPAGE_PMD_NR);
+> ---
+>  lib/base64.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/lib/base64.c b/lib/base64.c
+> index 325c7332b049..e46be3a55585 100644
+> --- a/lib/base64.c
+> +++ b/lib/base64.c
+> @@ -52,11 +52,14 @@ static const char base64_tables[][65] = {
+>  	INIT_32(0x60, ch_62, ch_63), \
+>  	[0x80 ... 0xff] = -1 }
+>  
+> +__diag_push();
+> +__diag_ignore(clang, all, "-Wconstant-conversion", "https://github.com/llvm/llvm-project/issues/223923");
+>  static const s8 base64_rev_maps[][256] = {
+>  	[BASE64_STD] = BASE64_REV_INIT('+', '/'),
+>  	[BASE64_URLSAFE] = BASE64_REV_INIT('-', '_'),
+>  	[BASE64_IMAP] = BASE64_REV_INIT('+', ',')
+>  };
+> +__diag_pop();
+>  
+>  #undef BASE64_REV_INIT
+>  #undef INIT_32
+> 
+> ---
+> base-commit: 0c2669a9f4a1d607e7591ae50ccf3c432a0aff08
+> change-id: 20261008-base64-silence-clang-24-constant-conversion-b682c6bbf563
+> 
+> Best regards,
+> --  
+> Cheers,
+> Nathan
+> 
