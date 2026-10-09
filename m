@@ -1,267 +1,142 @@
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 869A24EF15B
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 18:22:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD59850C283
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 18:30:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791570181; cv=none; b=WFCxv2aqC1wUQFPS7e64xhzKEAqan29hQxbrQCo01E1lvXq9BDb56EJ+vopDHARJsrAFu7lVfgHqZCilY/3gAr4vL/y6APs1EBY/QZFIwrd5jQAt1KU5Va5ZezraXBGODOeI8LzqTc9sVRQEpU/pnalZakN8/Ce44ZDACSnCptY=
+	t=1791570640; cv=none; b=UUMpk19sE1K/LD3uQ1/hCs52+Hm+DeE48ltRRnDJrgbpXUJNghpUCMWR70bEZgfFlAmt8wwmfQY8fF6K1CsNL4bEpcYQ48n8J1Y32osxse5QLGX/FATpYBtiMQ5ifLOlGhRDt6Do+360BZgleaE/3VzeRJ9zNphNzROzBRuiFEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791570181; c=relaxed/simple;
-	bh=9vAeSVMgChu8sFTGFbATOHJawdCKY56GlNC/6/iSWKQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=poLNbEQMDb+OetEaSUPy718GzOI1DXFWe/UBOgPrnC7SME/wEKA/OhzBvxJYS6oeYNM8pg5O+pTqWNoJQMNePQ8yo+BPPH4Jm8nTmXPlnJWIWdoeWhqFpNqfJrr9tCtAZa77OldOojMQbOggEoc5c8lyISvc9WyYlT0wiIw+kIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OmkJYlAq; arc=none smtp.client-ip=209.85.222.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791570640; c=relaxed/simple;
+	bh=L0m2eL5DGHs643vM/O48SFt6nojSAOMcSMn2WKz72D8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U5TR28a6zeV4l9Df5WYjWTZDR5PvKBi585NqTzIjTRN3SS3lbmRlv0aiXxbazXt+Ckcvbi41Tzh+1Qr7Z3ybFT/pMMHjai3MEHcAuJIv/ssPoSF2arquiXfsNa7mZS8H0qO6my6DighEluQs7GwxKKg94p2ivqaDKZ+d2nPyfr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=A+0oZYGF; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OmkJYlAq"
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93e7ad9f78dso503057985a.1
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 11:22:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791570177; x=1792174977; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=a5DZyu/rgS+ubvoCBVhk1B0P03cm+osmdOmBLE1t3Jk=;
-        b=OmkJYlAq3bV0AxUnYf4O1rDYClb5B3/Inv4F4kv5L8R7z+UpAtYiD38Qy+Ngt9bDzu
-         lD6AYAZIIx6wRw3AmEVc1ydy5okCbKlIRH4+GwMtgkEjerPbtkVd9b7w7czLvMFXN4mG
-         wmp6nMweEXhqRXl7lqSarkG7qwqlrXDSb2QmogITSrHD4utNykNBVRYPlK1LIKPamWBb
-         RFz4RcmGiFtarkyNmJwfnGuM5CQ7qx8ifCoKQTG2duMQTR9etKa/njYSodEgwCsLxd/u
-         5JVA4O8DQU3/tdHfIfr2NvMkiYMoXTPNxN8ub5O6WYNmFKjcXfb0J3MUJILUEAhSjc5W
-         OAdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791570177; x=1792174977;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a5DZyu/rgS+ubvoCBVhk1B0P03cm+osmdOmBLE1t3Jk=;
-        b=hrPJFQjJfDKPewI+S5TawGPF2TGKzu8V9faDqfR5I1jPZ5tTWOTo2htuB3ou4jUoyP
-         uOGPgMn9OQZv35CuJl7o6TSuhmlYCKtw5geubXmg3MSy4wZY8ti3My5WocV87qGDDKFr
-         nRT8FkOUo4SWgghQUZJVG/7n9dcfI+SkXN6TMY7jHzXv0yoHNfLzq9Kj6rGjpZ196lDj
-         66PdqGwdB28axhycS6Zq3Qg7KK/LDhALqdS/H5FXGpXHaqZDbwuvLey36f21TTVKa5ON
-         1msbhwPH08PO7D9PpfY50Tu+Dj3PgBn8AfyYrx/YKXBF+GyvV/yVaw83rcrkZSL4aYFv
-         +qRA==
-X-Forwarded-Encrypted: i=1; AKwUvBxKqEbSElFmRdXu0FF19jN1NGdI7sbDlwjocsJtq/Us9MV2fzJ+DD+yiJEZb1AJPB1LLu50tbI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mKH2u9/TV26zgqcvrEi0wsfpfq7d+tAIdVlNzgBZ+Gq/gZuMS9
-	J9kfLop0OPbZI7VXTsJmAkkv2NM4/4z3W+C//mxV7HWWEzJuQMfWTAs2
-X-Gm-Gg: AYBFou38NG9yutQJWGlHqagI5ZX/eRcVghTLED241Y8q5K/vi80ysD8UIOKrTZSsIf0
-	PH8a0Dv7xUyT9WOAjftAFCiVFejQEtLsl7AV4dFtoCvwyn9DCeTEyiCVQFolaxnlLm56hByZYzW
-	wW0nlRnH/Elv4l+ZXI39loj4N+EbQZQKxvRRhTcVsFtrob7bszxvRdqhQE41cAVrti9B8+I5D8n
-	js0qQq2ddXXCwHfpAOkgIz4pJuoWsB3+hWAQuRHke+oJJdLB/ii3sLDo4zTLj2dZjjTiFrbZG9d
-	uXuVSymYHpz95HAL4lZ3tUqXmXQjh/oYnkNl0oDaGUQK+OgfhkxNz9ib5WRbrRedqXcv05gApPh
-	ihu9GX1G7Z0i0UgIwgItqOQR9Fmir8IR90h94C3BYE8wFltjR2d6Af4/wD8KTumb3oUoOLePWUu
-	zvTDMZJZV+WheYGuI9g62lD5CwkyIZ0XcC0+Af79SgfeLyPcQKakFBBsTptDKak3qiSafMikgSr
-	ZODfoKsIC73KaGPfDV8jQ8wh/6TbSGMi6Z4NmP1wWdZuftVmwLfmcb1zhvyHQTwZqSvAFZfSSVW
-	nypa4iLOTegFQjmhDYRr8mb67sBOP2MV3kWl6/bxo5IIa1Jx0XDUXUhzh0Y1nYAKd+XX2i/269h
-	uzrhWC17nYsam/4HWqFBXFtPaCZ+UX8hcijbuCIJX9xAVxmpjg5mJS9fQ2FnkZWrS9KWDHMaa+T
-	l/McZbVS3n3GT0ojJzIAoqtFWnT+SO
-X-Received: by 2002:a05:620a:660a:b0:93c:7955:afd9 with SMTP id af79cd13be357-93ebd27ab42mr401270885a.52.1791570177349;
-        Fri, 09 Oct 2026 11:22:57 -0700 (PDT)
-Received: from node0.quickhttpnode15.cloudfaas-pg0.wisc.cloudlab.us ([128.105.144.50])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb986c0c4sm247937685a.18.2026.10.09.11.22.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 11:22:56 -0700 (PDT)
-From: mosafer <mohsafer@gmail.com>
-X-Google-Original-From: mosafer <mosafer@node0.quickhttpnode15.cloudfaas-pg0.wisc.cloudlab.us>
-To: dakr@kernel.org
-Cc: driver-core@lists.linux.dev,
-	gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	mohsafer@gmail.com,
-	rafael@kernel.org,
-	stable@vger.kernel.org,
-	syzbot+863936f50214e843ae0c@syzkaller.appspotmail.com,
-	khiemtranzo532001@gmail.com
-Subject: [PATCH v2] driver core: complete deferred binds when drivers_autoprobe is off
-Date: Fri,  9 Oct 2026 13:22:39 -0500
-Message-Id: <20261009182239.283329-1-mosafer@node0.quickhttpnode15.cloudfaas-pg0.wisc.cloudlab.us>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <DM06HWVAFSOW.2F050J0BT27TK@kernel.org>
-References: <DM06HWVAFSOW.2F050J0BT27TK@kernel.org>
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="A+0oZYGF"
+Received: from macsyma.thunk.org (99-196-133-108.cust.exede.net [99.196.133.108] (may be forged))
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 699IToKp000611
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 9 Oct 2026 14:29:59 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1791570603; bh=nu2YxkOxzlFd2aRModWyqZUYfXEJi/7+8yOaUHs3MmY=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=A+0oZYGFK3FVTQY65Jbt7yvPe50q3pcFNemTxzq1D/r4fmbmUB51YC7IH1NKVIHBm
+	 0vf252ESl/L6N5+K5KgkkZjlvPuyvVTbGCYsdpjguyvDT3GBzpac6kaz7s3SX4iVDt
+	 Ewy4xfEPTbaKX7kcX+YexKIEvowu2Cwu3jnH7IilcGsfPU2+A/p2+a1vULrm2kJB0/
+	 c6ZDAiqbXLjMzesVNKWqWfLCX8hmbQYrYein9QaP1RPbmMH/bLcRSEAbqwjDPRXnH8
+	 U+RgWURcay5nKNpyCegF6PCZf9VGZVwxore1jyOapSj4mN3M3coMTqU4QtqNwCDYGM
+	 wEOsqKCSgk8WA==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 43C161FA8A71; Fri,  9 Oct 2026 14:29:47 -0400 (EDT)
+Date: Fri, 9 Oct 2026 14:29:47 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: Artem Dinaburg <artem@trailofbits.com>
+Cc: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Sasha Levin <sashal@kernel.org>,
+        Max Kellermann <max.kellermann@ionos.com>,
+        Zhang Yi <yi.zhang@huawei.com>, Jan Kara <jack@suse.cz>,
+        Jan Kara <jack@suse.com>, linux-ext4@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 6.6.y 0/2] jbd2: backport CVE-2026-89566, CVE-2026-89567
+Message-ID: <askqkXhBORyXr-v9@mit.edu>
+References: <20261008192048.98833-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008192048.98833-1-artem@trailofbits.com>
 
-From: Mohammad Mosafer <mohsafer@gmail.com>
+On Thu, Oct 08, 2026 at 03:20:44PM -0500, Artem Dinaburg wrote:
+> Hi Greg, Sasha, and maintainers,
+> 
+> I'm working through the smaller CVE backports still missing from 6.6.y.
+> These 2 upstream changes belong together for CVE-2026-89566,
+> CVE-2026-89567. They must be applied in this order because the later change
+> depends on or completes the earlier one.
 
-device_add() registers a device and then runs the bus's initial probe
-via bus_probe_device() -> device_initial_probe().  With
-drivers_autoprobe disabled for the bus, device_initial_probe() skipped
-__device_attach() entirely.
+Note that some of the 6.1 and 6.6 LTS backports in the past have
+caused ext4 test regressions.  Since I don't have the time to track
+down said ext4 regressiions (the last one took a week of my time,
+because bisects are painful, and even after I bisected it down to the
+guilty commit, figuring out out to safely revert it also took a lot of
+time), I've largely given up on those LTS releases.
 
-That is correct for automatic *matching* against the bus's driver list,
-but __device_attach() also doubles as "complete a bind that a driver
-already initiated": when dev->driver has been pre-assigned outside the
-normal match/probe path, it finishes the bind by calling
-device_bind_driver() under the device lock, bypassing probe().
+In addition, many corporate security folks are advising that it's
+Simply Not Safe to use an LTS as old as 6.6, because even if you are
+trying to address the 6.6 ext4 CVE's, there are plenty of other CVE's
+that don't necessarily get backported, leaving those older LTS kernels
+vulnerable.  But if you do have a real business need to use 6.6 LTS,
+would you be interested in taking over managing the 6.6 ext4 stable
+backports?
 
-With autoprobe off, that second duty was skipped too.  USB depends on
-it: usb_driver_claim_interface() pre-sets dev->driver on an interface
-that is not yet registered, documenting "let the future device_add()
-bind it, bypassing probe()".  Composite drivers (cdc-acm, cdc_ncm,
-cdc_mbim, ...) rely on it to bind their sibling data interfaces.  If
-drivers_autoprobe is written with 0 while such an interface is between
-the claim and its device_add(), the interface ends up registered, with
-dev->driver set and iface->condition == USB_INTERFACE_BOUND, but never
-bound: its knode_driver is never attached to the driver's
-klist_devices.
+It's a lot easier to revert ext4 patches if the regressions are noted
+promptly, and so the easist way to do this would be to use
+gce-xfstests[1].   I can send you the results of running:
 
-Teardown then trusts those flags: usb_driver_release_interface() ->
-device_release_driver() -> __device_release_driver() runs a full
-release and calls klist_remove(&dev->p->knode_driver) on a
-never-attached node whose knode_klist() is NULL, which klist_put()
-dereferences:
+    gce-xfstests ltm -c ext4/all,xfs/4k,btrfs/4k -g auto --repo stable-rc.git --watch linux-6.6.y
 
-  Oops: general protection fault
-  KASAN: null-ptr-deref in range [0x0000000000000058-0x000000000000005f]
-  klist_put <- klist_remove <- device_release_driver_internal <-
-  usb_driver_release_interface <- acm_disconnect / cdc_ncm_unbind
+... or you can run it yourself if you like.
 
-Keep device_initial_probe() always calling __device_attach(), but pass
-whether automatic matching is allowed (sp->drivers_autoprobe) down to
-it, and evaluate that flag inside __device_attach() under the device
-lock, where dev->driver is read anyway:  a device with a pre-assigned
-driver completes its bind regardless of autoprobe, and only a device
-without one is subject to the matching policy.  Evaluating the two
-conditions inside the locked branch (rather than as
-"autoprobe || dev->driver" in the caller) also closes a TOCTOU: a
-concurrent detach can no longer turn the completion of a pre-assigned
-bind into bus-wide matching behind an "autoprobe off" policy.
+[1] https://thunk.org/gce-xfstests
+[2] https://github.com/tytso/xfstests-bld/tree/master/Documentation/gce-xfstests.md
 
-Other subsystems that preset dev->driver before device_add() (w1,
-tegra xusb, zynqmp-ipi-mailbox) get the same correctness back; for
-devices with no pre-assigned driver and autoprobe off, behavior is
-unchanged.
+If you see failures in the latest stable-rc.git which are not in
+previous test runs, then promply send a note (within 48 hours) to the
+stable maintainers asking them to drop all of the ext4 and jbd2
+patches that were sent to the latest stable-rc.  You can then spend
+time, at your leisure, figuring out which of the ext4/jbd2 patches
+caused the regressions, and then either fix them up or skip them and
+send the rest to the stable maintainers.
 
-Reproduced with syzkaller's C reproducer on a 7.3.0-rc6 tree:
-instrumentation shows the doomed interface's device_add() racing an
-autoprobe=0 write; the bind-completion branch never runs for it; later
-teardown hits klist_remove() with a pristine node.  With this patch the
-same instrumented race completes the bind inside the window (3 VMs,
-5 min per run: window hit 3 times, bind completed 3 times, and 802
-devices with no pre-assigned driver correctly skipped matching despite
-__device_attach() now always running): zero KLIST-REMOVE-BAD, zero
-Oops.
+If you see test regressions which *also* impact the xfs and btrfs
+trees, then it's likely that the bug is in the vfs and mm backported
+patches, so there won't be a need to request that the ext4 patches get
+dropped from the stable-rc --- but if there is a test regression
+impacting ext4, xfs, and btrfs, and you want to use 6.6 in production,
+this might still be an issue for your company.
 
-Reported-by: syzbot+863936f50214e843ae0c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=863936f50214e843ae0c
-Fixes: b8c5cec23d5c ("Driver core: udev triggered device-<>driver binding")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mohammad Mosafer <mohsafer@gmail.com>
----
-On Fri Oct 9, Danilo Krummrich wrote:
-> We've recently had another patch to fix up cases where dev->driver is
-> pre-assigned. Please see [1] and the corresponding thread.
+> The complete series is already present in 6.12.y, 6.18.y, and 7.2.y.
+> These fixes also affect 6.1.y, which will need a separate backport; this
+> series is only for 6.6.y.
 >
-> IIRC, there was no reasons the remaining users can't just use a proper
-> match() callback instead, so we don't have to worry about those edge
-> cases in the future.
+> Could you please consider this series for 6.6.y?
 
-Thanks for the pointer.
+If you haven't tried running xfstests to verify that your patches
+don't cause any regressions, I strongly recommend it.  I won't NAK the
+patches if you haven't, but that's because in my personal opinion, I
+strongly recommend **against** using 6.1 and 6.6, and I've given up
+trying to provide any ext4 support for 6.1 and 6.6 --- I just don't
+have the time.  I barely have the time to pay attention to 6.12 and
+6.18 LTS kernels, and those are only best efforts on my part.
 
-I had not seen Kien's series; looking at it now, we are attacking the
-same half-claimed state from opposite ends: his patch makes the release
-path tolerant of it (skip klist_remove() when the device is not bound),
-while mine makes the deferred bind that usb_driver_claim_interface()
-promises actually complete when drivers_autoprobe is off, so the
-half-claimed state never arises.  If the direction is to remove the
-pre-assigned dev->driver users entirely via proper match() callbacks,
-I'm happy for that to supersede this fix -- I'd be glad to help with
-the USB side of that conversion, as I now know the claim/bind/teardown
-paths in detail.
+Cheers,
 
-Until such a conversion lands, though, the window is still open in
-current releases (syzbot hits it, and any userspace writing
-drivers_autoprobe races it), and pre-assignment is not only USB:
-drivers/w1/, drivers/phy/tegra/xusb.c and
-drivers/mailbox/zynqmp-ipi-mailbox.c pre-assign dev->driver the same
-way today.
+						- Ted
 
-So please treat this as: whichever of Kien's guard, this bind-side
-fix, or the match() conversion you want as the canonical answer, this
-patch is yours to drop or pick -- but happy to have your steer before
-it evolves further.
+P.S.  And if anyone would like to volunteer to be the ext4 stable
+maintainers for 6.12 and 6.18 (and 7.3 or 7.4 when the next LTS is
+declared) they would have my undying gratitude.  :-) And the newer LTS
+kerenls should be much less work than the older LTS kernels, since the
+chances for regressions (and the work involved in trying to track down
+the regressions) are much less.
 
-While the v1 was on the list the review bot found a real defect (the
-dev->driver test was open-coded in device_initial_probe() lockless, a
-TOCTOU against a concurrent detach).  v2 below fixes it the way the
-bot suggested: __device_attach() takes an allow_match flag and the
-decision is evaluated under device_lock.  Evidence unchanged in kind:
-same reproducer, instrumented patched boots show the deferred bind
-completing in the previously-crashing window, 0 crashes (v1: 6/9 on
-the unpatched control), plus a clean bare soak.
-
- drivers/base/dd.c | 30 ++++++++++++++++++++++++++----
- 1 file changed, 26 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/base/dd.c b/drivers/base/dd.c
-index f6525a7ee8c5..4c1bb1979519 100644
---- a/drivers/base/dd.c
-+++ b/drivers/base/dd.c
-@@ -1065,7 +1065,8 @@ static void __device_attach_async_helper(void *_dev, async_cookie_t cookie)
- 	put_device(dev);
- }
- 
--static int __device_attach(struct device *dev, bool allow_async)
-+static int __device_attach(struct device *dev, bool allow_async,
-+			   bool allow_match)
- {
- 	int ret = 0;
- 	bool async = false;
-@@ -1085,6 +1086,17 @@ static int __device_attach(struct device *dev, bool allow_async)
- 			device_set_driver(dev, NULL);
- 			ret = 0;
- 		}
-+	} else if (!allow_match) {
-+		/*
-+		 * Automatic driver matching is suppressed for this device
-+		 * (drivers_autoprobe is off), and no driver has been
-+		 * assigned to it: do not run bus_for_each_drv() matching
-+		 * for it.  Deciding this here, under device_lock, means a
-+		 * concurrent driver detach between the caller picking
-+		 * allow_match=false and reaching here cannot turn the
-+		 * completion of a pre-assigned bind into bus-wide matching.
-+		 */
-+		goto out_unlock;
- 	} else {
- 		struct device_attach_data data = {
- 			.dev = dev,
-@@ -1138,7 +1150,7 @@ static int __device_attach(struct device *dev, bool allow_async)
-  */
- int device_attach(struct device *dev)
- {
--	return __device_attach(dev, false);
-+	return __device_attach(dev, false, true);
- }
- EXPORT_SYMBOL_GPL(device_attach);
- 
-@@ -1149,8 +1161,18 @@ void device_initial_probe(struct device *dev)
- 	if (!sp)
- 		return;
- 
--	if (sp->drivers_autoprobe)
--		__device_attach(dev, true);
-+	/*
-+	 * Always run the attach, but tell it whether automatic matching is
-+	 * allowed.  Completing a bind that a driver already initiated (e.g.
-+	 * usb_driver_claim_interface() pre-setting dev->driver for an
-+	 * unregistered interface, expecting device_add() to bind it) is not
-+	 * automatic matching and must happen even with drivers_autoprobe
-+	 * off; matching is evaluated in __device_attach() under the device
-+	 * lock.  Skipping the call entirely used to leave such devices
-+	 * registered-but-unbound, and teardown then oopsed klist_removing
-+	 * the never-attached knode_driver.
-+	 */
-+	__device_attach(dev, true, sp->drivers_autoprobe);
- 
- 	subsys_put(sp);
- }
--- 
-2.34.1
-
+P.P.S.  It's because of the risk of regressions than XFS has opted out
+from LTS backports.  A few years back, a few companies (including my
+own) contributed engineering resources to test XFS patches and only
+sending patches that were verified to not cause regressions to the LTS
+kernels.  Unfortunately, all of the companies decided it wasn't worth
+the SWE costs, and so the XFS stable backports project collapsed.  I
+am happy to help provide the VM resources for a future XFS stable
+backports effort, since the VM costs are relatively modest.  It's the
+SWE time which is significant burden, whether it's coming out of
+company funded time, or out of volunteer time late at night or on
+weekends....
