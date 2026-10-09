@@ -1,47 +1,36 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8E17F3A1A29;
-	Fri,  9 Oct 2026 03:59:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AFE529ACC6;
+	Fri,  9 Oct 2026 04:02:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791518384; cv=none; b=ojNpJhPwBXzLvoapr4topbtWY3nwB+relyb4iM/Lc8CqHtNRxdAJvF3xthFfUNlvDaAHppvIBo/tljAx8XvaZlRtA3j1emFY3BqX7jqwhwrkqacIqx+2mfD0oEbTCUBMUEEjju1fuW5G9X2gLAalyPhQQ6GWx8UdVwyUWnWwUMs=
+	t=1791518593; cv=none; b=Bgd0ChMHo+7pWlVqVLlhAu4mHtghQCA/H8/3Z9/xTTtg7uvyJ2sv0kdwUk6tKoznm/+iFIKbd5Esm3D+sBq3tbfdtvSN60ahF1DoSVsPXJny3SMYr3L1C1zVaz5XuWBtse8RN1EQYnmkMsJKViRiKUeJvXIE6aSzOvO7cE/e0AA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791518384; c=relaxed/simple;
-	bh=Sov9Tf6g3VmEQo++K6WTbwS/xsUObJTmQjGn5246zIo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lsfomTxaLvjWMyFLU/AYwUXv2b6CDRPnLp4Oax6tRzV8q9NabiF6iGjze/AOsNQvKA8CWslSl1zFqE8EOM7hD631p01fXKMrkSgBjpOI6vWHbeb7VkNW7qHatrA6+o8rg+2k4xwEcm2SWYoH64r52zqyyZOSAKFZJjwcFk6mN4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=awDAwPgY; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1791518593; c=relaxed/simple;
+	bh=mMzqXnnIPwpI8ey5uExH7ZECiKvTm7kVwv+TuUAo54I=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KzAiTP6ND2ApP/X0O2JkP4N7cVnLS6zvD5xCvIk00g72qK3XT9fXgv/a5L9zcO9/ebd3medVi17dsD6KzxmdP8zB+7lK1OqA5J/c6HrnEi8Uxi8p0tcXR9XWIPFae+r5GCxl3TE85pxHAkJC7phRcs99clxC2OYoPaPAx4sEe1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=lhorW8/u; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="awDAwPgY"
-Received: from mac.lan (unknown [4.194.122.162])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 44E3320B7166;
-	Thu,  8 Oct 2026 20:59:32 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 44E3320B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791518378;
-	bh=6/TI13HFv+x671PGBKNgQcI39Y/yjLIx9UosPJ7tKh4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=awDAwPgYb5jAwGL6IV3+Vknz4mPNrE/cbU1575lvCaE1tpLorxOPN2XzATSfZ8S+D
-	 +tZI1GgBFYBRZGDgKkYoRpL3lQTQWR/OxVX8oUvlkj6hoZcHGJaRl4spm6OmTcp4K0
-	 1vN2mevqmX6N91+UK8ozlFe2Wllw9E0e6QmKa9ag=
-From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
-To: Cen Zhang <cenzhang@linux.microsoft.com>
-Cc: AutonomousCodeSecurity@microsoft.com,
-	Christian Brauner <brauner@kernel.org>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	David Howells <dhowells@redhat.com>,
-	Kees Cook <kees@kernel.org>,
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="lhorW8/u"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 506341043;
+	Fri, 9 Oct 2026 12:02:53 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Yoshinori Sato <ysato@users.sourceforge.jp>
+Cc: Rich Felker <dalias@libc.org>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	linux-sh@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	tgopinath@linux.microsoft.com,
-	"Dae R. Jeong" <threeearcat@gmail.com>
-Subject: Re: [PATCH] watch_queue: Fix missing locking in watch_queue_set_size()
-Date: Thu,  8 Oct 2026 23:59:13 -0400
-Message-ID: <20261009035913.73056-1-cenzhang@linux.microsoft.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261008224233.9675-1-cenzhang@linux.microsoft.com>
-References: <20261008224233.9675-1-cenzhang@linux.microsoft.com>
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] sh: maple: use the matching IRQ cookie
+Date: Fri,  9 Oct 2026 12:02:48 +0800
+Message-Id: <20261009040248.1136356-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,14 +38,48 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa11ed4030903a1kunm92fc2cac43371f
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGUIaVklIT0tJTU4fQ0oeHVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=lhorW8/uhNKWp0ScGNxPS1+dSpd94mtQpFW0YSOaQJMmU+/5e7NrMO/DbSY/3mhweiZfTQM5/zpKBm2DxxbVDv/d2c7MYJD4IgLwWZ4dqnnlDOQVgK04Ek2vPuEY/tuAXHiCiG8LFHHg5bLOrN0ncSZN5rvJFm4hofPUUXQKutk=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=YOFlvx96QodutWTmr4/2mAXobVJqLQc8o6ofGk997gw=;
+	h=date:mime-version:subject:message-id:from;
 
-> +	/* Use lock since watches may already be attached. */
-> +	spin_lock_bh(&wqueue->lock);
->  	wqueue->notes = pages;
->  	wqueue->notes_bitmap = bitmap;
->  	wqueue->nr_pages = nr_pages;
->  	wqueue->nr_notes = nr_notes;
-> +	spin_unlock_bh(&wqueue->lock);
+The Maple DMA and VBLANK handlers are registered with
+&maple_unsupported_device as their dev_id. Passing NULL to free_irq()
+cannot find either action, so the handlers remain registered and the
+IRQ core warns.
 
-I'll send a v2 tomorrow, replacing the lock with smp_store_release()/
-smp_load_acquire() for wqueue->nr_notes.
+Use the same cookie when freeing both handlers on the error paths.
+
+Fixes: 17be2d2b1c33 ("sh: Add maple bus support for the SEGA Dreamcast.")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/sh/maple/maple.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/sh/maple/maple.c b/drivers/sh/maple/maple.c
+index 5585f220e..7df88e00c 100644
+--- a/drivers/sh/maple/maple.c
++++ b/drivers/sh/maple/maple.c
+@@ -863,10 +863,10 @@ static int __init maple_bus_init(void)
+ 	kmem_cache_destroy(maple_queue_cache);
+ 
+ cleanup_bothirqs:
+-	free_irq(HW_EVENT_VSYNC, 0);
++	free_irq(HW_EVENT_VSYNC, &maple_unsupported_device);
+ 
+ cleanup_irq:
+-	free_irq(HW_EVENT_MAPLE_DMA, 0);
++	free_irq(HW_EVENT_MAPLE_DMA, &maple_unsupported_device);
+ 
+ cleanup_dma:
+ 	free_pages((unsigned long) maple_sendbuf, MAPLE_DMA_PAGES);
+-- 
+2.34.1
