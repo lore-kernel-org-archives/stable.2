@@ -1,143 +1,201 @@
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012009.outbound.protection.outlook.com [52.101.43.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD4B13CF1FC
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 17:34:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791567260; cv=none; b=a8J1xTXnqmeFrj55L6Z9sSk9dtqUYxd3E4C0W6yhctCYJyEE2UD+CaC6FY//aAzISW8+JVmS7rkoSiCPtCnjGOR4qFgTwqbjXY3Bnzk8pG1I0mIwW2W2WNaw9tPlWOR7TSLFhzfAFLKszQnvpqLP32UwTZ9WhXITHGnJPpjfM+4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791567260; c=relaxed/simple;
-	bh=4QzvFpJrMIBOFL1LClfdnGhTbQVQVWWI+SlIcvg95ZY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N1WSVfLQgKNiTqyihCTgBv4n0aq5CnvuowUN80bbMykBzOFvEcvElB85+xf+P/7Y6fY1QrfHQL/WJe7K3/5VS6f0MCgrCBeFkOhaQ3QirlKA2H9heucQ0otADYFRA41lVtwX7xcZFrbgWaqPqKyrRcVlaTCzX7V/THMz3AXD0+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=Yua6chXR; arc=none smtp.client-ip=209.85.222.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90444EF128;
+	Fri,  9 Oct 2026 17:47:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791568050; cv=fail; b=uDFYkdCUnl5BdMTAGNbWhV5vTwJlR2HBr1jm20BEnNUeIX2e9VvYUmoXWe3c3nXvQb/q+bQjxLKCjKkgfBpwZFvGqulrLiUngQnm67IopkIPZFtnVsj4K47JZMzxdFEsBht285CosQOGHepEx+ZpPMm471EHxwdCVwuVj95dBuI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791568050; c=relaxed/simple;
+	bh=7YHj4v6aNue5WQzhBpV3XkwgMXwEr0MiErDu8ZJUOf0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=b5Amt8XIpgawFjge9RfI8gKd/pdWsOl9s8bqL+6/UAT/c3PRX5OEZC4izxehANRNIZmiCH96tT+gLUJBYLZfakumxiXOS952t47/T+k4Dbe4vAkHxfQU0bW4FklhY2iPscnFT8VcTBcn2qilQwYio1q7OAh6tBH2Lf1ADkzubPA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=UrYI9eiN; arc=fail smtp.client-ip=52.101.43.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="Yua6chXR"
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93e50170ba7so506240185a.3
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 10:34:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1791567256; x=1792172056; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UwD4Whw0BsO3CL4xljsuE9wjdul1Y3ABr5wVzug+v1w=;
-        b=Yua6chXRFeG43IGQ6rz0wJwiS+ZsJikqXnfwVGzxSfvLPCe7rUkCI7RUJnau9bjhl8
-         kgeRz43OUXNSSQphvMOsc8C6fqI+gmaXG9JUniliBBItKjwMSTvubTLoM7MIkcRIaaaf
-         6HW/HdLJrQdmBquzkQdNLkRhr+jhoDRtfAKfLTzgKSqPC949wEXIZUNG5NqPtoKpyckc
-         L14LbKpMBzpa+m3LB0OdqchuYSmxVDqipcyb94C3+otykzdii3LnJJds81LlEgYoTP/N
-         SBjkb0HMcv+71o39WTMUPAvNVkdsm2FewHCkMvJiT4gJW614hOQwcVbBrqFbFpUQQClP
-         pD3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791567256; x=1792172056;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UwD4Whw0BsO3CL4xljsuE9wjdul1Y3ABr5wVzug+v1w=;
-        b=OvTXuDy5yTuPfla7Xo3K98VZcZAbAX03okUkvnwAgerevQkuY2zMDj5Rb6tDMi5E6K
-         YoaXPvpoRM0/xKYW5eYq3UgjZwY8kpAGJtDfrjesrkwi3Z5Grtsd9nyQv080SyPa7qrX
-         bOyrA67pj0yOu6UJsWuESkZhYX7rjyDLMt6BPDa/IfBmcOeAgdmJv2Ri9wqUlopkaMJG
-         2L2w8td3NPHDDcqqYqfhfjmTyf1OV/J8WMsusFwutfk0KTyTxUJzvklOsGktBIFQUBoq
-         zQIC7Y25NfRS+B96NwHkPoEbgtZ1eT9cGd9BuZsJf9aTiuYgVno6Y/CGc49yCNgpv+jb
-         ph3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwCFKlefyfyeZvFCeNut1dHwDk/Zo+uVThI9/WwWaSpSx/5YV6KTQ3N7g89jQVQKuZc3PcXMTk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lydlBCjalGWovL/+bRabficy2C/Wbog0exlyDycn9kC1hb7Q2b
-	QMd7CS0CUEofBol186yNNDmdEE+MgChQbNCv6Gq6sRhzBIe1fN2nkwWT5bfuXNPkCA==
-X-Gm-Gg: AYBFou0HESE83wDaLAm8OLBdNPMTj3hJDgeOTIR2oKWTJIFbHCqDyh7n8Nkoaj/7lgz
-	4bglklsK8tvhW4Pdyiir9qKvbvklPTbGKApYVjJ8V+K59L4iSVDU2lq2cNziGdsVcdi6Dzlb2AB
-	uQDLCscPWkB3w+LlVCfLIGDbcrd9r1jn25bKDw/7lb/m/iQEZjuegjm4HldynI/PojIzB2Dydor
-	O8LlE9MFmC7kBQsuDrRDgQyN++NtBUg3rnf8WYdBBzUp0Y/LGHPSQV6XWVlVfyL5S5m5U1bkbhD
-	G20aTamHE+w4Ls6Rjv74knO8UTlgPJqRIe9m5CnTuvMlK8LUdOS7bhPHZXrd72fz0z9UrMYWOEx
-	Y8T2/acVRSyae+cmi9R40BZun3mCY2JcGhkyfNx4ITH0KMx2LAJrdLP4WbJlgK9fZp6PzpYH4i5
-	r6pEdtTauSvL6OXeRlMYX0JdZNUTGTXCV5IhEsfFg3b2pWEb4g0KND5cGY8jur4PIDZhJd0NgsT
-	ym9qRyXbGJe3wJZ4rDqcIWlOVnmzCdk
-X-Received: by 2002:a05:620a:44c8:b0:93a:14c:32ad with SMTP id af79cd13be357-93ebcd339d8mr378214385a.0.1791567255058;
-        Fri, 09 Oct 2026 10:34:15 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb9720f19sm238494785a.4.2026.10.09.10.34.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 10:34:14 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: David Sterba <dsterba@suse.com>
-Cc: Chris Mason <mason@kernel.org>,
-	Boris Burkov <boris@bur.io>,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hengyu Liang <hengyul@cs.unc.edu>,
-	stable@vger.kernel.org
-Subject: [PATCH] btrfs: return -ENOTTY for unknown ioctls on the control device
-Date: Fri,  9 Oct 2026 13:33:59 -0400
-Message-ID: <20261009173359.3486877-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="UrYI9eiN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LtNAYJwWvDWv/3qws+tQrwlPlTJ7C1T1CbursGaaegBguDJvEPCeISO4DPuOgIvwZDErY8hS12KrMMsGchghoW4H8KDQthD5glyWoNw6MHZAbOaPZqNr78H7XnADyhW1lk5WKV2uJDxTPCNIFAoA9J91zt8HdCMBdnxOONg2DK2f04+HtikQXdBLHg0qmqqtOXxAf/V1Ag1Mih8K2CVcFZ8fOYXCxUA12Oa4ssL0OgsVLdZeIJx0BEIKxIb5zuwIUybeCBot7uaqIc/1JLEEUgJX2u/fX/pvO6gt+6T7/ar+qSGrY7+Nov404EQVYpBAPf73rYy9yksfIgAkLtcO5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NliuYMcgFpOkDcUF53VdUo6McQi+UJOU0PXSD4zXYd4=;
+ b=h6gKBDzZII7iw1VVxKkGhHDu9aM8Wlf1uwM7ihiZl0pVQOJyK3JSgwyurJGdu51VmScgYTV5XDU0cX1u5SImALtuKMWT9BmYZryFAcDO7h4GAfAhV1pFmix+HVAKfJ2UvO1SzUtonxwazl5Rqni4dF7BjplitVsk983WX5Nx6qwy9Ni1otw1et0oVJ4uMULgiUaCi+BuQ1g+Cbig0RGtiydwK+ipVRk7K5qUuYkTVwWQXKAAsyoSS68apLeLQQKxsrATxG59lOBrXyHa3qy5x93ywBtOH6OibLSW7MIfGqNu2KKKbgODnnJpcgAxC47RTuF1AziSi7NCW63h+CppPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NliuYMcgFpOkDcUF53VdUo6McQi+UJOU0PXSD4zXYd4=;
+ b=UrYI9eiNy6TdrF8ttj53hLf0tviHBryxDHgjOgGrfJtpQ/rKAHMNXCNEWJAaI7Zobk7O/cIs99PNtZGL9k5a+8ts6sHvicUY5804iUWNLVkAy7+ItFURvB/Q2McKZo1VgnkkNYjNzmR13Hwuz9fA6gWm5eqXBG01QYYa6fE+mcU=
+Received: from CH0P221CA0020.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11c::21)
+ by PH8PR12MB6940.namprd12.prod.outlook.com (2603:10b6:510:1bf::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Fri, 9 Oct
+ 2026 17:47:25 +0000
+Received: from CH3PEPF0000000F.namprd04.prod.outlook.com
+ (2603:10b6:610:11c:cafe::9e) by CH0P221CA0020.outlook.office365.com
+ (2603:10b6:610:11c::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Fri, 9
+ Oct 2026 17:47:25 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CH3PEPF0000000F.mail.protection.outlook.com (10.167.244.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 9 Oct 2026 17:47:24 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
+ 2026 12:47:19 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
+ 2026 12:47:19 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Fri, 9 Oct 2026 12:47:19 -0500
+Message-ID: <74b15e57-1387-e37c-d343-eeba1de33ceb@amd.com>
+Date: Fri, 9 Oct 2026 10:47:18 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH 6.18.y] accel/amdxdna: Bound the sync_bo flush range to
+ the BO size
+Content-Language: en-US
+To: Eva Crystal <0xiviel@gmail.com>, <stable@vger.kernel.org>
+CC: Min Ma <mamin506@gmail.com>, Oded Gabbay <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20261009032616.432392-1-0xiviel@gmail.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20261009032616.432392-1-0xiviel@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000F:EE_|PH8PR12MB6940:EE_
+X-MS-Office365-Filtering-Correlation-Id: d75d49cb-071d-4aa9-a27b-08df262d60c2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|23010399003|1800799024|36860700016|6133799003|18002099003|22082099003|11063799006|10067099003|260925022911599003|260925021311599003|260925021911599003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	faOmfbQxLnltujIDyz5ng6bP+VjHhuLDQjiOBb1PtVEoT6y1WD1tLAqoJw2KG87xRU7n/zyd4i5FG7xnm3TWhjior7d7ckkG9bQ/llhVI83Vl++vOkpdpFEDDc/3NIokxS2k6SOSrvLco8pYxVgkS9gadOiEdcTyN8IUSan9kgQ2LufHiNMFp/hYVFXRebyzK0yoBGPpDgxlwHCnoL3ZA/pmD3SpFrcMnoz0hZoQeJ2MawtTB1UAx3xqC+bv+hrlJAxNQQ962UesaZdEdYnmVndCnAr5mern6OjM9a+VICWdAD00PNEzE3fEETREREOXS8YaigzTOYSEmPHGqVueqfnzDLoEdUnvmgdd2bsDe0T1z7fNdIafmoAwElXLgx8k4shOMlX6lKUYbt+p2PyiDDklfijXCfXEgA8lLHMOWSGanZbU5Vn/NEFXKuJ8nc40m8PSUiSFc++Rr8TvGfwfX8mPYlaeqBRhvV8YGlWQJpgNQxBtiJ0IRifGPmLfSSAUxxersqpXW6wN9rs50hVkVWPKYYmUlQoG6cIBcC9Txbpei/Eaq4fd5BH5vUykMqKQ8Cl3SDz4tFzTzQsdwuNRWNok6lksO6xBq4EN9S/CrZoRYx5YrFwULVOa2HDSastMHjBZ0emo2LaV2s4YUoZ+NMX//ErGPQSOlNFZWMnX41vVaB4qvakX8MJycDIE9uiVWf9AHQUVLlyK7JJAgpLxKA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(23010399003)(1800799024)(36860700016)(6133799003)(18002099003)(22082099003)(11063799006)(10067099003)(260925022911599003)(260925021311599003)(260925021911599003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	wJSYp+optEwK666a8bGo7TOLFmJOit+HZTLIesA/MPH4FQdFVs8poiTlFWjVUrQ597jUrW7kwWTbVBJdJanCtzG/kMi3ypBzRy3uBd/OGnwIm+4dQwFcYLo4poXVH5KzWplj2yU0Zve67zNhegdM9V+Obt8cz/PrIXnOq344NQioffCD9t0tj/Alrci86rw50ROgW4zg+T2Z99FtzIpsT8q2APddImMhXVJzXyj5Ebpe2kasW5EENjjvb/7euiBpSY7UTqT/kP9HlWnbyGe44GmOxDZjF2XXOdXkiaH9VHEvlNUHYKPcYUUf+JswtqtqoW2OPP72cUF1I85Tp6PpCI6VDr/UfpVIqELzIMhDAniWa71FHGMPQCeN/IBkda5u3ZUpgK4dLe3Gs/nRWNA0w8b3a9smAwj2f9Ak0NV7bIl7SrzJjUz132fMJnB98kn6
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 17:47:24.8096
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d75d49cb-071d-4aa9-a27b-08df262d60c2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF0000000F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6940
 
-Commit 5ab2b180884c ("btrfs: factor out validation of
-btrfs_ioctl_vol_args::name") made btrfs_control_ioctl() store the result
-of btrfs_check_ioctl_vol_args_path() in ret before it looks at the
-command.
 
-However, ret is initialized to -ENOTTY and the switch has no default
-case, so this initial value was what an unknown command returned. As of
-now, every unknown ioctl on /dev/btrfs-control returns 0. A tool that
-tries a control ioctl which the running kernel does not have is told
-that the ioctl succeeded.
+On 10/8/26 20:26, Eva Crystal wrote:
+> [ Upstream commit dbc8fd7a03cbc0704e8e558a448015f620547a02 ]
+>
+> amdxdna_drm_sync_bo_ioctl() passes the caller's offset and size to
+> drm_clflush_virt_range() on the BO's kernel mapping without checking
+> either against the BO size. The ioctl has no permission flags: any
+> process that can open the accel node controls the offset. Any BO with a
+> kernel mapping reaches that call: AMDXDNA_BO_DEV_HEAP, AMDXDNA_BO_DEV
+> and AMDXDNA_BO_CMD. A DEV_HEAP is vmapped, so an offset equal to its
+> size lands the flush on the vmap guard page.
+>
+> Measured on 6.18.55 on an AMD Ryzen AI 9 365 NPU, firmware 1.0.0.63,
+> as a non-root user with access to the accel node: unpatched, an offset
+> equal to the 64 MiB DEV_HEAP size oopses in drm_clflush_virt_range()
+> under amdxdna_drm_sync_bo_ioctl(), 2 of 2 runs; patched, the same call
+> returns -EINVAL, 2 of 2, and an in-bounds sync returns 0, 2 of 2.
+> DEV_HEAP is the type tested; DEV and CMD are by code reading.
+>
+> Upstream bounds the range in amdxdna_flush_bo(), added by commit
+> dbc8fd7a03cb ("accel/amdxdna: Add expandable device heap support").
+> This applies only that check: an offset at or past the BO's end, or
+> an overflowing offset plus size, returns -EINVAL.
+>
+> Deviations from upstream: that commit adds a feature and is too large
+> for stable as a whole. It calls drm_WARN() when the check rejects a BO
+> whose type is not AMDXDNA_BO_DEV, which userspace can trigger; this
+> fix does not. Upstream bounds AMDXDNA_BO_DEV by the heap chunks it
+> spans and flushes only the overlap, reporting no error for an offset
+> past the end; 6.18 has one heap per client, so this fix uses the BO's
+> own abo->mem.size and rejects such an offset instead. As in upstream,
+> a size past the BO's end is clamped, not rejected.
+>
+> Built from v6.18.55 with the test system's distro-derived config,
+> DRM_ACCEL_AMDXDNA=m. The touched file also compiles W=1 clean.
+>
+> Fixes: e252e3f3488a ("accel/amdxdna: Revise device bo creation and free")
+> Cc: stable@vger.kernel.org # 6.18.x
+> Assisted-by: LLM
+> Signed-off-by: Eva Crystal <0xiviel@gmail.com>
+> ---
+>   drivers/accel/amdxdna/amdxdna_gem.c | 10 +++++++++-
+>   1 file changed, 9 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+> index ca747457cec7..95d04af2b993 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> @@ -934,6 +934,7 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
+>   	struct amdxdna_drm_sync_bo *args = data;
+>   	struct amdxdna_gem_obj *abo;
+>   	struct drm_gem_object *gobj;
+> +	u64 end, size;
+>   	int ret;
+>   
+>   	gobj = drm_gem_object_lookup(filp, args->handle);
+> @@ -943,6 +944,13 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
+>   	}
+>   	abo = to_xdna_obj(gobj);
+>   
+> +	if (args->offset >= abo->mem.size ||
+> +	    check_add_overflow(args->offset, args->size, &end)) {
+> +		ret = -EINVAL;
+> +		goto put_obj;
+> +	}
+> +	size = min(abo->mem.size, end) - args->offset;
+> +
 
-The issue can be reproduced with a simple C program, run as root:
+Thanks for the patch. It needs to check if size is zero. Please see
 
-    #include <fcntl.h>
-    #include <stdio.h>
-    #include <sys/ioctl.h>
+         dc1475366424 ("accel/amdxdna: return early from a zero-length 
+flush")
 
-    int main(void)
-    {
-            static char buf[4096];
-            int fd = open("/dev/btrfs-control", O_RDWR);
+Could you help to backport this as well?
 
-            if (ioctl(fd, TCGETS, buf) < 0)
-                    perror("ioctl");
-            else
-                    printf("ioctl succeeded\n");
-            return 0;
-    }
+Acked-by: Lizhi Hou <lizhi.hou@amd.com>
 
-Before commit 5ab2b180884c ("btrfs: factor out validation of
-btrfs_ioctl_vol_args::name"), the result is:
-
-    ioctl: Inappropriate ioctl for device
-
-After that commit, the result is:
-
-    ioctl succeeded
-
-This patch will add a default case that returns -ENOTTY.
-
-Fixes: 5ab2b180884c ("btrfs: factor out validation of btrfs_ioctl_vol_args::name")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
----
- fs/btrfs/super.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/fs/btrfs/super.c b/fs/btrfs/super.c
-index 823a58bd2685..acb704b20c2b 100644
---- a/fs/btrfs/super.c
-+++ b/fs/btrfs/super.c
-@@ -2291,6 +2291,9 @@ static long btrfs_control_ioctl(struct file *file, unsigned int cmd,
- 	case BTRFS_IOC_GET_SUPPORTED_FEATURES:
- 		ret = btrfs_ioctl_get_supported_features((void __user*)arg);
- 		break;
-+	default:
-+		ret = -ENOTTY;
-+		break;
- 	}
- 
- out:
--- 
-2.53.0
-
+>   	ret = amdxdna_gem_pin(abo);
+>   	if (ret) {
+>   		XDNA_ERR(xdna, "Pin BO %d failed, ret %d", args->handle, ret);
+> @@ -955,7 +963,7 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
+>   	if (is_import_bo(abo))
+>   		drm_clflush_sg(abo->base.sgt);
+>   	else if (abo->mem.kva)
+> -		drm_clflush_virt_range(abo->mem.kva + args->offset, args->size);
+> +		drm_clflush_virt_range(abo->mem.kva + args->offset, size);
+>   	else if (abo->base.pages)
+>   		drm_clflush_pages(abo->base.pages, gobj->size >> PAGE_SHIFT);
+>   	else
