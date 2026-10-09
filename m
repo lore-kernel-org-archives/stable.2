@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CCA63B1016
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 17:10:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA747225A38
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 17:10:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791565814; cv=none; b=f2d1D/0DM2nG3i3A+dZSZDENnaZYxs/lZ5NmxWEthXvF+mnDIHJ/bkZuTVN+ezz3Zn/Xi6HIuT4VilKI9mNKzuhGm0rttDkvPVeArthI2V7jzUq1CEACkg8+rnqr+oi25Ja32TdZTV8+8by8e1e34B0stfULzbcrwNiT3lQGQn4=
+	t=1791565815; cv=none; b=LLzj8oxs7XAn22UJHfJY/5VmqSPP1zeLgv80ApvpcVIBFZtSn3Eiu/pyqY96svxJL0k214m+7WeDIWBk23Uqo01R7Wtpx5SDskXZW/eP8eNqkJOiCzPPE9t0EOU+OJn8S8h9F8kH+JmpTeFxyatbcXUcFRXZ/29OMNpDtoNR2Zc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791565814; c=relaxed/simple;
-	bh=RV+hrDxg1r1O9mE4+DcaAxh1I13/ufS1AkMGV3j/aYw=;
+	s=arc-20240116; t=1791565815; c=relaxed/simple;
+	bh=8+amCrpiLuknYx/6Bq/4Txe9EFIPEW+a9Y8wM9E9q7g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eFse1oGxEUslbNd3WewuJNOliGG2qE5qobi7hzkg8CGh3dy9qTc8W0KsV9oHa3AcYZOQMfMXpsOoWNMH3qSvpuSgE4GN2sj3hFYC1jKk01HHczn+8ZUf0TjrJ1nt34ROyUqhHG/HXW5eD0UlPfgzces0chACLoW6W5aueJZBH10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lOpJXqlR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Q1cyucYJJQ95+gSj7vkqOR2PhJkSSjPL95Uzv+Noyx1wQyctKV1Bm42xI762DHGxRuMW0lS5g5izUPqjE9TxkvRE46IjLz6bEHZ2Lpv+++/dImw7Dfy8QqeQu04stBfwLTKsEeZRYf8Jb7M6C5KgP5P742d8+QAHjKqtK78Ox6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PDxDbVOZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lOpJXqlR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 073401F000FF;
-	Fri,  9 Oct 2026 17:10:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PDxDbVOZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 947E61F00893;
+	Fri,  9 Oct 2026 17:10:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791565813;
-	bh=+YYUKPw08mScW1YwxdyO5vXcBnUaOKKph+CNbKP7ZLw=;
+	s=k20260515; t=1791565814;
+	bh=1WBbv2P6zy+ufcReiaDpNP/Vgm1QSvVBNyB9e1JIc3s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lOpJXqlRhAg8TkqBRAYWJAhTtUhMwWTEI8qFvn7bHDh6lOGnR1C1FJEaw1FLdT1pI
-	 un04Uyj7APBM8KluZdZr8SjVThaNB3VHHb+1ofMFZLs9OtJXZL/Pad1qQgh9MvSur3
-	 Fy+5pJCrjuIKM7cfGenFbW0/MVqnpcg3zeyXdeWPJU6JgVGAXbgPC2uZOa3W3o+zSV
-	 rFEu3mfhREmrXQIu3qkzf25EPcc7jaED24E8GC1ehG11TFhWympL0TCd9EyDKhUU4P
-	 TAD8DnuRKDL1H5+ol53SbPtl7Lr/Mmt/4bzwB3LPYKaqmzHLloJAsELFSF4Xm4got5
-	 MJTBCZMBnY9zQ==
+	b=PDxDbVOZ3bvkMklfI31ijmQaZsI7JIiR2B/qbQ5gG7untont6O5ZrY32shHHW0bWg
+	 unzpYpqTTxGgO9VsGhCbI+1kwQM9PXXkHtNqnUiXDkBoRelH0UxPmt4+cjnPg7ZBQO
+	 Tmnw1Z/a9Afe8iQil9OFt3a8VWmMyUul9TWPCIhguwIZrk+qqv578WAi245Al6JQYK
+	 cRyL3VjAw7aR0FUJ3UnbiAeddpPNVy9n/fub9dT11Z/V1j6YPboQzxdSNkuSM8P61Y
+	 0s/gORTys7jEksIJ/uThHwve3tFfWJayuGkS9Q7kz5roVVSjYEgXYi2545LwWuDPSS
+	 Qm1/3P0UXYG3A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Johan Hovold <johan@kernel.org>,
+	"Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
 	Ting-Han Hou <ue081723@gmail.com>
-Subject: Re: [PATCH 6.1.y] tty: port: fix tty_port_tty_vhangup() race
-Date: Fri,  9 Oct 2026 13:09:40 -0400
-Message-ID: <2026-10-09-1-daily-reply-0003-tty-vhangup-race-6-1@kernel.org>
+Subject: Re: [PATCH 5.15.y 1/2] tty: introduce and use tty_port_tty_vhangup() helper
+Date: Fri,  9 Oct 2026 13:09:41 -0400
+Message-ID: <2026-10-09-1-daily-reply-0004-tty-vhangup-helper-5-15@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261008141627.1183294-1-ue081723@gmail.com>
-References: <20261008141627.1183294-1-ue081723@gmail.com>
+In-Reply-To: <20261008141649.1183309-1-ue081723@gmail.com>
+References: <20261008141649.1183309-1-ue081723@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,11 +45,10 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Add the missing serialisation to tty_port_tty_vhangup() and
-> tty_port_hangup() so that the former does not return until the port has
-> been shut down also when there is a racing hangup.
+> Introduce a helper similar to tty_port_tty_hangup() (asynchronous) to
+> handle even vhangup (synchronous).
 
-Queued for 6.1, thanks.
+Queued the series for 5.15, thanks.
 
 -- 
 Thanks,
