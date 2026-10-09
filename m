@@ -1,45 +1,50 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E3A4DE732;
-	Fri,  9 Oct 2026 12:34:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047514D6C4F;
+	Fri,  9 Oct 2026 12:36:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791549255; cv=none; b=clROX5HFAHVbLRo4CRIFw3VHostw+EoGOWudh2tR35ge+tEP43oTXuJeyC937OzpNSFk8aTMWAb1W0KkFUBnyaFvbWY11NCBLhINYFqRdV9DL30UQxC6UcKUyiBAxt8e2ko56xLj2w6NCnp+Ty5D9NmoLdC0aMs/LVrCRHM2OHU=
+	t=1791549381; cv=none; b=ljDJ5AIqxkQVgFf1J8gDMRNbVKGXUiyZrjnDgilDlKxcWZPEBV7fCJ9B+0J1n1LoLWR/jtFp95dQJfb1aapWR9D5YMZjse9/0v+dLCLzNzfZKXkZ697nE9kFNxhEeyq0hFFSkVdSABkh3Y0kLaES3925wqPLBE1S+NtWr6VE3vk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791549255; c=relaxed/simple;
-	bh=f4A0lM8jFg7mEUGM5hNXUYT7e2wOXndrALIGBoHvbgs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=azQKK4UZouThHo+/ya+rdfa0ATea8H/pSfQtk4JwlbduVZB6ygwzgp7LSAYwVd2HV6QV1EhvC4R9EUiiMxY9LjVHRKcvp1IvnYCjX9ayOyRt4UOxkfbD/HBuC4T+oRaxLErajB46Dle97tNCm2vDbHnk3PK90QHJTpitB6IROj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BF3ODmiX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791549381; c=relaxed/simple;
+	bh=vPuve5cUAgJg25Ymjks0ybEo8axdVfR+niqyzZu0duk=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PfTaFdTXX5R+NTGH4PdbhwRC15v8PMgnFgcpLjPZrCi7ITU2S6tobfr96zlHmEICKNQ9UIWL45e9uVtR1gx8FZ2txPWqiEyld6HlgCDr5zjqj98GshdhqVIcAXqRdjjaVCuoxXrTb6h2UfKRATr6n4kgNBdsmrWevfItXyPPw1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=AKEaPhxS; arc=none smtp.client-ip=113.46.200.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BF3ODmiX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D9551F000FF;
-	Fri,  9 Oct 2026 12:34:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791549249;
-	bh=F3N4AREHVW72/gOFd3n7FAXhLVCZ7MZgfWmss94xEbs=;
-	h=From:To:Cc:Subject:Date;
-	b=BF3ODmiXV98TtGz96HQO/R/2UgoCwVGx23wEjWFG+1qlxYZch5ULE2EmEdjUbaHdk
-	 7yEMai2NEHvVMlfQYyxzm8H5CIns6qq8kfZ3g20t8brRqnUPmwFhb8xIC7VSPA4Pbt
-	 JmH1xHyEnQewVaJ5Gh87ohyUyyPdDPq81bJ5m7yTurYT4XvkivZRjtGKKuvdKVaMZV
-	 G3CpCiI/QQ4KZRDFF6O09oKmvqEHoT0sxu96hnhOTH/jCtMMqwonXegiFBCFYqDcfg
-	 uvjusJEqw1i9uADDv6CH/giQsLQKiPHWvdANAhl9ce7pFfrn78QapGTZMRPoZpYQ6d
-	 u0PayJNb80TLg==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xF9nb-00000001wzR-2lhc;
-	Fri, 09 Oct 2026 14:34:07 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Johan Hovold <johan@kernel.org>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org,
-	Oliver Neukum <oliver@neukum.org>
-Subject: [PATCH] USB: serial: sierra: fix urb leak on write completion
-Date: Fri,  9 Oct 2026 14:33:59 +0200
-Message-ID: <20261009123359.465071-1-johan@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="AKEaPhxS"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=vPuve5cUAgJg25Ymjks0ybEo8axdVfR+niqyzZu0duk=;
+	b=AKEaPhxSHyx84DiQXDaO37VGX+2KL2PBaqi/7K+hyNiY+AE2Tsxq/XhI6yOeCaZdlskmU65zD
+	Q+X2IejEWe2j6Iw00YwgtwbYTExIw8VDRhmP4xmHER9F4ocIxKmEYzG7C9Py3bw9x0rPifwuqZZ
+	pQ6KbTl/YQgAUav+5YrmdPw=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4j1Qyb3yfjz12LD9;
+	Fri,  9 Oct 2026 20:24:07 +0800 (CST)
+Received: from dggpemr200001.china.huawei.com (unknown [7.185.36.96])
+	by mail.maildlp.com (Postfix) with ESMTPS id 5EFBF40537;
+	Fri,  9 Oct 2026 20:36:04 +0800 (CST)
+Received: from huawei.com (10.50.85.155) by dggpemr200001.china.huawei.com
+ (7.185.36.96) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 9 Oct
+ 2026 20:36:03 +0800
+From: Ran Hongyun <ranhongyun1@huawei.com>
+To: <bsdhenrymartin@gmail.com>
+CC: <anna@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-nfs@vger.kernel.org>, <stable@vger.kernel.org>, <trondmy@kernel.org>,
+	<ranhongyun1@huawei.com>, <chengzhihao1@huawei.com>, <yangerkun@huawei.com>,
+	<yi.zhang@huawei.com>
+Subject: Re: [PATCH] NFS: map TCP_TLS to TCP for mountd transport
+Date: Fri, 9 Oct 2026 20:29:26 +0800
+Message-ID: <20261009122926.3924424-1-ranhongyun1@huawei.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260309132253.1393804-1-bsdhenrymartin@gmail.com>
+References: <20260309132253.1393804-1-bsdhenrymartin@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,40 +52,13 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ dggpemr200001.china.huawei.com (7.185.36.96)
 
-Make sure to drop the reference taken by usb_anchor_urb() also on
-successful submission of delayed write URBs during runtime resume to
-prevent them from leaking on completion.
+Friendly ping.
 
-Fixes: e6929a9020ac ("USB: support for autosuspend in sierra while online")
-Reported-by: Wentao Liang <vulab@iscas.ac.cn>
-Link: https://lore.kernel.org/20260916165352.2085480-1-vulab@iscas.ac.cn
-Cc: stable@vger.kernel.org	# 2.6.32
-Cc: Oliver Neukum <oliver@neukum.org>
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
- drivers/usb/serial/sierra.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+I hit the same issue and was wondering whether this patch is the proper fix.
 
-diff --git a/drivers/usb/serial/sierra.c b/drivers/usb/serial/sierra.c
-index 6e443aacae07..f2cc7f364d20 100644
---- a/drivers/usb/serial/sierra.c
-+++ b/drivers/usb/serial/sierra.c
-@@ -972,12 +972,13 @@ static int sierra_submit_delayed_urbs(struct usb_serial_port *port)
- 			intfdata->in_flight--;
- 			usb_unanchor_urb(urb);
- 			kfree(urb->transfer_buffer);
--			usb_free_urb(urb);
- 
- 			spin_lock(&portdata->lock);
- 			portdata->outstanding_urbs--;
- 			spin_unlock(&portdata->lock);
- 		}
-+
-+		usb_put_urb(urb);
- 	}
- 
- 	if (ec)
--- 
-2.55.0
-
+Thanks
+Ran Hongyun
