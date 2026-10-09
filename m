@@ -1,202 +1,226 @@
-Received: from mail-wm1-f100.google.com (mail-wm1-f100.google.com [209.85.128.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013071.outbound.protection.outlook.com [40.93.201.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E1E44EE849
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 18:15:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.100
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791569761; cv=none; b=fFn/T1BT7sSbvSUOU1QV4vDLeGEJ4lGA6fc/rH9Qt1G8ngSAkiiUmaBRNaGVlIW9Taec5KyTya1SmJtSTt+nYUMjmhz4BK0K+ISFuwDdnL9y9T9+PYC+6HRIbU7HiYq9YfD4IcPCOe+Q3ArsWvsJA/qePP0JZxDYE31GW022Rgk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791569761; c=relaxed/simple;
-	bh=KQQJ+CHj3noUPqd3hIOKH/SstTaXg/xWE+mbjKTc6QU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hAGCVFcW+D8KIGJjXviMF+ZLDZGKw/8IrQI6JI5KLUEPAJfKznBETO1Zb9kNAjED9QzS47S6jOJyUvkItL7/adzxlIwCNgr3f5mxaA+E4/Bmpnd+OCArKFIXwLoi5KDTAThEl055Vdhk6Z8i8YC9SFJgjoIlVxWdZb5GQp/MSf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com; spf=pass smtp.mailfrom=everpuredata.com; dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b=UhkTVboJ; arc=none smtp.client-ip=209.85.128.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3EAD4F7CA2;
+	Fri,  9 Oct 2026 18:17:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791569840; cv=fail; b=Rq7GF4VvI8pYoTOjocODJ1KPedktHLfUXBxaH6XJILkfqs/A838QaQAjt9hPO1xlOkEFR+mYZaWMnhDrCgBrViySjPQ4BlywwUKDouGGKSpgkYMk9MMah5s+6fQzQeRjodiIq5inr+X1uxAKiO/UTsHN49eK69w6hncRtBMLTrQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791569840; c=relaxed/simple;
+	bh=Ti0L25S/Aa7TMUgdXaLkUjZ6yBb1WoRrv8sOT7uT4cY=;
+	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To:MIME-Version; b=uK4TzOD609GT9LgZcS11u1DB/ga6+Fu0x5r67sOG1Cvdl3WYwjlaPpDb/dbbbxYYAh99+wDu5lVGblz0JYDXbxaLayU7F7A8pjWJL/ZLTmozAh7oz36FZFP0yhJUjxPUbc+r20W2EhX6phqcXS0LTbue/iePo2c16QvjDZjLw60=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=XnEjklOp; arc=fail smtp.client-ip=40.93.201.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b="UhkTVboJ"
-Received: by mail-wm1-f100.google.com with SMTP id 5b1f17b1804b1-4a17baef589so1082875e9.0
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 11:15:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1791569757; x=1792174557; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PKh0n31LZjAabx1GRWM6AQ6aUQk08xh7miYGIsbVSlE=;
-        b=UhkTVboJozaRtNyHM6Olto+yCVOvaRrcj12FNiuV9ycRnF/aBvS61RGdwrgywKZc2U
-         GP3JIIF6SKj3uc12yTxsFzSV9n/oSsmi0aV74KPxz/0iWS7v58/jNAtoUlrKbMamJzA9
-         dG9PSCQYXl5BjtVvfr8Kx2b+iBwKbo+uLpplrSZYL0aDC0Jx2l2mRtde8kUWqoT7gIle
-         A6Fk12LXVCzePCAdwmRPYoFAZLRs89347znKeuWC8UjsR+O7vqBF6clh6Uup+fG7Q1EE
-         8dciMLfoT8dM/0i/620Fu8qEYBWjlhBlCibxbrTFhm20G5FlACO6wsgjzpiUv3soG64C
-         zErA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791569757; x=1792174557;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PKh0n31LZjAabx1GRWM6AQ6aUQk08xh7miYGIsbVSlE=;
-        b=TD72R1IAfi8UNV1xAhN2q5Kt0xvhXSFrxuSz7eQz411jpbuD/O8FEBE7uzf789S2lo
-         MZxuFLTz28ABP98UhkmfdhF2c9ioHh2IQq4Y2N9BDhp8KdiXFXr/17X5ZVVYRLx/AGDb
-         fFlAOfrL2qjM+PQK5UyxMaSinDfRmMVDaqESOehHd0mumkeHpuFVFRtE2PwK4ZxR40dY
-         esQmioqGxIYa9pGDIHKfGXTdboRFOsEWz6WF0V8gmmsUMsdv6AuC92NyP+9q+9qa4noh
-         NcYbuCWEVOZRsgCOOLMp4QkWKtmtaJZ+5N4QaYg4cYrSFi1hT+waGNRv6HbsBNvGpAEg
-         UvdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwcx8pKBakimjhEECz9wSNh+4rRT4tTwyXcGvTAXOGm+wLSf09mxABFkO06ngQUjbFVtoSxRUo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kOy/JUbBgudDSf+cId0tO5KOKQ+YBvpkqMlq2aLqsq71zI07uF
-	laxCIzukdiIj9qCsBiQlWtgBm2zvNGmNtkbQNJjdhLfW05hoMs8cel3+tjveRoRSiKnnC/Kf8FR
-	8bj/nmWj8VX8aNMW1fvormKmBiCK2MbSHWAmM
-X-Gm-Gg: AYBFou0fDoElBk2gjVY9HHNCg2syWaMrzC+kbt5XegeIY6cmhb+ecxn3txZXW2aJ+ms
-	CpDa7NQuSIjoVXhmdd+1jKRE8FkXO4UMJNgpgcq5V+nXvpKagqu06OVEpIYuE8zIJHqUukI4P9x
-	syvc1kvD+90eJ9skw53Y2+i3TzdHFFx77F/Zw/q7z13Eno1IFIOH0PDl5SaIRUGuVlqdz2VZnlS
-	QGtr+fzrMf+ipoU2Oo9Nyer0PvKv01e+NjgNLvg7inPWZperR5FOWVZBJ4w9wQpXxpgTfDFY1Xg
-	fP+wa9ZIf9/7sx5rp9WpLIuPnQftTwrai6ZdOR2o0wGZQZGA3X5c80WEnCr4IoHmCCqTGPqGUSN
-	3QPq9xI+rfgU5ee7Z29uaZEbBi+A3fRnbFYo5vGc=
-X-Received: by 2002:a05:600c:609a:b0:4a1:717b:7976 with SMTP id 5b1f17b1804b1-4a18e4b15e5mr54406015e9.35.1791569756709;
-        Fri, 09 Oct 2026 11:15:56 -0700 (PDT)
-Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.129])
-        by smtp-relay.gmail.com with ESMTPS id 5b1f17b1804b1-4a18bc48302sm7189525e9.2.2026.10.09.11.15.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 11:15:56 -0700 (PDT)
-X-Relaying-Domain: everpuredata.com
-Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
-	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id F24603401CB;
-	Fri,  9 Oct 2026 11:15:54 -0700 (PDT)
-From: Tim Menninger <tmenninger@everpuredata.com>
-To: Chuck Lever <cel@kernel.org>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>
-Cc: Olga Kornievskaia <okorniev@redhat.com>,
-	Tom Talpey <tom@talpey.com>,
-	linux-nfs@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Eric Badger <ebadger@everpuredata.com>,
-	Jon Curley <jcurley@everpuredata.com>,
-	Yongjian Mu <ymu@everpuredata.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] xprtrdma: trim head iovec when the payload arrives via a Write chunk
-Date: Fri,  9 Oct 2026 18:15:54 +0000
-Message-Id: <20261009181554.2280374-1-tmenninger@everpuredata.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="XnEjklOp"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jQVZ+YudhF78gtyJNbg2qmF+zKinD3lTKHtLEaGyU5xuxT9ZT50oMLBToH0+7y1R9YzzJwgB7F63kkPegPV0P0daud3HKxJRXYnPHz5FYddpT+Y4SrTpv5tkE0VmtxhPrCIfsas2wxiiw1YnGkaFlip9OjpaMJR4OemgRg8kL699ia+zE5XP+ELd00xmQpaL7t04y9PNKNFxQ3p8ZRFkH5Vkah74LnF9/4lYEA5tPv8pWqGLEvgTysRFqhpLW8+ULyAmZXWlPzn8uD5VYbYV1Q5ZdtBaHJFXf9weeXO9sTJYc9cVLUajuWmdjrY/wNKac5RHaApf1s39qiPz5GQ6bg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f50MZ1btfZoOGD4j8T+v0gcPDDn+3SuSMmqVjWimsKY=;
+ b=YAa/UQE/yRwexcakvHI/hF/S3XDvSCuNfm4KYuu2jeQ7usgSAK34KWTE6VGNjJSb9tKAu4YCwBBgIR5Jtmg74g4rqwk3t9MUSXrQJAJqzmLuW5iV7xiAm5EM3O0IVpjzVPlihXxQb0XMLCWSHSjmIo/mRB3+AoZdcD1bb2IM6NzIeBSGzklciWvy5CATTFnif2zjIjaWHC4eZohSLbsW/c81uc6nKhE1Y6tn3se3WFEkQtDFT9mdit51Ev9/o/fzPKjwj24KhRzZj43yftdpyZal5yMPCWay1n+StsadNAOoK2pYWpLX2WIrLbiS2ZsX4NjmHXSIpnR5cF8PkAhHnQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f50MZ1btfZoOGD4j8T+v0gcPDDn+3SuSMmqVjWimsKY=;
+ b=XnEjklOpOZKWaEwYBRP2UKojz7Li4Eb3eluB+vYL8GIAsVi1uVFYRoyfRHZD5B6VQvCDNWwvrOcVZIti6qGA6NJYdokM1WvDV5OU8DOSRfJej9T9GGNcEPg53PadryngyGnGf6n/rx+SXUDeOepGTJ1uyck3U2HpvexXxxo4prIJrhTJW7hC3i1Is3YdLduHDrVueG4IaYsxTPyqIny5KJFxO2tFQ8KbBTZcGjyrhUJojSf29XtjoNuQ3pbNOuVRm2K2v0Cun4O/R52nmReaJM/m+r2lWelwTzhXoBKYn0IqhlJaGw1G9EjkEe++SWq1QGf/VEskuVA0Evj2zStQWA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by DS0PR12MB6462.namprd12.prod.outlook.com (2603:10b6:8:c6::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
+ 2026 18:17:14 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0472.016; Fri, 9 Oct 2026
+ 18:17:14 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 09 Oct 2026 14:17:12 -0400
+Message-Id: <DM0II2QHWWS1.2RXEJXC8S0101@nvidia.com>
+Subject: Re: [PATCH] mm/huge_memory: avoid transient none PMDs during
+ lazyfree reclaim
+Cc: <linux-kernel@vger.kernel.org>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>,
+ "Baolin Wang" <baolin.wang@linux.alibaba.com>, "Nico Pache"
+ <nico.pache@linux.dev>, "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain"
+ <dev.jain@arm.com>, "Barry Song" <baohua@kernel.org>, "Lance Yang"
+ <lance.yang@linux.dev>, "Usama Arif" <usama.arif@linux.dev>, "Kiryl
+ Shutsemau" <kas@kernel.org>, <stable@vger.kernel.org>
+To: "Kyle Zeng" <kylebot@openai.com>, <linux-mm@kvack.org>
+From: "Zi Yan" <ziy@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <20261009165214.40212-2-kylebot@openai.com>
+In-Reply-To: <20261009165214.40212-2-kylebot@openai.com>
+X-ClientProxiedBy: YQZPR01CA0153.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:8c::14) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DS0PR12MB6462:EE_
+X-MS-Office365-Filtering-Correlation-Id: afa5cd0c-30b4-4d5d-944c-08df26318af8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|22082099003|18002099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	Uy2VXGIazbkf27kC4PaM9z8xUsZoj8NqW9tPiBRxut+cQu8SCGPmduuFaA/yoOYytxAlJ03LbIDtQY5mu8CH5z+6RMCUn5Sx7CII8EYOQ8yvsX1mxC4Qqq2DpVS/r58374BMUf1DIvx13cyj3mRsZd+jyZLPRC+kTVvVktKf/e+94nRbfhRPHMj8wlcnTfjSiKfzuJgzD1JEupV6AK02SJJJzaH4qtwOSQAA2VzI+TyRTJhjWV1Pnbwz+ctjjKy+O5+zayz1Q3x7pUppULyzoNY2ZiDuY38E0gn9W3bN4HzqsPnaWA9qF05MWzAwgeIWNbWFJ+aY1+dyUiw83RlQzqUFwW7ZOfzgITcAIJ6qEKE1eOmslUMVpBGfH2bpD3f2P0nlacSAf0qvZJlWhNECPB8pNmLP4jqJUh0GeMeq0Qrpal8U1JJLxstxy+MjxTo1S7xXWhrmHjp71LLWBArhL5rnH7Znqsyquzo5qWzBXzUpvrLkUFPs2scGa/GIEHr1eQfKp8d0UAv5SouEJ5QVNmQj1CpnuyJEIGSKwOkXTpTOBwKSw+0eb1gjV+WWB4HEk97u2T+UAg7+QKldsAPgdBz+rX8CYpz3sEKb0Xo6u7qMRmbzLcB9pMMJYpmtwvFNY1WxI1no3AZCblFO3E3XdzxMamrCtF525MWolIBSNJ0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZVp1Zis5SGpXZWNuQlBibmVWMzZLZG95U1dWSVJlekcyZ05laWN1NXVoaHBl?=
+ =?utf-8?B?Q09CbHZSQU1jai8xbERiT2s3bG5ITVhCTWFJU1pKR3I2c0MwbnBsSGlIVXd5?=
+ =?utf-8?B?NzNxVnNxaTZFTXBxeEd0UHRsMkZ6eWhCYnJuMUN0SjRuQ2x3NUkwamVHUkxY?=
+ =?utf-8?B?MHF2MG9WSnhzVGo5amlzKzVaOXZNczg3b1RlM2JlUEFkREdMU1ZUQmFzRG5m?=
+ =?utf-8?B?STlRMjJVK1VQNGFnM3N3QWdsUXVQRWZiakpFbFNxbHBOcHNOdGlraTI1d2ly?=
+ =?utf-8?B?U1NpUW5WVWliTmFvOUJET2JUSVRUejMzaWkzbW5qcGs3M0hQMytlWnlpNWVi?=
+ =?utf-8?B?WkFyeVJubng3UnJ3VWZBdUNwYnFyMU0zMW55WXhGS1dUQ1F5ZHFYYmFqUVZU?=
+ =?utf-8?B?Zkp6czhhVG1Hb0hjQlVsR084WVNadDBOQWdxMm1HYkI1TnM4NjI2NUdoRG9N?=
+ =?utf-8?B?KzA1VWo1eWtVM1BBMk9ESkRwV2l4Q0V4QWgrK214cWxRdEFUajdHZGRZU1hO?=
+ =?utf-8?B?dXRqVlp2NUxUN2IzUnBwWGMvc3haQWhCT2Z5dzM5dnNPTVpORHhEVTUrNm1o?=
+ =?utf-8?B?dWFnT1VrVy9KeXp0YU9qaWp0bGh2Tlg1Y09abDc5SjVUZEZWbU8yWUQ2NEVZ?=
+ =?utf-8?B?b0l4WVpvMVRUR3JqeWl5YnJPamxjekUwSmg4MzQ3c0ZHa055WjBZT0hraCt6?=
+ =?utf-8?B?UlN3NnlBS2pUaHg5MHFXZDNaWGZ1YVA5amg5OEtYYnMrQXpBNEpxcHY3cWNh?=
+ =?utf-8?B?NnVOdGtobXdqdGZPQjVnUytRVnFrb1ViZjd0TXNRaU1yckdaYU1pU25YQnVy?=
+ =?utf-8?B?Z2VMd2lzWDljdzB6eWJQYkxHbjBVSGVRbnlMOWdCbkE2a2ZzMG1JRkJzcDNZ?=
+ =?utf-8?B?RE5tZXZ1Mk43UjExSUFydWpCTlZGT2lCU1FVeXVVNG8wYWhkV3RGOGpyMVFk?=
+ =?utf-8?B?Q2dkYVZOb05LSEY0a00rWGU5N0l0cDFoRGpxTmNqT3JFSnoyNmttbGxvNlVD?=
+ =?utf-8?B?aGVzNzMvT0pnbitSMkJYR3dpRWtObXYraGh1UFFDOS9JOXVNUlBtK0VjdkJ5?=
+ =?utf-8?B?L3Q3cHZjSHk0RFZ1blMxZFpXdTVoWUI4UHFQN1kzMHArdnJHNWdlbjVDcm9j?=
+ =?utf-8?B?Q2UvVXJObGJaZzlCN2NjR1hBaFRhdWRkaE1MWDQ1SjVCU2Jzbzc2b0hGZ2U3?=
+ =?utf-8?B?N1RoV0QxU0Z3dmtRR0ZIaGRwMmFRYkttR1kvRnU2NVhuQW0zVkFDdmNXdHlu?=
+ =?utf-8?B?VXcvcSs2bFVvOWJGbzRMcDZuOEVUT1NUTzkrY1hoelNhWmVSMndQT2YwMW01?=
+ =?utf-8?B?MXhxdkFWQjRsdzJRTUNyNG9BWlhwRWJxckpidEFvUERXb1BRemxGeE5RMUlo?=
+ =?utf-8?B?RHVtQUpaQU5FbUhUb21LbnNwY2l5Nk9OUXhaZG42VnFiTmVaajIzRVdVTS9U?=
+ =?utf-8?B?STUzNTNUNjZBN0VnS2ZqRGI4TFFuNUFXNXp2aWhwUkhadDlrOExwNUl1WG9F?=
+ =?utf-8?B?Vm1mdGdBaU5FT2RiY0tQRGhXQ2NPVys2SG1OelpOdjRRNFlLTXE5QWtSQ0px?=
+ =?utf-8?B?YUF1VGZuRnhXTFNsc0pFdTJQVlVncUxXZHNXZGhkUWJWRHZIY3I0aEpuSVFr?=
+ =?utf-8?B?SzlYY2JXUGZ6RnJPSlZJd3p1L21TY0Fxa3FwelhhL1JSRkpHK25zT3hxRXha?=
+ =?utf-8?B?UngrbnJNdnJOeG5IQUxzTFpUbkRNMTFjWTBYcjdMQjd4eHFqVVhWbFhubGZ5?=
+ =?utf-8?B?K29RMXJYY00yb1lKaStLb204aTJGazFReXlmbXV2U3k0clRTdEtrNmU5YkxO?=
+ =?utf-8?B?K2wvUGZxZmZJaGx4bEJtYUFVU0Fhc3BPdGRtcVk5S1A3WkdPL2lrZjQ5MGdS?=
+ =?utf-8?B?aUxiOThIVE5zTUh4WksvT1QxNzc3M3VmT28wYmRVbjcxeWcraGRpMGpEQnJG?=
+ =?utf-8?B?NGdRR1V0TXRIZjFxZDlFakdYQ1lJQnhUR01JcktoVzFIUGZORlJ2TENRczh4?=
+ =?utf-8?B?ek9aU0tNRSsySzNWMVNwNkNmSy9POERkYmdiRkE3RlhKMk5IQkwxbWRPY1NL?=
+ =?utf-8?B?bWtEWkxIWjUvelRqYzNsdGdkWFhwZFY5ZGxranZyOVkxZERqNElad3pJbGVk?=
+ =?utf-8?B?Z3ltUXBpcXNsMW1EZjdPU2l1OWROa0JvL09tVjF6RWNWSzF6RmlDWXF5NFdZ?=
+ =?utf-8?B?dzZHWlpVQmtQOHR4S0RqZ3VUWVd1N2FyUXNoeWdoaXBkWVAyUklod2ZSOUwz?=
+ =?utf-8?B?Y3NRaVdkZ00xQ0VrRC8wTHFvcmhkSUFtbUYvZmpMSVA1Ky9kQ0NpYzB2Zmxm?=
+ =?utf-8?Q?JiPDstRj32hBZTLrOW?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: afa5cd0c-30b4-4d5d-944c-08df26318af8
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 18:17:13.8313
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JBixh14+23CKIA8RMBRYD0GZhm8p0F2F18lkWmfy1Nl72+0+WrF0E7vdHMxdpaKa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6462
 
-From: Yongjian Mu <ymu@everpuredata.com>
+On Fri Oct 9, 2026 at 12:52 PM EDT, Kyle Zeng wrote:
+> __discard_anon_folio_pmd_locked() clears and flushes a huge PMD before
+> checking whether the folio can be discarded. If the folio was redirtied
+> or has unexpected references, it restores the original PMD. Reclaim holds
+> the PMD lock and the anon_vma read lock, but not the owning mmap_lock.
+>
+> Both zap_pmd_range() and mremap's get_old_pmd() can skip a none PMD
+> without taking its lock. A concurrent munmap() or whole-VMA
+> MREMAP_DONTUNMAP can therefore miss the PMD and later unlink the source
+> VMA from its anon_vma, leaving a restored mapping behind. The anon_vma
+> write lock taken by unlink_anon_vmas() waits for reclaim to finish, but
+> does not repeat the skipped page-table walk. Once the remaining VMA
+> links are removed, the folio's positive mapcount no longer guarantees a
+> live anon_vma. Racing lazyfree reclaim against MREMAP_DONTUNMAP as an
+> unprivileged user reproduces a KASAN use-after-free in
+> folio_lock_anon_vma_read().
+>
+> Use pmdp_invalidate() to keep a recognizable, non-none huge PMD while
+> the discard can still fail. Concurrent unmap and move operations then
+> have to synchronize on the PMD lock instead of skipping the mapping.
+> Clear the invalidated PMD only after the dirty and reference checks have
+> succeeded, before removing the rmap and withdrawing the deposited page
+> table. The full invalidation retains the TLB flush required for the
+> dirty and GUP-fast checks.
+>
+> Fixes: 735ecdfaf4e8 ("mm/vmscan: avoid split lazyfree THP during shrink_f=
+olio_list()")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-6-astra
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+> ---
+>  mm/huge_memory.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+>
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 1e5d68acf62a..20262195385a 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -3569,11 +3569,17 @@ static bool __discard_anon_folio_pmd_locked(struc=
+t vm_area_struct *vma,
+>  		return false;
+>  	}
+> =20
+> -	orig_pmd =3D pmdp_huge_clear_flush(vma, addr, pmdp);
+> +	/*
+> +	 * The discard may fail, so keep the PMD non-none until we're
+> +	 * committed to discarding it. Otherwise, concurrent munmap() or
+> +	 * mremap() can skip the PMD without taking the PTL and later unlink
+> +	 * the VMA from its anon_vma despite a restored mapping.
+> +	 */
+> +	orig_pmd =3D pmdp_invalidate(vma, addr, pmdp);
 
-The upper layer sets rq_rcv_buf.head[0].iov_len from its estimate of the
-reply header size. For RPCSEC_GSS that estimate includes
-auth->au_ralign, which gss_create_new() initializes to GSS_VERF_SLACK >>
-2 (25 XDR words, or 100 bytes) and which is corrected to the real
-verifier size only after the first reply on that rpc_auth has been
-unwrapped. In this case, the krb5 MIC verifier is 36 bytes, so every
-request encoded before the first reply completes has a head that is 64
-bytes too long.
+There are some gaps we need to close before getting this fix in:
 
-On TCP this is harmless: xdr_realign_pages() moves the excess head
-bytes, which are genuine reply data, into the page list. With
-RPC-over-RDMA and a Write chunk (sec=krb5, i.e. RPC_GSS_SVC_NONE, where
-DDP is allowed), the payload has already been placed directly into the
-page list, and the receive buffer holds only the inline part of the
-reply. rpcrdma_inline_fixup() clamps its local copy of the head length
-to the inline length but leaves head.iov_len untouched, so
-xdr_realign_pages() still sees iov_len > cur and shifts whatever lies
-past the inline reply in the receive buffer into the front of the
-directly-placed payload:
+1. GUP-fast cannot follow the invalidated PMD: riscv and LoongArch need
+pmd_access_permitted() that requires _PAGE_PRESENT; s390's
+pmdp_invalidate() needs a change.
 
-  rpc_xdr_recvfrom:  head=[...,196] page=524288 tail=[...,64]
-  rpc_xdr_alignment: nfsv4 READ offset=132 copied=64
+2. sparc64's thp_pte_count can be imbalanced with this change (based on
+Lance's offlist feedback).
 
-The first 64 bytes returned by each such READ are incorrect (zeroed, or
-shifted right by 64 bytes depending on the kernel's xdr_shrink_bufhead()
-implementation). This is readily hit with pNFS flexfiles over RDMA and
-sec=krb5: the per-DS rpc_clnt gets a fresh rpc_auth whose first RPC is a
-large READ. Reads following the first completed reply return the
-expected data.
+In addition, powerpc has a page table check issue similr to riscv, where ri=
+scv
+fixed it with commit 9f4a88b8d01a6. This is not related to this issue
+but discovered along with the investigation.
 
-Commit cb0ae1fbb2f5 ("xprtrdma: Do not update {head, tail}.iov_len in
-rpcrdma_inline_fixup()") removed the head-length correction while fixing
-the handling of pure-inline krb5p replies.
+> =20
+>  	/*
+>  	 * Syncing against concurrent GUP-fast:
+> -	 * - clear PMD; barrier; read refcount
+> +	 * - invalidate PMD; barrier; read refcount
+>  	 * - inc refcount; barrier; read PMD
+>  	 */
+>  	smp_mb();
+> @@ -3607,6 +3613,7 @@ static bool __discard_anon_folio_pmd_locked(struct =
+vm_area_struct *vma,
+>  		return false;
+>  	}
+> =20
+> +	pmdp_huge_get_and_clear(mm, addr, pmdp);
+>  	folio_remove_rmap_pmd(folio, pmd_page(orig_pmd), vma);
+>  	zap_deposited_table(mm, pmdp);
+>  	add_mm_counter(mm, MM_ANONPAGES, -HPAGE_PMD_NR);
 
-When a Write chunk conveyed the payload, trim head.iov_len (in both
-rq_rcv_buf and rq_private_buf, which call_decode() expects to match) to
-the inline length actually received so that the XDR layer does not
-realign the page list. Pure inline replies and Reply chunk replies are
-unchanged.
 
-Fixes: cb0ae1fbb2f5 ("xprtrdma: Do not update {head, tail}.iov_len in rpcrdma_inline_fixup()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yongjian Mu <ymu@everpuredata.com>
-Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
----
- net/sunrpc/xprtrdma/rpc_rdma.c | 23 +++++++++++++++++++----
- 1 file changed, 19 insertions(+), 4 deletions(-)
 
-diff --git a/net/sunrpc/xprtrdma/rpc_rdma.c b/net/sunrpc/xprtrdma/rpc_rdma.c
-index 1285f04cdac1..bebc9a20b28e 100644
---- a/net/sunrpc/xprtrdma/rpc_rdma.c
-+++ b/net/sunrpc/xprtrdma/rpc_rdma.c
-@@ -984,7 +984,7 @@ void rpcrdma_reset_cwnd(struct rpcrdma_xprt *r_xprt)
-  * @rqst: controlling RPC request
-  * @srcp: points to RPC message payload in receive buffer
-  * @copy_len: remaining length of receive buffer content
-- * @pad: Write chunk pad bytes needed (zero for pure inline)
-+ * @writelist: bytes conveyed by the Write chunk (zero for pure inline)
-  *
-  * The upper layer has set the maximum number of bytes it can
-  * receive in each component of rq_rcv_buf. These values are set in
-@@ -998,13 +998,16 @@ void rpcrdma_reset_cwnd(struct rpcrdma_xprt *r_xprt)
-  * Returns the count of bytes which had to be memcopied.
-  */
- static unsigned long
--rpcrdma_inline_fixup(struct rpc_rqst *rqst, char *srcp, int copy_len, int pad)
-+rpcrdma_inline_fixup(struct rpc_rqst *rqst, char *srcp, int copy_len,
-+		     u32 writelist)
- {
- 	unsigned long fixup_copy_count;
- 	int i, npages, curlen;
- 	char *destp;
- 	struct page **ppages;
- 	int page_base;
-+	int pad = writelist & 3;
-+	unsigned int delta;
- 
- 	/* The head iovec is redirected to the RPC reply message
- 	 * in the receive buffer, to avoid a memcopy.
-@@ -1016,8 +1019,20 @@ rpcrdma_inline_fixup(struct rpc_rqst *rqst, char *srcp, int copy_len, int pad)
- 	 * head.iov_len bytes are copied into the page list.
- 	 */
- 	curlen = rqst->rq_rcv_buf.head[0].iov_len;
--	if (curlen > copy_len)
-+	if (curlen > copy_len) {
-+		/* These READ replies have no inline fields after the payload.
-+		 * Trim the head without moving the directly-placed data.
-+		 */
-+		if (writelist) {
-+			delta = curlen - copy_len;
-+
-+			rqst->rq_rcv_buf.head[0].iov_len = copy_len;
-+			rqst->rq_private_buf.head[0].iov_len = copy_len;
-+			rqst->rq_rcv_buf.buflen -= delta;
-+			rqst->rq_private_buf.buflen -= delta;
-+		}
- 		curlen = copy_len;
-+	}
- 	srcp += curlen;
- 	copy_len -= curlen;
- 
-@@ -1245,7 +1260,7 @@ rpcrdma_decode_msg(struct rpcrdma_xprt *r_xprt, struct rpcrdma_rep *rep,
- 	base = (char *)xdr_inline_decode(xdr, 0);
- 	rpclen = xdr_stream_remaining(xdr);
- 	r_xprt->rx_stats.fixup_copy_count +=
--		rpcrdma_inline_fixup(rqst, base, rpclen, writelist & 3);
-+		rpcrdma_inline_fixup(rqst, base, rpclen, writelist);
- 
- 	r_xprt->rx_stats.total_rdma_reply += writelist;
- 	return rpclen + xdr_align_size(writelist);
--- 
-2.34.1
+
+--=20
+Best Regards,
+Yan, Zi
 
