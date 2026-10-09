@@ -1,25 +1,29 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4B6C649D587;
-	Fri,  9 Oct 2026 09:37:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B7549DBB9;
+	Fri,  9 Oct 2026 09:42:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791538661; cv=none; b=Ye7kLCwcYuqfCXlmGGWXtkHYtpdh2XL3FEchGGkRtzGi0MeNZvXugNmA8FKW+TMYY/22bosaa0AV2zX/A4Buwi7uHQThVGuLNDbqNvTP3BAJ2YuWaAhm5PRelXlUN2GoKcq/37ENnkvzqObKRitOmC6+ogW530JIqP6+fGyb6aA=
+	t=1791538979; cv=none; b=np9F9SIyF/4nSL92Bc6fAqmkjII6hlk8nAtTrw2xLrK5z4NGtmAfMbDtdUEApG05hF4U8QM+DPkaRFvJ2Ag0mIBkvp8yRdxNboV/wB3KR/M/GdEXFDQj85ZocYI8hrei0mUZEU096ckyd6sRBTTyK2L1tvQeYm/hY9Q+GAmJX/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791538661; c=relaxed/simple;
-	bh=6UzabKbW7/W4ItnNK/pguJFy0TBdcBXWtlkqalkBenU=;
+	s=arc-20240116; t=1791538979; c=relaxed/simple;
+	bh=yhOjj/wrjjiaYAgabEvaYOFm/8b7bCIzioUlA5BSq/U=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=V/LIIdy5NjvaomKziTBk0G6cdhwXRn8pfu4w+gX/dxLlwUj67Rf0gmKqIl8gwYE72WGkI01TfjETTqmu6FWNVxXoVHtd52kwavVj52UUlbMS9ANBgEpoc3H7rbaDepQ/CU3bC02vB/hC7PbqmVjCAJP9F70EB1I33FzrhD9PdWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.172])
-	by gateway (Coremail) with SMTP id _____8BxhvDTtchq0BYUAA--.58299S3;
-	Fri, 09 Oct 2026 17:37:23 +0800 (CST)
-Received: from [10.20.42.172] (unknown [10.20.42.172])
-	by front1 (Coremail) with SMTP id qMiowJDxg8zTtchqAWkqAA--.61825S2;
-	Fri, 09 Oct 2026 17:37:23 +0800 (CST)
-Message-ID: <be30e2f2-e126-4be5-910f-75d068526c87@loongson.cn>
-Date: Fri, 9 Oct 2026 17:37:28 +0800
+	 In-Reply-To:Content-Type; b=QyZhij95/8VgtRwuV8YqRIgh1GmXSvaybiQHg2x90ccss8hM+WVvpzOXMvK41WmjczGHn2G97J9/WYDHJRwy8kLo6jRQ0oatbSIVq+jRaqHEJFzJ6fz3w87BEgSgxTbgQZZboYPYm9IZ09SMg7DOG5A+pzbNVhIyBkrJzUAdJ3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=Of3Cg7mi; arc=none smtp.client-ip=220.197.31.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="Of3Cg7mi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=comNi0bq8Of/dXYDxEHJTvUJcWhZQ1Sp8DE5wIR2vhA=;
+	b=Of3Cg7miPOXJ2jb0AeB8OOfPqw94BzyQiG5igLTjey/F5NEhxjHsOL2jXKdaAR
+	iKM2VQntpfJBFotx+3JBc3RuhsIk7Eafyyfr8/9JxEXBW1ozXRGxLb0/CwChpKR4
+	HmsNmt/WvY/2VyAIZK194DLatWI6J+R/0jX+u8MKdhBDE=
+Message-ID: <544bc0d9-c1c8-461d-aba8-6065409cb53c@126.com>
+Date: Fri, 9 Oct 2026 17:31:23 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -27,120 +31,148 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/loongson: Fix double free on BO initialization
- failure
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>, Evanshenf <archwse@gmail.com>,
- dri-devel@lists.freedesktop.org
-Cc: Jianmin Lv <lvjianmin@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>,
- Mingcong Bai <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261003093415.e64386de1e64-1-archwse@gmail.com>
- <dce8506787ff72b5a9fac15571d4c59624348430.camel@iscas.ac.cn>
+Subject: Re: [PATCH net-next v5 02/19] net: stmmac: request the MDIO reset
+ GPIO only once
+To: James Hilliard <james.hilliard1@gmail.com>,
+ Linus Walleij <linusw@kernel.org>
+Cc: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Christian Marangi <ansuelsmth@gmail.com>,
+ Tiezhu Yang <yangtiezhu@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Stanislav Fomichev <sdf@fomichev.me>, Serge Semin <fancer.lancer@gmail.com>,
+ Suraj Jaiswal <quic_jsuraj@quicinc.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Joao Pinto <Joao.Pinto@synopsys.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Ong Boon Leong <boon.leong.ong@intel.com>,
+ Voon Weifeng <weifeng.voon@intel.com>,
+ "Song, Yoong Siang" <yoong.siang.song@intel.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Magnus Karlsson <magnus.karlsson@intel.com>,
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+ Simon Horman <horms@kernel.org>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Jose Abreu <Jose.Abreu@synopsys.com>,
+ Yao Zi <me@ziyao.cc>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Richard Genoud <richard.genoud@bootlin.com>,
+ Alastair D'Silva <alastair@d-silva.org>, Maxime Ripard <mripard@kernel.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org,
+ ZhaoJinming <zhaojinming@uniontech.com>,
+ Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+ Ding Hui <dinghui1111@163.com>, Linkui Xiao <xiaolinkui@kylinos.cn>,
+ linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ stable@vger.kernel.org
+References: <20260927-submit-stmmac-reset-fixes-v1-v5-0-feec6c14dd06@gmail.com>
+ <20260927-submit-stmmac-reset-fixes-v1-v5-2-feec6c14dd06@gmail.com>
+ <CAD++jL=6Ov5BPK1naX6orzMsrJPm_g6SkdRaU6Ji+okXMFaZdQ@mail.gmail.com>
+ <CADvTj4pU6EXgx1-dupQoQBm8OrrvAeR5NyCk4of7zya2V=yvEw@mail.gmail.com>
 Content-Language: en-US
-From: wuqianhai <wuqianhai@loongson.cn>
-In-Reply-To: <dce8506787ff72b5a9fac15571d4c59624348430.camel@iscas.ac.cn>
+From: Linkui Xiao <xiaolinkui@126.com>
+In-Reply-To: <CADvTj4pU6EXgx1-dupQoQBm8OrrvAeR5NyCk4of7zya2V=yvEw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxg8zTtchqAWkqAA--.61825S2
-X-CM-SenderInfo: 5zxtxtpqkdxqxorr0wxvrqhubq/
-X-Coremail-Antispam: 1Uk129KBj93XoW7ZFWUXw4rGr13JF47Zr1xtFc_yoW5JrW3pa
-	n3Ga4jyrWDJFs2kr9Fy3WrAa40kayxWrWkWF45G3Wfur1jyw1kJFy3u3s0gFnrXFy7Cr12
-	qanxG3ZxXF1qv3XCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUvEb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
-	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
-	XVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
-	8JMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r1Y
-	6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7
-	AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE
-	2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcV
-	C2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73
-	UjIFyTuYvjxU2MKZDUUUU
+X-CM-TRANSID:_____wDnT_lttMhqfcDGAw--.25712S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXFyxtr43KF15GF47ZFy5Arb_yoWrXw1kpF
+	Waqa1YyrZ5XrWxAws2qw1UZFyjvFs0yr43Xr1jkrWxCF98CFyfJr1xtr4Y9F97Cry8Ww1Y
+	vF4vva47uan0yFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Ur3ktUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqRAW7GrItHDUxQAA30
 
 
-Reviewed-by: Qianhai Wu <wuqianhai@loongson.cn>
 
-The fix looks correct and the TTM ownership analysis is accurate.
+On 2026/9/28 07:49, James Hilliard wrote:
+> On Sun, Sep 27, 2026 at 5:35 PM Linus Walleij <linusw@kernel.org> wrote:
+>>
+>> Hi James,
+>>
+>> On Sun, Sep 27, 2026 at 11:59 PM James Hilliard
+>> <james.hilliard1@gmail.com> wrote:
+>>
+>>> From: Linkui Xiao <xiaolinkui@kylinos.cn>
+>>>
+>>> stmmac_mdio_reset() calls devm_gpiod_get_optional() every time it runs.
+>>> A GPIO line can only be requested once, so from the second call on
+>>> gpiod_request_commit() returns -EBUSY. devm_gpiod_get_optional() only
+>>> turns -ENOENT into NULL, hence the error is passed straight back and
+>>> stmmac_mdio_reset() bails out before pulsing "snps,reset" and before
+>>> running the STE101P MDC workaround.
+>>>
+>>> The first call, made by of_mdiobus_register(), succeeds, so the failure
+>>> is only visible later on: every resume that does not use WoL goes
+>>> through stmmac_resume() -> stmmac_mdio_reset(), and that caller ignores
+>>> the return value, so the PHY silently stays un-reset.
+>>>
+>>> The descriptor used to be requested exactly once: stmmac_mdio_reset()
+>>> resolved "snps,reset-gpio" itself and cached the GPIO number in
+>>> stmmac_mdio_bus_data::reset_gpio, and commit ae26c1c6cb9b ("stmmac: fix
+>>> PHY reset during resume") relies on that cache to reuse the line on
+>>> every call. commit 7c86f20d15b7 ("net: stmmac: use GPIO descriptors in
+>>> stmmac_mdio_reset") replaced it with a devm_gpiod_get_optional() that
+>>> caches nothing, so the request is repeated on every call and fails from
+>>> the second one on.
+>>>
+>>> Parse the whole reset description, the GPIO and "snps,reset-delays-us",
+>>> in stmmac_mdio_register() at probe time, and keep it in struct
+>>> stmmac_priv. This is where devm-gpiod is meant to be used: the line is
+>>> acquired with the device and released with it, and any failure to
+>>> acquire it is reported during probe instead of being ignored by
+>>> stmmac_resume(). stmmac_mdio_reset() then only pulses the cached line,
+>>> with the delays that were read once and for all at probe time.
+>>>
+>>> Cache the request and delays for DT devices regardless of
+>>> mdio_bus_data->needs_reset. That flag controls the registration-time
+>>> bus reset callback, but system resume calls stmmac_mdio_reset()
+>>> directly. The reset routine no longer looks at the device tree: where
+>>> the description is absent the cached descriptor is NULL and the delays
+>>> are zero, so the pulse remains a no-op.
+>>>
+>>> Keep acquisition conditional on CONFIG_STMMAC_PLATFORM, matching the
+>>> reset callback, so non-platform configurations do not request an unused
+>>> GPIO. Also skip acquisition for a disabled MDIO child: registering that
+>>> bus returns -ENODEV without calling its reset callback, and the driver
+>>> must retain the existing disabled-bus success path even if the unused
+>>> GPIO is unavailable. Remove the unnecessary gpio_desc forward declaration.
+>>>
+>>> Fixes: 7c86f20d15b7 ("net: stmmac: use GPIO descriptors in stmmac_mdio_reset")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+>>> Co-developed-by: James Hilliard <james.hilliard1@gmail.com>
+>>> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+>>
+>> Dostoyevsky commit message, I didn't read it. Ask the agent
+>> to be terse.
+> 
+> That commit message style mostly just came from the imported patch,
+> I'll change it to be more terse in the next revision:
+> https://lore.kernel.org/all/20260921015727.2643540-1-xiaolinkui@126.com/Hi James,
+
+Thanks for picking this up. Agreed the commit message is too long;
+I'm fine with you trimming it for the next revision. Linus already
+gave his Reviewed-by on the code, so the logic is settled.
 
 Thanks,
-Qianhai Wu
+Linkui
 
-在 2026/10/9 16:42, Icenowy Zheng 写道:
-> 在 2026-10-03六的 09:34 +0000，Evanshenf写道：
->> If ttm_bo_init_validate() fails, it drops the buffer object's
->> reference
->> and cleans it up through the supplied destroy callback.
->> lsdc_bo_destroy()
->> releases the GEM object and frees the enclosing lsdc_bo, so freeing
->> it
->> again in lsdc_bo_create() causes a double free on a synchronous
->> failure
->> path.
->>
->> Let TTM own the cleanup after initialization has started and return
->> the
->> error directly. Keep the explicit free on drm_gem_object_init()
->> failure,
->> which occurs before ownership is passed to TTM.
->>
->> Tested on LS7A2000 by making drm_vma_offset_add() return -ENOSPC for
->> one
->> selected dumb-buffer creation. The error reached userspace, the
->> destroy
->> callback ran once, and no handle was published or tracked BO
->> retained.
->> Normal buffer creation, zeroing, mapping, readback and release
->> passed.
->>
->> AI assistance was used for the ownership analysis, fix, fault-
->> injection
->> tools, build and test execution.
->>
->> Fixes: f39db26c5428 ("drm: Add kms driver for loongson display
->> controller")
->> Cc: stable@vger.kernel.org
->> Assisted-by: LLM
->> Signed-off-by: Evanshenf <archwse@gmail.com>
->> ---
->>   drivers/gpu/drm/loongson/lsdc_ttm.c | 4 +---
->>   1 file changed, 1 insertion(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c
->> b/drivers/gpu/drm/loongson/lsdc_ttm.c
->> index d7441d9..88536e2 100644
->> --- a/drivers/gpu/drm/loongson/lsdc_ttm.c
->> +++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
->> @@ -475,10 +475,8 @@ struct lsdc_bo *lsdc_bo_create(struct drm_device
->> *ddev,
->>   
->>   	ret = ttm_bo_init_validate(bdev, tbo, bo_type, &lbo-
->>> placement, 0,
->>   				   false, sg, resv,
->> lsdc_bo_destroy);
->> -	if (ret) {
->> -		kfree(lbo);
->> +	if (ret)
->>   		return ERR_PTR(ret);
 > 
-> It looks like this fix is valid, ttm_bo_init_reserved() (called by
-> ttm_bo_init_validate() ) will do a ttm_bo_put() operation when failure,
-> which leads to calling the destroy callback.
-> 
-> ```
-> Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> ```
-> 
-> Thanks,
-> Icenowy
-> 
->> -	}
->>   
->>   	return lbo;
->>   }
+>> I looked at the code and from a GPIO PoV it does the right
+>> thing: use 1 as asserted and 0 as de-asserted RESET line.
 >>
->> base-commit: bca45af5998a05f34b13a2ef11e639bac9c62643
+>> Reviewed-by: Linus Walleij <linusw@kernel.org>
+>>
+>> Yours,
+>> Linus Walleij
 
