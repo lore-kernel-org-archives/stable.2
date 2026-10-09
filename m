@@ -1,81 +1,229 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B21463F1056;
-	Fri,  9 Oct 2026 22:36:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5646A37F73A;
+	Fri,  9 Oct 2026 22:39:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791585411; cv=none; b=Buq0TK+SfAu71Nf7N73P/1Fxz/Fl++N5DHC5qukDTGII7/6IE2teH7xe4ruA5lIyYoT9unriCYjHK/ORbZRpb0/m/7C2/NWpB+yfTEeNVYssN3KUA0NM9xr6dQruXxQA8SpgKCxMMOLskJVtTg2iZWfAWfr1/7Q5HYNBl7PEh2o=
+	t=1791585557; cv=none; b=poOl/7tG8W/K3lT2kqEt1Bnz0Nbw7E7X591NX/Yg/kM9Yr3sDzOuFTcUMpp27aNQBzHTHm4q6kCTVNHT0+lJbp9If5MTlopIZQtK89pYTpfmyepN3doiB/TwKkkupsJ77nfZs/iDna7ezyGGlLpwa14w8o3l1sj5bjjdMzXq7Zo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791585411; c=relaxed/simple;
-	bh=kVotqgVqw+iPzGvtTlz7PfnfIqCMUIeI6scp7He+8DI=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:Content-Type; b=MIm1pJhsmIY7eb2SBqZTldO5NnJSZkOMAxg7eRZ7sEy6jbSVPRbGXw+yXOkmhLrwtKSYWwTztW2MTHWWtAIrCUU0EJSnc4Yc3XRDdhhiGU8we3dYkY3VX2Mj8VcuPbzz7oZtgR92QlxSjxuQlYN9mw8YiYd9G6MM6Nc1jXFyCGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=JBtlNufi; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1791585557; c=relaxed/simple;
+	bh=slUGqAhZ+UGZ5KzVFwqtX5oIz8oN8XpKIDkTYk8BgJw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ZsNifVyglbv/m+/4ufVng1+rVGKJMEz+SWVRDsMESWgsCiyWSe0GwnO+Q0r6ryJsJYKDkmyOCCl0/lkGzCeaEIXEOsGznDpFq5tTqErp/MOSmnnIvBhiVfDNEJ0/C31xzO2DnYvHgAGpADF0Vg+EcMvNfRgVPcCsCP9tQUEzJZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mFZpIFV1; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="JBtlNufi"
-Received: from [IPV6:2607:fb91:150e:549f:d0:596:baf6:82e4] (unknown [172.56.108.38])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 0AB3520B7168;
-	Fri,  9 Oct 2026 15:36:47 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 0AB3520B7168
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791585407;
-	bh=kVotqgVqw+iPzGvtTlz7PfnfIqCMUIeI6scp7He+8DI=;
-	h=Date:From:Subject:To:Cc:From;
-	b=JBtlNufiZj0CqZ25UJbwDp8DlkCCMW3nib0MKD92iphcMPMQoKk6RZbIeHLVEA86x
-	 /Ge3NWe/4nKp5KK62DZLoIzzZwNR5gbXUiigUKYNtIFvKTL6pnadBfma2HMqwZ9n9h
-	 AYLaLPe0b9vy8TjeAhFYf2mvFPQznLI0u8amgxZQ=
-Message-ID: <899bd843-fd19-418e-8913-91bfb6e760a2@linux.microsoft.com>
-Date: Fri, 9 Oct 2026 15:36:42 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mFZpIFV1"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C2A5DC2BCFB;
+	Fri,  9 Oct 2026 22:39:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791585556;
+	bh=slUGqAhZ+UGZ5KzVFwqtX5oIz8oN8XpKIDkTYk8BgJw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=mFZpIFV1WLFn9nGKwySONbD4Qo/YH1T5ZUUofjd1DTASiGUmHHla88IH6MqFV8DPD
+	 NWGoeAB8DTlcOGfP0Z+xYEE69hNTnlcaVSFg2DfffySbM8Cvig9XLABkhx1TlTtlXk
+	 scUCIAPKJJm5mHMHDbz1+QH/a5QD7QXWubdkWm5TuVcA6LnUvd9QS57ISnuVCJbfjq
+	 kOCaRdlGyFsG5a07uFJ1esDjnXJmClDu7++KI2TaYi18ScA67/kemSiMEVStZTmPwp
+	 ubg4CIgCA8/PyJ0nMy5bYRbI3DqeLTq+zQJt5qeSZPhsw+GGMirYbBjXvN9FcJpNN5
+	 WtGYDE+GbRX+w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9FF88CA9EBB;
+	Fri,  9 Oct 2026 22:39:16 +0000 (UTC)
+From: Kim Wooseok via B4 Relay <devnull+5mghybrid.khu.ac.kr@kernel.org>
+Date: Sat, 10 Oct 2026 07:39:16 +0900
+Subject: [PATCH rtw-next] wifi: rtl8xxxu: isolate the USB register buffer
+ from CPU state
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-From: Rachel Menge <rachelmenge@linux.microsoft.com>
-Subject: Request backport of bf5a54bc0e3d to 6.18.y
-To: stable@vger.kernel.org
-Cc: netdev@vger.kernel.org
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261010-rtl8xxxu-usb-dma-v1-1-e670d9c08fdf@khu.ac.kr>
+References: <20261010-rtl8xxxu-usb-dma-v1-0-e670d9c08fdf@khu.ac.kr>
+In-Reply-To: <20261010-rtl8xxxu-usb-dma-v1-0-e670d9c08fdf@khu.ac.kr>
+To: linux-wireless@vger.kernel.org
+Cc: Jes Sorensen <Jes.Sorensen@gmail.com>, 
+ Ping-Ke Shih <pkshih@realtek.com>, Kalle Valo <kvalo@kernel.org>, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Kim Wooseok <5mghybrid@khu.ac.kr>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791585555; l=6582;
+ i=5mghybrid@khu.ac.kr; s=kernel-20260913; h=from:subject:message-id;
+ bh=Fi20EesCIFYA7ua1Pp4uDWX7+NVtPGKW8peZdq6hLUg=;
+ b=n+8LSkIk2agDhFBlGXKpX59k2qz4XvGl7QMwma21+f0UECjyfyC/fqMQiBBDq81GFIi1VwXHB
+ Ehu3grWBmHiB2MMtGih/c3iVlu2DJoVWPMzLZZ/jZwDdIramfKYuCKJ
+X-Developer-Key: i=5mghybrid@khu.ac.kr; a=ed25519;
+ pk=1az/6lC8Tmd6BcvyarPc8FWoSxsV/WRr5NLs1v+kjlE=
+X-Endpoint-Received: by B4 Relay for 5mghybrid@khu.ac.kr/kernel-20260913
+ with auth_id=1028
+X-Original-From: Kim Wooseok <5mghybrid@khu.ac.kr>
+Reply-To: 5mghybrid@khu.ac.kr
 
-Hi stable team,
+From: Kim Wooseok <5mghybrid@khu.ac.kr>
 
-Please consider applying the following upstream commit to 6.18.y:
+An RTL8192EU failed to reconnect on a Raspberry Pi after an AP power
+cycle. RF_MODE contained a corrupted value, and restoring its initialized
+value restored reception.
 
-bf5a54bc0e3d8962474fcd611f1266eba036232f
-doc/netlink: netlink-raw: Add max check
+The register access helpers pass usb_buf directly to usb_control_msg(),
+but the buffer is embedded next to usb_buf_mutex. On the affected Pi,
+it shares a cache line with the mutex's waiter state. A contending task
+updates that state while the USB transfer uses the buffer. This violates
+the cache-line isolation required for non-coherent DMA.
 
-The 6.18.y tree contains these related changes:
+Allocate the buffer once in probe and reuse it, avoiding an allocation
+for every register access. Keep the existing register access helpers and
+mutex protection. Free the buffer on probe failure and after power_off()
+in disconnect, since shutdown still uses the register access helpers.
 
-2fd0880f0272 ("net: reject oversized tx_queue_len at netlink parse time")
-982c7f66c041 ("neighbour: Enforce min/max to NDTPA_INTERVAL_PROBE_TIME_MS.")
+Fixes: 26f1fad29ad9 ("New driver: rtl8xxxu (mac80211)")
+Cc: stable@vger.kernel.org
+Signed-off-by: Kim Wooseok <5mghybrid@khu.ac.kr>
+---
+I tested the separate-buffer approach on an RTL8192EU connected to a
+Raspberry Pi 5, using the existing Linux 6.18.34 kernel. While repeatedly
+requesting scans, wireless ping traffic kept receiving replies and the
+RF_MODE and HSSI register values remained stable.
 
-Those changes add checks.max to the rt-link.yaml and rt-neigh.yaml
-Netlink specifications. However, the 6.18.y version of
-Documentation/netlink/netlink-raw.yaml neither defines len-or-limit nor
-permits checks.max.
+The submission is based on rtw-next. An ARM64 build of the rtl8xxxu
+driver with W=1 completed without warnings, and sparse reported no
+diagnostics in core.c.
+---
+ drivers/net/wireless/realtek/rtl8xxxu/core.c     | 35 ++++++++++++++++--------
+ drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h |  2 +-
+ 2 files changed, 24 insertions(+), 13 deletions(-)
 
-I found this while building YNL from v6.18.55. I reproduced the failure
-against the unmodified v6.18.55 tag with:
+diff --git a/drivers/net/wireless/realtek/rtl8xxxu/core.c b/drivers/net/wireless/realtek/rtl8xxxu/core.c
+index 3d0c22db3..604bb1e5b 100644
+--- a/drivers/net/wireless/realtek/rtl8xxxu/core.c
++++ b/drivers/net/wireless/realtek/rtl8xxxu/core.c
+@@ -622,9 +622,9 @@ u8 rtl8xxxu_read8(struct rtl8xxxu_priv *priv, u16 addr)
+ 	mutex_lock(&priv->usb_buf_mutex);
+ 	len = usb_control_msg(udev, usb_rcvctrlpipe(udev, 0),
+ 			      REALTEK_USB_CMD_REQ, REALTEK_USB_READ,
+-			      addr, 0, &priv->usb_buf.val8, sizeof(u8),
++			      addr, 0, &priv->usb_buf->val8, sizeof(u8),
+ 			      RTW_USB_CONTROL_MSG_TIMEOUT);
+-	data = priv->usb_buf.val8;
++	data = priv->usb_buf->val8;
+ 	mutex_unlock(&priv->usb_buf_mutex);
+ 
+ 	if (rtl8xxxu_debug & RTL8XXXU_DEBUG_REG_READ)
+@@ -645,9 +645,9 @@ u16 rtl8xxxu_read16(struct rtl8xxxu_priv *priv, u16 addr)
+ 	mutex_lock(&priv->usb_buf_mutex);
+ 	len = usb_control_msg(udev, usb_rcvctrlpipe(udev, 0),
+ 			      REALTEK_USB_CMD_REQ, REALTEK_USB_READ,
+-			      addr, 0, &priv->usb_buf.val16, sizeof(u16),
++			      addr, 0, &priv->usb_buf->val16, sizeof(u16),
+ 			      RTW_USB_CONTROL_MSG_TIMEOUT);
+-	data = le16_to_cpu(priv->usb_buf.val16);
++	data = le16_to_cpu(priv->usb_buf->val16);
+ 	mutex_unlock(&priv->usb_buf_mutex);
+ 
+ 	if (rtl8xxxu_debug & RTL8XXXU_DEBUG_REG_READ)
+@@ -668,9 +668,9 @@ u32 rtl8xxxu_read32(struct rtl8xxxu_priv *priv, u16 addr)
+ 	mutex_lock(&priv->usb_buf_mutex);
+ 	len = usb_control_msg(udev, usb_rcvctrlpipe(udev, 0),
+ 			      REALTEK_USB_CMD_REQ, REALTEK_USB_READ,
+-			      addr, 0, &priv->usb_buf.val32, sizeof(u32),
++			      addr, 0, &priv->usb_buf->val32, sizeof(u32),
+ 			      RTW_USB_CONTROL_MSG_TIMEOUT);
+-	data = le32_to_cpu(priv->usb_buf.val32);
++	data = le32_to_cpu(priv->usb_buf->val32);
+ 	mutex_unlock(&priv->usb_buf_mutex);
+ 
+ 	if (rtl8xxxu_debug & RTL8XXXU_DEBUG_REG_READ)
+@@ -688,10 +688,10 @@ int rtl8xxxu_write8(struct rtl8xxxu_priv *priv, u16 addr, u8 val)
+ 		addr |= 0x8000;
+ 
+ 	mutex_lock(&priv->usb_buf_mutex);
+-	priv->usb_buf.val8 = val;
++	priv->usb_buf->val8 = val;
+ 	ret = usb_control_msg(udev, usb_sndctrlpipe(udev, 0),
+ 			      REALTEK_USB_CMD_REQ, REALTEK_USB_WRITE,
+-			      addr, 0, &priv->usb_buf.val8, sizeof(u8),
++			      addr, 0, &priv->usb_buf->val8, sizeof(u8),
+ 			      RTW_USB_CONTROL_MSG_TIMEOUT);
+ 
+ 	mutex_unlock(&priv->usb_buf_mutex);
+@@ -711,10 +711,10 @@ int rtl8xxxu_write16(struct rtl8xxxu_priv *priv, u16 addr, u16 val)
+ 		addr |= 0x8000;
+ 
+ 	mutex_lock(&priv->usb_buf_mutex);
+-	priv->usb_buf.val16 = cpu_to_le16(val);
++	priv->usb_buf->val16 = cpu_to_le16(val);
+ 	ret = usb_control_msg(udev, usb_sndctrlpipe(udev, 0),
+ 			      REALTEK_USB_CMD_REQ, REALTEK_USB_WRITE,
+-			      addr, 0, &priv->usb_buf.val16, sizeof(u16),
++			      addr, 0, &priv->usb_buf->val16, sizeof(u16),
+ 			      RTW_USB_CONTROL_MSG_TIMEOUT);
+ 	mutex_unlock(&priv->usb_buf_mutex);
+ 
+@@ -733,10 +733,10 @@ int rtl8xxxu_write32(struct rtl8xxxu_priv *priv, u16 addr, u32 val)
+ 		addr |= 0x8000;
+ 
+ 	mutex_lock(&priv->usb_buf_mutex);
+-	priv->usb_buf.val32 = cpu_to_le32(val);
++	priv->usb_buf->val32 = cpu_to_le32(val);
+ 	ret = usb_control_msg(udev, usb_sndctrlpipe(udev, 0),
+ 			      REALTEK_USB_CMD_REQ, REALTEK_USB_WRITE,
+-			      addr, 0, &priv->usb_buf.val32, sizeof(u32),
++			      addr, 0, &priv->usb_buf->val32, sizeof(u32),
+ 			      RTW_USB_CONTROL_MSG_TIMEOUT);
+ 	mutex_unlock(&priv->usb_buf_mutex);
+ 
+@@ -7851,6 +7851,13 @@ static int rtl8xxxu_probe(struct usb_interface *interface,
+ 
+ 	usb_set_intfdata(interface, hw);
+ 
++	/* Keep the USB register buffer separate from driver state. */
++	priv->usb_buf = kzalloc_obj(*priv->usb_buf);
++	if (!priv->usb_buf) {
++		ret = -ENOMEM;
++		goto err_set_intfdata;
++	}
++
+ 	ret = rtl8xxxu_parse_usb(priv, interface);
+ 	if (ret)
+ 		goto err_set_intfdata;
+@@ -7971,7 +7978,9 @@ static int rtl8xxxu_probe(struct usb_interface *interface,
+ err_set_intfdata:
+ 	usb_set_intfdata(interface, NULL);
+ 
++	kfree(priv->usb_buf);
+ 	kfree(priv->fw_data);
++
+ 	mutex_destroy(&priv->usb_buf_mutex);
+ 	mutex_destroy(&priv->syson_indirect_access_mutex);
+ 	mutex_destroy(&priv->h2c_mutex);
+@@ -7999,7 +8008,9 @@ static void rtl8xxxu_disconnect(struct usb_interface *interface)
+ 
+ 	dev_info(&priv->udev->dev, "disconnecting\n");
+ 
++	kfree(priv->usb_buf);
+ 	kfree(priv->fw_data);
++
+ 	mutex_destroy(&priv->usb_buf_mutex);
+ 	mutex_destroy(&priv->syson_indirect_access_mutex);
+ 	mutex_destroy(&priv->h2c_mutex);
+diff --git a/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h b/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h
+index c6953051d..8cbadcf71 100644
+--- a/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h
++++ b/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h
+@@ -1891,7 +1891,7 @@ struct rtl8xxxu_priv {
+ 		__le32 val32;
+ 		__le16 val16;
+ 		u8 val8;
+-	} usb_buf;
++	} *usb_buf;
+ 	union {
+ 		u8 raw[EFUSE_MAP_LEN];
+ 		struct rtl8723au_efuse efuse8723;
 
-   make -C tools/net/ynl/generated rt-link-user.h
+-- 
+2.53.0
 
-YNL code generation fails JSON schema validation because the rt-link and
-rt-neigh specifications use checks.max while netlink-raw.yaml rejects that
-property:
 
-   jsonschema.exceptions.ValidationError:
-   Additional properties are not allowed ('max' was unexpected)
-
-The requested upstream commit updates only the build-time YAML schema. It
-does not change kernel runtime behavior.
-
-I also checked 6.1.y, 6.6.y, 6.12.y, and 6.19.y. Those branches do not
-contain the rt-link.yaml and rt-neigh.yaml checks.max additions that create
-this mismatch, so this request is limited to 6.18.y.
-
-Thanks,
-Rachel Menge
