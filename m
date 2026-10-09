@@ -1,143 +1,176 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4FEC4F7CA2
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 20:23:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE2D42E429;
+	Fri,  9 Oct 2026 20:24:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791577399; cv=none; b=HDB9rED4CboveD5gEmz3Em8Bwnyry68AIjKmFj/AxmJaAnJ1Dl6ClzfUK9kMjGSoxF4bAvYSLRV7Pm8it4SDS77zm+eIR8sPq4T3eIUIHdpHhI99LdJ4EgAqpfB8xUU/Vny11xFCxcs004fWZSBgnprCvP7I9PUw7eaIMfNKzvk=
+	t=1791577442; cv=none; b=d3Jo+1t8/pwh8zdLe+sLOmPjSgjW0wwMO2kY4sgUXAoY+Cpx9K2zsXCNpTsOEN48RVTNsu5UCm1h8IOdP/D2+/dM5I1MPXRA2k2IqONvhaJZddxiu0ngrnLWNBhsaB37cYleKMd3Pu0wBHpeeQ3E5OY/lhHJeErw+xJ0KhPfFNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791577399; c=relaxed/simple;
-	bh=9N9zFjDUxZrk4uykJ3LeSVBg8jAHHAq3PWq8u7a4uBs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fI+st8vHp7zw/j7ybiml7t5tcp9b09Q9v0C+5TFw7cpm33vv0UmvvYCTC8wrMCbHqI4E89fshSOZV+8RhWFGKYI9KeFXJ4jhNsz6vTOvLh2K5G2ui0/+sVH3h2UEpBrEz3UJVYbe4eQ6chQ78FH6hjhvaRPELApb9Tl93Q+ycCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=GBb69ut/; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	s=arc-20240116; t=1791577442; c=relaxed/simple;
+	bh=iqfZ336YK8sH24FWfln/9shTDe0VBAM0ax4mJsQvODc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JElt/HT5kfALrSWKMNu8jC/XR140fd7DmLtopy0uVR4v8b5yNqtTgCykLSaUIw2PGDeTllGLv0s80M2Fi+58SLrKCn6gYVLNhLeQ3gH5sOTMds8NEJJlcIBbcDm6ITK2IrM9IyOZgGqJ+QAqoYIBckdB5gmtMENb3/XDN65yLfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eqg3X0hc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="GBb69ut/"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso17911a91.1
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 13:23:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1791577397; x=1792182197; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:mail-followup-to:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P5TCWATT4rCU7DEWZvcvh8GLxiFiVd9cWWdUAWSZxmQ=;
-        b=GBb69ut/NFNFdxi9PBR4vCMAqX/aZE4LMV0UYKD/fMEr8ILDkItB+SoA6KNungBoIG
-         rgLQmyn09w/Jd0a3xlNhY2mT9uF156bXEkO/b1Xrt9IYKjo8i3CiFLoHkbCeNrSsI2tS
-         fCHafnQD3dKxUv2NvIGlMrV+73DqI1PggKYb+vKpmukhc+NhRyWpMxWA4P+61VwSPcKQ
-         DnryurXfvJ+I+Fg07mqwMLGJ45KTu1kKJtYQeNqzjh/IpBLkJy7pMJg7J2b65a2eCues
-         IcpZK72nmePd/mi0st7qUQeaK0dxn4gPYpWCpgzX4xa6nu3DxxYDWCtWLMgiqMw32YsB
-         ioeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791577397; x=1792182197;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:mail-followup-to:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=P5TCWATT4rCU7DEWZvcvh8GLxiFiVd9cWWdUAWSZxmQ=;
-        b=H0+UyzvkdrNMpygYK/ZqLz/JjAI7sBkQlxaLp0Cdr5ttjElH5CXjDTSaVSIRQuh/gZ
-         VN5VA3UTrl2ICxOQNVD+BLCVl65wO5ILF0oQFb8Ekp9wibcW0X7FWWtCz7wG+7RmK7cQ
-         gBfHGzFmK4TjUZsbvXmWPB/Y961EUF1bqCNn2VrFxPO/KsdCN0sEd3mD39WWz/eMmI+F
-         u+9Sfy+9SUlIo8gw9nmd4qKwr1U0xjdVZdCz+01fuseRzQ3CcZtOKHlsYJSeVQbH1ob9
-         5ZLAGF3KHPgS7ZHrVnOMn57UFoP1Pk5l0tCvBwe1VMQSPsuEXD1qRGyvsprV0DbNpV4Z
-         vYIg==
-X-Forwarded-Encrypted: i=1; AKwUvBxftWxjfdtjCEn2jYzO0y1JRWs0UgV2BOqmwTkP58aga8L/HVHSgAj8SzUJQPYAcw0VJFkwVc0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKPu1J20izSiMP9suWz2lm7F7oowgpe95lTjRMmE/UWbe5Vx3oU
-	PuHZL6YDmXtOCSpJSsw79a4MUYIMwC3/jrAL3ksXlbZsxjZLDe0O0PfYhu7xIEAQcW0=
-X-Gm-Gg: AYBFou3jOVmV5hI9I9V/1f3xieCvmCaXzasAYBXl2aUXmfSglFhLNpCQNHQApPeaecr
-	3TtQzWd1EZp/BqNqu/77X/WOtWFINXh495mny8Ux0+meJjnkUSaqFlkTRFqNLQ389EBg0HXqSAH
-	OalSgUzEJH5PUfGvNzF8RLs7eDxyfz7LuUI2b6S1mHxbN23MYNyoG9zarZHRPqsYgSUkdn3xSJE
-	5qH49Hwesbb16zrUjCXpjaLW+1T7bs489lz1kPeuQnyCPokzlCYlxZdWgVfauR4IfK5HL80ne38
-	GjEvRvhA/2h/HgR5zpYahHGpweIM3qg/2xVBY+4H6sNh5Wxrk8k5O9WqehuSrtmxMZiB+VvJwK9
-	5RtPn5tE/K2H9amWP6SwcktiaZD2OYOPq8CWX9uhSIexR0wqzQwroqfySPOFMbrU1P/qi3C9/gK
-	9DRPRIQTzAFTVdrVwI4XEnDOrIKDcvvqZgJQTNcuAyYF5jxXuG+9zF6cQ8nCXsEz0QOtfnzCfkZ
-	stC51CSZONRDgVcarY1mw==
-X-Received: by 2002:a17:90b:4b:b0:3ab:2c2b:1030 with SMTP id 98e67ed59e1d1-3ab3a747cfcmr2434340a91.22.1791577396727;
-        Fri, 09 Oct 2026 13:23:16 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:4::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36f46dfesm5009374a91.8.2026.10.09.13.23.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 13:23:16 -0700 (PDT)
-Date: Fri, 9 Oct 2026 13:23:15 -0700
-From: Joe Damato <joe@dama.to>
-To: Michael Chan <michael.chan@broadcom.com>
-Cc: netdev@vger.kernel.org, Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net 2/2] bnxt_en: Pad short SW USO segments to
- BNXT_MIN_PKT_SIZE
-Message-ID: <aslNM7TjcZ/17/MS@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>,
-	Michael Chan <michael.chan@broadcom.com>, netdev@vger.kernel.org,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-References: <20261008191114.3736826-1-joe@dama.to>
- <20261008191114.3736826-3-joe@dama.to>
- <CACKFLikWkH6QaOG=EO_zu8cqCFRxGqtA2-+R-btp0TwUbJjVBg@mail.gmail.com>
- <asklVFvUJx8P/k1d@devvm20253.cco0.facebook.com>
- <CACKFLiksRwZm+Zy74G_u59yEpY5BK+xRv=r6f9Wpo6WgT_TwDQ@mail.gmail.com>
- <aslESokQPvYCWarH@devvm20253.cco0.facebook.com>
- <CACKFLi=0uuY36A+pnHVDqRYACfC5WVXx357cgD5BDMiTfW9sRA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eqg3X0hc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D7791F000FF;
+	Fri,  9 Oct 2026 20:23:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791577441;
+	bh=wCWQOptUF8jyyHqMADNE6+YL1lMNmRc+Jp6ycI/TeyM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Eqg3X0hcDl6uYeqx8paTuM4ul5j58X9NkSbvaiUbh3DZbjI0Nli2t1c3p5CYydvYp
+	 GDWlI5RahfJcXnkDAle0s7tUtplBeedzgpEenX+zpQKqsmpDoXBEnL1Q6gCyTcXlXk
+	 qmpadTTJJzn274+83PezcoAmemAEG7p/CrhOAX1wdmTkYh1vE28FxAsYTao5iGjey8
+	 PORlHEJYdkAvMbd0JnRh9Ihn1PiKLYt13216sIw08UVYTI1s82l1YEK7Ty1Pa1UOM7
+	 m6LVY7j437q4llZ8qLyElsoxfS9LmDc/1BGrHJkDLO1twn0ICCLRSmrnHzwWcruEDt
+	 2lgN73spZM5aA==
+Message-ID: <8db35dc0-eb06-42e4-90f9-534522e810e1@kernel.org>
+Date: Fri, 9 Oct 2026 22:23:54 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACKFLi=0uuY36A+pnHVDqRYACfC5WVXx357cgD5BDMiTfW9sRA@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/huge_memory: avoid transient none PMDs during lazyfree
+ reclaim
+To: Zi Yan <ziy@nvidia.com>, Kyle Zeng <kylebot@openai.com>,
+ linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, stable@vger.kernel.org
+References: <20261009165214.40212-2-kylebot@openai.com>
+ <DM0II2QHWWS1.2RXEJXC8S0101@nvidia.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <DM0II2QHWWS1.2RXEJXC8S0101@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 09, 2026 at 01:07:59PM -0700, Michael Chan wrote:
-> On Fri, Oct 9, 2026 at 12:45 PM Joe Damato <joe@dama.to> wrote:
-> >
-> > On Fri, Oct 09, 2026 at 11:33:07AM -0700, Michael Chan wrote:
-> > > Did you mean generic XDP turning around incoming packets with XDP_TX
-> > > actions and transmitting them through the software stack?  This path
-> > > cannot generate USO packets, right?
-> >
-> > Hm, I'm probably missing something, but the case I'm describing is generic XDP
-> > bouncing received packets back out with XDP_TX.
-> >
-> > I could be wrong (and if so I am happy to drop this if statement from the
-> > code), but IIUC generic XDP runs from __netif_receive_skb_core() after
-> > software GRO, so the packet it sees can be a GRO'd UDP packet with
-> > SKB_GSO_UDP_L4 set (because maybe the socket had UDP_GRO set?).
-> >
-> > The generic XDP path seems to keep all of the gso fields. Later generic
-> > XDP TX calls netdev_start_xmit without validate_xmit_skb being called
-> > and so gso_size could potentially be some tiny value.
+On 10/9/26 20:17, Zi Yan wrote:
+> On Fri Oct 9, 2026 at 12:52 PM EDT, Kyle Zeng wrote:
+>> __discard_anon_folio_pmd_locked() clears and flushes a huge PMD before
+>> checking whether the folio can be discarded. If the folio was redirtied
+>> or has unexpected references, it restores the original PMD. Reclaim holds
+>> the PMD lock and the anon_vma read lock, but not the owning mmap_lock.
+>>
+>> Both zap_pmd_range() and mremap's get_old_pmd() can skip a none PMD
+>> without taking its lock. A concurrent munmap() or whole-VMA
+>> MREMAP_DONTUNMAP can therefore miss the PMD and later unlink the source
+>> VMA from its anon_vma, leaving a restored mapping behind. The anon_vma
+>> write lock taken by unlink_anon_vmas() waits for reclaim to finish, but
+>> does not repeat the skipped page-table walk. Once the remaining VMA
+>> links are removed, the folio's positive mapcount no longer guarantees a
+>> live anon_vma. Racing lazyfree reclaim against MREMAP_DONTUNMAP as an
+>> unprivileged user reproduces a KASAN use-after-free in
+>> folio_lock_anon_vma_read().
+>>
+>> Use pmdp_invalidate() to keep a recognizable, non-none huge PMD while
+>> the discard can still fail. Concurrent unmap and move operations then
+>> have to synchronize on the PMD lock instead of skipping the mapping.
+>> Clear the invalidated PMD only after the dirty and reference checks have
+>> succeeded, before removing the rmap and withdrawing the deposited page
+>> table. The full invalidation retains the TLB flush required for the
+>> dirty and GUP-fast checks.
+>>
+>> Fixes: 735ecdfaf4e8 ("mm/vmscan: avoid split lazyfree THP during shrink_folio_list()")
+>> Cc: stable@vger.kernel.org
+>> Assisted-by: Codex:gpt-6-astra
+>> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+>> ---
+>>  mm/huge_memory.c | 11 +++++++++--
+>>  1 file changed, 9 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+>> index 1e5d68acf62a..20262195385a 100644
+>> --- a/mm/huge_memory.c
+>> +++ b/mm/huge_memory.c
+>> @@ -3569,11 +3569,17 @@ static bool __discard_anon_folio_pmd_locked(struct vm_area_struct *vma,
+>>  		return false;
+>>  	}
+>>  
+>> -	orig_pmd = pmdp_huge_clear_flush(vma, addr, pmdp);
+>> +	/*
+>> +	 * The discard may fail, so keep the PMD non-none until we're
+>> +	 * committed to discarding it. Otherwise, concurrent munmap() or
+>> +	 * mremap() can skip the PMD without taking the PTL and later unlink
+>> +	 * the VMA from its anon_vma despite a restored mapping.
+>> +	 */
+>> +	orig_pmd = pmdp_invalidate(vma, addr, pmdp);
 > 
-> I don't know.  You may be right, but this is a highly unusual code
-> path.  Other features checked in bnxt_features_check() do not get
-> rechecked again.
+> There are some gaps we need to close before getting this fix in:
 > 
-> If you decide to keep the check, please add a comment.  Thanks.
+> 1. GUP-fast cannot follow the invalidated PMD: riscv and LoongArch need
+> pmd_access_permitted() that requires _PAGE_PRESENT; s390's
+> pmdp_invalidate() needs a change.
 
-OK, I'll submit a v2 with the following comment. Let me know if this OK
-with you before I respin:
+Ugh. We really need pmdp_invalidate() to have reasonable semantics. This whole
+PMD locking is a mess :(
 
-  /* bnxt_features_check() makes the stack segment these, but paths
-   * that skip validate_xmit_skb() (e.g. generic XDP_TX of a GRO'd
-   * skb) can still get here. Padding every segment would need more
-   * BDs than bds_needed reserves below, so drop instead.
-   */
-  if (unlikely(bnxt_sw_gso_pad_len(hdr_len, mss)))
-          goto drop;
+> 
+> 2. sparc64's thp_pte_count can be imbalanced with this change (based on
+> Lance's offlist feedback).
 
-Also, since I haven't seen this issue in production myself and according
-to my math it is not possible to hit this with QUIC on ipv4, Jakub asked
-me to submit this to net-next instead of net.
+Ack.
+
+> 
+> In addition, powerpc has a page table check issue similr to riscv, where riscv
+> fixed it with commit 9f4a88b8d01a6. This is not related to this issue
+> but discovered along with the investigation.
+
+Zi, do you have the capacity to take over this patch?
+
+-- 
+Cheers,
+
+David
