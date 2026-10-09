@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB29414439;
-	Fri,  9 Oct 2026 05:59:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B8541A91C;
+	Fri,  9 Oct 2026 05:59:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791525561; cv=none; b=OYS9O2F1r/9Xv7YqXWCiMV3CXMZ0oA54Sg6uvHpIez/h2hTWegYAt2Vj956pkMr/VG35LjMqZZhRsRk10hZYAmC7DDxr1XsYvNGNwqKM+vB8ltZCw0hs1c89uZhPwK475pPZruQWB3QsO6DK8dBaO/t5AciFXkv1r3Rp/SV6bec=
+	t=1791525562; cv=none; b=JjwKpXGbx6itL4VGbuHDbsbjEUzZYGpQqd15nQlqpm6CCsUTxlaTUEJoIW+r3mxvEBPl4hn9xRrkgKKBz8Sf970URPNfaPCsynureKnZWrooUWW74QIrk+j2RiEuBZXj3h4zfMCGduCCButfaDt0otOsAvHSQR+R/fODg+TGHX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791525561; c=relaxed/simple;
-	bh=rpXaqWQGssRTINNYYRJDjV1PEUDKfPtB7oaKXU058ko=;
-	h=Date:To:From:Subject:Message-Id; b=r95Jdkle6zSPDy7+0/zVjM1kaTElItzS1xZRQhzGfJgkK/AzmM+dstr9SjHfJvWI/kjus1SddHB/i1+Jb0B3Jcd+Z4Pftwibevgl6/dPZQ/OyxtmvNuNmT+iAjFdBTzilpI7i/RtD5MIfool1UzXI2aaJkG/khHexlWWVr/A4u8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=tVVo0Bar; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791525562; c=relaxed/simple;
+	bh=2Q1Trajgp8yS7NnqrcE0k/mBCW5XnDP22sMxhCOW9QY=;
+	h=Date:To:From:Subject:Message-Id; b=aB3e52zqEOyX5fgH6XMwlnkbgUlvsJ5Cvk76vn5FfBpa1/dwC0iG6OlI8nd4OmyMRKF//TBtI1BK0ufZpvgiXSD08dAiZpRMewxFPo1p9ESiR0rE89Ko+Xk5VNval5zDr/urek9OACnTDik9bt/S7W8RWAbyGrGo1n3O+ldtAoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=0LjM6PDd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="tVVo0Bar"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3AE91F00899;
-	Fri,  9 Oct 2026 05:59:19 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="0LjM6PDd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59A2B1F0089A;
+	Fri,  9 Oct 2026 05:59:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791525559;
-	bh=Hh235JSW0B+YPe6Uavh+eA+2/HmrJfK3J1Xu1HJh/mI=;
+	d=linux-foundation.org; s=korg; t=1791525561;
+	bh=P+M3EwXC6EZpsWn62MmV5bM6JCrmUlzcdE7XGROA3iE=;
 	h=Date:To:From:Subject;
-	b=tVVo0BarwtQoxkVVNpHX7GcsskXm0tGLmivbomA7MgVtpwLp8rZRe/RYBukEyH3aZ
-	 SNI/mtrny78N5GjCTxCcwx9llvJ1jSKJi9MSydPgmqq1Ygg7HcbOC8NGMkRd+c8cZ3
-	 Aw/StlEe9AQDoSwfRUdx6CMZ5zk+rwg5qGuHsrBo=
-Date: Thu, 08 Oct 2026 22:59:19 -0700
+	b=0LjM6PDdN1wzAZt2NhxFR8wpCSuV9I6bVwfOkxu+Dm1SMH9OdHKnxOXAqzgbhNl0y
+	 L4u5oZnbwL9EEZlgAtakGaym17UwoTeCidYhJJLU6pgA6z3iQ3J7Lh5ra5PTNWaBSN
+	 6NNr52fAi6XYmagOkdquuEvoCwTjss6Uux1R1GOU=
+Date: Thu, 08 Oct 2026 22:59:20 -0700
 To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,vbabka@kernel.org,stable@vger.kernel.org,sashiko-bot@kernel.org,rakie.kim@sk.com,peterx@redhat.com,ljs@kernel.org,liam@infradead.org,joshua.hahnjy@gmail.com,jgg@ziepe.ca,jannh@google.com,david@kernel.org,gourry@gourry.net,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-mempolicy-use-vm_normal_folio_pmd-in-queue_folios_pmd.patch removed from -mm tree
-Message-Id: <20261009055919.C3AE91F00899@smtp.kernel.org>
+Subject: [merged mm-stable] mm-madvise-use-vm_normal_folio_pmd-in-cold-pageout-pmd-range.patch removed from -mm tree
+Message-Id: <20261009055921.59A2B1F0089A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,139 +35,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: mm/mempolicy: use vm_normal_folio_pmd() in queue_folios_pmd()
+     Subject: mm/madvise: use vm_normal_folio_pmd() in cold/pageout PMD range
 has been removed from the -mm tree.  Its filename was
-     mm-mempolicy-use-vm_normal_folio_pmd-in-queue_folios_pmd.patch
+     mm-madvise-use-vm_normal_folio_pmd-in-cold-pageout-pmd-range.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
 From: Gregory Price <gourry@gourry.net>
-Subject: mm/mempolicy: use vm_normal_folio_pmd() in queue_folios_pmd()
-Date: Sat, 26 Sep 2026 06:51:09 -0400
+Subject: mm/madvise: use vm_normal_folio_pmd() in cold/pageout PMD range
+Date: Sat, 26 Sep 2026 06:51:10 -0400
 
-Patch series "mm: stop calling pmd_folio() on special PMDs", v3.
+mmap a VM_MIXEDMAP region whose ->huge_fault installs a PMD through
+vmf_insert_pfn_pmd() - mshv_vtl_low does this, and needs CAP_SYS_ADMIN
+to open - then:
 
-Two page table walkers resolve the folio behind a PMD with pmd_folio(),
-which is only valid for a PMD mapping a refcounted struct page:
-
-  madvise_cold_or_pageout_pte_range() mm/madvise.c
-  queue_folios_pmd() mm/mempolicy.c
-
-vmf_insert_pfn_pmd() installs special PMDs holding a raw pfn that need not
-have a memmap entry at all.  Both walkers can reach one and fault on the
-first folio field read.  The PTE halves of both already use
-vm_normal_folio(); these two patches make the PMD halves match.
-
-The four callers of vmf_insert_pfn_pmd(), and which walker each reaches:
-
-  drivers/vfio/pci/vfio_pci_core.c        VM_PFNMAP     mempolicy
-  drivers/gpu/drm/drm_gem_shmem_helper.c  VM_PFNMAP     mempolicy
-  drivers/gpu/drm/panthor/panthor_gem.c   VM_PFNMAP     mempolicy
-  drivers/hv/mshv_vtl_main.c              VM_MIXEDMAP   both
-
-can_madv_lru_vma() rejects VM_PFNMAP, so only mshv_vtl_low reaches the
-madvise walker, and that needs CAP_SYS_ADMIN.  queue_pages_walk_ops
-supplies its own ->test_walk, so walk_page_test()'s generic VM_PFNMAP skip
-never runs and vfio-pci is reachable by any process holding the device fd.
-Hence the different stable tags.
-
-One behaviour change: mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP
-region now returns 0 rather than -EIO.  The PTE loop already returned 0
-there.  drm_gem_shmem and panthor are where this is observable, since they
-PMD map pages that do have a memmap entry and so never faulted.
-
-Reproducer
-==========
-
-No hardware needed.  An out of tree module stands in for the drivers
-above: three misc devices, each with a ->huge_fault calling
-vmf_insert_pfn_pmd(), plus VM_HUGEPAGE so the fault path takes the PMD
-branch.
-
-  /dev/pmdspec_mixed    VM_MIXEDMAP, pfn at the 1 TiB mark, no memmap
-  /dev/pmdspec_pfnmap   VM_PFNMAP,   pfn at the 1 TiB mark, no memmap
-  /dev/pmdspec_real     VM_PFNMAP,   real alloc_pages(PMD_ORDER) on node 0
-
-Userspace maps the device into a PMD aligned window, reads one byte to
-fault the PMD in, checks a module parameter to confirm it went in, then
-issues the operation.
-
-  vng --run <bzImage> --user root --memory 4G --verbose \
-      --append "numa=fake=2" \
-      --exec "insmod pmdspec.ko && ./pmdspec_test <subtest>"
-
-numa=fake=2 gives a node 1 to bind to; the module allocates its real page
-on node 0, which is what makes queue_folio_required() true.
-
-  subtest        operation                              parent   series
-  --------------------------------------------------------------------
-  madv_cold      madvise(MADV_COLD)                     oops     ret=0
-  madv_pageout   madvise(MADV_PAGEOUT)                  oops     ret=0
-  mbind_mixed    mbind(MPOL_BIND, n1, MPOL_MF_MOVE)     oops     ret=0
-  mbind_pfnmap   mbind(MPOL_BIND, n1, MPOL_MF_STRICT)   oops     ret=0
-  mbind_real     mbind(MPOL_BIND, n1, MPOL_MF_STRICT)   -EIO     ret=0
-
-Two things the table shows that are easy to miss in the code:
-
-  - mbind_mixed passes only MPOL_MF_MOVE.  MPOL_MF_STRICT is not needed for
-    a VM_MIXEDMAP vma: walk_page_test() only skips VM_PFNMAP, and
-    vma_migratable() is true for VM_MIXEDMAP.
-
-  - mbind_real demonstrates the user visible change (-EIO -> 0)
-
-
-This patch (of 2):
-
-mmap a VM_PFNMAP region whose ->huge_fault installs a PMD through
-vmf_insert_pfn_pmd() - a vfio-pci MMIO BAR does this - then
-
-	mbind(p, len, MPOL_BIND, &mask, maxnode, MPOL_MF_STRICT);
+  madvise(p, PMD_SIZE, MADV_PAGEOUT);
 
 With a stand-in module for the driver:
 
-  BUG: unable to handle page fault for address: fffff96dc0000008
-  RIP: 0010:queue_folios_pte_range+0xaf/0x440
+  BUG: unable to handle page fault for address: fffff587c0000008
+  RIP: 0010:madvise_cold_or_pageout_pte_range+0x410/0x9b0
    walk_pgd_range+0x52b/0xaf0
    __walk_page_range+0x6a/0x1d0
-   walk_page_range_mm_unsafe+0x193/0x230
-   queue_pages_range+0x64/0xa0
-   do_mbind+0x25e/0x640
+   walk_page_range_vma_unsafe+0x8e/0x120
+   madvise_pageout+0xb2/0x180
+   madvise_vma_behavior+0x46b/0xa90
+   do_madvise+0x108/0x190
+   __x64_sys_madvise+0x26/0x30
 
-queue_folios_pmd(), inlined above, calls pmd_folio() on that PMD.  The pfn
-is raw MMIO with no memmap entry, so the folio lands in unpopulated
-vmemmap.  Neither guard stops the walk:
+Nothing validates the pfn on the way in:
 
-  walk_page_test()         skips VM_PFNMAP, but queue_pages_walk_ops
-                           supplies ->test_walk, so it never runs
-  queue_pages_test_walk()  honours vma_migratable(), but only while
-                           MPOL_MF_STRICT is clear
+  can_madv_lru_vma()     rejects VM_PFNMAP, but not VM_MIXEDMAP
+  can_fault()            *pfn = vmf->pgoff & ~(mask >> PAGE_SHIFT);
+  vmf_insert_pfn_pmd()   no pfn_valid() check
+  pmd_folio()            pfn_to_page() -> unpopulated vmemmap
 
-A VM_MIXEDMAP vma needs neither flag, being vma_migratable(), so plain
-mbind(MPOL_MF_MOVE) reaches this too - and there the bad folio carries on
-into migrate_folio_add() and folio_isolate_lru().  mshv_vtl_low is such a
-mapping.
+Even with a valid pfn the path is wrong.  The mapping carries no rmap, so
+folio_maybe_mapped_shared() sees mapcount 0, and the walker goes on to
+folio_deactivate(), or folio_isolate_lru() plus reclaim_pages(), against a
+folio this mapping does not own.
 
-Use vm_normal_folio_pmd() and skip on NULL, as the PTE loop in
-queue_folios_pte_range() already does with vm_normal_folio().  This also
-filters the huge zero PMD, so its separate check is no longer needed.
+Use vm_normal_folio_pmd() and skip on NULL, as the PTE half of this same
+walker already does with vm_normal_folio().  This also filters the huge
+zero PMD, so its separate check is no longer needed.
 
-mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP region now returns 0
-rather than -EIO.  The PTE loop already returned 0 there.
-
-Link: https://lore.kernel.org/20260926105110.2156652-1-gourry@gourry.net
-Link: https://lore.kernel.org/20260926105110.2156652-2-gourry@gourry.net
+Link: https://lore.kernel.org/20260926105110.2156652-3-gourry@gourry.net
 Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Reported-by: sashiko-bot <sashiko-bot@kernel.org>
 Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Reviewed-by: Zi Yan <ziy@nvidia.com>
 Assisted-by: LLM
 Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
 Cc: Vlastimil Babka <vbabka@kernel.org>
 Cc: Jann Horn <jannh@google.com>
 Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
@@ -175,49 +99,34 @@ Cc: Rakie Kim <rakie.kim@sk.com>
 Cc: Ying Huang <ying.huang@linux.alibaba.com>
 Cc: Peter Xu <peterx@redhat.com>
 Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: <stable@vger.kernel.org>
+Cc: <stable@vger.kernel.org> # v6.19+
 ---
 
- mm/mempolicy.c |   13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
+ mm/madvise.c |    7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
---- a/mm/mempolicy.c~mm-mempolicy-use-vm_normal_folio_pmd-in-queue_folios_pmd
-+++ a/mm/mempolicy.c
-@@ -667,7 +667,8 @@ static inline bool queue_folio_required(
- 	return node_isset(nid, *qp->nmask) == !(flags & MPOL_MF_INVERT);
- }
+--- a/mm/madvise.c~mm-madvise-use-vm_normal_folio_pmd-in-cold-pageout-pmd-range
++++ a/mm/madvise.c
+@@ -394,16 +394,15 @@ static int madvise_cold_or_pageout_pte_r
+ 			return 0;
  
--static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
-+static void queue_folios_pmd(pmd_t *pmd, unsigned long addr,
-+		struct mm_walk *walk)
- {
- 	struct folio *folio;
- 	struct queue_pages *qp = walk->private;
-@@ -678,13 +679,9 @@ static void queue_folios_pmd(pmd_t *pmd,
- 			qp->nr_failed++;
- 		return;
- 	}
--	folio = pmd_folio(pmdval);
--	if (folio_is_zone_device(folio))
-+	folio = vm_normal_folio_pmd(walk->vma, addr, pmdval);
-+	if (!folio || folio_is_zone_device(folio))
- 		return;
--	if (is_huge_zero_folio(folio)) {
--		walk->action = ACTION_CONTINUE;
--		return;
--	}
- 	if (!queue_folio_required(folio, qp))
- 		return;
- 	if (!(qp->flags & (MPOL_MF_MOVE | MPOL_MF_MOVE_ALL)) ||
-@@ -717,7 +714,7 @@ static int queue_folios_pte_range(pmd_t
+ 		orig_pmd = *pmd;
+-		if (is_huge_zero_pmd(orig_pmd))
+-			goto huge_unlock;
+-
+ 		if (unlikely(!pmd_present(orig_pmd))) {
+ 			VM_WARN_ON_ONCE(!pmd_is_migration_entry(orig_pmd) &&
+ 					!pmd_is_device_private_entry(orig_pmd));
+ 			goto huge_unlock;
+ 		}
  
- 	ptl = pmd_trans_huge_lock(pmd, vma);
- 	if (ptl) {
--		queue_folios_pmd(pmd, walk);
-+		queue_folios_pmd(pmd, addr, walk);
- 		spin_unlock(ptl);
- 		goto out;
- 	}
+-		folio = pmd_folio(orig_pmd);
++		folio = vm_normal_folio_pmd(vma, addr, orig_pmd);
++		if (!folio)
++			goto huge_unlock;
+ 
+ 		if (folio_is_zone_device(folio))
+ 			goto huge_unlock;
 _
 
 Patches currently in -mm which might be from gourry@gourry.net are
