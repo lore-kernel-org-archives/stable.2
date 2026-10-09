@@ -1,94 +1,100 @@
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 155114D598B
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 14:40:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4289D473C8D;
+	Fri,  9 Oct 2026 14:40:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791556855; cv=none; b=qZabDmj1kd4nieYoPxd3T3eCE6vv40hsdhM3SGE2349g23p7ckfowXOjzpzXJhAp/Zt7o7M5wIRnKjcnxfj505NCb6rAXnKrJwsfdzBogSU5fyKQZ9lgNniu+TT/JizEYdyqcTVMUK6TRE9PRnw0oKS/YUjCfPyj9tJBMmaEpHw=
+	t=1791556856; cv=none; b=MKh8I7YCTRIJ+8+4sxPAw2u0nX30QU2FNvr2awy1XisPHsr0S1CfcxuIWI2G+Rk3TKMGEyxEOS1Wt+w9SgWp2XgQlDIArsqk5R7m+k3ucjpT49TeN5PKzyw5x8iOoEZ28EVD2d6gEw+e0HrLaKS/0svdPKT+jp69Ne9rMfA6WZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791556855; c=relaxed/simple;
-	bh=iQapXPqyzCyW0yh+hLQEmt32QweFEdb0Dwc5kwmIrgA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oeoJ1uFuGmFlNORDltob8X4GHd13iiZ6sgw/V7rrX9usjryEpTfmmk/TYE3rMbM7Q9AXbjEbUo6Zmi+2Fi3h4K3edgN7KlBSpCnOUTBmNPFIkPoNZ7+ZNY0op6IDOL2rqq0PI/JHuuk9c3oeyiIRC0lLYEWLKwZDylRZgoKeSCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=Hk6VkITb; arc=none smtp.client-ip=74.125.82.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1791556856; c=relaxed/simple;
+	bh=MVsrWP6buyP+L5NdkBkHibZsa4o8NNb5pxIJrBKsG+o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=g6iCR+4O8C2ChQR2lHmWih0lsnhqflyapH5rw/YoOUN2jGW/57zIangKKA3IDXXbhM8+LZutasehGaKEX1Nj9jmMnB+PJl11GpbdgbdGT+N0mtngc8YnWefUjnBIg2tOwvcq8F1JZtByGMHZffTDWy//2/0TVCbNUfAONt+yvnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ar2i3BsV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="Hk6VkITb"
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-35115b52125so5699138eec.1
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 07:40:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1791556853; x=1792161653; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E8pCZ9jzEXeu3V91z7yTFHUowpIkdOUOpn2JEuBADS4=;
-        b=Hk6VkITbP++OIKKGM96V5JWIPH2alq8yYq+kvdhRa627RHSFbdlVAfDETgZLVhsk1V
-         /+1mFiSiWczDfcdg1Hoo8Qr9vTt7XcBBqD8tgw62N5mwYIx+gSHcpIOGd9OvLn2oMidV
-         gTaAWkjK6RE7eNvieLP+xzwd19d+lQV2gDcQvXIGI8MpVS7LRu/CxoZJhq5AeyajaLM1
-         LRjXR7AvPuApZ4kuq6iMvC6dwPgZexvkZNOP1Tuz61hYYXt7t8mSmkyJM0MQrLjn2SfO
-         8svGStNVGSR0/BPgIPpFya4P17AHN9+jcoTXEa2IMWvFg8KOIO9SnC/u2cLi8t940JNx
-         pVVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791556853; x=1792161653;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=E8pCZ9jzEXeu3V91z7yTFHUowpIkdOUOpn2JEuBADS4=;
-        b=YxttbKwqDvmPKJa9UIDPkZ7q60vEgDM7uLBgychMoW9fMthedu/OPqN8Jodg+Ta8tH
-         Teke8mWPekGq7RTj6IQH25SWxSsMMiklMCgebyu92V9PJnwdxgBDXBkwLRAoC0KI3/la
-         whnuN2sBJU0nsj0F0ge2Djti09uIMejEeYpRfHttXxVRPnghHCZLNUfM3TFbnxoXVcHv
-         PFwGnFnc8XSFh5N4+VPGdJY2pProXn5pZoja4J3zgUZ7RN4LLCR3MrVJB5MM8fbP+D4w
-         zrb4fZoS52t0G3grdUBPrnrUhEd88yhVo1PGNQEqIpvpnoqfPDACCNo3luo+ttNc4JzY
-         wqMg==
-X-Forwarded-Encrypted: i=1; AKwUvBwexUapF+1naw/T+fA8rtg7su/rD41PIvaFxMxtIRExwWcHoqbbDI2us9TOm45t/A1nfwoc+cU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI4iGU4ROYP3roA7bAup8J16Z32W6Y6bXL203EmeL204ErhkwNj
-	3nqtdnj7CfwUhq0bkDtpahLq+GBTZSoq5KizufUT4nmZUkW5cpirGH9m4FsA5pmOXAE=
-X-Gm-Gg: AYBFou22gsGsSZtACT00HoDa2+KJ7Flnca13bo0wOWKGlqfZbp9ldWf2rQ7qXkN2fRi
-	PiHNhm1gjnWjXS0WFx8DLiAFXCmEqudYVjvjzlzcTYn36RBtvvz2Ycx7w2vnSVKcNbuFLq+MP9l
-	9x0s2aUth5x5gHeBfzmuuyRO+InOOyn3IXygQ261aq1oj3IUP7Q/n60cg7XkcP1bCoMJAj/k1An
-	uf/3J5+4yNsUURkyfhn7tVKlRlClFap5FHN/X1vqjBGebiYLD7XIqy0EQAMSw0t+BVxssqObn8v
-	RMkrjCgQxmUsNVXMByDuLdPIZOnArxJI19OlVEPruIOZ799ksp52/34zR82PIFVp1JoUiNiEtQX
-	b+gnu3nkRjNZZNNL2TI0vX3QEudu38PgkKWPImbfB78PrhO1MIqjbvVt8lGYuCacUx/Ca2mh2Db
-	vfQnxZVql7UYzRMBn83ydPnr8HbqVvrj3v0hssj7niTK6dRww6qVmfFQLPAO5m6QBOwAgJu4Vus
-	hV/MYHe7foqHpZliIVxZoVNRxdkDERCW8cyIx7Y1o2CWG2bwcVzTF3bbCIuxEvVfZuT4s+ifeaN
-X-Received: by 2002:a05:7301:fc18:b0:341:2466:2d68 with SMTP id 5a478bee46e88-3537e0cf2a1mr2938047eec.38.1791556852849;
-        Fri, 09 Oct 2026 07:40:52 -0700 (PDT)
-Received: from [10.61.8.29] ([155.98.132.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca0e64csm7578272eec.10.2026.10.09.07.40.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Oct 2026 07:40:51 -0700 (PDT)
-Message-ID: <3b0edaa8-75e4-4282-8310-0dfb878484be@kernel.dk>
-Date: Fri, 9 Oct 2026 08:40:50 -0600
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ar2i3BsV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94FB11F000FF;
+	Fri,  9 Oct 2026 14:40:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791556855;
+	bh=1bkGJKXbgdSl4V10PN0qPGiRbhkTZTlzX75RjriCp4U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Ar2i3BsVKVNPHs3D8wSRyIXK61nJ4HP85Yo7hdFvR42rPAFDGK4Y6SsoWNK6Ha7Hd
+	 SH75rBERrkfOo/k1ZtR/u2+6ddWXiBZNF0UDdCRKZImjcHMxjNSn+Ajg1CokgeAbvW
+	 6k55/EzcxmNt+Gmvt28DibTttqEPa/5zwuz7WJ6I=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	"Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+	Johan Hovold <johan@kernel.org>,
+	stable@kernel.org
+Subject: [PATCH 7.2 253/428] serial: revert guards in uart_wait_modem_status()
+Date: Fri,  9 Oct 2026 16:09:50 +0200
+Message-ID: <20261009140951.662557080@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261009140946.008206689@linuxfoundation.org>
+References: <20261009140946.008206689@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] aoe: pull in the headers each received packet type reads
-To: Christoph Hellwig <hch@infradead.org>, Josef Bacik <josef@toxicpanda.com>
-Cc: Justin Sanders <justin@coraid.com>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261007-b4-aoe-short-packets-v1-1-db5155f7bb9c@toxicpanda.com>
- <asdpwPEpGFxfLDNz@infradead.org>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <asdpwPEpGFxfLDNz@infradead.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/8/26 4:00 AM, Christoph Hellwig wrote:
-> Can we plus just kill the aoe driver given how buggy both the driver
-> and the protocol is instead of playing whack-a-mole?
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-I'd love to, but not sure it's feasible. I'll have to go search emails
-for details, but I know there are people using this driver still,
-unfortunately.
+------------------
 
--- 
-Jens Axboe
+From: Johan Hovold <johan@kernel.org>
+
+commit f658e6bcd00a4eafaa9c98c0b7483cc2c5dac539 upstream.
+
+Mixing scope-based and regular cleanup is discouraged and
+uart_port_deref() used by uart_wait_modem_status() falls in the latter
+category.
+
+Revert the guard conversion in preparation for fixing a hangup race.
+
+Fixes: 56609c050051 ("serial: serial_core: use guard()s")
+Cc: stable@kernel.org	# 6.18
+Cc: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+Link: https://patch.msgid.link/20260910130816.642699-2-johan@kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/tty/serial/serial_core.c |   13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -1212,15 +1212,16 @@ static int uart_wait_modem_status(struct
+ 	uport = uart_port_ref(state);
+ 	if (!uport)
+ 		return -EIO;
+-	scoped_guard(uart_port_lock_irq, uport) {
+-		memcpy(&cprev, &uport->icount, sizeof(struct uart_icount));
+-		uart_enable_ms(uport);
+-	}
++	uart_port_lock_irq(uport);
++	memcpy(&cprev, &uport->icount, sizeof(struct uart_icount));
++	uart_enable_ms(uport);
++	uart_port_unlock_irq(uport);
+ 
+ 	add_wait_queue(&port->delta_msr_wait, &wait);
+ 	for (;;) {
+-		scoped_guard(uart_port_lock_irq, uport)
+-			memcpy(&cnow, &uport->icount, sizeof(struct uart_icount));
++		uart_port_lock_irq(uport);
++		memcpy(&cnow, &uport->icount, sizeof(struct uart_icount));
++		uart_port_unlock_irq(uport);
+ 
+ 		set_current_state(TASK_INTERRUPTIBLE);
+ 
+
+
