@@ -1,233 +1,386 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012043.outbound.protection.outlook.com [40.107.209.43])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C563AF677;
-	Fri,  9 Oct 2026 12:55:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791550557; cv=fail; b=S27RO2zmvKc116gN7nlRQWMGnzz1nZJC5tpE7xDVeVazucZup2OiE1ruLcgedycGb1cySci7AXJ5X8icELjwad3TbX/nyylSIo9Qbp5Jk7kTXGLneF/VRlsGXC5ppmRwsfAanQRyr0/pawXdEO7cxzyxoBKQX0mrZmBySLnN+HQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791550557; c=relaxed/simple;
-	bh=RULxs33bSWeNptQRZP8ZvomacjKuzbHus1+y68ob6S4=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=WKD7P0Ey1czH44gV4SLnNBPB1xZiW32Xs4UKNXNz6g2EDNrLVHvojRTvAlR2dIJtHYOmQh3NBspXXUczDrNVIMqol0WhZRBSuNvJ0w1kh9svI+7WUd3vkN/guGekDQuYQbrK1nEmI3f2KmXSDYemvlBZZVVykhMUYJ0xf73g7g4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=sYvuE4+i; arc=fail smtp.client-ip=40.107.209.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED5954DA9D8
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 13:02:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791550969; cv=none; b=K4N1098LW6bWcwHsvgCC9vuD67vGYATt8eJNTky4j7Hxm7OS3AuUl74fLR2TMxfNhTCPe/yYHbGlAxFk30UFu1Y9KC1MLOlw6PrrrU3sIz0SzzRSfjDv3TqSW6YTn4E0W0d9mRjIqz1GWJfW0y8HBhwFea+8YKtm5KSx6jRlMos=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791550969; c=relaxed/simple;
+	bh=rE2aDEe7lwmvyWXbqgCv5R9CVreuuqMN+uV4l4w7OYw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=js1RoS9O0gdRm8IbetHn7bcPhg+HupZ9bNGrb26iyT0t1pASt7yAZHZaXNaposiAWkFP/LSrBc3yHqiK/w5pvItThRqTvveaBEv3x/A84K1wE45BBORs23WWjel8jI3wmZdTi+nCDDO08ncyC2Ww/eBDvJwU0yObIuCAH36Gbc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=n14/udCD; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="sYvuE4+i"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PBTznZD5izy8uy0oAX4JVBb5/vOTY4Utus21q0exd7/uWst17BKPMCV2pB1mha0JLGdc0Glg/fnZn4yY22tIh6Mr7N3BxwEl0HP1xfuVCgUylu+bvEsWy1yt2qom4e8TKCbrpsEQIZskvxWQYAaWAnpafPFmq3zff3HwReMTYDZ5g+3n+ZdaCNHkHk4wYcId6aZ7ENZ4xJjI/WI/k2ZQOZkAICFcme3bxpaJdaP7JZUx6LaJjsbne6M4PcyroA0f2xTE7J0zCR7zzisSPWNOV7ii8/Eb7i1wtVVRm/IKI+6umoztG3tS7ppst1XT/NZ1eiDeK5iFNeNsIC6Hcy7JoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HX7ALfI8gxSmjEl4HlZ3eE+XRvQ+3wtKk7KNgg7ttWA=;
- b=ohHsE+t7D/7DC/+NY+kztaxBG7xc5DrF0xq277pkq8aZ3B6RVZ60mxYe1EA/L/qJ/KkVVRprNK/quJhRW2nhrADhKWYhbFmBGlSt7IIDNz2+gZfFZUM4rujQIa9XZAYPjHJtk3NKpXs3Ky1J55gxYthVUWmJzMX/i31N2Gyu0aUgKGrJUxttkh6Y7DdWIJEif7QUq5k3uhJQrYxxQn9gpEE05mUA2hG80zWzQbS4pmyo3I7QeHxcKhoyxRsi50ZO1ZerAw48ecXNWptYkssHnuyI7MLQkrvAn5Yz0B9rBUWj42fdVIsWtvJrcFCbt+VS6vLLZvHT7rdr/b/KHWbVBw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HX7ALfI8gxSmjEl4HlZ3eE+XRvQ+3wtKk7KNgg7ttWA=;
- b=sYvuE4+i9k9JFxAHRW9/6Z5NSviYKHIc3o73lJJQPlvL0oSAZpMDhPzMMH1KXJnKpcQffX1pKyQd5NzcF6mBcrsfTl+TdmLhclpd2+wx7yLwNsvMOq3BfFc07u0jYt0at8wxMVIcXNXjXYPepo0BEOh2993dC8jj6a56dkCtlb8=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ2PR12MB7894.namprd12.prod.outlook.com (2603:10b6:a03:4c6::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Fri, 9 Oct
- 2026 12:55:48 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0496.010; Fri, 9 Oct 2026
- 12:55:48 +0000
-Message-ID: <843499c2-20d0-4c1d-9d8c-eb82c2bb186a@amd.com>
-Date: Fri, 9 Oct 2026 14:55:42 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] dma-buf: Annul dmabuf->file on file release
-To: Matt Evans <matt@ozlabs.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Zack Rusin <zack.rusin@broadcom.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- Alex Mastro <amastro@fb.com>, Alex Williamson <alex@shazbot.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, stable@vger.kernel.org
-References: <20261009123601.94079-1-matt@ozlabs.org>
- <20261009123601.94079-3-matt@ozlabs.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261009123601.94079-3-matt@ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN2PR01CA0041.prod.exchangelabs.com (2603:10b6:208:23f::10)
- To PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="n14/udCD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791550967; x=1823086967;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=rE2aDEe7lwmvyWXbqgCv5R9CVreuuqMN+uV4l4w7OYw=;
+  b=n14/udCDEAz6c3cdnro8S7CmYKDjTpqyK/eGwJIpzQHMHnnU3a7GukvN
+   NDDFVf9jlyfJwo3SXdVRYJdOAGk0o9rpYW+1o//eSvX1efn4Op4r/OuOQ
+   nzXboGIOcLBzD90IDpRIYghd32yNt6yGqjkYxhk4gHgvcf/DioEzuiyuf
+   yhC4yB1/Bwip0qTaR6yYnK4Yh0H8v2kqs9+QI7nhnqHN2clfTFmxJPIre
+   jsn1y6bp2Z2dL0crzidiKypAwVdH2cD22/mXHhOS7KTtcNLDSq61fQAMe
+   de9PxRuGcpHKy6HkF+GlcU7y6oOCqX04rRqxBzSbOW9XbxBkmKgrpoFq+
+   Q==;
+X-CSE-ConnectionGUID: 9VVTUT7nT6uWhucOx/lnpQ==
+X-CSE-MsgGUID: Uw7s/9ZgRP66xlnxS9OXyQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="340643"
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="340643"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 06:02:47 -0700
+X-CSE-ConnectionGUID: 8BInAtnfR2SGUfdh2MqV2g==
+X-CSE-MsgGUID: w8ya0gO/ST6K66gDqe1eQg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="767377"
+Received: from slindbla-desk.ger.corp.intel.com (HELO [10.245.244.25]) ([10.245.244.25])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 06:02:45 -0700
+Message-ID: <d493d4d1-96d5-4194-bbae-5c1e5d54d91a@intel.com>
+Date: Fri, 9 Oct 2026 14:02:42 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB7894:EE_
-X-MS-Office365-Filtering-Correlation-Id: 67291a9c-d028-4cf9-104b-08df2604a3b8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|6133799003|22082099003|18002099003|10067099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	jGMlvWxhv1yYzeI5UpEaj1tAye9dW+3c6nErSnGrcN4Jlow0y6N1WkMvrBaawyy0UzvmDfhL+Hg61k/0JbtRDZB00NPUkipYcLDSeaJWURFWs+6kQyGqEDVb7lkN/CycP1c19AKuysK0XG8aRQC0cZPa0ck+Uhte3wnubkeFrxZ6Il7XjB6Xid8FHLLSbTcuykNKE9BEtmP+DPMhVKikd7/nmvlp8f7KsNRgwshD1cgsLhak9ObS+OTZDYUO0a1ksIlge5cePrmJb+F2KIG5v5RIf8KCYYtKdhlf30xnyXHKxAac1V24SlcDf+u2V6P/ag6dCvdgIUHM/i/wpFAc5foTgqocbh2k9tk8KZgCte2Gbru8uobJ2agkucIzh5nu3w3TmiooQcx5s+MbYM4zJ6rCQM3rs4YHx4n6gaMGyqGwP5NX07PJxF6FMXMYas6ut9kwxjkMBGO+hcI4p0E4hUHWrxq0WYKHhfNaS283TtCsLRNWsn42ZIbvgnXN8WbolhEe+0F6HCwOGFPh7r+vQcOLPxlppjrXhRIZfvhxnai36ZpkngLgL69qr7XTfCYJRDxdlUkGB1gSWxq8vOo2TNgNQnc5lryDexhoWg8M/gJFtmPum0TyOjyOhDPu+3zIuvQtbnoEuWmfp9JmvXCpYQizBD1CJcNr7U801lwKabI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(6133799003)(22082099003)(18002099003)(10067099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?enI5K2NOTU9JRkZUb0dob04zOW5QZDZ1OFI1YUVvV3pmTkd5eU5LNjhNMXQz?=
- =?utf-8?B?TElvdFVCaStTZFFWQkpURWZmR2xWVllDTW9xRFlEaHlHVVh2OE5CYnJGVHFD?=
- =?utf-8?B?d0tLMFVPaTRLTExCZ1kxclhmUzVwak9SbC83N2ZLV0pmMUZCSzR4a0JQbTNu?=
- =?utf-8?B?MEpVOCs2QlVyWk5tYzhhYjhLbXRYZkRIcFkyWkxIejNidUNwL1doaHY3bVVI?=
- =?utf-8?B?Q2J1eWNhQlRhNEt5dW11bkZsM2tuU09YM2dOVnRqQmVQMXZPcm9HRVYvVTl5?=
- =?utf-8?B?Z3NUSkRiVE5MN1NNNVdidFFmKzNkOFgyNmtYOVdVTnd3djYxQlNkVGxzaFJD?=
- =?utf-8?B?VGJoT3czbXBJN3hQdTBaNWZva0x5THFxMXh2TWJtUU94OC9qTWlUaHZ4dFV2?=
- =?utf-8?B?Z010T0wxVHZTUDdQRFBDUlhMbEVkOVBGRVpPKzExQ04za0ZhcnFGMUtUN3pi?=
- =?utf-8?B?OHFUTWkvOXF4clExWnZnOHRDb2pWbmN2bTk2WHlLM3ZGbzlpeHJVZkZiRVZn?=
- =?utf-8?B?NVZFcGVieEF4LzR6S09XbnJteExSUVhjekpzMWpTMVNrVit6b2FJYmN0NTZq?=
- =?utf-8?B?d3k3TDdWRDZxWEtRRk9BUTZUQU5CbXR1L0p5bkZ1UkFmeDliZDdCTks5M0Y1?=
- =?utf-8?B?UFdaSTdBSXUzZXZ2TDIrVENzWTArQ1EvTUVMaDJBY1hMMm52VUVmTzIvZkJ3?=
- =?utf-8?B?RUZ4aXpIajFBMkxZSTZHdmx0T25DU1p5bkZWN0dnV2pPUkdXV0tpNTIwV3Nj?=
- =?utf-8?B?WmVodno5YVBvNEhJS0lWZnlkbnN1M0VJMk1tRXM1ZnNuMzdiMmhFd2JZYVZm?=
- =?utf-8?B?SDlmeVJORU9hUEhZd3B3WHpJdUQ2NTJEbElZSEJmSDhDWDFxci9ZQjRyQm4z?=
- =?utf-8?B?OXpaVlVIMkFIV1lJUUhSV1d4RG1NL1lmY0tRSldaQVRibUllZTRnV2V4YTc4?=
- =?utf-8?B?dXFHV0JDbkMwQXhSZjg5OUh2VE5lSCtFOVYwbElQSVNFTDR6cTFZRzUzRVdC?=
- =?utf-8?B?U0dXbFlXSzhtTGtsQWVjZW9SRlpENjh5Qm9SQnJBV2JwQlg4V3NKVjF1eEJH?=
- =?utf-8?B?c3krM3V6Q0ZzK2hlN2NpMGttSjZheU9QL3lMTWFMRzJxVkVzK0RjV3lYVUc4?=
- =?utf-8?B?ZkVNSFpvbEptNHRXdjVvZzZNSWw1NStqQWRaUkNSeXU0YUxBdGI2SlF4b2Mw?=
- =?utf-8?B?K0huekhEcWNOc29EMG4vcEZGT0lMVDg5bUVnOEc3Myt0UkRMZHFZeU5xRnRi?=
- =?utf-8?B?ZXhMdFdSVXAxakdJbVZCbmMrWVF3R05YVFBzYTlRdXhKRUhzN3czUDVZOFBW?=
- =?utf-8?B?N2E0cTc3bnhxY25mb21hdXpVc3diZGVFOXRZMTJ5TWppVW5tYitUSk41Y1pz?=
- =?utf-8?B?Q3Y1dWZ4QTdGaWZKb0kwY3BXOERnS3cwQzMyY3JBZGZkL1kycUI3a05kM1JR?=
- =?utf-8?B?N1lhenhlUFBtRXBjQVJPRXJ0djliUStEUi9rYUllSDZuWkV0azVjanpoOTlL?=
- =?utf-8?B?L0VjU2dVVWpKazJ5V3ViMjhCbDF6QnlFbG80RGdJUUxnNVluTWtGY3hXSm1O?=
- =?utf-8?B?RFZPRW5FdTZuUElqakMyYTQ3cmFsR0c5Z2U1RU8zZ1ZJaVNRbkxnaFFVZ29L?=
- =?utf-8?B?ZHltUWpPZ21XU3M3WmhTcjEvK3lJNnFFMHkvZkRSVlVIbDRrd0R0WEZOK0ly?=
- =?utf-8?B?eGYvNHhmeHNxeHNzOTBFT2tCQ3NHTUF1aHBqN2oyZXdPanNFTzhuZHBZL3BU?=
- =?utf-8?B?WHUzVFNMZG1yZ1lBWGpLQzB3MHpSMFkrNEFFZWVYYlJ2WUs1djVIM0EyYWpY?=
- =?utf-8?B?OU9reWVsalc5K09JbThmSm5nVXhmY3RuWGlVT0M5ME5aZ3JPOU9IR3cwbkR0?=
- =?utf-8?B?STNqWUVXMURFOXR4WEF4b25KbUczenVSbDdqSXFDeE1wb2xTWC93Y2N4QzBV?=
- =?utf-8?B?ZzRoUDVrcklhMVFYQ3RiZWd2OTZuSDUvUmorbFBFeUVrTUZMejJ3RDMzekll?=
- =?utf-8?B?SnZiRUw4QWc2S3JOeFJ6aDYrNzZuQTVDaWpYcmZpa25nSWtHRzhiQTlCM2Qv?=
- =?utf-8?B?Q29ZWXI3bEV0UndCZGtzKzFDMDRBbStKTGVOMElBcG50YXRnbDNWSjQrZzJD?=
- =?utf-8?B?L3d4U0Y0QytRMkdZUXVaa1k4cmM4YUV1cU5SdVBkMUtHclZ5bGZoeW1XUGlO?=
- =?utf-8?B?SjN0cWg5bjdNR1dhS2s2bXlHdXlwOUdXQ1VGTFFvM3pnTmJmV044c0kwbVRV?=
- =?utf-8?B?azVZcnVudDF4Yk1KR2lDQUFjOFpUcHZ3RlBrVGxRY1NHbDJRQllhMW9SRi9B?=
- =?utf-8?Q?zgsohNnrJHzfyVzQR2?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67291a9c-d028-4cf9-104b-08df2604a3b8
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 12:55:48.0043
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LgGiSKidzVRlkaJdzZUsJBBR2+oLutKev7SwaBD9cZkpAehcWC7SsFgjM7R0S6zY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7894
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] drm/xe: skip p2p for suspected display buffers
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Cc: Matthew Brost <matthew.brost@intel.com>, stable@vger.kernel.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+References: <20261007153605.1743626-5-matthew.auld@intel.com>
+ <20261007153605.1743626-8-matthew.auld@intel.com>
+ <2c6a97ac21c5ef161dbac279f9b971f383b6b944.camel@linux.intel.com>
+ <dbabed4e-468d-4ecf-b295-f5d8c9c4b263@intel.com>
+ <bc2f4d82-5a8e-4d1b-a921-ee819ca5cac2@amd.com>
+ <992d57f0-7327-4c36-adf7-6dd72137fe73@intel.com>
+ <31f7eb68-6dfa-4ea7-93a4-d4897fbe6a74@intel.com>
+ <3579864a-0283-4f92-b895-5cf399c2ee69@amd.com>
+ <16cfde6b-8881-4ffe-8068-9530286da72a@intel.com>
+ <1a852df2-c2a4-48bb-84de-cdd4b98b95bb@amd.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <1a852df2-c2a4-48bb-84de-cdd4b98b95bb@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 10/9/26 14:35, Matt Evans wrote:
-> The dmabuf release path is split between file and dentry release:
-> dma_buf_file_release() is called shortly before the file is freed, and
-> dma_buf_release() calls an exporter's dmabuf->ops->release when the
-> dentry is freed.  However, the dentry can outlive the file (for
-> example, if opened with O_PATH), meaning .release might be called some
-> time after the file is freed.
+On 09/10/2026 12:38, Christian König wrote:
+> On 10/9/26 12:29, Matthew Auld wrote:
+>> On 09/10/2026 10:26, Christian König wrote:
+>>> On 10/9/26 11:16, Matthew Auld wrote:
+>>>> On 08/10/2026 12:17, Matthew Auld wrote:
+>>>>> On 08/10/2026 10:55, Christian König wrote:
+>>>>>> On 10/8/26 11:46, Matthew Auld wrote:
+>>>>>>> On 07/10/2026 19:11, Thomas Hellström wrote:
+>>>>>>>> On Wed, 2026-10-07 at 16:36 +0100, Matthew Auld wrote:
+>>>>>>>>> If p2p is allowed on the CPU (like on AMD), we currently permit p2p
+>>>>>>>>> for
+>>>>>>>>> all exported VRAM buffers. However, in some multi-GPU setups, like
+>>>>>>>>> with
+>>>>>>>>> prime rendering on a dgpu and scanout/compositor using the igpu, it
+>>>>>>>>> looks like the exported dma-buf window buffer can in some cases end
+>>>>>>>>> up
+>>>>>>>>> using p2p.
+>>>>>>>>>
+>>>>>>>>> However, user is reporting a kernel regression where performance here
+>>>>>>>>> massively tanks across many games/workloads, where it looks like on
+>>>>>>>>> each
+>>>>>>>>> frame, the igpu is reading/sampling from VRAM over pcie for the
+>>>>>>>>> window
+>>>>>>>>> buffer, since it uses p2p. p2p is currently more intended for dgpu <-
+>>>>>>>>>>
+>>>>>>>>> dgpu, and not so much display buffers with igpu <-> dgpu, at least
+>>>>>>>>> for
+>>>>>>>>> now.
+>>>>>>>>>
+>>>>>>>>> We don't currently have any hints to say "please use p2p for this
+>>>>>>>>> buffer, or please don't", however we can use some heuristics to try
+>>>>>>>>> to
+>>>>>>>>> determine if this is likely a display buffer being exported to an
+>>>>>>>>> igpu,
+>>>>>>>>> which probably never intended for p2p:
+>>>>>>>>>
+>>>>>>>>>      1. FLAG_SCANOUT being set on the buffer. Window buffers usually get
+>>>>>>>>>         tagged with this, but not always.
+>>>>>>>>>
+>>>>>>>>>      2. Importer being a PCI device with display, which is not xe driver.
+>>>>>>>>>
+>>>>>>>>> We also rely on the existing p2p Intel CPU whitelist to stop this
+>>>>>>>>> happening on xe igpu. Currently p2p is only enabled for server CPUs,
+>>>>>>>>> on
+>>>>>>>>> Intel. We also limit the above to dual placement buffers.
+>>>>>>>>>
+>>>>>>>>> The original regression was bisected to commit 609fc8766d68 ("dma-
+>>>>>>>>> buf:
+>>>>>>>>> Always build with DMABUF_MOVE_NOTIFY"), however the behaviour was
+>>>>>>>>> already present when enabling that knob, so this goes back even
+>>>>>>>>> further.
+>>>>>>>>>
+>>>>>>>>> User has confirmed that along with the sticky dma-buf TT placement
+>>>>>>>>> fix,
+>>>>>>>>> to prevent ping-ponging, the performance is back to normal.
+>>>>>>>>>
+>>>>>>>>
+>>>>>>>> Actually, I think this needs to be fixed on the importer side. Until we
+>>>>>>>> have some some user-space hints, I don't think the exporter should
+>>>>>>>> second-guess. Most sane solution IMO is if igfx importers could just
+>>>>>>>> not advertise pcie p2p support?
+>>>>>>>
+>>>>>>> Yeah, not sure tbh. I'm not a huge fan of this patch either. But you could argue that the SCANOUT flag is already a good implicit hint/ signal on the exporter side, but unfortunately there were some games where this did not reliably work. The other implicit hint/signal is perhaps the dual placement angle. For example, in compute-runtime, it might be that they use VRAM-only if they want p2p? AFAICT mesa for us always uses a dual placement or just system memory for these types of buffers.
+>>>>>>>
+>>>>>>> Christian, do you have any thoughts here? We have a kernel perf regression after DMABUF_MOVE_NOTIFY was made the default after updating to a new kernel. The gist is that this then turned on the p2p paths, with a multi-GPU setup with an AMD igpu/APU and Xe dgpu doing prime rendering. From the user bug report it sounds like the dgpu linear window buffer exported to the compositor (igpu) is dual placement VRAM + TT, and so this now attempts to keep that memory in VRAM instead of moving it. Compositor then uses p2p to access it. It works but performance falls off a massive cliff here.
+>>>>>>>
+>>>>>>> Perhaps Intel Mesa side should use tt-only for this type buffer (?), but since this is a kernel regression I was hoping we could fix this on the kernel side.
+>>>>>>>
+>>>>>>> Some questions:
+>>>>>>>
+>>>>>>> 1. Do you know what is the general story with p2p between igpu and dgpu? Is this a legit thing? For igpus/APUs, advertising p2p can't be dropped? It clearly seems to work though.
+>>>>>>>
+>>>>>>> 2. If this is legit, do you guys then also prevent p2p with display buffers? Are you just doing that at the Mesa level, or is there some magic in the kernel also?
+>>>>>>
+>>>>>> If I understand that correctly that the igpu is the importer and the dgpu is the exporter then yeah Thomas is right that definately needs to be fixed on the importer side.
+>>>>>
+>>>>> Ideas on how do that? Could we do something like allow_peer2peer = false in amdgpu_gem_prime_import() if this is an APU device, or further check if the exporter side is not amdgpu, like APU + Xe?
+>>>>
+>>>> For example: https://gitlab.freedesktop.org/mwa/kernel/-/commit/7ec86c68b42655b4bb85ee90af434a617e7bec8c
+>>>>
+>>>> Is that something you would accept?
+>>>
+>>> No, you misunderstood me. Enabling P2P is perfectly fine for APUs and mandatory for a couple of customer projects.
+>>>
+>>> The buffer should just be rejected from scanout in the display code and on the AMDGPU side we already do that if I'm not completely mistaken.
+>>
+>> Reporter confirmed seeing the issue in windowed mode also. So I don't think it's just a case of rejecting from scanout?
 > 
-> This presents a window, when closing a DMABUF file, in which
-> dmabuf->file points to freed memory yet .release op has not yet been
-> called.
+> Then I don't understand what the problem is.
 > 
-> For VFIO, if a buffer's .release has not been called it's considered
-> still active and subject to move/cleanup.  If so, it attempts to
-> get_file_active() on dmabuf->file: a file close with dentry held open
-> will call this function with a stale pointer, a UAF.
-> 
-> To make this pattern safe, set dmabuf->file to NULL in
-> dma_buf_file_release() to reflect that the associated file is now dead
-> even if the DMABUF is not yet gone.  A get_file_active() ... fput()
-> sequence concurrent with a file close then only executes as one of:
-> 
->  - Gets the file before file_ref_put() (dmabuf->file valid)
->  - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
->  - Observes dmabuf->file = NULL (no file)
-> 
-> Originally, drivers could assume dmabuf->file was valid until .release
-> was called from fops->release.  This assumption was no longer valid
-> after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
-> dentry_ops"), which moved the callback to the dentry release (by which
-> point the file might have been freed).  With this commit, drivers must
-> still consider that dmabuf->file could be NULL before .release.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentry_ops")
-> Signed-off-by: Matt Evans <matt@ozlabs.org>
-> ---
->  drivers/dma-buf/dma-buf.c | 21 ++++++++++++++++++---
->  include/linux/dma-buf.h   |  4 +++-
->  2 files changed, 21 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index 4c9add51f9ef..61485fc28b8b 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -193,11 +193,26 @@ static void dma_buf_release(struct dentry *dentry)
->  
->  static int dma_buf_file_release(struct inode *inode, struct file *file)
->  {
-> -	if (!is_dma_buf_file(file))
-> -		return -EINVAL;
-> +	struct dma_buf *dmabuf = file->private_data;
-> +
-> +	if (!dmabuf)
-> +		return 0;
->  
-> -	__dma_buf_list_del(file->private_data);
-> +	__dma_buf_list_del(dmabuf);
->  
-> +	/*
-> +	 * As the file is being closed, dmabuf->file is no longer
-> +	 * valid and NULL replaces an otherwise stale pointer.  If a
-> +	 * reference to the file isn't already held, the file can be
-> +	 * closed at any time, including before dmabuf->ops->release()
-> +	 * happens: dmabuf->file _must not_ be accessed directly.  An
-> +	 * exporter should use get_file_active(&dmabuf->file) which
-> +	 * atomically tests and acquires a reference to the file (or
-> +	 * returns NULL if the file has closed).  The barrier ensures
-> +	 * get_file_active() observes the store before file_free()
-> +	 * frees the memory.
-> +	 */
-> +	smp_store_mb(dmabuf->file, NULL);
->  	return 0;
->  }
->  
-> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> index d15b2b31d3c9..9f3c92c71c29 100644
-> --- a/include/linux/dma-buf.h
-> +++ b/include/linux/dma-buf.h
-> @@ -303,7 +303,9 @@ struct dma_buf {
->  	 * @file:
->  	 *
->  	 * File pointer used for sharing buffers across, and for refcounting.
-> -	 * See dma_buf_get() and dma_buf_put().
-> +	 * See dma_buf_get() and dma_buf_put().  Exporters can use
-> +	 * get_file_active(&dma_buf->file) to safely acquire a reference;
+> When the dGPU renders and the iGPU displays you have only two possibilities, either the dGPU pushes the frames over the bus or the iGPU pulls the frames over the bus. Both should be equaly slow or fast, so what exactly is the expectation here?
 
-Please add something like "* when the exporter holds a common lock with the ->release() callback".
+I assume the AMD APU/iGPU is sampling/reading from the p2p window buffer 
+every frame.
 
-Apart from that looks good to me.
+Expectation is that buffer rather gets moved from VRAM to system memory 
+when mapping the buffer with dma-buf, where it stays, and never 
+negotiated to use p2p in the first place. I don't think p2p is really 
+valid here.
 
-Regards,
-Christian.
+What happened is that user updated their kernel and due to the 
+MOVE_NOTIFY config getting removed and enabled by default on newer 
+kernels this suddenly started negotiating p2p for things like the window 
+buffer AFAICT, instead of moving it to system memory and keeping it 
+there. On previous kernel versions the buffer would just get moved and 
+pinned in system memory. From user pov this is a kernel regression, 
+given the perf they are now getting.
 
-> +	 * the file could otherwise be closed at any time.
->  	 */
->  	struct file *file;
->  
+On AMD CPUs you allow p2p for everything. On Intel iGPUs we currently 
+ban p2p. Maybe there is bigger question here for what is the story for 
+p2p and iGPU? Should it really be blanket allowed like this? Should it 
+not be opt-in with some userspace hints or something?
+
+The other important part is that even when you move to system memory, 
+it's no longer pinned (MOVE_NOTIFY) so can you now can also get violent 
+ping-ponging, which is addressed in the first patch in this series.
+
+> 
+> The only thing you need to avoid is that the iGPU starts to scan out over the PCIe bus directly, cause then the frame is pulled over the bus multiple times (if that actually works correctly).
+> 
+> Do you have a link to the original bug report? I was only added later to the discussion so I don't have that.
+
+https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9415
+
+> 
+> Regards,
+> Christian.
+> 
+>>
+>>>
+>>> Userspace has fallback path that when a DRM atomic requests fails for an imported buffer it falls back to copying the buffer first.
+>>>
+>>> Regards,
+>>> Christian.
+>>>>>
+>>>>>>
+>>>>>> At least for AMD APUs we clearly support P2P both as exporter and importer, but what isn't supported is to scan out over P2P. We explicitely reject that inside DC/DAL.
+>>>>>>
+>>>>>> And I'm pretty sure that you should do that as well. I'm actually really suprised that this works technically and doesn't cause corruption or anything.
+>>>>>
+>>>>> AFAICT on Intel iGPUs it will currently always end up with peer2peer = false on attach. Not 100% sure if direct scanout was happening on the p2p buffer itself, for the user report.
+>>>>>
+>>>>>>
+>>>>>> Regards,
+>>>>>> Christian.
+>>>>>>
+>>>>>>>
+>>>>>>>>
+>>>>>>>> Thanks,
+>>>>>>>> Thomas
+>>>>>>>>
+>>>>>>>>> Assisted-by: LLM
+>>>>>>>>> Closes:
+>>>>>>>>> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9415
+>>>>>>>>> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+>>>>>>>>> Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel
+>>>>>>>>> GPUs")
+>>>>>>>>> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>>>>>>>>> Cc: Matthew Brost <matthew.brost@intel.com>
+>>>>>>>>> Cc: <stable@vger.kernel.org> # v6.12
+>>>>>>>>> ---
+>>>>>>>>>      drivers/gpu/drm/xe/xe_bo.c      |  3 +-
+>>>>>>>>>      drivers/gpu/drm/xe/xe_bo.h      |  1 +
+>>>>>>>>>      drivers/gpu/drm/xe/xe_dma_buf.c | 63 ++++++++++++++++++++++++ +------
+>>>>>>>>> -- 
+>>>>>>>>>      3 files changed, 51 insertions(+), 16 deletions(-)
+>>>>>>>>>
+>>>>>>>>> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+>>>>>>>>> index 5065a7bac39c..e63437a261cb 100644
+>>>>>>>>> --- a/drivers/gpu/drm/xe/xe_bo.c
+>>>>>>>>> +++ b/drivers/gpu/drm/xe/xe_bo.c
+>>>>>>>>> @@ -3658,7 +3658,7 @@ int xe_gem_create_ioctl(struct drm_device *dev,
+>>>>>>>>> void *data,
+>>>>>>>>>           * Display scanout is always non-coherent with the CPU
+>>>>>>>>> cache.
+>>>>>>>>>           */
+>>>>>>>>>          if (args->flags & DRM_XE_GEM_CREATE_FLAG_SCANOUT)
+>>>>>>>>> -        bo_flags |= XE_BO_FLAG_FORCE_WC;
+>>>>>>>>> +        bo_flags |= XE_BO_FLAG_FORCE_WC |
+>>>>>>>>> XE_BO_FLAG_SCANOUT;
+>>>>>>>>>            if (args->flags & DRM_XE_GEM_CREATE_FLAG_NO_COMPRESSION) {
+>>>>>>>>>              if (XE_IOCTL_DBG(xe, GRAPHICS_VER(xe) < 20))
+>>>>>>>>> @@ -4228,6 +4228,7 @@ int xe_bo_dumb_create(struct drm_file
+>>>>>>>>> *file_priv,
+>>>>>>>>>                         DRM_XE_GEM_CPU_CACHING_WC,
+>>>>>>>>> XE_BO_FLAG_VRAM_IF_DGFX(xe_device_get_root_tile(xe)) |
+>>>>>>>>>                         XE_BO_FLAG_FORCE_WC |
+>>>>>>>>> +                   XE_BO_FLAG_SCANOUT |
+>>>>>>>>>                         XE_BO_FLAG_NEEDS_CPU_ACCESS, NULL);
+>>>>>>>>>          if (IS_ERR(bo))
+>>>>>>>>>              return PTR_ERR(bo);
+>>>>>>>>> diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
+>>>>>>>>> index 1ddf3b6d4a9e..6965c2655731 100644
+>>>>>>>>> --- a/drivers/gpu/drm/xe/xe_bo.h
+>>>>>>>>> +++ b/drivers/gpu/drm/xe/xe_bo.h
+>>>>>>>>> @@ -56,6 +56,7 @@
+>>>>>>>>>      #define XE_BO_FLAG_FORCE_USER_VRAM    BIT(25)
+>>>>>>>>>      #define XE_BO_FLAG_NO_COMPRESSION    BIT(26)
+>>>>>>>>>      #define XE_BO_FLAG_NEEDS_1G        BIT(27)
+>>>>>>>>> +#define XE_BO_FLAG_SCANOUT        BIT(28)
+>>>>>>>>>        /* this one is trigger internally only */
+>>>>>>>>>      #define XE_BO_FLAG_INTERNAL_TEST    BIT(30)
+>>>>>>>>> diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c
+>>>>>>>>> b/drivers/gpu/drm/xe/xe_dma_buf.c
+>>>>>>>>> index b973579a69b8..0a347f09cee4 100644
+>>>>>>>>> --- a/drivers/gpu/drm/xe/xe_dma_buf.c
+>>>>>>>>> +++ b/drivers/gpu/drm/xe/xe_dma_buf.c
+>>>>>>>>> @@ -36,10 +36,40 @@ static void xe_ddebug_flip_bool(const struct
+>>>>>>>>> _ddebug *desc, bool *flag)
+>>>>>>>>>      #define xe_dma_buf_p2p_debug_flip(flag) do { } while (0)
+>>>>>>>>>      #endif
+>>>>>>>>>      +static void xe_dma_buf_move_notify(struct dma_buf_attachment
+>>>>>>>>> *attach)
+>>>>>>>>> +{
+>>>>>>>>> +    struct drm_gem_object *obj = attach->importer_priv;
+>>>>>>>>> +    struct xe_bo *bo = gem_to_xe_bo(obj);
+>>>>>>>>> +    struct drm_exec *exec = XE_VALIDATION_UNSUPPORTED;
+>>>>>>>>> +
+>>>>>>>>> +    XE_WARN_ON(xe_bo_evict(bo, exec));
+>>>>>>>>> +}
+>>>>>>>>> +
+>>>>>>>>> +static const struct dma_buf_attach_ops xe_dma_buf_attach_ops = {
+>>>>>>>>> +    .allow_peer2peer = true,
+>>>>>>>>> +    .invalidate_mappings = xe_dma_buf_move_notify
+>>>>>>>>> +};
+>>>>>>>>> +
+>>>>>>>>> +static struct pci_dev *xe_find_parent_pci_dev(struct device *dev)
+>>>>>>>>> +{
+>>>>>>>>> +    while (dev) {
+>>>>>>>>> +        if (dev_is_pci(dev))
+>>>>>>>>> +            return to_pci_dev(dev);
+>>>>>>>>> +        dev = dev->parent;
+>>>>>>>>> +    }
+>>>>>>>>> +    return NULL;
+>>>>>>>>> +}
+>>>>>>>>> +
+>>>>>>>>> +static bool xe_dma_buf_attach_is_xe_device(struct dma_buf_attachment
+>>>>>>>>> *attach)
+>>>>>>>>> +{
+>>>>>>>>> +    return attach->importer_ops == &xe_dma_buf_attach_ops;
+>>>>>>>>> +}
+>>>>>>>>> +
+>>>>>>>>>      static int xe_dma_buf_attach(struct dma_buf *dmabuf,
+>>>>>>>>>                       struct dma_buf_attachment *attach)
+>>>>>>>>>      {
+>>>>>>>>>          struct drm_gem_object *obj = attach->dmabuf->priv;
+>>>>>>>>> +    struct xe_bo *bo = gem_to_xe_bo(obj);
+>>>>>>>>>          bool verbose_p2p_dist = drm_debug_enabled(DRM_UT_DRIVER);
+>>>>>>>>>            xe_dma_buf_p2p_debug_flip(&verbose_p2p_dist);
+>>>>>>>>> @@ -48,7 +78,24 @@ static int xe_dma_buf_attach(struct dma_buf
+>>>>>>>>> *dmabuf,
+>>>>>>>>>              pci_p2pdma_distance(to_pci_dev(obj->dev->dev), attach-
+>>>>>>>>>> dev, verbose_p2p_dist) < 0)
+>>>>>>>>>              attach->peer2peer = false;
+>>>>>>>>>      -    if (!attach->peer2peer &&
+>>>>>>>>> !xe_bo_can_migrate(gem_to_xe_bo(obj), XE_PL_TT))
+>>>>>>>>> +    if (attach->peer2peer && xe_bo_can_migrate(bo, XE_PL_TT)) {
+>>>>>>>>> +        struct pci_dev *client =
+>>>>>>>>> xe_find_parent_pci_dev(attach->dev);
+>>>>>>>>> +
+>>>>>>>>> +        /*
+>>>>>>>>> +         * There are perf issues with using p2p with display
+>>>>>>>>> buffers,
+>>>>>>>>> +         * like with igpu (compositor) <-> dgpu (exported
+>>>>>>>>> p2p window
+>>>>>>>>> +         * buffer). Probably we need some actual userspace
+>>>>>>>>> hints. We
+>>>>>>>>> +         * shouldn't really assume anything. Also, note that
+>>>>>>>>> some of
+>>>>>>>>> +         * these buffers are not always tagged with SCANOUT.
+>>>>>>>>> +         */
+>>>>>>>>> +        if (bo->flags & XE_BO_FLAG_SCANOUT)
+>>>>>>>>> +            attach->peer2peer = false;
+>>>>>>>>> +        else if (client && pci_is_display(client) &&
+>>>>>>>>> +             !xe_dma_buf_attach_is_xe_device(attach))
+>>>>>>>>> +            attach->peer2peer = false;
+>>>>>>>>> +    }
+>>>>>>>>> +
+>>>>>>>>> +    if (!attach->peer2peer && !xe_bo_can_migrate(bo, XE_PL_TT))
+>>>>>>>>>              return -EOPNOTSUPP;
+>>>>>>>>>            xe_pm_runtime_get(to_xe_device(obj->dev));
+>>>>>>>>> @@ -349,20 +396,6 @@ xe_dma_buf_create_obj(struct drm_device *dev,
+>>>>>>>>> struct dma_buf *dma_buf)
+>>>>>>>>>          return ret ? ERR_PTR(ret) : &bo->ttm.base;
+>>>>>>>>>      }
+>>>>>>>>>      -static void xe_dma_buf_move_notify(struct dma_buf_attachment
+>>>>>>>>> *attach)
+>>>>>>>>> -{
+>>>>>>>>> -    struct drm_gem_object *obj = attach->importer_priv;
+>>>>>>>>> -    struct xe_bo *bo = gem_to_xe_bo(obj);
+>>>>>>>>> -    struct drm_exec *exec = XE_VALIDATION_UNSUPPORTED;
+>>>>>>>>> -
+>>>>>>>>> -    XE_WARN_ON(xe_bo_evict(bo, exec));
+>>>>>>>>> -}
+>>>>>>>>> -
+>>>>>>>>> -static const struct dma_buf_attach_ops xe_dma_buf_attach_ops = {
+>>>>>>>>> -    .allow_peer2peer = true,
+>>>>>>>>> -    .invalidate_mappings = xe_dma_buf_move_notify
+>>>>>>>>> -};
+>>>>>>>>> -
+>>>>>>>>>      #if IS_ENABLED(CONFIG_DRM_XE_KUNIT_TEST)
+>>>>>>>>>        struct dma_buf_test_params {
+>>>>>>>
+>>>>>>
+>>>>>
+>>>>
+>>>
+>>
+> 
 
