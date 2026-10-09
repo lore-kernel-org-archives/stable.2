@@ -1,144 +1,94 @@
-Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E8931A045;
-	Fri,  9 Oct 2026 14:25:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38EC64E3252;
+	Fri,  9 Oct 2026 14:25:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555920; cv=none; b=B9Ehdg4+5ozG5cWdqb4TnPtym40ntphwZLifSKOTg7hGBd7XJXMx9Kd3bzGD+0XiGiK7czZgZM4qOJ4XKhWVi2N1WrRS4yN/b94PUTv9J5xQpFs2V+4vSqTrCCo7DuoNTEFsVuderAaqz7KRZD1cwa++bruYhBAg7qwee5F+TY8=
+	t=1791555924; cv=none; b=t5VNUxTkgrrhSMX3CK91TNi8eMAfKjcyHgF2x0btvT3s53QAPdQsUoOT+/Qox97HfI0pUNcxaGWeo/NtDWh19dN7SzwFmKzq+GO3dJN4WDXJTtPeUH5nbQi3AzFrLI7VX8Bl58urATT2bhJ29wUcZlSLZ2CoHcgluP6ITf6AAgs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791555920; c=relaxed/simple;
-	bh=aNRTNYpGfo4uHEBNRnktsZ6z26AOTtU29zqpNIgIEgU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Tk3kgmA5oiNB3+mbWpu3WKfsUCs0REj4pmYTLw2swG0uK3lh6nKht5Ccen5sQy+OvIhPbDqEJwkN8nK+7IPNLz56bVjcWGV9t+auyRKHCW+baFwIobG0xA+/vbuzSFmvMD9sW4Xa0ScGI+6RHYKEaFAnYLdBMImdaGyedx3JF2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=karaolidis.com; spf=pass smtp.mailfrom=karaolidis.com; dkim=pass (2048-bit key) header.d=karaolidis.com header.i=@karaolidis.com header.b=fi35R3+t; arc=none smtp.client-ip=79.135.106.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=karaolidis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=karaolidis.com
+	s=arc-20240116; t=1791555924; c=relaxed/simple;
+	bh=IQManTD6upOiJAaHG05PnYH1mqiiYz6fqI8/ee5DwSM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KJ2wuipVpjRglvyD+YorFJ+wVMcGxzUtALqvylab9nzcw7UNV/pNI2Iwff5///6DxkBxXWfphqh0HIY/WMX+BVaBt2Khv5lzng1WqFH105qEEii5F5eQ8cfpGOCs5XaUpopFB/+9ughCuu1pzKuk7ean08Mu5ox1T0OkYQdxrmU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=p81JEj8d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=karaolidis.com header.i=@karaolidis.com header.b="fi35R3+t"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=karaolidis.com;
-	s=protonmail3; t=1791555909; x=1791815109;
-	bh=0ry/qEt4RcAqTFIzYK3t8eJQNo0m/0+YmGFQ1p2ujng=;
-	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=fi35R3+teJ1yCUX4Dbv3ad1OWvzyqTT73ihrUmXQewn40TRhfezIhW1OhzCpipLj3
-	 5KtC6dNbbLpoiTLtPCehZp09NBIPvhoRPAaL+tpOEL9W0IEsD6Vjqjes/Mv/CrWkAh
-	 znMUR1iSjqwKCJxzreVY75b9DXAZqXbrWwHNLF8ztgVG7hyhExCIwsMQszmePZ3J5h
-	 eiWdwa1xtDc6yIJGVmLn3w0N8hXewm/qLKjU9JSjY/JvseZtzYX+q2rT3lJb7ZtEES
-	 vhfwlxJqcwKZmPDP3akkWGilZW2ketrY7frK+Sr3+8pWn6fwAl6y76LGWJquW26wB+
-	 FSoyhUpCStcBg==
-X-Pm-Submission-Id: 4j1Tf961fLz2SdVd
-From: Nikolaos Karaolidis <nick@karaolidis.com>
-To: Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>
-Cc: Jan Kara <jack@suse.cz>,
-	Zhihao Cheng <chengzhihao1@huawei.com>,
-	Mateusz Guzik <mjguzik@gmail.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Nikolaos Karaolidis <nick@karaolidis.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] fs: don't lose inodes that another LRU walker is isolating
-Date: Fri,  9 Oct 2026 14:24:31 +0000
-Message-ID: <20261009142431.713875-1-nick@karaolidis.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="p81JEj8d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94B0F1F00893;
+	Fri,  9 Oct 2026 14:25:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791555923;
+	bh=lnUxzFjiIcXB6yft6ui892LJYrU16TaBQMcXYvrObKs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=p81JEj8dgfb5l2YhoYRYEZdGpWw2GKMFX8hJiQnHDexHp6C+SCwrWVAq6hXUcnH59
+	 JqkyJXiYGIKDXxTOA8rjjFK8M7PXzGVGQyTXTefYz0t0felGo274HlFjP+iatqRlKn
+	 YHlRV3MZ577sSkmgfYElmckCF3lg+7ubGZpduzOo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?= <amade@asmblr.net>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.2 091/428] ASoC: codecs: rt274: Fix format setting for 44100 rate
+Date: Fri,  9 Oct 2026 16:07:08 +0200
+Message-ID: <20261009140948.199022260@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261009140946.008206689@linuxfoundation.org>
+References: <20261009140946.008206689@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When inode_lru_isolate() finds an unused inode that still has page
-cache, it sets I_LRU_ISOLATING, drops i_lock and the list_lru lock,
-invalidates the page cache, clears the flag again and returns
-LRU_RETRY so that the restarted walk can free the inode.
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-Another walker of the same list can reach the inode in that window.
-It sees a non-zero i_state and takes the inode off the LRU, as it
-would an inode that is in use. Page cache deletion requeues the inode
-once the mapping is shrinkable, so this is harmless if it happens
-before the last deletion. If it happens after, nothing puts the inode
-back: it stays in memory, unused, clean and without page cache, out
-of reach of the shrinker and of drop_caches, until it is looked up
-again or the filesystem is unmounted.
+------------------
 
-Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode
-lru traversing context") the pin was an i_count reference, and the
-final iput() put the inode back on the LRU.
+From: Cezary Rojewski <cezary.rojewski@intel.com>
 
-Skip inodes that are being isolated and leave them to the walker that
-pinned them, which restarts its walk once it has unpinned them.
+[ Upstream commit 6eda8938a790f65bd24fcfaae7b40ad4613fb7a2 ]
 
-The window is reached by any unused inode with page cache on
-CONFIG_HIGHMEM kernels, and otherwise by inodes whose page cache is a
-single shadow entry at index 0. On an i386 HIGHMEM guest, eight
-concurrent "echo 2 > /proc/sys/vm/drop_caches" over 2000 freshly read
-one-page ext4 files leave roughly 400 of the inodes off the LRU per
-round; on x86_64, with the files' pages first evicted through
-memory.reclaim, 3 to 4 per round. With this patch, none in either case.
+As per specification, Sample Base Rate (bit 14)
+shall be set to 1 for 44.1 kHz.
 
-Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
+Fixes: c7e79b2b2d2d ("ASoC: rt274: add rt274 codec driver")
+Signed-off-by: Amadeusz Sławiński <amade@asmblr.net>
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Link: https://patch.msgid.link/20260918111745.3589393-2-cezary.rojewski@intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ sound/soc/codecs/rt274.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Found while working on reclaim of inodes pinned by page cache in
-ZONE_MOVABLE.
+diff --git a/sound/soc/codecs/rt274.c b/sound/soc/codecs/rt274.c
+index f8c370106504c..3c47f1ae8db99 100644
+--- a/sound/soc/codecs/rt274.c
++++ b/sound/soc/codecs/rt274.c
+@@ -619,9 +619,11 @@ static int rt274_hw_params(struct snd_pcm_substream *substream,
+ 	unsigned int val = 0;
+ 	int d_len_code = 0, c_len_code = 0;
+ 
++	/* bit 14 Sample Rate Base, 0: 48kHz 1: 44.1kHz */
+ 	switch (params_rate(params)) {
+-	/* bit 14 0:48K 1:44.1K */
+ 	case 44100:
++		val |= BIT(14);
++		break;
+ 	case 48000:
+ 		break;
+ 	default:
+-- 
+2.53.0
 
-Tested on master af32da41b032 (v7.3-rc6-232) in QEMU/KVM with a small
-stress program: mount an ext4 image, read 2000 one-page files, run 8
-concurrent "echo 2 > /proc/sys/vm/drop_caches", drop caches again
-single-threaded (2, then 1, then 2), and count the filesystem's inodes
-still in memory via how many the umount frees:
 
-  i386 HIGHMEM:      ~390 of 2000 lost per round without the patch
-                     (3 runs x 20 rounds), 0 with it
-  x86_64, pages evicted through memory.reclaim first (single shadow
-  entry left):       ~4 per round without, 0 with
-  x86_64 with KASAN, PROVE_LOCKING, DEBUG_VM, DEBUG_LIST:
-                     6109 lost in 50 rounds without, 0 with, no splats
 
-The reproducer is a single C file run as init; I can post it if useful.
-
-I went with skipping the inode rather than requeueing it on unpin
-(which would be closer to what the final iput() did before
-2a0629834cd8) because it avoids the remove/re-add and leaves the inode
-where the pinning walker finds it again. Happy to switch if preferred.
-
-Jan, this applies cleanly before or after "fs: Basic infrastructure for
-offloading inode reclaim" (v2 3/5); happy to rebase onto that series if
-you'd rather take it there.
-
-For stable: 6.18 and older need inode->i_state instead of
-inode_state_read(). I have only tested master.
-
-An LLM was used to check the analysis against the code, write the
-reproducer and draft the changelog; I have reviewed all of it.
-
- fs/inode.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/fs/inode.c b/fs/inode.c
-index a9d37be390a1..74dfc379b377 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -942,6 +942,12 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
- 	if (!spin_trylock(&inode->i_lock))
- 		return LRU_SKIP;
-
-+	/* Another walker is dropping its page cache, leave it to that one */
-+	if (inode_state_read(inode) & I_LRU_ISOLATING) {
-+		spin_unlock(&inode->i_lock);
-+		return LRU_SKIP;
-+	}
-+
- 	/*
- 	 * Inodes can get referenced, redirtied, or repopulated while
- 	 * they're already on the LRU, and this can make them
-
-base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
---
-2.55.0
