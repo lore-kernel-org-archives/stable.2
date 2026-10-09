@@ -1,209 +1,156 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14AD34EB843
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 15:42:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791560536; cv=pass; b=j+I4hi5/lxkQA861k+DmnSBqVQqsjx1EutmMx0B/JB/22CqeECQKFW0UIApbh5PhJY6wJgkAnMJlqHvIE3+BGcQPxy4doTkIdIAeJu8lUWlMH1HRK0DDTM16Yj6Kumk7VaQif0F2ZUt5ZQpWmGYLBDNnVL2gt1M9ow5uVr8Aqx0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791560536; c=relaxed/simple;
-	bh=ODP9oLFkSTTxNwHzgn/OPjr02NM8N6qGs+/FJBL1okc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=G4IFZh7Eg3z7tLb+4eQvgjiN5T8me31DI3yP1k4U82mbATtXMh49RqwoUSC+BGSJIE90jpkC4Le9ZPmqHOwKu1myr7LFoFpgGlqYTx1FbFBcZjKtQYTeCWHP54/Q43MSG8lCB+PJ4j8mgddjvFhE8AFXEOp/4AJX2DSdPHCizws=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OpWNGM9H; arc=pass smtp.client-ip=209.85.208.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0DE35AC0E;
+	Fri,  9 Oct 2026 15:59:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791561551; cv=none; b=ZXSUxqYGb7+EF/5s5whOKdsmonuc/NHftQwadEo+5HFSkVv/pM8rpEkfNpAX5Ld9tPpjoOaIIJ44njBF2s/MyVR98+GtxGSIeOJsfSXEH5PJbdu/eyFC0SUwbBjjSlWZsK/Iv3eKnzmYVw+ITO8kX1fpLtaroXqyvncf2aLBioM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791561551; c=relaxed/simple;
+	bh=xAv3WXdTWpUbIh1hTQCZXRJgClOt1KE9NC7oJ8dIKzE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BfZeXeXyCCMziR9I9BBo8rLtmiIRllPtbri8OwPc5r1VWgg2GeXEvJ2xik96TtN1wdJ6veBUDpul0Li+miXN7X+ZyP+fE2/Sh9UmVWuJc8Yi2deagAqoaX0pXNKTtKb3lc0ELeFQeN42p6OhhmjgwS/cgyL66VG5yja3T+5lV1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=iw4UpGNi; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OpWNGM9H"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6ae14cdc63aso11876a12.1
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 08:42:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791560533; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JOfE4oQmVpnkp+AKwXNZJM5sFH+hkF+XY/QsAXCXuqz7LDgteobVXsrKtLW5+Ht1VP
-         bjy5oA5bXGdJy7oXfhVUIdj0uTCssoCRJ8wigaPByd/Ut69+zMaG4Ntcp4AhqyaP7olC
-         PIOInyWex4UvYyqhLPBkt91Y+z7+1jOlTgJ3BpjxbOLL3lsRfYyOL40UauCArSROZI4i
-         iLTZNu2zKkFBTBEzI+dPRZg1H2l2mIcy7kpXPVh32Qbw3z5HaDuQcx3e/fWP+kjT+PMz
-         pqSZKz9lMjayF5nK8aCXh8mjYKY8cw9AH+RoY22yxD8b1LqS8wYy7p82pSpftfwUeKAc
-         n5vg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lyiu94Q8CWOzAbPl0E5395hB8F0rcFgV/E8an3zhytw=;
-        fh=tbLoJhYiMcqJcFEV+3fzFQQrwWUoIpuUGlVmobGsvKc=;
-        b=dBR8/B8TS04sODedgRFBOFPhiN/4ffNRGfp2DkHLaInrIXlGa8WnsvQUgtCXAK3lyn
-         AmqbwOpaGIoCpv9STY9D1b0W48/c00JN1/UlDgqG0OzY2i1MYlRHwn6pbZybtyNFW3k6
-         S43lVF5PylQ4ipBFzH5tSeExQ0mlcs3cZQa9bF7v0xpSfbQDg+/+YMoVpkcZiqJvY6Ke
-         tm/FAyyLNleElNUvHr+trwPYMttTFAeS9RZY59e9N+m1oCvN3y1zdNJGp4oWW1qa9l1a
-         2G7Jnld3yJxaOC0EqX3HwRqtmjMBrBzCUwF2wqaGhTVOCN9jc566oHVYnC+mnYGRga4h
-         +nAg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791560533; x=1792165333; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lyiu94Q8CWOzAbPl0E5395hB8F0rcFgV/E8an3zhytw=;
-        b=OpWNGM9HITmmWSeHCLHNZygXvrbRXZTpgSNet7PIJQyLHGQotT7mi/q2rCg2Ci6i5T
-         etqnW0c+vAJPRoLb4NLKqpg7EdyGWSgCFCMpinHioKNroNs4qoIsIk9qoDPfNBrqgfBl
-         /EwfICwupKgSGzQvQxJxi33xzcyRMzVTh+F9lgSdNXbdK2Y7DzKarxHBW028MxYENpkx
-         xJgCbJmyNSmGRu7fUt6KdcNkRV3PvcA/wC8PUUzxcMB08Q/DezG/eyoPquHPxjkivk1G
-         d6nfjdcbFmoqKsRTkOi7fhpv4Ut9AeMFQMMd+t18BFwYgm0WSk1v995wvaHySokz72PG
-         higQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791560533; x=1792165333;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lyiu94Q8CWOzAbPl0E5395hB8F0rcFgV/E8an3zhytw=;
-        b=G9hp3gtt2DDQYCCojKoCoBWtRJeEAWLgFK85Y7q5XwbXcdqspIuU37qLCQfCBTv9Cy
-         EKiA7AC16jmZNgmMZ3E1wq3xiFTjPke+dqjht7gzD9ITGXJXi/BuM2TuRTQfNJLS7jTQ
-         ggcUWpfHKcP0UwOwL0NlzYc3ykkg9JjAAOxivHQYHytE+9M8tcATX6sPIlEtfTJ/PLss
-         18Rc4GMw5sakbg3cJkkFV2tXp293+xOK73fqI2WsPCp3YG5HXZ29VU4cceKY+LlZ/DNL
-         J8Oy/k9U9psfeBFToQjueCGQV9M6PGMTd96l9FPTf7Yg+o4ugSlN68u5PKj6p2Fb+emp
-         dhtg==
-X-Forwarded-Encrypted: i=1; AKwUvBxwS9Z7JQPt/yBKfm5VGqf40z2kOCHhbg4fxv4OyNVHhPWUft8ofAHAE7ziAi0mn2emDLXioFA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI0jLK6FFIXC4Jy891dv4K1SFRGEoGXnNRCDd4z9wmOU4QbHcAH
-	kUtiLvpnh/En7kphp/vDBpi9g/n+fM2JxkpXcAH4oG7lXZ4BVT7ISz+dZrDqbHnbqIAZ6AZx+/Z
-	7HuZfC6H1cQRWn85J8iiVztkJSzAjZctr1yE/b6Xp
-X-Gm-Gg: AYBFou2dDqBFIORmeY060PF/vOBFV0t1S/l0lMEmS37bGY8Sq5koJ0tY7WVCNq70Ext
-	KZWUZ+u4Bjz3pKONQYcqhK4mhQ3hmiwKqQWdm6bG9Tpccd+V8OIh01EIb2MpzSw02pGulxv8JOT
-	UHQmgCrsuLr2FTGV5UdfJjNLx2m1H7BUd03WHMMcTEfJjYDTxZZ5txP16Y4Ou1DJ9qsNKFNHR+v
-	maMD2rLPScIDyEiBNLSsKmGTPSsF0RGTKFU9XRINzM7tWpTBb0FnKJo05kAa+bkP1kuEF7mCjlD
-	Z9yqUpv/ziB0w0y0IxLT4l8JSJMVG3HIvDn9D5OY/ZiUXibSCdERYWsJh+IZH0cG
-X-Received: by 2002:aa7:d743:0:b0:6a6:7dff:61ab with SMTP id
- 4fb4d7f45d1cf-6b17b963117mr40705a12.15.1791560532616; Fri, 09 Oct 2026
- 08:42:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="iw4UpGNi"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 699DaXLm3215154;
+	Fri, 9 Oct 2026 15:58:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=S500zq
+	SvZHCzcxNpN162xsalG0hh5JMHIOUVFVDGkIM=; b=iw4UpGNibeM3GKyeg/qZnm
+	NAZLPghX6zqBkiQukG6LkK9XEJCXslZp3dXQZpy7eH+kr/FEy8Atzh+Ci8l34Tln
+	oaDIm0LemzqPJ9wl/oKg2fFAeJTj7I0UevcKfPEzGBKZtNNxMZaXIPpeDw2pYk0D
+	AGcZ5X98vjdbkWG8wtL9lwHCvQNGX4gQVMzCm8w54Tj79IzZ0h2/nrMYh4zWzeVN
+	xNHZPtTjhad3V+Jf/irG35KeJzSu9szpEYmcaV01PZ+93neoANWHNlOPauwiQwER
+	IjHAKWbxv+CnPl9hjISD4SzUqmsPq9I1Vq74/r/9Vl5FaYbXiK0hMA1c1v7X72Lw
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h5xk1ju5t-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 09 Oct 2026 15:58:55 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 699DWWnM3886526;
+	Fri, 9 Oct 2026 15:58:55 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h5f3u3jgw-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 09 Oct 2026 15:58:54 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 699Fwpow47383014
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 9 Oct 2026 15:58:51 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0BEC02004D;
+	Fri,  9 Oct 2026 15:58:51 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3697320040;
+	Fri,  9 Oct 2026 15:58:50 +0000 (GMT)
+Received: from [9.111.137.247] (unknown [9.111.137.247])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Fri,  9 Oct 2026 15:58:50 +0000 (GMT)
+Message-ID: <99fd2571-7fc5-4e4f-993a-b858f83581fd@linux.ibm.com>
+Date: Fri, 9 Oct 2026 17:58:49 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009-b4-skb-segment-nosg-unreadable-v1-1-7e2334a55fe8@toxicpanda.com>
-In-Reply-To: <20261009-b4-skb-segment-nosg-unreadable-v1-1-7e2334a55fe8@toxicpanda.com>
-From: Mina Almasry <almasrymina@google.com>
-Date: Fri, 9 Oct 2026 08:42:00 -0700
-X-Gm-Features: AclHuK_-OS7FzcusCgigYqbLXBGGgd8VVdGqpOopI3dxHJrjPaF9OMOOxoHmqMY
-Message-ID: <CAHS8izOAGUcKKBuU8uyANr9-xCacBq43PHfqW5yyR=35PXxi0g@mail.gmail.com>
-Subject: Re: [PATCH net] net: skbuff: don't segment unreadable skbs without SG
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Willem de Bruijn <willemb@google.com>, Kaiyuan Zhang <kaiyuanz@google.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] s390/ism: Zerorize dmb at allocation
+To: patchwork-bot+netdevbpf@kernel.org
+Cc: aswin@linux.ibm.com, gbayer@linux.ibm.com, davem@davemloft.net,
+        kuba@kernel.org, pabeni@redhat.com, edumazet@google.com,
+        andrew+netdev@lunn.ch, julianr@linux.ibm.com, netdev@vger.kernel.org,
+        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+        borntraeger@linux.ibm.com, svens@linux.ibm.com, horms@kernel.org,
+        stable@vger.kernel.org
+References: <20260928151420.383105-1-wintera@linux.ibm.com>
+ <179081520578.2192623.15327890080313694045.git-patchwork-notify@kernel.org>
+Content-Language: en-US
+From: Alexandra Winter <wintera@linux.ibm.com>
+In-Reply-To: <179081520578.2192623.15327890080313694045.git-patchwork-notify@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=YtCa1IYX c=1 sm=1 tr=0 ts=6ac90f40 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=RRy98KAXZkVnLKidrVgA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA2MiBTYWx0ZWRfX/mKE/U2/sAsu
+ UHDkZ7vk9k9jl/vcBRDNoR5S+uCj0BxfPG5Z/2lW9tK72n/PyrdMx3Zrv2RJ3GrLMHihWHBmqb7
+ zbyQUowP5Y6OVzcsADafMqIc2KOY3Z++Acr2/ANGTUcAb/HgnAD+L1xhg8aU0jKutBRHEHLBdmp
+ OYjVt4bUfUxNhLLtGzy/3Mxza5y78+jXMDgGDOmRs526HRmDxbqLcM2136oWCa+rzy3mly+bWDT
+ DYtoel1+o/AHTlwVpg3KyaxcDmRm0cxdRvfAHAnHiZoVSrgkRrsefMN1kjiDQKVO2eKN2XlzAU1
+ +qKmBIGyfPkPElYT5uloKAGu58z2UNZK1II4We2xW/sXiskoYgtEeTMkO9uk6n+aAukoOoCdsdL
+ B+7aVvL5bc7llYm28cmm7ZYv9n318h+QJuIjbkelGNaxhlctoxTB5M9TMqPSfZ/qR3nrOAhSZjD
+ 7fIJuyS2t0KtVSoRpUA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA2MiBTYWx0ZWRfX3kjuE83vHekH
+ QgVg7aIbMpRn+GSC+KcqJwWXDLEVjeVQi1oP4V6kVWe+6NRR/RLrr/51DwZkfyM4vK3CtDL6iU+
+ BJoBMfWUEhIOsqbhFGxJc8FHJx9wquU=
+X-Proofpoint-GUID: 4CEeOTIjURUfFzdDAhIvAibcLMktJaml
+X-Proofpoint-ORIG-GUID: 3XkSa6XkJL3OotMZwVzE5uPhIobymqJS
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_04,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
+ lowpriorityscore=0 suspectscore=0 malwarescore=0 adultscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090062
 
-On Fri, Oct 9, 2026 at 6:32=E2=80=AFAM Josef Bacik <josef@toxicpanda.com> w=
-rote:
->
-> Without NETIF_F_SG, skb_segment() copies each segment's payload out of
-> head_skb.  With checksum offload it uses skb_copy_bits(), which fails on
-> unreadable frags, so skb_segment() errors out.  Without checksum offload
-> it uses skb_copy_and_csum_bits() and keeps the checksum that returns.
->
-> Since commit ab9414ed70bd ("net: skbuff: don't leave stale bytes in
-> skb_copy_and_csum_bits()") that copy zero-fills whatever it can't read
-> and returns 0, which is the correct checksum for zeroes.  A devmem TCP
-> skb keeps its whole payload in unreadable frags, so every segment ends
-> up with a payload of zeroes, tcp_gso_segment() writes a valid TCP
-> checksum over it, and the peer accepts the zeroes as stream data.
-> Before that commit the segments carried uninitialized memory with a
-> checksum that almost never matched, so they leaked but were dropped.
->
-> This is reachable when both SG and TX checksum offload are turned off
-> on a device used for devmem TX.  sk_setup_caps() still gives TCP SG and
-> HW_CSUM, so the dmabuf send is accepted, validate_xmit_unreadable_skb()
-> lets the skb through for a NETMEM_TX_NO_DMA device or a matching
-> binding, and software GSO then segments it with neither feature.  With
-> only SG off the copy goes through skb_copy_bits() and is already
-> refused, and with only checksum offload off the segments keep sharing
-> the frags.
->
-> Refuse to segment unreadable skbs without SG, which is what the checksum
-> branch already does through skb_copy_bits().  Check the frag_list
-> members as well, since their payload is copied the same way.
->
-> This was found by the Sashiko AI review of that commit.
->
-> Fixes: ab9414ed70bd ("net: skbuff: don't leave stale bytes in skb_copy_an=
-d_csum_bits()")
-> Fixes: 65249feb6b3d ("net: add support for skbs with unreadable frags")
-> Link: https://lore.kernel.org/all/179148235783.434549.1432237422747783281=
-7@kernel.org/
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> ---
-> Follow-up to Sashiko's review of ab9414ed70bd:
-> https://lore.kernel.org/all/179148235783.434549.14322374227477832817@kern=
-el.org/
->
-> Tested with a module that hands skb_segment() a TCPv4 GSO skb whose
-> 3000-byte payload sits in an unreadable frag, with SG off.  Without this
-> patch it returns three segments with all-zero payloads and a checksum
-> of 0; with it, -EINVAL.  The same skb with checksum offload was already
-> refused, and a readable skb still segments and copies normally.
->
-> Thanks,
-> Josef
-> ---
->  net/core/skbuff.c | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
->
-> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-> index 41beaf625421..4ba544b5f3ba 100644
-> --- a/net/core/skbuff.c
-> +++ b/net/core/skbuff.c
-> @@ -4782,6 +4782,18 @@ struct sk_buff *skb_segment_list(struct sk_buff *s=
-kb,
->  }
->  EXPORT_SYMBOL_GPL(skb_segment_list);
->
-> +static bool skb_segment_unreadable(const struct sk_buff *head_skb)
-> +{
-> +       const struct sk_buff *iter;
-> +
-> +       if (!skb_frags_readable(head_skb))
-> +               return true;
-> +       skb_walk_frags(head_skb, iter)
-> +               if (!skb_frags_readable(iter))
-> +                       return true;
-> +       return false;
-> +}
-> +
->  /**
->   *     skb_segment - Perform protocol segmentation on skb.
->   *     @head_skb: buffer to segment
-> @@ -4842,6 +4854,14 @@ struct sk_buff *skb_segment(struct sk_buff *head_s=
-kb,
->         sg =3D !!(features & NETIF_F_SG);
->         csum =3D !!can_checksum_protocol(features, proto);
->
-> +       /* Without SG every segment's payload is copied out of head_skb, =
-which
-> +        * can't be done for unreadable frags.
-> +        */
-> +       if (!sg && skb_segment_unreadable(head_skb)) {
-> +               err =3D -EINVAL;
-> +               goto err;
-> +       }
-> +
 
-For this one, IMO we cannot have random unreadable checks in the code
-because high level functions will eventually do something that
-requires readability deep in the call stack. The code deep inside the
-call site will change and we (the LLM) will forget to update the
-accompanying unreadable check way up the stack.
 
-I would say for this one, if possible make the innermost helper
-requiring readability should perform the check, and return an error,
-and then update the callers to handle that error generically. You may
-end up with a larger, more complicated change but I think it will be a
-more sustainable change than this 1-off.
+On 01.10.26 02:40, patchwork-bot+netdevbpf@kernel.org wrote:
+> Hello:
+> 
+> This patch was applied to netdev/net-next.git (main)
+> by Jakub Kicinski <kuba@kernel.org>:
+> 
+> On Mon, 28 Sep 2026 17:14:20 +0200 you wrote:
+>> Sashiko reported [1] that 'Missing __GFP_ZERO in folio_alloc() causes
+>> uninitialized kernel memory to be exposed in the receive message buffer'.
+>> An ism dmb is receive-only, so the data is not leaked to a remote peer. In
+>> general the smc kernel module (dibs client) will only push newly received
+>> data to userspace. We still should not have uninitialized data in a receive
+>> buffer.
+>>
+>> [...]
+> 
+> Here is the summary with links:
+>   - [net,v2] s390/ism: Zerorize dmb at allocation
+>     https://git.kernel.org/netdev/net-next/c/a0227fa24e8a
+> 
+> You are awesome, thank you!
 
-Thanks,
-Mina
+On 29.09.26 09:59, Alexandra Winter wrote:
+>
+> As mentioned in the commit message this issue was reported by Sashiko and found
+> valid by me. I do not see a simple reproducer.
+
+Hello Jakub and Greg,
+
+I did some more thinking and now I have a reproducer, where a modified remote
+smc peer causes a local kernel memory leak.
+Reproducer and logs can be sent upon request.
+
+Kindly consider this for net and stable and CVE.
+
+There is nothing wrong with the statements in the commit message,
+but I should have thought more about the worst case and written
+a reproducer, I guess.
+Sorry about that.
+
+Alexandra
+
+
+
+
