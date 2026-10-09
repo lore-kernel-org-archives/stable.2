@@ -1,275 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A71373F413F;
-	Fri,  9 Oct 2026 21:52:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F9764334C4
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 21:57:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791582743; cv=none; b=OiWTGA3PNnwcRTW+FYcyGlGa6RmNfohve888clRH3pJ2W2SPcKIRem4cMAKxv2gUAgF4p7yPtbI0R+mRa4EZvpOKLhfmkvJtgF/aAYgCUiwI9JP9LsVk6Oo8gdPX0wZlXFeaok8FBHZoRBnUTqE4BHPDm5Tt/Cl2jAgsWXsm+vA=
+	t=1791583077; cv=none; b=QWLuCUAmhdWuvHTtYgcDu3TcvFGL1Ob/SEeWnBR67euTQnRywpvUjXpPwHvWx91qq/aOV7chEo+NRejgzJ0YJSN1r6gd322b3i+VcN3JsBtJdoStevVU+pbiJ0lkkJzdpBvynxzc9bPsOkgx+ONwLAEp3TKrUuhU8MbfVSr0JeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791582743; c=relaxed/simple;
-	bh=0Iol97tQCUvcN8jAcnsQ+kb60LhcDEWu3pxXG2d40jQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AdzU4VMWgY86VnN1uO9foCGO0tYlOdKqUFV7OBotjkvTabCdUNZwdMM3K0pWPZOhSFWFwf1I5RtJ0WPAmZjl2q+61RIt2ffTXannF3CZcshm+BNiJ01xVfmvJifZYnh+Hz8uSDUcXX73aVaINMXYdTOKvYjZ4/UfbxzW2wmX170=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ArES8upI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791583077; c=relaxed/simple;
+	bh=uw3PemJoWLmDD2Q5S4K4vpD1Q3NYpGFLLIXFxU6ZYms=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SHx2PgwzF9ftH1Y2bMIhCcDYUJJu4SP9R6dSAuKT/M43o8iNdC/kTN9AnAH2N9p2d79HvGKjyjpHBDG/mEteY435ytD0nq43CJPRRwu2k8g62+gNu01HM7VOPXdG0+9IfiqKQtVgg/Q4V5SQg0FCA6G2yTi5iVmCFlkbxzS5Qro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=MSzF3H9X; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=jfFZf7mu; arc=none smtp.client-ip=103.168.172.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ArES8upI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75D651F00893;
-	Fri,  9 Oct 2026 21:52:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791582742;
-	bh=6GhFd4Olb54zm78lphh6MElYuVt+s1T2KsqxnUZWj7o=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ArES8upIAkp2mameMbCiEIiZKWD1yPJ40R465Z/mdmkod7b3TEJboskdpPod9VB3p
-	 2hNjZsse/ruOiPVfoqOqEq6EMTayDCT7R7PaUeVGjVWYZol8tW5vWfEjIljJDBYYJk
-	 5VV7+YSI1FhcJ2muA8o+G0FWsIzzuGIyc4X6gnkvXYwGDQgoomhq/L0NSRoPJiLsTk
-	 EhKS5NfUAEI90NiPv3TmKg3l4TyNloUDdcu9zbZHmLpHt1TJwT3nwhUKKqcJXIl0TP
-	 LDuKnjCKz0ez1SjyXpMjRUg6Mih0s45VrmElH2ca8bBwQEMpX/aeMIgeIBghLD9XP5
-	 ZMVc2YI8FyfjA==
-From: Christian Brauner <brauner@kernel.org>
-Date: Fri, 09 Oct 2026 23:51:58 +0200
-Subject: [PATCH 8/8] ntfs3: free replaced mount options after a grace
- period
+	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="MSzF3H9X";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="jfFZf7mu"
+Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 8AE1F140013D
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 17:57:51 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-07.internal (MEProxy); Fri, 09 Oct 2026 17:57:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1791583071;
+	 x=1791669471; bh=j3pmpMKIksdiFb408Pu2EBX9DRrS9ls+nKH/cQmC9Mo=; b=
+	MSzF3H9XS1iduwGuOP8FCFXWbpF51BG64Mrva4SiUwJx78tZx9I+bCsbeDYbGrP3
+	H6w6p37exgI8GG65MMZQPWHaeNwYo5AiQ5dWuJOQxa0JrU0ThTQWXos3DiC8sHzQ
+	RyAFBfZmZ3rw6u1s4Lzg9jlfr8tyi1q/IF28gHZtSAERJNBTVp6kpXNjZ99Tde9k
+	fyC84xn2UQ4rT6HNz+L/1XRbnKXebwpV0oyo0bWbioJpwg42apJyMiLVMU9Lpycs
+	PaoXoXUiQfzSlHAoxQLySkya1+wHbqnNwGirU2kVcsfA/fWSuV4FwbxPJ/tmCOes
+	64iWzMs3sT6UpSowuXotXg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791583071; x=
+	1791669471; bh=j3pmpMKIksdiFb408Pu2EBX9DRrS9ls+nKH/cQmC9Mo=; b=j
+	fFZf7mu4bCYBsKNjujYebQiZhx2nbYh+6nBPZpGtoY9Gp21UG9joy0NNLgTgnAUh
+	H7mtBrbHDF7txAP1xL+Ds7oRDrkSy5dz991RpTKkxeK2A5ZUUBvr/tt4vPFTOZvW
+	cQ5HW2/Ns9H0a1y+pgC4nUN6aYkDsiwhN9RFUabzhho/crQrrCu/E632kOElzL5C
+	UutXxuwjACR4DvbsPTFHJl5PC6dP9u3D1S27xFB86JUrgqxbFWg+jQQMqmbXDD7D
+	FiBRRQQ1Npl9KC6bZqEvvVbshRKL0oKfE7mZNx/dZSe0IT2MCqdOBiI6mzRXPIWX
+	jkzcIj31n79mK3Mkj/tzQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=shazbot.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791583071; d=shazbot.org;
+	mf=PGFsZXhAc2hhemJvdC5vcmc+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:TSi36qiSxk5yxzl958oDcb8dEpPLNJB8ASPlDOA7WPo0aQb
+	Lf6T7tPCojO9ka0crToNvq5KGi5cda8H8HQEkgPH1t/o/6V2v3lFgCxbolLnJhdc
+	Yz6Vt4j+93X4HwSfchShazJzFFkKMaSp/FZt0DAvtKutS4fvZzQ2pRmsEVGAHBcM
+	MsKT+U3I3kwGvzq1EeU2UI6E8y0gqX1lOgxK0Y7kzWp+682Y9BeVePzdHx8x8ebZ
+	C3S/ltdTySys+MgxADkdMtJnsFTqwRbuO0ApCUywgCc9AG5QVhFd7MO5Z1U5byMy
+	G6Zs7+D0mFm/FdYM/xvyiyHL2N7y2LTUvSzyC8Q==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:AWqkiazxtFqG15b2E9WajbXFF5zERmDjJy9/oqy5/rY=:uw3PemJoWLmDD2Q5S4K4vpD1Q3NYpGFLLIXFxU6ZYms=;
+X-ME-Sender: <xms:XmPJakHYzZOnKz8vhgy4kjZocmSETOE-nHfrA4O5S1n9XLBNVsiukg>
+    <xme:XmPJapCygQzL46YLpc0f8R2JCY-NBT2fPQfZikxxAqwZYN4L94vimJxKBngRhJvSR
+    RcY2o0BdGg3iXGbXQLWoW2QzDfRUZ8ndTezeSau2SoXP4LxxqIZ1R8>
+X-ME-Received: <xmr:XmPJaqlo24Y0ORJR972l5GXg2vKhiXPkOCOdtEaKFcsmzT2x__XJYISTFJOnFQ>
+X-ME-Proxy-Cause: dmFkZTEBgVX12DrHYNHbImzvqEE57WFgRDDNntR3ubtngcIpiE8EUtJ/Ttf9i8E7LI1oAd
+    BrcGtHJ+CRW40a0l0o7+eT568zOzj8l31jEoJmNFpduqHlkTCl2IskCl2+RWXnSTXT+yag
+    MdBFeqS1BEohtwAH4nG1lP2TvMk0X5JybWj9UYqap0ydP/x6YDecyHzBbuUf74JCy86LQc
+    6aAkDsK/RneU1llBvY52EeWgYixaDeDMZKdJtLcro/iQmYlp2ABHIptuJqdelCUGTT3anQ
+    mYbTdSLJ669Lf/9GvRWtF6X8RP6Mgp6QzsuvwJzXlsmU725DnfRsrPGl+dCPWGkHHFdqJu
+    BKaqVrNKTthRyjguWw+twBMz9UvGBdZoCfZ6vXUnHX+45EN3A1p6i1s7GCjGUu1HUvEaZ0
+    inN7PHXEB2tj3BrPI2o9KoI8m1+JGxDPz8Fv4+yz7x8xsOoBw9yuCX66sUVJS8uX9P0o8R
+    H7j4sKSocb8TKtFtJCm9uhlkoeLj28etf6P4YUke5qOZSuGV2JmrGa02Iaa5XhYyp5BbWf
+    D7/HxZZXul2RPAkLV28MWzRV4m23BACC6Pbgq3rhomUyro+yl3vNq0S50wYl4Dc2o19O1S
+    ZC6bdQOOYuvV9tZceHkEsBcZW+AD0o3EzQgy1m/blySgsNh2WJmHVoKL2myQ
+X-ME-Proxy: <xmx:XmPJavM9XfGnqsGbUKmV1XvSWs-OXj9VDO45VrnTv2phB5UuV5ZT2A>
+    <xmx:XmPJav8pYjndMWCrhdfZgBzRgAsXcy1HMOtl4HYg1J4f44-NKZYHAw>
+    <xmx:XmPJapFkWw3F2ilOmnFOJiiwVyTxojdu6VO-xaKljfRiv5COnC-oEg>
+    <xmx:XmPJamgoYgLApqqh_OfP_9IG37X-beCm7UILbP9p0WTrJ8RW5FQmVA>
+    <xmx:X2PJahHxtgG1yPB4eVbcErBjUrqnBFvcS6kBbFl_LeCIUpIvkApblej6>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 9 Oct 2026 17:57:50 -0400 (EDT)
+Date: Fri, 9 Oct 2026 15:57:48 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Seongjun Hong <hsj0512@snu.ac.kr>
+Cc: Yishai Hadas <yishaih@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Shameer Kolothum <skolothumtho@nvidia.com>, Kevin Tian
+ <kevin.tian@intel.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, alex@shazbot.org
+Subject: Re: [PATCH v2] vfio/mlx5: Fix boundary check in set_report_output()
+Message-ID: <20261009155748.4145f575@shazbot.org>
+In-Reply-To: <20261005-vfio-mlx5-fix-boundary-check-v2-1-75599d2f4497@snu.ac.kr>
+References: <20261005-vfio-mlx5-fix-boundary-check-v2-1-75599d2f4497@snu.ac.kr>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-work-fixes-rcu-v1-8-7446d2d335e6@kernel.org>
-References: <20261009-work-fixes-rcu-v1-0-7446d2d335e6@kernel.org>
-In-Reply-To: <20261009-work-fixes-rcu-v1-0-7446d2d335e6@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- linux-ext4@vger.kernel.org, linux-afs@lists.infradead.org, 
- v9fs@lists.linux.dev, linux-trace-kernel@vger.kernel.org, 
- ntfs3@lists.linux.dev, "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.17-dev-3d1b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6630; i=brauner@kernel.org;
- h=from:subject:message-id; bh=0Iol97tQCUvcN8jAcnsQ+kb60LhcDEWu3pxXG2d40jQ=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSdTPz74FTlb22VM1dSi1O3vbpacPXI2f7sg02Gset6P
- e/c67j9u6OUhUGMi0FWTJHFod0kXG45T8Vmo0wNmDmsTCBDGLg4BWAi16cwMixVXDV7sYDbFi6Z
- p4d47qtGBE6q2RGRP32zaNBBjb3eX1IZGTan/lT7NKki7KWEeA/roj1Rrv0JHvK3Q1h49/01vja
- VnQEA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-ntfs_fs_reconfigure() replaces the old mount options with new mount
-options in sbi->options. The old mount options land in fs_context and
-are freed as soon as remount returns. With a pathwalk held up in
-ntfs_nls_to_utf16() between loading sbi->options and dereferencing it
-while a remount replaces them:
+On Mon, 05 Oct 2026 16:16:29 +0000
+Seongjun Hong <hsj0512@snu.ac.kr> wrote:
 
-  BUG: KASAN: slab-use-after-free in ntfs_nls_to_utf16+0x7ae/0x7c0
-  Read of size 8 at addr ff110001044fd448 by task walker/98
-  Call Trace:
-   <TASK>
-   ntfs_nls_to_utf16+0x7ae/0x7c0
-   ntfs_d_hash+0x22b/0x500
-   link_path_walk+0x11ad/0x1d30
-   path_lookupat+0x63/0xb00
-   filename_lookup+0x1f1/0x5b0
-   vfs_statx+0xd7/0x3b0
-  [...]
-  Allocated by task 95:
-   __kmalloc_node_track_caller_noprof+0x2a2/0x730
-   kmemdup_noprof+0x25/0x50
-   ntfs_fill_super+0x1e5/0x4550
-  [...]
-  Freed by task 97:
-   kfree+0x1db/0x5b0
-   put_fs_context+0x13c/0x7d0
-   path_mount+0x54a/0x2130
-   __x64_sys_mount+0x20c/0x270
+> Use > instead of >= on boundary check of recv_buf to avoid the bug which
+> the full message in the last slot of recv_buf is ignored even though the
+> received data size does not overflow the recv_buf.
+> 
+> Fixes: 9c7c5430bca3 ("vfio/mlx5: Align the page tracking max message size with the device capability")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Yishai Hadas <yishaih@nvidia.com>
+> Signed-off-by: Seongjun Hong <hsj0512@snu.ac.kr>
+> ---
+> Changes in v2:
+> - Drop the max_msg_size readability change. Keep only the fix.
+> - Add Cc: stable@vger.kernel.org.
+> - Link to v1: https://lore.kernel.org/r/20261004-vfio-mlx5-fix-boundary-check-v1-1-1d3b8e55e23f@snu.ac.kr
+> ---
+>  drivers/vfio/pci/mlx5/cmd.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/vfio/pci/mlx5/cmd.c b/drivers/vfio/pci/mlx5/cmd.c
+> index 5fe0621b5fbd..04180035a7fe 100644
+> --- a/drivers/vfio/pci/mlx5/cmd.c
+> +++ b/drivers/vfio/pci/mlx5/cmd.c
+> @@ -1644,7 +1644,7 @@ set_report_output(u32 size, int index, struct mlx5_vhca_qp *qp,
+>  	int i;
+>  
+>  	buf_offset = index * qp->max_msg_size;
+> -	if (WARN_ON(buf_offset + size >= qp->recv_buf.npages * PAGE_SIZE ||
+> +	if (WARN_ON(buf_offset + size > qp->recv_buf.npages * PAGE_SIZE ||
+>  		    (nent > qp->max_msg_size / entry_size)))
+>  		return;
+>  
+> 
+> ---
+> base-commit: 6addb4f385570ebc11c4eb499a4f1c149f313e84
+> change-id: 20261004-vfio-mlx5-fix-boundary-check-4839d6aecbe2
+> 
+> Best regards,
 
-That info is needed in rcu lookup in the dentry hash and dentry compary
-methods for ntfs3 and causes a UAF today. Delay freeing with an rcu
-grace period.
+Applied to vfio next branch for v7.4.  Thanks,
 
-ntfs_nls_to_utf16() reads ->nls and ->ads once under rcu_read_lock() so
-the hooks pair with the release in ntfs_fs_reconfigure(). That also
-covers callers outside of rcu pathwalk such as ntfs_lookup(). They don't
-hold rcu_read_lock() themselves and wouldn't be protected by the grace
-period otherwise. Remount refuses to change the iocharset so ->nls stays
-valid after rcu_read_unlock().
-
-Fixes: a3a956c78efa ("fs/ntfs3: Add option "nocase"")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
-Reproducer: the window is the load of sbi->options in
-ntfs_nls_to_utf16() and the dereference right after it, so widen it in
-the kernel: split
-
-    struct nls_table *nls = sbi->options->nls;
-
-into a load of sbi->options, an mdelay(2000) when current->comm is
-"walker", and the load of ->nls from the options read before the delay.
-repro.c then remounts while a task named walker sits in that delay. The
-name is not ascii, so ntfs_d_hash() goes through the options.
-
-    mkntfs -F -f -Q /dev/vdb
-    mount -t ntfs3 -o nocase,noatime /dev/vdb /mnt
-    echo hello > /mnt/$(printf '\303\244')
-    ./repro
-
-Without this patch that gives the splat above, with it (and the same
-delay between the READ_ONCE() and ->nls) it runs clean.
-
-repro.c:
-
-    #define _GNU_SOURCE
-    #include <pthread.h>
-    #include <sched.h>
-    #include <string.h>
-    #include <sys/mman.h>
-    #include <sys/mount.h>
-    #include <sys/prctl.h>
-    #include <sys/stat.h>
-    #include <unistd.h>
-
-    static void pin(int cpu)
-    {
-    	cpu_set_t set;
-
-    	CPU_ZERO(&set);
-    	CPU_SET(cpu, &set);
-    	sched_setaffinity(0, sizeof(set), &set);
-    }
-
-    static void *walker(void *arg)
-    {
-    	struct stat st;
-    	char *p;
-
-    	/*
-    	 * The delay spins. Empty this cpu's lru batches so that an
-    	 * lru_add_drain_all() on the other side has no work to wait for here.
-    	 */
-    	pin(1);
-    	p = mmap(NULL, 4096, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    	memset(p, 1, 4096);
-    	madvise(p, 4096, MADV_COLD);
-
-    	prctl(PR_SET_NAME, "walker");
-    	stat("\xc3\xa4", &st);
-    	return NULL;
-    }
-
-    int main(void)
-    {
-    	struct stat st;
-    	pthread_t t;
-
-    	pin(0);
-    	chdir("/mnt");
-    	stat("\xc3\xa4", &st);
-    	pthread_create(&t, NULL, walker, NULL);
-    	sleep(1);
-    	/* replaces sbi->options and frees the old ones */
-    	mount("none", "/mnt", NULL, MS_REMOUNT, "nocase");
-    	pthread_join(t, NULL);
-    	return 0;
-    }
----
- fs/ntfs3/dir.c     | 13 +++++++++++--
- fs/ntfs3/ntfs_fs.h |  2 ++
- fs/ntfs3/super.c   | 16 +++++++++++++++-
- 3 files changed, 28 insertions(+), 3 deletions(-)
-
-diff --git a/fs/ntfs3/dir.c b/fs/ntfs3/dir.c
-index eb9152e9fa22..14ca54e54578 100644
---- a/fs/ntfs3/dir.c
-+++ b/fs/ntfs3/dir.c
-@@ -186,11 +186,20 @@ int ntfs_nls_to_utf16(struct ntfs_sb_info *sbi, const u8 *name, u32 name_len,
- {
- 	int ret, slen, i;
- 	const u8 *end;
--	struct nls_table *nls = sbi->options->nls;
-+	struct ntfs_mount_options *opts;
-+	struct nls_table *nls;
-+	bool ads;
- 	u16 *uname = uni->name;
- 
- 	static_assert(sizeof(wchar_t) == sizeof(u16));
- 
-+	/* ntfs_fs_reconfigure() may replace the options, but not ->nls */
-+	rcu_read_lock();
-+	opts = READ_ONCE(sbi->options);
-+	nls = opts->nls;
-+	ads = opts->ads;
-+	rcu_read_unlock();
-+
- 	if (!nls) {
- 		/* utf8 -> utf16 */
- 		ret = _utf8s_to_utf16s(name, name_len, endian, uname, max_ulen);
-@@ -230,7 +239,7 @@ int ntfs_nls_to_utf16(struct ntfs_sb_info *sbi, const u8 *name, u32 name_len,
- 
- 	uni->len = ret;
- 	uni->ads_len = 0;
--	if (ret > 0 && sbi->options->ads) {
-+	if (ret > 0 && ads) {
- 		uname = uni->name;
- 		/* Find delimiter in range [1 : ret-2). */
- 		for (i = 1; i + 1 < ret; i++) {
-diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
-index bbcd2e02bf63..44d59b444648 100644
---- a/fs/ntfs3/ntfs_fs.h
-+++ b/fs/ntfs3/ntfs_fs.h
-@@ -91,6 +91,8 @@ enum utf16_endian;
- struct ntfs_mount_options {
- 	char *nls_name;
- 	struct nls_table *nls;
-+	/* ->d_hash() and ->d_compare() read the options in rcu pathwalk */
-+	struct rcu_head rcu;
- 
- 	kuid_t fs_uid;
- 	kgid_t fs_gid;
-diff --git a/fs/ntfs3/super.c b/fs/ntfs3/super.c
-index 841f9068d82f..58ef6be3286b 100644
---- a/fs/ntfs3/super.c
-+++ b/fs/ntfs3/super.c
-@@ -251,6 +251,11 @@ static inline void put_mount_options(struct ntfs_mount_options *options)
- 	kfree(options);
- }
- 
-+static void put_mount_options_rcu(struct rcu_head *head)
-+{
-+	put_mount_options(container_of(head, struct ntfs_mount_options, rcu));
-+}
-+
- enum Opt {
- 	Opt_uid,
- 	Opt_gid,
-@@ -444,6 +449,7 @@ static int ntfs_fs_reconfigure(struct fs_context *fc)
- 	struct super_block *sb = fc->root->d_sb;
- 	struct ntfs_sb_info *sbi = sb->s_fs_info;
- 	struct ntfs_mount_options *new_opts = fc->fs_private;
-+	struct ntfs_mount_options *old_opts;
- 	int ro_rw;
- 
- 	ro_rw = sb_rdonly(sb) && !(fc->sb_flags & SB_RDONLY);
-@@ -473,7 +479,15 @@ static int ntfs_fs_reconfigure(struct fs_context *fc)
- 	}
- 
- 	sync_filesystem(sb);
--	swap(sbi->options, fc->fs_private);
-+	old_opts = sbi->options;
-+	/* pairs with the READ_ONCE() in ntfs_nls_to_utf16() */
-+	smp_store_release(&sbi->options, new_opts);
-+	fc->fs_private = NULL;
-+	/*
-+	 * ntfs_d_hash() and ntfs_d_compare() of a pathwalk in rcu mode may
-+	 * still read the old options through the sbi.
-+	 */
-+	call_rcu(&old_opts->rcu, put_mount_options_rcu);
- 
- 	return 0;
- }
-
--- 
-2.53.0
-
+Alex
