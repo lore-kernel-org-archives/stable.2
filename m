@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5646A37F73A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5656F3CA499;
 	Fri,  9 Oct 2026 22:39:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791585557; cv=none; b=poOl/7tG8W/K3lT2kqEt1Bnz0Nbw7E7X591NX/Yg/kM9Yr3sDzOuFTcUMpp27aNQBzHTHm4q6kCTVNHT0+lJbp9If5MTlopIZQtK89pYTpfmyepN3doiB/TwKkkupsJ77nfZs/iDna7ezyGGlLpwa14w8o3l1sj5bjjdMzXq7Zo=
+	t=1791585557; cv=none; b=nBUMaCPn8kloctQhpFXNVrZAxQUSzZbBtmBNLVjkwLB3BSCJvINVNDpYD8slMF6dXz0OlQb2vFPi5NCUFOqC0TxP0Wlcccm/JnzJAAObaQJkc15QMdEtFjVFpNB641ZLgyUjIe2/XEAb6GL07i3P4NEnNQZlXhtdTcTTZDmPBo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791585557; c=relaxed/simple;
-	bh=slUGqAhZ+UGZ5KzVFwqtX5oIz8oN8XpKIDkTYk8BgJw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZsNifVyglbv/m+/4ufVng1+rVGKJMEz+SWVRDsMESWgsCiyWSe0GwnO+Q0r6ryJsJYKDkmyOCCl0/lkGzCeaEIXEOsGznDpFq5tTqErp/MOSmnnIvBhiVfDNEJ0/C31xzO2DnYvHgAGpADF0Vg+EcMvNfRgVPcCsCP9tQUEzJZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mFZpIFV1; arc=none smtp.client-ip=10.30.226.201
+	bh=KWpQFquq7avx1bUklcWT3BnzeA5u9h49N5vuVBzTD3k=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tsRzWw47Z01jG6J8qvQaTG72IVq39BGr+VSFED5Nb88YKadumJRLqOEqWrB5HQshkhVhVibyFCFU6jrYw8vg1+OQa3XpL7nmxZVdn0hOG+ayyOu6lQj8bFWj2ZmbDyaz7GFXug+wZLEOi2BMGY7IaBvh9Ln83ZYVuTACDlnBMGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GUeJCHz8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mFZpIFV1"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C2A5DC2BCFB;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GUeJCHz8"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B41E5C2BCF4;
 	Fri,  9 Oct 2026 22:39:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791585556;
-	bh=slUGqAhZ+UGZ5KzVFwqtX5oIz8oN8XpKIDkTYk8BgJw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=mFZpIFV1WLFn9nGKwySONbD4Qo/YH1T5ZUUofjd1DTASiGUmHHla88IH6MqFV8DPD
-	 NWGoeAB8DTlcOGfP0Z+xYEE69hNTnlcaVSFg2DfffySbM8Cvig9XLABkhx1TlTtlXk
-	 scUCIAPKJJm5mHMHDbz1+QH/a5QD7QXWubdkWm5TuVcA6LnUvd9QS57ISnuVCJbfjq
-	 kOCaRdlGyFsG5a07uFJ1esDjnXJmClDu7++KI2TaYi18ScA67/kemSiMEVStZTmPwp
-	 ubg4CIgCA8/PyJ0nMy5bYRbI3DqeLTq+zQJt5qeSZPhsw+GGMirYbBjXvN9FcJpNN5
-	 WtGYDE+GbRX+w==
+	bh=KWpQFquq7avx1bUklcWT3BnzeA5u9h49N5vuVBzTD3k=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=GUeJCHz8iwxZtfLlgszI6BlYxL/MqgIC/DQ098sJ5RC1afr9zUMkk1uD1OMLuduzp
+	 UJCmdnbgRY7rfo76x3fha8xm4hJzz4T4RQx9+g9ObSTmeq9xkunStQHUUjq7Q7B5+t
+	 swFfi3Cni8TDsaOdpA7nTIvjmsgpVdLGp9CErnPCgLU+9wAoIxSp0pPELUCwzYEESO
+	 EViwsk9ssccI33MhB3+exEx8lM8M2ugCSmFnOeyxrxB3wUcOD3YPtzLX3qaQmNhjMn
+	 7qE3m1kzpjhsj4XPBLP0iGfYGVJhiZ9YrtpF7fChBgOyChmL3eW4McsdxwZjByrBwp
+	 UqmeHld5Pw3Sg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9FF88CA9EBB;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E54ECA601E;
 	Fri,  9 Oct 2026 22:39:16 +0000 (UTC)
 From: Kim Wooseok via B4 Relay <devnull+5mghybrid.khu.ac.kr@kernel.org>
-Date: Sat, 10 Oct 2026 07:39:16 +0900
 Subject: [PATCH rtw-next] wifi: rtl8xxxu: isolate the USB register buffer
- from CPU state
+Date: Sat, 10 Oct 2026 07:39:15 +0900
+Message-Id: <20261010-rtl8xxxu-usb-dma-v1-0-e670d9c08fdf@khu.ac.kr>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,20 +40,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261010-rtl8xxxu-usb-dma-v1-1-e670d9c08fdf@khu.ac.kr>
-References: <20261010-rtl8xxxu-usb-dma-v1-0-e670d9c08fdf@khu.ac.kr>
-In-Reply-To: <20261010-rtl8xxxu-usb-dma-v1-0-e670d9c08fdf@khu.ac.kr>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/z2MwQ7CIBBEf6XZs5tAQ1r1V4wHoFuLUTS7oCRN/
+ 13QxOPMvHkrCHEggWO3AtMrSHjEGvSuA7/YeCEMU83Qq37QSivkdNuXUjJmcTjdLfqDmc04kFZ
+ mhHp7Ms2hfJUn4PTGSCXB+bdIdlfyqRkb66wQOrbRL63609v2AbDrgCuZAAAA
+X-Change-ID: 20261010-rtl8xxxu-usb-dma-c94f476e1047
 To: linux-wireless@vger.kernel.org
 Cc: Jes Sorensen <Jes.Sorensen@gmail.com>, 
  Ping-Ke Shih <pkshih@realtek.com>, Kalle Valo <kvalo@kernel.org>, 
  linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
  Kim Wooseok <5mghybrid@khu.ac.kr>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791585555; l=6582;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791585555; l=1272;
  i=5mghybrid@khu.ac.kr; s=kernel-20260913; h=from:subject:message-id;
- bh=Fi20EesCIFYA7ua1Pp4uDWX7+NVtPGKW8peZdq6hLUg=;
- b=n+8LSkIk2agDhFBlGXKpX59k2qz4XvGl7QMwma21+f0UECjyfyC/fqMQiBBDq81GFIi1VwXHB
- Ehu3grWBmHiB2MMtGih/c3iVlu2DJoVWPMzLZZ/jZwDdIramfKYuCKJ
+ bh=KWpQFquq7avx1bUklcWT3BnzeA5u9h49N5vuVBzTD3k=;
+ b=YCKDuTM5arzlyP5KChB/r3Xqskn7TypP3HRG1TFZaZUbljeb1n2LZ79C27gogbLTxln71VstU
+ HvTbYg4enNeDdWP8kN2+SqY1cfmMUtdjCJgpRfVMTA0NcnizT/goeO1
 X-Developer-Key: i=5mghybrid@khu.ac.kr; a=ed25519;
  pk=1az/6lC8Tmd6BcvyarPc8FWoSxsV/WRr5NLs1v+kjlE=
 X-Endpoint-Received: by B4 Relay for 5mghybrid@khu.ac.kr/kernel-20260913
@@ -62,168 +62,36 @@ X-Endpoint-Received: by B4 Relay for 5mghybrid@khu.ac.kr/kernel-20260913
 X-Original-From: Kim Wooseok <5mghybrid@khu.ac.kr>
 Reply-To: 5mghybrid@khu.ac.kr
 
-From: Kim Wooseok <5mghybrid@khu.ac.kr>
+I encountered reconnect failures on four Raspberry Pis in my project.
+While investigating the failure on a Raspberry Pi 5 after an AP power
+cycle, I found that RF_MODE had been corrupted. Restoring its initialized
+value restored reception without reloading the driver.
 
-An RTL8192EU failed to reconnect on a Raspberry Pi after an AP power
-cycle. RF_MODE contained a corrupted value, and restoring its initialized
-value restored reception.
+The USB register buffer shared a cache line with CPU-written mutex state.
+This patch allocates the buffer separately while keeping the existing
+register access and locking.
 
-The register access helpers pass usb_buf directly to usb_control_msg(),
-but the buffer is embedded next to usb_buf_mutex. On the affected Pi,
-it shares a cache line with the mutex's waiter state. A contending task
-updates that state while the USB transfer uses the buffer. This violates
-the cache-line isolation required for non-coherent DMA.
-
-Allocate the buffer once in probe and reuse it, avoiding an allocation
-for every register access. Keep the existing register access helpers and
-mutex protection. Free the buffer on probe failure and after power_off()
-in disconnect, since shutdown still uses the register access helpers.
-
-Fixes: 26f1fad29ad9 ("New driver: rtl8xxxu (mac80211)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kim Wooseok <5mghybrid@khu.ac.kr>
----
-I tested the separate-buffer approach on an RTL8192EU connected to a
-Raspberry Pi 5, using the existing Linux 6.18.34 kernel. While repeatedly
-requesting scans, wireless ping traffic kept receiving replies and the
-RF_MODE and HSSI register values remained stable.
-
-The submission is based on rtw-next. An ARM64 build of the rtl8xxxu
-driver with W=1 completed without warnings, and sparse reported no
+I tested the separate-buffer approach on the Pi's Linux 6.18.34 kernel.
+During repeated scan requests, wireless ping traffic kept receiving
+replies and the RF_MODE and HSSI values stayed stable. I also built the
+submission's rtl8xxxu driver for ARM64 with W=1; sparse reported no
 diagnostics in core.c.
+
+Signed-off-by: Kim Wooseok <5mghybrid@khu.ac.kr>
+
 ---
+Kim Wooseok (1):
+      wifi: rtl8xxxu: isolate the USB register buffer from CPU state
+
  drivers/net/wireless/realtek/rtl8xxxu/core.c     | 35 ++++++++++++++++--------
  drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h |  2 +-
  2 files changed, 24 insertions(+), 13 deletions(-)
+---
+base-commit: 83de3a16c7b37064a59305040ba9b0f93b832794
+change-id: 20261010-rtl8xxxu-usb-dma-c94f476e1047
 
-diff --git a/drivers/net/wireless/realtek/rtl8xxxu/core.c b/drivers/net/wireless/realtek/rtl8xxxu/core.c
-index 3d0c22db3..604bb1e5b 100644
---- a/drivers/net/wireless/realtek/rtl8xxxu/core.c
-+++ b/drivers/net/wireless/realtek/rtl8xxxu/core.c
-@@ -622,9 +622,9 @@ u8 rtl8xxxu_read8(struct rtl8xxxu_priv *priv, u16 addr)
- 	mutex_lock(&priv->usb_buf_mutex);
- 	len = usb_control_msg(udev, usb_rcvctrlpipe(udev, 0),
- 			      REALTEK_USB_CMD_REQ, REALTEK_USB_READ,
--			      addr, 0, &priv->usb_buf.val8, sizeof(u8),
-+			      addr, 0, &priv->usb_buf->val8, sizeof(u8),
- 			      RTW_USB_CONTROL_MSG_TIMEOUT);
--	data = priv->usb_buf.val8;
-+	data = priv->usb_buf->val8;
- 	mutex_unlock(&priv->usb_buf_mutex);
- 
- 	if (rtl8xxxu_debug & RTL8XXXU_DEBUG_REG_READ)
-@@ -645,9 +645,9 @@ u16 rtl8xxxu_read16(struct rtl8xxxu_priv *priv, u16 addr)
- 	mutex_lock(&priv->usb_buf_mutex);
- 	len = usb_control_msg(udev, usb_rcvctrlpipe(udev, 0),
- 			      REALTEK_USB_CMD_REQ, REALTEK_USB_READ,
--			      addr, 0, &priv->usb_buf.val16, sizeof(u16),
-+			      addr, 0, &priv->usb_buf->val16, sizeof(u16),
- 			      RTW_USB_CONTROL_MSG_TIMEOUT);
--	data = le16_to_cpu(priv->usb_buf.val16);
-+	data = le16_to_cpu(priv->usb_buf->val16);
- 	mutex_unlock(&priv->usb_buf_mutex);
- 
- 	if (rtl8xxxu_debug & RTL8XXXU_DEBUG_REG_READ)
-@@ -668,9 +668,9 @@ u32 rtl8xxxu_read32(struct rtl8xxxu_priv *priv, u16 addr)
- 	mutex_lock(&priv->usb_buf_mutex);
- 	len = usb_control_msg(udev, usb_rcvctrlpipe(udev, 0),
- 			      REALTEK_USB_CMD_REQ, REALTEK_USB_READ,
--			      addr, 0, &priv->usb_buf.val32, sizeof(u32),
-+			      addr, 0, &priv->usb_buf->val32, sizeof(u32),
- 			      RTW_USB_CONTROL_MSG_TIMEOUT);
--	data = le32_to_cpu(priv->usb_buf.val32);
-+	data = le32_to_cpu(priv->usb_buf->val32);
- 	mutex_unlock(&priv->usb_buf_mutex);
- 
- 	if (rtl8xxxu_debug & RTL8XXXU_DEBUG_REG_READ)
-@@ -688,10 +688,10 @@ int rtl8xxxu_write8(struct rtl8xxxu_priv *priv, u16 addr, u8 val)
- 		addr |= 0x8000;
- 
- 	mutex_lock(&priv->usb_buf_mutex);
--	priv->usb_buf.val8 = val;
-+	priv->usb_buf->val8 = val;
- 	ret = usb_control_msg(udev, usb_sndctrlpipe(udev, 0),
- 			      REALTEK_USB_CMD_REQ, REALTEK_USB_WRITE,
--			      addr, 0, &priv->usb_buf.val8, sizeof(u8),
-+			      addr, 0, &priv->usb_buf->val8, sizeof(u8),
- 			      RTW_USB_CONTROL_MSG_TIMEOUT);
- 
- 	mutex_unlock(&priv->usb_buf_mutex);
-@@ -711,10 +711,10 @@ int rtl8xxxu_write16(struct rtl8xxxu_priv *priv, u16 addr, u16 val)
- 		addr |= 0x8000;
- 
- 	mutex_lock(&priv->usb_buf_mutex);
--	priv->usb_buf.val16 = cpu_to_le16(val);
-+	priv->usb_buf->val16 = cpu_to_le16(val);
- 	ret = usb_control_msg(udev, usb_sndctrlpipe(udev, 0),
- 			      REALTEK_USB_CMD_REQ, REALTEK_USB_WRITE,
--			      addr, 0, &priv->usb_buf.val16, sizeof(u16),
-+			      addr, 0, &priv->usb_buf->val16, sizeof(u16),
- 			      RTW_USB_CONTROL_MSG_TIMEOUT);
- 	mutex_unlock(&priv->usb_buf_mutex);
- 
-@@ -733,10 +733,10 @@ int rtl8xxxu_write32(struct rtl8xxxu_priv *priv, u16 addr, u32 val)
- 		addr |= 0x8000;
- 
- 	mutex_lock(&priv->usb_buf_mutex);
--	priv->usb_buf.val32 = cpu_to_le32(val);
-+	priv->usb_buf->val32 = cpu_to_le32(val);
- 	ret = usb_control_msg(udev, usb_sndctrlpipe(udev, 0),
- 			      REALTEK_USB_CMD_REQ, REALTEK_USB_WRITE,
--			      addr, 0, &priv->usb_buf.val32, sizeof(u32),
-+			      addr, 0, &priv->usb_buf->val32, sizeof(u32),
- 			      RTW_USB_CONTROL_MSG_TIMEOUT);
- 	mutex_unlock(&priv->usb_buf_mutex);
- 
-@@ -7851,6 +7851,13 @@ static int rtl8xxxu_probe(struct usb_interface *interface,
- 
- 	usb_set_intfdata(interface, hw);
- 
-+	/* Keep the USB register buffer separate from driver state. */
-+	priv->usb_buf = kzalloc_obj(*priv->usb_buf);
-+	if (!priv->usb_buf) {
-+		ret = -ENOMEM;
-+		goto err_set_intfdata;
-+	}
-+
- 	ret = rtl8xxxu_parse_usb(priv, interface);
- 	if (ret)
- 		goto err_set_intfdata;
-@@ -7971,7 +7978,9 @@ static int rtl8xxxu_probe(struct usb_interface *interface,
- err_set_intfdata:
- 	usb_set_intfdata(interface, NULL);
- 
-+	kfree(priv->usb_buf);
- 	kfree(priv->fw_data);
-+
- 	mutex_destroy(&priv->usb_buf_mutex);
- 	mutex_destroy(&priv->syson_indirect_access_mutex);
- 	mutex_destroy(&priv->h2c_mutex);
-@@ -7999,7 +8008,9 @@ static void rtl8xxxu_disconnect(struct usb_interface *interface)
- 
- 	dev_info(&priv->udev->dev, "disconnecting\n");
- 
-+	kfree(priv->usb_buf);
- 	kfree(priv->fw_data);
-+
- 	mutex_destroy(&priv->usb_buf_mutex);
- 	mutex_destroy(&priv->syson_indirect_access_mutex);
- 	mutex_destroy(&priv->h2c_mutex);
-diff --git a/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h b/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h
-index c6953051d..8cbadcf71 100644
---- a/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h
-+++ b/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h
-@@ -1891,7 +1891,7 @@ struct rtl8xxxu_priv {
- 		__le32 val32;
- 		__le16 val16;
- 		u8 val8;
--	} usb_buf;
-+	} *usb_buf;
- 	union {
- 		u8 raw[EFUSE_MAP_LEN];
- 		struct rtl8723au_efuse efuse8723;
-
--- 
-2.53.0
+Best regards,
+--  
+Kim Wooseok <5mghybrid@khu.ac.kr>
 
 
