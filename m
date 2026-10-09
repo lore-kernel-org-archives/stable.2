@@ -1,226 +1,267 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013071.outbound.protection.outlook.com [40.93.201.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3EAD4F7CA2;
-	Fri,  9 Oct 2026 18:17:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.71
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791569840; cv=fail; b=Rq7GF4VvI8pYoTOjocODJ1KPedktHLfUXBxaH6XJILkfqs/A838QaQAjt9hPO1xlOkEFR+mYZaWMnhDrCgBrViySjPQ4BlywwUKDouGGKSpgkYMk9MMah5s+6fQzQeRjodiIq5inr+X1uxAKiO/UTsHN49eK69w6hncRtBMLTrQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791569840; c=relaxed/simple;
-	bh=Ti0L25S/Aa7TMUgdXaLkUjZ6yBb1WoRrv8sOT7uT4cY=;
-	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
-	 In-Reply-To:MIME-Version; b=uK4TzOD609GT9LgZcS11u1DB/ga6+Fu0x5r67sOG1Cvdl3WYwjlaPpDb/dbbbxYYAh99+wDu5lVGblz0JYDXbxaLayU7F7A8pjWJL/ZLTmozAh7oz36FZFP0yhJUjxPUbc+r20W2EhX6phqcXS0LTbue/iePo2c16QvjDZjLw60=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=XnEjklOp; arc=fail smtp.client-ip=40.93.201.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 869A24EF15B
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 18:22:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791570181; cv=none; b=WFCxv2aqC1wUQFPS7e64xhzKEAqan29hQxbrQCo01E1lvXq9BDb56EJ+vopDHARJsrAFu7lVfgHqZCilY/3gAr4vL/y6APs1EBY/QZFIwrd5jQAt1KU5Va5ZezraXBGODOeI8LzqTc9sVRQEpU/pnalZakN8/Ce44ZDACSnCptY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791570181; c=relaxed/simple;
+	bh=9vAeSVMgChu8sFTGFbATOHJawdCKY56GlNC/6/iSWKQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=poLNbEQMDb+OetEaSUPy718GzOI1DXFWe/UBOgPrnC7SME/wEKA/OhzBvxJYS6oeYNM8pg5O+pTqWNoJQMNePQ8yo+BPPH4Jm8nTmXPlnJWIWdoeWhqFpNqfJrr9tCtAZa77OldOojMQbOggEoc5c8lyISvc9WyYlT0wiIw+kIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OmkJYlAq; arc=none smtp.client-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="XnEjklOp"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jQVZ+YudhF78gtyJNbg2qmF+zKinD3lTKHtLEaGyU5xuxT9ZT50oMLBToH0+7y1R9YzzJwgB7F63kkPegPV0P0daud3HKxJRXYnPHz5FYddpT+Y4SrTpv5tkE0VmtxhPrCIfsas2wxiiw1YnGkaFlip9OjpaMJR4OemgRg8kL699ia+zE5XP+ELd00xmQpaL7t04y9PNKNFxQ3p8ZRFkH5Vkah74LnF9/4lYEA5tPv8pWqGLEvgTysRFqhpLW8+ULyAmZXWlPzn8uD5VYbYV1Q5ZdtBaHJFXf9weeXO9sTJYc9cVLUajuWmdjrY/wNKac5RHaApf1s39qiPz5GQ6bg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f50MZ1btfZoOGD4j8T+v0gcPDDn+3SuSMmqVjWimsKY=;
- b=YAa/UQE/yRwexcakvHI/hF/S3XDvSCuNfm4KYuu2jeQ7usgSAK34KWTE6VGNjJSb9tKAu4YCwBBgIR5Jtmg74g4rqwk3t9MUSXrQJAJqzmLuW5iV7xiAm5EM3O0IVpjzVPlihXxQb0XMLCWSHSjmIo/mRB3+AoZdcD1bb2IM6NzIeBSGzklciWvy5CATTFnif2zjIjaWHC4eZohSLbsW/c81uc6nKhE1Y6tn3se3WFEkQtDFT9mdit51Ev9/o/fzPKjwj24KhRzZj43yftdpyZal5yMPCWay1n+StsadNAOoK2pYWpLX2WIrLbiS2ZsX4NjmHXSIpnR5cF8PkAhHnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f50MZ1btfZoOGD4j8T+v0gcPDDn+3SuSMmqVjWimsKY=;
- b=XnEjklOpOZKWaEwYBRP2UKojz7Li4Eb3eluB+vYL8GIAsVi1uVFYRoyfRHZD5B6VQvCDNWwvrOcVZIti6qGA6NJYdokM1WvDV5OU8DOSRfJej9T9GGNcEPg53PadryngyGnGf6n/rx+SXUDeOepGTJ1uyck3U2HpvexXxxo4prIJrhTJW7hC3i1Is3YdLduHDrVueG4IaYsxTPyqIny5KJFxO2tFQ8KbBTZcGjyrhUJojSf29XtjoNuQ3pbNOuVRm2K2v0Cun4O/R52nmReaJM/m+r2lWelwTzhXoBKYn0IqhlJaGw1G9EjkEe++SWq1QGf/VEskuVA0Evj2zStQWA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by DS0PR12MB6462.namprd12.prod.outlook.com (2603:10b6:8:c6::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 18:17:14 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0472.016; Fri, 9 Oct 2026
- 18:17:14 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 09 Oct 2026 14:17:12 -0400
-Message-Id: <DM0II2QHWWS1.2RXEJXC8S0101@nvidia.com>
-Subject: Re: [PATCH] mm/huge_memory: avoid transient none PMDs during
- lazyfree reclaim
-Cc: <linux-kernel@vger.kernel.org>, "Andrew Morton"
- <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>,
- "Baolin Wang" <baolin.wang@linux.alibaba.com>, "Nico Pache"
- <nico.pache@linux.dev>, "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain"
- <dev.jain@arm.com>, "Barry Song" <baohua@kernel.org>, "Lance Yang"
- <lance.yang@linux.dev>, "Usama Arif" <usama.arif@linux.dev>, "Kiryl
- Shutsemau" <kas@kernel.org>, <stable@vger.kernel.org>
-To: "Kyle Zeng" <kylebot@openai.com>, <linux-mm@kvack.org>
-From: "Zi Yan" <ziy@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20261009165214.40212-2-kylebot@openai.com>
-In-Reply-To: <20261009165214.40212-2-kylebot@openai.com>
-X-ClientProxiedBy: YQZPR01CA0153.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:8c::14) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OmkJYlAq"
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93e7ad9f78dso503057985a.1
+        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 11:22:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791570177; x=1792174977; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=a5DZyu/rgS+ubvoCBVhk1B0P03cm+osmdOmBLE1t3Jk=;
+        b=OmkJYlAq3bV0AxUnYf4O1rDYClb5B3/Inv4F4kv5L8R7z+UpAtYiD38Qy+Ngt9bDzu
+         lD6AYAZIIx6wRw3AmEVc1ydy5okCbKlIRH4+GwMtgkEjerPbtkVd9b7w7czLvMFXN4mG
+         wmp6nMweEXhqRXl7lqSarkG7qwqlrXDSb2QmogITSrHD4utNykNBVRYPlK1LIKPamWBb
+         RFz4RcmGiFtarkyNmJwfnGuM5CQ7qx8ifCoKQTG2duMQTR9etKa/njYSodEgwCsLxd/u
+         5JVA4O8DQU3/tdHfIfr2NvMkiYMoXTPNxN8ub5O6WYNmFKjcXfb0J3MUJILUEAhSjc5W
+         OAdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791570177; x=1792174977;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a5DZyu/rgS+ubvoCBVhk1B0P03cm+osmdOmBLE1t3Jk=;
+        b=hrPJFQjJfDKPewI+S5TawGPF2TGKzu8V9faDqfR5I1jPZ5tTWOTo2htuB3ou4jUoyP
+         uOGPgMn9OQZv35CuJl7o6TSuhmlYCKtw5geubXmg3MSy4wZY8ti3My5WocV87qGDDKFr
+         nRT8FkOUo4SWgghQUZJVG/7n9dcfI+SkXN6TMY7jHzXv0yoHNfLzq9Kj6rGjpZ196lDj
+         66PdqGwdB28axhycS6Zq3Qg7KK/LDhALqdS/H5FXGpXHaqZDbwuvLey36f21TTVKa5ON
+         1msbhwPH08PO7D9PpfY50Tu+Dj3PgBn8AfyYrx/YKXBF+GyvV/yVaw83rcrkZSL4aYFv
+         +qRA==
+X-Forwarded-Encrypted: i=1; AKwUvBxKqEbSElFmRdXu0FF19jN1NGdI7sbDlwjocsJtq/Us9MV2fzJ+DD+yiJEZb1AJPB1LLu50tbI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mKH2u9/TV26zgqcvrEi0wsfpfq7d+tAIdVlNzgBZ+Gq/gZuMS9
+	J9kfLop0OPbZI7VXTsJmAkkv2NM4/4z3W+C//mxV7HWWEzJuQMfWTAs2
+X-Gm-Gg: AYBFou38NG9yutQJWGlHqagI5ZX/eRcVghTLED241Y8q5K/vi80ysD8UIOKrTZSsIf0
+	PH8a0Dv7xUyT9WOAjftAFCiVFejQEtLsl7AV4dFtoCvwyn9DCeTEyiCVQFolaxnlLm56hByZYzW
+	wW0nlRnH/Elv4l+ZXI39loj4N+EbQZQKxvRRhTcVsFtrob7bszxvRdqhQE41cAVrti9B8+I5D8n
+	js0qQq2ddXXCwHfpAOkgIz4pJuoWsB3+hWAQuRHke+oJJdLB/ii3sLDo4zTLj2dZjjTiFrbZG9d
+	uXuVSymYHpz95HAL4lZ3tUqXmXQjh/oYnkNl0oDaGUQK+OgfhkxNz9ib5WRbrRedqXcv05gApPh
+	ihu9GX1G7Z0i0UgIwgItqOQR9Fmir8IR90h94C3BYE8wFltjR2d6Af4/wD8KTumb3oUoOLePWUu
+	zvTDMZJZV+WheYGuI9g62lD5CwkyIZ0XcC0+Af79SgfeLyPcQKakFBBsTptDKak3qiSafMikgSr
+	ZODfoKsIC73KaGPfDV8jQ8wh/6TbSGMi6Z4NmP1wWdZuftVmwLfmcb1zhvyHQTwZqSvAFZfSSVW
+	nypa4iLOTegFQjmhDYRr8mb67sBOP2MV3kWl6/bxo5IIa1Jx0XDUXUhzh0Y1nYAKd+XX2i/269h
+	uzrhWC17nYsam/4HWqFBXFtPaCZ+UX8hcijbuCIJX9xAVxmpjg5mJS9fQ2FnkZWrS9KWDHMaa+T
+	l/McZbVS3n3GT0ojJzIAoqtFWnT+SO
+X-Received: by 2002:a05:620a:660a:b0:93c:7955:afd9 with SMTP id af79cd13be357-93ebd27ab42mr401270885a.52.1791570177349;
+        Fri, 09 Oct 2026 11:22:57 -0700 (PDT)
+Received: from node0.quickhttpnode15.cloudfaas-pg0.wisc.cloudlab.us ([128.105.144.50])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb986c0c4sm247937685a.18.2026.10.09.11.22.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 11:22:56 -0700 (PDT)
+From: mosafer <mohsafer@gmail.com>
+X-Google-Original-From: mosafer <mosafer@node0.quickhttpnode15.cloudfaas-pg0.wisc.cloudlab.us>
+To: dakr@kernel.org
+Cc: driver-core@lists.linux.dev,
+	gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	mohsafer@gmail.com,
+	rafael@kernel.org,
+	stable@vger.kernel.org,
+	syzbot+863936f50214e843ae0c@syzkaller.appspotmail.com,
+	khiemtranzo532001@gmail.com
+Subject: [PATCH v2] driver core: complete deferred binds when drivers_autoprobe is off
+Date: Fri,  9 Oct 2026 13:22:39 -0500
+Message-Id: <20261009182239.283329-1-mosafer@node0.quickhttpnode15.cloudfaas-pg0.wisc.cloudlab.us>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <DM06HWVAFSOW.2F050J0BT27TK@kernel.org>
+References: <DM06HWVAFSOW.2F050J0BT27TK@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DS0PR12MB6462:EE_
-X-MS-Office365-Filtering-Correlation-Id: afa5cd0c-30b4-4d5d-944c-08df26318af8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|22082099003|18002099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	Uy2VXGIazbkf27kC4PaM9z8xUsZoj8NqW9tPiBRxut+cQu8SCGPmduuFaA/yoOYytxAlJ03LbIDtQY5mu8CH5z+6RMCUn5Sx7CII8EYOQ8yvsX1mxC4Qqq2DpVS/r58374BMUf1DIvx13cyj3mRsZd+jyZLPRC+kTVvVktKf/e+94nRbfhRPHMj8wlcnTfjSiKfzuJgzD1JEupV6AK02SJJJzaH4qtwOSQAA2VzI+TyRTJhjWV1Pnbwz+ctjjKy+O5+zayz1Q3x7pUppULyzoNY2ZiDuY38E0gn9W3bN4HzqsPnaWA9qF05MWzAwgeIWNbWFJ+aY1+dyUiw83RlQzqUFwW7ZOfzgITcAIJ6qEKE1eOmslUMVpBGfH2bpD3f2P0nlacSAf0qvZJlWhNECPB8pNmLP4jqJUh0GeMeq0Qrpal8U1JJLxstxy+MjxTo1S7xXWhrmHjp71LLWBArhL5rnH7Znqsyquzo5qWzBXzUpvrLkUFPs2scGa/GIEHr1eQfKp8d0UAv5SouEJ5QVNmQj1CpnuyJEIGSKwOkXTpTOBwKSw+0eb1gjV+WWB4HEk97u2T+UAg7+QKldsAPgdBz+rX8CYpz3sEKb0Xo6u7qMRmbzLcB9pMMJYpmtwvFNY1WxI1no3AZCblFO3E3XdzxMamrCtF525MWolIBSNJ0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZVp1Zis5SGpXZWNuQlBibmVWMzZLZG95U1dWSVJlekcyZ05laWN1NXVoaHBl?=
- =?utf-8?B?Q09CbHZSQU1jai8xbERiT2s3bG5ITVhCTWFJU1pKR3I2c0MwbnBsSGlIVXd5?=
- =?utf-8?B?NzNxVnNxaTZFTXBxeEd0UHRsMkZ6eWhCYnJuMUN0SjRuQ2x3NUkwamVHUkxY?=
- =?utf-8?B?MHF2MG9WSnhzVGo5amlzKzVaOXZNczg3b1RlM2JlUEFkREdMU1ZUQmFzRG5m?=
- =?utf-8?B?STlRMjJVK1VQNGFnM3N3QWdsUXVQRWZiakpFbFNxbHBOcHNOdGlraTI1d2ly?=
- =?utf-8?B?U1NpUW5WVWliTmFvOUJET2JUSVRUejMzaWkzbW5qcGs3M0hQMytlWnlpNWVi?=
- =?utf-8?B?WkFyeVJubng3UnJ3VWZBdUNwYnFyMU0zMW55WXhGS1dUQ1F5ZHFYYmFqUVZU?=
- =?utf-8?B?Zkp6czhhVG1Hb0hjQlVsR084WVNadDBOQWdxMm1HYkI1TnM4NjI2NUdoRG9N?=
- =?utf-8?B?KzA1VWo1eWtVM1BBMk9ESkRwV2l4Q0V4QWgrK214cWxRdEFUajdHZGRZU1hO?=
- =?utf-8?B?dXRqVlp2NUxUN2IzUnBwWGMvc3haQWhCT2Z5dzM5dnNPTVpORHhEVTUrNm1o?=
- =?utf-8?B?dWFnT1VrVy9KeXp0YU9qaWp0bGh2Tlg1Y09abDc5SjVUZEZWbU8yWUQ2NEVZ?=
- =?utf-8?B?b0l4WVpvMVRUR3JqeWl5YnJPamxjekUwSmg4MzQ3c0ZHa055WjBZT0hraCt6?=
- =?utf-8?B?UlN3NnlBS2pUaHg5MHFXZDNaWGZ1YVA5amg5OEtYYnMrQXpBNEpxcHY3cWNh?=
- =?utf-8?B?NnVOdGtobXdqdGZPQjVnUytRVnFrb1ViZjd0TXNRaU1yckdaYU1pU25YQnVy?=
- =?utf-8?B?Z2VMd2lzWDljdzB6eWJQYkxHbjBVSGVRbnlMOWdCbkE2a2ZzMG1JRkJzcDNZ?=
- =?utf-8?B?RE5tZXZ1Mk43UjExSUFydWpCTlZGT2lCU1FVeXVVNG8wYWhkV3RGOGpyMVFk?=
- =?utf-8?B?Q2dkYVZOb05LSEY0a00rWGU5N0l0cDFoRGpxTmNqT3JFSnoyNmttbGxvNlVD?=
- =?utf-8?B?aGVzNzMvT0pnbitSMkJYR3dpRWtObXYraGh1UFFDOS9JOXVNUlBtK0VjdkJ5?=
- =?utf-8?B?L3Q3cHZjSHk0RFZ1blMxZFpXdTVoWUI4UHFQN1kzMHArdnJHNWdlbjVDcm9j?=
- =?utf-8?B?Q2UvVXJObGJaZzlCN2NjR1hBaFRhdWRkaE1MWDQ1SjVCU2Jzbzc2b0hGZ2U3?=
- =?utf-8?B?N1RoV0QxU0Z3dmtRR0ZIaGRwMmFRYkttR1kvRnU2NVhuQW0zVkFDdmNXdHlu?=
- =?utf-8?B?VXcvcSs2bFVvOWJGbzRMcDZuOEVUT1NUTzkrY1hoelNhWmVSMndQT2YwMW01?=
- =?utf-8?B?MXhxdkFWQjRsdzJRTUNyNG9BWlhwRWJxckpidEFvUERXb1BRemxGeE5RMUlo?=
- =?utf-8?B?RHVtQUpaQU5FbUhUb21LbnNwY2l5Nk9OUXhaZG42VnFiTmVaajIzRVdVTS9U?=
- =?utf-8?B?STUzNTNUNjZBN0VnS2ZqRGI4TFFuNUFXNXp2aWhwUkhadDlrOExwNUl1WG9F?=
- =?utf-8?B?Vm1mdGdBaU5FT2RiY0tQRGhXQ2NPVys2SG1OelpOdjRRNFlLTXE5QWtSQ0px?=
- =?utf-8?B?YUF1VGZuRnhXTFNsc0pFdTJQVlVncUxXZHNXZGhkUWJWRHZIY3I0aEpuSVFr?=
- =?utf-8?B?SzlYY2JXUGZ6RnJPSlZJd3p1L21TY0Fxa3FwelhhL1JSRkpHK25zT3hxRXha?=
- =?utf-8?B?UngrbnJNdnJOeG5IQUxzTFpUbkRNMTFjWTBYcjdMQjd4eHFqVVhWbFhubGZ5?=
- =?utf-8?B?K29RMXJYY00yb1lKaStLb204aTJGazFReXlmbXV2U3k0clRTdEtrNmU5YkxO?=
- =?utf-8?B?K2wvUGZxZmZJaGx4bEJtYUFVU0Fhc3BPdGRtcVk5S1A3WkdPL2lrZjQ5MGdS?=
- =?utf-8?B?aUxiOThIVE5zTUh4WksvT1QxNzc3M3VmT28wYmRVbjcxeWcraGRpMGpEQnJG?=
- =?utf-8?B?NGdRR1V0TXRIZjFxZDlFakdYQ1lJQnhUR01JcktoVzFIUGZORlJ2TENRczh4?=
- =?utf-8?B?ek9aU0tNRSsySzNWMVNwNkNmSy9POERkYmdiRkE3RlhKMk5IQkwxbWRPY1NL?=
- =?utf-8?B?bWtEWkxIWjUvelRqYzNsdGdkWFhwZFY5ZGxranZyOVkxZERqNElad3pJbGVk?=
- =?utf-8?B?Z3ltUXBpcXNsMW1EZjdPU2l1OWROa0JvL09tVjF6RWNWSzF6RmlDWXF5NFdZ?=
- =?utf-8?B?dzZHWlpVQmtQOHR4S0RqZ3VUWVd1N2FyUXNoeWdoaXBkWVAyUklod2ZSOUwz?=
- =?utf-8?B?Y3NRaVdkZ00xQ0VrRC8wTHFvcmhkSUFtbUYvZmpMSVA1Ky9kQ0NpYzB2Zmxm?=
- =?utf-8?Q?JiPDstRj32hBZTLrOW?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: afa5cd0c-30b4-4d5d-944c-08df26318af8
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 18:17:13.8313
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JBixh14+23CKIA8RMBRYD0GZhm8p0F2F18lkWmfy1Nl72+0+WrF0E7vdHMxdpaKa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6462
+Content-Transfer-Encoding: 8bit
 
-On Fri Oct 9, 2026 at 12:52 PM EDT, Kyle Zeng wrote:
-> __discard_anon_folio_pmd_locked() clears and flushes a huge PMD before
-> checking whether the folio can be discarded. If the folio was redirtied
-> or has unexpected references, it restores the original PMD. Reclaim holds
-> the PMD lock and the anon_vma read lock, but not the owning mmap_lock.
+From: Mohammad Mosafer <mohsafer@gmail.com>
+
+device_add() registers a device and then runs the bus's initial probe
+via bus_probe_device() -> device_initial_probe().  With
+drivers_autoprobe disabled for the bus, device_initial_probe() skipped
+__device_attach() entirely.
+
+That is correct for automatic *matching* against the bus's driver list,
+but __device_attach() also doubles as "complete a bind that a driver
+already initiated": when dev->driver has been pre-assigned outside the
+normal match/probe path, it finishes the bind by calling
+device_bind_driver() under the device lock, bypassing probe().
+
+With autoprobe off, that second duty was skipped too.  USB depends on
+it: usb_driver_claim_interface() pre-sets dev->driver on an interface
+that is not yet registered, documenting "let the future device_add()
+bind it, bypassing probe()".  Composite drivers (cdc-acm, cdc_ncm,
+cdc_mbim, ...) rely on it to bind their sibling data interfaces.  If
+drivers_autoprobe is written with 0 while such an interface is between
+the claim and its device_add(), the interface ends up registered, with
+dev->driver set and iface->condition == USB_INTERFACE_BOUND, but never
+bound: its knode_driver is never attached to the driver's
+klist_devices.
+
+Teardown then trusts those flags: usb_driver_release_interface() ->
+device_release_driver() -> __device_release_driver() runs a full
+release and calls klist_remove(&dev->p->knode_driver) on a
+never-attached node whose knode_klist() is NULL, which klist_put()
+dereferences:
+
+  Oops: general protection fault
+  KASAN: null-ptr-deref in range [0x0000000000000058-0x000000000000005f]
+  klist_put <- klist_remove <- device_release_driver_internal <-
+  usb_driver_release_interface <- acm_disconnect / cdc_ncm_unbind
+
+Keep device_initial_probe() always calling __device_attach(), but pass
+whether automatic matching is allowed (sp->drivers_autoprobe) down to
+it, and evaluate that flag inside __device_attach() under the device
+lock, where dev->driver is read anyway:  a device with a pre-assigned
+driver completes its bind regardless of autoprobe, and only a device
+without one is subject to the matching policy.  Evaluating the two
+conditions inside the locked branch (rather than as
+"autoprobe || dev->driver" in the caller) also closes a TOCTOU: a
+concurrent detach can no longer turn the completion of a pre-assigned
+bind into bus-wide matching behind an "autoprobe off" policy.
+
+Other subsystems that preset dev->driver before device_add() (w1,
+tegra xusb, zynqmp-ipi-mailbox) get the same correctness back; for
+devices with no pre-assigned driver and autoprobe off, behavior is
+unchanged.
+
+Reproduced with syzkaller's C reproducer on a 7.3.0-rc6 tree:
+instrumentation shows the doomed interface's device_add() racing an
+autoprobe=0 write; the bind-completion branch never runs for it; later
+teardown hits klist_remove() with a pristine node.  With this patch the
+same instrumented race completes the bind inside the window (3 VMs,
+5 min per run: window hit 3 times, bind completed 3 times, and 802
+devices with no pre-assigned driver correctly skipped matching despite
+__device_attach() now always running): zero KLIST-REMOVE-BAD, zero
+Oops.
+
+Reported-by: syzbot+863936f50214e843ae0c@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=863936f50214e843ae0c
+Fixes: b8c5cec23d5c ("Driver core: udev triggered device-<>driver binding")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mohammad Mosafer <mohsafer@gmail.com>
+---
+On Fri Oct 9, Danilo Krummrich wrote:
+> We've recently had another patch to fix up cases where dev->driver is
+> pre-assigned. Please see [1] and the corresponding thread.
 >
-> Both zap_pmd_range() and mremap's get_old_pmd() can skip a none PMD
-> without taking its lock. A concurrent munmap() or whole-VMA
-> MREMAP_DONTUNMAP can therefore miss the PMD and later unlink the source
-> VMA from its anon_vma, leaving a restored mapping behind. The anon_vma
-> write lock taken by unlink_anon_vmas() waits for reclaim to finish, but
-> does not repeat the skipped page-table walk. Once the remaining VMA
-> links are removed, the folio's positive mapcount no longer guarantees a
-> live anon_vma. Racing lazyfree reclaim against MREMAP_DONTUNMAP as an
-> unprivileged user reproduces a KASAN use-after-free in
-> folio_lock_anon_vma_read().
->
-> Use pmdp_invalidate() to keep a recognizable, non-none huge PMD while
-> the discard can still fail. Concurrent unmap and move operations then
-> have to synchronize on the PMD lock instead of skipping the mapping.
-> Clear the invalidated PMD only after the dirty and reference checks have
-> succeeded, before removing the rmap and withdrawing the deposited page
-> table. The full invalidation retains the TLB flush required for the
-> dirty and GUP-fast checks.
->
-> Fixes: 735ecdfaf4e8 ("mm/vmscan: avoid split lazyfree THP during shrink_f=
-olio_list()")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-6-astra
-> Signed-off-by: Kyle Zeng <kylebot@openai.com>
-> ---
->  mm/huge_memory.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
->
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 1e5d68acf62a..20262195385a 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -3569,11 +3569,17 @@ static bool __discard_anon_folio_pmd_locked(struc=
-t vm_area_struct *vma,
->  		return false;
->  	}
-> =20
-> -	orig_pmd =3D pmdp_huge_clear_flush(vma, addr, pmdp);
-> +	/*
-> +	 * The discard may fail, so keep the PMD non-none until we're
-> +	 * committed to discarding it. Otherwise, concurrent munmap() or
-> +	 * mremap() can skip the PMD without taking the PTL and later unlink
-> +	 * the VMA from its anon_vma despite a restored mapping.
-> +	 */
-> +	orig_pmd =3D pmdp_invalidate(vma, addr, pmdp);
+> IIRC, there was no reasons the remaining users can't just use a proper
+> match() callback instead, so we don't have to worry about those edge
+> cases in the future.
 
-There are some gaps we need to close before getting this fix in:
+Thanks for the pointer.
 
-1. GUP-fast cannot follow the invalidated PMD: riscv and LoongArch need
-pmd_access_permitted() that requires _PAGE_PRESENT; s390's
-pmdp_invalidate() needs a change.
+I had not seen Kien's series; looking at it now, we are attacking the
+same half-claimed state from opposite ends: his patch makes the release
+path tolerant of it (skip klist_remove() when the device is not bound),
+while mine makes the deferred bind that usb_driver_claim_interface()
+promises actually complete when drivers_autoprobe is off, so the
+half-claimed state never arises.  If the direction is to remove the
+pre-assigned dev->driver users entirely via proper match() callbacks,
+I'm happy for that to supersede this fix -- I'd be glad to help with
+the USB side of that conversion, as I now know the claim/bind/teardown
+paths in detail.
 
-2. sparc64's thp_pte_count can be imbalanced with this change (based on
-Lance's offlist feedback).
+Until such a conversion lands, though, the window is still open in
+current releases (syzbot hits it, and any userspace writing
+drivers_autoprobe races it), and pre-assignment is not only USB:
+drivers/w1/, drivers/phy/tegra/xusb.c and
+drivers/mailbox/zynqmp-ipi-mailbox.c pre-assign dev->driver the same
+way today.
 
-In addition, powerpc has a page table check issue similr to riscv, where ri=
-scv
-fixed it with commit 9f4a88b8d01a6. This is not related to this issue
-but discovered along with the investigation.
+So please treat this as: whichever of Kien's guard, this bind-side
+fix, or the match() conversion you want as the canonical answer, this
+patch is yours to drop or pick -- but happy to have your steer before
+it evolves further.
 
-> =20
->  	/*
->  	 * Syncing against concurrent GUP-fast:
-> -	 * - clear PMD; barrier; read refcount
-> +	 * - invalidate PMD; barrier; read refcount
->  	 * - inc refcount; barrier; read PMD
->  	 */
->  	smp_mb();
-> @@ -3607,6 +3613,7 @@ static bool __discard_anon_folio_pmd_locked(struct =
-vm_area_struct *vma,
->  		return false;
->  	}
-> =20
-> +	pmdp_huge_get_and_clear(mm, addr, pmdp);
->  	folio_remove_rmap_pmd(folio, pmd_page(orig_pmd), vma);
->  	zap_deposited_table(mm, pmdp);
->  	add_mm_counter(mm, MM_ANONPAGES, -HPAGE_PMD_NR);
+While the v1 was on the list the review bot found a real defect (the
+dev->driver test was open-coded in device_initial_probe() lockless, a
+TOCTOU against a concurrent detach).  v2 below fixes it the way the
+bot suggested: __device_attach() takes an allow_match flag and the
+decision is evaluated under device_lock.  Evidence unchanged in kind:
+same reproducer, instrumented patched boots show the deferred bind
+completing in the previously-crashing window, 0 crashes (v1: 6/9 on
+the unpatched control), plus a clean bare soak.
 
+ drivers/base/dd.c | 30 ++++++++++++++++++++++++++----
+ 1 file changed, 26 insertions(+), 4 deletions(-)
 
-
-
---=20
-Best Regards,
-Yan, Zi
+diff --git a/drivers/base/dd.c b/drivers/base/dd.c
+index f6525a7ee8c5..4c1bb1979519 100644
+--- a/drivers/base/dd.c
++++ b/drivers/base/dd.c
+@@ -1065,7 +1065,8 @@ static void __device_attach_async_helper(void *_dev, async_cookie_t cookie)
+ 	put_device(dev);
+ }
+ 
+-static int __device_attach(struct device *dev, bool allow_async)
++static int __device_attach(struct device *dev, bool allow_async,
++			   bool allow_match)
+ {
+ 	int ret = 0;
+ 	bool async = false;
+@@ -1085,6 +1086,17 @@ static int __device_attach(struct device *dev, bool allow_async)
+ 			device_set_driver(dev, NULL);
+ 			ret = 0;
+ 		}
++	} else if (!allow_match) {
++		/*
++		 * Automatic driver matching is suppressed for this device
++		 * (drivers_autoprobe is off), and no driver has been
++		 * assigned to it: do not run bus_for_each_drv() matching
++		 * for it.  Deciding this here, under device_lock, means a
++		 * concurrent driver detach between the caller picking
++		 * allow_match=false and reaching here cannot turn the
++		 * completion of a pre-assigned bind into bus-wide matching.
++		 */
++		goto out_unlock;
+ 	} else {
+ 		struct device_attach_data data = {
+ 			.dev = dev,
+@@ -1138,7 +1150,7 @@ static int __device_attach(struct device *dev, bool allow_async)
+  */
+ int device_attach(struct device *dev)
+ {
+-	return __device_attach(dev, false);
++	return __device_attach(dev, false, true);
+ }
+ EXPORT_SYMBOL_GPL(device_attach);
+ 
+@@ -1149,8 +1161,18 @@ void device_initial_probe(struct device *dev)
+ 	if (!sp)
+ 		return;
+ 
+-	if (sp->drivers_autoprobe)
+-		__device_attach(dev, true);
++	/*
++	 * Always run the attach, but tell it whether automatic matching is
++	 * allowed.  Completing a bind that a driver already initiated (e.g.
++	 * usb_driver_claim_interface() pre-setting dev->driver for an
++	 * unregistered interface, expecting device_add() to bind it) is not
++	 * automatic matching and must happen even with drivers_autoprobe
++	 * off; matching is evaluated in __device_attach() under the device
++	 * lock.  Skipping the call entirely used to leave such devices
++	 * registered-but-unbound, and teardown then oopsed klist_removing
++	 * the never-attached knode_driver.
++	 */
++	__device_attach(dev, true, sp->drivers_autoprobe);
+ 
+ 	subsys_put(sp);
+ }
+-- 
+2.34.1
 
