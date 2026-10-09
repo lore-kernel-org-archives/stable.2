@@ -1,38 +1,80 @@
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A819437E2EC;
-	Fri,  9 Oct 2026 05:40:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 739513F5BE6
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 05:56:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791524406; cv=none; b=IP7FoS71808TRkQmn5EIaCeBuGjL/ouSM4t3ZAaVAC/vwujHXAki5GGe/Gne1dmRKp1/kW21CBgsDkJPzHlqvjF+5ljXjtZPbXwveE5FQX0s9uqOHwH6WWihcqVThvGEQKkMqun2nSiB1HC6MXD3PW6uirZyG51qnzvFs1FRI58=
+	t=1791525376; cv=none; b=fxWipbyUCbnHMlZkCq3DCuoP7d7wBQLZcsbFkJk99Iy3Ypd7HgpibPpil+8fP+LnJMHKuy4aHQk+VvdEbgNrpnd3bKTRPYcYsHDdfJ2owrjsOrXEsK0x6BMP80b3KSGm9wFmxJkARxjppntlct7dK/SMD6RpOGL95OkELSkBdMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791524406; c=relaxed/simple;
-	bh=Vo/z7Nb6ubKZoh5o/V8jSNmYKJETfCtL8FttVYl1Uco=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RxKQTZysM9pM1knv65/2A7KXMvBHzPEtYTDBjvrAOiNWduCdwvOeTJ5NqUt/TyEDf54THQ4faNxc6P95As/LPAKnHAmrbNK1juH11i7CsYaudGV0lVDZHRAUrHcVwkaUEgti6n+m+4bdmijBJhsjr5bezrPBDGRTzy0pFB6QtNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xF30U-0001uh-5a;
-	Fri, 09 Oct 2026 01:18:58 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Nickolai Zeldovich <nickolai@csail.mit.edu>,
+	s=arc-20240116; t=1791525376; c=relaxed/simple;
+	bh=0Cd7BRJTOwMBwlto6I1RgpvE5V4HZw5T6GNxqVD2h10=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IOY4OGpYB1GGJDzS8vysaow4fxMEfhCEyJpWInjqSP5anNePhiyOPBr4W1bQLlm+SBYJq3Tjd1nMgYZTYlKujfRYIzAhL835bYIEu+ABxJ5CJFK19Q683HvXUrrWJWw/XP5Li3Gts0Oq/uzvH+1FN1M1CX5RzuAlfo/gNtwJQ5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y9kld79g; arc=none smtp.client-ip=74.125.231.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y9kld79g"
+Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-451e1066971so2352580fac.0
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 22:56:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791525373; x=1792130173; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YBM96Z0acKI7hIHci4HfMZ4VWwlNJJJw6ZcLXrahmw0=;
+        b=Y9kld79gHMe/lWTLg9dwyKVSjp3aIjP93TFwhRhltmOLMKUwSVFrbHKxxJiCOn36PU
+         Gcpfr9fDOY0UuOr+o3pPAsAcAdv93FtFOz3NPcCPND8h8To8WTkQACV12nP5Rf+3qglj
+         iuK/k7mtpt136yuPg07ccZJ4k7bsX3cPbuHvkzyBfG8hj4+NZw6EP8SDWHf7oGlXLjcK
+         hw/rsxdaAVc+kZpZ8Alr3cwYegrmBUNiEjaS9ydSksnV3TNTwB+7wtGobshlf7fjPb8o
+         S/+8gDdwh4h/W6pQsN9Go4o80v+KxC6sljZ/nZ7Nr/mIRkzZPtmSdsm3NGnWxhDggZOP
+         Yl5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791525373; x=1792130173;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YBM96Z0acKI7hIHci4HfMZ4VWwlNJJJw6ZcLXrahmw0=;
+        b=gKnOhCuFzV0V+mJuakjUeGnx7loKahX0XIWsFLWs1X5rEODuQPD5GADRYxnHDG5iGs
+         GnQjmmfPdu1outWeIMt8AvN4slgAMt1JzF96livqskTGmi2k0gWi5FMDQKNP1ni+lR30
+         qw67Lfmv4IV/hL1/Ok3UFqGvqzPOf1535VnlBXCxh5b8EZJpyBVhwTs1pfR7dULdgNQe
+         fr78bH5l4uSsFWVzdmQ2xBdypb4E92fIxWTuyWMIXwvL3wHsQTNqvPd9K9PYRV2SJsS6
+         hqCWw+Go7Tp+EdASqENfd0CbKPhR/66i+kHvZo6A/WE97o7wsGeOh35Rgip6wX5wv8xI
+         yFoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzuZSX6V6jbdkgsF9I9GnEzjdhYChnKnz0VBKOnEtv1th3kyLInyLjNgeA8OQnd6/+2TVcXpsM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLqr83Q+TLtHSfC6joAgfEw88FIzozBUxRxoG22AvOZCj/jDTuQ
+	YDuJhlvVGxchvtJhhv25gj8LAz1On4KoQ/rqk4SlWc0nZUzsykBtt+nh
+X-Gm-Gg: AYBFou0nuJrsZc90re5DMsSUg7HXPBA3T36btEl9EZSWThCtk9xooGyv3gI7N5AqXrC
+	Ql7+/BczmxU9Y2B/usaI1V92/EU0gFYb3RvPjB7hkyD23upEmH4g/wSVxsNeRzmgBtASz8VhMHq
+	vGCi4RAUPHFtZziQu1oBJXRHS0dT+3z28PTn/Z+DDD+wOMWHfmclLRLIVsByX+yvet9GABDuJhi
+	X9YqcSWhIMw2Mxw3IqvRPWyqFP58RcUvQ3NtB8JThvbD7zOAOQCCChyvH878Wl2CGvpa0GGBJk9
+	pPHkAFEIJJOHcqD7T5MgEGQCjtekpfzSuEQg25SYULZZYAh/Ogpv4jWnhPRau7AJO9H3D+UDwEH
+	Y6jYwClmFeeHUJgi97dChrOBwW1gbm/r/ekwfz3b77ARaVQH8ZGdAJHysF/XnexO2qnLYyx72Og
+	y6Q6Z77gylfAK+BuwOQSz+UMlwj694rXmSr6Hr/SG9r6Nq4+Dx81Q+lawsbrkOZxDmvXttOcc2E
+	SXZljkJcU4NNibr9ADXDxiMzGIHQuKXYi3S7A==
+X-Received: by 2002:a05:6870:3329:b0:49e:6d1c:a569 with SMTP id 586e51a60fabf-4a2a88e66a0mr909544fac.38.1791525373223;
+        Thu, 08 Oct 2026 22:56:13 -0700 (PDT)
+Received: from localhost.localdomain ([14.116.239.36])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a2a84a14c0sm1079723fac.3.2026.10.08.22.56.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 22:56:11 -0700 (PDT)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: Jon Maloy <jmaloy@redhat.com>,
+	Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
+	Ying Xue <ying.xue@windriver.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org,
+	tipc-discussion@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	I Hsin Cheng <richard120310@gmail.com>,
-	Ching-Chun Huang <jserv@ccns.ncku.edu.tw>,
-	Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
+	Henry Martin <bsdhenrymartin@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] lib/plist: fix plist_requeue() shortcut inserting the node at the list head
-Date: Fri,  9 Oct 2026 01:18:47 -0400
-Message-ID: <20261009051857.758182-1-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
+Subject: [PATCH] tipc: fix broadcast sender hang and leak on last acker departure
+Date: Fri,  9 Oct 2026 13:56:00 +0800
+Message-ID: <20261009055601.2304158-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,114 +83,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-plist_requeue() moves a node to the end of its priority run.  Since commit
-95d4b3450ebe ("lib/plist.c: add shortcut for plist_requeue()"), when the
-node was the head of its run it skips the scan of the remaining nodes of
-that run and takes node_next from the prio_list of the node's successor,
-which replaced it as the run head in plist_del():
+TIPC group broadcast senders are blocked in poll()/write() until all
+members have acked the replicast.  When a departing member held the
+last outstanding ack, tipc_group_delete_member() decrements
+grp->bc_ackers to zero but never restores *grp->open nor wakes the
+blocked senders; write() then sleeps until the send timeout and
+poll() is never woken at all.  Commit 99cc2a62e07a ("tipc: reject
+invalid and unexpected GRP_ACK_MSG to prevent bc_ackers underflow")
+noted this as a pre-existing issue.
 
-	iter = list_entry(iter->prio_list.next, struct plist_node, prio_list);
-	node_next = &iter->node_list;
+Restore the open state exactly on the 1->0 acker transition in the
+delete path, mirroring the GRP_ACK_MSG completion path, and invoke
+sk->sk_write_space() from tipc_sk_filter_rcv() when the group just
+became writable again.
 
-prio_list is a ring of the first nodes of each priority run, without a
-sentinel.  For every run but the last one, iter->prio_list.next is the
-head of the next run and the shortcut is correct.  For the last run it
-wraps around to the head of the FIRST run, and list_add_tail() then
-inserts the node in front of the whole list, ahead of nodes with a lower
-prio value.  The list is no longer sorted:
+This vulnerability was discovered by Tencent CodeBuddy Security.
 
-	before requeue(B):  A(1) B(2) C(2)
-	after  requeue(B):  B(2) A(1) C(2)
-
-The condition is: at least two priority runs, the node is the first node
-of the last run, and it has a successor with the same priority.  A single
-run is unaffected, because a one-element prio_list ring is list_empty()
-and the slow path runs.
-
-The only caller is swap_alloc_slow() in mm/swapfile.c, which requeues a
-swap device within its priority group.  With several swap devices on more
-than one priority level, where the lowest priority level has two or more
-devices, rotating the first device of that level moves it ahead of all
-higher-priority devices, so subsequent swap allocations go to a
-low-priority device first.
-
-Only take the shortcut's node_next when the next ring entry really is a
-higher-priority run; otherwise append the node at the end of the list.
-
-The CONFIG_DEBUG_PLIST self-test did not catch this because it only
-requeues nodes it has just added, which are always the last of their run,
-so plist_requeue() returns early every time.  Add a deterministic test
-case for the failing shape; plist_test_check() verifies the ordering and
-the prio_list ring after it.
-
-The bug was found while attempting to prove plist_requeue() against a
-specification stating that the list stays sorted, in the MachCSL
-verification of the Linux kernel on RISC-V; the proof failed at this
-arm and the prover produced the counterexample above.  The fix and the
-test case were drafted with Claude Code (Claude Fable 5.1) and reviewed
-and tested by hand: the three functions were transcribed to a userspace
-harness that reproduces the misordering before the fix and the expected
-order after it, and lib/plist.o builds with CONFIG_DEBUG_PLIST=y.
-
-Fixes: 95d4b3450ebe ("lib/plist.c: add shortcut for plist_requeue()")
 Cc: stable@vger.kernel.org
-Cc: I Hsin Cheng <richard120310@gmail.com>
-Cc: Ching-Chun (Jim) Huang <jserv@ccns.ncku.edu.tw>
-Assisted-by: LLM
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Fixes: 2f487712b893 ("tipc: guarantee that group broadcast doesn't bypass group unicast")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
 ---
- lib/plist.c | 27 ++++++++++++++++++++++++++-
- 1 file changed, 26 insertions(+), 1 deletion(-)
+ net/tipc/group.c  |  9 ++++++---
+ net/tipc/socket.c | 12 +++++++++++-
+ 2 files changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/lib/plist.c b/lib/plist.c
-index a5bef38add43..20291872923a 100644
---- a/lib/plist.c
-+++ b/lib/plist.c
-@@ -174,11 +174,17 @@ void plist_requeue(struct plist_node *node, struct plist_head *head)
- 	/*
- 	 * After plist_del(), iter is the replacement of the node.  If the node
- 	 * was on prio_list, take shortcut to find node_next instead of looping.
-+	 *
-+	 * prio_list is a ring of the first nodes of each priority run, without
-+	 * a sentinel: if node's run is the last one, iter->prio_list.next wraps
-+	 * around to the first run, and node must be appended at the end of the
-+	 * list instead of being inserted in front of it.
- 	 */
- 	if (!list_empty(&iter->prio_list)) {
- 		iter = list_entry(iter->prio_list.next, struct plist_node,
- 				  prio_list);
--		node_next = &iter->node_list;
-+		if (iter->prio > node->prio)
-+			node_next = &iter->node_list;
- 		goto queue;
- 	}
- 
-@@ -276,6 +282,25 @@ static int  __init plist_test(void)
- 		plist_test_check(nr_expect);
- 	}
- 
-+	/*
-+	 * Requeue a node which is the first of the last priority run and has
-+	 * a successor of the same priority, with an earlier run present: the
-+	 * shortcut in plist_requeue() must append it at the end of the list,
-+	 * not in front of the first run.  The random test above never
-+	 * exercises this, since it only requeues nodes it has just added,
-+	 * which are always the last of their run.
+diff --git a/net/tipc/group.c b/net/tipc/group.c
+index 74f6d3dac0784..e20eb612f82ce 100644
+--- a/net/tipc/group.c
++++ b/net/tipc/group.c
+@@ -340,9 +340,12 @@ static void tipc_group_delete_member(struct tipc_group *grp,
+ 	rb_erase(&m->tree_node, &grp->members);
+ 	grp->member_cnt--;
+
+-	/* Check if we were waiting for replicast ack from this member */
+-	if (grp->bc_ackers && less(m->bc_acked, grp->bc_snd_nxt - 1))
+-		grp->bc_ackers--;
++	/* If this member held the last outstanding replicast ack,
++	 * restore the open state so blocked broadcast senders can proceed.
 +	 */
-+	plist_head_init(&test_head);
-+	for (i = 0; i < 3; i++) {
-+		plist_node_init(test_node + i, i ? 2 : 1);
-+		plist_add(test_node + i, &test_head);
-+	}
-+	plist_test_requeue(test_node + 1);
-+	plist_test_check(3);
-+	BUG_ON(plist_last(&test_head) != test_node + 1);
-+	for (i = 0; i < 3; i++)
-+		plist_del(test_node + i, &test_head);
-+
- 	printk(KERN_DEBUG "end plist test\n");
- 
- 	/* Worst case test for plist_add() */
--- 
-2.56.0
++	if (grp->bc_ackers && less(m->bc_acked, grp->bc_snd_nxt - 1) &&
++	    !--grp->bc_ackers)
++		*grp->open = true;
 
+ 	list_del_init(&m->list);
+ 	list_del_init(&m->small_win);
+diff --git a/net/tipc/socket.c b/net/tipc/socket.c
+index d5d70eb230b56..65cc0c4964b31 100644
+--- a/net/tipc/socket.c
++++ b/net/tipc/socket.c
+@@ -2356,8 +2356,18 @@ static void tipc_sk_filter_rcv(struct sock *sk, struct sk_buff *skb,
+ 	if (unlikely(!msg_isdata(hdr)))
+ 		tipc_sk_proto_rcv(sk, &inputq, xmitq);
+
+-	if (unlikely(grp))
++	if (unlikely(grp)) {
++		bool was_open = tsk->group_is_open;
++
+ 		tipc_group_filter_msg(grp, &inputq, xmitq);
++		/* A departing member may have held the last outstanding
++		 * replicast ack, which can restore the open state inside
++		 * tipc_group_filter_msg(); wake up senders blocked in
++		 * poll()/write() if the group just became writable.
++		 */
++		if (!was_open && tsk->group_is_open)
++			sk->sk_write_space(sk);
++	}
+
+ 	if (unlikely(!grp) && mtyp == TIPC_MCAST_MSG)
+ 		tipc_mcast_filter_msg(net, &tsk->mc_method.deferredq, &inputq);
+--
+2.43.7
