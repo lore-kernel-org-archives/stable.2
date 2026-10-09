@@ -1,120 +1,130 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD6546D56B
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 07:01:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5814F3B058F;
+	Fri,  9 Oct 2026 07:16:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791529281; cv=none; b=XSDk/IE6htuuYECu4Pv39LGCRd5CKjy0sZkEDJZlqFkbC91EOWSRnx5Ay5QQ32/XZb4DZSekSuZu1gNTwQtPz7x0SBvK5rzuHG4tV2oC67vyXeq4Oxym01oQU1B022YqDzDOIUZ0pJ0P3BUwl8SKPcNUq1ESNP1xRQbfxpB0cs0=
+	t=1791530190; cv=none; b=PdsZj4MEhZSYwTW8WX0HGUtMLjeIvdJCnWI3b8aJhytnRAb8xfLd9SLZCeUt7vxvbKoj+MP7ST5b0e+B3jjtXbarNkfOurorrykGOXX02HtDo2kMKIBS14WlX6KSIU0+NNfWOtrYXW+9KNEi9vtZxOBtk2qe7DtSr3nKMEYnAP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791529281; c=relaxed/simple;
-	bh=jvMaqz2+QfaBGAqiyXr2CGV4/89G6mFahCTKV8BCImc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Sc/pwdmflWBqRfBGr9/rUJ4pdJmt+X/6HO9U+m32HvmNyoIPCzLWPUiBDqy4YfEyabVO7IQdiytcEnhM+SBdPnJ0ImIj2Z2+0HyVpQynHMoJa0exsVtJ4lgN8kQgZyfZ2qf3iRTStRvZLtX3F0S6uUE/s4kzfitpTSH1TvB8N60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YArPN/0l; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YArPN/0l"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791529279; x=1823065279;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=jvMaqz2+QfaBGAqiyXr2CGV4/89G6mFahCTKV8BCImc=;
-  b=YArPN/0lhMsQrD9jm3Z127Xv6MQ6sAMFiSeYBiJZDCq9uc/JAMgTRyEI
-   W/EkVlWqBxfjxbff1r6DeVnKXeOsSyl5b/28WPNz2W9e2Zv8Pzm2EM8c+
-   sQhAhqxgJyp/NfkNl83eXtHMGi26LKpu0e3pZuTMbvt+syD73NkA9AwQ9
-   HvR3Qz6AWFOX7qaHut2mp3sG1WDOTEBwScpcSxOmTFfu2Jtx4mFunBNXk
-   EI3pT17kRdkYfVZLR2wakqARiVAF+vuENhPOCR70CRnt47pNWdet3ysXq
-   mubaqEe1rm/neKNmIy+R0H62YfgKSPvSIe4ZCa1SxaAUVgAU9Avj0lJYR
-   g==;
-X-CSE-ConnectionGUID: vn80zT/8SVy84TGZ5LNc0g==
-X-CSE-MsgGUID: r+UIqIdnTIGT7XQk4yqPtg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="419260"
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="419260"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 00:01:18 -0700
-X-CSE-ConnectionGUID: RO6rVoqaQ5iZEw8bXNaLzw==
-X-CSE-MsgGUID: 9NVtS89pSia4kJcGEQtiSw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="2052358"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO fedora) ([10.245.245.243])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 00:01:16 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Arvind Yadav <arvind.yadav@intel.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/xe: Don't transfer shrinker pages for pinned bos on purgeable state change
-Date: Fri,  9 Oct 2026 09:00:53 +0200
-Message-ID: <20261009070053.7790-1-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.56.0
+	s=arc-20240116; t=1791530190; c=relaxed/simple;
+	bh=yFIcK03YR1EPWOWpZUiTJf6yYh14EZJ8rlFVV/wG7Ys=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=czYdFdpHHAnL0czstmDeEDBCmXlMjYX0OiJo2t4KdvL+VhX7GNQoyNF3OT77k4mNPIHdOlXDIqN4hjNZ/5pLmbGj83i5A2KRRYyG3++3fzKvN6WLsdB/rjl9uBfMpDCvnZ2A7SgjfUArg9rPUL5IkFaJUhDKkNW+swipiDFyoI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 5225f02ac3b111f19a56ed5b684f684d-20261009
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:d97d8542-796d-4be6-a727-cafe12b21010,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:6ead2c12ab8a5df136f25aa15dcb250b,BulkI
+	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898|915,TC:nil,Content:0|15|52
+	|99,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:
+	0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 5225f02ac3b111f19a56ed5b684f684d-20261009
+X-User: lilinmao@kylinos.cn
+Received: from [192.168.1.101] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <lilinmao@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 835964222; Fri, 09 Oct 2026 15:16:18 +0800
+Message-ID: <2bd3886a-da6e-4703-bd7a-9baa32bfd2f4@kylinos.cn>
+Date: Fri, 9 Oct 2026 15:16:14 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] r8152: Use BMSR to detect the link state
+To: Andrew Lunn <andrew@lunn.ch>, Hayes Wang <hayeswang@realtek.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Chih Kai Hsu <hsu.chih.kai@realtek.com>,
+ nic_swsd <nic_swsd@realtek.com>, Birger Koblitz <mail@birger-koblitz.de>,
+ Xiangqian Zhang <zhangxiangqian@kylinos.cn>,
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <20261005105249.1281648-1-lilinmao@kylinos.cn>
+ <fd3bff0e63304681b9e5f35f2f57e50e@realtek.com>
+ <7a8d21bd-3484-4120-abd6-f7290f919b7d@lunn.ch>
+From: Linmao Li <lilinmao@kylinos.cn>
+In-Reply-To: <7a8d21bd-3484-4120-abd6-f7290f919b7d@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Pinned bos have their pages removed from the shrinker's shrinkable /
-purgeable counts on pin, and added back on unpin according to the
-bo's purgeable state at that time.
 
-However, xe_bo_set_purgeable_shrinker() unconditionally transfers
-pages between the shrinkable and purgeable counts. If the purgeable
-state of a pinned bo changes, for example by userspace madvising
-DONTNEED on a VMA of a bo that is also pinned as a scanout buffer,
-this underflows one count and, after unpin, leaves the other one
-permanently inflated.
+在 2026/10/7 0:10, Andrew Lunn 写道:
+> On Tue, Oct 06, 2026 at 08:28:21AM +0000, Hayes Wang wrote:
+>> Linmao Li <lilinmao@kylinos.cn>
+>>> Sent: Monday, October 5, 2026 6:53 PM
+>> [...]
+>>> r8152 detects carrier from PLA_PHYSTATUS without reading BMSR, so
+>>> BMSR_LSTATUS can still be latched low when the carrier comes up.
+>>> Since commit f6f2e946aa4d ("net: mii: Fix the Speed display when the network
+>>> cable is not connected"), the first speed query after link up can then report
+>>> SPEED_UNKNOWN, leaving NetworkManager at 0 Mb/s until the next carrier
+>>> change.
+>>>
+>>> Use BMSR_LSTATUS in set_carrier() and rtl8152_runtime_resume(), so the
+>>> driver consumes the latched link down itself. If the first read still reports link
+>>> down, the next link-up notification triggers another read and brings the carrier
+>>> up.
+>>>
+>>> Tested on an RTL8153B with a 6.6-based kernel. In 5 rebinds and 6 cable
+>>> replugs, the first read returned LSTATUS=0, a second link-up notification came
+>>> about 32 ms later, the second read returned
+>>> LSTATUS=1 and the carrier went up; NetworkManager reported 1000 Mb/s.
+>>> Runtime suspend/resume with the link up did not change the carrier.
+>> I think this patch may introduce a new issue.
+>>
+>> Our newer ICs do not generate periodic link-status notifications. They generate a
+>> notification only when the link status changes. Therefore, with your patch, BMSR
+>> will not be read a second time until the next link-status change.
+> But the link status in BMSR does change.
+>
+> You read it once and get the latched value. That clears the latch, so
+> the link status changes to the current version.
+>
+> Now, 802.3 C22 has no support for interrupts, that is a vendor
+> extension. But if you are not generating an interrupt when BMSR
+> changes, i would say that is broken.
+>
+> 	 Andrew
+Hi Hayes, Andrew,
 
-Only update the purgeable flag for pinned bos, and leave the page
-accounting to unpin.
+Thanks. Since the newer ICs notify only when the link status changes,
+the driver cannot rely on another link up notification after the link
+has settled, so v2 can leave the carrier off when the first read
+returns the latched link down.
 
-Fixes: 536a2ead3a8f ("drm/xe/bo: Add purgeable shrinker state helpers")
-Cc: Arvind Yadav <arvind.yadav@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: intel-xe@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v7.1+
-Assisted-by: LLM
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- drivers/gpu/drm/xe/xe_bo.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Before sending v3, which approach would you prefer? Both fixed the
+problem in my tests on an RTL8153B with v7.3-rc6:
 
-diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index 469fa4d5feb5..cc78283b702c 100644
---- a/drivers/gpu/drm/xe/xe_bo.c
-+++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -954,6 +954,8 @@ static int xe_bo_move_notify(struct xe_bo *bo,
-  *
-  * Transfers pages between shrinkable and purgeable buckets when the BO
-  * purgeable state changes. Called automatically from xe_bo_set_purgeable_state().
-+ * For pinned BOs, whose pages are not accounted, only the purgeable flag is
-+ * updated, so that the correct bucket is used when the BO is unpinned.
-  */
- static void xe_bo_set_purgeable_shrinker(struct xe_bo *bo,
- 					 enum xe_madv_purgeable_state new_state)
-@@ -970,7 +972,8 @@ static void xe_bo_set_purgeable_shrinker(struct xe_bo *bo,
- 		return;
- 
- 	xe_tt = container_of(tt, struct xe_ttm_tt, ttm);
--	tt_pages = tt->num_pages;
-+	/* Pinned bos are not accounted. Only update the purgeable flag. */
-+	tt_pages = xe_bo_is_pinned(bo) ? 0 : tt->num_pages;
- 
- 	if (!xe_tt->purgeable && new_state == XE_MADV_PURGEABLE_DONTNEED) {
- 		xe_tt->purgeable = true;
--- 
-2.56.0
+a) Keep carrier detection on PLA_PHYSTATUS and read BMSR once before
+    carrier on, only to clear the latch. This is the option I asked
+    about on v1.
 
+b) Detect carrier from BMSR and read it again when the first read
+    returns link down, as genphy_update_link() does in interrupt mode.
+
+Neither depends on another notification. Neither reports a short link
+drop that recovers before the link work runs: with a) a later speed
+query still sees the latched link down, with b) the latch is cleared.
+
+Hayes, for b): is BMSR_LSTATUS reliable as the carrier source on all
+chips supported by r8152?
+
+Thanks,
+Linmao
+
+pw-bot: cr
