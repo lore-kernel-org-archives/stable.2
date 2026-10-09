@@ -1,100 +1,82 @@
-Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2404F4E1C78
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 13:55:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED63314B6E
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 14:03:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791554109; cv=none; b=e0iuCqTwpI+BmAR9XqDgMSCJXvbg1XMK/HnfIWO9TQ/vK8qJdOk5dghYCJxg9w38guNccbuWHtuiFlRCqGHsxA7rj5xyLCmbsd0bVasfWJZxTPA62xQIUz4Dwgu6EQJssft/ldM3LYH8zBQc3OYjfY808DVuKWqBDDpxfV6FT0o=
+	t=1791554628; cv=none; b=dC3KuA/QcHJzDiyr5fS/0unN53798ZtepQq4WJkv0n+fF1NhIqxx/bKdh62rqjr0eKvakZWxUptGBYGsdhr3QgmPiQydI4uFQr+yAGyM3qkFgB92y4vT2aNTN3wzWO7hv+yJ6SaxITrgjRlKSfVTwapM1Y28qTqAD5iODOVUO6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791554109; c=relaxed/simple;
-	bh=GEjd/qW90wDrkNGcZj8QPQSEb0am6CGFCm7z0bXS1/o=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=urpDMW0/ftgTMPe5eiBqDAia43PTgtMOgMA/v3O/Iy3XMt2u1ia2So9YzpDEDPy35z0mK/vVB3ANJACj0x8guHNcPoa3qcI1TFMU5D3FrMwj54gnNvo1xR6TyMAOZPw/YHj6e071NC5o3+y4qV2whIO2DG3F290o0U7/EcG0wi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=runtimeverification.com; spf=pass smtp.mailfrom=runtimeverification.com; dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b=LjSpmE4p; arc=none smtp.client-ip=185.70.43.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=runtimeverification.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runtimeverification.com
+	s=arc-20240116; t=1791554628; c=relaxed/simple;
+	bh=k25jAVlFefo9WYoKyx7hn+ugUuvycdd8i4moJdj3Zdc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YaioB7nhjrDwtANw9kFgFA/qZPFSGt48qQDcgcy8z7vELq0KpiLR9OjFJECweJEUnOsjWDE6Ad6J2gV1BFDviSxFpRcafpx8ih6NSa2c8rzAUQO0QKmvKPlhLlJ2aC1RX7b48hDN+cJjKjGYHYqJbTHT++w3sUUA45AjXdyhwMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oSHxKASv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b="LjSpmE4p"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=runtimeverification.com; s=protonmail; t=1791553112; x=1791812312;
-	bh=u95xk4ByT0KOla+zRFNafUMHZYZpARYMpRVIx6gGvxk=;
-	h=From:To:Cc:Subject:Date:Message-Id:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=LjSpmE4p9ox2cnyqR9ueOIIUZ6o8mPB6Du2gYiYYQFqtNiKLfyrWOgrIYsPUuwBjV
-	 B5RzGihLJ2ARs3p+oIGkf9EWi2UNr2XBIQTUQaxzGlgaDsIQ1zKeiCfMLJLXIUAEhu
-	 hTTLc3xXCp7HKI06EBVCy19B8I0EZ0r+iU6ppO1GcRDzhRDIw8HW/sps7hslShGqz5
-	 3MTEyxi8y/Rn8h/y5XUJyaKtP+5UyMh/eYOXJXwqPfull6nUa6fB8XOsWwst28HN0r
-	 QKBVTPxLqYM1d+N5cixmrGq9rdcA993EcpqG+R/3SjK8gEy2uwy2IjWdUb2XSIqMaG
-	 t9eHzPqWFyLjw==
-X-Pm-Submission-Id: 4j1ScN26WYz2ScsK
-From: Natasha Klaus <natalie.klaus@runtimeverification.com>
-To: io-uring@vger.kernel.org
-Cc: axboe@kernel.dk,
-	Natasha Klaus <natalie.klaus@runtimeverification.com>,
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oSHxKASv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD98E1F000FF;
+	Fri,  9 Oct 2026 14:03:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791554627;
+	bh=UgF+0ecktxySr9fi28D6+HuQ8nuI8zuu4ToXNcnhCIc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oSHxKASvyYQ5LOSuulQvtlh7flDDbAZv4XE4E8ULzwXmUtCxSoDJ9mo3wR6DfIzNe
+	 8Ga1omk8WawJSmjWXj8Ur15dRfd6uEbym1iD6pFjYr4+KFiPt8zdAYFTH9PsKI19MO
+	 DcrIyr2Z3WV5yE8SVYLAZlI5HnarIPPZBbqGr1AA=
+Date: Fri, 9 Oct 2026 16:03:44 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: jic23@kernel.org, jonathan.cameron@oss.qualcomm.com,
 	stable@vger.kernel.org
-Subject: [PATCH] io_uring/net: populate CONNECT filter fields for 24-byte sockaddr_in6
-Date: Fri,  9 Oct 2026 16:38:07 +0300
-Message-Id: <20261009133807.730724-1-natalie.klaus@runtimeverification.com>
-X-Mailer: git-send-email 2.34.1
+Subject: Re: FAILED: patch "[PATCH] iio: light: rohm-bu27034: Fix infinite
+ delay on error" failed to apply to 6.6-stable tree
+Message-ID: <2026100914-obstacle-unify-63d7@gregkh>
+References: <2026100659-encircle-snout-9f76@gregkh>
+ <6f9295f4-3feb-48d3-bf1a-4e9aa3c6a7f7@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6f9295f4-3feb-48d3-bf1a-4e9aa3c6a7f7@gmail.com>
 
-io_connect_bpf_populate() fills connect.port and connect.v6_addr for
-AF_INET6 only when addr_len >= sizeof(struct sockaddr_in6), i.e. 28
-bytes.
+On Wed, Oct 07, 2026 at 03:06:25PM +0300, Matti Vaittinen wrote:
+> Hi dee Ho,
+> 
+> On 06/10/2026 10:47, gregkh@linuxfoundation.org wrote:
+> > 
+> > The patch below does not apply to the 6.6-stable tree.
+> > If someone wants it applied there, or to any other stable or longterm
+> > tree, then please email the backport, including the original git commit
+> > id to <stable@vger.kernel.org>.
+> 
+> Ouch. I took a look at this, and I've screwed it up. I wrote and upstreamed
+> the first version of this driver for a hardware that was later modified (in
+> a non backwards compatible way). Because the original hardware was never
+> mass-produced, I decided to just fix the driver to work with the new
+> revision of the hardware - but I never added the fixes-tag.
+> 
+> I never realized is that the version of the driver that does not work with
+> the new, mass produced hardware, went into stable (6.6). As a result of my
+> bad decisions, the 6.6 still carries the driver for early hardware revision,
+> and does not work with the sensor that is really produced.
+> 
+> I see two options to improve. First is to drop the whole driver from the 6.6
+> stable. It shouldn't break users because the driver does not work with the
+> released hardware.
+> 
+> Second option is to backport all the patches which bring the support for
+> released revision of the hardware + the fixes.
+> 
+> I am not sure which makes more sense. The 6.6 EOL is approaching, and I kind
+> of hope it is no longer picked as a base for new projects using the sensor.
 
-The IPv6 connect paths accept SIN6_LEN_RFC2133 (24 bytes), which
-already holds sin6_port and sin6_addr. io_connect() passes addr_len to
-the socket layer unchanged.
+The 6.6 EOL is still a ways away, let's just delete the driver entirely
+if you feel it's better that way.  Deleting code is always good :)
 
-At addr_len 24 the filter sees family AF_INET6 with port and address
-zero, while the kernel connects to the real destination. A filter that
-denies an IPv6 port or address is bypassed. Denying connect.port == P
-rejects [::1]:P with -EACCES at addr_len 28 but connects at addr_len 24.
+thanks,
 
-Use SIN6_LEN_RFC2133 as the threshold. sin6_scope_id stays zero when
-absent.
-
-The threshold mismatch was found by an AI coding assistant (Claude Code)
-comparing this hook against the net/ipv6 length checks on my
-instructions; it also drafted the reproducer and this patch. I verified
-the bypass and the fix in a VM on 7.3-rc6 and that 7.2 has the same
-code.
-
-Fixes: 899bea8248ce ("io_uring/net: allow filtering on IORING_OP_CONNECT")
-Cc: stable@vger.kernel.org # 7.2
-Signed-off-by: Natasha Klaus <natalie.klaus@runtimeverification.com>
----
- io_uring/net.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/io_uring/net.c b/io_uring/net.c
-index 050ed274170a..f5f4f3ce6ef3 100644
---- a/io_uring/net.c
-+++ b/io_uring/net.c
-@@ -7,6 +7,7 @@
- #include <linux/un.h>
- #include <linux/compat.h>
- #include <net/compat.h>
-+#include <net/ipv6.h>
- #include <linux/io_uring.h>
- 
- #include <uapi/linux/io_uring.h>
-@@ -1741,7 +1742,8 @@ void io_connect_bpf_populate(struct io_uring_bpf_ctx *bctx, struct io_kiocb *req
- 	case AF_INET6: {
- 		struct sockaddr_in6 *sin6 = (struct sockaddr_in6 *)ss;
- 
--		if (conn->addr_len < (int)sizeof(*sin6))
-+		/* The IPv6 stack accepts SIN6_LEN_RFC2133; port and addr are in it. */
-+		if (conn->addr_len < SIN6_LEN_RFC2133)
- 			break;
- 		bctx->connect.port = sin6->sin6_port;
- 		memcpy(bctx->connect.v6_addr, &sin6->sin6_addr,
--- 
-2.34.1
-
+greg k-h
