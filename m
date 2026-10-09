@@ -1,221 +1,302 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5764A25DB0D
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 01:01:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791507718; cv=none; b=D6VcZm6nKdo6je7kwg5ObLAOucUZsD55SdXaeUoD5P6aCeZMriYtT1R0ys62zUj+77XlixUJy3BlcgRX6xbTVpo0lgpA+qQlhLnDG3DeY8IXXLF1XtY7kBcWY4bTrXXnFqmJuVDuU7NVqGikCj6vfFcDLBxuQOTbrWTpsIWCXws=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791507718; c=relaxed/simple;
-	bh=VvsfpHaXhPNuOESsbmKbjgRvCxu9b+24W1f2Ek0pgic=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=aICqHEb/5VHi7qIszee0vLWmmI6ob49kCL/MUPp8TgoiOIpXnoN8rPLJvBZeKbdyKVvoiyrUiBN9YRYrdlCU8LoPWB6s6/TGxfnF+srKqQVBJ4tEforHkJdNH8iDZbAa2KBjQOsxE0VxjQm48KyWPcTqzjoacGxYsnfCisLTdXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=JxjhGPKE; arc=none smtp.client-ip=74.125.82.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4DD82C15A5
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 01:10:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791508254; cv=pass; b=Rea4N0V2l0Eg3Gk0RcGEV+Mv2OUPV/lTyQwJqmCvUs+J384YRhYWtAhQ9K4ZKy6zhi3qFQ0Cq9YnZ2erSLtQLNYw1ZGtGV+yAdCHzpBQxMNgsBWJED2ttZGAM7n6H/N5T2S3RsgeoCh0MIOV/p/z8HpgzLmgK9RFEmLB/3y/Tsk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791508254; c=relaxed/simple;
+	bh=8UwMj18LiDU8omtljeuGqbPOCEMqF3lUBiJrddjXbVE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IWREkBpJZRfdOLek+x8d4cDPAdl9QlnkAHQU0IRbHTYwyI1HD59ve+aYs13To6A1FgW2gYlhNAFZ1GRGphh5Y3oUp4v/y5yl2mHTrZeraOhl38vks+lOpOVoltKxIGoVXz+Hhu9nav4OBc2djayf3OQlj/w/r3GjNApmh05fh9E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B+Ww72kC; arc=pass smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="JxjhGPKE"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3115c4451c8so5013627eec.1
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 18:01:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B+Ww72kC"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-88b8f0a1bcdso2830484b3a.3
+        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 18:10:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791508251; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PDpq2uYhMngifXMhnuRz6YmPMMQYs2A2RqZmz9ls0ShrrDsMmTSCoraSqGiAT9qJwJ
+         mIFRqtoiR9fAbB7LgeEzNl1vnqeEnqSxfak1Sp1ru9uaXIKul4h5th08bZFwYvidfUJk
+         kdB7d0Oq8MdJt3pNPiQKlPRa6GHwk/6zbnrSYoxoezRbJ43Zi/56XuZVTkH1ARPuDz72
+         KDL4UjxjoDTmEDHm0fo2JO+6MaE0cOwmnBVukFNEgTHiwGROjYZVQh9PTrItBnSNc0FT
+         kqLYA0jyBaPkjjjNMG1S5FZDYhs3hLLzQBYGhkaBF8PGBuKbX2kLKOApJ+9vUlAbBvdT
+         +YCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TthLjPmhPgp784Yx0bbWlwVp5UD5cL85TnNZ6vgW0DA=;
+        fh=cmbQrRZ5TcPr0x1biL+wyI5MC6wBOKI/9mt13e6bmQ8=;
+        b=AaIUlp6JETq+XAzvTvbCmnj86SY1ym+AjBYGKxuZHKtcWC3YWEhPxcjMAcARI84gHt
+         6ZlrpD+2JR7avSlGSfPPlVYsoR/zL2+DrQmasbJ2UuhGG8DB7sQW9lVMRkk7SQZzsd5a
+         rdczqGTvKCSj643lkgwXYriBmVIzfrsAYosw2UETRfwYELG1LxhI0eCXg5qpiDZZIhKi
+         DdOt8unIitS8zuwUKeKxiGtKj+aW9mTvnpdXiPLP8/aN3rxL0NJZj5l5jm6psjHhDy15
+         6yEwAhhZAHc2TNjmh6hEwzcMrB4Xfn2yW12qwEFFigZfHcPG4i0USBwfmhq9xG3UYI50
+         tZvA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1791507716; x=1792112516; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=cfdw+audQWp9HNvQGo23exvCo4IIEY6hjGNhPZtb1Is=;
-        b=JxjhGPKEzNITA7xktGvNciFvzlH0nUKz8Ie3c5F5t0zdMip+KWv9upe55rWVDqmQqv
-         1TCKYVdjMQi+qBMhyDoH+7FF/Tvp26+/FsJGVRtrlLMszPhKpaayoaWF0NKXY3l0xCc0
-         GtfbD4BNxk14rBPL6g1/7l9TfZS3L49jUAs3V6+yE8KCIxKVqGp67XelC8uPEm1LBv5e
-         g5M4oP+bbTrBLE5OY7n5yBA7lM6tip/YBp2kH1c3GfC+DfYbNpezupNb/Qj87cgFovo2
-         tVzQMES42u/Jt6RVqLTuJ5InwwcWhIkQ6WYJhbcOFEo4ok2SephM2KwrBvjmjg1iXkJG
-         MlAA==
+        d=gmail.com; s=20251104; t=1791508251; x=1792113051; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TthLjPmhPgp784Yx0bbWlwVp5UD5cL85TnNZ6vgW0DA=;
+        b=B+Ww72kCHNK4UWPVD482LKT+PV7FjN5Snch/q7mpIDGwQjA6HmtNcXEo2lv7yfbPWw
+         5TXc/n0I0G8FMQQM7DmAi/OjLa7dCV/MbMUR2wxBCuyNxCC1u8tgRB6VrpmbzOj/7RxT
+         3/8N63B9d6aGWHhv56MikDKy0oRiqsRv7Zh0s53OLKU4xloXWP0erTWkifKyelejrG7T
+         Cm/U2qy/xCchxKlt3hkuc5qmDRPmAucRSDntgc3VLNdfPRNU8fWyLuWnUow1FpPPBg6B
+         HnSj8HK8PWeziBVsfr3LBBNP0XW9QN+SgWRikBw9WMyMlK58w6rYqFlQbRfYd+s/JOfy
+         a7og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791507716; x=1792112516;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=cfdw+audQWp9HNvQGo23exvCo4IIEY6hjGNhPZtb1Is=;
-        b=oUv/IvW5vupwum54wugRZqfGGiFYx6z5pyTgA1ifTs2BbQVIHA5v2XPTwwVTW2LWPJ
-         PsjR6mK0AaKkurGkn6UNICQI/81eHigFXHZXvGY+cibFhHflhqzk0GAivutRZOhCeD+r
-         r8RFj4im7QdOzsP3C2p0MWt+PXwUgTojxeMXsk4y5uH1/gIWWSYivsRRE/pV9RijqpgZ
-         plQFXcMOvizI2FcNZQVNH4ZFS8uO30R1VAjSNxy7MpKvJTsOsxCHF2V/K8UOeOK2W2lz
-         eSVp5If8D7M51fdvc4v9Ms2X9EXy9Gti/Moq+6qDscs590wvSr7Nph8/wmfpSU2Lo2K8
-         F31g==
-X-Forwarded-Encrypted: i=1; AKwUvBwqUG/11eAIeR7PifzoX9e2PbzoY/Xck8Rm43Zim2HiIimPM16URIEGsPvUAoVmdXks2uFHiUM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJkSalt7g7TucQGBUZviOaBwQiji9wECYcDz6qskyrGfmKSkALV
-	k9LZvr2TzIajFR2CMIqMAkfxy7k+onjp3o/ZgscYahBsxjY8z4D0SDLoF5HqufF82g4=
-X-Gm-Gg: AYBFou2tH/tX4zcMsv3wrZ/WNYDSBMCZkZiVQpSKxpVzP0gJKzX3zBb+4xLAuUUAsFT
-	Psl8jnW4wx0Zc8EmwrkotZKPH8eIh6xhlBIR2drezyTT3Ui/QGUmChgPtuSCMOa4wD3oWmtSaVz
-	t5q5bPLE4yUvzOUUD4EorOyP0j0Tk4vnXZpTEmxAJTb2PefdOyQaH7oB6Y/Xc/iIXP1jouP56uw
-	Imm6qKJTFJZH1boOl9Kjx0VgtV/Thg/CDx2eMSrx2jzmWAErkQbKGgAecQYFTfpnosYfVLmPNmS
-	vURD6I5tsqVQPoKeo8E51PBVfjPPhJgb1xRbWsqVvNES+yfm9lx/hbUWReBaz9C+j4/KcARU7NN
-	RmNNZDMCWgCZVF/DraUeODJ+YGWX4rVd8GIxrV77WkfWloDFYIseu/cXLG05E03CVEfkjkv/8GX
-	F9AIB+ktqq5S/rfIyrfgqApY6Wzt0jnyfpSHirCjWOqNRhC+vUxJblWFvNUhTzThyrvuGiVO4oV
-	w==
-X-Received: by 2002:a05:7301:71a4:b0:351:8d12:8d51 with SMTP id 5a478bee46e88-3537e029678mr656518eec.12.1791507716097;
-        Thu, 08 Oct 2026 18:01:56 -0700 (PDT)
-Received: from [127.0.0.2] ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cad9e53sm1828189eec.22.2026.10.08.18.01.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 18:01:54 -0700 (PDT)
-From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Date: Thu, 08 Oct 2026 18:01:51 -0700
-Subject: [PATCH v2] Revert "i2c: xiic: defer RX_FULL until all trailing
- bytes are in FIFO"
+        d=1e100.net; s=20260707; t=1791508251; x=1792113051;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TthLjPmhPgp784Yx0bbWlwVp5UD5cL85TnNZ6vgW0DA=;
+        b=Ws9ViGqwVhRiNhe+nDWMrdc9UKR/lDK72RQeF6w245+egSUopk8E0ildnzgIhtsWgB
+         wny6g3q4uibAu1MG+DSkxklAu36804bKfnqZ+j8Cs5CXj+akak1s2UDKw+BFGgvLATpo
+         HB7n3G2SwhIMmt0XOLjyeyZ1FgilVf93tWTYqhjUV2dfLebwYegGcVha76PwO7hHqoKp
+         wj0goduigoQTU8ZjBxrXrcTrUgx66C9a06xDQL0Hng+Fo2jj9NFOBbm8zv0cRJ4q8HYM
+         E65PGHvbcwZAuiEkUi8lPKS+S4K76wsr5D8Qg5TjFKNJy7M9BlZK9QzibRzO5o29M8Se
+         ggwg==
+X-Forwarded-Encrypted: i=1; AKwUvBzFYCMNO0T8xAeEHAdq2J9JqRb+60AX2eIgS3XjJ7K326SyaHIDiCrmwRIo+mnWV120cEFgvoY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJAyEdHvPF1eOPJIMCxvmC6stIf1AhKG/y/Ucleti/NvgsULglA
+	W02idY1NQeeNOixcKrOzJY84XV2zArdAbvUQfzWVbvpJuJX0WETgw6N8X2AD9KitWZrMdH0fbr+
+	5s4e803XSq0F61Hyqvlnz4BoFoelgGdw=
+X-Gm-Gg: AYBFou1I7EKcBP2LQ94OTq18UgejfkvuCzeXSgVYilKQRVNYHYnRaotyeOiDAzPGjqC
+	arIltsp9eWYJtqN61tU0ISgPkEnziR9yJ39BwJ2dW3CUPORhDio2sLXvOjl/Pj+VHBuUaAhXC1Z
+	0BCyNhNoVHDc9GmtmVR0r0ObBovESG3Pr/HthbGFBmJpyrn7Rlmb4Y7Xb1P/kGf22xIa+LX7g9R
+	58RGDCA2nNI8xR3DX1YVPWa6dUZboQofIhBgOo8RzDAWyFGOzBRHRdq+0mz83984iglnkm99Ikx
+	3JhJd5AmGV207rbtZ1JM2LCt6XpzJWXryX+2UfnnUETVEzqLRh3UCOtfq00fhKpVsQiHk62ZcJD
+	p4YqtMkO4mlX0rRio4u9Jf9NTDL7tOysgA2KvT8SScpt/Blz1MbUu
+X-Received: by 2002:a05:6a00:2793:b0:893:1336:481b with SMTP id
+ d2e1a72fcca58-897c76e19d8mr195881b3a.21.1791508250173; Thu, 08 Oct 2026
+ 18:10:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-i2c-xiic-block-read-nack-v2-1-76735ed0b0bf@nexthop.ai>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBREf4V07TW0CBRX/odh0cdFrpqWtEgwh
- H+3YFy6m5PMzFlYxEAY2TlbWMCJInmXQBwyZnrlbghkEzORi4rneQ0kDMxEBvTTmwcEVBacSsk
- KXRelVtbagqX5ELCjeb++tl+OL31HM25/W6OnOPrw3t0T33o/jfyvmThwaE5SCtVVWDby4nAee
- z8cFbF2XdcPj+4utNMAAAA=
-X-Change-ID: 20261007-i2c-xiic-block-read-nack-d2b735baddd3
-To: Michal Simek <michal.simek@amd.com>, Andi Shyti <andi.shyti@kernel.org>, 
- Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Siddarth Chilukuri <siddarth@nexthop.ai>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791507714; l=6106;
- i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
- bh=VvsfpHaXhPNuOESsbmKbjgRvCxu9b+24W1f2Ek0pgic=;
- b=/KyL2DEQwNeonF4R2JIRTXoPa/R37jOZKzBl58ZI/KbkjAxzRoUZW15Fu1AHYWej2PQxpNhaU
- /VCjW/w3r/xB4GHtakMz3rYqKCPkhGfVPvwld0UWk/LLDV0xLnscUNd
-X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
- pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
+References: <20261007035739.3472432-1-4ncienth@gmail.com> <179147504220.434549.18146896790420057417@kernel.org>
+In-Reply-To: <179147504220.434549.18146896790420057417@kernel.org>
+From: Xin Long <lucien.xin@gmail.com>
+Date: Thu, 8 Oct 2026 21:10:38 -0400
+X-Gm-Features: AclHuK8ziYcW9_tKZ9snSpT-kBT87Cg3V8VqJZ6z386Jui_JW-JG3uBKMbToqQ0
+Message-ID: <CADvbK_eFDf3j67Qen-kOUYtg8+JWicMfQFU=iqxgrSqcyAVsqw@mail.gmail.com>
+Subject: Re: [PATCH net v2] sctp: revalidate output stream after association
+ connect wait
+To: netdev-bot+sashiko@kernel.org
+Cc: 4ncienth@gmail.com, marcelo.leitner@gmail.com, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	linux-sctp@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This reverts commit e6fe3ea04f0113fe4d47c03d76e03805a4768ca7.
+On Thu, Oct 8, 2026 at 11:57=E2=80=AFAM <netdev-bot+sashiko@kernel.org> wro=
+te:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 (1) =C2=B7 Low: 0
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [Medium] sctp: UAPI breakage leaking -ESRCH to userspace on stream
+>   validation failure
+>
+> Pre-existing issues:
+> - [Medium] Pre-existing ownership problem on the sndbuf-wait error path
+>   in net/sctp/socket.c, not introduced by this patch.
+>
+> --
+>
+> sctp: revalidate output stream after association connect wait
+>
+> This commit moves the output stream range check and the extension check
+> into a new helper, sctp_sendmsg_check_stream(). It runs that helper again
+> after both the sndbuf wait and the connect wait in sctp_sendmsg_to_asoc()=
+.
+> If the check fails after the connect wait, the error becomes -ESRCH, so t=
+he
+> caller does not free the auto-created, already established association.
+>
+> > diff --git a/net/sctp/socket.c b/net/sctp/socket.c
+> > index e35692dd8d303..321898f22d80d 100644
+> > --- a/net/sctp/socket.c
+> > +++ b/net/sctp/socket.c
+> > @@ -1786,6 +1786,18 @@ static int sctp_sendmsg_check_sflags(struct sctp=
+_association *asoc,
+> >       return 1;
+> >  }
+> >
+> > +static int sctp_sendmsg_check_stream(struct sctp_association *asoc,
+> > +                                  struct sctp_sndrcvinfo *sinfo)
+> > +{
+> > +     if (unlikely(sinfo->sinfo_stream >=3D asoc->stream.outcnt))
+> > +             return -EINVAL;
+> > +
+> > +     if (unlikely(!SCTP_SO(&asoc->stream, sinfo->sinfo_stream)->ext))
+> > +             return sctp_stream_init_ext(&asoc->stream, sinfo->sinfo_s=
+tream);
+> > +
+> > +     return 0;
+> > +}
+> > +
+>
+> [ ... ]
+>
+> > @@ -1830,10 +1835,9 @@ static int sctp_sendmsg_to_asoc(struct sctp_asso=
+ciation *asoc,
+> >               err =3D sctp_wait_for_sndbuf(asoc, transport, &timeo, msg=
+_len);
+> >               if (err)
+> >                       goto err;
+> > -             if (unlikely(sinfo->sinfo_stream >=3D asoc->stream.outcnt=
+)) {
+> > -                     err =3D -EINVAL;
+> > +             err =3D sctp_sendmsg_check_stream(asoc, sinfo);
+> > +             if (err)
+> >                       goto err;
+> > -             }
+> >       }
+>
+> [Severity: Medium]
+> This is a pre-existing issue, not one introduced by this patch. Does the
+> ownership reasoning from the connect wait also apply to this re-check aft=
+er
+> the sndbuf wait?
+>
+> The caller, sctp_sendmsg(), frees a new association on any error except
+> -ESRCH. It does not check whether the association is still CLOSED:
+>
+>         err =3D sctp_sendmsg_to_asoc(asoc, msg, msg_len, transport, sinfo=
+);
+>         if (err < 0 && err !=3D -ESRCH && new)
+>                 sctp_association_free(asoc);
+>
+> sctp_assoc_add_peer() has already hashed the new association's transport =
+at
+> this point. On a UDP-style socket, another sender can find the associatio=
+n
+> through sctp_endpoint_lookup_assoc() while this thread sleeps in
+> sctp_wait_for_sndbuf() with the socket lock dropped.
+>
+> A possible sequence:
+>
+> thread A (creates the asoc, new =3D=3D true)
+> sctp_sendmsg_to_asoc()
+>   sctp_wait_for_sndbuf()
+>     release_sock()
+>
+I don't think sctp_wait_for_sndbuf() can be called for the first send
+(new =3D=3D true) because sctp_sendmsg_parse() already checks:
 
-That commit raised the Rx FIFO threshold for an SMBus block read whose
-trailing bytes fit in the FIFO, on the grounds that firing RX_FULL with
-the last byte still in flight made xiic_read_rx() NACK, and so truncate,
-that byte. NACKing the last byte does not truncate it: it is how a
-master ends a read. The byte is still clocked in and is drained on the
-bytes_rem == 0 path that follows, which also issues the STOP.
+        if (msg_len > sk->sk_sndbuf)
+                return -EMSGSIZE;
 
-What the higher threshold does instead is skip the bytes_rem == 1
-branch, the only place that sets NO_ACK, so every trailing byte is now
-ACKed. Having had its last byte ACKed, the target goes on to drive the
-next one, and the STOP that follows lands in the middle of it.
+> thread B (sends to the same peer)
+> sctp_sendmsg()
+>   sctp_endpoint_lookup_assoc()   <- finds the CLOSED asoc
+>   sctp_sendmsg_to_asoc()
+>     sctp_primitive_ASSOCIATE()
+>
+> the peer's INIT-ACK shrinks asoc->stream.outcnt below A's sinfo_stream
+>
+> thread A
+>     lock_sock()
+>   sctp_sendmsg_check_stream()    <- returns -EINVAL
+> sctp_sendmsg()
+>   sctp_association_free()
+>
+> Would this tear down an association that the state machine now owns
+> (COOKIE_ECHOED or ESTABLISHED)? No ABORT would be sent to the peer, and t=
+he
+> counter and socket state would be left inconsistent. The commit message s=
+ays
+> it avoids this outcome for the connect wait by returning -ESRCH.
+>
+> The baseline already had the -EINVAL re-check here. The other
+> sctp_wait_for_sndbuf() errors (-EAGAIN, -EPIPE, -ERESTARTSYS) also reach
+> the same free. With this patch, sctp_stream_init_ext() failures (-ENOMEM =
+or
+> a scheduler init_sid error) reach it as well.
+>
+> Should sctp_sendmsg() check whether the association is still CLOSED befor=
+e
+> freeing it? Or should this path remap the error the same way the connect
+> wait path does? Earlier commits c863850ce22e1b and 4f1da630d13de0 used a
+> similar -ESRCH remapping.
+>
+> [ ... ]
+>
+> > @@ -1848,6 +1852,11 @@ static int sctp_sendmsg_to_asoc(struct sctp_asso=
+ciation *asoc,
+> >                               err =3D -ESRCH;
+> >                               goto err;
+> >                       }
+> > +                     err =3D sctp_sendmsg_check_stream(asoc, sinfo);
+> > +                     if (err) {
+> > +                             err =3D -ESRCH;
+> > +                             goto err;
+> > +                     }
+> >               } else {
+> >                       wait_connect =3D true;
+> >               }
+>
+> [Severity: Medium]
+> Does this leak the internal -ESRCH sentinel to userspace?
+>
+> sctp_sendmsg() returns its result through sctp_error(), and
+> sctp_error() only special-cases -EPIPE. Whatever
+> sctp_sendmsg_to_asoc() returns here therefore reaches the sendmsg()
+> caller unchanged.
+>
+> With this hunk, sending on an sinfo_stream that the peer did not grant
+> can return ESRCH. That happens only on the first send of an implicitly
+> created association with intl_enable set. The same request on an
+> existing association, or after the sndbuf wait, returns EINVAL. An
+> -ENOMEM from sctp_stream_init_ext(), or an error from the scheduler's
+> init_sid hook, is also reported as ESRCH.
+>
+> ESRCH ("No such process") hides the real cause from the application.
+> It also misleads, because the association is alive and ESTABLISHED at
+> this point, and a later send on a valid stream would succeed. Since
+> this is Cc stable, the errno change would also appear in stable
+> kernels.
+>
+> The connect wait failure path just above already returns -ESRCH to
+> userspace, but that case is pre-existing. This patch extends the
+> behavior to an argument validation failure.
+>
+> The remapping only exists to keep sctp_sendmsg() from calling
+> sctp_association_free(). Could the ownership decision be made
+> separately from the errno? For example, sctp_sendmsg() could free the
+> new association only while it is still CLOSED. Alternatively,
+> sctp_sendmsg_to_asoc() could report ownership through a separate
+> out-parameter. Either way the original -EINVAL or -ENOMEM would reach
+> userspace. Or is there a reason the errno has to carry this?
+>
+This is not a typical user scenario, and this patch is sufficient to fix
+the NULL pointer dereference.
 
-Some targets ride this out; others are left wedged until the next
-transactions clock them free. A TDK FS1412 fails the two transfers that
-follow any block read, so it never probes: pmbus reads MFR_ID as a block
-and then VOUT_MODE as a byte. A Renesas RAA228246 and one RAA228244 on
-the same controller fail the plain block read itself and the byte read
-after it.
+I may address the original error returned to userspace in a separate patch
+by passing &new to sctp_sendmsg_to_asoc() and setting it to false once the
+association is established. This would also cover the failures reported in
+v1, where sctp_datamsg_from_user() or sctp_primitive_SEND() may fail after
+the wait and reach the same cleanup path.
 
-With commit b7e6df2f52ed ("i2c: xiic: preserve PEC byte length in SMBus
-block read setup") and commit 840d8acc8792 ("i2c: xiic: don't clobber
-msg->len to signal block-read completion") in place, PEC block reads
-pass at the original threshold. The PEC failures the reverted commit
-attributed to the threshold came from the bugs those two fix; all three
-were developed together against an ADM1266, which rides out the extra
-ACK, so the regression did not show.
-
-Twenty rounds per device of a block read and a PEC block read of MFR_ID,
-each followed by a byte read:
-
-               before                      after
-            block  PEC   byte after     block  PEC   byte after
-  FS1412    20/20  0/20  20/40 fail     20/20 20/20   0/40 fail
-  RAA228246  0/20 20/20  20/40 fail     20/20 20/20   0/40 fail
-  RAA228244  0/20 20/20  20/40 fail     20/20 20/20   0/40 fail
-
-A second RAA228244 and an Infineon XDPE1A2G5B passed every round before
-and after.
-
-Fixes: e6fe3ea04f01 ("i2c: xiic: defer RX_FULL until all trailing bytes are in FIFO")
-Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: stable@vger.kernel.org # v6.3+
----
-A follow-up to my xiic block-read series, now in 7.3-rc as
-b7e6df2f52ed, e6fe3ea04f01 and 840d8acc8792. The second of those
-stopped NACKing the final byte of a block read that fits in the Rx
-FIFO, which leaves some PMBus targets wedged for the next couple of
-transfers.
-
-Tested on a 6.12 kernel carrying that series, against an AXI IIC
-controller with an FS1412, RAA228244/RAA228246 and XDPE1A2G5B behind
-it, using plain and PEC block reads and the byte reads that follow.
-
-The same happens on a second board, where two of four ISL68225s behind
-the same AXI IIC core fail plain block reads and the transfer
-after them. A capture of SCL/SDA taken inside the FPGA shows the
-mechanism: after the last byte of an MFR_ID block read the master
-drives ACK, the target starts on the next byte with SDA low, and the
-STOP the master then attempts never appears, leaving SDA held low. With
-this change the last byte is NACKed and the STOP is clean, and all four
-pass.
-
-PEC block reads do not regress: 1000 PEC block reads of MFR_ID per
-device, each followed by a byte read, on the FS1412, both RAA parts, the
-XDPE1A2G5B and a further RAA228244 passed without a failure, both with
-this revert alone and with Siddarth's patch on top of it.
-
-With this change a block read ends with a NACK, and so with TX_ERROR,
-like any other read. That puts it in the window Siddarth's patch closes,
-where xiic_process() sees TX_ERROR before RX_FULL and resets the core
-even though the data is already in the Rx FIFO:
-
-  https://lore.kernel.org/linux-i2c/20261005-i2c-xiic-rx-fifo-v1-1-0177ac5f72d7@nexthop.ai/
-
-The two touch different functions and apply cleanly to v7.3-rc6 in
-either order.
----
-Changes in v2:
-- Revert e6fe3ea04f01 outright instead of moving the threshold back by
-  truncated), and with b7e6df2f52ed and 840d8acc8792 in place PEC block
-  reads pass at the original threshold. The code change is the same
-  single line as v1 minus its tail == 1 branch, which could never run
-  (Siddarth, Sashiko): reads with fewer than two trailing bytes are
-  padded to SMBUS_BLOCK_READ_MIN_LEN first.
-  Sashiko review: https://sashiko.dev/#/patchset/20261008-i2c-xiic-block-read-nack-v1-1-94882af6e598%40nexthop.ai
-- Link to v1: https://patch.msgid.link/20261008-i2c-xiic-block-read-nack-v1-1-94882af6e598@nexthop.ai
-
-To: Michal Simek <michal.simek@amd.com>
-To: Andi Shyti <andi.shyti@kernel.org>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-i2c@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-hand: that commit's premise was wrong (a NACKed last byte is not
----
- drivers/i2c/busses/i2c-xiic.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/i2c/busses/i2c-xiic.c b/drivers/i2c/busses/i2c-xiic.c
-index 5e397a7e63f6..76ef9c26ed57 100644
---- a/drivers/i2c/busses/i2c-xiic.c
-+++ b/drivers/i2c/busses/i2c-xiic.c
-@@ -569,11 +569,11 @@ static void xiic_smbus_block_read_setup(struct xiic_i2c *i2c)
- 			i2c->smbus_actual_len = 1 + rxmsg_len + pec_len;
- 		} else {
- 			/*
--			 * All trailing bytes fit in the Rx FIFO. Defer RX_FULL
--			 * until every one of them is buffered, so the drain
--			 * takes xiic_read_rx()'s bytes_rem == 0 path.
-+			 * All trailing bytes fit in the Rx FIFO. The widened
-+			 * condition above guarantees rxmsg_len + pec_len >= 2,
-+			 * so this cannot underflow.
- 			 */
--			rfd_set = rxmsg_len + pec_len - 1;
-+			rfd_set = rxmsg_len + pec_len - 2;
- 			i2c->rx_msg->len = rxmsg_len + 1 + pec_len;
- 		}
- 		xiic_setreg8(i2c, XIIC_RFD_REG_OFFSET, rfd_set);
-
----
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-change-id: 20261007-i2c-xiic-block-read-nack-d2b735baddd3
-
-Best regards,
---  
-Abdurrahman Hussain <abdurrahman@nexthop.ai>
-
+Thanks.
