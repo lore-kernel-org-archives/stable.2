@@ -1,44 +1,44 @@
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C5C4E4332;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5E994E432C;
 	Fri,  9 Oct 2026 13:43:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791553425; cv=pass; b=f0s88Sq8cL+EBkx2VWoVOM1tyyKBjTXa5F6vUvwbCh0Y5VlLSvXoOVYmtVtoCdAUlY0RVgETtCDxLvHYajASzda0jv1CUsLlXz8CWRH+sc8Fivp6SYDM79nHFq9KO7GZPoTqWwn0heLO1fF02q/4S9/Vh3aGY5gbYUAOSM6n3w8=
+	t=1791553425; cv=pass; b=WiTlXzV+qfY6OODZnWj4UjCDfkJdScz6Mh+hEGrwZPJJsgx1ZNtS0Zde9M3u+rhZgZMl6tMEO438wnqikGTK4AIzd/JnNeYHIIfrswCGb/izRnjGNTNcDpCebP4DUhAoC3KG35s3bEltXR0Np5gsQTSaPOlEX0hVGZNakGmTDbg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791553425; c=relaxed/simple;
-	bh=848LzRvnlnQzlqeA+kBmcLmF8BouHfWSkPJntA0ExHI=;
+	bh=B6MsowS/Hu8WaIsqrN0ZInLPr90Ep+8EERok4+wLTWo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OPFZnYnRynlRdHQQ/+jhak8yhrqz5qFzwPe5zX9VLU11gw8eWfSGc2ldAbIXsx1g9cruU2VU8XTkIu4JRhE4kkmSUrBBRbPdimx4uJtQHPMLj7pViRCX77zAqgywkQLrmDJJeh2cjFOwG20g2W0WsTN/8Bru/elh26etczSQk2U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=WKDx1+VD; arc=pass smtp.client-ip=185.203.200.13
+	 MIME-Version; b=UPaTmize1RNUCDprwKeG5A2gAWxsp/2zCdJg4kQK4zfsf1oNbnS4LaZvHnSKogD3x8IWpI20j0Q7JcCDnzSEIeQ/X8FYLU/hfDp6yU/qVdKw0My1L0SM59WEh/AEnwjtP9qlOC17zPD1dKqzU7J7su69q1C4S0MeYuJ/8SNQVvA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=feYUPtKd; arc=pass smtp.client-ip=185.203.200.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="WKDx1+VD"
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="feYUPtKd"
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 77ABD20266A;
-	Fri, 09 Oct 2026 15:43:39 +0200 (CEST)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 00427202667;
+	Fri, 09 Oct 2026 15:43:38 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1791553419;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=SSadS0UA+Oi+k7qAj5ETX1kfD9e7tPd6g1V6+n52G4k=;
-	b=WKDx1+VDfbP0xp4S3nndSpT3w9rWyVosA8bPCjsuHsp03dhKjMpGFnI7ob8z0SASuVIWHN
-	/TTrd6Dvi7kCIHQ4377o/7ivQ/YTxOQPeBTwd6vdMqs/QOm+j7tsQ5N5q9YOgaAmzID6mw
-	WpA6ewuhAiHz9/OxWAEB9VPDIwqdVdTawdeEH8S0zluFeU4T1smW+DtBgynm3B6mtjQBjU
-	+wthK+6f9o3A9vhV5KQJ2AZ8L2ZqJw1m+JZo7f1oMZ79lpLVZxc68PNdW8MWMuNZtXFQYJ
-	Hbs885UGyXG4h0JAevVbFLPQ/kNor8rt19utnJIGSgOKY2BsXgMZ2apLoFS0nA==
+	bh=XVfaiHfN1z0sLsRST89F+gSzK1DVg/e0PZJQCFq2CAk=;
+	b=feYUPtKdOdEZX1l65pkYHdwN91TXBXypHKZQB2BEzR1J0rZI5lNUgmKcM1q1nhq5lmwbuS
+	fl8y4ilDu20YA2lUoMlnWPUfVPZfBYjh4jxxVHstXL54cr3Cyq2v/j6JHX7Ij51f2sb3Fp
+	cWSyP3rGs33BhaHa1N57y6vDW1sxhUPfCUXZE7STwUpn1lWJsjxql23AUIE1Z1HmrcLX2r
+	Sx6Vux2uY1QMEUW2bU0nGgTzB8GWdWybXx58Oc4R/Ykklb+WCWFtqQ5cOIlZz7iVqbvmpo
+	zz1ijPIJTwkcPaSw7jYjhU/E+IL9hxOhAjv2M9iHndQdBjJx0JRYSjdU6R14EQ==
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791553419; a=rsa-sha256;
 	cv=none;
-	b=UoGdGDWQfe7WsGpe6YiE2Zje10fs+33HyoGNORJjvb63dnaMZCpE0fpiFMPDn6bPhmzxYq
-	Rk36ZN6zMKV0hLtZBHP04Ebgth9byAf6CZN7dICUGr93TwQvVfmztsjcSezrIzv9Y2piXv
-	OKHIOvbKKB+7WF8HER6YiKagRnSRr0/PIlyH0xdVMW3mDDSBj8ZHXrr7WNt5Ifm6GbiV2C
-	hEDlTxTfpheE0qnQXnmDxBoTC6AqbCkqcPMYhANZRPsQVipWBhR8uJuWeph6tR1CMqoFc3
-	BfnvdrRLGC7KjAT5UG+iWmj3+rqtGq3qnCsq2fUhsLwx+i/9ffsG8fCsSGAzBA==
+	b=JRvy5F0aplkR9W6OiDrsYh5Ve4oKVOc26JjpCaQKy++XqGobEWXlHC+7u3ROGvlDYEMvkj
+	+s5hmum8iXIGDDaaPQX6l9wNIQ7hks3jm/zXF8Ov5WX/U1y9ID7JevTb56KC3DDzanWa1/
+	bhziMCUfXaDKAM5kwTEQZHbW4to5MJ10xKpUXOzFZhY8zNaZrFhy+jH03Eb6cgoO5rmOHY
+	h8VYUnx0lgxvojw+cuolkWPbkB3Kmnjn5H6c5mQdMdc0tMjStgDL+KizIqksVJz/goDgrX
+	RA99ApI6tWAkRFCR7YPsCUZHTcPfS1eJt8KgvmdvnoK9+bCKvbThTjmGN1IoBQ==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
@@ -48,24 +48,24 @@ ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=SSadS0UA+Oi+k7qAj5ETX1kfD9e7tPd6g1V6+n52G4k=;
-	b=U9cbrKi71TQMB7QHyXPEDoQwOgcg0kBCnR65tTlIQ5pUqxILbztlXMoJQsMjtwN1gTQXW7
-	RMHNpQhj6GGq1yixXPC6RcZU8Lvh9Mt2+HoKzYN650nfBzSxeAwfV1D0O0/zhjW5rWpP4z
-	3hf6DE2Z5p/QLj4au2eI6bSgArp4235QPbnx1a1mHt/Q4+j5f9PWfVtm0IH/2ShPJrrDob
-	xJSHTuQSvM9/8iGt659BIRJojDODfLdmWbUCR9P3PTHJMu9k43Us9BUoVHBgRwhuJr5rJw
-	PXKIAWrK3jogC5lavEmvH1rpNBDmbmeVU8rfVixFMJSOk5Q5Bs/X1wvywLsEjQ==
+	bh=XVfaiHfN1z0sLsRST89F+gSzK1DVg/e0PZJQCFq2CAk=;
+	b=cR0kJ+QRTWDgwf6XA0mAwu0VQRzyZI1li5KEUSX3JEWZCGccvPgiremjjqqlq2UmDZTv7c
+	GA7RQld+YDSKhGZY4y2whDMPihwQ6nY2+UpeUK4o10hoA7eBuCoCfnxd2aar7tEqszDeA0
+	RHO2EiMmqKAIDHG8JfBvuGp6kNZ385QjSf7CmRkDalKyHpi1nqtvsgnhBSFnaqXth7sHW/
+	YeM8rmyYrUtxwbmmox+JuMapXzwnkRYY/p/rhT/3LfUPjLE8Lhq+8vmdCmLaELljiPWHfF
+	BQ2zQ+NiJ9jlAMAOUvdVIMYcjtOAqluH7gkD+Cx5Z/rm8WQC3yyAGOyjt3ueQA==
 Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
 	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <mkl@pengutronix.de>)
-	id 1xFAst-0053TI-1G;
-	Fri, 09 Oct 2026 15:43:39 +0200
+	id 1xFAss-0053TA-2u;
+	Fri, 09 Oct 2026 15:43:38 +0200
 Received: from blackshift.org (90-182-211-1.rcp.o2.cz [90.182.211.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(Client did not present a certificate)
 	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id EE9365BD8DC;
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 772235BD8D5;
 	Fri, 09 Oct 2026 13:43:38 +0000 (UTC)
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 To: netdev@vger.kernel.org
@@ -73,12 +73,13 @@ Cc: davem@davemloft.net,
 	kuba@kernel.org,
 	linux-can@vger.kernel.org,
 	kernel@pengutronix.de,
-	Wentao Liang <vulab@iscas.ac.cn>,
+	Fan Wu <fanwu01@zju.edu.cn>,
 	stable@vger.kernel.org,
+	Song Li <songl@zju.edu.cn>,
 	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH net-next 28/37] can: flexcan: flexcan_setup_stop_mode_gpr: fix OF node reference leak
-Date: Fri,  9 Oct 2026 15:28:00 +0200
-Message-ID: <20261009134323.64064-29-mkl@pengutronix.de>
+Subject: [PATCH net-next 26/37] can: ems_usb: use usb_kill_urb() to stop the intr URB
+Date: Fri,  9 Oct 2026 15:27:58 +0200
+Message-ID: <20261009134323.64064-27-mkl@pengutronix.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261009134323.64064-1-mkl@pengutronix.de>
 References: <20261009134323.64064-1-mkl@pengutronix.de>
@@ -90,37 +91,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Wentao Liang <vulab@iscas.ac.cn>
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-of_find_node_by_phandle() takes a reference on the GPR node and the error
-path releases it through out_put_nodeq. The success path returns before
-reaching that label, so the reference is leaked every time the stop mode is
-set up successfully, and the node can never be freed.
+The intr URB submitted in ems_usb_start() is not anchored, and its
+completion handler ems_usb_read_interrupt_callback() resubmits it, so
+it stays in flight as long as the interface is up. But unlink_all_urbs()
+stops this URB with usb_unlink_urb(), which only initiates an
+asynchronous unlink and returns without waiting for the handler.
 
-Release the node reference before returning.
+The handler can therefore still be running while ems_usb_disconnect()
+frees its data: it reads the transfer buffer dev->intr_in_buffer, which
+is kfree()d there, and dereferences the private context, which is
+released via free_candev() together with the network device.
 
-Fixes: e9f2a856e102 ("can: flexcan: fix an use-after-free in flexcan_setup_stop_mode()")
+Fix this by stopping the intr URB with usb_kill_urb(), which waits
+until the handler has returned, so the frees in ems_usb_disconnect()
+happen strictly after the last callback.
+
+The handler treats the -ENOENT completion of a killed URB as terminal and
+does not take RTNL or any sleeping lock, so the resubmit loop is cut and
+no RTNL deadlock occurs.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: 702171adeed3 ("ems_usb: Added support for EMS CPC-USB/ARM7 CAN/USB interface")
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Link: https://patch.msgid.link/20260917095302.2145506-1-vulab@iscas.ac.cn
-[mkl: update Fixes: tag]
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Link: https://patch.msgid.link/20260923030522.409344-1-fanwu01@zju.edu.cn
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- drivers/net/can/flexcan/flexcan-core.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/net/can/usb/ems_usb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/can/flexcan/flexcan-core.c
-index 86b40abe9e76..30ae7c344a05 100644
---- a/drivers/net/can/flexcan/flexcan-core.c
-+++ b/drivers/net/can/flexcan/flexcan-core.c
-@@ -1986,6 +1986,7 @@ static int flexcan_setup_stop_mode_gpr(struct platform_device *pdev)
- 		"gpr %s req_gpr=0x02%x req_bit=%u\n",
- 		gpr_np->full_name, priv->stm.req_gpr, priv->stm.req_bit);
+diff --git a/drivers/net/can/usb/ems_usb.c b/drivers/net/can/usb/ems_usb.c
+index 24cf8f651f8f..2d31f0b86859 100644
+--- a/drivers/net/can/usb/ems_usb.c
++++ b/drivers/net/can/usb/ems_usb.c
+@@ -748,7 +748,7 @@ static void unlink_all_urbs(struct ems_usb *dev)
+ {
+ 	int i;
  
-+	of_node_put(gpr_np);
- 	return 0;
+-	usb_unlink_urb(dev->intr_urb);
++	usb_kill_urb(dev->intr_urb);
  
- out_put_node:
+ 	usb_kill_anchored_urbs(&dev->rx_submitted);
+ 
 -- 
 2.53.0
 
