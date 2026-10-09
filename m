@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E62C4395ACD;
-	Fri,  9 Oct 2026 20:43:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 116A14F85CD;
+	Fri,  9 Oct 2026 20:44:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791578592; cv=none; b=qkpToV6nDzq1StQ86GYV8SXxgoO3rerwAAtcpVvZQWzmxmH9r+JXTA+nD3Xiq2PepOe2kdUbYDpvOXXakT73Nibche2NG5fG5iYKDfOmmAxzSDCJcFx3I1VTDQkUMgcEuIWEw2xWI/6vxj9ctcUBnw7hnjszqwZZtm6r0Mpg0JA=
+	t=1791578664; cv=none; b=Y+uk+1vjz5h/pRW20mo4ScMIUfPuUOWKtbHekQ1zMiHQDqp5bP06UD8IQWoq9bi1HxVK7P9luKgnAlpJRTT986vxVQXlhIme6r/Kc19fulSbU1zpnXrM0Oj4dqXVGvRYt4OCQT90GfsPSfBcIBCy/6frfuoIwCdH2KmuA9wWPdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791578592; c=relaxed/simple;
-	bh=N6FjwFwOZG1eWNtQeKvq39djVLP7i9vN+zdPlsY+4hk=;
+	s=arc-20240116; t=1791578664; c=relaxed/simple;
+	bh=D7sn6sT0u6pHQBn4qWRWU79pBDxGUc6f5pWxF4yuAK4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WuyQt5Ht00HqUn7zh2RIVU766N2Ziji7TZjDLvsHMU/nVUeVBUs4lxb4Sh8JRFF6YK6BmfXqDwH4vWaRoVP+f0bFFc/V3uMP9c9Gg7qS4IXPQxtGSzjoKRzfgJ74be+1yxPmp5AAFtRYoMBKJktODKmgtdtWEgmOGlJQI2qMbFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SP23AZs/; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=qLUAeRDtvfXlYJf9a/8ARqezuJnhUaWCByYheDgqxFVFq4HuM4Rwj4tiIyC/TCOHd4I72TvEkUdSLVJc/hjJvKllOdqlaxw9HVYZam8R2pohTO5BLH3O3sGuFy+St+vetU0pwya8coEMLtHlugJqNUd77XmK3KdNTXwDZDRhhk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y58b6cPM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SP23AZs/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEA6F1F000FF;
-	Fri,  9 Oct 2026 20:43:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y58b6cPM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 423C61F000FF;
+	Fri,  9 Oct 2026 20:44:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791578591;
-	bh=JxCU4kgy6yuLL3vMKMbNFEILfGTC3AEpOEg/HFNIu60=;
+	s=k20260515; t=1791578663;
+	bh=4ok5atQOO1xLnZqvIcvpZUo24bgiy5hkUKsL64Z4m34=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SP23AZs/ZMLS1F7HAiY5z7X5nF2RAOysCWRarEHnTfxNiZ6ItX8IcZVYkiT3Xyrzw
-	 Ts27Z3REnfSbgPcmeCHEvXQfI5R0zszY/WgI7oNDs5Uuk4RtQelzpmDtOVb/O1mgbC
-	 ESJ+fGuVP07bnVnyI4wWN+oqUM/udZKJQpOIxZ7jC0KEakCwnj/veq68QxurhH1xPa
-	 x4QNtZRPeZ9Z9OSE+fx43CSrHusaCl/LHAxjU2JLx+s5fnC628xxa9yw0FVkBWzqfI
-	 F/V/SeQf2YozHcliqBqzshsNtBivlYnNq0VSVj9gwdZur95pXceUhTxA42KBjet0PE
-	 DuKW2pGkIo/aQ==
-Message-ID: <d47bdf83-1db4-4601-a516-7e23488ea9cf@kernel.org>
-Date: Fri, 9 Oct 2026 22:43:02 +0200
+	b=Y58b6cPMVo8J2OhRDndnK6601iFosf6b+BWTdqJuf5TJgY13o+V1z2ytjetxDbLvX
+	 cM8AS5OrOQi3t/QGgRVc/f0+K51FqRS/JpG/w1NpWGy15QzStMqQjuGtVNOA5eHpdH
+	 Ik/79viha99pjTJ2h+Fuk3sYEN9AgebCFUCGMkNer0Ui1eMD4wTKRsgl6JA4RHOe3w
+	 viW6yVFbBp5us5+6/Yt6lMrUkmBi0bOVfPiJXTKvUwKd9qYLdPziUuhCfhgKpfMGet
+	 VhMVV2+RAPJgLUyDBaUpXR6DeyuHyg++GYOtcy1nMuBBZOJ8Rj9jn9C7okb1+Q57c8
+	 A05H/8TzZFXxA==
+Message-ID: <d68cb3de-e471-4ce8-8c6d-c7260d79ec1e@kernel.org>
+Date: Fri, 9 Oct 2026 22:44:16 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,20 +35,20 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] arm64/mm: fix destructor for unconstructed hotplug
- page tables
-To: Muchun Song <songmuchun@bytedance.com>, akpm@linux-foundation.org
-Cc: linux-mm@kvack.org, stable@vger.kernel.org, osalvador@suse.de,
- dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org,
- tglx@kernel.org, mingo@redhat.com, bp@alien8.de, x86@kernel.org,
- hpa@zytor.com, catalin.marinas@arm.com, will@kernel.org,
- mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, pjw@kernel.org,
- palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
- linux-riscv@lists.infradead.org, agordeev@linux.ibm.com,
- kevin.brodsky@arm.com, bjorn@rivosinc.com, apopple@nvidia.com,
- linux-kernel@vger.kernel.org, muchun.song@linux.dev
-References: <20261008073021.2512665-1-songmuchun@bytedance.com>
- <20261008073021.2512665-5-songmuchun@bytedance.com>
+Subject: Re: [PATCH] mm/huge_memory: avoid transient none PMDs during lazyfree
+ reclaim
+To: Zi Yan <ziy@nvidia.com>
+Cc: Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, stable@vger.kernel.org
+References: <20261009165214.40212-2-kylebot@openai.com>
+ <DM0II2QHWWS1.2RXEJXC8S0101@nvidia.com>
+ <8db35dc0-eb06-42e4-90f9-534522e810e1@kernel.org>
+ <55765FF3-18D7-424C-984D-81C316F323E1@nvidia.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -95,56 +95,45 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261008073021.2512665-5-songmuchun@bytedance.com>
+In-Reply-To: <55765FF3-18D7-424C-984D-81C316F323E1@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/8/26 09:30, Muchun Song wrote:
-> Commit c594b83457cc ("arm64: mm: call pagetable dtor when freeing
-> hot-removed page tables") made free_hotplug_pgtable_page()
-> unconditionally run the page-table destructor. This matches page tables
-> allocated by the arm64 mapping code, which runs the corresponding
-> constructors.
+On 10/9/26 22:27, Zi Yan wrote:
+> On 9 Oct 2026, at 16:23, David Hildenbrand (Arm) wrote:
 > 
-> However, arm64 also uses the generic sparse-vmemmap population code.
-> Runtime intermediate page tables allocated by that code do not run a
-> page-table constructor.
-
-Why do we have that inconsistency? It seems to cause pain :)
-
-> Freeing one during memory hot-remove therefore
-> runs a destructor without a matching constructor and corrupts
-> NR_PAGETABLE accounting.
+>> On 10/9/26 20:17, Zi Yan wrote:
+>>>
+>>> There are some gaps we need to close before getting this fix in:
+>>>
+>>> 1. GUP-fast cannot follow the invalidated PMD: riscv and LoongArch need
+>>> pmd_access_permitted() that requires _PAGE_PRESENT; s390's
+>>> pmdp_invalidate() needs a change.
+>>
+>> Ugh. We really need pmdp_invalidate() to have reasonable semantics. This whole
+>> PMD locking is a mess :(
+>>
+>>>
+>>> 2. sparc64's thp_pte_count can be imbalanced with this change (based on
+>>> Lance's offlist feedback).
+>>
+>> Ack.
+>>
+>>>
+>>> In addition, powerpc has a page table check issue similr to riscv, where riscv
+>>> fixed it with commit 9f4a88b8d01a6. This is not related to this issue
+>>> but discovered along with the investigation.
+>>
+>> Zi, do you have the capacity to take over this patch?
 > 
-> Use PageTable() to run the destructor only for page-table pages whose
-> constructor initialized them. This keeps the arm64-created page-table
-> lifecycle balanced while safely freeing constructor-free vmemmap tables.
+> Yes, I can take over it. My plan is to send a series including
+> patches for 1 and this patch as is. powerpc fix can be a separate one.
 > 
-> Fixes: c594b83457cc ("arm64: mm: call pagetable dtor when freeing hot-removed page tables")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> ---
->  arch/arm64/mm/mmu.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-> index 7343ac9294f8..688b33095651 100644
-> --- a/arch/arm64/mm/mmu.c
-> +++ b/arch/arm64/mm/mmu.c
-> @@ -1495,7 +1495,8 @@ static void free_hotplug_page_range(struct page *page, size_t size,
->  
->  static void free_hotplug_pgtable_page(struct page *page)
->  {
-> -	pagetable_dtor(page_ptdesc(page));
-> +	if (PageTable(page))
-> +		pagetable_dtor(page_ptdesc(page));
->  	free_hotplug_page_range(page, PAGE_SIZE, NULL);
+> Best Regards,
+> Yan, Zi
 
-That results in a __free_pages() for  ones allocated by sparse-vmemmap
-population code. Are we sure that's the right thing to do?
-
-This is all so inconsistent and confusing :(
+If we need a quick stable fix we could temporarily disable the whole thing until
+it is fixed, just a thought.
 
 -- 
 Cheers,
