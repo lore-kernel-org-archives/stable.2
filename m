@@ -1,105 +1,238 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DEA1230BDB;
-	Fri,  9 Oct 2026 14:21:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555669; cv=none; b=hHI6TZc/Q6L6BRb9YGJsPrzGFbn6GTiIpTEAgI1oZbZZzKZdZOw4KTyViadD/2qBY7+F1dYW5fZgnUkPTDmDcnJGhi1vkiAWV1QtokGXIsco2gzhEycHGyZtwoJ72KWkl0htUnNrrtNyIgeRkIO5gTK6hYxaz8Vz9XX39ODi2m0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791555669; c=relaxed/simple;
-	bh=JtGxthZwP/N/+wYRf3uMTG2OttR4EUxYwqYGxivsj4o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GMgWdIuFX3cC5eJl5YPwMuVUQEs3ep2zgvwK1Y0GC9okA8pvEUi6V7yjLM4RfacJNAvtkrVW1a4IvBqoTcmg8FUVLMxV9JcrHlOr+RiV54T5D36Jj0MNFVYDIJt06Htw6WgQtHTaa/5b/lREeL/JV+e8SNXrndCnA5kROCT7s3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qd5jlo4I; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qd5jlo4I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBEAD1F00898;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E6645A2BC;
 	Fri,  9 Oct 2026 14:21:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791555668;
-	bh=waUb5S2CHVr2BtbeQc+OVcrz/Fd2bOpAT35dfX8p5I4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=qd5jlo4I0CICTdbmkv/kWIKVHvr+IlunktEIi/akWBYS33OBaiEoNSmb3PDfM28zJ
-	 xxzmiKoyd08/8W6T4EpzhgjEbW1/K+fPZiFoSA4Fa5Ys9RubXBO1ydlpKcpx5fSt6z
-	 CX0NGmRjxqOoIk4a/ydGitYMvcx5uem4z36qXEB4=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Bradley Morgan <brads@mainlining.org>,
-	Zhan Xusheng <zhanxusheng@xiaomi.com>,
-	Joel Granados <joel.granados@kernel.org>
-Subject: [PATCH 7.2 046/428] sysctl: Negate before converting in the int read path
-Date: Fri,  9 Oct 2026 16:06:23 +0200
-Message-ID: <20261009140947.118995510@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261009140946.008206689@linuxfoundation.org>
-References: <20261009140946.008206689@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791555672; cv=none; b=e7IpeE0G1bopVt9L+j6w8CaoxohGZLZR3o8M4tuW5L/K0K6B09/ajTT8xPB/4fj8qYu21KQaVvlyQSZPbDiwqk6o8vberae4Ita0rhhusT+CWvO47vcbD29IWyFFnmE4RLnciI+JKIbGNDAaruV9rum2KTgpgYpMBctBZNxATHs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791555672; c=relaxed/simple;
+	bh=IpaHEDOQeCRuwwxOZqwR3Eiq9DxscZux6RqoYjr/snw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=MknmmApXYu/jJbcZ83m0dCGDRyIHC9lKIxG5In67mKlVrwLp9J4XvTgNEfG3oCH9zz4EkUEpzYowJ89zKbHjUDI0H+JCdET8EPS8zWPnBilx7dk/kNduMy0Ib1r9fua21cBKaVnw7ZLoQVpei29OI+Z5UMNa/K1jE1Am1k/7/b0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.127])
+	by APP-03 (Coremail) with SMTP id rQCowADX4T9G+Mhqz14oCg--.5069S2;
+	Fri, 09 Oct 2026 22:20:54 +0800 (CST)
+Message-ID: <576dcb368d9d8c96226a27474f9427e6da2db1da.camel@iscas.ac.cn>
+Subject: Re: [PATCH 2/2] drm/loongson: Handle buffer mapping failures when
+ clearing a BO
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Evanshenf
+	 <archwse@gmail.com>, dri-devel@lists.freedesktop.org, Natalie Vock
+	 <natalie.vock@gmx.de>, "Paneer Selvam, Arunpravin"
+	 <Arunpravin.PaneerSelvam@amd.com>
+Cc: Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
+ Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, Xi
+ Ruoyao <xry111@xry111.site>, Sui Jingfeng <suijingfeng@loongson.cn>,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org, Huang Rui	
+ <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, Matthew Brost	
+ <matthew.brost@intel.com>
+Date: Fri, 09 Oct 2026 22:20:54 +0800
+In-Reply-To: <2b0d0a02-99a5-447a-8e3f-6154b2660425@amd.com>
+References: <20261003093415.e64386de1e64-1-archwse@gmail.com>
+	 <20261003093415.902f89244043-2-archwse@gmail.com>
+	 <f25629d4aa3c0132275b0a798e1491119fa8d502.camel@iscas.ac.cn>
+	 <2b0d0a02-99a5-447a-8e3f-6154b2660425@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowADX4T9G+Mhqz14oCg--.5069S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3GF45uw1fZrykXrWfJr15XFb_yoW7AFWxpr
+	ZxAFyjkrWDXrnFkrnFqa4kC3WFya4Fgry7WFW5tasYg39Fyr17WF15WFWDCF9rZF17Ar12
+	vrn3G39xu3Wqy37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+	wI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+	v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73Uj
+	IFyTuYvjxUqiFxDUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+=E5=9C=A8 2026-10-09=E4=BA=94=E7=9A=84 16:14 +0200=EF=BC=8CChristian K=C3=
+=B6nig=E5=86=99=E9=81=93=EF=BC=9A
+> On 10/9/26 15:50, Icenowy Zheng wrote:
+> > =E5=9C=A8 2026-10-03=E5=85=AD=E7=9A=84 09:34 +0000=EF=BC=8CEvanshenf=E5=
+=86=99=E9=81=93=EF=BC=9A
+> > > lsdc_bo_clear() ignores the return value from lsdc_bo_kmap() and
+> > > writes
+> > > to lbo->kptr unconditionally. When the first mapping of a newly
+> > > allocated
+> > > buffer fails, kptr is still NULL and the subsequent memset
+> > > accesses
+> > > it.
+> > >=20
+> > > Return the mapping error without touching the buffer and
+> > > propagate it
+> > > from lsdc_gem_object_create(). Install the GEM object functions
+> > > before
+> > > clearing so that drm_gem_object_put() can release the buffer
+> > > correctly
+> > > on failure. Do not add the failed object to the tracking list or
+> > > return
+> > > an uncleared buffer to the caller.
+> > >=20
+> > > Imported buffers still skip clearing, and successfully mapped
+> > > buffers
+> > > are cleared and unmapped as before.
+> > >=20
+> > > Tested on LS7A2000 with a one-shot range error in ttm_bo_kmap().
+> > > Its
+> > > -EINVAL return reached userspace, the object was destroyed once,
+> > > and
+> > > no GEM handle was published. Normal
+> > > create/map/zero/write/read/close
+> > > cycles passed, with the tracked BO count and VRAM usage
+> > > unchanged.
+> > >=20
+> > > AI assistance was used for the lifetime analysis, fix, fault-
+> > > injection
+> > > tools, build and test execution.
+> > >=20
+> > > Fixes: f39db26c5428 ("drm: Add kms driver for loongson display
+> > > controller")
+> > > Cc: stable@vger.kernel.org
+> > > Assisted-by: LLM
+> > > Signed-off-by: Evanshenf <archwse@gmail.com>
+> > > ---
+> > > =C2=A0drivers/gpu/drm/loongson/lsdc_gem.c | 12 ++++++++----
+> > > =C2=A0drivers/gpu/drm/loongson/lsdc_ttm.c | 10 ++++++++--
+> > > =C2=A0drivers/gpu/drm/loongson/lsdc_ttm.h |=C2=A0 2 +-
+> > > =C2=A03 files changed, 17 insertions(+), 7 deletions(-)
+> > >=20
+> > > diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c
+> > > b/drivers/gpu/drm/loongson/lsdc_gem.c
+> > > index 2fb0348..9eba4e1 100644
+> > > --- a/drivers/gpu/drm/loongson/lsdc_gem.c
+> > > +++ b/drivers/gpu/drm/loongson/lsdc_gem.c
+> > > @@ -157,14 +157,18 @@ struct drm_gem_object
+> > > *lsdc_gem_object_create(struct drm_device *ddev,
+> > > =C2=A0		return ERR_PTR(ret);
+> > > =C2=A0	}
+> > > =C2=A0
+> > > +	gobj =3D &lbo->tbo.base;
+> > > +	gobj->funcs =3D &lsdc_gem_object_funcs;
+> > > +
+> > > =C2=A0	if (!sg) {
+> > > =C2=A0		/* VRAM is filled with random data */
+> > > -		lsdc_bo_clear(lbo);
+> > > +		ret =3D lsdc_bo_clear(lbo);
+> > > +		if (ret) {
+> > > +			drm_gem_object_put(gobj);
+> > > +			return ERR_PTR(ret);
+> > > +		}
+> > > =C2=A0	}
+> > > =C2=A0
+> > > -	gobj =3D &lbo->tbo.base;
+> > > -	gobj->funcs =3D &lsdc_gem_object_funcs;
+> > > -
+> > > =C2=A0	/* tracking the BOs we created */
+> > > =C2=A0	mutex_lock(&ldev->gem.mutex);
+> > > =C2=A0	list_add_tail(&lbo->list, &ldev->gem.objects);
+> > > diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c
+> > > b/drivers/gpu/drm/loongson/lsdc_ttm.c
+> > > index 88536e2..7b30dea 100644
+> > > --- a/drivers/gpu/drm/loongson/lsdc_ttm.c
+> > > +++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
+> > > @@ -388,9 +388,13 @@ void lsdc_bo_kunmap(struct lsdc_bo *lbo)
+> > > =C2=A0	ttm_bo_kunmap(&lbo->kmap);
+> > > =C2=A0}
+> > > =C2=A0
+> > > -void lsdc_bo_clear(struct lsdc_bo *lbo)
+> > > +int lsdc_bo_clear(struct lsdc_bo *lbo)
+> > > =C2=A0{
+> > > -	lsdc_bo_kmap(lbo);
+> > > +	int ret;
+> > > +
+> > > +	ret =3D lsdc_bo_kmap(lbo);
+> > > +	if (ret)
+> > > +		return ret;
+> > > =C2=A0
+> > > =C2=A0	if (lbo->is_iomem)
+> > > =C2=A0		memset_io((void __iomem *)lbo->kptr, 0, lbo-
+> > > >size);
+> > > @@ -398,6 +402,8 @@ void lsdc_bo_clear(struct lsdc_bo *lbo)
+> > > =C2=A0		memset(lbo->kptr, 0, lbo->size);
+> > > =C2=A0
+> > > =C2=A0	lsdc_bo_kunmap(lbo);
+> > > +
+> > > +	return 0;
+> > > =C2=A0}
+> > > =C2=A0
+> > > =C2=A0int lsdc_bo_evict_vram(struct drm_device *ddev)
+> >=20
+> > Well I currently don't know whether the clearing is meaningful...
+> >=20
+> > It seems that drm_gem_vram_helper doesn't do this.
+> >=20
+> > Cc'ing TTM maintainers for an answer.
+>=20
+> Natalie and Arun are TTM maintainers now, but I will try to answer
+> here as well.
 
-------------------
+Ah I heard about TTM maintenance change, but I used the mailing
+addresses in v7.3-rc6.=20
 
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+>=20
+> OpenGL doesn't necessarily require clearing of VRAM nor isolation of
+> VRAM data between processes.
+>=20
+> So it is up to the driver if they want this or not. Classically a lot
+> of drivers didn't clear VRAM allocations until explicitely asked.
 
-commit e955f14fa8467d70aaeea5830b4d1773d5b25500 upstream.
+Then in this case I think it's better to just remove the VRAM clearing
+code -- this driver is even not related to render acceleration at all
+now (and getting rendering to work would be so hacky because loongson
+DC's are paired with either Vivante GPUs with dedicated VRAM or
+proprietary GPUs).
 
-proc_int_k2u_conv_kop() reports the sign through *negp and the magnitude
-through *u_ptr, but for a negative value it hands the sign-extended int to
-the converter and negates the result:
+>=20
+> But if you clear the memory you should have proper error handling and
+> a kmap/vmap can fail at any time for multiple reasons.
 
-	*u_ptr = k_ptr_op ? -k_ptr_op((ulong)val) : -(ulong)val;
+Yes, if the other maintainers prefer to keep the memory clearing code,
+I will accept this specific patch.
 
-With div_hz() and CONFIG_HZ=1000 a stored -1000 becomes
-(ulong)-1000 / 1000 == 18446744073709550, and negating that wraps:
+Thanks,
+Icenowy
 
-	# echo -1 > /proc/sys/net/ipv4/tcp_fin_timeout
-	# cat /proc/sys/net/ipv4/tcp_fin_timeout
-	-18428297329635842066
-
-The magnitude is HZ dependent but the wrap is not: the negation happens
-after the division at every CONFIG_HZ.
-
-Take the magnitude first and convert that, which is what the open-coded
-version did before commit 2dc164a48e6f ("sysctl: Create converter
-functions with two new macros") folded it into a macro.  The
-k_ptr_op == NULL branch was already correct.
-
-All three int converters that pass a k_ptr_op are affected:
-proc_dointvec_jiffies(), proc_dointvec_userhz_jiffies() and
-proc_dointvec_ms_jiffies().
-
-Fixes: 2dc164a48e6f ("sysctl: Create converter functions with two new macros")
-Cc: stable@vger.kernel.org
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-Signed-off-by: Joel Granados <joel.granados@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- kernel/sysctl.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/kernel/sysctl.c
-+++ b/kernel/sysctl.c
-@@ -478,7 +478,7 @@ int proc_int_k2u_conv_kop(ulong *u_ptr,
- 
- 	if (val < 0) {
- 		*negp = true;
--		*u_ptr = k_ptr_op ? -k_ptr_op((ulong)val) : -(ulong)val;
-+		*u_ptr = k_ptr_op ? k_ptr_op(-(ulong)val) : -(ulong)val;
- 	} else {
- 		*negp = false;
- 		*u_ptr = k_ptr_op ? k_ptr_op((ulong)val) : (ulong) val;
-
+>=20
+> Regards,
+> Christian.
+>=20
+> >=20
+> > Thanks,
+> > Icenowy
+> >=20
+> > > diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.h
+> > > b/drivers/gpu/drm/loongson/lsdc_ttm.h
+> > > index 843e147..df47d9b 100644
+> > > --- a/drivers/gpu/drm/loongson/lsdc_ttm.h
+> > > +++ b/drivers/gpu/drm/loongson/lsdc_ttm.h
+> > > @@ -89,7 +89,7 @@ size_t lsdc_bo_size(struct lsdc_bo *lbo);
+> > > =C2=A0
+> > > =C2=A0int lsdc_bo_kmap(struct lsdc_bo *lbo);
+> > > =C2=A0void lsdc_bo_kunmap(struct lsdc_bo *lbo);
+> > > -void lsdc_bo_clear(struct lsdc_bo *lbo);
+> > > +int lsdc_bo_clear(struct lsdc_bo *lbo);
+> > > =C2=A0
+> > > =C2=A0int lsdc_bo_evict_vram(struct drm_device *ddev);
+> > > =C2=A0
+> >=20
 
