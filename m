@@ -1,111 +1,121 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E5C4582D3
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 14:33:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D6734D397;
+	Fri,  9 Oct 2026 14:33:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791556431; cv=none; b=QXNnGoYj8fKCNAOQHVibadofpmZYAL2N2Fs4Z0OYQGkT+PDV+aytRJ88nRtYZl7pX05HOB2C/z6MTR81/yqP+sp/sH4xAD+Y/1CqT46oYu38IRPH8cBOjWIaij0WNWN6QkwFmxwe0UZOC3xGzCVuGT1X+sozl8OHrBbpnPFnaFI=
+	t=1791556432; cv=none; b=fOsuzhZ8Z+dzCtyR0Twpdkq4V3J4gTjcNzCvexN8Y+udsM5ergrkH8LCm+6rvUiAdS7zf7Jm2PMYo95yaqcOoFAEuFQgnUBFjtHy9kqi1gkI77CjDEPpc/aULx3uA1l1rzVLMo3cwNVyCa7H8MyEOiGEqNWgMJmsLTFV6L+KbJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791556431; c=relaxed/simple;
-	bh=xv6zzbRXfWNmHN3kY9ySRTd8niMhVJ+PZQRMETxvjvQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Lvu6+j07cZpRHvGVF1+uUHuujHjUH57xTL9t31G0PKipOkh+QVvfHbtv33a44la1q3N4s4raqAv8U8WG0Fl8gcDRGSbk5yq/W/wkNSKNV4wa4pLTLUhob8kSoaWwzywmoDQ3AhUGsnyTJoyVPVefQh2wIaJknv9lHP5mONthbOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=MxvDta6J; arc=none smtp.client-ip=74.125.82.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1791556432; c=relaxed/simple;
+	bh=DyDHeddqZ0rDXQHiirIuvb4PjFPut14i+BGhjm5pZ7M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=S1/pxGVOeVfhlP7lbRflhVEjC+QygaSSk4KOiom+Jq9M0yAhC1HZEti+uqhkV6Mlm40vSGye3EOSxiJw0gRStthukaMMQxBfau4JNxk9iRdS9RdfEBWse4h/PefKX6ILbnVKBZ8T3tG/FoBy9wCAw1FoIAVpJ+gid7tznGzo72A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ao3p393L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="MxvDta6J"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-351767ef18cso3528087eec.1
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 07:33:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1791556429; x=1792161229; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GzAOi+95u4YgETIpz8cOgOaDACFlaO5G9IG8/tN+Sec=;
-        b=MxvDta6JyZthODVU2DTgsdtEcL5J0yg6i3zBSPToGTf8rvilZOlffAlF9MEcK+MssX
-         GPq7nhc7NPlinUsulGetb0IIi8671RGSDJDi6qzPyzGgHnHt5uJ/raB/AtnHsPMEeG20
-         uwZ/fslLZ4FRlsJMwbX58PFKpyRmZPsa6b8eSMx8emUATt5/SiwgdMewCVqmFrAroewH
-         7LJ3cP8EktLYUtSMrNDEUEY8mENU5E3D+1wW8MtGj1XjmcLhxLH9UceCL8c7g8Mpqse1
-         d5z+9w4EiVtD2t2facH8aFPNA+M3me9CSm7Ph7W4rjV46/jrUSLnY3zqgBWAXQ/6Cxuu
-         WwRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791556429; x=1792161229;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GzAOi+95u4YgETIpz8cOgOaDACFlaO5G9IG8/tN+Sec=;
-        b=Y3y/ox1xUna3C0tD3/P8qWhFd60mWHgxrVjOyUfgLTSsVSkilt4uvvJAvFO1vwmRsV
-         iUYL6G3nDnpV6XzkUlIzjDQ2AIUR2lfaia+mc0e0kLK/tIucGOBvNzrYzAC3jodXJHEE
-         6qhkhmku+mmBtxJMuzDpBdWG78ZC65nsDXLvOpAjbUlEMWZspDQnY699uMQJxGWyJ65A
-         80UE+r59ouBJTmh1ee42A3JD6uLGB+Zrjv04V27YnmupjpNb2hY6Zx8RG14Is3WGS5Kr
-         nkVpZbPB4a0HjXd+uXd6Hfx8i/D7o+DyNx1h07nVGkMS6G9d0EdMRax28rpjZZlf5MOk
-         0uPA==
-X-Forwarded-Encrypted: i=1; AKwUvBxGvue630mvV9tuFeKWXgPZDKGUGzMBfMpb8MTZjrBa8QdU34CTPoUtRrvxrDJRQUbZvuqa95I=@vger.kernel.org
-X-Gm-Message-State: AFuF++mhykA3kQKocVGEro6woR1NiO3nN1rT3bheV9R4td8liGsqWvpv
-	yiA5IatwRXnMUZH93SNNKhaNd5wdjpxRFgBphPllkQm/GsE09t5g/pcwnnXemlBe0bU=
-X-Gm-Gg: AYBFou2t7OJfai9tnvSM58nj1DuLnYqpnw72CufuJ+oZb/zoWPy9j4jRjahr0Cd9EmK
-	CP2hss4iuz6t53ASkrACFh+1MjC1fB79nrpxhSUb5WqDNLYNDbTA01MD/zRuJEBkahdjg9HBVyy
-	MsIHTC1r05qAOL6rZW4+ZYBiP/6QZs8RtareWCCyku7TGhRXGa1vNNKGmwrJFaDA6ePrQQlJj7b
-	VEtlNPOpCftfErD+BUspVSVQ6Nlv4mLlAUxnSEr1y5WSVrRfkznGVpP0ENuEsJVx6UQx6fqJiCu
-	mfZl8QWA1fgz2mqS+eYOl8aVs+Q6aMbSd0CvW7+J5n0vtLb8C+xV0r9kkWNqxjEB4h4bzCACsEY
-	0FjAzprwWhg1730iA2YsVJjWbMwUGRheOYaYDRuVqqZ4zNblpviUevG2Z3+aT4/bs6DkslF5CQZ
-	dq83LSvwxDrenboM92VFK5nanomq2wKyOT2oAynm+l7mq8fKFN0xB6pYXnZ/RJKpJ2bUgHmfo1z
-	4W92hRb1bYf9nYaf8r6TMkfe+ofuNr6MWnKIkRbHD4n+Pc4F6iL8gNELVFIEqGQqw9G9idIeos=
-X-Received: by 2002:a05:693c:26c7:b0:351:73cf:80d2 with SMTP id 5a478bee46e88-3537df8b001mr2961994eec.11.1791556428814;
-        Fri, 09 Oct 2026 07:33:48 -0700 (PDT)
-Received: from xps16.local ([155.98.132.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb1e05esm8003444eec.25.2026.10.09.07.33.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 07:33:47 -0700 (PDT)
-From: Jens Axboe <axboe@kernel.dk>
-To: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
-Cc: Pavel Begunkov <asml.silence@gmail.com>, io-uring@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- AutonomousCodeSecurity@microsoft.com, tgopinath@linux.microsoft.com, 
- kys@microsoft.com
-In-Reply-To: <20261008191602.45101-1-cenzhang@linux.microsoft.com>
-References: <20261008191602.45101-1-cenzhang@linux.microsoft.com>
-Subject: Re: [PATCH] io_uring/cancel: don't spin on local work the task
- can't run
-Message-Id: <179155642662.219229.2527920169574410888.b4-ty@b4>
-Date: Fri, 09 Oct 2026 08:33:46 -0600
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ao3p393L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CA481F000FF;
+	Fri,  9 Oct 2026 14:33:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791556430;
+	bh=wTrdnF0MCB/Y8LaCfcyRMtI/CkJkvb3jh2EsCn84Cvk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Ao3p393LAAFupgUGmTFwffnMJ3ve7/VE8RCozWo2h0eTwc7bmtMhUTQn6R6Q9wV1x
+	 4KMuhFeZb/NMcZyPAPLk+OqeN1Rx1qmcyWJ5kLIIfzE1GGqi/aDKNrv+JFjXp4dJXC
+	 l4MmkzyYV8nFnOROmcLrjtqyP7jAmXB7AQJYGJbA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Subject: [PATCH 6.18 232/403] Bluetooth: hci_core: Serialize fragmented ISO packet queueing
+Date: Fri,  9 Oct 2026 16:09:53 +0200
+Message-ID: <20261009140957.580752100@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261009140952.119038291@linuxfoundation.org>
+References: <20261009140952.119038291@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-On Thu, 08 Oct 2026 15:16:02 -0400, Cen Zhang (Microsoft) wrote:
-> io_uring_cancel_generic() refuses to sleep while any ring on the exiting
-> task's tctx has local work pending. It assumes the task is that ring's
-> submitter and that the next io_uring_try_cancel_requests() pass will run
-> the work. This does not hold for a ring that was still
-> IORING_SETUP_R_DISABLED when the task got its tctx node from
-> io_uring_create() or io_ringfd_register(). The submitter is set later by
-> IORING_REGISTER_ENABLE_RINGS, possibly from another task, and only the
-> submitter may run local work on an IORING_SETUP_DEFER_TASKRUN ring. To
-> the exiting task the work stays pending forever, the loop never reaches
-> schedule(), and the task trips the WARN_ON_ONCE() once and then spins in
-> do_exit().
-> 
-> [...]
+------------------
 
-Applied, thanks!
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-[1/1] io_uring/cancel: don't spin on local work the task can't run
-      commit: fddcf4c5321b3ea5f72166c3fd36a9d1c34f80c7
+commit 1a572db43c057566771b485598ad2e66cb390821 upstream.
 
-Best regards,
--- 
-Jens Axboe
+The fragmented path in hci_queue_iso() calls __skb_queue_tail() without
+holding conn->data_q.lock. The socket lock serializes senders, but the
+transmit worker can concurrently remove packets from this queue using
+skb_dequeue().
 
+After an insertion saves the old tail pointer, hci_sched_iso() can dequeue
+that packet and pass it to the driver. The driver can free the packet
+before the insertion resumes and writes to the old tail's next pointer,
+causing a use-after-free. Concurrent updates can also corrupt the queue.
+
+KASAN reported:
+
+  BUG: KASAN: slab-use-after-free in hci_send_iso+0xc7d/0xe10
+  Call Trace:
+   hci_send_iso+0xc7d/0xe10
+   iso_sock_sendmsg+0x710/0x900
+   __sys_sendto+0x34a/0x3a0
+
+  Allocated by task 86:
+   __alloc_skb+0xdd/0x820
+   alloc_skb_with_frags+0x7e/0x770
+   sock_alloc_send_pskb+0x67a/0x820
+   bt_skb_sendmsg.constprop.0+0xc0/0x6c0
+   iso_sock_sendmsg+0x44e/0x900
+
+  Freed by task 90:
+   kmem_cache_free+0xcb/0x3d0
+   vhci_read+0x33f/0x4d0
+   vfs_read+0x177/0xa20
+
+Hold the queue lock across the entire fragment batch, as hci_queue_acl()
+does, to serialize insertion against dequeue while preserving fragment
+ordering.
+
+Fixes: 26afbd826ee3 ("Bluetooth: Add initial implementation of CIS connections")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ net/bluetooth/hci_core.c |    4 ++++
+ 1 file changed, 4 insertions(+)
+
+--- a/net/bluetooth/hci_core.c
++++ b/net/bluetooth/hci_core.c
+@@ -3364,6 +3364,8 @@ static void hci_queue_iso(struct hci_con
+ 
+ 		skb_shinfo(skb)->frag_list = NULL;
+ 
++		spin_lock_bh(&queue->lock);
++
+ 		__skb_queue_tail(queue, skb);
+ 
+ 		do {
+@@ -3378,6 +3380,8 @@ static void hci_queue_iso(struct hci_con
+ 
+ 			__skb_queue_tail(queue, skb);
+ 		} while (list);
++
++		spin_unlock_bh(&queue->lock);
+ 	}
+ 
+ 	bt_dev_dbg(hdev, "hcon %p queued %d", conn, skb_queue_len(queue));
 
 
