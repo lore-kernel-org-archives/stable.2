@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A635409103;
-	Fri,  9 Oct 2026 05:57:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47AB83AE189;
+	Fri,  9 Oct 2026 05:58:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791525475; cv=none; b=LdSIpzcgcuTLVWhsgPw3Z5ZB4FM7V3RPnoHPQL/qKYh2woUFFjzIPeumzaxKignLikd3+ZXe1kiNmFXAfWrFRmkXdsuthJZE0XTVvhDodXTssGjDODJ3e1TVe1brYFbrAFG+SjCf2CeIp6EBy5phMiDNz5H1y2EYPEefI/HxhUU=
+	t=1791525486; cv=none; b=p+Rl51hB1r6c22udruWvpPWN64aESqJiQ/UkkDoyH/1419Laq2TwwbLXwVZ0Nw35T+t6iJSV6WwSD0PlYB1Wds6cdRCQGSqbKXoyUMNrA4sSP8zcK04beVPy2Cinaj8oP4gSeu9LcsRLRHM4teuvUi28dDOBJYuMmEkR0dcyqT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791525475; c=relaxed/simple;
-	bh=3NZauo4UwOSTOWYml1Jmh4xwmkVmmR0ZC7arrGBmbNc=;
-	h=Date:To:From:Subject:Message-Id; b=ZAHx8uoMiy5TLm/qPELZQcj0h5b/Trzbn9nUodfA0ZAJ0IO188fkPZ6dVHaTCdO0vYoMVzOFQWmgix7IpE5p9hX0bc5S53VLj+0e6M9oynCslRQdiEddFc4PSPb3bIMhcUMuLNCAcjWYvQA+o863wrNJ48c3/NJ7BYACQbmZ/E8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=D33nA9Z/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791525486; c=relaxed/simple;
+	bh=RiDw7cbx6Iyk3iEq+AoKlyMw1V+Ol7CPNJID+STDhcY=;
+	h=Date:To:From:Subject:Message-Id; b=fdRfVe6RJ//rms9+eGQPiRST7fLA0xJKX2L4ozMria7OgqpMD2iGgn1aQ+LAYbgogcLzhr4M/YJtD3i0opG4hd/CntSQcL031i73o3h/vvY/Nf341ZTBYcDexGRKquu46YkhnDJ8OtFNWgskDOfU3Joau1NfzNgAVG7E7setBj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=l3qcwmDy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="D33nA9Z/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D92F1F000FF;
-	Fri,  9 Oct 2026 05:57:54 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="l3qcwmDy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E50A1F00893;
+	Fri,  9 Oct 2026 05:58:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791525474;
-	bh=UHLAOC19qxdx6qNnUp7JohGY6KaBP1CPRJd2VymKPfo=;
+	d=linux-foundation.org; s=korg; t=1791525485;
+	bh=eu0lXved5jcyWNz/du7wCwliZmYKXQEU28NH+sk8pJ8=;
 	h=Date:To:From:Subject;
-	b=D33nA9Z/ciRoZVz93/AycLnXdbT680tkY2ET7z9yPQJkC8/PKXwAvlkE+Rsv/dpQh
-	 VYTrWmKD77uvN/ub66CEXMtf04i2RwSoTSEx2uqvt69B4vj2ZSv7og5UYVxPBDAnwT
-	 Npt5rFPmvNjtpylNEeboJWaAp4P1z4yvrVZPihvc=
-Date: Thu, 08 Oct 2026 22:57:53 -0700
-To: mm-commits@vger.kernel.org,thehajime@gmail.com,stable@vger.kernel.org,ljs@kernel.org,liam@infradead.org,tasos.papagiannnis@gmail.com,akpm@linux-foundation.org
+	b=l3qcwmDywASaf6CLswuEl/Hkwy0+fnT9/jK9kr0nWKT0LiB9FAY82GPqtnZ9Smd+7
+	 HxJMLMWZif0vvCjWpvAVvFYc8T68CQ8htECfpDWapfuWPNDebLdQf2GjaQXxkAiV/o
+	 BIW/ji2GBORTHD966NEHVVC5Rxao2t7wWiG+BDh4=
+Date: Thu, 08 Oct 2026 22:58:04 -0700
+To: mm-commits@vger.kernel.org,zhoujinmeng@bytedance.com,stable@vger.kernel.org,osalvador@suse.de,muchun.song@linux.dev,mawupeng1@huawei.com,david@kernel.org,ackerleytng@google.com,jinmengzhou22@gmail.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-nommu-reject-wrapping-ranges-in-access_remote_vm.patch removed from -mm tree
-Message-Id: <20261009055754.5D92F1F000FF@smtp.kernel.org>
+Subject: [merged mm-stable] mm-hugetlb-fix-subpool-minimum-reservation-rollback.patch removed from -mm tree
+Message-Id: <20261009055805.1E50A1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,65 +35,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: mm/nommu: reject wrapping ranges in access_remote_vm()
+     Subject: mm/hugetlb: fix subpool minimum reservation rollback
 has been removed from the -mm tree.  Its filename was
-     mm-nommu-reject-wrapping-ranges-in-access_remote_vm.patch
+     mm-hugetlb-fix-subpool-minimum-reservation-rollback.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
-Subject: mm/nommu: reject wrapping ranges in access_remote_vm()
-Date: Wed, 9 Sep 2026 09:42:31 +0300
+From: Jinmeng Zhou <jinmengzhou22@gmail.com>
+Subject: mm/hugetlb: fix subpool minimum reservation rollback
+Date: Mon, 7 Sep 2026 21:20:55 +0800
 
-The NOMMU implementation of access_process_vm() rejects address ranges
-whose end wraps around, but access_remote_vm() bypasses this check even
-though both functions delegate to __access_remote_vm().
+When a reservation request is partially covered by a subpool minimum and
+the remaining global reservation fails, the error path first calls
+hugepage_subpool_put_pages() for the subpool-backed portion.  It removes
+the failed global portion from used_hpages only afterwards.
 
-Move the wraparound check into __access_remote_vm() so it applies to both
-entry points.
+hugepage_subpool_put_pages() uses used_hpages to decide whether rsv_hpages
+should be restored.  Since used_hpages still includes the global portion,
+it can remain at or above min_hpages and prevent that restoration.  It
+then reports the subpool reservation as releasable, causing
+hugetlb_acct_memory() to incorrectly decrement h->resv_huge_pages.
 
-This is originally reported in [1].
+This was reproduced with four 2 MB huge pages and a hugetlbfs mount with
+size=10M,min_size=8M.  After a successful three-page reservation, a
+two-page reservation which needed one subpool page and one global page
+failed with -ENOMEM.  HugePages_Rsvd incorrectly dropped from four to
+three even though the subpool minimum was still four pages.
 
-Link: https://lore.kernel.org/20260909064231.18693-1-tasos.papagiannnis@gmail.com
-Fixes: f55f199b7d76 ("NOMMU: implement access_remote_vm")
-Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
+Roll back the failed global portion from used_hpages first, so that
+hugepage_subpool_put_pages() evaluates the minimum reservation against the
+current usage and returns the correct global adjustment.
+
+Link: https://lore.kernel.org/20260907132055.26696-1-zhoujinmeng@bytedance.com
+Fixes: a833a693a490 ("mm: hugetlb: fix incorrect fallback for subpool")
+Signed-off-by: Jinmeng Zhou <zhoujinmeng@bytedance.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Closes: https://lore.kernel.org/bpf/4ef240a5bea36ff84df9589671367832860795159386a4c8fba546a0fa8b786f@mail.kernel.org/ [1]
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Hajime Tazaki <thehajime@gmail.com>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Tested-by: Ackerley Tng <ackerleytng@google.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Ma Wupeng <mawupeng1@huawei.com>
+Cc: Oscar Salvador <osalvador@suse.de>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/nommu.c |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ mm/hugetlb.c |   18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
---- a/mm/nommu.c~mm-nommu-reject-wrapping-ranges-in-access_remote_vm
-+++ a/mm/nommu.c
-@@ -1674,6 +1674,9 @@ static int __access_remote_vm(struct mm_
- 	struct vm_area_struct *vma;
- 	int write = gup_flags & FOLL_WRITE;
+--- a/mm/hugetlb.c~mm-hugetlb-fix-subpool-minimum-reservation-rollback
++++ a/mm/hugetlb.c
+@@ -6854,15 +6854,6 @@ long hugetlb_reserve_pages(struct inode
  
-+	if (addr + len < addr)
-+		return 0;
-+
- 	if (mmap_read_lock_killable(mm))
- 		return 0;
- 
-@@ -1727,9 +1730,6 @@ int access_process_vm(struct task_struct
- {
- 	struct mm_struct *mm;
- 
--	if (addr + len < addr)
--		return 0;
--
- 	mm = get_task_mm(tsk);
- 	if (!mm)
- 		return 0;
+ out_put_pages:
+ 	spool_resv = chg - gbl_reserve;
+-	if (spool_resv) {
+-		/* put sub pool's reservation back, chg - gbl_reserve */
+-		gbl_resv = hugepage_subpool_put_pages(spool, spool_resv);
+-		/*
+-		 * subpool's reserved pages can not be put back due to race,
+-		 * return to hstate.
+-		 */
+-		hugetlb_acct_memory(h, -gbl_resv);
+-	}
+ 	/* Restore used_hpages for pages that failed global reservation */
+ 	if (gbl_reserve && spool) {
+ 		unsigned long flags;
+@@ -6872,6 +6863,15 @@ out_put_pages:
+ 			spool->used_hpages -= gbl_reserve;
+ 		unlock_or_release_subpool(spool, flags);
+ 	}
++	if (spool_resv) {
++		/* put sub pool's reservation back, chg - gbl_reserve */
++		gbl_resv = hugepage_subpool_put_pages(spool, spool_resv);
++		/*
++		 * subpool's reserved pages can not be put back due to race,
++		 * return to hstate.
++		 */
++		hugetlb_acct_memory(h, -gbl_resv);
++	}
+ out_uncharge_cgroup:
+ 	hugetlb_cgroup_uncharge_cgroup_rsvd(hstate_index(h),
+ 					    chg * pages_per_huge_page(h), h_cg);
 _
 
-Patches currently in -mm which might be from tasos.papagiannnis@gmail.com are
+Patches currently in -mm which might be from jinmengzhou22@gmail.com are
 
 
