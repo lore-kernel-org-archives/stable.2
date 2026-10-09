@@ -1,74 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AA6F37AA96;
-	Fri,  9 Oct 2026 08:52:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F23E40245F
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 08:57:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791535971; cv=none; b=IqUweQc/x7tGIioVGNgm444U7+ZS02mf7m8lmNmqsAuGNCQGH/TOCkYLFKIOs8sJtNmTO85DiGt7CyvZDk+PiqQVfYdaPvPb8eTRW+r0bxweY8B40Be02Gk7wUjv4+OF7GexfcKrtllZw5kzlVbaXbZjX141k60aZbYbOZSHSX8=
+	t=1791536221; cv=none; b=ENPeYN/PQhgfFQvF+TsoQHjmxdo1vkQ8Tlov7RF+fO1JsUeYMfSajoe/svHduxkkq2CJIxP8iyUdQveAlmsNGnRsi7tuB3IFcKZoKRxJu8SSTH6eEf9I0s8NESNrQ7NVWlru2cOx5kkDD2mMkchCCmYQ0zNOMz9k7T1/H9eBL1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791535971; c=relaxed/simple;
-	bh=PbWDDnbDKJpKo1noXbsSv8bgvB8g+XBoEOQayiNpSbg=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=eDITr1XP6C51kbU24e+6ZcIqB3QplbGszvNoje45mfXRWJTr4CqwGO7UZb9wnLUGpdWr9k7sZrTLhV6p6ZFOw5Akwz93yDEw9eW5mlZxK9ymReZ0wtynVVdw/4jYdL9RYWg0xZ+0DJMkWoScInbU+Kc0i2t2TTpAzkCc3fM1vY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TWKv+0NH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791536221; c=relaxed/simple;
+	bh=Ms/CQ3ixB0pNffEzzUJ74VvCXdrdh2fGFy46067Surg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=amhJ/6UTG/tOprGF5lyhWql5v2WGDTq8I4thimt8rL1yk/S+BdDusPEw4Y4v7c2kEtHdfbyFIvRsy19/qhHL3AIRKWhQoVWCbb6eXbDW3oQkOb+E6AswH/8X6iazHedkxxXSSEp3VYcauaSR9nYK3xbxrQbkUsJvf402PhzBnG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=HLqPQ+hC; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TWKv+0NH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8672D1F000FF;
-	Fri,  9 Oct 2026 08:52:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791535970;
-	bh=P9UyNsLxuXi7pGaCCF2/c2YgYrk5hHCKdSdcZrUS7tM=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=TWKv+0NHNCi9W6psEE3NSZHQvCOoPiq5v6egPATfdg30K8KJX2+3JCk67q3yiKupA
-	 cCfeRkrBPswn3KLNIcWj7Vt+booiVMMDk5A9fym8SBoSBx7x7N0bHNp5MNC7AptDXm
-	 lnMLEuHvGKK4N6J6qTj74txe5oX8qLL5/qco379G8izG7QihNBr7sgdNqUInXLpocn
-	 C7oZNw2EuPoxVNoEU/5Ii7ncSRlgIuZX7Bi6NKzve5Fn7zwOnU8F3EitwMDKfD4OOo
-	 zuUY1uYgKlrjWTAkVFP51ebAjZtt/u3M5dXDX5hb67iLLn07j/+Z3ZPwOx1+GkiyOw
-	 /mt4uHt5sLbPg==
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="HLqPQ+hC"
+Received: from trampoline.thunk.org (pool-173-48-119-87.bstnma.fios.verizon.net [173.48.119.87])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6998uYbj014199
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 9 Oct 2026 04:56:35 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1791536196; bh=xRklIDo8Hta2NDezeHJ87YuMZsNjKQqf/rQHFjudGuc=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	b=HLqPQ+hCZoygo511YsFcI8IwqTKUbA7kFK02HsvH3SN8Pxh4VV3JDSP5gy4J5iAyF
+	 f+VhhgGT7YbVamLwasvqr/RHfilkwhoI5IG66gvVto6KUYdsyH488Y/v2oSPFOYxwX
+	 qd/cnRdnvkJDtMGNgbwTrCbRrJ5wjQX56CUdCUCvpXJM73/btDJBG40Uqse9WaRJke
+	 cKr1Zhiz4JNLYH8Pr78Z6xT/IcFe1RDR02tjUPVuD673L+KU8c+bOLfqerRnPHuYcH
+	 MJd4+cDOfO2go07j9kC4YI8tqGhU1f5K14KvBzbX7mlkfs6zByQqIiAj3881O8VT43
+	 7GYLOoZF6cbCw==
+Received: by trampoline.thunk.org (Postfix, from userid 15806)
+	id 656C92E0149; Fri, 09 Oct 2026 04:56:31 -0400 (EDT)
+From: "Theodore Ts'o" <tytso@mit.edu>
+To: Hsiu-Hsien Lee <swinds24@gmail.com>
+Cc: "Theodore Ts'o" <tytso@mit.edu>, adilger.kernel@dilger.ca, jack@suse.cz,
+        libaokun@linux.alibaba.com, ojaswin@linux.ibm.com,
+        ritesh.list@gmail.com, yi.zhang@huawei.com,
+        harshadshirwadkar@gmail.com, linux-ext4@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] ext4: fix fast commit replay failing on a read-only mount
+Date: Fri,  9 Oct 2026 04:56:24 -0400
+Message-ID: <179153611737.860602.4325770212287839646.b4-ty@b4>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260812044353.1018268-1-swinds24@gmail.com>
+References: <20260812044353.1018268-1-swinds24@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 09 Oct 2026 10:52:46 +0200
-Message-Id: <DM06HWVAFSOW.2F050J0BT27TK@kernel.org>
-Subject: Re: [PATCH] driver core: complete deferred binds when
- drivers_autoprobe is off
-Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, <driver-core@lists.linux.dev>,
- <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <syzbot+863936f50214e843ae0c@syzkaller.appspotmail.com>,
- <stable@vger.kernel.org>
-To: "mosafer" <mohsafer@gmail.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20261008154105.256340-1-mosafer@node0.quickhttpnode15.cloudfaas-pg0.wisc.cloudlab.us>
-In-Reply-To: <20261008154105.256340-1-mosafer@node0.quickhttpnode15.cloudfaas-pg0.wisc.cloudlab.us>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Thu Oct 8, 2026 at 5:41 PM CEST, mosafer wrote:
-> From: Mohammad Mosafer <mohsafer@gmail.com>
->
-> device_add() registers a device and then runs the bus's initial probe
-> via bus_probe_device() -> device_initial_probe().  With
-> drivers_autoprobe disabled for the bus, device_initial_probe() skips
-> __device_attach() entirely.
->
-> That is correct for automatic *matching* against the bus's driver list,
-> but __device_attach() also doubles as "complete a bind that a driver
-> already initiated": when dev->driver has been pre-assigned outside the
-> normal match/probe path, its else-if branch finishes the bind by
-> calling device_bind_driver().
 
-We've recently had another patch to fix up cases where dev->driver is
-pre-assigned. Please see [1] and the corresponding thread.
+On Wed, 12 Aug 2026 12:43:53 +0800, Hsiu-Hsien Lee wrote:
+> A filesystem with fast_commit that needs recovery cannot be mounted
+> read-only:
+> 
+>   EXT4-fs (dm-0): INFO: recovery required on readonly filesystem
+>   EXT4-fs (dm-0): write access will be enabled during recovery
+>   WARNING: CPU: 22 PID: 5544 at fs/ext4/ext4_jbd2.c:73
+>    ext4_journal_check_start
+>    __ext4_journal_start_sb
+>    __ext4_unlink
+>    ext4_fc_replay
+>    do_one_pass
+>    jbd2_journal_recover
+>    jbd2_journal_load
+>    __ext4_fill_super
+>   JBD2: journal recovery failed
+>   EXT4-fs (dm-0): error loading journal
+> 
+> [...]
 
-IIRC, there was no reasons the remaining users can't just use a proper matc=
-h()
-callback instead, so we don't have to worry about those edge cases in the
-future.
+Applied, thanks!
 
-[1] https://lore.kernel.org/driver-core/20260820084557.129908-1-khiemtranzo=
-532001@gmail.com/
+[1/1] ext4: fix fast commit replay failing on a read-only mount
+      commit: e1a881ea4674876721cab97680d1d8308f90e9a4
+
+Best regards,
+-- 
+Theodore Ts'o <tytso@mit.edu>
