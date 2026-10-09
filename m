@@ -1,49 +1,69 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE6B3644A0;
-	Fri,  9 Oct 2026 19:01:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055E336F415
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 19:08:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791572483; cv=none; b=tmXREc4pZeepo4Ni7MnZPy24Kr2rUjKNuNd1Ux68MjbgnRztEXcEdTt7AXb62CeswCu5TYw12mXwQVqaayHOTi7EYTzthrcx+36mzDLIv9G+4hGSNayehat1LkZy8tx8nnQE19yKxctD7JoCZb56X2hicxafTG+ik1KJMca8tsU=
+	t=1791572897; cv=none; b=j1tLiZRcOtPgs8APF5urgtpXcNUEmP70b1gHdqilMPxUHstctFDryidsT/aBrW6f9GnoVOgCjS2F4XevFY/j9eYNQEmVj9omYXAVxE68cend65xawvav9sUhX0b+9Zlh+2HlAXONqFGsx2yZltrp33zBudV+ieWqzVylaZ89KIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791572483; c=relaxed/simple;
-	bh=JnrlWnkjJ6jsvH05UWrvsCEmjyaoFNMoxMkHobABBMI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tsUsJAzOg3NvWm2+kNNIEjoS87GXOVUJQ5p3XWjkhJo4ERPJSv1+O6qrihSKJY4BlVEsmz2NP9I8ILC04dsYQ0xaOFqy32CsHzlP/hG+m7bW4ALiYU5uYOavo3MbXn/nqNIPAo6Fudlt8aIODxA/xE1GSYf7HvOhvRCQbLYOCFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aQUebG5G; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791572897; c=relaxed/simple;
+	bh=29l7mIlH8mD2mk0VgsK/GDVYNjGPxrf3zUAFHPhbNMw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NCyryytl0Fv2fZS8WzYmnDmLUoVk+pAmujqb5ML4fAq+RkPMb+5rmnPdeKFTVRRgW6JfRbh3xFQmhu0KPTjp0AAhpyH0MRxXs9/XiWU6SvodlXDHYrmQtNaA4mh398ZEXh5Yl/yZ/KAjBZmLokZg/qoF70O81iBVETAhvffXAng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=JoVRbQwe; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aQUebG5G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF44A1F00893;
-	Fri,  9 Oct 2026 19:01:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791572481;
-	bh=wIRX1vhmNZyl1zDN3zoDjlIfETeVA6hkJSgEDSBU0DU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aQUebG5GYzOIefwoW0n/KQkbGyPm7n3ja7TprMazu9Z+TYaYERziq2pOL0Km6gxWW
-	 E9vyaFlAIpJP6Ha+m+3I9FUaRRcaQ5rxXZmLna90X4rujkT4ZgEexbQcfciRMYz6Fc
-	 X0LGiDryM9jBQpiPqKkgiVfNuPe9jeRtwbGK1j7OL+RYCSQ8FLJfD6XiVdjoWiSOKc
-	 2JwBWoS8LEcbz51bZnSCK9jV68mm4/f1rHnqsPI0pG68R5ia28MMdJRcU3s9JDfZ29
-	 YufkRRMctlT3dcvDTasjWQAPTGCM3Hu+y2yIaiUzJiqB/6JI6CJoiIedCRs+WAe0L7
-	 L8O0slEL48bpg==
-From: Sasha Levin <sashal@kernel.org>
-To: Daniel J Blueman <daniel@quora.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-	Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Manikanta Mylavarapu <quic_mmanikan@quicinc.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	linux-i2c@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] i2c: qcom-geni: restore tSCL with 32MHz I2C fast-mode
-Date: Fri,  9 Oct 2026 15:01:12 -0400
-Message-ID: <20261009145800.rc-reply-0004@kernel.org>
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="JoVRbQwe"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a018dc1f98so1414085e9.3
+        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 12:08:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=lex.la; s=google; t=1791572894; x=1792177694; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0j3RX/pMln9A8EWuE7QSt/x5BnN8ermhYdoWSvQV0Lk=;
+        b=JoVRbQweVb6l3T/uJA9hSCgSRP2pDCtiU0V4MYHAqJIO2GXzDKet3EDB8IsyA8PWTX
+         mt6SqEo65DtuAKBEgfND6hNlyXpWzkfW687cPXFfxiT7Yppg2f7rehE0mKd1Cr+wE6uM
+         hVHC03XMsqHXEGZlUuOphXUSrjo5wPjUYXW5jDBriyGWybU8fbI+17SvPbQPa+VvdmjT
+         Vrt6f9LvKQBIv/r9eMsAFC/rdr+eee1b+9LMEBU18ck1pEti/IGSYKNn8simqijaYEel
+         /y4FQrgjw12Aj3RhJQKruwFYAYyHk7eNXd4QNuAFdxpYly8Xn/BC5bcsHTlwZ7D3vomy
+         GecA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791572894; x=1792177694;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0j3RX/pMln9A8EWuE7QSt/x5BnN8ermhYdoWSvQV0Lk=;
+        b=GyEJDzA7haqOrFGpLhoY16/LrJTBnxWv2pzHwyFU3mjO3TltJowAshkaLPt2vz1LZd
+         h2LUt9uCqPUVXOKQ0ZMk9knYG9f24vq1iWBi5PYULaepocL3RPURvBq9v3PQT2uxDSFR
+         KJDV+SCPBfYIAaN0oq1+xuPYrNte/ndqJ/5+0OI3hHPkaHYUa11791yyJswqYUkj5yeZ
+         oxScpVRj81CE0zreMAIOKkzHTusEUQ826zwC0/ZMQnKreIJAuPze9Ar2ri81JHpjT2WA
+         nK6oiq53f/i7CcZfhUIWvv++JuJ8yB74oMwhAyBf3Ey274t92AzAZfkdfVkOw6s+AGm7
+         EyWQ==
+X-Gm-Message-State: AFuF++kyI41F7Dt6z4NeEHFpCxsalKQFnLIyXzjnR38+JSQAgLwUqdTF
+	n7l3ArUSaIMmnOuqD62G/l/vcHiKiKYBFsApLcrKE1uRM2WyrIB5cYb0niuEO57C2Boh7aT2643
+	J1frVyfrQmQ==
+X-Gm-Gg: AYBFou11PHz/o1DjMV9R4gwKGj44/gU32CxC04JHngeEAjZWCyre79ELgbhSTrZeuJx
+	VlD3Ojjn7ML4hxlsJIfNdfkjS32aI/3hVu8exKITOgguAIYwn+aBDEYpJ52iAY+ovq0sL/Q3uTi
+	CrTGWuiQO6Yw1KoHV5V39sDlDm4868Jqj1bAS/XWKwaz96PBNySbS7PxlJYz3urkW97pe3pOYAd
+	WsPQQLa2hM87rs2p/zcnXhBZpf1PyjI4ekVAxwdAuCbg8wPBN6jZHD/GhaaQKKIOA359M962SxO
+	WbTsAzwRTV5j3XUiSfavt3kDOBmkLjc2G5YSw3fjbnvjqEiRg/dsZQhogqPRC48cEyESTH8/rGm
+	18IqeiKvdlN+3+G6qGpNTVAjrxCrwnnpNd9GJ0YRreNU5fnIeJygxKCgTuKL8pLrJlfblGa+ww1
+	/7NX7Yiu2UGXMtCPhny29wmgkobTRtKREA3X+xK9HKWEqJ+0XiuaKHk1LBu+NI
+X-Received: by 2002:a05:600c:c176:b0:4a0:c2a:485e with SMTP id 5b1f17b1804b1-4a18e4dce0cmr56489485e9.33.1791572894071;
+        Fri, 09 Oct 2026 12:08:14 -0700 (PDT)
+Received: from remote-01 ([84.17.55.225])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18eb4485dsm121263375e9.2.2026.10.09.12.08.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 12:08:13 -0700 (PDT)
+From: Aleksei Sviridkin <f@lex.la>
+To: stable@vger.kernel.org
+Cc: Daniel Golle <daniel@makrotopia.org>,
+	netdev@vger.kernel.org
+Subject: [PATCH 6.18.y] net: dsa: mt7530: fix .get_stats64 sleeping in atomic context
+Date: Fri,  9 Oct 2026 22:08:08 +0300
+Message-ID: <20261009190808.1385789-1-f@lex.la>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <eaa6f116-7556-4791-857d-cd50c504528d@oss.qualcomm.com>
-References: <20260929041444.9837-1-daniel@quora.org> <1ca16602-fb66-4706-8e86-3b35372324b9@oss.qualcomm.com> <CAMVG2svsfP+6cpRq=kBCZFva_r8jXSm+-pp+qC9D372S10z12g@mail.gmail.com> <eaa6f116-7556-4791-857d-cd50c504528d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,23 +72,240 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> On 9/30/2026 3:01 PM, Daniel J Blueman wrote:
-> > I would revert the original patch if there is hardware that uses the
-> > I2C 1MHz fast-mode, since the current timings aren't to spec, but also
-> > weren't before.
+From: Daniel Golle <daniel@makrotopia.org>
 
-For stable: cb97bf3d4f91 ("i2c: qcom-geni: Fix hardcoded clock index in
-SE_GENI_CLK_SEL") has already shipped in 7.2.9, 6.18.55 and 6.12.112, and is
-queued for 6.6, 6.1, 5.15 and 5.10.
+commit 07d99587396024932e02474c3a5bede71d108454 upstream.
 
-The 32 MHz clock map (506bb2ab0075, v6.13+) does not exist in 6.12.y and older.
-The backports there pick only the 19.2 MHz entry, so the Yoga Slim 7x /
-X1E80100 timing regression cannot occur on 6.12.y or older, and I'm keeping the
-6.6 and older queues as they are.
+The .get_stats64 callback runs in atomic context, but on
+MDIO-connected switches every register read acquires the MDIO bus
+mutex, which can sleep:
+[   12.645973] BUG: sleeping function called from invalid context at kernel/locking/mutex.c:609
+[   12.654442] in_atomic(): 0, irqs_disabled(): 0, non_block: 0, pid: 759, name: grep
+[   12.663377] preempt_count: 0, expected: 0
+[   12.667410] RCU nest depth: 1, expected: 0
+[   12.671511] INFO: lockdep is turned off.
+[   12.675441] CPU: 0 UID: 0 PID: 759 Comm: grep Tainted: G S      W           7.0.0+ #0 PREEMPT
+[   12.675453] Tainted: [S]=CPU_OUT_OF_SPEC, [W]=WARN
+[   12.675456] Hardware name: Bananapi BPI-R64 (DT)
+[   12.675459] Call trace:
+[   12.675462]  show_stack+0x14/0x1c (C)
+[   12.675477]  dump_stack_lvl+0x68/0x8c
+[   12.675487]  dump_stack+0x14/0x1c
+[   12.675495]  __might_resched+0x14c/0x220
+[   12.675504]  __might_sleep+0x44/0x80
+[   12.675511]  __mutex_lock+0x50/0xb10
+[   12.675523]  mutex_lock_nested+0x20/0x30
+[   12.675532]  mt7530_get_stats64+0x40/0x2ac
+[   12.675542]  dsa_user_get_stats64+0x2c/0x40
+[   12.675553]  dev_get_stats+0x44/0x1e0
+[   12.675564]  dev_seq_printf_stats+0x24/0xe0
+[   12.675575]  dev_seq_show+0x14/0x3c
+[   12.675583]  seq_read_iter+0x37c/0x480
+[   12.675595]  seq_read+0xd0/0xec
+[   12.675605]  proc_reg_read+0x94/0xe4
+[   12.675615]  vfs_read+0x98/0x29c
+[   12.675625]  ksys_read+0x54/0xdc
+[   12.675633]  __arm64_sys_read+0x18/0x20
+[   12.675642]  invoke_syscall.constprop.0+0x54/0xec
+[   12.675653]  do_el0_svc+0x3c/0xb4
+[   12.675662]  el0_svc+0x38/0x200
+[   12.675670]  el0t_64_sync_handler+0x98/0xdc
+[   12.675679]  el0t_64_sync+0x158/0x15c
 
-7.2.y and 6.18.y do have the 32 MHz table and are affected. Once the fix lands
-in mainline, I'll pick it up for 7.2 and 6.18.
+For MDIO-connected switches, poll MIB counters asynchronously using a
+delayed workqueue every second and let .get_stats64 return the cached
+values under a spinlock. A mod_delayed_work() call on each read
+triggers an immediate refresh so counters stay responsive when queried
+more frequently.
 
+MMIO-connected switches (MT7988, EN7581, AN7583) are not affected
+because their regmap does not sleep, so they continue to read MIB
+counters directly in .get_stats64.
+
+Fixes: 88c810f35ed5 ("net: dsa: mt7530: implement .get_stats64")
+Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+Acked-by: Chester A. Unal <chester.a.unal@arinc9.com>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Link: https://patch.msgid.link/6940b913da2c29156f0feff74b678d3c526ee84c.1777719253.git.daniel@makrotopia.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ Aleksei: context adjusted, 6.18 still exports mt7530_switch_ops ]
+Signed-off-by: Aleksei Sviridkin <f@lex.la>
+---
+Context adjusted: 6.18 still exports mt7530_switch_ops. The +/- lines
+are the same as upstream. Tested on an MT7981 board with an MT7531 on
+MDIO: without it a /proc/net/dev read loop under
+CONFIG_DEBUG_ATOMIC_SLEEP=y locked up a CPU within a minute, with it
+the loop ran 41 minutes clean.
+
+ drivers/net/dsa/mt7530.c | 75 ++++++++++++++++++++++++++++++++++++++--
+ drivers/net/dsa/mt7530.h |  8 +++++
+ 2 files changed, 80 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
+index 4001779a9159..bd0a37ead0de 100644
+--- a/drivers/net/dsa/mt7530.c
++++ b/drivers/net/dsa/mt7530.c
+@@ -25,6 +25,9 @@
+ 
+ #include "mt7530.h"
+ 
++#define MT7530_STATS_POLL_INTERVAL	(1 * HZ)
++#define MT7530_STATS_RATE_LIMIT		(HZ / 10)
++
+ static struct mt753x_pcs *pcs_to_mt753x_pcs(struct phylink_pcs *pcs)
+ {
+ 	return container_of(pcs, struct mt753x_pcs, pcs);
+@@ -888,10 +891,9 @@ static void mt7530_get_rmon_stats(struct dsa_switch *ds, int port,
+ 	*ranges = mt7530_rmon_ranges;
+ }
+ 
+-static void mt7530_get_stats64(struct dsa_switch *ds, int port,
+-			       struct rtnl_link_stats64 *storage)
++static void mt7530_read_port_stats64(struct mt7530_priv *priv, int port,
++				     struct rtnl_link_stats64 *storage)
+ {
+-	struct mt7530_priv *priv = ds->priv;
+ 	uint64_t data;
+ 
+ 	/* MIB counter doesn't provide a FramesTransmittedOK but instead
+@@ -933,6 +935,54 @@ static void mt7530_get_stats64(struct dsa_switch *ds, int port,
+ 			       &storage->rx_crc_errors);
+ }
+ 
++static void mt7530_stats_refresh(struct mt7530_priv *priv)
++{
++	struct rtnl_link_stats64 stats = {};
++	struct dsa_port *dp;
++	int port;
++
++	dsa_switch_for_each_user_port(dp, priv->ds) {
++		port = dp->index;
++
++		mt7530_read_port_stats64(priv, port, &stats);
++
++		spin_lock_bh(&priv->stats_lock);
++		priv->ports[port].stats = stats;
++		priv->stats_last = jiffies;
++		spin_unlock_bh(&priv->stats_lock);
++	}
++}
++
++static void mt7530_stats_poll(struct work_struct *work)
++{
++	struct mt7530_priv *priv = container_of(work, struct mt7530_priv,
++						stats_work.work);
++
++	mt7530_stats_refresh(priv);
++	schedule_delayed_work(&priv->stats_work,
++			      MT7530_STATS_POLL_INTERVAL);
++}
++
++static void mt7530_get_stats64(struct dsa_switch *ds, int port,
++			       struct rtnl_link_stats64 *storage)
++{
++	struct mt7530_priv *priv = ds->priv;
++	bool refresh;
++
++	if (priv->bus) {
++		spin_lock_bh(&priv->stats_lock);
++		*storage = priv->ports[port].stats;
++		refresh = time_after(jiffies, priv->stats_last +
++					      MT7530_STATS_RATE_LIMIT);
++		spin_unlock_bh(&priv->stats_lock);
++		if (refresh)
++			mod_delayed_work(system_percpu_wq,
++					 &priv->stats_work, 0);
++	} else {
++		mt7530_read_port_stats64(priv, port, storage);
++	}
++}
++
+ static void mt7530_get_eth_ctrl_stats(struct dsa_switch *ds, int port,
+ 				      struct ethtool_eth_ctrl_stats *ctrl_stats)
+ {
+@@ -3169,9 +3219,24 @@ mt753x_setup(struct dsa_switch *ds)
+ 	if (ret && priv->irq_domain)
+ 		mt7530_free_mdio_irq(priv);
+ 
++	if (!ret && priv->bus) {
++		mt7530_stats_refresh(priv);
++		schedule_delayed_work(&priv->stats_work,
++				      MT7530_STATS_POLL_INTERVAL);
++	}
++
+ 	return ret;
+ }
+ 
++static void
++mt753x_teardown(struct dsa_switch *ds)
++{
++	struct mt7530_priv *priv = ds->priv;
++
++	if (priv->bus)
++		cancel_delayed_work_sync(&priv->stats_work);
++}
++
+ static int mt753x_set_mac_eee(struct dsa_switch *ds, int port,
+ 			      struct ethtool_keee *e)
+ {
+@@ -3290,6 +3355,7 @@ static int mt7988_setup(struct dsa_switch *ds)
+ const struct dsa_switch_ops mt7530_switch_ops = {
+ 	.get_tag_protocol	= mtk_get_tag_protocol,
+ 	.setup			= mt753x_setup,
++	.teardown		= mt753x_teardown,
+ 	.preferred_default_local_cpu_port = mt753x_preferred_default_local_cpu_port,
+ 	.get_strings		= mt7530_get_strings,
+ 	.get_ethtool_stats	= mt7530_get_ethtool_stats,
+@@ -3437,6 +3503,9 @@ mt7530_probe_common(struct mt7530_priv *priv)
+ 	priv->ds->ops = &mt7530_switch_ops;
+ 	priv->ds->phylink_mac_ops = &mt753x_phylink_mac_ops;
+ 	mutex_init(&priv->reg_mutex);
++	spin_lock_init(&priv->stats_lock);
++	INIT_DELAYED_WORK(&priv->stats_work, mt7530_stats_poll);
++
+ 	dev_set_drvdata(dev, priv);
+ 
+ 	return 0;
+diff --git a/drivers/net/dsa/mt7530.h b/drivers/net/dsa/mt7530.h
+index 69be713bab80..ca665f87f1f6 100644
+--- a/drivers/net/dsa/mt7530.h
++++ b/drivers/net/dsa/mt7530.h
+@@ -797,6 +797,7 @@ struct mt7530_fdb {
+  * @pvid:	The VLAN specified is to be considered a PVID at ingress.  Any
+  *		untagged frames will be assigned to the related VLAN.
+  * @sgmii_pcs:	Pointer to PCS instance for SerDes ports
++ * @stats:	Cached port statistics for MDIO-connected switches
+  */
+ struct mt7530_port {
+ 	bool enable;
+@@ -804,6 +805,7 @@ struct mt7530_port {
+ 	u32 pm;
+ 	u16 pvid;
+ 	struct phylink_pcs *sgmii_pcs;
++	struct rtnl_link_stats64 stats;
+ };
+ 
+ /* Port 5 mode definitions of the MT7530 switch */
+@@ -876,6 +878,9 @@ struct mt753x_info {
+  * @create_sgmii:	Pointer to function creating SGMII PCS instance(s)
+  * @active_cpu_ports:	Holding the active CPU ports
+  * @mdiodev:		The pointer to the MDIO device structure
++ * @stats_lock:		Protects cached per-port stats from concurrent access
++ * @stats_work:		Delayed work for polling MIB counters on MDIO switches
++ * @stats_last:		Jiffies timestamp of last MIB counter poll
+  */
+ struct mt7530_priv {
+ 	struct device		*dev;
+@@ -901,6 +906,9 @@ struct mt7530_priv {
+ 	int (*create_sgmii)(struct mt7530_priv *priv);
+ 	u8 active_cpu_ports;
+ 	struct mdio_device *mdiodev;
++	spinlock_t stats_lock; /* protects cached stats counters */
++	struct delayed_work stats_work;
++	unsigned long stats_last;
+ };
+ 
+ struct mt7530_hw_vlan_entry {
 -- 
-Thanks,
-Sasha
+2.53.0
+
