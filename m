@@ -1,106 +1,236 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012036.outbound.protection.outlook.com [40.107.209.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE1CA4A32
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 00:10:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791504649; cv=none; b=WVYpsALWqpHSlSiHvFJQejXUMSWhhZasloU/DC9QJjkGjuT4+d9608cS7+ICr/cLMf5xMEleCMR8CVv2heMUwVvjjy8pO6jKjXibQnj9zewi0pd0spdn/FIx0FHoB9Gs5LklzIQ1nlLp9EKy5vvUDqpP/ulHKUYMztJ2mJwJ7VM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791504649; c=relaxed/simple;
-	bh=tqM63ocasLYSxyrsrCYjcg0TnQLEfHkogfNcM0tJh7I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JgwI8PGAtIZ8JuvFDqRTVJGPr9Nm04bSiYKFv5UBURvR9liAvLA72jZKbVKxGCM0IcIL3sbzV2OlKW0yypPqo8ttMKfDNMYszu4ZNAdANjCtRNpqBsCerx64M8Qg2nrBh5CBL9n6NwlthIV6zI0hKy75J44PKz8DPaq3OxUdlWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N/aP2ImA; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA9481B983F;
+	Fri,  9 Oct 2026 00:17:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.36
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791505050; cv=fail; b=AQsLVxQaTNOedjNfafzSMAdCHQwdpmD8cDVvZr9/A1HLOsfdfZjyGvxsc7SesH+mM/vdfEKGAzhcUm/eB0+qV6ObBh27A6q1m/Tn7cHcusWhgmvNxrodaTCF3pzfFPR9iVOg0A4/P2DDdgxdW1OYN2Y2yOnDsnPv6E/Kyq6rvc4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791505050; c=relaxed/simple;
+	bh=OTgYBaRsiNOlZ/wQX5s8pFtUpBRgsjDjhGEOW08rYFk=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=F2HQEHqQgth4kOrRc22zsDFBiz5dA60Y8WxYYC4kwfxLphIJiKE4nuGUP43mz0DrHLHtWSRjptrcWNhHXPygy4Ubkc+69q1+8GCKy3uYQ2l63L+NJbgFp8SlcO6AKc3cyKbPbeyuyvQJlw92PdXswvbD67QmosztX0bJmxx6cj8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=nEfvHeK2; arc=fail smtp.client-ip=40.107.209.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N/aP2ImA"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so32198895e9.0
-        for <stable@vger.kernel.org>; Thu, 08 Oct 2026 17:10:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791504646; x=1792109446; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I+X0gO+ixBDj3LcebqVHrpa9pmpito3V5BFoUmFDMA4=;
-        b=N/aP2ImAB5Fr+EUYcC19c6Tv5zXITWtpR6KphsDJ5j1/GGbYBOJUhA6lsVAATuCmO8
-         3x+x/gKAKjM/0FIyLxKCMZKQE6H64IG0lOx2/5wUKRlz5ulsPQniix64bDXf9CoJOSDF
-         sxuw//mKdsuNzZv05qaIzZjqqVB3bm68RFaQ0RebNotcyJTyPslE3+VoCQI+3SxpgIuF
-         h8yk2DlLecxxYXHOYejBs3lH4uLMyDUh7PBVs+FibS8sA1Ck61GSuky5FczLn+8kBpXE
-         ApxKbivLUKa+zlTR9jllp5C0uJcuMPREhQhDal9DBOUJDvhLBIYW4y8prgQ1F3eWEGkX
-         HVXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791504646; x=1792109446;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I+X0gO+ixBDj3LcebqVHrpa9pmpito3V5BFoUmFDMA4=;
-        b=kWce0cYHZASNs+or0hlr5LBHsqfoqhSNrsNNZkROIchNkqETKJ8Lt4+dC78RkpB1fO
-         s4xTK1+bSGhAnRBLcgAzoUn19piq1FjwXziBwWn8uCMWOSg+UEGlW7iOIqEbJQmzLJEM
-         jq2JN02GRInnK59n62+M6ZwF38H/TXXz2cgGKwC3OdPdAoUj64EwkBnN/McP6fe7lmsi
-         6FVf2xJSC3Yq7y4dIfscmfbVFAtxmXimP6bUXOXzhamvfUR6d/y0ZBBU6UP33inq7wNf
-         Va/VMNCOdLo1lewkUOOmyYEO1lApmWAZao3i0NLtqyqh2+X4TmT2qlGnN47beEC2JaPS
-         fNag==
-X-Forwarded-Encrypted: i=1; AKwUvBycSbPe9OJm+d+8U34i4TTUDTYSp567odR0SAeasjJSgY6YoRvcNqbuGw+5/qkf/ck7EQ2zfW4=@vger.kernel.org
-X-Gm-Message-State: AFuF++l43NmG2qoZm2i9oBPIH6iWWTjd2/Bfb/L+oTgLu4tSG84JtDkv
-	IaNfvEUAqxIEQjsfXwxTxAaKVPKdDnM48g1a4C6yBbNrEn0kKRyqnXOG
-X-Gm-Gg: AYBFou2JRLyq7fjcl324onk0NFgMKVwOndO0/kffupkhe0o40C53PtvizZI6q7yCU+7
-	+InfdxWrgi/9OO446sHjz0O5vwAAepUx+4lEdl0Wx3WbSa+jyDQQsvID+V/+tUgUrfSvoKJlA0P
-	HiqRW2lr4ZA850iqEjZgRWoQrarNQXmn1038mghRn6gseRMP1eHhQG/J969B1QALVuRJOJIhRpj
-	ysyDQpvsJtQdUrPS3YJ5el2qCqpnWAoHuATnQslyB8W6yC5byisXWUOAEcIMqZJeRfMkiEQG3Hf
-	4eeZkEvG/Iue88AAz8t99+dKtD0kATIOv0okajEKo+TK5ML0A6/aU2lCrZkvYWhqSXtzo9QlcGl
-	WN7BSPOzyCZaBDuXSKD1HQDXePFkwb9JFNMAyDIWSVGopNUJDDW/tseLviMWav+dF65pkk6AwGT
-	bf8f3IHPNFZ6lDiDF+WG+ibRZPMN8glPiUfvALS8KUXHc+wp5S2DpmK9qngNWLN3RuKZUZ
-X-Received: by 2002:a05:600c:3488:b0:49f:e941:d6e with SMTP id 5b1f17b1804b1-4a18e4c05d9mr1979015e9.21.1791504645836;
-        Thu, 08 Oct 2026 17:10:45 -0700 (PDT)
-Received: from arch.local ([197.207.161.76])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf21276sm27959135e9.8.2026.10.08.17.10.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 17:10:43 -0700 (PDT)
-From: Akram Boulahia <akram02st@gmail.com>
-To: mario.limonciello@amd.com
-Cc: akram02st@gmail.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	perry.yuan@amd.com,
-	rafael@kernel.org,
-	ray.huang@amd.com,
-	scardracs@disroot.org,
-	stable@vger.kernel.org,
-	viresh.kumar@linaro.org
-Subject: Re: [PATCH] cpufreq/amd-pstate: Don't fail active mode init on read-only auto_sel
-Date: Fri,  9 Oct 2026 01:10:22 +0100
-Message-ID: <20261009001022.6660-1-akram02st@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <851316da-2cfa-4a22-947c-1838532d05cf@amd.com>
-References: <851316da-2cfa-4a22-947c-1838532d05cf@amd.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="nEfvHeK2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=egz3Ww1tLX1Cf0cCiul8s2FfGO13vJ9h1wlwGy3Vxa02JDhs4AFZ+pSj2WTVboLWpakEuWjvbxMaHH9phFUQcncm4Uj10aqF8oTooTgcIZU6Q2ELdDA8NVSEK8ceRYGjU4EZ7IOszMse6fnJIiF1DUrvCJEsMMLed2MreJ6DkTMkMyXWur7S256zyBYG7nMRWLn5qb4GDNFaIv+fgovSPvoXewWfp6vpeF92d0kCV88r71bA8FGscAbEU2qxo97F3y8ovNBzvYlUB99Yq9qj9L3RJVehSiiENI2V859Q7+3lywsKbZeU7LGFSKvImBL6sMu4EDJ4J1eLrqpSLweAYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OTgYBaRsiNOlZ/wQX5s8pFtUpBRgsjDjhGEOW08rYFk=;
+ b=efzcMxpFbNK2UksLUzTrHIcwsCWCkk1C+uNHmKhynwxrL8Nt2W/mhExDbr1wyxS6UKpauzg9vy3NOHsxQMGGVawB6BXqYvGqxTFG4dJbsDYG+eEBporiQmBA0+HlizEDL/DBYj2zT4YjLWaflumioBbKofYByGTKmhy5+kJbZv4++9weU/GftvIkF6SBvd4L3lHEkRJlzVEtlnPdZZRde2T4yAN42w5Bda5dYVZQVDt+opW4CsVGoJotMa0+YKYZE9gZyUHa2mtc6Z7SNbpblpWhXOJij0SaUcHAKIVgDeTnYmdSEg/lBfSNkbYA6rriHpnS/40c+qg9UoJ1elpgEg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OTgYBaRsiNOlZ/wQX5s8pFtUpBRgsjDjhGEOW08rYFk=;
+ b=nEfvHeK24mBqSW2iDtqRCQf1L3j61vucylDO5GIeu9pFkCHXAbQRSbhxx/h0xttMZBgAPaPTG4xIexsN7O3xRQ/M6iuES/AQgNXGBuUWlp2yL5OFhQDyOXUMJNhksczD2atpsapzIYdwcvcfX8PLhT8r48NFPa8se4e4xcJEOcCZfuTwOp11xjkQVqies4HemG6zbQQNEXuyHfaz/36Ny9BHm3mDxPNfYcfTdCHQ5nHiQt9bt3JTMvaQSy9sQznKI/6QRBd0Xsd1jcYR4HZpfPB+EwVDbRhM9y3OjtQBK5NrcW5mngvaDdBGwdcgrwqiP+j/NCXYvAimBoX18ftiKg==
+Received: from DS0PR12MB8787.namprd12.prod.outlook.com (2603:10b6:8:14e::21)
+ by MW4PR12MB6682.namprd12.prod.outlook.com (2603:10b6:303:1e3::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Fri, 9 Oct
+ 2026 00:17:25 +0000
+Received: from DS0PR12MB8787.namprd12.prod.outlook.com
+ ([fe80::be69:8d60:1fcc:7027]) by DS0PR12MB8787.namprd12.prod.outlook.com
+ ([fe80::be69:8d60:1fcc:7027%4]) with mapi id 15.21.0451.022; Fri, 9 Oct 2026
+ 00:17:25 +0000
+From: Daniel Trujillo <datrujillo@nvidia.com>
+To: Eric Dumazet <edumazet@kernel.org>
+CC: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, "David
+ S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Alexander Duyck
+	<alexander.h.duyck@redhat.com>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: Re: [PATCH net] ipv4: fib_trie: prevent speculative out-of-bounds
+ child access
+Thread-Topic: [PATCH net] ipv4: fib_trie: prevent speculative out-of-bounds
+ child access
+Thread-Index: AQHdV3HjjFPqvrTdGEGss0JX+ciP0Lb0OQWAgAAehMc=
+Date: Fri, 9 Oct 2026 00:17:25 +0000
+Message-ID:
+ <DS0PR12MB87874D402A9852C9FD64E3C1B2922@DS0PR12MB8787.namprd12.prod.outlook.com>
+References: <20261008-fib-trie-nospec-v1-1-fa18726d485e@nvidia.com>
+ <CAL4WiiqO2C0cVQBdDJWrGYCczB0JRMXJUjsUq7uYPjfNL34q7g@mail.gmail.com>
+In-Reply-To:
+ <CAL4WiiqO2C0cVQBdDJWrGYCczB0JRMXJUjsUq7uYPjfNL34q7g@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR12MB8787:EE_|MW4PR12MB6682:EE_
+x-ms-office365-filtering-correlation-id: d6659f5a-8472-494b-7217-08df259ab21c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|6133799003|22082099003|18002099003|10067099003|3023799007|38070700021|4143699003|56012099006|11063799006;
+x-microsoft-antispam-message-info:
+ puh0hUm+CYkZbxx4QU7JJZqDdTq2Rbts9QPme31N0/yeKscMr1dU6mSt2psegAdWnZr4yvycCh+tGppFPYhHAhiPHenMfN8g1wzuy/7NeFehsP0yVFBBHyKj4YxiDg2+1rrXVQo5kfWjJxlt3NSHkINz9G6f3YzNIk72vPa82TVrdP6l8V2BqLEDjYf+FkrJL2yg/oT6TxTo3zh5qrG1DrrqyyQuXIRoyow3iGHaT+/rgXSTbu5klc9UHa3iFAd+eMGomjBi4XzmMMICj6pqTnh1e8EKt16fJRL+0OsEwnNDC8uvxQ4+tyYpTY0Yzea93/d5VRAye+GB1Ij5s8KEkxGMq/wKS3JxgkkNNNlhLppikckxWByIehi7ujKxeMEfW8dBsZFiWabLdwD0ICAf5eAssxqUDqSwd0/mcDGS9UYQ/eamCOEoc0S0Cc08hybXH+CMM3eUoEAxcFmxsZ2xr4BqrU0adkL/6ZswCqQ/H5oZ91oKJ7dLBcy0t7qgKHj5mM7p3L1WYP0MRJdqU8XnPGQaI7YLfDEallrK4oDlDgaVV17qkdBznqQzSt/tJzzL+3nuolbUxG4eMRPxwudo8x6E1FE15qCyy8ipAFprGrDEZaFTx4oam+wJQIlbbcbLFoIbJRpX7oZEsbmKm1xZDfxxXIVnmnIJ8NpJTL9AwDdulLTc/afVqvLfpZCvRU6NcFg4T5tm8nQJlyvmtErdTHNI7LRGXv+MrR8UA/w7NmI=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB8787.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(6133799003)(22082099003)(18002099003)(10067099003)(3023799007)(38070700021)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?CwacVWKQCt8eaZqCbEG2DYR+mhqOA/fCS3OdW4GGXcQrBl5oupg3Uf29ti?=
+ =?iso-8859-1?Q?Vl52km4FwDZf3UnTXaZmHoU0RdSF6gtfywYs3Ll9MXjNJQ5YezZewvM4Rc?=
+ =?iso-8859-1?Q?NflFIwq0Nui2HINIkIxoPUOyPSLykPE6L+iW3qScwYjbCgYLjCf1lNDzEs?=
+ =?iso-8859-1?Q?JBDmHb8PsS8VmfkEEGQmZ/A87yRCwQLqHyH8zESTuZIPmBT2sQUsHUkEJN?=
+ =?iso-8859-1?Q?UHJFdrjfO9P735Qbn3bEAg1bnFABA8TQJ5xarlCkOwaOAq7uZcP5ckiKXk?=
+ =?iso-8859-1?Q?njKDDiYuVOdfYcmCBLUgYIKKgeebRX9M8YpFgAJyEI3cvl4hBCVG0auFk5?=
+ =?iso-8859-1?Q?kOWcCcGRUFZL36pM0OOBQar3ugE17IK5fV8sIDyXvrLmrvLYHN9ccoyM80?=
+ =?iso-8859-1?Q?434xlmKMyLoBlB6ootgOsp+DaiZyXFhOshM2V3KD0B+kOGj2IswrzmxpRz?=
+ =?iso-8859-1?Q?LgkzK2zVT7+jOo62HeixPxMmi7O8wj2n3PyxmSAnHBHL69d8s2Kc6xdW2R?=
+ =?iso-8859-1?Q?99rSS3WTPltBrLhbE63XjuWBTx6+0nFHZsGe1YKn6ymABEBTJONpfwZDNO?=
+ =?iso-8859-1?Q?6wWqLLMPxttNP33mlvT0n20iA4RdVjEKf66jiRM2eUJ4pSs/naf6LctDvU?=
+ =?iso-8859-1?Q?7JZa3FADQJFcldlTHcLiRbe9N/nwwfd2AbhHxh9b4m5IDaseNMpSllCaSB?=
+ =?iso-8859-1?Q?VmTZh7BMAwN5j0n0QYQCFdO3sfxDbyRkGiYehgKVIlm9wZHD1ddmdPrALx?=
+ =?iso-8859-1?Q?FtIsG4ISMvnr4wLzxMFeob0sQ/fKrZL2khoA680hyXA+tk6g1SecMtouEZ?=
+ =?iso-8859-1?Q?aRRrry2av8rZDvlhN47dZYBKGQD+o4H2peifcYPlN5qOeMEpjKQp7b8izB?=
+ =?iso-8859-1?Q?mVIns/MQbvIhirbNN1oQz/NtT7EhB12gjzwDCIdtgO+WMNTBo7O2NDTzKt?=
+ =?iso-8859-1?Q?9nZ68/9Lwlq1khwG+pAA0qqBnaW/gTY6Ls9bLCUdSRMXc7RGXi1e0Jlfr0?=
+ =?iso-8859-1?Q?Kn3MbaymRK1XOZampxNxrMMQNdBkm+opwWb8UO+45VMWpuakoQpss8rHO/?=
+ =?iso-8859-1?Q?p4n0GoWASJ8Ce9lBUam8ygc0eCp2JOGSIb1ptrER3YI1k2bQiCE+mqntBA?=
+ =?iso-8859-1?Q?26EXv2WG9rwOYOEjl+ygT2eMHQ5ZR2lqUyWOIcpBX1FNwbhM5G7GiFtyMu?=
+ =?iso-8859-1?Q?57W7EvkULdsabHEzHK9rr14/Nhjij1kEuH/JlOnhFjla6bSApVONB+LnNB?=
+ =?iso-8859-1?Q?QfhcgH3jAPJEza+K6FhozLrJKM/AA5KCfHq8ETpMgDhi8WJjNviiKRubDw?=
+ =?iso-8859-1?Q?3y0Sb671e3Feiiyb5Kkp3oCGn8mO0u48Uycq3vg6UJiDBFKVjuEqyrouOx?=
+ =?iso-8859-1?Q?9PP7W5K/IwRPEzSQ0Dsaz41ELNT4Sa5vgzvvLAOL31V0+Bx1w1Mfvub5QW?=
+ =?iso-8859-1?Q?wAtspAYgnPha6zldg1Rw1d6IPXXvqkxsz8cjeZ+Imh8L4SGg1+WWGmDJgV?=
+ =?iso-8859-1?Q?qo4TsqvBRQQG/ZDrbPPG7SWehngdZmZvgS1CNC06+pwWHLkwbQm7usiFUg?=
+ =?iso-8859-1?Q?yjHjTcMLauiNMjYiAjShzoZVcMVsdkMHP7OEKV0o6k4jSWQ/1N3G39+0sm?=
+ =?iso-8859-1?Q?tpYudNL9g0kgfzRY6v0xEi7w7iQQBSqOfJUwtqYNxSevRizhIdgBdNulcE?=
+ =?iso-8859-1?Q?I1gvt3ugmPEISxq7HSrwNtPLcyviiJ7dpJkLZQHUJbxMgd6Gl0uepvO2Rz?=
+ =?iso-8859-1?Q?tb3gEHZj2h0RdybbGdQ0N0OcoZltipX9cO1mBOB1DPt8sCYgWR40hrMiQi?=
+ =?iso-8859-1?Q?uEESQXPd8A=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB8787.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6659f5a-8472-494b-7217-08df259ab21c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2026 00:17:25.3147
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: mIArUAC2RUgqX+gpCpC5TcHTjm8cfc+2B9H9HoINM5XIfr5ENuCWugZiFyhjpEBVEM6DU4Sx+YwSdobJMXaOAQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6682
 
-On Thu, Oct 8, 2026 at 10:12 PM Mario Limonciello wrote:
-> You're in a really weird path if you have an 8945HS that is using
-> shared memory.  That system has MSR access.
->
-> IE this sounds like a severe BIOS bug.  Let's see what happens after
-> you update BIOS.  If it's still failing please share an acpidump
-> somewhere (like a kernel bugzilla).
->
-> Need to make sure we understand why your system is behaving this way
-> before making code changes.
-
-Thanks, you were right. After updating the BIOS from 308 to 311,
-amd-pstate works on this GA403UV with an unpatched 7.2.8 kernel. Active
-mode loads as amd-pstate-epp, amd_pstate=passive loads as amd-pstate,
-and the "CPPC feature is supported but currently disabled by the BIOS"
-line is gone.
-
-So the BIOS update was the real fix, and this patch only worked around
-the old BIOS state. It also doesn't handle passive mode properly. Please
-drop it.
+On Fri, Oct 09, 2026 at 12:25:43AM +0200, Eric Dumazet wrote:=0A=
+> Le ven. 9 oct. 2026 =E0 00:10, Dani=EBl Trujillo via B4 Relay=0A=
+> <devnull+datrujillo.nvidia.com@kernel.org> a =E9crit :=0A=
+> >=0A=
+> > From: Dani=EBl Trujillo <datrujillo@nvidia.com>=0A=
+> >=0A=
+> > fib_table_lookup() checks the child index against the bounds before=0A=
+> > passing it to get_child_rcu().=0A=
+> >=0A=
+> > The index is derived from the lookup key, which in turn is derived from=
+=0A=
+> > flp->daddr. A userspace process can therefore influence the index by=0A=
+> > triggering lookups for chosen destination IPv4 addresses.=0A=
+> >=0A=
+> > If this bounds check is mispredicted as in-bounds, an out-of-bounds ind=
+ex=0A=
+> > can be transiently passed to get_child_rcu(). The value loaded beyond t=
+he=0A=
+> > child array is then treated as a node pointer. The next loop iteration=
+=0A=
+> > dereferences that transient pointer through get_cindex(), causing a=0A=
+> > page-table walk whose cache footprint can leak (parts of) the pointer.=
+=0A=
+>=A0=0A=
+> Has this been demonstrated, or is it the output of a static tool ?=0A=
+>=A0=0A=
+> key, pos and bits all live in the first 8 bytes of struct key_vector,=0A=
+> so the bound can not be made slow relative to the index by evicting=0A=
+> a cache line. The conditional branch should resolve a couple of cycles=0A=
+> after the out-of-bounds load is issued, before a dependent dereference=0A=
+> can start.=0A=
+>=A0=0A=
+> For a patch targeting net and stable, in the IPv4 lookup fast path,=0A=
+> we would like the changelog to say what was actually observed.=0A=
+=0A=
+This was not the output of a static analysis tool. The gadget was found=0A=
+during Spectre-v1 research, and its exploitability was assessed using a=0A=
+test harness for potential gadgets.=0A=
+=0A=
+Leakage was demonstrated using instrumentation that delays branch=0A=
+resolution through a CLFLUSH before the mispredicted branch. In that=0A=
+setup, a userspace-controlled IPv4 lookup key was able to transiently=0A=
+load out-of-bounds memory. The transient use of the loaded value as a=0A=
+pointer caused a data-dependent cache footprint that was recoverable=0A=
+from userspace using Prime+Probe. Adding=0A=
+array_index_nospec() removed the observed signal.=0A=
+=0A=
+Simply evicting the cache line before the lookup is indeed not=0A=
+sufficient to widen the speculation window naturally, since=0A=
+get_cindex(key, n) brings n->bits into the cache. An attacker would=0A=
+therefore need to delay branch resolution some other way, for example=0A=
+through a precisely timed eviction after get_cindex(key, n), or by=0A=
+otherwise creating contention that delays branch resolution. I have not=0A=
+demonstrated this end-to-end without instrumentation.=0A=
+=0A=
+> This is not complete.=0A=
+>=A0=0A=
+> cindex has been set from the unclamped index just above. If the=0A=
+> (!n) branch is predicted taken under the same mispredicted bounds=0A=
+> check, the backtrace path does :=0A=
+>=A0=0A=
+> cindex &=3D cindex - 1;=0A=
+> cptr =3D &pn->tnode[cindex];=0A=
+> ...=0A=
+> n =3D rcu_dereference(*cptr);=0A=
+>=A0=0A=
+> and the result is dereferenced at the top of step 2=0A=
+> (prefix_mismatch(key, n), n->slen, n->pos).=0A=
+>=A0=0A=
+> This is the same pattern you describe : one out-of-bounds load, then=0A=
+> a dereference of the loaded value.=0A=
+>=A0=0A=
+> The clamp needs to be done before cindex is recorded, and can stay=0A=
+> after the IS_LEAF() test so that leaf hits do not pay for it :=0A=
+>=A0=0A=
+> @@ -1465,7 +1466,9 @@ int fib_table_lookup(struct fib_table *tb, const=0A=
+> struct flowi4 *flp,=0A=
+> =A0 /* we have found a leaf. Prefixes have already been compared */=0A=
+> =A0 if (IS_LEAF(n))=0A=
+> =A0 goto found;=0A=
+>=A0=0A=
+> + index =3D array_index_nospec(index, 1ul << n->bits);=0A=
+> +=0A=
+> =A0 /* only record pn and cindex if we are going to be chopping=0A=
+> =A0 * bits later. =A0Otherwise we are just wasting cycles.=0A=
+> =A0 */=0A=
+=0A=
+Thanks for pointing this out. I will send a v2 after the 24h wait that=0A=
+moves array_index_nospec() before cindex is set.=0A=
+=0A=
+> Also, fib_find_node() has the exact same construct (same bounds check,=0A=
+> then get_child_rcu(n, index) on the next iteration), and is called=0A=
+> with a user provided key from fib_table_insert() and fib_table_delete().=
+=0A=
+> RTM_NEWROUTE / RTM_DELROUTE only need CAP_NET_ADMIN in the netns owner=0A=
+> user namespace. This runs under RTNL, there is no performance concern=0A=
+> there.=0A=
+>=A0=0A=
+> Please also take a look at leaf_walk_rcu() (cindex >> pn->bits), and=0A=
+> say in the changelog why it is or is not affected.=0A=
+=0A=
+Will do and address both in v2.=
