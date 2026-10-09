@@ -1,179 +1,163 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C2313C5DC3
-	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 21:04:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C4553C9EE8
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 21:05:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791579864; cv=none; b=qppkOCV+fCSIyKbq3dfBet16TeK1vJ0tQS65/lf4Mj7iHehjePh/Ohwq/h40RVrg5mgI+mczoKfAPqNuKD5In3XoQXklPrVIJrF9R5GJzLp2lRuQwH1MyqhYnkgy41XvobCzxN1y1Xsknclox8aDAvnZb1eSY9nqJJk8TxR6n8I=
+	t=1791579905; cv=none; b=BPrM8wFZWUjU4J4LeC03OMJNj8Tv5HHpAnFrt5ZN9d1Q8ijwgkrkOuPZb2H2RnydNOD/hmllfi5JL5uJ83PXrsP/Plzju1z7KwOHk1MdbUeeU/+rx2Tiq52PasQP84WVoJrhaQ/IUXcNHroXRqk3MlzE9MPVOaSdhgchn+MzRp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791579864; c=relaxed/simple;
-	bh=qN6wTt6esSVYwsfd775JJM+9/nreJkmrqFCaV4SlCAs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D4CNjrRbM2kAbXQktpvgxTxVrJkT41eIl6IVQfoT5T+JQNH+7JOr+apq8PgSfzO5/3ZvXlcsnth0OlLKxc1IudLBawrG6e3xEP8h1XEu5fdnMBFxLmEsSsKtM1mqPBHWsSs9XwGsB74T5T/A5oCEUlSoFnRAFwluaj3/x1tb+y4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=V9y0hJ+d; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1791579905; c=relaxed/simple;
+	bh=6opi/5R9M3NXlfgYoH61tIu1FvaiunNCfa3uJFb93kY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=d7nAd5y9hcGgXm5YBOldFP/JAea96lWZa6xsiNyfdujHeP9H+aDHOQqb2ik/zcHhf+BcwqF8cOo0ks4oNzOkQc6k5btHapXv7TV8LTXScMhZTznadqa6KId2ql/aB+vOk6VmppfyugsZ/SKmwzOU4yDE5mykmO2qp4rbZ1avJTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rwXQqGpc; arc=none smtp.client-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="V9y0hJ+d"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so2885325e9.1
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 14:04:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rwXQqGpc"
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c315729ad50so48898466b.0
+        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 14:05:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1791579861; x=1792184661; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YL0mzFwQsFAIJ3BQgODpXdK53+kc5uCfH8dR9lXMlSQ=;
-        b=V9y0hJ+duaCgJpjG4lfBxAFlTGgfvYJ+uBQSPqRWpHs7N3oFKp/+D65slP9/gwdKtZ
-         UYCeFkHqXdghGfogf/HQIQnTvDy+LSAYE5tejZKznAz2LWwUlz175FTKqdqHIeK1TKCQ
-         o9vru3GXIXsrMgOyEA7BnrQtqsKeqT0SrmaeqaUxuyDPdG+LAtyFB5FZiZwgkpMBi7+C
-         HBMcJk4jmDFjNstJT5VnHTZiYiazSJ7t88KD51kKYe6I6ud1MMtxDvW0hVzBGFO64L+2
-         w0ES1tAH34139Fzb4Xa5L6l+AK+U7oD7TmqlO7Mb33PhxgAE0YRqWKOJlfLm6H0hmh6F
-         9MpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791579861; x=1792184661;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791579902; x=1792184702; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YL0mzFwQsFAIJ3BQgODpXdK53+kc5uCfH8dR9lXMlSQ=;
-        b=oKGG7LqrKIwcZBgrkdXqLCNYUnSNQeM6BESFxB2UvRvF5ZvxRUCHk71slN6gv6Tsmv
-         Y/5oo0pYDIxpTQ471qqjMUCaSMLNy+CljPKK/0npuXlEx+oK4F9g0B1KlS7M/x3W12xo
-         ETw/W8SBcqJq1yvhJBVCUTP+Bpt8wxjZ4df7+NYKmi0+YfNPIw9mY+KIAhJHc7oYyzdp
-         YOXuxjjm8l2RFVjrILknoXszrUeQ6jC/6pCFuqYM3ra4Mt0tyg674J0BAu/JgmhKwx1g
-         Ru4rNnHjvl2HyrDYxcTjRNFhb6MwQe9Z0rbwtAAuDK3OqC3wJagmAtxRRJ2CCHWqttLB
-         7c5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzFLPkcBEnIgeGrutuNcyyizcDhkiYGb3slyTy5/lgXAyYRekFwgssYE/hYwN3gXZEeTtXsgwU=@vger.kernel.org
-X-Gm-Message-State: AFuF++ld7pf3NXGVltq4+EhPfVRaf2ly839bhF+Mq/VQbUFPmlocJGJe
-	Y3BWGczKmKyGdnTxwiGyASd34f9W/UJcDfdfazAJhp1NTdMng4RU7JGGTNXo+Xf0/qk=
-X-Gm-Gg: AYBFou0om65VO5xK2ZiMDp2iYjPEYUu5gDNq0kV6jS9oUR3o3modFQg1rabjRtG1yj8
-	6/KZKJ9MHGFuWedBKUb3CvX4WDYxNG7WaoFu3f33O7MKU5+Ht6bviCEUDRZLvYAyPzaGU8F4Z1F
-	0lQw10m96tmH3/VIE8euChq/yVCb6lK/jrLmiw+iZxdzJKOhB9cBFU3onr2S5Xn3EYT8J9AsIJs
-	bKh1YEp+biu4NGVbJBXpVJZL0bKtu4Fd9N34NmHQfSjfOygK790jQwh8rmQHvViEmL4o6sCN//M
-	a1a5a5KxryS1++3Rg7Hr1v0viYFzBF098gJ1IREbYt30sY+1DAUEIGElGItqvCA8ktBSbOvBDMO
-	/2Buc0SdQGUrXKYCVwjGAs1JQqZJmT5QNHLOV/Vri86dvfgeLXcy8+QwRCEIbXEA8A1Ykv/Eiwp
-	2osGwlzx3F/+eQKrS/V167x/UR7SKNb2UT9u0aMVKF6OjjxdcAmec5WUpk0wfNRkM=
-X-Received: by 2002:a05:600c:83c7:b0:4a1:7733:5102 with SMTP id 5b1f17b1804b1-4a18e4a3fc8mr56932985e9.15.1791579861503;
-        Fri, 09 Oct 2026 14:04:21 -0700 (PDT)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e84219e6cdsm16113685ad.28.2026.10.09.14.04.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Oct 2026 14:04:20 -0700 (PDT)
-Message-ID: <5f16e819-f9e9-432a-9544-9277c356ce09@suse.com>
-Date: Sat, 10 Oct 2026 07:34:15 +1030
+        bh=59gWwwZKc4LtbAwf3F0whP4Jml+i88HQZDtzu/90YQc=;
+        b=rwXQqGpc8+yHz2zOiwvJHPG5mdhiojWxn8kHL41yZfpnMlFegWy46GZxSQi1+zm8NN
+         6USm7+mxQMZu1qeKrAL+Uo4hWi0C5K1H6+V1P/RfGzWhxcaHA17koYBbvSA//m5vjnPu
+         9L+hIdgnzvIIFLDXMEU/BtZbf0X8ZK5GbMOlUBDUjgtZOrOUsbgpChJXnIT397kKiHVp
+         qm/rkwqOkIn7RMfyVLxilR9iG/KpU1/SpK7+EHfddKaA4o5IZOuysLLd3C39MI5AKY5f
+         V369DzcBaMxX9IiOTKLv5TqmkW7z+zvPhiX1hzIz3oarJcPX9dNKG5irtVLl5gXvi9Mr
+         KIOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791579902; x=1792184702;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=59gWwwZKc4LtbAwf3F0whP4Jml+i88HQZDtzu/90YQc=;
+        b=dgHwCaeGpMyyh7AooAUCgJ97MENoF/lu50GjZbxejJ+qe6iCOuyw/r/Hw1G8k+Xsyc
+         LyE/OVWd8Z8QVXfV3zHgy+3tuiea0XAExhTFb1Yq1FCVyoEOK+XOAZ09QpObAn9NsVw2
+         ZWFqQyZ3lfmTlhANMD7XYwax+v3MtkSPvhzbB9Ym3dk5vm0ctr4pX1eE3NPwwYO6zMoy
+         sS1vZDfo/usa1s68lpYah7JKsXFFwAz2TOJ4g3A5v46PbXkDCcT0Eu6lcRK9TLucnJqR
+         GeiGYuhX8GFTlk2ZbQz9o0/yCstGaYMHJYD9YF7WHCNqiptz8znzUljroy8Q/MSDKXjc
+         hHBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw8c9ThrydgiQlwZev4cryE5SUWcAZ2NzxyMGBaKJ5SVjphSV4gW5hdVh12O4NP0LeERY+8bRk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJOGu7waVR9aiyTN+JP9+ZU/PkXof76Rx2bhxczVaBRJLEjif8
+	yERTs/09G3mmwhFxpyqjV0TmaDBvaUQ76LY+8PY7Q3b6sSOyqPF8oGaB
+X-Gm-Gg: AYBFou3BZ528AdZtA/w4VqAGLO0b2LKP+D1+VFO4iNsA3/99OAqgruUkaaDAOXS0J4F
+	Bpf/WJFkhc/kUT9jHVV/RxgkbPpTDD3rCKlET0c1VaVhEAtNwLNn9WW4foKKdwIm8FoEiNPikO1
+	OZ46jbEWWaVmvvyICelxlRt5auX+VN6beyuJzSXZ4etQEjx2cxcSjW1dexcpiA5w65fYD6c5Vnx
+	c5yF3VgyQnH2Lu3J0zDAXtQs+2/Q01sJITF24l1/v/dtYB76ck4p+m+5a4USjNZ5zcMG77Kt2aq
+	mq+P2WHz/dsTE3bZf7w67Y2doxGnJ3+uuDSqUHLGYMQXWSp4wt96/7uavv0VBel47vaiBS2PfEK
+	zPzwwhBGNLCVZSxxcOq7kJgeR/IY0cn7crApSUFSVPR+sAsfBZXnqVLG4BFlGeKY44hvoMEErs4
+	uogCKXTm1SfP0ojXeotm+bMjo12e3j85hx8miu+N7RfFT7yqgI4aaGUALwAQMDWq0t6G8HDVShP
+	P1jZU5NCOgpjkSdHqICDNAB+/ynkX1QudRnept5
+X-Received: by 2002:a17:906:630c:b0:c2e:4601:24d7 with SMTP id a640c23a62f3a-c31aa0b038fmr334122466b.39.1791579902349;
+        Fri, 09 Oct 2026 14:05:02 -0700 (PDT)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9765d1asm142141266b.8.2026.10.09.14.05.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 14:05:01 -0700 (PDT)
+From: Magnus Lindholm <linmag7@gmail.com>
+To: richard.henderson@linaro.org,
+	mattst88@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-alpha@vger.kernel.org
+Cc: linmag7@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v4 1/8] alpha: load the MMU context when switch_mm() switches the current task
+Date: Fri,  9 Oct 2026 23:03:46 +0200
+Message-ID: <20261009210449.971057-2-linmag7@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261009210449.971057-1-linmag7@gmail.com>
+References: <20261009210449.971057-1-linmag7@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] btrfs: return -ENOTTY for unknown ioctls on the control
- device
-To: Hengyu Liang <hengyul@cs.unc.edu>, David Sterba <dsterba@suse.com>
-Cc: Chris Mason <mason@kernel.org>, Boris Burkov <boris@bur.io>,
- linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261009173359.3486877-1-hengyul@cs.unc.edu>
-Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJqqw0NBQkUl/JeAAoJEMI9kfOh
- Jf6o/xYH/3AaWnGSq58XnY/T3/YYjr6g+TUZxa7MPyiYTELNpNlvmNlbtbAL0nW0LNvkeiqf
- SmYA+xkwY4RbxnZYQK0H5iv2w1eqa9qqFZb4bIBRmTapu26GEEkpad0W0ZhoSPMO8bV2Bwkf
- YdtPZQLaeUKvHZqNqBKnmtRLQj2Cgy3kuXX3bEGvWjzUOxPUSCj/S++JWBewMdMBPT62vZM0
- 3156gfn5mHA94s2p+NFJoWkERY+JPTMu9NISkpD7yuGhXN88qd/aqD0RrlhxvKsrQogdPwn9
- vP18FGG3CRlHtOvOLVoY5NKSOWTDc+o+8t2XEETFTGbKYTcqeTzi4SxhvBLtTinOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
- cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
- qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
- /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
- o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
- JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
-In-Reply-To: <20261009173359.3486877-1-hengyul@cs.unc.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+ev5_switch_mm() only prepares the incoming PCB. The context is installed
+by PAL_swpctx, which alpha_switch_to() issues against that PCB on the way
+out of the scheduler.
 
+Two callers reach switch_mm_irqs_off() without going through
+alpha_switch_to(): kthread_use_mm(), which borrows an mm for the current
+kernel thread, and sched_force_init_mm() on the CPU-hotplug teardown path.
+Neither explicitly loads the context, so the task can carry on running
+under whatever was loaded before while current->mm says otherwise.
 
-在 2026/10/10 04:03, Hengyu Liang 写道:
-> Commit 5ab2b180884c ("btrfs: factor out validation of
-> btrfs_ioctl_vol_args::name") made btrfs_control_ioctl() store the result
-> of btrfs_check_ioctl_vol_args_path() in ret before it looks at the
-> command.
-> 
-> However, ret is initialized to -ENOTTY and the switch has no default
-> case, so this initial value was what an unknown command returned. As of
-> now, every unknown ioctl on /dev/btrfs-control returns 0. A tool that
-> tries a control ioctl which the running kernel does not have is told
-> that the ioctl succeeded.
-> 
-> The issue can be reproduced with a simple C program, run as root:
-> 
->      #include <fcntl.h>
->      #include <stdio.h>
->      #include <sys/ioctl.h>
-> 
->      int main(void)
->      {
->              static char buf[4096];
->              int fd = open("/dev/btrfs-control", O_RDWR);
-> 
->              if (ioctl(fd, TCGETS, buf) < 0)
->                      perror("ioctl");
->              else
->                      printf("ioctl succeeded\n");
->              return 0;
->      }
-> 
-> Before commit 5ab2b180884c ("btrfs: factor out validation of
-> btrfs_ioctl_vol_args::name"), the result is:
-> 
->      ioctl: Inappropriate ioctl for device
-> 
-> After that commit, the result is:
-> 
->      ioctl succeeded
-> 
-> This patch will add a default case that returns -ENOTTY.
-> 
-> Fixes: 5ab2b180884c ("btrfs: factor out validation of btrfs_ioctl_vol_args::name")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+The stale page-table root need not be swapper_pg_dir; it may belong to a
+user process that ran on the CPU earlier, and the kthread's user accesses
+can then read and write that process's memory wherever the stale mappings
+allow. Translations taken that way can also end up tagged with the
+borrowed mm's ASN: ev5_switch_mm() writes that ASN into the PCB, which the
+next PAL_swpctx installs against the stale ptbr. An address the stale
+tables do not map faults instead, and since do_page_fault() resolves
+faults against current->mm without reloading the context, the same access
+can fault again on return.
 
-Reviewed-by: Qu Wenruo <wqu@suse.com>
+sched_force_init_mm() needs CONFIG_HOTPLUG_CPU, which alpha does not
+support, so kthread_use_mm() is the only one of the two reachable in
+practice; the fix below tests the caller's identity rather than
+special-casing either one.
 
-Thanks,
-Qu
+The scheduler passes the incoming task, which is not current until
+alpha_switch_to() runs; both direct callers pass current. Test for that
+and load the context the way activate_mm() does. Both hold interrupts
+disabled across switch_mm_irqs_off(), so this completes before any
+shootdown can be taken and needs no asn_lock handshake.
 
-> ---
->   fs/btrfs/super.c | 3 +++
->   1 file changed, 3 insertions(+)
-> 
-> diff --git a/fs/btrfs/super.c b/fs/btrfs/super.c
-> index 823a58bd2685..acb704b20c2b 100644
-> --- a/fs/btrfs/super.c
-> +++ b/fs/btrfs/super.c
-> @@ -2291,6 +2291,9 @@ static long btrfs_control_ioctl(struct file *file, unsigned int cmd,
->   	case BTRFS_IOC_GET_SUPPORTED_FEATURES:
->   		ret = btrfs_ioctl_get_supported_features((void __user*)arg);
->   		break;
-> +	default:
-> +		ret = -ENOTTY;
-> +		break;
->   	}
->   
->   out:
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+Tested-by: Matt Turner <mattst88@gmail.com>
+Reviewed-by: Matt Turner <mattst88@gmail.com>
+Message-ID: <20261008195608.965266-2-linmag7@gmail.com>
+---
+ arch/alpha/include/asm/mmu_context.h | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/arch/alpha/include/asm/mmu_context.h b/arch/alpha/include/asm/mmu_context.h
+index eee8fe836a59..c5cf7dbe6161 100644
+--- a/arch/alpha/include/asm/mmu_context.h
++++ b/arch/alpha/include/asm/mmu_context.h
+@@ -130,6 +130,8 @@ __get_new_mm_context(struct mm_struct *mm, long cpu)
+ 	return next;
+ }
+ 
++extern void __load_new_mm_context(struct mm_struct *);
++
+ __EXTERN_INLINE void
+ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
+ 	      struct task_struct *next)
+@@ -139,6 +141,15 @@ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
+ 	unsigned long mmc;
+ 	long cpu = smp_processor_id();
+ 
++	/*
++	 * kthread_use_mm() and sched_force_init_mm() switch current's mm
++	 * without alpha_switch_to(), which is what loads the context.
++	 */
++	if (next == current) {
++		__load_new_mm_context(next_mm);
++		return;
++	}
++
+ #ifdef CONFIG_SMP
+ 	cpu_data[cpu].asn_lock = 1;
+ 	barrier();
+@@ -160,7 +171,6 @@ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
+ 	task_thread_info(next)->pcb.asn = mmc & HARDWARE_ASN_MASK;
+ }
+ 
+-extern void __load_new_mm_context(struct mm_struct *);
+ asmlinkage void do_page_fault(unsigned long address, unsigned long mmcsr,
+ 			      long cause, struct pt_regs *regs);
+ 
+-- 
+2.43.0
 
