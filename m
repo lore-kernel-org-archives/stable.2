@@ -1,49 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DDA8225A38;
-	Fri,  9 Oct 2026 17:10:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE4773B3BF0
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 17:10:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791565811; cv=none; b=j3VS3ZKMuQg7uTSgazagfwI3qehjGb/10NeQoDDc4DcPTDQYkNxvzTppKROVEkPhHbRqA0N++kw7sd3MpKb8KRr6nbNhXapc7PiHgpUX/ah3+/v+hviLFTkUelVe9NV/TC/iHbBXUKRi6ABEXm34o1H8Sj8DgXBYp3LFAGg9aFc=
+	t=1791565812; cv=none; b=YA1S6QXjyRY3GwZskCOj8K1xv2w4s+fpt1o+lJ3GHllt8tdzwA0ZixM/jPVrZQmqe2aqroSmmsV4Cmbja7Ilczk3bvYoUqr9DouED2ACDSxLhwQJuyUkJ3AsYPB1NJcyLz1asaxaF4XI5oEEMknE4h3db1ppgUSPYO5gB70wp9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791565811; c=relaxed/simple;
-	bh=KaRJ90z1TbXAFeQVM+8LhfMJYA0arBUoY3wDAURj0l8=;
+	s=arc-20240116; t=1791565812; c=relaxed/simple;
+	bh=PV7kGmu3yzMJEz0znRcVADbxrT02Wt2MpenYUEBX7dE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=loz1gWBQ5lnw7tFc9a0TdTCzly2nbtlSLeiLbZXwQMYNJWh65o1FgcgMO9RPg1AECSp8OZXw56I5wxgsyu1/HdaJiNRxOWLkwrkGyoSAHhI84fjpKETSuB7sVbLzX7J+qH9BYeGHq4UQ21tzmZoEFijPCrSv3FVyfd6Q501HunM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=afbn0NU5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=SgOdORP395+2aUa83MUZFVXBt1PGui4DzQFDUrqfDRoxQCx3AD54HA7RAg+zc4fVAfiz/Z2tn5qBSnh+RwC+5lAC6bTddWO7EVpwhwPuGqJXv15n1peoO9z52f3MI4dplo11Jdc6ZO/zIrRbL4B6jO0IAUDbjnlONmc1N2a+UUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TD0Mkopz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="afbn0NU5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 844491F000FF;
-	Fri,  9 Oct 2026 17:10:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TD0Mkopz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E44D1F00893;
+	Fri,  9 Oct 2026 17:10:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791565810;
-	bh=HunNinc9SG89+VIP8TJHVz99lCk4BIchEcSpbK3f13s=;
+	s=k20260515; t=1791565811;
+	bh=BGFuiLisNk6Tjb74BmdIou/ocVH6Hx1bjxZZ237l/b0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=afbn0NU5k5bTg2MpxIE9kaUIxkt9fN5EC+rAqpkBeJjKNhQXcdlQGp/yVilaM9F2t
-	 +Bu/Y9+YmRX81zzCaIL+1eoZ8LUFC+H2MQZRqcN4qaBcmgBA97bbYyIbsI9cJk4f0V
-	 4s1kvxP5bw5QilK6yp1c5ee/o2xX05xKoIywDNH5Z1b82euOcWC3zHyDofEoDxbe6N
-	 yrmaot5PtIIBWrYYR/vHfhYL7/dfVwus1HTZ3t8NRx4AqLYuugSzF+5YZ6QkVazC2E
-	 0x4q85Or+LSDvkpBf4zyRjLQX8jMhr0pUPal/qyhuL3r3H8xHff8MJx5myCPU3xGu0
-	 GqDwWkIMW5V+A==
+	b=TD0MkopzieOAi5kAvA8mT1/5Q779gRhMvXpJQBBFIHZrLcahFPvyZ5NvE7CBW33xk
+	 serf0YdANjjBqAte2bX375bcTSm14mhRp9V9prHA9yZMiAp5gZTwKwsm+lGLa1y7PB
+	 6xaz/UgfbxYhnrskYsTK8VPW9BAmwBrk2MMply8j9dLcfm2IxaCsdcwHLA5ihkwePN
+	 wgOLj8+QNZd/GHj/VddT0DxwTMs2WPUIA16vVdLwE0bQvmy3jN8r40rHusL+OkFuf9
+	 j3TuNV95CsJjkGt563LICNJB7LsikWUtOT+epo3Nt/8UPnU01+TBAMbdVBFLbjoMsr
+	 Qk5iglcecbd2Q==
 From: Sasha Levin <sashal@kernel.org>
-To: Eric Dumazet <edumazet@kernel.org>,
-	=?UTF-8?q?Fabian=20Gr=C3=BCnbichler?= <f.gruenbichler@proxmox.com>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Michael Chan <michael.chan@broadcom.com>,
-	Joe Damato <joe@dama.to>,
-	netdev@vger.kernel.org,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	regressions@lists.linux.dev,
-	stable@vger.kernel.org,
-	Stefan Fleischmann <sfle@kth.se>,
-	Thorsten Leemhuis <regressions@leemhuis.info>
-Subject: Re: [REGRESSION] Commit 447cbe95ebb9 causes IOMMU DMA faults on macvlan/vlan with bnxt_en
-Date: Fri,  9 Oct 2026 13:09:38 -0400
-Message-ID: <2026-10-09-1-daily-reply-0001-bnxt-en-dma-length-fix@kernel.org>
+	Johan Hovold <johan@kernel.org>,
+	Ting-Han Hou <ue081723@gmail.com>
+Subject: Re: [PATCH 6.6.y] tty: port: fix tty_port_tty_vhangup() race
+Date: Fri,  9 Oct 2026 13:09:39 -0400
+Message-ID: <2026-10-09-1-daily-reply-0002-tty-vhangup-race-6-6@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cce34174-a70a-4e59-9c35-fd74309b0fb5@leemhuis.info>
-References: <cce34174-a70a-4e59-9c35-fd74309b0fb5@leemhuis.info>
+In-Reply-To: <20261008134319.1183247-1-ue081723@gmail.com>
+References: <20261008134319.1183247-1-ue081723@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,11 +45,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> FWIW, better wait a little longer till a fix for another regression
-> 447cbe95ebb9 exposed in another driver is fixed, too:
+> Add the missing serialisation to tty_port_tty_vhangup() and
+> tty_port_hangup() so that the former does not return until the port has
+> been shut down also when there is a racing hangup.
 
-Eric's bnxt_en fix is in mainline now and does not depend on the r8169 issue.
-Queued for 7.2, 6.18, 6.12, 6.6, 6.1, 5.15 and 5.10.
+Queued for 6.12 and 6.6, thanks.
 
 -- 
 Thanks,
