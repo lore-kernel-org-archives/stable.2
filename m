@@ -1,102 +1,88 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-138.mta1.migadu.com [95.215.58.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A9044C64C;
-	Fri,  9 Oct 2026 12:22:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6ECB47F3B7
+	for <stable@vger.kernel.org>; Fri,  9 Oct 2026 12:30:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791548544; cv=none; b=TDONh2g//bUPBiE/t5swaafQkQyaRI0sOcTaJm7O6+qDK4aFMQKSZYMx9S7EUf805fWslliNk80bvVcTgw2WmWnbF2Iu9zLgKleiLDn+Wytfgqh6UOCvKmhbpMdyMZ69KuBnD4niLQ/OBqm4/gChSB8ThrrK0RdQyiV14nRE91k=
+	t=1791549053; cv=none; b=VpnTT24kQOXPfZ9yE/X0QIoPdmNsveHJnnvrm6nchIqaCtAgEjUB2i8UBQaOLig5SRbHLuwJKiosOlCx/FK4yexpiDI8A2VYMvKv/Nj4Wn7paqERXySFeKHyljA05TSsCZZTE0CJA3s8hBDJPG2pP1JCo0YcstmCflOZE/JmV1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791548544; c=relaxed/simple;
-	bh=464YzXGaDQUbdH+7KNEdxBgo56LjFG1riLV/FeW9DEw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KYsmH33M7MqOokNOkU8VyzQCC1aEnq8lEeF5PYZAD6QhiIhlDMMg1uQfQ92howg/CF2uw7yaTgZEojnK1kq97RW6mQBs+qAEY/appwFSL7ZWlH9MlZPe/TWzanYHo0mvPn0b3YlwW9WfZQOk7Nwy+IKV68XoXX03JtF+T61z/Ew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=4QMpZlUr; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1791549053; c=relaxed/simple;
+	bh=xVL4GFavCPIhSY+sQODNgo3KmrmxrCIcaev0qZ+6NO4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jxsQF8HWwuqSQVPvjziKaROZsUKVvz13Qyq8rAhmSxzXGj/WcRmQbkq/He376wbA/MTsRXmXPRY7eVD07WaXT0oaNcaGvUayfJ4BlKf4BASNCM5T9C/JTgnm2aJqUqCE+Z9yTO3F80nL1EvFygD684J1eTpKfk9jnsGXcaTfBgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=f1d3JJbz; arc=none smtp.client-ip=95.215.58.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="4QMpZlUr"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=ZqrK1Qsencsi1WEjQh8Yxu5eRbvhSvpLF3WsCRZH2UE=; b=4Q
-	MpZlUrJY9LL0t1S1d5NYqm7eHgNjlOo1QjEUl2H173SfCZbQ5j5NCEHDUUVpORB+mpuJQS0DJizzh
-	tt6UpvKz+wTcCzv0cHf3RmaAQD9nc8fzCQLQ9z5jxwzl/ZV6kHYE5MBHOnjl8IMbsH7cusZfz2vvP
-	q1rTazV+qlU4LJM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xF9bw-009mlP-0G; Fri, 09 Oct 2026 14:22:04 +0200
-Date: Fri, 9 Oct 2026 14:22:03 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Linmao Li <lilinmao@kylinos.cn>
-Cc: Hayes Wang <hayeswang@realtek.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Chih Kai Hsu <hsu.chih.kai@realtek.com>,
-	nic_swsd <nic_swsd@realtek.com>,
-	Birger Koblitz <mail@birger-koblitz.de>,
-	Xiangqian Zhang <zhangxiangqian@kylinos.cn>,
-	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH net v2] r8152: Use BMSR to detect the link state
-Message-ID: <591ca604-b296-4469-94b5-957d9ba45ae4@lunn.ch>
-References: <20261005105249.1281648-1-lilinmao@kylinos.cn>
- <fd3bff0e63304681b9e5f35f2f57e50e@realtek.com>
- <7a8d21bd-3484-4120-abd6-f7290f919b7d@lunn.ch>
- <2bd3886a-da6e-4703-bd7a-9baa32bfd2f4@kylinos.cn>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="f1d3JJbz"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=xVL4GFavCPIhSY+sQODNgo3KmrmxrCIcaev0qZ+6NO4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791549044; v=1; x=1792153844;
+ b=f1d3JJbzBM0sVQ9y+pKCZgYlyuQHrcBOdF2IgL3ST2B7704P+tsoqqkSpkdach1Kxlwxfg0X
+ r1eqK7sQ7lypZCqXZjL0ndbziVmQZFsxF7vyXXTZmS9UGhMVixIg4HMjBpXRHckIoVNM7VCYVeX
+ gsnNPwNwFPtVr0Kq4SnWQVi4=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ff963d78d54d91b6;
+	Fri, 09 Oct 2026 12:30:28 +0000
+X-Mizu-Trace-ID: ff963d78d54d91b6
+X-Migadu-Flow: FLOW_OUT
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Luka Gejak <luka.gejak@linux.dev>,
+	stable@vger.kernel.org
+Subject: [PATCH rtw-next] wifi: rtw88: sdio: reject oversized RX packets
+Date: Fri,  9 Oct 2026 14:30:22 +0200
+Message-ID: <20261009123022.87787-1-luka.gejak@linux.dev>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <2bd3886a-da6e-4703-bd7a-9baa32bfd2f4@kylinos.cn>
 
-> Hi Hayes, Andrew,
-> 
-> Thanks. Since the newer ICs notify only when the link status changes,
-> the driver cannot rely on another link up notification after the link
-> has settled, so v2 can leave the carrier off when the first read
-> returns the latched link down.
-> 
-> Before sending v3, which approach would you prefer? Both fixed the
-> problem in my tests on an RTL8153B with v7.3-rc6:
-> 
-> a) Keep carrier detection on PLA_PHYSTATUS and read BMSR once before
->    carrier on, only to clear the latch. This is the option I asked
->    about on v1.
-> 
-> b) Detect carrier from BMSR and read it again when the first read
->    returns link down, as genphy_update_link() does in interrupt mode.
-> 
-> Neither depends on another notification. Neither reports a short link
-> drop that recovers before the link work runs: with a) a later speed
-> query still sees the latched link down, with b) the latch is cleared.
-> 
-> Hayes, for b): is BMSR_LSTATUS reliable as the carrier source on all
-> chips supported by r8152?
+rtw_sdio_rxfifo_recv() also takes the last-entry path when the descriptor
+claims more data than rx_len. The skb is then passed to rtw_sdio_rx_skb(),
+which calls skb_put() with pkt_len and does not check it against the space
+left, so a bad descriptor can overflow the skb.
 
-Ideally we want a list of devices which correctly do notification on
-every change of link state, and which are broken.
+Reject the packet when pkt_offset + pkt_len exceeds the bytes left.
 
-For those that work, read the BMSR once and report the down, and then
-later on the second event, report the up.
+Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
+Cc: stable@vger.kernel.org
+Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+---
+ drivers/net/wireless/realtek/rtw88/sdio.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-For those devices which are broken, double read the BMSR.  The danger
-is, somebody who quickly unplugs and replugs the cable is not going to
-get the down notification. The dhcp client will not restart, so the
-old IP address will be used, for the next hour to day, and the network
-is broken.
-
-    Andrew
-
-
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
+index dc2fd0f8f9ff..3a86fdcde367 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.c
++++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+@@ -1389,6 +1389,14 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 		curr_pkt_len = ALIGN(pkt_offset + pkt_stat.pkt_len,
+ 				     RTW_SDIO_DATA_PTR_ALIGN);
+ 
++		if (unlikely(pkt_offset + pkt_stat.pkt_len > rx_len)) {
++			rtw_dbg(rtwdev, RTW_DBG_SDIO,
++				"oversized RX packet: %u, %u bytes left\n",
++				pkt_offset + pkt_stat.pkt_len, rx_len);
++			dev_kfree_skb_any(skb);
++			return;
++		}
++
+ 		if ((curr_pkt_len + pkt_desc_sz) >= rx_len) {
+ 			/* Use the original skb (with it's adjusted offset)
+ 			 * when processing the last (or even the only) entry to
+-- 
+2.55.0
 
