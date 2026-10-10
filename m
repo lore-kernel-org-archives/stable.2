@@ -1,151 +1,122 @@
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8659E25B0AC
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 03:46:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4620C314B6E
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 03:49:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791604004; cv=none; b=l/BnD2ti9yWlB8gKIFcX4kUkQHZiJgxR4JGmgvy8x2vqlQW+fZfd1kZujlQiQgmnJqtk5nUrQhFuss3uzSVXVDLmOCVJYBInSWkfbMhofQh+BvHXufTWLzzT65Ntq/6QKrOB8AQL8yURoS3gGew7qIHdGKrN0v04THHeSu0emm4=
+	t=1791604191; cv=none; b=YOZ8Uf7NwNeYn075ccj3Tg7TFoE4Q1dvwTK48tEkiy9rCeuHMMOKjduGQPa2Uk+BfBdd9oi2PGWzlGJx6B/UxSu4ty7qkExkBlB9Z2Kcm1InLPDDKpUz2cau/utMwEogeW3vtuXTiuduhQZzSqzPyjmW6F0mwq4A/HXo/7tvHWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791604004; c=relaxed/simple;
-	bh=k8TPoiMwAjR5GOxMyjwMDX7WGOJ4rF1M+VeIYQvoBuc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BKteKffeGhcrvSCfnXQwkrOFG/bxb5GgUn8Btsot0E05Lgewz2KM+6++R3bcCH3YsEpJ37JAYW6wgkGPL6c1bicu6FI1w+iwjIhtKvljIWuOzkW4YbMOY1kzxNz/BXOZY9QLqsJYpqBJSjDGIrNwPc6ko6WuqAl3j99gMF498OU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=CdaTJCv5; arc=none smtp.client-ip=209.85.219.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	s=arc-20240116; t=1791604191; c=relaxed/simple;
+	bh=6/K+eNNExrDxiz4cNrHR8UMtpKftRFjou/DDzEJJAUw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qELCYX9Gq/3E5JUl9y9FLgxeAD4buwBXoz9ChFYmUsMZ3k/kfwVCZ7G5CFKhDERgC71vD6+HmK45fMIt+BTfZKYY2TWxol6eMekWK2LmNcsyHV8zoEvjERPRLsZH57iDbqBqPCtYrB/WuIQaSJI8IDCMDq132q3JGROgGYjVb30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q5ZZ2KCz; arc=none smtp.client-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="CdaTJCv5"
-Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-91791ec1b83so3965946d6.1
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 20:46:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q5ZZ2KCz"
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-141395927feso526464c88.0
+        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 20:49:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1791604000; x=1792208800; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9496Z4xJQFpi1+eiTqu1gpT5LZKW67A1SEVUrT0nCjI=;
-        b=CdaTJCv5K2w4VqQdCyMp8bT1M3Pt1kh4zC9XkltN1kt0+A7w/KupiwBQEhKJ1NYQRS
-         lPeie4y1Q5tabABFfu0rKopRhAzIxYyIDTqeu8ee1M/qLkseDTtLtO/AsxWK13a647K8
-         MrXNFZQvF38hf29HMfmz+aPqusM8DqUmEPw4yXcJgm9Am+dUcH/xs/hyRYYemcF4z6Dx
-         kc6yYKbNlDUnQXCaI2mvbxa5SPRQdJx1rg2zelyygENubFwOk1IUZaQJC+YxcS3p+z0b
-         fzKR+OGlfCoxsoHfgTNZMoO433rC48JS8c39irec9ta+OBivBTydE7UeLE5jFSWpBCZm
-         rG/g==
+        d=gmail.com; s=20251104; t=1791604189; x=1792208989; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zVQetDWwW2PxKKO9Z+bh0RgGH3A8eaKFTq7bp+ejMxs=;
+        b=q5ZZ2KCznOGwoh46UJDV6PO5mjOT1U/wdxIy55LiUDFFo7iOkPCoSQ6Vuh3ggwMQTQ
+         Z7uUjM2/IDZitej+JHDCy4jHlMNe2ZtbCivR8NdyKPYWGFv1qIIaMtDQzUBBjMDSKx/u
+         d91XVq6WJGQaLVmC7CiGSZvwQpy9sjx4YtfBJPcQEUVf4lmqG4uDdRh1iigd5X4Vc4X3
+         lpfh0ZF61YnyOff9JmQiieNCtF4oEfw6Wb7H4iT1Q/NPp2rovpXNIuhD/1luiGkceGhN
+         kj2yCrfLAuL+tCCZYqXAvu+NlEUIodCxpdyA17F3y4GZb9k7yLexg3JKJp2lt5QD0nRl
+         rJdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791604000; x=1792208800;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9496Z4xJQFpi1+eiTqu1gpT5LZKW67A1SEVUrT0nCjI=;
-        b=pWbzAq/FVuPycuYx0JbmGm7U+qVPTRF01+isjK9qRxwqy6dPf+L1vxjI9hqlOi0uMZ
-         A/ERBgbTzscwIMGAkxIuAHpU1pdKHhKcBBVRDmJd8bHjiiYUr02u1jMunjsUatsCHqOK
-         4gcl/ELIzfj7HgdGWAA6WSntNExLAeM0tlwNaI/42JMMIg5a5Tc+67g1/IXTZvfR+w15
-         66EBacJemQKeQAqI1sWFbtVYhKdNPvKt9KcY+7UhcWSisDRo5O8KxZrdTTy1SM4Xb28o
-         yv4tn4KFINQAvuo+ecdrqQeqlhMB145G4VPZ8BRWmycigbTzXA4Flb6Nd7ZNyQVeoENH
-         vC+A==
-X-Forwarded-Encrypted: i=1; AKwUvByGfUFdT0eWUZItD5RxnUo4ie96EZArTVUE7AXTMSWMR74nvsgm0bLa3baYJhq0eoVAmjjgsRo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ3ZjZG6CPKuJCcY28JX/ChJKWM9mFVkYf0X/YdI9UsiUAKuLQX
-	c2r8DGq7WhQjsU4gk9pMJIFl2ebGwlOEQdGobtDYOLSll7N38Uf+r+XvzTI2vyM3Mw==
-X-Gm-Gg: AYBFou3Y6bK0KKy+hzl6h8eH92BWD1oiQgQ7uVXJ1l/56nXQFGaco6TqSY1tbs6czoA
-	gNDyEqytH3rPb5QNnZumHSOIVLNKKYBSsODEPRy8oafhMlx4K3/2gjBKK/XjLbBtTpyQ6ruP1jU
-	Xw1zIUb1iPoRiKBvdil5cgpM8Sua+nYMHbwETjClK26dY/U7rg6JoMeIxnfYNn4bjfMABdG6cC1
-	I4xzrk3nQEMfrRHwLUMVsgskEgp9NPXuVTGqaRbh4y4FmCBa5f9GuDweDbp84RHXigpvO5bF/Uo
-	ImIDnHMEnW/2Qt5u3qkqsmgflYZWL8ePiumwTp6YdFQQJo4CduluSzQkStie+TAlLr5VmuHhY3v
-	2yAxZhocjg5hg4/8s8wkPW0+r0QqnXcRmdx8lVWezIszQRocasiN+KN9kLWNQue3H3AMgqfwghp
-	Z1Gwg6weSANYWB1tYcDSxXifFY/0H++JrQ3KY4O2bFpCMnDigwjGcmhlrPPbVnmI/I6RwypnQSn
-	h+kOa/UJacaKyErqqJLLg==
-X-Received: by 2002:a05:6214:4291:b0:919:aba4:22e5 with SMTP id 6a1803df08f44-91b554ec072mr64283936d6.18.1791604000205;
-        Fri, 09 Oct 2026 20:46:40 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b550e1068sm35475306d6.46.2026.10.09.20.46.39
+        d=1e100.net; s=20260707; t=1791604189; x=1792208989;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zVQetDWwW2PxKKO9Z+bh0RgGH3A8eaKFTq7bp+ejMxs=;
+        b=eYWi3iJd0/Mkfu4tjiuw3K7nuJ3cdWdphdhEH5fC+VTwrCWsonO5+CWHhT0vFPlaQM
+         SST9agxwJn4ZSVXxar65CsLnO/HEqsbK2GB7ai8HSygKs3fSCaBwYYefgU3+/ZOH3jCY
+         qj0Ch43kgwNzboV2jZqVmEFYlQotRYLAXlFE7hIrrM65Mthe+cVNh+447RdaZo59RJeZ
+         DaWQkYd/6D8SWab4vnsFGCm+E3SelfirlxDxCZuHYaNBEG5I2HVyJ3BK1+FVR/j07mJb
+         /U49r3xiWM46dsd984C6HsUJUmp1gkG0kxopoX+fhtpChwGWDcGxP9ePk2YMoUdDs9ha
+         nKjg==
+X-Forwarded-Encrypted: i=1; AKwUvBwC4C9JLgW1GeAsoBIVQde8Cs0fctL+oa8l4sF9mKalMpiI2fZ9umSVx234jkWhXTfpiV2I2Kg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZGkNvECt9GEiCkWa7iZSGJuxXI5++BbSYjDd+FgNeGFij69RS
+	4rG1Ag9wlAicaub7G/USTBCEBUVqZzRKLl65HbiB2aQA9NH3bmqqX5v0
+X-Gm-Gg: AYBFou0xt3uwKqxr837fCngDE6u6LcdweUMS8MUpGJ6hvU6BiZWW28JkNrvn+ZZ5b0/
+	sMNwhV6H8K6arTZVZyC4oec1MysICtipHrJdx+BvaPYmTVt+4bDnAScKTP2dIcgFu3m/edwonZ3
+	64ly8MGid0uUMbNojc8cX1WfWY/3gi0dlgNz94Xl7BHu+7k7HKv8pcVx3Wa/Ddv3JvfWWh+y0dC
+	Sqmsa3URupjX3UM7/a1hTyy6GaRfn4qE3d4kUu5FfDzH/3ne1Rg45J6Tq9JAG8R6rb1KwU0X1KX
+	FCjivI5oXHzjxIju+nyRM+kJv1iYU1G7XtGfeQVDRgjw7hwBK6H3QFc3TJg29X0+nzPhO3k0vWY
+	mJZnbeIRGzSusw8ULaOQ/POModkFO8gs6jyfATwhTQ9vwCGddTqBWnFq0OGk5SdYB47sGKZZSZ0
+	ddoQdbmoqmNV1WlVeyg9wZpKEzJr96p6LwwM4h3jHLO47eASWioKFKohveZao6XN58iSk/hudd8
+	X1yqUzk8xHBqTfcbre+ITia7uYqZdKAF2cm+Fuw
+X-Received: by 2002:a05:7022:5f18:b0:143:298f:33b6 with SMTP id a92af1059eb24-16a6203ab5emr4327883c88.46.1791604189134;
+        Fri, 09 Oct 2026 20:49:49 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:b7ea:19aa:c6f7:8c02])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1dd5cb5sm8835444c88.6.2026.10.09.20.49.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 20:46:39 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: Johan Hovold <johan@kernel.org>,
-	linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+        Fri, 09 Oct 2026 20:49:48 -0700 (PDT)
+Date: Fri, 9 Oct 2026 20:49:45 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Wei Jie Law <98lawweijie@gmail.com>
+Cc: Andrew Duggan <aduggan@synaptics.com>, Jiri Kosina <jikos@kernel.org>, 
+	Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
-Subject: [PATCH] serial: core: fix TIOCSSERIAL and TIOCSERCONFIG on uninitialised ports
-Date: Fri,  9 Oct 2026 23:46:16 -0400
-Message-ID: <20261010034616.3915864-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+Subject: Re: [PATCH v4 1/2] Input: synaptics-rmi4 - fix irq[] overrun with 7
+ interrupt sources
+Message-ID: <asm1vCJYVKA5bHnd@google.com>
+References: <20260825103123.12216-1-98lawweijie@gmail.com>
+ <20260825103123.12216-2-98lawweijie@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260825103123.12216-2-98lawweijie@gmail.com>
 
-Commit 8ca59f7baee7 ("serial: fix ioctl hangup race") made
-uart_set_info() and uart_do_autoconfig() return -EIO when TTY_IO_ERROR
-is set, so that they do not run on a port that has been hung up.
+Hi Wei,
 
-However, TTY_IO_ERROR is also set on a port that could not be started,
-for example because its type is unknown, and by uart_shutdown(), which
-both functions call. As of now, setserial cannot configure a port that
-the kernel did not detect, and an autoconfig that follows a port, irq or
-type change in the same setserial call fails on any port.
+On Tue, Aug 25, 2026 at 06:31:22PM +0800, Wei Jie Law wrote:
+> rmi_read_pdt_entry() takes the interrupt source count straight out of the
+> Page Description Table entry the device supplies:
+>
+> 	entry->interrupt_source_count = buf[4] & RMI_PDT_INT_SOURCE_COUNT_MASK;
+>
+> RMI_PDT_INT_SOURCE_COUNT_MASK is 0x07, so the value can be 7, and
+> rmi_create_function() copies it verbatim into fn->num_of_irqs.  But
+> struct rmi_function declares
+>
+> 	int irq[RMI_FN_MAX_IRQS];
+>
+> with RMI_FN_MAX_IRQS == 6, and both rmi_create_function_irq() and
+> rmi_unregister_function() index that array up to fn->num_of_irqs.
+...
+> Size the array to match the three bit field that feeds it.  Clamping
+> num_of_irqs instead would silently drop an interrupt source a device is
+> allowed to declare, and would desynchronise irq_pos for every function
+> created after it.
 
-The issue can be reproduced with setserial (busybox) on a port without
-a detected UART, for example ttyS3 of a QEMU guest:
+Per the Synaptics RMI4 specification (Section "Function Descriptor
+registers"), only values 0 through 6 directly specify an interrupt
+count, while value 7 is reserved to indicate "more than 6 interrupt
+sources" (which is why the comment above RMI_FN_MAX_IRQS states "up
+to 6 interrupt sources in the normal manner").
 
-    setserial /dev/ttyS3 uart 16550A
-    setserial -g /dev/ttyS3
+Since the driver does not implement support for functions with more than
+6 interrupt sources, we should keep RMI_FN_MAX_IRQS as 6 and reject
+functions reporting interrupt_source_count > RMI_FN_MAX_IRQS with
+-EINVAL during PDT scanning in rmi_scan_pdt_page() (after the
+RMI4_END_OF_PDT() check so unpopulated 0xff entries still terminate the
+scan cleanly).
 
-Before commit 8ca59f7baee7 ("serial: fix ioctl hangup race"), the
-result is:
+Thanks.
 
-    /dev/ttyS3, UART: 16550A, Port: 0x02e8, IRQ: 3
-
-After that commit, the result is:
-
-    setserial: can't set serial info: Input/output error
-    /dev/ttyS3, UART: unknown, Port: 0x02e8, IRQ: 3
-
-This patch will check tty_port_active() in these two functions instead.
-uart_hangup() clears it under the port mutex, and it stays set on an
-open port that could not be started.
-
-Fixes: 8ca59f7baee7 ("serial: fix ioctl hangup race")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
----
-Commit 8ca59f7baee7 is in the stable queue for 7.2.
-
-Tested on v7.3-rc6 in QEMU (8250). A TIOCSSERIAL that is held in
-copy_from_user() with userfaultfd while the tty is hung up with
-TIOCVHANGUP still gets -EIO from uart_set_info() with this patch.
-
- drivers/tty/serial/serial_core.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index 6332ed545c89..81a985424694 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -896,7 +896,11 @@ static int uart_set_info(struct tty_struct *tty, struct tty_port *port,
- 	upf_t old_flags, new_flags;
- 	int retval;
- 
--	if (!uport || tty_io_error(tty))
-+	/*
-+	 * TTY_IO_ERROR is also set on a port that could not be started, and
-+	 * this is how such a port is configured. Only refuse a hung up port.
-+	 */
-+	if (!uport || !tty_port_active(port))
- 		return -EIO;
- 
- 	new_port = new_info->port;
-@@ -1144,7 +1148,8 @@ static int uart_do_autoconfig(struct tty_struct *tty, struct uart_state *state)
- 	 */
- 	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &port->mutex) {
- 		uport = uart_port_check(state);
--		if (!uport || tty_io_error(tty))
-+		/* As in uart_set_info(), only refuse a hung up port. */
-+		if (!uport || !tty_port_active(port))
- 			return -EIO;
- 
- 		if (tty_port_users(port) != 1)
 -- 
-2.53.0
-
+Dmitry
