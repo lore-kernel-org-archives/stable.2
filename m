@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B1C843785C;
-	Sat, 10 Oct 2026 20:19:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4F04B829D;
+	Sat, 10 Oct 2026 20:19:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791663599; cv=none; b=SZ3Lc7Ip9LJPoM8lspwrRUczcoAAlDLMehpxFSxa7u+ViDJd0FB6ZQqattKEoSAVrGIZ3hZbAa6zJDxhAmMnPwiiLvG90j3XT7QgD9tTHb+6/vZAyLFdhGQbuCP1VnVSO/JdYUC5OMzir70VgLf9oBHAwrgcuf7atGq9FyKMLe4=
+	t=1791663604; cv=none; b=urBa3KY8B85qNh9WUkp5k6Sz6AUFk9Kl3GzSxo+qwBCyhDjnkTowiMdfubDn041m45DCun2nZYde59ABPMK0jw67zVWUDT/XlKw26kHKTkzx5r7yC0yn2fY/zbfjnRNmMLQ90CmnQWBYrcCXEeQj9n9qkwozl30lv5K61MDkFcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791663599; c=relaxed/simple;
-	bh=/Sf0cKiVKGHl+Am4wxmLhvpgZw9oVAfCazCFs1x1GEI=;
+	s=arc-20240116; t=1791663604; c=relaxed/simple;
+	bh=Z/6ubOrsgmyDs+XfISfkYbiIMeposhb279CaMqsajIY=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=eIoFXPlADNrPTnufXlDWJEjs5SMP8Sp6RrvhCxNJhc5j4K8c0iToOL5GtapEIBxlvOmz3dehECt+CrfzMkbm6gXo9UEf6G8DVmRYVL+yvsIPputdepCh6JED1tx5ObGMnrXK2ex4d4wpoGIcEhFjdHZILI1OrgAxcql8ERapp1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oxhNByKS; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=j6Z0FYkZUv7xQQNrPPAE28ETYOEOezVKcyxbELFAma6KCpg2wibcEZmabHwe0JRZbXzrqWzYx+y3clDNBjm736lY0Dl4f008iXtGjsd6Kd9q96imun6emFFb7EHJoWjmPJnJrbPPFMcciuUcLnhy//bcaupLNO/hERaTZtfjCac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=El8FGC6w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oxhNByKS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B5701F00893;
-	Sat, 10 Oct 2026 20:19:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="El8FGC6w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 443911F000FF;
+	Sat, 10 Oct 2026 20:19:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791663597;
-	bh=EbZxgriG9LOE+4G3LAQgNhtyqzkdoxVqFQblWm+V5+Y=;
+	s=k20260515; t=1791663599;
+	bh=6BuO4Orqatq6zxR9Kahkzms9EIKqEDxm8BKhbhVieTI=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=oxhNByKSXDWGdVjMDnDYYBib/2iK/5yb9QgTS5R6kqbnlvWT8fD/odtF8chzCeshd
-	 SK1ID/Y0SzfnOSTKfAjwxGqf/+oYf6QLT9K2JZGXZmathmMekZM56SLRkTE57+b0mk
-	 vKt5Z3oI3+Prd3wFdBcbu1NH6Rz4gOY7n00PQbMGUOW5cn6uNDAavQcgg+rp4hhAU0
-	 5UsQIA2hT6vPL3RZSTyIujb8rJ/Vybwd+uQo6Cx0H5FVYPUv32OJigs133jgxKMJ1C
-	 kPz3r12mankhDQi5Cko61MoXQhA0g9vr0UGA9JKovpAFHmEp9xgOGdR941BSJ1ZOGK
-	 yJVhK8sjMmelQ==
-Subject: Re: [PATCH net v7 2/4] net: hsr: preserve submission order without a
- forwarding lock
+	b=El8FGC6w8GFvtVvfbecjpP355aU2RRv1Mi1vmoQiX/5t4BaafcHCSP9YJWfMsvsKZ
+	 JA7bETnP5I488gHSzrIZtwJ5Sd92zrPHK42bULprW3dW2APKzrqpGL/J7nBVPIKPNc
+	 i1MGdpdthXN3QmEA6K+P2kyIGO+MwziqbuGdq7T1hOSZ89AkbqNfs+m8Qk9oYUw6Yz
+	 hndtMazGkCDADGspajyDHmL1M6wDhP7ff1PhFMC30jVSZxPpLY7X7jLJnWn0EWaYXQ
+	 IWeBntLfTHRg1w69eUiMLAFBh5KyxWgkw6DP41Cn2VooyWoueix3Vt7oIsMQ7aMsBg
+	 M4aSGluMvpI3A==
+Subject: Re: [PATCH net v7 4/4] selftests: net: hsr: verify GRO policy and
+ ordered forwarding
 From: netdev-bot+sashiko@kernel.org
 To: xiexinet@gmail.com
 Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
@@ -37,10 +37,10 @@ Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
  qingfang.deng@linux.dev, fmaurer@redhat.com, luka.gejak@linux.dev,
  bigeasy@linutronix.de, xiaoliang.yang_1@nxp.com, skhawaja@google.com,
  liuhangbin@gmail.com, stable@vger.kernel.org, sdf.kernel@gmail.com
-Date: Sat, 10 Oct 2026 20:19:55 +0000
-Message-ID: <179166359576.434549.3725229845621611180@kernel.org>
-In-Reply-To: <20261009201324.17-3-xiexinet@gmail.com>
-References: <20261009201324.17-3-xiexinet@gmail.com>
+Date: Sat, 10 Oct 2026 20:19:57 +0000
+Message-ID: <179166359775.434549.12356274501362124625@kernel.org>
+In-Reply-To: <20261009201324.17-5-xiexinet@gmail.com>
+References: <20261009201324.17-5-xiexinet@gmail.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -51,10 +51,10 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 8 potential
+Thank you for your contribution! Sashiko AI review found 10 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 3 · Low: 5
+Critical: 0 · High: 0 · Medium: 7 · Low: 3
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -62,353 +62,414 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] hsr_queue_fits() (net/hsr/hsr_forward_queue.c) only checks
-  HSR_JOB_INTERNAL_SUP jobs against the shared total (HSR_FWD_JOBS_MAX =…
-- [Medium] The patch replaces seqnr_lock with hsr->fwd_owned, a bool that
-  acts as an open-coded exclusive lock over the whole forwarding path…
-- [Medium] Untrusted interlink RX frames and locally originated master TX
-  frames share one ordinary-class admission budget (HSR_FWD_ORD_JOBS_MAX…
-- [Low] net/hsr/hsr_forward_queue.c: hsr_job_process() always returns 1,
-  and its comment says GSO per-frame accounting "is added by the…
-- [Low] hsr_queue_submit() (net/hsr/hsr_forward_queue.c) allocates a
-  struct hsr_job with GFP_ATOMIC, calls skb_dst_force() and calls…
-- [Low] The concern says the commit message hides the scope of the
-  redesign: a new 306-line file, a deferred-execution engine and a…
-- [Low] The same input class is counted differently depending on which
-  stage drops it.
-- [Low] hsr_queue_submit() pins job->dev with an untracked dev_hold(),
-  which is netdev_hold(dev, NULL, GFP_ATOMIC).
+- [Medium] The new 'busy-handler rollback' case (rollback_macvlan() in
+  hsr_gro_superpacket.py) needs a macvlan device, but…
+- [Medium] set_gro() accepts a rejected GRO request only when ethtool's
+  stdout is exactly "Actual changes:\nrx-gro: off [requested on]\n" and…
+- [Medium] decode() treats any non-HSR frame whose last two bytes are
+  0x88fb as PRP (`elif end >= off + 6 and raw[-2:] == b"\x88\xfb":`) and…
+- [Medium] Capture.__init__ creates the AF_PACKET socket with protocol
+  htons(ETH_P_ALL) (line 120), then calls setsockopt twice, and only…
+- [Medium] SIGINT/SIGTERM are handled by interrupt(), which raises
+  InterruptedError in the main thread at the next bytecode boundary.
+- [Medium] Lab.finish() decides transmission is complete after 100 ms
+  with no captured frame (`if empty and time.monotonic() - quiet >= 0.1:…
+- [Medium] Lab.finish() removes the capture hooks one capture at a time
+  (`for cap in active: ... cap.socket.bind(("lo", 0))`).
+- [Low] Lab.finish() takes every capture in self.captures that is not yet
+  complete, so a case that raises Skip after creating captures but…
+- [Low] hsr_gro_superpacket.py contains about 1088 lines of its own
+  framework: a hand-written TAP emitter, ctypes setns() namespace entry,…
+- [Low] In ordered_concurrent(), if a producer fails before reaching the
+  barrier (for example, os.sched_setaffinity() raises), its except block…
 
 --
 
-net: hsr: preserve submission order without a forwarding lock
+selftests: net: hsr: verify GRO policy and ordered forwarding
 
-This patch stops holding seqnr_lock across dev_queue_xmit(). Master TX,
-interlink RX and internally generated supervision frames now go to a
-single per-instance consumer: an idle caller runs its frame inline, and
-contended callers queue it in a bounded FIFO that one BH work item
-drains. Sequence numbers are assigned at execution time under a short
-counter lock, and the queue is limited to 1024 jobs and 8 MiB, with a
-reserve for supervision frames.
-
-Link: https://syzkaller.appspot.com/bug?extid=fbf74291c3b7e753b481
-
-> Fixes: 06afd2c31d33 ("hsr: Synchronize sending frames to have always incremented outgoing seq nr.")
-> Fixes: 430d67bdcb04 ("net: hsr: Use the seqnr lock for frames received via interlink port.")
-
-[Severity: Low]
-This isn't a bug, but this patch carries both Fixes: tags and also adds a
-new 306-line forwarding queue, a BH worker, and a new return convention
-for proto_ops->fill_frame_info() (HSR_FRAME_PLAIN). The commit message
-does describe the design.
-
-Would it be easier to review and backport if the deadlock fix were split
-from the queueing redesign? Or is the whole thing intended for stable as
-one change?
-
-> diff --git a/net/hsr/hsr_forward.c b/net/hsr/hsr_forward.c
-> index 7734a521a96c2..e8b53367bf3ec 100644
-> --- a/net/hsr/hsr_forward.c
-> +++ b/net/hsr/hsr_forward.c
+This adds a Python helper with two shell entry points. It tests HSR/PRP
+member GRO handling across attach, detach and failed attachment, the
+master's GSO type mask, and TCP/UDP GSO segmentation through HSR and PRP.
+It also uses AF_PACKET captures on every lane to check ordered forwarding
+of local, interlink, supervision and concurrent traffic, plus sequence
+number wrap.
 
 [ ... ]
 
-> @@ -640,13 +652,20 @@ static void handle_std_frame(struct sk_buff *skb,
->  	if (port->type != HSR_PT_MASTER)
->  		frame->is_from_san = true;
->  
-> -	if (port->type == HSR_PT_MASTER ||
-> -	    port->type == HSR_PT_INTERLINK) {
-> -		/* Sequence nr for the master/interlink node */
-> -		lockdep_assert_held(&hsr->seqnr_lock);
-> -		frame->sequence_nr = hsr->sequence_nr;
-> -		hsr->sequence_nr++;
-> -	}
-> +	if (!hsr_needs_local_numbering(port))
-> +		return;
-> +
-> +	/* Sequence nr for the master/interlink node.  Local sequence
-> +	 * numbers are assigned only by the single consumer; the
-> +	 * explicit call-chain source proves it, shared ownership state
-> +	 * does not.
-> +	 */
-> +	WARN_ON_ONCE(source == HSR_EXEC_DIRECT_LAN);
+> diff --git a/tools/testing/selftests/net/hsr/config b/tools/testing/selftests/net/hsr/config
+> index 205cc4d3d64bd..724fbe3a6eab7 100644
+> --- a/tools/testing/selftests/net/hsr/config
+> +++ b/tools/testing/selftests/net/hsr/config
+> @@ -2,5 +2,6 @@ CONFIG_BRIDGE=y
+>  CONFIG_HSR=y
+>  CONFIG_IPV6=y
+>  CONFIG_NET_SCH_NETEM=m
+> +CONFIG_PACKET=y
+>  CONFIG_VETH=y
+>  CONFIG_VLAN_8021Q=m
 
-[Severity: Low]
-This isn't a bug, but is the enum hsr_exec_source parameter needed? In
-handle_std_frame() and hsr_assign_sup_seq() its only use is this
-WARN_ON_ONCE(). hsr_forward_skb() routes on the same predicate:
+[Severity: Medium]
+Should CONFIG_MACVLAN be added here too?
 
-hsr_forward_skb()
-    if (hsr_needs_local_numbering(port)) {
-        hsr_queue_submit(skb, port, HSR_JOB_NORMAL);
-        return;
-    }
-    hsr_forward_frame(skb, port, HSR_EXEC_DIRECT_LAN);
+The busy-handler rollback case in rollback_macvlan() creates a macvlan on
+top of m:
 
-so a master or interlink port can never reach this point with
-HSR_EXEC_DIRECT_LAN.
+    result = lab.ip(ns, "link", "add", "link", "m", "name", "mv",
+                    "type", "macvlan", "mode", "bridge", check=False)
 
-Also, hsr_job_process() always returns 1 in this patch, so the
-saturating budget arithmetic in hsr_queue_work() has no effect yet. The
-comment there says per-frame accounting "is added by the segmentation
-change". The next patch in the series ("net: hsr: segment GSO before
-per-frame forwarding") replaces it with the return value of
-hsr_forward_input(), so that part gets resolved later in the series.
+On a kernel built from this fragment, that command fails with "Unknown
+device type", and rollback_macvlan() turns the failure into a SKIP:
 
-> +	spin_lock_bh(&hsr->seqnr_lock);
-> +	seq = hsr->sequence_nr;
-> +	WRITE_ONCE(hsr->sequence_nr, seq + 1);
-> +	spin_unlock_bh(&hsr->seqnr_lock);
-> +	frame->sequence_nr = seq;
->  }
+    if "unknown device type" in error or "operation not supported" in error:
+        raise Skip("macvlan device kind unavailable: " + result.stderr.strip())
 
-[ ... ]
+No other case reaches the -EBUSY path in hsr_portdev_setup(), where
+netdev_rx_handler_register() fails because macvlan already owns the
+rx_handler. CI kernels built from net/hsr/config would lose that coverage
+and still report success.
 
-> diff --git a/net/hsr/hsr_forward_queue.c b/net/hsr/hsr_forward_queue.c
-> new file mode 100644
-> index 0000000000000..5e96c24dec005
+> diff --git a/tools/testing/selftests/net/hsr/hsr_gro_superpacket.py b/tools/testing/selftests/net/hsr/hsr_gro_superpacket.py
+> new file mode 100755
+> index 0000000000000..d39bf1af291f8
 > --- /dev/null
-> +++ b/net/hsr/hsr_forward_queue.c
-> @@ -0,0 +1,306 @@
+> +++ b/tools/testing/selftests/net/hsr/hsr_gro_superpacket.py
+> @@ -0,0 +1,1088 @@
 
 [ ... ]
 
-> +/* Queue-stage drop: one count per dropped original input on the held
-> + * entry device.  Ordinary interlink RX is an RX drop; master TX and
-> + * internally generated supervision frames are TX drops.
-> + */
-> +static void hsr_fwd_drop_stat(struct net_device *dev, enum hsr_port_type type,
-> +			      enum hsr_job_class class)
-> +{
-> +	if (class == HSR_JOB_NORMAL && type == HSR_PT_INTERLINK)
-> +		dev_core_stats_rx_dropped_inc(dev);
-> +	else
-> +		dev_core_stats_tx_dropped_inc(dev);
-> +}
-
-[Severity: Low]
-Should an interlink RX drop be counted differently depending on where it
-happens? When an ordinary interlink frame is dropped at queue admission,
-it is counted here with dev_core_stats_rx_dropped_inc(). If the same
-frame fails fill_frame_info() one step later, hsr_forward_frame() counts
-it as:
-
-out_drop:
-	rcu_read_unlock();
-	port->dev->stats.tx_dropped++;
-
-So userspace sees rx_dropped for one case and tx_dropped for the other,
-and the two sites use different counter sets (core per-CPU stats vs
-dev->stats).
-
-Later in the series hsr_fwd_drop_stat() moves to hsr_forward.c and maps
-every non-master normal input to rx_dropped. The out_drop path in
-hsr_forward_frame() does not change, so the mismatch is still there.
+> +def decode(raw, ancillary=()):
 
 [ ... ]
 
-> +static bool hsr_queue_fits(struct hsr_priv *hsr, struct hsr_job *job)
-> +{
-> +	if (hsr->fwd_jobs >= HSR_FWD_JOBS_MAX)
-> +		return false;
-> +	if (job->charge > HSR_FWD_BYTES_MAX - hsr->fwd_bytes)
-> +		return false;
+> +    end = len(raw)
+> +    if proto == 0x892f:
+> +        require(off + 6 <= end, "short HSR tag")
+> +        field, seq, proto = struct.unpack_from("!HHH", raw, off)
+> +        row.update(seq=seq, path=field >> 12, tag=True, encoding="hsr")
+> +        expected = len(raw) - 14 - (4 if raw[12:14] == b"\x81\x00" else 0)
+> +        require(field & 0xfff == expected, "HSR LSDU size differs")
+> +        off += 6
+> +    elif end >= off + 6 and raw[-2:] == b"\x88\xfb":
+> +        seq, field, suffix = struct.unpack_from("!HHH", raw, end - 6)
+> +        expected = len(raw) - 14 - (4 if raw[12:14] == b"\x81\x00" else 0)
+> +        require(field & 0xfff == expected, "PRP LSDU size differs")
+> +        row.update(seq=seq, path=field >> 12, tag=True, encoding="prp")
+> +        end -= 6
 
 [Severity: Medium]
-Can internal supervision frames fill all HSR_FWD_JOBS_MAX slots? Only
-HSR_JOB_NORMAL jobs have their own cap. HSR_JOB_INTERNAL_SUP jobs are
-limited only by the shared total.
+Can an ordinary untagged frame that happens to end in 88:fb fail the whole
+run here?
 
-hsr_proxy_announce() sends one supervision frame per proxy_node_db entry
-in a single timer callback:
+decode() treats any non-HSR frame whose last two bytes are 0x88fb as PRP,
+and an LSDU mismatch then raises an error. The kernel handles a mismatched
+LSDU size by falling back to a plain frame, in prp_fill_frame_info():
 
-	list_for_each_entry_rcu(node, &hsr->proxy_node_db, mac_list) {
-		if (hsr_addr_is_redbox(hsr, node->macaddress_A))
-			continue;
-		hsr->proto_ops->send_sv_frame(interlink, &interval,
-					      node->macaddress_A);
-	}
+    if (rct &&
+        prp_check_lsdu_size(skb, rct, frame->is_supervision)) {
+        ...
+        return 0;
+    }
+    return HSR_FRAME_PLAIN;
 
-proxy_node_db is filled from source MACs seen on the interlink, and it
-doesn't seem to have a size limit.
+Capture.drain() calls decode() on every frame that matches pkttype. That
+includes captures on non-PRP links such as dil, t0 and m/mv.
 
-If that burst arrives while another context owns the consumer
-(fwd_owned is true), supervision jobs can use all 1024 slots. Every
-master TX and interlink RX frame then fails the fwd_jobs check above and
-is dropped by hsr_job_drop() until the worker clears the burst, at 64
-jobs per activation. Before this patch those frames waited on
-seqnr_lock instead of being dropped.
+A pure TCP ACK ends in the low 16 bits of TSecr. An IPv6 NS/RS/MLD frame
+can end in the last two bytes of a random interface MAC. In either case
+drain() raises ValueError, the case fails, and every later case is
+reported as not ok.
 
-Should the supervision class have a cap as well?
-
-> +	if (job->class == HSR_JOB_NORMAL) {
-> +		if (hsr->fwd_ord_jobs >= HSR_FWD_ORD_JOBS_MAX)
-> +			return false;
-> +		if (job->charge > HSR_FWD_ORD_BYTES_MAX - hsr->fwd_ord_bytes)
-> +			return false;
-> +	}
-> +	return true;
-> +}
-
-[Severity: Medium]
-Interlink RX and local master TX share this one ordinary budget. With
-this patch, contended interlink receivers in hsr_handle_frame() queue
-the frame and return instead of spinning on seqnr_lock. A SAN-side host
-flooding the interlink, possibly from several RX CPUs on a multi-queue
-NIC, could keep fwd_ord_jobs at HSR_FWD_ORD_JOBS_MAX.
-
-Would locally originated frames then be dropped here?
-
-hsr_dev_xmit()
-  hsr_forward_skb(skb, master)
-    hsr_queue_submit(skb, master, HSR_JOB_NORMAL)
-      hsr_queue_fits() returns false
-      hsr_job_drop(job)
-
-Before this patch, interlink load could slow master TX through lock
-contention, but it could not get master TX frames dropped at an
-internal admission check. Every remote frame also gets a GFP_ATOMIC job
-allocation before this check runs.
-
-Should master TX have a reserve that is separate from interlink RX?
+Would it be better to treat an LSDU mismatch as a plain frame, as the
+kernel does?
 
 [ ... ]
 
-> +static void hsr_queue_owned_release(struct hsr_priv *hsr)
-> +{
-> +	if (!hsr->fwd_stopped && !list_empty(&hsr->fwd_queue))
-> +		queue_work(system_bh_wq, &hsr->fwd_work);
-> +	else
-> +		hsr->fwd_owned = false;
-> +}
+> +class Capture:
+> +    def __init__(self, lab, ns, dev, pkttype=None):
+> +        self.lab, self.rows, self.seen = lab, [], 0
+> +        self.ns, self.dev, self.packets = ns, dev, None
+> +        self.pkttype, self.name = pkttype, ns + "/" + dev
+> +        self.complete, self.drops, self.truncated = False, None, 0
+> +        self.last_seen = time.monotonic()
+> +        self.socket = lab.sock(ns, socket.AF_PACKET, socket.SOCK_RAW, socket.htons(3))
+> +        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 8 * 1024 * 1024)
+> +        self.socket.setsockopt(263, 8, 1)
+> +        self.socket.bind((dev, 0))
+
+[Severity: Medium]
+Can frames from other interfaces end up in this capture?
+
+Creating the socket with htons(ETH_P_ALL) registers the hook right away in
+packet_create(), with no device restriction:
+
+    if (proto) {
+        po->prot_hook.type = proto;
+        __register_prot_hook(sk);
+    }
+
+Frames that arrive on any device in the namespace before bind((dev, 0))
+stay in the socket queue. Capture.drain() checks only addr[2] (pkttype)
+and never addr[0] (ifname):
+
+    if self.pkttype is None or addr[2] == self.pkttype:
+        self.rows.append(decode(raw, anc))
+
+For example, while ordered_lanes() is creating the db capture, a
+supervision or ND frame sent on da can be recorded as db traffic.
+verify_supervision() then fails with "wrong supervision tag kind/path", a
+protocol_order() error, or "data/supervision LAN order differs".
+
+Would either of these avoid it: creating the socket with protocol 0 and
+passing ETH_P_ALL to bind(), or filtering on addr[0] in drain()?
 
 [ ... ]
 
-> +static void hsr_queue_inline_one(struct hsr_priv *hsr, struct hsr_job *job)
-> +{
-> +	local_bh_disable();
-> +	hsr_job_process(hsr, job, HSR_EXEC_INLINE);
-> +	spin_lock_bh(&hsr->fwd_lock);
-> +	hsr_queue_owned_release(hsr);
-> +	spin_unlock_bh(&hsr->fwd_lock);
-> +	local_bh_enable();
-> +}
-> +
-> +void hsr_queue_submit(struct sk_buff *skb, struct hsr_port *port,
-> +		      enum hsr_job_class class)
-> +{
-> +	struct hsr_priv *hsr = port->hsr;
-> +	struct hsr_job *job;
-> +	bool inline_owner = false;
-> +
-> +	RCU_LOCKDEP_WARN(!rcu_read_lock_held(),
-> +			 "HSR queue submit outside RCU read-side");
-> +
-> +	job = kzalloc_obj(*job, GFP_ATOMIC);
-> +	if (!job) {
-> +		hsr_fwd_drop_stat(port->dev, port->type, class);
-> +		kfree_skb(skb);
-> +		return;
-> +	}
+> +class Lab:
+> +    def __init__(self, deadline):
+
+[ ... ]
+
+> +    def ns(self, label):
+> +        name = "hsrp4-%s-%d" % (self.token, len(self.names))
 
 [Severity: Low]
-This allocation, plus the skb_dst_force() and dev_hold() below, runs for
-every master TX, interlink RX and supervision frame. All of it happens
-before fwd_lock is taken to check whether the consumer is idle. In the
-uncontended inline case the job never enters the queue, so is a heap
-allocation needed there?
+This isn't a bug, but this file carries its own test framework: a
+hand-written TAP emitter, namespace entry through ctypes setns(), a
+manager for namespace/socket/capture lifetimes, and ip/ethtool wrappers.
 
-It also adds a new drop path: if the GFP_ATOMIC allocation fails, the
-frame is dropped through hsr_fwd_drop_stat() and kfree_skb(). Before
-this patch, hsr_dev_xmit() and the interlink RX path allocated nothing
-at this point.
+tools/testing/selftests/net/lib/py already provides ksft_run, NetNS,
+NetNSEnter, defer, ip, ethtool and cmd. Could this use net/lib/py
+instead? The custom layer has no per-case teardown, which leads to the
+cross-case coupling in Lab.finish() noted below.
 
-Would an on-stack job for the inline case, or allocating only when the
-job has to be queued, avoid both the per-packet cost and this new
-failure mode?
+Some of the code is unused. Lab.ns() ignores label, and tcp_transfer()
+never uses its captures argument.
 
-> +	job->skb = skb;
-> +	job->dev = port->dev;
-> +	job->type = port->type;
-> +	job->class = class;
-> +	job->depth = dev_recursion_level();
-> +	job->charge = skb->truesize;
-> +	skb_dst_force(skb);
-> +	dev_hold(job->dev);
+[ ... ]
 
-[Severity: Low]
-This isn't a bug, but this reference is passed to system_bh_wq and can
-outlive the submitting context. Would netdev_hold() with a
-netdevice_tracker in struct hsr_job work better than an untracked
-dev_hold()?
-
-With CONFIG_NET_DEV_REFCNT_TRACKER, a leaked job reference would then
-show the owner's stack, not just the generic "waiting for <dev> to
-become free" message.
-
-> +
-> +	spin_lock_bh(&hsr->fwd_lock);
-> +	if (hsr->fwd_stopped) {
-> +		spin_unlock_bh(&hsr->fwd_lock);
-> +		hsr_job_drop(job);
-> +		return;
-> +	}
-> +	if (!hsr->fwd_owned) {
-> +		/* Idle: take the execution ownership and process this
-> +		 * input directly.  The job never enters the public queue
-> +		 * and does not consume queued charge.
-> +		 */
-> +		hsr->fwd_owned = true;
-> +		inline_owner = true;
-> +	} else if (hsr_queue_fits(hsr, job)) {
-> +		list_add_tail(&job->list, &hsr->fwd_queue);
-> +		hsr_queue_charge_add(hsr, job);
-> +	} else {
-> +		spin_unlock_bh(&hsr->fwd_lock);
-> +		hsr_job_drop(job);
-> +		return;
-> +	}
-> +	spin_unlock_bh(&hsr->fwd_lock);
-> +
-> +	if (inline_owner)
-> +		hsr_queue_inline_one(hsr, job);
-> +}
+> +    @contextmanager
+> +    def enter(self, ns):
+> +        descriptor = os.open("/var/run/netns/" + ns, os.O_RDONLY)
+> +        try:
+> +            self.setns(descriptor)
+> +            yield
+> +        finally:
+> +            try:
+> +                self.setns(self.original)
+> +            except BaseException:
+> +                self.restore_failed = True
+> +                raise
+> +            finally:
+> +                os.close(descriptor)
 
 [Severity: Medium]
-fwd_owned acts as an exclusive lock over the whole forwarding path:
-fill_frame_info(), hsr_forward_do() and dev_queue_xmit() to every lower.
-Contenders never wait on it, though. They add to fwd_queue and return.
+Can a SIGINT or SIGTERM here leak every namespace the test owns?
 
-Does this lose the priority inheritance that seqnr_lock gave on
-PREEMPT_RT? There, spinlock_t is rt_mutex based, so a high-priority
-contender would boost a low-priority holder. Now suppose a low-priority
-task takes ownership in hsr_dev_xmit() and is preempted inside
-hsr_queue_inline_one():
+interrupt() raises InterruptedError at the next bytecode boundary. If that
+happens during or just after self.setns(self.original), restore_failed is
+set even though the libc setns() call already succeeded.
 
-	local_bh_disable();
-	hsr_job_process(hsr, job, HSR_EXEC_INLINE);
+Lab.close() then skips every ip netns del and never retries the restore:
 
-local_bh_disable() does not prevent preemption on RT, and nothing boosts
-the owner. Master TX, interlink RX and supervision frames from every CPU
-wait in the queue until it runs again. Once the queue fills, they are
-dropped.
+    if self.restore_failed:
+        errors.append("namespace restoration failed; no namespace commands attempted")
 
-The commit message seems to describe forwarding stopping for as long as
-the load ran:
+All hsrp4-* namespaces are left behind, along with their veths and HSR
+devices.
 
-  On PREEMPT_RT, high-priority load preempted both the inline consumer
-  and BH worker while another CPU continued to enqueue inputs. All
-  2118 inputs completed without drops; the finite data workload
-  completed 4.07 seconds after the load ended.
+main()'s finally block has a similar window:
 
-On non-RT, hsr_queue_owned_release() hands ownership to the worker:
+    finally:
+        for sig in (signal.SIGINT, signal.SIGTERM):
+            signal.signal(sig, signal.SIG_IGN)
+        try:
+            lab.close()
 
-	queue_work(system_bh_wq, &hsr->fwd_work);
+The handlers are switched one at a time. A second signal that arrives
+before both are ignored raises InterruptedError inside the finally block,
+and lab.close() never runs.
 
-system_bh_wq is per-CPU, so the backlog for the whole instance drains
-only on the CPU that queued the work. If that CPU is busy, can inputs
-from all the other CPUs pile up to the 960/1024 limits and get dropped?
+The commit message says:
+
+    INT/TERM release owned resources and preserve failures.
+
+Would blocking the signals with signal.pthread_sigmask() around these
+sections make that statement hold?
+
+[ ... ]
+
+> +    def finish(self):
+> +        active = [cap for cap in self.captures if not cap.complete]
+
+[Severity: Low]
+This collects every incomplete capture from the whole run, not only those
+of the current case. If a case raised Skip after creating captures but
+before calling finish(), the next case's finish() would run the cutoff and
+validate() on them.
+
+As far as I can tell, the only such path today is the Skip in
+ordered_data():
+
+    except OSError as error:
+        if error.errno in (errno.ENOPROTOOPT, errno.EOPNOTSUPP):
+            raise Skip("UDP GSO unavailable") from error
+
+udp_lib_setsockopt() cannot return those errnos for UDP_SEGMENT:
+
+    case UDP_SEGMENT:
+        if (val < 0 || val > USHRT_MAX)
+            return -EINVAL;
+        WRITE_ONCE(up->gso_size, val);
+
+So the path can't be reached in the current tree. Would it still be safer
+to limit captures to the case that created them?
+
+> +        end = min(self.deadline, time.monotonic() + 2)
+> +        quiet = time.monotonic()
+> +        while time.monotonic() < end:
+> +            self.observe(0.01)
+> +            empty = True
+> +            for cap in active:
+> +                count, drained = cap.drain()
+> +                if count or not drained:
+> +                    empty = False
+> +            quiet = max([quiet] + [cap.last_seen for cap in active])
+> +            if empty and time.monotonic() - quiet >= 0.1:
+> +                break
+
+[Severity: Medium]
+Is 100 ms with no captured frame enough to conclude that the kernel has
+finished transmitting?
+
+In this tree, contended master TX, interlink RX and supervision frames are
+queued and drained by a BH work item. In net/hsr/hsr_forward_queue.c,
+hsr_queue_owned_release() does:
+
+    queue_work(system_bh_wq, &hsr->fwd_work);
+
+hsr_queue_work() requeues itself when its budget runs out.
+
+Suppose that worker is delayed by more than about 100 ms after the last
+captured frame, for example under load on PREEMPT_RT. The remaining
+frames then go out after the hooks have been moved to lo, and verify_udp()
+fails with "UDP payload/ID set differs". ordered_send() also allows only
+lab.observe(0.1) before returning.
+
+The packets == seen + drops check only shows that the socket queue was
+drained. Could finish() instead wait until every expected payload has
+been seen on both lanes, with the deadline as the upper bound?
+
+> +        else:
+> +            raise ValueError("capture failed to drain within fixed deadline")
+
+[ ... ]
+
+> +        for cap in active:
+> +            require(time.monotonic() < end, "capture cutoff/drain deadline expired")
+> +            require(cap.dev != "lo", "capture already uses the cutoff device")
+> +            cap.socket.bind(("lo", 0))
+> +            require(cap.socket.getsockopt(socket.SOL_SOCKET, socket.SO_ERROR) == errno.ENETDOWN,
+> +                    cap.name + ": capture cutoff did not report ENETDOWN")
+
+[Severity: Medium]
+Can the da and db captures stop at different points in the stream?
+
+The hooks are removed one capture at a time. Each bind() of a running
+socket goes through packet_do_bind()->__unregister_prot_hook(sk, true),
+which calls synchronize_net().
+
+In ordered_supervision(), the HSR master and interlink are still up when
+finish() runs:
+
+    lab.observe(10)
+    lab.finish()
+
+hsr_announce() and hsr_proxy_announce() keep sending supervision frames
+during the cutoff. A frame sent after the da hook is removed, but before
+the db hook is removed, is captured only on db.
+
+Both captures pass their completeness checks, but verify_supervision()
+fails:
+
+    require(observed[0] == observed[1], "supervision LAN copies differ")
+    require(all_frames[0] == all_frames[1], "data/supervision LAN order differs")
+
+Would it help to stop the supervision senders before the cutoff, or to
+compare only the prefix that both lanes have in common?
+
+[ ... ]
+
+> +def set_gro(lab, ns, dev, wanted, active=None):
+> +    result = lab.cmd(ns, "ethtool", "-K", dev, "gro", wanted, check=False)
+> +    forced = (active == "off" and wanted == "on" and result.returncode == 1
+> +              and result.stdout == "Actual changes:\nrx-gro: off [requested on]\n"
+> +              and result.stderr == "Could not change any device features\n")
+> +    require(result.returncode == 0 or forced,
+> +            "%s: GRO setter rc%d %s" % (dev, result.returncode, result.stderr.strip()))
+
+[Severity: Medium]
+Does this depend on the exact output format of ethtool?
+
+A rejected request is accepted only when stdout and stderr match these
+strings byte for byte. The code right below already reads back the actual
+state with lab.features() and checks it against active.
+
+forced becomes false if an ethtool build reports the change differently,
+for example:
+
+- the ioctl fallback, which uses legacy names such as
+  generic-receive-offload
+- an extra line for a dependent feature
+
+policy() goes through this path on every iteration:
+
+    for wanted in ("on", "off", last):
+        set_gro(lab, ns, "m", wanted, active="off")
+
+When it fails here, every remaining gro-mode case is reported as not ok.
+
+Could this rely on the read-back state, and check only the return code
+here?
+
+[ ... ]
+
+> +    def producer(index):
+> +        try:
+> +            # Socket namespace binding was completed before threads existed.
+> +            os.sched_setaffinity(0, {cpus[index]})
+> +            barrier.wait(timeout=2)
+
+[ ... ]
+
+> +        except Exception as error:
+> +            errors.append(error)
+> +            stop.set()
+> +            barrier.abort()
+> +
+> +    threads = [threading.Thread(target=producer, args=(index,))
+> +               for index in range(2)]
+> +    unfinished = []
+> +    try:
+> +        for thread in threads:
+> +            lab.threads.append(thread)
+> +            thread.start()
+> +        barrier.wait(timeout=2)
+
+[ ... ]
+
+> +    if errors:
+> +        raise errors[0]
+
+[Severity: Low]
+What happens when a producer fails before reaching the barrier, for
+example in os.sched_setaffinity()?
+
+The producer calls barrier.abort(), and the main thread's barrier.wait()
+raises threading.BrokenBarrierError. That exception propagates through the
+finally block, so the recorded producer error is never raised.
+
+main() then prints "not ok N - two-functional-producers: " with an empty
+message, and the real cause is lost.
 
 [ ... ]
 
