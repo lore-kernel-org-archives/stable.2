@@ -1,241 +1,192 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F814399350;
-	Sat, 10 Oct 2026 22:55:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 075F737AA7A;
+	Sat, 10 Oct 2026 22:56:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791672930; cv=none; b=dLFqhuKb8KD/yI1RnnKaIyYFJQGj+e4dFj3u1MjTuMhv22kd5+hdl31ngUS+JYr4OMvW6w0evTVgcS7qeSXHlAdBTLCmTQ9L6yKgHUyhOxqPdF5gE1xfog1pCjEJUB7LUQB2rhKTZCl/y6zmtZ324oebKgvHDkPfNy+5OA1N5Ig=
+	t=1791672976; cv=none; b=sevlooblBlSI3CXvDs6M7pCwMad+72mreDIIGRVVvNXi3UC01Hm3KwFDeyHVgR5Rotshftkhp5n9DZ7letljzBoAlGOUDhY3Dl6TpS10F+0g6yGTXKVAnpsK9pH3M3swmscCduuapWpXNAJsomxHDbywFkrCeDF865pfKJUMmpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791672930; c=relaxed/simple;
-	bh=Ersv1rRitKQ1BXXKj4ddDkK2o0lks/h/Lj6mQfbqD1I=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Sm92Og7jsZUTrnKcPv9/gGgmgidMkeBjt3RjHKZIElrYCWbFIAs2mZ8JxEoF6kQN+VQX+GKF+jHYgATjIUXJcobynbyBi51KcvpwaighR5/oSY1NR0RuZLRsAPpAoJYIQmbXAqB5eK3WkBaiYn+tgL7MaxsYyQsy23MTY806swQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kq8djmns; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791672976; c=relaxed/simple;
+	bh=Ly59P53n6lt0MpwJYPOXfB2wUDHzpSbxXzeSPjKRGq8=;
+	h=Date:To:From:Subject:Message-Id; b=a14l3iqaoAGrZND6Oa0lvu1CUQv4pnYYgSGHUMTGR0TjePPPAVHIij8dlPSrLwR9EVdIF9Ex7eMbT0l+/6MJqU8WNAgXXLfMhXZt0diIF2DRsFBpB7+lIeq6rQDObA99S9yqSxBl1yBrYWGYh8sUsIhVGERnzQy0lE8KKAPY5WU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=aTG/1AcQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kq8djmns"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A23A1F00893;
-	Sat, 10 Oct 2026 22:55:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791672929;
-	bh=oSbAjsO8Daqmc/FHcAs+zGQUdudv8Ra7/x/JNn6yMTM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Kq8djmnsmf4jj23iPktlohHumQtiDII60OdQOvppce/h5/U0wmCjHIC3LhDDyJouC
-	 fJCh/zaeSU4aS1MExxge0jA857MGzoswoNNpsSbbR+0VXWJBn2pkXU6K5zc5KiEvLh
-	 Nr2/sXXzqQwgDVBhRD9gVQdHEJ38xgB938YpA93cQnHEhoi8tTBTo94LhOCBiQdnKz
-	 l4eayN8rDeNu+YD4yDfCIFiClkKEGuhJ4wDHQGrfU/Dfz3cqq9QNvgEjJRo3J6oi34
-	 WutRx7wgte+R/KXB/jg0vhynQLa8YZ+PspZJqqXlNtI1MYxT2eb8+Cf/Fo63cAEaJG
-	 9lDzjVrw58kog==
-Subject: Re: [PATCH net] ipv6: fix fib6 walker UAF on NLM_F_REPLACE
-From: netdev-bot+sashiko@kernel.org
-To: cenzhang@linux.microsoft.com
-Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- mazziesaccount@gmail.com, greearb@candelatech.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- AutonomousCodeSecurity@microsoft.com, tgopinath@linux.microsoft.com
-Date: Sat, 10 Oct 2026 22:55:27 +0000
-Message-ID: <179167292799.434549.17886083109176424564@kernel.org>
-In-Reply-To: <20261009225142.47005-1-cenzhang@linux.microsoft.com>
-References: <20261009225142.47005-1-cenzhang@linux.microsoft.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="aTG/1AcQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FA321F000FF;
+	Sat, 10 Oct 2026 22:56:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1791672974;
+	bh=l7BxZU0wjeCVR7CeAf7QXIvJJTAYy4+Kmk3REm0UQWY=;
+	h=Date:To:From:Subject;
+	b=aTG/1AcQmVN6KWi473zqflXT2aw6YcL3aoplmwwrS1STCnCzwT3GEEitDnf5Ox3Ae
+	 zUBJ4Ej5Xky8x3tKykqi+2+an54ThpFtoHiF9p9XLGhNH4In8TJ5Mg9ocOHYKHtvS4
+	 3UKMwtJ3ePowHzv+xV8IEALANlBLth2HbBzj4qkg=
+Date: Sat, 10 Oct 2026 15:56:14 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mark@fasheh.com,kees@kernel.org,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,ericterminal@gmail.com,baijiaju1990@gmail.com,zzzccc427@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + ocfs2-heartbeat-unlink-live-slots-when-their-node-is-missing.patch added to mm-nonmm-unstable branch
+Message-Id: <20261010225614.6FA321F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 2 (1) · Low: 0
+The patch titled
+     Subject: ocfs2/heartbeat: unlink live slots when their node is missing
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     ocfs2-heartbeat-unlink-live-slots-when-their-node-is-missing.patch
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-heartbeat-unlink-live-slots-when-their-node-is-missing.patch
 
-- [Medium] fib6_walkers_skip_rt() (net/ipv6/ip6_fib.c:95-113) is
-  documented as moving walkers that rest on @rt to the next route.
-- [Medium] In the NLM_F_REPLACE branch of fib6_add_rt2node()
-  (net/ipv6/ip6_fib.c:1338-1342) the new route rt takes over iter's slot…
+This patch will later appear in the mm-nonmm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Pre-existing issues:
-- [Medium] When a dump resumes and the sernum has changed,
-  fib6_dump_table() (net/ipv6/ip6_fib.c:632-638) writes w->state =…
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
---
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-ipv6: fix fib6 walker UAF on NLM_F_REPLACE
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
-This patch moves the walker adjustment out of fib6_del_route() into a new
-helper, fib6_walkers_skip_rt(). The helper is also called from the
-NLM_F_REPLACE branch of fib6_add_rt2node() for the replaced route and for
-each removed ECMP sibling. The goal is to keep an RTM_GETROUTE dump from
-resuming on a freed fib6_info when the fn_sernum check is bypassed.
+------------------------------------------------------
+From: Cen Zhang <zzzccc427@gmail.com>
+Subject: ocfs2/heartbeat: unlink live slots when their node is missing
+Date: Fri,  9 Oct 2026 13:21:42 +0800
 
-> diff --git a/net/ipv6/ip6_fib.c b/net/ipv6/ip6_fib.c
-> index 9ff761962b45c..a5699809fe049 100644
-> --- a/net/ipv6/ip6_fib.c
-> +++ b/net/ipv6/ip6_fib.c
-> @@ -89,6 +89,29 @@ static void fib6_walker_unlink(struct net *net, struct fib6_walker *w)
+o2hb_shutdown_slot() returns immediately when its node is no longer in the
+configfs registry.  A slot can still be linked in o2hb_live_slots when
+that lookup fails.  Region teardown or startup-error cleanup then frees
+the slot array without removing its embedded list member.
 
-[ ... ]
+With the same peer live in another region, the next list update can follow
+a predecessor into the freed array.  Reusing the node number can also make
+a later insertion encounter that stale member.
 
-> +/* Move the walkers resting on @rt to the next route, or up the tree if
-> + * @rt is the last one.  Called with tb6_lock held.
-> + */
-> +static void fib6_walkers_skip_rt(struct net *net, struct fib6_info *rt)
-> +{
+Always remove the slot under o2hb_live_lock, even when node lookup fails. 
+Preserve aggregate membership accounting and the last-region DOWN
+callback: the existing callback interface explicitly permits a NULL node
+for DOWN events.  Only drop the node reference when lookup returned one. 
+This closes both normal release and startup-abort paths without changing
+the publication or callback locking protocol.
 
-[ ... ]
+Also require a configured node before admitting a new live slot in
+o2hb_check_slot().  The early live-bitmap check is not held through
+admission: the last live slot in another region can be removed in between.
+Without a node, admission can then queue an UP event with a NULL argument
+and hit the event helper's BUG_ON.  Existing live slots can still leave
+and generate NULL-node DOWN events.
 
-> +	read_lock(&net->ipv6.fib6_walker_lock);
-> +	FOR_WALKERS(net, w) {
-> +		if (w->state == FWS_C && w->leaf == rt) {
-> +			pr_debug("walker %p adjusted by unlink of %p\n", w, rt);
-> +			w->leaf = next;
+A controlled probe-instrumented test reproduced this while stopping one of
+two regions after removing the peer from configfs.  Its KASAN report
+includes:
 
-[Severity: Medium]
-Should w->skip_in_node be reset here too?
+  BUG: KASAN: slab-use-after-free in __list_del_entry_valid_or_report+0x1e0/0x210
+  Read of size 8 at addr ffff888106a4ac60 by task o2hb-pmbd0058_b/497
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x93/0xd0
+   print_report+0xce/0x630
+   kasan_report+0xe0/0x110
+   __list_del_entry_valid_or_report+0x1e0/0x210
+   o2hb_do_disk_heartbeat+0x1591/0x2c50
+   o2hb_thread+0x1ed/0xe70
+   kthread+0x351/0x460
+   ret_from_fork+0x659/0x940
+   ret_from_fork_asm+0x1a/0x30
+   </TASK>
+  Allocated by task 491:
+   kasan_save_stack+0x33/0x60
+   kasan_save_track+0x14/0x30
+   __kasan_kmalloc+0xaa/0xb0
+   __kmalloc_noprof+0x2de/0x780
+   o2hb_region_dev_store+0x7c2/0x1b60
+   configfs_write_iter+0x2f9/0x4f0
+   vfs_write+0x639/0x1010
+   ksys_write+0x111/0x200
+   do_syscall_64+0x114/0x620
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  Freed by task 491:
+   kasan_save_stack+0x33/0x60
+   kasan_save_track+0x14/0x30
+   kasan_save_free_info+0x3b/0x60
+   __kasan_slab_free+0x5f/0x80
+   kfree+0x308/0x580
+   o2hb_unmap_slot_data+0x1db/0x330
+   o2hb_region_release+0x14b/0x4f0
+   config_item_cleanup+0x14b/0x230
+   config_item_put+0x79/0x90
+   configfs_rmdir+0x58a/0x910
+   vfs_rmdir+0x2e8/0x820
+   filename_rmdir+0x3b1/0x520
+   __x64_sys_rmdir+0x4b/0x70
+   do_syscall_64+0x114/0x620
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-This moves the walker to a different route, but w->skip_in_node still
-holds the number of entries already sent for the old route.
-fib6_dump_node() keeps that count per w->leaf:
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0058-v2-9446113c2b16c817c538@gmail.com
+Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Assisted-by: LLM
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Yufan Chen <ericterminal@gmail.com>
+Cc: Kees Cook <kees@kernel.org>
+Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
+Cc: <jjzuming@gmail.com>
+Cc: <stable@vger.kernel.org>
+---
 
-net/ipv6/ip6_fib.c:fib6_dump_node() {
-    ...
-		res = rt6_dump_route(rt, w->args, w->skip_in_node);
-		if (res >= 0) {
-			/* Frame is full, suspend walking */
-			w->leaf = rt;
-			...
-			w->skip_in_node += res;
-    ...
-}
+ fs/ocfs2/cluster/heartbeat.c |   12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-fib6_dump_table() clears it only on a sernum mismatch. When the sernum
-matches, it does just this:
+--- a/fs/ocfs2/cluster/heartbeat.c~ocfs2-heartbeat-unlink-live-slots-when-their-node-is-missing
++++ a/fs/ocfs2/cluster/heartbeat.c
+@@ -880,8 +880,11 @@ static void o2hb_shutdown_slot(struct o2
+ 	int queued = 0;
+ 
+ 	node = o2nm_get_node_by_num(slot->ds_node_num);
+-	if (!node)
+-		return;
++	/*
++	 * The node may have been removed from the node table while this
++	 * region's slot is still linked.  The list member must still be
++	 * removed before the region releases its slot array.
++	 */
+ 
+ 	spin_lock(&o2hb_live_lock);
+ 	if (!list_empty(&slot->ds_live_item)) {
+@@ -903,7 +906,8 @@ static void o2hb_shutdown_slot(struct o2
+ 	if (queued)
+ 		o2hb_run_event_list(&event);
+ 
+-	o2nm_node_put(node);
++	if (node)
++		o2nm_node_put(node);
+ }
+ 
+ static void o2hb_set_quorum_device(struct o2hb_region *reg)
+@@ -1038,7 +1042,7 @@ static int o2hb_check_slot(struct o2hb_r
+ fire_callbacks:
+ 	/* dead nodes only come to life after some number of
+ 	 * changes at any time during their dead time */
+-	if (list_empty(&slot->ds_live_item) &&
++	if (node && list_empty(&slot->ds_live_item) &&
+ 	    slot->ds_changed_samples >= O2HB_LIVE_THRESHOLD) {
+ 		mlog(ML_HEARTBEAT, "Node %d (id 0x%llx) joined my region\n",
+ 		     slot->ds_node_num, (long long)slot->ds_last_generation);
+_
 
-		} else
-			w->skip = 0;
+Patches currently in -mm which might be from zzzccc427@gmail.com are
 
-Suppose the dump paused partway through the exceptions of route R
-(skip_in_node >= 1), and R is then removed through this helper. The
-resumed dump calls rt6_dump_route() on R->fib6_next with the stale skip:
+ocfs2-heartbeat-unlink-live-slots-when-their-node-is-missing.patch
 
-net/ipv6/route.c:rt6_dump_route() {
-    ...
-	if (filter->dump_routes) {
-		if (skip) {
-			skip--;
-		} else {
-			if (rt6_fill_node(net, arg->skb, rt, NULL, NULL, NULL,
-    ...
-}
-
-That drops the next route's own RTM_NEWROUTE message, and the leftover
-skip hides its first exceptions. In the FWS_U case, the first route of a
-later node is dropped instead. NLM_F_DUMP_INTR is not set in either case.
-
-With this patch, the same thing can happen for a replaced route and for
-each removed ECMP sibling in fib6_add_rt2node(). That needs the resume to
-go through the fn_sernum == -1 collision described in the commit message.
-
-fib6_del() does not bump the root sernum, so the delete path behaved this
-way on a normal resume even before the code was moved out of
-fib6_del_route().
-
-Would adding w->skip_in_node = 0 where w->leaf is reassigned make the
-helper match its comment?
-
-> +			if (!next)
-> +				w->state = FWS_U;
-
-[Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch, but can
-this store race with the lockless walker reset in fib6_dump_table()?
-
-When the sernum has changed, fib6_dump_table() resets the walker before it
-takes tb6_lock. The walker is still linked on net->ipv6.fib6_walkers at
-that point:
-
-net/ipv6/ip6_fib.c:fib6_dump_table() {
-    ...
-		if (cb->args[5] != sernum) {
-			/* Begin at the root if the tree changed */
-			cb->args[5] = sernum;
-			w->state = FWS_INIT;
-			w->node = w->root;
-			w->skip = w->count;
-			w->skip_in_node = 0;
-		} else
-			w->skip = 0;
-
-		spin_lock_bh(&table->tb6_lock);
-    ...
-}
-
-At the same time, this helper holds only tb6_lock and
-read_lock(fib6_walker_lock), and it can still see w->state == FWS_C and
-w->leaf == rt.
-
-If its FWS_U store lands after the FWS_INIT store, fib6_walk_continue()
-starts at w->root in state FWS_U:
-
-		case FWS_U:
-			if (fn == w->root)
-				return 0;
-
-The rest of the table is then silently left out of the dump, with no
-NLM_F_DUMP_INTR.
-
-The same race already existed with fib6_del_route() as the writer. This
-patch adds the replace paths in fib6_add_rt2node() as more writers. I don't
-see a use-after-free here, because FWS_INIT and FWS_U do not dereference
-w->leaf.
-
-[ ... ]
-
-> @@ -1315,6 +1338,7 @@ static int fib6_add_rt2node(struct fib6_node *fn, struct fib6_info *rt,
->  		fib6_info_hold(rt);
->  		rcu_assign_pointer(rt->fib6_node, fn);
->  		rt->fib6_next = iter->fib6_next;
-> +		fib6_walkers_skip_rt(info->nl_net, iter);
->  		rcu_assign_pointer(*ins, rt);
-
-[Severity: Medium]
-Can a resumed dump skip the replacement route rt here?
-
-In this branch, rt takes over iter's slot in the leaf list. The helper
-treats that as a deletion. It moves walkers on iter to iter->fib6_next,
-which comes after rt, or sets FWS_U if iter was the last route in the
-node.
-
-fib6_dump_node() leaves w->leaf on the route it hadn't finished. In the
-common case, the pause happened at rt6_fill_node() of iter itself with
-skip_in_node == 0, so nothing from iter has been sent yet.
-
-Suppose the dump then resumes on the sernum-match path (the
-fn_sernum == -1 case from the commit message). fib6_dump_node() starts at
-w->leaf and never visits rt. The dump then contains neither the old route
-nor its replacement for that prefix and metric, and NLM_F_DUMP_INTR is not
-set.
-
-On the sernum-mismatch path, the node is walked again from fn->leaf and rt
-is dumped, so the two resume paths give different results.
-
-The ECMP sibling loop further down looks fine, since those routes really
-are removed.
-
-For the replaced slot itself, would pointing walkers on iter at rt (and
-clearing skip_in_node) keep the replacement in the dump?
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009225142.47005-1-cenzhang%40linux.microsoft.com
