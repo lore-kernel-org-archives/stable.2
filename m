@@ -1,160 +1,144 @@
-Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45E2930E0FB
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 07:31:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 270CA34A79D
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 07:35:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791617506; cv=none; b=bdbIhMExQ5zWOB7Dy2JIMoGA9NqX+ssL3RHGSzE25m4aJf3MnNZYXdwWUnI6AXVIRhG2WMB33FkFhwYUXEqu7bJpgP/75iyZhxx9r3X5/kFzws3WqRkdv+X9A91C7lWVg1EZekOBiPDX4TcpPWEAOEPqG4kT8TLNkaxAhfPj9ME=
+	t=1791617756; cv=none; b=OCGQTB50J0/cEUwAINswl1T5K8WZGhE4vEaGGyxV/Q6BGRnyV+a/c9LUdFcYp8A1YC/aax6ior91HvHdfgTYVdQtVG8Aj4nCSYxE8lsFDPg/eZfxQwqn4S7rs1NwJPPdl+wWA6bJCCOkn79hGIfMX04Ys8aRg2D3ETLWVRFz/7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791617506; c=relaxed/simple;
-	bh=Sk+YEE6RhtCnMSZ9XmdIy9B3iFVIZ/w+u+UC0S5g7bY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ow8VceXdpWPqznaqWIsyYKK9c+1hvidVkbE245hAgc+BKuAYVmdBDDCLr+pVOxPVo92a8GsXF+DM1iVxuZYtahkSgMhL2VDT5RhP1VLgo595lU5la3Pvq0JgaLK0ediutBcVi6AdCfAFNaFK4PggOE/2SI4/el1qz6DFFmnVgiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f0gBFRxB; arc=none smtp.client-ip=74.125.227.129
+	s=arc-20240116; t=1791617756; c=relaxed/simple;
+	bh=TVIiJVHskzSYIEzDey9M0ArbAY2a1BkeAfEePyu89P0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=aJ9ZZHejAVs9ol+vEn5BpmIVlYH2mccFf6n0PbXTpxL4hDfQ1S18GWgwtkoTcPvAFzjaWSSg8QVhcmsclM+GlihRNQD25UJ+ltdDXm16osSE7BZPwm5czs0yhwutzV1iSluyvg0Nwfdl4IErSu0rVCSjAyOc5Z7hoLyeXVGhYZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XW8/KhOV; arc=none smtp.client-ip=74.125.231.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f0gBFRxB"
-Received: by mail-pj2-f1.google.com with SMTP id 98e67ed59e1d1-3ab86ae9b80so114257a91.1
-        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 00:31:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XW8/KhOV"
+Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-44cdbcd53b8so191922fac.0
+        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 00:35:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791617505; x=1792222305; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Gt+VmyNWTGnkgPMPZ6xk7DUg2EVMBLgEkZCEB+aUV5s=;
-        b=f0gBFRxB88I8d8niA1kvBbiP7PCSDOU+ZxLf3ZJsAhtbvjRodLrKN6AM2GLngncf1g
-         PJgR3cONJRgILmKGYWmnaS6dSdgOSxABWZ9N4nfvFPw/5Shimu4OL6KMWLwszBDpCOv4
-         u53Y/yqDDitn+Wya6X/mAMxgAK9nAYLYklgyr8H0DwO25p4b0t5ZhBgtUB/+ITnf+cnY
-         XK2Lp3hMlcrQSBfad9Wr3JTe5TNRV+PCYAz7JYTOjlUIiYwgKaoDohW//lXK18BRybni
-         y6FwUHqdLcreW79q2LWXZPu1GiCC6kHwuZP6H0FoqXMLuSOHKu4QFQA2XmkXZ4dyrbNa
-         od4Q==
+        d=gmail.com; s=20251104; t=1791617754; x=1792222554; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mpcc7xlu2/Y07yx6InZaddKVM8WwydxkM9aORRslbW0=;
+        b=XW8/KhOVwpRa2CNtHq/mwytnsopj6hQe6A/T0RqZ30BWFjzgAhTTUm82k8EJR0Yqfq
+         v4NuyJQkS54UY9Sdvtwvta4LYEHFhzf62tiywClCEwk70X1pH1XsnOj5Onc2C0pmLEKC
+         w3DVLk/JCFht7NG9W744/mhHMWBMY+NKXh/ZKMYqlgv4V0xNy+vokqPrGrNAOVsNCvj7
+         lgCZodGGjM/YCM39gz2OOXzuBicO/qMXBXqNVDzIZDwoZEG1jxH/1axIQj0+wIUww9tc
+         pvcRMKR9Q3YGeAhh7MAQbestpZjxZe8KWbzSTGAXms1rj9L3NxpoM59BC+3ydz3CO8c7
+         8Olw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791617505; x=1792222305;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Gt+VmyNWTGnkgPMPZ6xk7DUg2EVMBLgEkZCEB+aUV5s=;
-        b=dp9ic6UN14T2/gRiRnmBcHq/nsQeGIbdv9ac5UlRY08Cq/AaFBsimjRE+NmoxSFiYS
-         3EWHrzDlLJ3q4bgePNKYuDVBe09XgzDIFtx+ZY8vrJfR9hq9Jl5nlsctOWePdLt+1waU
-         GbiuU00g7/dPX6hVpCaH/GHUOnAkPMMtE6St6B87rs2J9UOdTcXeZgdLMLx7Kd753ZQM
-         ZFfFNKDQzROeFE+pa7dAzfuUWZi5pMXSsBIcIPHLKmAtdho3iNMJQ8dI/dl9wB/OS97/
-         zLKAF8aWp5qVQa3L+S4aIRSbAmPmS7hhFOYbZrKTjHE0N1zo7dF+2IkGPynmB2VhWjzp
-         Jl3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwCBYrQWjptmZcfSSynjRQ0xupqpuXKgI+/sSNCY9Jt2JQlenyLSq5dcl8JHIYWj9/VrrkXhbo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKIsSz8XXVP00GEOb6AGJVYrrAFyDon5/7gF/aToAtiVZoYoauP
-	Q0vl42HaSJCMWMdn+vMijjU1s7hwrrRFWjQaq6NqWXCjj+AzNr8TvAEG
-X-Gm-Gg: AYBFou3SFgR2uFAQmSIa1uXo68UYVHTPOwNS0MWfBZqCYnFnWwxl+cr1BAT/VRGxEi8
-	OYXoLUHuGBVa8pUD99NnIXHcCayopdFUPGY3iR2MlDyANNBStnsnXBWuL3CJXqplG9MzEU+5Zmz
-	6ayg6kEK1NufvEDmHF/snm2W4HAnIEJ+8kM+7lFDqLZtGFaFhTXt1Ixbn4DAdMc8C8J4cKL+s30
-	FECoobToUbI5cqmUm0wnzzJOiUEWOghauZCpoO5ZGu6SgiMJSleXouCl+uoXgJBHz3DMZXGeUJo
-	QerQdpCcSqrUkU5DOp+AF+aP7uwP5MA7HxwCevCZSeKSpJpb4X4lKCUnHomhgukx1dNfS4tNWmg
-	uidi5ict16kGppyIPHYAeH1lb54SvKIEdXKjDRLJFSMP7Dg4moBLiCZR+GsEvrfX1+RoBFDKTO2
-	FhohmW5tqyl2Uxf7pAtMZdYhz5e619k590pQccJ0g9jxwMhZSW1I9jG54QcTPwPJmr1b26gY2QO
-	AYlUhgZr2tCF2Pf
-X-Received: by 2002:a17:90b:52:b0:3aa:f2c4:12e7 with SMTP id 98e67ed59e1d1-3ab3a7474dfmr3614097a91.20.1791617504599;
-        Sat, 10 Oct 2026 00:31:44 -0700 (PDT)
-Received: from LAPTOP-QJLDGQ2L.localdomain ([112.224.13.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b9639bsm6795955a91.4.2026.10.10.00.31.40
+        d=1e100.net; s=20260707; t=1791617754; x=1792222554;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mpcc7xlu2/Y07yx6InZaddKVM8WwydxkM9aORRslbW0=;
+        b=RA40zcVJh67LhMxdn2eFnSpAPeZTilKxaMx/rwop+cFDu/FcNW8B5fEBBJJbdUXPR+
+         +gsbwBcLgYHiEK07xUWutoMzfMqkh+0B+xB694lbwH9vUiBPYUOgAQTPeshF+QuRuM/R
+         RNFfwyfJoAp6K01weI0LRejDhGwbGm0aTIEVZZfGY5krntXf3yRBT2VkY5U217XkDl35
+         4wuWJQgDr6kFwodZTSAL7E+rHwPGnD7kf2DXth8jpfnUMjPOM+PVhR3oNxTaly52mU4o
+         VwlylAfGbJjkAC6+qINuBxrlNyNDsNO0rrQ/Gb571sJe5iDNKY30iQ7SXRKnjMG3XaBV
+         NqoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxOdxxApmWCr45rJXvGNOqCu3iJou2vyqfmitXS5d5QifeXKbi5A6RBBDedqC3oYyvjn5fUhXQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLZ5JgD6My90uiqMjFmxQlDD0UVLq6+Pys4da6RbKcawX4d6Yx4
+	n6yWwcRFPQfMNv0ScfrIBTqvUSwJE0QoZvP+ClJ3Fi6Xb25GUEkrcNdkPMKcXAlBvf0=
+X-Gm-Gg: AYBFou203udKy0ICFssyt/4sPVxmADVG5e/Iqob1KXdgCiuHQv68iEytzD7VYaLbGub
+	S9IAS4UZmn455PQTAguvoFhSjIxRZMruiLsPsp0Bso4ZXkzQR7aLbqXU3sGn/kXqT4Ul97vTO+9
+	4dB1Muratvh8v755Jr07fSva60vslrfHnD1lgMYJ+cxknTHEWAgOUOEM2ljh+hZtm5wn0HX9JfV
+	iYfdEnvcr5qerIwMQnnL1cjpUWSLvyLtbpLThr9MHvkD7F3XJZPQUEUAVOxxQIQ/yPgYCnkmUKV
+	aHUcw0FYixWaP6rLoRop2iMXP9/04ad/JzNFo3EzH60EFFUoEF27mbjqipowXIWHRt92c39KFzz
+	ZLh8nVBlI/NyhsLIE/3RgpzZxLb4jhprYQRNMzvcXuUX/X9a76he0I2tZoRHNMspBpmz2RkR9LE
+	0nrgMPgxR/z66WTyBLHZoDuOAY1VuAZbCKSSpDxLc3ktlO9PDKH04HHikltt0FIsWwJ70hAb/UM
+	sTXPFX06oEk9vU7n8aeAEc2vvL2uIzVMMCK2Q==
+X-Received: by 2002:a05:6808:4f6c:b0:4c2:5ac:7f9e with SMTP id 5614622812f47-50c54177a49mr3775147b6e.43.1791617753910;
+        Sat, 10 Oct 2026 00:35:53 -0700 (PDT)
+Received: from localhost.localdomain ([14.116.239.36])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-50c16755587sm4618243b6e.5.2026.10.10.00.35.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 00:31:44 -0700 (PDT)
-From: Boyan Liu <yymhvert@gmail.com>
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org,
+        Sat, 10 Oct 2026 00:35:52 -0700 (PDT)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: Ilya Dryomov <idryomov@gmail.com>,
+	Alex Markuze <amarkuze@redhat.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: ceph-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	co+98d7de09cd94fec5@bugs.sh,
-	Boyan Liu <yymhvert@gmail.com>,
+	Henry Martin <bsdhenrymartin@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH net] udp: Fix out-of-bounds read with unset mac header in unexpected GSO path
-Date: Sat, 10 Oct 2026 15:30:15 +0800
-Message-ID: <20261010073015.7665-1-yymhvert@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH] libceph: fix client panic on MDS message with data but no data items
+Date: Sat, 10 Oct 2026 15:35:41 +0800
+Message-ID: <20261010073543.2912416-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-udp_queue_rcv_skb() and udpv6_queue_rcv_skb() re-segment an
-unexpected GSO packet after restoring skb->data to the mac
-header with __skb_push(skb, -skb_mac_offset(skb)), assuming
-the mac header is valid.
+mds_alloc_msg() allocates MDS->client messages with zero data items,
+and nothing validates the on-wire data length against that: messenger
+v1 calls prepare_message_data() whenever data_len is non-zero, and
+messenger v2 unconditionally calls ceph_msg_data_cursor_init() from
+prepare_read_data().  Both reach ceph_msg_data_cursor_init(), which
+does BUG_ON(!msg->num_data_items) — a malicious or compromised MDS
+can remotely panic any connected client (kernel denial of service) by
+setting a non-zero data_len on any message type that carries no data
+payload.
 
-SRv6 End.DT4/End.DT6 VRF decapsulation calls
-skb_unset_mac_header(). iptunnel_pull_offloads() can leave an
-inner UDP GSO type (SKB_GSO_UDP_L4 or SKB_GSO_FRAGLIST)
-behind, so a socket that does not accept that GRO type runs
-the unexpected GSO path with mac_header == 0xffff.
-skb_mac_offset() then returns a large positive value, which
-the unsigned __skb_push() argument turns into a huge length:
-skb->data moves far outside the buffer and skb->len is
-corrupted, so segmentation reads out of bounds:
+No legitimate MDS->client message carries data items (OSD messages
+with data_len > 0 always attach items; MON/MDS control messages
+carry none), so rejecting the combination is a pure protocol
+violation check.  Turn the latent BUG_ON into a connection error
+(-EPROTO, error_msg set) on both protocol versions.
 
-    BUG: KASAN: slab-out-of-bounds in inet_gso_segment (net/ipv4/af_inet.c:1383)
-    Read of size 1 at addr ffff88800da7ffff by task exploit/149
-    Call Trace:
-     inet_gso_segment (net/ipv4/af_inet.c:1383)
-     skb_mac_gso_segment (net/core/gso.c:53)
-     __skb_gso_segment (net/core/gso.c:124)
-     udp_queue_rcv_skb (net/ipv4/udp.c:2476 net/ipv4/udp.c:2466)
-     udp_unicast_rcv_skb (net/ipv4/udp.c:2620)
-     ip_local_deliver (net/ipv4/ip_input.c:262)
-     seg6_local_input_core (net/ipv6/seg6_local.c:1640)
-     lwtunnel_input (net/core/lwtunnel.c:465)
-     ipv6_rcv (net/ipv6/ip6_input.c:351)
+This issue was discovered by Tencent CodeBuddy Security.
 
-__skb_gso_segment() resets the mac header to wherever
-skb->data points, so the push target only needs to be a valid
-header start. Fall back to the network header when the mac
-header was never set.
-
-Fixes: cf329aa42b66 ("udp: cope with UDP GRO packet misdirection")
 Cc: stable@vger.kernel.org
-Reported-by: co+98d7de09cd94fec5@bugs.sh
-Signed-off-by: Boyan Liu <yymhvert@gmail.com>
+Fixes: 0d9c1ab3be4c ("libceph: preallocate message data items")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
 ---
- net/ipv4/udp.c | 5 ++++-
- net/ipv6/udp.c | 5 ++++-
- 2 files changed, 8 insertions(+), 2 deletions(-)
+ net/ceph/messenger_v1.c | 7 ++++++-
+ net/ceph/messenger_v2.c | 4 ++++
+ 2 files changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/net/ipv4/udp.c b/net/ipv4/udp.c
-index bb8cfc62c..fe5a23f1c 100644
---- a/net/ipv4/udp.c
-+++ b/net/ipv4/udp.c
-@@ -2441,7 +2441,10 @@ static int udp_queue_rcv_skb(struct sock *sk, struct sk_buff *skb)
- 		return udp_queue_rcv_one_skb(sk, skb);
+diff --git a/net/ceph/messenger_v1.c b/net/ceph/messenger_v1.c
+index c9e002d963190..d0978c9031a16 100644
+--- a/net/ceph/messenger_v1.c
++++ b/net/ceph/messenger_v1.c
+@@ -1226,8 +1226,13 @@ static int read_partial_message(struct ceph_connection *con)
  
- 	BUILD_BUG_ON(sizeof(struct udp_skb_cb) > SKB_GSO_CB_OFFSET);
--	__skb_push(skb, -skb_mac_offset(skb));
-+	if (skb_mac_header_was_set(skb))
-+		__skb_push(skb, -skb_mac_offset(skb));
-+	else
-+		__skb_push(skb, -skb_network_offset(skb));
- 	segs = udp_rcv_segment(sk, skb, true);
- 	skb_list_walk_safe(segs, skb, next) {
- 		__skb_pull(skb, skb_transport_offset(skb));
-diff --git a/net/ipv6/udp.c b/net/ipv6/udp.c
-index 93478d1ad..8db4e2869 100644
---- a/net/ipv6/udp.c
-+++ b/net/ipv6/udp.c
-@@ -895,7 +895,10 @@ static int udpv6_queue_rcv_skb(struct sock *sk, struct sk_buff *skb)
- 	if (likely(!udp_unexpected_gso(sk, skb)))
- 		return udpv6_queue_rcv_one_skb(sk, skb);
+ 		/* prepare for data payload, if any */
  
--	__skb_push(skb, -skb_mac_offset(skb));
-+	if (skb_mac_header_was_set(skb))
-+		__skb_push(skb, -skb_mac_offset(skb));
-+	else
-+		__skb_push(skb, -skb_network_offset(skb));
- 	segs = udp_rcv_segment(sk, skb, false);
- 	skb_list_walk_safe(segs, skb, next) {
- 		__skb_pull(skb, skb_transport_offset(skb));
+-		if (data_len)
++		if (data_len) {
++			if (!con->in_msg->num_data_items) {
++				con->error_msg = "message carries data but msg has no data items";
++				return -EPROTO;
++			}
+ 			prepare_message_data(con->in_msg, data_len);
++		}
+ 	}
+ 
+ 	/* front */
+diff --git a/net/ceph/messenger_v2.c b/net/ceph/messenger_v2.c
+index b323b61e70239..9ad43214bf984 100644
+--- a/net/ceph/messenger_v2.c
++++ b/net/ceph/messenger_v2.c
+@@ -1834,6 +1834,10 @@ static int prepare_read_data(struct ceph_connection *con)
+ 	struct bio_vec bv;
+ 
+ 	con->in_data_crc = -1;
++	if (!con->in_msg->num_data_items) {
++		con->error_msg = "frame carries data but msg has no data items";
++		return -EPROTO;
++	}
+ 	ceph_msg_data_cursor_init(&con->v2.in_cursor, con->in_msg,
+ 				  data_len(con->in_msg));
+ 
 -- 
-2.43.0
+2.43.7
 
