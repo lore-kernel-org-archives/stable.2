@@ -1,160 +1,217 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-42ae.mail.infomaniak.ch (smtp-42ae.mail.infomaniak.ch [84.16.66.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25080497399
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 12:06:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E6E498935
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 12:10:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.66.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791633997; cv=none; b=WlW7PQ9dQDftNQy7HJoI3FWpH+osPGPKZdPL4pX2Tbf0HhcNMF/lZ6fmGt87bgTPiK5e2sRUKVImOKUNZJuakuv/E8RgCl34L6AxhQ2ThAk48RuYPSERVTKK1JSPAqzSVk63nZXjdPAiArYtKKASRyYosYKQrHwyScDvritfQtk=
+	t=1791634245; cv=none; b=PQmysnFKu4Igx6lixIEHW0911VN8My9tHWnSyJBBJyTHC7++lZEP7mdokrYw954ZXYMiPfrStq6wk0pah2hLF1lHjbAkb6LZQMM7DHJBkVoTj9VxJrFwq2c9yWyU3M075ScQgzWGALCNDxEnIewY02dooVczlSZGOA5697U2XZg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791633997; c=relaxed/simple;
-	bh=c6R/HMX9UdwvshKUArbM+BShOO0B0p0jNJq4Z1oLlXQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=ra5DogLs3MSvVe/xkaNLDV+vm9OrB0rz4CUFy2PXoLQH332SjrExxd8JxLePTgzAktfAD+bdO+51jFtMBAwheIYeTBteVmC6usH8OfN4xGf66mgcGtsDeh9vlX9/eO59X8WCGvBiiK+0VsCO8wHQk/21vwd1aOhmQgpwON36eQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XBQ7+Qik; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791634245; c=relaxed/simple;
+	bh=idsWFdaV18owxyQKTWuesq8tc8fj4wX0xUezUBnU3bw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NPbYBiBwecl6LC029KOaKoZfQihkaBla539q3u0zdKhs5ny844s8CnhLkbeBzsFRu4fu8cEoyWCbv9sDioseBZJuUm/cYxzmAfpYOu8CjkFmXl9qnaGW4uzDUuCZLIMIC9E41oOD6r8r9NPmzAutUvMf764ULBygsH3RYurmwhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=etik.com; spf=pass smtp.mailfrom=etik.com; dkim=pass (1024-bit key) header.d=etik.com header.i=@etik.com header.b=TTGzBhhw; arc=none smtp.client-ip=84.16.66.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=etik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XBQ7+Qik"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso5960985e9.3
-        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 05:06:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791633992; x=1792238792; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Pf93fAStQFQmMPyWTZnqmgHvVU3/s2D82vsfqUoiRMc=;
-        b=XBQ7+QikmVoz/PJOWWWMLXAUastRMEGijjmpTay0t1cOOZTBbdWC8NUpv6s1p3ApVJ
-         q5LT56oeBWKAblerx3D62ci7iltlvfJq7Md9LwMDlypNsMakftbkspyrCYl+q9JA5fUY
-         aFrjC/Kc/hqDWUb6VPSnHyIcMtWWSdaAb2YBILO3z+BMYis9f8MpSc39FdHySN+zLUBQ
-         dvHxwEKMeYRtSBFbPlAznipLNblDs1lOkFPLiPY6b3Vt1OM/aFfujRXjTdGyST5cfKLK
-         NC93FYs9RrD+zvs8oz//UQouIifuxlotjigxMdsPFBjp2jrGLbxD8HnhNMn4w/T9sPMF
-         XqMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791633992; x=1792238792;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Pf93fAStQFQmMPyWTZnqmgHvVU3/s2D82vsfqUoiRMc=;
-        b=Sb7YTyuSmcFlcuTRktbVycBkfNuq50q0jcMkKmGpcHneAq6kpSw9S4VgfI7ZyOmhei
-         Ei7W3KwxIrJpVGbTo30393jyDRVKO6aHVAHAs4rhrF0F6D6LmtuObpdU3fj61A0fZ10/
-         zoQFg7TxXmRW99FRikPcn/tru35PMGVwOwhUFjt1ScHKAgCR3jhf2fUGBzaxuhPcquAn
-         8PI4WEzGHPZCazoF2zmJ8LOW2pwc9hypmISbyTbtLQrNfSTbzoXVBz9pyF7byBKuj7+J
-         q3ZyjtGkt4MUb3kiik23WuTa+vknPEQtHbB5yqt/MttygVr4/Jf8h8wJnLVASerMWbcQ
-         07VQ==
-X-Gm-Message-State: AFq9FYL+nohq80b9++xpNIQKO84gSgkOaZhRYOGBnRFeeHeobrKdDBTu
-	YV3XSBfOKKHsScPF4kqy8OlgXJNahbLUQSzy/Kq6OZ0wlsWKDgFvYH3VEbSty5Mn
-X-Gm-Gg: AYBFou3X1/LIgI8NorjeeBobVZP5/eLbq/wlJgHwEc1LM/QIRf/NsieQswB/UboCACw
-	neJO4yiPV+Oz36RNVfAdzt2+5KW2msX+Sh7PK39PSV5QlnWRPNfLfeaRXe2h/U5iiFjylIe8C2b
-	PafbWgD/AvdL70h8anSVAjzV2Zl8JK5Jx7JsjRGuz4LskRaL3C1vpPckUrwg0c2yF3D0KWFt4nb
-	Y+x2vmG2iEixmloCjIAoAYgTIk/1WuBQCKe/OIWRl6gv1abR6II9tI6J4W5/J9qHlMAjAfBNaz9
-	HePHP1Xh/D+BmWOiyuCKhUQk8QIgF8BKPKKMsmQk8c5sMtWXo/v50+dpzFt11NCBlru1AVPWwEK
-	h/fzoOulfJaAJT/biHEV+OQuumb5NFXWctkv8uzS2AXCslFPbwaLykWAICFV0xJjLKn8zFnRv8q
-	hQZZts90oisfOHQALnqWI+nHM7pJOpQ65N90nl/g7Z5gw/Hl64dBkLKqJqrYVNjwKl/xwy/KIxD
-	RFPPcnBcV40J3P4vZCGOkhIF2AHD/xCrQAyXQepJCtq1tKx1FJ49PsjUiYOQUPY7b9Kbi3cIaBI
-	rdhgq+R5dSqACkHgscP7qbPeHtRDbE1EBbUX5/hOXOo+/rbv4PXpsw0gjFCuLgCnMluD5sBtcT8
-	=
-X-Received: by 2002:a05:600c:8209:b0:4a0:2375:dc1a with SMTP id 5b1f17b1804b1-4a18e4cb771mr86143615e9.21.1791633992086;
-        Sat, 10 Oct 2026 05:06:32 -0700 (PDT)
-Received: from imx93-evk.localdomain (dynamic-2a02-3100-9d3f-0d01-48c7-5d76-0ec6-9dac.310.pool.telefonica.de. [2a02:3100:9d3f:d01:48c7:5d76:ec6:9dac])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18beabbd0sm150904195e9.12.2026.10.10.05.06.29
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 10 Oct 2026 05:06:30 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: stable@vger.kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Mukul Sikka <mukul.sikka@broadcom.com>,
-	Keerthana K <keerthana.kalyanasundaram@broadcom.com>,
-	Stefano Brivio <sbrivio@redhat.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>,
-	Bin Lan <lanbincn@139.com>,
-	XiaoHua Wang <561399680@139.com>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=etik.com header.i=@etik.com header.b="TTGzBhhw"
+Received: from smtp-3-0000.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246b])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4j22cQ3JfgzYcn;
+	Sat, 10 Oct 2026 14:10:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=etik.com;
+	s=20210927; t=1791634230;
+	bh=J+48iWCghkVYJEQ+wIRDbVEk4gxMDcsHQqzQKdyIdV8=;
+	h=From:To:Cc:Subject:Date:From;
+	b=TTGzBhhwmZYgpjfK0GxLzpl4ZmKIDdxU2rUldumMnuMx5kttjIO3GeBLz1v2cKD6v
+	 EKY9w8amMrsvvG9LbM+38bRfRUZCyWjD2j0AzeViZAS47nBgm/RluEF6mAABgqSdIa
+	 F/KinuzGMS4VZ2+XmH10AZOaRRzHHgHmPCSI//jg=
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4j22cP2y5Jzw49;
+	Sat, 10 Oct 2026 14:10:29 +0200 (CEST)
+From: David Vornholt <dv@etik.com>
+To: heikki.krogerus@linux.intel.com,
+	gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y v2] netfilter: nft_set_pipapo: restore cloned mapping table memcg accounting
-Date: Sat, 10 Oct 2026 14:06:24 +0200
-Message-Id: <20261010120624.4946-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	abhilash.k.v@intel.com,
+	David Vornholt <david@vornholt.online>,
+	stable@vger.kernel.org
+Subject: [PATCH] usb: typec: ucsi: Stop a power level change notification storm
+Date: Sat, 10 Oct 2026 14:10:26 +0200
+Message-ID: <20261010121026.84844-1-dv@etik.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Feedback-ID: :8e558a56fdab348:ham:123049f310c9d1d
+X-Infomaniak-Routing: alpha
 
-The 6.1.y backport of commit 69e687cea79f
-("netfilter: nf_tables: missing objects with no memcg accounting")
-changed the pipapo_clone() mapping-table allocation to
-GFP_KERNEL_ACCOUNT.
+From: David Vornholt <david@vornholt.online>
 
-The later stable backport of commit 07ace0bbe03b ("netfilter:
-nft_set_pipapo: do not rely on ZERO_SIZE_PTR") rewrote this allocation
-and changed the flag back to GFP_KERNEL. Upstream applied the
-ZERO_SIZE_PTR change before the memcg accounting change and retains
-GFP_KERNEL_ACCOUNT after both.
+On a Lenovo ThinkPad X1 Carbon Gen 13 (BIOS N4BET78W 1.48, EC N4BHT61W
+1.41, UCSI 1.0) with an HP E273m monitor connected, the PPM keeps
+signaling a Negotiated Power Level Change although the power contract
+stays the same, and signals it again right after it has been
+acknowledged:
 
-nft_pipapo_deactivate() clones a populated set before looking up an
-element to delete. If the element is absent, priv->dirty remains false
-and the clone is retained. Its mapping tables therefore remain allocated
-without being charged to the requesting memory cgroup.
+  ucsi_connector_change: port1 status: change=0040, opmode=3,
+    connected=1, sourcing=0, partner_flags=2, partner_type=4,
+    request_data_obj=1304b12c, BC status=2
 
-Restore GFP_KERNEL_ACCOUNT for the cloned mapping table.
+This repeats about seven times a second for as long as the monitor stays
+connected. Since commit a0d4618788f2 ("usb: typec: ucsi: Workaround for
+missed op_mode change"), every Negotiated Power Level Change is handled
+like a power operation mode change, so the driver reads the source PDOs
+again, checks the alternate modes and the connector capability, and
+registers the partner's PDOs again each time. Every UCSI command takes
+about 50 ms of EC transactions on this machine. The EC GPE fires about
+680 times a second, and irq/9-acpi and the kworkers keep a CPU busy.
+Skipping that work for an unchanged contract only brings the rate down
+to about 360 a second, because the PPM still signals every change and
+the driver still reads the connector status and acknowledges it.
 
-Fixes: a4983e89e3b1 ("netfilter: nft_set_pipapo: do not rely on ZERO_SIZE_PTR")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Keep handling the notification as before when the power operation mode
+or the RDO changed, which the workaround for Dell's firmware relies on.
+Once the PPM has signaled it ten times in a row with the same PD
+contract, each within a second of the previous one, disable the
+notification with SET_NOTIFICATION_ENABLE and log it once. This PPM
+still reports the bit in the connector status change field, so a later
+contract change is handled with the next connector change it does
+signal. The notification stays disabled while the driver is bound,
+because resume and the reset path resend ucsi->ntfy.
+
+Also forget the RDO when the partner goes away, so that the first
+contract with the next partner counts as a new one.
+
+With this, the PPM signals ten changes after the monitor is connected,
+the driver disables the notification and the GPE rate drops to zero.
+The ports, the partner and its 5 V/3 A power supply stay registered.
+
+Fixes: c1b0bc2dabfa ("usb: typec: Add support for UCSI interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Vornholt <david@vornholt.online>
 ---
-Changes in v2:
-- Split the combined 6.1.y/6.6.y submission into one email per branch.
-- Keep only the Fixes tag for this branch.
-- Refresh the diff against 6.1.189; the code change is unchanged.
-- Add fresh build, runtime and matched A/B results for this branch.
 
-Original submission:
-https://lore.kernel.org/r/20260831194905.45045-1-kmehltretter@gmail.com/
+Notes:
+    Claude Code, an AI coding assistant, found the cause while I was looking
+    into why irq/9-acpi kept a CPU busy, and wrote this patch and its
+    description.
+    
+    Tested: a port of this patch to v7.2.9 on the X1 Carbon Gen 13 with the
+    HP E273m. The ucsi trace events show ten connector changes about 100 ms
+    apart, one SET_NOTIFICATION_ENABLE and the warning, and no connector
+    changes after that. GPE 0x6E went from about 680/s to 0/s.
+    
+    This version against usb-linus is only compile-tested (x86_64 defconfig
+    with TYPEC_UCSI=m and UCSI_ACPI=m, W=1) and passes checkpatch --strict.
+    
+    Not tested: other PPMs, in particular Dell's that rely on a0d4618788f2;
+    other partners on this laptop; suspend and resume with the notification
+    disabled; sparse (the version available to me was too old).
+    
+    The patch applies as-is from v6.13 on, after 226ff2e681d0 ("usb: typec:
+    ucsi: Convert connector specific commands to bitmaps"). Older stable
+    trees need a backport.
 
-Testing on 6.1.189: built a minimal x86_64 kernel with GCC 15.2.0
-and booted it in QEMU with CONFIG_MEMCG=y. A 64-element two-field
-interval set passed creation, lookup, update, rollback, deletion, flush
-and reuse checks.
+ drivers/usb/typec/ucsi/ucsi.c | 51 ++++++++++++++++++++++++++++++++++-
+ drivers/usb/typec/ucsi/ucsi.h |  2 ++
+ 2 files changed, 52 insertions(+), 1 deletion(-)
 
-Matched unpatched and patched boots used the same kernel configuration
-and initramfs. During a normal update from a memory cgroup, both cloned
-mapping-table allocations (512 bytes each) had accounted=false without
-the patch. With the patch, both used GFP_KERNEL_ACCOUNT and had
-accounted=true. Both variants passed normal set operations without
-kernel warnings.
-
-Earlier A/B testing on 6.1.186 and 6.6.155 measured 524,288 additional
-charged bytes for the cloned mapping tables of a 32,768-element two-field
-set. An unmodified 6.12.107 control already accounted that allocation.
-
- net/netfilter/nft_set_pipapo.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/net/netfilter/nft_set_pipapo.c b/net/netfilter/nft_set_pipapo.c
-index 4b37c6684bff..456779003f58 100644
---- a/net/netfilter/nft_set_pipapo.c
-+++ b/net/netfilter/nft_set_pipapo.c
-@@ -1466,7 +1466,7 @@ static struct nft_pipapo_match *pipapo_clone(struct nft_pipapo_match *old)
- 				goto out_mt;
+diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+index c1450639c..f2677875a 100644
+--- a/drivers/usb/typec/ucsi/ucsi.c
++++ b/drivers/usb/typec/ucsi/ucsi.c
+@@ -1254,6 +1254,51 @@ static void ucsi_pwr_opmode_change(struct ucsi_connector *con)
+ 	}
+ }
  
- 			dst->mt = kvmalloc_array(src->rules, sizeof(*src->mt),
--						 GFP_KERNEL);
-+						 GFP_KERNEL_ACCOUNT);
- 			if (!dst->mt)
- 				goto out_mt;
++/*
++ * Some PPMs keep signaling a Negotiated Power Level Change although the power
++ * contract stays the same, and signal it again as soon as it has been
++ * acknowledged, so the PPM and the driver keep each other busy for as long as
++ * the partner stays connected. Stop listening to the notification once the
++ * PPM has signaled it this many times in a row, each within a second of the
++ * previous one, without a new contract.
++ */
++#define UCSI_PWR_LEVEL_UNCHANGED_MAX	10
++
++static void ucsi_pwr_level_change(struct ucsi_connector *con)
++{
++	struct ucsi *ucsi = con->ucsi;
++	u64 ntfy;
++
++	if (UCSI_CONSTAT(con, PWR_OPMODE) != UCSI_CONSTAT_PWR_OPMODE_PD ||
++	    UCSI_CONSTAT(con, RDO) != con->rdo) {
++		con->pwr_level_unchanged = 0;
++		ucsi_pwr_opmode_change(con);
++		return;
++	}
++
++	/* Queued before the notification was disabled */
++	if (!(ucsi->ntfy & UCSI_ENABLE_NTFY_PWR_LEVEL_CHANGE))
++		return;
++
++	if (time_after(jiffies, con->pwr_level_change_time + HZ))
++		con->pwr_level_unchanged = 0;
++	con->pwr_level_change_time = jiffies;
++
++	if (++con->pwr_level_unchanged < UCSI_PWR_LEVEL_UNCHANGED_MAX) {
++		ucsi_pwr_opmode_change(con);
++		return;
++	}
++
++	ntfy = ucsi->ntfy & ~UCSI_ENABLE_NTFY_PWR_LEVEL_CHANGE;
++	if (ucsi_send_command(ucsi, UCSI_SET_NOTIFICATION_ENABLE | ntfy, NULL, 0) < 0)
++		return;
++
++	ucsi->ntfy = ntfy;
++	dev_warn(ucsi->dev,
++		 "con%d: Firmware bug: power level changes without a new contract, disabling the notification\n",
++		 con->num);
++}
++
+ static int ucsi_register_partner(struct ucsi_connector *con)
+ {
+ 	u8 pwr_opmode = UCSI_CONSTAT(con, PWR_OPMODE);
+@@ -1324,6 +1369,8 @@ static void ucsi_unregister_partner(struct ucsi_connector *con)
+ 	typec_unregister_partner(con->partner);
+ 	memset(&con->partner_identity, 0, sizeof(con->partner_identity));
+ 	con->partner = NULL;
++	con->rdo = 0;
++	con->pwr_level_unchanged = 0;
+ }
  
+ static void ucsi_partner_change(struct ucsi_connector *con)
+@@ -1514,8 +1561,10 @@ static void ucsi_handle_connector_change(struct work_struct *work)
+ 		}
+ 	}
+ 
+-	if (change & (UCSI_CONSTAT_POWER_OPMODE_CHANGE | UCSI_CONSTAT_POWER_LEVEL_CHANGE))
++	if (change & UCSI_CONSTAT_POWER_OPMODE_CHANGE)
+ 		ucsi_pwr_opmode_change(con);
++	else if (change & UCSI_CONSTAT_POWER_LEVEL_CHANGE)
++		ucsi_pwr_level_change(con);
+ 
+ 	if (con->partner && (change & UCSI_CONSTAT_PARTNER_CHANGE)) {
+ 		ucsi_partner_change(con);
+diff --git a/drivers/usb/typec/ucsi/ucsi.h b/drivers/usb/typec/ucsi/ucsi.h
+index dc594388d..0202788fe 100644
+--- a/drivers/usb/typec/ucsi/ucsi.h
++++ b/drivers/usb/typec/ucsi/ucsi.h
+@@ -554,6 +554,8 @@ struct ucsi_connector {
+ 	struct power_supply *psy;
+ 	struct power_supply_desc psy_desc;
+ 	u32 rdo;
++	unsigned long pwr_level_change_time;
++	unsigned int pwr_level_unchanged;
+ 	u32 src_pdos[PDO_MAX_OBJECTS];
+ 	int num_pdos;
+ 
+
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+-- 
+2.54.0
+
