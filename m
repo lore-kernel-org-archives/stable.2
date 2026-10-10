@@ -1,149 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FBA13CE4B9;
-	Sat, 10 Oct 2026 06:30:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6723228B7EA
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 06:33:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791613860; cv=none; b=EeTTVCAqxhozlfT8/UZyGUkNPQRu7fUnGu/KcjgW28/3iHnIsuwOyRv/NIgzWWDZCxTYLQ84YHWanb7ft5CpWSGotwnKS541D3uttwOhIxU7L/qnxk3Bw2keaksz6LWGq8MiO4CmOUrWhBHv/F+1aCqtNauOChQHYOBkYAd22zM=
+	t=1791613985; cv=none; b=OSey2OnRX6wyFpkyTB7odhIJbjDxHJPTqNKy0SnDDCBy1JCJ5DlD/9E8ZEJH96nc7+7Llk68FGrNVAPdJvUpFtldYYXDTIpGXIDm5lCiA+MrABmrW/bg/eZLuTQk1+fgpYw6NDsMSNVblCCRM90sFa7qYFizzXZ9JyXeOyRK1yg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791613860; c=relaxed/simple;
-	bh=h8X2muhUdACmOdoZASl/DFvmfI/hssIIHL/fX4jH2Fg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XUStOP6qOpMH+alBDforXunyXigv2CzT3APTEAp/rpa8yM44DakkLAFFFJDYsd/c4MuumrWCd3y8UohyAVWWGxyY4dVNoZGCP/3OOBE+ZMnmFta2Os27baLhVaosQtT8RhXlPDweGihi9PSRb85yXWo9z/onT16ooRDkCPMwDv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=na/YQiyq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791613985; c=relaxed/simple;
+	bh=js99Rxw6d4LTQnUdeK4/G0TvZ029qAkf0Iwu2klLhiA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WB/l5K7E5rWT55U30zxSXmYXRWF2IfT57Gse05bL3xDn5fxgbli3A6paq8/dFcQNlX7ozU2vLP3lMMjYr0h737Q8GgTvyUWfxH3NdQgg0qoNU/Tdduj2y01oibA0W+2YYwcgBmiBeM1cbTYRmAsDZ9BcMOodxSBftqdILdo4nPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AAc/Q2au; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="na/YQiyq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6C341F00893;
-	Sat, 10 Oct 2026 06:30:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AAc/Q2au"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C530F1F0089E
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 06:32:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791613859;
-	bh=j1dLtZeKKzHRznic0qP4ENsLiLP/MhUoxtlmVSeVJ3A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=na/YQiyqF+nlJrw2g8bdII7e8JJgQYjJ7kMojwNMWr+rF0ebYZnB8J/IKC8RrB82x
-	 oLY1V8bxa2LLgF2T2ri0ClpW1+6sK7pI03+b5eZtDiEcj2XRKsNQHz21Yt4NtcA4sm
-	 y7jJOHnZDRvTbuRkPkle+RJseSwlD1WcErjpZt01VCAc5UDjG1IGU0PokkfKMvUta+
-	 mmUaZzJuh36qpky1PsZnda4LKVQPlpXIPbpCLryoFBdmVjO4Mtq5UkjqU1pihZ7aAN
-	 a14puebgqV0G7T6etmUl2BYTNNBO2WjZYDa2lPkGh5eRuDOUtb6+PKokPCB+AJTAd9
-	 PWuxIV8pQDHRA==
-From: SJ Park <sj@kernel.org>
-To: stable@vger.kernel.org
-Cc: damon@lists.linux.dev,
-	Liew Rui Yan <aethernet65535@gmail.com>,
-	SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 6.1.y v3 2/2] mm/damon/core: fix unconditionally skip last region
-Date: Fri,  9 Oct 2026 23:30:42 -0700
-Message-ID: <20261010063042.8611-3-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261010063042.8611-1-sj@kernel.org>
-References: <2026092949-surpass-thimble-02a8@gregkh>
- <20261010063042.8611-1-sj@kernel.org>
+	s=k20260515; t=1791613979;
+	bh=b16zzei5UU6y9ZD9txjezNSP6bvSMZ1kmlNghkWbFz8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=AAc/Q2auzXjSpVXcsaVhWISGHKrj3x5UiTJNzPACL1YXdbxK7Cm5cskufzGIVIFwd
+	 hGTr3L6MFHLzB1uTih/FxI5u8pz/3KXQpshRMAqYBQXyBEKUNKIY4G3zJrwbGiiZeq
+	 4bEmyPiNui+mK8jT7xo5ds0KrpBnGocp/plFt2Hx2dHeOF3eKOTdBZPYsDiZ0O50Wq
+	 FOJ1+iiN0vxiu8bwjaiyMD8UNFtizaUV3vDQGGVMcpTVaRCnF7Vt92lMcuwwfs6F+L
+	 mDATorta9/uOoribRgbSxCc2SFIVob1TEBhd4tnGBiWXLvCuSHkT55sN/Ib9LLvd+8
+	 sSttQTqLt8O/Q==
+Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6de2f213b7aso210453eaf.0
+        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 23:32:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxxEs8aM69Eeke+wXDdWjkMuFCkJmfYZxXn9I5KK6NI/O5zv6UNlxbu18jyX0dahAXA7qgkf7I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ5my1ibOAnSD+VqU24XPLNxOmv5GTpZHwomYDk6DnWi7suNNz8
+	XyxSH8VI7BO3XvDJqOkfLU/6cjlcIeUAVHCMBdN4YMZEGn/G4lpuUcNd2pSLkNDbMMrkb66y2lD
+	vjGyHzwFuJNVtNBpulyQ29LWlb7bun1w=
+X-Received: by 2002:a05:6820:4dc4:b0:6e0:1599:a5c with SMTP id
+ 006d021491bc7-6ef1009c43dmr2740104eaf.71.1791613978986; Fri, 09 Oct 2026
+ 23:32:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261010-fib-trie-nospec-v2-1-30319b4db8d0@nvidia.com>
+In-Reply-To: <20261010-fib-trie-nospec-v2-1-30319b4db8d0@nvidia.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Sat, 10 Oct 2026 08:32:48 +0200
+X-Gmail-Original-Message-ID: <CAL4WiiqALaRC5U+H_tc5nUmkN932pHPE8Z94x4cB5X7vbuGRCA@mail.gmail.com>
+X-Gm-Features: AclHuK_jW0xWSuvSePWtjINEueMh-yMLMabcZhyjAtOV1tnHpIDfomRToV0aEFo
+Message-ID: <CAL4WiiqALaRC5U+H_tc5nUmkN932pHPE8Z94x4cB5X7vbuGRCA@mail.gmail.com>
+Subject: Re: [PATCH net v2] ipv4: fib_trie: prevent speculative out-of-bounds
+ child access
+To: datrujillo@nvidia.com
+Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Alexander Duyck <alexander.h.duyck@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Liew Rui Yan <aethernet65535@gmail.com>
+Le sam. 10 oct. 2026 =C3=A0 07:37, Dani=C3=ABl Trujillo via B4 Relay
+<devnull+datrujillo.nvidia.com@kernel.org> a =C3=A9crit :
+>
+> From: Dani=C3=ABl Trujillo <datrujillo@nvidia.com>
+>
+> fib_table_lookup() checks the child index against the bounds before
+> passing it to get_child_rcu().
+>
+> The index is derived from the lookup key, which in turn is derived from
+> flp->daddr. A userspace process can therefore influence the index by
+> triggering lookups for chosen destination IPv4 addresses.
+>
+> If this bounds check is mispredicted as in-bounds, an out-of-bounds index
+> can be transiently passed to get_child_rcu(). The value loaded beyond the
+> child array is then treated as a node pointer. A later transient
+> dereference of that pointer can cause a data-dependent cache footprint.
+>
+> This was found during Spectre-v1 research. Leakage was demonstrated with
+> instrumentation that delays branch resolution with a CLFLUSH before the
+> mispredicted branch and makes the leaked location
+> deterministic for reproducible measurement. In that setup, a
+> userspace-controlled IPv4 lookup key was able to trigger a transient
+> out-of-bounds child access. The transient use of the loaded value as a
+> pointer caused a data-dependent cache footprint that was recoverable from
+> userspace using Prime+Probe. A real-world attacker would likely
+> need to delay branch resolution, which was not demonstrated end-to-end
+> without the added CLFLUSH.
+>
+> Sanitize the index with array_index_nospec() before accessing the child
+> array. This removed the observed leakage in the described setup.
+>
+> Apply the hardening before setting cindex in fib_table_lookup(), because
+> cindex can later be used by the backtrace path to load another child
+> pointer. fib_find_node() has the same pattern, with the checked index
+> derived from a user-provided key in fib_table_insert() and
+> fib_table_delete(). leaf_walk_rcu() has a similar checked cindex before
+> get_child_rcu(), and the traversed state can be influenced by userspace
+> actions. fib_find_node() runs under RTNL and
+> leaf_walk_rcu() is not on the packet lookup hot path, so harden those
+> analogous accesses in the same way.
+>
+> Fixes: 9f9e636d4f89 ("fib_trie: Optimize fib_table_lookup to avoid wastin=
+g time on loops/variables")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Dani=C3=ABl Trujillo <datrujillo@nvidia.com>
+> ---
+> Changes in v2:
+> - Move array_index_nospec() before cindex is set in
+>   fib_table_lookup() so the backtrace path cannot use an out-of-bounds in=
+dex
+>   (Eric Dumazet).
+> - Apply the same hardening to fib_find_node() and leaf_walk_rcu()
+>   (Eric Dumazet).
+> - Add discovery/testing details of the gadget to the changelog.
+> - Link to v1: https://patch.msgid.link/20261008-fib-trie-nospec-v1-1-fa18=
+726d485e@nvidia.com
+>
 
-Once quota set, the charge_{target,addr}_from unconditionally skips and
-resets at the last region of the tracked target, so the last region can be
-skipped even when it has not been processed.
+This looks good to me, let's wait for final Sashiko findings.
 
-Example:
+Choice of net vs net-next tree is also debatable given that
+performance impacts are unknown.
 
-    1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
-    2. Quota is configured to process only 100 bytes per window.
-    3. Window 1: Processes R1 (0-100).  Quota is full.  charge_{target,
-       addr}_from is saved at (Target, 100).
-    4. Window 2: The loop reaches R2.  Because R2 is
-       damon_last_region(t), the old code unconditionally returns true,
-       skipping R2 entirely and resetting the charge_{target,addr}_from.
+Thanks.
 
-    Result: R2 is permanently skipped even though it has never been
-    processed.
-
-However, it is important to note that this is a very minor issue.  This is
-because it is triggered only when the previous window saved/kept
-charge_{target,addr}_from, and in the next window, all regions except the
-last region were skipped by damos_skip_charged_region().
-
-Fix this by only resetting the charge_{target,addr}_from when last region
-is reached, only skipping when it is applied or cannot split.
-
-Link: https://lore.kernel.org/20260908134739.96919-1-sj@kernel.org
-Fixes: 50585192bc2e ("mm/damon/schemes: skip already charged targets and regions")
-Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: <stable@vger.kernel.org> # v5.16.x
-(cherry picked from commit b3723b596b548c837a766aae3553c14a7b15af2b)
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/core.c | 25 +++++++++++++++----------
- 1 file changed, 15 insertions(+), 10 deletions(-)
-
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index b5c85e648859..1b9fb00405cf 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -756,6 +756,7 @@ static void damon_do_apply_schemes(struct damon_ctx *c,
- 		unsigned long sz = damon_sz_region(r);
- 		struct timespec64 begin, end;
- 		unsigned long sz_applied = 0;
-+		bool skip = false;
- 
- 		if (!s->wmarks.activated)
- 			continue;
-@@ -768,14 +769,11 @@ static void damon_do_apply_schemes(struct damon_ctx *c,
- 		if (quota->charge_target_from) {
- 			if (t != quota->charge_target_from)
- 				continue;
--			if (r == damon_last_region(t)) {
--				quota->charge_target_from = NULL;
--				quota->charge_addr_from = 0;
--				continue;
--			}
- 			if (quota->charge_addr_from &&
--					r->ar.end <= quota->charge_addr_from)
--				continue;
-+					r->ar.end <= quota->charge_addr_from) {
-+				skip = true;
-+				goto clean_charge_from_skip;
-+			}
- 
- 			if (quota->charge_addr_from && r->ar.start <
- 					quota->charge_addr_from) {
-@@ -783,16 +781,23 @@ static void damon_do_apply_schemes(struct damon_ctx *c,
- 						r->ar.start, DAMON_MIN_REGION);
- 				if (!sz) {
- 					if (damon_sz_region(r) <=
--					    DAMON_MIN_REGION)
--						continue;
-+					    DAMON_MIN_REGION) {
-+						skip = true;
-+						goto clean_charge_from_skip;
-+					}
- 					sz = DAMON_MIN_REGION;
- 				}
- 				damon_split_region_at(t, r, sz);
--				continue;
-+				skip = true;
- 			}
-+		}
-+clean_charge_from_skip:
-+		if (r == damon_last_region(t)) {
- 			quota->charge_target_from = NULL;
- 			quota->charge_addr_from = 0;
- 		}
-+		if (skip)
-+			continue;
- 
- 		if (!damos_valid_target(c, t, r, s))
- 			continue;
--- 
-2.47.3
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
