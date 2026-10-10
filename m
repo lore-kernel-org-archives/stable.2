@@ -1,131 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39EF43D6CA5;
-	Sat, 10 Oct 2026 23:16:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C54C3793D5;
+	Sat, 10 Oct 2026 23:25:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791674187; cv=none; b=DRRitsQdQcUskkJZrv9CbxVokT58KZ4WcrAaoQvemaTtHwPR66b7vcNyZJSqaQGbXlLC9yDYApxou0mvIH9DBDlOrr8FH/w6TDH2KTz3CrmVSONxoP0ZfR+9m6/bQucB9unF0i5J/pF0KtCOoqLdTiBqWePnYnEUO+pV5tHFbXo=
+	t=1791674761; cv=none; b=TWomXymzhF0i9Flkz36ymYmlX8M5bTS8tnHogCLc4U13L1HFU51UPDN21B+cqYxxtK6oa7C3wZ5crJMPLHEQldWnD2b7rhaMywZbbWf7MReSjKl9qaM9/LgYJNPxHTT66bZKASn4Hudj4GiZ3Yhk5kDvl4GVoOeKBF23clCo/sQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791674187; c=relaxed/simple;
-	bh=KGnh8Aqg7Eove+gg5d5FZnYhLMjzjKxYzHrEG64EsSc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=dUAaP/pDCgYfug28RE0J/eA4hyVLRAReCfxLPDF18Ii4INwksf06M8XGKc06hbTj00jQ/0ORe3ZuzYbZUkNmpQniK/4M+J0z3eMC/y+a8sAD2cIkPm0ezCpxrqRyxHF//8c3pRw+A8gejadZ+JwZWl+K4Txooq9wHpnTgZ3wrw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=u9Xi148G; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791674761; c=relaxed/simple;
+	bh=6yFR9zUdaIfYHBE3nKTn5NqrJlDKhHqf2wVO0SrEgF0=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=mI8ZpJQtCtUs1uK3ymnjcYBE1OHAvOy6y2tXnF5Nzk1LEP9MBiaooX1f3+YrERL9nJBR/ssuWs3QLVf8bOjfM/VRUXx2e5J7gI1tavmiKoK4mX1iiUubm5LJmdrzmHv44jQDOlYUgjxM9pVDdo8934a8yuB5mUYhesxyjVphaOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=MGqXdeYH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="u9Xi148G"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BB7D2C2BCF7;
-	Sat, 10 Oct 2026 23:16:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791674186;
-	bh=KGnh8Aqg7Eove+gg5d5FZnYhLMjzjKxYzHrEG64EsSc=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=u9Xi148GY5Gq0LyOwE61xBHOvDUOMtAXl2ZxeBK3D0/KG0tIWZrMF2UbvbknRPCFP
-	 pvPffmi0Yomx5FTPSINISJqw9bYd+l6Db4Oldh/4jGEBzm/2B+VfUez9C1EiDQDVqg
-	 t82hLwwc4Vf64VgUdZ3IGa9o0ATPLXQY5i5RNK6BwXykVnF+JclMJFaUAMsHu6hW8y
-	 uqh4/KckMaCG/v5Uw5IMMq/yOh3o/YNtZjgIk87dgtH7DiGLoxfmgvrvIiB424G8+v
-	 iTv/52UXKaXqx9dP3q8tLAJ9JtIoQvP2/W+1EQTPuYIMVp4nN4Cbjp9BFM78VtSBZD
-	 BRstDF0b9Ultw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A83B9CA9EC5;
-	Sat, 10 Oct 2026 23:16:26 +0000 (UTC)
-From: Joe Finzel via B4 Relay <devnull+joe.sudmix.de@kernel.org>
-Date: Sun, 11 Oct 2026 01:16:10 +0200
-Subject: [PATCH] mei: me: do not bind the 700 series PCH-S xHCI controller
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="MGqXdeYH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25CE01F000FF;
+	Sat, 10 Oct 2026 23:25:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1791674759;
+	bh=lX06ug4ZlwaTEtFe/+FOH0wFcyQJV2GLnOlTR4H9yEg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=MGqXdeYHpyqnP1J5PQ5E2qWuOvv2i1SG2Z0PSZkOeYJbfAi6hmx1DDJ5P2qnbFABt
+	 mXfZdxi9/01bwNyJa5xnSHNNQfO4UJxnvWs0mrspJq3s/tFw7oKsukUjrwaX9cABGj
+	 67S3u687VB7GBdwVK2B7R3vMktHrxSxO8tyrVk1o=
+Date: Sat, 10 Oct 2026 16:25:58 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, I Hsin Cheng
+ <richard120310@gmail.com>, Ching-Chun Huang <jserv@ccns.ncku.edu.tw>, Chris
+ Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Barry Song
+ <baohua@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] lib/plist: fix plist_requeue() shortcut inserting the
+ node at the list head
+Message-Id: <20261010162558.62abcd2ec967b009d0cb3bbb@linux-foundation.org>
+In-Reply-To: <20261009051857.758182-1-nickolai@csail.mit.edu>
+References: <20261009051857.758182-1-nickolai@csail.mit.edu>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261011-mei-xhci-v1-1-38c28b5f3f99@sudmix.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDA0ND3dzUTN2KjORMXQMjc3OjFANTA7NUYyWg8oKi1LTMCrBR0bG1tQA
- IRGYDWgAAAA==
-X-Change-ID: 20261011-mei-xhci-02772d0506e3
-To: Alexander Usyskin <alexander.usyskin@intel.com>, 
- Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Joe Finzel <joe@sudmix.de>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791674185; l=2786;
- i=joe@sudmix.de; s=default; h=from:subject:message-id;
- bh=dHPRvinmj3gT398vg7KB5i9657nu0BvpUvNDZSpaljo=;
- b=Q1saQ00ra3W30vwtbtKVqcmZeHPBryR0R+4L9jmFjm7pJf4wDTp5vS30Crm6vwvpcJb4Tu4hc
- OSpVoNHJk1SApao/OySbAIcwUFn8T6I/pT96vSUiwvZBTWAnXQxHkpi
-X-Developer-Key: i=joe@sudmix.de; a=ed25519;
- pk=vaX11uVm57me/1N8otNmzMMnsE+f0U3/Hi9TCPbnvZM=
-X-Endpoint-Received: by B4 Relay for joe@sudmix.de/default with
- auth_id=1151
-X-Original-From: Joe Finzel <joe@sudmix.de>
-Reply-To: joe@sudmix.de
 
-From: Joe Finzel <joe@sudmix.de>
+On Fri,  9 Oct 2026 01:18:47 -0400 Nickolai Zeldovich <nickolai@csail.mit.edu> wrote:
 
-PCI ID 8086:7a60 is listed as the "Alder Lake Point LP" HECI device, but
-on the 700 series PCH-S (Raptor Lake-S) the same ID belongs to the USB 3.2
-xHCI controller (class 0x0c0330). The HECI device there is 8086:7a68.
+> plist_requeue() moves a node to the end of its priority run.  Since commit
+> 95d4b3450ebe ("lib/plist.c: add shortcut for plist_requeue()"), when the
+> node was the head of its run it skips the scan of the remaining nodes of
+> that run and takes node_next from the prio_list of the node's successor,
+> which replaced it as the run head in plist_del():
+> 
+> 	iter = list_entry(iter->prio_list.next, struct plist_node, prio_list);
+> 	node_next = &iter->node_list;
+> 
+> prio_list is a ring of the first nodes of each priority run, without a
+> sentinel.  For every run but the last one, iter->prio_list.next is the
+> head of the next run and the shortcut is correct.  For the last run it
+> wraps around to the head of the FIRST run, and list_add_tail() then
+> inserts the node in front of the whole list, ahead of nodes with a lower
+> prio value.  The list is no longer sorted:
+> 
+> 	before requeue(B):  A(1) B(2) C(2)
+> 	after  requeue(B):  B(2) A(1) C(2)
+> 
+> The condition is: at least two priority runs, the node is the first node
+> of the last run, and it has a successor with the same priority.  A single
+> run is unaffected, because a one-element prio_list ring is list_empty()
+> and the slow path runs.
+> 
+> The only caller is swap_alloc_slow() in mm/swapfile.c, which requeues a
+> swap device within its priority group.  With several swap devices on more
+> than one priority level, where the lowest priority level has two or more
+> devices, rotating the first device of that level moves it ahead of all
+> higher-priority devices, so subsequent swap allocations go to a
+> low-priority device first.
+> 
+> Only take the shortcut's node_next when the next ring entry really is a
+> higher-priority run; otherwise append the node at the end of the list.
+> 
+> The CONFIG_DEBUG_PLIST self-test did not catch this because it only
+> requeues nodes it has just added, which are always the last of their run,
+> so plist_requeue() returns early every time.  Add a deterministic test
+> case for the failing shape; plist_test_check() verifies the ordering and
+> the prio_list ring after it.
+> 
+> The bug was found while attempting to prove plist_requeue() against a
+> specification stating that the list stays sorted, in the MachCSL
+> verification of the Linux kernel on RISC-V; the proof failed at this
+> arm and the prover produced the counterexample above.  The fix and the
+> test case were drafted with Claude Code (Claude Fable 5.1) and reviewed
+> and tested by hand: the three functions were transcribed to a userspace
+> harness that reproduces the misordering before the fix and the expected
+> order after it, and lib/plist.o builds with CONFIG_DEBUG_PLIST=y.
 
-With CONFIG_INTEL_MEI_ME=y, drivers/misc is linked before drivers/usb, so
-mei_me probes the xHCI controller before xhci_pci can claim it. The probe
-writes the HECI host CSR into the xHCI MMIO space, waits out three
-hw_start timeouts and gives up, blocking boot for about 5.5 s:
+Thanks.
 
-  mei mei1: H_RST is not set = 0x18000840
-  mei mei1: wait hw ready failed
-  mei mei1: hw_start failed ret = -62 fw status = 803401FD 00000000 00006032 00000000 00000000 00000000
-  ...
-  mei mei1: reset: reached maximal consecutive resets: disabling the device
-  mei_me 0000:00:14.0: init hw failure.
-  mei_me 0000:00:14.0: initialization failed.
-  xhci_hcd 0000:00:14.0: xHCI Host Controller
+I recently queued a fix for this problem from Alex:
+	https://lore.kernel.org/20260903222456.1881786-1-handyhandyman.adam@gmail.com
 
-When mei_me is a module, xhci_pci is usually bound first, which is why
-this has gone unnoticed since the ID was added.
+The two patches are rather different.  Please review Alex's change and
+and let us know of any alterations/improvements which you see.
 
-Match the entry on the communication controller class as well, so it can
-never bind a device of another class.
-
-Seen on an ASUS ROG STRIX Z790-F GAMING WIFI (BIOS 3201), i7-13700K.
-
-Fixes: 930c922a987a ("mei: me: add adler lake point LP DID")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joe Finzel <joe@sudmix.de>
----
-Seen on an ASUS ROG STRIX Z790-F with CONFIG_INTEL_MEI_ME=y (the log in
-the commit message is from that board). With mei_me built as a module,
-xhci_pci binds first and the stall is gone, which hid the problem so far.
-The patch is compile-tested on 7.2.9 and applies to char-misc-next; I
-can test it on the board with mei_me built in if that helps.
----
- drivers/misc/mei/pci-me.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/misc/mei/pci-me.c b/drivers/misc/mei/pci-me.c
-index 790a46478..26e89140f 100644
---- a/drivers/misc/mei/pci-me.c
-+++ b/drivers/misc/mei/pci-me.c
-@@ -113,7 +113,10 @@ static const struct pci_device_id mei_me_pci_tbl[] = {
- 	{ PCI_DEVICE_DATA(INTEL, MEI_EBG, MEI_ME_PCH15_SPS_CFG) },
- 
- 	{ PCI_DEVICE_DATA(INTEL, MEI_ADP_S, MEI_ME_PCH15_CFG) },
--	{ PCI_DEVICE_DATA(INTEL, MEI_ADP_LP, MEI_ME_PCH15_CFG) },
-+	/* 8086:7a60 is also the xHCI controller of the 700 series PCH-S */
-+	{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_MEI_ADP_LP),
-+	  .class = PCI_CLASS_COMMUNICATION_OTHER << 8, .class_mask = 0xffff00,
-+	  .driver_data = (kernel_ulong_t)MEI_ME_PCH15_CFG },
- 	{ PCI_DEVICE_DATA(INTEL, MEI_ADP_P, MEI_ME_PCH15_CFG) },
- 	{ PCI_DEVICE_DATA(INTEL, MEI_ADP_N, MEI_ME_PCH15_CFG) },
- 
-
----
-base-commit: c26cc979e28f5193310e4379e14aa6417375c565
-change-id: 20261011-mei-xhci-02772d0506e3
-
-Best regards,
--- 
-Joe Finzel <joe@sudmix.de>
-
-
+> --- a/lib/plist.c
+> +++ b/lib/plist.c
+> @@ -174,11 +174,17 @@ void plist_requeue(struct plist_node *node, struct plist_head *head)
+>  	/*
+>  	 * After plist_del(), iter is the replacement of the node.  If the node
+>  	 * was on prio_list, take shortcut to find node_next instead of looping.
+> +	 *
+> +	 * prio_list is a ring of the first nodes of each priority run, without
+> +	 * a sentinel: if node's run is the last one, iter->prio_list.next wraps
+> +	 * around to the first run, and node must be appended at the end of the
+> +	 * list instead of being inserted in front of it.
+>  	 */
+>  	if (!list_empty(&iter->prio_list)) {
+>  		iter = list_entry(iter->prio_list.next, struct plist_node,
+>  				  prio_list);
+> -		node_next = &iter->node_list;
+> +		if (iter->prio > node->prio)
+> +			node_next = &iter->node_list;
+>  		goto queue;
+>  	}
+>  
+> @@ -276,6 +282,25 @@ static int  __init plist_test(void)
+>  		plist_test_check(nr_expect);
+>  	}
+>  
+> +	/*
+> +	 * Requeue a node which is the first of the last priority run and has
+> +	 * a successor of the same priority, with an earlier run present: the
+> +	 * shortcut in plist_requeue() must append it at the end of the list,
+> +	 * not in front of the first run.  The random test above never
+> +	 * exercises this, since it only requeues nodes it has just added,
+> +	 * which are always the last of their run.
+> +	 */
+> +	plist_head_init(&test_head);
+> +	for (i = 0; i < 3; i++) {
+> +		plist_node_init(test_node + i, i ? 2 : 1);
+> +		plist_add(test_node + i, &test_head);
+> +	}
+> +	plist_test_requeue(test_node + 1);
+> +	plist_test_check(3);
+> +	BUG_ON(plist_last(&test_head) != test_node + 1);
+> +	for (i = 0; i < 3; i++)
+> +		plist_del(test_node + i, &test_head);
+> +
+>  	printk(KERN_DEBUG "end plist test\n");
+>  
+>  	/* Worst case test for plist_add() */
+> -- 
+> 2.56.0
