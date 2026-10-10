@@ -1,188 +1,150 @@
-Received: from mail-m3273.qiye.163.com (mail-m3273.qiye.163.com [220.197.32.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-211.mta1.migadu.com [95.215.58.211])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A3CE25785C;
-	Sat, 10 Oct 2026 02:54:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 051923BCD37
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 02:58:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791600885; cv=none; b=TMuiRj/BDkw1NIaN+Obt1MLIAgdPU+rjCK4u9NxtU16qqShTqwqEtVFE1acSytt31P4ejIKtqHvB63iGd93qxJASd86tcWt6mE+t9AWFKhUIvCOqBokRzTXG0GCNFRT1L64Tn5xO351TuyGyz8KWXvZqIFr7gmCNRK08oaOBc2c=
+	t=1791601136; cv=none; b=pT5Utak6MjqPeDbtrDWiTeZ6RSh2tIYHwVkDRulh0UbCglKFccoWsDYXq9zxoVgrSBvqKtPMnTQQdC4Xa5FmeTQzi/P6vNAJkE++SVvTAzXHFwJDB3GR7R8XOEvcNYragl5Vx9UbnvByy9o5cET0jgvN6OkxFiN9D/LkSI0Q1yw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791600885; c=relaxed/simple;
-	bh=zGouWcnFFnuLHt60ffGU9WM72hu3cmCArQ59ulziqsU=;
-	h=From:To:Cc:Subject:Date:Message-Id; b=c6K2p3gTQal/8dQfE9bMnlNlFmGrFvHSKrN3MISKNR3WEM8vsAVZ2YAhVAxyWk+y2TUDGsXRrhbDCUS8xpHaiKULxps2lOaQepHRbvmwhplLulpi6JUKVAM7BMWDkaAmZtGebS7wHb0AB4u2Cpc5J51yQABzVMI4dRFVzkG/6yA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=kNYGskwI; arc=none smtp.client-ip=220.197.32.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1791601136; c=relaxed/simple;
+	bh=fuKQv+8RzNOVU5ZBFPLwPT4hB6cWDIUsCSCLi5x0JgQ=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=bXnJGsD0kuN5ehRFHZOGb1Y+ZLIxxTqEnHPSsEshWqNbBSA1wxTIp71rgmWpk8IG9I/auNPQSc0FkDda/EOMtvPwx9TQ+yFQ65A6JkDP+AiLQxUZV0+QStZgHM4GWTz5G9W/bQ7ymJNc6gyTJ0vQGX7eglhHvxcalA8VrMNSiwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PAj8h8hF; arc=none smtp.client-ip=95.215.58.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="kNYGskwI"
-Received: from localhost.localdomain (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 508234b94;
-	Sat, 10 Oct 2026 09:38:54 +0800 (GMT+08:00)
-From: Shawn Lin <shawn.lin@rock-chips.com>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-	linux-rockchip@lists.infradead.org,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	linux-pci@vger.kernel.org,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] PCI/ASPM: Fix NULL pointer dereference in sysfs show/store callbacks
-Date: Sat, 10 Oct 2026 09:38:25 +0800
-Message-Id: <1791596305-153177-1-git-send-email-shawn.lin@rock-chips.com>
-X-Mailer: git-send-email 2.7.4
-X-HM-Tid: 0aa123768a7a03a4kunm0642a6a3492e2
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGUtDGFYeHhoYGk9DQh
-	5JHkxWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
-	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=kNYGskwI8i6baHLpmz4TFoYov1vARZDrCkhVERdfJ66QXHhpcQY2kO2gvNtCf5ka7XtIOodP1VVG33kB3HH7R/kkdUrMcROn8fTXBtguUinNjMGxrUtrgdgj6sR7NlLY9UmFFbdGv4dU72O7NdE7jB2ZnmdOl0t6qNuiaoRXIgE=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=K5gGo+uuMA/yw6R3+RiKP53hcTnHquTmjoVQ44yzRDM=;
-	h=date:mime-version:subject:message-id:from;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PAj8h8hF"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=fuKQv+8RzNOVU5ZBFPLwPT4hB6cWDIUsCSCLi5x0JgQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791601131; v=1; x=1792205931;
+ b=PAj8h8hFf53pYA8bcbFfyagGuVs4DqfbJuXHEUnfv59QUS5S5psIkTHUuenHnzKs8/hsCMFW
+ Y9qXKdb7ZS40BBEWtKNeHuAFhCPDS3wRLvIjGCOj+uzX/blKplHI+EZupUQhTBSUV88U9ZaJ57e
+ hSGchvbD2wPg5sMocvPwtlqM=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 04bc35dd178ace7f;
+	Sat, 10 Oct 2026 02:58:51 +0000
+X-Mizu-Trace-ID: 04bc35dd178ace7f
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH 2/4] riscv/mm: fix hotplug page-table destructor handling
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <664510b2-3510-499f-aab5-ceddfcc82581@kernel.org>
+Date: Sat, 10 Oct 2026 10:58:32 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ akpm@linux-foundation.org,
+ linux-mm@kvack.org,
+ stable@vger.kernel.org,
+ osalvador@suse.de,
+ dave.hansen@linux.intel.com,
+ luto@kernel.org,
+ peterz@infradead.org,
+ tglx@kernel.org,
+ mingo@redhat.com,
+ bp@alien8.de,
+ x86@kernel.org,
+ hpa@zytor.com,
+ catalin.marinas@arm.com,
+ will@kernel.org,
+ mark.rutland@arm.com,
+ linux-arm-kernel@lists.infradead.org,
+ pjw@kernel.org,
+ palmer@dabbelt.com,
+ aou@eecs.berkeley.edu,
+ alex@ghiti.fr,
+ linux-riscv@lists.infradead.org,
+ agordeev@linux.ibm.com,
+ kevin.brodsky@arm.com,
+ bjorn@rivosinc.com,
+ apopple@nvidia.com,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <F7FC1A28-A34E-4FE3-A6E8-92D842FFA0A8@linux.dev>
+References: <20261008073021.2512665-1-songmuchun@bytedance.com>
+ <20261008073021.2512665-3-songmuchun@bytedance.com>
+ <664510b2-3510-499f-aab5-ceddfcc82581@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-Reading or writing a link state sysfs attribute after the upstream
-bridge's pcie_link_state has been freed triggers a NULL pointer
-dereference.
 
-This was first seen on a 6.12 based kernel by userspace stress testing a
-PCIe endpoint on an RK3588 EVB1 (Intel I350 dual-port NIC behind the
-root port). The same NULL pointer dereference exists in upstream and can
-be reproduced reliably on:
 
-  # lspci
-  00:00.0 PCI bridge: Rockchip Electronics Co., Ltd RK3588 (rev 01)
-  01:00.0 Ethernet controller: Intel Corporation I350 Gigabit Network Connection (rev 01)
-  01:00.1 Ethernet controller: Intel Corporation I350 Gigabit Network Connection (rev 01)
+> On Oct 10, 2026, at 04:37, David Hildenbrand (Arm) <david@kernel.org> =
+wrote:
+>=20
+> On 10/8/26 09:30, Muchun Song wrote:
+>> RISC-V uses the same memory-hotplug teardown code for the linear map =
+and
+>> vmemmap, although their page-table pages are not always allocated in =
+the
+>> same way. Late linear-map allocations run page-table constructors, =
+while
+>> vmemmap and early allocations may provide constructor-free pages.
+>>=20
+>> The PTE path unconditionally runs the destructor, which is wrong for
+>> constructor-free vmemmap tables. The PMD path avoids that problem by
+>> using is_vmemmap as a proxy for constructor state, but that =
+assumption
+>> will no longer hold once runtime vmemmap allocations use the normal
+>> pgalloc helpers.
+>>=20
+>> Page-table constructors record their state in PG_table. Centralize
+>> page-table freeing and use PageTable() to decide whether the =
+destructor
+>> is required. Keep reserved and constructor-free pages on their =
+existing
+>> freeing paths.
+>>=20
+>> Fixes: c75a74f4ba19 ("riscv: mm: Add memory hotplugging support")
+>> Cc: stable@vger.kernel.org
+>> Assisted-by: LLM
+>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>> ---
+>> arch/riscv/mm/init.c | 29 ++++++++++++++---------------
+>> 1 file changed, 14 insertions(+), 15 deletions(-)
+>>=20
+>> diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
+>> index 857f9a55039c..429a0b015ec1 100644
+>> --- a/arch/riscv/mm/init.c
+>> +++ b/arch/riscv/mm/init.c
+>> @@ -1486,10 +1486,19 @@ struct execmem_info __init =
+*execmem_arch_setup(void)
+>> #endif /* CONFIG_EXECMEM */
+>>=20
+>> #ifdef CONFIG_MEMORY_HOTPLUG
+>> +static void __meminit free_pagetable(struct page *page)
+>> +{
+>> + 	if (PageReserved(page))
+>> + 		free_reserved_page(page);
+>> + 	else if (PageTable(page))
+>> + 		pagetable_dtor_free(page_ptdesc(page));
+>> + 	else
+>> + 		pagetable_free(page_ptdesc(page));
+>=20
+> Similar thought, can't we detect that in pagetable_free() somehow and =
+avoid
+> requiring callers to handle that?
 
-by running:
+I think we can, then pagetable_dtor_free() can be removed because =
+pagetable_free
+can handle the case of pagetable_dtor_free.
 
-  echo 1 > /sys/bus/pci/devices/0000:01:00.0/remove
-  cat /sys/bus/pci/devices/0000:01:00.1/link/l1_aspm
+Thanks,
+Muchun
 
-Unable to handle kernel NULL pointer dereference at virtual address 0000000000000030
-Mem abort info:
-  ESR = 0x0000000096000004
-  EC = 0x25: DABT (current EL), IL = 32 bits
-  SET = 0, FnV = 0
-  EA = 0, S1PTW = 0
-  FSC = 0x04: level 0 translation fault
-Data abort info:
-  ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
-  CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-  GCS = 0, Overlay = 0, DirtyBit = 0
-user pgtable: 4k pages, 48-bit VAs, pgdp=0000000106959000
-[0000000000000030] pgd=0000000000000000, p4d=0000000000000000
-Internal error: Oops: 0000000096000004 [#1]  SMP
-Modules linked in:
-CPU: 3 UID: 0 PID: 646 Comm: cat Not tainted 7.3.0-rc6-next-20261007-00007-gf2fe32674ebe-dirty #134 PREEMPT(full)
-Hardware name: Rockchip RK3588 EVB1 V10 Board (DT)
-pstate: 40400009 (nZcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-pc : l1_aspm_show+0x64/0x88
-lr : dev_attr_show+0x24/0x68
-sp : ffff800086f9bbf0
-x29: ffff800086f9bbf0 x28: ffff0001036c0000 x27: 0000000000000000
-x26: 0000000000000000 x25: 000000007ffff001 x24: 0000000000000001
-x23: ffff800081781630 x22: ffff0001008d3c00 x21: ffff0001053b9000
-x20: ffff0001020880d0 x19: ffff800082441c28 x18: 0000000000000000
-x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000000
-x14: 0000000000000000 x13: 0000000000000000 x12: 00000000ffffe000
-x11: ffff0001053b9000 x10: 0000000000c00010 x9 : 0000000000000070
-x8 : 0000000000000000 x7 : 0000000000000000 x6 : 000000000000003f
-x5 : 0000000000000040 x4 : 0000000000000000 x3 : 0000000000000004
-x2 : ffff0001053b9000 x1 : ffff800082441c28 x0 : ffff0001053b9000
-Call trace:
- l1_aspm_show+0x64/0x88 (P)
- dev_attr_show+0x24/0x68
- sysfs_kf_seq_show+0xb8/0x138
- kernfs_seq_show+0x2c/0x38
- seq_read_iter+0x120/0x3e0
- kernfs_fop_read_iter+0x60/0x188
- vfs_read+0x200/0x2b8
- ksys_read+0x74/0xe8
- __arm64_sys_read+0x1c/0x28
- invoke_syscall+0x44/0xec
- el0_svc_common+0x8c/0xd8
- do_el0_svc+0x1c/0x28
- el0_svc+0x3c/0x98
- el0t_64_sync_handler+0x84/0x12c
- el0t_64_sync+0x198/0x19c
-Code: aa1f03e8 d503233f a9bf7bfd 910003fd (b9403108)
- ---[ end trace 0000000000000000 ]---
-Kernel panic - not syncing: Oops: Fatal exception
-SMP: stopping secondary CPUs
-Kernel Offset: disabled
-CPU features: 0x0,70000000,0070002a,01180a42,0800e20b
-Memory Limit: none
- ---[ end Kernel panic - not syncing: Oops: Fatal exception ]---
+>=20
+> --=20
+> Cheers,
+>=20
+> David
 
-The sysfs attributes are created for every device below the link, but
-the link state is freed by pcie_aspm_exit_link_state() when function 0
-of the downstream component is removed. A sibling function or a sysfs
-reader still holding a reference can then call into the show/store
-callbacks while pcie_aspm_get_link() returns NULL.
-
-aspm_attr_show_common(), aspm_attr_store_common(), clkpm_show() and
-clkpm_store() all dereference the link pointer unconditionally. Add the
-missing NULL checks, mirroring pcie_aspm_enabled(), and return -ENODEV.
-
-Cc: stable@vger.kernel.org
-Fixes: 72ea91afbfb0 ("PCI/ASPM: Add sysfs attributes for controlling ASPM link states")
-Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
----
-
- drivers/pci/pcie/aspm.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/drivers/pci/pcie/aspm.c b/drivers/pci/pcie/aspm.c
-index f8e6497..0e0ba0e6 100644
---- a/drivers/pci/pcie/aspm.c
-+++ b/drivers/pci/pcie/aspm.c
-@@ -1777,6 +1777,9 @@ static ssize_t aspm_attr_show_common(struct device *dev,
- 	struct pci_dev *pdev = to_pci_dev(dev);
- 	struct pcie_link_state *link = pcie_aspm_get_link(pdev);
- 
-+	if (!link)
-+		return -ENODEV;
-+
- 	return sysfs_emit(buf, "%d\n", (link->aspm_enabled & state) ? 1 : 0);
- }
- 
-@@ -1788,6 +1791,9 @@ static ssize_t aspm_attr_store_common(struct device *dev,
- 	struct pcie_link_state *link = pcie_aspm_get_link(pdev);
- 	bool state_enable;
- 
-+	if (!link)
-+		return -ENODEV;
-+
- 	if (kstrtobool(buf, &state_enable) < 0)
- 		return -EINVAL;
- 
-@@ -1836,6 +1842,9 @@ static ssize_t clkpm_show(struct device *dev,
- 	struct pci_dev *pdev = to_pci_dev(dev);
- 	struct pcie_link_state *link = pcie_aspm_get_link(pdev);
- 
-+	if (!link)
-+		return -ENODEV;
-+
- 	return sysfs_emit(buf, "%d\n", link->clkpm_enabled);
- }
- 
-@@ -1847,6 +1856,9 @@ static ssize_t clkpm_store(struct device *dev,
- 	struct pcie_link_state *link = pcie_aspm_get_link(pdev);
- 	bool state_enable;
- 
-+	if (!link)
-+		return -ENODEV;
-+
- 	if (kstrtobool(buf, &state_enable) < 0)
- 		return -EINVAL;
- 
--- 
-2.7.4
 
