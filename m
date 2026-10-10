@@ -1,114 +1,103 @@
-Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com [209.85.217.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA80337CD22
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 14:27:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44223364E98;
+	Sat, 10 Oct 2026 14:34:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791642444; cv=none; b=jqtIKzilLdn612jZskHfytI6xmD0BR8o/f0L+46efn6vdBk/qHAvJALQwV9EGdPFiKEbYhjJyUcU7r/9ksAhpHAbjkqJOtQLoOEEu+QnY2LXfmiRZlsM954TiTts+jEj4f9rlTWqzyzfxQt18Uxm0vOqo7E/swrtDulMnxMaBFM=
+	t=1791642868; cv=none; b=pYFaR7ffNJ1k5EqQ+zqW90/h7pLZKwy2EAYGI/giYi2WB4sXVXW9g6eOqq+rrjTZg4x/310mz0jf5qSDgjWOO5KNQ1DcpLctdhWDGA1+kb6U46DCS2pTU34+4Zewg68cWig+EBW31q2OiQo0+lqIaqLvUgjVJuO/NNxfwQk0Cbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791642444; c=relaxed/simple;
-	bh=grRLkJN+Ko2Iz6fCDMiPUA58aC5KdZux8G0S6xruiL4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rjok9O4lO1LF4RU8VZc0XbM+TrCrDZ+yy0vAXsSMvfhJknJtmucXo7+DDTaR9YRZy+jYm47lIqdY+vaxrOmCrbeY+4szdLIdlnsVTHyuE6Mvj8cxUqOeYa2dbiQoKl87S2fESPtLkdTc8s3AKNj0KUM+X8FZN11wbSbYTJKVz4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bj0UsI06; arc=none smtp.client-ip=209.85.217.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791642868; c=relaxed/simple;
+	bh=bY1FkzrmoTrmnMtl/t7yCZ44XVx09IFgGcx53OvFoHs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WQdTtbKZiWvLeNQczYhRvHP4iKpo4RUAYnyXv0nxO0C5OtRRdGfoMDKHiZ8XDL+AjBgcPn6VwySmTqgQw8T//A5dPvVRg9pbxs99YgD/ZLGtSROJ89m6n2v55BQ0j3RAv/xmQAiLz5kgx5tzhEETuvWfTQBoI7Gp0BH9AZkqPe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JxylpYuF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bj0UsI06"
-Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-7bf5f3736d2so424395137.0
-        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 07:27:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791642442; x=1792247242; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=grRLkJN+Ko2Iz6fCDMiPUA58aC5KdZux8G0S6xruiL4=;
-        b=Bj0UsI06z7aUcJA5nA09p3p0HYcZaakQ81zaETq0RVrBVSaC8d6c9UynDdmkUgon7t
-         GjGWSfOhdofYP16sIroNbuoFJUtx4NWM/RNxfXYVzfn9+3bJPDBMDzLycTmxTy+u9nUP
-         zHig3c8e604G23R8iGfhr0T4hnuc5HYipd1SupWbwutgaMgpRqcgGQAOx/gsF2mfhTX/
-         /cks0RxV6lxv+/4iPFWkLhXmEkt1sjZiQ+XeBaeDR2mj7p10KPs9DD+TTBhwDMytFeZq
-         wsA2MTXqXupqdVMdYNBCXuMkjVBCpUasrw7lMcVMRN77JlZYBTgXv0xvcYJUy1CX0Lzb
-         0tfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791642442; x=1792247242;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=grRLkJN+Ko2Iz6fCDMiPUA58aC5KdZux8G0S6xruiL4=;
-        b=DdwliQZJK2HHsw9ZUfgiEFnU7Hcv3sXLc0qNVtlblUSH0AXj+VUl9jGFnaQl21DXLx
-         JyT4h1zujlF1aFctffQX2TignnWMNfStYZWzWHNiQgUn1ieiefnWc/7mjizOcaiWI38m
-         BkKELkh5OeDo3Tv99nONVXsZed+MkS9xEsql6c2OtcNrz1YSyyuZAaEG4qUFzglr/lme
-         DHNvmF7QdlE9uDu1v9s/QOjCp0L67SfWojRcPj5yZGDVg5rfEFW3c+IJQvLUyBqmgAhe
-         NnR32KzcVNaqNyU3qXPoeJQiTUwtcW+kYVeu0f6kA+kNePe6B4VSvHhftxgygwin4xAX
-         vzVw==
-X-Forwarded-Encrypted: i=1; AKwUvBxCAgOw63woZ/pCA/lXPEc04o5bJyVnLu1yT8ljh4eOFT42UklxzyRtpAxyZj6Qoona3S8m++A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLZHrTbAN5dYUb76AI1gZ2VQq48Hvx8SOpUwkDMqIuv1dQueyUz
-	WkOD6rWeas4oMTfHZwQSe4GA1ugRn/TJoMZlms8OA14yKvX1U5/JdbQw
-X-Gm-Gg: AYBFou14nwegbwEkYet+c2wqxG3V8QHAzUmWgnUtzHR5H09EUci4Kk4y+HHfpN4eZ/8
-	TkX/ZNtJt/udflnXJgm+9MCH0MLKo1TYOv7f1HC+Oaj2m+ETheTHjq2iL11UzQTRaZFP/PrLMay
-	8g3ZuQn75t9r1XTdSP778SKHbn/lUODVraDZExjvU830waRGrymgQI8nH1TeqNxBgMDy1g4jpf8
-	mqHDbfl5H+Lz0Cs8FMHEylFz/darXfaZ4Dx9V7ZEAzUHCBJ5bqQ9BH1HCMHE+clFHKsQQLEkjxr
-	cuA0DbOK6fsMtLGZNOUp2PWmhGWwL7HzNo0VSqvnRV8jD+dJw34E0eBJpqImUHUEv66h8yTusrR
-	gG4Q333/2GG7nvadMbX8700booTzOUkwLsLXq3qUSihAZJzNQ794vXBrPHIHWOF2HXClKcE8bKo
-	Z8M+UKCkVmbJ0edNAR7RD9EwO3TNkGOtaXe39B5F/e6zZGUArCV3Zrgl3D3a0Xrss=
-X-Received: by 2002:a05:6102:9d6:b0:7a0:eb10:79b5 with SMTP id ada2fe7eead31-7cb37231b47mr1812789137.10.1791642442468;
-        Sat, 10 Oct 2026 07:27:22 -0700 (PDT)
-Received: from beelink.. ([187.13.210.57])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cb3411becasm3854339137.0.2026.10.10.07.27.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 07:27:22 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: Kuen-Han Tsai <khtsai@google.com>
-Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>,
-	Faqiang Zhu <faqiang.zhu@nxp.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] usb: gadget: u_ether: Protect dev->gadget access with dev->lock
-Date: Sat, 10 Oct 2026 11:27:07 -0300
-Message-ID: <20261010142713.2667481-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923-u-ether-gadget-npe-v1-2-ff466c55ecc0@google.com>
-References: <20260923-u-ether-gadget-npe-v1-2-ff466c55ecc0@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JxylpYuF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B87111F000FF;
+	Sat, 10 Oct 2026 14:34:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791642866;
+	bh=cDnCu2/UzjdlBjBG61ofGnnF+daBO265HXx+uRzlR2c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JxylpYuFGD0bsDT2yhVbDIn3AI/VXQPGQBV/T2NiKD6QMdyuqDrlaTQy1jSVAympo
+	 l9JlGJgJnVXPYKic1RsQDs4Gtwo/hxMbpAerxtx+iw4a8DUTCkFNHIZDipOBRdov1X
+	 c8gy+SVnoZ980NxoF10HJEEAutRLV3yy5wrcR+Pcu+qtqDPFU2TaVNBWDU6V8oIb0l
+	 cv5tN67XsacVP1/3VqUuOo3juyGfo1hNvCW6syIN1yhbwNVpQQ5kEtUDf8UVhOEEu2
+	 2O82OS7q9ZIodA6FLR/nA/88gdNT3PjVvyeqdum1U4mQbZmbBTYvF6zJuSsTrBqRBU
+	 l0kmkzoVmw4hA==
+Date: Sat, 10 Oct 2026 16:34:23 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Alexey Charkov <alchark@gmail.com>
+Cc: Wentao Liang <vulab@iscas.ac.cn>, krzk@kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux@prisktech.co.nz, wsa@kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 04/20] i2c: viai2c-wmt: Fix clock leak in wmt_i2c_probe()
+Message-ID: <aspGdlG2J4h6KxFl@zenone.zhora.eu>
+References: <20260916070631.1965713-1-vulab@iscas.ac.cn>
+ <CABjd4YzNzZ0nnO4Xgw1JsRHhj9Crc6diX1uJnWHpHvd6BcPk2g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CABjd4YzNzZ0nnO4Xgw1JsRHhj9Crc6diX1uJnWHpHvd6BcPk2g@mail.gmail.com>
 
-On Wed, Sep 23, 2026 at 03:58:36PM +0800, Kuen-Han Tsai wrote:
-> Extend dev->lock to protect dev->gadget across gether_set_gadget(),
-> gether_detach_gadget(), eth_get_drvinfo(), and rx_submit().
+Hi Wentao,
 
-Confirmed against mainline. The race is real: eth_get_drvinfo() runs from
-ethtool independently of unbind, so its NULL check and the
-dev->gadget->name / dev_name(&dev->gadget->dev) dereferences could race
-gether_detach_gadget() clearing dev->gadget. Holding dev->lock across the
-check and both dereferences, while gether_set_gadget() and
-gether_detach_gadget() now update dev->gadget under the same lock, closes
-it.
+On Wed, Sep 16, 2026 at 11:17:49AM +0400, Alexey Charkov wrote:
+> On Wed, Sep 16, 2026 at 11:07 AM Wentao Liang <vulab@iscas.ac.cn> wrote:
+> >
+> > In wmt_i2c_probe(), i2c->clk is acquired using of_clk_get(). If any
+> > subsequent operation fails or when the module is unloaded, the clock
+> > reference count is never decremented via clk_put(), leading to a
+> > resource leak.
+> >
+> > Switch to devm_clk_get() so that the clock is automatically managed
+> > and released.
+> >
+> > Fixes: 560746eb79d3 ("i2c: vt8500: Add support for I2C bus on Wondermedia SoCs")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-The rest holds up too. In rx_submit() the cached g is both read and
-dereferenced (g->quirk_ep_out_aligned_size) inside the dev->lock section,
-and it is only reached when dev->port_usb != NULL; since gether_disconnect()
-nulls dev->port_usb and drains all I/O before any gether_detach_gadget(), a
-non-NULL port_usb there implies a live gadget, so g is valid. Clearing
-dev->gadget before device_move() in gether_detach_gadget() is fine --
-nothing between the two reads dev->gadget and device_move() does not touch
-it. No lock inversion either: the sole rtnl section is unrelated and never
-nested under dev->lock, and the guarded regions only do strscpy/pointer
-work, so nothing sleeps under the lock.
+this is 4/20 but where are the rest of the patches?
 
-One note, not blocking: the struct comment now says the lock is held while
-accessing gadget, but gether_connect() and gether_register_netdev() still
-read dev->gadget unlocked. Those run on the set_alt()/setup path, which the
-composite core serializes against unbind (gether_detach_gadget() is only
-reached from the *_unbind callbacks), so they are safe -- the comment just
-reads a touch broader than what is actually enforced.
+> > ---
+> >  drivers/i2c/busses/i2c-viai2c-wmt.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/i2c/busses/i2c-viai2c-wmt.c b/drivers/i2c/busses/i2c-viai2c-wmt.c
+> > index 2cf3cc0165fb..74ca93b44347 100644
+> > --- a/drivers/i2c/busses/i2c-viai2c-wmt.c
+> > +++ b/drivers/i2c/busses/i2c-viai2c-wmt.c
+> > @@ -117,7 +117,7 @@ static int wmt_i2c_probe(struct platform_device *pdev)
+> >                 return dev_err_probe(&pdev->dev, err,
+> >                                 "failed to request irq %i\n", i2c->irq);
+> >
+> > -       i2c->clk = of_clk_get(np, 0);
+> > +       i2c->clk = devm_clk_get(&pdev->dev, NULL);
+> 
+> Maybe we could go for devm_clk_get_enabled and drop some more
+> boilerplate which follows in wmt_i2c_reset_hardware, while at it?
+> 
+> Backporting this to stable seems like a stretch to me, though (it's
+> quite old code, so there would be quite a lot of backporting for a
+> rarely hit resource leak).
 
-Reviewed-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Alexey asked a question. Wouldn't it be good to follow up?
+
+Unfortunately, this is becoming quite common with LLM generated
+patches, where questions are often left unanswered, perhaps
+because the patches are not fully understood by committers.
+
+I think the patch is correct, though, and Alexey's suggestions
+can be addressed after this is merged.
+
+With some disappointment, I'm pushing this patch to
+i2c/i2c-fixes-2.
+
+Andi
