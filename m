@@ -1,162 +1,209 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21CA236B07C;
-	Sat, 10 Oct 2026 13:33:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFDD43C8C48
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 13:38:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791639197; cv=none; b=RQiBJcCOR/lbkRe/hCpGzoIqzbnESP/wkfKSfJFcOTSKUKxgCZEF1O6lVRhA7QuniQuwockqG3fiZonsBtaekBoJkSMvQUR9bYYB/cSCQLOeBjbFEVJDI2V68eD/L/tEl9Bg1Y15uWskng2Gn7HHmMmUlZDJeStWRA0zb9a2WmQ=
+	t=1791639485; cv=none; b=ntbA1Yyhm+9082X7+HFdzFLyMAksa5G1chMoyCjuWo0ufSvROD5vv9imBruXm0xPAnh3d14JCwKlGbcadn8f3ynIbaf6IDfycN84KKxn9xXTVD1Lr50+o6r/ZWlezwo0rYTrckIb8AVXh3GobKtVrMjGdE4eU7+wQgQjzJlaPkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791639197; c=relaxed/simple;
-	bh=fQ96koIwsc+73ye2d9WY1cAHeJdGvpPPwMKjvKPy60U=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IMKFQhl2IS630KMFn6QVu8SRAvKh908O8xgHxdbiHxH96hME0L8IB+ISURpYd0Nzee/3zRq/D1xRWyX48cGiHY5LaY5JHFpd1I3W4UOfagWyns8tR01B0LHdFSLJ1MqdrjI5YU2b8YzRq/dO9MZayjHEMFVbj42r2uL/luZNy/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BkAJVzE1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791639485; c=relaxed/simple;
+	bh=tvw1MVMD6Bx2WGas01UVf7XjRa5n2vYhhdQjoD/yYT0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IMfmdoA8DZP6HcEwwlieOPMFcvEieiGDL/SeZyYfvfqnUYI/FJxPFYsEk6UJtzn2fp/YiFe8axE50bUNUkfVrfoRhootXuOOcOfWoPNmH9Qp+SLszYhnkegUi/HbnsYFib0Kdxhl2DmErF5Yf2Lt3o0kRI30dZoSFtAT9wDNFxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=ieblt+Pr; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BkAJVzE1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 053691F000FF;
-	Sat, 10 Oct 2026 13:33:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791639195;
-	bh=hSeD2f5/61SwfYL5OwNCKY5q2+rB1164Ic0xoMaUHwU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=BkAJVzE1U0KVGOqZ/8okpduQkfKpZZsG5ycHEHb5VVYkj8pCi5Nml+GXwITmxWdrb
-	 v0f0qwLgReRbV2uyHP0Fn1z9JXU0N5TK+n2sUiIftIudcQyqmx0f9lJx034aFStm1k
-	 dfuuLbixvN0obW3B/iBmtGwPMiK/MQVtszmA9hZ6ZZ+DMJ2RWrUL/pUfyn7s6BLWNs
-	 DQxp3V8C4bnUCM9FnPzeYQJgLgu0VpWoBIdQ7rxCcwUJQ4VmlIr0nXHrGlXnTHGcS6
-	 bEFcQVmQSHclH5f79gQpvTHfNdmlJ9ZE59vJbQPmOzdkmk5SFExAaeyKX6nJ2hdlzo
-	 fOyrYnINAvpdA==
-Subject: Re: [PATCH net] net: skbuff: don't segment unreadable skbs without SG
-From: netdev-bot+sashiko@kernel.org
-To: josef@toxicpanda.com
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, almasrymina@google.com,
- willemb@google.com, kaiyuanz@google.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sat, 10 Oct 2026 13:33:14 +0000
-Message-ID: <179163919450.434549.9325877615055483977@kernel.org>
-In-Reply-To:
- <20261009-b4-skb-segment-nosg-unreadable-v1-1-7e2334a55fe8@toxicpanda.com>
-References:
- <20261009-b4-skb-segment-nosg-unreadable-v1-1-7e2334a55fe8@toxicpanda.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="ieblt+Pr"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3a7fecf8440so212273a91.1
+        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 06:38:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1791639480; x=1792244280; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UPtlzfN0S1oL1fXH4tml8et8bDzwWRFyvuUgyoI3xEE=;
+        b=ieblt+Prdqg6MXf9KtMhUtuZ6+HYch3SMflNgwmUVYEhrIK83C1D2hBsfPvW0Y9TBn
+         qFipSFXDtzYTQKRlrIQ3O08YL4q0c1bIq08GsO7vEVUhkk8LSmHCgqC49lSU5ViqHf37
+         ks/iGyzJCFplZB9z1tXqKjdvDSSTB/fZbr+QYmtIj1D7dG39jBPyQwh1t+OnS/TRnuAa
+         1E6mPXPrluO81yxVL8+atCBB5KS7I08ngs5tINgoyzY2DbcSf8fKJQvIprC8jQDlCS/H
+         xv/GemF4Ub3wRJ3hQ03FjShdrRJO5yKEbe4ILJZWJrzTfNei4/diHI69qe5kzHilu8St
+         2ktA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791639480; x=1792244280;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UPtlzfN0S1oL1fXH4tml8et8bDzwWRFyvuUgyoI3xEE=;
+        b=XHoA/XO7jTLSq9dWWsioo66ibY8tvrtB1CkDQTbECgymdU3G5N4tWzj1KQQWdu5LZb
+         dD8BrlqFwP2nNVEmAr/8BlTD1UoE/7TOwLzE5RdhlbdIaJ5eLc1YziLh6JNxtX5q1jAW
+         teu4stUR3rQQymDCUdvdXnupQ3eBeRVyReHn4MENSYNkKL6/UUI54NiN/1+S20RbKVif
+         Q+Hh4LI0o6A5/JzW60ET3iwXW1q9bHSOzx3UY8ASQIZmdjDZyrziapvJFlAlOLUxQ6s2
+         cqQPBS8bjRctWRhRf9JDydpeVreqjUpVMqe/mtvWm2GwxmV6/KCAyYNDdlkXY33Kimra
+         +iGg==
+X-Forwarded-Encrypted: i=1; AKwUvBxltKJ3oGh/BHiaoQnaH+g2k7P/QABdpUBkyUnPfeONc6inaZMm2RMWT36sL9rJ6C5MMbmsMsA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLdXzv1mjl/RUIpQA1Z/Q8kdY8qXI8yD5ThZUV1pa8UQf6PCkJK
+	EOQbk2sfcpJatbdQO9FT1SxFOZ5YppqmMvdyMGayR0YQgQuIief2RsiiZMCCWyBImfI=
+X-Gm-Gg: AYBFou0747Dm7+gS+i64Chv23g9Nq8wv5eeqcgt+INXcN2yccbnn07WkndNxKcsDsad
+	YBAmH95ZERNlk2sEAgNxbV9oUTpOSC4U4V0efl+3RGHvnU2FCzc4no2+4YETtv31XqJ+lhcTWGH
+	XZxOODT6aw4fK5XJVgLpg/TjrtxwoE/4nT5OL/10UjmFUaS4ja/tGj0merLxb132XyCRpY3xcqf
+	EFBndB9AK8+emVZ7X7uJQOrjpP0zVT/LzA5ByvUyJLjr8FFePjLjeJ6ZNbQOLF320XbbzamQJiL
+	BPbPR2KLKOq2qj4v4E+8XvIVT8dVC1hxMD51XNutp04w7EC6Fg3vo2p2OzP67cz4ufFfHAoiFHS
+	HCf16xHLTcVi+c3uUdsSccWkXPFq9z2IHXbvBlJGT1qzFBDDvdiIcR3IqaaAPBMOkJcxiqZ4/qW
+	vOb7katp6Y0cSi3KLZNZKTBsegRZlU40Om5sRVisJ9txW8L5FljjcBCodHlb65yeecn7DdRKw+O
+	ybMlzP6UnEvBDtNLzL+Jh9lOSEeUAk=
+X-Received: by 2002:a17:90b:5346:b0:3ab:1a24:56e3 with SMTP id 98e67ed59e1d1-3ab3ac9dea0mr3733554a91.25.1791639479882;
+        Sat, 10 Oct 2026 06:37:59 -0700 (PDT)
+Received: from n232-176-004.byted.org ([36.110.163.102])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ed053csm8522697a91.4.2026.10.10.06.37.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 06:37:59 -0700 (PDT)
+From: Muchun Song <songmuchun@bytedance.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Alexander Potapenko <glider@google.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	Dan Williams <djbw@kernel.org>,
+	linux-mm@kvack.org,
+	kasan-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Muchun Song <songmuchun@bytedance.com>,
+	muchun.song@linux.dev
+Subject: [PATCH] kasan: fix runtime shadow page table synchronization
+Date: Sat, 10 Oct 2026 21:37:50 +0800
+Message-ID: <20261010133751.46807-1-songmuchun@bytedance.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+kasan_populate_early_shadow() is also used after slab becomes available
+to install shadow mappings for hot-added memory. When this path
+allocates a new P4D or PUD table, p4d_alloc() and pud_alloc() publish it
+only in init_mm.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+On x86-64, runtime kernel mappings that add a top-level entry must call
+arch_sync_kernel_mappings() so existing process page tables can see it.
+Without this synchronization, the KASAN shadow mapping can remain
+unreachable and fault when the hot-added memory is accessed.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Add p4d_alloc_kernel() and pud_alloc_kernel() to perform the required
+synchronization, and use them for runtime KASAN shadow population.
 
-- [Medium] The commit message says the 'only checksum offload off' case
-  is safe because 'the segments keep sharing the frags'.
+Once copied, a top-level entry remains in other process page tables.
+Clearing only init_mm and freeing its target table during teardown would
+leave stale pointers behind. Retain these shared levels instead. On x86,
+this keeps PUD tables with four-level paging and P4D tables with
+five-level paging, while lower-level tables can still be freed.
 
---
+Fixes: 0207df4fa1a8 ("kernel/memremap, kasan: make ZONE_DEVICE with work with KASAN")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+---
+ include/linux/mm.h | 24 ++++++++++++++++++++++++
+ mm/kasan/init.c    | 10 ++++++++--
+ 2 files changed, 32 insertions(+), 2 deletions(-)
 
-net: skbuff: don't segment unreadable skbs without SG
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 5cca90fc1df6..5453d3e42780 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -3855,6 +3855,18 @@ static inline p4d_t *p4d_alloc(struct mm_struct *mm, pgd_t *pgd,
+ 		NULL : p4d_offset(pgd, address);
+ }
+ 
++static inline p4d_t *p4d_alloc_kernel(pgd_t *pgd, unsigned long address)
++{
++	if (unlikely(pgd_none(*pgd))) {
++		if (__p4d_alloc(&init_mm, pgd, address))
++			return NULL;
++		if (ARCH_PAGE_TABLE_SYNC_MASK & PGTBL_PGD_MODIFIED)
++			arch_sync_kernel_mappings(address, address);
++	}
++
++	return p4d_offset(pgd, address);
++}
++
+ static inline pud_t *pud_alloc(struct mm_struct *mm, p4d_t *p4d,
+ 		unsigned long address)
+ {
+@@ -3862,6 +3874,18 @@ static inline pud_t *pud_alloc(struct mm_struct *mm, p4d_t *p4d,
+ 		NULL : pud_offset(p4d, address);
+ }
+ 
++static inline pud_t *pud_alloc_kernel(p4d_t *p4d, unsigned long address)
++{
++	if (unlikely(p4d_none(*p4d))) {
++		if (__pud_alloc(&init_mm, p4d, address))
++			return NULL;
++		if (ARCH_PAGE_TABLE_SYNC_MASK & PGTBL_P4D_MODIFIED)
++			arch_sync_kernel_mappings(address, address);
++	}
++
++	return pud_offset(p4d, address);
++}
++
+ static inline pmd_t *pmd_alloc(struct mm_struct *mm, pud_t *pud, unsigned long address)
+ {
+ 	return (unlikely(pud_none(*pud)) && __pmd_alloc(mm, pud, address))?
+diff --git a/mm/kasan/init.c b/mm/kasan/init.c
+index 66a883887987..93a74a1fcdec 100644
+--- a/mm/kasan/init.c
++++ b/mm/kasan/init.c
+@@ -206,7 +206,7 @@ static int __ref zero_p4d_populate(pgd_t *pgd, unsigned long addr,
+ 			pud_t *p;
+ 
+ 			if (slab_is_available()) {
+-				p = pud_alloc(&init_mm, p4d, addr);
++				p = pud_alloc_kernel(p4d, addr);
+ 				if (!p)
+ 					return -ENOMEM;
+ 			} else {
+@@ -268,7 +268,7 @@ int __ref kasan_populate_early_shadow(const void *shadow_start,
+ 		if (pgd_none(*pgd)) {
+ 
+ 			if (slab_is_available()) {
+-				if (!p4d_alloc(&init_mm, pgd, addr))
++				if (!p4d_alloc_kernel(pgd, addr))
+ 					return -ENOMEM;
+ 			} else {
+ 				pgd_populate_kernel(addr, pgd,
+@@ -322,6 +322,9 @@ static void kasan_free_pud(pud_t *pud_start, p4d_t *p4d)
+ 			return;
+ 	}
+ 
++	if (ARCH_PAGE_TABLE_SYNC_MASK & PGTBL_P4D_MODIFIED)
++		return;
++
+ 	pud_free(&init_mm, pud_start);
+ 	p4d_clear(p4d);
+ }
+@@ -337,6 +340,9 @@ static void kasan_free_p4d(p4d_t *p4d_start, pgd_t *pgd)
+ 			return;
+ 	}
+ 
++	if (ARCH_PAGE_TABLE_SYNC_MASK & PGTBL_PGD_MODIFIED)
++		return;
++
+ 	p4d_free(&init_mm, p4d_start);
+ 	pgd_clear(pgd);
+ }
 
-This patch makes skb_segment() reject unreadable skbs, including their
-frag_list members, when NETIF_F_SG is not set. Without SG the payload is
-copied out of head_skb. Since commit ab9414ed70bd, a devmem payload copied
-that way turns into zeroes that carry a valid checksum.
-
-Link: https://lore.kernel.org/all/179148235783.434549.14322374227477832817@kernel.org/
-
-> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-> index 41beaf625421a..4ba544b5f3bab 100644
-> --- a/net/core/skbuff.c
-> +++ b/net/core/skbuff.c
-
-[ ... ]
-
-> @@ -4842,6 +4854,14 @@ struct sk_buff *skb_segment(struct sk_buff *head_skb,
->  	sg = !!(features & NETIF_F_SG);
->  	csum = !!can_checksum_protocol(features, proto);
->  
-> +	/* Without SG every segment's payload is copied out of head_skb, which
-> +	 * can't be done for unreadable frags.
-> +	 */
-> +	if (!sg && skb_segment_unreadable(head_skb)) {
-> +		err = -EINVAL;
-> +		goto err;
-> +	}
-> +
-
-[Severity: Medium]
-Does this guard also need to cover the sg && !csum case?
-
-The commit message says:
-
-  "and with only checksum offload off the segments keep sharing
-  the frags."
-
-The segments do share the frags. But in that case skb_segment() still
-reaches perform_csum_check, and __copy_skb_header() has already copied the
-unreadable bit into each nskb:
-
-net/core/skbuff.c:skb_segment() {
-    ...
-perform_csum_check:
-		if (!csum) {
-			if (skb_has_shared_frag(nskb) &&
-			    __skb_linearize(nskb))
-				goto err;
-
-			if (!nskb->remcsum_offload)
-				nskb->ip_summed = CHECKSUM_NONE;
-			SKB_GSO_CB(nskb)->csum =
-				skb_checksum(nskb, doffset,
-					     nskb->len - doffset, 0);
-    ...
-}
-
-The devmem MSG_ZEROCOPY path in tcp_sendmsg_locked() goes through
-skb_zerocopy_iter_stream() and never sets SKBFL_SHARED_FRAG. As far as I
-can tell, only the MSG_SPLICE_PAGES branch sets it. That means the
-__skb_linearize() fallback is skipped and skb_checksum() is called on an
-nskb whose payload is entirely in unreadable frags. skb_checksum() then
-hits:
-
-	if (WARN_ON_ONCE(!skb_frags_readable(skb)))
-		return 0;
-
-This leaves SKB_GSO_CB(nskb)->csum at 0. tcp_gso_segment() then calls
-gso_make_checksum() and writes a TCP checksum that does not cover the
-dmabuf payload that actually goes out on the wire.
-
-The setup looks reachable in the same way the commit message describes
-for the case where both features are off. sk_setup_caps() grants SG and
-HW_CSUM, and validate_xmit_unreadable_skb() lets the skb through.
-harmonize_features() strips the checksum and GSO features but keeps SG:
-
-	if (skb->ip_summed != CHECKSUM_NONE &&
-	    !can_checksum_protocol(features, type)) {
-		features &= ~(NETIF_F_CSUM_MASK | NETIF_F_GSO_MASK);
-	}
-
-So with tx-checksumming off and SG on, software GSO reaches skb_segment()
-with sg=1 and csum=0. The result is a WARN splat, and the peer drops
-segments that will never checksum correctly, including on retransmit.
-
-Would checking !sg || !csum here be more appropriate? Since this is
-tagged for stable, could the commit message also be updated so it does
-not describe the checksum-off-only case as safe?
-
->  	if (sg && csum && !gso_by_frags)  {
->  		if (!(features & NETIF_F_GSO_PARTIAL)) {
->  			struct sk_buff *iter;
-
+base-commit: 8b38ed9ab5b09c8ba168cbcc49524e9b380ee5c4
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009-b4-skb-segment-nosg-unreadable-v1-1-7e2334a55fe8%40toxicpanda.com
+2.54.0
+
