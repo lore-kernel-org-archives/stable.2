@@ -1,67 +1,67 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F36EB640
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 21:17:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C932375F69
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 21:21:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791667071; cv=none; b=oIlSjV2MBYyTIARB6X+HDNU5RQCmnJKBLC+u+e1Nfyo988IA+ezPLHThnsOwTt2z8bbKBTvhn3zgVrTMuarrCVHiEEHp7In0j2LcNIaiijs9aOJteT+iI9SrPOzhTuoYmeo4tsDbHYWnPvKcWeIvVszS2CRIe7p9xFD2E9kpBlk=
+	t=1791667265; cv=none; b=GYM4OufzyHtGlhzDzfP4b1W/ke/qhMKb548v7JESll91EmLtUcxaC5s1MkBN62sICBvSe1sKR4CrHJ/xbY3wI6k4nbSv+PmDFRZTJrXtxC7n37B02QnL4/vLEPDdyYhd4Kgxh9LukfZFUhxEoiW3XTM2Okp3iLzf/l6Xu0B+hTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791667071; c=relaxed/simple;
-	bh=sX/IOUyiNB9UW/7dJN3j8/EJO8eTtlYJpH2gKUP+csI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WbA7HfsaiioLrKo62RdPvgJ3a4mbQthw2eKYQPxsYovMrhfZ6glQxyjGQZK040GCyzg0F/EcJMY8BI5QvhPeM1gcBlSIFYmqogS49ylGB7VFtZr0X7nu6XJjNxDXyZZhTBwSDYtYPldEDXRskGKIvsJ4zohKpvt439LGIpqvWhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=BHVHClLg; arc=none smtp.client-ip=209.85.128.53
+	s=arc-20240116; t=1791667265; c=relaxed/simple;
+	bh=jCb0unKTRKzQzcEW57+C2ajfUwYilm1YS5zwKu8dO1k=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=A6wt03C3KU8Y1zWpDu9jiB3mDMGmOx8jpn7LKQOrpmrwC543OzfkyJIMQerIXJgTm8C6CHFcjEWNDpGfMQBl2rrqectKLJQgSYwobVlEyzxo2tYf1MZVR1/xIQwOTNiiH3DMKHjzHSy/6QkaJ6M1IvgT4ZsXyhX5kWI34NE6vpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=KQUuvcHT; arc=none smtp.client-ip=209.85.218.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="BHVHClLg"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so7035725e9.1
-        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 14:17:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="KQUuvcHT"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c315a445752so131417466b.3
+        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 14:21:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1791667067; x=1792271867; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fSwyFmQWlZ7A/ReGcJEYV2ZxqTqob7BeqZTXwEelfWg=;
-        b=BHVHClLgRW20gb9bJhhc0Pubgh1nsJSvLTvybYd3N4PuOfMkwZLHz9GrcJke0x0d4Y
-         Fd5eMXK5FYNNxZoU90xIdnEA4lDhrKrE0KnaUlfV09T2++gHl6yfQB5xZVAj7i/nXbKJ
-         1DmWGpS3IG9Ou0++oBVbRrhZQl4v5Hhp7Yw4Yhqxqcj0GJK8GmfUQBkVSP/xw2JFgNxc
-         tJ0lk1QT994ZOKlnytufnhrq2JUFbfK33XmWOMUy5a43+jaXPDYH1mh6pv8+/jFF1i+9
-         nk3VyCfn5fyTQllX9r1L/IT+ySSE/JKM/4WGESxtppdLW759DibuPAkvtS5EuMyr9GmA
-         w6ag==
+        d=suse.com; s=google; t=1791667262; x=1792272062; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:references:cc:to:from:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=mGACJtaJMsg2g+JGiOhfkLwLu6DmmhxCfG3vK0iIv8w=;
+        b=KQUuvcHTboV7lPOdldNBq3NjEwivqEQGmsl8WOuJxyxqnDXYpeDCf/CXhvTw0vjjvi
+         R9KwS86hp9AfYRJWQrU2WNlN38FWi1Dr1nyv365zFia4rsO2gESqkv0Z0GT9g61mmwIV
+         diphBOzpW8W7CN2VjQGalppZTSe4m72CntK3xBlnHlGH33bbeJrcKWxZdJDb3kYm52BL
+         WfZsmGkOP4t31JB0a/lRsP7bpe9AT2U9J8iGkmG27uxD0a4ZFTbhtrav2UjJ4PW9TCiO
+         5vt7fFcAhOAwWW8QGYj1CP59bV3PI7MqfSP3fKlD+pq4ER9nuQO+P4eZEWSZ/BdAJOcj
+         IoIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791667067; x=1792271867;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fSwyFmQWlZ7A/ReGcJEYV2ZxqTqob7BeqZTXwEelfWg=;
-        b=wA59DwjxqmoqsnqWmvTzRZgegKEvHH2tiaTQxuERKJ/nCCF5hM4Dv7omD7I2L1bt2N
-         CVSesFyLQKOdrrNWTt/u5ZIUb76V6kgA+UNu9HonnBxrVn/ZeyRlx7Lp9GWkG/C/niEU
-         q65JwKRR3xnhSYaSolpkVTF3T7keLKbdxBweTg3DqdqvlqLRmeA/8T44VkRmPVl7JuiI
-         rZfTn2cUUmJf7S2fnkbWj253fh2Ycy9e2VZs0L0bXB/dXDaVVPzA3bHhlBEngSSoityg
-         cTGDCDwdOEO0gGd9cu3zveQGokzmEPcNIxYB1Y+GK5OEqE5pIJAeSYkmPR+7RsblKh8e
-         SmPA==
-X-Forwarded-Encrypted: i=1; AKwUvBzaSWTUTqWJr0NILhJ1fJb/PkTaXOVrIp5recEzfzbysbzzwnfecoURzM0oiam3PkAzn5YiTYY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJgloBnSmh8WA0cuHhHL7RaWZiHOCTRzubFgCaYCngTEoFbip4o
-	golf0KRjWfupskD2gSxMksmhMIV6Rhc4Hk+addODws9NTuT2b7jfYBJkXL5go273L6Y=
-X-Gm-Gg: AYBFou0rzbjt9aDvek+p/0NQ8D7wl+vAOcCF5lH4UmguYLupNJKSkeFmiyYaTjbbcON
-	tC6Oa7B6UW/zwRJLMhS0sQtB1ScKvfMDZ2J6lqzr+t4WeOaAMaQibMbI5bUnmmm8sq2E9W+A4eU
-	Z6nNQPI4O4ShpNyWNkhwTMppL6YGumR+6v2VnciaWUo6t5zIeGmPp2pubmrO75pJc3ASXBTsMmD
-	kTCaaotq/s2ludefRIpW/EkZvBk36RyzSGZYBRjrII4klNoX9ojmWw4CaPC8PlcKiYTrSc+d1es
-	sZ0iTmWYDow+kiPzX+BP2+OF9Pbnt+JQiCxpzJEw4nzI+X3lRkAlrZQMjxSkC2sHztO3Yb3ygJq
-	18pRw2+b62x8PU3uQ2rtYEREF3yWVrJYRp+CLZ9DOnLztM1+oFG+CzQZuHKrQ6Z1njSQVv3gEiU
-	qssDhFLhzltcev4ULR1Rw5aARjjRIv61Tyh0OuFYAtL5rV3r33xoaRmDXgbfBE4Zw=
-X-Received: by 2002:a05:600c:5397:b0:4a1:7ba9:da2c with SMTP id 5b1f17b1804b1-4a18e4a7cacmr101542395e9.25.1791667067286;
-        Sat, 10 Oct 2026 14:17:47 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791667262; x=1792272062;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:references:cc:to:from:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=mGACJtaJMsg2g+JGiOhfkLwLu6DmmhxCfG3vK0iIv8w=;
+        b=CHrClD/Lwl9101zVIqWTtm7DTS0WUGDhkmIWLRC8K/1Ul8RlFHP5nM0OqvbdTvn6YH
+         +2gyWQtd66uGH9ru5WITctuM0QwuadGbhU+NEs5o5b9qoz+qIG5xqmrystfoKK+jXI/n
+         +Z3EDejZLQb2lhbMVcQXUv9hyJofteVSuiHnrC1MRH5Z5pbV63FJE90LXuf21geRIOVi
+         +A8Ca6wQipFjLP7Mes6V9Xf1iqa0g3plKQ0ElWWbr+L+9ZStNAFs5fS9hGgo7gDor/hK
+         lEf/Wl5DF43KF7aKClOQ6+0SbOLAa84mbA291FzzFyde7x44qAQFUmF4v6GN3B0Ro2Zd
+         JxIA==
+X-Forwarded-Encrypted: i=1; AKwUvBzQdxReQi/o3RCcGvOL6qQbYe0sywRu1Hhr1VXadhuHgn9TkNOgum8mAZRrX0d+kuS7CNYlnzs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKlkltQavZ1OZ4sRWcIR5vSQhGf0ve/+xT+TPUd27KovzvSRQ//
+	mCQ0C+WAsb6qqWCR/YQoOTL7kuGhtVtQ3Dom6IzdqPxExmBZsvsdQmRYu6Z6V8nldJw=
+X-Gm-Gg: AYBFou3Bymh963nBT3M64f04AoC3+9niTG9aj/aytxULqK0rzhWc94t4dnA+Eg/Fzgr
+	7er+PgKgzTGfpDIyUi+6eHuwewc3gZ88G9IDKRg+TOqYoYQOleH6jZodrqBqC18ZRFIIO8q8oew
+	2f4tlPWTwOSttbog4sC91bngoS7DdphYG7p4mpJeq6HisE8X7+gXWWUD5YJrGUNMBUZK5mqma0e
+	Uw3rwajF1wbdG37QSRqMB7WarQnE1QX4Ye5HH6EwF+cyswfT2xWiedXjEfG2tzZGvyc64oOdBy2
+	glwMDNL98pn2h4Rk0tWrGMZtxZL6gKDOG1v1uJLLN/Hwkppsd12MGtk66gcMIsS0/bCVwaODpOf
+	0FpwglDiVNH9WucBGXNhn/7hl34cucz3QZV1FKom+PBEeOwA7kt25bN07sxJVlEH9xf/NMeACnv
+	przuJrlpN1SIFLkXSsZugvHEoOCNL59L0d9z9ApnPnJNGbbjzcWymje//QRmO47IE=
+X-Received: by 2002:a17:907:3d4a:b0:c2d:c17f:205b with SMTP id a640c23a62f3a-c31a9fb71cdmr591839566b.40.1791667262407;
+        Sat, 10 Oct 2026 14:21:02 -0700 (PDT)
 Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab32c0f59bsm5921472a91.0.2026.10.10.14.17.42
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896b68ef1c9sm2527620b3a.2.2026.10.10.14.20.57
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 10 Oct 2026 14:17:46 -0700 (PDT)
-Message-ID: <41987a33-f2dd-4ffe-b35f-d669d36dbcfe@suse.com>
-Date: Sun, 11 Oct 2026 07:47:39 +1030
+        Sat, 10 Oct 2026 14:21:00 -0700 (PDT)
+Message-ID: <48b12bac-a876-4750-b98d-2162d30a2534@suse.com>
+Date: Sun, 11 Oct 2026 07:50:55 +1030
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,13 +71,14 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] btrfs: fix chattr failing on nodatasum files that have
  the compress flag
+From: Qu Wenruo <wqu@suse.com>
 To: Hengyu Liang <hengyul@cs.unc.edu>, David Sterba <dsterba@suse.com>
 Cc: Chris Mason <mason@kernel.org>, Filipe Manana <fdmanana@suse.com>,
  linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
 References: <20261010105425.165104-1-hengyul@cs.unc.edu>
+ <41987a33-f2dd-4ffe-b35f-d669d36dbcfe@suse.com>
 Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
 Autocrypt: addr=wqu@suse.com; keydata=
  xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
  8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
@@ -102,81 +103,88 @@ Autocrypt: addr=wqu@suse.com; keydata=
  /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
  o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
  JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
-In-Reply-To: <20261010105425.165104-1-hengyul@cs.unc.edu>
+In-Reply-To: <41987a33-f2dd-4ffe-b35f-d669d36dbcfe@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 
 
-在 2026/10/10 21:24, Hengyu Liang 写道:
-> Commit cf1afec09e9f ("btrfs: validate properties before setting them")
-> made btrfs_set_prop() validate a property before setting it. For the
-> compression property, the validation fails with -EINVAL when the inode
-> has NODATASUM.
+在 2026/10/11 07:47, Qu Wenruo 写道:
 > 
-> However, a file created on a filesystem mounted with nodatasum has
-> NODATASUM and still inherits the compress flag from its directory, and
-> btrfs_fileattr_set() sets the compression property whenever the new
-> flags include FS_COMPR_FL. As of now, chattr fails on such a file, even
-> when it only changes another flag.
 > 
-> The issue can be reproduced with:
+> 在 2026/10/10 21:24, Hengyu Liang 写道:
+>> Commit cf1afec09e9f ("btrfs: validate properties before setting them")
+>> made btrfs_set_prop() validate a property before setting it. For the
+>> compression property, the validation fails with -EINVAL when the inode
+>> has NODATASUM.
+>>
+>> However, a file created on a filesystem mounted with nodatasum has
+>> NODATASUM and still inherits the compress flag from its directory, and
+>> btrfs_fileattr_set() sets the compression property whenever the new
+>> flags include FS_COMPR_FL. As of now, chattr fails on such a file, even
+>> when it only changes another flag.
+>>
+>> The issue can be reproduced with:
+>>
+>>      mkfs.btrfs -f /dev/sdb
+>>      mount -o nodatasum /dev/sdb /mnt
+>>      mkdir /mnt/dir
+>>      chattr +c /mnt/dir
+>>      touch /mnt/dir/file
+>>      chattr +A /mnt/dir/file
+>>
+>> Before commit cf1afec09e9f ("btrfs: validate properties before setting
+>> them"), the last command succeeds.
+>>
+>> After that commit, it fails with EINVAL.
 > 
->      mkfs.btrfs -f /dev/sdb
->      mount -o nodatasum /dev/sdb /mnt
->      mkdir /mnt/dir
->      chattr +c /mnt/dir
->      touch /mnt/dir/file
->      chattr +A /mnt/dir/file
+> Explain the reason why it fails.
 > 
-> Before commit cf1afec09e9f ("btrfs: validate properties before setting
-> them"), the last command succeeds.
+>>
+>> This patch will make btrfs_fileattr_set() set the compression property
+>> only when the inode can be compressed.
+>>
+>> Fixes: cf1afec09e9f ("btrfs: validate properties before setting them")
+>> Cc: stable@vger.kernel.org # 7.2+
+>> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+>> ---
+>>   fs/btrfs/ioctl.c | 7 ++++++-
+>>   1 file changed, 6 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+>> index 52aab510aea0..347509043f2e 100644
+>> --- a/fs/btrfs/ioctl.c
+>> +++ b/fs/btrfs/ioctl.c
+>> @@ -421,7 +421,12 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
+>>       if (IS_ERR(trans))
+>>           return PTR_ERR(trans);
+>> -    if (comp) {
+>> +    /*
+>> +     * An inode with NODATASUM can not be compressed but can still 
+>> have the
+>> +     * compress flag, inherited from its parent directory. Setting the
+>> +     * property fails validation for such an inode, so leave it unset.
+>> +     */
 > 
-> After that commit, it fails with EINVAL.
+> This is very LLM-like, and very LLM's objective-oriented behavior.
+> Disclose it first.
+> 
+> Secondly it just slightly do nothing, which is not the expected behavior.
 
-Explain the reason why it fails.
+s/slightly/silently/
 
 > 
-> This patch will make btrfs_fileattr_set() set the compression property
-> only when the inode can be compressed.
+> Furthermore, this introduced another layer of exceptions.
 > 
-> Fixes: cf1afec09e9f ("btrfs: validate properties before setting them")
-> Cc: stable@vger.kernel.org # 7.2+
-> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
-> ---
->   fs/btrfs/ioctl.c | 7 ++++++-
->   1 file changed, 6 insertions(+), 1 deletion(-)
+> For regular mount options, -o nodatasum,compress, the later compress 
+> will override the nodatasum.
 > 
-> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-> index 52aab510aea0..347509043f2e 100644
-> --- a/fs/btrfs/ioctl.c
-> +++ b/fs/btrfs/ioctl.c
-> @@ -421,7 +421,12 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
->   	if (IS_ERR(trans))
->   		return PTR_ERR(trans);
->   
-> -	if (comp) {
-> +	/*
-> +	 * An inode with NODATASUM can not be compressed but can still have the
-> +	 * compress flag, inherited from its parent directory. Setting the
-> +	 * property fails validation for such an inode, so leave it unset.
-> +	 */
-
-This is very LLM-like, and very LLM's objective-oriented behavior.
-Disclose it first.
-
-Secondly it just slightly do nothing, which is not the expected behavior.
-
-Furthermore, this introduced another layer of exceptions.
-
-For regular mount options, -o nodatasum,compress, the later compress 
-will override the nodatasum.
-
-So when setting compress in the first place, the NODATASUM/NODATACOW 
-flag should be cleared.
-
-> +	if (comp && btrfs_inode_can_compress(inode)) {
->   		ret = btrfs_set_prop(trans, inode, "btrfs.compression",
->   				     comp, strlen(comp), 0);
->   		if (ret)
+> So when setting compress in the first place, the NODATASUM/NODATACOW 
+> flag should be cleared.
+> 
+>> +    if (comp && btrfs_inode_can_compress(inode)) {
+>>           ret = btrfs_set_prop(trans, inode, "btrfs.compression",
+>>                        comp, strlen(comp), 0);
+>>           if (ret)
+> 
 
