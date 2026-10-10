@@ -1,190 +1,91 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C932375F69
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 21:21:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 692B1393DDC
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 21:49:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791667265; cv=none; b=GYM4OufzyHtGlhzDzfP4b1W/ke/qhMKb548v7JESll91EmLtUcxaC5s1MkBN62sICBvSe1sKR4CrHJ/xbY3wI6k4nbSv+PmDFRZTJrXtxC7n37B02QnL4/vLEPDdyYhd4Kgxh9LukfZFUhxEoiW3XTM2Okp3iLzf/l6Xu0B+hTw=
+	t=1791668982; cv=none; b=jaRPgIaCAApLsEB3rruaaYb1p8OnQMU+JXlpwsSACWDTxR1ujOkVQtLV2B0Amv5p7w6YapMv8AMjDJQ3gQ1oRhu51oPfGpnCme+V0FBi8V2qur4hTeukZktqF1tcCkwXcU6RMH6Axp8XQGEAwT3empfUh20p0FhwbeMXB5aucI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791667265; c=relaxed/simple;
-	bh=jCb0unKTRKzQzcEW57+C2ajfUwYilm1YS5zwKu8dO1k=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=A6wt03C3KU8Y1zWpDu9jiB3mDMGmOx8jpn7LKQOrpmrwC543OzfkyJIMQerIXJgTm8C6CHFcjEWNDpGfMQBl2rrqectKLJQgSYwobVlEyzxo2tYf1MZVR1/xIQwOTNiiH3DMKHjzHSy/6QkaJ6M1IvgT4ZsXyhX5kWI34NE6vpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=KQUuvcHT; arc=none smtp.client-ip=209.85.218.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1791668982; c=relaxed/simple;
+	bh=mYPCzofDCpgtxceQtfXryk9Cux3NxRM+a2WQZrwpm2E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jCq++lra+I/rPCEq2/BBWfu2lABdc/TzNYOGd5ZbRMPQO9IloCP0ywLaTRlbiGdCIErgPrkFioc3d7cG+ExnE4aqowpfFN05Zucr+v61nBE2oKJwG8znRN5cev5d/cknxXefffexTaJ23+EB/YAZLeaVGFq7voYJrL790gWeuZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=oDSTd+aV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="KQUuvcHT"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c315a445752so131417466b.3
-        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 14:21:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1791667262; x=1792272062; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:references:cc:to:from:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=mGACJtaJMsg2g+JGiOhfkLwLu6DmmhxCfG3vK0iIv8w=;
-        b=KQUuvcHTboV7lPOdldNBq3NjEwivqEQGmsl8WOuJxyxqnDXYpeDCf/CXhvTw0vjjvi
-         R9KwS86hp9AfYRJWQrU2WNlN38FWi1Dr1nyv365zFia4rsO2gESqkv0Z0GT9g61mmwIV
-         diphBOzpW8W7CN2VjQGalppZTSe4m72CntK3xBlnHlGH33bbeJrcKWxZdJDb3kYm52BL
-         WfZsmGkOP4t31JB0a/lRsP7bpe9AT2U9J8iGkmG27uxD0a4ZFTbhtrav2UjJ4PW9TCiO
-         5vt7fFcAhOAwWW8QGYj1CP59bV3PI7MqfSP3fKlD+pq4ER9nuQO+P4eZEWSZ/BdAJOcj
-         IoIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791667262; x=1792272062;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:references:cc:to:from:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=mGACJtaJMsg2g+JGiOhfkLwLu6DmmhxCfG3vK0iIv8w=;
-        b=CHrClD/Lwl9101zVIqWTtm7DTS0WUGDhkmIWLRC8K/1Ul8RlFHP5nM0OqvbdTvn6YH
-         +2gyWQtd66uGH9ru5WITctuM0QwuadGbhU+NEs5o5b9qoz+qIG5xqmrystfoKK+jXI/n
-         +Z3EDejZLQb2lhbMVcQXUv9hyJofteVSuiHnrC1MRH5Z5pbV63FJE90LXuf21geRIOVi
-         +A8Ca6wQipFjLP7Mes6V9Xf1iqa0g3plKQ0ElWWbr+L+9ZStNAFs5fS9hGgo7gDor/hK
-         lEf/Wl5DF43KF7aKClOQ6+0SbOLAa84mbA291FzzFyde7x44qAQFUmF4v6GN3B0Ro2Zd
-         JxIA==
-X-Forwarded-Encrypted: i=1; AKwUvBzQdxReQi/o3RCcGvOL6qQbYe0sywRu1Hhr1VXadhuHgn9TkNOgum8mAZRrX0d+kuS7CNYlnzs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKlkltQavZ1OZ4sRWcIR5vSQhGf0ve/+xT+TPUd27KovzvSRQ//
-	mCQ0C+WAsb6qqWCR/YQoOTL7kuGhtVtQ3Dom6IzdqPxExmBZsvsdQmRYu6Z6V8nldJw=
-X-Gm-Gg: AYBFou3Bymh963nBT3M64f04AoC3+9niTG9aj/aytxULqK0rzhWc94t4dnA+Eg/Fzgr
-	7er+PgKgzTGfpDIyUi+6eHuwewc3gZ88G9IDKRg+TOqYoYQOleH6jZodrqBqC18ZRFIIO8q8oew
-	2f4tlPWTwOSttbog4sC91bngoS7DdphYG7p4mpJeq6HisE8X7+gXWWUD5YJrGUNMBUZK5mqma0e
-	Uw3rwajF1wbdG37QSRqMB7WarQnE1QX4Ye5HH6EwF+cyswfT2xWiedXjEfG2tzZGvyc64oOdBy2
-	glwMDNL98pn2h4Rk0tWrGMZtxZL6gKDOG1v1uJLLN/Hwkppsd12MGtk66gcMIsS0/bCVwaODpOf
-	0FpwglDiVNH9WucBGXNhn/7hl34cucz3QZV1FKom+PBEeOwA7kt25bN07sxJVlEH9xf/NMeACnv
-	przuJrlpN1SIFLkXSsZugvHEoOCNL59L0d9z9ApnPnJNGbbjzcWymje//QRmO47IE=
-X-Received: by 2002:a17:907:3d4a:b0:c2d:c17f:205b with SMTP id a640c23a62f3a-c31a9fb71cdmr591839566b.40.1791667262407;
-        Sat, 10 Oct 2026 14:21:02 -0700 (PDT)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896b68ef1c9sm2527620b3a.2.2026.10.10.14.20.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 10 Oct 2026 14:21:00 -0700 (PDT)
-Message-ID: <48b12bac-a876-4750-b98d-2162d30a2534@suse.com>
-Date: Sun, 11 Oct 2026 07:50:55 +1030
+	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="oDSTd+aV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE7AE1F00893
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 21:49:40 +0000 (UTC)
+Authentication-Results: smtp.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=oDSTd+aV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
+	t=1791668976;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mYPCzofDCpgtxceQtfXryk9Cux3NxRM+a2WQZrwpm2E=;
+	b=oDSTd+aViTpLUb/P1zEp11qJ5KKmpcX7E3Ck712HOJCL9vw7+RIqUPMVtj9/DFRRNKcSPl
+	ZiZXzl9jrndsHBijZSLf6RVjVJ1UgLVA4CzM0orumxoR6EmTxdCNc1QYbBxQ5tGliPreEj
+	LOdR2guDr2IRNWMPkcDU9fgvcdkHK68=
+Received: 
+	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id 07580033 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO)
+	for <stable@vger.kernel.org>;
+	Sat, 10 Oct 2026 21:49:35 +0000 (UTC)
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c2a4e013a44so120746966b.2
+        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 14:49:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzEJi+YXmS/duBzA8pjjP2D7oxM9pnBjMusExtX3/3XCTi/GC2TGHaYpdZZvJqL84irgkfbtwY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLyO+Ahf1q9c49VsUeTa14BbJ5rNbLT5rfo9wzFw6GYzIUFUkb7
+	d3LyeTvx8bWAMC/DljwIsNW9RZNsP4MCpT2Orn0FLbvhJmR/vgMwdH81uEwoTFdy2ZA2CPdFSHL
+	jObHVKC4+vf8B/yozH4rkEvlxSCTPXRc=
+X-Received: by 2002:a17:907:3da7:b0:c26:2fc8:4e91 with SMTP id
+ a640c23a62f3a-c31a9d579d8mr556961366b.29.1791668973776; Sat, 10 Oct 2026
+ 14:49:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] btrfs: fix chattr failing on nodatasum files that have
- the compress flag
-From: Qu Wenruo <wqu@suse.com>
-To: Hengyu Liang <hengyul@cs.unc.edu>, David Sterba <dsterba@suse.com>
-Cc: Chris Mason <mason@kernel.org>, Filipe Manana <fdmanana@suse.com>,
- linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261010105425.165104-1-hengyul@cs.unc.edu>
- <41987a33-f2dd-4ffe-b35f-d669d36dbcfe@suse.com>
-Content-Language: en-US
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJqqw0NBQkUl/JeAAoJEMI9kfOh
- Jf6o/xYH/3AaWnGSq58XnY/T3/YYjr6g+TUZxa7MPyiYTELNpNlvmNlbtbAL0nW0LNvkeiqf
- SmYA+xkwY4RbxnZYQK0H5iv2w1eqa9qqFZb4bIBRmTapu26GEEkpad0W0ZhoSPMO8bV2Bwkf
- YdtPZQLaeUKvHZqNqBKnmtRLQj2Cgy3kuXX3bEGvWjzUOxPUSCj/S++JWBewMdMBPT62vZM0
- 3156gfn5mHA94s2p+NFJoWkERY+JPTMu9NISkpD7yuGhXN88qd/aqD0RrlhxvKsrQogdPwn9
- vP18FGG3CRlHtOvOLVoY5NKSOWTDc+o+8t2XEETFTGbKYTcqeTzi4SxhvBLtTinOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
- cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
- qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
- /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
- o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
- JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
-In-Reply-To: <41987a33-f2dd-4ffe-b35f-d669d36dbcfe@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20261008124106.665014-1-Jason@zx2c4.com> <willemdebruijn.kernel.cf8fec88827c@gmail.com>
+ <CAHmME9r+O=3i4JP94P0-gFwghfWtD=vLa1g3KB-LvW+xFbJWHA@mail.gmail.com> <CAF=yD-LO0u5z8SU_Aktu0-0aeM-1UknYsGc+rCpD3y9bpwxtwg@mail.gmail.com>
+In-Reply-To: <CAF=yD-LO0u5z8SU_Aktu0-0aeM-1UknYsGc+rCpD3y9bpwxtwg@mail.gmail.com>
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
+Date: Sat, 10 Oct 2026 23:49:22 +0200
+X-Gmail-Original-Message-ID: <CAHmME9rW6Pav4vLdHbvvuf65v-+gtoHpDagFpmqrHYnkTKKNuw@mail.gmail.com>
+X-Gm-Features: AclHuK9CRF4lh5BWYFipjlI2xY5sQemDdJpeewYr0OLBqLIX0DUXGveQsSqp81w
+Message-ID: <CAHmME9rW6Pav4vLdHbvvuf65v-+gtoHpDagFpmqrHYnkTKKNuw@mail.gmail.com>
+Subject: Re: [PATCH net] udp_tunnel: drop packets when hibernating
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: rafael@kernel.org, lenb@kernel.org, pavel@kernel.org, kuba@kernel.org, 
+	pabeni@redhat.com, linux-pm@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	=?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <jeremy.jean@oss.cyber.gouv.fr>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, Oct 8, 2026 at 11:03=E2=80=AFPM Willem de Bruijn
+<willemdebruijn.kernel@gmail.com> wrote:
+> Since this is an issue specific with security protocols and reuse of
+> their state across freeze and restore, is that the more suitable
+> location for this check? Drop transmit of packets with that risk
+> (unique for that connection nonce) only, if freezing.
 
+I was thinking this is a pretty common problem to UDP apps in general,
+and it's confusing to have these sorts of replays due to hibernation
+that userspace doesn't have. It's an odd problem to expect every
+in-kernel user to fix independently, so maybe it'd be more clever to
+do this all in one place. I can put it in only wireguard, instead, if
+you feel really strongly about it. But I was thinking this just seemed
+like an odd behavior difference that could be easily fixed for
+everyone.
 
-在 2026/10/11 07:47, Qu Wenruo 写道:
-> 
-> 
-> 在 2026/10/10 21:24, Hengyu Liang 写道:
->> Commit cf1afec09e9f ("btrfs: validate properties before setting them")
->> made btrfs_set_prop() validate a property before setting it. For the
->> compression property, the validation fails with -EINVAL when the inode
->> has NODATASUM.
->>
->> However, a file created on a filesystem mounted with nodatasum has
->> NODATASUM and still inherits the compress flag from its directory, and
->> btrfs_fileattr_set() sets the compression property whenever the new
->> flags include FS_COMPR_FL. As of now, chattr fails on such a file, even
->> when it only changes another flag.
->>
->> The issue can be reproduced with:
->>
->>      mkfs.btrfs -f /dev/sdb
->>      mount -o nodatasum /dev/sdb /mnt
->>      mkdir /mnt/dir
->>      chattr +c /mnt/dir
->>      touch /mnt/dir/file
->>      chattr +A /mnt/dir/file
->>
->> Before commit cf1afec09e9f ("btrfs: validate properties before setting
->> them"), the last command succeeds.
->>
->> After that commit, it fails with EINVAL.
-> 
-> Explain the reason why it fails.
-> 
->>
->> This patch will make btrfs_fileattr_set() set the compression property
->> only when the inode can be compressed.
->>
->> Fixes: cf1afec09e9f ("btrfs: validate properties before setting them")
->> Cc: stable@vger.kernel.org # 7.2+
->> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
->> ---
->>   fs/btrfs/ioctl.c | 7 ++++++-
->>   1 file changed, 6 insertions(+), 1 deletion(-)
->>
->> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
->> index 52aab510aea0..347509043f2e 100644
->> --- a/fs/btrfs/ioctl.c
->> +++ b/fs/btrfs/ioctl.c
->> @@ -421,7 +421,12 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
->>       if (IS_ERR(trans))
->>           return PTR_ERR(trans);
->> -    if (comp) {
->> +    /*
->> +     * An inode with NODATASUM can not be compressed but can still 
->> have the
->> +     * compress flag, inherited from its parent directory. Setting the
->> +     * property fails validation for such an inode, so leave it unset.
->> +     */
-> 
-> This is very LLM-like, and very LLM's objective-oriented behavior.
-> Disclose it first.
-> 
-> Secondly it just slightly do nothing, which is not the expected behavior.
+> udp_queue_rcv_one_skb is the UDP hot path. Since it touches all
+> packets, the last resort for adding checks that are relevant too only
+> a small subset of packets.
 
-s/slightly/silently/
+Is there another way you'd suggest doing this? Some other trick for
+disabling the socket? I also am not keen on adding branches to hot
+paths.
 
-> 
-> Furthermore, this introduced another layer of exceptions.
-> 
-> For regular mount options, -o nodatasum,compress, the later compress 
-> will override the nodatasum.
-> 
-> So when setting compress in the first place, the NODATASUM/NODATACOW 
-> flag should be cleared.
-> 
->> +    if (comp && btrfs_inode_can_compress(inode)) {
->>           ret = btrfs_set_prop(trans, inode, "btrfs.compression",
->>                        comp, strlen(comp), 0);
->>           if (ret)
-> 
-
+Jason
