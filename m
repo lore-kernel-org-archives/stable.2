@@ -1,182 +1,106 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-116.mta0.migadu.com [91.218.175.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486043B6BF1;
-	Sat, 10 Oct 2026 09:22:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 361914457AF
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 09:42:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791624166; cv=none; b=GtmqMUoIc39/paVnEOt0inFen3CutYlfVxNHEN6JLfx+d8nSs+aqY4stk73jckK8b8BQbtAQ6Un3ukMiSsZm5TC4q4+vzRsABw1BNzbfMKyyxECtP0+y0jZInlrn5WN6uys/PiN+Mfu/SxP5WADRJXgd0qESrJ/KS47OdOTbgak=
+	t=1791625362; cv=none; b=ITUF/jMNriihUMQMugqMwxt3dbs0HfUFMmHxQgwBf4wBr1S2VV7S0mp4krPAFFriDt58d76vmTBsTDruCcscCHqDNpJjT8OkhhkSh0R31becyZXTZaa8knL46rrIgbATaBsJOPf72BgLGCMQbd2OCNsQYYynniEX4tGGJMBSSpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791624166; c=relaxed/simple;
-	bh=6/4qvDnaYM2Z85U+qehegp5waEtzX0dhCN/9J3t82TA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=QYs331IJY02IEvKpoe3mvPoQ4UgL6vf76KPaMPQdaaridnjV87eo24xs3odZttYT+LESS8YOG20XKxNNOIWhi9GuxBY/j5bPmcm9YcAoj6/e32Tlx5/Z0mM1Q8WCX2gRKQUEtewgVGm4zbNlNBbR1LqSHYb9LaBsRQMhDzTJbww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=EWUUlwtV; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791625362; c=relaxed/simple;
+	bh=AYKq4I4pt+XRaSTHkcogaEaoukmbVRkhJcniZ//zAgg=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=UVMs5/8gbZCTbQW+qJjWcJpUtfqbPWfr+zj4DNB2yk/8rSSdJwA/X0ASCJkWtmFuG9Sbm8USa+ew/x+UjIBegTCJy5AjH/slcLEhW5ccSYb+vzcN4UtR5C4wO0crvjJUrJ+zFxduJOq8MsvS0u+RcTZnPdu0O5xfRKv5rnwUKvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JH8jotTN; arc=none smtp.client-ip=91.218.175.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="EWUUlwtV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version:
-	Content-Type; bh=Zg2aBdBdTLP9z/WGD5ND/M8stJfE0DaZc3MKIYs9Juo=;
-	b=EWUUlwtV9OtfeaIR8NS/MuIGWzcVRH4txpOXC9Z4stjbe1SwQYy5zrUH5dHmyt
-	uOOUGCUQLA07QNA19DRN8SqnrcqVfwB7NuhhV3fyKdc71OAe6OswZ4m4hheDvv1U
-	yMVDNT/A9irq5BtIoJZHqySuURPvqkSQGQpr70dX4TrmQ=
-Received: from lx2.. (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3n3qeA8pqnP+WDg--.44293S2;
-	Sat, 10 Oct 2026 17:21:35 +0800 (CST)
-From: Zijin Tao <taozj888@163.com>
-To: theo.lebrun@bootlin.com
-Cc: Zijin Tao <taozj888@163.com>,
-	stable@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	netdev@vger.kernel.org (open list:NETWORKING DRIVERS),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net v5] net: macb: rate limit netdev error info print in the data path
-Date: Sat, 10 Oct 2026 17:21:34 +0800
-Message-Id: <20261010092134.130564-1-taozj888@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JH8jotTN"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=AYKq4I4pt+XRaSTHkcogaEaoukmbVRkhJcniZ//zAgg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791625354; v=1; x=1792230154;
+ b=JH8jotTN8PT2QTxlydeHuspWguhlCpn278sbtRghB5i4vNMAe9BAO5Kq9FRX5oqjZh57Q0nT
+ 8AwiglyrzCqiKsk7JUCVj6dAM0o9QayTCan01lqCItUOxWJTt6c00vrxz3b4jmd/tGz0xJTlanD
+ m5UtxLQ80OZPYWhA7IlqSYos=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 57f0757703d8e229;
+	Sat, 10 Oct 2026 09:42:34 +0000
+X-Mizu-Trace-ID: 57f0757703d8e229
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3n3qeA8pqnP+WDg--.44293S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXFWrAry3tw18ZF1rGr1xXwb_yoWrCryfpa
-	yUC3s8Jw4kJr42yas7tr40vF1rZrn8tryUWrW8Gw13Xw15Xr98WFySgrya9FW8GayfA3WF
-	yr1DZFZIka1kZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zEBT5JUUUUU=
-X-CM-SenderInfo: hwdr6yqyyyqiywtou0bp/xtbC+R81-GrKA583jQAA3p
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH 0/4] mm: Fix page-table teardown during memory hot-remove
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <b62aa96d-6c83-476c-bc28-7c2057702063@intel.com>
+Date: Sat, 10 Oct 2026 17:42:18 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ akpm@linux-foundation.org,
+ linux-mm@kvack.org,
+ stable@vger.kernel.org,
+ david@kernel.org,
+ osalvador@suse.de,
+ dave.hansen@linux.intel.com,
+ luto@kernel.org,
+ peterz@infradead.org,
+ tglx@kernel.org,
+ mingo@redhat.com,
+ bp@alien8.de,
+ x86@kernel.org,
+ hpa@zytor.com,
+ catalin.marinas@arm.com,
+ will@kernel.org,
+ mark.rutland@arm.com,
+ linux-arm-kernel@lists.infradead.org,
+ pjw@kernel.org,
+ palmer@dabbelt.com,
+ aou@eecs.berkeley.edu,
+ alex@ghiti.fr,
+ linux-riscv@lists.infradead.org,
+ agordeev@linux.ibm.com,
+ kevin.brodsky@arm.com,
+ bjorn@rivosinc.com,
+ apopple@nvidia.com,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+Message-Id: <D9A15D57-0640-45AC-B404-13982B4A20B1@linux.dev>
+References: <20261008073021.2512665-1-songmuchun@bytedance.com>
+ <b62aa96d-6c83-476c-bc28-7c2057702063@intel.com>
+To: Dave Hansen <dave.hansen@intel.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-Now the MACB ethernet driver print the netdev error information
-directly by netdev_err(), which would lead to a large number of
-error information print if there was a significant number of
-error or just jumbo packets exceeding the MTU received when booting.
-For example, it would print a large number of:
 
-macb PHYT0036:00 eth0: not whole frame pointed by descriptor
-macb PHYT0036:00 eth0: not whole frame pointed by descriptor
-...
 
-in gem_rx() by received a large number of packets without
-RX_EOF flag set, especially with unknown packet
-type that would penetrate the hardware offload for the IP packets.
+> On Oct 10, 2026, at 04:48, Dave Hansen <dave.hansen@intel.com> wrote:
+> 
+> On 10/8/26 00:30, Muchun Song wrote:
+>> This series is limited to bug fixes for the existing teardown paths.
+> 
+> Why is this a series? Why not send the architectures independently? Is
+> there some dependency where they all need to be applied at once? What do
+> you want done with this series? Are you expecting it to be merged via
+> the mm path or the individual arch maintainers?
 
-The unlimited prints here would greatly bother and delay
-the system booting process unless the source stop sending
-packets since they occupy the console output bandwidth and
-other processes have to wait for the completion of printing those
-messages.
+You're right that there is no strict dependency across all three
+architectures in v1.
 
-So rate limit the netdev error information print in the receive
-and transmit data path.
+I grouped them because they address the same page-table
+constructor/destructor imbalance exposed during memory hot-remove, but
+that alone does not require them to be applied as one series.
 
-Fixes: 4df95131ea80 ("net/macb: change RX path for GEM")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zijin Tao <taozj888@163.com>
----
+For v2, I will move the common destructor handling into
+pagetable_free() as suggested by David. The RISC-V and arm64 fixes will
+then depend on that common MM change, so I plan to keep them in one
+series and have it go through the MM tree, with review or acks from
+the relevant architecture maintainers.
 
-Changes since v1:
-
-v5:
-
-- Update the commit message for the target fix id to 4df95131ea80
-which was indicated by Theo <theo.lebrun@bootlin.com> and Nicolai
-<nb@tipi-net.de>
-- Update the user name in the "From" part to Zijin Tao which is
-the same as that of "Signed-off-by"
-
-v4:
-
-- Update the commit message for the target fix id to 89e5785fc8a6
-as suggested by Nicolai Buchwitz<nb@tipi-net.de>
-- Update the patch with the changelog added in the patch itself
-
-v3:
-
-- add this change log since v2 missing it
-- drop the blank line between the assignment sentence and the commit
-  info
-
-v2:
-
-- update the commit message with the reason why the unlimit prints would
-  bother/delay booting process
-- update the commit message with the Fix commit id provided which is
-  suggested by Théo Lebrun<theo.lebrun@bootlin.com>
-- update the commit message with what packet type would trigger the
-  error printings more easily.
-
-v1:
-
-- initial commit
-
- drivers/net/ethernet/cadence/macb_main.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index b8234ac4b602..c32d48d03008 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -1617,16 +1617,16 @@ static int gem_rx(struct macb_queue *queue, struct napi_struct *napi,
- 		count++;
- 
- 		if (!(ctrl & MACB_BIT(RX_SOF) && ctrl & MACB_BIT(RX_EOF))) {
--			netdev_err(bp->netdev,
--				   "not whole frame pointed by descriptor\n");
-+			if (net_ratelimit())
-+				netdev_err(bp->netdev, "not whole frame pointed by descriptor\n");
- 			bp->netdev->stats.rx_dropped++;
- 			queue->stats.rx_dropped++;
- 			break;
- 		}
- 		skb = queue->rx_skbuff[entry];
- 		if (unlikely(!skb)) {
--			netdev_err(bp->netdev,
--				   "inconsistent Rx descriptor chain\n");
-+			if (net_ratelimit())
-+				netdev_err(bp->netdev, "inconsistent Rx descriptor chain\n");
- 			bp->netdev->stats.rx_dropped++;
- 			queue->stats.rx_dropped++;
- 			break;
-@@ -1829,7 +1829,8 @@ static int macb_rx(struct macb_queue *queue, struct napi_struct *napi,
- 		unsigned long flags;
- 		u32 ctrl;
- 
--		netdev_err(bp->netdev, "RX queue corruption: reset it\n");
-+		if (net_ratelimit())
-+			netdev_err(bp->netdev, "RX queue corruption: reset it\n");
- 
- 		spin_lock_irqsave(&bp->lock, flags);
- 
-@@ -2102,7 +2103,8 @@ static int macb_interrupt_misc(struct macb_queue *queue, u32 status)
- 
- 	if (status & MACB_BIT(HRESP)) {
- 		queue_work(system_bh_wq, &bp->hresp_err_bh_work);
--		netdev_err(netdev, "DMA bus error: HRESP not OK\n");
-+		if (net_ratelimit())
-+			netdev_err(netdev, "DMA bus error: HRESP not OK\n");
- 		macb_queue_isr_clear(bp, queue, MACB_BIT(HRESP));
- 	}
- 
-@@ -2511,7 +2513,8 @@ static netdev_tx_t macb_start_xmit(struct sk_buff *skb,
- 		else
- 			hdrlen = skb_tcp_all_headers(skb);
- 		if (skb_headlen(skb) < hdrlen) {
--			netdev_err(bp->netdev, "Error - LSO headers fragmented!!!\n");
-+			if (net_ratelimit())
-+				netdev_err(bp->netdev, "Error - LSO headers fragmented!!!\n");
- 			/* if this is required, would need to copy to single buffer */
- 			return NETDEV_TX_BUSY;
- 		}
--- 
-2.34.1
+Thanks,
+Muchun
 
