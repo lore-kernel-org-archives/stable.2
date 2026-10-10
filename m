@@ -1,47 +1,47 @@
-Received: from mta0.migadu.com (out-153.mta0.migadu.com [91.218.175.153])
+Received: from mta0.migadu.com (out-168.mta0.migadu.com [91.218.175.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8981D14A60F
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 03:43:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.153
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8427414A60F
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 03:44:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791603828; cv=none; b=lcSkPmHx1pYWaZyLYzyxJHx4Q4NF7gbQZ5M07BPhsZTM57yz1pqGMuRg0nYKWOkYL67kgTtsd2m9Jb6ybx/RyFY9TgNLVr5ppF2ft3kyTFsJiRekwlLUppDLdwbe8FyCev6CxMvsdvVEti/DK6tveY6EUkFgBDeo/Fl3mKFnhhM=
+	t=1791603887; cv=none; b=WMPbnaMOb7YFApt24NmRT95BDU6NXo51pB1bP9INgLPvKKBYH7F2SQxIY04OjSZNRoGDY7VL90HDo9z/5G+wGuD2Cwgh5S/HWBRBzQAeSCF5wDeAMkm8/L+G/2iD1agyBY2WIz5R9mrSY4ENyEek6fq8dp44uPrIn/WBG3VPvQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791603828; c=relaxed/simple;
-	bh=e2Gg2A0pOiUOVFvGVHWV6wr7kkqR+muGcjituStXuzA=;
+	s=arc-20240116; t=1791603887; c=relaxed/simple;
+	bh=0fo0QMf0rjH7MV2/iuitzfDF1YtJ7sax/S4uxQhGa9o=;
 	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=jyFL+0tUajIhxbo2tUtVyFb9XV8CuTfQU3nkB863dq5lJ39mwFD2Ar1i0/TDnkSoMeYJ+2MBLmRS6C8DJKHX4uVB27sKU0WXJ22S6Sena91oFsLGhZpGXtk0hid0kT16UtBzWAu+gJAYn7QCjqvR9cDjIhkXqoGgzWRqu0TAVUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=knhHF/JD; arc=none smtp.client-ip=91.218.175.153
+	 Message-Id:References:To; b=Ui8ytS8XFCw8Y0z8cPFPtAxH79K7WGNrtlvuWgwr1106QnGwAgI2RiJaWgy0VyPtul4zXBXyHJzrQSmnYS/YcnChG+gTjSEwWEoLcgENf6rGGp1U0wCrokTH+OsFr0JMn1tgaTdovBRuGDb3ZUnM11qDiRfnQCnzGnXXoc0o10w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZLC1yd49; arc=none smtp.client-ip=91.218.175.168
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="knhHF/JD"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZLC1yd49"
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=e2Gg2A0pOiUOVFvGVHWV6wr7kkqR+muGcjituStXuzA=;
+DKIM-Signature: a=rsa-sha256; bh=0fo0QMf0rjH7MV2/iuitzfDF1YtJ7sax/S4uxQhGa9o=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791603823; v=1; x=1792208623;
- b=knhHF/JDy9lkKxtZQnxgn3u7UyjAyvUOTckxSbLlK7a1iULv3C7sntUsb9k9jijBoEqjPsVM
- glo48k56/pu9rwM90gWWg3q6OH00dLjyEQldwtk9MV10cDWKYN/Fz1G82iksnDzUo8iWdJ3p3Nw
- lAciycb8CyOb7GiowS9UrO94=
+ t=1791603883; v=1; x=1792208683;
+ b=ZLC1yd49raPT2YE6fJK39fORSvmhoQ+qRo6TIfUNdICyeTRbOIPSyf7weuspuE38vRpSN4gb
+ p6+0ej03LOD1jJNcm2KNzO7FGkozS57yvKefcmGG1STBSvbFYc8ZxVErWpNN3aCs/mFJRy4WJMv
+ XBuUAQiDHwREqPS/v3U3almI=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 14bbb4f2a2970250;
-	Sat, 10 Oct 2026 03:43:43 +0000
-X-Mizu-Trace-ID: 14bbb4f2a2970250
+Received: by smtp.migadu.com with ESMTPS id 468dd143d2755872;
+	Sat, 10 Oct 2026 03:44:43 +0000
+X-Mizu-Trace-ID: 468dd143d2755872
 X-Migadu-Flow: FLOW_OUT
 Content-Type: text/plain;
-	charset=utf-8
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH 4/4] arm64/mm: fix destructor for unconstructed hotplug
- page tables
+Subject: Re: [PATCH 1/4] x86/mm: fix missing pgtable destructor for vmemmap
+ tables
 From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <d47bdf83-1db4-4601-a516-7e23488ea9cf@kernel.org>
-Date: Sat, 10 Oct 2026 11:43:23 +0800
+In-Reply-To: <1a0f51d9-7931-45a3-ab36-e0642c199a37@kernel.org>
+Date: Sat, 10 Oct 2026 11:44:26 +0800
 Cc: Muchun Song <songmuchun@bytedance.com>,
  akpm@linux-foundation.org,
  linux-mm@kvack.org,
@@ -70,88 +70,79 @@ Cc: Muchun Song <songmuchun@bytedance.com>,
  apopple@nvidia.com,
  linux-kernel@vger.kernel.org
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <DDFF90A3-86D7-42D6-844A-5D29A44BAB4D@linux.dev>
+Message-Id: <062E1067-B11D-4BF7-A2BA-C71B599A805C@linux.dev>
 References: <20261008073021.2512665-1-songmuchun@bytedance.com>
- <20261008073021.2512665-5-songmuchun@bytedance.com>
- <d47bdf83-1db4-4601-a516-7e23488ea9cf@kernel.org>
+ <20261008073021.2512665-2-songmuchun@bytedance.com>
+ <ECC604FF-E74D-43B1-9105-A6683EEDE558@linux.dev>
+ <1a0f51d9-7931-45a3-ab36-e0642c199a37@kernel.org>
 To: "David Hildenbrand (Arm)" <david@kernel.org>
 X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
 
 
-> On Oct 10, 2026, at 04:43, David Hildenbrand (Arm) <david@kernel.org> =
+> On Oct 10, 2026, at 04:29, David Hildenbrand (Arm) <david@kernel.org> =
 wrote:
 >=20
-> On 10/8/26 09:30, Muchun Song wrote:
->> Commit c594b83457cc ("arm64: mm: call pagetable dtor when freeing
->> hot-removed page tables") made free_hotplug_pgtable_page()
->> unconditionally run the page-table destructor. This matches page =
-tables
->> allocated by the arm64 mapping code, which runs the corresponding
->> constructors.
+> On 10/8/26 10:32, Muchun Song wrote:
 >>=20
->> However, arm64 also uses the generic sparse-vmemmap population code.
->> Runtime intermediate page tables allocated by that code do not run a
->> page-table constructor.
+>>=20
+>>> On Oct 8, 2026, at 09:30, Muchun Song <songmuchun@bytedance.com> =
+wrote:
+>>>=20
+>>> Since commit 49f599666420 ("mm: call ctor/dtor for kernel PTEs"),
+>>> pte_alloc_one_kernel() runs the page-table constructor for kernel =
+PTE
+>>> tables.
+>>>=20
+>>> HugeTLB vmemmap optimization uses pte_alloc_one_kernel() when =
+splitting
+>>> a PMD. Restoring the vmemmap backing pages does not collapse the PTE
+>>> table, so a later memory hot-remove eventually frees that table =
+through
+>>> free_pagetable(). That path currently calls pagetable_free() =
+directly
+>>> without decrementing NR_PAGETABLE.
+>>>=20
+>>> Use PageTable() to identify constructor-backed tables and run the
+>>> matching destructor before freeing them. Keep reserved and
+>>> constructor-free tables on their existing paths. This also prepares
+>>> vmemmap teardown for generic runtime allocations through the normal
+>>> pgalloc helpers.
+>>>=20
+>>> Fixes: 49f599666420 ("mm: call ctor/dtor for kernel PTEs")
+>>> Cc: stable@vger.kernel.org
+>>> Assisted-by: LLM
+>>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>>> ---
+>>> arch/x86/mm/init_64.c | 2 ++
+>>> 1 file changed, 2 insertions(+)
+>>>=20
+>>> diff --git a/arch/x86/mm/init_64.c b/arch/x86/mm/init_64.c
+>>> index 70e682180291..a3ea627157ab 100644
+>>> --- a/arch/x86/mm/init_64.c
+>>> +++ b/arch/x86/mm/init_64.c
+>>> @@ -1003,6 +1003,8 @@ static void __meminit free_pagetable(struct =
+page *page)
+>>> {
+>>> 	if (PageReserved(page))
+>>> 		free_reserved_page(page);
+>>> +  	else if (PageTable(page))
+>>> +  		pagetable_dtor_free(page_ptdesc(page));
+>>=20
+>> Sashiko mentioned that kernel page table pages and vmemmap pages are
+>> freed to the buddy allocator before their parent entries are cleared
+>> and before the TLB is flushed, creating a dangling pointer window.
+>>=20
+>> That's a a real but pre-existing issue, I will not fix that in this
+>> series.
 >=20
-> Why do we have that inconsistency? It seems to cause pain :)
+> Memory is getting removed, concurrent access to directmap+vmemmap is =
+not
+> expected unless BUG I think. That should make this less critical I =
+think ...
+> (except speculation? not sure if that applies)
 
-Ha, yeah, it's a bit painful :)
-
-I think it's because the arch folks didn't realize that vmemmap =
-population
-does not run a page-table constructor.
-
-But the inconsistency is temporary =E2=80=94 I deliberately kept it so =
-the bug fixes
-are easier to backport. After those fixes land, I'll follow up with the
-unified series, which will make vmemmap population run a page-table
-constructor.
-
->=20
->> Freeing one during memory hot-remove therefore
->> runs a destructor without a matching constructor and corrupts
->> NR_PAGETABLE accounting.
->>=20
->> Use PageTable() to run the destructor only for page-table pages whose
->> constructor initialized them. This keeps the arm64-created page-table
->> lifecycle balanced while safely freeing constructor-free vmemmap =
-tables.
->>=20
->> Fixes: c594b83457cc ("arm64: mm: call pagetable dtor when freeing =
-hot-removed page tables")
->> Cc: stable@vger.kernel.org
->> Assisted-by: LLM
->> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->> ---
->> arch/arm64/mm/mmu.c | 3 ++-
->> 1 file changed, 2 insertions(+), 1 deletion(-)
->>=20
->> diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
->> index 7343ac9294f8..688b33095651 100644
->> --- a/arch/arm64/mm/mmu.c
->> +++ b/arch/arm64/mm/mmu.c
->> @@ -1495,7 +1495,8 @@ static void free_hotplug_page_range(struct page =
-*page, size_t size,
->>=20
->> static void free_hotplug_pgtable_page(struct page *page)
->> {
->> - 	pagetable_dtor(page_ptdesc(page));
->> + 	if (PageTable(page))
->> + 		pagetable_dtor(page_ptdesc(page));
->> 	free_hotplug_page_range(page, PAGE_SIZE, NULL);
->=20
-> That results in a __free_pages() for  ones allocated by sparse-vmemmap
-> population code. Are we sure that's the right thing to do?
-
-Good point. free_hotplug_pgtable_page() is used to free intermediate
-page-table pages, so pagetable_free() is the more appropriate interface
-here.
-
->=20
-> This is all so inconsistent and confusing :(
-
-Yeah, so I'm working on removing these inconsistencies.
+Agree. So, I will ignore this.
 
 Thanks,
 Muchun
