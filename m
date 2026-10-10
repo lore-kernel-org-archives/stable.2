@@ -1,155 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C54C3793D5;
-	Sat, 10 Oct 2026 23:25:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791674761; cv=none; b=TWomXymzhF0i9Flkz36ymYmlX8M5bTS8tnHogCLc4U13L1HFU51UPDN21B+cqYxxtK6oa7C3wZ5crJMPLHEQldWnD2b7rhaMywZbbWf7MReSjKl9qaM9/LgYJNPxHTT66bZKASn4Hudj4GiZ3Yhk5kDvl4GVoOeKBF23clCo/sQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791674761; c=relaxed/simple;
-	bh=6yFR9zUdaIfYHBE3nKTn5NqrJlDKhHqf2wVO0SrEgF0=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=mI8ZpJQtCtUs1uK3ymnjcYBE1OHAvOy6y2tXnF5Nzk1LEP9MBiaooX1f3+YrERL9nJBR/ssuWs3QLVf8bOjfM/VRUXx2e5J7gI1tavmiKoK4mX1iiUubm5LJmdrzmHv44jQDOlYUgjxM9pVDdo8934a8yuB5mUYhesxyjVphaOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=MGqXdeYH; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B49111D7E5C
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 23:32:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791675144; cv=pass; b=PXIlgVwxk9yr6nGPZW3GVEre9AtpWzlZ7pP809wVfO67P4abNGmPqHgHLDylo59eJqxHZBqVQi4bkBP/lqpTGt6JbJQ6rS11BJRpklIYbsR6qFnYCIrvh1smVhSclawYyybu+HAp97LTHf/U3IPxrWNVhG7cVxiIqwnWaW3N19A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791675144; c=relaxed/simple;
+	bh=qflQkqQeHmD36iK16xGfjqsB6XTM4Xa1UP5Z+sLs1ts=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fMXahuPAwJZNJbF2RU1X1q6ovz5AxGBGEembFI0CzCAFUo3z/uHovDvBGd3XBpOXUNTOTBNwFSWgJSBRP8ZTonEaCIe9N4V2RG/ZUsXwOLwnpmGtA55knzrTwh1JCYW2g0VS0407wkx2xrlsFThW5sRl1hucE0xk35/t7Bs2mwc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FVgMzDrp; arc=pass smtp.client-ip=209.85.208.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="MGqXdeYH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25CE01F000FF;
-	Sat, 10 Oct 2026 23:25:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FVgMzDrp"
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3a9787a14ecso6379351fa.2
+        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 16:32:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791675142; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rYAwnEGRUwVub5Nc7tdl3ubxSLO38eAgZSMaHObA1mHPeUun36eDElQ0+luxyn/Yp7
+         npJkx15uhC5eFJi7ZgTVbvXCZfHm61laU8CrXM+sxaqIlYktX3bI3ELTVJg9dkMc7DY8
+         de6UXSgJiQvyEtw8JcSD7Cqvd7N3KHOJ5kKBKB8zTuO75rm9UpLoePEZg5OTqD2Spdyi
+         kzMwBrf+gsUsUoJ3l6Za/26JBdvsaaRgzWvCFUHqNxw9klHyqvEyjJHEb55mQFJaD3B7
+         OupPjOODAMvva9MJlwOqzQ0Oz1zIFMQSqnYo9eQYGxoWOMBGVaJQ/gyUZYy27hkbEFI3
+         Q8Aw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=qflQkqQeHmD36iK16xGfjqsB6XTM4Xa1UP5Z+sLs1ts=;
+        fh=4UR88XSp8bjzZGNHLlTJmHHorQJdBCydJKah+6wBDWM=;
+        b=FjF3zCgElmNg9f6s1cILcE2311IQIFbmtV+95LkQAd3CC1WWXQVGzX9PUimkCL8KWZ
+         T4lnjE6fkVrGioebUzNXfUPIRs16QQG6a6gHEl6yPPELGyzM5FCONtdFIlbfVbw2bETj
+         3vmJrFAthPygwkXhikhDNVpXcwit7nUJu8VSILp3BDyLzPyk6vLOrCqYgbvZfS7YnGtE
+         xmwWr3sTRR4vSBKZ4FDwzUb+u5ruqWGxIQ0y3iDkgKwf2SKtwIjKj8w5jtEf/T8wmOhe
+         BLscBWJVBscexxEUtM6E8FxDrIwe5mnytTfC8E9AOM+BL4XoK8X+zjsY2hQUEgHEwZR8
+         iUBA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791674759;
-	bh=lX06ug4ZlwaTEtFe/+FOH0wFcyQJV2GLnOlTR4H9yEg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=MGqXdeYHpyqnP1J5PQ5E2qWuOvv2i1SG2Z0PSZkOeYJbfAi6hmx1DDJ5P2qnbFABt
-	 mXfZdxi9/01bwNyJa5xnSHNNQfO4UJxnvWs0mrspJq3s/tFw7oKsukUjrwaX9cABGj
-	 67S3u687VB7GBdwVK2B7R3vMktHrxSxO8tyrVk1o=
-Date: Sat, 10 Oct 2026 16:25:58 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, I Hsin Cheng
- <richard120310@gmail.com>, Ching-Chun Huang <jserv@ccns.ncku.edu.tw>, Chris
- Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Barry Song
- <baohua@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] lib/plist: fix plist_requeue() shortcut inserting the
- node at the list head
-Message-Id: <20261010162558.62abcd2ec967b009d0cb3bbb@linux-foundation.org>
-In-Reply-To: <20261009051857.758182-1-nickolai@csail.mit.edu>
-References: <20261009051857.758182-1-nickolai@csail.mit.edu>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=gmail.com; s=20251104; t=1791675142; x=1792279942; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qflQkqQeHmD36iK16xGfjqsB6XTM4Xa1UP5Z+sLs1ts=;
+        b=FVgMzDrpb/7b8OlWamopi1tfTxES9h3p6GIL81i3K8DEJOc99rMtRP/LO0d6gXigN0
+         VE6Pw2m31J/VhNRNxvAsGqYQU84K1VO+UV1F2lQb1J+VCDMTvgva+ZA0Xl5wN3nxkySg
+         AZmw7kFvwTqMuC3X2y+eow2fIs51MG/rLRJnlG4uCEZ/rFVgSdt7hP2U0Mhj0OA75anj
+         uGN1u5TEgIanXfIY/ahZl0K7+AnpcMjl58fRWU1rkdGmHqRYAxa3Zve1mJU3APOYf3ix
+         E2dCxZ40l/v+cZ9mcEA8jV9PT0W6oibwLWOeGIrC5ZLjA3cWjQCh/6YYdWNLCRZ+SQJb
+         wASA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791675142; x=1792279942;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qflQkqQeHmD36iK16xGfjqsB6XTM4Xa1UP5Z+sLs1ts=;
+        b=P9jbK5ZXljR0Hg8ud38d1ugy0q1cQXyOD/J335z7/PUrMLA73eqwlJCHPVHtFVrxTh
+         jXBWxduVriZGh8LZFr5AccHIVThNgZKa/sd+OfE4e24Grq8ZrgG9nHmh/GWiBUJRzgex
+         cDpYuo+MnDq82uU2MtnZkNeFyexDIus/TmTmoGBZP0VCLi71d4dmWRPgCBOfJchuOdSD
+         CxbgCA3Sk+P4r4rk5s66Y6rhOAEZG1AHicvZh0y3zA9bVK2sXt2WC8KL6ni1uuKYSOsk
+         Ny84+ZtHT5oAeLqS29wfTTu/PqTSMv+feP7XrBGqTmLJ8etlSZ2XXK3NxYEl0+U3yc5n
+         S9jw==
+X-Forwarded-Encrypted: i=1; AKwUvBxDC59qFxQPzvN+iGw/cjpTa493OQ6pXRAw/ZTdb2XfW1Id4xf66HeCiC/rTeGOaF31fxMs45A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPVAt2uTrjhhG1UXT3WSeaoKzTBI63PAzTxcV0p6rHLFIlhK3i
+	t10wUL3B58GUmi0E/ao+T9EqHQDgsh8I/6V9l1UKpq+gQpDI+vjKbFlbdMV35TDSIn4kuxgkNI0
+	jMFXUXV7/0t3imsZqmPFjtH6e/jza/Ps=
+X-Gm-Gg: AYBFou3oecC/Nv7FO0t3YDxhJgFpNTBKOf9gOsa7aiQgYgbcy2ubDi6g9ewnUj1R32g
+	iO7o8V5+gjn8Dlab2kDfEUBBtRqxEYfRqy9Bsd3DN0dRSDbvkl2Z+CzMG8Pije5Y50cshtbwUyA
+	fy5amtvBoU93aga7wi67Kve7Gp2YHLXGE7Ty735/yPeNuAFRH5BJxr+j8XPMGkKS+oNUqcFh5aI
+	JbM6R1kOmUf/9REKsex6pH2vH1GyhfpnlZ1mJKyBU9TI0tlsWz2r/aW4D67ZdCiWIGnMyPO6lKM
+	+xWRvzdgRsZdQpCKJURVFLvyaqGS9mYH0de/yQ5vH1ppT/YNIM5dkOX0UA1Ce3Z6wu+/C4r2ZXS
+	MPJyr+Oh+uWjhimztf9WmlGut04f77B4s9IB34I8/d/LhFxgqKlJlpwJSKw+gZZ8XmfVp0qQJXh
+	ZbiWoAUg==
+X-Received: by 2002:a2e:b8cb:0:b0:3a9:c04d:40c3 with SMTP id
+ 38308e7fff4ca-3a9c4ebaa9amr12809291fa.1.1791675141422; Sat, 10 Oct 2026
+ 16:32:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+References: <20261010142533.974797-1-linmag7@gmail.com> <20261010142533.974797-2-linmag7@gmail.com>
+In-Reply-To: <20261010142533.974797-2-linmag7@gmail.com>
+From: Matt Turner <mattst88@gmail.com>
+Date: Sat, 10 Oct 2026 19:32:09 -0400
+X-Gm-Features: AclHuK-Ff4Cr98p_CB6t_k-bkb71SKuGnXuo7evvdddqXdUWufYMH0X2srMk7xI
+Message-ID: <CAEdQ38GtjhbEipnuTbo1EmzNNAE9=6p3T6MfTnMq-6okmE9-tQ@mail.gmail.com>
+Subject: Re: [PATCH v5 1/8] alpha: load the MMU context when switch_mm()
+ switches the current task
+To: Magnus Lindholm <linmag7@gmail.com>
+Cc: richard.henderson@linaro.org, linux-kernel@vger.kernel.org, 
+	linux-alpha@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri,  9 Oct 2026 01:18:47 -0400 Nickolai Zeldovich <nickolai@csail.mit.edu> wrote:
+On Sat, Oct 10, 2026 at 04:24:27PM +0200, Magnus Lindholm wrote:
+> do_shoot_lazy_tlb(), which switches to init_mm from an IPI. None explicitly
+> loads the context, so the task can carry on running
+> under whatever was loaded before while current->mm says otherwise.
 
-> plist_requeue() moves a node to the end of its priority run.  Since commit
-> 95d4b3450ebe ("lib/plist.c: add shortcut for plist_requeue()"), when the
-> node was the head of its run it skips the scan of the remaining nodes of
-> that run and takes node_next from the prio_list of the node's successor,
-> which replaced it as the run head in plist_del():
-> 
-> 	iter = list_entry(iter->prio_list.next, struct plist_node, prio_list);
-> 	node_next = &iter->node_list;
-> 
-> prio_list is a ring of the first nodes of each priority run, without a
-> sentinel.  For every run but the last one, iter->prio_list.next is the
-> head of the next run and the shortcut is correct.  For the last run it
-> wraps around to the head of the FIRST run, and list_add_tail() then
-> inserts the node in front of the whole list, ahead of nodes with a lower
-> prio value.  The list is no longer sorted:
-> 
-> 	before requeue(B):  A(1) B(2) C(2)
-> 	after  requeue(B):  B(2) A(1) C(2)
-> 
-> The condition is: at least two priority runs, the node is the first node
-> of the last run, and it has a successor with the same priority.  A single
-> run is unaffected, because a one-element prio_list ring is list_empty()
-> and the slow path runs.
-> 
-> The only caller is swap_alloc_slow() in mm/swapfile.c, which requeues a
-> swap device within its priority group.  With several swap devices on more
-> than one priority level, where the lowest priority level has two or more
-> devices, rotating the first device of that level moves it ahead of all
-> higher-priority devices, so subsequent swap allocations go to a
-> low-priority device first.
-> 
-> Only take the shortcut's node_next when the next ring entry really is a
-> higher-priority run; otherwise append the node at the end of the list.
-> 
-> The CONFIG_DEBUG_PLIST self-test did not catch this because it only
-> requeues nodes it has just added, which are always the last of their run,
-> so plist_requeue() returns early every time.  Add a deterministic test
-> case for the failing shape; plist_test_check() verifies the ordering and
-> the prio_list ring after it.
-> 
-> The bug was found while attempting to prove plist_requeue() against a
-> specification stating that the list stays sorted, in the MachCSL
-> verification of the Linux kernel on RISC-V; the proof failed at this
-> arm and the prover produced the counterexample above.  The fix and the
-> test case were drafted with Claude Code (Claude Fable 5.1) and reviewed
-> and tested by hand: the three functions were transcribed to a userspace
-> harness that reproduces the misordering before the fix and the expected
-> order after it, and lib/plist.o builds with CONFIG_DEBUG_PLIST=y.
+Two small things if you touch this changelog again when applying,
+neither worth a v6.
 
-Thanks.
+The second line above is short.
 
-I recently queued a fix for this problem from Alex:
-	https://lore.kernel.org/20260903222456.1881786-1-handyhandyman.adam@gmail.com
+"while current->mm says otherwise" only describes kthread_use_mm(). The
+other two callers change active_mm and leave current->mm NULL.
 
-The two patches are rather different.  Please review Alex's change and
-and let us know of any alterations/improvements which you see.
+> Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+> Tested-by: Matt Turner <mattst88@gmail.com>
+> Reviewed-by: Matt Turner <mattst88@gmail.com>
 
-> --- a/lib/plist.c
-> +++ b/lib/plist.c
-> @@ -174,11 +174,17 @@ void plist_requeue(struct plist_node *node, struct plist_head *head)
->  	/*
->  	 * After plist_del(), iter is the replacement of the node.  If the node
->  	 * was on prio_list, take shortcut to find node_next instead of looping.
-> +	 *
-> +	 * prio_list is a ring of the first nodes of each priority run, without
-> +	 * a sentinel: if node's run is the last one, iter->prio_list.next wraps
-> +	 * around to the first run, and node must be appended at the end of the
-> +	 * list instead of being inserted in front of it.
->  	 */
->  	if (!list_empty(&iter->prio_list)) {
->  		iter = list_entry(iter->prio_list.next, struct plist_node,
->  				  prio_list);
-> -		node_next = &iter->node_list;
-> +		if (iter->prio > node->prio)
-> +			node_next = &iter->node_list;
->  		goto queue;
->  	}
->  
-> @@ -276,6 +282,25 @@ static int  __init plist_test(void)
->  		plist_test_check(nr_expect);
->  	}
->  
-> +	/*
-> +	 * Requeue a node which is the first of the last priority run and has
-> +	 * a successor of the same priority, with an earlier run present: the
-> +	 * shortcut in plist_requeue() must append it at the end of the list,
-> +	 * not in front of the first run.  The random test above never
-> +	 * exercises this, since it only requeues nodes it has just added,
-> +	 * which are always the last of their run.
-> +	 */
-> +	plist_head_init(&test_head);
-> +	for (i = 0; i < 3; i++) {
-> +		plist_node_init(test_node + i, i ? 2 : 1);
-> +		plist_add(test_node + i, &test_head);
-> +	}
-> +	plist_test_requeue(test_node + 1);
-> +	plist_test_check(3);
-> +	BUG_ON(plist_last(&test_head) != test_node + 1);
-> +	for (i = 0; i < 3; i++)
-> +		plist_del(test_node + i, &test_head);
-> +
->  	printk(KERN_DEBUG "end plist test\n");
->  
->  	/* Worst case test for plist_add() */
-> -- 
-> 2.56.0
+Your Signed-off-by is last on patches 2-8 and first here.
