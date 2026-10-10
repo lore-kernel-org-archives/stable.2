@@ -1,102 +1,107 @@
-Received: from mta1.migadu.com (out-203.mta1.migadu.com [95.215.58.203])
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA86A221F26
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 01:13:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.203
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791594784; cv=none; b=SP+SzzKvBeRC1oiLlKCiShjCaDFE5NTHfvZdAXcQujxtMl1ZJIGTubmxrx6qJeS+W0++bSxmnSyevMo2wRECpcD2VVaSBhGN7oQ0HBTPoDTJHSiSL7jYwFq7BUumj3K1edAHsQIUh5FwYaX7VY1xXIokk3ipwjBa2IM4gdiQEyA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791594784; c=relaxed/simple;
-	bh=vgSSjwqoJ3UL9SpCaxLIlO+CXMUgBIurc/MPR7NqdSQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XvYOylWINM12RxSR5yXgON51X0HwFrWTpXUcYiWrbOqXRBLcFXiCcFyopFNURSovF8isgZzOcYbdZQgV2tFCa0lvkALjV9KQGGCs1TqLBDN6nG6RlA6BB2rDtwCZ+RrwX4LRXC9dnbFUDM7cktUuLK4XW52vBPsdM8llQ6GuEug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hg2oA4vQ; arc=none smtp.client-ip=95.215.58.203
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F7A3C1F
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 01:34:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791596076; cv=pass; b=eqsuE8E+/IurlnJVY4S7arXW74ZRjja7PYHU7HBJ68HEjFvyEM6ZdLXHXcPOZKM8tgeuhnPWeZE+kv4MQd8S2mGKgLDPqdJjPlkuz1dadssVxjD85M9bKN4rXGfhAyzkFveAzvvoBjJtiUWl639gSa+/K2jrx/17OJ5mhkpV15w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791596076; c=relaxed/simple;
+	bh=RBZoIK02FXTZMOejEdU7KRpP3/DfoMjBE76QQq5xDqU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YOlUCkvTmKSBJuCf5dY9tm0J+ZlgZkf+TTvN4zi8aVDBekW0B8On8LwUJXvyXQTcpVi4rrK9DcdmvOWVw/YUwPgmIbpTpOQrkMyuFyGVXuGNpmyODDtQckBfgB3iJtpECMNPw4CC2g/HYAdVm4OtG6xw8QnCY7f9Fgwt0JeWh7s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ofijy4eX; arc=pass smtp.client-ip=209.85.208.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hg2oA4vQ"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=vgSSjwqoJ3UL9SpCaxLIlO+CXMUgBIurc/MPR7NqdSQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791594779; v=1; x=1792199579;
- b=hg2oA4vQ4SiQPWoa8gt3sTBnuZs5ox+3Syuyla4g6zq7cwfE7gZ7i2ogDBFoZ6CPz1E3rvwb
- fi/y0+u+GpiJhDbLHzmTZXahtcfAEj0395D9giLkuVTrZdDXiyNl3IBzP6abI/zZ1ABYftNIBhX
- mQQ22QPZE/KkYgeLlBN55gJw=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9e75b8b92041ffeb;
-	Sat, 10 Oct 2026 01:12:59 +0000
-X-Mizu-Trace-ID: 9e75b8b92041ffeb
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <0ec81c65-fbf5-405f-948b-0fb1b2e083e8@linux.dev>
-Date: Sat, 10 Oct 2026 09:12:48 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ofijy4eX"
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3a75f960be4so3076331fa.2
+        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 18:34:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791596073; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GhGr9lIaBn9JlLYeXHWOsH2J68leFCXaGClF+4ezZyfMTjzMSaDMHpHMCHyW2aoCaE
+         yOY6GfpYlOb3W5WzTLr7+vqX/vIGtZ60yQuFQUEnknzSYefVueSrfo92GZtx2j+niBjK
+         PqK4M8S64vbBvB2DUMs85xGCfWOOiFzaWpkppOCp/qAcm4OtF8KtYPXjquG2Cuho2LpM
+         nNU3NfT+Oe9GM79fVal8dNUimBy/elPBV3XlfaVNI+tE6PqyWkzAQfSadw97NdzL42GZ
+         QQCF2Qn0styuJVX/Ayh1eptgiBlv8k9iI3JhxJtY5pmZ6UrSuADimpUEvypRdbOGZZAy
+         LQSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=RBZoIK02FXTZMOejEdU7KRpP3/DfoMjBE76QQq5xDqU=;
+        fh=gtnnY8DZ5pYcrWeEGNVWVCX0nIamAXOBgIvgtGgwNUc=;
+        b=itV6ato3xQgFB1tQ0m4BLdCYDc8j8reRRxrAtcaXRDQ2WLh0gYgqi6ImpWNzYi6gGg
+         s03uFayOwwnTI/vzXCeFP2REbBiCZebvuwUxKntkHSX++ey4oJ3h/04nLupVoKUFqbgZ
+         TfGsrk7mbRDfbDc7bUyljThxcQesYaxgI9ssZ3htKa4Hr/FAHgXL1yx4UxiHUSOzpMj6
+         MRihEbavJ2duWVntZGv2kBfr7oYcA/EVd9HOzcfwz9YTE0pDdft9eDLcgY7HptM0dctA
+         RBNOO6yfRucPjOjsjCc3lxqdfgSHfIMdAksJ4sdTumyw6jKdvkEMXcX1t+LY/WWK3W3h
+         PvCA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791596073; x=1792200873; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RBZoIK02FXTZMOejEdU7KRpP3/DfoMjBE76QQq5xDqU=;
+        b=ofijy4eXnvsOjZ/KsDrgt84cmJkc2+EpxCuvPiJXW5MVP0xaDWb9rgbFOepZoCG6DD
+         SgiGHTraZIB/E5WUGhZAt1asrG0qX7AjMe3dn420t8XjKShRSS1EXNJyA/hQeCdW4I0F
+         Nx6krJBrVzGfaqKdojbrUftYRW7jy361JvQcODGTDQ1FYlMfz7bqO0MiOG+gjmqP+ZSb
+         I1j23wfmMgKs++DWRo0olQVzgxcmX9jYH5/y7zhl39cw1zHC/k3rfiyFWKDo2xOWFSwK
+         ejErI4KJDONLwf5YUf1816IJ5q0W8LtjNuKM1UxlMwYhmj6dm1USJycoDFWiwaQR31z5
+         3iqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791596073; x=1792200873;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=RBZoIK02FXTZMOejEdU7KRpP3/DfoMjBE76QQq5xDqU=;
+        b=GrsP2tCBHsKq7roxoBLeCHec6znOfdc23uwA9DTD8os1j50wVBr0j5IAwVlRl3t5EU
+         VTqBo59Vk3r0U9CHte7Iih9Lhyw5Hwdc3fC+fimktGdfBw52kLiEzNfjwuvnxTn2pM0w
+         6byRPRnp2h8I97M4blHCYIfUtIrCBMetAGq65EWzKoSzAqaJY/wIfZ40ChcpcIqXupaB
+         wu6S15cRwLKYvXKKRMzF1cWM5ezo3HwY3a0Gzl8OE1kRkAG3l7BYXES+ziD2Y07CQ7w0
+         W6z4BIq8YPo5A+0mJAPMS3C2e8di5nnYyAhEQl3PJqqb7muWK6ju5zfvaEq3zuS2lV09
+         g+cA==
+X-Forwarded-Encrypted: i=1; AKwUvBz+g5l4KjVzPGTSJOzbI65y/f6HpzrcVYaMBkVq+jX1JDOXv+dnwhplW4MQC9+P2GgKYX0siOw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKQWqtmjP2HU0Cfm9VHYxwZav5ATz9btBcIOwVfZHyQQWdXCHyA
+	j27kcX8gfWrTc6tpFevwm6aTMQfyk96taJv4/aSHcIpgRzMXgxpMK590juQeNjTsSkdfvWB3o4/
+	lKqneKyRufCJOLDncTDSWJKny2iAtagw=
+X-Gm-Gg: AYBFou1hq2p6kv/e0+IUBwhVYG+HtJOwuof3qdCXSLSJuYjjZbDImfBEvyqh6JB06K9
+	TzqKqaMVs1CwPRXAN9Tebp4JOZgI+ZhY028SJz2rXP67Ffk+zxze/DSqVsP/i6ttjLs36howQqC
+	x24bCdvpi53oxaey9jGhpDCLZRSLa1JJ3zzCMXKkIUlBu4W9rgMApdZvp6rvGWuzlxAdAAnr2x7
+	KZdgeIpx8QqwDqWMVB+lET8G4WMXWwDNI9+GYvgEjOwi9P3nDzNQKCfexajeYWdJepv/qZxstpd
+	S1cnpA31o84xVm63QGyKR20K32E3FqlWjtFL8ktSpZRHRQO4spNacMZ0Lz8YOc5+TlqLJ8eTJN/
+	DKtWQMmMkNzQvpLU2J0dkmaDPJsg2yL/s4OjQlcj7UEHYstk04OLz7Bi9ZQPC1bqZ/MR7Wep+jQ
+	6+qTod1Q==
+X-Received: by 2002:a05:651c:b29:b0:3a9:83f3:ee73 with SMTP id
+ 38308e7fff4ca-3a9c55c7a69mr8139591fa.19.1791596072901; Fri, 09 Oct 2026
+ 18:34:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/huge_memory: avoid transient none PMDs during lazyfree
- reclaim
-To: "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>
-Cc: Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- stable@vger.kernel.org
-References: <20261009165214.40212-2-kylebot@openai.com>
- <DM0II2QHWWS1.2RXEJXC8S0101@nvidia.com>
- <8db35dc0-eb06-42e4-90f9-534522e810e1@kernel.org>
- <55765FF3-18D7-424C-984D-81C316F323E1@nvidia.com>
- <d68cb3de-e471-4ce8-8c6d-c7260d79ec1e@kernel.org>
-Content-Language: en-US
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <d68cb3de-e471-4ce8-8c6d-c7260d79ec1e@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261009212501.971158-1-linmag7@gmail.com> <20261009212501.971158-2-linmag7@gmail.com>
+In-Reply-To: <20261009212501.971158-2-linmag7@gmail.com>
+From: Matt Turner <mattst88@gmail.com>
+Date: Fri, 9 Oct 2026 21:34:20 -0400
+X-Gm-Features: AclHuK91lXz82mshEmNWJGl1kPK5uU3pgI_eu7NyeDs55T-QedcNXRAggubZysw
+Message-ID: <CAEdQ38GQUKnKLiCLpceTrYNviEag57uJhoUXntmrbwYcL6J8nQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] alpha: do not clear remote MMU contexts in migrate_flush_tlb_page()
+To: Magnus Lindholm <linmag7@gmail.com>
+Cc: richard.henderson@linaro.org, linux-kernel@vger.kernel.org, 
+	linux-alpha@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+On Fri, Oct 9, 2026 at 11:19 PM Magnus Lindholm <linmag7@gmail.com> wrote:
+> Fixes: dd5712f3379c ("alpha: fix user-space corruption during memory compaction")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Matt Turner <mattst88@gmail.com>
+> Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+> Message-ID: <20261008195608.965266-3-linmag7@gmail.com>
 
+The Message-ID trailer is the v2 posting's and should be dropped.
 
-On 2026/10/10 04:44, David Hildenbrand (Arm) wrote:
-> On 10/9/26 22:27, Zi Yan wrote:
->> On 9 Oct 2026, at 16:23, David Hildenbrand (Arm) wrote:
->>
->>> On 10/9/26 20:17, Zi Yan wrote:
->>>>
->>>> There are some gaps we need to close before getting this fix in:
->>>>
->>>> 1. GUP-fast cannot follow the invalidated PMD: riscv and LoongArch need
->>>> pmd_access_permitted() that requires _PAGE_PRESENT; s390's
->>>> pmdp_invalidate() needs a change.
->>>
->>> Ugh. We really need pmdp_invalidate() to have reasonable semantics. This whole
->>> PMD locking is a mess :(
->>>
->>>>
->>>> 2. sparc64's thp_pte_count can be imbalanced with this change (based on
->>>> Lance's offlist feedback).
->>>
->>> Ack.
->>>
->>>>
->>>> In addition, powerpc has a page table check issue similr to riscv, where riscv
->>>> fixed it with commit 9f4a88b8d01a6. This is not related to this issue
->>>> but discovered along with the investigation.
->>>
->>> Zi, do you have the capacity to take over this patch?
->>
->> Yes, I can take over it. My plan is to send a series including
->> patches for 1 and this patch as is. powerpc fix can be a separate one.
->>
->> Best Regards,
->> Yan, Zi
-> 
-> If we need a quick stable fix we could temporarily disable the whole thing until
-> it is fixed, just a thought.
-
-+1 we could do that for now. A quick fix with minimal churn (correctness 
-comes first).
+The patch is unchanged from v2, so my Reviewed-by stands.
