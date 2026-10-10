@@ -1,157 +1,121 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F9238A706
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 03:59:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3930F38A706
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 03:59:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791604754; cv=none; b=AzbDlR0pGx9MIQw9WVf3WZ/7CDuvfjGILXmvkSRsmXk8n8dmZAzwDkFSb2RqDkGZbTK7jJdhOZi0T0EANFUlfrCwgMkIomlG6Jae0PjiwzhF2LIe90gft0HXap2PgHARDHRm2MBq0RPOQhb5xV5YDFCC+Opm1SXiVi5+k5ZfBQU=
+	t=1791604780; cv=none; b=CzBl4gHBRef5PtKNesuBtvX1OaMAG46ZefxujZB0tO2rjkgMnwuKpRPqt7UYcxC4tOTVJxMBS1D29kgAvbsncdYo/TMM/8ILVVxnGWPoXN8qrlkUTkulWoVkj5669qSXnHfvMT/v1G1AXJoEkZJmSTIVXFfPnETqYe/+GTodD4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791604754; c=relaxed/simple;
-	bh=RC9mnkldnLHKLxUGs9e09WBh6qSGgQVe/M8DUOliYNE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BdLRA/44QJrdF4hoaPf6NrNZIJelGH1z0cEIOuvueMQSfTZZqcYTcnZ3tOM+nr9ZipUp+7wq0pzCq+16P8t6zO72HvYjvzDkG0kkiDq+GVpowE9RPoOFKX2znlmfkUgdQWvztnAhNnnExflRDpzaq97HX+yLD6DcjLe+qrMuwZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I8ubehbt; arc=none smtp.client-ip=209.85.215.182
+	s=arc-20240116; t=1791604780; c=relaxed/simple;
+	bh=9uUi7VJXnnwjCj1byg6atdUf19EY7e7jPvxXvAjDn64=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=o78Wq8gKuiLa0xz10JIa2IadiJU7SE1usEAzjwWQdsZFO+RF5JGlqbLrAprZEOT2DId2ZxpJg6B5t3qVNlPN65lVRuln+LbdsyIyyZmVnP8Z5xx06JjdramFHMxncVD9INL9CFy3LGRMJ85THTsFMjOFFKkzaeLbsZLIh49m2AA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sfu5+dyU; arc=none smtp.client-ip=209.85.208.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I8ubehbt"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc4dbda1e5dso73860a12.2
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 20:59:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sfu5+dyU"
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3a771ad2a9aso18988451fa.0
+        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 20:59:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791604752; x=1792209552; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=C2sBX9RzAUijwlycitpdPIp/C+J3gojjvyNQwGnJMzc=;
-        b=I8ubehbtWKh9LMUQGfy7wiPDnvWb+mY85UfhWRJ5tSE5kpXHOi4u3mEXXLWsYbaamZ
-         C7HWoFGGTiGRftOPKi+L3+ZOXZiBVbdn/kyJfoiCjHvgPm5A3BlNCtBON6mmAdd+h18v
-         4u12keIUgnEloWWjANDKy8RSs5IBegTtHK7gulyNgrxKw7E6hA+wHPWsZuw3OyITn+3X
-         df1FYx7rVQEb38jLj55O+FYjXdRcZVrlFcES6mlOKnzvbqCgnCVlkBQS4Y1/39qrlwsD
-         2aCtL2ylUcuvWiHgEe8LM1Jywr3c3OIRE+3KdSDVbnv8vg4XDK9BohcUZ8jtAXVmqgU5
-         maxw==
+        d=gmail.com; s=20251104; t=1791604777; x=1792209577; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9uUi7VJXnnwjCj1byg6atdUf19EY7e7jPvxXvAjDn64=;
+        b=sfu5+dyUDHXDvz3azDLkeRnGDawVUJLLtp6CtzXI0ROEBzfQy50IeTJ0XSHo1r6Ygr
+         wJU8fypLXpYKd3Dd2y9/JHxzmM7NjULIvA7QzWVLxmjdNIz7vyxjvupPYSM7qAZFVOeF
+         yvklmdtsHLR9AGwMC/SfIU5rITyFwFuAeEaBbFLGn7113sbRAvttFIBJ20GCQrDKhueA
+         yjCNkjvpNKJ1XNyn2N243Ey8M5Ygu0Wqe5G05g5twflK30ekY70X6C+8w791EgGSSxy1
+         Loh3xxi3v+ouwWtc0i9D6JjIQN0N6mDjzgDDL6A4tlk1H8b+OOqTxVhfOAp0TnW+4S/A
+         ZLmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791604752; x=1792209552;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C2sBX9RzAUijwlycitpdPIp/C+J3gojjvyNQwGnJMzc=;
-        b=Rt/Mv7wCw07NenxvT0Zau6HwXP/TDnJUjYIs+HHpn0lghD0X2aO9j8axO4yW4BFK/B
-         DP+0jnad3IOT3em0/enoR5znDJyITjhpU3z2p1qBKGlbeYWrrCD7lgjHpHZzNSWcL4SE
-         DXkkJgu+OlKz9/h9Rs4KvEOTEuaRUp6Vk4Aj/5PV+Opnlltm21bw2YJNglywxp26owDl
-         siozhSYLqQrEVVF82Dor0mEMEkILYHiQG+Cc+uPsTo2ozGBC+Kx0mDC2BUq0BSPNUAuB
-         pKehJM4HLlTOODfaZti1NM1O5OXNYe09w53qtiepdDo8CQ2Jp8JtlYDi1954FitKJc5D
-         OdOg==
-X-Forwarded-Encrypted: i=1; AKwUvBygrLzJptILXD4b8aVlo8i98XQedpZQrha7OxVvSzvvdk6t/78+ZceLSd6n8ofVZWq/Eh4bdJU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLWy+9qPmJG+s8LsOCIew9+Bd68Lfi1QDVU6kYBwc+d2c6hkAs+
-	qPXjaOWPvknkoicKY67YuzxuWf9byT0Xngl1MuklMnkwWV468Z0u/05m
-X-Gm-Gg: AYBFou0K8jIqhsOBjZD4OQSJ5YPdZ53PUDjLV82Hs6ENm2LBKhvQGWEI3ia2MSsHud+
-	zKmMaU0n8jKBL8bYut9r+eLWOR0Sy3l4P2/8l0qqSd74U6c5Jp9qr05N8loqvMJqX/DfoEe49j0
-	KVQlrcciKSHU6+aoEcIP9OnDQNYOv63E1PJOC3wAip5BYr/FZbcSDCYSxxDCDeC+jkmBmaGV7lc
-	UhYMirrHoHVh4yua5xy9c66qP+6yzogLwKZnRIkXsi6nF+DyWnBM6XGqOcoUydOOUrmvp25VbRd
-	viZTCK9thMjtYN4TXELVFZbKuubLhucD5GA6vPHhVlBI/+2OKqu8zRiNl/cksyzgHEH9Aywn0sA
-	Dp2KudkwuCTHo8nEQNC26lKpNf0q4S/XjOjMG6dGywVzQSmsvitqGE5ENT07clGVNTV8N0Fzi65
-	iAsHw7qXAKCkoMXPxLb2xRMtIu9zNrfDY37yx3KCLTfNUZKyk1Ing8Dmc+5wqaue/wvhaDcAL0V
-	l7oLyc39fW4mJvprR2Xsc6kFlLJh9/xMA==
-X-Received: by 2002:a17:90b:134c:b0:3a0:cbe2:9e0c with SMTP id 98e67ed59e1d1-3ab3b0285d5mr2844887a91.63.1791604752082;
-        Fri, 09 Oct 2026 20:59:12 -0700 (PDT)
-Received: from localhost (softbank126159121187.bbtec.net. [126.159.121.187])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab338676besm3793206a91.1.2026.10.09.20.59.10
+        d=1e100.net; s=20260707; t=1791604777; x=1792209577;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9uUi7VJXnnwjCj1byg6atdUf19EY7e7jPvxXvAjDn64=;
+        b=Hi7hGJHYgqgZ1zOvdjbbxIPIVO0Y9lzkQaT+rSvmDCv3W7wKwaiLheOpf9PAYdme8C
+         +83Hu8St2BxQwI3FmOMEH7KQG9tjGYoWY18+moslAIDyjqsNJe2BCctQIRrB1ikfTMWY
+         v4dqfCJg1c7BHT+MdfvAk3MH4BjFB0kJ4RFf+1HDFcyfZz3goQBF6KDXW8Q3lf+LhasP
+         3J3JLiHDE3EPv2Cr0nHnNA/qxydhJWghrRzJndMikpzMGIkl3EdYrtVYrPIrhCd+jd0g
+         XnWl5A6hDrgJMHK4C0XKao/U/XscMPWJ3Jdj0FE08w3lWj6TF7+jLxaK3dwX2/FTRR54
+         9F1w==
+X-Gm-Message-State: AFq9FYLOtffHb1iq/yx6sROSAOzpwr23xZ+X96FjRbNO23pVaaLVUuZe
+	sUUy0CG4R0HHY8SlFaQ1o9asY2lYDVmL0EU+ysk6Bye8nYnxivsbe9Ag
+X-Gm-Gg: AYBFou0WQK2Y3rdB/LHBP7dxa7gpqaqdWZBQPs2p2QtQmwWPZSbjS5fVwq4Z4oY0rFS
+	3CZ4KiiDiPqLPQddfQ9cMlV7Oi5XdU/TW1uCNYmzFo8tC8sQGjRLS3oBn8TcCKpmgpNr90GRFeD
+	ITFPEMKG4oP1lDfoCNmy0GINOW3y2lFfQfToqb3F8dqRy14U8iZwhoWl49bkCpmtz4R/e+8aXWw
+	RyuOAyJA3IXli/tidHyhHlYSBWCMmE/wyRHR0QSI5u4ZhRY7gBeDzl5LBlFW0dUsSfC0fnp9EG4
+	ywKEwkJHce1xokjSJ28SWV+Z2PkfcrYo5s0W9FbD1sixiwcpsaQFTUsI80Qw+qsZUPML5lNz3VU
+	qfhDCgYjJsgxMswOhgNUh2DLk0onm0kfQr8DMeA+vzI4Tt6KgEqwjQc/eYYSXJzKc3BcyLfBwCA
+	6yqJCDYwCuo6njTflaiX6AhXaoUpSr79AGubiZTka3zXAK5z2Z++LSOtMeBgeY8bEEBo9sWgfVs
+	ZBZ6j9wH7yynmJ1JXJHGGymrznEhAw2kfPieUJ69oU=
+X-Received: by 2002:a05:6512:2315:b0:5b8:f955:29e9 with SMTP id 2adb3069b0e04-5bce01aacaemr904126e87.7.1791604776835;
+        Fri, 09 Oct 2026 20:59:36 -0700 (PDT)
+Received: from dau-home-pc.. ([95.139.131.22])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcdde91281sm1164909e87.19.2026.10.09.20.59.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 20:59:11 -0700 (PDT)
-Date: Sat, 10 Oct 2026 12:59:09 +0900
-From: Zhenyu Wang <zhenyuw.linux@gmail.com>
-To: Yuho Choi <oss.patchbox@gmail.com>
-Cc: Zhi Wang <zhi.wang.linux@gmail.com>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	Xiaolin Zhang <xiaolin.zhang@intel.com>,
-	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	zhiw@nvidia.com
-Subject: Re: [PATCH v1] drm/i915/gvt: Don't replace a DMA mapping that is
- still in use
-Message-ID: <asm4DV84UitLCbve@dell-wzy>
-References: <20261004212403.208681-1-oss.patchbox@gmail.com>
+        Fri, 09 Oct 2026 20:59:35 -0700 (PDT)
+From: Anton Danilov <littlesmilingcloud@gmail.com>
+To: Rachel Menge <rachelmenge@linux.microsoft.com>
+Cc: stable@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: Re: Request backport of bf5a54bc0e3d to 6.18.y
+Date: Sat, 10 Oct 2026 06:59:27 +0300
+Message-ID: <20261010035930.579535-1-littlesmilingcloud@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <899bd843-fd19-418e-8913-91bfb6e760a2@linux.microsoft.com>
+References: <899bd843-fd19-418e-8913-91bfb6e760a2@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261004212403.208681-1-oss.patchbox@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 04, 2026 at 05:22:39PM -0400, Yuho Choi wrote:
-> intel_gvt_dma_map_guest_page() unmaps and frees the cache entry of a
-> gfn when it is requested with a different size, and maps the page again.
-> The entry is still referenced: shadow GTT entries and dma-bufs keep
-> using its DMA address after the page is unpinned and the DMA mapping is
-> torn down.
-
-I don't think this is *real*, as code would simply destroy entry in
-that case, and there won't be on-the-fly dma operation on that, as
-guest mem setup is totally before execlist submission, if guest driver
-changed mapping by ignoring gvt emulated execlist status, that's just bad...
-
-> When the new mapping gets the same DMA address, their later
-> intel_gvt_dma_unmap_guest_page() calls also drop the references of the
-> new entry.
-> 
-> Keep the existing entry instead. A 2M mapping covers a 4K request for
-> its first page, so take a reference on it. If the entry is smaller than
-> the request, fail and let the caller split the 2M entry into 4K pages,
-> as it already does when a 2M mapping cannot be set up.
+On Fri, Oct 09, 2026 at 03:36:42PM -0700, Rachel Menge wrote:
+> Please consider applying the following upstream commit to 6.18.y:
 >
+> bf5a54bc0e3d8962474fcd611f1266eba036232f
+> doc/netlink: netlink-raw: Add max check
 
-So this change would always force 2M to split into 4K? why?
+I see the same on v6.18.55: rt-link-user.h fails since 6.18.53 and
+rt-neigh-user.h since 6.18.54, and the in-tree cli.py fails the same
+way for both families. With bf5a54bc0e3d on top, make -C tools/net/ynl
+passes, and the generated rt-link and rt-neigh code is byte-identical
+to a build of the same tree with the two checks hunks dropped.
 
-> Fixes: 7366aeb77cd8 ("drm/i915/gvt: fix incorrect cache entry for guest page mapping")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
-> ---
-> Compile-tested only (x86_64 defconfig + DRM_I915_GVT_KVMGT, W=1, sparse).
-> 
->  drivers/gpu/drm/i915/gvt/kvmgt.c | 20 ++++++++------------
->  1 file changed, 8 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
-> index ec62db5cc3675..9a3e305253469 100644
-> --- a/drivers/gpu/drm/i915/gvt/kvmgt.c
-> +++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
-> @@ -1626,19 +1626,15 @@ int intel_gvt_dma_map_guest_page(struct intel_vgpu *vgpu, unsigned long gfn,
->  		ret = __gvt_cache_add(vgpu, gfn, *dma_addr, size);
->  		if (ret)
->  			goto err_unmap;
-> -	} else if (entry->size != size) {
-> -		/* the same gfn with different size: unmap and re-map */
-> -		gvt_dma_unmap_page(vgpu, gfn, entry->dma_addr, entry->size);
-> -		__gvt_cache_remove_entry(vgpu, entry);
-> -
-> -		ret = gvt_dma_map_page(vgpu, gfn, dma_addr, size);
-> -		if (ret)
-> -			goto err_unlock;
-> -
-> -		ret = __gvt_cache_add(vgpu, gfn, *dma_addr, size);
-> -		if (ret)
-> -			goto err_unmap;
-> +	} else if (entry->size < size) {
-> +		/*
-> +		 * The smaller mapping may still be in use, so don't replace
-> +		 * it. Fail and let the caller map the range in smaller pages.
-> +		 */
-> +		ret = -EBUSY;
-> +		goto err_unlock;
->  	} else {
-> +		/* A mapping of the same or a larger size covers the request */
->  		kref_get(&entry->ref);
->  		*dma_addr = entry->dma_addr;
->  	}
-> 
-> base-commit: 7704c4c5bb127673b4f0ead839919db573559e38
-> -- 
-> 2.43.0
+> I also checked 6.1.y, 6.6.y, 6.12.y, and 6.19.y. Those branches do not
+> contain the rt-link.yaml and rt-neigh.yaml checks.max additions that create
+> this mismatch, so this request is limited to 6.18.y.
+
+6.12.y is affected too. Since 6.12.111 it carries 45ca9f59b6c7 ("net:
+reject oversized tx_queue_len at netlink parse time"), which adds
+checks.max to rt_link.yaml (the file name has an underscore there).
+6.12.y does not generate C code for netlink-raw specs, so the build is
+not affected by this one, but cli.py --spec rt_link.yaml fails with
+the same ValidationError.
+
+bf5a54bc0e3d applies to 6.12.y as well. The 6.12.y YNL build has been
+broken since 6.12.93 by handshake.yaml, so I sent a 6.12.y series that
+fixes that and includes bf5a54bc0e3d:
+
+https://lore.kernel.org/netdev/20261010035116.578385-1-littlesmilingcloud@gmail.com/
+
+One more thing for 6.18.y, not a regression: conntrack.yaml and
+nftables.yaml fail the schema check since v6.18 itself ('labels mask'
+and 'set id' do not match the attribute name pattern), so cli.py fails
+for these two families. Upstream fixed that in 1adc241f3940 ("ynl: fix
+schema check errors"), which renames the two attributes to labels-mask
+and set-id. It applies cleanly to 6.18.55, and with it and bf5a54bc0e3d
+all specs in 6.18.55 pass the schema check. The C build is not affected,
+these two families are not generated there.
+
+Tested-by: Anton Danilov <littlesmilingcloud@gmail.com> # v6.18.55
+
+---
+
+Anton Danilov
