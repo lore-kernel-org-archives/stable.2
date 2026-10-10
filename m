@@ -1,154 +1,75 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC9851FF7C7;
-	Sat, 10 Oct 2026 12:31:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E576345D5FC;
+	Sat, 10 Oct 2026 12:54:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791635514; cv=none; b=PPFEPhQZJEcbsxO1VspUBvDZbiJAn+zRk1LmfFUw67Y8Jgoos2ZmZWtPqZjlwUEk83hcmzZAbzaearJQnwCavjIyLiQzhIHjZ448ctZMHoki//oHrT4QP1ZF84Grz/8PnkC3XVWRyb7FMLyuGE9ovTb+a/Yf+JPAcBtZDxx1ygE=
+	t=1791636875; cv=none; b=oPGwWpLgynDJrLI02N3v17Jcors6zcy1WbY2Ee8vsDaNiIJMLY3p+qaHi/c5i3iDLUJrSUY7azVRu78ae+/SaguKOSVkPzNjE8WBEISnv1pPZwQzW7ocVGkAnMz3p4JwTuBDIoCN0hlExBFrsgnkeJwy2JB/AQo0g6ACv/duV9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791635514; c=relaxed/simple;
-	bh=frpxXg9hPGDM03nFowUJV+CKR7flPJDXWbN+RkJwAsY=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=V9hcnXNupXXcDSCAwgzG5QNKKADc2RH40NPAAY8uQdIo7Md5wt3rhc+Gale9CuL8jbdOSgjGu6cl8gR6nfDxfrPyliDacCYP86xLMM8qH5LYyWoXjtzgzSzxLUkkZ4trh/8fLz1aOy3hsGt8ZinL829lKO9DzCe5OaQAhb2+0xU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=BTOf3rOO; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=QMhww6A/; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1791636875; c=relaxed/simple;
+	bh=ZcrCwafbniEewCzWv1MZiFYJQ5X4fHmk7ltpbIe8dVg=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SfUIvd64DRqWjDZliuNyNgandJFnIc+L1S5Rx99qTyt/CLI7GczJFeO4/iwJFsZ4KMDBoP+A1XNEWX4s4OicjXX3hPkJtjg2IvOoXMCOELjkWP008BqHkKMGhdxLtxCOwy7ggJNgjPN+n9IH0jlI4E4KeQ6XOnlydraH8TDBPSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q/qQqSlf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="BTOf3rOO";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="QMhww6A/"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1791635497; bh=ns6QuIJwQmI2wSLwOOfK9Y6
-	EB2HsWBuBorBLYJCW6CE=; b=BTOf3rOOeHDIk3rNhwmuwiiNRQRx0lj+2IVu3Kj0LAC6W02ixR
-	XgePTKApKWnLNm7e6eCGj5XW02jVYBHJYz/NJ31ijzK98P2Ll7sStcRvRFq7IfSkwXq28pmW+kF
-	iqyZilPznF+Oc6MOYwgOXW/ivHQ+UUqBh9Xv0OiGkMfEoTGtG+rSM0/LqBU2M61vUzzNadj5ZTZ
-	LTTdtouWiNximXJbRvThk9mtLepAM6bpIflIHNW9JI5me7K+rFyjGhJtRe4uZlQvwPxATeM/VPG
-	koDub8F1+LmI97EU0nyihkigUi65KeH88nU3VjBqo5ZdbnRor2dxGDKKUXbrDS5MAxg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1791635497; bh=ns6QuIJwQmI2wSLwOOfK9Y6
-	EB2HsWBuBorBLYJCW6CE=; b=QMhww6A/GP5XUL4YUPEKs/NbIYRaxWLe5q6tPoGWEPTYa+mRV/
-	HZP9wvyqhXHUpLYZRR9BYDhaMifgupB/eLAQ==;
-Date: Sat, 10 Oct 2026 13:31:38 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: cenzhang@linux.microsoft.com
-CC: AutonomousCodeSecurity@microsoft.com, brauner@kernel.org, dave@stgolabs.net,
- dhowells@redhat.com, kees@kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, tgopinath@linux.microsoft.com, threeearcat@gmail.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_watch=5Fqueue=3A_Fix_note_pool_?=
- =?US-ASCII?Q?publication_race_in_watch=5Fqueue=5Fset=5Fsize=28=29?=
-In-Reply-To: <20261009224715.46121-1-cenzhang@linux.microsoft.com>
-Message-ID: <B042CCA8-1AE4-47DC-B9FB-F34B86D16461@mainlining.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q/qQqSlf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 471BF1F000FF;
+	Sat, 10 Oct 2026 12:54:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791636874;
+	bh=ZcrCwafbniEewCzWv1MZiFYJQ5X4fHmk7ltpbIe8dVg=;
+	h=Date:From:To:Subject:References:In-Reply-To;
+	b=Q/qQqSlf62cH1TJxDffYqyRk2dfWWBuMJBUm95IE6dEYWjB0axS+ihRYUasmWweGl
+	 kByE5DMqaoLj4kmSHAdISzmsb53vUnuwpnmxfuD41Z5+QL5JwmOKaVuSUWqk+iwZnQ
+	 ya6PPttk0FvmkFsj/u3msXE0HMqDCdqJ6u1WrG0QACvNAgDiwCox9XMee34k6/5VxV
+	 u8JbnFICrG9XPafeKuBva/4ZZV0RJC9tXtEnKFpT7G8B/p2xji89qFlJQdR2xhlVIc
+	 9te2vVIj/v29TkuIlZPqBhaOKDE7j4qsdGKAKj9z+qkjwhX71k97zczQ91IDlIYiWS
+	 rAEX2VNwQRMQA==
+Date: Sat, 10 Oct 2026 14:54:29 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: sashiko-reviews@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-ext4@vger.kernel.org, 
+	linux-afs@lists.infradead.org, v9fs@lists.linux.dev, linux-trace-kernel@vger.kernel.org, 
+	ntfs3@lists.linux.dev, tytso@mit.edu, stable@vger.kernel.org
+Subject: Re: [PATCH 2/8] afs: free the super info after a grace period
+Message-ID: <20261010-veranda-allemal-frivol-5ee6b359d2c8@brauner>
+References: <20261009-work-fixes-rcu-v1-0-7446d2d335e6@kernel.org>
+ <20261009-work-fixes-rcu-v1-2-7446d2d335e6@kernel.org>
+ <sashiko-outbox-166125@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <sashiko-outbox-166125@kernel.org>
 
-On 9 October 2026 23:47:15 BST, "Cen Zhang (Microsoft)"
-<cenzhang@linux.microsoft.com> wrote:
->There is a race between watch_queue_set_size() and
->post_one_notification().
->watch_queue_set_size() publishes wqueue->notes, notes_bitmap, nr_pages and
->nr_notes with plain stores, and post_one_notification() reads them with
->plain loads under a different lock, so nothing orders the four stores
->against the poster's loads: depending on the build, notes can be stored
->last (gcc 14 on x86-64 does this).  Since keyctl_watch_key() lets a watch
->attach to a queue before it is sized, post_one_notification() can already
->be running on another CPU at that moment: it reads nr_notes > 0, passes
->its bounds check, and then reads notes while it is still NULL,
->dereferencing notes[0].
+On Fri, Oct 09, 2026 at 10:07:58PM +0000, sashiko-bot@kernel.org wrote:
+> Does this regression introduce a TOCTOU race in afs_atcell_get_link() that
+> can cause a NULL dereference?
 >
->An unprivileged user triggers this reliably by watching one of its own
->keys through a notification pipe and racing
->ioctl(IOC_WATCH_QUEUE_SET_SIZE)
->on that pipe against keyctl(KEYCTL_SETPERM) on the key from another CPU,
->triggering:
->
->  BUG: kernel NULL pointer dereference, address: 0000000000000000
->  RIP: 0010:post_one_notification.isra.0+0xa2/0x1e0
->  Call Trace:
->   __post_watch_notification+0x148/0x180
->   keyctl_setperm_key+0x119/0x130
->   do_syscall_64+0x108/0x4c0
->   entry_SYSCALL_64_after_hwframe+0x77/0x7f
->  Kernel panic - not syncing: Fatal exception in interrupt
->
->Fix this by publishing nr_notes last with smp_store_release(), and by
->reading it once with smp_load_acquire() in post_one_notification() before
->the bitmap and the page array are touched.  A poster that observes a
->non-zero nr_notes then also observes the pool behind it; one that observes
->zero drops the notification as before.
+> By leaving put_net() executing before the RCU grace period, afs_net_exit() can
+> tear down the namespace while pathwalks are still active. If cleanup_net()
+> calls afs_cell_purge(), it replaces net->ws_cell with NULL.
 
-Gnarly looking bug.
+No. This patch doesn't touch put_net(). It's called in the same place
+as before.
 
->
->Fixes: c73be61cede5 ("pipe: Add general notification queue support")
->Reported-by: Dae R. Jeong <threeearcat@gmail.com>
->Closes: https://lore.kernel.org/all/ZT-S8Q7tyutcvu_q@dragonet/
->Reported-by: AutonomousCodeSecurity@microsoft.com
->Suggested-by: Dae R. Jeong <threeearcat@gmail.com>
->Assisted-by: LLM
+The only place that sets net->ws_cell to NULL is afs_cell_purge() from
+afs_net_exit(). The superblock pins the network namespace via
+as->net_ns and once the last reference is gone cleanup_net() does a
+synchronize_rcu() before it calls any ->exit() method. So
+afs_cell_purge() can't run while a pathwalk is still in
+afs_atcell_get_link() in rcu mode.
 
-Nit: Cc: All Applicable 
-<stable@vger.kernel.org>
+The double load of net->ws_cell is a bit sloppy but it's harmless.
 
->Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
->---
->v2:
-> - Use smp_store_release()/smp_load_acquire() instead of lock (Dae R. Jeong).
->v1:
-> - https://lore.kernel.org/all/20261008224233.9675-1-cenzhang@linux.microsoft.com/
->
-> kernel/watch_queue.c | 11 +++++++----
-> 1 file changed, 7 insertions(+), 4 deletions(-)
->
->diff --git a/kernel/watch_queue.c b/kernel/watch_queue.c
->index 538520861e8b..932a88ac1f39 100644
->--- a/kernel/watch_queue.c
->+++ b/kernel/watch_queue.c
->@@ -101,7 +101,7 @@ static bool post_one_notification(struct watch_queue *wqueue,
-> 	struct pipe_inode_info *pipe = wqueue->pipe;
-> 	struct pipe_buffer *buf;
-> 	struct page *page;
->-	unsigned int head, tail, note, offset, len;
->+	unsigned int head, tail, note, offset, len, nr_notes;
-> 	bool done = false;
-> 
-> 	spin_lock_irq(&pipe->rd_wait.lock);
->@@ -111,8 +111,10 @@ static bool post_one_notification(struct watch_queue *wqueue,
-> 	if (pipe_full(head, tail, pipe->ring_size))
-> 		goto lost;
-> 
->-	note = find_first_bit(wqueue->notes_bitmap, wqueue->nr_notes);
->-	if (note >= wqueue->nr_notes)
->+	/* Pairs with the smp_store_release() in watch_queue_set_size(). */
->+	nr_notes = smp_load_acquire(&wqueue->nr_notes);
->+	note = find_first_bit(wqueue->notes_bitmap, nr_notes);
->+	if (note >= nr_notes)
-> 		goto lost;
-> 
-> 	page = wqueue->notes[note / WATCH_QUEUE_NOTES_PER_PAGE];
->@@ -297,7 +299,8 @@ long watch_queue_set_size(struct pipe_inode_info *pipe, unsigned int nr_notes)
-> 	wqueue->notes = pages;
-> 	wqueue->notes_bitmap = bitmap;
-> 	wqueue->nr_pages = nr_pages;
->-	wqueue->nr_notes = nr_notes;
->+	/* Pairs with the smp_load_acquire() in post_one_notification(). */
->+	smp_store_release(&wqueue->nr_notes, nr_notes);
+> Can net->ws_cell be cleared to NULL before the lock is acquired, causing a
+> NULL dereference here as well?
 
-Looks okay to me cen, just the nit:
-
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-
-
-> 	return 0;
-> 
-> error_p:
->
-
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+No. Without rcu the caller holds references to the dentry and the
+mount. So the superblock and with it the network namespace can't go
+away underneath it.
