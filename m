@@ -1,135 +1,103 @@
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6157400DF3
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 10:54:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 810B63F787F
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 10:58:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791629687; cv=none; b=T1MUpd9+7ENwn1WKtIoOXilluUUXu88guadTV4Udm10Q+jFks92RHW9NiuSX72twi6kctLpLDFu2s/jkX6yhKj9JIkBrHQsqQ8GP9CAPWt6Ndm0+SyHXG0Uiek/hdoQStDOacPF/izubn8ulnpdNlC4oSdjq8e36xFKcEAioNA4=
+	t=1791629933; cv=none; b=gKRJ8MBVlqQkrBNnUOXVEP2NK9L1/aV4uWCEDLfvIDVTYjdSTVPjWw2IhHSx2tBt+Tb/9zCZWGy/DI/wqcoKiEzcgl8E2FaWZX6SFNy8aiuzNtOt2CFN3l3q6KWOUKfvIlTgtKl2hagBbIZIRygyY7jY4d436qevw86j8qE04eY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791629687; c=relaxed/simple;
-	bh=Lx4pYf7ox2ftKijZw338RFHnP5fJrmBZaR9iQNhr5fE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TXQbdUQE4DdULvicCdI7DDKa+2IYUzQqe7fkRUY7QsbMOgCGMYNIp+UGNpxekQUUH4ifq7WsYF0p/tUPtzsQfrjFE3In3eOnZAde547MMTXGuVfSuN2vngNS2Vu5gvvFrPR3OO6bHEcGMKPHTzK6ZEWSfX/DW+LuQjMinECAgXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=m2mxfjzZ; arc=none smtp.client-ip=209.85.222.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	s=arc-20240116; t=1791629933; c=relaxed/simple;
+	bh=ey2uGSuG3jrWAcctmiGZyGdUCH4Y/JKOYhjHktRVi18=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FoBEbU3ZAeHeKqtIPtJU5u5dbLbL80kTXlZxg9nQT1d0eQyCqZZe65rbeepYvqu9Q0PQ62M4qwWMZe/RgTGKGfpyppAfpabIQV2YNyiPbTAvHBJhmitnF1jNFHmkneC6UdnQ/SGOkFA7QCMj4w5AZlGXm5sSJH7+J1a5W6SmHJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UORYt5yy; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="m2mxfjzZ"
-Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93ece7a73b9so41337285a.3
-        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 03:54:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UORYt5yy"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so6411235e9.1
+        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 03:58:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1791629684; x=1792234484; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=q++ROavf5Dntc+2Fvf5HgOibvKYoyzYPl6CilCM+dkk=;
-        b=m2mxfjzZix1oEhOzoj2ZW6wmgD/o7IARnsVTgaza9BEdIbkJlDHdOKp2llm1VeL1w9
-         5cOBxOU/GXJQyS59F0dnsvFnAVPqUun5GhQFN8BNDR+2xvqkDxkk+mxTPadUvMM1/I1a
-         vV5UVqtxe6aR9PKJFaMdwBWdakGebYKkWC4UE+EBNiNLIXzKDCuGlSK4ZtRtyQY5VBvM
-         sRUcnTX4ay7aMQgVsaQ0twmv1JWWjZOYREWM8oao4QAM0/bM972lFeFgLlR8I2kJrIZX
-         0N42M1k4r66epuESs0wx1a4iJdKfLBcX/az8MfGO6yUzhW+/S4W0DclOAr+iGLhKPsmt
-         llug==
+        d=gmail.com; s=20251104; t=1791629931; x=1792234731; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0p+tcFuaad+Ed9GUNOLJGi5vSHUZkfcnyvs2CnZiAAQ=;
+        b=UORYt5yyzjPrrVJAI4uPXT4rQkd4pDNL9AAT/KrcCHNj8dqNT+UEB5n1/SYfGvVB0K
+         5IipRB0KG8I8nRjikGp9hIiotR/03LuQ8+3KPua6nWMchymndNHWaP5OskIo0o/d9Kk+
+         Xlxtk0+7MKlksuiNql6F+UHol10TMducex7Kwb6VJYdme1LVwVmQnp9DBdl1itIwUktI
+         Trsalck+4VVT6s8DsG8sfhjamG5uhZeLNkwBBb2gulBF47huEvCOJwUZCjn+N+7ib8V0
+         JXxRfAt3kKnWu9jEB14FG0Av/Q/l0iGkvtwV1uhiq9kyCbZFKpKdTh+t4IKInlVVuzlL
+         Wp3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791629684; x=1792234484;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=q++ROavf5Dntc+2Fvf5HgOibvKYoyzYPl6CilCM+dkk=;
-        b=OXh6CXy95h6HE73DldfaNMPT44NPa1Q4GVgR7t5eDF7F5YaQ6clM60aD/z1ayDd1KK
-         kg09Qh9+mW9dETLu5OfCwG9Z3OFk9j/wO1+ZHHFjm4v1jP/aS6XaMiy0vQMOrVZNr2lL
-         ljbhIHQqKz8J/pwzZbNsWt0zzkXruXxQpb8TTfSjWYMDRzBVIsWjkC+nBeWYaUXdjE9E
-         OGxC7GcmDY1AL578GGGwCVkie/7npG36KfgPn9hSolr0nC8LELtjDJLd0dXsDbKWNDAO
-         kfzxRHSRxnUSZed0Pj4H5xaicr5nW2OKauI8w/ZWtB7QcAl7l0xTvEaViBhHbSH1/CGC
-         HLzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxJM1/Vf3JNnKDwyoA99BqcQPe906PU883+fpyzphbodGFF7SPfiTBmQrakAyYdRKX0MpWfwhE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVe+jKNzauPiJu+DdrdIHOWMv+7JDMMvVMt1KiIbrxa3Vb2vVg
-	4FgdRZxhcC4RQA9c2TASPz4pPCdN1XiJwCfZrVySicW9rdbhMBTJeuCFOib2N1f2tg==
-X-Gm-Gg: AYBFou0BYrPwACIzzGrZreSkZnQ6yuOE+SZPLYq6S+3d+YkOWDADRjHMiGGtVPrxeCc
-	l4soRrm5V+OpZKonEzI1i/VpghVjfJ5dPKHQCRAWU13dJb2TPQXlrCdP0Oe+36R6yJt8VaU5EKT
-	pIoFXIEy2vQRzmMndN15NOKe2aSXuEeLPLNVsUr4fJj0FSRc/jcvLf1db4ayKrietuD+ovxAxNC
-	J3Q9WUa/lCbRujj4eodiCPapsVfcDKZ7xMabx/GuFPMqTH8LJoZeqKLGYEfafg3r18+mNF1ftnR
-	d9JPVRHfAFTFnMtqpi8OS5+8JLDW3Vy1m99RM/nCjnCQr3Zz93mdcu5efwOu1JRp4D05ubjJltG
-	LQh1zLKkH+GwH8hS2s+GKCj1dl66pGUtz5JV1d+RlHHGUeqFPthzMzLQHftUXHUuio7h5ntnRK9
-	AkJ0bCMkHI3SnCsOID05Awvgw1uQXZS9+53e199QLGTNxwRFMr8GttdgHJ3xrXotpwzca24Lw8X
-	zclIdmdN+Z1DYD0xwZxsQ==
-X-Received: by 2002:a05:620a:17a0:b0:93e:c12c:f13b with SMTP id af79cd13be357-93ec12d085amr605390185a.69.1791629684570;
-        Sat, 10 Oct 2026 03:54:44 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb9898b5fsm394602785a.32.2026.10.10.03.54.43
+        d=1e100.net; s=20260707; t=1791629931; x=1792234731;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0p+tcFuaad+Ed9GUNOLJGi5vSHUZkfcnyvs2CnZiAAQ=;
+        b=T72LGF/qSnHT+khit/NyrPWiITtvVdbaqvqP70w0qJXO61EtBlGlyzrv3wUPi1XdyJ
+         AKc9NBx0n+3APT4hwgh8XDnYQqwT/VxeZTUPcq0jA3QqF3h0tRUfLMaXFJA65OQKOUCd
+         hp5s6KGp8Cs7E67sEjJawEuwWeX/oTvS0A6zULSwHsaIVbAobnhMrHuCXpvuSoLGNW1L
+         j7iHJpLG8pcNZtNmgnYe4O6yPDviYLP56zqHsVXNHiOEvk35pa1fpdTBz+s4JC6jx0Om
+         y/qkosI9wnkWJA0rq5zhCO20HSRYw2WxnMG1tr49w5Ve2bLfAXlneaDA5TxUc0Xc+c4n
+         WtSw==
+X-Forwarded-Encrypted: i=1; AKwUvBzNYEZJiGf45wU7kCoNTCOd7/ESZ4zkLRo6IcL7gaD3c6V1X01NqIvvKhFm3xB6dE08kIJ7Z4w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKxgRntnyTUpGhQ5PQI5yrLwzaSP7yoKjMwY1TPEXLrA1iZ3ARW
+	ym6OwFxc5L0MH+AoFw5vA5LzXOCpwgWLVcBgzr0Y3Ef+ZVrKz24D31mB
+X-Gm-Gg: AYBFou2LnKbP4syqAkaIsFtBfWHCdA4ZvzSjjHUhj+VoZWNCknPR4yJa19zQ9gkRrqV
+	fHIYurIzkKQB8pUFNVqToUYAo9WYOTnFjaQ//CQ5CrDJRYQPkYnPoTdlMcnpN8RijUwPkzAnbc5
+	2aUkTlwNBASuLDe6yL0Cm5v5nsQPHRnBQMwLQg6g9K+NQ/mCICXBVbusOGhrM6+gawH2QzecdfK
+	OYvMnDl2SqvPcTPhYChASOkgiZ5nruB403qbM1JTErylBB7VKH1L7l5XUbZg8htnDVbbpwnDBNN
+	//LQ35x5jp0HHqCRcosCnjvRwAW2t74O1sp3kwto8WHhceUnXwqcEETOVacYuejXx389IfmncwB
+	OZmNY6WT48RvfeBenC6aepXuXdt+9S/IC7nchoOzc2EoMnJ7OAdqRJ2vOqlfKds4Z+QNUBKV4Zn
+	6nSBbXGlUdaDzykRBdLLAo3qMidxeAsKDzP+zcLM0USrJ8eTp/h001+3F8/ravijfwrxVv6/zmu
+	ViBv6bCPjICuG2ZgCnVMPJsAWDehpiXXGUF1xJIhcgszf5CpL7HJXZKzSI+2AzuiwIRFOt8akhb
+	y5ltpCiP1XVAPOPkU4o81vC+KF9GbfE8uTHXxGO/+mwIek+ZU19GVO4dtKuaO4/cT0iaxkwCxrR
+	KAjDH
+X-Received: by 2002:a05:600c:3e8f:b0:4a0:263c:704f with SMTP id 5b1f17b1804b1-4a18e4a3fbdmr88482075e9.16.1791629930405;
+        Sat, 10 Oct 2026 03:58:50 -0700 (PDT)
+Received: from imx93-evk.localdomain (dynamic-2a02-3100-9d3f-0d01-48c7-5d76-0ec6-9dac.310.pool.telefonica.de. [2a02:3100:9d3f:d01:48c7:5d76:ec6:9dac])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18e4a3b4asm216792105e9.5.2026.10.10.03.58.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 03:54:44 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: David Sterba <dsterba@suse.com>
-Cc: Chris Mason <mason@kernel.org>,
-	Filipe Manana <fdmanana@suse.com>,
-	Qu Wenruo <wqu@suse.com>,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] btrfs: fix chattr failing on nodatasum files that have the compress flag
-Date: Sat, 10 Oct 2026 06:54:25 -0400
-Message-ID: <20261010105425.165104-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+        Sat, 10 Oct 2026 03:58:49 -0700 (PDT)
+Date: Sat, 10 Oct 2026 12:58:47 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Lukasz Luba <lukasz.luba@arm.com>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Changwoo Min <changwoo@igalia.com>, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] PM: EM: allocate the cpumask for every perf domain
+Message-ID: <asoaPjyhSAQ5r-lO@gmail.com>
+References: <20260910205234.5392-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910205234.5392-1-kmehltretter@gmail.com>
 
-Commit cf1afec09e9f ("btrfs: validate properties before setting them")
-made btrfs_set_prop() validate a property before setting it. For the
-compression property, the validation fails with -EINVAL when the inode
-has NODATASUM.
+On Thu, Sep 10, 2026 at 10:52:34PM +0100, Karl Mehltretter wrote:
+> KASAN reports slab-out-of-bounds reads for both dump and by-ID requests
+> against a synthetic non-CPU performance domain.
+> 
+> GET_PERF_DOMAINS does not require GENL_ADMIN_PERM, so an unprivileged
+> request can reach this path when a GPU or another devfreq device has
+> registered an energy model.
+> 
+> Allocate the cpumask for non-CPU domains too.  The zeroed mask remains
+> empty, as required for the documented unused field.
+> 
+> Fixes: d8eef0453132 ("PM: EM: Implement em_nl_get_pds_doit()")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-However, a file created on a filesystem mounted with nodatasum has
-NODATASUM and still inherits the compress flag from its directory, and
-btrfs_fileattr_set() sets the compression property whenever the new
-flags include FS_COMPR_FL. As of now, chattr fails on such a file, even
-when it only changes another flag.
+Friendly ping on this patch
 
-The issue can be reproduced with:
-
-    mkfs.btrfs -f /dev/sdb
-    mount -o nodatasum /dev/sdb /mnt
-    mkdir /mnt/dir
-    chattr +c /mnt/dir
-    touch /mnt/dir/file
-    chattr +A /mnt/dir/file
-
-Before commit cf1afec09e9f ("btrfs: validate properties before setting
-them"), the last command succeeds.
-
-After that commit, it fails with EINVAL.
-
-This patch will make btrfs_fileattr_set() set the compression property
-only when the inode can be compressed.
-
-Fixes: cf1afec09e9f ("btrfs: validate properties before setting them")
-Cc: stable@vger.kernel.org # 7.2+
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
----
- fs/btrfs/ioctl.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-index 52aab510aea0..347509043f2e 100644
---- a/fs/btrfs/ioctl.c
-+++ b/fs/btrfs/ioctl.c
-@@ -421,7 +421,12 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
- 	if (IS_ERR(trans))
- 		return PTR_ERR(trans);
- 
--	if (comp) {
-+	/*
-+	 * An inode with NODATASUM can not be compressed but can still have the
-+	 * compress flag, inherited from its parent directory. Setting the
-+	 * property fails validation for such an inode, so leave it unset.
-+	 */
-+	if (comp && btrfs_inode_can_compress(inode)) {
- 		ret = btrfs_set_prop(trans, inode, "btrfs.compression",
- 				     comp, strlen(comp), 0);
- 		if (ret)
--- 
-2.53.0
-
+Thanks,
+Karl
