@@ -1,151 +1,148 @@
-Received: from mta1.migadu.com (out-139.mta1.migadu.com [95.215.58.139])
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F837314B6E
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 03:50:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462933C1D66
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 03:51:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791604241; cv=none; b=ho6qA6Mz4CJJBrlE6ELJGvyQJF8e1/NJzZHlvuBnosyXRNLYHcmCffJLsEv8wdny8WIRb5ZP3eFENZb9AOcQfwl5yUz/NRa9plWCY8xWLAHgCJ7HgBwxuw2u+JeTgUpAoc2GTL2YSCBW+uohNK8L50ifp0/z0BSmuseHjltmEGM=
+	t=1791604294; cv=none; b=pad087saZvYsdunq4EYg65GRwAT+3/IgNdZAlU+RFBB64dC2H8gpwNw69pFnJb2B2RYAjk8Mc0V4KPXqF44RBGWbqXkkSefUTbdsRoTjuC658YGUF7QlUcqfILcgsJVlraxOH6BfFglsMTaVzd/K+xi9OhTUgDd1veav84LGJU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791604241; c=relaxed/simple;
-	bh=ejj+1mQ7GORhSID6jODIShDthWwWtiPSHyMLfZ3/AqU=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=WTK/ZTRn7GZK05JgNlwqaGZfEX2nXrbaQpw95jnaX6aYLvuNGtX+3WqhKTpwPw8e0d9PKCOb0xg5UrGv0LEHiPSiUTUqH1Edpt4gjeg054GKbbokAdelEcezjrpj8MF8s+k3NIqToU2SrqbTC9M1TFfffe0DsL7fXrAzJrV0iOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oXXbzJ4J; arc=none smtp.client-ip=95.215.58.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791604294; c=relaxed/simple;
+	bh=sH6RDIXqtcSaRdhK2UmsMtiZfvBUar3SlrL/9W/xOGI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Yeqpf71cHQvFC5nkgmzPONx11uWi6GyU/ddIEei5L+2YKNbUp6halDtWRnkvVZU0n7wR0XhhHTy3a/MwTp0BZb/2NoqRSOB4wFcCJ18pYIHfqJZICFnWaGG2gmjK9iOXZ0+FSviPhaNjWsWwt6zfunZFL+naqe533Wb1r4ZP3zY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KV6xJQoA; arc=none smtp.client-ip=209.85.208.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oXXbzJ4J"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ejj+1mQ7GORhSID6jODIShDthWwWtiPSHyMLfZ3/AqU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791604238; v=1; x=1792209038;
- b=oXXbzJ4JEVIIlXmLSFRm9OK+stur3MstaTSM8R7gazaCRKIGrKwCfpn8L2p7Dj5L16p8FS71
- p+ORylMMHzgTMoR/YNm9X2+lSyxkj632ly8gHzZ2g0ei1Jyxvu/lJPvz/2amZ+UA2nLFH41br1x
- pIxXRgA80hDqODcHgG5tXZrI=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9484aa877343ee44;
-	Sat, 10 Oct 2026 03:50:15 +0000
-X-Mizu-Trace-ID: 9484aa877343ee44
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KV6xJQoA"
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3a9841363b5so4523571fa.2
+        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 20:51:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791604290; x=1792209090; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fLUcntEk8FCrnINMbHp0kpYagVExENgZra96VBh3yrU=;
+        b=KV6xJQoAobHoF6FiW4ANy4ecaBsa2Phc2MCHBeiyTvPIccoX1BugFqBzw0UXG3C5QD
+         gGHX+flIhVBgmyz8wpXfFMLPN5ktoxlw+JGKmVVaMS0YanGvQQ/4xIo4LEYdlkL+ELyB
+         lrYHqa1X2sdSHLeoxIAmVIx+pG2yCASDG5R/1nzCuZmbg+Anc4GRLVS/0aSfZBO2bT9Y
+         wDytOL6wXM3P8pCHMW77AS7VLVH4JmtJhlGsyjmuzu3Lo1uAPA9pZ8NZjrmLa+JWlMQ3
+         nAlM7LVOjHH5lt+dHm4s5Yrl/zj1sWemIwcz9X+rsXstExvaH5eRA0lhtQXaE1ybz8Z/
+         Eqwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791604290; x=1792209090;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fLUcntEk8FCrnINMbHp0kpYagVExENgZra96VBh3yrU=;
+        b=xkivx+YOf4FI/GppDd00A06EhFgndeoSlS/ig2fASWhy3mAc6ZPpum918PL9Rl8Dcd
+         BcqBpFeLgUvNgie/0jOz7Py5QaUPlkVUUFEclSv4rgTms0ScGkHrtXRxHLGHIt/3neKE
+         V7AzoTCwuhZ/CiDww82ytEU178FziSlvqScJKOjYE82VVDV0it5VVj8EZTwWcFiTcR7w
+         u19HL8CWduNv6r1gVlYTS54V+rW1su/qjkGBTI+ttC0DqizJNeVICBWKnufUE8RcwDEN
+         JopcC4dtzgZ/WmxQiYo6c82nZQM77QU9V2t45FNY4eixpd2BR9JFq96PCtZ0kjMgfZOY
+         iDog==
+X-Gm-Message-State: AFq9FYJVRWuEYeCg8H3e8e2IFHNw6AQbLPNjg1o46EHYFQ++lNViLoUL
+	qsFFhdpzPSg31fNrRrK5Q+X2t6MvqbF80+9gUb/7tcituVfZ/77dnoE8B8DKpmoRYV4=
+X-Gm-Gg: AYBFou0NE92UfytOzt3FiCM/O8HMkOWkpnmSfs2ptqXWiEM6UT2B6sj0B3F5aEtt3tA
+	QGMZjY2AP3oe8UV7gP/Q3KeYUULFrZjXMLoai9Rdd8jOUHUlkjXyc3F2KromjRnQBk36rSkfp0r
+	QZ7OfZqdHYUv0C0EA79yKp8FyjLrcc8yScwlkbhHOpcDb2s/LYiN3cXZzYTDahDenFnC77VDJQM
+	9U5BMZ2Oa8VR1p7+MHMmUeJIx58xYxuVHWkznIJq/6doMHBuht6btVxOgtaIPXfgVvhMEo2Gj5U
+	r83m+tlhiQ2a0pmzHZYB/TXFMF7XgC3dUH5CaETYIMLO8uswwfpp/8SbMyKo2cv3Sro0vLJEUUW
+	9h064UwOMRI4nvlD6WNoBF8vdVXzwWtnjyNpOTF+iGjNI3rfpC9Ti+pr8zObFW9mAtxOekTkmVF
+	B5UG9qkU7kji3Ehl0ngXd97xDY2EyPII3UlCe3o6uuXmFx81iuZyNlGjPhL+1S7SLiMrGybj2dT
+	C+ThFCx7WP1SXNJaxjkdUWw1eSyjY4EUDT/54XMHOc=
+X-Received: by 2002:a05:6512:2243:b0:5b8:f202:7749 with SMTP id 2adb3069b0e04-5bcde8dec4fmr1398910e87.59.1791604290046;
+        Fri, 09 Oct 2026 20:51:30 -0700 (PDT)
+Received: from dau-home-pc.. ([95.139.131.22])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcdde9c924sm1161984e87.36.2026.10.09.20.51.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 20:51:28 -0700 (PDT)
+From: Anton Danilov <littlesmilingcloud@gmail.com>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Thorsten Leemhuis <linux@leemhuis.info>,
+	Chuck Lever <chuck.lever@oracle.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Donald Hunter <donald.hunter@gmail.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	"Remy D. Farley" <one-d-wide@protonmail.com>,
+	Rachel Menge <rachelmenge@linux.microsoft.com>,
+	netdev@vger.kernel.org
+Subject: [PATCH 6.12.y 0/4] tools: ynl: fix spec validation in 6.12.y
+Date: Sat, 10 Oct 2026 06:51:12 +0300
+Message-ID: <20261010035116.578385-1-littlesmilingcloud@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026060807-egging-prune-a3ae@gregkh>
+References: <2026060807-egging-prune-a3ae@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH 1/4] x86/mm: fix missing pgtable destructor for vmemmap
- tables
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <39ae6c48-7fcc-41d5-bfaf-fe626071861e@kernel.org>
-Date: Sat, 10 Oct 2026 11:49:57 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- akpm@linux-foundation.org,
- linux-mm@kvack.org,
- stable@vger.kernel.org,
- osalvador@suse.de,
- dave.hansen@linux.intel.com,
- luto@kernel.org,
- peterz@infradead.org,
- tglx@kernel.org,
- mingo@redhat.com,
- bp@alien8.de,
- x86@kernel.org,
- hpa@zytor.com,
- catalin.marinas@arm.com,
- will@kernel.org,
- mark.rutland@arm.com,
- linux-arm-kernel@lists.infradead.org,
- pjw@kernel.org,
- palmer@dabbelt.com,
- aou@eecs.berkeley.edu,
- alex@ghiti.fr,
- linux-riscv@lists.infradead.org,
- agordeev@linux.ibm.com,
- kevin.brodsky@arm.com,
- bjorn@rivosinc.com,
- apopple@nvidia.com,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <98481914-D123-4F58-97FA-C2F34469D34C@linux.dev>
-References: <20261008073021.2512665-1-songmuchun@bytedance.com>
- <20261008073021.2512665-2-songmuchun@bytedance.com>
- <b8769c67-1683-4d84-94c9-916c305dafc0@kernel.org>
- <39ae6c48-7fcc-41d5-bfaf-fe626071861e@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+Two 6.12.y backports added YNL spec features that the 6.12.y YNL tools
+do not support:
 
+ - 6.12.93: a2de9c7f01b3 ("net/handshake: Pass negative errno through
+   handshake_complete()") adds a "scope: kernel" definition to
+   handshake.yaml and uses it in "checks: max";
+ - 6.12.111: 45ca9f59b6c7 ("net: reject oversized tx_queue_len at
+   netlink parse time") adds "checks: max" to rt_link.yaml, which
+   netlink-raw.yaml does not allow.
 
-> On Oct 10, 2026, at 04:36, David Hildenbrand (Arm) <david@kernel.org> =
-wrote:
->=20
-> On 10/9/26 22:33, David Hildenbrand (Arm) wrote:
->> On 10/8/26 09:30, Muchun Song wrote:
->>> Since commit 49f599666420 ("mm: call ctor/dtor for kernel PTEs"),
->>> pte_alloc_one_kernel() runs the page-table constructor for kernel =
-PTE
->>> tables.
->>>=20
->>> HugeTLB vmemmap optimization uses pte_alloc_one_kernel() when =
-splitting
->>> a PMD. Restoring the vmemmap backing pages does not collapse the PTE
->>> table, so a later memory hot-remove eventually frees that table =
-through
->>> free_pagetable(). That path currently calls pagetable_free() =
-directly
->>> without decrementing NR_PAGETABLE.
->>>=20
->>> Use PageTable() to identify constructor-backed tables and run the
->>> matching destructor before freeing them. Keep reserved and
->>> constructor-free tables on their existing paths. This also prepares
->>> vmemmap teardown for generic runtime allocations through the normal
->>> pgalloc helpers.
->>>=20
->>> Fixes: 49f599666420 ("mm: call ctor/dtor for kernel PTEs")
->>> Cc: stable@vger.kernel.org
->>> Assisted-by: LLM
->>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->>> ---
->>> arch/x86/mm/init_64.c | 2 ++
->>> 1 file changed, 2 insertions(+)
->>>=20
->>> diff --git a/arch/x86/mm/init_64.c b/arch/x86/mm/init_64.c
->>> index 70e682180291..a3ea627157ab 100644
->>> --- a/arch/x86/mm/init_64.c
->>> +++ b/arch/x86/mm/init_64.c
->>> @@ -1003,6 +1003,8 @@ static void __meminit free_pagetable(struct =
-page *page)
->>> {
->>> 	if (PageReserved(page))
->>> 		free_reserved_page(page);
->>> + 	else if (PageTable(page))
->>> + 		pagetable_dtor_free(page_ptdesc(page));
->>> 	else
->>> 		pagetable_free(page_ptdesc(page));
->>> }
->>=20
->> pagetable_free() will do ptdesc_test_kernel(pt) -> =
-pagetable_free_kernel(pt) ->
->> pagetable_dtor_free().
->=20
-> Ah, behavior depends on CONFIG_ASYNC_KERNEL_PGTABLE_FREE$ ...
->=20
-> Why not do the right thing in pagetable_free() instead?
+Since 6.12.93 "make -C tools/net/ynl" fails on handshake:
 
-Good point. More easy to this issue on different architecture. I'll fix
-pagetable_free next version.
+  jsonschema.exceptions.ValidationError: Additional properties are not allowed ('scope' was unexpected)
 
-Thanks,
-Muchun
+and since 6.12.111 the in-tree CLI fails on rt_link:
 
->=20
-> --=20
-> Cheers,
->=20
-> David
+  $ ./tools/net/ynl/cli.py --spec Documentation/netlink/specs/rt_link.yaml --dump getlink
+  jsonschema.exceptions.ValidationError: Additional properties are not allowed ('max' was unexpected)
 
+Greg queued fbf5df34a4db ("tools: ynl: add scope qualifier for
+definitions") for newer trees and asked for a 6.12.y backport in
+https://lore.kernel.org/all/2026060807-egging-prune-a3ae@gregkh/
+fbf5df34a4db alone is not enough: handshake.yaml then fails on the
+constant name in "checks: max", and the 6.12.y generator cannot
+resolve such names. Patches 1 and 2 add that, patch 3 is fbf5df34a4db.
+Patch 4 is bf5a54bc0e3d ("doc/netlink: netlink-raw: Add max check"),
+requested for 6.18.y in
+https://lore.kernel.org/all/899bd843-fd19-418e-8913-91bfb6e760a2@linux.microsoft.com/
+
+Patches 2-4 carry the upstream changes as is; in 6.12.y the generator
+is tools/net/ynl/ynl-gen-c.py. Patch 1 needed adjustments, they are
+described in its commit message. Like upstream, it also updates the
+generated net/core/netdev-genl-gen.c (4294967295ULL -> U32_MAX,
+2147483647ULL -> S32_MAX); the object file is byte-identical before
+and after (x86_64 defconfig).
+
+Tested on top of v6.12.112:
+ - all 19 specs validate against their schemas (2 fail before);
+ - make -C tools/net/ynl builds without warnings (fails before);
+ - tools/net/ynl/ynl-regen.sh -f regenerates all 24 generated kernel
+   and uAPI files with no changes, net/handshake/genl.c included;
+ - cli.py --spec rt_link.yaml --dump getlink works.
+
+Jakub Kicinski (3):
+  tools: ynl-gen: use names of constants in generated limits
+  tools: ynl-gen: support limits using definitions
+  tools: ynl: add scope qualifier for definitions
+
+Remy D. Farley (1):
+  doc/netlink: netlink-raw: Add max check
+
+ Documentation/netlink/genetlink-c.yaml      | 14 ++++-
+ Documentation/netlink/genetlink-legacy.yaml | 14 ++++-
+ Documentation/netlink/genetlink.yaml        | 14 ++++-
+ Documentation/netlink/netlink-raw.yaml      | 20 +++++-
+ net/core/netdev-genl-gen.c                  |  4 +-
+ tools/net/ynl/ynl-gen-c.py                  | 70 ++++++++++++++++-----
+ 6 files changed, 112 insertions(+), 24 deletions(-)
+
+-- 
+2.47.3
 
