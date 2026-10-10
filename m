@@ -1,93 +1,170 @@
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C63973101D8
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 03:17:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B28483A5E65;
+	Sat, 10 Oct 2026 03:17:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.187
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791602257; cv=none; b=JzGtiqftigfy5OfYo0MElUR6aOq0neE6smstC4o1x8KCYxQY3G0S4zYe/qU+O9fswu9zJpqR7K0FnM6NOCSaKXY5hwSbwqPLlaDZ9U2ovMDs58dI3ybfGUscVWqs0idH0vMApfKXwQMmiuq5dw9R5j33zHPgCJ4EL8yCvbPAkwI=
+	t=1791602280; cv=none; b=c0nN0U9nAf84znQ9N70of/91ZlGQ1S60q4L8Uh+qSpss0ThjTaYKwX5NM9g9vas9xMfpT/93l/2EV7ug7rmtJSOPFT1WzzqWIe/7MFgBBiQiKXN4W+6V90QBwdEt22gvPGmZY4gUQhbe8Ut8HSLlweP6LjOItucJ6K7c1ivixTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791602257; c=relaxed/simple;
-	bh=fkIQc2cBRsR9esk5rJ4DOFEeLxYdmg2udexU0q42DCE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JfXeCu1/7qjQUTBXXAxCMu25FgiOzlIPJqxnJ6PygfqtDZRPTdYiZ21mrxN71x/BSWe9hD42ePpC92jDqdBzDubTbhUIofdK2fyFtM1tEZyM7a6Uw0r+/Cg43j76SDQr6RSgRMKIdEOIXlU+Y5+AJ3EhKb1i39bMCLVPrU/xueE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SFjeLbh4; arc=none smtp.client-ip=74.125.82.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791602280; c=relaxed/simple;
+	bh=LDZdbw9sqXJMJMy9myDvRAtQwHq4XOgDSsFjCMlweio=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=ACDyDdvipvfnP9Dd6jG7KmSB2Pi+4JmPkIA7RfmBLhkRmlutqPrjE5tiiDytVym7zAQ+hZtkHuFys5BVQz9OD1lPb4QyMuEmRPd3XolfjEkaW85rMVruvQmPPSX5JIltoPnPMZt0cmGEj1OCa4IvVQTCZ8f7j4M4bER9uF5qo0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=gY0VFKM3; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=gY0VFKM3; arc=none smtp.client-ip=45.249.212.187
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SFjeLbh4"
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-353804b591eso538804eec.0
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 20:17:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791602256; x=1792207056; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fkIQc2cBRsR9esk5rJ4DOFEeLxYdmg2udexU0q42DCE=;
-        b=SFjeLbh44TczITHEjC1J7EQQsj2voyKadJ8MTJE7hH8I/dq+RzFBOHDbuUreZ+l3hu
-         4YP0dY96HBaN7OPq91LGx6djAJ3vW4uMOnmyOkhbn0DlgZnTOfwc3kMMeqqZoVwlRHuu
-         mht1cA1+pGtJpx9QkrQUsOsb/ZVJA/Z1Z/97yeyIL+7v8IT2hbcbLSqbfN9RLZ1NMhBa
-         dnEbc+WPMeJUhw/Kgzux36UibFbrkY0gNnzx+9CcdseyKIHT798WoUJcDky4SqCWzmZB
-         6vFjnkXHjNNMEz9H29/K/uMBHdmF6PjGoVlUyJTiIjq4ujs2kzs/ZEZFqyoy5RNirNvo
-         VzZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791602256; x=1792207056;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fkIQc2cBRsR9esk5rJ4DOFEeLxYdmg2udexU0q42DCE=;
-        b=vIjkDKJOQC66nd1pxjuOEQISZsWxo0JqhloYZCF7ukYbJjUboRZYzYk22h8fk9zmaG
-         GlrWWQ2Pcu8UPGJKxm85zhEdmj8mX55GVvS0ydVSKxnkm0GHcXWh8CYUZKfsqmbWgmIL
-         sc/4vMupkcttYXJBg97YPmIakzDXcI049HjRVfwfk0XE63oF0cGbEekJgY79H4fEnBjv
-         cys9/yZ4HJoHiDhM+cDUi3AZqSJyFoYYSxiGJuX564SJ9OwSl03zdHVXZHypfeWb1x6z
-         q9pL77CbjsVjNZGZ+QJ+9VpY3KBL8C+Bytkco6GHYDgZOho/zm4wBcgS29Dd8A6C7Jl4
-         BlMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxOHVoSk22P+89HFs1treFjd2Wm2tlccxSdXksE/vygfmAWs6H7zs7HVdsBriQfbGMZ/tK1ico=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLuSAO9u9yAG534AArhkZRudUwn5cYesvfcwGDuAPWj3vQjhZx+
-	UdEZ1PICyb+98nI0vJc4vMfb1Ci/xSYCBaAcs82e/HRGRZjqVFOwoJlX
-X-Gm-Gg: AYBFou39dD2CGny0v7c6L9ZCLt3yGeNX5q0FlpLvZdxBFmzOTlinkN9ESobID0wz5QO
-	83S7o+qix5qLJ5PHVjK1TNC8jV6VywnIqPSnbbWc22NYUpBpz5FJMz1rAJE4KyqsnzRMMyMdaaP
-	mhtodI2o/y8GqZhsGCLmhJP7j1QrPHd2imidwgDj9VHaMuVDL/0XqPPT/P/BNMwBrpB3XeHgTon
-	vM/nK/heNCKN7wZ7xke09Q7nXDKgv9sfuhkjyxJhG8PTbW+OguQxf4tcGPgGSvtVOaQlcCO20Gs
-	i4yWpFixd82YAfsm3EOm76kDeEaD2SrylC72re4tGWdCb83BrO4acjznSDVV6ctbD84YrhRQQRv
-	K4yPNL1XfIMUf+ZdWmKd69l7N3bao+mclnk9dXmn3OuyFC+/DG5+3l+DWilghRQjkSO5dyPqIhS
-	Fr6rKYZIHpo6U21QGiUY9S4u82HpV236trSPio0Y38TBjLDHESORntWGDOrCajiQ==
-X-Received: by 2002:a05:7300:c7c4:b0:353:7b29:54ec with SMTP id 5a478bee46e88-3537e2d8ec8mr4879682eec.40.1791602255846;
-        Fri, 09 Oct 2026 20:17:35 -0700 (PDT)
-Received: from ubuntu.. ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca0e64csm10654296eec.10.2026.10.09.20.17.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 20:17:35 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-To: Ming Lei <tom.leiming@gmail.com>
-Cc: Jens Axboe <axboe@kernel.dk>,
-	Nilay Shroff <nilay@linux.ibm.com>,
-	Hannes Reinecke <hare@suse.de>,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] block: don't quiesce the queue when setting the default elevator
-Date: Sat, 10 Oct 2026 11:17:30 +0800
-Message-ID: <20261010031731.3882546-1-odys.yuan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261010023608.3667184-1-odys.yuan@gmail.com>
-References: <20261001-bug-block-elevator-init-quiesce-v1-1-5c85fa0ec59b@gmail.com> <20261010023608.3667184-1-odys.yuan@gmail.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="gY0VFKM3";
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="gY0VFKM3"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=f/Ss9u7ffm+Ms/aS7WwUlqIogB4GvdVPTjeht4umbEc=;
+	b=gY0VFKM3coh0tcV+ulsYg4AicFqE9u5p5h83kZbsVbIQMpVvThTXxGRqPkrfbpLjyb5R3tVTG
+	gAxAOmcQOhwcbRfhcqGuaqVmK1bHYGjIsh+C3jes7E+BycvsGkvxHF7xzeo5ASH9TcE+NSejIbX
+	rlMQUkeOVbLxP83KDhQamYU=
+Received: from canpmsgout04.his.huawei.com (unknown [172.19.92.133])
+	by szxga01-in.huawei.com (SkyGuard) with ESMTPS id 4j1pn21Zvkz1BFrQ;
+	Sat, 10 Oct 2026 11:17:10 +0800 (CST)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=f/Ss9u7ffm+Ms/aS7WwUlqIogB4GvdVPTjeht4umbEc=;
+	b=gY0VFKM3coh0tcV+ulsYg4AicFqE9u5p5h83kZbsVbIQMpVvThTXxGRqPkrfbpLjyb5R3tVTG
+	gAxAOmcQOhwcbRfhcqGuaqVmK1bHYGjIsh+C3jes7E+BycvsGkvxHF7xzeo5ASH9TcE+NSejIbX
+	rlMQUkeOVbLxP83KDhQamYU=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4j1pWb6xDTz1prN4;
+	Sat, 10 Oct 2026 11:05:31 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id 20AA84057F;
+	Sat, 10 Oct 2026 11:17:49 +0800 (CST)
+Received: from [10.174.178.46] (10.174.178.46) by
+ whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Sat, 10 Oct 2026 11:17:47 +0800
+Subject: Re: [PATCH] fs: don't lose inodes that another LRU walker is
+ isolating
+To: Nikolaos Karaolidis <nick@karaolidis.com>, Christian Brauner
+	<brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>
+CC: Jan Kara <jack@suse.cz>, Mateusz Guzik <mjguzik@gmail.com>,
+	<linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+References: <20261009142431.713875-1-nick@karaolidis.com>
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+Message-ID: <a2f5f4f7-b1ec-bf23-d990-aebbdf6de177@huawei.com>
+Date: Sat, 10 Oct 2026 11:17:46 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20261009142431.713875-1-nick@karaolidis.com>
+Content-Type: text/plain; charset="gbk"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-Hi Ming,
+ÔÚ 2026/10/9 22:24, Nikolaos Karaolidis Ð´µÀ:
+> When inode_lru_isolate() finds an unused inode that still has page
+> cache, it sets I_LRU_ISOLATING, drops i_lock and the list_lru lock,
+> invalidates the page cache, clears the flag again and returns
+> LRU_RETRY so that the restarted walk can free the inode.
+> 
+> Another walker of the same list can reach the inode in that window.
+> It sees a non-zero i_state and takes the inode off the LRU, as it
+> would an inode that is in use. Page cache deletion requeues the inode
+> once the mapping is shrinkable, so this is harmless if it happens
+> before the last deletion. If it happens after, nothing puts the inode
+> back: it stays in memory, unused, clean and without page cache, out
+> of reach of the shrinker and of drop_caches, until it is looked up
+> again or the filesystem is unmounted.
+> 
+> Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode
+> lru traversing context") the pin was an i_count reference, and the
+> final iput() put the inode back on the LRU.
+> 
+> Skip inodes that are being isolated and leave them to the walker that
+> pinned them, which restarts its walk once it has unpinned them.
+> 
+> The window is reached by any unused inode with page cache on
+> CONFIG_HIGHMEM kernels, and otherwise by inodes whose page cache is a
+> single shadow entry at index 0. On an i386 HIGHMEM guest, eight
+> concurrent "echo 2 > /proc/sys/vm/drop_caches" over 2000 freshly read
+> one-page ext4 files leave roughly 400 of the inodes off the LRU per
+> round; on x86_64, with the files' pages first evicted through
+> memory.reclaim, 3 to 4 per round. With this patch, none in either case.
+> 
+> Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
+> ---
+> 
+> Found while working on reclaim of inodes pinned by page cache in
+> ZONE_MOVABLE.
+> 
+> Tested on master af32da41b032 (v7.3-rc6-232) in QEMU/KVM with a small
+> stress program: mount an ext4 image, read 2000 one-page files, run 8
+> concurrent "echo 2 > /proc/sys/vm/drop_caches", drop caches again
+> single-threaded (2, then 1, then 2), and count the filesystem's inodes
+> still in memory via how many the umount frees:
+> 
+>    i386 HIGHMEM:      ~390 of 2000 lost per round without the patch
+>                       (3 runs x 20 rounds), 0 with it
+>    x86_64, pages evicted through memory.reclaim first (single shadow
+>    entry left):       ~4 per round without, 0 with
+>    x86_64 with KASAN, PROVE_LOCKING, DEBUG_VM, DEBUG_LIST:
+>                       6109 lost in 50 rounds without, 0 with, no splats
+> 
+> The reproducer is a single C file run as init; I can post it if useful.
+> 
+> I went with skipping the inode rather than requeueing it on unpin
+> (which would be closer to what the final iput() did before
+> 2a0629834cd8) because it avoids the remove/re-add and leaves the inode
+> where the pinning walker finds it again. Happy to switch if preferred.
+> 
+> Jan, this applies cleanly before or after "fs: Basic infrastructure for
+> offloading inode reclaim" (v2 3/5); happy to rebase onto that series if
+> you'd rather take it there.
+> 
+> For stable: 6.18 and older need inode->i_state instead of
+> inode_state_read(). I have only tested master.
+> 
+> An LLM was used to check the analysis against the code, write the
+> reproducer and draft the changelog; I have reviewed all of it.
+> 
+>   fs/inode.c | 6 ++++++
+>   1 file changed, 6 insertions(+)
+> 
+Good catch.
 
-The patch and my ping went to your Red Hat address, which I think you
-no longer use, so adding your current one. The patch is here:
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+> diff --git a/fs/inode.c b/fs/inode.c
+> index a9d37be390a1..74dfc379b377 100644
+> --- a/fs/inode.c
+> +++ b/fs/inode.c
+> @@ -942,6 +942,12 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
+>   	if (!spin_trylock(&inode->i_lock))
+>   		return LRU_SKIP;
+> 
+> +	/* Another walker is dropping its page cache, leave it to that one */
+> +	if (inode_state_read(inode) & I_LRU_ISOLATING) {
+> +		spin_unlock(&inode->i_lock);
+> +		return LRU_SKIP;
+> +	}
+> +
+>   	/*
+>   	 * Inodes can get referenced, redirtied, or repopulated while
+>   	 * they're already on the LRU, and this can make them
+> 
+> base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+> --
+> 2.55.0
+> .
+> 
 
-https://lore.kernel.org/r/20261001-bug-block-elevator-init-quiesce-v1-1-5c85fa0ec59b@gmail.com
-
-Thanks,
-Qiliang
