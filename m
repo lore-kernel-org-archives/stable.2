@@ -1,136 +1,157 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD88637F30E
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 03:51:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F9238A706
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 03:59:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791604302; cv=none; b=iePwoUxOQWsYCwIMeXXiFrsvgae2Kp2KLA8spM03CFEplGE0jiGMElaEPQGfqy5aH9wLFWaXFlVs8byRK3h9AIzsGgVXJW4CbpkTIiAgeLjPQICsJRvlqmLrBzCB40aHtHX4nSWNK77V6LkiQ9VKgGB0E9/FrchaEWCxzizNODE=
+	t=1791604754; cv=none; b=AzbDlR0pGx9MIQw9WVf3WZ/7CDuvfjGILXmvkSRsmXk8n8dmZAzwDkFSb2RqDkGZbTK7jJdhOZi0T0EANFUlfrCwgMkIomlG6Jae0PjiwzhF2LIe90gft0HXap2PgHARDHRm2MBq0RPOQhb5xV5YDFCC+Opm1SXiVi5+k5ZfBQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791604302; c=relaxed/simple;
-	bh=ArA+w71w1BaEj9a+G3Ctm79DsTHOAgfSfPNsAtEyqFQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OgiHmN0q9LffhgV97emV17D5ftaTZkpbhB/mVjm5cIjv5IxdUYajmw7sVFxcDcOkwZrSIxTHdv9i6P2kvTdxVaRqW7ZmAa2QQWXqJQAfp7cYOcthStjt9qDXYoJN+od2GvyoK9F3VFmuh+myGMh9mofJUri0ADG+G/VhNMJDG/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c0f2ju7w; arc=none smtp.client-ip=209.85.167.42
+	s=arc-20240116; t=1791604754; c=relaxed/simple;
+	bh=RC9mnkldnLHKLxUGs9e09WBh6qSGgQVe/M8DUOliYNE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BdLRA/44QJrdF4hoaPf6NrNZIJelGH1z0cEIOuvueMQSfTZZqcYTcnZ3tOM+nr9ZipUp+7wq0pzCq+16P8t6zO72HvYjvzDkG0kkiDq+GVpowE9RPoOFKX2znlmfkUgdQWvztnAhNnnExflRDpzaq97HX+yLD6DcjLe+qrMuwZs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I8ubehbt; arc=none smtp.client-ip=209.85.215.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c0f2ju7w"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5bcd17f3a93so226975e87.2
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 20:51:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I8ubehbt"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc4dbda1e5dso73860a12.2
+        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 20:59:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791604299; x=1792209099; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oHTcdU7BDJRK9HJIi4NfQxgJw/5DvdcfPlbURZ+9Mwc=;
-        b=c0f2ju7wLux0deMtGRTjh7mrTXUx/NkCBhsgy3dpEE8jZgG4XUeydApj6WdXTUCCXp
-         noYfti7x65zfUpTtk7XiQEAo4JPI1ffZnk7Y0FRAVt35ETnuZqNfOjo1jDo3vo8dMW3i
-         AkfKszqRy++qEph248hpj/NbX5l7HitxShJYxCuwTZyfjSj6hFz2bjJrapyKtCKYQJBF
-         KAeSUF+mealzPMMzwfRP/g14cSjbd+D30VXWOFW4S4fg4sQZapf0rS6AAy1wHbeRy9rc
-         3x40WfZ4Jx8OKYKFBsKh/DlHf3RrL4gI+Ps+ePeoHZSnHoAZ1fvyI3uC25+GafryF5cN
-         XMJQ==
+        d=gmail.com; s=20251104; t=1791604752; x=1792209552; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=C2sBX9RzAUijwlycitpdPIp/C+J3gojjvyNQwGnJMzc=;
+        b=I8ubehbtWKh9LMUQGfy7wiPDnvWb+mY85UfhWRJ5tSE5kpXHOi4u3mEXXLWsYbaamZ
+         C7HWoFGGTiGRftOPKi+L3+ZOXZiBVbdn/kyJfoiCjHvgPm5A3BlNCtBON6mmAdd+h18v
+         4u12keIUgnEloWWjANDKy8RSs5IBegTtHK7gulyNgrxKw7E6hA+wHPWsZuw3OyITn+3X
+         df1FYx7rVQEb38jLj55O+FYjXdRcZVrlFcES6mlOKnzvbqCgnCVlkBQS4Y1/39qrlwsD
+         2aCtL2ylUcuvWiHgEe8LM1Jywr3c3OIRE+3KdSDVbnv8vg4XDK9BohcUZ8jtAXVmqgU5
+         maxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791604299; x=1792209099;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oHTcdU7BDJRK9HJIi4NfQxgJw/5DvdcfPlbURZ+9Mwc=;
-        b=FdoTEZYclmIuaTJKJ1/XNG17WS4GtojK8GHY0vXmckMpVS2govYsqIRqRasVETklQk
-         u6Q0z0fUL+mJ+Z0BkutWH0xHkibSiRVsQ8BodTZNXxTVa53MM5jF/HEAtXW3bNJCOxj5
-         +W3JelxejWPf5Vy1Kocr35igHc9jn93S1KVUGlzpT/2aRJrWNVq0L2CmIGVCvV2tySWa
-         +4tz60ztaT+scr9KLa1vQ2Qwn8pBbfKuFrBw4ht1Ty48Ru1EBgjneyeGDZ7655gPQ5T0
-         RR3IL8lSzwaZodbCYhaAokbak9lGw+1iOI2NHLCcgW69vSGHz31X0TxK4n7bRttXCs1J
-         DKaQ==
-X-Gm-Message-State: AFq9FYIJ02nrnaEXDzJQNz2xFwDmyqgz8ROrQF+BPBY08k5EgfoHv/K6
-	OyevPihwGbqRCfm1NSV5xN7mtyECVpPacYIPO6nc12fe4KtO2Raj/zVVDDskai3ITb4=
-X-Gm-Gg: AYBFou1vU2IUkz88cvajFk5p80aR34D9D+BnAKBG+IIa+nI7MO6YFoE1pnukmUTjJWv
-	EExoQNq37WFjXdBJCxlpXmhh9ko8DMYLfLUi4H3iBD+9RGt7tckgjGQNN9BiIhK1vKX0FK78EkS
-	c30RURaUhzVG1gv6tRvavOtjwZiiffPXyPObZe4Az71b8/yJeylbSTlJQkwBqWejUYCvObJ8m6W
-	AseEFNPBOePYjCMohrst10uxVtQYzUphicqqyA0SHsx2YKMsTxphdsTePrCoQjbFvMn0s1tGNzr
-	U1WzHGyjf0sx4c+52S7C0LdvpcFneMuViUfsDYVBXQzcux6y42yjECdVWv03fPxT9n9MWTtOdY4
-	pOAQy0uf+g6nqHxOo93NzBM9sOjhbvwkpyHwj0MPB1z37vTgqyhvqWVXdab9oKGQfoov7nntjuN
-	h4qw9EEgzsEI3lTwF/RICVLmu2l7tM/vwZv14VrA+YiBODA1Tezj4MBukpr68egDBFzsmyFvP5m
-	+de+OXtqXKeis2iftY3b0tchC493RKOOzwv/LEL0Xc=
-X-Received: by 2002:ac2:4e08:0:b0:5ba:3f72:3c61 with SMTP id 2adb3069b0e04-5bcde8ce984mr1402306e87.62.1791604298863;
-        Fri, 09 Oct 2026 20:51:38 -0700 (PDT)
-Received: from dau-home-pc.. ([95.139.131.22])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcdde9c924sm1161984e87.36.2026.10.09.20.51.37
+        d=1e100.net; s=20260707; t=1791604752; x=1792209552;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C2sBX9RzAUijwlycitpdPIp/C+J3gojjvyNQwGnJMzc=;
+        b=Rt/Mv7wCw07NenxvT0Zau6HwXP/TDnJUjYIs+HHpn0lghD0X2aO9j8axO4yW4BFK/B
+         DP+0jnad3IOT3em0/enoR5znDJyITjhpU3z2p1qBKGlbeYWrrCD7lgjHpHZzNSWcL4SE
+         DXkkJgu+OlKz9/h9Rs4KvEOTEuaRUp6Vk4Aj/5PV+Opnlltm21bw2YJNglywxp26owDl
+         siozhSYLqQrEVVF82Dor0mEMEkILYHiQG+Cc+uPsTo2ozGBC+Kx0mDC2BUq0BSPNUAuB
+         pKehJM4HLlTOODfaZti1NM1O5OXNYe09w53qtiepdDo8CQ2Jp8JtlYDi1954FitKJc5D
+         OdOg==
+X-Forwarded-Encrypted: i=1; AKwUvBygrLzJptILXD4b8aVlo8i98XQedpZQrha7OxVvSzvvdk6t/78+ZceLSd6n8ofVZWq/Eh4bdJU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWy+9qPmJG+s8LsOCIew9+Bd68Lfi1QDVU6kYBwc+d2c6hkAs+
+	qPXjaOWPvknkoicKY67YuzxuWf9byT0Xngl1MuklMnkwWV468Z0u/05m
+X-Gm-Gg: AYBFou0K8jIqhsOBjZD4OQSJ5YPdZ53PUDjLV82Hs6ENm2LBKhvQGWEI3ia2MSsHud+
+	zKmMaU0n8jKBL8bYut9r+eLWOR0Sy3l4P2/8l0qqSd74U6c5Jp9qr05N8loqvMJqX/DfoEe49j0
+	KVQlrcciKSHU6+aoEcIP9OnDQNYOv63E1PJOC3wAip5BYr/FZbcSDCYSxxDCDeC+jkmBmaGV7lc
+	UhYMirrHoHVh4yua5xy9c66qP+6yzogLwKZnRIkXsi6nF+DyWnBM6XGqOcoUydOOUrmvp25VbRd
+	viZTCK9thMjtYN4TXELVFZbKuubLhucD5GA6vPHhVlBI/+2OKqu8zRiNl/cksyzgHEH9Aywn0sA
+	Dp2KudkwuCTHo8nEQNC26lKpNf0q4S/XjOjMG6dGywVzQSmsvitqGE5ENT07clGVNTV8N0Fzi65
+	iAsHw7qXAKCkoMXPxLb2xRMtIu9zNrfDY37yx3KCLTfNUZKyk1Ing8Dmc+5wqaue/wvhaDcAL0V
+	l7oLyc39fW4mJvprR2Xsc6kFlLJh9/xMA==
+X-Received: by 2002:a17:90b:134c:b0:3a0:cbe2:9e0c with SMTP id 98e67ed59e1d1-3ab3b0285d5mr2844887a91.63.1791604752082;
+        Fri, 09 Oct 2026 20:59:12 -0700 (PDT)
+Received: from localhost (softbank126159121187.bbtec.net. [126.159.121.187])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab338676besm3793206a91.1.2026.10.09.20.59.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 20:51:38 -0700 (PDT)
-From: Anton Danilov <littlesmilingcloud@gmail.com>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Thorsten Leemhuis <linux@leemhuis.info>,
-	Chuck Lever <chuck.lever@oracle.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Donald Hunter <donald.hunter@gmail.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	"Remy D. Farley" <one-d-wide@protonmail.com>,
-	Rachel Menge <rachelmenge@linux.microsoft.com>,
-	netdev@vger.kernel.org
-Subject: [PATCH 6.12.y 4/4] doc/netlink: netlink-raw: Add max check
-Date: Sat, 10 Oct 2026 06:51:16 +0300
-Message-ID: <20261010035116.578385-5-littlesmilingcloud@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261010035116.578385-1-littlesmilingcloud@gmail.com>
-References: <2026060807-egging-prune-a3ae@gregkh>
- <20261010035116.578385-1-littlesmilingcloud@gmail.com>
+        Fri, 09 Oct 2026 20:59:11 -0700 (PDT)
+Date: Sat, 10 Oct 2026 12:59:09 +0900
+From: Zhenyu Wang <zhenyuw.linux@gmail.com>
+To: Yuho Choi <oss.patchbox@gmail.com>
+Cc: Zhi Wang <zhi.wang.linux@gmail.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	Xiaolin Zhang <xiaolin.zhang@intel.com>,
+	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	zhiw@nvidia.com
+Subject: Re: [PATCH v1] drm/i915/gvt: Don't replace a DMA mapping that is
+ still in use
+Message-ID: <asm4DV84UitLCbve@dell-wzy>
+References: <20261004212403.208681-1-oss.patchbox@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004212403.208681-1-oss.patchbox@gmail.com>
 
-From: "Remy D. Farley" <one-d-wide@protonmail.com>
+On Sun, Oct 04, 2026 at 05:22:39PM -0400, Yuho Choi wrote:
+> intel_gvt_dma_map_guest_page() unmaps and frees the cache entry of a
+> gfn when it is requested with a different size, and maps the page again.
+> The entry is still referenced: shadow GTT entries and dma-bufs keep
+> using its DMA address after the page is unpinned and the DMA mapping is
+> torn down.
 
-commit bf5a54bc0e3d8962474fcd611f1266eba036232f upstream.
+I don't think this is *real*, as code would simply destroy entry in
+that case, and there won't be on-the-fly dma operation on that, as
+guest mem setup is totally before execlist submission, if guest driver
+changed mapping by ignoring gvt emulated execlist status, that's just bad...
 
-Add definitions for max check and len-or-limit type, the same as in other
-specifications.
+> When the new mapping gets the same DMA address, their later
+> intel_gvt_dma_unmap_guest_page() calls also drop the references of the
+> new entry.
+> 
+> Keep the existing entry instead. A 2M mapping covers a 4K request for
+> its first page, so take a reference on it. If the entry is smaller than
+> the request, fail and let the caller split the 2M entry into 4K pages,
+> as it already does when a 2M mapping cannot be set up.
+>
 
-Suggested-by: Donald Hunter <donald.hunter@gmail.com>
-Reviewed-by: Donald Hunter <donald.hunter@gmail.com>
-Signed-off-by: Remy D. Farley <one-d-wide@protonmail.com>
-Link: https://patch.msgid.link/20260303195638.381642-2-one-d-wide@protonmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Anton Danilov <littlesmilingcloud@gmail.com>
----
- Documentation/netlink/netlink-raw.yaml | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+So this change would always force 2M to split into 4K? why?
 
-diff --git a/Documentation/netlink/netlink-raw.yaml b/Documentation/netlink/netlink-raw.yaml
-index d8ae7f7365b0..d6d58ac63b7c 100644
---- a/Documentation/netlink/netlink-raw.yaml
-+++ b/Documentation/netlink/netlink-raw.yaml
-@@ -13,6 +13,12 @@ $defs:
-     type: [ string, integer ]
-     pattern: ^[0-9A-Za-z_-]+( - 1)?$
-     minimum: 0
-+  len-or-limit:
-+    # literal int, const name, or limit based on fixed-width type
-+    # e.g. u8-min, u16-max, etc.
-+    type: [ string, integer ]
-+    pattern: ^[0-9A-Za-z_-]+$
-+    minimum: 0
- 
- # Schema for specs
- title: Protocol
-@@ -270,7 +276,10 @@ properties:
-                     type: string
-                   min:
-                     description: Min value for an integer attribute.
--                    type: integer
-+                    $ref: '#/$defs/len-or-limit'
-+                  max:
-+                    description: Max value for an integer attribute.
-+                    $ref: '#/$defs/len-or-limit'
-                   min-len:
-                     description: Min length for a binary attribute.
-                     $ref: '#/$defs/len-or-define'
--- 
-2.47.3
-
+> Fixes: 7366aeb77cd8 ("drm/i915/gvt: fix incorrect cache entry for guest page mapping")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+> ---
+> Compile-tested only (x86_64 defconfig + DRM_I915_GVT_KVMGT, W=1, sparse).
+> 
+>  drivers/gpu/drm/i915/gvt/kvmgt.c | 20 ++++++++------------
+>  1 file changed, 8 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
+> index ec62db5cc3675..9a3e305253469 100644
+> --- a/drivers/gpu/drm/i915/gvt/kvmgt.c
+> +++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
+> @@ -1626,19 +1626,15 @@ int intel_gvt_dma_map_guest_page(struct intel_vgpu *vgpu, unsigned long gfn,
+>  		ret = __gvt_cache_add(vgpu, gfn, *dma_addr, size);
+>  		if (ret)
+>  			goto err_unmap;
+> -	} else if (entry->size != size) {
+> -		/* the same gfn with different size: unmap and re-map */
+> -		gvt_dma_unmap_page(vgpu, gfn, entry->dma_addr, entry->size);
+> -		__gvt_cache_remove_entry(vgpu, entry);
+> -
+> -		ret = gvt_dma_map_page(vgpu, gfn, dma_addr, size);
+> -		if (ret)
+> -			goto err_unlock;
+> -
+> -		ret = __gvt_cache_add(vgpu, gfn, *dma_addr, size);
+> -		if (ret)
+> -			goto err_unmap;
+> +	} else if (entry->size < size) {
+> +		/*
+> +		 * The smaller mapping may still be in use, so don't replace
+> +		 * it. Fail and let the caller map the range in smaller pages.
+> +		 */
+> +		ret = -EBUSY;
+> +		goto err_unlock;
+>  	} else {
+> +		/* A mapping of the same or a larger size covers the request */
+>  		kref_get(&entry->ref);
+>  		*dma_addr = entry->dma_addr;
+>  	}
+> 
+> base-commit: 7704c4c5bb127673b4f0ead839919db573559e38
+> -- 
+> 2.43.0
