@@ -1,220 +1,182 @@
-Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC10346774
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 21:03:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F36EB640
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 21:17:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791666186; cv=none; b=W+j0RVaBn7ST/HW54/x0QfAwZvTPolto/pwJk++bZoUcUz9y9X50dbXpbDA+qdxcEtHpXnknirIv4mbHB3fPFt5i3sLqB1REVIW/WhLqlQnGdeQ2iGgO1dwHCZsPL6bqtuK8LhSFuQUoPcwHyObPCTB64SKXSwzi8M2pD+j0Yu8=
+	t=1791667071; cv=none; b=oIlSjV2MBYyTIARB6X+HDNU5RQCmnJKBLC+u+e1Nfyo988IA+ezPLHThnsOwTt2z8bbKBTvhn3zgVrTMuarrCVHiEEHp7In0j2LcNIaiijs9aOJteT+iI9SrPOzhTuoYmeo4tsDbHYWnPvKcWeIvVszS2CRIe7p9xFD2E9kpBlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791666186; c=relaxed/simple;
-	bh=nFM1yEWaP6vg23VPHbRfkQhYXP1jb3683txd71NEY5w=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=cUtEWvfiZPv6nxYxAFW2/nMuqInGNCqihgDoxtDT2+pdBbbcL2NMpaFF+Lw0El0EF0NtLpcnRjKypmfUfCznyYuPvhgLAz6tYatkRL5l67RNks0i98GaxRe0KRx34tAEvxzlB9AuJWOG4ckeC67RBCCJg0IX0+rQvmQOkkjhtiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=yUn9ZO1d; arc=none smtp.client-ip=209.85.219.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	s=arc-20240116; t=1791667071; c=relaxed/simple;
+	bh=sX/IOUyiNB9UW/7dJN3j8/EJO8eTtlYJpH2gKUP+csI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WbA7HfsaiioLrKo62RdPvgJ3a4mbQthw2eKYQPxsYovMrhfZ6glQxyjGQZK040GCyzg0F/EcJMY8BI5QvhPeM1gcBlSIFYmqogS49ylGB7VFtZr0X7nu6XJjNxDXyZZhTBwSDYtYPldEDXRskGKIvsJ4zohKpvt439LGIpqvWhk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=BHVHClLg; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="yUn9ZO1d"
-Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-917a04338c1so10761646d6.0
-        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 14:03:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="BHVHClLg"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so7035725e9.1
+        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 14:17:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1791666184; x=1792270984; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XtRkR4RkEnODcw9fcyE1cbkI9LnR6v3FBNCmsOCW3Ig=;
-        b=yUn9ZO1dLEzAix/BD74ioOkhSPK4v9N67AYkm2PlbB3vlMVjtCp/YBBhlwzDQcHBgT
-         PLf+8gYHuk8jPUph192jisY7eHtN4yFYw2dmv9/+3/vu/GeT2TsGmqfGuN9LtZMbRHfO
-         W0ktGAE1GhG5F14vFzY8yLLooV398FOXdIObg=
+        d=suse.com; s=google; t=1791667067; x=1792271867; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fSwyFmQWlZ7A/ReGcJEYV2ZxqTqob7BeqZTXwEelfWg=;
+        b=BHVHClLgRW20gb9bJhhc0Pubgh1nsJSvLTvybYd3N4PuOfMkwZLHz9GrcJke0x0d4Y
+         Fd5eMXK5FYNNxZoU90xIdnEA4lDhrKrE0KnaUlfV09T2++gHl6yfQB5xZVAj7i/nXbKJ
+         1DmWGpS3IG9Ou0++oBVbRrhZQl4v5Hhp7Yw4Yhqxqcj0GJK8GmfUQBkVSP/xw2JFgNxc
+         tJ0lk1QT994ZOKlnytufnhrq2JUFbfK33XmWOMUy5a43+jaXPDYH1mh6pv8+/jFF1i+9
+         nk3VyCfn5fyTQllX9r1L/IT+ySSE/JKM/4WGESxtppdLW759DibuPAkvtS5EuMyr9GmA
+         w6ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791666184; x=1792270984;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XtRkR4RkEnODcw9fcyE1cbkI9LnR6v3FBNCmsOCW3Ig=;
-        b=ytmwsFn5LZOSGYWXBDayQNm+Qy8u4N0y3IqiRw4U4tHduCl9rQ+KKipmbpuotV1c84
-         0Y06jeB3cH4qdpCgI3OkNbxJ/MxxQufVDt7E1HmBiApCFuzNiOdo/1nJiG4N2eQiytok
-         yDfmkpu5Rk4w3DBwdh1dd6sUVlWhjvjRIbMgtzy0vv1uBItad83ZHdYm90GTUopVDGqy
-         XDqCNrOytvkCXmGm8KSQ6RZaRLtVdd2Jh3boGxzdJUOS+0rqb0Zae+W49VzBVhz45S6p
-         oVo0drZINlKseU1IjFcMLTcjX0ZT2mHzM/ntbNxPgOXyT9FSPwBx6ghbp8DPDB++kBg6
-         vTAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxbb/Lu9SrhBRwIVh2LC/yV5952Fo1AtJHFbLp1uZAvCochvwfuruf/vUl2/xbNPf9JTSjEgGw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKEA88f3DzI2OPeFJ0+Zjk/wmyx1SsDsxY01w24G6DOoiAXQuXL
-	I+T/3voC5sWakVShqrwfAsVZ/th4ToNzTGFYgMhMQoFkME0vspodYGQ5uwM824AgKw==
-X-Gm-Gg: AYBFou1aZJlb08YuYSZzunT5TU3xUiXuQCIm8T8EGM2xRg6AQhoQ8LZHFiU0p5HuIj5
-	uqqZJD9yjIlN7b/2qb87pare4kCjwiJhKAViQ+p61hq6LDnHw7XEDB+LZBhtNhUo6ON0nB9CKU3
-	RTftkJZ3CwI5Fhtf9j+AXAK1Vcc5pTZpegI3TtHaGiCCY3NhEQ4jm16nsRfgin7USmzhrjSkvD2
-	pYYh6U3JNh4dvlZxoZKL8trC514PQWm5uLcrJkfKOUuKKqKGQKN3HI6CGWZddPHNeDFxfOKNj29
-	IVesy8e3LZVfguaApwaOx4YSKhcRml6MUwW8RcIy66LuLFkTtL1+NDWX/vYoit7vDjlfAKuVIxH
-	DlIusWV5bsA71dL2h+hzO7XiQSjTsxYS5zw/1E4NP0F/r11bbfwzhLEdUnIcdKyek2yy3MYuzGH
-	kjA/uYIClLdyIwjKM4v1s/cXuiTbvyIqalyfliwUaZt+PthUYhAeRR5W0kBjDau+qtMahLs1+Pk
-	PieXocw+e8GFOO9Xq4We9SKQiPb5fsCNC00Aznha9MX
-X-Received: by 2002:a05:620a:17a3:b0:93c:89a0:bf82 with SMTP id af79cd13be357-93ebd209171mr987739885a.43.1791666184083;
-        Sat, 10 Oct 2026 14:03:04 -0700 (PDT)
-Received: from mbili.waya ([64.203.83.2])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb984845csm498538085a.14.2026.10.10.14.03.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 14:03:03 -0700 (PDT)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	john.fastabend@gmail.com,
-	sdf@fomichev.me,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	jiri@resnulli.us,
-	bpf@vger.kernel.org,
-	stable@vger.kernel.org,
-	sashiko-bot@kernel.org,
-	victor@mojatatu.com
-Subject: [PATCH net v2 2/3] net/sched: cls_bpf: accept dev-bound programs on shared blocks
-Date: Sat, 10 Oct 2026 17:02:49 -0400
-Message-Id: <QDISC-PYC7.v2.20261010165947-3@mojatatu.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <QDISC-PYC7.v2.20261010165947@mojatatu.com>
-References: <QDISC-PYC7.v2.20261010165947@mojatatu.com>
+        d=1e100.net; s=20260707; t=1791667067; x=1792271867;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fSwyFmQWlZ7A/ReGcJEYV2ZxqTqob7BeqZTXwEelfWg=;
+        b=wA59DwjxqmoqsnqWmvTzRZgegKEvHH2tiaTQxuERKJ/nCCF5hM4Dv7omD7I2L1bt2N
+         CVSesFyLQKOdrrNWTt/u5ZIUb76V6kgA+UNu9HonnBxrVn/ZeyRlx7Lp9GWkG/C/niEU
+         q65JwKRR3xnhSYaSolpkVTF3T7keLKbdxBweTg3DqdqvlqLRmeA/8T44VkRmPVl7JuiI
+         rZfTn2cUUmJf7S2fnkbWj253fh2Ycy9e2VZs0L0bXB/dXDaVVPzA3bHhlBEngSSoityg
+         cTGDCDwdOEO0gGd9cu3zveQGokzmEPcNIxYB1Y+GK5OEqE5pIJAeSYkmPR+7RsblKh8e
+         SmPA==
+X-Forwarded-Encrypted: i=1; AKwUvBzaSWTUTqWJr0NILhJ1fJb/PkTaXOVrIp5recEzfzbysbzzwnfecoURzM0oiam3PkAzn5YiTYY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJgloBnSmh8WA0cuHhHL7RaWZiHOCTRzubFgCaYCngTEoFbip4o
+	golf0KRjWfupskD2gSxMksmhMIV6Rhc4Hk+addODws9NTuT2b7jfYBJkXL5go273L6Y=
+X-Gm-Gg: AYBFou0rzbjt9aDvek+p/0NQ8D7wl+vAOcCF5lH4UmguYLupNJKSkeFmiyYaTjbbcON
+	tC6Oa7B6UW/zwRJLMhS0sQtB1ScKvfMDZ2J6lqzr+t4WeOaAMaQibMbI5bUnmmm8sq2E9W+A4eU
+	Z6nNQPI4O4ShpNyWNkhwTMppL6YGumR+6v2VnciaWUo6t5zIeGmPp2pubmrO75pJc3ASXBTsMmD
+	kTCaaotq/s2ludefRIpW/EkZvBk36RyzSGZYBRjrII4klNoX9ojmWw4CaPC8PlcKiYTrSc+d1es
+	sZ0iTmWYDow+kiPzX+BP2+OF9Pbnt+JQiCxpzJEw4nzI+X3lRkAlrZQMjxSkC2sHztO3Yb3ygJq
+	18pRw2+b62x8PU3uQ2rtYEREF3yWVrJYRp+CLZ9DOnLztM1+oFG+CzQZuHKrQ6Z1njSQVv3gEiU
+	qssDhFLhzltcev4ULR1Rw5aARjjRIv61Tyh0OuFYAtL5rV3r33xoaRmDXgbfBE4Zw=
+X-Received: by 2002:a05:600c:5397:b0:4a1:7ba9:da2c with SMTP id 5b1f17b1804b1-4a18e4a7cacmr101542395e9.25.1791667067286;
+        Sat, 10 Oct 2026 14:17:47 -0700 (PDT)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab32c0f59bsm5921472a91.0.2026.10.10.14.17.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 10 Oct 2026 14:17:46 -0700 (PDT)
+Message-ID: <41987a33-f2dd-4ffe-b35f-d669d36dbcfe@suse.com>
+Date: Sun, 11 Oct 2026 07:47:39 +1030
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] btrfs: fix chattr failing on nodatasum files that have
+ the compress flag
+To: Hengyu Liang <hengyul@cs.unc.edu>, David Sterba <dsterba@suse.com>
+Cc: Chris Mason <mason@kernel.org>, Filipe Manana <fdmanana@suse.com>,
+ linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261010105425.165104-1-hengyul@cs.unc.edu>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJqqw0NBQkUl/JeAAoJEMI9kfOh
+ Jf6o/xYH/3AaWnGSq58XnY/T3/YYjr6g+TUZxa7MPyiYTELNpNlvmNlbtbAL0nW0LNvkeiqf
+ SmYA+xkwY4RbxnZYQK0H5iv2w1eqa9qqFZb4bIBRmTapu26GEEkpad0W0ZhoSPMO8bV2Bwkf
+ YdtPZQLaeUKvHZqNqBKnmtRLQj2Cgy3kuXX3bEGvWjzUOxPUSCj/S++JWBewMdMBPT62vZM0
+ 3156gfn5mHA94s2p+NFJoWkERY+JPTMu9NISkpD7yuGhXN88qd/aqD0RrlhxvKsrQogdPwn9
+ vP18FGG3CRlHtOvOLVoY5NKSOWTDc+o+8t2XEETFTGbKYTcqeTzi4SxhvBLtTinOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
+ cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
+ qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
+ /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
+ o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
+ JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
+In-Reply-To: <20261010105425.165104-1-hengyul@cs.unc.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-The issue:
-Follow-up to commit 120977e2c096 ("net/sched: cls_bpf: reject dev-bound
-programs bound to a different device"), which derived the target device
-from block->q:
 
-	dev = block->q ? qdisc_dev(block->q) : NULL;
 
-tcf_block_create() leaves block->q NULL for shared blocks, so a
-device-bound program attached through a shared block is rejected with
--EINVAL even when it is bound to a netdev that owns the block.  The
-offload path (cls_bpf_offload_cmd()) never consults block->q and drives
-the per-device callbacks for shared blocks as before.
+在 2026/10/10 21:24, Hengyu Liang 写道:
+> Commit cf1afec09e9f ("btrfs: validate properties before setting them")
+> made btrfs_set_prop() validate a property before setting it. For the
+> compression property, the validation fails with -EINVAL when the inode
+> has NODATASUM.
+> 
+> However, a file created on a filesystem mounted with nodatasum has
+> NODATASUM and still inherits the compress flag from its directory, and
+> btrfs_fileattr_set() sets the compression property whenever the new
+> flags include FS_COMPR_FL. As of now, chattr fails on such a file, even
+> when it only changes another flag.
+> 
+> The issue can be reproduced with:
+> 
+>      mkfs.btrfs -f /dev/sdb
+>      mount -o nodatasum /dev/sdb /mnt
+>      mkdir /mnt/dir
+>      chattr +c /mnt/dir
+>      touch /mnt/dir/file
+>      chattr +A /mnt/dir/file
+> 
+> Before commit cf1afec09e9f ("btrfs: validate properties before setting
+> them"), the last command succeeds.
+> 
+> After that commit, it fails with EINVAL.
 
-The Fix:
-Accept the attach on a shared block when bpf_offload_dev_match() matches
-every netdev bound to the block, and reject an empty block.  Every member
-must match because the offload path broadcasts the program to every
-callback registered on the block, so an any-member check would re-admit
-the wrong-device attach on a mixed block.  Every dev-bound SCHED_CLS
-attach is skip_sw, which becomes err_stop and aborts the offload on the
-first failing callback, so the all-members rule is the offload path's own
-semantics.
+Explain the reason why it fails.
 
-Iterate the public block->ports xarray (913b47d3424e, v6.8-rc1) rather
-than block->owner_list, which is private to cls_api.c.  The shared-block
-rejection reports "Program is not bound to every device in the block",
-distinct from the non-shared message, because a member can exist without
-a registered callback (netdevsim registers its block callback
-ingress-only).
+> 
+> This patch will make btrfs_fileattr_set() set the compression property
+> only when the inode can be compressed.
+> 
+> Fixes: cf1afec09e9f ("btrfs: validate properties before setting them")
+> Cc: stable@vger.kernel.org # 7.2+
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+> ---
+>   fs/btrfs/ioctl.c | 7 ++++++-
+>   1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+> index 52aab510aea0..347509043f2e 100644
+> --- a/fs/btrfs/ioctl.c
+> +++ b/fs/btrfs/ioctl.c
+> @@ -421,7 +421,12 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
+>   	if (IS_ERR(trans))
+>   		return PTR_ERR(trans);
+>   
+> -	if (comp) {
+> +	/*
+> +	 * An inode with NODATASUM can not be compressed but can still have the
+> +	 * compress flag, inherited from its parent directory. Setting the
+> +	 * property fails validation for such an inode, so leave it unset.
+> +	 */
 
-Context note:
-This patch is not an independent fix: it re-exposes the shared-block
-replay path that commit 120977e2c096 ("net/sched: cls_bpf: reject
-dev-bound programs bound to a different device") had closed, so patch 1
-must be applied first, including in stable.  A stable tree taking this
-patch alone would re-enable shared-block attaches on a kernel whose
-netdevsim callback is still unchecked.
+This is very LLM-like, and very LLM's objective-oriented behavior.
+Disclose it first.
 
-Conditions to recreate the bug:
-  - CONFIG_NETDEVSIM=y, CONFIG_NET_CLS_BPF=y
-  - load a dev-bound SCHED_CLS program for netdevsim device B
-    (prog_ifindex=B), pin it in bpffs
-  - tc qdisc add dev B ingress_block 22 clsact
-  - tc filter add block 22 ingress bpf da object-pinned <pin> skip_sw
-  Unfixed, the filter add fails with -EINVAL ("Program is bound to a
-  different device"); fixed, it succeeds.  Adding a second, independently
-  backed netdevsim device to the same block makes the attach fail again.
+Secondly it just slightly do nothing, which is not the expected behavior.
 
-Fixes: 120977e2c096 ("net/sched: cls_bpf: reject dev-bound programs bound to a different device")
-Reported-by: Sashiko (nipa) <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/netdev/20260809094418.901607-1-jhs@mojatatu.com/
-Link: https://lore.kernel.org/netdev/QDISC-PYC7.v1.20261003103747@mojatatu.com/
-Cc: stable@vger.kernel.org
-Reviewed-by: Victor Nogueira <victor@mojatatu.com>
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
----
-v1 -> v2 (v2 of an on-list patch; v1 posted 2026-10-04):
+Furthermore, this introduced another layer of exceptions.
 
-- Finding (nipa Sashiko High, v1) -- FIXED: the
-  every-member predicate is enforced only at add/replace, but a netdev
-  joining a shared block later is replayed the stored filter by
-  cls_bpf_reoffload() before it is inserted into block->ports
-  (tcf_block_offload_bind precedes the xa_insert).  Neither
-  cls_bpf_reoffload() nor nsim_bpf_setup_tc_block_cb() checked
-  bpf_offload_dev_match(), so the B-bound program was installed on the
-  joining device (re-opening the 120977e2c096 mixed-block defect).
-  Fixed by enforcing the device match in nsim_bpf_setup_tc_block_cb()
-  (drivers/net/netdevsim/bpf.c), mirroring nfp.
-- Style (gemini + nipa Low) -- FIXED: the shared-block comment opens with
-  /* on its own line.
-- The companion selftest exercises shared-block and late-join coverage,
-  pinning both the all-members predicate and this callback's replay gate.
-- Split the single v2 draft into [PATCH net v2 1/3] netdevsim,
-  2/3 cls_bpf and 3/3 selftests, each with its own Fixes: and stable
-  metadata.
----
- net/sched/cls_bpf.c | 28 ++++++++++++++++++++++++----
- 1 file changed, 24 insertions(+), 4 deletions(-)
+For regular mount options, -o nodatasum,compress, the later compress 
+will override the nodatasum.
 
-diff --git a/net/sched/cls_bpf.c b/net/sched/cls_bpf.c
-index 188cf0f949dd..bbd2dc2f518f 100644
---- a/net/sched/cls_bpf.c
-+++ b/net/sched/cls_bpf.c
-@@ -392,11 +392,31 @@ static int cls_bpf_prog_from_efd(struct nlattr **tb, struct cls_bpf_prog *prog,
- 	if (bpf_prog_is_dev_bound(fp->aux)) {
- 		struct tcf_block *block = tp->chain->block;
- 		struct net_device *dev;
-+		unsigned long ifindex;
-+		bool match = false;
-+
-+		/* A shared block has no qdisc of its own, but it may bind
-+		 * several netdevs and the program is offloaded to all of them;
-+		 * require a match with every member.
-+		 */
-+		if (!tcf_block_shared(block)) {
-+			dev = qdisc_dev(tcf_block_q(block));
-+			match = bpf_offload_dev_match(fp, dev);
-+			if (!match)
-+				NL_SET_ERR_MSG(extack,
-+					       "Program is bound to a different device");
-+		} else {
-+			xa_for_each(&block->ports, ifindex, dev) {
-+				match = bpf_offload_dev_match(fp, dev);
-+				if (!match)
-+					break;
-+			}
-+			if (!match)
-+				NL_SET_ERR_MSG(extack,
-+					       "Program is not bound to every device in the block");
-+		}
- 
--		dev = block->q ? qdisc_dev(block->q) : NULL;
--		if (!dev || !bpf_offload_dev_match(fp, dev)) {
--			NL_SET_ERR_MSG(extack,
--				       "Program is bound to a different device");
-+		if (!match) {
- 			bpf_prog_put(fp);
- 			return -EINVAL;
- 		}
--- 
-2.43.0
+So when setting compress in the first place, the NODATASUM/NODATACOW 
+flag should be cleared.
+
+> +	if (comp && btrfs_inode_can_compress(inode)) {
+>   		ret = btrfs_set_prop(trans, inode, "btrfs.compression",
+>   				     comp, strlen(comp), 0);
+>   		if (ret)
 
