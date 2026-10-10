@@ -1,195 +1,117 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012021.outbound.protection.outlook.com [52.101.43.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19A013DDA4;
-	Sat, 10 Oct 2026 02:09:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.21
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791598156; cv=fail; b=m0tfQ5DGwC+shtLesYM0dGGhTPTmr7EobzZy2is5OFR+iJf5n48b2xqCl2BWy/KjAOSxrI0a+CDtiNBIGbfC/o+YkP2K4RfDdJGQAPYRNbZSv7ncx/IYZusqGTIFxvyz/kZLuArATRmjNUtd/MgV4aav3niJcWjF7smWrkfw3uc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791598156; c=relaxed/simple;
-	bh=PDNbeh2PztUdI61y6SGpKbdCCFxiGcL7IoZThsUiyDM=;
-	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=iPbomIMqrXAhooRcf1gHMFO8e7P6r0O9nOcyxmPxvneqcRAfbfVjW3kR8flDzfKskrIBSnLnGasXe1MhZTaY1TZL3/55LvDga4/wF+x4A83dHEnHYGr9GTrpuuuz4gZe02Gsfi/+98i7uErL6K/Y4eD+GQoNc41xn4qk2Och3bk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=acQAKfxK; arc=fail smtp.client-ip=52.101.43.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5B0B381EB6
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 02:09:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791598183; cv=none; b=Z8AVVXoEAeqtuN9mOpQAeVJWAs0Jqd5lYdrjnmiQK3zg4vrOP0Hbi0CBDC7yTjzNNk+7vuRhd3SHqK6oPAz47q6LXbrzI/k68jMRr/vJlekRb3RLr7yCCmHL3mvjBQqmxA95/qCcDzzfCKUdsJG6Sxnm/btF6ejeEL32L42yqp0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791598183; c=relaxed/simple;
+	bh=qAoyVKmozYbnipeQ7gMMeMMuDIzRloalTulxU8vQOLY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pveBEGbUxIIy16dziKMHCIGz6vBC7Q+ougLgkc7K4qHF5qYEHavlPsD3Tfhh4SmYPHEwhs+gs7SAUi0zFZMscOvFeOwYQgRfwHsdWrILQ2pqFZhqaii2KRsREn8IMGyPSuKdCrR1hXLRi705P9bER9Fb3A9MarpT6IX404g/VJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=P/VXBOdn; arc=none smtp.client-ip=209.85.210.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="acQAKfxK"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NqjWXQ6QhFXblCzA/97rzeGmzPRorTk4p02KVg1NeSSN+bxbyW53q0cyG1KvACUb0E/X1YBPXkIZrBC2VXv557OFwa+cTouyNSQopRGCiGJP3xepXY/fEr4IEIax7PjOfoZ7b5ku/JdbagXGqGbNzGMJGB7teIz4NaixbGvg6wcWeAB0wy7OB2nL935F51yzimvL0YRqFvKuqSFdrXTjf3sBAo0TTLMaL22RbpTotzg4FU4AVLMyugi5QJs+6i8ADCopY5AkIJXLQD3SmiSVMDbg+Cku9DbzHywq7Db6c4mU4rJ1v1mGjwPGu3i5XWSMdzQdYvT3N8hUNm23zrcy7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1JtqIIhFvlwYd1Rktcz+I4LepWNe3g9EDOhrtpPY7mo=;
- b=tebZUMjI/TnuRanVncKGWsRwEytrD0xrRq3d72osk3Tbt3WOpHVOU2dNZ4KsFspnncJaYRJN41TxXHRHjMv71JwAiXib6Iu1N65D1OTN0MbOgKzHsKPZNzNQQ+tc6lMSYIigGLz7WdSiXnA4LKnszq2bwPw1ZeHEiZ6EVlFsljubJdLrKWlOCmrA9HxUr1qkmZoARZH5i02YMFBT2hIDrtymUrc5XSph29fX3s40cFkrNcBcGAtVHaIrgP3Vfsoe3i+Ms0eXFm/QwXiGbKSvPMkyMw65ryoTQkLrnq7UB7WSYj62LThM5DC7gDLWubTQYCEjEERqMaTXnQ84F0lYLg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1JtqIIhFvlwYd1Rktcz+I4LepWNe3g9EDOhrtpPY7mo=;
- b=acQAKfxKZDugdrlUF2q+sWKV1+WbCJOsfWaztHaEAdx5Q2EjXtVQnWqHrxKPDBUM60HbwDFxGayKXUNnI1HpxSv1ZcO8lrywBfcSbRjRx/06XP7ggIvHo8trZ15imI2eaTojNYJTlrVOJfs1F3YI291MJ8MjnsQ5NMD7OL+ncdAG3JlGJzs1MotlrbsWzdbPmBKwOICNAjcD3QWyGCdrV7Ek1/I/6cAzGMaCnrOjN7t0PpjZRRJJH4fAYISse1d/4tPdFBXA3tnufoIbGv2/R5ItoEUSmaaFIeobFF7R6Yg8xCVuTVis2CszObuig3schejE1FzlcMJmyxlawDJUEw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by FT1PR12MB222952.namprd12.prod.outlook.com (2603:10b6:170:d::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Sat, 10 Oct
- 2026 02:09:10 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0472.016; Sat, 10 Oct 2026
- 02:09:10 +0000
-From: Zi Yan <ziy@nvidia.com>
-Date: Fri, 09 Oct 2026 22:08:18 -0400
-Subject: [PATCH] mm/rmap: don't discard lazyfree THPs at PMD level
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-lazyfree-stable-fix-v1-1-70997958ef8d@nvidia.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMUQqDMBCE4avIPnchCUWxVyl9SMxot4gtWRWre
- HfT+vgNzL+RIgmUbsVGCbOovIcMeymoefqhA0vMJmdcaY2puffrt00A6+hDD25l4bKqrAvOXOs
- YKT8/CXn+V++P0zqFF5rxl6J9PwCDvdK3dwAAAA==
-X-Change-ID: 20261009-lazyfree-stable-fix-67712b2049dd
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Rik van Riel <riel@surriel.com>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
- Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
- Kyle Zeng <kylebot@openai.com>
-Cc: stable@vger.kernel.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Zi Yan <ziy@nvidia.com>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: YQBPR0101CA0180.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:f::23) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="P/VXBOdn"
+Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-8258ac98bc2so311142a34.3
+        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 19:09:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=openai.com; s=google; t=1791598179; x=1792202979; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uD8coseHJ8cbO2psrmuf1ZffJ2GQja8vTBxGB69y3bI=;
+        b=P/VXBOdnt5vLk0UIp111asvAatZ2kJ7Y5E9xow4P4YnN4EvnzldxzhJoGWYK+IIO+L
+         7MoaOoV4rjBVxhCsARuLVtP6YLTJ0CG+dskwKmHU5vkb2t/Jsx/KVXxYHLVlmKlw16+F
+         XotDdezamgdRB9Y1tXQ/Gb32PH2TywPT7w4D0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791598179; x=1792202979;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uD8coseHJ8cbO2psrmuf1ZffJ2GQja8vTBxGB69y3bI=;
+        b=AksElzTfndXdut45DeWE/n+exMJ56aB/pSxA14vSkEkj7vzIIJ8im9/x1qhabWHFiA
+         C0aLu/I7cSKAMlqbjeVGhU9Ur8hvla+P50oNTm8O331Ext313EqnZSZuxBJCwkM3Xq6j
+         QxliT1JHS79ZAaSyDQ/pK1lbTYSbwwj6S0JUpXFC5RFkeFOs2FfCwCkJgWZYARfhJY/m
+         u7bYJprmMj2nzIbSO7JBxK9uuP1IzphRnLvVHlSZe8YsH9J7yGDlrjs1odr00McsOxn4
+         rkMN23udqeJWHeHBG0JaYPmhvi1hubCJ2ekGkq/ilwNdFyP/7SirbbHJ24P8zHi0XKtW
+         MHKA==
+X-Forwarded-Encrypted: i=1; AKwUvBz3aMKfWi5WZwuuQPMAtjJRSBuTCsoCTK2Idgz2gY7GtcvIUNVsp8BDmgTGygbiyM9IRBZqVa4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK6bAdOeO5CTkP3qBSDh9QLMicDKioUWddOOrIHT58vzVo48PUw
+	xsxDWNFdVlEHhu0qs89NIJvg+G35YBXwHJIfskJ0Iai4jo5GaxpUFC+HEvAUAjidCHA=
+X-Gm-Gg: AYBFou3+RszBg5gfyGrQzyXgRuAi1OvJXoVEQU3mOXErasx3lYntkfQ8bf5EntyZrdJ
+	1oTjddLpQpvztPH1pFBMHu7aenOlY9+sh07yD4tnImtBFbSNDijcJjhk8YCZyFi/E8UfiOV3Zxz
+	qNu4fuYHZ+rorUW3EB51zireUFu9qi4UZnQISsmLu8hsXCAN3TAh3QArd8O5jEhzQ+IVhG2ZYS2
+	CZcrGoKACfidubJh5MQ5GYNDyz8hihX5WQkqb2N8yAe23oJw/LrAq4PFou5CgnrYFoLPm0k8NJU
+	Vfr99StylaTHJ8a/pf5D/MhQwcSjBQPfRMGgdKQMnB2DhIp+AtN1xt2uUJxwgcFE3XYgoX+RHky
+	9S6x1JYWS/QOBZ5uRF7Rl9akE0St1TYjEoR0Qo8xv0mLTC9ECXI7BAixNCBR4WvO3Id3YBmFG3Z
+	RGUYJA+MCqaafcduaB9CLMbS2oy+0zGzC+Ssyws6nTJHa9Gc7kMYvOR3B/J+mN/SBxrKCTGlFWy
+	cmvW0enLgLrWzHBGMuJ/OnpVM8JQhPn6FgfI/uX07Ee0E/Gd4PSzB4BXXE/PglBXyZdMq89QkE=
+X-Received: by 2002:a05:6830:6816:b0:806:1e7:4167 with SMTP id 46e09a7af769-83095843911mr3366701a34.13.1791598179659;
+        Fri, 09 Oct 2026 19:09:39 -0700 (PDT)
+Received: from com-75606.corp.openai.org ([199.47.143.7])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8303a515aa9sm3580257a34.25.2026.10.09.19.09.38
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 09 Oct 2026 19:09:39 -0700 (PDT)
+From: Kyle Zeng <kylebot@openai.com>
+To: linux-fsdevel@vger.kernel.org
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Matthew Wilcox <willy@infradead.org>,
+	Kyle Zeng <kylebot@openai.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] xarray: initialize the offset of new root nodes
+Date: Fri,  9 Oct 2026 19:09:34 -0700
+Message-ID: <20261010020933.83051-2-kylebot@openai.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|FT1PR12MB222952:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6dc73243-a3bd-407d-4095-08df267378f0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|11063799006|921020|261009223027099003|56012099006|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	/VPuMoe4fKHwqZHh0a7QI/LM/tF866Sl2OeceBgDtrG3qfm+p8HqiRK8W4EhjoWOpDqfq5RO9xTf5j/72CoIgSTvm6hp9A7Dd1riL86xnxXJl9adIJOuuuZfySE/zHvbRYL50/5rgKOMXvVPx5lmzsGAv5tOPLi9EKh25zzNgnt4hfw8mAek9+AvsF1ScAvjiyUD5aglAn8Kotj6smqmvf16MXwE9Ybq8UtDTdPOzeP4VZYI6VUy/OTz/y7ZLKhm9Hp7t8b1rFQcAVP4SZbLNdAP44XrACITwLNg1Au+Yj+4b7RVj8ncNotA99syGVFdnBzhZn9Owzb1YD5y2w8J2HhQSozqNF1YqpXoT0aWMufvKm/HDjhGngZFwJIRiGZ0UQOx4R8dQXZeKt7Ebn32y0etbEnlkuvp2VkEUtMatlmgUK4BfKn57dsu/XuRtAHydEuwUl9tRX6AOBfZl4YyjmH/P+Gaa+XCuCPqvMd+3eG4UO3mKgnsKHiBSJ4aMVLr/v27RbERNGPiHeRVreKV82zusk4IMtSTR830CuCegL1zFkndnE+cHfakMoFSaB1Vwi4pJcBGhylOxsNPHPkkFqAccqiFefz8X5ig6yVnko/U8I+LbN8+IICeTDHtLyTmHnjGYFDuRgbx3CpHbqqNwpcyb/nxD5PgiJHlwilcvYdzfai1uE0Q7PSuWPZoN1wMzmg4edk0HYMd8oQTWXKoGw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(11063799006)(921020)(261009223027099003)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aEQ3RE5xano0NEl4WXNPVFlxRW1GNzJRK0FWT1lpaGdIOGVLbkRIOXllKzJW?=
- =?utf-8?B?TGNCK3JlZHA3VG5KaUYvKzF5MHNUelpKQmNPZGp4enJ2emlLNXpRYlFaZjdK?=
- =?utf-8?B?ZzRyYXJKZ3Yzb2pIYkJ4R1hSUXNMSHVVdytRM3JMeFR1MmdzcEdJR1hvczNS?=
- =?utf-8?B?ZzdBWFhmSHFIYXNnWUMzRUMvZ3RBMS9VbHJGTnlSRnlaTEt2ZnRUSTdJVENI?=
- =?utf-8?B?aDNOb3d5dS8rUm1sOEZLT3pCb3ZpWTlqVDFIdjhCNStXTWY2L3RPcktjcEM5?=
- =?utf-8?B?L2gwNGEzbjd4d3hjeVozUVdxTEZ5aU9PdnhLdGwyNmVEWGhxQ2o0YU5IaVV3?=
- =?utf-8?B?Q2YyUnFOQ2NWS2RTbFd2SWoyT1dpY0dHeEsxYkI0Q1ZGOUdGdVl6Uk9XQmd2?=
- =?utf-8?B?REJGald5TXpKTHQxRyttWk1qQjF0eXdsdHFTQUlOQXJmek1wcHJqN0pJVDN6?=
- =?utf-8?B?YUlNb1NwbUdUM0I4K3ZWYTdLSDRIemMxT0dwZWxUeGxZZnZFbXZHYzJ3Z1p6?=
- =?utf-8?B?di91U2JoUXpqQk5yMmszTDZNakk3RFVhQllxNDVNcXpJMzkzZVU0ZUttNUZj?=
- =?utf-8?B?Q0g5dG5HWi9VR3g4L29KZTMxVXZmK3plcXpVYTBqVWw2V0JYTDN6QUZKOWh1?=
- =?utf-8?B?c3Q5dVJuSWxSc25MRmY2Zkt4bzlxeDZKS0FPQ1NDNUIvSE9ueGxqZk92ZGRD?=
- =?utf-8?B?M2x4YzJQY0ZidlMwTVBQTGZzRERrVnZ6WStKZmlHcnhmMWU5RmpUR2xhVDhZ?=
- =?utf-8?B?eFpJWUZkZzlMWEVFUlNFaG5zTmdod2FuYVdReDhsNzloMWZpYVM4R2JKOGxq?=
- =?utf-8?B?T0NqRzA4QlI2MXZueW9HZWFEVVJ0b3hXcTRMU2pJRlRoS1pZUjViTGF4U0ly?=
- =?utf-8?B?RVlrWldrcllLTTd0UlVxc1VDZVIrQ2l1aUF5NGNxWHEwVmJ2SXB3aDJwbWtE?=
- =?utf-8?B?aUZ3cjNQRFBuZE9YZTNHU3VXL3R3TEFoYXoveDFZekZ5ZFJSVG90cGt6RTlH?=
- =?utf-8?B?Vk4xV05tajFGcUtmQUZMR3FTb3U2ckVZcWY4UG5Kb3BFNVZPMmtsdHZrZytp?=
- =?utf-8?B?djE0Z0RjVCt4MVFaZWxreTJiMDd6VHlnUERlaDVJMHo0NSt3c2loZDQ0WmZk?=
- =?utf-8?B?YUhsTzdzVnMrV2RWVEY0Vy9WQ0xkRyt4MU12OWtxOHorWEoxZ1B6ZUZTaE51?=
- =?utf-8?B?K2lMdmJUeXVQSE9DRnVWNlAwZDRYUkhYVFBHZXVYSG1TT0VPZnJUZ0xkSkxn?=
- =?utf-8?B?MTRHVExHejZkK3ZwQ2NKNlQ2MHVLVWIyNEZYR3g2MWZvMkNINFpqTjFRakZG?=
- =?utf-8?B?OEh6Z1lyaTJBYnFGdmpIUVQvL05zNmY2NWZGSTRNYmViUU10aTVCZ1pRKzdP?=
- =?utf-8?B?cVl5dkJLYmFhVWIwcDRCeU9aajY1S2lKODZNYU1ob3pxZ21XTmVvS2x0czI1?=
- =?utf-8?B?dmxydkFrTmw0MUhGM2s0Z2tZYXVnUnVBMTgrVWdLMEpYajNWUUx1czRYelM3?=
- =?utf-8?B?MHNpems1c1VDTGJyV1B3THI5TDBiRUJSZE82ZFdoMi9ESXRKa0dYazV3WlhV?=
- =?utf-8?B?STFuZTBERFM3UU1FbjQ5Skg5dnloMzFLZU1OK2ZMV1B2c2ovS25zWjgyZ2ZN?=
- =?utf-8?B?ODhNb1MwMnRIME1tc1JJZG1iMmxsWFlJV1hxem9zaVVqWnEwTURudXVudUx5?=
- =?utf-8?B?YTVhWjlkY1R2bHg4SlNlTGxOQnIwZmRoNVZrbUVYK1Z3Nnlzd2RkUkxmYnBW?=
- =?utf-8?B?bEdra3FlanJINnZxVzRzT2lNSEpkL0FsYkQySVdqam8yNzdEVk00ZlZSVlkr?=
- =?utf-8?B?TVZMbkNBQ3A5czNWVWZ2YXRJNWpaM1NieHRVbWVLM2hKMHgrN2lhdDd5ZzlO?=
- =?utf-8?B?OUlDQ2I4VWJ2SlVRUHNka0FCakdwRkZyWXYvQkdMYnNBNkRlZ2ptTXhiMnZ5?=
- =?utf-8?B?cFRTUGZtbFBtUmlqTDJRSlp0TGZ5UjAvU3pnUGtLTUNKVkZUU0o3ai9VZVRw?=
- =?utf-8?B?UitXYVdTQll5SURvaTNOWFZmNGY1Y2VWQndTcmcrY2VMZG82RGtwUFVic0xl?=
- =?utf-8?B?MVR3SE1waEhNYjE0TFpFaExUTEtSb01MODZ5aS9yMFRwSXFjMGpHM0J0RS9l?=
- =?utf-8?B?azBmcG9HQ2pnQkNVM0h4SDlFUlhoZUNUVFU4dTQ3cHR0VXBOdG8yRER6VlZH?=
- =?utf-8?B?V3lidWFaTzBXeWhmVEVwelUzdVdIWlBQSEcycGozS05teWJmV2M1dDJ4dmNz?=
- =?utf-8?B?Vm9PN1lUNXlWSkpvbjN5YzY2WGo1SmVVRXZHdHhqQVorRndxU1BCQTFrWWNp?=
- =?utf-8?Q?iAa8m9ZvQH9cWnhWZz?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6dc73243-a3bd-407d-4095-08df267378f0
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 02:09:10.4240
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tmC7xF5kGiebkjNT0lUcZxir418w+TSoioOY+XeWJYzkXiyT38xLtRdtecdm5eex
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FT1PR12MB222952
+Content-Transfer-Encoding: 8bit
 
-__discard_anon_folio_pmd_locked() clears a lazyfree THP PMD before it knows
-whether the folio can be discarded, and restores it if the folio was
-redirtied or has extra references. A concurrent munmap() or
-MREMAP_DONTUNMAP skips the temporary none PMD and unlinks the VMA from its
-anon_vma, so the folio stays mapped after the anon_vma is freed and a later
-rmap walk uses the freed anon_vma.
+xas_alloc() only initializes node->offset when the node has a parent.
+The shared radix-tree node cache clears slots and marks on reuse, but
+leaves the old offset intact.  A new root can therefore retain the
+nonzero offset of a former child.
 
-Using an invalidated PMD instead of a cleared one requires additional arch
-code fixes. Instead, disable the PMD level discard of lazyfree THPs, as
-before commit 735ecdfaf4e8 ("mm/vmscan: avoid split lazyfree THP during
-shrink_folio_list()").
+Lockless iterators read a node's offset before loading its parent.
+If xas_expand() grows the tree between those reads, the iterator can
+combine the stale offset with the newly published parent and descend
+into the wrong subtree while retaining the original xa_index.  Even
+xas_reload() can accept the resulting entry when the offsets within
+the two subtrees coincide.  Page-cache callers rely on that check to
+validate the folio they found.
 
-Fixes: 735ecdfaf4e8 ("mm/vmscan: avoid split lazyfree THP during shrink_folio_list()")
-Reported-by: Kyle Zeng <kylebot@openai.com>
-Closes: https://lore.kernel.org/r/20261009165214.40212-2-kylebot@openai.com
+Initialize every new root's offset to zero before publishing it.  The
+offset sampled by a reader will then still be correct if the root is
+made a child by expansion.  Non-root nodes retain their existing
+initialization, and shrinking only promotes a child from slot zero.
+This fixes the forward, reverse and marked walkers at their common
+source, without changing the iterator or page-cache APIs.
+
+Fixes: 58d6ea3085f2 ("xarray: Add XArray unconditional store operations")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Zi Yan <ziy@nvidia.com>
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
 ---
-The proposed fix[1] requires additional arch code fixes[2]. Disable it
-first for stable fix. The function will be re-enabled along with arch code
-fixes.
+ lib/xarray.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Link: https://lore.kernel.org/all/20261009165214.40212-2-kylebot@openai.com/ [1]
-Link: https://lore.kernel.org/all/DM0II2QHWWS1.2RXEJXC8S0101@nvidia.com/ [2]
----
- mm/rmap.c | 11 -----------
- 1 file changed, 11 deletions(-)
-
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 805db93fe0428..1131b76bbbc28 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -2275,17 +2275,6 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+diff --git a/lib/xarray.c b/lib/xarray.c
+index bfe7bef80f34..509d7e4157bd 100644
+--- a/lib/xarray.c
++++ b/lib/xarray.c
+@@ -382,8 +382,8 @@ static void *xas_alloc(struct xa_state *xas, unsigned int shift)
  		}
+ 	}
  
- 		if (!pvmw.pte) {
--			if (folio_test_lazyfree(folio)) {
--				if (unmap_huge_pmd_locked(vma, pvmw.address, pvmw.pmd, folio))
--					goto walk_done;
--				/*
--				 * unmap_huge_pmd_locked has either already marked
--				 * the folio as swap-backed or decided to retain it
--				 * due to GUP or speculative references.
--				 */
--				goto walk_abort;
--			}
--
- 			if (flags & TTU_SPLIT_HUGE_PMD) {
- 				/*
- 				 * We temporarily have to drop the PTL and
-
----
-base-commit: 8b38ed9ab5b09c8ba168cbcc49524e9b380ee5c4
-change-id: 20261009-lazyfree-stable-fix-67712b2049dd
-
-Best regards,
---  
-Yan, Zi
-
++	node->offset = parent ? xas->xa_offset : 0;
+ 	if (parent) {
+-		node->offset = xas->xa_offset;
+ 		parent->count++;
+ 		XA_NODE_BUG_ON(node, parent->count > XA_CHUNK_SIZE);
+ 		xas_update(xas, parent);
