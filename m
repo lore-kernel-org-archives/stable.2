@@ -1,148 +1,87 @@
-Received: from mailfilter02-out30.webhostingserver.nl (mailfilter02-out30.webhostingserver.nl [195.211.72.193])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5200D4BFE84
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 19:40:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.211.72.193
-ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791661238; cv=pass; b=dYqhac9vnwn5mPsjmn59TOofZVmdzvE1TBU4OOcLMWBrq4IHCKW+4gHdtXFzfdjS2IzItP8GCRn85iIsqRh4snf5pStnx+LH2xu5orzvuNi+VYWK6nLfte5Zt4zmhBCiOC0Ji6xqbGf+tIKBxGcz3BA8246fyWzaKE+TBxuEJTQ=
-ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791661238; c=relaxed/simple;
-	bh=k/0zE+mpbcaCWS4J7eInSaDNJol/x9qXdkh/tRfx32U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uEvd24V9q8fjCv9M3JquYtXfUzr/7EtL6JEFsMiPZ+MWJoUAFSWip/Tm3kRwJhErwd5XD0qpnd0+N05XcNsYTpJmOyh1son1aTUycakw8aAEVHyjKRwiacuewjyD2FXng3HZfZxCQiUDKGr85AwytRPj0XqdEqm3rhWcOVnfgdk=
-ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=exalondelft.nl; spf=pass smtp.mailfrom=exalondelft.nl; dkim=pass (2048-bit key) header.d=exalondelft.nl header.i=@exalondelft.nl header.b=oNIuwAUS; arc=pass smtp.client-ip=195.211.72.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=exalondelft.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=exalondelft.nl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3916C362120;
+	Sat, 10 Oct 2026 20:19:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791663563; cv=pass; b=DrB4bJcI3bXzoQoSezk1jP/q7ct3ZNiqRDWLalpqInlfUOlNY6vml1Zgjr+vOGeR0Lcl/hAQ+HjJnS5WgSWzCNccLLZUJutuWQODLFE4ncIGItfsLKo2nglXKMV3bSmlcc2Jsnv+njcuQpHxTlk8RUTm4F0EB00rUy19mWmTsHU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791663563; c=relaxed/simple;
+	bh=tzURnxnQ2R/KUu8hxuMAJnmspyGBKVtIUV8hHbAJ8kU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iK86CX1jh+YWPhKPLx0Hc7liFfpEy0uSF8VChmrIDP7MOx/+aMWxds1PHlqbFDjRhJ/KaKpeXM7hJ0QfjWm7e2tF7ERlcBa07b5Xiwy7dqXhcSZH+nnl9SwLyDtnqv3LPHgN1aeNTbf8g09+iURnDMuHlC0rR8YUN6BQGVEIRyQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=bKepcU/U; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=exalondelft.nl header.i=@exalondelft.nl header.b="oNIuwAUS"
-ARC-Seal: i=2; a=rsa-sha256; t=1791661157; cv=pass;
-	d=webhostingserver.nl; s=whsarc1;
-	b=bEoZUKb1q9W5C339vGnmC3FkuMXuG0btCeTCW78+doj7VctyntYj5SsAC/qDgXoAAzui9+0Zn/WYX
-	 FHSqVQLL2ABMk1CYxFi6DXqJ6nM0wNMeZZY/44E/N5F01DwtzdRwTZ+kE2CKw6PMBLUaCmXqg0KdFw
-	 p85tkvIyMOi5k86Ma/NSwQb//KJdonx7Km5EXmEaR0pPmL1RzsxJZV65mxtN6TVXfuiPGbx5pHMUUa
-	 9HxR9/PkqhSM5GYr324knjLnnWGIIC94BvkjpnXOni5xN/zl05gpS930Evah3ZB4zG9qt4janqGBaa
-	 klY9TS5zUiEiu+5x1waPYg9TbJlW5BA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed;
-	d=webhostingserver.nl; s=whsarc1;
-	h=content-transfer-encoding:mime-version:message-id:date:subject:cc:to:from:
-	 dkim-signature:from;
-	bh=Gsgp9tM9e1vhAPkIjoBTu9Bl+2xqVcbGFvF3ZGmMaY0=;
-	b=rMmbRs9tRlVvfc6Qwh+CMHy5ACrFj/j9IMyjo5GiE9nS2xrM0pzBY26APLLIqhNIhhxIeUPRq98JH
-	 4tL4hvYWvSABzZgdKZYe1QOHAjMCL6KV8XYeO8UbrYqZJefynAQDBpD6G+qhnwC/cuGkITnG7awH1e
-	 PdWPgV3v0aFB/Z7jX6S0UQzzhoihdEjUmkZt+UNQwK8sbSAHEzvC8PRorOoiu+MYMIeh1uCSwKIlGk
-	 BiXRU0h5KfgJENn6Jq151PocGMHClMURHsWKWjVsn+IEgdACY9VchPwbgiymDtuwFpPJM5klUhJTUZ
-	 hrZ92eTUaC3vJD1wJk8IMld1vKNFfOQ==
-ARC-Authentication-Results: i=2; mailfilter02.webhostingserver.nl;
-	spf=pass smtp.mailfrom=exalondelft.nl smtp.remote-ip=141.138.168.154;
-	dmarc=pass header.from=exalondelft.nl;
-	arc=pass header.oldest-pass=0;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=exalondelft.nl; s=whs1;
-	h=content-transfer-encoding:mime-version:message-id:date:subject:cc:to:from:
-	 from;
-	bh=Gsgp9tM9e1vhAPkIjoBTu9Bl+2xqVcbGFvF3ZGmMaY0=;
-	b=oNIuwAUSt3wKS8v4QJP/MmRWvwnJZ8BEp6MPGmPBxeQnz+vEDGidcYNAGYuiSMWRK2DG//lyh/mrr
-	 InrqxbkaEdQPP3+m8Jj5y77hNHh8baVhog4l+zGDHlPx7Fyz6HoPP7AavBvx0pF1xci2TgyE3GVBPq
-	 I5X59Y59FMACUMpydCqFw+3lxgZFcCbB/MFWN1TObLbOHlqhzLkclTQWliz447V92oiELKpYl/NZgP
-	 t2MWIS7xi2zDXf+ac+zX3ywyNLzCJ/d3sKJ6UOAg/AmlSt2yMG0NSi8bkIxQlHDLbawkany2H9M3RZ
-	 U4X6ndCzNELyz/psUyNOHb2ZHRBQYDQ==
-X-Halon-ID: 4688c69e-c4e2-11f1-b65c-001a4a4cb922
-Received: from s198.webhostingserver.nl (s198.webhostingserver.nl [141.138.168.154])
-	by mailfilter02.webhostingserver.nl (Halon) with ESMTPSA
-	id 4688c69e-c4e2-11f1-b65c-001a4a4cb922;
-	Sat, 10 Oct 2026 21:39:15 +0200 (CEST)
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=webhostingserver.nl; s=whsarc1; t=1791661155;
-	 b=zJKbJtRFPacOuEK4xI7KNkvj9jZVyX8OMpPi1RMGemJiZ6bBFBzlsnz20THjlcmegk8WAzy0UF
-	  kRkGemAkNRjH0rVssZKEx17FTUQsJGAapjlx6+ZBBjgamnIT4XVjqED3x2D2CpRYXUaNWzaHeq
-	  DmBrKSHh2yAEFyLEIEEEX1RcPXbZWdKva9zZYoUJs8XBqM9SRHTYH3XnRf+Fk9KsATDBteNG57
-	  E3ci61Nz5L+pgKoz3iXTotiPJy4XcP8KzyiK4rkY50jBBKHbU9PjGXQf5nBoiz45m523XJ5xVR
-	  Rxf13jT5RWsTpEBXAFQ3T6cC2fz/Yrvd5NiTYeQnUDEByA==;
-ARC-Authentication-Results: i=1; webhostingserver.nl; smtp.remote-ip=2a02:a466:68ed:1:4b1e:abe0:4124:3c9d;
-	iprev=pass (2a02-a466-68ed-1-4b1e-abe0-4124-3c9d.fixed6.kpn.net) smtp.remote-ip=2a02:a466:68ed:1:4b1e:abe0:4124:3c9d;
-	auth=pass (PLAIN) smtp.auth=ferry.toth@elsinga.info;
-	spf=softfail smtp.mailfrom=exalondelft.nl;
-	dmarc=skipped header.from=exalondelft.nl;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=webhostingserver.nl; s=whsarc1; t=1791661155;
-	bh=k/0zE+mpbcaCWS4J7eInSaDNJol/x9qXdkh/tRfx32U=;
-	h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:To:From;
-	b=IF2j1HVpN7j1CkWMht9PXXhLVEFbz4mbmHep87ConlZhlEjuEOWWCwImwAtf87yKVpCTIBtHpY
-	  2GTSBCZMqsphyst7ddEjP8An9m3cINJvVejZYaRU5hyGpYVlpiIQJx1UFR04D50fpUm+iPYPil
-	  Z6F2dY8V81TCIj3pG4ox2+0c973SQ8cLuGmdv50+A1wjUdUbqF4rhWuob+GnY2B56zbnMYGViC
-	  DoVW5kAPG+ir9oqa86B6u+WwzNfVvGSQlJo+hp/0DdDGWrlMIkoYukyFgdL0KYVu9aWwEU05TV
-	  3lhTjCIueLOGy6eo+flqPrigXzcImWnv4T8tlxwI+Ga+7A==;
-Authentication-Results: webhostingserver.nl;
-	iprev=pass (2a02-a466-68ed-1-4b1e-abe0-4124-3c9d.fixed6.kpn.net) smtp.remote-ip=2a02:a466:68ed:1:4b1e:abe0:4124:3c9d;
-	auth=pass (PLAIN) smtp.auth=ferry.toth@elsinga.info;
-	spf=softfail smtp.mailfrom=exalondelft.nl;
-	dmarc=skipped header.from=exalondelft.nl;
-	arc=none
-Received: from 2a02-a466-68ed-1-4b1e-abe0-4124-3c9d.fixed6.kpn.net ([2a02:a466:68ed:1:4b1e:abe0:4124:3c9d] helo=submission)
-	by s198.webhostingserver.nl with esmtpa (Exim 4.100.1)
-	(envelope-from <ftoth@exalondelft.nl>)
-	id 1xFcuY-0000000FlNz-3TS3;
-	Sat, 10 Oct 2026 21:39:14 +0200
-From: Ferry Toth <ftoth@exalondelft.nl>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	John Ogness <john.ogness@linutronix.de>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Crescent Hsieh <crescentcy.hsieh@moxa.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org
-Cc: Jiri Slaby <jirislaby@kernel.org>,
-	Ferry Toth <ftoth@exalondelft.nl>,
-	stable@vger.kernel.org
-Subject: [PATCH v1 1/1] Revert "serial: 8250_port: Drop duplicate NULL check"
-Date: Sat, 10 Oct 2026 21:37:56 +0200
-Message-ID: <20261010193755.187706-2-ftoth@exalondelft.nl>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="bKepcU/U"
+ARC-Seal: i=1; a=rsa-sha256; t=1791663546; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=DQ2vfMmhnUm4hE/dkcpkXKloV4x4qCl3l4A2sqrmocj0ng7dkRwd97nJCNw2yYq1sfumR1unGvaG+W0DpxzxqMboFATzAA0QzMujt43hLMBzQPGQCyx6a8r976o336URr+ESWuhqdbZmFitQ7T1umnI7h65s8qU2OSAk2FsOdFw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791663546; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=vrWGR9SAVLhrNl8QfDeyWpcETJt0y8/ezyo4jgasdzI=; 
+	b=CR5PWmnmakhEyzpOo2Y0ljlVaCLB8fvY7Fy11n8va+FBVeurtXSala4dnPiLIbpZ31hLoCkQciTFgzS6atzN3aumeVYRF5LeTEi1uf6s4ReXVi1AD2CRbpkHbnVx8f7aFgtD79FOfbQ50fLQEkoXf1juwxbv7U1QMhc7DpT2/dI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791663546;
+	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=vrWGR9SAVLhrNl8QfDeyWpcETJt0y8/ezyo4jgasdzI=;
+	b=bKepcU/UlgnVQZv5wRS1OSjU6I/XAqZ/qEM7+AXewsM5xwqE+QNwMwfRxt1hqqjF
+	22kvcdqovT7vFl6Yy7zCIC4026+kcneJnsQc3/6VVE7bzSUj8XNaQ34rs6zhmQtq7LJ
+	cbpf2Zh54sp5c9kftV+EyIqdWymqmIsf0hSKJHJA=
+Received: by smtp.zohomail.com with SMTPS id 1791663545919289.48010554267705;
+	Sat, 10 Oct 2026 13:19:05 -0700 (PDT)
+Message-ID: <8393a8a2-2ed5-4d63-b937-5d837c1bb1aa@collabora.com>
+Date: Sat, 10 Oct 2026 23:19:01 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Antivirus-Scanner: Clean mail though you should still use an Antivirus
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/virtio: reject mappable HOST3D blobs without
+ host-visible memory
+To: Henry Martin <bsdhenrymartin@gmail.com>, David Airlie
+ <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Chia-I Wu <olvaffe@gmail.com>, Gurchetan Singh
+ <gurchetansingh@chromium.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>, Junrui Luo <moonafterrain@outlook.com>
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261010081059.3096312-1-bsdhenrymartin@gmail.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20261010081059.3096312-1-bsdhenrymartin@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-This reverts commit 7885af04df6e4efd72910200c1bfc079d61202e4.
+On 10/10/26 11:10, Henry Martin wrote:
+> virtio_gpu_resource_create_blob_ioctl() -> verify_blob() validates
+> blob flags, memory type, context and alignment, but never checks
+> VIRTGPU_BLOB_FLAG_USE_MAPPABLE against vgdev->has_host_visible.
+> 
+> For blob_mem == VIRTGPU_BLOB_MEM_HOST3D the blob is created via
+> virtio_gpu_vram_create(), and on a device without host-visible
+> memory (plain virtio-gpu-pci,blob=on with no hostmem) the failure
+> comes too late: the GEM object has been allocated, a host resource
+> id taken and the create_blob command issued when
+> virtio_gpu_vram_map() returns -EINVAL, and the cleanup calls
+> virtio_gpu_vram_free(), which is a no-op while bo->created is still
+> false (the host response has not been processed yet).  Every such
 
-Commit 7885af04df6e ("serial: 8250_port: Drop duplicate NULL check")
-added `up->dma = NULL;` to serial8250_release_dma(), with the stated
-intent of making sure DMA would not be used again after release.
+virtio_gpu_cmd_resource_create_blob() is invoked before
+virtio_gpu_vram_map() in virtio_gpu_vram_create(), hence bo->created is
+always true, how come it's false?
 
-However, up->dma is assigned once at probe time.  serial8250_do_startup()
-only calls serial8250_request_dma() when up->dma is non-NULL, so after
-the first close the pointer stays NULL and DMA is never re-acquired.
-
-On Intel Tangier (Edison) with HSU DMA this causes a regression: the
-first port open uses TX DMA, the second and later opens transmit in PIO
-mode, producing 64-byte FIFO bursts with ~50us gaps between them.
-
-Fixes: 7885af04df6e ("serial: 8250_port: Drop duplicate NULL check")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ferry Toth <ftoth@exalondelft.nl>
----
- drivers/tty/serial/8250/8250_port.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
-index 38fa45e74a37..19d0663ee756 100644
---- a/drivers/tty/serial/8250/8250_port.c
-+++ b/drivers/tty/serial/8250/8250_port.c
-@@ -2428,8 +2428,8 @@ void serial8250_do_shutdown(struct uart_port *port)
- 
- 	synchronize_irq(port->irq);
- 
--	serial8250_release_dma(up);
--	up->dma = NULL;
-+	if (up->dma)
-+		serial8250_release_dma(up);
- 
- 	scoped_guard(uart_port_lock_irqsave, port) {
- 		if (port->flags & UPF_FOURPORT) {
 -- 
-2.53.0
-
+Best regards,
+Dmitry
