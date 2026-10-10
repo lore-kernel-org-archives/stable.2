@@ -1,160 +1,182 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0EE3EB7F4
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 09:14:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486043B6BF1;
+	Sat, 10 Oct 2026 09:22:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791623695; cv=none; b=X124r5PVDc74p1DdZcySo+2y8H1avDaMxgMzs6Qitu/cJIkglszUeT4Zb++58UQZ9RsRCAKwTL1qIjTacGCCvQOMB5TRP//a5I6snlI3L83h+0WnNvU50kOgfKz1GJqOzMkGKOQxr2BEXfSQT8DwyErr9sacvIYgMsVMUhz/I5o=
+	t=1791624166; cv=none; b=GtmqMUoIc39/paVnEOt0inFen3CutYlfVxNHEN6JLfx+d8nSs+aqY4stk73jckK8b8BQbtAQ6Un3ukMiSsZm5TC4q4+vzRsABw1BNzbfMKyyxECtP0+y0jZInlrn5WN6uys/PiN+Mfu/SxP5WADRJXgd0qESrJ/KS47OdOTbgak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791623695; c=relaxed/simple;
-	bh=lAM5b6+OIjaOvHNXh0hpCmmkd4xeYGS8UjTaFjairtI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ssSqVVwAkbEWFbX1uDkFTX70kpgeQtZl8eRq11cqsJjXohIBZyGvB3nn3uoAAigXCZ1EjJVd/D9a/KFLvmulcZ6uHeO0W4jV3SAEDygWIBYQGAA2NVTIWKainOcJ2E8Q5RxMgzXRUpTOWVZzvBrRzhRM6iB9uzVjiiWRw42HXLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=ucwiudbi; arc=none smtp.client-ip=74.125.82.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791624166; c=relaxed/simple;
+	bh=6/4qvDnaYM2Z85U+qehegp5waEtzX0dhCN/9J3t82TA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=QYs331IJY02IEvKpoe3mvPoQ4UgL6vf76KPaMPQdaaridnjV87eo24xs3odZttYT+LESS8YOG20XKxNNOIWhi9GuxBY/j5bPmcm9YcAoj6/e32Tlx5/Z0mM1Q8WCX2gRKQUEtewgVGm4zbNlNBbR1LqSHYb9LaBsRQMhDzTJbww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=EWUUlwtV; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="ucwiudbi"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-35834f72d94so685458eec.0
-        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 02:14:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791623691; x=1792228491; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2EcMVNGvoUCyg4a+/GXdBm3s3zoBcyX1bcILDBo8ZBg=;
-        b=ucwiudbiuFPxoRgwOxXDuOEodDaDRSx0nyKbvf8B1qyGkgprdWK+hLbdTf3ZBKZTbm
-         cYrMjHYIZnKEFk0gRt8cIpzI42i7hpxDEn8fky8NCfuQYaVIS6/CWyvn60uRXZ+kkbx/
-         U5hteBAdhzeUt8bZrDfRZCi190f2PYWeAJhLI+IAEyxfCZVv8TUH0tGVGplVCA/KIrz8
-         of/lGMGM0cziFRJ5Ah+ZgDOtr9V3xkOmXlWa8Y4isn3VoXg/RRpPivbHAta4hcUV0YYO
-         jol9yIF7cepBduV2u6WtzxXeNOfjIGZVInXYB1xbU4jgWlXYkwIZwISOIrH8B8VbUJHE
-         YU8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791623691; x=1792228491;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2EcMVNGvoUCyg4a+/GXdBm3s3zoBcyX1bcILDBo8ZBg=;
-        b=PJG3awUp6vZBbLKCIPk2+ScNpl+jwayhaO/RGXdZusFCRqug8imc0BZZSa3vPkbmt3
-         atKeAsIyLA+VebvXRALrBBGDuM/FqvUJZwUHD8n93Hc4kQnnVdifdqIY4GIXA8WQzMIb
-         bD/8zHcdj+lOHfXNQXduWbKfxPIIbKcy95MdGhR/zzmt02T3a5NmTokbNmEVSpLaVuas
-         zZx1eYNwxDWJoDFUApiiphrWQVqyOCP6e2mKS9FTj9pLSCBeKoPpPUrHbOqqUHJxrnRX
-         bKnT3s2/oKQx0t4gA8oi7+c68Rnhoof2pc2XAhTSrCth9kCIM7zBkZrkr1KpOHP16w+T
-         zeZw==
-X-Forwarded-Encrypted: i=1; AKwUvBwvUsrYLh1/kriSIVARSvpW5CuayZEHXMzlKapNYRG0n+8fLmYqvNZQ+pf9uBwV7jKQZ5xCEMY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIRg2DUqPBEL3FQBrABTEJ/72HrhQuakJR42rJ+THEiXkXSv+f4
-	r1UsRwqpKBGZK7Sbz1Plm/FmCWVwgPgnKnj9XyilyoPKai7zSYBrsW17HSLpnLBOJ+w=
-X-Gm-Gg: AYBFou3dMVC/xzoH594M0qfIuThdCP2cjej+kb1II761nkBOIUQ7YcmIe5AdzqUYkaK
-	NIc8ReTFhCtiPmtHElHOAm75gTdB+G176RsXiPwlyHFm97UAL89gEHpA8zyanrpqXgUC/mDLbTt
-	W1bXN+J0tAfnz7SeeYD5J0jc+nH3ykB35WIxGqyQYOEdtUO4X+ctbL6UBZIZjVSiedEuxiW77ej
-	H20fqM6Xc7AwcaSxhCsljhVm0+yX7tRrnZ/1AjJah0X6tM3ja4Lut729SsH29LVBAlUc6smJOV3
-	H9q1LZ2JJtp3uCY6CEoYrOmtBWUlwwGWzdHZh4JgniUDmjhwa/UGTlP5nVcd4GQN7G82bTnO8VT
-	M9CJeOtIk8firQ2qdr/J/1PLZs5WAx594j+aYDWG9M4/bKsslG7TE5sqCzcJ2hTwhIhDl/iN6tk
-	J7J5aaDBPrklmZ+ve9pqd4kV0vITjLlxcI/Fafn8n2ln90jSDxomYzUSjc4YwPb5s5B4+58VmUn
-	YvnxL2G87FkZpO/oHRV/w==
-X-Received: by 2002:a05:7300:8803:b0:351:735e:2ef8 with SMTP id 5a478bee46e88-3537df50e9dmr6407629eec.7.1791623691332;
-        Sat, 10 Oct 2026 02:14:51 -0700 (PDT)
-Received: from localhost.localdomain ([2406:5900:1044:110c:c95f:28ac:324a:cdc3])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca1b53dsm12287561eec.6.2026.10.10.02.14.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 02:14:50 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Sathya Prakash <sathya.prakash@broadcom.com>,
-	Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
-	Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
-	Ranjan Kumar <ranjan.kumar@broadcom.com>,
-	MPT-FusionLinux.pdl@broadcom.com,
-	linux-scsi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="EWUUlwtV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version:
+	Content-Type; bh=Zg2aBdBdTLP9z/WGD5ND/M8stJfE0DaZc3MKIYs9Juo=;
+	b=EWUUlwtV9OtfeaIR8NS/MuIGWzcVRH4txpOXC9Z4stjbe1SwQYy5zrUH5dHmyt
+	uOOUGCUQLA07QNA19DRN8SqnrcqVfwB7NuhhV3fyKdc71OAe6OswZ4m4hheDvv1U
+	yMVDNT/A9irq5BtIoJZHqySuURPvqkSQGQpr70dX4TrmQ=
+Received: from lx2.. (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3n3qeA8pqnP+WDg--.44293S2;
+	Sat, 10 Oct 2026 17:21:35 +0800 (CST)
+From: Zijin Tao <taozj888@163.com>
+To: theo.lebrun@bootlin.com
+Cc: Zijin Tao <taozj888@163.com>,
 	stable@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Subject: [PATCH] scsi: mptfusion: reject events with a MsgLength outside the reply frame
-Date: Sat, 10 Oct 2026 18:14:32 +0900
-Message-ID: <20261010091432.1788497-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	Conor Dooley <conor.dooley@microchip.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	netdev@vger.kernel.org (open list:NETWORKING DRIVERS),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net v5] net: macb: rate limit netdev error info print in the data path
+Date: Sat, 10 Oct 2026 17:21:34 +0800
+Message-Id: <20261010092134.130564-1-taozj888@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3n3qeA8pqnP+WDg--.44293S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXFWrAry3tw18ZF1rGr1xXwb_yoWrCryfpa
+	yUC3s8Jw4kJr42yas7tr40vF1rZrn8tryUWrW8Gw13Xw15Xr98WFySgrya9FW8GayfA3WF
+	yr1DZFZIka1kZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zEBT5JUUUUU=
+X-CM-SenderInfo: hwdr6yqyyyqiywtou0bp/xtbC+R81-GrKA583jQAA3p
 
-mptsas_event_process() sizes the event payload from the reply header:
+Now the MACB ethernet driver print the netdev error information
+directly by netdev_err(), which would lead to a large number of
+error information print if there was a significant number of
+error or just jumbo packets exceeding the MTU received when booting.
+For example, it would print a large number of:
 
-      event_data_sz = ((reply->MsgLength * 4) -
-          offsetof(EventNotificationReply_t, Data));
+macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+...
 
-MsgLength is an 8-bit field chosen by the controller firmware and is not
-validated on the way in; ProcessEventNotification() only looks at
-EventDataLength. event_data_sz is a signed int but is then used as a
-size_t in both the kzalloc() and the memcpy() that follow:
+in gem_rx() by received a large number of packets without
+RX_EOF flag set, especially with unknown packet
+type that would penetrate the hardware offload for the IP packets.
 
-      fw_event = kzalloc(sizeof(*fw_event) + event_data_sz, GFP_ATOMIC);
-      ...
-      memcpy(fw_event->event_data, reply->Data, event_data_sz);
+The unlimited prints here would greatly bother and delay
+the system booting process unless the source stop sending
+packets since they occupy the console output bandwidth and
+other processes have to wait for the completion of printing those
+messages.
 
-A MsgLength too small to cover the 28-byte reply header (MsgLength <= 6)
-makes event_data_sz negative; it sign-extends to a huge size_t, so the
-kzalloc() under-allocates and the memcpy() runs for ~2^64 bytes. A
-MsgLength larger than the reply frame makes the memcpy() read past the
-frame and leak up to ~940 bytes of the adjacent reply.
+So rate limit the netdev error information print in the receive
+and transmit data path.
 
-Reproduced under KASAN with a crafted EventNotificationReply (reply_sz
-0x50); MsgLength 255 over-reads the frame, MsgLength 4 wraps the length:
-
-  BUG: KASAN: slab-out-of-bounds in mptsas_event_process [mptsas]
-  Read of size 992
-   which belongs to the cache kmalloc-96 of size 96
-
-  BUG: KASAN: out-of-bounds in mptsas_event_process [mptsas]
-  Read of size 18446744073709551604
-
-reply points at a fixed MPT_REPLY_FRAME_SIZE frame, so a valid event has
-7 <= MsgLength <= ioc->reply_sz / 4. Compute event_data_sz before the
-switch and drop the event when MsgLength is outside that range, as
-mptsas_mgmt_done() and mptctl_reply() already bound it to ioc->reply_sz.
-Doing it before the switch also keeps a dropped BROADCAST_PRIMITIVE from
-leaving ioc->broadcast_aen_busy set.
-
-Fixes: 3eb0822c6740 ("[SCSI] mpt fusion: Firmware event implementation using seperate WorkQueue")
+Fixes: 4df95131ea80 ("net/macb: change RX path for GEM")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Signed-off-by: Zijin Tao <taozj888@163.com>
 ---
- drivers/message/fusion/mptsas.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/message/fusion/mptsas.c b/drivers/message/fusion/mptsas.c
-index c362f09a8c555..1812b871c47ef 100644
---- a/drivers/message/fusion/mptsas.c
-+++ b/drivers/message/fusion/mptsas.c
-@@ -5009,6 +5009,18 @@ mptsas_event_process(MPT_ADAPTER *ioc, EventNotificationReply_t *reply)
- 		return 0;
+Changes since v1:
+
+v5:
+
+- Update the commit message for the target fix id to 4df95131ea80
+which was indicated by Theo <theo.lebrun@bootlin.com> and Nicolai
+<nb@tipi-net.de>
+- Update the user name in the "From" part to Zijin Tao which is
+the same as that of "Signed-off-by"
+
+v4:
+
+- Update the commit message for the target fix id to 89e5785fc8a6
+as suggested by Nicolai Buchwitz<nb@tipi-net.de>
+- Update the patch with the changelog added in the patch itself
+
+v3:
+
+- add this change log since v2 missing it
+- drop the blank line between the assignment sentence and the commit
+  info
+
+v2:
+
+- update the commit message with the reason why the unlimit prints would
+  bother/delay booting process
+- update the commit message with the Fix commit id provided which is
+  suggested by Théo Lebrun<theo.lebrun@bootlin.com>
+- update the commit message with what packet type would trigger the
+  error printings more easily.
+
+v1:
+
+- initial commit
+
+ drivers/net/ethernet/cadence/macb_main.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index b8234ac4b602..c32d48d03008 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -1617,16 +1617,16 @@ static int gem_rx(struct macb_queue *queue, struct napi_struct *napi,
+ 		count++;
  
- 	delay = msecs_to_jiffies(1);
-+
-+	/* Bound the firmware-chosen MsgLength to the reply frame: too small
-+	 * underflows event_data_sz, too large over-reads the copy.
-+	 */
-+	event_data_sz = ((reply->MsgLength * 4) -
-+	    offsetof(EventNotificationReply_t, Data));
-+	if (event_data_sz < 0 || reply->MsgLength * 4 > ioc->reply_sz) {
-+		printk(MYIOC_s_WARN_FMT "%s: bad MsgLength %u\n",
-+		       ioc->name, __func__, reply->MsgLength);
-+		return 0;
-+	}
-+
- 	switch (event) {
- 	case MPI_EVENT_SAS_BROADCAST_PRIMITIVE:
- 	{
-@@ -5105,8 +5117,6 @@ mptsas_event_process(MPT_ADAPTER *ioc, EventNotificationReply_t *reply)
- 		return 0;
+ 		if (!(ctrl & MACB_BIT(RX_SOF) && ctrl & MACB_BIT(RX_EOF))) {
+-			netdev_err(bp->netdev,
+-				   "not whole frame pointed by descriptor\n");
++			if (net_ratelimit())
++				netdev_err(bp->netdev, "not whole frame pointed by descriptor\n");
+ 			bp->netdev->stats.rx_dropped++;
+ 			queue->stats.rx_dropped++;
+ 			break;
+ 		}
+ 		skb = queue->rx_skbuff[entry];
+ 		if (unlikely(!skb)) {
+-			netdev_err(bp->netdev,
+-				   "inconsistent Rx descriptor chain\n");
++			if (net_ratelimit())
++				netdev_err(bp->netdev, "inconsistent Rx descriptor chain\n");
+ 			bp->netdev->stats.rx_dropped++;
+ 			queue->stats.rx_dropped++;
+ 			break;
+@@ -1829,7 +1829,8 @@ static int macb_rx(struct macb_queue *queue, struct napi_struct *napi,
+ 		unsigned long flags;
+ 		u32 ctrl;
+ 
+-		netdev_err(bp->netdev, "RX queue corruption: reset it\n");
++		if (net_ratelimit())
++			netdev_err(bp->netdev, "RX queue corruption: reset it\n");
+ 
+ 		spin_lock_irqsave(&bp->lock, flags);
+ 
+@@ -2102,7 +2103,8 @@ static int macb_interrupt_misc(struct macb_queue *queue, u32 status)
+ 
+ 	if (status & MACB_BIT(HRESP)) {
+ 		queue_work(system_bh_wq, &bp->hresp_err_bh_work);
+-		netdev_err(netdev, "DMA bus error: HRESP not OK\n");
++		if (net_ratelimit())
++			netdev_err(netdev, "DMA bus error: HRESP not OK\n");
+ 		macb_queue_isr_clear(bp, queue, MACB_BIT(HRESP));
  	}
  
--	event_data_sz = ((reply->MsgLength * 4) -
--	    offsetof(EventNotificationReply_t, Data));
- 	fw_event = kzalloc(sizeof(*fw_event) + event_data_sz, GFP_ATOMIC);
- 	if (!fw_event) {
- 		printk(MYIOC_s_WARN_FMT "%s: failed at (line=%d)\n", ioc->name,
+@@ -2511,7 +2513,8 @@ static netdev_tx_t macb_start_xmit(struct sk_buff *skb,
+ 		else
+ 			hdrlen = skb_tcp_all_headers(skb);
+ 		if (skb_headlen(skb) < hdrlen) {
+-			netdev_err(bp->netdev, "Error - LSO headers fragmented!!!\n");
++			if (net_ratelimit())
++				netdev_err(bp->netdev, "Error - LSO headers fragmented!!!\n");
+ 			/* if this is required, would need to copy to single buffer */
+ 			return NETDEV_TX_BUSY;
+ 		}
 -- 
-2.43.0
+2.34.1
 
