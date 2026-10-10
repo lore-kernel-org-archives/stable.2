@@ -1,100 +1,154 @@
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31BAD3612EE;
-	Sat, 10 Oct 2026 04:35:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF233451CD
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 04:44:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791606906; cv=none; b=kFEV3EpsVRlH6n3eNh0iHyIrTyAd/ouIF3uEtZvaq0/WkAVWtdeohs03JsfkroBf38Aox37R3zQTNIPHWL9kK3R1Eaph4CM5hYlKdqpLaVDiMR9HkVjDueXslcpO+Hvam004F1b79y5DKEAjHE8feBg6scntBhvcV1/bc18Zuoo=
+	t=1791607487; cv=none; b=rhLqYDpF+myvFIq3Ak5PJO+LTWWXP52yRq1HbMGvHGTizHv/GJ6+CytnqvupquJ2UVV85gnBdoUR+vNbaM7LXpJQ6ZWYBkOIShr7Aevy2lSzlmX5m6ZwvApnvTiUKOaZd3rOOIYneWYixmll2yTplkTTRsochUnNOK8tkB0pR4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791606906; c=relaxed/simple;
-	bh=80rjkX/a1IzJ7fnM47AVZQsjw6x54D+aSaJzkJW9vig=;
-	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
-	 References:In-Reply-To; b=mdcQe8Amh82rfC/LTFiohGuqyd9oaV1BgZCnSgeNkh/zK7Ciqddwn47M5N6ojB3PWzXA+76FzXDk0Ujjx2efoVLw78HxBDZZkFCP42NdTuQeYsOERvbwdIhEOyZzxcs7JUfyLg2VjBaWVjhU6pX5WqN17kGbC4ynrkkRArJP//M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=KKzBh8iB; arc=none smtp.client-ip=54.92.39.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1791607487; c=relaxed/simple;
+	bh=NJ8Q7R+kkyINmmcbmlNU2P6jcWurAscUCSHGvHNdJNY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=S/jkg/DU1bpGk2zSQrZ4xtD23PFnE/4rtEfWuQUI77D4+whMfldv+mm5IrFVIKOICzckaM0Rj+vRGE+fdnCLacFuzHhCg/ED20sgbNYu+lMqmab18n2gJXHHCa14PSTRHKctDX4DQZCs56CF7rE7U/tyzJhEyl5d6xXpfBBRuKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=IUUW6suD; arc=none smtp.client-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="KKzBh8iB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1791606866;
-	bh=80rjkX/a1IzJ7fnM47AVZQsjw6x54D+aSaJzkJW9vig=;
-	h=From:To:Subject:Mime-Version:Date:Message-ID;
-	b=KKzBh8iBMf+JdzEG/XyK6iCJOEIc7gadGiF16LdhC8IUkLgpAza6VRka2GmvdUl14
-	 2MXlwQqFJVGZri/0F+/d9QYUYbKZ1+dzdvYjcfUZ7XVl6hyQdvqPbSsG9tl49uPLhB
-	 TO99xUpJBecHh8CnTJ+MFAij2rN8WYUeF119QW2s=
-EX-QQ-RecipientCnt: 7
-X-QQ-GoodBg: 1
-X-QQ-SSF: 00400000000000F0
-X-QQ-FEAT: D4aqtcRDiqQnft7kyUuJbd/1GndRJklzmB5VJlBX//o=
-X-QQ-BUSINESS-ORIGIN: 2
-X-QQ-Originating-IP: HeilzH7BoGic1gszdDYTeuISgSGfIaB1/TNSPZD9Zwc=
-X-QQ-STYLE: 
-X-QQ-mid: lv3gz7b-6t1791606850teb1258f8
-From: "=?utf-8?B?V2VudGFvIEd1YW4=?=" <guanwentao@uniontech.com>
-To: "=?utf-8?B?5YWz5paH5rab?=" <guanwentao@uniontech.com>, "=?utf-8?B?U2FzaGEgTGV2aW4=?=" <sashal@kernel.org>, "=?utf-8?B?a2FydGlrZXk0MDY=?=" <kartikey406@gmail.com>
-Cc: "=?utf-8?B?am9oYW5uZXM=?=" <johannes@sipsolutions.net>, "=?utf-8?B?bGludXgtd2lyZWxlc3NAdmdlci5rZXJuZWwub3Jn?=" <linux-wireless@vger.kernel.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
-Subject: Re:[PATCH 6.6.y] wifi: cfg80211: release locks on error in cfg80211_wext_siwgenie()
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="IUUW6suD"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-5356b6a7fe5so4619041cf.1
+        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 21:44:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1791607483; x=1792212283; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hiI5l1WO37R1trlnFJLtpLJkrk+sQLsTydeW4SAQCdE=;
+        b=IUUW6suDysPlluXSFSSxoHoxtdLdEv48BVakQp9F7JJYxagW9afj8j4kYtV5/1V0uS
+         xI4xxVNT5vSuZjgqu5AFINEvfA9UpF6P1EgLYB7io6GlVhihEfHUqsNApwU+0cf8nuHR
+         WhI3uxKjefQ+qpE6WdthpkpoDGDEMKzIQ9/YqmPlJaZJS8yPi0h9pMzgExV0TSBajMp4
+         YGO1ZLm9BtIpW4j+cN73O690UM77CktUvn6yPiDY3XCCsB4mSzCxZuVcBWiDiCE2xOgC
+         KUxABVefnYrwfaNl+DZIvKbeD/+W4f35mRViqujeOkX2YXgxIJB+OGPH0tgNtuAzsbRX
+         72eQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791607483; x=1792212283;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hiI5l1WO37R1trlnFJLtpLJkrk+sQLsTydeW4SAQCdE=;
+        b=KRNQ/rLkfrLsb8rqpHJuWtU2sdze5UxABzILTda3Bsh+FzQh+2oqDVC2oCnYNK1UWW
+         bGglP9wchrbdEco6fbqBNOtgcQkOVCBbv5tZ7Qbf8S25mZIXYVANmvlZLNOJyOIEHIHF
+         iLTjWX0XRnW6o1El8cYsL86f8KMBFUOAqXABQcuS/3RRGP3q0xfnZtZMUz6Ilm2RVmMn
+         9/HQds+oqzyThNQTF5h1SjNdH/r09SzvpZayrMtToa2/eYhH/b+jmR9pGNz79tZvJ7Hx
+         AZTFfNC8Q9uWTUD69/Bwb1g/1SQwxMCl2/sH82l19Jxofy2oRHAf8Mq+kN3vID6byQtv
+         lz2A==
+X-Forwarded-Encrypted: i=1; AKwUvBzImpryFyejx5sCNbFF83RY9d0x4fG7pB0batZRsF++OYoxA4o+IAazpJskzZciM2KldPhwjWo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLdZ2foK6gWyvezTQfol9u/+TnuVU/2GEx9cuTJrEYQ3/xgk+Jq
+	kWrrJH/KyntNURB75pAizRBWnY5wz/gQaIosi0gR/bLkdpClla6muVVpFgnjpFvA/g==
+X-Gm-Gg: AYBFou0rbEWAJbEOVyIUXDeoJzkg3rBD8fuJNlzpySB7VV2hZesu4wWjNa4f9vdlkrN
+	4piZ2hN/xyO2GpxN9LJWHXhQpC7h8QV3xRiOVKZTCVKK/S/CMQI2ZXhmkq5DyyM7f6VRgQ72P19
+	JEPIiM9MVvw4TNdBr0XtgF8FC//da2O2L63bZZJkdG0FeEIUxmxv7P+B3ApnNqC0KINiDaUmWe2
+	nuscjOCOT2uCzRpUUXsb/m8wOq0AkAwIwLeG8dl5nkRM9EX1P1mixYWlwTNJ2rqKo1pQ18ThHSc
+	Ot/9WAZxzWozkdaudpr7tXMDQWZJHzvXj6g16cY9CgwV6ZHwUX+lfJUo1eA2BvNIRABtzY2tfEy
+	Ixs+ulXR/ZM+54/s59yVKdz+QTPjiJuqTzV/tONdlkrVLr4HBNM17JjgaCNFBZHiwYiQWKs+L4K
+	SlldykrCot7Q83mgo60l16YChlQBxvjW2U4QbUqSN/XhsiQ1q8vVBGAH374cLYVCZDh0V8JfIgk
+	nygRC93QZn52eJk+JJcng==
+X-Received: by 2002:a05:622a:1453:b0:535:a5f8:a5bf with SMTP id d75a77b69052e-535a5f8b4f3mr56134281cf.63.1791607483187;
+        Fri, 09 Oct 2026 21:44:43 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b550de014sm35943476d6.44.2026.10.09.21.44.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 21:44:42 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: Namjae Jeon <linkinjeon@kernel.org>,
+	Sungjong Seo <sj1557.seo@samsung.com>
+Cc: Yuezhang Mo <yuezhang.mo@sony.com>,
+	exfat@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] exfat: fix a large buffered write failing when the volume is nearly full
+Date: Sat, 10 Oct 2026 00:44:20 -0400
+Message-ID: <20261010044420.4045884-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Sat, 10 Oct 2026 12:34:10 +0800
-X-Priority: 3
-Message-ID: <tencent_54DE3A7910D4598F5676AE58@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20261010043002.2919860-1-guanwentao@uniontech.com>
-In-Reply-To: <20261010043002.2919860-1-guanwentao@uniontech.com>
-X-QQ-ReplyHash: 2432166471
-X-BIZMAIL-ID: 12405904260231876868
-X-Address-Ticket:version=;type=;ticket_id=;id_list=;display_name=;session_id=;
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1])
-	by smtp.qq.com (ESMTP) with SMTP
-	id ; Sat, 10 Oct 2026 12:34:11 +0800 (CST)
-Feedback-ID: lv:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: MpJmQ90V4eWUtzDiqQCTDN8l9mUVqmtQnxaiTtPId3jvUkv0wi7KVp9n
-	YPJBXlH5Yd15F6IcqychEcNgEyL7rIM3K0gCByxz3MapaljWJ/fR04DFg0ghxfhwOMUd696
-	riMuUujvxivN2vdosrujDeCWOnv9gLLgewZD3m1xGU6WXo6FLK249ITkh0CEf9ln4mh0xYd
-	l9QkMwwfrxz2uog/XGvsHzS6u634roz3SQ0mmR9p/JgXc4VVWTLhj9RAONXymAlAgHoipk4
-	JDnTQJGxJ0IDde7y4FlzDQDCGdm4DzH/54QSqOKVwrxqgRqfPFr1e8ToGa64rE4Q2iPN3vB
-	QYf9EULi5IaClLe6bZmfbotKTBBInEjG5VnQEok6sm17/7VaY5FNC0j7zJ8GqMfjG9+n3IU
-	+tOSX5jBY2oB8E9qncZHCVBTYnca/zTJSKKBx+QpAZz9CpXBZnqjnm45VUrsaU4TZH9Y45M
-	0nGBGRFTIPhsZ7xZORWxlrU5D1gWwrCRcUqREWPasNTCsAE+DnEuVObiCd42Z5nZEV39n0g
-	9nOksOcV1Ml3GO+fmHOJggUsD8V5uqtHzcsiDJ+AK9nbdUhx0AXKG8lNoxdqzqhIfQy2uYw
-	QTgBjD3I2PEHjv3fBY8+4CIYY7N1WcL4lv6igz5HFaN2/ueck3hGhMgiGrtIU2tsxjQ3+/e
-	bgOjrjDo68ISzQ95cEVW9m1jQNAn75MabtXe65IpRrQilS70y8q+GsHlAM7fpa7ZTkeToKV
-	75eY+57l6hZatZ3iKW8Fe7tdri9833AXD1133O8WF6I8UZQNEAdxGeJhwj4m63v3A/enWEd
-	LXl67zvNub2b45yZifblLGlULOoJ3kgRsORsCIBTvc86WEarB1FrB4W/E7U/BwtowMmIUtF
-	Hs2PJlHCpQQvOgOT1iWw86kJ0Dq9xx0Dlhp1x7kanMbRdnsPG2k6tMBv5FMk/cU0e7rxwMN
-	Zq3Y9Fygw+fcMSXJAZNioaIRJgUafjFafFUtr7nnrI2gpr/fIAp3roBPdXOdQo3AIKeLU5l
-	oPCqK8Y+R2t4VSQx4jCR1iGMsml9HpuPtkZ1kX0DE/r//+INQwDHmf9xqrjDD3N47SZsG0/
-	w==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-U29ycnksIGl0IGlzIGZvciB2Ni42LjE1OC4gY2MgdGhlIHN0YWJsZSBsaXN0Lg0KDQpCUnMN
-CldlbnRhbyBHdWFuDQoNCj4gLS0tDQo+IG5ldC93aXJlbGVzcy93ZXh0LXNtZS5jIHwgNiAr
-KysrLS0NCj4gMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMo
-LSkNCj4gDQo+IGRpZmYgLS1naXQgYS9uZXQvd2lyZWxlc3Mvd2V4dC1zbWUuYyBiL25ldC93
-aXJlbGVzcy93ZXh0LXNtZS5jDQo+IGluZGV4IGNmYTkwM2ViMGU4MmYuLjBlN2MzMTRiZGVl
-ZjAgMTAwNjQ0DQo+IC0tLSBhL25ldC93aXJlbGVzcy93ZXh0LXNtZS5jDQo+ICsrKyBiL25l
-dC93aXJlbGVzcy93ZXh0LXNtZS5jDQo+IEBAIC0zNTQsOCArMzU0LDEwIEBAIGludCBjZmc4
-MDIxMV93ZXh0X3Npd2dlbmllKHN0cnVjdCBuZXRfZGV2aWNlICpkZXYsDQo+ICAgICAgICAg
-ICAgICAgICAgICAgICAgIC8qIG5vdGhpbmcgKi8NCj4gICAgICAgICAgICAgICAgIH0NCj4g
-IA0KPiAtICAgICAgICAgICAgICAgaWYgKCFmb3JfZWFjaF9lbGVtZW50X2NvbXBsZXRlZChl
-bGVtLCBleHRyYSwgaWVfbGVuKSkNCj4gLSAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJu
-IC1FSU5WQUw7DQo+ICsgICAgICAgICAgICAgICBpZiAoIWZvcl9lYWNoX2VsZW1lbnRfY29t
-cGxldGVkKGVsZW0sIGV4dHJhLCBpZV9sZW4pKSB7DQo+ICsgICAgICAgICAgICAgICAgICAg
-ICAgIGVyciA9IC1FSU5WQUw7DQo+ICsgICAgICAgICAgICAgICAgICAgICAgIGdvdG8gb3V0
-Ow0KPiArICAgICAgICAgICAgICAgfQ0KPiANCj4gICAgICAgICAgICAgICAgaWUgPSBrbWVt
-ZHVwKGV4dHJhLCBpZV9sZW4sIEdGUF9LRVJORUwpOw0KPiAgICAgICAgICAgICAgICAgaWYg
-KCFpZSkgew==
+Commit 82a81a7352bc ("exfat: add iomap buffered I/O support") made a
+buffered write map the whole range of the write in one step, so the
+clusters for all of it are allocated at once.
+
+However, exfat_alloc_cluster() returns -ENOSPC when fewer clusters are
+free than it is asked for. As of now, a write() that is larger than the
+free space writes nothing and fails with ENOSPC, while it used to write
+as much as fits and return a short count.
+
+The issue can be reproduced with a 16M image made by mkfs.exfat that is
+filled except for 256K:
+
+    mount -o loop /img /mnt
+    dd if=/dev/zero of=/mnt/hole bs=256k count=1
+    dd if=/dev/zero of=/mnt/fill bs=4k
+    rm /mnt/hole
+    dd if=/dev/zero of=/mnt/f bs=1M count=1
+    wc -c < /mnt/f
+
+Before commit 82a81a7352bc ("exfat: add iomap buffered I/O support"),
+the result is:
+
+    262144
+
+After that commit, the result is:
+
+    0
+
+This patch will map a single cluster when the clusters for the whole
+range cannot be allocated, so that the write goes on until the volume is
+full. Direct I/O is not changed, it still fails without writing as it
+did before that commit.
+
+Fixes: 82a81a7352bc ("exfat: add iomap buffered I/O support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+---
+Direct I/O is left alone on purpose. exfat_alloc_cluster() could
+instead take what is left when it is called with contig set, but direct
+I/O uses the same path. As far as I can see, a large direct write would
+then allocate and write those clusters and still fail with ENOSPC at
+the next mapping, and the clusters would stay beyond i_size. Before
+82a81a7352bc such a direct write also failed without writing.
+
+Tested on v7.3-rc6 in QEMU with 512-byte, 4K and 32K clusters.
+fsck.exfat is clean after several writers filled the volume. The patch
+also applies to linux-next 20261009.
+
+ fs/exfat/iomap.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/fs/exfat/iomap.c b/fs/exfat/iomap.c
+index 8911aa84a730..22facb240b85 100644
+--- a/fs/exfat/iomap.c
++++ b/fs/exfat/iomap.c
+@@ -74,6 +74,17 @@ static int __exfat_iomap_begin(struct inode *inode, loff_t offset, loff_t length
+ 
+ 	err = exfat_map_cluster(inode, exfat_bytes_to_cluster(sbi, offset),
+ 			&cluster, &num_clusters, may_alloc, &balloc);
++	if (err == -ENOSPC && !(flags & IOMAP_DIRECT)) {
++		/*
++		 * There are not enough free clusters for the whole range. A
++		 * buffered write can be short, so map what still fits.
++		 */
++		num_clusters = 1;
++		err = exfat_map_cluster(inode,
++					exfat_bytes_to_cluster(sbi, offset),
++					&cluster, &num_clusters, may_alloc,
++					&balloc);
++	}
+ 	if (err)
+ 		goto out;
+ 
+-- 
+2.53.0
 
