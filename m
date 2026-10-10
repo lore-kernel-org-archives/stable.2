@@ -1,196 +1,111 @@
-Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
+Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com [209.85.160.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E098A39A4B3
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 03:02:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317D73BB672
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 03:06:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791601364; cv=none; b=k2AaGzcNpJBcWRp/RkIwGZclNBMQMOlRzuQzGCA+gFgUKK+bd+BgU2j8BIchjZzgpno2hIUYPs1omI5QOd1fuYbl4RRRmpsMGwAKdhQ7ueKlL1107yVLGq9wyJR5yPwh2m1Fy1diWmdXkoPOOnln6tnd7+YzWBaPubu1hnB+uC0=
+	t=1791601567; cv=none; b=lrWF4EQ+XGbBIFR1rKJRhVm4rBsX7Bc3UqHq4z+xSbkQJVMhigt4qmAmwRMObxechgVbYLtvaPVvWf1DpbzSidFfWy9PaV3zd+lTNoBXHlqwb0i9wrhFA0W24kzwF+GSfOZMfUJCse9tcdJ9MfcKhl9Mpiy9/H/2h3USFUSzR3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791601364; c=relaxed/simple;
-	bh=Q7jW3EZgSwOtIAquZK+b6aU5SZAJC0EAk10qrVLJUXY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jNzYGvJuPR6Z8D1INULaK1uUDrcQwiFPTpqCCERo8lw+UiAY+FUrCw20muizwVlHAWoTeiidJZfD6Aa7gez1HEjTlAjy1ZNxtV5oxZmqekm6nkMBnEHBaHu+6lbJqjTAJG8NCZsF0dzVoBuTWG1Zn9zf6ILGFktufJRWMTRCqWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GscS1J0v; arc=none smtp.client-ip=74.125.231.139
+	s=arc-20240116; t=1791601567; c=relaxed/simple;
+	bh=SQm2L1WnAvOzt9czOf54PXiFLVwKkZpDA3uUyWtGD70=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FSldkfGQvcXY7H008CJPyHNqk24k836Z50t62II21BgHkrE+zjeERFzmg/VyGkx48SsSb1LYKvCNEH5//a4jaSE7dULzgBh4K19SPp3qxMntwbM3QeYi04J7ErNGRTNboAdBGKZXn6nh5fUbfiLn8lWK69OFiUQsnQtR0iInmPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z0eWvc5M; arc=none smtp.client-ip=209.85.160.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GscS1J0v"
-Received: by mail-oo2-f11.google.com with SMTP id 46e09a7af769-826f42e479dso247202a34.1
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 20:02:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z0eWvc5M"
+Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-4877837890fso237941fac.2
+        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 20:06:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791601361; x=1792206161; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CYILw19ZFp1ITRTCjnSJ7SyTvlCLRVtxvPc/6sA5wsc=;
-        b=GscS1J0vKF2xYqSa/Zei6578hb7CB8npM99Byeu1nuWt0J8HYGFB/iXwmCFEXjXAk6
-         abk6L4ZhsbIo0m+L/0QvWEe23qlqL7f4c240Dt32oVwvOmCKxP/yaPbVCnIuKxBiPdpD
-         lq1lbE+jiqr5ej9OUka/eHeqROFjvDmXLrzA1jDCJZ3bVCyYUIlV0LBcEobr1YIblN8A
-         QzHWXERhO/WmxxDpZ/xsY7T++yrurZvZNS3F+2tujlzI08yAeSZPXKGqpIo3GLy0FTrc
-         hRbmqb32a1VqcKWXxafOkzuxl/1D6u8v59IcUScVr4xwO63Z9d2/AUXSXQ26rfXJme9B
-         81jA==
+        d=gmail.com; s=20251104; t=1791601565; x=1792206365; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NUIEYGnE8BKwPbIYe8Tft2q9XP8PDGs7PYIrSC6//ig=;
+        b=Z0eWvc5MzULkJiu7IRQIU/mzKL8sBS2sGrTf//tWJndgChQ0T72jdw36CdnS9Dj5cZ
+         8pNDgrCDqXjTHqiLhk9uqe8hG46vgrNXu7k5zSlN7fSSFFUV9PFos9zQE/H7Y5Dd3LrR
+         lUdEBuNet5v3P0/NS926bCn430i99IsP+yy7vg4NQzN0bh5juVVbQyEu1RwlE7FKRvbY
+         LQUmn2asMlg7NamK/Q95FKcgIE5owtlUdLtJ2Av+Ns6kBemzzcOMoAtppXrKxRvudLp9
+         sGHZ3yDQXNcfF37bs46eByLxqyrtiITAnGwAxtyBBomJknTsFwCnGZcDKXyvU6YxtWcX
+         b+Xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791601361; x=1792206161;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CYILw19ZFp1ITRTCjnSJ7SyTvlCLRVtxvPc/6sA5wsc=;
-        b=BFukJP7WcDICQIOW5ncuPSVh77U5XTWbM6Qr5pIgOKBMICeA924YHjzST9u7d00v87
-         KOzZyDAga+TPIpIsNp9NWGMAzNqO0MZ1oKtlnOHcWMKmYwrY+eUHnvTeREVqdhmQYNt/
-         fApJ9uAA1BI4kxs0nZ/EWHnZgY2KLaQXU45RRMi9e1YkVY39w8vWdGF924Rwl1NENYt6
-         1KchS4P66RLPL/qiIKyTmmW+3hwmYVzYKwWwyhmCfOe3EUX8GBokC4CVdyOOsIxRdqi+
-         +ziZeAwWBRmw1zxaH/TJAWjUir7drOaWYN6heGDOiOLA2gJa0BueIl7ylW76GYSCTLpX
-         G3hw==
-X-Forwarded-Encrypted: i=1; AKwUvBwu5zDvBV+VoyZ5gdJkK9witDsbJXGcyp9q93i7+2v50tDvuy4sxfZkRSf0TLXDeIKNhEPyZF0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLxIhIvEFjvYVFgBhoIhhcpKuS+KDP79zxdnadgKH2R8XPjHUTF
-	Dg6+84TrtFM80qS8VYp+x+CZG0HrR6X6kmnk+w359Uvc2sgeYh5Pb7QH
-X-Gm-Gg: AYBFou1dRyWMDpFNAo8s+ofMfjAS2+I9N3yaNgKLTXsj0LsaGhk0wmg7p+AhzaZkgx7
-	tMWqyiKzhIvIK0Md9f9hNBHw05uqg4omuHCyyQYd0zioRqu3Ce/peMo9KYoQt3Pa6dr9OBrilKt
-	Ds7ygHTX4sz9mthWauJjs319vWFStW/f6yiZGuFzVMySMU0QfBZoNP2SfnaROc1nuSsA6R/OoBv
-	l9AVnoGWwxddAYVCR1ILXimbbSPP4CrmwbDgbOprOcX+3kMNiG8n1SZSnwUd/3Ul4lHerlm+2Fm
-	RJdww2vM6xp0HiwIODbzakzSLNhFlT35+QDcj7I5WK4ucXNhjgD1+Jl/OxNsKbMA1im59D0V6gQ
-	Axapf6DEHNv+X7mPNTVFga9JYhx34BBpVw7/BEBBwEg3SJlEMyVYRI+ouw5umjhiwhS5Gkg7slI
-	A/sg9urtYAzR+q5X0v+c4k4ZXdSKWdQWgIqsVYZRdVa45hmteF6LmXCRZ7bGywJHaIt5rjXfu8B
-	tsjObhmgo+YY0Zg1/4G53HhWKK60p3LWZmpQcI=
-X-Received: by 2002:a05:6820:f011:b0:6d9:7de7:e48c with SMTP id 006d021491bc7-6ef0f1b6214mr2982823eaf.51.1791601361586;
-        Fri, 09 Oct 2026 20:02:41 -0700 (PDT)
-Received: from localhost.localdomain ([180.101.244.69])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-83039076d72sm3562310a34.12.2026.10.09.20.02.35
+        d=1e100.net; s=20260707; t=1791601565; x=1792206365;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NUIEYGnE8BKwPbIYe8Tft2q9XP8PDGs7PYIrSC6//ig=;
+        b=i7pFEzMnxG9Rrsu2F2CbEVI+/QfEelm7P6ZJIVjwse6cJMD3yfnEC1EGvErjpJEQRb
+         1d4aPDySptD+myVovOaONMh+OnjKSaiZV1GzDfaGngQPxKb9l1w+pg/Xq+CvSHkDz5yi
+         2vQZz5X14gjsqQ3+H9ZQ7szzAAjUmHDXn/SmjMQrImgpk/nNBgoxAO7+4J6iDlqgioGN
+         Yqy7braszi9rJvycmIUWiBJponktnJYeGOq7a0FCE+OrOUfRMsTTqenASZ/6/Ke//31p
+         hvdWvC1wEhqd7UMzAmpsMzul5nAjWr3Br1U294G5+GOQiPeHC+ul6qXgBGcTLiiyUmLo
+         nDUA==
+X-Forwarded-Encrypted: i=1; AKwUvByPgf05GZrvMr4EW4huUsk2umET6LtxMIjbMBCZ5V0EeZb/VYj/oWJd1J6B37fI7lo9nuzuMO0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLwolRFzqxM3vZg+hwLfqDyiu6rndWN5SPBpGdpYSW/nd0kWvcJ
+	2a9KV4Tzo7hw81aFuvbvZaSGC+sMvTmVZQz/JFanya7cw+LcLpM9INyJ
+X-Gm-Gg: AYBFou0ryRPy6lKG4eRhb7fMdg3KzoIGg9cqg3GMb+NV4TlQ2pA+/K1hoseEez5VJaf
+	iBzZUCZpB3zRydHncL9RV8tQckldGH9aTALiArdI2xXwz7QdlTcY8VX4pX83Eep9hGlI02Ycf+M
+	rhA/MCJ3MZAfaiNmiA+hWg7+TfBwh2sHlSl+0vRkUuPUFGciURtjdqbA12N7wqeALBa5IpXQyAC
+	L6SWWI8SIADTvQ0l9HDZUvfHshKKJXpxzyXR2FQwWLUwNwvO9y9dCoh3SfIsDVzIjXgY58ra3ll
+	N042NI7RY5Upns6wPN6/38NsW7jUZYNr773RckCNDkkYzAUHB3293ssiXXZt+58Ne43BsszP+To
+	fiCJYMqP8zy1rHlRPSXG3SV25V0lUXuYWPz9uaBgClN4lIhBlTYWu/N55ZLFAsoSFROnEdyr1eh
+	Bs87lchLTm4GY+ia/PsUjL79hQP+voMt0a7qpl9nHQvWRTy/5UscOHhK9R71bhM0A0HH+gK7eY3
+	CE3UrOZBSrahSaezu357xptnkQzLf+7LDUp8jOn+2G5psnMQw4QtZWrSm2lLLkBm4cAl2i2IkhT
+	HtZJ
+X-Received: by 2002:a05:6870:e08f:b0:491:47e1:6280 with SMTP id 586e51a60fabf-4a2a8938915mr3416608fac.15.1791601564761;
+        Fri, 09 Oct 2026 20:06:04 -0700 (PDT)
+Received: from fedora-laptop ([172.245.82.59])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a2a85edf81sm3689450fac.15.2026.10.09.20.06.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 20:02:40 -0700 (PDT)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: Felix Kuehling <Felix.Kuehling@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Harry Wentland <harry.wentland@amd.com>,
-	Alex Hung <alex.hung@amd.com>
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
+        Fri, 09 Oct 2026 20:06:04 -0700 (PDT)
+Date: Fri, 9 Oct 2026 22:05:59 -0500
+From: Ming Lei <tom.leiming@gmail.com>
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Wen Xiong <wenxiong@linux.ibm.com>,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2] amdkfd: fix doorbell allocation race creating duplicate allocations
-Date: Sat, 10 Oct 2026 11:02:30 +0800
-Message-ID: <20261010030230.1764682-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <9e519955-e63b-469d-8acf-268b9802e0b6@amd.com>
-References: <9e519955-e63b-469d-8acf-268b9802e0b6@amd.com>
+Subject: Re: [PATCH] blk-mq: run the hw queue synchronously for unplugged
+ scheduler inserts
+Message-ID: <asmrlzbmQ0TU3rO6@fedora-laptop>
+References: <20260930-bug-blk-mq-noplug-sched-dispatch-v1-1-ff1e49e52b00@gmail.com>
+ <20261010023548.3666200-1-odys.yuan@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261010023548.3666200-1-odys.yuan@gmail.com>
 
-The check-and-allocate sequence on pdd->qpd.proc_doorbells is
-lockless at every call site of kfd_alloc_process_doorbells():
-kfd_get_process_doorbells() (mmap of /dev/kfd),
-kfd_ioctl_create_queue() and the CRIU restore path each test the
-pointer under different locking (or none), so two racing threads can
-both observe NULL and each allocate a doorbell BO and bitmap,
-orphaning one allocation and handing the two mappings different
-backing pages.
+On Sat, Oct 10, 2026 at 10:35:47AM +0800, Qiliang Yuan wrote:
+> Hi Jens, Ming,
+> 
+> Gentle ping on this one. It fixes a v7.2 regression from 9cbbac29d752
+> ("block: Remove redundant plug in __submit_bio()"): unplugged I/O to a
 
-Move the serialization into kfd_alloc_process_doorbells() itself,
-using a new per-process-device mutex so all three call sites are
-covered regardless of their own locking.  The device-global
-kfd->doorbell_mutex is not suitable here: it is acquired under
-dqm->lock on the kernel-doorbell path (start_cpsch() -> pm_init() ->
-kq_initialize() -> kfd_get_kernel_doorbell()), so holding it across
-the sleeping allocations above would create a lock-ordering
-inversion with dqm->lock via TTM eviction, and it would also
-serialize doorbell setup of unrelated processes behind a
-device-wide lock for per-process state.
+It is hard to say it is one regression cause 9cbbac29d752 is doing correct
+thing, and single request isn't supposed to dispatch via plug list, and it
+only recovers to previous behavior before 060406c61c7c 
+("block: add plug while submitting IO").
 
-This issue was discovered by Tencent CodeBuddy Security.
+> device with an I/O scheduler is now run from kblockd, and the kworker
+> preempts the submitter once per I/O. A single-queue null_blk device with
+> mq-deadline drops from 289K to 193K IOPS, and a single-queue ublk device
+> from 265K to 113K.
 
-Cc: stable@vger.kernel.org
-Fixes: 2105a15a2046 ("drm/amdgpu: use doorbell mgr for kfd process doorbells")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
----
+For both SQ null & ublk, you can switch to none for better performance.
 
-v2: Use a per-process-device mutex instead of kfd->doorbell_mutex
-    (avoids the dqm->lock ordering inversion and the device-wide
-    serialization) and correct the Fixes tag.  Pointed out by Felix
-    Kuehling.
+> 
+> Every single-queue device that defaults to mq-deadline is affected, so it
+> would be good to get this fixed in 7.3. Any comments are welcome.
 
- drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 15 ++++++++++++++-
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h     |  3 +++
- drivers/gpu/drm/amd/amdkfd/kfd_process.c  |  1 +
- 3 files changed, 18 insertions(+), 1 deletion(-)
+Not sure you can observe big difference for other real SQ device.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-index fdcf7f2d1b5b4..55acadc986bee 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-@@ -257,12 +257,21 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
- 	int r;
- 	struct qcm_process_device *qpd = &pdd->qpd;
- 
-+	mutex_lock(&pdd->doorbell_mutex);
-+
-+	/* Another thread may have won the check-and-allocate race */
-+	if (qpd->proc_doorbells) {
-+		mutex_unlock(&pdd->doorbell_mutex);
-+		return 0;
-+	}
-+
- 	/* Allocate bitmap for dynamic doorbell allocation */
- 	qpd->doorbell_bitmap = bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS,
- 					     GFP_KERNEL);
- 	if (!qpd->doorbell_bitmap) {
- 		DRM_ERROR("Failed to allocate process doorbell bitmap\n");
--		return -ENOMEM;
-+		r = -ENOMEM;
-+		goto unlock;
- 	}
- 
- 	r = init_doorbell_bitmap(&pdd->qpd, kfd);
-@@ -284,11 +293,15 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
- 		DRM_ERROR("Failed to allocate process doorbells\n");
- 		goto err;
- 	}
-+
-+	mutex_unlock(&pdd->doorbell_mutex);
- 	return 0;
- 
- err:
- 	bitmap_free(qpd->doorbell_bitmap);
- 	qpd->doorbell_bitmap = NULL;
-+unlock:
-+	mutex_unlock(&pdd->doorbell_mutex);
- 	return r;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index d8631847f0eb9..96e59133fee02 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -779,6 +779,9 @@ struct kfd_process_device {
- 	/* per-process-per device QCM data structure */
- 	struct qcm_process_device qpd;
- 
-+	/* Serializes process doorbell allocation for this device */
-+	struct mutex doorbell_mutex;
-+
- 	/*Apertures*/
- 	uint64_t lds_base;
- 	uint64_t lds_limit;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 0a7c1900da959..4efe4dae79c13 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1788,6 +1788,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_node *dev,
- 	pdd->dev = dev;
- 	INIT_LIST_HEAD(&pdd->qpd.queues_list);
- 	INIT_LIST_HEAD(&pdd->qpd.priv_queue_list);
-+	mutex_init(&pdd->doorbell_mutex);
- 	pdd->qpd.dqm = dev->dqm;
- 	pdd->qpd.pqm = &p->pqm;
- 	pdd->qpd.evicted = 0;
--- 
-2.43.7
+
+Thanks,
+Ming
