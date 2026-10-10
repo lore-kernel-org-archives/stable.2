@@ -1,135 +1,239 @@
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67BB843785C
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 09:52:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34BBE457E4B;
+	Sat, 10 Oct 2026 10:01:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791625944; cv=none; b=S6YpTZNTecgHuWoS+K7M+M9nkaJ3lKHVIBDae7hj9Rtvwe8NcHJAVHllY9G28Ozlwyp4soyi3apXO+Q6/zjsyqLR60gY82ma4lmbVaeVwyVTTrelOqg8o5y2Zu1dQ8UmqZxaQIOvlU+jOlJjlb5J5sccRZ64rnKHCmPGZeoHKBM=
+	t=1791626475; cv=none; b=T8pjEAnZivMMYrPY0B2qv49kgex3pHE7mj1OMpcEzzFBIY3p1txTtUugViEzoDY7RrWWYcjvw2+pUOCvr3YJrU0EznrZYXg69xoX5REgIav9gpJQ3dzhkz7h2kQvUrNpdkgYngCzx3BFdGI9uUDA+CbLbsbxplIkY0quPh49DXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791625944; c=relaxed/simple;
-	bh=mk5d9tC24rGNkVl4N2wjp+2iHC1JHLrMtiHh8SzfUh0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g+m0Xyj30hBRw0gDZhoU64uX2bKbEeKTaWaMhHBxU4R1TARJiA6E+74d+URQIO4BRPKEflg4GTQKrkadn6rgyDtEjxTlEIZw9e9FmW+oPwQZm2aLtdI8XGsVtVQg29+O/DqSFmfdq5BYtAwUmvQSwTAJDYU95hpQ7zL8ybAtBVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lUxhHV2k; arc=none smtp.client-ip=74.125.82.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791626475; c=relaxed/simple;
+	bh=8MwjnvP0TVjnnHUZlWiNSC+MXUJZHZMzE1oLJB5LN2Q=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=upRAFRXjtitkU31tGGd8F8XvplqIhGcWrmca1qypVwJESrjBbcdTULVhHtDMMqqwJqWUN2/KJStFbk6V92lWT/p/yQt4tZESyFv+tfTF8kExnnJR6Ix7wQPdUHB8TtIFjF/6l1lJZnxAxfoTV9TUjR8jQ0IPSHsT4o2U1FuKenE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TVc33rrE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lUxhHV2k"
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-154e9d2d979so424765c88.1
-        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 02:52:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791625942; x=1792230742; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0pPSekHCdqwAP9xCOYutxpz0IcPAFNRJuReHEkaVZhQ=;
-        b=lUxhHV2k/uAbqKhA2n7PabJT4Tl7fqdHUT0j4a2kIRL5jzIuz6CSfXGFgfkmIRD15t
-         UTc5mcpsn4VQ8Dv7qj5UV+nQN4KO1ZvjnUfrOULyAHnYX3VmiJBjrpVOz5CqUZRLWPHv
-         c3gUsbb392AB8GYlrrLF6jTHOsZouweLlXczdgVGJz+fDL6B5CyIutdsJvXLqohkq8w4
-         fsqMY391qdCD99/dtnL1gK8+BdkVCTjOtcfXPP3K7bA7aLibI88ttHWbhuvJsSedbCM6
-         7kemg4e+H2Zt39dlaO8q6P/xxdQa8lodxYfY8KBXRMZxNvO9YSb69Louj7KG7um07pSw
-         1ARA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791625942; x=1792230742;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0pPSekHCdqwAP9xCOYutxpz0IcPAFNRJuReHEkaVZhQ=;
-        b=lKs0/NPUQg6iM2FYQP5OeY15lUe1yVe949cVYS8L+vqNhk534yAobVsQ8cgOJ1eoRt
-         ntRDEgymt/wTnM5yvRm8/Jz9uo3LSOVzw6HUQzmY92/VLR3PsvXUXv4m7+KZ6QYVXLu2
-         R7am4aL5+68d4Vb+dy1JO+h2cUoSjXVrV92GiXslmNNBSopSFZRJoyBeGXenX28sXTAx
-         NlIVbGGzigEpY6M3GrTzKqOawLY2QfT+3cUfpuTSTL2ef/9vFOtKP7pL0PXFqv88imZ2
-         oZ4YyacZAQreWdSVewEFf0Yh0GLNm0tMIiOH9utF+ThI0ikW1r/mfejojRikUedeYnsf
-         u5pg==
-X-Forwarded-Encrypted: i=1; AKwUvByGI0ZcreOhDRr3HYbNhJQr5EsD8gkb6k7a5EQGL1zF9aDxjaw2bYANK2hqqh9ephwQbbadT7s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRe/QQsSoECrturhELzTwugvmTMGM/EtUxefyXAhEMFzihhQEj
-	z3adtgkQbmxJI0/Lw2cHmDNRdfCpfDAOrvWTIc+X1+/H6UXt/gqPT+0E
-X-Gm-Gg: AYBFou1krR3Gr8PzL5MG6J+9MifxIqJVagxTRxaxHRFTQcoMHeQ7Bya3FpKFx5ZhHBB
-	noD6g9XYzQiHNH5qYxjJGcsHKL3gE9glAfDKQdcOSH621SiHg1PNb/Iqf3G6LTLmM0/2GaXCIZU
-	2g3MxEaMER3ACIDJmtg5PZ/niaZDH8YUrmO6OKbXKRzyIrQEn7339kvskbqZI+IbHLX4SdG3qxc
-	QgjLx8r2YmwtmnsiR6WjanpDWKc5oP9Ve1wdIXxqxsfeNHBV8saJjB1e1Ja6FLm3ghjSI9y5bWK
-	dhBX+fQbMeOTro0Cza+3fPWFBX/vgTxRcw25KF0gYCpyBsFrGLtbJxDgFbFgNxME7g3sVca6BUI
-	jJPl6qIUWOrExaI7tcMUqWLXczIC9NF+9gvHEQa4YHByjSbiAHjckYFfiPnyKFrWF989rKdazpA
-	voaoaYG0muWIYdYdciwBLCzLLBBT8nVyuSQNr61PuNAGMq8y1XO5ANpAPhNLWvIYNq22rzNnizT
-	mJsseVfVV8nWEjp534C/ifZVqljOXEhB1gd9keS+ULnQyPA1SKLRcb/kBwAJxIUGOLI5fHCzQEG
-	9xeh6wub3rCrQu2BQo3TbcdLoMIsK6LQVIFFqIY0WTY=
-X-Received: by 2002:a05:701b:454f:10b0:14e:5e6b:e6e2 with SMTP id a92af1059eb24-16a13a7b96emr5516674c88.18.1791625942124;
-        Sat, 10 Oct 2026 02:52:22 -0700 (PDT)
-Received: from arch.taild3b82f.ts.net ([2401:4900:ad48:72a2:ee93:5e1d:7172:c27b])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a567bd18sm12615815c88.21.2026.10.10.02.52.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 02:52:21 -0700 (PDT)
-From: Krish Gulati <krishgulati7@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Andy Lutomirski <luto@kernel.org>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Krish Gulati <krishgulati7@gmail.com>,
-	syzbot+bc537ca7a0efe33988eb@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] HID: core: serialize report_descriptor_read() against probe and remove
-Date: Sat, 10 Oct 2026 15:21:02 +0530
-Message-ID: <20261010095211.12831-1-krishgulati7@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TVc33rrE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27EA71F000FF;
+	Sat, 10 Oct 2026 10:01:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791626473;
+	bh=Oet3vwiIyCskbJM+gNxrIIuTXViaOe1c9rWFx0S/x5E=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=TVc33rrEm/REdJfESmJL5W94DDahQ5TZ16ho7mc4P1JZDw6/0elR/stuBKgdy0bNc
+	 bjx1/zFPKFaWQHH7uocerWpuqApVU0zDtbrkErMd3uStDCYZDa00Bex3j3ur6RuXTs
+	 V0NvubwCRt5d/cldHjk94OdKPruREVb3XM4tww58QR6AR9UBZy+yH92O9nQu6mGTwz
+	 G574/NLHzsGSJuc9rP7X1e5N5joRNhzGbZuHiCnwEAoxODSK4fg+ZQk67ekKChCVtd
+	 X+pRy1kDfrSf4W2KecJCtCxcwFfHqtTyzoWztKFxBqnY68zisLsfnkRpaiANfIKeeO
+	 roml5MA+xESog==
+Subject: Re: [PATCH] nfc: llcp: fix socket list self-loop and soft lockup on
+ bound connect
+From: netdev-bot+sashiko@kernel.org
+To: bsdhenrymartin@gmail.com
+Cc: david@ixit.cz, sameo@linux.intel.com, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sat, 10 Oct 2026 10:01:12 +0000
+Message-ID: <179162647268.434549.12888490245916744855@kernel.org>
+In-Reply-To: <20261009092338.3146149-1-bsdhenrymartin@gmail.com>
+References: <20261009092338.3146149-1-bsdhenrymartin@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Since commit 54f32fd5dff9 ("HID: Make report_descriptor available for
-all devices"), the "report_descriptor" sysfs attribute is part of the
-device's attribute group, so it exists from device_add() until
-device_del(). It reads hdev->rdesc, but that buffer only lives from
-hid_open_report() until hid_close_report(), that is, for the duration
-of a driver binding. For a driver with a report_fixup() callback,
-rdesc is a private copy that hid_close_report() frees, so a read that
-races with the driver being unbound accesses freed memory. syzbot
-reports this as:
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-  BUG: KASAN: slab-use-after-free in report_descriptor_read+0xb5/0x100
-  Read of size 24 at addr ffff888078d61f00 by task fido_id/7281
-  ...
-  Allocated by task 10:
-   kmemdup_noprof+0x2b/0x70
-   hid_open_report+0x1fa/0xf00
-   lg_probe+0x29c/0x890
-   hid_device_probe+0x46a/0x870
-   ...
+Critical: 0 · High: 1 (1) · Medium: 0 · Low: 1
 
-Because hid_close_report() also clears rdesc and rsize, the same missing
-serialization can make the reader see a NULL rdesc with a non-zero
-rsize.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Hold the device lock in report_descriptor_read(). The driver core
-already holds it across probe and remove, so a read can no longer
-overlap with them.
+- [High] The fix is incomplete.
+- [Low] The commit message says a bound socket "must be closed or unbound
+  before connecting to another service".
 
-Reported-by: syzbot+bc537ca7a0efe33988eb@syzkaller.appspotmail.com
-Tested-by: syzbot+bc537ca7a0efe33988eb@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=bc537ca7a0efe33988eb
-Fixes: 54f32fd5dff9 ("HID: Make report_descriptor available for all devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: Krish Gulati <krishgulati7@gmail.com>
----
- drivers/hid/hid-core.c | 2 ++
- 1 file changed, 2 insertions(+)
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but it is a
+  locking violation that a remote peer can trigger.
 
-diff --git a/drivers/hid/hid-core.c b/drivers/hid/hid-core.c
-index a3ff0514f9cd..824557a02544 100644
---- a/drivers/hid/hid-core.c
-+++ b/drivers/hid/hid-core.c
-@@ -2270,6 +2270,8 @@ report_descriptor_read(struct file *filp, struct kobject *kobj,
- 	struct device *dev = kobj_to_dev(kobj);
- 	struct hid_device *hdev = to_hid_device(dev);
- 
-+	guard(device)(dev);
-+
- 	if (off >= hdev->rsize)
- 		return 0;
- 
+--
+
+nfc: llcp: fix socket list self-loop and soft lockup on bound connect
+
+This commit makes llcp_sock_connect() reject sockets in the LLCP_BOUND
+state with -EISCONN. Without the check, a bound socket's sk_node gets
+linked into both local->sockets and local->connecting_sockets. When the
+CC handler then re-adds the node to local->sockets, it turns into a
+self-loop.
+
+> diff --git a/net/nfc/llcp_sock.c b/net/nfc/llcp_sock.c
+> index 1e5ee4bcde684..b1b5b6d319466 100644
+> --- a/net/nfc/llcp_sock.c
+> +++ b/net/nfc/llcp_sock.c
+> @@ -714,6 +714,15 @@ static int llcp_sock_connect(struct socket *sock, struct sockaddr_unsized *_addr
+>  		ret = -EINPROGRESS;
+>  		goto error;
+>  	}
+> +	/* A bound socket is already linked into local->sockets; letting
+> +	 * it connect() would link the same sk->sk_node into
+> +	 * local->connecting_sockets too, and the CC handler's re-add turns
+> +	 * it into a self-loop.  Reject like CONNECTED/CONNECTING.
+> +	 */
+> +	if (sk->sk_state == LLCP_BOUND) {
+
+[Severity: High]
+Is checking only LLCP_BOUND enough here? The comment above says the real
+problem is that sk->sk_node is already linked into local->sockets. That
+is also true in some other states.
+
+llcp_sock_listen() moves a bound socket to LLCP_LISTEN without unlinking
+it:
+
+net/nfc/llcp_sock.c:llcp_sock_listen() {
+    ...
+	if ((sock->type != SOCK_SEQPACKET && sock->type != SOCK_STREAM) ||
+	    sk->sk_state != LLCP_BOUND) {
+    ...
+	sk->sk_state = LLCP_LISTEN;
+    ...
+}
+
+The sequence socket(AF_NFC, SOCK_STREAM, NFC_SOCKPROTO_LLCP), bind(),
+listen(), connect() still gets past all three state checks in
+llcp_sock_connect(). It then reaches this call while the node is still
+hashed on local->sockets:
+
+	nfc_llcp_sock_link(&local->connecting_sockets, sk);
+
+When CC arrives, nfc_llcp_recv_cc() does:
+
+	nfc_llcp_sock_unlink(&local->connecting_sockets, sk);
+	nfc_llcp_sock_link(&local->sockets, sk);
+
+Wouldn't that create the same self-loop, and the same soft lockup in
+nfc_llcp_sock_get() and the other sk_for_each() walks of local->sockets?
+Only SOCK_RAW requires CAP_NET_RAW, so an unprivileged user seems able to
+reach this once a DEP link is up.
+
+LLCP_CLOSED looks like it has the same problem. Connected sockets go onto
+local->sockets through nfc_llcp_recv_cc(), or through
+nfc_llcp_recv_connect() for accepted children. Later, nfc_llcp_recv_disc()
+and nfc_llcp_recv_dm() (for reasons other than NOBOUND/REJ) set the state
+to closed without unlinking:
+
+net/nfc/llcp_core.c:nfc_llcp_recv_disc() {
+    ...
+	if (sk->sk_state == LLCP_CONNECTED) {
+		nfc_put_device(local->dev);
+		sk->sk_state = LLCP_CLOSED;
+		sk->sk_state_change(sk);
+	}
+    ...
+}
+
+The remote peer decides when this happens. A later connect() on the same
+fd would pass the new check and link the node a second time.
+
+llcp_sock_bind() has the same gap. It only checks sk->sk_state !=
+LLCP_CLOSED before it calls nfc_llcp_sock_link(&local->sockets, sk), and
+the node may still be hashed at that point.
+
+On both of these paths, connect() also overwrites llcp_sock->local,
+llcp_sock->ssap, llcp_sock->reserved_ssap and llcp_sock->service_name.
+Does that leak the earlier nfc_llcp_local reference, the earlier SAP
+reservation and the earlier service_name buffer?
+
+If connect() then fails, the sock_unlink label removes the node only from
+local->connecting_sockets. Wouldn't local->sockets still point at it?
+
+Would it be more robust to check list membership instead of adding one
+more state? For example, connect() could fail unless sk->sk_state ==
+LLCP_CLOSED && !sk_hashed(sk) && !llcp_sock->local. Another option is to
+have the transitions to LLCP_CLOSED unlink the socket.
+
+> +		ret = -EISCONN;
+
+[Severity: Low]
+The commit message says:
+
+  (a bound socket must be closed or unbound before connecting to
+  another service)
+
+Is there a way to unbind an LLCP socket? llcp_sock_bind() requires
+LLCP_CLOSED. llcp_sock_connect() requires sa_family == AF_NFC, so there
+is no AF_UNSPEC disconnect. No user operation moves a socket from
+LLCP_BOUND back to LLCP_CLOSED, so closing it seems to be the only
+option.
+
+Also, -EISCONN means "Transport endpoint is already connected", but this
+socket is only bound. Elsewhere in this file, wrong-state checks such as
+those in llcp_sock_bind() and llcp_sock_listen() return -EBADFD.
+
+Could a non-blocking connect loop that treats EISCONN as success mistake
+a bound-only socket for a connected one? Would -EBADFD be more
+consistent here?
+
+> +		goto error;
+> +	}
+>  
+>  	dev = nfc_get_device(addr->dev_idx);
+>  	if (dev == NULL) {
+
+[Severity: High]
+This is a pre-existing issue and was not introduced by this patch. The
+sock_unlink error path further down in llcp_sock_connect() seems to
+assume sk is still on local->connecting_sockets:
+
+sock_unlink:
+	nfc_llcp_sock_unlink(&local->connecting_sockets, sk);
+
+sock_wait_state() drops the socket lock while it sleeps:
+
+		release_sock(sk);
+		timeo = schedule_timeout(timeo);
+		lock_sock(sk);
+		set_current_state(TASK_INTERRUPTIBLE);
+
+		err = sock_error(sk);
+
+That gives the rx work a window to move sk between lists. Suppose a peer
+sends an AGF frame containing a CC followed by a DM whose reason is not
+NOBOUND or REJ. nfc_llcp_recv_agf() handles the two PDUs back to back:
+
+nfc_llcp_recv_cc()
+    nfc_llcp_sock_unlink(&local->connecting_sockets, sk);
+    nfc_llcp_sock_link(&local->sockets, sk);
+    sk->sk_state = LLCP_CONNECTED;
+
+nfc_llcp_recv_dm()
+    llcp_sock = nfc_llcp_sock_get(local, dsap, ssap);
+    ...
+    sk->sk_err = ENXIO;
+    sk->sk_state = LLCP_CLOSED;
+
+When the waiter gets the lock back, sock_error() returns -ENXIO and it
+jumps to sock_unlink. sock_unlink then calls sk_del_node_init() on a node
+that is now on local->sockets, while holding only connecting_sockets.lock.
+A DISC combined with a pending signal reaches the same label.
+
+Can this race with code that changes local->sockets under
+local->sockets.lock? Examples are bind() or release() on other sockets,
+nfc_llcp_accept_dequeue(), and nfc_llcp_recv_connect() handling a later
+CONNECT PDU in the same AGF.
+
+If so, a socket could be dropped from the list, or a socket that is about
+to be freed could stay linked, which would be a use-after-free.
+
 -- 
-2.56.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009092338.3146149-1-bsdhenrymartin%40gmail.com
