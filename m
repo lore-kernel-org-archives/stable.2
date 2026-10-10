@@ -1,91 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 692B1393DDC
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 21:49:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB208136672;
+	Sat, 10 Oct 2026 21:58:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791668982; cv=none; b=jaRPgIaCAApLsEB3rruaaYb1p8OnQMU+JXlpwsSACWDTxR1ujOkVQtLV2B0Amv5p7w6YapMv8AMjDJQ3gQ1oRhu51oPfGpnCme+V0FBi8V2qur4hTeukZktqF1tcCkwXcU6RMH6Axp8XQGEAwT3empfUh20p0FhwbeMXB5aucI4=
+	t=1791669533; cv=none; b=BvgubCeUW4ESBpp+Eg4rRgn8pv36ESDa8ZHwvc5/qyacrAedWHkVsTNrY4Ajfm+v3RSgGyqM90Cvd5vcysCslO8gnaHE4FTU4jCY3aP2dPlF6r2QtDD2v92fNLwgjKgQyX5Fp5BVy39N6JXa8mP/j282Z3HDngig4B6GT5QNu8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791668982; c=relaxed/simple;
-	bh=mYPCzofDCpgtxceQtfXryk9Cux3NxRM+a2WQZrwpm2E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jCq++lra+I/rPCEq2/BBWfu2lABdc/TzNYOGd5ZbRMPQO9IloCP0ywLaTRlbiGdCIErgPrkFioc3d7cG+ExnE4aqowpfFN05Zucr+v61nBE2oKJwG8znRN5cev5d/cknxXefffexTaJ23+EB/YAZLeaVGFq7voYJrL790gWeuZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=oDSTd+aV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791669533; c=relaxed/simple;
+	bh=kF1vIg6wuT7JfeciO4XWmCq8rpqhNnRk133JJ7iDXSA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=lgN8IVpfOTHXyyias/aQCZzZvXb20wQyev/ulQU5bH9F+Y6GfhzCSlq+giqWP4+jYJVtlI48vRUfw7Hn7TyjR+B2ORmPxcoN6PzaqdF6qLhviKrXWikBHci98G1B7vcN/97mHC6J6Ad76GB4kA45/lOpi++v78LBn//HayVHOwo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=C45nL0Bd; arc=none smtp.client-ip=54.254.200.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="oDSTd+aV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE7AE1F00893
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 21:49:40 +0000 (UTC)
-Authentication-Results: smtp.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=oDSTd+aV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
-	t=1791668976;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mYPCzofDCpgtxceQtfXryk9Cux3NxRM+a2WQZrwpm2E=;
-	b=oDSTd+aViTpLUb/P1zEp11qJ5KKmpcX7E3Ck712HOJCL9vw7+RIqUPMVtj9/DFRRNKcSPl
-	ZiZXzl9jrndsHBijZSLf6RVjVJ1UgLVA4CzM0orumxoR6EmTxdCNc1QYbBxQ5tGliPreEj
-	LOdR2guDr2IRNWMPkcDU9fgvcdkHK68=
-Received: 
-	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id 07580033 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO)
-	for <stable@vger.kernel.org>;
-	Sat, 10 Oct 2026 21:49:35 +0000 (UTC)
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c2a4e013a44so120746966b.2
-        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 14:49:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzEJi+YXmS/duBzA8pjjP2D7oxM9pnBjMusExtX3/3XCTi/GC2TGHaYpdZZvJqL84irgkfbtwY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLyO+Ahf1q9c49VsUeTa14BbJ5rNbLT5rfo9wzFw6GYzIUFUkb7
-	d3LyeTvx8bWAMC/DljwIsNW9RZNsP4MCpT2Orn0FLbvhJmR/vgMwdH81uEwoTFdy2ZA2CPdFSHL
-	jObHVKC4+vf8B/yozH4rkEvlxSCTPXRc=
-X-Received: by 2002:a17:907:3da7:b0:c26:2fc8:4e91 with SMTP id
- a640c23a62f3a-c31a9d579d8mr556961366b.29.1791668973776; Sat, 10 Oct 2026
- 14:49:33 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="C45nL0Bd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1791669446;
+	bh=kF1vIg6wuT7JfeciO4XWmCq8rpqhNnRk133JJ7iDXSA=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=C45nL0BdVrTi1liO0j1GHJJByWNap5lUSvRHcOIknD+4BWFuhR88FJioNuYKdSRRs
+	 PFJ8RXxe2Cbptd9zmltMDdI+NzmnlCoynordsvmukQzp8aSzqwHJJescv0S+YvoKRw
+	 it08iFg2MXLKmIP6dbzuqcVpzDjtaaSlGFYbH8Gg=
+X-QQ-mid: zesmtpgz8t1791669440t4b658cc0
+X-QQ-Originating-IP: HnqkvZVzdsNCBZznttJs/eYN10dkI2YMrSJMi4M4ux0=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Sun, 11 Oct 2026 05:57:17 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 17404115560996670581
+EX-QQ-RecipientCnt: 21
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re: [PATCH 6.18 000/403] 6.18.56-rc1 review
+Date: Sun, 11 Oct 2026 05:57:12 +0800
+Message-Id: <20261010215712.3161965-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261009140952.119038291@linuxfoundation.org>
+References: <20261009140952.119038291@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008124106.665014-1-Jason@zx2c4.com> <willemdebruijn.kernel.cf8fec88827c@gmail.com>
- <CAHmME9r+O=3i4JP94P0-gFwghfWtD=vLa1g3KB-LvW+xFbJWHA@mail.gmail.com> <CAF=yD-LO0u5z8SU_Aktu0-0aeM-1UknYsGc+rCpD3y9bpwxtwg@mail.gmail.com>
-In-Reply-To: <CAF=yD-LO0u5z8SU_Aktu0-0aeM-1UknYsGc+rCpD3y9bpwxtwg@mail.gmail.com>
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Date: Sat, 10 Oct 2026 23:49:22 +0200
-X-Gmail-Original-Message-ID: <CAHmME9rW6Pav4vLdHbvvuf65v-+gtoHpDagFpmqrHYnkTKKNuw@mail.gmail.com>
-X-Gm-Features: AclHuK9CRF4lh5BWYFipjlI2xY5sQemDdJpeewYr0OLBqLIX0DUXGveQsSqp81w
-Message-ID: <CAHmME9rW6Pav4vLdHbvvuf65v-+gtoHpDagFpmqrHYnkTKKNuw@mail.gmail.com>
-Subject: Re: [PATCH net] udp_tunnel: drop packets when hibernating
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: rafael@kernel.org, lenb@kernel.org, pavel@kernel.org, kuba@kernel.org, 
-	pabeni@redhat.com, linux-pm@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	=?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <jeremy.jean@oss.cyber.gouv.fr>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NU60Kbs86PFjGc4SHltBQk0qJlKu3nSY8/fQ6lqUtZdx4JLmwp1oj1BY
+	TtCQUdk7ET3GmeY3GGU9teBWJyPF3BElGHiX5EejBztgq+EJllxlMlX+IHWs0gJ/AfaXNdZ
+	c9fdE8hYoaag261hQuc0cLtpPgg0Uxj2TPAzYR6iFwJaqs8jS7rNDHMM8SISCP/slX1VwEZ
+	kCc9AWjeknr9+eUxJaBXVbhRe6DKfBhbDsUYVhGmzVe/jg0e1wzrDf0qkP+QJEM1ZkFYWgO
+	XcLvxH/SLUBBY0pCst0xPXikt5u2P0bQQLZM5Kp9DlIISsYW1zbgQkeQDaeHAhduebDOsjx
+	uCttP32hgRJ0s26rCtblcOxaKec7tqoRgxupzd8k0JXuppm2Rj9GNwq8G1BUvyiI169Whl/
+	3pCWvTzZ8h3TYRzDTZToYt8ltRSw8O7wE2orT5iKtEgIRFfi0XDf1J1Mjz1KiQ2s8dEaK7V
+	2j+syBz42CpUS1WakY8t7hzAkrAsiu1lkAXwhyaHCTtlgz3AIJ39sT8o21sHjGC9+9q7LIg
+	9xZ0qjPY/MpejsCnCn5N3cC2Y2pheiLv5mASItPToHKii9o91yZhhe4PIraB9b/NNF4flMv
+	JF4f5xxSSxrvwy2Haw6P3smeNFxImtcB6OkZT3G2MHUNdO6QF+H1MDXElGGt4NFJR2r0Fs0
+	x7jzZb20KI/2y2osG6gcrw4SNtj6zBUYR/lf6XCknLvtHrm21lZGogXRnfg5CRvy0MRoCJz
+	4hDO1QcoYhnW9LiT7GF47Y0/8KuV62pvZi6vFjEL69j8GIhqXPxNtMvENEUe4pp7QJnq30X
+	DXjB2a3h9EXJBNe0sIlka9iTsuWapMX/7F3E6XE072S92J5GyLe2AZeWpChCJstXPIvOYXk
+	jUMhXrjgcolE+uguz0ILlTvr+Mh8JycY/FyZ9Zo7p9/uWb2v9JDeUmTVp3Ijge0L+1G9mlS
+	ssTxx9yD569qt8LwKA/DiA11P2IMCTGn3Y2Rkcukhuk4me/saLSDvRBx7YBI/iypCN++Y7N
+	dTJraIUQWhHrPOgISuiPOE6DP0p4WxaviAgaS/N+Ae8LoanL7Qtj7sMjsYOW7+UCor5ExfR
+	w==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-On Thu, Oct 8, 2026 at 11:03=E2=80=AFPM Willem de Bruijn
-<willemdebruijn.kernel@gmail.com> wrote:
-> Since this is an issue specific with security protocols and reuse of
-> their state across freeze and restore, is that the more suitable
-> location for this check? Drop transmit of packets with that risk
-> (unique for that connection nonce) only, if freezing.
+Build tested in our x86,arm64,loongarch,riscv64 config successfully without error.
 
-I was thinking this is a pretty common problem to UDP apps in general,
-and it's confusing to have these sorts of replays due to hibernation
-that userspace doesn't have. It's an odd problem to expect every
-in-kernel user to fix independently, so maybe it'd be more clever to
-do this all in one place. I can put it in only wireguard, instead, if
-you feel really strongly about it. But I was thinking this just seemed
-like an odd behavior difference that could be easily fixed for
-everyone.
+Tested-by: Wentao Guan <guanwentao@uniontech.com>
 
-> udp_queue_rcv_one_skb is the UDP hot path. Since it touches all
-> packets, the last resort for adding checks that are relevant too only
-> a small subset of packets.
+Best Regards
+Wentao Guan
 
-Is there another way you'd suggest doing this? Some other trick for
-disabling the socket? I also am not keen on adding branches to hot
-paths.
+log
+Linux version 6.18.56-rc1-gda42e30e9b04 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Sun Oct 11 04:00:00 CST 202
+Linux version 6.18.56-rc1-gda42e30e9b04 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Sun Oct 11 04:20:41 CST 202
+Linux version 6.18.56-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Sun Oct 11 04:39:54 CST 2026
+Linux version 6.18.56-rc1-gda42e30e9b04 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Sun Oct 11 03:39:16 CST 2026
 
-Jason
