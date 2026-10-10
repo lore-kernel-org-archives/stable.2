@@ -1,437 +1,241 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6137F2EB5A6;
-	Sat, 10 Oct 2026 22:50:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F814399350;
+	Sat, 10 Oct 2026 22:55:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791672645; cv=none; b=mBMe+PFBfyAlZh8jjKQRfXzsY23vkPiHd+BrLD21XQFDH5/xxpw/oCb9MHG9/PGb6p+4IcvTADr19NjqO9yhAr0anh0NDJ/uFZnRLcUU5mHwKBt0aFke1HiqrLFatj3JE7zoKxQZE0hk+B5Q5FEmFimHHEfVVSDo+aG7s5jLZ/M=
+	t=1791672930; cv=none; b=dLFqhuKb8KD/yI1RnnKaIyYFJQGj+e4dFj3u1MjTuMhv22kd5+hdl31ngUS+JYr4OMvW6w0evTVgcS7qeSXHlAdBTLCmTQ9L6yKgHUyhOxqPdF5gE1xfog1pCjEJUB7LUQB2rhKTZCl/y6zmtZ324oebKgvHDkPfNy+5OA1N5Ig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791672645; c=relaxed/simple;
-	bh=8EoOI/9NBwUetvMSA5Fha4jKifnY/IZFx5PwB+2334A=;
-	h=Date:To:From:Subject:Message-Id; b=HnCBxOjT8suA74ro0UY8K8NWniCnhag4+W+mtpb6sb8rxkyMYCqrHUhy6zVxoYHMRKo4prUzbmw/oc1VBgktv7ljFx3FXNWqxasxcLfK+5+oext9jDxo8Wyz0/OACn8wwhNUFv2Uji4rqy/Lj7oxeTxCfoNZw0iL64x8NcU40cs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=uyqsK+nP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791672930; c=relaxed/simple;
+	bh=Ersv1rRitKQ1BXXKj4ddDkK2o0lks/h/Lj6mQfbqD1I=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Sm92Og7jsZUTrnKcPv9/gGgmgidMkeBjt3RjHKZIElrYCWbFIAs2mZ8JxEoF6kQN+VQX+GKF+jHYgATjIUXJcobynbyBi51KcvpwaighR5/oSY1NR0RuZLRsAPpAoJYIQmbXAqB5eK3WkBaiYn+tgL7MaxsYyQsy23MTY806swQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kq8djmns; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="uyqsK+nP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E35791F000FF;
-	Sat, 10 Oct 2026 22:50:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791672643;
-	bh=eRdrDd14kQCLFgE7H5m97OgNkT69/Co2zjYOnZ+LHxU=;
-	h=Date:To:From:Subject;
-	b=uyqsK+nPhUU6Xt3mOLGUchZ6g9dMqj6CyeI+5zNO3d8zrW4M6V/sh0xoefgiYokeE
-	 S/EjA60yYiSCTf2uxmItiBdzxyHQ+9cUg5X05lMrlyMqygOOGU/TShimIUPBYkffC4
-	 QlMZDxRTVmG+TpILcfpdQPwqwOcASjQduJSdRvoU=
-Date: Sat, 10 Oct 2026 15:50:42 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,vbabka@kernel.org,usama.arif@linux.dev,surenb@google.com,stable@vger.kernel.org,shakeel.butt@linux.dev,mhocko@suse.com,harry@kernel.org,hannes@cmpxchg.org,david@kernel.org,brendan.jackman@linux.dev,kas@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-page_alloc-make-defrag_mode-retries-follow-the-promoted-order.patch added to mm-unstable branch
-Message-Id: <20261010225042.E35791F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kq8djmns"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A23A1F00893;
+	Sat, 10 Oct 2026 22:55:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791672929;
+	bh=oSbAjsO8Daqmc/FHcAs+zGQUdudv8Ra7/x/JNn6yMTM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Kq8djmnsmf4jj23iPktlohHumQtiDII60OdQOvppce/h5/U0wmCjHIC3LhDDyJouC
+	 fJCh/zaeSU4aS1MExxge0jA857MGzoswoNNpsSbbR+0VXWJBn2pkXU6K5zc5KiEvLh
+	 Nr2/sXXzqQwgDVBhRD9gVQdHEJ38xgB938YpA93cQnHEhoi8tTBTo94LhOCBiQdnKz
+	 l4eayN8rDeNu+YD4yDfCIFiClkKEGuhJ4wDHQGrfU/Dfz3cqq9QNvgEjJRo3J6oi34
+	 WutRx7wgte+R/KXB/jg0vhynQLa8YZ+PspZJqqXlNtI1MYxT2eb8+Cf/Fo63cAEaJG
+	 9lDzjVrw58kog==
+Subject: Re: [PATCH net] ipv6: fix fib6 walker UAF on NLM_F_REPLACE
+From: netdev-bot+sashiko@kernel.org
+To: cenzhang@linux.microsoft.com
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ mazziesaccount@gmail.com, greearb@candelatech.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ AutonomousCodeSecurity@microsoft.com, tgopinath@linux.microsoft.com
+Date: Sat, 10 Oct 2026 22:55:27 +0000
+Message-ID: <179167292799.434549.17886083109176424564@kernel.org>
+In-Reply-To: <20261009225142.47005-1-cenzhang@linux.microsoft.com>
+References: <20261009225142.47005-1-cenzhang@linux.microsoft.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-The patch titled
-     Subject: mm: page_alloc: make defrag_mode retries follow the promoted order
-has been added to the -mm mm-unstable branch.  Its filename is
-     mm-page_alloc-make-defrag_mode-retries-follow-the-promoted-order.patch
+Critical: 0 · High: 0 · Medium: 2 (1) · Low: 0
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-page_alloc-make-defrag_mode-retries-follow-the-promoted-order.patch
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-This patch will later appear in the mm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+- [Medium] fib6_walkers_skip_rt() (net/ipv6/ip6_fib.c:95-113) is
+  documented as moving walkers that rest on @rt to the next route.
+- [Medium] In the NLM_F_REPLACE branch of fib6_add_rt2node()
+  (net/ipv6/ip6_fib.c:1338-1342) the new route rt takes over iter's slot…
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+Pre-existing issues:
+- [Medium] When a dump resumes and the sernum has changed,
+  fib6_dump_table() (net/ipv6/ip6_fib.c:632-638) writes w->state =…
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+--
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
+ipv6: fix fib6 walker UAF on NLM_F_REPLACE
 
-------------------------------------------------------
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: mm: page_alloc: make defrag_mode retries follow the promoted order
-Date: Fri,  9 Oct 2026 13:55:02 +0100
+This patch moves the walker adjustment out of fib6_del_route() into a new
+helper, fib6_walkers_skip_rt(). The helper is also called from the
+NLM_F_REPLACE branch of fib6_add_rt2node() for the replaced route and for
+each removed ECMP sibling. The goal is to keep an RTM_GETROUTE dump from
+resuming on a freed fib6_info when the fn_sernum check is bypassed.
 
-Since commit 7e8756d7ad22 ("mm: page_alloc: fix non-movable reclaim
-storm in defrag_mode"), direct reclaim and compaction for non-movable
-requests under defrag_mode run at pageblock_order, to produce the whole
-blocks that ALLOC_NOFRAGMENT needs. The retry decisions that follow
-still use the request order. An order-0 request can therefore retry
-indefinitely without ever reaching the ALLOC_NOFRAGMENT fallback:
+> diff --git a/net/ipv6/ip6_fib.c b/net/ipv6/ip6_fib.c
+> index 9ff761962b45c..a5699809fe049 100644
+> --- a/net/ipv6/ip6_fib.c
+> +++ b/net/ipv6/ip6_fib.c
+> @@ -89,6 +89,29 @@ static void fib6_walker_unlink(struct net *net, struct fib6_walker *w)
 
-- Reclaim at pageblock_order gives up after one pass as soon as a zone
-  looks compaction_ready(), and do_try_to_free_pages() then returns 1
-  even though nothing was reclaimed. It returns before the retry that
-  would reclaim memory.low-protected cgroups, so when most memory is
-  protected, the pass that did run finds next to nothing.
+[ ... ]
 
-- Compaction at pageblock_order fails or is deferred.
+> +/* Move the walkers resting on @rt to the next route, or up the tree if
+> + * @rt is the last one.  Called with tb6_lock held.
+> + */
+> +static void fib6_walkers_skip_rt(struct net *net, struct fib6_info *rt)
+> +{
 
-- should_reclaim_retry() takes the reported progress as progress for
-  the order-0 request and resets no_progress_loops. The request
-  retries.
+[ ... ]
 
-Order 1-3 requests loop the same way, and should_compact_retry() also
-checks their pageblock_order compaction result against the request
-order.
+> +	read_lock(&net->ipv6.fib6_walker_lock);
+> +	FOR_WALKERS(net, w) {
+> +		if (w->state == FWS_C && w->leaf == rt) {
+> +			pr_debug("walker %p adjusted by unlink of %p\n", w, rt);
+> +			w->leaf = next;
 
-On a production host (64G, defrag_mode, memory.low covering most of the
-workload), 95% of direct reclaim runs were order-9 runs that returned 1
-with nothing reclaimed, at up to 60k runs per second. Across ~200M
-should_reclaim_retry() calls in a day, no_progress_loops never left 0.
-The spinning allocations were SLUB slab refills for inode and dentry
-caches. The time spent registers as memory pressure, and pressure-based
-OOM killing takes down both workloads and system services.
+[Severity: Medium]
+Should w->skip_in_node be reset here too?
 
-For promoted requests:
+This moves the walker to a different route, but w->skip_in_node still
+holds the number of entries already sent for the old route.
+fib6_dump_node() keeps that count per w->leaf:
 
-- Reclaim progress does not reset no_progress_loops, as for costly
-  orders.
+net/ipv6/ip6_fib.c:fib6_dump_node() {
+    ...
+		res = rt6_dump_route(rt, w->args, w->skip_in_node);
+		if (res >= 0) {
+			/* Frame is full, suspend walking */
+			w->leaf = rt;
+			...
+			w->skip_in_node += res;
+    ...
+}
 
-- should_compact_retry() checks the compaction result at the promoted
-  order and does not retry COMPACT_SKIPPED, since the request can fall
-  back. The compaction priority floor and the COMPACT_SUCCESS retry
-  limit stay those of the request order, so a non-costly request still
-  gets its COMPACT_PRIO_SYNC_FULL pass before it falls back.
+fib6_dump_table() clears it only on a sernum mismatch. When the sernum
+matches, it does just this:
 
-When a promoted request takes the fallback, reset the retry counters,
-so that the fallback attempt gets a full retry budget before the OOM
-killer is considered. A request whose reclaim was not promoted spent
-its budget on the request itself and keeps its counters, as Usama Arif
-pointed out.
+		} else
+			w->skip = 0;
 
-__alloc_pages_slowpath() computes the promoted order once per iteration
-and passes it to direct reclaim, direct compaction and the two retry
-helpers next to the request order, so no callee has to recompute it.
-Harry Yoo asked for the two orders to be explicit rather than derived
-in each callee.
+Suppose the dump paused partway through the exceptions of route R
+(skip_in_node >= 1), and R is then removed through this helper. The
+resumed dump calls rt6_dump_route() on R->fib6_next with the stale skip:
 
-In a VM reproducer (32G, defrag_mode, inode churn under memory.low):
+net/ipv6/route.c:rt6_dump_route() {
+    ...
+	if (filter->dump_routes) {
+		if (skip) {
+			skip--;
+		} else {
+			if (rt6_fill_node(net, arg->skb, rt, NULL, NULL, NULL,
+    ...
+}
 
-                                        before    after
-    should_reclaim_retry() calls           63M     293k
-    peak memory pressure (PSI some avg10)  99%      12%
+That drops the next route's own RTM_NEWROUTE message, and the leftover
+skip hides its first exceptions. In the FWS_U case, the first route of a
+later node is dropped instead. NLM_F_DUMP_INTR is not set in either case.
 
-File creation runs 5.7x faster.
+With this patch, the same thing can happen for a replaced route and for
+each removed ECMP sibling in fib6_add_rt2node(). That needs the resume to
+go through the fn_sernum == -1 collision described in the commit message.
 
-Link: https://lore.kernel.org/20261009125503.126202-1-kas@kernel.org
-Fixes: 7e8756d7ad22 ("mm: page_alloc: fix non-movable reclaim storm in defrag_mode")
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Usama Arif <usama.arif@linux.dev>
-Assisted-by: LLM
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Brendan Jackman <brendan.jackman@linux.dev>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: <stable@vger.kernel.org>
----
+fib6_del() does not bump the root sernum, so the delete path behaved this
+way on a normal resume even before the code was moved out of
+fib6_del_route().
 
- mm/page_alloc.c |  126 +++++++++++++++++++++++++++++-----------------
- 1 file changed, 81 insertions(+), 45 deletions(-)
+Would adding w->skip_in_node = 0 where w->leaf is reassigned make the
+helper match its comment?
 
---- a/mm/page_alloc.c~mm-page_alloc-make-defrag_mode-retries-follow-the-promoted-order
-+++ a/mm/page_alloc.c
-@@ -4118,6 +4118,32 @@ out:
- }
- 
- /*
-+ * If fallbacks are not permitted (defrag_mode), we either need to
-+ * reclaim space in a block of matching type, or clear out an entire
-+ * block to allow __rmqueue_claim() to convert.
-+ *
-+ * Reclaim by itself is primarily freeing space in movable blocks,
-+ * since that's where the LRU pages live. So this works for movable
-+ * requests, but not for others.
-+ *
-+ * For those, promote the order of reclaim and compaction to help make
-+ * blocks, instead of spinning in reclaim alone unproductively. Retry
-+ * decisions based on the outcome of that work - reclaim progress and
-+ * compaction results - must account for the promotion as well, so
-+ * __alloc_pages_slowpath() computes the promoted order once and passes
-+ * it alongside the request order.
-+ */
-+static inline unsigned int nofrag_promote_order(unsigned int order,
-+						unsigned int alloc_flags,
-+						const struct alloc_context *ac)
-+{
-+	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
-+		return max(order, pageblock_order);
-+
-+	return order;
-+}
-+
-+/*
-  * Maximum number of compaction retries with a progress before OOM
-  * killer is consider as the only way to move forward.
-  */
-@@ -4127,8 +4153,9 @@ out:
- /* Try memory compaction for high-order allocations before reclaim */
- static struct page *
- __alloc_pages_direct_compact(gfp_t gfp_mask, unsigned int order,
--		unsigned int alloc_flags, const struct alloc_context *ac,
--		enum compact_priority prio, enum compact_result *compact_result)
-+		unsigned int compact_order, unsigned int alloc_flags,
-+		const struct alloc_context *ac, enum compact_priority prio,
-+		enum compact_result *compact_result)
- {
- 	struct page *page = NULL;
- 	unsigned long pflags;
-@@ -4139,22 +4166,6 @@ __alloc_pages_direct_compact(gfp_t gfp_m
- 		.order = order,
- 		.page = NULL,
- 	};
--	int compact_order = order;
--
--	/*
--	 * If fallbacks are not permitted (defrag_mode), we either
--	 * need to reclaim space in a block of matching type, or clear
--	 * out an entire block to allow __rmqueue_claim() to convert.
--	 *
--	 * Reclaim by itself is primarily freeing space in movable
--	 * blocks, since that's where the LRU pages live. So this
--	 * works for movable requests, but not for others.
--	 *
--	 * For those, promote the order to help make blocks, instead
--	 * of spinning in reclaim alone unproductively.
--	 */
--	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
--		compact_order = max(order, pageblock_order);
- 
- 	if (!compact_order)
- 		return NULL;
-@@ -4236,7 +4247,7 @@ __alloc_pages_direct_compact(gfp_t gfp_m
- 
- static inline bool
- should_compact_retry(gfp_t gfp_mask, struct alloc_context *ac, int order,
--		     int alloc_flags,
-+		     int compact_order, int alloc_flags,
- 		     enum compact_result compact_result,
- 		     enum compact_priority *compact_priority,
- 		     int *compaction_retries)
-@@ -4247,7 +4258,7 @@ should_compact_retry(gfp_t gfp_mask, str
- 	int retries = *compaction_retries;
- 	enum compact_priority priority = *compact_priority;
- 
--	if (!order)
-+	if (!compact_order)
- 		return false;
- 
- 	if (fatal_signal_pending(current))
-@@ -4256,10 +4267,14 @@ should_compact_retry(gfp_t gfp_mask, str
- 	/*
- 	 * Compaction was skipped due to a lack of free order-0
- 	 * migration targets. Continue if reclaim can help.
-+	 *
-+	 * Promoted requests have exhausted their reclaim retries at
-+	 * this point, and they can fall back instead.
- 	 */
- 	if (compact_result == COMPACT_SKIPPED) {
--		ret = compaction_zonelist_suitable(ac, order, alloc_flags,
--						   gfp_mask);
-+		if (compact_order == order)
-+			ret = compaction_zonelist_suitable(ac, order, alloc_flags,
-+							   gfp_mask);
- 		goto out;
- 	}
- 
-@@ -4304,8 +4319,9 @@ out:
- #else
- static inline struct page *
- __alloc_pages_direct_compact(gfp_t gfp_mask, unsigned int order,
--		unsigned int alloc_flags, const struct alloc_context *ac,
--		enum compact_priority prio, enum compact_result *compact_result)
-+		unsigned int compact_order, unsigned int alloc_flags,
-+		const struct alloc_context *ac, enum compact_priority prio,
-+		enum compact_result *compact_result)
- {
- 	*compact_result = COMPACT_SKIPPED;
- 	return NULL;
-@@ -4313,7 +4329,7 @@ __alloc_pages_direct_compact(gfp_t gfp_m
- 
- static inline bool
- should_compact_retry(gfp_t gfp_mask, struct alloc_context *ac, int order,
--		     int alloc_flags,
-+		     int compact_order, int alloc_flags,
- 		     enum compact_result compact_result,
- 		     enum compact_priority *compact_priority,
- 		     int *compaction_retries)
-@@ -4452,17 +4468,12 @@ __perform_reclaim(gfp_t gfp_mask, unsign
- /* The really slow allocator path where we enter direct reclaim */
- static inline struct page *
- __alloc_pages_direct_reclaim(gfp_t gfp_mask, unsigned int order,
--		unsigned int alloc_flags, const struct alloc_context *ac,
--		unsigned long *did_some_progress)
-+		unsigned int reclaim_order, unsigned int alloc_flags,
-+		const struct alloc_context *ac, unsigned long *did_some_progress)
- {
- 	struct page *page = NULL;
- 	unsigned long pflags;
- 	bool drained = false;
--	int reclaim_order = order;
--
--	/* Match the slowpath compaction promotion in __alloc_pages_direct_compact */
--	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
--		reclaim_order = max(order, pageblock_order);
- 
- 	psi_memstall_enter(&pflags);
- 	*did_some_progress = __perform_reclaim(gfp_mask, reclaim_order, ac);
-@@ -4628,8 +4639,9 @@ bool gfp_pfmemalloc_allowed(gfp_t gfp_ma
-  */
- static inline bool
- should_reclaim_retry(gfp_t gfp_mask, unsigned order,
--		     struct alloc_context *ac, int alloc_flags,
--		     bool did_some_progress, int *no_progress_loops)
-+		     unsigned int reclaim_order, struct alloc_context *ac,
-+		     int alloc_flags, bool did_some_progress,
-+		     int *no_progress_loops)
- {
- 	struct zone *zone;
- 	struct zoneref *z;
-@@ -4638,9 +4650,17 @@ should_reclaim_retry(gfp_t gfp_mask, uns
- 	/*
- 	 * Costly allocations might have made a progress but this doesn't mean
- 	 * their order will become available due to high fragmentation so
--	 * always increment the no progress counter for them
-+	 * always increment the no progress counter for them.
-+	 *
-+	 * The same goes for requests whose reclaim is promoted to make whole
-+	 * blocks. At that order, reclaim also reports progress when it backs
-+	 * off for compaction without freeing anything.
-+	 *
-+	 * The watermark check below stays at the request order: it asks
-+	 * whether the request itself could succeed after reclaim.
- 	 */
--	if (did_some_progress && order <= PAGE_ALLOC_COSTLY_ORDER)
-+	if (did_some_progress && order <= PAGE_ALLOC_COSTLY_ORDER &&
-+	    reclaim_order == order)
- 		*no_progress_loops = 0;
- 	else
- 		(*no_progress_loops)++;
-@@ -4780,6 +4800,7 @@ __alloc_pages_slowpath(gfp_t gfp_mask, u
- 	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
- 	struct page *page = NULL;
- 	unsigned int alloc_flags;
-+	unsigned int reclaim_order;
- 	unsigned long did_some_progress;
- 	enum compact_priority compact_priority;
- 	enum compact_result compact_result;
-@@ -4924,17 +4945,22 @@ retry:
- 	/* If allocation has taken excessively long, warn about it */
- 	check_alloc_stall_warn(gfp_mask, ac->nodemask, order, alloc_start_time);
- 
-+	/* The order reclaim and compaction work at, see nofrag_promote_order() */
-+	reclaim_order = nofrag_promote_order(order, alloc_flags, ac);
-+
- 	/* Try direct reclaim and then allocating */
- 	if (!compact_first) {
--		page = __alloc_pages_direct_reclaim(gfp_mask, order, alloc_flags,
--							ac, &did_some_progress);
-+		page = __alloc_pages_direct_reclaim(gfp_mask, order, reclaim_order,
-+						    alloc_flags, ac,
-+						    &did_some_progress);
- 		if (page)
- 			goto got_pg;
- 	}
- 
- 	/* Try direct compaction and then allocating */
--	page = __alloc_pages_direct_compact(gfp_mask, order, alloc_flags, ac,
--					compact_priority, &compact_result);
-+	page = __alloc_pages_direct_compact(gfp_mask, order, reclaim_order,
-+					    alloc_flags, ac, compact_priority,
-+					    &compact_result);
- 	if (page)
- 		goto got_pg;
- 
-@@ -4986,8 +5012,9 @@ retry:
- 	    check_retry_zonelist(zonelist_iter_cookie))
- 		goto restart;
- 
--	if (should_reclaim_retry(gfp_mask, order, ac, alloc_flags,
--				 did_some_progress > 0, &no_progress_loops))
-+	if (should_reclaim_retry(gfp_mask, order, reclaim_order, ac,
-+				 alloc_flags, did_some_progress > 0,
-+				 &no_progress_loops))
- 		goto retry;
- 
- 	/*
-@@ -4997,14 +5024,23 @@ retry:
- 	 * of free memory (see __compaction_suitable)
- 	 */
- 	if (did_some_progress > 0 && can_compact &&
--	    should_compact_retry(gfp_mask, ac, order, alloc_flags,
--				 compact_result, &compact_priority,
-+	    should_compact_retry(gfp_mask, ac, order, reclaim_order,
-+				 alloc_flags, compact_result, &compact_priority,
- 				 &compaction_retries))
- 		goto retry;
- 
--	/* Reclaim/compaction failed to prevent the fallback */
-+	/*
-+	 * Reclaim/compaction failed to prevent the fallback. A promoted
-+	 * request spent its retry budget on making blocks, not on the
-+	 * request itself; give its fallback a fresh one before
-+	 * considering OOM.
-+	 */
- 	if (defrag_mode && (alloc_flags & ALLOC_NOFRAGMENT)) {
- 		alloc_flags &= ~ALLOC_NOFRAGMENT;
-+		if (reclaim_order != order) {
-+			no_progress_loops = 0;
-+			compaction_retries = 0;
-+		}
- 		goto retry;
- 	}
- 
-_
+> +			if (!next)
+> +				w->state = FWS_U;
 
-Patches currently in -mm which might be from kas@kernel.org are
+[Severity: Medium]
+This is a pre-existing issue and was not introduced by this patch, but can
+this store race with the lockless walker reset in fib6_dump_table()?
 
-selftests-mm-raise-the-khugepaged-test-case-cap.patch
-selftests-mm-skip-collapse_compound_extreme-where-the-pmd-is-too-large.patch
-selftests-mm-scale-khugepageds-collapse-wait-with-the-pmd-size.patch
-selftests-mm-skip-khugepaged-page-cache-cases-without-a-pmd-folio.patch
-selftests-mm-make-the-swap-cases-swapout-reliable.patch
-selftests-mm-stop-khugepaged-during-the-madv_collapse-cases.patch
-selftests-mm-move-is_backed_by_folio-into-vm_util.patch
-selftests-mm-add-folio-order-check-for-address-ranges.patch
-selftests-mm-add-folio-order-detection-self-check.patch
-selftests-mm-add-khugepaged-completion-barrier-helper.patch
-selftests-mm-add-order-parameterized-khugepaged-collapse-cases.patch
-selftests-mm-parameterize-the-mixed-source-collapse-case-by-source-order.patch
-selftests-mm-cover-a-shared-source-collapse-write-race.patch
-selftests-mm-run-every-supported-collapse-order-by-default.patch
-selftests-mm-check-that-one-khugepaged-pass-collapses-one-window.patch
-selftests-mm-add-khugepaged-race-harness.patch
-selftests-mm-race-the-collapse-of-windows-with-holes.patch
-selftests-mm-add-memory-pressure-threads-to-the-khugepaged-race-harness.patch
-selftests-mm-zap-whole-pte-tables-in-the-khugepaged-race-harness.patch
-mm-page_alloc-make-defrag_mode-retries-follow-the-promoted-order.patch
-mm-khugepaged-drop-redundant-mm_struct-pin-in-madvise_collapse.patch
-mm-khugepaged-count-collapses-where-khugepaged-makes-them.patch
-mm-khugepaged-rename-mthp_present_ptes-bitmap-to-eligible_ptes.patch
-mm-collapse-add-collapseh-for-the-collapse-interface.patch
-mm-collapse-state-what-a-collapse-may-do-in-the-policy.patch
-mm-collapse-drop-the-collapse_possible-wrapper.patch
-mm-collapse-name-the-per-table-scan-reset-for-what-it-resets.patch
-mm-collapse-call-collapse_file-from-collapse_single_pmd.patch
-mm-collapse-separate-scanning-a-pte-table-from-collapsing-it.patch
-mm-collapse-open-code-collapse_single_pmd-in-its-two-callers.patch
-mm-collapse-work-out-the-orders-a-vma-allows-once-per-vma.patch
-mm-collapse-declare-the-collapse-interface-in-collapseh.patch
-mm-collapse-implement-madv_collapse-in-madvisec.patch
+When the sernum has changed, fib6_dump_table() resets the walker before it
+takes tb6_lock. The walker is still linked on net->ipv6.fib6_walkers at
+that point:
 
+net/ipv6/ip6_fib.c:fib6_dump_table() {
+    ...
+		if (cb->args[5] != sernum) {
+			/* Begin at the root if the tree changed */
+			cb->args[5] = sernum;
+			w->state = FWS_INIT;
+			w->node = w->root;
+			w->skip = w->count;
+			w->skip_in_node = 0;
+		} else
+			w->skip = 0;
+
+		spin_lock_bh(&table->tb6_lock);
+    ...
+}
+
+At the same time, this helper holds only tb6_lock and
+read_lock(fib6_walker_lock), and it can still see w->state == FWS_C and
+w->leaf == rt.
+
+If its FWS_U store lands after the FWS_INIT store, fib6_walk_continue()
+starts at w->root in state FWS_U:
+
+		case FWS_U:
+			if (fn == w->root)
+				return 0;
+
+The rest of the table is then silently left out of the dump, with no
+NLM_F_DUMP_INTR.
+
+The same race already existed with fib6_del_route() as the writer. This
+patch adds the replace paths in fib6_add_rt2node() as more writers. I don't
+see a use-after-free here, because FWS_INIT and FWS_U do not dereference
+w->leaf.
+
+[ ... ]
+
+> @@ -1315,6 +1338,7 @@ static int fib6_add_rt2node(struct fib6_node *fn, struct fib6_info *rt,
+>  		fib6_info_hold(rt);
+>  		rcu_assign_pointer(rt->fib6_node, fn);
+>  		rt->fib6_next = iter->fib6_next;
+> +		fib6_walkers_skip_rt(info->nl_net, iter);
+>  		rcu_assign_pointer(*ins, rt);
+
+[Severity: Medium]
+Can a resumed dump skip the replacement route rt here?
+
+In this branch, rt takes over iter's slot in the leaf list. The helper
+treats that as a deletion. It moves walkers on iter to iter->fib6_next,
+which comes after rt, or sets FWS_U if iter was the last route in the
+node.
+
+fib6_dump_node() leaves w->leaf on the route it hadn't finished. In the
+common case, the pause happened at rt6_fill_node() of iter itself with
+skip_in_node == 0, so nothing from iter has been sent yet.
+
+Suppose the dump then resumes on the sernum-match path (the
+fn_sernum == -1 case from the commit message). fib6_dump_node() starts at
+w->leaf and never visits rt. The dump then contains neither the old route
+nor its replacement for that prefix and metric, and NLM_F_DUMP_INTR is not
+set.
+
+On the sernum-mismatch path, the node is walked again from fn->leaf and rt
+is dumped, so the two resume paths give different results.
+
+The ECMP sibling loop further down looks fine, since those routes really
+are removed.
+
+For the replaced slot itself, would pointing walkers on iter at rt (and
+clearing skip_in_node) keep the replacement in the dump?
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009225142.47005-1-cenzhang%40linux.microsoft.com
