@@ -1,64 +1,64 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B59D49E14A
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 14:25:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A31DA49EC76
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 14:25:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791642347; cv=none; b=SrAMRv1IGiMswnFQJ/PujwDxZtj+9bqHCv225W7Z9hWg9QRrQ2sZR0kmybpfp6wy/jM2zjT4ejjcgK0/ROpoosI4BsZUlBPRLIq1uW9l6WKh/CsTh6P+wYkktW0pXQHhIBPQeh4t2uGRhfeqg+GJSuJg5mVZEcBzoOaY76m4/mU=
+	t=1791642350; cv=none; b=HJXEvakB01Phju6gWrwEL4NHCSrc0VwkoB7x3ca0mBt8guHZX/dYzcPNXpKOks0BL5ueS1FIcMkEsp79DkpjL2GoukKmDETUFnhnJ/9HkjRT9udOaq3KBfgl99Vvrdrz/iSt90s2HP1rcNaagDmOcgVRDRnQVBU1s+GKz3FXOwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791642347; c=relaxed/simple;
-	bh=gVko3NTCvcTD25dHMXmIdpbGMdQ9kdFLxTHBjPkwhk0=;
+	s=arc-20240116; t=1791642350; c=relaxed/simple;
+	bh=9ypQxSCPJGLXlWd5dhzalcKsTjSW0YYrWgnrxVKaaSs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d+1snwT5M/v90jnUGlL+sJwQn0hj7J7QgqEsJ9KxyjoIbYqzE1voaHNwMZ13/kcWQCwX2Ik0oO4vDNCCg200lMfK5EyMty+tWq9mf90DDLSe7L4DQojMm52ITCH4iY5nsCMMORClqdTvSoxXgHQFOIejhsdWL5jVTEkb+jJ0yAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hKl53ocX; arc=none smtp.client-ip=209.85.208.54
+	 MIME-Version; b=Z1hztGLVEoojyrgalouM3CMo6jiFEPKi9dmGKWkWHLG9mPMMWJVauw1dZV13IZu/HCsxG6esMy3b55yvhILX7LdBBT55IZxaKd9w/SvD475GyfsMej8tvVjF+V/AID2JpGyqTO2VjVbzrsGMtP+jzVhsAU8GKJ6brwQF8dQZ8sY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VRtAM4vU; arc=none smtp.client-ip=209.85.208.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hKl53ocX"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6afa651700eso907298a12.2
-        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 07:25:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VRtAM4vU"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6acba4bf65eso752514a12.1
+        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 07:25:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791642344; x=1792247144; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791642346; x=1792247146; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pfFYG7S5LsfE/VVTuIcg/rOspxidrA0GMavY7/KQwWg=;
-        b=hKl53ocXJ4ynu8DnKySPHAyZEAK//gbJw8Wu/Pm27MBP3z1zDAymiU8kLI8wm6rZ7/
-         Tw7mBetcFsPfm1JjtnvoDc0XPtIyTCJUk9kWqnJ8r7hIR1kSMosNgOgCAr6KlKWUYk/3
-         bNd5BKp4xwJ47H2ddUdalKY+OtTK9tOnImZ0xQiCq96SGcBEFE/iTlMdnQ8rxfFwv7PT
-         7Z9viNHiU3iFhiez7DD0jOGBZg7mx8eD6yYCWIToU8h1MP/1hbsiQGNzfRk/sG5DS8Kk
-         8XRn8qYnqC9cXdCCoeQFsoplJ6tMiBgDgpu3G+51flFyjOWpFNHgiJdeaYlYlfJs/j0F
-         qfZw==
+        bh=/SY31IwQG8K0FMtEN3imdz/ZZUjyZiV853x9as1x0tI=;
+        b=VRtAM4vU3NZ7EdDkzycZyryjclAfs3t0UBJb1FWp7Mf0fZq1Dfwq2XhaooToPJeRs9
+         H7ePPUgJhTdziiZ0s+3w9if9ZvGhLOZImujStJfSga8Wd/oREO59MLrwR59VO6ybwv9Q
+         w0ijictQJtbmoBIDTD8KgoGy4Mh7wbspWwc+I8kgtTMOU70gEqM0/UBbx+oDodN4iczp
+         ThdeQFJnzYxteMq34KG8yLf+m+GHznZHzLdgnKXuR/Z6DpWXv4ApHGozx8I2GfiLMzmx
+         u6D75RpiKfmcYvv7VSJDl4VaobJZ5BG8Mbn5p1yQy5yt67Wv/mXNMLY4LQ13IxywbbN7
+         W44g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791642344; x=1792247144;
+        d=1e100.net; s=20260707; t=1791642346; x=1792247146;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pfFYG7S5LsfE/VVTuIcg/rOspxidrA0GMavY7/KQwWg=;
-        b=lQIkllrONTogILV5bnXl23GwMTgN/dF1C1zSfLfaE7bk70fE5xgbi7vxTKFoD7S666
-         QPOmgl/sT880Kq4mzCPaK48XTkXmzsxjOZhUBfUx6+Ri9D0CgGE5HKRHWaZ3jdana5Vy
-         vQCF0vkBfiotPWZryRRd9ofua05vbEB12/qNm23PGF2a9Y5Ug4c1a9n0QWWZSqI5o0NC
-         T53qFh9N+MvpBMLHO7E1Gbs93TwIQQ/fNsFITcS2nVdtjY6T3lu4Tw3awujXNt7NpY3g
-         H6LFolF/UmIlVNLRoaM1BN4pCPfssU10uXAQjAtfhkxBzuYXFyxjI99WQmlU2bKW/d6B
-         mzKg==
-X-Forwarded-Encrypted: i=1; AKwUvByS1NHY54U01KfNVnNXZutDwpfdT5Tt/UlSQEpc289ZFvfYQ5bQ4lM56Mi4DN2mychyW9Kz/+Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKl1Bjup7Ote//ur1aXR0mcPbvu4QwhZARHGV8/IQPxPqGTQZnL
-	BVjZYYJQh48kAnS6tVwmZkJQXAnprX8pzsYEKO3PRiic5QsNdCiZSIFe
-X-Gm-Gg: AYBFou0SPD7vg/yO/LNEiS+1fTLxJU3XBr9eQ0fVp18duHNOT4oKb3sJt/uZeQSS9R3
-	+ty1arneksF58Ryg0XG4wKMXeQbAtu95vuTM1kf5wivfCYABzrVs6PWiWVb+w2TQFxwJo72y6Ev
-	KldUAQE7SNd6EdIqZw27jtS6e6bc73OP9cYfaFp7AX8Uo6iZC4AFL89IwpxU6GcA8NvhL/V3pkK
-	DSEww0etNY+JqpwW4wAjjLiHI2e6OvUqIPyJLJiDG+605wjVGpnFqwQnj755S84851HAOcwjn1a
-	0ulvX6V9m9k8vMialwK/+4LR3uWOJlle77VEepFdE8kFbSU8bLCof0p5VVAVZxndHYZlRlHoJKk
-	lt6ZVgRZ1whjclwuCIVtZLywweiqPJT+xYyg+8SE4+mG5Mja3qjNCU5FECLypRyAriSbbj6gGrU
-	1Mrn19Ly4eGcF90FhKnYIuxyJONxo4SqrTeuWjqZxAx+A+pQxntYE2ANTQXDuOZh4mTqTZSM+2o
-	y3V7seL3bbbXwDh3BPh58aUSya/N9HjXyzsDhNKoA==
-X-Received: by 2002:a05:6402:194e:b0:6b0:c1d:a7ce with SMTP id 4fb4d7f45d1cf-6b17c237fc2mr4290283a12.12.1791642344039;
-        Sat, 10 Oct 2026 07:25:44 -0700 (PDT)
+        bh=/SY31IwQG8K0FMtEN3imdz/ZZUjyZiV853x9as1x0tI=;
+        b=bvKrkn7Tv7cSHbQGLZ4kaukDeEZQiD7MCRpCnJVdByx/Xx/amIsTG0WKYYDrAT0kxI
+         rKVUAf6OGPr5IBkfXItpamfCAufcFN+dnSVCc5Al29sI77nypqnM/AJtWJQvuDoyp+VN
+         CMybpx+1xWXQdlY4taWaBONuvLRGLXtxuRqt5/+ve30cNwXQWL/ntvmrWgagXDIom6AY
+         6+wuQiA6FTvG6RA5wiz0mbah0C/X3Gne7gIjkcTHelx3A4/WmRbYNK4rvflPsPQC6LvG
+         Ag2CrIZN4PmUjxYfmfMVc9SUwmcnPKLaO3OSIa9dXxjth2kvlJBhvBb3XocxXp8EvzZn
+         kVOA==
+X-Forwarded-Encrypted: i=1; AKwUvBztHJ9bXmFevb+MH11nDI/QjKyngUgN0vA+y0kk8ne3wGoGp78OT7TB1y4wl5ZpeTzS87xQov4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLU/gIriX4Jty6Gu9Ui554Ol8Atfp/S9C281y3zL2qhiCaMJeuk
+	FvMz/ElYDhVowuHz25e8XAWBsM3e6GyYxOU32/UjqYXJOBfbvHhXBWYmkhUblP7P
+X-Gm-Gg: AYBFou0vSCHewg7IhHZIMBWUVlnfdRMNHXt67t0hI3IeRpnmaB2matO2nTk+ZL38G1l
+	1Q13RG9Wbvi9pZGzPMwH808rjr+xTlknPAg+z6AWJN1d6o2NhjDKCkgpZjhSaSimWLtnxFZP4Bw
+	FJiAbt8ZtahDB0xiI1xteV3WBOAXT6ZdqHxSAuyvbj/JKWP6tVE2fKSVx+xHJAE6NVtaINBii9d
+	MRBngAbAFbjQ1j2oFGph1u2RA+u3g6raT2leL/ZFsZlAmCl9N6kN9oa+74arYxntDkAQl2+wDky
+	FT1O31gKhtCRflPdCxeRUk5hNqUFZX3tZ19ZGE9KvwcRss7dvswP7ozWPYROm1Kj3EqzpphwtzQ
+	w7CPmn8GrHeFlsnvB0xFH0I84+1Tu04sbz7bUH336FRsBSn7KOeN7E2XYLvEGF4RFoWiv9ZbEVT
+	aOvfFcbs5LWvo6ABMLd6Izzh916m+pzlnFa69fk+kk03K1rjea2SFpRf5LjGksuaAbOavNxhf9J
+	UMoxpXFD4b0xLKB0kjfMhK3VEfbCH/P5LW74EIt
+X-Received: by 2002:a05:6402:2812:b0:6ac:6fe6:b391 with SMTP id 4fb4d7f45d1cf-6b17c24c8dbmr4320358a12.18.1791642345707;
+        Sat, 10 Oct 2026 07:25:45 -0700 (PDT)
 Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b179dfff40sm2635586a12.34.2026.10.10.07.25.40
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b179dfff40sm2635586a12.34.2026.10.10.07.25.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 07:25:41 -0700 (PDT)
+        Sat, 10 Oct 2026 07:25:44 -0700 (PDT)
 From: Magnus Lindholm <linmag7@gmail.com>
 To: richard.henderson@linaro.org,
 	mattst88@gmail.com,
@@ -66,9 +66,9 @@ To: richard.henderson@linaro.org,
 	linux-alpha@vger.kernel.org
 Cc: linmag7@gmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH v5 1/8] alpha: load the MMU context when switch_mm() switches the current task
-Date: Sat, 10 Oct 2026 16:24:27 +0200
-Message-ID: <20261010142533.974797-2-linmag7@gmail.com>
+Subject: [PATCH v5 2/8] alpha: run check_mmu_context() from finish_arch_post_lock_switch()
+Date: Sat, 10 Oct 2026 16:24:28 +0200
+Message-ID: <20261010142533.974797-3-linmag7@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261010142533.974797-1-linmag7@gmail.com>
 References: <20261010142533.974797-1-linmag7@gmail.com>
@@ -80,85 +80,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ev5_switch_mm() only prepares the incoming PCB. The context is installed
-by PAL_swpctx, which alpha_switch_to() issues against that PCB on the way
-out of the scheduler.
+check_mmu_context() clears asn_lock and acts on need_new_asn, but it
+runs only as the tail of switch_to(), after alpha_switch_to() returns.
+A newly forked task never gets there: its first context switch resumes
+at ret_from_fork and reaches schedule_tail() without returning to the
+code following alpha_switch_to(). New kernel threads take the same
+path through schedule_tail().
 
-Direct callers reach switch_mm() without going through alpha_switch_to():
-kthread_use_mm(), which borrows an mm for the current kernel thread,
-sched_force_init_mm() on the CPU-hotplug teardown path, and
-do_shoot_lazy_tlb(), which switches to init_mm from an IPI. None explicitly
-loads the context, so the task can carry on running
-under whatever was loaded before while current->mm says otherwise.
+asn_lock is left set on that CPU, so the new task can run with
+interrupts enabled while shootdown IPIs keep taking the deferred path.
+The handshake meant to complete those invalidations never runs.
 
-The stale page-table root need not be swapper_pg_dir; it may belong to a
-user process that ran on the CPU earlier, and the kthread's user accesses
-can then read and write that process's memory wherever the stale mappings
-allow. Translations taken that way can also end up tagged with the
-borrowed mm's ASN: ev5_switch_mm() writes that ASN into the PCB, which the
-next PAL_swpctx installs against the stale ptbr. An address the stale
-tables do not map faults instead, and since do_page_fault() resolves
-faults against current->mm without reloading the context, the same access
-can fault again on return.
+Move check_mmu_context() to finish_arch_post_lock_switch(), which is
+called by finish_task_switch() for both existing and newly created tasks.
+Drop the now redundant call from switch_to().
 
-sched_force_init_mm() needs CONFIG_HOTPLUG_CPU and do_shoot_lazy_tlb()
-needs CONFIG_MMU_LAZY_TLB_SHOOTDOWN. Alpha selects neither, so only
-kthread_use_mm() is reachable in practice. Test the caller's identity
-rather than special-casing individual callers.
+The hook runs after finish_lock_switch() releases the rq lock and enables
+interrupts. An IPI arriving before asn_lock is cleared retires the slot
+through flush_tlb_other(); an IPI arriving afterwards can flush directly,
+since PAL_swpctx has already installed the incoming context.
 
-The scheduler passes the incoming task, which is not current until
-alpha_switch_to() runs; all three direct callers pass current. Test for
-that and load the context the way activate_mm() does. All three run with
-interrupts disabled across the switch, so this completes before any
-shootdown can be taken and needs no asn_lock handshake.
+Set need_new_asn whether ev5_switch_mm() reuses or allocates an ASN. An
+IPI in that interval can zero either slot. Without this, the allocated
+case can return to user space with a live ASN but a zero context slot,
+which a later context-based shootdown shortcut could mistake for an
+inactive CPU. check_mmu_context() reloads only when the slot is zero.
+
+Call the hook unconditionally. Alpha selects ARCH_NO_PREEMPT, and neither
+kthread_use_mm() nor sched_force_init_mm() sleeps between the direct
+switch and this hook. RCU_STRICT_GRACE_PERIOD can enable PREEMPT_COUNT,
+but cannot make those callers migrate there. Testing preemptible() would
+only leave asn_lock set in that configuration.
+
+This requires the preceding direct-switch fix, "alpha: load the MMU
+context when switch_mm() switches the current task". It installs the
+borrowed context before kthread_use_mm() reaches this hook, so clearing
+asn_lock cannot expose a targeted invalidate against the wrong context.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
-Tested-by: Matt Turner <mattst88@gmail.com>
+Cc: stable@vger.kernel.org
 Reviewed-by: Matt Turner <mattst88@gmail.com>
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
 ---
- arch/alpha/include/asm/mmu_context.h | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ arch/alpha/include/asm/mmu_context.h | 15 +++++++++++++--
+ arch/alpha/include/asm/switch_to.h   |  1 -
+ 2 files changed, 13 insertions(+), 3 deletions(-)
 
 diff --git a/arch/alpha/include/asm/mmu_context.h b/arch/alpha/include/asm/mmu_context.h
-index eee8fe836a59..d366f89fee58 100644
+index d366f89fee58..f41d7c73fdd6 100644
 --- a/arch/alpha/include/asm/mmu_context.h
 +++ b/arch/alpha/include/asm/mmu_context.h
-@@ -130,6 +130,8 @@ __get_new_mm_context(struct mm_struct *mm, long cpu)
- 	return next;
- }
+@@ -162,8 +162,8 @@ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
+ 		next_mm->context[cpu] = mmc;
+ 	}
+ #ifdef CONFIG_SMP
+-	else
+-		cpu_data[cpu].need_new_asn = 1;
++	/* A deferred shootdown can also invalidate a newly allocated ASN. */
++	cpu_data[cpu].need_new_asn = 1;
+ #endif
  
-+extern void __load_new_mm_context(struct mm_struct *);
+ 	/* Always update the PCB ASN.  Another thread may have allocated
+@@ -192,6 +192,17 @@ do {								\
+ #define check_mmu_context()  do { } while(0)
+ #endif
+ 
++/*
++ * Also called from kthread_use_mm() with preemption enabled. Alpha has
++ * no kernel preemption, so the task is still on the CPU that ran
++ * switch_mm().
++ */
++#define finish_arch_post_lock_switch finish_arch_post_lock_switch
++static inline void finish_arch_post_lock_switch(void)
++{
++	check_mmu_context();
++}
 +
  __EXTERN_INLINE void
- ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
- 	      struct task_struct *next)
-@@ -139,6 +141,16 @@ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
- 	unsigned long mmc;
- 	long cpu = smp_processor_id();
+ ev5_activate_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm)
+ {
+diff --git a/arch/alpha/include/asm/switch_to.h b/arch/alpha/include/asm/switch_to.h
+index 762b7f975310..35c4b2c9d992 100644
+--- a/arch/alpha/include/asm/switch_to.h
++++ b/arch/alpha/include/asm/switch_to.h
+@@ -9,7 +9,6 @@ extern struct task_struct *alpha_switch_to(unsigned long, struct task_struct *);
+ #define switch_to(P,N,L)						 \
+   do {									 \
+     (L) = alpha_switch_to(virt_to_phys(&task_thread_info(N)->pcb), (P)); \
+-    check_mmu_context();						 \
+   } while (0)
  
-+	/*
-+	 * kthread_use_mm(), sched_force_init_mm() and do_shoot_lazy_tlb()
-+	 * switch current's mm without alpha_switch_to(), which loads the
-+	 * context. The latter two require options Alpha does not select.
-+	 */
-+	if (next == current) {
-+		__load_new_mm_context(next_mm);
-+		return;
-+	}
-+
- #ifdef CONFIG_SMP
- 	cpu_data[cpu].asn_lock = 1;
- 	barrier();
-@@ -160,7 +172,6 @@ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
- 	task_thread_info(next)->pcb.asn = mmc & HARDWARE_ASN_MASK;
- }
- 
--extern void __load_new_mm_context(struct mm_struct *);
- asmlinkage void do_page_fault(unsigned long address, unsigned long mmcsr,
- 			      long cause, struct pt_regs *regs);
- 
+ #endif /* __ALPHA_SWITCH_TO_H */
 -- 
 2.43.0
 
