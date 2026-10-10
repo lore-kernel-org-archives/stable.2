@@ -1,171 +1,162 @@
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 489D6253B42
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 01:35:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791596126; cv=pass; b=hBjdL9aeFc1bLqd/K39lbN5RIjzltpmcLggGH9fakW61aAEIzv0MI4quaaqx/rRdgA8kv1WYXXaoxpok4SFR86l4wlC5FeumcTQjC2BIidgy8K2nilnKtOGu2D43bbGBb7HzqO5Q+Xi+cf8SZ/5JkDaETEhqT4C1VQe5R1VinWU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791596126; c=relaxed/simple;
-	bh=Wv9b/dFSHpxedb0iwRWO+tjnufr/6VDhHuR/YLZGbtk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BXagD9YTGbG6pNokJZtaNZAk+4QaXCgOxN9CjPL5ZW4BPIEPgvh92mpLEzLdt1ZD1Sr9z8hZGBLJk4A1QU8ffbMuYJQWgZ7SbZ7RWCDdCBZz3PihzIYfBXf50ydxhkQ9wXYUml0cxVzeSSqnbAGUgFRehaScefkujtOqkKd/MEg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NprT668N; arc=pass smtp.client-ip=209.85.167.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NprT668N"
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5bcdab9a82bso279430e87.3
-        for <stable@vger.kernel.org>; Fri, 09 Oct 2026 18:35:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791596123; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gztLD23f/3yCn7Yx6vM84IyE7a9jcWCKNTTq53eqp9SoGup8xevmyPD+WK/bPXJWHc
-         qLCsWcoU6DvxzHzkSEnMXGLsmtqXD259qsI660ImyEK9bMiiX+rU+2rVWRfAtjJT4HH6
-         7pGOlXwAMazfc91c9mJQHsUjqYTw5Wu+m4SfcaU3nrBgME3st+6vNdJPxC2w1jp4jXZb
-         qr5GwQqRZYSyswqOiRkg2h9yOiHKVXKuFCWgE0zoow0Ee9aYgfBCEQL73d8dmg7ezfm4
-         jFdwcQ3LC1hS0uFLD1ohNWlFVFSaWVIORDXsTAXfx0XRgx7nGMn0AtkSt/A4AxrJqKRb
-         eqjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=zejVRKXMz791oqNwhKPCP6K/7f8h0cFo5JM43ONmEBU=;
-        fh=QxhAyv25y0DUhVXt9BsO1XlfWA0eQm7dZdzVSLrUbAA=;
-        b=KcLOfnruKx8FxleYACsbJUtZZ55ddTxfG9x5dfQrXvJDcuQF6evV8zlerWZgarkbyG
-         /pDYY1AU8DiNT7L1qyk+Qeu69kIjRcDb7avgikxoYCTF6PC9vG6XyW+TdBqg9Q2JYISc
-         BwuPlhh9ZbzpXOT+LCYkNi/OHnWxe0BWWlOgSFlyhkl8yvVhlhDtBTX1+zFtLpTuo+jw
-         PKQLCkPs7isZRSOxxSzd1kzFyhesOLc+giCZCG4FXhIoB/WDaOL4BBGN5mtH4pEq9R+j
-         sCzvz3QyRX+ENVAE2u4ahGFn5Pho5V1QrwLexvp+37uN+jGTWNSLm51jYC//T6vE3BnY
-         F2fA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791596123; x=1792200923; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zejVRKXMz791oqNwhKPCP6K/7f8h0cFo5JM43ONmEBU=;
-        b=NprT668N6QdFNZFeOkh3WwwbiuwV/8nOameUxhTnLJ4rCyOllRoxdNxj+7HPicUK7j
-         zFJhykYZfxwLwJPbOHyW7VkYGp6BGpgNUdbucVAB/Bhga0DfAY4mza2EWnmD+ClgGNb0
-         xVZ01u3lOcDFkjL8P2rnLbnNe86DkDSJjV10/WbAyDeM+Tg/K8AJZbUVq88J8Th2BJUY
-         UL5St18IisUIKrAxTCB0a1nYd0Gh+xTGOKtF5L8vflNQOghjEdM0/sYZo8tdaZ8uY6Qk
-         9tCN5zgJc3J+B6QfssiskdmVzOM1kplQTVDJPi3zdir+oxfXpPl6RWr5Dg9xfW1+6qfn
-         r1nA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791596123; x=1792200923;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=zejVRKXMz791oqNwhKPCP6K/7f8h0cFo5JM43ONmEBU=;
-        b=PjSoE8n6/JjfCQGiE/O+piuL4YgMm95bMNGJofOG9JO6SApYExZ+X02h2aeSKGyfNM
-         V8uXGaF3KB1P5GCEdrRJDVTkGHQy+4aVyUSOyhL+zrRvKFNafbYQ6B0Bz0ueo0lOq1GJ
-         PdUjC77f6+d66cEhVQJ5GxIvtdrxhepm2DPnmq5iaPuqQoGQPQPX0bcr6A6HNP2TbL7/
-         ef5nM0g0GsbMRKDLTKAIx+qHxPHMQJd/66XjpbGfoHG5vsWyfGVmHwUolMkguAscbHmA
-         Sj87z05w/OKV8xIMqivvOoJiBN+2MU+k9yxkOVbtsxe5N6dB+j9+XWEA76zipPcSiQxq
-         KcCA==
-X-Forwarded-Encrypted: i=1; AKwUvByVVGbZ/FcovvU8+6GZKlhuPVN2Ch8Iwc0z05xADa8zObAZSLznTFEuWwpy1gMRzxwggAj1VdA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPzQTa0LZTDsPOFL07gSkJuY4jKgs9VAT8dRKIGL8fWQT/BKV9
-	SG6NRDASU5EHiO4OZ/DcvhTqi+5QYXPEA1WZSuX7BuKgEWgNQeES3c5Hhf6/FIT/1iMZCMogWeX
-	EmNnNb0dX04RmhECMwxLHv8Zs6mqa+gU=
-X-Gm-Gg: AYBFou1zPw6uSFgqIiioe00DEKT6+aTlJev3HeU93sJIdKV+1AMQfVlaomRhXD6pW6y
-	78ID5Fe92AupiRvv/5Jtl3sRps4COdF9hQtA9HZEkYyZyFFyXLhgemv0yrgPWnuV4FH61rylHNT
-	Ymz09pYuC5MBZlsEcMjroZ2oK5ZsZtW0QFPtUS3AcjaZRd9DXYbw4IaJQBGnwanFzPGOWUW2m1e
-	ncJf6eUtHGSa7CoZbbXMCEMY86wPYL4DiUlPxuSRTdEm9p3ctXbnUUnN9Q+wpxDV2/TyACXslIA
-	p10p4rDaY7d7Y26svBze3yymwZXlhwm63y0YRh6WYBY7qpzTBDB3hYoqFxNlut1Uqg1dLWl/dmG
-	FjH5+pGWPRXkZ2w6a5tq4Tb6VXUtH6jZP7eLscoUfctVK35kQ0drSRPq/pk6E20ijxEIZMVE=
-X-Received: by 2002:a05:6512:3b99:b0:5bc:b67d:ad05 with SMTP id
- 2adb3069b0e04-5bcde6bdbe3mr1095860e87.11.1791596122879; Fri, 09 Oct 2026
- 18:35:22 -0700 (PDT)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 50B5B3C1F;
+	Sat, 10 Oct 2026 01:35:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791596152; cv=none; b=bMXMYGR23D3KONnum+/Zf3UvAzRe9Jp54nrPCYK7Vs1tTDZtzo7B//kpW5GZqcOp2a7ZcuIeu4kU+T8xC8KVJIXhSP3eua9gmK+LeLhTpDSRf/EKs6o/fsf7wKbL27unJbUU8fyUXizAeDgYwIw9he9jqozZTIMphFj/9zHaxhk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791596152; c=relaxed/simple;
+	bh=KSlzG7foAkA/+nO9WW5nMp0b1Hy1ZajL2ypPzMoqp/A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=htVHyrathBRLlwPcWTJYLXnIhQR3eSNr6ztnpzUUzjkZV99+HuuSbzwePnnYdqyWGZpOnrWxrFWGmOqaMLmeS8kzAR0HCErpWw+TFaXQoniJvTpNEq7+moG7hEiLw3mBcfdfR/Uk58llLuzDrbb0b1F3ENMEUnxq6p3zgzj7rrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.172])
+	by gateway (Coremail) with SMTP id _____8DxD9N1lslqd1oUAA--.59389S3;
+	Sat, 10 Oct 2026 09:35:49 +0800 (CST)
+Received: from [10.20.42.172] (unknown [10.20.42.172])
+	by front1 (Coremail) with SMTP id qMiowJAxX89wlslqoq4qAA--.24714S2;
+	Sat, 10 Oct 2026 09:35:46 +0800 (CST)
+Message-ID: <5857a47f-5101-4bea-9060-d4c72362245d@loongson.cn>
+Date: Sat, 10 Oct 2026 09:35:47 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009212501.971158-1-linmag7@gmail.com> <20261009212501.971158-3-linmag7@gmail.com>
-In-Reply-To: <20261009212501.971158-3-linmag7@gmail.com>
-From: Matt Turner <mattst88@gmail.com>
-Date: Fri, 9 Oct 2026 21:35:05 -0400
-X-Gm-Features: AclHuK9__AOLeUIrfKM5_aOsqjMFrmHUxw8TEZQfjZHjbxOf5LFd1-CxAppwYVY
-Message-ID: <CAEdQ38Fdbx=pZ5=HmCU0C1=O+gAePAQEtd7w3oGSUX-gkQM4EA@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] alpha: do not skip TLB shootdown IPIs for
- kthread-borrowed mms
-To: Magnus Lindholm <linmag7@gmail.com>
-Cc: richard.henderson@linaro.org, linux-kernel@vger.kernel.org, 
-	linux-alpha@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/loongson: Fix framebuffer selection in async cursor
+ updates
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>, Evanshenf <archwse@gmail.com>,
+ dri-devel@lists.freedesktop.org
+Cc: Jianmin Lv <lvjianmin@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>,
+ Mingcong Bai <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>,
+ kernel test robot <lkp@intel.com>, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+References: <20261003090006.4e29fdce9913-1-archwse@gmail.com>
+ <79d0e9e21b47551b73413b6938c403a5af5f6bb4.camel@iscas.ac.cn>
+Content-Language: en-US
+From: wuqianhai <wuqianhai@loongson.cn>
+In-Reply-To: <79d0e9e21b47551b73413b6938c403a5af5f6bb4.camel@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAxX89wlslqoq4qAA--.24714S2
+X-CM-SenderInfo: 5zxtxtpqkdxqxorr0wxvrqhubq/
+X-Coremail-Antispam: 1Uk129KBj93XoWxAw17JFy7Jw18ZF1UGF1kCrX_yoW5WrykpF
+	WDKa40kr4kJr4Iy39FgF4rXFWfua1fWFyxKF98Gw109ryYyr1xZrW7Cw4DWr47ZrZ7W342
+	vr42kF98tF4vyFgCm3ZEXasCq-sJn29KB7ZKAUJUUUUf529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Kb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2kKe7AKxVWUAVWUtwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
+	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWU
+	twAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
+	kF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4U
+	MxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI
+	0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE
+	14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20x
+	vaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWU
+	JVW8JbIYCTnIWIevJa73UjIFyTuYvjxUcbAwUUUUU
 
-On Fri, Oct 9, 2026 at 11:19 PM Magnus Lindholm <linmag7@gmail.com> wrote:
-> Change ipi_flush_tlb_mm() and ipi_flush_icache_page() to test current->mm,
-> like ipi_flush_tlb_page(). A CPU that only retains the mm lazily then
-> clears its own slot through flush_tlb_other(), rather than publishing a
-> new ASN on every IPI. Once these historical slots are gone, the shortcut
-> is available again if mm_users remains at most one and no other CPU has
-> taken or kept a context.
+Reviewed-by: Qianhai Wu <wuqianhai@loongson.cn> 
+  
+  
 
-ipi_flush_mm_and_page() in arch/alpha/mm/tlbflush.c still tests
-current->active_mm, so a lazy CPU allocates and publishes a new ASN on
-every migration rendezvous. The next flush then finds that slot, sends
-IPIs, and the lazy CPU clears it again. Nothing breaks, but with
-compaction running the shortcut is lost after each migrated page, which
-is the case this paragraph says is gone.
+  
+  
+  
 
-I think the handler can take the same test as the other three:
+      The fix is correct. 
+  
+  
 
-diff --git a/arch/alpha/mm/tlbflush.c b/arch/alpha/mm/tlbflush.c
---- a/arch/alpha/mm/tlbflush.c
-+++ b/arch/alpha/mm/tlbflush.c
-@@ -66,7 +66,7 @@ static void ipi_flush_mm_and_page(void *x)
-        struct tlb_mm_and_addr *d = x;
+  
+  
+  
 
-        /* Part 1: mm context side (Alpha uses ASN/context as a key
-mechanism). */
--       if (d->mm == current->active_mm && !asn_locked())
-+       if (d->mm == current->mm && !asn_locked())
-                __load_new_mm_context(d->mm);
-        else
-                flush_tlb_other(d->mm);
+      Thanks, 
+  
+  
 
-A lazy CPU then clears its slot and still does the tbi() below. Any way
-back to the mm from there gets a new ASN: ev5_switch_mm() sees version
-0, and kthread_use_mm() goes through the next == current path. I have
-not tested that change.
+      Qianhai Wu
 
-The callers have the same asymmetry. flush_tlb_mm() and
-flush_icache_user_page() test current->active_mm, so a kernel thread
-that flushes an mm it only holds lazily publishes its own slot. That
-one also takes the shortcut in that branch, so I would leave it alone,
-but the changelog could say so.
+在 2026/10/9 16:33, Icenowy Zheng 写道:
+> (Cc'ing drm-misc maintainers)
+> 
+> 在 2026-10-03六的 09:00 +0000，Evanshenf写道：
+>> An asynchronous cursor update swaps the new framebuffer into the live
+>> plane state. However, the driver reads both old_fb and new_fb from
+>> the
+>> live state before this swap. When an enabled cursor changes buffers,
+>> the
+>> address-update condition is therefore false and the hardware
+>> continues
+>> scanning the previous buffer.
+>>
+>> Read new_fb from the new plane state before swapping the framebuffer
+>> references. This updates the hardware address when the framebuffer
+>> changes while retaining the existing behavior for cursor movement.
+>>
+>> Verified on a Loongson 3A5000 with LS7A2000 using 32x32 and 64x64
+>> legacy
+>> cursor updates. Callback counters and read-only register observations
+>> confirmed the asynchronous path, the stale address before the change,
+>> and the new address afterward. Same-framebuffer movement and cursor
+>> disable/re-enable also passed, with the primary framebuffer and mode
+>> unchanged.
+>>
+>> AI assistance was used to investigate the existing report, prepare
+>> the
+>> fix and test tools, run the build and hardware comparison, and draft
+>> this message.
+>>
+>> Reported-by: kernel test robot <lkp@intel.com>
+>> Closes:
+>> https://lore.kernel.org/r/202311152357.4KFS0M8f-lkp@intel.com/
+>> Fixes: f39db26c5428 ("drm: Add kms driver for loongson display
+>> controller")
+>> Cc: stable@vger.kernel.org
+>> Assisted-by: LLM
+>> Signed-off-by: Evanshenf <archwse@gmail.com>
+>> ---
+>>   drivers/gpu/drm/loongson/lsdc_plane.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/loongson/lsdc_plane.c
+>> b/drivers/gpu/drm/loongson/lsdc_plane.c
+>> index bcc0ffa..7b9c65c 100644
+>> --- a/drivers/gpu/drm/loongson/lsdc_plane.c
+>> +++ b/drivers/gpu/drm/loongson/lsdc_plane.c
+>> @@ -230,7 +230,7 @@ static void
+>> lsdc_cursor_plane_atomic_async_update(struct drm_plane *plane,
+>>   
+>>   	new_state = drm_atomic_get_new_plane_state(state, plane);
+>>   
+>> -	new_fb = plane->state->fb;
+>> +	new_fb = new_state->fb;
+> 
+> This change looks okay, although I don't know whether the
+> atomic_async_update() hook should be implemented at all now.
+> 
+> ```
+> Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> ```
+> 
+> However, please wait for further clarification of the function itself
+> from drm-misc maintainers.
+> 
+> Thanks,
+> Icenowy
+> 
+>>   
+>>   	plane->state->crtc_x = new_state->crtc_x;
+>>   	plane->state->crtc_y = new_state->crtc_y;
+>>
+>> base-commit: bca45af5998a05f34b13a2ef11e639bac9c62643
 
-> Order the slot reads after the page-table changes with smp_mb(). On the
-> publishing CPU, the store in ev5_switch_mm() precedes the scheduler's
-> post-switch barrier in finish_lock_switch().
-
-The barrier there is the mb() in alpha's arch_spin_unlock(). The
-scheduler does not promise a full barrier when it drops the rq lock, so
-this is an alpha property, and nothing at the store says it is being
-relied on. Could the changelog name it, and the store get a comment?
-Something like:
-
-                mmc = __get_new_mm_context(next_mm, cpu);
-+               /*
-+                * Ordered before any use of the mm by the mb() in
-+                * arch_spin_unlock(), when finish_lock_switch() drops
-+                * the rq lock.
-+                */
-                WRITE_ONCE(next_mm->context[cpu], mmc);
-
-The rest looks right to me. I went through the window between
-finish_lock_switch() and check_mmu_context(): an IPI there clears the
-slot under asn_lock, a flush on another CPU can then take the shortcut,
-and check_mmu_context() sees the zero and loads a new context behind
-the new smp_mb(). The three points from my v2 review are addressed.
-
-The fork numbers in the cover letter are from before the handler
-change. It would be good to have them again for this version, along
-with an SMP run under compaction.
-
-With ipi_flush_mm_and_page() changed, or the changelog reworded to
-match what it does:
-
-Reviewed-by: Matt Turner <mattst88@gmail.com>
