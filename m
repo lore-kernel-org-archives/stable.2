@@ -1,64 +1,64 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC2138A739
-	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 12:05:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25080497399
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 12:06:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791633938; cv=none; b=gbBE1h7jujNKnYEk///O5Vn2Iwaklqcq746CNiKxB38mCRFJ75yZQNg2sMlqjudl06ccVY/cc8nbFHcBdGRTdgzDgp7GH1QNC9BpP8aqa9iBqFWpzs1lXwYtUpycgfwk5C0eaCo4tYMuk4geoq49w6IALc0yk0nkZXCwhYijl1U=
+	t=1791633997; cv=none; b=WlW7PQ9dQDftNQy7HJoI3FWpH+osPGPKZdPL4pX2Tbf0HhcNMF/lZ6fmGt87bgTPiK5e2sRUKVImOKUNZJuakuv/E8RgCl34L6AxhQ2ThAk48RuYPSERVTKK1JSPAqzSVk63nZXjdPAiArYtKKASRyYosYKQrHwyScDvritfQtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791633938; c=relaxed/simple;
-	bh=NhU5jgmcvMXag+1LZIKhrLyXbOwnznMb5BiggGYZrHo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=u+KpqK4gj613anfA/CRLKVy9ZqgwR7nWwX7LcLeoBXEFJmKvTCwzNUwcmjA5VVTTndVS0R8KMxVhRm4tJtEqjO2v37apIfolRqNRoSws2kNSpagQ3MgqfMeFWumWWpn3KFlaSdR8p+kH9w35agD+t0dEwxw2Zgqz6xV71h/061s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bnqGdrnD; arc=none smtp.client-ip=209.85.128.44
+	s=arc-20240116; t=1791633997; c=relaxed/simple;
+	bh=c6R/HMX9UdwvshKUArbM+BShOO0B0p0jNJq4Z1oLlXQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=ra5DogLs3MSvVe/xkaNLDV+vm9OrB0rz4CUFy2PXoLQH332SjrExxd8JxLePTgzAktfAD+bdO+51jFtMBAwheIYeTBteVmC6usH8OfN4xGf66mgcGtsDeh9vlX9/eO59X8WCGvBiiK+0VsCO8wHQk/21vwd1aOhmQgpwON36eQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XBQ7+Qik; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bnqGdrnD"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so2016565e9.2
-        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 05:05:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XBQ7+Qik"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso5960985e9.3
+        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 05:06:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791633935; x=1792238735; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791633992; x=1792238792; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=iDEA6vjah9q6WFHrSqFGiZ6d9YIFPeL6k7zSaUFmLVI=;
-        b=bnqGdrnD80j71kaEgpZgFe7Yu0mkaTODiSMunlRgRBpEi1DLHw+31lW4kljTej4Fb/
-         kV/OWKKuI0uGQbPAHs4+p68Cu6tsjYjDfDvfYuQmsWUJCAOcCbPxJHIMTEHOF9+DtSTe
-         twvNr6HgpmoX0Xkncpcdq+bF4WBnu7oS9ROR9g5JlRRMyJj2YkdW9j759HteQm/89nRP
-         Dol81SMYdwSqCm6/0s1ghNawibA59iIWDvBD92A8LWmAi4AXphcp/tPV58GJS0zPLM+8
-         hS0f9WAS1Nt8pdAz23yznLbxYqI1zABap5xUO+WtpRdZ6JgpuxBZp95BQh3qtwtASf62
-         881w==
+        bh=Pf93fAStQFQmMPyWTZnqmgHvVU3/s2D82vsfqUoiRMc=;
+        b=XBQ7+QikmVoz/PJOWWWMLXAUastRMEGijjmpTay0t1cOOZTBbdWC8NUpv6s1p3ApVJ
+         q5LT56oeBWKAblerx3D62ci7iltlvfJq7Md9LwMDlypNsMakftbkspyrCYl+q9JA5fUY
+         aFrjC/Kc/hqDWUb6VPSnHyIcMtWWSdaAb2YBILO3z+BMYis9f8MpSc39FdHySN+zLUBQ
+         dvHxwEKMeYRtSBFbPlAznipLNblDs1lOkFPLiPY6b3Vt1OM/aFfujRXjTdGyST5cfKLK
+         NC93FYs9RrD+zvs8oz//UQouIifuxlotjigxMdsPFBjp2jrGLbxD8HnhNMn4w/T9sPMF
+         XqMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791633935; x=1792238735;
+        d=1e100.net; s=20260707; t=1791633992; x=1792238792;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=iDEA6vjah9q6WFHrSqFGiZ6d9YIFPeL6k7zSaUFmLVI=;
-        b=V4jWtzq2L5N0k8zmWfD0vkQiR6EB4EfkWknUGMdU/PoViA0CDpqEFt40iR8DB0yOhR
-         GC6PneIVLfERWP+cYa1UR2i8zVdlCmWzeklk7qaiOvFjadL6gQi6xEi5DNawmNjQkNYD
-         9uLs20zLKu8QUH4Z71pnSEwFWWVLvA4bPy1lbUo0nFMIE6ninD6/io4YmLurhtLdf7bE
-         8rSX1BnIHPes/jQBCoHqljBoPFr9sRZMlwT5fJnAFZzz97WwEZxfL5pqKP9pX/J+at6N
-         egh2r31c/HbonxIjxOy6kDidcZ7UPxhDbqGBt0/3tO2klOZYgPnCRshRKIKhvWE+VLrO
-         r0aQ==
-X-Gm-Message-State: AFq9FYKf5EUon4inuXSCSAKkrOrdwVc5kN6QqgqAkHIUk/hij1IvlLdf
-	sIGo1Q8aemSesRRTrtFR0sdybNSfMIzEmc2i1NlHXmaLvxogy/P/ZE1+EnSHeL/i
-X-Gm-Gg: AYBFou1XI6f1j8qFu93eMMVeV39x4DfeSe4VPcHMDD3dc/qsaC4HG0Df2JAw4diIItT
-	SjAgD7Vw+Hb0ryroM4zkSWR+AKl2F9BhNiBR6dzDyrJf3cymj6z2fLA+J6HdkyYa0VIOWfCJm4c
-	1+v6idyRh7N1j27t2YkS9rPtPviP48K7elVByMCayLSNGVs18I0cqsnugTkL37e3zFQWlY1dpBj
-	CWzCuYmXLLTe17NDO0eBLvIaCAmlP18IJb2pRhcrSWotOYvUY8Iy8SS1Qe7K65SznRQh+WO8dX+
-	Y8HXGB7Y8cyp6rD6o3HOKwGO2j1p5S8nzT9b//EwBta7/WHasthOKN+M5knH9f/YGuif9wlLJAB
-	IRJQGTshq5gx1tUuiAB97bSu7ucttjMsKMHn/Z9Yg/PeG55iPGSYQBQnASqhoui15MohF7D8mS4
-	YzLec7ZJxCZV0/bk2rGNgJWhG5BIvkaD3bpm3Wl6JO0mgJhURj/vyO5gjFRUfzfBmIKa+eL0nYc
-	DZB6ECgTkwJRJTmwUK+f1BV70poeUwI2H8nNOgrBKRgNl8jPTu9GTtjANE+7fHvgx1XFafAhEP8
-	3tEWA1R4YKO2/CIBuFMUxQT5yUXjGpTTmZwrx/jzWNEQO+IAjNfa1T5wjjoT0l4JnyZLdvUr1jw
+        bh=Pf93fAStQFQmMPyWTZnqmgHvVU3/s2D82vsfqUoiRMc=;
+        b=Sb7YTyuSmcFlcuTRktbVycBkfNuq50q0jcMkKmGpcHneAq6kpSw9S4VgfI7ZyOmhei
+         Ei7W3KwxIrJpVGbTo30393jyDRVKO6aHVAHAs4rhrF0F6D6LmtuObpdU3fj61A0fZ10/
+         zoQFg7TxXmRW99FRikPcn/tru35PMGVwOwhUFjt1ScHKAgCR3jhf2fUGBzaxuhPcquAn
+         8PI4WEzGHPZCazoF2zmJ8LOW2pwc9hypmISbyTbtLQrNfSTbzoXVBz9pyF7byBKuj7+J
+         q3ZyjtGkt4MUb3kiik23WuTa+vknPEQtHbB5yqt/MttygVr4/Jf8h8wJnLVASerMWbcQ
+         07VQ==
+X-Gm-Message-State: AFq9FYL+nohq80b9++xpNIQKO84gSgkOaZhRYOGBnRFeeHeobrKdDBTu
+	YV3XSBfOKKHsScPF4kqy8OlgXJNahbLUQSzy/Kq6OZ0wlsWKDgFvYH3VEbSty5Mn
+X-Gm-Gg: AYBFou3X1/LIgI8NorjeeBobVZP5/eLbq/wlJgHwEc1LM/QIRf/NsieQswB/UboCACw
+	neJO4yiPV+Oz36RNVfAdzt2+5KW2msX+Sh7PK39PSV5QlnWRPNfLfeaRXe2h/U5iiFjylIe8C2b
+	PafbWgD/AvdL70h8anSVAjzV2Zl8JK5Jx7JsjRGuz4LskRaL3C1vpPckUrwg0c2yF3D0KWFt4nb
+	Y+x2vmG2iEixmloCjIAoAYgTIk/1WuBQCKe/OIWRl6gv1abR6II9tI6J4W5/J9qHlMAjAfBNaz9
+	HePHP1Xh/D+BmWOiyuCKhUQk8QIgF8BKPKKMsmQk8c5sMtWXo/v50+dpzFt11NCBlru1AVPWwEK
+	h/fzoOulfJaAJT/biHEV+OQuumb5NFXWctkv8uzS2AXCslFPbwaLykWAICFV0xJjLKn8zFnRv8q
+	hQZZts90oisfOHQALnqWI+nHM7pJOpQ65N90nl/g7Z5gw/Hl64dBkLKqJqrYVNjwKl/xwy/KIxD
+	RFPPcnBcV40J3P4vZCGOkhIF2AHD/xCrQAyXQepJCtq1tKx1FJ49PsjUiYOQUPY7b9Kbi3cIaBI
+	rdhgq+R5dSqACkHgscP7qbPeHtRDbE1EBbUX5/hOXOo+/rbv4PXpsw0gjFCuLgCnMluD5sBtcT8
 	=
-X-Received: by 2002:a05:600c:4e91:b0:4a1:7ec7:a479 with SMTP id 5b1f17b1804b1-4a18e4f56bcmr93767975e9.33.1791633934396;
-        Sat, 10 Oct 2026 05:05:34 -0700 (PDT)
+X-Received: by 2002:a05:600c:8209:b0:4a0:2375:dc1a with SMTP id 5b1f17b1804b1-4a18e4cb771mr86143615e9.21.1791633992086;
+        Sat, 10 Oct 2026 05:06:32 -0700 (PDT)
 Received: from imx93-evk.localdomain (dynamic-2a02-3100-9d3f-0d01-48c7-5d76-0ec6-9dac.310.pool.telefonica.de. [2a02:3100:9d3f:d01:48c7:5d76:ec6:9dac])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db94e33d2sm9457467f8f.9.2026.10.10.05.05.32
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18beabbd0sm150904195e9.12.2026.10.10.05.06.29
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 10 Oct 2026 05:05:33 -0700 (PDT)
+        Sat, 10 Oct 2026 05:06:30 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: stable@vger.kernel.org
 Cc: Karl Mehltretter <kmehltretter@gmail.com>,
@@ -82,9 +82,9 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y v2] netfilter: nft_set_pipapo: restore cloned mapping table memcg accounting
-Date: Sat, 10 Oct 2026 14:05:28 +0200
-Message-Id: <20261010120528.4604-1-kmehltretter@gmail.com>
+Subject: [PATCH 6.1.y v2] netfilter: nft_set_pipapo: restore cloned mapping table memcg accounting
+Date: Sat, 10 Oct 2026 14:06:24 +0200
+Message-Id: <20261010120624.4946-1-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -95,7 +95,7 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The 6.6.y backport of commit 69e687cea79f
+The 6.1.y backport of commit 69e687cea79f
 ("netfilter: nf_tables: missing objects with no memcg accounting")
 changed the pipapo_clone() mapping-table allocation to
 GFP_KERNEL_ACCOUNT.
@@ -113,20 +113,20 @@ without being charged to the requesting memory cgroup.
 
 Restore GFP_KERNEL_ACCOUNT for the cloned mapping table.
 
-Fixes: 32bad10de347 ("netfilter: nft_set_pipapo: do not rely on ZERO_SIZE_PTR")
+Fixes: a4983e89e3b1 ("netfilter: nft_set_pipapo: do not rely on ZERO_SIZE_PTR")
 Assisted-by: LLM
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
 Changes in v2:
 - Split the combined 6.1.y/6.6.y submission into one email per branch.
 - Keep only the Fixes tag for this branch.
-- Refresh the diff against 6.6.158; the code change is unchanged.
+- Refresh the diff against 6.1.189; the code change is unchanged.
 - Add fresh build, runtime and matched A/B results for this branch.
 
 Original submission:
 https://lore.kernel.org/r/20260831194905.45045-1-kmehltretter@gmail.com/
 
-Testing on 6.6.158: built a minimal x86_64 kernel with GCC 15.2.0
+Testing on 6.1.189: built a minimal x86_64 kernel with GCC 15.2.0
 and booted it in QEMU with CONFIG_MEMCG=y. A 64-element two-field
 interval set passed creation, lookup, update, rollback, deletion, flush
 and reuse checks.
@@ -146,10 +146,10 @@ set. An unmodified 6.12.107 control already accounted that allocation.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/net/netfilter/nft_set_pipapo.c b/net/netfilter/nft_set_pipapo.c
-index 7c8d28a031ad..4c3bb5d61a3b 100644
+index 4b37c6684bff..456779003f58 100644
 --- a/net/netfilter/nft_set_pipapo.c
 +++ b/net/netfilter/nft_set_pipapo.c
-@@ -1465,7 +1465,7 @@ static struct nft_pipapo_match *pipapo_clone(struct nft_pipapo_match *old)
+@@ -1466,7 +1466,7 @@ static struct nft_pipapo_match *pipapo_clone(struct nft_pipapo_match *old)
  				goto out_mt;
  
  			dst->mt = kvmalloc_array(src->rules, sizeof(*src->mt),
