@@ -1,139 +1,122 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39AE0279DB1;
-	Sun, 11 Oct 2026 06:28:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC3E279DB1;
+	Sun, 11 Oct 2026 06:29:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791700144; cv=none; b=ESMmYnIcU21KaAm3E0MvOSD8jIPdv0BjfHR9u9WJucolYeRIAIEeKhxYdYn91LlCwz9w0nIoj92DQMAaqLPpZMiUL2JNXTPdVt7iMSfHzmqUnBOGNRcQPAmF13HYYuYFWSaNWkWyJAVdXN7v13u5oJYeWN5hRMEJiljvvxBXfs0=
+	t=1791700176; cv=none; b=SEGeL+l2JfzBKrCTWik2x5M+daSEONwL5CwenihndzI/bsfC6Gcant0+Zp3URSZauUXYR7on6xMUmv39+2dodOmCkFPozBivIOYauN5rvX2iMSjk4n5mr3thXVqfO2oOAxzc/FO0wbnzEEaq5B05W/nXrTozCzNR9sHyO8hReyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791700144; c=relaxed/simple;
-	bh=Ztzw7tIq+F5DxzZ3zYHgJ6+Ip2a4HgploLiOOYoCT8U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Eyc5Vo1mwCHIkpFE69scrfTnlW9+vMCvGyaocROuJHY0Sa2dcvJKGtPyxqLEKhoYcoLBCjVhppxrzPbjT6/otd2QQdqmKJ+Vsj+fCevRcp2/ny00ShzC/5bmoH6qLG5yZ7DT94WUZQmssWBJIgdz9Pna1EwHLvjze4RO2KOIQs0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=CIYEYSK6; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791700176; c=relaxed/simple;
+	bh=5vIidctZnEl3wtC1ByGQXHy1mdzwb3LTyG2mTj3tD9o=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=dSkjsiWsdpZRjmtVXbcMBqwQMJzCoFaEwZNx5DGhcLbl9wMRWIQCrJV+QPNBl4qA23yENhcbb5tOUxLoPd2UMmSHjhNX90RvVxsdZXwc5kD7ib65WPoT2QvIiRbIgVhDhxZAflbpv9/xXApgceDH2uXEgbidq0nAQYGgm5egvBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iEt2dtF/; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="CIYEYSK6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=SS
-	VvchRVLaj/Pb3fS/ZmIqZ7GV3LIWkg7RWPBl3w+iw=; b=CIYEYSK6RkP9nglEXf
-	gVYda7jr9yERPtSK9Wm3/ezIbh2Ua/AsqWkD8VRs+RFMgNa+1WhAwwptcNMi3xUm
-	CStGHORgg8VWcy7And7lC/8godOCBH0S6J+Z1UBZLfUjhLFrGiYEdaT9/S+MoDx8
-	81gxneqrDAEvL0RaRt+tPKdkE=
-Received: from ubuntu.. (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wBn5exyLMtqwLyuDg--.24813S4;
-	Sun, 11 Oct 2026 14:28:13 +0800 (CST)
-From: Ma Ke <make_ruc2021@163.com>
-To: david.rhodes@cirrus.com,
-	rf@opensource.cirrus.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	sbinding@opensource.cirrus.com
-Cc: linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com,
-	linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org,
-	Ma Ke <make_ruc2021@163.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ALSA: hda: cs35l41: Fix ACPI device reference leak on probe failure
-Date: Sun, 11 Oct 2026 14:28:01 +0800
-Message-ID: <20261011062801.3163066-1-make_ruc2021@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iEt2dtF/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791700174; x=1823236174;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:to:cc;
+  bh=5vIidctZnEl3wtC1ByGQXHy1mdzwb3LTyG2mTj3tD9o=;
+  b=iEt2dtF/pJI34Rt+pwme3mlZEe0RcagPleepsfGmBi5SWLDQHXTk23+G
+   Ojgfyg6q+GcbT1mfxo/9Z4vqNuOognW9TqH1TMEwzfFhhqxUTXkCrtjcX
+   VE3SF6PaEhZemmdOHB2io22NPnzMmSNoGfJt9GF3c2Zh7ArtwaOfIJ+m7
+   JTHQmP3cvddppVdZpSoUIhmWiPVR6mhNQUAvgKbsUsnPNV4UQAWrP4VU8
+   eudD06yq8C5V042IkPOZsy94j04SWLe6CyWYezUm1gU+vB8EbBfyXWe+G
+   ic2jc/xPyZW3Cs70qdvmWGBZ3mijzNQ9Lf/S23VEv0VORIw6hG3WD2k8d
+   g==;
+X-CSE-ConnectionGUID: mLIV23CiTGOvZ6HIKIZcaQ==
+X-CSE-MsgGUID: ALR71y1bQkC5/I2RHXu1KA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11931"; a="345102"
+X-IronPort-AV: E=Sophos;i="6.27,151,1787036400"; 
+   d="scan'208";a="345102"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Oct 2026 23:29:34 -0700
+X-CSE-ConnectionGUID: NNOQdw+8RISKV3TLrOk61g==
+X-CSE-MsgGUID: Qk7azwCBTgOg+xDwubfXWA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,151,1787036400"; 
+   d="scan'208";a="760412"
+Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Oct 2026 23:29:32 -0700
+From: Alexander Usyskin <alexander.usyskin@intel.com>
+Date: Sun, 11 Oct 2026 09:29:12 +0300
+Subject: [PATCH char-misc] mei: me: Revert "mei: me: add adler lake point
+ LP DID"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wBn5exyLMtqwLyuDg--.24813S4
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAr1kGFWUWr4xtF18KFW8Xrb_yoW5WF4fpr
-	45XayfGrZxXFyj9r17Xr4xX34rCry0vr13Wr1Fkw1rCw4fKry8J3y7JFy7Xw1rXrWvg3y7
-	XF13JFn5ZF1Ut3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0p_zV1UUUUUU=
-X-CM-SenderInfo: 5pdnvshuxfjiisr6il2tof0z/xtbC0x23wmrLLH2CHAAA3V
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261011-remove_adl_lp-v1-1-177758bd617a@intel.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqAIBBA4avErBPULKqrRITZVAP9MYIE0t2zl
+ t/ivQgemdBDm0VgDOTpPBJUnoFb7bGgoCkZtNSVkkoJxv0MONhpG7ZLGFdLa2xTjKWG1FyMM93
+ /r/sGLHbyDvrneQGd119wagAAAA==
+X-Change-ID: 20261011-remove_adl_lp-4c80a4a93b52
+To: Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org, Menachem Adin <menachem.adin@intel.com>, 
+ stable@vger.kernel.org, Joe Finzel <joe@sudmix.de>, 
+ Alexander Usyskin <alexander.usyskin@intel.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791700171; l=1868;
+ i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
+ bh=5vIidctZnEl3wtC1ByGQXHy1mdzwb3LTyG2mTj3tD9o=;
+ b=Da4Hve3Q/B/MUDn+HuPCtCMYEY/0UudNoqPQ+zAox4gQGbg6sSuThkcRH9nE39al3iuJ563SD
+ g2D14NghJ1pAPRy8TrUXV/RisDTAfk2vQeoXpEJgtNozPYHns1jlDHM
+X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
+ pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
 
-cs35l41_hda_probe() takes an acpi_device through
-cs35l41_hda_read_acpi() and stores it in cs35l41->dacpi. It is
-released in the err: label, which is reached from every later failure.
+This reverts commit 930c922a987a02936000f15ea62988b7a39c27f5.
 
-One failure is not routed there:
+This device ID is not belongs to HECI and added by mistake.
 
-        ret = cs35l41_hda_read_acpi(cs35l41, device_name, id);
-        if (ret)
-                return dev_err_probe(cs35l41->dev, ret, ...);
-
-cs35l41->dacpi is assigned inside cs35l41_hda_read_acpi(), before the
-point where it can fail:
-
-        adev = acpi_dev_get_first_match_dev(hid, NULL, -1);
-        ...
-        cs35l41->dacpi = adev;
-        ...
-        ret = cs35l41_hda_parse_acpi(cs35l41, physdev, id);
-        if (ret)
-                return ret;
-
-so on that path the reference taken by acpi_dev_get_first_match_dev()
-is never dropped, and cs35l41->acpi_subsystem_id is leaked as well.
-This is reachable on any system whose ACPI description does not match
-what the driver expects.
-
-Route the failure through a new err_acpi label that releases both.
-
-cs35l41_hda_read_acpi() also drops the reference on its own !physdev
-path while leaving cs35l41->dacpi pointing at the released device.
-Clear the pointer there so the reference is not dropped a second time
-from either cleanup path.
-
-Found by code review.
-
-Fixes: 447106e92a0c ("ALSA: hda: cs35l41: Support mute notifications for CS35L41 HDA")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ma Ke <make_ruc2021@163.com>
+Fixes: 930c922a987a ("mei: me: add adler lake point LP DID")
+Reported-by: Joe Finzel <joe@sudmix.de>
+Link: https://lore.kernel.org/lkml/20261011-mei-xhci-v1-1-38c28b5f3f99@sudmix.de/
+Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
 ---
- sound/hda/codecs/side-codecs/cs35l41_hda.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ drivers/misc/mei/hw-me-regs.h | 1 -
+ drivers/misc/mei/pci-me.c     | 1 -
+ 2 files changed, 2 deletions(-)
 
-diff --git a/sound/hda/codecs/side-codecs/cs35l41_hda.c b/sound/hda/codecs/side-codecs/cs35l41_hda.c
-index 62296be45c55..1088065f1fff 100644
---- a/sound/hda/codecs/side-codecs/cs35l41_hda.c
-+++ b/sound/hda/codecs/side-codecs/cs35l41_hda.c
-@@ -1929,6 +1929,7 @@ static int cs35l41_hda_read_acpi(struct cs35l41_hda *cs35l41, const char *hid, i
- 	struct device *physdev __free(put_device) =
- 		get_device(acpi_get_first_physical_node(adev));
- 	if (!physdev) {
-+		cs35l41->dacpi = NULL;
- 		acpi_dev_put(adev);
- 		return -ENODEV;
- 	}
-@@ -1986,8 +1987,10 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
- 	dev_set_drvdata(dev, cs35l41);
+diff --git a/drivers/misc/mei/hw-me-regs.h b/drivers/misc/mei/hw-me-regs.h
+index b9a67629496b..35af82ad1713 100644
+--- a/drivers/misc/mei/hw-me-regs.h
++++ b/drivers/misc/mei/hw-me-regs.h
+@@ -107,7 +107,6 @@
+ #define PCI_DEVICE_ID_INTEL_MEI_EBG        0x1BE0  /* Emmitsburg WS */
  
- 	ret = cs35l41_hda_read_acpi(cs35l41, device_name, id);
--	if (ret)
--		return dev_err_probe(cs35l41->dev, ret, "Platform not supported\n");
-+	if (ret) {
-+		dev_err_probe(cs35l41->dev, ret, "Platform not supported\n");
-+		goto err_acpi;
-+	}
+ #define PCI_DEVICE_ID_INTEL_MEI_ADP_S      0x7AE8  /* Alder Lake Point S */
+-#define PCI_DEVICE_ID_INTEL_MEI_ADP_LP     0x7A60  /* Alder Lake Point LP */
+ #define PCI_DEVICE_ID_INTEL_MEI_ADP_P      0x51E0  /* Alder Lake Point P */
+ #define PCI_DEVICE_ID_INTEL_MEI_ADP_N      0x54E0  /* Alder Lake Point N */
  
- 	if (IS_ERR(cs35l41->reset_gpio)) {
- 		ret = PTR_ERR(cs35l41->reset_gpio);
-@@ -2066,6 +2069,12 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
+diff --git a/drivers/misc/mei/pci-me.c b/drivers/misc/mei/pci-me.c
+index 790a4647811b..a25f2ed5db0c 100644
+--- a/drivers/misc/mei/pci-me.c
++++ b/drivers/misc/mei/pci-me.c
+@@ -113,7 +113,6 @@ static const struct pci_device_id mei_me_pci_tbl[] = {
+ 	{ PCI_DEVICE_DATA(INTEL, MEI_EBG, MEI_ME_PCH15_SPS_CFG) },
  
- 	return 0;
+ 	{ PCI_DEVICE_DATA(INTEL, MEI_ADP_S, MEI_ME_PCH15_CFG) },
+-	{ PCI_DEVICE_DATA(INTEL, MEI_ADP_LP, MEI_ME_PCH15_CFG) },
+ 	{ PCI_DEVICE_DATA(INTEL, MEI_ADP_P, MEI_ME_PCH15_CFG) },
+ 	{ PCI_DEVICE_DATA(INTEL, MEI_ADP_N, MEI_ME_PCH15_CFG) },
  
-+err_acpi:
-+	acpi_dev_put(cs35l41->dacpi);
-+	kfree(cs35l41->acpi_subsystem_id);
-+
-+	return ret;
-+
- err_pm:
- 	pm_runtime_dont_use_autosuspend(cs35l41->dev);
- 	pm_runtime_disable(cs35l41->dev);
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20261011-remove_adl_lp-4c80a4a93b52
+
+Best regards,
 -- 
-2.43.0
+Alexander Usyskin <alexander.usyskin@intel.com>
 
