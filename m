@@ -1,127 +1,119 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA5B723EAAF;
-	Sun, 11 Oct 2026 09:43:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8AE4334A5;
+	Sun, 11 Oct 2026 10:01:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791711782; cv=none; b=tMxd2s/JkO+VTthx+QdlgzKLiyiOYV83PuWdTk6YshekWC2l5BDnoDdlH6wykDdubQcLzJCAPoYJgPK9EEHmAG1/dYa8gbzeq/D6aPdXd9BNWg8dY/0HhjjQZJbOFNJG8TiF30JRYXMkyHPWmLLo8LKyxFXOz2G6PM3tQNtj4YI=
+	t=1791712886; cv=none; b=rD/0etC5mrQhA3DRSBFNn1Q5hoHsHIFWbjXRXq0a2/6QzkBPLC6DH5gp4G2rX2OYOYPrJVgOaL5KZuAkwjIfRx+zrOTj0JrlPJIHhpiBn2DOHeIEcq4aQ+wRQBvBVfrtznZMi0JIyB59n6MHjf1tLdA8T5P7Ihhn5464Y440vpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791711782; c=relaxed/simple;
-	bh=cWdqPRQBdkfG4TSFZFmnSdgEmJk0Ks+sECMOuffNi6U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=uKvinblpfmXyUHb0HqPEah6KOzH5JPzooQgecXVOFb6cpd1jOB2IkHYmXfH7L645uHwPrPCVPCzLVJaGYobe0gTJvq9nW+l7068rWWMEu97+/QwoE5EGzhUe9f7N20vDaiURYxPkSbx3N7UJjXjDnVvFl0btpafWcXZ+sQH+okM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OQMAbsFU; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791712886; c=relaxed/simple;
+	bh=oQjTLbhqQXy3eKN7hhZQQgN8wOhaEsZoY+dEA/ddxi4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rdn2Wi4m3Tt9Pyj86oPq5RWKKf7EvDNLbjmY4uMBXkif08xBvhKyOn5y8G4GJE5rX8HcPFD5YsBRFEPvDQ+aujKrpmfVRtaKuaMyaDAzlGtPXr8Ex+4EAt3UTdjiHNz4GeUdjOjhurnI4bG13OhexQWDlwM1qwmrJJ2Mk8y0cYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yxWVtgd8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OQMAbsFU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791711781; x=1823247781;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=cWdqPRQBdkfG4TSFZFmnSdgEmJk0Ks+sECMOuffNi6U=;
-  b=OQMAbsFUJLRzEtexsuQ+yymeEw+I2AvrwNeEgkfrWnXS5BB8WmwrcSL9
-   LQ3VcUoMa6tguAhsgJLfAgXO3dYuem3CnQ40hkbqC4G76Xo+kFkelHbTV
-   SztMDgHtxCZpdITlbfCMyP1Og0e64N/WzjTWBrYXj1hLt81peKOVGuDT9
-   EreINgi9PiHh0JazfYIngjtCZOM2bGn+Mgwt3MbCyw/3+k7wRfPdxEI6Z
-   LlymEpqZOOOGANpOEUTofBqMCC9uO6/08KP3eI5pTGHj8+FSDh70p/j4J
-   D3s5aQYUwrwWgzzDyQnjTzuxgV7gUCGiElo8QW8vlAlB92KlSEXdrzrtK
-   A==;
-X-CSE-ConnectionGUID: 8tWzvfH2Q4+iRjiLQt8dsg==
-X-CSE-MsgGUID: LJ4twEfAQnaE3VdKULjFFw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11931"; a="451397"
-X-IronPort-AV: E=Sophos;i="6.27,151,1787036400"; 
-   d="scan'208";a="451397"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 02:43:00 -0700
-X-CSE-ConnectionGUID: xpStNBBbThODO0FBaSHIbA==
-X-CSE-MsgGUID: fc4HvxIyQ+CzRSpgMZ/QWg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,151,1787036400"; 
-   d="scan'208";a="1116670"
-Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 02:42:58 -0700
-From: Alexander Usyskin <alexander.usyskin@intel.com>
-Date: Sun, 11 Oct 2026 12:42:46 +0300
-Subject: [PATCH char-misc v2] mei: me: Revert "mei: me: add adler lake
- point LP DID"
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yxWVtgd8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 777681F0089B;
+	Sun, 11 Oct 2026 10:01:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791712884;
+	bh=jv5LHdMOSSNsU4g1DFEw/WcPRQk7rQdmJi3MIXkLK6U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=yxWVtgd8H3LbZvZNxq9lmZnPE/qxWaoFe54rx7LN3opIWcYQu4PvmEZX0ZSVL0PKz
+	 3+6P6C5/ePht0aISv7S6YIZNsgDLiQG63EVMPvyuLayYqJeJoh3G6+ir5TnBmmyyRV
+	 RYHlwSh7ZkP4bVlD/e7jaRnhKmY8vQz3TaymAdY4=
+Date: Sun, 11 Oct 2026 12:01:20 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	Alice Ryhl <aliceryhl@google.com>
+Subject: Re: [PATCH 7.2 203/428] rust_binder: reschedule node refcount update
+ on thread exit
+Message-ID: <2026101102-barrack-subsiding-65e3@gregkh>
+References: <20261009140946.008206689@linuxfoundation.org>
+ <20261009140950.590490061@linuxfoundation.org>
+ <20261010070504.73698-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261011-remove_adl_lp-v2-1-3da6f6f671e6@intel.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNwQqDMBBEf0X23BQ3VWN76n8UkRi3dUETSSS0S
- P69qfcyp2Fm3uwQyDMFuBU7eIoc2Nls5KkAM2n7IsFj9iBL2WCJKDwtLlKvx7mfV1GZttSVvl6
- GWkLerJ6e/D54jx/Ai4WDgS5HE4fN+c/xFPEo/IFGFFlKqbodxgaVvrPdaD4bt0CXUvoCe1OaJ
- LUAAAA=
-X-Change-ID: 20261011-remove_adl_lp-4c80a4a93b52
-To: Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org, Menachem Adin <menachem.adin@intel.com>, 
- stable@vger.kernel.org, Joe Finzel <joe@sudmix.de>, 
- Alexander Usyskin <alexander.usyskin@intel.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791711778; l=2018;
- i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
- bh=cWdqPRQBdkfG4TSFZFmnSdgEmJk0Ks+sECMOuffNi6U=;
- b=LzQcEUyceEksqX7wC7PoMj4vYAKLDtM+KxoI4QT+JprRMEZGvZdqR4MgzOdb3TYBxeFxphr62
- +3VaIV0Khu+CKB4dUKzpB6czYc9KajNk7UlePynjTGkZ/SqluRwBlqP
-X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
- pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261010070504.73698-1-kmehltretter@gmail.com>
 
-This reverts commit 930c922a987a02936000f15ea62988b7a39c27f5.
+On Sat, Oct 10, 2026 at 09:05:04AM +0200, Karl Mehltretter wrote:
+> [...]
+> > Cc: stable <stable@kernel.org>
+> > Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
+> > Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+> > Link: https://patch.msgid.link/20260903-binder-thread-exit-node-v1-1-be09ff14f6a4@google.com
+> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> > ---
+> [...]
+> > --- a/drivers/android/binder/node.rs
+> > +++ b/drivers/android/binder/node.rs
+> [...]
+> > @@ -733,7 +733,21 @@ impl DeliverToRead for Node {
+> [...]
+> > +    fn cancel(self: DArc<Self>) {
+> > +        let _drop_outside_lock;
+> > +        let mut owner_inner = self.owner.inner.lock();
+> [...]
+> > +        if let Some(node) = ListArc::try_from_arc_borrow(self.as_arc_borrow()) {
+> > +            _drop_outside_lock = owner_inner.push_work(&self.owner, node);
+> > +        }
+> > +    }
+> [...]
+> > --- a/drivers/android/binder/node/wrapper.rs
+> > +++ b/drivers/android/binder/node/wrapper.rs
+> > @@ -57,7 +57,39 @@ impl DeliverToRead for NodeWrapper {
+> [...]
+> > +    fn cancel(self: DArc<Self>) {
+> > +        let _drop_outside_lock;
+> > +        let node = &self.node;
+> > +        let mut owner_inner = node.owner.inner.lock();
+> [...]
+> > +            if let Some(node2) = ListArc::try_from_arc_borrow(node.as_arc_borrow()) {
+> > +                ds.has_pushed_node = true;
+> > +                _drop_outside_lock = owner_inner.push_work(&node.owner, node2);
+> 
+> I object to this patch as queued: it causes compile errors with
+> CONFIG_ANDROID_BINDER_IPC_RUST=y.
+> 
+> The upstream commit was written on top of dbb17c9ea756 ("rust_binder:
+> move (e)poll wait queue to Process"), which added the Process argument
+> to ProcessInner::push_work(). That commit is not in 7.2, where
+> push_work() still takes only the work item, so the two new calls do not
+> compile. dbb17c9ea756 is a performance change with no Fixes: or stable
+> tag, so I am not suggesting to add it.
+> 
+> An LLM agent assisted with the review and the build test.
+> 
+> With CONFIG_RUST=y and CONFIG_ANDROID_BINDER_IPC_RUST=y (x86_64
+> defconfig otherwise, LLVM=1, rustc 1.98.0), "make drivers/android/" on
+> the review tip 77b730c57839 fails:
+> 
+>   error[E0061]: this method takes 1 argument but 2 arguments were supplied
+>     --> drivers/android/binder/node/wrapper.rs:86:50
+>   note: method defined here
+>     --> drivers/android/binder/process.rs:173:19
+> 
+>   error[E0061]: this method takes 1 argument but 2 arguments were supplied
+>     --> drivers/android/binder/node.rs:748:46
+> 
+> ANDROID_BINDER_IPC_RUST depends on !ANDROID_BINDER_IPC, so a build with
+> the C binder enabled does not compile this code.
+> 
+> With this patch reverted the same build passes. It also passes with both
+> calls changed to the one-argument form, push_work(node) and
+> push_work(node2), but that is only compile-tested.
+> 
 
-This device ID does not belong to HECI and was added by mistake.
+THanks, I missed this for some reason my builds were not picking up the
+rust version of this.  Now dropped from both queues, thanks for testing
+and letting us know.
 
-Cc: stable@vger.kernel.org
-Fixes: 930c922a987a ("mei: me: add adler lake point LP DID")
-Reported-by: Joe Finzel <joe@sudmix.de>
-Link: https://lore.kernel.org/lkml/20261011-mei-xhci-v1-1-38c28b5f3f99@sudmix.de/
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
----
-Changes in v2:
-- fix commit wording (Greg KH)
-- Link to v1: https://lore.kernel.org/r/20261011-remove_adl_lp-v1-1-177758bd617a@intel.com
----
- drivers/misc/mei/hw-me-regs.h | 1 -
- drivers/misc/mei/pci-me.c     | 1 -
- 2 files changed, 2 deletions(-)
-
-diff --git a/drivers/misc/mei/hw-me-regs.h b/drivers/misc/mei/hw-me-regs.h
-index b9a67629496b..35af82ad1713 100644
---- a/drivers/misc/mei/hw-me-regs.h
-+++ b/drivers/misc/mei/hw-me-regs.h
-@@ -107,7 +107,6 @@
- #define PCI_DEVICE_ID_INTEL_MEI_EBG        0x1BE0  /* Emmitsburg WS */
- 
- #define PCI_DEVICE_ID_INTEL_MEI_ADP_S      0x7AE8  /* Alder Lake Point S */
--#define PCI_DEVICE_ID_INTEL_MEI_ADP_LP     0x7A60  /* Alder Lake Point LP */
- #define PCI_DEVICE_ID_INTEL_MEI_ADP_P      0x51E0  /* Alder Lake Point P */
- #define PCI_DEVICE_ID_INTEL_MEI_ADP_N      0x54E0  /* Alder Lake Point N */
- 
-diff --git a/drivers/misc/mei/pci-me.c b/drivers/misc/mei/pci-me.c
-index 790a4647811b..a25f2ed5db0c 100644
---- a/drivers/misc/mei/pci-me.c
-+++ b/drivers/misc/mei/pci-me.c
-@@ -113,7 +113,6 @@ static const struct pci_device_id mei_me_pci_tbl[] = {
- 	{ PCI_DEVICE_DATA(INTEL, MEI_EBG, MEI_ME_PCH15_SPS_CFG) },
- 
- 	{ PCI_DEVICE_DATA(INTEL, MEI_ADP_S, MEI_ME_PCH15_CFG) },
--	{ PCI_DEVICE_DATA(INTEL, MEI_ADP_LP, MEI_ME_PCH15_CFG) },
- 	{ PCI_DEVICE_DATA(INTEL, MEI_ADP_P, MEI_ME_PCH15_CFG) },
- 	{ PCI_DEVICE_DATA(INTEL, MEI_ADP_N, MEI_ME_PCH15_CFG) },
- 
-
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20261011-remove_adl_lp-4c80a4a93b52
-
-Best regards,
--- 
-Alexander Usyskin <alexander.usyskin@intel.com>
-
+greg k-h
