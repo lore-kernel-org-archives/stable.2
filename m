@@ -1,121 +1,140 @@
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EAD931B80E
-	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 16:39:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791736772; cv=pass; b=iCvoikuSzK3/Ef5z0iPR4RiyFZzlBucUu5hava5R0hAI8ElUIAWr9XBVQBn5YmWN9Jr3lNVIEfPPozMz0JMu3SsEwS1iETZ9sp+8tRdsKV6yH5BvO1xBXfWyZVPTxVRIF+wUyw2Q2TIIB3EdRBqAxCeEB7H4tK3Jf9nThQw7eBI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791736772; c=relaxed/simple;
-	bh=zBtcwkC1UetxURqz8HrxesKE3ZLqea1Q818EN42uR6c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FIAy58AOoXQD4a33v2mJE1kR6r1Kq99k98k6/v+QCIPRGOJmDmY30fBiDgn+TtqYDT1rElxBuUC+XfoG8yNJPuL1Myepq7dujS5RlkiR0rZGlB2Wp0/NPBRBvylqpPxJHe8d7SO5/XgOIzeDArj59QBeKCWYtiNo8IreE5Gt3rc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Faz7hsFn; arc=pass smtp.client-ip=74.125.82.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CCAD329E46
+	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 16:40:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791736802; cv=none; b=rSQ/m81hAvouBkSUqvn0aS1QzVoYS2Gwskx4y5OaS8EoPbf6gDy9XfwSDZCkoWhOJsd3xYZPjXCOyhdHkzNzAEyxo3X0OWxNCocKAhf2sfqlf08K0ZC34BS1jjp00eS4dMh7xUwiyIQrLomZGzFZOyhKFsod9a6eenQ6MI9pGGM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791736802; c=relaxed/simple;
+	bh=EhMBg/s6MnYlerlCrlEH8yhUL0K+RB5H1t9NeJh8E90=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=s55L8WzCdRX+B7o12gX6rW1RCOOXA7MfkFUCR+coiwnSl30DXseznE33GLn7ZnxS76o7XWvn1sLpJswAvi60s6LyIbioRlkvnwL0J4PDCh0Osy6f06Vf5kY1I1wF5BjirBjSwECygV2Jg74rCIN1RiscycXiVkE/G1nXnIIHlrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fzkgIWtD; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Faz7hsFn"
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3535aa147d8so62932eec.2
-        for <stable@vger.kernel.org>; Sun, 11 Oct 2026 09:39:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791736770; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NVEe+VWYqEgIyYgRwUhqan2AIVKAHblaC4xmQJfg5L/UybxzRxCtstDU+vgpHT/VW7
-         i44OB363HXiUeb/JQTca+vjzs+McBJn0r1VZurDHOd89tew1AEtxozbrTlPz6XJ6Jhw4
-         VMRRNx8NZA7KdqqkY6LvnTBFppAUpujYFBpK9yRO4IlhCjo7WfZd5ZaVQV2pOQED61aR
-         tfghLwClIZyPUvyf+F1cmcQLnshepf6AZMe4AGKZPT5Ke1u4ue26LILhtXKM+tj1Osg0
-         Lt1w7Y3IxMVR0FdcT9OY4ZhA+v6rQfoyoq7xT5f1qZic1DCkS01aP1Xal08EFLhpoUTe
-         QCjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=zBtcwkC1UetxURqz8HrxesKE3ZLqea1Q818EN42uR6c=;
-        fh=mg6IvsxJurVMOg8Fb/CGcas9UYwwzioDh5WiLqFI8+Q=;
-        b=OA4EPyU9hTTK1I2xnMiJSksDMdOAaKly5rkkIA9QVLiW84DcFrkTWsYB+kiyMHX6lt
-         IkdEHfgjRQZaSgCA3oY4GZmm1TRz7W+qXLOrikpzlmEZBM37K6IEOFluJRnuo2jjn0nS
-         pLLnJHT4A4MyKfKdmwFJHh6IWKVEXTRDsp03+f+RHl/x5qRoHIePZJKZzLHFhnwVN32l
-         nqI+VUSn8omYiwiI1Z92+tT0BsJ97iBApSY2iPLNbj9GZYiupZ3WE7OPEmlqtdu/DR6H
-         R94g23nbccM+fHWj26tIw3C7aOZpolwk3RlPMEMuHdgMmKfHOvhuC75AlxzFfd+l7c+9
-         kVrw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fzkgIWtD"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a02718da81so8568035e9.1
+        for <stable@vger.kernel.org>; Sun, 11 Oct 2026 09:40:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791736770; x=1792341570; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zBtcwkC1UetxURqz8HrxesKE3ZLqea1Q818EN42uR6c=;
-        b=Faz7hsFnunGBHFqvsdNz3nQC3xV8RWVEyPmMPWEqWUFm/fOEwbqslWHwSqFsom4Vnb
-         FVuoLwUkLAlR11Nv4GXo5YZlhc1mHd1Vwwq+uF4Cw2XpBb50gVe1LrKDgpAqhEchOWZ/
-         OCehoGQthN5aPqFr/n47yXSbgUeC1ey6JGPv7b5e4mj1154Ri75TGeqvNlDRd17IW6Vd
-         lF6uCPI72Eh3T1wTkEq1vZFBm5PFOpQ2YkNv6jtKMkWWH2Utbt+3UmJzyEbLs16+CvGx
-         zLfQuePWe01+IWyHa9cweBCOlgi2At1/8KQxrRC9iGZETagFEUJUvdiDq4Izln8V58qn
-         JndQ==
+        d=gmail.com; s=20251104; t=1791736799; x=1792341599; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Cjm6k42dOyLFIbxGk3oDRyKuVo/hFB0pF5yZpJn1l/s=;
+        b=fzkgIWtDzSJHcoAEsOgTFoG3s6RmIXgu8OzOsEezkawmiSN//BheWRm1ofTHRtWP8J
+         lPOsBuqvcRYxVRydIz+sxfsbchs00e4XjyODgipbazgZo5HRCEI7Qw/StaZyGW2NDfgW
+         PlxqlS40e6FIXTaRNxUYToU04D5HECwup44LArHlQCXcAWVdyNxrOMkkO8hXqJxn8erK
+         p4/8/wWyiYzlDXUU5aPHta9rKGcGgL55V24RH6fgV0ZlRVxbfCqrmF9RhSs5+1a8kLrA
+         5kcza9HAk3PSWMWV1uD9W62YSgs6FkfiVY1ZNCnfNddB4E1wFrkXliMT1jUpuVZ4tgWd
+         nWYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791736770; x=1792341570;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zBtcwkC1UetxURqz8HrxesKE3ZLqea1Q818EN42uR6c=;
-        b=s1Se+Vc/oxS9jqveaXqDBkuzqVk90Kvv38T0fsyhVe2v9upQrSqzOnZ/oC8wgFBeC+
-         ogQ6pEIQjaJAC3PsJBGGiDBjkp4S7nz4dtMeaZXdXvskiHmRLTzZMhfYDtk7JJ27fAh+
-         M9fJrWdjfMMj8bN0nSbCjEkil5E7EIke0gq6Wnwbznb22Hid9sYhu3B8kKx0jjAr2TK1
-         MFH2ldFUzRarWrFbom6LBUo3yfHUGSgovYgvSYZF8N4TXk3ooHwyCMPZ7erNQ2MMaYcb
-         SvixP+GeRsiaRsfck7DuxdE76Uacn/AKni+svGhtKt9d1zdXo1X0hDWYbCZmn+094Klc
-         bukw==
-X-Forwarded-Encrypted: i=1; AKwUvBwIws2wKKlFhhmDdXomKkrzTmaEvjOskT1zQdWkJrpuL9S2/cB8qkieHNt9/u7k8HkaPOxQfRw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK9dLVc7OwiwjfMgmJYB0fhbkAgMHy2YJ82oNiRhC9a8DKnIkq2
-	NRaSn6zHqUzUHbmqE0BS1shvNi5GUx4SSgTNL66YKwijAVh96U0GfbqAc0cDdJ9Li5pu6W+tANz
-	1L17kQ2rxGRJB/F4RLcqgryLmlHoGw7E=
-X-Gm-Gg: AYBFou1UiefXBs866sIpCGWFwxzlE6jmrwM3ZGFd8hPqwrNYBorGzUFYX/wC7guNhIm
-	aa2wvwwrTwdsH1UPrSgiH8kmnP8vHClns6CG/iOgUH7q7/fwC0YGxlCQiMoY1EScXSn3F+p9r1A
-	+xWVmux26Xo7HAddv18LWMZPvwIZwSx0XKVCELFcCu4Ra+jZhGPGfNIUYtpRTmwdXHH6HlIen+Y
-	tXkcsqZDYPAAT4CANbYhehln0IXIr2yGaj5j1WbkT/zbdJLQG7vdEH7bSJPi3xjVar/FxTgn2ic
-	uFskkGsYxcldab7xDz5n+FoNIqh0/NpgmLnorX5j+ObhpxAxMQ0hYd5MMvzbOlH64kXRHaci68i
-	8IWE7DMhkHOJq6I0930d+YSap5dcBHsqo8X6UZ81AQmDa2lb54BWPbxdgJeZlL+EiBIyqfCF5O2
-	oO0pZ+Y9bl0hq3YQFovtAwRMiUFUWLbMBtUKcI6StI6Qnc6QkloXE2
-X-Received: by 2002:a05:7300:c01b:20b0:351:e21d:357d with SMTP id
- 5a478bee46e88-3537dfdd089mr19829223eec.1.1791736770408; Sun, 11 Oct 2026
- 09:39:30 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791736799; x=1792341599;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Cjm6k42dOyLFIbxGk3oDRyKuVo/hFB0pF5yZpJn1l/s=;
+        b=hr4WJlw7kLprhwMcEwfQoGRxBEsJWQdouuHVH0KLHhIryxZ/Z929TpiLd70CNUsmc4
+         8u1YbhOzZNBNm+N3u6c7ZG/fsTRROIkjdIJl8VSbL06zTXRgI0kSMCb6nuwOoc9BchmV
+         sRMmnebb39tTXf5/3eguu4Rt0w8RlFV6LSUax+mW24HWBsJKdmeofT/FJ1gvzbHwDj5R
+         mj+C4pF/Mk1GGLCUrxQNiFCbVpfcwpprq/zDY/jOqqnJkwAO/on/OrzfWNRCZ7gItErW
+         PPd/frlerC08gabsnGh+EyVjSxFqwBo5g9oe9KrsDDextp6NvJ0x6iSr/VO9Yo8zK4zv
+         PGnA==
+X-Forwarded-Encrypted: i=1; AKwUvBxB4isvTtzqNgmt7Bdsa9TO7AqyxQNckXVN3DdkUjjn3CzKClhKLrDwWUCx3LftFMs8CBlcHUI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI2ABT7anb9kH/aEbU78rM0AwBsp+lSLb7HIosP1mJrgvggVgRb
+	IF8nMgJ6d2ZpyWzW+fj5r7V4FBWmvM2TGkxaZsVhN9HVbtodCh4NfY+Q
+X-Gm-Gg: AYBFou1+RbP5TQpGQxBGgxxWu/ZHhHwauyTPwGXjPP7jDeiUWRgCQhyQ6DCqw1X3XEr
+	93D4JT2CWBEsmK2lG1Xk2KLFWNz4eFyt6zUKB5HZ7EjCbokXyBu/o6I6MteMrQUGofeFNIvwWsa
+	jQREot4a5RIzs77+pkpGRiRueDNdENMeBXv8ZpJri4LbGxae+eFdwnKqF4dx5Lv5h2yk2h/TU5Q
+	c8RivL0OVLp02qGmN7IbDaGz3ixt+yQ4EcWb5xq2IN2WSBTg7CJGA+xM3hDsgg5toooEr1fepLy
+	hvqfmE99zBxC6sLvBzlnlQ1TywArAMhezXbeT/2Eiyu0eZqvy50VG2Ip4QKoYbcKifCzM10hmVu
+	XadihLQOrVuRYJ3GEGN68Y+TgGDvB1/FwA8RlByYKMRB0gtxBUQhdMr8OUgDbOO+GYkJORd6P6O
+	1Mfr5XYtblEIzmCYVsYSeOaCapnI3EysWmG98L4mxhpk8jK5KlqkJ9KBsaeUgQxm969VBHTWPVU
+	w3JJ/uSaQ29/2P9lVf0fl/DsxrWvSJ3cA1QUilIOTkcB0OREMVkYAcl9CF1s5fuPkbWJLc/jkbN
+	7KMk+zeK/6ZrwhDiDJR9G10yksNfUT1EN2CRVDGKIWkNL99Gu5ErDY1xY5PUgqa0LWanhtE2dMq
+	jQd9CbEdBY3jc9QZMq1O/4ltnfK7c/4QhyrP9wjpClxcuGhA=
+X-Received: by 2002:a05:600c:8b70:b0:49f:e701:51c8 with SMTP id 5b1f17b1804b1-4a18e4a01acmr138567585e9.9.1791736799033;
+        Sun, 11 Oct 2026 09:39:59 -0700 (PDT)
+Received: from [192.168.1.187] ([2a02:8308:4092:11f0::f9f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be96549sm307874315e9.6.2026.10.11.09.39.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 09:39:58 -0700 (PDT)
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+Date: Sun, 11 Oct 2026 17:53:01 +0200
+Subject: [PATCH] iio: gyro: mpu3050: add missing trigger cleanup on remove
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009140946.008206689@linuxfoundation.org> <20261011111313.27648-1-ojeda@kernel.org>
- <2026101124-rethink-craftily-cb25@gregkh> <CANiq72ndhLush3bugar1YGPnsein8min1k3_NucBxzFwCWe9Ug@mail.gmail.com>
- <2026101103-fling-stipulate-084f@gregkh>
-In-Reply-To: <2026101103-fling-stipulate-084f@gregkh>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sun, 11 Oct 2026 18:39:14 +0200
-X-Gm-Features: AclHuK894KXAsXO3p-x4bVKeUE-imiIjXxXeY6DW6N_dPzUVgjRMS5Bea-wNMLs
-Message-ID: <CANiq72kjJ__OnsTjmsuQZH8+U-cRDCNnRpSuHU3PwYYT07Xf0Q@mail.gmail.com>
-Subject: Re: [PATCH 7.2 000/428] 7.2.10-rc1 review
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, achill@achill.org, akpm@linux-foundation.org, 
-	broonie@kernel.org, conor@kernel.org, f.fainelli@gmail.com, 
-	hargar@microsoft.com, jonathanh@nvidia.com, linux-kernel@vger.kernel.org, 
-	linux@roeck-us.net, lkft-triage@lists.linaro.org, patches@kernelci.org, 
-	patches@lists.linux.dev, pavel@nabladev.com, rwarsow@gmx.de, shuah@kernel.org, 
-	sr@sladewatkins.com, stable@vger.kernel.org, sudipm.mukherjee@gmail.com, 
-	torvalds@linux-foundation.org, =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
-	Todd Kjos <tkjos@android.com>, Christian Brauner <christian@brauner.io>, 
-	Carlos Llamas <cmllamas@google.com>, Alice Ryhl <aliceryhl@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261011-mpu3050-fix-v1-1-f55b0d138be4@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDA0ND3dyCUmMDUwPdtMwKXUMT00Rz8xRTIyPLJCWgjoKiVKAw2LTo2Np
+ aAMP5/C9dAAAA
+X-Change-ID: 20261011-mpu3050-fix-145a77d5229b
+To: Linus Walleij <linusw@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Dingisoul <dingiso.kernel@gmail.com>, stable@vger.kernel.org, 
+ Joshua Crofts <joshua.crofts1@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791736798; l=1616;
+ i=joshua.crofts1@gmail.com; s=20260530; h=from:subject:message-id;
+ bh=EhMBg/s6MnYlerlCrlEH8yhUL0K+RB5H1t9NeJh8E90=;
+ b=hOSERUJHDV8gdQDBWCvJ8tQg2SVgtaw/Z8hNODJJld+FchhkOoytB/lOhmQWQj+bQDJHG/Mew
+ WJkl/KqFv+5Bht20X9dkEFZ8DBHbM0TKYF8XsX4i2YG9ct2Sr0WsOr7
+X-Developer-Key: i=joshua.crofts1@gmail.com; a=ed25519;
+ pk=RTDOoVwgeL4oFdASj9U+cxJuIjXuXk73zkjnGOJKbEo=
 
-On Sun, Oct 11, 2026 at 4:17=E2=80=AFPM Greg KH <gregkh@linuxfoundation.org=
-> wrote:
->
-> If that works, can you, or someone else, send an updated version of that
-> commit for the next round of stable releases as I dropped it for this
-> one.
+The mpu3050_trigger_probe() function registers a trigger but
+mpu3050_common_remove() and error paths in mpu3050_common_probe() forget
+to clean it up, causing a use-after-free bug.
 
-Done (I didn't add vger).
+Add the missing iio_trigger_unregister() function.
 
-Alice: please double-check, thanks!
+Reported-by: Dingisoul <dingiso.kernel@gmail.com>
+Closes: https://lore.kernel.org/all/20261010203601.1686148-1-dingiso.kernel@gmail.com/
+Fixes: 3904b28efb2c ("iio: gyro: Add driver for the MPU-3050 gyroscope")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+---
+ drivers/iio/gyro/mpu3050-core.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Cheers,
-Miguel
+diff --git a/drivers/iio/gyro/mpu3050-core.c b/drivers/iio/gyro/mpu3050-core.c
+index 07c0f9011c63..096fd0dc608e 100644
+--- a/drivers/iio/gyro/mpu3050-core.c
++++ b/drivers/iio/gyro/mpu3050-core.c
+@@ -1260,6 +1260,8 @@ int mpu3050_common_probe(struct device *dev,
+ 	pm_runtime_get_sync(dev);
+ 	pm_runtime_put_noidle(dev);
+ 	pm_runtime_disable(dev);
++	if (mpu3050->trig)
++		iio_trigger_unregister(mpu3050->trig);
+ 	if (irq)
+ 		free_irq(mpu3050->irq, mpu3050->trig);
+ 	iio_triggered_buffer_cleanup(indio_dev);
+@@ -1278,6 +1280,8 @@ void mpu3050_common_remove(struct device *dev)
+ 	pm_runtime_get_sync(dev);
+ 	pm_runtime_put_noidle(dev);
+ 	pm_runtime_disable(dev);
++	if (mpu3050->trig)
++		iio_trigger_unregister(mpu3050->trig);
+ 	if (mpu3050->irq)
+ 		free_irq(mpu3050->irq, mpu3050->trig);
+ 	iio_triggered_buffer_cleanup(indio_dev);
+
+---
+base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
+change-id: 20261011-mpu3050-fix-145a77d5229b
+
+Best regards,
+-- 
+Joshua Crofts
+
