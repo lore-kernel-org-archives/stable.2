@@ -1,186 +1,234 @@
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00569409613
-	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 08:37:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F2AB421245;
+	Sun, 11 Oct 2026 08:46:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791707865; cv=none; b=gzZgH594BhoEp0Z9G1rwQieIsgvaJ/Na1qTEJZIfpjIeJQr8SJlcsyAP5rXa/pyTI/dw8gaNcz6B0J707UOtQMtL5EGnvgIFI1VIN2XL2gn0DLWawNm4Ck14AabM/ixZ3wRNNmpg1nkEA5/hw8rSFfp7KMXtzlLbuVWvHaXhDfM=
+	t=1791708380; cv=none; b=CQnU4WPCNYEbSuI2wnvRpyBHJs4ZOGBAV9kHmxW5k4EvQLjEgk24PAfX6zD0fOprTyr1qj42xIxQO+Ui5o+439hp6QD39HXJocNyNsMZ3WxnC65tBGd0vhRvygIhXZwgRcX7XfjhJQbthYcsulHQRkWvtqrSEUQNIvyRAF0pFKE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791707865; c=relaxed/simple;
-	bh=AG9KYqEAuBrC5cVUj2Gtfc/xyb1PbumNIgtY38YvP4E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s6e7HZiuFVh4JidD1eCp+gGgRtKaLVDcw+/i8yGucbfrf6HwKhkqZE0ahw/Jtwdsk716mqJhHiXq7zKojNjZGrbBn5X3fzVgqxST65g43L44ba8CMbiMluxKqCZOXWlH4VhdSHqc6JR8N9+LYQmiQJU3T6r4IJvc4rNWuWRmAKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VD/Eceub; arc=none smtp.client-ip=74.125.82.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791708380; c=relaxed/simple;
+	bh=JXK4oSCpErPklpc7lLoKnemVgdcwS7et3wPxvHo68bk=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=EU52+xfeBL0GKeqJzXu1blern/1pE3OC/fNL2TWUbDoYq6shD/ov3uhIwEToEDDz88qhh2+1h1nkjbBlB97BN+zOA613cpcrRH+4OQsxEV+FVvPiLtljI3NQpdfqYw9+LmPhdoezMf9Z2I2plCN+aNqhs27VnSED04nqvbw0nts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XObUx/gw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VD/Eceub"
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-16ad92569b5so867500c88.1
-        for <stable@vger.kernel.org>; Sun, 11 Oct 2026 01:37:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791707863; x=1792312663; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NH/6OaijL4k70kWtU4gX45/jYXFxMDPWyBg48ckR6HQ=;
-        b=VD/Eceubty7HZmzF7szOIhfPW2i0IHPoLQl+yd3Kwsv1N6/e5BpZ6hOpzJ/RWdjoN2
-         NoT1Qn55IZjvioHjTj1mGHithnErd/mSz/pPwYy0WYY/UsofLCPxjCQ8+qeqkjxvo/xW
-         xjupnpW8mHBSvg6OUhHhEq7N/hStF1IZgOzOgO69EQerRunRpiZeErTLTbcnraGkdX+y
-         AFZxOz6Q5cWLugEcb8LL9u6Si0GYiSfwN69KUZ9rllvKCSHon/E+OrE+IZAnrK27h/IG
-         iHYruQrskayMaPbFJaGArCky2bpkd8Zr/d1L/A9nUXIaTL7hiiVpLwq8BQnijsDTe69q
-         g6Pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791707863; x=1792312663;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NH/6OaijL4k70kWtU4gX45/jYXFxMDPWyBg48ckR6HQ=;
-        b=1w/wucs4klHWPRvWdWbWeQU8xtQwV1gluPnJuomHpgMpBOBdTMOySzIJiXJX4Hf8iu
-         wA8+5JgA34YMRj9nh2yAAooX2dS9yDGQG8eF6xXFn2EwjgBLfpEVX+KZcqeksGAt/PqV
-         TO+KoqrL2rjpBM/aD+1jbinal7HwBbQ2Un9Df5TN7vtf60llJOps1/CxkzAfJ/J+uphT
-         UGubhT9wdhcQi41T2v8edOdv2K0cmvMLPfeRNCq1NlXpR8XvWJwqEjYT8D0l0EVuKgW1
-         pRMFfQnW8KGtOepGD3Qns07Iw5k/nnKuNQqxHMIhRpceoqfI7XN4SPdG5D7OB//pjzIf
-         poZg==
-X-Forwarded-Encrypted: i=1; AKwUvBwbjqV4NZ3AGaabpKPIdsCXz24L0flVNs01XdFzZ7T+pqhL6nNxVhaRfL1yglnk8BIQosEcHOE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL8qJoy6sr/n++fNYU0uP9YP56jrENjIQ+nvLQ8oGzzkqKjfVJw
-	O600a+P9/jZWpCsK9EyxQdRLVecK1stVo/6ejhoU2Mr1jv4kD4awy28R
-X-Gm-Gg: AYBFou1k+ZKh+Zpzk3MPxqYNpHwPKnfXCKOosue6cX3es1WSMH4WrtZWXLAAvvfVaKW
-	tJEfC82sSvWJ62/n8Beqq+HIGTLisVnwTS06PKhgPdNIoEJkLacegZSulAHAkOk6zwGNAZHXMYi
-	0TwKnU10bbtmUbI1hWXMFPKXoQE/ou/JtWr3oau2KFB+umrrSfAfWxiYkFutb/mjXut4KfyPvDi
-	0eaLJTGLdbOO3htcxP1xULwGc3xoTwQo9zWwnVjE0+XDo7/XfpGPYwnryDrvFeglxABqj3hFYqH
-	b+vm/dHvXWzqmJWFsR9RhEWhoB7lj5R8gpOHc6v4GWUZLYZZcn7kEYoOj+kPs53hEwp/KRfoQko
-	RpbUc+zglKrp2aVkvXs7AUaSAIlP10m1Es5zlxcDSGYJTelnY8T0eQP6r8VNyohzSHvx3IrVn4e
-	Y6SdJTUYNihcCo9yyvSmFuX+tAYfA5i/vsibrWrwJm99jzoTTmtjtGC2jT4pX1nH4SXBb60qhC/
-	M8Q6GvbET5k/GXaRXh8vgqgMbnRiUvWM0wW0oKLh9fn6b5hAbJCnymuwpUdoJpWOsrbiVsYQuvs
-	EF7r/Sc=
-X-Received: by 2002:a05:701b:4183:10b0:144:e535:3ef6 with SMTP id a92af1059eb24-16a5ec48a2bmr9056982c88.41.1791707862819;
-        Sun, 11 Oct 2026 01:37:42 -0700 (PDT)
-Received: from LAPTOP-UUUVNN1I.localdomain ([129.126.57.197])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a42407e7sm20186473c88.15.2026.10.11.01.37.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 01:37:42 -0700 (PDT)
-From: Wei Jie Law <98lawweijie@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Andrew Duggan <aduggan@synaptics.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v5 2/2] Input: synaptics-rmi4 - reject a PDT that grows between scans
-Date: Sun, 11 Oct 2026 16:37:28 +0800
-Message-ID: <20261011083730.223083-3-98lawweijie@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261011083730.223083-1-98lawweijie@gmail.com>
-References: <20261011083730.223083-1-98lawweijie@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XObUx/gw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A40E61F0089B;
+	Sun, 11 Oct 2026 08:46:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791708378;
+	bh=FYthYDxYDoOAgUYRAWkQ0GCdhoXr4bMX021KWI/g0l4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=XObUx/gwFpLfOl4g6Ss5t9I77a8SxllPvTsONJgeUCLUJJU+ZXuTYa6UpZR8oT7+c
+	 /sqXKyjlVCnowuCWp2wvklgrQXFZ3kIAHL4wcWFzfYzVosFao1eDyyXFDXbyOnxb+4
+	 Vxy8kkIG2fwkdwcvyTEJKjItVufght8LrBGX710ZZuUdYm4xxnjQn7aOWcSJYvhfvL
+	 xjZ8+QZavRE2m0sYrqST+vwJ6UqRH64S3Q+a+m0QIcQfXA3KhcRffAutPI33RY6Af6
+	 JxnzqrXkwdECscqE+0BUrG1Z6aQ7xE4lOZrzKrz97OFyRXdg7I+TsiUHsnUvO/SFCI
+	 /ly5AQbE9FQqQ==
+Subject:
+ Re: [PATCH net] rds: fix transport reference leak on rds_add_bound() failure
+From: netdev-bot+sashiko@kernel.org
+To: bsdhenrymartin@gmail.com
+Cc: achender@kernel.org, davem@davemloft.net, kuba@kernel.org,
+ edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ linux-rdma@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sun, 11 Oct 2026 08:46:17 +0000
+Message-ID: <179170837722.434549.13971101110405723728@kernel.org>
+In-Reply-To: <20261010081446.3112217-1-bsdhenrymartin@gmail.com>
+References: <20261010081446.3112217-1-bsdhenrymartin@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-rmi_driver_probe() walks the Page Description Table three times, and each
-walk reads the table back from the device:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-  1. rmi_initial_reset   - issue the reset command in the F01 entry
-  2. rmi_count_irqs      - total the interrupt sources
-  3. rmi_create_function - create the functions and set their irq bits
+Critical: 0 · High: 1 · Medium: 0 (3) · Low: 0
 
-Scan 2 fixes data->irq_count, data->num_of_irq_regs and the size of every
-per-function irq_mask[].  Scan 3 then accumulates fn->irq_pos and does
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-	for (i = 0; i < fn->num_of_irqs; i++)
-		set_bit(fn->irq_pos + i, fn->irq_mask);
+- [High] In rds_bind() (net/rds/bind.c:267-270), the new failure branch
+  calls rds_trans_put(rs->rs_transport) while the socket is still live.
 
-without checking the result against the count that sized the bitmap.
-Nothing makes the device answer the third scan the way it answered the
-second, so a device that reports one function with one interrupt source
-on scan 2 and a long list of functions on scan 3 walks set_bit() past the
-end of the flexible array at the tail of every struct rmi_function:
+Pre-existing issues:
+- [Medium] The SO_RDS_TRANSPORT once-only contract breaks after a failed
+  bind.
+- [Medium] rds_ioctl(SIOCRDSSETTOS) (af_rds.c:264-266) and
+  rds_getsockopt(SO_RDS_TRANSPORT) (af_rds.c:525-526) read…
+- [Medium] When rhashtable_insert_fast() fails, rds_add_bound() briefly
+  sets rs->rs_bound_addr = *addr (bind.c:123) and then resets it…
 
-  BUG: KASAN: slab-out-of-bounds in rmi_create_function+0x560/0x930 [rmi_core]
-  Write of size 8 at addr ffff888110c92b58 by task kworker/1:2/129
-  Workqueue: events uhid_device_add_worker
-   kasan_report+0xc6/0x100
-   kasan_check_range+0x105/0x1b0
-   rmi_create_function+0x560/0x930 [rmi_core]
-   rmi_scan_pdt+0x190/0x3f0 [rmi_core]
-   rmi_init_functions+0xb8/0x320 [rmi_core]
-   rmi_driver_probe+0x31e/0xbf0 [rmi_core]
+--
 
-one report per corrupted function object.  The same unvalidated
-fn->irq_pos is used again by the set_bit() and irq_create_mapping() in
-rmi_create_function_irq().
+rds: fix transport reference leak on rds_add_bound() failure
 
-Validate the counts before the function is allocated and fail the probe
-instead.  The check is exact, not conservative: when both scans see the
-same table, the running interrupt total plus the new function's count is
-exactly what produced data->irq_count, so it never fires for a device
-that behaves.
+When rds_add_bound() fails, rds_bind() now drops the transport module
+reference before it clears rs->rs_transport. Before this change, every
+failed bind leaked one reference on the transport module (for example
+rds_tcp), and the module could no longer be unloaded.
 
-Placing the check before rmi_alloc_function() is deliberate.  Since
-commit 58d42ec10b73 ("Input: rmi4 - refactor function allocation and
-registration") that function has already run device_initialize() and
-dev_set_name() on fn->dev, so disposing of a rejected function with
-kfree() would leak the name string and skip kobject cleanup on those
-trees, while put_device() on the same path broke on the pre-refactor
-trees that stable backports target: a kobject that device_initialize()
-never touched warns and its saturated refcount keeps the object
-allocated for good.  Rejecting before the allocation needs no cleanup
-on any tree.
+> diff --git a/net/rds/bind.c b/net/rds/bind.c
+> index f800d920d9690..e4667b3128940 100644
+> --- a/net/rds/bind.c
+> +++ b/net/rds/bind.c
+> @@ -264,8 +264,10 @@ int rds_bind(struct socket *sock, struct sockaddr_unsized *uaddr, int addr_len)
+>  
+>  	sock_set_flag(sk, SOCK_RCU_FREE);
+>  	ret = rds_add_bound(rs, binding_addr, &port, scope_id);
+> -	if (ret)
+> +	if (ret) {
+> +		rds_trans_put(rs->rs_transport);
 
-Reproduced with an emulated RMI4 device driven over /dev/uhid, and again
-over dummy_hcd plus raw-gadget, on v6.12.69 booted slub_debug=FZPU and on
-v6.12.105 built with CONFIG_KASAN=y.  After this change the same device
-gets
+[Severity: High]
+Can this module_put() race with code on the same socket that reads
+rs->rs_transport without a lock?
 
-  rmi4_physical rmi4-03: F40: interrupt count changed between PDT
-      scans (pos 1 + 6 > 1)
-  rmi4_physical rmi4-03: Function creation failed with code -22.
+Before this patch, rds_release() was the only place that dropped the
+transport module reference. No other syscall can be running on the
+socket at that point.
 
-and a device that answers both scans consistently still probes normally.
+With this change, the socket's only reference can be dropped while
+rs->rs_transport is still set and other threads may already hold the
+pointer. The pointer gets set either by setsockopt(SO_RDS_TRANSPORT) or
+by rds_bind() itself, which assigns rs->rs_transport = trans before it
+calls rds_add_bound().
 
-Fixes: 2b6a321da9a2 ("Input: synaptics-rmi4 - add support for Synaptics RMI4 devices")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Wei Jie Law <98lawweijie@gmail.com>
----
- drivers/input/rmi4/rmi_driver.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+Several readers use rs->rs_transport without lock_sock() and without
+taking their own module reference:
 
-diff --git a/drivers/input/rmi4/rmi_driver.c b/drivers/input/rmi4/rmi_driver.c
-index 443ba4106352..b2ed5991b197 100644
---- a/drivers/input/rmi4/rmi_driver.c
-+++ b/drivers/input/rmi4/rmi_driver.c
-@@ -898,6 +898,25 @@ static int rmi_create_function(struct rmi_device *rmi_dev,
- 	rmi_dbg(RMI_DEBUG_CORE, dev, "Initializing F%02X.\n",
- 			pdt->function_number);
- 
-+	/*
-+	 * irq_mask[] was sized from the interrupt count collected by the
-+	 * earlier rmi_count_irqs() scan of the PDT, and irq[] holds
-+	 * RMI_FN_MAX_IRQS entries.  Nothing guarantees that this scan sees
-+	 * the same table -- the PDT is read back from the device every
-+	 * time -- so a device that grows its interrupt counts between the
-+	 * two scans would push the set_bit() calls below past the end of
-+	 * the flexible array.  Refuse the function instead, before anything
-+	 * is allocated for it.
-+	 */
-+	if (pdt->interrupt_source_count > RMI_FN_MAX_IRQS ||
-+	    *current_irq_count + pdt->interrupt_source_count > data->irq_count) {
-+		dev_err(dev,
-+			"F%02X: interrupt count changed between PDT scans (pos %u + %u > %d)\n",
-+			pdt->function_number, *current_irq_count,
-+			pdt->interrupt_source_count, data->irq_count);
-+		return -EINVAL;
-+	}
-+
- 	fn = rmi_alloc_function(rmi_dev, pdt->function_number);
- 	if (!fn) {
- 		dev_err(dev, "Failed to allocate memory for F%02X\n",
+net/rds/af_rds.c:rds_ioctl() {
+    ...
+		if (rs->rs_transport &&
+		    rs->rs_transport->get_tos_map)
+			tos = rs->rs_transport->get_tos_map(utos);
+    ...
+}
+
+net/rds/af_rds.c:rds_getsockopt() {
+    ...
+		trans = (rs->rs_transport ? rs->rs_transport->t_type :
+			 RDS_TRANS_NONE); /* unbound */
+    ...
+}
+
+There is also __rds_rdma_map() in net/rds/rdma.c. It is reached through
+RDS_GET_MR, which does not take lock_sock(). It stores rs->rs_transport
+in mr->r_trans and calls ->get_mr().
+
+A possible sequence:
+
+CPU1                                  CPU0
+rds_ioctl(SIOCRDSSETTOS)
+  reads rs->rs_transport
+                                      rds_bind()
+                                        rds_add_bound() fails (port 1)
+                                        rds_trans_put(rs->rs_transport)
+                                          module_put(rds_tcp)
+                                      rmmod rds_tcp frees the module
+  rs->rs_transport->get_tos_map(utos)
+
+At that point CPU1 reads the freed rds_tcp_transport and calls into
+freed module text. This needs a concurrent rmmod, but making
+"rmmod rds_tcp" possible again is the stated goal of the patch.
+
+Would it work to keep the result of rds_trans_get_preferred() in a
+local variable and assign rs->rs_transport only after rds_add_bound()
+succeeds? On failure, only the local reference would be put. A
+transport chosen with SO_RDS_TRANSPORT would stay attached and be
+released in rds_release().
+
+>  		rs->rs_transport = NULL;
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but should rs->rs_transport
+be cleared here when the user picked the transport with
+SO_RDS_TRANSPORT?
+
+Documentation/networking/rds.rst says of SO_RDS_TRANSPORT:
+
+    This socket option may only be set exactly once on the socket,
+    prior to binding it via the bind(2) system call.
+
+rds_set_transport() enforces this only with:
+
+	if (rs->rs_transport)
+		return -EOPNOTSUPP; /* previously attached to transport */
+
+After a failed bind(), getsockopt(SO_RDS_TRANSPORT) returns
+RDS_TRANS_NONE and a second setsockopt(SO_RDS_TRANSPORT) succeeds. If
+the user simply retries bind(), it quietly uses
+rds_trans_get_preferred() instead of the transport the user chose.
+
+The NULL-out was added by commit 05733434ee9a ("net/rds: Check
+laddr_check before calling it"). This patch keeps it as is.
+
+[Severity: Medium]
+This is a pre-existing issue, but can the unlocked readers see this
+NULL store between their NULL check and their dereference?
+
+rds_ioctl(SIOCRDSSETTOS) and rds_getsockopt(SO_RDS_TRANSPORT), quoted
+above, read rs->rs_transport with plain loads and no lock_sock(). They
+load it once for the NULL check and again for the dereference. This
+store runs under lock_sock(), which those readers don't hold.
+
+If the compiler emits two separate loads, a reader can pass the
+non-NULL check, then see NULL and dereference NULL->get_tos_map or
+NULL->t_type. The NULL-out also comes from commit 05733434ee9a.
+
+[Severity: Medium]
+This is also a pre-existing issue, but is there a similar window in
+__rds_rdma_map()?
+
+If rhashtable_insert_fast() fails, rds_add_bound() sets the bound
+address for a moment and then resets it:
+
+net/rds/bind.c:rds_add_bound() {
+    ...
+		rs->rs_bound_addr = *addr;
+    ...
+		} else {
+			rs->rs_bound_addr = in6addr_any;
+			rds_sock_put(rs);
+			ret = -ENOMEM;
+			break;
+		}
+    ...
+}
+
+rds_bind() then puts and clears rs->rs_transport. RDS_GET_MR and
+RDS_GET_MR_FOR_DEST run without lock_sock(), so __rds_rdma_map() can
+pass this check while the address is briefly set:
+
+	if (ipv6_addr_any(&rs->rs_bound_addr) || !rs->rs_transport) {
+
+Later, after calls that force the pointer to be loaded again, it does:
+
+	trans_private = rs->rs_transport->get_mr(
+
+That load can see NULL. __rds_rdma_map() can also store mr->r_trans for
+a transport whose socket reference the failing bind then drops.
+
+The window opens only when rhashtable_insert_fast() fails (-ENOMEM,
+-EBUSY or -E2BIG), which an attacker cannot control. The NULL
+dereference also needs a transport that has get_mr. The dropped module
+reference part is the same race described in the first comment above.
+
+> +	}
+>  
+>  out:
+>  	release_sock(sk);
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261010081446.3112217-1-bsdhenrymartin%40gmail.com
