@@ -1,87 +1,125 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22CC2331ECC;
-	Sun, 11 Oct 2026 21:08:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556853033EC;
+	Sun, 11 Oct 2026 21:40:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791752909; cv=none; b=o7BvfLS0BkQZRDU9kSJfHL07huLFvn/Z8cz6hFCYZoGf7x3R1SohHHxS5WbJFBCqyyreCQAjB7mG5uwZOVtfzhaMEJY4tOLn3OvifFvfOsnuvNGneboe2Zpqoob6wVbAbjrXM+GfIGd1hSmVNAhZl/COgCYuZFSoW+5iggLOeiA=
+	t=1791754832; cv=none; b=gk9E65bU/31+gVWwt6JHfAFlA3vNJSpE2KvItOnZb/SkOPs/D9N6G4E/KxpJYxVzoykO83o01P+9BaKRucGCbsQlKYbyE3Ygk2ijWRzz0IAgDOxoRxI9TN7Tu3njInZeRbcid4n3SPjmecPQWVf0GrZJmaYpPTNDWLcBJFy/in4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791752909; c=relaxed/simple;
-	bh=IQg9oh2LnA+yKKSr0zheC0T41BXq4kFKgbxcDlb7/Rs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XKezgFHgJJrWV/4J3jpf9waknommTbZGOLyYrSPtQ+tBnEEmlkYQ1YRaFyBNZnbPkS7Es5huODRlv9eMqlSbNp2zklIw2cX6Be9fPQrk3WQdtX4jbYEsb4QXYJwrRhBo3t9NDIvttwEpj3BRms3B9/slDfEvmSi2zfS9eWdLk0w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=WVtB1du0; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1791754832; c=relaxed/simple;
+	bh=ydVGsx5/LPpcBfHSwzrjfBc3uMTl0iFbWjgN7FMFhp4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dwm4xX4+hjAB6Nuo8Jw5ygu25a3nUDo5mqlNcn/jhCI2bPUZcXH/KbCjRjwRT9tedaWufdL8MC9EI/arsKkbg+BByi9DCqf2vB3dyS2pVv0mfIA3+70JJFvS+KvqRwigUcvjlffQ1kMfBuwAAdRTfINxhRbq3Brw+8732AOnjys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hn8rJLvD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="WVtB1du0"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E265D106E4A;
-	Sun, 11 Oct 2026 23:08:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1791752899;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=zNiGng+6U4NV7UMYDURHxyc0LkdRBarcaWyKPu4nhTk=;
-	b=WVtB1du0xYiVv9qZOoYmJvkiSMt0GQF6AzBCcbY22qvskVF7qJ/luJWnSoRHyvroL/BQHN
-	5oDwe886u+W00fEZBU/DHdjnN31Ji8/kXtH/3zz9Dt6KKzPFB/1omy0JlioYYgy4SEHm/8
-	GxiLL1gLPOflDXtSHkQWxBiqVJNVXzhQtxKw7AUED+k1Sghb8mfsbU5/LlsGT53kBO3mNx
-	y50LmVENrcC/QEGBnKqCr9INEs56BVE8BMR9usUB7vOM28N5EoQo0U8ym/xAcee5G9PNTl
-	xrhBeVMlEJUHkkkNbc70utd3O10dXfBMBusi+loFmYbvthn1HtyIVsyexdlmfQ==
-Date: Sun, 11 Oct 2026 23:08:17 +0200
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.18 000/403] 6.18.56-rc1 review
-Message-ID: <asv6wbKJkNbt0QPE@duo.ucw.cz>
-References: <20261009140952.119038291@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hn8rJLvD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7B3F1F0089C;
+	Sun, 11 Oct 2026 21:40:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791754831;
+	bh=8w314+YIanrqZE4cOJ1DPFJJD2zirntDIy5iuyhTxNA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Hn8rJLvDzPdHQoRykbln8dUBurGcT2BEG7nsnOcJvfUpPudfYtOeW5QmciWScoxVG
+	 HbtMsn7CJc+oqg3/1HlVaZvxZZI70gk6XC4xEEy7b/5CKclBajkIr+KzcMFUpy2zP7
+	 ufWKItN85Q/cjkynUI4aRkVvuk0ttArUphkp1B+p2/+FW0mT/bGQIh8Kele9gIyyNB
+	 yKBWby0QIvVTvmyonW5RivYupuPc+1Xhhok/yIhAR6FQJrqLLtySYjPQ9BuXurphw2
+	 IY9xRTVbiJ9zFNSe1rGm/qtLsC/Lvwg/t8oguZ9us0t6pO8/6bv4itOJKd1/6v3uP3
+	 DlYWwk9HQIa+A==
+From: Tejun Heo <tj@kernel.org>
+To: sched-ext@lists.linux.dev
+Cc: David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	Tejun Heo <tj@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] sched_ext: Propagate every bypass depth change to the descendants
+Date: Sun, 11 Oct 2026 11:40:27 -1000
+Message-ID: <20261011214028.743546-2-tj@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261011214028.743546-1-tj@kernel.org>
+References: <20261011214028.743546-1-tj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="ofHhmPEdEv6yZYDQ"
-Content-Disposition: inline
-In-Reply-To: <20261009140952.119038291@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
+scx_bypass() propagates a depth change to the descendants only when the
+scheduler's own depth crosses zero, so an own bypass that starts under an
+ancestor's never reaches them. When the ancestor's bypass ends first, the
+descendants leave bypass while the scheduler is still bypassing: a
+sub-scheduler disabled under a PM suspend has its children re-queue their
+tasks through their own BPF schedulers at resume, mid-teardown. If the own
+bypass then ends, every descendant is decremented once more than incremented
+and dec_bypass_depth() warns, though no current caller gets there.
 
---ofHhmPEdEv6yZYDQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Propagate on every call so that a descendant's depth is the sum of its own
+bypasses and its ancestors'. The early return follows the walk, as a
+descendant's depth is at least the scheduler's and nothing changes bypass
+state unless the scheduler's own does.
 
-Hi!
+Fixes: c7f0e467a27a ("sched_ext: Prepare bypass mode for hierarchical operation")
+Cc: stable@vger.kernel.org # v7.1+
+Signed-off-by: Tejun Heo <tj@kernel.org>
+---
+ kernel/sched/ext/ext.c | 22 +++++++++++++++-------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
 
-> This is the start of the stable review cycle for the 6.18.56 release.
-> There are 403 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index a6a72ae7f815..3edb51bdd0ef 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -6216,22 +6216,23 @@ void scx_bypass(struct scx_sched *sch, bool bypass)
+ 	struct scx_sched *pos;
+ 	unsigned long flags;
+ 	int cpu;
++	bool changed;
+ 
+ 	raw_spin_lock_irqsave(&scx_bypass_lock, flags);
+ 
+ 	if (bypass) {
+-		if (!inc_bypass_depth(sch))
+-			goto unlock;
+-
+-		enable_bypass_dsp(sch);
++		changed = inc_bypass_depth(sch);
++		if (changed)
++			enable_bypass_dsp(sch);
+ 	} else {
+-		if (!dec_bypass_depth(sch))
+-			goto unlock;
++		changed = dec_bypass_depth(sch);
+ 	}
+ 
+ 	/*
+ 	 * Bypass state is propagated to all descendants - an scx_sched bypasses
+-	 * if itself or any of its ancestors are in bypass mode.
++	 * if itself or any of its ancestors are in bypass mode. A descendant's
++	 * depth is the sum of its own bypasses and its ancestors', so every
++	 * call propagates whether or not @sch changed state.
+ 	 */
+ 	raw_spin_lock(&scx_sched_lock);
+ 	scx_for_each_descendant_pre(pos, sch) {
+@@ -6244,6 +6245,13 @@ void scx_bypass(struct scx_sched *sch, bool bypass)
+ 	}
+ 	raw_spin_unlock(&scx_sched_lock);
+ 
++	/*
++	 * A descendant's depth is at least @sch's, so no bypass state changed
++	 * unless @sch's did.
++	 */
++	if (!changed)
++		goto unlock;
++
+ 	/*
+ 	 * No task property is changing. We just need to make sure all currently
+ 	 * queued tasks are re-queued according to the new scx_bypassing()
+-- 
+2.56.0
 
-CIP testing did not find any problems here:
-
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.18.y
-
-Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
-
-Best regards,
-                                                                Pavel
-
---ofHhmPEdEv6yZYDQ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCasv6wQAKCRAw5/Bqldv6
-8jp7AKCpXrz1lemKDaIL2XnQQvS6aMQ6agCfb9z08+0TZl1A04Ha8+jjpOP9RN8=
-=rF2u
------END PGP SIGNATURE-----
-
---ofHhmPEdEv6yZYDQ--
