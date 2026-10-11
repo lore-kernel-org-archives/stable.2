@@ -1,76 +1,39 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EA9A35F165
-	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 04:03:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A242472A6
+	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 04:03:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791691391; cv=none; b=XI6ZlS29mKDkdcyCUAQGzVlZ2FQJp23iP3R5aQfX7dPdHqZaXMptLgTQsEDFC8VeqhiRGi34FTwYH+OWBW/xCOQ1h8c5gyAofeO8E/af3sV/g8Qq4wbTalYe5TqGkPRRQYZnfc7NVInbU1mnGg6i/nbgI0NKql9EX3D8XpIOkBM=
+	t=1791691392; cv=none; b=Df37kylX2Jfd3TrfTwTaI+RJb9MzdRC6kzwjdKXnHzMuN8nr2OkxWpg+E5RJ+LZlWT0w0L9KJtZXGcSouK0MDd09cqpX6d4/doKY68jTziXIHQ60LNIrdqaAjRkENuUMSMy5ZHkgghePa5PxQq4bySPyispyx0v/bV9o2KWSpKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791691391; c=relaxed/simple;
-	bh=YNo0nmhZdFFI5JJxf4mNrEwSqwmWNHiOAPm3U4bNRSg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XciiebFuGf9J6G7YdVNSAXRC9SsA6/3Rpm7ZhqtkAt9f9RGz9WDLfPbwyFH7KEX8oCO/waDZ7JMQiJxX/yLo9A5jNFPq9ux/UH5g0QmJ7+wednUSxbHUJgNXSJqnFxlUErcO3z+m/E+Yv4J37drTOyyhiVLUXll5wWx92puEg5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=IbDYi2go; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791691392; c=relaxed/simple;
+	bh=92bn38WSBxROjiO2VDo/EHAooEFSNkgafI+zVeLorqs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sqUjLeKBUjKv1z/Ov7jj/qjpVknZUwYLI270eaQrwmQ+Xy92gGrYyxHMqDhjnARkZeZjDuNFZI13K1Hez/JQNJMnUISr+xXGzCAQ1tW0MTt0NkjyIfAEYcaTZYOPnvs9JTYEl/iGSmv6gcRhdrblM+qlmFC904EU1VaFateftIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=TlLiVAye; arc=none smtp.client-ip=117.135.210.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="IbDYi2go"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cd5d2dafeccso250245a12.2
-        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 21:03:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791691388; x=1792296188; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SmESCEDSEEVGWRUbF5vPlQHQGJwVBn1FgqLmhtDMxpo=;
-        b=IbDYi2gobZ5v/icpfbvLw7sPIiS63lJKbFcuQ/4ni05ge8U5DDuaFtesdvijKrCu9O
-         gZOj2JNwyIQgqeYqdv/SnYqrVBNA/vcKFH3z7//JUH2iQCK3ZW0gQkiH0Uw0bUrZqNa/
-         cl+Y2y/SwePcxGSdPjbw0iQs9u/LTkwSwuEjhjRafzqIHfXgUigDuRWVrzV0QMak2nuG
-         1VFL9RJXTz1CknbMw2DH5uov3uY/CgQRTiDA5jCilZqJxGix/5ThBWjl2aTc63UNxGMr
-         xhc2p05Cg8Md6I7lXk1qcUto9IXlq3KVIyxnHOi39O98frpgH3ULYURSGr8C19iHJQj+
-         vItg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791691388; x=1792296188;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SmESCEDSEEVGWRUbF5vPlQHQGJwVBn1FgqLmhtDMxpo=;
-        b=G2N6mOZv47M5p4HVT0zbR/KAu0VPz6pbw4LIjXLTsKvGKuE8cHi93ENDuuKMP0VIvq
-         nUX4/NRgN7QWVeU5PpKCTAgVeGkDbdQpOSdAigVmUc+VHmtZOWUsqD3ULDZZ8bNBB0bO
-         JmLwdpP7uuGfgVS5tOpRtth7MH4l5xPkr8gBmdrgLOxZL4lWlTuMezcXGkAkH0+qz9HX
-         i+K/zmMC1Bvs7T/Nn8UK/ncvL9jjTQW4aoKFh4BP5H1ES+eXAHth9zyg+eAomTfgwaXo
-         0gkXMQKRviXQXiTPefduyCrZHGFdNZ8nDenqcxV7iGPJN8BQAGshYYixpPwQmMUF3ZG6
-         9YjA==
-X-Forwarded-Encrypted: i=1; AKwUvBxi7jTjk4EGXhIqwlIiLDtIEkhK6qWZLvCI+A+o8gxKNr2zq1f7vHaGNIgWY3WZf4K5tPlkMsc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIMF+euM7nNSeKvAKZFb7+4EyGdonAXbtw6qU7qxzjFL6jAE+Qv
-	KixWL/IAE/5n4tAUrChjlG13s5+1ZiyAVP8G1EuNMkujeDZF9WSGfVhxQ7eNGbyRGOE=
-X-Gm-Gg: AYBFou0Lnlg/vEP5YSz6rMbwX67VRBhsfKMwssfFCFDHgV48P5vF0b0jvG2/9KvF/7r
-	tKMCJ74lGZ+gyFwp1/N2AMHlTP4RxyfIQiRz7CKh9oR4ZxSWr6DYuALzudc9VWHVma69tc/wUQn
-	eioTLP3TJd1qAFskdjmCegZwtve6Y4JwufWX8pRhLbNmgxYGA5lwAmz8Ajo4lNxnPvZdZEV4dFk
-	hqQ8ZsoWqbF06dqF+vtP/yzjohFjHNifSIIIGtrpF8pUDzgzCQD7xloOLdRGstB1R9Tj/DbEOwn
-	aJ+pQS96EXsbJppb+fS2J+NJche2uFaAIrVqmsXE4df5U8SYf1NKK3rd3nVucRUJbNbDWGSp3RY
-	Dj0FB+7bOAivgoEy5MzaKHFcXD3BmH4K8RKyNdTUFvsJYc0xrQ9xJY11bh8U9yBgMAE3RTGYJEi
-	3uWlVuT1QmDYHxfaseXN8IV2VgvQKqzmix9N4W/YIQ5DIDoPwd2y1QbVr1PE9cWs4sNV6xLEnhq
-	6c258JgYUexUYuJWG59Ag==
-X-Received: by 2002:a17:90b:524f:b0:3a0:d265:3647 with SMTP id 98e67ed59e1d1-3ab3a35963emr4673675a91.8.1791691388502;
-        Sat, 10 Oct 2026 21:03:08 -0700 (PDT)
-Received: from localhost.localdomain ([2406:5900:1044:110c:9657:9541:a576:7d2f])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b981b9sm10519758a91.5.2026.10.10.21.03.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 21:03:08 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Nilesh Javali <njavali@marvell.com>,
-	Manish Rangankar <mrangankar@marvell.com>,
-	GR-QLogic-Storage-Upstream@marvell.com,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K . Petersen" <mkp@kernel.org>,
-	linux-scsi@vger.kernel.org
-Cc: Mike Christie <michael.christie@oracle.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Subject: [PATCH v2 0/2] scsi: qla4xxx: bound and correct the ISP83xx reset template
-Date: Sun, 11 Oct 2026 13:02:55 +0900
-Message-ID: <20261011040257.2017421-1-yhlee@isslab.korea.ac.kr>
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="TlLiVAye"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=By
+	IMgzHlHKSnpusTEI/Blb9NGNki/9e4oGULv6zhbck=; b=TlLiVAye1NuuDobsxZ
+	E9LRM3BYUSiOZ63E9cmNbPaXJPzlxS1QYuTx1cPt0C8ENqQRPBlAimN9IgG6nB11
+	hc9nsLUgQVgrHNMQLcnfTJPXJVWV9NfSIfOEt+Yzg8Ch63L6xn2Wq6PnYNue7NbY
+	2ROhRTWejUK/I3sWQC6ZhR9h8=
+Received: from nzzhao-ThinkCentre-M760t.mioffice.cn (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PikvCgAXzutYCstqTqVQBQ--.42864S2;
+	Sun, 11 Oct 2026 12:02:33 +0800 (CST)
+From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+To: linux-f2fs-devel@lists.sourceforge.net,
+	Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>
+Cc: Barry Song <baohua@kernel.org>,
+	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] f2fs: remove mappedtodisk flag usage in mmap write path
+Date: Sun, 11 Oct 2026 12:02:32 +0800
+Message-ID: <20261011040232.2940423-1-zhaonanzhe@xiaomi.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -79,33 +42,84 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PikvCgAXzutYCstqTqVQBQ--.42864S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Cr4kCFyxXF47JryDAw4fKrg_yoW5Jr1kpF
+	9xuF1xG395Ww1UWrsrG3Z8ur1rt3sxuw4xWFs7uw1fXa17ZrnYkF1fta4rZF1UKr93JFWI
+	qr4jkryrXa1rJFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U_9N-UUUUU=
+Sender: nzzhao@126.com
+X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBohkm9WrLClnnPAAA3B
 
-v1 bounded the ISP83xx reset template read and walk. The review of that
-patch raised two further problems, fixed here as a short series.
+PG_mappedtodisk was inherited from the nobh/buffer-head era.  However,
+f2fs has no buffer heads and the flag is no longer meaningful.  The only
+user of the flag is the "no holes" shortcut in f2fs_vm_page_mkwrite(),
+which makes mmap write faults skip marking the folio dirty.  Chao Yu
+pointed out that this is not only a cleanup: it causes the following
+race condition with filesystem freezing:
 
-Patch 1 is the v1 fix with the template size and the per-entry geometry
-read through le16_to_cpu() where the bounds are computed. On big-endian
-v1 validated a byte-swapped size while the copy and the walk advanced by
-the raw value, so the bound did not hold; the two now agree on both
-endiannesses. No functional change on little-endian.
+ CPU0 (write fault)     CPU1 (freeze_super)
+ ----                   ----
+ f2fs_vm_page_mkwrite()
+ sb_start_pagefault()
+ /* shortcut: no dirty */
+ sb_end_pagefault()
 
-Patch 2 fixes the reset-sequence array cursor in
-qla4_83xx_poll_read_list() that the same review noted. The cursor is
-kept in a local and only written back when it reaches the end of the
-array, so every read overwrites the same slot and a later
-read-modify-write entry picks up a stale value. This is a correctness
-fix; the index stays inside the array.
+                        sb_wait_write(SB_FREEZE_PAGEFAULT)
+                        /* no waiter, passes */
+                        sync_filesystem()
+                        /* folio not dirty, skipped */
 
-v1: https://lore.kernel.org/r/20261010181139.1911817-1-yhlee@isslab.korea.ac.kr
+ finish_fault()
+ /* PTE writable */
+ fault_dirty_shared_page()
+ folio_mark_dirty()
+ /* dirty folio on a frozen fs */
 
-Yehyeong Lee (2):
-  scsi: qla4xxx: bound the ISP83xx reset template to its buffer
-  scsi: qla4xxx: advance the reset-sequence array cursor in
-    poll_read_list
+It will also skip APP_MAPPED_IO iostat/REQ_TIME updates and post-EOF
+folio zeroing.
 
- drivers/scsi/qla4xxx/ql4_83xx.c | 117 ++++++++++++++++++++++++++------
- 1 file changed, 95 insertions(+), 22 deletions(-)
+Remove this shortcut in f2fs_vm_page_mkwrite() and stop setting it in
+f2fs_read_single_page().
 
+Reported-by: Chao Yu <chao@kernel.org>
+Link: https://lore.kernel.org/linux-f2fs-devel/496b913c-eb81-4fa8-be72-c6a06a10aba2@kernel.org/
+Fixes: fbfa2cc58d53 ("f2fs: add file operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+---
+ fs/f2fs/data.c | 1 -
+ fs/f2fs/file.c | 6 ------
+ 2 files changed, 7 deletions(-)
+
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 21f396ebe22c..35d9ddaf78f4 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -2260,7 +2260,6 @@ static int f2fs_read_single_page(struct inode *inode, struct fsverity_info *vi,
+ got_it:
+ 	if ((map->m_flags & F2FS_MAP_MAPPED)) {
+ 		block_nr = map->m_pblk + block_in_file - map->m_lblk;
+-		folio_set_mappedtodisk(folio);
+ 
+ 		if (!f2fs_is_valid_blkaddr(F2FS_I_SB(inode), block_nr,
+ 						DATA_GENERIC_ENHANCE_READ)) {
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index edc352569e87..2d763e156d06 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -217,12 +217,6 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+ 	/* wait for GCed page writeback via META_MAPPING */
+ 	f2fs_wait_on_block_writeback(inode, dn.data_blkaddr);
+ 
+-	/*
+-	 * check to see if the page is mapped already (no holes)
+-	 */
+-	if (folio_test_mappedtodisk(folio))
+-		goto out_sem;
+-
+ 	/* page is wholly or partially inside EOF */
+ 	if (((loff_t)(folio->index + 1) << PAGE_SHIFT) >
+ 						i_size_read(inode)) {
 -- 
 2.43.0
 
