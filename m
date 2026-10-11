@@ -1,81 +1,78 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8183F3B3C15
-	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 04:03:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 369EF24A05D
+	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 04:14:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791691397; cv=none; b=IMXweLk3vzOc8+1ZPP6MU0IGRrPN1QWTZevCCpJYMMhJOZLdGl9NkjaMHRa+dU7htG/OuNFIKu+G2/+P1T4xnUtLQSSClJYQaA+XNpbfViBiCqp5K3Qm60GgjYXSB7SqUOXw653KJgNn0O4w/5AL3duAPNoWXwBd/1+RX8tWkaU=
+	t=1791692100; cv=none; b=IjOQLPnwE/FiW1P7RBlk1BW7PRZHeKAP19hcDQeT6vGPwE+ro0gkEP6tnu3yrh3XBe0eBfGOZ6Zb6igQSGfqMWJDXfVYDQRNKmFgJw3xWADmu2utFAykzGWqDXAWZQzZIVyZqdeepiKZrnc/bdgDyu9i6nXoUwEFOeVpmehbAsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791691397; c=relaxed/simple;
-	bh=AVILD4NIFiaHIKZF3dObJ7wQt2O+e8whBy0FyrWCgMQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PcwWSo19OaHQuZFRbKczR+YFM4C5Q1odHcpYeCpo7YjkoO/mmoyQwI8GlEQtpwdrvBZMjshiWg2FyHHKL6xyjNf/co734gdR8skNxQRq6gs2wBvSxUsN6e6S+7zo2La1z5m4adU5ngGjQt/C7mxL8AQMRmHgoydBH8AHN8yZlqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=vffFsQBk; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791692100; c=relaxed/simple;
+	bh=l1a/bWcOT2l+X9e047O+Zc0VAnzVT8S5JAO8GTa3MUU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fa4kAzRtFYCjR0Es7g+gJc8uQLYVr6cx5ltG1+Ge6fmAMj+Kfa0U0bkYmQShp+Z1uFSseQEMTtbroSsGBXxXivk7oJqY4kkAYRg9RJQThuJokT0kgYl+N4jYo2ZM0O2tfXdsCR9pIY24p3AJLZdcUE8MxZkjkR8JfrcSM3ubZcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o9yaV1U3; arc=none smtp.client-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="vffFsQBk"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e623eda81cso5047465ad.0
-        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 21:03:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o9yaV1U3"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3514e7cbbbaso2237752eec.1
+        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 21:14:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791691396; x=1792296196; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uexou8z/rPlM4ERJgzJ952D7p4Fry0pcqVESxFyRPsw=;
-        b=vffFsQBkJtUEqrNvbfhoKtWoRTqeYYMBTIpSLDgrSZVAkGt1QHgR51nlzXoYbOxVSc
-         YSIwjMY2E6Vgod40cTE8RoIHoiP0idMWyaS9MZCw+P3dP+hsxGIkxJ445vsTOYq0euEB
-         g6UbGhbSmEMpdpvX1dzYnEqlUMikQaZVD8OwlOxoq6OjXGZm+h1VEyirEP2D2TevlWn1
-         Cd/LPQWuxxPDktUGroQOkU7uDDLQaKDlKlu/3mWOUCfqLxQstkQAx+c8onLc/JpM72BN
-         PFK5QaY7GfD4y90/SIf7J1ergzWY7TAB0LbU7seCbesa9nEUFwg77XRuI1FaeBfnxnVI
-         +Sew==
+        d=gmail.com; s=20251104; t=1791692098; x=1792296898; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=q235uDx+bpsRBMkhHfqYFd51DmOA87ePC3AWPxfUoj4=;
+        b=o9yaV1U31wMmnaQHL+ez2fnFFV6N2pMjGb7lpKu/NOchnIWtlQHVoMAetbRVK5/u/g
+         owUsBcxgBk6AL3iIBgIe0QBqbabPSw9m1QVp7om0bRN7vk0MVsWdAlxDV/QC29Juibay
+         9nPuauqETthi8aR8Jr/CeCgXnSmm9jRsiSj/6/BHlfoYfEnJP/N4KujOgJmp7o0ywmDQ
+         rK6Ka3gFNcRqv/IwRRrmblBV1wo7Yxj1DX61jp9sPwME5HOlUGC7i/OtfzxlJNBRNaNr
+         4CMW2TIu8575AV75Ts3rDQVUT7nLSinLxBQKzhAZoYPFNQ0A4apdc1zQYCDu74NhhbQr
+         VGDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791691396; x=1792296196;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uexou8z/rPlM4ERJgzJ952D7p4Fry0pcqVESxFyRPsw=;
-        b=TnhCzNrpEIEWhwkoFoU5egCcyBc6Ad2aRuVFsmAGEW4wEfkxOMdKQ/ctzjqNq41jz2
-         9Ye5gKl/HBg6EeshQ2DWrEyy5eom2L29wuWoF0SQ3xp1xnFerUJxTRMz3Q8qWnwXTf92
-         /TFzUMwc1mLIIdmXmIWwg9HHO9/pIIc/9YgMs3hAySxERaPyq2+WVCZChRrTmao8VZKx
-         YG5yYrr44wrgisAjeKAqq6mPk260k3PiCGDiWyC18+x7m3/srBCKHDcsTCU09olVTQ32
-         slHkyJI8C5wFoKWz0gIc0mK7aS7urkj1MWpAawQ4TrToouPPDHiwpYnA616SfLH1oeg1
-         LKbw==
-X-Forwarded-Encrypted: i=1; AKwUvBxd5ifbiVl8iTAttnApb29GQ3/DC+cjY/eyGOZpoJBJG7s9vmciFz2sLaWkj4O+hJ6YQPsm84g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL/zGNgW6NjWrbnZlwQXskqpuelVO4bIJA8jNpPM/HWG8WIMpIH
-	9nDoyX2fV8K8FTly5XgqdEuUwLSaRvlndn+LzatEuvyiR7Pac/IETURhMw5VHpB+MM0=
-X-Gm-Gg: AYBFou0D0QG1vgTLlCiW/vNhXArFfZx2LPsmuyNPXiPxV1ZdKThz6sD94IIrUO0IUT0
-	LEuH6Sr8n7bvphSzOR1wTOzzL0Y3ruboc8iTVLq2SMcCjspUw5pf5q7jrBCWx4OibPTAox3CMwg
-	coa6tVei+oS70OGNwGT72AL5hhTZmAesKXLw8rRWYSQmPSHS+i4e97+1rfYAACvMzKqo7j2p6ex
-	Zh76run0bcN5JbAQB4ozpkNpXaO8WKYGXKyII7GiVvT5iIvHeTdvMYEYiww1HREcIgfp7Ww1HdG
-	q323dSqBWMme+2Fcg5uAIIa+u5dJW0HC24HJqlKBAZPuYBmAEIGJxA+s/tC+43M9LK2TIFOjhwv
-	jA10l80y/YBEvl2cf19RZm0syGHkfe/L4The52NkAwPWRNCAll5WFl/ZHcX2NIM4bc5/Tqw790A
-	Ojvj/TZnC37mMVducgbF5pGbdME0f9Dzh1uorfh1nMwGiUPIIzqXop0tey+toNqE/m8IkvkdRG5
-	atJQZlCA6GLsDu9YkC6eA==
-X-Received: by 2002:a17:90b:2e4b:b0:3a8:195f:186 with SMTP id 98e67ed59e1d1-3ab3a9fc457mr4519518a91.42.1791691395711;
-        Sat, 10 Oct 2026 21:03:15 -0700 (PDT)
-Received: from localhost.localdomain ([2406:5900:1044:110c:9657:9541:a576:7d2f])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b981b9sm10519758a91.5.2026.10.10.21.03.12
+        d=1e100.net; s=20260707; t=1791692098; x=1792296898;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=q235uDx+bpsRBMkhHfqYFd51DmOA87ePC3AWPxfUoj4=;
+        b=0gVYxpoCilgLuGaYKi+OtbHbmBQnSToAeRneQvIZvzziTOfhPoFywY/fLEz9aD0Pgf
+         +sJBH0u3TQQLLHY7tbj3g5VJIOhc+ZkhF+ZAgttWp9Ea/I6oJ3zYi9LxlO4a/Co5C+s4
+         9ZgCoN0RtNPOeGNytjhhMFw31+Qt/fcney0fzOQ5053RvSDzuN9g+0wCfm8dxbYsAm6k
+         bbZWzQAINGkEDAilpUOvUW756FyMLW7AoBwUmjewzDjfpEMZPWE2DMsMHmD4SrSz3IYm
+         yOUnjtH37HPpPCzmU4T6JTds2jpVwDApJsu2S3JgyIwIYBZz1VwlaUBQgjXAXnTSuHl6
+         CliA==
+X-Forwarded-Encrypted: i=1; AKwUvBxd6wT4aQac+inPdZtGrRGaeI4Ep9TNlYeetF95MfmC/rgCPTvROTblD7KhCYfgTc8lEa2p3vY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhSEUYCsK8ipqF1ECgSBTWjPFbzTV49/1ClcfleprVj1gnzvz0
+	uXlH/RTdw3Hne9BUBHFvZaDVzbMJrKOueSgr3FNhb5si2OcVAgkhmWnR
+X-Gm-Gg: AYBFou3XfxnZkaCusqobC/Qtry/tW90t6KDSVVex5tRyDuJwDiVDHLqxaTWeQ26YyLe
+	RUKXM5ihskXbpk1oXHJsudF62R6vOFjg2jLgvcB+TQYFyrdbA2JKrjikGhqerqaLLWMwFKIIXjj
+	5Av8gQIj/IQtHb3J11Vgu1NjH/knS39FtqmjFuT0ynrvCKJcQ4pgqkxSueMvXaKxI5Kf0rKMrFR
+	l0JWH4YN6iotjLPuu9K0ju5jNgLHyWtZ+l8POHWKQiA/puPmjgH/m5i5PlsGVi0MGBHykWnoQ/I
+	8qcZX4tSzeF7CkaimQJMaoVFQEeLTNI8ZA0d9Jg2E9YiaQGvV9wOTJa9dJQIoPRLs6KoH/OHvfu
+	5ZN80s9SB5owsxJ4gHswWsaW5iJs/PWkl76Y0Ol7244sA9LMRi2jsX1snZRNSbKQzq1fqGtYF/p
+	LgjZZqIEM0m+DL2phfwb9fjF1oFskxUEcGWTZQu0BukrJyL/W9oMS5iHAyjUo3o0Y1HP4wVk7TZ
+	QwqBXDbKdydb+ZbI++OQ8blOjUXIPpEDPFLkSvILr8=
+X-Received: by 2002:a05:693c:60d4:b0:359:2f0b:aa89 with SMTP id 5a478bee46e88-3592f0bc083mr2769453eec.10.1791692097980;
+        Sat, 10 Oct 2026 21:14:57 -0700 (PDT)
+Received: from 192.168.50.3 ([198.176.50.208])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c843079sm19707164eec.1.2026.10.10.21.14.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 21:03:15 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Nilesh Javali <njavali@marvell.com>,
-	Manish Rangankar <mrangankar@marvell.com>,
-	GR-QLogic-Storage-Upstream@marvell.com,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K . Petersen" <mkp@kernel.org>,
-	linux-scsi@vger.kernel.org
-Cc: Mike Christie <michael.christie@oracle.com>,
-	linux-kernel@vger.kernel.org,
+        Sat, 10 Oct 2026 21:14:57 -0700 (PDT)
+From: Weiming Shi <bestswngs@gmail.com>
+To: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org,
+	Xiang Mei <xmei5@asu.edu>,
+	zjamg <ndaugoing@gmail.com>,
+	Weiming Shi <bestswngs@gmail.com>,
 	stable@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Subject: [PATCH v2 2/2] scsi: qla4xxx: advance the reset-sequence array cursor in poll_read_list
-Date: Sun, 11 Oct 2026 13:02:57 +0900
-Message-ID: <20261011040257.2017421-3-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261011040257.2017421-1-yhlee@isslab.korea.ac.kr>
-References: <20261011040257.2017421-1-yhlee@isslab.korea.ac.kr>
+	co+b3e1928dd33a1bd6@bugs.sh
+Subject: [PATCH net] net: mpls: keep transport offsets valid across label changes
+Date: Sun, 11 Oct 2026 12:14:37 +0800
+Message-ID: <20261011041436.1424222-2-bestswngs@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,47 +81,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-qla4_83xx_poll_read_list() stashes each value it reads into
-ha->reset_tmplt.array[] and is meant to advance the cursor so the next
-read lands in the next slot, which a later read-modify-write entry then
-picks up by index:
+skb_mpls_push() and skb_mpls_pop() can leave a transport header at or
+inside the moved MPLS header behind. Repeated pops then make
+skb_transport_offset() negative; when a GSO skb is redirected to egress,
+qdisc_pkt_len_segs_init() widens that offset, wraps its pull length, and
+dereferences about 4 GiB past skb->data.
 
-	index = ha->reset_tmplt.array_index;
-	qla4_83xx_rd_reg_indirect(ha, p_entry->dr_addr, &value);
-	ha->reset_tmplt.array[index++] = value;
-	if (index == QLA83XX_MAX_RESET_SEQ_ENTRIES)
-		ha->reset_tmplt.array_index = 1;
+For tunnel GSO, qdisc_pkt_len_segs_init() uses the inner transport header
+instead. skb_mpls_push() rejects encapsulated skbs because the networking
+stack does not support simultaneous tunnel and MPLS GSO, but
+skb_mpls_pop() did not. This leaves the same negative-offset path reachable
+through stale inner metadata.
 
-index is a local copy and is only written back to array_index when it
-reaches the end of the array. Every other read reloads the same cursor
-and overwrites the same slot, so the array is never filled past its
-first entry and a read-modify-write entry referring to a later index
-gets a stale or zero value and programs the wrong word into the
-hardware during reset recovery.
+Align outer transport headers at or before the affected network header
+with its new position while preserving valid later L4 offsets. Reject
+encapsulated skbs from skb_mpls_pop(), matching skb_mpls_push(), and
+refresh mac_len after a pop.
 
-Write the cursor back on every read so the slots fill in order.
+BUG: unable to handle page fault for address: ffffed10408b8e0b
+Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+RIP: qdisc_pkt_len_segs_init (include/linux/tcp.h:31 net/core/dev.c:4193)
+Call Trace:
+ __dev_queue_xmit (net/core/dev.c:4835)
+ tcf_mirred_to_dev (net/sched/act_mirred.c:242 net/sched/act_mirred.c:237 net/sched/act_mirred.c:328)
+ tcf_mirred_act (net/sched/act_mirred.c:489)
+ tcf_action_exec (include/net/tc_wrapper.h:59 net/sched/act_api.c:1162 net/sched/act_api.c:1136)
+ tcf_classify (include/net/tc_wrapper.h:178 net/sched/cls_api.c:1779 net/sched/cls_api.c:1875)
+ tc_run (net/core/dev.c:4463)
+ __netif_receive_skb_core.constprop.0 (net/core/dev.c:4538 net/core/dev.c:6115)
+ __netif_receive_skb_one_core (net/core/dev.c:6262)
+ netif_receive_skb (net/core/dev.c:6377 net/core/dev.c:6463 net/core/dev.c:6522)
+ tun_get_user (drivers/net/tun.c:1595 drivers/net/tun.c:2045)
+ tun_chr_write_iter (drivers/net/tun.c:2091)
+ vfs_write (fs/read_write.c:595 fs/read_write.c:687)
+ ksys_write (fs/read_write.c:739)
+ do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
+ entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+Kernel panic - not syncing: Fatal exception in interrupt
 
-Fixes: 6e7b429259fc0 ("[SCSI] qla4xxx: Added support for ISP83XX")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Fixes: 48d2ab609b6b ("net: mpls: Fixups for GSO")
+Reported-by: <co+b3e1928dd33a1bd6@bugs.sh>
+Assisted-by: LLM
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
 ---
- drivers/scsi/qla4xxx/ql4_83xx.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ net/core/skbuff.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/scsi/qla4xxx/ql4_83xx.c b/drivers/scsi/qla4xxx/ql4_83xx.c
-index 44d285af22727..2ac833c5b1400 100644
---- a/drivers/scsi/qla4xxx/ql4_83xx.c
-+++ b/drivers/scsi/qla4xxx/ql4_83xx.c
-@@ -1117,7 +1117,8 @@ static void qla4_83xx_poll_read_list(struct scsi_qla_host *ha,
- 				ha->reset_tmplt.array[index++] = value;
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index cc3b4b702..c09bb8ac2 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -6612,6 +6612,7 @@ int skb_mpls_push(struct sk_buff *skb, __be32 mpls_lse, __be16 mpls_proto,
+ 		  int mac_len, bool ethernet)
+ {
+ 	struct mpls_shim_hdr *lse;
++	bool trans_update;
+ 	int err;
  
- 				if (index == QLA83XX_MAX_RESET_SEQ_ENTRIES)
--					ha->reset_tmplt.array_index = 1;
-+					index = 1;
-+				ha->reset_tmplt.array_index = index;
- 			}
- 		}
+ 	if (unlikely(!eth_p_mpls(mpls_proto)))
+@@ -6630,11 +6631,15 @@ int skb_mpls_push(struct sk_buff *skb, __be32 mpls_lse, __be16 mpls_proto,
+ 		skb_set_inner_protocol(skb, skb->protocol);
  	}
--- 
-2.43.0
-
+ 
++	trans_update = skb_transport_header_was_set(skb) &&
++		       skb->transport_header <= skb->network_header;
+ 	skb_push(skb, MPLS_HLEN);
+ 	memmove(skb_mac_header(skb) - MPLS_HLEN, skb_mac_header(skb),
+ 		mac_len);
+ 	skb_reset_mac_header(skb);
+ 	skb_set_network_header(skb, mac_len);
++	if (trans_update)
++		skb->transport_header = skb->network_header;
+ 	skb_reset_mac_len(skb);
+ 
+ 	lse = mpls_hdr(skb);
+@@ -6669,6 +6674,10 @@ int skb_mpls_pop(struct sk_buff *skb, __be16 next_proto, int mac_len,
+ 	if (unlikely(!eth_p_mpls(skb->protocol)))
+ 		return 0;
+ 
++	/* Networking stack does not allow simultaneous Tunnel and MPLS GSO. */
++	if (skb->encapsulation)
++		return -EINVAL;
++
+ 	err = skb_ensure_writable(skb, mac_len + MPLS_HLEN);
+ 	if (unlikely(err))
+ 		return err;
+@@ -6680,6 +6689,10 @@ int skb_mpls_pop(struct sk_buff *skb, __be16 next_proto, int mac_len,
+ 	__skb_pull(skb, MPLS_HLEN);
+ 	skb_reset_mac_header(skb);
+ 	skb_set_network_header(skb, mac_len);
++	if (skb_transport_header_was_set(skb) &&
++	    skb->transport_header <= skb->network_header)
++		skb->transport_header = skb->network_header;
++	skb_reset_mac_len(skb);
+ 
+ 	if (ethernet && mac_len >= ETH_HLEN) {
+ 		struct ethhdr *hdr;
