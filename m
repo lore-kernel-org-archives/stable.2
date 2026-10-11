@@ -1,34 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A95DF331ED0;
-	Sun, 11 Oct 2026 15:56:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33F831A07F;
+	Sun, 11 Oct 2026 15:56:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791734184; cv=none; b=JMg/wnllMkp4dYbTAqYhJvG3RtIJmvb1c4FOfjOxWKxicqldCIRxbmBDm8ubTwsbLEKktqmg1kbzg9fOCCTEyexRv3F9wq2BDdM2kvzYq2AQ/WVHZn+mKgEtDt2uiPqixsnxWNC6y0sug4NDGBM77nI6qKFVrm8GhRSRohbOcjI=
+	t=1791734187; cv=none; b=sWErOHbMUaIyEOUdWkaIK2vmjnXQFZWycO+TLnK+ne/7QEfPY5k1p3TyeMq9Nv56X5j8Dr1YmrEVK6KUBS6HwqNt+YuTgzmpjBEcVgzSMsnk9Y+MFGkPXYU2fpmFFxv0ih0aXjNaIRvSdwFLCUHhG6ZhjCdqyBwfhZ2Bhsf+404=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791734184; c=relaxed/simple;
-	bh=MqD2L7NJoHdPxojaPnlleUpF2pjg9HwkK0bsxy2EjRM=;
+	s=arc-20240116; t=1791734187; c=relaxed/simple;
+	bh=nHIysbKhzKKRUGVJwIJ3J6fM5uyQakeGXeDho6ccu4g=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=EHqTQuMvk56cXeYBi8xIgbUlFrMjPgqU9ddqbceeNt4mk3JoM0DN8Z9gd2/iLWXNw7nXoOTVK+ibwpw4PhSimciSOtTWJQL2wWytKZLI2him0k2RMnMJm8DLDvyeIYfTMno3bRiSjrgLz0GdJRDMSycoNE3EDls0QyLhaYKkGH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nBSYNyAE; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=hkLAx9+0/F2iWj2oF3G1AT+r8VZmaFEfnVH7WvvDlAOmI05CI45sFJvJs1K0jlEues5b6WRvlzCkZ03Owy6ARkI956LMwwgxNhvPgcj9qaBzP8c9aUW4F0r01qC52IYqAo3TPHGmDWrF52OztxL7lWCWVtwG+fXBSo3GPuv/YxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W8g4m7Mx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nBSYNyAE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11E1E1F0089B;
-	Sun, 11 Oct 2026 15:56:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W8g4m7Mx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65B691F0089F;
+	Sun, 11 Oct 2026 15:56:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791734181;
-	bh=WIqUX9NwcPVXnto5mbfZgBba7AXG1I/DT74eN0FdPdw=;
+	s=k20260515; t=1791734184;
+	bh=qG+osqUPvehWCmIuj6izf+dzlDs/z2saJ2ym+wB+G7Q=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=nBSYNyAE/11WKMBK5xz5U2xg+XGGtQQIpn0hprHMZMt16scgnziE9wRatgwqU1wiF
-	 L894hhYaC80aT07KzVAjooH2wPQr9pkkzpNOICsnPh57VOKykgQ5VIl3bGvlKf9MZc
-	 RJtoWTxWpQpQ1UwdAIpasmWcMsPEjk7Pv98slOCGZHd969BnTWwFqQg9jqs/WD0f6x
-	 fqlDET3snxQ/r3qRYPuc4wq9pSvu+0dsERiXzYK6MX55GabpBZefD+qx3VUF47aMK5
-	 jqxQLSTtLtvRKjh9KRBkweYzXb0EX/wXnnQNrNEI2v6EbqbR+YCPKE1NETfoAnLGEL
-	 GvtSHSkZdzMKg==
+	b=W8g4m7Mx3DOVmJYLHx2to7CtskDkpMcwrCTfz0FdL2gInZ6D3D93KUvFcP7hh3o+j
+	 No5v6Ti2KQ9WNM5oKUNy/6laTmKOBQ40JJkKbmjxJnVqPAOPR92Pgbl/dD4V25AkjG
+	 VsDGlaLtta+DQZc4NvzfjRroyD6ipopLaUFg3RQ+WNZLbuD2nm1uopOM1P4q8gmKOS
+	 uggvnF3ey8HZpvuebYd5qDYH4lhPDr34ZtlcVTBc8MLsHyuq/tuCkE8MUlDVMm+ozc
+	 EiLBEQ5aBy0clhm1opvWcbIfDa7YUipQHUXEnI4S1HW+9BGnoLu2oIPz8pBbT4Tofz
+	 fg/99UsWY3MDw==
 From: Christian Brauner <brauner@kernel.org>
-Date: Sun, 11 Oct 2026 17:56:03 +0200
-Subject: [PATCH 03/15] quota: really wait for the thaw in quotactl_block()
+Date: Sun, 11 Oct 2026 17:56:05 +0200
+Subject: [PATCH 05/15] fserror: fully order the last pending error
+ decrement
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,7 +38,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261011-work-super-fixes-core-v1-3-c727176c5b53@kernel.org>
+Message-Id: <20261011-work-super-fixes-core-v1-5-c727176c5b53@kernel.org>
 References: <20261011-work-super-fixes-core-v1-0-c727176c5b53@kernel.org>
 In-Reply-To: <20261011-work-super-fixes-core-v1-0-c727176c5b53@kernel.org>
 To: Jan Kara <jack@suse.cz>
@@ -45,147 +46,135 @@ Cc: Jens Axboe <axboe@kernel.dk>, Alexander Viro <viro@zeniv.linux.org.uk>,
  linux-fsdevel@vger.kernel.org, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-3d1b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5173; i=brauner@kernel.org;
- h=from:subject:message-id; bh=MqD2L7NJoHdPxojaPnlleUpF2pjg9HwkK0bsxy2EjRM=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSd3jj72Y6COHfHA0sORt2/fuqHqmT9HZmkvwkr4tmUd
- dZOnLo8uaOUhUGMi0FWTJHFod0kXG45T8Vmo0wNmDmsTCBDGLg4BWAi3V8YGRad4dP7ePuh+Bz/
- sOLv5sFLBZbnBeRL1vY0zPn5Y2WguAcjw7yD0+M6NhivmyfrttTIh/nQsaqvgfXrvJeZmMcL2rI
- y8AEA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4710; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=nHIysbKhzKKRUGVJwIJ3J6fM5uyQakeGXeDho6ccu4g=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSd3jjbR1b57MeDU8ID3zW79vW43zxmvLJ6Rj1TRADT0
+ 7zPdfPudJSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEzEbjnD/6pu5ZZ/hrVXJOVW
+ b7Oz0r95SO9C4t/MM/cV527T1vybuIjhvxfvE5+LZ67u+d0/+bwTz8rimtYz9exXv6ZvnHJ6lta
+ GOn4A
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-quotactl_block() makes commands that modify quota wait for a frozen
-superblock to be thawed. Since 576215cffdef ("fs: Drop wait_unfrozen
-wait queue") it does that by taking and dropping s_writers via
-sb_start_write() and sb_end_write() and retrying until the superblock
-isn't frozen anymore.
+fserror_unmount() drops the bias on s_pending_errors and waits for the
+count to reach zero in wait_var_event() while the umount holds s_umount
+exclusively. The worker that finishes the last pending error wakes it up
+in fserror_pending_dec() through refcount_dec_and_test() and
+wake_up_var().
 
-But freeze_super() doesn't take s_writers for a read-only superblock. So
-sb_start_write() never waits and quotactl_block() spins until the
-superblock is thawed. The loop doesn't check for fatal signals and the
-permission checks only happen after quotactl_block() returned. So any
-user that can resolve the device node of a frozen read-only filesystem
-can make a task burn a cpu without being killable until someone thaws
-the filesystem.
+wake_up_var() requires a full barrier between the store that makes the
+condition true and its waitqueue_active() check. refcount_dec_and_test()
+isn't fully ordered though. It provides release ordering and acquire
+ordering on success which orders the load of the decrement but not its
+store against the later load of the waitqueue. So the worker can see an
+empty waitqueue while the umount, already queued, still reads a count of
+one. The umount then sleeps forever with s_umount held and sync(2) and
+everything else that wants that superblock hangs behind it.
 
-Wait for the thaw with wait_var_event_killable() on s_writers.frozen
-instead. freeze_super() and thaw_super() already wake waiters on it for
-wait_for_partially_frozen(). That waiter only ever waits for the
-superblock to leave SB_FREEZE_WRITE and gets away without a barrier
-between the store to s_writers.frozen and wake_up_var() because
-percpu_down_write() executes a full barrier after the store that moves
-it out of SB_FREEZE_WRITE. That doesn't cover a waiter for SB_UNFROZEN.
-So add the barrier wake_up_var() requires to all of these wakeups.
+LKMM allows this and so do the herd7 models for arm64 (LDADDL; DMB
+ISHLD; LDR) and POWER. x86 is safe because the locked xadd is a full
+barrier. With smp_mb() before wake_up_var() all three forbid it.
 
-The cond_resched() that 77449e453dfc ("quota: fix livelock between
-quotactl and freeze_super") added to the loop goes away with the
-spinning. As a side-effect waiting for a read-write superblock is
-killable now as well.
+The litmus test (LKMM: Sometimes; with smp_mb() before the read of wq in
+P1: Never). P0 is fserror_unmount() dropping the bias and queueing in
+wait_var_event(), P1 is the last fserror_pending_dec():
 
-Fixes: 576215cffdef ("fs: Drop wait_unfrozen wait queue")
+  { cnt=2; wq=0; state=0; }
+
+  P0(atomic_t *cnt, int *wq, int *state, spinlock_t *wql)
+  {
+          int r0, r1, r2;
+
+          r0 = atomic_fetch_sub_release(1, cnt);
+          if (r0 == 2) {
+                  r1 = atomic_read(cnt);
+                  if (r1 == 1) {
+                          spin_lock(wql);
+                          WRITE_ONCE(*wq, 1);
+                          smp_store_mb(*state, 2);
+                          spin_unlock(wql);
+                          r2 = atomic_read(cnt);
+                  }
+          }
+  }
+
+  P1(atomic_t *cnt, int *wq, int *woken, spinlock_t *wql)
+  {
+          int r3, r4;
+
+          r3 = atomic_fetch_sub_release(1, cnt);
+          if (r3 == 1) {
+                  smp_rmb();
+                  r4 = READ_ONCE(*wq);
+                  if (r4 != 0) {
+                          spin_lock(wql);
+                          WRITE_ONCE(*woken, 1);
+                          spin_unlock(wql);
+                  }
+          }
+  }
+
+  exists (0:r0=2 /\ 0:r1=1 /\ 0:r2=1 /\ 1:r3=1 /\ 1:r4=0)
+
+Not reproducible on x86 hardware. The consequence can be shown there by
+emulating the reordering in fserror_worker(), debug only: sample
+waitqueue_active() before the decrement, sleep, then decrement and only
+wake if the sample saw a waiter:
+
+          iput(event->inode);
+  +       if (debug_reorder_ms) {
+  +               struct super_block *dsb = event->sb;
+  +               bool waiter;
+  +
+  +               mempool_free(event, &fserror_events_pool);
+  +               waiter = waitqueue_active(__var_waitqueue(&dsb->s_pending_errors));
+  +               msleep(debug_reorder_ms);
+  +               if (refcount_dec_and_test(&dsb->s_pending_errors) && waiter)
+  +                       wake_up_var(&dsb->s_pending_errors);
+  +               return;
+  +       }
+          fserror_free_event(event);
+
+  # boot with fserror.debug_reorder_ms=5000
+  mount -t ext4 /dev/vda /mnt
+  xfs_io -x -c "shutdown" /mnt      # EXT4_IOC_SHUTDOWN with NOLOGFLUSH
+  umount /mnt &                     # hangs forever
+  sync &                            # hangs behind s_umount
+
+  INFO: task umount:108 blocked for more than 30 seconds.
+   fserror_unmount+0x20d/0x2c0
+   generic_shutdown_super+0xac/0x530
+   kill_block_super+0x3b/0xa0
+   ext4_kill_sb+0x6c/0xc0
+  INFO: task sync:111 <reader> blocked on an rw-semaphore likely owned by task umount:108 <writer>
+
+Fixes: 21945e6cb516 ("fs: report filesystem and file I/O errors to fsnotify")
 Cc: stable@vger.kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- fs/quota/quota.c | 12 ++++++++----
- fs/super.c       | 19 +++++++++++++------
- 2 files changed, 21 insertions(+), 10 deletions(-)
+ fs/fserror.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/fs/quota/quota.c b/fs/quota/quota.c
-index 33bacd707580..d55ef08de833 100644
---- a/fs/quota/quota.c
-+++ b/fs/quota/quota.c
-@@ -894,11 +894,15 @@ static struct super_block *quotactl_block(const char __user *special, int cmd)
- 			up_write(&sb->s_umount);
- 		else
- 			up_read(&sb->s_umount);
--		/* Wait for sb to unfreeze */
--		sb_start_write(sb);
--		sb_end_write(sb);
+diff --git a/fs/fserror.c b/fs/fserror.c
+index 1e4d11fd9562..d8a800580012 100644
+--- a/fs/fserror.c
++++ b/fs/fserror.c
+@@ -35,8 +35,15 @@ void fserror_unmount(struct super_block *sb)
+ 
+ static inline void fserror_pending_dec(struct super_block *sb)
+ {
+-	if (refcount_dec_and_test(&sb->s_pending_errors))
++	if (refcount_dec_and_test(&sb->s_pending_errors)) {
 +		/*
-+		 * Wait for sb to unfreeze. A read-only superblock is frozen
-+		 * without taking s_writers so sb_start_write() won't wait.
++		 * refcount_dec_and_test() isn't fully ordered but wake_up_var()
++		 * needs a full barrier between the store and its waitqueue check.
++		 * Pairs with the barrier in prepare_to_wait_event().
 +		 */
-+		error = wait_var_event_killable(&sb->s_writers.frozen,
-+				READ_ONCE(sb->s_writers.frozen) == SB_UNFROZEN);
- 		put_super(sb);
--		cond_resched();
-+		if (error)
-+			return ERR_PTR(error);
- 		goto retry;
- 	}
- 	return sb;
-diff --git a/fs/super.c b/fs/super.c
-index 4e8f7f48540c..2dc4ec2e8014 100644
---- a/fs/super.c
-+++ b/fs/super.c
-@@ -2068,6 +2068,13 @@ static void sb_freeze_unlock(struct super_block *sb, int level)
- 		percpu_up_write(sb->s_writers.rw_sem + level);
++		smp_mb();
+ 		wake_up_var(&sb->s_pending_errors);
++	}
  }
  
-+static inline void sb_freeze_wake(struct super_block *sb)
-+{
-+	/* wake_up_var() needs a full barrier after storing s_writers.frozen. */
-+	smp_mb();
-+	wake_up_var(&sb->s_writers.frozen);
-+}
-+
- static int wait_for_partially_frozen(struct super_block *sb)
- {
- 	int ret = 0;
-@@ -2293,7 +2300,7 @@ int freeze_super(struct super_block *sb, enum freeze_holder who, const void *fre
- 		WARN_ON_ONCE(freeze_inc(sb, who) > 1);
- 		sb->s_writers.freeze_owner = freeze_owner;
- 		sb->s_writers.frozen = SB_FREEZE_COMPLETE;
--		wake_up_var(&sb->s_writers.frozen);
-+		sb_freeze_wake(sb);
- 		super_unlock_excl(sb);
- 		return 0;
- 	}
-@@ -2313,7 +2320,7 @@ int freeze_super(struct super_block *sb, enum freeze_holder who, const void *fre
- 	if (ret) {
- 		sb->s_writers.frozen = SB_UNFROZEN;
- 		sb_freeze_unlock(sb, SB_FREEZE_PAGEFAULT);
--		wake_up_var(&sb->s_writers.frozen);
-+		sb_freeze_wake(sb);
- 		deactivate_locked_super(sb);
- 		return ret;
- 	}
-@@ -2329,7 +2336,7 @@ int freeze_super(struct super_block *sb, enum freeze_holder who, const void *fre
- 				"VFS:Filesystem freeze failed\n");
- 			sb->s_writers.frozen = SB_UNFROZEN;
- 			sb_freeze_unlock(sb, SB_FREEZE_FS);
--			wake_up_var(&sb->s_writers.frozen);
-+			sb_freeze_wake(sb);
- 			deactivate_locked_super(sb);
- 			return ret;
- 		}
-@@ -2341,7 +2348,7 @@ int freeze_super(struct super_block *sb, enum freeze_holder who, const void *fre
- 	WARN_ON_ONCE(freeze_inc(sb, who) > 1);
- 	sb->s_writers.freeze_owner = freeze_owner;
- 	sb->s_writers.frozen = SB_FREEZE_COMPLETE;
--	wake_up_var(&sb->s_writers.frozen);
-+	sb_freeze_wake(sb);
- 	lockdep_sb_freeze_release(sb);
- 	super_unlock_excl(sb);
- 	return 0;
-@@ -2378,7 +2385,7 @@ static int thaw_super_locked(struct super_block *sb, enum freeze_holder who,
- 	if (sb_rdonly(sb)) {
- 		sb->s_writers.frozen = SB_UNFROZEN;
- 		sb->s_writers.freeze_owner = NULL;
--		wake_up_var(&sb->s_writers.frozen);
-+		sb_freeze_wake(sb);
- 		goto out_deactivate;
- 	}
- 
-@@ -2396,7 +2403,7 @@ static int thaw_super_locked(struct super_block *sb, enum freeze_holder who,
- 
- 	sb->s_writers.frozen = SB_UNFROZEN;
- 	sb->s_writers.freeze_owner = NULL;
--	wake_up_var(&sb->s_writers.frozen);
-+	sb_freeze_wake(sb);
- 	sb_freeze_unlock(sb, SB_FREEZE_FS);
- out_deactivate:
- 	deactivate_locked_super(sb);
+ static inline void fserror_free_event(struct fserror_event *event)
 
 -- 
 2.53.0
