@@ -1,56 +1,57 @@
-Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E39823164D8;
-	Sun, 11 Oct 2026 17:10:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB2FE23ED6A;
+	Sun, 11 Oct 2026 17:11:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791738653; cv=none; b=lZTghIYaNiaNZt0/8K3soZun3xzSgRAeQJDjGdhphBWduYAFlpASD8w70pYTv4rm8930ecwpb5CDb5KMw5X7j5Dkfi1P16kxUVhe+tFKsxjsW/2h8iCjXZ0nIEMVSFZRUIGY6n7ZdhvyvVb3SSWDhILDXUBA+Eb3Wc2/WCF9GYA=
+	t=1791738720; cv=none; b=Kf/icvwUckW/UDqBL4U5dsYjbxCiKfJVT8Vpqcm8hOAzSkeA6nuR+D59Hb+32I4HYCLnOCMKIHimR1l39ix04ZzhXBkgnwAE3quwqJVLdLSL2X3wKqazSO9iI4Z00xt/2rOehg/cvxjStdb4XN100fYnh8acvmUrIiDp9tEifd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791738653; c=relaxed/simple;
-	bh=Hxwpr6O7yWQFg2+FAyKpRZBzxXboPVzgVQZLKYx4Ejs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tkk0sGiugOw/yPjF5TbBUJCmiipl34AKEajoEUqkUzDp9QnWVSjtMlM+kuMVVvO+9P1l3XyJAXdUpkCrAKZ5CfD/7mgRyEOuedAXj4A+Rhh/PoDkz6/6q3JNuUJ4WHfw+ooHAQPry6Ck1g1BkvXQkkI18JgLvDF6o/BnUlQLtmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=iYImev23; arc=none smtp.client-ip=115.124.30.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791738720; c=relaxed/simple;
+	bh=oyDBxZS+LvhyzScug2ls846IS3pqP/GArQEKPFYIf4Y=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ITM5KR8JrxVB01atU0a/78EtmtxErfZReY818W9fyl+pUGV2qdizbd7CyvIvQcRgyuOArlGGg78BB3Sg0ZW9YnrGG91favmxNp9Ps0WTeHqERVz2TC+V22dFXfCMuqvi9AwY4BYU61RZou6AbyeXXatQKdvc0i2gvpQmVPU/UUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ji9ME9+v; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="iYImev23"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791738638; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	bh=8D6vNHBJx0z0SwSxmvei23QITZ6qKM8C48rXwPbvD6I=;
-	b=iYImev23FchwjrtfAR1Azy2CjoTwfec09/07T8lZDYOmOw36RYSWk2Pft2bSzpNBbdGy/i0kWFdmTcHsDs1yU7OFaDixBNnny0UZ/vMbVjEShriphQY5+e8Srgsa/m3bAZgnszezkMHaNzLIBe3f5a1HRhVdQx160Qz+OIuigQg=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XCYQXWt_1791738636;
-Received: from x31h02109.sqa.na131.tbsite.net(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XCYQXWt_1791738636 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 12 Oct 2026 01:10:37 +0800
-From: Baokun Li <libaokun@linux.alibaba.com>
-To: linux-ext4@vger.kernel.org
-Cc: linux-fscrypt@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-xfs@vger.kernel.org,
-	ebiggers@kernel.org,
-	jaegeuk@kernel.org,
-	axboe@kernel.dk,
-	hch@lst.de,
-	djwong@kernel.org,
-	brauner@kernel.org,
-	tytso@mit.edu,
-	berto@igalia.com,
-	adilger.kernel@dilger.ca,
-	jack@suse.cz,
-	yi.zhang@huawei.com,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ji9ME9+v"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:Message-ID:From:To:Subject:MIME-Version:
+	Content-Type; bh=oyDBxZS+LvhyzScug2ls846IS3pqP/GArQEKPFYIf4Y=;
+	b=ji9ME9+vgAj1xa2qc/GVU/ooFBwr4JYgdnIlzr5Ch+eEJxFWQ8NNjm0UWvnbEt
+	qjwPfVxkfmJB+66P57qiMoudSNAyEzBVn4UUPb6t27wvwrtmN+8ToR4QtKp5mVQV
+	pN9QnRteyMMZJvPU/kEGhaZusPoNCowXThY+rqHd/AUG0=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3L77awstqK5YCEA--.1926S2;
+	Mon, 12 Oct 2026 01:09:48 +0800 (CST)
+Date: Mon, 12 Oct 2026 02:09:46 +0900
+Message-ID: <d4c69652718677b25a157eef31552bad@163.com>
+From: Hui Su <sh_def@163.com>
+To: Andrea Righi <arighi@nvidia.com>
+Cc: tj@kernel.org,
+	void@manifault.com,
+	changwoo@igalia.com,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 08/13] block: split encrypted bios at data unit boundaries
-Date: Mon, 12 Oct 2026 01:09:53 +0800
-Message-ID: <20261011170958.1759230-9-libaokun@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261011170958.1759230-1-libaokun@linux.alibaba.com>
-References: <20261011170958.1759230-1-libaokun@linux.alibaba.com>
+Subject: Re: [PATCH v2] sched_ext: idle: Respect task affinity in restricted CPU selection
+In-Reply-To: <asufkdwCQvilJEqr@gpd4>
+References: <20261011025256.4180374-1-sh_def@163.com>
+	<ass0dexwariQCOtC@gpd4>
+	<20261011131700.1351541-1-sh_def@163.com>
+	<asufkdwCQvilJEqr@gpd4>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,68 +60,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3L77awstqK5YCEA--.1926S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrtr4rCry8Jr1UGF4UAr45trb_yoWxuFgE93
+	sFg3sxXw10yFs3uFs7CF109FWUZFZF9Fy5u3yjgF93u34kGFZ8Wr4kJF1F9a4Fk3yrAr45
+	Jrs5Ja4fCFn09jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU1qg4PUUUUU==
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwhx11GrLwtz1LAAA3Z
 
-Splitting a bio advances the remaining bio's data unit number by the
-number of whole data units that were split off:
+Hi Andrea,
 
-  bio_split()
-   └─ bio_advance()
-      └─ bio_crypt_advance()
-         └─ bio_crypt_dun_increment(dun, bytes >> data_unit_size_bits)
+> Sorry, I suggested this, but I just realized that we break
+> SCX_PICK_IDLE_IN_NODE if we do this. What if we factor the check with
+> an helper?
 
-The shift truncates, so splitting inside a data unit leaves the
-remainder with the wrong data unit number and silently corrupts data.
+Good catch. You're right that deriving the candidate from task state also
+needs to preserve the SCX_PICK_IDLE_IN_NODE constraint.
 
-The split size is already rounded down to the logical block size, so
-this is only possible when the data unit size is larger than it, e.g.
-a fscrypt filesystem with a 4K block size on a device with a 512-byte
-logical block size.
+I'll factor the restricted path into a helper along the lines you
+suggested, with the candidate derived from task state first, followed by
+the task-affinity, caller-mask, and node checks before consuming the idle
+bit.
 
-Fix this by rounding the split size down to a data unit boundary.  The
-split alignment becomes the maximum of the logical block size, the
-data unit size, and the zone write granularity, so a zoned write still
-meets all three requirements.
+I'll also add focused validation for the cross-node case and send a v3.
 
-Split bios can be up to one data unit smaller than the queue limits
-allow, so a bio can be split a little more often.  The number of
-segments for the split bio is still counted up to the size before the
-rounding, so it can be larger than needed; it is only used for
-accounting.
+I'll keep SCX_PICK_IDLE_CORE handling as a separate follow-up rather than
+mixing it into this fix.
 
-Fixes: a892c8d52c02 ("block: Inline encryption support for blk-mq")
-Cc: stable@vger.kernel.org
-Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
----
- block/blk-merge.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
-
-diff --git a/block/blk-merge.c b/block/blk-merge.c
-index 258a726071d1..f92460c283e7 100644
---- a/block/blk-merge.c
-+++ b/block/blk-merge.c
-@@ -308,9 +308,20 @@ static bool bvec_split_segs(const struct queue_limits *lim,
- static unsigned int bio_split_alignment(struct bio *bio,
- 		const struct queue_limits *lim)
- {
-+	const struct bio_crypt_ctx *bc = bio_crypt_ctx(bio);
-+	unsigned int align = lim->logical_block_size;
-+
-+	/*
-+	 * A split advances the remaining bio's data unit number by whole
-+	 * data units only (see bio_crypt_advance()), so a split inside a
-+	 * data unit would make it use the wrong data unit numbers.
-+	 */
-+	if (bc)
-+		align = max(align, bc->bc_key->crypto_cfg.data_unit_size);
- 	if (op_is_write(bio_op(bio)) && lim->zone_write_granularity)
--		return lim->zone_write_granularity;
--	return lim->logical_block_size;
-+		align = max(align, lim->zone_write_granularity);
-+
-+	return align;
- }
- 
- static inline unsigned int bvec_seg_gap(struct bio_vec *bvprv,
--- 
-2.43.7
+Thanks,
+Hui
 
