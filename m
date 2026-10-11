@@ -1,148 +1,103 @@
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C235255F52
-	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 06:06:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791698810; cv=pass; b=YkVH096DG+u1Tf/nPoUYN9tTYEDL5HExaO3/pf+9ecNz0LQiC1GOHgfmRMfRbcHWXLiroQytLNMednhZd5Y2AgC/N9FpUFNdBsCqQOwD5ZR70dpDJIoZ9PZB8pIeS43I0kH+fNNTP/iSCiibVSto1Dv0O9OdXzq0gh0oq1ou5BM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791698810; c=relaxed/simple;
-	bh=L0xjsPO0dageaCm5EnmOV3npT9NMmldJ1OdH583Oiwc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fUFVOVLNcR44N5RqEqNlng2MQUn7A2wZZwL+LBYrEdWR1dE5+ggJ6VgPX5bb8yh/ni8ZDLmFbgp4smtVmqq4MUeL+zBBQDNC7VTW6i7GJX8KACDMXpsd2aK+JzDgZ/ECa4ECQd6Cb9nBVq+iy+2eexAeMDRNPkmt4khtYLDw6R0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UEznfOEw; arc=pass smtp.client-ip=209.85.128.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2106036F909;
+	Sun, 11 Oct 2026 06:19:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791699546; cv=none; b=BrhGvVqQKKETUo1UPttv4ftPiLqIj03gKVkcG+P6ugliAe4FNUUCnTwhVrRVD7R49x1L9XE0slQ26iR4qgLQ2JIabP8C/UMuTBTmiE6LWJDxhaUCGW4TleFDBzgo7t6GYa76+9ukWl7fq5qWE5ua16dfqRQfz7EmlWUxyHNe1Zw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791699546; c=relaxed/simple;
+	bh=MuWYjdaVT1yepwtgr2yHBEgjcM66qMMVSid18CYf9J4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dd3PxAEwkeMr9AabgLKXwWwKl3B4400VqZF+neePMT1Ma4AqUmWlW9+rDhC8vB5AoILj3WmQkl9GsA1u0tWAaJZCx+WKvJ9m5DYz+jn0N0TuOfOLwj8lQsKNL4nqvone11763w+LxM/1NnAUoz5jfv5Dwq+fXxBX9xDOKhYYy2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Ip664CDl; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UEznfOEw"
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8aea5b3837cso459017b3.0
-        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 23:06:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791698805; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NQ8t8cdOSlqMwqRbnN6HtjqKRBkTgYNpGmyNIL2yy/+4/RkzPa+MOrHwjEzLdeo8KI
-         WFnbUwSeQi2TDD5swmbGsM/wcD4B6A68xADojyhDwWF+luwoeymZjmDq090sD3uzkzxC
-         84xqvz6yQgR+jBsPVZPbEcEXlfRZrE1z+pjNp3V7wlj+qk7l82Bv3h9i3LPWpduuvnRy
-         E2OyLaHWlATHv4ho24Q4BPc8018DhKUvbUW0Amed0oXO7Gu53VvF5PyaTWHB03X9exyE
-         zpTydFLTZGMJobpQletEKB2PNgJ/WUNT+T3MqqorEOkQXumH0BclCIB1bfrabCeShogA
-         hXog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=q9QEKW7arrkNR3tpw3Z2BxesbCJ4by5YCPWmZN+zoiQ=;
-        fh=pIhPVEcE8D3q8vtc580cYDQbNt5FNJSmD0S8NDLwFEQ=;
-        b=dW9Gy49LEno/K1dKUUo8dzVBCM97+iJmjGGU24Fu+7JEi4GfT8kvugyYMR61cMzCKk
-         6m+z2AxNQYn0Qo/KDvHRNOqrIBO4FzeEwBa/cnpj0U4VeGGqYLY9xAApktv9rSTyeiA+
-         FNNy11uTJhCnfCpGoX7J++q90gbZK8ZsMDjjcL7vru5Jd0QOhUwzoT1Iw1j1x4+7KJDy
-         0c99ElEhq60MpGybuGUPAwRJdn4rPU2uxCfeEtr8fe1hrDzUiZnIeel4O9BAo8U7rUCq
-         bQGWvoNSUVpV30iCFQjY+Q8sC49TkLAqq0QbYjpsGaO3U8J6l63zGc0FEZt9qrjd6JHK
-         5EQQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791698805; x=1792303605; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=q9QEKW7arrkNR3tpw3Z2BxesbCJ4by5YCPWmZN+zoiQ=;
-        b=UEznfOEwbJiCvdZDg0O9q+z6qNTOJFH4EdMnu+j7Peqrzk1B+2MN4ofnYDgcLjv1FV
-         b6cViZccom06sMsmJicubIugGsjqDsdzTFBGCz0nTI7Hioq6BeuLiS+j8UIVXeA5zZDR
-         uDf9wGjLWqktnkZApdID0gukVetL6mJbVwtBBLV7k1+Lx+XLasFtmH0Kv73lRkO1SZlQ
-         mcxIskdoCF0nORjNETt8AKmcl10Buiw7MFMGgmVcYQtizoFC3MqEbaYfQqjL2a+6iPUA
-         qVx3zI/x1AuMcYpWCJf4QfWdcwHG/i005MawWyUntJeXFZt1A7TIRjyhyyfGku6xaklc
-         7ZfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791698805; x=1792303605;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q9QEKW7arrkNR3tpw3Z2BxesbCJ4by5YCPWmZN+zoiQ=;
-        b=xTK4eVncLo4qJvyxj5oKwYQt2YrvExMdXLiyjdcURD7bkQU4D1DcOKxfuiHicebS7e
-         h6M+br3fzNSoToH/i11aXwGvQUyw3BhJ4ML6XwSMB/N/9sVeH0RSdZOXoYjOZEvo9xdQ
-         yxl0j9gDZFyeFtjo8/H+AsuBVlHadk2Oo6BexbUbdeNfu2U9T7DeBhts3wXtXsi5Oy71
-         lpDe3o62UljswRzySqiDmG4PUSXwDXWrnVeu7zmwqlg7aSRa81TdxnGW7uADlByI7sg3
-         meMHCwWr+i42iEVgb1fWoEJV35lQIGv3FPsNHtTZfIgM0KxumPHAj3+XLI6AfeyBD0ZF
-         0cKA==
-X-Forwarded-Encrypted: i=1; AKwUvBx2hYDvRE/rvDIVa/35wjpoe8syoGPsTnTIx7gfpuoWhahtHdSMqM33OdrDik+zF8Ck4Lovl/s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKzNNegPSfsAcDsI5NVqtlHdQBiOSFPr/VcUI07hBD957gW7R1C
-	QslF55oOUKsA5Z0ld9r84PR/F8X9VvCy30KHkevsnK2paJgvzh5LKB4aClLFtd6T/gzenscLShQ
-	wFbjl+tHyJzIg7O0MvJFa0CCR4j/2wwk=
-X-Gm-Gg: AYBFou2mpauv51VXzsRKGiLKb6LE35lj5h0jx6wX/X0+S7vIVOmWrg3/YG1qtNbj31c
-	CuENZfswlGmR5okI5dQZ2Mu4A2ZrWXqAgDVWUtSjHuVTp3f8B+klEAFn3oTkIGhMv6YVtXnCwPV
-	vcIbf35SQm6ceajVY9ZBMKKRNn/mm4qnKmal8qQiCC44HDtgXgPRjGDOg+mnW8nPEqC3saUnto/
-	d5zzQQr91+Apyba5xXVZ2k+uh6iVSAM0+lA3CcQ6mypqIbOArtGvTj3LDPVjfJin1fXzkSnrr2V
-	AZnkK2UQzvAGJLrHbojWd2Gw2OTegMrernJ7FNHn6dyi2XTn6lhBwYih8w==
-X-Received: by 2002:a05:690c:3346:b0:863:29e8:a9bc with SMTP id
- 00721157ae682-8b07ed65de6mr41630957b3.2.1791698804847; Sat, 10 Oct 2026
- 23:06:44 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Ip664CDl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Xl
+	PPE6ZZY5T3PHV8A3Y8GqCesIvtKJSCm08ZYgXZh9o=; b=Ip664CDl9k8ge8BOcr
+	Bk3pQIeHiS32Bi5f536z8MaYRmAzm9HycFVee37BNUm68+38atxAHIk3lXRY2vZh
+	+mRtUi8iYiquxQuJzmgMU5Gzs1uF6c2B64aLBYBFncA784mkx9YZiMGGMgNgMpl7
+	KGvxn//yRvb+Jr7pVJbaYU5wY=
+Received: from ubuntu.. (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDHjyr0KctqdBPSDg--.48609S4;
+	Sun, 11 Oct 2026 14:17:33 +0800 (CST)
+From: Ma Ke <make_ruc2021@163.com>
+To: antonio.borneo@foss.st.com,
+	linusw@kernel.org,
+	mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com,
+	andriy.shevchenko@linux.intel.com,
+	fabien.dessenne@foss.st.com
+Cc: linux-gpio@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	Ma Ke <make_ruc2021@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] pinctrl: stm32: Fix fwnode reference leak in stm32_gpiolib_register_bank()
+Date: Sun, 11 Oct 2026 14:17:22 +0800
+Message-ID: <20261011061722.3159941-1-make_ruc2021@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011055955.1487087-1-charsyam@gmail.com>
-In-Reply-To: <20261011055955.1487087-1-charsyam@gmail.com>
-From: CharSyam <charsyam@gmail.com>
-Date: Sun, 11 Oct 2026 15:06:33 +0900
-X-Gm-Features: AclHuK_Q2ERhKi5UKeLKEtH53kUObVOxPUwVMIZwD4utFinQ8ZLZT4N8mhh3IyI
-Message-ID: <CAMrLSE6bvD9dH_KGU6bgkKPSE4xnrJatj_to7NcJyxp6+NNBHQ@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: match the full EA name in single-entry queries
-To: linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org, tom@talpey.com, chenxiaosong@chenxiaosong.com, 
-	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDHjyr0KctqdBPSDg--.48609S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Cw4DXFyDXw4fuF15CF4rZrb_yoW8CryfpF
+	W3Kr4YkFs8XrZ0k3yUAw1Y9ryagayxtrZxCF4Iy34fuFn0yay7Xw45uFWSvrs0kFWxXwn8
+	tryUJay5ZF1DAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piGjg7UUUUU=
+X-CM-SenderInfo: 5pdnvshuxfjiisr6il2tof0z/xtbC9R0XImrLKf00YAAA38
 
-Please disregard this patch. I found that the same EA name length
-check was already proposed by Ze Tan in [RFC PATCH v2 6/9] ksmbd:
-support
-security.capability EAs: https://lists.openwall.net/linux-kernel/2026/07/17=
-/194
+stm32_gpiolib_register_bank() walks the "gpio-ranges" property with
+fwnode_property_get_reference_args().  As documented in
+drivers/base/property.c:
 
-Sorry for the duplicate.
+ * The caller is responsible for calling fwnode_handle_put() on the
+ * returned @args->fwnode pointer.
 
-2026=EB=85=84 10=EC=9B=94 11=EC=9D=BC (=EC=9D=BC) =EC=98=A4=ED=9B=84 3:00, =
-DaeMyung Kang <charsyam@gmail.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> An SMB2 QUERY_INFO request can name a specific extended attribute with
-> FILE_GET_EA_INFORMATION. smb2_get_ea() compares only EaNameLength bytes
-> of each xattr name, so a request for "Foo" also matches "Foobar". If
-> both EAs exist and listxattr() returns "Foobar" first, ksmbd returns
-> "Foobar" and its value instead of "Foo". It also returns "Foobar" when
-> "Foo" does not exist.
->
-> Check the xattr name length after removing the user. prefix before
-> comparing the name bytes. This keeps enumeration without a requested
-> name unchanged.
->
-> Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: DaeMyung Kang <charsyam@gmail.com>
-> ---
->  fs/smb/server/smb2pdu.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-> index 12a43efdb53f..a49cc3a0c9de 100644
-> --- a/fs/smb/server/smb2pdu.c
-> +++ b/fs/smb/server/smb2pdu.c
-> @@ -6738,8 +6738,9 @@ static int smb2_get_ea(struct ksmbd_work *work, str=
-uct ksmbd_file *fp,
->                         continue;
->
->                 if (req->InputBufferLength &&
-> -                   strncmp(&name[XATTR_USER_PREFIX_LEN], ea_req->name,
-> -                           ea_req->EaNameLength))
-> +                   (name_len - XATTR_USER_PREFIX_LEN !=3D ea_req->EaName=
-Length ||
-> +                    strncmp(&name[XATTR_USER_PREFIX_LEN], ea_req->name,
-> +                            ea_req->EaNameLength)))
->                         continue;
->
->                 if (smb2_is_private_ea(&name[XATTR_USER_PREFIX_LEN],
-> --
-> 2.43.0
->
+The returned reference is never put.  The function calls the helper
+twice, once directly and then repeatedly in a while loop, and each
+call overwrites args, so only the last reference is even reachable
+and all the earlier ones are leaked for good.
+
+Put the reference as soon as args.args[] has been consumed, both for
+the initial call and for every iteration of the loop.
+
+Found by code review.
+
+Cc: stable@vger.kernel.org
+Fixes: bb949ed9b16b ("pinctrl: stm32: Switch to use for_each_gpiochip_node() helper")
+Signed-off-by: Ma Ke <make_ruc2021@163.com>
+---
+ drivers/pinctrl/stm32/pinctrl-stm32.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
+index 6a99708a5a23..93127da05d56 100644
+--- a/drivers/pinctrl/stm32/pinctrl-stm32.c
++++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
+@@ -1666,8 +1666,12 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode
+ 
+ 		/* get the last defined gpio line (offset + nb of pins) */
+ 		npins = args.args[0] + args.args[2];
+-		while (!fwnode_property_get_reference_args(fwnode, "gpio-ranges", NULL, 3, ++i, &args))
++		fwnode_handle_put(args.fwnode);
++
++		while (!fwnode_property_get_reference_args(fwnode, "gpio-ranges", NULL, 3, ++i, &args)) {
+ 			npins = max(npins, (int)(args.args[0] + args.args[2]));
++			fwnode_handle_put(args.fwnode);
++		}
+ 	} else {
+ 		bank_nr = pctl->nbanks;
+ 		bank->gpio_chip.base = bank_nr * STM32_GPIO_PINS_PER_BANK;
+-- 
+2.43.0
+
