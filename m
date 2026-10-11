@@ -1,162 +1,215 @@
-Received: from mail-dy2-f8.google.com (mail-dy2-f8.google.com [74.125.229.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011030.outbound.protection.outlook.com [52.101.62.30])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7186C36654F
-	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 06:48:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.8
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791701327; cv=none; b=l7aafcSce5OSpnfLnBWq2Bo4SDwjbb1KpJNBB7zuSU++fss7hzfw9MBGi2tsXM7RxucsZjaRZ5IeW5DPw3EeWy4L8A+0nFlxagsRCtBVWP6d6/NIp0DTaG5XiiYT+flU4auM0BftjhkECrI4pgxUeAaw9SnFRGkezrosAsS5I24=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791701327; c=relaxed/simple;
-	bh=12x4Fjiyi/4PbSLt4bmLyJ/B6akX95r8sgWYZNezRSU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tbMEVKNu2A68W/vdruPnmHOLbQ0xJKVnI7JyEZv5anuju/fIK7gMs40/XLPfACW8apTIRfc0NOuWBjd4Klcz15dNl79ewtmZuNAZYZ40gIBLVxN1zXd1D8pUNH1da/QLTVS4vLtk6EMGUiJOZgI846wzbrs6puGLGoBUWGYb78Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Na2XRAmj; arc=none smtp.client-ip=74.125.229.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 821F12D47E9;
+	Sun, 11 Oct 2026 07:02:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.30
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791702148; cv=fail; b=F+cM5e7eSmLTx6LC6+PfVLeeX+DKxKcwL4/Vg2pF7c9sUe1lfaPd3yzPFn4vmRmFt1hGnTpXDwQ3RIbuSmiu6ovydz0pQ09J0whlg4NikPM9IZPqA1T6qZ+PERIhhuafw+/pumaciLu3RLmiiztmYi46Nccoc2Fw/o61oJf8cgs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791702148; c=relaxed/simple;
+	bh=vEEQxyETH29bodhYcdqdTKT1PLylsFhVvqcgHfqLAGU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=u6pM3tT/y6p7Hh2SLIFD3luQg1j2rxfQOA2DR9onfohx9y3gG8pyTra3Ur6DOYuOZ+QZDm5GF4g1ZZQGLvnfiXJoG3WRhVJb3FfPRLjdYHoFcjgJzkhc+7wHUkjKljdAgYYeykawLqavOlX1fm1HPFKBlOnSKVwcXuo8ZV0eQck=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=iL8Vpi64; arc=fail smtp.client-ip=52.101.62.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Na2XRAmj"
-Received: by mail-dy2-f8.google.com with SMTP id 5a478bee46e88-3538045633fso899576eec.0
-        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 23:48:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791701325; x=1792306125; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=koNO8fBOwK5rhKY5/q8SE/NGFcISiEzKzkHra3TeJ/M=;
-        b=Na2XRAmjD/IGf3kac+xsO54ghH+42NuPAocWr/RLWTVdkXfv/KpQj23IZ1ShHAQ9ma
-         UAI4uwy7zd2XXyX1hup98h/TMmNUtHNWToQVk6zuiqNQujT6KstLge8QGE5k6tu+h73t
-         yrVaSK0L7CvF51Rid7GNm4aLpv/o3i0QTTd2fAYTWAIlP1xb7/pE5zIAP+yy6CbHn3XG
-         1EooESLRi97X3ay1HI4IxzXJBgujP4/RW2ZZeJHhG6m66R0869xYdph5ZB9Z5UeCeL0J
-         QYzc1LehW4v+2RibgXrQIrYMLM8/8RkycUInEEYr8kaai9qeQ5h2ZRQpinYhTHypizOr
-         TKqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791701325; x=1792306125;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=koNO8fBOwK5rhKY5/q8SE/NGFcISiEzKzkHra3TeJ/M=;
-        b=wBEoKgmxSG23e2XUcWAUtM/8o8971tAns2cOaYFplP48Ek4tAnaoHdXAzlHELhCkZE
-         +nFpelub39SnFV2xKbDxtHSoYpHtMaHFF9xE4QcTvWwCFIN6UjN8L36Z6gX/b4i9RTC8
-         hZZcHjxg7E1Vd456ADy77KleHzc9CJJQ+8MmIwN0j6OlgUFHnStrLdhAlZsJOy41bwBy
-         nCpZNAQzJPsbvEN3g9VIiC9xFt6vTQQdcQ6K0XUk8XDK7F5rhb1qyGj/Cfm+NvP5kaSH
-         7CmBvFcq9rQS7ZXnfmhQ66EnCS9yqzyrwL+DiLHP8l80imF+2HAuCsycXqoCmGTaXkmL
-         D4tQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw3Hd1Zf1S3A+M2CD3eWje3FaVrKWd9bsFmujmNsWrqQKWket+8MnRNNLuR5LDVy4T4nxb+7fs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIRm1QToL4Jj/2ZxWWFaj/7h1/A+DY3Q9ZbA5q4dY9AzOQ9Tpu0
-	j4Tm9vt5IxWZ2NrwA24axOCUE1zhYQWElVUDGhbJqsLJgow+O4v+y5zV
-X-Gm-Gg: AYBFou2kn0mgg3uIfqPZl7LGgkt6MvKrmN9qT2FUuMaMHSPoYabTEPjjVnQV9cuBXfM
-	gpEDBublhPkPFEcUhseMK77/YsZOUDXNDQZqBrxfZjasFLazgWPqBbNFCC60ntDmG4mU3Xshedg
-	bW5r6FA2zj/Hl3ZIST1Xrc4+JwAc2j/PP5FE6MR0FilHdFXvVoE7zPpB+TVuZ0tFgPVuMy1xj52
-	gVoOpA0SWsSfTys7M/Psqjn6PyZBr1OyBsiwpqTSlg2P6KNO8GBZ++ktF2OUSujdy0uuGlpn4cU
-	8eC/JAvl/qj+nTZ1MBQWFCdc/sPRphFYXrUrHkY2/2yKAhJkthLzFW6oXb6K8iMeUYlvh1+g6LB
-	5h8n/iDJX5qgGMCsDItaa+P05mJX8TTVYjkJREaG4FhAE6HVVQhGj/3xP4BXaK1YV3DjyhkMHns
-	/jnbbQBpfUil0BW3N5q2HGfdVIjm2+pIonSclnm8lIClUNvAq4K7DliTanS3Und507CEL3aJ4Y+
-	sa1nMbriB0hgdlNkIpfZWw16h+70W6ibo5pwgbj5Q8iw7IjfQgsVC2+l/8=
-X-Received: by 2002:a05:7300:2216:b0:351:28d9:4908 with SMTP id 5a478bee46e88-3537db99e8amr12245241eec.0.1791701325373;
-        Sat, 10 Oct 2026 23:48:45 -0700 (PDT)
-Received: from localhost (ec2-18-143-158-86.ap-southeast-1.compute.amazonaws.com. [18.143.158.86])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-359789fde97sm4534786eec.20.2026.10.10.23.48.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 23:48:44 -0700 (PDT)
-From: jianyungao89@gmail.com
-To: linux-kernel@vger.kernel.org
-Cc: Jianyun Gao <jianyungao89@gmail.com>,
-	stable@vger.kernel.org,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Dan Williams <djbw@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Goldwyn Rodrigues <rgoldwyn@suse.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Shiyang Ruan <ruansy.fnst@fujitsu.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-fsdevel@vger.kernel.org (open list:FILESYSTEMS (VFS and infrastructure)),
-	nvdimm@lists.linux.dev (open list:FILESYSTEM DIRECT ACCESS (DAX))
-Subject: [PATCH v2] dax: fix dax_range_compare_iter() to use correct size and address offset
-Date: Sun, 11 Oct 2026 14:48:39 +0800
-Message-Id: <20261011064840.1296-1-jianyungao89@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="iL8Vpi64"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=u6G+JocvIZnts2TaVnoiqVf8FU8iXX5/ZStGnQBg+VWk40FxolNHcOVIwqE7O2Geq17nyy7EOJ42TsX5TzD4ikXwtRFd6LKMUajf/in+pYsuEHP92PyMxw27KWQitANUcChwh2X/jMYBqgcIqBVKqTqOTfVoS1vb0EHP0buBLEoMErxgBKhERaQMmxpwdmvecUfcQjnRUSYCLeIWoe196QWgNK9sBi6fYGhk8tFKCcxnnj/SsvcbdvccoXrtIt1S5pmH7uQoaRvUp2eKqhJBfeOIrvao98daYReFZcjzCRmcGdxcBjn8wtK4OkmV6dtxW2DQH4hGYxR+SHismnd+vQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZtpXSIXBUSUT2ZRvweTyICmF42ml6PkqRZz04dn1MXA=;
+ b=YdEXsyUM5MwkQByV2XLBsac/DC73rBIeBgRL0YCD9ZOqFmxePfGAlqYGNYXgB9ieDbPsedF8GSRZCeGuYkzu5r7Flb5kp7Iu/ViAQdfM7b6P1Wx33vrz7xYzYs+jxL1yPNkUIcMvvOlDQTNFYnZHa8ap/dhzBlXAeWxNHsxgtVlyxv5Qti4/CH7up1CSIYsN+r68qzruxJnx81CP6lL8SU9y/B/Nu9eNTwlPow5KWv3YZX02X3XWZ+Ji3DCLlXPd6oJgMD7lr4qpkEEMIu47lXQjEP3mzkTFp5tqg3pceaMePHdVaotTQsKp/6o5j8uTVvd2ELkknVcAoFo/nLjS8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZtpXSIXBUSUT2ZRvweTyICmF42ml6PkqRZz04dn1MXA=;
+ b=iL8Vpi64J0mlrw43vgrSASBV+foSNpUFl3CAoN8kxJlK73gVXWeYFQc9SltOTcjnbrOKLdxlhYaEjKkhyu/4n59We4t6wDOUQ0qpMD9JLKGXnw5H8tZeuIN7AY/HcS48yYYIQ6vMjyQ4JuK8RzPUmehGOyBmJWn/nSaMi4RPuJksx8qlSxYO2OcA6V7w5B9GTzhobHX6zF+1uhQeJ0phRUeZTvXa8feoyLyUjkouO8ZCcaEeTWT+cwycmLHdAK7e66cOlbh7hdkhQvhilQ352nL73VUlcU7oVni6mk5/TU6DqG4bkTIkVUR5mMgbASfWB/39TIBLI83n7uUTo8mrow==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
+ by CY8PR12MB7195.namprd12.prod.outlook.com (2603:10b6:930:59::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Sun, 11 Oct
+ 2026 07:02:18 +0000
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0496.019; Sun, 11 Oct 2026
+ 07:02:17 +0000
+Date: Sun, 11 Oct 2026 09:02:13 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Hui Su <sh_def@163.com>
+Cc: tj@kernel.org, void@manifault.com, changwoo@igalia.com,
+	mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, kprateek.nayak@amd.com,
+	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] sched_ext: idle: Respect task affinity in restricted CPU
+ selection
+Message-ID: <ass0dexwariQCOtC@gpd4>
+References: <20261011025256.4180374-1-sh_def@163.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011025256.4180374-1-sh_def@163.com>
+X-ClientProxiedBy: MI1PEPF00000ADA.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::4ab) To BL1PR12MB5174.namprd12.prod.outlook.com
+ (2603:10b6:208:31c::19)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|CY8PR12MB7195:EE_
+X-MS-Office365-Filtering-Correlation-Id: f7799a06-e3aa-4059-0463-08df27659640
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|7416014|366016|23010399003|10067099003|11063799006|56012099006|18002099003|261009223027099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	jY1gh6GuO14X+/DBeiuHc5Bn1nhy05lwiy2+WRG5t2Ww81Cm9UYMBI74YYzh+1A0QC1A+cHefHgh8SHEgUEFj64inquyoZ9Wphc+SFngpzNDums/saN0jKzEY/Ra9fTKCthcBfNsOtsiIDGWa+c5oRM82b8tnwVKmCTk8At4wXW5lOX+zlVQyqwwxu/3DPVyELfYW6Nnwukd7W2tC/slkCb0GC58uIxGA+r7cGv60f54EufMHp6sEPmYNOGWoKv9ciTe78lvsenlSGqLdkwzg9L228XCAAykCtlvbvMvzZ3YQaNk8gHxtLPhpLhFH3pLXwkt00HH0qFEF7wScqBE44qAbSQDIJhlJYOIUCvWegdSLRT5YR+SbrdBM7ScPjzg9R7IHv9CdL3NRFFOcso4qda8Z1ipO8FYLO/T2SZ3iT2gp0v1+test0WTLybnA4DF5T3wDEWdGCsYRka9tm1TA3KIfeLuY+xNWhAmXQt2rugmc2/HUWcF+Wj+SctpLZ7QWpQxQz3KlSNNJVngwe2hdQrPIznecLqeixyHPCnYhnvOAehvp/jVcDVTiXfq5GRYyo4q7RQoypB22Ysxffxo0S7N/tsPR/sZbGUTdbe4r1KK9dMwdoNM8emNwBs361pv5cpFTES60NCvSc4YNJQEjSbFoohkQfEf30TP28CfLSU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(366016)(23010399003)(10067099003)(11063799006)(56012099006)(18002099003)(261009223027099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?5MOwxOFAkC+Fa+TGOc+ujpSXePzsfHHO0qqTDd2h5atbVB4DpKLPp1poqT3Z?=
+ =?us-ascii?Q?A10t9duMjH2krx5B2rn7tQf+iz8sgNDQSa93EcL6aQcUQHca/jYj/tuxJUHn?=
+ =?us-ascii?Q?fRkbcoJbjb7dvy/BL3RN1OptopuqHc2sx6oVvS85mq1rIk0KSXylVBBX+XH2?=
+ =?us-ascii?Q?H3LFpXHyPfMoKvGB0JH7U5AIetA8F1309jiDEHuT5ro53yOG7xAxiWGkodxG?=
+ =?us-ascii?Q?R/2iHCOvXnpM7YWA5bjbXXJ7omjSEsFapSF1+TswZJOJUzjSMZtjUaXM4rEE?=
+ =?us-ascii?Q?QEuDxTuqK5tyjfLNPGBqQnelF9DMU10w5NRvUCNYGWhA9W6MJnE+szeIjDuv?=
+ =?us-ascii?Q?UyhBCyTxbeXvShvMnzRH8PEOrP2GsF1vJKJDKNJnp15nKml/Ai7N5MFE2LhB?=
+ =?us-ascii?Q?+65rQIea0kdRKHDWLPNeqc76uF8k/ZYjOy75CNQIUsS0P0LuPFHlOGC2zSj5?=
+ =?us-ascii?Q?itejMW+0gVzMcGT1loiHXPetTC+Ni6qadnHr8QXnNq7O3EvJqLhEWWqtnmTU?=
+ =?us-ascii?Q?Vt+jsydsAyjc4Hwh7aO95qJOdcxy+mD536nrL8gaexTtfLQrpNoRpvrURonO?=
+ =?us-ascii?Q?40ozrbuWzd3obHLLIDPynYYbRVM3Iy3VwqGqplNpkpzUyYJ3UDEAdRCVcgxD?=
+ =?us-ascii?Q?lRUysKAiFeS8vhhkM4nqfolxSXN1bcj4w5PorvYquADUixqa5h3rrWgMY0/Z?=
+ =?us-ascii?Q?mPcSAxBMXVmLKQBWnAVFwg8ouAbqy3TPDaXJvJMeUwU5QRPgCZjdyCyqgS9d?=
+ =?us-ascii?Q?OBsMD2knIL6RHa4ZdmEhTakekaqiI6JuxcobNLZ0szphIekzvBFD80QDE0Eh?=
+ =?us-ascii?Q?wEX3Q/wf5MFBWkIhIRt84OOJn71GgmLelUM4M46TF4qP2ue1mfnim/5dm3XK?=
+ =?us-ascii?Q?FUcpEOXrwqrJZPDHnkTOp3aEmDoeiOhuWtzIR6AeNxrYf4NKFyGBNCvewj9V?=
+ =?us-ascii?Q?eLzdLr3f2x0C+LogsfKrvWWHb+Da55qo5w3tcqaIKRpSgFi6XRoA+WuI+vl/?=
+ =?us-ascii?Q?JbsfAeWSRvocANbwtC6+qKkR/9ZTdNuTGC/wBfoskhHvrMn5BJ9h407sznCp?=
+ =?us-ascii?Q?F6cyDK0ss3hlu/ZkjpH4PXKPTPO3l43BYNSWh6oBIfBUKwbqZlrhMV7MhcJ9?=
+ =?us-ascii?Q?hqdgsxbDKTKjasaSKhpo9Bwx8lLLTl8NyVSD6++f4jww6rJUjWeIGM5+Rvo4?=
+ =?us-ascii?Q?0BVHrfhrwoHKapb9N2MOmBvaehrspEFPyItlBDWOyKg4UViTUhJs7JR9eduM?=
+ =?us-ascii?Q?4YxILlJveX/Ai7fiuzkfAnwaelUnGDQ3Xkpm/NOfkALRtFUbc+06yLCMCvt7?=
+ =?us-ascii?Q?KzZiaVW3LIWOzxfXCGj3wR4Ctv6seWoyZTgdpkqvL9zbv2GikSw1NCzgDUpi?=
+ =?us-ascii?Q?twxioU9jnv8KvaMzZe0cfPgOko1BCm37hlEeeVyqiik75cEtySv5oiP1wQAw?=
+ =?us-ascii?Q?UftlRx4dqkd550pB1TUioqOWTxNCOZgTRj8zbVgS28pAt3V7fcwpvlyl0xiG?=
+ =?us-ascii?Q?CGuyJUy/DrVX8bke8yk1nkMIddJ8X4lvHE7VoTy2RSpr42DSGqModRuy6Or6?=
+ =?us-ascii?Q?GrB+5Id7fu8SIm/kckudt5qgLFx25qs1SPrmQXKTuwLAQpLtEMGdaR/LjQmu?=
+ =?us-ascii?Q?acxaZRS3uZU41s4dweBdHWUhhGfgbOuolQOvxXn+ao79+1TqElTUB8f0mOtd?=
+ =?us-ascii?Q?N5ts0GH+DEFWsQzkJS7SnLONkdYSfUY2BKabSbZtsIWEt932?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7799a06-e3aa-4059-0463-08df27659640
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2026 07:02:17.8573
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IgNTGpPSJX+LKEFe7Q5gP8rFCNdOmQeyoj25zR8JtDBxnO2VPaSJFQa5OBQaG5kP/Hlv+UM/Ku1Yhs8bhOkU9w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7195
 
-From: Jianyun Gao <jianyungao89@gmail.com>
+Hi Hui,
 
-dax_range_compare_iter() has two bugs in how it calls
-dax_iomap_direct_access() and uses the returned addresses:
+On Sun, Oct 11, 2026 at 11:52:56AM +0900, Hui Su wrote:
+> The restricted select_cpu kfunc path handles single-CPU and
+> migration-disabled tasks without going through scx_select_cpu_dfl().
+> 
+> When a caller supplies @allowed, the path currently checks prev_cpu only
+> against that mask. It can therefore return an idle prev_cpu which isn't
+> in p->cpus_ptr.
+> 
+> Require prev_cpu to belong to both p->cpus_ptr and the caller-provided
+> mask before consuming its idle state.
+> 
+> Fixes: 683d2d0faba1 ("sched_ext: idle: Introduce scx_bpf_select_cpu_and()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hui Su <sh_def@163.com>
 
-1. The size argument passed to dax_iomap_direct_access() is
-   ALIGN(pos + len, PAGE_SIZE), which is an absolute file offset
-   rather than a length. This causes the underlying dax_direct_access()
-   to request a massively inflated nr_pages via PHYS_PFN(size).
+The fix makes sense, but I'm wondering if we should derive the candidate CPU
+from the task's state instead of relying on prev_cpu. In practice prev_cpu
+should be always considered a hint rather than a guarantee that the task can
+still run there.
 
-2. The addresses returned by dax_iomap_direct_access() are page-aligned
-   starting addresses, but memcmp() compares from saddr/daddr directly
-   without adding the page-in-page offset of pos1/pos2. When pos1/pos2
-   are not page-aligned, this compares the wrong data.
+Per-CPU tasks could use cpumask_first(p->cpus_ptr) and migration-disabled tasks
+could use task_cpu(p) directly.
 
-Fix the size by computing ALIGN(len + offset_in_page(pos), PAGE_SIZE),
-matching the pattern used in dax_iomap_copy_around(). Fix the address
-by adding offset_in_page(pos1)/offset_in_page(pos2) to saddr/daddr in
-the memcmp() call.
+Something like this maybe:
 
-Fixes: 6f7db3894ae2 ("fsdax: dedup file range to use a compare function")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
----
+	migration_disabled = is_bpf_migration_disabled(p);
 
-Changes in v2:
-- Add offset_in_page(pos1)/offset_in_page(pos2) to the saddr/daddr
-  arguments in memcmp() to fix the page-in-page offset issue pointed
-  out in the v1 review.
-- Use offset_in_page() macro instead of (pos & ~PAGE_MASK) for
-  consistency with the rest of the codebase.
+	if (p->nr_cpus_allowed == 1 || migration_disabled) {
+		if (migration_disabled)
+			cpu = task_cpu(p);
+		else
+			cpu = cpumask_first(p->cpus_ptr);
 
-v1: https://lore.kernel.org/lkml/20261010071453.6028-1-jianyungao89@gmail.com/
+		if ((migration_disabled &&
+		    !cpumask_test_cpu(cpu, p->cpus_ptr)) ||
+		    (allowed && !cpumask_test_cpu(cpu, allowed)) ||
+		    !scx_idle_test_and_clear_cpu(cpu))
+			cpu = -EBUSY;
+	} else {
+		cpu = scx_select_cpu_dfl(p, prev_cpu, wake_flags,
+					allowed ?: p->cpus_ptr, flags);
+	}
 
- fs/dax.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+This would let us try the task's only allowed CPU after an affinity change,
+instead of rejecting a stale/invalid prev_cpu.
 
-diff --git a/fs/dax.c b/fs/dax.c
-index 6ba50142eeb2..b08d408418bd 100644
---- a/fs/dax.c
-+++ b/fs/dax.c
-@@ -2197,6 +2197,7 @@ static int dax_range_compare_iter(struct iomap_iter *it_src,
- 	const struct iomap *dmap = &it_dest->iomap;
- 	loff_t pos1 = it_src->pos, pos2 = it_dest->pos;
- 	void *saddr, *daddr;
-+	size_t size1, size2;
- 	int id, ret;
- 
- 	len = min(len, min(smap->length, dmap->length));
-@@ -2212,17 +2213,18 @@ static int dax_range_compare_iter(struct iomap_iter *it_src,
- 	}
- 
- 	id = dax_read_lock();
--	ret = dax_iomap_direct_access(smap, pos1, ALIGN(pos1 + len, PAGE_SIZE),
--				      &saddr, NULL);
-+	size1 = ALIGN(len + offset_in_page(pos1), PAGE_SIZE);
-+	ret = dax_iomap_direct_access(smap, pos1, size1, &saddr, NULL);
- 	if (ret < 0)
- 		goto out_unlock;
- 
--	ret = dax_iomap_direct_access(dmap, pos2, ALIGN(pos2 + len, PAGE_SIZE),
--				      &daddr, NULL);
-+	size2 = ALIGN(len + offset_in_page(pos2), PAGE_SIZE);
-+	ret = dax_iomap_direct_access(dmap, pos2, size2, &daddr, NULL);
- 	if (ret < 0)
- 		goto out_unlock;
- 
--	*same = !memcmp(saddr, daddr, len);
-+	*same = !memcmp(saddr + offset_in_page(pos1),
-+			daddr + offset_in_page(pos2), len);
- 	if (!*same)
- 		len = 0;
- 	dax_read_unlock(id);
--- 
-2.34.1
+And could you also clarify in the patch description that selecting the CPU
+consumes its idle bit? Without the affinity check, we can claim an idle CPU that
+the task cannot use and later dispatch validation doesn't undo that side effect.
 
+It would also help to mention that per-CPU and migration-disabled tasks skip
+ops.select_cpu(), so this affects calls from other contexts, such as
+ops.enqueue(), leaving the normal ops.select_cpu() path unaffected.
+
+What do you think?
+
+Thanks,
+-Andrea
+
+> ---
+> Testing:
+> - x86_64 KVM/QEMU.
+> - A private regression harness pinned the task to CPU 0 and called
+>   scx_bpf_select_cpu_and() with an idle CPU 1 outside the task affinity
+>   but inside the caller-provided mask.
+> - On the baseline kernel, the helper returned CPU 1.
+> - With this fix, the helper rejected the out-of-affinity CPU.
+> - The existing allowed_cpus selftest passed with the fix.
+> 
+>  kernel/sched/ext/idle.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/sched/ext/idle.c b/kernel/sched/ext/idle.c
+> index aa9fb6de0ad6..20efa463cafa 100644
+> --- a/kernel/sched/ext/idle.c
+> +++ b/kernel/sched/ext/idle.c
+> @@ -999,7 +999,8 @@ static s32 select_cpu_from_kfunc(struct scx_sched *sch, struct task_struct *p,
+>  	 * used CPU is idle and within the allowed cpumask.
+>  	 */
+>  	if (p->nr_cpus_allowed == 1 || is_bpf_migration_disabled(p)) {
+> -		if (cpumask_test_cpu(prev_cpu, allowed ?: p->cpus_ptr) &&
+> +		if (cpumask_test_cpu(prev_cpu, p->cpus_ptr) &&
+> +		    (!allowed || cpumask_test_cpu(prev_cpu, allowed)) &&
+>  		    scx_idle_test_and_clear_cpu(prev_cpu))
+>  			cpu = prev_cpu;
+>  		else
+> 
+> base-commit: 7b63ef2d55f24519e7e9e5f4d15dbea03f126e40
+> 
