@@ -1,141 +1,140 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A930C2475D0
-	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 00:31:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7791E2701D9
+	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 00:53:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791678669; cv=none; b=cu5VHbGoo/sOpflVSepdt3YQOrHBniqEnhOWnqoE4PoExAE0/aS1kKwEU91f/sd5cjvq+xmhbdnupyX6w5RvOF5+Ea0IbxYcGITQkspAGvFJR2sm+PT6B32RBUE2Lz5WmVOo6PQBUqT/60WCb9gRH3ThqxVOmus+3YDf5UWrFrs=
+	t=1791679982; cv=none; b=EV//Pc1RfdWgeHUytsxVrYrXhIl611SCOAkKKK7Mmu+i0tiytKKL8dTEuqeErCx74KblpbTRqTD5JnpISUGoCPIYCEDwxWHIPWN26bAJLViAmv8O0YkQKLpCfi4jWvbJJyBGmIKqv3355HPie9SWfMpp47YPpAHwfkcF7GQJAjY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791678669; c=relaxed/simple;
-	bh=847Ia3IGc+y8ajZnza1rYhksWRa32beXNH/by2oLOFU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=o/y3rNGZ3pggQ24cKF4hYE7VUXD4W2DGleTwtXITgvIgBNWt3qQfr5OKNv0FST8oqneSOZaKKO49qCdGzC1IRckjwlxhFXdbt06BCNHDnbV/iiyflVd8BsIX7ndFmJOSYOGIiKuTq3KYaDyCD47UJJi2iGHr3lA+Tywu6oJVCmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OzsQWFiq; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791679982; c=relaxed/simple;
+	bh=en91qOoAF7ONtSU28ECiiDCudFkkfPzlJRjMs78c22o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=urDezCvkOt7M4czo2+4o6L0E6G7YWb9/ZA5nGKJmAUW6QyYVT3edpVkF5TdL6JVKJJy3d+I1j3xmuEW/+Z8xHEgKqSJZ6XWJF/5yuSX29t4ZL7fouQZf0ueB0OxWotc9Bi57Sl0EVM9OcnesanJcLGLCkLJPl0K1qeIRJbW9zGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=JdGOB/GI; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=bb7ZDGFz; arc=none smtp.client-ip=103.168.172.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OzsQWFiq"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ab2cb8d577so677658a91.1
-        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 17:31:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791678668; x=1792283468; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Texf7avohcxbJhjAidkKzynfx9gkSXyM44DuVmdFRSI=;
-        b=OzsQWFiq9PIoRbF9yoR1vZMUWuAqhyOm4AB+X5uQE457te4ux9rHL1XIKZ5JKRqagB
-         5T2xnjxhM4dZbU5hfSsMotMkZozgwt+GFtHwZb/A7Pi4egeTn1OEj+D5Ayf5KDFo68yo
-         kVpfgr52xyXJPeinmZFqjYGyVHGzJ7viXFl6K/70bpB3aUSakeXlNBUhmE1v6wcrCbg9
-         cXvca3bCbuQWkRk2U72sFw2n81ZGTB4W1RkTowAXLpT5LZTsSBERt05xHXs7CJPQ2N8q
-         u3nVHskvODGQUcXLBPyT6yU/n0Pwimxe1pWX3wVtfeEO0EIEoRti47xhrEA2d0G4GH5A
-         zp3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791678668; x=1792283468;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Texf7avohcxbJhjAidkKzynfx9gkSXyM44DuVmdFRSI=;
-        b=XidZfssNpPQYsNbBdkfQ43Y6hCx41wDU/HJl+H+gSmlCbB2qkQHX+Wlo+QJH0Gthbi
-         i1LuP57Db3vYOlZKZ6EwmKxlruU+Nu7XgWglMHLJDL9+KFU24jKHjEeDRi+ZPhCiK7bp
-         Vac/KFjOCdq1XsIzLnKEv67xij+TYYr+XBJpHB4NOvz4EAQeq67p+EJKQ2KUT3F0Y5CS
-         qhR1S+RTT77FNw7goHcmdvf5H1+3xOd5cDA4dt5BoiVVlts8qJ+zxuqZMJbdMyJPJI/j
-         l1BwdiXkzm+FLEETmGoodbe4V6UFEYd+rEoFt4nO5sR3hgg0eXP4sSmddE/zRJTC74TM
-         LSFw==
-X-Forwarded-Encrypted: i=1; AKwUvBzkBqAu7Y4Esu12sS2/XjJf04+t9wFcd7YAU2Eom3OhXWUwyx97OmEwQudaYs7GtfBWCuvHmRg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKO2uvtg2rbGhc05I6J8NBU1v1KdMScqC/c9YTo4qjHqwHVX5rf
-	m8r5tKOqNWmyY6azme9YutaLNtagR2T0Kze77GJi6Aq9+WUiOZwx0MPM
-X-Gm-Gg: AYBFou2Z9WMbZc0d5snoHw3BdKdTePsDgOA4MYsL5dRtF2cdXnKc6aAVE1/SZB4Ju5F
-	jW7VWbV14lR25lKLeSi15uNAeFqGwpv2Oi/dvlY1s4oC9DWt7XLrmXn3e2ElpBrPib3fsOq+VBp
-	EBuW1z1fR++tKTENrPTQZo6GVaiMR/McBI3Zyym+Lpqtj5z5z5n0Ikn/Xmqdh8vOv0usHsGUHU4
-	SvZgaPAPcqm1oHeV/gzRN4hI7uHOCqHIPbz0bFevAo+r7sINAudEAvVfhJBINsTV69JLlzZEwJ3
-	VSdW1bwI2ABCmi/TtoVNNjaiE2srZYhIi+dVpJJhIe2EXTnw0HzX9nmXri9rqkgTndT3AV9Vpkx
-	SNXBbs7KeKUuuTwlMZa8PTYjwK1kEhz6rhbEtjyyXwbT/BN+BgGGhsh4EG7KqDkztKR4HN43LeU
-	o3aiTWwCL9UzQlvylzEjRR0in65oRxGq12Cur04IMcdF3s1WL4MN75m8TORr141R1O8QYcCFS9+
-	s5wTzBAQjiDZ77jhIYr/LOUg4CWz+vICC20zwDi9kfs62Cwzl+Wlygvom6OY+nd
-X-Received: by 2002:a17:90a:ec87:b0:3a8:c0cd:57fb with SMTP id 98e67ed59e1d1-3ab3ac9a1b0mr4922031a91.42.1791678668019;
-        Sat, 10 Oct 2026 17:31:08 -0700 (PDT)
-Received: from bloom.localdomain ([2604:3d09:178e:e100::a891])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab371c32cesm9681761a91.16.2026.10.10.17.31.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 17:31:07 -0700 (PDT)
-From: Ivy Lopez <skunkolee@gmail.com>
-To: akpm@linux-foundation.org
-Cc: david@kernel.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	fvdl@google.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Ivy Lopez <skunkolee@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] mm/cma: do not count skipped ranges in cma_declare_contiguous_multi()
-Date: Sat, 10 Oct 2026 18:30:59 -0600
-Message-ID: <20261011003059.169430-2-skunkolee@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261011003059.169430-1-skunkolee@gmail.com>
-References: <20261011003059.169430-1-skunkolee@gmail.com>
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="JdGOB/GI";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="bb7ZDGFz"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.phl.internal (Postfix) with ESMTP id 93AB6EC0282
+	for <stable@vger.kernel.org>; Sat, 10 Oct 2026 20:52:59 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-01.internal (MEProxy); Sat, 10 Oct 2026 20:52:59 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1791679979;
+	 x=1791766379; bh=oPijvRpCMbjLE8AoRI1ASmTglYORZbm65aPnQy97GBU=; b=
+	JdGOB/GIG727Lv/7NERg2OXSNGclAAyt0qAwmqqx7kzgwp4Ba2m5M4vVnh4+amkX
+	acXCEacaJGch2CShZiWz48V4Vip7BP0+x8sD6jvryuvbEgaLK8NWOZKTFq1FHVXZ
+	an8RJnnwW1Au2UXqclcS70mDju7I2D9u8iuPPyGYWj2w7of4HFpZTYuAnAHkRUP0
+	qPcJEEp8chh65WRt1KjvDwROfcksBD48iJ//a7jZKxPqSAWM1HCsLIkGcfLOPUVd
+	pN8JfU27/MB0mu7romA2sphxJl2ALBinaDuVF/StkUpO51wijxdNzNCbu/lsXXnj
+	+XvHdNOfcEaKDheEQVUy+A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791679979; x=
+	1791766379; bh=oPijvRpCMbjLE8AoRI1ASmTglYORZbm65aPnQy97GBU=; b=b
+	b7ZDGFzQjIeMaf+4FGlfwwpJXYf7iohkxxGhBzHNyZGzEcMy+fPXALsvKKD4kbQb
+	hWy9gswm8ww94JlXmaIPMncpYcVlBSq6TE30zucV4hRzqGw1HRzpCFOr5MxNX7l6
+	azMtxpJbydrNUCmA5ncdouy18ktezEFo4IugmxgWfjlUtsaGN0QJiekLbkDl+MQT
+	n0aKwhZ1PpF1jXCIcCg7326j2UPQRyHmOK/UB+1ERJg6FdTuj9Q9q/myNUZwhtAI
+	ZmtIR4SusrbSPRHlOzFBff1cPwpfRemizCkMNHkqksQU5EGjfPcPeLVHL4A43uWb
+	IVVOP/Gz2Dr2ftt6xx9VQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791679979; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:JcInr1Pi4wdPHf982Bv2jRlL8qd7PvgOPtkgQCPmLRQnsMf
+	fb+y6AS0hpq+oBW6jUPOceYFMTZbnpNtQh0bl9j9wLopGwn2Xls9KazrbCA9o2jZ
+	dJsig5GiFqFbVClOk0YQ10xDiPF7So0+pVAhp32eAUMJbiJ9nr4N+qDezV7ljnyD
+	ls2oWCg0keTWj5ASTn/MI9IdaVvyMEo9wwuFQkHU9EAdi+RKgyVkfz6DsJ6N0ZDI
+	8KSlBTosLy6HaZkaI+71Vxa/dtKEyJHQDBfwcYn5aBRBDg4otS6kWzXwamrrYSrm
+	haZPQp7VGPsWjxU5wpDBbqkqFZmlToNUA5GSHMA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:Fq/tcSeJ9/Z6xUS8S0Lc1/gJ/h1zWi4znxUePyw3do4=:en91qOoAF7ONtSU28ECiiDCudFkkfPzlJRjMs78c22o=;
+X-ME-Sender: <xms:6t3Kakbipuqz5dh6PhqqNbH8eKgM7FkYi1fe32sNgvVraibxrK9BHA>
+    <xme:6t3KarSK5ABnxPT9gmxL3xpYzHNFIa95PbPzV2GMV7CMZjsP7Xl7WB42UEctxMoen
+    qR3KK3vfFZ0ZpwLf2b1jpt3jCFLFlx5AXc6-mp9127oB7kyl5uR7U-B>
+X-ME-Received: <xmr:6t3Kaqet8LTHj90w7kSA3GybcmBEiy6_HCYArE4Zg0F2FhzGln6lOEAXZg4HHT4lrj75Vte5zqvMd_XCh2lgiACkEXheIxzV>
+X-ME-Proxy-Cause: dmFkZTGBvTFpgk3RPwa8M1ObkKT87Ax1XfALtDqTPiSGuR97dAjNhoeH4z68g8/LiqCtT+
+    p2TeM/uJmiPFUXvzYY2ZvawxCFMa7FtfjAPQpaHutQYlZ5GJefBmBfQ1Oecvx6ZA2YBRiV
+    IHLmTuD1MQEWWIjctrPjMp0CgxUxjh/RzhVQJOjR4SyUUnilUASG3STR844CJ8MzHa/naV
+    DMDntSBocL8XqyakdziJlAh1HPomc54RmHiVkvdcU0CP0esuDWUAqyeUvwXWfCv9tBnzux
+    KifdQH/kPVLhwCacfCj/Tr5taAczzW7Dyoy0kDqgsokGwXaoJwG+2rfGl0HHy1GuXLyFZ+
+    gN69n5A9pJTXOiC0wxc3paJmqgpTbZzqKEY1NNYtilJMFlIZJfpy+iW5NS564E20ZRu2dR
+    moppAGzBxwfsQXq0HctWoranectvYaJNwKdMgMjKglZbMmeU+NHzJcCy6Vp16O1i5452lH
+    +FEFgc+IYU3W7xCBPouvv5i9rG451Hd8wIrLRcPjH4EfzJ86a7AEnnOMNxvf3xq9dJ7q2X
+    LHFTWV2H/hKb+4oxOj3cV9QZJ/AFfWrxEP5Yx1NJgrQdluyWIUmgq2o7fvPEOdrrsYmDgw
+    Rd6mwU/bkczww/kh0NClXImQzPW2apsFSPhEGrj6cjWeep1sJQM6mlRfyktg
+X-ME-Proxy: <xmx:6t3Kaink5IGlVdNnQ1Pnfu5w1U_OPvcgzfBKGEIm4N06veQbL1F5AA>
+    <xmx:6t3Kani0qVLL48TiS4OlV8wCeHlNUj9q5k8mzIry9w4h94uyNOoPPg>
+    <xmx:6t3KarE9YdnouZdjT6aF0Awc-PUK06HJcz_zkgu1Ge6ldQ1wlsyDoQ>
+    <xmx:6t3KauxrylKEM4VoHpBtkHSyT9AVp4IpAgU4ij7hCKKt1K3AZ_jRkg>
+    <xmx:693Kahva8dtDDDaRx25PbKwQdOvSxCWtMlf5KK4ZPaePtEsEoCuBEdpA>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 10 Oct 2026 20:52:56 -0400 (EDT)
+Message-ID: <eb0843cb-f251-4afc-96fb-82eb34438592@pobox.com>
+Date: Sat, 10 Oct 2026 17:52:54 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/403] 6.18.56-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261009140952.119038291@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20261009140952.119038291@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-cma_declare_contiguous_multi() adds the size of every candidate range
-to sizesum before deciding whether to record it. Once CMA_MAX_RANGES
-ranges are recorded, a candidate smaller than the last recorded one is
-skipped, but its size stays in sizesum. The replacement path already
-subtracts the evicted range, so sizesum is meant to track recorded
-ranges only.
+On 10/9/26 7:06 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.56 release.
+> There are 403 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sun, 11 Oct 2026 14:08:27 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.56-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-When more than CMA_MAX_RANGES ranges exist and one is skipped, sizesum
-can reach total_size while the recorded ranges cannot. The sizesum <
-total_size check then passes, the reserve loop ends with sizeleft
-nonzero, and the function returns 0 with fewer pages reserved than
-requested. cma->count, available_count and totalcma_pages still
-reflect the full size, and the final message reports it as reserved.
+Tested on 2 amd64 systems and an arm64 virtual machine. Working well,
+no regressions observed.
 
-For example, 8 free ranges of 1G followed by one of 512M with a
-request of 8G + 256M reserves 8G and returns 0.
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-Only count a range once it is recorded.
-
-Found by code inspection and checked with a userspace copy of the
-selection loop.
-
-Fixes: c009da4258f9 ("mm, cma: support multiple contiguous ranges, if requested")
-Cc: <stable@vger.kernel.org> # 6.15+
-Signed-off-by: Ivy Lopez <skunkolee@gmail.com>
----
- mm/cma.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/mm/cma.c b/mm/cma.c
-index 527b2d894f3e..c2cdef953ee9 100644
---- a/mm/cma.c
-+++ b/mm/cma.c
-@@ -594,7 +594,6 @@ int __init cma_declare_contiguous_multi(phys_addr_t total_size,
- 		size = ALIGN_DOWN(size, (PAGE_SIZE << order_per_bit));
- 		if (!size)
- 			continue;
--		sizesum += size;
- 
- 		pr_debug("consider %016llx - %016llx\n", (u64)start, (u64)end);
- 
-@@ -620,6 +619,7 @@ int __init cma_declare_contiguous_multi(phys_addr_t total_size,
- 		}
- 		mrp->base = start;
- 		mrp->size = size;
-+		sizesum += size;
- 
- 		/*
- 		 * Now do a sorted insert.
 -- 
-2.56.0
-
+-Barry K. Nathan  <barryn@pobox.com>
