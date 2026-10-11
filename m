@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E3F36194E;
-	Sun, 11 Oct 2026 07:17:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E74122BD022;
+	Sun, 11 Oct 2026 07:19:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791703075; cv=none; b=RsSHpYXoLPCtjgR4QRx4JGCI07AyBeCeKDj5CSy43po7Y6C6A5a3rYFv619TmI9+vkax00pvgsgPbHzeM6muvEGQEiAjpHsIjSvmteV2Kinz+9FeSSXyn577GODkCDPFiBy4c2noCLAreiGzd2SgQwnq3eRkTN+mmkb0ajlu1+w=
+	t=1791703197; cv=none; b=STJri/DhpzW26bWGoRyHsdvjRoxUeEBHbW5/la3NqUb5Ewh6E56aTy4J24PTy3dBp3izqWXgMAT0bOj2OGVUGlpaFaIxB860QJQf6S4I0wWXbq2NE2r1OSpsH/CR+L6IWUhrCZ6DuBnyqsAcqPUMfVadlwjn0a34V8wpS1DizXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791703075; c=relaxed/simple;
-	bh=b7NeHVhy2QhOQSfstvOeB+xNjbhUW3Ffzn7dw4ph1O4=;
+	s=arc-20240116; t=1791703197; c=relaxed/simple;
+	bh=OB5z/SLnlJLkG3NA8CFS2bikRgEPoV+AfnWbf/1/F/Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=upSATiocXP8FJmxsibDSwMobcKgaR9VjbzQ5ZKD0dfWy42UAjM6Je2X9lxEu/LLqD23vQVV8XreT4y3Zg4p8sgSI+E2D9IjE9EEFtAalWenGYUjUdVvsUx1DCwurUD37F9jWarR72YyBtIg3KXAtHKogAUYeCS+Pyv/+UeAMZUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=u8bCl5dc; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=tY44P5bx4nGlwurGY0gxjwi4BreiCmAz8mRXRaYWPG9F7SySBNc3rubByM44ztbWfsd3gJJuP3yS1V9T4GMAIPGx6K2MqdqrQOt/ggGChD04O0AvXFG55+lhgBIr/dQFQs7vmBECIF90AuAovr961ibGCeS2reBH8gKf6u5OoXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=k/P3ONC2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="u8bCl5dc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D9171F0089B;
-	Sun, 11 Oct 2026 07:17:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="k/P3ONC2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C34EE1F0089B;
+	Sun, 11 Oct 2026 07:19:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791703074;
-	bh=UP0CXRuQOO+3Ammpkg1AGpGN33zU0hi3auzlWpD28+E=;
+	s=korg; t=1791703196;
+	bh=OB5z/SLnlJLkG3NA8CFS2bikRgEPoV+AfnWbf/1/F/Q=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=u8bCl5dcRLSQ16ypGvsTQlf/8vsfEGvawNYkxsKWq28gB59qX0LSbmExjOolx7Xvz
-	 5Ra2pbzzp2JWVmgGRoECIm5ebpUOHoGgK3zJx0ncFQhkC7LW1SXiwtmp3v+Y9qisMK
-	 2a1l6n35mP5abn7720Yh4rc6v8Xyql0taJOB9aS8=
-Date: Sun, 11 Oct 2026 09:17:50 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Alexander Usyskin <alexander.usyskin@intel.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
-	Menachem Adin <menachem.adin@intel.com>, stable@vger.kernel.org,
-	Joe Finzel <joe@sudmix.de>
-Subject: Re: [PATCH char-misc] mei: me: Revert "mei: me: add adler lake point
- LP DID"
-Message-ID: <2026101122-immature-endurable-3ea6@gregkh>
-References: <20261011-remove_adl_lp-v1-1-177758bd617a@intel.com>
+	b=k/P3ONC23zQoB5Mekhk4DYqnjW2jpgRrJICmSOlUnQbpMmKVl/BH8L0lfWOg/Wx8o
+	 sxz/UVC5RLRYVTvIlMbaGbPLHYC7XRaR6eV+PuHS9YXYUcO1Z3bkEHj6Y+9ZRd3kO7
+	 wXhfSH7mjU5urxba/4dXzgnrIqnb8FEorW1+w7kY=
+Date: Sun, 11 Oct 2026 09:19:53 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Lubos Rendek <l.rendek@proxmox.com>
+Cc: stable@vger.kernel.org, regressions@lists.linux.dev,
+	Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+	linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [REGRESSION] 7.2.4: nfsd sends CB_OFFLOAD with all-zero stateid,
+ async NFSv4.2 COPY never completes
+Message-ID: <2026101121-staining-scheme-358a@gregkh>
+References: <7cc824c4-632d-49df-ae5e-cfcbb5bf76ad@proxmox.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,17 +41,16 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261011-remove_adl_lp-v1-1-177758bd617a@intel.com>
+In-Reply-To: <7cc824c4-632d-49df-ae5e-cfcbb5bf76ad@proxmox.com>
 
-On Sun, Oct 11, 2026 at 09:29:12AM +0300, Alexander Usyskin wrote:
-> This reverts commit 930c922a987a02936000f15ea62988b7a39c27f5.
-> 
-> This device ID is not belongs to HECI and added by mistake.
+On Sun, Oct 11, 2026 at 06:30:40AM +1100, Lubos Rendek wrote:
+> Since 7.2.4, an NFSv4.2 server-side COPY between two exports of a Linux
+> NFS server never completes, because nfsd sends CB_OFFLOAD with an
+> all-zero stateid.
 
-Should this say:
-	This device ID does not belong to HECI and was added by mistake.
+Can you just use git bisect to determine the offending commit?
 
-?
+And is this also the same for 7.3-rc?
 
 thanks,
 
