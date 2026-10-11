@@ -1,53 +1,56 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-124.freemail.mail.aliyun.com (out30-124.freemail.mail.aliyun.com [115.124.30.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0322636194B;
-	Sun, 11 Oct 2026 16:48:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02AB323ED6A;
+	Sun, 11 Oct 2026 17:10:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791737347; cv=none; b=eNDRCbR6ZDSso2d9YJGy3cZ4YzeJSY2qC9onOQ5Mwc5qicYKW8rQkUhcEnoYdYYdSwCIikNsdO3zsMQmdY34mGEWlNFbPrEaoSF3AQHb7WrvczOIPBYrWl5AHmkgWEixnLNOhlNvbXSQhoW+iRG6w/2X5dLu6aoNXTAGH9gGcHU=
+	t=1791738641; cv=none; b=dmcl78HIX1fVGdG4IU8sH84EXMjiVbMZmR996xoFCkVy1V/7gdXQpwFaYd5NoK421hNmImidWUZGmjCIw8Q4MjfcEN8eOrUWSWacl0T7kAnewKPhulOPpLEdceGyPe4RU5Fytic+5EAPcN9JEb+fgvoD8gCKtwyTcbUGiCzxknU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791737347; c=relaxed/simple;
-	bh=wLBj4IiwvyegT5zsNdQA3tHat5t3RZwVB38uNe5jg/g=;
+	s=arc-20240116; t=1791738641; c=relaxed/simple;
+	bh=mWgpJiSaZBn8LrONE9dJ4B6yQjVBUZLG5mkaJnICzvQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u3jswQ9JeaQIDIttyMbykwUw0ge7eqjxR1DYlumd1TYOGMXGtgTjDakRcoZIxUqyVQpDdG+cLd32VxbVSa102bmyc6eBjAfYu32pUPEOpbhksJ2g0yJ76WttObtANsO4LkiEsuCkQRCYHvNkqbtf/onlRJ3jBzVHEg3ta6OgVLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hdw71Kfx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=lAQPm0Ue/4chx2/Xz/Nl5GVnHSlr2gRzGuD1REw99rUUSAbx3LD6NodUSb4VcKSCfbzM8lnVpxN78SxO6xL2/GE7ngJRxKD0chmPUq3T51LBNPXSi8Z6CcK3NbK+Lqjdbi3/mnLwq/2y+MbdA3HBlhAUYNELTS2wOqhdIXqiWU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=aqSaOYb9; arc=none smtp.client-ip=115.124.30.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hdw71Kfx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CD4F1F0089D;
-	Sun, 11 Oct 2026 16:48:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791737334;
-	bh=J3hxxeSmfa7hMOUSxbRHkBwhdk5RHitOI+8eCdNRVpc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Hdw71Kfxeefo8ZUovVBmWtsR2AwVoCi/kRVKUTMsm+zRL/hA7THmf7/cgYUOjzzuh
-	 PZaJ5EIkZSofXWWnPKILzQKfUBgNNpAokY18OAbGkrdeAubW6wPPHClHKRLrSMj35Q
-	 IWZK+NWbGKoZxM/cJEjP5MKnKfNSfHh3J74V/YJIi+vykrDrJsA9EqhmD2riYdoV80
-	 qIddunbeVeLNa+Tf0SOGuBuDwvIGtw4exisDRpYy1I8V/RDQ1yZgn7rs0DO20bjZ3z
-	 QcIxV4WTJhnSMvBhFBw5CmueBqn7DNhEX+QAHdnHkEuwkQFX0zSlqs098UTE0mBBrd
-	 ng1/+Zr5h6RCA==
-From: Sasha Levin <sashal@kernel.org>
-To: lee@kernel.org,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
-	David Rheinsberg <david.rheinsberg@gmail.com>,
-	Douglas Anderson <dianders@chromium.org>,
-	"Mario Limonciello (AMD)" <superm1@kernel.org>,
-	Ai Chao <aichao@kylinos.cn>,
-	Hans de Goede <hdegoede@redhat.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Jiri Kosina <jkosina@suse.com>
-Subject: Re: [STABLE v5.15-v5.10 1/2] HID: core: introduce hid_safe_input_report()
-Date: Sun, 11 Oct 2026 12:48:26 -0400
-Message-ID: <2026-10-11-1-daily-reply-0019-hid-safe-input-report-5-15-5-10@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261011103912.2201634-1-lee@kernel.org>
-References: <20261011103912.2201634-1-lee@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="aqSaOYb9"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791738629; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=pP/654PDHhmtWqPouuapJaaInSP5pLa6Kxj7C8ScfwI=;
+	b=aqSaOYb9lE4kCTC9/puWScNeLaBsA7nn/dsTjL9T5oYwPPinIB3DRTM4CD0EKpHYZCkYRz1aXPYQ3tXqSBjbkRMa17MNHcVBZIJlYhnoH2Z6ySVi5CaWbodsheIDieAb7bA3fOXgFLxjXJUa8P0Ea4YoVivMrf4vOap/czhl6rM=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XCYQXUC_1791738626;
+Received: from x31h02109.sqa.na131.tbsite.net(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XCYQXUC_1791738626 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 12 Oct 2026 01:10:27 +0800
+From: Baokun Li <libaokun@linux.alibaba.com>
+To: linux-ext4@vger.kernel.org
+Cc: linux-fscrypt@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-xfs@vger.kernel.org,
+	ebiggers@kernel.org,
+	jaegeuk@kernel.org,
+	axboe@kernel.dk,
+	hch@lst.de,
+	djwong@kernel.org,
+	brauner@kernel.org,
+	tytso@mit.edu,
+	berto@igalia.com,
+	adilger.kernel@dilger.ca,
+	jack@suse.cz,
+	yi.zhang@huawei.com,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH 01/13] ext4: refuse encryption when block size > page size
+Date: Mon, 12 Oct 2026 01:09:46 +0800
+Message-ID: <20261011170958.1759230-2-libaokun@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20261011170958.1759230-1-libaokun@linux.alibaba.com>
+References: <20261011170958.1759230-1-libaokun@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,13 +59,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> hid_input_report() is used in too many places to have a commit that
-> doesn't cross subsystem borders. Instead of changing the API, introduce
-> a new one when things matters in the transport layers:
+From: Alberto Garcia <berto@igalia.com>
 
-Queued the series for 5.15 and 5.10, thanks. Patch 2/2 needed a context
-tweak for 5.10, which has no READ_ONCE() on ->running in uhid.
+Encryption is not supported when a filesystem's block size is larger
+than the page size, and commit 709f0f1f1bf5 ("ext4: add checks for
+large folio incompatibilities when BS > PS") added a check to refuse
+mounting such a filesystem.
 
+However, it is also possible to enable the "encrypt" feature on a
+filesystem that is already mounted (with tune2fs -O encrypt). Once
+that happens it won't be possible to mount the filesystem again in
+the future, but there is nothing preventing the user from setting an
+encryption policy while the filesystem is still mounted.
+
+Fix this by refusing to set an fscrypt context in ext4_set_context()
+when the block size is larger than the page size.
+
+Fixes: 709f0f1f1bf5 ("ext4: add checks for large folio incompatibilities when BS > PS")
+Cc: stable@vger.kernel.org # v6.19+
+Signed-off-by: Alberto Garcia <berto@igalia.com>
+Reviewed-by: Baokun Li <libaokun@linux.alibaba.com>
+Reviewed-by: Eric Biggers <ebiggers@kernel.org>
+---
+ fs/ext4/crypto.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/fs/ext4/crypto.c b/fs/ext4/crypto.c
+index 1a0fccb084ef..318b2eaea741 100644
+--- a/fs/ext4/crypto.c
++++ b/fs/ext4/crypto.c
+@@ -156,6 +156,15 @@ static int ext4_set_context(struct inode *inode, const void *ctx, size_t len,
+ 	if (ext4_test_inode_flag(inode, EXT4_INODE_DAX))
+ 		return -EOPNOTSUPP;
+ 
++	/*
++	 * Encryption is not supported when the block size is larger
++	 * than the page size.  This is rejected at mount time by
++	 * ext4_check_large_folio(), and this check here is for the case
++	 * when the 'encrypt' feature is enabled on a mounted filesystem.
++	 */
++	if (inode->i_sb->s_blocksize > PAGE_SIZE)
++		return -EOPNOTSUPP;
++
+ 	res = ext4_convert_inline_data(inode);
+ 	if (res)
+ 		return res;
 -- 
-Thanks,
-Sasha
+2.43.7
+
