@@ -1,41 +1,44 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5861837107E;
-	Sun, 11 Oct 2026 10:23:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BCBF431E65;
+	Sun, 11 Oct 2026 10:36:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791714242; cv=none; b=a4dQnOitY9OjKRXz/o+CJFmGfliM92LQ4gjWL6q3DEmjXbEm1AbvTPrV3fabCGgGIiEnSUTKhHcgZZMojDLnKXeY439FvmfwMSsg3xwA+6yIFLKFqSOesFf/peqvD3BaEPtu3fEXfvsjYioAtPM155CtGFOqlL+aad9hCpUp3DM=
+	t=1791715011; cv=none; b=W6eU4r3Y1wg+oTPnD5R1g4g14RSYdYRsGjXNaAAwoRamcYFOqmI7VpYnWcpWoX7InfR/WBrX1pK5Kk+5BJyyIFtmTZhh9M/RHuwAwsAeLEHHvTrxV0TOPNFkFOKboeCsWqtxG/Tc/dOvr2UGuFdaY6xv5tOuH4TfBYmth/Y6o8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791714242; c=relaxed/simple;
-	bh=fK2tzPk9pS2sFCfeHuxr0Da5pVUFgosRSnhrzusFAa0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V+jlzEPP2UG6UR5WVMnNVkUt0Ye1OrX2XVGgRwAS3Wye2dNPupVrMom7HA4mPqhotonVgwv8njK5gSL1JimFKtHZakMzrPsYBpwnqCqId20dH32uYMB7q1hknZy7RNmTxteXQ0icE9+golE8z88+Jumo+G/stPRWWo2mXz2Psrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=CUM3+YRm; arc=none smtp.client-ip=220.197.31.5
+	s=arc-20240116; t=1791715011; c=relaxed/simple;
+	bh=QFtLRMut4xI501adyJgWtrDtPHN3Hc7d6R9Nt3rKT1o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IjCaKIdetZ2PKQHu481kQWGKXtr7bz4LzNSxwcWwYdaNc7CTyBexA5DoxMw894BUHmmWpKbN6v12JAK7Ud8oZcFhmHxfhhznARwr6s42FN55/Q3bdrJv68m3Jq18rR5lnp+HFloat0YmCkz2jOLqHI5bO2h+DvFrgTpEO0VuslY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=lUecf4ho; arc=none smtp.client-ip=117.135.210.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="CUM3+YRm"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="lUecf4ho"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=2N
-	o19gjcCAleHLbC1vC1puofCJ/6DkwtwmQE8K5mKWk=; b=CUM3+YRmSVYc2f9ldT
-	sUypQosXeUmr2d2194JCcTIjp5fcDaSYtrxzNzwvbP0knvKzni3pZ30fU5vfr0Xf
-	c1lx9w5EDKyXNQKD541r9Y4K6HNYqgIgUsk3K1/34w1pbRNb+/7isZtTGOeILBLn
-	y4fAHgeak/KKV76oxGy9ZdxhI=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=3W
+	WIW5MGmKkn7S3+VW1bqH4XAcCe6FJ9KeMmujaqDsI=; b=lUecf4ho4v5jhOfedd
+	E0AIClCcdIoDXQcLvUyTeABOC21AO+TOrryibCI90L1yj8t8z94aZKvudEEtWNAs
+	hhSGLaPjuVOxRntGAFgT4VMMug8TVM9i0+NYLPKbCrHD4694NVxqAAuW4md5wLXX
+	jEsqzcv023cIJ4EeVCoEMgD18=
 Received: from ubuntu.. (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wBn1_WWY8tqY2hkDw--.34149S4;
-	Sun, 11 Oct 2026 18:23:27 +0800 (CST)
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3P0GCZstqUkHODw--.52289S4;
+	Sun, 11 Oct 2026 18:35:50 +0800 (CST)
 From: Ma Ke <make_ruc2021@163.com>
 To: davem@davemloft.net,
 	andreas@gaisler.com,
+	o-takashi@sakamocchi.jp,
+	u.kleine-koenig@baylibre.com,
+	dakr@kernel.org,
 	make_ruc2021@163.com,
-	kees@kernel.org
+	bhelgaas@google.com
 Cc: sparclinux@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	akpm@linux-foundation.org,
 	stable@vger.kernel.org
-Subject: [PATCH] sparc64: Fix leaked platform_device reference in schizo_register_error_handlers()
-Date: Sun, 11 Oct 2026 18:23:17 +0800
-Message-ID: <20261011102317.3233411-1-make_ruc2021@163.com>
+Subject: [PATCH] sparc: Fix leaked platform_device references in archdata propagation
+Date: Sun, 11 Oct 2026 18:35:44 +0800
+Message-ID: <20261011103544.3237228-1-make_ruc2021@163.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -44,46 +47,45 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wBn1_WWY8tqY2hkDw--.34149S4
-X-Coremail-Antispam: 1Uf129KBjvJXoWrZrW5ZFyrZry7WFWrJFW3Awb_yoW8JryUpr
-	Z8C3ZxJF4UWFy0kayDZFy0vFWDAFnIvrWfur18Ka4Iqw15GFyFqrWDXF1vg348trWkta18
-	tanaqr40qay8A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEJPE7UUUUU=
-X-CM-SenderInfo: 5pdnvshuxfjiisr6il2tof0z/xtbC0x+NmGrLY5-F0AAA3R
+X-CM-TRANSID:_____wD3P0GCZstqUkHODw--.52289S4
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Xw48uw1xuryxWr47ur4rZrb_yoWDuwb_u3
+	Wxua45Wr4rGrZagw15Ja13ur1kt34DKrZ8t3Z7ArZ5Jry8Xryaywn0yanYqryDWF4xCrsx
+	Ja4DCr4qgw13KjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRGzuAUUUUUU==
+X-CM-SenderInfo: 5pdnvshuxfjiisr6il2tof0z/xtbC1AZIU2rLZobSwwAA3Z
 
-of_find_device_by_node() is documented in drivers/of/platform.c:
+of_propagate_archdata() walks the children of a bus node and looks each
+one up with of_find_device_by_node(), documented in
+drivers/of/platform.c:
 
  * Takes a reference to the embedded struct device which needs to be
  * dropped after use.
 
-schizo_register_error_handlers() looks up the platform device backing
-the PBM and never drops that reference.
-tomatillo_register_error_handlers() in the same file has the leak.
-
-Release the reference once the error interrupts have been registered.
+The reference is never dropped, and because the function recurses, every
+child node of every ebus leaks the reference to its platform_device.
 
 Found by code review.
 
-Fixes: 22fecbae4446 ("sparc64: Record OF device instead of device node pointer in pci_pbm_info.")
+Fixes: 5059625ed886 ("sparc: Add OF archdata propagation helper.")
 Cc: stable@vger.kernel.org
 Signed-off-by: Ma Ke <make_ruc2021@163.com>
 ---
- arch/sparc/kernel/pci_schizo.c | 2 ++
+ arch/sparc/kernel/of_device_common.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/arch/sparc/kernel/pci_schizo.c b/arch/sparc/kernel/pci_schizo.c
-index 4348ca2c4a3f..a8db997675cc 100644
---- a/arch/sparc/kernel/pci_schizo.c
-+++ b/arch/sparc/kernel/pci_schizo.c
-@@ -1050,6 +1050,8 @@ static void schizo_register_error_handlers(struct pci_pbm_info *pbm)
+diff --git a/arch/sparc/kernel/of_device_common.c b/arch/sparc/kernel/of_device_common.c
+index 7f2f9972b59b..0aae21c4b62c 100644
+--- a/arch/sparc/kernel/of_device_common.c
++++ b/arch/sparc/kernel/of_device_common.c
+@@ -70,6 +70,8 @@ void of_propagate_archdata(struct platform_device *bus)
  
- 	upa_writeq((SCHIZO_SAFERRCTRL_EN | err_mask),
- 		   pbm->controller_regs + SCHIZO_SAFARI_ERRCTRL);
+ 		if (dp->child)
+ 			of_propagate_archdata(op);
 +
-+	platform_device_put(op);
++		platform_device_put(op);
+ 	}
  }
  
- static void pbm_config_busmastering(struct pci_pbm_info *pbm)
 -- 
 2.43.0
 
