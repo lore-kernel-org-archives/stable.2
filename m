@@ -1,93 +1,137 @@
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98DE0337688
-	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 15:55:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D41933290F;
+	Sun, 11 Oct 2026 15:56:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791734111; cv=none; b=mjw6Qs0BTA/b14o/w0LoVpZdMUdVQxvNlgXFv9u6Z7QOUCHym1eJbXpO13dvJcUM8gjEiQ8nc7J4lpvgrdCbP1/SXDZ9pAKIVpK0t9vgSxi+z9z9gQfEHlM8F3eNjMOxvW9aQDFjfKy/3gyM1e7zblLUzKGEwp/MRyb/9K8p3zY=
+	t=1791734178; cv=none; b=QTwPYDR+CvEayJbWFaft8LO7bTnWgVUmHL+RZOOnFnpc2mxVoFaFoEcRi5GFvT0o+PH8+jK1hoWiVqzm/n+YfFQPTw0NJT8d9D3BXvKzCU3AH5suDntb0bWNr3z4wRhA3WNeHSx8/GovAcixl0G6TqNpKDjKLRoTs3VakupavQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791734111; c=relaxed/simple;
-	bh=wht2xhdursra1DqKCuzlOsUUwuTyyTmE9hTf79owqPA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Imbq5wwBIaH7EPKOilpqcJHfzoR86dBTNRqlXMDxmbmTrtzoIlEDnfNhTKmKs9Gr56aRVH76sJ3GlCHg1Vqp5+001croVy5qYgueG4skWlzy8eBbLjQu6wkY1yxOBiyOv+3GXl3doVsX646PkJ7bRB0Cw7OjMAIzQI7TyDuv+Os=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oMMew5rK; arc=none smtp.client-ip=209.85.221.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791734178; c=relaxed/simple;
+	bh=qsZSmgjbz63DykEfSNWhjgsM1BFvP04hZaaWy+mfIMk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=sStbZuZ3uvu8ugGOIjj2hZcRBGnR+IgjIRnNNThheUEkRZswQBKXbdtsq0tafwfYxzJMWPQYQnaRdzPCwikWHhY5OEhN0MGzbjm+1a+a/8aBuUy20uNdo4XvDagp7jz6ezkkw1WDhCYkeDNZDyYcGV1cKy78YkBylie/TzphPOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RcIu5LPM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oMMew5rK"
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5e94120192dso299655e0c.1
-        for <stable@vger.kernel.org>; Sun, 11 Oct 2026 08:55:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791734107; x=1792338907; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wht2xhdursra1DqKCuzlOsUUwuTyyTmE9hTf79owqPA=;
-        b=oMMew5rK84YNXcyWFdANcltK5g/jvkpetqBkO85YunfyfUa3aRwXg3Lu+VkBE7TA4G
-         1DmaFSHxzc0sFWNSPRmKYWgmRmGq7PFOlTYQLQpmA7qKXUu6Mj51QQKQdtqMob4wSnZJ
-         eJaEtmmX35Cf512KAEbEkR0wQEhouW5FsCF1zUq9U9Q0L/LlQpm2BCuMkLiw2we0pTMC
-         KbHAmfDKtsIi+iw4L4jDbp6fkNiOpJwEDDB7w8e9ObgVnw9tWPn10ATZ040HW7ZrcDE/
-         Hq2zmaSgItbu0LTn1MDMfE2Wvrh5+g2zfZY9IVAR2IDbtnstYbMOOlRdZEOy9vEYhrnZ
-         il8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791734107; x=1792338907;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wht2xhdursra1DqKCuzlOsUUwuTyyTmE9hTf79owqPA=;
-        b=Z+ZuoYC+bVKBPrzE0pA9Nndh0/yaniN+AwlPmKbjTFbvJRpm/6w4n4Lz2VfqDijQFW
-         pzugtijC007U9be5m6vsMaX2k6FLh+3AavuKvAbv1qZZzxz9NeEn5iJyNPJjLsSY09+k
-         qpYLj82jeTa8tt9xdYvAxBEKp6U5dgXtg9KrfqLFXHw3ElzK9j7cB1eETjbhAebvBnAG
-         usKfr7jcXR9gGtXdAkBXVq9p4uxEmwsnf70SU6MQZaqrjse19V0EYyLEvKRJTZMvTafh
-         3iCkDPM78QpzQrC0w/AEQXEg+cTV59cutGi9Y/UCnb9E+Suv0urR1q+TZE9nMmbrCM3x
-         cxyg==
-X-Forwarded-Encrypted: i=1; AKwUvByaGykOxeEY/UCuR+gG3tsiuQlI3GqeewxfCogOA5UlXuwWIgldNKxuYoWZxJmpxAqOca6U8hQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJB22hy+uQqgRssuCjlWNPrNKrRf6uYrdcrtYqkFLXC6R9mVKIx
-	cx2fug3/7qRZHNDtAvMKgjeZUw1mRW3C0HrM2Ug1fRt7OmSUafMfUK4M
-X-Gm-Gg: AYBFou0dR/Tnm8J6BwjdMxtHG6l5GOdEheTGRC46I5PtzEv9RCp40/GN7hfeIezhW5L
-	uuO7o1LYkKrabNLxcytG3Rhlnq8jLOA2ru+Rup3wXVFibtluyRGQbsmbRsiLergh0tvA1aQv0Gt
-	PJvz9a4VxWB+E1qKMdGkQSvyv2W6JRWjweOU3ao5EpWOzKx1tglw+lSBO3CkRT7fYjbJ6wb/gay
-	n1rT3Gj27RV0SFXD68oCF0+kuJJm7XalJ3bLd2eF1QcP3rbEyERiv94Pye0gEBhOPtiwkXR8NGp
-	rbgY3ZauynkDSE9FFR8ViJEYUdiIZkV54aRYwfGKGo7dAkwr/z/cY2nJkLvVi4E8ZdfCUUqAfRX
-	EWvNsuFeiS3M6YHTpWiP048j7BjuVzTbu1c6JkCW/wZi7u8oY+mL+Og8mOrhyt6fNVfTMHAduTE
-	s6p4mJOXO/p8Mpm+qgTxpbRczlogN61hOrOY12c/4UUoD/x5PQyk+oOW2yA8Ut+KE=
-X-Received: by 2002:a05:6102:4bca:b0:7c3:fcb7:8c8c with SMTP id ada2fe7eead31-7cb3738b509mr1700102137.29.1791734107383;
-        Sun, 11 Oct 2026 08:55:07 -0700 (PDT)
-Received: from beelink.. ([187.13.210.57])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99003ae1577sm5130367241.0.2026.10.11.08.55.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 08:55:06 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: khtsai@google.com,
-	ivo.g.dimitrov.75@gmail.com,
-	faqiang.zhu@nxp.com,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] usb: gadget: u_ether: Fix NULL pointer deref in debug logging
-Date: Sun, 11 Oct 2026 12:54:59 -0300
-Message-ID: <20261011155459.1196100-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026101116-shortlist-trend-5e9d@gregkh>
-References: <2026101116-shortlist-trend-5e9d@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RcIu5LPM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA8791F0089B;
+	Sun, 11 Oct 2026 15:56:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791734176;
+	bh=8JMW+KHa+MZepV//BE2RpV3DuyFlt1GlFxEcus967FA=;
+	h=From:Subject:Date:To:Cc;
+	b=RcIu5LPM9BplSGj5FAxnRQJv1tbCZAScfa9D2QAxOEbOiD2Py7n4UiAWikTuSsaui
+	 q4QhU4VlXYSnbVjPnisQcO9k2no70cpyhxEFp0hIqELiK1Y+bqE6NgN+68QOUpgESH
+	 GTY7nHWE4akWQ6QmkHWGM1TAt1ebuUPU3XyAdp5rAp4GrHly4Xe2SwdD81OmcoUc+U
+	 SaD18NrTo4ArQ0OyULjqBqgh9bYMP83C6h4LNqM68gcJZmcxhSbRCKljA3+XsILJSa
+	 0NYn5WmtOL47teh+qSWzLtBXI73JLtKUnUBscTuVppcSJfn1gR0bLES/AYZhzqUWhr
+	 phHKnHfnwAD8Q==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH 00/15] super: fixes for freezing, reconfiguration and error
+ reporting
+Date: Sun, 11 Oct 2026 17:56:00 +0200
+Message-Id: <20261011-work-super-fixes-core-v1-0-c727176c5b53@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ7CMAwEv1L5jEUToajwFcTBCYYG1CSyW0Cq+
+ ncSOM7uzq6gLJEVTt0Kwq+oMacKZtdBGCndGeO1MtjeOtMbg+8sT9SlsOAtflgxZGF0x8GE4UB
+ kvYPqFuFfW9Xz5c+6+AeHuZ21hSdl9EIpjC1ais7CNO0n0pkFtu0LHCELE5sAAAA=
+X-Change-ID: 20261011-work-super-fixes-core-6981c84aa2b6
+To: Jan Kara <jack@suse.cz>
+Cc: Jens Axboe <axboe@kernel.dk>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ linux-fsdevel@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-3d1b8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4382; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=qsZSmgjbz63DykEfSNWhjgsM1BFvP04hZaaWy+mfIMk=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSd3jj77tXnO/ebvNVnXKD14krH8su+XxUvBSQUBU+4Z
+ jkxT/8eX0cpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBEfHcy/PfKNTUyd8mNatsU
+ +2RXKu+l5fwWXMpLklhmJz1mjdRZqMzIsGnhg5LLqjazS46UpF19fj184/ny1r88kiIJ397+Mw9
+ bygAA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-Hi Greg,
+A pile of fixes for super.c and friends that I found while going over
+the freeze and reconfigure paths again. Most of them are old and all of
+them are tagged for stable. Most come with a selftest under
+tools/testing/selftests/filesystems/freeze/ that fails without the fix.
 
-You're right. I spent a good while checking macro call sites,
-tracing dev->net lifetime, and verifying scope, then used an
-LLM to help draft the writeup. Clearly I'm better at reading
-code than writing about it :) I'll keep it shorter next time.
+- sysrq-u deadlocks on itself if an umount races the emergency remount.
+  The iterator held s_umount while the reconfigure context dropped the
+  last active reference. Take s_umount in the callback instead. Nothing
+  iterates with SUPER_ITER_EXCL after that so it goes away.
 
-The patch looks correct to me as-is.
+- Every resume while a filesystem is frozen through FIFREEZE or through
+  its block device WARNs because filesystems_thaw() tries to undo a
+  freeze it doesn't own. With panic_on_warn the resume panics.
 
-Thanks,
-Aldo
+- quotactl() on a frozen read-only superblock burns a cpu and can't be
+  killed. freeze_super() doesn't take s_writers for a read-only
+  superblock so sb_start_write() never waits. Wait on s_writers.frozen
+  with wait_var_event_killable() instead.
+
+- Two fserror fixes. The last pending error decrement wasn't fully
+  ordered against the wait in fserror_unmount(). And reports were
+  accepted before the superblock was born so a failed xfs or f2fs mount
+  freed the superblock under a still pending worker.
+
+- fs_bdev_freeze() returned the error of sync_blockdev() after it had
+  already frozen the superblocks. bdev_freeze() takes that to mean that
+  nothing is frozen so nobody ever thaws them again.
+
+- A FITHAW behind device-mapper's back left the device frozen for good.
+  fs_bdev_thaw() got -EINVAL for a freeze that was already gone and
+  bdev_thaw() kept bd_fsfreeze_count elevated. qemu-guest-agent does
+  exactly that on every guest-fsfreeze-thaw.
+
+- Reconfiguring through fspick() made read-only superblocks read-write
+  because most filesystems compare fc->sb_flags & SB_RDONLY with the
+  superblock and ignore the mask. And vfs_clean_context() leaked the
+  mask into the next reconfiguration through the same context so a
+  second FSCONFIG_CMD_RECONFIGURE did the same without anyone asking
+  for it.
+
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+Christian Brauner (15):
+      super: don't put the remount context under s_umount
+      super: don't warn when resume thaws a userspace freeze
+      quota: really wait for the thaw in quotactl_block()
+      selftests/filesystems: add quotactl() tests for frozen superblocks
+      fserror: fully order the last pending error decrement
+      fserror: don't accept error reports before the superblock is born
+      fs: don't fail fs_bdev_freeze() once a superblock is frozen
+      selftests/filesystems: add a test for failed block device freezes
+      fs: don't keep a device frozen when its freeze is already gone
+      selftests/filesystems: add a test for thawing behind a device freeze
+      super: keep the read-only state if a reconfiguration doesn't change it
+      selftests/filesystems: add tests for reconfiguring through fspick()
+      super: remove SUPER_ITER_EXCL
+      fs: reset the flag mask in vfs_clean_context()
+      selftests/filesystems: add tests for reconfiguring a reused fs_context
+
+ fs/fs_context.c                                    |   1 +
+ fs/fserror.c                                       |  16 +-
+ fs/quota/quota.c                                   |  12 +-
+ fs/super.c                                         | 113 ++++++---
+ tools/testing/selftests/Makefile                   |   1 +
+ tools/testing/selftests/filesystems/.gitignore     |   1 +
+ tools/testing/selftests/filesystems/Makefile       |   4 +-
+ .../selftests/filesystems/freeze/.gitignore        |   4 +
+ .../testing/selftests/filesystems/freeze/Makefile  |   8 +
+ .../filesystems/freeze/bdev_freeze_test.c          | 234 +++++++++++++++++++
+ .../selftests/filesystems/freeze/bdev_thaw_test.c  | 251 ++++++++++++++++++++
+ tools/testing/selftests/filesystems/freeze/config  |   9 +
+ .../selftests/filesystems/freeze/loop_util.h       |  64 ++++++
+ .../selftests/filesystems/freeze/quotactl_test.c   | 256 +++++++++++++++++++++
+ .../filesystems/fspick_reconfigure_test.c          | 231 +++++++++++++++++++
+ 15 files changed, 1170 insertions(+), 35 deletions(-)
+---
+base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
+change-id: 20261011-work-super-fixes-core-6981c84aa2b6
+
