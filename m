@@ -1,106 +1,127 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5829A38736F;
-	Sun, 11 Oct 2026 09:39:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA5B723EAAF;
+	Sun, 11 Oct 2026 09:43:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791711575; cv=none; b=G3N0XXV2l7h8eyQtSGT5Hkh97nUBiPYvbWigqhRxJDSvaAkZich2EXjZ/om6jzNAOwcTcl3azuLhbrTWfIooVu+yeovaPF4+rw1h1hqb30WyoUKP1y+jCKuO2wC1bIVHnXqeU4beYwKD5NZqCZWT5VKUhsYrTfuj7DXNOvcsrNA=
+	t=1791711782; cv=none; b=tMxd2s/JkO+VTthx+QdlgzKLiyiOYV83PuWdTk6YshekWC2l5BDnoDdlH6wykDdubQcLzJCAPoYJgPK9EEHmAG1/dYa8gbzeq/D6aPdXd9BNWg8dY/0HhjjQZJbOFNJG8TiF30JRYXMkyHPWmLLo8LKyxFXOz2G6PM3tQNtj4YI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791711575; c=relaxed/simple;
-	bh=F4vPbkivp07sxBitWuaNUQrXJFZKufdHm5Xy3jIvwS0=;
-	h=From:Date:Message-ID:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=N1Wkc/rbQMLe/kTdxuGIT+2WiOmyfQawXLiI92+mj6MTWisdmx5596mX3zH6D/164DcEGwBOIob+/I1d/9LL6zi5X2o+GXrB+FgG9aqLPb74R0mgdu7NS3EXjvBEC19m+DVwg1JRo7P7SUUbnzAm82CMa3MQGPePG3Hc0ghz5uk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=JVkzkBF+; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791711782; c=relaxed/simple;
+	bh=cWdqPRQBdkfG4TSFZFmnSdgEmJk0Ks+sECMOuffNi6U=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=uKvinblpfmXyUHb0HqPEah6KOzH5JPzooQgecXVOFb6cpd1jOB2IkHYmXfH7L645uHwPrPCVPCzLVJaGYobe0gTJvq9nW+l7068rWWMEu97+/QwoE5EGzhUe9f7N20vDaiURYxPkSbx3N7UJjXjDnVvFl0btpafWcXZ+sQH+okM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OQMAbsFU; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="JVkzkBF+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:Date:Message-ID:To:Subject:MIME-Version:
-	Content-Type; bh=F4vPbkivp07sxBitWuaNUQrXJFZKufdHm5Xy3jIvwS0=;
-	b=JVkzkBF+Lt5mmYu/i28r8d7F0n6EPxhICJchCYd7VQblu47FWgeEAjePSArQO1
-	tZU1psfoZHIybV2MPGr4ThPaynJQcjlOcjwiwLfhhf/u3a9lRcHlHDog08+oyw9M
-	t8y0x+OYmqllTuo5/Jb3C9XhQJ9f9tzjS5JCArhH4sczk=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wDHlwXZWMtqKGnGDg--.40124S2;
-	Sun, 11 Oct 2026 17:37:30 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-Date: Sun, 11 Oct 2026 18:10:07 +0900
-Message-ID: <20261011181007.7245901156-1-sh_def@163.com>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: tj@kernel.org,
-	void@manifault.com,
-	changwoo@igalia.com,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] sched_ext: idle: Respect task affinity in restricted CPU selection
-In-Reply-To: <ass0dexwariQCOtC@gpd4>
-References: <20261011025256.4180374-1-sh_def@163.com>
-	<ass0dexwariQCOtC@gpd4>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OQMAbsFU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791711781; x=1823247781;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:to:cc;
+  bh=cWdqPRQBdkfG4TSFZFmnSdgEmJk0Ks+sECMOuffNi6U=;
+  b=OQMAbsFUJLRzEtexsuQ+yymeEw+I2AvrwNeEgkfrWnXS5BB8WmwrcSL9
+   LQ3VcUoMa6tguAhsgJLfAgXO3dYuem3CnQ40hkbqC4G76Xo+kFkelHbTV
+   SztMDgHtxCZpdITlbfCMyP1Og0e64N/WzjTWBrYXj1hLt81peKOVGuDT9
+   EreINgi9PiHh0JazfYIngjtCZOM2bGn+Mgwt3MbCyw/3+k7wRfPdxEI6Z
+   LlymEpqZOOOGANpOEUTofBqMCC9uO6/08KP3eI5pTGHj8+FSDh70p/j4J
+   D3s5aQYUwrwWgzzDyQnjTzuxgV7gUCGiElo8QW8vlAlB92KlSEXdrzrtK
+   A==;
+X-CSE-ConnectionGUID: 8tWzvfH2Q4+iRjiLQt8dsg==
+X-CSE-MsgGUID: LJ4twEfAQnaE3VdKULjFFw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11931"; a="451397"
+X-IronPort-AV: E=Sophos;i="6.27,151,1787036400"; 
+   d="scan'208";a="451397"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 02:43:00 -0700
+X-CSE-ConnectionGUID: xpStNBBbThODO0FBaSHIbA==
+X-CSE-MsgGUID: fc4HvxIyQ+CzRSpgMZ/QWg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,151,1787036400"; 
+   d="scan'208";a="1116670"
+Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 02:42:58 -0700
+From: Alexander Usyskin <alexander.usyskin@intel.com>
+Date: Sun, 11 Oct 2026 12:42:46 +0300
+Subject: [PATCH char-misc v2] mei: me: Revert "mei: me: add adler lake
+ point LP DID"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDHlwXZWMtqKGnGDg--.40124S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CFy5Jryfur1xGFy8Jw1xAFb_yoW8AFyxp3
-	ykK34kKw4kJa1Iy3Z3uw4DGr15Awn7Aa4Syr1fGr1SyFW5Kr109r45tayDZ3yUCFs5J3W2
-	vF1UX3s3GFs0yaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Ut3kNUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwhrZOWrLWNr+MAAA3V
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261011-remove_adl_lp-v2-1-3da6f6f671e6@intel.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNwQqDMBBEf0X23BQ3VWN76n8UkRi3dUETSSS0S
+ P69qfcyp2Fm3uwQyDMFuBU7eIoc2Nls5KkAM2n7IsFj9iBL2WCJKDwtLlKvx7mfV1GZttSVvl6
+ GWkLerJ6e/D54jx/Ai4WDgS5HE4fN+c/xFPEo/IFGFFlKqbodxgaVvrPdaD4bt0CXUvoCe1OaJ
+ LUAAAA=
+X-Change-ID: 20261011-remove_adl_lp-4c80a4a93b52
+To: Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org, Menachem Adin <menachem.adin@intel.com>, 
+ stable@vger.kernel.org, Joe Finzel <joe@sudmix.de>, 
+ Alexander Usyskin <alexander.usyskin@intel.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791711778; l=2018;
+ i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
+ bh=cWdqPRQBdkfG4TSFZFmnSdgEmJk0Ks+sECMOuffNi6U=;
+ b=LzQcEUyceEksqX7wC7PoMj4vYAKLDtM+KxoI4QT+JprRMEZGvZdqR4MgzOdb3TYBxeFxphr62
+ +3VaIV0Khu+CKB4dUKzpB6czYc9KajNk7UlePynjTGkZ/SqluRwBlqP
+X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
+ pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
 
-Hi Andrea,
+This reverts commit 930c922a987a02936000f15ea62988b7a39c27f5.
 
-> The fix makes sense, but I'm wondering if we should derive the candidate CPU
-> from the task's state instead of relying on prev_cpu. In practice prev_cpu
-> should be always considered a hint rather than a guarantee that the task can
-> still run there.
->
-> Per-CPU tasks could use cpumask_first(p->cpus_ptr) and migration-disabled tasks
-> could use task_cpu(p) directly.
+This device ID does not belong to HECI and was added by mistake.
 
-Agreed. prev_cpu is only a hint, so deriving the candidate from the task's
-state is the better behavior after an affinity change. The restricted path
-should use cpumask_first(p->cpus_ptr) for a single-CPU task and task_cpu(p)
-for a migration-disabled task, while validating the candidate against the
-task's effective affinity and the caller-provided allowed mask as appropriate.
+Cc: stable@vger.kernel.org
+Fixes: 930c922a987a ("mei: me: add adler lake point LP DID")
+Reported-by: Joe Finzel <joe@sudmix.de>
+Link: https://lore.kernel.org/lkml/20261011-mei-xhci-v1-1-38c28b5f3f99@sudmix.de/
+Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+---
+Changes in v2:
+- fix commit wording (Greg KH)
+- Link to v1: https://lore.kernel.org/r/20261011-remove_adl_lp-v1-1-177758bd617a@intel.com
+---
+ drivers/misc/mei/hw-me-regs.h | 1 -
+ drivers/misc/mei/pci-me.c     | 1 -
+ 2 files changed, 2 deletions(-)
 
-> And could you also clarify in the patch description that selecting the CPU
-> consumes its idle bit? Without the affinity check, we can claim an idle CPU that
-> the task cannot use and later dispatch validation doesn't undo that side effect.
+diff --git a/drivers/misc/mei/hw-me-regs.h b/drivers/misc/mei/hw-me-regs.h
+index b9a67629496b..35af82ad1713 100644
+--- a/drivers/misc/mei/hw-me-regs.h
++++ b/drivers/misc/mei/hw-me-regs.h
+@@ -107,7 +107,6 @@
+ #define PCI_DEVICE_ID_INTEL_MEI_EBG        0x1BE0  /* Emmitsburg WS */
+ 
+ #define PCI_DEVICE_ID_INTEL_MEI_ADP_S      0x7AE8  /* Alder Lake Point S */
+-#define PCI_DEVICE_ID_INTEL_MEI_ADP_LP     0x7A60  /* Alder Lake Point LP */
+ #define PCI_DEVICE_ID_INTEL_MEI_ADP_P      0x51E0  /* Alder Lake Point P */
+ #define PCI_DEVICE_ID_INTEL_MEI_ADP_N      0x54E0  /* Alder Lake Point N */
+ 
+diff --git a/drivers/misc/mei/pci-me.c b/drivers/misc/mei/pci-me.c
+index 790a4647811b..a25f2ed5db0c 100644
+--- a/drivers/misc/mei/pci-me.c
++++ b/drivers/misc/mei/pci-me.c
+@@ -113,7 +113,6 @@ static const struct pci_device_id mei_me_pci_tbl[] = {
+ 	{ PCI_DEVICE_DATA(INTEL, MEI_EBG, MEI_ME_PCH15_SPS_CFG) },
+ 
+ 	{ PCI_DEVICE_DATA(INTEL, MEI_ADP_S, MEI_ME_PCH15_CFG) },
+-	{ PCI_DEVICE_DATA(INTEL, MEI_ADP_LP, MEI_ME_PCH15_CFG) },
+ 	{ PCI_DEVICE_DATA(INTEL, MEI_ADP_P, MEI_ME_PCH15_CFG) },
+ 	{ PCI_DEVICE_DATA(INTEL, MEI_ADP_N, MEI_ME_PCH15_CFG) },
+ 
 
-Yes. scx_idle_test_and_clear_cpu() consumes the idle bit, so the affinity
-checks need to happen before the claim. I will make that side effect explicit
-in the patch description.
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20261011-remove_adl_lp-4c80a4a93b52
 
-> It would also help to mention that per-CPU and migration-disabled tasks skip
-> ops.select_cpu(), so this affects calls from other contexts, such as
-> ops.enqueue(), leaving the normal ops.select_cpu() path unaffected.
-
-That distinction is useful. These tasks skip ops.select_cpu(), so the
-restricted path can be reached from other contexts such as ops.enqueue(),
-while the normal ops.select_cpu() path continues through
-scx_select_cpu_dfl() and is unaffected.
-
-Thanks for the review. I will incorporate these points in the follow-up
-revision.
-
---
-Hui
+Best regards,
+-- 
+Alexander Usyskin <alexander.usyskin@intel.com>
 
