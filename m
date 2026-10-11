@@ -1,35 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D41933290F;
-	Sun, 11 Oct 2026 15:56:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 306A933B970;
+	Sun, 11 Oct 2026 15:56:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791734178; cv=none; b=QTwPYDR+CvEayJbWFaft8LO7bTnWgVUmHL+RZOOnFnpc2mxVoFaFoEcRi5GFvT0o+PH8+jK1hoWiVqzm/n+YfFQPTw0NJT8d9D3BXvKzCU3AH5suDntb0bWNr3z4wRhA3WNeHSx8/GovAcixl0G6TqNpKDjKLRoTs3VakupavQ0=
+	t=1791734179; cv=none; b=TPO3UtWryn4EsxeWACR9oLu66vkocwmRM5ECdcH5jVV058GWhzRWirEYfbkCiFwM7hqCPAMGjCUYTqarc9218YWXudAWZKcwJ4019XXl/gDfFeeriSWkhGlDrmk3GYSqzs0CFZuevnKoZcNwGnd4fQsPbXjBG+z/2rMNdgpXiFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791734178; c=relaxed/simple;
-	bh=qsZSmgjbz63DykEfSNWhjgsM1BFvP04hZaaWy+mfIMk=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=sStbZuZ3uvu8ugGOIjj2hZcRBGnR+IgjIRnNNThheUEkRZswQBKXbdtsq0tafwfYxzJMWPQYQnaRdzPCwikWHhY5OEhN0MGzbjm+1a+a/8aBuUy20uNdo4XvDagp7jz6ezkkw1WDhCYkeDNZDyYcGV1cKy78YkBylie/TzphPOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RcIu5LPM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791734179; c=relaxed/simple;
+	bh=yaUn5RAqlkPm33bHpdiCaIaRUuNOWWz6M/sxZNfR0fY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=P7nzGIV4g0P6+L573E05LZLljGQlzY7atSB47Lu0yJRiNCAfEg8u75dKMItmncpCGES34OofPPSwJqcxTS66948acYagvcCZD8VMlUHmaTQDcf0vtWZcnG5ttCL7QLp/rs00x9Dvnkh543uH9VqVIQi0eXTcgvTiSQmorL2cdEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bWULgN57; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RcIu5LPM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA8791F0089B;
-	Sun, 11 Oct 2026 15:56:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bWULgN57"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89E291F0089C;
+	Sun, 11 Oct 2026 15:56:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791734176;
-	bh=8JMW+KHa+MZepV//BE2RpV3DuyFlt1GlFxEcus967FA=;
-	h=From:Subject:Date:To:Cc;
-	b=RcIu5LPM9BplSGj5FAxnRQJv1tbCZAScfa9D2QAxOEbOiD2Py7n4UiAWikTuSsaui
-	 q4QhU4VlXYSnbVjPnisQcO9k2no70cpyhxEFp0hIqELiK1Y+bqE6NgN+68QOUpgESH
-	 GTY7nHWE4akWQ6QmkHWGM1TAt1ebuUPU3XyAdp5rAp4GrHly4Xe2SwdD81OmcoUc+U
-	 SaD18NrTo4ArQ0OyULjqBqgh9bYMP83C6h4LNqM68gcJZmcxhSbRCKljA3+XsILJSa
-	 0NYn5WmtOL47teh+qSWzLtBXI73JLtKUnUBscTuVppcSJfn1gR0bLES/AYZhzqUWhr
-	 phHKnHfnwAD8Q==
+	s=k20260515; t=1791734177;
+	bh=xDPtuZu205fp/5iX1ngjmF6wKrwu3uPdmynjeUTeQmU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=bWULgN57X2FZAKljatSqkqz3fXY6AcuIFm3I2LiZrGCPteYWVGpU10zGoHkM29Xvv
+	 XCcjyz5LqGZMv/DRx/gX+ShYMo7Pejm2i+zz/VZY/aKRYmKZFzkoDXfi/Krle7Gca6
+	 zkaBN0v0TgAMovmBcI7t9WwCcv8YBcl8qAMYP4jyHHXOO6sKCM7NmOAajpNNHO5/r4
+	 XeJpyBcbOVtGfabI2PEKy2GraBUQgT8/TCUxhr4lEMKBLoih5sqEtfnmcl4Z9nBqJJ
+	 vl2fx8L51KKFUGfQskEs32/hSdG9e7wcUvshxQThveexMxVhkZBcfpL0JtnoJlKLNS
+	 TywPxKCfqT9qw==
 From: Christian Brauner <brauner@kernel.org>
-Subject: [PATCH 00/15] super: fixes for freezing, reconfiguration and error
- reporting
-Date: Sun, 11 Oct 2026 17:56:00 +0200
-Message-Id: <20261011-work-super-fixes-core-v1-0-c727176c5b53@kernel.org>
+Date: Sun, 11 Oct 2026 17:56:01 +0200
+Subject: [PATCH 01/15] super: don't put the remount context under s_umount
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,100 +37,138 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ7CMAwEv1L5jEUToajwFcTBCYYG1CSyW0Cq+
- ncSOM7uzq6gLJEVTt0Kwq+oMacKZtdBGCndGeO1MtjeOtMbg+8sT9SlsOAtflgxZGF0x8GE4UB
- kvYPqFuFfW9Xz5c+6+AeHuZ21hSdl9EIpjC1ais7CNO0n0pkFtu0LHCELE5sAAAA=
-X-Change-ID: 20261011-work-super-fixes-core-6981c84aa2b6
+Message-Id: <20261011-work-super-fixes-core-v1-1-c727176c5b53@kernel.org>
+References: <20261011-work-super-fixes-core-v1-0-c727176c5b53@kernel.org>
+In-Reply-To: <20261011-work-super-fixes-core-v1-0-c727176c5b53@kernel.org>
 To: Jan Kara <jack@suse.cz>
 Cc: Jens Axboe <axboe@kernel.dk>, Alexander Viro <viro@zeniv.linux.org.uk>, 
  linux-fsdevel@vger.kernel.org, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-3d1b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4382; i=brauner@kernel.org;
- h=from:subject:message-id; bh=qsZSmgjbz63DykEfSNWhjgsM1BFvP04hZaaWy+mfIMk=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSd3jj77tXnO/ebvNVnXKD14krH8su+XxUvBSQUBU+4Z
- jkxT/8eX0cpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBEfHcy/PfKNTUyd8mNatsU
- +2RXKu+l5fwWXMpLklhmJz1mjdRZqMzIsGnhg5LLqjazS46UpF19fj184/ny1r88kiIJ397+Mw9
- bygAA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4448; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=yaUn5RAqlkPm33bHpdiCaIaRUuNOWWz6M/sxZNfR0fY=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSd3jh7mqMLMxfrBKX0De5ttQUrjH3Pnz4leifLNOZZt
+ xBrhUBGRykLgxgXg6yYIotDu0m43HKeis1GmRowc1iZQIYwcHEKwEQSVRgZfpnnP/045x6DykXG
+ zoPyB49Mri641Spuwy7yWGWLtJvDPkaGhQUerH0ydhw3vDw/1+m1zU2/c22S+rPLbZHLNzDK8r1
+ gAAA=
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-A pile of fixes for super.c and friends that I found while going over
-the freeze and reconfigure paths again. Most of them are old and all of
-them are tagged for stable. Most come with a selftest under
-tools/testing/selftests/filesystems/freeze/ that fails without the fix.
+do_emergency_remount_callback() is called from __iterate_supers() with
+s_umount held exclusively. It creates a reconfigure context for the
+superblock and fs_context_for_reconfigure() takes an active reference
+for it. put_fs_context() drops that reference via deactivate_super()
+while s_umount is still held.
 
-- sysrq-u deadlocks on itself if an umount races the emergency remount.
-  The iterator held s_umount while the reconfigure context dropped the
-  last active reference. Take s_umount in the callback instead. Nothing
-  iterates with SUPER_ITER_EXCL after that so it goes away.
+The iterator itself only holds a passive reference. So if the
+filesystem is unmounted while reconfigure_super() runs, the umount drops
+the mount's active reference without ever taking s_umount because
+atomic_add_unless() in deactivate_super() sees the context's reference.
+Now the context holds the last active reference and we're fscked:
+put_fs_context() ends up in deactivate_super() which tries to take
+s_umount again and the kworker deadlocks on itself:
 
-- Every resume while a filesystem is frozen through FIFREEZE or through
-  its block device WARNs because filesystems_thaw() tries to undo a
-  freeze it doesn't own. With panic_on_warn the resume panics.
+  WARNING: possible recursive locking detected
+  kworker/1:1/53 is trying to acquire lock:
+  (&type->s_umount_key#26){+.+.}-{4:4}, at: deactivate_super+0x6f/0x90
+  but task is already holding lock:
+  (&type->s_umount_key#26){+.+.}-{4:4}, at: super_lock+0x188/0x3a0
+  ...
+   down_write+0x90/0x1e0
+   deactivate_super+0x6f/0x90
+   put_fs_context+0xb1/0x7d0
+   __iterate_supers+0x33d/0x410
+   do_emergency_remount+0x20/0x40
 
-- quotactl() on a frozen read-only superblock burns a cpu and can't be
-  killed. freeze_super() doesn't take s_writers for a read-only
-  superblock so sb_start_write() never waits. Wait on s_writers.frozen
-  with wait_var_event_killable() instead.
+"Emergency Remount complete" is never printed and the superblock's
+s_umount stays held forever. Everything that needs it hangs after that,
+including sync(2) and thus the clean reboot that usually follows a
+sysrq-u. The window is all of reconfigure_super(), i.e., syncing a
+read-write filesystem, so an umount racing with sysrq-u hits this
+easily.
 
-- Two fserror fixes. The last pending error decrement wasn't fully
-  ordered against the wait in fserror_unmount(). And reports were
-  accepted before the superblock was born so a failed xfs or f2fs mount
-  freed the superblock under a still pending worker.
+Iterate without holding s_umount and take it in the callback instead.
+The context's active reference keeps the superblock alive while we hold
+s_umount and we only drop it after we released s_umount again. If it is
+the last reference deactivate_super() takes s_umount and shuts the
+filesystem down, just as the umount would have done.
 
-- fs_bdev_freeze() returned the error of sync_blockdev() after it had
-  already frozen the superblocks. bdev_freeze() takes that to mean that
-  nothing is frozen so nobody ever thaws them again.
+Reproducer. sysrq-u remounts every block filesystem read-only, so use a
+throwaway VM. It needs CONFIG_SCSI_DEBUG and CONFIG_MAGIC_SYSRQ. The
+scsi_debug delay keeps reconfigure_super() busy writing back the dirty
+data long enough for the umount to land in the window:
 
-- A FITHAW behind device-mapper's back left the device frozen for good.
-  fs_bdev_thaw() got -EINVAL for a freeze that was already gone and
-  bdev_thaw() kept bd_fsfreeze_count elevated. qemu-guest-agent does
-  exactly that on every guest-fsfreeze-thaw.
+  modprobe scsi_debug dev_size_mb=256
+  dev=/dev/sda        # the scsi_debug disk
+  mkfs.ext4 -q $dev
+  mount $dev /mnt
+  dd if=/dev/zero of=/mnt/dirty bs=1M count=32
+  echo 20 > /sys/bus/pseudo/drivers/scsi_debug/delay
+  echo u > /proc/sysrq-trigger
+  sleep 1
+  umount /mnt
+  # lockdep: possible recursive locking detected in
+  # do_emergency_remount(), "Emergency Remount complete" never shows up
+  # and sync hangs.
 
-- Reconfiguring through fspick() made read-only superblocks read-write
-  because most filesystems compare fc->sb_flags & SB_RDONLY with the
-  superblock and ignore the mask. And vfs_clean_context() leaked the
-  mask into the next reconfiguration through the same context so a
-  second FSCONFIG_CMD_RECONFIGURE did the same without anyone asking
-  for it.
+Without the fix this reproduces on the first run on v7.3-rc6. With the
+fix the remount completes and the kworker shuts the filesystem down.
 
+Fixes: 8d0347f6c3a9 ("convert do_remount_sb() to fs_context")
+Cc: stable@vger.kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
-Christian Brauner (15):
-      super: don't put the remount context under s_umount
-      super: don't warn when resume thaws a userspace freeze
-      quota: really wait for the thaw in quotactl_block()
-      selftests/filesystems: add quotactl() tests for frozen superblocks
-      fserror: fully order the last pending error decrement
-      fserror: don't accept error reports before the superblock is born
-      fs: don't fail fs_bdev_freeze() once a superblock is frozen
-      selftests/filesystems: add a test for failed block device freezes
-      fs: don't keep a device frozen when its freeze is already gone
-      selftests/filesystems: add a test for thawing behind a device freeze
-      super: keep the read-only state if a reconfiguration doesn't change it
-      selftests/filesystems: add tests for reconfiguring through fspick()
-      super: remove SUPER_ITER_EXCL
-      fs: reset the flag mask in vfs_clean_context()
-      selftests/filesystems: add tests for reconfiguring a reused fs_context
+ fs/super.c | 27 +++++++++++++++++++--------
+ 1 file changed, 19 insertions(+), 8 deletions(-)
 
- fs/fs_context.c                                    |   1 +
- fs/fserror.c                                       |  16 +-
- fs/quota/quota.c                                   |  12 +-
- fs/super.c                                         | 113 ++++++---
- tools/testing/selftests/Makefile                   |   1 +
- tools/testing/selftests/filesystems/.gitignore     |   1 +
- tools/testing/selftests/filesystems/Makefile       |   4 +-
- .../selftests/filesystems/freeze/.gitignore        |   4 +
- .../testing/selftests/filesystems/freeze/Makefile  |   8 +
- .../filesystems/freeze/bdev_freeze_test.c          | 234 +++++++++++++++++++
- .../selftests/filesystems/freeze/bdev_thaw_test.c  | 251 ++++++++++++++++++++
- tools/testing/selftests/filesystems/freeze/config  |   9 +
- .../selftests/filesystems/freeze/loop_util.h       |  64 ++++++
- .../selftests/filesystems/freeze/quotactl_test.c   | 256 +++++++++++++++++++++
- .../filesystems/fspick_reconfigure_test.c          | 231 +++++++++++++++++++
- 15 files changed, 1170 insertions(+), 35 deletions(-)
----
-base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
-change-id: 20261011-work-super-fixes-core-6981c84aa2b6
+diff --git a/fs/super.c b/fs/super.c
+index 1d5ccf540a9b..15ecfbeb92ab 100644
+--- a/fs/super.c
++++ b/fs/super.c
+@@ -1158,23 +1158,34 @@ int reconfigure_super(struct fs_context *fc)
+ 
+ static void do_emergency_remount_callback(struct super_block *sb, void *unused)
+ {
+-	if (sb->s_bdev && !sb_rdonly(sb)) {
+-		struct fs_context *fc;
++	struct fs_context *fc = NULL;
++
++	if (!super_lock_excl(sb))
++		return;
+ 
++	/* Make sure no reference put under s_umount is the last one. */
++	atomic_inc(&sb->s_active);
++	if (sb->s_bdev && !sb_rdonly(sb)) {
+ 		fc = fs_context_for_reconfigure(sb->s_root,
+ 					SB_RDONLY | SB_FORCE, SB_RDONLY);
+-		if (!IS_ERR(fc)) {
+-			if (parse_monolithic_mount_data(fc, NULL) == 0)
+-				(void)reconfigure_super(fc);
+-			put_fs_context(fc);
+-		}
++		if (!IS_ERR(fc) && parse_monolithic_mount_data(fc, NULL) == 0)
++			(void)reconfigure_super(fc);
+ 	}
++	super_unlock_excl(sb);
++
++	/*
++	 * Our active reference may be the last one by now, so only drop it
++	 * after s_umount has been released.
++	 */
++	if (!IS_ERR_OR_NULL(fc))
++		put_fs_context(fc);
++	deactivate_super(sb);
+ }
+ 
+ static void do_emergency_remount(struct work_struct *work)
+ {
+ 	__iterate_supers(do_emergency_remount_callback, NULL,
+-			 SUPER_ITER_EXCL | SUPER_ITER_REVERSE);
++			 SUPER_ITER_UNLOCKED | SUPER_ITER_REVERSE);
+ 	kfree(work);
+ 	printk("Emergency Remount complete\n");
+ }
+
+-- 
+2.53.0
 
