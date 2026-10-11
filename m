@@ -1,115 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2ECA2D322E
-	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 14:05:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791727512; cv=none; b=ISVJiQo/qj0PuX02P4x5OeWT2sagdgDkbpSr1OLS7THSUEm8sLqOjdzpddh0ZKANZa5F9FI/rQyIuWW9ptdxmFrJOGdi+Jzx3eJflRWFnFRHB053OJJBtk/lNEoSe4+Wfc9kY7g0fUzSUTt1geTsPx1zKaVQ1RhaARhCjyOHvt0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791727512; c=relaxed/simple;
-	bh=fQ9Ibb9CSEZ+PULJZ5/JG8cuLLIX7zkWI0/u7tQJH/c=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EFF64457CA
+	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 14:12:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791727923; cv=pass; b=CyRzURIfBMbBI+FxvrmUw9jyAe+DPk7mMAeCXgg681qEDP5kgPqGpTwh9BIB4Ga3P8vhf5M/n2fIetlLAKYQj+pJPO+3v900pXKBi3vLdgUdg9AmTZ6H8rDf0WWaBCb2y97RXqSNsM0DJ7vwufpDxjSj7YwWJeRnHZ35rK1xovg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791727923; c=relaxed/simple;
+	bh=wdRnVqUf1ZGud0eChWIXjEZO/K7UTTIev25EskoBKgw=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iiaDGrfq8WIX8FO7o7zEEvjsaAfJ6FprDHKvyWi+TZ8jsyePdfCcETLKVOBQS99moUlJlds1FuYXwARxL6aIh6msXRhtsegF6PVeuwSstNOMzgOnqllqoGx6FMJcZ4ohjXAMajYf74LCbMoYM2JdMUzoNVWTECsMIb73kwp8lXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A5n+eCIi; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=SklOun0BPnN3a8p7Pt28Dc2RSDQCseQf8blCLYyKGLPHO8m9KljjSNrdPPqdfX5bJnEBm8XsSvt680u7FDzf1vBJZCDsvMMz6RQT7OWldHxRd62bk5azmzPU43jY+T6XWn9+g3sBpTz244yXkhIQlsS0MJGxhSr1cEYZfpE9yZk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=azOeW3qa; arc=pass smtp.client-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A5n+eCIi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ECD51F0089F
-	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 14:05:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791727511;
-	bh=/ZP9mYgIUz9YMc+23KxEk5KZByJyBE7m+dN+yOiaTi4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=A5n+eCIi69zoQuXvSnhBIZ9aC63O+JFKGaUTOdc+TTU5juSfBG5RSKT3c4rQ2Ri+Y
-	 gZfaAq0vuypFVJCSSgzGDEw/h9hQULGq0GEssJu8Qs4ap4aj5SxdSY1hDDm0MXlWr7
-	 5bL0lt43aSVerpBE8RqSZ5cyqTVEoHgp7XXIxxUhopFy+EHeCMRgGaMSjmVRgM903R
-	 7sdPHS5OncIz5DE7tMXr/bV/S3o04NTbLr7qhSOp4ylztl9196oQ7R1keXoftB7jXU
-	 1FyvXwZl3QTM9PUZ2PvU7eg/YJj9M0u2Y31dpIBGG4CV3venPal8goYCdHqckZAosZ
-	 nxlXtuF348bZw==
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b1ab2ad719so661637a12.3
-        for <stable@vger.kernel.org>; Sun, 11 Oct 2026 07:05:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzdEd9vj5rhLzlYCdx92mFj81ehovPVWyVEpERBRjI2KtpjqwpOzvcF1ELyKo0miVDiHXPMkNQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKkTl+WNE8EotW5wACrKeuDJL9tf2gk4ES8/QeY/o11T89HQ+Fb
-	zlTw6exSPox1wFTKW69Ter0FZnEphfUohu8B4tTciKMCPHYFDPwanzWMEUgAsYxo2QNlhs5Xq6P
-	pPKv/EpZM3T+l/cHKzCnPVgw2BFvCJ7I=
-X-Received: by 2002:a05:6402:c518:10b0:6aa:1112:62f2 with SMTP id
- 4fb4d7f45d1cf-6b17c2759c5mr4536370a12.15.1791727509987; Sun, 11 Oct 2026
- 07:05:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="azOeW3qa"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3535aa147d8so59158eec.2
+        for <stable@vger.kernel.org>; Sun, 11 Oct 2026 07:12:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791727921; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TSx2Ky2FQTYJgTtSGbnOG+R/XYtTMEq9J6RxgETccdnXYsQgxgK+JSg60ZDvJkGMic
+         fT2xYQhnXGIYnJnk/hOOpxm4J1tXHltkSsg4hXHrXXUCtwvh9TRWqHf+9vDb3kB+yp9m
+         rIZJlnFoyndOLGAH+I0Li67ag0zQfqYkCJuAFApzgpzmMRhVb9iMWxz2ZoHld8s1Q+Fy
+         Zd8DC0GzMBqkAVGGIb+9s19BKjaaJyjBSVB/gQOsHUjEX6J2bVB1VPFUddQ8lWkHHv69
+         uVGMcNHYSaVQ+vcR5IHY91hIZu/xiv1r3aaZn1iIWScS24mAwiK8h3rvxi1+xc++JL87
+         KYog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=L2A8o9vYIEEGemnCCmWv7AJBvyLztV29qJFJ0TTixwU=;
+        fh=Zem2hBRIKA+1TQL2qHofmXiM8fvVGm5/joVmwKBL1qw=;
+        b=VlAIu3Fwv7wAEqh0ztIvyFN9yIOA8DeG4TxpAART+25IMJkND0/vCkvnWIFDEQGBY4
+         d/wB3xuK0xLge5/ntihC4HKQRkSQ8qTr3gLVr/oeSEQZM35oUQLL/kL64OEYYmSwlAv+
+         1VzdrEaJ08itdJfRDj6bKb6B57p6BUwCnt865RzkbvoJe3D3TzAmGgPzIQH0DJqNfvO0
+         YHmFC96JiosrsH7xfiw1vWacMC9myQ8fdMwTqNbAB0JR4B9qgXeSLy6AsW+6J0vLiNLK
+         V2q/XDmrhlwRbezmc5M8/YNevnQ8OEKIz8t83EjPiNSjyF3wgJYAzOAlzinfONX+oiRt
+         sW7A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791727921; x=1792332721; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=L2A8o9vYIEEGemnCCmWv7AJBvyLztV29qJFJ0TTixwU=;
+        b=azOeW3qaHzyDh6lWAb+OGQhnpQT2g44MkSKiXkKjAGQntZnEG0qjid8cbXnUrKuWjh
+         wFJEFFLM3yg5d99Xgakf930W2r1psT/nldzM4tjP3Jq9pbZfr7KC1APPyXtllUgX8tMu
+         2TUhLzD6/HhhNYA4VFxaTgQJ02LD7i7JSm4P/rOX/s0alTV4biiMPlVOl7Bd6CUkiv4/
+         7mIxDKY8mRsdG2SFVvKQ0swnxxKJyF5rrNrwS7/MocEv52bP3uiDYXx8m87tW/p2U2d8
+         ATd2Zs9XThvh3YbnjYm6qXiuWGHFthJHrWDfs7uTcN1pGij0jL9gmvib1e8qi6fy++Nj
+         lT/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791727921; x=1792332721;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L2A8o9vYIEEGemnCCmWv7AJBvyLztV29qJFJ0TTixwU=;
+        b=gT3jUBMtlA+YolStVvLx7E7qg9ECmpF4OaoXQQaDcgKdqOZKHYOaBLjgnvl/OPyO+G
+         U8BRWF4pn5C1R1Tx6J6ZocUikfw8fS2PZ0eBdqBewAIvCNfsrgOx6dssUHfhHYKqTo5p
+         5yrNnBbOyzpnlB5Mwb3FWSMUjIMuoqqvGpl6tVc6Olnd/jhym3hakzGqvLb4cHxtO8IT
+         iZHa4Lk3tDZVDPFGDtkSiYV0jf963mMSMVUmowIuM7hZAa+dvEm3u1Cbr7C5lMv9AWBy
+         4SdQrP9WPamT9VCeP6z9vmMMTqHIhS9Uanvqh36ayuVzkO18uw+sIeiV7TWNe303Idbr
+         GVmw==
+X-Forwarded-Encrypted: i=1; AKwUvByG0RRwtXe1PxDhaoT+vWTAKBFTDcGa+YRGPqzPurwNQWrSIfAnVk25tyBt/5/plcO8pqRCTew=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIVWdc148x42sU6o1+llv9aTvT7x/Qzqd1XuliMhdeLuvszCwXw
+	mO0roX0OM6yjIW0WXebT3vUx2gOaJljhE0tnUg6uEt/IT6BTg5ash50TzhRGx0LDoQI9u4gr6jO
+	5zxNo1VRQ3X5FUKvbwEQU/9sM8W36mt4=
+X-Gm-Gg: AYBFou1yqRuTPk2D97ePPcZUSn111Aoa0vSAWis84GskHWhZ3GPpqXOcanKFUfZGlsL
+	6UlBWUK2KFv55eQsjVcVJKWBf5DvuY3FLr2n+w/m7/fJFLlgjxm4KMKaOyVlc/+Ar3lFRDB8Zd/
+	7qCzQGGZquG0rBo8XtAGtGIb618UYCi8xoepIDkYcOvw1yN8K4V0z01M3JTpuPFlvTlPuVi7iEM
+	ZVQAsT/lqkqCCd4ao5mmVOScUdiX5G3jSAaJovhsaDEnYyuVK/hI2ej4niY3X9GtgSHtHD4wHP7
+	4uO4aC64V4nhydfapSF2T3GDZune3aLqjUQfzHDVcANVj2Pal8WX1Tws5HAo+hLnh73kiqs7H1a
+	Toht8j2CadGqnbR1vpSsOT4+HxkM09PsQkKmdlNHQddto+BDIfNwlpU9aMpPt4e2/m7ifmiPAxE
+	QEtRfMmoU/WaCUhTvYWShdDxaBK73sAbYwD0/tYmtKF6TUWye0j50=
+X-Received: by 2002:a05:7301:4d0b:b0:33e:6714:3945 with SMTP id
+ 5a478bee46e88-3537e0129e3mr15526523eec.2.1791727921035; Sun, 11 Oct 2026
+ 07:12:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261003090006.4e29fdce9913-1-archwse@gmail.com>
-In-Reply-To: <20261003090006.4e29fdce9913-1-archwse@gmail.com>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sun, 11 Oct 2026 22:05:07 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H4w6SN7GU-sYQerr7rkdD9vesJ=h24jEQHDxczeB0YU1A@mail.gmail.com>
-X-Gm-Features: AclHuK_wkl41GPKJI7ip6m3noq5nnGLcBVVPh9hjqmLS-fvueKzuBAPhXPgohI4
-Message-ID: <CAAhV-H4w6SN7GU-sYQerr7rkdD9vesJ=h24jEQHDxczeB0YU1A@mail.gmail.com>
-Subject: Re: [PATCH] drm/loongson: Fix framebuffer selection in async cursor updates
-To: Evanshenf <archwse@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, Jianmin Lv <lvjianmin@loongson.cn>, 
-	Qianhai Wu <wuqianhai@loongson.cn>, Mingcong Bai <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>, 
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>, Sui Jingfeng <suijingfeng@loongson.cn>, 
-	kernel test robot <lkp@intel.com>, stable@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261009140946.008206689@linuxfoundation.org> <20261011111313.27648-1-ojeda@kernel.org>
+ <2026101124-rethink-craftily-cb25@gregkh>
+In-Reply-To: <2026101124-rethink-craftily-cb25@gregkh>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sun, 11 Oct 2026 16:11:48 +0200
+X-Gm-Features: AclHuK9vMOPoMYcJzpYtaZWxlpIrwxbTqInUNqo073P_f5dJet-f3k_x1nsh7uA
+Message-ID: <CANiq72ndhLush3bugar1YGPnsein8min1k3_NucBxzFwCWe9Ug@mail.gmail.com>
+Subject: Re: [PATCH 7.2 000/428] 7.2.10-rc1 review
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, achill@achill.org, akpm@linux-foundation.org, 
+	broonie@kernel.org, conor@kernel.org, f.fainelli@gmail.com, 
+	hargar@microsoft.com, jonathanh@nvidia.com, linux-kernel@vger.kernel.org, 
+	linux@roeck-us.net, lkft-triage@lists.linaro.org, patches@kernelci.org, 
+	patches@lists.linux.dev, pavel@nabladev.com, rwarsow@gmx.de, shuah@kernel.org, 
+	sr@sladewatkins.com, stable@vger.kernel.org, sudipm.mukherjee@gmail.com, 
+	torvalds@linux-foundation.org, =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+	Todd Kjos <tkjos@android.com>, Christian Brauner <christian@brauner.io>, 
+	Carlos Llamas <cmllamas@google.com>, Alice Ryhl <aliceryhl@google.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 3, 2026 at 5:00=E2=80=AFPM Evanshenf <archwse@gmail.com> wrote:
+On Sun, Oct 11, 2026 at 3:10=E2=80=AFPM Greg KH <gregkh@linuxfoundation.org=
+> wrote:
 >
-> An asynchronous cursor update swaps the new framebuffer into the live
-> plane state. However, the driver reads both old_fb and new_fb from the
-> live state before this swap. When an enabled cursor changes buffers, the
-> address-update condition is therefore false and the hardware continues
-> scanning the previous buffer.
->
-> Read new_fb from the new plane state before swapping the framebuffer
-> references. This updates the hardware address when the framebuffer
-> changes while retaining the existing behavior for cursor movement.
->
-> Verified on a Loongson 3A5000 with LS7A2000 using 32x32 and 64x64 legacy
-> cursor updates. Callback counters and read-only register observations
-> confirmed the asynchronous path, the stale address before the change,
-> and the new address afterward. Same-framebuffer movement and cursor
-> disable/re-enable also passed, with the primary framebuffer and mode
-> unchanged.
->
-> AI assistance was used to investigate the existing report, prepare the
-> fix and test tools, run the build and hardware comparison, and draft
-> this message.
->
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/r/202311152357.4KFS0M8f-lkp@intel.com/
-> Fixes: f39db26c5428 ("drm: Add kms driver for loongson display controller=
-")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
+> Seems to be broken by "rust_binder: reschedule node refcount update on
+> thread exit" as removing that fixes the builds which I did.  Any
+> objection to that?
 
-> Signed-off-by: Evanshenf <archwse@gmail.com>
-> ---
->  drivers/gpu/drm/loongson/lsdc_plane.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/loongson/lsdc_plane.c b/drivers/gpu/drm/loon=
-gson/lsdc_plane.c
-> index bcc0ffa..7b9c65c 100644
-> --- a/drivers/gpu/drm/loongson/lsdc_plane.c
-> +++ b/drivers/gpu/drm/loongson/lsdc_plane.c
-> @@ -230,7 +230,7 @@ static void lsdc_cursor_plane_atomic_async_update(str=
-uct drm_plane *plane,
->
->         new_state =3D drm_atomic_get_new_plane_state(state, plane);
->
-> -       new_fb =3D plane->state->fb;
-> +       new_fb =3D new_state->fb;
->
->         plane->state->crtc_x =3D new_state->crtc_x;
->         plane->state->crtc_y =3D new_state->crtc_y;
->
-> base-commit: bca45af5998a05f34b13a2ef11e639bac9c62643
-> --
-> 2.43.0
->
+Yeah, it is that one.
+
+In case it helps, I am re-running my CI with the extra parameter
+manually removed in those two calls (instead of dropping that commit),
+to see if the rest builds and runs fine after that issue, and it looks
+OK in all the builds that completed so far.
+
+Cheers,
+Miguel
