@@ -1,539 +1,147 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88E6845FFBA
-	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 14:48:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791730098; cv=none; b=PG4gkKQ2UTTKX6W8WntfshXJQR2fr4ijGnz8ULewLTWjxNVZ/6/dC5MxS4dHkwDRt6p9YLOP5U6XwQQ+gO2xCQwkB/FbZSLtYlUKYH88hwYKI2FJSJ2seq5sd8Hq6FGXU2PGKX3Q/PYh+nLp7rf/7TxwfzeCofd4tydk40EfSlg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791730098; c=relaxed/simple;
-	bh=HsgbRWE+5rn+/d+eGYKn73urxfqSQ9ZjitzwK59WK9Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KY7c1NpG2uRZxBZm+ivcIGQwDfTSVRR+Zw+r/sRcx2cq+CGMxdJPXXOh17tHYZI+Yglg8fZEkoTMUg3QV91KFq+iYRork+yKXul3pckwaz98zx+GNYZfRBhTQ3+3VsCZ7tghSMmIC8dY8d8UCAV1WQe9Xbjb+YsskpFXDx6pEvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=R0Nn4C8C; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28EBB45D930
+	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 14:49:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791730142; cv=pass; b=bkAYK+vj+bqjFcrEh/gdk9oPkRrVORB1Czsw+m162hKNTQceskXIDsc3/0luuDBaKjJ2B6W8i6h1Jvnysw5pqMZHT2gNbaa66XO54sgFZDFU8dX0sAXkbHbsRvwlaO9FduSQkMQ3TgyLGTUZy6MEbGta6HV1T6LrFoOgFqb8TXY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791730142; c=relaxed/simple;
+	bh=N7/bXLCxSKzME25oFTCMjTUc1fspZktULBquef1LNnQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WCZA1lDD6S/mvLMyciLxy/h01UfpmZXmhFu3F61iWYrr4tKLyAuZAlMd6oSjsCRCE7dn/zOyWrDIBQ4vEhuT0HziIzXVrAdUrUiMlgaxk5jNjR3Q8yEcO3CeGno2mbeW/LLvAisF4hX3jQ1/Cunfb2w/8Vwca5bE7Xb0CRMfE3g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hSIm+ZuW; arc=pass smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="R0Nn4C8C"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3a813079a55so1928351a91.0
-        for <stable@vger.kernel.org>; Sun, 11 Oct 2026 07:48:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hSIm+ZuW"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c2e36c3478aso148816566b.0
+        for <stable@vger.kernel.org>; Sun, 11 Oct 2026 07:49:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791730139; cv=none;
+        d=google.com; s=arc-20260327;
+        b=m9GPmyosF+ohGIXfjVWM9C0bAVA1/7aq18EmHwJafxAjsMv0kEU4k48EKfH8B2K/HD
+         mOvxMKhUSXUEglT0Md5XetrtaVfasiEBbYLyzu+ZwvSt/sHJ13zZgccXMocd53vHDu64
+         eQZLd8gwYcUbAZhqHHy8O/Miq8zSMKoT8DlNCLAjYGgex2WDNYHe/TLZzu6h/57ZvXWu
+         hXamD5tGPS5TmyKlyAv9QvvuX+yMbGmboSzz5V/RocTJ1slVaT4JgIEoJBtwwDJyTK7j
+         yJTpVQmD9UvBQqzuSDb3zYXYGatKTbNJCdlCGqXxue1Z0Wja7ovEp8bwYrOmuCyG+5Px
+         AZFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4RkeVc6VkMZ4IMU3dg0M5Mik1yz8UTsHowUxZB7vFDA=;
+        fh=hKfaHPL8+YoCotrJzJf2YRYIUUCQAD1zLzNYmvgrozU=;
+        b=O7cZ+rzUgl1QYCmCqveCT8i2DB+WSWr87DIDtOqLMjrmK8XBZX3PvPEb5ilbx3eOjt
+         349pe32v6vjegO+ol69+aXLJEZK2DsErjsTWImvEb0pb2e7+sHj+ppQ2HqSX8ktUmaq9
+         uMr1cL31Ghue8BimKCeBaRfG81jY9+AENC9gI0W2QvAvwqJsvtxCH2CFUBcKeHm0rAeg
+         AjZ7n/26wcuoh75Ov0IAMHccC5W7hYD76q1EsqEIBGkstkFhyxlETwNTm1qWTmMll89S
+         /gD3gf6Ir6swe1Kt5sdRLzeIGzOB1T95Oqbni+idtAuv+5cicl4Olump+gF08/WTrj2d
+         DYvg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791730095; x=1792334895; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/5mJq8d9plFSHVdOGt4XQU6iEJZi3mQ9E+ALBg7jwqw=;
-        b=R0Nn4C8C2c+jKLK//pbi0+0bXam1RGyOvYQf7LMHkL9ASjePJY1lwq3sCy5h8dr3NW
-         cIfNcWJyOGyBBkpWEaY6kff4hRvLhlvo2pfmuMwowVbvzNCS4ael8h+xOjZsEB45lMTv
-         IWfUA/P3XE+yqUnZnMzPUiZ3SN/baDX0NogdXItFV030oEZdtBoJUzXjFoMU28w3T7d+
-         XaTU9PUYRf710XUyevtBkX5V/rsqbvhOHn7ZHl565AsAjSpA1wArWFbqhRheaG5btFKY
-         WXMDGC0WwE0m8MIWX2BUSzhRJwsy3qbeUnVw5pOK/I3pToFiy1QF4s8Pn0Ak7ljTNrxz
-         BhzQ==
+        d=gmail.com; s=20251104; t=1791730139; x=1792334939; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4RkeVc6VkMZ4IMU3dg0M5Mik1yz8UTsHowUxZB7vFDA=;
+        b=hSIm+ZuWJ7GvatqAO/yMWyqLsatlGbn3H3lVNLELHW1jNqe4Qt6PO6vaMgr5MEo7WZ
+         bRa4YmFE4fzg7YXJ3AapJS5ZUdIa+LPo8VchpWjdODvbwsvBOnyov9XxlxPvr6l8Vd8r
+         UTWN5TQamHBanlyeH/pu6RIffAJKQ+q58OSM0hOsStmMFWkBOzBSbkILb3TQY1b6Dzq6
+         c+QEe+euvby3jUReoMel9pBiTAPMcFqCIWD6T2W6kEx0L8WM35+VWMOfNECWhuB5Zrzv
+         7ts96nV0xqeRGonK+9PX1crZWfjJLf0UsAvWpjPT7TDyKz0fTO0d6aNCrYlDbN3lyZsW
+         181g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791730095; x=1792334895;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/5mJq8d9plFSHVdOGt4XQU6iEJZi3mQ9E+ALBg7jwqw=;
-        b=WtVTxRyDgTTRJkCxteAG8bgyAAVR6bLugugvWEKWeDee/LyNt5LwwwdU8MRfJt4Ad8
-         M3vsz1zBgrYGzkuiTJxZI1QogEs/tv7ljr0AxuFoz0+6kkyk5StI6KcADXxzpBdKBYYg
-         O20yLpFX9vB++mStPGM04apeBZIJioRf8EUAMhleQfVkYalgn3YnwcPNQlwC15yvtz2H
-         PzrUnZA4j0tB/WOcGt+ksany/uhRJLASGvWoPlgrpOazC2xdjFWSDB//KEBAIBBOW9xY
-         CaM2Xjj9Ttiin5ZBqr6yQV4sMz/QUxzhrayJfIuCGwsPQcUSmflRvwIY/oPUj9Vy2sbs
-         SFhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx1t5AbZy6uIT6W550rI/YxNkHxqx5xqJsV1l/AL3jepOrY7cfXEpAOi2zdqMrt51lcg+++UMA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJv+ygG5oy3RUStvKK0tRy2T5fJTPlRU8DQsKsAdMyMskjftv83
-	VyfvXOHddY6BaitBpwDsDt9LbJybZkKAayKaDssqjIjWFpLE5i9sScNGrxoK71t4MEY=
-X-Gm-Gg: AYBFou2HOASnW8IiLwVuCvl3XH9FbH9tIBkBDMOHGjGJ+69120yRllenO2uqsNrG1e+
-	xIeLHTW3jL2lj62BMvN9gXwa3i51SzPh+DajR0ZEUav1pzfFzSj9yRKcZAG/tHvAuuyEmWjPr26
-	IriOgAyHYJ7tt7wGqjxpdZ6RlC6i/N0kMawplzxWXBxjR6YKr0id5YA3/IXbsi7QvLyB8vHi+nc
-	LRT34OXCnbTxrtjZO7k/8V3oOXaJK+iM5WlD7BzOgLvyIaykmGY7mQ8kRhn9vhnWoD8E4aJot74
-	uSyQs+fEl+yjqN5CtzciWjrssOpZKxpWgiCWBXuajGlh4sV0o4dYz2ST39pAXMkx4yskJ7Q0Ino
-	x9kJ0qUCa7SC3aSfEXWe4PQsRQOjTZ8YBI3hevcq2EietX4b1VlNySxsbhrADepSsRm/ksd1/hl
-	u2+QEGi1sRk7lQf8vgMn2XKM8BucvMIDECt+xzZjqrxvbqdZOL7OIGVk5kAYWGZ/V6r8rjJj6Fz
-	uci4Z10R2q47g0+zl0snQ==
-X-Received: by 2002:a17:90b:2d82:b0:39e:6c68:fd91 with SMTP id 98e67ed59e1d1-3ab3acdc391mr3580312a91.38.1791730094423;
-        Sun, 11 Oct 2026 07:48:14 -0700 (PDT)
-Received: from localhost.localdomain ([2406:5900:1044:110c:97fe:d421:a74a:1d6e])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38ddac6dsm11729048a91.7.2026.10.11.07.48.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 07:48:14 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Nilesh Javali <njavali@marvell.com>,
-	Manish Rangankar <mrangankar@marvell.com>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K . Petersen" <mkp@kernel.org>
-Cc: Mike Christie <michael.christie@oracle.com>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 1/2] scsi: qla4xxx: bound the ISP83xx reset template to its buffer
-Date: Sun, 11 Oct 2026 23:47:50 +0900
-Message-ID: <20261011144752.2063334-2-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261011144752.2063334-1-yhlee@isslab.korea.ac.kr>
-References: <20261011144752.2063334-1-yhlee@isslab.korea.ac.kr>
+        d=1e100.net; s=20260707; t=1791730139; x=1792334939;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4RkeVc6VkMZ4IMU3dg0M5Mik1yz8UTsHowUxZB7vFDA=;
+        b=dr55PDoMFBprAlQcFsiBA9Oh/BkX5TJ3aJZBj7O0gFnw775M8CNZW1crFZdsGRbZUk
+         LdoBvZBOOdJvaFccpx6DUXflJ8fqTArTz+PgVljZAv87fU+Dyg1dhAJ3wlFuEiO1FcAw
+         6SuhITcl8ujUvJCkZKEnPBa6yO9EfCwEtOcViMEbgRYevgPkAChxVeQ2oXYTiC2gbCzY
+         yMV45hLqKtASpGe2m9cW6AF2UQp73s181Mky/EkEDSZB70ymSanD8nubyJlkDam76w3N
+         XYvulqyROp/LOgNLChz481jE5/BfEopQ08B7N96ePp4mfJUl8MBnHyQfIaSJH/5vhkfh
+         o/cg==
+X-Forwarded-Encrypted: i=1; AKwUvBw6e7/B9raeOmkT5fNw7bYowl5H6e16pZYbBZD2qH6gVEKAutwz0b2CzwkgRvDa6d3me7VQCtk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKpoKMGnHeXF3BiSozGE3hVTrDjBItSBdyfXvbMMcy+52012ypa
+	i+6Hgs7V2gY9W9W0v0ocvajA66DakMxRvgnLaKl2yDMO0V4XpFlljBTOLfsZFACKEERGBkL5IKb
+	7tXnOjQnFx6uLmRvWjJwEahc+7hg/HMOpXKf702Q=
+X-Gm-Gg: AYBFou1ZZqxcGrk9AM9ooDz0HrwEEFVxG9omA6M+cA6qbhiUiYZdNhT13zGA/binQJk
+	epko5nvjke5x2+g9AXK/ytRYcNsNLKnqduDxDWMmDjliLESGjxZIEflXurEbwKB0BpitfflxW0f
+	lfPYFc7YlvDqU2EYidKPsDSq/3Fl6lmR+Bth4xWVgUxiD7u0Cch5L0FIagYKn/2MXI25IfNNPif
+	GiW0oS6LDAELElY2cQhH4atQdJZEE3/hbCpoBhBVWZY5YdpN0Szqie3Enx2k7ZReEFtAwH8SZAM
+	dC/iZB65XL2ZZXE1BcPfKVOzZ9yM95Rg+xRP5Cwyf5NZyT77uVOcD0W0zmqEN/8ZKRQpjgMa01O
+	ZsHxJO/xnP39O4HzO3cTsByDBZ1Oxa7X/pHJWB3KPFAk=
+X-Received: by 2002:a17:906:f59f:b0:c31:7495:e57 with SMTP id
+ a640c23a62f3a-c31aa0dc6b5mr668779566b.44.1791730139254; Sun, 11 Oct 2026
+ 07:48:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261010142533.974797-1-linmag7@gmail.com> <20261010142533.974797-2-linmag7@gmail.com>
+ <CAEdQ38GtjhbEipnuTbo1EmzNNAE9=6p3T6MfTnMq-6okmE9-tQ@mail.gmail.com>
+In-Reply-To: <CAEdQ38GtjhbEipnuTbo1EmzNNAE9=6p3T6MfTnMq-6okmE9-tQ@mail.gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Sun, 11 Oct 2026 16:48:46 +0200
+X-Gm-Features: AclHuK_Tz9vD-0GaHu-Hko6cZBr-CRRYjqry0SEF8pHQaIVGQ0ve8CeJLxTsgbU
+Message-ID: <CA+=Fv5RTAXFbGTN+YPb3RBsw2s-52oVRzi_HgMuiB4R86YeY5A@mail.gmail.com>
+Subject: Re: [PATCH v5 1/8] alpha: load the MMU context when switch_mm()
+ switches the current task
+To: Matt Turner <mattst88@gmail.com>
+Cc: richard.henderson@linaro.org, linux-kernel@vger.kernel.org, 
+	linux-alpha@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-qla4_83xx_read_reset_template() reads the reset template out of the
-adapter flash into a fixed buffer:
+Hi Matt,
 
-	ha->reset_tmplt.buff = vmalloc(QLA83XX_RESTART_TEMPLATE_SIZE);
+On Sun, Oct 11, 2026 at 1:32=E2=80=AFAM Matt Turner <mattst88@gmail.com> wr=
+ote:
+>
+> On Sat, Oct 10, 2026 at 04:24:27PM +0200, Magnus Lindholm wrote:
+> > do_shoot_lazy_tlb(), which switches to init_mm from an IPI. None explic=
+itly
+> > loads the context, so the task can carry on running
+> > under whatever was loaded before while current->mm says otherwise.
+>
+> Two small things if you touch this changelog again when applying,
+> neither worth a v6.
+>
+> The second line above is short.
+>
+> "while current->mm says otherwise" only describes kthread_use_mm(). The
+> other two callers change active_mm and leave current->mm NULL.
+>
+> > Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+> > Tested-by: Matt Turner <mattst88@gmail.com>
+> > Reviewed-by: Matt Turner <mattst88@gmail.com>
+>
+> Your Signed-off-by is last on patches 2-8 and first here.
 
-It then takes the template length from the header it just read and uses
-it to size the second flash read:
+Thanks, I've reworded the changelog in for-next to distinguish
+kthread_use_mm(), which changes current->mm, from the other two callers,
+which change active_mm while leaving current->mm NULL. I've also fixed
+the line wrapping. There are no code changes for this patch.
 
-	tmplt_hdr_def_size = (ha->reset_tmplt.hdr->size -
-	    ha->reset_tmplt.hdr->hdr_size) / sizeof(uint32_t);
-	ret_val = qla4_83xx_flash_read_u32(ha, addr, p_buff,
-	                                   tmplt_hdr_def_size);
+The combined TLB v5 and MMU v4 stack has now also completed an extended
+SMP compaction soak on the ES40, with three CPUs online and
+CONFIG_COMPACTION=3Dy.
 
-hdr->size is a 16-bit field supplied by the flash contents and nothing
-bounds it: QLA83XX_RESTART_TEMPLATE_SIZE appears only at the allocation
-and is never compared against anything. qla4_83xx_flash_read_u32() walks
-its word count storing one dword at a time with no end check, so a
-template claiming a size larger than the 8192-byte buffer stores up to
-~57 KB past it with flash-chosen contents. The checksum test runs after
-the copy and cannot prevent this.
+Over an hour, all 23 cycles passed:
+  - 207 lost-store rounds
+  - 207 stale-read rounds
+  - 230 shared-mapping writeback rounds on ext4
 
-  BUG: KASAN: vmalloc-out-of-bounds in qla4_83xx_flash_read_u32 [qla4xxx]
-  Write of size 4 at addr ffffc90000057000 by task init/1
+Compaction was triggered repeatedly during each cycle, and
+pgmigrate_success increased by 193374. Continuous kernel logging showed
+no new warnings or errors, only the expected drop_caches notices from
+the writeback test. The writeback settings were restored and checked
+after every cycle.
 
-qla4_83xx_process_reset_template() then walks the template with
-hdr->entries as the loop bound and each entry's own size as the stride,
-and the per-opcode handlers read hdr->count items from an entry. These
-values all come from flash and none is checked against the end of the
-template, so processing a crafted template reads past the buffer:
-
-  BUG: KASAN: vmalloc-out-of-bounds in qla4_83xx_process_reset_template [qla4xxx]
-  Read of size 4 at addr ffffc90000057004 by task init/1
-
-A read-modify-write entry adds one more: its 8-bit index_a flash value
-subscripts reset_tmplt.array[], which holds QLA83XX_MAX_RESET_SEQ_ENTRIES
-(16) entries inside struct scsi_qla_host. Only 404 bytes follow the
-array in that structure, so an index of 101 or more reads past the
-allocation:
-
-  BUG: KASAN: slab-out-of-bounds in qla4_83xx_rmw_crb_reg [qla4xxx]
-  Read of size 4 at addr ffff88810644aa28 by task init/1
-
-Bound the template size to the buffer before the copy, keep the entry
-walk and each handler's item loop inside the template, and reject an
-out-of-range array index. These sizes and counts are little-endian
-16-bit flash fields; read them through le16_to_cpu() where the bounds
-are computed, so that on a big-endian host the check does not run on a
-byte-swapped size while the copy and the walk use the raw one.
-
-While here, fix the state the error path leaves behind. It frees the
-buffer without clearing the pointer, so qla4xxx_free_adapter() frees it
-a second time on remove, and hdr is assigned before the header is
-validated, so it keeps pointing into the freed buffer and a later
-adapter reset dereferences it in qla4_83xx_process_reset_template().
-Clear the template state on the error path and refuse to walk a
-template that is not there.
-
-Fixes: 6e7b429259fc0 ("[SCSI] qla4xxx: Added support for ISP83XX")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/scsi/qla4xxx/ql4_83xx.c | 200 +++++++++++++++++++++++---------
- 1 file changed, 142 insertions(+), 58 deletions(-)
-
-diff --git a/drivers/scsi/qla4xxx/ql4_83xx.c b/drivers/scsi/qla4xxx/ql4_83xx.c
-index db41d90a5b6e9..c68500280168b 100644
---- a/drivers/scsi/qla4xxx/ql4_83xx.c
-+++ b/drivers/scsi/qla4xxx/ql4_83xx.c
-@@ -745,7 +745,8 @@ static int qla4_83xx_reset_seq_checksum_test(struct scsi_qla_host *ha)
- {
- 	uint32_t sum =  0;
- 	uint16_t *buff = (uint16_t *)ha->reset_tmplt.buff;
--	int u16_count =  ha->reset_tmplt.hdr->size / sizeof(uint16_t);
-+	int u16_count =  le16_to_cpu(ha->reset_tmplt.hdr->size) /
-+			 sizeof(uint16_t);
- 	int ret_val;
- 
- 	while (u16_count-- > 0)
-@@ -773,11 +774,11 @@ static int qla4_83xx_reset_seq_checksum_test(struct scsi_qla_host *ha)
- void qla4_83xx_read_reset_template(struct scsi_qla_host *ha)
- {
- 	uint8_t *p_buff;
--	uint32_t addr, tmplt_hdr_def_size, tmplt_hdr_size;
-+	uint32_t addr, tmplt_hdr_def_size, tmplt_hdr_size, tmplt_size;
- 	uint32_t ret_val;
- 
- 	ha->reset_tmplt.seq_error = 0;
--	ha->reset_tmplt.buff = vmalloc(QLA83XX_RESTART_TEMPLATE_SIZE);
-+	ha->reset_tmplt.buff = vzalloc(QLA83XX_RESTART_TEMPLATE_SIZE);
- 	if (ha->reset_tmplt.buff == NULL) {
- 		ql4_printk(KERN_ERR, ha, "%s: Failed to allocate reset template resources\n",
- 			   __func__);
-@@ -807,18 +808,36 @@ void qla4_83xx_read_reset_template(struct scsi_qla_host *ha)
- 		(struct qla4_83xx_reset_template_hdr *)ha->reset_tmplt.buff;
- 
- 	/* Validate the template header size and signature */
--	tmplt_hdr_size = ha->reset_tmplt.hdr->hdr_size/sizeof(uint32_t);
-+	tmplt_hdr_size = le16_to_cpu(ha->reset_tmplt.hdr->hdr_size) /
-+			 sizeof(uint32_t);
- 	if ((tmplt_hdr_size != tmplt_hdr_def_size) ||
--	    (ha->reset_tmplt.hdr->signature != RESET_TMPLT_HDR_SIGNATURE)) {
-+	    (le16_to_cpu(ha->reset_tmplt.hdr->signature) !=
-+	     RESET_TMPLT_HDR_SIGNATURE)) {
- 		ql4_printk(KERN_ERR, ha, "%s: Template Header size %d is invalid, tmplt_hdr_def_size %d\n",
- 			   __func__, tmplt_hdr_size, tmplt_hdr_def_size);
- 		goto exit_read_template_error;
- 	}
- 
--	addr = QLA83XX_RESET_TEMPLATE_ADDR + ha->reset_tmplt.hdr->hdr_size;
--	p_buff = ha->reset_tmplt.buff + ha->reset_tmplt.hdr->hdr_size;
--	tmplt_hdr_def_size = (ha->reset_tmplt.hdr->size -
--			      ha->reset_tmplt.hdr->hdr_size) / sizeof(uint32_t);
-+	/* The template size is chosen by the flash contents and nothing has
-+	 * bounded it yet, so a template claiming to be larger than the buffer
-+	 * would make the read below store past the end of it.  The integrity
-+	 * check runs after the copy and cannot prevent that.
-+	 */
-+	tmplt_size = le16_to_cpu(ha->reset_tmplt.hdr->size);
-+	if (tmplt_size > QLA83XX_RESTART_TEMPLATE_SIZE ||
-+	    tmplt_size < le16_to_cpu(ha->reset_tmplt.hdr->hdr_size)) {
-+		ql4_printk(KERN_ERR, ha, "%s: Template size %u is invalid\n",
-+			   __func__, tmplt_size);
-+		goto exit_read_template_error;
-+	}
-+
-+	addr = QLA83XX_RESET_TEMPLATE_ADDR +
-+	       le16_to_cpu(ha->reset_tmplt.hdr->hdr_size);
-+	p_buff = ha->reset_tmplt.buff +
-+		 le16_to_cpu(ha->reset_tmplt.hdr->hdr_size);
-+	tmplt_hdr_def_size = (tmplt_size -
-+			      le16_to_cpu(ha->reset_tmplt.hdr->hdr_size)) /
-+			     sizeof(uint32_t);
- 
- 	DEBUG2(ql4_printk(KERN_INFO, ha,
- 			  "%s: Read rest of the template size %d\n",
-@@ -845,17 +864,22 @@ void qla4_83xx_read_reset_template(struct scsi_qla_host *ha)
- 
- 	/* Get STOP, START, INIT sequence offsets */
- 	ha->reset_tmplt.init_offset = ha->reset_tmplt.buff +
--				      ha->reset_tmplt.hdr->init_seq_offset;
-+		le16_to_cpu(ha->reset_tmplt.hdr->init_seq_offset);
- 	ha->reset_tmplt.start_offset = ha->reset_tmplt.buff +
--				       ha->reset_tmplt.hdr->start_seq_offset;
-+		le16_to_cpu(ha->reset_tmplt.hdr->start_seq_offset);
- 	ha->reset_tmplt.stop_offset = ha->reset_tmplt.buff +
--				      ha->reset_tmplt.hdr->hdr_size;
-+		le16_to_cpu(ha->reset_tmplt.hdr->hdr_size);
- 	qla4_83xx_dump_reset_seq_hdr(ha);
- 
- 	goto exit_read_reset_template;
- 
- exit_read_template_error:
- 	vfree(ha->reset_tmplt.buff);
-+	ha->reset_tmplt.buff = NULL;
-+	ha->reset_tmplt.hdr = NULL;
-+	ha->reset_tmplt.init_offset = NULL;
-+	ha->reset_tmplt.start_offset = NULL;
-+	ha->reset_tmplt.stop_offset = NULL;
- 
- exit_read_reset_template:
- 	return;
-@@ -894,16 +918,23 @@ static void qla4_83xx_rmw_crb_reg(struct scsi_qla_host *ha, uint32_t raddr,
- {
- 	uint32_t value;
- 
-+	if (p_rmw_hdr->index_a >= QLA83XX_MAX_RESET_SEQ_ENTRIES) {
-+		ql4_printk(KERN_ERR, ha, "%s: Invalid array index %u\n",
-+			   __func__, p_rmw_hdr->index_a);
-+		ha->reset_tmplt.seq_error++;
-+		return;
-+	}
-+
- 	if (p_rmw_hdr->index_a)
- 		value = ha->reset_tmplt.array[p_rmw_hdr->index_a];
- 	else
- 		qla4_83xx_rd_reg_indirect(ha, raddr, &value);
- 
--	value &= p_rmw_hdr->test_mask;
-+	value &= le32_to_cpu(p_rmw_hdr->test_mask);
- 	value <<= p_rmw_hdr->shl;
- 	value >>= p_rmw_hdr->shr;
--	value |= p_rmw_hdr->or_value;
--	value ^= p_rmw_hdr->xor_value;
-+	value |= le32_to_cpu(p_rmw_hdr->or_value);
-+	value ^= le32_to_cpu(p_rmw_hdr->xor_value);
- 
- 	qla4_83xx_wr_reg_indirect(ha, waddr, value);
- 
-@@ -914,15 +945,18 @@ static void qla4_83xx_write_list(struct scsi_qla_host *ha,
- 				 struct qla4_83xx_reset_entry_hdr *p_hdr)
- {
- 	struct qla4_83xx_entry *p_entry;
-+	char *p_end = (char *)p_hdr + le16_to_cpu(p_hdr->size);
- 	uint32_t i;
- 
- 	p_entry = (struct qla4_83xx_entry *)
- 		  ((char *)p_hdr + sizeof(struct qla4_83xx_reset_entry_hdr));
- 
--	for (i = 0; i < p_hdr->count; i++, p_entry++) {
--		qla4_83xx_wr_reg_indirect(ha, p_entry->arg1, p_entry->arg2);
-+	for (i = 0; i < le16_to_cpu(p_hdr->count) &&
-+	     (char *)(p_entry + 1) <= p_end; i++, p_entry++) {
-+		qla4_83xx_wr_reg_indirect(ha, le32_to_cpu(p_entry->arg1),
-+					  le32_to_cpu(p_entry->arg2));
- 		if (p_hdr->delay)
--			udelay((uint32_t)(p_hdr->delay));
-+			udelay((uint32_t)le16_to_cpu(p_hdr->delay));
- 	}
- }
- 
-@@ -930,15 +964,18 @@ static void qla4_83xx_read_write_list(struct scsi_qla_host *ha,
- 				      struct qla4_83xx_reset_entry_hdr *p_hdr)
- {
- 	struct qla4_83xx_entry *p_entry;
-+	char *p_end = (char *)p_hdr + le16_to_cpu(p_hdr->size);
- 	uint32_t i;
- 
- 	p_entry = (struct qla4_83xx_entry *)
- 		  ((char *)p_hdr + sizeof(struct qla4_83xx_reset_entry_hdr));
- 
--	for (i = 0; i < p_hdr->count; i++, p_entry++) {
--		qla4_83xx_read_write_crb_reg(ha, p_entry->arg1, p_entry->arg2);
-+	for (i = 0; i < le16_to_cpu(p_hdr->count) &&
-+	     (char *)(p_entry + 1) <= p_end; i++, p_entry++) {
-+		qla4_83xx_read_write_crb_reg(ha, le32_to_cpu(p_entry->arg1),
-+					     le32_to_cpu(p_entry->arg2));
- 		if (p_hdr->delay)
--			udelay((uint32_t)(p_hdr->delay));
-+			udelay((uint32_t)le16_to_cpu(p_hdr->delay));
- 	}
- }
- 
-@@ -948,6 +985,7 @@ static void qla4_83xx_poll_list(struct scsi_qla_host *ha,
- 	long delay;
- 	struct qla4_83xx_entry *p_entry;
- 	struct qla4_83xx_poll *p_poll;
-+	char *p_end = (char *)p_hdr + le16_to_cpu(p_hdr->size);
- 	uint32_t i;
- 	uint32_t value;
- 
-@@ -959,21 +997,28 @@ static void qla4_83xx_poll_list(struct scsi_qla_host *ha,
- 	p_entry = (struct qla4_83xx_entry *)((char *)p_poll +
- 					     sizeof(struct qla4_83xx_poll));
- 
--	delay = (long)p_hdr->delay;
-+	delay = (long)le16_to_cpu(p_hdr->delay);
- 	if (!delay) {
--		for (i = 0; i < p_hdr->count; i++, p_entry++) {
--			qla4_83xx_poll_reg(ha, p_entry->arg1, delay,
--					   p_poll->test_mask,
--					   p_poll->test_value);
-+		for (i = 0; i < le16_to_cpu(p_hdr->count) &&
-+		     (char *)(p_entry + 1) <= p_end; i++, p_entry++) {
-+			qla4_83xx_poll_reg(ha, le32_to_cpu(p_entry->arg1),
-+					   delay,
-+					   le32_to_cpu(p_poll->test_mask),
-+					   le32_to_cpu(p_poll->test_value));
- 		}
- 	} else {
--		for (i = 0; i < p_hdr->count; i++, p_entry++) {
--			if (qla4_83xx_poll_reg(ha, p_entry->arg1, delay,
--					       p_poll->test_mask,
--					       p_poll->test_value)) {
--				qla4_83xx_rd_reg_indirect(ha, p_entry->arg1,
-+		for (i = 0; i < le16_to_cpu(p_hdr->count) &&
-+		     (char *)(p_entry + 1) <= p_end; i++, p_entry++) {
-+			if (qla4_83xx_poll_reg(ha,
-+					       le32_to_cpu(p_entry->arg1),
-+					       delay,
-+					       le32_to_cpu(p_poll->test_mask),
-+					       le32_to_cpu(p_poll->test_value))) {
-+				qla4_83xx_rd_reg_indirect(ha,
-+							  le32_to_cpu(p_entry->arg1),
- 							  &value);
--				qla4_83xx_rd_reg_indirect(ha, p_entry->arg2,
-+				qla4_83xx_rd_reg_indirect(ha,
-+							  le32_to_cpu(p_entry->arg2),
- 							  &value);
- 			}
- 		}
-@@ -986,23 +1031,27 @@ static void qla4_83xx_poll_write_list(struct scsi_qla_host *ha,
- 	long delay;
- 	struct qla4_83xx_quad_entry *p_entry;
- 	struct qla4_83xx_poll *p_poll;
-+	char *p_end = (char *)p_hdr + le16_to_cpu(p_hdr->size);
- 	uint32_t i;
- 
- 	p_poll = (struct qla4_83xx_poll *)
- 		 ((char *)p_hdr + sizeof(struct qla4_83xx_reset_entry_hdr));
- 	p_entry = (struct qla4_83xx_quad_entry *)
- 		  ((char *)p_poll + sizeof(struct qla4_83xx_poll));
--	delay = (long)p_hdr->delay;
--
--	for (i = 0; i < p_hdr->count; i++, p_entry++) {
--		qla4_83xx_wr_reg_indirect(ha, p_entry->dr_addr,
--					  p_entry->dr_value);
--		qla4_83xx_wr_reg_indirect(ha, p_entry->ar_addr,
--					  p_entry->ar_value);
-+	delay = (long)le16_to_cpu(p_hdr->delay);
-+
-+	for (i = 0; i < le16_to_cpu(p_hdr->count) &&
-+	     (char *)(p_entry + 1) <= p_end; i++, p_entry++) {
-+		qla4_83xx_wr_reg_indirect(ha, le32_to_cpu(p_entry->dr_addr),
-+					  le32_to_cpu(p_entry->dr_value));
-+		qla4_83xx_wr_reg_indirect(ha, le32_to_cpu(p_entry->ar_addr),
-+					  le32_to_cpu(p_entry->ar_value));
- 		if (delay) {
--			if (qla4_83xx_poll_reg(ha, p_entry->ar_addr, delay,
--					       p_poll->test_mask,
--					       p_poll->test_value)) {
-+			if (qla4_83xx_poll_reg(ha,
-+					       le32_to_cpu(p_entry->ar_addr),
-+					       delay,
-+					       le32_to_cpu(p_poll->test_mask),
-+					       le32_to_cpu(p_poll->test_value))) {
- 				DEBUG2(ql4_printk(KERN_INFO, ha,
- 						  "%s: Timeout Error: poll list, item_num %d, entry_num %d\n",
- 						  __func__, i,
-@@ -1017,6 +1066,7 @@ static void qla4_83xx_read_modify_write(struct scsi_qla_host *ha,
- {
- 	struct qla4_83xx_entry *p_entry;
- 	struct qla4_83xx_rmw *p_rmw_hdr;
-+	char *p_end = (char *)p_hdr + le16_to_cpu(p_hdr->size);
- 	uint32_t i;
- 
- 	p_rmw_hdr = (struct qla4_83xx_rmw *)
-@@ -1024,11 +1074,12 @@ static void qla4_83xx_read_modify_write(struct scsi_qla_host *ha,
- 	p_entry = (struct qla4_83xx_entry *)
- 		  ((char *)p_rmw_hdr + sizeof(struct qla4_83xx_rmw));
- 
--	for (i = 0; i < p_hdr->count; i++, p_entry++) {
--		qla4_83xx_rmw_crb_reg(ha, p_entry->arg1, p_entry->arg2,
--				      p_rmw_hdr);
-+	for (i = 0; i < le16_to_cpu(p_hdr->count) &&
-+	     (char *)(p_entry + 1) <= p_end; i++, p_entry++) {
-+		qla4_83xx_rmw_crb_reg(ha, le32_to_cpu(p_entry->arg1),
-+				      le32_to_cpu(p_entry->arg2), p_rmw_hdr);
- 		if (p_hdr->delay)
--			udelay((uint32_t)(p_hdr->delay));
-+			udelay((uint32_t)le16_to_cpu(p_hdr->delay));
- 	}
- }
- 
-@@ -1036,7 +1087,7 @@ static void qla4_83xx_pause(struct scsi_qla_host *ha,
- 			    struct qla4_83xx_reset_entry_hdr *p_hdr)
- {
- 	if (p_hdr->delay)
--		mdelay((uint32_t)((long)p_hdr->delay));
-+		mdelay((uint32_t)((long)le16_to_cpu(p_hdr->delay)));
- }
- 
- static void qla4_83xx_poll_read_list(struct scsi_qla_host *ha,
-@@ -1046,6 +1097,7 @@ static void qla4_83xx_poll_read_list(struct scsi_qla_host *ha,
- 	int index;
- 	struct qla4_83xx_quad_entry *p_entry;
- 	struct qla4_83xx_poll *p_poll;
-+	char *p_end = (char *)p_hdr + le16_to_cpu(p_hdr->size);
- 	uint32_t i;
- 	uint32_t value;
- 
-@@ -1053,22 +1105,26 @@ static void qla4_83xx_poll_read_list(struct scsi_qla_host *ha,
- 		 ((char *)p_hdr + sizeof(struct qla4_83xx_reset_entry_hdr));
- 	p_entry = (struct qla4_83xx_quad_entry *)
- 		  ((char *)p_poll + sizeof(struct qla4_83xx_poll));
--	delay = (long)p_hdr->delay;
-+	delay = (long)le16_to_cpu(p_hdr->delay);
- 
--	for (i = 0; i < p_hdr->count; i++, p_entry++) {
--		qla4_83xx_wr_reg_indirect(ha, p_entry->ar_addr,
--					  p_entry->ar_value);
-+	for (i = 0; i < le16_to_cpu(p_hdr->count) &&
-+	     (char *)(p_entry + 1) <= p_end; i++, p_entry++) {
-+		qla4_83xx_wr_reg_indirect(ha, le32_to_cpu(p_entry->ar_addr),
-+					  le32_to_cpu(p_entry->ar_value));
- 		if (delay) {
--			if (qla4_83xx_poll_reg(ha, p_entry->ar_addr, delay,
--					       p_poll->test_mask,
--					       p_poll->test_value)) {
-+			if (qla4_83xx_poll_reg(ha,
-+					       le32_to_cpu(p_entry->ar_addr),
-+					       delay,
-+					       le32_to_cpu(p_poll->test_mask),
-+					       le32_to_cpu(p_poll->test_value))) {
- 				DEBUG2(ql4_printk(KERN_INFO, ha,
- 						  "%s: Timeout Error: poll list, Item_num %d, entry_num %d\n",
- 						  __func__, i,
- 						  ha->reset_tmplt.seq_index));
- 			} else {
- 				index = ha->reset_tmplt.array_index;
--				qla4_83xx_rd_reg_indirect(ha, p_entry->dr_addr,
-+				qla4_83xx_rd_reg_indirect(ha,
-+							  le32_to_cpu(p_entry->dr_addr),
- 							  &value);
- 				ha->reset_tmplt.array[index++] = value;
- 
-@@ -1117,16 +1173,44 @@ static void qla4_83xx_process_reset_template(struct scsi_qla_host *ha,
- 	int index, entries;
- 	struct qla4_83xx_reset_entry_hdr *p_hdr;
- 	char *p_entry = p_buff;
-+	char *p_end;
-+
-+	if (!ha->reset_tmplt.buff || !ha->reset_tmplt.hdr || !p_buff) {
-+		ql4_printk(KERN_ERR, ha, "%s: No valid reset template\n",
-+			   __func__);
-+		return;
-+	}
- 
- 	ha->reset_tmplt.seq_end = 0;
- 	ha->reset_tmplt.template_end = 0;
--	entries = ha->reset_tmplt.hdr->entries;
-+	entries = le16_to_cpu(ha->reset_tmplt.hdr->entries);
- 	index = ha->reset_tmplt.seq_index;
-+	p_end = (char *)ha->reset_tmplt.buff +
-+		le16_to_cpu(ha->reset_tmplt.hdr->size);
- 
- 	for (; (!ha->reset_tmplt.seq_end) && (index  < entries); index++) {
- 
-+		/* Both the entry count and each entry size come from flash,
-+		 * so stop rather than walk past the end of the template.
-+		 */
-+		if (p_entry < (char *)ha->reset_tmplt.buff ||
-+		    p_entry + sizeof(*p_hdr) > p_end) {
-+			ql4_printk(KERN_ERR, ha, "%s: Entry %d is outside the template\n",
-+				   __func__, index);
-+			ha->reset_tmplt.seq_error++;
-+			break;
-+		}
-+
- 		p_hdr = (struct qla4_83xx_reset_entry_hdr *)p_entry;
--		switch (p_hdr->cmd) {
-+		if (le16_to_cpu(p_hdr->size) < sizeof(*p_hdr) ||
-+		    p_entry + le16_to_cpu(p_hdr->size) > p_end) {
-+			ql4_printk(KERN_ERR, ha, "%s: Entry %d size %u is outside the template\n",
-+				   __func__, index, le16_to_cpu(p_hdr->size));
-+			ha->reset_tmplt.seq_error++;
-+			break;
-+		}
-+
-+		switch (le16_to_cpu(p_hdr->cmd)) {
- 		case OPCODE_NOP:
- 			break;
- 		case OPCODE_WRITE_LIST:
-@@ -1163,7 +1247,7 @@ static void qla4_83xx_process_reset_template(struct scsi_qla_host *ha,
- 		}
- 
- 		/* Set pointer to next entry in the sequence. */
--		p_entry += p_hdr->size;
-+		p_entry += le16_to_cpu(p_hdr->size);
- 	}
- 
- 	ha->reset_tmplt.seq_index = index;
--- 
-2.43.0
-
+Thanks,
+Magnus
