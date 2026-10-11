@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C91D740A920;
-	Sun, 11 Oct 2026 22:19:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1676D407597;
+	Sun, 11 Oct 2026 22:19:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791757192; cv=none; b=FpsvGMij+d+G7oUI3iukMmbRosg4ZY6E3/SGRhlCSLqQIEcGV8Wfn3Fta4XSrKq0Yl25Fkha1k8WupCSI7oacHc+foC4pTbx5cJwt5W4b8L510WO2StUzmdkdW8eyuC3tuWutiW+IciL19pyj85aOhQ+BumjcvVfWgJaYmjTiRE=
+	t=1791757201; cv=none; b=m7+baRITtK1gxjn+PSJ/pT7MnvGtyzdBLYa0zLLtLO9YKGF4ikH+m++39dLA8tmEf11LC1FPQhOFk4MCL3n3zvcoteD7AM5m587HsyFxzBqWGOixxhHZPJTK6imSFyNE1WRAu5pBw+afEDOHGbjPpsONlFI1zPxje1q3opqMb1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791757192; c=relaxed/simple;
-	bh=l29gGX8zyRkmmVORtLzKO8gUjw3n+rbrxHPJnaNuISo=;
-	h=Date:To:From:Subject:Message-Id; b=leZjgVg5r3DIxTCS2gDNmY2fCly3jB0uyDQiO2ekagYcLkbFIusNW+dtkai1YW5MNOo4eoTgxvDbQYkTTDf7T+HUXuScv2LCE/KcCPv0+YL6Djhhwq/Cg4SJTRQMOlQY1T3EVJS0UM88YpXwSKu3vOvCXjx43xKaZNz13Hy5Vd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=BW85+b2T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791757201; c=relaxed/simple;
+	bh=1kLKdn1im0Gq3YtffIT2g1mMsTSeG82QyTF9sVI4hU4=;
+	h=Date:To:From:Subject:Message-Id; b=dH8GTPTeXj1LYIT3zKg4LeWvuvAVSR2WenvyUIQWRBvyNdBWdW8vE2hOYpCCJNidzCIGJZ/jorb8p1cH8VHcFy7RkXsSChP0vBSAH5+zwHQluieRcGyu5aM5Q1Surger/sAaWYuouV7ch3ZmkAfCcs1z5GhDXskrm5wp7UQ9sHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=NZgSaSlL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="BW85+b2T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E9091F0089C;
-	Sun, 11 Oct 2026 22:19:51 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="NZgSaSlL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88B021F0089B;
+	Sun, 11 Oct 2026 22:19:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791757191;
-	bh=cS3hnhxffWiXcHtAejMtY+TPmTgFy214zwhHa4n0tPI=;
+	d=linux-foundation.org; s=korg; t=1791757199;
+	bh=QAECPm9Lf6glJsVHND1w6DhatQEG0zfSXwqkqRvC260=;
 	h=Date:To:From:Subject;
-	b=BW85+b2T1VhqgyA1r2DblrZqw2K2w6oiPaqXW8mCvmi+vjvTUaXd0PXFDueiiiXh8
-	 QjWa+7hYaw7q475EsDiFmz0KmdB/wvRrNagr4CwDx4SZa97T33TqNOeKzwGxL67/zY
-	 ORLvcHMzaOeEPkce1YhkAZm6AgOR5TUeqCp9EtFw=
-Date: Sun, 11 Oct 2026 15:19:51 -0700
-To: mm-commits@vger.kernel.org,tchibo@google.com,stable@vger.kernel.org,glider@google.com,elver@google.com,dvyukov@google.com,andreyknvl@gmail.com,fangxy@xiaopeng.com,akpm@linux-foundation.org
+	b=NZgSaSlLo17Djz4BdCWvSJgRhssy5WtX+BLprT1EkNT0Rywigq9tFWaEKuX73t6h0
+	 xmI8hJMIdRUFE/Em/4NiLhFhpUm6xrkOwlgVQwtlqWFS4TY4PsiosyEHM+f0pcAQlc
+	 Wx1KPVE/vsRmiNZHqlGBWwXqPs1IjrNflkU/rEpY=
+Date: Sun, 11 Oct 2026 15:19:59 -0700
+To: mm-commits@vger.kernel.org,xmei5@asu.edu,stable@vger.kernel.org,mark@fasheh.com,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,gkobakhi@asu.edu,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-nonmm-stable] kcov-ignore-an-out-of-range-comparison-count-in-write_comp_data.patch removed from -mm tree
-Message-Id: <20261011221951.6E9091F0089C@smtp.kernel.org>
+Subject: [merged mm-nonmm-stable] ocfs2-fix-array-out-of-bound-access-in-__ocfs2_find_path.patch removed from -mm tree
+Message-Id: <20261011221959.88B021F0089B@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,93 +35,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: kcov: ignore an out-of-range comparison count in write_comp_data()
+     Subject: ocfs2: fix array out of bound access in __ocfs2_find_path()
 has been removed from the -mm tree.  Its filename was
-     kcov-ignore-an-out-of-range-comparison-count-in-write_comp_data.patch
+     ocfs2-fix-array-out-of-bound-access-in-__ocfs2_find_path.patch
 
 This patch was dropped because it was merged into the mm-nonmm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Fang Xieyan <fangxy@xiaopeng.com>
-Subject: kcov: ignore an out-of-range comparison count in write_comp_data()
-Date: Thu, 17 Sep 2026 18:43:06 +0800
+From: Giorgi Kobakhia <gkobakhi@asu.edu>
+Subject: ocfs2: fix array out of bound access in __ocfs2_find_path()
+Date: Tue, 22 Sep 2026 13:21:59 -0700
 
-write_comp_data() reads the comparison record count from area[0] and uses
-it to index the coverage buffer:
+__ocfs2_find_path() walks down the extent tree and records path by calling
+find_path_ins(), which appends entry to path->p_node[].  It only has 5
+spots.
 
-	area = (u64 *)t->kcov_area;
-	max_pos = t->kcov_size * sizeof(unsigned long);
+A corrupted ocfs2 image whose extent block is pointing to itself causes
+__ocfs2_find_path() descent endlessly, writing past the end of
+path->p_node[] array.
 
-	count = READ_ONCE(area[0]);
+ UBSAN: array-index-out-of-bounds in fs/ocfs2/alloc.c:677:14
+ index 5 is out of range for type 'ocfs2_path_item [5]'
+ Call Trace:
+  <TASK>
+  find_path_ins (fs/ocfs2/alloc.c:677 fs/ocfs2/alloc.c:1914)
+  __ocfs2_find_path.constprop.0 (fs/ocfs2/alloc.c:1882)
+  ocfs2_commit_truncate (fs/ocfs2/alloc.c:1924 fs/ocfs2/alloc.c:7286)
+  ocfs2_truncate_file (fs/ocfs2/file.c:515)
+  ocfs2_setattr (fs/ocfs2/file.c:1224)
+  notify_change (fs/attr.c:556)
+  do_truncate (fs/open.c:68)
+  do_ftruncate (fs/open.c:194 (discriminator 1))
+  ksys_ftruncate (fs/open.c:206)
+  __x64_sys_ftruncate (fs/open.c:211 fs/open.c:209 fs/open.c:209)
 
-	/* Every record is KCOV_WORDS_PER_CMP 64-bit words. */
-	start_index = 1 + count * KCOV_WORDS_PER_CMP;
-	end_pos = (start_index + KCOV_WORDS_PER_CMP) * sizeof(u64);
-	if (likely(end_pos <= max_pos)) {
+Commit a406aff8c051 ("ocfs2: validate l_tree_depth to avoid out-of-bounds
+access") already restricts el->l_tree_depth to be less than
+OCFS2_MAX_PATH_DEPTH, which is equal to 5.  However, does not handle the
+infinite descent case.
 
-The buffer is mmap'd writable into the collecting process, so count is
-under its control and end_pos <= max_pos is its only bound.  A count that
-wraps the u64 multiply leaves end_pos below max_pos, so the check passes
-while the record store lands 24 bytes before the buffer, in the unmapped
-vmalloc guard page, and faults:
+Check if the el->l_tree_depth decreases on each descent.  Maximum descents
+are restricted to 4 and the path->p_node[] array does not overflow.
 
-  BUG: unable to handle page fault for address: ffa0000000b60fe8
-  #PF: supervisor write access in kernel mode
-  #PF: error_code(0x0002) - not-present page
-  Oops: 0002 [#1] SMP KASAN NOPTI
-  RIP: 0010:write_comp_data+0x7e/0xa0
-  ...
-  Kernel panic - not syncing: Fatal exception
-
-Bound count first: only max_pos / (sizeof(u64) * KCOV_WORDS_PER_CMP)
-records fit, so a larger count is not a valid index and is dropped. 
-kcov_move_area() bounds the same untrusted count this way, and no count
-the end_pos <= max_pos check accepts reaches that limit, so no valid
-record is lost.
-
-kcov is a root-only debugfs file (debugfs_create_file_unsafe("kcov", 0600,
-...)) and write_comp_data() exists only under
-CONFIG_KCOV_ENABLE_COMPARISONS, so this is a local, debug-kernel
-robustness fix: the process corrupts its own buffer and the kernel oopses.
-It crosses no privilege boundary.  Additional details at [1]
-
-Link: https://lore.kernel.org/20260917104306.22145-1-fangxy@xiaopeng.com [1]
-Fixes: ded97d2c2b2c ("kcov: support comparison operands collection")
-Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+Link: https://lore.kernel.org/20260922202159.2421642-1-gkobakhi@asu.edu
+Fixes: dcd0538ff4e8 ("ocfs2: sparse b-tree support")
+Signed-off-by: Giorgi Kobakhia <gkobakhi@asu.edu>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Alexander Potapenko <glider@google.com>
-Assisted-by: Hawkeye:GLM-5.3-flash
-Assisted-by: Qoder:Qwen3.8-Max
-Cc: Andrey Konovalov <andreyknvl@gmail.com>
-Cc: Dmitry Vyukov <dvyukov@google.com>
-Cc: Marco Elver <elver@google.com>
-Cc: Victor Chibotaru <tchibo@google.com>
+Tested-by: Xiang Mei <xmei5@asu.edu>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Assisted-by: LLM
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
 Cc: <stable@vger.kernel.org>
 ---
 
- kernel/kcov.c |    8 ++++++++
- 1 file changed, 8 insertions(+)
+ fs/ocfs2/alloc.c |    9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
---- a/kernel/kcov.c~kcov-ignore-an-out-of-range-comparison-count-in-write_comp_data
-+++ a/kernel/kcov.c
-@@ -253,6 +253,14 @@ static void notrace write_comp_data(u64
+--- a/fs/ocfs2/alloc.c~ocfs2-fix-array-out-of-bound-access-in-__ocfs2_find_path
++++ a/fs/ocfs2/alloc.c
+@@ -1844,6 +1844,7 @@ static int __ocfs2_find_path(struct ocfs
+ 	int i, ret = 0;
+ 	u32 range;
+ 	u64 blkno;
++	u32 prev_depth = OCFS2_MAX_PATH_DEPTH;
+ 	struct buffer_head *bh = NULL;
+ 	struct ocfs2_extent_block *eb;
+ 	struct ocfs2_extent_list *el;
+@@ -1851,14 +1852,16 @@ static int __ocfs2_find_path(struct ocfs
  
- 	count = READ_ONCE(area[0]);
- 
-+	/*
-+	 * area[0] is writable by the collecting process, so count cannot be
-+	 * trusted. Bound it to the records that fit, as kcov_move_area()
-+	 * does, so the end_pos multiply below cannot wrap past its check.
-+	 */
-+	if (count >= max_pos / (sizeof(u64) * KCOV_WORDS_PER_CMP))
-+		return;
+ 	el = root_el;
+ 	while (el->l_tree_depth) {
+-		if (unlikely(le16_to_cpu(el->l_tree_depth) >= OCFS2_MAX_PATH_DEPTH)) {
++		if (unlikely(le16_to_cpu(el->l_tree_depth) >= prev_depth)) {
+ 			ocfs2_error(ocfs2_metadata_cache_get_super(ci),
+-				    "Owner %llu has invalid tree depth %u in extent list\n",
++				    "Owner %llu has invalid tree depth %u in extent list (max %u)\n",
+ 				    (unsigned long long)ocfs2_metadata_cache_owner(ci),
+-				    le16_to_cpu(el->l_tree_depth));
++				    le16_to_cpu(el->l_tree_depth), prev_depth - 1);
+ 			ret = -EROFS;
+ 			goto out;
+ 		}
++		prev_depth = le16_to_cpu(el->l_tree_depth);
 +
- 	/* Every record is KCOV_WORDS_PER_CMP 64-bit words. */
- 	start_index = 1 + count * KCOV_WORDS_PER_CMP;
- 	end_pos = (start_index + KCOV_WORDS_PER_CMP) * sizeof(u64);
+ 		if (!el->l_next_free_rec || !el->l_count) {
+ 			ocfs2_error(ocfs2_metadata_cache_get_super(ci),
+ 				    "Owner %llu has empty extent list at depth %u\n"
 _
 
-Patches currently in -mm which might be from fangxy@xiaopeng.com are
+Patches currently in -mm which might be from gkobakhi@asu.edu are
 
 
