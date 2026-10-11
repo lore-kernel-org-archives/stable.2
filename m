@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB943242D4;
-	Sun, 11 Oct 2026 16:48:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763EA33B6F8;
+	Sun, 11 Oct 2026 16:48:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791737322; cv=none; b=iX9SFfnWUFLILdDl7k01l6A9PhJ0FzK8mx+sTi2gYcCbN49B5R3OzylU+19u+7DH3LNMs4sWjgAD8mnAa/DIJMwz/f7a7sEOqFvZgXzGKb+oQjjJ90yTsdZycDxR4WIJ1lLV31FG9oJT+fMUh/zqrk9N2s/EJhN47KpKPu3RoIk=
+	t=1791737324; cv=none; b=upWKt/0v7Q4A8/TF41TOmWouFKW8sxNbigBdl+VzqMHw0UTvyfFoEs4spdxrVvqnoWJGrMYBwPyRq5hKJhG/KLR95RBYTGLNmOrRELKelmYB1kQae/UY2nuKKfMkBo1UZ61kvb+YnUty/MsTkgEoO9G9ksgk6Q9ezoNLz9m4Myk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791737322; c=relaxed/simple;
-	bh=alh//LVdFtWmJOTTF7G48v6MxhzO7NPK/fRJTL7KjG8=;
+	s=arc-20240116; t=1791737324; c=relaxed/simple;
+	bh=KfFdUncOGakDrOGWnXGuehWUIfV0q57rmQ4Y7IxtqmU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HDUT1HpaKeQucvtuoWArn2DAHYCUeZAk9QSOyJEsQq/4/66DRe7iC/c7KapMKSHuxIkgWQraa86X2UrFybl7X7yn0PqAQn3FKnpbCIUEBngltrlpxTbWr5l02Vs724wLvO7ZO3Hy+F/SZhX5klZQim7xTcKxq2x8AVQzvhHqqIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DsnfuCWo; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=aLYbVi4q36KiRzC6pE9C8oqUsNPl8yyD+Y03SvunRKK1JAu3ySBBwLvDVCcYQDRGZyJANw5UAr/45lY1vV1Xu87ig6ChxYfsm5mdLHw3AaWYwmOSP9pO2ssi8G6qvzfscO6SZddspw7lHwJy0lTQUcfZd/miz2J7e+4OOD6gZgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hXPVFNr3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DsnfuCWo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B35691F0089D;
-	Sun, 11 Oct 2026 16:48:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hXPVFNr3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96AE51F0089C;
+	Sun, 11 Oct 2026 16:48:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791737321;
-	bh=VoSBOMlqsCH2193UXFn0wR9csHsjlgwdcJrgyih8Fes=;
+	s=k20260515; t=1791737322;
+	bh=THlq+usEucSNuEH7YcqVGREyFsNNAfJeYUlmxYPRI2U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DsnfuCWolck8zux1RVWDpqixmRFp8z6JAlKkCSV8aes/lWPxXL5d0Cri/EaLiFNyH
-	 +txQvkUa25ziMyBgMrfapO9DP8b+6ak6Wipg7K1Wwu3FQbumG0DAhBXxvlcrfTeQ/p
-	 Th4V/naAe7Ukg6yz4zxta++V5K8cakeV/3R9B8SezSWJoy+LxOjGIjAYkWKRaRBiNc
-	 fJ5hyk8XweU+GoL9mlcVI6Ys2k/hsliHNkszLvzs5ksiGcG3+0Wihp1UaGQ8dNxJdf
-	 nICW3vYOCwLWcacdNDDaflb4ohDONoBUX3fLmLimVDQ584ww1xuhVWSvKQ6TkraY3Z
-	 kRC9uxLwMwVRg==
+	b=hXPVFNr3njM8PsR/stwITvDb3JjtScwOYq9tjCP5X7NE/9U8ArotXrJd7krhVCNDF
+	 ThWYrsyUzxsUucrQDzIn4i9/qgk5ppe84gumN1HzzW21WPYZjmog9XmnP1GUJcYKKl
+	 ECa7SgdgIJ9+9LoBjrVRXv6RoYp5+KEK8xjgHN18NIvBa6HHw8ZsVXcL1v/82xuFMZ
+	 oTwqDTvWLN7HP2n4GGAlornTeHYSOl5p7OS/6PbZXuGR8dHL2500JB71YC6SKR3KqN
+	 7snuPwy93tx/zaWXZWLFE1zZhMDYMHWnjfzS0Y9TrBhQWaJTWy+WHeCkKoRCSpaza6
+	 AOdUH/ukBTxnw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Daniel Golle <daniel@makrotopia.org>,
-	netdev@vger.kernel.org,
-	Aleksei Sviridkin <f@lex.la>
-Subject: Re: [PATCH 6.18.y] net: dsa: mt7530: fix .get_stats64 sleeping in atomic context
-Date: Sun, 11 Oct 2026 12:48:18 -0400
-Message-ID: <2026-10-11-1-daily-reply-0011-mt7530-get-stats64-6-18@kernel.org>
+	Jiajia Liu <liujiajia@kylinos.cn>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	linux-bluetooth@vger.kernel.org,
+	Iaroslav Voitovych <yaroslav.voytovych@gmail.com>
+Subject: Re: [PATCH 6.12.y] Bluetooth: hci_event: fix simultaneous discovery stuck in FINDING
+Date: Sun, 11 Oct 2026 12:48:19 -0400
+Message-ID: <2026-10-11-1-daily-reply-0012-bluetooth-discovery-6-12@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261009190808.1385789-1-f@lex.la>
-References: <20261009190808.1385789-1-f@lex.la>
+In-Reply-To: <20261010022523.2789588-1-yaroslav.voytovych@gmail.com>
+References: <20261010022523.2789588-1-yaroslav.voytovych@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,11 +48,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> The .get_stats64 callback runs in atomic context, but on
-> MDIO-connected switches every register read acquires the MDIO bus
-> mutex, which can sleep:
+> When hci_inquiry_complete_evt is called between le_scan_disable and
+> le_set_scan_enable_complete and no remote name needs to be resolved,
+> the interleaved discovery with SIMULTANEOUS quirk gets stuck in
 
-Queued for 6.18, thanks.
+Queued for 6.12, thanks.
 
 -- 
 Thanks,
