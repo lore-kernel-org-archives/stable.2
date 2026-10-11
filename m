@@ -1,175 +1,259 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D14843E5EC0
-	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 06:40:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B2B276050;
+	Sun, 11 Oct 2026 06:41:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791700808; cv=none; b=gbwC7Yj2j6pSXnA4I8TH2O4bRqlolyX6cf8j3EoajjhzlgHmpr7QVrkNZXl4yK75HMYEe5FiVfHMDkb9c4bPqAQasXw7qBYqTjZsVuhPu/Ahjvpatb+Vy2PKxOtRQuKxmyjpLuM8tjHT8k8ZqnkWaf0+naTie0JyaqiRc+CyZg0=
+	t=1791700888; cv=none; b=E/xpKvSDyhLgftTL6ix+OgFPNtzn9o2gHw1gvxYcHkWCeUPWQE/3If7zgZfAGtO5MseaNL0I02Q9mMaqp9iwmp/tGbcEQEdlMZn036KNB5oKe3wCs5/ishy59w6JmuW7aRwMlVyXcTqkxi33gOF8BrD0/6PUrfmbTP42H/3tqNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791700808; c=relaxed/simple;
-	bh=/ttv6f6dsluA5uZThmcG7fwuw5ldScTyjNi0Up5a3ck=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MKCbZ0RHaTYd7DnX1zsgVdF45n8NQdayjqMrp0aRGnvPYdaUlpj3+vS1OgYUB+agqE2IfBi8jmeyS1Xq/eoho4QVq9vjkLUu+agMV5m6ImZIaabLn6sDoEyDjOj97IippdIgpq/mxFzUTXr+5serVQV6H/q8XanwwjgRuQx0luI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=J2YPTxyF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dEmqAMbo; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791700888; c=relaxed/simple;
+	bh=o1Cfjj4mgiFLSD4ehTkQrXze+HXV0jTSSUbP7u03vuA=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ebn/M8SkaXcwuLY5ZYaCvMDpBb4bWcUCFHLRjGK2FaQ+wWcQ4zJSgoVRxsHLjPv5Oj4vJaOH2MYp1oCkdSD2H0KI8n1SQn9AdU90FZTjccoONBOshQzUZVI7JYX2ZpO7xsL/S5tzofOsC1ydfGg3E+IsMVnb6g5Yq+RgJJ6zW0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c9chI6SV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="J2YPTxyF";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dEmqAMbo"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69B50aWX2426391
-	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 06:40:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	lxQNniTxfj5zZUHLI+CqiLbzb4mfvWapYlrk/rSG0wY=; b=J2YPTxyFIOo2TrpD
-	r6YHmsOhuEbaG2hf9Yvwb8aB4R8LB6HY5rgVme7XpOYln1z43cg7I+iuWtZQk2Iz
-	aXOb0eyiKCqexF4Ysip33quqVJ1McbKX+5x8hcz+20uy+hOc78CQXYw7EIPo439/
-	LZNCaem63jM+IKY9bkRmP28tguo8dXvztuoHTGy4ciAxtbQ+ZqCpym4xCQ/8wtE+
-	sxsiiZY4u0q9BQMzGYLptCDIZrDe7mnqXjk4fPx2B1oQmTNxwWaqC2DNdgEmrFHs
-	mUha1aWg/XI9Xy75N0rPjdA+//5OWw/jHjP8noDyqS9Zq10Kf2lrh1UD95YskNeA
-	t3shVQ==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7aqmtwyg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 06:40:05 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3592749a017so542451eec.1
-        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 23:40:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791700804; x=1792305604; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lxQNniTxfj5zZUHLI+CqiLbzb4mfvWapYlrk/rSG0wY=;
-        b=dEmqAMborMpA3qNzCSxT+rSlJjArnMnxwr7IwhLmr8jj0EZ2giS6rJuAv02MdpvH1O
-         +IL8cTc+wbtqNJcU4/04amHGQl/Lk7f7dBpDFUInv3e6mfFfPI5113vZ4dI9ajugBF4p
-         CWPYW3l2ceEuVVfiezUUUu92x1RHTk1jqzFCi6au0HkLUfz3CTNmLGDkTEUrIptGxQO/
-         CTUT+Mm+73G9FbkYjtexS8S4sDRlUWl9IcYwd4YHySNbKc2+SGDle2VS5Y0auAis4689
-         mFxDPcbiPULScuzPLYNJvHOJezp2iGEdj/X2wHTpCGerfrTcS7xJdE9TRqjF6+OpGI0I
-         W9KA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791700804; x=1792305604;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lxQNniTxfj5zZUHLI+CqiLbzb4mfvWapYlrk/rSG0wY=;
-        b=ZuyhELf7Y5hToX6ncL/OaFpEgbIoPvfl80qq2jvx0m4HDx+AzzfGDxqxh/nsH8bw80
-         lIsLEjiIjnTk29zbpxwXVHMq42jQAkLZ+OmztN3QOTx4MBC6Ksa58buGqs6KFOgw2qni
-         7CyqeMH6+fk+hh+qcXSj625Ff/FX9u0oUUWmoVR/KDk0dVCDKnEYz6RoKq28A4ivx1AT
-         6/g+AxNQXKwns80tGTRRGeHvhHKU0IH+m+ZW/dM1UpqkzWkOaU374NCEl9t8teO5qthF
-         7/mDEyQMzjAALyvlyDaB+iV+9VLmOLwWinH0ey3lsnL/5mYjPpsR46qXNALH5CBVWoFI
-         be4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBz4d5nPlNUNU6bXs7vH2AgVZYzJyG74ZRqhF6Q4xCS58/0/FfLAjU+62JBvHfEJyxLuk0IkkIU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKAQlpDSte19XbM6i2K4bsTfalLCcVGwQqFedBUcPL2Zd0+UmWI
-	Qh0sf8zrLoXykheuZDN/3osHhjPjgxIx+oRWzKBw//u5oakwGiVEBF3JCQ/mJEJKUMc6qPouW3o
-	FR9XOHR8JWUhp/4tlR+7a2LV67BEAc6nepdkPNyPoks5G8hzyD8Sx3/LNEMs=
-X-Gm-Gg: AYBFou1ChRapAutVDMDiq+bxq2R1QliYPY6qaxfxaDTU/Xod74TbFXR6P7wGVxTWnzx
-	hDVksJ4DZygJ89RxdGcnykJ2mLoZiB7Iq/iTbrGeKMZUvP+9ZkQX5U5lEJJ/LchcuHul1gkdvPL
-	mkVByq639li0cuJd4Yl8npvwXBFRP7S+6pClFxHyJxGdvhsnj7kEQgPMYHNH+Z+wLV9F7Soodvo
-	sScnRcoGyg2bzFeYgKpV885x7DU6ppFDJFavc62x4xIL+SZ21hzA7P2hbqnPF5ltn1viD9+5JIo
-	tMRBsA9SzOa2Mfkw7WjIa6jK8/SzPeQPxY+Nd/MimeHI8NcHwBPO8vxWfMckYEcGZZOEjy5/d8y
-	yWs0Oqjc809FwVEmoAvPLfGAnAL9LFQ==
-X-Received: by 2002:a05:7300:fb8a:b0:353:82a3:eb86 with SMTP id 5a478bee46e88-35382a3ef76mr11703220eec.0.1791700804426;
-        Sat, 10 Oct 2026 23:40:04 -0700 (PDT)
-X-Received: by 2002:a05:7300:fb8a:b0:353:82a3:eb86 with SMTP id 5a478bee46e88-35382a3ef76mr11703162eec.0.1791700803560;
-        Sat, 10 Oct 2026 23:40:03 -0700 (PDT)
-Received: from [192.168.0.8] ([183.83.143.210])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c61eaa0sm24442161eec.0.2026.10.10.23.39.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 10 Oct 2026 23:40:03 -0700 (PDT)
-Message-ID: <9eff23cd-9f9b-e57a-9e50-a09a9e3520ed@oss.qualcomm.com>
-Date: Sun, 11 Oct 2026 12:09:55 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c9chI6SV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24AB51F0089B;
+	Sun, 11 Oct 2026 06:41:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791700886;
+	bh=RmCZH95ehgU540OjvnS3MFoFEkyabpFbTjwYQ0ORD6k=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=c9chI6SVxwWEhR9Gnfx7+wVHgTLMyFaMMMbouAiIIJ8tXrXAdCLpGVEGAI7GQiQ8V
+	 bkAwVt+B8Vvg5BPbs06QDrVTVF2oSORR708zdASXpEYMYiyGYqWkx8vqMG43SPf+lv
+	 IU2deCmPlDX3X7Ry72gkooZM7a12Tl5wl8Mbhj8ueMDaUdlovJCptQjjVq05yfHvbt
+	 rEe56RR8P0fOBWrZ0ATTZQmjsFwt/XB+2xIhX+1bHPnCQymMYSq0+NunDQvpFAJaW0
+	 DpC/mDB7+yGOmi4Qi4gQ39m6HrMfFCrP/pf8JTdvC97PE8c4OSRn5u0NksoXC26okx
+	 vFW5mpoM6PP9Q==
+Subject:
+ Re: [PATCH net] macvlan: require lower-netns admin for IFLA_MACVLAN_FLAGS
+From: netdev-bot+sashiko@kernel.org
+To: bsdhenrymartin@gmail.com
+Cc: davem@davemloft.net, kuba@kernel.org, edumazet@kernel.org,
+ pabeni@redhat.com, andrew+netdev@lunn.ch, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sun, 11 Oct 2026 06:41:25 +0000
+Message-ID: <179170088566.434549.4699134797461783473@kernel.org>
+In-Reply-To: <20261010062944.2671656-1-bsdhenrymartin@gmail.com>
+References: <20261010062944.2671656-1-bsdhenrymartin@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH 2/2] media: qcom: iris: Wait for threaded IRQ completion
- during power-off
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261007-fix-disable-irq-safely-v1-0-45746f9a92de@oss.qualcomm.com>
- <20261007-fix-disable-irq-safely-v1-2-45746f9a92de@oss.qualcomm.com>
- <CAGEkeHd_KRRUZ8Kqvmf2BWF8stVg=_FSbx701ibS=KdoAy4FZw@mail.gmail.com>
-Content-Language: en-US
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-In-Reply-To: <CAGEkeHd_KRRUZ8Kqvmf2BWF8stVg=_FSbx701ibS=KdoAy4FZw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDExMDAyNiBTYWx0ZWRfX10Gc4HxqC2Dn
- ab3hJpveYBug/PLzGIw0H8eSRH4iByQMvgCk22CIf1J+QONvV9tjW8qyh1zuUVpYkcR6iQQHoAo
- j9ktq/DZeQFaWmCIEkzDufIRMjkOA3Y=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDExMDAyNiBTYWx0ZWRfX5mKOt8SuoBST
- UxLM4M2CSMWe1xwIeExcX9VbD96uR9A8k6+Tv67q5lP+2OepekButHNKtMjqPO7KZJdvSXO6noJ
- RYIYUsRIS+c7wOo2sVpxy/v0qoC4H1+/iOo0wTwFla3dh/XS37+HrWszu/lNAhCh1zcsYEMGYXg
- npqNYPfMv8JwLfaGbpR+6ZHTNIizlAhwTHgstggZSEcI91/uh/Gj/wcnQPuFRvgp285eR+AdtIA
- 3OFA8XHWAQpK7xwu2OHT94Vv7bQpn3R7ZmnGayVD+JgGVJ/WkPd0BgggT9Ud3s4QYDyXAFK4p6d
- 1TCcq56UbPdvS7WmbKEWp2ySPjuyWP0jjXWAYG1F5iYm8eBD84873hixOkjQ1UQPpBJhT9BxHZK
- 90ksd4/hZSnh//9OCC930T+8ki5qypoDMbxnyqVcgOxdz/ePkn5kPeSle//v/V4ErHH+bbpGWx/
- +Hs35wX+hKLG7UiQ8Vg==
-X-Authority-Analysis: v=2.4 cv=Uq32pOwB c=1 sm=1 tr=0 ts=6acb2f45 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=Ijl8aQlCsSTD5cfZelNzAA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=pGLkceISAAAA:8 a=wXOP9t3OkE-NeulZwrQA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-ORIG-GUID: hoPK44RM1Rf9pYEjNStoIb2AV0Q3cr5S
-X-Proofpoint-GUID: hoPK44RM1Rf9pYEjNStoIb2AV0Q3cr5S
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-11_02,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 priorityscore=1501 malwarescore=0 spamscore=0
- bulkscore=0 adultscore=0 impostorscore=0 suspectscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610110026
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-On 10/7/2026 10:59 PM, Hungyu Lin wrote:
->> +       if (!iris_vpu_watchdog(core, core->intr_status))
->> +               iris_vpu_disable_irq(core);
-> If the IRQ thread records a watchdog after this check, while
-> disable_irq() is waiting, it skips enable_irq(). The hard handler and
-> helper would then have disabled the IRQ twice, but the next power-on
-> only enables it once.
->
-> Could the helper recheck the watchdog after disable_irq() returns and
-> core->lock is reacquired, then call enable_irq() once to balance its
-> extra disable in that case?
+Critical: 0 · High: 1 · Medium: 1 (2) · Low: 0
 
-This patch is not about the IRQ disable depth. Its purpose is to make sure
-the threaded handler has finished before the VPU is powered down.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Re-enabling the IRQ here, during driver shutdown or removal, could let a
-watchdog interrupt fire and reschedule the sys_error_handler work, which
-can lead to a use-after-free once the core is torn down.
+- [High] macvlan: incomplete CAP_NET_ADMIN check allows traffic
+  interception
+- [Medium] The commit message presents commit 5b782a811e73 ("macvlan:
+  require lower-netns admin for shared port settings") as covering…
 
-For that reason I would prefer not to add the enable_irq() recheck in this
+Pre-existing issues:
+- [Medium] This problem wasn't introduced by this patch, but
+  macvlan_changelink() (drivers/net/macvlan.c:1665-1678) calls…
+- [Medium] This problem wasn't introduced by this patch, but the new
+  check relies on rtnl_dev_link_net_capable()…
+
+--
+
+macvlan: require lower-netns admin for IFLA_MACVLAN_FLAGS
+
+This patch extends the rtnl_dev_link_net_capable() check in
+macvlan_changelink() to IFLA_MACVLAN_FLAGS. Changing that attribute now
+requires CAP_NET_ADMIN in the lower device's network namespace. The
+reason given is that toggling MACVLAN_FLAG_NOPROMISC in passthru mode
+calls dev_set_promiscuity() on the lower device.
+
+> diff --git a/drivers/net/macvlan.c b/drivers/net/macvlan.c
+> index afad90b9222a2..d30cffddb1e1b 100644
+> --- a/drivers/net/macvlan.c
+> +++ b/drivers/net/macvlan.c
+> @@ -1641,7 +1641,8 @@ static int macvlan_changelink(struct net_device *dev,
+>  	int ret;
+>  
+>  	if (data &&
+> -	    (data[IFLA_MACVLAN_BC_QUEUE_LEN] || data[IFLA_MACVLAN_BC_CUTOFF]) &&
+> +	    (data[IFLA_MACVLAN_BC_QUEUE_LEN] || data[IFLA_MACVLAN_BC_CUTOFF] ||
+> +	     data[IFLA_MACVLAN_FLAGS]) &&
+>  	    !rtnl_dev_link_net_capable(dev, dev_net(vlan->lowerdev))) {
+>  		NL_SET_ERR_MSG(extack,
+>  			       "Changing shared macvlan port settings requires CAP_NET_ADMIN in the lower device network namespace");
+
+[Severity: High]
+This isn't introduced by this patch. Since the guard is being
+extended here, though, does it still miss the attributes that let a
+child netns admin receive traffic from the lower device?
+
+IFLA_MACVLAN_MODE and IFLA_MACVLAN_MACADDR_MODE are not covered by the
+rtnl_dev_link_net_capable() check. One changelink request is enough
+for root in the macvlan's netns to do both of these:
+
+  1. Switch a non-passthru macvlan to MACVLAN_MODE_SOURCE. set_mode is
+     applied before the IFLA_MACVLAN_MACADDR_MODE branch.
+  2. Pass MACVLAN_MACADDR_ADD with an arbitrary MAC address.
+
+macvlan_changelink_sources() then calls macvlan_hash_add_source().
+That inserts the entry into vlan->port->vlan_source_hash, which
+belongs to the shared struct macvlan_port, not to the upper device.
+
+On receive, macvlan_handle_frame() calls macvlan_forward_source() for
+every frame on the lower device, keyed on eth->h_source. For each
+matching entry, macvlan_forward_source_one() delivers a clone to that
+vlan. Nothing restricts the MAC to stations that belong to the child
+netns.
+
+A container that only owns the upper device could therefore add the
+MAC of, for example, the gateway on that segment. It would then get a
+copy of every frame that station sends on the lower device. That
+includes frames addressed to the lower device itself or to macvlans in
+other namespaces.
+
+If MACVLAN_FLAG_NODST is already set on that vlan, consume becomes
+true in macvlan_forward_source(). The frame is then dropped instead of
+reaching its real destination.
+
+5b782a811e73 treated mode as a per-upper setting. Does that still hold
+once MACVLAN_MODE_SOURCE fills a port-wide hash?
+
+Should the check also cover IFLA_MACVLAN_MACADDR_MODE, and maybe the
+switch into MACVLAN_MODE_SOURCE? Or is source-mode filtering meant to
+be allowed for an admin of the upper's namespace alone?
+
+[Severity: Medium]
+
+The commit message says that 5b782a811e73 "only covered
+IFLA_MACVLAN_BC_QUEUE_LEN and IFLA_MACVLAN_BC_CUTOFF". That reads as if
+flags were overlooked. However, 5b782a811e73 left flags ungated on
+purpose:
+
+    rtnl_dev_link_net_capable() short-circuits when the lower
+    device shares the macvlan network namespace, so an ordinary
+    single-namespace configuration is unaffected, and per-upper settings
+    such as mode and flags stay available to an administrator of the
+    macvlan's own namespace. This is the model ipvlan has used since
+    commit 7cc9f7003a96 ("ipvlan: disallow userns cap_net_admin to change
+    global mode/flags").
+
+That commit also said the passthru-only port state cannot be reached
+from a second upper, since passthru requires port->count == 0.
+
+Should the commit message say that this reverses the earlier decision,
+and explain why that reasoning no longer holds?
+
+The extack text is reused unchanged. IFLA_MACVLAN_FLAGS is stored in
+vlan->flags in struct macvlan_dev, not in the shared struct
+macvlan_port. Is "Changing shared macvlan port settings" accurate for
+this attribute?
+
+The new check also covers more than the problem described. In the flags
+branch below, only this path touches the lower device:
+
+	if (macvlan_passthru(vlan->port) && promisc) {
+		...
+			err = dev_set_promiscuity(vlan->lowerdev, -1);
+		...
+	}
+	WRITE_ONCE(vlan->flags, flags);
+
+On a non-passthru macvlan, or for a change that leaves NOPROMISC alone
+(for example a NODST-only change), the branch only writes vlan->flags.
+After this patch, an admin of the macvlan's own netns without
+CAP_NET_ADMIN in the lower netns gets -EPERM for those changes too.
+
+Is this uAPI change intended? Could the check be limited to passthru
+mode when MACVLAN_FLAG_NOPROMISC actually changes?
+
+[Severity: Medium]
+
+This isn't a bug introduced by this patch, but the IFLA_MACVLAN_FLAGS
+branch in macvlan_changelink() changes the lower device's promiscuity
+without checking netif_running(dev):
+
+	if (data && data[IFLA_MACVLAN_FLAGS]) {
+		__u16 flags = nla_get_u16(data[IFLA_MACVLAN_FLAGS]);
+		bool promisc = (flags ^ vlan->flags) & MACVLAN_FLAG_NOPROMISC;
+		if (macvlan_passthru(vlan->port) && promisc) {
+			int err;
+
+			if (flags & MACVLAN_FLAG_NOPROMISC)
+				err = dev_set_promiscuity(vlan->lowerdev, -1);
+			else
+				err = dev_set_promiscuity(vlan->lowerdev, 1);
+
+Otherwise the passthru promiscuity reference is held only while the
+macvlan is up. macvlan_open() takes it:
+
+	if (macvlan_passthru(vlan->port)) {
+		if (!(vlan->flags & MACVLAN_FLAG_NOPROMISC)) {
+			err = dev_set_promiscuity(lowerdev, 1);
+
+macvlan_stop() drops it:
+
+	if (macvlan_passthru(vlan->port)) {
+		if (!(vlan->flags & MACVLAN_FLAG_NOPROMISC))
+			dev_set_promiscuity(lowerdev, -1);
+
+What happens if NOPROMISC is toggled while the macvlan is down?
+
+Clearing NOPROMISC while down adds 1. A later open adds another 1, but
+stop removes only one. Does the lower device then stay promiscuous for
+good?
+
+Setting NOPROMISC while down drops a reference that was never taken.
+That could take away another holder's reference. If the counter was 0,
+__dev_set_promiscuity() would wrap it to UINT_MAX with IFF_PROMISC set,
+and later +1 requests would fail with -EOVERFLOW.
+
+This goes back to df8ef8f3aaa6. With this patch applied, reaching this
+path needs CAP_NET_ADMIN in the lower netns, or both devices in the
+same netns.
+
+[Severity: Medium]
+
+This is a pre-existing issue, but the check extended here depends on
+rtnl_dev_link_net_capable(), which only looks at current's credentials:
+
+net/core/rtnetlink.c:rtnl_dev_link_net_capable() {
+	return net_eq(link_net, dev_net(dev)) ||
+	       ns_capable(link_net->user_ns, CAP_NET_ADMIN);
+}
+
+The other cross-netns checks in rtnetlink use
+netlink_ns_capable(skb, ...). That also requires the socket opener to
+hold the capability (the CVE-2014-0181 hardening).
+
+Could a confused deputy get past the lower-netns check here? For
+example:
+
+  1. An unprivileged user who owns a child userns opens a NETLINK_ROUTE
+     socket in the child netns.
+  2. A privileged program (for example a setuid-root one) is made to
+     write an attacker-controlled RTM_NEWLINK message to that fd.
+  3. netlink_net_capable() in rtnetlink_rcv_msg() passes, because the
+     opener is privileged in the child userns.
+  4. rtnl_dev_link_net_capable() in macvlan_changelink() passes,
+     because current is global root.
+
+Nothing checks that the opener lacks CAP_NET_ADMIN in the lower netns.
+
+The helper came from 8165f7ff57d966. Other callers such as ip_gre,
+vxlan and geneve share it, so a fix there would probably be a separate
 patch.
 
-Regards,
-Vishnu Reddy.
-
-> If you use this approach for the watchdog fix, could you also add:
->
-> Suggested-by: Hungyu Lin <dennylin0707@gmail.com>
->
-> Thanks,
-> Hungyu
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261010062944.2671656-1-bsdhenrymartin%40gmail.com
