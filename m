@@ -1,162 +1,148 @@
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C293931A07F
-	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 15:58:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0486833A9F3
+	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 16:28:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791734309; cv=none; b=W6NBKVK99otRQAzew6JnjvGT6Z5RKsXYcsBdW6kGhJoGWsV1ImApMsSCuf+aHb2odL+dbR4UJj2GGAWwaGP1aPgN1B7udXv0sgi+C+SBetz/jOz3X8raCxXQmY/s99l1BVN+ZFnRduPWP5z7e9wG/g87cmcbBCXnLMGa7qrIw+M=
+	t=1791736113; cv=none; b=WSiZXwHClIz0FJZeCwn/I0xKqVqF7r9jmiHgipsnlxtA2CFfIoBe8+KNpLk26ooIYQyiTe5OB5M3LYkZkx+/LrwFkDlwffdI1nyuIsXRb7Xu6j/OTiZli+/Nd8lLpZ5z9SuJLrZjlRcCVL4bDvAOsuzAqEyBHFd4yRLWbpKVjIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791734309; c=relaxed/simple;
-	bh=IvIXragyDbXsVrZjUB1QpSAn+NSlJROmmj4LKC38QJU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=csZc2T/w3eTJT5RZsymiXlY6PQibyAePXB0exavguxuKDGQWnOFqrMpFj2rJ9qvD7IqLg2yEUr2VmXr5hautzH4RNp63JiQPWv43qIcjxyYflVyZMTVfEv3Xqb/scdjUnvnZT8JCFXVff78Oxl1zgUt0a2vnxOH1qNzu2Dj7Byc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=QmR8G/g2; arc=none smtp.client-ip=209.85.222.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	s=arc-20240116; t=1791736113; c=relaxed/simple;
+	bh=gFt47LSAsQO+9dW+yOZPgrQ8Va/c7AWtExmCZjKK+GI=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=bFFb1UA+a0gRYFvOO0Ka2MhsQOEaEVNCGum21HSgzO5YxNVm16WH3e1NVpieaTyH6kq+BFl5x9gr47SgoscN/lthIZJZzrXol4+LqnaPH4qwfdV4kzF30v5mq7jMkFCXEseVJGdw8cIqymfvwyLUsbzsBdQvgbxCIfN2NwWXlDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gox6cT+p; arc=none smtp.client-ip=74.125.224.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="QmR8G/g2"
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93e6fb35f91so120256585a.2
-        for <stable@vger.kernel.org>; Sun, 11 Oct 2026 08:58:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gox6cT+p"
+Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-677dbe051d4so905912d50.0
+        for <stable@vger.kernel.org>; Sun, 11 Oct 2026 09:28:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1791734306; x=1792339106; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ossy4ZlqAnnaACaITPaVVTxzs5zkLFNVTZN6qPcgS+c=;
-        b=QmR8G/g20zJzKEgVvQnPGkK8JAEEBp3Px0hdefHXYLj1iDgR5q/Y0IOSRm7ZrqiL9g
-         JF+U2kpsJ7My/xHNF7QGC3PN3aPRHP/77b4KMW1vhU2Q/zuOUJ5ZWpg4v2liVg9R7V+b
-         +aA5CM+7jV0ViVup3ryqUKbYw942PjWy++MbDde4axbCg7NUV2L8ancUD5dWXc6wxMIL
-         VXbwsAA+o0xCxIk39O/R0IUWA7SW3hX6uLv4oW22PgbEfpBpxudaPsq41k5gt3C4LCte
-         nmNetlZuJhpDMwJGqbJHuFhpcIf63hyHfZrAZR1dsPSlHwR6RKffnMqIu/6D9dx7MHUf
-         ZQXQ==
+        d=gmail.com; s=20251104; t=1791736111; x=1792340911; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gFt47LSAsQO+9dW+yOZPgrQ8Va/c7AWtExmCZjKK+GI=;
+        b=Gox6cT+pbC4miYBOPFdFk5wPSbjPunDqPfcyJ+SlPz1/SaCEK6Euf20OBpBAsS7Tfs
+         IptAxlHxbBczKMMMYruNijg1Qciahg9xaxARXV6Z+csRTP6HtaMInHcRvKWbAXD2ut4a
+         +y/o4g7wmq0Iga4nF0up6fccIjAkRNXKUiMPNlKJjeXO5jtJc5sFjla2VlzVHSDXoCxs
+         aFL3Yed8a5XT1EHP+TYnIhUCYp/gm0ekv7VYdwKPWGR37dHcGLNAofhCvlgCzHTXHCaK
+         YcQzXmwrSsrLglfDX88awO+6CLlq+Bpbi8icVREGeIab7QwXQH8coese4WYS44SvoTvn
+         nJiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791734306; x=1792339106;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ossy4ZlqAnnaACaITPaVVTxzs5zkLFNVTZN6qPcgS+c=;
-        b=devsbnCsI9Y8P8nELbHmgYjt+y4M4H/Mcpkqr8by98L3RTo3W49xqqL6LrvJku2TAb
-         4H2iYEsUgaDGkvH1gM3t/xCEGXRk1nQiIXcDqNZWvKQehjOTFS7cpVw9kaaTCDrEExsv
-         Oq4wt3NPwoFOdoDabGbS/U+W3h3J8/dK3dVPfQMjBZagjLpHF9EqH/GmhQ07943wZMMh
-         RzqV7oZmFmaprVOMq8AV+RG05AIpPdpW+mi500uWg56GWjByRrSyCoGi3lBuJb5OyObl
-         97LK4vCQ3x4O9cvTsUasnOm4RlYfnyOk6slkjvwQAXO/0OsA/4Q4p0rfm7Ai9aeX/P/G
-         vD5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzVZCd8dvgB3HCLTmDura4D6ohn7aYdvnrCXw6cug7jiHz6OibZ5SElY4IlcuoTOu2EPpOeEPg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKjqPe6aAyE5/oAa0okf8A1iOacC4BLJL77HnM/6oFZBinDr6XF
-	7RhWSsLoqwqKl9wSGEautvXmUcEjjGNDFzvlRdUKTa2q+lmjsOSxQCxkHVadDFaWGg==
-X-Gm-Gg: AYBFou1K22sRYh+2S0WLjeBPXnyJUeVo5odTX9VVvA4YYH2iINdpCCunaW8BRqcN6is
-	9xMTRkfoNeBt6Yv9VnYuZ4gUoHLFpWm2rsfUr/rMokAugQPU9LkqqjnYyi+z1trDYiTKLTL8rLw
-	gfutVhrx0uP3azG7bo2kZUrOptB2pZvVXsgo3k+7h8/Ph9HjFL3ohhqcIUg84w5/6OMxqJgxfr/
-	p46DM9aWH9uobWYJlF7KU0zF41OIQ2c3O8YsuAgFkPxLohgQ2FoiKIWKlklTZB5usSHRrizJ3yB
-	A9pTQIBw6zFrAk+9QWZ8Dzrd7I7Mdl6T1rOg5jpP62xT28l2fnWkytYcBAbebYrF612FW93Edj2
-	QsU8+o4SgbIapb+IYh3CK6iC/WSUOWCDnDEgDET1TLoJYWW482v1oLfpdC3YpzXfb0UxkCIFpos
-	8oJm1n93GP+AKz0n437QTvdU67A8Y8rJgNd2d16FuoVSj+JdfZjiWhT2qDlv5goxUkOv2cB1kBR
-	NYFviKfoqU7UfruEY8kuDUlwMPBVFW7
-X-Received: by 2002:a05:620a:2681:b0:93b:d79b:9a5c with SMTP id af79cd13be357-93ebd28bb9emr1226124585a.61.1791734306512;
-        Sun, 11 Oct 2026 08:58:26 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb984889fsm666517185a.13.2026.10.11.08.58.25
+        d=1e100.net; s=20260707; t=1791736111; x=1792340911;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gFt47LSAsQO+9dW+yOZPgrQ8Va/c7AWtExmCZjKK+GI=;
+        b=PlZcf+FjF1IycMR2vx2pZUZ9360qVz+C1wYCT70LH3WEjLkipzyLrRVzb3CI9EvyUP
+         Ait9m7eN1df+y4slE6spLQ559ZGkulcuzakkojp040yclomWMhKBTj7/rsDyHJNubiYN
+         rqY5llb2xqeUTlUCzbdJja4eG/8tcuX1KWjkseXPSB2br9dF8VZ6DZyX+Mxh8AD/b9GJ
+         G9ys5jESUqSPHFAKKwm1xx5at9MVISE9wyzvwUZt9J1IRihC5DxefJNL0MA4fDeoJOIR
+         7QjwrutNEZs+jjEEMaIE9HZzBv0rzbEX+S3IX/Yx++l+lXazVeg6gIV5+3rsIM0f+DPS
+         skyQ==
+X-Forwarded-Encrypted: i=1; AKwUvByR1tn2pXOKeqbclZrMzb3BfeqFc0ItNUDiaFA2sPKv+E5wEeU+PsdaRFDCAPHRzMjys6LSL30=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKIb/MDWO5M+PRthfgX/5CXsqKQqSgvBp2jRe5Gtv+Cx9w75qyE
+	VERkUNo7w73DVJeN2omHvG3xPVn0t4YBe8mIdLgOPx6hE6qpk/6X1g2ZWaW5Aw==
+X-Gm-Gg: AYBFou2jGlXXg0+fh/PX3ZVoPbP0LUk1OM/HkdRgDyZxlPcdCz9gsS55GEvQqWes5A0
+	8OUog6AQtA6E7M4d1qia6fCWG6CNK79RLD1Yy6eTQ5pNMaaElNKVZAhl20QT4fE0y6oXI3STSIc
+	WCd4wPlbFoEfYoB+Kvl37f089I0aiR4IIZnwHr0fdVJ7Rwjbzvq7/rfZYIHxBCIt4APqmQh3H9P
+	zgspUimECVnz6lW4IYCVqkL9eTSAKecMkvAZxUEVwN4UAqXYd0UHK2vT4mcfP9IwYVSka/OZ8xZ
+	oLwz0jnNcaCgCls0TiJy3DO0tfKhksTZkgTp/UiSPaW7zkp8ZIavodvT+5KnDqfVr/BdmJRXCRe
+	Q4ER4YkZqrdXCKh9R8yZ8xxJ/2e7dsD1/NdA2kgNRh9dOmuKOZSOeiaEBaEqS5qJhUMzLcUXqRV
+	mjlOqS28Ki3qNzZ6TJ41A/Au4EMAr30/2ITNSGcTqjxjiXM+UyElLCZ2CvpvS0rUt6dSiM9sTUP
+	USEtb41zITN1SqoaQN9AZ+0M2kV6KqV9ROewVV6sX5IRxY/M8B0fUD0jxWyQKfcA9RK/gSC+u4u
+	6pgsfCLJr4Ysu5lfhuU9A1HlcAXDzW5B/OLKBgnbqIsrH+sT
+X-Received: by 2002:a05:690e:d4b:b0:673:572:4492 with SMTP id 956f58d0204a3-6793600cd9dmr1293447d50.24.1791736110930;
+        Sun, 11 Oct 2026 09:28:30 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-679356d5a8esm2788846d50.18.2026.10.11.09.28.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 08:58:26 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: David Sterba <dsterba@suse.com>
-Cc: Chris Mason <mason@kernel.org>,
-	Filipe Manana <fdmanana@suse.com>,
-	Qu Wenruo <wqu@suse.com>,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] btrfs: fix chattr failing on nodatasum files that have the compress flag
-Date: Sun, 11 Oct 2026 11:58:15 -0400
-Message-ID: <20261011155815.1563812-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+        Sun, 11 Oct 2026 09:28:29 -0700 (PDT)
+Date: Sun, 11 Oct 2026 12:28:29 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: "Jason A. Donenfeld" <Jason@zx2c4.com>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: rafael@kernel.org, 
+ lenb@kernel.org, 
+ pavel@kernel.org, 
+ kuba@kernel.org, 
+ pabeni@redhat.com, 
+ linux-pm@vger.kernel.org, 
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, 
+ =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <jeremy.jean@oss.cyber.gouv.fr>, 
+ steffen.klassert@secunet.com
+Message-ID: <willemdebruijn.kernel.e128e48c07be@gmail.com>
+In-Reply-To: <CAHmME9rW6Pav4vLdHbvvuf65v-+gtoHpDagFpmqrHYnkTKKNuw@mail.gmail.com>
+References: <20261008124106.665014-1-Jason@zx2c4.com>
+ <willemdebruijn.kernel.cf8fec88827c@gmail.com>
+ <CAHmME9r+O=3i4JP94P0-gFwghfWtD=vLa1g3KB-LvW+xFbJWHA@mail.gmail.com>
+ <CAF=yD-LO0u5z8SU_Aktu0-0aeM-1UknYsGc+rCpD3y9bpwxtwg@mail.gmail.com>
+ <CAHmME9rW6Pav4vLdHbvvuf65v-+gtoHpDagFpmqrHYnkTKKNuw@mail.gmail.com>
+Subject: Re: [PATCH net] udp_tunnel: drop packets when hibernating
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Commit cf1afec09e9f ("btrfs: validate properties before setting them")
-made btrfs_set_prop() validate a property before setting it. For the
-compression property, the validation fails with -EINVAL when the inode
-has NODATASUM.
+Jason A. Donenfeld wrote:
+> On Thu, Oct 8, 2026 at 11:03=E2=80=AFPM Willem de Bruijn
+> <willemdebruijn.kernel@gmail.com> wrote:
+> > Since this is an issue specific with security protocols and reuse of
+> > their state across freeze and restore, is that the more suitable
+> > location for this check? Drop transmit of packets with that risk
+> > (unique for that connection nonce) only, if freezing.
+> =
 
-However, chattr writes back all the flags it read from the file, and
-btrfs_fileattr_set() sets the compression property whenever the new
-flags include FS_COMPR_FL, even when the compression flags do not
-change. A file created on a filesystem mounted with nodatasum has
-NODATASUM and still inherits the compress flag from its directory. As
-of now, chattr fails on such a file when it changes any other flag.
+> I was thinking this is a pretty common problem to UDP apps in general,
+> and it's confusing to have these sorts of replays due to hibernation
+> that userspace doesn't have. It's an odd problem to expect every
+> in-kernel user to fix independently, so maybe it'd be more clever to
+> do this all in one place. I can put it in only wireguard, instead, if
+> you feel really strongly about it. But I was thinking this just seemed
+> like an odd behavior difference that could be easily fixed for
+> everyone.
 
-The issue can be reproduced with:
+When it comes to security protocols, this does not cover many of them,
+such as IPSec, MACSec, kTLS or PSP.
 
-    mkfs.btrfs -f /dev/sdb
-    mount -o nodatasum /dev/sdb /mnt
-    mkdir /mnt/dir
-    chattr +c /mnt/dir
-    touch /mnt/dir/file
-    chattr +A /mnt/dir/file
+Independent of security protocols, is there a replay on thaw issue?
+Your example points out that 6 and 8 can have different data, so this
+is not a replay because of thaw, but a second transmission by the
+security protocol, correct? If so, then other UDP protocols are not
+necessarily affected: only the nonce reuse is the problematic aspect.
 
-Before commit cf1afec09e9f ("btrfs: validate properties before setting
-them"), the last command succeeds.
+To avoid across UDP, udp_tunnel_xmit_skb would also be too narrow,
+capturing only tunnel packets. Blocking transmission post snapshot
+entirely may require quiescing at the device layer, something like
+QUEUE_STATE_STACK_XOFF (if that isn't done yet, I don't know this
+freeze process well).
 
-After that commit, it fails with EINVAL.
+> > udp_queue_rcv_one_skb is the UDP hot path. Since it touches all
+> > packets, the last resort for adding checks that are relevant too only=
 
-This patch will make btrfs_fileattr_set() leave the compression flags
-and the compression property alone when the call changes neither
-FS_COMPR_FL nor FS_NOCOMP_FL.
+> > a small subset of packets.
+> =
 
-Fixes: cf1afec09e9f ("btrfs: validate properties before setting them")
-Cc: stable@vger.kernel.org # 7.2+
-Suggested-by: Qu Wenruo <wqu@suse.com>
-Assisted-by: LLM
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
----
-Changelog
-v2:
-- Do not test whether the inode can be compressed. Leave the compression
-  flags and the property alone when the call does not change them, as
-  suggested by Qu Wenruo. Setting the compress flag on a NODATASUM inode
-  still fails with -EINVAL.
+> Is there another way you'd suggest doing this? Some other trick for
+> disabling the socket? I also am not keen on adding branches to hot
+> paths.
 
-- In the failing call FS_COMPR_FL is set, because chattr writes back the
-  flags it read. A test for "neither FS_NOCOMP_FL nor FS_COMPR_FL is
-  set" does not catch it and would stop chattr -c from removing the
-  flag, so the check compares the old and the new flags.
+At this layer or another, making pm_freezing a static_branch toggled
+by freeze_processes() / thaw_processes() would make the branch a
+NOOP in het hot path.
 
-- Explain why the call fails.
-
-v1:
-https://lore.kernel.org/linux-btrfs/20261010105425.165104-1-hengyul@cs.unc.edu/
-
- fs/btrfs/ioctl.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-index 52aab510aea0..43a945345cbe 100644
---- a/fs/btrfs/ioctl.c
-+++ b/fs/btrfs/ioctl.c
-@@ -375,6 +375,19 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
- 		}
- 	}
- 
-+	/*
-+	 * Callers write back the whole flag set, so only touch the compression
-+	 * flags and the compression property if FS_COMPR_FL or FS_NOCOMP_FL
-+	 * changes.
-+	 */
-+	if (!((fsflags ^ old_fsflags) & (FS_COMPR_FL | FS_NOCOMP_FL))) {
-+		/* 1 item for the inode */
-+		trans = btrfs_start_transaction(root, 1);
-+		if (IS_ERR(trans))
-+			return PTR_ERR(trans);
-+		goto update_flags;
-+	}
-+
- 	/*
- 	 * The COMPRESS flag can only be changed by users, while the NOCOMPRESS
- 	 * flag may be changed automatically if compression code won't make
--- 
-2.53.0
-
+So far, most promising I see is blocking the new handshake in
+Wireguard itself to avoid this from being possible. But that would
+indeed require all other protocols to be warned and review for
+individual fixes. A single choke point would be preferable, but I
+do not think they share a single such code path.=
