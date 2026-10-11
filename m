@@ -1,125 +1,101 @@
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6457924DD17
-	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 01:17:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791681479; cv=pass; b=hEXfmUAhdMcyyofmOZyFHFtSrB/0L2ZINi9er+T8bWJ+w1O8Vtlo3gjS5EA9r+tY1nVdYJN3I+dpZI5hv8IPpCRgml7/XvRTNv9ESdfe975F2UWiyUOsaaBgr5FG//fSwyvfHRv/JcvAlWRRgI4Q4jBvwJ8hv3QSVXJUcqMPTWQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791681479; c=relaxed/simple;
-	bh=fnuiAUzH8i1RXzJbjDNXAl12hhVXicwYx/CWz3s49ps=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F169A277C81
+	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 01:23:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791681812; cv=none; b=FK08TbIyl+3h6N5FqEp9CD2q1hVMqlI0ZpiOofoDAPSHB+5+qycn5BPpw4y2ESfKBtVXYZyOGkVSWzLvtWh+uKbbdCup2V/veeyhSxaBN9I84Ehjb3RubdtrYqroMvXXkWrlvgZoqv9+P90lh4v+U6dnDczTmd1PAnlLJFzzDyI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791681812; c=relaxed/simple;
+	bh=XrpzSJ/DTTagRfedMl1HXHs8F7QgjqSEkRayC0Oo8wA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fCyGcycTLryhzQR0GhKDlBHMwIlMnQrew3Xij8nckei+Ghs7f5JYnj0Pxi2UITulGAtd/bdD4j5oQGRLfGcPFRzU4GZOEgf+jt6T582qkC/sTZPV9IVrjWAngjwfDgx59TIBvuLaStIR4fgNi9RBixJlCbouWApgvzj5GXDsBW4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sladewatkins.com; spf=pass smtp.mailfrom=sladewatkins.com; dkim=pass (2048-bit key) header.d=sladewatkins.com header.i=@sladewatkins.com header.b=m/O6ffgE; arc=pass smtp.client-ip=74.125.224.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sladewatkins.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sladewatkins.com
+	 To:Cc:Content-Type; b=jNTE3YHuFoEyh8CBYEi1RIBz7hsjVJEVQSAw/gjSuVwPsIayx/W+x8nyt6UOjWjLUApYn5Lz0Xg1END/JpsdUxZGkWrJoGgB/wXfiD+3kQn5GfGClgoxzlXmfbZkEvXRbdSTUe01KLNU2C3LbZotkYj2xZt4VkvfVQh4IiOTzhY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; dkim=pass (2048-bit key) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.b=OUYCctiy; arc=none smtp.client-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sladewatkins.com header.i=@sladewatkins.com header.b="m/O6ffgE"
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-67583c777abso734313d50.1
-        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 18:17:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791681477; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Op+0P12IiGqCgfM+Pz4ZEIXVJttj5OYN4jTZa+h2QgAtjROZxak54o2iF3B+bziAPW
-         3+850augAlclTc+RZ6Idh0WBbyk9/DNqXjcBv3xOg5VNkWh2NwWMzjl1YsqYyis9DaIB
-         /qtmDD1NEUJDdUOse5cuiM9rF0pThS0LdisbnhowZHs16S1kaDitslrT7hLpgcuTCEQj
-         XfC8emWqLcGYUmWBHFAFCOwRSVULo5NuMOoXhUoL6GeKbeUeJsodmFy9ezWT7aIqWx+X
-         JhlCPwLiwUQhGOWs61Ie/OJX4XDY4IuhTyA0P2kOxkKOcnpLfJB+O64HDZFi3ZL6H28y
-         qjkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bzVBreIIkdPuKDnn/qisn7+R+ttNV+LZ3ilnD4kWs40=;
-        fh=e7ggA/XE3PM0jnbsK1PyHaZymhGI04QauLNqJmdOFn4=;
-        b=Tv0FEsIGrfeNDOncDMbaYbzSrBYNndoTdV6w72UlQgoKniKgvOlW00Pf2/gBKdRbOJ
-         fUf+p89RlZfnyZYwF1WGVMmuF69dRN1W93yrakuIDIULglommiNbCFBeYkfObdbKr587
-         gbCqnpOp1bycgSTSzUeaGC6znR79SGkpwWvvFpuwShsn310VBz5HzRWdNIHo65ceUHxX
-         ztedad2EAWIVN85OVVUcjlbScXTSiBwrLoQm98VLFueiMYsQl1ATg2K00t7+zhMU1E15
-         1+JVUG48UEYjVyzG0+jkNFKK/5OQ1S8WOJYh9zbhbmbHY0omaGoXciuYs7AEOj6AxYJb
-         JXcQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sladewatkins.com; s=google; t=1791681477; x=1792286277; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bzVBreIIkdPuKDnn/qisn7+R+ttNV+LZ3ilnD4kWs40=;
-        b=m/O6ffgEwlymbGYeEO0z0/7tbBmFlMxQI2JdomPUPSui+Tx7Qv4LcrbyUMk/jw3XNX
-         z7+PHfREREt9cFtkcO6xI2hd49eAE0wmCQ+AqxdzC5hymwq0XIgqQU1zgcLDUlU/k06d
-         o7Tra68cReB9SqZwRS1kQrK34G8xrxL+VOyLlHawi5VxLlDqNamy9hXWKKBz7+UeXIFD
-         oKX+lvCd6fxBgAM3JwBNbPHdAipGJBA8YFq1AmN6xC0X1wZyFFJmmctLnagPJquOoP2n
-         if2qUQxLQQ8bW+HrZO0EoxkdoVS+QN4hcIckVeCOGw5PnHsOOUwfSGUzlxShtB3bCxGj
-         Sg0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791681477; x=1792286277;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bzVBreIIkdPuKDnn/qisn7+R+ttNV+LZ3ilnD4kWs40=;
-        b=OuLRNDnEnTxT3NWjPSNaE6aJ9XibDedwc9ctph8y/R16adfWXRONKeBVw4NT4wIP+L
-         F0fi75HEZSm2/VVWEpY+A4hwSm9dHyOOiB6DFuUh+xT/WAQ2JgZ0HDme+fjSMGROVQYu
-         KDvWt1ko2/MiEh1nJ1jFUrgatGPVUVsPgZlUGVLEO1mR10n5enTTya7T0dxsZlpFKUS3
-         Ow5PTdIpK+oQCsyRfNh0Gubroi9kTLi43tNF42PYK93JQy868tg27rgsXEtinVpqHe7J
-         3MnxAiYHnnLL7+POda6n27rerCni+SxSlcxnSPrCHu6wio9Btp0zZbE8lQYfI84de19T
-         XEvg==
-X-Gm-Message-State: AFq9FYKUpwI1MKBBLx/oUfz7mDaKtG0IPAggBNeWNGRmEuF0jcKAeUMe
-	yzenVcltX7uLUyXxA67V+jhVUDln4cGwlLjbLJUJB5qowHZYQJdVzzDjVG69utfufhqAsvs2m1n
-	QJr/OpnsmMKNmGyXcLdPyhlt/8wxQL446wtgmZgM02SbQY4X2MkMyNMQnwZZll/BxRmNJto52yg
-	JSW+Qc+8YvJKoEMXrH+OVW+iPI4NQc0rGWcnx2yHkoGIU0uw==
-X-Gm-Gg: AYBFou0DEJTaQbL8prcSbp1QtQYvQoJNL8QZa7SG29qDiR1cqsNreBnFBE29mq2PSVD
-	J9/MJzWwk0z7vH5OhGkvdMv1+ezVTHXRqcfXK12drpNWNRJVmPq81HytZx4AZVafb6a7otUI1B1
-	Yn6dXL86Fvv3iiXhrrp/HmWC0SOOyiHB1fSzFMsMblxBWfJufyJd+JFBmlo6Eca8b+t9WFMUG/P
-	Kc+RIdu00T3g26lYYMw7KAV/MCTqQSTXAYGGgEr4Anr0YbNlzM+z693eG5615Nb3I5YK+XRtP4x
-	gqAVNDvlx75Wk4r33SKsURL85IpG2PAVdWPJkT+AVXLSB2A7Ei4dlbztcBmRykQwGrwbE+5VWlL
-	2X//y9x3wDg==
-X-Received: by 2002:a05:690e:190e:b0:677:d35f:c4d1 with SMTP id
- 956f58d0204a3-679369f7abemr1942202d50.55.1791681477199; Sat, 10 Oct 2026
- 18:17:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.b="OUYCctiy"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=outgoing.csail.mit.edu; s=test20231205; h=Content-Transfer-Encoding:
+	Content-Type:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:
+	MIME-Version:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=6NWM+eldm9EciYsTQn972KMZgMpvJjJhXLQrDig7no0=; t=1791681811; x=1792545811; 
+	b=OUYCctiypQ8eEg7mxxYo/fvzu+C0tnFbACHejFdIiSEE/hVbOEqB3uUK/PRg5MXI8kapzTKWTRu
+	DG4c7izwJ4EYO/kZMqlpnH4V/vsblIu0yJhJ5U8gY7OQPFbyCUp6hT4UGxCFkEcIunrQiFrZcj4le
+	7MrHj/Iyy7+dREWNjHpgZwtQxQwGGxaFeNSEc7tb4TUS68vNP3itfdO/tSSj+NZb6x4wKl5sZihDk
+	SzOKRmwNvPVRsdJJ/uDD0fD2icDXRRWHRUf1E2BEioQ0wvVGa7Ami3M4d7Hs+ZpCthRRpM+IPL05M
+	/pZ1q1pkaCdsZacKmsh+qpuFw/lHHRWOJJQQ==;
+Received: from mail-dy1-f169.google.com ([74.125.82.169])
+	by outgoing2021.csail.mit.edu with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xFiHi-008AUh-5p
+	for stable@vger.kernel.org;
+	Sat, 10 Oct 2026 21:23:30 -0400
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3282db206d3so3174086eec.0
+        for <stable@vger.kernel.org>; Sat, 10 Oct 2026 18:23:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByd0a2BY5Lgik39FGmUUrNNhkUoPZ9N7uvsadXRCVNBprp9LzoiBeQcgWPeI/fJaXKlhB4uVrs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+MQWCIrn0h2KnqvKHbjH73e7xnhEqONfwGKTqSnEPBumCSi3J
+	TmObCvnEcJHt2rH3jXI0e40AdPA9idccAU8v1qFnkVSYW6N+jX6lBqE5hEHGX/rKgCbgpjDvHkf
+	vgJ4EhBHjTETLyElpFV0mk5EwjhQt9a4=
+X-Received: by 2002:a05:701b:2092:20b0:16d:c848:d36e with SMTP id
+ a92af1059eb24-16dc848d4ecmr5183168c88.13.1791681809283; Sat, 10 Oct 2026
+ 18:23:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009140952.119038291@linuxfoundation.org>
-In-Reply-To: <20261009140952.119038291@linuxfoundation.org>
-From: Slade Watkins <sr@sladewatkins.com>
-Date: Sat, 10 Oct 2026 21:17:46 -0400
-X-Gm-Features: AclHuK-o_Bx3fweFB3qoGz-32K9Zbv921ZKMnF-L8na-GXc5lR3Y1ZGIdt8C0w4
-Message-ID: <CAMC4fzL3rK3pdiZLpnVv_gju0dSUYp24AWnk1VTHHvch1xmVBg@mail.gmail.com>
-Subject: Re: [PATCH 6.18 000/403] 6.18.56-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
-	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
-	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
-	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
-	achill@achill.org
+References: <20261009051857.758182-1-nickolai@csail.mit.edu>
+ <20261010162558.62abcd2ec967b009d0cb3bbb@linux-foundation.org>
+ <CADGQE7G-PAiJ2W8uhFO_-e9GGtEPey=drfSqLfWdxXDys3mJNg@mail.gmail.com> <20261010181016.44f5e2883b6820bb32c04204@linux-foundation.org>
+In-Reply-To: <20261010181016.44f5e2883b6820bb32c04204@linux-foundation.org>
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Date: Sat, 10 Oct 2026 21:23:17 -0400
+X-Gmail-Original-Message-ID: <CADGQE7F5SsRjqCAWJbwsT9P8+Uq-d_movTmiCM1ko=dg52kmCQ@mail.gmail.com>
+X-Gm-Features: AclHuK_JytmvPKHV2JJKLmw644JZVHLd9i3B6iNoev1zmZ91lFgee4W5dbKHjvk
+Message-ID: <CADGQE7F5SsRjqCAWJbwsT9P8+Uq-d_movTmiCM1ko=dg52kmCQ@mail.gmail.com>
+Subject: Re: [PATCH] lib/plist: fix plist_requeue() shortcut inserting the
+ node at the list head
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	I Hsin Cheng <richard120310@gmail.com>, Ching-Chun Huang <jserv@ccns.ncku.edu.tw>, 
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Rogueport-AntispamServ: glowwhale.rogueportmedia.com
-X-Rogueport-AntispamVer: Reporting (SpamAssassin 4.0.2-sladew)
 
-On Fri, Oct 9, 2026 at 10:13=E2=80=AFAM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
+On Sat, Oct 10, 2026 at 9:10=E2=80=AFPM Andrew Morton <akpm@linux-foundatio=
+n.org> wrote:
+> On Sat, 10 Oct 2026 19:33:46 -0400 Nickolai Zeldovich <nickolai@csail.mit=
+.edu> wrote:
+> > On Sat, Oct 10, 2026 at 7:26=E2=80=AFPM Andrew Morton <akpm@linux-found=
+ation.org> wrote:
+> > > I recently queued a fix for this problem from Alex:
+> > >         https://lore.kernel.org/20260903222456.1881786-1-handyhandyma=
+n.adam@gmail.com
+> > >
+> > > The two patches are rather different.  Please review Alex's change an=
+d
+> > > and let us know of any alterations/improvements which you see.
+> >
+> > This patch is equivalent; I don't see any reason to prefer my fix
 >
-> This is the start of the stable review cycle for the 6.18.56 release.
-> There are 403 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+> Thanks.  Can I add your Reviewed-by:?
+
+Sure, sounds good to me.
+
+> > (except for the test case that might be helpful in catching
+> > regressions).
 >
-> Responses should be made by Sun, 11 Oct 2026 14:08:27 +0000.
-> Anything received after that time might be too late.
+> I like test cases and I take patches ;)
 
-Hi Greg,
+Sent just now.
 
-6.18.56-rc1 built and run on my aarch64 test system. No errors or regressio=
-ns.
+Thanks,
 
-Tested-by: Slade Watkins <sr@sladewatkins.com>
-
-Cheers,
-Slade
+Nickolai.
