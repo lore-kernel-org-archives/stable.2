@@ -1,113 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B94903E5594;
-	Sun, 11 Oct 2026 13:10:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE29E448D11;
+	Sun, 11 Oct 2026 13:18:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791724224; cv=none; b=uzljj1JIhGr5nUeLMBUTwz3q8fismbtC7XDfd7m4o9ohqHBruG/h3Zcf28gwr2iLuaskeRrOFtHiLtgkOkoFEa5IPBE4sohvPWpTUNRo7NNuqZ1pSs907IRZ4+rfyms7Ocr2//AWAGUSoUPBqXHJWkYgEcBXn3DeZzeSmxS+tVg=
+	t=1791724727; cv=none; b=VHD4SAQc2UdI16V7olS3U5LOAf6TNRr9OXGym1KxYzxgcBgBomA0MPzYAdUtmpfrn61yZAK3+eRDrx9i6DVE7aIdMC0s20jUVG58/kFj98jzwSE62+f1nDDbZhrvMfzxxxF038ZCM6UyeBa8AYqrcQjmAsLb406rjKg7/2eguCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791724224; c=relaxed/simple;
-	bh=8vhV/2HZ1ftlHJZLdB47C2Z8Z6/gO/ea8hWSukoTB9g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gaG4GgMSYTL+CtHgP86blhlyo228P6om+NVnbvC0OAJPpvJ9gQ6uH62JWRVYhSotWs/zSRgsrDUXXZdHlR5Rnt0pxwo5pOvufvIlyaxMJDzkJ6fEB56HP4Z7sb6LXTwQrKU82uAVAGhPztdhabG880st2Vf3DJlphCFtaiXSg2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dIkub4Ry; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791724727; c=relaxed/simple;
+	bh=t8UuEKhu5JXkAPu45ZUXWAfV2UasjGtxjZbqYUHs9Cg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r6RlQ8rpP1hKdgn85AyfiDr1QpF0AGSegI+mMoxMHrXscOYw/YdZSbBO9o5Um0G8ZKdfn67AWAZM3h76itI+7oPife8kao31q2h+esMkd2Jdkf3B30d+oHNmU+JRGZLpvYyprHM9UWqu8ztRVT5d8BOBK3Bk/XVWGkI/WPCUNdE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ZYwbKmR4; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dIkub4Ry"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC9141F0089B;
-	Sun, 11 Oct 2026 13:10:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791724223;
-	bh=06YExlWYCYI2hlQoPljJejdL84JiLaFEcetoMG9XiQo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dIkub4Ry0SRjcg6tUuorFGY0Kkzyul9x22/bilKGBNQalnJV4n8E8zfegK77hYbX+
-	 ToQNXCOzRfiLS7riASX8YZrC2wWKjHpXlq0ByDpiIb/OpGF3vjsHrGWOZScwkQ2TGO
-	 zcPXt4Vd4tPW1PGvGRe6niAfz6CSvWVOazcOD60g=
-Date: Sun, 11 Oct 2026 15:10:20 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: achill@achill.org, akpm@linux-foundation.org, broonie@kernel.org,
-	conor@kernel.org, f.fainelli@gmail.com, hargar@microsoft.com,
-	jonathanh@nvidia.com, linux-kernel@vger.kernel.org,
-	linux@roeck-us.net, lkft-triage@lists.linaro.org,
-	patches@kernelci.org, patches@lists.linux.dev, pavel@nabladev.com,
-	rwarsow@gmx.de, shuah@kernel.org, sr@sladewatkins.com,
-	stable@vger.kernel.org, sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Arve =?iso-8859-1?B?SGr4bm5lduVn?= <arve@android.com>,
-	Todd Kjos <tkjos@android.com>,
-	Christian Brauner <christian@brauner.io>,
-	Carlos Llamas <cmllamas@google.com>,
-	Alice Ryhl <aliceryhl@google.com>
-Subject: Re: [PATCH 7.2 000/428] 7.2.10-rc1 review
-Message-ID: <2026101124-rethink-craftily-cb25@gregkh>
-References: <20261009140946.008206689@linuxfoundation.org>
- <20261011111313.27648-1-ojeda@kernel.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ZYwbKmR4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=iL
+	r+wm+n5REuBuunKDSCeG4oSd1yJjxQBNlTObmFnkA=; b=ZYwbKmR45xEhWvACcX
+	zVGKRD3AAmfB2g/ifcv6YvCSlUbJLvx/jDuWc/ER+Qv9Jku2+I+8QLfdId4KbLNT
+	Ph6WDU1yuNQm3VuK0nUqcuspgreM/bjZaWfbL/ri+9QcTk+Br1aM1jHJDXPwMUPI
+	Jn3jbbOvbgB4YF2Z76Bh5zi48=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDXV6tLjMtqB6qpDw--.58841S2;
+	Sun, 11 Oct 2026 21:17:01 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: tj@kernel.org
+Cc: void@manifault.com,
+	arighi@nvidia.com,
+	changwoo@igalia.com,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	sh_def@163.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] sched_ext: idle: Respect task affinity in restricted CPU selection
+Date: Sun, 11 Oct 2026 22:17:00 +0900
+Message-ID: <20261011131700.1351541-1-sh_def@163.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261011111313.27648-1-ojeda@kernel.org>
+X-CM-TRANSID:_____wDXV6tLjMtqB6qpDw--.58841S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWrWUtF45Ww4UCr17WFyrCrg_yoWrGryrpr
+	ykKw42gwsrJa10y3W3Aw4kJF15Zrs7C3yftrWfGr4SyFZ0gw109rWvq3W3XF95Kr4kAF42
+	vF4qqr1fKa1qy37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zi75r7UUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwQ7DI2rLjE5erQAA3-
 
-On Sun, Oct 11, 2026 at 01:13:12PM +0200, Miguel Ojeda wrote:
-> On Fri, 09 Oct 2026 16:05:37 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
-> >
-> > This is the start of the stable review cycle for the 7.2.10 release.
-> > There are 428 patches in this series, all will be posted as a response
-> > to this one.  If anyone has any issues with these being applied, please
-> > let me know.
-> >
-> > Responses should be made by Sun, 11 Oct 2026 14:08:23 +0000.
-> > Anything received after that time might be too late.
-> 
-> Building Rust Binder breaks with:
-> 
->     error[E0061]: this method takes 1 argument but 2 arguments were supplied
->        --> drivers/android/binder/node/wrapper.rs:86:50
->         |
->     86  |                 _drop_outside_lock = owner_inner.push_work(&node.owner, node2);
->         |                                                  ^^^^^^^^^ ----------- unexpected argument #1 of type `&Arc<Process>`
->         |
->     note: method defined here
->        --> drivers/android/binder/process.rs:173:19
->         |
->     173 |     pub(crate) fn push_work(
->         |                   ^^^^^^^^^
->     174 |         &mut self,
->     175 |         work: DLArc<dyn DeliverToRead>,
->         |         ------------------------------
->     help: remove the extra argument
->         |
->     86  -                 _drop_outside_lock = owner_inner.push_work(&node.owner, node2);
->     86  +                 _drop_outside_lock = owner_inner.push_work(node2);
->         |
-> 
-> (and similarly in `drivers/android/binder/node.rs:74`).
-> 
-> It is due to upstream commit:
-> 
->   dbb17c9ea756 ("rust_binder: move (e)poll wait queue to Process")
-> 
-> which added a `&Process` parameter to `push_work`.
-> 
-> 6.8.y breaks similarly.
-> 
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Arve Hjønnevåg <arve@android.com>
-> Cc: Todd Kjos <tkjos@android.com>
-> Cc: Christian Brauner <christian@brauner.io>
-> Cc: Carlos Llamas <cmllamas@google.com>
-> Cc: Alice Ryhl <aliceryhl@google.com>
+The restricted select_cpu kfunc path handles single-CPU and
+migration-disabled tasks without going through scx_select_cpu_dfl().
 
-Seems to be broken by "rust_binder: reschedule node refcount update on
-thread exit" as removing that fixes the builds which I did.  Any
-objection to that?
+It currently uses prev_cpu as the candidate. However, prev_cpu is only a
+hint and may no longer be usable after an affinity change. When the caller
+supplies @allowed, the restricted path can also claim and return an idle
+CPU which isn't in p->cpus_ptr.
 
-thanks,
+Derive the candidate from task state instead. Use the sole CPU in
+p->cpus_ptr for single-CPU tasks and task_cpu(p) for migration-disabled
+tasks. Validate the candidate against the task's effective affinity and
+the caller-provided mask before claiming its idle state.
 
-greg k-h
+The validation must happen before scx_idle_test_and_clear_cpu(), as a
+successful call consumes the CPU's idle bit. A later placement validation
+therefore cannot undo the idle-state side effect.
+
+Single-CPU and migration-disabled tasks skip ops.select_cpu(), so this
+path can instead be reached when the CPU-selection kfunc is called from
+other contexts such as ops.enqueue(). The normal ops.select_cpu() path is
+unchanged.
+
+Fixes: 683d2d0faba1 ("sched_ext: idle: Introduce scx_bpf_select_cpu_and()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hui Su <sh_def@163.com>
+---
+Testing:
+- x86_64 KVM/QEMU private BPF test-run harness:
+  - The baseline returned CPU1 outside the task affinity; v2 returned
+    -EBUSY.
+  - With a stale prev_cpu, the baseline returned -EBUSY; v2 selected the
+    task's idle CPU0.
+  - A caller mask excluding the task's candidate CPU returned -EBUSY with v2.
+- The stock sched_ext allowed_cpus selftest passed.
+- Built vmlinux and bzImage with CONFIG_PREEMPT_RCU=y.
+- Built kernel/sched/build_policy.o with CONFIG_PREEMPT_RCU=n and CONFIG_SMP=n.
+
+Changes in v2:
+- Derive the restricted-path candidate from task state instead of prev_cpu.
+- Document the idle-bit side effect and the ops.enqueue() reachability.
+
+v1: https://lore.kernel.org/lkml/20261011025256.4180374-1-sh_def@163.com/
+---
+ kernel/sched/ext/idle.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
+
+diff --git a/kernel/sched/ext/idle.c b/kernel/sched/ext/idle.c
+index aa9fb6de0ad6..1ccea60e9012 100644
+--- a/kernel/sched/ext/idle.c
++++ b/kernel/sched/ext/idle.c
+@@ -958,6 +958,7 @@ static s32 select_cpu_from_kfunc(struct scx_sched *sch, struct task_struct *p,
+ {
+ 	unsigned long irq_flags;
+ 	bool we_locked = false;
++	bool migration_disabled;
+ 	s32 cpu;
+ 
+ 	if (!scx_cpu_valid(sch, prev_cpu, NULL))
+@@ -995,14 +996,21 @@ static s32 select_cpu_from_kfunc(struct scx_sched *sch, struct task_struct *p,
+ 	/*
+ 	 * This may also be called from ops.enqueue(), so we need to handle
+ 	 * per-CPU tasks as well. For these tasks, we can skip all idle CPU
+-	 * selection optimizations and simply check whether the previously
+-	 * used CPU is idle and within the allowed cpumask.
++	 * selection optimizations and simply check whether the task's only
++	 * usable CPU is idle and within the allowed cpumask.
+ 	 */
+-	if (p->nr_cpus_allowed == 1 || is_bpf_migration_disabled(p)) {
+-		if (cpumask_test_cpu(prev_cpu, allowed ?: p->cpus_ptr) &&
+-		    scx_idle_test_and_clear_cpu(prev_cpu))
+-			cpu = prev_cpu;
++	migration_disabled = is_bpf_migration_disabled(p);
++
++	if (p->nr_cpus_allowed == 1 || migration_disabled) {
++		if (migration_disabled)
++			cpu = task_cpu(p);
+ 		else
++			cpu = cpumask_first(p->cpus_ptr);
++
++		if ((migration_disabled &&
++		     !cpumask_test_cpu(cpu, p->cpus_ptr)) ||
++		    (allowed && !cpumask_test_cpu(cpu, allowed)) ||
++		    !scx_idle_test_and_clear_cpu(cpu))
+ 			cpu = -EBUSY;
+ 	} else {
+ 		cpu = scx_select_cpu_dfl(p, prev_cpu, wake_flags,
+
+base-commit: 7b63ef2d55f24519e7e9e5f4d15dbea03f126e40
+-- 
+2.55.0
+
