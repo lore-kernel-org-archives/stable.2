@@ -1,30 +1,30 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A3F6469829;
-	Sun, 11 Oct 2026 22:34:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076B8367F2F;
+	Sun, 11 Oct 2026 22:34:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791758046; cv=none; b=UjaxECL1NJeICM7g42tsV1RIkgIJQA9e9L/K1x5CWHwcGbkDqjamQ9TM+Zo9Fb/5GTki7RbVTMBjM418Okz55+yXaMooXn0kK+yKOlEp4TmtdLVY8c7K7Yw//0R3ScOWcwm2+Qq6E/QJtBJPh/GINUUG35Y0xpWtNohMPuvQhPw=
+	t=1791758048; cv=none; b=WEGSfUBCjs+EB0mwWswypo9uVCYZUclSgjak8OwxWIrHvSpSUuGjfsUyjYH9j8OMmTSd35D/RZ/dOSV0I4OFM1E652pE+Xkss8Fql3bPaKbqO9ULhuv/agf/y6bDVtAZbbWiK9HJ0SXw0lONvMyOghHZiEl97RiO1LRktEk8cUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791758046; c=relaxed/simple;
-	bh=+dKFlC8W3vOE1tGAfuaZ2p2Uv1/GeOYR8teClFiYmEs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W/eEyEmvauzMaxRUTjX6hZCjcgYdt5zfndwrcAiJ4oTogA4F+bwa8QZkw6Jnb9/f6H5b25vEyK1v4pg4WgQzZ3TfL+Vkpk+cFTpNiKKJXnL/r6t5MJpsf3qlaAgXt9rtJ4BtwqUS2eL7OdCCQrP3r0HmNtSugxT1sfpQG97N6ts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lSUIsz0M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791758048; c=relaxed/simple;
+	bh=WMwOo6ZHJKM/+LALDpbbjM9jBR11NdKWAMF74UFsLrw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MwLYA9eh+2aHCOVg30JaZuTzBsYupNOwh3GfUwLCPmMgivanQ5N+/PWBfsjIkqLoQokj+vbb3kx2EV67XTH/k2pS50cPxgX0EhIgHd+E5BY5gCjcszhZVEF+C/Ha4OqiRRUxY+T4Hk17sR9oP3k8S/GKUUtXwRXaepcw2z+P9/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZWg7LNYM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lSUIsz0M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 390861F0089B;
-	Sun, 11 Oct 2026 22:34:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZWg7LNYM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 165C01F0089B;
+	Sun, 11 Oct 2026 22:34:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791758045;
-	bh=9ApxRjIgXaJO/vkqe1GeUvOEuj9GXvGm5LSP/tDliAY=;
+	s=k20260515; t=1791758046;
+	bh=KveST5rNXakYwiTZc2jZX+M6zkjSYi3PzHAhaxZQntc=;
 	h=From:To:Cc:Subject:Date;
-	b=lSUIsz0MKqNONShNq08Z1d1HB9gXmXJwmS3aYNKF3f8zkxiLuSUsS0/yyxCOHl3fH
-	 E7GdaVUF7chCAftRh5y4PfNo1fUDg1tpS/Ws7Mx35I1h3vyJccBNg/zWmKCkoRKf9f
-	 sMI4neydK//Lns5BRlTdvDz/nJsmfBoiABUV+eRc2QAan286HgYj3sy/K18uu8N+lz
-	 zo4OUIUdl4gDXuVRuE5u5NrtGMxdv8PdlY0hspTC2TLsAEsRUlF3rloMDI+Ik4raPp
-	 Jem8O44pyiLZes3emkj7795d3FfqePeOY6K04kxreKuMtYPBldUu3xRgvrXegl6Qf4
-	 7vE2sYJgSMgmA==
+	b=ZWg7LNYMNOg7qU7BoIOsjZVrBe8UUuoSdqCxIrzRWiqh/LNIDk3ZSFcADaCDsI7yv
+	 SUAQyuWqT8CJh/5v+3YjOo/tpS8Jjt7zPyGJmnoPQv3EzAgQavWg7MvC92JqXc4R+Q
+	 rlFgTahUzXstoo6epRyh4Ei9tRdG0pVot5Imug6pfaATdMF4hrrglxCtgA3ZgBQXUI
+	 q3VNdhI9/xsv2BRIi2wIYV8IYeMDbTCbZGT6Q6TZYwYAQ1PHjMs1regCPpM5BzH1Pm
+	 wOh8rMNhhZHfWo7lag2CEYxonJpLsKDRVZuQjr/IiYIpBRFlksnrKzr37fS7+hvh0x
+	 5qnnNh7ddy2yA==
 From: Sasha Levin <sashal@kernel.org>
 To: Barry Song <baohua@kernel.org>,
 	Qinxin Xia <xiaqinxin@huawei.com>,
@@ -32,10 +32,11 @@ To: Barry Song <baohua@kernel.org>,
 Cc: Sasha Levin <sashal@kernel.org>,
 	stable@vger.kernel.org,
 	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] tools/dma: fix building with O=
-Date: Sun, 11 Oct 2026 18:33:31 -0400
-Message-ID: <20261011223358.2327625-3-sashal@kernel.org>
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org
+Subject: [PATCH] tools/dma: fix building from the top level with O=
+Date: Sun, 11 Oct 2026 18:33:32 -0400
+Message-ID: <20261011223358.2327625-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -45,37 +46,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With O= set, "all" depends on $(OUTPUT)dma_map_benchmark, but the only
-rule builds dma_map_benchmark in the source directory, and built-in
-rules are disabled:
+"make O=<dir> tools/dma" fails:
 
-  make: *** No rule to make target '<O>/dma_map_benchmark', needed by 'all'.  Stop.
+  Makefile:27: /tools/build/Makefile.include: No such file or directory
 
-Build $(OUTPUT)dma_map_benchmark.
+tools/Makefile clears srctree, and the dma Makefile only works it out
+again when building_out_of_srctree is not set, which the top-level
+Makefile sets for O= builds.
+
+Also work out srctree when it is empty, as tools/bpf/Makefile does
+since commit a89b2cbf71d64 ("tools, bpf: Fix build for 'make -s
+tools/bpf O=<dir>'").
 
 Fixes: f74ee32963f1b ("tools/dma: move dma_map_benchmark from selftests to tools/dma")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/dma/Makefile | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ tools/dma/Makefile | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/tools/dma/Makefile b/tools/dma/Makefile
-index e4abf37bf020c..0c239a6b9eae5 100644
+index 0c239a6b9eae5..20ae7f09cd206 100644
 --- a/tools/dma/Makefile
 +++ b/tools/dma/Makefile
-@@ -38,8 +38,8 @@ prepare: $(OUTPUT)include/linux/map_benchmark.h
- FORCE:
- 
- DMA_MAP_BENCHMARK = dma_map_benchmark
--$(DMA_MAP_BENCHMARK): prepare FORCE
--	$(CC) $(CFLAGS) $(DMA_MAP_BENCHMARK).c -o $(DMA_MAP_BENCHMARK)
-+$(OUTPUT)$(DMA_MAP_BENCHMARK): prepare FORCE
-+	$(CC) $(CFLAGS) $(DMA_MAP_BENCHMARK).c -o $@
- 
- clean:
- 	rm -f $(ALL_PROGRAMS)
+@@ -7,7 +7,13 @@ bindir ?= /usr/bin
+ # isn't set and when invoked from selftests build, where srctree
+ # is set to ".". building_out_of_srctree is undefined for in srctree
+ # builds
++ifeq ($(srctree),)
++update_srctree := 1
++endif
+ ifndef building_out_of_srctree
++update_srctree := 1
++endif
++ifeq ($(update_srctree),1)
+ srctree := $(patsubst %/,%,$(dir $(CURDIR)))
+ srctree := $(patsubst %/,%,$(dir $(srctree)))
+ endif
 -- 
 2.53.0
 
