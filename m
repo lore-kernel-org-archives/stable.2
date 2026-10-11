@@ -1,42 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BFDF3546EB;
-	Sun, 11 Oct 2026 16:48:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05040361675
+	for <stable@vger.kernel.org>; Sun, 11 Oct 2026 16:48:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791737316; cv=none; b=S8B0jgEA81Yzj6q3udDKX2jMHEucbg1CLaWtXv4qlIJjoFeR5ZqauvM0dEIUop3wvd9I4f/azHoY4AbqjCDCv7UIqA98XdI3600au+aOVKJCPRiuutICNU/maClF9u6StmpAA7QJB2IA/8nl+ypyMqgpQRIsFQmcO/b2ZWXc2pc=
+	t=1791737317; cv=none; b=ZJg/Bpvzup8RQe5troGWoTFfWpCe7mklLu/7S7gFULydPlYGGB1TqNTjtZ0izFgn08Si1xplQJA7VP8vXzetsWJq18U3v7XmtvtCuRB+6IXC/4nxTHPgYeU6zibz2xHCWMOMgTEnnDd7Mkkcj1gPsDaUc5ngQciWsGmGoN/Wsgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791737316; c=relaxed/simple;
-	bh=/rsWNMg/nsXzMvPnUr0F14gaf8ZRtZ2HX9prd/eaSDQ=;
+	s=arc-20240116; t=1791737317; c=relaxed/simple;
+	bh=ansXjhdbmJsSZqY7LNPwCELPiuH5gHOfW2MX9Au4R9A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uFNzV/0V57vJ7OVlaqg/NhZs5rJab6kkXhsRcz33jEmwEAFZDoXZCRuVkKpiJA8sYJ75LprMMKdqQnUwV7e18GBlHd1msZHUJMf79tr0NDZj0RuzTxJmjYRWJZFnhIMiGrH5yKQtHlmEAgyAuD93uNj0Ea0FCLXHdvzp8lHbIIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QbutxCJz; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UTF+CJyG0h442oh2p59fq+gMjCdB7mPYlEEfzyZyLTd9GJod6Q0jSfBwtkFc5IchSmLkxnivoEDc88t+EoHCqbD6LXnuhes9FAKbItqbVe8/yDI3QbyWHc+x8POq3UKVDgsVTOLxHcf1gDQpXnNCAkyAxDMNhy7eZTybjhpYgOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PoV53xnQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QbutxCJz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A531F0089D;
-	Sun, 11 Oct 2026 16:48:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PoV53xnQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2AFC1F0089E;
+	Sun, 11 Oct 2026 16:48:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791737315;
-	bh=fVEbiCGJkz6LGx8IU72XRlFet1ix+jfmxBA9eJo4Iog=;
+	s=k20260515; t=1791737316;
+	bh=P7uNgjLR1ue2A+THKCnp1XkskAQJ4zRbuEndOSWWT90=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QbutxCJzZ7AQ8IAZEtR3BeVv8pZc8dAhYmVgtjQNXiHw3fC/oc8s3YgO2uxF0vCRp
-	 6dFoHjZuUJjFb2G4k9C1SaqO8ELOQViROe2zNQdbj8mQXqB+4Wfo6VEzyZg0Rrg1aq
-	 3D7TDJ3CNJW5sfuzNM2JnYemTz7kLbaT0Za57zif9XPgDf+uZqtxAI6+E21rQZRw6w
-	 g6Ly47jrsb//8gmEgKQDHY6PaZ9Yuqgln1BLX3fS3iI62hY8h6E61MEjEk/6xR/6YN
-	 lUrMwYitVWx8Wto0oLoK4Pww1EjIrv7z9FDA6zZeZlaCK/zpZwVd6U3hcAPpO200kh
-	 b1t3UN8Dcj+Aw==
+	b=PoV53xnQllFG0C9C1Jl4xSjUw/61Y7xGtmyOW+RKm9Pv+NlN5UQv5cCOd1o4vF3I8
+	 4WMWuigw83ag+/DEtTO0flVB9nLh8Es2nt223+IN/95yfBpe0/pbVbL0Unjnwnnzj5
+	 jXimlSG53CDPOzXynHGiFrBlJZz4ADDyNUCsMhfiLFxqGlUH/9LcYdCHz5uBLSgJhC
+	 m1CxXYdQA/VsAhUaaovW7xLs2eGKOSPYOEYsMDQ9bJ52ZzpEhqM87oqjk79AS5wSDu
+	 DtE/w2fq+XoXvYKcUsRQFscWXmKEnItBnwgaxzZow9jtZmZhAO42SKPo3YFW86LIXS
+	 r4B+mCB8o0RnA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	netdev@vger.kernel.org,
-	Rachel Menge <rachelmenge@linux.microsoft.com>
-Subject: Re: Request backport of bf5a54bc0e3d to 6.18.y
-Date: Sun, 11 Oct 2026 12:48:12 -0400
-Message-ID: <2026-10-11-1-daily-reply-0005-ynl-netlink-raw-max-6-18@kernel.org>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	jaegeuk@kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	Chao Yu <chao@kernel.org>,
+	stable@kernel.org,
+	Daeho Jeong <daehojeong@google.com>
+Subject: Re: [PATCH RESEND 6.12.y 1/3] f2fs: fix to reclaim space in f2fs_allocate_pinning_section()
+Date: Sun, 11 Oct 2026 12:48:13 -0400
+Message-ID: <2026-10-11-1-daily-reply-0006-f2fs-pinfile-6-12@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <899bd843-fd19-418e-8913-91bfb6e760a2@linux.microsoft.com>
-References: <899bd843-fd19-418e-8913-91bfb6e760a2@linux.microsoft.com>
+In-Reply-To: <20261009112220.2276173-1-chao@kernel.org>
+References: <20261009112220.2276173-1-chao@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,13 +49,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Please consider applying the following upstream commit to 6.18.y:
->
-> bf5a54bc0e3d8962474fcd611f1266eba036232f
-> doc/netlink: netlink-raw: Add max check
+> It needs to trigger checkpoint to free space reclaimed by f2fs_gc_range(),
+> otherwise, fallocate() on pinfile will fail easily even there is slash
+> space in conventional zone.
 
-Queued for 6.18, along with the schema check fix Anton suggested,
-thanks.
+Queued the series for 6.12, thanks. Patches 2/3 and 3/3 are queued for
+6.18 as well.
 
 -- 
 Thanks,
