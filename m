@@ -1,178 +1,180 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazhn15010011.outbound.protection.outlook.com [52.102.161.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A90735C68E;
-	Sun, 11 Oct 2026 09:23:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 957D9285058;
+	Sun, 11 Oct 2026 09:27:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.102.161.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791710593; cv=fail; b=m0thFq0Xduy58CWKj4J1xybDl/A0v+pJMZr3S0BUO83mp0jHXHcqzIh1x+KiKLQ6j0n3gzvkiyrziwwnLuHsMAatm/JqSFMpFOt/lAONzFtL2dzugFHVb5+PNXHZtsmmKC/M3PGffYxNrjk1JLIWVOwwWnpbR8YdzTb8Lul5ExI=
+	t=1791710873; cv=fail; b=C87cBsZftAlmFcJndasfCn3mYjPXGv9xNBTAuBYeEIGMx6CH/N4D0m7koN6OR+Lzhdpt2t04pjL0payj/ZFzQI+Ey6F8cJCKusySKlP7ghNzBMBFTIAY9m5iB56uamD7CtzqSNKn60urqv2Qs0BDWHPwkDOcrR+Ao3qFh7ltSng=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791710593; c=relaxed/simple;
-	bh=OuVrlMsJQn+ZyDC6DFgikA1+Q5ZyBcXxJooYBj6QTlE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=IDwxbxHGXR7/OLiYMaeMuSFlGMPI7MVeWWpgvCNYz2a3UZNWGK55F/K3tQ4MnQFN/8QmvVUPCAqFiYuKTHPXk4QIL4eUxdu3JXqXeUg9Qz+EncgpMbjMXz0q2a1oHpa95L8NH7ebRhjfP9TnB109xvcW1snB32+717pc31gb/w4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lLir8q3O; arc=fail smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791710873; c=relaxed/simple;
+	bh=/VVMoAWI2wQB7xMlbDH0BELRynTsFTBPzhlEHRM8Ns4=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=fBLLS8LJMbyOCWyZxkULJA3zog36itLHmtd+wFg4hqJtmwir0cHz0GaiUGsWGscSj/YWd0EO+Kc+ArSxHpr8TZIIJUhL9zsNyjn3AdrPnNEZ4hmdPaXp6a/3CDmywW8bEuhFr2Ue57Y/8V9T5AvzVPhaL25VJOqsRo6/3L34vws=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=D9rwkP4n; arc=fail smtp.client-ip=52.102.161.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lLir8q3O"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791710591; x=1823246591;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=OuVrlMsJQn+ZyDC6DFgikA1+Q5ZyBcXxJooYBj6QTlE=;
-  b=lLir8q3Of9h+n73KbTpfr9xdo5T/y/cIvbRqJBCv3aPct6C4G5MHnB0Z
-   5s+WNxezSTMN2FdQ0/OaFAYFgRDZbAxdV4HkznK5axIEMSbpGADWVzTjT
-   anF3ux8Ry0asHC5CuvdaXVwTvlLLXRMjU5+k8nguxah3+LJ9+pcZlZxAG
-   M1eaGZNwcDLN9RZ1gRN3M/UANsIgQWtTq3LPpoI21gvxcF/Q9aFKNp29t
-   7wh4x34ZOgZpFbv28ysPY5WYoPv/JWOIAIjXZZmDOIN3GjRC5w5LfTcWE
-   ksTOz/SO+2jFJ61KyXg8fn3PG20yFjH48JuZgPKcctPs/GtqTywXuZlVE
-   w==;
-X-CSE-ConnectionGUID: MO93yBhMRLq2y4GjRkOhfg==
-X-CSE-MsgGUID: U90reo2XSVyUZNM8gCTFYg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11931"; a="344606"
-X-IronPort-AV: E=Sophos;i="6.27,151,1787036400"; 
-   d="scan'208";a="344606"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 02:23:10 -0700
-X-CSE-ConnectionGUID: bchRfWP1TvWscPPRB0sozQ==
-X-CSE-MsgGUID: 9yyJ66/WTACNAzNAZssRWw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,151,1787036400"; 
-   d="scan'208";a="992755"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 02:23:10 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sun, 11 Oct 2026 02:23:09 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Sun, 11 Oct 2026 02:23:09 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.4) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sun, 11 Oct 2026 02:23:09 -0700
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="D9rwkP4n"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=goEi48ZPJ1UrXAuQOhDSWfovrP2TnDJaQCZ1Y9V785kSnUEHcFVxqurtQaGaxikgPTnkvl8KnZ4QKMSkId9/b9Qq+d0P2VqBsqXg6l5ImUJ9lp4ikakRhvSLZvESMmzK+Ee7qjvXRfQglzP2iUt/T3bxvUSvMkda4MqNgQwwaEjYAq5CdURAv8xl3rWeaVc543h1bkgecPMzVfOzAW+zmLhaXWpdk8jWApy9BPt+bW9+PFncaRQ7mlsgRuHRBULBFawUqt0/9O2yM5xWaMKYiW6fporUIa0II1efpq6I6dXVzLnz4BLPE0KArPbgFICvGou/BYhcZTIa/Kay+vZqgw==
+ b=YTEyQLy+uRs7ZNvv64B52hbAEzS5f2kurbApPVyxic1+hv0K21dp/TLD7zcyML4vQHS5tu/sWgFAXHl2enpt+6MpS17kxBN0ZMUX8iaGT/IsdrD0Be8YeT+q96fMpIWFIMeJtOhL/2JEdghRswM+wf5ueXr4YI3ZuER5IRLoPT51wxkUnBbMWpq3OfCOPy2yq6fnNfpulxqs39+H8Pebfo0mFWvi0tWVdsgmP0ae55MaZbybjrpUoKb1oW4DsMhHucmYzx9w2sDHAhl7TAYGpaaT+v18KLgRSZqdd6EEZi15N/gwKdNcLWM1zgv4n8Eu1UFCIeu9xmqFEzBqg7bJQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OuVrlMsJQn+ZyDC6DFgikA1+Q5ZyBcXxJooYBj6QTlE=;
- b=wfS5Dy8xJHQcAvIt46IOcTRUYKAUjA1aEq38Vwx/G9fM0ghQ0tz6p7swwAB9n1b2RJJ7Bt3Ct6wo5l5NxpHI4zqqMhb6Zepk/txrGhi+7QIW8kSoZEj8YXS3Uol74Wnk6RuRqrCLNsCZAAx9+LYXxjd09rt6AwG/H2n2OgnESXPhXPABGWBV7jhTB4caoE6YOxk65t8T4e0GCe+enhX2Iq5n0Ksmxs3BRTUZ00CduBVBAq1C+/azqvGqwIEwIKWPGKnEiZj3Di1rQJjZyfRP0zb2ge1kS3maWeGr0yX3wZzxLfr5eDGyhXJNeR3u8bHfxjm7WvxhcGDU0h2R8i4LfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from PH3PPFE241D7F14.namprd11.prod.outlook.com
- (2603:10b6:518:1::d57) by CH8PR11MB9505.namprd11.prod.outlook.com
- (2603:10b6:610:2bb::5) with Microsoft SMTP Server (version=TLS1_2,
+ bh=/VVMoAWI2wQB7xMlbDH0BELRynTsFTBPzhlEHRM8Ns4=;
+ b=Iqa+DHIRhX5AMLlJM/tx3lmt1uiZaAsZerlZKCQvHn9jo6FW/qsQ7CQa+/SXyBBhD2v27eEuH7TQ+vtUIfcQoPZiq1cxNzNAWk9+RB3GLLDpu78H/39X07l0+xQC5bkeINckSQcn1K+H96WJ/+9MCtYr3TdoP/NRICPVoXDL2QlqU4lfVLdl/zcovBUgwlV8+G59xmDDPCrJLbAb60YoA4qBJt6GiqSAinkF8aNqtO3qs1drgbGvXJXFE9BI7AmOH62tQmsn72KgcNdl2y2VfsVHtjnreflAXSx/H0uvBJqPA05DNaYmbPHn15OCeMwy1TVW6hAYXL+d5w2+pycyeg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=163.com smtp.mailfrom=foss.st.com; dmarc=fail
+ (p=none sp=none pct=100) action=none header.from=foss.st.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/VVMoAWI2wQB7xMlbDH0BELRynTsFTBPzhlEHRM8Ns4=;
+ b=D9rwkP4n13W5PsKb9xothQLQEKjKZwp0qKkGeF/9ForIwqo3Ox8FpFBaP4VbeLvE8cclPfglu1D1zDN+UVDVPnZ1nlv/aH21O8euvUJEZeP8NR++2oTXEUjaSokT7T2eQ4U9F26N2W7ko3aCvVpCbu2p43GDhtAN2q38+GmfPPRMBYQVSTnPhY7HzAT32lnBMvRdHnmXesSP2eP9hA+jZWzGMb8JkkG08qL66NHFtpmpA6WEDBKR11ZAhGl9F2EVsr9ygyoBpz/rPxC8NPLyDtSbBeuWqxZCBj+uqnlv6Md2G+udnlv4issC20TXA2rtqLrn8gEKUzYE6xRAhy3STA==
+Received: from ZR0P278CA0031.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:1c::18)
+ by GV1PR10MB8606.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:1ce::19) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Sun, 11 Oct
- 2026 09:23:08 +0000
-Received: from PH3PPFE241D7F14.namprd11.prod.outlook.com
- ([fe80::4ea1:23b2:56c4:3c54]) by PH3PPFE241D7F14.namprd11.prod.outlook.com
- ([fe80::4ea1:23b2:56c4:3c54%7]) with mapi id 15.21.0496.019; Sun, 11 Oct 2026
- 09:23:07 +0000
-From: "Usyskin, Alexander" <alexander.usyskin@intel.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-CC: Arnd Bergmann <arnd@arndb.de>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "Adin, Menachem" <menachem.adin@intel.com>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>, Joe Finzel <joe@sudmix.de>
-Subject: RE: [PATCH char-misc] mei: me: Revert "mei: me: add adler lake point
- LP DID"
-Thread-Topic: [PATCH char-misc] mei: me: Revert "mei: me: add adler lake point
- LP DID"
-Thread-Index: AQHdWUnm/TO6zdKiAUO5Z7DM4xA4Jbb37qsAgAAipvA=
-Date: Sun, 11 Oct 2026 09:23:07 +0000
-Message-ID: <PH3PPFE241D7F14B2822C509470D836EC5BED902@PH3PPFE241D7F14.namprd11.prod.outlook.com>
-References: <20261011-remove_adl_lp-v1-1-177758bd617a@intel.com>
- <2026101122-immature-endurable-3ea6@gregkh>
-In-Reply-To: <2026101122-immature-endurable-3ea6@gregkh>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH3PPFE241D7F14:EE_|CH8PR11MB9505:EE_
-x-ms-office365-filtering-correlation-id: 19a5eee1-2add-4285-7f94-08df277942fd
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|10070799003|1800799024|23010399003|376014|38070700021|56012099006|11063799006|4143699003|261009223027099003|10067099003|22082099003|18002099003;
-x-microsoft-antispam-message-info: uIP/cIheHJYcRyBj/Tn6r8TQRmt6UXt8r/gTTIPfe2c89Oi2V8UAlSWRLokR04XZ7gFoxankRGGMUQL2INBZyuFfi8MBZFAk0QlcU1+XW0tTKluT8hztR24c3UlsV4O5gezFHfq8G5JZ0/FEZ4/eoVBXFbi3j9X1a5mMNHp1dlzd40ZMqhA+n+ph8WCBsY5Ar1eoub4lki8gXW5rK/lvMb1X16U7xH2BnATTK3cDUInJvooVtQcVx47Nu3Scf2WxLr80irwfeJJMvX/aUrrtU5ttK9xhO61PgE/L9tEEqF1HcKkDUbcu46xwLflJdje4UXtPwvqx3MyX8auTL+ISAGBtEw2PVZ5AIuFsibok+T5b/orLz/uHB3pUVmctfAzMF11cxqDcL2GRNNyxbVswk8yWMJ0nT65CvC+eEHXF5hJGrHlc5qSGsIn+Me0QRP09aHlO0KzY0+kwxBEfwdx0tzEiRcMglKRFC1LQ3/O8l3g2tcL3ZyM4wN5Tppn5E9E+ooEX8UR5GJ0S46F4ppj81SNqxxWj8mqn3dGDSoG8QEYD9mAj4+ROu/CuFnTyNXFsPFskGBC9en9NQJloMCiggbyBcGalKfzZPAfSw7htLih+N09qnRWUepPAeXGyj6xxUHZthSm93ORElOhPkgXH1xM0Y14roZERD4j+RJNgczTkBB5i9y5YxF2jlU+gZEQhNducwXDHCGhLs3Hq9yHc/YIxDJXyya6SXZpIgVm8K28=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH3PPFE241D7F14.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(1800799024)(23010399003)(376014)(38070700021)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 2
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZFJscXNBZU05QXlQNWQ3bkdMZkQrNnNiTTdCOTBJeHEwRk95MVhyak5xeFFH?=
- =?utf-8?B?ZXBpczNPZWtwY0JVTlRnTUcyRi9ubm5uMkJzdFlSZGd1c042SFpoanZzVzVo?=
- =?utf-8?B?TEU1Nyt1OWlScEZ2d0lwaG5LVG5CenZOUlVZdEpYRUtRS3EzaHYwZ1JxbDlp?=
- =?utf-8?B?cldrYnljRHlTQ0sxd2NnTWp6TVdhNDhXV3RQZmUvL3JkSHk5Y0VRdG9lWUNM?=
- =?utf-8?B?ekREZjBFODRuL1NFckEvTExlMUx5T2dRTU9xKzRjNUJESWFScG9qbDRRTG5h?=
- =?utf-8?B?Y2pUdVR2S0VMNGJZOE01Z292OC8zd1llVis3TGRJMm51MlhsMFNWcnlCeEt1?=
- =?utf-8?B?VGprMGM1MnZMeDVXd1JOb0lNQjBlQm5YOExpY2F1UGY3NkxQeGpVUzMwMmxM?=
- =?utf-8?B?VjRTUUlDcWxyV044V2xzWWhvQk9nMEZUN012cjd0YnR2S3dNQWFRMFYwd0V3?=
- =?utf-8?B?b0xkRE9Wbjk0L004MVllekt4Sk8vTW1VcWtTdEVWRzVNYUFVMll0eDR1K3l6?=
- =?utf-8?B?UGtuVXZxeHdDZXdCUnNuc1JxK28zazBFYmtlSEFvYldHZ3pNbURDOGVqQ2NB?=
- =?utf-8?B?K1A1S2FtalJxamNtRzFHZnhpREMydTNNaEp6NTZHeXhmUXdEUHhFMVN5NHZi?=
- =?utf-8?B?bTZpeVFZUGtqd05IY0JicElpMHY3RUVjc0RBZW40RWR3TkVHU253RFpaN1lI?=
- =?utf-8?B?VG9FcFRBS09mcFZhemZITzZRdjIvRGJpdzF3TDZxdERwV1N4NHp2UVdtZmd1?=
- =?utf-8?B?QWFHUG5Nd010MGdBSG1kUEZaRlRjT1lSbTI3WXFDK3F4YVZRWjgzWUZpcTMr?=
- =?utf-8?B?WTBOMWhnZEFEcGYvb2tLcmJpTE5mQ0hqVE1LcmM2Wk0zL1JBMnB3QmFZK0FG?=
- =?utf-8?B?ejRpQVdlMVVGTEJieUNXR3h5NzdoN0VOLzR0dk03aWVtNlBrSHBqN1RkZm0x?=
- =?utf-8?B?WGJWZkZ2SnpQSHZyTkNMWU1UU3FkTjRZaW5zSURHYXVTakh3cU5GWDY1TTFY?=
- =?utf-8?B?NnNMQjlHYUFQS1Q5THd1R3RERzBLd3ErMUVDSFVIZFZEaDV3RFRDUVY0SlJp?=
- =?utf-8?B?N2NST0lRMGlKVnZWZHR3R1NrdTVxMkk1dkN3VENRT3hvaXdvdkcrcTQzYW5M?=
- =?utf-8?B?QTVxZjhkU2plSWNpbWhjWllZWkM2V3NkWHZIdjg3UHNUNkJPVzJLcWdMdndQ?=
- =?utf-8?B?SmRNRks4amhCTWhRMlN3MWZWZ3lrUFBLL2VPalgrZWMzeDF5WXRFK3UrYkNs?=
- =?utf-8?B?V216bEcvYVVsd1RpbWREOG5HRzBtNnhjM0hPKzhjaXdCTUtWYXZWRFpjSUhT?=
- =?utf-8?B?ci8zck5rK2xDTnRNKzduMUx2MHM2OU9idTFuZEY2WHdTK3NTWkFmWjZJcFlH?=
- =?utf-8?B?UFlQcVAvRlRjcDhrQUpseHhsRFpRdXBwN3RxVkx2dUprYWtGaTVtNy9KclBh?=
- =?utf-8?B?am01RUZFSGhXK2c2ZzZaak85NFV6dXBTZmxqY21PV0JONFEyTkNZRlFPc29U?=
- =?utf-8?B?Y25nVDgvVDl0Vm9KdXYxL1hmQXhlZ2FWSkRwQms2eWVWaEZrS2tCc250emh4?=
- =?utf-8?B?WjQ4dmRoYkI2TmhVUms3TVJZbWVpQ1d5c0FlaVR4ZFRSQ2RTTkFBOGd5cE9w?=
- =?utf-8?B?TVRYSHcrY3JDcTRvT2xyRmQ1dFhWZjBScWpGbjFJOFpGRUtIMEpzbXhtRnpq?=
- =?utf-8?B?bjJhbVdWWjFlbnl1Y2hQTlVjYzZiQ2xDd05JZFpRRWZzOWFUcENBcU1KMUU0?=
- =?utf-8?B?UXl3Q3FnV1pqLzVCTjRBNWJnQmtZQ0ZJa01veXlaYU1xOFpBbTg5VDJ3WDBa?=
- =?utf-8?B?cTBDaDVyaEFqVDhYVENVYnluQWhpanZsNG9YbWE5MVMzbC83RjJub1UycUl3?=
- =?utf-8?B?U0dGUXZJWkV4ZVlNRmYwdlhxL2pka0RHK3pzRnB5TmpRRkdhUmpNb0kxS01o?=
- =?utf-8?B?ZjNTazBUMHZ1WmdObDBabGdHcitPSWxTcWxqWm8zVlh5SjE5QTVTdHlTMitV?=
- =?utf-8?B?czZ0NEkvVXVWVEhieW8vY2F5TWNZbGNOQUF1SEwxYXFxSmtrK0tubWRQcjJn?=
- =?utf-8?B?RE8zbTN2ZXBjcFdMRGJBdVN6TVhZRmZJUk16dE5LN0dQS1VWVXBEK2wyN3JQ?=
- =?utf-8?B?YjU3VlRQWDFoc25ncm9PSFJ5dkNyWVVYck40M1dRY0Y5L3g3dStDZUIrYnVU?=
- =?utf-8?B?Y1hQUXVLbkJ5ZmJ4Z2hlQ0phTUhHODN3M3VUTHFtWTdkS2lWV1dOc0tOcjF1?=
- =?utf-8?B?aXZnTjFGc2RwaUovb3hkSUFDand6UTRLMUZZRUtuN29YSDVtbHhMblMveGgy?=
- =?utf-8?B?TTd4enlBV2VTRENFa0tmMW5PSlNqVFc4MWNpNGJaay9PYzR6ajQvSm5HVE51?=
- =?utf-8?Q?+rQ+NHwqCs39BxXWjNk2n+Cg69NTEgG/9iIpfwjfahnvM?=
-x-ms-exchange-antispam-messagedata-1: LM599SYwgr0q4A==
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ 2026 09:27:45 +0000
+Received: from MI3PEPF00008482.eurprd02.prod.outlook.com
+ (2603:10a6:910:1c:cafe::11) by ZR0P278CA0031.outlook.office365.com
+ (2603:10a6:910:1c::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Sun, 11
+ Oct 2026 09:27:45 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ MI3PEPF00008482.mail.protection.outlook.com (10.167.240.169) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Sun, 11 Oct 2026 09:27:45 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Sun, 11 Oct
+ 2026 11:27:57 +0200
+Received: from [192.168.8.15] (10.252.15.225) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Sun, 11 Oct
+ 2026 11:27:43 +0200
+Message-ID: <1026b843380f4bcd6180f798b2f4f9c8a31c0c86.camel@foss.st.com>
+Subject: Re: [PATCH] pinctrl: stm32: Fix fwnode reference leak in
+ stm32_gpiolib_register_bank()
+From: Antonio Borneo <antonio.borneo@foss.st.com>
+To: Ma Ke <make_ruc2021@163.com>, <linusw@kernel.org>,
+	<mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>,
+	<andriy.shevchenko@linux.intel.com>, <fabien.dessenne@foss.st.com>
+CC: <linux-gpio@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<akpm@linux-foundation.org>, <stable@vger.kernel.org>
+Date: Sun, 11 Oct 2026 11:27:40 +0200
+In-Reply-To: <20261011061722.3159941-1-make_ruc2021@163.com>
+References: <20261011061722.3159941-1-make_ruc2021@163.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: sH46uX6pD9gerJWrcq9kiNJj8udcq5a8VpO9LeIWGIF/bcHf5jSqsnvyJ4zHgNx/AH8l6xpYiHXvG92o73L85zqMHV5p11zyYOvZc4kV0ZgQlQGpxxkcJ/ZSbDPHEDC8Mcd3Z4AZ33M/YQy0qOIoWX6z6GbtJohKiipLqOc6RcqM1Lcj6h+CQv6Q3SR4brFW+OgiEZo7MGNXY2P7ip/Znttbk1adakZGICXmtTISKeidTbQt2gSfaGU3RrrbB5Z2gsKNB8ygvaX5wze/sdpU233VD1NiRhJpKdrVAf+xrVSA/o/L6mGHVKAWAJl1WIEbmdWXKoHW5a9ju+9EgI1E5Q==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH3PPFE241D7F14.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19a5eee1-2add-4285-7f94-08df277942fd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Oct 2026 09:23:07.8014
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PEPF00008482:EE_|GV1PR10MB8606:EE_
+X-MS-Office365-Filtering-Correlation-Id: 984a2158-cd38-4866-8bf6-08df2779e83b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|376014|1800799024|7416014|34020700016|18002099003|22082099003|10067099003|261009223027099003|11063799006|56012099006|12100799066;
+X-Microsoft-Antispam-Message-Info:
+	U7Js78k86F4GvISpx5d3Q5Zl5LnsxPoSWzs832OexkIy4oO3ZNArVcD4aBj0VH8S1NZjzmoGTbjbt8CZ78nM4sIjdrW3KTqRMkG+OxnlSRe+RZlRkQW9K0awOxc3fsfoGbAj6PtYd/biCwGhSEHwFdETuQpbJMmS0Qmtj7SLRFOksVW35MzZqt9JoS7QrUm+PBJnUl2K8EeYCUyNmGN//obMOJuI/xQxCktZqQbb3thth8CH+qD89pfTKno32exNVvlcAGxdcStkGdXLmXyHU0s7dHcYfHlX5jP5TJ5OTECq3QmU/T+Gn28RbDXJP4JgNwAa8JLn0KUI/EuDIE+kEbRBA93b3xu9ugNwvREH8rpdzOy/WUKsLM/EtxP8KeczOg7x6mKQ1TYkS6Q1ZtP4H54DgAtKd5L5ttuuWwm9X1gddREeAndg7J7yzyTX/TMGCXg4wyaO1NgVVJ1+teq2mCEfnazQG7WlsGcM7wBFmzfko11X3IM+kFOVq3SnbyAVWP8Y8ioVziRW107MB/p1mBW6tY4S4lH6YV2kCDnTsPPericzY1Ev9O+SQte5rKJ7dyZ+UkDgFES+d+QTk4q3OKY70wcDFHmybacXenfRkbmpt39pIAJJXExeJeNPp65VJsKaRkxeMNmhY0nhgCTJnv20bLjsdW/tQ+wB6ys77mnEV/XB/xvajnF6QOgwHlNphkTlNulHwRWVSbgcNjeZbg==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(376014)(1800799024)(7416014)(34020700016)(18002099003)(22082099003)(10067099003)(261009223027099003)(11063799006)(56012099006)(12100799066);DIR:OUT;SFP:1501;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	CiyDXOF4wfqvSZXHbyBAMsExCr3AuqkfNYA0D+NowldPaUR9lxQVsoM3f705h7+UHt5T187u3opCyjZRVKgJfdZgoH5ha3C3HkuxNlAjEJmAq3MsfWa/7XGTm89PtX9EEwS/bvhD711mFORoZ8A5l+xX5hgDzHwrzucQpeURXEl31FJxQKg7hELtdbBt06k3luWgWt6EDkJlmwHsWHbR+dyq5iqLnvGZ7QVFlqbcu04Fhh5hQRG5o3NDQJjaGEqHdV4Q7mSUlZnyizRsRmD7eGuOVlDau9Pt07bHfUsdUbP126u4qp797I6f+RbAgR0vryxjamg+vwx/cvZtnnaeyWb9HNbIbOEA+r8h0B4DOW2xYwr3aePycoVs512UtLYCImhOL92Z7x/yeFovbF3o1hjun/U9aaqJMQUTxocWBE3L4HZiMvyH4J4SJhQmTUBO
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2026 09:27:45.0313
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /f7bLRWpflqmdC7wCgdeGCn/enmcQnk15zpX7x8vBGwGQ1jZdETmrPiohzK8MJUeUzxLbvjM24UT+kPWDmRafDmkidfqhHmYwFQIE7YhwU4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR11MB9505
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 984a2158-cd38-4866-8bf6-08df2779e83b
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MI3PEPF00008482.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR10MB8606
 
-PiBTdWJqZWN0OiBSZTogW1BBVENIIGNoYXItbWlzY10gbWVpOiBtZTogUmV2ZXJ0ICJtZWk6IG1l
-OiBhZGQgYWRsZXIgbGFrZSBwb2ludA0KPiBMUCBESUQiDQo+IA0KPiBPbiBTdW4sIE9jdCAxMSwg
-MjAyNiBhdCAwOToyOToxMkFNICswMzAwLCBBbGV4YW5kZXIgVXN5c2tpbiB3cm90ZToNCj4gPiBU
-aGlzIHJldmVydHMgY29tbWl0IDkzMGM5MjJhOTg3YTAyOTM2MDAwZjE1ZWE2Mjk4OGI3YTM5YzI3
-ZjUuDQo+ID4NCj4gPiBUaGlzIGRldmljZSBJRCBpcyBub3QgYmVsb25ncyB0byBIRUNJIGFuZCBh
-ZGRlZCBieSBtaXN0YWtlLg0KPiANCj4gU2hvdWxkIHRoaXMgc2F5Og0KPiAJVGhpcyBkZXZpY2Ug
-SUQgZG9lcyBub3QgYmVsb25nIHRvIEhFQ0kgYW5kIHdhcyBhZGRlZCBieSBtaXN0YWtlLg0KPiAN
-Cg0KU3VyZS4NClNvcnJ5LCBteSBFbmdsaXNoIHNvbWV0aW1lcyBiZXRyYXkgbWUuDQoNCldpbGwg
-ZG8gdjIgd2l0aCBhYm92ZSB3b3JkaW5nLg0KDQotIC0gDQpUaGFua3MsDQpTYXNoYQ0KDQoNCj4g
-Pw0KPiANCj4gdGhhbmtzLA0KPiANCj4gZ3JlZyBrLWgNCg==
+On Sun, 2026-10-11 at 14:17 +0800, Ma Ke wrote:
+> stm32_gpiolib_register_bank() walks the "gpio-ranges" property with
+> fwnode_property_get_reference_args().=C2=A0 As documented in
+> drivers/base/property.c:
+>=20
+> =C2=A0* The caller is responsible for calling fwnode_handle_put() on the
+> =C2=A0* returned @args->fwnode pointer.
+>=20
+> The returned reference is never put.=C2=A0 The function calls the helper
+> twice, once directly and then repeatedly in a while loop, and each
+> call overwrites args, so only the last reference is even reachable
+> and all the earlier ones are leaked for good.
+>=20
+> Put the reference as soon as args.args[] has been consumed, both for
+> the initial call and for every iteration of the loop.
+>=20
+> Found by code review.
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: bb949ed9b16b ("pinctrl: stm32: Switch to use for_each_gpiochip_nod=
+e() helper")
+> Signed-off-by: Ma Ke <make_ruc2021@163.com>
+> ---
+> =C2=A0drivers/pinctrl/stm32/pinctrl-stm32.c | 6 +++++-
+> =C2=A01 file changed, 5 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm3=
+2/pinctrl-stm32.c
+> index 6a99708a5a23..93127da05d56 100644
+> --- a/drivers/pinctrl/stm32/pinctrl-stm32.c
+> +++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
+> @@ -1666,8 +1666,12 @@ static int stm32_gpiolib_register_bank(struct stm3=
+2_pinctrl *pctl, struct fwnode
+> =C2=A0
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0/* get the last defined gpio line (offset + nb of p=
+ins) */
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0npins =3D args.args[0] + args.args[2];
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0while (!fwnode_property_get_reference_args(fwnode, "gpio-=
+ranges", NULL, 3, ++i, &args))
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0fwnode_handle_put(args.fwnode);
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0while (!fwnode_property_get_reference_args(fwnode, "gpio-=
+ranges", NULL, 3, ++i, &args)) {
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0npi=
+ns =3D max(npins, (int)(args.args[0] + args.args[2]));
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0fwnode_ha=
+ndle_put(args.fwnode);
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0}
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0} else {
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0bank_nr =3D pctl->nbanks;
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0bank->gpio_chip.base =3D bank_nr * STM32_GPIO_PINS_=
+PER_BANK;
+
+Reviewed-by: Antonio Borneo <antonio.borneo@foss.st.com>
+
+Thanks!
+Antonio
