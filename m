@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 018934657D0;
-	Sun, 11 Oct 2026 22:34:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B30446C832;
+	Sun, 11 Oct 2026 22:34:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791758049; cv=none; b=LiPjJr0xhTYFxv85ugpz2WOYTVOgv8OX4YZRrpCfjeTC+HEj9zqQAT2w5r3O78ypAQ3p9ertDsUDR3cxpXl/lDrG7iQ4FjGbu7xgIAnSedaSmR0XbhvMgn4RKRzFGphbWI/Cif37WBI9KkesZ9Zv5swffmeJIY+44UCDWPDwKXs=
+	t=1791758067; cv=none; b=jwqvgCLhnUMN/UbntfjoLRZ+WrzGDDhwWdFsBz3Z8saG8UZy6tfnvYvnFIxPsKAKEOb8cltkUNmhJ7djWc8Qcdk/tksB9OaRe3T8zL+DuKuGs+koTLU/Vgj/MEIc/2X/yVXnlhKHibg037J97HMmPrZSbQFuQPHfTomdA5LXGV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791758049; c=relaxed/simple;
-	bh=o1+v7Sz1ngSUQFXjenftpDZyVoDzwAMbydX+OrkDo2s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z4AIdudthnlk4iW3IPIsQWOViRbx/GqFnBBTU0qcokZu+loHR81jWUPgOr7YH7l2pF7J5VZ/mypaONCPYMEjdJxcO9k3L1hT9+yv9Dx2GDiQVAAcONr1/ekFkol6mvnY32JEJcyfpuWBiY4Bdj7guQAfYWUuhbIqISx18vpV+zc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OU5yzbnI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791758067; c=relaxed/simple;
+	bh=iFWSeXt4IkuSPGBClUsUtxNeKD3QE1xQ34dzJ1oOdTw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eaGhpKo8A+vXrATzm3KlJoJSkPXsUD27oZ6T/LWj6zAkkzUkPhGm8TqrC97VNKjsiVLq966F+gIGUm7AkkKDSdAgERnXOq5EvwFxnWL636d/QsqGhl7qJ70dyi2Mb+7u7OwLv/GKzkqh7EFUEtii1/rY0rSXK67+hPbRQcTbWtU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BRH+o2LY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OU5yzbnI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4F2D1F0089C;
-	Sun, 11 Oct 2026 22:34:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BRH+o2LY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 662831F0089B;
+	Sun, 11 Oct 2026 22:34:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791758048;
-	bh=FQ5LhxSlGfDYZPptBMBWJk+3azBNynEB4pGObOBbqno=;
+	s=k20260515; t=1791758066;
+	bh=ByMa4MaE6Y8d0cyku8fCUd0wmoUCAmy7PZy2XLjvv2w=;
 	h=From:To:Cc:Subject:Date;
-	b=OU5yzbnIo7CNHGCr/MNFPfuHWkQ2AdnE06NlLk6ZZ3S5m6J2OJUk9T9UOCCOF6W58
-	 dRQyHrZf17P+1jSsXAJe6sxk8R2G2hB/fM3emXheO/g0/93oGm0ep3YYtlFBD2FdsA
-	 HJjl9yUBAvNhBUZpExgbJFgqmiPqDA9vPUZ5NCffKQlWCs2BKdAqxQ0VhhsJ83DdpI
-	 AndzQP3KOyZa3kZF7WZzgH+RJd1FUW01f/AvXGrhUnZXCqsujEeWmgot+3lKwN+oB+
-	 xzy3nvBTmkSLRWtTsrjgz+1A1Bx956BoO5DuBvuqTtf4/wniw+K/iKkdnhaXKVR1uw
-	 XSDOiCtRsK/VQ==
+	b=BRH+o2LY0exKrfiaHEXnrq5LjWgTTgUX2eJgbg9v8R4umH1yN9Q8cq8hd/ZE/HI5P
+	 CydM+2EgRNETvwCL/YD12fQVF1sZ1GO1BWGxdUbdsqVBIXqFIeZO+aHokPz2o+RDjr
+	 LZ7zAh4OSDoVwf0XcG+34oqLwEvwYfnKTejdNfI9BZ6Nw4iGcq2Df2SMwyPTVs5DiR
+	 +z+7QY7lffoamg/4t4Lcq56GaNXY5f7k+2hPQXYXcZ7xlSoO43pO4/+575NUFayMrr
+	 JgnvgUjhFdoxFO0TM1zjkEQZc+5HMXKoH/PGOESCHPJmorUxy23mQzJK0x0+5Reo/D
+	 E/xeVSJ0T2VSQ==
 From: Sasha Levin <sashal@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Kent Gibson <warthog618@gmail.com>,
-	Shuah Khan <skhan@linuxfoundation.org>
+To: Masami Hiramatsu <mhiramat@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Ben Hutchings <benh@debian.org>
 Cc: Sasha Levin <sashal@kernel.org>,
 	stable@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org
-Subject: [PATCH] tools: gpio: fix building from the top level with O=
-Date: Sun, 11 Oct 2026 18:33:33 -0400
-Message-ID: <20261011223358.2327625-5-sashal@kernel.org>
+	linux-trace-kernel@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: [PATCH] bootconfig: give the footer size static_assert a message
+Date: Sun, 11 Oct 2026 18:33:41 -0400
+Message-ID: <20261011223358.2327625-13-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -46,44 +49,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-"make O=<dir> tools/gpio" fails:
+static_assert() without a message is a C23 feature, so clang warns:
 
-  Makefile:27: /tools/build/Makefile.include: No such file or directory
+  main.c:498:56: warning: '_Static_assert' with no message is a C23 extension [-Wc23-extensions]
 
-tools/Makefile clears srctree, and the gpio Makefile only works it out
-again when building_out_of_srctree is not set, which the top-level
-Makefile sets for O= builds.
+Add a message.
 
-Also work out srctree when it is empty, as tools/bpf/Makefile does
-since commit a89b2cbf71d64 ("tools, bpf: Fix build for 'make -s
-tools/bpf O=<dir>'").
-
-Fixes: 4a6a6f5c4aeed ("tools: gpio: Use !building_out_of_srctree to determine srctree")
+Fixes: 6ed5e20466c79 ("bootconfig: Fix unaligned access when building footer")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/gpio/Makefile | 6 ++++++
- 1 file changed, 6 insertions(+)
+ tools/bootconfig/main.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/tools/gpio/Makefile b/tools/gpio/Makefile
-index 342e056c8c665..1cd7636b9cac5 100644
---- a/tools/gpio/Makefile
-+++ b/tools/gpio/Makefile
-@@ -7,7 +7,13 @@ bindir ?= /usr/bin
- # isn't set and when invoked from selftests build, where srctree
- # is set to ".". building_out_of_srctree is undefined for in srctree
- # builds
-+ifeq ($(srctree),)
-+update_srctree := 1
-+endif
- ifndef building_out_of_srctree
-+update_srctree := 1
-+endif
-+ifeq ($(update_srctree),1)
- srctree := $(patsubst %/,%,$(dir $(CURDIR)))
- srctree := $(patsubst %/,%,$(dir $(srctree)))
- endif
+diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
+index 17d971d47f879..df05340358578 100644
+--- a/tools/bootconfig/main.c
++++ b/tools/bootconfig/main.c
+@@ -495,7 +495,8 @@ static int apply_xbc(const char *path, const char *xbc_path)
+ 	footer.size = htole32(size);
+ 	footer.csum = htole32(csum);
+ 	memcpy(footer.magic, BOOTCONFIG_MAGIC, BOOTCONFIG_MAGIC_LEN);
+-	static_assert(sizeof(footer) == BOOTCONFIG_FOOTER_SIZE);
++	static_assert(sizeof(footer) == BOOTCONFIG_FOOTER_SIZE,
++		      "bootconfig footer size mismatch");
+ 	memcpy(data + size, &footer, BOOTCONFIG_FOOTER_SIZE);
+ 
+ 	total_size = size + BOOTCONFIG_FOOTER_SIZE;
 -- 
 2.53.0
 
