@@ -1,47 +1,61 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A8D37E5C9;
-	Sun, 11 Oct 2026 21:40:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 450D938C406;
+	Sun, 11 Oct 2026 22:08:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791754833; cv=none; b=UrdCpWp3PfB329586n21PZKhHlAdLH7ruFfKRojUohIePqslg8TRgBuQA/rI1IagKMW6fCa560pxgFCYuGbl4tBndWRaQG1Sy3D6g6n+A/XqkjXC+9UVwOLAK5zwYfwu9qkSbPO+FFGTD8TKbgMnnNRl70174tLiXfxQ3lEkvjg=
+	t=1791756494; cv=none; b=qCL+oID7+ihIF51/cFbeq2kfznX/P39i/s/mJ9hXB9Wwg7Npn3F12Me9FkmzDxvSBef/TiGhqvCd6/cmEzod5KEsSdyIK8DifU91hI/6QKFVe+r1slLNPzykXBMA4eg3DAl+bicGsKkRhfC8b+jrtqB2PFHbrl5mJwpXKPySKqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791754833; c=relaxed/simple;
-	bh=35aG5eOCLJAUzUcWTKBJJKxovy5s4tN16HtgnnO4Crc=;
+	s=arc-20240116; t=1791756494; c=relaxed/simple;
+	bh=t+RSlabcS37nBrtkGURe2mMu9XeDzCQkGZEMfVbDtuI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c0Vmq4SEII/7Ye8iLBeeR9wHoY4WPgz6wo6UHoDobxNGgPmDZnZYuGCjYLCTlQI93+8TqRkWMgFs20JF03CCCrOqPjSGfDiPpTzebLidAtNafJDYzajLIQTO/KbtzKJ1RulOO0jTxQWPOvbg3Km6jAMSN5BbIVRM97mtYlBgPH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bStsu4Yw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MqLUes+f1mCSwidELaXx62WiuLzqrOQU0nDq/fV5jb4Q6MSbWS3aNsdNECC1VtUYEJ3mz3QQEXYQw4sPEIipVzUkTQRoTUpfHydCD6y09iBOtRM9DAC9tuBtDL0S9Uj4hhL/XDcPp+UzZ67VS3IcuMa1aUO9J0BC0szI/+z4EvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=DlvEYZnP; arc=none smtp.client-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bStsu4Yw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BED791F0089B;
-	Sun, 11 Oct 2026 21:40:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791754831;
-	bh=4y80yLjldmJgxg/F+k8ClU+tSYjrWWhk6QqhRI8No4I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bStsu4YwwJhlDI61JQOga9ovUJtbEI2uQSsUdZS2zmCufsQuG4+Sjz5Gg6l+8lgvz
-	 b3F8vcP0HBfKDzRU38qtCTdfjY3h5j2JyOXYdT6qXVNo3+smTMScuMXimgxDBvZUTv
-	 BbtFFTWkOKLLA8eCMckyo6BDSh4ZWPpJ8uoz0u1NWAb1PmAKAnMUvp0iEevo2ZMedN
-	 KximoRkZVb+teEAXlv2X+U1nXq9hFUN7PYP4bJJyCl1010UIm/LGQPQ6RFRoIWl6vf
-	 Ytgpy1gaLKgK1hYKRDzIz/9qZ4mhfN3YW2dpjp6cGZ1SBiBeZlTWKWzfZD9+FgHdEm
-	 alvr3SrpG43Dw==
-From: Tejun Heo <tj@kernel.org>
-To: sched-ext@lists.linux.dev
-Cc: David Vernet <void@manifault.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	David Dai <david.dai@linux.dev>,
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="DlvEYZnP"
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id 0B075407FC;
+	Mon, 12 Oct 2026 09:08:03 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1791756483;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/eL9/5TMW1xQPVK1q07chq19wyI3IeBfN9CPIxyC7S8=;
+	b=DlvEYZnPftQm3J2Yo4AP2jNIXKY1OW9rFTE/pmRy2aSjosswggZAmtFfsRh4dVDaz5FcKd
+	NO+s4Okom1QsBiQNqnrgoGGvmXIfr3zzXYsMNu6m3jwf0KeoOd8hxbRHRz3ABwz0+Pf9/6
+	eACJ3ycJOQBudbg9okM8LfszkU5srpYT7hN4s0Sjmq4fHruU33WtNncPg7AazeZnM0WWZk
+	jAlOuaUsHjJLoFo99Ee2sX8FikXY16DLX1tYsxOTiyo+I/6ia/vPLXGGrEDQ9i0OAUuuic
+	lgme5ncpZteD4AoagnxuaYvwsvlbOxzEUmBViWETSsHgjsVdj9bpmrloFyK8Sg==
+X-GPT-Reason: legitimate; the email is a technical software patch
+	for the Linux kernel (rtw88 driver), which aligns with the
+	personal/professional technical context of the recipient
+	(alastair@d-silva.org); the sender identity (alastair@d-silva.org)
+	matches the recipient's domain, and the content is a standard "patch" format
+	with no marketing, phishing links, or urgency; the authentication
+	is consistent with a personal-to-personal or professional technical
+	communication regarding a specific software fix.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: linux-wireless@vger.kernel.org,
+	Ping-Ke Shih <pkshih@realtek.com>,
+	Kalle Valo <kvalo@kernel.org>
+Cc: Luka Gejak <luka.gejak@linux.dev>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Ulf Hansson <ulfh@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>,
+	Alastair D'Silva <alastair@d-silva.org>,
 	stable@vger.kernel.org
-Subject: [PATCH 2/2] sched_ext: Fix the bypass dispatch claim for schedulers bypassed by an ancestor
-Date: Sun, 11 Oct 2026 11:40:28 -1000
-Message-ID: <20261011214028.743546-3-tj@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261011214028.743546-1-tj@kernel.org>
-References: <20261011214028.743546-1-tj@kernel.org>
+Subject: [PATCH rtw-next v5 1/4] wifi: rtw88: sdio: Handle allocation and read errors in rtw_sdio_rxfifo_recv
+Date: Mon, 12 Oct 2026 09:07:52 +1100
+Message-ID: <20261011220755.1673367-2-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261011220755.1673367-1-alastair@d-silva.org>
+References: <20261011220755.1673367-1-alastair@d-silva.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,96 +64,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-scx_bypass() claims bypass dispatch when the scheduler's depth goes from
-zero to one and releases it when the depth returns to zero, but propagates
-only the depth to the descendants, not the claim. A descendant that starts
-bypassing with its ancestor never claims, and one whose own bypass ends
-under the ancestor's keeps its claim, as its depth does not return to zero.
+When dev_alloc_skb() or rtw_sdio_read_port() fails, rtw_sdio_rxfifo_recv()
+returns without reading data. Because it returned void, the caller still
+counted rx_len against the loop budget while leaving data stranded in the
+FIFO.
 
-A sub-scheduler enable whose bypass ends under a PM suspend thus leaks its
-claim: the parent keeps hosting bypass dispatch and the sub-scheduler's next
-bypass trips the WARN_ON_ONCE() on the claim. A sub-scheduler disable that
-starts under a PM suspend has no claim, so once the resume lifts the root's
-bypass its tasks sit on the parent's bypass DSQs with nobody consuming them.
+Return an error code from rtw_sdio_rxfifo_recv() on failure and break out
+of the receive loop in the caller immediately.
 
-Claim for every descendant whose depth goes from zero to one in the
-propagation and release every scheduler in the subtree whose depth returned
-to zero once the tasks have moved out of the bypass DSQs. A parent that is
-bypassing itself when a descendant claims consumes only its own bypass DSQs,
-empty until it leaves bypass and becomes the host.
-
-Fixes: aa2a0a19686c ("sched_ext: Separate bypass dispatch enabling from bypass depth tracking")
-Cc: stable@vger.kernel.org # v7.1+
-Signed-off-by: Tejun Heo <tj@kernel.org>
+Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
 ---
- kernel/sched/ext/ext.c | 34 +++++++++++++++++++---------------
- 1 file changed, 19 insertions(+), 15 deletions(-)
+ drivers/net/wireless/realtek/rtw88/sdio.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 3edb51bdd0ef..7303c2c45964 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -6099,15 +6099,12 @@ static void enable_bypass_dsp(struct scx_sched *sch)
- 
- 	/*
- 	 * When a sub-sched bypasses, its tasks are queued on the bypass DSQs of
--	 * the nearest non-bypassing ancestor or root. As enable_bypass_dsp() is
--	 * called iff @sch is not already bypassed due to an ancestor bypassing,
--	 * we can assume that the parent is not bypassing and thus will be the
--	 * host of the bypass DSQs.
--	 *
--	 * While the situation may change in the future, the following
--	 * guarantees that the nearest non-bypassing ancestor or root has bypass
--	 * dispatch enabled while a descendant is bypassing, which is all that's
--	 * required.
-+	 * the nearest non-bypassing ancestor or root. The parent hosts them
-+	 * unless it is bypassing too. Then they sit further up and the parent
-+	 * consumes only its own bypass DSQs, empty until it leaves bypass and
-+	 * becomes the host. Either way the nearest non-bypassing ancestor or
-+	 * root has bypass dispatch enabled while a descendant is bypassing,
-+	 * which is all that's required.
- 	 *
- 	 * scx_bypass_dsp_enabled() test is used to determine whether to enter
- 	 * the bypass dispatch handling path from both bypassing and hosting
-@@ -6232,16 +6229,19 @@ void scx_bypass(struct scx_sched *sch, bool bypass)
- 	 * Bypass state is propagated to all descendants - an scx_sched bypasses
- 	 * if itself or any of its ancestors are in bypass mode. A descendant's
- 	 * depth is the sum of its own bypasses and its ancestors', so every
--	 * call propagates whether or not @sch changed state.
-+	 * call propagates whether or not @sch changed state. The descendants'
-+	 * claims are released below with @sch's, after their tasks have moved.
- 	 */
- 	raw_spin_lock(&scx_sched_lock);
- 	scx_for_each_descendant_pre(pos, sch) {
- 		if (pos == sch)
- 			continue;
--		if (bypass)
--			inc_bypass_depth(pos);
--		else
-+		if (bypass) {
-+			if (inc_bypass_depth(pos))
-+				enable_bypass_dsp(pos);
-+		} else {
- 			dec_bypass_depth(pos);
-+		}
- 	}
- 	raw_spin_unlock(&scx_sched_lock);
- 
-@@ -6330,8 +6330,12 @@ void scx_bypass(struct scx_sched *sch, bool bypass)
- 	}
- 
- 	/* disarming must come after moving all tasks out of the bypass DSQs */
--	if (!bypass)
--		scx_disable_bypass_dsp(sch);
-+	if (!bypass) {
-+		guard(raw_spinlock)(&scx_sched_lock);
-+		scx_for_each_descendant_pre(pos, sch)
-+			if (!pos->bypass_depth)
-+				scx_disable_bypass_dsp(pos);
-+	}
- unlock:
- 	raw_spin_unlock_irqrestore(&scx_bypass_lock, flags);
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
+index dc2fd0f8f9ff..e39284b71837 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.c
++++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+@@ -1349,7 +1349,7 @@ static void rtw_sdio_rx_skb(struct rtw_dev *rtwdev, struct sk_buff *skb,
+ 	ieee80211_rx_irqsafe(rtwdev->hw, skb);
  }
+ 
+-static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
++static int rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ {
+ 	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
+ 	const struct rtw_chip_info *chip = rtwdev->chip;
+@@ -1366,12 +1366,12 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 
+ 	skb = dev_alloc_skb(bufsz);
+ 	if (!skb)
+-		return;
++		return -ENOMEM;
+ 
+ 	ret = rtw_sdio_read_port(rtwdev, skb->data, bufsz);
+ 	if (ret) {
+ 		dev_kfree_skb_any(skb);
+-		return;
++		return ret;
+ 	}
+ 
+ 	while (true) {
+@@ -1380,7 +1380,7 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 					   &pkt_stat, &rx_status);
+ 		if (ret) {
+ 			dev_kfree_skb_any(skb);
+-			return;
++			return ret;
+ 		}
+ 
+ 		pkt_offset = pkt_desc_sz + pkt_stat.drv_info_sz +
+@@ -1416,11 +1416,14 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 		skb_reserve(skb, curr_pkt_len);
+ 		rx_len -= curr_pkt_len;
+ 	}
++
++	return 0;
+ }
+ 
+ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
+ {
+ 	u32 rx_len, hisr, total_rx_bytes = 0;
++	int ret;
+ 
+ 	do {
+ 		if (rtw_chip_wcpu_8051(rtwdev))
+@@ -1431,7 +1434,9 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
+ 		if (!rx_len)
+ 			break;
+ 
+-		rtw_sdio_rxfifo_recv(rtwdev, rx_len);
++		ret = rtw_sdio_rxfifo_recv(rtwdev, rx_len);
++		if (ret)
++			break;
+ 
+ 		total_rx_bytes += rx_len;
+ 
 -- 
-2.56.0
+2.53.0
 
