@@ -1,100 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5466039AD2A
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 16:45:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791823507; cv=none; b=Atb3OGiAo2G8hG6/O9jpuwgS8W3zc+1vShDuBu6TremBQnloKOubMPs7uTFzxCSqTffEGMiFhJFN6EWJlLfSn8l94uQX0B2q8eXuCwW95LaS4728dBYhFM/Muxl5vpVTjd+sHi+qt0n1a5Pw3tsnPiwLl9QsMNeYt9ciU6gEC3E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791823507; c=relaxed/simple;
-	bh=QgiGPbVvBLsH6/K7XwHw6Z520McePgS7/g7sX7rZTUk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PZaGuczNtRcgp/4aKEIlGjrC+2lNHJClb2ziqISqfiNH7FiEtUAPTNoRbXwYC+ODVDqM40Ugc0mNph43ssZJ9g4EBAKW1u5jRb8xa3yKLHc1IYjMKvuGtWHT7H2azEPh2/7FtMnihYf9bO97oYmds5YLS6TURVjmEH9Xxmwos54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X2zD/rcK; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A4231B80D
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 16:46:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791823586; cv=pass; b=jiWH/Y04NwpNFI549cU8+OGfHHgVwCgTbqqwDjyLziKoeCsDCdJBZNEtsEIvwk+hXAFPJnk+gfEPzKK9wlanQBgdK+FoX2c5/SCoYscWuEG6flTacKa7H+7BFetBdMnNKvVAvASNPrlXyUciiBGloMbiiDkYVK3fsalrt5WUyPs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791823586; c=relaxed/simple;
+	bh=oAXS6V6MF2Ql5LJpFSKH366GGwqI3OJmzAt9fON9zVA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cmn0ePqDE/xXBJprktujLQYTxS881zHEnnAkT2j9IoiZUmDUKZvdt4VqzEbB55wjk/IGKvKxVB70J1g2F86NTEK9rVlSMJJnFD6bK2OSoYvzSp9XnfsASD/JAI5ZyOQW2FWpkaGARjgfryP26WsurSvbMcmxWMHsJoCqTKREjmw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MOzbwcka; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=K/PqYrSG; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X2zD/rcK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 432221F0089B;
-	Mon, 12 Oct 2026 16:45:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791823505;
-	bh=tHglsPWHjqTJgSMQNmKXkwL2A1kBAdC2WpkaLT3ShiE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=X2zD/rcK4S32nA/Yw5HF/v5xQD7bKfjZ061OyyNHQev8SAKbPPvDQbaaUXE0EYSMf
-	 T6kH/UNibAUZU2VeNfM2hbd75rNqjRRMsCeUOy/orCp1iC7s9f/xcxKbtox4y6KgYR
-	 zs1we9LdvF5aMIXXBJNDffF3q5+2tqfjpXu//5VSCf96/+F9gu4ywKML+/HWbf9yRi
-	 BbWx9OiVV/b0Ag0jPTfr4PFJoB8WR4ObyXjQfU2RbZqAa+8AgouXL+oDOgGWVX3ftX
-	 0ZdIzTV6mqX79b77s4wrfkaw82/MgfFchMtmBd8g2u25nULGp4lyBaQX/pJrkBbv/3
-	 qyK0P/exqgfiQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Tristan Madani <tristan@talencesecurity.com>,
-	Simon Horman <horms@kernel.org>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ice: fix metadata_dst refcount handling on representor teardown
-Date: Mon, 12 Oct 2026 12:45:04 -0400
-Message-ID: <20261012164443.1180507-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101252-voltage-purveyor-a18b@gregkh>
-References: <2026101252-voltage-purveyor-a18b@gregkh>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MOzbwcka";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="K/PqYrSG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791823583;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5Xrn0w9zhcSyTIcnhYHLvfCTc9jnY6eC1cxeeEthPCs=;
+	b=MOzbwckaxjZIf6hsWkHxqW/FVuIGqvo+0fDZ+d74oRVFnEruq6EAOv1dRy1PM3DUaaHDg5
+	Kv62uW1dfT7Ffv4d6S74r8RreneUUJ8U0+8S7LsG1HrXot3pdq5DEId+vDT/fIZw/DXQHa
+	BsGRNxt1u4aXNlEggy/hfYexYCpCJS8=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-651-JHWS_zWCPaS6z1V_aRgNIg-1; Mon, 12 Oct 2026 16:46:10 +0000
+X-MC-Unique: JHWS_zWCPaS6z1V_aRgNIg-1
+X-Mimecast-MFC-AGG-ID: JHWS_zWCPaS6z1V_aRgNIg_1791823569
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48c437ae7dbso1048184f8f.1
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 09:46:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791823569; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jVTWUgd2Hca+khNnhigCqudL0a6CIFgGriGuUz6mqKZVO/OBqo3ovtAs1W6u/0J8pw
+         Wz+GeKOqcn6NKlguLbHcm5f2p7vxT6Nopxa0SD9dRIbbS1FvDPwEyMUFZ7FihPfJTo4k
+         Mhazn3bqc7KJMJr56bejczAzoyJK5Z+jZywLeICO0Dw/QPDtloOxmQ6GEM9Udwdi0Lf0
+         l81Yixooy/zEq/ikheQyN4R4KQXpM9+O2bonqA8UQ18QZXwcxWp2Qb2OThgLFzPui8SH
+         +p8oo9oyEFAvCviOketEsC8gvR7OHNwW3FlXWAD4fYlaA8HjbmPCtwRwROqwyI2KVgi5
+         yRvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5Xrn0w9zhcSyTIcnhYHLvfCTc9jnY6eC1cxeeEthPCs=;
+        fh=j/5VGJ8bN/gGm3IHyKIfQIGmBPdeBLfkytytGZafP0s=;
+        b=hlgyZ8WaUkcmz3p1Pr60gkuwqy0bLpFBfGkWy/z53/QUBa1OclXSHjM1+oeBJfYlx1
+         wFqYuCmAGhzCQ79KW4kchGZUzO4nFOeGPK65XYnusXNcsTCGJUAHlN6BEJyrG1EGq0jY
+         wPtCFU7SfFFHeyP7tNUyMP6J2fdFh4khlWFzoiEBwOYZH/um3+AhofXP4UDOLiFXr+qb
+         WTr3UKiJdE3HHq0eEyaCyDzU8XsjzDb1sGPI6SZ7iIPDZjJzZQS5sfcDi/LFya6cAdg+
+         TJs4CCF3lseESdH8usMND3RFWhGF6hUbANd8MIsfxnrc1nQKyBu3Rghr2NPBUemKuyBc
+         X7XA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1791823569; x=1792428369; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5Xrn0w9zhcSyTIcnhYHLvfCTc9jnY6eC1cxeeEthPCs=;
+        b=K/PqYrSGbMLD4cr1p0bUSPaSdk7BqoFT5E3pl3Ei0hTq6/+4nfXSipnYzci6Ljf3lJ
+         wux3gvg3esVbl9moYAXYFreLHE2PYZym/zbfdQw2t5YsNklXajbvaDXXvi5ZutJjl3/Z
+         qH+LXmlwHzZT4rEcpAH9Vj3y5UuhbaZt2JmnqLhuZxF84mR03GLCl7DNIqhvLHBzLL7B
+         ejuVVm3VU/NAQyqotGDNOHivD1eceOa9cpD6AVNJTAEGjK2e/VV5285GPNvTnf/gBbCC
+         3fFoUbpHR4af6YZqC5t9NQtOvvh/aLeEgOEQ8kRm+kiSb8WbvXvakkepecMzSCgZOtHt
+         vkfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791823569; x=1792428369;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5Xrn0w9zhcSyTIcnhYHLvfCTc9jnY6eC1cxeeEthPCs=;
+        b=ZMB9JveLmolLRTydS6yM7ZYWhqZVXRSSRFccghz6lnmeV6qigIxPKpMNO3t5sYH8XL
+         w57AVr8ftpbtFOdiuvi+EyaVSgVe2ghBpm/P9RBmuj/HWy6AOL4V8EsXIDqU8ljQzT14
+         GfzoJ4EFDG38EW33mJRvW2l+3KcwZdi1jD8pP/5OasP14LBNh6ctDERXk3+NkRbHEjyc
+         nouMghQAJQma2Emo95qCUDJTX51x9n84eqAwFL9vL4m855fh3+wtWS/tjEZ6NKy2JI4J
+         bFJBPCXwMShyU+m8l0ULzs633IapmWuwo1EdYkYmI63Swj49nRewZinqQfB1rMUeaRFz
+         FTNg==
+X-Forwarded-Encrypted: i=1; AKwUvBxRYKQLJieNyk4CaMmjaFUjz0ZqWgaQM7FkYLA+2DlUQ9qZYb3je7CEtkkCT/Yq+C0NUhB9TKo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0h2IK+B7xVfwb9LchfTjqPaPERyvSn49tXJaICYqIXtn8cy5Z
+	zbFiyqOQ5hjy+LaoNVnYeqnB95aq+OAac0DIC8tpwHzB1YQ0NUXgC6qcAX0uJrt/Yeu0Kq1nm6i
+	IvGClMgzGBvc6LOF9xn7/Y30+vKeC23o/4FSnBMqcRpIBot3FpeP58IZ+ljfvjfFvDIobwaIbxW
+	YSWiwCRj8nJOu1JhpOO0z1rNJwe5ePFQRF
+X-Gm-Gg: AYBFou3zoC/Uv8yoTt+QG5q1b/J+8Kcp3+4tjzW6Ery3fOXUYgQaOUbVF6cl2eoFtVI
+	x8+gd8flNsL4cYQKNFpAtmBO1jNLD8iqoMOFbfsWhKOjM6dqHtquNSJL2vCWLEw6T+Km7scNvj3
+	0lBWe1AbMvdabs/714W1uUqnP8GZo+vmeUeHHOHxqIgc2zJq0r7u0X9//laKrQQkAzZVDuG+I+Z
+	MIE2mkGcdXJdjjktxKHz97byv3X+AnusAZlfrpyN19YuUkwwcAUFQBxdQmSzw==
+X-Received: by 2002:a05:6000:61c:b0:48c:58b9:f17c with SMTP id ffacd0b85a97d-48db947461fmr19542071f8f.12.1791823569151;
+        Mon, 12 Oct 2026 09:46:09 -0700 (PDT)
+X-Received: by 2002:a05:6000:61c:b0:48c:58b9:f17c with SMTP id
+ ffacd0b85a97d-48db947461fmr19542035f8f.12.1791823568768; Mon, 12 Oct 2026
+ 09:46:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261009130450.361690-1-pbonzini@redhat.com> <as0NBfuEY-60pgtz@google.com>
+In-Reply-To: <as0NBfuEY-60pgtz@google.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Mon, 12 Oct 2026 18:45:55 +0200
+X-Gm-Features: AclHuK9pVodaU0y8aFoEzn0G64V6E6NcOQh1xijrAviXyHmZnBb8SlkbTzGCjn8
+Message-ID: <CABgObfY=xYUJJtYvcVhjdTXOah6eofi0O4C3J3sa60KCC+WO6A@mail.gmail.com>
+Subject: Re: [PATCH] KVM: x86/mmu: Cope with the SS bit being set in #NPF exit codes
+To: Sean Christopherson <seanjc@google.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+	SimonP <simonp.git@mailbox.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Tristan Madani <tristan@talencesecurity.com>
+On Mon, Oct 12, 2026 at 6:38=E2=80=AFPM Sean Christopherson <seanjc@google.=
+com> wrote:
+>
+> On Fri, Oct 09, 2026, Paolo Bonzini wrote:
+> > When running Hyper-V from Windows 11, KVM is seeing the SS bit set
+> > in nested page fault error codes produced for shadowed NPT.  The AMD
+> > manual is unclear about when SS is set, including whether it can be set
+> > when SupervisorShadowStackEn (bit 6) is not set in the MISC_CTL field
+> > of the VMCB; in fact, bisection shows that while SHSTK was available
+> > to guests since Linux 6.18, this started happening with commit
+> > 687ee95c1b6d ("KVM: nSVM: enable GMET for guests"), which seems unrelat=
+ed.
+>
+> It's not unrelated.  As you note below, this is purely because Hyper-V on=
+ly uses
+> CET when GMET is available.
 
-[ Upstream commit 58858b8f14803a7eeac297b3ce20f3b21bf2ff66 ]
+Indeed, my intended meaning is that bit 1 of MISC_CTL does *not* have
+the side effect of reporting SS failures...
 
-ice_eswitch_release_repr() uses metadata_dst_free() to release the
-representor's metadata_dst.  metadata_dst_free() directly frees the
-underlying memory without checking the dst_entry refcount.
+> This is wrong, I reproduced this with the KUT CET test with gmet=3D1.
 
-When ice_eswitch_port_start_xmit() processes a packet, it takes a
-reference via dst_hold() and attaches the metadata_dst to the skb.
-If the representor is torn down while packets are still queued on
-the lower device (e.g. in a qdisc), the metadata_dst is freed while
-references are still held.
+... howver, this makes me wonder if you meant gmet=3D0? Because if you
+need gmet=3D1, the Fixes would be fe080f58dec24049 (i.e. when the gmet
+module parameter was added).
 
-Use dst_release() instead, which correctly decrements the refcount
-and only frees the object when all references are dropped.  The dst
-subsystem already handles metadata_dst cleanup in dst_destroy() when
-DST_METADATA is set.
-
-Other drivers sharing this pattern (nfp, airoha, bnxt) already use
-dst_release() for their metadata_dst lifecycle.
-
-Fixes: f5396b8a663f7 ("ice: switchdev slow path")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
-Link: https://patch.msgid.link/20260928230429.495442-5-anthony.l.nguyen@intel.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: Adapted repr->dst access to vf->repr->dst in ice_eswitch_release_reprs(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/ethernet/intel/ice/ice_eswitch.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/intel/ice/ice_eswitch.c b/drivers/net/ethernet/intel/ice/ice_eswitch.c
-index 7de4a8a4b563c..569d1b95ec1ef 100644
---- a/drivers/net/ethernet/intel/ice/ice_eswitch.c
-+++ b/drivers/net/ethernet/intel/ice/ice_eswitch.c
-@@ -235,7 +235,7 @@ ice_eswitch_release_reprs(struct ice_pf *pf, struct ice_vsi *ctrl_vsi)
- 			continue;
- 
- 		ice_vsi_update_security(vsi, ice_vsi_ctx_set_antispoof);
--		metadata_dst_free(vf->repr->dst);
-+		dst_release(&vf->repr->dst->dst);
- 		vf->repr->dst = NULL;
- 		ice_fltr_add_mac_and_broadcast(vsi, vf->hw_lan_addr.addr,
- 					       ICE_FWD_TO_VSI);
--- 
-2.53.0
+Paolo
 
