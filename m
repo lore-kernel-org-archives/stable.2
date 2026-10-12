@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96DC349E144
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:25:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F03A74A0156
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:25:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791818720; cv=none; b=C87a0Nz3W1hALh6cpgJIp5SRybCSouEjyi8hz9rhlIs08yuP4crhXjawAjjbClMNUfodIaJ+iTQS2NnhbFPNLbzKA2w0HC+WIWBd2pNilJEvkMnIA/Lrt/MPLIfa9oTep4/6pDuCZyA64OgDNaqha3hhAvu0QgZIIht0prna8fQ=
+	t=1791818724; cv=none; b=aopGK6/Al2IQbwR0FwkBAlIu6YQD+bIDC9vWkjJ1SRu3qWd5Lyr3Hhku3L1BmA6oxvoSxo/KZEoQWJPZ5dEvYtV86oBxdofC7+RQAVu9zMEgwaNHA7xt1AOC6ip1tmUr5lI1f1rv8LD3iuDscjZwqs42OxyVC126t6IyRVbcGvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791818720; c=relaxed/simple;
-	bh=AZfJzf/ig2usIwRYkENOSJ8KoiGiJPchAVyfSJGTDII=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kmj9U7CFZwNYBPnxz3wBL9g2fOlrJ9hhwrFneyWqnG9Je0ddkPj0HnLjhBd27WL2duEz4Hl5PM0rs1j6CTAk+OTkgxbv5GW01ecOhcSnMR18VZRvPGo9ixJviJjeUUWOBS4lZDRm2EV5edFx1c2mJepC83+SX8Zj9vqPMBr90sQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tXR0k7Xs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791818724; c=relaxed/simple;
+	bh=cSaL3viJXgSsFqQraxuL1/2Yh7ZK5UDI8E3Tx4ui9Jo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=iO5y2z2FeCshYamMTbxyjIjWUYlI1N0Z29wjHAqlILTkx+h4jN9gIqWQnRfOA1lXm6GfbJqU0jsiZtYiFQYvWm29R7ZxtNv1bJj88aFYRmpqyXMngqIMGo5l3L4Ji+kYmex89ejuedK5t6VsGcdrmcEAK5y3qzehzOjJ/MmMzEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=D3hy1QAy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tXR0k7Xs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7A2F1F008A1;
-	Mon, 12 Oct 2026 15:25:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="D3hy1QAy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E895F1F0089E;
+	Mon, 12 Oct 2026 15:25:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791818719;
-	bh=s/WKgBE7PmW2/RA+aaKctpyoNgE5HYBYOKG909O4Og0=;
+	s=korg; t=1791818722;
+	bh=xd4fLWrTG7vvggkhBiNHkK1agivxtXsaPwtetVw3gB4=;
 	h=Subject:To:Cc:From:Date;
-	b=tXR0k7XsR9u0n2382clNEkRiegJD3fQgxu9E79rCZvQPfB+MrjFXDzWhYJxZ+ZqRT
-	 YdvYPAqspOD0N056vdDV4HrDLMZAsmeQnNjXnRqrkuewripk3FLuDQaPITWeVXTb2v
-	 gLh813vL1P5UApqtypNn6UJ680wrBsv4qWd93Tkc=
-Subject: FAILED: patch "[PATCH] sched_ext: Generate qseq from a per-task counter" failed to apply to 6.12-stable tree
-To: jpiecuch@google.com,tj@kernel.org
+	b=D3hy1QAyba0fogNQmr72JKbUfsKnGtZJpdaPkiQhObUrHxA6CFct/RKKkXDVbXSLV
+	 MvUcl5asbNe10lJ/lRcaASrNtVtTDxYdw20ioNrKom83wvfJxAW6GSgY652zak/5ph
+	 8a4zGDOPFk9zs2i96hyLnF0sgtq20MW5UL99NzaM=
+Subject: FAILED: patch "[PATCH] sched_ext: Fix CPU hotplug hang when a dying CPU's tasks sit" failed to apply to 7.2-stable tree
+To: tj@kernel.org,arighi@nvidia.com,joonwoo@meta.com,mohaalap@meta.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 17:25:18 +0200
-Message-ID: <2026101218-botch-overbook-03a8@gregkh>
+Date: Mon, 12 Oct 2026 17:25:24 +0200
+Message-ID: <2026101224-counting-undrafted-69cb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x e6ac89b8b1c12e9104df45a14a26e2dfa96ded06
+git cherry-pick -x d35a535d3e3e71f92a051d94e415f43612c4edfc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101218-botch-overbook-03a8@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101224-counting-undrafted-69cb@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,128 +62,141 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e6ac89b8b1c12e9104df45a14a26e2dfa96ded06 Mon Sep 17 00:00:00 2001
-From: Kuba Piecuch <jpiecuch@google.com>
-Date: Sat, 3 Oct 2026 11:53:17 +0000
-Subject: [PATCH] sched_ext: Generate qseq from a per-task counter
+From d35a535d3e3e71f92a051d94e415f43612c4edfc Mon Sep 17 00:00:00 2001
+From: Tejun Heo <tj@kernel.org>
+Date: Wed, 23 Sep 2026 12:39:20 -1000
+Subject: [PATCH] sched_ext: Fix CPU hotplug hang when a dying CPU's tasks sit
+ in the BPF scheduler
 
-finish_dispatch() uses the qseq embedded in p->scx.ops_state to tell
-whether the QUEUED instance of a task it's about to claim is the one
-scx_bpf_dsq_insert() saw. qseq is generated from rq->scx.ops_qseq, but
-the counters of different rqs are independent, so if a task is dequeued
-and re-enqueued on a different rq between scx_bpf_dsq_insert() and
-finish_dispatch(), the new QUEUED instance can end up with the same
-qseq as the old one:
+A CPU going down has to empty its own rq. Its hotplug thread waits in
+sched_cpu_wait_empty() until nothing else is left, and the only thing that
+wakes it is balance_push(), which runs from __schedule() on the dying CPU
+and pushes off the migratable tasks the CPU picks.
 
-  CPU X                          CPU Z
-  -----                          -----
-                                 enqueue p on rq A, qseq = N
-  ops.dispatch()
-    scx_bpf_dsq_insert(p)
-      records qseq N
-                                 sched_setaffinity(p)
-                                   dequeue p from rq A
-                                   enqueue p on rq B, qseq = N
-  finish_dispatch(p, N)
-    qseq matches, p is claimed
+sched_ext breaks this. A task sitting on a user DSQ or held by the BPF
+scheduler is still counted on its rq, but an inactive CPU no longer calls
+ops.dispatch() and can't pull the task back. The dying CPU goes idle with
+the task still counted, and one of two things happens:
 
-The claim itself is still atomic so the core stays consistent, but an
-insert issued for a previous QUEUED instance gets applied to a new one
-which the BPF scheduler has just received through ops.enqueue(). This
-breaks the guarantee that dispatches targeting a stale instance are
-ignored.
+- Another CPU consumes the task. The rq empties without a __schedule() on
+  the dying CPU, so the hotplug thread is never woken and cpu_down() hangs
+  holding cpu_hotplug_lock.
+- The task is affine only to the dying CPU. Nothing can move it, and the
+  offline stalls until the watchdog ejects the BPF scheduler.
 
-Generate qseq from a per-task counter, p->scx.ops_qseq, instead so that
-consecutive QUEUED instances of a task never share a qseq regardless of
-which rq they're on. The counter is only updated in
-scx_do_enqueue_task() with the task's rq locked, so no additional
-synchronization is needed, and it fits in an existing hole in struct
-sched_ext_entity on 64bit. Remove the now unused rq->scx.ops_qseq.
+When the rq goes offline, re-enqueue every task on it that isn't already on
+the local DSQ. An enqueue on an offline rq lands on the local DSQ, so the
+dying CPU itself picks the tasks and balance_push() pushes them off, the
+same as for the other sched classes. From then on no sched_ext path on
+another CPU can pull a task off the rq.
 
-Never generate qseq 0. NONE and DISPATCHING don't carry a qseq, so
-scx_bpf_dsq_insert() on a task in either state records 0. With a
-per-task counter, every task's first QUEUED instance would otherwise get
-qseq 0 and could be claimed by such an insert. Wrap the counter where
-the QSEQ field wraps so that it can't reach a value that shifts to 0 on
-32bit either.
+ops.dispatch() currently stops as soon as the CPU goes inactive, and CPU
+hotplug then waits for an RCU grace period before taking the rq offline. A
+BPF-held task affine only to the dying CPU and preempted inside an RCU
+read-side critical section would block that grace period, and the rq would
+never go offline. Test SCX_RQ_ONLINE directly so that ops.dispatch() keeps
+running until the rq goes offline. Only the dying CPU's own hotplug thread
+clears the flag during teardown, and task_can_run_on_remote_rq() still keeps
+other rqs' tasks off the CPU.
 
 Fixes: f0e1a0643a59 ("sched_ext: Implement BPF extensible scheduler class")
+Fixes: 991ef53a4832 ("sched_ext: Make scx_rq_online() also test cpu_active() in addition to SCX_RQ_ONLINE")
 Cc: stable@vger.kernel.org # v6.12+
-Assisted-by: Claude:claude-opus-5.5
-Signed-off-by: Kuba Piecuch <jpiecuch@google.com>
+Reported-by: Alap Mohan <mohaalap@meta.com>
+Reported-by: Joonwoo Park <joonwoo@meta.com>
 Signed-off-by: Tejun Heo <tj@kernel.org>
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
 
-diff --git a/include/linux/sched/ext.h b/include/linux/sched/ext.h
-index 582d7cd4a983..36c04797436c 100644
---- a/include/linux/sched/ext.h
-+++ b/include/linux/sched/ext.h
-@@ -207,6 +207,7 @@ struct sched_ext_entity {
- 	s32			holding_cpu;
- 	s32			selected_cpu;
- 	s32			runnable_cpu;	/* cpu @p is runnable on, -1 if not */
-+	u32			ops_qseq;	/* protected by rq lock */
- 	struct task_struct	*kf_tasks[2];	/* see SCX_CALL_OP_TASK() */
- 
- 	struct list_head	runnable_node;	/* rq->scx.runnable_list */
 diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 5209510d6a5e..ac8fe70a9fb6 100644
+index ad391a8cbd05..493b7aac7087 100644
 --- a/kernel/sched/ext/ext.c
 +++ b/kernel/sched/ext/ext.c
-@@ -2057,8 +2057,14 @@ void scx_do_enqueue_task(struct rq *rq, struct task_struct *p, u64 enq_flags,
- 	if (unlikely(!SCX_HAS_OP(sch, enqueue)))
- 		goto global;
+@@ -2123,8 +2123,8 @@ static void set_task_runnable(struct rq *rq, struct task_struct *p)
+ 	}
  
--	/* DSQ bypass didn't trigger, enqueue on the BPF scheduler */
--	qseq = rq->scx.ops_qseq++ << SCX_OPSS_QSEQ_SHIFT;
+ 	/*
+-	 * list_add_tail() must be used. scx_bypass() depends on tasks being
+-	 * appended to the runnable_list.
++	 * list_add_tail() must be used. scx_bypass() and rq_offline_scx()
++	 * depend on tasks being appended to the runnable_list.
+ 	 */
+ 	list_add_tail(&p->scx.runnable_node, &rq->scx.runnable_list);
+ 
+@@ -3731,8 +3731,26 @@ static void rq_online_scx(struct rq *rq)
+ 
+ static void rq_offline_scx(struct rq *rq)
+ {
++	struct task_struct *p, *n;
++
+ 	rq->scx.flags &= ~SCX_RQ_ONLINE;
++
++	/* sched domain rebuilds call rq_offline with the CPU staying alive */
++	if (cpu_active(cpu_of(rq)))
++		return;
++
+ 	scx_rescue_flush(rq);
++
 +	/*
-+	 * DSQ bypass didn't trigger, enqueue on the BPF scheduler. Wrap the
-+	 * per-task qseq counter where the QSEQ field wraps and skip 0, which is
-+	 * what scx_bpf_dsq_insert() records for a task in NONE or DISPATCHING.
++	 * An offline CPU no longer calls ops.dispatch(). Re-enqueue its tasks
++	 * onto the local DSQ so that they run here and balance_push() moves
++	 * them off.
 +	 */
-+	p->scx.ops_qseq = ((p->scx.ops_qseq + 1) &
-+			   (SCX_OPSS_QSEQ_MASK >> SCX_OPSS_QSEQ_SHIFT)) ?: 1;
-+	qseq = (unsigned long)p->scx.ops_qseq << SCX_OPSS_QSEQ_SHIFT;
++	list_for_each_entry_safe_reverse(p, n, &rq->scx.runnable_list, scx.runnable_node) {
++		if (p->scx.dsq == &rq->scx.local_dsq)
++			continue;
++		guard(sched_change)(p, DEQUEUE_SAVE | DEQUEUE_MOVE | DEQUEUE_NOCLOCK);
++	}
+ }
  
- 	WARN_ON_ONCE(atomic_long_read(&p->scx.ops_state) != SCX_OPSS_NONE);
- 	atomic_long_set(&p->scx.ops_state, SCX_OPSS_QUEUEING | qseq);
-@@ -6969,9 +6975,9 @@ static void scx_dump_cpu(struct scx_sched *sch, struct seq_buf *s,
- 	seq_buf_init(&ns, buf, avail);
+ static bool check_rq_for_timeouts(struct rq *rq)
+diff --git a/kernel/sched/ext/inlines.h b/kernel/sched/ext/inlines.h
+index 2ff5479334cb..8de9d8fb4b25 100644
+--- a/kernel/sched/ext/inlines.h
++++ b/kernel/sched/ext/inlines.h
+@@ -70,7 +70,13 @@ scx_dispatch_sched(struct scx_sched *sch, struct rq *rq,
+ #endif	/* CONFIG_EXT_SUB_SCHED */
+ 	}
  
- 	dump_newline(&ns);
--	scx_dump_line(&ns, "CPU %-4d: nr_run=%u flags=0x%x cpu_rel=%d ops_qseq=%lu ksync=%lu",
-+	scx_dump_line(&ns, "CPU %-4d: nr_run=%u flags=0x%x cpu_rel=%d ksync=%lu",
- 		      cpu, rq->scx.nr_running, rq->scx.flags, rq->scx.cpu_released,
--		      rq->scx.ops_qseq, rq->scx.kick_sync);
-+		      rq->scx.kick_sync);
- 	scx_rescue_dump(&ns, rq);
- 	scx_dump_line(&ns, "          curr=%s[%d] class=%ps",
- 		      rq->curr->comm, rq->curr->pid, rq->curr->sched_class);
-diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
-index 1df8f583b0ec..5b37faa532d6 100644
---- a/kernel/sched/ext/internal.h
-+++ b/kernel/sched/ext/internal.h
-@@ -1998,6 +1998,11 @@ enum scx_ops_state {
- 	 * dequeue/requeue, the dispatcher can tell whether it still has a claim
- 	 * on the task being dispatched.
- 	 *
-+	 * QSEQ is generated from the per-task p->scx.ops_qseq counter so that
-+	 * it doesn't repeat across QUEUED instances of the same task even if
-+	 * the task moves between rqs. 0 is never used as a valid QSEQ since
-+	 * NONE and DISPATCHING map to this value.
-+	 *
- 	 * As some 32bit archs can't do 64bit store_release/load_acquire,
- 	 * p->scx.ops_state is atomic_long_t which leaves 30 bits for QSEQ on
- 	 * 32bit machines. The dispatch race window QSEQ protects is very narrow
+-	if (unlikely(!SCX_HAS_OP(sch, dispatch)) || !scx_rq_online(rq))
++	/*
++	 * scx_rq_online() can't be used. Its cpu_active() test goes false
++	 * before CPU hotplug waits for an RCU grace period, and
++	 * rq_offline_scx() moves this CPU's tasks to the local DSQ only after
++	 * the wait. The grace period can depend on those tasks running.
++	 */
++	if (unlikely(!SCX_HAS_OP(sch, dispatch)) || !(rq->scx.flags & SCX_RQ_ONLINE))
+ 		return SCX_DSP_NONE;
+ 
+ 	dspc->rq = rq;
+diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
+index 3036190b0662..c9b44ab3bd0a 100644
+--- a/kernel/sched/ext/sub.c
++++ b/kernel/sched/ext/sub.c
+@@ -585,10 +585,6 @@ void scx_rescue_flush(struct rq *rq)
+ 
+ 	lockdep_assert_rq_held(rq);
+ 
+-	/* sched domain rebuilds call rq_offline with the CPU staying alive */
+-	if (cpu_active(cpu_of(rq)))
+-		return;
+-
+ 	/* end the current rescue */
+ 	if (rq->scx.rescue.curr)
+ 		scx_task_slice_ended(rq, rq->scx.rescue.curr);
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 742cce9da4e9..9ed0cb605c33 100644
+index 7701a5a60972..742cce9da4e9 100644
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
-@@ -813,7 +813,6 @@ struct scx_rq {
- #endif
- 	struct list_head	runnable_list;		/* runnable tasks on this rq */
- 	struct list_head	ddsp_deferred_locals;	/* deferred ddsps from enq */
--	unsigned long		ops_qseq;
- 	/* both stashed across the activate_task() in move_remote_task_to_local_dsq() */
- 	u64			remote_activate_enq_flags;
- 	struct scx_sched	*remote_activate_sch;
+@@ -4205,8 +4205,9 @@ extern void balance_callbacks(struct rq *rq, struct balance_callback *head);
+  * after which it is enqueued again.
+  *
+  * Typically this must be called while holding task_rq_lock, since most/all
+- * properties are serialized under those locks. There is currently one
+- * exception to this rule in sched/ext which only holds rq->lock.
++ * properties are serialized under those locks. There are currently two
++ * exceptions to this rule in sched/ext which only hold rq->lock: scx_bypass()
++ * and rq_offline_scx().
+  */
+ 
+ /*
 
