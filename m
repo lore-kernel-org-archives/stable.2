@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 706A347142F
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 11:43:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D2724718F0
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 11:44:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791805440; cv=none; b=reI6kMvWTE3Qi5g8n7P3Bsf3jOqoDTJbyINockRUZJCWff1dAM2Mi+dpmQbZmOgzyl08Md8W9ozgsXK0pB5FE2fNRDVDfYYNm/ULdOwWML3PaC8z1AdCrp6kt8BSDmk4loWuf3HHk7kWpcYoZ0mg4wKJ25DY/HEXJ+zzMHhY860=
+	t=1791805486; cv=none; b=Hg/8XYzqNqCx9oTXg3B7XcduRhmqZn5RwM1QPxIcn+8PmYEkuknKLhELm1mCpNB5FsqCvUlmW4Nx6wqAL6PeoZRqfO2aIUGnExlnFSck9Rw2Z1joSn2rcXMazh4ofaRMHYOkNJmJfybjKghs7Vm8Y//XKhGmWFo+REtungPGrwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791805440; c=relaxed/simple;
-	bh=iHA7vOK8+2ZAqHznkvysEz0Hx0LbfVMwPBzeWJAo4cg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=gAPMK3iqr8/Ib0DpQbn7NDD+hWLa1HIURIr/tmutmwgJ0QcFEW2Xgj/8lfDE+/6YVEvh0yPJ4KaTmTQsi5yQnVaKldp4LoGiDoAwT53bxZyXfCPojTcnNtSNCesJ/diXUv3b+S03OJKgFD9ga6Kc5OonddfHBPpomy7dNjJ/Aj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PrCEngho; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791805486; c=relaxed/simple;
+	bh=RAXtb+lp78IgkfShJt73bEduKM003Jk7jg5l72ZWT3M=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=QB3cEn2FcgNf3+p8A26h5AlZKNLq0vWM2w5kye6KTP9gCwPO/HbJ4yaFilwUuSDfC+nAJztFyhFZYarpN+dUJMtos38aF7L6ysVvjGZuBdd5kiCljTAwx+7Fa/qdDh/eJ7/e+XOFpxpYwlB/RNqHr1DrT2lCcyjsOlGPp4ntAmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tqycnd8B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PrCEngho"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A83D1F0089D;
-	Mon, 12 Oct 2026 11:43:54 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tqycnd8B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14D881F0089C;
+	Mon, 12 Oct 2026 11:44:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791805434;
-	bh=jC7nBxLqC2O1fGoUNwvFOiM91XPdKEsTrSyY1BKjQmQ=;
+	s=korg; t=1791805477;
+	bh=sQTFnWulGrmWcS3/HwVpdBkwVmBHo0rzyBn3A5ao6ms=;
 	h=Subject:To:Cc:From:Date;
-	b=PrCEnghorpQqI0N7rHX1zaKzKwNUN2nF+kxEo6AEdFLi3c8elBxIQruBkxHlvzRGy
-	 BDJ2RxrsySZXAY9D1p7yrDaGWL2vemPdY+f7iPVOm2SvwFlUNDUjw6pAwsZ79WyF+M
-	 9cU7nihNv0vBpCn+XEyepDQsLcBTsIzG4NPdH0I0=
-Subject: FAILED: patch "[PATCH] ip6_gre: remove obsolete ERSPAN PMTU update" failed to apply to 5.15-stable tree
-To: 4ncienth@gmail.com,idosch@nvidia.com,kuba@kernel.org
+	b=tqycnd8BVx03VwCT9hbFUuXfA+kzuoeuy75VCctULquo1qP65DLZX3S3Hc8DzDgMs
+	 FX0XQPklXuFUaqBRwbc5vCheaOSOemuSYeuFmaUE0hMFzd4dwWiNJorOTR+C2gq/mX
+	 VwF1fRM0pn/xYBliEKgKJ4PyLLyqVGXHHYnc4FCE=
+Subject: FAILED: patch "[PATCH] mm/mremap: fix locked_vm leak by splitting VMA for" failed to apply to 6.18-stable tree
+To: ljs@kernel.org,akpm@linux-foundation.org,asrinivasan@oss.tenstorrent.com,azpijr@gmail.com,bgeffon@google.com,jannh@google.com,kas@kernel.org,liam@infradead.org,minchan@kernel.org,pfalcato@suse.de,stable@vger.kernel.org,vbabka@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 13:43:45 +0200
-Message-ID: <2026101245-omen-grinch-fa7a@gregkh>
+Date: Mon, 12 Oct 2026 13:44:42 +0200
+Message-ID: <2026101242-endurable-dwelled-87d2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8bc60db48e8cba35488bbd6e1f94aa990afa275a
+git cherry-pick -x 597e4b9ab48a3f841080f627722064853d3f650e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101245-omen-grinch-fa7a@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101242-endurable-dwelled-87d2@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,63 +62,232 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8bc60db48e8cba35488bbd6e1f94aa990afa275a Mon Sep 17 00:00:00 2001
-From: Daehyeon Ko <4ncienth@gmail.com>
-Date: Fri, 2 Oct 2026 12:30:58 +0900
-Subject: [PATCH] ip6_gre: remove obsolete ERSPAN PMTU update
+From 597e4b9ab48a3f841080f627722064853d3f650e Mon Sep 17 00:00:00 2001
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Wed, 30 Sep 2026 19:47:10 +0100
+Subject: [PATCH] mm/mremap: fix locked_vm leak by splitting VMA for
+ MREMAP_DONTUNMAP
 
-A tc tunnel_key action can attach a METADATA_IP_TUNNEL dst to an skb,
-and mirred can redirect it to a native ip6erspan device. The legacy PMTU
-update in ip6erspan_tunnel_xmit() treats that metadata dst as a route.
-Since it has no output device, dst_dev(dst)->mtu dereferences NULL.
+The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
+operations that keep the original VMA in place.
 
-On v7.2 with KASAN, an initial UID/GID 65534 process with CapEff 0 used
-self-created user and network namespaces to trigger:
+Historically this has led to a lot of bugs where non-obvious interactions
+occur between existing mremap() operations and the original VMA.
 
-  KASAN: null-ptr-deref
-  RIP: ip6erspan_tunnel_xmit+0x10fc/0x2cc0
-  Kernel panic - not syncing: Fatal exception in interrupt
+Fix another of these - partial copies.
 
-The update is obsolete. Commit fe1a4ca0a2b7 ("ip6_gre: process toobig
-in a better way") changed IPv6 GRE Too Big handling to update the
-underlay route and removed the equivalent block from __gre6_xmit().
-ip6_tnl_xmit() then propagates the underlay PMTU to the overlay route.
+The long-standing mremap() partial VMA logic has the baked-in assumption
+that the originating VMA is unmapped and thus moved.
 
-Remove the stale ERSPAN copy and its now-unused dst variable. This
-eliminates the metadata-dst dereference and keeps ERSPAN aligned with
-IPv6 GRE PMTU handling.
+However MREMAP_DONTUNMAP defeats this by performing a partial copy
+instead since it keeps the source VMA around.
 
-Fixes: 5a963eb61b7c ("ip6_gre: Add ERSPAN native tunnel support")
-Cc: stable@vger.kernel.org
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/20261002033058.358137-1-4ncienth@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+An mremap(..., MREMAP_DONTUNMAP) operation disallows resizing of the VMA,
+but the operation can be performed partially:
 
-diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
-index e61cb10b50dc..04f7c70b7320 100644
---- a/net/ipv6/ip6_gre.c
-+++ b/net/ipv6/ip6_gre.c
-@@ -923,7 +923,6 @@ static netdev_tx_t ip6erspan_tunnel_xmit(struct sk_buff *skb,
- {
- 	struct ip_tunnel_info *tun_info = NULL;
- 	struct ip6_tnl *t = netdev_priv(dev);
--	struct dst_entry *dst = skb_dst(skb);
- 	IP_TUNNEL_DECLARE_FLAGS(flags) = { };
- 	bool truncate = false;
- 	int encap_limit = -1;
-@@ -1058,12 +1057,6 @@ static netdev_tx_t ip6erspan_tunnel_xmit(struct sk_buff *skb,
- 	gre_build_header(skb, 8, flags, proto, 0,
- 			 htonl(atomic_fetch_inc(&t->o_seqno)));
+                           |-----------------|
+                           |                 |
+                           |                 v
+                        <------>          <------>
+                        .new_sz.           new_sz
+                     |--.------.--|       |------|
+                     |  .source.  |       | dest |
+                     |--.------.--|       |------|
+                     <------------>
+                         old_sz
+
+The page tables in the specified range are moved, but the original VMA is
+kept intact.
+
+This interacts poorly with mlock()'d VMAs, as the VMA_LOCKED_BIT flag is
+cleared for the entire source VMA and set for the entire destination VMA.
+
+This results in an mm->locked_vm leak as the change is therefore not
+accounted correctly.
+
+The clear solution here is to make the portion of the source VMA which is
+mremap()'d distinct from the rest of it, a.k.a. split it.
+
+Therefore resolve this issue by splitting it ahead of the rest of the
+mremap() operation if the VMA is mlock()'d.
+
+This is valid, as the source VMA will lose its VMA_LOCKED_BIT flag, so if a
+partial remap it will become distinct from the rest of the VMA.
+
+In order to make this change re-expose split_vma() in vma.h for
+CONFIG_MMU (nommu doesn't compile mremap.c and uses a static helper
+instead).
+
+Finally, update the sys_map_count check to account for this case.
+
+Note that the early check does not use needs_pre_split() - this is because
+the VMA has not been looked up by this point, so be conservative and assume
+that the VMA is mlock()'d in this case for the purposes of the
+sys_map_count check.
+
+Link: https://lore.kernel.org/20260930-fix-dontunmap-partial-self-merge-v2-2-f388985a0f0a@kernel.org
+Fixes: e346b3813067 ("mm/mremap: add MREMAP_DONTUNMAP to mremap()")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Brian Geffon <bgeffon@google.com>
+Cc: Minchan Kim <minchan@kernel.org>
+Cc: <stable@vger.kernel.org>
+
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 058dd66fe1d7..444f37d7cd28 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -1037,6 +1037,7 @@ static void vrm_stat_account(struct vma_remap_struct *vrm,
+ }
  
--	/* TooBig packet may have updated dst->dev's mtu */
--	if (!t->parms.collect_md && dst) {
--		mtu = READ_ONCE(dst_dev(dst)->mtu);
--		if (dst_mtu(dst) > mtu)
--			dst->ops->update_pmtu(dst, NULL, skb, mtu, false);
--	}
- 	err = ip6_tnl_xmit(skb, dev, dsfield, &fl6, encap_limit, &mtu,
- 			   NEXTHDR_GRE);
- 	if (err != 0) {
+ static bool __check_map_count_against_split(struct mm_struct *mm,
++					    bool pre_split,
+ 					    bool before_unmaps)
+ {
+ 	const int sys_map_count = get_sysctl_max_map_count();
+@@ -1088,26 +1089,42 @@ static bool __check_map_count_against_split(struct mm_struct *mm,
+ 	 * Therefore we must check to ensure we have headroom of 2 additional
+ 	 * VMAs.
+ 	 */
+-	return map_count + 2 <= sys_map_count;
++	map_count += 2;
++
++	/* If pre-split, the -1 observed above doesn't apply. */
++	if (pre_split)
++		map_count++;
++
++	return map_count <= sys_map_count;
++}
++
++static bool needs_pre_split(struct vma_remap_struct *vrm)
++{
++	/*
++	 * An MREMAP_DONTUNMAP of a mlock()'d VMA needs to unlock the
++	 * source VMA, so split in this case.
++	 */
++	return (vrm->flags & MREMAP_DONTUNMAP) &&
++		vma_test(vrm->vma, VMA_LOCKED_BIT);
+ }
+ 
+ /* Do we violate the map count limit if we split VMAs when moving the VMA? */
+-static bool check_map_count_against_split(void)
++static bool check_map_count_against_split(struct vma_remap_struct *vrm)
+ {
+ 	return __check_map_count_against_split(current->mm,
+-					       /*before_unmaps=*/false);
++		needs_pre_split(vrm), /*before_unmaps=*/false);
+ }
+ 
+ /* Do we violate the map count limit if we split VMAs prior to early unmaps? */
+-static bool check_map_count_against_split_early(void)
++static bool check_map_count_against_split_early(struct vma_remap_struct *vrm)
+ {
+ 	return __check_map_count_against_split(current->mm,
+-					       /*before_unmaps=*/true);
++		vrm->flags & MREMAP_DONTUNMAP, /*before_unmaps=*/true);
+ }
+ 
+ /*
+- * Perform checks before attempting to write a VMA prior to it being
+- * moved.
++ * Perform checks and preparation before attempting to write a VMA prior to it
++ * being moved.
+  */
+ static unsigned long prep_move_vma(struct vma_remap_struct *vrm)
+ {
+@@ -1116,19 +1133,17 @@ static unsigned long prep_move_vma(struct vma_remap_struct *vrm)
+ 	unsigned long old_addr = vrm->addr;
+ 	unsigned long old_len = vrm->old_len;
+ 	vm_flags_t dummy = vma->vm_flags;
++	const bool split_before = vma->vm_start != old_addr;
++	const bool split_after = vma->vm_end != old_addr + old_len;
+ 
+-	/*
+-	 * We'd prefer to avoid failure later on in do_munmap: we copy a VMA,
+-	 * which may not merge, then (if MREMAP_DONTUNMAP is not set) unmap the
+-	 * source, which may split, causing a net increase of 2 mappings.
+-	 */
+-	if (!check_map_count_against_split())
++	/* Avoid failure later on. */
++	if (!check_map_count_against_split(vrm))
+ 		return -ENOMEM;
+ 
+ 	if (vma->vm_ops && vma->vm_ops->may_split) {
+-		if (vma->vm_start != old_addr)
++		if (split_before)
+ 			err = vma->vm_ops->may_split(vma, old_addr);
+-		if (!err && vma->vm_end != old_addr + old_len)
++		if (!err && split_after)
+ 			err = vma->vm_ops->may_split(vma, old_addr + old_len);
+ 		if (err)
+ 			return err;
+@@ -1146,6 +1161,21 @@ static unsigned long prep_move_vma(struct vma_remap_struct *vrm)
+ 	if (err)
+ 		return err;
+ 
++	/*
++	 * To account mlock()'d pages correctly in the MREMAP_DONTUNMAP
++	 * case perform any split ahead of time for an mlock()'d VMA.
++	 */
++	if (needs_pre_split(vrm)) {
++		VMA_ITERATOR(vmi, vma->vm_mm, old_addr);
++
++		if (split_before)
++			err = split_vma(&vmi, vma, old_addr, 1);
++		if (!err && split_after)
++			err = split_vma(&vmi, vma, old_addr + old_len, 0);
++		vrm->vmi_needs_invalidate = true;
++		return err;
++	}
++
+ 	return 0;
+ }
+ 
+@@ -2006,7 +2036,7 @@ static unsigned long do_mremap(struct vma_remap_struct *vrm)
+ 		return -EINTR;
+ 	vrm->mmap_locked = true;
+ 
+-	if (!check_map_count_against_split_early()) {
++	if (!check_map_count_against_split_early(vrm)) {
+ 		mmap_write_unlock(mm);
+ 		return -ENOMEM;
+ 	}
+diff --git a/mm/vma.c b/mm/vma.c
+index d8308c319daa..6c35f0d775ab 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -634,8 +634,8 @@ __split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
+  * Split a vma into two pieces at address 'addr', a new vma is allocated
+  * either for the first part or the tail.
+  */
+-static int split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
+-		     unsigned long addr, int new_below)
++int split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
++	      unsigned long addr, int new_below)
+ {
+ 	if (vma->vm_mm->map_count >= get_sysctl_max_map_count())
+ 		return -ENOMEM;
+diff --git a/mm/vma.h b/mm/vma.h
+index 39514fac72fc..36973abaa015 100644
+--- a/mm/vma.h
++++ b/mm/vma.h
+@@ -556,6 +556,11 @@ int do_brk_flags(struct vma_iterator *vmi, struct vm_area_struct *brkvma,
+ unsigned long unmapped_area(struct vm_unmapped_area_info *info);
+ unsigned long unmapped_area_topdown(struct vm_unmapped_area_info *info);
+ 
++#ifdef CONFIG_MMU
++int split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
++	      unsigned long addr, int new_below);
++#endif
++
+ static inline bool vma_wants_manual_pte_write_upgrade(struct vm_area_struct *vma)
+ {
+ 	/*
 
