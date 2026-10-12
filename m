@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2FD357CEB
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 14:56:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABC0A345EBE
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 14:56:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791816970; cv=none; b=m3RA6Y33fsiMihbR0O0FyKmHwktotQgHtCxZPh24A8gdtln3tRoO9gBgL0BWY5GkxmMXf71vTew22pooche81RiHjIh1M08lwWablVtFGIwq0CW3YCGUur06jTSjNd8qLgXBRAH4MhB1VtGOGwDFfkz6tap0qm6y5jKbvQektJk=
+	t=1791816979; cv=none; b=a3RUBy95TDOgT8fCtYNHIgYy362IsMIFpglk+hPZ/14Ct+AfjKTl0auDLyM9KlR1pMvdWCm3C4vwgXKTDJEKZ4+DgL7XTYENx46cBQYomgeig872thdnDRCk/8/GU9ZEJYfExn2kvltILsm8ZWZxATaY1j81dp4QjLb+qSr3dLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791816970; c=relaxed/simple;
-	bh=f/STzj4eCiBxKLOhw11TRPsRgkhhWnbZFtA2SBA8muA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ZRY5sz4RZTJMJZ0AgImpgpJrhQYFSdy1CirKOEAgyStz3HYCdD9ROTdSxHWOnVfYcWGjrJ+jIkjy0318sbzXA3wPeteqhrJdazLVbGfTM9e3Ae134sO0cAtJwM/uUbNgHhl3yJHapArEajthBdajXmZGCf6/49Eq7cZSX3HWu10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TZqEy6+/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791816979; c=relaxed/simple;
+	bh=HeAVZZ3xrC4e3ziDvECujDfP0xnkN2HtIawdcuqTDvc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=X2FsxCVKifoH/B9jKapXsCWgSsiYFNPIN7Ntnx8b6lhZvAlDXo81kqjfMQEu6FWU3LXgWI2daRtA+XulhnYzOb1pfb4DcCyjGDhQshrEqsJ9TcdEddVL7ww21yAI71Qcr5DbHEVBPdK4GDHogO7TA7P9/KcS5fs9KGrNI01cghA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yRzaKuZ+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TZqEy6+/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4CCA1F0089B;
-	Mon, 12 Oct 2026 14:56:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yRzaKuZ+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05C2F1F0089B;
+	Mon, 12 Oct 2026 14:56:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791816968;
-	bh=t7gAHLWmgcpcdsqCz2Tv+FELEocXp5s6XzEqAPx2n5Y=;
+	s=korg; t=1791816977;
+	bh=Hhui8LZeMou7NLVpTEoZL3KZ4dQ0EOv9n4zEJK0pWkU=;
 	h=Subject:To:Cc:From:Date;
-	b=TZqEy6+/SzMvMv76OmEoZpWDjIEwqlxHDl6cGkclbKg2omaTUN/r/FxFno+FhYIfN
-	 IQaUof1bOhhAzSM2E7TTFM+tmCCcCREnYWQWrdt5gpWZndQ3wIw233VIxIUbK1cYCR
-	 Dmg3jE5C2D2T4OlGMX8l3uYUCixabGk6Hp5lqYUo=
-Subject: FAILED: patch "[PATCH] net: mana: reserve RX buffer headroom to fix forwarding" failed to apply to 7.2-stable tree
+	b=yRzaKuZ+2Ny56Ugj/SmVD30lha+uioKzy88oeg6O0kQzJ01pmol72br9H94DENV7p
+	 oLscNnSofO62hrmCEnSuRhzQRFWxjx7+SipJlxUpRO4+3od2/P1q0tDKzF0Asow+9v
+	 rJ6HqbzSiQDRv2wqeuMoOw9vhTC6htCI4ds2tj1w=
+Subject: FAILED: patch "[PATCH] net: mana: reserve RX buffer headroom to fix forwarding" failed to apply to 6.18-stable tree
 To: hamzamahfooz@linux.microsoft.com,horms@kernel.org,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 16:56:13 +0200
-Message-ID: <2026101213-empirical-glancing-002d@gregkh>
+Date: Mon, 12 Oct 2026 16:56:14 +0200
+Message-ID: <2026101214-empathy-corridor-b98d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 259c4a519100e9182f264f8009ee212b32774277
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101213-empirical-glancing-002d@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101214-empathy-corridor-b98d@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
