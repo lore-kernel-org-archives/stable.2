@@ -1,157 +1,251 @@
-Received: from mta1.migadu.com (out-62.mta1.migadu.com [95.215.58.62])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022139.outbound.protection.outlook.com [52.101.96.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F085838E5EF
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 01:59:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.62
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791770378; cv=none; b=ENf6kPmD7p00yk1s5RT5yY2rakIXrM60dy1ZUyn2GA5M+lXLGBpGjIjSfrJTSZSRQ9Zz6shzTnHabEEr3aXvMnGV5JKcQ6oCqM0pHRKYDTE7XPmuZHXDMfEq++krWYDy75bD7O68oq0vR5479/3UKVslOMzDwgw2jld4Ei38Kdw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791770378; c=relaxed/simple;
-	bh=moBHlWf8jgOs/rYSsRmHzU2nJBmQG8lbqQxc+Xan938=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=vFdqDr/ch9jZ+kZxC3+wcRn2+SGgSCo15zVL5kH7UAhRhvfOgbgUU6dmdX6JbMUrB7w1R8nywYwnqs1jKsTDw25lgNKn3UWoqXCJL7+thjFgxvyOyjS8KQOYE3SSQ4RKuWY9YUYTU1ty4RmvxP7g/VOpIXG1tvLEMdcmVpa4y2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=D4tnk9S6; arc=none smtp.client-ip=95.215.58.62
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="D4tnk9S6"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=moBHlWf8jgOs/rYSsRmHzU2nJBmQG8lbqQxc+Xan938=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791770375; v=1; x=1792375175;
- b=D4tnk9S6wtHb6mDP/quLnO0cCahq120jKBiAAaR0yD/g5GVM2DejYzLPz0delcFFnUnXp8Zh
- dcKtqCzsJ76ozUA5xawJ+be8Wo3NGNSSkVMd8Wxear9pDleXsokAf3LWVieSBK34ypsIE09I+W1
- WyH++gLMseLHFJ8luyCF+1SU=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 967f2161ab6b936c;
-	Mon, 12 Oct 2026 01:59:34 +0000
-X-Mizu-Trace-ID: 967f2161ab6b936c
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <06f54345-4ca6-455f-9519-138e0b6db24b@linux.dev>
-Date: Mon, 12 Oct 2026 09:59:22 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 963D7331EB7;
+	Mon, 12 Oct 2026 02:21:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.139
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791771672; cv=fail; b=GAh+J/IMBY8zV71Y9pFVXrPQ1ohOdHthkxJwb08jhEjlBfHQcorzXVRGmaRoQZekc1QoJn7iysyZq00t1Pec0Pay3cwe6DHzXPHfC7VhivLlhT8yjhUBofWS2AUUp87ejYdiKhtrgQlWNU8nSkx+1aCxGnRrsxTAJnOfTv0w58s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791771672; c=relaxed/simple;
+	bh=GEIKj4m1fhwdj2XFgP/RRjQnbnTXDxKewbG92H4OE0E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=brlVpFNB6Dxztob+PlTWRwGhmwuuIIgiF05pKx1dUqR+Jyozez5hL4vxk28iszk3m5Bx37EaYyYAXttH0Jiv1T7sh3120WpwxLUw7cCCdamPDnB0Roht1Ya7QDxFLGBABENg5cNXnLv+ZUjf/fjndnWRZTgwGWqUjgwMvuERFGQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.139
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mmDoiIJeozDUqWjwcPJZ47wHP/5P4Ta4q/+w+rTeiYcS/zZiZuuZMAgHX2PXwWvw9g0T6WmTO7DqdkTyexjr7flNwp/HLMtOYOmaw2vGXXyZqkT56Bxelj4japoW9d7zTsvYv5cuq6zRmFC5ysBCoJTpj8dz3mz+eGPn5qIV/sWi3fA/VZawMYDkjzs794pAzOabuBbRBqMtNcQwFisly4E59RP0uLeKN6/mT8/Yig4KMt0snjIR74dR2b/hzX2gk3p8sw9g8dRrrO2ohuoEvk77hibuFck60UOpnXoXp9RM7DJIoCfZ5C2B2mN/QUYfIsRQVDG7mgsDFCgybQ7fRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=tnRrXxMozwxCDOR/xoFAfuq/2jmNqNvLH9vgASxzDIY=;
+ b=JMMHBksQiCWl6jLaaF0x31QKvhuBTLAkEer8Kyga7w8i0z+Ri/RsRmCRGF6zGwOkKBn9gtUAKfmVbxaKfaMMzWTM3pxY+dhKuyQwjO2H1WYE3YH+Z9ZOplpnZytGATcN9APOBiVH9vCwZ8XAjoi8yVHcLkdGi8qQBhtPk5rnMXmy5saCyb6Nh0TFsh/j/WSEICokwA/u3TwmH5oF4vwVrwPsYGfl8eEMhKTEaiTr+OG6eQ8ZAlN4jzVO04SGkDt/oFuVe5kl7CdbRr6lmbQ/9dnFWLSTRrcLZj2CwXyYOCbomnSHikmpBTkxsCavVIje7mpqELFAXMxw/nebfACsJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by CW1P123MB8152.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:25e::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
+ 2026 02:21:06 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
+ 02:21:05 +0000
+Date: Sun, 11 Oct 2026 22:21:01 -0400
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: Ming Lei <tom.leiming@gmail.com>
+Cc: axboe@kernel.dk, hare@suse.de, sean@ashe.io, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] blk-mq: dispatch kworker to housekeeping CPU when hctx
+ cpumask is empty
+Message-ID: <o2hxbjxbkg3wv25lyj3nluwv4e6cb6q5qaukrhjzwg2hodwk5c@wgpc25peito7>
+References: <20261012012905.267920-1-atomlin@atomlin.com>
+ <CACVXFVMTr8mORGSVM4JWHrLYgk+9O0J20bjaL_08uYmRCbzC3A@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACVXFVMTr8mORGSVM4JWHrLYgk+9O0J20bjaL_08uYmRCbzC3A@mail.gmail.com>
+X-ClientProxiedBy: BN9P221CA0016.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:408:10a::18) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf] bpf, sockmap: Fix UAF when map user reference is
- revived
-To: Jan-Gerd Tenberge <janten@gmail.com>, bpf@vger.kernel.org
-Cc: ast@kernel.org, daniel@iogearbox.net, john.fastabend@gmail.com,
- jakub@cloudflare.com, edumazet@kernel.org, kuniyu@google.com,
- pabeni@redhat.com, willemb@google.com, davem@davemloft.net, kuba@kernel.org,
- horms@kernel.org, yonghong.song@linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261008095656.92793-1-janten@gmail.com>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <20261008095656.92793-1-janten@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CW1P123MB8152:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5cc09047-2195-4ded-a47e-08df2807781c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|4143699003|56012099006|18002099003|22082099003|6133799003|261009223027099003|3023799007|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	yjn4vP34LUF/DPnue62O1CEbW1jT4AZCRoMVaQV1bM1umn9EtiQKUSS6mhAJwml8kMMvX6355a2TM46dEEt6HwWDN7GlT0bwFU5UBtF7X6XnpSfTNm9y9vPPsN3+GwCiEnKxNlC1jfeJFEi/VKNSvYpt0EjPzjf91iLPUQLIikT03aBRBkIqgLE3z0fSYM4S9Zd27HVQnF867LOnxo7WJfvSlIPKS2JRwpcPVCUMTybnl+nX5Z9iZ+4SNOfhoCiMpPH/ysWjI52tLUVsWUKjhafovpDt+jxN2gqq6sUrw2bMxy6T3HudS8t0WSYmLF0luPEbObp61MMdJVB8Jp9sCD1v0yKtTFyt/FAb6MfPRsK+mv/mmEGlqu0cQkC52Z1+rYFzQ2qw6IUVcydNq7om4blQz4FKeMXpilYM1hk4dJBPrKICQCgw3fgX0pTK2RgdewAtQOFB4Gh7kdT3s55LCxOWMAPuQE5a7BLLtrppPZlfMulxHJw9C/6M6pFRQUxW07Xzylz6ePq3uN63IyYL4zsfHCiBcfYQAgX3vR+fxaAj+zMLkbokBxK5taaVfkZwUrcrTSF7u53nwIk31j7qipZGhP1Yz6AoDt5NPsurfWY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(4143699003)(56012099006)(18002099003)(22082099003)(6133799003)(261009223027099003)(3023799007)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZHAxbVJCUFVBTnFnQXJ6Zmp0WEp4WU5aREFoWXdicG9yNFdiOVRLZGUxbHVM?=
+ =?utf-8?B?ckMycElmTzk0MUNsV0VnLzFrMXNXcHdsZGhIcGt2Q0tTSzZQMWJ2NDBORUQ2?=
+ =?utf-8?B?ODdhRDVqYTllVXF4RTRpc2ZRZjh4VjdxTXJEdzR5b3dZa2VNMTFGejB3WFo3?=
+ =?utf-8?B?UGlxU0xJY0JyU2ZXNU9ibkI2Y3RqaVk1S0VQd0JiWnNOazVFWWlQWnI1VSt4?=
+ =?utf-8?B?MU9TSVhsMGdSRGZ3VE91QzBqdUdLVHAxRytTcWwrbkFOcE5SR2pVMkN5Z2xX?=
+ =?utf-8?B?M2phWXFpK05jbjVvdGE3aXp6ejNaTHBzSEcwbUpxeFpjdnduSStpRU5FQm5Q?=
+ =?utf-8?B?NVpvaFFmdmNEcmhRdGluRDJYZnQzVkJvQmNoRTVQQzhpc29OZXFRcjYyVVU2?=
+ =?utf-8?B?TTl3Ly8rUTc4Rzc2K0VaUHdoUWdZZWFiSTNTWUluaXA5RGdxZFVKSUVUVW9R?=
+ =?utf-8?B?bXZacDlhS3QvVzhkaWlIR0YxYytNbW9YN3FFeTJvdGJQQStucThNWnNYZ0Ey?=
+ =?utf-8?B?OWlMNytFb0dvYTdtTDVRdDUrMmxKNVZJQzJJdEhPNm1Ua0JoWE5HbW01NFM0?=
+ =?utf-8?B?Z2wrSUg5QXl3c3BLZDFFUUtCS2o1MGIrNDIvV1RPZjY5ZUpRNHVScG1VL3Ji?=
+ =?utf-8?B?MXRjWXpPZ1kvSXNsTzdZV3hzcXZ2VHdrWFhlVnk5OUg4eWtEakFRM0hJT0Ey?=
+ =?utf-8?B?N28vOHMwUFA0OWxRb2daTytuQ1Rrd0gzODlHdGpMdnNRMDBCY0hDRHZvcHRp?=
+ =?utf-8?B?NlBmU1pBNW1qbFhmZUJwOTJmUnRMalJEUjB3UGhFZVRFaTVtY3FxUU9NWHVh?=
+ =?utf-8?B?ek5qdDZ6ZjJCQWlsdDNycjRlakVFaVJvYTJCRWxjMHhaWmFuUklkcDZiWTM1?=
+ =?utf-8?B?TGg1c0FnaGN1TmxncEEzenNycExZTEVsVmtJK3cxSW4rZ1NvUGN2Tys0ZVNk?=
+ =?utf-8?B?bU9vbVFLM0JTTnY3SDlNbFExMFhzbFVNL0VLY3YzbENSRXd4QVlIT1R2RFdq?=
+ =?utf-8?B?OWRkTWxYYUZuazY4MGplSEVvUGNCTkR0eHJWeXE1a2NFRGRFWWR1RFMzUzJX?=
+ =?utf-8?B?T1R5YnVNSTNJaW5vWHUxdUkrSkZOd3JCdXUrL3BpMnpMZTZFVk91SnZ4SWJh?=
+ =?utf-8?B?QjE5c25FUjd1Nk43VWlhVnp0M2ExRkJSRmNKY2lQd2NGYWg3YnZTbDB5Qmli?=
+ =?utf-8?B?NUZBZy9CUUdqcU1KUFh4WGRwTFY1V09KRVVnRjRnZURKdkY4Yko3ejlNaWdD?=
+ =?utf-8?B?YlVrYldLK0pTZlplOTI5M0o0Q3hYSytsT1dFNzJqMU12bDlma3pZQWhGK0FF?=
+ =?utf-8?B?K3BQb0ZyTFRHdWFqbXovUm9yVkRTd3pNZFFCU2pPV0p2MVNwQitScDU4ajk5?=
+ =?utf-8?B?RFdrUWIxNlJCOFdnVVErUWFjNGpmdHJJRXRKN0EwL2pKbmNHeTlUaWIwWjYy?=
+ =?utf-8?B?MXZtWWlNWVJWbnVnVEVPT2Q0L0pEeHBSSWZJREhXVlRkc0E1aFZ5UXR3cXZq?=
+ =?utf-8?B?d3AyTWNUdlJyNGhVWkw5K3dLYWloNTJPeUJTektKTjFHYzJhRnBPc2h2TVRp?=
+ =?utf-8?B?czF5K1hBTnNmdWNuTHlueEVVSDlrRitSRnlRZVlrdGtXNmtPa2JjengrMkx5?=
+ =?utf-8?B?NytydENuY3g3WEV4dnRvTTRVOStEQ1FGaE1HTEt1MnovTVlINjJjSXlNcVc4?=
+ =?utf-8?B?b1JUamJEVU9zaXEwYk83dm5mdlhvNnhCTU5OdWJQVTBTOFE4emJKN2VIbml5?=
+ =?utf-8?B?QmhVVSt4NHR3cDJjZWVwaEdmckQ0R0tWSzJzSEVZTmZLUU9PTUlkNC9WU1Q0?=
+ =?utf-8?B?eTRKRkw2ZXhHZG4rbE9ubldsZmRoYStwKytVL3FVMTYwMCsvNlppNzErK2Z4?=
+ =?utf-8?B?YjljN040T2l3TU1GQ3QvcEc0ZERVRS95Yk9QblBkSEJkT1h3RWgxa042Rm1R?=
+ =?utf-8?B?d3lsL0ttY2lIQzFwUVJKOGJkZlZ6RURvR0NJTnFZTVlIbXJvc251SlZEc0g4?=
+ =?utf-8?B?RCtKS3FGNXk3SmwvS0NEVzB4WUJ6UXNnajRoZUJacDdjcXVoN3VoOExtTkxB?=
+ =?utf-8?B?VmppaWNaRk9RVGM3dDkwK0VITEYrVG1RMmIvMFRKQ0lJNXJ3VFlRc2IvOEQ0?=
+ =?utf-8?B?UlhTRkhjVWFLV2x6bzZpYkt6aERsOGk4ZDVMbmI1ckcyM0I0RFNrT05mSXZu?=
+ =?utf-8?B?bTdzVjEraGRZaHBtVkRDNTdlbVJ3WFJPRkQzMEFjdTNwci9HZUV0WSs1VFVB?=
+ =?utf-8?B?ZmFOVk9IZy9WdFp4b1pKTEpkQmRqNjJQTHI5NkZCcHlJcXpuVE1KaGxxemhi?=
+ =?utf-8?B?Z3VxQndtUDZtUFdrUlBJcGc3UjZxR3JLRnpxYklsOGNEeHFidjlmUT09?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5cc09047-2195-4ded-a47e-08df2807781c
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 02:21:05.6201
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: v3P+6AQ+uexmFtefQ94PPc+XtA2sqDDIAhueR1IKaOKZ5OzYn5BdoPzX6H/vCmZac29IWCqL1PZz2d3nHIiqlw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P123MB8152
+
+On Sun, Oct 11, 2026 at 08:56:07PM -0500, Ming Lei wrote:
+> On Sun, Oct 11, 2026 at 8:29 PM Aaron Tomlin <atomlin@atomlin.com> wrote:
+> >
+> > Commit a46c27026da1 ("blk-mq: don't schedule block kworker on isolated
+> > CPUs") excluded isolated CPUs from hctx->cpumask to prevent worker
+> > threads from executing block work on isolated CPUs. When all CPUs mapped
+> > to a hardware queue are isolated (i.e. blk_mq_hctx_empty_cpumask(hctx)
+> > evaluates to true), blk_mq_hctx_next_cpu() returns WORK_CPU_UNBOUND with
+> > the intention of offloading execution.
+> >
+> > However, kblockd_workqueue is allocated as a per-CPU workqueue
+> > (WQ_PERCPU). When WORK_CPU_UNBOUND is queued on a per-CPU workqueue, the
+> > workqueue core resolves the target CPU via raw_smp_processor_id().
+> 
+> Then it looks like you need to fix WORK_CPU_UNBOUND, which has more wide uses,
+> if you think it is one problem.
+
+Hi Ming,
+
+Since kblockd_workqueue is WQ_PERCPU, the responsibility rests with blk-mq
+to provide a non-isolated CPU when dispatching &hctx->run_work, no?
+
+> > Consequently, if a task executing on an isolated CPU submits I/O and
+> > triggers an asynchronous queue dispatch with zero delay, &hctx->run_work
+> > is queued directly onto the local isolated CPU's worker pool. This
+> 
+> If your theory is correct, why do botter to change to
+> housekeeping_any_cpu(HK_TYPE_TIMER)
+> if the user is submitting IO from an isolated CPU?
+
+I suspect, steering the asynchronous dispatch to a housekeeping CPU is both
+architecturally necessary and fully aligned with the rest of the kernel,
+no? When a queue is plugged, throttled, or returns BLK_STS_RESOURCE, blk-mq
+defers execution to a background workqueue. That work runs asynchronously
+at some indeterminate time in the future, long after the thread has
+returned to its time-critical user loop. Having a kworker suddenly preempt
+the thread later is likely not desired.
 
 
-On 10/8/26 5:56 PM, Jan-Gerd Tenberge wrote:
-> bpf_map_put_uref() invokes map_release_uref after usercnt reaches zero,
-> before bpf_map_put() drops the map reference. BPF_MAP_GET_FD_BY_ID can
-> find the map during that callback and raise usercnt again.
->
-> The sockmap and sockhash release callbacks unconditionally drop programs
-> without taking sockmap_mutex. A concurrent attach through the revived fd
-> can therefore publish a new program before the stale callback drops it.
->
-> For a bpf_link attachment, this leaves plink set while pprog is NULL, so
-> link release warns and leaves the attachment slot unusable. The callback
-> can also drop the program between sock_map_prog_update() and the later
-> bpf_prog_inc(). If the program fd is closed concurrently, this removes
-> the last reference and schedules an RCU free. The subsequent increment
-> then resurrects a zero reference and leaves link->prog pointing to memory
-> that will be freed. A KASAN reproducer triggers a slab-use-after-free when
-> reading information from that link.
->
-> Triggering the race requires CAP_SYS_ADMIN in the initial user namespace,
-> because reviving the map uses BPF_MAP_GET_FD_BY_ID. A deterministic KASAN
-> reproducer is available privately on request. It was used to verify the
-> UAF before this change and its absence afterwards.
->
-> Serialize the release callbacks with program updates using sockmap_mutex
-> and recheck usercnt under the mutex. If the map was revived, leave its
-> programs intact. Move the map user-reference put in link release outside
-> the mutex to avoid recursively taking sockmap_mutex when it drops the last
-> user reference.
->
-> Fixes: 699c23f02c65 ("bpf: Add bpf_link support for sk_msg and sk_skb progs")
-> Assisted-by: LLM
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jan-Gerd Tenberge <janten@gmail.com>
+> > diff --git a/block/blk-mq.c b/block/blk-mq.c
+> > index 025a799f35b9..9480c3aac898 100644
+> > --- a/block/blk-mq.c
+> > +++ b/block/blk-mq.c
+> > @@ -2252,8 +2252,11 @@ static int blk_mq_hctx_next_cpu(struct blk_mq_hw_ctx *hctx)
+> >         bool tried = false;
+> >         int next_cpu = hctx->next_cpu;
+> >
+> > -       /* Switch to unbound if no allowable CPUs in this hctx */
+> > -       if (hctx->queue->nr_hw_queues == 1 || blk_mq_hctx_empty_cpumask(hctx))
+> > +       /* Switch to housekeeping CPU if no allowable CPUs in this hctx */
+> > +       if (blk_mq_hctx_empty_cpumask(hctx))
+> > +               return housekeeping_any_cpu(HK_TYPE_TIMER);
+> > +
+> > +       if (hctx->queue->nr_hw_queues == 1)
+> >                 return WORK_CPU_UNBOUND;
+> 
+> Why is SQ so special here to keep WORK_CPU_UNBOUND?
+
+Indeed, it is not special here, and neither is the offline CPU fallback
+path (!cpu_online(next_cpu)). Both currently return WORK_CPU_UNBOUND and
+suffer from the exact same issue if triggered from an isolated CPU.
+
+To address this consistently without penalising non-isolated CPUs with
+unnecessary cross-CPU bounces, we can define a small helper. Furthermore,
+the following will address the valid issue raised by Sashiko [1]
+comprehensively, using the new helper:
+    1.  When executing on an isolated CPU
+        cpu_is_isolated(raw_smp_processor_id()) evaluates to true.
+        It redirects to an online housekeeping CPU
+        (housekeeping_any_cpu(HK_TYPE_TIMER)), preventing kworkers from
+        running on isolated cores across all three cases:
+            - Single-queue devices (nr_hw_queues == 1)
+            - Hardware queues with empty cpumasks
+              (blk_mq_hctx_empty_cpumask(hctx))
+            - Offline CPU fallback paths (!cpu_online(next_cpu))
+
+    2.  When executing on a housekeeping CPU cpu_is_isolated() is false.
+        It returns WORK_CPU_UNBOUND, which kblockd_workqueue executes on
+        the local CPU (raw_smp_processor_id()), preserving optimal cache
+        locality with zero CPU bouncing.
+
+    3.  When CPU isolation is not configured cpu_is_isolated() uses a
+        static branch (static_branch_unlikely(&housekeeping_overridden)),
+        compiling to a NOP that returns WORK_CPU_UNBOUND with zero
+        overhead.
+
+[1]: https://sashiko.dev/#/patchset/20261012012905.267920-1-atomlin%40atomlin.com
+
+diff --git a/block/blk-mq.c b/block/blk-mq.c
+index e28c467a18bb..9fb1a93b2bb1 100644
+--- a/block/blk-mq.c
++++ b/block/blk-mq.c
+@@ -2244,6 +2244,13 @@ static bool blk_mq_hctx_empty_cpumask(struct blk_mq_hw_ctx *hctx)
+         return hctx->next_cpu >= nr_cpu_ids;
+ }
+
++static inline int blk_mq_hctx_unbound_cpu(void)
++{
++    if (cpu_is_isolated(raw_smp_processor_id()))
++        return housekeeping_any_cpu(HK_TYPE_TIMER);
++    return WORK_CPU_UNBOUND;
++}
++
+ /*
+  * It'd be great if the workqueue API had a way to pass
+  * in a mask and had some smarts for more clever placement.
+@@ -2256,7 +2263,7 @@ static int blk_mq_hctx_next_cpu(struct blk_mq_hw_ctx *hctx)
+
+     /* Switch to unbound if no allowable CPUs in this hctx */
+     if (hctx->queue->nr_hw_queues == 1 || blk_mq_hctx_empty_cpumask(hctx))
+-        return WORK_CPU_UNBOUND;
++        return blk_mq_hctx_unbound_cpu();
+
+     if (--hctx->next_cpu_batch <= 0) {
+ select_cpu:
+@@ -2281,7 +2288,7 @@ static int blk_mq_hctx_next_cpu(struct blk_mq_hw_ctx *hctx)
+          */
+         hctx->next_cpu = next_cpu;
+         hctx->next_cpu_batch = 1;
+-        return WORK_CPU_UNBOUND;
++        return blk_mq_hctx_unbound_cpu();
+     }
+
+         hctx->next_cpu = next_cpu;
 
 
-Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 
-
-> ---
->   net/core/sock_map.c | 18 ++++++++++++++----
->   1 file changed, 14 insertions(+), 4 deletions(-)
->
-> diff --git a/net/core/sock_map.c b/net/core/sock_map.c
-> index 38df84284328..32ccf4ca3c76 100644
-> --- a/net/core/sock_map.c
-> +++ b/net/core/sock_map.c
-> @@ -26,7 +26,8 @@ struct bpf_stab {
->   
->   /* This mutex is used to
->    *  - protect race between prog/link attach/detach and link prog update, and
-> - *  - protect race between releasing and accessing map in bpf_link.
-> + *  - protect race between releasing and accessing map in bpf_link, and
-> + *  - protect race between map user-reference release and prog/link updates.
->    * A single global mutex lock is used since it is expected contention is low.
->    */
->   static DEFINE_MUTEX(sockmap_mutex);
-> @@ -372,7 +373,10 @@ static void sock_map_free(struct bpf_map *map)
->   
->   static void sock_map_release_progs(struct bpf_map *map)
->   {
-> -	psock_progs_drop(&container_of(map, struct bpf_stab, map)->progs);
-> +	mutex_lock(&sockmap_mutex);
-> +	if (!atomic64_read(&map->usercnt))
-> +		psock_progs_drop(&container_of(map, struct bpf_stab, map)->progs);
-> +	mutex_unlock(&sockmap_mutex);
->   }
->   
->   static struct sock *__sock_map_lookup_elem(struct bpf_map *map, u32 key)
-> @@ -1226,7 +1230,10 @@ static void *sock_hash_lookup(struct bpf_map *map, void *key)
->   
->   static void sock_hash_release_progs(struct bpf_map *map)
->   {
-> -	psock_progs_drop(&container_of(map, struct bpf_shtab, map)->progs);
-> +	mutex_lock(&sockmap_mutex);
-> +	if (!atomic64_read(&map->usercnt))
-> +		psock_progs_drop(&container_of(map, struct bpf_shtab, map)->progs);
-> +	mutex_unlock(&sockmap_mutex);
->   }
->   
->   BPF_CALL_4(bpf_sock_hash_update, struct bpf_sock_ops_kern *, sops,
-> @@ -1743,6 +1750,7 @@ struct sockmap_link {
->   static void sock_map_link_release(struct bpf_link *link)
->   {
->   	struct sockmap_link *sockmap_link = container_of(link, struct sockmap_link, link);
-> +	struct bpf_map *map = NULL;
->   
->   	mutex_lock(&sockmap_mutex);
->   	if (!sockmap_link->map)
-> @@ -1751,10 +1759,12 @@ static void sock_map_link_release(struct bpf_link *link)
->   	WARN_ON_ONCE(sock_map_prog_update(sockmap_link->map, NULL, link->prog, link,
->   					  link->attach_type));
->   
-> -	bpf_map_put_with_uref(sockmap_link->map);
-> +	map = sockmap_link->map;
->   	sockmap_link->map = NULL;
->   out:
->   	mutex_unlock(&sockmap_mutex);
-> +	if (map)
-> +		bpf_map_put_with_uref(map);
->   }
->   
->   static int sock_map_link_detach(struct bpf_link *link)
->
-> base-commit: ff47652a4b66c067c765a7ad464d930b5a9367cc
+Kind regards,
+-- 
+Aaron Tomlin
