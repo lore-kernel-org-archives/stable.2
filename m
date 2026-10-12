@@ -1,159 +1,214 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from PAUP264CU001.outbound.protection.outlook.com (mail-francecentralazon11021133.outbound.protection.outlook.com [40.107.160.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD4337F015
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 13:36:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791812180; cv=none; b=JzJiq9kuR01zJkyXblsxRo7JEYOGy4+9ADFd1WeAfj5Y/ZkPU3BaVneWXQKPiywQq2EtU0Cqbu2KxoPr3HnrdqOS6XLEzN/8OtmRf0aVsKaZe4IzNrA4W1HCi5XQ/tgavDpNRq0UKEPAiIElqxg8/4HkXMwTHd4NGX6XxUZJY9s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791812180; c=relaxed/simple;
-	bh=wZLW2XdypAhHvwo+GHAiZC6sjIcx7C3BCwY22tUge+E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CRuChZFiUq9eXXZSxA4DgL36ipgaS/ufIHpzbIqcqaUtAzr9s+yL84nfack1WxglrvXq0NJT2nwCwm8M7FkyY93DlVugC3y9q1F9wxhjCt85Z+VURPHj94Ttpgf8Uf5q4F2NNZH1Lq4nRIzjAPIa9HiOWqdyLlq0hp2ldcL+68E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YWTnGaxX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=duvHiRoL; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 781672931EE;
+	Mon, 12 Oct 2026 13:37:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.160.133
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791812236; cv=fail; b=OHaxOZIUZ2Yyo+Nm5qvAT6zDt8/3Cm04CWzQtQoZf2OjgZAvZNSdws2YWivTnruplxRg3GRhbVIYeOZ8hkVvLtBzg0jC2aUcpTT/ZO+Vfz1JlnHjcft98X6uHPacu79H/SMFV9uCAfJUWh+kArmdG8o0N0I32Dd4VwXDrSjPOR8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791812236; c=relaxed/simple;
+	bh=Qyd5E59+XjkGLHd5ZVavfY6A1BDuZzxojIH8BwHT38w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Yl0cMQ57kLKxV0pJ/gVXapZg/g298qwGDEDl8/RZBQBg110Dshr7biPnI8awPWy/WwVOii1ksY3DD9pSwEopJzjoEoUevMsQgTuViHO3uDQHrIvdmZR/v3HqDcnirHVw2tswCDPwE5rV8O4Gim4gcNI7Pj0/QBoQUVYXswqSuXY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wenske.fr; spf=pass smtp.mailfrom=wenske.fr; dkim=pass (2048-bit key) header.d=wenske.fr header.i=@wenske.fr header.b=i5SA1nD0; arc=fail smtp.client-ip=40.107.160.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wenske.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wenske.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YWTnGaxX";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="duvHiRoL"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC0d1P2679953
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 13:36:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	mX36Oh0ldjKH64bRULghbP9zkZHVCst58P7qBcvJdOc=; b=YWTnGaxXDF7dV0Xz
-	fJ5z0RlKpai35YN/BfCDko0TuA8fMf5HQtijMWL+Lh8mhNWnzkF6aJB+y7aw2pCU
-	HguhYficpp5M4Ef3UGOfu4z9o0PlpTOAL3RfJuTGMvwOhJf8QWCmSgLF/6aiDiGt
-	wjaCvUhAhsN77vShkA77lIDQTuLB0HjPmlHZ2cfdlJ5f6n8q+SkXibBg0er3bTNI
-	0hxNbdsENvG/1sIek8XxLio3dVfJHTaq4WxdppLcFiSpbUhaVvOyrZzX9UQ2H4SZ
-	Kxl9ow01N54pH3b5BUSaHB05JR0jYf5KtOz/uRTVp50F1XJnKpGjsbfJ7Lz9bl0W
-	TzMekw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8sd1t5sa-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 13:36:18 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93dea1b6c89so378097285a.2
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 06:36:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791812178; x=1792416978; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mX36Oh0ldjKH64bRULghbP9zkZHVCst58P7qBcvJdOc=;
-        b=duvHiRoL+rP5I2Avx1SZciIrprvnOSG2JFJec7v9VdXMI794K2JOF8VqwklvTARbkr
-         gatmA7fOmdoc+wqLmdtpTBmjeyz0jL2oYALKKiBviI7NyOg+KWy6ggoU4Kpu6yKIGq6U
-         4M9lUUA78eXfAkR1pTorcIQP2kyRqNkaAXe0hwTInJCVf7eA6vsgNcqbcw6d+w6WvF84
-         g2qmiP5/tcGXihpLLgwtahh25H2PxDSGfk+npIyKF0XibhO2wcu6FGkbF1qzrCYqN3Df
-         3Px9EdZ5eoPtzsYv2JJG42DDR5kTe8Qz0L16qRvE4kt0j7Clpa3Y6seGBfXE0kVD81wr
-         V1nA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791812178; x=1792416978;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mX36Oh0ldjKH64bRULghbP9zkZHVCst58P7qBcvJdOc=;
-        b=v4s48TG8pxZ4gK0WQ81sNlAr5jV4nYwoCDuMKnRPf8sJgszshqmvFEpT/ypjlvxzyB
-         ecQVF5jyAww1WTNV+fSQ/d1iq4r1HmAlGpCMP6NTnzK431ljzr6KPP6b7glbXUfvQIHb
-         bjyPtlsY6qK61GVibQX9N5TfmgT3566zfKMjWD2ml1g2Arr/Z7YXrwmNVBO50R78RBQy
-         E4KXQG2BfeMenZocrx6SUS1+0XzhVOjdrFofWHdKymvETtAJ34rwa5Ru5kcK9zmSYA0r
-         pK50leVICQOwi8G4jiwED5KDfky+yNdjVeFPu+HPVdzUVTIDdgVYCzrjSjM/aE5eFp8E
-         1drg==
-X-Forwarded-Encrypted: i=1; AKwUvBzgdBiXmL59+x+1kRY5nzvDNk8NoXrf09mHV74/fXOhGvmqZwD3tVrx14l1b5xQ85cbws+SL7s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJphn9O/qw+UQUlAyfCxb5EDNXb1Q3J4z6kmRE1edi8xzJAfZjw
-	jU7J+y4KGXebAAzLopr3QDjBRK47cANdPMHusK8zFoVQq4iru1Z55JkT9WeD2YjgO3ecJyDaVle
-	ojRzzKcFPzRAuFaTN3V1yPxbKz5+f9qT8xmAFbgieBzdCTlkfnv2Fby0XAyoQhQFPibk=
-X-Gm-Gg: AYBFou2VLKPX2+6fC6AJYdhHhEEWpKeVvEhXxZiD13guPaVAFMUHoc2125zQTgYUGVk
-	WjQkDoFIutrTm+irTeD5yNdU7YE9ROlf1WrDqyJOMH53kREhnugbC+0w/R7IzpQbICbrETmcmjB
-	+ARF3REBOD/lIpiHDmdhNYNj7Utbzshi1oImBg8FAjX+KAQXmes/WrlwgE0BF/InwR5Fb/msKkw
-	/wbAvKhR2hIAVmXOlae8z4UrL4uIpxfiASthbr2xbvbRrGPq7Kg2IqJYoANEanXnx9Y+/5o+75U
-	RAA9GpQq0V68BoV2pPfD9TqjPmbB6ZvAq7XJ3c5cK2eBBhEAC8RNSWjnln5ZLKugS/AeK20jRpI
-	01XEGj+da4G9Tup2DUDTgkWOpSgk=
-X-Received: by 2002:a05:620a:17a3:b0:93e:84e5:3c66 with SMTP id af79cd13be357-93ebd21ffd0mr1649957185a.40.1791812177528;
-        Mon, 12 Oct 2026 06:36:17 -0700 (PDT)
-X-Received: by 2002:a05:620a:17a3:b0:93e:84e5:3c66 with SMTP id af79cd13be357-93ebd21ffd0mr1649950785a.40.1791812176979;
-        Mon, 12 Oct 2026 06:36:16 -0700 (PDT)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19c8244edsm121124535e9.2.2026.10.12.06.36.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 06:36:16 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-        =?UTF-8?q?Fran=C3=A7ois=20Roux?= <franzelfranzel@gmail.com>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>,
-        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-        linux-pm@vger.kernel.org, linux-pci@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, regressions@lists.linux.dev,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] power: sequencing: qcom-wcn: power off WLAN at probe
-Date: Mon, 12 Oct 2026 15:36:13 +0200
-Message-ID: <179181217126.5143.7104145391205542787.b4-ty@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=wenske.fr header.i=@wenske.fr header.b="i5SA1nD0"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YHOsS+8Q2hu42JkxQuHqHdGiqqnf8JkCNvGbnmAJxdm2Rjf3fNkQqciKpxVuRg86xa99yvoS2QrfN1cmfaLsJlznj/SnOtn5uQk7G2o4A/86DujQ08cF+Ul0LnAFFdGOYTGmzsZ6RkSsYNjeUbjel1jlIELrzSR8igBiV+G69X5uAzV/b68jBClIWk+LQEe4CXcva5rlVYiR0HioKatEwfo3xkBdoVMbigmN0GpD7NZkuAqj/ygxpeImNd7cizBL82Bmfkbu0kyATx+mBM+pEMogcIY54N7x2x/soy2gtuoh+dCoIRp06XyH/NrX2kjJGxIXb/szUPzRbI+nosd0kQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Cb1KzrYb/NxclxupdogkcL42hOzn0oXY2ub1PZfz+xw=;
+ b=IX+KCyYAcxZhhLNzxQ7JTf8pf1kUMGVRjJW095IvlyVSA22pO5cVebnKgNxHH5uamK/8WouyXNtwYSD14/+PkD7SKKnlfWm7v/owPNYbElet+tHaScl8QI3/J8mwHchJn6bFnA8Rrruc14u5N2lbvDOTBZqjDy6XwV8KRRLgs/XSFFDvnjh+AEdndBVGts2kFrraR1lHZsK41ETh3Iv4XUCauYvXJXgWJpZa/5bmSQxhzAEGZNBLTGTQ7Usb1Dlv0HPpNaPaC297vEEkzWOFwljrKaOFqwcD4P6Wo2ddTbzMrgw2ZI0T4G+TcjfA5ZNEtGzBtHhjjFPHQQF8pgjFwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 82.65.107.217) smtp.rcpttodomain=gentoo.org smtp.mailfrom=wenske.fr;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=wenske.fr;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wenske.fr;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Cb1KzrYb/NxclxupdogkcL42hOzn0oXY2ub1PZfz+xw=;
+ b=i5SA1nD0zNX0ACjK6u5JEgOo9YNqc8fCXzq0s1/23PUimowg0fT+epSCQ6uITMxUDGK9ouh1jaVC8R2SyRD6JmFaffWE2VVGkkBjD8EJ2zvCvdDaFjtxr/d2cD8VLkUfbYDOTCvk8wkVEkBUGU6l4FpHSizZiahrsYqlbsPErOPfBeXitKXkhkb4rvNMcEbfySfCL12P8h8viDGobR9ca29TrZLD6KRx9dQTfo4Vkzzl/OGnKLSyL5Ncu1Ty8HUYb14dK2b+iEVJZ1aIboUUELFIPtGI0RtDF/cWoH7S8u11E9WwIF/X8H/6ISTnYNL87qyIPho6Xe6Q4kAu5TXwAA==
+Received: from PAZP264CA0141.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1f8::16)
+ by MR1P264MB2356.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501:35::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
+ 2026 13:37:09 +0000
+Received: from PA2PEPF00019231.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:1f8:cafe::4d) by PAZP264CA0141.outlook.office365.com
+ (2603:10a6:102:1f8::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Mon, 12
+ Oct 2026 13:37:09 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 82.65.107.217) smtp.mailfrom=wenske.fr; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=wenske.fr;
+Received-SPF: Pass (protection.outlook.com: domain of wenske.fr designates
+ 82.65.107.217 as permitted sender) receiver=protection.outlook.com;
+ client-ip=82.65.107.217; helo=lgs.sw-servers.net; pr=C
+Received: from lgs.sw-servers.net (82.65.107.217) by
+ PA2PEPF00019231.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.6
+ via Frontend Transport; Mon, 12 Oct 2026 13:37:09 +0000
+Received: from zephy.int.sw-servers.net (zephy.int.sw-servers.net [10.1.2.3])
+	by lgs.sw-servers.net (Postfix) with ESMTPS id 0CDE3830;
+	Mon, 12 Oct 2026 15:37:09 +0200 (CEST)
+Received: by zephy.int.sw-servers.net (Postfix, from userid 1000)
+	id 4C5306531E; Mon, 12 Oct 2026 15:37:12 +0200 (CEST)
+From: Sebastien WENSKE <sebastien@wenske.fr>
+To: Ard Biesheuvel <ardb@kernel.org>,
+	linux-efi@vger.kernel.org
+Cc: swenske@veepee.com,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	James Le Cuirot <chewi@gentoo.org>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] efi/libstub: Allocate the INITRD table in ACPI reclaim memory
+Date: Mon, 12 Oct 2026 15:37:09 +0200
+Message-ID: <20261012133712.618913-1-sebastien@wenske.fr>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261004165124.4277-1-franzelfranzel@gmail.com>
-References: <20261004165124.4277-1-franzelfranzel@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: fmNb0otQqG6y6-GAOBYq3pG__Gm18oXv
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1NCBTYWx0ZWRfX/dLKiPNvobPX
- nw+MCOvN2ObHGllPBjLWqINRZVvjXkiC5JFanQuwst1IbJfvzuIcuHILmq0lP+Nm+bvTjJF/My8
- 1PV7oWz6BY6hFsr61sOHfBGSv5Dddm8=
-X-Authority-Analysis: v=2.4 cv=QtHLTlyd c=1 sm=1 tr=0 ts=6acce252 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=R6-RoArAaa4DRIP8ZZgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: fmNb0otQqG6y6-GAOBYq3pG__Gm18oXv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1NCBTYWx0ZWRfX4Z7isUP1RYem
- sIk/7BKxLSTTU1AuAwL5lsnXJTwqRGMl3WIpcq6ovGGHT6tIHhTkTiGJAl0JgY1kYDJXB2+BrtR
- lzrI3/QkvZMU0GdkHubP7jxkiZ8ptLBA9JuY8/uQWoaGXGPeks8ZjkZ9J8oLF0g0gJ+UCQUBGFF
- E8GE47eSBt2Ko/Ty8q8AsXDQ0HDKYmi7JG3gCHXkEseskpWllEx0FubW5liu8se3DUlKkbSwiSa
- p76Syc34xo5aCf50YHiAA0d0IgB30K8Tsi1mDepp0ADhPpP43DgkOSIRSPGmuBSkS8tpnl1wdkU
- vY1bp9Jwvj12cf5JHbvfGGAFbCSWQobFkCB+hQ5XupkRcURFAtjYoevYmOPvI866V9hbCt+nI2y
- QV+ADF1raPiOpjTdgezuO+pPQ+pVK50Ok5d/3rrJkoJL4xYkgXS9tWJPiWCDblA++5DoZFPjhd1
- p2dP8J+7leJyE8Luyzg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 bulkscore=0 clxscore=1015
- lowpriorityscore=0 suspectscore=0 impostorscore=0 phishscore=0 adultscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610120054
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA2PEPF00019231:EE_|MR1P264MB2356:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 7027699e-4e05-4390-f91b-08df2865ea03
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|23010399003|36860700016|376014|1800799024|6133799003|10067099003|18002099003|5023799004|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	4nQeTQdBwidr5d1y2JzP9RbwmAZzgk5K6FtFT+FrsnBWDvb0OiIlEmmnSDYH9xdB+DZF6V+zC2u2B+u/87f/WWRK/mJGLjrhCVzbpa5LmvOI2EuKr3qcGs0qzABjPzKP0xu0rKylxdn2OvzBtKORO6wnzThAXnhtaxHAX+OWx9ji/gSNrLpJMDf9oFphnBoBpDg7CE5RL41mhcuX1sT0UWqRV8OzLDTvFdZjkB5GQ3KMQFDGeA/NC3ghIPgaix9FU5NjRxgd685DVVd0s+mroPuYkujk4LgQJce6cGNyS28Xn7V5U+Tx7v6bPEMLDHWfbkjdfhmjJOyS7b+38EW0NRwz+AjXoEVDBFXtZMnbwlTt0dj+inknmHg+dJGzBkAMZXSQnItnOYGbQPD4KJhvQaAigeg3Gnus+RM7zH1bIXSWZD58cmR6vJhWHA2nY5UKoi84MqIozplA2EQJMdia45221i4ChliYl/7KdPL2SZ0Q0DhYEoEG7itqfmi6dRLWpsar6gF5oot/dPPRbkL3EqKKoG2npeM85EZUeUcVDPEM07VCXQaptpoSVHVDQTBMbO2AJDz7DI4UqswROFJh96Z0D07CY1jhmfZkpWH3r02cAZOG7dBiGeM4TBzNVRXsFnc/ZLUs5x2GJQIbprOQSPxzjK8EzivKlzdhmDrXWaCpF0RlqUKKMgk8HYwP7ogN
+X-Forefront-Antispam-Report:
+	CIP:82.65.107.217;CTRY:FR;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lgs.sw-servers.net;PTR:82-65-107-217.subs.proxad.net;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(36860700016)(376014)(1800799024)(6133799003)(10067099003)(18002099003)(5023799004)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Q4A+77ZEOZtgrZnBRdlqYmwy39s8qkuNGytVLi9Hcugo3rNbA2YFNcyNGdZ6jQQWbpDBpeAVcjJ40u1CWE6qy9j5uBOObHmMm5CbkQok/S+baK/09qvIcNpXmbLfuk5Nr4hj+WAeyRXYi4AD0gf4QKNPYwIZly1g3s2qCTcw9L9JE/KtVmJ2TNjCSIIhHcrdem5nd3G/0W+u00L2G5dG51iFrwr+kmwGaTwnbDqukWgJHQan7fJbTyS3LMBe9xOk2Bh2sqXXSAEkt5u/5WcldfvZ433lvFhrhywCmVmcXz2FWFGCJOfotPf9n2eVUW0SPMzqqkQRcwiuVP5Og/oc5BRaO93bk0OQy17cAt1I15jZQDqzIDYdaN6LO/WQhHv7AJ+z5kigcarkhsWXzaf/71lH9Ib3czHAAepC5KUIDGqkJZC7hPntZnxSzcsHMOT1
+X-OriginatorOrg: wenske.fr
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 13:37:09.2309
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7027699e-4e05-4390-f91b-08df2865ea03
+X-MS-Exchange-CrossTenant-Id: ff4ca3b8-6c54-4519-8b0b-9389fb15cdbb
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff4ca3b8-6c54-4519-8b0b-9389fb15cdbb;Ip=[82.65.107.217];Helo=[lgs.sw-servers.net]
+X-MS-Exchange-CrossTenant-AuthSource: PA2PEPF00019231.FRAP264.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MR1P264MB2356
 
+Commit 6e62d1c6f2c7 ("efi: Wipe INITRD config table from memory after
+consumption") makes the kernel clear the base and size of the
+LINUX_EFI_INITRD_MEDIA_GUID configuration table once it has read them,
+so that a kexec'd kernel no longer picks up a stale initrd.
 
-On Sun, 04 Oct 2026 18:51:24 +0200, François Roux wrote:
-> The WLAN enable GPIO is requested with GPIOD_ASIS and then kept at its
-> current level, so that a WLAN module left powered on by the firmware is
-> not switched off. The FIXME explains why: toggling it would take the
-> PCIe link down, and the controller driver could not recover from that.
-> 
-> That reasoning held while the PCIe link was trained before the
-> sequencer probed. Since commit b921aa3f8dec ("PCI/pwrctrl: Switch to
-> pwrctrl create, power on/off, destroy APIs"), qcom_pcie_host_init()
-> powers the endpoint through pwrctrl before it starts link training, and
-> defers until the pwrctrl driver is bound. That driver cannot bind
-> before this sequencer has probed. Power-on therefore always comes
-> before link training, and keeping the firmware state is now harmful.
-> 
-> [...]
+However, the stub allocates that table from EFI_LOADER_DATA, which the
+kernel that consumes it treats as ordinary RAM, while the configuration
+table entry pointing at it survives kexec. A kexec'd kernel therefore
+finds the same address in the configuration table, and clears 16 bytes
+there again, in memory that may by then hold anything - including the
+kexec'd kernel's own image, which kexec_file_load() is free to place
+there.
 
-Applied, thanks!
+Seen on x86_64 v7.2.10 under QEMU with Debian's OVMF 2025.02 Secure
+Boot capable build (OVMF_CODE_4M.secboot.fd, no keys enrolled), the
+initrd handed to the stub through the LINUX_EFI_INITRD_MEDIA_GUID
+device path (systemd-stub UKI). A kexec reboot (kexec_file_load(),
+bzImage64, with an initrd) loads the new kernel at 0x1ca00000; the
+stale table is at 0x1d4bcf98, in the middle of tcp_parse_options() in
+that image. The kexec'd kernel boots, then oopses on the first incoming
+SYN, 16 bytes of its text zeroed:
 
-[1/1] power: sequencing: qcom-wcn: power off WLAN at probe
-      https://git.kernel.org/brgl/c/dbd674ccf30f66f5eccf637964a93910df8dbf84
+  BUG: kernel NULL pointer dereference, address: 0000000000000002
+  RIP: 0010:tcp_parse_options+0xe7/0x2f0
+  Code: a5 4c 29 e1 89 c8 0f b6 4d 12 83 e0 3f 83 e1 c0 09 c1 88 4d 12 eb de 41 83 fe 04 75 d8 41 f6 44 24 0d 02 74 d0 45 85 d2 75 cb <0f> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 66 39 d0 89 d1
+  Call Trace:
+   <IRQ>
+   tcp_conn_request+0x270/0x9d0
+   tcp_rcv_state_process+0x147/0x1560
+   tcp_v4_do_rcv+0xc1/0x260
+   tcp_v4_rcv+0x110e/0x1190
 
-Best regards,
+A debug print added before the wipe shows what the kexec'd kernel reads
+at the table's address - its own text:
+
+  efi: INITRD table at 0x1d4bcf98:
+       base 0xc274c085660241b7 size 0x8c0c1661455b70f
+
+Whether a given kernel crashes depends on what happens to land at that
+address: v7.2.9 clears 16 bytes elsewhere in its image without any
+visible failure, and bisecting v7.2.9..v7.2.10 ends on an unrelated
+commit that only shifts the image's layout.
+
+Allocate the table from EFI_ACPI_RECLAIM_MEMORY instead, as the stub
+already does for the RNG seed table so that it survives a kexec reboot.
+The table then stays where it is across kexec, and the wipe always
+lands on the table itself.
+
+Fixes: 6e62d1c6f2c7 ("efi: Wipe INITRD config table from memory after consumption")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Sebastien WENSKE <sebastien@wenske.fr>
+---
+Tested on x86_64 under QEMU (q35, KVM) with Debian's OVMF 2025.02
+(OVMF_CODE_4M.secboot.fd and OVMF_CODE_4M.fd), booting a systemd-stub
+UKI, then rebooting with kexec_file_load() and an initrd:
+
+- v7.2.10: the oops above in 6 out of 6 kexec reboots under the
+  secboot build (none under the plain one). With this patch: 2 out of
+  2 come up, and two chained kexec'd kernels read the cleared table
+  back (base 0x0 size 0x0), now in ACPI data memory.
+- v7.3-rc7 without this patch: no visible failure, but the same debug
+  print shows the kexec'd kernel reading its own image at the table's
+  address - and so clearing 16 bytes of it:
+
+    efi: INITRD table at 0x1d4bcf98:
+         base 0xf413863894c40c4 size 0x415c74063c1246b6 - inside this
+         kernel's image
+
+  With this patch: kexec reboots (chained too) come up under both OVMF
+  builds. It builds without warnings, W=1 included for libstub.
+
+Not tested: other architectures, real hardware.
+
+Reserving the table with efi_mem_reserve() in efi_config_parse_tables()
+instead doesn't help on x86: efi_arch_mem_reserve() only handles
+EFI_BOOT_SERVICES_DATA ("Failed to lookup EFI memory descriptor"), so
+kexec still places the next kernel over the table. Note that a kernel
+kexec'd from one without this patch still finds the table in loader
+data memory.
+
+ drivers/firmware/efi/libstub/efi-stub-helper.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/firmware/efi/libstub/efi-stub-helper.c b/drivers/firmware/efi/libstub/efi-stub-helper.c
+index f27f2e1f0..9293b8b31 100644
+--- a/drivers/firmware/efi/libstub/efi-stub-helper.c
++++ b/drivers/firmware/efi/libstub/efi-stub-helper.c
+@@ -641,8 +641,14 @@ efi_status_t efi_load_initrd(efi_loaded_image_t *image,
+ 				     EFISTUB_EVT_INITRD) == EFI_SUCCESS)
+ 		efi_info("Measured initrd data into PCR 9\n");
+ 
+-	status = efi_bs_call(allocate_pool, EFI_LOADER_DATA, sizeof(initrd),
+-			     (void **)&tbl);
++	/*
++	 * Use EFI_ACPI_RECLAIM_MEMORY so the table survives a kexec reboot:
++	 * configuration tables do, and the kernel wipes this one once it has
++	 * consumed it - a kexec'd kernel wipes it again, at the same address,
++	 * which in EFI_LOADER_DATA memory may hold anything by then.
++	 */
++	status = efi_bs_call(allocate_pool, EFI_ACPI_RECLAIM_MEMORY,
++			     sizeof(initrd), (void **)&tbl);
+ 	if (status != EFI_SUCCESS)
+ 		goto free_initrd;
+ 
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+2.47.3
+
