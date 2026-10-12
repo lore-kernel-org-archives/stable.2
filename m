@@ -1,298 +1,244 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A9D3E0C4D
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 16:52:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27773AAF5A
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 16:52:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791823936; cv=none; b=GRWy6nopwINJV6QiWH944oSJnfPc2MbvbJGJZyfClm10Ul6X4qDwptiZx389i1iSt4rw8nBANT7baGzaPxSxNVepbeNfrRU128h/0WOAJIoOzXdnQNaef0hCTGMfpREQV/5lloK08/3bqPVxg4pMGpp3Zry5OHqRq5j7hGiTfVo=
+	t=1791823937; cv=none; b=LY/HfFB0cDn2ZDMdJ54ZrKhAiVYWEAiRaTq0FfvdpdVQiwt4Fa56aPw/pv9UcDSk0zGgS71iUJLR92lwxtu6hHk+e3964untaTOxhSZL9o9sOIIMikETbnyNx9l39rcDLI34xtorQ9iZKYZCXsaY/ES/Wh+jPWAGcd0kWOzY8q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791823936; c=relaxed/simple;
-	bh=WARVENU4w2SCey9dmY+05gYSNaLRR40kCcMMWR8Jw60=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ijey7GKbrheVeHAbxl926Pm85Vl3lzmcaFfqOSmadTOK5VcbAA61H+hHuQT/GG12/CSPVehZ3F8t+d/szU4V7+U/Aqhc9VGlE8pHJ4A/Okyym7tMVNYe+nRXOmsN4F3IRF39ne6yrQFOYRXIhKNxhChtYK4PbbfrIOwzMR8GGrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XA9tE2kh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791823937; c=relaxed/simple;
+	bh=IGwn36wt1Vvnr1YLDK16Ncy1SrwH9wO8dchDop0hdgQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=W5pRTrdtIGgaGx55k1tWFGjoVS6HawaYTcpxnIYZ6LCjtH/46f2A32gc/cEEAz0FUbaXB5Z8DVijKLj/PCaT3LxlNbqXCu/oBJ1DmdBfFgdN6dYm98ov3HmmMOWFLq6SoT7E31fMg9Ma5r2SPPNqpiG/gEMeQQvpq78PnjJAU4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=jnt3JyZI; arc=none smtp.client-ip=203.254.224.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XA9tE2kh"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E9CDB1F0089B;
-	Mon, 12 Oct 2026 16:52:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791823934;
-	bh=6JtNEFQHbGVYj03UnWnUK3cajNmqCOOvLZ4fItCerWQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XA9tE2khKIra4Fye0lhSnWTilAXg01hPxC27VKfMEQ/WchurHy/b5whP2968ctIl5
-	 Jpk1JAlPThRVTFsGDpP4P8O/ftoHFCAmHU+xCfaKaYa/Tfs40Lps2MqSTxCbJks9Bo
-	 RgB3EQdu/JVgw0M+SbcdJP09VCnMKkiyExoIq06mlUwLnztgGW27qEtMcZoJmYJPDx
-	 aR5xx7lZHUFwUtgwL0JbfIN10YvKIqFL7VplfMX2eZsa6iDle2V1uHzv3mlYl+8GXU
-	 Wkwo74D5zozd9XpJiPyonS6TRK+fRW3Ba/A1aDug9J71BrzldnGHx9zQv7iKYEU6va
-	 rkI121G3aerOg==
-Date: Mon, 12 Oct 2026 09:52:13 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Norbert Szetei <norbert@doyensec.com>,
-	Dave Chinner <dchinner@redhat.com>,
-	Carlos Maiolino <cem@kernel.org>
-Subject: Re: [PATCH 6.12.y 2/2] xfs: fix exchange-range-to-eof file size
- exchange
-Message-ID: <20261012165213.GY1615495@frogsfrogsfrogs>
-References: <2026101219-upheld-endowment-592e@gregkh>
- <20261012151823.785277-1-sashal@kernel.org>
- <20261012151823.785277-2-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="jnt3JyZI"
+Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261012165211epoutp03b1281340f909bbccc1463307d2d9f3a0~d1l9IVDnD1518415184epoutp03V
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 16:52:11 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261012165211epoutp03b1281340f909bbccc1463307d2d9f3a0~d1l9IVDnD1518415184epoutp03V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791823931;
+	bh=1mEWCnFmOg5Enh/UqTziVDsffFD/trliWbhIh2JCps0=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=jnt3JyZIcZngCZh2uAym8FsLcjrmqQdDFDmDMTBeiEQi1tool1dG70WNuRtN5/awD
+	 UkmBUjQWMTEN62FWPOvx6Pbg1ME6ja1XH3VWsDbDKDWIdHTses1cXeGt2lU2J+paO0
+	 /m9h/9xRpj8ReBOCnqyEHktRA+0em31F/ZSvNScI=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261012165211epcas5p339cc6e2e574f66765f8171ddc7a827d3~d1l8xdykP0975309753epcas5p3I;
+	Mon, 12 Oct 2026 16:52:11 +0000 (GMT)
+Received: from epcas5p1.samsung.com (unknown [182.195.38.92]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4j3NmV2vWbz6B9m5; Mon, 12 Oct
+	2026 16:52:10 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261012165209epcas5p2b0cbbe6cbba6eec6aa244860fdbefca3~d1l7hwmQ82036820368epcas5p2M;
+	Mon, 12 Oct 2026 16:52:09 +0000 (GMT)
+Received: from [107.122.5.126] (unknown [107.122.5.126]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261012165207epsmtip1fe1c1db3d0c258e28bd266cd36e27287~d1l5gPrtz2367123671epsmtip1y;
+	Mon, 12 Oct 2026 16:52:07 +0000 (GMT)
+Message-ID: <0a2bc277-3977-46cd-9759-ba273b5c2c4d@samsung.com>
+Date: Mon, 12 Oct 2026 22:22:06 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012151823.785277-2-sashal@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] usb: dwc3: gadget: Prevent EP resource conflicts
+ during StartTransfer
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"jh0801.jung@samsung.com" <jh0801.jung@samsung.com>, "dh10.jung@samsung.com"
+	<dh10.jung@samsung.com>, "akash.m5@samsung.com" <akash.m5@samsung.com>,
+	"hongpooh.kim@samsung.com" <hongpooh.kim@samsung.com>,
+	"eomji.oh@samsung.com" <eomji.oh@samsung.com>, "h10.kim@samsung.com"
+	<h10.kim@samsung.com>, "shijie.cai@samsung.com" <shijie.cai@samsung.com>,
+	"alim.akhtar@samsung.com" <alim.akhtar@samsung.com>,
+	"muhammed.ali@samsung.com" <muhammed.ali@samsung.com>,
+	"thiagu.r@samsung.com" <thiagu.r@samsung.com>, "pritam.sutar@samsung.com"
+	<pritam.sutar@samsung.com>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Content-Language: en-US
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+In-Reply-To: <asglyrMYkopr3EOz@vbox>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261012165209epcas5p2b0cbbe6cbba6eec6aa244860fdbefca3
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261007020654epcas5p1d6f8d2d6f5215abcec7d6c6f90b8b8c6
+References: <arsnMM-GvuXwBKCX@vbox>
+	<5d7501ea-4579-44a5-9a7e-91ef1f10b2bb@samsung.com> <asBhDmy-3DymDKQH@vbox>
+	<3fdda532-8181-48e9-b58d-cad7289408e7@samsung.com>
+	<CGME20261007020654epcas5p1d6f8d2d6f5215abcec7d6c6f90b8b8c6@epcas5p1.samsung.com>
+	<asWmW1jmzedIV5SP@vbox> <ff5d6900-374b-44d8-967f-0af16ae53437@samsung.com>
+	<98f16da0-5e24-4dd1-8f9f-79a1a5e7656c@samsung.com> <asbJfaj5OIhHBunD@vbox>
+	<bc43e3f5-ba0c-4f91-b765-ee35021bf089@samsung.com> <asglyrMYkopr3EOz@vbox>
 
-On Mon, Oct 12, 2026 at 11:18:30AM -0400, Sasha Levin wrote:
-> From: "Darrick J. Wong" <djwong@kernel.org>
-> 
-> [ Upstream commit 7dfb218c829c1acb626e0fe92c5fddb9a26a03e9 ]
-> 
-> Norbert Szetei posted a patch containing an incomplete description of a
-> bug in XFS_IOC_EXCHANGE_RANGE's TO_EOF flag.  The bug tricks
-> exchange-range into modifying a file so that it has shared blocks
-> starting beyond EOF, which is never allowed because files never have
-> written data beyond EOF, and you can only share written data blocks.
-> This is key to all the incorrect behavior that follows.
-> 
-> Eventually I got from Norbert a description of what's going wrong:
-> 
-> > Fair. Here it is with physical block numbers, 4k blocks. peer is the file
-> > that gets rewritten and file1 is the one that ends up with the flag
-> > cleared.
-> >
-> > Start, nothing shared:
-> >
-> >	peer size 4096   -> [100]
-> >	file1 size 12288 -> [200] [201] [202]
-> >	donor1 size 4096 -> [300]
-> >	donor2 size 4096 -> [400]
-> >
-> > 1. FICLONERANGE peer's block into file1's middle slot:
-> >
-> >	peer size 4096   -> [100]
-> >	file1 size 12288 -> [200] [100] [202] reflink flag set
-> >                             ^^^^^ both files own block 100
-> >
-> > 2. XFS_IOC_EXCHANGE_RANGE file1 against donor1, file1_offset 0,
-> > file2_offset 8192, length 0, TO_EOF. One block is exchanged, and the sizes
-> > are exchanged with it:
-> >
-> >	file1 size 4096   -> [200] [100] [300] reflink flag set
-> >                              ^^^^^^^^^^^ still owned, now past the size
-> >	donor1 size 12288 -> [202]
-> >
-> > file1 says it is one block long while it still owns three. Nothing was
-> > unmapped. file2_offset is block 2, so this exchange cannot clear a flag.
-> >
-> > 3. XFS_IOC_EXCHANGE_RANGE file1 against donor2, both offsets 0, length 4096.
-> > By i_disk_size this is two one-block files exchanging everything, so
-> > xmi_can_exchange_reflink_flags() agrees and the flag is cleared:
-> >
-> >	file1 size 4096   -> [400] [100] [300] reflink flag CLEARED
-> >	donor2 size 4096  -> [200]
-> >
-> > Block 100 is still shared with peer.
-> >
-> > 4. pwrite(file1, 4096, 4096), which is file1's second slot, block 100.
-> > xfs_is_cow_inode(file1) is false, so no CoW:
-> >
-> >	peer size 4096 -> [100] same block, new contents
-> >
-> > Block 100 is the only one that matters here. PoC below, it reads a file
-> > called peer in the current directory. The filesystem needs reflink and
-> > exchange-range, which mkfs.xfs 7.x turns on by default.
-> 
-> So yes, TO_EOF is screwing up the file size even if it's actually
-> exchanging the data block correctly.  The following is the intended
-> behavior of XFS_EXCHANGE_RANGE_TO_EOF, as described by its manpage:
-> 
-> "Ignore the length parameter.  All bytes in file1_fd from file1_offset
->  to EOF are moved to file2_fd, and file2's size is set to
->  (file2_offset+(file1_length-file1_offset)).  Meanwhile, all bytes in
->  file2 from file2_offset to EOF are moved to file1 and file1's size is
->  set to (file1_offset+(file2_length-file2_offset))."
-> 
-> In other words, if we only exchange a portion of the file data, then we
-> should only exchange the portion of the file size that relates to the
-> exchanged data.  Unfortunately, the code swaps the ondisk file size and
-> the incore file sizes, which is incorrect if the caller passes in a
-> nonzero offset.
-> 
-> Having confused the file sizes, the PoC uses a second exchange-range
-> call on what looks like a non-reflinked single-block file.  Because the
-> file size is set incorrectly, exchange-range thinks it's exchanging the
-> full contents of two files and clears the reflink flag on the broken
-> file.  That enables an extending write of the broken file to rewrite the
-> shared block that's just past EOF.  This has become known colloquially
-> as refluxfs.
-> 
-> Once the file sizes are set correctly, the second exchange-range no
-> longer thinks that it's doing a full-contents swap, so it won't clear
-> the reflink flag on either of its file arguments.
-> 
-> Norbert followed up to an earlier version of this patch with a second
-> complaint about us not handling the i_disk_size state correctly:
-> 
-> > The offsets are bounded against the incore i_size but subtracted from
-> > the ondisk i_disk_size, so a file that has not been written back gives
-> > xmi_isize1 = 0 + (0 - 12288).
-> >
-> > For instance, you can do:
-> >
-> > $ xfs_io -f -c "pwrite -q 0 4096" -c fsync file1
-> > $ xfs_io -f -c "pwrite -q 0 12288" \
-> >   -c "exchangerange -s 0 -d 12288 file1" dirty
-> > $ stat -c %s file1
-> > 0
-> > $ stat -c %i file1
-> > 131
-> > $ sudo xfs_io -r -c "bulkstat_single 131" . | grep bs_size
-> > bs_size = 18446744073709539328
-> 
-> That's wrong, and the new file size update logic depends on the ondisk
-> i_disk_size matching the incore i_size, so flush the pagecache as needed
-> to push it upwards.
-> 
-> Link: https://lore.kernel.org/linux-xfs/1E196589-DEBE-40AC-AFEA-D420DAAB067F@doyensec.com/
-> Reported-by: Norbert Szetei <norbert@doyensec.com>
-> Cc: stable@vger.kernel.org # v6.10
-> Fixes: 966ceafc7a4371 ("xfs: create deferred log items for file mapping exchanges")
-> Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-> Reviewed-by: Dave Chinner <dchinner@redhat.com>
-> Signed-off-by: Carlos Maiolino <cem@kernel.org>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-This looks correct to me as well,
-Acked-by: "Darrick J. Wong" <djwong@kernel.org>
+On 10/9/2026 5:57 AM, Thinh Nguyen wrote:
+> On Thu, Oct 08, 2026, Selvarasu Ganesan wrote:
+>>> The End Transfer command not completing is also a separate issue. I
+>>> asked you to check whether the command would eventually complete with
+>>> the additional code, and it appears it doesn't.
+>>    We have confirmed that the completion event is never seen, once the
+>> timeout occurs for end transfer. It appears the command is indeed
+>> hanging in the hardware, as you suspected.
+>>
+>>> Can you provide some more info on your setup:
+>>>    * IP and version
+>>>    * connected speed
+>>>    * endpoint direction (is it always OUT?)
+>>>    * Is there any active transfer
+>>>    * tracepoints
+>
+>> * IP and version : 0xc120:   0x33313130
+> and version (0xc1a0)?
 
---D
 
-> ---
->  fs/xfs/libxfs/xfs_exchmaps.c | 13 +++++++--
->  fs/xfs/xfs_exchrange.c       | 51 ++++++++++++++++++++++++++----------
->  2 files changed, 48 insertions(+), 16 deletions(-)
-> 
-> diff --git a/fs/xfs/libxfs/xfs_exchmaps.c b/fs/xfs/libxfs/xfs_exchmaps.c
-> index 6a9a73fc5fd90..d900aff4fbea6 100644
-> --- a/fs/xfs/libxfs/xfs_exchmaps.c
-> +++ b/fs/xfs/libxfs/xfs_exchmaps.c
-> @@ -929,6 +929,7 @@ xfs_exchmaps_init_intent(
->  	const struct xfs_exchmaps_req	*req)
->  {
->  	struct xfs_exchmaps_intent	*xmi;
-> +	struct xfs_mount		*mp = req->ip1->i_mount;
->  
->  	xmi = kmem_cache_zalloc(xfs_exchmaps_intent_cache,
->  			GFP_NOFS | __GFP_NOFAIL);
-> @@ -946,10 +947,18 @@ xfs_exchmaps_init_intent(
->  		return xmi;
->  	}
->  
-> +	/*
-> +	 * If the caller wanted, set each file's size to that file's exchange
-> +	 * offset + length exchanged from the other file because the ranges in
-> +	 * each file might be different lengths.
-> +	 */
->  	if (req->flags & XFS_EXCHMAPS_SET_SIZES) {
-> +		loff_t	off1 = XFS_FSB_TO_B(mp, xmi->xmi_startoff1);
-> +		loff_t	off2 = XFS_FSB_TO_B(mp, xmi->xmi_startoff2);
-> +
->  		xmi->xmi_flags |= XFS_EXCHMAPS_SET_SIZES;
-> -		xmi->xmi_isize1 = req->ip2->i_disk_size;
-> -		xmi->xmi_isize2 = req->ip1->i_disk_size;
-> +		xmi->xmi_isize1 = off1 + (req->ip2->i_disk_size - off2);
-> +		xmi->xmi_isize2 = off2 + (req->ip1->i_disk_size - off1);
->  	}
->  
->  	if (S_ISDIR(VFS_I(xmi->xmi_ip2)->i_mode) ||
-> diff --git a/fs/xfs/xfs_exchrange.c b/fs/xfs/xfs_exchrange.c
-> index f54ed30b76e40..449090cbb1698 100644
-> --- a/fs/xfs/xfs_exchrange.c
-> +++ b/fs/xfs/xfs_exchrange.c
-> @@ -287,17 +287,20 @@ xfs_exchrange_mappings(
->  		goto out_unlock;
->  
->  	/*
-> -	 * If the caller wanted us to exchange the contents of two complete
-> -	 * files of unequal length, exchange the incore sizes now.  This should
-> -	 * be safe because we flushed both files' page caches, exchanged all
-> -	 * the mappings, and updated the ondisk sizes.
-> +	 * If the caller wanted, set each file's size to that file's exchange
-> +	 * offset + length exchanged from the other file because the ranges in
-> +	 * each file might be different lengths.  This should be safe because
-> +	 * we flushed both files' page caches, exchanged all the mappings, and
-> +	 * updated the ondisk sizes.
->  	 */
->  	if (fxr->flags & XFS_EXCHANGE_RANGE_TO_EOF) {
-> -		loff_t	temp;
-> +		loff_t	old_ip1_size = i_size_read(VFS_I(ip1));
-> +		loff_t	old_ip2_size = i_size_read(VFS_I(ip2));
->  
-> -		temp = i_size_read(VFS_I(ip2));
-> -		i_size_write(VFS_I(ip2), i_size_read(VFS_I(ip1)));
-> -		i_size_write(VFS_I(ip1), temp);
-> +		i_size_write(VFS_I(ip2), fxr->file2_offset +
-> +				(old_ip1_size - fxr->file1_offset));
-> +		i_size_write(VFS_I(ip1), fxr->file1_offset +
-> +				(old_ip2_size - fxr->file2_offset));
->  	}
->  
->  out_unlock:
-> @@ -442,6 +445,30 @@ xfs_exchange_range_checks(
->  	return blen == fxr->length ? 0 : -EINVAL;
->  }
->  
-> +/* Flush all relevant dirty pagecache near the range to be exchanged. */
-> +static inline int
-> +xfs_exchange_range_flush(
-> +	struct xfs_inode		*ip,
-> +	const struct xfs_exchrange	*fxr,
-> +	loff_t				offset)
-> +{
-> +	/*
-> +	 * If TO_EOF is set, the ondisk file size update logic depends on the
-> +	 * ondisk file size matching the incore file size.  Flush everything.
-> +	 */
-> +	if (fxr->flags & XFS_EXCHANGE_RANGE_TO_EOF)
-> +		return filemap_write_and_wait(VFS_I(ip)->i_mapping);
-> +
-> +	/*
-> +	 * Because we're updating the ondisk mappings, flush all dirty data
-> +	 * between the ondisk size and the exchange offset to reduce the chance
-> +	 * of zeroed file contents in that gap after a crash.
-> +	 */
-> +	return filemap_write_and_wait_range(VFS_I(ip)->i_mapping,
-> +			min(offset, ip->i_disk_size),
-> +			offset + fxr->length - 1);
-> +}
-> +
->  /*
->   * Check that the two inodes are eligible for range exchanges, the ranges make
->   * sense, and then flush all dirty data.  Caller must ensure that the inodes
-> @@ -467,15 +494,11 @@ xfs_exchange_range_prep(
->  	if (!same_inode)
->  		inode_dio_wait(inode2);
->  
-> -	error = filemap_write_and_wait_range(inode1->i_mapping,
-> -			fxr->file1_offset,
-> -			fxr->file1_offset + fxr->length - 1);
-> +	error = xfs_exchange_range_flush(XFS_I(inode1), fxr, fxr->file1_offset);
->  	if (error)
->  		return error;
->  
-> -	error = filemap_write_and_wait_range(inode2->i_mapping,
-> -			fxr->file2_offset,
-> -			fxr->file2_offset + fxr->length - 1);
-> +	error = xfs_exchange_range_flush(XFS_I(inode2), fxr, fxr->file2_offset);
->  	if (error)
->  		return error;
->  
-> -- 
-> 2.53.0
-> 
+VER_NUMBER = 0x3231302a
+VER_TYPE = 0x67612a2a
+>
+>> * connected speed : HS mode
+>> * endpoint direction (is it always OUT?) : Yes its always OUT
+>> * Is there any active transfer : No, There is evidences from the log to
+>> say there is a active transfer.
+> The host may have sent data that would not appear in the log until
+> completion. Are there any active transfer on other endpoints?
+
+
+Yes, we can see active transfer on other endpoints.
+
+>
+>> * tracepoints: There is no dwc3 traces for this issue as of now due to
+>> its low reproduction rate in the customer's setup.
+>>
+> I think you may need to file a case with our support team and provide
+> additional debug info such as scan dump to investigate this further.
+
+
+Sure We will file a case,
+I agree that the ENDTRANSFER timeout may be a controller level issue 
+that we can debug separately.  But, there is also a software bug here. 
+Let see the in the below error case, "dep->resource_index" is reset to 
+"0" unconditionally, even when the first ENDTRANSFER times out. A 
+subsequent ENDTRANSFER with resource index "0" may succeed and 
+incorrectly clear the pending and transfer started flags, making the 
+driver assume the previous transfer has completed. Since the original 
+transfer was never properly terminated, the endpoint may not recover, 
+resulting in a no-resources error on the next STARTTRANSFER.
+
+Therefore, we need to fix this software state tracking issue 
+independently of the controller timeout.
+
+Step 1:
+__dwc3_gadget_ep_set_halt(dep, value=0)
+  ->dwc3_stop_active_transfer(dep, true, true)
+   ->END(e.g, ep2out, resource_index=7) issued, but timeout occurs
+    -> resource_index cleared to 0
+->dwc3_send_clear_stall_ep_cmd(dep)
+  -> failed to clear STALL on ep2out
+
+
+Step 2:
+__dwc3_gadget_ep_set_halt(dep, value=0) ->Re triggered clear stall for 
+same EP
+  -> dwc3_stop_active_transfer(dep, true, true)
+    -> END(ep2out, resource_index=0) issued (wrong resource!)
+     -> Command succeeds, DWC3_EP_TRANSFER_STARTED cleared in completion 
+handler
+
+Step 3:
+usb_ep_queue()
+-> dwc3_gadget_ep_queue()
+  -> __dwc3_gadget_kick_transfer()
+   -> starting = !(dep->flags & DWC3_EP_TRANSFER_STARTED) -> starting=0
+    -> Issues STARTTRANSFER (because DWC3_EP_TRANSFER_STARTED is not set)
+      -> Hardware rejects with NO_RESOURCE (resource 7 still held)
+
+
+We are fine with the following suggestions fix to prevent resource issue 
+in timeout case,
+
+diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
+index 1f973e546219..bac0328423cd 100644
+--- a/drivers/usb/dwc3/gadget.c
++++ b/drivers/usb/dwc3/gadget.c
+@@ -1819,7 +1819,11 @@ static int __dwc3_stop_active_transfer(struct 
+dwc3_ep *dep, bool force, bool int
+
+      dep->resource_index = 0;
+
+-    if (!interrupt || ret)
++    if (!interrupt || (ret && ret != -ETIMEDOUT))
+          dep->flags &= ~DWC3_EP_TRANSFER_STARTED;
+      else
+          dep->flags |= DWC3_EP_END_TRANSFER_PENDING;
+@@ -3895,6 +3899,8 @@ static void 
+dwc3_gadget_endpoint_command_complete(struct dwc3_ep *dep,
+      if (dep->stream_capable)
+          dep->flags |= DWC3_EP_IGNORE_NEXT_NOSTREAM;
+
++    dep->flags &= ~DWC3_EP_DELAY_STOP;
+      dep->flags &= ~DWC3_EP_END_TRANSFER_PENDING;
+      dep->flags &= ~DWC3_EP_TRANSFER_STARTED;
+      dwc3_gadget_ep_cleanup_cancelled_requests(dep);
+
+
+But regarding below changes in ep_disable that you suggested, is this 
+really required? It seems this could cause a bug during an endtransfer 
+timeout, if command completion never happens, the PENDING flag won't be 
+cleared, making recovery impossible.
+
+@@ -1096,6 +1110,15 @@ static int __dwc3_gadget_ep_disable(struct 
+dwc3_ep *dep)
+       */
+      if (dep->flags & DWC3_EP_DELAY_STOP)
+          mask |= (DWC3_EP_DELAY_STOP | DWC3_EP_TRANSFER_STARTED);
++
++    /*
++     * The End Transfer command is still in progress.  Do not clear the
++     * flags, so that the ep is only rearmed once the command completes.
++     */
++    if (dep->flags & DWC3_EP_END_TRANSFER_PENDING)
++        mask |= (DWC3_EP_END_TRANSFER_PENDING |
++             DWC3_EP_TRANSFER_STARTED);
+
+
+As you mentioned Clearing the flag (DWC3_EP_END_TRANSFER_PENDING) in 
+ep_disble only lead to a NO_RESOURCE error later. Yes i agree, but this 
+can prevent by below new suggestion change, so above changes (do not 
+clear DWC3_EP_END_TRANSFER_PENDING in ep_disable) is not required.
+
+diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c index 
+ee837235630a..eb6666b7bb98 100644 --- a/drivers/usb/dwc3/gadget.c +++ 
+b/drivers/usb/dwc3/gadget.c @@ -1084,6 +1084,8 @@ static int 
+__dwc3_gadget_ep_disable(struct dwc3_ep *dep) reg &= 
+~DWC3_DALEPENA_EP(dep->number); dwc3_writel(dwc, DWC3_DALEPENA, reg); + 
+dep->flags &= ~DWC3_EP_ENABLED; + dwc3_remove_requests(dwc, dep, 
+-ESHUTDOWN); dep->stream_capable = false; @@ -1990,7 +1992,8 @@ static 
+int __dwc3_gadget_ep_queue(struct dwc3_ep *dep, struct dwc3_request 
+*req) { struct dwc3 *dwc = dep->dwc; - if (!dep->endpoint.desc || 
+!dwc->pullups_connected || !dwc->connected) { + if (!(dep->flags & 
+DWC3_EP_ENABLED) || !dep->endpoint.desc || + !dwc->pullups_connected || 
+!dwc->connected) { dev_dbg(dwc->dev, "%s: can't queue to disabled 
+endpoint\n", dep->name); return -ESHUTDOWN;
+
+Thanks,
+Selva
+
+
+>
+> Thanks,
+> Thinh
