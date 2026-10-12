@@ -1,94 +1,62 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A91D73C13E5;
-	Mon, 12 Oct 2026 19:02:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5409841D635;
+	Mon, 12 Oct 2026 19:06:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791831747; cv=none; b=sJMOlo3j96kzWvsvjl/tRyuNTy++BcestbNV6Ax/pjMxp+nPZxmJ41iPWOm249+rVpBr3veLMwvi55TOCF9NYS5kuPZ79AFInBR+n+lmta1IT5Ydiw1IMDAaAQLcUGYdtsjWXvBBO5dADYHqVZb6XTeHzHphY3HwX6vFvwAbHrA=
+	t=1791832006; cv=none; b=Zsyc/fhS1vceCGg84bA010pGpoMVr6MsOx8jqdv6H2eZOSTpRQOYYAia7zP1RyIdVW5nXrSD+w69bbRYxNeEvJ08k7qMXMYoPgiIjV3htxGP1ROoV+EaEVonIAIHttEHmgE8uNnQxRERZtL54Y6YZ0SZ8ADb2epH2U0Tkl24G3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791831747; c=relaxed/simple;
-	bh=//LpavBVXT8FVZoq1jGsPqVkYZpAs3i7a9LwVv33in4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tDbD91YYLsKeNkI44TASA1YynWhK+Dk8PoXeN73/YNxvTLF86tb9/AANQbuJ7Doa/SXYNde4AWEN0pgDbaRJscvQstqzy4kNAUGwZlfSGiQ6336g8rw3nFTCKqz9lItfS6EAvQ+OYexEia5U364IKM5rDsto1Pmbs9Atu28CE+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=masbJiR7; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Kr04+8By; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=masbJiR7; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Kr04+8By; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791832006; c=relaxed/simple;
+	bh=qc27dw1bGRtz0RsRjqoL5oDeZuL03UbAX3nPsjTnkxU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Jp7rwQybW2GZMIVtZ+KruPxM1CbGZxKkKm1+FaCwHDy/L5IYhmE6QLv+XAsARERbzc4SsCJxr5ONcgxCyabQ0cCh1kQcjilA8NHJUx6YyaaiEPY9UgmNKQ4LT87/YZERBw5KUxiZTzXU1W9gbs1dUWSYp3MtSS5SrOkgOtKy5tU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=vS3NyB/2; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="masbJiR7";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Kr04+8By";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="masbJiR7";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Kr04+8By"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 424B721E04;
-	Mon, 12 Oct 2026 19:02:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791831743; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=o1MJcydieOLnLddhhlzv+LN7MrTTO0vD0Im1KjvgXII=;
-	b=masbJiR7ZhTvYFKhFm1zl/0w/7elJwX8WwH6QoAFruwV6fHt5Qk5dx2YoaqGtAZXioJ1R4
-	wM8arvdPToaDjIuNloFEXafoBOy38SePsA9GTSxUUTaL9crmqzBCCtsFLKN/h5YOuvM/UX
-	q+L5sHnezzYhyz1SnzwWjUFHDS4HUeQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791831743;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=o1MJcydieOLnLddhhlzv+LN7MrTTO0vD0Im1KjvgXII=;
-	b=Kr04+8ByiiE+Fka9M1EB4QURJv8iqJbcAuTn+0uiCL0tfYsKOfeSCRN9UqSOCshqpi9gDG
-	cBrflbtMpfkhpyCw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=masbJiR7;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Kr04+8By
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791831743; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=o1MJcydieOLnLddhhlzv+LN7MrTTO0vD0Im1KjvgXII=;
-	b=masbJiR7ZhTvYFKhFm1zl/0w/7elJwX8WwH6QoAFruwV6fHt5Qk5dx2YoaqGtAZXioJ1R4
-	wM8arvdPToaDjIuNloFEXafoBOy38SePsA9GTSxUUTaL9crmqzBCCtsFLKN/h5YOuvM/UX
-	q+L5sHnezzYhyz1SnzwWjUFHDS4HUeQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791831743;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=o1MJcydieOLnLddhhlzv+LN7MrTTO0vD0Im1KjvgXII=;
-	b=Kr04+8ByiiE+Fka9M1EB4QURJv8iqJbcAuTn+0uiCL0tfYsKOfeSCRN9UqSOCshqpi9gDG
-	cBrflbtMpfkhpyCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5D07A13314;
-	Mon, 12 Oct 2026 19:02:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id m+QbCr4uzWq2XQAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Mon, 12 Oct 2026 19:02:22 +0000
-Date: Mon, 12 Oct 2026 20:02:20 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>, "David Hildenbrand (Arm)" <david@kernel.org>, 
-	akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, jannh@google.com, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/madvise: keep the hardware dirty bit in MADV_COLD's
- THP path
-Message-ID: <as0uqGJ6zuCc--qL@pedro-suse.lan>
-References: <20261011132227.413217-1-samarth.colleges@gmail.com>
- <42087cd7-473e-40a7-ae63-3c841c615c8f@kernel.org>
- <asyy7Nwik5yMTNbo@gremlin>
- <asy4c7zkkmSRln1H@gremlin>
- <D964ECBC-59B6-4A4B-83D5-935EA2D06D30@nvidia.com>
- <asz7YUXhdmlenXvh@gremlin>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="vS3NyB/2"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 960321A11EB;
+	Mon, 12 Oct 2026 19:06:42 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2603C601A6;
+	Mon, 12 Oct 2026 19:06:42 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EFFD411D70CA7;
+	Mon, 12 Oct 2026 21:06:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791831996; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Bw7bv2pnfae4cMWiRM1MW1DbGUPZqrWolE0VMUTTkds=;
+	b=vS3NyB/2AQirlZc3zwonhlMtCW4/+Tm5UyQ7Um01rVmMrRno6RPzmzdCh8FU2cjHcaW3Th
+	5uHwUXZRnhNN+3Cnipgeglik203ebVueIHnAIS4Hdssa3eZ9OSIENz9o4BHC3Pl0W9YKh1
+	ne1qHRrPxjWs35WdViC8YO02zulN+MPqxYAUsTBHzZdQnrFaJL8K6+Dq6Wtr283XK1AFos
+	WWDG4W+AMdAIsRWfVef557tOkwe5WQNGfxMhePfq0y2CeEusWB8KA6k1vUaPBkidP1enHT
+	iPPJK8u8FDOfHxS8g3M7M0oVbJvFQ52fVNjzQIIX4EsLCpXM82TAyDtK9a84Gw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Chen-Yu Tsai
+ <wens@kernel.org>,  Jernej Skrabec <jernej.skrabec@gmail.com>,  Samuel
+ Holland <samuel@sholland.org>,  Maxime Ripard <mripard@kernel.org>,
+  Richard Genoud <richard.genoud@bootlin.com>,  Masahiro Yamada
+ <yamada.masahiro@socionext.com>,  Boris Brezillon <bbrezillon@kernel.org>,
+  Brian Norris <computersforpeace@gmail.com>,
+  linux-mtd@lists.infradead.org,  devicetree@vger.kernel.org,
+  linux-arm-kernel@lists.infradead.org,  linux-sunxi@lists.linux.dev,
+  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
+Subject: Re: [PATCH v6 01/18] mtd: rawnand: sunxi: drain interrupts before
+ reusing the completion
+In-Reply-To: <CADvTj4pmtGZ4c04q+5AE3trrfshToD7BPtF-8kPxPRZ25hOTRw@mail.gmail.com>
+	(James Hilliard's message of "Mon, 12 Oct 2026 12:26:00 -0600")
+References: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-0-2fb084fe0751@gmail.com>
+	<20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-1-2fb084fe0751@gmail.com>
+	<8733ua23xs.fsf@bootlin.com>
+	<CADvTj4pmtGZ4c04q+5AE3trrfshToD7BPtF-8kPxPRZ25hOTRw@mail.gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 12 Oct 2026 21:06:28 +0200
+Message-ID: <877bjmzqkr.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -96,64 +64,155 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <asz7YUXhdmlenXvh@gremlin>
-X-Rspamd-Action: no action
-X-Spam-Score: -4.51
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 424B721E04
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Oct 12, 2026 at 04:26:31PM +0100, Lorenzo Stoakes (ARM) wrote:
-> +cc Pedro
-> 
-> On Mon, Oct 12, 2026 at 11:17:57AM -0400, Zi Yan wrote:
-> > On 12 Oct 2026, at 6:38, Lorenzo Stoakes (ARM) wrote:
-> 
-> > > [0]: https://lore.kernel.org/linux-mm/20261009-lazyfree-stable-fix-v1-1-70997958ef8d@nvidia.com
-> >
-> > No. Without lazyfree PMD level THP discard, the affect PMD will be split
-> > into PTEs without dirty bit and the dirty folio is still discarded.
-> 
-> OK thanks for clarifying!
-> 
-> >
-> > We will need Samarth’s fix for backport, then we can think carefully
-> > about David’s per-arch solution for mainline.
-> 
-> It's AI slop, and we don't accept that in mm (also -cc slopper).
-> 
-> Somebody from the core team will take of this fix separately.
-> 
-> Pedro - you mentioned you were interested in this, will you send a patch?
+On 12/10/2026 at 12:26:00 -06, James Hilliard <james.hilliard1@gmail.com> w=
+rote:
 
-I'll send something, tomorrow :)
+> On Mon, Oct 12, 2026 at 12:02=E2=80=AFPM Miquel Raynal
+> <miquel.raynal@bootlin.com> wrote:
+>>
+>> Hi James,
+>>
+>> On 14/09/2026 at 15:09:47 -06, James Hilliard <james.hilliard1@gmail.com=
+> wrote:
+>>
+>> > A timed-out wait can return while the interrupt handler is still using
+>> > the previous operation's interrupt status and enable mask. Starting the
+>> > next wait calls init_completion() on the same object, which can reset =
+its
+>> > waitqueue lock while the old handler calls complete(). The old handler
+>> > can also complete the new wait or restore an obsolete interrupt mask.
+>> >
+>> > Initialize the completion once in probe and use reinit_completion() for
+>> > each interrupt-driven wait. On timeout, disable and synchronize the IRQ
+>> > before masking controller interrupts and acknowledging the waited-for
+>> > events. Draining the handler first also prevents a partial-event handl=
+er
+>> > from rewriting the enable mask after it has been cleared. Flush these
+>> > register writes before re-enabling the IRQ line, leaving the controlle=
+r's
+>> > interrupt sources masked.
+>> >
+>> > For successful waits, move complete() after the handler's register upd=
+ates
+>> > so that the next operation cannot race with those updates. Keep polling
+>> > unchanged and leave controller and DMA abort handling to the existing
+>> > callers.
+>> >
+>> > Fixes: 1fef62c1423b ("mtd: nand: add sunxi NAND flash controller suppo=
+rt")
+>> > Cc: stable@vger.kernel.org
+>> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+>> > ---
+>>
+>> So from the commit log I understand that you are fixing a race. The
+>> problem seems legitimate.
+>>
+>> >  drivers/mtd/nand/raw/sunxi_nand.c | 26 ++++++++++++++++++++------
+>> >  1 file changed, 20 insertions(+), 6 deletions(-)
+>> >
+>>
+>> ...
+>>
+>> > @@ -414,12 +416,13 @@ static irqreturn_t sunxi_nfc_interrupt(int irq, =
+void *dev_id)
+>> >       if (!(ien & st))
+>> >               return IRQ_NONE;
+>> >
+>> > -     if ((ien & st) =3D=3D ien)
+>> > -             complete(&nfc->complete);
+>> > -
+>> > +     /* Finish updating the interrupt state before waking the next op=
+eration. */
+>> >       writel(st & NFC_INT_MASK, nfc->regs + NFC_REG_ST);
+>> >       writel(~st & ien & NFC_INT_MASK, nfc->regs + NFC_REG_INT);
+>> >
+>> > +     if ((ien & st) =3D=3D ien)
+>> > +             complete(&nfc->complete);
+>> > +
+>> >       return IRQ_HANDLED;
+>> >  }
+>> >
+>> > @@ -435,16 +438,19 @@ static int sunxi_nfc_wait_events(struct sunxi_nf=
+c *nfc, u32 events,
+>> >               timeout_ms =3D NFC_DEFAULT_TIMEOUT_MS;
+>> >
+>> >       if (!use_polling) {
+>> > -             init_completion(&nfc->complete);
+>> > +             reinit_completion(&nfc->complete);
+>>
+>> The whole change around (re)init_completion looks relevant (here and in =
+the handler).
+>>
+>> >
+>> >               writel(events, nfc->regs + NFC_REG_INT);
+>> >               ret =3D wait_for_completion_timeout(&nfc->complete,
+>> >                                               msecs_to_jiffies(timeout=
+_ms));
+>> > -             if (!ret)
+>> > +             if (!ret) {
+>> > +                     /* Drain the handler before it can restore an ol=
+d IRQ mask. */
+>> > +                     disable_irq(nfc->irq);
+>>
+>> disable_irq() for serializing accesses to a single register?
+>
+> The intention was to drain an in-flight handler before cleaning up the
+> timed-out wait, rather than just serialize the register write.
 
--- 
-Pedro
+I guess here you relate to the race explained below.
+
+> disable_irq() provides that synchronization as well as masking the line.
+> It is only used on timeout, and this IRQ is requested without
+> IRQF_SHARED.
+
+This is clearly debatable, since we can identify the IRQ, that flag
+could (should, maybe) have been set. With your approach it would have
+been even more impacting. But that's not the point.
+
+> A spinlock could also address this, provided it covers the handler's
+> status/enable reads through complete(), together with the waiter's
+> cleanup and rearming. Protecting only the register writes would leave
+> the handler able to act on an old snapshot.
+
+I'm not sure what you call "only the register writes", you can call
+complete() from within the lock if that makes sense for this case,
+yes. complete() does not block so it is fine.
+
+...
+
+>> commit log, I now disagree with the first part of:
+>>
+>> >The old handler can also complete the new wait or restore an obsolete i=
+nterrupt mask.
+>>
+>> "complete the new wait"? I don't see how a stale handler completes the
+>> next wait given the handler is a hard IRQ and the interrupt enable
+>> register is cleared on timeout.
+>
+> The case I had in mind is an already-running handler on another CPU:
+>
+> CPU 0: Read st and ien for operation A.
+> CPU 1: Time out operation A, mask/acknowledge its interrupts,
+>        then eventually reinitialize the completion for operation B.
+> CPU 0: Call complete() based on the saved st and ien from operation A.
+
+For this to fire, the hard IRQ handler on CPU0 would have to be stopped
+between reading st/ien and calling complete() long enough to span:
+- A's timeout
+- A's cleanup
+- B's wait being rearmed
+On this hardware, how is this reachable?
+
+> Clearing the device's enable register does not invalidate those local
+> values or wait for the running handler to finish. Hard-IRQ context
+> prevents this overlap on the same CPU, but not across CPUs.
+>
+> That distinction was not explicit enough in the commit message. I'm
+> open to a different implementation; the requirement I wanted to preserve
+> is that the old handler cannot update the mask or signal the completion
+> after the waiter has cleaned up and reused it.
+
+Miqu=C3=A8l
