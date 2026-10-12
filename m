@@ -1,106 +1,177 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8F249CF5A
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:39:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD4348F857
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:39:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819545; cv=none; b=bXBfdu2ivFl/Dg9f2Uptcx14KgaLlV9RFEHbD/Fv3EoBooQT4nAVoh2q+CtdZhHqvcC93d8o2me3RoqQI4zJCVSsTRSQR6ce9JRnaCkwD4H6IEuVNlrRAnrjsL6GiMHw3vUlOfJ0bPOdfRmJPJ3XN1IU7eI63DUqsdihLl8P0kE=
+	t=1791819561; cv=none; b=S5IPhxsWaLdTADbRqCbCxko1mym4xTCxMaJyIxB8SnF/1rMQv9i4aBauNy7bU4vaJCyEqVhPSMQ+Rh7HG2U2UlOtda/FeAfTfKIULBWUw3psjk7A+JstH9VxqFBJZT0JACBElNme1DV/ZFtp6nhJm9GzE97EorDqQZzdnZl4yos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819545; c=relaxed/simple;
-	bh=q29PMV8jQcuEw7plkOEx/Nw6iaNHp2EcRVJCgMrKAkQ=;
+	s=arc-20240116; t=1791819561; c=relaxed/simple;
+	bh=5YEtS3492LCdo2UwWJuKXCZPUJIAtBgAYfigXEBe8og=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lDkxHFia/qke1pyi9temOzDEb+W9DXlGxmuiLL7sAF1cw3vFUwp/eQa1L1fYZpkIt02lSEf190qTDGTrD8yamqonfRg7i7L1T73Um6+Cm+l6SSI0EvOvxXmtcEmxAvLBYfMZ7UoIdxJDPqJvScSycVmJwXx6M2zeqjLEplsYH2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cZJKoNHw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PCPx2X1E/Z9m7o76+DaOPbuk1ulOAvQ2QwrXac005ysRQsLlNHo6yRbcH5c1RvvsYrD441lP2vPPxPivCFi3cmlsyF7R6yEpFxnabxUYJx3YxqQcoDwwBGgyPdepg4eYaEc7tPwVU+J/NXHM6DfyGH2+SRniSET9KbPwAky5IoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eHWOV4Hv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cZJKoNHw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DED5E1F0089B;
-	Mon, 12 Oct 2026 15:39:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eHWOV4Hv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E96541F0089C;
+	Mon, 12 Oct 2026 15:39:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791819544;
-	bh=fi0/AhTG23e4iE4ewbNkVpncbVhOOr0WFfwFcw+hjSs=;
+	s=k20260515; t=1791819560;
+	bh=WDCcUIepx4R27R4AlAnBk+xa8Pbx4zFzwt0wvMGxzhE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cZJKoNHwXIGcyzV98d1YhIIon8Xwr4dEsgu0MICVLP9bjfsWCWwP9BjASmse38LOU
-	 sDFRAGHsuQ2NtE74TB5LeROcgTDzsVVu9/+qdXXg1SxwiNRdfYMdmzLt/NKIxGRmm5
-	 xZPHePgqMUTGxqpaXfQePyvVXXUaPFSYCrp+40FaYkK33J9V3tjOrcG6oC2UF1zC9l
-	 hzaRAxLx3VDsiUoXJaudb6qSNgMo/VkMo0cf9Druo2AudGY5/1fFoFH/Uegbzp4VUI
-	 f6wwsUSQVreZIX8f6xnFOuMuJ+q6XjcNK4Msn4FRSwuFhW0zgs0nuD9lMiTh+6Rkb2
-	 WVWwTmxVjtjyg==
+	b=eHWOV4HvLD/Flpuc2g2Txo89REI64bqV4Dm12a7ymqMUX86WMpQLjZBWFhX6zPh0T
+	 AfBkt6ji3ZohUiiUhP1ORa/XOpP/zH4zvjOVZAIMUQC+Hve+sBcWm0TzkZnARBh+rC
+	 ZzGtCA4yMG7rujz4pFt58QqIy/QEXoNsy/4s+XmIHEW136haMSUyydtAKQuEE7Uqh3
+	 9SrP3xWtSMuyvWSFh3rc/SwDx9bPUqFvZlU8ehwi9zcXkqqcCw9rsVIUIhbiheeDzO
+	 2CRqGaFzBQgHY89LIRWlostV3BfmR5266ZXW4yJzUXxAQe7lM8Shcb/IQStdrCywDU
+	 JnRc18URiYhRA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Christian=20G=C3=B6ttsche?= <cgzones@googlemail.com>,
-	syzbot+a7f7cb0737bd91aa698c@syzkaller.appspotmail.com,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	Paul Moore <paul@paul-moore.com>,
+Cc: Ali Ahmet Memis <ali@iusegentoo.com>,
+	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] selinux: fix data race on AVC latest_notif
-Date: Mon, 12 Oct 2026 11:39:02 -0400
-Message-ID: <20261012153844.1064344-1-sashal@kernel.org>
+Subject: [PATCH 7.2.y 1/2] io_uring/memmap: account the pages a compound region really uses
+Date: Mon, 12 Oct 2026 11:39:17 -0400
+Message-ID: <20261012153857.1014795-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101224-sedation-swoop-65c9@gregkh>
-References: <2026101224-sedation-swoop-65c9@gregkh>
+In-Reply-To: <2026101224-backroom-send-7931@gregkh>
+References: <2026101224-backroom-send-7931@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Christian Göttsche <cgzones@googlemail.com>
+From: Ali Ahmet Memis <ali@iusegentoo.com>
 
-[ Upstream commit 1ca924044bf0de879a1648be93a56939652267d3 ]
+[ Upstream commit f12f0234cc14886bcfd53ffb7c8df4216dad51f1 ]
 
-avc_policy_seqno() reads latest_notif without holding notif_lock, while
-avc_latest_notif_update() can update it under that lock. KCSAN reports
-these concurrent accesses during policy boolean updates and permission
-checks.
+io_mem_alloc_compound() allocates get_order(size) pages, which rounds a
+region size that is not a power of two up to the next order. The pages
+past the region are part of the same allocation and cannot be used for
+anything else, but io_create_region() accounts reg->size >> PAGE_SHIFT,
+so they are never charged against RLIMIT_MEMLOCK. For a ring with 4096
+SQ entries and the default CQ size the region is 37 pages while the
+allocation is 64.
 
-Use READ_ONCE() for the lockless read and WRITE_ONCE() for the update.
-The spinlock continues to serialize the comparison and update against
-other writers. Reads made while holding notif_lock cannot race with a
-writer and can remain plain accesses.
+Account the tail pages together with the region, and fall back to the
+exact sized bulk allocation when they do not fit the limit, so a user
+close to their limit still gets the region rather than an error.
+io_free_region() gives the same amount back, the compound case being the
+one that set IO_REGION_F_SINGLE_REF.
 
-This marks both sides of the intentional concurrent access and constrains
-compiler transformations, without suppressing checking with data_race().
+Counting how many 4096 entry rings an unprivileged user can create under
+a given RLIMIT_MEMLOCK, before and after:
 
-Cc: stable@vger.kernel.org
-Fixes: 788e7dd4c22e ("SELinux: Improve read/write performance")
-Reported-by: syzbot+a7f7cb0737bd91aa698c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=a7f7cb0737bd91aa698c
-Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
-Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-Signed-off-by: Paul Moore <paul@paul-moore.com>
-[ sashal: Adapted global selinux_avc accesses to avc and state->avc pointer accesses. ]
+	limit (pages)	before	after
+	256		2	2
+	300		2	2
+	350		3	2
+	400		3	3
+	512		5	4
+
+Five rings under a 512 page limit really pin 640 pages.
+
+Fixes: dfbbfbf19187 ("io_uring: introduce concept of memory regions")
+Link: https://lore.kernel.org/all/87ik5ncj8d.fsf@mailhost.krisman.be/
+Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
+Link: https://patch.msgid.link/20260806180044.275543-1-ali@iusegentoo.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Stable-dep-of: b59cabf9b4ac ("io_uring: do not charge the SQ/CQ rings to RLIMIT_MEMLOCK")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- security/selinux/avc.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ io_uring/memmap.c | 37 ++++++++++++++++++++++++++++++-------
+ 1 file changed, 30 insertions(+), 7 deletions(-)
 
-diff --git a/security/selinux/avc.c b/security/selinux/avc.c
-index 441ff3e773894..2359db283e7bb 100644
---- a/security/selinux/avc.c
-+++ b/security/selinux/avc.c
-@@ -588,7 +588,7 @@ static int avc_latest_notif_update(struct selinux_avc *avc,
- 		}
- 	} else {
- 		if (seqno > avc->avc_cache.latest_notif)
--			avc->avc_cache.latest_notif = seqno;
-+			WRITE_ONCE(avc->avc_cache.latest_notif, seqno);
- 	}
- 	spin_unlock_irqrestore(&notif_lock, flag);
+diff --git a/io_uring/memmap.c b/io_uring/memmap.c
+index 23e8a85111bca..48c0eb0124123 100644
+--- a/io_uring/memmap.c
++++ b/io_uring/memmap.c
+@@ -16,8 +16,10 @@
+ #include "zcrx.h"
  
-@@ -1221,7 +1221,8 @@ int avc_has_perm_flags(struct selinux_state *state,
- 
- u32 avc_policy_seqno(struct selinux_state *state)
+ static bool io_mem_alloc_compound(struct page **pages, int nr_pages,
+-				  size_t size, gfp_t gfp)
++				  size_t size, gfp_t gfp,
++				  struct user_struct *user)
  {
--	return state->avc->avc_cache.latest_notif;
-+	/* Writers hold notif_lock; readers only sample the sequence number. */
-+	return READ_ONCE(state->avc->avc_cache.latest_notif);
- }
++	unsigned long nr_compound, extra;
+ 	struct page *page;
+ 	int i, order;
  
- void avc_disable(void)
+@@ -27,9 +29,22 @@ static bool io_mem_alloc_compound(struct page **pages, int nr_pages,
+ 	else if (order)
+ 		gfp |= __GFP_COMP;
+ 
++	/*
++	 * get_order() rounds a non power of two size up, so the allocation
++	 * can hold more pages than the region exposes. Account those too,
++	 * and leave the compound allocation alone if they do not fit.
++	 */
++	nr_compound = 1UL << order;
++	extra = nr_compound - nr_pages;
++	if (extra && user && __io_account_mem(user, extra))
++		return false;
++
+ 	page = alloc_pages(gfp, order);
+-	if (!page)
++	if (!page) {
++		if (extra && user)
++			__io_unaccount_mem(user, extra);
+ 		return false;
++	}
+ 
+ 	for (i = 0; i < nr_pages; i++)
+ 		pages[i] = page + i;
+@@ -105,8 +120,15 @@ void io_free_region(struct user_struct *user, struct io_mapped_region *mr)
+ 	}
+ 	if ((mr->flags & IO_REGION_F_VMAP) && mr->ptr)
+ 		vunmap(mr->ptr);
+-	if (mr->nr_pages && user)
+-		__io_unaccount_mem(user, mr->nr_pages);
++	if (mr->nr_pages && user) {
++		unsigned long nr_accounted = mr->nr_pages;
++
++		/* a compound region was accounted for the whole allocation */
++		if (mr->flags & IO_REGION_F_SINGLE_REF)
++			nr_accounted = 1UL << get_order(io_region_size(mr));
++
++		__io_unaccount_mem(user, nr_accounted);
++	}
+ 
+ 	memset(mr, 0, sizeof(*mr));
+ }
+@@ -151,7 +173,8 @@ static int io_region_pin_pages(struct io_mapped_region *mr,
+ 
+ static int io_region_allocate_pages(struct io_mapped_region *mr,
+ 				    struct io_uring_region_desc *reg,
+-				    unsigned long mmap_offset)
++				    unsigned long mmap_offset,
++				    struct user_struct *user)
+ {
+ 	gfp_t gfp = GFP_KERNEL_ACCOUNT | __GFP_ZERO | __GFP_NOWARN;
+ 	size_t size = io_region_size(mr);
+@@ -162,7 +185,7 @@ static int io_region_allocate_pages(struct io_mapped_region *mr,
+ 	if (!pages)
+ 		return -ENOMEM;
+ 
+-	if (io_mem_alloc_compound(pages, mr->nr_pages, size, gfp)) {
++	if (io_mem_alloc_compound(pages, mr->nr_pages, size, gfp, user)) {
+ 		mr->flags |= IO_REGION_F_SINGLE_REF;
+ 		goto done;
+ 	}
+@@ -217,7 +240,7 @@ int io_create_region(struct io_ring_ctx *ctx, struct io_mapped_region *mr,
+ 	if (reg->flags & IORING_MEM_REGION_TYPE_USER)
+ 		ret = io_region_pin_pages(mr, reg);
+ 	else
+-		ret = io_region_allocate_pages(mr, reg, mmap_offset);
++		ret = io_region_allocate_pages(mr, reg, mmap_offset, ctx->user);
+ 	if (ret)
+ 		goto out_free;
+ 
 -- 
 2.53.0
 
