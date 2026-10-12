@@ -1,191 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE412D781B;
-	Mon, 12 Oct 2026 17:16:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44E44B7A5C
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 17:21:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791825400; cv=none; b=iAffT0pkSNnbk3/Dk7ePwUdPsu+gW46qk6czV7zN0r4ZBzYsorxjvYA95gDbSNpNptcOO8EDMKyHp8aqQq7igK7jIK+FDtpnxP1Nau6uRSJjSPa/ZboXXfhyLdH37Ssu8YeQzaEzjTZVew3rMlZ7noAfI9aUto3oxoEEonATh2w=
+	t=1791825685; cv=none; b=QFvHzXwwSU4iQ7MyDGS2MDQq4f0NOvz4mJFExZnuoP03ihn1CPH46/FZ7YICB19LoWJrCw9YjVFlWqjMi+VQnmQoVJ2QdOfErFsPVWdeAuH0OxE2dNXv7k9k0NQlsrpdtbpt2ECtxuGOMVX51Mv0Rxd6dPMv4lmjOntufzwVM98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791825400; c=relaxed/simple;
-	bh=/agcCFouw/gqTSOvTcaEZQDSWyCL+YpsYbk5myDAEF4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=e8a+4qSydx5djbXlGRMGbCVxvG+NMYipPEDuwWC+WdTXTNO/qw3KfvzuChU9G9fBSg8u7QU0EJPSy32lEt77999TyfJvcpOTXgYdWnek1541iGan9u3YLpi1FJgLYj0TojGGUForbQUqi/92INcKfKdICdA6DKkP5boedfsNdsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BdLN9Fh7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791825685; c=relaxed/simple;
+	bh=iGIk0bg7YEavvAiz9L9Dgo+JZmGsNHsjcYqlYsCIoJY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EtR7/prasArJXwOWw4fdS54huKEDg9risFRnmJBTxj6gvpu8VBA1HcXOoNkHR2D7XRwiWkgjMsvaZ+czD/NOALK3gBjEjEY2rfhpG5Fq1kTjZE1sia+cxYUub+K64c+2NTsZjBXW0vEyc2l7iyjhMVcB/3jk/RPSiTsO7PgFfwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RZX0QB/B; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BdLN9Fh7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E65CD1F0089B;
-	Mon, 12 Oct 2026 17:16:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791825398;
-	bh=EpezYIC2PF522Pn091cXv35Yzr07N8vqXygIgiVc8QE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=BdLN9Fh7u/aIlHTvwiaw72L7/uA1Go/ZmjNTJq49DmvgeKLil4xKjARZjUGmJfK34
-	 k2EVDN+qH7ysxyDl6AdNDGIstnNvhTqxEk1zTFAlYkUhBNd7YdxDIE5h2uoejSP0Fv
-	 TO0koRwyGMc5Je8yJI8euIajtqnDXmt9mAlkMg5ILoecG8iACaPq3mRMqRBbWZOHWf
-	 MjPIyyjXnVDOEDdwRWTi7Raf5LZ48PX69BKYwc9SGa8mqXeJ7PEio116QojvPLh7Zn
-	 o8mXNsZK3VZGe8S9KHtCq2IVfSvfXNkMIuEMR9/xOpTA2ginXIVLrt/UdUF7Q0A/Z2
-	 bil+TlcwaugVw==
-Subject: Re: [PATCH] rds: fix out-of-bounds conn_path walk in peer gen update
-From: netdev-bot+sashiko@kernel.org
-To: bsdhenrymartin@gmail.com
-Cc: achender@kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Mon, 12 Oct 2026 17:16:37 +0000
-Message-ID: <179182539748.434549.902490805365673328@kernel.org>
-In-Reply-To: <20261008164041.961961-1-bsdhenrymartin@gmail.com>
-References: <20261008164041.961961-1-bsdhenrymartin@gmail.com>
-X-sashiko-severity: Critical
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RZX0QB/B"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48c411d6615so1487807f8f.3
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 10:21:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791825680; x=1792430480; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XVOLHzyfqUmv7StJG1aPauWki6PAmKd3K90h79SeG0Q=;
+        b=RZX0QB/BV9cAkYFB47nUBwzId+E0a2hPsAXsVopoxLT+krWQOqjtIgAfUd7PptjJhh
+         NyReJINoYy1w6HEZyyb1xPyWrvWRBPCIAwGwHHpuapcWNSTMb5PhqU1Me/9lIpFRdiD7
+         7YqyrF7II4o0OJaII9beTSXX0YYPUxi2ebJQtLNx3fURuq5SeWEAb05x6zq3mFyuB+O4
+         w7/I4nWvbR7dsHLjDxzhgX+0MGBv44vVRpvpCLBb4LDC1VtUxpmqOTlLA5T69jTnt61+
+         8GzklcQH3Mu3t1/nCDnAF8IECOKuURGRkKP/dvVji2TJ5vcWqlRVw5mkO9K5mmhn3MS0
+         85Ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791825680; x=1792430480;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XVOLHzyfqUmv7StJG1aPauWki6PAmKd3K90h79SeG0Q=;
+        b=LBQ5jKg4ZX539YsvlIuYauKAL7fm1cndEaz4CwzIL1YBJYnZ8zFdgqMAzGoaSxK1kr
+         ElZxoNmVoIDDgQTF92IQNEfab0cxwrrpLs9wo1xPr1q9vC6ZAlXnQWrSDS28zbe3hXmu
+         ier9b4MAazTJ3FfR7D05Rq0jJcQbpW/h/ZLYYVFvh/gcCjCRFVAKmLy5+Hw+sINNNHYs
+         uJH/UYpO2MbtvlwUraLERc2sDaJn8ZgpWA0JIR7Buzv9om4N0Oy2VIXA/KXph3rXbupQ
+         c60UnvWHsN/zQxApMYK42p+FT0IHkUvrPrkPv4Ol1DXhpZOEJCWxbMxF57RNB0ALkVJK
+         f1+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzld/lVsFRL71eym5Av3/ybwlV9xzF/NSJmnnXA1BV+1vVN3bqyFWQOYwToEokDgKjxXZubq7Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIQN6MPhaWsRU9znBa2WaW5cateqCehJ8aaOvOS/riQmOjVF5DD
+	kYV49MAxUxNIGi8szAQyUd0UjcAkKMavi3JuT6WA2B8lB+0MToJjnAaI
+X-Gm-Gg: AYBFou3pqDqP4Q0hyb0wb+2HgOOSTcPhX428tLu5mHuxsv2zRNhTcPOHfv7ILBOlj1g
+	SG62NYR0AX63A4vHnGPYhorzz6XHaq5CD2VRGxRyZYJt9mRUwLxNk+lzxAB5isEGgFrYjL7dk9o
+	q1BDXVR0o8xwVIWWSOPTcyr5evfy9I5DYz32083VedS3cOtjzn/tRZPRaPND1O4iJPoUeL81g3w
+	o1J9jtCK0TEAtM1kr51RrbsFk2SXPSv2UFNiq3K44FZhkq5/8dXySg7nNMzJUba/Kjnx4wCWhUM
+	k2F48snRvu64+r76XeD6UlDd2NgqGhOQf7ukPh2zQYn8GBkV3Phn+50N4SBYQGvoV5/1XOxuLgO
+	KPqj69BvsBbok3oKcgrQsbvzP9YKyc5EzbtxsqMPkMYIIym2V7cbOU4nPuFteOZ+vHL9VVqYH+K
+	8Ugjk+tUZPnmKiS7jd/JHgi1zi44my+M1Fhtbobu/YxYYthlmW/gdrJ2QIqV+LgYRUbA==
+X-Received: by 2002:a05:6000:2990:10b0:48d:de7b:9caf with SMTP id ffacd0b85a97d-48dde7b9d70mr2473124f8f.8.1791825679711;
+        Mon, 12 Oct 2026 10:21:19 -0700 (PDT)
+Received: from [192.168.1.18] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0aaaa21sm583094f8f.9.2026.10.12.10.21.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 10:21:18 -0700 (PDT)
+Message-ID: <3ab63358-8bbe-4457-b21c-bb81bca804cc@gmail.com>
+Date: Mon, 12 Oct 2026 19:21:17 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] mm: fix missing page-table destructor in
+ pagetable_free()
+To: Muchun Song <muchun.song@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>,
+ Dave Hansen <dave.hansen@intel.com>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@rivosinc.com>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Kevin Brodsky <kevin.brodsky@arm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Alistair Popple <apopple@nvidia.com>, linux-mm@kvack.org,
+ linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261010112457.49485-1-songmuchun@bytedance.com>
+ <20261010112457.49485-2-songmuchun@bytedance.com>
+ <asy-b7_C3SjnmSaS@gmail.com> <145CD5DC-6457-4E1E-8B9D-AE7D1EDB0AB8@linux.dev>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <145CD5DC-6457-4E1E-8B9D-AE7D1EDB0AB8@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 10/12/26 2:55 PM, Muchun Song wrote:
+> 
+> 
+>> On Oct 12, 2026, at 19:15, Jose A. Perez de Azpillaga <azpijr@gmail.com> wrote:
+>>
+>> On Sat, Oct 10, 2026 at 07:24:54PM +0800, Muchun Song wrote:
+>>> Since commit 49f599666420 ("mm: call ctor/dtor for kernel PTEs"),
+>>> pte_alloc_one_kernel() runs the page-table constructor for kernel PTE
+>>> tables.
+>>>
+>>> HVO (HugeTLB Vmemmap Optimization) uses pte_alloc_one_kernel() when
+>>> splitting a PMD. Restoring the vmemmap backing pages does not collapse
+>>> the PTE table, so a later memory hot-remove eventually frees it through
+>>> pagetable_free() on x86-64. That releases the page without running the
+>>> matching destructor and leaves NR_PAGETABLE elevated.
+>>>
+>>> Make pagetable_free() detect constructor-backed pages and run the
+>>> destructor before releasing their memory to fix the problem.
+>>>
+>>> Fixes: 49f599666420 ("mm: call ctor/dtor for kernel PTEs")
+>>> Cc: stable@vger.kernel.org
+>>
+>> is the x86 case covered for 6.16-6.18? as far as I can see, x86
+>> free_pagetable() only uses pagetable_free() since bf9e4e30f353
+>> ("x86/mm: use pagetable_free()") in v6.19, so the backport wouldn't
+>> change anything there. or am I missing something?
+> 
+> Yes, you are absolutely right — thanks for catching this.
+> 
+> I double-checked and indeed x86's free_pagetable() only starts using
+> pagetable_free() since bf9e4e30f353 ("x86/mm: use pagetable_free()"),
+> which landed in v6.19. So for 6.16-6.18 the prerequisite is not present
+> and the backport would be a no-op there.
+> 
+> The correct trailer is:
+> 
+> Cc: <stable@vger.kernel.org> # 6.16-6.18: bf9e4e30f353: x86/mm: use pagetable_free()
 
-Critical: 1 · High: 0 · Medium: 1 · Low: 0
+also, bf9e4e30f353 alone leaks PMD-sized vmemmap pages on those trees,
+it needs 39406c05f8f1 ("x86/mm: Fix freeing of PMD-sized vmemmap pages")
+as well :)
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Critical] The patch only bounds the loop in
-  rds_conn_peer_gen_update().
-- [Medium] The Fixes: tag names ba3d1f480c7a ("net/rds: size a
-  connection's path set by the transport it ends up with", Sep 2026),…
-
---
-
-rds: fix out-of-bounds conn_path walk in peer gen update
-
-This patch limits the loop in rds_conn_peer_gen_update() to the number of
-rds_conn_path entries allocated for the connection's transport. With it, a
-non-mp-capable (IB) connection only walks its single c_path slot when the
-peer announces a new generation number.
-
-> Cc: stable@vger.kernel.org
-> Fixes: ba3d1f480c7a ("net/rds: size a connection's path set by the transport it ends up with")
-
-[Severity: Medium]
-Is this the right commit for the Fixes: tag?
-
-git blame shows that the RDS_MPATH_WORKERS loop in
-rds_conn_peer_gen_update() dates from 905dd4184e07 (2016).
-
-The single-entry c_path allocation for non-mp-capable transports came from
-840df162b3eb ("rds: reduce memory footprint for RDS when transport is
-RDMA", 2017):
-
-net/rds/connection.c:__rds_conn_create() {
-    ...
-	int npaths = (trans->t_mp_capable ? RDS_MPATH_WORKERS : 1);
-    ...
-}
-
-ba3d1f480c7a only adds a second npaths computation after the loopback
-transport swap. That changes how many paths get initialised, not the size
-of c_path. Its own commit message says "The c_path array stays sized for
-the caller's transport". IB conns had one slot before that commit and
-still have one after it.
-
-Stable tooling uses the Fixes: tag to pick target trees, so this tag could
-leave out LTS trees from 2017 onward that have the out-of-bounds write.
-Should it be this instead?
-
-Fixes: 840df162b3eb ("rds: reduce memory footprint for RDS when transport is RDMA")
-
-> diff --git a/net/rds/recv.c b/net/rds/recv.c
-> index 6204e577a90ae..afc810a2e3cf9 100644
-> --- a/net/rds/recv.c
-> +++ b/net/rds/recv.c
-> @@ -144,7 +144,8 @@ static void rds_conn_peer_gen_update(struct rds_connection *conn,
->  	if (peer_gen_num != 0) {
->  		if (conn->c_peer_gen_num != 0 &&
->  		    peer_gen_num != conn->c_peer_gen_num) {
-> -			for (i = 0; i < RDS_MPATH_WORKERS; i++) {
-> +			for (i = 0; i < (conn->c_trans->t_mp_capable ?
-> +			     RDS_MPATH_WORKERS : 1); i++) {
-
-[Severity: Critical]
-This limits the walk here. Can the same handshake packet still overrun the
-single-entry c_path[] of an IB connection through c_npaths?
-
-rds_recv_incoming() calls rds_recv_hs_exthdrs() for handshake pings and
-pongs on every transport, and nothing on that path checks t_mp_capable.
-The ping sysctl does not gate the pong branch:
-
-net/rds/recv.c:rds_recv_incoming() {
-    ...
-	if (be16_to_cpu(inc->i_hdr.h_dport) ==  RDS_FLAG_PROBE_PORT &&
-	    inc->i_hdr.h_sport == 0) {
-		rds_recv_hs_exthdrs(&inc->i_hdr, cp->cp_conn);
-		/* if this is a handshake pong, start multipath if necessary */
-		rds_start_mprds(cp->cp_conn);
-    ...
-}
-
-rds_recv_hs_exthdrs() takes the RDS_EXTHDR_NPATHS value from the peer and
-caps it at RDS_MPATH_WORKERS, not at the allocated path count. It then
-stores the result:
-
-net/rds/recv.c:rds_recv_hs_exthdrs() {
-    ...
-		case RDS_EXTHDR_NPATHS:
-			new_npaths = min_t(int, RDS_MPATH_WORKERS,
-					   be16_to_cpu(buffer.rds_npaths));
-    ...
-	conn->c_npaths = max_t(int, new_npaths, 1);
-    ...
-}
-
-This lets c_npaths reach 8 on an IB conn where __rds_conn_create()
-allocated only one c_path entry.
-
-In the same receive call, when laddr < faddr, rds_start_mprds() walks
-c_npaths entries:
-
-net/rds/recv.c:rds_start_mprds() {
-    ...
-		for (i = 0; i < conn->c_npaths; i++) {
-			cp = &conn->c_path[i];
-			rds_conn_path_connect_if_down(cp);
-		}
-    ...
-}
-
-When laddr > faddr, c_npaths still stays inflated. A later rds_sendmsg()
-reaches rds_check_all_paths() whenever the selected path is down:
-
-net/rds/connection.c:rds_check_all_paths() {
-    ...
-	do {
-		rds_conn_path_connect_if_down(&conn->c_path[i]);
-	} while (++i < conn->c_npaths);
-}
-
-For c_path[1..7], rds_conn_path_connect_if_down() reads cp->cp_conn from
-the neighbouring slab object and dereferences it in rds_destroy_pending().
-It also does test_and_set_bit() on cp->cp_flags and calls
-queue_delayed_work() with cp->cp_wq and cp->cp_conn_w from that same
-memory.
-
-rds_send_probe() only sends these extension headers when t_mp_capable is
-set, but the receive side applies them on every transport.
-
-Would it be better to skip rds_recv_hs_exthdrs() and rds_start_mprds() for
-non-mp-capable transports, or to clamp c_npaths to the allocated path
-count? Either would cover all of these walks.
-
-[ ... ]
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008164041.961961-1-bsdhenrymartin%40gmail.com
+cheers,
+jose a. p-a
