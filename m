@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B37377ECC
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:35:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 411DD15665C
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:35:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819320; cv=none; b=XTyaN7IwE5zABQZTYxryxU+ku6ORsDBbVqTcz+tGyF8ir9ZDItRwrJLWVklTiiPqgCgwjMgMLSwFUQPdF4/ifJLm/EQedBEOMmS/gijt3DyWG5UGkAHKV8FUiezLGPHHw7EhAsTOrQO711ZMf1knyoYs/N0zUgCvi3LGlh3m35M=
+	t=1791819327; cv=none; b=kRtFSslwNBRYnXw8uDwXuVwYNL/+C7lPft2vr8eTIvfvVl4+9fI3pld8k2XRVrn9WfSZH1/CZHsHEVNhUcGiJhniZ79kr02LEkVV+OgpDvRoUCcXnm7n3wYD9TTk08M7US2ZRd7K+dCQm0wN0X6mZ5fQYmJbmXfwUB8TB2dz+8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819320; c=relaxed/simple;
-	bh=4auAD5+yD3u+wtkRtIhodyNYxxNuA/6ce5NDh8cQOgs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ZOFOaZ6MzPCixZDU+imDnMZKRFgzTvsnVdd2q3Pb81ls3RWBcA9vDIVP/raKyIVXT0Dhl7p3XpbUC4I+PL1Ybsph4vT5i6ug+MHDBWQ08R19inxPkKessISbXqjWv7hPMxTpi43SP0dN5fVCcKm/sijAQa/5Ad1pF9agxHLpf7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=H79oE7lb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791819327; c=relaxed/simple;
+	bh=+M1Fi2fwrvRjftiQMM46nqjZT+l3/JRqfy+tRj6crmY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Thc7UdBB11/8JuY5VPrUjVovRveHhRtw14LxpFiI4zU4xp94mUheJpTmcFCNLuO5/gi7TbzktjGAqxejCBlV0rc/OYtVAkAlc/G8i4Asmc0+gRBwULdE1zJ3gDrWLU+afr7jGynoi5DhJt2KBXDk96CGf0XJ9h+mAH6SUpy+gdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=I9CXotug; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="H79oE7lb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 337D61F0089B;
-	Mon, 12 Oct 2026 15:35:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="I9CXotug"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FA5B1F0089B;
+	Mon, 12 Oct 2026 15:35:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791819318;
-	bh=7slBFjIPvR+MKRFUYlu7NKuAupanRvik/BnDXWZ/qTg=;
+	s=korg; t=1791819326;
+	bh=7+MOHOMxfB40t68hy5tmv0R4t9+Sa3F66jhvHB+Sww0=;
 	h=Subject:To:Cc:From:Date;
-	b=H79oE7lbA1OIS000U4Cf+Dmh3EtNnRnEigKRQwerQ82B3Z6OAJFZzk11cAEEIn01R
-	 huYFK4kg2OaXkUX0goEJvIllzSpGXO01axGJ0Rlr7wyK3x9ApvSpVm34IZTAerwXxw
-	 rZZbGZS94mbEkajcK5Ba6wjg9ADvoqAm0BHbYC6E=
-Subject: FAILED: patch "[PATCH] fs: don't silently unmount busy mounts" failed to apply to 5.15-stable tree
+	b=I9CXotugBP/DBWQoq9PYwccgOk3PYGJP170Ap/kJ1Z0zA+620+Udi/JfjNBwa2nzu
+	 Gm7DaddpR9uiOheMYkAnLq+Mov1xybTDGtfmUjvvY5k0J7UchI27cCInRSYY6eRsBz
+	 Ib1AiCMFgp0Lg2ojqdENHPgO58KS/V7Xh6BN/8Vo=
+Subject: FAILED: patch "[PATCH] fs: don't silently unmount busy mounts" failed to apply to 5.10-stable tree
 To: brauner@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 17:35:17 +0200
-Message-ID: <2026101217-service-pliable-3f93@gregkh>
+Date: Mon, 12 Oct 2026 17:35:18 +0200
+Message-ID: <2026101218-accustom-overrate-a70c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 6857e209015f95be7a8f19a9cd5dac345b9b9859
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101217-service-pliable-3f93@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101218-accustom-overrate-a70c@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
