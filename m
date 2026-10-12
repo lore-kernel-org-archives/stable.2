@@ -1,93 +1,63 @@
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012047.outbound.protection.outlook.com [52.101.43.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD1D3793BB;
-	Mon, 12 Oct 2026 13:39:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.177.32
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 199983A4523;
+	Mon, 12 Oct 2026 13:49:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.47
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791812382; cv=fail; b=HGX2f2EZ9CaWRma1pYZWalQ8zVfb2CaPJKfxmzDcFcyIA4Z37IPxiX80okLvMPwE0+s3Dv9t3sw1YT6nNo/QfcSn/4cgUQUkJ2z7gf1q4DSpGw0hKgB1tE/segYzD0TVCbqYCbqQWqK2hk/igsjsfEDvnLZXjhzrcm+/qA8qAcM=
+	t=1791812989; cv=fail; b=qHmdScts0LdkuTBYq9sx1V2HnI1gEV21csWAIs7VuhnAIPdGEUWV5LJnLc2RMX/R9XtEE3J2C45MrCHjnSEkkSJMh6Do/5QkR6AmmoMuhYQhFoF+ugSsDdBCf25mKkzSGB880h0od43oogctY2MatEyADZjC8o0tyLp8r1VsbG8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791812382; c=relaxed/simple;
-	bh=EG7Pd8eZYeZM4vIGWUWrMCXDcs30hIb+xqeZ+J9CSI0=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Jh2sItGkppzKuBNCPNtJa8skwvHQs+7OihFfHCXVyVtSAatenx7F7H9AbWHiWbktVOQyeWb2LzDCPK5QzdTBn9wMz4rN5pRW4ym1uT0Dmohlodrf2fpSLgkcAvSSNAlhETPRQHmJgTThizYVpd7e4dgox7RRM0tsqYc9r2qs3xA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=EiZw/d83; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=IK34T4Rq; arc=fail smtp.client-ip=205.220.177.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	s=arc-20240116; t=1791812989; c=relaxed/simple;
+	bh=ysIbGs+ZsDy5B/CLsDarKZAF9tToEaJ4yuyNVpdRsjg=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=P7l/xawShRKzAGH+zJuF5pCr4QldpRnzS9PbCgnASr6XyVvCsDbA5BBUnwyF0kvZ2qiXugLWgxDr7jR4Ao1B/zb3dKnDocXTWaZJc0wGcmxvDqao1XbvWBDS1gnXM6CRAjqNUZ5r6Wdnc+0PXW/a9nwgoZbCFW+rm4/Rjg57y9c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=JKiQQSZZ; arc=fail smtp.client-ip=52.101.43.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="EiZw/d83";
-	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="IK34T4Rq"
-Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCieGF1832792;
-	Mon, 12 Oct 2026 13:39:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=THj2VAH4vYqjf10+6QNYcZhiTBzTrCzAW0E7FuPMxP8=; b=
-	EiZw/d83xRahnJ0anfFTCN2aHzBu3b+zK8J7U7ujjNHKcGfQeXSUdq4Z6TbGEpoY
-	nzYsDDPHXWcWHUmBaiEGzwXc7DkzSl5iNHvGnEA/1y4qWLoSCJiJGTn0LajQjhL/
-	ZdG9MbupawEU3FajqqLFY6ee3ATEWvG7mB5jk7TgjzhE0HroU4Eo9SUnKLiIhSXC
-	CxsUq0Ey69+UPIFlMvjziEHGd1yFiWyUgLj40mqFX8QXmsI68qh0j9ecGbnXshTG
-	1Vjju5qSBNaaoebqfhd1UXvSu3Nt+SKMPJqSHWss5/7uTQu/LgJcutQnORXwcn52
-	gBK0t1puBtsIYESVKMOZNg==
-Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4h7dcsaata-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 12 Oct 2026 13:39:30 +0000 (GMT)
-Received: from pps.filterd (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 69CDaJ3g001138;
-	Mon, 12 Oct 2026 13:39:29 GMT
-Received: from sj2pr03cu001.outbound.protection.outlook.com (mail-westusazon11012064.outbound.protection.outlook.com [52.101.43.64])
-	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4h7bt80uv1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 12 Oct 2026 13:39:29 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="JKiQQSZZ"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ejTF9IPGn3Q40aHhpVHSZukKg2L0ATF38yd6SyNNXyMLYRgOVYhBRmv820E5wX9LGooya5GFlxbhUM8mecygaMgZJSvSSEAs+wHSFl95G4wskAroiT65fBQfApSOkAdo2YZQQOaj9lV9B6Emh6mUsNl9k67dqLhMARarG8C4eplpFIj3GGEJpW8Fw5YAcmndfjYwrNi/MKwjRB6L6Sa0Dvouqm1gxV7h/GFSXjhEUsF7XVIUgBvggn8ILWt9tM5dj596bkVkWvY9yD975YCjrb6UxXqxfo7YR0rIyBSf+qmmThltKdhz875fom6MYd8IgtLQJO9HQYDxNVRgHT7ZTw==
+ b=X46W2yTP3Nn4wfxbyU3f2HVj42w+6pufAq10Z+VtR4BEDr1n8CuWNVoYv3J3X5KPgYFrV3/so+KP5tzOJIj6xyAnvfYBfxz6rALjyXdfo0gttq3qs0K5qm/Xgt3A3WeVrgLkB/HlY6/7U2p83BLLNrzxAKPwZqp6EgnDLwmxCwOgnT4IL84Ih1khf0Lgup9Q6rrfSh7dOzuBBFU5KkL64J1WvDi7nxTbf6LlvrS3X6x32AhmwotldRVMUuVlMBsZwjYqAenAl0lLB5o/IQBRvI9rwl+OuJ1q89x08xLs7z6TYBIt6HKijdg2oHo4QqVjBKfU0Z7lsFwR8Ly5Il47Nw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=THj2VAH4vYqjf10+6QNYcZhiTBzTrCzAW0E7FuPMxP8=;
- b=RSNzn3AusBWUPB8N+UgoUowKKoGA/YK0DLOU9PKdyJn9wWYlv/KWXe40x5Q1DCAKhYLDgeOJydq6UNo154RWGIAXb1uZfVqrVDY2RH4G1Hczei0fbJKX/atlz813nRO576wGnpbdVu/EypQpWtTQwyR5Kwhjf+kJxlo3TSU8FZDhThPBunD5SYMvVGc96lK3kerIqnL8ecjNW+O2UXRTAn1Sxg9vG5deXKP3GY3eesad/glPgU3QFcw2DA1P6PL3DPRisXeSL2sjesVltsoPgMj4MJPJqBl3BPGjHXJ5qAuxdzG4Rhp93ef/FQQXLJ5bPCeDWdvJlEqddL9JBNGr3Q==
+ bh=fvGBQdwylGnL2XyLVIWYgAxlzIIoNR0C5oKeIWrfhPk=;
+ b=ih0OqI61q+UD3gwlLa14cPLzpoB66icS6DEzWMkRjYPGwmEkHJgZv45EWX+6VXvq0ahdE89PF2Bn1beETc0KgGRoD74djINVDzhg4HtAVN5yJY2X00B4Ne1itt9rHfxxU2REJ8WYvuh4YLSxfISuFoEBYWARYz9HCgzYEoPcKdn3W7TRBcNiL9vx2uGWwt3PD25Z7jdgRoGAmVnwHsCDI2C/JlKdx5tk3LldmkwFyurBIsq7onkKri4qCH0ZC6j9TObk8az8LCMaFbvTovfSZqghmqpNNnnpMXc5vO5FF29zrgXRrkheKP68B/BlPDbEjOVG7ttYaUlGZbZbmKW2hg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=THj2VAH4vYqjf10+6QNYcZhiTBzTrCzAW0E7FuPMxP8=;
- b=IK34T4RqE0iU/xvW5PSTnPHoHUwc4dqKhb4z9NlOba8GwEPWMEv2ZKfQzXeDHXdvLVEsVn2hkd3PdKRMjbHZ5JyRdDHW0cdXbtYtbB3Xz+RFh1I9kcasVF7Bs+vK36KaRDUrQTnIvKl24MGEfkP0M+K3o3lIu2XE/w5809GSHjM=
+ bh=fvGBQdwylGnL2XyLVIWYgAxlzIIoNR0C5oKeIWrfhPk=;
+ b=JKiQQSZZD1O+FnRvhMp3VsVYF6oFzVCHTfA627aj3qxNkkfhjiaXasbOPdU1MpzomU7SeiHuH4TtLd5mBgICXQK+XF8V3QK1CUXcG4XWKeMTZESAZwKnYPQAtkfP3aXYksgoMaZqghe2WZ1d6OonS5mU5+4P4UeR1HnXAUTDP90D9MqjlOaIV65hi9RI/zB4+XwMzkMs0EKo/shN7/AOPrFPJocU6B5llHV0p2tCcUOzgX6KyjYL8a4dqaCnY1ycefdJxi4AEmjVJPSfA0dZdagdMCPoXwaN7HGbkRuIMJpoLvHytxd0NH726reqd/FWCHecgjFWgBPRkq4IwK3R+A==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oracle.com;
-Received: from SJ0PR10MB5834.namprd10.prod.outlook.com (2603:10b6:a03:3ee::16)
- by DS7PR10MB7374.namprd10.prod.outlook.com (2603:10b6:8:eb::12) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH7PR12MB5974.namprd12.prod.outlook.com (2603:10b6:510:1d9::19)
+ by SA1PR12MB6752.namprd12.prod.outlook.com (2603:10b6:806:259::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.7; Mon, 12 Oct
- 2026 13:39:12 +0000
-Received: from SJ0PR10MB5834.namprd10.prod.outlook.com
- ([fe80::2444:1d33:3ce:d83a]) by SJ0PR10MB5834.namprd10.prod.outlook.com
- ([fe80::2444:1d33:3ce:d83a%7]) with mapi id 15.21.0522.002; Mon, 12 Oct 2026
- 13:39:11 +0000
-Message-ID: <2c0c5d51-197c-47fd-b002-ecff397a826e@oracle.com>
-Date: Mon, 12 Oct 2026 19:09:04 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6.y] wifi: cfg80211: release locks on error in
- cfg80211_wext_siwgenie()
-To: Wentao Guan <guanwentao@uniontech.com>, Sasha Levin <sashal@kernel.org>,
-        kartikey406 <kartikey406@gmail.com>
-Cc: johannes <johannes@sipsolutions.net>,
-        "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-        linux-kernel <linux-kernel@vger.kernel.org>,
-        stable <stable@vger.kernel.org>
-References: <20261010043002.2919860-1-guanwentao@uniontech.com>
- <tencent_54DE3A7910D4598F5676AE58@qq.com>
-From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Content-Language: en-US
-In-Reply-To: <tencent_54DE3A7910D4598F5676AE58@qq.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0122.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:94::6) To SJ0PR10MB5834.namprd10.prod.outlook.com
- (2603:10b6:a03:3ee::16)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
+ 2026 13:49:45 +0000
+Received: from PH7PR12MB5974.namprd12.prod.outlook.com
+ ([fe80::f5a5:bbc3:e9da:f8a0]) by PH7PR12MB5974.namprd12.prod.outlook.com
+ ([fe80::f5a5:bbc3:e9da:f8a0%3]) with mapi id 15.21.0496.010; Mon, 12 Oct 2026
+ 13:49:45 +0000
+From: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Kent Gibson <warthog618@gmail.com>,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] gpiolib: cdev: don't record a line direction the driver refused
+Date: Mon, 12 Oct 2026 16:49:18 +0300
+Message-ID: <20261012-gpiolib-cdev-direction-v1-1-aambrozewicz@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PN4P287CA0015.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:269::7) To PH7PR12MB5974.namprd12.prod.outlook.com
+ (2603:10b6:510:1d9::19)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -95,141 +65,140 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR10MB5834:EE_|DS7PR10MB7374:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4d737abe-319c-4759-5b85-08df286632f8
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5974:EE_|SA1PR12MB6752:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b8f5703-d5a1-472b-55fe-08df2867ac26
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|22082099003|18002099003|10067099003|261009223027099003|4143699003|56012099006|5023799004;
+	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|11063799006|5023799004|56012099006|18002099003|6133799003|261009223027099003|3023799007|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	GnESs4MBjsOdg8ZFKeZjyWxjTvh0N6MFNhm3TqQNbOEsE24w1N2+zbbER9d9Vbi4FhK6CwBKn1/nXfndUzETuplP35TaVMh1z11GckDE86ogy6Qux5ZvGv0ZHYxb4PqeO4N9+oVKAGxtvN14Kd3EMyjV10fWZQxJ5OMGGbo/psXhtctNKi9uVHTocimKNvlkViAUitr0n6YTek5GGDksxsEqfOy5SbYt2hqmtD5nmthABzUgpHOfFxU7Qvd4AOhetZ4CSDeP5sfqqJW/fBePmh62bmxHRZYjimvdYQihSU8kVFwhiwWYMccM1sj0dnqPaFUbnL910W6UJ/qwi3Uh+zQazmqYxjuscx917jDdOZSlhhyBGQOkZSr0Ul8fI1XwcWi3j30SbR0BwYVpGdeW8A1jbidfmZ5lEeesXK2epU3TMRcby0N1tLqbT/b3m2iTGsQ9KHwermASvmi7f2c2yCbnuMvZp9ZnfumedSdeiuDYmJwrBwvuLLaCRcRLR5xArDFT8yn1wKcfG7A0y0Tb/S8mqSF7MKdXjI4JRdzrBUIzFiJR1OY3du8lc+S2WKPpPirvJ1BJeSQR8+Zld+IWwPUSsEzzvTezBlIc7rAu7itw15RFhBtJicaWuob2ca4+
+	xCInAlzbUH9fX2E0UBD1vdKhWmY4AUP6p8J93m4WMflu0NnjxgHUitebzTxvzYOITW6y17UXN55oONSIgbWi7OKRF/cQN7NKpHvvZMLoITo3CivMVWDP4LbwdFR/weglGNWQRpwzdsYuQmcKs+ynfwTs6n1pKSg5GsrTD8f1AsGF5/aQ8wRNHV/q8vSTM+egtzoayPz/ZAOL85BQZMnbNWyisnBrFywDBjKayRIkzcjBlDx+21dK6sRcSs/PsYy3kihSNOVZh/0BuoM5dXT7Vk/kfdMZVCmrtUtZvTVsED5yq5+YpWF8B/oN7B9jwCXQZ/L3C0o1CSTxJOBiiC4/SQUqdf0onGmrGzjZq+6Y0HPbWgQC1gPgyvmPDXa+FVoqmHYwx9WWsjtb+Uf6spnl8kYNhqSyqirq1w4gb45xlqzh6X+D8Q7oZJosALTVfOOQW+GxvSJiTYPZGr5dRqQtvfalM9yHTmiOH/nlew+Fhug4nxyo10pgh0SGKSKDyc1TT8l7tUQ5qZlvAI9Yq6Vbv3kloIvQGpHzgw9wSALQZVRSE/W9FKvTyEihmFzb5vJQ6oei2KSV7T9CjYmFyVeH5OR0+z7ULoMYOvchqg60LURm5P+kPeA0LbD6Svc1iglfH5D7J6tuoz+GZ6hdnNWyWIFRbMOsNcC6XVyshWu+iBo=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR10MB5834.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(22082099003)(18002099003)(10067099003)(261009223027099003)(4143699003)(56012099006)(5023799004);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5974.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(11063799006)(5023799004)(56012099006)(18002099003)(6133799003)(261009223027099003)(3023799007)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?S3hiV1I0dnR0L2ZlRzd1UW1DaWY5SVFJWWovOG0vRFdhdlNrazZwZzNDK1FO?=
- =?utf-8?B?aWhEMGNEc1dxcVJKQzJIanBsc05TV0NUNm5nSmtLUUVkSU1veE9nME9vUmNh?=
- =?utf-8?B?QTlSQlpUYzRrZzd1ZTRzR0xaY25IR3NwZWd4ME9rVEZ4V1pVUkNOWi9VU2ho?=
- =?utf-8?B?Z09ObDQxVUUwRVlsSEFuVUFPNlRENHBlbThOY0hGa3pMRXRLSnlscTdBZmNR?=
- =?utf-8?B?ZUVFMy9RcEpzVEYyeU1CZ3RBSmREeXlPbnUzbTlMZjRMZk13dEgvV3B6dkRu?=
- =?utf-8?B?Q0Nvc2t2R3FkZlpJWnpCWGVGQm1PSk85cTBQZ2FQWW5QaXlqanA5dTZyOThO?=
- =?utf-8?B?OUt5Wk5iRlJJcW9OSUNKM213Rk0zdlpZV2xPNzkzaXZmd09DMWhnMUxnMVk4?=
- =?utf-8?B?cU9HdE4rTHJ5dk9kVTZ2ZVRsWXBKZmY5ckl3eERsYlZaakJxRFFtYTZ1M3dB?=
- =?utf-8?B?d3NDUm5vWjZ5a3cvcFE3ZnhFbjdESURXY01OUzd0cGdMT0pqMDAxL0ROL0s4?=
- =?utf-8?B?TTB1N3NnRWtZRmtJZG1uQkN5UWl2OVByaGNNZWtZUU5YVGFaLzZDdVFZTDJC?=
- =?utf-8?B?cWhyZnA1SDJubzJ6dmtOSE9KTWE2eFRUYlk5UG5lK2xoeFNVb09idlN0VlJN?=
- =?utf-8?B?ZDM0SWJXV3liSVhnVDg5TGtLWUhiKzNTSWFKRDVYdTNSb0ZZNVlvcTBuTWJL?=
- =?utf-8?B?c0QzMGdqY1pzcTVFSkJhaS80R0kwelYycVlGY2dVN2xZSVNLKzVOSFRtSEE5?=
- =?utf-8?B?NkQyM3dNN3F4UXFmVjNqSzdaSjR4R3grbExBdDZhZ25NSHRvVEFQU2hSQVBv?=
- =?utf-8?B?RnU3SXRhMWhDcmpqbVZmSFFMSi9hSjd6VFQxNXQvRXZSamZtc2cyVEVpQnJV?=
- =?utf-8?B?UHV5SDBWQlVMTzY1M21vVThBeTdhMHNVM2tnSDJGYXVqVWpsTGlhc2c5UHd1?=
- =?utf-8?B?WU4yZzZtbEhGWlFvK1VLc3N3U3BtOUxMZyt1RDI5OXRJYzcvQnFJZVMyTUlX?=
- =?utf-8?B?Uzdsb05ZSDlsd0J4emt6S1Q4dUZmNDExN1VPRzMyM1dFbnNrb2s3Mm0yQkZR?=
- =?utf-8?B?N000aFFJRzlFM09ZQUZ3OWFwcWtmdWlZN2VvUmFGQ096OUNJVDNZUXVZd3M3?=
- =?utf-8?B?OUF3cjYzQVRLT2VBeTlxOEpqVmpFdGQ4VnZJVHk0UEs2cU1ZalJTKy9YakM1?=
- =?utf-8?B?ZXpIeHpoUkswVm5HUmVrQmZrUlQ4dVRNQjZNNXd0a3R1aE9id05SSWpZbXpB?=
- =?utf-8?B?RzR2UHhIdmJPSGNkZG8vVmJocHVpeW1zS0M0K2R3WGM3V1NSdjQxU3NHQ25J?=
- =?utf-8?B?Tkt0ZDBucWx5SjhJZzRGaS96TXlGMUlsVmpGL05mNS9FZ3AwbTBOcjVHcFFJ?=
- =?utf-8?B?eVRqUFBnd0lJWXpKWHJld0c5MitmT0QyMmxNclpxU3BZT3NYVGRLRGFpU1ND?=
- =?utf-8?B?QjBRd1ZmV3lOOTRCYTBCVURLbUFNTVZyN3orWlcvMXRoVjBXQ015cU1BNlFG?=
- =?utf-8?B?VTVQdTFLZ3BVVTdTSVo4Z3UzQ0xSUW1TTXFsWTVpN3RGOWJQaXQ1SnBsNFJU?=
- =?utf-8?B?Z25CUWRXMkpycXVDbm1yWUg2cUZMUEhwWDhpbWZVdFc2OHV1ZHNlQXh1U1pH?=
- =?utf-8?B?QWV3RFQ4VjUvKytydVpzWGpoZlVKRmIvNGhCN1p2T0xobHYzQU4yR09zKzJ3?=
- =?utf-8?B?am9KZC8vUXg3R0djVzRMdy9rUVhVa2h2N3RsUkZNQ1kwS2lnSytkblV4bjFu?=
- =?utf-8?B?cThxNmlyR3lXU2wydDdLTit5cGFEV1JQZm5kZXZ0N1hpQ3dqSlJ4Nnc0Vk1Q?=
- =?utf-8?B?OEovRG5MdHhSSG9BRkszdWUxRTVBSG13VTMyVVIvdWcrdlhlMmEyZXdJM2Zx?=
- =?utf-8?B?bHVmeUFVZXVYNFM1Sjh3a0EyZzd4N0Nlb3V1SjQ2NEVJUEErdFM0SW1LYnRP?=
- =?utf-8?B?Nm9LUldpZWo5VjZFbVRkN0RDdXdmYnBLSlNPWVNlSTlrSVZZUFlLZVJMYnpH?=
- =?utf-8?B?MVZWNWZXU3RGOGtRb00zVjJFWXNadDgzNVZGclVRWCtGY09uUUQ3M1hPczZQ?=
- =?utf-8?B?NGd5bGZFWlV5ZWhiTjh1ZFBJY1h1bHJDemtvU1hhM1plYmxhQWc2bFBlSEM2?=
- =?utf-8?B?cE9jMmkyVFdaSkxvdURobGdLQ1pLSHIrZmJPQ1daTjJDbUFkL0h0Y1dDQUZp?=
- =?utf-8?B?NGlDckgvVlBIVThhQ21DdnlzUnBEYnNGWDlTSG4rQ3N2OGFYcCt5dUoyaVk0?=
- =?utf-8?B?WCtIK05sb3hEdkF4cG1yUHhZQS81RWZ1QVRUOG5GVys2VFEyclkyRWs5d2FJ?=
- =?utf-8?B?S1lpb0c2enNkbnJ2Y0JPL2pybHdvd2hKbHA2WWZyZzFGdERON2J3RW1rbTVX?=
- =?utf-8?Q?NkAUKe9yDVxhmNNyzmbq5eqVMSnsjReO65hxx?=
-X-Exchange-RoutingPolicyChecked:
-	tLbmIIdZ2V04h4LrjlIOzh09ReH+Tbp5tm7w1sPIaJszRU+JJIwNk3kLDxgTWzh9/TUzbedspFt9xRT7HHBfTVmOlPpHG3hlQgDeTRUrpNcFltz1JG7eI+m63djCuilZWeI7Sdr9BRuLiHQzVZyZif7e0sg1+FUCuP7x+zFxAXRQ5UxTQqPIcr8JkeSeN8vz0bf+TF42Lyxvtu8Ja7VbDl1L7XAQPrh6zm0wR5VtJA7xu6juvPv/EFwaFkuMUY+5cSf2zvYF5eDESGjTMf5a1Olu2GiZVJ9Q1LohcF2Y0kkQMoZuNO6Kc0t6IU1bRKGb4lzTNARy5H/T/mKO3y1SpA==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	WGkPYmZIVrWGJIRKLgP30m1dQpr8CNPUCD3DAm7oNmrErGNoktNkulXj26vfxhltxycrSIrOTV6jEfVr2gmDndecZlmS4ccvJaMcgGknl3o3YeEnp5E4BnrZPra3rF3tSjV2B5jEdVS75fb3iG8M3Xkd+6FdZBnksEWsZBgaFGw2X9EkKuc9nxn4txfv0tzYneRjsyBBTAQrtXfue73oPJmdiVJRwHXf62X4GvlA3CENCYEevJLX6+N9BJkckLlBXGRVu5A1bEmtpckRe7PAITzIK8x6nDcbiKdqlDQDygu2I1cPEoIlOIt00AS7r8NX3T7hesbeqr0RgMG4c+LFzDoAmzaBKin0UG2+1KRYTqmI1iGoQ/Gk/jI5KHWBzBe5PpuLtKApg1cj9mxnT9hxbQwjTq1EWoklMGkthr0EZ9suE851uIpSqoCkCekjc7jVSohH+/v/+E98OQLLbCbW9e0D9YLA9i7UaudEc9M0AIlnKHjlbcIhCYOu0tn2+nc2qVzYPVV2I+HCQ4etEHGtpQ1vjf+x3O1/purza86zp1kPYYZiyNl/qcnDOWL8YWydcK/6moF6w1uW/4/WORR0ypjbdxCwZCaDd6IEshDfLz0=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d737abe-319c-4759-5b85-08df286632f8
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR10MB5834.namprd10.prod.outlook.com
+	=?us-ascii?Q?gIKe5itKeAXt5s/LSaOwmmrNk9JvDoqOYNfFeP31zLk55bhgbZh7vFX6mdjh?=
+ =?us-ascii?Q?weHmKjGU+vlu7Kp4/MF9obxVvGKCimuim3ND5h01w39JInSO3cfBhVWM5wA6?=
+ =?us-ascii?Q?GiGOliAp+8O2CkGqjPxFbEZN4Ivz5e5dbXtsuE3WYWm2dCp82897l7mo1UKP?=
+ =?us-ascii?Q?SYURVy/FwbK0X3MeLY/ec3UB3UjmjygacfY+UwpFg8+JnyIMyc1lRMaEiFkI?=
+ =?us-ascii?Q?06cOWtT9CSN1vfecosyefWwDyz97ebahSBB1RZ7Yd42hlVU18lUbxJ75Pzws?=
+ =?us-ascii?Q?dF0GzBydqM2lClUbMoWnVc617BPCECX1flEVbHFzf9N0BzWNiPugKAh9D0DZ?=
+ =?us-ascii?Q?Am7GZo7JZEJydeUBh8QkkP13UX/vLMAkidBKzpgNoToziFT8boJzvS3NlvvB?=
+ =?us-ascii?Q?XUEjwILaJBiqHi1kiNqBG9GJdS03+YM1oKO1kArWaLH6cdye4Zt6Otb9cYhZ?=
+ =?us-ascii?Q?G46ftmO0iH+NOFLo7j6uM8rRoNvM2nZVEO7NYnzzEI0X4NUk5gNagsEfBGSu?=
+ =?us-ascii?Q?3j8PPiWUFw6v/1ZM5IEtIDob4CNWK/x/5Jl9q/fS0+UI7HY/N3SRypMcjqLl?=
+ =?us-ascii?Q?0bC5PKbFfeFwx1nRerEAl07TAassXdgvbIXBWVfHbg5mINNdtaT0/8Eu8dr/?=
+ =?us-ascii?Q?s6rwakx++BByJS1+PPF0vR4pQAapWPWgJEeawaQvp0BquVI8FWzJ3c7JyEl8?=
+ =?us-ascii?Q?cW9UO1+17f0lJzeNkdtujda0kxsjHVoaorRAM/ctEU9WT8Gjcztu20L7xlV5?=
+ =?us-ascii?Q?ilIthqE4+/KeFQ45pWUd0LK1egEmASV3yirwqtWvOgIY8OvuQ8X96gKBOfEs?=
+ =?us-ascii?Q?i3ATgDnQs5I/6D8I6T38IDD+PtBi3FrnhTmTpydU7KDfVuqFONdmsMm+Q5aA?=
+ =?us-ascii?Q?9+9xKZ6wQck8bRNkc8NAu2BEYnPyKG7QQCQoKSdc/V9Urg+yumnNuKlynqdd?=
+ =?us-ascii?Q?MiPRq3T4E03OBNtyiouoUX7CDwBDvYCMt48POme5kNV82nelj2btur33Ki9T?=
+ =?us-ascii?Q?XAAdG61t8Pxma4XvgodXN4m4+N9qA0LohZrb9wIr6uJZoMHDYjjT/KQdgzhd?=
+ =?us-ascii?Q?RX8evdp3rZFsbGaOl4+BpIHSTPlJwPLyUXUHY9Kipz+tMa18A60e6NstDcNX?=
+ =?us-ascii?Q?I/E7yRgM58zkfqrgmg0vgJFh/V/cEPj7y9/C3xtTMy2iE8bgjfQAr5xqhG1r?=
+ =?us-ascii?Q?NYIPkCF9mxHnSowijlB4aPAILCLvM3z6Q5FZ3Rdquhd6ptH9a8792p8TP+L9?=
+ =?us-ascii?Q?QLEgBbQV0I1ByoiKkm5E4peNTyHtDRVd6JJKWkDpN5uzVLyINB78NLv4rUqR?=
+ =?us-ascii?Q?Q1Q7lozvDt4XLV6GvhNfyhcrjY04Sl4AO1TGEpwox0UJpyA507r4Yr9SWDcg?=
+ =?us-ascii?Q?lPRYgBbzbDDy6r/54nHqruX6YO3iSx+EFFvwYlU99rZkoyVtKuXz7tQnWE8E?=
+ =?us-ascii?Q?aqsYjnPCiYNJH1YGxkU7ej+40ZOcplCil3hvmLC6oPKu7HVdYLd1HFVZ3g4x?=
+ =?us-ascii?Q?IdJ5I58zZ1NpojOMlqKRPYAQJYkwKLNjYcVpqQ4H+dCEpC43d4l+aKwAYs5o?=
+ =?us-ascii?Q?RZiK+7OGpJcd4G0pUTiXNRYsmRPP0WcPBa5yxJ5xXRLrSCgsC1UYXzIowhcj?=
+ =?us-ascii?Q?3RIF9fbjlYXOrOspvLjEl+Sw+Yua/+pw3WniCvHkEBD4BUaNI8CGdj/fFG2/?=
+ =?us-ascii?Q?/BIO4krAEhdO6sMx9T0veTzuN9YKUiUfKgyHF7JU4T862+pdJyoWODmYddmM?=
+ =?us-ascii?Q?w3dWS0p2ZQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b8f5703-d5a1-472b-55fe-08df2867ac26
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5974.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 13:39:11.9228
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 13:49:44.8770
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rqDtZbTraND1g0dIkCT3K1gVWZcobu+mNt76HOgsfz0tGMAoDf7RoGpaiJHkWhhdqw97N8r/Yq6t6oPo8xM91pKAIDsEg0PaBpL4z6r9E/X5CQxG/cEAA0R4BSOndfSS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR10MB7374
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- phishscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 mlxlogscore=999
- mlxscore=0 suspectscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2610020000 definitions=main-2610120054
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1NCBTYWx0ZWRfX5wXELvl5e0LV
- ZPRZuyXSs3P5q62BHxqm+lEyt6TB2rwuw/636XQ9DaMlt4w71EbJAkHfO1sjTMgtHOJ5ZF+ES+3
- Zn2nF4rUI0RS5WHpM1qQhxsftbsY+l99U6hyywmf/3xIBwtNiU+U
-X-Proofpoint-GUID: Mgmje-8OeoyPf0yYnOsDGOASdYDDTKGX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1NCBTYWx0ZWRfX8Q7KjkBNHX6b
- GSWGm55KzkgjgUS5BdMVRek4DxJx+yjyGDr9cpVxOD0qH05Wjh0MXM2OTyK2HT+U6JAuHr1OGGC
- myPES000B/3iNJ5G8G9/N3NmydQr1DRoFBz4sar46aJeVjxmB0Ih0JEwIOmprsSuRpbRFZdSTZ5
- 9IwXvkHCE+G1x1XjZcgS9mui0oQqBSLvoxVPCWXDAueXma/4kDUNRdvUKsTmAahBqqTKGm94tt+
- eYXpsvxPB0Usqx0AGGzAg94rsBUnuMcFzHuf1O3n48IVuSiYJGcglbAmDr5q918Q4UQ00VQ/Q88
- 7rbyyHMstHP31wsRNWXodhMjqoiNoLsUjTZR6tvcAS+iADvgZicidE8koJoRNO9bZnCnQdPJK+G
- kq3L88LAlIwcEoZXjH0o8oyToDPk+hXZ6qTtOqwO4wrwVfvByahBnNqUd4gC1uFk9/hoZU2yc3K
- NgMrZS6n48vec50GbtQ==
-X-Proofpoint-ORIG-GUID: Mgmje-8OeoyPf0yYnOsDGOASdYDDTKGX
-X-Authority-Analysis: v=2.4 cv=EdZd0/mC c=1 sm=1 tr=0 ts=6acce312 cx=c_pps
- a=XiAAW1AwiKB2Y8Wsi+sD2Q==:117 a=XiAAW1AwiKB2Y8Wsi+sD2Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=jiCTI4zE5U7BLdzWsZGv:22 a=o5oIOnhZENCTenyL_yNV:22 a=VwQbUJbxAAAA:8
- a=yPCof4ZbAAAA:8 a=NfuPzBKRnNo-DpCcSiQA:9 a=QEXdDO2ut3YA:10
+X-MS-Exchange-CrossTenant-UserPrincipalName: YaWR/95Fdk2fd/iQotOL6sRe+uQiUPXHwUg4kavRwaOXZilec6/xAGVx3iNygnStZUQis/M1WW5g1mqseydzFQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6752
 
-Hi Wentao,
+When a line is requested or reconfigured through the v2 uAPI,
+gpio_v2_line_config_flags_to_desc_flags() copies the requested
+configuration into the descriptor flags, GPIOD_FLAG_IS_OUT included,
+before gpiod_direction_input_nonotify() or
+gpiod_direction_output_nonotify() asks the driver for the direction.
+If the driver refuses, for instance with -EOPNOTSUPP from
+.direction_input() for a line that can only be an output, the ioctl
+fails but the flag keeps the refused direction. gpiod_free_commit()
+does not touch GPIOD_FLAG_IS_OUT, so this outlives the failed request,
+and GPIO_V2_GET_LINEINFO_IOCTL reports the line as an input while the
+hardware still drives it, until a request without direction flags
+makes gpiod_request_commit() read the direction back from the driver:
 
-On 10/10/26 10:04 am, Wentao Guan wrote:
-> Sorry, it is for v6.6.158. cc the stable list.
-> 
+  GPIO_V2_GET_LINE_IOCTL, line 0, input:         -EOPNOTSUPP
+  GPIO_V2_GET_LINEINFO_IOCTL, line 0:            input
+  GPIO_V2_GET_LINE_IOCTL, line 0, no direction:  ok
+  GPIO_V2_GET_LINEINFO_IOCTL, line 0:            output
 
-this needs to be fixed on 5.15.y and 6.1.y.
+GPIO_V2_LINE_SET_CONFIG_IOCTL updates the flags in the same order.
+There the line stays requested, and since commit 92ac7de3175e
+("gpiolib: don't allow setting values on input lines")
+GPIO_V2_LINE_SET_VALUES_IOCTL on it then fails with -EPERM, though the
+line is still an output. A line whose driver refuses to make it an
+output is likewise reported as one.
 
-This was reported here: 
-https://lore.kernel.org/all/93db0eae-f479-4343-a126-59987ae0dc22@oracle.com/ 
+gpiod_direction_input_nonotify() and gpiod_direction_output_nonotify()
+set or clear GPIOD_FLAG_IS_OUT themselves once the driver has accepted
+the direction, emulated open drain and open source included, and
+nothing between the copy and those calls reads the flag. Leave it to
+them, as the v1 uAPI already does.
 
+The other flags that the helper copies stay as they are. Active low,
+drive and bias are what gpiod_direction_*() applies, drive and bias
+possibly before the driver refuses the direction; edges and event
+clock are the character device's own. None of them is read back from
+the driver, so there is no earlier state that is more accurate to go
+back to. A failed request releases the line, which clears them, and a
+failed reconfiguration leaves the line, like the lines before it, with
+what was applied up to the failure.
 
-thanks for making a patch.
+Reproduced under QEMU with a test GPIO chip whose line 0 refuses input
+and line 1 refuses output: both refused requests and both refused
+reconfigurations leave the line info with the refused direction, and
+setting the value of the reconfigured output fails with -EPERM. With
+this change the line info shows the direction of the hardware in all
+four cases and setting the value works. First seen on real hardware
+with v6.12.
 
-Are you planning to send it to other branches as well ?
+Fixes: 3c0d9c635ae2 ("gpiolib: cdev: support GPIO_V2_GET_LINE_IOCTL and GPIO_V2_LINE_GET_VALUES_IOCTL")
+Cc: stable@vger.kernel.org
+Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+---
+ drivers/gpio/gpiolib-cdev.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-thanks,
-Harshit> BRs
-> Wentao Guan
-> 
->> ---
->> net/wireless/wext-sme.c | 6 ++++--
->> 1 file changed, 4 insertions(+), 2 deletions(-)
->>
->> diff --git a/net/wireless/wext-sme.c b/net/wireless/wext-sme.c
->> index cfa903eb0e82f..0e7c314bdeef0 100644
->> --- a/net/wireless/wext-sme.c
->> +++ b/net/wireless/wext-sme.c
->> @@ -354,8 +354,10 @@ int cfg80211_wext_siwgenie(struct net_device *dev,
->>                          /* nothing */
->>                  }
->>   
->> -               if (!for_each_element_completed(elem, extra, ie_len))
->> -                       return -EINVAL;
->> +               if (!for_each_element_completed(elem, extra, ie_len)) {
->> +                       err = -EINVAL;
->> +                       goto out;
->> +               }
->>
->>                 ie = kmemdup(extra, ie_len, GFP_KERNEL);
->>                  if (!ie) {
+diff --git a/drivers/gpio/gpiolib-cdev.c b/drivers/gpio/gpiolib-cdev.c
+index 5d53bfcdf726..9bbee3a1f9c9 100644
+--- a/drivers/gpio/gpiolib-cdev.c
++++ b/drivers/gpio/gpiolib-cdev.c
+@@ -1226,14 +1226,13 @@ static void gpio_v2_line_config_flags_to_desc_flags(u64 lflags,
+ {
+ 	unsigned long flags = READ_ONCE(*flagsp);
+ 
++	/*
++	 * GPIOD_FLAG_IS_OUT is left to gpiod_direction_input/output(), which
++	 * only update it once the chip has accepted the direction.
++	 */
+ 	assign_bit(GPIOD_FLAG_ACTIVE_LOW, &flags,
+ 		   lflags & GPIO_V2_LINE_FLAG_ACTIVE_LOW);
+ 
+-	if (lflags & GPIO_V2_LINE_FLAG_OUTPUT)
+-		set_bit(GPIOD_FLAG_IS_OUT, &flags);
+-	else if (lflags & GPIO_V2_LINE_FLAG_INPUT)
+-		clear_bit(GPIOD_FLAG_IS_OUT, &flags);
+-
+ 	assign_bit(GPIOD_FLAG_EDGE_RISING, &flags,
+ 		   lflags & GPIO_V2_LINE_FLAG_EDGE_RISING);
+ 	assign_bit(GPIOD_FLAG_EDGE_FALLING, &flags,
+
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+-- 
+2.43.0
 
