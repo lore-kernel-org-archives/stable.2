@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14B3049B444
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:22:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E32E49B5A6
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:22:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791818548; cv=none; b=kYTm8CXAZxrzdDfch+ce5A8APwXbyeH8KY1miUkAg8yX3//16no33AghLXM0sh3VcKEUoqy34YSbwAD2QxjF3Wql4eS22Msv37xA3pEx7yMxVd37kLmlHqtXCjoGcqDUF40GTfwhyWPGCHhduHuhQYyXuO5D6y+dJS75EeCuvW8=
+	t=1791818550; cv=none; b=mGZClkwb+QjHyZ6apdYqjsoy0mN/IqGhyElnu7uD2XKDewdEf+yhFWat747ckzu4XMqzrz28d+ecH9V59Ep91yonEt1VwZ6DimHqjGeiaes4Sw4gKY9Tku7XeV0J2Jfzql+sQ+3V4CshWI99Wqurhi/CHjRf6YB1ISwXRYfjh3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791818548; c=relaxed/simple;
-	bh=vn0jr0kNnbOF80wrAlGsueDJqP/yus1Do3N/oDUDklU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=VZyAwf03qLYNZ/ZMAqAvyxXWY6IB/yNueTHBKUEQGcksJ7pIsTLGF3x/zOxbL1UipF3lqbP3kB9V/F1tdq1paxBxDuv390P/6HGWvlRAPHrXiybhnIBVvi9Og5sSd+oFUBJnQuXbQ42XMEk9osr8GQ+rCHY5ZW5GwQNZnvoc6mE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DvNEyuW6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791818550; c=relaxed/simple;
+	bh=RpMy76BFwUnsbWk1zBJE2486zFFFeV/Kkfds9x0x0Ms=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Df6ZkH5c3fOqt396rEhpuVX/zDEG607RRbCB9q6dLhGXN43lqgh/fef3hwZvB/5H71PI7L4X5eVQ0SJoFBbbdkl3H4wo5ux1rZwsxvxgDGshx+eebKYm8efGybbv5vNrB4wHnRN/MmhkZpw32nIxBJcmukGMp4lm5/pHB2fz8D0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=f6yh11Dl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DvNEyuW6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EDED1F0089D;
-	Mon, 12 Oct 2026 15:22:25 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="f6yh11Dl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 682721F0089B;
+	Mon, 12 Oct 2026 15:22:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791818546;
-	bh=JCWHMFXJsFiokaMRc3nHWGJ2Sv0G2tfRi5rSOV7uM5I=;
+	s=korg; t=1791818548;
+	bh=ivFop1z0yxBy3ey6SiMBqxmxnNYNmtC4JCHDUZUHa1M=;
 	h=Subject:To:Cc:From:Date;
-	b=DvNEyuW60zNraBqP5BbdhQRGkImUXDTfUIhdjKJkD3fYdNaHxtHFy/qNpyBZ8B6fE
-	 G1MCmZctpwvpJT7uDpFm48jGZvkt2PL4omHwhYTaVt1CDp6BSzKs3fgpzE+O+nOBDr
-	 87x1iok/yZ6PonVfUpnzbbfK755AiPlm7xjv9CEs=
-Subject: FAILED: patch "[PATCH] scsi: ufs: core: Decouple CQ sweep from request iterator in" failed to apply to 6.12-stable tree
+	b=f6yh11DlBwNa2CW5mn2QbQUytBrevyVxYnHNC+qyAFncFRTIgQwdePyZgwwHcFJ4f
+	 3lEwQdeFgfJcMfkOzZYAj6CUu2D5Dvkkkr//gbt8dApH4BnjeYfPKKmNM0Q9uCVSyn
+	 b7wDormcXWk0+JG442Y+JGz2dYlCzTa2A0FDs3cI=
+Subject: FAILED: patch "[PATCH] scsi: ufs: core: Decouple CQ sweep from request iterator in" failed to apply to 6.6-stable tree
 To: stanleyjhu@google.com,bvanassche@acm.org,mkp@kernel.org,peter.wang@mediatek.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 17:22:29 +0200
-Message-ID: <2026101229-boots-shortcut-fa1c@gregkh>
+Date: Mon, 12 Oct 2026 17:22:31 +0200
+Message-ID: <2026101231-tying-copartner-f09f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 469fa055664bfd8717b087a80d59c03055789c17
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101229-boots-shortcut-fa1c@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101231-tying-copartner-f09f@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
