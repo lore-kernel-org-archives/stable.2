@@ -1,112 +1,156 @@
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244184A4821;
-	Mon, 12 Oct 2026 15:41:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED944A64D4
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:41:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819717; cv=none; b=Oxk/2r1bzSOgAB+3msEYBa8Xw4+aG6xmX0Lzc3YOBxOfcYU/1HsgCCQgAVdAO9p5Jxs2VpWDcU4Y9luZZERpsZxxQvB3Y+/eX4shfRMPqKXXtcWazyPYsc3U24jTfr7FBqJ8Z1n94puWUDBB8kVpwBcyyjpQ+Z/cIWceftqeBe0=
+	t=1791819717; cv=none; b=VlklsvnQJWUGEqQgefdDMkBT6iLS8m0fcMoDusntYaPGL1ZTe+f+2NQJa28ost/JnvO17nPa2JpLBuSsVswW4miEi3WzKhp6IKtMac3fHndZIKFQYi7A9FVJG5NDbV3gfcCVx4kLBgfLadqijSCchgDeFRYkRzlsW9PZZxN5Exo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791819717; c=relaxed/simple;
-	bh=UENgAUKbiPmEAB5tiQuAB+RdFzS/wRbfUkI7IQ4znzU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FnBaH4B/5BUREL3sH90qx/P/worEcZ3YJtib8nzJ72iQPJREWPVXlnPGbsYEecnkh8GbdzVPJYPA6vx+jIuOus5wdk1xkg2Qyfe33L2tY66wiKrM5sR9qjekirMUIw0mnRCkUmodkQAy6KLVlIXQnnPsbp90/x7T9AiCU7NGsDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=m5sSOPQq; arc=none smtp.client-ip=54.254.200.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	bh=GqvWwNEqSQjzBYMi+Gn33+AUXC44jN/rR1iQHtWaIUo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=V4oYb1flG5Efo8ef1Vc/s8BwuWzBHbx1LQnkhR90Ww3npNY83fqgzuvpH9FfGsSKKrx3RIUn7JUZx8Rv4g5rFJcQ4LKXGppYS3QQ/0A78IhogPTfXbOTEBH1U7Ry5pKTbcR5WzId7YA/0x+Tj6V2Ad2miizP3TlSOyj2F2SAkbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Qjk0aF/i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="m5sSOPQq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1791819681;
-	bh=qyQ0PlvSl8ju5dE2/elWxA5NN0Ne5kFMkm2t3npw0e4=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=m5sSOPQqmlIczbjCuWPYwPjx5o0FcOvCkU2b80VAo6gn7+F5yUzP4hPw4vW8dkdVX
-	 wD0IY/tc05cExObkttWgzmnMWJ6n/lTEM5XRRq1Bf9iDstNv6qdV9foAYJmWQ6PTHs
-	 YhpS1iiQpKDsWt6gARWoQ/9y1eUQ9piOk8lqiOTY=
-X-QQ-mid: esmtpsz11t1791819663t1d8dd8f5
-X-QQ-Originating-IP: wDsLj23J7X6+GoJg0efhmwdlHAJAX+8vZB68CBLd+rw=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 12 Oct 2026 23:41:01 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 10911215555370622124
-EX-QQ-RecipientCnt: 8
-From: Wentao Guan <guanwentao@uniontech.com>
-To: sashal@kernel.org,
-	kartikey406@gmail.com,
-	harshit.m.mogalapalli@oracle.com
-Cc: johannes@sipsolutions.net,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: [PATCH v2 6.6.y] wifi: cfg80211: release locks on error in cfg80211_wext_siwgenie()
-Date: Mon, 12 Oct 2026 23:40:59 +0800
-Message-Id: <20261012154059.1233032-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Qjk0aF/i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 956A11F0089B;
+	Mon, 12 Oct 2026 15:41:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791819716;
+	bh=d4gAHMdc7Fyt5hSyMR6zkDKChNszcfHIS9Bd6BPBJ1A=;
+	h=Subject:To:Cc:From:Date;
+	b=Qjk0aF/iIhToMzlJxPynV3fCeBJs+F5WK0Cp0j1o07dJJPAfYXBDLRUqfXglooD2I
+	 aQEeGRQKxDZZZcnl1XzJ0KvDjJqgvqmWhVkXa08XezRLFnXV15gV90shLVoWNHueR6
+	 tT0Q14ktJjmUq+oMq5UN8lMboJHb7fXBQrppisUI=
+Subject: FAILED: patch "[PATCH] namespace: don't inherit MNT_UMOUNT in clone_mnt()" failed to apply to 6.12-stable tree
+To: brauner@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 12 Oct 2026 17:39:17 +0200
+Message-ID: <2026101217-cartload-switch-81ca@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MJmIzNAivfWgGCxLP7TGWSmJE5QVI0ZCkf5qFlLuW+6NL5SukspeASM6
-	c6PbJyf6kUWv5XpU6Dw+ve0q+Fth/rLdfybejUhvd1mrf0o3c7v5Nz+MQaLlHEI5LyC0t7E
-	KDnSVCSeGez6NeSkOIypDZrQgm2oIBoCl0lBNZFSR0FNjGuxI/RtjnR+NtWC8874QdyvNWG
-	JxxSicWdbgcww1eZC4T1Bsct2LQs27brQHMpz0lkl4K4zA73HjOrOYUR4p194kzfzOWJCuN
-	7MFJxDRLr5N4bqEI6+M3aAaSOFDayUsxi2Fx31kjMoJcwqsw6A1H4TCg5tcf3WHKJJj+Zk2
-	9rco0lqYyoUnwH4YbBhvHn0F/jDOXnZmeOcM7f+PiAL1sUs64wFuZkyScvD7iyOAXiPLY+/
-	tV0qR4cgi+oOA8d7E1Fw+qyaGxF9a7x1PTgooWCMLtW5IpCAVLLTisPchAYYOzoJAFtcPHw
-	p08ZW9HawoX4VL4lInMVYbgu6FGe1eN2Qt9UeH2DRNNXbAYZVJeMD8lf/IACsc4MVOMw1WV
-	fc8xH1yxC06NAclS+5b3qx7F0UYXpUygIut1SpqC63GN+LlcX0UAvicA8f8tDJQpmMwbVDU
-	cg2UGMglPAM8amXklFVHd95fgwrTWhySxdpAax4KSn51gZIKB/7E+MBjEcPzT1f2somlL/K
-	yMnLxQ/SaGDpmHkRGHtGxU6Y0GuPmLcHueIV8+PNM1SXGFTEDHsyr97KD/2X4GuDHAAvMYC
-	cZBs4+esC2pcYigprbnf1sP0DdGxoD9En8PT90O9qNO0W+qDaLMKOuCug86DtDdnOLFOhup
-	/UEdxaEVflbsFXEc/W47X1f8GKiATltHtSrlxWebk+QSuwAgPkgIMWM+OKQFfGj4k7f4aGS
-	iFcm4GvJeGFF5OQ3Gk22XGe35JnHwE0D6/B26f5HWo9Butz0mR/HZEfBnJw1mvtVvdjy7qT
-	o8rOlIa9zdhEY00FcbGiqjmOuIUvAmwhe9skUKL1VHMXy1jf8154Vc2T1TXZ99irneFtSux
-	eXxfH4RI5JxLh5q2VLhkC7+Rsnvf1CD5fk4bvx4FkSJ4Vypi4WUWLu5sN49TptIDQCztYaj
-	A/qhkul7ZScopT46wjQiqQwrTjeeI4orfdePt61yo/9AXd4pIPdNCawSYeclXMF9wAfDCr8
-	N5IYi9lqJYVCJJs=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
 
-This error path returns while both wiphy_lock() and wdev_lock() are still
-held, so one malformed IE request can permanently block later operations
-on this wiphy. Route the error through out to release both locks.
 
-Reported-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Closes: https://lore.kernel.org/all/93db0eae-f479-4343-a126-59987ae0dc22@oracle.com/
-Fixes: d01f1600e8b0 ("wifi: cfg80211: validate IEs in cfg80211_wext_siwgenie()")
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
----
-changelog v2:
-add Reported-by.
----
----
- net/wireless/wext-sme.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-diff --git a/net/wireless/wext-sme.c b/net/wireless/wext-sme.c
-index cfa903eb0e82f..0e7c314bdeef0 100644
---- a/net/wireless/wext-sme.c
-+++ b/net/wireless/wext-sme.c
-@@ -354,8 +354,10 @@ int cfg80211_wext_siwgenie(struct net_device *dev,
- 			/* nothing */
- 		}
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x e2c6d326216642011da318b9edfd5d57ebd5a56f
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101217-cartload-switch-81ca@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From e2c6d326216642011da318b9edfd5d57ebd5a56f Mon Sep 17 00:00:00 2001
+From: Christian Brauner <brauner@kernel.org>
+Date: Sat, 26 Sep 2026 15:44:26 +0200
+Subject: [PATCH] namespace: don't inherit MNT_UMOUNT in clone_mnt()
+
+MNT_UMOUNT gets raised on a mount that umount_tree() or umount_one() has
+taken out of its namespace. It's never cleared. __detach_mounts()
+unhooks a mount that carries it instead of unmounting it.
+
+disconnect_mount() lets an unmounted child stay attached only if its
+parent carries it. propagate_umount() takes it as the sign that a mount
+is going to be unmounted when it decides what else can be unmounted,
+where a chain of locked mounts ends and where a for reparenting an
+overmount.
+
+clone_mnt() copies the flags of the source and only masks
+MNT_INTERNAL_FLAGS which doesn't include MNT_UMOUNT. A mount that was
+lazily unmounted but is kept alive by a file descriptor can still be
+copied when its root is an nsfs or pidfs file because may_copy_tree()
+accepts those before checking whether the source is mounted at all:
+
+  mount --bind /proc/self/ns/net /tmp/x
+  exec 3< /tmp/x
+  umount -l /tmp/x
+  mount --bind /proc/self/fd/3 /tmp/y
+
+The mount on /tmp/y is attached to the caller's namespace with
+MNT_UMOUNT already set and every copy of it inherits the flag again.
+
+That causes a number of bugs:
+
+- Unlink its mountpoint from a mount namespace where it isn't one.
+  __detach_mounts() takes it for a mount that was unmounted earlier,
+  unhooks it from its parent and drops the reference the namespace
+  holds on it. It stays in the namespace with one reference too few
+  and as its own parent, so it can't be unmounted through the file
+  descriptor anymore and the namespace never finds it again. When the
+  namespace goes away it's leaked and points to a freed struct
+  mnt_namespace that may_change_propagation() and anon_ns_root() read
+  on the next propagation change or mount_setattr() through the file
+  descriptor.
+
+- Make it shared and unmount a peer. trace_transfers() follows the
+  flag from the peer into it and strips it from its peer group.
+
+- Let a propagated umount reach it. gather_candidates() marks it with
+  T_UMOUNT_CANDIDATE but never puts it on the candidate list, so the
+  mark is never cleared and every later propagated umount skips it. If
+  it's the parent of a locked mount handle_locked() takes it as the
+  cutoff and commits the locked child that should have stayed and
+  disconnect_mount() leaves that child attached to it, unmounted under
+  a mounted parent, which is what disconnect_mount() exists to
+  prevent. When the namespace goes away umount_tree() visits the child
+  a second time. And once __detach_mounts() has made it its own parent
+  reparent() never finds the end of the chain of unmounted parents.
+
+A clone is a new mount that has never been unmounted. Add MNT_UMOUNT
+to MNT_INTERNAL_FLAGS so clone_mnt() never copies it. And warn when
+umount_tree() reaches a mount that already has it set.
+
+Fixes: 590ce4bcbfb4 ("mnt: Add MNT_UMOUNT flag")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260926-work-mount-fixes-2-v1-3-f357abf3d17b@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+
+diff --git a/fs/namespace.c b/fs/namespace.c
+index d1e8dd2e1e8e..6d4ecde682df 100644
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@ -1799,6 +1799,8 @@ static void umount_tree(struct mount *mnt, enum umount_tree_flags how)
  
--		if (!for_each_element_completed(elem, extra, ie_len))
--			return -EINVAL;
-+		if (!for_each_element_completed(elem, extra, ie_len)) {
-+			err = -EINVAL;
-+			goto out;
-+		}
+ 	/* Gather the mounts to umount */
+ 	for (p = mnt; p; p = next_mnt(p, mnt)) {
++		/* A mount is unmounted once. */
++		VFS_WARN_ON_ONCE(p->mnt.mnt_flags & MNT_UMOUNT);
+ 		p->mnt.mnt_flags |= MNT_UMOUNT;
+ 		if (mnt_ns_attached(p))
+ 			move_from_ns(p);
+diff --git a/include/linux/mount.h b/include/linux/mount.h
+index acfe7ef86a1b..b16ba5d45605 100644
+--- a/include/linux/mount.h
++++ b/include/linux/mount.h
+@@ -52,7 +52,7 @@ enum mount_flags {
+ 	MNT_ATIME_MASK = MNT_NOATIME | MNT_NODIRATIME | MNT_RELATIME,
  
- 		ie = kmemdup(extra, ie_len, GFP_KERNEL);
- 		if (!ie) {
--- 
-2.39.5
+ 	MNT_INTERNAL_FLAGS = MNT_INTERNAL | MNT_DOOMED |
+-			     MNT_SYNC_UMOUNT | MNT_LOCKED
++			     MNT_SYNC_UMOUNT | MNT_LOCKED | MNT_UMOUNT
+ };
+ 
+ struct vfsmount {
 
