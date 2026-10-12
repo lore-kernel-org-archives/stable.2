@@ -1,230 +1,176 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433C338655A;
-	Mon, 12 Oct 2026 16:53:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791824012; cv=none; b=KdFCtkcP/iajbAzw9K6fcOB7zHYrNdLKGvxkwhf/mQZx0Z6HdnC7DU2vRsG6FRq3W5aW7uxZIKIRIKBmbKU7eM72XB4agDoSOYY3GdL3vKGA9HMnu0dKNE1CXuxIQVj8Kr9rSTSt/MWG0aR14fIX5r50LZzz/76VquZfLgYKbqM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791824012; c=relaxed/simple;
-	bh=u4RbT2JBy+Ts7npCHn3lpvoB15ZuLisXUYt28wIzsZQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NlyEXk7kihiKdtYbfA0bKQgpzH1WjNeteGRLoENNugycLcSgL1bWvAUDxXeBa0WP9HRuF07/TUwHBCmUF0JQbIiVneIWJhIxpbDqw7JThfPM2/9qJr3BSyJgNaT1rWo3A5JpzFNuZOPiGsjM7tGtbHLXw8nMsg1h7Sn8gyiPB4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=g+Eqnf5h; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=OONF4/pt; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=fLqk0xPN; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=pwPw/Ecr; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1388F4AD4AA
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 16:54:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791824061; cv=pass; b=Tt75iH6GoQlMyxX2AiFERLM6ApXnaSoD6y1mzOWs/NyYgbj4hqw+qUY1hSLcDgZXeMVQiNXKwkPewyhp/HZvnplqo3fcJ0SFv8CSIC9i41+0JRX7OMZdJzbKHcBJcttKs3BIjIE+HIof0OECl9fXjCqOqJ0GkuF9OFzuF/xPwxg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791824061; c=relaxed/simple;
+	bh=FF0GEoo8z94QCKgAWxqe4HdlXwZe+F2vajwTpAEkw0Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Zwtd0VX+FkhPJTqZXlxxz/Uhuhc2+4Mt4EQ8vU1+kaIcMM0CNXZBvmKo85l4olsJ2j039xLDcID9Y52m+3t90aHpwFkHOgduyFrViGQMg07bScAtcQljjzwA9zYAo3rygfTkuEBowqRRi9Q3q8nnfK0NmTAmGtZjQNbIDVP1Dfs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OPUUnBQP; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=jgzg3u13; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="g+Eqnf5h";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="OONF4/pt";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="fLqk0xPN";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="pwPw/Ecr"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 0EFCD21E87;
-	Mon, 12 Oct 2026 16:53:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791824005; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OPUUnBQP";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="jgzg3u13"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791824058;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=gDjF2EqIZ72LsqxvftLHW/KslkTXyiMHSnpVP7GBsSI=;
-	b=g+Eqnf5h3LJpu9HnXYbiyiOWds/J0Z3iJiTOLLb+LjyTX7lprmDNunMllA0zLaHb+uzFIM
-	ep3pmMWuHlSlZwdRA8qpHHROqCWT1D6WpI/CNlUI2WY+Llm8Kc3gSQhGM8OG7+SWq/Inux
-	dgtl9LbTEKtSHzjWA0EyJmr0D+7mToI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791824005;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gDjF2EqIZ72LsqxvftLHW/KslkTXyiMHSnpVP7GBsSI=;
-	b=OONF4/ptQRPFEv6hkUNTADkoNMhEFaJpeXnxSlLzwITTcryOGyVTXUSh8HHffsopaQe+BH
-	QvRzXI4T9bSpUZCQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791824004; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gDjF2EqIZ72LsqxvftLHW/KslkTXyiMHSnpVP7GBsSI=;
-	b=fLqk0xPNj68O0bVp8KJ3Plt0obAvOXFMewpFvSVBy/M7PQMlK9fQeKyLcmeAwHG1HgqSLV
-	KovD5ImiZ4QKxeNss0Cmuy3N5PC64/InwFpeC2IdGFcveYXgQzPowr5Zq3elHc0LMRVy9t
-	zE26b7eCqSGpIFOwXx3n0+RwsgYdU5A=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791824004;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gDjF2EqIZ72LsqxvftLHW/KslkTXyiMHSnpVP7GBsSI=;
-	b=pwPw/Ecr0z2IyT2wKp5Z0I6siBLHYpovCUmz3KD8X2mvxDDQre17gUnh8tXFhsq1HKkCHG
-	nkW4uuXx9hIQINAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DA19313314;
-	Mon, 12 Oct 2026 16:53:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id FPUeLYMQzWrdBgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 12 Oct 2026 16:53:23 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 65F66A1405; Mon, 12 Oct 2026 18:53:19 +0200 (CEST)
-Date: Mon, 12 Oct 2026 18:53:19 +0200
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.com>, Al Viro <viro@zeniv.linux.org.uk>, 
-	ecryptfs@vger.kernel.org, linux-ext4@vger.kernel.org, jfs-discussion@lists.sourceforge.net, 
-	linux-nilfs@vger.kernel.org, exfat@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
-	ntfs@lists.linux.dev, ocfs2-devel@lists.linux.dev, linux-btrfs@vger.kernel.org, 
-	gfs2@lists.linux.dev, linux-efi@vger.kernel.org, linux-mtd@lists.infradead.org, 
-	linux-xfs@vger.kernel.org, stable@vger.kernel.org, 
-	Karl Mehltretter <kmehltretter@gmail.com>
-Subject: Re: [PATCH RFC 00/28] fs: don't set SB_RDONLY after filesystem errors
-Message-ID: <my2k7257m265fp5ad77n5hfndl23i56gsog3jwnsyocp3yxbnj@aphfqdiej2hs>
-References: <20261012-work-fs-sb_rdonly-v1-0-60743a3dc326@kernel.org>
+	bh=NYH3S1JoBPkOp4UPQkopxXaknUWmfyg8ET0Anq8DUUU=;
+	b=OPUUnBQPmZwG4397q7V5pGGo9KimsB6EqQJdSSQtNJ65nTcCTe+diLfbv9dChclOUpPwrr
+	FYapRBKc4rZg8jqbsGyZj2msEEndRH/ywfyvPL8qMes12vtThiCTz5BbjufqUfcj6x4ri3
+	k37V7jq089oWZhlCxVJxVHw8EiH5c98=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-327-maAcivDXPxOPTLDYAnQrSQ-1; Mon, 12 Oct 2026 16:54:16 +0000
+X-MC-Unique: maAcivDXPxOPTLDYAnQrSQ-1
+X-Mimecast-MFC-AGG-ID: maAcivDXPxOPTLDYAnQrSQ_1791824055
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a19df2328cso15936405e9.3
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 09:54:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791824055; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RBpqu+Gg5iEudbEiser1P7qFB34rHr7wAov9dWsaQRyz6tlwlBaqfWtpUNuea9vWNS
+         PPF/n66EoaCS7lypx+Bv9rAYKWYCg6e3XgQ1wne3g5mT+jznzxjlUgeE7KsQ15300OKy
+         S5ENTAPY3dUIHwmESWQGK85dd1shbP0jfEipA/vUFMHj1AIT62N5HpziuKgJQkjUyD9c
+         bLnvWdN5yn1TzKlKg8Ji7Gei7whaJ0yuyywvNXS18AWo3rn46m6jUuUJm8k7lyVuecgS
+         Wqot7V/hCZRrokre8A2qRMlpWBB7BjsLDTyC2HTwsDbm7Updk1O+qswKY9m3Jm/8AYFZ
+         Dqiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=NYH3S1JoBPkOp4UPQkopxXaknUWmfyg8ET0Anq8DUUU=;
+        fh=VYpLGeZoUsH9bDH0fIE1Aksx2MBXs49IDNf9USqmNTo=;
+        b=EjU0t6utCyhhDsaZRM8OITih+/mKSRM0ux9ThczRB5xTy3eiDtjqrEaLP7Zma1bZS0
+         ud0DnujdlunBmwkB6MaYDHgg55BRWcVcgUWNJPLjW2ZZVhmgiXH+TndiA316EDWhGCVX
+         XyQb5msfk3R7EAbv4oAe/ff9tTIZpIsFQvqVIK1demsTRiJgmE65bTCLjFeQvKYQtZZq
+         vQ2WmnUmKi21IGvAsyYdAqgddp0vEGmLNVXxWuFY95xgj/eXElS6ol3+r9s+ZeDvySuq
+         hqPU1n7a/psA2iqJqYZTusLi32pfpHD/emymUc4xWIUXU49eJB448VEA7sMWr0KyqKYj
+         iPBg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1791824055; x=1792428855; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NYH3S1JoBPkOp4UPQkopxXaknUWmfyg8ET0Anq8DUUU=;
+        b=jgzg3u13BnnevV7IHTcWK7VCztgkY41/GEfp3nPBY98+OBjpeWhcO0oOCt9Yrcwr+u
+         +UV/Z/Zg6sz2iYaTm1bHpHoyB4xGzaw/KY0oxwOGNHpWtU55vkoLz1nFYgGWyaMLyeZC
+         SaypY+oKp2hMemdI9GRDe/mLLGM9GEkEgOstxbabMGpRaybfwNu3Jn4g43zQMAt9ABC5
+         9OphJQ62kLechDi+NGRIrvCechHhNexYMjWqs2eJ+eMLH6Lh+T2Kiwm/Ia4jivUlqwsm
+         4H/fC1MtgjlrnUQj5l8DNHgvWPB1dXltdEmpPNX8D1lZkUfxSiEG9neplJhPLrLFACf6
+         4Oyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791824055; x=1792428855;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NYH3S1JoBPkOp4UPQkopxXaknUWmfyg8ET0Anq8DUUU=;
+        b=2PggXbu/A2UcfMGEhic5u20qZy5TKPqWDYgVyHG0iLLYx8gZMFWksghL0K/bCbADFe
+         +UTK/AYV8sPRI9HOr/OGuHr/dkWZqV+axbrA7nyvcjnz5gP/nWiZfK7n1hrPpk6Of5JE
+         zQr0kNzwq6S+0brY+884dsjHvaqs9zStg7Q5jiBRT2pnnSkL/K6mb7e0mgKdAaV3LAH1
+         8SE8w96huuBNwlpQp3jCWB4rPJY0jt6GFn5WIFKRwAiR+ljIKBE9XrQXO1lX2MOzZaLs
+         4DaT6ukStmvJ874A/gFq1fLZXwLHstQluZcaT4vo17q+HeMihoe/VmSV+89ZU48lAtc0
+         IPWw==
+X-Forwarded-Encrypted: i=1; AKwUvBw3TYQsi/wpdnPAtMr9u75+UP1K+dqcbve3IjeNlf01L9c0DXXZNaPE+O1xtZgmUjeUps+AS0E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIB8mLBU1mafDUA7C57vE0LRHPNFWgQOBWS6L4Y4XohxpWBRlH3
+	tqcXJLZMmGQyiFa+AfxM7b8Y7zUkUAFaxUBofx7dtzG17h+urzrhhZUGtWH8SAxqQ6WLTz9vlGq
+	ATm4Py3nOwmFjV3FfwITVvjEeowv6MzrZg+2HQBUeBl9f98yMo0NDMqLgXRJogJ6mxjC/gZH5OV
+	lfw/EeLHs0CRxIuxaid4GgVjCmnY8l4eRE
+X-Gm-Gg: AYBFou1w0xjFr6i1VKxGcuXaqBpoYFvdPjRluK/SQQ2wuPksObkoNfWwWKiyxGebsJ1
+	Obakdzzj+F7xd0+h+MR581B296C36UHjECJVMNngg9Ts7olZQ0JLeNkQWlv3qNwivV/cte/hLAb
+	aAWXONMQLI4pen2lL2I6nBRZ0+8A03GFMQJXo6HiTOBio8UJjTfadRuqzbr7mPvJN1bX3bLdmjC
+	OVBe/pCrlMpIKIHLPK3cmPRT1oa4dCM5VnmHAIaWDUPAwtBXIqfwiuFeaHmGg==
+X-Received: by 2002:a05:600c:870e:b0:4a1:6dca:51e3 with SMTP id 5b1f17b1804b1-4a18e4487ccmr195289375e9.3.1791824055346;
+        Mon, 12 Oct 2026 09:54:15 -0700 (PDT)
+X-Received: by 2002:a05:600c:870e:b0:4a1:6dca:51e3 with SMTP id
+ 5b1f17b1804b1-4a18e4487ccmr195289195e9.3.1791824055037; Mon, 12 Oct 2026
+ 09:54:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012-work-fs-sb_rdonly-v1-0-60743a3dc326@kernel.org>
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[suse.com,zeniv.linux.org.uk,vger.kernel.org,lists.sourceforge.net,lists.linux.dev,lists.infradead.org,gmail.com];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -3.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+References: <20261009130450.361690-1-pbonzini@redhat.com> <as0NBfuEY-60pgtz@google.com>
+ <CABgObfY=xYUJJtYvcVhjdTXOah6eofi0O4C3J3sa60KCC+WO6A@mail.gmail.com> <as0PQm_PS3LC9KWc@google.com>
+In-Reply-To: <as0PQm_PS3LC9KWc@google.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Mon, 12 Oct 2026 18:53:57 +0200
+X-Gm-Features: AclHuK_qwsSa9vmKTJ15UjQhyDRORe0UQJYVVCybVzQPGOouYVa5WGxdhHqz64A
+Message-ID: <CABgObfbA4YtSX-K_fsWuTjkkfLh5EMQ2673tJzhZaoAoT-028A@mail.gmail.com>
+Subject: Re: [PATCH] KVM: x86/mmu: Cope with the SS bit being set in #NPF exit codes
+To: Sean Christopherson <seanjc@google.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+	SimonP <simonp.git@mailbox.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon 12-10-26 12:20:45, Christian Brauner wrote:
-> A lot of filesystems handle errors by setting SB_RDONLY on the
-> superblock. They do that from whatever context found the error and
-> without holding s_umount. That's never been okay. SB_RDONLY is supposed
-> to only change under s_umount through a proper remount.
-> 
-> And it breaks freezing. freeze_super() and thaw_super() both look at
-> sb_rdonly() to figure out whether the s_writers rwsems need to be taken
-> or released. So if an error sets SB_RDONLY while the filesystem is
-> frozen thaw_super() takes the read-only shortcut, leaves the rwsems
-> write-locked and marks the superblock unfrozen. Every writer after that
-> hangs in sb_start_write() and umount warns when it frees the locked
-> rwsems. jfs even oopses on umount. And the unlocked update of
-> sb->s_flags races with everyone else who writes it.
-> 
-> Karl noticed and proposed teaching thaw_super() to remember whether the
-> freeze took the rwsems (cf. [1]). But a filesystem changing SB_RDONLY
-> behind the VFS' back causes more problems than just confused freezing.
-> Jan preferred fixing the filesystems instead (cf. [2]) and I agree. ext4
-> and f2fs already stopped doing it. So this converts all the others to
-> what ext4 does:
-> 
-> - the error is recorded in filesystem private state and the filesystem
->   refuses modifications with EROFS itself
-> - the superblock stays read-write and "emergency_ro" is shown in the
->   mount options ("withdrawn" for gfs2, "ro_ops" for efivarfs)
-> - a remount to read-write fails with EROFS until umount
-> - a remount to read-only works so emergency remount (sysrq u) doesn't
->   WARN, and it doesn't mark the filesystem clean
-> 
-> That's ext2, jfs, nilfs2, fat, exfat, hfs, affs, ufs, hpfs, ntfs, ocfs2,
-> zonefs, btrfs, gfs2, efivarfs and ubifs. For gfs2 it's the withdraw and
-> for efivarfs it's the notifier that flips SB_RDONLY when the efivar ops
-> switch between ops that can and can't set variables. ubifs can't be
-> frozen but it flips SB_RDONLY from any context all the same. hfsplus
-> only did it when it created the attributes tree, where it can't trigger,
-> so that check is simply limited to mount.
-> 
-> fat, exfat, hpfs, ntfs and ubifs keep setting SB_RDONLY for errors while
-> the filesystem is still being mounted. Until SB_BORN the mounter holds
-> s_umount and nothing can freeze the superblock so that's fine.
-> 
-> A few patches make the read-only remount work in the first place. exfat
-> and ocfs2 didn't inherit their mount options on remount so emergency
-> remount, which passes none, could fail on them. And gfs2 has a BUG_ON()
-> when it's remounted read-only while a withdraw is still pending that
-> this makes easier to hit. Those come before the conversion of the
-> respective filesystem. ext4 and xfs have the same problem with their own
-> error states. ext4 refused to go read-only in its emergency state at all
-> and a shut down xfs couldn't be remounted read-only either. So sysrq u
-> WARNed for every ext4 that hit an error and for every shut down xfs.
-> Both are fixed at the end of the series.
-> 
-> ecryptfs opens its lower files read-write unless the lower superblock is
-> read-only. On top of one of these filesystems every lookup of a regular
-> file would fail with EROFS after an error and leak the inode. umount
-> then reports busy inodes. ext4 already behaves like that and so does a
-> read-only bind mount underneath. The first two patches make ecryptfs
-> fall back to a read-only lower file and plug the leak.
-> 
-> There are user-visible changes but I think they're all fine. The big one
-> is that "mount -o remount,rw" doesn't make the filesystem writable again
-> after an error anymore. That's how ext4 behaves since
-> commit d3476f3dad4a ("ext4: don't set SB_RDONLY after filesystem
-> errors"). statfs() doesn't report ST_RDONLY after an error and a second
-> read-only mount of the device fails with EBUSY. Writes through file
-> descriptors opened before the error fail with EROFS now where they used
-> to succeed. ext2, fat, hfs, affs, ufs and ubifs fail fsync() with EROFS
-> after an error. Writeback drops what they can't write anymore so fsync()
-> would report success otherwise. And remount helpers that pass the shown
-> options back, busybox mount for example, trip over "emergency_ro".
-> That's already the case on ext4.
-> 
-> Every patch has a reproducer in the commit message. I ran all of them
-> in a VM against the unpatched and the patched kernel, the latter with
-> KASAN and kmemleak. There are selftests for ext2, jfs, nilfs2, gfs2 and
-> the ext4 and xfs remount changes.
-> 
-> This depends on three fixes that aren't upstream yet:
-> 
->   super: don't put the remount context under s_umount
->   super: keep the read-only state if a reconfiguration doesn't change it
->   nilfs2: don't reconfigure a frozen superblock on mount
-> 
-> The first one matters most. This series makes errored filesystems
-> reachable for sysrq u and without it a concurrent umount deadlocks on
-> s_umount. The second one makes fc->sb_flags carry the current read-only
-> state for fspick() reconfigurations, which ->reconfigure() of fat, affs,
-> hfs, ufs, hpfs and btrfs rely on. The third one closes the last way
-> nilfs2 changes SB_RDONLY on a frozen superblock, through a mount that
-> reconfigures it.
-> 
-> With this no filesystem changes SB_RDONLY outside of mount and remount
-> anymore.
-> 
-> [1]: https://lore.kernel.org/r/20260903060855.4610-1-kmehltretter@gmail.com
-> [2]: https://lore.kernel.org/r/hyhuckyohsabx2suvq3z7uy3pbgmihva6wgzxr3op7pzcrlu33@p7zzlgp2ehjf
-> 
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+On Mon, Oct 12, 2026 at 6:48=E2=80=AFPM Sean Christopherson <seanjc@google.=
+com> wrote:
+>
+> On Mon, Oct 12, 2026, Paolo Bonzini wrote:
+> > On Mon, Oct 12, 2026 at 6:38=E2=80=AFPM Sean Christopherson <seanjc@goo=
+gle.com> wrote:
+> > >
+> > > On Fri, Oct 09, 2026, Paolo Bonzini wrote:
+> > > > When running Hyper-V from Windows 11, KVM is seeing the SS bit set
+> > > > in nested page fault error codes produced for shadowed NPT.  The AM=
+D
+> > > > manual is unclear about when SS is set, including whether it can be=
+ set
+> > > > when SupervisorShadowStackEn (bit 6) is not set in the MISC_CTL fie=
+ld
+> > > > of the VMCB; in fact, bisection shows that while SHSTK was availabl=
+e
+> > > > to guests since Linux 6.18, this started happening with commit
+> > > > 687ee95c1b6d ("KVM: nSVM: enable GMET for guests"), which seems unr=
+elated.
+> > >
+> > > It's not unrelated.  As you note below, this is purely because Hyper-=
+V only uses
+> > > CET when GMET is available.
+> >
+> > Indeed, my intended meaning is that bit 1 of MISC_CTL does *not* have
+> > the side effect of reporting SS failures...
+> >
+> > > This is wrong, I reproduced this with the KUT CET test with gmet=3D1.
+> >
+> > ... howver, this makes me wonder if you meant gmet=3D0? Because if you
+> > need gmet=3D1, the Fixes would be fe080f58dec24049 (i.e. when the gmet
+> > module parameter was added).
+>
+> /facepalm
+>
+> I did indeed.  And I quadruple-checked that I could trigger the splat wit=
+h gmet=3D0.
 
-I'm in favor of this. Just after checking couple of filesystem changes -
-won't we be better off by using a generic flag in super_block for this so
-that VFS can check for it? Then each filesystem won't have to implement
-its own wrapper for simple_fsync(), quota operations, and whatever other
-generic operations that need to bail on shutdown filesystem...
+No problem, here is new final paragraph to exclude the theory:
 
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+---
+Bisection shows that this started happening with commit 687ee95c1b6d
+("KVM: nSVM: enable GMET for guests"), even though SHSTK was available
+to guests since Linux 6.18.  However, this is not because bit 1 of
+MISC_CTL (GMET) somehow enables reporting the SS bit; rather, it's
+simply that Hyper-V never uses CET unless GMET is also present.  The
+WARN is reproducible even with gmet=3D0, with some hacking of
+kvm-unit-tests's cet.c testcase to ensure that the first access to the
+shadow stack triggers a page fault.
+---
+
+BTW, while Simon said that GMET+CET now works properly for him, I
+haven't retested Hyper-V with the MBEC+CET combo yet, and I wouldn't
+bet on it working because there's no path in which EPT violations
+would set PFERR_SS_MASK.
+
+Paolo
+
