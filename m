@@ -1,45 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0721649BD88
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:35:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7EE448F856
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:35:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819333; cv=none; b=ozJgdV4aXBbBHJkqirU5BlLaxwmvQ6QwiUsvlMU/pwJFu7vB7m8LeSp9KKzNK6f/P1urZG5AXcILLby6l5nfnO/7Nt0GkRlU7SLUjQD9153+24lwRM4M3jrVWkC3YRt4DSDvv0+xvQ7BNfQpkAFxEgdpjw9b3rsgQeaV1O150OE=
+	t=1791819334; cv=none; b=QuIiMiQQVA4zkCBpWuSrFIW7ruK1rgKmJc/yx16DMZWldYQxtsPahRskbCAOCV7aQpSa+O+XQDuivWwueFHE9E8NSe/QSI5IIfZ/PPyfkX1hg8nQZqGJgkqyGhe1JPDJ6+rgws3KaxSPRfb9AgIBU7+nFixwXkUydHUaLlij82M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819333; c=relaxed/simple;
-	bh=hLV0JJg4/a0PO9Xx0Fz4I/ELwEt1bmgOKMNZETX+cYc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p8yhaZn7TtXkQcq73wjCkdrRHWzYzng+vuFVM9+4ocSObXJ6AYxB9LI/aL8kQopeAkoVlChK0QP2NvC2D7koKLa4rh10Px7YEKOqFDwFUs93eFypvu3mBBa4NOylYiH/BSIXqhQ0jg4z675vJa4Sm93qmVStDe9JEYtsyhiRn2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OSpqmZE4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791819334; c=relaxed/simple;
+	bh=gnxM0yOOK/JwI1s4juAVEfjVQ1r1eqV660lsNqxSPEw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tAnlGmLT85w3O3SoJcr4AER2fB9q5DCCl89z1QkRQKqcAd9qbqz0tzKzZiyZDazKhtXBJ1AVz6eBEJoAYMmK5P3BEhsSC2ZEI0RQWUXaIELDERtDjrbiuOKING4vv3rn/WqgVLWqf0bHDYZCOvHY6RQJ2B+fa+uM+k4l+tiiOjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=LB9He1gC; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OSpqmZE4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B69451F0089C;
-	Mon, 12 Oct 2026 15:35:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791819331;
-	bh=t7GnUHPG/+RS8aemlW4YppIcyM0Dn2JLpv6EDZLjJuw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OSpqmZE4cx5UJlN0idAPPWJQLFEzgNmhGHNAelycioFZHSQS0+UTKO/SqYo48xJHj
-	 Km+Gv3oWdLBzVLlaHP2i0F1sx1hTby2QF5crxfUoFWSPqVYx9dyn1pqQ61v1xkGFn7
-	 Z8W+u0pcWxzEppH00J9NJAZoGQNHiOU6sOYofll/RloFmRyuTRMZodf2/X36hi2qfl
-	 G+XFwX+AWmLuzfEWSYkL9XEpPrgpdkUCw3XDB1B/EJ81s1gjKo/RLn0sjtZjVj0OrR
-	 y/zxjBefEG8Jq5JhlmTl8h/mub2NIcNmRR6kXnT9RxBk1OXRbbC+NEF/QAhqhpz2j2
-	 pQA5CKXm+/Jyg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Rafal Romanowski <rafal.romanowski@intel.com>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] iavf: send MAC change request synchronously
-Date: Mon, 12 Oct 2026 11:35:28 -0400
-Message-ID: <20261012153458.1075797-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261012153458.1075797-1-sashal@kernel.org>
-References: <2026101248-ravine-unclip-ec97@gregkh>
- <20261012153458.1075797-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="LB9He1gC"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3a8adb68d8bso1328598a91.1
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 08:35:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791819330; x=1792424130; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Yok6zVFuauItk86XZja8sSODs2GHBMfYs1w0NhMN22c=;
+        b=LB9He1gC1IUekYjF8vFwvdVXa4LoDMBGvgLH50+Z7YkBFwdAxmfHZGHtUmGDN6b1fK
+         e7820GwtU8/DQ0oWrqmoakeFPpUQJxYklpPIfjPD+CliCMjbMHWrfCeuwU4hfbGaPTx0
+         BKR1AXoPQchdmy+ahS8CocpFDI4uW8b9qxaJJoyw34q3ymg1sz5EF196yQHp0l5CaYVJ
+         DBe4ftjkSOd2/z5GGJ4MlHGvAhYdXuQV7WyT1foFd0aYhuknp2Ho98wNnRTJJagn83O9
+         W+JVkigatv8uzw7yGSUxQZ9nWuNC6eOd+jA57aEywJUeQI2q+1W+UvnWiJaUd4QdVc5+
+         Nrcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791819330; x=1792424130;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Yok6zVFuauItk86XZja8sSODs2GHBMfYs1w0NhMN22c=;
+        b=Yv+iPvICe70GgmSKi4IUBGdEH/3aB5EyZPOpAIJjwt9fP/yMEeH0Didv5VwuSBwEvI
+         VmFkCBQln/k2zil5tpBVCOlW/7UuFpSzsXoNMoSoPuIy0GWnZL6T+nhUZkx6jYyWst+L
+         FEqxVZ0xbqu/B+FCDGOuOPNh23ac1K+hFLPCfsfeB0rKLUFTyS+7ckMpeiQX9IregKTZ
+         7aMC82R+dp3lKcpBbK96fi0RTplkT+UuEA/WncspX0lfhI+YwLrZPmluR/wXg7loFbUL
+         IO30usG1R7TfdYbsIoWdaX8m6Mt7kVZzx6cLivwXWRlCO6I9lK4BBjPNBClRMSxWpc02
+         KN6w==
+X-Forwarded-Encrypted: i=1; AKwUvBwrTud6vcpo4C7SYs4BTPJJ+drwfy+rGWBoQmdXn6moBuenR0rkRrvVR4A68seI3EIueCC/Wnc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYILcLbLzl5zFZzJ5iBJvnMMZp59L4elcRp3/jz6Nqd12Yd8yV9S
+	e3JeUtDRdP8vbcZIs+HLExvYg9vyvHQBCQzU9x2o8HiZDwvUumJQ8EajECL70zkJQPQ=
+X-Gm-Gg: AYBFou3ewZFnhQRy/q428NkvmPMue0YUfca7XLtG/h/wvi4L/4FzyY53c2Cny9APQx7
+	fACO4JlHuazrY9t6IBxhD/QSEyGaoSW42nz2DAem0oKcgWu4pGD0RubJU7xl8qPZyomKZpx2qvq
+	BYzbx/y4TpcwIPbgVim0IHtRv39t+4S/m4kfNFtTLDLnNXjrnthSsj+FXCGEZb6YMKqeIxXROXf
+	pMCVgULqmZvdH98s2xHyJohN5K20YX/x7lpHAUb8RlvMDZLFPl/Aw8QcFTjFp25dXlMnN/2pTst
+	jZklmAPnw9hz9Lt1/yvStSsyv05KTlU4PMH3q8TPK7kKEodG/1l0rB0J/u0oyr3mEKdde+8bOlA
+	2ahK82FcsWGxhgl+zhswbnMUkaxCOv6L3F7eTDteGXl65vzFg60n343WecDOGH8wXczrWr9dg1n
+	YMPezDEzOgDau0fefXCV/BOac90UOlL0soCO4U9UGewOO6+CSUMoWxrKZMAksv75T3wUWw3T0HK
+	ZW/5lCpa2eproDQBoL7EjY=
+X-Received: by 2002:a17:90b:2889:b0:3ac:eeb:e0ed with SMTP id 98e67ed59e1d1-3ac0eebecf5mr1790611a91.36.1791819329799;
+        Mon, 12 Oct 2026 08:35:29 -0700 (PDT)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:7bd2:1202:246d:44ce])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b9639bsm16371590a91.4.2026.10.12.08.35.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 08:35:29 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: mkp@kernel.org,
+	target-devel@vger.kernel.org,
+	linux-scsi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hannes Reinecke <hare@suse.de>,
+	Bart Van Assche <bvanassche@acm.org>
+Subject: [PATCH v2] scsi: target: tcm_fc: reject overlapping write-data frames
+Date: Tue, 13 Oct 2026 00:35:02 +0900
+Message-ID: <20261012153502.2435483-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,401 +77,161 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+ft_recv_write_data() executes a WRITE once the received byte count reaches
+se_cmd->data_length.  Frames are placed by their FCP relative offset but
+nothing tracks which offsets were filled, so an initiator that sends two
+frames at the same offset reaches data_length with part of the buffer never
+written: two 4096-byte frames at offset 0 of an 8192-byte write get the
+count to 8192 and leave the second half untouched.
 
-[ Upstream commit 436729a56dd4dac611d10b569c5359d2cf705b19 ]
+The buffer is not zeroed (transport_generic_new_cmd() clears zero_flag for
+a data CDB), so that gap keeps the previous page contents, which the
+backend then writes to the device for the initiator to read back.  There is
+no oops; poisoning the buffer and sending such a pair leaves 4096 bytes of
+it committed unchanged, and the patched driver refuses the overlapping
+frame.
 
-After commit ad7c7b2172c3 ("net: hold netdev instance lock during sysfs
-operations"), iavf_set_mac() is called with the netdev instance lock
-already held.
+Track the range received and drop a frame that falls inside it.  With no
+overlapping frame accepted, the byte count reaches data_length only when
+the whole buffer has been written, so it stays a valid completion test;
+in-order and out-of-order complete writes are unaffected.
 
-The function queues a MAC address change request via
-iavf_replace_primary_mac() and then waits for completion. However, in
-the current flow, the actual virtchnl message is sent by the watchdog
-task, which also needs to acquire the netdev lock to run. Additionally,
-the adminq_task which processes virtchnl responses also needs the netdev
-lock.
-
-This creates a deadlock scenario:
-1. iavf_set_mac() holds netdev lock and waits for MAC change
-2. Watchdog needs netdev lock to send the request -> blocked
-3. Even if request is sent, adminq_task needs netdev lock to process
-   PF response -> blocked
-4. MAC change times out after 2.5 seconds
-5. iavf_set_mac() returns -EAGAIN
-
-This particularly affects VFs during bonding setup when multiple VFs are
-enslaved in quick succession.
-
-Fix by implementing a synchronous MAC change operation similar to the
-approach used in commit fdadbf6e84c4 ("iavf: fix incorrect reset handling
-in callbacks").
-
-The solution:
-1. Send the virtchnl ADD_ETH_ADDR message directly (not via watchdog)
-2. Poll the admin queue hardware directly for responses
-3. Process all received messages (including non-MAC messages)
-4. Return when MAC change completes or times out
-
-A new generic function iavf_poll_virtchnl_response() is introduced that
-can be reused for any future synchronous virtchnl operations. It takes a
-callback to check completion, allowing flexible condition checking.
-
-This allows the operation to complete synchronously while holding
-netdev_lock, without relying on watchdog or adminq_task. The function
-can sleep for up to 2.5 seconds polling hardware, but this is acceptable
-since netdev_lock is per-device and only serializes operations on the
-same interface.
-
-To support this, change iavf_add_ether_addrs() to return an error code
-instead of void, allowing callers to detect failures. Additionally,
-export iavf_mac_add_reject() to enable proper rollback on local failures
-(timeouts, send errors) - PF rejections are already handled automatically
-by iavf_virtchnl_completion().
-
-Remove vc_waitqueue entirely because iavf_set_mac was the only waiter on
-this waitqueue and after the changes it is not needed.
-
-Fixes: ad7c7b2172c3 ("net: hold netdev instance lock during sysfs operations")
-cc: stable@vger.kernel.org
-Signed-off-by: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Tested-by: Rafal Romanowski <rafal.romanowski@intel.com>
-Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 3699d92a4d7b ("[SCSI] tcm_fc: Adding FC_FC4 provider (tcm_fc) for FCoE target (TCM - target core) support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- drivers/net/ethernet/intel/iavf/iavf.h        | 11 ++-
- drivers/net/ethernet/intel/iavf/iavf_main.c   | 85 ++++++++++++----
- .../net/ethernet/intel/iavf/iavf_virtchnl.c   | 99 +++++++++++++++++--
- 3 files changed, 165 insertions(+), 30 deletions(-)
+v2: coalesce adjacent tracked ranges, so a reordered write whose segments
+    have become contiguous no longer exhausts the array and is wrongly
+    refused (Sashiko).
 
-diff --git a/drivers/net/ethernet/intel/iavf/iavf.h b/drivers/net/ethernet/intel/iavf/iavf.h
-index 050f8241ef5e6..5fcbfa0ca8553 100644
---- a/drivers/net/ethernet/intel/iavf/iavf.h
-+++ b/drivers/net/ethernet/intel/iavf/iavf.h
-@@ -259,7 +259,6 @@ struct iavf_adapter {
- 	struct work_struct adminq_task;
- 	struct work_struct finish_config;
- 	wait_queue_head_t down_waitqueue;
--	wait_queue_head_t vc_waitqueue;
- 	struct iavf_q_vector *q_vectors;
- 	struct list_head vlan_filter_list;
- 	int num_vlan_filters;
-@@ -588,8 +587,9 @@ void iavf_configure_queues(struct iavf_adapter *adapter);
- void iavf_enable_queues(struct iavf_adapter *adapter);
- void iavf_disable_queues(struct iavf_adapter *adapter);
- void iavf_map_queues(struct iavf_adapter *adapter);
--void iavf_add_ether_addrs(struct iavf_adapter *adapter);
-+int iavf_add_ether_addrs(struct iavf_adapter *adapter);
- void iavf_del_ether_addrs(struct iavf_adapter *adapter);
-+void iavf_mac_add_reject(struct iavf_adapter *adapter);
- void iavf_add_vlans(struct iavf_adapter *adapter);
- void iavf_del_vlans(struct iavf_adapter *adapter);
- void iavf_set_promiscuous(struct iavf_adapter *adapter);
-@@ -606,6 +606,13 @@ void iavf_disable_vlan_stripping(struct iavf_adapter *adapter);
- void iavf_virtchnl_completion(struct iavf_adapter *adapter,
- 			      enum virtchnl_ops v_opcode,
- 			      enum iavf_status v_retval, u8 *msg, u16 msglen);
-+int iavf_poll_virtchnl_response(struct iavf_adapter *adapter,
-+				struct iavf_arq_event_info *event,
-+				bool (*condition)(struct iavf_adapter *adapter,
-+						  const void *data,
-+						  enum virtchnl_ops v_op),
-+				const void *cond_data,
-+				unsigned int timeout_ms);
- int iavf_config_rss(struct iavf_adapter *adapter);
- void iavf_cfg_queues_bw(struct iavf_adapter *adapter);
- void iavf_cfg_queues_quanta_size(struct iavf_adapter *adapter);
-diff --git a/drivers/net/ethernet/intel/iavf/iavf_main.c b/drivers/net/ethernet/intel/iavf/iavf_main.c
-index d09add9a110ea..0c99e3909952e 100644
---- a/drivers/net/ethernet/intel/iavf/iavf_main.c
-+++ b/drivers/net/ethernet/intel/iavf/iavf_main.c
-@@ -1029,6 +1029,60 @@ static bool iavf_is_mac_set_handled(struct net_device *netdev,
- 	return ret;
+ drivers/target/tcm_fc/tcm_fc.h |  8 ++++
+ drivers/target/tcm_fc/tfc_io.c | 74 ++++++++++++++++++++++++++++++++++
+ 2 files changed, 82 insertions(+)
+
+diff --git a/drivers/target/tcm_fc/tcm_fc.h b/drivers/target/tcm_fc/tcm_fc.h
+index 00e5573c62966..b75b1373a49c9 100644
+--- a/drivers/target/tcm_fc/tcm_fc.h
++++ b/drivers/target/tcm_fc/tcm_fc.h
+@@ -103,12 +103,20 @@ struct ft_lport_wwn {
+ /*
+  * Commands
+  */
++#define FT_WRITE_SEGS	4	/* out-of-order write ranges tracked per cmd */
++
+ struct ft_cmd {
+ 	struct ft_sess *sess;		/* session held for cmd */
+ 	struct fc_seq *seq;		/* sequence in exchange mgr */
+ 	struct se_cmd se_cmd;		/* Local TCM I/O descriptor */
+ 	struct fc_frame *req_frame;
+ 	u32 write_data_len;		/* data received on writes */
++	u32 write_contig_end;		/* end of the contiguous data received */
++	u8 write_nseg;			/* out-of-order ranges held below */
++	struct ft_write_seg {
++		u32 off;
++		u32 end;
++	} write_seg[FT_WRITE_SEGS];
+ 	struct work_struct work;
+ 	/* Local sense buffer */
+ 	unsigned char ft_sense_buffer[TRANSPORT_SENSE_BUFFER];
+diff --git a/drivers/target/tcm_fc/tfc_io.c b/drivers/target/tcm_fc/tfc_io.c
+index 45329284f52f5..27eb9da0bc01f 100644
+--- a/drivers/target/tcm_fc/tfc_io.c
++++ b/drivers/target/tcm_fc/tfc_io.c
+@@ -189,6 +189,73 @@ static void ft_execute_work(struct work_struct *work)
+ 	target_execute_cmd(&cmd->se_cmd);
  }
  
-+/**
-+ * iavf_mac_change_done - Check if MAC change completed
-+ * @adapter: board private structure
-+ * @data: MAC address being checked (as const void *)
-+ * @v_op: virtchnl opcode from processed message
-+ *
-+ * Callback for iavf_poll_virtchnl_response() to check if MAC change completed.
-+ *
-+ * Return: true if MAC change completed, false otherwise
-+ */
-+static bool iavf_mac_change_done(struct iavf_adapter *adapter,
-+				 const void *data, enum virtchnl_ops v_op)
++/* Fold a range that now adjoins the contiguous front, or another range. */
++static void ft_merge_write_ranges(struct ft_cmd *cmd)
 +{
-+	const u8 *addr = data;
++	unsigned int i, j;
++	bool merged;
 +
-+	return iavf_is_mac_set_handled(adapter->netdev, addr);
-+}
-+
-+/**
-+ * iavf_set_mac_sync - Synchronously change MAC address
-+ * @adapter: board private structure
-+ * @addr: MAC address to set
-+ *
-+ * Send MAC change request to PF and poll admin queue for response.
-+ * Caller must hold netdev_lock. This can sleep for up to 2.5 seconds.
-+ * Event buffer is allocated before sending to avoid state mismatch if
-+ * allocation fails after message is sent to PF.
-+ *
-+ * Return: 0 on success, negative on failure
-+ */
-+static int iavf_set_mac_sync(struct iavf_adapter *adapter, const u8 *addr)
-+{
-+	struct iavf_arq_event_info event;
-+	int ret;
-+
-+	netdev_assert_locked(adapter->netdev);
-+
-+	event.buf_len = IAVF_MAX_AQ_BUF_SIZE;
-+	event.msg_buf = kzalloc(event.buf_len, GFP_KERNEL);
-+	if (!event.msg_buf)
-+		return -ENOMEM;
-+
-+	ret = iavf_add_ether_addrs(adapter);
-+	if (ret)
-+		goto out;
-+
-+	ret = iavf_poll_virtchnl_response(adapter, &event,
-+					  iavf_mac_change_done, addr, 2500);
-+
-+out:
-+	kfree(event.msg_buf);
-+	return ret;
-+}
-+
- /**
-  * iavf_set_mac - NDO callback to set port MAC address
-  * @netdev: network interface device structure
-@@ -1046,25 +1100,23 @@ static int iavf_set_mac(struct net_device *netdev, void *p)
- 		return -EADDRNOTAVAIL;
- 
- 	ret = iavf_replace_primary_mac(adapter, addr->sa_data);
--
- 	if (ret)
- 		return ret;
- 
--	ret = wait_event_interruptible_timeout(adapter->vc_waitqueue,
--					       iavf_is_mac_set_handled(netdev, addr->sa_data),
--					       msecs_to_jiffies(2500));
--
--	/* If ret < 0 then it means wait was interrupted.
--	 * If ret == 0 then it means we got a timeout.
--	 * else it means we got response for set MAC from PF,
--	 * check if netdev MAC was updated to requested MAC,
--	 * if yes then set MAC succeeded otherwise it failed return -EACCES
--	 */
--	if (ret < 0)
-+	ret = iavf_set_mac_sync(adapter, addr->sa_data);
-+	if (ret) {
-+		/* Rollback only if send failed (message never reached PF).
-+		 * Don't rollback on timeout (-EAGAIN) because the message was
-+		 * sent and PF will eventually respond. When the response arrives,
-+		 * iavf_virtchnl_completion() will handle rollback (on PF error)
-+		 * or acceptance (on PF success) automatically.
-+		 */
-+		if (ret != -EAGAIN) {
-+			iavf_mac_add_reject(adapter);
-+			ether_addr_copy(adapter->hw.mac.addr, netdev->dev_addr);
-+		}
- 		return ret;
--
--	if (!ret)
--		return -EAGAIN;
-+	}
- 
- 	if (!ether_addr_equal(netdev->dev_addr, addr->sa_data))
- 		return -EACCES;
-@@ -5388,9 +5440,6 @@ static int iavf_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	/* Setup the wait queue for indicating transition to down status */
- 	init_waitqueue_head(&adapter->down_waitqueue);
- 
--	/* Setup the wait queue for indicating virtchannel events */
--	init_waitqueue_head(&adapter->vc_waitqueue);
--
- 	INIT_LIST_HEAD(&adapter->ptp.aq_cmds);
- 	init_waitqueue_head(&adapter->ptp.phc_time_waitqueue);
- 	mutex_init(&adapter->ptp.aq_cmd_lock);
-diff --git a/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c b/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c
-index ad906baa759d5..6cf963b9c9109 100644
---- a/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c
-+++ b/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c
-@@ -2,6 +2,7 @@
- /* Copyright(c) 2013 - 2018 Intel Corporation. */
- 
- #include <linux/net/intel/libie/rx.h>
-+#include <net/netdev_lock.h>
- 
- #include "iavf.h"
- #include "iavf_ptp.h"
-@@ -555,20 +556,23 @@ iavf_set_mac_addr_type(struct virtchnl_ether_addr *virtchnl_ether_addr,
-  * @adapter: adapter structure
-  *
-  * Request that the PF add one or more addresses to our filters.
-- **/
--void iavf_add_ether_addrs(struct iavf_adapter *adapter)
-+ *
-+ * Return: 0 on success, negative on failure
-+ */
-+int iavf_add_ether_addrs(struct iavf_adapter *adapter)
- {
- 	struct virtchnl_ether_addr_list *veal;
- 	struct iavf_mac_filter *f;
- 	int i = 0, count = 0;
- 	bool more = false;
- 	size_t len;
-+	int ret;
- 
- 	if (adapter->current_op != VIRTCHNL_OP_UNKNOWN) {
- 		/* bail because we already have a command pending */
- 		dev_err(&adapter->pdev->dev, "Cannot add filters, command %d pending\n",
- 			adapter->current_op);
--		return;
-+		return -EBUSY;
- 	}
- 
- 	spin_lock_bh(&adapter->mac_vlan_list_lock);
-@@ -580,7 +584,7 @@ void iavf_add_ether_addrs(struct iavf_adapter *adapter)
- 	if (!count) {
- 		adapter->aq_required &= ~IAVF_FLAG_AQ_ADD_MAC_FILTER;
- 		spin_unlock_bh(&adapter->mac_vlan_list_lock);
--		return;
-+		return 0;
- 	}
- 	adapter->current_op = VIRTCHNL_OP_ADD_ETH_ADDR;
- 
-@@ -594,8 +598,9 @@ void iavf_add_ether_addrs(struct iavf_adapter *adapter)
- 
- 	veal = kzalloc(len, GFP_ATOMIC);
- 	if (!veal) {
-+		adapter->current_op = VIRTCHNL_OP_UNKNOWN;
- 		spin_unlock_bh(&adapter->mac_vlan_list_lock);
--		return;
-+		return -ENOMEM;
- 	}
- 
- 	veal->vsi_id = adapter->vsi_res->vsi_id;
-@@ -615,8 +620,15 @@ void iavf_add_ether_addrs(struct iavf_adapter *adapter)
- 
- 	spin_unlock_bh(&adapter->mac_vlan_list_lock);
- 
--	iavf_send_pf_msg(adapter, VIRTCHNL_OP_ADD_ETH_ADDR, (u8 *)veal, len);
-+	ret = iavf_send_pf_msg(adapter, VIRTCHNL_OP_ADD_ETH_ADDR, (u8 *)veal, len);
- 	kfree(veal);
-+	if (ret) {
-+		dev_err(&adapter->pdev->dev,
-+			"Unable to send ADD_ETH_ADDR message to PF, error %d\n", ret);
-+		adapter->current_op = VIRTCHNL_OP_UNKNOWN;
-+	}
-+
-+	return ret;
- }
- 
- /**
-@@ -712,8 +724,8 @@ static void iavf_mac_add_ok(struct iavf_adapter *adapter)
-  * @adapter: adapter structure
-  *
-  * Remove filters from list based on PF response.
-- **/
--static void iavf_mac_add_reject(struct iavf_adapter *adapter)
-+ */
-+void iavf_mac_add_reject(struct iavf_adapter *adapter)
- {
- 	struct net_device *netdev = adapter->netdev;
- 	struct iavf_mac_filter *f, *ftmp;
-@@ -2360,7 +2372,6 @@ void iavf_virtchnl_completion(struct iavf_adapter *adapter,
- 			iavf_mac_add_reject(adapter);
- 			/* restore administratively set MAC address */
- 			ether_addr_copy(adapter->hw.mac.addr, netdev->dev_addr);
--			wake_up(&adapter->vc_waitqueue);
- 			break;
- 		case VIRTCHNL_OP_DEL_ETH_ADDR:
- 			dev_err(&adapter->pdev->dev, "Failed to delete MAC filter, error %s\n",
-@@ -2551,7 +2562,6 @@ void iavf_virtchnl_completion(struct iavf_adapter *adapter,
- 			eth_hw_addr_set(netdev, adapter->hw.mac.addr);
- 			netif_addr_unlock_bh(netdev);
- 		}
--		wake_up(&adapter->vc_waitqueue);
- 		break;
- 	case VIRTCHNL_OP_GET_STATS: {
- 		struct iavf_eth_stats *stats =
-@@ -2946,3 +2956,72 @@ void iavf_virtchnl_completion(struct iavf_adapter *adapter,
- 	} /* switch v_opcode */
- 	adapter->current_op = VIRTCHNL_OP_UNKNOWN;
- }
-+
-+/**
-+ * iavf_poll_virtchnl_response - Poll admin queue for virtchnl response
-+ * @adapter: adapter structure
-+ * @event: pre-allocated event buffer to use for polling
-+ * @condition: callback to check if desired response received
-+ * @cond_data: context data passed to condition callback
-+ * @timeout_ms: maximum time to wait in milliseconds
-+ *
-+ * Polls the admin queue and processes all incoming virtchnl messages.
-+ * After processing each valid message, calls the condition callback to check
-+ * if the expected response has been received. The callback receives the opcode
-+ * of the processed message to identify which response was received. Continues
-+ * polling until the callback returns true or timeout expires.
-+ *
-+ * Caller must allocate event buffer before sending any messages to PF to avoid
-+ * state mismatch if allocation fails after message is sent.
-+ *
-+ * Caller must hold netdev_lock. This can sleep for up to timeout_ms while
-+ * polling hardware.
-+ *
-+ * Return: 0 on success (condition met), -EAGAIN on timeout, or error code
-+ */
-+int iavf_poll_virtchnl_response(struct iavf_adapter *adapter,
-+				struct iavf_arq_event_info *event,
-+				bool (*condition)(struct iavf_adapter *adapter,
-+						  const void *data,
-+						  enum virtchnl_ops v_op),
-+				const void *cond_data,
-+				unsigned int timeout_ms)
-+{
-+	struct iavf_hw *hw = &adapter->hw;
-+	enum virtchnl_ops received_op;
-+	unsigned long timeout;
-+	int ret = -EAGAIN;
-+	u16 pending = 0;
-+	u32 v_retval;
-+
-+	netdev_assert_locked(adapter->netdev);
-+
-+	timeout = jiffies + msecs_to_jiffies(timeout_ms);
 +	do {
-+		if (!pending)
-+			usleep_range(50, 75);
-+
-+		if (iavf_clean_arq_element(hw, event, &pending) == IAVF_SUCCESS) {
-+			received_op = (enum virtchnl_ops)le32_to_cpu(event->desc.cookie_high);
-+			if (received_op != VIRTCHNL_OP_UNKNOWN) {
-+				v_retval = le32_to_cpu(event->desc.cookie_low);
-+
-+				iavf_virtchnl_completion(adapter, received_op,
-+							 (enum iavf_status)v_retval,
-+							 event->msg_buf, event->msg_len);
-+
-+				if (condition(adapter, cond_data, received_op)) {
-+					ret = 0;
-+					break;
-+				}
++		merged = false;
++		for (i = 0; i < cmd->write_nseg; i++) {
++			if (cmd->write_seg[i].off == cmd->write_contig_end) {
++				cmd->write_contig_end = cmd->write_seg[i].end;
++			} else {
++				for (j = 0; j < cmd->write_nseg; j++)
++					if (j != i && cmd->write_seg[j].end ==
++					    cmd->write_seg[i].off)
++						break;
++				if (j == cmd->write_nseg)
++					continue;
++				cmd->write_seg[j].end = cmd->write_seg[i].end;
 +			}
-+
-+			memset(event->msg_buf, 0, IAVF_MAX_AQ_BUF_SIZE);
-+
-+			if (pending)
-+				continue;
++			for (j = i; j + 1 < cmd->write_nseg; j++)
++				cmd->write_seg[j] = cmd->write_seg[j + 1];
++			cmd->write_nseg--;
++			merged = true;
++			break;
 +		}
-+	} while (time_before(jiffies, timeout));
-+
-+	return ret;
++	} while (merged);
 +}
++
++/* Record a frame's range; refuse one that repeats data already received. */
++static bool ft_add_write_range(struct ft_cmd *cmd, u32 off, u32 len)
++{
++	u32 end = off + len;
++	unsigned int i;
++
++	if (off < cmd->write_contig_end)
++		return false;
++	for (i = 0; i < cmd->write_nseg; i++)
++		if (off < cmd->write_seg[i].end && cmd->write_seg[i].off < end)
++			return false;
++
++	if (off == cmd->write_contig_end) {
++		cmd->write_contig_end = end;
++	} else {
++		for (i = 0; i < cmd->write_nseg; i++) {
++			if (cmd->write_seg[i].end == off) {
++				cmd->write_seg[i].end = end;
++				break;
++			}
++			if (cmd->write_seg[i].off == end) {
++				cmd->write_seg[i].off = off;
++				break;
++			}
++		}
++		if (i == cmd->write_nseg) {
++			if (cmd->write_nseg >= FT_WRITE_SEGS)
++				return false;
++			cmd->write_seg[i].off = off;
++			cmd->write_seg[i].end = end;
++			cmd->write_nseg++;
++		}
++	}
++
++	ft_merge_write_ranges(cmd);
++	return true;
++}
++
+ /*
+  * Receive write data frame.
+  */
+@@ -267,6 +334,11 @@ void ft_recv_write_data(struct ft_cmd *cmd, struct fc_frame *fp)
+ 		goto drop;
+ 	if (frame_len + rel_off > se_cmd->data_length)
+ 		frame_len = se_cmd->data_length - rel_off;
++	if (!ft_add_write_range(cmd, rel_off, frame_len)) {
++		pr_err_ratelimited("%s: xid 0x%x: offset %u len %zu repeats data\n",
++				   __func__, ep->xid, rel_off, frame_len);
++		goto drop;
++	}
+ 
+ 	/*
+ 	 * Setup to use first mem list entry, unless no data.
+@@ -345,6 +417,8 @@ void ft_invl_hw_context(struct ft_cmd *cmd)
+ 				 */
+ 				cmd->write_data_len = lport->tt.ddp_done(lport,
+ 								      ep->xid);
++				cmd->write_contig_end = cmd->write_data_len;
++				cmd->write_nseg = 0;
+ 
+ 				/*
+ 				 * Resetting same variable to indicate HW's
 -- 
-2.53.0
+2.43.0
 
