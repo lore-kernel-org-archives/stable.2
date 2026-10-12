@@ -1,109 +1,293 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 961BC484237
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 11:44:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791805495; cv=pass; b=njY9/iCA8DylE+8qqy9l9N27OzbSuGUjnciK+gYKwDa9+edWlhyy0rjgJCnxgKxAdyqXET3C5IdGItgcLD/mICVm0sqb2wSBZKu8p5nGVoYwvFwj7y0w/xQmQ0dNogU6pJSpPsb/hvmQmhKCvWn6DFhdrqRnNAAWAw3+NFtHvP0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791805495; c=relaxed/simple;
-	bh=K6a+uG2V+IR5Io6i+GqIRtQTxPtGAXil8uNEAa2cL8k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mzWTlqh/9O5cGMtmwXXvquGI8e7uhz52ikMn0HfDoY8wJhjIUofdFCFJVWEusPZndPTniK1S5Xi5RFvVwK6kCdli8CQwhVQrejkk/ZGip1e9FcOE3Hpr0w0BPHEDrxeKSwL9lyDvlscSoVbdwLxzyb2RK+QGBEbHVecd+4Gyg0s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sairon.cz; spf=pass smtp.mailfrom=sairon.cz; dkim=pass (2048-bit key) header.d=sairon.cz header.i=@sairon.cz header.b=IEFSVWtm; arc=pass smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sairon.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sairon.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 201A947DD4D
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 11:44:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791805503; cv=none; b=ddIyHaJnX9MOvW1KDpLurKf68kwELA9Hs0+dXYr92UVvF7fxEY67NKl3oa8JMTGisAWV4q2hnjFYhw81VRoSPAltNHKR5rhh+j4XkDu+5a0fRVDfwHaha+GMP/ZPZ2GncF+aaJWez5doUOrce/gYGdL1y0rNUD29NHabfkm9uQs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791805503; c=relaxed/simple;
+	bh=j5JcmcR3TuxXXbgbVgiNHGXj85CN5OA3DI/DJ8hf97U=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=iD6oXfw6FofUElrpi2QOMK+LXGmISoYoLBRkj1cS+Fwo8B7KT4epS9T6ON9SfOoQmllUFQd2TIxCRCmonucbQW8FHD5xlXfdufAKd2mojp/oUqw4Gi6ykLCaATOQdtGMzQ1lWWuoJStW3OIQ4dX7ktRt0aEISJAi82qPTtX+r9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YJDSKrtb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sairon.cz header.i=@sairon.cz header.b="IEFSVWtm"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e87c66e556so7393915ad.0
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 04:44:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791805485; cv=none;
-        d=google.com; s=arc-20260327;
-        b=r6uNH63cMPElAYyPuavwv9j4L8aUxAt8JNqaeDO7q5eOKFJne77A84puDVTRXBSQDY
-         qxdwuBR/bNgLqKXOs5Po4XAwk0+vQz0cXkCJlL4OzhUeDAxUBfRy1fUbLlSxLkZjBclA
-         iGn3laY/2pW5N9ah3nCsRrbfnlep3kOdfw4RRehl2MhcLyAhUAsI8+vf3uFj8lTqNQzC
-         6nTwjchmMOqOd3AXoLy3GJmxxWt/G/Rj2PBT2YDf6Evs0Aj1moOkyYwHqNa1/pOyotxz
-         XRshaEA13lYE21Xd51kIRY9UbP2Pto4x6GkRCojB3N0ofoBXedRjf499VQ2J2iBPksxB
-         1OuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=K6a+uG2V+IR5Io6i+GqIRtQTxPtGAXil8uNEAa2cL8k=;
-        fh=/HyVfQzgx6uWrqs86hNeQ3oOhNJf6qKkp6Y2knFfVgs=;
-        b=QoWnIgCgi9zE5WY2jsehnOq3celJApxsBy/+oMe4n9a0Cf1Gt70JkgadISt3IBPohe
-         /0+3NLPWpQR4L08rboE7ufRln0HCPSUxSHW70yjq5km/W3ZZzwIqB26hLEPQmm1X4XRY
-         7Uj6F7HKEDFmBN4QwSexjkGAB9/dLQ8GejORE2aQh2apVPjGatsfNgZEMXsNCiyWJ6dn
-         hgFtw1fdnAxB8cRIH23rofgOtG1WO4RjbTjDLUZ+jwRQr/6D+BpaeIgyqhSZpqxkSjCU
-         Mb2u1sqIt0mcSyCxwDSuRfPufeWi+dxEMfeSaTYYYpeBnym4QYcnsd0y25piIhE/6xoX
-         eX4g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sairon.cz; s=google; t=1791805485; x=1792410285; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K6a+uG2V+IR5Io6i+GqIRtQTxPtGAXil8uNEAa2cL8k=;
-        b=IEFSVWtmlNm2VN1Z/jBh3oV+qIqPPNXMWDBMjPPefkt5SKaFOjoLtiRE0oxh9hyfSA
-         LUu7LIU4nNJsim9yIkhJWLH0GKg7l5X1+YFuYh5F4RjS/Xm67IsBBFMQqnZ7tbgjwuk5
-         5CfNQq2Yvf5F575ke1gylG3lXSTqvsQboFW4x7vjLtzf1aa80u85zXVv5MOxNXWckjtO
-         dailra+8edkDAbBTU6xe+9JsEGH7Odx5G7ApbxuUqx+1bYdIml8Szvv+4JrZ6gWKw2oa
-         dWFkxeDSoVXzUanVj3Lo1FBwwRYhRMVx4xWyETxmELlLuSBXyaVhg9r1yVsM6gBJ0jzD
-         9x1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791805485; x=1792410285;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=K6a+uG2V+IR5Io6i+GqIRtQTxPtGAXil8uNEAa2cL8k=;
-        b=GQbDXvPr8b2l97D1fCyZxgnTrBG4DjrgehaX7igdaQmH8PXyPX3D2I6RXHzpEwaLtS
-         LPLuAT+jGQ9KhfZDbdSiMRWPForvk8lKAm2OtfDy29PkaRi88fOTxZ4ft3bm1pLyWQih
-         FQfTE5r0BAS6+aSu1JrMC1KsajCwV+sZRTTE+oroGwfTR+m2IkmjzTvKNZR0A5N1MGSI
-         q1XfrmuMTbzqmERv0QNeqUT2BIXWt7wsTBV3N2RxCPU8Dp9HdyrQWh/N5gMTV9i/aD/c
-         pNimBloIAIEe0W+NrHSsEXdzfPiJhdXooGBDi0St29JqmjH+uA2vWxtV9h5oUYAGcYsY
-         2//w==
-X-Forwarded-Encrypted: i=1; AKwUvBzKyRE7uHPnyFvl5AjwaICcye44b3OAX2RSHH5FOjerS7hqqUXL5uBhvs7uhNC8+Eb3yGE7XqA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYICBnA2XcCgin0pd7UuERCYEByZG6omv/FDFIOAp2h/FxJ8110n
-	x+QoESFv0CZJP2igdfCwkpln6EExH/IJb1e1aJcaUFY1DajsqG0Hc1ATo3fBzCC+jhDZtExQKuz
-	FUVmQd+vnBf/YgqJ/mhgO1c98UY/ZVQCv4vf/St3eHg==
-X-Gm-Gg: AYBFou1Yp1bITZ58S1/OBAKGEHyntJ/Spr6Fvnnyjhw1jRWY5nhtciRsLucRgVhdEC0
-	mdLYAXdSISKfRpZguyQw939ZEsa1LnaB+3KUq7IE6WZv3yuEKGljPZnIUoIazW6lTqQOHFEhJy4
-	B0hm9xlSH7Qd1v+VxKC8HqxS+XHYIgFGW8uOppVF1YqsooQoOjp9Yp7lyWF4Q2M80WBV5MgPZ8T
-	zShPEvyBXOg4S7IIA5IzzDdYEURrRzLwS73cMOrRbdQ69kdaMBizGql5ENfycfl7T82DaQSptht
-	NfD6mbpuXf/+YQo4sdILsITbWGzzKUBc/giJ8GC9tL/9eJ2x0BIforY+fMX9tVvHsxuYUSc80+H
-	5WUkZpTgkkucGWJQJAomRk65nn2lD/u+ZVWuyCI84FUqhrrRrb2uFEKXWqjVrWMGImHFkOeGEJl
-	o=
-X-Received: by 2002:a17:903:3885:b0:2e7:ff36:c4d1 with SMTP id
- d9443c01a7336-2e840517a80mr65819775ad.31.1791805485551; Mon, 12 Oct 2026
- 04:44:45 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YJDSKrtb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2E951F0089B;
+	Mon, 12 Oct 2026 11:44:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791805494;
+	bh=6QxJ4DaF86BP7gYBvZbIoMZwPGt7kkWqISFt+v0LeKE=;
+	h=Subject:To:Cc:From:Date;
+	b=YJDSKrtbgWxDL/tVaySQpRInUL65w2n/0AgivUV0Rxz1Qr2Jd3W/UEWGBOaqkkACb
+	 zHYMU9lf6J/O/nelaec5xdSjQ6kzAHzeFFZoQ/589iB6gbcbouKrYq7MV5APTBWiGy
+	 0yizqG82rBjCo5znsQ3JNIgsv1jW9v/k0s9StJjE=
+Subject: FAILED: patch "[PATCH] mm/mremap: fix locked_vm leak by splitting VMA for" failed to apply to 5.10-stable tree
+To: ljs@kernel.org,akpm@linux-foundation.org,asrinivasan@oss.tenstorrent.com,azpijr@gmail.com,bgeffon@google.com,jannh@google.com,kas@kernel.org,liam@infradead.org,minchan@kernel.org,pfalcato@suse.de,stable@vger.kernel.org,vbabka@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 12 Oct 2026 13:44:47 +0200
+Message-ID: <2026101247-outage-wrinkly-2ff5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAPa5EdCj3v17tB-SF2JNecq5Q8s1Pranr-XzAFWNpNTBPgPG7w@mail.gmail.com>
-In-Reply-To: <CAPa5EdCj3v17tB-SF2JNecq5Q8s1Pranr-XzAFWNpNTBPgPG7w@mail.gmail.com>
-From: =?UTF-8?B?SmFuIMSMZXJtw6Fr?= <sairon@sairon.cz>
-Date: Mon, 12 Oct 2026 13:44:19 +0200
-X-Gm-Features: AclHuK9deDiVZ9f5xu6gGTRgmzdiz6FT9YboEHc7TBFHIaXDKq-IUEmQQbcQAvY
-Message-ID: <CAPa5EdD7tFRyDztEanTwQXTzVEE8T0FLkbXAtWxUcGGaLYt_bA@mail.gmail.com>
-Subject: Re: [REGRESSION][BISECTED] r8169: TX stall with checksum offload on
- VLAN frames with inline tag (REORDER_HDR off) since 1517d1996b52
-To: Eric Dumazet <edumazet@google.com>, Heiner Kallweit <hkallweit1@gmail.com>
-Cc: netdev@vger.kernel.org, regressions@lists.linux.dev, 
-	stable@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	nic_swsd@realtek.com, Sasha Levin <sashal@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-To keep the reports at a single place, the bug affects not only r8169,
-but apparently some r8152 USB cards as well, as reported in [1].
 
-I had this one (0bda:8153) lying around, so I will conduct the testing
-of the patches with that.
+The patch below does not apply to the 5.10-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-[1] https://github.com/home-assistant/operating-system/issues/5019#issuecomment-6111103634
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Regards,
-Jan
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git checkout FETCH_HEAD
+git cherry-pick -x 597e4b9ab48a3f841080f627722064853d3f650e
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101247-outage-wrinkly-2ff5@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 597e4b9ab48a3f841080f627722064853d3f650e Mon Sep 17 00:00:00 2001
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Wed, 30 Sep 2026 19:47:10 +0100
+Subject: [PATCH] mm/mremap: fix locked_vm leak by splitting VMA for
+ MREMAP_DONTUNMAP
+
+The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
+operations that keep the original VMA in place.
+
+Historically this has led to a lot of bugs where non-obvious interactions
+occur between existing mremap() operations and the original VMA.
+
+Fix another of these - partial copies.
+
+The long-standing mremap() partial VMA logic has the baked-in assumption
+that the originating VMA is unmapped and thus moved.
+
+However MREMAP_DONTUNMAP defeats this by performing a partial copy
+instead since it keeps the source VMA around.
+
+An mremap(..., MREMAP_DONTUNMAP) operation disallows resizing of the VMA,
+but the operation can be performed partially:
+
+                           |-----------------|
+                           |                 |
+                           |                 v
+                        <------>          <------>
+                        .new_sz.           new_sz
+                     |--.------.--|       |------|
+                     |  .source.  |       | dest |
+                     |--.------.--|       |------|
+                     <------------>
+                         old_sz
+
+The page tables in the specified range are moved, but the original VMA is
+kept intact.
+
+This interacts poorly with mlock()'d VMAs, as the VMA_LOCKED_BIT flag is
+cleared for the entire source VMA and set for the entire destination VMA.
+
+This results in an mm->locked_vm leak as the change is therefore not
+accounted correctly.
+
+The clear solution here is to make the portion of the source VMA which is
+mremap()'d distinct from the rest of it, a.k.a. split it.
+
+Therefore resolve this issue by splitting it ahead of the rest of the
+mremap() operation if the VMA is mlock()'d.
+
+This is valid, as the source VMA will lose its VMA_LOCKED_BIT flag, so if a
+partial remap it will become distinct from the rest of the VMA.
+
+In order to make this change re-expose split_vma() in vma.h for
+CONFIG_MMU (nommu doesn't compile mremap.c and uses a static helper
+instead).
+
+Finally, update the sys_map_count check to account for this case.
+
+Note that the early check does not use needs_pre_split() - this is because
+the VMA has not been looked up by this point, so be conservative and assume
+that the VMA is mlock()'d in this case for the purposes of the
+sys_map_count check.
+
+Link: https://lore.kernel.org/20260930-fix-dontunmap-partial-self-merge-v2-2-f388985a0f0a@kernel.org
+Fixes: e346b3813067 ("mm/mremap: add MREMAP_DONTUNMAP to mremap()")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Brian Geffon <bgeffon@google.com>
+Cc: Minchan Kim <minchan@kernel.org>
+Cc: <stable@vger.kernel.org>
+
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 058dd66fe1d7..444f37d7cd28 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -1037,6 +1037,7 @@ static void vrm_stat_account(struct vma_remap_struct *vrm,
+ }
+ 
+ static bool __check_map_count_against_split(struct mm_struct *mm,
++					    bool pre_split,
+ 					    bool before_unmaps)
+ {
+ 	const int sys_map_count = get_sysctl_max_map_count();
+@@ -1088,26 +1089,42 @@ static bool __check_map_count_against_split(struct mm_struct *mm,
+ 	 * Therefore we must check to ensure we have headroom of 2 additional
+ 	 * VMAs.
+ 	 */
+-	return map_count + 2 <= sys_map_count;
++	map_count += 2;
++
++	/* If pre-split, the -1 observed above doesn't apply. */
++	if (pre_split)
++		map_count++;
++
++	return map_count <= sys_map_count;
++}
++
++static bool needs_pre_split(struct vma_remap_struct *vrm)
++{
++	/*
++	 * An MREMAP_DONTUNMAP of a mlock()'d VMA needs to unlock the
++	 * source VMA, so split in this case.
++	 */
++	return (vrm->flags & MREMAP_DONTUNMAP) &&
++		vma_test(vrm->vma, VMA_LOCKED_BIT);
+ }
+ 
+ /* Do we violate the map count limit if we split VMAs when moving the VMA? */
+-static bool check_map_count_against_split(void)
++static bool check_map_count_against_split(struct vma_remap_struct *vrm)
+ {
+ 	return __check_map_count_against_split(current->mm,
+-					       /*before_unmaps=*/false);
++		needs_pre_split(vrm), /*before_unmaps=*/false);
+ }
+ 
+ /* Do we violate the map count limit if we split VMAs prior to early unmaps? */
+-static bool check_map_count_against_split_early(void)
++static bool check_map_count_against_split_early(struct vma_remap_struct *vrm)
+ {
+ 	return __check_map_count_against_split(current->mm,
+-					       /*before_unmaps=*/true);
++		vrm->flags & MREMAP_DONTUNMAP, /*before_unmaps=*/true);
+ }
+ 
+ /*
+- * Perform checks before attempting to write a VMA prior to it being
+- * moved.
++ * Perform checks and preparation before attempting to write a VMA prior to it
++ * being moved.
+  */
+ static unsigned long prep_move_vma(struct vma_remap_struct *vrm)
+ {
+@@ -1116,19 +1133,17 @@ static unsigned long prep_move_vma(struct vma_remap_struct *vrm)
+ 	unsigned long old_addr = vrm->addr;
+ 	unsigned long old_len = vrm->old_len;
+ 	vm_flags_t dummy = vma->vm_flags;
++	const bool split_before = vma->vm_start != old_addr;
++	const bool split_after = vma->vm_end != old_addr + old_len;
+ 
+-	/*
+-	 * We'd prefer to avoid failure later on in do_munmap: we copy a VMA,
+-	 * which may not merge, then (if MREMAP_DONTUNMAP is not set) unmap the
+-	 * source, which may split, causing a net increase of 2 mappings.
+-	 */
+-	if (!check_map_count_against_split())
++	/* Avoid failure later on. */
++	if (!check_map_count_against_split(vrm))
+ 		return -ENOMEM;
+ 
+ 	if (vma->vm_ops && vma->vm_ops->may_split) {
+-		if (vma->vm_start != old_addr)
++		if (split_before)
+ 			err = vma->vm_ops->may_split(vma, old_addr);
+-		if (!err && vma->vm_end != old_addr + old_len)
++		if (!err && split_after)
+ 			err = vma->vm_ops->may_split(vma, old_addr + old_len);
+ 		if (err)
+ 			return err;
+@@ -1146,6 +1161,21 @@ static unsigned long prep_move_vma(struct vma_remap_struct *vrm)
+ 	if (err)
+ 		return err;
+ 
++	/*
++	 * To account mlock()'d pages correctly in the MREMAP_DONTUNMAP
++	 * case perform any split ahead of time for an mlock()'d VMA.
++	 */
++	if (needs_pre_split(vrm)) {
++		VMA_ITERATOR(vmi, vma->vm_mm, old_addr);
++
++		if (split_before)
++			err = split_vma(&vmi, vma, old_addr, 1);
++		if (!err && split_after)
++			err = split_vma(&vmi, vma, old_addr + old_len, 0);
++		vrm->vmi_needs_invalidate = true;
++		return err;
++	}
++
+ 	return 0;
+ }
+ 
+@@ -2006,7 +2036,7 @@ static unsigned long do_mremap(struct vma_remap_struct *vrm)
+ 		return -EINTR;
+ 	vrm->mmap_locked = true;
+ 
+-	if (!check_map_count_against_split_early()) {
++	if (!check_map_count_against_split_early(vrm)) {
+ 		mmap_write_unlock(mm);
+ 		return -ENOMEM;
+ 	}
+diff --git a/mm/vma.c b/mm/vma.c
+index d8308c319daa..6c35f0d775ab 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -634,8 +634,8 @@ __split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
+  * Split a vma into two pieces at address 'addr', a new vma is allocated
+  * either for the first part or the tail.
+  */
+-static int split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
+-		     unsigned long addr, int new_below)
++int split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
++	      unsigned long addr, int new_below)
+ {
+ 	if (vma->vm_mm->map_count >= get_sysctl_max_map_count())
+ 		return -ENOMEM;
+diff --git a/mm/vma.h b/mm/vma.h
+index 39514fac72fc..36973abaa015 100644
+--- a/mm/vma.h
++++ b/mm/vma.h
+@@ -556,6 +556,11 @@ int do_brk_flags(struct vma_iterator *vmi, struct vm_area_struct *brkvma,
+ unsigned long unmapped_area(struct vm_unmapped_area_info *info);
+ unsigned long unmapped_area_topdown(struct vm_unmapped_area_info *info);
+ 
++#ifdef CONFIG_MMU
++int split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
++	      unsigned long addr, int new_below);
++#endif
++
+ static inline bool vma_wants_manual_pte_write_upgrade(struct vm_area_struct *vma)
+ {
+ 	/*
+
