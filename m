@@ -1,34 +1,46 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF41748E0D3;
-	Mon, 12 Oct 2026 14:24:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 369AF32824B;
+	Mon, 12 Oct 2026 14:25:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791815045; cv=none; b=U3J2sQZ3V0US61PGWNcmYV45HzgShNiRRSICSE/IrxHr4Z6ARoiHmdUUAbC3aXmQnv3Qd49/WSKV1EZItCq08Yxhg6OUye9nQp9BmGJFdzB/BvuWmLWNSytsUpdZY6h3w0bIT2VHA5zBACUep9JmFhCQuYQv/ghKS0rdiVIOJ6Q=
+	t=1791815132; cv=none; b=dc3ax3gIxsRxlq86WJErdpM3JfgYTv5/ds3g9HKvpJT6LwzLhdrGI6Nodl8KX0JWtfkUtLXjhFMohv/fa0NpIcFU3KhKyC5J+5zb/UKmdZXUWFkR47ufwKibVRfmlzNKUaMjRlbGkoNDXjr3ccc6jL/uhbQVrRSGTxdvljtAG8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791815045; c=relaxed/simple;
-	bh=e5u7Q6/lf+tkTUuzF7jxOV25e2hAJ1vVxdBBAWz1Occ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Pwhbmb2477E4DzsnYM5rTJ0jw7Uw4V9n3A4UTQMN1oyJIwesMhXg9aTQmmfTLSLvWUUs6z9KMaQ19LTKXQ6RsH8A9o4ZNXYrAQ5ko4gUFNH9St80FQWdsjUWCGZna92+x+xrNXF++1jYR5jNDNP8JfdaVDt/Kb8LFXIjii2ztN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=zf7kh9tQ; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1791815132; c=relaxed/simple;
+	bh=rSb27zLdpu0dYHiznSvxveaV1ziAQuwRQHdiQPEcrPg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=leHLBLb+vXCL4vi6CZNqtDlkhS1HZd8oq6csHU/MdRi1yN88KUL3lYaInBBpTRI8dRZogR8h27hwmJAnZglTYwyW3aBa94siAA2yq28x2WcIWS8QAzRVIgdeYdoAs/c3Ux6o3UEPotEGn9lHpldw1Rzl1bTVQ6ELQbC9GuX1tj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HsEHvGOL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="zf7kh9tQ"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 55138A012B;
-	Mon, 12 Oct 2026 16:23:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1791815032; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=QVj3/QJ0hK8bdL+nizOsq34wKHXNf3Wx2LzCotAFaeM=;
-	b=zf7kh9tQpNkyVPBEAXbq81UOCDmvnBwRxr9dZoexhY3/rU/YDft8JwSL7vg7fJxTS5ce5x
-	cEZjfxQqwHX4uRIGeDLMfQEDSX+ZKrlmwjVIM744fEabEnsVfSpEHwSU0A9eM2ky/pHgWc
-	6zl0Mm+KKZDcRWgxDshLoIrO2DtljfkVvMczC8PdyHoYG5XeHe29NPXyyxRwie8Rnvqhtn
-	C0MjHlWBc6phmNRB0p8oHzzGJ0hUBxUpa8pMcTajjj1KjFydWPJljAl/KV2BGlbaZPhJlM
-	iQc1VYF458G9zvGcX08HRTdT++PeyKRPZ4baNE5TBd38FhXzvVL6Z7qxCJ2Wlw==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Mon, 12 Oct 2026 16:23:50 +0200
-Subject: [PATCH v2] serial: amba-pl011: keep transmitter enabled when
- disabling RS485
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HsEHvGOL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C76201F0089B;
+	Mon, 12 Oct 2026 14:25:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791815130;
+	bh=mjEQR7BUyCacDd88k8LcDx+pGeS9YyLHTLECabn56ew=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=HsEHvGOLdNLNMk2ekkqfnbimIZtTFazE3X2Si695B0muhw/PzGvKqP3A5J6ZuAzNF
+	 LAjghAXJhElYFUuAdhUCTbo4Qjag0MpvECSP92lMxOABK5smPyGLKfVkl36zIRbIyd
+	 AyXIr+tcFX2N/thWxGZWc7H6kL7xTu7C6/RIb5fXsw4ILJxcwJiFNZ2B/XdoBES3UU
+	 B0Ps5MlRbBXkKKzZqblXBe2f8hJsmW/p62EJPJNQPy+c4Xvxu/TtGOui01Fi4DNQDo
+	 GqJWzJWVAKzzHcktQSPCkr/8e961uSm5F+sxJO2SAOEGwi/juK2vymTbAW7fTTw4IE
+	 fyYVyTxzonySw==
+From: Christian Brauner <brauner@kernel.org>
+To: Carlos Maiolino <cem@kernel.org>, 
+ "Darrick J . Wong" <djwong@kernel.org>, 
+ Joanne Koong <joannelkoong@gmail.com>, Brian Foster <bfoster@redhat.com>, 
+ Christoph Hellwig <hch@infradead.org>, Damien Le Moal <dlemoal@kernel.org>, 
+ Hannes Reinecke <hare@suse.de>, Daniel Gomez <da.gomez@samsung.com>, 
+ Pankaj Raghav <p.raghav@samsung.com>, Dave Chinner <dchinner@redhat.com>, 
+ Andrea Parri <parri.andrea@gmail.com>
+Cc: linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <cover.1790342457.git.parri.andrea@gmail.com>
+References: <cover.1790342457.git.parri.andrea@gmail.com>
+Subject: Re: [PATCH v3 0/4] iomap: fix error handling regressions
+Message-Id: <20261012-puschen-bibliothek-normung-535ea9605a95@brauner>
+Date: Mon, 12 Oct 2026 16:25:25 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,102 +49,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-fix-pl011-rs485-txe-v2-1-e9bf7d218389@tipi-net.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NwQ6CMBBEf4X07JpuwSqe/A/DAcpW1hggbSUY0
- n+3xbu3ecmbmU14ckxeXItNOFrY8zQmUIdCmKEdHwTcJxZKKo0SESyvML9ycr66nCCsBFYjoal
- 1betWpObsKGn76r35sX93TzIhT2VjYB8m99lvF8ze/4cFAaGUqtNGllV3trfAM8NI4diTaGKMX
- xkdK0XKAAAA
-X-Change-ID: 20261011-fix-pl011-rs485-txe-f61e1c969f9a
-To: Russell King <linux@armlinux.org.uk>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Lino Sanfilippo <LinoSanfilippo@gmx.de>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- stable@vger.kernel.org, Nicolai Buchwitz <nb@tipi-net.de>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+X-Mailer: b4 0.17-dev-3d1b8
 
-Disabling RS485 on an open port calls pl011_rs485_tx_stop(), which
-turns off the transmitter. Only the RS485 TX path turns it back on, so
-any later output stays queued and tcdrain() hangs until the port is
-closed.
+On Mon, 28 Sep 2026 10:48:05 +0200, Andrea Parri wrote:
+> Fix three independent error handling regressions in iomap:
+> 
+>  - clear the writeback context after a failed ->writeback_submit() call,
+>    preventing an already completed ioend from being submitted again;
+>  - preserve an iomap iteration error when iomap_fiemap() has a pending
+>    extent to emit; and
+>  - preserve a direct I/O data path error when sub-block tail zeroing
+>    succeeds.
+> 
+> [...]
 
-pl011_rs485_tx_stop() also checks only the hardware FIFO. If a DMA
-transfer has started but has not filled the FIFO yet, the transmitter
-is turned off under the transfer and the DMA channel never recovers.
+Applied to the vfs-7.4.iomap branch of the vfs/vfs.git tree.
+Patches in the vfs-7.4.iomap branch should appear in linux-next soon.
 
-When leaving RS485 mode, cancel pending deferred starts and stops, leave
-the transmitter enabled and start any TX that was still waiting for
-delay_rts_before_send.
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-Fixes: 8d479237727c ("serial: amba-pl011: add RS485 support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
----
-Noticed while implementing a DMX master on a CM5 with its PL011.
-Userspace turns RS485 mode off to send the break, and the port then
-stopped transmitting.
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-Tested on that board with an RS485 transceiver at 9600, 115200 and
-250000 baud.
----
-Changes in v2:
-- Start TX that was still waiting for delay_rts_before_send instead of
-  dropping it (sashiko)
-- Link to v1: https://patch.msgid.link/20261011-fix-pl011-rs485-txe-v1-1-302b6c034b7f@tipi-net.de
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
-To: Russell King <linux@armlinux.org.uk>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Jiri Slaby <jirislaby@kernel.org>
-To: Lino Sanfilippo <LinoSanfilippo@gmx.de>
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-serial@vger.kernel.org
----
- drivers/tty/serial/amba-pl011.c | 25 ++++++++++++++++++++++++-
- 1 file changed, 24 insertions(+), 1 deletion(-)
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.4.iomap
 
-diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
-index c4824c201e1c..2ad6ccfdb52c 100644
---- a/drivers/tty/serial/amba-pl011.c
-+++ b/drivers/tty/serial/amba-pl011.c
-@@ -2397,8 +2397,31 @@ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
- 	struct uart_amba_port *uap =
- 		container_of(port, struct uart_amba_port, port);
- 
--	if (port->rs485.flags & SER_RS485_ENABLED)
-+	if ((port->rs485.flags & SER_RS485_ENABLED) &&
-+	    !(rs485->flags & SER_RS485_ENABLED)) {
-+		bool tx_pending = uap->rs485_tx_state == WAIT_AFTER_RTS;
-+		u32 cr = pl011_read(uap, REG_CR);
-+
-+		/*
-+		 * Leaving RS485 mode, which only enables the transmitter while
-+		 * sending. Don't stop it, as that stalls a DMA transfer still
-+		 * in flight. Drop pending deferred starts and stops and keep
-+		 * it enabled.
-+		 */
-+		hrtimer_try_to_cancel(&uap->trigger_start_tx);
-+		hrtimer_try_to_cancel(&uap->trigger_stop_tx);
-+		uap->rs485_tx_state = OFF;
-+
-+		cr |= UART011_CR_TXE | UART011_CR_RXE;
-+		pl011_write(cr, uap, REG_CR);
-+
-+		/* Start TX that was still waiting for delay_rts_before_send */
-+		if (tx_pending && !uart_tx_stopped(port) &&
-+		    !pl011_dma_tx_start(uap))
-+			pl011_start_tx_pio(uap);
-+	} else if (port->rs485.flags & SER_RS485_ENABLED) {
- 		pl011_rs485_tx_stop(uap);
-+	}
- 
- 	/* Make sure auto RTS is disabled */
- 	if (rs485->flags & SER_RS485_ENABLED) {
-
----
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-change-id: 20261011-fix-pl011-rs485-txe-f61e1c969f9a
-
-Best regards,
---  
-Nicolai Buchwitz <nb@tipi-net.de>
+[1/4] iomap: don't resubmit an ioend after ->writeback_submit() failed
+      https://git.kernel.org/vfs/vfs/c/9646682717e6
+[2/4] xfs: add an error tag to inject a ->writeback_submit() failure
+      https://git.kernel.org/vfs/vfs/c/e50b5a3028d0
+[3/4] iomap: don't lose a fiemap iteration error when emitting the last extent
+      https://git.kernel.org/vfs/vfs/c/ec2874845c99
+[4/4] iomap: don't lose a failed direct I/O bio's error when zeroing the tail
+      https://git.kernel.org/vfs/vfs/c/750148e10873
 
