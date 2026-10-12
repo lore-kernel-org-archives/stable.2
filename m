@@ -1,34 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B53E4189C2;
-	Mon, 12 Oct 2026 10:21:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96BEC3FB07E;
+	Mon, 12 Oct 2026 10:22:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791800526; cv=none; b=n8KksxrrxYUZG2C94D27p/C3VqCq0Q8Sf40D0dbwXbHNdbdR7OdfUxbA/zMejcrmRatAKd4NNffraUarGLuC4L8Am7lmezFv0HH0UXONGWjHnC9izDuxiyuKrMK5O8P4wnLeQvW6f7/bsUJ8aoKUb5bw2EiezpGQecYVzPSvAUY=
+	t=1791800553; cv=none; b=QV/pt5X6aciLUdsR49CB8W8kRGfoKBQjIMsG0p/vYUzZSr8h+Er5TaGIoi2IYS59/vmitEDNbaneM3MJVWQ+kyJXsXke4aM9WiiJHiq0V6SfE2RmRwNuhfzVQZYZI+pR9BHbYsFLQol+NBEnJ8hVbEKM5GDA7oU3+yiUibIfAOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791800526; c=relaxed/simple;
-	bh=u4HeeHJIGSj27nhP3yoa+GGbPXodMSKyu6h1QE2ScZo=;
+	s=arc-20240116; t=1791800553; c=relaxed/simple;
+	bh=ueuEaeycyEzoyFbMr/OQmw+9gEdClc2VpoiI+F4Ax14=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=i/FIlmMtmz7KCd9l709vv+vciKqmNIiroqTDf+PwifMaj3Snab1lT2OJf+LZ/ksnEC3h/WJPgaHVpTgucXYjQscldXdPgDzbokN+0wMnQN4GeGxvsaUC/X6Yv4o5SYQO/twMIyDRHn3/WX8k/WLIG0MIArVbhN1JPo0aS7RMW8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HimUS9xa; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=GX1QGqadlU+cdQyKyJKVx2u91UNiwGpeIGipb1pUG64uQ+HUMsn5sBNKi2zqKKlE3OK/41oqXALv/fasYi/1zCXgAv+3RRcPVYQdIncyzGCUmwcufAlVT6xLpcrluNLns3VJXS+t2v4CQlfM0QcpUlI2umgXs8wlj2EG9OPWQOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oROk4qqh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HimUS9xa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5D9E1F008A0;
-	Mon, 12 Oct 2026 10:21:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oROk4qqh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6827D1F0089E;
+	Mon, 12 Oct 2026 10:22:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791800511;
-	bh=bPxhIxwhG7b7Gx6k+wiB4+/VccXTttf5zuadbuljA3s=;
+	s=k20260515; t=1791800532;
+	bh=9BYz9YnAmPvu5Zs87JPsk+qjsEggU1Tk/Ms7aUXBx5g=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=HimUS9xaungARSBGdWvRNDXTzwbEODrxPk/9O5bYR8xkuuEEHLVP0iKsQRqXCHDzA
-	 cKJ+1hfxcrFcqaRhG295HlB3+NrZWgYfZhqidjowrIuJEaU4lokyTeoIznOQcpFZeP
-	 muAKoFdt+4XqZAIIhS79frP4umyfwJUNHX9yw/AGH0mRX65ohIp4aggOEcKRlIvOJM
-	 2vb4G7MPXQ1Sz47zez70tYI7C1Gfg9LZXBOD9uDUYruWuI+1UjhNC7wUqhZfUqQ9jG
-	 a2Vt2Ei/FJ/W3tXbDrVhW6z8SMlnDKxGWtmlb2s2xPeofbIj6g0dFUYiVs7hO3u7m5
-	 jXAZOIQ3ixPJQ==
+	b=oROk4qqhTf7e+hH5V0ovuE8JpAlRAaIzrMl5j4rUK21yk2jws47xKJjyRl4FdcAqt
+	 hLr4c2U1ZriEjDGyHzxhuxggtKjZs/lfSSQRTuXkKmr8Lu40m03dw/k4OvRfTXgKOF
+	 dVwstQfKpzmi2UsHYAoZ8SUESjPJ/UrwamM9lq91F/y4CIQxQ0mz/uLT7BCm1iNJD6
+	 EVr9KoPI3ais4FfXO04HJOJ+jQmbFXrEkBREyDY/7ddyccLSbm5gTwk0ITVbr4ARcc
+	 MdtOeddXN7yXq88M4h5fI1gXa9saYsim/LzHMSLVy4l4sv/BnC6z0RHRDUSuFveXNc
+	 hdEOH8CzVN6qg==
 From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 12 Oct 2026 12:20:54 +0200
-Subject: [PATCH RFC 09/28] hfs: don't set SB_RDONLY after MDB write errors
+Date: Mon, 12 Oct 2026 12:20:59 +0200
+Subject: [PATCH RFC 14/28] ntfs: don't set SB_RDONLY after filesystem
+ errors
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,7 +38,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-work-fs-sb_rdonly-v1-9-60743a3dc326@kernel.org>
+Message-Id: <20261012-work-fs-sb_rdonly-v1-14-60743a3dc326@kernel.org>
 References: <20261012-work-fs-sb_rdonly-v1-0-60743a3dc326@kernel.org>
 In-Reply-To: <20261012-work-fs-sb_rdonly-v1-0-60743a3dc326@kernel.org>
 To: Jan Kara <jack@suse.com>
@@ -50,385 +51,684 @@ Cc: Al Viro <viro@zeniv.linux.org.uk>, ecryptfs@vger.kernel.org,
  linux-mtd@lists.infradead.org, linux-xfs@vger.kernel.org, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-3d1b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14255; i=brauner@kernel.org;
- h=from:subject:message-id; bh=u4HeeHJIGSj27nhP3yoa+GGbPXodMSKyu6h1QE2ScZo=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSd2TJ5fVjRkeLbduIcJS8u+EpYtPJftGa91f2K13D2/
- e6jGrE8HaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABPR5WNk2OGS9nLb6m+t/he1
- 96zpyn7v/MvlyseQf48Xu5dU738o/JaR4V/1lq3ah04+OHOlUnbKFkV7ndtVu9O2LLzEJfzYx6Z
- RhQ8A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=24261; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=ueuEaeycyEzoyFbMr/OQmw+9gEdClc2VpoiI+F4Ax14=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSd2TL5+EvrtysFN+fNsjnux6lqeEdLSfXEjZY9OznSO
+ ZrNr6oJd5SyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEyksorhf27F/UcT5q7l7uv4
+ 7DiXIdHA/l4Vc9Qahz1sO9e+fXPpTAQjw2VnCfGvTos/Sl+c6+V6d7O06PztyT82OMcGbdXTcDl
+ 2hg8A
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-Since commit fdbb95ff89b2 ("hfs: don't re-dirty MDB buffers after a
-write failure") hfs_mdb_commit() sets SB_RDONLY when the MDB or the
-alternate MDB buffer lost BH_Uptodate after a failed write.
-hfs_mdb_commit() runs from the flush_mdb work without holding
-sb->s_umount and from ->sync_fs(), e.g. for sync(2) which only holds
-s_umount shared. Neither may change SB_RDONLY.
+With errors=remount-ro every ntfs_error() ends up in ntfs_handle_error()
+which sets SB_RDONLY without holding sb->s_umount.
 
-freeze_super() decides from sb_rdonly() whether to take the s_writers
-rwsems and then drops s_umount while it waits for writers in
-sb_wait_write(SB_FREEZE_WRITE). A sync(2) in that window gets to
-hfs_mdb_commit() which flips SB_RDONLY. sync_filesystem() in
-freeze_super() then returns early for the now read-only superblock, the
-freeze completes with all three rwsems held and thaw_super() sees
-sb_rdonly() and skips sb_freeze_unlock(). So the rwsems stay
-write-locked on a superblock that is marked unfrozen. The commit from
-sync(2) reports:
+freeze_super() and thaw_super() both look at sb_rdonly() to figure out
+whether the s_writers rwsems need to be taken or released. So an error
+while the volume is frozen leaves the rwsems write-locked after the
+thaw. Writers hang in sb_start_write() and umount warns in
+rcu_sync_dtor().
 
-  hfs: primary MDB is corrupt, mounting read-only
+ntfs has no ->freeze_fs(). It is frozen through bdev_freeze(), e.g. by a
+device mapper suspend with lockfs which also holds new I/O. But reads of
+cached metadata still reach ntfs_error(). If two files share a cached
+page of $MFT a stat() of the one whose record has a link count of zero
+gets there:
 
-and after the thaw writers block forever and umount warns:
+  ntfs: (device dm-0): ntfs_read_locked_inode(): Inode link count is 0!
+  ntfs: (device dm-0): Filesystem has been set read-only
 
-  INFO: task s3_fsop:162 blocked for more than 30 seconds.
-  WARNING: kernel/rcu/sync.c:177 at rcu_sync_dtor+0x143/0x190
+After the resume a create blocks forever:
 
-hfs has no ->freeze_fs() so this needs bdev_freeze(), e.g. through a
-device mapper suspend with lockfs.
+  [<0>] percpu_rwsem_wait+0x203/0x500
+  [<0>] mnt_want_write+0x28f/0x2f0
+  [<0>] lookup_open+0x135/0x1b20
+
+and umount warns:
+
+  WARNING: kernel/rcu/sync.c:177 at rcu_sync_dtor+0x143/0x190, CPU#2: kworker/2:1/53
+  Workqueue: events destroy_super_work
+   percpu_free_rwsem+0x38/0xa0
+   destroy_super_work+0x133/0x2f0
 
 Follow what ext4 did in commit d3476f3dad4a ("ext4: don't set SB_RDONLY
-after filesystem errors") and record the condition in a new
-HFS_FLG_EMERGENCY_RO bit next to the MDB and bitmap dirty bits instead.
-The bit is never cleared. The messages and the -EIO from the call that
-detects the problem stay as they are. Later calls to hfs_mdb_commit()
-return 0 early exactly like they did for sb_rdonly(), so syncs and
-freezes keep working after the error. And the MDB is never marked
-cleanly unmounted after the error.
+after filesystem errors") and commit f3054e53c2f3 ("ext4: add
+EXT4_FLAGS_EMERGENCY_RO bit"). ntfs_handle_error() now sets NV_Errors
+and a new NV_EmergencyRO volume flag instead of SB_RDONLY. While
+mounting it keeps setting SB_RDONLY though. The mounter holds s_umount
+and nothing can freeze the superblock before SB_BORN. So a non-fatal
+error during mount, e.g. a bad $UpCase, still gives a read-only mount
+and $LogFile isn't emptied on such a volume.
 
-hfs now refuses modifications with -EROFS itself. That's the namespace
-operations, setattr, the hfs.type and hfs.creator xattrs, opening for
-write, write_begin, O_DIRECT writes and block allocation for files in
-hfs_get_block(). hfs_file_truncate() returns early too. It runs from
-->release() on the last close and frees preallocated blocks without any
-freeze protection.
+NV_Errors already means that the volume has errors and must not be
+remounted read-write. So the existing NVolErrors() checks give us the
+remount behaviour for free. A remount to read-write fails with -EROFS. A
+remount to read-only skips clearing VOLUME_IS_DIRTY which also lets
+emergency remount (sysrq u) through without a WARN. ntfs_sync_fs() skips
+clearing the dirty flag as well but keeps returning 0 so freezing still
+works, and ntfs_put_super() leaves the volume marked dirty.
 
-Note that b-tree growth through hfs_bmap_reserve() isn't refused. A read
-that needs another extent record first writes back the cached one. If
-that record was created before the error inserting it can need a new
-b-tree node and refusing that would make such reads fail with -EIO until
-umount.
+The dirty flag needs a bit more work. VOLUME_IS_DIRTY is set lazily on
+the first modification and ntfs_sync_fs() clears it again. So it may
+well not be on disk when the error hits and the writeback that would
+write it is refused from then on. Before, the flusher still wrote a
+dirty $Volume record after the flip. So mark the volume dirty from a
+work item once the error is recorded because ntfs_error() may be called
+with mft records locked. sb_start_intwrite() makes the work wait for a
+frozen volume to be thawed. __ntfs_write_inode() still writes $Volume in
+the emergency state, ntfs_reconfigure() flushes the work and
+ntfs_put_super() sets the flag if the work didn't get to run. So the
+remount to read-only can still write $Volume, plus whatever
+sync_filesystem() writes back.
 
-hfs_write_inode() refuses to write inodes back as well. Writeback clears
-the dirty state of an inode before it calls ->write_inode() and doesn't
-redirty it when that fails. So fsync() would happily report success for
-an inode that never made it to disk. Let fsync() fail with -EROFS
-instead. Like on ext4 an operation that completed shortly before the
-error can end up half-applied on disk and needs fsck.hfs.
+Evicting an unlinked inode frees its mft record with direct bios while
+the index and bitmap updates of the deletion sit in the page cache which
+can't be written back anymore. The directory entry then points at a free
+record on disk. So don't free the on-disk structures of unlinked inodes
+in the emergency state and leave them to chkdsk like ext2 does. That
+alone isn't enough because the deletion itself can raise the error and
+->release() and ->drop_inode() free mft records too when they truncate.
+So ntfs_mft_record_free() refuses in that state as well.
 
-Only the headers of the extents and catalog b-trees are still written.
-Writeback writes the b-tree nodes anyway and a node that gets allocated
-after the error, e.g. by a read that writes back a cached extent
-record, needs a header that knows about it. Otherwise the next mount
-starts from a stale root and misses records.
+The new ntfs_emergency_state() returns -EIO for NV_Shutdown and -EROFS
+for NV_EmergencyRO, same as ext4_emergency_state(). Every check on the
+write side that honoured NV_Shutdown uses it now, including
+__ntfs_write_iomap_begin() for buffered, direct and mmap writes and for
+writeback. fallocate, ->set_acl(), FS_IOC_SETFSLABEL and
+ntfs_mft_record_free() didn't have a shutdown check at all and get one
+now. FITRIM is refused as well. The read side keeps its shutdown-only
+checks so reads keep working.
 
-A remount to read-write fails with -EROFS until umount and a remount to
-read-only is allowed. Like ext4 we show "emergency_ro" in the mount
-options. The mount stays "rw" and writes through file descriptors opened
-before the error now fail with -EROFS.
+Writing to an encrypted file isn't supported and so far called
+ntfs_error(). That would let any user who can write to such a file put
+the volume into the emergency state. And since the dirty flag is now
+written the next errors=remount-ro mount would be read-only until
+chkdsk ran. It isn't a filesystem error anyway so just warn.
 
-Reproducer. The writer parked in sb_start_write() keeps freeze_super()
-in sb_wait_write() with s_umount dropped while sync(2) runs:
+Like ext4 we show "emergency_ro" in the mount options. The mount stays
+"rw" until a remount to read-only. Opening a file for writing fails
+with -EROFS like on ext4, writes through file descriptors opened before
+the error fail with -EROFS as well and mmap writes get SIGBUS. Data and
+inodes dirtied before the error aren't written back anymore so an
+operation that completed shortly before the error can end up
+half-applied on disk and needs chkdsk. And the volume now stays marked
+dirty so the next errors=remount-ro mount is read-only until chkdsk ran.
+Note that ntfs_sync_fs(), ntfs_reconfigure() and ntfs_put_super() check
+NVolErrors() without holding $Volume's lock. So an error racing with
+them can still end up with a clean volume.
 
-  hformat /dev/vdb; N=$(blockdev --getsz /dev/vdb)
-  dmsetup create h0 --table "0 $N linear /dev/vdb 0"
-  mount -t hfs /dev/mapper/h0 /mnt; echo a > /mnt/f; sync
-  printf '0 2 linear /dev/vdb 0\n2 1 error\n3 %d linear /dev/vdb 3\n' $((N-3)) |
-          dmsetup load h0             # fail writes to the MDB sector
-  dmsetup suspend --nolockfs h0; dmsetup resume h0
-  echo b > /mnt/h; sleep 6         # flush_mdb: MDB write fails, mdb_bh !uptodate
-  sync /mnt/f                      # fsync(): consumes the bdev mapping's AS_EIO
-  <writer: splice() from an empty pipe into /mnt/f>   # parked in sb_start_write()
-  dmsetup suspend h0 &             # freeze_super() waits for the writer
-  sync                             # hfs_mdb_commit(): "primary MDB is corrupt" -> SB_RDONLY
-  <feed the pipe>                  # freeze completes, sync_filesystem() skipped
-  dmsetup resume h0                # thaw_super() skips sb_freeze_unlock()
-  touch /mnt/x                     # hangs in sb_start_write()
+Before, a remount to read-write after the flip was allowed whenever the
+volume wasn't marked dirty. Now it's refused until umount. After
+FS_IOC_SHUTDOWN fallocate returns -EIO now and unlinked inodes that get
+evicted aren't freed anymore.
 
-Fixes: fdbb95ff89b2 ("hfs: don't re-dirty MDB buffers after a write failure")
+Reproducer:
+
+  truncate -s 64M ntfs.img; mkntfs -F -f -q ntfs.img
+  mount -o loop ntfs.img /mnt; for i in 0 1 2 3 4 5 6 7; do echo $i > /mnt/f$i; done
+  stat -c '%i %n' /mnt/f1 /mnt/f2    # 32 and 33 (f0 is 27): one 4k page of $MFT
+  umount /mnt
+  # link count (offset 0x12) of f2's MFT record -> 0; $MFT starts at LCN 4 (4k clusters)
+  printf '\0\0' | dd of=ntfs.img bs=1 seek=$((4 * 4096 + 33 * 1024 + 0x12)) conv=notrunc
+  losetup /dev/loop0 ntfs.img
+  dmsetup create ntfs --table "0 $(blockdev --getsz /dev/loop0) linear /dev/loop0 0"
+  mount -t ntfs -o errors=remount-ro /dev/mapper/ntfs /mnt
+  stat /mnt/f1           # reads the $MFT page holding f1 and f2
+  dmsetup suspend ntfs   # bdev_freeze() -> freeze_super()
+  stat /mnt/f2           # "Inode link count is 0!" -> SB_RDONLY while frozen
+  dmsetup resume ntfs    # thaw_super() sees SB_RDONLY and skips sb_freeze_unlock()
+  touch /mnt/x           # hangs in sb_start_write()
+  # umount instead of touch: WARNING at kernel/rcu/sync.c:177 rcu_sync_dtor()
+
+The dirty flag is at offset 0x0a of the VOLUME_INFORMATION value in mft
+record 3. After the error it reads 0x0001 on disk. Before this patch it
+stayed 0x0000 until umount and beyond.
+
+Fixes: 6251f0b0de7d ("ntfs: update super block operations")
 Cc: stable@vger.kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- fs/hfs/attr.c   |  3 +++
- fs/hfs/dir.c    | 12 ++++++++++++
- fs/hfs/extent.c |  5 +++++
- fs/hfs/hfs_fs.h | 11 +++++++++++
- fs/hfs/inode.c  | 30 ++++++++++++++++++++++++++++++
- fs/hfs/mdb.c    | 18 ++++++++++++------
- fs/hfs/super.c  |  7 ++++++-
- 7 files changed, 79 insertions(+), 7 deletions(-)
+ fs/ntfs/aops.c   |  5 +++--
+ fs/ntfs/dir.c    |  5 +++--
+ fs/ntfs/ea.c     | 10 ++++++++--
+ fs/ntfs/file.c   | 51 ++++++++++++++++++++++++++++++++++++-------------
+ fs/ntfs/inode.c  | 22 ++++++++++++++++++---
+ fs/ntfs/iomap.c  |  6 ++++--
+ fs/ntfs/mft.c    | 10 ++++++++--
+ fs/ntfs/namei.c  | 40 ++++++++++++++++++++++----------------
+ fs/ntfs/super.c  | 58 +++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ fs/ntfs/volume.h | 22 +++++++++++++++++++++
+ 10 files changed, 186 insertions(+), 43 deletions(-)
 
-diff --git a/fs/hfs/attr.c b/fs/hfs/attr.c
-index f8395cdd1adf..d7f8353322c8 100644
---- a/fs/hfs/attr.c
-+++ b/fs/hfs/attr.c
-@@ -129,6 +129,9 @@ static int hfs_xattr_set(const struct xattr_handler *handler,
- 	if (!value)
- 		return -EOPNOTSUPP;
+diff --git a/fs/ntfs/aops.c b/fs/ntfs/aops.c
+index 517d9a1563e7..dc3aee8a9a4d 100644
+--- a/fs/ntfs/aops.c
++++ b/fs/ntfs/aops.c
+@@ -262,8 +262,9 @@ static int ntfs_writepages(struct address_space *mapping,
+ 	bool need_iput = false;
+ 	int ret;
  
-+	if (unlikely(hfs_emergency_ro(inode->i_sb)))
-+		return -EROFS;
+-	if (NVolShutdown(ni->vol))
+-		return -EIO;
++	ret = ntfs_emergency_state(ni->vol);
++	if (ret)
++		return ret;
+ 
+ 	if (!NInoNonResident(ni))
+ 		return 0;
+diff --git a/fs/ntfs/dir.c b/fs/ntfs/dir.c
+index df60138f9b2d..765f5487ba43 100644
+--- a/fs/ntfs/dir.c
++++ b/fs/ntfs/dir.c
+@@ -1121,8 +1121,9 @@ static int ntfs_dir_fsync(struct file *filp, loff_t start, loff_t end,
+ 
+ 	ntfs_debug("Entering for inode 0x%llx.", ni->mft_no);
+ 
+-	if (NVolShutdown(vol))
+-		return -EIO;
++	err = ntfs_emergency_state(vol);
++	if (err)
++		return err;
+ 
+ 	ctx = ntfs_attr_get_search_ctx(ni, NULL);
+ 	if (!ctx)
+diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
+index b4fcfbe2da4c..719de82205e0 100644
+--- a/fs/ntfs/ea.c
++++ b/fs/ntfs/ea.c
+@@ -883,8 +883,9 @@ static int ntfs_setxattr(const struct xattr_handler *handler,
+ 	int err;
+ 	__le32 fattr;
+ 
+-	if (NVolShutdown(ni->vol))
+-		return -EIO;
++	err = ntfs_emergency_state(ni->vol);
++	if (err)
++		return err;
+ 
+ 	if (ntfs_is_reserved_lxattr(name) && !capable(CAP_SYS_ADMIN))
+ 		return -EPERM;
+@@ -1106,6 +1107,11 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
+ int ntfs_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
+ 		 struct posix_acl *acl, int type)
+ {
++	int err;
 +
- 	return __hfs_setxattr(inode, handler->flags, value, size, flags);
++	err = ntfs_emergency_state(NTFS_I(d_inode(dentry))->vol);
++	if (err)
++		return err;
+ 	return ntfs_set_acl_ex(idmap, d_inode(dentry), acl, type, false);
  }
  
-diff --git a/fs/hfs/dir.c b/fs/hfs/dir.c
-index e1f1fb351464..e7ed6e829b77 100644
---- a/fs/hfs/dir.c
-+++ b/fs/hfs/dir.c
-@@ -189,6 +189,9 @@ static int hfs_create(struct mnt_idmap *idmap, struct inode *dir,
- 	struct inode *inode;
- 	int res;
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index 007d1614b9ac..c05fce282096 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -47,9 +47,14 @@
+ static int ntfs_file_open(struct inode *vi, struct file *filp)
+ {
+ 	struct ntfs_inode *ni = NTFS_I(vi);
++	int err;
  
-+	if (unlikely(hfs_emergency_ro(dir->i_sb)))
-+		return -EROFS;
+-	if (NVolShutdown(ni->vol))
+-		return -EIO;
++	if (filp->f_mode & FMODE_WRITE)
++		err = ntfs_emergency_state(ni->vol);
++	else
++		err = NVolShutdown(ni->vol) ? -EIO : 0;
++	if (err)
++		return err;
+ 
+ 	if (sizeof(unsigned long) < 8) {
+ 		if (i_size_read(vi) > MAX_LFS_FILESIZE)
+@@ -168,8 +173,9 @@ static int ntfs_file_fsync(struct file *filp, loff_t start, loff_t end,
+ 
+ 	ntfs_debug("Entering for inode 0x%llx.", ni->mft_no);
+ 
+-	if (NVolShutdown(vol))
+-		return -EIO;
++	err = ntfs_emergency_state(vol);
++	if (err)
++		return err;
+ 
+ 	err = file_write_and_wait_range(filp, start, end);
+ 	if (err)
+@@ -311,8 +317,9 @@ int ntfs_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 	struct ntfs_inode *ni = NTFS_I(vi);
+ 	struct ntfs_volume *vol = ni->vol;
+ 
+-	if (NVolShutdown(vol))
+-		return -EIO;
++	err = ntfs_emergency_state(vol);
++	if (err)
++		return err;
+ 
+ 	err = setattr_prepare(idmap, dentry, attr);
+ 	if (err)
+@@ -589,15 +596,16 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 	int err;
+ 	loff_t old_data_size, old_init_size;
+ 
+-	if (NVolShutdown(vol))
+-		return -EIO;
++	err = ntfs_emergency_state(vol);
++	if (err)
++		return err;
+ 
+ 	if (NInoWofCompressed(ni))
+ 		return -EOPNOTSUPP;
+ 
+ 	if (NInoEncrypted(ni)) {
+-		ntfs_error(vi->i_sb, "Writing for %s files is not supported yet",
+-			   NInoCompressed(ni) ? "Compressed" : "Encrypted");
++		ntfs_warning(vi->i_sb, "Writing for %s files is not supported yet",
++			     NInoCompressed(ni) ? "Compressed" : "Encrypted");
+ 		return -EOPNOTSUPP;
+ 	}
+ 
+@@ -708,9 +716,15 @@ static int ntfs_file_mmap_prepare(struct vm_area_desc *desc)
+ {
+ 	struct file *file = desc->file;
+ 	struct inode *inode = file_inode(file);
++	struct ntfs_volume *vol = NTFS_SB(file->f_mapping->host->i_sb);
++	int ret;
+ 
+-	if (NVolShutdown(NTFS_SB(file->f_mapping->host->i_sb)))
+-		return -EIO;
++	if (file->f_mode & FMODE_WRITE)
++		ret = ntfs_emergency_state(vol);
++	else
++		ret = NVolShutdown(vol) ? -EIO : 0;
++	if (ret)
++		return ret;
+ 
+ 	if (NInoCompressed(NTFS_I(inode)) || NInoWofCompressed(NTFS_I(inode)))
+ 		return -EOPNOTSUPP;
+@@ -836,7 +850,9 @@ static int ntfs_ioctl_set_volume_label(struct file *filp, unsigned long arg)
+ 	if (ret)
+ 		goto out;
+ 
+-	ret = ntfs_write_volume_label(vol, label);
++	ret = ntfs_emergency_state(vol);
++	if (!ret)
++		ret = ntfs_write_volume_label(vol, label);
+ 	mnt_drop_write_file(filp);
+ out:
+ 	kfree(label);
+@@ -853,6 +869,11 @@ static int ntfs_ioctl_fitrim(struct ntfs_volume *vol, unsigned long arg)
+ 	if (!capable(CAP_SYS_ADMIN))
+ 		return -EPERM;
+ 
++	/* Don't trust $Bitmap after an error. */
++	err = ntfs_emergency_state(vol);
++	if (err)
++		return err;
 +
- 	inode = hfs_new_inode(dir, &dentry->d_name, mode);
- 	if (IS_ERR(inode))
- 		return PTR_ERR(inode);
-@@ -219,6 +222,9 @@ static struct dentry *hfs_mkdir(struct mnt_idmap *idmap, struct inode *dir,
- 	struct inode *inode;
- 	int res;
+ 	dev = vol->sb->s_bdev;
+ 	if (!bdev_max_discard_sectors(dev))
+ 		return -EOPNOTSUPP;
+@@ -1136,6 +1157,10 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
+ 	if (mode & ~(NTFS_FALLOC_FL_SUPPORTED))
+ 		return -EOPNOTSUPP;
  
-+	if (unlikely(hfs_emergency_ro(dir->i_sb)))
-+		return ERR_PTR(-EROFS);
++	err = ntfs_emergency_state(vol);
++	if (err)
++		return err;
 +
- 	inode = hfs_new_inode(dir, &dentry->d_name, mode);
- 	if (IS_ERR(inode))
- 		return ERR_CAST(inode);
-@@ -252,6 +258,9 @@ static int hfs_remove(struct inode *dir, struct dentry *dentry)
- 	struct inode *inode = d_inode(dentry);
- 	int res;
+ 	if (NInoCompressed(ni) || NInoEncrypted(ni) || NInoWofCompressed(ni))
+ 		return -EOPNOTSUPP;
  
-+	if (unlikely(hfs_emergency_ro(sb)))
-+		return -EROFS;
-+
- 	if (S_ISDIR(inode->i_mode) && inode->i_size != 2)
- 		return -ENOTEMPTY;
+diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
+index a777de8a80c7..ba2b262eec73 100644
+--- a/fs/ntfs/inode.c
++++ b/fs/ntfs/inode.c
+@@ -2302,7 +2302,13 @@ void ntfs_evict_big_inode(struct inode *vi)
  
-@@ -290,6 +299,9 @@ static int hfs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
- 	if (flags & ~RENAME_NOREPLACE)
+ 	truncate_inode_pages_final(&vi->i_data);
+ 
+-	if (!vi->i_nlink) {
++	/*
++	 * After an error don't free the on-disk structures of an unlinked
++	 * inode: the freed mft record would be written right away while the
++	 * rest of the deletion can't be written back anymore. Leave the inode
++	 * to chkdsk and only release it from memory.
++	 */
++	if (!vi->i_nlink && !ntfs_emergency_state(ni->vol)) {
+ 		if (!NInoAttr(ni)) {
+ 			/* Never called with extent inodes */
+ 			WARN_ON(ni->nr_extents == -1);
+@@ -2392,6 +2398,8 @@ int ntfs_show_options(struct seq_file *sf, struct dentry *root)
+ 		if (on_errors_arr[i].val == vol->on_errors)
+ 			seq_printf(sf, ",errors=%s", on_errors_arr[i].str);
+ 	}
++	if (NVolEmergencyRO(vol))
++		seq_puts(sf, ",emergency_ro");
+ 	seq_printf(sf, ",mft_zone_multiplier=%i", vol->mft_zone_multiplier);
+ 	if (NVolSysImmutable(vol))
+ 		seq_puts(sf, ",sys_immutable");
+@@ -2754,8 +2762,16 @@ int __ntfs_write_inode(struct inode *vi, int sync)
+ 	ntfs_debug("Entering for %sinode 0x%llx.", NInoAttr(ni) ? "attr " : "",
+ 			ni->mft_no);
+ 
+-	if (NVolShutdown(ni->vol))
+-		return -EIO;
++	/*
++	 * After an error only $Volume is still written: it holds
++	 * VOLUME_IS_DIRTY, see ntfs_error_work().
++	 */
++	err = ntfs_emergency_state(ni->vol);
++	if (err) {
++		if (err != -EROFS || vi != ni->vol->vol_ino)
++			return err;
++		err = 0;
++	}
+ 
+ 	/*
+ 	 * Dirty attribute inodes are written via their real inodes so just
+diff --git a/fs/ntfs/iomap.c b/fs/ntfs/iomap.c
+index c812d7f19b36..d0fae2712b8f 100644
+--- a/fs/ntfs/iomap.c
++++ b/fs/ntfs/iomap.c
+@@ -717,9 +717,11 @@ static int __ntfs_write_iomap_begin(struct inode *inode, loff_t offset,
+ 				    struct iomap *iomap, int ntfs_iomap_flags)
+ {
+ 	struct ntfs_inode *ni = NTFS_I(inode);
++	int err;
+ 
+-	if (NVolShutdown(ni->vol))
+-		return -EIO;
++	err = ntfs_emergency_state(ni->vol);
++	if (err)
++		return err;
+ 
+ 	if (!NInoNonResident(ni)) {
+ 		mutex_lock(&ni->mrec_lock);
+diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
+index 4b7449495375..bcba19c6ea24 100644
+--- a/fs/ntfs/mft.c
++++ b/fs/ntfs/mft.c
+@@ -2755,6 +2755,11 @@ int ntfs_mft_record_free(struct ntfs_volume *vol, struct ntfs_inode *ni)
+ 	if (!vol || !ni)
  		return -EINVAL;
  
-+	if (unlikely(hfs_emergency_ro(old_dir->i_sb)))
-+		return -EROFS;
++	/* The freed record goes out right away, the rest of the deletion can't. */
++	err = ntfs_emergency_state(vol);
++	if (err)
++		return err;
 +
- 	/* Unlink destination if it already exists */
- 	if (d_really_is_positive(new_dentry)) {
- 		res = hfs_remove(new_dir, new_dentry);
-diff --git a/fs/hfs/extent.c b/fs/hfs/extent.c
-index f066a99a863b..dab31f159b1a 100644
---- a/fs/hfs/extent.c
-+++ b/fs/hfs/extent.c
-@@ -350,6 +350,9 @@ int hfs_get_block(struct inode *inode, sector_t block,
- 		if (block > HFS_I(inode)->fs_blocks)
- 			return -EIO;
- 		if (ablock >= HFS_I(inode)->alloc_blocks) {
-+			/* No new allocations after an error. */
-+			if (unlikely(hfs_emergency_ro(sb)))
-+				return -EROFS;
- 			res = hfs_extend_file(inode);
- 			if (res)
- 				return res;
-@@ -485,6 +488,8 @@ void hfs_file_truncate(struct inode *inode)
- 	hfs_dbg("ino %llu, phys_size %llu -> i_size %llu\n",
- 		inode->i_ino, (long long)HFS_I(inode)->phys_size,
- 		inode->i_size);
-+	if (unlikely(hfs_emergency_ro(sb)))
-+		return;
- 	if (inode->i_size > HFS_I(inode)->phys_size) {
- 		struct address_space *mapping = inode->i_mapping;
- 		void *fsdata = NULL;
-diff --git a/fs/hfs/hfs_fs.h b/fs/hfs/hfs_fs.h
-index e250f87a5e33..71ab81b649bc 100644
---- a/fs/hfs/hfs_fs.h
-+++ b/fs/hfs/hfs_fs.h
-@@ -143,6 +143,7 @@ struct hfs_sb_info {
- #define HFS_FLG_BITMAP_DIRTY	0
- #define HFS_FLG_MDB_DIRTY	1
- #define HFS_FLG_ALT_MDB_DIRTY	2
-+#define HFS_FLG_EMERGENCY_RO	3	/* read-only after an MDB write error */
+ 	ntfs_debug("Entering for inode 0x%llx.\n", (long long)ni->mft_no);
  
- /* bitmap.c */
- extern u32 hfs_vbm_search_free(struct super_block *sb, u32 goal, u32 *num_bits);
-@@ -293,6 +294,16 @@ static inline const char *hfs_mdb_name(struct super_block *sb)
- 	return sb->s_id;
+ 	ni_mrec = map_mft_record(ni);
+@@ -3097,8 +3102,9 @@ int ntfs_mft_writepages(struct address_space *mapping,
+ 	struct folio *folio = NULL;
+ 	int error;
+ 
+-	if (NVolShutdown(NTFS_I(mapping->host)->vol))
+-		return -EIO;
++	error = ntfs_emergency_state(NTFS_I(mapping->host)->vol);
++	if (error)
++		return error;
+ 
+ 	while ((folio = writeback_iter(mapping, wbc, folio, &error)))
+ 		error = ntfs_write_mft_block(folio, wbc);
+diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
+index fdf52fac4329..d577ce274057 100644
+--- a/fs/ntfs/namei.c
++++ b/fs/ntfs/namei.c
+@@ -740,8 +740,9 @@ static int ntfs_create(struct mnt_idmap *idmap, struct inode *dir,
+ 	__le16 *uname;
+ 	int uname_len, err;
+ 
+-	if (NVolShutdown(vol))
+-		return -EIO;
++	err = ntfs_emergency_state(vol);
++	if (err)
++		return err;
+ 
+ 	uname_len = ntfs_nlstoucs(vol, dentry->d_name.name, dentry->d_name.len,
+ 				  &uname, NTFS_MAX_NAME_LEN);
+@@ -1015,8 +1016,9 @@ static int ntfs_unlink(struct inode *dir, struct dentry *dentry)
+ 	__le16 *uname = NULL;
+ 	int uname_len;
+ 
+-	if (NVolShutdown(vol))
+-		return -EIO;
++	err = ntfs_emergency_state(vol);
++	if (err)
++		return err;
+ 
+ 	uname_len = ntfs_nlstoucs(vol, dentry->d_name.name, dentry->d_name.len,
+ 				  &uname, NTFS_MAX_NAME_LEN);
+@@ -1059,8 +1061,9 @@ static struct dentry *ntfs_mkdir(struct mnt_idmap *idmap, struct inode *dir,
+ 	__le16 *uname;
+ 	int uname_len;
+ 
+-	if (NVolShutdown(vol))
+-		return ERR_PTR(-EIO);
++	err = ntfs_emergency_state(vol);
++	if (err)
++		return ERR_PTR(err);
+ 
+ 	uname_len = ntfs_nlstoucs(vol, dentry->d_name.name, dentry->d_name.len,
+ 				  &uname, NTFS_MAX_NAME_LEN);
+@@ -1100,8 +1103,9 @@ static int ntfs_rmdir(struct inode *dir, struct dentry *dentry)
+ 	__le16 *uname = NULL;
+ 	int uname_len;
+ 
+-	if (NVolShutdown(vol))
+-		return -EIO;
++	err = ntfs_emergency_state(vol);
++	if (err)
++		return err;
+ 
+ 	ni = NTFS_I(vi);
+ 	uname_len = ntfs_nlstoucs(vol, dentry->d_name.name, dentry->d_name.len,
+@@ -1265,8 +1269,9 @@ static int ntfs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
+ 	struct ntfs_inode *old_dir_ni = NTFS_I(old_dir), *new_dir_ni = NTFS_I(new_dir);
+ 	bool new_dir_first = false;
+ 
+-	if (NVolShutdown(old_dir_ni->vol))
+-		return -EIO;
++	err = ntfs_emergency_state(vol);
++	if (err)
++		return err;
+ 
+ 	if (flags & (RENAME_EXCHANGE | RENAME_WHITEOUT))
+ 		return -EINVAL;
+@@ -1411,8 +1416,9 @@ static int ntfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
+ 	int usrc_len;
+ 	int symlen = strlen(symname);
+ 
+-	if (NVolShutdown(vol))
+-		return -EIO;
++	err = ntfs_emergency_state(vol);
++	if (err)
++		return err;
+ 
+ 	usrc_len = ntfs_nlstoucs(vol, dentry->d_name.name,
+ 				 dentry->d_name.len, &usrc, NTFS_MAX_NAME_LEN);
+@@ -1457,8 +1463,9 @@ static int ntfs_mknod(struct mnt_idmap *idmap, struct inode *dir,
+ 	__le16 *uname = NULL;
+ 	int uname_len;
+ 
+-	if (NVolShutdown(vol))
+-		return -EIO;
++	err = ntfs_emergency_state(vol);
++	if (err)
++		return err;
+ 
+ 	uname_len = ntfs_nlstoucs(vol, dentry->d_name.name,
+ 			dentry->d_name.len, &uname, NTFS_MAX_NAME_LEN);
+@@ -1510,8 +1517,9 @@ static int ntfs_link(struct dentry *old_dentry, struct inode *dir,
+ 	int err;
+ 	struct ntfs_inode *ni = NTFS_I(vi), *dir_ni = NTFS_I(dir);
+ 
+-	if (NVolShutdown(vol))
+-		return -EIO;
++	err = ntfs_emergency_state(vol);
++	if (err)
++		return err;
+ 
+ 	uname_len = ntfs_nlstoucs(vol, dentry->d_name.name,
+ 			dentry->d_name.len, &uname, NTFS_MAX_NAME_LEN);
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index 4066bacabe37..12ad2ce938ba 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -269,6 +269,8 @@ static int ntfs_reconfigure(struct fs_context *fc)
+ 
+ 	ntfs_debug("Entering with remount");
+ 
++	/* Mark the volume dirty first if an error made it read-only. */
++	flush_work(&vol->error_work);
+ 	sync_filesystem(sb);
+ 
+ 	/*
+@@ -338,7 +340,28 @@ void ntfs_handle_error(struct super_block *sb)
+ 		return;
+ 
+ 	if (vol->on_errors == ON_ERRORS_REMOUNT_RO) {
+-		sb->s_flags |= SB_RDONLY;
++		if (!(sb->s_flags & SB_BORN)) {
++			/*
++			 * Still mounting: the mounter holds s_umount and
++			 * nothing can freeze the superblock yet, so make it
++			 * a read-only mount.
++			 */
++			sb->s_flags |= SB_RDONLY;
++		} else {
++			/*
++			 * Don't set SB_RDONLY: that needs sb->s_umount and a
++			 * proper remount, and setting it while the volume is
++			 * frozen makes thaw_super() leave the s_writers rwsems
++			 * locked. NV_EmergencyRO makes the volume refuse
++			 * modifications instead and NV_Errors keeps it from
++			 * being remounted read-write. The error work marks
++			 * the volume dirty on disk.
++			 */
++			NVolSetErrors(vol);
++			if (test_and_set_bit(NV_EmergencyRO, &vol->flags))
++				return;
++			queue_work(ntfs_wq, &vol->error_work);
++		}
+ 		pr_crit("(device %s): Filesystem has been set read-only\n",
+ 			sb->s_id);
+ 	} else if (vol->on_errors == ON_ERRORS_PANIC) {
+@@ -423,6 +446,29 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+ 	return ntfs_write_volume_flags(vol, vol->vol_flags | flags);
  }
  
 +/*
-+ * Writing back the MDB failed and the filesystem stopped all modifications
-+ * until unmount. SB_RDONLY isn't used for that because it must not change
-+ * without s_umount.
++ * ntfs_error_work - mark the volume dirty on disk after an error
++ * @work:	the error_work of the ntfs volume
++ *
++ * VOLUME_IS_DIRTY makes chkdsk check the volume. It is set lazily on the first
++ * modification and ntfs_sync_fs() clears it again, so it may not be on disk
++ * when an error makes the volume read-only, and the inode writeback that would
++ * write it is refused from then on. __ntfs_write_inode() still writes $Volume
++ * in that state. This runs from a work item because ntfs_error() may be called
++ * with mft records locked. sb_start_intwrite() waits for a frozen volume to be
++ * thawed.
 + */
-+static inline bool hfs_emergency_ro(struct super_block *sb)
++static void ntfs_error_work(struct work_struct *work)
 +{
-+	return test_bit(HFS_FLG_EMERGENCY_RO, &HFS_SB(sb)->flags);
++	struct ntfs_volume *vol = container_of(work, struct ntfs_volume,
++					       error_work);
++
++	sb_start_intwrite(vol->sb);
++	if (!ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY))
++		ntfs_commit_inode(vol->vol_ino);
++	sb_end_intwrite(vol->sb);
 +}
 +
- static inline void hfs_bitmap_dirty(struct super_block *sb)
- {
- 	set_bit(HFS_FLG_BITMAP_DIRTY, &HFS_SB(sb)->flags);
-diff --git a/fs/hfs/inode.c b/fs/hfs/inode.c
-index 2aef3c36a150..42a2c2e390b2 100644
---- a/fs/hfs/inode.c
-+++ b/fs/hfs/inode.c
-@@ -54,6 +54,9 @@ int hfs_write_begin(const struct kiocb *iocb, struct address_space *mapping,
- 	loff_t total_capacity;
- 	int ret;
+ /*
+  * ntfs_clear_volume_flags - clear bits in the volume information flags
+  * @vol:	ntfs volume on which to modify the flags
+@@ -1716,6 +1762,15 @@ static void ntfs_put_super(struct super_block *sb)
  
-+	if (unlikely(hfs_emergency_ro(inode->i_sb)))
-+		return -EROFS;
-+
- 	total_capacity = (loff_t)sbi->fs_ablocks * sbi->alloc_blksz;
- 
- 	if (pos >= total_capacity)
-@@ -139,6 +142,10 @@ static ssize_t hfs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
- 	size_t count = iov_iter_count(iter);
- 	ssize_t ret;
- 
-+	if (iov_iter_rw(iter) == WRITE &&
-+	    unlikely(hfs_emergency_ro(inode->i_sb)))
-+		return -EROFS;
-+
- 	ret = blockdev_direct_IO(iocb, inode, iter, hfs_get_block);
- 
- 	/*
-@@ -472,6 +479,20 @@ int hfs_write_inode(struct inode *inode, struct writeback_control *wbc)
- 	int res;
- 
- 	hfs_dbg("ino %llu\n", inode->i_ino);
-+	if (unlikely(hfs_emergency_ro(inode->i_sb))) {
-+		/*
-+		 * Writeback still writes the b-tree nodes. Keep the headers in
-+		 * sync with them so the trees on disk stay intact.
-+		 */
-+		if (inode->i_ino == HFS_EXT_CNID)
-+			hfs_btree_write(HFS_SB(inode->i_sb)->ext_tree);
-+		else if (inode->i_ino == HFS_CAT_CNID)
-+			hfs_btree_write(HFS_SB(inode->i_sb)->cat_tree);
-+		else
-+			return -EROFS;
-+		return 0;
-+	}
-+
- 	res = hfs_ext_write_extent(inode);
- 	if (res)
- 		return res;
-@@ -619,6 +640,8 @@ void hfs_evict_inode(struct inode *inode)
- 
- static int hfs_file_open(struct inode *inode, struct file *file)
- {
-+	if ((file->f_mode & FMODE_WRITE) && hfs_emergency_ro(inode->i_sb))
-+		return -EROFS;
- 	if (HFS_IS_RSRC(inode))
- 		inode = HFS_I(inode)->rsrc_inode;
- 	atomic_inc(&HFS_I(inode)->opencnt);
-@@ -650,6 +673,9 @@ int hfs_inode_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
- 	struct hfs_sb_info *hsb = HFS_SB(inode->i_sb);
- 	int error;
- 
-+	if (unlikely(hfs_emergency_ro(inode->i_sb)))
-+		return -EROFS;
-+
- 	error = setattr_prepare(&nop_mnt_idmap, dentry, attr);
- 	if (error)
- 		return error;
-@@ -701,6 +727,10 @@ static int hfs_file_fsync(struct file *filp, loff_t start, loff_t end,
- 	struct super_block * sb;
- 	int ret, err;
- 
-+	/* Inodes aren't written back after an error. */
-+	if (unlikely(hfs_emergency_ro(inode->i_sb)))
-+		return -EROFS;
-+
- 	ret = file_write_and_wait_range(filp, start, end);
- 	if (ret)
- 		return ret;
-diff --git a/fs/hfs/mdb.c b/fs/hfs/mdb.c
-index 277de712f9d4..ce20824bbdc8 100644
---- a/fs/hfs/mdb.c
-+++ b/fs/hfs/mdb.c
-@@ -322,8 +322,8 @@ int hfs_mdb_get(struct super_block *sb)
-  *   NONE
-  * Returns:
-  *   0 on success, -EIO if the MDB or alternate MDB buffer is no longer
-- *   valid (e.g. after a prior write error), in which case the volume is
-- *   remounted read-only.
-+ *   valid (e.g. after a prior write error), in which case the volume
-+ *   refuses all further modifications until it is unmounted.
-  * Preconditions:
-  *   'mdb' points to a "valid" (struct hfs_mdb).
-  * Postconditions:
-@@ -338,12 +338,18 @@ int hfs_mdb_commit(struct super_block *sb)
- 	struct hfs_mdb *mdb = HFS_SB(sb)->mdb;
- 	int ret = 0;
- 
--	if (sb_rdonly(sb))
-+	if (sb_rdonly(sb) || hfs_emergency_ro(sb))
- 		return 0;
+ 	cancel_work_sync(&vol->precalc_work);
  
 +	/*
-+	 * Don't set SB_RDONLY on errors: changing it requires s_umount and a
-+	 * remount. Setting it on a frozen superblock makes thaw_super() mark
-+	 * it unfrozen but skip sb_freeze_unlock(), so the s_writers rwsems
-+	 * stay write-locked and every writer hangs.
++	 * If an error made the volume read-only, make sure it is marked dirty
++	 * even if the error work didn't get to run. The commit of $Volume
++	 * below writes it.
 +	 */
- 	if (!buffer_uptodate(HFS_SB(sb)->mdb_bh)) {
- 		pr_err("primary MDB is corrupt, mounting read-only\n");
--		sb->s_flags |= SB_RDONLY;
-+		set_bit(HFS_FLG_EMERGENCY_RO, &HFS_SB(sb)->flags);
- 		return -EIO;
- 	}
++	disable_work_sync(&vol->error_work);
++	if (NVolEmergencyRO(vol))
++		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++
+ 	/*
+ 	 * Commit all inodes while they are still open in case some of them
+ 	 * cause others to be dirtied.
+@@ -2566,6 +2621,7 @@ static int ntfs_init_fs_context(struct fs_context *fc)
+ 	init_rwsem(&vol->mftbmp_lock);
+ 	init_rwsem(&vol->lcnbmp_lock);
+ 	mutex_init(&vol->volume_label_lock);
++	INIT_WORK(&vol->error_work, ntfs_error_work);
  
-@@ -377,7 +383,7 @@ int hfs_mdb_commit(struct super_block *sb)
- 	    HFS_SB(sb)->alt_mdb) {
- 		if (!buffer_uptodate(HFS_SB(sb)->alt_mdb_bh)) {
- 			pr_err("alternate MDB is corrupt, mounting read-only\n");
--			sb->s_flags |= SB_RDONLY;
-+			set_bit(HFS_FLG_EMERGENCY_RO, &HFS_SB(sb)->flags);
- 			ret = -EIO;
- 			goto out;
- 		}
-@@ -428,7 +434,7 @@ int hfs_mdb_commit(struct super_block *sb)
- void hfs_mdb_close(struct super_block *sb)
+ 	fc->s_fs_info = vol;
+ 	fc->ops = &ntfs_context_ops;
+diff --git a/fs/ntfs/volume.h b/fs/ntfs/volume.h
+index bc85a9592245..4f10457be3dc 100644
+--- a/fs/ntfs/volume.h
++++ b/fs/ntfs/volume.h
+@@ -90,6 +90,7 @@
+  * @sparse_compression_unit: Size of compression/sparse unit in clusters.
+  * @lcn_empty_bits_per_page: Number of empty bits per page in the LCN bitmap.
+  * @precalc_work: Work structure for background pre-calculation tasks.
++ * @error_work: Marks the volume dirty on disk after an error made it read-only.
+  * @preallocated_size: reallocation size (in bytes).
+  */
+ struct ntfs_volume {
+@@ -156,6 +157,7 @@ struct ntfs_volume {
+ 	u8 sparse_compression_unit;
+ 	unsigned int *lcn_empty_bits_per_page;
+ 	struct work_struct precalc_work;
++	struct work_struct error_work;
+ 	loff_t preallocated_size;
+ };
+ 
+@@ -184,6 +186,8 @@ struct ntfs_volume {
+  * NV_Discard			Issue discard/TRIM commands for freed clusters.
+  * NV_DisableSparse		Disable creation of sparse regions.
+  * NV_NativeSymlinkRel		Translate absolute Windows reparse targets (native_symlink=rel).
++ * NV_EmergencyRO		An error made the volume read-only until it is
++ *				unmounted (errors=remount-ro).
+  */
+ enum {
+ 	NV_Errors,
+@@ -203,6 +207,7 @@ enum {
+ 	NV_DisableSparse,
+ 	NV_NativeSymlinkRel,
+ 	NV_SymlinkNative,
++	NV_EmergencyRO,
+ };
+ 
+ /*
+@@ -241,6 +246,23 @@ DEFINE_NVOL_BIT_OPS(Discard)
+ DEFINE_NVOL_BIT_OPS(DisableSparse)
+ DEFINE_NVOL_BIT_OPS(NativeSymlinkRel)
+ DEFINE_NVOL_BIT_OPS(SymlinkNative)
++DEFINE_NVOL_BIT_OPS(EmergencyRO)
++
++/*
++ * ntfs_emergency_state - check whether the volume refuses modifications
++ * @vol:	ntfs volume to check
++ *
++ * Return -EIO if the volume was shut down, -EROFS if an error made it
++ * read-only (errors=remount-ro) and 0 otherwise.
++ */
++static inline int ntfs_emergency_state(struct ntfs_volume *vol)
++{
++	if (unlikely(NVolShutdown(vol)))
++		return -EIO;
++	if (unlikely(NVolEmergencyRO(vol)))
++		return -EROFS;
++	return 0;
++}
+ 
+ static inline void ntfs_inc_free_clusters(struct ntfs_volume *vol, s64 nr)
  {
- 	/* update volume attributes */
--	if (sb_rdonly(sb))
-+	if (sb_rdonly(sb) || hfs_emergency_ro(sb))
- 		return;
- 
- 	if (!buffer_uptodate(HFS_SB(sb)->mdb_bh))
-diff --git a/fs/hfs/super.c b/fs/hfs/super.c
-index 5e6d66ff4bee..0f2c5ab0caf7 100644
---- a/fs/hfs/super.c
-+++ b/fs/hfs/super.c
-@@ -82,7 +82,7 @@ void hfs_mark_mdb_dirty(struct super_block *sb)
- 	struct hfs_sb_info *sbi = HFS_SB(sb);
- 	unsigned long delay;
- 
--	if (sb_rdonly(sb))
-+	if (sb_rdonly(sb) || hfs_emergency_ro(sb))
- 		return;
- 
- 	spin_lock(&sbi->work_lock);
-@@ -131,6 +131,9 @@ static int hfs_reconfigure(struct fs_context *fc)
- 		return 0;
- 
- 	if (!(fc->sb_flags & SB_RDONLY)) {
-+		/* After an MDB write error it stays read-only until unmount. */
-+		if (hfs_emergency_ro(sb))
-+			return -EROFS;
- 		if (!(HFS_SB(sb)->mdb->drAtrb & cpu_to_be16(HFS_SB_ATTRIB_UNMNT))) {
- 			pr_warn("filesystem was not cleanly unmounted, running fsck.hfs is recommended.  leaving read-only.\n");
- 			sb->s_flags |= SB_RDONLY;
-@@ -169,6 +172,8 @@ static int hfs_show_options(struct seq_file *seq, struct dentry *root)
- 		seq_printf(seq, ",iocharset=%s", sbi->nls_io->charset);
- 	if (sbi->s_quiet)
- 		seq_printf(seq, ",quiet");
-+	if (hfs_emergency_ro(root->d_sb))
-+		seq_puts(seq, ",emergency_ro");
- 	return 0;
- }
- 
 
 -- 
 2.53.0
