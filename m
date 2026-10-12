@@ -1,62 +1,64 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4112E2286
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 07:38:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0181D442B33
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 07:38:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791790723; cv=none; b=ppVLbo8wzKTZeSs0ES+MxSvy94y/C4jhV1EDKctQzKZV2FbZmx1Ckke6kc4TqoGMYdBgca0Zfam264B1X6XiWSmNsvWD4bWijITcO03Js8BIMIxu22py7SClUw4F4CZGwSGugs7d3gCZ8EzEVFU+uFYscC75+By8Vi+p96iLzOA=
+	t=1791790726; cv=none; b=a+ITE8ysFZLZM/r95kdNG0cPaZplYAzfJ7PfRO8b5UPYeKp8GDQJXB2Ein7nVTdtnYPuzygk6jkmd+H+rK51LPbjITQo3Wip/EVo5UtyBDs/uy9gF8JHQsgKYOcCCixoPsLeuIhUanplTHrx4tIx82MNi3HxoGqF30Y8EajNWk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791790723; c=relaxed/simple;
-	bh=k/Ste6K7riK4U4H/eng95jFc4SxOT/Gqt0qm28BCbg8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BbfBpP5IHAe1kuXeELwrXwQp8G8wqUr0W7+hiiqBOjfoSxFON+nJ8qMN4kft4xc2/2x6p4E+5xq4M0TLJGnSN0h+VbPXMoI3c+Z3OCXsbhh0imvSbma+9FWtXX/OguLriWPKCFNPmyHxz5nphPGswB3YEpzWuZJS9Jdvclv5C6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=T+wbXCxG; arc=none smtp.client-ip=209.85.210.182
+	s=arc-20240116; t=1791790726; c=relaxed/simple;
+	bh=gRy0tVmY36RuFINYba/yIa9FoyM7l7UXacFnKeSKODQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ro5g6SvEFPmoCO4b9hp/FONMOUuqp+vFmLn6Wz3eOHy87e7mf0wvGy6twjbN8D0k1JtOT9RraPr5r22kQGzhSWn+ZJ54Wwjh+f/EKoFTpwAznxUUmxHgIMYA2n8pq0LelwZIvdiJ35umxgn15dBg39kIc5pI0mc9A9G1SGg3DQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=MzhHpmTD; arc=none smtp.client-ip=209.85.210.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="T+wbXCxG"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-89a595332c7so546568b3a.0
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 00:38:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="MzhHpmTD"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-878b44611ffso1041722b3a.3
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 00:38:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791790719; x=1792395519; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vZUQvIk4esipOPh6JhqFb4csORQpQ+ynl//reiEHu0Y=;
-        b=T+wbXCxGgTnhphpkonj48h6xs/SlKTARDJ10qxiN8638nCpw67LWa+ufKrcYric90e
-         /8wHA14wcNI024sOrpaOM7x4Pqg50paB9TabW0TBkbNjKtDGnPVSwXYuM2bfZp7IFSAc
-         tF2hkKFKxnprZQAh2Q5EZWd/fUtRgBAvEItrbXuULtGAwpG0oX7O3ePZeWAUZhrs9C4u
-         agyFFcoWMr8UBzMXgajbDG778uYizcTZ4g7vz5Td9NqwdxV3/9MfpEM5imHl9HLdN6EK
-         J45O9By9FHSLCB53WWTZd0GF2ruoVUTdGcd81WDcMIRe0OwRzwaJQlJFXYkBN8xCPoqH
-         msSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791790719; x=1792395519;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791790722; x=1792395522; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vZUQvIk4esipOPh6JhqFb4csORQpQ+ynl//reiEHu0Y=;
-        b=MVgcOspBlH5TAZdc3un2dM5Vt9VnYivRG+9Qfv9GCx6dooaqSCiMyxZb8jLcnk5zn+
-         7sX78kPXjsN5bt5OETFGKyavfEjq+WtBpJXYCNJsQxewbuIWiFxLryGFksMgGtGNX6oh
-         iaBakU3UTgmDRKVI7RcLDVTZ2j1AFmralh+w6AJaput9S979SxhS6quvIkr1uUtMRQQG
-         dggdm9/hN3Ksru2e1/Xgc1PW4Uau+srR+oqzXMYy1R97WGd/9NzbG4oTvRjree7sMvHt
-         n7dXyu5XSLYnJtq47zuBErHaLUteSTxfgnPVVCso7WIJcatTKH29JNR/lAwTKjUXbTj6
-         wwaQ==
-X-Forwarded-Encrypted: i=1; AKwUvByNXyo1vOyJFHjSk14MAGrsah1ijta4vSrgF5JVpINh1TY1kyQ43RI39QY91iNmLNuJcT/e9To=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJclcMi67fnxDkC8jBBwCbszDlcERtwrQGeYFWhAI5QGkJXLkEK
-	6vJmaJlS7sOVIBfqvoWzTy43veLOf+COAyUyJ29z6412ULsh/LKt/CdHtIPHFyJgyQU=
-X-Gm-Gg: AYBFou21goqjcbrD1qL0NRbByGMps9g5zWvoBLzLqG9eLkI4J8/7ypKQ6txSdNPePXJ
-	s3UENH04CVUeHXRc9fuO+tCh9mZG+d6rf/Voc3+nT2pADNqjg+erG0rremoIjZSZeuh18w9Tl8M
-	yIY52bKcafkhVPDsnBp3sgwlqdDRM4MGU7b6oM1vDUxo9g+PlJS475nDiTBEuxmNBXk6pPRGum3
-	qzfUecnA/cDPD06Y1S8oinX6EB0GSU+bsBnepDKgkpJA3UpnkSdYnFvP8Xn/WCe6HyJ9bb88jK/
-	aj943fouDayDl+hF+pUdvVTojKmJvNU1xkETsntfVVgsPzUblM0+05OKZnjpm0BQ1gzLQg3Az4W
-	pnhMkmRygJjNOzd6heGW5YySrKK8xvXcJHvqlZKJElmKMwHXI86RoRgOVyoxM2XURM/FFwX0X9j
-	sMRrhsmMeMyblMVFjsvQmGvo7z9pDnCqJSgP6OGzhTSIQMKgJi1ecafq44z/ojs8TqmVO+8o9HB
-	3g93g==
-X-Received: by 2002:a05:6a20:430c:b0:3e0:c961:b5b1 with SMTP id adf61e73a8af0-3e16be576acmr6010134637.45.1791790719022;
-        Mon, 12 Oct 2026 00:38:39 -0700 (PDT)
+        bh=EnNE/hWpk3lnvRShne5vDHHiWuXq0SGuBMsNI2/H+N0=;
+        b=MzhHpmTDBcMvyhoxU2IhtJuVJVdRntaMKWRwQ4NEki0QnD39U/4vo10m4luD0HWHXf
+         lD+81Wcei5fX4ros9N1KF7C9pSewaL8DdAA+yXRkGxx97I1R2eoH0tlTwy80BW+0jXoU
+         yl1nT+q1YTaiXVIdRY34XmM0H+fU06LEf94XtqduAQVW7pgh3rKM/kMwo2L3egczMvZy
+         faYTpO1Ok4OROAoFU1XPTAg9ATThI2vcPV4m8eoesoWqMxHgOxzaA/HA9FpunHe8z4pD
+         hGUF3XUkCem0+a0b+UcI4z1TL3LxMqtJwW/xSQZkir+Sqo6IKaSk+eLVF8wESOIR+XhB
+         mHGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791790722; x=1792395522;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EnNE/hWpk3lnvRShne5vDHHiWuXq0SGuBMsNI2/H+N0=;
+        b=Mj86Wre3Rm0bCZoobCrVDgsuE71JSbxwVOmqKLiEIJweqGckP0f972mUlB8Wenan/O
+         V2LuMUbOr6Z6WJiu8toaIccvr8+9fXE5FUrsgF+hMAXfJ4TqDajHLoU9oyvRRtu+fqdN
+         6lOH+lFulRSR6jn/cBwcy5Ye4tyJMbw5hiLX03ZMOgmpKkY3J1CPpoDqP7xM89al482Q
+         WcJmvvsvj7cVgATPSu51/CFIxfE5O8FqDnEQU+LNE9feBB5/b3eEU1GD3fZ0qpgM+XfX
+         FK7rn1I7eoxcaE1Is8+KY29oFC0UpwE3xtZ5Si6Vn+t4sc/YSkhHOf/u+7U30HoGBF+f
+         H8HA==
+X-Forwarded-Encrypted: i=1; AKwUvBxJ70ERtxFlE1vuk1AA6oQEawYlRP9fkqM3Dockf8Xi3MrvEZ7t7SJWsABK0L6B9uEiWYR9d4k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBMxlD/+Fxg5i+76vcp9OcDp286oqcI4lPEcIBEojA38e9DCjX
+	LlGJj5DmRNW38MXKq6jWsZEtv+p8kmIx4JDddF2d4rNocH+C3O1zylMUjFjLNWvd/2M=
+X-Gm-Gg: AYBFou2PhzVN6tOQo3J3INlBqlweTYdLbJwR6QwbmpnPYCTsx8W8dZbOHhsdgTKSdmi
+	wQtnvhUMrMsdyO/0MLLNOAZewTKj0cYXO/m0tcyrQB9yGqQd+3RpvWlw+46hY26UodV/DxSz9H2
+	NkK65qNb+ZuwoCOCulbSDltOf0JhCPrhy5WVqs7y57L1VzWnx/Tp23Ws/Tef11fVlBSnwp09J92
+	iYNMfO0Nl9UX1aB3yn3jo3ZJvFHwKfBwd9clKbA0S5WHe+/lyqVZezq9td3Vyg5gJVj3Y3aOQN4
+	9C85CHz2MdJcTcPLymcZMeBwoO4dJJf9nc1WX1PKYZbAvexc2KTnlv9WPLTFdbkZPCG6qp25jMC
+	RwoUQX3FMZyx0fgXrKV+4Irsv1UxLZJEcqW479QzaTgRCsAIoGTN/mXGYa9Fn3FOt7l5LAhVKfg
+	M2e4yDkUE41SR1NMu5Yh+W587ZKE4v3REn5QAks3cslBNKLQPYHoT+uTFQNp0uZAw4s1XixPGcB
+	6W0sA==
+X-Received: by 2002:a05:6a00:893:b0:89a:19ae:10e9 with SMTP id d2e1a72fcca58-89a19ae138fmr3097533b3a.38.1791790722420;
+        Mon, 12 Oct 2026 00:38:42 -0700 (PDT)
 Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-898c9ee8bc5sm2148780b3a.60.2026.10.12.00.38.36
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-898c9ee8bc5sm2148780b3a.60.2026.10.12.00.38.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 00:38:38 -0700 (PDT)
+        Mon, 12 Oct 2026 00:38:42 -0700 (PDT)
 From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 To: ching2048@areca.com.tw,
 	mkp@kernel.org,
@@ -66,10 +68,12 @@ Cc: linux-scsi@vger.kernel.org,
 	stable@vger.kernel.org,
 	thenzl@redhat.com,
 	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Subject: [PATCH 0/3] scsi: arcmsr: bound adapter-supplied completion indices and message lengths
-Date: Mon, 12 Oct 2026 16:38:25 +0900
-Message-ID: <cover.1791789900.git.yhlee@isslab.korea.ac.kr>
+Subject: [PATCH 1/3] scsi: arcmsr: bound the firmware-supplied message length
+Date: Mon, 12 Oct 2026 16:38:26 +0900
+Message-ID: <adc1e1512a87ff16e99d066c2e96e18a1d28e610.1791789900.git.yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1791789900.git.yhlee@isslab.korea.ac.kr>
+References: <cover.1791789900.git.yhlee@isslab.korea.ac.kr>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,33 +82,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The arcmsr completion and message paths take several values straight
-from the DMA area the adapter writes -- a completion slot number, a
-type B completion-ring index, and an inbound message length -- and use
-them as array subscripts or copy lengths without checking them against
-the array or buffer they index.  A malfunctioning or malicious adapter
-can therefore drive an out-of-bounds access from the completion
-interrupt or an ioctl.
+The adapter hands the driver an inbound message through a fixed
+128-byte window:
 
-Patch 1 clamps the firmware-supplied message length to the staging
-window (heap out-of-bounds write).  Patch 2 rejects a completion slot
-the driver never handed out (wild pointer load and dereference on types
-E and F).  Patch 3 wraps the type B completion index before it is used
-(out-of-bounds read, and an out-of-bounds store when the word read is
-non-zero).
+	struct QBUFFER {
+		uint32_t	data_len;
+		uint8_t		data[124];
+	};
 
-Each was reproduced on a KASAN build with a crafted DMA area; the
-per-patch changelogs have the reports.  The three are independent and
-carry separate Fixes tags.
+arcmsr_Read_iop_rqbuffer_in_DWORD() takes data_len from that window and
+uses it as the copy length without comparing it against the window:
 
-Yehyeong Lee (3):
-  scsi: arcmsr: bound the firmware-supplied message length
-  scsi: arcmsr: check the completion index the adapter reports
-  scsi: arcmsr: wrap the type B completion index before using it
+	iop_len = readl(&prbuffer->data_len);
+	if (iop_len > 0) {
+		buf1 = kmalloc(128, GFP_ATOMIC);
+		...
+		data_len = iop_len;
+		while (data_len >= 4) {
+			*buf2++ = readl(iop_data);
+			iop_data++;
+			data_len -= 4;
+		}
 
- drivers/scsi/arcmsr/arcmsr_hba.c | 23 +++++++++++++++++++++--
- 1 file changed, 21 insertions(+), 2 deletions(-)
+A data_len above 128 therefore walks the 128-byte allocation, writing
+firmware-supplied data past its end, and the loop that follows reads the
+same overrun back out of buf1.  arcmsr_Read_iop_rqbuffer_data() has the
+same unchecked loop for adapter types A and B; there the destination is
+wrapped to ARCMSR_MAX_QBUFFER so nothing is written out of bounds, but
+the loop still spins up to 2^32 times with rqbuffer_lock held.
 
+Two of the three callers place no bound on the value at all:
+arcmsr_iop_message_xfer() for ARCMSR_MESSAGE_READ_RQBUFFER and
+arcmsr_sysfs_iop_message_read() both call straight into the reader on
+ACB_F_IOPDATA_OVERFLOW.  The third, arcmsr_iop2drv_data_wrote_handle(),
+compares data_len against the free space in acb->rqbuffer, which is up
+to ARCMSR_MAX_QBUFFER - 1 and so still far larger than the 128-byte
+staging buffer; it also reads data_len separately from the reader, so
+the adapter can change it between the two reads.
+
+Clamp the length to the size of the window in both readers.  A
+conforming adapter never reports more than sizeof(prbuffer->data), so
+this does not drop any data it sends.
+
+With a KASAN build and a crafted window, data_len = 4096 produces 992
+out-of-bounds 4-byte writes (1024 dwords less the 32 that fit) in
+arcmsr_Read_iop_rqbuffer_in_DWORD():
+
+  BUG: KASAN: slab-out-of-bounds in arcmsr_Read_iop_rqbuffer_in_DWORD+0x240/0x2a0 [arcmsr]
+  Write of size 4 at addr ffff88800b5baf80 by task init/1
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x66/0xa0
+   print_report+0xd0/0x630
+   kasan_report+0xe4/0x120
+   arcmsr_Read_iop_rqbuffer_in_DWORD+0x240/0x2a0 [arcmsr]
+   </TASK>
+  Allocated by task 1:
+   __kasan_kmalloc+0x8f/0xa0
+   __kmalloc_cache_noprof+0x22c/0x570
+   arcmsr_Read_iop_rqbuffer_in_DWORD+0x7b/0x2a0 [arcmsr]
+  The buggy address belongs to the object at ffff88800b5baf00
+   which belongs to the cache kmalloc-128 of size 128
+  The buggy address is located 0 bytes to the right of
+
+The first value that overruns is data_len = 129; 128 and below are
+reported clean, and 124 (the window) and 120 copy byte-for-byte
+identically with and without the clamp.
+
+Fixes: bb263c4ecbb1 ("arcmsr: fix ioctl data read/write error for adapter type C")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/scsi/arcmsr/arcmsr_hba.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/scsi/arcmsr/arcmsr_hba.c b/drivers/scsi/arcmsr/arcmsr_hba.c
+index 8aa948f06cacf..255f1d898079f 100644
+--- a/drivers/scsi/arcmsr/arcmsr_hba.c
++++ b/drivers/scsi/arcmsr/arcmsr_hba.c
+@@ -2277,6 +2277,8 @@ arcmsr_Read_iop_rqbuffer_in_DWORD(struct AdapterControlBlock *acb,
+ 
+ 	iop_data = (uint32_t __iomem *)prbuffer->data;
+ 	iop_len = readl(&prbuffer->data_len);
++	if (iop_len > sizeof(prbuffer->data))
++		iop_len = sizeof(prbuffer->data);
+ 	if (iop_len > 0) {
+ 		buf1 = kmalloc(128, GFP_ATOMIC);
+ 		buf2 = (uint32_t *)buf1;
+@@ -2319,6 +2321,8 @@ arcmsr_Read_iop_rqbuffer_data(struct AdapterControlBlock *acb,
+ 		return arcmsr_Read_iop_rqbuffer_in_DWORD(acb, prbuffer);
+ 	iop_data = (uint8_t __iomem *)prbuffer->data;
+ 	iop_len = readl(&prbuffer->data_len);
++	if (iop_len > sizeof(prbuffer->data))
++		iop_len = sizeof(prbuffer->data);
+ 	while (iop_len > 0) {
+ 		pQbuffer = &acb->rqbuffer[acb->rqbuf_putIndex];
+ 		*pQbuffer = readb(iop_data);
 -- 
 2.43.0
 
