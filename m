@@ -1,291 +1,193 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C39A847ECD2
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 12:22:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1635544F547
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 12:22:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791807762; cv=none; b=FezG6YpDQC97sK5c3GDji1zzwcKu1vJBcFtfTuyr7ajP0G0lEpQG5W8wZYDt94kzEL+3ScbyV3A3+H55qLWejVSShU2yF88XyWmIWIwf88XWMNM24hR2rMlYuj69e1ApR1r2XYNh2sfRN3KIXh72Dt2L3Wj5R6Cp8ELMSwwNcoc=
+	t=1791807777; cv=none; b=SEupQC0PL6/hdo5S68cVf5G9zmT+NyEz9QNdiI7Jy1RZlYG+kyZ1v9Jmhk18XaJ0Efz/h/Iy0yQ1PEZ5lV8lwngXl7crGRIWTkWfwBxtpVEw1iaQ93CrNnSbMz58RKOVgKPDLotayvJH7YNkPQKdNKkpzrwc2WFZgDuxWkNiXRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791807762; c=relaxed/simple;
-	bh=W3YNG3ZIxAHgXO34s+LFtULS9FNUl/lVoRswFLPNCjA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rY6AjsRrEX5ljxJwdKNmNzCskbalTLwy9cx9QXpTE3wz4pUhvyhezmZzJh6BzmSxAf56chSli6Vgd+h/h8o6olB3qpGo8pJWfciP3av6piY3m3ciJQ2Ik26XiHpbz6FA5dhpmcKvC5Ne2Hausabwg0/v+6h2Kee36aVm5QS6VeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cOVQ33Dd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791807777; c=relaxed/simple;
+	bh=kspQp2JMvo8ePpgRtoNjCw0r0jpiD2dTaphiqG8lG6k=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=K1dnB2ZnuPsE0FMOuLBhXW4lrOcGzdf6tLjU2cs20I6iBll5q727YPDwZyoYzBR6AZaoI2PY0hQJ73zYByb/9+J0IzfGuCsx8tPHctfNyvHBymU+tyOXGKdkLl2P+ujsgcRgfJqCdIM96v2JorrSxWjZKNcBioFvO4pRXiX3I00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GZjDCpy5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cOVQ33Dd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AAC61F008A0;
-	Mon, 12 Oct 2026 12:22:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791807760;
-	bh=zFhRhxL+1Q1Nhtz69Ao8vXPeHui36xhUIj19SUA7uE0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cOVQ33DdtpiarzCx043zVHKnz+fkxuVA1Nqo+GlUVL1yJ9sII94jzWCmLYVeRLh8J
-	 sFtQbyvZ/tBpFpAvTl6fDOK8et1omlLtw+qoKSIwf2GCuPTmn1kR9Ehp5dNbt3tn6m
-	 FaTc+DZif1L95RsypAP3/e3WI6n5c7uzWBPXHy6PzDNC0ppmQJ9RW2n9uHrVje25PZ
-	 PZWMTrPwNyc4vT7plmS+DWlUP1rQWpsV0ssXE0aJE8vIjCH1jIEQ7DfeY4UaxbsuUE
-	 jz1Ueor5dDNaMuXG8Q51ppQmXg7tTVTM1VV2njxIJu2pv0qPPMH9gj3sl8eYU2OcsE
-	 ytbCa6UHqyoEA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Darrick J. Wong" <djwong@kernel.org>,
-	Norbert Szetei <norbert@doyensec.com>,
-	Dave Chinner <dchinner@redhat.com>,
-	Carlos Maiolino <cem@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 2/2] xfs: fix exchange-range-to-eof file size exchange
-Date: Mon, 12 Oct 2026 08:22:37 -0400
-Message-ID: <20261012122227.3726963-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261012122227.3726963-1-sashal@kernel.org>
-References: <2026101216-sadly-relapse-b166@gregkh>
- <20261012122227.3726963-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GZjDCpy5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 701A21F0089B;
+	Mon, 12 Oct 2026 12:22:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791807776;
+	bh=MshDZdJVJT2t4/4Bodkq1cIRQhgWRC6j1rOFIqLUUHI=;
+	h=Subject:To:Cc:From:Date;
+	b=GZjDCpy5PyYAJtAuOVAtntECGbmIFib/LzTFuxQTQiEjXdqNtlmTloqTCifnHf218
+	 u6hvuluMQezr4RGoGHX5LrGePXLW/FqkUB3znI1AWAciFJGkcKYSA1LcPAOyuAYVmW
+	 wVn0jm0HxW7NyAfVxKI9j8EZR0tyNZReSCwZpAUY=
+Subject: FAILED: patch "[PATCH] wifi: brcmfmac: fix P2P device removal race in brcmf_detach()" failed to apply to 5.10-stable tree
+To: michele.dionisio@gmail.com,arend.vanspriel@broadcom.com,johannes.berg@intel.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 12 Oct 2026 14:19:01 +0200
+Message-ID: <2026101201-engraved-bullwhip-60cc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: "Darrick J. Wong" <djwong@kernel.org>
 
-[ Upstream commit 7dfb218c829c1acb626e0fe92c5fddb9a26a03e9 ]
+The patch below does not apply to the 5.10-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Norbert Szetei posted a patch containing an incomplete description of a
-bug in XFS_IOC_EXCHANGE_RANGE's TO_EOF flag.  The bug tricks
-exchange-range into modifying a file so that it has shared blocks
-starting beyond EOF, which is never allowed because files never have
-written data beyond EOF, and you can only share written data blocks.
-This is key to all the incorrect behavior that follows.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Eventually I got from Norbert a description of what's going wrong:
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git checkout FETCH_HEAD
+git cherry-pick -x 08a3f02fea636e97a7422d1512f76dacdb5b0887
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101201-engraved-bullwhip-60cc@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
-> Fair. Here it is with physical block numbers, 4k blocks. peer is the file
-> that gets rewritten and file1 is the one that ends up with the flag
-> cleared.
->
-> Start, nothing shared:
->
->	peer size 4096   -> [100]
->	file1 size 12288 -> [200] [201] [202]
->	donor1 size 4096 -> [300]
->	donor2 size 4096 -> [400]
->
-> 1. FICLONERANGE peer's block into file1's middle slot:
->
->	peer size 4096   -> [100]
->	file1 size 12288 -> [200] [100] [202] reflink flag set
->                             ^^^^^ both files own block 100
->
-> 2. XFS_IOC_EXCHANGE_RANGE file1 against donor1, file1_offset 0,
-> file2_offset 8192, length 0, TO_EOF. One block is exchanged, and the sizes
-> are exchanged with it:
->
->	file1 size 4096   -> [200] [100] [300] reflink flag set
->                              ^^^^^^^^^^^ still owned, now past the size
->	donor1 size 12288 -> [202]
->
-> file1 says it is one block long while it still owns three. Nothing was
-> unmapped. file2_offset is block 2, so this exchange cannot clear a flag.
->
-> 3. XFS_IOC_EXCHANGE_RANGE file1 against donor2, both offsets 0, length 4096.
-> By i_disk_size this is two one-block files exchanging everything, so
-> xmi_can_exchange_reflink_flags() agrees and the flag is cleared:
->
->	file1 size 4096   -> [400] [100] [300] reflink flag CLEARED
->	donor2 size 4096  -> [200]
->
-> Block 100 is still shared with peer.
->
-> 4. pwrite(file1, 4096, 4096), which is file1's second slot, block 100.
-> xfs_is_cow_inode(file1) is false, so no CoW:
->
->	peer size 4096 -> [100] same block, new contents
->
-> Block 100 is the only one that matters here. PoC below, it reads a file
-> called peer in the current directory. The filesystem needs reflink and
-> exchange-range, which mkfs.xfs 7.x turns on by default.
+Possible dependencies:
 
-So yes, TO_EOF is screwing up the file size even if it's actually
-exchanging the data block correctly.  The following is the intended
-behavior of XFS_EXCHANGE_RANGE_TO_EOF, as described by its manpage:
 
-"Ignore the length parameter.  All bytes in file1_fd from file1_offset
- to EOF are moved to file2_fd, and file2's size is set to
- (file2_offset+(file1_length-file1_offset)).  Meanwhile, all bytes in
- file2 from file2_offset to EOF are moved to file1 and file1's size is
- set to (file1_offset+(file2_length-file2_offset))."
 
-In other words, if we only exchange a portion of the file data, then we
-should only exchange the portion of the file size that relates to the
-exchanged data.  Unfortunately, the code swaps the ondisk file size and
-the incore file sizes, which is incorrect if the caller passes in a
-nonzero offset.
+thanks,
 
-Having confused the file sizes, the PoC uses a second exchange-range
-call on what looks like a non-reflinked single-block file.  Because the
-file size is set incorrectly, exchange-range thinks it's exchanging the
-full contents of two files and clears the reflink flag on the broken
-file.  That enables an extending write of the broken file to rewrite the
-shared block that's just past EOF.  This has become known colloquially
-as refluxfs.
+greg k-h
 
-Once the file sizes are set correctly, the second exchange-range no
-longer thinks that it's doing a full-contents swap, so it won't clear
-the reflink flag on either of its file arguments.
+------------------ original commit in Linus's tree ------------------
 
-Norbert followed up to an earlier version of this patch with a second
-complaint about us not handling the i_disk_size state correctly:
+From 08a3f02fea636e97a7422d1512f76dacdb5b0887 Mon Sep 17 00:00:00 2001
+From: Michele Dionisio <michele.dionisio@gmail.com>
+Date: Thu, 24 Sep 2026 14:30:27 +0200
+Subject: [PATCH] wifi: brcmfmac: fix P2P device removal race in brcmf_detach()
 
-> The offsets are bounded against the incore i_size but subtracted from
-> the ondisk i_disk_size, so a file that has not been written back gives
-> xmi_isize1 = 0 + (0 - 12288).
->
-> For instance, you can do:
->
-> $ xfs_io -f -c "pwrite -q 0 4096" -c fsync file1
-> $ xfs_io -f -c "pwrite -q 0 12288" \
->   -c "exchangerange -s 0 -d 12288 file1" dirty
-> $ stat -c %s file1
-> 0
-> $ stat -c %i file1
-> 131
-> $ sudo xfs_io -r -c "bulkstat_single 131" . | grep bs_size
-> bs_size = 18446744073709539328
+When the driver is removed while the user space process that created
+the P2P device (e.g. wpa_supplicant) is still exiting, the P2P device
+interface is removed twice and the kernel crashes.
 
-That's wrong, and the new file size update logic depends on the ondisk
-i_disk_size matching the incore i_size, so flush the pagecache as needed
-to push it upwards.
+The two paths are:
 
-Link: https://lore.kernel.org/linux-xfs/1E196589-DEBE-40AC-AFEA-D420DAAB067F@doyensec.com/
-Reported-by: Norbert Szetei <norbert@doyensec.com>
-Cc: stable@vger.kernel.org # v6.10
-Fixes: 966ceafc7a4371 ("xfs: create deferred log items for file mapping exchanges")
-Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-Reviewed-by: Dave Chinner <dchinner@redhat.com>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/xfs/libxfs/xfs_exchmaps.c | 13 +++++++--
- fs/xfs/xfs_exchrange.c       | 51 ++++++++++++++++++++++++++----------
- 2 files changed, 48 insertions(+), 16 deletions(-)
+ - wpa_supplicant, on exit, sends NL80211_CMD_DEL_INTERFACE for the P2P
+   device. nl80211_del_interface() holds RTNL and the wiphy mutex and
+   calls brcmf_p2p_del_vif(), which disables discovery and waits up to
+   1.5 s for BRCMF_E_IF_DEL. Then it calls brcmf_remove_interface(),
+   which unregisters the wdev and frees the vif and the ifp.
 
-diff --git a/fs/xfs/libxfs/xfs_exchmaps.c b/fs/xfs/libxfs/xfs_exchmaps.c
-index 1e0b418ef7453..37595f579b635 100644
---- a/fs/xfs/libxfs/xfs_exchmaps.c
-+++ b/fs/xfs/libxfs/xfs_exchmaps.c
-@@ -931,6 +931,7 @@ xfs_exchmaps_init_intent(
- 	const struct xfs_exchmaps_req	*req)
- {
- 	struct xfs_exchmaps_intent	*xmi;
-+	struct xfs_mount		*mp = req->ip1->i_mount;
- 
- 	xmi = kmem_cache_zalloc(xfs_exchmaps_intent_cache,
- 			GFP_NOFS | __GFP_NOFAIL);
-@@ -948,10 +949,18 @@ xfs_exchmaps_init_intent(
- 		return xmi;
- 	}
- 
-+	/*
-+	 * If the caller wanted, set each file's size to that file's exchange
-+	 * offset + length exchanged from the other file because the ranges in
-+	 * each file might be different lengths.
-+	 */
- 	if (req->flags & XFS_EXCHMAPS_SET_SIZES) {
-+		loff_t	off1 = XFS_FSB_TO_B(mp, xmi->xmi_startoff1);
-+		loff_t	off2 = XFS_FSB_TO_B(mp, xmi->xmi_startoff2);
+ - brcmf_detach() sets the bus down, so BRCMF_E_IF_DEL never arrives,
+   and calls brcmf_remove_interface(ifp, false) for the same ifp.
+   brcmf_p2p_ifp_removed() reads ifp->vif and then blocks on
+   rtnl_lock(). When brcmf_p2p_del_vif() releases RTNL, it calls
+   cfg80211_unregister_wdev() on the wdev that was already unregistered
+   and freed.
+
+The second list_del_rcu() of wdev->list faults on LIST_POISON2:
+
+  brcmfmac: brcmf_p2p_del_vif delete P2P vif
+  brcmfmac: brcmf_p2p_deinit_discovery enter
+  brcmfmac: brcmf_p2p_del_vif P2P: GO_NEG_PHASE status cleared
+  brcmfmac: brcmf_detach Enter
+  brcmfmac: brcmf_bus_change_state 1 -> 0
+  brcmfmac: brcmf_remove_interface Enter, bsscfgidx=1, ifidx=0
+  brcmfmac: brcmf_del_if Enter, bsscfgidx=1, ifidx=0
+  brcmfmac: brcmf_p2p_ifp_removed P2P: device interface removed
+  [1.5 s later, brcmf_p2p_del_vif() timed out]
+  brcmfmac: brcmf_remove_interface Enter, bsscfgidx=1, ifidx=0
+  brcmfmac: brcmf_del_if Enter, bsscfgidx=1, ifidx=0
+  brcmfmac: brcmf_p2p_ifp_removed P2P: device interface removed
+  Unable to handle kernel paging request at virtual address dead000000000122
+  Internal error: Oops: 96000044 [#1] PREEMPT_RT SMP
+  pc : _cfg80211_unregister_wdev+0x6c/0x264 [cfg80211]
+  Call trace:
+   _cfg80211_unregister_wdev+0x6c/0x264 [cfg80211]
+   cfg80211_unregister_wdev+0x10/0x1c [cfg80211]
+   brcmf_p2p_ifp_removed+0x84/0xb0 [brcmfmac]
+   brcmf_remove_interface+0x1f4/0x254 [brcmfmac]
+   brcmf_detach+0x88/0x180 [brcmfmac]
+   brcmf_sdio_remove+0x90/0x7b0 [brcmfmac]
+   brcmf_sdiod_remove+0x20/0xa0 [brcmfmac]
+   brcmf_ops_sdio_remove+0xbc/0x12c [brcmfmac]
+   sdio_bus_remove+0x38/0x144
+   device_release_driver_internal+0x1e8/0x2c0
+   device_release_driver+0x14/0x20
+   brcmf_sdio_bus_remove+0x2c/0x40 [brcmfmac]
+   brcmf_fwvid_unregister_vendor+0xd8/0x170 [brcmfmac]
+   __exit_compat+0x18/0x418 [brcmfmac_cyw]
+   __arm64_sys_delete_module+0x1ac/0x244
+
+The log was taken with debug=0x406 on an i.MX 8M Plus board with a
+CYW55513 (Sona IF513) on SDIO. The driver is the Ezurio backport of
+brcmfmac from v6.18.22 on a 5.4-rt kernel. The code involved is the same
+in mainline.
+
+To reproduce:
+
+  1. Start wpa_supplicant on wlan0 and let it associate. It creates the
+     P2P device (iw dev shows "type P2P-device").
+  2. Stop wpa_supplicant and remove the driver without waiting for
+     wpa_supplicant to exit:
+
+       kill $(pidof wpa_supplicant)
+       rmmod brcmfmac_cyw brcmfmac
+
+The crash is reproducible on that board.
+
+For the interface without a netdev (the P2P device), take RTNL and the
+wiphy mutex in brcmf_detach() before reading iflist, and remove it with
+locked=true. If brcmf_p2p_del_vif() runs first, brcmf_detach() finds the
+slot empty. If brcmf_detach() runs first, nl80211 does not find the wdev
+any more. The interfaces with a netdev are removed as before, because
+brcmf_del_if() takes RTNL on its own for the primary interface.
+
+Fixes: 9831bcb987df ("brcmfmac: Deleting of p2p device is leaking memory.")
+Cc: stable@vger.kernel.org
+Assisted-by: claude-opus-5-5
+Signed-off-by: Michele Dionisio <michele.dionisio@gmail.com>
+Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
+Link: https://patch.msgid.link/20260924123027.4122909-2-michele.dionisio@gmail.com
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
+index d2ae67985606..92ec269f43b2 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c
+@@ -1489,8 +1489,31 @@ void brcmf_detach(struct device *dev)
+ 	brcmf_bus_change_state(bus_if, BRCMF_BUS_DOWN);
+ 	/* make sure primary interface removed last */
+ 	for (i = BRCMF_MAX_IFS - 1; i > -1; i--) {
+-		if (drvr->iflist[i])
+-			brcmf_remove_interface(drvr->iflist[i], false);
++		struct brcmf_if *ifp = drvr->iflist[i];
 +
- 		xmi->xmi_flags |= XFS_EXCHMAPS_SET_SIZES;
--		xmi->xmi_isize1 = req->ip2->i_disk_size;
--		xmi->xmi_isize2 = req->ip1->i_disk_size;
-+		xmi->xmi_isize1 = off1 + (req->ip2->i_disk_size - off2);
-+		xmi->xmi_isize2 = off2 + (req->ip1->i_disk_size - off1);
- 	}
- 
- 	if (S_ISDIR(VFS_I(xmi->xmi_ip2)->i_mode) ||
-diff --git a/fs/xfs/xfs_exchrange.c b/fs/xfs/xfs_exchrange.c
-index fafb4e3f065c7..935b561dfd3c5 100644
---- a/fs/xfs/xfs_exchrange.c
-+++ b/fs/xfs/xfs_exchrange.c
-@@ -290,17 +290,20 @@ xfs_exchrange_mappings(
- 		goto out_unlock;
- 
- 	/*
--	 * If the caller wanted us to exchange the contents of two complete
--	 * files of unequal length, exchange the incore sizes now.  This should
--	 * be safe because we flushed both files' page caches, exchanged all
--	 * the mappings, and updated the ondisk sizes.
-+	 * If the caller wanted, set each file's size to that file's exchange
-+	 * offset + length exchanged from the other file because the ranges in
-+	 * each file might be different lengths.  This should be safe because
-+	 * we flushed both files' page caches, exchanged all the mappings, and
-+	 * updated the ondisk sizes.
- 	 */
- 	if (fxr->flags & XFS_EXCHANGE_RANGE_TO_EOF) {
--		loff_t	temp;
-+		loff_t	old_ip1_size = i_size_read(VFS_I(ip1));
-+		loff_t	old_ip2_size = i_size_read(VFS_I(ip2));
- 
--		temp = i_size_read(VFS_I(ip2));
--		i_size_write(VFS_I(ip2), i_size_read(VFS_I(ip1)));
--		i_size_write(VFS_I(ip1), temp);
-+		i_size_write(VFS_I(ip2), fxr->file2_offset +
-+				(old_ip1_size - fxr->file1_offset));
-+		i_size_write(VFS_I(ip1), fxr->file1_offset +
-+				(old_ip2_size - fxr->file2_offset));
- 	}
- 
- out_unlock:
-@@ -445,6 +448,30 @@ xfs_exchange_range_checks(
- 	return blen == fxr->length ? 0 : -EINVAL;
- }
- 
-+/* Flush all relevant dirty pagecache near the range to be exchanged. */
-+static inline int
-+xfs_exchange_range_flush(
-+	struct xfs_inode		*ip,
-+	const struct xfs_exchrange	*fxr,
-+	loff_t				offset)
-+{
-+	/*
-+	 * If TO_EOF is set, the ondisk file size update logic depends on the
-+	 * ondisk file size matching the incore file size.  Flush everything.
-+	 */
-+	if (fxr->flags & XFS_EXCHANGE_RANGE_TO_EOF)
-+		return filemap_write_and_wait(VFS_I(ip)->i_mapping);
++		if (!ifp)
++			continue;
 +
-+	/*
-+	 * Because we're updating the ondisk mappings, flush all dirty data
-+	 * between the ondisk size and the exchange offset to reduce the chance
-+	 * of zeroed file contents in that gap after a crash.
-+	 */
-+	return filemap_write_and_wait_range(VFS_I(ip)->i_mapping,
-+			min(offset, ip->i_disk_size),
-+			offset + fxr->length - 1);
-+}
++		if (ifp->ndev) {
++			brcmf_remove_interface(ifp, false);
++			continue;
++		}
 +
- /*
-  * Check that the two inodes are eligible for range exchanges, the ranges make
-  * sense, and then flush all dirty data.  Caller must ensure that the inodes
-@@ -470,15 +497,11 @@ xfs_exchange_range_prep(
- 	if (!same_inode)
- 		inode_dio_wait(inode2);
++		/* The P2P device interface has no netdev. Its removal can
++		 * race with NL80211_CMD_DEL_INTERFACE issued by a user space
++		 * process that is exiting (e.g. wpa_supplicant), which ends
++		 * in brcmf_p2p_del_vif() under RTNL and the wiphy mutex. If
++		 * both paths remove the interface, the wdev is unregistered
++		 * twice and the vif is used after being freed. Take the same
++		 * locks and re-read iflist, so only one path removes it.
++		 */
++		rtnl_lock();
++		wiphy_lock(drvr->wiphy);
++		ifp = drvr->iflist[i];
++		if (ifp)
++			brcmf_remove_interface(ifp, true);
++		wiphy_unlock(drvr->wiphy);
++		rtnl_unlock();
+ 	}
+ 	brcmf_bus_stop(drvr->bus_if);
  
--	error = filemap_write_and_wait_range(inode1->i_mapping,
--			fxr->file1_offset,
--			fxr->file1_offset + fxr->length - 1);
-+	error = xfs_exchange_range_flush(XFS_I(inode1), fxr, fxr->file1_offset);
- 	if (error)
- 		return error;
- 
--	error = filemap_write_and_wait_range(inode2->i_mapping,
--			fxr->file2_offset,
--			fxr->file2_offset + fxr->length - 1);
-+	error = xfs_exchange_range_flush(XFS_I(inode2), fxr, fxr->file2_offset);
- 	if (error)
- 		return error;
- 
--- 
-2.53.0
 
