@@ -1,97 +1,114 @@
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E18A649D5B7
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 16:18:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12CF14A8435
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 16:21:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791821922; cv=none; b=aXJusVPLGsfWe7ndv9YOG16Zweba/fG347MDm2FfOHwI42Lxgc01uYv6MKzI8Fl2x+yhwWIbuiSAEXb7ezMVLc9h7XLySkeNNvzj8WlzBWiNEjq16kIkRF7QBtbK0V2EJCul5xkKNBgFNg79bOdKyb+huGgUOcAatamAwo3gK48=
+	t=1791822065; cv=none; b=CO8zRAmP8+JdX3GqZgq3YuYR9kEbHKpRbROuG2daHa64/siDPTFPl82M5aoIxuv8+7cKqv4AhVCvF2AhgUSN/Gqwk+CsHR8cGsBHu0HeyrED42qBHtQoE7NDEPb2U5hO8eVJot0h3Q7Wjd7mhsJc3JSo2osmb552PBhCdSc4uG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791821922; c=relaxed/simple;
-	bh=4YpWVz2t7P3nkCK75u6xOdBsc4nHUlNeMIe6NmdDkAs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Iv58mEVocDYHQEBIZsRQkSA6/9ZozuL/jz3VJLcmv89q7TjF3O47qttdnrXq0MkTTI6mLGqCXTPBuZXr6Lr79P0HX1IPpoqcecD3abI8cX5/OLJj3M/hZEK19lkE1tKl71+CQo/DnDqpc6AcM9ONpo0QjIe82NOxB4yqQbgoA6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=LvvoZaG6; arc=none smtp.client-ip=209.85.222.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1791822065; c=relaxed/simple;
+	bh=M0JGwBW7mrHwnbqHncSpPEi7zCT+FqGhYHkZknEXRtk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=m1FyJLw7k69ep6PDm8hASO++Tg+uxohq2039gQuOT/mWmCaGFxlHPhrrr93gI1HWBBHfqOzONw4hKF+K2880Ja9cy7+hL1/n6aCspd99bWZli8VRvBi4IBQEBlfAfuNJ0GCA7s/8T7KeTJAFLPRHwKJ8mGCyvk1jy5XXDrXEzOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ILN3AUGV; arc=none smtp.client-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="LvvoZaG6"
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93cbc3ab2fdso82550985a.3
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 09:18:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ILN3AUGV"
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-33e6279a1d7so282009eec.1
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 09:21:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1791821919; x=1792426719; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ycCA/46fGP9bMzNSUFEULycpfUfNegmWCSDBNo9iDiA=;
-        b=LvvoZaG6fsq8hB0FOotQh35EMoCepkvvzptzfAzU/s1zJC7dhg5PSKIPvRHtUNIUBP
-         w9gvhZ87eGhXWdTMd4p/TK1h1+ue4Fr7gFP9EBJo7NiJyYTitoai0dUHr0lFLGA30I4P
-         x0LV6t/aKncAdIxJf1RpJN2EUnV8Jc6gOa7sDXczYruPnhnW0AEZTntu47jpBq4qmz65
-         XZ29Cj0zf+pzoYW7+Sqi+LWrGr7lNlQ6BbmCinaNxPHEK+0fy08RT5N9oE+GYxegAK2R
-         c0TFCts30Tzfsr89JZpBW+/suz2o049I6GsqorKmvKbg1H4thRkP3HGJRwS3IdBsjHZn
-         P06w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791821919; x=1792426719;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791822063; x=1792426863; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ycCA/46fGP9bMzNSUFEULycpfUfNegmWCSDBNo9iDiA=;
-        b=HgPW/4hL3WqAbpqfYybMEIEJAmQBzxQgIoDINmxQNsUYytQCSMpTYXD1GP7kV8tM9c
-         eGBp+xGthROOi1ErpV+p7Pu5DDC4asWHT46yJgdmhzIHVCfqAefb8YzB3Ur9RojkMwah
-         Jysoq01M5175CMj6giXvZVg1iXpOZ+FJR8jJnUVyiaTajwWDtc1GQyEcIAZB1pHq19Z8
-         big6PIanMvHux579se7A7gYfZgzwow975nVLhkk7W+zeq4EEV/cQBc7r3pdw0JiQYlyN
-         0vLZsP2N2HjLBOeYcgDVgzjhuWTg+Q5hGT4//+Lg3FLHhA7zKijKUTuQUmQKmBKNX4Oh
-         b9ww==
-X-Forwarded-Encrypted: i=1; AKwUvByGTAJ5VLxSAHFiyxtkvVi6bq8NjCbZBExo5s68jwEFk2ILPiM+Mi/pTzgbGnlFWih4HajHZMs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+ZkS0o4Ilnxe/FDIH+c5VvTGhxlgGtTsuUc3Cf9GYGXqWVFiE
-	pY+cuB+l8wZWnOe3oaMHdzpljYJCwaYgtEtUaoRDxk6olthMPw7mvTbaZERNBIMR/eCJqb3tw/p
-	9irUL2Y8=
-X-Gm-Gg: AYBFou0aSQqDJm4wzZVqJWRsttZM1Gkh8ZBD4H+nEBdisVati1ny5qPeWz4BChbJHxk
-	+yOdcDsgR4I/eB24IBaVRRKuu4rcjAxkgJL5K9450K9z+ocXi+NQ1X3bPxo50h83XQjZ0jYwpNr
-	3pj/5a/R60MSYQB+6EpFeXk58AzN9Fye0kl4CbBwP+anG7XMKSzNl/OLMTfHne9nyG6eqBBrGUq
-	CGq0XldUIjTo1nLtC18rBuu93Kv/ViN8gugfGK9QT8PFIhocX9kv/CBqSDHoXEOsMMzI6nMZS0n
-	tEsT5R4FFDRcmqT+xD2Jz9HBCfyirxICWR327Y6GJNK2iDMgWrcpQJhZ/KUjf+cc7rHgy6FNsMD
-	ojo9ZAtttfNkylSIwbmW/zXav6O5oCvkxavP9jLjSH02tVv3oe86esuRYM7SowUA3fOZ1H7Jenj
-	dS7e/Wl/79XaA52fiW/ySWaq0zMj2sUISROKhxhenuC5zhRj9+VyukmeWnOY2v9Iw0P5lrcuQbn
-	Y1AEM6kWTI8PJJEOHEKZv2Mk38B2DjCWt2+qcGS/bGoKMFGeg1hXN8=
-X-Received: by 2002:a05:620a:2981:b0:939:6df7:73f1 with SMTP id af79cd13be357-93ebd27484bmr1635268185a.51.1791821918598;
-        Mon, 12 Oct 2026 09:18:38 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef50295a7sm20807785a.23.2026.10.12.09.18.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 09:18:38 -0700 (PDT)
-Date: Mon, 12 Oct 2026 12:18:36 -0400
-From: Gregory Price <gourry@gourry.net>
-To: jianyungao89@gmail.com
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Dan Williams <djbw@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>, 
-	Dave Jiang <dave.jiang@intel.com>, Alison Schofield <alison.schofield@intel.com>, 
-	"open list:DEVICE DIRECT ACCESS (DAX)" <nvdimm@lists.linux.dev>, 
-	"open list:DEVICE DIRECT ACCESS (DAX)" <linux-cxl@vger.kernel.org>
-Subject: Re: [PATCH v2] dax: fix dax_core_init error return code
-Message-ID: <as0IMU-uIENTAXSW@gourry-fedora-PF4VCD3F>
-References: <20261012151857.22534-1-jianyungao89@gmail.com>
+        bh=100dkfxHGFXdSa4nJokPxTSjLK3e/Vooj6icmrrZBFU=;
+        b=ILN3AUGVqW1TneXkRl74p0z/V8QVEr7BoVgyiM088wNeAXxxANgNdj2u5AsZ6EJsgj
+         bpxO+zkOmA7xem8gSd8GYRlBYmyMeaPGYGHzq4AxYnObTHZnzRDSztzt53zPAtDJJKcu
+         QbsXB/fW8BzI5BuRuEIr6bGPHUFN1kLXyH1CjLTV1Gl9HbuKynKoB1uRvFIjCARA5boL
+         S6tfqHINAWQ93KgrdmflHspFVuw/B9Z7htzpr6emmvAPFfbVtLmYp/v3uPoKj3/nHbzf
+         s2p1nVMTQsYjypEe6eIIoyoC1v0M3mLx2DC1vHgVXTrMbdc02Yyt37OfQPGK0RHuuKeZ
+         c2Cg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791822063; x=1792426863;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=100dkfxHGFXdSa4nJokPxTSjLK3e/Vooj6icmrrZBFU=;
+        b=0neOs5CZIPr2wV9IIFSyjxdCXu90vLrqceslYTJdvwM9T55k5Dx0WnoR0kSdRRU6JY
+         eIIsllAbLC2Mac/2sfj3rdp2iqY3LzP6aPl2Zjb/m6lv2rPnq6shsNY0SQTMJ+fxyc8N
+         J/aSaNX75u5trfhyYu08qZ0V2VzJz1u2BxTtzV/bF1BxaaPPR1ZtmExnXGKJvKxH2veH
+         MtpawcpjwlTxO8G8XXHEf8LGMzqs664ynGLYF6nBNTPsqx9y1jXjP1zi9RZWsg5rdGfs
+         EwH9H6PdZFbcw0ycXCYvpaNJgLfZdiqxHHvc2OILXJTy3gQ4sJjxDn3fujmOHpPUwTF1
+         wjUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzS9sm/KTKSIz3PEfXQgt3C778XDtko02oKXb7zCCZJ2dzhm5/R3YsaRIkz32mwLMCFqs9hLcA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI6djVadX85LMLaH+iHM9dDhaBi1juEE4HgLJdiDL2CI6Urabbl
+	YqvoKaLd2KtJ2yVPrrwFhV7SfRkAPgez84UX/o3aw/kcxSTqVLbqOr8f
+X-Gm-Gg: AYBFou35lS4Yt8EItsWd9ji6QjznuKgttWpJsgqHq/Cdp3CY9QACAHHT+lljpBc/2df
+	9S30zrwmYNEO8et5iTSG64Uc7GhVWyAsaMdKYzGNiSAQoxo5bgWttp9cnx/efdUQksdU77zu8Q8
+	S7sPQatG66HmbKZYszYChUMSknDkj0PZ7cK9Xj6FCgX7BY1m2r2il/HlnsJqMg8WOlferqSNQYs
+	7ok/eAOBuSy3/xbvnLaRZ6cYcNwVV7zPMRzwR6pFrCYk8eALov39DfymFUQW0O4FFabbac+gfWY
+	mP0Gczjpxupvz4so4GpsX3prT1XH+3hifUPkicbkqkD+eHPm4IYrPeerI+WAyNYNgcFpwuF7QD7
+	1Twg55j5gtRBxkz9SLRouGvfzCHjvs1FBKM7MX+cqtPzkKogV1l8f0J26eepUPZYUGherp7MjI8
+	6Y6XAUVjVD3oUkDHDpdAld17FOE4A8Wbf2cjzXwGazxEQuTo7B+QQDiHA60g0xQNj9hupBI5UqY
+	nYnSBNO4Wdp2e13pVEV8xTE
+X-Received: by 2002:a05:693c:4002:b0:35b:232e:c0c7 with SMTP id 5a478bee46e88-35b232ec517mr3252116eec.13.1791822062882;
+        Mon, 12 Oct 2026 09:21:02 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca1b556sm46550456eec.9.2026.10.12.09.20.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 09:20:59 -0700 (PDT)
+Message-ID: <f29aa81d-80c5-4ec6-9117-f928230b35b5@gmail.com>
+Date: Mon, 12 Oct 2026 09:20:57 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012151857.22534-1-jianyungao89@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/428] 7.2.10-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261009140946.008206689@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20261009140946.008206689@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 12, 2026 at 11:18:57PM +0800, jianyungao89@gmail.com wrote:
-> From: Jianyun Gao <jianyungao89@gmail.com>
+On 10/9/26 07:05, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.10 release.
+> There are 428 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> dax_core_init() mistakenly returns 0 on error paths. Change the
-> error return to use rc so the actual error code is propagated
-> to the caller.
+> Responses should be made by Sun, 11 Oct 2026 14:08:23 +0000.
+> Anything received after that time might be too late.
 > 
-> Fixes: 9567da0b408a ("device-dax: Introduce bus + driver model")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.10-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+
+-- 
+Florian
