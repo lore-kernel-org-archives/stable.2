@@ -1,126 +1,120 @@
-Received: from mail-dy2-f8.google.com (mail-dy2-f8.google.com [74.125.229.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9973497B95
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 14:49:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9633139AD3B;
+	Mon, 12 Oct 2026 14:49:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791816572; cv=none; b=esRBKHqf7gj7vLqtKZfF1KZD+UuzgHRbzuEMAzasLr8ui6zMOxYuTlIJWXc6Fn1l4dM1WZaz/A1GCz3awgM+wHzZvKc/m3UA9xX5dU0qy5zAcx7gZkiRQ06O0rD/DEntv8H+WzomM5nWqOyCtbFNaZVaMiVcpKGI3t1+yR1dF6A=
+	t=1791816581; cv=none; b=GQ98oRFsfihuOxbjzE0DS2TVI/80zq04zyvyi7n0aaNYXoBTOOnIyIRD/Zlaj3RkknfT1cmex7bi/t1ASI80uh1/n0rpN6DFCut9XosSaik8Cee98voUZ4etKUl56lF233HjZWcJrV9U/IEh9mculq82u/kK+7ANHEATBHbr1nM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791816572; c=relaxed/simple;
-	bh=c16ZXWH+GRMU9Gv5D5TMERR/RKlvixHWFMYKRCEvbV8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MmQuVSbAti40dDNGQxnOrLK37bzu63sSVN+noy2Q6vwbaof1o+SjmASSazJkGavh/DddbnuA/dTamJ2htuZ0OfyBpXw+GivLfH9GRzb1gb1QMtRbwPRHiG9P3UgAA/adq0kQTspo6I7u3gDa6QehAKUWohBAocGQQhqHI4TG06k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FjUNRMFE; arc=none smtp.client-ip=74.125.229.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791816581; c=relaxed/simple;
+	bh=gNUN1PeLrzguojVepCK36wD7He1jYT3XIVgIRd6U6p4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tOGuP/nB5eJqjfClkmxYAVJ8B3p73umD5Dq8Ei8keD4mTWVncGflW9DipIO3nR448MP9O8dYyAH56U33q0bdxWl/3CYdNuiaAPom01cYyUlP2Eqbtis6cJSCRes1yAqGV7nhMklRBA0FhVebFHEbjb90OaiQnTac3GUmonCRvzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=pAag5HOP; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FjUNRMFE"
-Received: by mail-dy2-f8.google.com with SMTP id 5a478bee46e88-3538045633fso1678432eec.0
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 07:49:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791816570; x=1792421370; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SNefojtvKaPsWksx1KlDETs9fKwCel6Xh/eUYbsILEo=;
-        b=FjUNRMFEC+pDGGGu8b63dqh18hWiqu5fMctk3Z2IyZ2Nr6Ao42/QBQh0xUvFzV5Msm
-         FAMZKkpD5pzEYT6ogVyvGuejLAGGRmirA0pCff0245ea1fwpAE+IzX0fnskhqqqwJEHq
-         HuIOb2QdL9auLOjXYfT/Guhy63chO03CcQ2mdOZTCNHNEUr2NGwQJi4QmJCJIzZEsS0v
-         5eFqEeOpkoPfdUABtGvHvRtqOTU4MKL/H8Q23mUL7ukiZgBJWGdDNsXAZHvzDI0ILMNU
-         i394zR2QxRvmAqFkj4nWLafHfJ96uuKLAcMh0Ct18V977s+dTl/VdKjIdGeCjazkCRwN
-         f+aA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791816570; x=1792421370;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SNefojtvKaPsWksx1KlDETs9fKwCel6Xh/eUYbsILEo=;
-        b=2L6q5KEPiTv7D8bPw6BYQYobI8sP05aFoeEoTVp5mqvAFlfLpBmMramCwRYDeuevE1
-         jW0WVW+rp5CoCw0Ej3tqTy0JFY6a9owIfEe91AMlNb+YojK1UFoANxxq4RT7yLq2hryB
-         +JXxLpqBeiF6E19sAAvunjG0y0YnypXgdqaiZY+k5zqsMGx4awCQxMszCSD1tWAN3JsV
-         zti3YZo0aGkOQMai55tC7s4QyOmyTGA+TutWJ1R7DxrThk3Dq3LfqgJYAb2ZFw8c9eRD
-         TIfv2ezjx4WfJLhNLLq1K1k6SVpPLP/dNA2QyK72+76Urlxnz9eEERFkzm11fB0NQj/X
-         Z5LA==
-X-Forwarded-Encrypted: i=1; AKwUvBxMcoAf8iYVGqkbU2W476nf6RDZ9Nb2Kol02RuYnd9jP7vSEtwO+AHFAX10K3Q9ZnDfoPmMKrg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJoWAm8OhLDduKV1XoU84CqoCjL8KMNZ1dhum3Fxp0PySQzpkR7
-	XJsDLZKm+NfHMVNnCqMUIBy3tQ47EFtAs/CKXVC6IqRHr8rhcmUOBdjl
-X-Gm-Gg: AYBFou2J1/OQ3xgS3ubR49biL0hdyA6gATLLm+WR0Nr4Vf/DOxgCnhAlu06bG7yXjwf
-	aYbkae7aPQbfzyc/zOpPlElxLKg7hbIXs4OYyoc/5orb5d197zFeJCW7B8Bu1bCFIYO26ctHMq5
-	GY88Hm2zv8oZ+41UnSX96v1vaCUugeXdzDDRprrPZ/9Cefsl4q2+qM/ideHZABW9NZT7Op2d+v7
-	ci3RPlknyIhoU55Zn+668cPTW3BtUJ325k4S1NwAUgp+rWmcrqSHgR+boXzGrf/HBSpDS/RArKh
-	umvQ8awQ9TWPVGLlOKPDBh60xOGqw+/yL/dOSIedBH/OUZyiDcBS5a5g5FqikVrnrRDXG8mH0TS
-	toj+z3Sp4BDOsIyM6Wvs88/8iizE05dQqaNkuFfXl94FXLIBtqS2tSpRjNtsMiEXcSpG/BBkWwQ
-	YBTaeRknXDy8LN9IWBEso7tBWJKcaX9wPtebPeV4GttETcKvGP+my/mfuD4C98HBq4Sj7V1y173
-	9POi7kTlZ3cTxSGqfMZS4Km15+TK3Anu76fHZhYsoi4tPMnsNPYhHNS94XtWE1Hq1CGDw==
-X-Received: by 2002:a05:7300:a50a:b0:33b:f5b7:f494 with SMTP id 5a478bee46e88-3537df8cf05mr20301538eec.13.1791816569788;
-        Mon, 12 Oct 2026 07:49:29 -0700 (PDT)
-Received: from localhost (ec2-18-143-158-86.ap-southeast-1.compute.amazonaws.com. [18.143.158.86])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35b29c2f861sm11272773eec.11.2026.10.12.07.49.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 07:49:29 -0700 (PDT)
-From: jianyungao89@gmail.com
-To: linux-kernel@vger.kernel.org
-Cc: Jianyun Gao <jianyungao89@gmail.com>,
-	stable@vger.kernel.org,
-	Jan Kara <jack@suse.cz>,
-	Dan Williams <djbw@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Brian Foster <bfoster@redhat.com>,
-	linux-fsdevel@vger.kernel.org (open list:FILESYSTEM DIRECT ACCESS (DAX)),
-	nvdimm@lists.linux.dev (open list:FILESYSTEM DIRECT ACCESS (DAX))
-Subject: [PATCH v2] dax: fix wrong error code returned from dax_dedupe_file_range_compare()
-Date: Mon, 12 Oct 2026 22:49:24 +0800
-Message-Id: <20261012144925.6728-1-jianyungao89@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="pAag5HOP"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=r+N6R62BknSMaVGFnJv8A3+Jyc2QMb/vkx4SHVadquY=; b=pAag5HOPVbCcIdY9v0e3oak/BI
+	EZAAhLuer9FAjMK6gp6ice/l+9xBlZKVEo6icX2WMpgob4RLLn0lXFzhSrrh98Izq7FyA5jkdtH1h
+	XgSdV+jT5kDZ+nn5a+8eqmtRAli5djnNYu18dt0ISeYYNC8Zl0DGCL4WzjfMwctqGX1SfGoPQSQ4/
+	QFZWuzmdcO3o+6+Nf8zOWgnknbNgBxi+VqnF8Nd4sB6wquGwU+3XWh51y5nwwtnXsgJrHdXxNQVBg
+	q9rcO5Ecs0W0RE4l+N6/dmuuRdJRzyUlOYKv0J7yAAJ72rvUbMrlonYcxjHsb8tg+gQanpBiflY/i
+	c+ulJmng==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.5 #2 (Red Hat Linux))
+	id 1xGHLK-0000000EWlC-0YQu;
+	Mon, 12 Oct 2026 14:49:35 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 2E73E30045A; Mon, 12 Oct 2026 16:49:33 +0200 (CEST)
+Date: Mon, 12 Oct 2026 16:49:33 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Andrea Parri <parri.andrea@gmail.com>
+Cc: Josh Poimboeuf <jpoimboe@kernel.org>, Jiri Kosina <jikos@kernel.org>,
+	Miroslav Benes <mbenes@suse.cz>, Petr Mladek <pmladek@suse.com>,
+	Joe Lawrence <joe.lawrence@redhat.com>, Song Liu <song@kernel.org>,
+	live-patching@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] livepatch: Fix races between stack check and module
+ load/unload
+Message-ID: <20261012144933.GW2009045@noisy.programming.kicks-ass.net>
+References: <20261012140546.154730-1-parri.andrea@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012140546.154730-1-parri.andrea@gmail.com>
 
-From: Jianyun Gao <jianyungao89@gmail.com>
+On Mon, Oct 12, 2026 at 04:05:45PM +0200, Andrea Parri wrote:
+> diff --git a/kernel/livepatch/patch.c b/kernel/livepatch/patch.c
+> index 3f54a017bbf69..d01ec7a6256ab 100644
+> --- a/kernel/livepatch/patch.c
+> +++ b/kernel/livepatch/patch.c
+> @@ -22,15 +22,19 @@
+>  
+>  static LIST_HEAD(klp_ops);
+>  
+> +/*
+> + * Caller must hold klp_mutex or rcu_read_lock(): klp_check_stack_func() walks
+> + * klp_ops from the scheduler without klp_mutex.
+> + */
+>  struct klp_ops *klp_find_ops(void *old_func)
+>  {
+>  	struct klp_ops *ops;
+>  	struct klp_func *func;
+>  
+> -	list_for_each_entry(ops, &klp_ops, node) {
+> -		func = list_first_entry(&ops->func_stack, struct klp_func,
+> -					stack_node);
+> -		if (func->old_func == old_func)
+> +	list_for_each_entry_rcu(ops, &klp_ops, node, lockdep_is_held(&klp_mutex)) {
+> +		func = list_first_or_null_rcu(&ops->func_stack, struct klp_func,
+> +					      stack_node);
+> +		if (func && READ_ONCE(func->old_func) == old_func)
+>  			return ops;
+>  	}
+>  
 
-When dax_range_compare_iter() returns a negative error code (e.g. -EIO),
-dax_dedupe_file_range_compare() incorrectly returns 'ret' which holds the
-positive return value from iomap_iter() indicating more iterations remain.
-This positive value leaks to the caller, where vfs_dedupe_file_range()
-interprets it as success (bytes_deduped = len), causing userspace to
-incorrectly believe deduplication completed.
+> diff --git a/kernel/livepatch/transition.c b/kernel/livepatch/transition.c
+> index 2351a19ac2a9e..e9aa16baf1743 100644
+> --- a/kernel/livepatch/transition.c
+> +++ b/kernel/livepatch/transition.c
+> @@ -8,6 +8,7 @@
+>  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+>  
+>  #include <linux/cpu.h>
+> +#include <linux/rculist.h>
+>  #include <linux/stacktrace.h>
+>  #include <linux/static_call.h>
+>  #include "core.h"
+> @@ -201,12 +202,16 @@ void klp_update_patch_state(struct task_struct *task)
+>  /*
+>   * Determine whether the given stack trace includes any references to a
+>   * to-be-patched or to-be-unpatched function.
+> + *
+> + * Must be called under rcu_read_lock(), see klp_check_stack().
+>   */
+>  static int klp_check_stack_func(struct klp_func *func, unsigned long *entries,
+>  				unsigned int nr_entries)
+>  {
+>  	unsigned long func_addr, func_size, address;
+> +	struct klp_func *prev;
+>  	struct klp_ops *ops;
+> +	void *old_func;
+>  	int i;
+>  
+>  	if (klp_target_state == KLP_TRANSITION_UNPATCHED) {
 
-Return 'status' instead to propagate the actual error code.
+As per always, I much prefer things like lockdep_assert_held() and
+__must_hold() over comments.
 
-Fixes: 39eb05112987 ("dax: advance the iomap_iter on dedupe range")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
----
-
-Changes in v2:
-- Add Fixes tag and Cc stable
-- Add Reviewed-by tag from Jan Kara
-
-v1: Link: https://lore.kernel.org/lkml/20261010021010.19575-1-jianyungao89@gmail.com/
-
- fs/dax.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/dax.c b/fs/dax.c
-index 6ba50142eeb2..1f6a4fbb97bd 100644
---- a/fs/dax.c
-+++ b/fs/dax.c
-@@ -2261,7 +2261,7 @@ int dax_dedupe_file_range_compare(struct inode *src, loff_t srcoff,
- 		status = dax_range_compare_iter(&src_iter, &dst_iter,
- 				min(src_iter.len, dst_iter.len), same);
- 		if (status < 0)
--			return ret;
-+			return status;
- 		src_iter.status = dst_iter.status = status;
- 	}
- 	return ret;
--- 
-2.34.1
 
