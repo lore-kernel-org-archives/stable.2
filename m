@@ -1,298 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 411DD15665C
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:35:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9805015665C
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:35:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819327; cv=none; b=kRtFSslwNBRYnXw8uDwXuVwYNL/+C7lPft2vr8eTIvfvVl4+9fI3pld8k2XRVrn9WfSZH1/CZHsHEVNhUcGiJhniZ79kr02LEkVV+OgpDvRoUCcXnm7n3wYD9TTk08M7US2ZRd7K+dCQm0wN0X6mZ5fQYmJbmXfwUB8TB2dz+8M=
+	t=1791819331; cv=none; b=RFrlzafo9/8sFw/WS8h4e3fOeFfW8hIzBRvIWN45Ai4JQPISw/sZNsAvspXQjZ0bQyDkPLtZkPyAc9rdQrX04u4KYnMALvjK79IVEEwDJWRsk/6BfTL5eYtvmYL/z6uwEMk13hvQF6htksX0BAKhGP+hUhGB+OFdmc6OJWoRGp4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819327; c=relaxed/simple;
-	bh=+M1Fi2fwrvRjftiQMM46nqjZT+l3/JRqfy+tRj6crmY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Thc7UdBB11/8JuY5VPrUjVovRveHhRtw14LxpFiI4zU4xp94mUheJpTmcFCNLuO5/gi7TbzktjGAqxejCBlV0rc/OYtVAkAlc/G8i4Asmc0+gRBwULdE1zJ3gDrWLU+afr7jGynoi5DhJt2KBXDk96CGf0XJ9h+mAH6SUpy+gdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=I9CXotug; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791819331; c=relaxed/simple;
+	bh=GV1wicU12F6Cmfv5PX8nLXyLUJXZCOXwINDDQ35idnQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rOSUu7wfJxN5sQTVb8W57dWL6rMqUgS6khsu0RwvUNKoHXdFDQ1WEHm0TglF7bfFcWYstYDDZBqScG2ddMGAMUWn/X3eqxWgHkSwJAbw1zjxxuVflg3uiPCYEo9I2PF+97xNFI8l/quGWeDxg2Y9kU4jT1IvhpaJasSoGtRDzkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZFUQk8jA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="I9CXotug"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FA5B1F0089B;
-	Mon, 12 Oct 2026 15:35:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791819326;
-	bh=7+MOHOMxfB40t68hy5tmv0R4t9+Sa3F66jhvHB+Sww0=;
-	h=Subject:To:Cc:From:Date;
-	b=I9CXotugBP/DBWQoq9PYwccgOk3PYGJP170Ap/kJ1Z0zA+620+Udi/JfjNBwa2nzu
-	 Gm7DaddpR9uiOheMYkAnLq+Mov1xybTDGtfmUjvvY5k0J7UchI27cCInRSYY6eRsBz
-	 Ib1AiCMFgp0Lg2ojqdENHPgO58KS/V7Xh6BN/8Vo=
-Subject: FAILED: patch "[PATCH] fs: don't silently unmount busy mounts" failed to apply to 5.10-stable tree
-To: brauner@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 17:35:18 +0200
-Message-ID: <2026101218-accustom-overrate-a70c@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZFUQk8jA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE04D1F0089B;
+	Mon, 12 Oct 2026 15:35:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791819330;
+	bh=VumTKXp+lSVJjp/T3cc1IR60U7HxHbdeycmq2BoXlYQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZFUQk8jAjf2LPru5FOIf2UEh+vVTxZ8yjg8SBifi1jXlEwmg7UL8MzmD/SpBWx0rq
+	 vzUaun95Io1O+qK0Of/bxyDgUexrcJYjZtYTNLhB6UmD1CU5SZtPGPLGRR4uq0N3vW
+	 t9UwTRhdFoUjB5Cp8QYnlN0sT/S+I7fFegNpVQWlc83ixfSJCdmymji8HxlAu+k7tX
+	 L6H9xvjGnHv7DIy8uDNF2b9AzE6yxUt9SABOa/lhBY39gh51sSFTyVv7K1AMDG6X1a
+	 S/3a0KushYw7U/Mbw16g47voentSybJMUFar4XyUGrN3f5M/Aa433SBGC6QmyJjMRy
+	 UP8lsxCLUWArg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Corinna Vinschen <vinschen@redhat.com>,
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+	Rafal Romanowski <rafal.romanowski@intel.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] iavf: iavf_virtchnl_completion: drop duplicate ether_addr_equal() test
+Date: Mon, 12 Oct 2026 11:35:27 -0400
+Message-ID: <20261012153458.1075797-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026101248-ravine-unclip-ec97@gregkh>
+References: <2026101248-ravine-unclip-ec97@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Corinna Vinschen <vinschen@redhat.com>
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 8538aaea10e141457bcb13d51b0d278c697c422a ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+This is just a simple cleanup fix.  Commit 35a2443d0910f ("iavf: Add
+waiting for response from PF in set mac") introduced a duplicate
+ether_addr_equal() check, so the current code tests the new MAC twice
+against the former MAC.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 6857e209015f95be7a8f19a9cd5dac345b9b9859
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101218-accustom-overrate-a70c@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+Remove the outer ether_addr_equal() test, remnant of commit c5c922b3e09b
+("iavf: fix MAC address setting for VFs when filter is rejected")
 
-Possible dependencies:
+Signed-off-by: Corinna Vinschen <vinschen@redhat.com>
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Tested-by: Rafal Romanowski <rafal.romanowski@intel.com>
+Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
+Link: https://patch.msgid.link/20260609213559.178657-4-anthony.l.nguyen@intel.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 436729a56dd4 ("iavf: send MAC change request synchronously")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/ethernet/intel/iavf/iavf_virtchnl.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 6857e209015f95be7a8f19a9cd5dac345b9b9859 Mon Sep 17 00:00:00 2001
-From: Christian Brauner <brauner@kernel.org>
-Date: Wed, 23 Sep 2026 14:27:57 +0200
-Subject: [PATCH] fs: don't silently unmount busy mounts
-
-The propagate_mount_busy() helper exists to decide whether a synchronous
-can suceed. It does that by looking at the copies of the victims in the
-mounts its parent propagates to. One of those functions from propagation
-hell.
-
-It skips a copy that has child mounts except for the case of a single
-child mount covering the copy's root. That algorithm used to be exact.
-It isn't anymore.
-
-Originally only childless copies were unmounted during propagation.
-And 1064f874abc0 ("mnt: Tuck mounts under others instead of creating
-shadow/side mounts.") ended up adding covered mounts to both sides in
-one go.
-
-Along came 99b19d16471e ("mnt: In propgate_umount handle visiting mounts
-in any order") and that started to unmount more than before:
-
-[1]: A copy of a mount is unmounted when each of its children is either
-     its overmount or a copy of the victim itself. In the former case
-     the overmount gets reparented. In the latter case the copy of the
-     victim will end up being unmounted.
-
-So propagate_umount() ended up being rewritten without adjusting
-propagate_mount_busy(). And currently propagate_mount_busy() doesn't
-look at copies of the victim that have two or more children nor a single
-child that is not the overmount.
-
-So any such copy in [1] is not checked for
-references. The result is that a synchronous unmount succeeds, pulling
-out a mount that is still in use.
-
-A container can run into this with its own mounts. The host shares a
-tree with the container and the host has a mount in that tree:
-
-  mount -t tmpfs none /mnt
-  mount --make-shared /mnt
-  mount -t tmpfs none /mnt/a
-
-The container's /mnt is a slave copy of the host mount. The container
-now takes a detached copy of the tree and mounts that copy beneath its
-propagated copy of /mnt/a and keeps the file descriptor to the tree
-open:
-
-  unshare -m --propagation unchanged
-  mount --make-rslave /
-  fd = open_tree(AT_FDCWD, "/mnt", OPEN_TREE_CLONE | AT_RECURSIVE)
-  move_mount(fd, "", AT_FDCWD, "/mnt/a", MOVE_MOUNT_BENEATH)
-
-  grep /mnt /proc/self/mountinfo
-  775 355 ... /mnt ...     master:646
-  777 775 ... /mnt/a ...   master:646
-  776 777 ... /mnt/a ...   master:647
-  778 777 ... /mnt/a/a ... master:647
-
-The now attached tree (777) is now mounted beneath the container's copy
-of /mnt/a. That's also where the host mount sits (as seen from the host
-mount namespace). So the propagated copy (776) of the host's mount is on
-top of its root and the copy of that (778) is inside it. Now the host
-runs:
-
-  umount /mnt/a
-
-and it succeeds. The moved tree tree and the copy inside of it are gone
-from the container. Now only the propagated copy is left and it got
-reparented to where it was before:
-
-  grep /mnt /proc/self/mountinfo
-  775 355 ... /mnt ... master:646
-  776 775 ... /mnt/a ...
-
-But the file descriptor still refers to the moved tree. So a synchronous
-umount detached a mount that is still in use.
-
-Teach propagate_mount_busy() the same checks that propagate_umount()
-does. It now checks for a single victim mount without children
-for which it can assume that MNT_LOCKED is cleared on every copy like
-propagate_umount() does. The copies form chains. IOW, when a copy itself
-receives propagation from the victim's parent then the mount at the same
-mountpoint inside that copy is a copy as well. Whether a mount receives
-propagation from the victim's can simply be checked by walking its
-masters. Walk each chain once from its top so we are sure that nested
-copies stay linear. Check every reference once of every copy that gets
-unmounted.
-
-Link: https://patch.msgid.link/20260923-work-mount-fixes-v1-5-f424cf8d3242@kernel.org
-Fixes: 99b19d16471e ("mnt: In propgate_umount handle visiting mounts in any order")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-
-diff --git a/fs/pnode.c b/fs/pnode.c
-index 5d91c3e58d2a..2cd667958efe 100644
---- a/fs/pnode.c
-+++ b/fs/pnode.c
-@@ -410,19 +410,99 @@ bool propagation_would_overmount(const struct mount *from,
- 	return false;
- }
- 
-+/* Does @m receive propagation from @parent? */
-+static bool receives_from(struct mount *m, struct mount *parent)
-+{
-+	if (m == parent)
-+		return false;
-+	for (; m; m = m->mnt_master)
-+		if (m == parent || peers(m, parent))
-+			return true;
-+	return false;
-+}
-+
-+/*
-+ * Does @m receive propagation from the victim's parent as well? If so, then
-+ * the mount at the victim's mountpoint inside of @m is a umount candidate as
-+ * well. So it's the next candidate in the chain. Otherwise the chain ends at
-+ * @m.
-+ */
-+static struct mount *next_candidate(struct mount *m, struct mount *victim)
-+{
-+	if (!receives_from(m, victim->mnt_parent))
-+		return NULL;
-+	return __lookup_mnt(&m->mnt, victim->mnt_mountpoint);
-+}
-+
-+/*
-+ * Would propagate_umount() pull out a mount of the chain of candidates that
-+ * starts at @c, and does that mount have references beyond its own?
-+ *
-+ * This mirrors how trim_one(), trim_ancestors() and handle_locked() handle a
-+ * synchronous umount:
-+ *
-+ * - single victim
-+ * - without children
-+ * - with MNT_LOCKED already cleared on every candidate by propagate_mount_unlock()
-+ *
-+ * A copy of the victim gets unmounted when each of its children is
-+ * the next candidate in the chain or its overmount, unless the next
-+ * unmount candidate is not its overmount and some unmount candidate further
-+ * down has a child outside the chain.  Keep this in sync with
-+ * Documentation/filesystems/propagate_umount.txt.
-+ */
-+static bool chain_busy(struct mount *c, struct mount *victim)
-+{
-+	struct mount *m, *n, *next, *deepest = NULL;
-+	bool above;
-+
-+	/* the deepest candidate with a child outside the chain */
-+	for (m = c; m; m = next) {
-+		next = next_candidate(m, victim);
-+		list_for_each_entry(n, &m->mnt_mounts, mnt_child) {
-+			if (n != next && n != victim) {
-+				deepest = m;
-+				break;
-+			}
+diff --git a/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c b/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c
+index f1a01b8e2235c..ad906baa759d5 100644
+--- a/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c
++++ b/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c
+@@ -2546,13 +2546,11 @@ void iavf_virtchnl_completion(struct iavf_adapter *adapter,
+ 	case VIRTCHNL_OP_ADD_ETH_ADDR:
+ 		if (!v_retval)
+ 			iavf_mac_add_ok(adapter);
+-		if (!ether_addr_equal(netdev->dev_addr, adapter->hw.mac.addr))
+-			if (!ether_addr_equal(netdev->dev_addr,
+-					      adapter->hw.mac.addr)) {
+-				netif_addr_lock_bh(netdev);
+-				eth_hw_addr_set(netdev, adapter->hw.mac.addr);
+-				netif_addr_unlock_bh(netdev);
+-			}
++		if (!ether_addr_equal(netdev->dev_addr, adapter->hw.mac.addr)) {
++			netif_addr_lock_bh(netdev);
++			eth_hw_addr_set(netdev, adapter->hw.mac.addr);
++			netif_addr_unlock_bh(netdev);
 +		}
-+	}
-+
-+	above = deepest != NULL;	/* @deepest is at or below @m */
-+	for (m = c; m; m = next) {
-+		bool goes = true;
-+
-+		next = next_candidate(m, victim);
-+		list_for_each_entry(n, &m->mnt_mounts, mnt_child) {
-+			if (n != next && n != m->overmount && n != victim) {
-+				goes = false;
-+				break;
-+			}
-+		}
-+		if (goes && next && next != m->overmount && above && m != deepest)
-+			goes = false;
-+		if (m == deepest)
-+			above = false;
-+		if (goes && do_refcount_check(m, 1))
-+			return true;
-+	}
-+	return false;
-+}
-+
- /*
-  * check if the mount 'mnt' can be unmounted successfully.
-  * @mnt: the mount to be checked for unmount
-  * NOTE: unmounting 'mnt' would naturally propagate to all
-  * other mounts its parent propagates to.
-- * Check if any of these mounts that **do not have submounts**
-- * have more references than 'refcnt'. If so return busy.
-+ * Check if any of the mounts that propagate_umount() would pull out
-+ * along with it have more references than their own. If so return busy.
-  *
-  * vfsmount lock must be held for write
-  */
- int propagate_mount_busy(struct mount *mnt, int refcnt)
- {
- 	struct mount *parent = mnt->mnt_parent;
-+	struct dentry *mp = mnt->mnt_mountpoint;
-+	struct mount *m;
- 
- 	/*
- 	 * quickly check if the current mount can be unmounted.
-@@ -435,24 +515,16 @@ int propagate_mount_busy(struct mount *mnt, int refcnt)
- 	if (mnt == parent)
- 		return 0;
- 
--	for (struct mount *m = propagation_next(parent, parent); m;
--	     		m = propagation_next(m, parent)) {
--		struct list_head *head;
--		struct mount *child = __lookup_mnt(&m->mnt, mnt->mnt_mountpoint);
-+	/* the candidates are the mounts at @mp below the receivers */
-+	for (m = propagation_next(parent, parent); m;
-+	     m = propagation_next(m, parent)) {
-+		struct mount *c = __lookup_mnt(&m->mnt, mp);
- 
--		if (!child)
-+		/* each chain once, from its top: skip receivers that are candidates */
-+		if (!c || (mnt_has_parent(m) && m->mnt_mountpoint == mp &&
-+			   receives_from(m->mnt_parent, parent)))
- 			continue;
--
--		head = &child->mnt_mounts;
--		if (!list_empty(head)) {
--			/*
--			 * a mount that covers child completely wouldn't prevent
--			 * it being pulled out; any other would.
--			 */
--			if (!list_is_singular(head) || !child->overmount)
--				continue;
--		}
--		if (do_refcount_check(child, 1))
-+		if (chain_busy(c, mnt))
- 			return 1;
- 	}
- 	return 0;
+ 		wake_up(&adapter->vc_waitqueue);
+ 		break;
+ 	case VIRTCHNL_OP_GET_STATS: {
+-- 
+2.53.0
 
