@@ -1,214 +1,235 @@
-Received: from PAUP264CU001.outbound.protection.outlook.com (mail-francecentralazon11021133.outbound.protection.outlook.com [40.107.160.133])
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 781672931EE;
-	Mon, 12 Oct 2026 13:37:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.160.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD1D3793BB;
+	Mon, 12 Oct 2026 13:39:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.177.32
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791812236; cv=fail; b=OHaxOZIUZ2Yyo+Nm5qvAT6zDt8/3Cm04CWzQtQoZf2OjgZAvZNSdws2YWivTnruplxRg3GRhbVIYeOZ8hkVvLtBzg0jC2aUcpTT/ZO+Vfz1JlnHjcft98X6uHPacu79H/SMFV9uCAfJUWh+kArmdG8o0N0I32Dd4VwXDrSjPOR8=
+	t=1791812382; cv=fail; b=HGX2f2EZ9CaWRma1pYZWalQ8zVfb2CaPJKfxmzDcFcyIA4Z37IPxiX80okLvMPwE0+s3Dv9t3sw1YT6nNo/QfcSn/4cgUQUkJ2z7gf1q4DSpGw0hKgB1tE/segYzD0TVCbqYCbqQWqK2hk/igsjsfEDvnLZXjhzrcm+/qA8qAcM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791812236; c=relaxed/simple;
-	bh=Qyd5E59+XjkGLHd5ZVavfY6A1BDuZzxojIH8BwHT38w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Yl0cMQ57kLKxV0pJ/gVXapZg/g298qwGDEDl8/RZBQBg110Dshr7biPnI8awPWy/WwVOii1ksY3DD9pSwEopJzjoEoUevMsQgTuViHO3uDQHrIvdmZR/v3HqDcnirHVw2tswCDPwE5rV8O4Gim4gcNI7Pj0/QBoQUVYXswqSuXY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wenske.fr; spf=pass smtp.mailfrom=wenske.fr; dkim=pass (2048-bit key) header.d=wenske.fr header.i=@wenske.fr header.b=i5SA1nD0; arc=fail smtp.client-ip=40.107.160.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wenske.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wenske.fr
+	s=arc-20240116; t=1791812382; c=relaxed/simple;
+	bh=EG7Pd8eZYeZM4vIGWUWrMCXDcs30hIb+xqeZ+J9CSI0=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=Jh2sItGkppzKuBNCPNtJa8skwvHQs+7OihFfHCXVyVtSAatenx7F7H9AbWHiWbktVOQyeWb2LzDCPK5QzdTBn9wMz4rN5pRW4ym1uT0Dmohlodrf2fpSLgkcAvSSNAlhETPRQHmJgTThizYVpd7e4dgox7RRM0tsqYc9r2qs3xA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=EiZw/d83; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=IK34T4Rq; arc=fail smtp.client-ip=205.220.177.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wenske.fr header.i=@wenske.fr header.b="i5SA1nD0"
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="EiZw/d83";
+	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="IK34T4Rq"
+Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CCieGF1832792;
+	Mon, 12 Oct 2026 13:39:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	corp-2025-04-25; bh=THj2VAH4vYqjf10+6QNYcZhiTBzTrCzAW0E7FuPMxP8=; b=
+	EiZw/d83xRahnJ0anfFTCN2aHzBu3b+zK8J7U7ujjNHKcGfQeXSUdq4Z6TbGEpoY
+	nzYsDDPHXWcWHUmBaiEGzwXc7DkzSl5iNHvGnEA/1y4qWLoSCJiJGTn0LajQjhL/
+	ZdG9MbupawEU3FajqqLFY6ee3ATEWvG7mB5jk7TgjzhE0HroU4Eo9SUnKLiIhSXC
+	CxsUq0Ey69+UPIFlMvjziEHGd1yFiWyUgLj40mqFX8QXmsI68qh0j9ecGbnXshTG
+	1Vjju5qSBNaaoebqfhd1UXvSu3Nt+SKMPJqSHWss5/7uTQu/LgJcutQnORXwcn52
+	gBK0t1puBtsIYESVKMOZNg==
+Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4h7dcsaata-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 13:39:30 +0000 (GMT)
+Received: from pps.filterd (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 69CDaJ3g001138;
+	Mon, 12 Oct 2026 13:39:29 GMT
+Received: from sj2pr03cu001.outbound.protection.outlook.com (mail-westusazon11012064.outbound.protection.outlook.com [52.101.43.64])
+	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4h7bt80uv1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 12 Oct 2026 13:39:29 +0000 (GMT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YHOsS+8Q2hu42JkxQuHqHdGiqqnf8JkCNvGbnmAJxdm2Rjf3fNkQqciKpxVuRg86xa99yvoS2QrfN1cmfaLsJlznj/SnOtn5uQk7G2o4A/86DujQ08cF+Ul0LnAFFdGOYTGmzsZ6RkSsYNjeUbjel1jlIELrzSR8igBiV+G69X5uAzV/b68jBClIWk+LQEe4CXcva5rlVYiR0HioKatEwfo3xkBdoVMbigmN0GpD7NZkuAqj/ygxpeImNd7cizBL82Bmfkbu0kyATx+mBM+pEMogcIY54N7x2x/soy2gtuoh+dCoIRp06XyH/NrX2kjJGxIXb/szUPzRbI+nosd0kQ==
+ b=ejTF9IPGn3Q40aHhpVHSZukKg2L0ATF38yd6SyNNXyMLYRgOVYhBRmv820E5wX9LGooya5GFlxbhUM8mecygaMgZJSvSSEAs+wHSFl95G4wskAroiT65fBQfApSOkAdo2YZQQOaj9lV9B6Emh6mUsNl9k67dqLhMARarG8C4eplpFIj3GGEJpW8Fw5YAcmndfjYwrNi/MKwjRB6L6Sa0Dvouqm1gxV7h/GFSXjhEUsF7XVIUgBvggn8ILWt9tM5dj596bkVkWvY9yD975YCjrb6UxXqxfo7YR0rIyBSf+qmmThltKdhz875fom6MYd8IgtLQJO9HQYDxNVRgHT7ZTw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Cb1KzrYb/NxclxupdogkcL42hOzn0oXY2ub1PZfz+xw=;
- b=IX+KCyYAcxZhhLNzxQ7JTf8pf1kUMGVRjJW095IvlyVSA22pO5cVebnKgNxHH5uamK/8WouyXNtwYSD14/+PkD7SKKnlfWm7v/owPNYbElet+tHaScl8QI3/J8mwHchJn6bFnA8Rrruc14u5N2lbvDOTBZqjDy6XwV8KRRLgs/XSFFDvnjh+AEdndBVGts2kFrraR1lHZsK41ETh3Iv4XUCauYvXJXgWJpZa/5bmSQxhzAEGZNBLTGTQ7Usb1Dlv0HPpNaPaC297vEEkzWOFwljrKaOFqwcD4P6Wo2ddTbzMrgw2ZI0T4G+TcjfA5ZNEtGzBtHhjjFPHQQF8pgjFwQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 82.65.107.217) smtp.rcpttodomain=gentoo.org smtp.mailfrom=wenske.fr;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=wenske.fr;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wenske.fr;
- s=selector1;
+ bh=THj2VAH4vYqjf10+6QNYcZhiTBzTrCzAW0E7FuPMxP8=;
+ b=RSNzn3AusBWUPB8N+UgoUowKKoGA/YK0DLOU9PKdyJn9wWYlv/KWXe40x5Q1DCAKhYLDgeOJydq6UNo154RWGIAXb1uZfVqrVDY2RH4G1Hczei0fbJKX/atlz813nRO576wGnpbdVu/EypQpWtTQwyR5Kwhjf+kJxlo3TSU8FZDhThPBunD5SYMvVGc96lK3kerIqnL8ecjNW+O2UXRTAn1Sxg9vG5deXKP3GY3eesad/glPgU3QFcw2DA1P6PL3DPRisXeSL2sjesVltsoPgMj4MJPJqBl3BPGjHXJ5qAuxdzG4Rhp93ef/FQQXLJ5bPCeDWdvJlEqddL9JBNGr3Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cb1KzrYb/NxclxupdogkcL42hOzn0oXY2ub1PZfz+xw=;
- b=i5SA1nD0zNX0ACjK6u5JEgOo9YNqc8fCXzq0s1/23PUimowg0fT+epSCQ6uITMxUDGK9ouh1jaVC8R2SyRD6JmFaffWE2VVGkkBjD8EJ2zvCvdDaFjtxr/d2cD8VLkUfbYDOTCvk8wkVEkBUGU6l4FpHSizZiahrsYqlbsPErOPfBeXitKXkhkb4rvNMcEbfySfCL12P8h8viDGobR9ca29TrZLD6KRx9dQTfo4Vkzzl/OGnKLSyL5Ncu1Ty8HUYb14dK2b+iEVJZ1aIboUUELFIPtGI0RtDF/cWoH7S8u11E9WwIF/X8H/6ISTnYNL87qyIPho6Xe6Q4kAu5TXwAA==
-Received: from PAZP264CA0141.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1f8::16)
- by MR1P264MB2356.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501:35::17) with
+ bh=THj2VAH4vYqjf10+6QNYcZhiTBzTrCzAW0E7FuPMxP8=;
+ b=IK34T4RqE0iU/xvW5PSTnPHoHUwc4dqKhb4z9NlOba8GwEPWMEv2ZKfQzXeDHXdvLVEsVn2hkd3PdKRMjbHZ5JyRdDHW0cdXbtYtbB3Xz+RFh1I9kcasVF7Bs+vK36KaRDUrQTnIvKl24MGEfkP0M+K3o3lIu2XE/w5809GSHjM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oracle.com;
+Received: from SJ0PR10MB5834.namprd10.prod.outlook.com (2603:10b6:a03:3ee::16)
+ by DS7PR10MB7374.namprd10.prod.outlook.com (2603:10b6:8:eb::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
- 2026 13:37:09 +0000
-Received: from PA2PEPF00019231.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:1f8:cafe::4d) by PAZP264CA0141.outlook.office365.com
- (2603:10a6:102:1f8::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Mon, 12
- Oct 2026 13:37:09 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 82.65.107.217) smtp.mailfrom=wenske.fr; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=wenske.fr;
-Received-SPF: Pass (protection.outlook.com: domain of wenske.fr designates
- 82.65.107.217 as permitted sender) receiver=protection.outlook.com;
- client-ip=82.65.107.217; helo=lgs.sw-servers.net; pr=C
-Received: from lgs.sw-servers.net (82.65.107.217) by
- PA2PEPF00019231.mail.protection.outlook.com (10.167.242.37) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.6
- via Frontend Transport; Mon, 12 Oct 2026 13:37:09 +0000
-Received: from zephy.int.sw-servers.net (zephy.int.sw-servers.net [10.1.2.3])
-	by lgs.sw-servers.net (Postfix) with ESMTPS id 0CDE3830;
-	Mon, 12 Oct 2026 15:37:09 +0200 (CEST)
-Received: by zephy.int.sw-servers.net (Postfix, from userid 1000)
-	id 4C5306531E; Mon, 12 Oct 2026 15:37:12 +0200 (CEST)
-From: Sebastien WENSKE <sebastien@wenske.fr>
-To: Ard Biesheuvel <ardb@kernel.org>,
-	linux-efi@vger.kernel.org
-Cc: swenske@veepee.com,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	James Le Cuirot <chewi@gentoo.org>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] efi/libstub: Allocate the INITRD table in ACPI reclaim memory
-Date: Mon, 12 Oct 2026 15:37:09 +0200
-Message-ID: <20261012133712.618913-1-sebastien@wenske.fr>
-X-Mailer: git-send-email 2.47.3
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.7; Mon, 12 Oct
+ 2026 13:39:12 +0000
+Received: from SJ0PR10MB5834.namprd10.prod.outlook.com
+ ([fe80::2444:1d33:3ce:d83a]) by SJ0PR10MB5834.namprd10.prod.outlook.com
+ ([fe80::2444:1d33:3ce:d83a%7]) with mapi id 15.21.0522.002; Mon, 12 Oct 2026
+ 13:39:11 +0000
+Message-ID: <2c0c5d51-197c-47fd-b002-ecff397a826e@oracle.com>
+Date: Mon, 12 Oct 2026 19:09:04 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6.y] wifi: cfg80211: release locks on error in
+ cfg80211_wext_siwgenie()
+To: Wentao Guan <guanwentao@uniontech.com>, Sasha Levin <sashal@kernel.org>,
+        kartikey406 <kartikey406@gmail.com>
+Cc: johannes <johannes@sipsolutions.net>,
+        "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+        linux-kernel <linux-kernel@vger.kernel.org>,
+        stable <stable@vger.kernel.org>
+References: <20261010043002.2919860-1-guanwentao@uniontech.com>
+ <tencent_54DE3A7910D4598F5676AE58@qq.com>
+From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Content-Language: en-US
+In-Reply-To: <tencent_54DE3A7910D4598F5676AE58@qq.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0122.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:94::6) To SJ0PR10MB5834.namprd10.prod.outlook.com
+ (2603:10b6:a03:3ee::16)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA2PEPF00019231:EE_|MR1P264MB2356:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 7027699e-4e05-4390-f91b-08df2865ea03
+X-MS-TrafficTypeDiagnostic: SJ0PR10MB5834:EE_|DS7PR10MB7374:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d737abe-319c-4759-5b85-08df286632f8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|23010399003|36860700016|376014|1800799024|6133799003|10067099003|18002099003|5023799004|261009223027099003|56012099006;
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|22082099003|18002099003|10067099003|261009223027099003|4143699003|56012099006|5023799004;
 X-Microsoft-Antispam-Message-Info:
-	4nQeTQdBwidr5d1y2JzP9RbwmAZzgk5K6FtFT+FrsnBWDvb0OiIlEmmnSDYH9xdB+DZF6V+zC2u2B+u/87f/WWRK/mJGLjrhCVzbpa5LmvOI2EuKr3qcGs0qzABjPzKP0xu0rKylxdn2OvzBtKORO6wnzThAXnhtaxHAX+OWx9ji/gSNrLpJMDf9oFphnBoBpDg7CE5RL41mhcuX1sT0UWqRV8OzLDTvFdZjkB5GQ3KMQFDGeA/NC3ghIPgaix9FU5NjRxgd685DVVd0s+mroPuYkujk4LgQJce6cGNyS28Xn7V5U+Tx7v6bPEMLDHWfbkjdfhmjJOyS7b+38EW0NRwz+AjXoEVDBFXtZMnbwlTt0dj+inknmHg+dJGzBkAMZXSQnItnOYGbQPD4KJhvQaAigeg3Gnus+RM7zH1bIXSWZD58cmR6vJhWHA2nY5UKoi84MqIozplA2EQJMdia45221i4ChliYl/7KdPL2SZ0Q0DhYEoEG7itqfmi6dRLWpsar6gF5oot/dPPRbkL3EqKKoG2npeM85EZUeUcVDPEM07VCXQaptpoSVHVDQTBMbO2AJDz7DI4UqswROFJh96Z0D07CY1jhmfZkpWH3r02cAZOG7dBiGeM4TBzNVRXsFnc/ZLUs5x2GJQIbprOQSPxzjK8EzivKlzdhmDrXWaCpF0RlqUKKMgk8HYwP7ogN
+	GnESs4MBjsOdg8ZFKeZjyWxjTvh0N6MFNhm3TqQNbOEsE24w1N2+zbbER9d9Vbi4FhK6CwBKn1/nXfndUzETuplP35TaVMh1z11GckDE86ogy6Qux5ZvGv0ZHYxb4PqeO4N9+oVKAGxtvN14Kd3EMyjV10fWZQxJ5OMGGbo/psXhtctNKi9uVHTocimKNvlkViAUitr0n6YTek5GGDksxsEqfOy5SbYt2hqmtD5nmthABzUgpHOfFxU7Qvd4AOhetZ4CSDeP5sfqqJW/fBePmh62bmxHRZYjimvdYQihSU8kVFwhiwWYMccM1sj0dnqPaFUbnL910W6UJ/qwi3Uh+zQazmqYxjuscx917jDdOZSlhhyBGQOkZSr0Ul8fI1XwcWi3j30SbR0BwYVpGdeW8A1jbidfmZ5lEeesXK2epU3TMRcby0N1tLqbT/b3m2iTGsQ9KHwermASvmi7f2c2yCbnuMvZp9ZnfumedSdeiuDYmJwrBwvuLLaCRcRLR5xArDFT8yn1wKcfG7A0y0Tb/S8mqSF7MKdXjI4JRdzrBUIzFiJR1OY3du8lc+S2WKPpPirvJ1BJeSQR8+Zld+IWwPUSsEzzvTezBlIc7rAu7itw15RFhBtJicaWuob2ca4+
 X-Forefront-Antispam-Report:
-	CIP:82.65.107.217;CTRY:FR;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lgs.sw-servers.net;PTR:82-65-107-217.subs.proxad.net;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(36860700016)(376014)(1800799024)(6133799003)(10067099003)(18002099003)(5023799004)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR10MB5834.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(22082099003)(18002099003)(10067099003)(261009223027099003)(4143699003)(56012099006)(5023799004);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	Q4A+77ZEOZtgrZnBRdlqYmwy39s8qkuNGytVLi9Hcugo3rNbA2YFNcyNGdZ6jQQWbpDBpeAVcjJ40u1CWE6qy9j5uBOObHmMm5CbkQok/S+baK/09qvIcNpXmbLfuk5Nr4hj+WAeyRXYi4AD0gf4QKNPYwIZly1g3s2qCTcw9L9JE/KtVmJ2TNjCSIIhHcrdem5nd3G/0W+u00L2G5dG51iFrwr+kmwGaTwnbDqukWgJHQan7fJbTyS3LMBe9xOk2Bh2sqXXSAEkt5u/5WcldfvZ433lvFhrhywCmVmcXz2FWFGCJOfotPf9n2eVUW0SPMzqqkQRcwiuVP5Og/oc5BRaO93bk0OQy17cAt1I15jZQDqzIDYdaN6LO/WQhHv7AJ+z5kigcarkhsWXzaf/71lH9Ib3czHAAepC5KUIDGqkJZC7hPntZnxSzcsHMOT1
-X-OriginatorOrg: wenske.fr
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 13:37:09.2309
+	=?utf-8?B?S3hiV1I0dnR0L2ZlRzd1UW1DaWY5SVFJWWovOG0vRFdhdlNrazZwZzNDK1FO?=
+ =?utf-8?B?aWhEMGNEc1dxcVJKQzJIanBsc05TV0NUNm5nSmtLUUVkSU1veE9nME9vUmNh?=
+ =?utf-8?B?QTlSQlpUYzRrZzd1ZTRzR0xaY25IR3NwZWd4ME9rVEZ4V1pVUkNOWi9VU2ho?=
+ =?utf-8?B?Z09ObDQxVUUwRVlsSEFuVUFPNlRENHBlbThOY0hGa3pMRXRLSnlscTdBZmNR?=
+ =?utf-8?B?ZUVFMy9RcEpzVEYyeU1CZ3RBSmREeXlPbnUzbTlMZjRMZk13dEgvV3B6dkRu?=
+ =?utf-8?B?Q0Nvc2t2R3FkZlpJWnpCWGVGQm1PSk85cTBQZ2FQWW5QaXlqanA5dTZyOThO?=
+ =?utf-8?B?OUt5Wk5iRlJJcW9OSUNKM213Rk0zdlpZV2xPNzkzaXZmd09DMWhnMUxnMVk4?=
+ =?utf-8?B?cU9HdE4rTHJ5dk9kVTZ2ZVRsWXBKZmY5ckl3eERsYlZaakJxRFFtYTZ1M3dB?=
+ =?utf-8?B?d3NDUm5vWjZ5a3cvcFE3ZnhFbjdESURXY01OUzd0cGdMT0pqMDAxL0ROL0s4?=
+ =?utf-8?B?TTB1N3NnRWtZRmtJZG1uQkN5UWl2OVByaGNNZWtZUU5YVGFaLzZDdVFZTDJC?=
+ =?utf-8?B?cWhyZnA1SDJubzJ6dmtOSE9KTWE2eFRUYlk5UG5lK2xoeFNVb09idlN0VlJN?=
+ =?utf-8?B?ZDM0SWJXV3liSVhnVDg5TGtLWUhiKzNTSWFKRDVYdTNSb0ZZNVlvcTBuTWJL?=
+ =?utf-8?B?c0QzMGdqY1pzcTVFSkJhaS80R0kwelYycVlGY2dVN2xZSVNLKzVOSFRtSEE5?=
+ =?utf-8?B?NkQyM3dNN3F4UXFmVjNqSzdaSjR4R3grbExBdDZhZ25NSHRvVEFQU2hSQVBv?=
+ =?utf-8?B?RnU3SXRhMWhDcmpqbVZmSFFMSi9hSjd6VFQxNXQvRXZSamZtc2cyVEVpQnJV?=
+ =?utf-8?B?UHV5SDBWQlVMTzY1M21vVThBeTdhMHNVM2tnSDJGYXVqVWpsTGlhc2c5UHd1?=
+ =?utf-8?B?WU4yZzZtbEhGWlFvK1VLc3N3U3BtOUxMZyt1RDI5OXRJYzcvQnFJZVMyTUlX?=
+ =?utf-8?B?Uzdsb05ZSDlsd0J4emt6S1Q4dUZmNDExN1VPRzMyM1dFbnNrb2s3Mm0yQkZR?=
+ =?utf-8?B?N000aFFJRzlFM09ZQUZ3OWFwcWtmdWlZN2VvUmFGQ096OUNJVDNZUXVZd3M3?=
+ =?utf-8?B?OUF3cjYzQVRLT2VBeTlxOEpqVmpFdGQ4VnZJVHk0UEs2cU1ZalJTKy9YakM1?=
+ =?utf-8?B?ZXpIeHpoUkswVm5HUmVrQmZrUlQ4dVRNQjZNNXd0a3R1aE9id05SSWpZbXpB?=
+ =?utf-8?B?RzR2UHhIdmJPSGNkZG8vVmJocHVpeW1zS0M0K2R3WGM3V1NSdjQxU3NHQ25J?=
+ =?utf-8?B?Tkt0ZDBucWx5SjhJZzRGaS96TXlGMUlsVmpGL05mNS9FZ3AwbTBOcjVHcFFJ?=
+ =?utf-8?B?eVRqUFBnd0lJWXpKWHJld0c5MitmT0QyMmxNclpxU3BZT3NYVGRLRGFpU1ND?=
+ =?utf-8?B?QjBRd1ZmV3lOOTRCYTBCVURLbUFNTVZyN3orWlcvMXRoVjBXQ015cU1BNlFG?=
+ =?utf-8?B?VTVQdTFLZ3BVVTdTSVo4Z3UzQ0xSUW1TTXFsWTVpN3RGOWJQaXQ1SnBsNFJU?=
+ =?utf-8?B?Z25CUWRXMkpycXVDbm1yWUg2cUZMUEhwWDhpbWZVdFc2OHV1ZHNlQXh1U1pH?=
+ =?utf-8?B?QWV3RFQ4VjUvKytydVpzWGpoZlVKRmIvNGhCN1p2T0xobHYzQU4yR09zKzJ3?=
+ =?utf-8?B?am9KZC8vUXg3R0djVzRMdy9rUVhVa2h2N3RsUkZNQ1kwS2lnSytkblV4bjFu?=
+ =?utf-8?B?cThxNmlyR3lXU2wydDdLTit5cGFEV1JQZm5kZXZ0N1hpQ3dqSlJ4Nnc0Vk1Q?=
+ =?utf-8?B?OEovRG5MdHhSSG9BRkszdWUxRTVBSG13VTMyVVIvdWcrdlhlMmEyZXdJM2Zx?=
+ =?utf-8?B?bHVmeUFVZXVYNFM1Sjh3a0EyZzd4N0Nlb3V1SjQ2NEVJUEErdFM0SW1LYnRP?=
+ =?utf-8?B?Nm9LUldpZWo5VjZFbVRkN0RDdXdmYnBLSlNPWVNlSTlrSVZZUFlLZVJMYnpH?=
+ =?utf-8?B?MVZWNWZXU3RGOGtRb00zVjJFWXNadDgzNVZGclVRWCtGY09uUUQ3M1hPczZQ?=
+ =?utf-8?B?NGd5bGZFWlV5ZWhiTjh1ZFBJY1h1bHJDemtvU1hhM1plYmxhQWc2bFBlSEM2?=
+ =?utf-8?B?cE9jMmkyVFdaSkxvdURobGdLQ1pLSHIrZmJPQ1daTjJDbUFkL0h0Y1dDQUZp?=
+ =?utf-8?B?NGlDckgvVlBIVThhQ21DdnlzUnBEYnNGWDlTSG4rQ3N2OGFYcCt5dUoyaVk0?=
+ =?utf-8?B?WCtIK05sb3hEdkF4cG1yUHhZQS81RWZ1QVRUOG5GVys2VFEyclkyRWs5d2FJ?=
+ =?utf-8?B?S1lpb0c2enNkbnJ2Y0JPL2pybHdvd2hKbHA2WWZyZzFGdERON2J3RW1rbTVX?=
+ =?utf-8?Q?NkAUKe9yDVxhmNNyzmbq5eqVMSnsjReO65hxx?=
+X-Exchange-RoutingPolicyChecked:
+	tLbmIIdZ2V04h4LrjlIOzh09ReH+Tbp5tm7w1sPIaJszRU+JJIwNk3kLDxgTWzh9/TUzbedspFt9xRT7HHBfTVmOlPpHG3hlQgDeTRUrpNcFltz1JG7eI+m63djCuilZWeI7Sdr9BRuLiHQzVZyZif7e0sg1+FUCuP7x+zFxAXRQ5UxTQqPIcr8JkeSeN8vz0bf+TF42Lyxvtu8Ja7VbDl1L7XAQPrh6zm0wR5VtJA7xu6juvPv/EFwaFkuMUY+5cSf2zvYF5eDESGjTMf5a1Olu2GiZVJ9Q1LohcF2Y0kkQMoZuNO6Kc0t6IU1bRKGb4lzTNARy5H/T/mKO3y1SpA==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	WGkPYmZIVrWGJIRKLgP30m1dQpr8CNPUCD3DAm7oNmrErGNoktNkulXj26vfxhltxycrSIrOTV6jEfVr2gmDndecZlmS4ccvJaMcgGknl3o3YeEnp5E4BnrZPra3rF3tSjV2B5jEdVS75fb3iG8M3Xkd+6FdZBnksEWsZBgaFGw2X9EkKuc9nxn4txfv0tzYneRjsyBBTAQrtXfue73oPJmdiVJRwHXf62X4GvlA3CENCYEevJLX6+N9BJkckLlBXGRVu5A1bEmtpckRe7PAITzIK8x6nDcbiKdqlDQDygu2I1cPEoIlOIt00AS7r8NX3T7hesbeqr0RgMG4c+LFzDoAmzaBKin0UG2+1KRYTqmI1iGoQ/Gk/jI5KHWBzBe5PpuLtKApg1cj9mxnT9hxbQwjTq1EWoklMGkthr0EZ9suE851uIpSqoCkCekjc7jVSohH+/v/+E98OQLLbCbW9e0D9YLA9i7UaudEc9M0AIlnKHjlbcIhCYOu0tn2+nc2qVzYPVV2I+HCQ4etEHGtpQ1vjf+x3O1/purza86zp1kPYYZiyNl/qcnDOWL8YWydcK/6moF6w1uW/4/WORR0ypjbdxCwZCaDd6IEshDfLz0=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d737abe-319c-4759-5b85-08df286632f8
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR10MB5834.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 13:39:11.9228
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7027699e-4e05-4390-f91b-08df2865ea03
-X-MS-Exchange-CrossTenant-Id: ff4ca3b8-6c54-4519-8b0b-9389fb15cdbb
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff4ca3b8-6c54-4519-8b0b-9389fb15cdbb;Ip=[82.65.107.217];Helo=[lgs.sw-servers.net]
-X-MS-Exchange-CrossTenant-AuthSource: PA2PEPF00019231.FRAP264.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MR1P264MB2356
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rqDtZbTraND1g0dIkCT3K1gVWZcobu+mNt76HOgsfz0tGMAoDf7RoGpaiJHkWhhdqw97N8r/Yq6t6oPo8xM91pKAIDsEg0PaBpL4z6r9E/X5CQxG/cEAA0R4BSOndfSS
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR10MB7374
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ phishscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 mlxlogscore=999
+ mlxscore=0 suspectscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2610020000 definitions=main-2610120054
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1NCBTYWx0ZWRfX5wXELvl5e0LV
+ ZPRZuyXSs3P5q62BHxqm+lEyt6TB2rwuw/636XQ9DaMlt4w71EbJAkHfO1sjTMgtHOJ5ZF+ES+3
+ Zn2nF4rUI0RS5WHpM1qQhxsftbsY+l99U6hyywmf/3xIBwtNiU+U
+X-Proofpoint-GUID: Mgmje-8OeoyPf0yYnOsDGOASdYDDTKGX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1NCBTYWx0ZWRfX8Q7KjkBNHX6b
+ GSWGm55KzkgjgUS5BdMVRek4DxJx+yjyGDr9cpVxOD0qH05Wjh0MXM2OTyK2HT+U6JAuHr1OGGC
+ myPES000B/3iNJ5G8G9/N3NmydQr1DRoFBz4sar46aJeVjxmB0Ih0JEwIOmprsSuRpbRFZdSTZ5
+ 9IwXvkHCE+G1x1XjZcgS9mui0oQqBSLvoxVPCWXDAueXma/4kDUNRdvUKsTmAahBqqTKGm94tt+
+ eYXpsvxPB0Usqx0AGGzAg94rsBUnuMcFzHuf1O3n48IVuSiYJGcglbAmDr5q918Q4UQ00VQ/Q88
+ 7rbyyHMstHP31wsRNWXodhMjqoiNoLsUjTZR6tvcAS+iADvgZicidE8koJoRNO9bZnCnQdPJK+G
+ kq3L88LAlIwcEoZXjH0o8oyToDPk+hXZ6qTtOqwO4wrwVfvByahBnNqUd4gC1uFk9/hoZU2yc3K
+ NgMrZS6n48vec50GbtQ==
+X-Proofpoint-ORIG-GUID: Mgmje-8OeoyPf0yYnOsDGOASdYDDTKGX
+X-Authority-Analysis: v=2.4 cv=EdZd0/mC c=1 sm=1 tr=0 ts=6acce312 cx=c_pps
+ a=XiAAW1AwiKB2Y8Wsi+sD2Q==:117 a=XiAAW1AwiKB2Y8Wsi+sD2Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=jiCTI4zE5U7BLdzWsZGv:22 a=o5oIOnhZENCTenyL_yNV:22 a=VwQbUJbxAAAA:8
+ a=yPCof4ZbAAAA:8 a=NfuPzBKRnNo-DpCcSiQA:9 a=QEXdDO2ut3YA:10
 
-Commit 6e62d1c6f2c7 ("efi: Wipe INITRD config table from memory after
-consumption") makes the kernel clear the base and size of the
-LINUX_EFI_INITRD_MEDIA_GUID configuration table once it has read them,
-so that a kexec'd kernel no longer picks up a stale initrd.
+Hi Wentao,
 
-However, the stub allocates that table from EFI_LOADER_DATA, which the
-kernel that consumes it treats as ordinary RAM, while the configuration
-table entry pointing at it survives kexec. A kexec'd kernel therefore
-finds the same address in the configuration table, and clears 16 bytes
-there again, in memory that may by then hold anything - including the
-kexec'd kernel's own image, which kexec_file_load() is free to place
-there.
+On 10/10/26 10:04 am, Wentao Guan wrote:
+> Sorry, it is for v6.6.158. cc the stable list.
+> 
 
-Seen on x86_64 v7.2.10 under QEMU with Debian's OVMF 2025.02 Secure
-Boot capable build (OVMF_CODE_4M.secboot.fd, no keys enrolled), the
-initrd handed to the stub through the LINUX_EFI_INITRD_MEDIA_GUID
-device path (systemd-stub UKI). A kexec reboot (kexec_file_load(),
-bzImage64, with an initrd) loads the new kernel at 0x1ca00000; the
-stale table is at 0x1d4bcf98, in the middle of tcp_parse_options() in
-that image. The kexec'd kernel boots, then oopses on the first incoming
-SYN, 16 bytes of its text zeroed:
+this needs to be fixed on 5.15.y and 6.1.y.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000002
-  RIP: 0010:tcp_parse_options+0xe7/0x2f0
-  Code: a5 4c 29 e1 89 c8 0f b6 4d 12 83 e0 3f 83 e1 c0 09 c1 88 4d 12 eb de 41 83 fe 04 75 d8 41 f6 44 24 0d 02 74 d0 45 85 d2 75 cb <0f> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 66 39 d0 89 d1
-  Call Trace:
-   <IRQ>
-   tcp_conn_request+0x270/0x9d0
-   tcp_rcv_state_process+0x147/0x1560
-   tcp_v4_do_rcv+0xc1/0x260
-   tcp_v4_rcv+0x110e/0x1190
+This was reported here: 
+https://lore.kernel.org/all/93db0eae-f479-4343-a126-59987ae0dc22@oracle.com/ 
 
-A debug print added before the wipe shows what the kexec'd kernel reads
-at the table's address - its own text:
 
-  efi: INITRD table at 0x1d4bcf98:
-       base 0xc274c085660241b7 size 0x8c0c1661455b70f
+thanks for making a patch.
 
-Whether a given kernel crashes depends on what happens to land at that
-address: v7.2.9 clears 16 bytes elsewhere in its image without any
-visible failure, and bisecting v7.2.9..v7.2.10 ends on an unrelated
-commit that only shifts the image's layout.
+Are you planning to send it to other branches as well ?
 
-Allocate the table from EFI_ACPI_RECLAIM_MEMORY instead, as the stub
-already does for the RNG seed table so that it survives a kexec reboot.
-The table then stays where it is across kexec, and the wipe always
-lands on the table itself.
-
-Fixes: 6e62d1c6f2c7 ("efi: Wipe INITRD config table from memory after consumption")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Sebastien WENSKE <sebastien@wenske.fr>
----
-Tested on x86_64 under QEMU (q35, KVM) with Debian's OVMF 2025.02
-(OVMF_CODE_4M.secboot.fd and OVMF_CODE_4M.fd), booting a systemd-stub
-UKI, then rebooting with kexec_file_load() and an initrd:
-
-- v7.2.10: the oops above in 6 out of 6 kexec reboots under the
-  secboot build (none under the plain one). With this patch: 2 out of
-  2 come up, and two chained kexec'd kernels read the cleared table
-  back (base 0x0 size 0x0), now in ACPI data memory.
-- v7.3-rc7 without this patch: no visible failure, but the same debug
-  print shows the kexec'd kernel reading its own image at the table's
-  address - and so clearing 16 bytes of it:
-
-    efi: INITRD table at 0x1d4bcf98:
-         base 0xf413863894c40c4 size 0x415c74063c1246b6 - inside this
-         kernel's image
-
-  With this patch: kexec reboots (chained too) come up under both OVMF
-  builds. It builds without warnings, W=1 included for libstub.
-
-Not tested: other architectures, real hardware.
-
-Reserving the table with efi_mem_reserve() in efi_config_parse_tables()
-instead doesn't help on x86: efi_arch_mem_reserve() only handles
-EFI_BOOT_SERVICES_DATA ("Failed to lookup EFI memory descriptor"), so
-kexec still places the next kernel over the table. Note that a kernel
-kexec'd from one without this patch still finds the table in loader
-data memory.
-
- drivers/firmware/efi/libstub/efi-stub-helper.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/firmware/efi/libstub/efi-stub-helper.c b/drivers/firmware/efi/libstub/efi-stub-helper.c
-index f27f2e1f0..9293b8b31 100644
---- a/drivers/firmware/efi/libstub/efi-stub-helper.c
-+++ b/drivers/firmware/efi/libstub/efi-stub-helper.c
-@@ -641,8 +641,14 @@ efi_status_t efi_load_initrd(efi_loaded_image_t *image,
- 				     EFISTUB_EVT_INITRD) == EFI_SUCCESS)
- 		efi_info("Measured initrd data into PCR 9\n");
- 
--	status = efi_bs_call(allocate_pool, EFI_LOADER_DATA, sizeof(initrd),
--			     (void **)&tbl);
-+	/*
-+	 * Use EFI_ACPI_RECLAIM_MEMORY so the table survives a kexec reboot:
-+	 * configuration tables do, and the kernel wipes this one once it has
-+	 * consumed it - a kexec'd kernel wipes it again, at the same address,
-+	 * which in EFI_LOADER_DATA memory may hold anything by then.
-+	 */
-+	status = efi_bs_call(allocate_pool, EFI_ACPI_RECLAIM_MEMORY,
-+			     sizeof(initrd), (void **)&tbl);
- 	if (status != EFI_SUCCESS)
- 		goto free_initrd;
- 
-
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
--- 
-2.47.3
+thanks,
+Harshit> BRs
+> Wentao Guan
+> 
+>> ---
+>> net/wireless/wext-sme.c | 6 ++++--
+>> 1 file changed, 4 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/net/wireless/wext-sme.c b/net/wireless/wext-sme.c
+>> index cfa903eb0e82f..0e7c314bdeef0 100644
+>> --- a/net/wireless/wext-sme.c
+>> +++ b/net/wireless/wext-sme.c
+>> @@ -354,8 +354,10 @@ int cfg80211_wext_siwgenie(struct net_device *dev,
+>>                          /* nothing */
+>>                  }
+>>   
+>> -               if (!for_each_element_completed(elem, extra, ie_len))
+>> -                       return -EINVAL;
+>> +               if (!for_each_element_completed(elem, extra, ie_len)) {
+>> +                       err = -EINVAL;
+>> +                       goto out;
+>> +               }
+>>
+>>                 ie = kmemdup(extra, ie_len, GFP_KERNEL);
+>>                  if (!ie) {
 
