@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 138124C227A
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 21:34:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE6D04F93C0
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 21:34:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791840861; cv=none; b=KhukXdtupqAdu40r3uDPqZxewR4F4yIk8SjDRkvlCLNd1axUbic+12ivZ8W+xblEGSWHmaYoysr/8TQIhqVK9ofNYbzrYGkStdfSboA3qUn/8RYM2G2zb10p6oBJQO/dC3iEXZeI3u9bz+v2iotjeuWOkiSmGegrywblvqxaftA=
+	t=1791840869; cv=none; b=TEKEZJKOqtN0j12WB4rsnxvnK7mtO71LH8mIsmSmsfdVISGaB2w8FR0oDlNQ4mRyMLf+3XzWQ09tblmF7e5Vt48S5+CjbthTPV75Bem/pO/g+7xJcaWW7ESBiWbZjWfkrUrnNaTpgeMNU+gtjRNbM8LSrp1HycazidbQPhittc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791840861; c=relaxed/simple;
-	bh=UctqwLPESLFBObmNLViyigWOUjCGagAQbUUpgdtCH74=;
+	s=arc-20240116; t=1791840869; c=relaxed/simple;
+	bh=bQJ7byitQ7uLeLakzHjLkOo0YXoj7NBAHcR5KWxOKOI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l5AOFFoMQQFVDohMKzY8K61RTPSAIgI9bwVgv+GoFJWbHLeIDmzso/IKXi3pi886E2jeDhqgru8NC+SZ58pXUN0s1yUkHjW/zGmBzU+YmnQpJv4jIwal97BmlFQ1uP5AEA+2aiHCiwKamKHq1AyPk7DmrkwdG9zVUq55bv3jbQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gzSjhAiS; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=LPvuiem9YXS18KmDrc7IAZb2edJhKfaEivssLziCNa60bsdJw8m7h9BLAurdG1mLnmfPTuNqb8bQMGqH5m3NGsvY1LN3USYiy2cSx8Pak9/YZBN/iBvB54kMwpMRNm6DN5Fv7Qg4UkTFm3tENR5fLZpdYYDVPEWKi7HxEgyrnno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iMkLFwWI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gzSjhAiS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D0D91F0089B;
-	Mon, 12 Oct 2026 21:34:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iMkLFwWI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A41FA1F008A1;
+	Mon, 12 Oct 2026 21:34:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791840859;
-	bh=eksqOxiem3EDFn+gBeUAoblVZv0QRx7rFvahWMGuVqI=;
+	s=k20260515; t=1791840867;
+	bh=7O6JiaLQdN6ZqCfoJ2Vl/aQCquFpiV84FAbfWKpuEi0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gzSjhAiScsh8f8J2Z+XMNzH7cpcPUIs5wQ+NHM0+YstKtEbxxZ7IrcbNsCJXA+p54
-	 4SX7TOm68YcfypeMRJnaOgqnEknu6UPbSU4HuUO3cz5Hs1VY7Y/+ShMdRS8Hspp5jW
-	 JnUjr07BHgli72chvWnsW3tJLyilImvQrASssJBzc/bEi00PqZ3Dpus3+390CGW4hT
-	 tTGY1gLPYWavaH8ryW3MpYms1+oPzwQ7BLl8FjD2ld0ZQx+Y19vAaLk5goKyfVhbMk
-	 SwWvEp4L+uRhXUJ++7lf+gDHIR4GqDkFYupR8xNhU1Bm1uGp+MFX3tYHTM+K9jJxuz
-	 k6I5BW9TnJ9aQ==
+	b=iMkLFwWIP3sp26/UmhT+n2gArwI15Ansfo11XVOdGGG3AvVZ6T1YyvGfWWgH8HG6G
+	 jHfbtwHdrGcSSiOs0t3dlIXXitZnXsBLpYZ9HYy5TtXUdVGyN7oPb1SMPauwsSf+D8
+	 6AxG+B2evukb7gESV1l8IcJYrEU8tKWyC/yeXXopNTzZQhQEVNit9Zjfmp06K3NVaL
+	 m/t2WgH3F5ktJ//0q5LaICZSZmYpAJMRkWuh/+KB49AENxEcd80ZIDj/15AUVHILeD
+	 VVQQ59YpHXmLEd41Hsg/OXvFTXC0oKIADf7OZCYE+1bazJZv1YG45CbfZrhqNUgcUO
+	 47sOltLfUtCIg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Daehyeon Ko <4ncienth@gmail.com>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Vishal Badole <Vishal.Badole@amd.com>,
+	Yazen Ghannam <yazen.ghannam@amd.com>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ip6_gre: remove obsolete ERSPAN PMTU update
-Date: Mon, 12 Oct 2026 17:34:17 -0400
-Message-ID: <20261012213357.1591422-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] EDAC/amd64: Mask UMC chip select to the four implemented selects
+Date: Mon, 12 Oct 2026 17:34:25 -0400
+Message-ID: <20261012213356.1592197-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101244-railing-trance-37fc@gregkh>
-References: <2026101244-railing-trance-37fc@gregkh>
+In-Reply-To: <2026101212-ascension-flavorful-abed@gregkh>
+References: <2026101212-ascension-flavorful-abed@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,67 +46,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daehyeon Ko <4ncienth@gmail.com>
+From: Vishal Badole <Vishal.Badole@amd.com>
 
-[ Upstream commit 8bc60db48e8cba35488bbd6e1f94aa990afa275a ]
+[ Upstream commit 7484bc43ba6b8e189b482db5b75e7842890a82b1 ]
 
-A tc tunnel_key action can attach a METADATA_IP_TUNNEL dst to an skb,
-and mirred can redirect it to a native ip6erspan device. The legacy PMTU
-update in ip6erspan_tunnel_xmit() treats that metadata dst as a route.
-Since it has no output device, dst_dev(dst)->mtu dereferences NULL.
+For DRAM ECC errors, the chip select value can be found in the
+MCA_SYND[ErrorInformation] field.
 
-On v7.2 with KASAN, an initial UID/GID 65534 process with CapEff 0 used
-self-created user and network namespaces to trigger:
+ErrorInformation[2:0] was first documented in Zen1. The 3 bit field
+implied that up to 8 chip selects may be used.
 
-  KASAN: null-ptr-deref
-  RIP: ip6erspan_tunnel_xmit+0x10fc/0x2cc0
-  Kernel panic - not syncing: Fatal exception in interrupt
+However, all Zen-based systems have only ever had up to 4 chip selects.
+So only bits [1:0] would contain a valid chip select value.
 
-The update is obsolete. Commit fe1a4ca0a2b7 ("ip6_gre: process toobig
-in a better way") changed IPv6 GRE Too Big handling to update the
-underlay route and removed the equivalent block from __gre6_xmit().
-ip6_tnl_xmit() then propagates the underlay PMTU to the overlay route.
+Future systems are redefining the field to ErrorInformation[1:0]. This
+matches the existing 'up to 4 chip selects' implementations. And it
+frees up the extra bit for other decoding.
 
-Remove the stale ERSPAN copy and its now-unused dst variable. This
-eliminates the metadata-dst dereference and keeps ERSPAN aligned with
-IPv6 GRE PMTU handling.
+Change the current chip select mask from 0x7 to 0x3 to prepare for the
+decode change.
 
-Fixes: 5a963eb61b7c ("ip6_gre: Add ERSPAN native tunnel support")
-Cc: stable@vger.kernel.org
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/20261002033058.358137-1-4ncienth@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: Adapted the removal to the PMTU check using dst->dev->mtu directly. ]
+Fixes: 713ad54675fd ("EDAC, amd64: Define and register UMC error decode function")
+Suggested-by: Yazen Ghannam <yazen.ghannam@amd.com>
+Signed-off-by: Vishal Badole <Vishal.Badole@amd.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+Cc: <stable@vger.kernel.org>
+Link: https://patch.msgid.link/20261002113204.3358815-2-Vishal.Badole@amd.com
+[ sashal: adapted the change from umc_get_err_info() to the inline assignment in decode_umc_error() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv6/ip6_gre.c | 5 -----
- 1 file changed, 5 deletions(-)
+ drivers/edac/amd64_edac.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
-index 950d5e74b094e..73ec4641f2201 100644
---- a/net/ipv6/ip6_gre.c
-+++ b/net/ipv6/ip6_gre.c
-@@ -962,7 +962,6 @@ static netdev_tx_t ip6erspan_tunnel_xmit(struct sk_buff *skb,
- {
- 	struct ip_tunnel_info *tun_info = NULL;
- 	struct ip6_tnl *t = netdev_priv(dev);
--	struct dst_entry *dst = skb_dst(skb);
- 	bool truncate = false;
- 	int encap_limit = -1;
- 	__u8 dsfield = false;
-@@ -1094,10 +1093,6 @@ static netdev_tx_t ip6erspan_tunnel_xmit(struct sk_buff *skb,
- 	/* Push GRE header. */
- 	gre_build_header(skb, 8, TUNNEL_SEQ, proto, 0, htonl(atomic_fetch_inc(&t->o_seqno)));
+diff --git a/drivers/edac/amd64_edac.c b/drivers/edac/amd64_edac.c
+index f5635dfa9acf6..dea7df975948b 100644
+--- a/drivers/edac/amd64_edac.c
++++ b/drivers/edac/amd64_edac.c
+@@ -2669,7 +2669,7 @@ static void decode_umc_error(int node_id, struct mce *m)
+ 			err.err_code = ERR_CHANNEL;
+ 	}
  
--	/* TooBig packet may have updated dst->dev's mtu */
--	if (!t->parms.collect_md && dst && dst_mtu(dst) > dst->dev->mtu)
--		dst->ops->update_pmtu(dst, NULL, skb, dst->dev->mtu, false);
--
- 	err = ip6_tnl_xmit(skb, dev, dsfield, &fl6, encap_limit, &mtu,
- 			   NEXTHDR_GRE);
- 	if (err != 0) {
+-	err.csrow = m->synd & 0x7;
++	err.csrow = m->synd & 0x3;
+ 
+ 	if (umc_normaddr_to_sysaddr(m->addr, pvt->mc_node_id, err.channel, &sys_addr)) {
+ 		err.err_code = ERR_NORM_ADDR;
 -- 
 2.53.0
 
