@@ -1,162 +1,130 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C08E3B8922
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 19:29:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791833368; cv=none; b=DkB6gL0ovvSCUYPHI4SyEMvGfQrr/M+O3Q9GhieK0vSvxMBb+IbweP3m7YVx6MEA6TDSmbI0824gC+lHRrRndZ0dAEmsY4OfFz2CHvkN20SC2heEnIdIsU86DPfCNjmmp/plOALJvPgG29AZJ5GroG+e5oKvntFhXMpj6hUSi28=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791833368; c=relaxed/simple;
-	bh=OAj3oXpR/M1+E0qRvtMvpBJmSDuAv48e2NXwXIWlHts=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JNjdunbP0ONgo/Pq3mdiwfuU4jBzp/JoZvP+MVxPFPHjwVdQlK/sFPnkcOd/epLVJcM13WPuCU4+Uq5ub9z69/M/RDlK6ZB5ArEy3di/r7WfVWrnQfJhusvCWliTKgfd4/bCFE71hoYSZ1ZCFlWWxyVy2fMkQlTwwUNgSW0FoII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=Cjq1/sa2; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C9A4D179A
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 19:29:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791833379; cv=pass; b=DAIaddcSTdHkcXvKJ4Mn2t15UQOqKnADHJf2EnsAxgzb9BtuKgMtaGazvWZTVSxVDZKIRCKtTMwhP2oY2g2FX/xqWIAlY1/Oxky/gYP9ov1uava3PO4robvQHEySz332260BxrNyq0ViVUY3/xzFNW2RRaqVhFSCJW1ie+hGtt0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791833379; c=relaxed/simple;
+	bh=aoPqNjug6jdHt00ush3qNX20F7lS1qZxd63aAzecos4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mhVwqJRnPZoWR2CdTiQ90MePR+kzx0px5Yb3clFJIKmzfEh2+dbGlMGn3bKxj2JVW7QeBUj+NZAYh1OeztZeIC9oX3DJzfP4GAj6nat7RbsqZs4qn71+EO9AjwPoEgxzYwRLXF8ZgBcahTFJ0DP0UI9OmmlI3X49+MEwOEvg9Zg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Afe/3Zr4; arc=pass smtp.client-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="Cjq1/sa2"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 39D9F40E03BE;
-	Mon, 12 Oct 2026 19:29:23 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id pKEppLVksWrx; Mon, 12 Oct 2026 19:29:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1791833358; bh=mu4smEvkN4ta7iNt6U6UbXKE9cDMHW91zRQ0UnIwUZA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Cjq1/sa2WlXgs4WruAr9GVdOKBAAOcRTVNCfTHhwl4AaXPGYt7PywWuFobLCAnMTt
-	 szLGGOx8C9Ju9OrIFWrwa5g4XptCKmICe7DrEApMbNy6zSR2TNToUaveslJoJ0n/EC
-	 y+D0Hqew84ZHbwDsxOnjQPKdpbXjmyyVpkz6KOoqisivP4LoctIftjzjVu9QIM5eI/
-	 N/Do0dGKDSZHsR3GEqJLYmTtmdvVJV2h9UwahshmH0ZeyojqFIx6Guh1nOhv5SCl5F
-	 uyAPKnksKDFmY126xL+oBNUK4Zbo6JhY522l7UekOvqE0//fpo3A+1kmhPK7sNJPh8
-	 Qoq2IHNnq7g3ALk+WQc+eazP+UeSieRq941hiJId/u8T17rLQJSIFYKa3sTbhvZOeM
-	 INxc/1ESygDG4Uy09ICj/9PbhKANZB8c/tf/vrc3PEE8OfVQiLzS9hBhmxeiWTCLT5
-	 XjxXXtKtUOyzNqiCiXhEiSVSV+uVZRSYMLs70bAyAJDXfGRBgAqlIvBiA2nnPP8pEB
-	 7LeTqDlmRv05FqOzy2GEEGCK3Bum9bvCMaEVY0uyJxEq0hp6uvrFb3R2YjyLC/00ye
-	 LJqRi6XSF2nb88Iw6IrPus7XQ8q8vjgFqA397AonlwnQnidAGtMlU3CrjglevT64kR
-	 2B/D82WN/UeV71OnSqgm9gfc=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id E8E8040E02B3;
-	Mon, 12 Oct 2026 19:29:13 +0000 (UTC)
-Date: Mon, 12 Oct 2026 12:29:11 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: gregkh@linuxfoundation.org
-Cc: ljs@kernel.org, riel@surriel.com, stable@vger.kernel.org
-Subject: Re: FAILED: patch "[PATCH] x86/CPU/AMD: Fix AMD TLBI Erratum #1718"
- failed to apply to 6.18-stable tree
-Message-ID: <20261012192911.GBas01B5yAgDcJnPjz@fat_crate.local>
-References: <2026101206-disparity-thrive-6c91@gregkh>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Afe/3Zr4"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6ae14cdc63aso15149a12.1
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 12:29:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791833376; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UO60L27ALwaER5IIpwNYshYE8WapUUgMBy9eCbr9YjpyOyxiHa9pVW4+d+Ej8lwpQb
+         PTlmPXL2soRXKBPfU1hv5r2kL8fwSzADvYnFmEQAfx2KsOmA1cd4PDbZc8g5XgCv8/Vw
+         kp3iwF7IRUoto+BSRcm2bIWG+4cUCVO2FxURBNfu5AMup6IN6/lYoXa1UmWyfDwokCAx
+         oC7gx6Kcc8Fk4zgO8Wy1+1AUgqmNdRKKgC6uGrDI+T1ONHjALd5zrmagULMt8UQugOhO
+         D1eF5K0g76UeiAU0AMlHpj2x/LLoQAsQmv1yRl8GC7ROwsIRvtxkZFugQuWqHkjvV0C7
+         gKug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=aoPqNjug6jdHt00ush3qNX20F7lS1qZxd63aAzecos4=;
+        fh=epVwkAgic9vHhWMKKv7oNW/dOuCJlhzb5GM+5paQU2I=;
+        b=V8QutJ0XKJEAyN/nPOZ68G0YbXMXUlRl28jna7aM2Wp+BaUYpm72n+V8Z6M8O24IJ6
+         zLWkSkuxuKIrjXOZQkYrJFra8dipaYDInbeoy2ReKLI+BQofdQHg3jtvvE03RbM9gKiH
+         RpQLnvFnGImI3d3uF3ZDr2O8P+bjZf6UQsM8QlhjQPIJ6UzA81+3kU1GfIvmT1OB4t+l
+         DX4bTuKAv8jtiAadLX/ugJTkpvGt9JLWDc3+PRqWZLB8LIFrYB7U7ovz0a3KGNx11cTD
+         kttNfUWhav1LeG9d9P8tXmULRyNLAgsK8vghv4c11slMQ1s7k19xBdOdi5vgKO7YuqOc
+         4OIA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791833376; x=1792438176; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aoPqNjug6jdHt00ush3qNX20F7lS1qZxd63aAzecos4=;
+        b=Afe/3Zr4ZBhFeXjfVNJcs5SlL8kH9Hf4n+lQ9CVzyQqXgqdq27opBUFIMFZdn2VRCP
+         k7yVRUfPkGSbUSMqtxqRmmH8/OXpVZ4uXfJZAbeDOYPxQcJOEYAbB73gJxCGFQc8HJcs
+         FK3N9Kez/I5hywoERU+iTFa9YoLWPiLEKMdnQn5Jzx6f6sTgvP9YHszAr8PWKlbGftEl
+         s6RHPCMOr+ekjfOVGp3kfBSvmttbwYdICha4KSmjOVKRI2h34OQUMguffv7ogVewEae2
+         3YXkRZ13tctZ9CZ3Itwje+mrr3IUm8TnsJEmcTshBjWKi/P4GNtJ10EcSfCDQ/3JtCPy
+         HRUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791833376; x=1792438176;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aoPqNjug6jdHt00ush3qNX20F7lS1qZxd63aAzecos4=;
+        b=QUoKHniKmTpAL2BF5LLYHXPmJ3bUnxlpUXKOOWPjgIhkGCWAy07eXToS1J5wH9PZZt
+         TrQbospOV1Al+3v48Q9RZPgYHiXWWOMh4AyZRC3GaVudS3Y7XMjPuDUGgAywzm621YFn
+         ozqnbH8M619brORnjUYvCgm7/6kklo5FtDdVesn0i9HMzgiPEgHtkZT62XPqSFfYl0RU
+         QKg5nES6uJ1P96r22/MU1L7bj50n5BpSIrKH07Y07VrinPlRzxkZjN00D7NlBBfsYBrG
+         QlpF5BouQKN562WDHakFr8p3gJLjKL8pEqpp8IYybNhOEvi2/Er+ZBm4MT9bW0N2gP8A
+         GWgg==
+X-Forwarded-Encrypted: i=1; AKwUvByNsXRMQTrwy0LxeriXSNFRQjFI9o30f9I9a6cnQaDByFkrtjfZn76jtQB7qO4wVgxh653oac4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIo/5aHRSnrGH1myliDhwS5XaLAr206WSdzFpyGsaTKH3/5x+zI
+	G6J64BpvyC3ZzVXm0qy8OPjnrkwDnl8zumTOdPbRqs5DxTMhSvLu/gh2axMsCNQuLCo5K0mX3mR
+	+ihstJ29rGe7RqtZ0Z8GQsMnO4pFEdw/xKYJXu1b+
+X-Gm-Gg: AYBFou2xzlx7nKoJ0SlJbu5Evi1qz3Z25w599bm9SC1MeV74ah9aAhWMzZGZX/6GCIp
+	KUojPpQzdpy8Rq/UpZi0DAXf9MSAqTcZm2P5huXGwJIVq9fIF0tX1pC9FQNK6cG25PjA3jF5NT0
+	QaZqcAtIyOGOqa3pS/YxN3dd0UcrG2hJxC+hR/vtgFL4BOpeYVNFZ9Q1Ow4qduUoD9v9XNQDpou
+	x8f++6MDabJDBQdyniW9zkmaEARzCxfqjwMWNWdKnVOElyFbzgwW7Ra7sHcwODgpy3Scmw4/w8f
+	Gc/beMfim06cFlsb3YQDkmN64feeBSFHR3pl3kSxzDOaPncaTM4ZYww=
+X-Received: by 2002:aa7:d58b:0:b0:6ae:188e:e119 with SMTP id
+ 4fb4d7f45d1cf-6b199a610c8mr109200a12.9.1791833375825; Mon, 12 Oct 2026
+ 12:29:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <2026101206-disparity-thrive-6c91@gregkh>
+References: <20261005192431.87317-1-hmushi@amazon.co.uk> <20261005192431.87317-2-hmushi@amazon.co.uk>
+In-Reply-To: <20261005192431.87317-2-hmushi@amazon.co.uk>
+From: Jim Mattson <jmattson@google.com>
+Date: Mon, 12 Oct 2026 12:29:24 -0700
+X-Gm-Features: AclHuK_hh2UTJ_clCzObOqLEy25Uk0BI6IitQI982CcGkWt3YHwLApApzuL7Il4
+Message-ID: <CALMp9eQB_FmUocuEf8hTYVVWoOTZCWzJ1LhHm__BaVoNX8wKMw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] KVM: nVMX: Clear stale vmcs02 sync flag in free_nested()
+To: Mushahid Hussain <hmushi@amazon.co.uk>
+Cc: kvm@vger.kernel.org, Sean Christopherson <seanjc@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	"K . Y . Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+	Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, linux-hyperv@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, nh-open-source@amazon.com, mushi.shar@gmail.com, 
+	stable@vger.kernel.org, Todd Frederick <tfred@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 12, 2026 at 01:36:06PM +0200, gregkh@linuxfoundation.org wrote:
-> The patch below does not apply to the 6.18-stable tree.
-> If someone wants it applied there, or to any other stable or longterm
-> tree, then please email the backport, including the original git commit
-> id to <stable@vger.kernel.org>.
-
-Try this one:
-
-From d1ce723f8cd686062d680d97e973a43a070dbab4 Mon Sep 17 00:00:00 2001
-From: "Borislav Petkov (AMD)" <bp@alien8.de>
-Date: Fri, 2 Oct 2026 14:16:17 -0700
-Subject: [PATCH] x86/CPU/AMD: Fix AMD TLBI Erratum #1718
-
-Commit 87db7795cbaaf636ae22ae031f4906db7bb77803 upstream.
-
-The processor may fail to invalidate a TLB entry while executing an
-INVLPGB/TLBSYNC instruction pair.
-
-Detect the erratum and apply a software workaround when a microcode fix
-is not present.
-
-Fixes: 82378c6c2f43 ("x86/mm: Use INVLPGB for kernel TLB flushes")
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Rik van Riel <riel@surriel.com>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Tested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Tested-by: Rik van Riel <riel@surriel.com>
-Cc: stable@kernel.org
-Link: https://patch.msgid.link/20261002211617.1001617-1-bp@kernel.org
----
- arch/x86/include/asm/cpufeatures.h | 4 ++++
- arch/x86/include/asm/tlb.h         | 6 ++++++
- arch/x86/kernel/cpu/amd.c          | 4 ++++
- 3 files changed, 14 insertions(+)
-
-diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
-index 4091a776e37a..f4c85555b7e4 100644
---- a/arch/x86/include/asm/cpufeatures.h
-+++ b/arch/x86/include/asm/cpufeatures.h
-@@ -458,6 +458,8 @@
- #define X86_FEATURE_NO_NESTED_DATA_BP	(20*32+ 0) /* No Nested Data Breakpoints */
- #define X86_FEATURE_WRMSR_XX_BASE_NS	(20*32+ 1) /* WRMSR to {FS,GS,KERNEL_GS}_BASE is non-serializing */
- #define X86_FEATURE_LFENCE_RDTSC	(20*32+ 2) /* LFENCE always serializing / synchronizes RDTSC */
-+
-+#define X86_FEATURE_TLBSYNC_SFW_NO	(20*32+ 4) /* TLBI Erratum #1718 fixed in microcode */
- #define X86_FEATURE_VERW_CLEAR		(20*32+ 5) /* The memory form of VERW mitigates TSA */
- #define X86_FEATURE_NULL_SEL_CLR_BASE	(20*32+ 6) /* Null Selector Clears Base */
- 
-@@ -556,4 +558,6 @@
- #define X86_BUG_ITS_NATIVE_ONLY		X86_BUG( 1*32+ 8) /* "its_native_only" CPU is affected by ITS, VMX is not affected */
- #define X86_BUG_TSA			X86_BUG( 1*32+ 9) /* "tsa" CPU is affected by Transient Scheduler Attacks */
- #define X86_BUG_VMSCAPE			X86_BUG( 1*32+10) /* "vmscape" CPU is affected by VMSCAPE attacks from guests */
-+
-+#define X86_BUG_TLBI			X86_BUG( 1*32+12) /* "tlbi" AMD TLBI Erratum #1718 */
- #endif /* _ASM_X86_CPUFEATURES_H */
-diff --git a/arch/x86/include/asm/tlb.h b/arch/x86/include/asm/tlb.h
-index 866ea78ba156..eba925c85f52 100644
---- a/arch/x86/include/asm/tlb.h
-+++ b/arch/x86/include/asm/tlb.h
-@@ -110,6 +110,12 @@ static inline void __tlbsync(void)
- 
- 	/* TLBSYNC: supported in binutils >= 0.36. */
- 	asm volatile(".byte 0x0f, 0x01, 0xff" ::: "memory");
-+
-+	if (!static_cpu_has_bug(X86_BUG_TLBI))
-+		return;
-+
-+	/* TLBSYNC: supported in binutils >= 0.36. */
-+	asm volatile(".byte 0x0f, 0x01, 0xff" ::: "memory");
- }
- #else
- /* Some compilers (I'm looking at you clang!) simply can't do DCE */
-diff --git a/arch/x86/kernel/cpu/amd.c b/arch/x86/kernel/cpu/amd.c
-index b8efe8691b2a..ca4265a1f4bb 100644
---- a/arch/x86/kernel/cpu/amd.c
-+++ b/arch/x86/kernel/cpu/amd.c
-@@ -1050,6 +1050,10 @@ static void init_amd_zen5(struct cpuinfo_x86 *c)
- 		msr_clear_bit(MSR_AMD64_CPUID_FN_7, 18);
- 		pr_emerg_once("RDSEED32 is broken. Disabling the corresponding CPUID bit.\n");
- 	}
-+
-+	if (cpu_has(c, X86_FEATURE_INVLPGB) &&
-+	    !cpu_has(c, X86_FEATURE_TLBSYNC_SFW_NO))
-+		set_cpu_bug(c, X86_BUG_TLBI);
- }
- 
- static void init_amd(struct cpuinfo_x86 *c)
--- 
-2.53.0
-
-
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+On Mon, Oct 5, 2026 at 12:25=E2=80=AFPM Mushahid Hussain <hmushi@amazon.co.=
+uk> wrote:
+>
+> free_nested() frees vmcs02 but leaves need_sync_vmcs02_to_vmcs12_rare
+> set. The flag means that the rare guest fields of vmcs12 are valid
+> only in vmcs02. After vmcs02 is freed the flag is wrong.
+>
+> L1 then executes VMXON and loads a vmcs12 with VMPTRLD. The flag is
+> still set, so the first sync copies the rare fields from the new,
+> never launched vmcs02 into vmcs12. This sets TR, LDTR, GDTR, IDTR,
+> the segment registers and the FS/GS bases to zero in guest memory.
+> set_current_vmptr() re-arms the other lazy flags at VMPTRLD. This
+> flag has no such point, so VMXOFF is the place to clear it.
+>
+> A nested Hyper-V follows this sequence when it resumes from
+> hibernation. It executes VMXOFF before hibernation. On resume, it
+> reloads the VMCS images that winresume restored from the hiberfile.
+> VM-entry fails with exit reason 0x80000021 (invalid guest state) and
+> the guest hypervisor resets the machine. vmx_leave_nested() also goes
+> through free_nested(), so KVM_SET_NESTED_STATE takes the same path.
+>
+> Clear the flag together with the other nested state.
+>
+> Fixes: 7952d769c29c ("KVM: nVMX: Sync rarely accessed guest fields only w=
+hen needed")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-fable-5.1
+> Signed-off-by: Mushahid Hussain <hmushi@amazon.co.uk>
+Reviewed-by: Jim Mattson <jmattson@google.com>
