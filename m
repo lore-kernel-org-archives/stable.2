@@ -1,47 +1,47 @@
-Received: from smtp-bc0f.mail.infomaniak.ch (smtp-bc0f.mail.infomaniak.ch [45.157.188.15])
+Received: from smtp-190c.mail.infomaniak.ch (smtp-190c.mail.infomaniak.ch [185.125.25.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E97E4AA1D2
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 16:05:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205CC4AA1EC
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 16:05:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.25.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791821129; cv=none; b=qorjDlri1KnigMVk5NX6wEu/UNSwJmh+HrdH3eygdZ4WkP44OishrB04jVAqwbyCYcpMCgtUMaXifI7VTxfDaeHG59XDvKhCA/IwqpqYym1TzEIpxRs2QVbc9DjJ5vS4ewJVpaMaTfcP+lwAQB6FOGcCAL1o7qaLJHBnWomtsLc=
+	t=1791821131; cv=none; b=ZngGGBAHTEj1ltOtBUHeKq7Rm5PXAI0NNambbHvoHLOr5GjByh07dLCtKeymZV6uwnI2cWIbz9jNACCZ9GhsUjGlBbz6D/Wckso6FWJAm/i9vGWBX8QKEt7AtbPPt+tQYtRtLARRa0KEYk0uApj6uHNyvzUT4qqeOtUKmSEiKXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791821129; c=relaxed/simple;
-	bh=WFAq8mEc7HB3T1AQknLs9hM4Ox/caKeT6GhAawR+7GU=;
+	s=arc-20240116; t=1791821131; c=relaxed/simple;
+	bh=OnoYF9Vd+RXQ2YFYeOAR6QFP0SKR9GYpUSouyVFLapw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=da1MsFacDKfnpSrL8PRbzyQ4+KF0h/Alv3KdVSNMoLTIobzds2PejiFHWNCyDfMr9KDJEgeowbd1+0ao9fTDVkPU8nznSbHOK8kKmWVAJPJeU/760E1lbrcO4sicN1l4RR6Q4mjoESHC4dRdeQIKx9DQtHUPDQPR90JkJnMqAAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cinemaone.ch; spf=pass smtp.mailfrom=cinemaone.ch; dkim=pass (2048-bit key) header.d=cinemaone.ch header.i=@cinemaone.ch header.b=euInbC+M; arc=none smtp.client-ip=45.157.188.15
+	 MIME-Version; b=b88dk7JEN79Aw5iP5oaBkYTjP83IqfKlPPxpXm3f7wbgX8YUnNKFtu35q1E3wkGQhr9yxor4tN2IjGYJaDFx8Gc84TaBDtiNuaU31xLFTCbLtIbctkkqX/2qkgDKEtxO9CAstqm5niEJqSQx3GETIrC7lMUy5XzM2lMEB+C88qQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cinemaone.ch; spf=pass smtp.mailfrom=cinemaone.ch; dkim=pass (2048-bit key) header.d=cinemaone.ch header.i=@cinemaone.ch header.b=lCCemd3d; arc=none smtp.client-ip=185.125.25.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cinemaone.ch
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cinemaone.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="euInbC+M"
-Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4j3MkX00ywzQ2y;
-	Mon, 12 Oct 2026 18:05:23 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="lCCemd3d"
+Received: from smtp-3-0000.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246b])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4j3MkY6YHZzdbs;
+	Mon, 12 Oct 2026 18:05:25 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cinemaone.ch;
-	s=20250113; t=1791821123;
-	bh=Cf6l8RepzK+sxET5kIgarBzLV/aw/OgLCYxg27RgsSA=;
+	s=20250113; t=1791821125;
+	bh=FG/eCBT3vtAhyQDoo1iJesr4qSlypbZdHOWiJ308/gY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=euInbC+MvxneaK4KrtjOEy496chLckMA9pkNCjyVOocLRyikyGN+IS1jYuN9jGB9e
-	 WPJpupPJQ58e+abCUsYegL+2kCjSgsH4u5a1eD0X8zzeviNAx8ZUR/TPJg2Rog/ods
-	 iYy9s5+4ep+WWQSkP5Fs5KE5AnNnU2taULvublpOzCR/sin+rrCl8PstQ0TRJEt6Mw
-	 d0mLDsAdAXG5KDhxNusZpAaBek7hhVfCCFLw/jXRvMSxRzdTqub7vicx0soSBR5w9S
-	 6IZhcBfYmI8xoekuJRFZnssphUnVXGNXiHECfi56FKpjSE3soFzlNXj9NY9610kkd2
-	 Pe6693qhqjPLQ==
-Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4j3MkW2zdXzJMm;
-	Mon, 12 Oct 2026 18:05:23 +0200 (CEST)
+	b=lCCemd3dvIuxDuRtYlDjLutxWnW8rhrJ57L90tvEkbfKlG61235YMKIcogWTteiR+
+	 ZOD3e+fWQzJslVLAYDgCXSvFJya1ZOmE6SgcgAFemOlBWoD0QxK/u2nfZh/H7Z6iPr
+	 oN5QYWoBMDuRcxPr0895xNBJ20s5bBis+dDgiBgSVmaohHl6g3vmaiNIs1cKYcWI1K
+	 sDfYIM2SLClaO4m1YjoNiI3hY2OfUlJ35HahDwZ9wcLQoZjAFWKHq0x0xmQaPadX+Z
+	 jDAvWUmVveb0QGvvbtESdkTfxccV3XJM2AGHxRRRLupL0otyjapo70BphDjYrtR+c4
+	 c2CPSKV58k/kw==
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4j3MkY2SyjzPKw;
+	Mon, 12 Oct 2026 18:05:25 +0200 (CEST)
 From: Adrian Betschart <adrian.betschart@cinemaone.ch>
 To: stable@vger.kernel.org
 Cc: Dan Wheeler <daniel.wheeler@amd.com>,
 	Roman Li <roman.li@amd.com>,
 	Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 6.12.y] drm/amd/display: Don't replace a sink mode that shares the native totals
-Date: Mon, 12 Oct 2026 18:05:21 +0200
-Message-ID: <20261012160521.8405-1-adrian.betschart@cinemaone.ch>
+Subject: [PATCH 6.6.y] drm/amd/display: Don't replace a sink mode that shares the native totals
+Date: Mon, 12 Oct 2026 18:05:23 +0200
+Message-ID: <20261012160523.8432-1-adrian.betschart@cinemaone.ch>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <2026101215-liquefy-flanked-b3af@gregkh>
-References: <2026101215-liquefy-flanked-b3af@gregkh>
+In-Reply-To: <2026101218-slapstick-daringly-c182@gregkh>
+References: <2026101218-slapstick-daringly-c182@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -90,10 +90,10 @@ Assisted-by: Claude-Code:claude-opus-5-5
  1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 181606b4fd38..d21e9028b141 100644
+index 4b03bb4b913f..7a6ba11a385b 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6343,11 +6343,16 @@ decide_crtc_timing_for_drm_display_mode(struct drm_display_mode *drm_mode,
+@@ -5666,11 +5666,16 @@ decide_crtc_timing_for_drm_display_mode(struct drm_display_mode *drm_mode,
  					const struct drm_display_mode *native_mode,
  					bool scale_enabled)
  {
