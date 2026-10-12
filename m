@@ -1,138 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4CF93F104F;
-	Tue, 13 Oct 2026 17:43:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8608D52BE4C
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:49:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791913437; cv=none; b=Zg4yJLN4hMjAt7fchFQ5Vh4zsWdhFk0hhoc5thYOmj/vAXdzQTJRBnoZYYHpWXVaR6lFpUd9XWbB+H6odRsgRefuEOQuq6qjLMoEAnb3D764dz6qQvLKrKkVFCjOyETNhAwIRfC5eX8V9gxn6MfwW8PgvPBOgZaVbCA0A/VpCUg=
+	t=1791913781; cv=none; b=tpeuSIgXubabvF9ObUpFwmpmJVQNhnjCMo4BytyBdQFVxMhQGHiOG3zk8/voWjwKPGM/wF1VvqI/gY5AnX62rpx8zjJyYtuNIV/3mQKKDoWmzbMuGXf7xdZzx1SdT0OClaGfZIA0Hrfc5DCSYfttGKuClOU7tGPeoVF/BBI6g9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791913437; c=relaxed/simple;
-	bh=tdUs72401n33j981CWcvSuFtpdGWhvOp52GC9o9iWKo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S50YP+iEDrdUBXhq2zXjqJTwJ9WiWReIdCFf9tr/ukMqBKPN6JTCyWBHjZ4n9G7sFsYET6U2eeZAyrrSco7pXinBZcmfbuVzw4NP6RgK3lIcNfSQGvdCduutrTgGbIMGxx2k/bw21ibnS9SY4Z36d8ZG7MB2vF2UWW55qX+O9yo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YyRyyaQM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791913781; c=relaxed/simple;
+	bh=iquteC2WLun4rL54eIEjgx3C2ts8WjjltRIkjPLgyLc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=gHi52UMJACnvzqTBh/rjdf8/bzTYEcrlSc5USRLiiOkyqc1z9/2JgaDPeRyWr2Jy/ou5keITSKJx1ofsrSY8ib3OjFI8S/7poArbbNOw4UQ/Lbot+JCInGDVgS39XEDf6hRCeMQeMHhMemwHGUZm5uT7jU+owzfBnHbVUSmbQfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=bJASZUl5; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YyRyyaQM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 140981F000FF;
-	Tue, 13 Oct 2026 17:43:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791913436;
-	bh=PmP+1qDuiByKpC+7bA701v8DM/LXLmC8gESMptbIB2w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YyRyyaQMumg0saS/PK8Zl+KD5OQjqU2RN9h0rsXd9QZIj6jrfNHGpNb8VIEniCxsy
-	 y59fSP/9j+GzCkWOMZ8RS6ibouN9BEsrQamk/r56qr+Iyfs7kNZ4q+nBAGyX/HIuP1
-	 ZkXIYa6jcwGW8gWK1IVFcsAJGJRbVWDSYlWf5FQPSiYkiANEcyfeqZogRANMxnEOih
-	 CgIFJSX5akzJUIYutvVBnfgMmDKiB8qwHqeCy7ykkudcH7gAr8lKoof4Xb5WxL7hwq
-	 rfyB51hFxzAytCHyr7BOyI87gO2AsW40aRnMdty5pQnDw/ere9/VZ4Ut4IAt0lq03z
-	 a/faMZxDI57cg==
-Date: Tue, 13 Oct 2026 20:43:52 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E . Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4 0/2] keys: Fix quota-owner reads and ownership
- accounting
-Message-ID: <as5t2CZmQXP7u39S@kernel.org>
-References: <20261013084056.1070923-1-nicoyip.dev@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="bJASZUl5"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 86ADF4E4120F
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:49:36 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 5B71B60362
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:49:36 +0000 (UTC)
+Received: by mail.galae.net (Postcow, from userid 0)
+	id E6D6811D7183A; Tue, 13 Oct 2026 19:49:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791913776; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=iquteC2WLun4rL54eIEjgx3C2ts8WjjltRIkjPLgyLc=;
+	b=bJASZUl51mvrEKfoWR9xTLz9ASiIHYFU0qTsX18j5kLuJp44JAfQgDNXP7cY4hDSQ3nPH5
+	KBdD5BScwB1Ir9MLAjiHrPy5OgV4H8JVv3yOpLSrmAgSqYSM19iBv2sYywazZNyuob9A84
+	4eoqgM7MtVJ8eX3etS0vRt1v1NlSNTZ+ZGpRAV+SklRG1chxzu3ypO4o26MknXaraCH1Wm
+	DPinF5hSSxV/eT8+TMRp9EO97S5MwasOrKfcKlEZvI6TRA3vUj/Ha+9c63yOCBXLZRJXUX
+	6WwBJ5NSvKFEc+jcBoF6Sw0VOKEhq7K7dpekMTZX0MwNe//xFwRjhp/BK4fcQA==
+Authentication-Results: mail.galae.net;
+	none
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Chen-Yu Tsai
+ <wens@kernel.org>,  Jernej Skrabec <jernej.skrabec@gmail.com>,  Samuel
+ Holland <samuel@sholland.org>,  Maxime Ripard <mripard@kernel.org>,
+  Richard Genoud <richard.genoud@bootlin.com>,  Masahiro Yamada
+ <yamada.masahiro@socionext.com>,  Boris Brezillon <bbrezillon@kernel.org>,
+  Brian Norris <computersforpeace@gmail.com>,
+  linux-mtd@lists.infradead.org,  devicetree@vger.kernel.org,
+  linux-arm-kernel@lists.infradead.org,  linux-sunxi@lists.linux.dev,
+  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
+Subject: Re: [PATCH v6 00/18] mtd: rawnand: sunxi: support the Allwinner
+ randomized OOB format
+In-Reply-To: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-0-2fb084fe0751@gmail.com>
+	(James Hilliard's message of "Mon, 14 Sep 2026 15:09:46 -0600")
+References: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-0-2fb084fe0751@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 12 Oct 2026 10:06:50 +0200
+Message-ID: <871p9v4a1x.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013084056.1070923-1-nicoyip.dev@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-TUID: hUm30DN6Lpz6
+X-Last-TLS-Session-Version: None
+X-Rspamd-Queue-Id: E6D6811D7183A
+X-Spamd-Result: default: False [0.58 / 30.00];
+	BAYES_HAM(-1.82)[87.08%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DATE_IN_PAST(1.00)[33];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_ZERO(0.00)[0];
+	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[dt];
+	DKIM_SIGNED(0.00)[bootlin.com:s=dkim];
+	FREEMAIL_TO(0.00)[gmail.com];
+	BCC(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[20];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	URIBL_BLOCKED(0.00)[localhost:rdns,localhost:helo,bootlin.com:mid];
+	FREEMAIL_CC(0.00)[nod.at,ti.com,kernel.org,gmail.com,sholland.org,bootlin.com,socionext.com,lists.infradead.org,vger.kernel.org,lists.linux.dev];
+	MAILCOW_DOMAIN_HEADER_FROM(0.00)[bootlin.com];
+	TO_DN_SOME(0.00)[]
 
-On Tue, Oct 13, 2026 at 04:40:54PM +0800, Chengfeng Ye wrote:
-> This revision keeps the v3 topic order: the lifetime/namespace-reader fix
-> is patch 1, and ownership accounting is patch 2. Each patch can be applied
-> independently to the base, and both orders produce the same final tree.
-> 
-> Patch 1 protects only the three quota-owner UID snapshots. It relies on
-> key_user_lock already held by lookup and final reference removal. Its
-> READ_ONCE() pointer loads pair with a WRITE_ONCE() replacement in chown.
-> The reference-release ordering and lock handoff keep a sampled owner alive;
-> this does not require patch 2's new accounting critical section. The commit
-> message gives the lifetime argument, including a final put by another task.
-> 
-> Patch 2 serializes chown with quota reservation and positive and negative
-> instantiation. Each critical section is complete within this commit.
-> Atomic counter operations alone do not serialize owner selection and
-> count/state publication with chown, and instantiation does not require the
-> target key's semaphore.
-> 
-> The messages explain why keeping a key alive does not pin its former
-> quota owner, and why key->sem does not exclude instantiation. They map
-> those two requirements to the three reader scopes and four accounting
-> scopes, and explain the existing protection at unchanged lifecycle sites.
-> All seven scopes in the combined v3 series are retained. Reservation and
-> instantiation locking move from v3 1/2 into the complete accounting fix
-> in v4 2/2; no lock scope is split between commits.
-> 
-> The procfs changes cover the originally reported proc_keys_start() fault.
-> The filters continue to use the quota-owner UID, since key_fsuid_changed()
-> can change a thread keyring's key->uid without moving its quota owner.
-> 
-> Changes in v4:
-> - Keep the v3 topic order: lifetime/namespace readers in patch 1,
->   accounting in patch 2. Both fixes remain independently applicable.
-> - Put every accounting critical section wholly in patch 2.
-> - Make patch 1 independent using existing lifetime locking plus explicit
->   pointer access marking.
-> - Explain the root cause and every critical section, plus the existing
->   protection at unchanged sites. Keep allocation, notifications and
->   reference release outside the new accounting scopes.
-> - Correct the reader patch's Fixes tags to the namespace-filter commits.
-> - Rebase onto for-next-keys at 22430ae5d90ab and request fresh review.
-> 
-> Validation:
-> - Built security/keys/ with patch 1 only, patch 2 only, and both patches.
->   KEYS, PROC_FS, USER_NS, KEY_NOTIFICATIONS, BIG_KEYS, ENCRYPTED_KEYS and
->   PROVE_LOCKING were enabled. No compiler warnings or errors.
-> - Both exported patches pass checkpatch --strict with zero diagnostics.
-> - Both patches apply directly to the base. Ordered git am in either order
->   reproduces the expected intermediate and final trees.
-> - No new runtime, lockdep or Sashiko run. The KASAN excerpt is historical.
-> 
-> OpenAI Codex assisted with the review audit, series split, pointer access
-> marking, commit messages and build checks. The existing author sign-off
-> is retained from v3 for human review before submission.
-> 
-> Previous revisions:
-> v3: https://lore.kernel.org/r/20260927162528.943886-1-nicoyip.dev@gmail.com/
-> v2: https://lore.kernel.org/r/20260904080940.575882-1-nicoyip.dev@gmail.com/
-> v1: https://lore.kernel.org/r/20260823170448.3856516-1-nicoyip.dev@gmail.com/
-> Review:
-> https://lore.kernel.org/r/asL2UQjYCxt9SF9K@kernel.org/
-> https://lore.kernel.org/r/asMQMzqVkmYhwgMB@kernel.org/
-> https://lore.kernel.org/r/asNCIs3OshLwGWrB@kernel.org/
-> 
-> Chengfeng Ye (2):
->   keys: Protect quota-owner reads in namespace filters
->   keys: Serialize ownership transfers with key accounting
-> 
->  security/keys/key.c     | 15 +++++++++++++--
->  security/keys/keyctl.c  |  6 +++++-
->  security/keys/keyring.c |  7 ++++++-
->  security/keys/proc.c    | 15 +++++++++++++--
->  4 files changed, 37 insertions(+), 6 deletions(-)
-> 
-> 
-> base-commit: 22430ae5d90ab288b0ee2ad99ae941f4a666b694
-> -- 
-> 2.43.0
-> 
+Hi James,
 
-Hi overall this looks good (or better). I'm off work but I'll
-look these up first thing in the morning and likely pick them
-too.
+On 14/09/2026 at 15:09:46 -06, James Hilliard <james.hilliard1@gmail.com> w=
+rote:
 
-Thanks for the patience and hope you understand that my previous
-feedback was meant to be constructive :-)
+> Allwinner NAND firmware leaves the bad-block marker in the randomizer
+> data stream. On H6/H616 it also places all protected user data before the
+> first ECC step. These choices differ from the mainline format, which
+> keeps the physical marker plain and maximizes the H6/H616 user-data area.
 
-Br, Jarkko
+[...]
+
+> Assisted-by: Codex:gpt-6-astra
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
+
+I am sorry but I do not want to proceed further with this series.
+
+Even though I am not capable of finger pointing what is wrong in the
+diffs nor in the commit logs, I do not understand most of it. I cannot
+clearly explain why, but I have had a hard time trying to understand
+what the commits were doing. The risk is that nobody would then be able
+to further maintain this driver and I am not willing to take that
+option. The kernel policy so far has been to ensure readability and
+maintainability, and my gut feeling is that this series is going
+sideways wrt this major constraint.
+
+Also, from a Linux kernel point of view, we generally just do not
+support vendor specific layouts. I already told so Richard Genoud back
+when he was working on H616.
+
+With this added to the pile, I prefer not to merge the entire series. I
+can still take some of the fixes if you feel like they would be relevant
+anyway. In which case I invite you to send a v7 with just the few fixes
+you think are actually relevant outside of the randomized layout
+support.
+
+Thank you for your understanding,
+Miqu=C3=A8l
