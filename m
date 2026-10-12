@@ -1,211 +1,175 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ACDB32B108;
-	Mon, 12 Oct 2026 07:39:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3851438466
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 07:42:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791790784; cv=none; b=UjNbuHBA7YBsYsJ3B2S0G4lDfNk7J63SBUyHq1gzht1ZC4I3r/0iqMy+UpekCFou8tm/fJhG+gefpS/XvmfpujcRu5jLxTXLsMjoTgGzVpNVybYMSF+t4yRzVdoSNipWUhAA9Nb+Ox+F1zS+l2VhWTDFFPiPkOVm43FTzerXd5I=
+	t=1791790979; cv=none; b=qcM6wBeHqSi67H86nKKDOgNhQS/bQPiiOQlgQPwjfSLFiYU3ulIahcEQtrs5YU/nfzTjr9zV6+gHH2b7sOogbFORcUG+ON0Mh2Xold8XZCvpgg06CSPFfA44Z2KPFThfpVfrj9wOpJbazxLhy7XvmW6pgbK7Dt2Dro4hBoLPb3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791790784; c=relaxed/simple;
-	bh=GS44J3Aku38fi/SvJDBKrLt4DpMDeYkkRQQtw8dOoH8=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bvts9sQr/jI47Bc1+8AIhRQqMYFXyZMWmVFzxplD1uLCVDnZvO0vZyXNrRTwBN4irwvPP/uaTWoHD3utCXQ5OW+pvkmGfIjZ5+0u9i3kw/UaztDFwXp44gHSrm0vhfeO5/vXyDkel6ca00cOPmQ/E2chctuFjuOQ++Y9rKir+Og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tCxs5+JG; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=fekTLrNX; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=A0Vq279U; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=+UtW00LZ; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791790979; c=relaxed/simple;
+	bh=5US6qHRDMsC7+3n4j55+vD2ffevfbGh9rWJssZb03RI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pEjETmRopGvZikk776+EPkZoBSZz+a7siPoJ37Vi+LhS6UGG4kNTaROsT/i9sbVIZOvWx7T6lS4WHEvG2JGzYwpx7UXWtHtaQFZwaioQnJu4+AUORk4FbOwaduRWoh4SaygQ8lP/A2G7+cBK3hTCh6OFyoBqDe5TdSc/N/6hOmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=db+sDMKX; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tCxs5+JG";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fekTLrNX";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="A0Vq279U";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+UtW00LZ"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id BABE821E00;
-	Mon, 12 Oct 2026 07:39:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791790781; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IBXoYOmOrPyFfDwIreNIPu+rJ4JmjlF9Jmt0Cg7dZH4=;
-	b=tCxs5+JGWGPWGkIZgLNZs++ppp2jghZ++KXMe6GJluNEQLsfPc1wJi7icxyNSeMVBr8ET8
-	HNFSKGx44ptLet3TVUgsvD98bPO9aquO2Qw0CmoFSPbIkHtmOaw53G5uEiaHz85SPG1BTQ
-	PVk9zVktJ74gWSIyNdfGNcSHYjItQGU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791790781;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IBXoYOmOrPyFfDwIreNIPu+rJ4JmjlF9Jmt0Cg7dZH4=;
-	b=fekTLrNXCe9h+KBMXhMzK3zGSNrB/ATPy2u9Wf6/OqwqR2plPHo+sFpfVwfB/bZV8J6nvW
-	4/FT+HjmetrP9FBQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791790779; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IBXoYOmOrPyFfDwIreNIPu+rJ4JmjlF9Jmt0Cg7dZH4=;
-	b=A0Vq279U90YBAVh+oZ/j919ax9tSuWd/B/jI+ZIzeMNhhlgNpxOudWS79ql7MmneuY1gKq
-	su6EaAoHeJKFozHfUTJ3T8sCIiMWLseKfGI0dd88382330jwtPTKiBXeKPVnSxFhS0DrG/
-	sfEnMOkRDMfQ6yfIMfILhZjyncsXFwA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791790779;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IBXoYOmOrPyFfDwIreNIPu+rJ4JmjlF9Jmt0Cg7dZH4=;
-	b=+UtW00LZi1iSz8qvWCswFAfi9CsxsrGpDPM/UwImDk7CB2fhXi/ym+3pb2zwQGvdqxlui5
-	Zpg18qq4yobR05DA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4EE7613314;
-	Mon, 12 Oct 2026 07:39:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id U+M/B7uOzGrLbQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 12 Oct 2026 07:39:39 +0000
-Date: Mon, 12 Oct 2026 09:39:38 +0200
-Message-ID: <87y0c3gyf9.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Ma Ke <make_ruc2021@163.com>
-Cc: david.rhodes@cirrus.com,
-	rf@opensource.cirrus.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	sbinding@opensource.cirrus.com,
-	linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="db+sDMKX"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ab066bef7dso701489a91.1
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 00:42:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791790975; x=1792395775; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Kcb5d4WbMF0RGuZ6n9zwqpNvEO0t828hCiSHNJS62Zk=;
+        b=db+sDMKXrXA5XmXgVN7YtlDXgq3epPo3+YfSrzqNCfGQfVxt2WKmN2I4ZTHq/4ONmZ
+         HzPdttzy9lu43H6Ab9+09lJhYVyEJmF5d/hIgfsYkblP/F6u9ZCKgOc7AM5lFmtfjuzs
+         h3J+zHBAEeTKnmuA+y06aHI8URtzJH0/SxemsRLbIQAOJMlljb5Po539pQsrCpS9oHS9
+         pGrgVlizlLM26HjZXZv7ojHVqsAffAPjKwzPwQWzMV6NO1+rHwp3pFtF7Qoh46W2JrIq
+         dvRFLIAQjtxgyw45uEoag5Nyamv202QD690J4SkoYWDS5oBru3F5CY4y9q+Yr1UNsGwR
+         FVrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791790975; x=1792395775;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Kcb5d4WbMF0RGuZ6n9zwqpNvEO0t828hCiSHNJS62Zk=;
+        b=Dbl6Ej6rofZXphYS0+XCItJXNvLLIrfczR4N8bmfGSX+mNivG5mssDAqnhfBMBNPh0
+         gRIij1n0WihCPLIiABDT9tHYDwSnRtHUCtSn004OQnGlBCBFvDiwy/nmkqG2Fdam/RkC
+         upLAndO6uFLZwoXyRmgaguRyqtwvKNGJNbme8dOvvgVO+W41XN6N05kSYefy2hxTQML+
+         4dqNLSAsSoGMEP+Hy+AP1HnVmjBAlwI5c8LrBlKeXgzjPjt7BmVjTMrJicCg9c74u5r7
+         4vpUEb9pvmr54XFQe24pdds53qLvmq0meMzLaUYRLuuo6zlCIzx20QBMWQ7t45U2xCSi
+         dlGw==
+X-Forwarded-Encrypted: i=1; AKwUvBwVkp8pA3O71/0L/lNEvX6ZjctA5oqiF4t9gH1uXF0nvuDQ7/bvtUJubxqaofd6MRHp6cXqKOc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZCJeF1LKVBCfEI/mBNVWXJwhyfbeeMWtjrhOBcbNeOuftzP5B
+	K14Rdlc7LviGrdX+kBHqAv5qfXu5tpbT/KJirPgW1Aq0TVxEnhDDCqNh
+X-Gm-Gg: AYBFou2uMQsysbuwSp2YuI37ZafS8xZtCBY83k3f+4Rk5avZf+CRd3RdUTO2y2mnXyY
+	s3OUtFqauFNafVy2yuIZHsbtIhB18FXiy8vNZo8PnDXGF2N/dU7+Pgz4NYYwNsomrDA5rgn0zPg
+	K9Am0ndpG5IliQuzTnvP74gxmb0bd2jUbi+t8OiBo1AGLsyRyVEPXMDT7qG+VJy6zAt9fn3I0rY
+	eI5dtwQJMJoun4xLwOeXO6vAu9iycNKwt1+3Hg0NCC3oIdron3XUke0E4l7TH+gMi+pGA7YdZKQ
+	PWqddSOLFAsyG+pF3FXKLL0oL/0TFYjwuSJ0+799XmjTlfnNhpHIqa1iHEcB4qW+/eXTWjN/BKD
+	oPuQh/y8cyBptKcJthjfcqHM9JQfr8iLjmsDjxNRqTv5O/UdTrlImW0tX4aUhuiri4YTms33T2s
+	Jvdha715G4tcltIWe31gOz3dkcNfsiOGiVQoIWVQbeHqm1kJN4vOChM+MgoKJnw3XTVtVxSYXHo
+	RFX5kRHxr7RnTXYGql8Dn9VtzPr0SH5Y+4sYQr1bg==
+X-Received: by 2002:a17:90a:c88b:b0:3a4:8c41:fab6 with SMTP id 98e67ed59e1d1-3ab3ab32a3amr6713683a91.46.1791790974980;
+        Mon, 12 Oct 2026 00:42:54 -0700 (PDT)
+Received: from lenovo.localdomain (211-23-53-87.hinet-ip.hinet.net. [211.23.53.87])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab37139b59sm15470556a91.13.2026.10.12.00.42.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 00:42:54 -0700 (PDT)
+From: Yu-Hsiang Tseng <asas1asas200@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2] ALSA: hda: cs35l41: Fix ACPI device reference leak on probe failure
-In-Reply-To: <20261011114251.3257172-1-make_ruc2021@163.com>
-References: <20261011114251.3257172-1-make_ruc2021@163.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+Subject: [PATCH] iio: acpi: Accept comma separated values in ROTM strings
+Date: Mon, 12 Oct 2026 15:41:44 +0800
+Message-ID: <20261012074144.1060625-1-asas1asas200@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[163.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_ENVRCPT(0.00)[163.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sun, 11 Oct 2026 13:42:51 +0200,
-Ma Ke wrote:
-> 
-> cs35l41_hda_probe() takes an acpi_device through
-> cs35l41_hda_read_acpi() and stores it in cs35l41->dacpi. It is
-> released in the err: label, which
-> is reached from every later failure.
-> 
-> One failure is not routed there:
-> 
->         ret = cs35l41_hda_read_acpi(cs35l41, device_name, id);
->         if (ret)
->                 return dev_err_probe(cs35l41->dev, ret, "...");
-> 
-> cs35l41->acpi_subsystem_id is allocated inside cs35l41_hda_read_acpi()
-> before that point, so it is leaked whenever the function fails.
-> 
-> Route the failure through a new err_acpi label that releases it.
-> 
-> That label must not release cs35l41->dacpi a second time.  Every
-> failure path in cs35l41_hda_read_acpi() that can be taken after the
-> assignment already drops that reference: cs35l41_hda_parse_acpi() does
-> so in its own err: label, and the !physdev path does it directly.
-> Clear cs35l41->dacpi wherever it is dropped, so the pointer never
-> outlives the reference and the put in err_acpi is a no-op on those
-> paths.
-> 
-> Found by code review.
-> 
-> Fixes: 447106e92a0c ("ALSA: hda: cs35l41: Support mute notifications for CS35L41 HDA")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ma Ke <make_ruc2021@163.com>
+The ROTM method of the MXC6655 accelerometer on the Higole F9B, an
+Alder Lake-N handheld (AMI BIOS F9D_16G_P800217, DMI strings are all
+"Default string"), separates the values with a comma and a space:
 
-Now Sashiko complains other things; please verify whether they are
-valid or not.
+	Method (ROTM, 0, NotSerialized)
+	{
+	    Name (SBUF, Package (0x03)
+	    {
+	        "-1, 0, 0",
+	        "0, 1, 0",
+	        "0, 0, 1"
+	    })
+	    Return (SBUF)
+	}
 
-Through those developments, I'm thinking whether it'd be cleaner
-rather to move the unref and kfree into the caller side, i.e. doing it
-only in cs35l41_hda_probe() error path (but conditionally), instead,
-so something like below.
+iio_read_acpi_mount_matrix() only accepts the space separated form used
+in Microsoft's example ("0 1 0"). It rejects this matrix and mxc4005
+falls back to the identity matrix:
 
+	mxc4005 i2c-MXC6655:00: Incorrect ACPI mount matrix string format
+	mxc4005 i2c-MXC6655:00: mounting matrix not found: using identity...
 
-thanks,
+With the X axis not inverted, iio-sensor-proxy reports left-up when the
+device is held right-up and vice versa, so the desktop turns the
+picture upside down whenever the handheld is held in landscape.
 
-Takashi
+It is not the only BIOS written this way. The BOSC0200 on the AYANEO
+Air Plus uses commas in its ROMS method as well, with a space before
+one of them, and its ROMK method has "1, 0,0":
 
-diff --git a/sound/hda/codecs/side-codecs/cs35l41_hda.c b/sound/hda/codecs/side-codecs/cs35l41_hda.c
-index 62296be45c55..e6f0ae39876d 100644
---- a/sound/hda/codecs/side-codecs/cs35l41_hda.c
-+++ b/sound/hda/codecs/side-codecs/cs35l41_hda.c
-@@ -1907,7 +1907,6 @@ int cs35l41_hda_parse_acpi(struct cs35l41_hda *cs35l41, struct device *physdev,
- 	hw_cfg->valid = false;
- 	hw_cfg->gpio1.valid = false;
- 	hw_cfg->gpio2.valid = false;
--	acpi_dev_put(cs35l41->dacpi);
+	Method (ROMS, 0, NotSerialized)
+	{
+	    Name (SBUF, Package (0x03)
+	    {
+	        "-1, 0, 0",
+	        "0, -1 , 0",
+	        "0, 0, -1"
+	    })
+	    Return (SBUF)
+	}
+
+The kernel's sscanf() does not support '%*[', so there is no clean way
+to take both separators in a single format string. That leaves either
+a second sscanf() call with a comma format, or normalizing the
+separator first. Do the latter: turn the commas into spaces before
+parsing, so the existing "%d %d %d" format, which already takes any
+amount of white space around the values, keeps working unchanged. The
+strings live in the buffer acpi_evaluate_object() allocated for us, so
+they can be modified in place.
+
+With this change in_accel_mount_matrix on the Higole F9B reads
+"-1, 0, 0; 0, 1, 0; 0, 0, 1" and, with no udev hwdb override, the
+desktop rotates correctly in all four orientations. The AYANEO Air
+Plus was not tested; systemd's hwdb has an entry for it, which
+iio-sensor-proxy prefers over the kernel's matrix.
+
+Link: https://github.com/hhd-dev/hwinfo/blob/d9508123bee46ae3a59dc24826030ef51ea95058/devices/ayaneo_airplus/acpi/decoded/dsdt.dsl
+Cc: stable@vger.kernel.org # 6.10.x
+Assisted-by: LLM
+Signed-off-by: Yu-Hsiang Tseng <asas1asas200@gmail.com>
+---
+ drivers/iio/industrialio-acpi.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/iio/industrialio-acpi.c b/drivers/iio/industrialio-acpi.c
+index d67a43843..c77926f6d 100644
+--- a/drivers/iio/industrialio-acpi.c
++++ b/drivers/iio/industrialio-acpi.c
+@@ -6,6 +6,7 @@
+ #include <linux/export.h>
+ #include <linux/iio/iio.h>
+ #include <linux/sprintf.h>
++#include <linux/string.h>
  
- 	return ret;
- }
-@@ -1928,10 +1927,8 @@ static int cs35l41_hda_read_acpi(struct cs35l41_hda *cs35l41, const char *hid, i
- 	cs35l41->dacpi = adev;
- 	struct device *physdev __free(put_device) =
- 		get_device(acpi_get_first_physical_node(adev));
--	if (!physdev) {
--		acpi_dev_put(adev);
-+	if (!physdev)
- 		return -ENODEV;
--	}
+ /**
+  * iio_read_acpi_mount_matrix() - Read accelerometer mount matrix info from ACPI
+@@ -63,6 +64,14 @@ bool iio_read_acpi_mount_matrix(struct device *dev,
+ 		}
  
- 	sub = acpi_get_subsystem_id(ACPI_HANDLE(physdev));
- 	if (IS_ERR(sub))
-@@ -1986,8 +1983,10 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
- 	dev_set_drvdata(dev, cs35l41);
- 
- 	ret = cs35l41_hda_read_acpi(cs35l41, device_name, id);
--	if (ret)
--		return dev_err_probe(cs35l41->dev, ret, "Platform not supported\n");
-+	if (ret) {
-+		dev_err_probe(cs35l41->dev, ret, "Platform not supported\n");
-+		goto err_acpi;
-+	}
- 
- 	if (IS_ERR(cs35l41->reset_gpio)) {
- 		ret = PTR_ERR(cs35l41->reset_gpio);
-@@ -2076,6 +2075,7 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
- 		gpiod_set_value_cansleep(cs35l41->reset_gpio, 0);
- 	gpiod_put(cs35l41->reset_gpio);
- 	gpiod_put(cs35l41->cs_gpio);
-+err_acpi:
- 	acpi_dev_put(cs35l41->dacpi);
- 	kfree(cs35l41->acpi_subsystem_id);
- 
+ 		str = elements[i].string.pointer;
++		/*
++		 * Microsoft's example separates the values with spaces, "0 1 0".
++		 * Some BIOSes use commas instead, with or without spaces around
++		 * them: "0, 1, 0", "0, -1 , 0", "1, 0,0". The string lives in
++		 * the buffer allocated for us above, so turn the commas into
++		 * spaces in place before parsing.
++		 */
++		strreplace(str, ',', ' ');
+ 		if (sscanf(str, "%d %d %d", &val[0], &val[1], &val[2]) != 3) {
+ 			dev_err(dev, "Incorrect ACPI mount matrix string format\n");
+ 			goto out_free_buffer;
+
+base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
+-- 
+2.55.0
+
