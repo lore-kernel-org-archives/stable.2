@@ -1,35 +1,74 @@
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C49304ADDBF;
-	Mon, 12 Oct 2026 17:42:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B296F4BF949
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 17:54:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791826960; cv=none; b=MypKpEW1YmLWi5r4VgBPbaZZnFprgFQhi4ABKBXANrpCPLkqzNj8NFmCy0+/GWUTtH96rO7vSR2ccm7j177/70QVaADPSGz7/lWwzR+cMxszkXdvEziFH97egTkZv1keUcSv3ABMv+gUQtggcpyOtGQQYRXRTV9IIv3Q3wP2E90=
+	t=1791827642; cv=none; b=qiI09v8ZJ6ZxMJuW6haK5stKB4nLmSfnrnYovDALPi3eUJazJZBd54m3ak9mHzhlZwrj9zbawRtHhV3qGkChieiWPPdB2XNosQYeBwXCP7bz3KNSeq9Y/l3N0Pt27o1le5J2YW1dZwrz5+brzArY8iyO0UQlCgNiDNcQvATmMYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791826960; c=relaxed/simple;
-	bh=UQ7NYcTVYebnTIGueqNZxtx+9yKoLC1TxyVNjHpbWy0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=idosZfpKJLEZxTb+poY8+09qDXaLUV7KyzvgfljDi8idrYLNfcLwB1IZP4vmkPHg8Vi0Jy/dN3vTRHzqBpjTsrrebD8T1/o91Yt/hJeSEIrAmmRjIRj9hipzopwD4hBgb1/51f58RweshqZoGmjZlHqs9PqYtQyedYOLWqk1u0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xGK2g-00FScM-Dl;
-	Mon, 12 Oct 2026 13:42:30 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Matthew Wilcox <willy@infradead.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
+	s=arc-20240116; t=1791827642; c=relaxed/simple;
+	bh=DBFvf6LMpAJ03sozSIk/CRTorRD2UyaqRnlG5DyjTlU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=msG6m2Qow+zsUphbNPacSnLrYzz+Zyak1IqHVJir1fmOBagKQKmCQm9uqZWdJwHPa9+i+hrfeHFckYJK5fZ+0UlzdhbF9dYmJ+s9RNV7ouLZqWJEH6KaL+jh1q2Z5tnDXp3nDf2fNPF/+fuJOj9Y4uSl01LTaS5+Xniy2pIzY+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ath056ul; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ath056ul"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48c14a06c95so1640505f8f.1
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 10:54:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791827639; x=1792432439; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QntbKw3gaGgw4tIzgsEy78HK5tHJosqnu2qH2MEsZDc=;
+        b=Ath056ulQElu2pL7OPP4nO3E+Lec3aFLH+N2vLFqthFyYDaue5OTKAsRtTUuvEXYaa
+         RLJ/JHNvKW5NvnOPzfChosjm9l3w4p3eK0oV4ndDBlwExmNUJYBFc98E+lZoFFeWJ7Qh
+         nDNxVJmEllOxQexk1oC1gLL5U9pAaeWlAOJVAwKEWEykERT4Ji48XIxQet6V4jOXGKj7
+         FiinpkDHUXt/d5ItO4PVcJ9C+4JWlI8/QivVYOMXzo45R7x9grOtxqiF8+fRuYLFr6Ux
+         4qQkiRNiu75/A2QmHt8XBFB1Kq10qXMVxKGumfKgdLtyFUIROsESnzRriAUih+QjDGRG
+         w4DA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791827639; x=1792432439;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QntbKw3gaGgw4tIzgsEy78HK5tHJosqnu2qH2MEsZDc=;
+        b=tVdjKv+r3gU/qrMV2hU30+mkCyUzoV2Q1Gz3p9b5J5JtdsU/fKs8aujbniB7P+OlT6
+         0nILRCUf1k7UNIOj8A5nJdq9Y7xl9x7O+97quNiwZQE/vJamk6ndHraKQc1p4k18UsHM
+         aJjmzQiER0YpdwH8f3ztQoOzjZ24MiPcM78hRsN97jo+nf1htsTnL+MPSls7ju8h3qrB
+         rYVc6X/2WX7bcuDS63BY/Ly0tvymW6W6hoAcQ3BfAKwfWBAZyh4sQ6yhgICl0SlRBaaE
+         htSXnjxVOKfn4vk0PT/40K7cm3RY3qlPneV1R3CTxlLs4vI5a6XdFZLWVTznUvUfjIJ0
+         RyJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzL1DsFfI0gJxfJ3m54raFdWnL3Qy3Egfbnynq2MuZZ+ZzRM6fBlJB+/eTBDXm/m1yhtm+9Yrc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKAmpvt4mAPAW+pvMuKFAzTApn3EjAf7hoBbgRT2un0AqGt9AHp
+	Vw5+aBGydkJS+wIV3TCBkeAb1Q6cy/Vqm25A2qH7d6UjskzqvK9vpBT9
+X-Gm-Gg: AYBFou22KuBzsrqRYVUZUgJ8EfoXMSG1WYFOtV4lLYq+9HbgKojvQwFX8uJ/N8tfMaG
+	IR2GE1f4Uu0VdszRmCooV2CpmQovoCgnHXvWK+T0/5o1JF3Ko2JQEc1Eppvjaqcr3IRot53a76i
+	2x/LgdleCH2EuF9jBR5yQyTGPbm3+g4htkd986XSuGUGLIUcwgGF6zARBiPXmVr3cZ4TKoLnKg6
+	/feB7plMcy8QeBXRAIPYKg4iFuyzExtBW3LI9t+n54k9E+zES22i7DjD9gT9t9g4mDl6uXo04up
+	ZIrjswilJV+xXb+ZTGlxugm2yrnFZ2G+4bSOGQ0SpPMwg97BYgDHTxlHnrZjDP18o3ZvRpDrctZ
+	iv+9aCvE1CzHkBvZXaUohKF8qi0VSZFpBIa4NmbCjho+xbploBeD2K/618FTOVQT54ROl/eyate
+	1G1lrr5GzPE4kBLQ/z0bxShEG8r5HyRfxut+cJB2peo3/T+p2IdUI4tia8kH0aPrbiAs4=
+X-Received: by 2002:a05:6000:26c6:b0:48b:10af:f85e with SMTP id ffacd0b85a97d-48dbaaee1admr18683631f8f.33.1791827638653;
+        Mon, 12 Oct 2026 10:53:58 -0700 (PDT)
+Received: from dev1.kernelcare.com ([2a01:4f8:172:1c85::2])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ab5af7sm667374f8f.31.2026.10.12.10.53.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 10:53:56 -0700 (PDT)
+From: Andrey Misiurov <andrey.misyrov@gmail.com>
+To: Helge Deller <deller@gmx.de>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1] xarray: unlink a node before freeing it
-Date: Mon, 12 Oct 2026 13:42:29 -0400
-Message-ID: <20261012174230.772325-1-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
+	Abdun Nihaal <nihaal@cse.iitm.ac.in>,
+	Andrey Misiurov <andrey.misyrov@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] fbdev: core: Initialize modelist in framebuffer_alloc()
+Date: Mon, 12 Oct 2026 19:53:38 +0200
+Message-ID: <20261012175338.2283897-1-andrey.misyrov@gmail.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,148 +77,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-xas_delete_node() passes an empty node to xa_node_free(), which queues it
-with call_rcu(), and only then stores NULL over the pointer to the node,
-in the parent's slot or in xa_head.  Between the two, a lockless walker
-can still reach the node, and RCU does not protect it: call_rcu() waits
-only for the read-side critical sections that were running when the
-callback's grace period started, and that grace period can start before
-the store that unlinks the node.  A walker that begins its RCU read-side
-critical section after that point can load the old pointer and keep
-using the node after it has been freed:
+framebuffer_alloc() returns zeroed memory, so info->modelist starts out
+with NULL next and prev pointers. The list head is initialized only
+later, by fb_videomode_to_modelist() or by do_register_framebuffer().
 
-  CPU 0: xa_erase(), xa_lock held   CPU 1: RCU walker, e.g. xa_load()
+The "fix potential memory leak" commits listed below added
+fb_destroy_modelist(&info->modelist) to the probe error paths of s3fb,
+tdfxfb, tridentfb, i740fb and carminefb. These paths can run before
+the list head is initialized:
 
-  xas_delete_node()
-    xa_node_free(node)
-      call_rcu()
-                    <grace period starts>
-                                     passes a quiescent state
-                                     rcu_read_lock()
-                                     xas_load(): parent->slots[offset]
-                                     is still node
-    parent->slots[offset] = NULL
-  xa_unlock()
-  quiescent state
-                    <grace period ends>
-  radix_tree_node_rcu_free(node)
-                                     reads node->shift, node->slots[]
+ - s3fb, tdfxfb, tridentfb and i740fb call fb_videomode_to_modelist()
+   only after a successful EDID read, and tridentfb can also hit the
+   error path on an ioremap() or kmalloc() failure before that;
+ - carminefb jumps to the error path when fb_find_mode() fails, before
+   its fb_videomode_to_modelist() call.
 
-The grace period does not wait for CPU 1: CPU 1 reported its quiescent
-state before its critical section began.  Holding xa_lock does not help
-either.  It makes CPU 0 an RCU reader, which delays the end of the grace
-period until after the unlinking store, but not its start.  The start can
-fall inside the window whenever the callback is assigned to a grace
-period before the unlink: from call_rcu() itself when many callbacks are
-queued, from an interrupt that arrives in the window (interrupts are
-enabled under xa_lock(), and RCU core processing and the other softirqs
-may run on interrupt exit for milliseconds), from the rcuog kthread on
-another CPU when callbacks are offloaded (rcu_nocbs=), or while the
-writer is preempted under PREEMPT_RT.  Interrupts, and in a guest a
-preempted vCPU, also stretch the window.
+fb_destroy_modelist() then dereferences the NULL head. Reproduced on
+Debian 12 (6.1.180) by binding s3fb to a VGA device without EDID and
+forcing fb_alloc_cmap() to fail:
 
-Setting node->array to XA_RCU_FREE does not make walkers retry: no
-lockless path looks at node->array.  xas_load() and xas_descend() look
-only at the entries and at node->shift, and the marker is overwritten
-when the slab reuses the object.  The XA_RETRY_ENTRY markers that
-xas_shrink() and xas_free_nodes() store only help walkers that reached
-a node before it was unlinked; the grace period waits for those because
-both functions unlink before they free.
+  s3fb 0000:00:03.0: cannot allocate colormap
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:fb_destroy_modelist+0x10/0x80
+  Call Trace:
+   s3_pci_probe.cold+0x12b/0x2bf [s3fb]
+   local_pci_probe+0x41/0x80
+   pci_device_probe+0xc3/0x240
+   really_probe+0xde/0x380
+   __driver_probe_device+0x84/0x150
+   driver_probe_device+0x1f/0x90
+   __driver_attach+0xce/0x1c0
+   bus_for_each_dev+0x87/0xd0
+   bus_add_driver+0x1ae/0x200
+   driver_register+0x89/0xe0
+   do_one_initcall+0x59/0x220
+   do_init_module+0x4a/0x1f0
 
-radix_tree_node_cachep is not SLAB_TYPESAFE_BY_RCU, so the walker reads
-freed memory.  Once the object is reused for a node of another array,
-the walker can descend through the wrong node and return an entry of
-the other array.  In a page cache lookup, the xas_reload() recheck in
-filemap_get_entry() reads the same reused slot and accepts the result,
-so in the worst case the lookup returns a folio of another file.
+Initialize the list head in framebuffer_alloc(), so info->modelist is
+always a valid, possibly empty, list and fb_destroy_modelist() is safe
+on every error path. Keep the lazy initialization in
+do_register_framebuffer(), as drivers that embed struct fb_info rather
+than calling framebuffer_alloc() still depend on it.
 
-The order dates from the introduction of xas_delete_node() in the
-commit below, which reimplemented the radix tree's delete_node().
-delete_node() unlinks first and frees after, and still does in
-lib/radix-tree.c, as do xas_shrink() and xas_free_nodes(), the other two
-paths that free nodes in lib/xarray.c.  The commit gives no reason for
-the different order and nothing depends on it: xa_node_free() only marks
-the node and queues the callback, node->offset is read before the free,
-and the stores and xas_update() on the parent do not involve the node.
-
-Move xa_node_free() after the store that unlinks the node, in both
-branches.  The stores and their order are unchanged, nothing reads the
-node after it is freed, and every caller sees the same tree and the
-same xa_state.
-
-The radix-tree test suite already runs into this.  Its multiorder test
-(multiorder_iteration_race(): one thread inserts and deletes an entry at
-index 0 while the others walk the array under rcu_read_lock(), with
-liburcu's call_rcu()) reported a heap-use-after-free in xas_start(),
-reading the shift of a head node freed through call_rcu(), in 10 of 200
-unpatched runs under AddressSanitizer on a 160-CPU machine, and in none
-of 200 runs with this patch.  A harness check that no node passed to
-xa_node_free() is still reachable from xa_head fails 556941 times in the
-XArray tests without this patch (all in xas_delete_node(), both
-branches) and never with it.  No test is added: the race is not
-deterministic and the check needs a hook on xa_node_free().  On a
-kernel, the window is too short to hit on demand.  With a 100 ms delay
-injected between call_rcu() and the unlink in a test build, a lookup
-that starts on another CPU 20 ms into the window reaches the node, and
-KASAN reports a slab-use-after-free of the radix_tree_node freed from
-rcu_core() when the lookup reads it again.  With this patch and the
-same delay between the unlink and the free, no lookup reaches the node.
-The XArray and IDA self-tests pass on x86_64 and riscv64.
-
-Found while formally verifying xas_store() against the kernel binary.
-
-Fixes: 58d6ea3085f2 ("xarray: Add XArray unconditional store operations")
+Fixes: 3b0ed04bc852 ("fbdev: s3fb: fix potential memory leak in s3_pci_probe()")
+Fixes: bb019d755366 ("fbdev: tdfxfb: fix potential memory leak in tdfxfb_probe()")
+Fixes: 7a35ec619d9a ("fbdev: tridentfb: fix potential memory leak in trident_pci_probe()")
+Fixes: 5936063409af ("fbdev: i740fb: fix potential memory leak in i740fb_probe()")
+Fixes: 6fcca16a2b19 ("fbdev: carminefb: fix potential memory leak in alloc_carmine_fb()")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Signed-off-by: Andrey Misiurov <andrey.misyrov@gmail.com>
 ---
+ drivers/video/fbdev/core/fb_info.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Notes:
-    Reproduction details: the harness numbers come from
-    tools/testing/radix-tree built as is (AddressSanitizer is on by
-    default), running ./multiorder 200 times on master and on master plus
-    this patch.  The ordering check wraps each xa_node_free(node) call in a
-    copy of lib/xarray.c with a function that walks the tree from xa_head
-    and reports the node if it is still reachable; it is not part of this
-    patch.  The kernel demonstration is a test build (x86_64 defconfig +
-    KASAN, QEMU -smp 4) with mdelay(100) after xa_node_free() in
-    xas_delete_node() for one test array, a writer kthread on CPU 0 doing
-    xa_store()/xa_erase() and a reader kthread on CPU 1 doing
-    xas_load()/xas_next() under rcu_read_lock().  I can send any of these
-    if useful.
-    
-    The patch and its analysis were drafted with an LLM coding assistant
-    and then reviewed and tested as described in the commit message.
-
- lib/xarray.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/lib/xarray.c b/lib/xarray.c
-index bfe7bef80f34..d48754c5f8b8 100644
---- a/lib/xarray.c
-+++ b/lib/xarray.c
-@@ -500,17 +500,18 @@ static void xas_delete_node(struct xa_state *xas)
- 		parent = xa_parent_locked(xas->xa, node);
- 		xas->xa_node = parent;
- 		xas->xa_offset = node->offset;
--		xa_node_free(node);
+diff --git a/drivers/video/fbdev/core/fb_info.c b/drivers/video/fbdev/core/fb_info.c
+index 52f9bd2..05988a9 100644
+--- a/drivers/video/fbdev/core/fb_info.c
++++ b/drivers/video/fbdev/core/fb_info.c
+@@ -43,6 +43,7 @@ struct fb_info *framebuffer_alloc(size_t size, struct device *dev)
+ 	info->device = dev;
+ 	info->fbcon_rotate_hint = -1;
+ 	info->blank = FB_BLANK_UNBLANK;
++	INIT_LIST_HEAD(&info->modelist);
  
- 		if (!parent) {
- 			xas->xa->xa_head = NULL;
- 			xas->xa_node = XAS_BOUNDS;
-+			xa_node_free(node);
- 			return;
- 		}
- 
- 		parent->slots[xas->xa_offset] = NULL;
- 		parent->count--;
- 		XA_NODE_BUG_ON(parent, parent->count > XA_CHUNK_SIZE);
-+		xa_node_free(node);
- 		node = parent;
- 		xas_update(xas, node);
- 	}
-
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+ #if IS_ENABLED(CONFIG_FB_BACKLIGHT)
+ 	mutex_init(&info->bl_curve_mutex);
 -- 
-2.53.0
+2.43.7
 
