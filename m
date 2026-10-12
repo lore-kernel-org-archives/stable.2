@@ -1,127 +1,216 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF1C2D7386;
-	Mon, 12 Oct 2026 09:40:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE5392D7386
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 09:40:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791798033; cv=none; b=tE1CUsduG6VM82RcTaFWNjOQyvVC2dkBwVKpYBvMHFFC+4qPOupreiBYupN4x0DWvkMTO43DvfzD+T3onhIhsccksTu9drGcBpMSEsvcPzaoJGK572ggrhF9wsWmHp9uyHs/Mas8gA92/XMqDpH7U2IxXJlT0bdTNkuiV8BmGa8=
+	t=1791798061; cv=none; b=dH9cjXml2scal48WY1aVkSBjuxlYkNNFY4dvibGr0KUWMa0uou2HIIjmudvzTjwYsQW4poK4xnq9ozh8r/35KLKEBpir0dZ2gCD8xGn7TemedtfuWHqO4dmbJWyJzX3MEahr7t9TV3bCDr1AapukDuvaS40JLP5XoCLmbmMijUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791798033; c=relaxed/simple;
-	bh=u39a6/azd6Frz3W7pr9zhas2BIwbSmu+1Z8thRE/zXA=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=TY0XwPlslcvoqP4WH8MbFWtif7TnRoqXr0J/Fbfz7boEei8nkhLVPQsWSjC1E4VGQ7LQxRgzq28iQYEqmVB8sZYo+OEFPaEPjUKhN+tWm9yfg10rSy31mSWWHTQBiZb+JCLyR4HIBmjzH2NNEXxnBsCG6bMiHZOTQ+X40Q0M4Nk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PP3KBtWD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791798061; c=relaxed/simple;
+	bh=lmbfP6/LQtekS5d2UAKODhzYECFpFLpPjSLkUfC8pXI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TqwFxFec03Pgn6FClSjdyBgwQ4gF2A4+Zn+ZRC8sJ7Oug21OAY1g/HBlc+nzf65+EC6hBzM3DgZwsGs8KPH2rkKfx/sq16NxHi/+BxnfybeHeCJKIPtC9pYzxlWpudkgWXG0pV2IKEIeTgeA8SvdnTFqxMcD/FqAlZOrURn1Bss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=KmzPzZGG; arc=none smtp.client-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PP3KBtWD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7E4D1F0089B;
-	Mon, 12 Oct 2026 09:40:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791798030;
-	bh=wQBFnHwXdBJ2Qf7mEAbLlJA3svxAuxzM+Wfv1BeJPFU=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=PP3KBtWDMm3TX3NFyqS9Gc4tSQ06D36YAzzwA/N+r7EdAOFDSf1AvSK4bxbtHmkC/
-	 kZmoAeHfFjz1kYcmZHu9J9/HZF0EQxRgDg8Alui8rOn1dwBsHSa+rM4wS66afgDM9Q
-	 J4pOUteZN2b4qcOp9WHOPrPyHs6o3gAgzkEs9x3x20shBfuaTB7k7bZTXZ0WehNEez
-	 gObgY+zWco0t0YzFWCzFIWm5DL3LKBNDGNcUph5jADsLr46i0QWO+M2v2nrrisyf6S
-	 g6WqraeovV5fG22U4Je363CeoaXArPxMi9Ou3Jnq/tFbFhUy5h62yLJ6HeSqVBQMih
-	 l/uQ7Dq8m4UaA==
-Message-ID: <100decff-fc86-4e82-9bb0-c22002979da7@kernel.org>
-Date: Mon, 12 Oct 2026 11:40:26 +0200
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="KmzPzZGG"
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93e7457349eso162242685a.1
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 02:40:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1791798059; x=1792402859; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TFmCIpUfagd6jNTqIQiMG7oS1DzngqujJGbDwYFy81o=;
+        b=KmzPzZGGAxQjOkzm1xv8X3AhmKEYRXzDhSZS090y2Bu8N7FEvbfBDH7tniySi1WnB7
+         ksTf4RwnRBOExs+JIUYJctnAxgIPBdvZikViTPWNAsKzAugyjfnSOK7qPBKOl5vndkCO
+         pdRxN4bwvGdIPV0An0q+XE3OpCUJDJ0ru+RqzWMWsQNBDF5ST/az65NN1LEn0p31rrUr
+         LWlS4Ou/S/sAx2MOxgMZ4PGVrTwXML6dq+Qi8B9NS/6KzlI5vZhXfwa2I9Ki2MQYCTUV
+         V2OUO5JG5qrRxEs5MkR4Ti65NZOLRrVsLKXuMRcX2PKIX9nAKRKPIfh7kslewmgTqof9
+         F/jQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791798059; x=1792402859;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TFmCIpUfagd6jNTqIQiMG7oS1DzngqujJGbDwYFy81o=;
+        b=vvWLgGQ9RllIykYq/oFSJrtnFhB9egCNLgtxsIc1lN+1g4xHASEE7RBrK4US6sEo6B
+         lyZBzJF27wSvsUnvjV6QPR7tSq9ajMJFSgdvap+rmlz511leR8pymm0oouUGwWah7m+K
+         7SVHqM0arppKrYZ11BavfDe+rE4+YVMGDvgWgj4lzWiXrN/flUNRrJvpXNp4o33hBY4N
+         5Qj1R0jWEdXqzWl4kUaAKLftDAuqZhgjGMtlFRnti+Y7kauD8vm15m3yhj3RbETiuifc
+         MqE7JdO53EvUUnvDqItZbfz0Cx6fNRVCBfPBwGR4eO6WC0JeiIRNaba5t9JQKxct6lc6
+         uQXA==
+X-Forwarded-Encrypted: i=1; AKwUvBwVQmBuGPFY1AzGMQEJX6Fi1T92OG34ti54eNBVaNa/AjHA7uKBjobp8TPtuHprqp0RMtZGIuA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI2bPjmM/+cQ2otYLZfqDieauTD2nMaMOLRIdvSVRZoAKaB/9jF
+	j0vraCoCGvq4UsquzZeRIhzYJGiJTs8H53K7ILtkdCHoAZN7IX6dMSIVU31RBrH0Wg==
+X-Gm-Gg: AYBFou1VcwvqbLPblL1c80gfXPYk4sJdwelxiEc9qt5WRMu/o2GY6sG32siImH8oWTB
+	rp5x7giSUbwEG0cnorEIKeeZ1PBkTnhOYb/obd++9dA1RMYupu0xGQe+Yf4c+5KOZT7ylndRUcI
+	Unfom0Oq3OpSKpr/d06imxf57OagXS9lwUSOsIavugz8osqcXUpquaZKVzkN9TIslLG4FIBY4Yx
+	/dWFYjuJWQiRqXIXhLm8Yvz91C4RPVwZGZ3kmnduB9PTTnyblhJCH4vVp3VMIKtr+J+g6q2C/nI
+	uW70dIxSqeC6OGgc+l+nh/7C/Fi892V/uxYnE4Dnw6tkpz9qdijawurual2T8FKzMrTMUSTXqkB
+	4Fi8g0IQzzLgiCFUGKF9+YtUuglYV0LU79PwSlNb4V/XoCq/6+z3u7EKJ9H7Uluf8pmRkLkKqel
+	lcIWtLBExzurzyaCqwhroN6LtRfwEVNFZgz3wJJMwtDwHlR4hvkjwQY742elsqQnD2QRvA5JQyw
+	OJWWTwoirq6qVxyURy/yA==
+X-Received: by 2002:a05:620a:710d:b0:93e:5daa:67a4 with SMTP id af79cd13be357-93ebd225a6cmr1469980085a.29.1791798058677;
+        Mon, 12 Oct 2026 02:40:58 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b815fd211sm21817986d6.48.2026.10.12.02.40.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 02:40:58 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: Namjae Jeon <linkinjeon@kernel.org>,
+	Sungjong Seo <sj1557.seo@samsung.com>
+Cc: Yuezhang Mo <yuezhang.mo@sony.com>,
+	exfat@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] exfat: free clusters beyond EOF when a write fails or is short
+Date: Mon, 12 Oct 2026 05:40:46 -0400
+Message-ID: <20261012094046.2592731-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net] mptcp: pm: in-kernel: fix C-flag endpoint accounting
- on family mismatch
-Content-Language: fr
-From: Matthieu Baerts <matttbe@kernel.org>
-To: Yiming Qian <yimingqian591@gmail.com>, mptcp@lists.linux.dev
-Cc: martineau@kernel.org, geliang@kernel.org, stable@vger.kernel.org,
- Netdev <netdev@vger.kernel.org>
-References: <20261006114409.117190-1-yimingqian591@gmail.com>
- <97c651a1-7647-4f12-8b6b-74b949dce575@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <97c651a1-7647-4f12-8b6b-74b949dce575@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Yiming Qian,
+Commit 82a81a7352bc ("exfat: add iomap buffered I/O support") and commit
+867b9c96dc83 ("exfat: add iomap direct I/O support") made a write
+allocate the clusters for its whole range in one step. They also dropped
+exfat_write_failed(), which freed the clusters beyond the end of the
+file after a failed or short write.
 
-On 06/10/2026 13:59, Matthieu Baerts wrote:
-> Hi Yiming Qian,
-> 
-> On 06/10/2026 13:42, Yiming Qian wrote:
->> fill_local_addresses_vec_c_flag() clears the endpoint ID bit in
->> id_avail_bitmap before checking whether the endpoint's address family
->> matches the remote ADD_ADDR.  If it does not match, the loop skips the
->> endpoint without incrementing local_addr_used, leaving id_avail_bitmap
->> and local_addr_used inconsistent.
->>
->> Removing that SUBFLOW endpoint later calls
->> __mark_subflow_endp_available(), which sees the cleared bit, expects
->> local_addr_used to be non-zero, and triggers a WARN and, with
->> panic_on_warn=1, a panic.
->>
->> Keep the endpoints that are skipped during this specific C-flag
->> iteration available by tracking them in a local bitmap passed to
->> select_local_address(), instead of clearing their IDs in the per-socket
->> bitmap.  Only IDs of endpoints actually used for a subflow are now
->> cleared and accounted for.
-> 
-> Thank you for the patch.
+However, a write can stop early, for example when the process is killed
+or when a part of the buffer cannot be read. As of now, the clusters for
+the part that was not written stay allocated beyond the end of the file.
+exfat_cont_expand() does not expect them, so a later write or truncate
+that extends the file fails with ENOSPC. The directory entry records
+only the size of the file, so the space can be lost for good once the
+volume is unmounted.
 
-Just to avoid a deadlock, do you plan to send a v2, or do you prefer if
-someone else does that?
+The issue can be reproduced on a 64M volume made by mkfs.exfat and
+mounted on /mnt, with a write of 1M from a buffer that has only its
+first 4K mapped:
 
-Cheers,
-Matt
+    #include <fcntl.h>
+    #include <stdio.h>
+    #include <sys/mman.h>
+    #include <sys/stat.h>
+    #include <unistd.h>
+
+    int main(void)
+    {
+            char *p = mmap(NULL, 8192, PROT_READ | PROT_WRITE,
+                           MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+            int fd = open("/mnt/f", O_CREAT | O_WRONLY, 0644);
+            struct stat st;
+
+            munmap(p + 4096, 4096);
+            printf("write: %zd\n", write(fd, p, 1 << 20));
+            fstat(fd, &st);
+            printf("blocks: %ld\n", (long)st.st_blocks);
+            printf("ftruncate: %d\n", ftruncate(fd, 1 << 16));
+            return 0;
+    }
+
+Before commit 82a81a7352bc ("exfat: add iomap buffered I/O support"),
+the result is:
+
+    write: 4096
+    blocks: 8
+    ftruncate: 0
+
+After that commit, the result is:
+
+    write: 4096
+    blocks: 2048
+    ftruncate: -1
+
+This patch will bring back exfat_write_failed() and call it when a write
+ends before the end of its range, so that the clusters beyond the end of
+the file are freed again. It waits for direct I/O in flight first, as
+exfat_setattr() does before it frees clusters.
+
+Fixes: 82a81a7352bc ("exfat: add iomap buffered I/O support")
+Fixes: 867b9c96dc83 ("exfat: add iomap direct I/O support")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+---
+Based on the exfat dev branch (1cae92a58966).
+
+Tested on v7.3-rc6 with fs/exfat taken from that branch (KASAN, and a
+second build with lockdep), on volumes with 512-byte, 4K and 32K
+clusters: the program above, the same write with O_DIRECT, a process
+killed in the middle of one 48M write(), a fragmented volume, and
+asynchronous direct writes in flight while writes on the same file
+fail. With the patch no clusters are left beyond EOF and all the space
+is free again after the file is deleted.
+
+Without the patch, the killed 48M write leaves a 1.5M file with 48M
+allocated; after a remount and deleting the file, only 15M of the 62M
+volume are free.
+
+The inode_dio_wait() is needed. In a test build without it, a direct
+write that fails while asynchronous direct writes are extending the
+file frees their clusters, and fsck.exfat reports "less clusters are
+allocated".
+
+ fs/exfat/file.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/fs/exfat/file.c b/fs/exfat/file.c
+index f106db945d8d..dc57d2c2f0f0 100644
+--- a/fs/exfat/file.c
++++ b/fs/exfat/file.c
+@@ -804,6 +804,19 @@ static int exfat_extend_valid_size(struct inode *inode, loff_t new_valid_size)
+ 	return ret;
+ }
+ 
++/*
++ * The clusters for a write are allocated before the data is copied. Free the
++ * ones that a failed or short write has left beyond the end of the file.
++ */
++static void exfat_write_failed(struct inode *inode)
++{
++	inode_dio_wait(inode);
++	filemap_invalidate_lock(inode->i_mapping);
++	truncate_pagecache(inode, i_size_read(inode));
++	exfat_truncate(inode);
++	filemap_invalidate_unlock(inode->i_mapping);
++}
++
+ static ssize_t exfat_fallback_buffered_write(struct kiocb *iocb,
+ 		struct iov_iter *from)
+ {
+@@ -862,7 +875,7 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
+ 	struct file *file = iocb->ki_filp;
+ 	struct inode *inode = file_inode(file);
+ 	struct exfat_inode_info *ei = EXFAT_I(inode);
+-	loff_t pos, valid_size;
++	loff_t pos, valid_size, end;
+ 	int err;
+ 
+ 	if (unlikely(exfat_forced_shutdown(inode->i_sb)))
+@@ -881,6 +894,7 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
+ 	}
+ 
+ 	pos = iocb->ki_pos;
++	end = pos + iov_iter_count(iter);
+ 	if (pos > i_size_read(inode))
+ 		truncate_pagecache(inode, i_size_read(inode));
+ 
+@@ -909,6 +923,8 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
+ 		ret = iomap_file_buffered_write(iocb, iter,
+ 				&exfat_write_iomap_ops, NULL, NULL);
+ 	}
++	if (ret != -EIOCBQUEUED && end > i_size_read(inode))
++		exfat_write_failed(inode);
+ 	if (ret < 0)
+ 		goto unlock;
+ 
 -- 
-Sponsored by the NGI0 Core fund.
+2.53.0
 
