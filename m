@@ -1,156 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E32E49B5A6
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:22:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E530B49B210;
+	Mon, 12 Oct 2026 15:22:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791818550; cv=none; b=mGZClkwb+QjHyZ6apdYqjsoy0mN/IqGhyElnu7uD2XKDewdEf+yhFWat747ckzu4XMqzrz28d+ecH9V59Ep91yonEt1VwZ6DimHqjGeiaes4Sw4gKY9Tku7XeV0J2Jfzql+sQ+3V4CshWI99Wqurhi/CHjRf6YB1ISwXRYfjh3M=
+	t=1791818562; cv=none; b=oJgzIsHAHmOuwOeqiXFh+TEE3xYF8tPSL5vOhGT8rQHMfwET/YBzCjPl8ntbKEWG27GdJKkRSlkTa150owPJ6ao/O6s2yumDx1p5oeXHNe4IRy+b/U0uFq4sNxaiQC5+jKAr62Jb8CrULF+SvZw/Z+RoaFi0tZfJj1cU/B9uVjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791818550; c=relaxed/simple;
-	bh=RpMy76BFwUnsbWk1zBJE2486zFFFeV/Kkfds9x0x0Ms=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Df6ZkH5c3fOqt396rEhpuVX/zDEG607RRbCB9q6dLhGXN43lqgh/fef3hwZvB/5H71PI7L4X5eVQ0SJoFBbbdkl3H4wo5ux1rZwsxvxgDGshx+eebKYm8efGybbv5vNrB4wHnRN/MmhkZpw32nIxBJcmukGMp4lm5/pHB2fz8D0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=f6yh11Dl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791818562; c=relaxed/simple;
+	bh=5OC1dJe2GYX6GKWyaVRUzH+16TmfSjplp3qTr8G+S7Y=;
+	h=Date:Subject:From:To:Cc:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ld7iLm0w1VtdoBc8VxIB9n361Ojng4Sjmh1xaqEWjMLrwdkgRF3WtQyjKZaior1MXxLjE/P6eaAgCXZyVVOmmhPmjp6DYuRBGWsGD5A7D8TrThq1hazZtOZh4DbZkt3MvB68QwiuDAlHiWT4eCbMkT2rrt87AFQZNZQYyeaQmt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZXFwL0Mr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="f6yh11Dl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 682721F0089B;
-	Mon, 12 Oct 2026 15:22:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791818548;
-	bh=ivFop1z0yxBy3ey6SiMBqxmxnNYNmtC4JCHDUZUHa1M=;
-	h=Subject:To:Cc:From:Date;
-	b=f6yh11DlBwNa2CW5mn2QbQUytBrevyVxYnHNC+qyAFncFRTIgQwdePyZgwwHcFJ4f
-	 3lEwQdeFgfJcMfkOzZYAj6CUu2D5Dvkkkr//gbt8dApH4BnjeYfPKKmNM0Q9uCVSyn
-	 b7wDormcXWk0+JG442Y+JGz2dYlCzTa2A0FDs3cI=
-Subject: FAILED: patch "[PATCH] scsi: ufs: core: Decouple CQ sweep from request iterator in" failed to apply to 6.6-stable tree
-To: stanleyjhu@google.com,bvanassche@acm.org,mkp@kernel.org,peter.wang@mediatek.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 17:22:31 +0200
-Message-ID: <2026101231-tying-copartner-f09f@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZXFwL0Mr"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 790361F0089B;
+	Mon, 12 Oct 2026 15:22:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791818561;
+	bh=MCPmvV+vbsF5Vn4fJ5rrX0NzTLLW1ca2UJ0nSAWiBw8=;
+	h=Date:Subject:From:To:Cc:In-Reply-To:References;
+	b=ZXFwL0Mrkpof+W1gW0qhGQFSfap+fhYYu0RYTjq5ZL6xxMKF2cCH7Bj4zVmHo89wg
+	 0NaMnmBjrg6Hrpy9UzK1Zi4VbIvXB6M0RUCQeMSBgQ9Mwa4dVswPyz4tFWQZboDzl5
+	 1aIeKSclPnL+e5GWh/+SOJ6XE9wLsE1aFcoegktVto7BWw4Fiof3+qZirtaA5VpiZz
+	 FrCKPnj1ItkWCt4JgX/775cyZtb8h+EN/nZIPGU89LIX38kX3CXegqll7RNDFpurA4
+	 SuS/j5kU1QwgQ/EuP+NvNvB7Y1izUMuqExlvZ2919GBphWkmSuFnuBRgvCr1C7sTAi
+	 o7zOXolFFF0oA==
+Date: Mon, 12 Oct 2026 08:22:41 -0700
+Subject: [PATCH 09/13] xfs: reject absurdly large xattr value lengths in
+ xchk_xattr_actor
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: djwong@kernel.org, cem@kernel.org
+Cc: hch@lst.de, stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Message-ID: <179181839441.1417179.12077429416160234960.stgit@frogsfrogsfrogs>
+In-Reply-To: <179181839163.1417179.9019753534701755931.stgit@frogsfrogsfrogs>
+References: <179181839163.1417179.9019753534701755931.stgit@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+From: Darrick J. Wong <djwong@kernel.org>
+
+LOLLM suggests that we shouldn't try to allocate absurdly large buffers
+for xattr value checks because that will push reclaim very hard, never
+succeed, and is pointless because nobody can create xattrs that large.
+Since the xattr repair code ignores values larger than XATTR_SIZE_MAX,
+we can flag the corruption and return early.
+
+Cc: <stable@vger.kernel.org> # v5.3
+Fixes: 6d6ccedd76823c ("xfs: only allocate memory for scrubbing attributes when we need it")
+Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+---
+ fs/xfs/scrub/attr.c          |    6 ++++++
+ fs/xfs/scrub/parent_repair.c |    4 ++++
+ 2 files changed, 10 insertions(+)
 
 
-The patch below does not apply to the 6.6-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
-
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-git checkout FETCH_HEAD
-git cherry-pick -x 469fa055664bfd8717b087a80d59c03055789c17
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101231-tying-copartner-f09f@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 469fa055664bfd8717b087a80d59c03055789c17 Mon Sep 17 00:00:00 2001
-From: Stanley Jhu <stanleyjhu@google.com>
-Date: Mon, 28 Sep 2026 11:58:16 +0800
-Subject: [PATCH] scsi: ufs: core: Decouple CQ sweep from request iterator in
- MCQ
-
-In MCQ mode, ufshcd_mcq_compl_pending_transfer() uses
-blk_mq_tagset_busy_iter() to iterate over busy requests during error
-recovery and host reset. However, both iterator callbacks perform
-whole-queue operations redundantly for each visited request:
-
- - force_compl == true: ufshcd_mcq_force_compl_one() calls
-   ufshcd_mcq_compl_all_cqes_lock() on every busy request, sweeping the
-   entire completion ring (hwq->max_entries slots) once per active request
-   under spin_lock_irqsave even though the first sweep already cleared all
-   completion entries.
-
- - force_compl == false: ufshcd_mcq_compl_one() acquires cq_lock and polls
-   CQTPy over MMIO via ufshcd_mcq_poll_cqe_lock() for every busy request
-   without doing any per-request work.
-
-Sweep or poll each hardware queue (hba->uhq[i]) once at the start of
-ufshcd_mcq_compl_pending_transfer(). When force_compl is true, run
-blk_mq_tagset_busy_iter() afterward to complete residual in-flight
-requests with DID_REQUEUE, and remove the now-unused
-ufshcd_mcq_compl_one() callback.
-
-Fixes: ab248643d3d6 ("scsi: ufs: core: Add error handling for MCQ mode")
-Cc: stable@vger.kernel.org
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
-Link: https://patch.msgid.link/20260928035816.1294326-3-stanleyjhu@google.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index 79b6a2d9b522..ca8329052cbc 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -6044,8 +6044,6 @@ static bool ufshcd_mcq_force_compl_one(struct request *rq, void *priv)
- 	if (blk_mq_is_reserved_rq(rq) || !hwq)
- 		return true;
+diff --git a/fs/xfs/scrub/attr.c b/fs/xfs/scrub/attr.c
+index 7600c711362583..842d65834afbc9 100644
+--- a/fs/xfs/scrub/attr.c
++++ b/fs/xfs/scrub/attr.c
+@@ -216,6 +216,12 @@ xchk_xattr_actor(
+ 		return -ECANCELED;
+ 	}
  
--	ufshcd_mcq_compl_all_cqes_lock(hba, hwq);
--
- 	/*
- 	 * For those cmds of which the cqes are not present in the cq, complete
- 	 * them explicitly.
-@@ -6061,19 +6059,6 @@ static bool ufshcd_mcq_force_compl_one(struct request *rq, void *priv)
- 	return true;
- }
- 
--static bool ufshcd_mcq_compl_one(struct request *rq, void *priv)
--{
--	struct scsi_device *sdev = rq->q->queuedata;
--	struct Scsi_Host *shost = sdev->host;
--	struct ufs_hba *hba = shost_priv(shost);
--	struct ufs_hw_queue *hwq = ufshcd_mcq_req_to_hwq(hba, rq);
--
--	if (!blk_mq_is_reserved_rq(rq) && hwq)
--		ufshcd_mcq_poll_cqe_lock(hba, hwq);
--
--	return true;
--}
--
- /**
-  * ufshcd_mcq_compl_pending_transfer - MCQ mode function. It is
-  * invoked from the error handler context or ufshcd_host_reset_and_restore()
-@@ -6088,10 +6073,18 @@ static bool ufshcd_mcq_compl_one(struct request *rq, void *priv)
- static void ufshcd_mcq_compl_pending_transfer(struct ufs_hba *hba,
- 					      bool force_compl)
- {
--	blk_mq_tagset_busy_iter(&hba->host->tag_set,
--				force_compl ? ufshcd_mcq_force_compl_one :
--					      ufshcd_mcq_compl_one,
--				NULL);
-+	int i;
-+
-+	for (i = 0; i < hba->nr_hw_queues; i++) {
-+		if (force_compl)
-+			ufshcd_mcq_compl_all_cqes_lock(hba, &hba->uhq[i]);
-+		else
-+			ufshcd_mcq_poll_cqe_lock(hba, &hba->uhq[i]);
++	/* Don't even try to handle a bizarrely large xattr. */
++	if (valuelen > XATTR_SIZE_MAX) {
++		xchk_fblock_set_corrupt(sc, XFS_ATTR_FORK, args.blkno);
++		return -ECANCELED;
 +	}
 +
-+	if (force_compl)
-+		blk_mq_tagset_busy_iter(&hba->host->tag_set,
-+					ufshcd_mcq_force_compl_one, NULL);
- }
+ 	/*
+ 	 * Try to allocate enough memory to extract the attr value.  If that
+ 	 * doesn't work, return -EDEADLOCK as a signal to try again with a
+diff --git a/fs/xfs/scrub/parent_repair.c b/fs/xfs/scrub/parent_repair.c
+index f643724910f954..6a3c0a190ff995 100644
+--- a/fs/xfs/scrub/parent_repair.c
++++ b/fs/xfs/scrub/parent_repair.c
+@@ -910,6 +910,10 @@ xrep_parent_fetch_xattr_remote(
+ 	};
+ 	int			error;
  
- /**
++	/* Don't even try to handle a bizarrely large xattr. */
++	if (valuelen > XATTR_SIZE_MAX)
++		return -EFSCORRUPTED;
++
+ 	/*
+ 	 * If we need a larger value buffer, try to allocate one.  If that
+ 	 * fails, return with -EDEADLOCK to try harder.
 
