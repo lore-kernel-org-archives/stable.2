@@ -1,252 +1,310 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013007.outbound.protection.outlook.com [40.107.159.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69529489FBB;
-	Mon, 12 Oct 2026 11:45:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791805513; cv=fail; b=ejqYmQXkKtJ2BRUCwRr+djPGf01RHR2juNlsK9s53TIye8kda3Ozc4TlZtVC7fdYbUBU1mx1ME3u3YmnU6xttVrpoXdG/vIMvFGBZUlvIRprCIhaMS6BUyZp6qtXaTnrb1Q3/GDDBDyqntDC9mY1FJLTlnyQoisoeuGyPNOVCfk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791805513; c=relaxed/simple;
-	bh=IvIuVBPDa7hbS7c2cjg/waJgMV2Y8XB1L7iYkjZWtvI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=pxvoN8M/rfhnps03PG1cyQ+h/pMBVQfFwqI8dL3AhpDeEyeUvemob74Y68L1xC8HQDi9RwGMdcESDHNml9TYx5CNt4WUpXOoXUo/ADbo2wkTIESzTTNojls8snPI8X1oi/CxCVdDFieuLM2mDGNB8iSiQ3kTM5Q9iB40H3ap+jQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech; spf=pass smtp.mailfrom=est.tech; dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b=h0/Pbqj9; arc=fail smtp.client-ip=40.107.159.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=est.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386C5489873
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 11:45:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791805514; cv=none; b=pXkC6vok4vPE4WYLmFpa4UfrfetM+t0rxIIDsrOgT5Wfv7yj+0IBA9Dntm4TZO0b/3hkGnzbVfzUXcOzYuW57SjIW0tFbC6dLlHX3xkE2CcWcG5q8g3QrrXZLTEm2bVTIkBfT+AdtjtWHrEk2KYhQJ1v5YpgkvcEKu6SQv3CddI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791805514; c=relaxed/simple;
+	bh=dPZz66rDuO2qCj31h1mbBAuS4B9EWD5heaSx/8OHcA4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=SsBYRqreBz9F4Z1XUp78989uDJSiNU3Sfpk50Zt/gva3IjSIUOsNiIAesJ2nXAlyKAVWewbRqv1EK5ORJyVNcUbaSn6f4faHaITn5gnN1LcGkG+XNc1uUtl0KHn9WQutRRshn8mJpQQxXgPmee0Fqn1oH11BoSjC2QPAxMemY0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=t27lYYqX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b="h0/Pbqj9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YFLSfj6L5UxpSuGDSQEQYvSOzVMeMkWvHMDeMJwqI7SZUvIvYpU8Z+J5PpVarIbu4RXM0+UoqrYFOH/oFKvuecYzL7TuHPHAuGgQiKlzCTxrBGY7vuCqbmGDz+0Hrx8ZXpR1ePvdbO4/3gtL8oW6K7BBAAeBBYDqET73LSqUXWt5ILXvq9OcadUk8HYkdSk2g9k9DON1DaweJNNvSwoU7KipIjUIsRhVJOgYNIBToeRVBsN8SW6R3BZv/25XPrpP3ilemQYIH5/Zug6ohQIKa7/fvOQeY+ljzHxjFXUMvba6xpV4WsdQe6BZEvIKr1IcDOCxdjOVEEOUAJNHbcm10w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IvIuVBPDa7hbS7c2cjg/waJgMV2Y8XB1L7iYkjZWtvI=;
- b=lA9CqfrQxidWUGSL5dzkiwSZALfRiMSnIHTqZWpEQDkPsp19ojiCbLQ9V1qUoAnwnl5frDdoiBZyBKADpILoSU9ZPpTVaBOeexZB4p4cbNaR6DHagRNF5siknbXYyJq2Ps11Q0TK7NU+mi9l7e0+hu41lbkL0orx1EGlQWOf7Fp9/5q8Ypp5mUYk2ZrXz7b6UfECd5NXEYMbdjnoJvqY668SJNQPTETNNsfL3kWdgk5Qvo8N3RDoXFtQJCHuZ6QDkGsu9Lz7kPVJ7o7GpiWNDCDLJSuhr7vo5JnN4/RcItuWPMbDmPURrge9qc4wMkBYX23M902FtaTupVytb9QCdA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=est.tech; dmarc=pass action=none header.from=est.tech;
- dkim=pass header.d=est.tech; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=est.tech; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IvIuVBPDa7hbS7c2cjg/waJgMV2Y8XB1L7iYkjZWtvI=;
- b=h0/Pbqj9d5Xr6E4ZovfRKZRk+wIX6EQF5CNvj6fGC1Ir7e/wZ8xQDroyNm2ybubZwsLV6hy/6fikoXDLElUjz5SXZknJLfMrTR9lzWlSigyyr0KMkv3ABOt/M07KXvnBRvymqKKsArku7K254YQm5wYHpz79N/L7KXWXAVbfUZ5i4acKjnn6pqhJqi/KyPDt/yxN5gpkysqKgM8XkCmbcg6vs1KlWJL6Hab5r4rhlv7IlttvHidKdWLlEYl00MYOmac0pn+ezO2TFTmxpn5nMCRD3ujWwW2Ben0I99pDOe/+jbP5vg9yuaFeQcZxbOWiq69UVqXeF2l8fB1dfLwJ9g==
-Received: from AM7P189MB1137.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:17e::23)
- by PA1P189MB2694.EURP189.PROD.OUTLOOK.COM (2603:10a6:102:44b::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 12 Oct
- 2026 11:45:05 +0000
-Received: from AM7P189MB1137.EURP189.PROD.OUTLOOK.COM
- ([fe80::86f0:8ce1:a437:b2d5]) by AM7P189MB1137.EURP189.PROD.OUTLOOK.COM
- ([fe80::86f0:8ce1:a437:b2d5%4]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
- 11:45:05 +0000
-From: Tung Quang Nguyen <tung.quang.nguyen@est.tech>
-To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>,
-	"bsdhenrymartin@gmail.com" <bsdhenrymartin@gmail.com>
-CC: "jmaloy@redhat.com" <jmaloy@redhat.com>, "davem@davemloft.net"
-	<davem@davemloft.net>, "edumazet@kernel.org" <edumazet@kernel.org>,
-	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"horms@kernel.org" <horms@kernel.org>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "tipc-discussion@lists.sourceforge.net"
-	<tipc-discussion@lists.sourceforge.net>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-Subject: RE: [PATCH] tipc: fix broadcast sender hang and leak on last acker
- departure
-Thread-Topic: [PATCH] tipc: fix broadcast sender hang and leak on last acker
- departure
-Thread-Index: AQHdV7LnyvLqFmFvuESBCwWJ3/dhE7b2SZgAgAOD0pA=
-Date: Mon, 12 Oct 2026 11:45:05 +0000
-Message-ID:
- <AM7P189MB113731FB3655F88C6079EF1CC69F2@AM7P189MB1137.EURP189.PROD.OUTLOOK.COM>
-References: <20261009055601.2304158-1-bsdhenrymartin@gmail.com>
- <179161196277.434549.7319105806730748323@kernel.org>
-In-Reply-To: <179161196277.434549.7319105806730748323@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=est.tech;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM7P189MB1137:EE_|PA1P189MB2694:EE_
-x-ms-office365-filtering-correlation-id: df4cd1e3-71ac-4647-05ec-08df28564224
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|7416014|366016|376014|23010399003|38070700021|56012099006|11063799006|4143699003|261009223027099003|10067099003|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- g9/bofCVGlGUJSRR7cstB+Wc6WZkqr9ZLgJAuRGUF8lFrmBY8WWmCk1/LYGUop4Tyn/BlLAkol3S85WCZVyOmP7Nqay7g+22/5UB4W+gtYFqj+z97Jb7HFa2hRRC8H9nwiJBZ5UmuxbQeoDbezSoGTPQ3qQ0lWXnSV1dnEN0ztGQjr5X96Dg6ZP10nhla06KAfmuSQixm78Fz3AuyoYviLNHdfYfOW7xgp7IB/8awhOp6E7/68gVM4jbkfgPMO4nwaOaotiMKEGdNAVg97R/nYiLXecZbFwMel4UXEFUbT58mb+Bob2JtbEKqYUr8wrq+CFhZYJLz88Do8yJqtkzLNJQI8VmcB8kjUXELS3vTXZlBq3nQfmb1rX/R+CPSy/BsXXFP5qDiEEs7yt97GvoE94tChPC4zaGwUU+uqmmFh7+nHd8Q84LNvxW4D0S6Pk9n5Fb42P+BuAJ8snKgD5rjER88KfA0CQRHq1k6eGfVPXbW4WCpcV/PFUr3r3G6a0t5gAbMHt/CWHlSRvyxvE7VCAloF1jr3yhSP8cJKGAW6mYFTuEnO6x6l1XSZvX9aq/XliWz9yHioWIaoM2fdnermSbb4jr2fMALmqtVVt8hUoSivXAEt9HHYqjzP4XZl6xQ6gHEFEuw/00+XKFmLHUYvWepr893P0FiYVzKpfvOHBOT8nx7mAuUv6SpwB6Itjn8XgYpfLboJco5xNrCS9Vuu2FRAtCsCpGiUpOn1pB28c=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM7P189MB1137.EURP189.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(366016)(376014)(23010399003)(38070700021)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?L0pnRnJDbm55SU9OMlh4SGZVeVQ3dy9rWm9XakJ3aGl4b2lmck4xMGFxaUpX?=
- =?utf-8?B?MThXeDRQNVpPWlFNcFIwSjFtbFRTMUtWVjI1UmxWQW9HWk5CR1BGWm5TT0Vj?=
- =?utf-8?B?TTJ0Ly9RcWNFOE9SZjQrSC9LdjZmS2F3eFhrWHdkTGJNdmlSQXpUNkN6M1li?=
- =?utf-8?B?UFFkR2NYR2VxTEdZOUljT2k3Z2JELzNxdUdvbytwZmM1UEx0UlphQUptY3pl?=
- =?utf-8?B?YlJhL0gxa3NnYWVtZlJ3OVp0WFZtbks1Q1pNOWVzTHloMUlKdlFXSU9sWVZB?=
- =?utf-8?B?NjcrTjUzMW1CQTd5ekY2Y0NGVW13YW1FNlVOZDdoYkZUSzBCc1FaSTNhTGx1?=
- =?utf-8?B?TURYaG0wQmUvL1VjR0RTRHE4M3kwbGM5R0VtNzkxTDF1Y3J6RWJZaDNGYUJZ?=
- =?utf-8?B?RVV6eEpvR20wc0F6MGdIcCtXcHJycGE1dnNidnFQbmlpc1FDS053cVRnY2FB?=
- =?utf-8?B?UFR1VmdxcDVPY1ZPVllkaTBvWExPYkVPbWIzMlVtT1pIOWw3L25aSlU2M2xr?=
- =?utf-8?B?OGFkWmhOMkdSVGw0VDVWUis0Wk9kTk5aNWRJaFFva1Q3bkxPOUFSL0g3L1ht?=
- =?utf-8?B?RC9pVXFhWHBQTnRieDBFU1VuQ2YxUjg4eC9GWkE5ZG05ZklHSkxvS2xwQmRq?=
- =?utf-8?B?Wmt0ZWRpV2JNbzNHRmI0dTJSdE8wdnBJdG1aU083bEhOZUNHZFJpQ0E3Y1F3?=
- =?utf-8?B?dEhwQnlkM2F6ZGN0L2h6S21VQ1NrSVE2L1RTcGdDNDdSZUI4VytTT0l1TUYr?=
- =?utf-8?B?UHoyR3hhWUdyKzRxT3ByQ2FHQktNS3grNGNjc1gzbHZpblBhbHZTb1pXdDRm?=
- =?utf-8?B?YVZlY1pDMEI5Q2pxdUcxcDV3Z0ZOTk1EL0NxdGlESUUwa1ZFL1ptUHpCaFhn?=
- =?utf-8?B?UEJMTlZlZWlOd044RGFwNWZBZjh6ME1JL3F4RllwQmczVXkrZ1gxbWEyaC9P?=
- =?utf-8?B?SHkvTm9iMWpwUm1lbStYVGhxY1p3eVhybXBhS2ZSOHo4MnN0anlVQVU1d1pN?=
- =?utf-8?B?ZVE2TVlJVVVkS0JPT3FGdExBNnVpVHRJQm1lVDloQ3FpZkNVY0lPazhMaFVq?=
- =?utf-8?B?R2tOVGZOUkdnbnN6amlia05PZGxwam93SUpab0UreU5jRFdkVGdMSzBCc0FD?=
- =?utf-8?B?UWdseHF3QVdWQUhQeXA1dSszUnhrRDVPQWpESHZSUlhaNjJiOVVZZVhveEtC?=
- =?utf-8?B?V2ljQWkxVGZGZTBOUFNJNC9XYTJEZi8vLzNSR1FibW9VMFZuMkxIKzloSUVt?=
- =?utf-8?B?Y09WY1QxRERwcW9iWjBLVWZVaWpMV3JuN201YmpHWjhBU2c5WmduT0tkbDJv?=
- =?utf-8?B?VzM3TzZmTEwzUmlNRzJWb2loOUhoMElPRldiK3dmclVBMmNYTVEzODF3Z3Bq?=
- =?utf-8?B?eEZkSnFsUDk0SFl1cVlldFoyNmhXdm5xZWhxUVBnRmRFaTd5ZjZsQVVDRHFD?=
- =?utf-8?B?d2RreWwvZ3JzWWFFU08rRHg4cDdYQUFkWWxZYkFmdlVnalBucHFwVEllbU9z?=
- =?utf-8?B?dFNkWWgrNnpQUkROVlkxU2NYcjc1NmN3bnY0cmppa0ovK0JaZjNYcDF3eFpE?=
- =?utf-8?B?RVRlOXBsQUt4cVlCQ1l2eTdYeGgxS05JSnhVeHBFdnB3cU5RWk9aeG9rWFZt?=
- =?utf-8?B?OC9CNFVoY2lCUjc5SXRsRExib1I0OEFpNDJURkhPT3lZTmFKMVBFZVBNVUEr?=
- =?utf-8?B?UklrVzVXT3NtRzNkNDUwOHJqaVFSZklTNlVzYTl4QmNwRXEwVG45d2hRMndM?=
- =?utf-8?B?YU5iaGxpbW9lRGY5eFBxTlhrMGdPcTFBSXJYSlVMOGV6MlZQb09keHVjbkJu?=
- =?utf-8?B?L3VtT25TdlhudGwrNWNxTTVjM1hvL2p5TzlmeGRiNWR3RmFGTk9ESlRhOFZI?=
- =?utf-8?B?UTlybU9nVWFsTjhpdVpwdU9yUXRjQ1lhWUthYjRlZUdNTnhzcjZnZkVZUXVn?=
- =?utf-8?B?ZEJ5dytmdkNvanpwNk1nZFNYN1lrQWZmRE5LSGNyT2JwK2tYNnB2Z0pEMWpK?=
- =?utf-8?B?Ny80cTkvS0l5dUNyRlE5eHdvZW5ONkNQeFFEWGcwcHNjQlloaUJ6d0VtSWsz?=
- =?utf-8?B?Y2QvdVpVSE9vNXdmcThDR2tRUVhRVGwyTUpjZk5lWVY3WGdIVDJrNU1OWFFq?=
- =?utf-8?B?bW5ubzNnTG9uVnlSVnMxRkpxVFlhR0FKYS9EQ1VSTDNEM2RicnIzL2FDdWhr?=
- =?utf-8?B?T1ZWMU1xQlhFMG9PTTV4eXpYdmYzS1o0OFFFWDZmOUVyWVk2SENMZzdOcFpz?=
- =?utf-8?B?SjRaNXl4dUFFRzFETlM4eGxVWEVKMTZ0eTVDdER6cEpTY055WHhPcThOQmEr?=
- =?utf-8?B?NlRwODNPamJGRGtCZlVCNFNBQ0R3dDhZT2krczBwZFZhbFNnRHdrZz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="t27lYYqX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E856D1F0089D;
+	Mon, 12 Oct 2026 11:45:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791805511;
+	bh=JuRaQeUM1C3XccckBfSWDlf6QjFc4sRj0QPzaet9q0Y=;
+	h=Subject:To:Cc:From:Date;
+	b=t27lYYqXSdw+CBM+k/XkNHdMoMJQOjKE+IOjblVOo45qkvlK+r75nyEODsIW8tdGW
+	 SArqAxThvcDFa7Iq+JjHd839lhpYDaAWuj+1ici6sAY43pMm7vbSsPJy634MzsNHgp
+	 zzzJ06TA6ZGz8lDNKmO+UAatYjzGVREJ/urI64ls=
+Subject: FAILED: patch "[PATCH] mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP" failed to apply to 6.6-stable tree
+To: ljs@kernel.org,akpm@linux-foundation.org,asrinivasan@oss.tenstorrent.com,azpijr@gmail.com,bgeffon@google.com,jannh@google.com,kas@kernel.org,liam@infradead.org,minchan@kernel.org,pfalcato@suse.de,stable@vger.kernel.org,vbabka@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 12 Oct 2026 13:45:10 +0200
+Message-ID: <2026101210-unicycle-configure-b7b7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: est.tech
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM7P189MB1137.EURP189.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: df4cd1e3-71ac-4647-05ec-08df28564224
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2026 11:45:05.1253
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: d2585e63-66b9-44b6-a76e-4f4b217d97fd
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: llWlO07LWZiI0RqvTyAGWPo7UrNK3aezcz1wjEDbKLoqvRQLiOcWcuMOXE9uAAEpqB77v6VeSD9VdGyCPcy8WqqFJGcnKiN/rWPGBLgZ8G0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1P189MB2694
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-PlN1YmplY3Q6IFJlOiBbUEFUQ0hdIHRpcGM6IGZpeCBicm9hZGNhc3Qgc2VuZGVyIGhhbmcgYW5k
-IGxlYWsgb24gbGFzdCBhY2tlcg0KPmRlcGFydHVyZQ0KPg0KPlRoYW5rIHlvdSBmb3IgeW91ciBj
-b250cmlidXRpb24hIFNhc2hpa28gQUkgcmV2aWV3IGZvdW5kIDIgcG90ZW50aWFsDQo+aXNzdWUo
-cykgdG8gY29uc2lkZXIuDQo+DQo+Q3JpdGljYWw6IDAgwrcgSGlnaDogMCDCtyBNZWRpdW06IDEg
-KDEpIMK3IExvdzogMSAoMSkNCj4NCj5JZiB5b3UgYmVsaWV2ZSBub25lIG9mIHRoZSBpc3N1ZXMg
-YXJlIGxlZ2l0aW1hdGUsIHBsZWFzZSByZXBseSB0byBlYWNoIGlzc3VlIG9mDQo+TWVkaXVtIHNl
-dmVyaXR5IG9yIGhpZ2hlciBhbmQgZXhwbGFpbiB3aHkgdGhlIEFJIGlzIHdyb25nLg0KPklmIGFu
-eSBvZiB0aGVtIGFyZSBsZWdpdGltYXRlIGFuZCB5b3UgcGxhbiB0byByZXNwaW4sIHBsZWFzZSBs
-ZXQgcGF0Y2h3b3JrDQo+a25vdyBieSBpbmNsdWRpbmcgInB3LWJvdDogY3IiIGFzIGEgc2VwYXJh
-dGUgbGluZSBhdCB0aGUgZW5kIG9mIHlvdXIgcmVwbHkgKG9uZQ0KPnN1Y2ggcmVwbHkgcGVyIHNl
-cmllcyBpcyBlbm91Z2gpLg0KPg0KPi0gW01lZGl1bV0gVGhlIG5ldyBvcGVuLXJlc3RvcmUgaW4g
-dGlwY19ncm91cF9kZWxldGVfbWVtYmVyKCkNCj4gIChuZXQvdGlwYy9ncm91cC5jOjM0Ni0zNDgp
-IGRlcGVuZHMgb24gbGVzcyhtLT5iY19hY2tlZCzigKYNCj4tIFtMb3ddIFRoZSBjb21taXQgbWVz
-c2FnZSBkb2VzIG5vdCBtYXRjaCB0aGUgcGF0Y2guDQo+DQo+UHJlLWV4aXN0aW5nIGlzc3VlczoN
-Cj4tIFtNZWRpdW1dIFRoaXMgcHJvYmxlbSB3YXNuJ3QgaW50cm9kdWNlZCBieSB0aGlzIHBhdGNo
-LCBidXQgYSBub2RlLWRvd24NCj4gIHdpdGhkcmF3YWwgZXZlbnQgY2FuIGdldCBzdHVjayBiZWhp
-bmQgYSBkZWZlcnJlZCB1bmljYXN0LCBzbyB0aGXigKYNCj4tIFtMb3ddIFRoaXMgcHJvYmxlbSB3
-YXNuJ3QgaW50cm9kdWNlZCBieSB0aGlzIHBhdGNoLCBidXQNCj4gIHRzay0+Z3JvdXBfaXNfb3Bl
-biAoYWxpYXNlZCBhcyAqZ3JwLT5vcGVuKSBpcyB3cml0dGVuIHdpdGggcGxhaW7igKYNCj4NCj4t
-LQ0KPg0KPnRpcGM6IGZpeCBicm9hZGNhc3Qgc2VuZGVyIGhhbmcgYW5kIGxlYWsgb24gbGFzdCBh
-Y2tlciBkZXBhcnR1cmUNCj4NCj5UaGlzIHBhdGNoIG1ha2VzIHRpcGNfZ3JvdXBfZGVsZXRlX21l
-bWJlcigpIHJlc3RvcmUgKmdycC0+b3BlbiB3aGVuDQo+Z3JwLT5iY19hY2tlcnMgZHJvcHMgZnJv
-bSAxIHRvIDAuIEl0IGFsc28gbWFrZXMgdGlwY19za19maWx0ZXJfcmN2KCkNCj5ncnAtPmNhbGwN
-Cj5zay0+c2tfd3JpdGVfc3BhY2UoKSB3aGVuIHRpcGNfZ3JvdXBfZmlsdGVyX21zZygpIHN3aXRj
-aGVzIHRoZSBncm91cA0KPnNrLT5mcm9tDQo+Y2xvc2VkIHRvIG9wZW4uIFRoZSBhaW0gaXMgdG8g
-dW5ibG9jayBncm91cCBicm9hZGNhc3Qgc2VuZGVycyB3aGVuIHRoZSBsYXN0DQo+b3V0c3RhbmRp
-bmcgYWNrZXIgbGVhdmVzLg0KPg0KPj4gdGlwYzogZml4IGJyb2FkY2FzdCBzZW5kZXIgaGFuZyBh
-bmQgbGVhayBvbiBsYXN0IGFja2VyIGRlcGFydHVyZQ0KPg0KPltTZXZlcml0eTogTG93XQ0KPldo
-aWNoIGxlYWsgZG9lcyB0aGlzIHBhdGNoIGZpeD8gVGhlIGRpZmYgb25seSBhZGRzIHRoZSByZW9w
-ZW4gYW5kIHRoZSB3YWtldXAuDQo+VGhlIGtmcmVlKG0pIGFuZCB0aGUgYmNfYWNrZXJzIGRlY3Jl
-bWVudCBpbg0KPnRpcGNfZ3JvdXBfZGVsZXRlX21lbWJlcigpIHdlcmUgYWxyZWFkeSB0aGVyZS4N
-Cj4NCj5UaGlzIHBhdGNoIGNhcnJpZXMgQ2M6IHN0YWJsZSBhbmQgYSBGaXhlczogdGFnLiBDb3Vs
-ZCAibGVhayIgYmUgZHJvcHBlZCBmcm9tIHRoZQ0KPnN1YmplY3Qgc28gaXQgZG9lc24ndCBtaXNs
-ZWFkIGJhY2twb3J0ZXJzPw0KPg0KDQpBZ3JlZS4gUGxlYXNlIHJld3JpdGUgdGhlIGNoYW5nZWxv
-Zy4NCg0KPj4gYmxvY2tlZCBzZW5kZXJzOyB3cml0ZSgpIHRoZW4gc2xlZXBzIHVudGlsIHRoZSBz
-ZW5kIHRpbWVvdXQgYW5kDQo+PiBwb2xsKCkgaXMgbmV2ZXIgd29rZW4gYXQgYWxsLg0KPg0KPklz
-IHRoZSB3cml0ZSgpIHBhcnQgYWNjdXJhdGU/IHRpcGNfd2FpdF9mb3JfY29uZCgpIHNsZWVwcyBp
-biB3YWl0X3dva2VuKCkgd2l0aA0KPndva2VuX3dha2VfZnVuY3Rpb24oKSwgYW5kIHRoYXQgZnVu
-Y3Rpb24gZG9lc24ndCBmaWx0ZXIgb24gdGhlIHBvbGwNCj5rZXk6DQo+DQo+bmV0L3RpcGMvc29j
-a2V0LmM6dGlwY193YWl0X2Zvcl9jb25kKCkgew0KPiAgICAuLi4NCj4JYWRkX3dhaXRfcXVldWUo
-c2tfc2xlZXAoc2tfKSwgJndhaXRfKTsNCj4JcmVsZWFzZV9zb2NrKHNrXyk7DQo+CSoodGltZW9f
-KSA9IHdhaXRfd29rZW4oJndhaXRfLCBUQVNLX0lOVEVSUlVQVElCTEUsICoodGltZW9fKSk7DQo+
-ICAgIC4uLg0KPn0NCj4NCj5TbyBhbnkgdGlwY19kYXRhX3JlYWR5KCkgb24gdGhlIHNvY2tldCB3
-YWtlcyB0aGUgd3JpdGVyIGFuZCByZS1ydW5zDQo+dGlwY19ncm91cF9iY19jb25nKCkuIE9uZSBl
-eGFtcGxlIGlzIGRlbGl2ZXJ5IG9mIHRoZSBUSVBDX1dJVEhEUkFXTg0KPm1lbWJlciBldmVudCB3
-aGVuIFRJUENfR1JPVVBfTUVNQkVSX0VWVFMgaXMgc2V0Lg0KPg0KPklmIG5vIHN1Y2ggd2FrZXVw
-IGNvbWVzLCB0aGUgZGVmYXVsdCBibG9ja2luZyBza19zbmR0aW1lbyBpcw0KPk1BWF9TQ0hFRFVM
-RV9USU1FT1VULCBzbyB0aGVyZSBpcyBubyBib3VuZGVkIHNlbmQgdGltZW91dCBlaXRoZXIuDQo+
-DQo+VGhlIHBvbGwoKSBwYXJ0IGxvb2tzIGNvcnJlY3QsIHNpbmNlIHRpcGNfcG9sbCgpIHJlcG9y
-dHMgRVBPTExPVVQgb25seSB3aGVuIHRzay0NCj4+Z3JvdXBfaXNfb3BlbiBpcyBzZXQuDQoNCkFn
-cmVlLiBQbGVhc2UgcmV3cml0ZSB0aGUgY2hhbmdlbG9nLg0KDQo+DQo+PiBkaWZmIC0tZ2l0IGEv
-bmV0L3RpcGMvZ3JvdXAuYyBiL25ldC90aXBjL2dyb3VwLmMgaW5kZXgNCj4+IDc0ZjZkM2RhYzA3
-ODQuLmUyMGViNjEyZjgyY2UgMTAwNjQ0DQo+PiAtLS0gYS9uZXQvdGlwYy9ncm91cC5jDQo+PiAr
-KysgYi9uZXQvdGlwYy9ncm91cC5jDQo+PiBAQCAtMzQwLDkgKzM0MCwxMiBAQCBzdGF0aWMgdm9p
-ZCB0aXBjX2dyb3VwX2RlbGV0ZV9tZW1iZXIoc3RydWN0DQo+dGlwY19ncm91cCAqZ3JwLA0KPj4g
-IAlyYl9lcmFzZSgmbS0+dHJlZV9ub2RlLCAmZ3JwLT5tZW1iZXJzKTsNCj4+ICAJZ3JwLT5tZW1i
-ZXJfY250LS07DQo+Pg0KPj4gLQkvKiBDaGVjayBpZiB3ZSB3ZXJlIHdhaXRpbmcgZm9yIHJlcGxp
-Y2FzdCBhY2sgZnJvbSB0aGlzIG1lbWJlciAqLw0KPj4gLQlpZiAoZ3JwLT5iY19hY2tlcnMgJiYg
-bGVzcyhtLT5iY19hY2tlZCwgZ3JwLT5iY19zbmRfbnh0IC0gMSkpDQo+PiAtCQlncnAtPmJjX2Fj
-a2Vycy0tOw0KPj4gKwkvKiBJZiB0aGlzIG1lbWJlciBoZWxkIHRoZSBsYXN0IG91dHN0YW5kaW5n
-IHJlcGxpY2FzdCBhY2ssDQo+PiArCSAqIHJlc3RvcmUgdGhlIG9wZW4gc3RhdGUgc28gYmxvY2tl
-ZCBicm9hZGNhc3Qgc2VuZGVycyBjYW4gcHJvY2VlZC4NCj4+ICsJICovDQo+PiArCWlmIChncnAt
-PmJjX2Fja2VycyAmJiBsZXNzKG0tPmJjX2Fja2VkLCBncnAtPmJjX3NuZF9ueHQgLSAxKSAmJg0K
-Pj4gKwkgICAgIS0tZ3JwLT5iY19hY2tlcnMpDQo+PiArCQkqZ3JwLT5vcGVuID0gdHJ1ZTsNCj4N
-Cj5bU2V2ZXJpdHk6IE1lZGl1bV0NCj5DYW4gdGhpcyByZW9wZW4gdGhlIGdyb3VwIHdoaWxlIGEg
-Y291bnRlZCBhY2tlciBpcyBzdGlsbCBvdXRzdGFuZGluZz8NCj4NCj5UaGUgbGVzcyhtLT5iY19h
-Y2tlZCwgZ3JwLT5iY19zbmRfbnh0IC0gMSkgY2hlY2sgYWxzbyBtYXRjaGVzIG1lbWJlcnMgdGhh
-dA0KPndlcmUgbmV2ZXIgY291bnRlZCBpbiBiY19hY2tlcnMuIHRpcGNfZ3JvdXBfdXBkYXRlX2Jj
-X21lbWJlcnMoKSBvbmx5DQo+Y291bnRzIGEgbWVtYmVyLCBhbmQgcmVmcmVzaGVzIGl0cyBiY19h
-Y2tlZCwgd2hlbiB0aXBjX2dyb3VwX2lzX3JlY2VpdmVyKCkgaXMNCj50cnVlOg0KPg0KPm5ldC90
-aXBjL2dyb3VwLmM6dGlwY19ncm91cF91cGRhdGVfYmNfbWVtYmVycygpIHsNCj4gICAgLi4uDQo+
-CQlpZiAodGlwY19ncm91cF9pc19yZWNlaXZlcihtKSkgew0KPgkJCXRpcGNfZ3JvdXBfdXBkYXRl
-X21lbWJlcihtLCBsZW4pOw0KPgkJCW0tPmJjX2Fja2VkID0gcHJldjsNCj4JCQlhY2tlcnMrKzsN
-Cj4JCX0NCj4gICAgLi4uDQo+fQ0KPg0KPnRpcGNfZ3JvdXBfaXNfcmVjZWl2ZXIoKSBleGNsdWRl
-cyBNQlJfSk9JTklORyBhbmQgTUJSX0xFQVZJTkcuIEENCj5tZW1iZXIgaW4gZWl0aGVyIHN0YXRl
-IGtlZXBzIGEgc3RhbGUgYmNfYWNrZWQuDQo+DQo+Rm9yIGV4YW1wbGUsIHNheSBtZW1iZXJzIFgg
-YW5kIFkgYXJlIGJvdGggSk9JTkVEOg0KPg0KPiAgLSBBIG5vbi1hY2sgYnJvYWRjYXN0IGF0IHNl
-cW5vIDEwIHNldHMgWC5iY19hY2tlZCA9IFkuYmNfYWNrZWQgPSA5IGFuZA0KPiAgICBiY19zbmRf
-bnh0ID0gMTEuDQo+ICAtIFggYmVjb21lcyBNQlJfTEVBVklORy4gVGhpcyBjYW4gaGFwcGVuIHdo
-ZW4gVElQQ19XSVRIRFJBV04NCj5hcnJpdmVzDQo+ICAgIHdpdGggdGhlIG5vZGUgc3RpbGwgdXAg
-YW5kIGJlZm9yZSBHUlBfTEVBVkVfTVNHLCBvciB3aGVuIHRoZSBsZWF2ZQ0KPiAgICBldmVudCBp
-cyBzdGlsbCB3YWl0aW5nIGluIG0tPmRlZmVycmVkcS4NCj4gIC0gVGhlIGxvY2FsIHNvY2tldCBz
-ZW5kcyBhIHVuaWNhc3QuIHRpcGNfc2VuZF9ncm91cF9hbnljYXN0KCkvdW5pY2FzdA0KPiAgICB0
-aGVuIHNldHMgbWV0aG9kLT5yY2FzdCBhbmQgbWV0aG9kLT5tYW5kYXRvcnksIHNvIHRoZSBuZXh0
-IGJyb2FkY2FzdA0KPiAgICBnb2VzIG91dCBhcyBhbiBhY2stcmVxdWVzdGluZyByZXBsaWNhc3Qg
-YXQgc2Vxbm8gMTEuIE9ubHkgWSBpcw0KPiAgICBjb3VudGVkOiBiY19hY2tlcnMgPSAxLCBZLmJj
-X2Fja2VkID0gMTAsIGJjX3NuZF9ueHQgPSAxMi4NCj4gIC0gWCdzIGxlYXZlIGV2ZW50IGlzIGRl
-bGl2ZXJlZCwgYW5kIHRpcGNfZ3JvdXBfZmlsdGVyX21zZygpIGNhbGxzDQo+ICAgIHRpcGNfZ3Jv
-dXBfZGVsZXRlX21lbWJlcihYKS4NCj4NCj5BdCB0aGF0IHBvaW50IGxlc3MoOSwgMTEpIGlzIHRy
-dWUuIFNvIC0tYmNfYWNrZXJzIHJlYWNoZXMgMCBhbmQgKmdycC0+b3BlbiBpcyBzZXQNCj50byB0
-cnVlLCBldmVuIHRob3VnaCBZIGhhc24ndCBhY2tlZCB5ZXQuDQo+DQo+VGhlIG5ldyBjaGVjayBp
-biB0aXBjX3NrX2ZpbHRlcl9yY3YoKSB0aGVuIHNlZXMgdGhpczoNCj4NCj4JaWYgKCF3YXNfb3Bl
-biAmJiB0c2stPmdyb3VwX2lzX29wZW4pDQo+CQlzay0+c2tfd3JpdGVfc3BhY2Uoc2spOw0KPg0K
-PlRoZSB3cml0ZXIgYmxvY2tlZCBpbiB0aXBjX3NlbmRfZ3JvdXBfYmNhc3QoKSB3YWtlcyB1cCBh
-bmQNCj50aXBjX2dyb3VwX2JjX2NvbmcoKSByZXR1cm5zIGZhbHNlLiBUaGUgbmV4dCBicm9hZGNh
-c3QgY2FuIHRoZW4gZ28gb3V0LA0KPnBvc3NpYmx5IG92ZXIgdGhlIGJyb2FkY2FzdCBsaW5rLCBi
-ZWZvcmUgWSBoYXMgYWNrZWQgdGhlIHJlcGxpY2FzdC4NCj4NCj5Eb2Vzbid0IHRoYXQgYnJlYWsg
-dGhlIHVuaWNhc3QvYnJvYWRjYXN0IG9yZGVyaW5nIHRoYXQgY29tbWl0IDJmNDg3NzEyYjg5Mw0K
-PmFkZGVkIHRoZSBiY19hY2tlcnMgZ2F0ZSBmb3I/IFkncyBsYXRlciBHUlBfQUNLX01TRyBpcyBh
-bHNvIGRyb3BwZWQgYnkgdGhlDQo+IWdycC0+YmNfYWNrZXJzIGNoZWNrIGluIHRpcGNfZ3JvdXBf
-cHJvdG9fcmN2KCkuDQo+DQo+VGhlIG1pc2NvdW50IGl0c2VsZiBwcmVkYXRlcyB0aGlzIHBhdGNo
-LiBCZWZvcmUgaXQsIGEgZmFsc2UgemVybyBvbmx5IHRvb2sgZWZmZWN0DQo+b24gdGhlIG5leHQg
-c2VuZCBvciB0aGUgbmV4dCB1bnJlbGF0ZWQgd2FrZXVwLiBXaXRoIHRoaXMgcGF0Y2ggaXQgY2F1
-c2VzIGFuDQo+aW1tZWRpYXRlIHdha2V1cCBhbmQgRVBPTExPVVQuIFRoZSBuZXcgY29tbWVudCAo
-IklmIHRoaXMgbWVtYmVyIGhlbGQNCj50aGUgbGFzdCBvdXRzdGFuZGluZyByZXBsaWNhc3QgYWNr
-IikgYWxzbyBkb2Vzbid0IGhvbGQgaW4gdGhpcyBjYXNlLg0KPg0KPldvdWxkIGl0IGJlIGJldHRl
-ciB0byByZWNvcmQgd2hldGhlciB0aGUgbWVtYmVyIHdhcyBjb3VudGVkIHdoZW4gdGhlDQo+cmVw
-bGljYXN0IHdhcyBzZW50LCBmb3IgZXhhbXBsZSB3aXRoIGEgcGVyLW1lbWJlciBwZW5kaW5nLWFj
-ayBmbGFnLCBpbnN0ZWFkIG9mDQo+Y29tcGFyaW5nIGEgcG9zc2libHkgc3RhbGUgYmNfYWNrZWQ/
-DQo+DQoNCkFncmVlLiBQbGVhc2UgYWRkcmVzcyB0aGUgaW5jb21wbGV0ZSBjaGVjay4NCg0KLS0N
-CnB3LWJvdDogY3INCg==
+
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
+
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x 838bb60dc21553e32df90f2f3bac5b905376e7aa
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101210-unicycle-configure-b7b7@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 838bb60dc21553e32df90f2f3bac5b905376e7aa Mon Sep 17 00:00:00 2001
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Wed, 30 Sep 2026 19:47:09 +0100
+Subject: [PATCH] mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP
+ self-merge
+
+Patch series "mm/mremap: fix two issues with MREMAP_DONTUNMAP", v2.
+
+The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
+operations that keep the original VMA in place.
+
+Historically this has led to a lot of bugs where non-obvious interactions
+occur between existing mremap() operations and the original VMA.
+
+Commit 397432cab17b ("mm/mremap: account mm->locked_vm correctly for
+MREMAP_DONTUNMAP") fixed an accidentally introduced bug around
+mm->locked_vm accounting, but this wasn't the only issue.
+
+And thus history repeats itself, as it turns out that mm->locked_vm
+accounting is broken by MREMAP_DONTUNMAP yet again by two further cases,
+and has been broken ever since the feature was introduced.
+
+Both relate to the fact that VMA_LOCKED_BIT is cleared on the source VMA
+(it has to be as all page tables are moved):
+
+1. If an unfaulted VMA_LOCKONFAULT_BIT anonymous VMA self-merges it
+   clears the VMA_LOCKED_BIT flag and permanently leaks mm->locked_vm
+   pages.
+
+2. If a partial mremap() is performed on a locked VMA there is a leak equal
+   to the number of pages not copied.
+
+(Both for MREMAP_DONTUNMAP operations only)
+
+Both issues can be fixed by treating the source range as distinct from the
+destination range, which is the definition of what MREMAP_DONTUNMAP does
+so is appropriate.
+
+In case 1, simply disallow the self-merge, keeping adjacent source and
+destination VMAs distinct.
+
+In case 2, split the source range ahead of time if the VMA is mlock()'d,
+so accounting is always correct.
+
+Both changes were tested locally and confirmed to fix the issues.
+
+For the purposes of a backport, the fixes are kept distinct, a follow-up
+series can add self-tests.
+
+
+This patch (of 2):
+
+The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
+operations that keep the original VMA in place.
+
+Historically this has led to a lot of bugs where non-obvious interactions
+occur between existing mremap() operations and the original VMA.
+
+Fix another of these - self-merge.
+
+Self-merge occurs when a VMA is moved in front of or behind itself and the
+attributes of the VMA permit such a merge.
+
+Practically this can only happen for unfaulted anonymous VMAs due to the
+page offset equality requirement for merge:
+
+                           |------------|
+                           |            |
+                           |            v
+        |...........||-----------||...........|
+        |           || unfaulted ||           |
+        |...........||-----------||...........|
+              ^            |
+              |            |
+              |------------|
+
+This becomes problematic if the VMA is configured by the user to
+mlock-on-fault, i.e. the VMA_LOCKED_BIT, VMA_LOCKONFAULT_BIT VMA flags are
+set.
+
+MREMAP_DONTUNMAP clears mlock flags for the source VMA and maintains them
+for the destination VMA.
+
+Self-merge makes this impossible (there is only one VMA) and incorrectly
+clears the destination VMA's mlock flags.
+
+This causes a leak in mm->locked_vm as clearing this flag does not
+decrement the counter and the VMA no longer has VMA_LOCKED_BIT set so it
+is not decremented on unmap.
+
+Resolve this by simply disallowing a self-merge in this case - the source
+and destination VMAs are kept distinct and then are able to have distinct
+mlock() flags.
+
+Update dontunmap_complete() to make the now-redundant self-merge check a
+VM_WARN_ON_ONCE() instead to guard against future regressions.
+
+Also update the VMA userland tests to reflect the change.
+
+Link: https://lore.kernel.org/20260930-fix-dontunmap-partial-self-merge-v2-0-f388985a0f0a@kernel.org
+Link: https://lore.kernel.org/20260930-fix-dontunmap-partial-self-merge-v2-1-f388985a0f0a@kernel.org
+Fixes: e346b3813067 ("mm/mremap: add MREMAP_DONTUNMAP to mremap()")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Brian Geffon <bgeffon@google.com>
+Cc: Minchan Kim <minchan@kernel.org>
+Cc: <stable@vger.kernel.org>
+
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 7c368440fafe..058dd66fe1d7 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -1275,7 +1275,8 @@ static int copy_vma_and_data(struct vma_remap_struct *vrm,
+ 	PAGETABLE_MOVE(pmc, NULL, NULL, vrm->addr, vrm->new_addr, vrm->old_len);
+ 
+ 	new_vma = copy_vma(&vma, vrm->new_addr, vrm->new_len, new_pgoff,
+-			   new_anon_pgoff, &pmc.need_rmap_locks);
++			   new_anon_pgoff, &pmc.need_rmap_locks,
++			   vrm->flags & MREMAP_DONTUNMAP);
+ 	if (!new_vma) {
+ 		vrm_uncharge(vrm);
+ 		*new_vma_ptr = NULL;
+@@ -1335,6 +1336,9 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
+ 	unsigned long old_start = vma->vm_start;
+ 	unsigned long old_end = vma->vm_end;
+ 
++	/* Self-merge is disallowed. */
++	VM_WARN_ON_ONCE(new_vma == vma);
++
+ 	/* We always clear VMA_LOCKED[ONFAULT]_BIT on the old VMA. */
+ 	vma_clear_flags_mask(vma, VMA_LOCKED_MASK);
+ 
+@@ -1342,7 +1346,7 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
+ 	 * anon_vma links of the old vma is no longer needed after its page
+ 	 * table has been moved.
+ 	 */
+-	if (new_vma != vma && start == old_start && end == old_end) {
++	if (start == old_start && end == old_end) {
+ 		const pgoff_t pgoff_unfaulted = vma->vm_start >> PAGE_SHIFT;
+ 
+ 		unlink_anon_vmas(vma);
+diff --git a/mm/vma.c b/mm/vma.c
+index 6cde67883fb0..d8308c319daa 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -1943,7 +1943,7 @@ static int vma_link(struct mm_struct *mm, struct vm_area_struct *vma)
+  */
+ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
+ 	unsigned long addr, unsigned long len, pgoff_t pgoff,
+-	pgoff_t anon_pgoff, bool *need_rmap_locks)
++	pgoff_t anon_pgoff, bool *need_rmap_locks, bool keep_source)
+ {
+ 	struct vm_area_struct *vma = *vmap;
+ 	unsigned long old_vma_start = vma->vm_start;
+@@ -1981,6 +1981,21 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
+ 	vmg.pgoff = pgoff;
+ 	vmg.anon_pgoff = anon_pgoff;
+ 	vmg.next = vma_iter_next_rewind(&vmi, NULL);
++
++	/*
++	 * If the original VMA is kept (MREMAP_DONTUNMAP), the source and
++	 * destination VMA must be treated distinctly.
++	 *
++	 * A merge violates this, so in this case disallow a self-merge.
++	 */
++	if (can_self_merge && keep_source) {
++		if (vmg.prev == vma)
++			vmg.prev = NULL;
++		if (vmg.next == vma)
++			vmg.next = NULL;
++		can_self_merge = false;
++	}
++
+ 	new_vma = vma_merge_copied_range(&vmg);
+ 
+ 	if (new_vma) {
+diff --git a/mm/vma.h b/mm/vma.h
+index 024fabe63560..39514fac72fc 100644
+--- a/mm/vma.h
++++ b/mm/vma.h
+@@ -535,7 +535,7 @@ void unlink_file_vma_batch_add(struct unlink_vma_file_batch *vb,
+ 
+ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
+ 	unsigned long addr, unsigned long len, pgoff_t pgoff,
+-	pgoff_t anon_pgoff, bool *need_rmap_locks);
++	pgoff_t anon_pgoff, bool *need_rmap_locks, bool keep_source);
+ 
+ struct anon_vma *find_mergeable_anon_vma(struct vm_area_struct *vma);
+ 
+diff --git a/tools/testing/vma/tests/vma.c b/tools/testing/vma/tests/vma.c
+index c8ef7b8cd46b..e973e0a6d1a8 100644
+--- a/tools/testing/vma/tests/vma.c
++++ b/tools/testing/vma/tests/vma.c
+@@ -40,7 +40,7 @@ static bool test_copy_vma(void)
+ 	vma = alloc_and_link_vma(&mm, 0x1000, 0x2000, 1, vma_flags);
+ 	vma_set_anonymous(vma);
+ 	vma_orig = vma;
+-	vma_new = copy_vma(&vma, 0x2000, 0x1000, 1, 1, &need_locks);
++	vma_new = copy_vma(&vma, 0x2000, 0x1000, 1, 1, &need_locks, false);
+ 	ASSERT_EQ(vma_new, vma_orig);
+ 	ASSERT_EQ(vma, vma_orig);
+ 	ASSERT_EQ(vma_new->vm_start, 0x1000);
+@@ -53,7 +53,7 @@ static bool test_copy_vma(void)
+ 	vma = alloc_and_link_vma(&mm, 0x2000, 0x3000, 2, vma_flags);
+ 	vma_set_anonymous(vma);
+ 	vma_orig = vma;
+-	vma_new = copy_vma(&vma, 0x1000, 0x1000, 2, 2, &need_locks);
++	vma_new = copy_vma(&vma, 0x1000, 0x1000, 2, 2, &need_locks, false);
+ 	ASSERT_EQ(vma_new, vma_orig);
+ 	ASSERT_EQ(vma, vma_orig);
+ 	ASSERT_EQ(vma_new->vm_start, 0x1000);
+@@ -71,7 +71,7 @@ static bool test_copy_vma(void)
+ 	vma = alloc_and_link_vma(&mm, 0x3000, 0x4000, 3, vma_flags);
+ 	vma_set_anonymous(vma);
+ 	vma_orig = vma;
+-	vma_new = copy_vma(&vma, 0x2000, 0x1000, 3, 3, &need_locks);
++	vma_new = copy_vma(&vma, 0x2000, 0x1000, 3, 3, &need_locks, false);
+ 	ASSERT_NE(vma_new, vma_orig);
+ 	ASSERT_EQ(vma_new, vma);
+ 	ASSERT_EQ(vma_new->vm_start, 0x1000);
+@@ -82,7 +82,7 @@ static bool test_copy_vma(void)
+ 	/* Move backwards and do not merge. */
+ 
+ 	vma = alloc_and_link_vma(&mm, 0x3000, 0x5000, 3, vma_flags);
+-	vma_new = copy_vma(&vma, 0, 0x2000, 0, 3, &need_locks);
++	vma_new = copy_vma(&vma, 0, 0x2000, 0, 3, &need_locks, false);
+ 	ASSERT_NE(vma_new, vma);
+ 	ASSERT_EQ(vma_new->vm_start, 0);
+ 	ASSERT_EQ(vma_new->vm_end, 0x2000);
+@@ -95,7 +95,7 @@ static bool test_copy_vma(void)
+ 
+ 	vma = alloc_and_link_vma(&mm, 0, 0x2000, 0, vma_flags);
+ 	vma_next = alloc_and_link_vma(&mm, 0x6000, 0x8000, 6, vma_flags);
+-	vma_new = copy_vma(&vma, 0x4000, 0x2000, 4, 4, &need_locks);
++	vma_new = copy_vma(&vma, 0x4000, 0x2000, 4, 4, &need_locks, false);
+ 	vma_assert_attached(vma_new);
+ 
+ 	ASSERT_EQ(vma_new, vma_next);
+
