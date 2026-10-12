@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AC0336883
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:31:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01E7549E149
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:31:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819100; cv=none; b=h5XMdck/Xv0mjupwgczvhqBNT5ntF/34T9LA8WmRn9E+3zf9Ax1Nb7AlNJ6arXKEKjfKYYh3AcBVYWNLKFeb5hYvOr6pB2QFWWYMsa58BFZZIzA34RB9nhbfFar99/NlzAuR+z+Y2jm52Q1TtkF9UijUZI9j/PNFrlo9zNw+BJs=
+	t=1791819104; cv=none; b=tcvPkixrskS3l4g7nP2vGO6mvD/plaNIz1fPeCYTGfE1G+t8Twhpu8Y/Xg0PwiqNvj4EgC1mW3vC91Z1D1P0srY/Puh3uRf3e4/W1R9/Jc1urWsK4RamOEZI+ngdterIC1ZiR6w2ACk7K/aCCRyZgSyrHTHZ91Cchvai8lYtNSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819100; c=relaxed/simple;
-	bh=f/4vr1dZT3VLMRa1IvmSDpB6Oddn41dENRdGQqUpNGM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=QfO5boyFtUFAHoDI8VF+DuuSah2D50tJjcHVao4mP/iGa2ZnwtlyteP0ta2M3cx7fkhneBG5Pwp+dcIko9X/DzDOmPjPcaE1vRz7ypfpj0momwVhlryiaXk6HuKH40/5lORKSJ2pu/BUtCx+tVhBJLZ0YyhNH9VQm+n34paS+9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tG4mjGGb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791819104; c=relaxed/simple;
+	bh=1eeUL/N9OxslrJDm7ff0bSuHmj/WNfFRhdnJcAD9CKU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sGTT0PiW2TNbCJqcGV8ue7Z4rb8ooQhIFX8XbAlvE7/YBoBMMeWWrK4/pYkAUm2V29MyHE7MFi9rka+wKSwNd08Hs4BU+7rlgFOCGKfD53SDr06ydYcFT/P6hstuMPUGOQg7tk28n2ZQlj+RYt3UPJCThd7DYGhgXmThgoMTXD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MaftFx8F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tG4mjGGb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 008A81F0089B;
-	Mon, 12 Oct 2026 15:31:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MaftFx8F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C3EF1F008A0;
+	Mon, 12 Oct 2026 15:31:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791819099;
-	bh=TLm96fg3sTpLC3mGZsPCVKiEHMsLHSv/BQxgVZxVxjk=;
+	s=korg; t=1791819102;
+	bh=yWLzxjg5suFxtq3Fk64SrZicrVLg39Em7EF+TPGCKi0=;
 	h=Subject:To:Cc:From:Date;
-	b=tG4mjGGb5dG0NNmw99XlB4diWahLrqVtB1x2FSfuBan69aArA9JmKroz/BSheRt6K
-	 jLL9wP6NvaDPi6zlHe2G/MSiDft/dB6t6hmsV727leGAnQQxzAaWVUyU2WGRKE1StD
-	 JnhLQuhfp4la5Xudt/WsKEPjAXh7dZXagF4e73X4=
-Subject: FAILED: patch "[PATCH] drm/i915/gt: Unmask interrupts only when ACTIVE is true" failed to apply to 5.15-stable tree
+	b=MaftFx8FxqfhezjSwhL/iV9xpxfv8h09PtGdn3tjATs378xc1CbVkB3ngF1LMkUDD
+	 kW0TGuiJIKojKfxcDjWVWmsB3zReFOi8WuTWfl6oLAfX+62+2LLrSX6N3iHhXxZoqp
+	 F9Cme96EX8n2p61FuqId1iUrZXFsC205weYRGm+4=
+Subject: FAILED: patch "[PATCH] drm/i915/gt: Unmask interrupts only when ACTIVE is true" failed to apply to 5.10-stable tree
 To: krzysztof.karas@intel.com,andi.shyti@linux.intel.com,jani.nikula@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 17:30:15 +0200
-Message-ID: <2026101215-poem-latter-1f1d@gregkh>
+Date: Mon, 12 Oct 2026 17:30:16 +0200
+Message-ID: <2026101216-dislodge-starving-a54e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 5346b1cec6afa4f9b4b49a9f84e3cfef95a3f7bb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101215-poem-latter-1f1d@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101216-dislodge-starving-a54e@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
