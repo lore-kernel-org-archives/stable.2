@@ -1,181 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE5E049E149
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:34:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF4E48F835;
+	Mon, 12 Oct 2026 15:34:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819270; cv=none; b=hg+ieMWLfoL9GE2Wd7g/NRxOdRGS26hmlpUAi4W0YY4qlsw71aWFT0/gG1dZ2HmVkEq0IalwJsfLyL9Vmu9T9mFGjzq3lyI6c2Qnb9YPHwVcpJa25bHqVCTYmh2om1hz58m56GMgmnI8pWAM3houiNy29o+DdLaqrs2/e2+0X3E=
+	t=1791819294; cv=none; b=NH1ccI/dyo/N1vUGofJureBUq6KR6WeZlNVyvT5nAGbHlsTHIkqfDG6tyKvc/FZcyTnSCrDi/BPBKO7DGwnbOMkbtVuuIp834/G/7IVA2uxvo30zrGuOZgcNuh+HxwgZmaawllHcCw8niZ4V2XKIsxoeIWEC/8gjyhK2l+NqR40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819270; c=relaxed/simple;
-	bh=t6cqcm+AMgteZecNmWqda3eaTYuBfmyV2ia4NbpqnbA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=WyQe/ck9XMeOMMQpNxWTl68bzoR9DcZBgOrsqnMVUlX6bniom4uMaSZBWwDaSYYvuPJD7wU3iYDyzH0WGDfxyj6o7Z2RrYfbqpQ/6/evDr0Byg1AHHX7pP3lRb4Y4Z5PkT4WSZkBzDBOx1tGjshzSASvTi3FHadcViKLPAE5bmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xLyig4ay; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791819294; c=relaxed/simple;
+	bh=/CvxO7x3U+n36HzgwXBUyyjfzFi/SWi9ii/2G/6rHPM=;
+	h=From:In-Reply-To:Content-Type:References:Date:Cc:To:MIME-Version:
+	 Message-ID:Subject; b=L6sBq4DHXP5Uw//ypIMI72I24QKKlbLA0b2iPq69TAyJZtaDjCXyKB0bxffh2yoOilGoPMLm4jFKWFUr923alw1T51u4yJCf7DkVAmUvoi7U56V5G6D5ejvV2mSXooy0XUR2qZnd1tBVfej0NUUlDuzH3PCrI0KAPmXSwE6swr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=rsSNXd4z; arc=none smtp.client-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xLyig4ay"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FCBE1F0089B;
-	Mon, 12 Oct 2026 15:34:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791819268;
-	bh=t50rszMhF7xyP8IhC08je5ZO1Fs4rm+0L34nboreheQ=;
-	h=Subject:To:Cc:From:Date;
-	b=xLyig4ayq7HozST1nJ7jMEXSQYu+eRWSpXz3dzK2cb0znk4LbEl+Ue2AVAXK93ECP
-	 UcJoCBrvt/T3yUxEnjFobdxJy5jn/DDcaZr0a8wiGTEwhDt+vMW9myxqq6GgZHVSZn
-	 VzsDlvjYDgR+uLVTnB3zt5aEvxV+w1niOw3+ID24=
-Subject: FAILED: patch "[PATCH] drm/amd/display: Don't replace a sink mode that shares the" failed to apply to 5.15-stable tree
-To: adrian.betschart@cinemaone.ch,alexander.deucher@amd.com,daniel.wheeler@amd.com,roman.li@amd.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 17:34:20 +0200
-Message-ID: <2026101219-ecologist-overripe-ff1b@gregkh>
+	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="rsSNXd4z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1791819284;
+	bh=/CvxO7x3U+n36HzgwXBUyyjfzFi/SWi9ii/2G/6rHPM=;
+	h=From:In-Reply-To:References:Date:Cc:To:Subject:From;
+	b=rsSNXd4zZoBKrpTCan16D67KPc+cdqAtbmFr6X5FoPq3NQOuvQUdyxtnk7jR/Xq7W
+	 P6eg08X8FiAbE3DpT32Pgz5kIMKKQurQLGjArZyataB+0WK7PUyWy2vTWXwhkM2xRl
+	 OfVtdf7LfXhj71AjGTjqy5GXveRJQxhpi4V4b9ID2i688EGh7doWxd8eNW7GPxpspZ
+	 b+4M+YcxulPaxH9IqJtYVDFmsxb1tN2ltfF/l1UOUVpzFxolIpLbz2mBpofLzNRcHO
+	 d9hmfAYoAEVlmNCDJ0Gm7TJCyFU+rn1y0D4IEeulbOGQRVRCRMrgYDuS3yPVw1r+bw
+	 9NmcJOyYlJmYg==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id C55EF2743B;
+	Mon, 12 Oct 2026 18:34:44 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Mon, 12 Oct 2026 18:34:44 +0300 (MSK)
+Received: from localhost (localhost [127.0.0.1])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j3M1Z3jKVz3rm;
+	Mon, 12 Oct 2026 18:33:22 +0300 (MSK)
+From: =?utf-8?q?=D0=9C=D0=B8=D1=85=D0=B0=D0=B8=D0=BB_=D0=94=D0=BC=D0=B8=D1=82=D1=80=D0=B8=D1=87=D0=B5=D0=BD=D0=BA=D0=BE?= <mdmitrichenko@astralinux.ru>
+In-Reply-To: <7e9af4f7528da1307cf62e53cf6b00fa9c4f674f@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+X-Forward: 10.198.48.43
+References: <20261012140642.1076-1-mdmitrichenko@astralinux.ru> <7e9af4f7528da1307cf62e53cf6b00fa9c4f674f@linux.dev>
+Date: Mon, 12 Oct 2026 18:33:22 +0300
+Cc: stable@vger.kernel.org, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Sasha Levin" <sashal@kernel.org>, "Fabio Aiuto" <fabioaiuto83@gmail.com>, "Alexandru Hossu" <hossu.alexandru@gmail.com>, "Hans de Goede" <hdegoede@redhat.com>, "Navaneeth K" <knavaneeth786@gmail.com>, "Michael Straube" <straube.linux@gmail.com>, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, "Dan Carpenter" <error27@gmail.com>, "Andrei Khomenkov" <khomenkov@mailbox.org>, "Dalvin-Ehinoma Noah Aiguobas" <fliegbert2@gmail.com>, "Michael Huang" <tehsiu.huang@gmail.com>, "Jinke Wu" <coolbeaner@126.com>, "Nikolay Kulikov" <nikolayof23@gmail.com>, "William Hansen-Baird" <william.hansen.baird@gmail.com>, "Serhat Kumral" <serhatkumral1@gmail.com>, "Nazar Kletskii" <nazar.kletskii@gmail.com>, "Jennifer Guo" <guojy.bj@gmail.com>, "Hans de Goede" <hansg@kernel.org>, lvc-project@linuxtesting.org, "stable" <stable@kernel.org>
+To: "Luka Gejak" <luka.gejak@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Message-ID: <fa2a1e43-8b9f-2c0c-609c-ca17bd20b7c0@astralinux.ru>
+Subject: =?utf-8?q?Re=3A?= [PATCH =?utf-8?q?5=2E10]?==?utf-8?q?_staging=3A?=
+ =?utf-8?q?_rtl8723bs=3A?= fix OOB read in OnAssocRsp() IE loop
+User-Agent: SOGoMail 5.12.9-rp6
+Content-Transfer-Encoding: quoted-printable
+X-KSMG-AntiPhishing: NotDetected
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {diag_burst_silent}, {Tracking_from_domain_doesnt_match_to}, {Tracking_Sogomail}, astralinux.ru:7.1.1;new-mail.astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 206608 [Oct 12 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/12 14:59:00 #28677641
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
+On Mon, 12 Oct 2026 at 17:19 MSK, Luka Gejak <luka.gejak@linux.dev> wro=
+te:
+> It seems to me that this was sent by accident by running git format-p=
+atch -1
+>
+> You probably forgot to commit so git made last commit into a patch fi=
+le.
+>
+> Either way staging rtl8723bs is getting removed in linux 7.4 so any
+> further commits for rtl8723bs are discouraged.
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Hi Luka,
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Thanks for taking a look. This was intentional: it is a backport of
+your reviewed fix f9654207e922 for the 5.10.y stable tree (hence the
+[PATCH 5.10] prefix). The upstream commit is tagged Cc: stable and is
+already in 5.15.y and newer, but 5.10.y is still missing it
+(CVE-2026-64444).=20
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x 54c998c55fc9cbc391b350d67b86e0c2a0748f1a
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101219-ecologist-overripe-ff1b@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+As far as I understand, the removal in 7.4 affects mainline only; the
+driver is still part of 5.10.y, so the fix is still relevant there.
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 54c998c55fc9cbc391b350d67b86e0c2a0748f1a Mon Sep 17 00:00:00 2001
-From: Adrian Betschart <adrian.betschart@cinemaone.ch>
-Date: Fri, 25 Sep 2026 09:48:29 +0200
-Subject: [PATCH] drm/amd/display: Don't replace a sink mode that shares the
- native totals
-
-decide_crtc_timing_for_drm_display_mode() copies the native mode's CRTC
-timing into the requested mode when clock, htotal and vtotal match.
-That is meant for the modes amdgpu inserts itself:
-amdgpu_dm_create_common_mode() duplicates the native mode and changes
-only hdisplay and vdisplay, so those are sent with the native timing
-and scaled.
-
-A sink can also offer a real mode with the same clock and totals as
-its native mode. CTA-861 VIC 102 (4096x2160@60) and VIC 97
-(3840x2160@60) both use 594 MHz and 4400x2250. With 3840x2160@60 as
-the preferred mode, a 4096x2160@60 request goes out with the 3840x2160
-timing and the framebuffer scaled into it (dst 3840x2025 at y=67),
-while the AVI InfoFrame still carries VIC 102. A JVC projector then
-reports 3840x2160 and shows a corrupted right edge. 4096x2160@24,
-whose totals differ, is sent and displayed correctly.
-
-Inserted modes keep the native sync positions; a real mode with its
-own active width does not. Compare those too, so only inserted modes
-are patched.
-
-Fixes: 4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
-Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
-Assisted-by: Claude-Code:claude-opus-5-5
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-Reviewed-by: Roman Li <roman.li@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 22f9a2da101c37f821cd00954f81dc598754f4d5)
-Cc: stable@vger.kernel.org
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index d386bb1475bb..45a69bf43971 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -1012,10 +1012,15 @@ decide_crtc_timing_for_drm_display_mode(struct drm_display_mode *drm_mode,
- 					const struct drm_display_mode *native_mode,
- 					bool scale_enabled)
- {
-+	/* Inserted modes copy the native sync; a sink mode with equal totals may not */
- 	if (scale_enabled || (
- 	    native_mode->clock == drm_mode->clock &&
- 	    native_mode->htotal == drm_mode->htotal &&
--	    native_mode->vtotal == drm_mode->vtotal)) {
-+	    native_mode->vtotal == drm_mode->vtotal &&
-+	    native_mode->hsync_start == drm_mode->hsync_start &&
-+	    native_mode->hsync_end == drm_mode->hsync_end &&
-+	    native_mode->vsync_start == drm_mode->vsync_start &&
-+	    native_mode->vsync_end == drm_mode->vsync_end)) {
- 		if (native_mode->crtc_clock)
- 			copy_crtc_timing_for_drm_display_mode(native_mode, drm_mode);
- 	} else {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-index 59ce682f491b..b61771749ca0 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-@@ -1572,6 +1572,46 @@ static void dm_test_decide_crtc_timing_no_crtc_clock(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hdisplay, 0);
- }
- 
-+static void dm_test_decide_crtc_timing_sink_mode_same_totals(struct kunit *test)
-+{
-+	struct drm_display_mode native_mode = {
-+		DRM_MODE("3840x2160", DRM_MODE_TYPE_DRIVER, 594000, 3840, 4016, 4104,
-+			 4400, 0, 2160, 2168, 2178, 2250, 0,
-+			 DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC) };
-+	struct drm_display_mode drm_mode = {
-+		DRM_MODE("4096x2160", DRM_MODE_TYPE_DRIVER, 594000, 4096, 4184, 4272,
-+			 4400, 0, 2160, 2168, 2178, 2250, 0,
-+			 DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC) };
-+
-+	drm_mode_set_crtcinfo(&native_mode, 0);
-+	drm_mode_set_crtcinfo(&drm_mode, 0);
-+
-+	decide_crtc_timing_for_drm_display_mode(&drm_mode, &native_mode, false);
-+
-+	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hdisplay, 4096);
-+	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hsync_start, 4184);
-+}
-+
-+static void dm_test_decide_crtc_timing_inserted_mode(struct kunit *test)
-+{
-+	struct drm_display_mode native_mode = {
-+		DRM_MODE("3840x2160", DRM_MODE_TYPE_DRIVER, 594000, 3840, 4016, 4104,
-+			 4400, 0, 2160, 2168, 2178, 2250, 0,
-+			 DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC) };
-+	struct drm_display_mode drm_mode;
-+
-+	drm_mode_set_crtcinfo(&native_mode, 0);
-+	drm_mode = native_mode;
-+	drm_mode.hdisplay = 1920;
-+	drm_mode.vdisplay = 1080;
-+	drm_mode_set_crtcinfo(&drm_mode, 0);
-+
-+	decide_crtc_timing_for_drm_display_mode(&drm_mode, &native_mode, false);
-+
-+	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hdisplay, 3840);
-+	KUNIT_EXPECT_EQ(test, drm_mode.crtc_vdisplay, 2160);
-+}
-+
- /* Tests for amdgpu_dm_connector_funcs_reset() */
- 
- static const struct drm_connector_funcs dm_test_connector_funcs = {
-@@ -5635,6 +5675,8 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
- 	KUNIT_CASE(dm_test_decide_crtc_timing_matching_mode),
- 	KUNIT_CASE(dm_test_decide_crtc_timing_no_copy),
- 	KUNIT_CASE(dm_test_decide_crtc_timing_no_crtc_clock),
-+	KUNIT_CASE(dm_test_decide_crtc_timing_sink_mode_same_totals),
-+	KUNIT_CASE(dm_test_decide_crtc_timing_inserted_mode),
- 	/* amdgpu_dm_connector_funcs_reset */
- 	KUNIT_CASE(dm_test_funcs_reset_sets_defaults),
- 	KUNIT_CASE(dm_test_funcs_reset_edp_abm_level),
+Best regards,
+Mikhail
 
