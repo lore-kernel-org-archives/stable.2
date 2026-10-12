@@ -1,53 +1,82 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02FB1126BE1;
-	Mon, 12 Oct 2026 03:16:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9074394780
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 03:25:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791774981; cv=none; b=jYx1Zixd3jFzFP0mYMXzRRiFLZDpqdflXxQQyd6C+W5pfCcCHGaY2YHLgOcOQWf+UACA3Z3BMRr7IyAmRVRR9/veeg03YwqIStK4k2RwByJ5m6fmLGPUHA0vvSGDAFo7gdIpap14kWyB+srA60eSW0bZMIPvYEIP/qbCMnkSH6c=
+	t=1791775525; cv=none; b=TXd6hPIUMnrTrMl/Np9zodX2Sw0wrhdFFn116Dx3TYt6QE6GTERsgzbo4vD0e+6ygwf7X1t5cXlihF7qA0+q5ca/8gXEX/V+V/Hz+Mltca1tjAVWft32NjhsPeya8s+zPibw7/9AhSSaS/qCFGkjaTnfRakoe2leiJc8UuEx+mY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791774981; c=relaxed/simple;
-	bh=3p5WTVA2pOH2YHLPjmO3MjRmdIDi+rOuQxWLhvQ1IQY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=gjmnoEkqyX+9zE3KwuleB76erBnfgkAG3/5ghLXy4NO15Kw3f3wglWcJa0vQ6nCvBAs2q3xpHnG0au/5kfb/k+69pl375cd/OEohYnHcQgUb5c0X8PFttKvr6vjrA0dhmkLjXENITafDQ0v1v9bkNPkgh7oGpIqM/TN7vzVAlYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 44dd2ebac5eb11f19a56ed5b684f684d-20261012
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:23d6faa1-bfdb-414e-8e12-f268d10a601c,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:de48f01b6d707df912f49ff6c23cc641,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|83|102|850|865|898,TC:nil,Content:0|15|50|99
-	,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 44dd2ebac5eb11f19a56ed5b684f684d-20261012
-X-User: huangwei@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <huangwei@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 49622387; Mon, 12 Oct 2026 11:16:08 +0800
-From: Huang Wei <huangwei@kylinos.cn>
-To: Bertrand Jacquin <bertrand@jacquin.bzh>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Venkat Jayaraman <venkat.jayaraman@intel.com>,
-	linux-usb@vger.kernel.org,
+	s=arc-20240116; t=1791775525; c=relaxed/simple;
+	bh=/zdr0vI7bXYxk9EbrqCZLSzg1E+iQCzgXuNOauDgcec=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=A7HnPbw/33rlZV5FosEx+gJ9bF9X2A8MYlzkrR9JjZwLRD/1h7GvtKDWE1AqdlpyQ2CCN7XkeKm3JfAeEMCRnnM+QJTRz3vhCvuUC6EcauXIXszpIPLgZJXw+42DqWeQy4c7ep5TosxR8vyKHEKrwqtBO/xwHRgcX8U4gearGUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g41ZX1jf; arc=none smtp.client-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g41ZX1jf"
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-33e623bd651so162777eec.0
+        for <stable@vger.kernel.org>; Sun, 11 Oct 2026 20:25:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791775524; x=1792380324; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/zdr0vI7bXYxk9EbrqCZLSzg1E+iQCzgXuNOauDgcec=;
+        b=g41ZX1jfVmF5LLBKZbkfRBecqfzICZj8Tu9IendGgPZ3xZqjp2N3VtrqS5lMHtEJOT
+         c5dUOc2yBAvuM9uq7lhOPKqJ7pVpK2Mk4cwErbWafMX9RxYKJn5Jhdbaw7vXMGMOeTe7
+         v2cPP7afGRm3h7Kl13UmLTOp9I7ZmqgKnhG5Jr5xmKfG1uiQjD8u2ymM/JuPo/rtVWQx
+         PBAGUxwggtXiKspLDVaoyFxV9Og81GB2dCvQujp6/cgNgtGCPxo43RC55K0cAuHu0yaZ
+         D4layb1VjGSfwl+7b9RDV0+ESo4bK8ltPgciIDaxQB7Z/kQD6dzh6kxnK7MJdjLcsTrE
+         omNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791775524; x=1792380324;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/zdr0vI7bXYxk9EbrqCZLSzg1E+iQCzgXuNOauDgcec=;
+        b=uZS0C5NWWcT8dxKDMU2P3+k1Nf/VD7+TSXIfHMTOlvhdyJSUCxtD5XHZPSCBnFrNkS
+         k5xfqxdrp1veN7R/MZdzn0d3XlAsDHl6Z0MhVI4PxFUqWCtvcuuZsXcYI7QpvPUY4cxg
+         sTifM1eQoGlQTQAWB44/LX1qwUxOsOY43goAtU6c/BBuxSzmGQlG5FMkRkSGIBKZWjjl
+         uA5eKHZ5AJVbdLOA4xT/S9MDRulC0t0CpKCZ4V3VQNwkgqqYxzYl2LpTT8/Ca/ZM6U4E
+         mN0jxyFZNI8e5XN3z2jqpNbuaqKX0HBjVW6xZrHfeJLxAM2+Eot0lkmkJsJjkWl5enEP
+         xxSw==
+X-Forwarded-Encrypted: i=1; AKwUvBxfH+CIvRISmozavAbliM7YPm/56Bo0m2AJqWcJysiXDT2Dm9O0wW43zpUL2GZhJUxnbmNQjh0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKkY0YAlmtkDMCbnuZAtaglUlkkGWPF0e+PAFZU/th1JptudBEP
+	Dn0BNYoc6VtSDpYiAD29AyYpfa4GNZrXGp85c1QyvOtsXW5u2GhiV1y6
+X-Gm-Gg: AYBFou1slESZQE0t7yHJAJdpu/bK0DpEJNLhRIwPC690rj05Ur6WXC2w5F8NKnMXgRv
+	sWSkmiBLQ93l+fGCeoNnRG/rusT1uYI2GV6PlupKya0tyZ1VGlzofxGapS/iAii22BhDdnAHIHP
+	EwzI56a6X/YtUt05S7hWRYduoQNWXnztvfFC7pHu3UTCUSAk37SGKj8Mp09YT1UbCaOusajlrPM
+	/Ntwr5tzcDw8TNrWPEmMHm1nOixvWibF01fN/TD4iUgknXIO2fqzDBn7Ii86Y5LEinUvL18R4/c
+	FR41y4tTlC0RzbmAUkZLl1DHMg9Iov0PecsjCCJbFcwX6GJ77A14w6xESSIroOHnkKJdjQOfiyT
+	V4/ZdWokXo+KSGvMvYPOZKO/I8RnXNVxYmK++lrNotOpCrgF9C3k2lJd2DI7wNcBz30Lf82W32t
+	fv+iw1D0NEYrIcBjVXPjJYG4MB5JOaAi9lgMbXNCpfVAl3WMGTDKd6S4GZ07JUAWT7NeyS8VSLp
+	4MXQamzALjjkLur4HB+aToW9BpecX517E+M40+RNkPtr8pC3dVLli0CHODMfQkvPG/ri5Xr4cVF
+	7M7ku7wCiyPvGAQooQ==
+X-Received: by 2002:a05:7301:5413:b0:358:c9f3:b055 with SMTP id 5a478bee46e88-358c9f3b260mr12190729eec.1.1791775523805;
+        Sun, 11 Oct 2026 20:25:23 -0700 (PDT)
+Received: from cachyos-aura ([45.112.149.26])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35977229a6esm11708053eec.8.2026.10.11.20.25.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 20:25:23 -0700 (PDT)
+From: Navon John Lukose <navonjohnlukose@gmail.com>
+To: Rong Zhang <i@rong.moe>
+Cc: Mark Pearson <mpearson-lenovo@squebb.ca>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Armin Wolf <W_Armin@gmx.de>,
+	Charles <hanker007@gmail.com>,
+	platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	huangwei@kylinos.cn
-Subject: Re: [PATCH] usb: typec: ucsi: Fix NULL pointer dereference in power level debugfs
-Date: Mon, 12 Oct 2026 11:16:05 +0800
-Message-Id: <20261012031606.2858685-1-huangwei@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261010120357.4937-1-bertrand@jacquin.bzh>
-References: <20261010120357.4937-1-bertrand@jacquin.bzh>
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 00/12] platform/x86: lenovo-wmi-{other,capdata,helpers}: Improve robustness on faulty firmware
+Date: Mon, 12 Oct 2026 08:55:16 +0530
+Message-ID: <20261012032516.15692-1-navonjohnlukose@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261009-lwmi-wmi-new-api-v2-0-402828382679@rong.moe>
+References: <20261009-lwmi-wmi-new-api-v2-0-402828382679@rong.moe>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,25 +85,4 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Bertrand,
-
-I checked this over. The window is real - ucsi_register() creates the
-debugfs entries right away while ucsi->connector is only assigned at
-the end of ucsi_init(), so on the PPM-init-failed path those three
-files stay reachable with a NULL connector.
-
-I also grepped debugfs.c for other ucsi->connector dereferences - the
-three show functions the patch guards are the only ones (ucsi_resp
-and the command interface go through ucsi->debugfs), so the fix is
-complete.
-
-One thing I'd note in favour of guarding rather than moving
-ucsi_debugfs_register() after connector assignment: the command and
-response files are exactly what you want available when the PPM is
-misbehaving, so keeping the early registration and just making the
-power-level reads fail cleanly looks like the better shape to me.
-
-Reviewed-by: Huang Wei <huangwei@kylinos.cn>
-
-Thanks,
-Huang Wei
+Tested-by: Navon John Lukose <navonjohnlukose@gmail.com>
