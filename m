@@ -1,44 +1,43 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3D83547DD70
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 20:51:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0CFF043FD29
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 20:51:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791838274; cv=none; b=CYBsUJIZeBByIYrdpSOz+Be4gCHjtAJslmnuAwsPglcAexjKxjcVMsZLOIhDE7TEeDKYbSg4dMQE6LnB835xj5HQgrfK4EA5vO4ssRSJNjZIaBLpLjF/bT0FHreUvqVIUTDXpzS4+ciEYYQzy7xWX9u1zpicp7R3LWrnIUpJAU4=
+	t=1791838277; cv=none; b=itkW5YqXLx5RoIfIJYixv0/BHlj1Iwz/ykm2HymwbogIgzhq/uTDicQsCmIZW2ADM1AXCO6/ydpMCCznCtCvtarDPqCKfGA+5Uridqcouza2XHnT2BWbvw1Wlbypi9Km55paTiE7wHRTsFARNx/FP9iWp/94jtdI/wrITeBhdes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791838274; c=relaxed/simple;
+	s=arc-20240116; t=1791838277; c=relaxed/simple;
 	bh=w8I8Vr+kh9Ov6nEtt+AoHmJeYndyES1CdC1prqVNB9s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FJsTICZAt62SFilkcPLZUZYQUk2sDcvrLpaQevbbxovGKpOEjBAwUTfcziWMQoR+RqdF85sr7GK3kD0EANfIQMam4pLvW0VubfSA+ucKurilz6IHkeP/k5SXzmNhVi/QSApTKCF8zc+ja4sjSTOUBY3f80ESP0xN/NuwEokYVuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=kVWceD6y; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=hXUHof28HN0AUl9EDBPpiebBP9MLA8L58x7DXJ6YCGiHZQ56B91XMDQ6S++XgdVSlBpOC1W8QdCZn1sXARNR6YuAudo2V8FuS52Mepy+YjLS+dMIUZNyJz2Mc+rcTeXA9rJRaYN4I30GNBANSJhegyxDONM7u5/0BBWHeJ3drgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=lCuE0QP4; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="kVWceD6y"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="lCuE0QP4"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6F6841AC1;
-	Mon, 12 Oct 2026 13:51:08 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 64D9D169E;
+	Mon, 12 Oct 2026 13:51:07 -0700 (PDT)
 Received: from e142607 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 001863F673;
-	Mon, 12 Oct 2026 13:51:10 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id E83A53F673;
+	Mon, 12 Oct 2026 13:51:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791838271; bh=w8I8Vr+kh9Ov6nEtt+AoHmJeYndyES1CdC1prqVNB9s=;
+	t=1791838270; bh=w8I8Vr+kh9Ov6nEtt+AoHmJeYndyES1CdC1prqVNB9s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=kVWceD6yqMECr6MTPnJSTzzhDahYXUUhFFnUPlgJ+2TZlRO4GOOzExhIBEqKXbqZ/
-	 GcJPlmheVevZr0wuWuyfkZrISL7YMt0dVJCKaBdHVMXKpZee+K/nCtyMA3/Pg+SFjs
-	 lLFRTGdZW27KbKiAq2eMCEzx0eROrVi+Ql3UWupM=
+	b=lCuE0QP4Sosb1I9kTP8xTI1ukY1j1wr6bV/Oa3sNzSGwBTtm14O4BzC8RpD3D4+XX
+	 Zl6mcEGFJSjHVYRiSVjrbtnh3xuYfOORUb/rWsklHCfQnklvzGHboxzJmeJQ6f6wyR
+	 9lafLDSCEJrkKetbtyV0qPVLAl7mxIclGQ91k1N0=
 From: Liviu Dudau <liviu.dudau@arm.com>
 To: stable@vger.kernel.org
 Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
 	sashiko-bot@kernel.org,
 	Steven Price <steven.price@arm.com>,
 	Boris Brezillon <boris.brezillon@collabora.com>
-Subject: [PATCH 6.18.y] drm/panthor: validate userspace queue count against initialized firmware slot count
-Date: Mon, 12 Oct 2026 21:51:01 +0100
-Message-ID: <20261012205101.1275662-2-liviu.dudau@arm.com>
+Subject: [PATCH] drm/panthor: validate userspace queue count against initialized firmware slot count
+Date: Mon, 12 Oct 2026 21:51:00 +0100
+Message-ID: <20261012205101.1275662-1-liviu.dudau@arm.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261012205101.1275662-1-liviu.dudau@arm.com>
+In-Reply-To: <2026101232-cornhusk-quill-0ed4@gregkh>
 References: <2026101232-cornhusk-quill-0ed4@gregkh>
- <20261012205101.1275662-1-liviu.dudau@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
