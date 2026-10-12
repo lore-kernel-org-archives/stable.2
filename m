@@ -1,32 +1,33 @@
-Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C53B13C8C7D;
-	Mon, 12 Oct 2026 07:50:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.132
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EBE6043BDCD;
+	Mon, 12 Oct 2026 07:57:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791791424; cv=none; b=iKRbi6izYLn9+hGZVCmDeUpZaG8R3YdVxazVGKRrG+VHu7UStmqbhuyBHsuRIksAueEKruJW8fqivwhOg99R4IakXz+otEwW2A0S83usendTartZ0eHQ/jT4vaApbAEPh3u73CLYRGT3lxIfCGjfiPEn1Tox5Is9gxWo6uyjnik=
+	t=1791791879; cv=none; b=rD6vx+LKBhJMf9nepjfiyxk4Z2BP1udWohcIcNmS8Is0lPJJ5uVS755Kobz7VTrTqaxMfEaBct1lqj4Tvqdu2tXFX1DN42HMqxTU+3BB/gVf6lHU7sE0IAUramWv3DOPL+4NYSrsmyIP+SBBVPWc8DLbev1QYsaN2cOP+X34500=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791791424; c=relaxed/simple;
-	bh=C50LJ3Vdsia6GXxtYUqtD+r3BibR95E6noBXKAs8UUE=;
+	s=arc-20240116; t=1791791879; c=relaxed/simple;
+	bh=7JqLAOa1EyGe4HapsMeO5QWw/F4ZSfyXto1wc+DnCZg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NXGxTwWbPyVr+/z08jtFlDP8P9k9pZuPpTC2RrsmVQWxCt4rUlAmere7uxkBjhHusH9cKnwS/nf8zV/W1oS9m5sEhXUpF02jslkyDdCuQNurGi1kPjdjt5wfkYcBoDHaQU2ApUFjdaWuLigWT5FMAtIqrsQwEy7M2ynZq8poZIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=pVvixb49; arc=none smtp.client-ip=115.124.30.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	 In-Reply-To:Content-Type; b=AB57urhgHGV26pgyse1J2iRT49ywn/7QFojunaV73z9RUWf5ffoArC3xw+omw+laNYcyDZ6x0ydNu8m93+I7V+eCThZ1up2+e31ROSnYcnBGZn/T5vnES7ctiQJbu6tvZtr9cwKu4bFbaDLS0vp9ldjSn+vm+JpJWk4umgK5zsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=a5WY6OZL; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="pVvixb49"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791791419; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=nyvz0mMuh4bqfbMaOFn6ymiAv9PJ0j5FQKUNYH4alZ0=;
-	b=pVvixb49ewWJMizZQ27INjqKAkP7cwieO0xtH+nyLfLjwBLGC+2oozXKrMnQO8bAi3mivreHWXAl3DVc7vip3A9HFi7xpUmabKd9gp4bBQIu/FlOlKfNjsC6DU0WLGSsV9MnBIA3V2DuPbCxdZAgDr9TMS4Apn1joZqe9gAoJpU=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XCclAy1_1791791415;
-Received: from 30.221.130.114(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XCclAy1_1791791415 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 12 Oct 2026 15:50:17 +0800
-Message-ID: <bda10a43-5ff3-4f8d-b9a7-e63161e0fb4b@linux.alibaba.com>
-Date: Mon, 12 Oct 2026 15:50:15 +0800
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="a5WY6OZL"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E25951650;
+	Mon, 12 Oct 2026 00:57:53 -0700 (PDT)
+Received: from [10.57.12.163] (unknown [10.57.12.163])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1F8023F882;
+	Mon, 12 Oct 2026 00:57:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791791877; bh=7JqLAOa1EyGe4HapsMeO5QWw/F4ZSfyXto1wc+DnCZg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=a5WY6OZL8ew1myYgDvp9xZewbEw+qBNvGPS9d4rrDOIgWKOQb168Ovj/Dba9lI22k
+	 kZSTKA7wyaLV1aacZEl7e0Oahxf80O2iIxS7INjaTDQfmqUeUXNTOnI8fPPP4plO+d
+	 uszowVYnU8Ye7EWwRDZEj5LWP44Jmjzaa//AikDY=
+Message-ID: <117bc415-6bbb-4739-81b9-d2bf718056ba@arm.com>
+Date: Mon, 12 Oct 2026 08:58:21 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -34,84 +35,66 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/13] blk-crypto: reject fallback data unit sizes it
- can't handle
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-ext4@vger.kernel.org, linux-fscrypt@vger.kernel.org, tytso@mit.edu,
- linux-fscrypt@vger.kernel.org, linux-block@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-xfs@vger.kernel.org,
- ebiggers@kernel.org, jaegeuk@kernel.org, axboe@kernel.dk, hch@lst.de,
- djwong@kernel.org, brauner@kernel.org, tytso@mit.edu, berto@igalia.com,
- adilger.kernel@dilger.ca, jack@suse.cz, yi.zhang@huawei.com,
- ojaswin@linux.ibm.com, ritesh.list@gmail.com, stable@vger.kernel.org
-References: <20261011170958.1759230-1-libaokun@linux.alibaba.com>
- <20261011170958.1759230-4-libaokun@linux.alibaba.com>
- <sashiko-outbox-167341@kernel.org>
+Subject: Re: [PATCH] PM: EM: allocate the cpumask for every perf domain
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Changwoo Min <changwoo@igalia.com>, "Rafael J . Wysocki"
+ <rafael@kernel.org>, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260910205234.5392-1-kmehltretter@gmail.com>
 Content-Language: en-US
-From: Baokun Li <libaokun@linux.alibaba.com>
-In-Reply-To: <sashiko-outbox-167341@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Lukasz Luba <lukasz.luba@arm.com>
+In-Reply-To: <20260910205234.5392-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 2026/10/12 01:20, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] block: NULL pointer deref in blk_crypto_fallback_evict_key() on setup failure
-[...]
-> [Severity: High]
-> Does this early return bypass blk_crypto_fallback_init() and leave
-> blk_crypto_fallback_profile as NULL?
->
-> If this is the first fallback usage, returning here means we haven't
-> initialized the profile. If downstream callers (like dm-inlinecrypt) handle
-> this -EOPNOTSUPP error by attempting to evict the partially initialized key,
-> can it lead to a NULL pointer dereference?
->
-> When target teardown calls blk_crypto_evict_key(), it will eventually call
-> blk_crypto_fallback_evict_key(), which passes the uninitialized profile
-> directly:
->
-> block/blk-crypto-fallback.c:blk_crypto_fallback_evict_key() {
-> 	return __blk_crypto_evict_key(blk_crypto_fallback_profile, key);
-> }
->
-> This unvalidated profile pointer is then dereferenced when checking the number
-> of slots:
->
-> block/blk-crypto-profile.c:__blk_crypto_evict_key() {
-> 	...
-> 	if (profile->num_slots == 0) {
-> 	...
-> }
->
-> Could this cause a kernel panic if a user with device mapper access requests
-> an unsupported data unit size?
->
+Hi Karl,
 
-The early return does leave blk_crypto_fallback_profile uninitialized,
-but the NULL dereference that follows is a pre-existing issue, unrelated
-to this series: the same eviction path is reachable on the base tree,
-and the two flows below trigger a NULL dereference or a use-after-free:
+On 9/10/26 21:52, Karl Mehltretter wrote:
+> em_create_pd() allocates space for the trailing cpus[] flexible array
+> only for CPU devices.  A performance domain registered for another
+> device therefore has no storage for its cpumask.
+> 
+> All performance domains are added to em_pd_list.  The netlink interface
+> does not distinguish CPU and non-CPU domains when it calls
+> cpumask_weight() or iterates over pd->cpus.  A request for a non-CPU
+> domain reads cpumask_size() bytes beyond the allocation and can report
+> bits from the following memory as CPU attributes.
+> 
+> KASAN reports slab-out-of-bounds reads for both dump and by-ID requests
+> against a synthetic non-CPU performance domain.
+> 
+> GET_PERF_DOMAINS does not require GENL_ADMIN_PERM, so an unprivileged
+> request can reach this path when a GPU or another devfreq device has
+> registered an energy model.
+> 
+> Allocate the cpumask for non-CPU domains too.  The zeroed mask remains
+> empty, as required for the documented unused field.
+> 
+> Fixes: d8eef0453132 ("PM: EM: Implement em_nl_get_pds_doit()")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+>   kernel/power/energy_model.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/power/energy_model.c b/kernel/power/energy_model.c
+> index e610cf8e9a06..fd07c564c201 100644
+> --- a/kernel/power/energy_model.c
+> +++ b/kernel/power/energy_model.c
+> @@ -439,7 +439,9 @@ static int em_create_pd(struct device *dev, int nr_states,
+>   
+>   		cpumask_copy(em_span_cpus(pd), cpus);
+>   	} else {
+> -		pd = kzalloc_obj(*pd);
+> +		/* Readers expect pd->cpus to exist and remain empty. */
+> +		pd = kzalloc_flex(*pd, cpus,
+> +				  BITS_TO_LONGS(large_cpumask_bits));
+>   		if (!pd)
+>   			return -ENOMEM;
+>   	}
 
-  dm-inlinecrypt ctor            # first use of the fallback
-   ├─ blk_crypto_init_key()      # succeeds, ctx->key.size != 0
-   ├─ blk_crypto_start_using_key()
-   │   ├─ return -EOPNOTSUPP     # uninit profile, will NULL deref
-   │   └─ blk_crypto_fallback_start_using_key()
-   │      └─ blk_crypto_fallback_init() fails
-   │         └─ kfree(profile)   # not NULLed, will UAF
-   ├─ goto bad
-   └─ inlinecrypt_dtr()          # evicts whenever key.size is set
-      └─ blk_crypto_evict_key()
-         └─ blk_crypto_config_supported_natively() = false
-            └─ blk_crypto_fallback_evict_key()
-               └─ __blk_crypto_evict_key(blk_crypto_fallback_profile)
-                  └─ profile->num_slots # BOOM!!!
+my apologies for the delay.
+The patch looks good, thanks for catching this!
 
-If this series doesn't need a V2, I'll send the fix as a standalone
-bugfix.  If a V2 is needed, I'll include it in the series before this
-patch.
-
-
-Thanks,
-Baokun
-
+Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
