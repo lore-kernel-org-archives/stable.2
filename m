@@ -1,107 +1,101 @@
-Received: from mta0.migadu.com (out-140.mta0.migadu.com [91.218.175.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A84E9326924
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:40:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A5F4A3F0C
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:41:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819606; cv=none; b=i/SPBdSb+BTTSPXaKYkMGp8mreNBEVspXKkkL95bx+RfqCM4VyJGHdfiyRkmd+2PveBiW1hmym6woY6zO3vlRZ05CAXWq7I8Jw9rLivJfzZciDi7CQyLaa2hZKOaFlHZCkNJE/gKWojDQjsOS1JpWiS7imXbAKonmjADXUTcTgU=
+	t=1791819707; cv=none; b=jx0MnHx6OXoCGABQ1tDeoi8i1Wcu/uBLLiarzvcE+y7OgryA3PrZNa10XjtmQlhdkiIGtxDPMzmJJR0/wty/r2/017Q3MbgiNt3Nzkpn/q841VKlgEM+E8q67JLnDp93XpY3epFkrL1vpU2Xd6BBQbKhWL2QdF6D3DvmCTuJk+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819606; c=relaxed/simple;
-	bh=zPGOdscwfUn5mgzb0Gu30YtAw5dbLao3e/+fpf4jvD8=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=ctrt6kFOdXnM9aHW8EbTW46vd/8uaKHsDVIi1O3qCbo57du4oUGrS5TALGQrT4osnUKtZzImB4M5vQqitdumCMO389UR4EWhwPABkr9wUy43UjwMp71EyVGnB8GFwYrjReSeZmc2HieI05YJUcBWtC53bfGbSYJzY9a5tnb43n8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iqcjYwO2; arc=none smtp.client-ip=91.218.175.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791819707; c=relaxed/simple;
+	bh=RCcHKXk99Ml2tjtQbnixbvrshgvSNI9PRkI1QFsItSw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=b9p2W1xdJG1rI8IXKwVLr+mXbzXxfXDKwK3QmnsDB0awtMfMSYZ2HaKJ3kkjt/RCvBrUMDo2v6tzqLZaMnKPvKPtqUMnUAq/aKKlT4nafMiZlfxlrxPhOIj2BJU8lptyYISuZ6KeEriP/mVPQCkcGKXL0qLcjDB0WaglFe5k8As=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eLzVVTAn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iqcjYwO2"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=zPGOdscwfUn5mgzb0Gu30YtAw5dbLao3e/+fpf4jvD8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791819602; v=1; x=1792424402;
- b=iqcjYwO2LqFj4OZJ+hoO9/P5tFqoC6njYvBztokFZcdncyIoi0uVOp+CeeHxfgXFJB+LYLYO
- c3z3K46re8hN9scIxBUF0/kLIgYO9BmCG6DVWH8t2TTUG0cBv+egOaW3mb9tjHG8u3zHR+EycYh
- CmrYPlInjHPH0yTcks+dDrGQ=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8cfabf6460186618;
-	Mon, 12 Oct 2026 15:40:02 +0000
-X-Mizu-Trace-ID: 8cfabf6460186618
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eLzVVTAn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CD3B1F008A1;
+	Mon, 12 Oct 2026 15:41:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791819706;
+	bh=2PywX7LRsQyXPtv0tNKvqSsZjth6/jWrZHHQ7R07acI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=eLzVVTAncwlw3FwdzMDvUFR00mtGp8Z44Pd3M7yFiPC/O0uHbrpWty7COtDJXtxfF
+	 Q3FxLEaVB2rzbLGuOhwERnoUIl6tXtiJxsYpaJev6MF7ViPBqTEkAd6qGvEQ86lbU7
+	 JkCT4qjsnUgqAiL115xPlBU6Gg8ucFM3kivqGw4d+7tqrEGwmKS+TH+ddWuIBAQq77
+	 RcNVjptcCMy4xBijAqeNxvz9dQsjlctXVqLLwNtzkz3KWyy5Ham7D5wk3HsMFyHbTO
+	 uvu9q47p91MAE35qVibBMPAeshtdiyFZOFBh4o3ikEchyoWH7wRC4vzZtwW9edwlin
+	 kpuddwKeoh7GQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jens Axboe <axboe@kernel.dk>,
+	Hengyu Liang <hengyul@cs.unc.edu>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.2.y] io_uring/kbuf: don't charge provided buffer rings to RLIMIT_MEMLOCK
+Date: Mon, 12 Oct 2026 11:41:45 -0400
+Message-ID: <20261012154134.1064649-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026101232-grew-smuggler-50c9@gregkh>
+References: <2026101232-grew-smuggler-50c9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 12 Oct 2026 15:40:01 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <341ceaef821fe23a887a90701d9fda6516066edf@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH 5.10] staging: rtl8723bs: fix OOB read in OnAssocRsp() IE
- loop
-To: "=?utf-8?B?0JzQuNGF0LDQuNC7INCU0LzQuNGC0YDQuNGH0LXQvdC60L4=?="
- <mdmitrichenko@astralinux.ru>
-Cc: stable@vger.kernel.org, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Sasha Levin" <sashal@kernel.org>, "Fabio
- Aiuto" <fabioaiuto83@gmail.com>, "Alexandru Hossu"
- <hossu.alexandru@gmail.com>, "Hans de Goede" <hdegoede@redhat.com>,
- "Navaneeth K" <knavaneeth786@gmail.com>, "Michael Straube"
- <straube.linux@gmail.com>, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org, "Dan Carpenter" <error27@gmail.com>,
- "Andrei Khomenkov" <khomenkov@mailbox.org>, "Dalvin-Ehinoma Noah
- Aiguobas" <fliegbert2@gmail.com>, "Michael Huang"
- <tehsiu.huang@gmail.com>, "Jinke Wu" <coolbeaner@126.com>, "Nikolay
- Kulikov" <nikolayof23@gmail.com>, "William Hansen-Baird"
- <william.hansen.baird@gmail.com>, "Serhat Kumral"
- <serhatkumral1@gmail.com>, "Nazar Kletskii" <nazar.kletskii@gmail.com>,
- "Jennifer Guo" <guojy.bj@gmail.com>, "Hans de Goede" <hansg@kernel.org>,
- lvc-project@linuxtesting.org, "stable" <stable@kernel.org>
-In-Reply-To: <fa2a1e43-8b9f-2c0c-609c-ca17bd20b7c0@astralinux.ru>
-References: <20261012140642.1076-1-mdmitrichenko@astralinux.ru>
- <7e9af4f7528da1307cf62e53cf6b00fa9c4f674f@linux.dev>
- <fa2a1e43-8b9f-2c0c-609c-ca17bd20b7c0@astralinux.ru>
+Content-Transfer-Encoding: 8bit
 
-October 12, 2026 at 5:33 PM, "=D0=9C=D0=B8=D1=85=D0=B0=D0=B8=D0=BB =D0=94=
-=D0=BC=D0=B8=D1=82=D1=80=D0=B8=D1=87=D0=B5=D0=BD=D0=BA=D0=BE" <mdmitriche=
-nko@astralinux.ru> wrote:
+From: Jens Axboe <axboe@kernel.dk>
 
+[ Upstream commit cde56daf4b93f474dc256dbcc5205035223ae6f5 ]
 
->=20
->=20On Mon, 12 Oct 2026 at 17:19 MSK, Luka Gejak <luka.gejak@linux.dev> w=
-rote:
->=20
->=20>=20
->=20> It seems to me that this was sent by accident by running git format=
--patch -1
-> >=20
->=20>  You probably forgot to commit so git made last commit into a patch=
- file.
-> >=20
->=20>  Either way staging rtl8723bs is getting removed in linux 7.4 so an=
-y
-> >  further commits for rtl8723bs are discouraged.
-> >=20
->=20Hi Luka,
->=20
->=20Thanks for taking a look. This was intentional: it is a backport of
-> your reviewed fix f9654207e922 for the 5.10.y stable tree (hence the
-> [PATCH 5.10] prefix). The upstream commit is tagged Cc: stable and is
-> already in 5.15.y and newer, but 5.10.y is still missing it
-> (CVE-2026-64444).=20
->=20
-> As far as I understand, the removal in 7.4 affects mainline only; the
-> driver is still part of 5.10.y, so the fix is still relevant there.
->=20
->=20Best regards,
-> Mikhail
->
+Just like with the SQ and CQ rings, the provided buffer rings were also
+not charged against the memlock limit prior to the below mentioned
+commit. Restore that behavior.
 
-Understandable, I wasn't aware it isn't backported as it seems to me
-it was merged quite some time ago.
+Fixes: ef62de3c4ad5 ("io_uring/kbuf: use region api for pbuf rings")
+Reported-by: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: stable@vger.kernel.org
+Tested-by: Hengyu Liang <hengyul@cs.unc.edu>
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+Depends on <20261012153857.1014795-1-sashal@kernel.org>
 
-Best regards,
-Luka Gejak
+ io_uring/kbuf.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/io_uring/kbuf.c b/io_uring/kbuf.c
+index d2fb952bb7ab6..5065a3eff8094 100644
+--- a/io_uring/kbuf.c
++++ b/io_uring/kbuf.c
+@@ -458,7 +458,7 @@ static int io_remove_buffers_legacy(struct io_ring_ctx *ctx,
+ static void io_put_bl(struct io_ring_ctx *ctx, struct io_buffer_list *bl)
+ {
+ 	if (bl->flags & IOBL_BUF_RING)
+-		io_free_region(ctx->user, &bl->region);
++		io_free_region(NULL, &bl->region);
+ 	else
+ 		io_remove_buffers_legacy(ctx, bl, -1U);
+ 
+@@ -675,7 +675,7 @@ int io_register_pbuf_ring(struct io_ring_ctx *ctx, void __user *arg)
+ 		rd.user_addr = reg.ring_addr;
+ 		rd.flags |= IORING_MEM_REGION_TYPE_USER;
+ 	}
+-	ret = io_create_region(ctx->user, &bl->region, &rd, mmap_offset);
++	ret = io_create_region(NULL, &bl->region, &rd, mmap_offset);
+ 	if (ret)
+ 		goto fail;
+ 	br = io_region_get_ptr(&bl->region);
+@@ -708,7 +708,7 @@ int io_register_pbuf_ring(struct io_ring_ctx *ctx, void __user *arg)
+ 	if (!ret)
+ 		return 0;
+ fail:
+-	io_free_region(ctx->user, &bl->region);
++	io_free_region(NULL, &bl->region);
+ 	kfree(bl);
+ 	return ret;
+ }
+-- 
+2.53.0
+
