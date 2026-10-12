@@ -1,43 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE6D04F93C0
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 21:34:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC8D4F96A8
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 21:34:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791840869; cv=none; b=TEKEZJKOqtN0j12WB4rsnxvnK7mtO71LH8mIsmSmsfdVISGaB2w8FR0oDlNQ4mRyMLf+3XzWQ09tblmF7e5Vt48S5+CjbthTPV75Bem/pO/g+7xJcaWW7ESBiWbZjWfkrUrnNaTpgeMNU+gtjRNbM8LSrp1HycazidbQPhittc4=
+	t=1791840889; cv=none; b=IDXoRwlPp0Zp4gXP0pjAc/CNQBp6VTBYO21TY7mbdj5xzATqJu5WDWDASucMjM6EX7lZUQrYml3z2IkUTYRL7JL62tzS6NS+npEKrHBakgJZGQbKkek+KUZv6hiTA09mI37niINHSNdM2g+9CzcwS6VW7lkIpICpTdTE6f52baI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791840869; c=relaxed/simple;
-	bh=bQJ7byitQ7uLeLakzHjLkOo0YXoj7NBAHcR5KWxOKOI=;
+	s=arc-20240116; t=1791840889; c=relaxed/simple;
+	bh=fZF4GDRZlsV5V5eRgvdQIIxhCYin2ZzRCZM2quT2ISw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LPvuiem9YXS18KmDrc7IAZb2edJhKfaEivssLziCNa60bsdJw8m7h9BLAurdG1mLnmfPTuNqb8bQMGqH5m3NGsvY1LN3USYiy2cSx8Pak9/YZBN/iBvB54kMwpMRNm6DN5Fv7Qg4UkTFm3tENR5fLZpdYYDVPEWKi7HxEgyrnno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iMkLFwWI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AmvPWNz58hNMJ+SUTDTA39GWNRC9+9g09VdBdif0vc46c1p5ER2DBtjnoF9hpREK8gSihCuWzTxCeFMzqm6BGKFDa+7AXblOUMiaZTkx3WSg35sY0YVpe+OJ3PVefaV1LaNXoUeVeNDM6NplPbFNYsWe4VyJSL4mqFFgCV7UOsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fPR/yrXa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iMkLFwWI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A41FA1F008A1;
-	Mon, 12 Oct 2026 21:34:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fPR/yrXa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4CA41F0089B;
+	Mon, 12 Oct 2026 21:34:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791840867;
-	bh=7O6JiaLQdN6ZqCfoJ2Vl/aQCquFpiV84FAbfWKpuEi0=;
+	s=k20260515; t=1791840885;
+	bh=l7FdJq4G3seMo6Yyd5JsUpoPS9toK3VBreZOTQadCXc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iMkLFwWIP3sp26/UmhT+n2gArwI15Ansfo11XVOdGGG3AvVZ6T1YyvGfWWgH8HG6G
-	 jHfbtwHdrGcSSiOs0t3dlIXXitZnXsBLpYZ9HYy5TtXUdVGyN7oPb1SMPauwsSf+D8
-	 6AxG+B2evukb7gESV1l8IcJYrEU8tKWyC/yeXXopNTzZQhQEVNit9Zjfmp06K3NVaL
-	 m/t2WgH3F5ktJ//0q5LaICZSZmYpAJMRkWuh/+KB49AENxEcd80ZIDj/15AUVHILeD
-	 VVQQ59YpHXmLEd41Hsg/OXvFTXC0oKIADf7OZCYE+1bazJZv1YG45CbfZrhqNUgcUO
-	 47sOltLfUtCIg==
+	b=fPR/yrXaSciAG5m3SNzOvSL2+tcqNoslxWHwfFTVyHv6lo8HIN+aWerEZRMFXwvHx
+	 ZaY/PR8ucf94lBh2kdr9zhzWOY2K0l+9KW/G7+GYqyN38lbV98zzZRoMiWG8YtlffK
+	 z1JVpOaublnU+0oLWAYVLGwZIUIYdH//UjPEglwy0+gMSM8d7E6O1eVrivCxeCEEUl
+	 sfULLS5gLv4lsQyAuBQ90OfER5viNvU46RqxruqZh4clOClk1sBasjj6Yfv7hDNmxM
+	 LqCOs1mEuvxUusmnHa4AnggWtv43wvUSjcznvKzMylAoHCuB6TVmoHj4ONmHjn+MIk
+	 SfvtBEfBraM9Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Vishal Badole <Vishal.Badole@amd.com>,
-	Yazen Ghannam <yazen.ghannam@amd.com>,
-	"Borislav Petkov (AMD)" <bp@alien8.de>,
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Brian Geffon <bgeffon@google.com>,
+	Minchan Kim <minchan@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] EDAC/amd64: Mask UMC chip select to the four implemented selects
-Date: Mon, 12 Oct 2026 17:34:25 -0400
-Message-ID: <20261012213356.1592197-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP self-merge
+Date: Mon, 12 Oct 2026 17:34:42 -0400
+Message-ID: <20261012213355.1593438-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101212-ascension-flavorful-abed@gregkh>
-References: <2026101212-ascension-flavorful-abed@gregkh>
+In-Reply-To: <2026101207-tapeless-haphazard-6b96@gregkh>
+References: <2026101207-tapeless-haphazard-6b96@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,52 +54,228 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vishal Badole <Vishal.Badole@amd.com>
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 
-[ Upstream commit 7484bc43ba6b8e189b482db5b75e7842890a82b1 ]
+[ Upstream commit 838bb60dc21553e32df90f2f3bac5b905376e7aa ]
 
-For DRAM ECC errors, the chip select value can be found in the
-MCA_SYND[ErrorInformation] field.
+Patch series "mm/mremap: fix two issues with MREMAP_DONTUNMAP", v2.
 
-ErrorInformation[2:0] was first documented in Zen1. The 3 bit field
-implied that up to 8 chip selects may be used.
+The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
+operations that keep the original VMA in place.
 
-However, all Zen-based systems have only ever had up to 4 chip selects.
-So only bits [1:0] would contain a valid chip select value.
+Historically this has led to a lot of bugs where non-obvious interactions
+occur between existing mremap() operations and the original VMA.
 
-Future systems are redefining the field to ErrorInformation[1:0]. This
-matches the existing 'up to 4 chip selects' implementations. And it
-frees up the extra bit for other decoding.
+Commit 397432cab17b ("mm/mremap: account mm->locked_vm correctly for
+MREMAP_DONTUNMAP") fixed an accidentally introduced bug around
+mm->locked_vm accounting, but this wasn't the only issue.
 
-Change the current chip select mask from 0x7 to 0x3 to prepare for the
-decode change.
+And thus history repeats itself, as it turns out that mm->locked_vm
+accounting is broken by MREMAP_DONTUNMAP yet again by two further cases,
+and has been broken ever since the feature was introduced.
 
-Fixes: 713ad54675fd ("EDAC, amd64: Define and register UMC error decode function")
-Suggested-by: Yazen Ghannam <yazen.ghannam@amd.com>
-Signed-off-by: Vishal Badole <Vishal.Badole@amd.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+Both relate to the fact that VMA_LOCKED_BIT is cleared on the source VMA
+(it has to be as all page tables are moved):
+
+1. If an unfaulted VMA_LOCKONFAULT_BIT anonymous VMA self-merges it
+   clears the VMA_LOCKED_BIT flag and permanently leaks mm->locked_vm
+   pages.
+
+2. If a partial mremap() is performed on a locked VMA there is a leak equal
+   to the number of pages not copied.
+
+(Both for MREMAP_DONTUNMAP operations only)
+
+Both issues can be fixed by treating the source range as distinct from the
+destination range, which is the definition of what MREMAP_DONTUNMAP does
+so is appropriate.
+
+In case 1, simply disallow the self-merge, keeping adjacent source and
+destination VMAs distinct.
+
+In case 2, split the source range ahead of time if the VMA is mlock()'d,
+so accounting is always correct.
+
+Both changes were tested locally and confirmed to fix the issues.
+
+For the purposes of a backport, the fixes are kept distinct, a follow-up
+series can add self-tests.
+
+This patch (of 2):
+
+The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
+operations that keep the original VMA in place.
+
+Historically this has led to a lot of bugs where non-obvious interactions
+occur between existing mremap() operations and the original VMA.
+
+Fix another of these - self-merge.
+
+Self-merge occurs when a VMA is moved in front of or behind itself and the
+attributes of the VMA permit such a merge.
+
+Practically this can only happen for unfaulted anonymous VMAs due to the
+page offset equality requirement for merge:
+
+                           |------------|
+                           |            |
+                           |            v
+        |...........||-----------||...........|
+        |           || unfaulted ||           |
+        |...........||-----------||...........|
+              ^            |
+              |            |
+              |------------|
+
+This becomes problematic if the VMA is configured by the user to
+mlock-on-fault, i.e. the VMA_LOCKED_BIT, VMA_LOCKONFAULT_BIT VMA flags are
+set.
+
+MREMAP_DONTUNMAP clears mlock flags for the source VMA and maintains them
+for the destination VMA.
+
+Self-merge makes this impossible (there is only one VMA) and incorrectly
+clears the destination VMA's mlock flags.
+
+This causes a leak in mm->locked_vm as clearing this flag does not
+decrement the counter and the VMA no longer has VMA_LOCKED_BIT set so it
+is not decremented on unmap.
+
+Resolve this by simply disallowing a self-merge in this case - the source
+and destination VMAs are kept distinct and then are able to have distinct
+mlock() flags.
+
+Update dontunmap_complete() to make the now-redundant self-merge check a
+VM_WARN_ON_ONCE() instead to guard against future regressions.
+
+Also update the VMA userland tests to reflect the change.
+
+Link: https://lore.kernel.org/20260930-fix-dontunmap-partial-self-merge-v2-0-f388985a0f0a@kernel.org
+Link: https://lore.kernel.org/20260930-fix-dontunmap-partial-self-merge-v2-1-f388985a0f0a@kernel.org
+Fixes: e346b3813067 ("mm/mremap: add MREMAP_DONTUNMAP to mremap()")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Brian Geffon <bgeffon@google.com>
+Cc: Minchan Kim <minchan@kernel.org>
 Cc: <stable@vger.kernel.org>
-Link: https://patch.msgid.link/20261002113204.3358815-2-Vishal.Badole@amd.com
-[ sashal: adapted the change from umc_get_err_info() to the inline assignment in decode_umc_error() ]
+[ sashal: Translated can_self_merge logic to the inverse faulted_in_anon_vma flag. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/edac/amd64_edac.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/mremap.c             |  7 +++++--
+ mm/vma.c                | 17 ++++++++++++++++-
+ mm/vma.h                |  2 +-
+ tools/testing/vma/vma.c |  4 ++--
+ 4 files changed, 24 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/edac/amd64_edac.c b/drivers/edac/amd64_edac.c
-index f5635dfa9acf6..dea7df975948b 100644
---- a/drivers/edac/amd64_edac.c
-+++ b/drivers/edac/amd64_edac.c
-@@ -2669,7 +2669,7 @@ static void decode_umc_error(int node_id, struct mce *m)
- 			err.err_code = ERR_CHANNEL;
- 	}
+diff --git a/mm/mremap.c b/mm/mremap.c
+index e60a63a36ea0b..fe666da4772c2 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -1191,7 +1191,7 @@ static int copy_vma_and_data(struct vma_remap_struct *vrm,
+ 	PAGETABLE_MOVE(pmc, NULL, NULL, vrm->addr, vrm->new_addr, vrm->old_len);
  
--	err.csrow = m->synd & 0x7;
-+	err.csrow = m->synd & 0x3;
+ 	new_vma = copy_vma(&vma, vrm->new_addr, vrm->new_len, new_pgoff,
+-			   &pmc.need_rmap_locks);
++			   &pmc.need_rmap_locks, vrm->flags & MREMAP_DONTUNMAP);
+ 	if (!new_vma) {
+ 		vrm_uncharge(vrm);
+ 		*new_vma_ptr = NULL;
+@@ -1251,6 +1251,9 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
+ 	unsigned long old_start = vma->vm_start;
+ 	unsigned long old_end = vma->vm_end;
  
- 	if (umc_normaddr_to_sysaddr(m->addr, pvt->mc_node_id, err.channel, &sys_addr)) {
- 		err.err_code = ERR_NORM_ADDR;
++	/* Self-merge is disallowed. */
++	VM_WARN_ON_ONCE(new_vma == vma);
++
+ 	/* We always clear VM_LOCKED[ONFAULT] on the old VMA. */
+ 	vm_flags_clear(vma, VM_LOCKED_MASK);
+ 
+@@ -1258,7 +1261,7 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
+ 	 * anon_vma links of the old vma is no longer needed after its page
+ 	 * table has been moved.
+ 	 */
+-	if (new_vma != vma && start == old_start && end == old_end) {
++	if (start == old_start && end == old_end) {
+ 		const pgoff_t pgoff_unfaulted = vma->vm_start >> PAGE_SHIFT;
+ 
+ 		unlink_anon_vmas(vma);
+diff --git a/mm/vma.c b/mm/vma.c
+index d1158fdcde287..5f21555f6f7fd 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -1852,7 +1852,7 @@ int vma_link(struct mm_struct *mm, struct vm_area_struct *vma)
+  */
+ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
+ 	unsigned long addr, unsigned long len, pgoff_t pgoff,
+-	bool *need_rmap_locks)
++	bool *need_rmap_locks, bool keep_source)
+ {
+ 	struct vm_area_struct *vma = *vmap;
+ 	unsigned long vma_start = vma->vm_start;
+@@ -1885,6 +1885,21 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
+ 
+ 	vmg.pgoff = pgoff;
+ 	vmg.next = vma_iter_next_rewind(&vmi, NULL);
++
++	/*
++	 * If the original VMA is kept (MREMAP_DONTUNMAP), the source and
++	 * destination VMA must be treated distinctly.
++	 *
++	 * A merge violates this, so in this case disallow a self-merge.
++	 */
++	if (!faulted_in_anon_vma && keep_source) {
++		if (vmg.prev == vma)
++			vmg.prev = NULL;
++		if (vmg.next == vma)
++			vmg.next = NULL;
++		faulted_in_anon_vma = true;
++	}
++
+ 	new_vma = vma_merge_copied_range(&vmg);
+ 
+ 	if (new_vma) {
+diff --git a/mm/vma.h b/mm/vma.h
+index 4c7ea8b893ab7..b7ae9d9ce3b3d 100644
+--- a/mm/vma.h
++++ b/mm/vma.h
+@@ -389,7 +389,7 @@ int vma_link(struct mm_struct *mm, struct vm_area_struct *vma);
+ 
+ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
+ 	unsigned long addr, unsigned long len, pgoff_t pgoff,
+-	bool *need_rmap_locks);
++	bool *need_rmap_locks, bool keep_source);
+ 
+ struct anon_vma *find_mergeable_anon_vma(struct vm_area_struct *vma);
+ 
+diff --git a/tools/testing/vma/vma.c b/tools/testing/vma/vma.c
+index fd37ce3b26280..db580c5d21515 100644
+--- a/tools/testing/vma/vma.c
++++ b/tools/testing/vma/vma.c
+@@ -1558,7 +1558,7 @@ static bool test_copy_vma(void)
+ 	/* Move backwards and do not merge. */
+ 
+ 	vma = alloc_and_link_vma(&mm, 0x3000, 0x5000, 3, vm_flags);
+-	vma_new = copy_vma(&vma, 0, 0x2000, 0, &need_locks);
++	vma_new = copy_vma(&vma, 0, 0x2000, 0, &need_locks, false);
+ 	ASSERT_NE(vma_new, vma);
+ 	ASSERT_EQ(vma_new->vm_start, 0);
+ 	ASSERT_EQ(vma_new->vm_end, 0x2000);
+@@ -1571,7 +1571,7 @@ static bool test_copy_vma(void)
+ 
+ 	vma = alloc_and_link_vma(&mm, 0, 0x2000, 0, vm_flags);
+ 	vma_next = alloc_and_link_vma(&mm, 0x6000, 0x8000, 6, vm_flags);
+-	vma_new = copy_vma(&vma, 0x4000, 0x2000, 4, &need_locks);
++	vma_new = copy_vma(&vma, 0x4000, 0x2000, 4, &need_locks, false);
+ 	vma_assert_attached(vma_new);
+ 
+ 	ASSERT_EQ(vma_new, vma_next);
 -- 
 2.53.0
 
