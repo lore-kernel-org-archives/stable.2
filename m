@@ -1,73 +1,43 @@
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C4E948F03E
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 14:42:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC8F48EC91
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 14:42:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791816160; cv=none; b=OcgQTqYNwn1JTKxggb6sm/6KJ8dMZKQsjWBYeyW1714k8eeWhj4AMmUFE9CkEdB/WoRfItzOBJBJ05l6AaHVURXdbR4O3MEHJB+cSRAxbfFpCakZHmfGEKlPxtPreMvHM+eCST+siNZ+gtjJvKKeErO+44JUkEVNqHL1Z5jMa9I=
+	t=1791816167; cv=none; b=sUO8+O9hT3AE5ucAdgniHV+G/3jBDlGo7ztpmOE3vWeyhhuCHL5hLsWrYPt8qjv6pGKi5VWBMWez0s0gl/Gh0otp+N+RgJYR/u8hOOXhdXHb1B2TAcgwIO0Xn8GT6689/ckFQPmz1AzG98xfVkX+0sCfo/TAjavVY0HXibzjDII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791816160; c=relaxed/simple;
-	bh=XlFul490VKRcEk5vaJT9EI/O1nrlg59YH47xGm4MUP4=;
+	s=arc-20240116; t=1791816167; c=relaxed/simple;
+	bh=FtvVdmlXtNfsqpuufyei71+h19t2A3/Psdjr+gYemnc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ng/vvZFJMNpSH7gmBa0hTPSIeuV/aEGgbk2LdbdlsE/l2w1OTKtA7qM9AIKn77so+j/S8wemQZCKwwCi3Rwshhp2wmHZFmw6rbqrxUsBX88PSqFu7ABNJvZryS+Yc6pKdicHujP5fIN7u32DytljbFmEl0AJ4bgfcrza0tGIr+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QBAx1gVN; arc=none smtp.client-ip=74.125.82.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=R5En8s+dC1Gc0EOolHG4HHHSmARjLEfS1353v2F5e2ceY3yaAgu+xL7/IBZrlwwT1eWGALcpZFJhiWsSqTH8wxW4UQ7wtmq6ejRE8MWO0gcgpW6iY+A+Ja2fgZvWeH4kXqQz7ogYGOb2WFOXIDwn700i4ZytKy+KMPjLtioYhc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hQskPcem; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QBAx1gVN"
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3514e7cbbbaso4991791eec.1
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 07:42:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791816158; x=1792420958; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PQKIylR728XA/uR565QiA5dBGsK2t0B8QrzEzDCmYn0=;
-        b=QBAx1gVNeuZ6+NZqV5KX4CxdbSpDSOKRzjszqwWIOYNVDpwcsstJmKPYXYpQCZXR2R
-         Eba32Q1sgyC0p7IW12CC6WvRfZ0ejtYpfr2f2WxwWmZxmW3rNqTHZIfQv1kW1srhClGN
-         maqXsVN3wyMSY2BqF6wat7FPczTJKLd3U1mpGFxWid16VTm+amumnHOPXCiDtp1QEjK3
-         b1962l/6B8qvpcdKmPlnNiUDQ1uISKzgn4QbQC2swI7poM3wKKVvkhkQ1uX6h1VGgAzm
-         f0kMywd8EWoWTzSBiDg7YgdgT0bMMVkmdVl7uNKMC1v2mMTDrZ2Q771TRDpW4YDpn5/w
-         pz6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791816158; x=1792420958;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PQKIylR728XA/uR565QiA5dBGsK2t0B8QrzEzDCmYn0=;
-        b=fdqAruYFm88xiNmD3e7p5J1obsS5IhQh/a5HwiveT85yGPfs1xPp5qwPrzFwNVja/B
-         L+nxOXdxDuCXcLlEFgzqM94r8bK9ycFyMY1cbwJUeyfrLkJhgoBt07Dnq8OdvpdfxDbL
-         L4Fixigj8SkyGdnuYF1HPcnXhb8FJ0j3rXPFGe7OePLn8JjWsSL9HYvfhlNr8TL34aFT
-         W0fBo8AvgydYenURRIQZYJ1DBs1S+83n1l4oGHCzJRFxu+ZPcxlGoEQ64dJmpkJQsV2C
-         d8NUdLSfdKfGsSN+oES3cqi49JLGbQK4ZXGPGIu+hxDGb01fG6AU6FVoKnl4KQPcxB8s
-         LtRw==
-X-Gm-Message-State: AFq9FYJ+/gNejp5NGPL8yEbRYm9yfNELHGKKjq4J6gtcmBl1sK06hpFw
-	mQTHKuD5dpuGkyLoz0ZTuuQku3fcQR8O9VDAt86Nn0YnwuSjbBeLtAZVbg381A==
-X-Gm-Gg: AYBFou2C4H9pxeU7ObCI0mALmGj+GgYpgOgvBnWSGPWwOP9U0WML1ZzC+NivBSmCEvl
-	dgMWrSa/X/5Ek3qcdCjjHlfHkKnzE5idrimRdxHNKmqW/whpvzLEwlZRnzzDBi9Kht6Xs4XSOWy
-	T+gIykBTeCsIbWq1QN5kjc3TP53T98FEQ1Jb+BNlevC5hxgsl6pV+iMZh76sXl8nJYQqjPVYaeK
-	foVVBF0JVpOjTJ4rIhgOMV/q5AgIQshXBT/W0pctA1cDbh0aHr+RdRufoTcR+aoxV55gSBEPxMd
-	EX0aJzQlVn6i0TrsB0x9nwMy57B4Awl/ztSuSA3Pa8a1AcOkxhym9X1WpfXDan51roBhV4OMeUg
-	/TKe88bpD4hRjvW8utpAn7pc4CyaJkfOOjc5cqKegIIpyEZeq77W4Qt8VclTOVFpHSP6ghG85nh
-	5WYs7HebrFVf2K4R4r/C1N8V07wpCFHL1f0io2gOUpP4WSrpRWwPOG6RUWZIUkiNl2uZ8L28N84
-	Q+UTu9a3ommk5RuWQ8JH22Sa+Zf0fzAmqb0I5FcVAsm3aerPtTi7g==
-X-Received: by 2002:a05:7300:de49:b0:35b:b3fa:40f7 with SMTP id 5a478bee46e88-35bb3fa4218mr963504eec.38.1791816157911;
-        Mon, 12 Oct 2026 07:42:37 -0700 (PDT)
-Received: from DESKTOP-1E7V4GR.lan ([190.177.144.82])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb1e05esm35399807eec.25.2026.10.12.07.42.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 07:42:37 -0700 (PDT)
-From: Cristian Papa <pcristian292@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hQskPcem"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 263981F0089B;
+	Mon, 12 Oct 2026 14:42:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791816165;
+	bh=2XGxP1U9yyQ2YNUVVOTCBR1Qx3ekJLtQYyxySDSHInQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hQskPcembiEortaZW0HoLsT9S3is6ic9f8bweILx1I+NYTYIID/ILuouzoxN9XZU0
+	 hNu3521c0OHUEPuyqcbt4vvTVHyWHPdLHT2IeywiqjDFgxFoYWsatEiNz/0xtnwYVz
+	 Io2skkB5TFxY4+siVXtk+hLIG+djcqii1o9y+3qKpYk/HZLEIFZLa9GqUbMUIMNVBt
+	 0EbE6scCpETjkdwjTtTJWcjiDdg5b+M+W0+XOC2SIATQqOMfLoObyl2PPidpvJ5H8Q
+	 VcuijClPkhOJkCorLh++CI9aiqA9GENZ/FXEA3yBCtrS3Urg8wznlrNWx4U57fKCbP
+	 MoK4w/SnPNTIA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: nbd@nbd.name,
-	Cristian Papa <pcristian292@gmail.com>
-Subject: [PATCH 6.12.y] wifi: mt76: mt7603: initialize global station WCID
-Date: Mon, 12 Oct 2026 11:42:31 -0300
-Message-ID: <20261012144231.22154-1-pcristian292@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <2026101201-cathouse-overhand-5997@gregkh>
-References: <2026101201-cathouse-overhand-5997@gregkh>
+Cc: Hengyu Liang <hengyul@cs.unc.edu>,
+	Niklas Cassel <cassel@kernel.org>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] ata: libata-scsi: do not lose CHECK CONDITION for failed ATAPI commands
+Date: Mon, 12 Oct 2026 10:42:43 -0400
+Message-ID: <20261012143846.189249-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026101214-grumpily-cloning-5a44@gregkh>
+References: <2026101214-grumpily-cloning-5a44@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,52 +46,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 456de496b53ae73e6e3020fec815dbdc88aa7c07 upstream.
+From: Hengyu Liang <hengyul@cs.unc.edu>
 
-mt7603 uses a driver-private global station WCID for frames that have
-neither a station nor a vif, including frames injected through a monitor
-interface. Unlike the core global WCID initialized by
-mt76_register_device(), this WCID is published without ever being passed
-to mt76_wcid_init().
+[ Upstream commit bc8ce2cea5f77c4bd1a5184705e300e83546c0c4 ]
 
-Since commit 0335c034e726 ("wifi: mt76: fix race condition related to
-checking tx queue fill status"), mt76_tx() queues every such frame on the
-WCID's tx_pending or tx_offchannel queue and links its tx_list. The first
-injected frame therefore reaches __skb_queue_tail() with an uninitialized
-sk_buff_head and dereferences a NULL prev pointer.
+Since commit 2e1d2e65e773 ("ata: libata-scsi: terminate deferred commands
+on time out"), atapi_qc_complete() sets SAM_STAT_CHECK_CONDITION for a
+failed command only if cmd->result is zero, so that the DID_TIME_OUT or
+DID_REQUEUE host byte of a terminated command is preserved.
 
-Initialize the WCID before publishing it.
+However, cmd->result can also be non-zero for a regular failed ATAPI
+command completed through libata EH: ata_eh_analyze_tf() calls
+ata_eh_decide_disposition(), that is, scsi_check_sense(), on the sense
+data obtained with REQUEST SENSE, and scsi_check_sense() sets the SCSI
+midlayer internal byte of the result for some sense codes, e.g.
+SCSIML_STAT_TGT_FAILURE for ILLEGAL REQUEST with ASC 0x20 (INVALID
+COMMAND OPERATION CODE) or 0x24 (INVALID FIELD IN CDB), or
+SCSIML_STAT_MED_ERROR for MEDIUM ERROR with ASC 0x11 (UNRECOVERED READ
+ERROR). For such commands, atapi_qc_complete() keeps the result as is and
+the command completes with a GOOD status byte, even though it failed and
+valid sense data is available.
 
-The fix was tested on an MT7603 PCIe device. Three wildcard probe requests
-were injected through a monitor interface. The hardware queue head and tail
-advanced from 0 to 3 and a second radio captured the third request over the
-air. No oops or reset occurred. After restoring AP mode, a 150 MB transfer
-also completed without a reset.
+As a result, passthrough users see these failed ATAPI commands as
+successful. For example, with the emulated IDE CD-ROM drive of QEMU and
+no medium loaded, a PLAY AUDIO MSF command issued with SG_IO completes
+with status 0x00 (and no DRIVER_SENSE) instead of 0x02 (CHECK CONDITION)
+with sense key ILLEGAL REQUEST, ASC/ASCQ 0x20/0x00, and the CDROM ioctls
+CDROMPLAYTRKIND, CDROMSUBCHNL, CDROMPAUSE, CDROMRESUME, CDROMPLAYMSF and
+CDROM_GET_MCN return 0 instead of -ENOMEDIUM or -EOPNOTSUPP.
 
-Fixes: 0335c034e726 ("wifi: mt76: fix race condition related to checking tx queue fill status")
+Fix this by setting the status byte to SAM_STAT_CHECK_CONDITION whenever
+the host byte is not set. Use set_status_byte() rather than overwriting
+the whole result, so that the SCSI midlayer internal byte set by
+scsi_check_sense() is preserved, as ata_scsi_qc_complete() already does
+for ATA commands.
+
+Fixes: 2e1d2e65e773 ("ata: libata-scsi: terminate deferred commands on time out")
 Cc: stable@vger.kernel.org
-Signed-off-by: Cristian Papa <pcristian292@gmail.com>
-Link: https://patch.msgid.link/20260904010702.16306-1-pcristian292@gmail.com
-Signed-off-by: Felix Fietkau <nbd@nbd.name>
-[ mt76_wcid_init() takes no band index in this tree; drop the argument. ]
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Cristian Papa <pcristian292@gmail.com>
+Suggested-by: Niklas Cassel <cassel@kernel.org>
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+Link: https://lore.kernel.org/r/20260929164135.266708-1-hengyul@cs.unc.edu
+Signed-off-by: Niklas Cassel <cassel@kernel.org>
+[ sashal: adapted completion handling to use ata_qc_done() with an immediate return ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/mediatek/mt76/mt7603/init.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/ata/libata-scsi.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7603/init.c b/drivers/net/wireless/mediatek/mt76/mt7603/init.c
-index 86617a3e4..64dccd039 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7603/init.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7603/init.c
-@@ -230,6 +230,7 @@ mt7603_mac_init(struct mt7603_dev *dev)
+diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
+index d2777255129c5..d4f6d82fd9085 100644
+--- a/drivers/ata/libata-scsi.c
++++ b/drivers/ata/libata-scsi.c
+@@ -3030,8 +3030,14 @@ static void atapi_qc_complete(struct ata_queued_cmd *qc)
+ 		if (qc->cdb[0] == ALLOW_MEDIUM_REMOVAL && qc->dev->sdev)
+ 			qc->dev->sdev->locked = 0;
  
- 	eth_broadcast_addr(bc_addr);
- 	mt7603_wtbl_init(dev, MT7603_WTBL_RESERVED, -1, bc_addr);
-+	mt76_wcid_init(&dev->global_sta.wcid);
- 	dev->global_sta.wcid.idx = MT7603_WTBL_RESERVED;
- 	rcu_assign_pointer(dev->mt76.wcid[MT7603_WTBL_RESERVED],
- 			   &dev->global_sta.wcid);
+-		if (!cmd->result)
+-			cmd->result = SAM_STAT_CHECK_CONDITION;
++		/*
++		 * Report CHECK CONDITION unless the command was terminated
++		 * with a host byte set. Only set the status byte, so that the
++		 * SCSI midlayer internal byte, which scsi_check_sense() may
++		 * have set from the sense data, is preserved.
++		 */
++		if (get_host_byte(cmd) == DID_OK)
++			set_status_byte(cmd, SAM_STAT_CHECK_CONDITION);
+ 		ata_qc_done(qc);
+ 		return;
+ 	}
 -- 
-2.47.3
+2.53.0
 
