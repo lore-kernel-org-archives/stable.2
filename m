@@ -1,23 +1,23 @@
 Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5895D3C10A3;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 588C13A6EE6;
 	Mon, 12 Oct 2026 23:59:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791849571; cv=none; b=SIYEovQvBUu02sQ0uNIL1gdwWj53S1Y8Am9ptKg26MsJiqghCTU4ugujRJ5nOg2C3ZvZwNyxcyPFXFc3DfP05FPCOmysT3bhFa953G09qvKNtcHvY/4ey2K5uCTqkA/bVunXURqi08JghRceyZIKWkkpKyH65nohTyd93nNQNLk=
+	t=1791849571; cv=none; b=V+mEVVq7DTF8wYnB9hj8dgikGBL6CmSVPdFuP9id46X2uOuYiB7TadpLC0FWNHKuFVr9yN7QG2ZHBHkV1YhMeQ3b759bVVzPXKNWOGuaoOy87s6rgNUZ0/NmKWAM5QWVQiEFvnLeuaULZ5dh3ivR5PnVpV4Fdtuksryd38b8sZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791849571; c=relaxed/simple;
-	bh=0qllBpCIu2qdQh5x7oeKuv2g+SUzPYeeV9sY9G7hwaQ=;
+	bh=2P3X1l7h+LmLFLbRWJdrh2AzEgZh4GyPiUjyqafA1qA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uUGMJfEOaUQOifyzBXmLTpP+QfURVlAB+Vrpm0iYA4H5PHmzzHIh6XzOkVgCnviLOQRS7e9WJCH9a/wGv1tXb403E6BqopSfokB1yAUubyc5rA8okmEzwbloJJYkUGiyzckHqPcDTDkXF0MVmZEz+8bxw+HhPVaXUAz1sKazHtk=
+	 MIME-Version; b=feldAes9WbMeoetw80/Wa8hKDxLT8f5w4434uG1HPs2Ns0bVMLldbxgKuc9Xm5JjN56hyXRPqcA4Qdn914kT8pYHKacSnD+nE4J/3pwnRb3vhrVTe4/LYUDQ4EG+y4iUmJItl3rGWaEmbcm55inlqOLmqipvmWM3PUEot7wXb8E=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
 Received: from escalante.csail.mit.edu ([128.52.128.198])
 	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
 	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xGPvK-00GbRU-K5;
+	id 1xGPvK-00GbRU-N7;
 	Mon, 12 Oct 2026 19:59:18 -0400
 From: Nickolai Zeldovich <nickolai@csail.mit.edu>
 To: "Liam R. Howlett" <liam@infradead.org>,
@@ -30,9 +30,9 @@ Cc: Alice Ryhl <aliceryhl@google.com>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1 1/2] maple_tree: restore per-node metadata clearing in mte_destroy_descend()
-Date: Mon, 12 Oct 2026 19:59:17 -0400
-Message-ID: <20261012235918.773421-2-nickolai@csail.mit.edu>
+Subject: [PATCH v1 2/2] maple_tree: remove the late metadata clearing from mt_destroy_walk()
+Date: Mon, 12 Oct 2026 19:59:18 -0400
+Message-ID: <20261012235918.773421-3-nickolai@csail.mit.edu>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261012235918.773421-1-nickolai@csail.mit.edu>
 References: <20261012235918.773421-1-nickolai@csail.mit.edu>
@@ -44,145 +44,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The internal nodes of a tree without MT_FLAGS_ALLOC_RANGE are
-maple_range_64 nodes, which keep their metadata (end, gap) in the bytes
-of the last slot when that slot is unused.  A node with 15 children
-therefore holds the metadata {end = 14, gap = 0} in slot 15.
+At the end of mt_destroy_walk(..., false), mt_clear_meta() clears the
+metadata of the node the walk started from.  By then mte_dead_leaves()
+has replaced each child pointer in that node with the plain node
+address, without the type bits.  mt_clear_meta() decides whether slot 15
+of a maple_range_64 node holds a child or metadata by looking for an
+encoded node there, so for a node with 16 children it decides wrongly
+and writes end = 0, gap = 0 over the first two bytes of the 16th child
+pointer.  On little-endian that clears bits 8-15 of the address (bits
+0-7 are already zero, nodes being 256-byte aligned); on big-endian it
+clears the top 16 bits.
 
-When such a tree is in RCU mode, mte_destroy_walk() only marks the nodes
-dead with mt_destroy_walk(..., false) and leaves the freeing to the RCU
-callback mt_free_walk().  After freeing the children of a node,
-mt_free_walk() climbs to the parent and walks down the parent's next
-slot if that slot is not NULL:
+mt_free_walk() then frees, or walks down, the corrupted address.  On
+little-endian that is a 256-byte aligned address up to 64KiB below the
+real child: usually some other maple node, free or in use, possibly in
+another tree, so the result is a double free or the freeing of a live
+node, and the real child is leaked.  It takes a tree without
+MT_FLAGS_ALLOC_RANGE in RCU mode whose destroy starts at a full node:
+any such tree whose root has 16 children, for example a tree of 127
+ranges on 64-bit, when it is destroyed.  No race is needed.
 
-	if ((offset < mt_slots[type]) &&
-	    rcu_dereference_protected(slots[offset], ...))
-		slots = mte_dead_walk(&enode, offset);
+The clearing was added by commit 2e5b4921f8ef ("maple_tree: fix freeing
+of nodes in rcu mode") together with the clearing of every node in
+mte_destroy_descend(), which also covers the start node while its slots
+are still encoded.  With the previous patch restoring that, the late
+call has nothing left to do except the damage above, so remove it.  For
+a leaf start node it was a no-op.
 
-In a 15-child parent it takes the metadata in slot 15 for a 16th child,
-and mte_dead_walk() reads the node type at address 0x0e + 0x24.  This
-runs from the RCU softirq, so the kernel oopses on the zero page and
-panics ("Fatal exception in interrupt"); the subtrees not yet freed are
-leaked.  It takes a 15-child node, other than the one the walk starts
-from, at least two levels above the leaves, so a tree of height 4 or
-more destroyed by mtree_destroy(), or a large subtree discarded by a
-store (mas_new_root(), mas_mat_destroy()).  No race is needed.
+This depends on the previous patch: without it, nothing clears the
+metadata of the start node and mt_free_walk() could take it for a child.
 
-Commit 2e5b4921f8ef ("maple_tree: fix freeing of nodes in rcu mode")
-fixed this by clearing the metadata of each node as
-mte_destroy_descend() marks it dead, while the slots still hold encoded
-pointers and mt_clear_meta() can tell metadata from a 16th child.
-Commit 790e1fa86b34 ("maple_tree: add RCU lock checking to rcu callback
-functions"), from the same series, converted mte_destroy_descend() from
-the maple state to the tree and dropped that call, leaving only the
-clearing of the start node at the end of mt_destroy_walk().  Since then
-only the start node is covered.
+As with the previous patch, no in-tree user hits this today, since all
+trees used in RCU mode have MT_FLAGS_ALLOC_RANGE, but the API allows it.
 
-Put the call back where the first of these commits had it, after the
-node is marked dead.  The RCU lock checking added by the second one is
-kept.
+The new test destroys an RCU-mode tree of 127 ranges without
+MT_FLAGS_ALLOC_RANGE, whose root is full on 64-bit.  Without this patch
+AddressSanitizer in the userspace test suite reports the bad free from
+mt_free_walk(), as does KASAN in an x86_64 kernel with
+CONFIG_TEST_MAPLE_TREE=y; with it both pass.
 
-No in-tree user hits this today: every tree used in RCU mode (the VMA
-tree, sparse_irqs, the interval tree test, the DAMON KUnit test) has
-MT_FLAGS_ALLOC_RANGE, whose maple_arange_64 nodes keep the metadata
-outside the slots.  The API allows RCU mode for any tree, though
-(mt_init_flags(mt, MT_FLAGS_USE_RCU) or mt_set_in_rcu()).
+Found while formally verifying mt_destroy_walk() against the kernel
+binary.
 
-The new test destroys an RCU-mode tree of 2768 ranges without
-MT_FLAGS_ALLOC_RANGE, which on 64-bit has such a node.  Without this
-patch the userspace test suite (tools/testing/radix-tree/maple) crashes
-in mte_dead_walk() called from mt_free_walk(), and an x86_64 or riscv64
-kernel with CONFIG_TEST_MAPLE_TREE=y oopses at boot; with it both pass.
-
-Found while formally verifying mt_free_walk() against the kernel binary.
-
-Fixes: 790e1fa86b34 ("maple_tree: add RCU lock checking to rcu callback functions")
+Fixes: 2e5b4921f8ef ("maple_tree: fix freeing of nodes in rcu mode")
 Cc: stable@vger.kernel.org # 6.1.x
 Assisted-by: LLM
 Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
 ---
 
 Notes:
-    Outside the test suite, the reproducer links lib/maple_tree.c into
-    tools/testing/radix-tree and stores [10i, 10i+5] ranges into a tree
-    created with only MT_FLAGS_USE_RCU until a node of the bad shape exists:
-    a maple_range_64 node below the root, two levels above the leaves, whose
-    slot 15 holds the metadata word 0xe.  The first one appears after 2768
-    stores (height 4), which is where the count in the test comes from; the
-    count is specific to 64-bit, and on 32-bit the test is harmless.  On
-    master, mtree_destroy() plus rcu_barrier() on that tree gives UBSan
-    "member access within misaligned address 0x00000000000e" in
-    mte_dead_walk() and a SIGSEGV in the RCU callback thread
-    (mt_free_walk() -> mte_dead_walk(offset = 15)); with this patch it
-    passes.  With the new test but without the fix, a riscv64 defconfig kernel
-    with CONFIG_TEST_MAPLE_TREE=y oopses during boot with "Unable to handle
-    kernel NULL pointer dereference at virtual address 0000000000000032" in
-    mt_free_walk() (mte_dead_walk() inlined) and panics with "Fatal
-    exception in interrupt"; an x86_64 KASAN kernel reports a null-ptr-deref
-    in the range 0x30-0x37 at the same place.
+    With the first patch alone, the reproducer still shows the damage: for
+    a tree of 120 ranges (root full, height 2), slot 15 of the root reads
+    ...c04000 before mt_destroy_walk(root, false) and ...c00000 after it,
+    and AddressSanitizer then reports the free of ...c00000 from
+    mt_free_bulk() in mt_free_walk().  With both patches slot 15 is intact
+    and the free is clean.  The 127 in the test is the largest such tree
+    before the root splits (64-bit).
     
-    A leak check that destroys trees of 1 to 5000 ranges with each
-    combination of MT_FLAGS_ALLOC_RANGE and MT_FLAGS_USE_RCU shows the same
-    allocation count before and after the series.
-    
-    Another way to fix this is to have mt_free_walk() compare the offset
-    with the parent's slot_len, which mte_dead_leaves() sets on every dead
-    internal node, instead of testing the slot for NULL.  I went with
-    restoring the clearing from 2e5b4921f8ef because the callback was
-    written around it and this keeps the callback unchanged; I can send the
-    other version if you prefer it.
+    If a version without the dependency on the first patch is wanted, for
+    instance for a separate backport, skipping the call when
+    node->slot_len == mt_slots[node->type] also fixes this, but the call is
+    redundant once the first patch is in, so removing it seemed simpler.
+    Both patches apply unchanged to mm-unstable and linux-next of
+    2026-10-12.
 
- lib/maple_tree.c      |  1 +
- lib/test_maple_tree.c | 17 +++++++++++++++++
- 2 files changed, 18 insertions(+)
+ lib/maple_tree.c      | 2 --
+ lib/test_maple_tree.c | 2 ++
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/lib/maple_tree.c b/lib/maple_tree.c
-index 1aba6cced713..fd7c3d20394c 100644
+index fd7c3d20394c..870ab3281051 100644
 --- a/lib/maple_tree.c
 +++ b/lib/maple_tree.c
-@@ -4823,6 +4823,7 @@ static inline void __rcu **mte_destroy_descend(struct maple_enode **enode,
- 
- 		mte_set_node_dead(*enode);
- 		node->type = type;
-+		mt_clear_meta(mt, node, type);
- 		node->piv_parent = prev;
- 		node->parent_slot = offset;
- 		offset = next_offset;
-diff --git a/lib/test_maple_tree.c b/lib/test_maple_tree.c
-index b9367c61e8b5..5d940bcfae34 100644
---- a/lib/test_maple_tree.c
-+++ b/lib/test_maple_tree.c
-@@ -3710,6 +3710,20 @@ static noinline void __init alloc_cyclic_testing(struct maple_tree *mt)
- 	MT_BUG_ON(mt, ret != 1);
+@@ -4886,8 +4886,6 @@ static void mt_destroy_walk(struct maple_enode *enode, struct maple_tree *mt,
+ free_leaf:
+ 	if (free)
+ 		kfree(node);
+-	else
+-		mt_clear_meta(mt, node, node->type);
  }
  
-+/* Destroy a non-alloc tree of @nr ranges in RCU mode. */
-+static noinline void __init check_rcu_destroy(struct maple_tree *mt,
-+					      unsigned long nr)
-+{
-+	unsigned long i;
-+
-+	mt_init_flags(mt, MT_FLAGS_USE_RCU);
-+	for (i = 0; i < nr; i++)
-+		MT_BUG_ON(mt, mtree_store_range(mt, i * 10, i * 10 + 5,
-+						xa_mk_value(i), GFP_KERNEL));
-+	mtree_destroy(mt);
-+	rcu_barrier();
-+}
-+
- static DEFINE_MTREE(tree);
- static int __init maple_tree_seed(void)
- {
-@@ -3999,6 +4013,9 @@ static int __init maple_tree_seed(void)
- 	alloc_cyclic_testing(&tree);
- 	mtree_destroy(&tree);
+ /*
+diff --git a/lib/test_maple_tree.c b/lib/test_maple_tree.c
+index 5d940bcfae34..9d25b31e9b3c 100644
+--- a/lib/test_maple_tree.c
++++ b/lib/test_maple_tree.c
+@@ -4015,6 +4015,8 @@ static int __init maple_tree_seed(void)
  
-+	/* 64-bit: a 15-child non-root node two levels above the leaves */
-+	check_rcu_destroy(&tree, 2768);
-+
+ 	/* 64-bit: a 15-child non-root node two levels above the leaves */
+ 	check_rcu_destroy(&tree, 2768);
++	/* 64-bit: a full root */
++	check_rcu_destroy(&tree, 127);
+ 
  
  #if defined(BENCH)
- skip:
 -- 
 2.53.0
 
