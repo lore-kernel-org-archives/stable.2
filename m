@@ -1,153 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0034A387F
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:58:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2436F4A6889
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:59:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.165.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791820740; cv=none; b=MIqesMmQP9vuWalnHxRYI6l5OxvPeRyDiIQgyxBfblP6czhkdUnM1b32rfS82U5DNY2HwFUnfmmD/Us2QINBqVwyInglnNqhgjsGOd7EzKvw2C8tJqEj8COzS7/ivlgHtZjk1XectlhwuNiUVp2oKA3eq81FKO0vxyxASAIrWBA=
+	t=1791820791; cv=none; b=BqOow0UMsaTBc2p8LHDcIh/knCZU92Mod7dr5DP0jIiJJz2AdHHQlIt/8OboA3OIKbQ7bGGyZ7DWBAyC7w5Ltbb8TIjwWFtIFmHai8G7rRYfpNw9k0LsbHGCZbYJANlosrYcQPCXxFYznVY/Mhv8Hd/xvaUc2qx3GZ6AbmD4GY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791820740; c=relaxed/simple;
-	bh=pDHBMPbJu7I3tiH9LKCZ9pogQkuGduXGxEhSnqzLBv0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jD3seEAASMRF7oWAoxaqXBjY/gP1cI/0tw9oMjw7R0IOUu5esS+QzBvTjQSZmLA+VXsZc/EL0ITO9Y0NGgMuVqj2Rel/VwQ5mh8DbUwsvGOBOse76R+r0ce/ej06MpSyO2t3NDgMlExWgpB3hO9YZa84H+3yrXbE3a/d7LPEkU8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QIV21BmB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791820791; c=relaxed/simple;
+	bh=TBqTkHo9bDVVnMGpix0Cm9lueWgsn1kwB4BJqFNw6w8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VhcCAdh1oYLX4Zgx7lrOIaYjI3VD0dy4JQ242C0QksmXhV9uxcbBuCnotWMEKdpa34gxiOgpzC4iBc0txY9zsJNkDmdAoZKLlfSvbVFQqKFT3Epg6+ebairPYdgA/KSfqLMsxJHqX+oLEvKt+aZ+NEsxi1hyQ1H+SEr2zfl4fgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=rtPPv8vu; arc=none smtp.client-ip=205.220.165.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QIV21BmB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 472521F0089B;
-	Mon, 12 Oct 2026 15:58:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791820738;
-	bh=emUSC7Ioesd4hWSs56p6psTu3MB9X15socaoSOPYATA=;
-	h=Subject:To:Cc:From:Date;
-	b=QIV21BmBLqERnFrHbOCOBi8nAQbDncjn5vriVpZWOuu6uxsoqVuQWZRhL2wc4EsYL
-	 3sLq4JZ8BzLOKoDj5B6MU8eY8H/EbB4XjcGZYMGJ5jsyOTylXrzg/N8rSdzmA09bhz
-	 0mutJG17RnmuQCLj8IZuW3vQQLDB35iNq/f8KsNw=
-Subject: FAILED: patch "[PATCH] namespace: handle mount locking for automounts correctly" failed to apply to 5.10-stable tree
-To: brauner@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 17:58:54 +0200
-Message-ID: <2026101254-winter-onshore-2793@gregkh>
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="rtPPv8vu"
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CFQxpQ353403;
+	Mon, 12 Oct 2026 15:59:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=corp-2025-04-25; bh=Mq9aEJ2Y6k6aK1qQqfuhg8xCXw/e2
+	fGkBDwf6V0+ESk=; b=rtPPv8vul9eC81D1NGOHW1qyh+wwjrD4tzBMeRIT3/mJV
+	eRQbsVItuIH/alZSTqmjcw+K7kUdGMUaCRSU9M9CjFRUVlfrky3q9bzhsdLeWS9u
+	IBjEJ7Ef3sFHaqMISTfoFx30E7QuDNlZ/10A9e1wOmxQ9twp2843lKOKh5z81OWp
+	/x19zzvUkhHyuf9KTz/gdv12lulRzQ5NlLwyqlueMUkk4IdujPJTu+qXou1wMPyL
+	Nk8UI+a8aiyjPoFv1w9ywAhbCnjIzEyOEl2ohVxT8g/76Y0Go5B28hqAKV6z1dun
+	tj3VUa6/xDoEIjSKCfB62saxfGVXcIbzYaMXTukrQ==
+Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4h7df7thk1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 15:59:46 +0000 (GMT)
+Received: from pps.filterd (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 69CFaNum010930;
+	Mon, 12 Oct 2026 15:59:46 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4h7bt8hjxh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 15:59:46 +0000 (GMT)
+Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 69CFxjJN036269;
+	Mon, 12 Oct 2026 15:59:45 GMT
+Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com [10.129.136.47])
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id 4h7bt8hjx7-1;
+	Mon, 12 Oct 2026 15:59:45 +0000 (GMT)
+From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+To: stable@vger.kernel.org
+Cc: Ezrak1e <ezrakiez@gmail.com>, Alexander Aring <aahringo@redhat.com>,
+        David Teigland <teigland@redhat.com>,
+        Srikanth C S <srikanth.c.s@oracle.com>,
+        Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Subject: [PATCH 6.6.y,6.1.y] dlm: validate length in dlm_search_rsb_tree
+Date: Mon, 12 Oct 2026 08:59:42 -0700
+Message-ID: <20261012155942.703925-1-harshit.m.mogalapalli@oracle.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ spamscore=0 lowpriorityscore=0 mlxlogscore=999 mlxscore=0 adultscore=0
+ phishscore=0 suspectscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2610020000 definitions=main-2610120062
+X-Authority-Analysis: v=2.4 cv=N+a8hG9B c=1 sm=1 tr=0 ts=6acd03f2 b=1 cx=c_pps
+ a=WeWmnZmh0fydH62SvGsd2A==:117 a=WeWmnZmh0fydH62SvGsd2A==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
+ a=RD47p0oAkeU5bO7t-o6f:22 a=pGLkceISAAAA:8 a=20KFwNOVAAAA:8 a=yPCof4ZbAAAA:8
+ a=oAUGvwMqMISqIZqjYIQA:9 a=WmVTiCyuxqgg3mnwYu6p:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA2MyBTYWx0ZWRfXzQEjEWb6hlvg
+ vhfSuF/UEiqVy0xjPAR+B0sjiPieasSuvfpoIVah2s1o7K83GQgiXEvttSddEOKRicW0Ag5daCr
+ tESj2JqsmLCTW+ZBv23N2PA7jmlJJgFgz1vcsF6ScaJTG6FoCxXF1zdivdiAwa12ivk0em8+0CH
+ u4DQZL5QGA5w9SWZq963JpjAXyyg2aM952cnDvZJwa8EGv/KdQJR3NitijEQ23wKz3p8R5qXmS8
+ T6J6qWQUyZT2NBEtPhp4Mujd5a3jyvSzBfO2LiZzYqOagZZPJcWpWOM9zMMGf/FuaixgoJG3z6q
+ RxXfTl/gZGzOduLltWkkYBkjQq7jIKEEepPo7Z8nc0fCjFCfucdS3cKyKspPPLlNhgJpCHQlaBO
+ RWsI0c798qYA7KsrHgnIakGz8wadgRlfAew4AayokTOn5xA7n4927pyZT5Dcb1jCcDY40VdMUgs
+ jQurKfVB2uBLtT5Scog==
+X-Proofpoint-ORIG-GUID: seMx3XzBL9sEyP0BC_mY3n9CSNKSfhbq
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA2MyBTYWx0ZWRfX6F4fS3QY161d
+ N7JqatPjhVuMUxLqQBCnBCj3YNC0AJZ7WanEh0t49fQQ261zcPUy5ppJq+RINP0QvDPFk6CvwW9
+ 7fs8gWbQbdg9D5jJAm+72ibYGW16WT3VAIkR7uP4vXXP0FV/Shbg
+X-Proofpoint-GUID: seMx3XzBL9sEyP0BC_mY3n9CSNKSfhbq
 
+From: Ezrak1e <ezrakiez@gmail.com>
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 080e5563f878c64e697b89e7439d730d0daad882 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+The len parameter in dlm_dump_rsb_name() is not validated and comes
+from network messages. When it exceeds DLM_RESNAME_MAXLEN, it can
+cause out-of-bounds write in dlm_search_rsb_tree().
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 33aadc7c72055fca93cb5a3691d836ebf8b31c9b
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101254-winter-onshore-2793@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+Add length validation to prevent potential buffer overflow.
 
-Possible dependencies:
+Signed-off-by: Ezrak1e <ezrakiez@gmail.com>
+Signed-off-by: Alexander Aring <aahringo@redhat.com>
+Signed-off-by: David Teigland <teigland@redhat.com>
+[ Contextual conflict due to dlm_search_rsb_tree() using the RB-tree
+implementation instead of rhashtable.]
+Signed-off-by: Srikanth C S <srikanth.c.s@oracle.com>
+Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+---
+ fs/dlm/lock.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 33aadc7c72055fca93cb5a3691d836ebf8b31c9b Mon Sep 17 00:00:00 2001
-From: Christian Brauner <brauner@kernel.org>
-Date: Fri, 2 Oct 2026 15:52:37 +0200
-Subject: [PATCH] namespace: handle mount locking for automounts correctly
-
-If mounts are propagated across user namespaces, attach_recursive_mnt()
-locks every copy of the source mount to protect overmounts from
-vanishing and revealing the underlying files or directories.
-
-The user namespace is taken from the caller's mount namespaces since
-this is where the mounts end up. Except, that's not always true.
-Automounts may legitimately get popped in by tasks located in a
-different mount and user namespace during path lookup.
-
-Then check doesn't make sense at that point. The copy in the namespace
-of the parent - which may be the host's - is now locked and the host
-cannot change the flags of its own mounts anymore.
-
-Here's the reproducer:
-
-- host has debugfs mounted nosuid,nodev,noexec and shared
-- tracefs automount below it is not yet active
-- hand a child process a directory descriptor on that mount
-- child process enters auser and mount namespace
-- child process' namespace now holds a locked copy of the host's debugfs
-  mount that receives propagation from it
-- child process stats "tracing/." through the descriptor
-- lookup runs on the host's mount so the automount lands below the host's mount
-- propagation puts a copy below the child's copy
-- both try to clear the flags on the mount they got, with a bind remount:
-
-    host, on its own automount:            MS_REMOUNT|MS_BIND = EPERM
-    child, on the copy in its namespace:   MS_REMOUNT|MS_BIND = 0
-
-So the lock landed on the host's mount instead of the child's copy.
-Congrats. So we need to compare with the owner of the namespace the
-mount actually gets mounted on. For all regular cases that is the
-caller's mount namespace and so nothing changes.
-
-Detached trees in anonymous mount namespaces by be handed over via
-SCM_RIGHTS or inherited in other ways on purpose so the attaching task's
-mount namespace is authoritative, not the creator of the detached tree.
-
-Fixes: 132c94e31b8b ("vfs: Carefully propogate mounts across user namespaces")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261002-work-mount-fixes-4-v1-6-dd44b89d44ce@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-
-diff --git a/fs/namespace.c b/fs/namespace.c
-index 60b57572fc64..27bf8665ed58 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -2604,11 +2604,11 @@ enum mnt_tree_flags_t {
- static int attach_recursive_mnt(struct mount *source_mnt,
- 				const struct pinned_mountpoint *dest)
- {
--	struct user_namespace *user_ns = current->nsproxy->mnt_ns->user_ns;
- 	struct mount *dest_mnt = dest->parent;
- 	struct mountpoint *dest_mp = dest->mp;
- 	HLIST_HEAD(tree_list);
- 	struct mnt_namespace *ns = dest_mnt->mnt_ns;
-+	struct user_namespace *user_ns = ns->user_ns;
- 	struct pinned_mountpoint root = {};
- 	struct mountpoint *shorter = NULL;
- 	struct mount *child, *p;
-@@ -2617,6 +2617,22 @@ static int attach_recursive_mnt(struct mount *source_mnt,
- 	int err = 0;
- 	bool moving = mnt_has_parent(source_mnt);
+diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
+index 6712d733fc90..dd2fa54f2b7d 100644
+--- a/fs/dlm/lock.c
++++ b/fs/dlm/lock.c
+@@ -444,6 +444,8 @@ int dlm_search_rsb_tree(struct rb_root *tree, const void *name, int len,
+ 	struct dlm_rsb *r;
+ 	int rc;
  
-+	/*
-+	 * A caller in an unprivileged mount namespaces may trigger an
-+	 * automount and propagate locked mounts into privileged mount
-+	 * namespaces. Take ownership from the target mount namespace.
-+	 * It's equivalent for everything but the automount case.
-+	 *
-+	 * Detached trees in anonymous mount namespaces by be handed
-+	 * over via SCM_RIGHTS or inherited in other ways on purpose
-+	 * the attaching task's mount namespace is authoritative, not
-+	 * the creator of the detached tree.
-+	 */
-+	if (is_anon_ns(ns))
-+		user_ns = current->nsproxy->mnt_ns->user_ns;
-+	else
-+		user_ns = ns->user_ns;
-+
- 	/*
- 	 * Preallocate a mountpoint in case the new mounts need to be
- 	 * mounted beneath mounts on the same mountpoint.
++	if (len > DLM_RESNAME_MAXLEN)
++		return -EINVAL;
+ 	while (node) {
+ 		r = rb_entry(node, struct dlm_rsb, res_hashnode);
+ 		rc = rsb_cmp(r, name, len);
+-- 
+2.52.0
 
