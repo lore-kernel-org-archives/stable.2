@@ -1,120 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC8F48EC91
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 14:42:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4075490C19;
+	Mon, 12 Oct 2026 14:49:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791816167; cv=none; b=sUO8+O9hT3AE5ucAdgniHV+G/3jBDlGo7ztpmOE3vWeyhhuCHL5hLsWrYPt8qjv6pGKi5VWBMWez0s0gl/Gh0otp+N+RgJYR/u8hOOXhdXHb1B2TAcgwIO0Xn8GT6689/ckFQPmz1AzG98xfVkX+0sCfo/TAjavVY0HXibzjDII=
+	t=1791816569; cv=none; b=uaSVVi1VtIPZTLobqKavd4pBMKP6x7SGMv4TnE1Q0jvVFcnuxMoCVlPDPth02MKsu0u14N19EKC1snO45DoQaBP/mrsS3X3WHhTCDvW1J/T1R74v8iwCXf3WcqXbDuM6uLuFBbiRSZfyV4boIZJSWbsIM6pLBe5qhRP6oPEkj9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791816167; c=relaxed/simple;
-	bh=FtvVdmlXtNfsqpuufyei71+h19t2A3/Psdjr+gYemnc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R5En8s+dC1Gc0EOolHG4HHHSmARjLEfS1353v2F5e2ceY3yaAgu+xL7/IBZrlwwT1eWGALcpZFJhiWsSqTH8wxW4UQ7wtmq6ejRE8MWO0gcgpW6iY+A+Ja2fgZvWeH4kXqQz7ogYGOb2WFOXIDwn700i4ZytKy+KMPjLtioYhc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hQskPcem; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hQskPcem"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 263981F0089B;
-	Mon, 12 Oct 2026 14:42:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791816165;
-	bh=2XGxP1U9yyQ2YNUVVOTCBR1Qx3ekJLtQYyxySDSHInQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hQskPcembiEortaZW0HoLsT9S3is6ic9f8bweILx1I+NYTYIID/ILuouzoxN9XZU0
-	 hNu3521c0OHUEPuyqcbt4vvTVHyWHPdLHT2IeywiqjDFgxFoYWsatEiNz/0xtnwYVz
-	 Io2skkB5TFxY4+siVXtk+hLIG+djcqii1o9y+3qKpYk/HZLEIFZLa9GqUbMUIMNVBt
-	 0EbE6scCpETjkdwjTtTJWcjiDdg5b+M+W0+XOC2SIATQqOMfLoObyl2PPidpvJ5H8Q
-	 VcuijClPkhOJkCorLh++CI9aiqA9GENZ/FXEA3yBCtrS3Urg8wznlrNWx4U57fKCbP
-	 MoK4w/SnPNTIA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Hengyu Liang <hengyul@cs.unc.edu>,
-	Niklas Cassel <cassel@kernel.org>,
+	s=arc-20240116; t=1791816569; c=relaxed/simple;
+	bh=9VyBAZG+gyNrenEICnPOgpzEo09UcyYXz0l0jaopxN8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AcdO6kdC0lqF57OdAw6A+vBtAZTZDCdSN2RJDQ2pm2ra1RBAJm5qr9jIFu5haxK6OUZGPjZchOR6xBRn1uue5kzV2j5aTDI+GIODr3hbfwKcP60vdJETcahQT14WMgCzRLcQdgrJYFrVadm08TS50EYIyub3a1hEzeghUML/1i0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id AD8B7227A88; Mon, 12 Oct 2026 16:49:23 +0200 (CEST)
+Date: Mon, 12 Oct 2026 16:49:23 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: =?utf-8?B?6IOh6L+e5Yuk?= <hulianqin@vivo.com>
+Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>,
+	Hannes Reinecke <hare@suse.de>,
+	Mike Christie <michael.christie@oracle.com>,
 	Damien Le Moal <dlemoal@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ata: libata-scsi: do not lose CHECK CONDITION for failed ATAPI commands
-Date: Mon, 12 Oct 2026 10:42:43 -0400
-Message-ID: <20261012143846.189249-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101214-grumpily-cloning-5a44@gregkh>
-References: <2026101214-grumpily-cloning-5a44@gregkh>
+	John Garry <john.g.garry@oracle.com>,
+	Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"usb-storage@lists.one-eyed-alien.net" <usb-storage@lists.one-eyed-alien.net>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH v5 1/2] scsi: sd: mark disk dead on surprise host
+ removal to avoid I/O hang
+Message-ID: <20261012144923.GA10852@lst.de>
+References: <TYUPR06MB6217DD31B1B3CD09E431CC12D2922@TYUPR06MB6217.apcprd06.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <TYUPR06MB6217DD31B1B3CD09E431CC12D2922@TYUPR06MB6217.apcprd06.prod.outlook.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-From: Hengyu Liang <hengyul@cs.unc.edu>
+On Fri, Oct 09, 2026 at 11:29:36AM +0000, 胡连勤 wrote:
+>  	unsigned short_inquiry:1;
+>  
+> +	/* Device is physically gone; skip sync in sd_remove() */
+> +	unsigned surprise_removal:1;
 
-[ Upstream commit bc8ce2cea5f77c4bd1a5184705e300e83546c0c4 ]
+Placing this right in the middle of static fields is a bit weird.
 
-Since commit 2e1d2e65e773 ("ata: libata-scsi: terminate deferred commands
-on time out"), atapi_qc_complete() sets SAM_STAT_CHECK_CONDITION for a
-failed command only if cmd->result is zero, so that the DID_TIME_OUT or
-DID_REQUEUE host byte of a terminated command is preserved.
-
-However, cmd->result can also be non-zero for a regular failed ATAPI
-command completed through libata EH: ata_eh_analyze_tf() calls
-ata_eh_decide_disposition(), that is, scsi_check_sense(), on the sense
-data obtained with REQUEST SENSE, and scsi_check_sense() sets the SCSI
-midlayer internal byte of the result for some sense codes, e.g.
-SCSIML_STAT_TGT_FAILURE for ILLEGAL REQUEST with ASC 0x20 (INVALID
-COMMAND OPERATION CODE) or 0x24 (INVALID FIELD IN CDB), or
-SCSIML_STAT_MED_ERROR for MEDIUM ERROR with ASC 0x11 (UNRECOVERED READ
-ERROR). For such commands, atapi_qc_complete() keeps the result as is and
-the command completes with a GOOD status byte, even though it failed and
-valid sense data is available.
-
-As a result, passthrough users see these failed ATAPI commands as
-successful. For example, with the emulated IDE CD-ROM drive of QEMU and
-no medium loaded, a PLAY AUDIO MSF command issued with SG_IO completes
-with status 0x00 (and no DRIVER_SENSE) instead of 0x02 (CHECK CONDITION)
-with sense key ILLEGAL REQUEST, ASC/ASCQ 0x20/0x00, and the CDROM ioctls
-CDROMPLAYTRKIND, CDROMSUBCHNL, CDROMPAUSE, CDROMRESUME, CDROMPLAYMSF and
-CDROM_GET_MCN return 0 instead of -ENOMEDIUM or -EOPNOTSUPP.
-
-Fix this by setting the status byte to SAM_STAT_CHECK_CONDITION whenever
-the host byte is not set. Use set_status_byte() rather than overwriting
-the whole result, so that the SCSI midlayer internal byte set by
-scsi_check_sense() is preserved, as ata_scsi_qc_complete() already does
-for ATA commands.
-
-Fixes: 2e1d2e65e773 ("ata: libata-scsi: terminate deferred commands on time out")
-Cc: stable@vger.kernel.org
-Suggested-by: Niklas Cassel <cassel@kernel.org>
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Link: https://lore.kernel.org/r/20260929164135.266708-1-hengyul@cs.unc.edu
-Signed-off-by: Niklas Cassel <cassel@kernel.org>
-[ sashal: adapted completion handling to use ata_qc_done() with an immediate return ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/ata/libata-scsi.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index d2777255129c5..d4f6d82fd9085 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -3030,8 +3030,14 @@ static void atapi_qc_complete(struct ata_queued_cmd *qc)
- 		if (qc->cdb[0] == ALLOW_MEDIUM_REMOVAL && qc->dev->sdev)
- 			qc->dev->sdev->locked = 0;
- 
--		if (!cmd->result)
--			cmd->result = SAM_STAT_CHECK_CONDITION;
-+		/*
-+		 * Report CHECK CONDITION unless the command was terminated
-+		 * with a host byte set. Only set the status byte, so that the
-+		 * SCSI midlayer internal byte, which scsi_check_sense() may
-+		 * have set from the sense data, is preserved.
-+		 */
-+		if (get_host_byte(cmd) == DID_OK)
-+			set_status_byte(cmd, SAM_STAT_CHECK_CONDITION);
- 		ata_qc_done(qc);
- 		return;
- 	}
--- 
-2.53.0
+Maybe we should get started with an unsigned long and atomic bitops
+for something like that actually is known to set it at any point in
+runtime and thus most suspect to corruption non-atomic bitfields?
 
