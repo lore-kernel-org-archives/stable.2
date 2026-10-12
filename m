@@ -1,144 +1,370 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5B4749CF2A
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:26:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94FB49E5C6
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:27:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791818799; cv=none; b=bI9bbA/6kH53wOMVDHBv3ZYXLbx0VeMfne+QhvSDp/yodkF8TWiwHpA7G6abk/2K3czL2JktY2BF0j4YAkZDXxgbkGKoyVVD5IMU5knLoXIYQHsMWRI9boQcfmmkqhQRQPgy08NkeyQPQBcqTMXQztKO+ZjmFLdueqtObfhe2/c=
+	t=1791818823; cv=none; b=LDmWYH4j2BjP673VuuK32bdn+bcTbHE9I8Gs1qpnMz58Aw59rgsz7L9x975VvUViaaCKr3U2Hn+c/cPaFvjsdneBxMbSQJOohzEw1s04DUi4DJLRjBS4qvWIb6iE5uQUIXiNgi3TpHK+hluJ5AiST6VkYUFgI4QoQcOCVFozgiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791818799; c=relaxed/simple;
-	bh=U864yFzTOzCb1kJgLXsdxYqGkzqdvjflzKmJMkq3yZ0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uocHmQyxuAc1afMqrtbCpYMSlkITFJTl1id1/IJBoVU1luFQvSblpfIYVNgx4gOq30+NujVRt6Gn56aFv8rX3+zEqdxCe62dIWKOZoII0eKfXTmMFpZXWaz8sIuFmuCXTR45eP2b++dZJo2qR5Ht30ItcHrhoClwLsuZ4osrmXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gtErWZhu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791818823; c=relaxed/simple;
+	bh=Ybjas7zudz0nSc0gW5PJzWpe4j08MJnSeil438SLW4c=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=bXqsV6XLrhUGdpZN/8m4lD1d0yflFUEi+jel8jRzKkCL9mvVVB624k1p40HiuJPuQEooeFODtLS/OOafhjQuZ+zqhqTMk/sQ42Bcq905C3Z49Q9bfdfFOIyUlqzJmRMiuYvlq0vWQk2KL8NX831eppy1l2oepKuLKxr5oxfEB0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xpoXe+km; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gtErWZhu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97AFB1F0089D
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:26:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791818797;
-	bh=cIf7zymaan5CSKxf/DjyAVBgAoSRW75yynnFxHDngzA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=gtErWZhuz+Al87MVGW9IBaaBKQBCMeAm+tWcH91ZcSS/ECSDRR8WvzWidAPVGpnQh
-	 La1tqoxlGTTYWg3r6rWFhRwG8qTZ3hdUDFRD42HJGXTvaQ1/L7AgXO9uEHCEChcaDW
-	 lRh+1TZM8yv3ytVwtkZy1RRHV1tFMJB17Pdqe8TLQdp7O8BmwsQz/6OxQBwW9jRyTw
-	 TyClsnOtAa0N56NkcISqLclJICRIkNHIue7v0BzNNncI7vHb7RpySQ9weGF3i/OY7N
-	 iw0iMz7UakraTLqjy8tVkDS6TsYwAgg2BqIBOyeZda/RT267MaBoE6lIiyyOh5sXzZ
-	 Pt5x6L6dQSCyg==
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5ba3ec92031so2030564e87.2
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 08:26:37 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwr2/ta8/PxmYDFeeXPAaEBeMwKI8VBAVulglTIFCqqxzMACzmJh5ezotMaRPUO5hslnLllS94=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLs02DLhdghz7mbOCmR64gGepTYPLniHhdekLLYQ/Kk5284/k9h
-	i2rnbgEKtdf3BgrceGVKRmbX/II7CPdoR31KS649lKNqhCEX2bXptUQ1uOPxkfmOVgu/+0qs1cu
-	jAKTuSTaJRikSUs8xHg9Ex4Lcno6JTcw=
-X-Received: by 2002:a05:6512:3e20:b0:5b8:b419:b7b with SMTP id
- 2adb3069b0e04-5bcde6ad522mr3321549e87.49.1791818795934; Mon, 12 Oct 2026
- 08:26:35 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xpoXe+km"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EE241F0089B;
+	Mon, 12 Oct 2026 15:27:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791818821;
+	bh=hW4w6RtdPNyqq+w3BW6LA56bnPH37tKCBHliUj1dCtU=;
+	h=Subject:To:Cc:From:Date;
+	b=xpoXe+kmjE17wJr8Shps6i/RbV9uTP6AXVp7z/Zcp3LevT0nTc1GWvXr7zlQ68Yfa
+	 5afTHCS+iU+3lwZ7TqC+l1/rht5isNlv07Q0M5mDNeoAUlbvkKiq8/OEHIrllMBCeZ
+	 Bg9NiluVOVvLbbnMtSGhqgVE8oCb/8zZB3HD+0uo=
+Subject: FAILED: patch "[PATCH] Bluetooth: RFCOMM: connect the session socket without" failed to apply to 6.18-stable tree
+To: mikhail.v.gavrilov@gmail.com,luiz.von.dentz@intel.com,pav@iki.fi,r772577952@gmail.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 12 Oct 2026 17:27:07 +0200
+Message-ID: <2026101207-excavator-emcee-d1be@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925-ghes-queued-accumulate-v1-1-df50553957d4@debian.org> <56179353-7e02-40bc-b443-80ab8e6b627d@linux.alibaba.com>
-In-Reply-To: <56179353-7e02-40bc-b443-80ab8e6b627d@linux.alibaba.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Mon, 12 Oct 2026 17:24:29 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jj0xxNo1V478yEUQNRNqGNH_63_x4h55tvgoaJe2Efug@mail.gmail.com>
-X-Gm-Features: AclHuK-xTYsyTmE-qiICl-bXlfsPI5BfK6YWXZYZCnzTzhabJ_eN3RxEEc8ueLg
-Message-ID: <CAJZ5v0jj0xxNo1V478yEUQNRNqGNH_63_x4h55tvgoaJe2Efug@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: APEI: accumulate the queued flag across error sections
-To: Shuai Xue <xueshuai@linux.alibaba.com>
-Cc: Breno Leitao <leitao@debian.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, Hanjun Guo <guohanjun@huawei.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Len Brown <lenb@kernel.org>, James Morse <james.morse@arm.com>, 
-	Xiaofei Tan <tanxiaofei@huawei.com>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	kernel-team@meta.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 29, 2026 at 3:59=E2=80=AFAM Shuai Xue <xueshuai@linux.alibaba.c=
-om> wrote:
->
->
->
-> On 9/25/26 11:09 PM, Breno Leitao wrote:
-> > ghes_do_proc() walks every error section of a CPER record, and
-> > ghes_handle_arm_hw_error() walks every error-info entry of an ARM
-> > processor section.  Both assign to "queued" instead of OR-ing into it,
-> > so only the last iteration counts: a later section or entry that queues
-> > no memory-failure work clears the flag an earlier one set.
-> >
-> > Instead of reassigning the variable at every time, just do an `OR`, so,
-> > if there was a single match, it will return "queued" as set.
-> >
-> > The comment above the check says "If no memory failure
-> > work is queued", which is the semantics this patch implements. I.e, onl=
-y
-> > SIGBUS if there are queue was not handled at all. If we want to SIGBUS
-> > if any event was not handled/queued at all, we will need something more
-> > sophisticated.
-> >
-> > Fixes: 7f17b4a121d0 ("ACPI: APEI: Kick the memory_failure() queue for s=
-ynchronous errors")
-> > Fixes: ccb5ecdc2dde ("ACPI: APEI: fix synchronous external aborts in us=
-er-mode")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Breno Leitao <leitao@debian.org>
-> > ---
-> >   drivers/acpi/apei/ghes.c | 6 +++---
-> >   1 file changed, 3 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
-> > index fe10ab0e02f68..ec2d5ca51db02 100644
-> > --- a/drivers/acpi/apei/ghes.c
-> > +++ b/drivers/acpi/apei/ghes.c
-> > @@ -603,7 +603,7 @@ static bool ghes_handle_arm_hw_error(struct acpi_he=
-st_generic_data *gdata,
-> >                * and don't filter out 'corrected' error here.
-> >                */
-> >               if (is_cache && has_pa) {
-> > -                     queued =3D ghes_do_memory_failure(err_info->physi=
-cal_fault_addr, flags);
-> > +                     queued |=3D ghes_do_memory_failure(err_info->phys=
-ical_fault_addr, flags);
-> >                       p +=3D err_info->length;
-> >                       continue;
-> >               }
-> > @@ -951,11 +951,11 @@ static void ghes_do_proc(struct ghes *ghes,
-> >                       atomic_notifier_call_chain(&ghes_report_chain, se=
-v, mem_err);
-> >
-> >                       arch_apei_report_mem_error(sev, mem_err);
-> > -                     queued =3D ghes_handle_memory_failure(gdata, sev,=
- sync);
-> > +                     queued |=3D ghes_handle_memory_failure(gdata, sev=
-, sync);
-> >               } else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
-> >                       ghes_handle_aer(gdata);
-> >               } else if (guid_equal(sec_type, &CPER_SEC_PROC_ARM)) {
-> > -                     queued =3D ghes_handle_arm_hw_error(gdata, sev, s=
-ync);
-> > +                     queued |=3D ghes_handle_arm_hw_error(gdata, sev, =
-sync);
-> >               } else if (guid_equal(sec_type, &CPER_SEC_CXL_PROT_ERR)) =
-{
-> >                       struct cxl_cper_sec_prot_err *prot_err =3D acpi_h=
-est_get_payload(gdata);
-> >
-> >
-> > ---
-> > base-commit: 587858367581b9c55c3690f4e63382ad622719d4
-> > change-id: 20260925-ghes-queued-accumulate-591c8ac3b32d
-> >
-> > Best regards,
-> > --
-> > Breno Leitao <leitao@debian.org>
->
-> Good catch, thanks for the fix.
->
-> Reviewed-by: Shuai Xue <xueshuai@linux.alibaba.com>
 
-Applied as 7.4 material, thanks!
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
+
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x ac022970e9fb0a5f7e7d1f6c8e104c1ed924dd1c
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101207-excavator-emcee-d1be@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From ac022970e9fb0a5f7e7d1f6c8e104c1ed924dd1c Mon Sep 17 00:00:00 2001
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Tue, 29 Sep 2026 17:22:26 +0500
+Subject: [PATCH] Bluetooth: RFCOMM: connect the session socket without
+ rfcomm_mutex
+
+An RFCOMM connect() issued while a BR/EDR link is being authenticated
+makes lockdep report a circular dependency, and the reported cycle is a
+real AB/BA between rfcomm_mutex and hdev->lock.
+
+rfcomm_security_cfm() is called from the HCI event path, which already
+holds hdev->lock:
+
+  hci_rx_work()
+    hci_event_packet()
+      hci_cc_read_enc_key_size()   [hdev->lock]
+        hci_encrypt_cfm()          [hci_cb_list_lock]
+          rfcomm_security_cfm()    [rfcomm_mutex]
+
+while an RFCOMM connect() from userspace takes the same two locks the
+other way round:
+
+  rfcomm_sock_connect()
+    rfcomm_dlc_open()              [rfcomm_mutex]
+      __rfcomm_dlc_open()
+        rfcomm_session_create()
+          kernel_connect()
+            l2cap_sock_connect()
+              l2cap_chan_connect() [hdev->lock]
+
+  WARNING: possible circular locking dependency detected
+  kworker/u131:1/1128 is trying to acquire lock:
+  rfcomm_mutex, at: rfcomm_security_cfm+0x31/0x3e0 [rfcomm]
+  but task is already holding lock:
+  hci_cb_list_lock, at: hci_cc_read_enc_key_size+0x1d2/0xcc0
+  Chain exists of:
+    rfcomm_mutex --> &hdev->lock --> hci_cb_list_lock
+
+hci_auth_complete_evt() and hci_encrypt_change_evt() reach the callback
+the same way.
+
+Both orders have to be seen in the same boot, which is why a BR/EDR
+connection alone is not enough to show it: a session set up by the
+remote side is created by rfcomm_accept_connection() in krfcommd, which
+calls kernel_accept() and never takes hdev->lock under rfcomm_mutex.
+Connecting a device that authenticates and encrypts the link and then
+calling connect() on an RFCOMM socket towards any address - the connect
+does not have to succeed, the order is recorded before the page timeout
+- reports it every time.
+
+Only the session socket has to be connected with the lock held, and it
+does not: nothing else can see the socket before it is put on the
+session list.  So connect it first and take rfcomm_mutex afterwards,
+which removes the rfcomm_mutex -> hdev->lock order for good, rather
+than keeping the HCI event path out of rfcomm_mutex.
+
+rfcomm_session_create() becomes rfcomm_session_connect(), which returns
+the connected socket without touching the session list, and
+rfcomm_dlc_open() adds the session once it holds the lock again.  If
+another opener added a session for the same pair while this socket was
+connecting, that session is used and this socket is dropped.
+__rfcomm_dlc_open() now takes the session it should use, and its state
+check runs after the lock is re-acquired, so a DLC that was opened or
+closed in the meantime is still handled.
+
+Over an existing ACL link the connection can complete before the
+session reaches the list, and the wakeup from the socket callback is
+then lost, so krfcommd is woken once the session is visible.
+
+Connecting without the lock opens a window in which the socket can be
+closed.  The DLC is not on a session yet, so rfcomm_dlc_close() finds
+nothing to do and returns without touching it, and rfcomm_dlc_open()
+would then attach a DLC whose owner is gone.  rfcomm_dlc_close() now
+marks such a DLC with RFCOMM_CLOSED, and rfcomm_dlc_open() checks the
+mark once it holds rfcomm_mutex again and drops the socket instead of
+attaching the DLC.  The mark is cleared when an open starts, so a DLC
+that is reused is not affected.  This covers both callers of
+rfcomm_dlc_open(), the socket and the tty layer.
+
+Fixes: 759c185d0bbd ("Bluetooth: RFCOMM: serialize security confirmation handling")
+Suggested-by: Pauli Virtanen <pav@iki.fi>
+Reported-by: Pauli Virtanen <pav@iki.fi>
+Closes: https://lore.kernel.org/linux-bluetooth/5e76a95e934e451e7006db28827c2d64af5a88be.camel@iki.fi/
+Reported-by: syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/linux-bluetooth/6a92fadc.08e933ee.dbf97.008f.GAE@google.com/
+Reported-by: Jiaming Zhang <r772577952@gmail.com>
+Closes: https://lore.kernel.org/all/CANypQFabseTuRiyz2pGkc_Qj0moGDnY7KEp1qdTOqkw6gAL3hw@mail.gmail.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Tested-by: syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+
+diff --git a/include/net/bluetooth/rfcomm.h b/include/net/bluetooth/rfcomm.h
+index 102c278e3584..9dc5fd4cb8c8 100644
+--- a/include/net/bluetooth/rfcomm.h
++++ b/include/net/bluetooth/rfcomm.h
+@@ -207,6 +207,7 @@ struct rfcomm_dlc {
+ #define RFCOMM_AUTH_REJECT  7
+ #define RFCOMM_DEFER_SETUP  8
+ #define RFCOMM_ENC_DROP     9
++#define RFCOMM_CLOSED       10
+ 
+ /* Scheduling flags and events */
+ #define RFCOMM_SCHED_WAKEUP 31
+diff --git a/net/bluetooth/rfcomm/core.c b/net/bluetooth/rfcomm/core.c
+index d91e2a6ee26c..54ec1136f87e 100644
+--- a/net/bluetooth/rfcomm/core.c
++++ b/net/bluetooth/rfcomm/core.c
+@@ -62,10 +62,9 @@ static void rfcomm_make_uih(struct sk_buff *skb, u8 addr);
+ 
+ static void rfcomm_process_connect(struct rfcomm_session *s);
+ 
+-static struct rfcomm_session *rfcomm_session_create(bdaddr_t *src,
+-							bdaddr_t *dst,
+-							u8 sec_level,
+-							int *err);
++static struct socket *rfcomm_session_connect(bdaddr_t *src, bdaddr_t *dst,
++					     u8 sec_level, int *err);
++static struct rfcomm_session *rfcomm_session_add(struct socket *sock, int state);
+ static struct rfcomm_session *rfcomm_session_get(bdaddr_t *src, bdaddr_t *dst);
+ static struct rfcomm_session *rfcomm_session_del(struct rfcomm_session *s);
+ 
+@@ -365,28 +364,17 @@ static int rfcomm_check_channel(u8 channel)
+ 	return channel < 1 || channel > 30;
+ }
+ 
+-static int __rfcomm_dlc_open(struct rfcomm_dlc *d, bdaddr_t *src, bdaddr_t *dst, u8 channel)
++static int __rfcomm_dlc_open(struct rfcomm_dlc *d, struct rfcomm_session *s,
++			     u8 channel)
+ {
+-	struct rfcomm_session *s;
+-	int err = 0;
+ 	u8 dlci;
+ 
+-	BT_DBG("dlc %p state %ld %pMR -> %pMR channel %d",
+-	       d, d->state, src, dst, channel);
+-
+-	if (rfcomm_check_channel(channel))
+-		return -EINVAL;
++	BT_DBG("dlc %p state %ld session %p channel %d",
++	       d, d->state, s, channel);
+ 
+ 	if (d->state != BT_OPEN && d->state != BT_CLOSED)
+ 		return 0;
+ 
+-	s = rfcomm_session_get(src, dst);
+-	if (!s) {
+-		s = rfcomm_session_create(src, dst, d->sec_level, &err);
+-		if (!s)
+-			return err;
+-	}
+-
+ 	dlci = __dlci(__session_dir(s), channel);
+ 
+ 	/* Check if DLCI already exists */
+@@ -421,14 +409,84 @@ static int __rfcomm_dlc_open(struct rfcomm_dlc *d, bdaddr_t *src, bdaddr_t *dst,
+ 
+ int rfcomm_dlc_open(struct rfcomm_dlc *d, bdaddr_t *src, bdaddr_t *dst, u8 channel)
+ {
+-	int r;
++	struct rfcomm_session *s;
++	struct socket *sock;
++	int err;
++
++	BT_DBG("dlc %p state %ld %pMR -> %pMR channel %d",
++	       d, d->state, src, dst, channel);
++
++	if (rfcomm_check_channel(channel))
++		return -EINVAL;
+ 
+ 	rfcomm_lock();
+ 
+-	r = __rfcomm_dlc_open(d, src, dst, channel);
++	clear_bit(RFCOMM_CLOSED, &d->flags);
++
++	/* Do not page the remote device for a DLC that cannot be opened
++	 * anyway.  __rfcomm_dlc_open() looks at the state again once the
++	 * lock has been re-acquired below.
++	 */
++	if (d->state != BT_OPEN && d->state != BT_CLOSED) {
++		rfcomm_unlock();
++		return 0;
++	}
++
++	s = rfcomm_session_get(src, dst);
++	if (s) {
++		err = __rfcomm_dlc_open(d, s, channel);
++		rfcomm_unlock();
++		return err;
++	}
++	rfcomm_unlock();
++
++	/* There is no session for this pair yet.  kernel_connect() ends up in
++	 * l2cap_chan_connect(), which takes hdev->lock, and the HCI event
++	 * path takes rfcomm_mutex while holding hdev->lock, so the socket has
++	 * to be connected with rfcomm_mutex released.
++	 */
++	sock = rfcomm_session_connect(src, dst, d->sec_level, &err);
++	if (!sock)
++		return err;
++
++	rfcomm_lock();
++
++	/* The DLC may have been closed while the socket was connecting.  It
++	 * was not on a session, so rfcomm_dlc_close() could only mark it;
++	 * attaching it now would leave it with no owner.
++	 */
++	if (test_bit(RFCOMM_CLOSED, &d->flags)) {
++		rfcomm_unlock();
++		sock_release(sock);
++		return -ECONNRESET;
++	}
++
++	/* Another opener may have added a session for the same pair in the
++	 * meantime; that one is used and this socket is dropped.
++	 */
++	s = rfcomm_session_get(src, dst);
++	if (!s) {
++		s = rfcomm_session_add(sock, BT_BOUND);
++		if (s) {
++			s->initiator = 1;
++			sock = NULL;
++		}
++	}
++
++	err = s ? __rfcomm_dlc_open(d, s, channel) : -ENOMEM;
+ 
+ 	rfcomm_unlock();
+-	return r;
++
++	if (sock)
++		sock_release(sock);
++
++	/* Over an existing ACL link the connection can complete before the
++	 * session reaches the list, and that wakeup is then lost, so let
++	 * krfcommd look at the socket state now.
++	 */
++	rfcomm_schedule();
++
++	return err;
+ }
+ 
+ static void __rfcomm_dlc_disconn(struct rfcomm_dlc *d)
+@@ -508,8 +566,14 @@ int rfcomm_dlc_close(struct rfcomm_dlc *d, int err)
+ 	rfcomm_lock();
+ 
+ 	s = d->session;
+-	if (!s)
++	if (!s) {
++		/* Not on a session yet: rfcomm_dlc_open() may be connecting a
++		 * socket for it with rfcomm_mutex released.  Leave a mark so
++		 * that it does not attach the DLC once it holds the lock again.
++		 */
++		set_bit(RFCOMM_CLOSED, &d->flags);
+ 		goto no_session;
++	}
+ 
+ 	/* after waiting on the mutex check the session still exists
+ 	 * then check the dlc still exists
+@@ -757,12 +821,12 @@ static struct rfcomm_session *rfcomm_session_close(struct rfcomm_session *s,
+ 	return rfcomm_session_del(s);
+ }
+ 
+-static struct rfcomm_session *rfcomm_session_create(bdaddr_t *src,
+-							bdaddr_t *dst,
+-							u8 sec_level,
+-							int *err)
++/* Creates the L2CAP socket a new session will run on and starts connecting
++ * it.  Must be called with rfcomm_mutex released.
++ */
++static struct socket *rfcomm_session_connect(bdaddr_t *src, bdaddr_t *dst,
++					     u8 sec_level, int *err)
+ {
+-	struct rfcomm_session *s = NULL;
+ 	struct sockaddr_l2 addr;
+ 	struct socket *sock;
+ 	struct sock *sk;
+@@ -792,24 +856,16 @@ static struct rfcomm_session *rfcomm_session_create(bdaddr_t *src,
+ 		l2cap_pi(sk)->chan->mode = L2CAP_MODE_ERTM;
+ 	release_sock(sk);
+ 
+-	s = rfcomm_session_add(sock, BT_BOUND);
+-	if (!s) {
+-		*err = -ENOMEM;
+-		goto failed;
+-	}
+-
+-	s->initiator = 1;
+-
+ 	bacpy(&addr.l2_bdaddr, dst);
+ 	addr.l2_family = AF_BLUETOOTH;
+ 	addr.l2_psm    = cpu_to_le16(L2CAP_PSM_RFCOMM);
+ 	addr.l2_cid    = 0;
+ 	addr.l2_bdaddr_type = BDADDR_BREDR;
+ 	*err = kernel_connect(sock, (struct sockaddr_unsized *)&addr, sizeof(addr), O_NONBLOCK);
+-	if (*err == 0 || *err == -EINPROGRESS)
+-		return s;
++	if (*err && *err != -EINPROGRESS)
++		goto failed;
+ 
+-	return rfcomm_session_del(s);
++	return sock;
+ 
+ failed:
+ 	sock_release(sock);
+
