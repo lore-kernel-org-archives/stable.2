@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C9D4718EC
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 12:22:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C39A847ECD2
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 12:22:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791807761; cv=none; b=NMBo7JRGhvzAojS62YdPAn+RS6pJiZY2MDgUog92W8VfbZAigJWQ/wmTknRpbYERdl/4nbOQgWOdJ+IJdc1lKM9y5NTpHWtJOoUA4MYLdgFbJRVXe526Ez0mV8BOlb8GA8+KiqPlysK2dMfZe2XFXLLm048t/OmmhFP+kWfHkNQ=
+	t=1791807762; cv=none; b=FezG6YpDQC97sK5c3GDji1zzwcKu1vJBcFtfTuyr7ajP0G0lEpQG5W8wZYDt94kzEL+3ScbyV3A3+H55qLWejVSShU2yF88XyWmIWIwf88XWMNM24hR2rMlYuj69e1ApR1r2XYNh2sfRN3KIXh72Dt2L3Wj5R6Cp8ELMSwwNcoc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791807761; c=relaxed/simple;
-	bh=BhPEdG6hPj+/irsMHHvbVpDF1gW9lo6NNnho7PlL6tA=;
+	s=arc-20240116; t=1791807762; c=relaxed/simple;
+	bh=W3YNG3ZIxAHgXO34s+LFtULS9FNUl/lVoRswFLPNCjA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Nsnx2/5wEz/Kjpsv75KXnRjr16sa0oDBd7Y7+x514s9Kz/IB23GdRVlpGlnwpOVvFl0JSJjDWnKRPcWNh4r5tJfcnVGHO6EOOfsZ75etazUadAJv5QDtJkUJou1ESikc0qhOF3AderxZLWF+ijQ3LbegAXRxI624JEiXQFDrGJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=otMhWiMi; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rY6AjsRrEX5ljxJwdKNmNzCskbalTLwy9cx9QXpTE3wz4pUhvyhezmZzJh6BzmSxAf56chSli6Vgd+h/h8o6olB3qpGo8pJWfciP3av6piY3m3ciJQ2Ik26XiHpbz6FA5dhpmcKvC5Ne2Hausabwg0/v+6h2Kee36aVm5QS6VeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cOVQ33Dd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="otMhWiMi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 247EC1F0089B;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cOVQ33Dd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AAC61F008A0;
 	Mon, 12 Oct 2026 12:22:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791807759;
-	bh=4VuHgZ19M/QpOoz4KtUFt7upDYIM+XsM6H13IpbisV0=;
+	s=k20260515; t=1791807760;
+	bh=zFhRhxL+1Q1Nhtz69Ao8vXPeHui36xhUIj19SUA7uE0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=otMhWiMiXosSIVlBdAR6gX66WxkDoxMvOeOK3GR2raMc/eJvjT1OR0vybMpn+k7zi
-	 UAzgsfdx0BvV6hyJbcDAE7UXyt8pesroAJ3v7XB5r6qDry2Q6M1kC6Z0p0PvdxLgQE
-	 l+sCxGrtS9nSwVXehii48UnqLdtbtd/guc2aPwjhyddHgrJ9EL/zi+gkTq0dbA/ghi
-	 3SAKPC4k+gIqBIcmffTdzo+5LOPvbk53eSeVWXnnUU4mqlKsvTYyrXCVKoWOff844M
-	 pBe9oabL2RuEUbcs1lmPvP6yKpN5Fd5ntriddL5IubPoIbWs908b0H96vvdn8+02vq
-	 JIkAmlQ1rqX1w==
+	b=cOVQ33DdtpiarzCx043zVHKnz+fkxuVA1Nqo+GlUVL1yJ9sII94jzWCmLYVeRLh8J
+	 sFtQbyvZ/tBpFpAvTl6fDOK8et1omlLtw+qoKSIwf2GCuPTmn1kR9Ehp5dNbt3tn6m
+	 FaTc+DZif1L95RsypAP3/e3WI6n5c7uzWBPXHy6PzDNC0ppmQJ9RW2n9uHrVje25PZ
+	 PZWMTrPwNyc4vT7plmS+DWlUP1rQWpsV0ssXE0aJE8vIjCH1jIEQ7DfeY4UaxbsuUE
+	 jz1Ueor5dDNaMuXG8Q51ppQmXg7tTVTM1VV2njxIJu2pv0qPPMH9gj3sl8eYU2OcsE
+	 ytbCa6UHqyoEA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Norbert Szetei <norbert@doyensec.com>,
+Cc: "Darrick J. Wong" <djwong@kernel.org>,
+	Norbert Szetei <norbert@doyensec.com>,
 	Dave Chinner <dchinner@redhat.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
 	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 1/2] xfs: stop exchanging reflink flags when exchanging mappings
-Date: Mon, 12 Oct 2026 08:22:36 -0400
-Message-ID: <20261012122227.3726963-1-sashal@kernel.org>
+Subject: [PATCH 7.2.y 2/2] xfs: fix exchange-range-to-eof file size exchange
+Date: Mon, 12 Oct 2026 08:22:37 -0400
+Message-ID: <20261012122227.3726963-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101216-sadly-relapse-b166@gregkh>
+In-Reply-To: <20261012122227.3726963-1-sashal@kernel.org>
 References: <2026101216-sadly-relapse-b166@gregkh>
+ <20261012122227.3726963-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,253 +48,244 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Norbert Szetei <norbert@doyensec.com>
+From: "Darrick J. Wong" <djwong@kernel.org>
 
-[ Upstream commit d84d6c1a7f1e2de9e601703a326a4c1b7b421943 ]
+[ Upstream commit 7dfb218c829c1acb626e0fe92c5fddb9a26a03e9 ]
 
-When an exchange covers both files from offset 0 to i_disk_size,
-xmi_can_exchange_reflink_flags() assumes every mapping moved and hands
-the reflink flag over to the other file.
+Norbert Szetei posted a patch containing an incomplete description of a
+bug in XFS_IOC_EXCHANGE_RANGE's TO_EOF flag.  The bug tricks
+exchange-range into modifying a file so that it has shared blocks
+starting beyond EOF, which is never allowed because files never have
+written data beyond EOF, and you can only share written data blocks.
+This is key to all the incorrect behavior that follows.
 
-That assumption is wrong.  A file can still own shared blocks past
-i_disk_size, e.g. after EXCHANGE_RANGE_TO_EOF sets a smaller size
-without unmapping anything.  The flag is cleared anyway, and the next
-write to such a block happens in place instead of CoW, corrupting the
-other file that shares it.
+Eventually I got from Norbert a description of what's going wrong:
 
-Commit a23eca88448e ("xfs: fix exchange-range reflink flag clearing
-issue with INO1_WRITTEN") fixed one instance of this.  Rather than add
-another special case, stop moving the flags.
-xfs_exchmaps_ensure_reflink() already sets the flag on both inodes
-before the exchange, so both just keep it.
+> Fair. Here it is with physical block numbers, 4k blocks. peer is the file
+> that gets rewritten and file1 is the one that ends up with the flag
+> cleared.
+>
+> Start, nothing shared:
+>
+>	peer size 4096   -> [100]
+>	file1 size 12288 -> [200] [201] [202]
+>	donor1 size 4096 -> [300]
+>	donor2 size 4096 -> [400]
+>
+> 1. FICLONERANGE peer's block into file1's middle slot:
+>
+>	peer size 4096   -> [100]
+>	file1 size 12288 -> [200] [100] [202] reflink flag set
+>                             ^^^^^ both files own block 100
+>
+> 2. XFS_IOC_EXCHANGE_RANGE file1 against donor1, file1_offset 0,
+> file2_offset 8192, length 0, TO_EOF. One block is exchanged, and the sizes
+> are exchanged with it:
+>
+>	file1 size 4096   -> [200] [100] [300] reflink flag set
+>                              ^^^^^^^^^^^ still owned, now past the size
+>	donor1 size 12288 -> [202]
+>
+> file1 says it is one block long while it still owns three. Nothing was
+> unmapped. file2_offset is block 2, so this exchange cannot clear a flag.
+>
+> 3. XFS_IOC_EXCHANGE_RANGE file1 against donor2, both offsets 0, length 4096.
+> By i_disk_size this is two one-block files exchanging everything, so
+> xmi_can_exchange_reflink_flags() agrees and the flag is cleared:
+>
+>	file1 size 4096   -> [400] [100] [300] reflink flag CLEARED
+>	donor2 size 4096  -> [200]
+>
+> Block 100 is still shared with peer.
+>
+> 4. pwrite(file1, 4096, 4096), which is file1's second slot, block 100.
+> xfs_is_cow_inode(file1) is false, so no CoW:
+>
+>	peer size 4096 -> [100] same block, new contents
+>
+> Block 100 is the only one that matters here. PoC below, it reads a file
+> called peer in the current directory. The filesystem needs reflink and
+> exchange-range, which mkfs.xfs 7.x turns on by default.
 
-Nothing sets CLEAR_INO{1,2}_REFLINK anymore.  Intents logged by older
-kernels may still carry them; recovery already masks them off, so they
-stay in the log format mask and are ignored.
+So yes, TO_EOF is screwing up the file size even if it's actually
+exchanging the data block correctly.  The following is the intended
+behavior of XFS_EXCHANGE_RANGE_TO_EOF, as described by its manpage:
 
-XFS_IOC_SWAPEXT has the same problem: it moves the reflink flag from
-one inode to the other along with the extents.  Just removing that is
-not enough here: the exchange path flags both inodes up front in
-xfs_exchmaps_ensure_reflink(), but swapext has no such step, so the
-inode receiving the shared extents would be left without the flag.
-Set it on both inodes instead, and make sure both have a CoW fork,
-since an inode with the reflink flag is expected to have one.
+"Ignore the length parameter.  All bytes in file1_fd from file1_offset
+ to EOF are moved to file2_fd, and file2's size is set to
+ (file2_offset+(file1_length-file1_offset)).  Meanwhile, all bytes in
+ file2 from file2_offset to EOF are moved to file1 and file1's size is
+ set to (file1_offset+(file2_length-file2_offset))."
 
-The flag now stays until FALLOC_FL_UNSHARE_RANGE, xfs_scrub, or a
-truncate to zero removes it.
+In other words, if we only exchange a portion of the file data, then we
+should only exchange the portion of the file size that relates to the
+exchanged data.  Unfortunately, the code swaps the ondisk file size and
+the incore file sizes, which is incorrect if the caller passes in a
+nonzero offset.
 
-Fixes: 966ceafc7a43 ("xfs: create deferred log items for file mapping exchanges")
-Fixes: f0bc4d134b46 ("xfs: swap inode reflink flags when swapping inode extents")
+Having confused the file sizes, the PoC uses a second exchange-range
+call on what looks like a non-reflinked single-block file.  Because the
+file size is set incorrectly, exchange-range thinks it's exchanging the
+full contents of two files and clears the reflink flag on the broken
+file.  That enables an extending write of the broken file to rewrite the
+shared block that's just past EOF.  This has become known colloquially
+as refluxfs.
+
+Once the file sizes are set correctly, the second exchange-range no
+longer thinks that it's doing a full-contents swap, so it won't clear
+the reflink flag on either of its file arguments.
+
+Norbert followed up to an earlier version of this patch with a second
+complaint about us not handling the i_disk_size state correctly:
+
+> The offsets are bounded against the incore i_size but subtracted from
+> the ondisk i_disk_size, so a file that has not been written back gives
+> xmi_isize1 = 0 + (0 - 12288).
+>
+> For instance, you can do:
+>
+> $ xfs_io -f -c "pwrite -q 0 4096" -c fsync file1
+> $ xfs_io -f -c "pwrite -q 0 12288" \
+>   -c "exchangerange -s 0 -d 12288 file1" dirty
+> $ stat -c %s file1
+> 0
+> $ stat -c %i file1
+> 131
+> $ sudo xfs_io -r -c "bulkstat_single 131" . | grep bs_size
+> bs_size = 18446744073709539328
+
+That's wrong, and the new file size update logic depends on the ondisk
+i_disk_size matching the incore i_size, so flush the pagecache as needed
+to push it upwards.
+
+Link: https://lore.kernel.org/linux-xfs/1E196589-DEBE-40AC-AFEA-D420DAAB067F@doyensec.com/
+Reported-by: Norbert Szetei <norbert@doyensec.com>
 Cc: stable@vger.kernel.org # v6.10
-Assisted-by: LLM
-Signed-off-by: Norbert Szetei <norbert@doyensec.com>
+Fixes: 966ceafc7a4371 ("xfs: create deferred log items for file mapping exchanges")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
 Reviewed-by: Dave Chinner <dchinner@redhat.com>
-Reviewed-by: Darrick J. Wong <djwong@kernel.org>
 Signed-off-by: Carlos Maiolino <cem@kernel.org>
-
-Remove both copies of the INO1_WRITTEN guard when deleting the
-obsolete flag-exchange helper.  The duplicated guard does not need
-to survive once exchanges preserve the reflink flags.
-
-Stable-dep-of: 7dfb218c829c ("xfs: fix exchange-range-to-eof file size exchange")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/libxfs/xfs_exchmaps.c   | 90 ++--------------------------------
- fs/xfs/libxfs/xfs_log_format.h |  4 +-
- fs/xfs/xfs_bmap_util.c         | 15 +++---
- 3 files changed, 10 insertions(+), 99 deletions(-)
+ fs/xfs/libxfs/xfs_exchmaps.c | 13 +++++++--
+ fs/xfs/xfs_exchrange.c       | 51 ++++++++++++++++++++++++++----------
+ 2 files changed, 48 insertions(+), 16 deletions(-)
 
 diff --git a/fs/xfs/libxfs/xfs_exchmaps.c b/fs/xfs/libxfs/xfs_exchmaps.c
-index 49eda8d0994de..1e0b418ef7453 100644
+index 1e0b418ef7453..37595f579b635 100644
 --- a/fs/xfs/libxfs/xfs_exchmaps.c
 +++ b/fs/xfs/libxfs/xfs_exchmaps.c
-@@ -49,7 +49,7 @@ struct xfs_exchmaps_adjacent {
- 	.right2 = { .br_startblock = HOLESTARTBLOCK }, \
- }
- 
--/* Information to reset reflink flag / CoW fork state after an exchange. */
-+/* Information to reset CoW fork state after an exchange. */
- 
- /*
-  * If the reflink flag is set on either inode, make sure it has an incore CoW
-@@ -127,9 +127,7 @@ xmi_has_more_exchange_work(const struct xfs_exchmaps_intent *xmi)
- static inline bool
- xmi_has_postop_work(const struct xfs_exchmaps_intent *xmi)
- {
--	return xmi->xmi_flags & (XFS_EXCHMAPS_CLEAR_INO1_REFLINK |
--				 XFS_EXCHMAPS_CLEAR_INO2_REFLINK |
--				 __XFS_EXCHMAPS_INO2_SHORTFORM);
-+	return xmi->xmi_flags & __XFS_EXCHMAPS_INO2_SHORTFORM;
- }
- 
- /* Check all mappings to make sure we can actually exchange them. */
-@@ -525,18 +523,6 @@ xfs_exchmaps_link_to_sf(
- 	return error;
- }
- 
--/* Clear the reflink flag after an exchange. */
--static inline void
--xfs_exchmaps_clear_reflink(
--	struct xfs_trans	*tp,
--	struct xfs_inode	*ip)
--{
--	trace_xfs_reflink_unset_inode_flag(ip);
--
--	ip->i_diflags2 &= ~XFS_DIFLAG2_REFLINK;
--	xfs_trans_log_inode(tp, ip, XFS_ILOG_CORE);
--}
--
- /* Finish whatever work might come after an exchange operation. */
- static int
- xfs_exchmaps_do_postop_work(
-@@ -557,16 +543,6 @@ xfs_exchmaps_do_postop_work(
- 			return error;
- 	}
- 
--	if (xmi->xmi_flags & XFS_EXCHMAPS_CLEAR_INO1_REFLINK) {
--		xfs_exchmaps_clear_reflink(tp, xmi->xmi_ip1);
--		xmi->xmi_flags &= ~XFS_EXCHMAPS_CLEAR_INO1_REFLINK;
--	}
--
--	if (xmi->xmi_flags & XFS_EXCHMAPS_CLEAR_INO2_REFLINK) {
--		xfs_exchmaps_clear_reflink(tp, xmi->xmi_ip2);
--		xmi->xmi_flags &= ~XFS_EXCHMAPS_CLEAR_INO2_REFLINK;
--	}
--
- 	return 0;
- }
- 
-@@ -948,56 +924,13 @@ xfs_exchmaps_intent_destroy_cache(void)
- }
- 
- /*
-- * Decide if we will exchange the reflink flags between the two files after the
-- * exchange.  The only time we want to do this is if we're exchanging all
-- * mappings under EOF and the inode reflink flags have different states.
-+ * Allocate and initialize a new incore intent item from a request.
-  */
--static inline bool
--xmi_can_exchange_reflink_flags(
--	const struct xfs_exchmaps_req	*req,
--	unsigned int			reflink_state)
--{
--	struct xfs_mount		*mp = req->ip1->i_mount;
--
--	/*
--	 * The INO1_WRITTEN optimization can skip exchanging hole and
--	 * unwritten mappings, which means we cannot guarantee that all
--	 * shared extents actually moved to the other file.  Clearing the
--	 * reflink flag of an inode that still holds shared extents breaks
--	 * the CoW write path, so refuse to exchange the flags in that case.
--	 */
--	if (req->flags & XFS_EXCHMAPS_INO1_WRITTEN)
--		return false;
--
--	/*
--	 * The INO1_WRITTEN optimization can skip exchanging hole and
--	 * unwritten mappings, which means we cannot guarantee that all
--	 * shared extents actually moved to the other file.  Clearing the
--	 * reflink flag of an inode that still holds shared extents breaks
--	 * the CoW write path, so refuse to exchange the flags in that case.
--	 */
--	if (req->flags & XFS_EXCHMAPS_INO1_WRITTEN)
--		return false;
--
--	if (hweight32(reflink_state) != 1)
--		return false;
--	if (req->startoff1 != 0 || req->startoff2 != 0)
--		return false;
--	if (req->blockcount != XFS_B_TO_FSB(mp, req->ip1->i_disk_size))
--		return false;
--	if (req->blockcount != XFS_B_TO_FSB(mp, req->ip2->i_disk_size))
--		return false;
--	return true;
--}
--
--
--/* Allocate and initialize a new incore intent item from a request. */
- struct xfs_exchmaps_intent *
- xfs_exchmaps_init_intent(
+@@ -931,6 +931,7 @@ xfs_exchmaps_init_intent(
  	const struct xfs_exchmaps_req	*req)
  {
  	struct xfs_exchmaps_intent	*xmi;
--	unsigned int			rs = 0;
++	struct xfs_mount		*mp = req->ip1->i_mount;
  
  	xmi = kmem_cache_zalloc(xfs_exchmaps_intent_cache,
  			GFP_NOFS | __GFP_NOFAIL);
-@@ -1021,23 +954,6 @@ xfs_exchmaps_init_intent(
- 		xmi->xmi_isize2 = req->ip1->i_disk_size;
+@@ -948,10 +949,18 @@ xfs_exchmaps_init_intent(
+ 		return xmi;
  	}
  
--	/* Record the state of each inode's reflink flag before the op. */
--	if (xfs_is_reflink_inode(req->ip1))
--		rs |= 1;
--	if (xfs_is_reflink_inode(req->ip2))
--		rs |= 2;
--
--	/*
--	 * Figure out if we're clearing the reflink flags (which effectively
--	 * exchanges them) after the operation.
--	 */
--	if (xmi_can_exchange_reflink_flags(req, rs)) {
--		if (rs & 1)
--			xmi->xmi_flags |= XFS_EXCHMAPS_CLEAR_INO1_REFLINK;
--		if (rs & 2)
--			xmi->xmi_flags |= XFS_EXCHMAPS_CLEAR_INO2_REFLINK;
--	}
--
++	/*
++	 * If the caller wanted, set each file's size to that file's exchange
++	 * offset + length exchanged from the other file because the ranges in
++	 * each file might be different lengths.
++	 */
+ 	if (req->flags & XFS_EXCHMAPS_SET_SIZES) {
++		loff_t	off1 = XFS_FSB_TO_B(mp, xmi->xmi_startoff1);
++		loff_t	off2 = XFS_FSB_TO_B(mp, xmi->xmi_startoff2);
++
+ 		xmi->xmi_flags |= XFS_EXCHMAPS_SET_SIZES;
+-		xmi->xmi_isize1 = req->ip2->i_disk_size;
+-		xmi->xmi_isize2 = req->ip1->i_disk_size;
++		xmi->xmi_isize1 = off1 + (req->ip2->i_disk_size - off2);
++		xmi->xmi_isize2 = off2 + (req->ip1->i_disk_size - off1);
+ 	}
+ 
  	if (S_ISDIR(VFS_I(xmi->xmi_ip2)->i_mode) ||
- 	    S_ISLNK(VFS_I(xmi->xmi_ip2)->i_mode))
- 		xmi->xmi_flags |= __XFS_EXCHMAPS_INO2_SHORTFORM;
-diff --git a/fs/xfs/libxfs/xfs_log_format.h b/fs/xfs/libxfs/xfs_log_format.h
-index a4e1b3eb425cd..6e620380d5dc8 100644
---- a/fs/xfs/libxfs/xfs_log_format.h
-+++ b/fs/xfs/libxfs/xfs_log_format.h
-@@ -927,10 +927,8 @@ struct xfs_xmi_log_format {
-  */
- #define XFS_EXCHMAPS_INO1_WRITTEN	(1ULL << 2)
+diff --git a/fs/xfs/xfs_exchrange.c b/fs/xfs/xfs_exchrange.c
+index fafb4e3f065c7..935b561dfd3c5 100644
+--- a/fs/xfs/xfs_exchrange.c
++++ b/fs/xfs/xfs_exchrange.c
+@@ -290,17 +290,20 @@ xfs_exchrange_mappings(
+ 		goto out_unlock;
  
--/* Clear the reflink flag from inode1 after the operation. */
-+/* No longer set, but older intents may carry them; keep them valid. */
- #define XFS_EXCHMAPS_CLEAR_INO1_REFLINK	(1ULL << 3)
--
--/* Clear the reflink flag from inode2 after the operation. */
- #define XFS_EXCHMAPS_CLEAR_INO2_REFLINK	(1ULL << 4)
+ 	/*
+-	 * If the caller wanted us to exchange the contents of two complete
+-	 * files of unequal length, exchange the incore sizes now.  This should
+-	 * be safe because we flushed both files' page caches, exchanged all
+-	 * the mappings, and updated the ondisk sizes.
++	 * If the caller wanted, set each file's size to that file's exchange
++	 * offset + length exchanged from the other file because the ranges in
++	 * each file might be different lengths.  This should be safe because
++	 * we flushed both files' page caches, exchanged all the mappings, and
++	 * updated the ondisk sizes.
+ 	 */
+ 	if (fxr->flags & XFS_EXCHANGE_RANGE_TO_EOF) {
+-		loff_t	temp;
++		loff_t	old_ip1_size = i_size_read(VFS_I(ip1));
++		loff_t	old_ip2_size = i_size_read(VFS_I(ip2));
  
- #define XFS_EXCHMAPS_LOGGED_FLAGS	(XFS_EXCHMAPS_ATTR_FORK | \
-diff --git a/fs/xfs/xfs_bmap_util.c b/fs/xfs/xfs_bmap_util.c
-index c88b9ade7389d..2ea6507678050 100644
---- a/fs/xfs/xfs_bmap_util.c
-+++ b/fs/xfs/xfs_bmap_util.c
-@@ -1514,7 +1514,6 @@ xfs_swap_extents(
- 	struct xfs_bstat	*sbp = &sxp->sx_stat;
- 	int			src_log_flags, target_log_flags;
- 	int			error = 0;
--	uint64_t		f;
- 	int			resblks = 0;
- 	unsigned int		flags = 0;
- 	struct timespec64	ctime, mtime;
-@@ -1670,14 +1669,12 @@ xfs_swap_extents(
- 	if (error)
- 		goto out_trans_cancel;
- 
--	/* Do we have to swap reflink flags? */
--	if ((ip->i_diflags2 & XFS_DIFLAG2_REFLINK) ^
--	    (tip->i_diflags2 & XFS_DIFLAG2_REFLINK)) {
--		f = ip->i_diflags2 & XFS_DIFLAG2_REFLINK;
--		ip->i_diflags2 &= ~XFS_DIFLAG2_REFLINK;
--		ip->i_diflags2 |= tip->i_diflags2 & XFS_DIFLAG2_REFLINK;
--		tip->i_diflags2 &= ~XFS_DIFLAG2_REFLINK;
--		tip->i_diflags2 |= f & XFS_DIFLAG2_REFLINK;
-+	/* Either inode may now own shared blocks; flag both, with CoW forks. */
-+	if ((ip->i_diflags2 | tip->i_diflags2) & XFS_DIFLAG2_REFLINK) {
-+		ip->i_diflags2 |= XFS_DIFLAG2_REFLINK;
-+		tip->i_diflags2 |= XFS_DIFLAG2_REFLINK;
-+		xfs_ifork_init_cow(ip);
-+		xfs_ifork_init_cow(tip);
+-		temp = i_size_read(VFS_I(ip2));
+-		i_size_write(VFS_I(ip2), i_size_read(VFS_I(ip1)));
+-		i_size_write(VFS_I(ip1), temp);
++		i_size_write(VFS_I(ip2), fxr->file2_offset +
++				(old_ip1_size - fxr->file1_offset));
++		i_size_write(VFS_I(ip1), fxr->file1_offset +
++				(old_ip2_size - fxr->file2_offset));
  	}
  
- 	/* Swap the cow forks. */
+ out_unlock:
+@@ -445,6 +448,30 @@ xfs_exchange_range_checks(
+ 	return blen == fxr->length ? 0 : -EINVAL;
+ }
+ 
++/* Flush all relevant dirty pagecache near the range to be exchanged. */
++static inline int
++xfs_exchange_range_flush(
++	struct xfs_inode		*ip,
++	const struct xfs_exchrange	*fxr,
++	loff_t				offset)
++{
++	/*
++	 * If TO_EOF is set, the ondisk file size update logic depends on the
++	 * ondisk file size matching the incore file size.  Flush everything.
++	 */
++	if (fxr->flags & XFS_EXCHANGE_RANGE_TO_EOF)
++		return filemap_write_and_wait(VFS_I(ip)->i_mapping);
++
++	/*
++	 * Because we're updating the ondisk mappings, flush all dirty data
++	 * between the ondisk size and the exchange offset to reduce the chance
++	 * of zeroed file contents in that gap after a crash.
++	 */
++	return filemap_write_and_wait_range(VFS_I(ip)->i_mapping,
++			min(offset, ip->i_disk_size),
++			offset + fxr->length - 1);
++}
++
+ /*
+  * Check that the two inodes are eligible for range exchanges, the ranges make
+  * sense, and then flush all dirty data.  Caller must ensure that the inodes
+@@ -470,15 +497,11 @@ xfs_exchange_range_prep(
+ 	if (!same_inode)
+ 		inode_dio_wait(inode2);
+ 
+-	error = filemap_write_and_wait_range(inode1->i_mapping,
+-			fxr->file1_offset,
+-			fxr->file1_offset + fxr->length - 1);
++	error = xfs_exchange_range_flush(XFS_I(inode1), fxr, fxr->file1_offset);
+ 	if (error)
+ 		return error;
+ 
+-	error = filemap_write_and_wait_range(inode2->i_mapping,
+-			fxr->file2_offset,
+-			fxr->file2_offset + fxr->length - 1);
++	error = xfs_exchange_range_flush(XFS_I(inode2), fxr, fxr->file2_offset);
+ 	if (error)
+ 		return error;
+ 
 -- 
 2.53.0
 
