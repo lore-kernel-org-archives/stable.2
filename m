@@ -1,156 +1,149 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4FE349BD71
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:22:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D5F1493D5A;
+	Mon, 12 Oct 2026 15:22:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791818544; cv=none; b=cfy8ZnKWx+KBRFIRjhDQvlCTHJA37HtxyfgFXx19UGqyxVLmGt70rmEvI94xNNKTTfkrRJycGvbcaYXiZwE401sfAMR1o8fdlNgWK+uy+dx735g+945DZ6veZ3/FZQ/+3Nw1JpNniAAedddp7hn/yHl0Uv/q7OE7XZ7+0iFb2Vk=
+	t=1791818547; cv=none; b=ZKMM3J6Q8IREs7079bQt4ooosq+b1MkhOKe4UZDWCUf/85gwhyftB6bdddCDLs5OqAf+k0nLDh/gh/Er5b4fmQfd7emVywFcDYxdaLxFUfT73YaP9xUnHDiSmoyJkzSlGjFjo//ofcIx45bu4TxknWNXc5W7ZFdmOWTMF7GYA04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791818544; c=relaxed/simple;
-	bh=d5JQ0h0wO9S6j0YG8E6qWaomQ1MC1/otMF377d50l14=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=u6EcLH4S7lUhmqdy2R0Wesw5mG2CnjUYH1gx9mjIwR+Oith4lRAf51idAROLpbjGAmUEhb8yAqrQvrA/GlH08asZt65eRQHEM4gGvTIvu/HpVfhOh+zHX2R5TJ5t6osGQJbo92wW1t0/IwX1BzhUQtvNOmF4MWUXnLbLTi3Cjvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=r9b2P9kw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791818547; c=relaxed/simple;
+	bh=HT7IxYUi3zGTA8FOAaPbajatjzMw22Fbn5XRehifbL0=;
+	h=Date:Subject:From:To:Cc:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=q4fvqmZi5RJibYnNElmJoQKazBGzf0YyMvKioVDJKsp+cd2Ga+MbOoPtz0Oab1+moNT5eeh487CBR3OvLlWSmL46QFxSiMxC7UJjx3v0kt9m05C1iilWYJBH//UkELEFPYBwPfh222X2Ujp5csIqkW49a35sNPMC0PPx3n4pOwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JcfCBsaU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="r9b2P9kw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A1FE1F0089B;
-	Mon, 12 Oct 2026 15:22:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791818542;
-	bh=/ifiT19y0Gs83itDJKbtp3XhLU/3ZBORbLmP804mxp8=;
-	h=Subject:To:Cc:From:Date;
-	b=r9b2P9kwue0Inn85CY/ihayYGfIbvOBxGk3XswJVHRFJWKAwKyUOU8Xcu7lIX+IBt
-	 J3d0UeVB5E3xqQFLOauLMme6zpFdIkxXhfxD0IY+lU63+t/7Bi87WJ5F3qVrogxwpF
-	 v69ZGNtunj1QFdd2p4ENrI/rnsDippatFvszPVLs=
-Subject: FAILED: patch "[PATCH] scsi: ufs: core: Decouple CQ sweep from request iterator in" failed to apply to 6.18-stable tree
-To: stanleyjhu@google.com,bvanassche@acm.org,mkp@kernel.org,peter.wang@mediatek.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 17:22:28 +0200
-Message-ID: <2026101228-dislike-clambake-14b0@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JcfCBsaU"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id DB17D1F0089E;
+	Mon, 12 Oct 2026 15:22:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791818545;
+	bh=t73XSYnuU/zGE15MC1Gk/YkpGAWaCgHM6ACpaStLWSQ=;
+	h=Date:Subject:From:To:Cc:In-Reply-To:References;
+	b=JcfCBsaU1aI44tGgImkNCL3KOcB/eNjxhXLGtnX5vFb2AZBcpHiega/dit2Hr0qBz
+	 /+uToUoZd6s4Mh6ck5FRrJ2zDgF8NBHRCResY04nns0aSIZ0BnBn7lFs9rHQUHGy9j
+	 vxjunn0vGsw9xikXbmbWcYxbEYUtzfIWN+7Il6hMiYSex1FfFKZM0pbXeV5hHzPBGX
+	 k2EXECjt6x7eSqzZoh9n4ZXWei7QjcQhBF8xdGWh7QeVT67PUAhMqbZAH4hu0CoV3N
+	 lzFKco+lRuevieW0BzZLZpCLx0rnWrqSNRaQEoS+BHxAhH3bD5tPvvMMwOu7uZfYpK
+	 t2EiTgERxOWLA==
+Date: Mon, 12 Oct 2026 08:22:25 -0700
+Subject: [PATCH 08/13] xfs: range-check bc_levels array access in scrub
+ tracepoints
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: djwong@kernel.org, cem@kernel.org
+Cc: hch@lst.de, stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Message-ID: <179181839420.1417179.15421817368554524568.stgit@frogsfrogsfrogs>
+In-Reply-To: <179181839163.1417179.9019753534701755931.stgit@frogsfrogsfrogs>
+References: <179181839163.1417179.9019753534701755931.stgit@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+From: Darrick J. Wong <djwong@kernel.org>
+
+LOLLM noticed xchk_btree()'s odd habit of passing cur->bc_nlevels to
+xchk_btree_ptr_ok when we're checking the pointer to the root block at
+the start of the btree scan.  This enables us to skip checking the
+pointer for an inode btree's root (since it doesn't have one) but
+doesn't handle per-AG btrees quite correctly.  There isn't a problem for
+__xfs_btree_check_ptr itself, but the corruption tracepoint naively
+walks off the end of bc_level[].  Fix that by adding a helper to do an
+implicit range check.
+
+Cc: <stable@vger.kernel.org> # v5.16
+Fixes: 6ca444cfd66354 ("xfs: prepare xfs_btree_cur for dynamic cursor heights")
+Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+---
+ fs/xfs/scrub/trace.h |   10 +++++-----
+ fs/xfs/scrub/trace.c |   13 +++++++++++++
+ 2 files changed, 18 insertions(+), 5 deletions(-)
 
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
-
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x 469fa055664bfd8717b087a80d59c03055789c17
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101228-dislike-clambake-14b0@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 469fa055664bfd8717b087a80d59c03055789c17 Mon Sep 17 00:00:00 2001
-From: Stanley Jhu <stanleyjhu@google.com>
-Date: Mon, 28 Sep 2026 11:58:16 +0800
-Subject: [PATCH] scsi: ufs: core: Decouple CQ sweep from request iterator in
- MCQ
-
-In MCQ mode, ufshcd_mcq_compl_pending_transfer() uses
-blk_mq_tagset_busy_iter() to iterate over busy requests during error
-recovery and host reset. However, both iterator callbacks perform
-whole-queue operations redundantly for each visited request:
-
- - force_compl == true: ufshcd_mcq_force_compl_one() calls
-   ufshcd_mcq_compl_all_cqes_lock() on every busy request, sweeping the
-   entire completion ring (hwq->max_entries slots) once per active request
-   under spin_lock_irqsave even though the first sweep already cleared all
-   completion entries.
-
- - force_compl == false: ufshcd_mcq_compl_one() acquires cq_lock and polls
-   CQTPy over MMIO via ufshcd_mcq_poll_cqe_lock() for every busy request
-   without doing any per-request work.
-
-Sweep or poll each hardware queue (hba->uhq[i]) once at the start of
-ufshcd_mcq_compl_pending_transfer(). When force_compl is true, run
-blk_mq_tagset_busy_iter() afterward to complete residual in-flight
-requests with DID_REQUEUE, and remove the now-unused
-ufshcd_mcq_compl_one() callback.
-
-Fixes: ab248643d3d6 ("scsi: ufs: core: Add error handling for MCQ mode")
-Cc: stable@vger.kernel.org
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
-Link: https://patch.msgid.link/20260928035816.1294326-3-stanleyjhu@google.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index 79b6a2d9b522..ca8329052cbc 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -6044,8 +6044,6 @@ static bool ufshcd_mcq_force_compl_one(struct request *rq, void *priv)
- 	if (blk_mq_is_reserved_rq(rq) || !hwq)
- 		return true;
- 
--	ufshcd_mcq_compl_all_cqes_lock(hba, hwq);
--
- 	/*
- 	 * For those cmds of which the cqes are not present in the cq, complete
- 	 * them explicitly.
-@@ -6061,19 +6059,6 @@ static bool ufshcd_mcq_force_compl_one(struct request *rq, void *priv)
- 	return true;
- }
- 
--static bool ufshcd_mcq_compl_one(struct request *rq, void *priv)
--{
--	struct scsi_device *sdev = rq->q->queuedata;
--	struct Scsi_Host *shost = sdev->host;
--	struct ufs_hba *hba = shost_priv(shost);
--	struct ufs_hw_queue *hwq = ufshcd_mcq_req_to_hwq(hba, rq);
--
--	if (!blk_mq_is_reserved_rq(rq) && hwq)
--		ufshcd_mcq_poll_cqe_lock(hba, hwq);
--
--	return true;
--}
--
- /**
-  * ufshcd_mcq_compl_pending_transfer - MCQ mode function. It is
-  * invoked from the error handler context or ufshcd_host_reset_and_restore()
-@@ -6088,10 +6073,18 @@ static bool ufshcd_mcq_compl_one(struct request *rq, void *priv)
- static void ufshcd_mcq_compl_pending_transfer(struct ufs_hba *hba,
- 					      bool force_compl)
+diff --git a/fs/xfs/scrub/trace.h b/fs/xfs/scrub/trace.h
+index cb85f75ce10180..6b14b149b6000f 100644
+--- a/fs/xfs/scrub/trace.h
++++ b/fs/xfs/scrub/trace.h
+@@ -577,7 +577,7 @@ TRACE_EVENT(xchk_btree_op_error,
+ 		__entry->level = level;
+ 		__entry->agno = XFS_FSB_TO_AGNO(cur->bc_mp, fsbno);
+ 		__entry->bno = XFS_FSB_TO_AGBNO(cur->bc_mp, fsbno);
+-		__entry->ptr = cur->bc_levels[level].ptr;
++		__entry->ptr = xchk_btree_cur_ptr(cur, level);
+ 		__entry->error = error;
+ 		__entry->ret_ip = ret_ip;
+ 	),
+@@ -618,7 +618,7 @@ TRACE_EVENT(xchk_ifork_btree_op_error,
+ 		__entry->type = sc->sm->sm_type;
+ 		__assign_str(name);
+ 		__entry->level = level;
+-		__entry->ptr = cur->bc_levels[level].ptr;
++		__entry->ptr = xchk_btree_cur_ptr(cur, level);
+ 		__entry->agno = XFS_FSB_TO_AGNO(cur->bc_mp, fsbno);
+ 		__entry->bno = XFS_FSB_TO_AGBNO(cur->bc_mp, fsbno);
+ 		__entry->error = error;
+@@ -660,7 +660,7 @@ TRACE_EVENT(xchk_btree_error,
+ 		__entry->level = level;
+ 		__entry->agno = XFS_FSB_TO_AGNO(cur->bc_mp, fsbno);
+ 		__entry->bno = XFS_FSB_TO_AGBNO(cur->bc_mp, fsbno);
+-		__entry->ptr = cur->bc_levels[level].ptr;
++		__entry->ptr = xchk_btree_cur_ptr(cur, level);
+ 		__entry->ret_ip = ret_ip;
+ 	),
+ 	TP_printk("dev %d:%d type %s %sbt level %d ptr %d agno 0x%x agbno 0x%x ret_ip %pS",
+@@ -700,7 +700,7 @@ TRACE_EVENT(xchk_ifork_btree_error,
+ 		__entry->level = level;
+ 		__entry->agno = XFS_FSB_TO_AGNO(cur->bc_mp, fsbno);
+ 		__entry->bno = XFS_FSB_TO_AGBNO(cur->bc_mp, fsbno);
+-		__entry->ptr = cur->bc_levels[level].ptr;
++		__entry->ptr = xchk_btree_cur_ptr(cur, level);
+ 		__entry->ret_ip = ret_ip;
+ 	),
+ 	TP_printk("dev %d:%d ino 0x%llx fork %s type %s %sbt level %d ptr %d agno 0x%x agbno 0x%x ret_ip %pS",
+@@ -740,7 +740,7 @@ DECLARE_EVENT_CLASS(xchk_sbtree_class,
+ 		__entry->bno = XFS_FSB_TO_AGBNO(cur->bc_mp, fsbno);
+ 		__entry->level = level;
+ 		__entry->nlevels = cur->bc_nlevels;
+-		__entry->ptr = cur->bc_levels[level].ptr;
++		__entry->ptr = xchk_btree_cur_ptr(cur, level);
+ 	),
+ 	TP_printk("dev %d:%d type %s %sbt agno 0x%x agbno 0x%x level %d nlevels %d ptr %d",
+ 		  MAJOR(__entry->dev), MINOR(__entry->dev),
+diff --git a/fs/xfs/scrub/trace.c b/fs/xfs/scrub/trace.c
+index e5efc680651fce..92a70e4b19d99a 100644
+--- a/fs/xfs/scrub/trace.c
++++ b/fs/xfs/scrub/trace.c
+@@ -42,6 +42,9 @@ xchk_btree_cur_fsbno(
+ 	struct xfs_btree_cur	*cur,
+ 	int			level)
  {
--	blk_mq_tagset_busy_iter(&hba->host->tag_set,
--				force_compl ? ufshcd_mcq_force_compl_one :
--					      ufshcd_mcq_compl_one,
--				NULL);
-+	int i;
++	if (level < 0)
++		return NULLFSBLOCK;
 +
-+	for (i = 0; i < hba->nr_hw_queues; i++) {
-+		if (force_compl)
-+			ufshcd_mcq_compl_all_cqes_lock(hba, &hba->uhq[i]);
-+		else
-+			ufshcd_mcq_poll_cqe_lock(hba, &hba->uhq[i]);
-+	}
-+
-+	if (force_compl)
-+		blk_mq_tagset_busy_iter(&hba->host->tag_set,
-+					ufshcd_mcq_force_compl_one, NULL);
+ 	if (level < cur->bc_nlevels && cur->bc_levels[level].bp)
+ 		return XFS_DADDR_TO_FSB(cur->bc_mp,
+ 				xfs_buf_daddr(cur->bc_levels[level].bp));
+@@ -53,6 +56,16 @@ xchk_btree_cur_fsbno(
+ 	return NULLFSBLOCK;
  }
  
- /**
++static inline int
++xchk_btree_cur_ptr(
++	const struct xfs_btree_cur	*cur,
++	int				level)
++{
++	if (level >= 0 && level < cur->bc_nlevels)
++		return cur->bc_levels[level].ptr;
++	return -1;
++}
++
+ /*
+  * We include this last to have the helpers above available for the trace
+  * event implementations.
 
