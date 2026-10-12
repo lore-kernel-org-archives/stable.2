@@ -1,72 +1,72 @@
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [81.169.146.168])
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 789AA3EB0E7
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 12:12:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F462429CE8
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 12:13:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.80
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791807159; cv=pass; b=PppBw99svb5PGNsK/STpNW9ujiSRN8Vz8goBz4EHl6hx8b+aZmXHUj7eDsnAV3ZeFC7ZLJ7EJp1v/TPrf0gSIfqHB6f4yV0TgWrvACDD/yVYWCtIO0t7h2ROguij8DTcHVZD5zXij13rtzeO8lV/wGGWkBBsRe3Yc73HKwkzfrY=
+	t=1791807191; cv=pass; b=BXBoGS696ovPOb/CAlnmpnAUbV/ZSJ1hyN1V34OLNhhk9JjKSXvUNPaGePUAsh01UCcGO+BVHXrxbAlDo2t5xmS8xj/APKNhacPtZw3UBws/5dn+3fSfs9Ir2xgSQmkj42e3sfwGsJmHzTR8zPVAMzoY8vPcolhB3EJq+di/kgo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791807159; c=relaxed/simple;
-	bh=Eo12YK71bc3yWVhW6ZIyV0/fgwNhcSuGmcYpBP9+aFw=;
+	s=arc-20240116; t=1791807191; c=relaxed/simple;
+	bh=8Opd7Cq32kNN1tAXUcE5jnkOnV5c9r0rjNQueMhZQLs=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pfORE9o3Mee9MzIXzqCwvbJRXcdLzvhX/KoHBk/vWvVQaSQW/tz7eMEoDGBaG5fW3hdiwIr7UhG45YwHz+fE/rcAqrrEhlC4ME/Yx/KKM14lRJgiMJ35YKTC8MZEbSjMJAl6ocnp8dugCo6JN3O+pSeOOeCtX+c0P9SEs/raZ/A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=X/YBBYCk; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=w615M3kh; arc=pass smtp.client-ip=81.169.146.168
+	 In-Reply-To:Content-Type; b=sRXqUYkR0mM3sD8nlWaO+U1xtqDQsE3m9A1LaSb5IZHfD+n/+IRzkg8SdNAtbiMVE8O8Gy1SFlodWJMq6i+W2QTwBWoCFoQBk/jw5lHbk6dM7Gi71mf2fJ20uJzftwXsAZih2HF9/c3ShFfslGa0t62wV671CFnc3XdUAkookI4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=s0CWtPK4; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=5k0dwQcI; arc=pass smtp.client-ip=85.215.255.80
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="X/YBBYCk";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="w615M3kh"
-ARC-Seal: i=1; a=rsa-sha256; t=1791806974; cv=none;
+	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="s0CWtPK4";
+	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="5k0dwQcI"
+ARC-Seal: i=1; a=rsa-sha256; t=1791807005; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=MflBLL0LFGcOHL7v3qdJFw0HnTpQDd06WdITTyWvGoFw3my2aDP6hWSayVCI5+bwFY
-    9w8GZxQjAAc/mDAOCktR4zk8C+Dz11hPxSTuw5wFZQ87VHt/4u7CsX/FJW0IsDdlstM/
-    sshIuRxbuWaGj8/HpAFNFiyKOlEq44nWYJoUVR0nAy0QFJdpNS9x8AO0sgtNsmTr3lCk
-    sqM2K9vSBrbXCOaHbTD0CWg+j/LRZ8LcG6ShHONZqWcgD74ciQ037eldFfczt6cVJQN3
-    NFTYq5AlTQjco/d5GLLKCMYLf8EL068BXEUb3ULl0dc/5I61729Af5T61IHlPXMMBHdH
-    YgMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1791806974;
+    b=SsblR9RuWZs/Ku2RPD60RsMB5QDMjPHjxNfNG3S6Vf4E/LMJsvkzmcLZE85Yn6BBwB
+    q2gaaBhsQdY/gmpidxVuXNzFfA+FVuIvG2eMUKqObT+yt4KfVAXW/P547dATbdiGvvId
+    DxfSHmiNTI8ZDCc2XQCZvh4MWyH/sD4GrWicTW+kte0yuBgo0TNa88tB3SUOmDOibMmn
+    6JdGd5MjUW1r6Nz0HwXECBum/g9bN3h23ngtHhJhZlo9tIlmCjpb3xbytV+QT+wQ2xCH
+    9WnLNEUPgEsusTOGPR2tAV8X83mxTiu+XTwVDCGlelD284OapGy2OITEutoksY5JMJz9
+    EBTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1791807005;
     s=strato-dkim-0002; d=strato.com;
     h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
     From:Subject:Sender;
-    bh=BAZ30cqtQYvvQPgLpF7WRlFn9iqD/V5rODd/UzUPTbo=;
-    b=LnW7/uqxjIbDDlstpegzrzG+QO2HzcBXGnu8UG0KlqKUEqxs4ylgJA0p25A6lt0ZK8
-    ZLlnqT8orypcJsAe5QtJgoKjf49LFCw7KX76x6c4Qe5BPkzLRIqPGnxCRE06Y8XA596r
-    5AFP0zCt1a3jI5zq39Taqb+I/K8ZMXVnMQgmDXbj3tbxDwZ7wXS9veQ13bhopmCLKTLy
-    +fTctJpEVC78lQ1zE0I1Bg30es+hFRCvVTMug3CQjhVXZHSwNHjScD+nuLCgEiVI+d/A
-    Fc4SYddE7SkgTz2gkdxH0sQyaPL4wNXb6BLpMMRlyE5zcTxtDAS9Emph3+3qun07ha+W
-    J7Zg==
+    bh=AcjSWFjqZl+AiFb2XBTYDP0jKD5Ac5wAbhmo3K6t1Dk=;
+    b=jCH7B6LMayHRhWbXgPcetlZUC96y/H0tpqpVj94ikvPSBfgqgNBtbyd861VRx5keK1
+    8EWJs7M3cjVYS9BcaumYQKd2i7eAZiPA1quMgIfZQUzLwbMvf6psB42TrgQWVxCTiXwm
+    lHs8ZJ3nxwXunqSDFgtcy29ceF/UO6CAiUuzNn7f0hjoN1bPa0Hldc+X3QXC54kaSaOv
+    +kC6nZYgM4INQGTpS0FbVXeR18H+UCFg3bqrHsBKuJOnQJrVSU/2HiziZfGqLfCXkf6V
+    0JZE8WuRZJaF/IdSPgnYjiY/t+6wfLal2aZXFge44KFQwuNKMcP5gDM68jTqwsZ32/cE
+    MwXA==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
 X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1791806974;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1791807005;
     s=strato-dkim-0002; d=hartkopp.net;
     h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
     From:Subject:Sender;
-    bh=BAZ30cqtQYvvQPgLpF7WRlFn9iqD/V5rODd/UzUPTbo=;
-    b=X/YBBYCkd5orMM034vwAdqLF9IwgIxwuhVKRYFaVYMTdUSu/4j6+t03uuirz+ZjYxs
-    IfGZJrejejrKPG7xlbBtnIYQ2GFOyQbevjpZI6oGOuyUzfmwnCG3v+75cHkHnRoIzA7V
-    LIQClUPlhzJxJY0fwnUF2Q+WeRqAaF8vdue3+8Za5iWfRZEly1Z0TMOmO+o0My/bUk4p
-    oOy76bS5Y5WLGzdnSztAXLg8WYFHJabXgM5Db2SzSe3LxKKzWXRPpXAdRI95qu4Mnvr2
-    dsB3ckg7CC0oFmZVMv3xuFvGrqWZv1tGujMHs54L9u5enRNl/3DuIIU/EbxaW8P9qmDR
-    Wwug==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1791806974;
+    bh=AcjSWFjqZl+AiFb2XBTYDP0jKD5Ac5wAbhmo3K6t1Dk=;
+    b=s0CWtPK4jk4lc/UvHMf9cSICqXoR9hF6owrGlr0h6r/G7refeYJ0S5caPFAdMux+c6
+    VHwwUOO10szX/ZGakWpfmIYn9JS9bymbA/+xpp7AGYNYAPTWQd2FOhWP46Lbbye2wKkJ
+    hYJIPNxlwDeYPxFY+Zh5uzXMQ+z3CsvKt6WT93aXpySmjcEhLWOgzjMzTDQ4DJgecq+d
+    qGTd7/isUyzkjpVaOoa6OEDuVSaQJQiPA0UnAau9o4BQlS/OvFDw8OyG89WN+OeOt0LL
+    6W8UDdVqbaEMI4Xm9KYStD67nh7FbJhXFhfsmAnk67LGYC5DjS28hXYHveooY45T71fG
+    SWtw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1791807005;
     s=strato-dkim-0003; d=hartkopp.net;
     h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
     From:Subject:Sender;
-    bh=BAZ30cqtQYvvQPgLpF7WRlFn9iqD/V5rODd/UzUPTbo=;
-    b=w615M3khzKhYf+cm/pn87MJ9HGR2L1iKWTnNWoPPsImcWvKKvnEiHpDLuJDCKeRlld
-    vr8PxBqOraG1lhd5PzDw==
+    bh=AcjSWFjqZl+AiFb2XBTYDP0jKD5Ac5wAbhmo3K6t1Dk=;
+    b=5k0dwQcIDz4E1tB772v/IB5HtgFllIEHzq0DeZ610t1CSNx/w/X7ciCk7R8YTuLXCL
+    0W4bn8Jw5kj3kYubQTDA==
 X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
 Received: from [IPV6:2a00:6020:4a38:6810::989]
     by smtp.strato.de (RZmta 55.6.2 AUTH)
-    with ESMTPSA id K04b9a29CC9Yf5c
+    with ESMTPSA id K04b9a29CCA5f5w
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
 	(Client did not present a certificate);
-    Mon, 12 Oct 2026 14:09:34 +0200 (CEST)
-Message-ID: <c232c545-be69-487d-9792-0643640a11a8@hartkopp.net>
-Date: Mon, 12 Oct 2026 14:09:33 +0200
+    Mon, 12 Oct 2026 14:10:05 +0200 (CEST)
+Message-ID: <b0a7ec4c-0dad-4545-9661-3740b5be90bc@hartkopp.net>
+Date: Mon, 12 Oct 2026 14:10:05 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,13 +75,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: FAILED: patch "[PATCH] can: fix unique skb identifier regression
- under RPS" failed to apply to 6.6-stable tree
+ under RPS" failed to apply to 5.10-stable tree
 To: gregkh@linuxfoundation.org, joe@clnt.de, mkl@pengutronix.de
 Cc: stable@vger.kernel.org
-References: <2026101251-lying-swept-678d@gregkh>
+References: <2026101253-guzzler-atom-1993@gregkh>
 Content-Language: en-US
 From: Oliver Hartkopp <socketcan@hartkopp.net>
-In-Reply-To: <2026101251-lying-swept-678d@gregkh>
+In-Reply-To: <2026101253-guzzler-atom-1993@gregkh>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
@@ -89,19 +89,19 @@ Content-Transfer-Encoding: 7bit
 
 On 12.10.26 13:33, gregkh@linuxfoundation.org wrote:
 > 
-> The patch below does not apply to the 6.6-stable tree.
+> The patch below does not apply to the 5.10-stable tree.
 > If someone wants it applied there, or to any other stable or longterm
 > tree, then please email the backport, including the original git commit
 > id to <stable@vger.kernel.org>.
 > 
 > To reproduce the conflict and resubmit, you may use the following commands:
 > 
-> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 > git checkout FETCH_HEAD
 > git cherry-pick -x 7093c3b8314a4ef7405c4066a2521398c455efe7
 > # <resolve conflicts, build, test, etc.>
 > git commit -s
-> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101251-lying-swept-678d@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101253-guzzler-atom-1993@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 > 
 > Possible dependencies:
 > 
