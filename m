@@ -1,114 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2737F4A4850
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:51:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D1B74A3D4F
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:52:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791820321; cv=none; b=bSvoZV15eFKIQ3AAZ2YiemgIk/QgOgfcVdzsLBTq5hGFb1ukkNIDmdXH/z44LiEehAhHSaWkVFg4gzMXD7460r8fpizjpW3+F67MOVu3e3izf9mRuGykyICbv7WJ8cdMc0x8J+vd0pScOSMJx9Z9A0g8K6Q5D4/nYxSX/ASXs0A=
+	t=1791820367; cv=none; b=IRuzQ2XvU1l8u3UJmogzi1porjRENAkO3iAmO/at+T7J9P9qi3iZ7jD6yAp2xs319oELOYlXzgNVuAzZJr0X2/5VL3wsygfPrIlwqZW2kEehGpBodoY6Qhn/7FcI+rY3Hlo32yQFJErCwVoUWfXOnjrHD038XWlv6tOMMS+5VQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791820321; c=relaxed/simple;
-	bh=+gwyGng7OLq8c3mPvdduwycnTLCbCtK4JJz6rVQM8xc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ee79j9TzNNkp/WWefXZKqCZqwL5j73Era4s5ruN21xCyBDpK+t1Zh8HVFxfKVUN4d6InF9pFJ31haC+RviZdUeaLuqP+/pgPVolupWNGIxlXsswpBVYI3Nn0zrKDwLnrSaPfmkBDsw8d6Hr2x0rDv836IpIPeZaot/D1roND3Zg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YrDDl6yG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791820367; c=relaxed/simple;
+	bh=eiAM38gnvj42Zkob+3EPrZ7rxWx+8eGWjHMeK15nd58=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=YYbkr3H3p1prOoxRKSDKHGm9Kc3YZZ4Cb3XwkFO4tb8qkumPKcESkgZmtFJTgRW3nTO5UmvHdXpsa7RTGRTwuzDRY5zo4WkT9D5dvFclPmqK+VvynGtXVjWCDwIcG8TmE8JFsnm1kr6JgBYDw/msQJha+ruPJr06M7sR9x8eDRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=AHUVNk6T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YrDDl6yG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BC1F1F0089B;
-	Mon, 12 Oct 2026 15:51:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791820319;
-	bh=A2lJittMzY1KDTZlZsfKaj5OFalAD0K76UgQ6HaFSxU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YrDDl6yG7Q+FeeDuYywfOKuUdM+lMIXQtus5vaunu0jYto0xUzimf2qjIZ5CAiv1R
-	 /Udc2qFdPNahKzeotRSQ9G+jzLnDFy13w1gmENd1sIdi1maGuD/8Bj/4AlWppolR84
-	 uSR9y4NBb2MjRg6NnriAelc+uSiSKZWYXg/FNJASp4P1gCjVHSrm6K2YAYqXTfuiIS
-	 6CdLNUBxX6PZDtykOQJdfEEQuOPu+hkyVHlrO6MyJjmDewWsd0gwdb+9tBNCEqmgE7
-	 /5rX7tGH3F8+ob9OivSdpuBeyTlWU5H1JqZzMzJjy2EKWrLWXcRtjZpd91SKnkO7bF
-	 76zrdq66D3f4w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Daehyeon Ko <4ncienth@gmail.com>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] ip6_gre: remove obsolete ERSPAN PMTU update
-Date: Mon, 12 Oct 2026 11:51:58 -0400
-Message-ID: <20261012155144.1092943-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101242-anyhow-outfit-f9c6@gregkh>
-References: <2026101242-anyhow-outfit-f9c6@gregkh>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AHUVNk6T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E3E91F0089C;
+	Mon, 12 Oct 2026 15:52:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791820365;
+	bh=H49NIJBI44bvXysd8DjqKBlX/hQQwvB8f+jQtDhoF6A=;
+	h=Subject:To:Cc:From:Date;
+	b=AHUVNk6TaVLQXu8XsKO8dWBA8dZI+UZ74T6lwpUArrzYj95A6WNMH4sbIrIrIM1c1
+	 Ai/ugA/ZJIlsKIn/IhwLp7aaI011o8dHgxR8rme+N36aiP5rSxcfbUYXm3fhN0U2Gh
+	 i9j+/YRnwNSgUSd65a8Y0pJtcIQc2nUPrrvIVpRY=
+Subject: FAILED: patch "[PATCH] unshare: don't drop active namespace references that were" failed to apply to 6.18-stable tree
+To: brauner@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 12 Oct 2026 17:52:50 +0200
+Message-ID: <2026101250-slimy-reptile-81bc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: Daehyeon Ko <4ncienth@gmail.com>
 
-[ Upstream commit 8bc60db48e8cba35488bbd6e1f94aa990afa275a ]
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-A tc tunnel_key action can attach a METADATA_IP_TUNNEL dst to an skb,
-and mirred can redirect it to a native ip6erspan device. The legacy PMTU
-update in ip6erspan_tunnel_xmit() treats that metadata dst as a route.
-Since it has no output device, dst_dev(dst)->mtu dereferences NULL.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-On v7.2 with KASAN, an initial UID/GID 65534 process with CapEff 0 used
-self-created user and network namespaces to trigger:
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x 0b6f31a3c0b16066f812e94b52a704174a6f23cd
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101250-slimy-reptile-81bc@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
-  KASAN: null-ptr-deref
-  RIP: ip6erspan_tunnel_xmit+0x10fc/0x2cc0
-  Kernel panic - not syncing: Fatal exception in interrupt
+Possible dependencies:
 
-The update is obsolete. Commit fe1a4ca0a2b7 ("ip6_gre: process toobig
-in a better way") changed IPv6 GRE Too Big handling to update the
-underlay route and removed the equivalent block from __gre6_xmit().
-ip6_tnl_xmit() then propagates the underlay PMTU to the overlay route.
 
-Remove the stale ERSPAN copy and its now-unused dst variable. This
-eliminates the metadata-dst dereference and keeps ERSPAN aligned with
-IPv6 GRE PMTU handling.
 
-Fixes: 5a963eb61b7c ("ip6_gre: Add ERSPAN native tunnel support")
-Cc: stable@vger.kernel.org
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/20261002033058.358137-1-4ncienth@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: Adjusted the deletion to match dst6_mtu() instead of dst_mtu(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/ipv6/ip6_gre.c | 7 -------
- 1 file changed, 7 deletions(-)
+thanks,
 
-diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
-index ebd0198458cd3..e3aedef13ceed 100644
---- a/net/ipv6/ip6_gre.c
-+++ b/net/ipv6/ip6_gre.c
-@@ -922,7 +922,6 @@ static netdev_tx_t ip6erspan_tunnel_xmit(struct sk_buff *skb,
- {
- 	struct ip_tunnel_info *tun_info = NULL;
- 	struct ip6_tnl *t = netdev_priv(dev);
--	struct dst_entry *dst = skb_dst(skb);
- 	IP_TUNNEL_DECLARE_FLAGS(flags) = { };
- 	bool truncate = false;
- 	int encap_limit = -1;
-@@ -1058,12 +1057,6 @@ static netdev_tx_t ip6erspan_tunnel_xmit(struct sk_buff *skb,
- 	gre_build_header(skb, 8, flags, proto, 0,
- 			 htonl(atomic_fetch_inc(&t->o_seqno)));
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 0b6f31a3c0b16066f812e94b52a704174a6f23cd Mon Sep 17 00:00:00 2001
+From: Christian Brauner <brauner@kernel.org>
+Date: Wed, 30 Sep 2026 15:32:08 +0200
+Subject: [PATCH] unshare: don't drop active namespace references that were
+ never taken
+
+Active references on the namespaces of an nsproxy are taken when the
+nsproxy is installed into a task in switch_task_namespaces() and
+copy_namespaces() and dropped again by put_nsproxy() through
+deactivate_nsproxy().
+
+But ksys_unshare() calls put_nsproxy() on an nsproxy that was never
+installed when set_cred_ucounts() fails. The new namespaces of that
+nsproxy go from zero to minus one and the namespaces shared with the
+caller lose a reference that belongs to the nsproxy the caller keeps
+using:
+
+  WARNING: kernel/nscommon.c:171 at __ns_ref_active_put+0x1cd/0x230
+   nsproxy_ns_active_put
+   deactivate_nsproxy
+   ksys_unshare
+
+Afterwards the namespaces the caller lives in aren't listed by listns()
+anymore. set_cred_ucounts() only fails when alloc_ucounts() can't
+allocate and it only allocates when the real uid of the caller differs
+from its effective uid.
+
+Commit cefd55bd2159 ("nsproxy: fix free_nsproxy() and simplify
+create_new_namespaces()") separated the two cases on purpose.
+nsproxy_free() frees an nsproxy that was prepared but never installed
+and that's what a failed setns() uses in put_nsset(). Export it and use
+it for a failed unshare() as well.
+
+Fixes: a98621a0f187 ("unshare: fix nsproxy leak in ksys_unshare() on set_cred_ucounts() failure")
+Cc: stable@vger.kernel.org # v7.1+
+Link: https://patch.msgid.link/20260930-work-mount-fixes-3-v1-16-be34c83956ae@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+
+diff --git a/include/linux/nsproxy.h b/include/linux/nsproxy.h
+index 5a67648721c7..dc2447f5f092 100644
+--- a/include/linux/nsproxy.h
++++ b/include/linux/nsproxy.h
+@@ -100,6 +100,7 @@ void exit_cred_namespaces(struct task_struct *tsk);
+ void switch_task_namespaces(struct task_struct *tsk, struct nsproxy *new);
+ int exec_task_namespaces(void);
+ void deactivate_nsproxy(struct nsproxy *ns);
++void nsproxy_free(struct nsproxy *ns);
+ int unshare_nsproxy_namespaces(unsigned long, struct nsproxy **,
+ 	struct cred *, struct fs_struct *);
+ int __init nsproxy_cache_init(void);
+diff --git a/kernel/fork.c b/kernel/fork.c
+index da48168c504f..d442cd68a37a 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -3338,8 +3338,9 @@ int ksys_unshare(unsigned long unshare_flags)
+ 	perf_event_namespaces(current);
  
--	/* TooBig packet may have updated dst->dev's mtu */
--	if (!t->parms.collect_md && dst) {
--		mtu = READ_ONCE(dst_dev(dst)->mtu);
--		if (dst6_mtu(dst) > mtu)
--			dst->ops->update_pmtu(dst, NULL, skb, mtu, false);
--	}
- 	err = ip6_tnl_xmit(skb, dev, dsfield, &fl6, encap_limit, &mtu,
- 			   NEXTHDR_GRE);
- 	if (err != 0) {
--- 
-2.53.0
+ bad_unshare_cleanup_nsproxy:
++	/* never installed, so no active references to drop */
+ 	if (new_nsproxy)
+-		put_nsproxy(new_nsproxy);
++		nsproxy_free(new_nsproxy);
+ bad_unshare_cleanup_cred:
+ 	if (new_cred)
+ 		put_cred(new_cred);
+diff --git a/kernel/nsproxy.c b/kernel/nsproxy.c
+index d9d3d5973bf5..3fb1595a4a59 100644
+--- a/kernel/nsproxy.c
++++ b/kernel/nsproxy.c
+@@ -61,7 +61,7 @@ static inline struct nsproxy *create_nsproxy(void)
+ 	return nsproxy;
+ }
+ 
+-static inline void nsproxy_free(struct nsproxy *ns)
++void nsproxy_free(struct nsproxy *ns)
+ {
+ 	put_mnt_ns(ns->mnt_ns);
+ 	put_uts_ns(ns->uts_ns);
 
