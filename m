@@ -1,82 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4C17336883;
-	Mon, 12 Oct 2026 15:52:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C42E14ACC93
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:52:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791820376; cv=none; b=fD8AFpb40EPa97t+zcgBTZlHzoQ/8U7H/kV1/xl8zu3ahxOE+Gs/UYfmLmoEpey3U7Vl6O/Rtn2S/LknKuGRCcNPDQAXHpYlS6fV0AXZJvHscOY/4cHdzBEU7eT0Y6RMpEj3/r33/pOUoYczDYZkPpVxISxuN3NXlOXidrH/Lk0=
+	t=1791820378; cv=none; b=qPU6sR8CNqaTzb1ySKzcZ03yJ4RTT2O52k5VSBk11xLND4E91dekfbez3PRXfT27JFrzrhbSWyiB/nfl1uAgBdXXLELaeqOTzGjwa0IHKxzycgOaZeI3Frmi2VmX2suOX7RUb8251Nj8zJG9jPzt50RxslDt1XGUdPFh6pu7P/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791820376; c=relaxed/simple;
-	bh=yGZQMHIurMBdTBsG9bK6lKhru/bp0GbKU+QZjJv+eOs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tQtIEGz7rhX4oXDAGt13ce+SGciWOJhiqo9hk+d4eif4NHgWV/plIYZChhfJ0Mu0f2IKpYHml3ZYlIElE32gLgenpJbXsCJ5k/OXEE3+mW0nDrRaQkS3DenyJRAD+3mrj729rF2cxrY95knixsZa2eXudRfxjbvS4A2xbPN2fcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VBKap8my; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791820378; c=relaxed/simple;
+	bh=ZLtBjG2urYwKLw9EYhNGo5Nnte8V9CwNq2mCDnG+5Qo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=c6uzri5R2BxxDbWo61uA0n9Kkcd0Ybq5P39G/HjDrtrdLPTsLndHFqtPvuj0hBgWIWkXJiTt9EFD6bpUSviiRi1nT0EAnVoKWglWir4LJN6yKb02cIgMhA/EjlpHLFbr9ZS7IgB7zKfGcYn6xaOCbpi7Tj+6DNYyTWpcpMaElq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nFg5mOiq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VBKap8my"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5BD0A1F0089B;
-	Mon, 12 Oct 2026 15:52:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791820375;
-	bh=r1YRHReaoh2NrqFcs0RmaycnTHahxss9fwmfRXIULng=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VBKap8mytzXBu1UukTyjZHoE80lpMoHn7wOcpiWIWgOi2jnzPKFPZxokADnQwCs7Z
-	 0ruY8xbv4Qo6B4w85nIB6uq/2W9PcW8Ewd/D/XBhoAGA32Nmsu2mAhL+yj/d3k8SU0
-	 wpFD3rWtjoWEQGV8LsHCkXWgmvH5L8/UnR7r0rMvH8UiwagS9kVe6THEFB8QIQCpbV
-	 XdUwwfhbggVsJfb2gU/sSecJxYxcx1s811d6M1yizxfPKeqFOsZHkkhzYmBNHgKFk1
-	 VMgCHRrVbXvm4BRDUN/g89OvzL4pnZ+N04NoZAUMg8Et6gz64sq2Xz6ldJQ39n6QmI
-	 t3Q1fMoJwlMZw==
-Date: Mon, 12 Oct 2026 08:52:54 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Subject: Re: [PATCH 06/12] xfs: only written file data blocks can be shared
-Message-ID: <20261012155254.GB2705364@frogsfrogsfrogs>
-References: <179178065114.1058326.9639488899319330972.stgit@frogsfrogsfrogs>
- <179178065324.1058326.3356948076285838276.stgit@frogsfrogsfrogs>
- <aszb_INSp9qbSTf-@infradead.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nFg5mOiq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D09581F0089B;
+	Mon, 12 Oct 2026 15:52:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791820377;
+	bh=n9Frbb1WkXouSN9/miC57VUjJJzGp2dVx1djz6LbBDM=;
+	h=Subject:To:Cc:From:Date;
+	b=nFg5mOiqEeDSd3/pJUyooRjf4HZQtpfWXSiZy0sjUB/xAq4hs+aRu7mwEw6mdaYeS
+	 tnQTINlW4lgR668ZKo7T4FVLr2QaoZFWDzw3d7pIiSOBOpKcu0H3En/Z3PgzbTY7B6
+	 xsTQd0QYeOWwnKprnvZ6DTGHtdITTA8LP/R0RBWQ=
+Subject: FAILED: patch "[PATCH] unshare: don't drop active namespace references that were" failed to apply to 6.1-stable tree
+To: brauner@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 12 Oct 2026 17:52:52 +0200
+Message-ID: <2026101252-rubber-mongoose-8680@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aszb_INSp9qbSTf-@infradead.org>
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 12, 2026 at 06:09:16AM -0700, Christoph Hellwig wrote:
-> On Sun, Oct 11, 2026 at 10:57:18PM -0700, Darrick J. Wong wrote:
-> > +	/*
-> > +	 * The refcount btree should only have records for written file data
-> > +	 * blocks or for COW staging blocks.
-> > +	 */
-> > +	if ((XFS_RMAP_NON_INODE_OWNER(rec->rm_owner) &&
-> > +	     rec->rm_owner != XFS_RMAP_OWN_COW) ||
-> > +	    (rec->rm_flags & (XFS_RMAP_ATTR_FORK | XFS_RMAP_BMBT_BLOCK |
-> > +			      XFS_RMAP_UNWRITTEN))) {
-> > +		xchk_btree_xref_set_corrupt(refchk->sc, cur, 0);
-> > +		return 0;
-> > +	}
-> 
-> > +	/*
-> > +	 * The refcount btree should only have records for written file data
-> > +	 * blocks or for COW staging blocks.
-> > +	 */
-> > +	if ((XFS_RMAP_NON_INODE_OWNER(rec->rm_owner) &&
-> > +	     rec->rm_owner != XFS_RMAP_OWN_COW) ||
-> > +	    (rec->rm_flags & (XFS_RMAP_ATTR_FORK | XFS_RMAP_BMBT_BLOCK |
-> > +			      XFS_RMAP_UNWRITTEN))) {
-> > +		xchk_btree_xref_set_corrupt(refchk->sc, cur, 0);
-> > +		return 0;
-> > +	}
-> 
-> Can we have a shared helper for this conditional?
-> 
-> Otherwise this looks good.
 
-rtrefcount.c goes away entirely with sandeen's series in 7.4-next to
-combine the two scrubbers, so in the end there won't be this
-duplication.
+The patch below does not apply to the 6.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
---D
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x 0b6f31a3c0b16066f812e94b52a704174a6f23cd
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101252-rubber-mongoose-8680@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 0b6f31a3c0b16066f812e94b52a704174a6f23cd Mon Sep 17 00:00:00 2001
+From: Christian Brauner <brauner@kernel.org>
+Date: Wed, 30 Sep 2026 15:32:08 +0200
+Subject: [PATCH] unshare: don't drop active namespace references that were
+ never taken
+
+Active references on the namespaces of an nsproxy are taken when the
+nsproxy is installed into a task in switch_task_namespaces() and
+copy_namespaces() and dropped again by put_nsproxy() through
+deactivate_nsproxy().
+
+But ksys_unshare() calls put_nsproxy() on an nsproxy that was never
+installed when set_cred_ucounts() fails. The new namespaces of that
+nsproxy go from zero to minus one and the namespaces shared with the
+caller lose a reference that belongs to the nsproxy the caller keeps
+using:
+
+  WARNING: kernel/nscommon.c:171 at __ns_ref_active_put+0x1cd/0x230
+   nsproxy_ns_active_put
+   deactivate_nsproxy
+   ksys_unshare
+
+Afterwards the namespaces the caller lives in aren't listed by listns()
+anymore. set_cred_ucounts() only fails when alloc_ucounts() can't
+allocate and it only allocates when the real uid of the caller differs
+from its effective uid.
+
+Commit cefd55bd2159 ("nsproxy: fix free_nsproxy() and simplify
+create_new_namespaces()") separated the two cases on purpose.
+nsproxy_free() frees an nsproxy that was prepared but never installed
+and that's what a failed setns() uses in put_nsset(). Export it and use
+it for a failed unshare() as well.
+
+Fixes: a98621a0f187 ("unshare: fix nsproxy leak in ksys_unshare() on set_cred_ucounts() failure")
+Cc: stable@vger.kernel.org # v7.1+
+Link: https://patch.msgid.link/20260930-work-mount-fixes-3-v1-16-be34c83956ae@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+
+diff --git a/include/linux/nsproxy.h b/include/linux/nsproxy.h
+index 5a67648721c7..dc2447f5f092 100644
+--- a/include/linux/nsproxy.h
++++ b/include/linux/nsproxy.h
+@@ -100,6 +100,7 @@ void exit_cred_namespaces(struct task_struct *tsk);
+ void switch_task_namespaces(struct task_struct *tsk, struct nsproxy *new);
+ int exec_task_namespaces(void);
+ void deactivate_nsproxy(struct nsproxy *ns);
++void nsproxy_free(struct nsproxy *ns);
+ int unshare_nsproxy_namespaces(unsigned long, struct nsproxy **,
+ 	struct cred *, struct fs_struct *);
+ int __init nsproxy_cache_init(void);
+diff --git a/kernel/fork.c b/kernel/fork.c
+index da48168c504f..d442cd68a37a 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -3338,8 +3338,9 @@ int ksys_unshare(unsigned long unshare_flags)
+ 	perf_event_namespaces(current);
+ 
+ bad_unshare_cleanup_nsproxy:
++	/* never installed, so no active references to drop */
+ 	if (new_nsproxy)
+-		put_nsproxy(new_nsproxy);
++		nsproxy_free(new_nsproxy);
+ bad_unshare_cleanup_cred:
+ 	if (new_cred)
+ 		put_cred(new_cred);
+diff --git a/kernel/nsproxy.c b/kernel/nsproxy.c
+index d9d3d5973bf5..3fb1595a4a59 100644
+--- a/kernel/nsproxy.c
++++ b/kernel/nsproxy.c
+@@ -61,7 +61,7 @@ static inline struct nsproxy *create_nsproxy(void)
+ 	return nsproxy;
+ }
+ 
+-static inline void nsproxy_free(struct nsproxy *ns)
++void nsproxy_free(struct nsproxy *ns)
+ {
+ 	put_mnt_ns(ns->mnt_ns);
+ 	put_uts_ns(ns->uts_ns);
+
