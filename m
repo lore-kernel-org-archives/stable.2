@@ -1,134 +1,200 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C752F44A708
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 08:27:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D862415B6B;
+	Mon, 12 Oct 2026 08:29:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791793660; cv=none; b=GXGEI29bL2IAF+MeStTUkyBIEPEBmEtv6vEEfX0gLlMygr9ITS3BOf+vf1ZR0EAGjfnQTcOWIt/InxaIRnQ+FtgJnFhqGJsAfRxXSKLK1Ntt1uxm7NPB+jV5vsyD7/0tpAcFrsvDCIvyNQK3ZZpY+UDnaVA3DxTVcNkrP5v1V08=
+	t=1791793793; cv=none; b=M1eAb7cQ+En4iQE+QDQFwd3UAGXLmQVEiVYwxMl9V8//5iJpajLT26lUD/1qBLj+AAqlxG3pNv7SJ7q4r23cJQDF6dhYWfcj0mkhvymyu8+ClNAlXqMtCAF9lavqPrF99vjP7bc46iV53gD+bbnmFaFYzN8CXfTqqeBaUSZDAGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791793660; c=relaxed/simple;
-	bh=3GqsGVRUjoj3lPssoI6fkQedInMU5d1nzfzfv6u1A4Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N+gGqGotfhnc6I4zT7SucR6imKHQUFOEMAQ7pSA1Po2hDRekE+s9HdZNcTWDFKXAj10wOXcctAD2XbRwp4zxK3RTd3r0nIX42urC+GoQGnDoPlWn5SNbD0iKX/OxIKdQq92ZqxrNxLlXMgyZc7Y0NFhma06SpVpuwr2NUYiw8No=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fZ44dp4/; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791793793; c=relaxed/simple;
+	bh=g2Tq/Y511gn4/xKFa+LbRKq89An5iBIqmZGMUrUNtxo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tNo8QGDBmWsh0IhuzXRu58F/+50B+Or1yav0OczwXXAAfBXdZhqP9S40qxjznJvyxJ9d6CLKGWO1QZK/lmA9q3FidlTRH6Te2Tfztkq0ILXpHBSH6eokvI820zNdycH+vu1jlIEY3QU794VAIAheGdl8y3jB2of7XLRBItwGCS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=PMmdXNZi; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fZ44dp4/"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-398b3c37877so727171a91.0
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 01:27:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791793658; x=1792398458; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cphMCACc/G8raeeyalkj56O+G8JXJUyGWoABQ8mUypk=;
-        b=fZ44dp4/8jJ81RrVHGK9/rPEBs0MeG4idUzzXpmEq3mhTxoimoSnAu1IGNfbtdV82s
-         90A3c2GSmtJZhXRjvvUQUBC4vNTdAUwyTWXeXAcdIUyHnRniNXgJKy38TTYM1akxbees
-         FP+6wwVvN4YAIa4TwhYbQKwCKqhmrkuU0jojwwUZPvz3+JngjhtkWMbLFKzIwDSsq+0X
-         1fiBRdB99/WnfHplZYtAAYrIfN6G1TbxdLeD49CZ1UqxXqoPmb1msFxFPrpTEJhyQQmX
-         mT96vnku9ymQ6GXJEijLqAdA/Yn1725S8ZgKtzhTRY8tslDfJvZSXYF+0JzdMW2GoPwV
-         dc+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791793658; x=1792398458;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cphMCACc/G8raeeyalkj56O+G8JXJUyGWoABQ8mUypk=;
-        b=lOBsTPHD/xgZhI2qDU5aAauopLeNf9AXMETUECKlbL2YE81KU2nICezaLg63EB0zY9
-         yMWXMMzB7MYQUcyRo9VBfXtCFKAfaiPayJMzOcKeChlTt7SSTtoCUUvIUl8fE3E1ksjE
-         yElPVzr8/VqV/60yB2WHWHuRf5CEkm2R+uLVi3cLGjkZRX3a9pSyJVsiGV/xlcy4ZpDt
-         b8XDx29rRtBnKJIb/HY062SEnSO9Qe+s7++2osDD62M39rUY8Wo5rfj4HhkPcYa3oyD+
-         YQpAI4/TdQrs9HecQTi/kYiEdzkSEyTlbfybbUFUdtzoUzZcqD/tHEaRYrcOd17enUzb
-         eyjw==
-X-Forwarded-Encrypted: i=1; AKwUvBwldcCI4Hhy8ZT0VLo0b6hQIWYQTAVz8atUMBxB828pnIdnWgegz+UkkKMNTmGliefOab8fcSc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJVez1RIFROA3VQCFh0nYk3lQzyPUDzhYMID7Xxi0QqoRLpCmYZ
-	6GwtRCzDwWcgCUH+1SVjb+CCvY/SGSLsgliIWWwG+Akn/uE1Gch5EkRg
-X-Gm-Gg: AYBFou11R4dxNW8TEHA+nBQP8IUob3wNSHt6c6H+dm7BA9sb/gvY1Pob2qsW/tWeqH8
-	xxxDe7Z50hbASg2fqLkLfPARkI34+yDCxKBsGWmqXab49uxsHWyIAn30xbFzh1kyDvvG+9dK4CU
-	1XuF9WAcjk/A1y1oqP3PX0KsjHukrtA0DsPqjPvH0+eOgL5XMMld+YX6fUAvjqR9m/gf1bDnVNC
-	hzkxk5uYwWODcmW/XruxFdjX2q6XGHnIef+jesZxGjm1Gj2yxJQ/04DU3pRt7CZ2gocG2WgvKKK
-	CbygUnJEN2lRmCVBZ1iqJ154HeWw7ooN72gOuoCJFxkKssDPxm54Olihv9V+5e5Dnc1XyP2sJKi
-	6ejsCdYLC9CMQIHzK0YuNnV5i6E/xv/fFu+JpQtYr6a9MPXm9S7+L4JV29pp9d4aIVnxDy2Hjq4
-	mEzeKWpxQOyl1e7UE/dlHO8PB0Yk5X+gSvJkz2NcrqFRBMUxLBi0kY2bdpOgkypRUU7FRrjSn4e
-	/5KZvsfzoNDuqoY96ujuF0duCS64T2t6h/E
-X-Received: by 2002:a17:90b:4b09:b0:398:e96a:8999 with SMTP id 98e67ed59e1d1-3ab3ab60614mr6616690a91.16.1791793658108;
-        Mon, 12 Oct 2026 01:27:38 -0700 (PDT)
-Received: from ?IPV6:2620:10d:c085:21e8::1189? ([2620:10d:c090:400::5:b3cd])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36f8277bsm15241625a91.11.2026.10.12.01.27.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 01:27:36 -0700 (PDT)
-Message-ID: <51a0e3f7-1e53-498f-81a9-af61a07b2d68@gmail.com>
-Date: Mon, 12 Oct 2026 01:27:35 -0700
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="PMmdXNZi"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C5ELSH2260460;
+	Mon, 12 Oct 2026 08:29:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=ZF7QR8uQzOEu8sn18
+	pPTCUuBQ1fvlGaQn3JalaXlTkw=; b=PMmdXNZii1Xl0VblnIW2l8rhBt0uEMTyl
+	PmRuZzclYmImMXYRBE0HVkTtDnedRd3loNSLox74KvuV+SXRdXFiVZ4LUbRvHIW5
+	DlEwFkE4ZUi9ufbZ3kL4pGDON/iYdRl+1Q2tFYN6oFmNK3wbRjKvEk3sPEiLFnGW
+	0obRVLbEttDazq5YBVO6GuV2bO5sx6ratwiVhwZZMOOrcnpEGnI8VMbAVwiiiLX5
+	uRN40GMMbXinq5V6eNtY/3bv/ZpjFClBC3imMwdq45TOYswPDxKPV5R5obZbl6Kt
+	7p4kVQzrrwtWI74yZl4sxUk3rdLqaX/REFW30JNn2qh4v31xOvYQg==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv07m0q-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 08:29:40 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8K1Ko1014037;
+	Mon, 12 Oct 2026 08:29:40 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h816gv99v-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 08:29:40 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69C8TaTG37880282
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 08:29:36 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0708C2004B;
+	Mon, 12 Oct 2026 08:29:36 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4CCEB20043;
+	Mon, 12 Oct 2026 08:29:33 +0000 (GMT)
+Received: from li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibmuc.com (unknown [9.39.28.91])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 12 Oct 2026 08:29:33 +0000 (GMT)
+From: Gautam Menghani <gautam@linux.ibm.com>
+To: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au,
+        chleroy@kernel.org, sshegde@linux.ibm.com, amachhiw@linux.ibm.com
+Cc: linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+Subject: [PATCH v3 1/4] KVM: PPC: Book3S HV: Ensure that calls to idr_alloc are synchronized
+Date: Mon, 12 Oct 2026 13:59:17 +0530
+Message-ID: <20261012082922.218799-2-gautam@linux.ibm.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261012082922.218799-1-gautam@linux.ibm.com>
+References: <20261012082922.218799-1-gautam@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v3 4/5] eth: fbnic: return the page reference taken
- for a dropped Rx fragment
-To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
- Alexander Duyck <alexanderduyck@fb.com>, Jakub Kicinski <kuba@kernel.org>,
- netdev@vger.kernel.org
-Cc: kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- davem@davemloft.net, Eric Dumazet <edumazet@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Dimitri Daskalakis <daskald@meta.com>,
- Bobby Eshleman <bobbyeshleman@meta.com>,
- Daniel Zahka <daniel.zahka@gmail.com>, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1791775409.git.yhlee@isslab.korea.ac.kr>
- <9d77812119330cd316b7eea7fd35fa4038ff86a0.1791775409.git.yhlee@isslab.korea.ac.kr>
-Content-Language: en-US
-From: Mohsin Bashir <mohsin.bashr@gmail.com>
-In-Reply-To: <9d77812119330cd316b7eea7fd35fa4038ff86a0.1791775409.git.yhlee@isslab.korea.ac.kr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAzMiBTYWx0ZWRfX8ZRtN9wHqKuz
+ WykvxEuLeCLgvePR1D4stQ7KR+GidFR4qyexMW36NqYAOQgyHi07ok9v3tFNlxu48XZwISw6hZv
+ ukBbbTu3c4FHTZP4vEci6Eu/WUhoP276iMP2lKIw2ZgNXtQdZsze3BOFgp2UxRxPqFIPABzuuFg
+ 3Swu8BiVAxOjZc41FoiBY/eGcTgL40GYeg4jXUUiDS8jrTSl8q+E3gyAAI9NIQT7ckhXrG8C25F
+ PlCJeSUyQz3Sy4lt+n6v1UeayfmvHggwparzZ6TqDA48oHld4BWq0S72mcKgz2PkUa9bA8xLmaC
+ TN9tLV7xe4jN3SNX5fMYf7dsBSxojmbzYXNSvo0Wo8wVVJ5NEVC9+nnohIJ832GjiBAD8uJJwaj
+ lXSCtB7fsQ8ZkO5gFdquP2+icl+pB924jsxfQuhQoU3/q5hnkFmABDXYR7h82of+qdTf7M87WTa
+ P2ES1n1zris3ERe9FVg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAzMiBTYWx0ZWRfX3qxgqYvSXNoT
+ xx6vfqFfmqiPeQam/Cb57MpIzmGdsqc654mPZP4i59+IrWSpGq8nQYXhYhWY8oys0vDByTNwmAU
+ fU6PmTcOaL3qGEBUjBOB3vCOMpuOED0=
+X-Proofpoint-ORIG-GUID: t-Nqlme-bYxs5DKPavD_VrkM-YlUT-it
+X-Authority-Analysis: v=2.4 cv=a6KlZkSF c=1 sm=1 tr=0 ts=6acc9a75 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8
+ a=nGxc2afJ-JXm4Ai_qTIA:9
+X-Proofpoint-GUID: OZxeKsKl2FixN_m5LBcCmFZp7ceNrLar
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_02,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 spamscore=0 suspectscore=0 clxscore=1015
+ phishscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120032
 
+Calls to idr_alloc() in __prealloc_nested() are not currently synchronized.
+According to the documentation [1], the caller should provide their own
+locking to prevent concurrent modifications to the idr to prevent bugs.
 
+__prealloc_nested() calls idr_alloc() with GFP_KERNEL which can
+sleep and mmu_lock is a spinlock. So idr_alloc() cannot be moved under
+mmu_lock. In such cases the idr Documentation says:
+    If you need to take a lock while allocating a new ID from the IDR,
+    you may need to pass a restrictive set of GFP flags, which can lead
+    to the IDR being unable to allocate memory.  To work around this,
+    you can call idr_preload() before taking the lock, and then
+    idr_preload_end() after the allocation.
 
-On 10/11/26 9:15 PM, Yehyeong Lee wrote:
-> fbnic_add_rx_frag() takes a page reference through
-> fbnic_page_pool_get_data(), which decrements the buffer's pagecnt_bias,
-> before handing the page to xdp_buff_add_frag().  xdp_buff_add_frag()
-> fails when the buffer already holds MAX_SKB_FRAGS fragments, and on that
-> path the reference is lost: add_frag_failed is set and the frame is
-> dropped, but the bias is not restored and fbnic_put_pkt_buff() only
-> returns the fragments that were actually attached.
-> 
-> The page is then never returned to the page pool.  A device that keeps
-> sending payload completions for one packet past MAX_SKB_FRAGS leaks a
-> page for every completion beyond the limit.
-> 
-> Restore pagecnt_bias on the failure path, the exact inverse of the get,
-> so fbnic_page_pool_drain() reclaims the page.
-> 
-> Fixes: 61f9a066c309 ("eth: fbnic: Use shinfo to track frags state on Rx")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-> ---
->   drivers/net/ethernet/meta/fbnic/fbnic_txrx.c | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-> index 47ded7a9e0a81..7a9bd91bcc41c 100644
-> --- a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-> +++ b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-> @@ -1171,6 +1171,8 @@ static void fbnic_add_rx_frag(struct fbnic_napi_vector *nv, u64 rcd,
->   
->   	added = xdp_buff_add_frag(&pkt->buff, netmem, pg_off, len, truesize);
->   	if (unlikely(!added)) {
-> +		/* Give back the reference fbnic_page_pool_get_data() took */
-> +		qt->sub1.rx_buf[pg_idx].pagecnt_bias++;
->   		pkt->add_frag_failed = true;
->   		netdev_err_once(nv->napi.dev,
->   				"Failed to add fragment to xdp_buff\n");
+Hence preload the idr memory with idr_preload() before taking mmu_lock,
+which allows us to use idr_alloc(..., GFP_NOWAIT) under the spinlock.
 
-We can expect to receive at most four payload frags per packet, so 
-exceeding MAX_SKB_FRAGS is not expected during normal operation. 
-Independently, Daniel already fixed reference handling in 1c85ea5df86b
+This also allows to kill __prealloc_nested() and __add_nested(), as they
+are not needed anymore with idr_preload().
+
+[1]: lib/idr.c
+
+Fixes: c0f00a18e2a8 ("KVM: PPC: Book3S HV Nested: Change nested guest lookup to use idr")
+Cc: stable@vger.kernel.org # 5.19+
+Co-developed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
+---
+v3:
+1. Fix the patch description to accurately describe the code change.
+(Ritesh)
+
+v2:
+1. None
+
+ arch/powerpc/kvm/book3s_hv_nested.c | 34 +++++++++--------------------
+ 1 file changed, 10 insertions(+), 24 deletions(-)
+
+diff --git a/arch/powerpc/kvm/book3s_hv_nested.c b/arch/powerpc/kvm/book3s_hv_nested.c
+index a6ff42d7666c..e893fdd24f0a 100644
+--- a/arch/powerpc/kvm/book3s_hv_nested.c
++++ b/arch/powerpc/kvm/book3s_hv_nested.c
+@@ -702,20 +702,6 @@ static struct kvm_nested_guest *__find_nested(struct kvm *kvm, int lpid)
+ 	return idr_find(&kvm->arch.kvm_nested_guest_idr, lpid);
+ }
+ 
+-static bool __prealloc_nested(struct kvm *kvm, int lpid)
+-{
+-	if (idr_alloc(&kvm->arch.kvm_nested_guest_idr,
+-				NULL, lpid, lpid + 1, GFP_KERNEL) != lpid)
+-		return false;
+-	return true;
+-}
+-
+-static void __add_nested(struct kvm *kvm, int lpid, struct kvm_nested_guest *gp)
+-{
+-	if (idr_replace(&kvm->arch.kvm_nested_guest_idr, gp, lpid))
+-		WARN_ON(1);
+-}
+-
+ static void __remove_nested(struct kvm *kvm, int lpid)
+ {
+ 	idr_remove(&kvm->arch.kvm_nested_guest_idr, lpid);
+@@ -862,21 +848,21 @@ struct kvm_nested_guest *kvmhv_get_nested(struct kvm *kvm, int l1_lpid,
+ 	if (!newgp)
+ 		return NULL;
+ 
+-	if (!__prealloc_nested(kvm, l1_lpid)) {
+-		kvmhv_release_nested(newgp);
+-		return NULL;
+-	}
+-
++	idr_preload(GFP_KERNEL);
+ 	spin_lock(&kvm->mmu_lock);
+ 	gp = __find_nested(kvm, l1_lpid);
+ 	if (!gp) {
+-		__add_nested(kvm, l1_lpid, newgp);
+-		++newgp->refcnt;
+-		gp = newgp;
+-		newgp = NULL;
++		if (idr_alloc(&kvm->arch.kvm_nested_guest_idr, newgp,
++			      l1_lpid, l1_lpid + 1, GFP_NOWAIT) >= 0) {
++			++newgp->refcnt;
++			gp = newgp;
++			newgp = NULL;
++		}
+ 	}
+-	++gp->refcnt;
++	if (gp)
++		++gp->refcnt;
+ 	spin_unlock(&kvm->mmu_lock);
++	idr_preload_end();
+ 
+ 	if (newgp)
+ 		kvmhv_release_nested(newgp);
+-- 
+2.54.0
+
