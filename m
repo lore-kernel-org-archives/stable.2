@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA68549BD97
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:26:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76CFF49BD67
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:26:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791818775; cv=none; b=W1JROzERpm8YYIRQeUd5fwIdftqsh9ZkIr2OIgs2prP3MGj04wnPwzuD469OmOTIKfqVP7i1arUEEXl6/lQQW8Zq/LirC1ihvxH6vyPzN2SyZo9Sqyt9v0Dk8Fdx3vzyyNwfatCH8XCUNeGXigRhRyHPMuNLPujBvS9bc0d913E=
+	t=1791818784; cv=none; b=gPsv91JIbZHt+U5Z9V6+8qlkBfpItRVvWlgOpHIecKqTFvIOT+qgTZ/4T/Ndh/sfHGdH7kzZLAeH4xxHESz2FjQV1pjavh0S5aRV119Ec1Q7vmOn4A/tSs5ARIwYUZR8fqEoguNtrxCl7auRBYLU5Cl70qr2zjGRHTenqjhF8Tw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791818775; c=relaxed/simple;
-	bh=Z+gAM1j4TOe1z4QKIYF0nFprtwFO+AQ06rj5Vs953aM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=duNVcNbmYNwMeGXXERNMtUo9iuZgwgrwDg+7QVSMqHyavZ6tNlHrJHsLf6eh1WqzE59E16lOOF2JCadqvu0ARbf75iJ/SlWc47FKadpfu0S/WPexRclWcUO1J5/qlYoTo3umqLakuYkMapfmfsH9K/b+y53bHLSpJdSxYcmqAgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wr0rHZNF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791818784; c=relaxed/simple;
+	bh=x48V9cnlLw6ivMunyPJxMgLcFiB51KybMMaRjgRVgK0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=OUu+v6+iuu1P/nUg+ZHmfIi01pLd7UaPE/C5GW2OXLZ2SMxHx33BBFzPKhUXo865UfHYS25IImje6MiVXY3C1q6B4TDz4Izsl1ig/AwBFt3UBQKeIPAChDU4N+lfYmWgkkiwhWNHwv8id9ccd501+Hx0LlgsUmPlafuktTfecMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qwqKGHP5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wr0rHZNF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A81681F0089B;
-	Mon, 12 Oct 2026 15:26:09 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qwqKGHP5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47ACE1F008A0;
+	Mon, 12 Oct 2026 15:26:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791818770;
-	bh=2UQpTVPAqoII1pdeSho03cQf2TWpHj3h/dsazQiZlPc=;
+	s=korg; t=1791818779;
+	bh=HTO9GuVXd7/IpWwk96lD94DK34pUN08KscA4v9+1DJQ=;
 	h=Subject:To:Cc:From:Date;
-	b=wr0rHZNFzxdt7olf1oe+OQu4JbM1nMjsDPWfbP7W+ZG8TQh4tIqXZbR8kls0JMP3R
-	 iyfeZpV2HOrl4hyrmUtVHs1MdOv/9+MigLh2WWBnUplIiQQ94697PEmRTFNQwgKASf
-	 +ZpP03DOftHNJkOIWm0TdSbwwoqrVD+UKg/xp2/o=
-Subject: FAILED: patch "[PATCH] Bluetooth: hci_sync: Fix command skb lifetime during scan" failed to apply to 6.6-stable tree
-To: nicoyip.dev@gmail.com,luiz.von.dentz@intel.com
+	b=qwqKGHP5wGAESymDNIMytjJI+vsGml3++sPNn4rgrlOdc1rdcWHajF+G/zxlf07oF
+	 9cTVRG8Z7D/NZirhVKTQ0YU09gGhKTowLLeBjzr/eOFQAcoTeXXWuGmdv8Ydr+v8Sc
+	 P+4jYj2l/mYCrHMwpNiEDhpaEPc/sfkEo4kJHlFc=
+Subject: FAILED: patch "[PATCH] Bluetooth: ISO: Serialize concurrent connect calls" failed to apply to 6.6-stable tree
+To: nicoyip.dev@gmail.com,luiz.von.dentz@intel.com,pav@iki.fi
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 17:26:07 +0200
-Message-ID: <2026101207-gamma-undermost-7763@gregkh>
+Date: Mon, 12 Oct 2026 17:26:25 +0200
+Message-ID: <2026101225-clench-crowbar-615f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9af12272061d206af8bc3e40215cb694421ab73a
+git cherry-pick -x e32d80293a0e1a160d5e5101daa8c82148c07510
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101207-gamma-undermost-7763@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101225-clench-crowbar-615f@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,120 +62,187 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9af12272061d206af8bc3e40215cb694421ab73a Mon Sep 17 00:00:00 2001
+From e32d80293a0e1a160d5e5101daa8c82148c07510 Mon Sep 17 00:00:00 2001
 From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Mon, 5 Oct 2026 00:26:12 +0800
-Subject: [PATCH] Bluetooth: hci_sync: Fix command skb lifetime during scan
- setup
+Date: Mon, 5 Oct 2026 15:50:31 +0800
+Subject: [PATCH] Bluetooth: ISO: Serialize concurrent connect calls
 
-During PA sync scan setup, hci_le_set_ext_scan_param_sync() gets the
-address used for the PA_LINK lookup from hci_sent_cmd_data(). The
-returned pointer borrows storage from sent_cmd or req_skb, without
-holding a reference to either skb.
+iso_sock_connect() checks the socket state before taking the socket lock
+and drops the lock again before setting up a connection. Two callers can
+both pass the admission check while the socket is open or bound.
 
-The scan worker runs on req_workqueue while hci_cmd_work() runs on the
-separate device workqueue. After the scan worker loads sent_cmd, the
-command worker can free and replace it before hci_sent_cmd_data()
-dereferences the skb. The command payload can also be freed between
-returning from the helper and comparing the address. The connection
-lookup's RCU critical section does not protect the command skb.
+Caller A can copy its destination for route selection, then caller B can
+replace the socket destination before A binds or connects the CIS. A
+then uses B's destination with the route selected for its own request.
+B can also proceed after A attaches a connection and sets BT_CONNECT.
+For deferred BIS setup, B can bind a second BIS and overwrite
+iso_pi(sk)->conn, leaving the first connection's reference and conn->sk
+back-pointer stranded. Concurrent CIS connects can likewise replace the
+socket's connection. Later teardown only detaches the current connection,
+so a callback on the old connection can race with socket release and
+access a freed socket.
 
 KASAN reported:
 
-  BUG: KASAN: slab-use-after-free in hci_sent_cmd_data+0x27c/0x2f0
-  Workqueue: hci0 hci_cmd_sync_work
+  BUG: KASAN: slab-use-after-free in iso_sock_hold+0xf7/0x1b0
   Call Trace:
-   hci_sent_cmd_data+0x27c/0x2f0
-   hci_le_set_scan_param_sync+0x43a/0x850
-   hci_passive_scan_sync+0xb09/0x1460
-   hci_update_passive_scan_sync+0x47c/0x6e0
-   hci_le_pa_create_sync+0x200/0xa70
-   hci_cmd_sync_work+0x13c/0x290
+   iso_sock_hold+0xf7/0x1b0
+   iso_conn_del+0x7b/0x1d0
+   iso_connect_cfm+0x186/0x16a0
+   hci_conn_failed+0x154/0x280
+   hci_abort_conn_sync+0x3dc/0x7d0
+   hci_cmd_sync_work+0x173/0x300
 
-  Allocated by task 95:
-   skb_clone+0x13f/0x340
-   hci_cmd_work+0x2a9/0x7e0
+  Allocated by task 121:
+   sk_alloc+0x2b/0x6d0
+   bt_sock_alloc+0x29/0x370
+   iso_sock_alloc.constprop.0+0x19/0x300
+   iso_sock_create+0x94/0x100
 
-  Freed by task 95:
-   kmem_cache_free+0xba/0x3a0
-   hci_cmd_work+0x29c/0x7e0
+  Freed by task 121:
+   kfree+0x121/0x3c0
+   __sk_destruct+0x42b/0x540
+   iso_sock_release+0x29d/0x340
+   __sock_release+0xa1/0x260
 
-Use hdev->lock to serialize the address snapshot with sent_cmd
-replacement. Protect req_skb replacement and completion cleanup with
-the same lock because the helper falls back to that skb. Copy the
-address before releasing the lock and use the copy for the existing
-RCU-protected connection lookup. Release the mutex before sending or
-waiting for commands, preserving the lookup and completion ordering.
+Check admission under the socket lock and mark the connect operation in
+progress before publishing its destination. Keep that flag set across
+route lookup and connection setup, rejecting another connect with
+-EBADFD before it can change the destination or attach a connection.
+Clear the flag after either helper returns, including on failure, so a
+failed setup can be retried.
 
-Fixes: 22cbf4f84c00 ("Bluetooth: hci_sync: Use QoS to determine which PHY to scan")
+A separate flag is needed because the socket lock must be released before
+acquiring the HCI device lock, while BT_CONNECT requires an attached
+connection. Keep the existing state transitions and the deferred CIS
+completion through iso_sock_recvmsg().
+
+Reject an existing socket attachment in __iso_chan_add() before taking
+a new reference or publishing either pointer, so every caller preserves
+the connection association. Keep the same-socket, same-connection success
+case for deferred CIS setup. Reject an attached socket before BIS setup
+so a reusable BIS is not claimed before the attachment is rejected.
+
+In CIS setup, reject a different HCI connection before iso_conn_add()
+and drop the per-attempt HCI hold directly. An unowned iso_conn may still
+carry another reference after detachment, so its destruction cannot be
+relied on to release that hold.
+
+iso_listen_bis() creates a fresh PA HCI/ISO pair under the device lock,
+so the temporary iso_conn_put() frees the ISO candidate and drops its
+HCI hold on rejection. iso_conn_ready() uses a freshly allocated,
+unpublished child with no connection, making the socket-side rejection
+unreachable.
+
+Fixes: ccf74f2390d6 ("Bluetooth: Add BTPROTO_ISO socket type")
 Cc: stable@vger.kernel.org
+Suggested-by: Pauli Virtanen <pav@iki.fi>
 Assisted-by: GPT-6 Astra
 Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 
-diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
-index 2076689eb302..74d9865e08c2 100644
---- a/net/bluetooth/hci_core.c
-+++ b/net/bluetooth/hci_core.c
-@@ -4115,9 +4115,11 @@ static int hci_send_cmd_sync(struct hci_dev *hdev, struct sk_buff *skb)
+diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
+index 2e70c0df9ef3..d6ac5b1f49bc 100644
+--- a/net/bluetooth/iso.c
++++ b/net/bluetooth/iso.c
+@@ -61,6 +61,7 @@ enum {
+ 	BT_SK_BIG_SYNC,
+ 	BT_SK_PA_SYNC,
+ 	BT_SK_KILLED,
++	BT_SK_CONNECTING,
+ };
  
- 	bt_dev_dbg(hdev, "skb %p", skb);
- 
-+	hci_dev_lock(hdev);
- 	kfree_skb(hdev->sent_cmd);
- 
- 	hdev->sent_cmd = skb_clone(skb, GFP_KERNEL);
-+	hci_dev_unlock(hdev);
- 	if (!hdev->sent_cmd) {
- 		skb_queue_head(&hdev->cmd_q, skb);
- 		queue_work(hdev->workqueue, &hdev->cmd_work);
-@@ -4138,8 +4140,10 @@ static int hci_send_cmd_sync(struct hci_dev *hdev, struct sk_buff *skb)
- 
- 	if (READ_ONCE(hdev->req_status) == HCI_REQ_PEND &&
- 	    !hci_dev_test_and_set_flag(hdev, HCI_CMD_PENDING)) {
-+		hci_dev_lock(hdev);
- 		kfree_skb(hdev->req_skb);
- 		hdev->req_skb = skb_get(hdev->sent_cmd);
-+		hci_dev_unlock(hdev);
+ struct iso_pinfo {
+@@ -350,6 +351,9 @@ static int __iso_chan_add(struct iso_conn *conn, struct sock *sk,
+ 		return -EBUSY;
  	}
  
- 	return err;
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index c01c8b58d9e8..a92a81846e9d 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -32,8 +32,10 @@ static void hci_cmd_sync_complete(struct hci_dev *hdev, u8 result, u16 opcode,
- 	WRITE_ONCE(hdev->req_status, HCI_REQ_DONE);
- 
- 	/* Free the request command so it is not used as response */
-+	hci_dev_lock(hdev);
- 	kfree_skb(hdev->req_skb);
- 	hdev->req_skb = NULL;
-+	hci_dev_unlock(hdev);
- 
- 	if (skb) {
- 		struct sock *sk = hci_skb_sk(skb);
-@@ -3064,15 +3066,21 @@ static int hci_le_set_ext_scan_param_sync(struct hci_dev *hdev, u8 type,
- 	 */
- 	if (hci_dev_test_flag(hdev, HCI_PA_SYNC)) {
- 		struct hci_cp_le_add_to_accept_list *sent;
-+		bdaddr_t bdaddr;
- 
-+		hci_dev_lock(hdev);
- 		sent = hci_sent_cmd_data(hdev, HCI_OP_LE_ADD_TO_ACCEPT_LIST);
-+		if (sent)
-+			bacpy(&bdaddr, &sent->bdaddr);
-+		hci_dev_unlock(hdev);
++	if (iso_pi(sk)->conn)
++		return -EISCONN;
 +
- 		if (sent) {
- 			struct hci_conn *conn;
+ 	if (!conn->hcon) {
+ 		BT_ERR("conn->hcon missing");
+ 		return -EIO;
+@@ -410,6 +414,11 @@ static int iso_connect_bis(struct sock *sk)
+ 	hci_dev_lock(hdev);
+ 	lock_sock(sk);
  
- 			rcu_read_lock();
++	if (iso_pi(sk)->conn) {
++		err = -EISCONN;
++		goto unlock;
++	}
++
+ 	if (!bis_capable(hdev)) {
+ 		err = -EOPNOTSUPP;
+ 		goto unlock;
+@@ -562,6 +571,13 @@ static int iso_connect_cis(struct sock *sk)
  
- 			conn = hci_conn_hash_lookup_ba(hdev, PA_LINK,
--						       &sent->bdaddr);
-+						       &bdaddr);
- 			if (conn) {
- 				struct bt_iso_qos *qos = &conn->iso_qos;
+ 	lockdep_assert_held(&hcon->hdev->lock);
  
++	/* The socket lock keeps the current attachment and its hcon stable. */
++	if (iso_pi(sk)->conn && iso_pi(sk)->conn->hcon != hcon) {
++		hci_conn_drop(hcon);
++		err = -EISCONN;
++		goto unlock;
++	}
++
+ 	conn = iso_conn_add(hcon);
+ 	if (!conn) {
+ 		hci_conn_drop(hcon);
+@@ -1269,17 +1285,26 @@ static int iso_sock_connect(struct socket *sock, struct sockaddr_unsized *addr,
+ 	    addr->sa_family != AF_BLUETOOTH)
+ 		return -EINVAL;
+ 
+-	if (sk->sk_state != BT_OPEN && sk->sk_state != BT_BOUND)
+-		return -EBADFD;
++	lock_sock(sk);
+ 
+-	if (sk->sk_type != SOCK_SEQPACKET)
+-		return -EINVAL;
++	if ((sk->sk_state != BT_OPEN && sk->sk_state != BT_BOUND) ||
++	    test_bit(BT_SK_CONNECTING, &iso_pi(sk)->flags)) {
++		err = -EBADFD;
++		goto done;
++	}
++
++	if (sk->sk_type != SOCK_SEQPACKET) {
++		err = -EINVAL;
++		goto done;
++	}
+ 
+ 	/* Check if the address type is of LE type */
+-	if (!bdaddr_type_is_le(sa->iso_bdaddr_type))
+-		return -EINVAL;
++	if (!bdaddr_type_is_le(sa->iso_bdaddr_type)) {
++		err = -EINVAL;
++		goto done;
++	}
+ 
+-	lock_sock(sk);
++	set_bit(BT_SK_CONNECTING, &iso_pi(sk)->flags);
+ 
+ 	bacpy(&iso_pi(sk)->dst, &sa->iso_bdaddr);
+ 	iso_pi(sk)->dst_type = sa->iso_bdaddr_type;
+@@ -1291,16 +1316,18 @@ static int iso_sock_connect(struct socket *sock, struct sockaddr_unsized *addr,
+ 	else
+ 		err = iso_connect_bis(sk);
+ 
+-	if (err)
+-		return err;
+-
+ 	lock_sock(sk);
+ 
++	clear_bit(BT_SK_CONNECTING, &iso_pi(sk)->flags);
++	if (err)
++		goto done;
++
+ 	if (!test_bit(BT_SK_DEFER_SETUP, &bt_sk(sk)->flags)) {
+ 		err = bt_sock_wait_state(sk, BT_CONNECTED,
+ 					 sock_sndtimeo(sk, flags & O_NONBLOCK));
+ 	}
+ 
++done:
+ 	release_sock(sk);
+ 	return err;
+ }
 
