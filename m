@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2CA249B45C
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:33:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEA23330B3F
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:34:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819214; cv=none; b=mivfBRhSranLDIEKZqIsEGv4eqqfnWaY/4oOxEaMD6CuZ2sXhJ6CfkLvxm5EKojMoLwoipxcArcNFhF5cxUfTlT5yK2vtdUZD3v+Lk58oO1j5qmuFgkLD8ez1j8V+DiBQUfS/YKqzUsg4FEytywoFMr6XnVCLDJQpmNk8JJcnwY=
+	t=1791819249; cv=none; b=UiVa4j2vBkC2hC2ASSX8EMhnx0WHDPCCmm9MqyKAVKoqAZqZTAsFIKf1valJXtWOiL05dKN8cXyFWTHiKOZWKoYThSRdOxq9EdFwhsdof6O5WU/gsCvsV+aPScbLeVAIk0dP33Iq1dA640FbZ/g8H/qEUi4a5uWcFz4xGOhphyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819214; c=relaxed/simple;
-	bh=JSDSPVOF6F7I0CorLspGW6PQe1+jYJbEz/orkOvWZSw=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ff9FOwehcWaeUOFb0KCzIsNoEwS2WqSNZo3+lPKwiyF26+iwbSE72E9cWCwNx9C+LxFeJliGq6p/G7P9tVDSL7a0cQpozDlmwJy4J4+wtr20Gz0zfXz8oNTB4xGH4I6CqPO/7rvCAiayxUDVgTz7cH9HIaIXkyG2ZIv5WTaXreM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jlY+6e/r; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791819249; c=relaxed/simple;
+	bh=xRWXmS4L2peREbrD8cRAShjDJPBpy+6v8zrfJ4o12z4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Ur9QOwisU0hieyUbzIBn2M2OaUzaBvgWJYncElh5DCK/u4D1DNuPR90nk+kMzX0zlLI0J0nmu0IVRldQpuMP+CZ9U8MS/Kwkna1flOhWLwBYjG4oRyn4Twxxvtr0GPk9XfQ3wSeXUiGzerDk9EN1gTT+h5VryqD5bTOscvuYpqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UkWFFGO0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jlY+6e/r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 339861F0089B;
-	Mon, 12 Oct 2026 15:33:32 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UkWFFGO0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA7901F0089B;
+	Mon, 12 Oct 2026 15:34:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791819212;
-	bh=YRzow+3LwFTPVmT8tEYQdPwgLlC8pn0odhV4NENs5wk=;
+	s=korg; t=1791819248;
+	bh=HP6Dzp0LHG2JP6garSaKc5+Q7xqlzWjOIlojDKwR8Ks=;
 	h=Subject:To:Cc:From:Date;
-	b=jlY+6e/r8MeBAi5Hxtvb9gCOkJDD9eG7GUnzhiR03ZliRGVOM4ID9Fd82uuoVtWc1
-	 pCGGPiXtwsG7NM9DKI3OO+G6rSOB52Iep+PEAs7/qAmvoOhB90tKi816HA9tIoGt7N
-	 7vKUj6ZemRv1hI7CjF+7K6vfKYIsw/RbRxm27J+M=
-Subject: FAILED: patch "[PATCH] drm/amdgpu: copy debugfs register data outside the GRBM/SRBM" failed to apply to 5.15-stable tree
-To: mikhail.v.gavrilov@gmail.com,alexander.deucher@amd.com,christian.koenig@amd.com,tom.stdenis@amd.com,vitaly.prosyak@amd.com
+	b=UkWFFGO0OONGZcBrNoq23KxH6hfoDefrsDloNqktijM8mhQjanxlq2JcxMZqMs1JK
+	 j17Wb3609Nk6SCbF6F5TesC+TMxlbLOL6owyS1VYJyhAscwZUmIsulmGLfiUicujj6
+	 XxJGy0j/hWOB6tnYRfDFesvukzb43/e2W/d2/eHk=
+Subject: FAILED: patch "[PATCH] drm/amd/display: Don't replace a sink mode that shares the" failed to apply to 7.2-stable tree
+To: adrian.betschart@cinemaone.ch,alexander.deucher@amd.com,daniel.wheeler@amd.com,roman.li@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 17:33:30 +0200
-Message-ID: <2026101230-expedited-brewing-2f54@gregkh>
+Date: Mon, 12 Oct 2026 17:34:14 +0200
+Message-ID: <2026101214-pushchair-yummy-ba23@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 16c64495859f13f75602f439588883f2a4a4d6a6
+git cherry-pick -x 54c998c55fc9cbc391b350d67b86e0c2a0748f1a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101230-expedited-brewing-2f54@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101214-pushchair-yummy-ba23@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,203 +62,120 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 16c64495859f13f75602f439588883f2a4a4d6a6 Mon Sep 17 00:00:00 2001
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Thu, 1 Oct 2026 21:13:07 +0500
-Subject: [PATCH] drm/amdgpu: copy debugfs register data outside the GRBM/SRBM
- locks
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 54c998c55fc9cbc391b350d67b86e0c2a0748f1a Mon Sep 17 00:00:00 2001
+From: Adrian Betschart <adrian.betschart@cinemaone.ch>
+Date: Fri, 25 Sep 2026 09:48:29 +0200
+Subject: [PATCH] drm/amd/display: Don't replace a sink mode that shares the
+ native totals
 
-Reading or writing a register through the amdgpu_regs2 debugfs file
-with GRBM bank selection, which umr does for every banked access (a
-single "umr -b x x x -r <reg>" is enough, as is the wave dump with
-"-O halt_waves"), makes lockdep report a circular locking dependency,
-after which lockdep stays off until reboot:
+decide_crtc_timing_for_drm_display_mode() copies the native mode's CRTC
+timing into the requested mode when clock, htotal and vtotal match.
+That is meant for the modes amdgpu inserts itself:
+amdgpu_dm_create_common_mode() duplicates the native mode and changes
+only hdisplay and vdisplay, so those are sent with the native timing
+and scaled.
 
-  WARNING: possible circular locking dependency detected
-  umr/63306 is trying to acquire lock:
-  ffff8882cf4b8350 (&mm->mmap_lock){++++}-{4:4}, at: __might_fault+0x9b/0x140
-  but task is already holding lock:
-  ffff8881aec010d0 (&amdgpu_grbm_lock_key){+.+.}-{4:4}, at: amdgpu_debugfs_regs2_op.isra.0+0x20d/0xd00 [amdgpu]
-  ...
-  Chain exists of:
-    &mm->mmap_lock --> &amdgpu_srbm_lock_key --> &amdgpu_grbm_lock_key
-  ...
-   __might_fault+0xc5/0x140
-   amdgpu_debugfs_regs2_op.isra.0+0x441/0xd00 [amdgpu]
-   full_proxy_write+0x10e/0x1d0
-   vfs_write+0x1d0/0xf50
-   ksys_write+0x116/0x250
+A sink can also offer a real mode with the same clock and totals as
+its native mode. CTA-861 VIC 102 (4096x2160@60) and VIC 97
+(3840x2160@60) both use 594 MHz and 4400x2250. With 3840x2160@60 as
+the preferred mode, a 4096x2160@60 request goes out with the 3840x2160
+timing and the framebuffer scaled into it (dst 3840x2025 at y=67),
+while the AVI InfoFrame still carries VIC 102. A JVC projector then
+reports 3840x2160 and shows a corrupted right edge. 4096x2160@24,
+whose totals differ, is sent and displayed correctly.
 
-amdgpu_debugfs_regs2_op() and amdgpu_debugfs_process_reg_op() call
-get_user()/put_user() for every dword while holding grbm_idx_mutex or
-srbm_mutex, and pm.mutex if requested, so a fault there takes mmap_lock
-inside those locks. The lock hierarchy in amdgpu_lockdep.c puts
-srbm_mutex and grbm_idx_mutex below notifier_lock, which
-amdgpu_cs_submit() takes with the BO reservations held, and
-dma_resv_lockdep() orders the reservations inside mmap_lock. So
-mmap_lock is outside grbm_idx_mutex and srbm_mutex, and these two
-debugfs paths nest it the other way round. The copies under the locks
-are as old as the bank selection in both files; commit 1d0f5838b126
-("drm/amdgpu: Add lockdep annotations for lock ordering validation")
-only made them visible to lockdep.
+Inserted modes keep the native sync positions; a real mode with its
+own active width does not. Compare those too, so only inserted modes
+are patched.
 
-Copy the user buffer in before any of the locks is taken and the result
-out after all of them are dropped, as amdgpu_debugfs_wave_read(),
-amdgpu_debugfs_gpr_read() and amdgpu_debugfs_gprwave_read() already do.
-The buffer is sized by the count passed to read() or write(), so an
-access larger than PAGE_SIZE is now rejected with -EINVAL; umr reads and
-writes one register at a time. A fault on the user buffer of a write now
-fails with -EFAULT before any register is written, instead of after a
-partial write.
-
-Fixes: 566281595037 ("drm/amd/amdgpu: Add bank selection for MMIO debugfs (v3)")
-Fixes: 37df9560cd3e ("drm/amd/amdgpu: New debugfs interface for MMIO registers (v5)")
-Acked-by: Christian König <christian.koenig@amd.com>
-Acked-by: Tom St Denis <tom.stdenis@amd.com>
-Reviewed-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Fixes: 4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
+Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
+Assisted-by: Claude-Code:claude-opus-5-5
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+Reviewed-by: Roman Li <roman.li@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit ccf9e35ed6811f2c25ba6368e7dc6481da17159d)
+(cherry picked from commit 22f9a2da101c37f821cd00954f81dc598754f4d5)
 Cc: stable@vger.kernel.org
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index aca1a8045afa..ab7ccfaea22a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -121,6 +121,20 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
- 
- 	*pos &= (1UL << 22) - 1;
- 
-+	if (size > PAGE_SIZE)
-+		return -EINVAL;
-+
-+	/*
-+	 * Access the user buffer only while none of the locks below are held:
-+	 * a fault takes mmap_lock, and grbm_idx_mutex and srbm_mutex nest
-+	 * inside it.
-+	 */
-+	u32 *data __free(kfree) = kmalloc(size, GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+	if (!read && copy_from_user(data, buf, size))
-+		return -EFAULT;
-+
- 	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
- 	if (r < 0) {
- 		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-@@ -152,28 +166,16 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
- 		mutex_lock(&adev->pm.mutex);
- 
- 	while (size) {
--		uint32_t value;
--
--		if (read) {
--			value = RREG32(*pos >> 2);
--			r = put_user(value, (uint32_t *)buf);
--		} else {
--			r = get_user(value, (uint32_t *)buf);
--			if (!r)
--				amdgpu_mm_wreg_mmio_rlc(adev, *pos >> 2, value, 0);
--		}
--		if (r) {
--			result = r;
--			goto end;
--		}
-+		if (read)
-+			data[result >> 2] = RREG32(*pos >> 2);
-+		else
-+			amdgpu_mm_wreg_mmio_rlc(adev, *pos >> 2, data[result >> 2], 0);
- 
- 		result += 4;
--		buf += 4;
- 		*pos += 4;
- 		size -= 4;
- 	}
- 
--end:
- 	if (use_bank) {
- 		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
- 		mutex_unlock(&adev->grbm_idx_mutex);
-@@ -188,6 +190,10 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
- 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
- 
- 	amdgpu_virt_disable_access_debugfs(adev);
-+
-+	if (read && copy_to_user(buf, data, result))
-+		return -EFAULT;
-+
- 	return result;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index d386bb1475bb..45a69bf43971 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -1012,10 +1012,15 @@ decide_crtc_timing_for_drm_display_mode(struct drm_display_mode *drm_mode,
+ 					const struct drm_display_mode *native_mode,
+ 					bool scale_enabled)
+ {
++	/* Inserted modes copy the native sync; a sink mode with equal totals may not */
+ 	if (scale_enabled || (
+ 	    native_mode->clock == drm_mode->clock &&
+ 	    native_mode->htotal == drm_mode->htotal &&
+-	    native_mode->vtotal == drm_mode->vtotal)) {
++	    native_mode->vtotal == drm_mode->vtotal &&
++	    native_mode->hsync_start == drm_mode->hsync_start &&
++	    native_mode->hsync_end == drm_mode->hsync_end &&
++	    native_mode->vsync_start == drm_mode->vsync_start &&
++	    native_mode->vsync_end == drm_mode->vsync_end)) {
+ 		if (native_mode->crtc_clock)
+ 			copy_crtc_timing_for_drm_display_mode(native_mode, drm_mode);
+ 	} else {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index 59ce682f491b..b61771749ca0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -1572,6 +1572,46 @@ static void dm_test_decide_crtc_timing_no_crtc_clock(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hdisplay, 0);
  }
  
-@@ -238,11 +244,24 @@ static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 off
- 	struct amdgpu_device *adev = rd->adev;
- 	ssize_t result = 0;
- 	int r;
--	uint32_t value;
- 
- 	if (size & 0x3 || offset & 0x3)
- 		return -EINVAL;
- 
-+	if (size > PAGE_SIZE)
-+		return -EINVAL;
++static void dm_test_decide_crtc_timing_sink_mode_same_totals(struct kunit *test)
++{
++	struct drm_display_mode native_mode = {
++		DRM_MODE("3840x2160", DRM_MODE_TYPE_DRIVER, 594000, 3840, 4016, 4104,
++			 4400, 0, 2160, 2168, 2178, 2250, 0,
++			 DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC) };
++	struct drm_display_mode drm_mode = {
++		DRM_MODE("4096x2160", DRM_MODE_TYPE_DRIVER, 594000, 4096, 4184, 4272,
++			 4400, 0, 2160, 2168, 2178, 2250, 0,
++			 DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC) };
 +
-+	/*
-+	 * Access the user buffer only while none of the locks below are held:
-+	 * a fault takes mmap_lock, and grbm_idx_mutex and srbm_mutex nest
-+	 * inside it.
-+	 */
-+	u32 *data __free(kfree) = kmalloc(size, GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+	if (write_en && copy_from_user(data, buf, size))
-+		return -EFAULT;
++	drm_mode_set_crtcinfo(&native_mode, 0);
++	drm_mode_set_crtcinfo(&drm_mode, 0);
 +
- 	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
- 	if (r < 0) {
- 		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-@@ -281,24 +300,16 @@ static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 off
- 		mutex_lock(&adev->pm.mutex);
++	decide_crtc_timing_for_drm_display_mode(&drm_mode, &native_mode, false);
++
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hdisplay, 4096);
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hsync_start, 4184);
++}
++
++static void dm_test_decide_crtc_timing_inserted_mode(struct kunit *test)
++{
++	struct drm_display_mode native_mode = {
++		DRM_MODE("3840x2160", DRM_MODE_TYPE_DRIVER, 594000, 3840, 4016, 4104,
++			 4400, 0, 2160, 2168, 2178, 2250, 0,
++			 DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC) };
++	struct drm_display_mode drm_mode;
++
++	drm_mode_set_crtcinfo(&native_mode, 0);
++	drm_mode = native_mode;
++	drm_mode.hdisplay = 1920;
++	drm_mode.vdisplay = 1080;
++	drm_mode_set_crtcinfo(&drm_mode, 0);
++
++	decide_crtc_timing_for_drm_display_mode(&drm_mode, &native_mode, false);
++
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hdisplay, 3840);
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_vdisplay, 2160);
++}
++
+ /* Tests for amdgpu_dm_connector_funcs_reset() */
  
- 	while (size) {
--		if (!write_en) {
--			value = RREG32(offset >> 2);
--			r = put_user(value, (uint32_t *)buf);
--		} else {
--			r = get_user(value, (uint32_t *)buf);
--			if (!r)
--				amdgpu_mm_wreg_mmio_rlc(adev, offset >> 2, value, rd->id.xcc_id);
--		}
--		if (r) {
--			result = r;
--			goto end;
--		}
-+		if (!write_en)
-+			data[result >> 2] = RREG32(offset >> 2);
-+		else
-+			amdgpu_mm_wreg_mmio_rlc(adev, offset >> 2, data[result >> 2],
-+						rd->id.xcc_id);
- 		offset += 4;
- 		size -= 4;
- 		result += 4;
--		buf += 4;
- 	}
--end:
-+
- 	if (rd->id.use_grbm) {
- 		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, rd->id.xcc_id);
- 		mutex_unlock(&adev->grbm_idx_mutex);
-@@ -317,6 +328,10 @@ static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 off
- 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
- 
- 	amdgpu_virt_disable_access_debugfs(adev);
-+
-+	if (!write_en && copy_to_user(buf, data, result))
-+		return -EFAULT;
-+
- 	return result;
- }
- 
+ static const struct drm_connector_funcs dm_test_connector_funcs = {
+@@ -5635,6 +5675,8 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+ 	KUNIT_CASE(dm_test_decide_crtc_timing_matching_mode),
+ 	KUNIT_CASE(dm_test_decide_crtc_timing_no_copy),
+ 	KUNIT_CASE(dm_test_decide_crtc_timing_no_crtc_clock),
++	KUNIT_CASE(dm_test_decide_crtc_timing_sink_mode_same_totals),
++	KUNIT_CASE(dm_test_decide_crtc_timing_inserted_mode),
+ 	/* amdgpu_dm_connector_funcs_reset */
+ 	KUNIT_CASE(dm_test_funcs_reset_sets_defaults),
+ 	KUNIT_CASE(dm_test_funcs_reset_edp_abm_level),
 
