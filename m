@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386C5489873
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 11:45:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7937476049
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 11:45:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791805514; cv=none; b=pXkC6vok4vPE4WYLmFpa4UfrfetM+t0rxIIDsrOgT5Wfv7yj+0IBA9Dntm4TZO0b/3hkGnzbVfzUXcOzYuW57SjIW0tFbC6dLlHX3xkE2CcWcG5q8g3QrrXZLTEm2bVTIkBfT+AdtjtWHrEk2KYhQJ1v5YpgkvcEKu6SQv3CddI=
+	t=1791805517; cv=none; b=SCbUBwY8rAtyWnb43pDjqfhx+bJNu/cfLtr7Bv+29SKdGuiRQluycPKZv34KBN3iuK3H854cteETVPxn3jEg3WZD+kGONNJNehM/xmiOD2tDW9CnPaHoRoWqB4giFwjPkv8k0oLKFRmjVvYtbuFC5FxJK8TV0V9E9MBhQ9TdoNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791805514; c=relaxed/simple;
-	bh=dPZz66rDuO2qCj31h1mbBAuS4B9EWD5heaSx/8OHcA4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=SsBYRqreBz9F4Z1XUp78989uDJSiNU3Sfpk50Zt/gva3IjSIUOsNiIAesJ2nXAlyKAVWewbRqv1EK5ORJyVNcUbaSn6f4faHaITn5gnN1LcGkG+XNc1uUtl0KHn9WQutRRshn8mJpQQxXgPmee0Fqn1oH11BoSjC2QPAxMemY0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=t27lYYqX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791805517; c=relaxed/simple;
+	bh=p8K+MrHemWhAfZT7wwbYUnMCcXfuo7EBa3qB0jnf0NI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=uHFWVM55Z1kL7bUsIEic5ixC3z4eeN9xCjf902Jdplq3bziSrEj9OZwQTu/c84h7X/o55rcll8lVifknu/05nyg0RFU2JA4ZkoST+zidh95zjOXEj5Agn1n2/ItAgg1ozBGq+mJ7sKGZ6cv5Rrf2InleYScH6K7sQwmDz2h4Upk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ev1rcPp7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="t27lYYqX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E856D1F0089D;
-	Mon, 12 Oct 2026 11:45:10 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ev1rcPp7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C5361F0089B;
+	Mon, 12 Oct 2026 11:45:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791805511;
-	bh=JuRaQeUM1C3XccckBfSWDlf6QjFc4sRj0QPzaet9q0Y=;
+	s=korg; t=1791805514;
+	bh=W1mxXxFxk/rWFOo5dPldYMWXtm9Wlq5dng8H2Ah+bto=;
 	h=Subject:To:Cc:From:Date;
-	b=t27lYYqXSdw+CBM+k/XkNHdMoMJQOjKE+IOjblVOo45qkvlK+r75nyEODsIW8tdGW
-	 SArqAxThvcDFa7Iq+JjHd839lhpYDaAWuj+1ici6sAY43pMm7vbSsPJy634MzsNHgp
-	 zzzJ06TA6ZGz8lDNKmO+UAatYjzGVREJ/urI64ls=
-Subject: FAILED: patch "[PATCH] mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP" failed to apply to 6.6-stable tree
+	b=ev1rcPp7i0ObYLqqS6j/mnafP0tJv8L4b8hlIe6IBxctwfDk6eMkn3+ArfE37FxYS
+	 B8oA0Pr2qbexXUOK61OsWOjUDx+qaUZnTdb+WTqEXyNC9OifIDJBQKzS2xkulnfaRR
+	 h44SdTwFGA2qaOOr4MENMys+rW34XPPXfry46O5I=
+Subject: FAILED: patch "[PATCH] mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP" failed to apply to 6.1-stable tree
 To: ljs@kernel.org,akpm@linux-foundation.org,asrinivasan@oss.tenstorrent.com,azpijr@gmail.com,bgeffon@google.com,jannh@google.com,kas@kernel.org,liam@infradead.org,minchan@kernel.org,pfalcato@suse.de,stable@vger.kernel.org,vbabka@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 13:45:10 +0200
-Message-ID: <2026101210-unicycle-configure-b7b7@gregkh>
+Date: Mon, 12 Oct 2026 13:45:15 +0200
+Message-ID: <2026101214-monetize-print-c590@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 838bb60dc21553e32df90f2f3bac5b905376e7aa
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101210-unicycle-configure-b7b7@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101214-monetize-print-c590@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
