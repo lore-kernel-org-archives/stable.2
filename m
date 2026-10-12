@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D2CA40EBA9
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 11:33:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC8D3E075F
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 11:33:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791804798; cv=none; b=BzgEHJsKIEiengLFh81IgD20YFr/Mv6yigDTCTmPz8FfZE4sWpFdpZEh93scTzeYPR5n/BuW/obuQb4HNTvCOemYeBTc0/mFZwbCm2D71hBJLNPL+henjJY03Ue7qa7aJUa9P717WosD4wbdYJ6wrXM9QF80aLpPzuoJmUkjf7I=
+	t=1791804826; cv=none; b=NmAp/aakARnFZybiNuo6mad8aZyTtRFAQrnnxFDO4Ofs8jGQDj0pgVmV6AOXrWt1MMJAh5cV0beCKdzTYybly/QTXZh1y94CEJZe/9EtJWX4Ko5cTFB57BH1gcC7XTlBlEtJYBNqKhMPTPjZJdAmRYnduOuevwmaEVOJdytqph4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791804798; c=relaxed/simple;
-	bh=RVdLVOqEzQoxKhfLs8Ckiq4bfOiUYWBFXzFwQS17Ub4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=C24KNZUncUfsaCucb/vX6CGuwLNZFWXClaJ2iyTtlqLG7jEUM3V2+RJhI2B7QV+5muOJw+M0MkRwOJRXjh+hNi2DuArxmob9Av7k9wiv4zvWUAfdk53J2bVKRFdOcLHNgeUlxLDorfM+K8xWgnEtDBlAIXk7v7Qd+YMC7iZowtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=u+gMVEaH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791804826; c=relaxed/simple;
+	bh=InF7lDjVKOjzEtuvZqRdXnrN5G61mLltOQ11zdJ+Hr0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PeYHlXDwaAmZOEyHn+YxvO6jywWeA8dQ+kkPtB+EUAkk+HMOvjCOKOjJJn9w8JyNx/0q/rLAmnjn/7E7XiZxxqZQoRnCnumQMkuywWPqEEdRtS1jR0KKo8RCr9E/dM8z5D/pZyAjcvaZFYRVt3Vb1zMhG7xc+6GihvdsLWhKHns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mXb8KDA+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="u+gMVEaH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 851771F0089B;
-	Mon, 12 Oct 2026 11:33:16 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mXb8KDA+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B5061F0089B;
+	Mon, 12 Oct 2026 11:33:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791804797;
-	bh=f70HeLiylvwGnZAtW9V06sV7mDny6eWJL0OEicK7yzA=;
+	s=korg; t=1791804824;
+	bh=SU4rYLh8LKpyyEPnuqQqh6++Z1VGp6YG40uEh5CSZNM=;
 	h=Subject:To:Cc:From:Date;
-	b=u+gMVEaHMTmN4t6XBxmxYIMVwMsiZIvZHU2s0TEu6aB1Lucip/u0+IdtEC+mAk/oo
-	 +d5FbfVCe4g3yfcQDkVf+MwxcrtBRNnwndcrGK2HiWaBKZHlPQ81qCrXolO2OoA/qV
-	 17wRY+4pFpbxfdA9HB9zb4nO4ZPYSvMx3W8NnB1Q=
-Subject: FAILED: patch "[PATCH] ata: libata-scsi: do not lose CHECK CONDITION for failed" failed to apply to 6.12-stable tree
-To: hengyul@cs.unc.edu,cassel@kernel.org,dlemoal@kernel.org
+	b=mXb8KDA+24xZN1uK5m78NXJVIuoUOcWmEhGXw1BuUYptyX2cSwegsezetkNwjmXsL
+	 dSmIUrf2XWhJtCfIcmx4NfWSzx7rs+spuA4PsFk2FaI50USsgw8pLO1w3dSLuTK+bF
+	 yrPV9j9cCsQIkgGktftypRiMk3ktiYEd7e15M+LM=
+Subject: FAILED: patch "[PATCH] can: fix unique skb identifier regression under RPS" failed to apply to 6.18-stable tree
+To: socketcan@hartkopp.net,joe@clnt.de,mkl@pengutronix.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 13:33:14 +0200
-Message-ID: <2026101214-grumpily-cloning-5a44@gregkh>
+Date: Mon, 12 Oct 2026 13:33:50 +0200
+Message-ID: <2026101250-profound-strength-8af2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x bc8ce2cea5f77c4bd1a5184705e300e83546c0c4
+git cherry-pick -x 7093c3b8314a4ef7405c4066a2521398c455efe7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101214-grumpily-cloning-5a44@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101250-profound-strength-8af2@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,73 +62,367 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From bc8ce2cea5f77c4bd1a5184705e300e83546c0c4 Mon Sep 17 00:00:00 2001
-From: Hengyu Liang <hengyul@cs.unc.edu>
-Date: Tue, 29 Sep 2026 12:41:35 -0400
-Subject: [PATCH] ata: libata-scsi: do not lose CHECK CONDITION for failed
- ATAPI commands
+From 7093c3b8314a4ef7405c4066a2521398c455efe7 Mon Sep 17 00:00:00 2001
+From: Oliver Hartkopp <socketcan@hartkopp.net>
+Date: Thu, 1 Oct 2026 13:57:24 +0200
+Subject: [PATCH] can: fix unique skb identifier regression under RPS
 
-Since commit 2e1d2e65e773 ("ata: libata-scsi: terminate deferred commands
-on time out"), atapi_qc_complete() sets SAM_STAT_CHECK_CONDITION for a
-failed command only if cmd->result is zero, so that the DID_TIME_OUT or
-DID_REQUEUE host byte of a terminated command is preserved.
+Commit d4fb6514ff8e ("can: use skb hash instead of private variable in
+headroom") moved the per-skb unique identifier used for raw_rcv()
+duplicate detection into skb->hash.
 
-However, cmd->result can also be non-zero for a regular failed ATAPI
-command completed through libata EH: ata_eh_analyze_tf() calls
-ata_eh_decide_disposition(), that is, scsi_check_sense(), on the sense
-data obtained with REQUEST SENSE, and scsi_check_sense() sets the SCSI
-midlayer internal byte of the result for some sense codes, e.g.
-SCSIML_STAT_TGT_FAILURE for ILLEGAL REQUEST with ASC 0x20 (INVALID
-COMMAND OPERATION CODE) or 0x24 (INVALID FIELD IN CDB), or
-SCSIML_STAT_MED_ERROR for MEDIUM ERROR with ASC 0x11 (UNRECOVERED READ
-ERROR). For such commands, atapi_qc_complete() keeps the result as is and
-the command completes with a GOOD status byte, even though it failed and
-valid sense data is available.
+With RPS enabled, get_rps_cpu() calls skb_get_hash() before the frame
+reaches the CAN subsystem. Since CAN skbs have no L3/L4 headers, the
+flow dissector assigns every CAN frame the same non-zero software
+hash. can_set_skb_uid() only generated a new identifier when
+skb->hash was 0, so it kept this constant hash. When the SLAB
+allocator later reused the same skb address, raw_rcv() mistook the
+next legitimate frame for a duplicate and dropped it.
 
-As a result, passthrough users see these failed ATAPI commands as
-successful. For example, with the emulated IDE CD-ROM drive of QEMU and
-no medium loaded, a PLAY AUDIO MSF command issued with SG_IO completes
-with status 0x00 (and no DRIVER_SENSE) instead of 0x02 (CHECK CONDITION)
-with sense key ILLEGAL REQUEST, ASC/ASCQ 0x20/0x00, and the CDROM ioctls
-CDROMPLAYTRKIND, CDROMSUBCHNL, CDROMPAUSE, CDROMRESUME, CDROMPLAYMSF and
-CDROM_GET_MCN return 0 instead of -ENOMEDIUM or -EOPNOTSUPP.
+Fix this by storing the CAN UID in the CAN skb extension
+(struct can_skb_ext::can_skb_uid) instead of skb->hash, decoupling it
+from any hash the network stack may compute. can_set_skb_uid() keeps
+its "assign only if unset" behaviour, which preserves UIDs set before
+transmission (e.g. by isotp to identify echo frames) across the local
+loopback path.
 
-Fix this by setting the status byte to SAM_STAT_CHECK_CONDITION whenever
-the host byte is not set. Use set_status_byte() rather than overwriting
-the whole result, so that the SCSI midlayer internal byte set by
-scsi_check_sense() is preserved, as ata_scsi_qc_complete() already does
-for ATA commands.
+Frames whose extension is shared with another clone (e.g. via tc mirred
+or netem duplicate) are given a private extension copy before the UID
+is assigned, so that independently received skb clones from real CAN
+interfaces (can_skb_uid = 0) don't end up with the same UID.
+The limitation that tc mirred/netem skb duplicates might be dropped in
+raw_rcv for looped back isotp echo frame skbs is accepted. There is no
+valid use-case for tc mirred or netem together with isotp which is not
+capable to operate on different CAN interfaces simultaneously.
+For routing and modifying CAN frames together with isotp use can-gw.
 
-Fixes: 2e1d2e65e773 ("ata: libata-scsi: terminate deferred commands on time out")
+can-gw and vxcan additionally clear the UID of forwarded/duplicated
+frames so each newly routed frame gets its own unique identifier.
+
+Fixes: d4fb6514ff8e ("can: use skb hash instead of private variable in headroom")
+Reported-by: Joerg Willmann <joe@clnt.de>
+Closes: https://lore.kernel.org/linux-can/2859AD3D-C805-41A0-9036-C5E8EE152419@clnt.de/
 Cc: stable@vger.kernel.org
-Suggested-by: Niklas Cassel <cassel@kernel.org>
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Link: https://lore.kernel.org/r/20260929164135.266708-1-hengyul@cs.unc.edu
-Signed-off-by: Niklas Cassel <cassel@kernel.org>
+Tested-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Tested-by: Joerg Willmann <joe@clnt.de>
+Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Link: https://patch.msgid.link/20261001115724.27192-1-socketcan@hartkopp.net
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index 8f9aa97a519d..fb5517d51095 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -3059,10 +3059,15 @@ static void atapi_qc_complete(struct ata_queued_cmd *qc)
- 		if (qc->cdb[0] == ALLOW_MEDIUM_REMOVAL && qc->dev->sdev)
- 			qc->dev->sdev->locked = 0;
+diff --git a/drivers/net/can/vxcan.c b/drivers/net/can/vxcan.c
+index 9e2e25d02471..51148a81d1d9 100644
+--- a/drivers/net/can/vxcan.c
++++ b/drivers/net/can/vxcan.c
+@@ -79,6 +79,9 @@ static netdev_tx_t vxcan_xmit(struct sk_buff *oskb, struct net_device *dev)
  
--		if (cmd->result)
--			ata_scsi_qc_done(qc, false, 0);
--		else
--			ata_scsi_qc_done(qc, true, SAM_STAT_CHECK_CONDITION);
-+		/*
-+		 * Report CHECK CONDITION unless the command was terminated
-+		 * with a host byte set. Only set the status byte, so that the
-+		 * SCSI midlayer internal byte, which scsi_check_sense() may
-+		 * have set from the sense data, is preserved.
-+		 */
-+		if (get_host_byte(cmd) == DID_OK)
-+			set_status_byte(cmd, SAM_STAT_CHECK_CONDITION);
-+		ata_scsi_qc_done(qc, false, 0);
- 		goto schedule_deferred;
+ 	/* reset CAN GW hop counter */
+ 	csx->can_gw_hops = 0;
++	/* start with new CAN skb UID in the other namespace */
++	csx->can_skb_uid = 0;
++
+ 	skb->pkt_type   = PACKET_BROADCAST;
+ 	skb->dev        = peer;
+ 	skb->ip_summed  = CHECKSUM_UNNECESSARY;
+diff --git a/include/linux/can/core.h b/include/linux/can/core.h
+index 3287232e3cad..2de74c2b78b6 100644
+--- a/include/linux/can/core.h
++++ b/include/linux/can/core.h
+@@ -17,6 +17,7 @@
+ #include <linux/can.h>
+ #include <linux/skbuff.h>
+ #include <linux/netdevice.h>
++#include <net/can.h>
+ 
+ #define DNAME(dev) ((dev) ? (dev)->name : "any")
+ 
+@@ -58,7 +59,7 @@ extern void can_rx_unregister(struct net *net, struct net_device *dev,
+ 			      void *data);
+ 
+ extern int can_send(struct sk_buff *skb, int loop);
+-void can_set_skb_uid(struct sk_buff *skb);
++void can_set_skb_uid(struct can_skb_ext *csx);
+ void can_sock_destruct(struct sock *sk);
+ 
+ #endif /* !_CAN_CORE_H */
+diff --git a/include/linux/can/skb.h b/include/linux/can/skb.h
+index a70a02967071..5d27843862fc 100644
+--- a/include/linux/can/skb.h
++++ b/include/linux/can/skb.h
+@@ -43,8 +43,10 @@ static inline struct can_skb_ext *can_skb_ext_add(struct sk_buff *skb)
+ 	struct can_skb_ext *csx = skb_ext_add(skb, SKB_EXT_CAN);
+ 
+ 	/* skb_ext_add() returns uninitialized space */
+-	if (csx)
++	if (csx) {
+ 		csx->can_gw_hops = 0;
++		csx->can_skb_uid = 0;
++	}
+ 
+ 	return csx;
+ }
+diff --git a/include/net/can.h b/include/net/can.h
+index 6db9e826f0e0..2b8af2598732 100644
+--- a/include/net/can.h
++++ b/include/net/can.h
+@@ -17,12 +17,14 @@
+  * @can_framelen: cached echo CAN frame length for bql
+  * @can_gw_hops: can-gw CAN frame time-to-live counter
+  * @can_ext_flags: CAN skb extensions flags
++ * @can_skb_uid: CAN skb UID for raw_rcv and isotp echo handling
+  */
+ struct can_skb_ext {
+ 	int	can_iif;
+ 	u16	can_framelen;
+ 	u8	can_gw_hops;
+ 	u8	can_ext_flags;
++	u32	can_skb_uid;
+ };
+ 
+ #endif /* _NET_CAN_H */
+diff --git a/net/can/af_can.c b/net/can/af_can.c
+index 7bc86b176b4d..34fe3b28d576 100644
+--- a/net/can/af_can.c
++++ b/net/can/af_can.c
+@@ -641,13 +641,10 @@ static int can_rcv_filter(struct can_dev_rcv_lists *dev_rcv_lists, struct sk_buf
+ 	return matches;
+ }
+ 
+-void can_set_skb_uid(struct sk_buff *skb)
++void can_set_skb_uid(struct can_skb_ext *csx)
+ {
+-	/* create non-zero unique skb identifier together with *skb */
+-	while (!(skb->hash))
+-		skb->hash = atomic_inc_return(&skbcounter);
+-
+-	skb->sw_hash = 1;
++	while (!(csx->can_skb_uid))
++		csx->can_skb_uid = atomic_inc_return(&skbcounter);
+ }
+ EXPORT_SYMBOL(can_set_skb_uid);
+ 
+@@ -662,8 +659,6 @@ static void can_receive(struct sk_buff *skb, struct net_device *dev)
+ 	atomic_long_inc(&pkg_stats->rx_frames);
+ 	atomic_long_inc(&pkg_stats->rx_frames_delta);
+ 
+-	can_set_skb_uid(skb);
+-
+ 	rcu_read_lock();
+ 
+ 	/* deliver the packet to sockets listening on all devices */
+@@ -687,8 +682,10 @@ static void can_receive(struct sk_buff *skb, struct net_device *dev)
+ static int can_rcv(struct sk_buff *skb, struct net_device *dev,
+ 		   struct packet_type *pt, struct net_device *orig_dev)
+ {
++	struct can_skb_ext *csx = can_skb_ext_find(skb);
++
+ 	if (unlikely(dev->type != ARPHRD_CAN || !can_get_ml_priv(dev) ||
+-		     !can_skb_ext_find(skb) || !can_is_can_skb(skb))) {
++		     !csx || !can_is_can_skb(skb))) {
+ 		pr_warn_once("PF_CAN: dropped non conform CAN skbuff: dev type %d, len %d\n",
+ 			     dev->type, skb->len);
+ 
+@@ -696,6 +693,14 @@ static int can_rcv(struct sk_buff *skb, struct net_device *dev,
+ 		return NET_RX_DROP;
  	}
  
++	/* create unshared CAN skb_extension for netem/mirred skb clones */
++	csx = skb_ext_add(skb, SKB_EXT_CAN);
++	if (unlikely(!csx)) {
++		kfree_skb_reason(skb, SKB_DROP_REASON_NOMEM);
++		return NET_RX_DROP;
++	}
++
++	can_set_skb_uid(csx);
+ 	can_receive(skb, dev);
+ 	return NET_RX_SUCCESS;
+ }
+@@ -703,8 +708,10 @@ static int can_rcv(struct sk_buff *skb, struct net_device *dev,
+ static int canfd_rcv(struct sk_buff *skb, struct net_device *dev,
+ 		     struct packet_type *pt, struct net_device *orig_dev)
+ {
++	struct can_skb_ext *csx = can_skb_ext_find(skb);
++
+ 	if (unlikely(dev->type != ARPHRD_CAN || !can_get_ml_priv(dev) ||
+-		     !can_skb_ext_find(skb) || !can_is_canfd_skb(skb))) {
++		     !csx || !can_is_canfd_skb(skb))) {
+ 		pr_warn_once("PF_CAN: dropped non conform CAN FD skbuff: dev type %d, len %d\n",
+ 			     dev->type, skb->len);
+ 
+@@ -712,6 +719,14 @@ static int canfd_rcv(struct sk_buff *skb, struct net_device *dev,
+ 		return NET_RX_DROP;
+ 	}
+ 
++	/* create unshared CAN skb_extension for netem/mirred skb clones */
++	csx = skb_ext_add(skb, SKB_EXT_CAN);
++	if (unlikely(!csx)) {
++		kfree_skb_reason(skb, SKB_DROP_REASON_NOMEM);
++		return NET_RX_DROP;
++	}
++
++	can_set_skb_uid(csx);
+ 	can_receive(skb, dev);
+ 	return NET_RX_SUCCESS;
+ }
+@@ -719,8 +734,10 @@ static int canfd_rcv(struct sk_buff *skb, struct net_device *dev,
+ static int canxl_rcv(struct sk_buff *skb, struct net_device *dev,
+ 		     struct packet_type *pt, struct net_device *orig_dev)
+ {
++	struct can_skb_ext *csx = can_skb_ext_find(skb);
++
+ 	if (unlikely(dev->type != ARPHRD_CAN || !can_get_ml_priv(dev) ||
+-		     !can_skb_ext_find(skb) || !can_is_canxl_skb(skb))) {
++		     !csx || !can_is_canxl_skb(skb))) {
+ 		pr_warn_once("PF_CAN: dropped non conform CAN XL skbuff: dev type %d, len %d\n",
+ 			     dev->type, skb->len);
+ 
+@@ -728,6 +745,14 @@ static int canxl_rcv(struct sk_buff *skb, struct net_device *dev,
+ 		return NET_RX_DROP;
+ 	}
+ 
++	/* create unshared CAN skb_extension for netem/mirred skb clones */
++	csx = skb_ext_add(skb, SKB_EXT_CAN);
++	if (unlikely(!csx)) {
++		kfree_skb_reason(skb, SKB_DROP_REASON_NOMEM);
++		return NET_RX_DROP;
++	}
++
++	can_set_skb_uid(csx);
+ 	can_receive(skb, dev);
+ 	return NET_RX_SUCCESS;
+ }
+diff --git a/net/can/gw.c b/net/can/gw.c
+index 0ec99f68aa45..5793cb2420ed 100644
+--- a/net/can/gw.c
++++ b/net/can/gw.c
+@@ -527,6 +527,9 @@ static void can_can_gw_rcv(struct sk_buff *skb, void *data)
+ 	/* put the incremented hop counter in the cloned skb */
+ 	ncsx->can_gw_hops = csx->can_gw_hops + 1;
+ 
++	/* force a new CAN UID generation for the routed frame */
++	ncsx->can_skb_uid = 0;
++
+ 	/* first processing of this CAN frame -> adjust to private hop limit */
+ 	if (gwj->limit_hops && ncsx->can_gw_hops == 1)
+ 		ncsx->can_gw_hops = max_hops - gwj->limit_hops + 1;
+diff --git a/net/can/isotp.c b/net/can/isotp.c
+index 155530aedce2..f5dc9d04bd68 100644
+--- a/net/can/isotp.c
++++ b/net/can/isotp.c
+@@ -891,7 +891,7 @@ static void isotp_send_cframe(struct isotp_sock *so)
+ 	csx->can_iif = dev->ifindex;
+ 
+ 	/* set uid in tx skb to identify CF echo frames */
+-	can_set_skb_uid(skb);
++	can_set_skb_uid(csx);
+ 
+ 	cf = (struct canfd_frame *)skb->data;
+ 	skb_put_zero(skb, so->ll.mtu);
+@@ -917,7 +917,7 @@ static void isotp_send_cframe(struct isotp_sock *so)
+ 		pr_notice_once("can-isotp: cfecho is %08X != 0\n", old_cfecho);
+ 
+ 	/* set consecutive frame echo tag */
+-	WRITE_ONCE(so->cfecho, skb->hash);
++	WRITE_ONCE(so->cfecho, csx->can_skb_uid);
+ 
+ 	/* send frame with local echo enabled */
+ 	can_send_ret = can_send(skb, 1);
+@@ -969,18 +969,22 @@ static void isotp_rcv_echo(struct sk_buff *skb, void *data)
+ {
+ 	struct sock *sk = (struct sock *)data;
+ 	struct isotp_sock *so = isotp_sk(sk);
++	struct can_skb_ext *csx = can_skb_ext_find(skb);
+ 
+ 	/* only handle my own local echo CF/SF skb's (no FF!) */
+ 	if (skb->sk != sk)
+ 		return;
+ 
++	if (WARN_ON_ONCE(!csx))
++		return;
++
+ 	/* unlike isotp_rcv_fc()/isotp_rcv_cf(), not already under so->rx_lock
+ 	 * (no isotp_rcv() caller here), so take it ourselves
+ 	 */
+ 	spin_lock(&so->rx_lock);
+ 
+ 	/* so->cfecho may since belong to a new transfer; recheck under lock */
+-	if (READ_ONCE(so->cfecho) != skb->hash)
++	if (READ_ONCE(so->cfecho) != csx->can_skb_uid)
+ 		goto out_unlock;
+ 
+ 	/* cancel local echo timeout */
+@@ -1222,7 +1226,7 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 	csx->can_iif = dev->ifindex;
+ 
+ 	/* set uid in tx skb to identify CF echo frames */
+-	can_set_skb_uid(skb);
++	can_set_skb_uid(csx);
+ 
+ 	so->tx.len = size;
+ 	so->tx.idx = 0;
+@@ -1261,7 +1265,7 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 			cf->data[ae] |= size;
+ 
+ 		/* set CF echo tag for isotp_rcv_echo() (SF-mode) */
+-		WRITE_ONCE(so->cfecho, skb->hash);
++		WRITE_ONCE(so->cfecho, csx->can_skb_uid);
+ 	} else {
+ 		/* send first frame */
+ 
+@@ -1278,7 +1282,7 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
+ 			so->txfc.bs = 0;
+ 
+ 			/* set CF echo tag for isotp_rcv_echo() (CF-mode) */
+-			WRITE_ONCE(so->cfecho, skb->hash);
++			WRITE_ONCE(so->cfecho, csx->can_skb_uid);
+ 		} else {
+ 			/* standard flow control check */
+ 			new_state = ISOTP_WAIT_FIRST_FC;
+diff --git a/net/can/raw.c b/net/can/raw.c
+index 82d9c0499c95..0acd4f6c6dd6 100644
+--- a/net/can/raw.c
++++ b/net/can/raw.c
+@@ -77,7 +77,7 @@ MODULE_ALIAS("can-proto-1");
+ 
+ struct uniqframe {
+ 	const struct sk_buff *skb;
+-	u32 hash;
++	u32 can_skb_uid;
+ 	unsigned int join_rx_count;
+ };
+ 
+@@ -133,12 +133,16 @@ static void raw_rcv(struct sk_buff *oskb, void *data)
+ 	enum skb_drop_reason reason;
+ 	struct sockaddr_can *addr;
+ 	struct sk_buff *skb;
++	struct can_skb_ext *csx = can_skb_ext_find(oskb);
+ 	unsigned int *pflags;
+ 
+ 	/* check the received tx sock reference */
+ 	if (!ro->recv_own_msgs && oskb->sk == sk)
+ 		return;
+ 
++	if (WARN_ON_ONCE(!csx))
++		return;
++
+ 	/* make sure to not pass oversized frames to the socket */
+ 	if (!ro->fd_frames && can_is_canfd_skb(oskb))
+ 		return;
+@@ -165,7 +169,7 @@ static void raw_rcv(struct sk_buff *oskb, void *data)
+ 
+ 	/* eliminate multiple filter matches for the same skb */
+ 	if (this_cpu_ptr(ro->uniq)->skb == oskb &&
+-	    this_cpu_ptr(ro->uniq)->hash == oskb->hash) {
++	    this_cpu_ptr(ro->uniq)->can_skb_uid == csx->can_skb_uid) {
+ 		if (!ro->join_filters)
+ 			return;
+ 
+@@ -175,7 +179,7 @@ static void raw_rcv(struct sk_buff *oskb, void *data)
+ 			return;
+ 	} else {
+ 		this_cpu_ptr(ro->uniq)->skb = oskb;
+-		this_cpu_ptr(ro->uniq)->hash = oskb->hash;
++		this_cpu_ptr(ro->uniq)->can_skb_uid = csx->can_skb_uid;
+ 		this_cpu_ptr(ro->uniq)->join_rx_count = 1;
+ 		/* drop first frame to check all enabled filters? */
+ 		if (ro->join_filters && ro->count > 1)
 
