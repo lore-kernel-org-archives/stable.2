@@ -1,154 +1,211 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8DB744A3FA
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 07:38:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ACDB32B108;
+	Mon, 12 Oct 2026 07:39:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791790730; cv=none; b=FOTIisWWeHZZQnNUvds3YqLmUdfPq1dD7V9Gz8zuaonfmTdQ8HNzdiArl7LYMYhwGvB5pZDk22au/smUdutJhApp4CBggBVo31nxzv+LgVNPcN9kr5GsOX1Zc2VSHgYFl+fY0jeT4K+390fRacMZd7kWIn/1PDIAbRCtalP9bbo=
+	t=1791790784; cv=none; b=UjNbuHBA7YBsYsJ3B2S0G4lDfNk7J63SBUyHq1gzht1ZC4I3r/0iqMy+UpekCFou8tm/fJhG+gefpS/XvmfpujcRu5jLxTXLsMjoTgGzVpNVybYMSF+t4yRzVdoSNipWUhAA9Nb+Ox+F1zS+l2VhWTDFFPiPkOVm43FTzerXd5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791790730; c=relaxed/simple;
-	bh=frGeHsp77ccEYIjltOywKMw92w1djyDNOnPEz2b3YKM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ce6BIANzPpJPICodUxu6WGPvNwlBdhx36iofyIvxU4IVquj65vztuCPbz1jc9f8prvGTRVtepTKTbYYX7bBXTa5xCMpy7qzfAW5ON+3myxFu4p2CDUVF1qeMO7ffKk7azUmwzEOoZJBATrTPX1cd0koKor3nVjKWYL8+vHeYTwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=cpGnEkhc; arc=none smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791790784; c=relaxed/simple;
+	bh=GS44J3Aku38fi/SvJDBKrLt4DpMDeYkkRQQtw8dOoH8=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bvts9sQr/jI47Bc1+8AIhRQqMYFXyZMWmVFzxplD1uLCVDnZvO0vZyXNrRTwBN4irwvPP/uaTWoHD3utCXQ5OW+pvkmGfIjZ5+0u9i3kw/UaztDFwXp44gHSrm0vhfeO5/vXyDkel6ca00cOPmQ/E2chctuFjuOQ++Y9rKir+Og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tCxs5+JG; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=fekTLrNX; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=A0Vq279U; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=+UtW00LZ; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="cpGnEkhc"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8899a204034so637224b3a.2
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 00:38:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791790728; x=1792395528; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xXAFZNxdX2XaonrsCpg7wn2yHmpFEkowvimbfLrPCIY=;
-        b=cpGnEkhcrA8DiFdOHhaLwRsJOWCdYdsfnn1bd5nRIRVyj751mvR+LEnm+PFM2p5mKb
-         IIQ1q05awY9Lw9nw+MqlQ92ld6khwciCftkiAk58HAhqtnmybtFE0H1+zmz6TrKLmho/
-         u5dR+JJWa0dN7QGQh18Wk0P5awF84pkM2XElkdT2PHc4A51Ujxir/ZKNVlKCADTUrtbF
-         FaCPFhp/unAfKC5DlDmqoD+mM8vRPCjSzi/pIe/V/3Iak+xG0BSY1ulUh1ki0cVGJawV
-         WFmf4EL9zc/ul1AwnuxZ04OboNTUk/1yKmP/0FY33RJhjJ0GHpmmDSXMb9M9hGavZfaQ
-         +peQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791790728; x=1792395528;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xXAFZNxdX2XaonrsCpg7wn2yHmpFEkowvimbfLrPCIY=;
-        b=A6t6MYZfD8f4BYhbkaocI76yOCgB8TyexGyBWXvY5TIxvkUMHc7O8rvoE9EgGLGsR0
-         uspHCzr/mVjsLB5cHAfwsq1Sduw4YfNhfr5qxJciC4u+B//TeL5f/dgqNmdZ2slLpapf
-         Coyoajhs+eANwEXF6VFMqBqd+VZLc2v+ldE9XTDsIWFEgO9yl5BcAnfWe53u1vFwg4Fc
-         KLIs6c+MkswdyPsUl4XzkPKKK4FI+Y2/+Xi152Fot357ro4M9bFoLPhSjnAZEGorT2o1
-         y+My8z9/YOuRLG2w0S+atCo/94tU7lgSzwb6NnPNUWuCKF5qBEOSJVmtrXHzd1dgMnHn
-         9v7A==
-X-Forwarded-Encrypted: i=1; AKwUvBx57wEFlm2S6pbMJPc38n7xN1WaEFAmZE54qr1rMXgZHZDebjHTLU0D1ZHe41rD7IHsymwg09Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIYSaoxpl4Gau5CS4JBTHMU5XHzs1LKKhFhhTdU7tTArRaKWfr1
-	JLGSxGFo7PQ8LScUAUWRlCgSVc0757v4BNzy9r/kQrASCZBdvYxnZsns74yeH31mklUeIO03aaV
-	p+Lrp
-X-Gm-Gg: AYBFou39Uja+bK33kVtILsBiM0cm8CX4u1RaG7eh52N8IOM5qwOh9s0TX7+7+JMFDb5
-	AMna/svVs2aYwZ4KRtRqrTjbXTmjZRNhUoVUm71MECFgv6Y19jlGWib9M0uZS7Ok/TQfBnSR7oG
-	1+7ZsdM3bV8RtFj6zTcwxsF8Fdo2tv0Mgx4ig/nRrY++O/Nm74HPMw4Wl5diwEEoB+nmgiu9sYm
-	TAYugWZEDGCNRtnKE15RaQQS+LtrUmUsLNC/YPqxOJYbizSRDY2lZ2adwjYcAUTKfeH/D29xi84
-	jBizlRfe2GOOH8xl3tgGO/8UHDZWBZoZOAlCnjd79Ox78fNxCQvHnrq4RitlG+vMEd7q2A7zsrH
-	Yv7ld0vnpDL3MjNKdAjyTxuZjCCKAmGw5QWiXEbUxXDwT7FvrLBtiyhyXWAEhgNPln2ZXvi2rlz
-	hq5fQOkRXTpJJOXgx+/D4xN+hJ7VoVVVIt6E2ExCMUHliJIuqHY7NP8n+WzwD7nzxdt+tWM5h0x
-	RV6jZ7v2yFdAIah
-X-Received: by 2002:a05:6a00:4b42:b0:888:4f06:903f with SMTP id d2e1a72fcca58-897c78d5fe8mr6613335b3a.38.1791790728027;
-        Mon, 12 Oct 2026 00:38:48 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-898c9ee8bc5sm2148780b3a.60.2026.10.12.00.38.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 00:38:47 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: ching2048@areca.com.tw,
-	mkp@kernel.org,
-	James.Bottomley@HansenPartnership.com
-Cc: linux-scsi@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tCxs5+JG";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fekTLrNX";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="A0Vq279U";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+UtW00LZ"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id BABE821E00;
+	Mon, 12 Oct 2026 07:39:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791790781; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IBXoYOmOrPyFfDwIreNIPu+rJ4JmjlF9Jmt0Cg7dZH4=;
+	b=tCxs5+JGWGPWGkIZgLNZs++ppp2jghZ++KXMe6GJluNEQLsfPc1wJi7icxyNSeMVBr8ET8
+	HNFSKGx44ptLet3TVUgsvD98bPO9aquO2Qw0CmoFSPbIkHtmOaw53G5uEiaHz85SPG1BTQ
+	PVk9zVktJ74gWSIyNdfGNcSHYjItQGU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791790781;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IBXoYOmOrPyFfDwIreNIPu+rJ4JmjlF9Jmt0Cg7dZH4=;
+	b=fekTLrNXCe9h+KBMXhMzK3zGSNrB/ATPy2u9Wf6/OqwqR2plPHo+sFpfVwfB/bZV8J6nvW
+	4/FT+HjmetrP9FBQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791790779; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IBXoYOmOrPyFfDwIreNIPu+rJ4JmjlF9Jmt0Cg7dZH4=;
+	b=A0Vq279U90YBAVh+oZ/j919ax9tSuWd/B/jI+ZIzeMNhhlgNpxOudWS79ql7MmneuY1gKq
+	su6EaAoHeJKFozHfUTJ3T8sCIiMWLseKfGI0dd88382330jwtPTKiBXeKPVnSxFhS0DrG/
+	sfEnMOkRDMfQ6yfIMfILhZjyncsXFwA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791790779;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IBXoYOmOrPyFfDwIreNIPu+rJ4JmjlF9Jmt0Cg7dZH4=;
+	b=+UtW00LZi1iSz8qvWCswFAfi9CsxsrGpDPM/UwImDk7CB2fhXi/ym+3pb2zwQGvdqxlui5
+	Zpg18qq4yobR05DA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4EE7613314;
+	Mon, 12 Oct 2026 07:39:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id U+M/B7uOzGrLbQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 12 Oct 2026 07:39:39 +0000
+Date: Mon, 12 Oct 2026 09:39:38 +0200
+Message-ID: <87y0c3gyf9.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Ma Ke <make_ruc2021@163.com>
+Cc: david.rhodes@cirrus.com,
+	rf@opensource.cirrus.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	sbinding@opensource.cirrus.com,
+	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	thenzl@redhat.com,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Subject: [PATCH 3/3] scsi: arcmsr: wrap the type B completion index before using it
-Date: Mon, 12 Oct 2026 16:38:28 +0900
-Message-ID: <7e1668a808bb282f43ca0e74189e678e40f03779.1791789900.git.yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1791789900.git.yhlee@isslab.korea.ac.kr>
-References: <cover.1791789900.git.yhlee@isslab.korea.ac.kr>
+	akpm@linux-foundation.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] ALSA: hda: cs35l41: Fix ACPI device reference leak on probe failure
+In-Reply-To: <20261011114251.3257172-1-make_ruc2021@163.com>
+References: <20261011114251.3257172-1-make_ruc2021@163.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[163.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_ENVRCPT(0.00)[163.com];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-struct MessageUnit_B lives in the dma_alloc_coherent() area shared with
-the adapter, and holds the completion ring next to the index into it:
+On Sun, 11 Oct 2026 13:42:51 +0200,
+Ma Ke wrote:
+> 
+> cs35l41_hda_probe() takes an acpi_device through
+> cs35l41_hda_read_acpi() and stores it in cs35l41->dacpi. It is
+> released in the err: label, which
+> is reached from every later failure.
+> 
+> One failure is not routed there:
+> 
+>         ret = cs35l41_hda_read_acpi(cs35l41, device_name, id);
+>         if (ret)
+>                 return dev_err_probe(cs35l41->dev, ret, "...");
+> 
+> cs35l41->acpi_subsystem_id is allocated inside cs35l41_hda_read_acpi()
+> before that point, so it is leaked whenever the function fails.
+> 
+> Route the failure through a new err_acpi label that releases it.
+> 
+> That label must not release cs35l41->dacpi a second time.  Every
+> failure path in cs35l41_hda_read_acpi() that can be taken after the
+> assignment already drops that reference: cs35l41_hda_parse_acpi() does
+> so in its own err: label, and the !physdev path does it directly.
+> Clear cs35l41->dacpi wherever it is dropped, so the pointer never
+> outlives the reference and the put in err_acpi is a no-op on those
+> paths.
+> 
+> Found by code review.
+> 
+> Fixes: 447106e92a0c ("ALSA: hda: cs35l41: Support mute notifications for CS35L41 HDA")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ma Ke <make_ruc2021@163.com>
 
-	uint32_t	done_qbuffer[ARCMSR_MAX_HBB_POSTQUEUE];
-	uint32_t	postq_index;
-	uint32_t	doneq_index;
+Now Sashiko complains other things; please verify whether they are
+valid or not.
 
-arcmsr_hbaB_postqueue_isr() takes doneq_index from there and subscripts
-done_qbuffer[] with it, and only afterwards reduces it:
+Through those developments, I'm thinking whether it'd be cleaner
+rather to move the unref and kfree into the caller side, i.e. doing it
+only in cs35l41_hda_probe() error path (but conditionally), instead,
+so something like below.
 
-	index = reg->doneq_index;
-	while ((flag_ccb = reg->done_qbuffer[index]) != 0) {
-		...
-		reg->done_qbuffer[index] = 0;
-		index++;
-		index %= ARCMSR_MAX_HBB_POSTQUEUE;
-		reg->doneq_index = index;
-	}
 
-So the first iteration uses the value as it was found, unmasked.  An
-index beyond ARCMSR_MAX_HBB_POSTQUEUE (264) reads past done_qbuffer[]
-and, should the word it finds be non-zero, stores a zero there as well.
-arcmsr_hbaB_polling_ccbdone() has the same ordering.
+thanks,
 
-Reduce the index where it is read instead, which leaves the rest of the
-loop unchanged.
+Takashi
 
-Measured with a KASAN build.  struct MessageUnit_B is 2176 bytes with
-done_qbuffer at offset 1056, so a reported index of 600 reads 3456 bytes
-in:
-
-  BUG: KASAN: slab-out-of-bounds in arcmsr_hbaB_postqueue_isr+0x1f5/0x270 [arcmsr]
-  Read of size 4 at addr ffff88800c08cd80 by task init/1
-  ...
-   which belongs to the cache kmalloc-4k of size 4096
-  The buggy address is located 1280 bytes to the right of
-
-Fixes: 1c57e86d75cf ("[SCSI] arcmsr: initial driver, version 1.20.00.13")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/scsi/arcmsr/arcmsr_hba.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/scsi/arcmsr/arcmsr_hba.c b/drivers/scsi/arcmsr/arcmsr_hba.c
-index 1381420d9fbd7..b73aaa0c8068c 100644
---- a/drivers/scsi/arcmsr/arcmsr_hba.c
-+++ b/drivers/scsi/arcmsr/arcmsr_hba.c
-@@ -2568,7 +2568,7 @@ static void arcmsr_hbaB_postqueue_isr(struct AdapterControlBlock *acb)
- 	bool error;
- 	unsigned long cdb_phy_addr;
+diff --git a/sound/hda/codecs/side-codecs/cs35l41_hda.c b/sound/hda/codecs/side-codecs/cs35l41_hda.c
+index 62296be45c55..e6f0ae39876d 100644
+--- a/sound/hda/codecs/side-codecs/cs35l41_hda.c
++++ b/sound/hda/codecs/side-codecs/cs35l41_hda.c
+@@ -1907,7 +1907,6 @@ int cs35l41_hda_parse_acpi(struct cs35l41_hda *cs35l41, struct device *physdev,
+ 	hw_cfg->valid = false;
+ 	hw_cfg->gpio1.valid = false;
+ 	hw_cfg->gpio2.valid = false;
+-	acpi_dev_put(cs35l41->dacpi);
  
--	index = reg->doneq_index;
-+	index = reg->doneq_index % ARCMSR_MAX_HBB_POSTQUEUE;
- 	while ((flag_ccb = reg->done_qbuffer[index]) != 0) {
- 		cdb_phy_addr = (flag_ccb << 5) & 0xffffffff;
- 		if (acb->cdb_phyadd_hipart)
-@@ -3662,7 +3662,7 @@ static int arcmsr_hbaB_polling_ccbdone(struct AdapterControlBlock *acb,
- 	/* clear doorbell interrupt */
- 	writel(ARCMSR_DOORBELL_INT_CLEAR_PATTERN, reg->iop2drv_doorbell);
- 	while(1){
--		index = reg->doneq_index;
-+		index = reg->doneq_index % ARCMSR_MAX_HBB_POSTQUEUE;
- 		flag_ccb = reg->done_qbuffer[index];
- 		if (flag_ccb == 0) {
- 			if (poll_ccb_done){
--- 
-2.43.0
-
+ 	return ret;
+ }
+@@ -1928,10 +1927,8 @@ static int cs35l41_hda_read_acpi(struct cs35l41_hda *cs35l41, const char *hid, i
+ 	cs35l41->dacpi = adev;
+ 	struct device *physdev __free(put_device) =
+ 		get_device(acpi_get_first_physical_node(adev));
+-	if (!physdev) {
+-		acpi_dev_put(adev);
++	if (!physdev)
+ 		return -ENODEV;
+-	}
+ 
+ 	sub = acpi_get_subsystem_id(ACPI_HANDLE(physdev));
+ 	if (IS_ERR(sub))
+@@ -1986,8 +1983,10 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
+ 	dev_set_drvdata(dev, cs35l41);
+ 
+ 	ret = cs35l41_hda_read_acpi(cs35l41, device_name, id);
+-	if (ret)
+-		return dev_err_probe(cs35l41->dev, ret, "Platform not supported\n");
++	if (ret) {
++		dev_err_probe(cs35l41->dev, ret, "Platform not supported\n");
++		goto err_acpi;
++	}
+ 
+ 	if (IS_ERR(cs35l41->reset_gpio)) {
+ 		ret = PTR_ERR(cs35l41->reset_gpio);
+@@ -2076,6 +2075,7 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
+ 		gpiod_set_value_cansleep(cs35l41->reset_gpio, 0);
+ 	gpiod_put(cs35l41->reset_gpio);
+ 	gpiod_put(cs35l41->cs_gpio);
++err_acpi:
+ 	acpi_dev_put(cs35l41->dacpi);
+ 	kfree(cs35l41->acpi_subsystem_id);
+ 
