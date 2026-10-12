@@ -1,58 +1,59 @@
 Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D514B0E32
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 16:41:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F4CA358D32
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 16:41:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.165.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791823285; cv=none; b=Hp3/tpmPlk9RlEsdzD+A2xej7h7GBcpp+CIz2PHRZpNBXDKzbBRW5Di2tSxBndIHeAKbUy0zK0qBaJkTWxfj2l49idilvx/LiitqxBo2ITh+ifOvFY+uWiXcnhafgkoShgtWV6XLCHixw3DbiObUxdIpt8GxeqBsgyyZIOrdc9A=
+	t=1791823291; cv=none; b=WqkW1qKdPZOle3NE4EE1ExRJIMhKfcP1bZFK/9Mwge1145DKQuE+ivqHLERL88Ik2tEOvlDICDMjIgJFZklfHkvPxw35JaMGtdxcSjOhLycx6PGrOqmkV0n69KQ0zCYgPcYbAA8a1cd+Bs8tn8os/mO8UZJ8+OSpHXdEa+DHsGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791823285; c=relaxed/simple;
-	bh=g46B5UrbX+R2/rP7EJF2vk68ckkCz2XKhcX7RHKTJJE=;
+	s=arc-20240116; t=1791823291; c=relaxed/simple;
+	bh=3iZR1plYALjcPZtTH+fsDI9ZXodAOUXocTFT+B4M4d8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NePL7Ur/aBd9Yrmew0uOVfk1PXgHkrHBREQw07AkfHU+tFkEuRO4IKNJmRq0hTlQcVnKJ7O4GqlnPOZGIqerb2TsFF7qNYBfokULZHusJJD6S8gESRv0WzkyEGQ2wdTNTQ06BEFoNmiRMK+SLCk8Od7FHDS/qyQ5YPqmVRFdWXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=qET8ttuG; arc=none smtp.client-ip=205.220.165.32
+	 MIME-Version; b=jV/MmV9JDM1k9gOPhoIx8J8dXiWleS/OPKkKj9alm3QCNuSyNdIx1FvvQ663l9KnkYWN39cL4hwXr5sc7FJn7lDzixinsiZYz6LTx2z0jCf5FSnwmFJfdnvjqygbvPO8+YesgWmWjG+85xxQ93gPPfZQVBzEm+XeiypvbHhAKXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=cizKW8/q; arc=none smtp.client-ip=205.220.165.32
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="qET8ttuG"
-Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CFRCfL1948328;
-	Mon, 12 Oct 2026 16:41:22 GMT
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="cizKW8/q"
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CFQuDd353312;
+	Mon, 12 Oct 2026 16:41:27 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
 	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=corp-2025-04-25; bh=nIeL8
-	VbShV/Y1fAVv2anviQFL4puB77p/DeK03xnFaY=; b=qET8ttuGny2b5d3DduHrP
-	PsbvgjdsUCFsH/nxgvojThfpM5a32mlkQ2CrxMQra8RbI/vuMONaYBujhyhFwHpd
-	ZhsTBFvxGtZmAjLJUtH4Ca8RaP6qKmvIkJfBYC7UHoutR99NTALIXcLmXI0tNVwf
-	WAOlK+47074ZsK1PtpyXOUoh9l8lJKhi6xxHk8Pug11eW3py97donSJMf3QqVHg+
-	8VHDUxN26ysbg1oIh3B4dokQX7w0Ayc19SN4aw6ATZfB2kTZQaNJvIhBH4eMIA6J
-	MYKK80H/mSHiCnbgG5Xn07rdly9zB8QUGviwu0buBBJji/b+B20Ys04X+9NrviJ5
+	:mime-version:references:subject:to; s=corp-2025-04-25; bh=UlfmM
+	wpOPHDIUQw1ZLGtweoM52TxXPzddfbJ2CIxSS0=; b=cizKW8/qE5aeiTLoc+k9w
+	t8vxKwcN2FSlhQqEU0euZJvDVwLYEAi9IB6SsBy7xVZXqqcviOE0HsAHNSRDyUrY
+	GgKtJz1Z3hrpxr6V+gGBTgT2gew/2hPSGCE3Zy+xN7hYBmV+ksWzK7apkdozbY2Q
+	/vNXGYca+B/qvgPEDyrTCjBcNBLdpeD5GBzwNwEHJyWikuREA8Oi8zXlNTbq0NRR
+	c0yqlR0KKj48HvhRCA8UUHQnfBXwy2zRsP0h1OcmX52Xyhr8FHFcK0AF6uAAtaOl
+	THUP8JTJBsinJnpeWGOVHixXzHSZ+CYpH7+u18jMHeWzd/mR6hbcZ62LR4Lk6S3v
 	w==
 Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4h7dwtak9m-1
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4h7df7tm01-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 12 Oct 2026 16:41:22 +0000 (GMT)
+	Mon, 12 Oct 2026 16:41:26 +0000 (GMT)
 Received: from pps.filterd (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 69CGbsHS033100;
-	Mon, 12 Oct 2026 16:41:21 GMT
+	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 69CGbmlK032764;
+	Mon, 12 Oct 2026 16:41:25 GMT
 Received: from pps.reinject (localhost [127.0.0.1])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4h7btnf1v1-1
+	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4h7btnf1yc-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 12 Oct 2026 16:41:21 +0000 (GMT)
+	Mon, 12 Oct 2026 16:41:25 +0000 (GMT)
 Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 69CGf1wc006762;
-	Mon, 12 Oct 2026 16:41:20 GMT
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 69CGf1wg006762;
+	Mon, 12 Oct 2026 16:41:24 GMT
 Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com [10.129.136.47])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id 4h7btnf18f-7;
-	Mon, 12 Oct 2026 16:41:19 +0000 (GMT)
+	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id 4h7btnf18f-9;
+	Mon, 12 Oct 2026 16:41:24 +0000 (GMT)
 From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
 To: stable@vger.kernel.org
-Cc: Steve French <stfrench@microsoft.com>, Namjae Jeon <linkinjeon@kernel.org>,
+Cc: Eric Dumazet <edumazet@google.com>, David Ahern <dsahern@kernel.org>,
+        Jakub Kicinski <kuba@kernel.org>,
         Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: [PATCH 5.15.y 6/8] smb3: fix for slab out of bounds on mount to ksmbd
-Date: Mon, 12 Oct 2026 09:40:55 -0700
-Message-ID: <20261012164057.709105-7-harshit.m.mogalapalli@oracle.com>
+Subject: [PATCH 5.15.y 8/8] ipv6: use RCU in ip6_xmit()
+Date: Mon, 12 Oct 2026 09:40:57 -0700
+Message-ID: <20261012164057.709105-9-harshit.m.mogalapalli@oracle.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20261012164057.709105-1-harshit.m.mogalapalli@oracle.com>
 References: <20261012164057.709105-1-harshit.m.mogalapalli@oracle.com>
@@ -70,118 +71,129 @@ X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
  spamscore=0 adultscore=0 bulkscore=0 malwarescore=0 mlxscore=0
  lowpriorityscore=0 suspectscore=0 mlxlogscore=999 classifier=spam adjust=0
  reason=mlx scancount=1 engine=8.19.0-2610020000 definitions=main-2610120066
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA2NiBTYWx0ZWRfXzZx5LQ7t4MIh
- 1j18oP0BuK4GnK5iNF+bfp0HSddAyBPPRrGHY1Q/ijIQNjkQ2YeT/XCisFQygS0nB7DyL/d0yfQ
- BtUeBwRbc51tXhPnIl6ISXb+aql27eSYDynZUDtnTbQC52loH/fIPCN7ufKOlRot9phh2EvkOEw
- YOQQuAyrYyByiqGifudfn7AS1223D10Xg1T50bHzTZ6XCmk1rUm9uvkh99qykn+pBZEialeP77M
- iyKx24vgjgkuW6+QquC+pDi6eIy+QVMwAIstVRJkWmg7YTeAiL+mZOJsiqjBooWlGV0qd/Hzi5/
- /SEefINpf8s5rgV4ASQci4NlnJvlIMv93L1HSPDPH8nsXhGFDhR33bLr8f7HrM3O3KF9YwEtydb
- bI4vy4B7cm1LMvrDE493cbX0u0aCIw7a0rN1dyEgpZzmHAroLldtVgh2kSWLWZdJdVAhGZ+VIZO
- yKo0Ohen6eGkET8dl0KxnQXdEf7wUA6xhJff7QhI=
-X-Authority-Analysis: v=2.4 cv=Kp7YSmWN c=1 sm=1 tr=0 ts=6acd0db2 b=1 cx=c_pps
+X-Authority-Analysis: v=2.4 cv=N+a8hG9B c=1 sm=1 tr=0 ts=6acd0db6 b=1 cx=c_pps
  a=zPCbziy225d3KhSqZt3L1A==:117 a=zPCbziy225d3KhSqZt3L1A==:17
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
- a=7Gl3-_t3PgB9XO-mQDs3:22 a=yMhMjlubAAAA:8 a=VwQbUJbxAAAA:8 a=yPCof4ZbAAAA:8
- a=haviVmOeOKvvJJ66XjkA:9 a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22
- cc=ntf awl=host:12107
-X-Proofpoint-ORIG-GUID: 7OabkuMKBeP1cebyCxbJSF7xDWOg_5QC
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA2NiBTYWx0ZWRfXxGvvTEytoi0B
- +jz5ztHVK+ESrWgfSBxn+rw7+gxAhWFmFyFZtViYUZUYtMFuUn5jqkd81t3iG3/LlQ2T/BsxGAH
- S6w67owTQwC/IzTl2YTVB1TBBppY8+Q/Ryg1nm5ahbrCV/6Z1oKI
-X-Proofpoint-GUID: 7OabkuMKBeP1cebyCxbJSF7xDWOg_5QC
+ a=RD47p0oAkeU5bO7t-o6f:22 a=bC-a23v3AAAA:8 a=1XWaLZrsAAAA:8 a=VwQbUJbxAAAA:8
+ a=yPCof4ZbAAAA:8 a=68ZpaFSGAUQpw9LHeVsA:9 a=FO4_E8m0qiDe52t0p3_H:22
+ a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:12107
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA2NiBTYWx0ZWRfXxCad47XYGy/s
+ /zyR8UlK13QF00CL3i9kUGSCHivKGFIGN3CY2wyOIuggRNvBc8bK5uDlTFQ7oa+RhtC6CsfP9+k
+ x0U72L/YvIBzNjWr2FC54HYtdgVvfYU7F3y3q60WkFhQfyZxNows2KP+u5fWpp46JD0GPvPS45z
+ jtwOJ4f4AQPRPS0DFCx49anXRwG0/KAoJzzPA1SoDafd0F2ZmG+XGv00koTIJ3KGwJWYNvrIV4v
+ xPm0fy+7/Y5AiCXnuPzMkPZuTK6AnADYQ4LGGbAbU44ClKdVY9+H6hMxpWtwOFN+UKHIpGwxnhc
+ rrS4vlTVmte8iDliLYubNVKWHvwEm3+Oh4uFaNQc/q2d/G7026lanCOwiGq+852+cUs+8iPtmDJ
+ UwLOTd8ZGoPbK4F83N0M3CpByuhZS9wanB58l63r4njRZAj9v31Xn2pFnyny/SfIMibt6hYX++p
+ kCPiVkcp2qM2kDv2oTYi330+g5QWQP9I2+oaVRWA=
+X-Proofpoint-ORIG-GUID: bTTCleM5KrYil_xWpX17uQc2ntrEx9lS
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA2NiBTYWx0ZWRfX9hjfhlWLrBjl
+ Q1hCQYDGQae3blzjFGkqbtMvpvtFIQ+9nYSCyzT7N9Q0XjyOC1M3h2zeKVSwyKkneNMMRiXXnpw
+ vpAo2L9OvgnbmBQmV1qn2/NjJQiaqC2/oNqHiOrAvISUHE+rVLK5
+X-Proofpoint-GUID: bTTCleM5KrYil_xWpX17uQc2ntrEx9lS
 
-From: Steve French <stfrench@microsoft.com>
+From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit 7d34ec36abb84fdfb6632a0f2cbda90379ae21fc ]
+[ Upstream commit 9085e56501d93af9f2d7bd16f7fcfacdde47b99c ]
 
-With KASAN enabled, it is possible to get a slab out of bounds
-during mount to ksmbd due to missing check in parse_server_interfaces()
-(see below):
+Use RCU in ip6_xmit() in order to use dst_dev_rcu() to prevent
+possible UAF.
 
- BUG: KASAN: slab-out-of-bounds in
- parse_server_interfaces+0x14ee/0x1880 [cifs]
- Read of size 4 at addr ffff8881433dba98 by task mount/9827
-
- CPU: 5 UID: 0 PID: 9827 Comm: mount Tainted: G
- OE       6.16.0-rc2-kasan #2 PREEMPT(voluntary)
- Tainted: [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
- Hardware name: Dell Inc. Precision Tower 3620/0MWYPT,
- BIOS 2.13.1 06/14/2019
- Call Trace:
-  <TASK>
- dump_stack_lvl+0x9f/0xf0
- print_report+0xd1/0x670
- __virt_addr_valid+0x22c/0x430
- ? parse_server_interfaces+0x14ee/0x1880 [cifs]
- ? kasan_complete_mode_report_info+0x2a/0x1f0
- ? parse_server_interfaces+0x14ee/0x1880 [cifs]
-   kasan_report+0xd6/0x110
-   parse_server_interfaces+0x14ee/0x1880 [cifs]
-   __asan_report_load_n_noabort+0x13/0x20
-   parse_server_interfaces+0x14ee/0x1880 [cifs]
- ? __pfx_parse_server_interfaces+0x10/0x10 [cifs]
- ? trace_hardirqs_on+0x51/0x60
- SMB3_request_interfaces+0x1ad/0x3f0 [cifs]
- ? __pfx_SMB3_request_interfaces+0x10/0x10 [cifs]
- ? SMB2_tcon+0x23c/0x15d0 [cifs]
- smb3_qfs_tcon+0x173/0x2b0 [cifs]
- ? __pfx_smb3_qfs_tcon+0x10/0x10 [cifs]
- ? cifs_get_tcon+0x105d/0x2120 [cifs]
- ? do_raw_spin_unlock+0x5d/0x200
- ? cifs_get_tcon+0x105d/0x2120 [cifs]
- ? __pfx_smb3_qfs_tcon+0x10/0x10 [cifs]
- cifs_mount_get_tcon+0x369/0xb90 [cifs]
- ? dfs_cache_find+0xe7/0x150 [cifs]
- dfs_mount_share+0x985/0x2970 [cifs]
- ? check_path.constprop.0+0x28/0x50
- ? save_trace+0x54/0x370
- ? __pfx_dfs_mount_share+0x10/0x10 [cifs]
- ? __lock_acquire+0xb82/0x2ba0
- ? __kasan_check_write+0x18/0x20
- cifs_mount+0xbc/0x9e0 [cifs]
- ? __pfx_cifs_mount+0x10/0x10 [cifs]
- ? do_raw_spin_unlock+0x5d/0x200
- ? cifs_setup_cifs_sb+0x29d/0x810 [cifs]
- cifs_smb3_do_mount+0x263/0x1990 [cifs]
-
-Reported-by: Namjae Jeon <linkinjeon@kernel.org>
-Tested-by: Namjae Jeon <linkinjeon@kernel.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Steve French <stfrench@microsoft.com>
-(cherry picked from commit 7d34ec36abb84fdfb6632a0f2cbda90379ae21fc)
+Fixes: 4a6ce2b6f2ec ("net: introduce a new function dst_dev_put()")
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: David Ahern <dsahern@kernel.org>
+Link: https://patch.msgid.link/20250828195823.3958522-4-edumazet@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+(cherry picked from commit 9085e56501d93af9f2d7bd16f7fcfacdde47b99c)
+[Harshit: Resolve conflict for missing BIG TCP hop-jumbo context]
 Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
 ---
- fs/cifs/smb2ops.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ net/ipv6/ip6_output.c | 35 +++++++++++++++++++++--------------
+ 1 file changed, 21 insertions(+), 14 deletions(-)
 
-diff --git a/fs/cifs/smb2ops.c b/fs/cifs/smb2ops.c
-index c38309616e68..fbba71f6814e 100644
---- a/fs/cifs/smb2ops.c
-+++ b/fs/cifs/smb2ops.c
-@@ -528,6 +528,13 @@ parse_server_interfaces(struct network_interface_info_ioctl_rsp *buf,
- 			bytes_left -= sizeof(*p);
- 			break;
+diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
+index ab745cda1179..6db5f2501736 100644
+--- a/net/ipv6/ip6_output.c
++++ b/net/ipv6/ip6_output.c
+@@ -257,33 +257,34 @@ bool ip6_autoflowlabel(struct net *net, const struct ipv6_pinfo *np)
+ int ip6_xmit(const struct sock *sk, struct sk_buff *skb, struct flowi6 *fl6,
+ 	     __u32 mark, struct ipv6_txoptions *opt, int tclass, u32 priority)
+ {
+-	struct net *net = sock_net(sk);
+ 	const struct ipv6_pinfo *np = inet6_sk(sk);
+ 	struct in6_addr *first_hop = &fl6->daddr;
+ 	struct dst_entry *dst = skb_dst(skb);
+-	struct net_device *dev = dst->dev;
+ 	struct inet6_dev *idev = ip6_dst_idev(dst);
++	struct net *net = sock_net(sk);
+ 	unsigned int head_room;
++	struct net_device *dev;
+ 	struct ipv6hdr *hdr;
+ 	u8  proto = fl6->flowi6_proto;
+ 	int seg_len = skb->len;
+-	int hlimit = -1;
++	int ret, hlimit = -1;
+ 	u32 mtu;
+ 
++	rcu_read_lock();
++
++	dev = dst_dev_rcu(dst);
+ 	head_room = sizeof(struct ipv6hdr) + LL_RESERVED_SPACE(dev);
+ 	if (opt)
+ 		head_room += opt->opt_nflen + opt->opt_flen;
+ 
+ 	if (unlikely(head_room > skb_headroom(skb))) {
+-		/* Make sure idev stays alive */
+-		rcu_read_lock();
++		/* idev stays alive while we hold rcu_read_lock(). */
+ 		skb = skb_expand_head(skb, head_room);
+ 		if (!skb) {
+ 			IP6_INC_STATS(net, idev, IPSTATS_MIB_OUTDISCARDS);
+-			rcu_read_unlock();
+-			return -ENOBUFS;
++			ret = -ENOBUFS;
++			goto unlock;
  		}
-+		/* Validate that Next doesn't point beyond the buffer */
-+		if (next > bytes_left) {
-+			cifs_dbg(VFS, "%s: invalid Next pointer %zu > %zd\n",
-+				 __func__, next, bytes_left);
-+			rc = -EINVAL;
-+			goto out;
+-		rcu_read_unlock();
+ 	}
+ 
+ 	if (opt) {
+@@ -331,17 +332,21 @@ int ip6_xmit(const struct sock *sk, struct sk_buff *skb, struct flowi6 *fl6,
+ 		 * skb to its handler for processing
+ 		 */
+ 		skb = l3mdev_ip6_out((struct sock *)sk, skb);
+-		if (unlikely(!skb))
+-			return 0;
++		if (unlikely(!skb)) {
++			ret = 0;
++			goto unlock;
 +		}
- 		p = (struct network_interface_info_ioctl_rsp *)((u8 *)p+next);
- 		bytes_left -= next;
- 	}
-@@ -539,7 +546,9 @@ parse_server_interfaces(struct network_interface_info_ioctl_rsp *buf,
+ 
+ 		/* hooks should never assume socket lock is held.
+ 		 * we promote our socket to non const
+ 		 */
+-		return NF_HOOK(NFPROTO_IPV6, NF_INET_LOCAL_OUT,
+-			       net, (struct sock *)sk, skb, NULL, dev,
+-			       dst_output);
++		ret = NF_HOOK(NFPROTO_IPV6, NF_INET_LOCAL_OUT,
++			      net, (struct sock *)sk, skb, NULL, dev,
++			      dst_output);
++		goto unlock;
  	}
  
- 	/* Azure rounds the buffer size up 8, to a 16 byte boundary */
--	if ((bytes_left > 8) || p->Next)
-+	if ((bytes_left > 8) ||
-+	    (bytes_left >= offsetof(struct network_interface_info_ioctl_rsp, Next)
-+	     + sizeof(p->Next) && p->Next))
- 		cifs_dbg(VFS, "%s: incomplete interface info\n", __func__);
++	ret = -EMSGSIZE;
+ 	skb->dev = dev;
+ 	/* ipv6_local_error() does not require socket lock,
+ 	 * we promote our socket to non const
+@@ -350,7 +355,9 @@ int ip6_xmit(const struct sock *sk, struct sk_buff *skb, struct flowi6 *fl6,
  
+ 	IP6_INC_STATS(net, idev, IPSTATS_MIB_FRAGFAILS);
+ 	kfree_skb(skb);
+-	return -EMSGSIZE;
++unlock:
++	rcu_read_unlock();
++	return ret;
+ }
+ EXPORT_SYMBOL(ip6_xmit);
  
 -- 
 2.52.0
