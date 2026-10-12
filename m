@@ -1,333 +1,185 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A3634C2248;
-	Mon, 12 Oct 2026 17:38:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C49304ADDBF;
+	Mon, 12 Oct 2026 17:42:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791826722; cv=none; b=KSL/dxgzYlIQoMK5dfZT2Z8RlVJUboPkCfN8xETHqPBCtpV2gChrKzNNvc6jgSbymC1zAjkYi2SMSrr1NEqAYW2TUVPaMoRofwK+MiQYuIwGkDvZseP/ijmJSDW6CBIEPQRUHyTTwa0ejJEBaGd7drbIG8fYs3eY3rlPwQWDZbI=
+	t=1791826960; cv=none; b=MypKpEW1YmLWi5r4VgBPbaZZnFprgFQhi4ABKBXANrpCPLkqzNj8NFmCy0+/GWUTtH96rO7vSR2ccm7j177/70QVaADPSGz7/lWwzR+cMxszkXdvEziFH97egTkZv1keUcSv3ABMv+gUQtggcpyOtGQQYRXRTV9IIv3Q3wP2E90=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791826722; c=relaxed/simple;
-	bh=3BOJUGdvasGKNrJz73unSOIIoXFBdk/4DjIHhQtV3xk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=nRUwXllhiqfzRz1WASY3azaLl1vU6/QLXYLc28fmKjlG5i87ITPk1KgTS6u8bieaPzgTmLUXbsW34jdvJhakJuXtXWU09FFFaMKFC/+b78jbC3pJUrr64L0pskzBgK2JYJBX3A1vwpycDbM5pfu3je+bHyHMqzxUkzYvka3Sqag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=pmilQCrB; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=WFDwT4H3; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=pmilQCrB; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=WFDwT4H3; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="pmilQCrB";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="WFDwT4H3";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="pmilQCrB";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="WFDwT4H3"
-Received: from tenko.suse.cz (unknown [IPv6:2a07:de40:b2bf:1b::11d2])
-	by smtp-out1.suse.de (Postfix) with ESMTP id 666B921EA0;
-	Mon, 12 Oct 2026 17:38:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791826718; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=8SZv8+95iAQyqraQGrneJoLymgjYWATeCs9ikvc3cC8=;
-	b=pmilQCrBh829bXvFXvrw1ccFYRM1PPZO1rzZCOXKGcUhCa7ifbB1vjTL6jNAjJU4+Cb4qX
-	G6XwLH1W92hJ46cIl/PGp6CmZW10o5bQJam0go60KmMbaeIgllVrPaMxrJshEroNk70yQC
-	AuJ5wVXLnQnSgQ/mQl0bChxZL7THcXQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791826718;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=8SZv8+95iAQyqraQGrneJoLymgjYWATeCs9ikvc3cC8=;
-	b=WFDwT4H3MBBAC0jVxPYN8WGxnMs4w1GCVreCKK48kfyPw1mT/N0ZwPTIDgk4kqikq16xSR
-	plOW3uDL2R6AR3CQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=pmilQCrB;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=WFDwT4H3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791826718; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=8SZv8+95iAQyqraQGrneJoLymgjYWATeCs9ikvc3cC8=;
-	b=pmilQCrBh829bXvFXvrw1ccFYRM1PPZO1rzZCOXKGcUhCa7ifbB1vjTL6jNAjJU4+Cb4qX
-	G6XwLH1W92hJ46cIl/PGp6CmZW10o5bQJam0go60KmMbaeIgllVrPaMxrJshEroNk70yQC
-	AuJ5wVXLnQnSgQ/mQl0bChxZL7THcXQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791826718;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=8SZv8+95iAQyqraQGrneJoLymgjYWATeCs9ikvc3cC8=;
-	b=WFDwT4H3MBBAC0jVxPYN8WGxnMs4w1GCVreCKK48kfyPw1mT/N0ZwPTIDgk4kqikq16xSR
-	plOW3uDL2R6AR3CQ==
-From: Michal Suchanek <msuchanek@suse.de>
-To: linuxppc-dev@lists.ozlabs.org
-Cc: Michal Suchanek <msuchanek@suse.de>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Kees Cook <kees@kernel.org>,
-	Andy Lutomirski <luto@amacapital.net>,
-	Will Drewry <wad@chromium.org>,
-	"Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
-	Kevin Brodsky <kevin.brodsky@arm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>,
-	"Bernhard M. Wiedemann" <bwiedemann@suse.de>,
+	s=arc-20240116; t=1791826960; c=relaxed/simple;
+	bh=UQ7NYcTVYebnTIGueqNZxtx+9yKoLC1TxyVNjHpbWy0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=idosZfpKJLEZxTb+poY8+09qDXaLUV7KyzvgfljDi8idrYLNfcLwB1IZP4vmkPHg8Vi0Jy/dN3vTRHzqBpjTsrrebD8T1/o91Yt/hJeSEIrAmmRjIRj9hipzopwD4hBgb1/51f58RweshqZoGmjZlHqs9PqYtQyedYOLWqk1u0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xGK2g-00FScM-Dl;
+	Mon, 12 Oct 2026 13:42:30 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Matthew Wilcox <willy@infradead.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] powerpc: Restore all registers after a traced syscall again
-Date: Mon, 12 Oct 2026 19:38:28 +0200
-Message-ID: <4c1da7f31a6603455ec452960af529e4d77f5334.1791826411.git.msuchanek@suse.de>
-X-Mailer: git-send-email 2.51.0
+	stable@vger.kernel.org,
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v1] xarray: unlink a node before freeing it
+Date: Mon, 12 Oct 2026 13:42:29 -0400
+Message-ID: <20261012174230.772325-1-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [3.99 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	HFILTER_HOSTNAME_UNKNOWN(2.50)[];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ONCE_RECEIVED(1.20)[];
-	HFILTER_HELO_IP_A(1.00)[tenko.suse.cz];
-	RDNS_NONE(1.00)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	HFILTER_HELO_NORES_A_OR_MX(0.30)[tenko.suse.cz];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-0.986];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DIRECT_TO_MX(0.00)[git-send-email 2.51.0];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[suse.de,linux.ibm.com,ellerman.id.au,gmail.com,kernel.org,amacapital.net,chromium.org,arm.com,vger.kernel.org];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b2bf:1b::11d2:from];
-	TAGGED_RCPT(0.00)[];
-	RCVD_COUNT_ZERO(0.00)[0];
-	DKIM_TRACE(0.00)[suse.de:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim]
-X-Spam-Score: 3.99
-X-Spam-Level: ***
-X-Spamd-Bar: +++
-X-Rspamd-Queue-Id: 666B921EA0
-X-Spam-Flag: NO
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-From: Bernhard M. Wiedemann <bwiedemann@suse.de>
+xas_delete_node() passes an empty node to xa_node_free(), which queues it
+with call_rcu(), and only then stores NULL over the pointer to the node,
+in the parent's slot or in xa_head.  Between the two, a lockless walker
+can still reach the node, and RCU does not protect it: call_rcu() waits
+only for the read-side critical sections that were running when the
+callback's grace period started, and that grace period can start before
+the store that unlinks the node.  A walker that begins its RCU read-side
+critical section after that point can load the old pointer and keep
+using the node after it has been freed:
 
-syscall_exit_prepare() asks the exit assembly to reload all GPRs, CTR
-and XER from pt_regs only if the thread flags contain any of the flags
-in _TIF_SYSCALL_DOTRACE. With the new entry code based GENERIC_ENTRY the
-flags are no longer set.
+  CPU 0: xa_erase(), xa_lock held   CPU 1: RCU walker, e.g. xa_load()
 
-This breaks tracers that modify a stopped syscall, for example ones that
-re-execute the syscall instruction by moving the NIP back by 4 at the
-syscall-exit stop with the syscall number put back into r0: the sc then
-runs with r0 = 0, which is __NR_restart_syscall. dettrace fails like
-this with "No filter rule for system call: restart_syscall". A tracer
-that writes r4 at the syscall-exit stop of an sc sees the tracee
-continue with r4 = 0 instead; with a 7.1 kernel both work.
+  xas_delete_node()
+    xa_node_free(node)
+      call_rcu()
+                    <grace period starts>
+                                     passes a quiescent state
+                                     rcu_read_lock()
+                                     xas_load(): parent->slots[offset]
+                                     is still node
+    parent->slots[offset] = NULL
+  xa_unlock()
+  quiescent state
+                    <grace period ends>
+  radix_tree_node_rcu_free(node)
+                                     reads node->shift, node->slots[]
 
-Check the equivalent syscall_work bits instead, and drop the now unused
-_TIF_SYSCALL_DOTRACE.
+The grace period does not wait for CPU 1: CPU 1 reported its quiescent
+state before its critical section began.  Holding xa_lock does not help
+either.  It makes CPU 0 an RCU reader, which delays the end of the grace
+period until after the unlinking store, but not its start.  The start can
+fall inside the window whenever the callback is assigned to a grace
+period before the unlink: from call_rcu() itself when many callbacks are
+queued, from an interrupt that arrives in the window (interrupts are
+enabled under xa_lock(), and RCU core processing and the other softirqs
+may run on interrupt exit for milliseconds), from the rcuog kthread on
+another CPU when callbacks are offloaded (rcu_nocbs=), or while the
+writer is preempted under PREEMPT_RT.  Interrupts, and in a guest a
+preempted vCPU, also stretch the window.
 
-Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
-Cc: stable@vger.kernel.org # 7.2.x: c7585b8e99ad: powerpc: Don't drop _TIF_RESTOREALL on syscall restart
-Cc: stable@vger.kernel.org # 7.2.x
+Setting node->array to XA_RCU_FREE does not make walkers retry: no
+lockless path looks at node->array.  xas_load() and xas_descend() look
+only at the entries and at node->shift, and the marker is overwritten
+when the slab reuses the object.  The XA_RETRY_ENTRY markers that
+xas_shrink() and xas_free_nodes() store only help walkers that reached
+a node before it was unlinked; the grace period waits for those because
+both functions unlink before they free.
+
+radix_tree_node_cachep is not SLAB_TYPESAFE_BY_RCU, so the walker reads
+freed memory.  Once the object is reused for a node of another array,
+the walker can descend through the wrong node and return an entry of
+the other array.  In a page cache lookup, the xas_reload() recheck in
+filemap_get_entry() reads the same reused slot and accepts the result,
+so in the worst case the lookup returns a folio of another file.
+
+The order dates from the introduction of xas_delete_node() in the
+commit below, which reimplemented the radix tree's delete_node().
+delete_node() unlinks first and frees after, and still does in
+lib/radix-tree.c, as do xas_shrink() and xas_free_nodes(), the other two
+paths that free nodes in lib/xarray.c.  The commit gives no reason for
+the different order and nothing depends on it: xa_node_free() only marks
+the node and queues the callback, node->offset is read before the free,
+and the stores and xas_update() on the parent do not involve the node.
+
+Move xa_node_free() after the store that unlinks the node, in both
+branches.  The stores and their order are unchanged, nothing reads the
+node after it is freed, and every caller sees the same tree and the
+same xa_state.
+
+The radix-tree test suite already runs into this.  Its multiorder test
+(multiorder_iteration_race(): one thread inserts and deletes an entry at
+index 0 while the others walk the array under rcu_read_lock(), with
+liburcu's call_rcu()) reported a heap-use-after-free in xas_start(),
+reading the shift of a head node freed through call_rcu(), in 10 of 200
+unpatched runs under AddressSanitizer on a 160-CPU machine, and in none
+of 200 runs with this patch.  A harness check that no node passed to
+xa_node_free() is still reachable from xa_head fails 556941 times in the
+XArray tests without this patch (all in xas_delete_node(), both
+branches) and never with it.  No test is added: the race is not
+deterministic and the check needs a hook on xa_node_free().  On a
+kernel, the window is too short to hit on demand.  With a 100 ms delay
+injected between call_rcu() and the unlink in a test build, a lookup
+that starts on another CPU 20 ms into the window reaches the node, and
+KASAN reports a slab-use-after-free of the radix_tree_node freed from
+rcu_core() when the lookup reads it again.  With this patch and the
+same delay between the unlink and the free, no lookup reaches the node.
+The XArray and IDA self-tests pass on x86_64 and riscv64.
+
+Found while formally verifying xas_store() against the kernel binary.
+
+Fixes: 58d6ea3085f2 ("xarray: Add XArray unconditional store operations")
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Bernhard M. Wiedemann <bwiedemann@suse.de>
-[ms: reword commit message]
-Signed-off-by: Michal Suchánek <msuchanek@suse.de>
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
 ---
-A backport also needs commit c7585b8e99ad ("powerpc: Don't drop
-_TIF_RESTOREALL on syscall restart"), without which the flag can still
-be lost.
 
-It has been pointed out that the newly defined
-PPC_SYSCALL_WORK_RESTOREALL is almost the same as SYSCALL_WORK_ENTER and
-the existing define might be used instead. However, it is not clear if
-this is expected or if this is merely coincidence, and not guaranteed.
+Notes:
+    Reproduction details: the harness numbers come from
+    tools/testing/radix-tree built as is (AddressSanitizer is on by
+    default), running ./multiorder 200 times on master and on master plus
+    this patch.  The ordering check wraps each xa_node_free(node) call in a
+    copy of lib/xarray.c with a function that walks the tree from xa_head
+    and reports the node if it is still reachable; it is not part of this
+    patch.  The kernel demonstration is a test build (x86_64 defconfig +
+    KASAN, QEMU -smp 4) with mdelay(100) after xa_node_free() in
+    xas_delete_node() for one test array, a writer kthread on CPU 0 doing
+    xa_store()/xa_erase() and a reader kthread on CPU 1 doing
+    xas_load()/xas_next() under rcu_read_lock().  I can send any of these
+    if useful.
+    
+    The patch and its analysis were drafted with an LLM coding assistant
+    and then reviewed and tested as described in the commit message.
 
-Testing: a small tracer (pokes r4 at the syscall-exit stop of an sc,
-and replays a syscall by moving NIP back with a new r0) shows both
-writes lost on a ppc64le and both working on 7.1.8.
-------------[ cut here ]------------
-// SPDX-License-Identifier: GPL-2.0
-/*
- * Does a register a tracer writes at the syscall-exit stop of an "sc"
- * reach the tracee? Checks r4, and a replay: NIP moved back onto the sc
- * with r0 set to another syscall number.
- * Build: gcc -O2 -o ppc-exitregs ppc-exitregs.c (powerpc64 only)
- */
+ lib/xarray.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-/* word offsets in struct pt_regs, arch/powerpc/include/uapi/asm/ptrace.h */
-
-static long do_sc(long nr, long *r4io)
-{
-	register long r0 __asm__("r0") = nr;
-	register long r3 __asm__("r3") = 0;
-	register long r4 __asm__("r4") = *r4io;
-
-	__asm__ volatile("sc"
-			 : "+r"(r0), "+r"(r3), "+r"(r4)
-			 :
-			 : "r5", "r6", "r7", "r8", "r9", "r10", "r11", "r12",
-			   "cr0", "ctr", "xer", "memory");
-	*r4io = r4;
-	return r3;
-}
-
-static long peek(pid_t pid, int w)
-{
-	errno = 0;
-	long v = ptrace(PTRACE_PEEKUSER, pid, (void *)(w * sizeof(long)), 0);
-	if (errno) {
-		perror("PEEKUSER");
-		exit(2);
-	}
-	return v;
-}
-
-static void poke(pid_t pid, int w, long v)
-{
-	if (ptrace(PTRACE_POKEUSER, pid, (void *)(w * sizeof(long)), (void *)v)) {
-		perror("POKEUSER");
-		exit(2);
-	}
-}
-
-/* Resume to the next syscall stop, which must be one. */
-static void next_stop(pid_t pid)
-{
-	int st;
-
-	ptrace(PTRACE_SYSCALL, pid, 0, 0);
-	if (waitpid(pid, &st, 0) != pid || !WIFSTOPPED(st) ||
-	    WSTOPSIG(st) != (SIGTRAP | 0x80)) {
-		fprintf(stderr, "unexpected wait status %#x\n", st);
-		exit(2);
-	}
-}
-
-int main(void)
-{
-	pid_t pid = fork();
-	int st, fail = 0;
-
-	if (pid == 0) {
-		long r4 = 0x1111, r4a, ret;
-
-		ptrace(PTRACE_TRACEME, 0, 0, 0);
-		raise(SIGSTOP);
-		do_sc(__NR_getpid, &r4);
-		r4a = r4;
-		ret = do_sc(__NR_getpid, &r4);
-		/* bit 0: the tracer's r4 was lost; bit 1: the replay of
-		 * the second getpid as getppid returned something else */
-		_exit((r4a != 0x2222) | (ret != getppid()) << 1);
-	}
-
-	waitpid(pid, &st, 0);
-	ptrace(PTRACE_SETOPTIONS, pid, 0, (void *)PTRACE_O_TRACESYSGOOD);
-
-	/* 1: write r4 at the exit stop of getpid */
-	next_stop(pid);				/* entry */
-	next_stop(pid);				/* exit */
-	poke(pid, W_R4, 0x2222);
-	next_stop(pid);				/* entry of the second getpid */
-
-	/* 2: replay the second getpid as getppid */
-	next_stop(pid);				/* exit */
-	poke(pid, W_NIP, peek(pid, W_NIP) - 4);
-	poke(pid, W_R0, __NR_getppid);
-	next_stop(pid);				/* entry of the replay */
-	long nr = peek(pid, W_R0);
-	printf("replayed syscall arrives as nr %ld (%s)\n", nr,
-	       nr == __NR_getppid ? "getppid, OK" :
-	       nr == __NR_restart_syscall ? "restart_syscall, BUG" : "?");
-	if (nr != __NR_getppid) {
-		fail = 1;
-		poke(pid, W_R0, __NR_getppid);	/* entry writes do work */
-	}
-	next_stop(pid);				/* exit */
-	ptrace(PTRACE_CONT, pid, 0, 0);
-	waitpid(pid, &st, 0);
-	if (!WIFEXITED(st)) {
-		printf("child did not exit normally: %#x\n", st);
-		return 2;
-	}
-	printf("r4 written at the exit stop: %s\n",
-	       WEXITSTATUS(st) & 1 ? "lost, BUG" : "kept, OK");
-	printf("replay result: %s\n",
-	       WEXITSTATUS(st) & 2 ? "wrong" : "getppid(), OK");
-	return fail || WEXITSTATUS(st);
-}
----
- arch/powerpc/include/asm/thread_info.h |  3 ---
- arch/powerpc/kernel/interrupt.c        | 16 ++++++++++++++--
- 2 files changed, 14 insertions(+), 5 deletions(-)
-
-diff --git a/arch/powerpc/include/asm/thread_info.h b/arch/powerpc/include/asm/thread_info.h
-index 1e069a2e7ce87..0e8dc71c8d3fe 100644
---- a/arch/powerpc/include/asm/thread_info.h
-+++ b/arch/powerpc/include/asm/thread_info.h
-@@ -142,9 +142,6 @@ void arch_setup_new_exec(void);
- #define _TIF_SYSCALL_TRACEPOINT	(1<<TIF_SYSCALL_TRACEPOINT)
- #define _TIF_EMULATE_STACK_STORE	(1<<TIF_EMULATE_STACK_STORE)
- #define _TIF_SYSCALL_EMU	(1<<TIF_SYSCALL_EMU)
--#define _TIF_SYSCALL_DOTRACE	(_TIF_SYSCALL_TRACE | _TIF_SYSCALL_AUDIT | \
--				 _TIF_SECCOMP | _TIF_SYSCALL_TRACEPOINT | \
--				 _TIF_SYSCALL_EMU)
+diff --git a/lib/xarray.c b/lib/xarray.c
+index bfe7bef80f34..d48754c5f8b8 100644
+--- a/lib/xarray.c
++++ b/lib/xarray.c
+@@ -500,17 +500,18 @@ static void xas_delete_node(struct xa_state *xas)
+ 		parent = xa_parent_locked(xas->xa, node);
+ 		xas->xa_node = parent;
+ 		xas->xa_offset = node->offset;
+-		xa_node_free(node);
  
- #define _TIF_USER_WORK_MASK	(_TIF_SIGPENDING | _TIF_NEED_RESCHED | \
- 				 _TIF_NEED_RESCHED_LAZY | _TIF_NOTIFY_RESUME | \
-diff --git a/arch/powerpc/kernel/interrupt.c b/arch/powerpc/kernel/interrupt.c
-index 55f9c0c9922ac..524c51104e4c9 100644
---- a/arch/powerpc/kernel/interrupt.c
-+++ b/arch/powerpc/kernel/interrupt.c
-@@ -75,6 +75,18 @@ static notrace __always_inline bool prep_irq_for_enabled_exit(bool restartable)
- 	return true;
- }
+ 		if (!parent) {
+ 			xas->xa->xa_head = NULL;
+ 			xas->xa_node = XAS_BOUNDS;
++			xa_node_free(node);
+ 			return;
+ 		}
  
-+/*
-+ * Syscall work after which the exit must reload all registers from
-+ * pt_regs: a tracer may have changed any of them at a syscall or seccomp
-+ * stop, or under PTRACE_SYSEMU. Audit and the tracepoint are included to
-+ * keep the pre-GENERIC_ENTRY behaviour.
-+ */
-+#define PPC_SYSCALL_WORK_RESTOREALL	(SYSCALL_WORK_SECCOMP |		\
-+					 SYSCALL_WORK_SYSCALL_TRACEPOINT | \
-+					 SYSCALL_WORK_SYSCALL_TRACE |	\
-+					 SYSCALL_WORK_SYSCALL_EMU |	\
-+					 SYSCALL_WORK_SYSCALL_AUDIT)
-+
- /*
-  * This should be called after a syscall returns, with r3 the return value
-  * from the syscall. If this function returns non-zero, the system call
-@@ -117,9 +129,9 @@ notrace unsigned long syscall_exit_prepare(unsigned long r3,
- 		regs->gpr[3] = r3;
+ 		parent->slots[xas->xa_offset] = NULL;
+ 		parent->count--;
+ 		XA_NODE_BUG_ON(parent, parent->count > XA_CHUNK_SIZE);
++		xa_node_free(node);
+ 		node = parent;
+ 		xas_update(xas, node);
  	}
- 
--	if (unlikely(ti_flags & _TIF_SYSCALL_DOTRACE)) {
-+	if (unlikely(READ_ONCE(current_thread_info()->syscall_work) &
-+		     PPC_SYSCALL_WORK_RESTOREALL))
- 		ret |= _TIF_RESTOREALL;
--	}
- 
- 	syscall_exit_to_user_mode(regs);
- 
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 -- 
-2.51.0
+2.53.0
 
