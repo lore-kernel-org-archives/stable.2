@@ -1,145 +1,150 @@
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2382D2DC76A;
-	Mon, 12 Oct 2026 14:07:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA0F6470E89
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 14:09:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791814051; cv=none; b=IN6+ggYJyVrYToViO/k4Lqf6tF4jlOYbf0UQMCfnrpoAX/vJJ1zO0xwgXxVZiT0/oZ9v32FpbPvhKtzk8caUleMozm8pyTJHpMXqsg15iLq11LAqu7QqkKCGjMpSD5EJ28F2Km2pptIdoTKJqQ4fo2l4Q6LZXRU6jTlO+t5yAYg=
+	t=1791814144; cv=none; b=MtDFOed8ROblth3xzTvROcAi/97qZZe3R7MfnH1aYHRh0MaVtC1FMP1/T2R9DHLBQSSiEk739Dn3cUGiUdb2ARO5ouT1WhVng2dxasV8WRLOg/zGxaW59ToktbeN/jL5T2q4rIzG3CzLQhHM7oRyaIS4Fw7N9p1eLjGddzZuCwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791814051; c=relaxed/simple;
-	bh=2aG/DogWSGTzP5ugFjBq1AH/kx5pc3t9kJDKFSOs67Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cb49OPMcfMnPXAk3oJgysvFDc5zhlWK66wcYaTIhXh3uo87VQd5fQA9Zczup6oU7oWvI6gd0jjf5VcnXH9NR4yFxzUc/dGceJIELgUWbGvmWiYqDXp/LrprOZ0brX0r4l3srqzv2LDtGjLJLGI3P23K1UP3R84thjMqFun9cK0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=EH2BHVH/; arc=none smtp.client-ip=37.230.196.243
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	s=arc-20240116; t=1791814144; c=relaxed/simple;
+	bh=rXDSy+BU+H+23ibWV85M7YcB8RMk/WwX+AGQ/LhTWeg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=diEs0Dcqve9z4R1mkVNOw4bHsour7l4yYra0qb5S1kMMHW+mIXPD6icjyJekTSzOE9cJzBO/tjVjiVd6KRhwQcAntqdoPRFZharKj6exjFQei+YQbmLyiYdURLv9bjTu1i/9iuaf0MCM4wd5w2x9T5pln06K1E4pJ45/4KGaFC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FDbvHozW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A0me8vHx; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="EH2BHVH/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1791814037;
-	bh=2aG/DogWSGTzP5ugFjBq1AH/kx5pc3t9kJDKFSOs67Y=;
-	h=From:To:Cc:Subject:Date:From;
-	b=EH2BHVH/SvqtD895MO6RcAoDY3odmFVRsMNOBgkxf82+fEFfSQa83DrhZVsNQ7bLy
-	 aVXvLDD+7R8uLyI26PiZFnmdor6hSQfAnofQhgusVUSJGZPnAgi9kGFWzw9Myt2QEC
-	 LNNetWkN3LuzrbDlSy+viYWJbOd8QHYucGesAoKzEP7kTnfyjeCN4xhdbbqrT7n6Ef
-	 cGXR9/F05nTVajrxasPXK2LeIjoiPN+fWSwK9inVhXaznFzgsoPiR2UlMgRaPzJo9h
-	 XLV+zwwmfoWZxPmtOYv2Iz1Oev06y+xuN8wssOme1Cj5b63zcbh0pHaEfY7Jym2X+k
-	 re3sAKUBeqR6A==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id C97C3253AB;
-	Mon, 12 Oct 2026 17:07:17 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.8])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Mon, 12 Oct 2026 17:07:16 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.25.120])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j3K6C4ZB3z3KC;
-	Mon, 12 Oct 2026 17:07:15 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	Fabio Aiuto <fabioaiuto83@gmail.com>,
-	Alexandru Hossu <hossu.alexandru@gmail.com>,
-	Luka Gejak <luka.gejak@linux.dev>,
-	Hans de Goede <hdegoede@redhat.com>,
-	Navaneeth K <knavaneeth786@gmail.com>,
-	Michael Straube <straube.linux@gmail.com>,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Dan Carpenter <error27@gmail.com>,
-	Andrei Khomenkov <khomenkov@mailbox.org>,
-	Dalvin-Ehinoma Noah Aiguobas <fliegbert2@gmail.com>,
-	Michael Huang <tehsiu.huang@gmail.com>,
-	Jinke Wu <coolbeaner@126.com>,
-	Nikolay Kulikov <nikolayof23@gmail.com>,
-	William Hansen-Baird <william.hansen.baird@gmail.com>,
-	Serhat Kumral <serhatkumral1@gmail.com>,
-	Nazar Kletskii <nazar.kletskii@gmail.com>,
-	Jennifer Guo <guojy.bj@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	lvc-project@linuxtesting.org,
-	stable <stable@kernel.org>
-Subject: [PATCH 5.10] staging: rtl8723bs: fix OOB read in OnAssocRsp() IE loop
-Date: Mon, 12 Oct 2026 17:06:40 +0300
-Message-ID: <20261012140642.1076-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FDbvHozW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A0me8vHx"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC0C542275954
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 14:09:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	HsMKY3ZM6LxGid9PCtLXClBhJ9KMfSEQKanq6xuXqIo=; b=FDbvHozWAc3Vgbvx
+	k+iCtYU2yJzgCrXuH3dfRQI6rUCZKD/uYpqPUBF8Jku1UqzTpzlkJwsHSEIyEZXu
+	rrLF1xKg1Muj1+bhF+YHnzMw0vxLZG5Cco3I/S/X0PC6hgfuhHXs/Ek+yPKyuHME
+	9M1xLMk61eql1zhryplrcFVMSDVkp0B7ynll99K9zqpAvVutwh55icJ7tp6DqG1Q
+	x2AzSC3t3JM2SgMUhalF1oatgGbd/YMExpBXJxEsRbJk1uXsjzcvjm30CWXizXWA
+	dPiTm6YyXhPpZO7s7tPkffBVhvyzqx6wxZmzNATyx5ClcwzX9iRu//s81pvtBCSg
+	Q67UzA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8udq1q48-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 14:09:01 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93dd3c3badbso435935985a.2
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 07:09:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791814141; x=1792418941; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HsMKY3ZM6LxGid9PCtLXClBhJ9KMfSEQKanq6xuXqIo=;
+        b=A0me8vHxq96hC52ODuC36ki1LCj2V7nNUccnQIA5fGBzYhlAnI8dRhrmZndrCgAzhU
+         sZmRhcd521SzBk2g0dg1UHSxgLtgD2wABfiJpqZaLj9HzmqilKwW+cWshSvaDJZhsN/R
+         BCWgczUvfvD6H59mfXgeazQWGxUHQEpmIxEUQFxBWkGsFERYOQOWHBpVkYwxySp/0LYZ
+         U19231djYGvMSGwcKcwbzRJRza9lAMdz8TEt+kJd1jJ9cgiVvR+d8nakDGbV1p6HCQFC
+         DQPHjhNruBCkQXbtYnpGyPu7fRNpk9T5odCIEIGWEakqjFIEj4PKmqHHE8jzhxvJMNuL
+         9Dlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791814141; x=1792418941;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HsMKY3ZM6LxGid9PCtLXClBhJ9KMfSEQKanq6xuXqIo=;
+        b=M0jPSQ7tJzC1cZjTyiJEO7Dfv/KrtQDYbWmNIn9KPO0y+tfv4pcW0L9DcVQYyOWBOg
+         2fP7hXdox+LwEV/zJ48nEdn9p5igt1d5Xeb5wndFWq0X0htzkHArUXV/i5KdXjW4KTza
+         t7jcswHiVSj6iNdVwh90Xq8B8f5cZ1rNBjNVm0JqoDC46O4YQqL9u5mAu6R7IjHugcKg
+         93MOga8a57zDKTpiovnFHMm4KTuqkrfC7rs61yeMhZw2rfWg1OUutuxkGDlctJqVMTYy
+         jhB0uvBUS8a/h5/CqvNfFUS7AXYBRH3zh1TLGZNOxdTUIVtn+UwpmXlPaKbEAKXbVvE4
+         BRnw==
+X-Forwarded-Encrypted: i=1; AKwUvBxqnyymPxIuPvIVomiDG+Z2D345XMB7+iISdd5opPOu9LbLr7XtrF9qUikc1/3PCjJkHzdU9bs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLtMZ5Rubsvqa+hrlMmTAtxKiuRu/OzykzRgf6ziAEbjFq+fZ+P
+	H/WaHy1D9uihyAShgdlCQJfdx2YIVkQZwr46oHtx63hH57t7TxywT7TM0QSkN1EHa1CVLQOV3O/
+	4p33TkeqzoUPDZEtk4PbAEwOxNKTuuY13QRuaIpDYj3jmmpYMWsuMrpNKJUA=
+X-Gm-Gg: AYBFou2ON2qNrn2e+yZYHUS1P78nxhI/vemUAl7eYcR3xsHyGZ3Nqn0t7qU0kPKHJ68
+	KpjEn6mSwKzlF8MHcTM38oLoRT75c4ifypsYfNfgRYml0Fq0Jv1vXGNKdra/9XfSn9578QZf5oB
+	yg9X6wXozMyPpNOSPh7cYF62rBZ8P+VNY3x9N7YVdqnpr5OCOrsh+0hsWEQo9bK/nAGsZIaZIN9
+	0C08zGF1Q80YgClNfYPu51/YpC7/fQDSbHsoNlgwYMs6UA0pUXWO0JwGAWKDa9MivoBXIHLI0QJ
+	u8vuBU3oA8CQQW+8kywSqPkYh/aHDB+GtK3Wwtta5vlbyVGKlAvMsfkKu3BaiSAeECTU5M72sK5
+	rFVCRmDpMUtd8TNJbLrxNtcAAGlY=
+X-Received: by 2002:a05:620a:4693:b0:93e:6064:8996 with SMTP id af79cd13be357-93ebd0c3204mr1662170985a.8.1791814140941;
+        Mon, 12 Oct 2026 07:09:00 -0700 (PDT)
+X-Received: by 2002:a05:620a:4693:b0:93e:6064:8996 with SMTP id af79cd13be357-93ebd0c3204mr1662154985a.8.1791814139458;
+        Mon, 12 Oct 2026 07:08:59 -0700 (PDT)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1a1feb78csm83436555e9.0.2026.10.12.07.08.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 07:08:58 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Bartosz Golaszewski <brgl@kernel.org>, Kent Gibson <warthog618@gmail.com>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Sasha Levin <sashal@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        stable@vger.kernel.org, linux-gpio@vger.kernel.org,
+        linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH] tools: gpio: fix building from the top level with O=
+Date: Mon, 12 Oct 2026 16:08:56 +0200
+Message-ID: <179181412811.12167.4474187537392007806.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261011223358.2327625-5-sashal@kernel.org>
+References: <20261011223358.2327625-5-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/12 13:16:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, new-mail.astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2;astralinux.ru:7.1.1;patch.msgid.link:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 206601 [Oct 12 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/12 12:26:00 #28677215
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/10/12 13:15:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+X-Authority-Analysis: v=2.4 cv=evJKXYpX c=1 sm=1 tr=0 ts=6acce9fd cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=HJLiZkcYeBZheiffgpUA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfX/2txhWOQNr1u
+ G8wBBpHb43p+614TkfcWJXN19VTeCTfdiEXc6Vg/eplPkl3gDVV4satVMYa3Xtmu+ekJY4eAzNZ
+ F7nQIX6v2D7RRDPtLTyoskdMbuaf9tE=
+X-Proofpoint-GUID: E3_Odf8BYOIMFngzXatCeMueIm5q5vqM
+X-Proofpoint-ORIG-GUID: E3_Odf8BYOIMFngzXatCeMueIm5q5vqM
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfXxfACxa8KskN2
+ Pvsm18eOHBRYG4t59P+sttOnzF9qc5BbRIv1a5xnSHjD0OiwUvJdon5XJo/O6ty5WohufCk+z8u
+ /l09mHE5SOQQDNAhRU7XD2rVamxSV5m43uxwXsK+nvkb2EYN8uaBPDBdnwCms6rrW75DHNZbw2u
+ xq14JsgUziw1XkeMSVGzdE7usd6Hyra+UokPxsR5xx9yOSvQ29iaXbvEarpclUJpu/wyVic8BDu
+ /Q7DHN8aq1fALPJwUJNLvbpo/h9P7cfo6fwMVY98WsugrXjfRbjxVRgRf6p5B6dBwAEd8kBGwz5
+ Os1AxCXrBej2SXdS8s8l7GXO+ShBt75Rz+gcWbYLbGH3B8hLi/PTzVyiknLb5DvyWi98o7ZtCoK
+ vTTkpIpOXYwCx0T50SDp80LHFHl0ZFbLyBSk3DmCOtEUMOlUGLJqgb0I0f4BsbPXq54r7lQaFOX
+ xTSWMIunR30zcjQICgQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 bulkscore=0
+ phishscore=0 adultscore=0 suspectscore=0 malwarescore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120056
 
-From: Alexandru Hossu <hossu.alexandru@gmail.com>
 
-commit f9654207e92283e0acac5d64fe5f8835383b5a23 upstream.
+On Sun, 11 Oct 2026 18:33:33 -0400, Sasha Levin wrote:
+> "make O=<dir> tools/gpio" fails:
+> 
+>   Makefile:27: /tools/build/Makefile.include: No such file or directory
+> 
+> tools/Makefile clears srctree, and the gpio Makefile only works it out
+> again when building_out_of_srctree is not set, which the top-level
+> Makefile sets for O= builds.
+> 
+> [...]
 
-The IE parsing loop in OnAssocRsp() advances by (pIE->length + 2) each
-iteration but only guards on i < pkt_len. When a malicious AP sends an
-AssocResponse whose last IE has only one byte remaining in the frame
-(the element_id byte lands at pkt_len-1), the loop reads pIE->length
-from pframe[pkt_len], which is one byte past the allocated receive buffer.
+Applied, thanks!
 
-Additionally, even when the header bytes are in bounds, pIE->length
-itself can extend the data window beyond pkt_len, silently passing a
-truncated IE to the handler functions.
+[1/1] tools: gpio: fix building from the top level with O=
+      https://git.kernel.org/brgl/c/52336337f1a01ad803c7f3ddb23f40222e9ad58d
 
-Add two guards at the top of the loop body:
-  1. Break if fewer than sizeof(*pIE) bytes remain (can't read header).
-  2. Break if the IE's declared data extends past pkt_len.
-
-Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Alexandru Hossu <hossu.alexandru@gmail.com>
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
-Link: https://patch.msgid.link/20260522004531.1038924-6-hossu.alexandru@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ mdmitrichenko: adapt to 5.10: struct ndis_80211_var_ie still has the
-  CamelCase Length field and a one-element data[1] array here, so
-  sizeof(*pIE) is 3 rather than the 2-byte IE header. Use the explicit
-  header size 2, as the existing i += (pIE->Length + 2) does, so that a
-  valid IE ending exactly at pkt_len is not dropped. ]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
-Backport fix for CVE-2026-64444
- drivers/staging/rtl8723bs/core/rtw_mlme_ext.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-index 46ce8ca12c02..527121dbd1e7 100644
---- a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-@@ -1682,7 +1682,11 @@ unsigned int OnAssocRsp(struct adapter *padapter, union recv_frame *precv_frame)
- 	/* to handle HT, WMM, rate adaptive, update MAC reg */
- 	/* for not to handle the synchronous IO in the tasklet */
- 	for (i = (6 + WLAN_HDR_A3_LEN); i < pkt_len;) {
-+		if (i + 2 > pkt_len)
-+			break;
- 		pIE = (struct ndis_80211_var_ie *)(pframe + i);
-+		if (i + 2 + pIE->Length > pkt_len)
-+			break;
- 
- 		switch (pIE->ElementID) {
- 		case _VENDOR_SPECIFIC_IE_:
+Best regards,
 -- 
-2.47.3
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
