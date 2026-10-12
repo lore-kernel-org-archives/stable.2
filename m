@@ -1,64 +1,64 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 104724B66EA
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 16:59:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856744B2032
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 16:59:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791824377; cv=none; b=YTwyuko1/Xd73iP2fC/XzVw9cYLVPSbIiOufK8yw3DsS2S/y6jOJ009fLmEemT8Z2MjVhJJWgxNqbkjX2FjJhLBQA1/F7FJOHuJvR3esHvg1Q4lZ2Ezow5jGtt02QDMXZVQHcGSO+eOQ+K8IG3FvzAuVZNVtajcnNPgvrpdIEaU=
+	t=1791824378; cv=none; b=NyEmmNeaHkHkBS/6SzziErESAiVQzVyjfgLq4ZY83Nv9EdaZS201WaX4iyA2OB64jCnOdGABD+xckdrr73vc+imv3CfJczY+YwSuJy2ZRvd2DzyXVzzvxSFGgi8HA0l5WZfel3DPSBWXjHvZ43WygyolAlZXTJnFzKY87WATTlo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791824377; c=relaxed/simple;
-	bh=aN+xbxj0aCkAihbURhNM4JHsv/Tq2X9x16GY4E9Hcek=;
+	s=arc-20240116; t=1791824378; c=relaxed/simple;
+	bh=EhH6IwlihPOZBtZ7fy6A6cdyCPV4x/BGcANAY0SO5AI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gZXvsaXQIm8eRLb4DXwQJWpyLwMHuCO20Qq8pE9VyXazzTTKI2NPbaNf5F1clezQcyF6JjS/qUv8BhzjeFJj0/DJ+GHgGU872Rsd/ZTJiSwcQQV1+7XE2+3opqOFPNPXvQVtsnY3cbSb2gvZ+g0KuRcupW3/IGiLS4V7SFSRAH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=Fajt2Zgt; arc=none smtp.client-ip=74.125.82.180
+	 MIME-Version; b=R8JMH8+pJX8b+kZqLjhrDW5qOj5EPPunOkcW4PM6tMH6lgdz2GrLuz2IfW1SnavjqX+B7GABO61O/zxxeKmHvBytX5meQg/zqUuEk6wfxMhxt93XLYIEQj8RkVXqfdPFCQD3ttmVPgEl7i2wDgKStsTq5mbXB7ug5gbNKcbJGhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=ddOrvwVj; arc=none smtp.client-ip=74.125.82.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="Fajt2Zgt"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso289239eec.0
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 09:59:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="ddOrvwVj"
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso289289eec.0
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 09:59:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1791824371; x=1792429171; darn=vger.kernel.org;
+        d=trailofbits.com; s=google; t=1791824372; x=1792429172; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=B50ZIxaB0P1k35+NQhIdQPJS8AyS5zQSlPA1ktBSYzg=;
-        b=Fajt2ZgtncbSzzBY2Ju3Jj7YIs/NLO8mirQlV84+hg7Ue/PGIcmCgxzlbGpPbEGDRl
-         43raNW/5y0ZVFvjFyDuFXqUfCL38ygMJQJZ2Nr/CH+uf0E3VsUNhUvNj+i2h4vOrbDj3
-         JhYatY/fOJpbE0/5hgLmc9B6S34pNTibMS/MhObPlFAQhYrOL4yNa/NnwgUwJ/CsXLjV
-         zn9kuZQNRICxcWIfWpzksnYZ7ef6+XrQfUXc+RyHMHnYUsQnasLurv4SwRGK9rExkTZg
-         oLuCs3K3LWiEulqNwDKBECZslN0ndSc3EZmorNXYLZaJzV0qtfJ5GEuqDVyr1x1KVSP5
-         QWCA==
+        bh=JSUpEqLrV0X2B9mHs8V/zQL6TPWRwBaZtNzo85tRy5c=;
+        b=ddOrvwVjCkbY4sOeazhMYQtUoNKna6EPcbbavrnGxmyIq7d6ekYV5NjXRk38avRB7Z
+         g2ywh05nXLFuDbOx3/If6pizkWwnFylwbTqgl2G0aTjujinZctlnrVxmNjfQNAYRsNmu
+         6pXt4MDMUz0nQfBEcrRBPo+rJw0i18R+g8J/AWELTyxs1BDwLabaVBQk4yZZHoHFJv1c
+         937U8NLPZ8xHfb5iDFVTjN3WlMl10ywpMu9UqGfTL4jH3dc/c6tNaQBjfT49rhMpyyxy
+         FVd1jjAly95e2F58UEcCMnLiu6aZsJreN122A2E+y9Xwz2LCFUaFu3cr8Khvu0JpXwE4
+         clKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791824371; x=1792429171;
+        d=1e100.net; s=20260707; t=1791824372; x=1792429172;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B50ZIxaB0P1k35+NQhIdQPJS8AyS5zQSlPA1ktBSYzg=;
-        b=Ie/sm8VE+70BBPr2jCUSPzxYAEiFEvkPr9Q8D8r46l24XvB2PgBTfPTqpVLLETv12/
-         b0i4mOO6yu9v+zTu4+XdmI+0RSq6pa7ypR0wlGVncPmCl0/mT3VtI9DAWMN2Q1qTHpPc
-         M2X5qWE6998QqB1LFTW7NQrcyVWB6+xWCtcuAqrABwHXg/Li+lO2orIkP/99xuZ5mb6q
-         I9UyNscJcmTpf3b1k4e4fPnRd/ZE1FSuBC+brclR8ZBWgdCOmUc6YARVyoELRL+5elmD
-         B2vJhN/HHw2d75jzZm1wmvsom7N0Mf5EUIEC/zoX6da9p5qBvFHR7vygDaYTKGAXPUOH
-         w1DQ==
-X-Gm-Message-State: AFq9FYJwDN9Wd2R/u1FZvvYZOmcBEzWyK+4bz4Y535PEysVhnOtyoi5y
-	dR+7UM08i9HXjnnNNUHBKBkkvkOknU8tOl632OuhDngkj4jLeFcI5cCHxiRpWpq1/PVjD0mcUae
-	V2S7jkQan6g==
-X-Gm-Gg: AYBFou2K56WhXW8jHop+RkylxTJYsWpsNHs6LYIAeaMaOtqiesGdjoCSk8ARG/+xRR1
-	8LyVyGaXtxmWhiLzxXDQGmtX+L0K0lYyu4mvBCSS8/lfFkgKd+2zTwUcMzohieXxyNArDBeCe+z
-	xNsNoP/javXyfzLbf1w8x4DvC1gPr0lz4mW1s0WHDVsTIOvXaJp8kgw1lc9P3YCZmt+THzECcjP
-	uAKoeSPrVXyDtSn0kE0Vu8VC3fJ8xmzII4ckPL2atu8L+LprZRenuvMIcO5yGl4W9nxgN/vgBWp
-	6cKdd4//TkTBwN695GxmbjQeyvO/g/Wb/VzsP4FyZ7OqcWehBrymieZmbAX0ueEOL2TzRKmmF9e
-	9yCM0g8UIeO9z+sOkxHESQWhyphFl/F1iWkUFkX/hVdteI3haUkkV3e00lPX+CnkfG4tr2tc8V0
-	D9WNDu4SDjPMPohpE5xu/9CAxzVO+5Eduk4d2kLqhM7GthksMtXc+6ZcaRrva+A9QrqjUoCum5l
-	2GEwVpLybQFv/Rz26+oY/0BzfXJcDuTpwfMiEZ6XKTB9Dy7VCTonC4n6M80j3ZTNQ==
-X-Received: by 2002:a05:701b:2058:20b0:15c:20b8:7964 with SMTP id a92af1059eb24-16a63386d86mr14785713c88.27.1791824370766;
-        Mon, 12 Oct 2026 09:59:30 -0700 (PDT)
+        bh=JSUpEqLrV0X2B9mHs8V/zQL6TPWRwBaZtNzo85tRy5c=;
+        b=UgtrgSldAzBMRP7h/yBzsuBDs+JwbDabWIi1O81x2bgsXDo2n14GvoEOf+lsNBmT9w
+         Nbzs+wLRAO1D5Zq+5Sdw7Z+W0JLj9rreDYuD9ziKWVeluUtE/acf+OWUmxMyjheV0KVz
+         L/Wo908bJVtDN6edtuULlb5l7fk6LQ6IgepE78t0oQcdLYd9dBi4OVL6WeRtVSyymP1/
+         c5fiM/xx7uVUVpDElIan2cFVQtVFSq0J0jJk7cozvaXsdtPAeaK/LREbZYGsWQyAMfpB
+         t5L8A0h3mjAPyLJt7k0mLZYAKH6OEQdsXZL1eCnz/aIl8ucllWYBB2ENzxf7z7bTerfC
+         fOBg==
+X-Gm-Message-State: AFq9FYICVxftqKPYxDMS9tv6XM6NF881ZLhNfA6MAcdaVFdyInn1VRCh
+	Z/OkcN5LGxndmKTYIGhp3AAwwgWqerL0OqifMOHETpOSne37j4E132QPQDhXzWGFJXa5P7HL0d5
+	by6l8IIOivA==
+X-Gm-Gg: AYBFou0o2KueLk8gSMv+y3dYNIdo6yAHTBbwTrizPuQyMJJKmP9lrRWxtJ6xoS1G3tj
+	yST9Eef6inorj0amxvGwWC6STw7/K19mt3FLrJ223j39aJHqHxFv++zA8xDqXITl8hxMKm3PK95
+	TYdyxsFv1EHDlrGKvtve7CDgKaH6YQzYwqAx/qg+9hZP6ovjVvbMOC7UuTCuDyr2xesenVqeKtz
+	H5bsPn0wTneXfcryJ6QEMZWVvBVuIA3v3hItRgdhgEWqLBlOFVwtzdiUw5KY4m0Ms/gLKM3LNXz
+	MB/UIVTB4ZCzAQ6+4GR/5CSHcP0R01QwqWmgkx13UM1qQ/70HZhiJp8tVPGu8ey14M0OeR+1HNK
+	wEw6gT12H18BxxWxdB/QrZ2PYr3j4Y1qn8Z5yetaeY15yNNg3SEcCCn/jP58LRvaUoKakLTNvCj
+	v+rioYfbXe5SNPTS/FkU06EPLQ73vkN41Ta3T/sUy3cuCtofv8VnnhjDE3HZZO1hBLQopFftwJ7
+	WOpy9qNK0N51gZSDgx1nreDykLSpqoPIslmCniKtQmZ3VtW1+BTgIc6UJILU/saveyDL/rfHZNY
+X-Received: by 2002:a05:7301:77cc:b0:357:e9:dcea with SMTP id 5a478bee46e88-35700e9df2fmr11300677eec.15.1791824371897;
+        Mon, 12 Oct 2026 09:59:31 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:1464:826f:d188:9e33])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb2fd33sm34296900eec.28.2026.10.12.09.59.29
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb2fd33sm34296900eec.28.2026.10.12.09.59.30
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 12 Oct 2026 09:59:30 -0700 (PDT)
+        Mon, 12 Oct 2026 09:59:31 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -71,9 +71,9 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	ath12k@lists.infradead.org,
 	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.6.y 1/2] wifi: ath12k: fix reusing m3 memory
-Date: Mon, 12 Oct 2026 12:59:24 -0400
-Message-ID: <20261012165925.32575-2-artem@trailofbits.com>
+Subject: [PATCH 6.6.y 2/2] wifi: ath12k: copy M3 firmware when reusing the buffer
+Date: Mon, 12 Oct 2026 12:59:25 -0400
+Message-ID: <20261012165925.32575-3-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261012165925.32575-1-artem@trailofbits.com>
 References: <20261012165925.32575-1-artem@trailofbits.com>
@@ -85,89 +85,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+This fixes my 6.6.y backport of upstream commit 05090ae82f44 ("wifi:
+ath12k: check M3 buffer size as well whey trying to reuse it"). There is
+no corresponding upstream commit, because upstream never had this bug.
 
-[ Upstream commit 00575bb44b2c2aa53d0a768de2b80c9c1af0174d ]
+When the existing M3 buffer is large enough for the new m3.bin, my
+backport releases the firmware and returns early. The new image is never
+copied, and m3_mem->size keeps the old length. Upstream instead jumps to
+skip_m3_alloc, which copies the current image into the existing buffer
+and records its length. As a result, after recovery or resume, 6.6.y
+gives the firmware the previous M3 image whenever the new one is the
+same size or smaller. A larger image is reallocated and loaded.
 
-During firmware recovery or suspend/resume, m3 memory could be reused if
-the size of the new m3 binary is equal to or less than that of the
-existing memory. There will be issues for the latter case, since
-m3_mem->size will be updated with a smaller value and this value is
-eventually used in the free path, where the original total size should be
-used instead.
+Replace the early return with the upstream goto skip_m3_alloc. The
+previous patch, a backport of upstream commit 00575bb44b2c ("wifi:
+ath12k: fix reusing m3 memory"), keeps the allocation size in
+total_size. So copying a smaller image no longer changes the size passed
+to dma_free_coherent().
 
-To fix it, add a new member in m3_mem_region structure to track the original
-memory size and use it in free path.
-
-Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c5-00302-QCAHMTSWPL_V1.0_V2.0_SILICONZ-1.115823.3
-
-[ Backport to 6.6.y: 6.6.y only loads the separate m3.bin, so use
-  fw->size where upstream uses m3_len. The upstream change to the
-  allocation-failure message only matters for the firmware-N.bin path,
-  which 6.6.y lacks, so it is dropped. The copyright lines are left as
-  they are.
-  On its own this changes nothing in 6.6.y, because the reuse path
-  currently returns before m3_mem->size is updated. It is needed by the
-  following fix to my 6.6.y backport of 05090ae82f44, which copies a
-  possibly smaller image into the reused buffer as upstream does. ]
-
-Fixes: 05090ae82f44 ("wifi: ath12k: check M3 buffer size as well whey trying to reuse it")
-Signed-off-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
-Reviewed-by: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>
-Link: https://patch.msgid.link/20251029-ath12k-fix-m3-reuse-v1-1-69225bacfc5d@oss.qualcomm.com
-Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Fixes: 9a38ba5561d9 ("wifi: ath12k: check M3 buffer size as well whey trying to reuse it")
 Assisted-by: LLM
 Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
- drivers/net/wireless/ath/ath12k/qmi.c | 7 +++++--
- drivers/net/wireless/ath/ath12k/qmi.h | 3 +++
- 2 files changed, 8 insertions(+), 2 deletions(-)
+ drivers/net/wireless/ath/ath12k/qmi.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/net/wireless/ath/ath12k/qmi.c b/drivers/net/wireless/ath/ath12k/qmi.c
-index 48d0043fcee9..86cc61dba094 100644
+index 86cc61dba094..8dc1c8e0c7b1 100644
 --- a/drivers/net/wireless/ath/ath12k/qmi.c
 +++ b/drivers/net/wireless/ath/ath12k/qmi.c
-@@ -2518,9 +2518,10 @@ static void ath12k_qmi_m3_free(struct ath12k_base *ab)
- 	if (!m3_mem->vaddr)
- 		return;
- 
--	dma_free_coherent(ab->dev, m3_mem->size,
-+	dma_free_coherent(ab->dev, m3_mem->total_size,
- 			  m3_mem->vaddr, m3_mem->paddr);
- 	m3_mem->vaddr = NULL;
-+	m3_mem->total_size = 0;
- 	m3_mem->size = 0;
- }
- 
-@@ -2542,7 +2543,7 @@ static int ath12k_qmi_m3_load(struct ath12k_base *ab)
+@@ -2543,10 +2543,8 @@ static int ath12k_qmi_m3_load(struct ath12k_base *ab)
  
  	/* In recovery/resume cases, M3 buffer is not freed, try to reuse that */
  	if (m3_mem->vaddr) {
--		if (m3_mem->size >= fw->size) {
-+		if (m3_mem->total_size >= fw->size) {
- 			release_firmware(fw);
- 			return 0;
- 		}
-@@ -2561,6 +2562,8 @@ static int ath12k_qmi_m3_load(struct ath12k_base *ab)
- 		return -ENOMEM;
- 	}
+-		if (m3_mem->total_size >= fw->size) {
+-			release_firmware(fw);
+-			return 0;
+-		}
++		if (m3_mem->total_size >= fw->size)
++			goto skip_m3_alloc;
  
-+	m3_mem->total_size = fw->size;
-+
+ 		/* Old buffer is too small, free and reallocate */
+ 		ath12k_qmi_m3_free(ab);
+@@ -2564,6 +2562,7 @@ static int ath12k_qmi_m3_load(struct ath12k_base *ab)
+ 
+ 	m3_mem->total_size = fw->size;
+ 
++skip_m3_alloc:
  	memcpy(m3_mem->vaddr, fw->data, fw->size);
  	m3_mem->size = fw->size;
  	release_firmware(fw);
-diff --git a/drivers/net/wireless/ath/ath12k/qmi.h b/drivers/net/wireless/ath/ath12k/qmi.h
-index a996c6d57aa7..62c7a526f111 100644
---- a/drivers/net/wireless/ath/ath12k/qmi.h
-+++ b/drivers/net/wireless/ath/ath12k/qmi.h
-@@ -119,6 +119,9 @@ struct target_info {
- };
- 
- struct m3_mem_region {
-+	/* total memory allocated */
-+	u32 total_size;
-+	/* actual memory being used */
- 	u32 size;
- 	dma_addr_t paddr;
- 	void *vaddr;
