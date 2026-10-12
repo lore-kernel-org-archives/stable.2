@@ -1,142 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A228B3A1E81;
-	Mon, 12 Oct 2026 20:14:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 76E394E7807;
+	Mon, 12 Oct 2026 20:15:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791836059; cv=none; b=TTpgSckUktBNkxt7xzRRSc9He877y2OwL+dISgJ5jzjhZtz3Gafg5FHQmlpi7yx8shzKQClm2BfM4hvKNtXNfhXmgG5DdCZUNvLAHPAMCiVGs37mksu2QlLuPspSeqVyXfnvuEG7UgGCrBTb+fcDybxNvzToand9CQsJNFcERAg=
+	t=1791836132; cv=none; b=nFTbUUAidBr5dZFkZD9f7/UB1TvU58GjZuuTbLJrHLJQaCHKt03KwNm4EgnqgM+hfRbtYdVnae+8x354JolmCpDRDnULsr1gZufPXfzda5XAMYgpr6S3KHcuBBBpSfHk6ch2olH+TbRnswIODQhMQaJDusvI58Ap/HedsZZhxf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791836059; c=relaxed/simple;
-	bh=0ubl3b4gyKHyyY0uxzU4GVbA/+mKwZXPGHZ9enbgJCw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hh871kDMxPdMsszGN1B7tVL2Axj5InQ+OyZ72yFqQH/ABApo6MxHRREq1Mb6Bt91N6JCccACcrlDVgMLGwlajXZgkmJozF7QaxpluAwfyt7ADV8uUnRtxNfdEdTA5k0rBZMEO8kWONCEj9afLbiPwTwYOQcl63UAON3/mv1di1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gWLvD38t; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791836132; c=relaxed/simple;
+	bh=tTVHVkVcv+la1edaxZDL80B63dWguM2dX9eUL9oDyl0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=blBtJGfpx6u9YHcsefomfxg4wal21rW8FUqvMP6DhrHqEaSadwnqBMwNfRQbFfuSSXXdUW3zQX2NrR0eWmy8njYfaCTp7aeP1HA5reDU3hMhnGXd/7MVwZflNnnqKYZnuXAW8MFu4gwoUB36kBErmUR9/UuJPmtstNjzhTCSROY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=f7fN/SJa; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gWLvD38t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC9391F0089B;
-	Mon, 12 Oct 2026 20:14:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791836057;
-	bh=eMitiKVqtOfJ40YRWpuaSF/A31VpOYBzdInjrnSO/6I=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gWLvD38tG9JYZ8GWLh27FQZFJ+hEvb9XOGEzu9zDZRNbftgS4rKHu9Cc9T63WzV5B
-	 R8fY5Q8hcckzOMnPL9JZEJ14P9DkQVbmYJzleSENznrE7uyRqPqzNs7mj98/rfw+sW
-	 UM3qQV6H+4HxTse0pupI6t+4+PwaqBcM/G2//t2WWl2JY2boK/Y+MHab3i5h0zmDy6
-	 O3GpAegcapK8McXdl5lXXMa4apilagfaZS8PA4jxHYIiJPBORP51O2E9MQD+Z/bjkT
-	 Y5LS4CiCuIce9DNApzxtFdFpcngdhPrnA6hWE8eb/fc0az4hvca6hQ4VL0fHWZkGgL
-	 4sHk7F1wZDgdA==
-Message-ID: <7d64e267-8ca6-4130-bd4a-d80fb4224f72@kernel.org>
-Date: Mon, 12 Oct 2026 15:14:14 -0500
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="f7fN/SJa"
+Received: from mac.lan (unknown [4.194.122.170])
+	by linux.microsoft.com (Postfix) with ESMTPSA id BC0FD20B7166;
+	Mon, 12 Oct 2026 13:15:20 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com BC0FD20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791836126;
+	bh=/Jjp0/gGGD1R8hah3x3vcyoIOYd0SLonWaZGlFpBVzw=;
+	h=From:To:Cc:Subject:Date:From;
+	b=f7fN/SJaeBrD6ryMhc1A8CdHsRQsj5TeJyVJCm/h/gqumLVE1HBcJI++s6ocOTDZ9
+	 GDr24FY9OxuSCX3Fmzs70Bx4moJopzZ/A5DB7wSmWDFBtXlLgWMI3Yu5b7GSJRWdnt
+	 If10IRPgNtDftDcQcVphI1sj3VPP9Y6dmHfRyIXA=
+From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Mike Rapoport <rppt@kernel.org>
+Cc: Peter Xu <peterx@redhat.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Andrea Arcangeli <aarcange@redhat.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	AutonomousCodeSecurity@microsoft.com,
+	tgopinath@linux.microsoft.com,
+	Cen Zhang <cenzhang@linux.microsoft.com>
+Subject: [PATCH] userfaultfd: fix UFFDIO_MOVE livelock on large folio with extra references
+Date: Mon, 12 Oct 2026 16:15:14 -0400
+Message-ID: <20261012201514.97015-1-cenzhang@linux.microsoft.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] usb: pci-quirks: always assert xHCI OS ownership
-Content-Language: en-US
-To: Rishabh Jain <rishabh.jain1198@gmail.com>,
- Mathias Nyman <mathias.nyman@intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Michal Pecio <michal.pecio@gmail.com>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260902052631.75c6068b.michal.pecio@gmail.com>
- <178832755831.50581.1058201741431375556@gmail.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <178832755831.50581.1058201741431375556@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/2/26 00:39, Rishabh Jain wrote:
-> The xHCI ownership protocol requires the OS driver to assert the HC OS
-> Owned semaphore before using the host controller, then wait for HC BIOS
-> Owned to clear if firmware owns it.
-> 
-> quirk_usb_handoff_xhci() currently asserts OS Owned only when BIOS Owned
-> is already set. If firmware leaves BIOS Owned clear, Linux uses the xHC
-> while both ownership semaphores remain clear.
-> 
-> The timeout fallback also clears BIOS Owned using the original register
-> value, which can clear OS Owned at the same time.
-> 
-> On an AMD PROM21 xHCI controller (1022:43fc), this caused every S3
-> resume to terminate Controller Restore State with USBSTS 0x401. Linux
-> then reset the host controller, both root hubs and the USB Bluetooth
-> adapter.
-> 
-> The controller entered resume ready and halted with USBSTS 0x1.
-> Endpoint state, 100 ms save/restore delays, scratchpads, the DCBAA,
-> device contexts and command, event and transfer rings were verified not
-> to cause the restore error.
-> 
-> Across four S3 cycles, asserting only HC OS Owned changed USBLEGSUP from
-> 0x00000801 to 0x01000801 and eliminated the restore failure. Testing
-> included the unmodified 7.1.8-ogc1.1.fc44.x86_64 distribution kernel
-> using a test module that set the HC OS Owned semaphore. The same test
-> was repeated after review with the same result. Clearing USBLEGCTLSTS
-> was independently verified to be unnecessary.
-> 
-> Always assert OS Owned for controllers using the standard xHCI handoff,
-> and leave the existing TI/Renesas forced handoff unchanged. Keep OS
-> Owned asserted after the standard handoff, including when forcing BIOS
-> Owned clear after a timeout, to prevent firmware from reclaiming the
-> controller during subsequent suspends.
-> 
-> Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Rishabh Jain <rishabh.jain1198@gmail.com>
-> ---
+To move one page out of a large folio, move_pages_ptes() first has to
+split the folio.  __folio_split() refuses if the folio has any
+reference beyond its page table mappings and the caller's own, and it
+reports the refusal as -EAGAIN.  move_pages() treats returned -EAGAIN
+as a transient race and keeps retrying the same address, holding the VMA
+read locks the whole time.  This is incorrect since in some cases
+userspace can hold such a reference indefinitely, such as by
+registering the page as an io_uring buffer.
 
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+An unprivileged user can trigger this with three threads: first holds
+such a reference on a page of a THP, second calls UFFDIO_MOVE on another
+page of the same THP and spins in the kernel forever holding the VMA
+read locks, and third calls fork() or mprotect(), which takes mmap_lock
+for writing and then waits forever for those read locks.  From then on
+every mmap_lock user of that mm hangs, including other processes
+inspecting it through /proc/<pid>/, until the process is SIGKILLed.
+The hung task detector reports the blocked tasks (third one), and with
+kernel.hung_task_panic=1 the machine panics:
 
-> I kept val unchanged for the error log, restored the original handshake
-> formatting, and explicitly preserve OS Owned when forcing BIOS Owned
-> clear after a timeout. Documented timeout issue in commit message.
-> 
-> I repeated the same S3 test on the unmodified
-> 7.1.8-ogc1.1.fc44.x86_64 distribution kernel using the test module, with
-> the same successful result.
-> 
-> Changes in v5:
-> - Preserve the original ownership value for error logging.
-> - Restore the original handshake formatting.
-> - Explicitly retain OS Owned in the timeout fallback.
-> 
->   drivers/usb/host/pci-quirks.c | 13 ++++++++-----
->   1 file changed, 8 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
-> index 0404489c2f6a..2b12a35e6f10 100644
-> --- a/drivers/usb/host/pci-quirks.c
-> +++ b/drivers/usb/host/pci-quirks.c
-> @@ -1193,10 +1193,11 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
->   			 && pdev->device == 0x0014)) {
->   		val = (val | XHCI_HC_OS_OWNED) & ~XHCI_HC_BIOS_OWNED;
->   		writel(val, base + ext_cap_offset);
-> -	}
-> -
-> -	/* If the BIOS owns the HC, signal that the OS wants it, and wait */
-> -	if (val & XHCI_HC_BIOS_OWNED) {
-> +	} else {
-> +		/*
-> +		 * Perform the standard handoff and leave OS ownership set to
-> +		 * keep the BIOS at bay during subsequent suspends.
-> +		 */
->   		writel(val | XHCI_HC_OS_OWNED, base + ext_cap_offset);
->   
->   		/* Wait for 1 second with 10 microsecond polling interval */
-> @@ -1208,7 +1209,9 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
->   			dev_warn(&pdev->dev,
->   				 "xHCI BIOS handoff failed (BIOS bug ?) %08x\n",
->   				 val);
-> -			writel(val & ~XHCI_HC_BIOS_OWNED, base + ext_cap_offset);
-> +			writel((val | XHCI_HC_OS_OWNED) &
-> +			       ~XHCI_HC_BIOS_OWNED,
-> +			       base + ext_cap_offset);
->   		}
->   	}
->   
+  INFO: task wedge:95 blocked for more than 122 seconds.
+  task:wedge  state:D stack:12528 pid:95 tgid:95 ppid:94
+  Call Trace:
+   __schedule+0x596/0x1110
+   schedule+0x36/0xf0
+   __vma_start_exclude_readers+0x100/0x170
+   __vma_start_write+0x51/0xd0
+   __split_vma+0x208/0x3d0
+   vma_modify+0x6a8/0x840
+   vma_modify_flags+0xce/0x110
+   mprotect_fixup+0xbe/0x480
+   do_mprotect_pkey+0x2d9/0x580
+   __x64_sys_mprotect+0x1a/0x30
+
+Fix by returning -EBUSY instead of -EAGAIN in move_pages_ptes(), the
+caller of split_folio(), when the split fails. Thus, move_pages()
+does not retry -EBUSY and the ioctl drops its locks and returns to
+userspace instead of spinning.
+
+Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
+Reported-by: AutonomousCodeSecurity@microsoft.com
+Assisted-by: LLM
+Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
+---
+ mm/userfaultfd.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 74f04c323c50..500962be1162 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -1663,8 +1663,12 @@ static long move_pages_ptes(struct mm_struct *mm, pmd_t *dst_pmd, pmd_t *src_pmd
+ 			pte_unmap(dst_pte);
+ 			src_pte = dst_pte = NULL;
+ 			ret = split_folio(src_folio);
+-			if (ret)
++			if (ret) {
++				/* do not retry, extra refs may be held forever */
++				if (ret == -EAGAIN)
++					ret = -EBUSY;
+ 				goto out;
++			}
+ 			/* have to reacquire the folio after it got split */
+ 			folio_unlock(src_folio);
+ 			folio_put(src_folio);
+-- 
+2.55.0
 
