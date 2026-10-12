@@ -1,171 +1,143 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2331A33A70A
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 10:36:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE274331200;
+	Mon, 12 Oct 2026 10:38:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791801398; cv=none; b=YUzlZ7cs7uV6wUM8GnLjBZCoIrY3TS3soHWDBlaZp897lbiHKcnMhJs9aYFv76B9rYkddfX+8D5UKjmKGLg58H60YwCHhTrBP2M6z//s/MFglSMqa9OezY5UKoayEoXJZwASrhbOu0MR7hK3yQ0c1CVfCXRyKttAlkmPWN17O7g=
+	t=1791801530; cv=none; b=RrR8l9MUBfF9d0C3gdl7dudlH79ZSpSJkEmbgadJhqiO4PTs95g1EAP3L1K/XS+gKHry+FNoWlWfI/NLEtJYA1aDFdPKXaYOUexbPhRxJpPyuJarnicYfNkxGzebV6+54LC+NgPMVVPfVf0+8WSD+ssjF05kZDOG2izmnAGiIh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791801398; c=relaxed/simple;
-	bh=vo0Hl07Qqko7mQZRjYiWFQP4SZWCCuH0QSkXVILJeyg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Kexvwa07gW+XxV3XffHjmvbl0SgLH58GB/8bT5qwgli37f1yCYgGOa9qBmf/qed95p/wp4UmJHgatu9uxOnsego0kfOK4KoFsz40but5xi+HSLI49sQhm03ZKA6V81HXwmo+ncCS2s5GDW/newQW+9bA7H4rFQOEd02+T2n1QUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MqipxnQy; arc=none smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791801530; c=relaxed/simple;
+	bh=3Si0FMk4wCLih3Xf1anF8ilGM7nBOcY4tBm1yZniGoc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lJtS0+SpfxPOai/QXRQYx874PJvK2ri14pG+HvFn+SP94VqieIe2TyX1yClqELEUFpnE0TvcdOBEY2KdajT7QMyC/+LGfVukUybsluazdzQuVrO2ZcCCmfgdNSJSQyM7vi9hONCSzpMPMuBBlcavYb2VdlO1o/KkKX0M4ZhZp7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kZiF1tFe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MqipxnQy"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-88bd2b44f3aso733870b3a.0
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 03:36:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791801396; x=1792406196; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TYAbLfcSF4SvwtGMEqZtL/vm+XSKpgh03MXVN46JE/A=;
-        b=MqipxnQy1+m2axV8MIzADNTBxfHw4UnA2F+roj3C6z2QBLM+RixPvxGHPGBDkik+dA
-         vJm9whXqRJTfcFEPXwOTEpFEv9lqOtqpZ0WAL0IOeiJ8SeLLI6ScLyl8HTbnVHJKZL1c
-         xnjLhIsrO6yiOcmBSKw9mNC3uiZG049TOIRBazEYnmK2JQh0SZjceHAweFYOVN3Rlf8j
-         oTPjkJIR6+A+19JSas7XvLBpGKwXpZ1JQsj5bh08LYRMvqGLRkVvVunSkcFQ+7xaU7S5
-         xFBmW80NL5XBCHAPowhl/u0w9mfhBL2qJd2ivospesr3kZADilAch6nfNdCtFfI5uxuE
-         8PFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791801396; x=1792406196;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TYAbLfcSF4SvwtGMEqZtL/vm+XSKpgh03MXVN46JE/A=;
-        b=f8w8G4iCK5ZtKKUYF/fC0rfrJSVVDUiJfSLBrQGvcjcLeGJa41cQPdmx/waGQNrMjb
-         ONpH1FvJ5E/3mMIC7Vc+x4Jkf92SCgzs0cP/IRG9+uhOYmHYywmdPDI8JxsfuWx63Pe8
-         3IhX+rW+lkh/23hnbkZxYW8N1AZ/+wsOZFUJPFd4PUd+PTqOBkJCW+YMfKYmj9SxiI5H
-         XdfTAnysBnbjD1/rI9E+zxtkfMz+SNa+eLFvrzdgE9M5AP3EFQ8x+fZ0bSFb6HBx4lyV
-         gaFNWosKJutUjqfBd1XW3QhxQZ1YgHtreWTwdtsvFRYegruvRRnLdlnE2Ckdmtf69dvT
-         cN4w==
-X-Forwarded-Encrypted: i=1; AKwUvBx3WCQapIydnQo79K/ScBEmXVMZ0ibIwvaXBGv7ymF5qrTvNJBPeX1PrU6Q/RoEtkX4aP7xlA4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL5913GsXroEXj+zhhox7PVjvtbABJPIlADTz8sfmwCBUhsn9/p
-	xv/P90m9RspMc4fpAcCBGRTQwdOiAcFq6Q4o3ws3loWf5avjkhOIZGV8
-X-Gm-Gg: AYBFou2VZ5KvbBaa08LChOJfBW595EGLHBKhSG7yy0WQ/WcKs4iSTYS0yVd5mdH4FKo
-	xB5y68/exsZjG/IOvbD/+J6sLf3fgQI3/1gcFMx7Uio6Yg/ybgEH4K6D6VQyGwqOsDJcKck0mt4
-	mM7Bm2jdElyZxFPohTMrs4iOT5jM8u8+qhyec5uujYXqYgaCMVN8Rn54G8RpStEYO66e+dDeDao
-	721+JWcpAx4TEh9+jks0XOpqQtnhm3zeJ+VPH5ylNdL1x2cCtGaqX4EHdbdlk+3W/Y3OdMIitrI
-	Sy5sKWeobMKuanmhKFI1BSNvmotVigUjOlWY7c51YhIMJ7vJEdVqsPIFeRNt5aX0OgSCgZXt8RV
-	2St+H2zujEC7y1g4sVZvvGBx7tqH7YXQJJLlWIbjDouuFaF8g4EnhABHZnqcLQe/nn64mLfSd8z
-	JaLN+6y60ZwmZeoqMUCFYFlFhK8qdhOs3nsBd4Ua5AONrXjpG5vgvW9uk+R4e6FSi5fPlS1p5Lq
-	WeH5RXRLjC0wBo88GoaWjFwL3gEilUPygc=
-X-Received: by 2002:a05:6a00:856:b0:886:b762:8bfd with SMTP id d2e1a72fcca58-897c7cd10efmr7613646b3a.51.1791801396300;
-        Mon, 12 Oct 2026 03:36:36 -0700 (PDT)
-Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c4996be6sm4019639b3a.58.2026.10.12.03.36.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 03:36:35 -0700 (PDT)
-From: Wenjie Qi <qwjhust@gmail.com>
-X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
-To: Chao Yu <chao@kernel.org>
-Cc: Jaegeuk Kim <jaegeuk@kernel.org>,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	qiwenjie@xiaomi.com,
-	qwjhust@gmail.com
-Subject: [PATCH] f2fs: wake up foreground GC waiters when the GC thread skips a round
-Date: Mon, 12 Oct 2026 18:36:29 +0800
-Message-ID: <20261012103629.1763003-1-qiwenjie@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kZiF1tFe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43A381F0089B;
+	Mon, 12 Oct 2026 10:38:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791801529;
+	bh=OFnB4oYeE4bCYumly+rJWCEsU2f7HWQlu4FsHLMDoto=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kZiF1tFehsP4WXztH/9d6Tu+xAod2MoZ3xbHyNv++uPsMRjEEEqOGDO4S6XHJUsWM
+	 II+kWz1cB4zhBB/8koRmGag+WfhJEX1AAOU6yHPAaQ2gsklV+P/w8XtQbgaM4y/OVr
+	 TyNJqfiVlUYoakMjg8aAzEc1AFqMNgnBgoyEk3vQjqvLKj2pCo1JNpQLpigrAsJzCE
+	 tJRl+OqTXYOvhlipnx4I52OYm4TE/72tzUgMn2imr3cMxVebwQO8JgA/i4GecKq6+p
+	 9yIsHGyIlYPsy7Smg8d2HkRJRQ3wDyK6yXyrPhUff4/wWE1kr8xDNvBisK4jTNvgRr
+	 udS7zeCoqGCnA==
+Date: Mon, 12 Oct 2026 11:38:43 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, 
+	jannh@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Zi Yan <ziy@nvidia.com>
+Subject: Re: [PATCH] mm/madvise: keep the hardware dirty bit in MADV_COLD's
+ THP path
+Message-ID: <asy4c7zkkmSRln1H@gremlin>
+References: <20261011132227.413217-1-samarth.colleges@gmail.com>
+ <42087cd7-473e-40a7-ae63-3c841c615c8f@kernel.org>
+ <asyy7Nwik5yMTNbo@gremlin>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asyy7Nwik5yMTNbo@gremlin>
 
-With GC_MERGE, f2fs_balance_fs() queues a foreground caller on fggc_wq,
-wakes the GC thread, and sleeps without a timeout or condition recheck.
++cc Zi
 
-The root cause is that a foreground writer, the GC thread, and fsfreeze
-can race as follows:
+On Mon, Oct 12, 2026 at 11:33:48AM +0100, Lorenzo Stoakes (ARM) wrote:
+> -cc slopper.
+>
+> On Mon, Oct 12, 2026 at 12:09:07PM +0200, David Hildenbrand (Arm) wrote:
+> > On 10/11/26 15:22, samarth.colleges@gmail.com wrote:
+>
+> > > diff --git a/mm/madvise.c b/mm/madvise.c
+> > > --- a/mm/madvise.c
+> > > +++ b/mm/madvise.c
+> > > @@ -426,8 +426,14 @@
+> > >  		}
+> > >
+> > >  		if (!pageout && pmd_young(orig_pmd)) {
+> > > -			pmdp_invalidate(vma, addr, pmd);
+> > > -			orig_pmd = pmd_mkold(orig_pmd);
+> > > +			/*
+> > > +			 * Rebuild from the entry pmdp_invalidate() exchanged
+> > > +			 * out, not from orig_pmd: hardware may have set the
+> > > +			 * dirty bit since orig_pmd was read, and a MADV_FREE'd
+> > > +			 * (lazyfree) THP whose dirty bit is lost is discarded
+> > > +			 * by reclaim, silently dropping the store.
+> > > +			 */
+> > > +			orig_pmd = pmd_mkold(pmdp_invalidate(vma, addr, pmd));
+> >
+> > Okay, you are saying we can lose the dirty bit that could get set concurrently.
+> > And if we did an MADV_FREE before, we might not detect that the content was changed.
+>
+> Yeah, lazyfree -> write means you don't actually free it.
+>
+> As per the manpage:
+>
+> 	For each of the pages that has been marked to be freed but has not yet
+> 	been freed, the free operation will be canceled if the caller writes
+> 	into the page.
+>
+> This is anon memory only:
+>
+> 	The MADV_FREE operation can be applied only to private anonymous
+> 	pages (see mmap(2)).
+>
+> >
+> >
+> > I suspect this found through the help of an LLM and not an actual use case in
+> > practice?
+>
+> Seems very likely.
+>
+> >
+> > Using MADV_COLD following MADV_FREE sounds odd at thirst. In particular, when
+> > having MADV_COLD race with actual access.
+>
+> It's odd to MADV_FREE (lazyfree) then MADV_COLD (deactivate) yes,
+> especially with racing accesses.
+>
+> I wonder if there are other cases where you could get weird races like
+> this...
+>
+> In any case it seems a really hard thing to hit in reality. But I think we
+> probably need to fix this because of the stated contract of MADV_FREE.
+>
+> I think probably we shouldn't have added that contract...
+>
+> >
+> > On the PTE path we use clear_young_dirty_ptes(CYDP_CLEAR_YOUNG) which achieves
+> > the same through ptep_test_and_clear_young().
+> >
+> >
+> > ... where we also just do a
+> >
+> > pte = ptep_get(ptep);
+> > set_pte_at(vma->vm_mm, address, ptep, pte_mkold(pte));
+> >
+> > in the generic variant and rely on the per-arch variant to do the right thing.
+> >
+> > Which makes me wonder whether we should actually have per-architecture PMD
+> > helpers for that purpose?
+>
+> Is it achieving the same thing? There's an invalidation here also.
+>
+> pmdp_establish() is used to install a pmd_mkinvalid() entry and there's a
+> flush_pmd_tlb_range().
+>
+> --
+> Cheers, Lorenzo
 
-foreground writer                  GC thread                  fsfreeze
-- f2fs_create
- - f2fs_balance_fs
-  - prepare_to_wait(&fggc_wq)
-  - wake_up(&gc_wait_queue_head)
-  - io_schedule()
-    waits on fggc_wq                                    - freeze_super()
-                                                         - frozen =
-                                                           SB_FREEZE_WRITE
-                                                         - sb_wait_write()
-                                                           waits for writer
-                                  - gc_thread_func()
-                                   - waitqueue_active(fggc_wq)
-                                     returns true
-                                   - foreground = true
-                                   - frozen >= SB_FREEZE_WRITE
-                                   - continue
-                                     no wake_up_all(&fggc_wq)
+OK, isn't this all moot with Zi's patch? [0]
 
-The writer keeps its superblock write reference while sleeping. fsfreeze
-waits for that writer, while the GC thread loops because the queued waiter
-keeps waitqueue_active(fggc_wq) true.
+[0]: https://lore.kernel.org/linux-mm/20261009-lazyfree-stable-fix-v1-1-70997958ef8d@nvidia.com
 
-Wake foreground waiters on each early skip. A skipped foreground-GC round
-must not leave its caller blocked.
-
-Fixes: 5911d2d1d1a3 ("f2fs: introduce gc_merge mount option")
-Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
----
-Reproduced on a 512 MiB F2FS image mounted with gc_merge, filled and
-fragmented under concurrent inode creation. The kernel reported:
-
-  INFO: task sh:1381 blocked in I/O wait for more than 20 seconds
-  Call Trace:
-    io_schedule
-    f2fs_balance_fs
-    f2fs_create
-
-The SysRq task dump showed fsfreeze in freeze_super.part.0. An NMI
-backtrace reported:
-
-  CPU: 2 PID: 229 Comm: f2fs_gc-254:0
-  Call Trace:
-    gc_thread_func
-
-The f2fs_gc kthread also consumed 301 ticks in three seconds at
-USER_HZ=100.
----
- fs/f2fs/gc.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index 926e6976bc2..086670f9df2 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -66,6 +66,8 @@ static int gc_thread_func(void *data)
- 
- 		if (f2fs_readonly(sbi->sb)) {
- 			stat_other_skip_bggc_count(sbi);
-+			if (foreground)
-+				wake_up_all(&gc_th->fggc_wq);
- 			continue;
- 		}
- 		if (kthread_should_stop())
-@@ -74,6 +76,8 @@ static int gc_thread_func(void *data)
- 		if (sbi->sb->s_writers.frozen >= SB_FREEZE_WRITE) {
- 			increase_sleep_time(gc_th, &wait_ms);
- 			stat_other_skip_bggc_count(sbi);
-+			if (foreground)
-+				wake_up_all(&gc_th->fggc_wq);
- 			continue;
- 		}
- 
-@@ -83,6 +87,8 @@ static int gc_thread_func(void *data)
- 
- 		if (!sb_start_write_trylock(sbi->sb)) {
- 			stat_other_skip_bggc_count(sbi);
-+			if (foreground)
-+				wake_up_all(&gc_th->fggc_wq);
- 			continue;
- 		}
- 
--- 
-2.43.0
-
+--
+Cheers, Lorenzo
