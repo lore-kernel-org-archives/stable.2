@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37E99489FDF;
-	Mon, 12 Oct 2026 14:11:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9093A3AAF49;
+	Mon, 12 Oct 2026 14:12:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791814290; cv=none; b=fs6EjJwSB6DXxJMNvV3XoH2hPAOvs9W6MxeOxqrCGeqNCji6Wxxfl2JJaGYnQydM72svOHIw0LblQDq/H15nOBFFD6+Ohdof5/0syfLAXZNHe9BL/ODYBX+z6/qivF322SNPnjHue3cW+/LuBjuoTXAL6AoQy+/LzNo8h4JGFLQ=
+	t=1791814335; cv=none; b=ODK9xAYQROpFFf5caL1kpdF++ooZD2Nt1eXxnPg8rtIO6QseuoYDBVcXMrsHIk0AZG/4Y2w9hKPQbGbTHCQDXrwK5B/jhm62o31b0ZuQ5omH03mjh1fuGwM90appGqoP24uVPY0RRTuieUaj90NgyhdjDugTuInHTKRbxkM6Zzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791814290; c=relaxed/simple;
-	bh=dXFSa8KrSMquaMKp3qv9bem005IttSH3aut5ScgNIT4=;
+	s=arc-20240116; t=1791814335; c=relaxed/simple;
+	bh=nllefu12QVhYiGgXUmyqjRBJFFkoHGO3munFAuuKLXU=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bmV2pxZ7LZ1i8uLhIdYs+M4xY6COJdiRDndLLRTjMYiGR31OjIMCM0xqSdTCSvCB8kQUvaeWPQ6cMo2GzwgKEXdYQo2pd3d5x6rvTxuRO/1KeRlAMiMs7SqJuWsOZsMp6aLsDbTgsMYBnJG2+gF2V8ONGCNNpVCpNqUg8I8sR/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h8+TfjWg; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=L0iYKYelAmqXuOgoJO9dx/GMkXzdQYRnG+IcTjaJDl3yFGjBNPLfbaR4bShtaXJdzSrhDjkw+ZzDI0DLNUALSWzy0ma+33EWzt1zQatby2spiUyU8jKle9l6ZgESQ3T3CFu0z1URZVo0e0+qfy/ARFXz2Pp8L9/p4xl0zbyohSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xi8674sE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h8+TfjWg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 340021F0089C;
-	Mon, 12 Oct 2026 14:11:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xi8674sE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B0171F0089B;
+	Mon, 12 Oct 2026 14:12:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791814288;
-	bh=gUWKAmcFvvhOkn2reKDYvHtpf98blRKxVqe6h158cC8=;
+	s=k20260515; t=1791814334;
+	bh=9u36VtvjwbGKm1ZZx0NMxuDcx0vrlbOC+6lNe8ZIvBM=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=h8+TfjWgnYVZQ1jhjxdfI9qGAOEzFfmy2eT7Pk7DYx41lrPg0Y6H3+iEt8xT5lzp6
-	 Rtc9VmM4hmNPl4j7m2bhARYG2hhJl/m/7N+XBIEI68EyyFTiGjHkAz7zo1W3ahLSUM
-	 2cDbNrOSe/+3UtDfC3w5Z8boH2hOzcQa9cXBuPH6QDPWnsr17S5VrTIMOHEgM1EBBU
-	 sWgWpnb+5k+tFgamEFw7Q4xO1hHuZkaXcmrnr3uMErOggCkshopkYA+lB20n4Rswau
-	 JvZ85s3rICeWp6x2OmPhxCfQ1O0ijg4UmZRZAUsE49RWu4BpwkAABTAfT3/ubInhTJ
-	 DwrxhEWlEicAg==
-Message-ID: <4e179e0f7ade23c37644ceecc39ee7f41f837858.camel@kernel.org>
+	b=Xi8674sE3vwnIjRU0A3NPYo06v+V3WOQecWoaLJzjjIlaJ/nbwyM0zpmKu7aTX0My
+	 LZeoFwBJyguIKxydLbnLqi9W6gRrWCvid/M0mi+eIftUss22O05FBYkRcZBpffI/qQ
+	 EooKanPjUakrmS/DoW6jlPpXWo0su+QTKV+EEd9F3geLRaAVIfuZGpQLQ5ZanAeip0
+	 nzeJMtZlKoe83Vg+o0b6yw02/eROkS6VD30oZYcv93FzDFlvupMETgzRaw05FJPlfQ
+	 KvXi+GSgY/k975sm5lyzU0pLFS8i8oiBd0dDEmgJo+oyzlZrqJ+3+KsAW0z8z05nyu
+	 wRtI1GuCBml0A==
+Message-ID: <197fe2bb697e3dab272cfc05f293a225a0b89867.camel@kernel.org>
 Subject: Re: [PATCH] namei: test for a negative dentry the way
  traverse_mounts() does
 From: Jeff Layton <jlayton@kernel.org>
@@ -34,9 +34,10 @@ To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
 Cc: Chris Mason <mason@kernel.org>, Neil Brown <neil@brown.name>, Alexander
  Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Josef Bacik
  <josef@toxicpanda.com>, 	stable@vger.kernel.org
-Date: Mon, 12 Oct 2026 10:11:26 -0400
-In-Reply-To: <20261012-work-namei-ocreate-v1-1-c7883b17ee28@kernel.org>
+Date: Mon, 12 Oct 2026 10:12:11 -0400
+In-Reply-To: <4e179e0f7ade23c37644ceecc39ee7f41f837858.camel@kernel.org>
 References: <20261012-work-namei-ocreate-v1-1-c7883b17ee28@kernel.org>
+	 <4e179e0f7ade23c37644ceecc39ee7f41f837858.camel@kernel.org>
 Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
  keydata=mQINBE6V0TwBEADXhJg7s8wFDwBMEvn0qyhAnzFLTOCHooMZyx7XO7dAiIhDSi7G1NPxw
  n8jdFUQMCR/GlpozMFlSFiZXiObE7sef9rTtM68ukUyZM4pJ9l0KjQNgDJ6Fr342Htkjxu/kFV1Wv
@@ -121,255 +122,260 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-On Mon, 2026-10-12 at 14:57 +0200, Christian Brauner wrote:
-> lookup_fast_for_open() only hands an O_CREAT open a cached dentry if
-> it's positive. Otherwise the open goes on to lookup_open(), which takes
-> the directory lock and creates the file. It tests for that with
-> !dentry->d_inode, but traverse_mounts() later decides with the type in
-> d_flags. And when a dentry is instantiated __d_set_inode_and_type()
-> stores ->d_inode first and only then releases the type into ->d_flags.
+On Mon, 2026-10-12 at 10:11 -0400, Jeff Layton wrote:
+> On Mon, 2026-10-12 at 14:57 +0200, Christian Brauner wrote:
+> > lookup_fast_for_open() only hands an O_CREAT open a cached dentry if
+> > it's positive. Otherwise the open goes on to lookup_open(), which takes
+> > the directory lock and creates the file. It tests for that with
+> > !dentry->d_inode, but traverse_mounts() later decides with the type in
+> > d_flags. And when a dentry is instantiated __d_set_inode_and_type()
+> > stores ->d_inode first and only then releases the type into ->d_flags.
+> >=20
+> > So a refwalk that took its reference to a negative dentry right before
+> > another task instantiates it can find ->d_inode already set in
+> > lookup_fast_for_open(), go on to step_into(), and still find the
+> > negative type in traverse_mounts(). The open then fails with -ENOENT,
+> > which an O_CREAT open must never do. rcuwalk doesn't get that far, the
+> > d_seq check in step_into() catches the instantiation.
+> >=20
+> > Use d_is_negative() so both look at the type. While the type is still
+> > negative the open takes lookup_open() and waits for the directory lock
+> > like any other O_CREAT open of a negative dentry.
+> >=20
+> > On its own the window is a couple of instructions in the creating task,
+> > so it takes an interrupt or a preempted vcpu in exactly the right spot.
+> > I haven't caught it without help in about 600 million racing O_CREAT
+> > opens.
+> >=20
+> > The debug patch below stalls the creating task between the two stores
+> > for names starting with "ocrace", the way an interrupt landing there
+> > would. The reproducer below opens "ocrace" with O_CREAT through
+> > symlinks on a strictatime tmpfs: following them updates their atime,
+> > which drops the walk out of rcuwalk, so the name is always looked up in
+> > refwalk. With
+> >=20
+> >   echo 20 > /proc/sys/fs/ocrace_instantiate_us
+> >   ./ocreat_enoent -t 60
+> >=20
+> > on a KASAN kernel open() failed with -ENOENT 43 times in 4.9 million
+> > calls. With this patch it never failed in 4.8 million calls. Tracing
+> > step_into_slowpath() during such a run, each of the 98 -ENOENTs it
+> > returned came right after the same task had entered it with a dentry
+> > that was still typed negative.
+> >=20
+> >   // SPDX-License-Identifier: GPL-2.0
+> >   /*
+> >    * ocreat_enoent: open(O_CREAT) racing the creation of the same name.
+> >    *
+> >    * Writers unlink "ocrace" and create it again. Readers open it with
+> >    * O_CREAT through a symlink of their own on a strictatime tmpfs.
+> >    * Following the symlink updates its atime, which drops the walk out =
+of
+> >    * rcu mode, so the name is always looked up in refwalk. An O_CREAT o=
+pen
+> >    * must never fail with ENOENT.
+> >    *
+> >    * -p arms a cpu-clock perf timer with that period in ns on every wri=
+ter,
+> >    * so that interrupts land at random points in it.
+> >    *
+> >    *   usage: ocreat_enoent [-t secs] [-w writers] [-r readers] [-p ns]
+> >    */
+> >   #define _GNU_SOURCE
+> >   #include <errno.h>
+> >   #include <fcntl.h>
+> >   #include <pthread.h>
+> >   #include <stdatomic.h>
+> >   #include <stdio.h>
+> >   #include <stdlib.h>
+> >   #include <string.h>
+> >   #include <sys/mount.h>
+> >   #include <sys/stat.h>
+> >   #include <sys/syscall.h>
+> >   #include <unistd.h>
+> >   #include <linux/perf_event.h>
+> >=20
+> >   #define DIR "/tmp/oc"
+> >=20
+> >   static atomic_int stop;
+> >   static atomic_long opens, creates, enoent, other;
+> >   static long period;
+> >=20
+> >   static void die(const char *what)
+> >   {
+> >   	fprintf(stderr, "FATAL %s: %s\n", what, strerror(errno));
+> >   	exit(2);
+> >   }
+> >=20
+> >   static void *writer(void *arg)
+> >   {
+> >   	(void)arg;
+> >   	if (period) {
+> >   		struct perf_event_attr attr =3D {
+> >   			.type =3D PERF_TYPE_SOFTWARE,
+> >   			.size =3D sizeof(attr),
+> >   			.config =3D PERF_COUNT_SW_CPU_CLOCK,
+> >   			.sample_period =3D period,
+> >   		};
+> >=20
+> >   		if (syscall(SYS_perf_event_open, &attr, 0, -1, -1, 0) < 0)
+> >   			die("perf_event_open");
+> >   	}
+> >   	while (!atomic_load(&stop)) {
+> >   		int fd;
+> >=20
+> >   		unlink(DIR "/ocrace");
+> >   		fd =3D open(DIR "/ocrace", O_CREAT | O_RDWR | O_CLOEXEC, 0644);
+> >   		if (fd >=3D 0)
+> >   			close(fd);
+> >   		atomic_fetch_add(&creates, 1);
+> >   	}
+> >   	return NULL;
+> >   }
+> >=20
+> >   static void *reader(void *arg)
+> >   {
+> >   	char lnk[64];
+> >=20
+> >   	snprintf(lnk, sizeof(lnk), DIR "/lnk.%ld", (long)arg);
+> >   	while (!atomic_load(&stop)) {
+> >   		int fd =3D open(lnk, O_CREAT | O_RDWR | O_CLOEXEC, 0644);
+> >=20
+> >   		if (fd >=3D 0)
+> >   			close(fd);
+> >   		else if (errno =3D=3D ENOENT)
+> >   			atomic_fetch_add(&enoent, 1);
+> >   		else
+> >   			atomic_fetch_add(&other, 1);
+> >   		atomic_fetch_add(&opens, 1);
+> >   	}
+> >   	return NULL;
+> >   }
+> >=20
+> >   int main(int argc, char **argv)
+> >   {
+> >   	int secs =3D 60, nw =3D 4, nr =3D 12, c, n =3D 0;
+> >   	pthread_t t[256];
+> >=20
+> >   	while ((c =3D getopt(argc, argv, "t:w:r:p:")) !=3D -1) {
+> >   		switch (c) {
+> >   		case 't': secs =3D atoi(optarg); break;
+> >   		case 'w': nw =3D atoi(optarg); break;
+> >   		case 'r': nr =3D atoi(optarg); break;
+> >   		case 'p': period =3D atol(optarg); break;
+> >   		default: return 2;
+> >   		}
+> >   	}
+> >   	if (nw + nr > 256)
+> >   		return 2;
+> >   	mkdir(DIR, 0755);
+> >   	if (mount("oc", DIR, "tmpfs", MS_STRICTATIME, "mode=3D0755"))
+> >   		die("tmpfs");
+> >   	for (long i =3D 0; i < nr; i++) {
+> >   		char lnk[64];
+> >=20
+> >   		snprintf(lnk, sizeof(lnk), DIR "/lnk.%ld", i);
+> >   		if (symlink("ocrace", lnk))
+> >   			die("symlink");
+> >   	}
+> >   	for (long i =3D 0; i < nw; i++)
+> >   		if (pthread_create(&t[n++], NULL, writer, NULL))
+> >   			die("writer");
+> >   	for (long i =3D 0; i < nr; i++)
+> >   		if (pthread_create(&t[n++], NULL, reader, (void *)i))
+> >   			die("reader");
+> >   	sleep(secs);
+> >   	atomic_store(&stop, 1);
+> >   	for (int i =3D 0; i < n; i++)
+> >   		pthread_join(t[i], NULL);
+> >   	printf("%ds: %ld opens, %ld creates, ENOENT %ld, other errors %ld\n"=
+,
+> >   	       secs, atomic_load(&opens), atomic_load(&creates),
+> >   	       atomic_load(&enoent), atomic_load(&other));
+> >   	umount2(DIR, MNT_DETACH);
+> >   	return atomic_load(&enoent) ? 1 : 0;
+> >   }
+> >=20
+> >   diff --git a/fs/dcache.c b/fs/dcache.c
+> >   --- a/fs/dcache.c
+> >   +++ b/fs/dcache.c
+> >   @@ -32,9 +32,13 @@
+> >    #include <linux/bit_spinlock.h>
+> >    #include <linux/rculist_bl.h>
+> >    #include <linux/list_lru.h>
+> >   +#include <linux/delay.h>
+> >    #include "internal.h"
+> >    #include "mount.h"
+> >=20
+> >   +/* debug: stall "ocrace*" names between ->d_inode and the type */
+> >   +static int sysctl_ocrace_instantiate_us;
+> >   +
+> >    #include <asm/runtime-const.h>
+> >=20
+> >    /*
+> >   @@ -200,6 +204,13 @@
+> >    }
+> >=20
+> >    static const struct ctl_table fs_dcache_sysctls[] =3D {
+> >   +	{
+> >   +		.procname	=3D "ocrace_instantiate_us",
+> >   +		.data		=3D &sysctl_ocrace_instantiate_us,
+> >   +		.maxlen		=3D sizeof(int),
+> >   +		.mode		=3D 0644,
+> >   +		.proc_handler	=3D proc_dointvec,
+> >   +	},
+> >    	{
+> >    		.procname	=3D "dentry-state",
+> >    		.data		=3D &dentry_stat,
+> >   @@ -405,6 +416,10 @@
+> >    	unsigned flags;
+> >=20
+> >    	dentry->d_inode =3D inode;
+> >   +	/* debug: an interrupt landing right here */
+> >   +	if (unlikely(READ_ONCE(sysctl_ocrace_instantiate_us)) &&
+> >   +	    !strncmp(dentry->d_name.name, "ocrace", 6))
+> >   +		udelay(READ_ONCE(sysctl_ocrace_instantiate_us));
+> >    	flags =3D READ_ONCE(dentry->d_flags);
+> >    	flags &=3D ~DCACHE_ENTRY_TYPE;
+> >    	flags |=3D type_flags;
+> >=20
+> > Fixes: e747e15156b7 ("fs: try an opportunistic lookup for O_CREAT opens=
+ too")
+> > Cc: stable@vger.kernel.org # v6.12+
+> > Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> > ---
+> >  fs/namei.c | 8 ++++++--
+> >  1 file changed, 6 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/fs/namei.c b/fs/namei.c
+> > index c87c14ee1a25..8f3517000b8b 100644
+> > --- a/fs/namei.c
+> > +++ b/fs/namei.c
+> > @@ -4750,8 +4750,12 @@ static struct dentry *lookup_fast_for_open(struc=
+t nameidata *nd, int open_flag)
+> >  		return dentry;
+> > =20
+> >  	if (open_flag & O_CREAT) {
+> > -		/* Discard negative dentries. Need inode_lock to do the create */
+> > -		if (!dentry->d_inode) {
+> > +		/*
+> > +		 * Discard negative dentries. Need inode_lock to do the create.
+> > +		 * Look at the type like traverse_mounts() will. A dentry that
+> > +		 * is being instantiated gets ->d_inode before its type.
+> > +		 */
+> > +		if (d_is_negative(dentry)) {
+> >  			if (!(nd->flags & LOOKUP_RCU))
+> >  				dput(dentry);
+> >  			dentry =3D NULL;
+> >=20
+> > ---
+> > base-commit: 0b5c87bbf2742347b4e593defbfeee2cde0a316d
+> > change-id: 20261012-work-namei-ocreate-8ef7c8d7f960
 >=20
-> So a refwalk that took its reference to a negative dentry right before
-> another task instantiates it can find ->d_inode already set in
-> lookup_fast_for_open(), go on to step_into(), and still find the
-> negative type in traverse_mounts(). The open then fails with -ENOENT,
-> which an O_CREAT open must never do. rcuwalk doesn't get that far, the
-> d_seq check in step_into() catches the instantiation.
->=20
-> Use d_is_negative() so both look at the type. While the type is still
-> negative the open takes lookup_open() and waits for the directory lock
-> like any other O_CREAT open of a negative dentry.
->=20
-> On its own the window is a couple of instructions in the creating task,
-> so it takes an interrupt or a preempted vcpu in exactly the right spot.
-> I haven't caught it without help in about 600 million racing O_CREAT
-> opens.
->=20
-> The debug patch below stalls the creating task between the two stores
-> for names starting with "ocrace", the way an interrupt landing there
-> would. The reproducer below opens "ocrace" with O_CREAT through
-> symlinks on a strictatime tmpfs: following them updates their atime,
-> which drops the walk out of rcuwalk, so the name is always looked up in
-> refwalk. With
->=20
->   echo 20 > /proc/sys/fs/ocrace_instantiate_us
->   ./ocreat_enoent -t 60
->=20
-> on a KASAN kernel open() failed with -ENOENT 43 times in 4.9 million
-> calls. With this patch it never failed in 4.8 million calls. Tracing
-> step_into_slowpath() during such a run, each of the 98 -ENOENTs it
-> returned came right after the same task had entered it with a dentry
-> that was still typed negative.
->=20
->   // SPDX-License-Identifier: GPL-2.0
->   /*
->    * ocreat_enoent: open(O_CREAT) racing the creation of the same name.
->    *
->    * Writers unlink "ocrace" and create it again. Readers open it with
->    * O_CREAT through a symlink of their own on a strictatime tmpfs.
->    * Following the symlink updates its atime, which drops the walk out of
->    * rcu mode, so the name is always looked up in refwalk. An O_CREAT ope=
-n
->    * must never fail with ENOENT.
->    *
->    * -p arms a cpu-clock perf timer with that period in ns on every write=
-r,
->    * so that interrupts land at random points in it.
->    *
->    *   usage: ocreat_enoent [-t secs] [-w writers] [-r readers] [-p ns]
->    */
->   #define _GNU_SOURCE
->   #include <errno.h>
->   #include <fcntl.h>
->   #include <pthread.h>
->   #include <stdatomic.h>
->   #include <stdio.h>
->   #include <stdlib.h>
->   #include <string.h>
->   #include <sys/mount.h>
->   #include <sys/stat.h>
->   #include <sys/syscall.h>
->   #include <unistd.h>
->   #include <linux/perf_event.h>
->=20
->   #define DIR "/tmp/oc"
->=20
->   static atomic_int stop;
->   static atomic_long opens, creates, enoent, other;
->   static long period;
->=20
->   static void die(const char *what)
->   {
->   	fprintf(stderr, "FATAL %s: %s\n", what, strerror(errno));
->   	exit(2);
->   }
->=20
->   static void *writer(void *arg)
->   {
->   	(void)arg;
->   	if (period) {
->   		struct perf_event_attr attr =3D {
->   			.type =3D PERF_TYPE_SOFTWARE,
->   			.size =3D sizeof(attr),
->   			.config =3D PERF_COUNT_SW_CPU_CLOCK,
->   			.sample_period =3D period,
->   		};
->=20
->   		if (syscall(SYS_perf_event_open, &attr, 0, -1, -1, 0) < 0)
->   			die("perf_event_open");
->   	}
->   	while (!atomic_load(&stop)) {
->   		int fd;
->=20
->   		unlink(DIR "/ocrace");
->   		fd =3D open(DIR "/ocrace", O_CREAT | O_RDWR | O_CLOEXEC, 0644);
->   		if (fd >=3D 0)
->   			close(fd);
->   		atomic_fetch_add(&creates, 1);
->   	}
->   	return NULL;
->   }
->=20
->   static void *reader(void *arg)
->   {
->   	char lnk[64];
->=20
->   	snprintf(lnk, sizeof(lnk), DIR "/lnk.%ld", (long)arg);
->   	while (!atomic_load(&stop)) {
->   		int fd =3D open(lnk, O_CREAT | O_RDWR | O_CLOEXEC, 0644);
->=20
->   		if (fd >=3D 0)
->   			close(fd);
->   		else if (errno =3D=3D ENOENT)
->   			atomic_fetch_add(&enoent, 1);
->   		else
->   			atomic_fetch_add(&other, 1);
->   		atomic_fetch_add(&opens, 1);
->   	}
->   	return NULL;
->   }
->=20
->   int main(int argc, char **argv)
->   {
->   	int secs =3D 60, nw =3D 4, nr =3D 12, c, n =3D 0;
->   	pthread_t t[256];
->=20
->   	while ((c =3D getopt(argc, argv, "t:w:r:p:")) !=3D -1) {
->   		switch (c) {
->   		case 't': secs =3D atoi(optarg); break;
->   		case 'w': nw =3D atoi(optarg); break;
->   		case 'r': nr =3D atoi(optarg); break;
->   		case 'p': period =3D atol(optarg); break;
->   		default: return 2;
->   		}
->   	}
->   	if (nw + nr > 256)
->   		return 2;
->   	mkdir(DIR, 0755);
->   	if (mount("oc", DIR, "tmpfs", MS_STRICTATIME, "mode=3D0755"))
->   		die("tmpfs");
->   	for (long i =3D 0; i < nr; i++) {
->   		char lnk[64];
->=20
->   		snprintf(lnk, sizeof(lnk), DIR "/lnk.%ld", i);
->   		if (symlink("ocrace", lnk))
->   			die("symlink");
->   	}
->   	for (long i =3D 0; i < nw; i++)
->   		if (pthread_create(&t[n++], NULL, writer, NULL))
->   			die("writer");
->   	for (long i =3D 0; i < nr; i++)
->   		if (pthread_create(&t[n++], NULL, reader, (void *)i))
->   			die("reader");
->   	sleep(secs);
->   	atomic_store(&stop, 1);
->   	for (int i =3D 0; i < n; i++)
->   		pthread_join(t[i], NULL);
->   	printf("%ds: %ld opens, %ld creates, ENOENT %ld, other errors %ld\n",
->   	       secs, atomic_load(&opens), atomic_load(&creates),
->   	       atomic_load(&enoent), atomic_load(&other));
->   	umount2(DIR, MNT_DETACH);
->   	return atomic_load(&enoent) ? 1 : 0;
->   }
->=20
->   diff --git a/fs/dcache.c b/fs/dcache.c
->   --- a/fs/dcache.c
->   +++ b/fs/dcache.c
->   @@ -32,9 +32,13 @@
->    #include <linux/bit_spinlock.h>
->    #include <linux/rculist_bl.h>
->    #include <linux/list_lru.h>
->   +#include <linux/delay.h>
->    #include "internal.h"
->    #include "mount.h"
->=20
->   +/* debug: stall "ocrace*" names between ->d_inode and the type */
->   +static int sysctl_ocrace_instantiate_us;
->   +
->    #include <asm/runtime-const.h>
->=20
->    /*
->   @@ -200,6 +204,13 @@
->    }
->=20
->    static const struct ctl_table fs_dcache_sysctls[] =3D {
->   +	{
->   +		.procname	=3D "ocrace_instantiate_us",
->   +		.data		=3D &sysctl_ocrace_instantiate_us,
->   +		.maxlen		=3D sizeof(int),
->   +		.mode		=3D 0644,
->   +		.proc_handler	=3D proc_dointvec,
->   +	},
->    	{
->    		.procname	=3D "dentry-state",
->    		.data		=3D &dentry_stat,
->   @@ -405,6 +416,10 @@
->    	unsigned flags;
->=20
->    	dentry->d_inode =3D inode;
->   +	/* debug: an interrupt landing right here */
->   +	if (unlikely(READ_ONCE(sysctl_ocrace_instantiate_us)) &&
->   +	    !strncmp(dentry->d_name.name, "ocrace", 6))
->   +		udelay(READ_ONCE(sysctl_ocrace_instantiate_us));
->    	flags =3D READ_ONCE(dentry->d_flags);
->    	flags &=3D ~DCACHE_ENTRY_TYPE;
->    	flags |=3D type_flags;
->=20
-> Fixes: e747e15156b7 ("fs: try an opportunistic lookup for O_CREAT opens t=
-oo")
-> Cc: stable@vger.kernel.org # v6.12+
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-> ---
->  fs/namei.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->=20
-> diff --git a/fs/namei.c b/fs/namei.c
-> index c87c14ee1a25..8f3517000b8b 100644
-> --- a/fs/namei.c
-> +++ b/fs/namei.c
-> @@ -4750,8 +4750,12 @@ static struct dentry *lookup_fast_for_open(struct =
-nameidata *nd, int open_flag)
->  		return dentry;
-> =20
->  	if (open_flag & O_CREAT) {
-> -		/* Discard negative dentries. Need inode_lock to do the create */
-> -		if (!dentry->d_inode) {
-> +		/*
-> +		 * Discard negative dentries. Need inode_lock to do the create.
-> +		 * Look at the type like traverse_mounts() will. A dentry that
-> +		 * is being instantiated gets ->d_inode before its type.
-> +		 */
-> +		if (d_is_negative(dentry)) {
->  			if (!(nd->flags & LOOKUP_RCU))
->  				dput(dentry);
->  			dentry =3D NULL;
->=20
-> ---
-> base-commit: 0b5c87bbf2742347b4e593defbfeee2cde0a316d
-> change-id: 20261012-work-namei-ocreate-8ef7c8d7f960
+> Nice catch. My only nit is that comments that include function names
+> like traverse_mounts() are subject to bitrot. Personally, I'd just
+> leave the comment alone.
 
-Nice catch. My only nit is that comments that include function names
-like traverse_mounts() are subject to bitrot. Personally, I'd just
-leave the comment alone.
---=20
-Jeff Layton <jlayton@kernel.org>
+Oops, clicked Send before doing this:
+
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
