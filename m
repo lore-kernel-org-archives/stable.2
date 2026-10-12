@@ -1,163 +1,106 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 678F548F018;
-	Mon, 12 Oct 2026 14:29:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0B71392C4B
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 14:32:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791815397; cv=none; b=aAVH5cHEZxR/TpPKmaARzYOKtVygEzk2msBRAJ1SjB609TT+T/9iOrqGtlwNcFnzs4k74rDiGgrcgwwila5pH5CdWUrU2b0xr7cee0F//ZiejLTFTKQan21KG/6LF4mizibzJDW0ErEhk64uvVrmb877VDeeDWD0vXCK8/u9SGM=
+	t=1791815560; cv=none; b=jBCbIBus1gUhDSb4zUzN+VFrlSoGdmdXcLBI1Q6PRb62Q8qKkSeTa093r+4P9OTm/oCA2I6qV+R/9P0pckoFtg+3l/HH2pzJDiAFmpE/ltDFr8YrtRNZnXoorApfoxOHmk+krrYF9uL2d8OBkiMdH1+49qijl+t3hyATdVIKFRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791815397; c=relaxed/simple;
-	bh=4RVhPavqbFdZB9dLlUgTUNkwX9QrrcgqvBFuvF2ryQw=;
+	s=arc-20240116; t=1791815560; c=relaxed/simple;
+	bh=6sdrWcle8MAUn2sk77XAtLEf1L5zSkCRmI8D7Phtu+c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UR7K4jBqesZmAJezO+9kV/hJ5e0WRMWJiMkZpjyPmbqYWEtbLMwxlJsz2aqllCOavKVZwx3elfD2+rD/rdSTGpR4CcA5Tz1q6CD+Cyq+rPohuxghHw6lYG/ykAoyYtMURq//yxsZkGaNlmGfKxfrBzXXiv36qGH+zelQOB20MMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=d0a9Xmov; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 MIME-Version:Content-Type; b=ig4vV6hJUgiXARJtYPCBrarXqqK7MBrAuxLwockseaQ3Qal0sSYc1q/oXZtFp3x+ztQam8HwpWLgLWpC3bSBuPwT6VcwcZzKeilfZ3Ve9f9GsIfn8iFyBiaeUVQk8nQqiz6+oleo+NcCj6+scf/atY0copml4G/HdJh5ugeoJmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CMhZTNgi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="d0a9Xmov"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id E6F0F4E411F7;
-	Mon, 12 Oct 2026 14:29:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B144F601A6;
-	Mon, 12 Oct 2026 14:29:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4A75511D708B4;
-	Mon, 12 Oct 2026 16:29:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791815392; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=S9hVX9w2762K2NqjWVW1JueaSmRHavaw67h+zQmQF34=;
-	b=d0a9Xmov120KwBcH9AEy16/CLp71QmFTjk42mAX/uEbRwwNWthv/khpnYsl0DI3mPP7JDY
-	NQVwAurY45iDa9T74towbOhmZjmze9eK4RjknShiqx/lpOTT/92ukFxeN5JkX/ahlHBgnh
-	AOK14Or6ZaG4duOLd4/me/xOSuS+vIzGL3TaqFbqsKSZW6zvmNMg6hMn5/SPPP6cDnI/VZ
-	0sgjdtU6JuURb6fV3eg3Xg5B6kdxlYjbMA8EwgNO1nINmhMeE+o7deroEyLjKI2mW8rOf6
-	EPsVikUJdLTkpAu7bqTrx1UeXes+lxzCvu/zOc/0J1K33XZG32dxOqz/KPLaIQ==
-From: Herve Codina <herve.codina@bootlin.com>
-To: Richard Cheng <icheng@nvidia.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dan Williams <djbw@kernel.org>,
-	Ira Weiny <iweiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Lizhi Hou <lizhi.hou@amd.com>
-Cc: driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com,
-	linux-gpio@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	Allan Nielsen <allan.nielsen@microchip.com>,
-	Horatiu Vultur <horatiu.vultur@microchip.com>,
-	Daniel Machon <daniel.machon@microchip.com>,
-	Steen Hegelund <steen.hegelund@microchip.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	stable@vger.kernel.org,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Subject: [PATCH v13 08/10] PCI: of: Set fwnode device of newly created PCI device nodes
-Date: Mon, 12 Oct 2026 16:28:22 +0200
-Message-ID: <20261012142826.159178-9-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261012142826.159178-1-herve.codina@bootlin.com>
-References: <20261012142826.159178-1-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CMhZTNgi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D814A1F0089B;
+	Mon, 12 Oct 2026 14:32:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791815559;
+	bh=bwh4nfmTzYRW81TSMR9lmSPFDdPItHgQwk2HHDILgck=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=CMhZTNgie2uZ4KEZiBv8pRKpQJh8WX/YyF7ja1tsh7pXhz3kJRUEzJerfhQGgQpml
+	 Rfi3MwFYBY5+Q8tp8CTaEu4potreqAGJL3/as6uUZ7HxpVTLsKc2BpaI1GPVWggBws
+	 myEpfe+4YPUIRvcZ6u5+WscR7qzSrZo/889Z+EZGiLb/POzguuhDmDQKkJ/sbRcZmb
+	 LEGmveQ6ZUghoaxGU2BvpBEZaxx9VTXIqoNDnRDjtjA3K+OU4ADWR9108UeUGQdU5h
+	 SCPQ9FLRgJi1LZz6H/g5tjs1XNAY2pe8uDchdyUWZdT8hcBnz01jRKdu2SGuYNiVFQ
+	 IWrNxEE4/JHQg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Christian=20G=C3=B6ttsche?= <cgzones@googlemail.com>,
+	syzbot+a7f7cb0737bd91aa698c@syzkaller.appspotmail.com,
+	Stephen Smalley <stephen.smalley.work@gmail.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] selinux: fix data race on AVC latest_notif
+Date: Mon, 12 Oct 2026 10:32:37 -0400
+Message-ID: <20261012143218.726728-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026101223-rerun-preachy-f36b@gregkh>
+References: <2026101223-rerun-preachy-f36b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Device-tree node can be created when CONFIG_PCI_DYNAMIC_OF_NODES. Those
-nodes are created and filled based on PCI core information but the
-fwnode device field is not set.
+From: Christian Göttsche <cgzones@googlemail.com>
 
-When later an overlay is applied, this confuses fw_devlink. Indeed,
-without any device attached to the node, fw_devlink considers that this
-node will never become a device. When this node is pointed as a
-supplier, devlink looks at its ancestors in order to find a node with a
-device that could be used as the supplier.
+[ Upstream commit 1ca924044bf0de879a1648be93a56939652267d3 ]
 
-In the PCI use case, this leads to links that wrongly use the PCI root
-bridge device as the supplier instead of the expected PCI device.
+avc_policy_seqno() reads latest_notif without holding notif_lock, while
+avc_latest_notif_update() can update it under that lock. KCSAN reports
+these concurrent accesses during policy boolean updates and permission
+checks.
 
-Setting the fwnode device to the device of the PCI device allows devlink
-to use this device as a supplier and so, correct links are created.
+Use READ_ONCE() for the lockless read and WRITE_ONCE() for the update.
+The spinlock continues to serialize the comparison and update against
+other writers. Reads made while holding notif_lock cannot race with a
+writer and can remain plain accesses.
 
-Fixes: 407d1a51921e ("PCI: Create device tree node for bridge")
+This marks both sides of the intentional concurrent access and constrains
+compiler transformations, without suppressing checking with data_race().
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Richard Cheng <icheng@nvidia.com>
-Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Fixes: 788e7dd4c22e ("SELinux: Improve read/write performance")
+Reported-by: syzbot+a7f7cb0737bd91aa698c@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=a7f7cb0737bd91aa698c
+Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
+Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+Signed-off-by: Paul Moore <paul@paul-moore.com>
+[ sashal: Adapted global selinux_avc accesses to use avc and state->avc pointers. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/of.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ security/selinux/avc.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pci/of.c b/drivers/pci/of.c
-index 29b63a9090ae..8914bfa25dc1 100644
---- a/drivers/pci/of.c
-+++ b/drivers/pci/of.c
-@@ -736,6 +736,7 @@ void of_pci_remove_node(struct pci_dev *pdev)
- 	if (!np || !of_node_check_flag(np, OF_DYNAMIC))
- 		return;
+diff --git a/security/selinux/avc.c b/security/selinux/avc.c
+index 70eeed3e44c05..04efc9582c56b 100644
+--- a/security/selinux/avc.c
++++ b/security/selinux/avc.c
+@@ -588,7 +588,7 @@ static int avc_latest_notif_update(struct selinux_avc *avc,
+ 		}
+ 	} else {
+ 		if (seqno > avc->avc_cache.latest_notif)
+-			avc->avc_cache.latest_notif = seqno;
++			WRITE_ONCE(avc->avc_cache.latest_notif, seqno);
+ 	}
+ 	spin_unlock_irqrestore(&notif_lock, flag);
  
-+	fw_devlink_set_device(&np->fwnode, NULL);
- 	device_remove_of_node(&pdev->dev);
- 	of_changeset_revert(np->data);
- 	of_changeset_destroy(np->data);
-@@ -788,9 +789,16 @@ void of_pci_make_dev_node(struct pci_dev *pdev)
- 	if (ret)
- 		goto out_free_node;
+@@ -1191,7 +1191,8 @@ int avc_has_perm(struct selinux_state *state, u32 ssid, u32 tsid, u16 tclass,
  
-+	/*
-+	 * Set the fwnode device in order to have fw_devlink creating links
-+	 * pointing to this PCI device instead of walking up to the PCI host
-+	 * bridge.
-+	 */
-+	fw_devlink_set_device(&np->fwnode, &pdev->dev);
-+
- 	ret = of_changeset_apply(cset);
- 	if (ret)
--		goto out_free_node;
-+		goto out_clear_devlink_dev;
+ u32 avc_policy_seqno(struct selinux_state *state)
+ {
+-	return state->avc->avc_cache.latest_notif;
++	/* Writers hold notif_lock; readers only sample the sequence number. */
++	return READ_ONCE(state->avc->avc_cache.latest_notif);
+ }
  
- 	np->data = cset;
- 
-@@ -805,6 +813,8 @@ void of_pci_make_dev_node(struct pci_dev *pdev)
- out_revert_cset:
- 	np->data = NULL;
- 	of_changeset_revert(cset);
-+out_clear_devlink_dev:
-+	fw_devlink_set_device(&np->fwnode, NULL);
- out_free_node:
- 	of_node_put(np);
- out_destroy_cset:
+ void avc_disable(void)
 -- 
-2.55.0
+2.53.0
 
