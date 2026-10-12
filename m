@@ -1,180 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3BA349B5B8
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:21:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E30F49B457;
+	Mon, 12 Oct 2026 15:21:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791818506; cv=none; b=ksC5vx2yBnS9ye2g9ZfrZbDcbB3CAyd2BZodq/aEJOxcmJS+4eRqJrb0z9nLc3thaMoydLMN6QbSqYTtlKSIR5/MmLap1q3lALg8qud15fDQEwF2UUDaPee0EjUFpn8LBuKI/9YOjCm/RwsuAzkrTEIqVs4k9XqBEurHwGZmpno=
+	t=1791818516; cv=none; b=dw0B1sc3kgd5k+9nkHhlyNpaXuJ5nAtB3PFT55sqOeArvXbgJV1to7M7cKQ2kRsw9P0h8J5euoIuUaeKr6vnbMOH6pl5OKOMAkUu0DsL98tz00Tc84O6JhpQkrQotDMLBCRIYTzeqp9p+CwOcQCwUaAzjWRmaiSb5fpYdgnGxOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791818506; c=relaxed/simple;
-	bh=B5DkBYdwA051FJZpEhDxR8AuYSOp/SLEWN3qaPXq7OU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=DFdGM9qJ62TIAqRJ/U71vMAcij1ObwpXycagX5annYqtXzSS1fLdMh9NouOgCXQ4ZPJkJHUXBdekIer0uK0BNfEl4lsj0bfpHgXrFgj8kdVk5tmX30Pg79TR4KredlVAEelgEkQOVSz5QshmrtVHBjp2BAleL0RRF3N2TvfWjjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UP7SJUFR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791818516; c=relaxed/simple;
+	bh=eZjeMwwGfUl9y3FPYvSXeM7XG4L1Fgpo99tR2JlEkYI=;
+	h=Date:Subject:From:To:Cc:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=oIUFwpMvONnpAC2Ms15aN+DG2DMZlcJCN9rM8naLnfIls9jfrjx6Cs9l2XieOa1SWbZ+qsBeFcyI8s276mq6txLfAzaBc4d3ItxpM6Hhd++z9Ue7zCOTSaor8F7mheXoaZN46h2BhfR7c1ktbVtrONe9gE0mPOhJEA9LArV0LKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VYUIJpmy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UP7SJUFR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D78621F0089B;
-	Mon, 12 Oct 2026 15:21:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791818505;
-	bh=i2HfXYnvyr4lTPECyp2Kv2nSO33oSXokMHkI0+K8vbI=;
-	h=Subject:To:Cc:From:Date;
-	b=UP7SJUFRI3via6e35D05yt90qbBN35NmeLps3ubJejt9rFE6VbtNLe3Obc6INnegt
-	 m1EDSIRpEPllTl9mrzuG6Hd+AMJN+CDp0tvk6c6dSF0wG2lwaOynhGTFQ3ZzhOfvWw
-	 xcqfU7zhu1JTD6iqWh1cH1j1HiF/eTbWbsUe3pEk=
-Subject: FAILED: patch "[PATCH] scsi: ch: Do not keep references to data transfer element" failed to apply to 5.10-stable tree
-To: ahmedhal@gmail.com,loberman@redhat.com,mkp@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 17:21:44 +0200
-Message-ID: <2026101244-groove-imply-f3eb@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VYUIJpmy"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 99B6D1F0089B;
+	Mon, 12 Oct 2026 15:21:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791818514;
+	bh=UX/ZouFRFX5alVgKT96TaOyAr+7KGnHZZ+4PJ7qjpbg=;
+	h=Date:Subject:From:To:Cc:In-Reply-To:References;
+	b=VYUIJpmyTaimuMWLbkwmeODNskUnbRtdeMYXKYjtuKxx3B99dQ2Y5p7OWPi7cr0st
+	 WugIfhtiYTvg9sXhmY++T+e6hjPcJ9UnKsLi+U+KEol3tVtK/xC1v6VNklqWSOmrW2
+	 sgA5OHRa3/k+AT3uwfxioE8y5hEGV1e+mkM4jH19pqItrdNA1nDJHqndlzVLbUrgRk
+	 afAX19hfA3mSjNJKzDCqwps2Ryki3Wod9id5lKwz33XrOYNCMA/hMA9We6lgPWuREh
+	 Ey/ODxQk/pPbf/H7bXYUrLzTlZnDCZyYR0Nf6tbW+5koJ5n4hmZuzz+k9wQpU2KVj/
+	 2NG8ZLzWlR1IQ==
+Date: Mon, 12 Oct 2026 08:21:54 -0700
+Subject: [PATCH 06/13] xfs: fix correction of unwritten extents in quota file
+ data fork
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: djwong@kernel.org, cem@kernel.org
+Cc: hch@lst.de, stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Message-ID: <179181839376.1417179.13075489753807986079.stgit@frogsfrogsfrogs>
+In-Reply-To: <179181839163.1417179.9019753534701755931.stgit@frogsfrogsfrogs>
+References: <179181839163.1417179.9019753534701755931.stgit@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+From: Darrick J. Wong <djwong@kernel.org>
+
+LOLLM noticed a couple of problems with the code that fixes unwritten
+mappings in the quota file's data fork: first, we should zero the ondisk
+contents as part of converting them to "unwritten" just in case we crash
+shortly after the conversion.  Second, and more importantly, it noticed
+that we fail to resynchronize the iext tree cursor after modifying the
+iext tree.  If the tree shape changes, we could be in a world of hurt.
+Third, we should force a quotacheck if we reset an ondisk dquot.  Fix
+all issues.
+
+Cc: <stable@vger.kernel.org> # v6.8
+Fixes: a5b91555403e3a ("xfs: repair quotas")
+Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+---
+ fs/xfs/scrub/quota_repair.c |   25 +++++++++++++++++++++++--
+ 1 file changed, 23 insertions(+), 2 deletions(-)
 
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
-
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 27c0f718d3b3c99e6d315308e95d987d0382a8a8
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101244-groove-imply-f3eb@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 27c0f718d3b3c99e6d315308e95d987d0382a8a8 Mon Sep 17 00:00:00 2001
-From: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
-Date: Tue, 22 Sep 2026 15:46:46 +0000
-Subject: [PATCH] scsi: ch: Do not keep references to data transfer element
- devices
-
-ch_readconfig() looks up the scsi_device of every data transfer element
-whose SCSI id the changer reports in READ ELEMENT STATUS, and stores it in
-ch->dt[]. scsi_device_lookup() takes a reference, and nothing ever drops
-it: ch_destroy() frees the array with kfree(). ch->dt[] is read nowhere
-else - it only supplies the vendor, model and revision printed in the same
-loop.
-
-Once such a drive is removed, its scsi_device can never be released. It
-stays on the host's device list at its address, so a new device there is
-refused by anything that walks the list - target_core_pscsi reports
-"scsi_device_get() failed for H:C:T:L" - and the low-level driver's module
-can no longer be unloaded. Only a reboot recovers.
-
-It shows with any changer that reports its drives' ids; with the mhvtl
-virtual library (IBM 3573-TL personality), each create and remove of a
-library with four drives leaves four references behind, counted by the
-module's use count in lsmod. With ch not bound the count is unchanged, and
-with this patch applied it is unchanged too.
-
-Drop the reference as soon as the name has been printed, and remove the now
-unused dt[] array. That also removes the array leaked when ch_probe() fails
-after ch_readconfig().
-
-The same leak was reported with an RFC patch in 2022, which was not merged.
-
-Fixes: daa6eda65a53 ("[SCSI] add scsi changer driver")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/linux-scsi/20220719075442.6215-1-yanghao_ht@163.com/
-Signed-off-by: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
-Reviewed-by: Laurence Oberman <loberman@redhat.com>
-Fixes: daa6eda65a53 ("[SCSI] add scsi changer driver")
-Link: https://patch.msgid.link/20260929-ch-dt-leak-v2-1-ddda8d635dca@gmail.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-
-diff --git a/drivers/scsi/ch.c b/drivers/scsi/ch.c
-index 4010fdbf813c..c36539c83ed1 100644
---- a/drivers/scsi/ch.c
-+++ b/drivers/scsi/ch.c
-@@ -112,7 +112,6 @@ typedef struct {
- 	int                 minor;
- 	char                name[8];
- 	struct scsi_device  *device;
--	struct scsi_device  **dt;        /* ptrs to data transfer elements */
- 	u_int               firsts[CH_TYPES];
- 	u_int               counts[CH_TYPES];
- 	u_int		    voltags;
-@@ -363,15 +362,10 @@ ch_readconfig(scsi_changer *ch)
- 			vendor_labels[i]);
- 	}
- 
--	/* look up the devices of the data transfer elements */
--	ch->dt = kzalloc_objs(*ch->dt, ch->counts[CHET_DT]);
--
--	if (!ch->dt) {
--		kfree(buffer);
--		return -ENOMEM;
--	}
--
-+	/* report the devices of the data transfer elements */
- 	for (elem = 0; elem < ch->counts[CHET_DT]; elem++) {
-+		struct scsi_device *sdev;
+diff --git a/fs/xfs/scrub/quota_repair.c b/fs/xfs/scrub/quota_repair.c
+index 2b695e5b34177c..3be56d73dd665f 100644
+--- a/fs/xfs/scrub/quota_repair.c
++++ b/fs/xfs/scrub/quota_repair.c
+@@ -440,7 +440,9 @@ xrep_quota_data_fork(
+ 	/* Check for data fork problems that apply only to quota files. */
+ 	max_dqid_off = XFS_DQ_ID_MAX / qi->qi_dqperchunk;
+ 	ifp = xfs_ifork_ptr(sc->ip, XFS_DATA_FORK);
+-	for_each_xfs_iext(ifp, &icur, &irec) {
++	xfs_iext_first(ifp, &icur);
 +
- 		id  = -1;
- 		lun = 0;
- 		if (elem < CH_DT_MAX  &&  -1 != dt_id[elem]) {
-@@ -387,10 +381,8 @@ ch_readconfig(scsi_changer *ch)
- 			VPRINTK(KERN_INFO, "dt 0x%x: ",elem+ch->firsts[CHET_DT]);
- 			if (data[6] & 0x80) {
- 				VPRINTK(KERN_CONT, "not this SCSI bus\n");
--				ch->dt[elem] = NULL;
- 			} else if (0 == (data[6] & 0x30)) {
- 				VPRINTK(KERN_CONT, "ID/LUN unknown\n");
--				ch->dt[elem] = NULL;
- 			} else {
- 				id  = ch->device->id;
- 				lun = 0;
-@@ -400,18 +392,16 @@ ch_readconfig(scsi_changer *ch)
++	while (xfs_iext_get_extent(ifp, &icur, &irec)) {
+ 		if (isnullstartblock(irec.br_startblock)) {
+ 			error = -EFSCORRUPTED;
+ 			goto out;
+@@ -464,16 +466,35 @@ xrep_quota_data_fork(
+ 
+ 			error = xfs_bmapi_write(sc->tp, sc->ip,
+ 					irec.br_startoff, irec.br_blockcount,
+-					XFS_BMAPI_CONVERT, 0, &nrec, &nmap);
++					XFS_BMAPI_CONVERT | XFS_BMAPI_ZERO, 0,
++					&nrec, &nmap);
+ 			if (error)
+ 				goto out;
+ 			ASSERT(nrec.br_startoff == irec.br_startoff);
+ 			ASSERT(nrec.br_blockcount == irec.br_blockcount);
+ 
++			/*
++			 * We just zeroed the ondisk dquot, so counts could be
++			 * wrong.  Schedule a quotacheck to fix that.
++			 */
++			xrep_force_quotacheck(sc, dqtype);
+ 			error = xfs_defer_finish(&sc->tp);
+ 			if (error)
+ 				goto out;
++
++			/*
++			 * Set cursor to the next block past the extent we just
++			 * converted because bmapi write could have merged
++			 * records.
++			 */
++			if (!xfs_iext_lookup_extent(sc->ip, ifp,
++					irec.br_startoff + irec.br_blockcount,
++					&icur, &irec))
++				break;
++			continue;
  		}
- 		if (-1 != id) {
- 			VPRINTK(KERN_CONT, "ID %i, LUN %i, ",id,lun);
--			ch->dt[elem] =
--				scsi_device_lookup(ch->device->host,
--						   ch->device->channel,
--						   id,lun);
--			if (!ch->dt[elem]) {
-+			sdev = scsi_device_lookup(ch->device->host,
-+						  ch->device->channel,
-+						  id, lun);
-+			if (!sdev) {
- 				/* should not happen */
- 				VPRINTK(KERN_CONT, "Huh? device not found!\n");
- 			} else {
- 				VPRINTK(KERN_CONT, "name: %8.8s %16.16s %4.4s\n",
--					ch->dt[elem]->vendor,
--					ch->dt[elem]->model,
--					ch->dt[elem]->rev);
-+					sdev->vendor, sdev->model, sdev->rev);
-+				scsi_device_put(sdev);
- 			}
- 		}
++
++		xfs_iext_next(ifp, &icur);
  	}
-@@ -575,7 +565,6 @@ static void ch_destroy(struct kref *ref)
- 	scsi_changer *ch = container_of(ref, scsi_changer, ref);
  
- 	ch->device = NULL;
--	kfree(ch->dt);
- 	kfree(ch);
- }
- 
+ 	if (!joined) {
 
