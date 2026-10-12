@@ -1,487 +1,299 @@
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.83])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF0CB477295
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 12:16:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.83
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791807392; cv=pass; b=mHpDSqMr9e47cntJZkA8jvl1FrArWbumndDg3XQuZ+1seBy8nknVB4eVDq9R4IyJh8UZfwqC6+y1+vUvH/54mlbkDYe8mP+ywKxWVPSmAZmFa05hREM23REtDR/Ycl7/OmUXFACu7TEjcDmC5VnH7c49EUznuoh5v7ZON+5Xavc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791807392; c=relaxed/simple;
-	bh=GlqQqXebYFcXiASB470tKtneYpmIuPnto/Ll2Q1OsZQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=s3CEVSB/6IDMl/hHywErTt4jvOIQz1wBLBhSnTG8uMspgdGAiVorhvNoxSkRh21KfHgx6hOh/eCtesJuHlH2XdqI8KPdlhkUt7AhbgBp1jPMmMxdqd98DF+N5l2v5qTGbZis5aRJyY83GoXZwH4ti+WcWqtbxN6MO3BjPTeFqkU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=LqpPCyTn; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=hMg1T0X7; arc=pass smtp.client-ip=85.215.255.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C9D4718EC
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 12:22:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791807761; cv=none; b=NMBo7JRGhvzAojS62YdPAn+RS6pJiZY2MDgUog92W8VfbZAigJWQ/wmTknRpbYERdl/4nbOQgWOdJ+IJdc1lKM9y5NTpHWtJOoUA4MYLdgFbJRVXe526Ez0mV8BOlb8GA8+KiqPlysK2dMfZe2XFXLLm048t/OmmhFP+kWfHkNQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791807761; c=relaxed/simple;
+	bh=BhPEdG6hPj+/irsMHHvbVpDF1gW9lo6NNnho7PlL6tA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Nsnx2/5wEz/Kjpsv75KXnRjr16sa0oDBd7Y7+x514s9Kz/IB23GdRVlpGlnwpOVvFl0JSJjDWnKRPcWNh4r5tJfcnVGHO6EOOfsZ75etazUadAJv5QDtJkUJou1ESikc0qhOF3AderxZLWF+ijQ3LbegAXRxI624JEiXQFDrGJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=otMhWiMi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="LqpPCyTn";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="hMg1T0X7"
-ARC-Seal: i=1; a=rsa-sha256; t=1791807025; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=U7lada9H2js3CApve9RjUBw8MGaCeoGCyzme0KcstFgAIFhla+szplyoSGIQj6cPCQ
-    DtMrW73zeeKgs0eTNTbFrYK3iK0ggMHgJAuZSWECh+xS43R9OLZRCq4sddM7B21hF+zd
-    2rO1e00civGxlgDwr9T0dMG28QQRXYYNVdFo5ASqW4bwuWosecn443a6g8lgyJE8z4wP
-    HgGFFHzt8sCtoS6ZqZB/1zssFgC0mhBvQ3y0ZJlG1Vx82tbH0kzL4R5JTBpCczoFOMbt
-    +JqvLGNdVMUTS3zSfoCBhomhpvi8ickTjsMnNJrqecgW+lFnx6INBdevClpRbP5tben6
-    kVWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1791807025;
-    s=strato-dkim-0002; d=strato.com;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=gKicQ/Hz3m3ENQSNg9zYmXhj7R9iS92dygrXUW+m/04=;
-    b=a8hB2bMWhxCzPUUqSMaiAsnjEoKE2noldZ+i6yZPZPqzyDZGOZXuVYdttI3NoXzlIs
-    vdw9t+Zf/LDXehCC03gW0Da9MiBi27zx7aITtm1LCpZoOh3SGDePISGIsxOJLe+WIgaY
-    IvuNTPbueNfpFajVhCQ1wa0oQOJRwf0Vh0tQ5pEhGBjmUX08gysiGjs+IuLnPDO32fb6
-    RrFSrNb2RxNKtZRfaFOe63RWYTm92Eo2NQu/OxH0uPncJXQ+1+3kZVb2L/ObguM+KZRg
-    98PyH1hVYA9xscnx7Vmmm43UEJHeie1SH08GoMslAmuC/nfgdhPghiTzsqkHAaAF6RM0
-    cDdA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1791807025;
-    s=strato-dkim-0002; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=gKicQ/Hz3m3ENQSNg9zYmXhj7R9iS92dygrXUW+m/04=;
-    b=LqpPCyTnjREjBaokkY/LupjgR5SAk7UU4TknsWVEQshsOvpPMDrC9TY+3oaxb9OdS5
-    ul6M2Aw9uEKW76Xp8BPc+DD+Jdp40oAhJ71uO4xz0Fd64LHXliNNZMXyxdaMel7z01/t
-    59njhfuUbr5OjdeQISfDTdV8TYzJB/Mx6RwMutEuDnzEBa9eXgDNb1JtJ9MOotC7elVr
-    +F0A4120V4zMW8A2LeA8GEM6wkaTGu4OcE17iHHdqCEy1pBztm46x7raVVg8isfbr+lr
-    TlPAV2hsGzKVae+4GE+UGjHPAVtEuH4puhKc7hIFJIIQaAAOsmqPCIF2p8Xo+/1x3y3n
-    WDVQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1791807025;
-    s=strato-dkim-0003; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=gKicQ/Hz3m3ENQSNg9zYmXhj7R9iS92dygrXUW+m/04=;
-    b=hMg1T0X7aRxGzvkR0UnrHNztVR9Or0HQ5XgHoYZ0Sdi2bCTDmQCi7Hzqtyw1BHlVZS
-    RtT/m/kMKAHV0xCKObBg==
-X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
-Received: from [IPV6:2a00:6020:4a38:6810::989]
-    by smtp.strato.de (RZmta 55.6.2 AUTH)
-    with ESMTPSA id K04b9a29CCAPf6A
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Mon, 12 Oct 2026 14:10:25 +0200 (CEST)
-Message-ID: <349a8be2-318e-4234-bf99-7dd71c8b2740@hartkopp.net>
-Date: Mon, 12 Oct 2026 14:10:25 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="otMhWiMi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 247EC1F0089B;
+	Mon, 12 Oct 2026 12:22:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791807759;
+	bh=4VuHgZ19M/QpOoz4KtUFt7upDYIM+XsM6H13IpbisV0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=otMhWiMiXosSIVlBdAR6gX66WxkDoxMvOeOK3GR2raMc/eJvjT1OR0vybMpn+k7zi
+	 UAzgsfdx0BvV6hyJbcDAE7UXyt8pesroAJ3v7XB5r6qDry2Q6M1kC6Z0p0PvdxLgQE
+	 l+sCxGrtS9nSwVXehii48UnqLdtbtd/guc2aPwjhyddHgrJ9EL/zi+gkTq0dbA/ghi
+	 3SAKPC4k+gIqBIcmffTdzo+5LOPvbk53eSeVWXnnUU4mqlKsvTYyrXCVKoWOff844M
+	 pBe9oabL2RuEUbcs1lmPvP6yKpN5Fd5ntriddL5IubPoIbWs908b0H96vvdn8+02vq
+	 JIkAmlQ1rqX1w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Norbert Szetei <norbert@doyensec.com>,
+	Dave Chinner <dchinner@redhat.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Carlos Maiolino <cem@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.2.y 1/2] xfs: stop exchanging reflink flags when exchanging mappings
+Date: Mon, 12 Oct 2026 08:22:36 -0400
+Message-ID: <20261012122227.3726963-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026101216-sadly-relapse-b166@gregkh>
+References: <2026101216-sadly-relapse-b166@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: FAILED: patch "[PATCH] can: fix unique skb identifier regression
- under RPS" failed to apply to 5.15-stable tree
-To: gregkh@linuxfoundation.org, joe@clnt.de, mkl@pengutronix.de
-Cc: stable@vger.kernel.org
-References: <2026101253-dress-blemish-4bd3@gregkh>
-Content-Language: en-US
-From: Oliver Hartkopp <socketcan@hartkopp.net>
-In-Reply-To: <2026101253-dress-blemish-4bd3@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+From: Norbert Szetei <norbert@doyensec.com>
 
+[ Upstream commit d84d6c1a7f1e2de9e601703a326a4c1b7b421943 ]
 
-On 12.10.26 13:33, gregkh@linuxfoundation.org wrote:
-> 
-> The patch below does not apply to the 5.15-stable tree.
-> If someone wants it applied there, or to any other stable or longterm
-> tree, then please email the backport, including the original git commit
-> id to <stable@vger.kernel.org>.
-> 
-> To reproduce the conflict and resubmit, you may use the following commands:
-> 
-> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-> git checkout FETCH_HEAD
-> git cherry-pick -x 7093c3b8314a4ef7405c4066a2521398c455efe7
-> # <resolve conflicts, build, test, etc.>
-> git commit -s
-> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101253-dress-blemish-4bd3@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
-> 
-> Possible dependencies:
-> 
-> 
-> 
-> thanks,
-> 
-> greg k-h
-> 
-> ------------------ original commit in Linus's tree ------------------
-> 
->  From 7093c3b8314a4ef7405c4066a2521398c455efe7 Mon Sep 17 00:00:00 2001
-> From: Oliver Hartkopp <socketcan@hartkopp.net>
-> Date: Thu, 1 Oct 2026 13:57:24 +0200
-> Subject: [PATCH] can: fix unique skb identifier regression under RPS
-> 
-> Commit d4fb6514ff8e ("can: use skb hash instead of private variable in
-> headroom") moved the per-skb unique identifier used for raw_rcv()
-> duplicate detection into skb->hash.
-> 
-> With RPS enabled, get_rps_cpu() calls skb_get_hash() before the frame
-> reaches the CAN subsystem. Since CAN skbs have no L3/L4 headers, the
-> flow dissector assigns every CAN frame the same non-zero software
-> hash. can_set_skb_uid() only generated a new identifier when
-> skb->hash was 0, so it kept this constant hash. When the SLAB
-> allocator later reused the same skb address, raw_rcv() mistook the
-> next legitimate frame for a duplicate and dropped it.
-> 
-> Fix this by storing the CAN UID in the CAN skb extension
-> (struct can_skb_ext::can_skb_uid) instead of skb->hash, decoupling it
-> from any hash the network stack may compute. can_set_skb_uid() keeps
-> its "assign only if unset" behaviour, which preserves UIDs set before
-> transmission (e.g. by isotp to identify echo frames) across the local
-> loopback path.
-> 
-> Frames whose extension is shared with another clone (e.g. via tc mirred
-> or netem duplicate) are given a private extension copy before the UID
-> is assigned, so that independently received skb clones from real CAN
-> interfaces (can_skb_uid = 0) don't end up with the same UID.
-> The limitation that tc mirred/netem skb duplicates might be dropped in
-> raw_rcv for looped back isotp echo frame skbs is accepted. There is no
-> valid use-case for tc mirred or netem together with isotp which is not
-> capable to operate on different CAN interfaces simultaneously.
-> For routing and modifying CAN frames together with isotp use can-gw.
-> 
-> can-gw and vxcan additionally clear the UID of forwarded/duplicated
-> frames so each newly routed frame gets its own unique identifier.
-> 
-> Fixes: d4fb6514ff8e ("can: use skb hash instead of private variable in headroom")
+When an exchange covers both files from offset 0 to i_disk_size,
+xmi_can_exchange_reflink_flags() assumes every mapping moved and hands
+the reflink flag over to the other file.
 
-This patch to be fixed has been introduced in 7.0 - no backport needed 
-for this kernel.
+That assumption is wrong.  A file can still own shared blocks past
+i_disk_size, e.g. after EXCHANGE_RANGE_TO_EOF sets a smaller size
+without unmapping anything.  The flag is cleared anyway, and the next
+write to such a block happens in place instead of CoW, corrupting the
+other file that shares it.
 
-Best regards,
-Oliver
+Commit a23eca88448e ("xfs: fix exchange-range reflink flag clearing
+issue with INO1_WRITTEN") fixed one instance of this.  Rather than add
+another special case, stop moving the flags.
+xfs_exchmaps_ensure_reflink() already sets the flag on both inodes
+before the exchange, so both just keep it.
 
-> Reported-by: Joerg Willmann <joe@clnt.de>
-> Closes: https://lore.kernel.org/linux-can/2859AD3D-C805-41A0-9036-C5E8EE152419@clnt.de/
-> Cc: stable@vger.kernel.org
-> Tested-by: Oliver Hartkopp <socketcan@hartkopp.net>
-> Tested-by: Joerg Willmann <joe@clnt.de>
-> Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
-> Link: https://patch.msgid.link/20261001115724.27192-1-socketcan@hartkopp.net
-> Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
-> 
-> diff --git a/drivers/net/can/vxcan.c b/drivers/net/can/vxcan.c
-> index 9e2e25d02471..51148a81d1d9 100644
-> --- a/drivers/net/can/vxcan.c
-> +++ b/drivers/net/can/vxcan.c
-> @@ -79,6 +79,9 @@ static netdev_tx_t vxcan_xmit(struct sk_buff *oskb, struct net_device *dev)
->   
->   	/* reset CAN GW hop counter */
->   	csx->can_gw_hops = 0;
-> +	/* start with new CAN skb UID in the other namespace */
-> +	csx->can_skb_uid = 0;
-> +
->   	skb->pkt_type   = PACKET_BROADCAST;
->   	skb->dev        = peer;
->   	skb->ip_summed  = CHECKSUM_UNNECESSARY;
-> diff --git a/include/linux/can/core.h b/include/linux/can/core.h
-> index 3287232e3cad..2de74c2b78b6 100644
-> --- a/include/linux/can/core.h
-> +++ b/include/linux/can/core.h
-> @@ -17,6 +17,7 @@
->   #include <linux/can.h>
->   #include <linux/skbuff.h>
->   #include <linux/netdevice.h>
-> +#include <net/can.h>
->   
->   #define DNAME(dev) ((dev) ? (dev)->name : "any")
->   
-> @@ -58,7 +59,7 @@ extern void can_rx_unregister(struct net *net, struct net_device *dev,
->   			      void *data);
->   
->   extern int can_send(struct sk_buff *skb, int loop);
-> -void can_set_skb_uid(struct sk_buff *skb);
-> +void can_set_skb_uid(struct can_skb_ext *csx);
->   void can_sock_destruct(struct sock *sk);
->   
->   #endif /* !_CAN_CORE_H */
-> diff --git a/include/linux/can/skb.h b/include/linux/can/skb.h
-> index a70a02967071..5d27843862fc 100644
-> --- a/include/linux/can/skb.h
-> +++ b/include/linux/can/skb.h
-> @@ -43,8 +43,10 @@ static inline struct can_skb_ext *can_skb_ext_add(struct sk_buff *skb)
->   	struct can_skb_ext *csx = skb_ext_add(skb, SKB_EXT_CAN);
->   
->   	/* skb_ext_add() returns uninitialized space */
-> -	if (csx)
-> +	if (csx) {
->   		csx->can_gw_hops = 0;
-> +		csx->can_skb_uid = 0;
-> +	}
->   
->   	return csx;
->   }
-> diff --git a/include/net/can.h b/include/net/can.h
-> index 6db9e826f0e0..2b8af2598732 100644
-> --- a/include/net/can.h
-> +++ b/include/net/can.h
-> @@ -17,12 +17,14 @@
->    * @can_framelen: cached echo CAN frame length for bql
->    * @can_gw_hops: can-gw CAN frame time-to-live counter
->    * @can_ext_flags: CAN skb extensions flags
-> + * @can_skb_uid: CAN skb UID for raw_rcv and isotp echo handling
->    */
->   struct can_skb_ext {
->   	int	can_iif;
->   	u16	can_framelen;
->   	u8	can_gw_hops;
->   	u8	can_ext_flags;
-> +	u32	can_skb_uid;
->   };
->   
->   #endif /* _NET_CAN_H */
-> diff --git a/net/can/af_can.c b/net/can/af_can.c
-> index 7bc86b176b4d..34fe3b28d576 100644
-> --- a/net/can/af_can.c
-> +++ b/net/can/af_can.c
-> @@ -641,13 +641,10 @@ static int can_rcv_filter(struct can_dev_rcv_lists *dev_rcv_lists, struct sk_buf
->   	return matches;
->   }
->   
-> -void can_set_skb_uid(struct sk_buff *skb)
-> +void can_set_skb_uid(struct can_skb_ext *csx)
->   {
-> -	/* create non-zero unique skb identifier together with *skb */
-> -	while (!(skb->hash))
-> -		skb->hash = atomic_inc_return(&skbcounter);
-> -
-> -	skb->sw_hash = 1;
-> +	while (!(csx->can_skb_uid))
-> +		csx->can_skb_uid = atomic_inc_return(&skbcounter);
->   }
->   EXPORT_SYMBOL(can_set_skb_uid);
->   
-> @@ -662,8 +659,6 @@ static void can_receive(struct sk_buff *skb, struct net_device *dev)
->   	atomic_long_inc(&pkg_stats->rx_frames);
->   	atomic_long_inc(&pkg_stats->rx_frames_delta);
->   
-> -	can_set_skb_uid(skb);
-> -
->   	rcu_read_lock();
->   
->   	/* deliver the packet to sockets listening on all devices */
-> @@ -687,8 +682,10 @@ static void can_receive(struct sk_buff *skb, struct net_device *dev)
->   static int can_rcv(struct sk_buff *skb, struct net_device *dev,
->   		   struct packet_type *pt, struct net_device *orig_dev)
->   {
-> +	struct can_skb_ext *csx = can_skb_ext_find(skb);
-> +
->   	if (unlikely(dev->type != ARPHRD_CAN || !can_get_ml_priv(dev) ||
-> -		     !can_skb_ext_find(skb) || !can_is_can_skb(skb))) {
-> +		     !csx || !can_is_can_skb(skb))) {
->   		pr_warn_once("PF_CAN: dropped non conform CAN skbuff: dev type %d, len %d\n",
->   			     dev->type, skb->len);
->   
-> @@ -696,6 +693,14 @@ static int can_rcv(struct sk_buff *skb, struct net_device *dev,
->   		return NET_RX_DROP;
->   	}
->   
-> +	/* create unshared CAN skb_extension for netem/mirred skb clones */
-> +	csx = skb_ext_add(skb, SKB_EXT_CAN);
-> +	if (unlikely(!csx)) {
-> +		kfree_skb_reason(skb, SKB_DROP_REASON_NOMEM);
-> +		return NET_RX_DROP;
-> +	}
-> +
-> +	can_set_skb_uid(csx);
->   	can_receive(skb, dev);
->   	return NET_RX_SUCCESS;
->   }
-> @@ -703,8 +708,10 @@ static int can_rcv(struct sk_buff *skb, struct net_device *dev,
->   static int canfd_rcv(struct sk_buff *skb, struct net_device *dev,
->   		     struct packet_type *pt, struct net_device *orig_dev)
->   {
-> +	struct can_skb_ext *csx = can_skb_ext_find(skb);
-> +
->   	if (unlikely(dev->type != ARPHRD_CAN || !can_get_ml_priv(dev) ||
-> -		     !can_skb_ext_find(skb) || !can_is_canfd_skb(skb))) {
-> +		     !csx || !can_is_canfd_skb(skb))) {
->   		pr_warn_once("PF_CAN: dropped non conform CAN FD skbuff: dev type %d, len %d\n",
->   			     dev->type, skb->len);
->   
-> @@ -712,6 +719,14 @@ static int canfd_rcv(struct sk_buff *skb, struct net_device *dev,
->   		return NET_RX_DROP;
->   	}
->   
-> +	/* create unshared CAN skb_extension for netem/mirred skb clones */
-> +	csx = skb_ext_add(skb, SKB_EXT_CAN);
-> +	if (unlikely(!csx)) {
-> +		kfree_skb_reason(skb, SKB_DROP_REASON_NOMEM);
-> +		return NET_RX_DROP;
-> +	}
-> +
-> +	can_set_skb_uid(csx);
->   	can_receive(skb, dev);
->   	return NET_RX_SUCCESS;
->   }
-> @@ -719,8 +734,10 @@ static int canfd_rcv(struct sk_buff *skb, struct net_device *dev,
->   static int canxl_rcv(struct sk_buff *skb, struct net_device *dev,
->   		     struct packet_type *pt, struct net_device *orig_dev)
->   {
-> +	struct can_skb_ext *csx = can_skb_ext_find(skb);
-> +
->   	if (unlikely(dev->type != ARPHRD_CAN || !can_get_ml_priv(dev) ||
-> -		     !can_skb_ext_find(skb) || !can_is_canxl_skb(skb))) {
-> +		     !csx || !can_is_canxl_skb(skb))) {
->   		pr_warn_once("PF_CAN: dropped non conform CAN XL skbuff: dev type %d, len %d\n",
->   			     dev->type, skb->len);
->   
-> @@ -728,6 +745,14 @@ static int canxl_rcv(struct sk_buff *skb, struct net_device *dev,
->   		return NET_RX_DROP;
->   	}
->   
-> +	/* create unshared CAN skb_extension for netem/mirred skb clones */
-> +	csx = skb_ext_add(skb, SKB_EXT_CAN);
-> +	if (unlikely(!csx)) {
-> +		kfree_skb_reason(skb, SKB_DROP_REASON_NOMEM);
-> +		return NET_RX_DROP;
-> +	}
-> +
-> +	can_set_skb_uid(csx);
->   	can_receive(skb, dev);
->   	return NET_RX_SUCCESS;
->   }
-> diff --git a/net/can/gw.c b/net/can/gw.c
-> index 0ec99f68aa45..5793cb2420ed 100644
-> --- a/net/can/gw.c
-> +++ b/net/can/gw.c
-> @@ -527,6 +527,9 @@ static void can_can_gw_rcv(struct sk_buff *skb, void *data)
->   	/* put the incremented hop counter in the cloned skb */
->   	ncsx->can_gw_hops = csx->can_gw_hops + 1;
->   
-> +	/* force a new CAN UID generation for the routed frame */
-> +	ncsx->can_skb_uid = 0;
-> +
->   	/* first processing of this CAN frame -> adjust to private hop limit */
->   	if (gwj->limit_hops && ncsx->can_gw_hops == 1)
->   		ncsx->can_gw_hops = max_hops - gwj->limit_hops + 1;
-> diff --git a/net/can/isotp.c b/net/can/isotp.c
-> index 155530aedce2..f5dc9d04bd68 100644
-> --- a/net/can/isotp.c
-> +++ b/net/can/isotp.c
-> @@ -891,7 +891,7 @@ static void isotp_send_cframe(struct isotp_sock *so)
->   	csx->can_iif = dev->ifindex;
->   
->   	/* set uid in tx skb to identify CF echo frames */
-> -	can_set_skb_uid(skb);
-> +	can_set_skb_uid(csx);
->   
->   	cf = (struct canfd_frame *)skb->data;
->   	skb_put_zero(skb, so->ll.mtu);
-> @@ -917,7 +917,7 @@ static void isotp_send_cframe(struct isotp_sock *so)
->   		pr_notice_once("can-isotp: cfecho is %08X != 0\n", old_cfecho);
->   
->   	/* set consecutive frame echo tag */
-> -	WRITE_ONCE(so->cfecho, skb->hash);
-> +	WRITE_ONCE(so->cfecho, csx->can_skb_uid);
->   
->   	/* send frame with local echo enabled */
->   	can_send_ret = can_send(skb, 1);
-> @@ -969,18 +969,22 @@ static void isotp_rcv_echo(struct sk_buff *skb, void *data)
->   {
->   	struct sock *sk = (struct sock *)data;
->   	struct isotp_sock *so = isotp_sk(sk);
-> +	struct can_skb_ext *csx = can_skb_ext_find(skb);
->   
->   	/* only handle my own local echo CF/SF skb's (no FF!) */
->   	if (skb->sk != sk)
->   		return;
->   
-> +	if (WARN_ON_ONCE(!csx))
-> +		return;
-> +
->   	/* unlike isotp_rcv_fc()/isotp_rcv_cf(), not already under so->rx_lock
->   	 * (no isotp_rcv() caller here), so take it ourselves
->   	 */
->   	spin_lock(&so->rx_lock);
->   
->   	/* so->cfecho may since belong to a new transfer; recheck under lock */
-> -	if (READ_ONCE(so->cfecho) != skb->hash)
-> +	if (READ_ONCE(so->cfecho) != csx->can_skb_uid)
->   		goto out_unlock;
->   
->   	/* cancel local echo timeout */
-> @@ -1222,7 +1226,7 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
->   	csx->can_iif = dev->ifindex;
->   
->   	/* set uid in tx skb to identify CF echo frames */
-> -	can_set_skb_uid(skb);
-> +	can_set_skb_uid(csx);
->   
->   	so->tx.len = size;
->   	so->tx.idx = 0;
-> @@ -1261,7 +1265,7 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
->   			cf->data[ae] |= size;
->   
->   		/* set CF echo tag for isotp_rcv_echo() (SF-mode) */
-> -		WRITE_ONCE(so->cfecho, skb->hash);
-> +		WRITE_ONCE(so->cfecho, csx->can_skb_uid);
->   	} else {
->   		/* send first frame */
->   
-> @@ -1278,7 +1282,7 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
->   			so->txfc.bs = 0;
->   
->   			/* set CF echo tag for isotp_rcv_echo() (CF-mode) */
-> -			WRITE_ONCE(so->cfecho, skb->hash);
-> +			WRITE_ONCE(so->cfecho, csx->can_skb_uid);
->   		} else {
->   			/* standard flow control check */
->   			new_state = ISOTP_WAIT_FIRST_FC;
-> diff --git a/net/can/raw.c b/net/can/raw.c
-> index 82d9c0499c95..0acd4f6c6dd6 100644
-> --- a/net/can/raw.c
-> +++ b/net/can/raw.c
-> @@ -77,7 +77,7 @@ MODULE_ALIAS("can-proto-1");
->   
->   struct uniqframe {
->   	const struct sk_buff *skb;
-> -	u32 hash;
-> +	u32 can_skb_uid;
->   	unsigned int join_rx_count;
->   };
->   
-> @@ -133,12 +133,16 @@ static void raw_rcv(struct sk_buff *oskb, void *data)
->   	enum skb_drop_reason reason;
->   	struct sockaddr_can *addr;
->   	struct sk_buff *skb;
-> +	struct can_skb_ext *csx = can_skb_ext_find(oskb);
->   	unsigned int *pflags;
->   
->   	/* check the received tx sock reference */
->   	if (!ro->recv_own_msgs && oskb->sk == sk)
->   		return;
->   
-> +	if (WARN_ON_ONCE(!csx))
-> +		return;
-> +
->   	/* make sure to not pass oversized frames to the socket */
->   	if (!ro->fd_frames && can_is_canfd_skb(oskb))
->   		return;
-> @@ -165,7 +169,7 @@ static void raw_rcv(struct sk_buff *oskb, void *data)
->   
->   	/* eliminate multiple filter matches for the same skb */
->   	if (this_cpu_ptr(ro->uniq)->skb == oskb &&
-> -	    this_cpu_ptr(ro->uniq)->hash == oskb->hash) {
-> +	    this_cpu_ptr(ro->uniq)->can_skb_uid == csx->can_skb_uid) {
->   		if (!ro->join_filters)
->   			return;
->   
-> @@ -175,7 +179,7 @@ static void raw_rcv(struct sk_buff *oskb, void *data)
->   			return;
->   	} else {
->   		this_cpu_ptr(ro->uniq)->skb = oskb;
-> -		this_cpu_ptr(ro->uniq)->hash = oskb->hash;
-> +		this_cpu_ptr(ro->uniq)->can_skb_uid = csx->can_skb_uid;
->   		this_cpu_ptr(ro->uniq)->join_rx_count = 1;
->   		/* drop first frame to check all enabled filters? */
->   		if (ro->join_filters && ro->count > 1)
-> 
+Nothing sets CLEAR_INO{1,2}_REFLINK anymore.  Intents logged by older
+kernels may still carry them; recovery already masks them off, so they
+stay in the log format mask and are ignored.
+
+XFS_IOC_SWAPEXT has the same problem: it moves the reflink flag from
+one inode to the other along with the extents.  Just removing that is
+not enough here: the exchange path flags both inodes up front in
+xfs_exchmaps_ensure_reflink(), but swapext has no such step, so the
+inode receiving the shared extents would be left without the flag.
+Set it on both inodes instead, and make sure both have a CoW fork,
+since an inode with the reflink flag is expected to have one.
+
+The flag now stays until FALLOC_FL_UNSHARE_RANGE, xfs_scrub, or a
+truncate to zero removes it.
+
+Fixes: 966ceafc7a43 ("xfs: create deferred log items for file mapping exchanges")
+Fixes: f0bc4d134b46 ("xfs: swap inode reflink flags when swapping inode extents")
+Cc: stable@vger.kernel.org # v6.10
+Assisted-by: LLM
+Signed-off-by: Norbert Szetei <norbert@doyensec.com>
+Reviewed-by: Dave Chinner <dchinner@redhat.com>
+Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+
+Remove both copies of the INO1_WRITTEN guard when deleting the
+obsolete flag-exchange helper.  The duplicated guard does not need
+to survive once exchanges preserve the reflink flags.
+
+Stable-dep-of: 7dfb218c829c ("xfs: fix exchange-range-to-eof file size exchange")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/xfs/libxfs/xfs_exchmaps.c   | 90 ++--------------------------------
+ fs/xfs/libxfs/xfs_log_format.h |  4 +-
+ fs/xfs/xfs_bmap_util.c         | 15 +++---
+ 3 files changed, 10 insertions(+), 99 deletions(-)
+
+diff --git a/fs/xfs/libxfs/xfs_exchmaps.c b/fs/xfs/libxfs/xfs_exchmaps.c
+index 49eda8d0994de..1e0b418ef7453 100644
+--- a/fs/xfs/libxfs/xfs_exchmaps.c
++++ b/fs/xfs/libxfs/xfs_exchmaps.c
+@@ -49,7 +49,7 @@ struct xfs_exchmaps_adjacent {
+ 	.right2 = { .br_startblock = HOLESTARTBLOCK }, \
+ }
+ 
+-/* Information to reset reflink flag / CoW fork state after an exchange. */
++/* Information to reset CoW fork state after an exchange. */
+ 
+ /*
+  * If the reflink flag is set on either inode, make sure it has an incore CoW
+@@ -127,9 +127,7 @@ xmi_has_more_exchange_work(const struct xfs_exchmaps_intent *xmi)
+ static inline bool
+ xmi_has_postop_work(const struct xfs_exchmaps_intent *xmi)
+ {
+-	return xmi->xmi_flags & (XFS_EXCHMAPS_CLEAR_INO1_REFLINK |
+-				 XFS_EXCHMAPS_CLEAR_INO2_REFLINK |
+-				 __XFS_EXCHMAPS_INO2_SHORTFORM);
++	return xmi->xmi_flags & __XFS_EXCHMAPS_INO2_SHORTFORM;
+ }
+ 
+ /* Check all mappings to make sure we can actually exchange them. */
+@@ -525,18 +523,6 @@ xfs_exchmaps_link_to_sf(
+ 	return error;
+ }
+ 
+-/* Clear the reflink flag after an exchange. */
+-static inline void
+-xfs_exchmaps_clear_reflink(
+-	struct xfs_trans	*tp,
+-	struct xfs_inode	*ip)
+-{
+-	trace_xfs_reflink_unset_inode_flag(ip);
+-
+-	ip->i_diflags2 &= ~XFS_DIFLAG2_REFLINK;
+-	xfs_trans_log_inode(tp, ip, XFS_ILOG_CORE);
+-}
+-
+ /* Finish whatever work might come after an exchange operation. */
+ static int
+ xfs_exchmaps_do_postop_work(
+@@ -557,16 +543,6 @@ xfs_exchmaps_do_postop_work(
+ 			return error;
+ 	}
+ 
+-	if (xmi->xmi_flags & XFS_EXCHMAPS_CLEAR_INO1_REFLINK) {
+-		xfs_exchmaps_clear_reflink(tp, xmi->xmi_ip1);
+-		xmi->xmi_flags &= ~XFS_EXCHMAPS_CLEAR_INO1_REFLINK;
+-	}
+-
+-	if (xmi->xmi_flags & XFS_EXCHMAPS_CLEAR_INO2_REFLINK) {
+-		xfs_exchmaps_clear_reflink(tp, xmi->xmi_ip2);
+-		xmi->xmi_flags &= ~XFS_EXCHMAPS_CLEAR_INO2_REFLINK;
+-	}
+-
+ 	return 0;
+ }
+ 
+@@ -948,56 +924,13 @@ xfs_exchmaps_intent_destroy_cache(void)
+ }
+ 
+ /*
+- * Decide if we will exchange the reflink flags between the two files after the
+- * exchange.  The only time we want to do this is if we're exchanging all
+- * mappings under EOF and the inode reflink flags have different states.
++ * Allocate and initialize a new incore intent item from a request.
+  */
+-static inline bool
+-xmi_can_exchange_reflink_flags(
+-	const struct xfs_exchmaps_req	*req,
+-	unsigned int			reflink_state)
+-{
+-	struct xfs_mount		*mp = req->ip1->i_mount;
+-
+-	/*
+-	 * The INO1_WRITTEN optimization can skip exchanging hole and
+-	 * unwritten mappings, which means we cannot guarantee that all
+-	 * shared extents actually moved to the other file.  Clearing the
+-	 * reflink flag of an inode that still holds shared extents breaks
+-	 * the CoW write path, so refuse to exchange the flags in that case.
+-	 */
+-	if (req->flags & XFS_EXCHMAPS_INO1_WRITTEN)
+-		return false;
+-
+-	/*
+-	 * The INO1_WRITTEN optimization can skip exchanging hole and
+-	 * unwritten mappings, which means we cannot guarantee that all
+-	 * shared extents actually moved to the other file.  Clearing the
+-	 * reflink flag of an inode that still holds shared extents breaks
+-	 * the CoW write path, so refuse to exchange the flags in that case.
+-	 */
+-	if (req->flags & XFS_EXCHMAPS_INO1_WRITTEN)
+-		return false;
+-
+-	if (hweight32(reflink_state) != 1)
+-		return false;
+-	if (req->startoff1 != 0 || req->startoff2 != 0)
+-		return false;
+-	if (req->blockcount != XFS_B_TO_FSB(mp, req->ip1->i_disk_size))
+-		return false;
+-	if (req->blockcount != XFS_B_TO_FSB(mp, req->ip2->i_disk_size))
+-		return false;
+-	return true;
+-}
+-
+-
+-/* Allocate and initialize a new incore intent item from a request. */
+ struct xfs_exchmaps_intent *
+ xfs_exchmaps_init_intent(
+ 	const struct xfs_exchmaps_req	*req)
+ {
+ 	struct xfs_exchmaps_intent	*xmi;
+-	unsigned int			rs = 0;
+ 
+ 	xmi = kmem_cache_zalloc(xfs_exchmaps_intent_cache,
+ 			GFP_NOFS | __GFP_NOFAIL);
+@@ -1021,23 +954,6 @@ xfs_exchmaps_init_intent(
+ 		xmi->xmi_isize2 = req->ip1->i_disk_size;
+ 	}
+ 
+-	/* Record the state of each inode's reflink flag before the op. */
+-	if (xfs_is_reflink_inode(req->ip1))
+-		rs |= 1;
+-	if (xfs_is_reflink_inode(req->ip2))
+-		rs |= 2;
+-
+-	/*
+-	 * Figure out if we're clearing the reflink flags (which effectively
+-	 * exchanges them) after the operation.
+-	 */
+-	if (xmi_can_exchange_reflink_flags(req, rs)) {
+-		if (rs & 1)
+-			xmi->xmi_flags |= XFS_EXCHMAPS_CLEAR_INO1_REFLINK;
+-		if (rs & 2)
+-			xmi->xmi_flags |= XFS_EXCHMAPS_CLEAR_INO2_REFLINK;
+-	}
+-
+ 	if (S_ISDIR(VFS_I(xmi->xmi_ip2)->i_mode) ||
+ 	    S_ISLNK(VFS_I(xmi->xmi_ip2)->i_mode))
+ 		xmi->xmi_flags |= __XFS_EXCHMAPS_INO2_SHORTFORM;
+diff --git a/fs/xfs/libxfs/xfs_log_format.h b/fs/xfs/libxfs/xfs_log_format.h
+index a4e1b3eb425cd..6e620380d5dc8 100644
+--- a/fs/xfs/libxfs/xfs_log_format.h
++++ b/fs/xfs/libxfs/xfs_log_format.h
+@@ -927,10 +927,8 @@ struct xfs_xmi_log_format {
+  */
+ #define XFS_EXCHMAPS_INO1_WRITTEN	(1ULL << 2)
+ 
+-/* Clear the reflink flag from inode1 after the operation. */
++/* No longer set, but older intents may carry them; keep them valid. */
+ #define XFS_EXCHMAPS_CLEAR_INO1_REFLINK	(1ULL << 3)
+-
+-/* Clear the reflink flag from inode2 after the operation. */
+ #define XFS_EXCHMAPS_CLEAR_INO2_REFLINK	(1ULL << 4)
+ 
+ #define XFS_EXCHMAPS_LOGGED_FLAGS	(XFS_EXCHMAPS_ATTR_FORK | \
+diff --git a/fs/xfs/xfs_bmap_util.c b/fs/xfs/xfs_bmap_util.c
+index c88b9ade7389d..2ea6507678050 100644
+--- a/fs/xfs/xfs_bmap_util.c
++++ b/fs/xfs/xfs_bmap_util.c
+@@ -1514,7 +1514,6 @@ xfs_swap_extents(
+ 	struct xfs_bstat	*sbp = &sxp->sx_stat;
+ 	int			src_log_flags, target_log_flags;
+ 	int			error = 0;
+-	uint64_t		f;
+ 	int			resblks = 0;
+ 	unsigned int		flags = 0;
+ 	struct timespec64	ctime, mtime;
+@@ -1670,14 +1669,12 @@ xfs_swap_extents(
+ 	if (error)
+ 		goto out_trans_cancel;
+ 
+-	/* Do we have to swap reflink flags? */
+-	if ((ip->i_diflags2 & XFS_DIFLAG2_REFLINK) ^
+-	    (tip->i_diflags2 & XFS_DIFLAG2_REFLINK)) {
+-		f = ip->i_diflags2 & XFS_DIFLAG2_REFLINK;
+-		ip->i_diflags2 &= ~XFS_DIFLAG2_REFLINK;
+-		ip->i_diflags2 |= tip->i_diflags2 & XFS_DIFLAG2_REFLINK;
+-		tip->i_diflags2 &= ~XFS_DIFLAG2_REFLINK;
+-		tip->i_diflags2 |= f & XFS_DIFLAG2_REFLINK;
++	/* Either inode may now own shared blocks; flag both, with CoW forks. */
++	if ((ip->i_diflags2 | tip->i_diflags2) & XFS_DIFLAG2_REFLINK) {
++		ip->i_diflags2 |= XFS_DIFLAG2_REFLINK;
++		tip->i_diflags2 |= XFS_DIFLAG2_REFLINK;
++		xfs_ifork_init_cow(ip);
++		xfs_ifork_init_cow(tip);
+ 	}
+ 
+ 	/* Swap the cow forks. */
+-- 
+2.53.0
 
