@@ -1,147 +1,165 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B296F4BF949
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 17:54:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4196D4C10D9
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 18:02:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791827642; cv=none; b=qiI09v8ZJ6ZxMJuW6haK5stKB4nLmSfnrnYovDALPi3eUJazJZBd54m3ak9mHzhlZwrj9zbawRtHhV3qGkChieiWPPdB2XNosQYeBwXCP7bz3KNSeq9Y/l3N0Pt27o1le5J2YW1dZwrz5+brzArY8iyO0UQlCgNiDNcQvATmMYI=
+	t=1791828130; cv=none; b=NUHPxVjwO+wME3hKUt3dl4UfQTVBZY4sz6l4xV1k9XXaMhz8UyLR/VwKbgdwLa9EWtZ/zLKzy4gc0vArrRy3k+PTL3lvS2ATH5YXZfn+dQuB5WTEkuau7sd0u4NzCvCh96rUUaNJl5yxRGhlG+gNb0xhqZQSnOFSmWtTRyLFUhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791827642; c=relaxed/simple;
-	bh=DBFvf6LMpAJ03sozSIk/CRTorRD2UyaqRnlG5DyjTlU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=msG6m2Qow+zsUphbNPacSnLrYzz+Zyak1IqHVJir1fmOBagKQKmCQm9uqZWdJwHPa9+i+hrfeHFckYJK5fZ+0UlzdhbF9dYmJ+s9RNV7ouLZqWJEH6KaL+jh1q2Z5tnDXp3nDf2fNPF/+fuJOj9Y4uSl01LTaS5+Xniy2pIzY+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ath056ul; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791828130; c=relaxed/simple;
+	bh=Z6sQzfOjJE3zZ6rA3iiYJzCKffn9Za8LnqtjvIZELqs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Gv+7V+YQsjBtOeSAwSMxivpi+qKTy0jQIx3JUbxFovsQrdmgZhjYI/c+jnxutoKPDRatY+jPHtL4y8i00BUqNCDDPQEyEGK/xp4pz1X5KNEeSk+3Hazcr21GO6y5ChhGCaTDtGhP2liPdwB5DHmiouHfiTNN6QKB0QDnBvXq/AI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=tAcam95N; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ath056ul"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48c14a06c95so1640505f8f.1
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 10:54:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791827639; x=1792432439; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QntbKw3gaGgw4tIzgsEy78HK5tHJosqnu2qH2MEsZDc=;
-        b=Ath056ulQElu2pL7OPP4nO3E+Lec3aFLH+N2vLFqthFyYDaue5OTKAsRtTUuvEXYaa
-         RLJ/JHNvKW5NvnOPzfChosjm9l3w4p3eK0oV4ndDBlwExmNUJYBFc98E+lZoFFeWJ7Qh
-         nDNxVJmEllOxQexk1oC1gLL5U9pAaeWlAOJVAwKEWEykERT4Ji48XIxQet6V4jOXGKj7
-         FiinpkDHUXt/d5ItO4PVcJ9C+4JWlI8/QivVYOMXzo45R7x9grOtxqiF8+fRuYLFr6Ux
-         4qQkiRNiu75/A2QmHt8XBFB1Kq10qXMVxKGumfKgdLtyFUIROsESnzRriAUih+QjDGRG
-         w4DA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791827639; x=1792432439;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QntbKw3gaGgw4tIzgsEy78HK5tHJosqnu2qH2MEsZDc=;
-        b=tVdjKv+r3gU/qrMV2hU30+mkCyUzoV2Q1Gz3p9b5J5JtdsU/fKs8aujbniB7P+OlT6
-         0nILRCUf1k7UNIOj8A5nJdq9Y7xl9x7O+97quNiwZQE/vJamk6ndHraKQc1p4k18UsHM
-         aJjmzQiER0YpdwH8f3ztQoOzjZ24MiPcM78hRsN97jo+nf1htsTnL+MPSls7ju8h3qrB
-         rYVc6X/2WX7bcuDS63BY/Ly0tvymW6W6hoAcQ3BfAKwfWBAZyh4sQ6yhgICl0SlRBaaE
-         htSXnjxVOKfn4vk0PT/40K7cm3RY3qlPneV1R3CTxlLs4vI5a6XdFZLWVTznUvUfjIJ0
-         RyJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzL1DsFfI0gJxfJ3m54raFdWnL3Qy3Egfbnynq2MuZZ+ZzRM6fBlJB+/eTBDXm/m1yhtm+9Yrc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKAmpvt4mAPAW+pvMuKFAzTApn3EjAf7hoBbgRT2un0AqGt9AHp
-	Vw5+aBGydkJS+wIV3TCBkeAb1Q6cy/Vqm25A2qH7d6UjskzqvK9vpBT9
-X-Gm-Gg: AYBFou22KuBzsrqRYVUZUgJ8EfoXMSG1WYFOtV4lLYq+9HbgKojvQwFX8uJ/N8tfMaG
-	IR2GE1f4Uu0VdszRmCooV2CpmQovoCgnHXvWK+T0/5o1JF3Ko2JQEc1Eppvjaqcr3IRot53a76i
-	2x/LgdleCH2EuF9jBR5yQyTGPbm3+g4htkd986XSuGUGLIUcwgGF6zARBiPXmVr3cZ4TKoLnKg6
-	/feB7plMcy8QeBXRAIPYKg4iFuyzExtBW3LI9t+n54k9E+zES22i7DjD9gT9t9g4mDl6uXo04up
-	ZIrjswilJV+xXb+ZTGlxugm2yrnFZ2G+4bSOGQ0SpPMwg97BYgDHTxlHnrZjDP18o3ZvRpDrctZ
-	iv+9aCvE1CzHkBvZXaUohKF8qi0VSZFpBIa4NmbCjho+xbploBeD2K/618FTOVQT54ROl/eyate
-	1G1lrr5GzPE4kBLQ/z0bxShEG8r5HyRfxut+cJB2peo3/T+p2IdUI4tia8kH0aPrbiAs4=
-X-Received: by 2002:a05:6000:26c6:b0:48b:10af:f85e with SMTP id ffacd0b85a97d-48dbaaee1admr18683631f8f.33.1791827638653;
-        Mon, 12 Oct 2026 10:53:58 -0700 (PDT)
-Received: from dev1.kernelcare.com ([2a01:4f8:172:1c85::2])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ab5af7sm667374f8f.31.2026.10.12.10.53.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 10:53:56 -0700 (PDT)
-From: Andrey Misiurov <andrey.misyrov@gmail.com>
-To: Helge Deller <deller@gmx.de>,
-	Simona Vetter <simona@ffwll.ch>
-Cc: linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Abdun Nihaal <nihaal@cse.iitm.ac.in>,
-	Andrey Misiurov <andrey.misyrov@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] fbdev: core: Initialize modelist in framebuffer_alloc()
-Date: Mon, 12 Oct 2026 19:53:38 +0200
-Message-ID: <20261012175338.2283897-1-andrey.misyrov@gmail.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="tAcam95N"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 8713B4E411FE;
+	Mon, 12 Oct 2026 18:02:04 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4FE39601A6;
+	Mon, 12 Oct 2026 18:02:04 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6B4CC11D709B8;
+	Mon, 12 Oct 2026 20:01:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791828119; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=eN09B8iBlF64T0aTmOSgm5Y2C78SY2TacmK0ll+reUk=;
+	b=tAcam95NZ1BivOLoK77OxsuB56U3i0Qppo9vGls9cATCKGIw5agJkxwfoWDG/OthDNehCN
+	a78TLjuOsJBlAb9c9IbeUtFCXWg+wRRZUZST+frVgrNrwFyHR9/S1ky2uGhvcLosGJq9A3
+	reiFa2cJApB3cf3l+Hou1A6jAIM47qX3oh6EpXUPzIlSg7zerEABZa+iQUXPtWBoCgP2w2
+	xMAzUAHMsNZVbdUPaDt4CKC2Dtc6NGpogZ9SIu+0Ir/lObyEebBL0verhlnaylrZfdc3hN
+	aX6MJq9RcvIOfQOFogsYem2rkhG6H2k3+A65BQJ60k0NftyLS3qCnM4730lBbA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Chen-Yu Tsai
+ <wens@kernel.org>,  Jernej Skrabec <jernej.skrabec@gmail.com>,  Samuel
+ Holland <samuel@sholland.org>,  Maxime Ripard <mripard@kernel.org>,
+  Richard Genoud <richard.genoud@bootlin.com>,  Masahiro Yamada
+ <yamada.masahiro@socionext.com>,  Boris Brezillon <bbrezillon@kernel.org>,
+  Brian Norris <computersforpeace@gmail.com>,
+  linux-mtd@lists.infradead.org,  devicetree@vger.kernel.org,
+  linux-arm-kernel@lists.infradead.org,  linux-sunxi@lists.linux.dev,
+  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
+Subject: Re: [PATCH v6 01/18] mtd: rawnand: sunxi: drain interrupts before
+ reusing the completion
+In-Reply-To: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-1-2fb084fe0751@gmail.com>
+	(James Hilliard's message of "Mon, 14 Sep 2026 15:09:47 -0600")
+References: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-0-2fb084fe0751@gmail.com>
+	<20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-1-2fb084fe0751@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 12 Oct 2026 20:01:51 +0200
+Message-ID: <8733ua23xs.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-framebuffer_alloc() returns zeroed memory, so info->modelist starts out
-with NULL next and prev pointers. The list head is initialized only
-later, by fb_videomode_to_modelist() or by do_register_framebuffer().
+Hi James,
 
-The "fix potential memory leak" commits listed below added
-fb_destroy_modelist(&info->modelist) to the probe error paths of s3fb,
-tdfxfb, tridentfb, i740fb and carminefb. These paths can run before
-the list head is initialized:
+On 14/09/2026 at 15:09:47 -06, James Hilliard <james.hilliard1@gmail.com> w=
+rote:
 
- - s3fb, tdfxfb, tridentfb and i740fb call fb_videomode_to_modelist()
-   only after a successful EDID read, and tridentfb can also hit the
-   error path on an ioremap() or kmalloc() failure before that;
- - carminefb jumps to the error path when fb_find_mode() fails, before
-   its fb_videomode_to_modelist() call.
+> A timed-out wait can return while the interrupt handler is still using
+> the previous operation's interrupt status and enable mask. Starting the
+> next wait calls init_completion() on the same object, which can reset its
+> waitqueue lock while the old handler calls complete(). The old handler
+> can also complete the new wait or restore an obsolete interrupt mask.
+>
+> Initialize the completion once in probe and use reinit_completion() for
+> each interrupt-driven wait. On timeout, disable and synchronize the IRQ
+> before masking controller interrupts and acknowledging the waited-for
+> events. Draining the handler first also prevents a partial-event handler
+> from rewriting the enable mask after it has been cleared. Flush these
+> register writes before re-enabling the IRQ line, leaving the controller's
+> interrupt sources masked.
+>
+> For successful waits, move complete() after the handler's register updates
+> so that the next operation cannot race with those updates. Keep polling
+> unchanged and leave controller and DMA abort handling to the existing
+> callers.
+>
+> Fixes: 1fef62c1423b ("mtd: nand: add sunxi NAND flash controller support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
 
-fb_destroy_modelist() then dereferences the NULL head. Reproduced on
-Debian 12 (6.1.180) by binding s3fb to a VGA device without EDID and
-forcing fb_alloc_cmap() to fail:
+So from the commit log I understand that you are fixing a race. The
+problem seems legitimate.
 
-  s3fb 0000:00:03.0: cannot allocate colormap
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:fb_destroy_modelist+0x10/0x80
-  Call Trace:
-   s3_pci_probe.cold+0x12b/0x2bf [s3fb]
-   local_pci_probe+0x41/0x80
-   pci_device_probe+0xc3/0x240
-   really_probe+0xde/0x380
-   __driver_probe_device+0x84/0x150
-   driver_probe_device+0x1f/0x90
-   __driver_attach+0xce/0x1c0
-   bus_for_each_dev+0x87/0xd0
-   bus_add_driver+0x1ae/0x200
-   driver_register+0x89/0xe0
-   do_one_initcall+0x59/0x220
-   do_init_module+0x4a/0x1f0
+>  drivers/mtd/nand/raw/sunxi_nand.c | 26 ++++++++++++++++++++------
+>  1 file changed, 20 insertions(+), 6 deletions(-)
+>
 
-Initialize the list head in framebuffer_alloc(), so info->modelist is
-always a valid, possibly empty, list and fb_destroy_modelist() is safe
-on every error path. Keep the lazy initialization in
-do_register_framebuffer(), as drivers that embed struct fb_info rather
-than calling framebuffer_alloc() still depend on it.
+...
 
-Fixes: 3b0ed04bc852 ("fbdev: s3fb: fix potential memory leak in s3_pci_probe()")
-Fixes: bb019d755366 ("fbdev: tdfxfb: fix potential memory leak in tdfxfb_probe()")
-Fixes: 7a35ec619d9a ("fbdev: tridentfb: fix potential memory leak in trident_pci_probe()")
-Fixes: 5936063409af ("fbdev: i740fb: fix potential memory leak in i740fb_probe()")
-Fixes: 6fcca16a2b19 ("fbdev: carminefb: fix potential memory leak in alloc_carmine_fb()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Andrey Misiurov <andrey.misyrov@gmail.com>
----
- drivers/video/fbdev/core/fb_info.c | 1 +
- 1 file changed, 1 insertion(+)
+> @@ -414,12 +416,13 @@ static irqreturn_t sunxi_nfc_interrupt(int irq, voi=
+d *dev_id)
+>  	if (!(ien & st))
+>  		return IRQ_NONE;
+>=20=20
+> -	if ((ien & st) =3D=3D ien)
+> -		complete(&nfc->complete);
+> -
+> +	/* Finish updating the interrupt state before waking the next operation=
+. */
+>  	writel(st & NFC_INT_MASK, nfc->regs + NFC_REG_ST);
+>  	writel(~st & ien & NFC_INT_MASK, nfc->regs + NFC_REG_INT);
+>=20=20
+> +	if ((ien & st) =3D=3D ien)
+> +		complete(&nfc->complete);
+> +
+>  	return IRQ_HANDLED;
+>  }
+>=20=20
+> @@ -435,16 +438,19 @@ static int sunxi_nfc_wait_events(struct sunxi_nfc *=
+nfc, u32 events,
+>  		timeout_ms =3D NFC_DEFAULT_TIMEOUT_MS;
+>=20=20
+>  	if (!use_polling) {
+> -		init_completion(&nfc->complete);
+> +		reinit_completion(&nfc->complete);
 
-diff --git a/drivers/video/fbdev/core/fb_info.c b/drivers/video/fbdev/core/fb_info.c
-index 52f9bd2..05988a9 100644
---- a/drivers/video/fbdev/core/fb_info.c
-+++ b/drivers/video/fbdev/core/fb_info.c
-@@ -43,6 +43,7 @@ struct fb_info *framebuffer_alloc(size_t size, struct device *dev)
- 	info->device = dev;
- 	info->fbcon_rotate_hint = -1;
- 	info->blank = FB_BLANK_UNBLANK;
-+	INIT_LIST_HEAD(&info->modelist);
- 
- #if IS_ENABLED(CONFIG_FB_BACKLIGHT)
- 	mutex_init(&info->bl_curve_mutex);
--- 
-2.43.7
+The whole change around (re)init_completion looks relevant (here and in the=
+ handler).
 
+>=20=20
+>  		writel(events, nfc->regs + NFC_REG_INT);
+>  		ret =3D wait_for_completion_timeout(&nfc->complete,
+>  						msecs_to_jiffies(timeout_ms));
+> -		if (!ret)
+> +		if (!ret) {
+> +			/* Drain the handler before it can restore an old IRQ mask. */
+> +			disable_irq(nfc->irq);
+
+disable_irq() for serializing accesses to a single register? It
+certainly works but I don't think it is so common to use it like that,
+for such simple cases. Typically in this case I would have used a
+spinlock maybe? Or even better, why not just avoid the race entirely
+and handle the register in the waiter? You certainly don't need to write
+it in the IRQ handler. You can handle the IRQ configuration at the
+device level, which will also prevent the need for your extra
+readl "barrier" before enabling the IRQ.
+
+Furthermore, now that I have a better understanding, re-reading the
+commit log, I now disagree with the first part of:
+
+>The old handler can also complete the new wait or restore an obsolete inte=
+rrupt mask.
+
+"complete the new wait"? I don't see how a stale handler completes the
+next wait given the handler is a hard IRQ and the interrupt enable
+register is cleared on timeout.
+
+Thanks,
+Miqu=C3=A8l
