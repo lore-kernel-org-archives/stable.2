@@ -1,172 +1,152 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67FB24611C9;
-	Mon, 12 Oct 2026 08:30:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B40B3B71BF
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 08:34:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791793843; cv=none; b=coRSOsTLsW68vxKltbTkIe9769UPBdsMvgOBIbDjhSmu9X1VDMj3vlKeT7zZUsvYSfU8HqVw5wa+6IFkHx220AH3nIx4jePd4vkOFR//6BFOIbwh5iw252QunhjoEJ6m/qxQp6Uwt0JwqnMtbLE1uyCvoF45bHOoUJHBzysDi4k=
+	t=1791794072; cv=none; b=JG4D+VojEPUFV2xJUEUZ8ID69QDNXbJ48mmFxBmVaHg2BfpDPD63ED/Gcb1v0zgLjzfOJhueZeYC/OcbR2icfmkWa1N7s2iFgpp5Zm7KEoYEgts/A2/cJWbrlhrsf7Y6tclltz+9JHgLaTBS82355zhk+BvENhlHld6fnFYowBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791793843; c=relaxed/simple;
-	bh=EfjAVM+rSmwSw5mc5TdAO1S/IIhIk3XN1erOWcrE4bU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PY71J4A2/Wrj3P6o9KK2tF/+JZRtohVbX0xnsPAC2VY5a0guqkJf76vY8d1iSmwdDxsN3TaiVOmaa85pINxsT3Mrknf/MphMdqC+UXbX4NWzFwxLty0XuykLJOtXd7vdvLJZMygcFdypbeKK9RxpbM0rziGEhBZ4ip3XSowa/z0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=AbpcBpzj; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791794072; c=relaxed/simple;
+	bh=x/pVy5iv6pkKCODTQWrEjvHqaXtp8U2mXH9axWGSQwY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fJukD7W3F/3kLe0IEyrlLH0WKFVaq9ef90N+nhJhRwQ0kraCjhy3Ht+mrSro/NHbp+gXqWHv2B1MQV/GNJuGqnk2yZZGA2iVTFj9Ulqo5qRsxG5mQNk6kR71tBxnKMpkBCVIgW+jH0fg3oLb9OGSBmDv87pc9ERacykXCXYx42E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iFCDtOGw; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="AbpcBpzj"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C5F4pQ3481917;
-	Mon, 12 Oct 2026 08:29:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=fS52B2ik2RpcmITc0
-	+spHR5DXtyRsWYJdPBu20lYcXE=; b=AbpcBpzjFzvlkgnEXqO3ZNwGq9U2BrVzM
-	t0aTxIjBHL2V4FCcRFV1s0ART6jGyTHmkOCDaLhgCXEeF1VXCZP3pDNoc2cX7xQE
-	138HpWSC7PhUI9nXySfNfg+LWZBl6zBLvo4QgXHt/B8S+KXZ8pRDkBAzbemTQvTS
-	XNL3yR4/qbYnjl0UtRJI1dj6+xwMEwxtvdKJ5c0YM9QVFDJqjdtkMOF0eC0gINtP
-	liVZQrYGajsjF4zxmsYLNAQoN9r2oXNqFioBCFhBfRpRs5SsrQu0LPeX9f3lBsKy
-	4q4QvNuSSU6x3URjJeM16C7wDx1WeUlwXB3adVTfuxvMOI9GLRumg==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7e1vykfn-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 08:29:57 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8K2pX1013550;
-	Mon, 12 Oct 2026 08:29:56 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h82cyc30k-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 12 Oct 2026 08:29:56 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69C8TqqD47120774
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 12 Oct 2026 08:29:52 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7A8732004B;
-	Mon, 12 Oct 2026 08:29:52 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E58F220043;
-	Mon, 12 Oct 2026 08:29:49 +0000 (GMT)
-Received: from li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibmuc.com (unknown [9.39.28.91])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 12 Oct 2026 08:29:49 +0000 (GMT)
-From: Gautam Menghani <gautam@linux.ibm.com>
-To: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au,
-        chleroy@kernel.org, sshegde@linux.ibm.com, amachhiw@linux.ibm.com
-Cc: linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH v3 4/4] KVM: PPC: Book3S HV: Take SRCU read lock around kvmppc_h_page_init() call
-Date: Mon, 12 Oct 2026 13:59:20 +0530
-Message-ID: <20261012082922.218799-5-gautam@linux.ibm.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261012082922.218799-1-gautam@linux.ibm.com>
-References: <20261012082922.218799-1-gautam@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iFCDtOGw"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-39647aa9d52so923635a91.0
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 01:34:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791794070; x=1792398870; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lpzhDm950D3WodhvZMeQKGiGTZ9bQ7TVv/mvg3cXh7I=;
+        b=iFCDtOGws3lYLKaLyvsbIWA8RR13VVTIEMa23CHoRZBgGeAT6zk4wl6UzXPQvd5G3N
+         e/uL+78+t4O2LkCxkEjL004abZbYmtbQ3bUBlZMKgW+oLhEq1dNdxY0/oJS1X4do7BhC
+         GqI67eNessWDOdG5Y6O/gjca9MLxMnWRx9bjRI5Gc0WED2q0ymVqZJbe1Ri+GFUrnPKr
+         UBqR9szpxUXQ5CwXTkhXCcyyMIQ4lydzgxp225MyDRTFn+zOGmPfQKuDNCPY7IvUShqH
+         4BxW36+hNlpux+C77TFq42Poy+9Z/sKPU3gC2vz7LddgXRhBd2qk11RLghGaPIwUcG9+
+         znqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791794070; x=1792398870;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lpzhDm950D3WodhvZMeQKGiGTZ9bQ7TVv/mvg3cXh7I=;
+        b=Y0c+gZJXamwa7ZDNEsMvMBtyft4YUQSN8nTsbUs8IiaP9r8VRHaScDoLmt3IAM35ZI
+         K199unvMYrf5m7ZPdTC2JfkE+81Utb8gA95WX569Me/hxC68Ldv+aZiRs4EJe7ZyAbOL
+         4jaWj1lFbO05Q9lxQ6hHzgjtuZHAZTLWunW+loo6umD6bufNs4P0UB/7Tlk0KyqQcK9h
+         i88Pn5tOdyNu39IN/wW5Ly95B6+NdX0kyBoWjvBJ73alGg4qcUXMhshsIgu/dfVphOgE
+         vR6PE8gefay3jBKt4Ektp+bLpw0+kgBHLYnRv8iQ0CaHYpAjGjBgZf9USr2D+D4S2X9+
+         kPWA==
+X-Forwarded-Encrypted: i=1; AKwUvBxRued25iByrBwfNTv9v2DdugRRrSC3X3nLdsKS5B1eDeCb88v8vabkKLgTLT1zU91IwCuKYPU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJGbPpk7OZ4CfHbRo0t63wkcrEQpnBAZmIMV/51/7yx62pcO1Eo
+	+BOFSVTQVDNtnItCbPOcaz1DuWoDxSuFtf2RKNeVNJqGdfMtdneDGMT6
+X-Gm-Gg: AYBFou00OwokcbK9G+j9qGc66zjqt5IphFWhlV27gavZrEDbr9L0jU7llOcEL89Aav2
+	9SFGprB643WwnxYi5uS52U+uhj3NuWS1h+K78I851vmILzkmfMr0ac1A3AIjKajGTycK5DM+aU/
+	NjyGs52xKlnMHVtQyBiHX4qh7MMQ+93G4laScalLwUSl/ClBVNvgH/W7hQ3GVGiKhB2l2z3+iA+
+	MldFPwMpWjC0GjggpGkoWD/hJRksS0ZVkgNCtpuM2QQBKBMRTm6pdsspg5bC3YNCkkTCUwthQUe
+	2HWgXDcExYlffGuZt6kyiUBeWDnawK7ux94VyaoeSP/daEgW2uhGTtjjl7/6+uo810dsmGbSBZa
+	5aqTryk1yknJ0OyXweObrhIAF3510Dur3DEL0Dv0d7CAQemtmXtxm4pel4qmhRssxAzUERvRa+f
+	xSLXw1BcwK+RGM/IStDXGLqHRWigpDdWZ/fyJNtJ8GYjCRISOv49wX+bRNGLIta5+lSZYtasXXc
+	PalQEFBgfQFkaYsZboc5gQw6sXOcO4yzRx8
+X-Received: by 2002:a17:90b:43:b0:3ab:330d:6e47 with SMTP id 98e67ed59e1d1-3ab3a9528fbmr5159947a91.10.1791794070567;
+        Mon, 12 Oct 2026 01:34:30 -0700 (PDT)
+Received: from ?IPV6:2620:10d:c085:21e8::1189? ([2620:10d:c090:400::5:b3cd])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38f4863esm18191720a91.11.2026.10.12.01.34.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 01:34:27 -0700 (PDT)
+Message-ID: <d6fe0569-ecf2-4c63-b507-b70f7c7cdb0e@gmail.com>
+Date: Mon, 12 Oct 2026 01:34:25 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAzMiBTYWx0ZWRfX5gxxItVbleqO
- lZCmtHY0463SDQ3qVxV6aldl5Sdirs6sxY/3OJRIwU2behwNKE09fxBE6m7YGNkiM7mQf7Isa1U
- dp7ROAgczzQbnbRZmOa4ns3J/kz4kWg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAzMiBTYWx0ZWRfX9se1/7+FhEJU
- VLCP/DTYc9d0Bl55w46DGC+2pXcL4ms0ZgKvPqqCDA210KYs3o5fEOPB8AtFNI10djaJLMxGvp9
- uClba3y0KMufTeDOXFLip0ICRwJ9RdyQwM7Og0TdAf/eagJjV7bE5ZoDV1ezwcN4eDwMTMymP7w
- GYg9aQ7cq0fiXJaQBL/p4wMtcWvgO/F7uyDBLUDJneXLgos5YVn3gjPkPHcdI3n6AfACgwHo8Hy
- ndnY60JdFiAJZ9rW7z2n+vFFCPDjbRL62m00NiSZN0LW8W49jtVl14Ijh1sDURVYLFgR8cuDMRX
- pyTMmZ8sPsiafkuGS0cjOVVZOanQBK0AZyjWkWgSltZSOwmRskyAqjeI9gtSrSUded5pIyh052v
- rT85B1E336O6W3/VHM98JSxltbx3AnfdGbQBrxMR+6ZuY51i0EmHvH5Fc+B7FauB/6L45ViSQt5
- +AuJ1RqEGKQjnf9vQkA==
-X-Authority-Analysis: v=2.4 cv=E6pYNqdl c=1 sm=1 tr=0 ts=6acc9a85 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=8qrm3ZJ1U5mLyAqmLJwA:9
-X-Proofpoint-ORIG-GUID: WmVtHqfYA1TyRnHbNzvvQkL8uj0Kqbwf
-X-Proofpoint-GUID: 0dYAFVYwNcwxV_QQkMSbWHgSaFWr0xmE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_02,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
- spamscore=0 adultscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120032
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3 5/5] eth: fbnic: bound the XDP Tx completion head
+ to the ring
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+ Alexander Duyck <alexanderduyck@fb.com>, Jakub Kicinski <kuba@kernel.org>,
+ netdev@vger.kernel.org
+Cc: kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ davem@davemloft.net, Eric Dumazet <edumazet@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Dimitri Daskalakis <daskald@meta.com>,
+ Bobby Eshleman <bobbyeshleman@meta.com>,
+ Daniel Zahka <daniel.zahka@gmail.com>, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1791775409.git.yhlee@isslab.korea.ac.kr>
+ <99790c3eceac9ac0bc9afbd90e8adb9789a08c50.1791775409.git.yhlee@isslab.korea.ac.kr>
+Content-Language: en-US
+From: Mohsin Bashir <mohsin.bashr@gmail.com>
+In-Reply-To: <99790c3eceac9ac0bc9afbd90e8adb9789a08c50.1791775409.git.yhlee@isslab.korea.ac.kr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Since there is no srcu read lock around kvmppc_h_page_init(), a
-"suspicious rcu_dereference_check() usage" can be triggered by running
-host linux with CONFIG_PROVE_RCU=y and the following code in the guest:
 
-plpar_hcall_norets(H_PAGE_INIT, H_ZERO_PAGE, phys_addr, 0);
 
- =============================
- WARNING: suspicious RCU usage
- 7.0.0-dirty #227 Not tainted
- -----------------------------
-./include/linux/kvm_host.h:1074 suspicious rcu_dereference_check() usage!
+On 10/11/26 9:16 PM, Yehyeong Lee wrote:
+> fbnic_clean_twq1() walks tx_buf[] from ring->head to the head the device
+> reports in the Tx completion (FBNIC_TCD_TYPE0_HEAD1_MASK, a 16-bit
+> field). head is masked to the ring, the device head is not, so a head
+> outside the 1024-entry ring is never reached and the loop does not
+> terminate; it keeps releasing the same buffers to the page pool. A head
+> that is inside the ring but past the posted tail walks over descriptors
+> from an earlier wrap and releases their pages a second time.
+> 
+> Return without cleaning if the device head is outside the ring or outside
+> the posted window, the way fbnic_clean_bdq() already guards its head.
+> fbnic_clean_twq0() masks the head difference to the ring and is finite;
+> twq1 did not, which this brings in line. A head equal to the tail is
+> accepted, as fbnic_nv_flush() passes the tail to drain the whole ring.
+> 
+>    Oops: general protection fault, probably for non-canonical address
+>    0xfbd59c000000002b: 0000 [#1] SMP KASAN NOPTI
+>    KASAN: maybe wild-memory-access in range
+>    [0xdead000000000158-0xdead00000000015f]
+>    RIP: 0010:page_pool_return_netmem+0x2a/0x3f0
+>    Call Trace:
+>     <TASK>
+>     fbnic_clean_twq1.isra.0+0x20c/0x410 [fbnic]
+> 
+> The loop was exercised by passing a crafted completion head to
+> fbnic_clean_twq1() under KASAN; no hardware is involved. On a kernel
+> without soft-lockup detection the repeated release trips a page_pool
+> use-after-free before the loop is otherwise noticed.
+> 
+> Fixes: cf4facfb132a ("eth: fbnic: Add support for XDP queues")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+> ---
+>   drivers/net/ethernet/meta/fbnic/fbnic_txrx.c | 6 ++++++
+>   1 file changed, 6 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
+> index 7a9bd91bcc41c..3a148eb4e560f 100644
+> --- a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
+> +++ b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
+> @@ -661,6 +661,12 @@ static void fbnic_clean_twq1(struct fbnic_napi_vector *nv, bool pp_allow_direct,
+>   	u64 total_bytes = 0, total_packets = 0;
+>   	unsigned int head = ring->head;
+>   
+> +	/* bound the device head to the ring; see fbnic_clean_twq0() */
+> +	if (unlikely(hw_head > ring->size_mask ||
+> +		     ((hw_head - head) & ring->size_mask) >
+> +		     fbnic_desc_used(ring)))
+> +		return;
+> +
+>   	while (hw_head != head) {
+>   		struct page *page;
+>   		u64 twd;
 
-other info that might help us debug this:
-
-rcu_scheduler_active = 2, debug_locks = 1
-1 lock held by qemu-system-ppc/2093:
- #0: c000000354197ab0 (&vcpu->mutex){+.+.}-{3:3}, at: kvm_vcpu_ioctl+0x10c/0xaf0
-
-stack backtrace:
-CPU: 30 UID: 0 PID: 2093 Comm: qemu-system-ppc Not tainted 7.0.0-dirty #227 PREEMPT(full)
-Hardware name: IBM,9080-HEX POWER10 (architected) 0x800200 0xf000006 of:IBM,FW1060.60 (NH1060_158) hv:phyp pSeries
-Call Trace:
-[c00000033e1bf430] [c000000001b3dbd4] dump_stack_lvl+0xc8/0x130 (unreliable)
-[c00000033e1bf470] [c0000000003da964] lockdep_rcu_suspicious+0x1f4/0x290
-[c00000033e1bf520] [c000000000231424] gfn_to_memslot+0x1b4/0x1c0
-[c00000033e1bf560] [c00000000023637c] kvm_clear_guest+0x9c/0x110
-[c00000033e1bf5c0] [c0000000002714a4] kvmppc_h_page_init+0x160/0x1a0
-[c00000033e1bf610] [c00000000026c040] kvmppc_pseries_do_hcall+0x1930/0x1940
-[c00000033e1bf6d0] [c00000000026fb18] kvmppc_vcpu_run_hv+0x268/0x800
-[c00000033e1bf7a0] [c000000000246b30] kvmppc_vcpu_run+0x30/0x50
-[c00000033e1bf7c0] [c000000000241ed4] kvm_arch_vcpu_ioctl_run+0x364/0x530
-[c00000033e1bf860] [c00000000022b870] kvm_vcpu_ioctl+0x1b0/0xaf0
-[c00000033e1bfa50] [c0000000009b4514] sys_ioctl+0x144/0x190
-[c00000033e1bfab0] [c000000000034330] system_call_exception+0x170/0x370
-[c00000033e1bfe50] [c00000000000d05c] system_call_vectored_common+0x15c/0x2ec
-
-Fix this by taking a srcu read lock around kvmppc_h_page_init().
-
-Fixes: 2d34d1c3bbfd ("KVM: PPC: Book3S HV: Implement virtual mode H_PAGE_INIT handler")
-Cc: stable@vger.kernel.org # 5.2+
-Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
----
-v3:
-1. Use srcu_read_{lock/unlock} instead of the vcpu_srcu* variants
-(Ritesh)
-
-v2:
-None
-
- arch/powerpc/kvm/book3s_hv.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
-index de05d721edc4..3ed033d4f80f 100644
---- a/arch/powerpc/kvm/book3s_hv.c
-+++ b/arch/powerpc/kvm/book3s_hv.c
-@@ -1386,9 +1386,11 @@ int kvmppc_pseries_do_hcall(struct kvm_vcpu *vcpu)
- 			ret = kvmhv_copy_tofrom_guest_nested(vcpu);
- 		break;
- 	case H_PAGE_INIT:
-+		idx = srcu_read_lock(&kvm->srcu);
- 		ret = kvmppc_h_page_init(vcpu, kvmppc_get_gpr(vcpu, 4),
- 					 kvmppc_get_gpr(vcpu, 5),
- 					 kvmppc_get_gpr(vcpu, 6));
-+		srcu_read_unlock(&kvm->srcu, idx);
- 		break;
- 	case H_SVM_PAGE_IN:
- 		ret = H_UNSUPPORTED;
--- 
-2.54.0
-
+The device can only consume descriptors up to the tail published by the 
+driver. A completion head outside the ring violates that contract which 
+can be hardening but not a bug fix. IMHO such a defensive hardening may 
+not be a good idea.
