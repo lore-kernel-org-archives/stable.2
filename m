@@ -1,144 +1,104 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A4231B80D
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 16:46:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791823586; cv=pass; b=jiWH/Y04NwpNFI549cU8+OGfHHgVwCgTbqqwDjyLziKoeCsDCdJBZNEtsEIvwk+hXAFPJnk+gfEPzKK9wlanQBgdK+FoX2c5/SCoYscWuEG6flTacKa7H+7BFetBdMnNKvVAvASNPrlXyUciiBGloMbiiDkYVK3fsalrt5WUyPs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791823586; c=relaxed/simple;
-	bh=oAXS6V6MF2Ql5LJpFSKH366GGwqI3OJmzAt9fON9zVA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cmn0ePqDE/xXBJprktujLQYTxS881zHEnnAkT2j9IoiZUmDUKZvdt4VqzEbB55wjk/IGKvKxVB70J1g2F86NTEK9rVlSMJJnFD6bK2OSoYvzSp9XnfsASD/JAI5ZyOQW2FWpkaGARjgfryP26WsurSvbMcmxWMHsJoCqTKREjmw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MOzbwcka; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=K/PqYrSG; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BCF1348453
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 16:48:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791823685; cv=none; b=RPW6FxWZ+KxaSFS3JiEYxY4ZA6SfAoHNEszMOvvLL6nelkZX95jUlDA0+Nluz75YgxUfeaKrgIfcm99n4cWIOKFpfUhWjf9qx6VPJxD4uSR5lvM4dxJpYHxoVchvinS1tn0qTPt78jYthlJNdshkfp4mI2XtEhfM85sztvKQqMs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791823685; c=relaxed/simple;
+	bh=Zn6zFRPZqXi0QzW7YY3iv8zN7h8vLIg8vDHuWf+op1E=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=QnflGfMem246NC1ctFIFTmseAmIM/3MvvTU9QIq+9vFXUnW7GxVRnc/jfWdPV77p4lnRQoyhH9gu8jbzGB+wiPJ78U99ZEFgobRhKCxlMCelPmLn1axwBP5kSiyHG97qZRxihdu5dpGPbu7x+dMZKqaqlWwIktzMGgQBSggH/1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pAWBHwDe; arc=none smtp.client-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MOzbwcka";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="K/PqYrSG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791823583;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5Xrn0w9zhcSyTIcnhYHLvfCTc9jnY6eC1cxeeEthPCs=;
-	b=MOzbwckaxjZIf6hsWkHxqW/FVuIGqvo+0fDZ+d74oRVFnEruq6EAOv1dRy1PM3DUaaHDg5
-	Kv62uW1dfT7Ffv4d6S74r8RreneUUJ8U0+8S7LsG1HrXot3pdq5DEId+vDT/fIZw/DXQHa
-	BsGRNxt1u4aXNlEggy/hfYexYCpCJS8=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-651-JHWS_zWCPaS6z1V_aRgNIg-1; Mon, 12 Oct 2026 16:46:10 +0000
-X-MC-Unique: JHWS_zWCPaS6z1V_aRgNIg-1
-X-Mimecast-MFC-AGG-ID: JHWS_zWCPaS6z1V_aRgNIg_1791823569
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48c437ae7dbso1048184f8f.1
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 09:46:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791823569; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jVTWUgd2Hca+khNnhigCqudL0a6CIFgGriGuUz6mqKZVO/OBqo3ovtAs1W6u/0J8pw
-         Wz+GeKOqcn6NKlguLbHcm5f2p7vxT6Nopxa0SD9dRIbbS1FvDPwEyMUFZ7FihPfJTo4k
-         Mhazn3bqc7KJMJr56bejczAzoyJK5Z+jZywLeICO0Dw/QPDtloOxmQ6GEM9Udwdi0Lf0
-         l81Yixooy/zEq/ikheQyN4R4KQXpM9+O2bonqA8UQ18QZXwcxWp2Qb2OThgLFzPui8SH
-         +p8oo9oyEFAvCviOketEsC8gvR7OHNwW3FlXWAD4fYlaA8HjbmPCtwRwROqwyI2KVgi5
-         yRvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5Xrn0w9zhcSyTIcnhYHLvfCTc9jnY6eC1cxeeEthPCs=;
-        fh=j/5VGJ8bN/gGm3IHyKIfQIGmBPdeBLfkytytGZafP0s=;
-        b=hlgyZ8WaUkcmz3p1Pr60gkuwqy0bLpFBfGkWy/z53/QUBa1OclXSHjM1+oeBJfYlx1
-         wFqYuCmAGhzCQ79KW4kchGZUzO4nFOeGPK65XYnusXNcsTCGJUAHlN6BEJyrG1EGq0jY
-         wPtCFU7SfFFHeyP7tNUyMP6J2fdFh4khlWFzoiEBwOYZH/um3+AhofXP4UDOLiFXr+qb
-         WTr3UKiJdE3HHq0eEyaCyDzU8XsjzDb1sGPI6SZ7iIPDZjJzZQS5sfcDi/LFya6cAdg+
-         TJs4CCF3lseESdH8usMND3RFWhGF6hUbANd8MIsfxnrc1nQKyBu3Rghr2NPBUemKuyBc
-         X7XA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pAWBHwDe"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38dbf293831so3949834a91.3
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 09:48:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791823569; x=1792428369; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5Xrn0w9zhcSyTIcnhYHLvfCTc9jnY6eC1cxeeEthPCs=;
-        b=K/PqYrSGbMLD4cr1p0bUSPaSdk7BqoFT5E3pl3Ei0hTq6/+4nfXSipnYzci6Ljf3lJ
-         wux3gvg3esVbl9moYAXYFreLHE2PYZym/zbfdQw2t5YsNklXajbvaDXXvi5ZutJjl3/Z
-         qH+LXmlwHzZT4rEcpAH9Vj3y5UuhbaZt2JmnqLhuZxF84mR03GLCl7DNIqhvLHBzLL7B
-         ejuVVm3VU/NAQyqotGDNOHivD1eceOa9cpD6AVNJTAEGjK2e/VV5285GPNvTnf/gBbCC
-         3fFoUbpHR4af6YZqC5t9NQtOvvh/aLeEgOEQ8kRm+kiSb8WbvXvakkepecMzSCgZOtHt
-         vkfw==
+        d=google.com; s=20251104; t=1791823684; x=1792428484; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LibxDXO+KDgRqmVow7/Whkw5PtEP6MVPh2MsRLI8bpU=;
+        b=pAWBHwDeCXCPPzSeHjx7RpuXvh6ZivLEmhNU/RIsqV36A1hDm51HpG8tfTqijdvcuZ
+         rYJW4XlJ0AYvKFGg2yRSo7m2+0SRnb0b76HaCcapLrJkyaxSMVb6EF3TB5oteTXdbNH1
+         gAeix97OMT9STD19Nu+wv2V/dS/uY85opjbXW71bTlHJagxgOXiYo+2ZjdwRfVAeKxbn
+         CjYP0nrMBA8sqUfqCDjFAG52Xcuhi+BSeT6FIPllEaFlEUJRXimR5BtT7f22ThNwM8qT
+         8JSA15CGIgUQoeLgyVA/yeHgIMb83tJQ5RI+5Qq7V4YBBfTGz/tF6z48hhv9uTkFClYj
+         bbsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791823569; x=1792428369;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1791823684; x=1792428484;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5Xrn0w9zhcSyTIcnhYHLvfCTc9jnY6eC1cxeeEthPCs=;
-        b=ZMB9JveLmolLRTydS6yM7ZYWhqZVXRSSRFccghz6lnmeV6qigIxPKpMNO3t5sYH8XL
-         w57AVr8ftpbtFOdiuvi+EyaVSgVe2ghBpm/P9RBmuj/HWy6AOL4V8EsXIDqU8ljQzT14
-         GfzoJ4EFDG38EW33mJRvW2l+3KcwZdi1jD8pP/5OasP14LBNh6ctDERXk3+NkRbHEjyc
-         nouMghQAJQma2Emo95qCUDJTX51x9n84eqAwFL9vL4m855fh3+wtWS/tjEZ6NKy2JI4J
-         bFJBPCXwMShyU+m8l0ULzs633IapmWuwo1EdYkYmI63Swj49nRewZinqQfB1rMUeaRFz
-         FTNg==
-X-Forwarded-Encrypted: i=1; AKwUvBxRYKQLJieNyk4CaMmjaFUjz0ZqWgaQM7FkYLA+2DlUQ9qZYb3je7CEtkkCT/Yq+C0NUhB9TKo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ0h2IK+B7xVfwb9LchfTjqPaPERyvSn49tXJaICYqIXtn8cy5Z
-	zbFiyqOQ5hjy+LaoNVnYeqnB95aq+OAac0DIC8tpwHzB1YQ0NUXgC6qcAX0uJrt/Yeu0Kq1nm6i
-	IvGClMgzGBvc6LOF9xn7/Y30+vKeC23o/4FSnBMqcRpIBot3FpeP58IZ+ljfvjfFvDIobwaIbxW
-	YSWiwCRj8nJOu1JhpOO0z1rNJwe5ePFQRF
-X-Gm-Gg: AYBFou3zoC/Uv8yoTt+QG5q1b/J+8Kcp3+4tjzW6Ery3fOXUYgQaOUbVF6cl2eoFtVI
-	x8+gd8flNsL4cYQKNFpAtmBO1jNLD8iqoMOFbfsWhKOjM6dqHtquNSJL2vCWLEw6T+Km7scNvj3
-	0lBWe1AbMvdabs/714W1uUqnP8GZo+vmeUeHHOHxqIgc2zJq0r7u0X9//laKrQQkAzZVDuG+I+Z
-	MIE2mkGcdXJdjjktxKHz97byv3X+AnusAZlfrpyN19YuUkwwcAUFQBxdQmSzw==
-X-Received: by 2002:a05:6000:61c:b0:48c:58b9:f17c with SMTP id ffacd0b85a97d-48db947461fmr19542071f8f.12.1791823569151;
-        Mon, 12 Oct 2026 09:46:09 -0700 (PDT)
-X-Received: by 2002:a05:6000:61c:b0:48c:58b9:f17c with SMTP id
- ffacd0b85a97d-48db947461fmr19542035f8f.12.1791823568768; Mon, 12 Oct 2026
- 09:46:08 -0700 (PDT)
+        bh=LibxDXO+KDgRqmVow7/Whkw5PtEP6MVPh2MsRLI8bpU=;
+        b=2z/wBaM5oicYh4b3jmofxCLnJtIi9TnaTVqYOBxn4EidR4sU8klkfQbBIaWWxDNpD0
+         N0T9dFVedAdo9Wn7bmEITUOEhVOM38QG4AjV1mFPxHG97WBB+wd8nmO9D2eG3CE220oW
+         77kfXqPQt/e76NrqdyrnHfpfcV4ZY469EJWVBO9xS43/Xot6bpk4k4+IHFl75RqZIqm9
+         jm3NHSlyBo6YExpTNX2/x2ci7dAz7GBCuE8FDvd0gEoFdhej3rgsbwfsNG/uaYbxe/tu
+         jBaKXmqm0dYmAh8pyYPYYArsF/Faih00VJ8dM3OvCVTonM2merYQurtzazcN4Z1Eh993
+         CGQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwNerNZkslaK6qK2FcLgpTr7p4wjLugdHme1K6usl4TsNdoWOnHnouS0R21vtNpy35Es6XEbZ4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKtqPeSlgmjWzjBoHrYz4WiBCaj+t4rb+krkQQvC+qeYo2sx3oF
+	FEW3+fc07k2N4vUCf4qAXC/F7bp9tP793M4ygzWwrBcoPn+iNDUfnhKpa8BFqPyhY0+9X01Oqyx
+	Kk3aVdw==
+X-Received: from pjbov12.prod.google.com ([2002:a17:90b:258c:b0:3a8:a8e6:f289])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:916:b0:3ab:e588:c2a0
+ with SMTP id 98e67ed59e1d1-3abe588f906mr1929716a91.56.1791823683410; Mon, 12
+ Oct 2026 09:48:03 -0700 (PDT)
+Date: Mon, 12 Oct 2026 09:48:02 -0700
+In-Reply-To: <CABgObfY=xYUJJtYvcVhjdTXOah6eofi0O4C3J3sa60KCC+WO6A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
 References: <20261009130450.361690-1-pbonzini@redhat.com> <as0NBfuEY-60pgtz@google.com>
-In-Reply-To: <as0NBfuEY-60pgtz@google.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Mon, 12 Oct 2026 18:45:55 +0200
-X-Gm-Features: AclHuK9pVodaU0y8aFoEzn0G64V6E6NcOQh1xijrAviXyHmZnBb8SlkbTzGCjn8
-Message-ID: <CABgObfY=xYUJJtYvcVhjdTXOah6eofi0O4C3J3sa60KCC+WO6A@mail.gmail.com>
+ <CABgObfY=xYUJJtYvcVhjdTXOah6eofi0O4C3J3sa60KCC+WO6A@mail.gmail.com>
+Message-ID: <as0PQm_PS3LC9KWc@google.com>
 Subject: Re: [PATCH] KVM: x86/mmu: Cope with the SS bit being set in #NPF exit codes
-To: Sean Christopherson <seanjc@google.com>
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
 Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
 	SimonP <simonp.git@mailbox.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 12, 2026 at 6:38=E2=80=AFPM Sean Christopherson <seanjc@google.=
-com> wrote:
->
-> On Fri, Oct 09, 2026, Paolo Bonzini wrote:
-> > When running Hyper-V from Windows 11, KVM is seeing the SS bit set
-> > in nested page fault error codes produced for shadowed NPT.  The AMD
-> > manual is unclear about when SS is set, including whether it can be set
-> > when SupervisorShadowStackEn (bit 6) is not set in the MISC_CTL field
-> > of the VMCB; in fact, bisection shows that while SHSTK was available
-> > to guests since Linux 6.18, this started happening with commit
-> > 687ee95c1b6d ("KVM: nSVM: enable GMET for guests"), which seems unrelat=
-ed.
->
-> It's not unrelated.  As you note below, this is purely because Hyper-V on=
-ly uses
-> CET when GMET is available.
+On Mon, Oct 12, 2026, Paolo Bonzini wrote:
+> On Mon, Oct 12, 2026 at 6:38=E2=80=AFPM Sean Christopherson <seanjc@googl=
+e.com> wrote:
+> >
+> > On Fri, Oct 09, 2026, Paolo Bonzini wrote:
+> > > When running Hyper-V from Windows 11, KVM is seeing the SS bit set
+> > > in nested page fault error codes produced for shadowed NPT.  The AMD
+> > > manual is unclear about when SS is set, including whether it can be s=
+et
+> > > when SupervisorShadowStackEn (bit 6) is not set in the MISC_CTL field
+> > > of the VMCB; in fact, bisection shows that while SHSTK was available
+> > > to guests since Linux 6.18, this started happening with commit
+> > > 687ee95c1b6d ("KVM: nSVM: enable GMET for guests"), which seems unrel=
+ated.
+> >
+> > It's not unrelated.  As you note below, this is purely because Hyper-V =
+only uses
+> > CET when GMET is available.
+>=20
+> Indeed, my intended meaning is that bit 1 of MISC_CTL does *not* have
+> the side effect of reporting SS failures...
+>=20
+> > This is wrong, I reproduced this with the KUT CET test with gmet=3D1.
+>=20
+> ... howver, this makes me wonder if you meant gmet=3D0? Because if you
+> need gmet=3D1, the Fixes would be fe080f58dec24049 (i.e. when the gmet
+> module parameter was added).
 
-Indeed, my intended meaning is that bit 1 of MISC_CTL does *not* have
-the side effect of reporting SS failures...
+/facepalm
 
-> This is wrong, I reproduced this with the KUT CET test with gmet=3D1.
-
-... howver, this makes me wonder if you meant gmet=3D0? Because if you
-need gmet=3D1, the Fixes would be fe080f58dec24049 (i.e. when the gmet
-module parameter was added).
-
-Paolo
-
+I did indeed.  And I quadruple-checked that I could trigger the splat with =
+gmet=3D0.
