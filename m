@@ -1,151 +1,172 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEE3A282F17
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 01:36:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF3C625B099
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 01:37:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791769001; cv=pass; b=YQcaFBfBag5z2HRWsZRCQclV/QggHK0yZjz0yypSLIvWMQwEGXYJwpw7fV+MA2v6vqz4EfZB1bl6uANlGQ2thCtMh6uaJNBscBuZ1GNBTW11ijSNs5j6JghZNCnt9qHgS6YgaczU9K51F7Q4FZDVy4LJG5V43XM8TPypdSgMHv0=
+	t=1791769026; cv=pass; b=ZX2vsixnpmk20VhnQ6d+IRLA5Wvc0bBLpfe6c5jXs0TnRolEoiwpKnnnLbNV8vQEc4vjfSAqgdpogGIjB0rYMzvI/DCylEFT+kwyIhcfDCgZm96VoVR9LMH9cmJuGdKDMK1xuPnGmefCp8y7m2cpLhuIFf2dZSDiS/oPV1OrvQ8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791769001; c=relaxed/simple;
-	bh=k7cEPBY0M9HJpO8NZ1kFN/9ydut0XOF0A6dmljcEM08=;
+	s=arc-20240116; t=1791769026; c=relaxed/simple;
+	bh=23Lw7vM4wP52T5CZZzj5VSVp9TctYmvu/KUZ9CKSfFI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jd7obUxQSxeGzOKav98D2Yv4CxEo3aeISAbYY2VKqIffGKv1XZiDpccMaepxgB8TrF2BsCCpxesW0zKALK1nheD2MbCcMXKOYIbAfd9sXlq3a4R2q2MutqqznFIXVqT4M/d57Pz9bmKkYQgO8FQ688U/TG8/LYtkLsYq78Ez3TY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KU165k99; arc=pass smtp.client-ip=209.85.208.51
+	 To:Cc:Content-Type; b=tnIb+9AUjEoQLyFbLC0+4gKZmbXQE8VN/t2wG/2rMCHstrMyfEFnJzQ5uZ9rNJErXbs5dfQlEoo3QKWE6aSya2ZPC076mEidGwAGQib6kGNVjN9QOhcm5wQ4IjTjh8uFDp+V95zmXi6CLdMEz/48tbPjiBM6DSY1l53nk4yk4gQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UcNmOjgX; arc=pass smtp.client-ip=209.85.208.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KU165k99"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b1aa2848d2so1099729a12.3
-        for <stable@vger.kernel.org>; Sun, 11 Oct 2026 18:36:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791768998; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UcNmOjgX"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6af9a90e4bbso1391786a12.0
+        for <stable@vger.kernel.org>; Sun, 11 Oct 2026 18:37:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791769023; cv=none;
         d=google.com; s=arc-20260327;
-        b=V9yvsmHcdB0WwtJyCqTBozXAacoyL+RYD08uUT8KXZE7CdTbKpg/yw5F/Xwts9pyEd
-         QHDn2eE7XEDksPztiRm0I07a4SkXebnk4FO1vOt4q9tp/X0g7ojlyfnssmB9VQpRXKMA
-         isDi5N/qSZ+Mil7beBZd8JLRmRQW/o8yx+IuhUJLQrS2lgUAgFGuCQtbrmTWzbTnKSA2
-         vbltLQ8ZschHwsfvo50k3+sfJHgkJPXonW8mwVexs5xAZ6+wpKPurNpS5+Dk3gzVq38n
-         AbXTaDnups8lKkrpnT+n3Ya0Sbhv82KXkAO3YVpm+ybSg/2YAQzOZMGUBYMfYxwK+nn1
-         0xqw==
+        b=ErsF91+fE5dBTxvcxEWm9miLMeu4isyOvC570RG2wrmMpwAava2SrKkxcpT/M18GIj
+         m1R3ntAgbo3ZWOWIAmUk+yaCuXmKOnUCPjDJhwiGDcc3zkfSRAnZTIhMcUa1XNYYhVkl
+         PQOZFfm69mMGSTI21JmgCVq1V4HaEGRep3X/S+rXn3yXr6KggyqBpcCp+KF9RUHlwXxR
+         A5y7CkenggGFxoFIWt+59gsz+f2L1g9YS/CipRYpHXM9gCb8t0Xhq8DMwCn1wlCiKMFV
+         1vvXPxFbkF79/n78zJcfeggAF9U+aA2owSRbr3OKtpJlcuSch1HoBujHEZ9V304C9de5
+         UVfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=5SdnfbVL9pFpAWd31O9CWnKNvkrdORI7jh1LOwMsM0M=;
-        fh=1zCFxPHhgDRGghAUTQaHQ+gvrpwnSgobgsMzdewLUA0=;
-        b=ZBYDI2gFk33DCc/GTCSDqnGx2zyEj6xM2WosadShLgyilOWXAb11WZ1VwIGz8kTkhx
-         rIi9RkFk6kh71uMSQM6KAcZqixbvReB4spo+0kkNKO8Z0Ew6N9FANRPajln0m/pR2nh9
-         s/c1LIXu5H5I16zn+yh6gyKVsCyi3p2On3imaDgk4yckg6HgADnWDBIy7FkRLZ5xQ3Cv
-         i2IRPNuJG9G3Ca/mxOSIQKHN78oSPCdFebGRsR0sa6hLoIYghuVES6cWrZNo8f0HSX8T
-         giMchrmxA6GsR6fIuSPkYx08oogDJwv+3XYFr7oTCrUz6bFcQ0nutN6aoIuoT4JGWy3g
-         cnqg==;
+        bh=kIt1CS5cV077Iep8QC6bTj/foPl01OdYIeRJxdNPDpM=;
+        fh=hkiKojPskn9/efPPxdBHJ/DJfBHdHO3F+vC0pKnwcjw=;
+        b=hyFB3zFw53D8YB9AH8S5/nJ+jklJVdGQNDBzQH+6EM7/3sU8Mnq0aeJ1FkG+01BAex
+         AGRt4989m8XVm1XGXreJGcqzzd/myoNdT362hgK0uP9APrxFH3/7VuTxSMWV0os/rfzh
+         6wPT20c7CcBvHt2a7+zv55Q0ZyBobv5Nzo/jkuex8vsnGc8VW224k9RlcKTGKsXOKdjW
+         yP7mIittWByQs/L/8rRYsxne2dHkgSSoJFProMoKAP8ui0zYSAlfwvmOLBeKYQvwW5l2
+         jagM+X6FPMo5D4CYCe/bQg9DluuD1ZLyFthC73mPe/TNA0jSuL6piQENjeCmc9R9rsgi
+         iVxg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791768998; x=1792373798; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791769023; x=1792373823; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=5SdnfbVL9pFpAWd31O9CWnKNvkrdORI7jh1LOwMsM0M=;
-        b=KU165k99OY9xFXdhIcC1vkwr3LFa3mk4ke6QWisDv8FHDeSc2gJLV67Nrlqyzc3U9L
-         YgRkJDnldo7/gEjn+hCaDqH1za+JZ26R5U6+obcZ3EQ3FHcGkyuPR/6UThv329g8zGUR
-         N0VWXMOPSsuIpvu4UnBgTHPJWDFadPlU1o0wcXvR2LNKtaOvvcP3GWKJlOorkGthfL+m
-         LenyqYET+puiFs76+rmTxwYjkYsNI5yJ72vH+S1oEk/o7eG6tAf6gxX5MuFsCKKMdi0P
-         AxrfbGBYftMbwouWGQFR4H4AUMwaqpVEhL1gFcoLzP4onT/UUC50lTHnq5KeSGYoE0ox
-         EJDg==
+        bh=kIt1CS5cV077Iep8QC6bTj/foPl01OdYIeRJxdNPDpM=;
+        b=UcNmOjgXlPQMd1zO0rW4fso00eY7TnU0dd6c1bPHO3qs33uILAgn8qiwjkCIs/CRiK
+         QcFqdlFhb+K4R1xgjWj9wAod5CspNT4H49FSTu7fICel2+4jVtzdBITP0YdkX28hAxq0
+         CM9wtkn9yDRd11qQlYRSat1iwxVng3HptbE7Cp62kRBF376OGf7WRn42Gsnvy65IsW2F
+         k3IzhfvMiLMTR9avLfZOuiBuTWm7y1eooBblrhBCu5am/2U4xAEwH/QluAd66aOoDs/H
+         yUGz8xErzfv5eOU8jdzwyEvOkZu3kA2nUVgzB1E+LRZPRs+qCFINnabgKoLbU5GiBsUN
+         jdaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791768998; x=1792373798;
+        d=1e100.net; s=20260707; t=1791769023; x=1792373823;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5SdnfbVL9pFpAWd31O9CWnKNvkrdORI7jh1LOwMsM0M=;
-        b=cCGsye/JftA12EAmXF9AMUt63l5hLgogeeYh5CgpgHRu29sqoOLui/KOUhzqdesRQy
-         sCaM5us9BCBofWMaXlscFXu8xywhiqJ/El3LS3hpzFMhq2gU8LiM5wFsB9biwd5xw0ry
-         ssn8hzvdTnOkna0V/wCfafKvSLJmU/FEo2ztHb5ENp0PI2vCPfu2rSXP7SVmedFEOEpq
-         tqsAZix6yaNFQ+kOnF/gGMLv6s9lTidSC6aHjojvD/J8D6LFqLxc+IvU7TZFw4sYgCu6
-         qfT9y11a51CTenMneOM+NSxqvJyqUtOQEfkMl2gBacXS2DGAYBx48E0DizSUY68RUpaY
-         lstA==
-X-Forwarded-Encrypted: i=1; AKwUvBy0DPlScoHzWxR0MzTI9SKkTahepdPyFJfxmQ4yTfDhNFW4O83RGyVoHcZDSLCeSXa5pHMMIt8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLcRbhZ6RPr1GDusVrH7YLHAbMkc2rXZ1AtaN5U+fDzqUwZ3Vpa
-	gng5ONvPa8lWObPKq798c8q1tbqRIN1CCEbnTgKzUXq33v4o08JjC5KeCzP0uiM7jk44EEfSqWA
-	n91FiX0KwtdOQ7ziu3WGdWWnDjZcT0BQ=
-X-Gm-Gg: AYBFou2/+QalhNKhv7sa2CJkC1u1WbI1Mn94zTfLHzoyzoyUgkf0e9Jk9pJv/knnxGm
-	lZmyk/XU055H2Bjeh85GdIq68v+f7+psFyvxsWr0ghwCzNhEN2dWJzE2H6XoeiEnrGCXl6S3b5V
-	MBUxd2x8IO4LOZH+XNc7Or4Z+G/evMRyWzv6n4g1Wmx1tGbwvQyqC7MlBbJ39S1uQdFFBL3vXfJ
-	jLbJbvvGrqC6AsUUwQXAFleFBK7UIxrCBL1WVSIZZsDTspxMZkNCVTNSdjhJOpi8r37Pd6fUtjD
-	2cbVWpeOhmHofv2TbstAPr2gTmZueYlc5YpQAPq0cLePJrj3vMYVa/LG
-X-Received: by 2002:a05:6402:4512:b0:6ac:7d0c:2cb8 with SMTP id
- 4fb4d7f45d1cf-6b17c26e26cmr7148152a12.30.1791768997999; Sun, 11 Oct 2026
- 18:36:37 -0700 (PDT)
+        bh=kIt1CS5cV077Iep8QC6bTj/foPl01OdYIeRJxdNPDpM=;
+        b=lqtipKv7CxSd6g14SEDQQAyEG3OEVNcB1dCLsvCqdCdsjegLWyVW79G3MG+nDosxCD
+         hK0WynaAsB25AlvgCfcPe2JaG49gta8N5kWn2DMRsh35o6c0VszqElQzB7XBceQBT4KT
+         1duvfuu0gAq/5H89ovDZfHKDvHAUIwTaBOQkH0TRnovn/uT0b/vC2TT8tsBjpnO8QcW2
+         /F69t+X1GpJhTcBBX/73eOzZw5o09HC/GvNfq9Fq/AFdldvX6/EknLiAtFKdfc9S0qs2
+         PRgrCqwhgEYjzu87HD6H1HZql6a+3jVSWUOH+aFPN+T55ixiCq+jmy8Y8+lDTNF3IGi6
+         La7g==
+X-Forwarded-Encrypted: i=1; AKwUvByHRPcWSwCtqByVZGvwgaY7AjTqJiAEq7HmKtYJiLsmXjULFwQ11nnWLsNC2gePYvxtmmrTUQM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKb8LiCpSdiXzZFYSBTZggCJcLEavENDt+5+UElFeamWJszxLD3
+	1HYAaNkEOLR+PXgNiP7Xac1gSdbiuCyYuwz9oVeZVoPWHJ0Exiz2KjJ9f+t3bGheL3VngnidSXy
+	qti8tNH5bXUvi+rLVFG4z2vN5fJ8Y1sw=
+X-Gm-Gg: AYBFou24pPeke4p6CqbaAwlJP23E5P00wJUmmC94QEiLKFE1W4sXwkVbhaN/BKUuGTZ
+	I9woehnTaFbt5MByb27YNrw8JgSldaI6XoyXl2ZacQLqBVHD4sEwEpVmVaoN48/9LT3Ja/v9zvW
+	GmeBWhE8A0iQHA66LaqhsDx8tq04r9YX3fkXOparWrbpIgbeH6A1zI6HsKu7rPneTURA/ojSfc8
+	39QXXOo6QQTJS+xDea/AaiyD2gfnCph6VPH9WTepz2rt+TON41cfo5ZPp2Rr3WLSj50R2pcJvdD
+	duTgadkrwe4bSfDW8+PSlHt55kzItstUUqYljyPyqOc/GtCKWzZa+ZM=
+X-Received: by 2002:a05:6402:1ecd:b0:6ac:8ef4:177d with SMTP id
+ 4fb4d7f45d1cf-6b17c244847mr7817735a12.20.1791769023054; Sun, 11 Oct 2026
+ 18:37:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917093923.2145007-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260917093923.2145007-1-vulab@iscas.ac.cn>
+References: <20260916-b4-ipcc_send_data_null_check_upstream-v1-1-bfc61f5056a3@oss.qualcomm.com>
+In-Reply-To: <20260916-b4-ipcc_send_data_null_check_upstream-v1-1-bfc61f5056a3@oss.qualcomm.com>
 From: Jassi Brar <jassisinghbrar@gmail.com>
-Date: Sun, 11 Oct 2026 20:36:24 -0500
-X-Gm-Features: AclHuK8Xsk6vNaWsbsfsc6m-jN-PLUBFBJUyFrXzBO7nFbW8E4MZEEKbb4KwlQY
-Message-ID: <CABb+yY2ZnisPFR1mXU-E-KEa6SWz2pKicYMeo13PCeHwpW6oAg@mail.gmail.com>
-Subject: Re: [PATCH] mailbox: mtk-cmdq: Fix runtime PM leak in cmdq_mbox_flush()
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: angelogioacchino.delregno@collabora.com, bibby.hsieh@mediatek.com, 
-	ck.hu@mediatek.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org, 
-	matthias.bgg@gmail.com, stable@vger.kernel.org
+Date: Sun, 11 Oct 2026 20:36:47 -0500
+X-Gm-Features: AclHuK_9kqp9LiaECpF6jdko0DVDOwODce2xY8QZwz01sjZXIAlcS2lK4ydkNvI
+Message-ID: <CABb+yY2TGZX37Ketsx33Q93wWLSw1LP9+auTHywmb9-GrBd2-A@mail.gmail.com>
+Subject: Re: [PATCH] mailbox: qcom-ipcc: Guard against NULL con_priv in send_data()
+To: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>, Sibi Sankar <sibi.sankar@oss.qualcomm.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Jassi Brar <jaswinder.singh@linaro.org>, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 17, 2026 at 4:39=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wr=
-ote:
+On Wed, Sep 16, 2026 at 4:57=E2=80=AFAM Anup Vishwakarma
+<anup.vishwakarma@oss.qualcomm.com> wrote:
 >
-> pm_runtime_get_sync() leaves the runtime PM usage counter incremented
-> even when it fails, but cmdq_mbox_flush() returns the error without
-> dropping it.  The same happens when the GCE thread does not drain in
-> time and the function bails out with -EFAULT.
+> qcom_ipcc_mbox_shutdown() clears chan->con_priv with no locking.
+> qcom_ipcc_mbox_send_data() dereferences the same field without
+> checking for NULL first, so a send racing a concurrent shutdown can
+> crash:
 >
-> Undo the reference on both error paths.
+>   mchan =3D chan->con_priv;
+>   ...
+>   hwirq =3D qcom_ipcc_get_hwirq(mchan->client_id, mchan->signal_id);
 >
-> Fixes: b0524f7c9635 ("mailbox: mediatek: implement flush function")
+> Add the same NULL guard mbox_send_message() already uses for
+> chan->cl, and bail out before dereferencing a cleared con_priv.
+>
+> To close the remaining race where send_data() reads con_priv a moment
+> before a concurrent shutdown clears it, acquire the spinlock in
+> qcom_ipcc_mbox_shutdown() using the modern guard(spinlock_irqsave)
+> primitive before setting con_priv to NULL.
+>
+> Fixes: d6fbfdbc1274 ("mailbox: qcom-ipcc: Fix IPCC mbox channel exhaustio=
+n")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> Signed-off-by: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
 > ---
->  drivers/mailbox/mtk-cmdq-mailbox.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
+>  drivers/mailbox/qcom-ipcc.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
 >
-> diff --git a/drivers/mailbox/mtk-cmdq-mailbox.c b/drivers/mailbox/mtk-cmd=
-q-mailbox.c
-> index eadd340f8fee..07a8c2382c93 100644
-> --- a/drivers/mailbox/mtk-cmdq-mailbox.c
-> +++ b/drivers/mailbox/mtk-cmdq-mailbox.c
-> @@ -565,8 +565,10 @@ static int cmdq_mbox_flush(struct mbox_chan *chan, u=
-nsigned long timeout)
->         int ret;
+> diff --git a/drivers/mailbox/qcom-ipcc.c b/drivers/mailbox/qcom-ipcc.c
+> index 185b63f724d4..387aa72aeedf 100644
+> --- a/drivers/mailbox/qcom-ipcc.c
+> +++ b/drivers/mailbox/qcom-ipcc.c
+> @@ -10,6 +10,7 @@
+>  #include <linux/mailbox_controller.h>
+>  #include <linux/module.h>
+>  #include <linux/platform_device.h>
+> +#include <linux/spinlock.h>
 >
->         ret =3D pm_runtime_get_sync(cmdq->mbox.dev);
-> -       if (ret < 0)
-> +       if (ret < 0) {
-> +               pm_runtime_put_noidle(cmdq->mbox.dev);
->                 return ret;
-> +       }
+>  #include <dt-bindings/mailbox/qcom-ipcc.h>
 >
->         spin_lock_irqsave(&thread->chan->lock, flags);
->         if (list_empty(&thread->task_busy_list))
-> @@ -603,6 +605,9 @@ static int cmdq_mbox_flush(struct mbox_chan *chan, un=
-signed long timeout)
->                 dev_err(cmdq->mbox.dev, "Fail to wait GCE thread 0x%x don=
-e\n",
->                         (u32)(thread->base - cmdq->base));
+> @@ -151,6 +152,9 @@ static int qcom_ipcc_mbox_send_data(struct mbox_chan =
+*chan, void *data)
+>         struct qcom_ipcc_chan_info *mchan =3D chan->con_priv;
+>         u32 hwirq;
 >
-> +               pm_runtime_mark_last_busy(cmdq->mbox.dev);
-> +               pm_runtime_put_autosuspend(cmdq->mbox.dev);
+> +       if (!mchan)
+> +               return -EINVAL;
 > +
->                 return -EFAULT;
->         }
->         pm_runtime_mark_last_busy(cmdq->mbox.dev);
+>         hwirq =3D qcom_ipcc_get_hwirq(mchan->client_id, mchan->signal_id)=
+;
+>         writel(hwirq, ipcc->base + IPCC_REG_SEND_ID);
+>
+> @@ -159,6 +163,8 @@ static int qcom_ipcc_mbox_send_data(struct mbox_chan =
+*chan, void *data)
+>
+>  static void qcom_ipcc_mbox_shutdown(struct mbox_chan *chan)
+>  {
+> +       guard(spinlock_irqsave)(&chan->lock);
+> +
+>         chan->con_priv =3D NULL;
+>  }
+>
+>
+> ---
+> base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
+> change-id: 20260916-b4-ipcc_send_data_null_check_upstream-072b8856680f
+>
+> Best regards,
 > --
-> 2.34.1
+> Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
 >
 Applied to mailbox/for-next
 
