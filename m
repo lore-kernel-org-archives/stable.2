@@ -1,75 +1,47 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-bc0b.mail.infomaniak.ch (smtp-bc0b.mail.infomaniak.ch [45.157.188.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08E104AB1AA
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 16:05:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB1BA4A99AC
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 16:05:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791821122; cv=none; b=My0JCJiEcrYl5mLodyYWxwR+qLjv2tO2RfqzvqydlivLFnNEt5GNaFIacxa6SZkTAgcYod4txKI+ZZ0eOpygw7xWoxFK8TlpancSjTAHfry8u26rECTI1QvX2i3MpKnvc+BbPRaVVJZ7eSBFD7UrvB7Flr5/i65wNqjkVENHYt8=
+	t=1791821126; cv=none; b=sPF0tqZdxQXLqb431Hg9lcSjndZcERcyJl1FvuGHE5hU1LL36rQcbMpVy6NIRNGQcn1dtmjSjJJwL36b0IUVpOxHDfXW4DohiqnTQSwkfqDz/bjQ+bzqZyqOgRfSN1hbzIzy6H1IsNjoRd/XeenxcTfb2mLFlduhSHiY5PHyLQA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791821122; c=relaxed/simple;
-	bh=GL5VnO55cyhTAARPYcGE6J7oUqyaKQBL0XXqKN214hY=;
+	s=arc-20240116; t=1791821126; c=relaxed/simple;
+	bh=/BboWUqOf65bWfaAszocHv6CTiq3icV2hktIX1fMSVE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZvNA9NambhkJoe/qoMDvigmeGSvGs/vrKgIm3q1jWxfthaOQRgVlrB9DZuKj4SgtK+DJXHc/WIfa3FPFO7H4j1rUAgBwZI166kWkj9wRJlpoTR7AbwhEUwGYvqEJw500GxEukySwWd8TS4zXbpwXYXeEGA9UOT6DZQl0qVXeXTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=Uno/VZ1C; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	 MIME-Version; b=jhpghkbeQwIxCjLDeKbm5IoImdj1Tl1MqrFFmpoTPoih1d4cYolq/AmTwjQUH0npnvmPc5/fczjkXrPLzkMKali7UmY9WpeseebwuVxlV3oqaNrn8xENlMAk30dAURjDtdMv4gEB3DuwbOd9iU40VvtjyoI7Vy2pJ2NKh8yz+dI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cinemaone.ch; spf=pass smtp.mailfrom=cinemaone.ch; dkim=pass (2048-bit key) header.d=cinemaone.ch header.i=@cinemaone.ch header.b=n8XlFbxg; arc=none smtp.client-ip=45.157.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cinemaone.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cinemaone.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="Uno/VZ1C"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48b0ef9c76eso1719481f8f.0
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 09:05:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1791821119; x=1792425919; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+Bl/nEefnKFr5SNJl6EAJDuOp8un0YbGcynWqh+2BvY=;
-        b=Uno/VZ1CpwvgKmv5XsWc0mOaATw+1mneGegtXrozzLPeqN3cT1I8HzLD6J+u6MesCW
-         s7270fUzBWlCFZM6IlEf+tLTCFhbpxmJ1Q8pK9Y8hNESLXSsG2q5d2d9RYOStA+khoXn
-         eEyS/jX0+vxWBCuIK7e+EloHwD2jNFaDu0wuYWfGzCgeY7CJrv7lFEX4SxDKqsPohE9P
-         c0C+MQpyhl6PNNw3Z/G85/U7+na+dQHSB72Yi7fIr2UDV2xSuZVUm73UvhksBHUGiIfV
-         ay0D5Ev2BR7zILWACEP1xKTWh6sp138U3tJ/DS1i043zGo0ecMtHM71xPOtYM5ZCm4wb
-         ls1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791821119; x=1792425919;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+Bl/nEefnKFr5SNJl6EAJDuOp8un0YbGcynWqh+2BvY=;
-        b=jTGDh/5OBgbyN5RThCXMxS9EjvJl8bluK+QNk7wldnfJIimAx/9QPWZGuUNlBPO/5r
-         Rg7Zs9NyTKwm+Xm9GLAAR5qUGmkiJ5AXeKL6ZWCmiNCwYLjUA3c6GEjq9/kO4AE0Nptn
-         sPH6gjcGeKIh/lDAj3C2hA8DBeo9r/zyIzabXC5HVHFl4UNPYbGeuFrbyTq2ttoTiNxt
-         M7Etyik9pz+1JMpoWPj8JLk1WGoq2tZ67fQPb1o6IEB7yQzsNSxME2tIYUOkrsY+Gz8z
-         LXIHpAdtXB/IfNA5BvFXYrJtSTM7tea5wXoXxdGFf7DuS2kPmlW9/9qnxvn4KhuqLv6r
-         gWKw==
-X-Gm-Message-State: AFq9FYJkPzvvl6PjdFTVywMF3OeZbu9h/A1/ufwSfwvm/0zFs79BcS1C
-	zEQ+AomUndIYVDLw/vHUoaDrr1HFwikD4tj0cNbZhbKYq4bE8X15GK7hGxkic7QXqQyZJZrij69
-	lhGLHuUQ=
-X-Gm-Gg: AYBFou1mOf4qSIbSCfrprLTpZ6BXSqiFy7xItyjyofrZpMvpRCEJrC7m1er1cR35lDh
-	ZovvSVCzoVls0fG8D80wVYpI2ZZRse4XYWbN8g0FaD8tLWqzvZhwH/msYs1LRchzcvyFK/hj8Lu
-	DUH9UvrF8zq4rbiUUuB50mIJeK4OWISDG7Omkty/DwWYzNHy3445eZwiwqaX51NGwueghAs+Lgo
-	XhKQF+ldWzeckuk5d2dRoToVchooOtiELXBpZEfnywQSlSrLxoV65O7mMMswWSp3p0v4GQqv4EN
-	pgfKnSWrwVt1w0v0F1icBUteb6+Kgo7VyTQGAMoGE/7frVj0r2PGVYBVdmJfeZLxK5/iR2PZp+g
-	LAuEk5AWTsX8QJzdxXFUgSJSMJbXjuS/y+crh003erBEpY27GeqTITI1As0A2X01Z/0sO3k+irt
-	babHzVzCRTTsPqhUhAZf1yEnQc1EtLBrv7ICCNBtkqW330Q08zW/Scptmh56p1iBBYyuw5yvaS/
-	78s9/Y3Z4yBquvADxfjiB1UAadaDHEslGIWIJfbD68=
-X-Received: by 2002:a05:6000:491c:b0:48c:4272:86b2 with SMTP id ffacd0b85a97d-48dba9bdcfemr18875054f8f.11.1791821119146;
-        Mon, 12 Oct 2026 09:05:19 -0700 (PDT)
-Received: from alchark-surface.lan (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ac52d3sm201937f8f.43.2026.10.12.09.05.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 09:05:17 -0700 (PDT)
-From: Alexey Charkov <alchark@flipper.net>
+	dkim=pass (2048-bit key) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="n8XlFbxg"
+Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4j3MkT4pX5zQX6;
+	Mon, 12 Oct 2026 18:05:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cinemaone.ch;
+	s=20250113; t=1791821121;
+	bh=NBV717XEdH/SF7RKcwo0CvdvOJe4MNqIR9zuPbBtMk4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=n8XlFbxgC7VXMyn55RloubFAA2XzrG3AOsmCfF7Vug2SnDpgvMdx6Xzm2jOvlvE/X
+	 m77jaKmSZyfU1NF0xNQgPOo0H7Wx0kJWZLByFI5EXUJN7OZLyMCNZqPQzeaxe9IvbS
+	 PagPvQcKmvt88zqHFe/D103Ijzwzx8gvIO+9+FeTBg3EZqzqG8PzA5sOwGfqYAjUTP
+	 K1iDxdR3AT/stC0MnISxh4smRFkROdcaYw6ek6b15qCeYIJPU8TKpILhmTLyZfvqyo
+	 dEXN65XtsELjz34zZDf8J0p9ikcwjhC6W/IAFgfxc0uj8EY/vXV8S9iyJ+ygk2fNSJ
+	 fnoq9fwbpDxHw==
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4j3MkT0TXmzPCT;
+	Mon, 12 Oct 2026 18:05:21 +0200 (CEST)
+From: Adrian Betschart <adrian.betschart@cinemaone.ch>
 To: stable@vger.kernel.org
-Cc: Alexey Charkov <alchark@flipper.net>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Mark Brown <broonie@kernel.org>
-Subject: [PATCH 6.12.y] regulator: of: fill in supply names in of_regulator_bulk_get_all()
-Date: Mon, 12 Oct 2026 20:05:01 +0400
-Message-ID: <20261012160501.1170944-1-alchark@flipper.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026101214-dash-overpower-7e10@gregkh>
-References: <2026101214-dash-overpower-7e10@gregkh>
+Cc: Dan Wheeler <daniel.wheeler@amd.com>,
+	Roman Li <roman.li@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 6.18.y] drm/amd/display: Don't replace a sink mode that shares the native totals
+Date: Mon, 12 Oct 2026 18:04:20 +0200
+Message-ID: <20261012160420.8194-1-adrian.betschart@cinemaone.ch>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <2026101214-stimulant-aspect-4cca@gregkh>
+References: <2026101214-stimulant-aspect-4cca@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,99 +49,66 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
-[ Upstream commit e2151c29cec73f6cc70abf1c7cbc7b9b202489f5 ]
+decide_crtc_timing_for_drm_display_mode() copies the native mode's CRTC
+timing into the requested mode when clock, htotal and vtotal match.
+That is meant for the modes amdgpu inserts itself:
+amdgpu_dm_create_common_mode() duplicates the native mode and changes
+only hdisplay and vdisplay, so those are sent with the native timing
+and scaled.
 
-of_regulator_bulk_get_all() returns an array it allocated itself, and
-fills in only the consumer of each entry. Every other way of getting a
-bulk array has the supply name set, because the caller provides it, and
-the core expects it to be there: regulator_bulk_enable() prints it when
-a supply fails to enable, so a caller that hands such an array to it
-dereferences uninitialised memory on that path.
+A sink can also offer a real mode with the same clock and totals as
+its native mode. CTA-861 VIC 102 (4096x2160@60) and VIC 97
+(3840x2160@60) both use 594 MHz and 4400x2250. With 3840x2160@60 as
+the preferred mode, a 4096x2160@60 request goes out with the 3840x2160
+timing and the framebuffer scaled into it (dst 3840x2025 at y=67),
+while the AVI InfoFrame still carries VIC 102. A JVC projector then
+reports 3840x2160 and shows a corrupted right edge. 4096x2160@24,
+whose totals differ, is sent and displayed correctly.
 
-Copy each name into the array's own allocation, right behind the
-entries, so that it shares the array's lifetime and callers still have
-nothing extra to free. That also retires the fixed 64 byte stack buffer
-the names were assembled in, which is_supply_name() never bounded the
-copy against.
+Inserted modes keep the native sync positions; a real mode with its
+own active width does not. Compare those too, so only inserted modes
+are patched.
 
+Fixes: 4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
+Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
+Assisted-by: Claude-Code:claude-opus-5-5
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+Reviewed-by: Roman Li <roman.li@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 22f9a2da101c37f821cd00954f81dc598754f4d5)
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260928-b4-rk3576-reboot-mode-v1-0-65486b03bd41@flipper.net?part=3
-Fixes: 27b9ecc7a9ba ("regulator: Add of_regulator_bulk_get_all")
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
-Link: https://patch.msgid.link/20260930-regulator-get-all-v2-1-ca82070d22f2@flipper.net
-Signed-off-by: Mark Brown <broonie@kernel.org>
+(cherry picked from commit 54c998c55fc9cbc391b350d67b86e0c2a0748f1a)
+[ Adrian: this tree keeps the function in amdgpu_dm.c; dropped the KUnit
+  test, its file does not exist here. ]
+Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
+Assisted-by: Claude-Code:claude-opus-5-5
 ---
- drivers/regulator/of_regulator.c | 26 +++++++++++++++++---------
- 1 file changed, 17 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/regulator/of_regulator.c b/drivers/regulator/of_regulator.c
-index deab0b95b663..4570a1910c2a 100644
---- a/drivers/regulator/of_regulator.c
-+++ b/drivers/regulator/of_regulator.c
-@@ -872,15 +872,15 @@ static int is_supply_name(const char *name)
- int of_regulator_bulk_get_all(struct device *dev, struct device_node *np,
- 			      struct regulator_bulk_data **consumers)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 19c3f56017ce..bb1fae39cd39 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6799,10 +6799,15 @@ decide_crtc_timing_for_drm_display_mode(struct drm_display_mode *drm_mode,
+ 					const struct drm_display_mode *native_mode,
+ 					bool scale_enabled)
  {
--	int num_consumers = 0;
-+	int num_consumers = 0, names_len = 0;
- 	struct regulator *tmp;
- 	struct regulator_bulk_data *_consumers = NULL;
- 	struct property *prop;
-+	char *names;
- 	int i, n = 0, ret;
--	char name[64];
- 
- 	/*
--	 * first pass: get numbers of xxx-supply
-+	 * first pass: get numbers of xxx-supply and the room their names take
- 	 * second pass: fill consumers
- 	 */
- restart:
-@@ -890,16 +890,19 @@ int of_regulator_bulk_get_all(struct device *dev, struct device_node *np,
- 			continue;
- 		if (!_consumers) {
- 			num_consumers++;
-+			names_len += i + 1;
- 			continue;
- 		} else {
--			memcpy(name, prop->name, i);
--			name[i] = '\0';
--			tmp = regulator_get(dev, name);
-+			memcpy(names, prop->name, i);
-+			names[i] = '\0';
-+			tmp = regulator_get(dev, names);
- 			if (IS_ERR(tmp)) {
- 				ret = PTR_ERR(tmp);
- 				goto error;
- 			}
-+			_consumers[n].supply = names;
- 			_consumers[n].consumer = tmp;
-+			names += i + 1;
- 			n++;
- 			continue;
- 		}
-@@ -910,11 +913,16 @@ int of_regulator_bulk_get_all(struct device *dev, struct device_node *np,
- 	}
- 	if (num_consumers == 0)
- 		return 0;
--	_consumers = kmalloc_array(num_consumers,
--				   sizeof(struct regulator_bulk_data),
--				   GFP_KERNEL);
-+	/*
-+	 * The supply names are kept in the same allocation as the array, so
-+	 * that they share its lifetime and the caller has nothing extra to
-+	 * free.
-+	 */
-+	_consumers = kzalloc(size_add(size_mul(num_consumers, sizeof(*_consumers)),
-+				      names_len), GFP_KERNEL);
- 	if (!_consumers)
- 		return -ENOMEM;
-+	names = (char *)(_consumers + num_consumers);
- 	goto restart;
- 
- error:
++	/* Inserted modes copy the native sync; a sink mode with equal totals may not */
+ 	if (scale_enabled || (
+ 	    native_mode->clock == drm_mode->clock &&
+ 	    native_mode->htotal == drm_mode->htotal &&
+-	    native_mode->vtotal == drm_mode->vtotal)) {
++	    native_mode->vtotal == drm_mode->vtotal &&
++	    native_mode->hsync_start == drm_mode->hsync_start &&
++	    native_mode->hsync_end == drm_mode->hsync_end &&
++	    native_mode->vsync_start == drm_mode->vsync_start &&
++	    native_mode->vsync_end == drm_mode->vsync_end)) {
+ 		if (native_mode->crtc_clock)
+ 			copy_crtc_timing_for_drm_display_mode(native_mode, drm_mode);
+ 	} else {
 -- 
-2.55.0
+2.56.0
 
