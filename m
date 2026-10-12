@@ -1,176 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-227.mta0.migadu.com [91.218.175.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF4E536D4E1;
-	Mon, 12 Oct 2026 06:13:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC903A6F11
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 06:29:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791785620; cv=none; b=bwjumjz19hSPb3u2W9hzNqQtkIADgio5jBTh0tAmpK1n//hKYTPJFhlWBiBDONddi0Bd0UM6DGVOrnapuHlzYc62s8Ez5+hnD6VSlvvHa7A+KQyszacxBuEFfUH20F8wYpWLGmSNox3GFNkyLtiVsjM+oNiUKSD8AIF9bluer2Q=
+	t=1791786558; cv=none; b=JO/ZeEIUYIackttPLXSupyVHvTvxoot0mm24ADKDq22si3QPX8EdhMZhw9cF0h+gVR1S3tXF4+Wf5K1XfQ4jm1DEolnI3b3uR3tCdOtBfQ9XuxrHCMqi3G163HC3dSNLey7cguTd1yAPDeDXwq9Ei5Hvqph7tClb+S3xNx31xIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791785620; c=relaxed/simple;
-	bh=iZz2bPV5WngNL4geLGJqviGwHKnnjxqhaqh2GRbUE8g=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=nXlxCrELxjp9TtMMSdqDQwlXo+1bIUuGSa79wdU+2bwKS+8KjIUWdmK0Gkvipusf3uL3qCqkmPGvwolmlaea5c1wFPGxkkim2vkNUz0wkXvWcZ+FPFsECtHPWCXR1UXPrzKGfhRzByf7TxyiGsnZji5FJ4tc004Qe4hA7O0zd+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DKnEcbYC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791786558; c=relaxed/simple;
+	bh=j0l5Yeu1IXxRzCWqFLFRgG5sM1UaUE3FtBu5zbwZqkM=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=aUXnprE6hsd4SFm2ONYLg6GXxA7RuhoosCDqf3XFwKqtCexJmBfS5Zv2zkt42aX4r/JDaQyPDPEb8JTdQON6XKqmaxHgh330kABRRqp+zwL6m04YYI8p0ehGMiYc25asLWxcRi68ghZG3s4WMhaQ4adYOJ66aODjsY4HvyTNzW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RSfSIjWC; arc=none smtp.client-ip=91.218.175.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DKnEcbYC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9EED1F0089B;
-	Mon, 12 Oct 2026 06:13:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791785619;
-	bh=8A2NzWuDCmn36ZsBruaeSIAejcK/P07F4bleLBGcRAw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=DKnEcbYCans0dbdiRQycIAOcS2Cmk+bCGqJ9+p5VwUIhl2xN1PU0Wm2rWh3v4vv6e
-	 mChJeglL2GamZ+1n+e8h6peMFq/uxjpatWFB5vHxgzhUtW92A9j1h9o6pKmeO3OOHf
-	 ETyR6aAPQvyFJZedRIB1gNl9YJerdHUcyCBI3zKFOXsYGoSPlzY3CiiCbhrnq773Uc
-	 HT3VEc0RqEyRvHAmW8FfIWhOJg/wjfpnd0lyJkUAITJ6eMlI+eIDs9NYjoFmFZmkz9
-	 qIvP4MV7Y/TjxFuk7OdkoKFG15StlJ8WMc1xKPVQdUHYjmCIS07t9hh6RcIARN0A02
-	 K7yIYCkku1eHw==
-Subject: Re: [PATCH v3] netfilter: nf_nat: Fix stale outer UDP checksum on
- VXLAN encapsulated packets
-From: netdev-bot+sashiko@kernel.org
-To: lvjunyu@cmss.chinamobile.com
-Cc: pablo@netfilter.org, fw@strlen.de, phil@nwl.cc,
- netfilter-devel@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Mon, 12 Oct 2026 06:13:38 +0000
-Message-ID: <179178561828.434549.9529684167778428667@kernel.org>
-In-Reply-To: <20261008054228.752274-1-lvjunyu@cmss.chinamobile.com>
-References: <20261008054228.752274-1-lvjunyu@cmss.chinamobile.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RSfSIjWC"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=j0l5Yeu1IXxRzCWqFLFRgG5sM1UaUE3FtBu5zbwZqkM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791786553; v=1; x=1792391353;
+ b=RSfSIjWCUtrl0Ndo0OsOVB2S6CAmm/XWiRwea0euAbUI0XJJtKhwxxPZKTTXR7E8x4NfNR1T
+ uqu8uzGH2gxX1jMwaUdFuNplONOwQ8Evpx+SJnWXoMCs7C2OpvN2UEtSYb3R3jxhD/QkVNAZZWL
+ p/9/qWgp8qD4cfMVm5e/w6qY=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3ba7e7c67ee29c0e;
+	Mon, 12 Oct 2026 06:29:13 +0000
+X-Mizu-Trace-ID: 3ba7e7c67ee29c0e
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Date: Mon, 12 Oct 2026 06:29:13 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <8a73778af0a82247f689236e0e7fb8387db71f75@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH rtw-next] wifi: rtw88: sdio: reject oversized RX packets
+To: "Ping-Ke Shih" <pkshih@realtek.com>
+Cc: "Martin Blumenstingl" <martin.blumenstingl@googlemail.com>, "Ulf Hansson"
+ <ulfh@kernel.org>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Kalle
+ Valo" <kvalo@kernel.org>, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <13bac899a2ea49d28dcbd4a8c765f3ca@realtek.com>
+References: <20261009123022.87787-1-luka.gejak@linux.dev>
+ <13bac899a2ea49d28dcbd4a8c765f3ca@realtek.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+October 12, 2026 at 3:53 AM, "Ping-Ke Shih" <pkshih@realtek.com> wrote:
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+>=20
+>=20Luka Gejak <luka.gejak@linux.dev> wrote:
+>=20
+>=20>=20
+>=20> --- a/drivers/net/wireless/realtek/rtw88/sdio.c
+> >  +++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+> >  @@ -1389,6 +1389,14 @@ static void rtw_sdio_rxfifo_recv(struct rtw_d=
+ev *rtwdev, u32 rx_len)
+> >  curr_pkt_len =3D ALIGN(pkt_offset + pkt_stat.pkt_len,
+> >  RTW_SDIO_DATA_PTR_ALIGN);
+> >=20=20
+>=20>  + if (unlikely(pkt_offset + pkt_stat.pkt_len > rx_len)) {
+> >=20
+>=20Can you use real hardware to test this patch to see if there is actua=
+l case
+> falling into this branch? (see below)
+>=20
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Sure,=20it does happen. I ran it on the 8723BS with debug_mask=3D0x40000 =
+for 3
+hours 27 minutes, cycling iperf3 RX traffic, scans and reassociations, an=
+d
+the message came out twice. Both times the descriptor claimed more bytes
+than were left in that transfer, so this is not just a theoretical bound.
+The aggregate gets dropped, the link stays up, and nothing else stood out
+at the time.
 
-- [High] The fix covers only one caller, __udp_manip_pkt() in
-  net/netfilter/nf_nat_proto.c.
+> >=20
+>=20> + rtw_dbg(rtwdev, RTW_DBG_SDIO,
+> >  + "oversized RX packet: %u, %u bytes left\n",
+> >  + pkt_offset + pkt_stat.pkt_len, rx_len);
+> >  + dev_kfree_skb_any(skb);
+> >  + return;
+> >  + }
+> >  +
+> >  if ((curr_pkt_len + pkt_desc_sz) >=3D rx_len) {
+> >=20
+>=20Because I wonder if this condition is right? In my perspective, the
+> curr_pkt_len =3D pkt_offset + pkt_stat.pkt_len + align_bytes
+>  =3D pkt_desc_sz + ... + pkt_stat.pkt_len + align_bytes
+>=20
+>=20Why does the if-condition plus pkt_desc_sz twice and compare with rx_=
+len?
+>=20
 
---
+pkt_desc_sz=20turns up twice because two descriptors are involved. The on=
+e
+inside pkt_offset belongs to this entry:
 
-netfilter: nf_nat: Fix stale outer UDP checksum on VXLAN encapsulated packets
+        pkt_offset =3D pkt_desc_sz + pkt_stat.drv_info_sz + pkt_stat.shif=
+t;
+        curr_pkt_len =3D ALIGN(pkt_offset + pkt_stat.pkt_len,
+                             RTW_SDIO_DATA_PTR_ALIGN);
 
-This commit changes __udp_manip_pkt() to detect the LCO state of a
-CHECKSUM_PARTIAL non-GSO skb. That state is when csum_start + csum_offset
-does not point at the outer udphdr check field. In that state the patch
-switches ip_summed to CHECKSUM_NONE for a moment, so the address and port
-deltas are applied to the complete checksum through csum_replace*().
+rx_len is what is left of the transfer from this descriptor on, since the
+loop subtracts curr_pkt_len from it each time round. The second pkt_desc_=
+sz
+is the header of the entry after this one, so
 
-> diff --git a/net/netfilter/nf_nat_proto.c b/net/netfilter/nf_nat_proto.c
-> index 64b9bac228eae..6779e9f2812d9 100644
-> --- a/net/netfilter/nf_nat_proto.c
-> +++ b/net/netfilter/nf_nat_proto.c
-> @@ -54,9 +54,39 @@ __udp_manip_pkt(struct sk_buff *skb,
->  		portptr = &hdr->dest;
->  	}
->  	if (do_csum) {
+        (curr_pkt_len + pkt_desc_sz) >=3D rx_len
 
-[ ... ]
+means there is no room left for another descriptor. That makes this the l=
+ast
+entry, and the original skb can go up instead of a copy so the stack free=
+s
+it. Without that term, whenever less than pkt_desc_sz is left behind this
+entry, the loop would come round once more and read a descriptor out of
+padding. curr_pkt_len is rounded up to 8, so it stops up to 7 bytes early=
+,
+which only decides whether the last packet is copied or not.
 
-> +		bool lco = skb->ip_summed == CHECKSUM_PARTIAL &&
-> +			   !skb_is_gso(skb) &&
-> +			   (skb->head + skb->csum_start + skb->csum_offset) !=
-> +			   (unsigned char *)&hdr->check;
-> +
-> +		if (lco)
-> +			skb->ip_summed = CHECKSUM_NONE;
-> +
->  		nf_csum_update(skb, iphdroff, &hdr->check, tuple, maniptype);
->  		inet_proto_csum_replace2(&hdr->check, skb, *portptr, newport,
->  					 false);
-> +
-> +		if (lco)
-> +			skb->ip_summed = CHECKSUM_PARTIAL;
-> +
+> However, it should enter to handle/free the last aggregated packet.=20
+>=20Can you enlighten me how it looks like that?
+>=20
 
-[Severity: High]
-This change only covers the nf_nat path. Can the software flowtable fast
-path still corrupt the outer UDP checksum for the same LCO packets?
+For=20a sane aggregate that is exactly what happens. My check reacts to t=
+he
+other case: the descriptor claims more bytes than were read, so curr_pkt_=
+len
+is already past rx_len and this same branch hands the entry to
+rtw_sdio_rx_skb() with a pkt_len the transfer does not have. I would rath=
+er
+drop that entry and the rest of the transfer than pass it up, and after a
+descriptor like that the offset of the next one cannot be trusted anyway.
 
-Once the conntrack entry is offloaded (for example with "flow add @ft" plus
-MASQUERADE), later packets of the outer VXLAN/Geneve flow take this path:
-
-nf_flow_offload_ip_hook()
-  nf_flow_nat_ip()
-    nf_flow_snat_port() -> nf_flow_nat_port_udp()
-    nf_flow_nat_ip_l4proto() -> nf_flow_nat_ip_udp()
-
-They never reach __udp_manip_pkt().
-
-In net/netfilter/nf_flow_table_ip.c:nf_flow_nat_ip_udp():
-
-	if (udph->check || skb->ip_summed == CHECKSUM_PARTIAL) {
-		inet_proto_csum_replace4(&udph->check, skb, addr,
-					 new_addr, true);
-
-There is no check here on whether csum_start + csum_offset points at this
-outer udph->check. Because of that, inet_proto_csum_replace4() takes the
-seed branch:
-
-net/core/utils.c:inet_proto_csum_replace4() {
-	...
-	} else if (pseudohdr)
-		*sum = ~csum_fold(csum_add(csum_sub(csum_unfold(*sum),
-						    (__force __wsum)from),
-					   (__force __wsum)to));
-}
-
-For an LCO complete checksum, this applies the address delta with the
-wrong sign.
-
-In net/netfilter/nf_flow_table_core.c:nf_flow_nat_port_udp():
-
-	if (udph->check || skb->ip_summed == CHECKSUM_PARTIAL) {
-		inet_proto_csum_replace2(&udph->check, skb, port,
-					 new_port, false);
-
-With pseudohdr=false under CHECKSUM_PARTIAL, this is a no-op. That is the
-same lost port delta this patch fixes in __udp_manip_pkt().
-
-nf_flow_nat_ipv6_udp() has the same pattern with
-inet_proto_csum_replace16(..., true). IPv6 VXLAN computes the outer
-checksum by default, so udp6_set_csum() takes the LCO branch there too.
-
-If so, the first packets of the flow would be fixed by this patch. Would
-packets after offload still be dropped by the receiver with
-UdpInCsumErrors, which is the symptom the commit message describes?
-
-Other callers make the same assumption. tcf_nat_act() in
-net/sched/act_nat.c calls inet_proto_csum_replace4(&udph->check, skb,
-addr, new_addr, true) under the same condition. In
-net/netfilter/ipvs/ip_vs_proto_udp.c, udp_partial_csum_update() treats
-every CHECKSUM_PARTIAL uh->check as a seed, though it does its own
-arithmetic.
-
-The shared helpers (inet_proto_csum_replace4/16/_by_diff) seem to be where
-the assumption lives. Would a helper-level fix work better than a
-per-caller ip_summed flip? For example, the helpers could take the seed
-path only when:
-
-	skb_checksum_start(skb) + skb->csum_offset == (u8 *)sum
-
-and use csum_replace*() otherwise.
-
-The commit message also doesn't mention these other call sites.
-
->  		if (!hdr->check)
->  			hdr->check = CSUM_MANGLED_0;
->  	}
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008054228.752274-1-lvjunyu%40cmss.chinamobile.com
+Best regards,
+Luka Gejak
