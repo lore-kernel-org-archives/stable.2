@@ -1,110 +1,138 @@
-Received: from mta1.migadu.com (out-94.mta1.migadu.com [95.215.58.94])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B481E48CD55
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 14:19:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF41748E0D3;
+	Mon, 12 Oct 2026 14:24:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791814751; cv=none; b=s64OYJD8JJFCBLTpEYYC1vgm1qqMmSdn1wOSF6bIBQUnkLZHihQNEKBZDb/t+zPwNuilymMBv0fEpZDuNVrueicJIBSyx/ndCb6nisT/+T329B8hcZtTGMkfxkOkLatuGtUL2H4GudqDYiVKbqk6dTq1ylkO7YKrRpm8LplVrF8=
+	t=1791815045; cv=none; b=U3J2sQZ3V0US61PGWNcmYV45HzgShNiRRSICSE/IrxHr4Z6ARoiHmdUUAbC3aXmQnv3Qd49/WSKV1EZItCq08Yxhg6OUye9nQp9BmGJFdzB/BvuWmLWNSytsUpdZY6h3w0bIT2VHA5zBACUep9JmFhCQuYQv/ghKS0rdiVIOJ6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791814751; c=relaxed/simple;
-	bh=a9Lxp9FaV4JFLzr9Ab9brfnJxgFlHFGfCx6e2RO4akA=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=b3T4kBrqT7Ene6KE6N586sxUBQfs9QD53LxwZHtkOjiLgley/RR7aNGn6orRpdZOqoRPn+WcppNjdy5HQeiQ0oxX6Euvz/Qfl8v9oVQ1uRuNtOjIkMyUlJHfbzTZou5qVthsQbBY8fSCDlP/IazMRuqEX0PoeFsneOjJeUujWrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bdgf1hBg; arc=none smtp.client-ip=95.215.58.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791815045; c=relaxed/simple;
+	bh=e5u7Q6/lf+tkTUuzF7jxOV25e2hAJ1vVxdBBAWz1Occ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Pwhbmb2477E4DzsnYM5rTJ0jw7Uw4V9n3A4UTQMN1oyJIwesMhXg9aTQmmfTLSLvWUUs6z9KMaQ19LTKXQ6RsH8A9o4ZNXYrAQ5ko4gUFNH9St80FQWdsjUWCGZna92+x+xrNXF++1jYR5jNDNP8JfdaVDt/Kb8LFXIjii2ztN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=zf7kh9tQ; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bdgf1hBg"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=a9Lxp9FaV4JFLzr9Ab9brfnJxgFlHFGfCx6e2RO4akA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791814746; v=1; x=1792419546;
- b=bdgf1hBgzP14dCrA7q2lbjH9kmy+Os5rlYymEQwBtv/S7cezE/OLBQuCrsa6FCxIZ4BlHzUM
- hdQkeRMQgs4/HYzOBH0m1HII8mxJAJtoll/5wH1PJ3wUR8d8yX3HHqgBRefeR+p+oCDZxYVso7n
- ah0W2oT84sHqs634bp/U/v+k=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ad3dbfd57bfdc824;
-	Mon, 12 Oct 2026 14:19:05 +0000
-X-Mizu-Trace-ID: ad3dbfd57bfdc824
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="zf7kh9tQ"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 55138A012B;
+	Mon, 12 Oct 2026 16:23:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1791815032; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=QVj3/QJ0hK8bdL+nizOsq34wKHXNf3Wx2LzCotAFaeM=;
+	b=zf7kh9tQpNkyVPBEAXbq81UOCDmvnBwRxr9dZoexhY3/rU/YDft8JwSL7vg7fJxTS5ce5x
+	cEZjfxQqwHX4uRIGeDLMfQEDSX+ZKrlmwjVIM744fEabEnsVfSpEHwSU0A9eM2ky/pHgWc
+	6zl0Mm+KKZDcRWgxDshLoIrO2DtljfkVvMczC8PdyHoYG5XeHe29NPXyyxRwie8Rnvqhtn
+	C0MjHlWBc6phmNRB0p8oHzzGJ0hUBxUpa8pMcTajjj1KjFydWPJljAl/KV2BGlbaZPhJlM
+	iQc1VYF458G9zvGcX08HRTdT++PeyKRPZ4baNE5TBd38FhXzvVL6Z7qxCJ2Wlw==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Date: Mon, 12 Oct 2026 16:23:50 +0200
+Subject: [PATCH v2] serial: amba-pl011: keep transmitter enabled when
+ disabling RS485
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 12 Oct 2026 14:19:04 +0000
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <7e9af4f7528da1307cf62e53cf6b00fa9c4f674f@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH 5.10] staging: rtl8723bs: fix OOB read in OnAssocRsp() IE
- loop
-To: "Mikhail Dmitrichenko" <mdmitrichenko@astralinux.ru>,
- stable@vger.kernel.org, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>
-Cc: "Mikhail Dmitrichenko" <mdmitrichenko@astralinux.ru>, "Sasha Levin"
- <sashal@kernel.org>, "Fabio Aiuto" <fabioaiuto83@gmail.com>, "Alexandru
- Hossu" <hossu.alexandru@gmail.com>, "Hans de Goede"
- <hdegoede@redhat.com>, "Navaneeth K" <knavaneeth786@gmail.com>, "Michael
- Straube" <straube.linux@gmail.com>, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org, "Dan Carpenter" <error27@gmail.com>,
- "Andrei Khomenkov" <khomenkov@mailbox.org>, "Dalvin-Ehinoma Noah
- Aiguobas" <fliegbert2@gmail.com>, "Michael Huang"
- <tehsiu.huang@gmail.com>, "Jinke Wu" <coolbeaner@126.com>, "Nikolay
- Kulikov" <nikolayof23@gmail.com>, "William Hansen-Baird"
- <william.hansen.baird@gmail.com>, "Serhat Kumral"
- <serhatkumral1@gmail.com>, "Nazar Kletskii" <nazar.kletskii@gmail.com>,
- "Jennifer Guo" <guojy.bj@gmail.com>, "Hans de Goede" <hansg@kernel.org>,
- lvc-project@linuxtesting.org, "stable" <stable@kernel.org>
-In-Reply-To: <20261012140642.1076-1-mdmitrichenko@astralinux.ru>
-References: <20261012140642.1076-1-mdmitrichenko@astralinux.ru>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261012-fix-pl011-rs485-txe-v2-1-e9bf7d218389@tipi-net.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NwQ6CMBBEf4X07JpuwSqe/A/DAcpW1hggbSUY0
+ n+3xbu3ecmbmU14ckxeXItNOFrY8zQmUIdCmKEdHwTcJxZKKo0SESyvML9ycr66nCCsBFYjoal
+ 1betWpObsKGn76r35sX93TzIhT2VjYB8m99lvF8ze/4cFAaGUqtNGllV3trfAM8NI4diTaGKMX
+ xkdK0XKAAAA
+X-Change-ID: 20261011-fix-pl011-rs485-txe-f61e1c969f9a
+To: Russell King <linux@armlinux.org.uk>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Lino Sanfilippo <LinoSanfilippo@gmx.de>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ stable@vger.kernel.org, Nicolai Buchwitz <nb@tipi-net.de>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-October 12, 2026 at 4:06 PM, "Mikhail Dmitrichenko" <mdmitrichenko@astral=
-inux.ru> wrote:
+Disabling RS485 on an open port calls pl011_rs485_tx_stop(), which
+turns off the transmitter. Only the RS485 TX path turns it back on, so
+any later output stays queued and tcdrain() hangs until the port is
+closed.
 
+pl011_rs485_tx_stop() also checks only the hardware FIFO. If a DMA
+transfer has started but has not filled the FIFO yet, the transmitter
+is turned off under the transfer and the DMA channel never recovers.
 
->=20
->=20From: Alexandru Hossu <hossu.alexandru@gmail.com>
->=20
->=20commit f9654207e92283e0acac5d64fe5f8835383b5a23 upstream.
->=20
->=20The IE parsing loop in OnAssocRsp() advances by (pIE->length + 2) eac=
-h
-> iteration but only guards on i < pkt_len. When a malicious AP sends an
-> AssocResponse whose last IE has only one byte remaining in the frame
-> (the element_id byte lands at pkt_len-1), the loop reads pIE->length
-> from pframe[pkt_len], which is one byte past the allocated receive buff=
-er.
->=20
->=20Additionally, even when the header bytes are in bounds, pIE->length
-> itself can extend the data window beyond pkt_len, silently passing a
-> truncated IE to the handler functions.
->=20
->=20Add two guards at the top of the loop body:
->  1. Break if fewer than sizeof(*pIE) bytes remain (can't read header).
->  2. Break if the IE's declared data extends past pkt_len.
->=20
->=20Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
-> Cc: stable <stable@kernel.org>
-> Signed-off-by: Alexandru Hossu <hossu.alexandru@gmail.com>
-> Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
-> Link: https://patch.msgid.link/20260522004531.1038924-6-hossu.alexandru=
-@gmail.com
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[...]
+When leaving RS485 mode, cancel pending deferred starts and stops, leave
+the transmitter enabled and start any TX that was still waiting for
+delay_rts_before_send.
 
-Hi Mikhail,
+Fixes: 8d479237727c ("serial: amba-pl011: add RS485 support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+---
+Noticed while implementing a DMX master on a CM5 with its PL011.
+Userspace turns RS485 mode off to send the break, and the port then
+stopped transmitting.
 
-It seems to me that this was sent by accident by running git format-patch=
- -1
+Tested on that board with an RS485 transceiver at 9600, 115200 and
+250000 baud.
+---
+Changes in v2:
+- Start TX that was still waiting for delay_rts_before_send instead of
+  dropping it (sashiko)
+- Link to v1: https://patch.msgid.link/20261011-fix-pl011-rs485-txe-v1-1-302b6c034b7f@tipi-net.de
 
-You probably forgot to commit so git made last commit into a patch file.
+To: Russell King <linux@armlinux.org.uk>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jiri Slaby <jirislaby@kernel.org>
+To: Lino Sanfilippo <LinoSanfilippo@gmx.de>
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-serial@vger.kernel.org
+---
+ drivers/tty/serial/amba-pl011.c | 25 ++++++++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
 
-Either way staging rtl8723bs is getting removed in linux 7.4 so any
-further commits for rtl8723bs are discouraged.
+diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
+index c4824c201e1c..2ad6ccfdb52c 100644
+--- a/drivers/tty/serial/amba-pl011.c
++++ b/drivers/tty/serial/amba-pl011.c
+@@ -2397,8 +2397,31 @@ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
+ 	struct uart_amba_port *uap =
+ 		container_of(port, struct uart_amba_port, port);
+ 
+-	if (port->rs485.flags & SER_RS485_ENABLED)
++	if ((port->rs485.flags & SER_RS485_ENABLED) &&
++	    !(rs485->flags & SER_RS485_ENABLED)) {
++		bool tx_pending = uap->rs485_tx_state == WAIT_AFTER_RTS;
++		u32 cr = pl011_read(uap, REG_CR);
++
++		/*
++		 * Leaving RS485 mode, which only enables the transmitter while
++		 * sending. Don't stop it, as that stalls a DMA transfer still
++		 * in flight. Drop pending deferred starts and stops and keep
++		 * it enabled.
++		 */
++		hrtimer_try_to_cancel(&uap->trigger_start_tx);
++		hrtimer_try_to_cancel(&uap->trigger_stop_tx);
++		uap->rs485_tx_state = OFF;
++
++		cr |= UART011_CR_TXE | UART011_CR_RXE;
++		pl011_write(cr, uap, REG_CR);
++
++		/* Start TX that was still waiting for delay_rts_before_send */
++		if (tx_pending && !uart_tx_stopped(port) &&
++		    !pl011_dma_tx_start(uap))
++			pl011_start_tx_pio(uap);
++	} else if (port->rs485.flags & SER_RS485_ENABLED) {
+ 		pl011_rs485_tx_stop(uap);
++	}
+ 
+ 	/* Make sure auto RTS is disabled */
+ 	if (rs485->flags & SER_RS485_ENABLED) {
+
+---
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+change-id: 20261011-fix-pl011-rs485-txe-f61e1c969f9a
 
 Best regards,
-Luka Gejak
+--  
+Nicolai Buchwitz <nb@tipi-net.de>
+
