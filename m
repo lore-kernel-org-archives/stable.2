@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F03A74A0156
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:25:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CEEA492E3F
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:25:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791818724; cv=none; b=aopGK6/Al2IQbwR0FwkBAlIu6YQD+bIDC9vWkjJ1SRu3qWd5Lyr3Hhku3L1BmA6oxvoSxo/KZEoQWJPZ5dEvYtV86oBxdofC7+RQAVu9zMEgwaNHA7xt1AOC6ip1tmUr5lI1f1rv8LD3iuDscjZwqs42OxyVC126t6IyRVbcGvg=
+	t=1791818731; cv=none; b=L+BuvRjHKJXYjxCBYOW92n00z7IM5cIzEejKzToBQHUpn5Ap2a/HFxIxmgsLWwu6L+e0ZrbBFwkaxsB7bB6FTGoskRClWxCP8JYnDj3JSI5UFUvaje0SlAE0yPRy6FZC3NDvewf9b+O2G94rMRGZhiHr+5zEf3Wpixw7FAZGKWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791818724; c=relaxed/simple;
-	bh=cSaL3viJXgSsFqQraxuL1/2Yh7ZK5UDI8E3Tx4ui9Jo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=iO5y2z2FeCshYamMTbxyjIjWUYlI1N0Z29wjHAqlILTkx+h4jN9gIqWQnRfOA1lXm6GfbJqU0jsiZtYiFQYvWm29R7ZxtNv1bJj88aFYRmpqyXMngqIMGo5l3L4Ji+kYmex89ejuedK5t6VsGcdrmcEAK5y3qzehzOjJ/MmMzEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=D3hy1QAy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791818731; c=relaxed/simple;
+	bh=uCVeqeWGpIKFkb1yB7X5XfB9BSGG3wiLiyiBdQdwZ+A=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GO0iIx3hiAZ/oeBXUNmmwhhNfuc4MnF0O4NoGT75fDOSt7QM4eWqDISIpFGtvr6Tsp6i2U1Tzv4nKL905avVxrYkurJGlsPRDvGteF8VvEtQvROSGl469c+7+hz8VgKsapkzQvKKctSwBtsBwCWY8KgNv5zMrhBSwRIq3Z1qBDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ef5Z9+wK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="D3hy1QAy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E895F1F0089E;
-	Mon, 12 Oct 2026 15:25:21 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ef5Z9+wK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70E041F0089C;
+	Mon, 12 Oct 2026 15:25:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791818722;
-	bh=xd4fLWrTG7vvggkhBiNHkK1agivxtXsaPwtetVw3gB4=;
+	s=korg; t=1791818728;
+	bh=rYLyNx8CkHuJEdK6fc2CJZEnSawV4RjNhI7zvZxDYGA=;
 	h=Subject:To:Cc:From:Date;
-	b=D3hy1QAyba0fogNQmr72JKbUfsKnGtZJpdaPkiQhObUrHxA6CFct/RKKkXDVbXSLV
-	 MvUcl5asbNe10lJ/lRcaASrNtVtTDxYdw20ioNrKom83wvfJxAW6GSgY652zak/5ph
-	 8a4zGDOPFk9zs2i96hyLnF0sgtq20MW5UL99NzaM=
-Subject: FAILED: patch "[PATCH] sched_ext: Fix CPU hotplug hang when a dying CPU's tasks sit" failed to apply to 7.2-stable tree
+	b=Ef5Z9+wKrnOZQ/Oh7Q8ojE8ysLtfXMlAVXHddxxgQPhPBgFA7v9S7cxjy5jpBtrW1
+	 cQHEX0RhTVLSdlyOj+oAG6C5Q70DROVXlCV0vJUo/c7YbMuxfWSgY/L1CSBlJoF3+5
+	 8L5YPuhbkMO5IegWVWoFh2rI1twRihUB16rTHh4k=
+Subject: FAILED: patch "[PATCH] sched_ext: Fix CPU hotplug hang when a dying CPU's tasks sit" failed to apply to 6.18-stable tree
 To: tj@kernel.org,arighi@nvidia.com,joonwoo@meta.com,mohaalap@meta.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 17:25:24 +0200
-Message-ID: <2026101224-counting-undrafted-69cb@gregkh>
+Date: Mon, 12 Oct 2026 17:25:25 +0200
+Message-ID: <2026101225-creatable-valuables-8145@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x d35a535d3e3e71f92a051d94e415f43612c4edfc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101224-counting-undrafted-69cb@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101225-creatable-valuables-8145@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
