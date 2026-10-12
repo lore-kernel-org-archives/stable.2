@@ -1,67 +1,46 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6498C394E93
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 07:28:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C344F43BDBC;
+	Mon, 12 Oct 2026 07:31:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791790097; cv=none; b=ua2QXIIKeIKhhZ03ZrVf9ctzTVzNLSZEpuJ2nd0DW+aDBIBOxLfqDn1q6ej4tlXh50ncEuFL1RoCOcOphKWWPB58Q7YmcTeoaDofCfJVFjpzfkfw72OQuRki9wmDs8nUShwsKvaTQreffbYgOrcB839HoLAg3p10ZAhrWUrw04U=
+	t=1791790268; cv=none; b=PMUXFAXajFd+7BkUmy4CgAolQpq8NQcaBtRoVAfb0GroOrKPUtpDmnC7nWIc2XfMJUQyQ3e0TQYW6FmEvntCGKLUDOwn3xao7TJvYQH6RKKl9r5oxG/kdsvg6ZD6PoNKUvna0FjjbEAIr9wa+93Nc25ue3U1j/e1mTzyR3el5yw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791790097; c=relaxed/simple;
-	bh=i5vXG8WcFQpNI29mEmej2KCDO/kthf+LUyR9oix9ZYY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qSLH+6SEEpUIoIW244WQI/h9EGFU5mP5POFGKXnS6bCY0q63PtvmPT6PAD1m0YlmD40qVp3lxow/DdAZ/1kyXRDfbUZrFWSoJqdJqDT/imtVxEp+n/59tB9v58ziggZny0ZgMQPNfAuw1XkoGTkXo3BnIGttedK6gtuHKAAEOW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=EMwLVedP; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791790268; c=relaxed/simple;
+	bh=9/2ubBB//6cAt/GDTJmu+OCmSh9t0gsGY0HZnpEQk7g=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MUrlJFr7VL7cOGn84U+0j0o/1pUozay/WEv39lrID4dC50V//wxflfJN6TZawa6tE7OCwJ+EH62GyhB2JsNFeRwi8padcEx7OezcwlSIP9D6tws61NnBttJP3JhcdJG/DU5sd+w2xZoz2xeHoyCmshvXY9SetBXpPfA75jUdmAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=dR/dBLA6; arc=none smtp.client-ip=220.197.31.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="EMwLVedP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791790093;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=JFMSjsXe5UI1XI9T1nXH98CQv6v+PtVDqGkYRf/nSkw=;
-	b=EMwLVedPu3MiUFookJA0PkLiz/+lK3Nc5Xe6ETn7XGPOcmXY4yPYYXfZDYcPfn5i5whH9n
-	X+r0aQd3LRz9SyWuHsnjtE/EDcsuAHeA5yV7mB7heQUEjhUrjDkkjCKvkPeLimDxrIXC7X
-	thksli5ByOYFbOg04z8BcarX6RRGsGA=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-455-IxSNE_aGO9arFrm5FvexEg-1; Mon,
- 12 Oct 2026 07:28:10 +0000
-X-MC-Unique: IxSNE_aGO9arFrm5FvexEg-1
-X-Mimecast-MFC-AGG-ID: IxSNE_aGO9arFrm5FvexEg_1791790088
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3C3E91955F3B;
-	Mon, 12 Oct 2026 07:28:07 +0000 (UTC)
-Received: from localhost (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id C6D5B1956041;
-	Mon, 12 Oct 2026 07:28:05 +0000 (UTC)
-From: Vaibhav Nagare <vnagare@redhat.com>
-To: davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	edumazet@google.com,
-	michael.chan@broadcom.com,
-	pavan.chebbi@broadcom.com
-Cc: ast@kernel.org,
-	daniel@iogearbox.net,
-	hawk@kernel.org,
-	john.fastabend@gmail.com,
-	sdf@fomichev.me,
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="dR/dBLA6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Th
+	7i9MmgPqf+eKL72J4AGfFVFML6R6BAitK93cMpub0=; b=dR/dBLA63a+lX0QBZA
+	k7bqPIkoFdkezKQP/iVEW6h67BitazIAKcEr7ZxPbpzuyfrtL/xUkQCMOfx25XAS
+	kbi9HlWDoys132+CAdkNkUc0ZylfajS077L+OUwgnirccyAMMc2Oe3Rf6OeszN3K
+	TLozhq/dTMcuOlissHbSNglNg=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3N_p4jMxqvoGeAw--.28607S2;
+	Mon, 12 Oct 2026 15:30:02 +0800 (CST)
+From: Linkui Xiao <xiaolinkui@126.com>
+To: anthony.l.nguyen@intel.com,
+	przemyslaw.kitszel@intel.com,
 	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: intel-wired-lan@lists.osuosl.org,
 	netdev@vger.kernel.org,
-	bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	nagarevaibhav@gmail.com,
-	Vaibhav Nagare <vnagare@redhat.com>,
+	Linkui Xiao <xiaolinkui@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH net v4] bnxt_en: don't leave an XDP program installed when the open fails
-Date: Mon, 12 Oct 2026 12:58:02 +0530
-Message-ID: <20261012072802.2153706-1-vnagare@redhat.com>
+Subject: [PATCH iwl-net] ice: wait for in-flight Rx polls before freeing a representor
+Date: Mon, 12 Oct 2026 15:29:59 +0800
+Message-Id: <20261012072959.254206-1-xiaolinkui@126.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,148 +48,132 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+X-CM-TRANSID:_____wD3N_p4jMxqvoGeAw--.28607S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxuw48Gr4Dur13Aw43JFWkWFg_yoW7ZF1xpF
+	WUKFy5CrykJr40gw15Wa18uFyrCw45trWagryxKrWruwn8JFyrAF17KryY9FyrCa13uF1a
+	vr15Z3yrA3s8X3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UpVb9UUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlBoP5WrMjHqmJAAA32
 
-bnxt_xdp_set() stores the new program and drops the reference on the old
-one before reopening the NIC.  If bnxt_open_nic() then fails, ndo_bpf()
-returns an error with the new program still in bp->xdp_prog.  The caller
-treats the error as "nothing was installed" and drops its own reference,
-so bp->xdp_prog is left pointing at a freed program and the next XDP
-update dereferences it:
+From: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-  BUG: unable to handle page fault for address: ff78ecc80ddd1038
-  RIP: 0010:__bpf_prog_put+0x5/0x80
-  Call Trace:
-   bnxt_xdp_set+0xad/0x1b0 [bnxt_en]
-   dev_xdp_propagate+0x36/0xa0
-   bond_xdp_set+0xeb/0x2d0 [bonding]
-   dev_xdp_install+0x1b1/0x350
-   bpf_xdp_link_update+0xc5/0x1b0
-   link_update+0x104/0x1e0
-   __sys_bpf+0x662/0xcf0
+ice_eswitch_detach() unregisters the representor netdev, removes it from
+the eswitch xarray and frees it:
 
-Seen on a 6.12 based kernel after bnxt_alloc_mem() failed an order-4
-allocation on a fragmented host:
+	repr->ops.rem(repr);
+	xa_erase(&pf->eswitch.reprs, repr->id);
+	...
+	ice_repr_destroy(repr);
 
-  bnxt_en 0000:a0:00.1 ens4f1np1: nic open fail (rc: fffffff4)
-  bond1: (slave ens4f1np1): Error -12 calling ndo_bpf
+The Rx path holds no reference to what it finds in that xarray. While
+the uplink VSI has ICE_RX_FLAGS_MULTIDEV set, ice_process_skb_fields()
+calls ice_eswitch_get_target(), which is a bare xa_load(), and then uses
+the returned netdev in ice_repr_inc_rx_stats() and eth_type_trans().
 
-Bonding is not required to hit this; a plain XDP attach on a bnxt
-interface takes the same path.
+unregister_netdev() does wait for RCU readers, but it runs before the
+erase, so it does not cover the polls that pick the representor up after
+it. Between xa_erase() and ice_repr_destroy() there is no grace period
+at all: a poll that loaded the pointer just before the erase then reads
+repr->stats through ice_netdev_to_repr() and the netdev itself after
+free_percpu(), free_netdev() and kfree() have run.
 
-Restore the previous program when an attach or a replace fails, and
-recompute the page-mode and XDP TX ring configuration from it.  The
-configuration matters because bnxt_init_one_rx_ring() only assigns
-rxr->xdp_prog in page mode, and __bnxt_set_rx_skb_mode() derives
-dev->max_mtu from the installed program.  Release the old program only
-once the change has been committed.
+That order is not new: commit e9942bfe4931 ("ice: Fix use after free
+during unload with ports in bridge") moved unregister_netdev() ahead of
+the erase so that the bridge can still find the representor by id while
+its notifier chain runs, which also keeps the representor reachable for
+longer. The missing grace period goes back to the lookup itself, so the
+Fixes: tag below points at the commit that added it.
 
-A detach is not undone.  dev_xdp_detach_link() clears the core's record
-of the program even when the driver returns an error, so putting the
-program back would leave the driver running a program the core has
-already dropped.  If the reopen fails during a detach, bnxt_xdp_set()
-therefore returns 0 with the device closed; bnxt_open_nic() has already
-logged the failure.
+Take the missing grace period. The xarray entry is erased first so that
+no further lookup can find the representor, then synchronize_net() waits
+for the polls that already did before it is released and destroyed.
+repr->ops.rem() has to stay ahead of the erase, because
+ice_eswitch_br_port_deinit() looks the representor up by id while
+unregister_netdev() runs its notifier chain.
 
-Found in a crash dump; the change was not tested on hardware.
+Make the lookup side explicit as well and hold the RCU read lock around
+the whole block in ice_process_skb_fields(), so that the netdev returned
+by ice_eswitch_get_target() is covered by that synchronize_net() whatever
+RCU flavour the kernel is built with.
 
-Fixes: c6d30e8391b8 ("bnxt_en: Add basic XDP support.")
+ice_eswitch_detach() runs once per representor, so this adds one grace
+period per representor to the teardown path. All of its callers are in
+sleepable process context, so this is safe; batching the grace periods
+would mean splitting the erase from the destroy, which is not done here.
+
+The window is reachable in switchdev mode when traffic arrives on the
+uplink VSI while a VF or SF representor is being torn down, for example
+by removing VFs or by switching the eswitch back to legacy mode. It was
+found by code inspection of that teardown path, it was not reproduced at
+runtime and no stack trace was observed.
+
+Fixes: 44ba608db509 ("ice: do switchdev slow-path Rx using PF VSI")
 Cc: stable@vger.kernel.org
-Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
+Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
 ---
-  v4:
-   - no functional change.  Correct the comment and commit message: the
-     core clears its record of the program on a failed detach, it does
-     not drop a reference itself, and note that a failed reopen during a
-     detach returns 0 with the device closed (Sashiko AI review)
-   - the same review notes the rollback does not restore the RX
-     aggregation-ring mode.  That is real but pre-existing: without this
-     patch the failed attach leaves the same bp->flags behind and the
-     next open fails the same way.  Restoring it needs a snapshot of
-     bp->flags, the LRO/GRO_HW feature bits and the ring parameters,
-     which is a separate change for net-next
-   - v3: https://lore.kernel.org/netdev/20261001142516.1386525-1-vnagare@redhat.com/
-   - v2: https://lore.kernel.org/netdev/20260930070901.1218980-1-vnagare@redhat.com/
-   - v1: https://lore.kernel.org/netdev/20260928131458.1012180-1-vnagare@redhat.com/
+ drivers/net/ethernet/intel/ice/ice_eswitch.c  | 10 +++++++++-
+ drivers/net/ethernet/intel/ice/ice_txrx_lib.c | 13 +++++++++++--
+ 2 files changed, 20 insertions(+), 3 deletions(-)
 
- drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c | 49 +++++++++++++------
- 1 file changed, 33 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-index 9e5009be8e98..96845c8646e0 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-@@ -381,11 +381,31 @@ int bnxt_xdp_xmit(struct net_device *dev, int num_frames,
- 	return nxmit;
- }
+diff --git a/drivers/net/ethernet/intel/ice/ice_eswitch.c b/drivers/net/ethernet/intel/ice/ice_eswitch.c
+index b069e6c514fb..465ed7957506 100644
+--- a/drivers/net/ethernet/intel/ice/ice_eswitch.c
++++ b/drivers/net/ethernet/intel/ice/ice_eswitch.c
+@@ -556,6 +556,13 @@ static void ice_eswitch_detach(struct ice_pf *pf, struct ice_repr *repr)
  
-+static void bnxt_xdp_apply_cfg(struct bnxt *bp, int tx_xdp)
-+{
-+	struct net_device *dev = bp->dev;
-+	int tc = bp->num_tc ? : 1;
+ 	xa_erase(&pf->eswitch.reprs, repr->id);
+ 
++	/* The Rx path looks the representor up by its id and dereferences the
++	 * result without holding a reference to it. Nothing can find it in the
++	 * xarray anymore, so wait for the polls that picked it up before the
++	 * erase to finish before the representor is torn down.
++	 */
++	synchronize_net();
 +
-+	if (bp->xdp_prog) {
-+		bnxt_set_rx_skb_mode(bp, true);
-+		xdp_features_set_redirect_target_locked(dev, true);
-+	} else {
-+		xdp_features_clear_redirect_target_locked(dev);
-+		bnxt_set_rx_skb_mode(bp, false);
-+	}
-+	bp->tx_nr_rings_xdp = tx_xdp;
-+	bp->tx_nr_rings = bp->tx_nr_rings_per_tc * tc + tx_xdp;
-+	bnxt_set_cp_rings(bp, true);
-+	bnxt_set_tpa_flags(bp);
-+	bnxt_set_ring_params(bp);
-+}
+ 	if (xa_empty(&pf->eswitch.reprs))
+ 		ice_eswitch_disable_switchdev(pf);
+ 
+@@ -614,7 +621,8 @@ void ice_eswitch_detach_sf(struct ice_pf *pf, struct ice_dynamic_port *sf)
+  * @rx_desc: descriptor used to get src_vsi value
+  *
+  * Get src_vsi value from descriptor and load correct representor. If it isn't
+- * found return rx_ring->netdev.
++ * found return rx_ring->netdev. The caller must hold the RCU read lock, the
++ * returned netdev can go away as soon as the read-side section ends.
+  */
+ struct net_device *ice_eswitch_get_target(struct ice_rx_ring *rx_ring,
+ 					  union ice_32b_rx_flex_desc *rx_desc)
+diff --git a/drivers/net/ethernet/intel/ice/ice_txrx_lib.c b/drivers/net/ethernet/intel/ice/ice_txrx_lib.c
+index e695a664e53d..bbbf13b29cbf 100644
+--- a/drivers/net/ethernet/intel/ice/ice_txrx_lib.c
++++ b/drivers/net/ethernet/intel/ice/ice_txrx_lib.c
+@@ -223,8 +223,16 @@ ice_process_skb_fields(struct ice_rx_ring *rx_ring,
+ 
+ 	/* modifies the skb - consumes the enet header */
+ 	if (unlikely(rx_ring->flags & ICE_RX_FLAGS_MULTIDEV)) {
+-		struct net_device *netdev = ice_eswitch_get_target(rx_ring,
+-								   rx_desc);
++		struct net_device *netdev;
 +
- static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
- {
- 	struct net_device *dev = bp->dev;
- 	int tx_xdp = 0, rc, tc;
- 	struct bpf_prog *old;
-+	int old_tx_xdp;
++		/* ice_eswitch_get_target() looks the representor up in the
++		 * eswitch xarray without taking a reference to it, so hold the
++		 * RCU read lock while the netdev it returns is in use.
++		 * ice_eswitch_detach() waits for the section to end before it
++		 * frees the representor.
++		 */
++		rcu_read_lock();
++		netdev = ice_eswitch_get_target(rx_ring, rx_desc);
  
- 	netdev_assert_locked(dev);
- 
-@@ -418,25 +438,22 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
- 	if (netif_running(dev))
- 		bnxt_close_nic(bp, true, false);
- 
-+	old_tx_xdp = bp->tx_nr_rings_xdp;
- 	old = xchg(&bp->xdp_prog, prog);
--	if (old)
--		bpf_prog_put(old);
--
--	if (prog) {
--		bnxt_set_rx_skb_mode(bp, true);
--		xdp_features_set_redirect_target_locked(dev, true);
--	} else {
--		xdp_features_clear_redirect_target_locked(dev);
--		bnxt_set_rx_skb_mode(bp, false);
-+	bnxt_xdp_apply_cfg(bp, tx_xdp);
-+
-+	if (netif_running(dev)) {
-+		rc = bnxt_open_nic(bp, true, false);
-+		/* a detach cannot be undone, only an attach */
-+		if (rc && prog) {
-+			WRITE_ONCE(bp->xdp_prog, old);
-+			bnxt_xdp_apply_cfg(bp, old_tx_xdp);
-+			return rc;
-+		}
+ 		if (ice_is_port_repr_netdev(netdev))
+ 			ice_repr_inc_rx_stats(netdev, skb->len);
+@@ -234,6 +242,7 @@ ice_process_skb_fields(struct ice_rx_ring *rx_ring,
+ 		 */
+ 		__skb_push(skb, ETH_HLEN);
+ 		skb->protocol = eth_type_trans(skb, netdev);
++		rcu_read_unlock();
  	}
--	bp->tx_nr_rings_xdp = tx_xdp;
--	bp->tx_nr_rings = bp->tx_nr_rings_per_tc * tc + tx_xdp;
--	bnxt_set_cp_rings(bp, true);
--	bnxt_set_tpa_flags(bp);
--	bnxt_set_ring_params(bp);
  
--	if (netif_running(dev))
--		return bnxt_open_nic(bp, true, false);
-+	if (old)
-+		bpf_prog_put(old);
- 
- 	return 0;
- }
+ 	ice_rx_csum(rx_ring, skb, rx_desc, ptype);
 -- 
-2.55.0
+2.25.1
 
