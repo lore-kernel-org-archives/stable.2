@@ -1,129 +1,106 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4FCC93E49F4;
-	Mon, 12 Oct 2026 13:59:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C734B37B003
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 14:00:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791813601; cv=none; b=e7NK6yoGWg/lqXcpb6HzZS2larGwtLkH75uINehR6/U0ugD6ecR1vXyQOp1pO41L5KBnekp2KOilwClBtk48AdcMoMOlMln1L9QNH9LGwnVDPDZkF5agwuZxJZjNo1YEhFcsXYLGmTNmFKGwOe2Jw212gpk+uU+eBAAYv6pv2rE=
+	t=1791813658; cv=none; b=R3BOffB+R4RnksHL268SYL1k08Gl4dMWknIbGsKaaUA33TGpWfQ883mgfOd5JK/HzlFdgbMUelVJ1/t6WsF1LRrhRgakOUd0tFGkCZrLjjrvL3a3e/XCtrgJ2CCL8DNFLvUlrFXOFZBaxB1P6wMsiw2izr24LbVvueoVyNQc0pU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791813601; c=relaxed/simple;
-	bh=erU+Vtn/XrxY5Ctqe6ZEUQit+ugO8G22dILw7aKewDo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jETfpl9FcBC1a/aOgPo/Hf3XU+LG1ng1xHjfxktDGpbZkeF/3hvuOb791ot4G9VIBIPhz+qOnDbfdajUszglUUo4tknshzdLq/X5lamy7VBnHPgsTNm9oGL8cZz2XGoC+5DM4PMXczkDgurfY1uFLa3HJMAScMblW2TuOL+IqJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [112.11.3.216])
-	by mtasvr (Coremail) with SMTP id _____wB3MfzP58xquOV9AQ--.10080S3;
-	Mon, 12 Oct 2026 21:59:45 +0800 (CST)
-Received: from localhost.localdomain (unknown [112.11.3.216])
-	by mail-app1 (Coremail) with UTF8SMTPA id yy_KCgBHmonO58xqFDBYAA--.8506S2;
-	Mon, 12 Oct 2026 21:59:43 +0800 (CST)
-From: Jiacheng Xu <stitch@zju.edu.cn>
-To: kuba@kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	jiri@resnulli.us,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jiacheng Xu <stitch@zju.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH net] netdevsim: avoid NULL dereference after failed probe
-Date: Mon, 12 Oct 2026 21:59:41 +0800
-Message-ID: <20261012135941.78329-1-stitch@zju.edu.cn>
-X-Mailer: git-send-email 2.51.0
+	s=arc-20240116; t=1791813658; c=relaxed/simple;
+	bh=u6T/QcNbBrMQtCUQxWxPqQynUjCh4DdX/gqnd/tQhKg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=raYO1qYTWP3qXE2AuFb7/194bZ2hZ/eRYwbILiFVFmw+DOXesM65wrUSGp14pxyTUidenJq6pKTku59DElNh5Zddozr+d/B52ABQEkbetpM4N50zeFrogob3a8gavuy/QrHvW5Gb98mrU6C7Fnc4mXwsMKtNBnpgj8DNzz8uKeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QFe50LjZ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QFe50LjZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B099B1F0089B;
+	Mon, 12 Oct 2026 14:00:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791813657;
+	bh=XdCZ07k/agk27jcqjH5lUihXHZVc2fK923DoT8t820M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=QFe50LjZraITTM9AmexYmPZL4bAzX4W1BLNYeB6TbKGIETLQTDE/4L3WUtNKxyqJo
+	 5QAFDYzLyf2hgvNGZSWDcj7z24H+wOKAxuozq7ZCG11gIhOrtB/GrA8a736DGdmfS2
+	 xzoXFKpfMU+ZP+497+EuCTg67G6H/T2ArlXiNGTmKJ6dCo+K2szyflpwIKBTkPFK0Q
+	 Kj1Yklwa1Z7S2nIul1NRBiwUZ+CNkHW0GN7mGha45Uv8BLCQZytSOpCwyIWkYXg9Zw
+	 t9Tn6IIlfM/4Xwc52hKn8JnsC5FxRyI+kwyUa11TKlbUBBI3LCiCj9YccG2oh9HwJw
+	 UMjQm5iMB1/yA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Christian=20G=C3=B6ttsche?= <cgzones@googlemail.com>,
+	syzbot+a7f7cb0737bd91aa698c@syzkaller.appspotmail.com,
+	Stephen Smalley <stephen.smalley.work@gmail.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] selinux: fix data race on AVC latest_notif
+Date: Mon, 12 Oct 2026 10:00:55 -0400
+Message-ID: <20261012140036.4188580-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026101222-xbox-operate-40df@gregkh>
+References: <2026101222-xbox-operate-40df@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yy_KCgBHmonO58xqFDBYAA--.8506S2
-X-CM-SenderInfo: qtrxiiaqttimo62m3hxhgxhubq/
-X-CM-DELIVERINFO: =?B?AKuJvgXKKxbFmtjJiESix3B1w3tMoM3snk/k5SVzZVydjEqe1eefKHnLf95EnB4iem
-	egW7q+4qg3kAwHIt6WUKLmaHqT5b+eSmyf0J41sJ7TquGnO3lAKCf+U/R+SzNK7XS1KTT9
-	anvBD+gP1d0mrvw2xw1gR/p1tPmVcNBN/fZxSumT
-X-Coremail-Antispam: 1Uk129KBj93XoW7Kw15XFWUuryxurW3Cw47KFX_yoW5Jr4rpa
-	98KFy5trykWws7Wwn8ZF40yFyrWw18Jw43ury3A3s3ur12qryqqryYgF90k3W0y3yxJFy5
-	XrWDCFW8uFZ0yrcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUvqb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
-	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AK
-	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7xvr2IYc2Ij64
-	vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2Iq
-	xVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r
-	1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY
-	6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
-	AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x
-	07jj7KsUUUUU=
 
-device_register() reports whether device registration succeeded, not
-whether the matching driver's probe succeeded. If nsim_drv_probe()
-fails, the driver core leaves the nsim_bus_dev registered while the probe
-error path clears its driver data.
+From: Christian Göttsche <cgzones@googlemail.com>
 
-new_device_store() subsequently marks the nsim_bus_dev initialized. A
-write to its new_port or del_port attribute therefore passes the init
-check and calls nsim_drv_port_add() or nsim_drv_port_del() with no valid
-nsim_dev. Both helpers pass the NULL driver data to priv_to_devlink(),
-leading to a NULL pointer dereference.
+[ Upstream commit 1ca924044bf0de879a1648be93a56939652267d3 ]
 
-This can be reproduced by creating a netdevsim device for which
-nsim_drv_probe() fails and then writing to the new_port or del_port
-attribute of the registered device.
+avc_policy_seqno() reads latest_notif without holding notif_lock, while
+avc_latest_notif_update() can update it under that lock. KCSAN reports
+these concurrent accesses during policy boolean updates and permission
+checks.
 
-Serialize the driver data check and the port operation with the device
-lock, and reject the operation with -ENODEV when no driver data is
-present. This also prevents driver unbind from freeing nsim_dev between
-the check and its use, and follows the locking used by sriov_numvfs.
+Use READ_ONCE() for the lockless read and WRITE_ONCE() for the update.
+The spinlock continues to serialize the comparison and update against
+other writers. Reads made while holding notif_lock cannot race with a
+writer and can remain plain accesses.
 
-Fixes: 794b2c05ca1c ("netdevsim: extend device attrs to support port addition and deletion")
+This marks both sides of the intentional concurrent access and constrains
+compiler transformations, without suppressing checking with data_race().
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiacheng Xu <stitch@zju.edu.cn>
+Fixes: 788e7dd4c22e ("SELinux: Improve read/write performance")
+Reported-by: syzbot+a7f7cb0737bd91aa698c@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=a7f7cb0737bd91aa698c
+Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
+Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+Signed-off-by: Paul Moore <paul@paul-moore.com>
+[ sashal: Adapted direct selinux_avc accesses to the existing avc and state->avc pointers. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/netdevsim/bus.c | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+ security/selinux/avc.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/netdevsim/bus.c b/drivers/net/netdevsim/bus.c
-index 41483e371f05..0ab51306ad0a 100644
---- a/drivers/net/netdevsim/bus.c
-+++ b/drivers/net/netdevsim/bus.c
-@@ -93,8 +93,13 @@ new_port_store(struct device *dev, struct device_attribute *attr,
- 		return -EINVAL;
+diff --git a/security/selinux/avc.c b/security/selinux/avc.c
+index dcc8e1df4d7c5..e26f9b01b7305 100644
+--- a/security/selinux/avc.c
++++ b/security/selinux/avc.c
+@@ -589,7 +589,7 @@ static int avc_latest_notif_update(struct selinux_avc *avc,
+ 		}
+ 	} else {
+ 		if (seqno > avc->avc_cache.latest_notif)
+-			avc->avc_cache.latest_notif = seqno;
++			WRITE_ONCE(avc->avc_cache.latest_notif, seqno);
  	}
+ 	spin_unlock_irqrestore(&notif_lock, flag);
  
--	ret = nsim_drv_port_add(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF, port_index,
--				addr_set ? eth_addr : NULL);
-+	device_lock(dev);
-+	if (!dev_get_drvdata(dev))
-+		ret = -ENODEV;
-+	else
-+		ret = nsim_drv_port_add(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF,
-+					port_index, addr_set ? eth_addr : NULL);
-+	device_unlock(dev);
- 	return ret ? ret : count;
+@@ -1202,7 +1202,8 @@ int avc_has_perm(struct selinux_state *state, u32 ssid, u32 tsid, u16 tclass,
+ 
+ u32 avc_policy_seqno(struct selinux_state *state)
+ {
+-	return state->avc->avc_cache.latest_notif;
++	/* Writers hold notif_lock; readers only sample the sequence number. */
++	return READ_ONCE(state->avc->avc_cache.latest_notif);
  }
  
-@@ -115,7 +120,13 @@ del_port_store(struct device *dev, struct device_attribute *attr,
- 	if (ret)
- 		return ret;
- 
--	ret = nsim_drv_port_del(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF, port_index);
-+	device_lock(dev);
-+	if (!dev_get_drvdata(dev))
-+		ret = -ENODEV;
-+	else
-+		ret = nsim_drv_port_del(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF,
-+					port_index);
-+	device_unlock(dev);
- 	return ret ? ret : count;
- }
- 
+ void avc_disable(void)
 -- 
-2.25.1
+2.53.0
 
