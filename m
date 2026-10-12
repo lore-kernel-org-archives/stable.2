@@ -1,176 +1,186 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1388F4AD4AA
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 16:54:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791824061; cv=pass; b=Tt75iH6GoQlMyxX2AiFERLM6ApXnaSoD6y1mzOWs/NyYgbj4hqw+qUY1hSLcDgZXeMVQiNXKwkPewyhp/HZvnplqo3fcJ0SFv8CSIC9i41+0JRX7OMZdJzbKHcBJcttKs3BIjIE+HIof0OECl9fXjCqOqJ0GkuF9OFzuF/xPwxg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791824061; c=relaxed/simple;
-	bh=FF0GEoo8z94QCKgAWxqe4HdlXwZe+F2vajwTpAEkw0Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Zwtd0VX+FkhPJTqZXlxxz/Uhuhc2+4Mt4EQ8vU1+kaIcMM0CNXZBvmKo85l4olsJ2j039xLDcID9Y52m+3t90aHpwFkHOgduyFrViGQMg07bScAtcQljjzwA9zYAo3rygfTkuEBowqRRi9Q3q8nnfK0NmTAmGtZjQNbIDVP1Dfs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OPUUnBQP; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=jgzg3u13; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DEC73FCB32;
+	Mon, 12 Oct 2026 16:54:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791824082; cv=none; b=psD6EAwQZDja4+6F91QoDCe7qR/DN3HviFRlcJTF4apABduNqwSc+0nqe/nkrYpOa94PUZxyktmEACQ2gxYVK2tWjO14Q0qI9Ns/TjWLKpV9gdwCktrrapHDO1e7j/ptVZjMU7EuoGISGqjjQn882tqeKRjl/qPSMrP6kuWdb5E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791824082; c=relaxed/simple;
+	bh=x9wz9JjXgx9QSm2ge9ebY1KM5lLelapl//gXR5hfebY=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Y93L9TnFdZqGVYwaD+Qt7LRYATirDgI6u8Vi0Y5kgWtIvSUW+k92XCTN3g+KxUQA9YTdtT25CDfAP2TryTSs9af8fUdaeUI8/YPZKrKIMMEJN/IgtcNH7g80+V9ajw1BInBoNn52XhsA1YDw1RCOQJDRFdI2XaWVRv8hzMSKOT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ixulb86s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OPUUnBQP";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="jgzg3u13"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791824058;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NYH3S1JoBPkOp4UPQkopxXaknUWmfyg8ET0Anq8DUUU=;
-	b=OPUUnBQPmZwG4397q7V5pGGo9KimsB6EqQJdSSQtNJ65nTcCTe+diLfbv9dChclOUpPwrr
-	FYapRBKc4rZg8jqbsGyZj2msEEndRH/ywfyvPL8qMes12vtThiCTz5BbjufqUfcj6x4ri3
-	k37V7jq089oWZhlCxVJxVHw8EiH5c98=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-327-maAcivDXPxOPTLDYAnQrSQ-1; Mon, 12 Oct 2026 16:54:16 +0000
-X-MC-Unique: maAcivDXPxOPTLDYAnQrSQ-1
-X-Mimecast-MFC-AGG-ID: maAcivDXPxOPTLDYAnQrSQ_1791824055
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a19df2328cso15936405e9.3
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 09:54:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791824055; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RBpqu+Gg5iEudbEiser1P7qFB34rHr7wAov9dWsaQRyz6tlwlBaqfWtpUNuea9vWNS
-         PPF/n66EoaCS7lypx+Bv9rAYKWYCg6e3XgQ1wne3g5mT+jznzxjlUgeE7KsQ15300OKy
-         S5ENTAPY3dUIHwmESWQGK85dd1shbP0jfEipA/vUFMHj1AIT62N5HpziuKgJQkjUyD9c
-         bLnvWdN5yn1TzKlKg8Ji7Gei7whaJ0yuyywvNXS18AWo3rn46m6jUuUJm8k7lyVuecgS
-         Wqot7V/hCZRrokre8A2qRMlpWBB7BjsLDTyC2HTwsDbm7Updk1O+qswKY9m3Jm/8AYFZ
-         Dqiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=NYH3S1JoBPkOp4UPQkopxXaknUWmfyg8ET0Anq8DUUU=;
-        fh=VYpLGeZoUsH9bDH0fIE1Aksx2MBXs49IDNf9USqmNTo=;
-        b=EjU0t6utCyhhDsaZRM8OITih+/mKSRM0ux9ThczRB5xTy3eiDtjqrEaLP7Zma1bZS0
-         ud0DnujdlunBmwkB6MaYDHgg55BRWcVcgUWNJPLjW2ZZVhmgiXH+TndiA316EDWhGCVX
-         XyQb5msfk3R7EAbv4oAe/ff9tTIZpIsFQvqVIK1demsTRiJgmE65bTCLjFeQvKYQtZZq
-         vQ2WmnUmKi21IGvAsyYdAqgddp0vEGmLNVXxWuFY95xgj/eXElS6ol3+r9s+ZeDvySuq
-         hqPU1n7a/psA2iqJqYZTusLi32pfpHD/emymUc4xWIUXU49eJB448VEA7sMWr0KyqKYj
-         iPBg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791824055; x=1792428855; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NYH3S1JoBPkOp4UPQkopxXaknUWmfyg8ET0Anq8DUUU=;
-        b=jgzg3u13BnnevV7IHTcWK7VCztgkY41/GEfp3nPBY98+OBjpeWhcO0oOCt9Yrcwr+u
-         +UV/Z/Zg6sz2iYaTm1bHpHoyB4xGzaw/KY0oxwOGNHpWtU55vkoLz1nFYgGWyaMLyeZC
-         SaypY+oKp2hMemdI9GRDe/mLLGM9GEkEgOstxbabMGpRaybfwNu3Jn4g43zQMAt9ABC5
-         9OphJQ62kLechDi+NGRIrvCechHhNexYMjWqs2eJ+eMLH6Lh+T2Kiwm/Ia4jivUlqwsm
-         4H/fC1MtgjlrnUQj5l8DNHgvWPB1dXltdEmpPNX8D1lZkUfxSiEG9neplJhPLrLFACf6
-         4Oyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791824055; x=1792428855;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NYH3S1JoBPkOp4UPQkopxXaknUWmfyg8ET0Anq8DUUU=;
-        b=2PggXbu/A2UcfMGEhic5u20qZy5TKPqWDYgVyHG0iLLYx8gZMFWksghL0K/bCbADFe
-         +UTK/AYV8sPRI9HOr/OGuHr/dkWZqV+axbrA7nyvcjnz5gP/nWiZfK7n1hrPpk6Of5JE
-         zQr0kNzwq6S+0brY+884dsjHvaqs9zStg7Q5jiBRT2pnnSkL/K6mb7e0mgKdAaV3LAH1
-         8SE8w96huuBNwlpQp3jCWB4rPJY0jt6GFn5WIFKRwAiR+ljIKBE9XrQXO1lX2MOzZaLs
-         4DaT6ukStmvJ874A/gFq1fLZXwLHstQluZcaT4vo17q+HeMihoe/VmSV+89ZU48lAtc0
-         IPWw==
-X-Forwarded-Encrypted: i=1; AKwUvBw3TYQsi/wpdnPAtMr9u75+UP1K+dqcbve3IjeNlf01L9c0DXXZNaPE+O1xtZgmUjeUps+AS0E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIB8mLBU1mafDUA7C57vE0LRHPNFWgQOBWS6L4Y4XohxpWBRlH3
-	tqcXJLZMmGQyiFa+AfxM7b8Y7zUkUAFaxUBofx7dtzG17h+urzrhhZUGtWH8SAxqQ6WLTz9vlGq
-	ATm4Py3nOwmFjV3FfwITVvjEeowv6MzrZg+2HQBUeBl9f98yMo0NDMqLgXRJogJ6mxjC/gZH5OV
-	lfw/EeLHs0CRxIuxaid4GgVjCmnY8l4eRE
-X-Gm-Gg: AYBFou1w0xjFr6i1VKxGcuXaqBpoYFvdPjRluK/SQQ2wuPksObkoNfWwWKiyxGebsJ1
-	Obakdzzj+F7xd0+h+MR581B296C36UHjECJVMNngg9Ts7olZQ0JLeNkQWlv3qNwivV/cte/hLAb
-	aAWXONMQLI4pen2lL2I6nBRZ0+8A03GFMQJXo6HiTOBio8UJjTfadRuqzbr7mPvJN1bX3bLdmjC
-	OVBe/pCrlMpIKIHLPK3cmPRT1oa4dCM5VnmHAIaWDUPAwtBXIqfwiuFeaHmGg==
-X-Received: by 2002:a05:600c:870e:b0:4a1:6dca:51e3 with SMTP id 5b1f17b1804b1-4a18e4487ccmr195289375e9.3.1791824055346;
-        Mon, 12 Oct 2026 09:54:15 -0700 (PDT)
-X-Received: by 2002:a05:600c:870e:b0:4a1:6dca:51e3 with SMTP id
- 5b1f17b1804b1-4a18e4487ccmr195289195e9.3.1791824055037; Mon, 12 Oct 2026
- 09:54:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ixulb86s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80A0D1F0089B;
+	Mon, 12 Oct 2026 16:54:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791824081;
+	bh=/0LLAYE84Hs0+AqFqH67O/smM4bU/0+rUKWG9IN4Vlw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Ixulb86sjXVmEsRylqbooEFUGLMovYrx8suPMVDK3bLwfyBXfGY3wet/01bbPeFSi
+	 /tL7nfl1wF+v0iVHHXAy93UNFOiGWnpgHyi00eATq6LWtrLkOdJxaO2/YJWrq7d4eJ
+	 TmfR7lsQcLR9BtOqNvv5G4nSTqVIdZFzeXv5VS26j/hqxT1o8zMygRBhHBzTx3KIre
+	 dmeOy3RHi11BYvwc//hCQRZThh85sgjq7U3xLM5lAHehTzobyIWUrE0cjWg4fyurFg
+	 UPG4knxasN/ZADdINrv+WmyA1LZVlYo4HOkKkv0stqk6PqO0/WGQm72fHFxC6KeBLp
+	 9krNOeMB6Sy6Q==
+Subject:
+ Re: [PATCH] rds: fix out-of-bounds conn_path access via handshake NPATHS
+From: netdev-bot+sashiko@kernel.org
+To: bsdhenrymartin@gmail.com
+Cc: achender@kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Mon, 12 Oct 2026 16:54:40 +0000
+Message-ID: <179182408008.434549.9079047641584992003@kernel.org>
+In-Reply-To: <20261008163843.957325-1-bsdhenrymartin@gmail.com>
+References: <20261008163843.957325-1-bsdhenrymartin@gmail.com>
+X-sashiko-severity: Critical
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009130450.361690-1-pbonzini@redhat.com> <as0NBfuEY-60pgtz@google.com>
- <CABgObfY=xYUJJtYvcVhjdTXOah6eofi0O4C3J3sa60KCC+WO6A@mail.gmail.com> <as0PQm_PS3LC9KWc@google.com>
-In-Reply-To: <as0PQm_PS3LC9KWc@google.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Mon, 12 Oct 2026 18:53:57 +0200
-X-Gm-Features: AclHuK_qwsSa9vmKTJ15UjQhyDRORe0UQJYVVCybVzQPGOouYVa5WGxdhHqz64A
-Message-ID: <CABgObfbA4YtSX-K_fsWuTjkkfLh5EMQ2673tJzhZaoAoT-028A@mail.gmail.com>
-Subject: Re: [PATCH] KVM: x86/mmu: Cope with the SS bit being set in #NPF exit codes
-To: Sean Christopherson <seanjc@google.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
-	SimonP <simonp.git@mailbox.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 12, 2026 at 6:48=E2=80=AFPM Sean Christopherson <seanjc@google.=
-com> wrote:
->
-> On Mon, Oct 12, 2026, Paolo Bonzini wrote:
-> > On Mon, Oct 12, 2026 at 6:38=E2=80=AFPM Sean Christopherson <seanjc@goo=
-gle.com> wrote:
-> > >
-> > > On Fri, Oct 09, 2026, Paolo Bonzini wrote:
-> > > > When running Hyper-V from Windows 11, KVM is seeing the SS bit set
-> > > > in nested page fault error codes produced for shadowed NPT.  The AM=
-D
-> > > > manual is unclear about when SS is set, including whether it can be=
- set
-> > > > when SupervisorShadowStackEn (bit 6) is not set in the MISC_CTL fie=
-ld
-> > > > of the VMCB; in fact, bisection shows that while SHSTK was availabl=
-e
-> > > > to guests since Linux 6.18, this started happening with commit
-> > > > 687ee95c1b6d ("KVM: nSVM: enable GMET for guests"), which seems unr=
-elated.
-> > >
-> > > It's not unrelated.  As you note below, this is purely because Hyper-=
-V only uses
-> > > CET when GMET is available.
-> >
-> > Indeed, my intended meaning is that bit 1 of MISC_CTL does *not* have
-> > the side effect of reporting SS failures...
-> >
-> > > This is wrong, I reproduced this with the KUT CET test with gmet=3D1.
-> >
-> > ... howver, this makes me wonder if you meant gmet=3D0? Because if you
-> > need gmet=3D1, the Fixes would be fe080f58dec24049 (i.e. when the gmet
-> > module parameter was added).
->
-> /facepalm
->
-> I did indeed.  And I quadruple-checked that I could trigger the splat wit=
-h gmet=3D0.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-No problem, here is new final paragraph to exclude the theory:
+Critical: 1 · High: 0 · Medium: 1 · Low: 0
 
----
-Bisection shows that this started happening with commit 687ee95c1b6d
-("KVM: nSVM: enable GMET for guests"), even though SHSTK was available
-to guests since Linux 6.18.  However, this is not because bit 1 of
-MISC_CTL (GMET) somehow enables reporting the SS bit; rather, it's
-simply that Hyper-V never uses CET unless GMET is also present.  The
-WARN is reproducible even with gmet=3D0, with some hacking of
-kvm-unit-tests's cet.c testcase to ensure that the first access to the
-shadow stack triggers a page fault.
----
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-BTW, while Simon said that GMET+CET now works properly for him, I
-haven't retested Hyper-V with the MBEC+CET combo yet, and I wouldn't
-bet on it working because there's no path in which EPT violations
-would set PFERR_SS_MASK.
+- [Critical] This fix leaves the same out-of-bounds walk reachable
+  through another lane loop.
+- [Medium] The Fixes: tag names the wrong commit.
 
-Paolo
+--
 
+rds: fix out-of-bounds conn_path access via handshake NPATHS
+
+This patch clamps the RDS_EXTHDR_NPATHS value the peer sends in
+rds_recv_hs_exthdrs() to the number of rds_conn_path slots the transport
+was allocated with. As a result, IB connections (t_mp_capable unset)
+negotiate at most one lane. The aim is to stop fan-out paths such as
+rds_start_mprds() from walking past the single allocated c_path entry.
+
+> Cc: stable@vger.kernel.org
+> Fixes: ba3d1f480c7a ("net/rds: size a connection's path set by the transport it ends up with")
+
+[Severity: Medium]
+Is this the right commit for the Fixes: tag?
+
+All ba3d1f480c7a does is recompute npaths a second time after the
+loopback swap in __rds_conn_create():
+
+    npaths = (trans->t_mp_capable ? RDS_MPATH_WORKERS : 1);
+
+Its own message says "The c_path array stays sized for the caller's
+transport". So it doesn't change how many slots an IB connection gets.
+
+IB connections have had a one-element c_path since 840df162b3eb ("rds:
+reduce memory footprint for RDS when transport is RDMA"). That commit
+replaced the inline c_path[RDS_MPATH_WORKERS] array with an allocation
+sized by:
+
+    int npaths = (trans->t_mp_capable ? RDS_MPATH_WORKERS : 1);
+
+The NPATHS clamp to RDS_MPATH_WORKERS and the rds_start_mprds() loop over
+c_npaths are even older (5916e2c1554f and 69b92b5b7419).
+
+Stable tooling chooses target trees from the Fixes: tag. Would LTS trees
+that carry 840df162b3eb but not ba3d1f480c7a miss this fix? Should the
+tag be:
+
+Fixes: 840df162b3eb ("rds: reduce memory footprint for RDS when transport is RDMA")
+
+> diff --git a/net/rds/recv.c b/net/rds/recv.c
+> index 6204e577a90ae..c9528812edef1 100644
+> --- a/net/rds/recv.c
+> +++ b/net/rds/recv.c
+> @@ -224,7 +224,8 @@ static void rds_recv_hs_exthdrs(struct rds_header *hdr,
+>  		/* Process extension header here */
+>  		switch (type) {
+>  		case RDS_EXTHDR_NPATHS:
+> -			new_npaths = min_t(int, RDS_MPATH_WORKERS,
+> +			new_npaths = min_t(int, conn->c_trans->t_mp_capable ?
+> +					   RDS_MPATH_WORKERS : 1,
+>  					   be16_to_cpu(buffer.rds_npaths));
+>  			break;
+>  		case RDS_EXTHDR_GEN_NUM:
+
+[Severity: Critical]
+This clamps NPATHS. Can the RDS_EXTHDR_GEN_NUM case just below it still
+cause the same out-of-bounds walk on IB connections?
+
+rds_recv_hs_exthdrs() always calls rds_conn_peer_gen_update() at the end.
+The call does not depend on c_npaths, fan_out or t_mp_capable:
+
+    conn->c_ping_triggered = 0;
+    rds_conn_peer_gen_update(conn, new_peer_gen_num);
+
+rds_conn_peer_gen_update() then loops over a fixed RDS_MPATH_WORKERS
+lanes:
+
+net/rds/recv.c:rds_conn_peer_gen_update() {
+    ...
+	WARN_ON(conn->c_trans->t_type != RDS_TRANS_TCP);
+	if (peer_gen_num != 0) {
+		if (conn->c_peer_gen_num != 0 &&
+		    peer_gen_num != conn->c_peer_gen_num) {
+			for (i = 0; i < RDS_MPATH_WORKERS; i++) {
+				struct rds_conn_path *cp;
+
+				cp = &conn->c_path[i];
+				spin_lock_irqsave(&cp->cp_lock, flags);
+				cp->cp_next_tx_seq = 1;
+				cp->cp_next_rx_seq = 0;
+				list_for_each_entry_safe(rm, tmp,
+							 &cp->cp_retrans,
+							 m_conn_item) {
+					set_bit(RDS_MSG_FLUSH, &rm->m_flags);
+				}
+    ...
+}
+
+The WARN_ON() only prints a warning. It doesn't return.
+
+On IB, __rds_conn_create() allocates a single c_path slot. A peer can
+send two handshake probes carrying different nonzero GEN_NUM values. A
+pong (h_sport == 0, h_dport == RDS_FLAG_PROBE_PORT) has no sysctl or
+transport gate. A ping also works if rds_sysctl_ping_enable is set. The
+call chain is:
+
+rds_ib_process_recv()
+  rds_recv_incoming()
+    rds_recv_hs_exthdrs()
+      rds_conn_peer_gen_update()
+
+The first probe stores c_peer_gen_num, and the second enters the loop.
+For i=1..7, would the loop take a spinlock and write cp_next_tx_seq and
+cp_next_rx_seq in heap memory past the allocated slot? It would also walk
+a cp_retrans list head read from that memory and call set_bit() through
+whatever pointers it finds there.
+
+If so, the commit message's claim "so a peer can never ask us to walk
+lanes that do not exist" doesn't hold yet.
+
+Could this loop also be bounded by:
+
+    conn->c_trans->t_mp_capable ? RDS_MPATH_WORKERS : 1
+
+which is the count __rds_conn_create() already uses? Another option is to
+skip handshake extension processing entirely on transports that are not
+mp-capable.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008163843.957325-1-bsdhenrymartin%40gmail.com
