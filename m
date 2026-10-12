@@ -1,224 +1,181 @@
-Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com [74.125.231.202])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707CA4A0127
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:34:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.202
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1549377ECC
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:34:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819252; cv=none; b=Fgl7sqb+nPHcIdmOHHBlnc0skSReRs7hzNpExjZZYI2gDofgNTfT8yHo7771zD8YhoEpnFr0YFqkgJT4WceAmGQIOLJ4MRBDATOQ+MYS6SN/TwqiTt7Y3vRp7N2Z6M/nkwdRAO4pUBheLx6SjNTTIPhQXNWWnpNDM3zCq7PZ2Gs=
+	t=1791819255; cv=none; b=JpUhX/g5Ghkq6SCHlUcQbiKIzCh9bL3fHIEnJFSRxxVZMuLialkILASO1SwgoL7QlVOMRi1D/a5WsObvZuNQE3Hyv+EoIMw+6ci6vLPocMt4D3smaxOYRSwIneTkvmTrpnaU76loYDLSXnFAJ2tTIcjzdChkdktqEC8w4PukAtQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819252; c=relaxed/simple;
-	bh=nAu3ZVRMYQC2AoGQ3nSWEl3h3H5j+54En4gscuWuZbw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pyBacZYIKF6+niTVLZFbo4vRJJUFmBxU/+2taE0H3yjhRhGSjM4a9DFJ3kbYCGoZS+EnYelV98AMlSZACApsvJ7NrmhWcJMvKJAwSlBZH1b4F8dxq+1tgdb5isQiGaLtE2/rZgjWMN0vMNoy10tM+GPYdicFSZz8LM63qSvt8a4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QNOthILa; arc=none smtp.client-ip=74.125.231.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791819255; c=relaxed/simple;
+	bh=coGwTf7UMFhjS+ObKdJN5Yw2NlwJRfjv6aIHxdofFnU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UjAhesa3j53hdE4KEnmY9dvO49Y7xtmJvM2IAuQvj62/uEy693yB0iK5l4pShvNxVAKHxRfexOV17C5JqjoZkAnHw+uziiKL+WQ9ZYJr5oM0jKeqpKdD7B2Nhd3coxbBabxaOdDPg6r2eqaW8YZDYoMyf8JPWvrnmIfDHhTLtck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pTLgJ2cw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QNOthILa"
-Received: by mail-oi2-f10.google.com with SMTP id 5614622812f47-4b94bb43008so251654b6e.0
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 08:34:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791819249; x=1792424049; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lSBqC/hD/Ly2AYbmjcrAztV3m8h2DttoWUWYtWCfyss=;
-        b=QNOthILauayXohnPwGj5vbx67/Czhn2tTG5Qwd88GtRQOH6gtySETKpkttIk8oNexd
-         /q2+dJczkhoi0RQOMogYdFDlywj1XRgZsCnvTQfiNvJRNzMqffmpQjrqXK+ZSrWJHwKU
-         JlWtke0rjjXle4hOMwXdqIrs5tampqltkFKMwEJBxcx3U1ioO1NdNFO6B7dhRChBtQdu
-         cXMjbijnik7E2ssiWdF+hIEaKGuVlhQ0Tl8g/1quMEVYbxNHmrVE48rcIwsowGm9I5Zg
-         Moh5f+KYlntmVPDpnS3crm5RDS7SNLZf8c2liVraquQDxda0Bbqk/m8h8Cs4boWiBbqu
-         FIYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791819249; x=1792424049;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lSBqC/hD/Ly2AYbmjcrAztV3m8h2DttoWUWYtWCfyss=;
-        b=sAWebPFm4t2za9EBwewL7QZwwlhd4r8YDxaPFF3HxSxbKoZsg8XR8wpMRg7oq7boWW
-         yefauH30nVesAhJP5B6z/vLLlOcVvBpgYNzn++xIOL4s6BQJ3f9WtX46KkMXqJZyKB4h
-         UdSFi+qYEFNLUa1GDtFPq+5n/kmwZKLDzqAYUc/ZplMUZR3cX4F4BNjddmY8t/NS537Y
-         pfLEiyyGJuYkCo04m+UFYCa3fEKR7nNCyDuwq5MAD3k+qzpWUu9c6riKhYrIwNA1CF6D
-         MqDvH1dsbsb5rr1ErwwtwD1dEmGYY7+Fpa87309MspkbqRM9f15Mp6/0cduSwiu+DKQW
-         7VcA==
-X-Forwarded-Encrypted: i=1; AKwUvBzlh9tgbkAec31OSDN/bhV3OwJ2yke5CrnEJbmsI7Gln8QsdwZtbX3yXU8lWU/Fk18njJDEDwc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJOazsEWdzP3KL6962CZ8D0UmJdFlVfiWerccdcxnsc2Vnd5TLC
-	2ezSbSCrvNilUKWItM7bynHtBm5ffoqTm6oDB08uyWS/DycRdIdPT19r
-X-Gm-Gg: AYBFou1c935wULN0+OVTqUe7YXdxuZqGxPtGMIjpDBXHjdcApednmdQDXmyGywirnSq
-	APFGqxHlp62iWLR3HW9kGkgGLkrH2uKyDsQH235CteJrO+2Wn36Jcy8FCjoqyC7VdZtgKF9KXzt
-	O6fF4qlWwAl61paWYfgplcFAXQW6BkMMR+vGb3zGLkh4dTvIMnG//q8X8f9qCqILWKsg0maXZoB
-	jwwB+6jMJ6jXludUCVX7b+zvF0CRMnmYfa9M9dd4ZDJf9UOcbfJ21Hkxrnc9vdPz09S35si3N/3
-	uMt/7Z3q2JDnis4C8H32pArZinoUervCHlIg0R3kcgcmgh0r+emqE+7XCvwAwKuH0YLEejoYRpA
-	NKKfZbUJzhmFzZUtdeOvOKB6P4wGTLf479IgfpQYKLgypPFTaX+zqZFXeyn++6ysfcvg8iWL70j
-	lU0uKrnaB1P3x1ueJyw88G3i4kyteuGs3M5S7L+8AlEDmCPt2o1s+jyVTX6FkcgEmLK/tTDAOnF
-	pFOIg3zY/V72hShr9Ha7YZOifYIY+tFCKx7
-X-Received: by 2002:a05:6808:138e:b0:4fb:ac9b:b076 with SMTP id 5614622812f47-50c5b473884mr8343784b6e.67.1791819249230;
-        Mon, 12 Oct 2026 08:34:09 -0700 (PDT)
-Received: from localhost.localdomain ([14.22.11.163])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a2a85edf81sm9920375fac.15.2026.10.12.08.34.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 08:34:08 -0700 (PDT)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
-	Jon Maloy <jmaloy@redhat.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Ying Xue <ying.xue@windriver.com>
-Cc: netdev@vger.kernel.org,
-	tipc-discussion@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] tipc: fix broadcast sender hang on last acker departure
-Date: Mon, 12 Oct 2026 23:33:57 +0800
-Message-ID: <20261012153357.1863316-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <AM7P189MB113731FB3655F88C6079EF1CC69F2@AM7P189MB1137.EURP189.PROD.OUTLOOK.COM>
-References: <AM7P189MB113731FB3655F88C6079EF1CC69F2@AM7P189MB1137.EURP189.PROD.OUTLOOK.COM>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pTLgJ2cw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA1BD1F0089B;
+	Mon, 12 Oct 2026 15:34:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791819253;
+	bh=+XCsC3CabbJmMkVq0K61CnJ85BvOCcA6kgdIEc55m8U=;
+	h=Subject:To:Cc:From:Date;
+	b=pTLgJ2cwt6iqOE9AEefHib/VswPfHx5pUs8fs+st7CMrDE9AB2ToxEislgBGw4So+
+	 d8eXaTsnt73tdAXQ4FvrPngFvutXfSirZeIKgq/ZLu6dmxF/5bAUzCOHhtXAY7ndmH
+	 QBsiZe1wkl+pfe1VrunxIOFhXaZPV1Nm0B1PzViQ=
+Subject: FAILED: patch "[PATCH] drm/amd/display: Don't replace a sink mode that shares the" failed to apply to 6.18-stable tree
+To: adrian.betschart@cinemaone.ch,alexander.deucher@amd.com,daniel.wheeler@amd.com,roman.li@amd.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 12 Oct 2026 17:34:14 +0200
+Message-ID: <2026101214-stimulant-aspect-4cca@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-TIPC group broadcast senders are blocked while a replicast still has
-outstanding member acks: poll(EPOLLOUT) only fires when
-tsk->group_is_open, and writers keep re-sleeping on every unrelated
-data-ready wakeup because tipc_group_bc_cong() keeps seeing
-*grp->open == false (the default sk_sndtimeo is MAX_SCHEDULE_TIMEOUT,
-so there is no bounded send timeout either).
 
-When the last outstanding acker departs before acking,
-tipc_group_delete_member() decrements grp->bc_ackers but never
-restores *grp->open, and the blocked senders are never woken.
-Commit 99cc2a62e07a ("tipc: reject invalid and unexpected
-GRP_ACK_MSG to prevent bc_ackers underflow") already calls this out
-in its changelog as a pre-existing issue.
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Reproduced on a two-node TIPC group cluster (v7.3-rc5, two QEMU
-guests over a UDP bearer): with one member's ack outstanding and
-that member then departing, poll(POLLOUT) on the sender never
-fired and a blocking sendmsg() never returned; with the fix
-applied both are released when the leave event is delivered (log
-below the fold).
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Restore the open state exactly on the 1->0 transition in the delete
-path, mirroring the GRP_ACK_MSG completion path, and invoke
-sk->sk_write_space() from tipc_sk_filter_rcv() when the group just
-became writable again.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x 54c998c55fc9cbc391b350d67b86e0c2a0748f1a
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101214-stimulant-aspect-4cca@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
-While at it, make the accounting precise: the delete path used to
-test less(m->bc_acked, grp->bc_snd_nxt - 1), which also matches
-members that were never counted for the current replicast
-(JOINING/LEAVING members keep a stale bc_acked).  Zeroing
-bc_ackers on such a member could silently void a still-outstanding
-ack from a real acker.  Track whether a member owes an ack for the
-current replicast in a new per-member bc_pending flag, set when the
-member is counted and cleared when its ack arrives, and test that
-in the delete path instead.  Suggested by Tung Quang Nguyen.
+Possible dependencies:
 
-This issue was discovered by Tencent CodeBuddy Security.
 
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 54c998c55fc9cbc391b350d67b86e0c2a0748f1a Mon Sep 17 00:00:00 2001
+From: Adrian Betschart <adrian.betschart@cinemaone.ch>
+Date: Fri, 25 Sep 2026 09:48:29 +0200
+Subject: [PATCH] drm/amd/display: Don't replace a sink mode that shares the
+ native totals
+
+decide_crtc_timing_for_drm_display_mode() copies the native mode's CRTC
+timing into the requested mode when clock, htotal and vtotal match.
+That is meant for the modes amdgpu inserts itself:
+amdgpu_dm_create_common_mode() duplicates the native mode and changes
+only hdisplay and vdisplay, so those are sent with the native timing
+and scaled.
+
+A sink can also offer a real mode with the same clock and totals as
+its native mode. CTA-861 VIC 102 (4096x2160@60) and VIC 97
+(3840x2160@60) both use 594 MHz and 4400x2250. With 3840x2160@60 as
+the preferred mode, a 4096x2160@60 request goes out with the 3840x2160
+timing and the framebuffer scaled into it (dst 3840x2025 at y=67),
+while the AVI InfoFrame still carries VIC 102. A JVC projector then
+reports 3840x2160 and shows a corrupted right edge. 4096x2160@24,
+whose totals differ, is sent and displayed correctly.
+
+Inserted modes keep the native sync positions; a real mode with its
+own active width does not. Compare those too, so only inserted modes
+are patched.
+
+Fixes: 4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
+Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
+Assisted-by: Claude-Code:claude-opus-5-5
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+Reviewed-by: Roman Li <roman.li@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 22f9a2da101c37f821cd00954f81dc598754f4d5)
 Cc: stable@vger.kernel.org
-Fixes: 2f487712b893 ("tipc: guarantee that group broadcast doesn't bypass group unicast")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
----
 
-v2: Subject no longer claims a leak; describe the actual wakeup
-    mechanics and add the reproduction; the delete path now
-    discriminates members that were actually counted for the
-    current replicast via a new per-member bc_pending flag instead
-    of comparing a possibly stale bc_acked (Tung Quang Nguyen).
-
-Reproduction (two QEMU guests, TIPC over UDP bearer; the acking
-peer withheld GRP_ACK_MSG via a test-only knob to emulate the
-lossy peer, the sender's kernel ran unmodified TIPC):
-
-    UNPATCHED (#88/#90, fix absent):
-      sender:  NO POLLOUT for 30s after member departed -> STALL
-      sender2: R2 NEVER returned in 32s (blocked writer not woken)
-    PATCHED (#89, this patch):
-      sender:  POLLOUT at t=18.5s, when the leave event was delivered
-      sender2: R2 returned at t=18.6s, EHOSTUNREACH on now-empty group
-
- net/tipc/group.c  | 13 ++++++++++---
- net/tipc/socket.c | 12 +++++++++++-
- 2 files changed, 21 insertions(+), 4 deletions(-)
-
-diff --git a/net/tipc/group.c b/net/tipc/group.c
-index 74f6d3dac0784..e9c77f12c9819 100644
---- a/net/tipc/group.c
-+++ b/net/tipc/group.c
-@@ -75,6 +75,7 @@ struct tipc_member {
- 	u16 bc_rcv_nxt;
- 	u16 bc_syncpt;
- 	u16 bc_acked;
-+	bool bc_pending;
- };
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index d386bb1475bb..45a69bf43971 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -1012,10 +1012,15 @@ decide_crtc_timing_for_drm_display_mode(struct drm_display_mode *drm_mode,
+ 					const struct drm_display_mode *native_mode,
+ 					bool scale_enabled)
+ {
++	/* Inserted modes copy the native sync; a sink mode with equal totals may not */
+ 	if (scale_enabled || (
+ 	    native_mode->clock == drm_mode->clock &&
+ 	    native_mode->htotal == drm_mode->htotal &&
+-	    native_mode->vtotal == drm_mode->vtotal)) {
++	    native_mode->vtotal == drm_mode->vtotal &&
++	    native_mode->hsync_start == drm_mode->hsync_start &&
++	    native_mode->hsync_end == drm_mode->hsync_end &&
++	    native_mode->vsync_start == drm_mode->vsync_start &&
++	    native_mode->vsync_end == drm_mode->vsync_end)) {
+ 		if (native_mode->crtc_clock)
+ 			copy_crtc_timing_for_drm_display_mode(native_mode, drm_mode);
+ 	} else {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index 59ce682f491b..b61771749ca0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -1572,6 +1572,46 @@ static void dm_test_decide_crtc_timing_no_crtc_clock(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hdisplay, 0);
+ }
  
- struct tipc_group {
-@@ -340,9 +341,12 @@ static void tipc_group_delete_member(struct tipc_group *grp,
- 	rb_erase(&m->tree_node, &grp->members);
- 	grp->member_cnt--;
- 
--	/* Check if we were waiting for replicast ack from this member */
--	if (grp->bc_ackers && less(m->bc_acked, grp->bc_snd_nxt - 1))
--		grp->bc_ackers--;
-+	/* If this member owed an ack for the current replicast and it
-+	 * was the last one, restore the open state so blocked broadcast
-+	 * senders can proceed.
-+	 */
-+	if (grp->bc_ackers && m->bc_pending && !--grp->bc_ackers)
-+		*grp->open = true;
- 
- 	list_del_init(&m->list);
- 	list_del_init(&m->small_win);
-@@ -406,6 +410,8 @@ void tipc_group_update_bc_members(struct tipc_group *grp, int len, bool ack)
- 			m->bc_acked = prev;
- 			ackers++;
- 		}
-+		if (ack)
-+			m->bc_pending = tipc_group_is_receiver(m);
- 	}
- 
- 	/* Mark number of acknowledges to expect, if any */
-@@ -803,6 +809,7 @@ void tipc_group_proto_rcv(struct tipc_group *grp, bool *usr_wakeup,
- 		if (acked != grp->bc_snd_nxt || m->bc_acked == acked)
- 			return;
- 		m->bc_acked = acked;
-+		m->bc_pending = false;
- 		if (--grp->bc_ackers)
- 			return;
- 		list_del_init(&m->small_win);
-diff --git a/net/tipc/socket.c b/net/tipc/socket.c
-index d5d70eb230b56..65cc0c4964b31 100644
---- a/net/tipc/socket.c
-+++ b/net/tipc/socket.c
-@@ -2356,8 +2356,18 @@ static void tipc_sk_filter_rcv(struct sock *sk, struct sk_buff *skb,
- 	if (unlikely(!msg_isdata(hdr)))
- 		tipc_sk_proto_rcv(sk, &inputq, xmitq);
- 
--	if (unlikely(grp))
-+	if (unlikely(grp)) {
-+		bool was_open = tsk->group_is_open;
++static void dm_test_decide_crtc_timing_sink_mode_same_totals(struct kunit *test)
++{
++	struct drm_display_mode native_mode = {
++		DRM_MODE("3840x2160", DRM_MODE_TYPE_DRIVER, 594000, 3840, 4016, 4104,
++			 4400, 0, 2160, 2168, 2178, 2250, 0,
++			 DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC) };
++	struct drm_display_mode drm_mode = {
++		DRM_MODE("4096x2160", DRM_MODE_TYPE_DRIVER, 594000, 4096, 4184, 4272,
++			 4400, 0, 2160, 2168, 2178, 2250, 0,
++			 DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC) };
 +
- 		tipc_group_filter_msg(grp, &inputq, xmitq);
-+		/* A departing member may have held the last outstanding
-+		 * replicast ack, which can restore the open state inside
-+		 * tipc_group_filter_msg(); wake up senders blocked in
-+		 * poll()/write() if the group just became writable.
-+		 */
-+		if (!was_open && tsk->group_is_open)
-+			sk->sk_write_space(sk);
-+	}
++	drm_mode_set_crtcinfo(&native_mode, 0);
++	drm_mode_set_crtcinfo(&drm_mode, 0);
++
++	decide_crtc_timing_for_drm_display_mode(&drm_mode, &native_mode, false);
++
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hdisplay, 4096);
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hsync_start, 4184);
++}
++
++static void dm_test_decide_crtc_timing_inserted_mode(struct kunit *test)
++{
++	struct drm_display_mode native_mode = {
++		DRM_MODE("3840x2160", DRM_MODE_TYPE_DRIVER, 594000, 3840, 4016, 4104,
++			 4400, 0, 2160, 2168, 2178, 2250, 0,
++			 DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC) };
++	struct drm_display_mode drm_mode;
++
++	drm_mode_set_crtcinfo(&native_mode, 0);
++	drm_mode = native_mode;
++	drm_mode.hdisplay = 1920;
++	drm_mode.vdisplay = 1080;
++	drm_mode_set_crtcinfo(&drm_mode, 0);
++
++	decide_crtc_timing_for_drm_display_mode(&drm_mode, &native_mode, false);
++
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hdisplay, 3840);
++	KUNIT_EXPECT_EQ(test, drm_mode.crtc_vdisplay, 2160);
++}
++
+ /* Tests for amdgpu_dm_connector_funcs_reset() */
  
- 	if (unlikely(!grp) && mtyp == TIPC_MCAST_MSG)
- 		tipc_mcast_filter_msg(net, &tsk->mc_method.deferredq, &inputq);
--- 
-2.43.7
+ static const struct drm_connector_funcs dm_test_connector_funcs = {
+@@ -5635,6 +5675,8 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+ 	KUNIT_CASE(dm_test_decide_crtc_timing_matching_mode),
+ 	KUNIT_CASE(dm_test_decide_crtc_timing_no_copy),
+ 	KUNIT_CASE(dm_test_decide_crtc_timing_no_crtc_clock),
++	KUNIT_CASE(dm_test_decide_crtc_timing_sink_mode_same_totals),
++	KUNIT_CASE(dm_test_decide_crtc_timing_inserted_mode),
+ 	/* amdgpu_dm_connector_funcs_reset */
+ 	KUNIT_CASE(dm_test_funcs_reset_sets_defaults),
+ 	KUNIT_CASE(dm_test_funcs_reset_edp_abm_level),
+
