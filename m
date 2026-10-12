@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A2B9466AED
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 11:43:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B94163E51D3
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 11:43:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791805417; cv=none; b=jgN/si7dqcSTRBxMovEygJ1PrbwTizzWGsKZ90JUTgzYDs/VNzC7rdfIVZ429ky6DFoPmFmqs4M2wVxxZ/2eTxYZMtpMaVhBbVSaDTG8EzHE+7wC2eODrYY4DK9t6rnXA7ABDGBQvACxw3ox0rt4uME00iydTVT9dMHQt+ep3OA=
+	t=1791805420; cv=none; b=p7sywuqIqJ4+LDHRJ9q4WtVTJbyP0NdfzFV9Edhj+NIb0Be5wfkEnrQ8RX/bLjlF+QUraCNbQ2Rnx4GaByB+R1ImeWj7eyzZZK5nVShJHCYOXra1roZmoLIbbntCU7wL1bo1p9luavSfqmqKciOPvlJmcyTcNYOc+/rgPzds4jo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791805417; c=relaxed/simple;
-	bh=tly7a0gA1aT1o78ELMj1Kjjo35czO4RH4ft82yJHxd0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=e2HCuMCKu+/UmFEwTDWu4lVzjkuz7OUYs58KH+gVSej7Gdo0LQeiYifLrPCfJg7ajcIZfOgvy59t3Py7NXCgiygk16WAwD0vcOHn4eRn4UfkurTtiCurw2p5a9G7FahWw0iIsCALdIw/25yMu4bbQcocjKYbzfbkp9Kx/YX6pgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VKs/0qLj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791805420; c=relaxed/simple;
+	bh=Yr/ZAgk4lvpdXE7EWgoijOgAa1mR8zYUzUDu66dfoxg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=H9LCDvQS+/CODpMIpdQAm0VNrw5ekYHdIGZjYe6LDwaiMjAI7lfPf844k8e4Zkoum+j/bo2QeFRNQUVRlCgAvxEQNCYVk3mnFMMi6S7u8Yc3zRzCxMsjN7vlUxrqhngthCqR2wBlGGHGqhk81ah+qqtQ1cehSJ2ClmPUP4kc/bw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=iLscHZZx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VKs/0qLj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C0371F0089E;
-	Mon, 12 Oct 2026 11:43:29 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iLscHZZx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD0881F0089D;
+	Mon, 12 Oct 2026 11:43:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791805410;
-	bh=OSIz4NnGRSv344kiWATLReU+QsxsWMTo6efelqY4JYc=;
+	s=korg; t=1791805415;
+	bh=tGNHS3ktkuTpfJBh1qb8qyTPC2KKJGiQqBh2sSPXIBM=;
 	h=Subject:To:Cc:From:Date;
-	b=VKs/0qLjWzFDyI6/Se7SZZ4kCWDEMoyufT238gJ8K0A9jQXo5m3YKY0PgknlYniBS
-	 5BCkihhzvpDalKEYJdWSKf6X3A8ORsgey2bBll5eXD9l9AUOfgA3h6FW9gcbDDxCgK
-	 SNWFDYIUsX1vdNjazlyR+Xrr9vHbNK9ItTvYBimE=
-Subject: FAILED: patch "[PATCH] io_uring/kbuf: don't charge provided buffer rings to" failed to apply to 7.2-stable tree
+	b=iLscHZZx697OY7z/mYy2n9c3gZUKjtUkvHbN2ua0qGoNoYMfAYV4k3EMRWh7p7zGf
+	 pphHMsG/K0VPw4U8+bHQE833vpys8B1MQiI5vOOxKWcVncNKohg4ZQfkmDL2I9a3S7
+	 Y/53hUwPQS6Fmvb6q1Sq8i0/9DX61bInk39OYvsc=
+Subject: FAILED: patch "[PATCH] io_uring/kbuf: don't charge provided buffer rings to" failed to apply to 6.18-stable tree
 To: axboe@kernel.dk,hengyul@cs.unc.edu
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Mon, 12 Oct 2026 13:43:32 +0200
-Message-ID: <2026101232-grew-smuggler-50c9@gregkh>
+Message-ID: <2026101232-relieving-tacking-73ef@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x cde56daf4b93f474dc256dbcc5205035223ae6f5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101232-grew-smuggler-50c9@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101232-relieving-tacking-73ef@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
