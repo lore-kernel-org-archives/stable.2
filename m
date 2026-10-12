@@ -1,76 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CAB92DB7B8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB39318ED7;
 	Mon, 12 Oct 2026 05:57:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791784671; cv=none; b=EsCUT4N7mIL2oraulg7WAi9wagW2GPm3MaiVieLDtO/AlWSPABz0Hrcq3hPa/bUQbt4hHeKrqKtMmTsqB1hSnR3KBPTkiEmafPX6I+/45QmpHSn45GEdRbH8vzuwZ5950kfdRDMvfTStGFYLNV36L6LFnO9GBJXgx7u1g11E0t8=
+	t=1791784671; cv=none; b=ioVCBJsqPUPvN3vLmMdDeWTujGSlQWuiHpjw/lXlExLuTdtVWfYhVjcEilaMrc+KxsgH57pWt9wGPgz3jMVYACZt7jn7TEcqVTjSHiTbTRbXPXwFrFv1yvwLED+mhcPWe/7RDvhwZbk8xmnXGh56zrVqQ6uj0hmBhgpRDWMKHTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791784671; c=relaxed/simple;
-	bh=Ywba/+NYXsj6Rq95/AoGlcSikhrh6Lv1p0+Ktwx/bKk=;
-	h=Date:Subject:From:To:Cc:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VXz8tkzAGO1hXS7I6gmPiVFIL1EIWhctQxN1Ww+Qq16KE3qz5GXXPgR9mBY/8dYX+qt6tgiUfRq23wGHWKCqt6H76PXL2WmvddMbwA4U7dsQQQYJ2be5b4wDS6/mQLEZg/7qFDgn4UpPqAjaH8kYKioQSXp9g8a1DxxvbHvntAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P2L61eN7; arc=none smtp.client-ip=100.103.45.18
+	bh=WN7nf+p7kxzQ+C+blyl1D7z4iLtnAw+tmqdPCP2akJA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=m3YGwBWIGfO123Haif0LaAHw8el2kffLQQLGeE1poCb/NMgA+WF7oXsy2ae6kktX1Z6pX/KdPPavxp7eG5i/qKXjYRPw9oh7cUC7h1OnckgAcyKVE4JRbW9KYr3/fs150brr27CQ+3MY+ZXYR/ExFNwHdZMVDhgOAlCtgCBeUcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=p2t+mMbt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P2L61eN7"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 938F81F0089C;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="p2t+mMbt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B1941F0089B;
 	Mon, 12 Oct 2026 05:57:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791784669;
-	bh=8sIyqryzMcBplguXm2faeHnu8EYghx+QHiDeuPNqYLc=;
-	h=Date:Subject:From:To:Cc:In-Reply-To:References;
-	b=P2L61eN76mh4Zlxz/bnzTm5sWjbFLTu7EY/Fd5e7jzdDTrvDeGXrmT2uPYOTvS/Nt
-	 V6EimtPCmdtgQGcwAcsQpJXPXw9yE6154S+7etla5MvN6FhPveX/UGCF/FXkEWyRx5
-	 AB7zVnFSSY0kHpbbu1McikjTilx4SJyOkXmwVeE3ccYDeYs1uLjiI9OxV/lI2WxWPJ
-	 azUFc/I7HwzsF5tALZfxXX14NLKSmTtBdVMZv1hJzySCiNQHgSU2WVUo8/aMc2bS8z
-	 XM7QLFPgo6KF9c1smA4h84C0AytFqMpAOxawT5kXW9eUIM8l6k4EFRurtJ0ccOnynu
-	 Si6RgQbrizbaQ==
-Date: Sun, 11 Oct 2026 22:57:49 -0700
-Subject: [PATCH 08/12] xfs: don't clear COWEXTSIZE on directories on reflink
- filesystems
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: djwong@kernel.org, cem@kernel.org
-Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Message-ID: <179178065367.1058326.6266297742144507394.stgit@frogsfrogsfrogs>
-In-Reply-To: <179178065114.1058326.9639488899319330972.stgit@frogsfrogsfrogs>
-References: <179178065114.1058326.9639488899319330972.stgit@frogsfrogsfrogs>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791784669;
+	bh=fqNaSHKbaBtd70ZOA6N6C+BNYVqH/ibRWUuvmgYjVao=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=p2t+mMbtBUSLXhudX7Z+BmXCRa5YmWhGAZxjfdQ6+I/CH8EolgF5rsHcL9n3nJymm
+	 CZZVGfeYbGQf+vdf42v1KiwBEv7NQd7vdH/mXLvyF7NVw1zkfg0mEkyg6M+wFYZNkx
+	 PDf9YE7muMTkgOsM8+LQxsTsS869IrMnsUosEh0s=
+Date: Mon, 12 Oct 2026 07:57:47 +0200
+From: gregkh <gregkh@linuxfoundation.org>
+To: "yao.zhang1@amlogic.com" <yao.zhang1@amlogic.com>
+Cc: stable <stable@vger.kernel.org>, sashal <sashal@kernel.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	"tuan.zhang" <tuan.zhang@amlogic.com>,
+	"jianxin.pan" <jianxin.pan@amlogic.com>
+Subject: Re: Requesting CVES to be merged into version 5.15.y
+Message-ID: <2026101250-taekwondo-eatery-9d4f@gregkh>
+References: <2026101013574578732920@amlogic.com>
+ <2026101020-sheep-monetize-afa3@gregkh>
+ <2026101210492396062337@amlogic.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026101210492396062337@amlogic.com>
 
-From: Darrick J. Wong <djwong@kernel.org>
+On Mon, Oct 12, 2026 at 10:49:26AM +0800, yao.zhang1@amlogic.com wrote:
+> Hi stable team,
+> > Here's an example of why this is not in the 5.15.y tree, it does not
+> > apply at all.  How did you come up with this very small list of CVEs
+> > when there are thousands of "missing" fixes in these older trees?
+> 
+> > Have you tested this commit to verify it does work properly in the
+> > 5.15.y tree?
+> 
+> > Again, if you wish to see these all applied, please submit the patches
+> > that you have backported.
+> 
+> These CVEs were identified by our customers using third-party scanning tools, 
+> and I have verified using `strak` that the patches for these CVEs are indeed
+>  missing from the latest 5.15.y release.
+> I actually checked the code, and those CVEs aren't there either.
 
-LOLLM noticed that xrep_dinode_flags clears the COWEXTSIZE flag
-unnecessarily on directories on reflink filesystems.  Directories just
-pass the hint along to new children, so it's valid to leave the flag
-set.
+I agree, these commits are not in the tree, and they are not in the tree
+as no one has taken the time and effort to do the work to apply them
+there.  If you have customers that need these commits/CVEs fixed, great,
+please submit working patches that you have tested to resolve these
+issues and we will gladly apply them.
 
-Cc: <stable@vger.kernel.org> # v6.8
-Fixes: 2d295fe65776d1 ("xfs: repair inode records")
-Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
----
- fs/xfs/scrub/inode_repair.c |    2 ++
- 1 file changed, 2 insertions(+)
+> For example: [DEBUG strak] Checking CVE-2025-39797
+>                       5.15.222 is vulnerable to CVE-2025-39797
+> 
+> I have not tested this specific commit on the 5.15.y tree. 
+> I would like to know the reason why these CVEs were not merged into 5.15.y.
+> Does version 5.15.y not need these CVEs?
+> 
+> I have a few questions I would appreciate your help answering:
+> 1. Can you merge the patches for these critical/high-severity CVEs into the 
+>    5.15.y tree?
 
+If someone sends them to us, yes we will.
 
-diff --git a/fs/xfs/scrub/inode_repair.c b/fs/xfs/scrub/inode_repair.c
-index 89cbf599795b2f..4b719ad64ace8c 100644
---- a/fs/xfs/scrub/inode_repair.c
-+++ b/fs/xfs/scrub/inode_repair.c
-@@ -565,6 +565,8 @@ xrep_dinode_flags(
- 	 */
- 	if (xfs_has_reflink(mp) && S_ISREG(mode))
- 		flags2 |= XFS_DIFLAG2_REFLINK;
-+	else if (xfs_has_reflink(mp) && S_ISDIR(mode))
-+		flags2 &= ~XFS_DIFLAG2_REFLINK;
- 	else
- 		flags2 &= ~(XFS_DIFLAG2_REFLINK | XFS_DIFLAG2_COWEXTSIZE);
- 	if (!xfs_has_bigtime(mp))
+> 2. If they can be merged, what is the plan? How long would the process take?
 
+Depends on our release cycle / workload, see how long other submitted
+patches take to get merged.  All of our work is in public, it shouldn't
+be hard to track this.
+
+> 3. If you decide not to merge them, what is the reason?
+
+We will tell you if you submit them for review if there are any problems
+with them.
+
+thanks,
+
+greg k-h
