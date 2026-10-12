@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3F5392C29
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:24:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 327BD49D5BD
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:25:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791818651; cv=none; b=qYClEfsuSmrfcirS3EnHq4eXx6U2MXh2y4/z4gLauh5q8GxWtD1cKufcy96AZQLinj8lulJ0T3Szh+YhRxgY+Lt41zxbGHXry60eg3X9j0CaweDrHKlZO1VqxZPdzMQgmSUqJUuRxFiM89ZyZ++VLtM1y4LADx/upj9PB1Z6CLE=
+	t=1791818709; cv=none; b=YG9JqWpc4jHiY7p5zkPbDoXOMx9EBYtKmIr3gr0ju9GJ61MdmMZtkheMc5Jlgx8XlhZGA5cZxGDXfN8Bws3JG804jb3Y+PWCnrlE3AR+LqDxSxD9bqbdnMoM3ym47BIheplvG/Ol7s6ZzpZSGPYblNAztVbjGmMXEESoQBHMqZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791818651; c=relaxed/simple;
-	bh=xxf/rqSU+vp+paTeTHDxcyJC1oyBGzcrQ2SJVt9Pino=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tQbo2R8rvz1OefKUcDNIsHi51N5OyedYLBE4cqsizELCrc+KVvWvvHeMHMYIUAO4R5AmQ2Uh8EQWKs/2RvwhZiL6i1wsieKzRZ7VY+ZG+57NGN4GNrxlTEj7ZrS+mVSF9iODwaXCaXnGNtm8bOtXy57+guVKIUjqk2ZBxsxkfvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1/xRUsGv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791818709; c=relaxed/simple;
+	bh=OogQrJ0LjwI3lcyWjzvYOyOsIT8HSnL7WPqNzn37rns=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ohtPICvMeqNGYA2hjv7Pe/IutIHJZAkWEPQy8xoqEG75Z8eafbBErDfvS8LX6TLGkVF5pmO8Mpc9CsgRsJajQWrxiFk2sHsgwkYMWZGRRmAki97L39RgK5PqhUjyOSlqz2UNWiVnJQvDnd5JL6mSTNoMskOyYEE87ZlQj/wOLhw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=X0zBDybU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1/xRUsGv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79F271F0089B;
-	Mon, 12 Oct 2026 15:24:09 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="X0zBDybU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E39F1F0089B;
+	Mon, 12 Oct 2026 15:25:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791818650;
-	bh=dLSxaeYIBDmt+uFLJEoXIXufBH3hklVgI0V3pagQXss=;
+	s=korg; t=1791818706;
+	bh=Bk8gAJzDSB8Zolwa5y+NLeUXO6KzVvtoiZHMaB0yAQ4=;
 	h=Subject:To:Cc:From:Date;
-	b=1/xRUsGvSD6OWUU9H0DZhJKV9a2gzFRzQ3naXr1NC/c3lLGFrqTVrLDryky/ujyvC
-	 SFAYF8AO6RyiUZFn1FUEpOdLWRMUDq/YmYylhJQQG+8htV+IQRq3SsZHtEoaujFXyd
-	 agdSaPOX3Eiz4QbQbao3qJWTcAzMREUB+5+gHsUw=
-Subject: FAILED: patch "[PATCH] riscv: patch: fix handling of bpf-jit execmem addresses" failed to apply to 6.12-stable tree
-To: imbigking12@gmail.com,pjw@kernel.org,pulehui@huawei.com
+	b=X0zBDybUORIVkWYeuZ4u6YCY/xoi0csD3TQbLs0xJWUfHlbU2a/s39Ekfa1D2X8vF
+	 KF1TNew5hqdN07KwvDtCawXkHGel3dG4EZbWGmxE50fy9p9NXw+dLdGpK3JxS/vAZS
+	 x0ZrqXOXxHu/ZZRDIHDhkdP3sIJQivULMmsHGPAI=
+Subject: FAILED: patch "[PATCH] sched_ext: Generate qseq from a per-task counter" failed to apply to 7.2-stable tree
+To: jpiecuch@google.com,tj@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 17:24:15 +0200
-Message-ID: <2026101215-envelope-tribute-9992@gregkh>
+Date: Mon, 12 Oct 2026 17:25:12 +0200
+Message-ID: <2026101211-seismic-mutable-0582@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x a510e1ae8c9030750c2edf7b0bc9b186cd8c7a06
+git cherry-pick -x e6ac89b8b1c12e9104df45a14a26e2dfa96ded06
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101215-envelope-tribute-9992@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101211-seismic-mutable-0582@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,71 +62,128 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From a510e1ae8c9030750c2edf7b0bc9b186cd8c7a06 Mon Sep 17 00:00:00 2001
-From: Wei-Jie Hung <imbigking12@gmail.com>
-Date: Mon, 5 Oct 2026 19:02:38 -0600
-Subject: [PATCH] riscv: patch: fix handling of bpf-jit execmem addresses
+From e6ac89b8b1c12e9104df45a14a26e2dfa96ded06 Mon Sep 17 00:00:00 2001
+From: Kuba Piecuch <jpiecuch@google.com>
+Date: Sat, 3 Oct 2026 11:53:17 +0000
+Subject: [PATCH] sched_ext: Generate qseq from a per-task counter
 
-Commit 8718e5a3090b ("riscv: patch: skip fixmap mapping when kernel text
-is already writable") gated the core_kernel_text() branch of patch_map()
-on CONFIG_STRICT_KERNEL_RWX, and explicitly left the vmalloc branch
-unchanged. That branch has a separate problem.
+finish_dispatch() uses the qseq embedded in p->scx.ops_state to tell
+whether the QUEUED instance of a task it's about to claim is the one
+scx_bpf_dsq_insert() saw. qseq is generated from rq->scx.ops_qseq, but
+the counters of different rqs are independent, so if a task is dequeued
+and re-enqueued on a different rq between scx_bpf_dsq_insert() and
+finish_dispatch(), the new QUEUED instance can end up with the same
+qseq as the old one:
 
-That branch only creates a temporary writable fixmap alias when
-CONFIG_STRICT_MODULE_RWX is enabled, and otherwise assumes the target is
-directly writable and returns the address unchanged. That assumption no
-longer holds: bpf_prog_pack_alloc calls set_memory_rox() on every pack
-unconditionally in alloc_new_pack(), independently of any
-CONFIG_STRICT_*_RWX option, so BPF text in the vmalloc area is read-only
-regardless of what CONFIG_STRICT_MODULE_RWX says.
+  CPU X                          CPU Z
+  -----                          -----
+                                 enqueue p on rq A, qseq = N
+  ops.dispatch()
+    scx_bpf_dsq_insert(p)
+      records qseq N
+                                 sched_setaffinity(p)
+                                   dequeue p from rq A
+                                   enqueue p on rq B, qseq = N
+  finish_dispatch(p, N)
+    qseq matches, p is claimed
 
-With CONFIG_STRICT_MODULE_RWX=n, patch_map() returns the read-only
-address directly, the subsequent copy_to_kernel_nofault() takes a
-page fault and returns -EFAULT. bpf_arch_text_copy() turns that into
--EINVAL, which propagates through bpf_jit_binary_pack_finalize() to the
-WARN_ON() in bpf_int_jit_compile() and leaves the program un-JITed.
+The claim itself is still atomic so the core stays consistent, but an
+insert issued for a previous QUEUED instance gets applied to a new one
+which the BPF scheduler has just received through ops.enqueue(). This
+breaks the guarantee that dispatches targeting a stale instance are
+ignored.
 
-Note that BPF cannot be fixed the way kprobes was in
-commit bdc46e507b59 ("riscv: mm: make EXECMEM_KPROBES writable without
-CONFIG_STRICT_MODULE_RWX"). EXECMEM_BPF is already PAGE_KERNEL, i.e.
-writable at allocation time; the read-only mapping is established
-afterwards by generic code in alloc_new_pack(), which arch code cannot
-influence. The only place this can be handled is patch_map().
+Generate qseq from a per-task counter, p->scx.ops_qseq, instead so that
+consecutive QUEUED instances of a task never share a qseq regardless of
+which rq they're on. The counter is only updated in
+scx_do_enqueue_task() with the task's rq locked, so no additional
+synchronization is needed, and it fits in an existing hole in struct
+sched_ext_entity on 64bit. Remove the now unused rq->scx.ops_qseq.
 
-This is the same problem that was fixed on arm64 by commit b1480ed230ac
-("arm64: patching: fix handling of execmem addresses"), and the fix is
-the same: CONFIG_EXECMEM is what actually tracks whether the vmalloc
-area can hold executable memory that needs a temporary alias to be
-written. CONFIG_BPF_JIT, CONFIG_KPROBES and CONFIG_MODULES all select
-it.
+Never generate qseq 0. NONE and DISPATCHING don't carry a qseq, so
+scx_bpf_dsq_insert() on a task in either state records 0. With a
+per-task counter, every task's first QUEUED instance would otherwise get
+qseq 0 and could be claimed by such an insert. Wrap the counter where
+the QSEQ field wraps so that it can't reach a value that shifts to 0 on
+32bit either.
 
-Note that this is not limited to CONFIG_MODULES=n. Unlike arm64, riscv
-selects CONFIG_ARCH_OPTIONAL_KERNEL_RWX, so CONFIG_STRICT_MODULE_RWX can
-be disabled with CONFIG_MODULES=y as well, and the bug is reachable in
-that configuration too.
+Fixes: f0e1a0643a59 ("sched_ext: Implement BPF extensible scheduler class")
+Cc: stable@vger.kernel.org # v6.12+
+Assisted-by: Claude:claude-opus-5.5
+Signed-off-by: Kuba Piecuch <jpiecuch@google.com>
+Signed-off-by: Tejun Heo <tj@kernel.org>
 
-The !CONFIG_MMU build is unaffected: it has its own __patch_insn_set()
-and __patch_insn_write() implementations and never calls patch_map().
-
-Fixes: 2c9e5d4a0082 ("bpf: remove CONFIG_BPF_JIT dependency on CONFIG_MODULES of")
-Signed-off-by: Wei-Jie Hung <imbigking12@gmail.com>
-Reviewed-by: Pu Lehui <pulehui@huawei.com>
-Tested-by: Pu Lehui <pulehui@huawei.com>
-Link: https://patch.msgid.link/20260914115607.350097-1-imbigking12@gmail.com
-Cc: stable@vger.kernel.org
-Signed-off-by: Paul Walmsley <pjw@kernel.org>
-
-diff --git a/arch/riscv/kernel/patch.c b/arch/riscv/kernel/patch.c
-index 2239c28981bc..2b5adf01c550 100644
---- a/arch/riscv/kernel/patch.c
-+++ b/arch/riscv/kernel/patch.c
-@@ -48,7 +48,7 @@ static __always_inline void *patch_map(void *addr, const unsigned int fixmap)
- 		if (!IS_ENABLED(CONFIG_STRICT_KERNEL_RWX))
- 			return addr;
- 		phys = __pa_symbol(addr);
--	} else if (IS_ENABLED(CONFIG_STRICT_MODULE_RWX)) {
-+	} else if (IS_ENABLED(CONFIG_EXECMEM)) {
- 		struct page *page = vmalloc_to_page(addr);
+diff --git a/include/linux/sched/ext.h b/include/linux/sched/ext.h
+index 582d7cd4a983..36c04797436c 100644
+--- a/include/linux/sched/ext.h
++++ b/include/linux/sched/ext.h
+@@ -207,6 +207,7 @@ struct sched_ext_entity {
+ 	s32			holding_cpu;
+ 	s32			selected_cpu;
+ 	s32			runnable_cpu;	/* cpu @p is runnable on, -1 if not */
++	u32			ops_qseq;	/* protected by rq lock */
+ 	struct task_struct	*kf_tasks[2];	/* see SCX_CALL_OP_TASK() */
  
- 		BUG_ON(!page);
+ 	struct list_head	runnable_node;	/* rq->scx.runnable_list */
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 5209510d6a5e..ac8fe70a9fb6 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -2057,8 +2057,14 @@ void scx_do_enqueue_task(struct rq *rq, struct task_struct *p, u64 enq_flags,
+ 	if (unlikely(!SCX_HAS_OP(sch, enqueue)))
+ 		goto global;
+ 
+-	/* DSQ bypass didn't trigger, enqueue on the BPF scheduler */
+-	qseq = rq->scx.ops_qseq++ << SCX_OPSS_QSEQ_SHIFT;
++	/*
++	 * DSQ bypass didn't trigger, enqueue on the BPF scheduler. Wrap the
++	 * per-task qseq counter where the QSEQ field wraps and skip 0, which is
++	 * what scx_bpf_dsq_insert() records for a task in NONE or DISPATCHING.
++	 */
++	p->scx.ops_qseq = ((p->scx.ops_qseq + 1) &
++			   (SCX_OPSS_QSEQ_MASK >> SCX_OPSS_QSEQ_SHIFT)) ?: 1;
++	qseq = (unsigned long)p->scx.ops_qseq << SCX_OPSS_QSEQ_SHIFT;
+ 
+ 	WARN_ON_ONCE(atomic_long_read(&p->scx.ops_state) != SCX_OPSS_NONE);
+ 	atomic_long_set(&p->scx.ops_state, SCX_OPSS_QUEUEING | qseq);
+@@ -6969,9 +6975,9 @@ static void scx_dump_cpu(struct scx_sched *sch, struct seq_buf *s,
+ 	seq_buf_init(&ns, buf, avail);
+ 
+ 	dump_newline(&ns);
+-	scx_dump_line(&ns, "CPU %-4d: nr_run=%u flags=0x%x cpu_rel=%d ops_qseq=%lu ksync=%lu",
++	scx_dump_line(&ns, "CPU %-4d: nr_run=%u flags=0x%x cpu_rel=%d ksync=%lu",
+ 		      cpu, rq->scx.nr_running, rq->scx.flags, rq->scx.cpu_released,
+-		      rq->scx.ops_qseq, rq->scx.kick_sync);
++		      rq->scx.kick_sync);
+ 	scx_rescue_dump(&ns, rq);
+ 	scx_dump_line(&ns, "          curr=%s[%d] class=%ps",
+ 		      rq->curr->comm, rq->curr->pid, rq->curr->sched_class);
+diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
+index 1df8f583b0ec..5b37faa532d6 100644
+--- a/kernel/sched/ext/internal.h
++++ b/kernel/sched/ext/internal.h
+@@ -1998,6 +1998,11 @@ enum scx_ops_state {
+ 	 * dequeue/requeue, the dispatcher can tell whether it still has a claim
+ 	 * on the task being dispatched.
+ 	 *
++	 * QSEQ is generated from the per-task p->scx.ops_qseq counter so that
++	 * it doesn't repeat across QUEUED instances of the same task even if
++	 * the task moves between rqs. 0 is never used as a valid QSEQ since
++	 * NONE and DISPATCHING map to this value.
++	 *
+ 	 * As some 32bit archs can't do 64bit store_release/load_acquire,
+ 	 * p->scx.ops_state is atomic_long_t which leaves 30 bits for QSEQ on
+ 	 * 32bit machines. The dispatch race window QSEQ protects is very narrow
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 742cce9da4e9..9ed0cb605c33 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -813,7 +813,6 @@ struct scx_rq {
+ #endif
+ 	struct list_head	runnable_list;		/* runnable tasks on this rq */
+ 	struct list_head	ddsp_deferred_locals;	/* deferred ddsps from enq */
+-	unsigned long		ops_qseq;
+ 	/* both stashed across the activate_task() in move_remote_task_to_local_dsq() */
+ 	u64			remote_activate_enq_flags;
+ 	struct scx_sched	*remote_activate_sch;
 
