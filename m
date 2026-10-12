@@ -1,216 +1,137 @@
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE5392D7386
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 09:40:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD3B46A5E3;
+	Mon, 12 Oct 2026 09:49:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791798061; cv=none; b=dH9cjXml2scal48WY1aVkSBjuxlYkNNFY4dvibGr0KUWMa0uou2HIIjmudvzTjwYsQW4poK4xnq9ozh8r/35KLKEBpir0dZ2gCD8xGn7TemedtfuWHqO4dmbJWyJzX3MEahr7t9TV3bCDr1AapukDuvaS40JLP5XoCLmbmMijUg=
+	t=1791798583; cv=none; b=cXOtXok2V8HMVjt6ejQNS6ruYXMYVuX57eGu7okUPqD/SdtTLPfLyI6gXReywd/hkATUs1OKv6F+MF6bdyZWgKie7O/4jiBZNwnheUDkoFU1A5yGumCs1k93JhcxT+t3gHBAkDe3M+EASck2dJP1gWSCeRnkpkm9NGRL8vSkiQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791798061; c=relaxed/simple;
-	bh=lmbfP6/LQtekS5d2UAKODhzYECFpFLpPjSLkUfC8pXI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TqwFxFec03Pgn6FClSjdyBgwQ4gF2A4+Zn+ZRC8sJ7Oug21OAY1g/HBlc+nzf65+EC6hBzM3DgZwsGs8KPH2rkKfx/sq16NxHi/+BxnfybeHeCJKIPtC9pYzxlWpudkgWXG0pV2IKEIeTgeA8SvdnTFqxMcD/FqAlZOrURn1Bss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=KmzPzZGG; arc=none smtp.client-ip=209.85.222.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	s=arc-20240116; t=1791798583; c=relaxed/simple;
+	bh=JSrO162Bb0xVGY82I6TqZjOWNSQgDe1p/FuUG32frlk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kRfRMTw4eg0d9Cx/ZMf3snCy7OFGP9TRoUZD6c5rx0Tq6UVo05BBBG1vJ0PdbhC+/V//SkSZYdvim6+RRNFcMs1VTRs3UQqsIGtgjIoIPohpd4iE0avRtGvDQVbT1OphFMY1SR7oS7/sm/xr3VsdBhBdIruZoQN2vO4lC7ipriQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=eGIHhL7e; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="KmzPzZGG"
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93e7457349eso162242685a.1
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 02:40:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1791798059; x=1792402859; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TFmCIpUfagd6jNTqIQiMG7oS1DzngqujJGbDwYFy81o=;
-        b=KmzPzZGGAxQjOkzm1xv8X3AhmKEYRXzDhSZS090y2Bu8N7FEvbfBDH7tniySi1WnB7
-         ksTf4RwnRBOExs+JIUYJctnAxgIPBdvZikViTPWNAsKzAugyjfnSOK7qPBKOl5vndkCO
-         pdRxN4bwvGdIPV0An0q+XE3OpCUJDJ0ru+RqzWMWsQNBDF5ST/az65NN1LEn0p31rrUr
-         LWlS4Ou/S/sAx2MOxgMZ4PGVrTwXML6dq+Qi8B9NS/6KzlI5vZhXfwa2I9Ki2MQYCTUV
-         V2OUO5JG5qrRxEs5MkR4Ti65NZOLRrVsLKXuMRcX2PKIX9nAKRKPIfh7kslewmgTqof9
-         F/jQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791798059; x=1792402859;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TFmCIpUfagd6jNTqIQiMG7oS1DzngqujJGbDwYFy81o=;
-        b=vvWLgGQ9RllIykYq/oFSJrtnFhB9egCNLgtxsIc1lN+1g4xHASEE7RBrK4US6sEo6B
-         lyZBzJF27wSvsUnvjV6QPR7tSq9ajMJFSgdvap+rmlz511leR8pymm0oouUGwWah7m+K
-         7SVHqM0arppKrYZ11BavfDe+rE4+YVMGDvgWgj4lzWiXrN/flUNRrJvpXNp4o33hBY4N
-         5Qj1R0jWEdXqzWl4kUaAKLftDAuqZhgjGMtlFRnti+Y7kauD8vm15m3yhj3RbETiuifc
-         MqE7JdO53EvUUnvDqItZbfz0Cx6fNRVCBfPBwGR4eO6WC0JeiIRNaba5t9JQKxct6lc6
-         uQXA==
-X-Forwarded-Encrypted: i=1; AKwUvBwVQmBuGPFY1AzGMQEJX6Fi1T92OG34ti54eNBVaNa/AjHA7uKBjobp8TPtuHprqp0RMtZGIuA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2bPjmM/+cQ2otYLZfqDieauTD2nMaMOLRIdvSVRZoAKaB/9jF
-	j0vraCoCGvq4UsquzZeRIhzYJGiJTs8H53K7ILtkdCHoAZN7IX6dMSIVU31RBrH0Wg==
-X-Gm-Gg: AYBFou1VcwvqbLPblL1c80gfXPYk4sJdwelxiEc9qt5WRMu/o2GY6sG32siImH8oWTB
-	rp5x7giSUbwEG0cnorEIKeeZ1PBkTnhOYb/obd++9dA1RMYupu0xGQe+Yf4c+5KOZT7ylndRUcI
-	Unfom0Oq3OpSKpr/d06imxf57OagXS9lwUSOsIavugz8osqcXUpquaZKVzkN9TIslLG4FIBY4Yx
-	/dWFYjuJWQiRqXIXhLm8Yvz91C4RPVwZGZ3kmnduB9PTTnyblhJCH4vVp3VMIKtr+J+g6q2C/nI
-	uW70dIxSqeC6OGgc+l+nh/7C/Fi892V/uxYnE4Dnw6tkpz9qdijawurual2T8FKzMrTMUSTXqkB
-	4Fi8g0IQzzLgiCFUGKF9+YtUuglYV0LU79PwSlNb4V/XoCq/6+z3u7EKJ9H7Uluf8pmRkLkKqel
-	lcIWtLBExzurzyaCqwhroN6LtRfwEVNFZgz3wJJMwtDwHlR4hvkjwQY742elsqQnD2QRvA5JQyw
-	OJWWTwoirq6qVxyURy/yA==
-X-Received: by 2002:a05:620a:710d:b0:93e:5daa:67a4 with SMTP id af79cd13be357-93ebd225a6cmr1469980085a.29.1791798058677;
-        Mon, 12 Oct 2026 02:40:58 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b815fd211sm21817986d6.48.2026.10.12.02.40.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 02:40:58 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Sungjong Seo <sj1557.seo@samsung.com>
-Cc: Yuezhang Mo <yuezhang.mo@sony.com>,
-	exfat@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] exfat: free clusters beyond EOF when a write fails or is short
-Date: Mon, 12 Oct 2026 05:40:46 -0400
-Message-ID: <20261012094046.2592731-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="eGIHhL7e"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8iMLL2750236;
+	Mon, 12 Oct 2026 09:49:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=yWvg31
+	cmrWnAjP2Wz00NBC1QFW9PNKonLylsY2mzdeA=; b=eGIHhL7e0x0iI3v9aBt57d
+	hrYh4W14NOpNG2QAIif1jkPBwxaETovTFlApuebW799+kGWpAcQ+dKI4+CsyOFpd
+	gZe7h/PFxepQOVi6rveoBo1/yGQOcgP6D3fG3qFd4y7wsDnXjbBZE3vEeVB9GXp0
+	JmXbaB61xtwJttII1WXLhG9SLIyjWeq/BErU8R0BLG+UeDWba+swF0Snk15lfT/G
+	BqBv4/p7MA7uMk7TSMzz3Cl/I+6mTFmRMDdOa11oli9Z8+NOi6jo0zLIIOdsdsbD
+	SEys/gqeXXMRq+z/HSkggZyy/t056Cp1GhntuXeJPNcWRC/ekmIQ7Tmak9jYy8Lw
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv07wqf-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 09:49:31 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8K3NL1013624;
+	Mon, 12 Oct 2026 09:49:30 GMT
+Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h82cycass-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 12 Oct 2026 09:49:30 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
+	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69C9nU3h13107784
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 12 Oct 2026 09:49:30 GMT
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0DD97581F6;
+	Mon, 12 Oct 2026 09:49:29 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0B3AB581FA;
+	Mon, 12 Oct 2026 09:49:22 +0000 (GMT)
+Received: from [9.124.213.153] (unknown [9.124.213.153])
+	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 12 Oct 2026 09:49:21 +0000 (GMT)
+Message-ID: <8af035ab-fe01-4ca4-8f39-6a409127d915@linux.ibm.com>
+Date: Mon, 12 Oct 2026 15:19:20 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v9] net/smc: fix lgr/lnk lifetime vs diag reader race
+To: netdev-bot+sinfo@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+        kuba@kernel.org, pabeni@redhat.com, alibuda@linux.alibaba.com,
+        dust.li@linux.alibaba.com, sidraya@linux.ibm.com,
+        hidayath@linux.ibm.com, pasic@linux.ibm.com, horms@kernel.org,
+        tonylu@linux.alibaba.com, guwen@linux.alibaba.com,
+        stable@vger.kernel.org, netdev@vger.kernel.org,
+        linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
+References: <20261012080034.38770-1-mjambigi@linux.ibm.com>
+ <179179225758.2527009.15422843250132893660@kernel.org>
+Content-Language: en-US
+From: Mahanta Jambigi <mjambigi@linux.ibm.com>
+In-Reply-To: <179179225758.2527009.15422843250132893660@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAzOCBTYWx0ZWRfX+PbO2ah4xNx+
+ A5Aq60JZ6kdHydakK4Zg6vyl1tRHadwf1Jr9xm4pgTqvnhC4B8UKwN09T0ZU9RpWlAQXtkPJjy4
+ RzFC8fN3w6iltxC23GopTDBRKDUDI52qYwanODuPGe5fkNkxojtWIyoSOLMWpg+Myol2oZkKMgk
+ DEmcCSGnsoWGVk/3BboyONa2zCYiYjuYsKFXI9UpeT+DuUS8jdO7nNwhuBgvoLWg5gJ77UJDdZD
+ tDFPq0dco3CxO+5+qbPfD0Sv2XvFcDjzqZ3ArV0TdL/zeO7zwVL2cxouG3zCDKEeR4SDzUmunXa
+ 0YN4KYGO29tvi1f5Y9ndpAno4AbMuhLQpv2Mnm/dE2RAydfW6481buC1k8ISmNpMCx6ivXXKFXy
+ crX5pszzeKiHInwAOgcMY/9vS0Jpre0A6bq4MTzVGvHIcDc78UYGcRwn7wmQYSktnTw5zYMlGkP
+ iobEOUmF5xB7U12Ct7w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAzOCBTYWx0ZWRfX71zX/M//M6qq
+ CkxGghcfMhuAeLeyNTZT7uWNaNJio+CBgOWZkMO7hRFHnF3cuEb3Sn/gUyAjovB25eY8r4ZAY5O
+ o/XGFGEghltDBNUbnQA5IItf5LaCrl8=
+X-Proofpoint-ORIG-GUID: gpN-nQqL1g5TVOLUHsXe2_cpzlA37IxF
+X-Authority-Analysis: v=2.4 cv=a6KlZkSF c=1 sm=1 tr=0 ts=6accad2c cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=8WImSUdLa4LpenjYlHkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: mNU-isJH3YWoj62YpE7kxzk7RJ5jxZqF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_03,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 spamscore=0 suspectscore=0 clxscore=1015
+ phishscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120038
 
-Commit 82a81a7352bc ("exfat: add iomap buffered I/O support") and commit
-867b9c96dc83 ("exfat: add iomap direct I/O support") made a write
-allocate the clusters for its whole range in one step. They also dropped
-exfat_write_failed(), which freed the clusters beyond the end of the
-file after a failed or short write.
+On 12/10/26 1:34 pm, netdev-bot+sinfo@kernel.org wrote:
+> Hi!
+> 
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+> 
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
 
-However, a write can stop early, for example when the process is killed
-or when a part of the buffer cannot be read. As of now, the clusters for
-the part that was not written stay allocated beyond the end of the file.
-exfat_cont_expand() does not expect them, so a later write or truncate
-that extends the file fails with ENOSPC. The directory entry records
-only the size of the file, so the space can be lost for good once the
-volume is unmounted.
+The issue was found by manual code inspection while reviewing the diag
+dump path in net/smc/smc_diag.c.
 
-The issue can be reproduced on a 64M volume made by mkfs.exfat and
-mounted on /mnt, with a write of 1M from a buffer that has only its
-first 4K mapped:
+> 
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
 
-    #include <fcntl.h>
-    #include <stdio.h>
-    #include <sys/mman.h>
-    #include <sys/stat.h>
-    #include <unistd.h>
-
-    int main(void)
-    {
-            char *p = mmap(NULL, 8192, PROT_READ | PROT_WRITE,
-                           MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-            int fd = open("/mnt/f", O_CREAT | O_WRONLY, 0644);
-            struct stat st;
-
-            munmap(p + 4096, 4096);
-            printf("write: %zd\n", write(fd, p, 1 << 20));
-            fstat(fd, &st);
-            printf("blocks: %ld\n", (long)st.st_blocks);
-            printf("ftruncate: %d\n", ftruncate(fd, 1 << 16));
-            return 0;
-    }
-
-Before commit 82a81a7352bc ("exfat: add iomap buffered I/O support"),
-the result is:
-
-    write: 4096
-    blocks: 8
-    ftruncate: 0
-
-After that commit, the result is:
-
-    write: 4096
-    blocks: 2048
-    ftruncate: -1
-
-This patch will bring back exfat_write_failed() and call it when a write
-ends before the end of its range, so that the clusters beyond the end of
-the file are freed again. It waits for direct I/O in flight first, as
-exfat_setattr() does before it frees clusters.
-
-Fixes: 82a81a7352bc ("exfat: add iomap buffered I/O support")
-Fixes: 867b9c96dc83 ("exfat: add iomap direct I/O support")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
----
-Based on the exfat dev branch (1cae92a58966).
-
-Tested on v7.3-rc6 with fs/exfat taken from that branch (KASAN, and a
-second build with lockdep), on volumes with 512-byte, 4K and 32K
-clusters: the program above, the same write with O_DIRECT, a process
-killed in the middle of one 48M write(), a fragmented volume, and
-asynchronous direct writes in flight while writes on the same file
-fail. With the patch no clusters are left beyond EOF and all the space
-is free again after the file is deleted.
-
-Without the patch, the killed 48M write leaves a 1.5M file with 48M
-allocated; after a remount and deleting the file, only 15M of the 62M
-volume are free.
-
-The inode_dio_wait() is needed. In a test build without it, a direct
-write that fails while asynchronous direct writes are extending the
-file frees their clusters, and fsck.exfat reports "less clusters are
-allocated".
-
- fs/exfat/file.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
-
-diff --git a/fs/exfat/file.c b/fs/exfat/file.c
-index f106db945d8d..dc57d2c2f0f0 100644
---- a/fs/exfat/file.c
-+++ b/fs/exfat/file.c
-@@ -804,6 +804,19 @@ static int exfat_extend_valid_size(struct inode *inode, loff_t new_valid_size)
- 	return ret;
- }
- 
-+/*
-+ * The clusters for a write are allocated before the data is copied. Free the
-+ * ones that a failed or short write has left beyond the end of the file.
-+ */
-+static void exfat_write_failed(struct inode *inode)
-+{
-+	inode_dio_wait(inode);
-+	filemap_invalidate_lock(inode->i_mapping);
-+	truncate_pagecache(inode, i_size_read(inode));
-+	exfat_truncate(inode);
-+	filemap_invalidate_unlock(inode->i_mapping);
-+}
-+
- static ssize_t exfat_fallback_buffered_write(struct kiocb *iocb,
- 		struct iov_iter *from)
- {
-@@ -862,7 +875,7 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
- 	struct file *file = iocb->ki_filp;
- 	struct inode *inode = file_inode(file);
- 	struct exfat_inode_info *ei = EXFAT_I(inode);
--	loff_t pos, valid_size;
-+	loff_t pos, valid_size, end;
- 	int err;
- 
- 	if (unlikely(exfat_forced_shutdown(inode->i_sb)))
-@@ -881,6 +894,7 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
- 	}
- 
- 	pos = iocb->ki_pos;
-+	end = pos + iov_iter_count(iter);
- 	if (pos > i_size_read(inode))
- 		truncate_pagecache(inode, i_size_read(inode));
- 
-@@ -909,6 +923,8 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
- 		ret = iomap_file_buffered_write(iocb, iter,
- 				&exfat_write_iomap_ops, NULL, NULL);
- 	}
-+	if (ret != -EIOCBQUEUED && end > i_size_read(inode))
-+		exfat_write_failed(inode);
- 	if (ret < 0)
- 		goto unlock;
- 
--- 
-2.53.0
+The races are theoretical — none of the four windows were triggered in
+practice. The smc_conn_kill() / smcd_buf_detach() race requires an
+active smcss poll to coincide with an SMC-D lgr termination on the
+dmb_nocopy path; the smc_close_active_abort() and
+smc_close_passive_work() races require a concurrent diag dump during the
+narrow teardown window between sk_state = SMC_CLOSED and
+smc_conn_free(). No stack trace or error message is available since the
+bugs were not hit in a running system.
 
