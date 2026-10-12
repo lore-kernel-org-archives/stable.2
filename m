@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A90D03921D1
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 18:46:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373D5396B70
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 18:46:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791830795; cv=none; b=A4ogIZiTw8S84BD4S92+KtiUkrRgxwvc+tuyTinOOpnKTp13n/zLFOeGQZmUbv7eM8tQS5EDrrARVhEzZohRUIYKlxoA67LHEU2w2u1g/ZzWuxAHps4q7Uhr7UfJiA47zlA2xbD1dzMowwfLHu18HncNBkwnp8AaGAlq3PKq2YU=
+	t=1791830812; cv=none; b=JNGt6UYjpuZd4x5MYLaLzdY+4s6L9/uhxO0mqYxPltGClUuHfnzSu+IMlCjddlRCYIx8oW9bRRpNavJNb0RZ8qb0JnH6aWuC5WCvICRKsVDBC+kIzGbvLN6ouDLPtCS/JFuNkn0h5AtCw/p6xUn/9JlgsMtA8FXSQ3hcoqFZBAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791830795; c=relaxed/simple;
-	bh=YJAChOAYQRGbOZ3YWWVd4MzH/rxYOSArv90mcU6H59A=;
+	s=arc-20240116; t=1791830812; c=relaxed/simple;
+	bh=hfwW3RTBhR57W1v887GzTZOAJtVu0VM3mCxqjluhTq0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cLSAkVebn80bf3J9rzODF7Q4/3DGGHIGMr/y0f70jyzD++8Onkyow0xtmj6/0P4pDQfamBNhzIbQf3J5eawX30MUPm+V++VICzvzsjTC/Qcpw9Swqm03xe/OkF2xIgoherAw93GsVnZr2qREe9jwDoOma7cBdNVfcA88QAlaoqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fa0IkLZy; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rBa585nFDVByZKZATwnpmLhZdQgjyYpEmbRc1cl+j7uwoT3zWXlMHi9mQwNTtbddiaChvI3EmN3qMDCxFIMd9AYQQFY4lYXpxweurRdyWeQu5XsL5M14oeV0DQdfSxENK4tg5OWRFkBznE/kzAQHKzQmELYf0einOMw8RtgfubE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V2JHdUBo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fa0IkLZy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAF5E1F0089B;
-	Mon, 12 Oct 2026 18:46:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V2JHdUBo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 579281F0089B;
+	Mon, 12 Oct 2026 18:46:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791830791;
-	bh=4wNUR0oSrAbCovvSGLlHX+znsB5kSqIc5+9E1aj3F+Y=;
+	s=k20260515; t=1791830807;
+	bh=4b++eyzvnOsvsouIdB/fSzspBaX/wyKdfE16es6a/bU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fa0IkLZyt8nUQ6t6vZN86Nx25Qd1hKuAq3GnyV7UhKmDAbVoGhTxaZlsrgG3vl2yE
-	 prBw1TZoKNO79vIIdjn9vS0WULMdfMZmMBnjaLIvGu2JdnSd3q/F6THpzyNE9Gygod
-	 WSFecQKNNIFZ1qkwUTrLzRp6u7u9KmmrLaRnGGsf5WH2CgpjDr7eOCqRu/YLGjDjVk
-	 4+jitpxzJ/tc2j3iE6NGmJ0ovEljmpu4hhGk/1COWABwDI54GsC7Bqn+LTHmx7SUDv
-	 7954Siw4PzrqqV1281UUcyVAQsAwMDDjUxxumhoJNMpPmm4h75vyS1lj5E0F2NupQB
-	 esZIMp1JMWzxQ==
+	b=V2JHdUBoT/rMnBNiJJUTCt2zkNbwmw0tS/N+CwrNaypGWTzjEzEJOEU0aSmx6qPPc
+	 B8IssDtiQlnQT3oewbR7aTUoZw0iyXCSTQPDfUuMElVg1iY4p9HWX6i8GOqxrlchx9
+	 cKB3m6zPqTN9RuxbVyf34z8jioTBhEmNqWg+/bh70Njk8//Q+lm6wfhTcyiRHkWXap
+	 R3Q92i0zhnKezU8BUht+5e+rUd7E8fs+Rq4Osq2TGJh7ykvM83qdjVwRc+QhBWc41+
+	 sAdaJ5usRLuqePBWwBPL57W+UiuJUjN6RRnMPptcxK+CjlbZSwfy2h+9YbNMEpf3r4
+	 PI6b8UJ1NlEPQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
@@ -40,12 +40,12 @@ Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
 	Brian Geffon <bgeffon@google.com>,
 	Minchan Kim <minchan@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y] mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP self-merge
-Date: Mon, 12 Oct 2026 14:46:28 -0400
-Message-ID: <20261012184547.1219957-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm/mremap: fix locked_vm leak by splitting VMA for MREMAP_DONTUNMAP
+Date: Mon, 12 Oct 2026 14:46:45 -0400
+Message-ID: <20261012184546.1341801-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101206-jawed-thriving-05c3@gregkh>
-References: <2026101206-jawed-thriving-05c3@gregkh>
+In-Reply-To: <2026101243-bucked-vintage-0cea@gregkh>
+References: <2026101243-bucked-vintage-0cea@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,9 +56,7 @@ Content-Transfer-Encoding: 8bit
 
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 
-[ Upstream commit 838bb60dc21553e32df90f2f3bac5b905376e7aa ]
-
-Patch series "mm/mremap: fix two issues with MREMAP_DONTUNMAP", v2.
+[ Upstream commit 597e4b9ab48a3f841080f627722064853d3f650e ]
 
 The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
 operations that keep the original VMA in place.
@@ -66,92 +64,58 @@ operations that keep the original VMA in place.
 Historically this has led to a lot of bugs where non-obvious interactions
 occur between existing mremap() operations and the original VMA.
 
-Commit 397432cab17b ("mm/mremap: account mm->locked_vm correctly for
-MREMAP_DONTUNMAP") fixed an accidentally introduced bug around
-mm->locked_vm accounting, but this wasn't the only issue.
+Fix another of these - partial copies.
 
-And thus history repeats itself, as it turns out that mm->locked_vm
-accounting is broken by MREMAP_DONTUNMAP yet again by two further cases,
-and has been broken ever since the feature was introduced.
+The long-standing mremap() partial VMA logic has the baked-in assumption
+that the originating VMA is unmapped and thus moved.
 
-Both relate to the fact that VMA_LOCKED_BIT is cleared on the source VMA
-(it has to be as all page tables are moved):
+However MREMAP_DONTUNMAP defeats this by performing a partial copy
+instead since it keeps the source VMA around.
 
-1. If an unfaulted VMA_LOCKONFAULT_BIT anonymous VMA self-merges it
-   clears the VMA_LOCKED_BIT flag and permanently leaks mm->locked_vm
-   pages.
+An mremap(..., MREMAP_DONTUNMAP) operation disallows resizing of the VMA,
+but the operation can be performed partially:
 
-2. If a partial mremap() is performed on a locked VMA there is a leak equal
-   to the number of pages not copied.
+                           |-----------------|
+                           |                 |
+                           |                 v
+                        <------>          <------>
+                        .new_sz.           new_sz
+                     |--.------.--|       |------|
+                     |  .source.  |       | dest |
+                     |--.------.--|       |------|
+                     <------------>
+                         old_sz
 
-(Both for MREMAP_DONTUNMAP operations only)
+The page tables in the specified range are moved, but the original VMA is
+kept intact.
 
-Both issues can be fixed by treating the source range as distinct from the
-destination range, which is the definition of what MREMAP_DONTUNMAP does
-so is appropriate.
+This interacts poorly with mlock()'d VMAs, as the VMA_LOCKED_BIT flag is
+cleared for the entire source VMA and set for the entire destination VMA.
 
-In case 1, simply disallow the self-merge, keeping adjacent source and
-destination VMAs distinct.
+This results in an mm->locked_vm leak as the change is therefore not
+accounted correctly.
 
-In case 2, split the source range ahead of time if the VMA is mlock()'d,
-so accounting is always correct.
+The clear solution here is to make the portion of the source VMA which is
+mremap()'d distinct from the rest of it, a.k.a. split it.
 
-Both changes were tested locally and confirmed to fix the issues.
+Therefore resolve this issue by splitting it ahead of the rest of the
+mremap() operation if the VMA is mlock()'d.
 
-For the purposes of a backport, the fixes are kept distinct, a follow-up
-series can add self-tests.
+This is valid, as the source VMA will lose its VMA_LOCKED_BIT flag, so if a
+partial remap it will become distinct from the rest of the VMA.
 
-This patch (of 2):
+In order to make this change re-expose split_vma() in vma.h for
+CONFIG_MMU (nommu doesn't compile mremap.c and uses a static helper
+instead).
 
-The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
-operations that keep the original VMA in place.
+Finally, update the sys_map_count check to account for this case.
 
-Historically this has led to a lot of bugs where non-obvious interactions
-occur between existing mremap() operations and the original VMA.
+Note that the early check does not use needs_pre_split() - this is because
+the VMA has not been looked up by this point, so be conservative and assume
+that the VMA is mlock()'d in this case for the purposes of the
+sys_map_count check.
 
-Fix another of these - self-merge.
-
-Self-merge occurs when a VMA is moved in front of or behind itself and the
-attributes of the VMA permit such a merge.
-
-Practically this can only happen for unfaulted anonymous VMAs due to the
-page offset equality requirement for merge:
-
-                           |------------|
-                           |            |
-                           |            v
-        |...........||-----------||...........|
-        |           || unfaulted ||           |
-        |...........||-----------||...........|
-              ^            |
-              |            |
-              |------------|
-
-This becomes problematic if the VMA is configured by the user to
-mlock-on-fault, i.e. the VMA_LOCKED_BIT, VMA_LOCKONFAULT_BIT VMA flags are
-set.
-
-MREMAP_DONTUNMAP clears mlock flags for the source VMA and maintains them
-for the destination VMA.
-
-Self-merge makes this impossible (there is only one VMA) and incorrectly
-clears the destination VMA's mlock flags.
-
-This causes a leak in mm->locked_vm as clearing this flag does not
-decrement the counter and the VMA no longer has VMA_LOCKED_BIT set so it
-is not decremented on unmap.
-
-Resolve this by simply disallowing a self-merge in this case - the source
-and destination VMAs are kept distinct and then are able to have distinct
-mlock() flags.
-
-Update dontunmap_complete() to make the now-redundant self-merge check a
-VM_WARN_ON_ONCE() instead to guard against future regressions.
-
-Also update the VMA userland tests to reflect the change.
-
-Link: https://lore.kernel.org/20260930-fix-dontunmap-partial-self-merge-v2-0-f388985a0f0a@kernel.org
-Link: https://lore.kernel.org/20260930-fix-dontunmap-partial-self-merge-v2-1-f388985a0f0a@kernel.org
+Link: https://lore.kernel.org/20260930-fix-dontunmap-partial-self-merge-v2-2-f388985a0f0a@kernel.org
 Fixes: e346b3813067 ("mm/mremap: add MREMAP_DONTUNMAP to mremap()")
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
@@ -165,118 +129,92 @@ Cc: Jann Horn <jannh@google.com>
 Cc: Brian Geffon <bgeffon@google.com>
 Cc: Minchan Kim <minchan@kernel.org>
 Cc: <stable@vger.kernel.org>
-[ sashal: Adapted can_self_merge logic to the inverse faulted_in_anon_vma flag. ]
+[ sashal: Moved the VMA splitting sequence from prep_move_vma() into the existing move_vma(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mremap.c                   |  8 ++++++--
- mm/vma.c                      | 17 ++++++++++++++++-
- mm/vma.h                      |  2 +-
- tools/testing/vma/tests/vma.c |  4 ++--
- 4 files changed, 25 insertions(+), 6 deletions(-)
+ mm/mremap.c | 21 +++++++++++++++++++--
+ mm/vma.c    |  4 ++--
+ mm/vma.h    |  5 +++++
+ 3 files changed, 26 insertions(+), 4 deletions(-)
 
 diff --git a/mm/mremap.c b/mm/mremap.c
-index 5e661f30dd2d4..ff1cf59b26c71 100644
+index 9685ea816fde1..2e717cf938aa6 100644
 --- a/mm/mremap.c
 +++ b/mm/mremap.c
-@@ -1295,7 +1295,8 @@ static int copy_vma_and_data(struct vma_remap_struct *vrm,
- 	PAGETABLE_MOVE(pmc, NULL, NULL, vrm->addr, vrm->new_addr, vrm->old_len);
+@@ -702,6 +702,8 @@ static unsigned long move_vma(struct vm_area_struct *vma,
+ 	int err = 0;
+ 	bool need_rmap_locks;
+ 	struct vma_iterator vmi;
++	const bool split_before = vma->vm_start != old_addr;
++	const bool split_after = vma->vm_end != old_addr + old_len;
  
- 	new_vma = copy_vma(&vma, vrm->new_addr, vrm->new_len, new_pgoff,
--			   &pmc.need_rmap_locks);
-+			   &pmc.need_rmap_locks,
-+			   vrm->flags & MREMAP_DONTUNMAP);
- 	if (!new_vma) {
- 		vrm_uncharge(vrm);
- 		*new_vma_ptr = NULL;
-@@ -1355,6 +1356,9 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
- 	unsigned long old_start = vma->vm_start;
- 	unsigned long old_end = vma->vm_end;
+ 	/*
+ 	 * We'd prefer to avoid failure later on in do_munmap:
+@@ -714,9 +716,9 @@ static unsigned long move_vma(struct vm_area_struct *vma,
+ 		to_account = new_len;
  
-+	/* Self-merge is disallowed. */
-+	VM_WARN_ON_ONCE(new_vma == vma);
-+
- 	/* We always clear VM_LOCKED[ONFAULT] on the old VMA. */
- 	vm_flags_clear(vma, VM_LOCKED_MASK);
+ 	if (vma->vm_ops && vma->vm_ops->may_split) {
+-		if (vma->vm_start != old_addr)
++		if (split_before)
+ 			err = vma->vm_ops->may_split(vma, old_addr);
+-		if (!err && vma->vm_end != old_addr + old_len)
++		if (!err && split_after)
+ 			err = vma->vm_ops->may_split(vma, old_addr + old_len);
+ 		if (err)
+ 			return err;
+@@ -734,6 +736,21 @@ static unsigned long move_vma(struct vm_area_struct *vma,
+ 	if (err)
+ 		return err;
  
-@@ -1362,7 +1366,7 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
- 	 * anon_vma links of the old vma is no longer needed after its page
- 	 * table has been moved.
- 	 */
--	if (new_vma != vma && start == old_start && end == old_end) {
-+	if (start == old_start && end == old_end) {
- 		const pgoff_t pgoff_unfaulted = vma->vm_start >> PAGE_SHIFT;
- 
- 		unlink_anon_vmas(vma);
-diff --git a/mm/vma.c b/mm/vma.c
-index 4face3a9e7cfd..07881c0987cf9 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -1863,7 +1863,7 @@ static int vma_link(struct mm_struct *mm, struct vm_area_struct *vma)
-  */
- struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
- 	unsigned long addr, unsigned long len, pgoff_t pgoff,
--	bool *need_rmap_locks)
-+	bool *need_rmap_locks, bool keep_source)
- {
- 	struct vm_area_struct *vma = *vmap;
- 	unsigned long vma_start = vma->vm_start;
-@@ -1896,6 +1896,21 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
- 
- 	vmg.pgoff = pgoff;
- 	vmg.next = vma_iter_next_rewind(&vmi, NULL);
-+
 +	/*
-+	 * If the original VMA is kept (MREMAP_DONTUNMAP), the source and
-+	 * destination VMA must be treated distinctly.
-+	 *
-+	 * A merge violates this, so in this case disallow a self-merge.
++	 * To account mlock()'d pages correctly in the MREMAP_DONTUNMAP
++	 * case perform any split ahead of time for an mlock()'d VMA.
 +	 */
-+	if (!faulted_in_anon_vma && keep_source) {
-+		if (vmg.prev == vma)
-+			vmg.prev = NULL;
-+		if (vmg.next == vma)
-+			vmg.next = NULL;
-+		faulted_in_anon_vma = true;
++	if ((flags & MREMAP_DONTUNMAP) && (vma->vm_flags & VM_LOCKED)) {
++		vma_iter_init(&vmi, mm, old_addr);
++
++		if (split_before)
++			err = split_vma(&vmi, vma, old_addr, 1);
++		if (!err && split_after)
++			err = split_vma(&vmi, vma, old_addr + old_len, 0);
++		if (err)
++			return err;
 +	}
 +
- 	new_vma = vma_merge_copied_range(&vmg);
- 
- 	if (new_vma) {
+ 	if (vm_flags & VM_ACCOUNT) {
+ 		if (security_vm_enough_memory_mm(mm, to_account >> PAGE_SHIFT))
+ 			return -ENOMEM;
+diff --git a/mm/vma.c b/mm/vma.c
+index 3df4cf796c7ff..55321fe0f7912 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -457,8 +457,8 @@ static int __split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
+  * Split a vma into two pieces at address 'addr', a new vma is allocated
+  * either for the first part or the tail.
+  */
+-static int split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
+-		     unsigned long addr, int new_below)
++int split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
++	      unsigned long addr, int new_below)
+ {
+ 	if (vma->vm_mm->map_count >= sysctl_max_map_count)
+ 		return -ENOMEM;
 diff --git a/mm/vma.h b/mm/vma.h
-index 002258fdbfc88..3d2fa4f0d7779 100644
+index 729fe3741e897..c953d4ade1f0d 100644
 --- a/mm/vma.h
 +++ b/mm/vma.h
-@@ -449,7 +449,7 @@ void unlink_file_vma_batch_add(struct unlink_vma_file_batch *vb,
+@@ -343,6 +343,11 @@ bool vma_wants_writenotify(struct vm_area_struct *vma, pgprot_t vm_page_prot);
+ int mm_take_all_locks(struct mm_struct *mm);
+ void mm_drop_all_locks(struct mm_struct *mm);
  
- struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
- 	unsigned long addr, unsigned long len, pgoff_t pgoff,
--	bool *need_rmap_locks);
-+	bool *need_rmap_locks, bool keep_source);
- 
- struct anon_vma *find_mergeable_anon_vma(struct vm_area_struct *vma);
- 
-diff --git a/tools/testing/vma/tests/vma.c b/tools/testing/vma/tests/vma.c
-index 754a2da063215..b7563ff20277e 100644
---- a/tools/testing/vma/tests/vma.c
-+++ b/tools/testing/vma/tests/vma.c
-@@ -38,7 +38,7 @@ static bool test_copy_vma(void)
- 	/* Move backwards and do not merge. */
- 
- 	vma = alloc_and_link_vma(&mm, 0x3000, 0x5000, 3, vma_flags);
--	vma_new = copy_vma(&vma, 0, 0x2000, 0, &need_locks);
-+	vma_new = copy_vma(&vma, 0, 0x2000, 0, &need_locks, false);
- 	ASSERT_NE(vma_new, vma);
- 	ASSERT_EQ(vma_new->vm_start, 0);
- 	ASSERT_EQ(vma_new->vm_end, 0x2000);
-@@ -51,7 +51,7 @@ static bool test_copy_vma(void)
- 
- 	vma = alloc_and_link_vma(&mm, 0, 0x2000, 0, vma_flags);
- 	vma_next = alloc_and_link_vma(&mm, 0x6000, 0x8000, 6, vma_flags);
--	vma_new = copy_vma(&vma, 0x4000, 0x2000, 4, &need_locks);
-+	vma_new = copy_vma(&vma, 0x4000, 0x2000, 4, &need_locks, false);
- 	vma_assert_attached(vma_new);
- 
- 	ASSERT_EQ(vma_new, vma_next);
++#ifdef CONFIG_MMU
++int split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
++	      unsigned long addr, int new_below);
++#endif
++
+ static inline bool vma_wants_manual_pte_write_upgrade(struct vm_area_struct *vma)
+ {
+ 	/*
 -- 
 2.53.0
 
