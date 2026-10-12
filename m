@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5816E309EEB;
-	Mon, 12 Oct 2026 22:47:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62E6635295C
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 22:51:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791845266; cv=none; b=GFuJhNQxopwkjIvj+6ZWrNx5rkjOsy4FVa0xyyURJICsU1IOHF8P9Jmx4foTcnty5en2RVgF3eKPaomC7tX8QExSO1ekmkhGBXAH8y3Y9BlkVErr+WZ4kK3D3PHf00v7KM9oDFCrIl5RnCxubihIaom8iZkm1hrJj2/9Q0Z6AZw=
+	t=1791845461; cv=none; b=Ah70mMYJOb1/tGn6kLoiRmmWz6OaeS4C4Y4bLMW1+FzfUOWj9VT3NbcXnw1Cq8nWNwiGBiJf++1ws0DdkW3jhNqsxz1Mh5+yOb0ATe7rtrsZXfOiOt1ldScEip7sJkFzOin1THoPbLE327bNTnJQLEbSY/Bdl+GxZOCHmTHJ4KI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791845266; c=relaxed/simple;
-	bh=gSzK43xwQsRWvXPMuD0BVIczHX5YfAk2idhvuv52m4w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HoMwX3HhjAEsVp49sCYKkhNq3YkKzkbG9tzKZ/Uu1JSXgJRDfA5AcUiBSYP2LlP3cUo6xhTP/Utu30/KcT49RdiZ3/fKQzl9amJR5/bvzISd11QOgFB8VoqwUGBgLr46VUx89t6aVnyeBHvy2LHstNThHBfY3z/PpeiKxCLlZiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AKvUZqHn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791845461; c=relaxed/simple;
+	bh=IL/gJWPEaO93zT9Q6yPJwgGjqc7LEOfepzU5UQIQg/w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mgFvSirSQx5w5G8q6LmbuNSPALCU8tJy/lNAEL8Z+tzZ2AT4S3wbQdXY/O7KONHS6IGS5WfP5ntRbjnPxXGrDmfg9oB6p/gvbH8JlZ0akRKpp1561OLVmUlnRKRlbTWC/AcWVQMigTCqJK6yZx8NOhm+SvsF1dxxACNuqkk3R14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y6QVF5KI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AKvUZqHn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EA381F0089B;
-	Mon, 12 Oct 2026 22:47:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y6QVF5KI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65C411F0089B;
+	Mon, 12 Oct 2026 22:50:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791845264;
-	bh=IkZtVdQRBGfsQtRmAVvA981qRKbOGtIeucsyYcy0Vkg=;
-	h=From:To:Cc:Subject:Date;
-	b=AKvUZqHnellwhzCFtmtdw/5kQx/j9X9IbLKswp26pV7TkK7axqJmAu7RDpPS929cT
-	 R1UYAKeFTKjUoYHm8IlrLDSuQ4Lf6n5YhUnJqag9F9504/6WjOj/icXDVJpaUTnuL0
-	 NQdI+AH7gZIgLR1E26kGFGT4T/IHZkCPuGAhgpEjUG+RHYg7OKCxnqCRLLdm67Kja7
-	 vLU1UQIxhSDu1auCHz3ldItagfS43CHmwqWiQ4Sn2rmpfxhuUb/gTzi2a4u75jX0dN
-	 S3p+wMtfdtb9iBRWCktbVJHDG9epDlW1I3TbTyKZBoVBizCx/47JhZs0oE4htYAhvt
-	 wSy8U33Gu2hcQ==
-From: Yosry Ahmed <yosry@kernel.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
-	Jim Mattson <jmattson@google.com>,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yosry Ahmed <yosry@kernel.org>,
-	stable@vger.kernel.org,
-	Stefan Teodorescu <fane@google.com>
-Subject: [PATCH] KVM: SVM: Update tracked pCPU on pCPU switch
-Date: Mon, 12 Oct 2026 22:47:36 +0000
-Message-ID: <20261012224736.2306637-1-yosry@kernel.org>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+	s=k20260515; t=1791845460;
+	bh=ebQodE1sFA9xWanYSRjzn9jNhzNM+OzQB3VeWjomb7w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Y6QVF5KIu0ROw0fxusAQMpOiovgXqeU2ejOe6L52DpAQUC4qgVt8rHpMBF5OkmOVQ
+	 8/guAoZEdkS/AlkEDci8kbgfOfrxJS9QstcUW0HL8/+2avo+3ks4Hvb3q5w1IRLq2L
+	 tw9XPCysKcoy7afy7tNW75dFD91BGqBleVfUyIo8/m3JSvLTxn7297ZAF52b2hdTuA
+	 YctHux93/vm0mge/z9GjmUiiJBQL0ItuOq8/ZY2oLQF/7aVQuaND4NzJEfbyzbh4rT
+	 Xoae6J1dirH4rUkWiiH632odBVDMaXrMB9pqS1bfSJ8WNlmMe/K1mk9OpEnj2bt/0l
+	 0R+HJGkVy/r5A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Daehyeon Ko <4ncienth@gmail.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] ip6_gre: remove obsolete ERSPAN PMTU update
+Date: Mon, 12 Oct 2026 18:50:58 -0400
+Message-ID: <20261012225044.1860654-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026101245-omen-grinch-fa7a@gregkh>
+References: <2026101245-omen-grinch-fa7a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,86 +46,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a pCPU switch is detected in pre_svm_run(), update the tracked pCPU
-and mark all fields dirty in both VMCBs (if nested is initialized), in
-addition to resetting the ASID generation in both VMCBs.
+From: Daehyeon Ko <4ncienth@gmail.com>
 
-Commit bf260dc9e7b8 ("KVM: SVM: Trigger new ASID allocation in both
-VMCBs on pCPU switch") reset the ASID generation in both VMCBs on a pCPU
-switch, but only updated the tracked pCPU for the active VMCB to avoid
-unnecessarily dirtying the inactive VMCB. Leaving the inactive VMCB's
-tracked pCPU set to an old pCPU still allows an ASID allocated on one
-pCPU to be used on another:
+[ Upstream commit 8bc60db48e8cba35488bbd6e1f94aa990afa275a ]
 
-- vCPU runs with both vmcb01 and vmcb02 on pCPU A (both track cpu=A).
-- With vmcb01 active, vCPU migrates to pCPU B. vmcb01.cpu is updated to
-B, asid_generation is reset to 0 in both VMCBs, and a new ASID is
-allocated on pCPU B (setting vmcb01.asid_generation = gen_B).
-vmcb02.cpu remains A.
-- vCPU switches to vmcb02 and migrates back to pCPU A before
-pre_svm_run(). Because vmcb02.cpu is still A, no pCPU switch is
-detected, leaving vmcb01 with cpu=B and asid_generation=gen_B.
-Because vmcb02.asid_generation is 0, a new ASID (asid_A) is allocated
-on pCPU A.
-- vCPU switches back to vmcb01 and migrates to pCPU B. Neither a pCPU
-change nor a generation mismatch is detected for vmcb01, so VMRUN on
-pCPU B uses asid_A (allocated on pCPU A), which may collide with
-another vCPU on pCPU B.
+A tc tunnel_key action can attach a METADATA_IP_TUNNEL dst to an skb,
+and mirred can redirect it to a native ip6erspan device. The legacy PMTU
+update in ip6erspan_tunnel_xmit() treats that metadata dst as a route.
+Since it has no output device, dst_dev(dst)->mtu dereferences NULL.
 
-Because the per-VMCB cpu tracking is shared between ASID management and
-per-pCPU hardware VMCB clean bits, also mark both VMCBs dirty when
-updating their tracked pCPU so that the inactive VMCB does not run with
-stale clean bits when later entered on the new pCPU.
+On v7.2 with KASAN, an initial UID/GID 65534 process with CapEff 0 used
+self-created user and network namespaces to trigger:
 
-Fixes: bf260dc9e7b8 ("KVM: SVM: Trigger new ASID allocation in both VMCBs on pCPU switch")
+  KASAN: null-ptr-deref
+  RIP: ip6erspan_tunnel_xmit+0x10fc/0x2cc0
+  Kernel panic - not syncing: Fatal exception in interrupt
+
+The update is obsolete. Commit fe1a4ca0a2b7 ("ip6_gre: process toobig
+in a better way") changed IPv6 GRE Too Big handling to update the
+underlay route and removed the equivalent block from __gre6_xmit().
+ip6_tnl_xmit() then propagates the underlay PMTU to the overlay route.
+
+Remove the stale ERSPAN copy and its now-unused dst variable. This
+eliminates the metadata-dst dereference and keeps ERSPAN aligned with
+IPv6 GRE PMTU handling.
+
+Fixes: 5a963eb61b7c ("ip6_gre: Add ERSPAN native tunnel support")
 Cc: stable@vger.kernel.org
-Reported-by: Stefan Teodorescu <fane@google.com>
-Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+Suggested-by: Ido Schimmel <idosch@nvidia.com>
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/20261002033058.358137-1-4ncienth@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: Adjusted PMTU block context for direct dst->dev->mtu access instead of READ_ONCE(dst_dev(dst)->mtu). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/svm/svm.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
+ net/ipv6/ip6_gre.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 136069dfcd44f..0a0af0cbb6bba 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -3880,7 +3880,8 @@ static int pre_svm_run(struct kvm_vcpu *vcpu)
+diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
+index fb766066bcb0d..fc1b27cd75541 100644
+--- a/net/ipv6/ip6_gre.c
++++ b/net/ipv6/ip6_gre.c
+@@ -917,7 +917,6 @@ static netdev_tx_t ip6erspan_tunnel_xmit(struct sk_buff *skb,
+ {
+ 	struct ip_tunnel_info *tun_info = NULL;
+ 	struct ip6_tnl *t = netdev_priv(dev);
+-	struct dst_entry *dst = skb_dst(skb);
+ 	struct net_device_stats *stats;
+ 	bool truncate = false;
+ 	int encap_limit = -1;
+@@ -1050,10 +1049,6 @@ static netdev_tx_t ip6erspan_tunnel_xmit(struct sk_buff *skb,
+ 	/* Push GRE header. */
+ 	gre_build_header(skb, 8, TUNNEL_SEQ, proto, 0, htonl(atomic_fetch_inc(&t->o_seqno)));
  
- 	/*
- 	 * If the previous VMRUN of the VMCB occurred on a different physical
--	 * cpu, then mark the VMCB dirty as hardware's clean bits are per pCPU.
-+	 * cpu, mark the VMCB dirty and reset the ASID generation, as hardware's
-+	 * clean bits and ASIDs are per pCPU.
- 	 *
- 	 * Reset the ASID generation in both VMCBs. This will lead to assigning
- 	 * a new ASID now, and then again when switching to the other VMCB.
-@@ -3892,13 +3893,22 @@ static int pre_svm_run(struct kvm_vcpu *vcpu)
- 	 * - The new VMCB does not detect a pCPU change and runs on pCPU A with
- 	 *   the new ASID allocated on pCPU B, which is potentially used by
- 	 *   another vCPU/VM.
-+	 *
-+	 * Note that dirtying both VMCBs is not strictly needed, but the per-CPU
-+	 * tracking is shared for both ASID and clean bits, and that CPU must
-+	 * match where the ASID was allocated.
- 	 */
- 	if (unlikely(svm->current_vmcb->cpu != vcpu->cpu)) {
--		vmcb_mark_all_dirty(svm->vmcb);
--		svm->current_vmcb->cpu = vcpu->cpu;
-+		vmcb_mark_all_dirty(svm->vmcb01.ptr);
-+		svm->vmcb01.cpu = vcpu->cpu;
- 		svm->vmcb01.asid_generation = 0;
--		svm->nested.vmcb02.asid_generation = 0;
--        }
-+
-+		if (svm->nested.initialized) {
-+			svm->nested.vmcb02.cpu = vcpu->cpu;
-+			svm->nested.vmcb02.asid_generation = 0;
-+			vmcb_mark_all_dirty(svm->nested.vmcb02.ptr);
-+		}
-+	}
- 
- 	if (is_sev_guest(vcpu))
- 		return pre_sev_run(svm, vcpu->cpu);
+-	/* TooBig packet may have updated dst->dev's mtu */
+-	if (!t->parms.collect_md && dst && dst_mtu(dst) > dst->dev->mtu)
+-		dst->ops->update_pmtu(dst, NULL, skb, dst->dev->mtu, false);
+-
+ 	err = ip6_tnl_xmit(skb, dev, dsfield, &fl6, encap_limit, &mtu,
+ 			   NEXTHDR_GRE);
+ 	if (err != 0) {
 -- 
-2.56.0.385.gd3acb90ef8-goog
+2.53.0
 
