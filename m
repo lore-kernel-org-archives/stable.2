@@ -1,114 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353503E40F4
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 10:17:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC033F4DCA;
+	Mon, 12 Oct 2026 10:21:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791800271; cv=none; b=HOSCTMhK9KONFcVF64PJZWxZM0e0vfGGW0usv0HNvLPWnut91qJDRHBoIFIMPzSC+Og2MwnbxiDAZMt9z0ITObfQvJxFOpBXfmmbIkbepV90OkL4LbcNsymeip62oMgQbvBfIUpmBbRfnPhJVwU1oLp98uKJaVebqlWKNZSftw8=
+	t=1791800490; cv=none; b=f7KkYBjx8q0DcXkqWMk4PFaTL0MjKlxN9xlLaG6QyJ6KXIkZlb2Hm//ELJYFLX+qNrtx6FrrhvWcMDGqdYcLGfggzPnsCTZkjYUqp3o/L7nU64oRTE2AyLddJd3SivGUkE8N5a/GIcxxDO9p4WhEt8qsIp7UrJ8qzwQqpQQoT5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791800271; c=relaxed/simple;
-	bh=Wjt9xafsmJwRLm+t7Koub+gEcsrwTZctZnayflAgvz0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P7f8tRS/G3/sKD2gBgUiTu3wGOXV2oOnHgBJrPc0AU8VVL2Tt7NU4cjY/0cS3tHBr3LuFoUOe+0s/MTDfQ3OIPjXKZcnFPTeW8VyTd2NBm5GC/xEa/C2rbZowRK8tAo9oz7QWG3VmdbEh8hz4i65L2/G3cerDJl0bkpgYo6+J9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=boUbEq7Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791800490; c=relaxed/simple;
+	bh=FHwfq/OCDsnntrfJYkKn8tLOjs4Tv7YHZV8JitYQDQ0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=llHmXC+YlFhxReQ+rBpOwfXrUggAXxiutyzHwER/gdhdOZULL9JInaAX+tBU0WNtkK+y/kuXR4AKWIl8bwRcC8mqj8RmXRJen71R5nn89q49m2v1txB5bxEBlCdTCE7mEC0G7dOGAeoRpIHHbRcWfn/e0xGpvYmQyx/l2oIl9Bo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=daD9kmOa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="boUbEq7Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B79771F0089C;
-	Mon, 12 Oct 2026 10:17:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="daD9kmOa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07DB31F0089C;
+	Mon, 12 Oct 2026 10:21:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791800260;
-	bh=6W9w6FX63BCRNL5Y5+uTi7NjbH9MTl+NIN066JxPdjM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=boUbEq7QOkVayeZfV5djEa96a53ltXgA5Gs1RkcU/5Esvv4rZ+tT4ZLkwaSg+Olme
-	 IHJvM2BbrwxBdLd52wt/QcFMqlrTRnBPv3hPGbsA6yPQ8oyF3dxacn7kgdWIgO2tpO
-	 BK+8/qI4695zI5FCbwoeLJb3kE0o/NfshFONNz4j1LZrEHjTPM41qVFHeiKI1Dl8bF
-	 54wXh5md4VEX0iGTFcXt6lwuqHjgRKyKjxv+NANIRvSthmS+Xe7I09U8kHdPIFi+h4
-	 uZBGJ+ttbbK9PAK5HfWkZT+aDIXLVs1KEwXzXiP5AiFeOCj3H7ccsMXnDXybffFbpf
-	 tMhCOTQeTUF6g==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 06FE7198003A;
-	Mon, 12 Oct 2026 06:17:35 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Mon, 12 Oct 2026 06:17:38 -0400
-X-ME-Sender: <xms:v7PMatf_AQlmyfcCnYGtsT8jhwo4YI7LI0b6fFcb7FoQw_GcDN4LkA>
-    <xme:v7PMatk-W9HXB6o8X3sF3BmBp2ozWmWsyX21nujvlA3O04hjx6eIh2tXHTcvx1s77
-    kp5vv-pQIO5t3SrJf3deKmxLMFdSBFjIzPg7BaZecCb5AQk4s8Rc8Ha>
-X-ME-Received: <xmr:v7PMavy57zUWBm3JlOJpaqljUxpAic-HNXoW3BDmyUB7CFmsy6tC8xn0LsQ>
-X-ME-Proxy-Cause: dmFkZTFtEePNEwvbObMFMgRHgPi1bvtoSd5qbrO694Kd+ogzCGFJMi0UGAD/xTvnHA50RE
-    JCM/aLjoQB6DzJtDHwghLRXFYdBkvVdisA5BKYNM51m7QOeq/Kv2boQh/coCxEOLtiw8Io
-    z3hAUsc1EkJsbOBWpNkKoT2mH3TL+rRQN3Jd7rwwgMesNQAsnBXWR75AuZ89wlgd1pnbKq
-    uZxx3ckpzY/HsaWhu4ZNhfvqUzr/kYBIwAn462JE4fNBxYqHAOWaxSA+cD2dyHnjPtvtx8
-    T5vucOnKnvh5HpjQD6xc21M7w/4HzHey4lTSRpPxrJn6fsxetQs6a2bKgHgm0ZgQoSZBWZ
-    PxyHQ6YmVw30IQBY07qLhJH9r4FyHz6QXj/UOZq/YJHs9l+F/8lWNBt1W2dNie825IsZ2s
-    axHRX0B07aM4zLNhwIOM0LVjTNPQr7jY3qhZFEcCe6Hn0VFxWTNJfYaMwyIvpbmKFu72NS
-    IxuefQNcRYhgSaProoMZpaBjj3HGGqb2h/eRi+pY2+JkebFi7MMRN5PiK6PoBIA5fxh/Kg
-    I6s/xPssIUddqdP9drO7UP2Y9GJOELwEQrXKwVVrAj3HQbx0XCIx7AiX8CStCc+hffmOLA
-    rpq1XFKxuvTkBBHb+ytkWreawLUndqwHAr8udpIY6AGNK/yrEsibS6ildKqQ
-X-ME-Proxy: <xmx:v7PMaqFDO-D2O46EQrLF2VBylvKOPRY-GbsoNPM5wkdqJ2B3U5KiKQ>
-    <xmx:v7PMasF63e87WHczEMM4h8hFe0oTqkOmYztVxDH3VerISTWXVoe1Yw>
-    <xmx:v7PMatDZR9O7FDT6A35YiP8MOIAEzKLlUhkMTdKhW85Ybh4onoRc1A>
-    <xmx:v7PMar8zp_Q4SBTIMtDI67x3lhTN6r_SPWd0NOJIoJayIISwp0FDvg>
-    <xmx:v7PMavfklJSyUMscVdZovkqpOlEaaxkfuJ5sz8dIIEk7zjCBEELyOfLS>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 12 Oct 2026 06:17:34 -0400 (EDT)
-Date: Mon, 12 Oct 2026 11:17:34 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, 
-	Harry Yoo <harry@kernel.org>, Usama Arif <usama.arif@linux.dev>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	kernel-team@meta.com
-Subject: Re: [PATCH v3] mm: page_alloc: make defrag_mode retries follow the
- promoted order
-Message-ID: <asyzhoDeI3U4T9wZ@thinkstation>
-References: <20261009125503.126202-1-kas@kernel.org>
- <20261010154923.998e04e42093ffe6c7c205ee@linux-foundation.org>
+	s=k20260515; t=1791800478;
+	bh=jSaTeXy5zEI39kgqqTi6yfSkP3Kgm5wm6RfoGXruvqg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=daD9kmOaoDrecEZ+GKWXxyW9H20UJr48DcxIiw0e65dcl8QTST3JZXcj61YvqNTyb
+	 c5d34ADQW1FTC40OtFvDZ/r1oWnvdCTDB2nBPiUWZpsdvr64rU3yyTUZCbQmtT/WHN
+	 M4L3IE8ZFu/uZjDyHAoHWVVDuNF/pppyPWohHYEa4Yvx8fprF5PUJYsVDI169f9kxo
+	 jBe+V1vSuEX9xF71FfYPmOVHGKSg4cEB3pIABRCDPA7K95hBDggmzUqYSJbpYomakn
+	 PXM0tJDgLdWEhvw5L8NTowb8aNFn6hJrwa/MlDBOPgqwCRarNEsyBQ1YwBmx0RfVjr
+	 WbnHd24KBBfVA==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 12 Oct 2026 12:20:46 +0200
+Subject: [PATCH RFC 01/28] ecryptfs: don't leak the inode when a lookup
+ can't open the lower file
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261010154923.998e04e42093ffe6c7c205ee@linux-foundation.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261012-work-fs-sb_rdonly-v1-1-60743a3dc326@kernel.org>
+References: <20261012-work-fs-sb_rdonly-v1-0-60743a3dc326@kernel.org>
+In-Reply-To: <20261012-work-fs-sb_rdonly-v1-0-60743a3dc326@kernel.org>
+To: Jan Kara <jack@suse.com>
+Cc: Al Viro <viro@zeniv.linux.org.uk>, ecryptfs@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, jfs-discussion@lists.sourceforge.net, 
+ linux-nilfs@vger.kernel.org, exfat@lists.linux.dev, 
+ linux-fsdevel@vger.kernel.org, ntfs@lists.linux.dev, 
+ ocfs2-devel@lists.linux.dev, linux-btrfs@vger.kernel.org, 
+ gfs2@lists.linux.dev, linux-efi@vger.kernel.org, 
+ linux-mtd@lists.infradead.org, linux-xfs@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-3d1b8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1919; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=FHwfq/OCDsnntrfJYkKn8tLOjs4Tv7YHZV8JitYQDQ0=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSd2TJJmlVX9PaCsIn+FsHZwuxHGEpPFCj+mriqsDrpf
+ qGIfFJFRykLgxgXg6yYIotDu0m43HKeis1GmRowc1iZQIYwcHEKwETcDjD8sz1q8vHQt6fh7p09
+ uT08PmKLO9tkzFMehF2fYnDC/qOTC8P/xLgFX20+PbiQ+CC39cSDhwe1Dlq6qHKtT7/euMmvwfE
+ UHwA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On Sat, Oct 10, 2026 at 03:49:23PM -0700, Andrew Morton wrote:
-> On Fri,  9 Oct 2026 13:55:02 +0100 "Kiryl Shutsemau (Meta)" <kas@kernel.org> wrote:
-> 
-> > Since commit 7e8756d7ad22 ("mm: page_alloc: fix non-movable reclaim
-> > storm in defrag_mode"), direct reclaim and compaction for non-movable
-> > requests under defrag_mode run at pageblock_order, to produce the whole
-> > blocks that ALLOC_NOFRAGMENT needs. The retry decisions that follow
-> > still use the request order. An order-0 request can therefore retry
-> > indefinitely without ever reaching the ALLOC_NOFRAGMENT fallback:
-> > 
-> > ...
-> > 
-> > When a promoted request takes the fallback, reset the retry counters,
-> > so that the fallback attempt gets a full retry budget before the OOM
-> > killer is considered. A request whose reclaim was not promoted spent
-> > its budget on the request itself and keeps its counters, as Usama Arif
-> > pointed out.
-> 
-> Thanks, I updated mm-unstable to this version.
-> 
-> > v3:
-> >  - reset the retry counters at the fallback only for requests whose
-> >    reclaim was promoted; a movable request already spent its budget on
-> >    itself (Usama Arif)
-> 
-> hannes's concerns/questions at
-> https://lore.kernel.org/20261006081050.GA234057@cmpxchg.org weren't
-> fully addressed?  I'll add a note and await followup.
+ecryptfs_lookup_interpose() opens the lower file of a regular file to
+read the size from the header. If that fails it calls make_bad_inode()
+and returns the error. A new inode is still I_NEW at that point and
+nothing ever unlocks or puts it, so it leaks together with the reference
+it holds on the lower inode. And an inode that was already in the cache
+gets marked bad for all its other users instead of just losing the
+reference this lookup took.
 
-Hm. I believe they were addressed. v2 changes are based on Harry's and
-Johannes feedback.
+umount then complains:
+
+  VFS: Busy inodes after unmount of ecryptfs (ecryptfs)
+
+That's a WARN, or a BUG with CONFIG_BUG_ON_DATA_CORRUPTION. The lower
+filesystem reports the same when it is unmounted. Use iget_failed() for
+a new inode and iput() for one from the cache.
+
+Reproducer, opening the lower file read-write fails on a read-only bind
+mount:
+
+  sig=$(printf x | ecryptfs-add-passphrase - | sed -n 's/.*\[\(.*\)\].*/\1/p')
+  mount --bind -o ro /lower /lower
+  mount -i -t ecryptfs -o ecryptfs_sig=$sig,ecryptfs_cipher=aes,ecryptfs_key_bytes=16,ecryptfs_passthrough /lower /upper
+  cat /upper/f      # EROFS
+  umount /upper     # VFS: Busy inodes after unmount of ecryptfs
+
+Fixes: 3b06b3ebf441 ("eCryptfs: Fix new inode race condition")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ fs/ecryptfs/inode.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/fs/ecryptfs/inode.c b/fs/ecryptfs/inode.c
+index 525297c7ebd8..0d8452558a98 100644
+--- a/fs/ecryptfs/inode.c
++++ b/fs/ecryptfs/inode.c
+@@ -362,7 +362,10 @@ static struct dentry *ecryptfs_lookup_interpose(struct dentry *dentry,
+ 	if (S_ISREG(inode->i_mode)) {
+ 		rc = ecryptfs_i_size_read(dentry, inode);
+ 		if (rc) {
+-			make_bad_inode(inode);
++			if (inode_state_read_once(inode) & I_NEW)
++				iget_failed(inode);
++			else
++				iput(inode);
+ 			return ERR_PTR(rc);
+ 		}
+ 	}
 
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.53.0
+
