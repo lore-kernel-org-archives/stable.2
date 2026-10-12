@@ -1,127 +1,177 @@
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF9F9463
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 03:04:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4065C391E4B;
+	Mon, 12 Oct 2026 03:04:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791774249; cv=none; b=epFTB4/RXp62mVGfoH97KGkITcR5KopHsQacU1Jh14/Phdj2foVQJvLgUM3WJCZ2OkdUHwPZfMRguIxUGk/MusJqZI4TyVNkyVKlRnbBYoD0tunt7kMl2OUOGcKpTCXl8c1blg7LbQFasBimX3227kOKkI2oJF2F41hzyBzetv8=
+	t=1791774283; cv=none; b=lRnxSoty/ruH06nMzsGp3zjrMqyLbdkJ17/0QCw+0C4uYZTFkBRTGmhi3pRcz12hf5DC6TOLPZ0vosSZ0oy7oBlj0R8+8Vyjc9TuTGTPpze+fua8CVLtM7Pbx7p/idOfMKTVJ1Ojk2wiYvK29kBP7uPKfx0knSZ7a32JwBNWq/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791774249; c=relaxed/simple;
-	bh=fsa81yZxZgd0024s9ensYNWnpb0O0We5ciygmngwkeo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Dr7o7l/YCltpYHnChJqAm/GjuAA9EOF7ZJyJbuStZhExOFVczhdSFQjNjm34H1Stuf2ZPC1U0lFGLTIqJcznx4XwUtIz+butEnW7PASQTqCigruVXbxOlVNMcqB0xEBJKF8WJPyafxU5C6vbyQtAc/x7w8EtWGHl1G3moePMTBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=QtV013Wh; arc=none smtp.client-ip=117.135.210.8
+	s=arc-20240116; t=1791774283; c=relaxed/simple;
+	bh=/wEt6HRoQiKP+419k9g/6hmFe2Um5pCGtcLpdiC8VSc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=JlZcKFliTfaXc8tKwL9nre6dlW2FY0kytvNX7Y6IwYuY3dnRSrX6y7rIPGIosrk+Tkgb5Ib5X1BOm9tk7ErhIzDkUni6vdq2qal4kvCiilDDatfy8gO9OOHXAdLtAXIWNz/f62bNOYQ+eCxrqXoLUAf11Fqj5Re5PXFMiIxOwFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cH0r7OTM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="QtV013Wh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=x3
-	DPsizR66wJCaQJx0+u3kmJi3wdWuq2hudqePkWk8w=; b=QtV013WhTMJuxkTFHx
-	qRqdZkEIoa/7jkR2nQn+YSkAwyMI99e165lJNYOIxK4sgLsfgKBj39XZoNyPh5jz
-	STNZ8lo2S3P2ocaeaHoUA8Ih4CXQOi3yHnX+auUTKYxYrOHzkxzm8v0YO5DgQbHo
-	oPu5BgOJtavW+dEzPr28GP1rg=
-Received: from nzzhao-ThinkCentre-M760t.mioffice.cn (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3N_oGTsxq8KSUAw--.15003S2;
-	Mon, 12 Oct 2026 11:03:35 +0800 (CST)
-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-To: linux-f2fs-devel@lists.sourceforge.net,
-	Chao Yu <chao@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>
-Cc: Barry Song <baohua@kernel.org>,
-	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] f2fs: remove mappedtodisk flag usage in mmap write path
-Date: Mon, 12 Oct 2026 11:03:15 +0800
-Message-ID: <20261012030315.978375-1-zhaonanzhe@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cH0r7OTM"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B33DDC2BCF5;
+	Mon, 12 Oct 2026 03:04:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791774282;
+	bh=/wEt6HRoQiKP+419k9g/6hmFe2Um5pCGtcLpdiC8VSc=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=cH0r7OTMbRQgnRIP8q0GI6+BJSy3OHiF9XzkyU0hbdhewRobPFYmcNKV+yurGpwns
+	 wcIoSLpWcBmByQpn9c5uv4Kl9e3sTNLuV0GMRwOdZunXRBd2eCZxGv85ZjKXqOx/tk
+	 XsjL3sTcur+uoP5uqdFbOoZlhN4hjRcYRLTpofnBLNlwGQO1Wyi1KX5KVdY3WcPCUc
+	 witcDKX7Xoih1W+XQuDQSD+oghnF2JuHBgqiCrB80q3PsHhbrlqIfji5ykZnIzJ2hY
+	 pJ3NDZkGWpX6Swa+YTG7S4qlZ3/vexrWCYJKjgQ1qH7CClkhFaehEMQKAaT4AZhvoa
+	 1xSlAGSKHR2Qw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8EED5CA9ECF;
+	Mon, 12 Oct 2026 03:04:42 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Date: Mon, 12 Oct 2026 12:04:42 +0900
+Subject: [PATCH] xfs: mark the inode preallocated for pNFS write layouts
+ past EOF
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3N_oGTsxq8KSUAw--.15003S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJFyfCF4rGw43tF4UZF1fJFb_yoW5Gr1kpF
-	9xCF4xGrZ5Ww1UWwsrG3ZxZFyrt3sxuw4xWF4kZw1fXa17ZrnYkF1Iqa4rZF1Utr93JFWI
-	qr4jkry0qa1rJFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U_9N-UUUUU=
-Sender: nzzhao@126.com
-X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBsAdiMmrMTgdgHwAA33
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261012-xfs-pnfs-eof-prealloc-v1-1-e4864d917a00@samsung.com>
+X-B4-Tracking: v=1; b=H4sIAElOzGoC/x2MQQqAMAwEvyI5G2iKKPUr4kFqqgFpSwsiSP9u8
+ DIwDLsvVC7CFebuhcK3VElRhfoO/LnFg1F2dbDGjmSMwydUzFHBKWAuvF1X8jhM7Mh7shMR6FZ
+ DkOf/XdbWPqUBh+BnAAAA
+To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
+Cc: Christoph Hellwig <hch@lst.de>, "Darrick J. Wong" <djwong@kernel.org>, 
+ Dave Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>, 
+ Jeff Layton <jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>, 
+ Sergey Bashirov <sergeybashirov@gmail.com>, linux-nfs@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791774281; l=4661;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=1lCj4zYdx22+I/KvHEXa0Zxtv7fnnOm5ANdbR1aQw+E=;
+ b=JMBEp4xga/9DfvtwfSE7Wqrt674xIinITXKqKMbBNxEqTXYLyPDctpqnqxqg0tsEQTbJX/edS
+ n75S27DmGj+BZcr+9uueMSekz7x+s3KC1QcGussU9BMKodPWCLHEZkm
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
 
-PG_mappedtodisk was inherited from the nobh/buffer-head era.  However,
-f2fs has no buffer heads and the flag is no longer meaningful.  The only
-user of the flag is the "no holes" shortcut in f2fs_vm_page_mkwrite(),
-which makes mmap write faults skip marking the folio dirty.  Moreover,
-it causes the following race condition with filesystem freezing:
+From: Daejun Park <daejun7.park@samsung.com>
 
- CPU0 (write fault)     CPU1 (freeze_super)
- ----                   ----
- f2fs_vm_page_mkwrite()
- sb_start_pagefault()
- /* shortcut: no dirty */
- sb_end_pagefault()
+xfs_fs_map_blocks() marks the inode XFS_DIFLAG_PREALLOC after it
+allocates blocks for a write layout, so that xfs_free_eofblocks() does
+not free blocks past EOF that a client may write to. But a write layout
+for a range past EOF where blocks are already allocated, such as the
+speculative preallocation of buffered writes, gets those blocks without
+an allocation, and the inode is not marked. blockgc, or the release of
+the file, then frees them without breaking the layout. The client still
+writes to them, and they may belong to another file by then.
 
-                        sb_wait_write(SB_FREEZE_PAGEFAULT)
-                        /* no waiter, passes */
-                        sync_filesystem()
-                        /* folio not dirty, skipped */
+With pynfs as the client, a file grown to 1 MiB by two buffered writes
+on the server had 960 KiB preallocated past EOF, and an RW LAYOUTGET for
+that range got it as one INVALID_DATA extent, without the inode being
+marked. About 300 seconds later, with the default
+speculative_prealloc_lifetime, blockgc freed those blocks while the
+layout was still held. When the client then wrote through the layout and
+sent LAYOUTCOMMIT, xfs_fs_commit_blocks() found a hole where the
+unwritten extent had been, and xfs_iomap_write_unwritten() allocated for
+it with no blocks reserved:
 
- finish_fault()
- /* PTE writable */
- fault_dirty_shared_page()
- folio_mark_dirty()
- /* dirty folio on a frozen fs */
+  XFS (nvme0n1): Corruption of in-memory data (0x8) detected at
+    xfs_trans_mod_sb+0x817/0x960 (fs/xfs/xfs_trans.c:351).
+    Shutting down filesystem.
+  ...
+   xfs_trans_mod_sb+0x817/0x960
+   xfs_alloc_vextent_finish+0x2e7/0x990
+   xfs_alloc_vextent_start_ag+0x25d/0x720
+   xfs_bmap_btalloc+0xdd2/0x1720
+   xfs_bmapi_allocate+0x197/0xf90
+   xfs_bmapi_write+0x4d0/0xb60
+   xfs_iomap_write_unwritten+0x307/0x7e0
+   xfs_fs_commit_blocks+0x1d9/0x630
+   nfsd4_block_proc_layoutcommit+0x5c2/0x7d0
+   nfsd4_layoutcommit+0x4b5/0xa20
 
-It will also skip APP_MAPPED_IO iostat/REQ_TIME updates and post-EOF
-folio zeroing.
+The client got NFS4ERR_IO, in six runs out of six. When small files were
+written on the server after blockgc, with a sync first so that the freed
+extents were no longer busy, they got those blocks, and the client's
+write through the layout replaced 978944 bytes of their data before the
+LAYOUTCOMMIT. A LAYOUTGET and LAYOUTCOMMIT 30 seconds apart, before
+blockgc runs, leave the client's data in place.
 
-Remove this shortcut in f2fs_vm_page_mkwrite() and stop setting it in
-f2fs_read_single_page().
+Mark the inode also when a write mapping ends past EOF and nothing was
+allocated, the same way as for an allocation, before the blocks are
+handed out. With this, the same test keeps the blocks past blockgc, and
+the LAYOUTCOMMIT after 360 seconds succeeds with the data in place.
 
-Reported-by: Chao Yu <chao@kernel.org>
-Link: https://lore.kernel.org/linux-f2fs-devel/496b913c-eb81-4fa8-be72-c6a06a10aba2@kernel.org/
-Reviewed-by: Chao Yu <chao@kernel.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Fixes: fbfa2cc58d53 ("f2fs: add file operations")
+Fixes: 527851124d10 ("xfs: implement pNFS export operations")
 Cc: stable@vger.kernel.org
-Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+Reported-by: Chuck Lever <cel@kernel.org>
+Link: https://lore.kernel.org/r/4de5356f-bc4d-4f1a-9c81-fce09b1b46fd@slotpi15m67
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 ---
- fs/f2fs/data.c | 1 -
- fs/f2fs/file.c | 6 ------
- 2 files changed, 7 deletions(-)
+Tested with this patch on nfsd-testing (3af417ce0f30), where xfs_pnfs.c
+differs from xfs for-next only by commit e3c682dd1130 ("xfs: map pNFS
+layouts to the end of the extent again"), with KASAN and lockdep, XFS on
+an NVMe/TCP namespace shared by the server and the client:
 
-Changes in v3:
-- reword the commit message per review (no code change)
+- the reproducer above (a local pynfs test, not posted);
+- pynfs block, blockextent and a local multi-extent test, 2 runs: 15
+  pass, BLOCK3 fails with NFS4ERR_BADXDR for its empty layoutupdate, as
+  without this patch;
+- fstests generic/075, 091 and 263 with the Linux client over the block
+  layout: only 075 fails, as without this patch.
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 21f396ebe22c..35d9ddaf78f4 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -2260,7 +2260,6 @@ static int f2fs_read_single_page(struct inode *inode, struct fsverity_info *vi,
- got_it:
- 	if ((map->m_flags & F2FS_MAP_MAPPED)) {
- 		block_nr = map->m_pblk + block_in_file - map->m_lblk;
--		folio_set_mappedtodisk(folio);
+Chuck pointed this out in the review of the ->map_blocks series, whose
+patch 7 will carry the same check for all mappings of a call:
+https://lore.kernel.org/r/4de5356f-bc4d-4f1a-9c81-fce09b1b46fd@slotpi15m67
+---
+ fs/xfs/xfs_pnfs.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/fs/xfs/xfs_pnfs.c b/fs/xfs/xfs_pnfs.c
+index ab38561700..490b48e2ce 100644
+--- a/fs/xfs/xfs_pnfs.c
++++ b/fs/xfs/xfs_pnfs.c
+@@ -235,6 +235,23 @@ xfs_fs_map_blocks(
  
- 		if (!f2fs_is_valid_blkaddr(F2FS_I_SB(inode), block_nr,
- 						DATA_GENERIC_ENHANCE_READ)) {
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index edc352569e87..2d763e156d06 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -217,12 +217,6 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
- 	/* wait for GCed page writeback via META_MAPPING */
- 	f2fs_wait_on_block_writeback(inode, dn.data_blkaddr);
+ 	} else {
+ 		xfs_iunlock(ip, lock_flags);
++
++		/*
++		 * Blocks past EOF that were allocated for buffered writes, such
++		 * as speculative preallocation, can be freed by
++		 * xfs_free_eofblocks() without breaking the layout unless the
++		 * inode is marked as preallocated. Mark it before handing them
++		 * out for writing, as for blocks allocated above.
++		 */
++		if (write && !(ip->i_diflags & XFS_DIFLAG_PREALLOC) &&
++		    imap.br_startoff + imap.br_blockcount >
++		    XFS_B_TO_FSB(mp, XFS_ISIZE(ip))) {
++			error = xfs_fs_map_update_inode(ip);
++			if (!error)
++				error = xfs_log_force_inode(ip);
++			if (error)
++				goto out_unlock;
++		}
+ 	}
+ 	xfs_iunlock(ip, XFS_IOLOCK_EXCL);
  
--	/*
--	 * check to see if the page is mapped already (no holes)
--	 */
--	if (folio_test_mappedtodisk(folio))
--		goto out_sem;
--
- 	/* page is wholly or partially inside EOF */
- 	if (((loff_t)(folio->index + 1) << PAGE_SHIFT) >
- 						i_size_read(inode)) {
+
+---
+base-commit: 0be6da616ab5031ea6419dc4fe0bf0e378fb6757
+change-id: 20261009-xfs-pnfs-eof-prealloc-47e91cc12711
+
+Best regards,
 -- 
-2.43.0
+Daejun Park <daejun7.park@samsung.com>
+
 
