@@ -1,39 +1,43 @@
-Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch [79.135.106.31])
+Received: from mail-244122.protonmail.ch (mail-244122.protonmail.ch [109.224.244.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0458F488764;
-	Mon, 12 Oct 2026 12:25:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FA646C849
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 12:25:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.122
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791807915; cv=none; b=KREbBrehD+yB3FRQkuwy4wWtLLX8tu79swDgvdvUIPOyzG6hclmfENXVwLLOrfoeHkdcEPloVsLO5IgdRQBvtJ+lOsudl/At/zv14YWXY12g0ky4LRLMR044qDsmhwHOCCHMkQGU1zOAgTPNMrqWOML5Tinqk4FxNdnKkCGNZKY=
+	t=1791807932; cv=none; b=KvOa7zU9K6XLp+eqTdi5QKio8NidNeUTu1gNChae3+rR5ZbgPorAqcAivYvroTb+IZtma0lAAxgeJq+vr2lY+522+P4QevMCyPctzS2pgAEqf4kxiLqMVUKo6Dk173Y2WzpUBlXSI8vmBTeIVFr7Ikkqx9ltPRr/FJMhXVquVls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791807915; c=relaxed/simple;
-	bh=wA/kf/hwAqR7yiDLnSmWMfZeCU4wWWpXRUG+A9qxyTw=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=sJCscvznF69vop2hnGPsaaJKXIaHOwpeu8kqI9yvcn/J0Kh0pZDISVmEPElrPMnzk/awqqWSh4frrr3oDhBB7aQOS9oJSbU0DbcPfxXsI4QZ9LaMfFiSIG687IG/mrW79B2fUWAV6gyqJXfh2QnnctCU/c3j3/wcLOV9CADv36c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=Mzihn0NR; arc=none smtp.client-ip=79.135.106.31
+	s=arc-20240116; t=1791807932; c=relaxed/simple;
+	bh=+tyotRnLu0g1WmKLBehpS2t6CZeerzYl834hP2cfgEc=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DrKyFIWdLMFIlkkcIJOctSiTfbjhgXetaEKASGJAcCO1gTNXT4eIAjraU33on5aUV1pn1XoUoLaYDv4egb0haMAuqmN5Mq5s3A61MkyDThvHAM6dE/O4AAiPJcpMri8PgQdpZSQyArQeR+8Ji21tcj5UnsAZHr3CdxthR8C3p/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=pNbs+mro; arc=none smtp.client-ip=109.224.244.122
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="Mzihn0NR"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="pNbs+mro"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1791807910; x=1792067110;
-	bh=33Rr2jc6Yaw+4r1bfP9ljbedg40nqueBD101VM9QjfM=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Mzihn0NRCkhHhSovyRgdJ2RQKHbEN8fIMpAaJxFLCs2TuAxpv85qyrmjxudqzspgg
-	 Ao03o0qhjqXYARa8se7k1c6Ra8/jdlYklri2WCwGR3P5piaf8g2LH0B3wQYkzjNvVR
-	 aUrO7+nrVKDRmxlKS7yZYBreVFycz9w3uRGQ5XxcvzMK/f6Jb38sVEgzrUCAFETn/1
-	 6ck18OEEBr/cjXY3SqQN9UCFOZppWWzlS0tmBQrn9222e3Mtm4QkNB2JngqidJdsrI
-	 Pigh3kL6t8iiaceOCmju/vZEHhMd2blyz+wbl69SDC2HviZ5ezbtSdflii4fN1lZ9f
-	 0i0tjO2W2Q4jg==
-Date: Mon, 12 Oct 2026 12:25:05 +0000
-To: Daniel J Blueman <daniel@quora.org>
+	s=protonmail3; t=1791807929; x=1792067129;
+	bh=+tyotRnLu0g1WmKLBehpS2t6CZeerzYl834hP2cfgEc=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=pNbs+mroBU1EfxQM4PN714I20bY8vpLfcS2CEjISbdafyXfP/3O/Es8PIYe0b6KXe
+	 NPb3JESJz/6pif7ltkKeZghh/H3OmVBr/bP3GsrfIYLZjMxHuUIq+xykYzgbf8r6vX
+	 miIGka/pZYahCX80u3MgkSrIJSBmNGgHfDscejeXJ+lvz5ret6CRjbhPXrEV8REL9z
+	 zj/nOukLRh9HleN0ScHRR6BBOLA1HbjxoUVsIszX/fyJ23ihNoU/0s8bVFzyX8VEh2
+	 kmSIEHBx99GwbzeY2bJtdK2WKc7XrCqJTmUXkU8eDESxZzVP78QbACiy9SmOk4SRAO
+	 qUh6mdAZQgNmg==
+Date: Mon, 12 Oct 2026 12:25:25 +0000
+To: Thorsten Leemhuis <regressions@leemhuis.info>
 From: Birk Skyum <birk.skyum@pm.me>
-Cc: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>, Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>, Andi Shyti <andi.shyti@kernel.org>, Manikanta Mylavarapu <quic_mmanikan@quicinc.com>, Bjorn Andersson <andersson@kernel.org>, linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] i2c: qcom-geni: restore tSCL with 32MHz I2C fast-mode
-Message-ID: <179180790256.14163.6073243575138143895@pm.me>
+Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>, Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>, Andi Shyti <andi.shyti@kernel.org>, linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, stable@vger.kernel.org, regressions@lists.linux.dev
+Subject: Re: [PATCH v2] i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_CLK_SEL
+Message-ID: <179180792331.14777.16389002783262980921@pm.me>
+In-Reply-To: <a64dc5d0-eb09-4482-b8b3-16d8d015e2bc@leemhuis.info>
+References: <179173732257.29426.7905170638383807320@pm.me> <a64dc5d0-eb09-4482-b8b3-16d8d015e2bc@leemhuis.info>
 Feedback-ID: 21326998:user:proton
-X-Pm-Message-ID: 6de720edf3f2538807677764b257c6a5110acbf6
+X-Pm-Message-ID: b5b7e05147e20ddb6d3421be287e44ac8c51055b
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,29 +47,25 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 29 Sep 2026 12:14:43 +0800, Daniel J Blueman wrote:
-> With this change, t_high_cnt 3 and clk_div 4 gave a tSCL of 375ns
-> versus the previous default of 521ns, however the I2C spec has a
-> minimum tSCL of 600ns.
+On 10/12/26 09:07, Thorsten Leemhuis wrote:
+> Not my area of expertise, but from a quick look it sounds a lot like
+> this will be fixed by this with will likely be fast-tracked to stable
+> once mainlined:
 >
-> Restore tSCL to the spec with t_high_cnt 5 giving a 625ns tSCL,
-> verified on Lenovo Yoga Slim 7x X1E-80100.
+> i2c: qcom-geni: restore tSCL with 32MHz I2C fast-mode
+> https://lore.kernel.org/all/20260929041444.9837-1-daniel@quora.org/
+>
+> Could you take a closer look please and maybe even confirm?
 
-This fixes it on another Yoga Slim 7x (83ED).
+It is the same problem, and that patch fixes it here. Thanks for the
+pointer, I had not found that thread.
 
-I took a distribution build of 7.2.8 that works on this laptop and
-replaced only i2c-qcom-geni.ko, built from the same tree:
+With the 7.2.9 driver plus the patch the keyboard, touchpad and
+touchscreen of this laptop work again. I have sent a Tested-by to that
+thread.
 
-  7.2.8 driver                   keyboard works
-  7.2.9 driver                   keyboard and touchpad dead
-  7.2.9 driver with this patch   keyboard, touchpad, touchscreen work
-
-With the patch the keyboard takes the disk passphrase in the initramfs
-again. The five I2C controllers in use run from the 32 MHz clock, as
-they do without it, and the log has no error from geni_i2c or
-i2c_hid_of. That is one boot.
-
-Tested-by: Birk Skyum <birk.skyum@pm.me> # Lenovo Yoga Slim 7x
+#regzbot monitor: https://lore.kernel.org/r/20260929041444.9837-1-daniel@qu=
+ora.org/
 
 Thanks,
 Birk
