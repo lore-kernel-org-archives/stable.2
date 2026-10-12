@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E631469859
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 11:43:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D9F27FD74
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 11:43:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791805434; cv=none; b=fW9HzN9B7xz4Z5G/Bh8UtX7btJK60W8dNsBdkQhAFrVlcj5pzHMV1jALZp9cu1QmdeNUNF92EfTUzjH7icHHI40xPoTTQFBThSVBdY2A4sBrv1v/SNSlM7ghhlAVJNzLtS0HiEexridGUQ23hgp2jBNV5BxaMw9663DYdVurJHU=
+	t=1791805435; cv=none; b=OlZLGaUXKnp5PVBjL3VmtDW4oncBgu9EIZVPuz4SDGdwhKG+wgjV9H+ljg9xLwQb0SYm8f0U1HPKV6hrspDy5BCvgjBSL3JvRcgQzjTf/rJydpIQtx8Kr9hmbhyrT52ThOGT0Bx0iLIr7mZg4PqaRpm6HUeB2F+u2V4u0NQAg8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791805434; c=relaxed/simple;
-	bh=P3rZIbm97QIv09B5oixPde2PxiUglhDc46cTq/vB54Y=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ooGJgL+WrcBTeJd95ZVkG7hYnQP8zz0auUOL5xuid1u3kwhqFffnzhnSEa5Te8CVLVZ34Vv77eyv7x9IZn6awOlR39B4rQA9TcUnrqYm5jy2cKLgA9oR6G57Hf/pUQ33lw43TwA/3TWAf5pCSq9IFDaIYrJcpo3U0+5ojLW4vOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Eu+6eIv6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791805435; c=relaxed/simple;
+	bh=VDviWX2lxstTxE1yB3JWclNnNGMBdmeFuOFcVNl3kBc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oqtlALTvj6JVXGlhsuKStVN8k4weiU12rCXE0TonWZYbtGomg5Ryx7XOD0T3O9+e24IQS2vDlYpvQUXYvGF1JC3KlJ9ZPlNkt17jJUJx9GInSppkhjzDLhU4+fYh1NG6kmYSB7xinAdUSImEfeXweop3SneCT5mnX0D6jw3SMkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=AK1njQz5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Eu+6eIv6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92F071F0089B;
-	Mon, 12 Oct 2026 11:43:44 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AK1njQz5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 684481F0089C;
+	Mon, 12 Oct 2026 11:43:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791805425;
-	bh=ACYbsyCXtEh20mbLZRrNyWkt2qTJsRcvxWrc8hwnyHk=;
+	s=korg; t=1791805431;
+	bh=lQ3wUG17d0nWOuqk9StQIEHkzpgZi9iIEkx1IAywnHo=;
 	h=Subject:To:Cc:From:Date;
-	b=Eu+6eIv6rcldyyQAWfpBoPvmvHwVxl+exwoBhcUEy8iOYbDkC+w12FiysVhUKmmtP
-	 Z815i+WBcG0f5plm5ov4ZYTo2CrQmF1MZmdt8W4hRi7s8zth8Kmu/BQlyfk3ePigyf
-	 02TaXoJAubiNuiTAZKGySxnroaMOzzWEIh8PWzh4=
-Subject: FAILED: patch "[PATCH] ip6_gre: remove obsolete ERSPAN PMTU update" failed to apply to 6.12-stable tree
+	b=AK1njQz5Y9KKSdk2M+4+LmaP2H+VG9DLCKih4/uEchOURhcNZVsr8/TFk8wT9OTHu
+	 yvvXLYVgVvRol3CNgKKnSYVbOHS8P3TzeJQ4xnyKfH5P/vdoRbU5h9/Jv0UANXoeUW
+	 eS5Yw+w7xNWJqeWkWvp3XOBZzpYCTVR5pN0qHQ+Q=
+Subject: FAILED: patch "[PATCH] ip6_gre: remove obsolete ERSPAN PMTU update" failed to apply to 5.10-stable tree
 To: 4ncienth@gmail.com,idosch@nvidia.com,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 13:43:43 +0200
-Message-ID: <2026101243-squid-unpaved-65ac@gregkh>
+Date: Mon, 12 Oct 2026 13:43:45 +0200
+Message-ID: <2026101245-unlawful-ducky-d21f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 8bc60db48e8cba35488bbd6e1f94aa990afa275a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101243-squid-unpaved-65ac@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101245-unlawful-ducky-d21f@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
