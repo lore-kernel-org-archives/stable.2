@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 976853ED132
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 11:32:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9F683DA7D0
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 11:33:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791804762; cv=none; b=lIXw65bKxsO53yvJTUb36EOybYMpUzeIhAyHA/F6iMdPbB8OulCuRmzNwXC43qk/BB4L3V8X0V96NETFKvsv5yOIv7CDSjUjzYgbUoTRLwYV0Hc0xcBLgKXe+G/2sAA/pwEbilKYV2+nqCalyurjVCIEYTmQLYmkbVHwEvyShJE=
+	t=1791804790; cv=none; b=Io0WdNQHFxNWer/uIc4nX+fEc6+C6exqSh7M5Ak1rDAQDdNyV5vpsRrsAV/+Ug0Vr8KwTFNFd8FUwLo5ykpIeZkdBQlA9wrTiWRm0rJgfxDV3UMznpMBZcPfHOk4hKO0LBcUp7i6hEVdY7PRCiwuub2oOiF1FExSslwk/ppYDDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791804762; c=relaxed/simple;
-	bh=vZWKAEs7iT8pZRQCrlf0uHjIQHvdO/8ArXwPMsT6ihQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jcQD5Za4flYFeQPgUgj7yqk6jL7yY8929tf2OxNthlKUyw2ymHedjy0pS4GME9AHsrmb9OOPuS3ufwhx8nTv5uVLlOvcEMp+Lq6ObZz0Rw7zrcelRqFrOuNH+TakOMeg9KWfGXx6ePZQVjko8vOgFEOqPwY8Jbx6qgqJHIwDyB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=AtaCLVas; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791804790; c=relaxed/simple;
+	bh=Soa6qS17rVQ1FtrauOCzZWC8NCBSwIo9Ipsed4kcIXM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=RyzROGtEbDe3YqxqpVCedd7T92nssI9LnZeZ/tfUJ2WnPiV3+6lpoA/AyNqW9xnFGAVa3sYtdTnwF5aG2wYNJhOluDDHy8JmmQr4FozhcBNZ4/l3bvxw9XLzb3Q/1IxhWJWL+8s/St6FCQQNH49re7dTBAZLawwl7wa3k/lCKI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VS4JAWOh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AtaCLVas"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 917B11F0089B;
-	Mon, 12 Oct 2026 11:32:40 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VS4JAWOh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DD441F0089B;
+	Mon, 12 Oct 2026 11:33:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791804761;
-	bh=HKH2+CniKGfwPuV357DqvqEmYBza10jEWn7PfTzFApQ=;
+	s=korg; t=1791804788;
+	bh=SgBUOUvbcsazZwPaITvtENGXB/LF25wmno7YURD+kD0=;
 	h=Subject:To:Cc:From:Date;
-	b=AtaCLVas7hhU33tmupAdnwRDM43BfZupkOMm7XMh8SCDVD5yFSm4w7Cj+JVp0rp5E
-	 ORxdWNK2MY9j3oDSL77FQAqH+wItm3mfK3efQ2cZ+onTl4mPCkAI526q3iFmcDeizi
-	 iNsyd4nIOlLhJprzLb4/jMxpSUBX43YQhs4onpWY=
-Subject: FAILED: patch "[PATCH] ALSA: hda/tas2781: Accept V1 calibration data without CRC" failed to apply to 6.6-stable tree
-To: med.jebabli@gmail.com,tiwai@suse.de
+	b=VS4JAWOhC2SCRmUSqsEh0WlC/zfl9aU1xshhaMrBrBZOoOj1RlWondAyt628yDROx
+	 wV8d84B3A/1CHVy4xVUA91k2GNRpn25ONWw7vG0D/8yRoygerKFfroGitl9HxUpIpT
+	 IbYv3Sq8jymSWPtGJQX8sXr2KLdLw5YXfFrpTLO4=
+Subject: FAILED: patch "[PATCH] ata: libata-scsi: do not lose CHECK CONDITION for failed" failed to apply to 6.18-stable tree
+To: hengyul@cs.unc.edu,cassel@kernel.org,dlemoal@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 13:32:38 +0200
-Message-ID: <2026101238-chrome-recount-a048@gregkh>
+Date: Mon, 12 Oct 2026 13:33:13 +0200
+Message-ID: <2026101213-giggly-chevy-f33f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 408249089c48df1a4d23f60b831be3f3c311e6d1
+git cherry-pick -x bc8ce2cea5f77c4bd1a5184705e300e83546c0c4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101238-chrome-recount-a048@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101213-giggly-chevy-f33f@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,58 +62,73 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 408249089c48df1a4d23f60b831be3f3c311e6d1 Mon Sep 17 00:00:00 2001
-From: Mohamed Yassine Jebabli <med.jebabli@gmail.com>
-Date: Thu, 1 Oct 2026 12:24:42 +0200
-Subject: [PATCH] ALSA: hda/tas2781: Accept V1 calibration data without CRC
+From bc8ce2cea5f77c4bd1a5184705e300e83546c0c4 Mon Sep 17 00:00:00 2001
+From: Hengyu Liang <hengyul@cs.unc.edu>
+Date: Tue, 29 Sep 2026 12:41:35 -0400
+Subject: [PATCH] ata: libata-scsi: do not lose CHECK CONDITION for failed
+ ATAPI commands
 
-Some Lenovo BIOSes (e.g. Legion Pro 7 16IRX9H, SSID 17aa:38cd) store
-valid V1 calibration data in the CALI_DATA EFI variable but leave the
-TimeStamp and CRC fields zeroed. The driver rejects such data, so the
-amplifiers always run with default parameters on these machines.
+Since commit 2e1d2e65e773 ("ata: libata-scsi: terminate deferred commands
+on time out"), atapi_qc_complete() sets SAM_STAT_CHECK_CONDITION for a
+failed command only if cmd->result is zero, so that the DID_TIME_OUT or
+DID_REQUEUE host byte of a terminated command is preserved.
 
-The rejection was silent until
-commit 4fe238513407 ("ALSA: hda/tas2781: Move and unified the
-calibrated-data getting function for SPI and I2C into the tas2781_hda lib")
-turned it into "V1 CRC error".
+However, cmd->result can also be non-zero for a regular failed ATAPI
+command completed through libata EH: ata_eh_analyze_tf() calls
+ata_eh_decide_disposition(), that is, scsi_check_sense(), on the sense
+data obtained with REQUEST SENSE, and scsi_check_sense() sets the SCSI
+midlayer internal byte of the result for some sense codes, e.g.
+SCSIML_STAT_TGT_FAILURE for ILLEGAL REQUEST with ASC 0x20 (INVALID
+COMMAND OPERATION CODE) or 0x24 (INVALID FIELD IN CDB), or
+SCSIML_STAT_MED_ERROR for MEDIUM ERROR with ASC 0x11 (UNRECOVERED READ
+ERROR). For such commands, atapi_qc_complete() keeps the result as is and
+the command completes with a GOOD status byte, even though it failed and
+valid sense data is available.
 
-The stored values are consistent (R0 = 3.82/3.83 ohm, 1/R0 matching
-within 1e-4), so accept V1 data when both TimeStamp and CRC are zero
-and the first device entry is non-zero, and emit a warning.
+As a result, passthrough users see these failed ATAPI commands as
+successful. For example, with the emulated IDE CD-ROM drive of QEMU and
+no medium loaded, a PLAY AUDIO MSF command issued with SG_IO completes
+with status 0x00 (and no DRIVER_SENSE) instead of 0x02 (CHECK CONDITION)
+with sense key ILLEGAL REQUEST, ASC/ASCQ 0x20/0x00, and the CDROM ioctls
+CDROMPLAYTRKIND, CDROMSUBCHNL, CDROMPAUSE, CDROMRESUME, CDROMPLAYMSF and
+CDROM_GET_MCN return 0 instead of -ENOMEDIUM or -EOPNOTSUPP.
 
-Fixes: 5be27f1e3ec9 ("ALSA: hda/tas2781: Add tas2781 HDA driver")
+Fix this by setting the status byte to SAM_STAT_CHECK_CONDITION whenever
+the host byte is not set. Use set_status_byte() rather than overwriting
+the whole result, so that the SCSI midlayer internal byte set by
+scsi_check_sense() is preserved, as ata_scsi_qc_complete() already does
+for ATA commands.
+
+Fixes: 2e1d2e65e773 ("ata: libata-scsi: terminate deferred commands on time out")
 Cc: stable@vger.kernel.org
-Signed-off-by: Mohamed Yassine Jebabli <med.jebabli@gmail.com>
-Link: https://patch.msgid.link/20261001-tas2781-v1-nocrc-v1-1-ff0c1032ce76@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Suggested-by: Niklas Cassel <cassel@kernel.org>
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+Link: https://lore.kernel.org/r/20260929164135.266708-1-hengyul@cs.unc.edu
+Signed-off-by: Niklas Cassel <cassel@kernel.org>
 
-diff --git a/sound/hda/codecs/side-codecs/tas2781_hda.c b/sound/hda/codecs/side-codecs/tas2781_hda.c
-index b22f93424c62..e0da299df780 100644
---- a/sound/hda/codecs/side-codecs/tas2781_hda.c
-+++ b/sound/hda/codecs/side-codecs/tas2781_hda.c
-@@ -139,9 +139,21 @@ static void tas2781_apply_calib(struct tasdevice_priv *p)
- 		 */
- 		crc = crc32(~0, data, 84) ^ ~0;
- 		if (crc != tmp_val[21]) {
--			cali_data->total_sz = 0;
--			dev_err(p->dev, "%s: V1 CRC error\n", __func__);
--			return;
-+			/*
-+			 * Some Lenovo BIOSes (e.g. Legion Pro 7 16IRX9H,
-+			 * SSID 17aa:38cd) store valid V1 calibration data
-+			 * but leave TimeStamp and CRC zeroed.
-+			 */
-+			if (!tmp_val[20] && !tmp_val[21] &&
-+			    tmp_val[0] && tmp_val[1]) {
-+				dev_warn(p->dev,
-+					 "%s: V1 data without CRC, accepting\n",
-+					 __func__);
-+			} else {
-+				cali_data->total_sz = 0;
-+				dev_err(p->dev, "%s: V1 CRC error\n", __func__);
-+				return;
-+			}
- 		}
+diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
+index 8f9aa97a519d..fb5517d51095 100644
+--- a/drivers/ata/libata-scsi.c
++++ b/drivers/ata/libata-scsi.c
+@@ -3059,10 +3059,15 @@ static void atapi_qc_complete(struct ata_queued_cmd *qc)
+ 		if (qc->cdb[0] == ALLOW_MEDIUM_REMOVAL && qc->dev->sdev)
+ 			qc->dev->sdev->locked = 0;
  
- 		for (j = p->ndev - 1; j >= 0; j--) {
+-		if (cmd->result)
+-			ata_scsi_qc_done(qc, false, 0);
+-		else
+-			ata_scsi_qc_done(qc, true, SAM_STAT_CHECK_CONDITION);
++		/*
++		 * Report CHECK CONDITION unless the command was terminated
++		 * with a host byte set. Only set the status byte, so that the
++		 * SCSI midlayer internal byte, which scsi_check_sense() may
++		 * have set from the sense data, is preserved.
++		 */
++		if (get_host_byte(cmd) == DID_OK)
++			set_status_byte(cmd, SAM_STAT_CHECK_CONDITION);
++		ata_scsi_qc_done(qc, false, 0);
+ 		goto schedule_deferred;
+ 	}
+ 
 
