@@ -1,87 +1,45 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4AA4534BB
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 08:42:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7916C455607;
+	Mon, 12 Oct 2026 08:42:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791794564; cv=none; b=Jaj8ayDeSV+dQKOv180KNqGEjl3qFDJ6idveMk/6G6YVgfakUmzdmgIoQ+Icdd+8V6B7058u6wtwJeQZJaA2k7hURGyPM7NOebR5TIQ0YEQB8P3vAM52eVOwEQWmeNjm9Ad1T1blXR8uZmqgcthr4dkt91UvGqz7Ep/NTIBsF1E=
+	t=1791794566; cv=none; b=Nxx6o8rBn2QxL+nQhKMo/9t6Qd0crVYPFEJysz8dRlxY5S7ILDrYC9yI7oR6CcqibugetNCszPIrFACdfUY9yjbdspdPy2sjzs1+86SehisphvFLcwINVsivcL7sJJQMQYVyTHRn83omilhq1eyswXyZNnqFWdsdZiDfiddXhHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791794564; c=relaxed/simple;
-	bh=AaxiIHkgLD4ulKUYLI2V7jffRjIqGmFrLAV4aTnpvCo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gEQlqUk2pR51z/viALd96hvnusx07772ZfrAls7Q3GBC4vOSk+DpuwkRxIRh1hLQPi7CW7oH/+Rp6UjsL0AHSTadh0mIWm+C46uePkFK9ONYBae+pZvOSdRcBCjNWkZEgSn3SQ6+JRwgGMReeL4nK5JCCn7d4/buUfztS9to5BM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=XxPrzklF; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791794566; c=relaxed/simple;
+	bh=t/NdJD5NAhn4Znk0l0sUNGnRewqktqylJ4czb2rqW8k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fHpeiCaGOhKW+CaSlD4Gan6RocUtYtvjfhV80XLQHr41RRDT55xk8I0sddRvNk4F0p7t2m74Dx9+WS2NcuSg50feZ4V8lrrTxsS7ESr6jurPJUrAbpjussYwXtlhsVGxGk7zZxDqiiJIVtfdjhU2Hnu23Quke5XEzxf69Rs5ACM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Yvz3t48a; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="XxPrzklF"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3a8adb68d8bso1086567a91.1
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 01:42:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791794561; x=1792399361; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pMj0ZDjWQZhfS34YQOf6RUS2CPztBt6uEwu8EUdNqqU=;
-        b=XxPrzklFgCfxJ0icsOck0/YeI3vC5a/MjtrVKqB25Ylm2MaobbQFurVvlEtZI50Det
-         2IbOcwlL+p8/FMdhmlHJpU6kiufdk9dkI/q93PhkOu2Cp3Y5I5dANkcwfmBek0ofRdty
-         zjV69LDvJZWf/oPBqRfx2xmCBLSUmOYSSUKnnhtbVJy2r9EIySoXpmfopr7P70qNYA7J
-         pk6LzZI05XLCvIOAB36v7reh0dfN6LewH6vDkYLF2QEqbIY+/Ns83xQaKak9zCjXXBe7
-         2xIU4U1hnjC2j7IkRCO3yS/4AfXP3vMQ0kKKuDJE79lYJK3V+DZaeHdp4KTuqxBy+TOg
-         tB2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791794561; x=1792399361;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pMj0ZDjWQZhfS34YQOf6RUS2CPztBt6uEwu8EUdNqqU=;
-        b=OfXqKF/VIbCRLtvegEOXWNFimL/ss5NYAri9py0AyI2L0+Uxjt1dHR4vaGK7AN6hWe
-         kkzQNNgmcn7ZIYZeayv5NaCD1ul43/vWeWusprjLtUrxzggq+CTctJY+AgiMUIpqetdl
-         UAq5+0KKN/Fpnt2+KhD6cR2A5kIWtQXf0wkABn64eL8lLy+Ub5qvEJb6xEnZzjk619CJ
-         lUENV5uijuds6Vi3QKhX8sf0mrUL8AB2ptERkVmuG8OQmePW/t4WLT0ARL9D02tRMQD3
-         UM/oJe7kNcNIy8Rg0F7+acGxEs3RnrzbTqyu60po6Wt4mQ/dDGl0uPf9ONkbtiiYc3pq
-         AKIA==
-X-Forwarded-Encrypted: i=1; AKwUvBzY4AnA5aZSCvXtJj/TNfLpFPZtG4U0AEancuMgLn54/agP313LtH/jevVkjY0sRshhxXRxsh8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJViDA78pCelUJJZfdrwn4hsgFPlonpquZB+BRvOKozwj5qlsjn
-	QWMW49IB0ZKKs9KvjNMUBQV52zMLiM8JldUdmyrCJQr7K9AkIYU5W6zJ3Ff8OVwJ6Og=
-X-Gm-Gg: AYBFou0HGKTLEk/6mmrs6LqKuPQvl0s9um8P89Ydzw4EfaG2ciSJ0rWr/qtpK2fE72S
-	gTEeJVh+RBCgCgGp9/mjw8d5Uo7AKgvWWvIhQ6ev847wLTTbKaCsBaLkWhpRWZv6idCws3xRxLo
-	N2WYmVXWJXQDy6DapQT2wZ3a2ihA20IQNpl0ZA4rRM9acbzf3CS800W3SOvKjKIsvXn32IbDYOA
-	WXg4RKU/pm6rhvBZmZJWtnywUf3vKL8eQuXLzUMaO0Wks5WS7dd5M7cm87O7QauEVSAz/Vpyk0J
-	YP/6QCoZO63PzZN/Ak3YsTI2j0uLYy/dD1EpY/fwVFakk+sYmHai9jhqj5j4FAbwEyM5I+5veat
-	6ETQHz4/ogW9PueWZ74AGdB0qSit7J//M03dM9rcS0QCbYL7BL0KRgQMQ62ozDw7lVqkM1TewOg
-	Qx4poI7pOr1lFzLR6QWWMDj3WjS18Cc0RJO+WaSjcrvpMOO1MnkAMVnEaFaI4u0XbzPu6b7RdgW
-	n8K9w==
-X-Received: by 2002:a17:90b:5886:b0:3ab:be66:ddc8 with SMTP id 98e67ed59e1d1-3abbe66dfdfmr3137834a91.14.1791794561283;
-        Mon, 12 Oct 2026 01:42:41 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ca0033sm15363658a91.2.2026.10.12.01.42.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 01:42:40 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Mohsin Bashir <mohsin.bashr@gmail.com>
-Cc: Alexander Duyck <alexanderduyck@fb.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	netdev@vger.kernel.org,
-	kernel-team@meta.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Dimitri Daskalakis <daskald@meta.com>,
-	Bobby Eshleman <bobbyeshleman@meta.com>,
-	Daniel Zahka <daniel.zahka@gmail.com>,
-	stable@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Yvz3t48a"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=t5
+	4og3rvACAr8tHWID93e5cauTmzfGVR2GGol7R4X2Y=; b=Yvz3t48aovTY2dzsgC
+	b9hrKIhk35W7NKEzxG7CSy7zCDP2qwsnBAc1SUuHcw0qM2t3iTw/Iwd2mu5j+pYi
+	ULo/n5pQXxBxOdL0syYMnFgyGII03dbmNfd2KWYB/i/dpJGaHT4Q9cqAixbKMHYP
+	/PbHIzFDUP/JEZ10kJ5kAh2lo=
+Received: from ubuntu.. (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3F0lRncxqkmahEA--.36665S4;
+	Mon, 12 Oct 2026 16:42:01 +0800 (CST)
+From: Ma Ke <make_ruc2021@163.com>
+To: david.rhodes@cirrus.com,
+	rf@opensource.cirrus.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	sbinding@opensource.cirrus.com
+Cc: linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
 	linux-kernel@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Subject: Re: [PATCH net v3 1/5] eth: fbnic: only act on Rx completions naming a posted buffer
-Date: Mon, 12 Oct 2026 17:42:21 +0900
-Message-ID: <20261012084221.2285031-1-yhlee@isslab.korea.ac.kr>
+	akpm@linux-foundation.org,
+	Ma Ke <make_ruc2021@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] ALSA: hda: cs35l41: Fix ACPI device reference leak on probe failure
+Date: Mon, 12 Oct 2026 16:41:52 +0800
+Message-ID: <20261012084152.3740340-1-make_ruc2021@163.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <40b3432d-b597-423f-9279-ab4aa1157f44@gmail.com>
-References: <cover.1791775409.git.yhlee@isslab.korea.ac.kr> <25ce85c9821fba5d94932b36b9c9afb9a2fbd12a.1791775409.git.yhlee@isslab.korea.ac.kr> <40b3432d-b597-423f-9279-ab4aa1157f44@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,19 +47,99 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3F0lRncxqkmahEA--.36665S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJFW7Zr4kXFWrWFW5GrW7Arb_yoWrJrWxpr
+	4YqayfKr9xJw109rnrZF4xW348Zry0vr15Wr1Fkw4rCwsxWryrJ3y7JFy7Xr1UArWvgay7
+	Xr43t3Z5ZF1jyw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piVT5JUUUUU=
+X-CM-SenderInfo: 5pdnvshuxfjiisr6il2tof0z/xtbC9RlLVmrMnVlT+wAA37
 
-Thanks for looking at these, and for the detailed reasoning.
+cs35l41_hda_probe() takes an acpi_device through
+cs35l41_hda_read_acpi() and stores it in cs35l41->dacpi. Only the
+failures that happen later reach the err: label, which is where that
+reference and cs35l41->acpi_subsystem_id are released, so the early
+return taken when cs35l41_hda_read_acpi() fails leaves both behind.
 
-You're right that the buffer IDs, offsets and lengths are values the
-driver itself programs and the device echoes back, and that a healthy
-device honours the headroom and placement the driver configures.  The
-series treated the device as untrusted, which is not the model fbnic
-uses; a completion that disagrees with what software posted points at a
-software/hardware state bug these checks would hide rather than fix.
-I'll drop patches 1-3.
+Keep the ownership in the caller instead of dropping the reference
+inside cs35l41_hda_read_acpi(). That removes the need to work out
+whether a given failure path has already released it, and with it the
+double put that cs35l41_hda_parse_acpi() would otherwise cause when it
+fails after having released the device itself.
 
-For patch 4 I missed that Daniel already fixed the same reference leak in
-1c85ea5df86b ("eth: fbnic: put back netmem reference when
-xdp_buff_add_frag() fails"); please drop it as well.
+cs35l41_hda_parse_acpi() and the !physdev path no longer put the
+reference, and the early failure enters the existing err: cleanup tail
+through a new err_acpi label.
 
-Sorry for the noise.
+The label sits between the reset of the codec and the gpio cleanup, so
+an early failure also releases the reset and chip-select descriptors
+that cs35l41_hda_parse_acpi() may already have taken, while still
+skipping cs35l41_safe_reset() on a codec that was never brought up.
+
+cs35l41->dacpi comes from devm_kzalloc() and is only assigned once the
+ACPI device has been found, so the put is a no-op when the lookup
+itself failed.
+
+Found by code review.
+
+Fixes: 447106e92a0c ("ALSA: hda: cs35l41: Support mute notifications for CS35L41 HDA")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ma Ke <make_ruc2021@163.com>
+---
+Changes in v3:
+- Modify the patch. Thanks for Takashi Iwai and Sashiko's suggestions.
+Changes in v2:
+- cs35l41_hda_parse_acpi() drops cs35l41->dacpi in its own err: label, so
+  the err_acpi path added by v1 would have dropped that reference a second
+  time. Clear cs35l41->dacpi there as well, not only on the !physdev path.
+---
+ sound/hda/codecs/side-codecs/cs35l41_hda.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/sound/hda/codecs/side-codecs/cs35l41_hda.c b/sound/hda/codecs/side-codecs/cs35l41_hda.c
+index 62296be45c55..d50c3d8f5303 100644
+--- a/sound/hda/codecs/side-codecs/cs35l41_hda.c
++++ b/sound/hda/codecs/side-codecs/cs35l41_hda.c
+@@ -1907,7 +1907,6 @@ int cs35l41_hda_parse_acpi(struct cs35l41_hda *cs35l41, struct device *physdev,
+ 	hw_cfg->valid = false;
+ 	hw_cfg->gpio1.valid = false;
+ 	hw_cfg->gpio2.valid = false;
+-	acpi_dev_put(cs35l41->dacpi);
+ 
+ 	return ret;
+ }
+@@ -1928,10 +1927,8 @@ static int cs35l41_hda_read_acpi(struct cs35l41_hda *cs35l41, const char *hid, i
+ 	cs35l41->dacpi = adev;
+ 	struct device *physdev __free(put_device) =
+ 		get_device(acpi_get_first_physical_node(adev));
+-	if (!physdev) {
+-		acpi_dev_put(adev);
++	if (!physdev)
+ 		return -ENODEV;
+-	}
+ 
+ 	sub = acpi_get_subsystem_id(ACPI_HANDLE(physdev));
+ 	if (IS_ERR(sub))
+@@ -1986,8 +1983,10 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
+ 	dev_set_drvdata(dev, cs35l41);
+ 
+ 	ret = cs35l41_hda_read_acpi(cs35l41, device_name, id);
+-	if (ret)
+-		return dev_err_probe(cs35l41->dev, ret, "Platform not supported\n");
++	if (ret) {
++		dev_err_probe(cs35l41->dev, ret, "Platform not supported\n");
++		goto err_acpi;
++	}
+ 
+ 	if (IS_ERR(cs35l41->reset_gpio)) {
+ 		ret = PTR_ERR(cs35l41->reset_gpio);
+@@ -2074,6 +2073,7 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
+ err:
+ 	if (cs35l41_safe_reset(cs35l41->regmap, cs35l41->hw_cfg.bst_type))
+ 		gpiod_set_value_cansleep(cs35l41->reset_gpio, 0);
++err_acpi:
+ 	gpiod_put(cs35l41->reset_gpio);
+ 	gpiod_put(cs35l41->cs_gpio);
+ 	acpi_dev_put(cs35l41->dacpi);
+-- 
+2.43.0
+
