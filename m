@@ -1,92 +1,398 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C9883537E8;
-	Mon, 12 Oct 2026 05:44:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88A483AE1A8
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 05:46:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791783865; cv=none; b=YbrQzO2ipvn0xyp8H5pL9NLMz1ZsSb82UhwrTCOl/2p/agQj1jpvealH7ht94/Rnno//khOvzRJHkDPvqDBwF+lj9s/yug+NrAymbdQs56kh605GNlylFVYmjnGvsfgKheJeX6pLgNvFrRa/Z40YuvdrchLoe4OVku4zoXqmKT4=
+	t=1791784018; cv=none; b=iPa6rpxXqxWABgekRLf55al4QzDmxY5BnBHwaxjcKkv0emPs9KaJMXYij2QyIOXEjR2dx8vtxtZmHsHTfZne3DMyapDLJfqo/kY5WZsZeN5GgeW9Dd4mSEkOmjENKjdI5o12xHoBXq9GddBdVEDz45TiSRHn9+K5cKFmH3wL7Ho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791783865; c=relaxed/simple;
-	bh=Cogu/pFMc9yuLZJiJzJBing2CsSEJdu2Yd8zlYYfu84=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=h0BdieiQkShwAL+/+7UGBL3lF92QN0L8XclkpJ6UOCC2aR9+ElPcKOAocB0PkXkCgCnTsynXsZC9b4w805n3beWO8RuuDmYJbAA73oc37e9XDmLN0Ozc2Kqx/IGsWNbphHbetnBnRyOv5Cp6+BhVSwUv8sTemPbA8rTbJey6TGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=RMJvgf3G; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1791784018; c=relaxed/simple;
+	bh=n2i+6CEJuVRfoeyGD2uEZ5mwCT0RFaEbk4a8aAMdiP4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=EHj04pQqgOVFvEVUF8KH9g351ToVuR15sKGfluyTJHSHEv7Rx6gyZche7IwrVVRm+4sy5Wr6Gj0xTMQgb7WAnPUjnIRZdhJ3x3AcA4zW92q3K/FrogaeQWhcLhXkJ9ukrSagUHY3+qGfrqlKwwyY0cx7dhVnPNjXKdW4Ju5RR80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xKzrIWyi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="RMJvgf3G"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69C5iCz653574260, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1791783853; bh=Cogu/pFMc9yuLZJiJzJBing2CsSEJdu2Yd8zlYYfu84=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=RMJvgf3GcbuFY3d9kbzDsh0tEDrmaPoDjxE6pInJ2tgZ2PGkDntJKdX05DFaxpjyO
-	 0VHYqLFVhUw8HhMfNhgju5A/IOPgFScwqpXqkEv055OM5vsmCQCzYYGGDp6ur4Xy8q
-	 GMl5HYgScML0BA49TQqtJroY3fWx6QD99cBEahqlOEFnjClZrYm59afk0xcKJxQA89
-	 rseo0r1xp4gzIE3hpa+BTd39BBVUWrXvwMDsgXoMKSDhOq6X95tOoPZHEnfq19PPn/
-	 s1TeYVsICP08YjD8MtKeQpYCe9AaSG0tLgRfPWRzZpc3G2L432IF1X7rv9gUALLTsV
-	 TNBeBhy3PvMsw==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69C5iCz653574260
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 12 Oct 2026 13:44:13 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 12 Oct 2026 13:44:19 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 12 Oct 2026 13:44:19 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Mon, 12 Oct 2026 13:44:19 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: "5mghybrid@khu.ac.kr" <5mghybrid@khu.ac.kr>,
-	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>
-CC: Jes Sorensen <Jes.Sorensen@gmail.com>, Kalle Valo <kvalo@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH rtw-next] wifi: rtl8xxxu: isolate the USB register buffer
- from CPU state
-Thread-Topic: [PATCH rtw-next] wifi: rtl8xxxu: isolate the USB register buffer
- from CPU state
-Thread-Index: AQHdWD8IbE0sWRKeB0i8lqEjk1P2g7b5aFkw
-Date: Mon, 12 Oct 2026 05:44:19 +0000
-Message-ID: <1fc8c339df1944afa6186197337edda3@realtek.com>
-References: <20261010-rtl8xxxu-usb-dma-v1-0-e670d9c08fdf@khu.ac.kr>
- <20261010-rtl8xxxu-usb-dma-v1-1-e670d9c08fdf@khu.ac.kr>
-In-Reply-To: <20261010-rtl8xxxu-usb-dma-v1-1-e670d9c08fdf@khu.ac.kr>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xKzrIWyi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86B481F0089B;
+	Mon, 12 Oct 2026 05:46:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791784015;
+	bh=HQ3f76k6OB33blvwmklKmEjwtxUINTUxmUEiCr8CplM=;
+	h=Subject:To:Cc:From:Date;
+	b=xKzrIWyi9cB9eZ5DgOrLTwvUt3yGyHLCd2PjPms7Iyh8O5L4kUJsfPEebx2ihHkKq
+	 AXnxniU4bPP7cpVlBLfz2k3J0PTcyyCwHe+r8+8H9/t4tjHQyXMdtEptRODFBcJtcS
+	 ost9a/D1+k6zLzLA4RZEDZB6HIrdn5502z86GHPY=
+Subject: FAILED: patch "[PATCH] packet: Add GSO/csum offload support." failed to apply to 6.6-stable tree
+To: sri@us.ibm.com,davem@davemloft.net
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 12 Oct 2026 07:46:52 +0200
+Message-ID: <2026101252-recount-outfit-4306@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-S2ltIFdvb3Nlb2sgdmlhIEI0IFJlbGF5IDxkZXZudWxsKzVtZ2h5YnJpZC5raHUuYWMua3JAa2Vy
-bmVsLm9yZz4gd3JvdGU6DQo+IEZyb206IEtpbSBXb29zZW9rIDw1bWdoeWJyaWRAa2h1LmFjLmty
-Pg0KPiANCj4gQW4gUlRMODE5MkVVIGZhaWxlZCB0byByZWNvbm5lY3Qgb24gYSBSYXNwYmVycnkg
-UGkgYWZ0ZXIgYW4gQVAgcG93ZXINCj4gY3ljbGUuIFJGX01PREUgY29udGFpbmVkIGEgY29ycnVw
-dGVkIHZhbHVlLCBhbmQgcmVzdG9yaW5nIGl0cyBpbml0aWFsaXplZA0KPiB2YWx1ZSByZXN0b3Jl
-ZCByZWNlcHRpb24uDQo+IA0KPiBUaGUgcmVnaXN0ZXIgYWNjZXNzIGhlbHBlcnMgcGFzcyB1c2Jf
-YnVmIGRpcmVjdGx5IHRvIHVzYl9jb250cm9sX21zZygpLA0KPiBidXQgdGhlIGJ1ZmZlciBpcyBl
-bWJlZGRlZCBuZXh0IHRvIHVzYl9idWZfbXV0ZXguIE9uIHRoZSBhZmZlY3RlZCBQaSwNCj4gaXQg
-c2hhcmVzIGEgY2FjaGUgbGluZSB3aXRoIHRoZSBtdXRleCdzIHdhaXRlciBzdGF0ZS4gQSBjb250
-ZW5kaW5nIHRhc2sNCj4gdXBkYXRlcyB0aGF0IHN0YXRlIHdoaWxlIHRoZSBVU0IgdHJhbnNmZXIg
-dXNlcyB0aGUgYnVmZmVyLiBUaGlzIHZpb2xhdGVzDQo+IHRoZSBjYWNoZS1saW5lIGlzb2xhdGlv
-biByZXF1aXJlZCBmb3Igbm9uLWNvaGVyZW50IERNQS4NCg0KQ29vbC4gSG93IGRpZCB5b3UgZGln
-IHRoYXQ/DQoNCj4gDQo+IEFsbG9jYXRlIHRoZSBidWZmZXIgb25jZSBpbiBwcm9iZSBhbmQgcmV1
-c2UgaXQsIGF2b2lkaW5nIGFuIGFsbG9jYXRpb24NCj4gZm9yIGV2ZXJ5IHJlZ2lzdGVyIGFjY2Vz
-cy4gS2VlcCB0aGUgZXhpc3RpbmcgcmVnaXN0ZXIgYWNjZXNzIGhlbHBlcnMgYW5kDQo+IG11dGV4
-IHByb3RlY3Rpb24uIEZyZWUgdGhlIGJ1ZmZlciBvbiBwcm9iZSBmYWlsdXJlIGFuZCBhZnRlciBw
-b3dlcl9vZmYoKQ0KPiBpbiBkaXNjb25uZWN0LCBzaW5jZSBzaHV0ZG93biBzdGlsbCB1c2VzIHRo
-ZSByZWdpc3RlciBhY2Nlc3MgaGVscGVycy4NCj4gDQo+IEZpeGVzOiAyNmYxZmFkMjlhZDkgKCJO
-ZXcgZHJpdmVyOiBydGw4eHh4dSAobWFjODAyMTEpIikNCj4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5l
-bC5vcmcNCj4gU2lnbmVkLW9mZi1ieTogS2ltIFdvb3Nlb2sgPDVtZ2h5YnJpZEBraHUuYWMua3I+
-DQoNCkFja2VkLWJ5OiBQaW5nLUtlIFNoaWggPHBrc2hpaEByZWFsdGVrLmNvbT4NCg0KDQo=
+
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
+
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x bfd5f4a3d605e0f6054df0b59fe0907ff7e696d3
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101252-recount-outfit-4306@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From bfd5f4a3d605e0f6054df0b59fe0907ff7e696d3 Mon Sep 17 00:00:00 2001
+From: Sridhar Samudrala <sri@us.ibm.com>
+Date: Thu, 4 Feb 2010 20:24:10 -0800
+Subject: [PATCH] packet: Add GSO/csum offload support.
+
+This patch adds GSO/checksum offload to af_packet sockets using
+virtio_net_hdr. Based on Rusty's patch to add this support to tun.
+It allows GSO/checksum offload to be enabled when using raw socket
+backend with virtio_net.
+Adds PACKET_VNET_HDR socket option to prepend virtio_net_hdr in the
+receive path and process/skip virtio_net_hdr in the send path. This
+option is only allowed with SOCK_RAW sockets attached to ethernet
+type devices.
+
+v2 updates
+----------
+Michael's Comments
+- Perform length check in packet_snd() when GSO is off even when
+  vnet_hdr is present.
+- Check for SKB_GSO_FCOE type and return -EINVAL
+- don't allow tx/rx ring when vnet_hdr is enabled.
+Herbert's Comments
+- Removed ethernet specific code.
+- protocol value is assumed to be passed in by the caller.
+
+Signed-off-by: Sridhar Samudrala <sri@us.ibm.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+
+diff --git a/include/linux/if_packet.h b/include/linux/if_packet.h
+index 4021d47cc437..aa57a5f993fc 100644
+--- a/include/linux/if_packet.h
++++ b/include/linux/if_packet.h
+@@ -46,6 +46,7 @@ struct sockaddr_ll {
+ #define PACKET_RESERVE			12
+ #define PACKET_TX_RING			13
+ #define PACKET_LOSS			14
++#define PACKET_VNET_HDR			15
+ 
+ struct tpacket_stats {
+ 	unsigned int	tp_packets;
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index 53633c5fdb1d..178e2937bbaa 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -80,6 +80,7 @@
+ #include <linux/init.h>
+ #include <linux/mutex.h>
+ #include <linux/if_vlan.h>
++#include <linux/virtio_net.h>
+ 
+ #ifdef CONFIG_INET
+ #include <net/inet_common.h>
+@@ -193,7 +194,8 @@ struct packet_sock {
+ 	struct mutex		pg_vec_lock;
+ 	unsigned int		running:1,	/* prot_hook is attached*/
+ 				auxdata:1,
+-				origdev:1;
++				origdev:1,
++				has_vnet_hdr:1;
+ 	int			ifindex;	/* bound device		*/
+ 	__be16			num;
+ 	struct packet_mclist	*mclist;
+@@ -1056,6 +1058,30 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
+ }
+ #endif
+ 
++static inline struct sk_buff *packet_alloc_skb(struct sock *sk, size_t prepad,
++					       size_t reserve, size_t len,
++					       size_t linear, int noblock,
++					       int *err)
++{
++	struct sk_buff *skb;
++
++	/* Under a page?  Don't bother with paged skb. */
++	if (prepad + len < PAGE_SIZE || !linear)
++		linear = len;
++
++	skb = sock_alloc_send_pskb(sk, prepad + linear, len - linear, noblock,
++				   err);
++	if (!skb)
++		return NULL;
++
++	skb_reserve(skb, reserve);
++	skb_put(skb, linear);
++	skb->data_len = len - linear;
++	skb->len += len - linear;
++
++	return skb;
++}
++
+ static int packet_snd(struct socket *sock,
+ 			  struct msghdr *msg, size_t len)
+ {
+@@ -1066,14 +1092,17 @@ static int packet_snd(struct socket *sock,
+ 	__be16 proto;
+ 	unsigned char *addr;
+ 	int ifindex, err, reserve = 0;
++	struct virtio_net_hdr vnet_hdr = { 0 };
++	int offset = 0;
++	int vnet_hdr_len;
++	struct packet_sock *po = pkt_sk(sk);
++	unsigned short gso_type = 0;
+ 
+ 	/*
+ 	 *	Get and verify the address.
+ 	 */
+ 
+ 	if (saddr == NULL) {
+-		struct packet_sock *po = pkt_sk(sk);
+-
+ 		ifindex	= po->ifindex;
+ 		proto	= po->num;
+ 		addr	= NULL;
+@@ -1100,25 +1129,74 @@ static int packet_snd(struct socket *sock,
+ 	if (!(dev->flags & IFF_UP))
+ 		goto out_unlock;
+ 
++	if (po->has_vnet_hdr) {
++		vnet_hdr_len = sizeof(vnet_hdr);
++
++		err = -EINVAL;
++		if (len < vnet_hdr_len)
++			goto out_unlock;
++
++		len -= vnet_hdr_len;
++
++		err = memcpy_fromiovec((void *)&vnet_hdr, msg->msg_iov,
++				       vnet_hdr_len);
++		if (err < 0)
++			goto out_unlock;
++
++		if ((vnet_hdr.flags & VIRTIO_NET_HDR_F_NEEDS_CSUM) &&
++		    (vnet_hdr.csum_start + vnet_hdr.csum_offset + 2 >
++		      vnet_hdr.hdr_len))
++			vnet_hdr.hdr_len = vnet_hdr.csum_start +
++						 vnet_hdr.csum_offset + 2;
++
++		err = -EINVAL;
++		if (vnet_hdr.hdr_len > len)
++			goto out_unlock;
++
++		if (vnet_hdr.gso_type != VIRTIO_NET_HDR_GSO_NONE) {
++			switch (vnet_hdr.gso_type & ~VIRTIO_NET_HDR_GSO_ECN) {
++			case VIRTIO_NET_HDR_GSO_TCPV4:
++				gso_type = SKB_GSO_TCPV4;
++				break;
++			case VIRTIO_NET_HDR_GSO_TCPV6:
++				gso_type = SKB_GSO_TCPV6;
++				break;
++			case VIRTIO_NET_HDR_GSO_UDP:
++				gso_type = SKB_GSO_UDP;
++				break;
++			default:
++				goto out_unlock;
++			}
++
++			if (vnet_hdr.gso_type & VIRTIO_NET_HDR_GSO_ECN)
++				gso_type |= SKB_GSO_TCP_ECN;
++
++			if (vnet_hdr.gso_size == 0)
++				goto out_unlock;
++
++		}
++	}
++
+ 	err = -EMSGSIZE;
+-	if (len > dev->mtu+reserve)
++	if (!gso_type && (len > dev->mtu+reserve))
+ 		goto out_unlock;
+ 
+-	skb = sock_alloc_send_skb(sk, len + LL_ALLOCATED_SPACE(dev),
+-				msg->msg_flags & MSG_DONTWAIT, &err);
++	err = -ENOBUFS;
++	skb = packet_alloc_skb(sk, LL_ALLOCATED_SPACE(dev),
++			       LL_RESERVED_SPACE(dev), len, vnet_hdr.hdr_len,
++			       msg->msg_flags & MSG_DONTWAIT, &err);
+ 	if (skb == NULL)
+ 		goto out_unlock;
+ 
+-	skb_reserve(skb, LL_RESERVED_SPACE(dev));
+-	skb_reset_network_header(skb);
++	skb_set_network_header(skb, reserve);
+ 
+ 	err = -EINVAL;
+ 	if (sock->type == SOCK_DGRAM &&
+-	    dev_hard_header(skb, dev, ntohs(proto), addr, NULL, len) < 0)
++	    (offset = dev_hard_header(skb, dev, ntohs(proto), addr, NULL, len)) < 0)
+ 		goto out_free;
+ 
+ 	/* Returns -EFAULT on error */
+-	err = memcpy_fromiovec(skb_put(skb, len), msg->msg_iov, len);
++	err = skb_copy_datagram_from_iovec(skb, offset, msg->msg_iov, 0, len);
+ 	if (err)
+ 		goto out_free;
+ 
+@@ -1127,6 +1205,25 @@ static int packet_snd(struct socket *sock,
+ 	skb->priority = sk->sk_priority;
+ 	skb->mark = sk->sk_mark;
+ 
++	if (po->has_vnet_hdr) {
++		if (vnet_hdr.flags & VIRTIO_NET_HDR_F_NEEDS_CSUM) {
++			if (!skb_partial_csum_set(skb, vnet_hdr.csum_start,
++						  vnet_hdr.csum_offset)) {
++				err = -EINVAL;
++				goto out_free;
++			}
++		}
++
++		skb_shinfo(skb)->gso_size = vnet_hdr.gso_size;
++		skb_shinfo(skb)->gso_type = gso_type;
++
++		/* Header must be checked, and gso_segs computed. */
++		skb_shinfo(skb)->gso_type |= SKB_GSO_DODGY;
++		skb_shinfo(skb)->gso_segs = 0;
++
++		len += vnet_hdr_len;
++	}
++
+ 	/*
+ 	 *	Now send it
+ 	 */
+@@ -1420,6 +1517,7 @@ static int packet_recvmsg(struct kiocb *iocb, struct socket *sock,
+ 	struct sk_buff *skb;
+ 	int copied, err;
+ 	struct sockaddr_ll *sll;
++	int vnet_hdr_len = 0;
+ 
+ 	err = -EINVAL;
+ 	if (flags & ~(MSG_PEEK|MSG_DONTWAIT|MSG_TRUNC|MSG_CMSG_COMPAT))
+@@ -1451,6 +1549,48 @@ static int packet_recvmsg(struct kiocb *iocb, struct socket *sock,
+ 	if (skb == NULL)
+ 		goto out;
+ 
++	if (pkt_sk(sk)->has_vnet_hdr) {
++		struct virtio_net_hdr vnet_hdr = { 0 };
++
++		err = -EINVAL;
++		vnet_hdr_len = sizeof(vnet_hdr);
++		if ((len -= vnet_hdr_len) < 0)
++			goto out_free;
++
++		if (skb_is_gso(skb)) {
++			struct skb_shared_info *sinfo = skb_shinfo(skb);
++
++			/* This is a hint as to how much should be linear. */
++			vnet_hdr.hdr_len = skb_headlen(skb);
++			vnet_hdr.gso_size = sinfo->gso_size;
++			if (sinfo->gso_type & SKB_GSO_TCPV4)
++				vnet_hdr.gso_type = VIRTIO_NET_HDR_GSO_TCPV4;
++			else if (sinfo->gso_type & SKB_GSO_TCPV6)
++				vnet_hdr.gso_type = VIRTIO_NET_HDR_GSO_TCPV6;
++			else if (sinfo->gso_type & SKB_GSO_UDP)
++				vnet_hdr.gso_type = VIRTIO_NET_HDR_GSO_UDP;
++			else if (sinfo->gso_type & SKB_GSO_FCOE)
++				goto out_free;
++			else
++				BUG();
++			if (sinfo->gso_type & SKB_GSO_TCP_ECN)
++				vnet_hdr.gso_type |= VIRTIO_NET_HDR_GSO_ECN;
++		} else
++			vnet_hdr.gso_type = VIRTIO_NET_HDR_GSO_NONE;
++
++		if (skb->ip_summed == CHECKSUM_PARTIAL) {
++			vnet_hdr.flags = VIRTIO_NET_HDR_F_NEEDS_CSUM;
++			vnet_hdr.csum_start = skb->csum_start -
++							skb_headroom(skb);
++			vnet_hdr.csum_offset = skb->csum_offset;
++		} /* else everything is zero */
++
++		err = memcpy_toiovec(msg->msg_iov, (void *)&vnet_hdr,
++				     vnet_hdr_len);
++		if (err < 0)
++			goto out_free;
++	}
++
+ 	/*
+ 	 *	If the address length field is there to be filled in, we fill
+ 	 *	it in now.
+@@ -1502,7 +1642,7 @@ static int packet_recvmsg(struct kiocb *iocb, struct socket *sock,
+ 	 *	Free or return the buffer as appropriate. Again this
+ 	 *	hides all the races and re-entrancy issues from us.
+ 	 */
+-	err = (flags&MSG_TRUNC) ? skb->len : copied;
++	err = vnet_hdr_len + ((flags&MSG_TRUNC) ? skb->len : copied);
+ 
+ out_free:
+ 	skb_free_datagram(sk, skb);
+@@ -1740,6 +1880,8 @@ packet_setsockopt(struct socket *sock, int level, int optname, char __user *optv
+ 
+ 		if (optlen < sizeof(req))
+ 			return -EINVAL;
++		if (pkt_sk(sk)->has_vnet_hdr)
++			return -EINVAL;
+ 		if (copy_from_user(&req, optval, sizeof(req)))
+ 			return -EFAULT;
+ 		return packet_set_ring(sk, &req, 0, optname == PACKET_TX_RING);
+@@ -1826,6 +1968,22 @@ packet_setsockopt(struct socket *sock, int level, int optname, char __user *optv
+ 		po->origdev = !!val;
+ 		return 0;
+ 	}
++	case PACKET_VNET_HDR:
++	{
++		int val;
++
++		if (sock->type != SOCK_RAW)
++			return -EINVAL;
++		if (po->rx_ring.pg_vec || po->tx_ring.pg_vec)
++			return -EBUSY;
++		if (optlen < sizeof(val))
++			return -EINVAL;
++		if (copy_from_user(&val, optval, sizeof(val)))
++			return -EFAULT;
++
++		po->has_vnet_hdr = !!val;
++		return 0;
++	}
+ 	default:
+ 		return -ENOPROTOOPT;
+ 	}
+@@ -1874,6 +2032,13 @@ static int packet_getsockopt(struct socket *sock, int level, int optname,
+ 			len = sizeof(int);
+ 		val = po->origdev;
+ 
++		data = &val;
++		break;
++	case PACKET_VNET_HDR:
++		if (len > sizeof(int))
++			len = sizeof(int);
++		val = po->has_vnet_hdr;
++
+ 		data = &val;
+ 		break;
+ #ifdef CONFIG_PACKET_MMAP
+
