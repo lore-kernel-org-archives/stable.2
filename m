@@ -1,172 +1,227 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1587949A3C4
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 16:38:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE2049891F;
+	Mon, 12 Oct 2026 16:38:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791823132; cv=none; b=sfsBI0uXfo/TC4jHWN1YoCQ7MBHfl3galGfZFLEjxV6R0mNc240V44AxKUDRLn8n8avfDJKm8gnqJCh72cQQ32K0Lc6Gj0simwRbQfoZ/wU1omX9RgjWX+B7TX7PZd6sS7uFWeiGfRRAsMGD0DX/0gAxNeBQBFA8+TMrU4o3n8w=
+	t=1791823132; cv=none; b=qpAn88m9LhovaTFdmjitBQEXA2BDPEVi1yl7vGYSTPwqrR0QTjCfO+DBne6rxUtuLFkNnIIVSu/bQagzEvgwuIw/Nd1VaJh2X9i0ZDm9I6HlIzmxRq5NF6xjSl0H6LuU7joPbMcLQAPhsldFQhCUowDHqItMlfF8HyLMWnO8r34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791823132; c=relaxed/simple;
-	bh=F1H5MyQMuXam71E+nKkOYHzZwg6EalJS+Z3MC7TNSRs=;
+	bh=+2zdQ6S4ZsYD0E7MfH1iCkQfbZPh5zhOEsI2jTjK14o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J0iP2ipu4l0JYZQYE66ey3CWJYWLiW++yjBFUse/82qOA5Fct020OKTF0y+9MYzqcBgvxwTAdFhwp74P6+lqi/ojN068zh4ONKdOMtQIH4cn68ISEK+LIVYXwIsIyWX2pFQca2R++YyB4NU2mGGZmPA9yv2HQmH2QERrNcLqw8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OaRyrzcm; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=ns07bHiMVl/2/Oo50StRnCmB0tSs0+Ei5EQEMTV5ufOCyXLK2S/qdhVsaoJ9x3HUgI/MHqKoWiNw1pnqatHJhG8+JiJ5BHh/fvAuRSLluJCsgrFI/BBpbFHWoNeR7bN0zW3KK4WPWFyINX/FNRWEtOAV5w2f/+vKxH2io9dxdCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=D19Ab7zG; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Zi758xX8; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Uwbarloh; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=zX03xJjP; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OaRyrzcm"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso1170457f8f.3
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 09:38:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791823128; x=1792427928; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HuWCbCHALjFKQvI6kk2Kyts8iE/+EiR+kuOdFcAFHro=;
-        b=OaRyrzcm/6gD+o7+BEmLhi5mzagEMcFzuXzlcCwSqbFaRsmfrW7kG1B984Qbi1sHLM
-         QQKi/qpfxUsh9eKwC5IIonJHtnA4zkcTKx0I4+UHqnQw5skScqyv1WjxBlk3Jd25pqee
-         eFCfOY1hi/qk4A6NSnzHH8KWQOcegWZjFhRCLCRhlFBqvWQXx7asu0PKdUqBy0RVhaZ5
-         jK6UH5KQ9j3+NpkJXVZK+uN1u4XqMcvXuTJryuEl6NztgY5K90I189ECQk13Gq4Frg58
-         44b1BiQKtUsNG4ox9yeeX11fMX5/q5ZawnI/Dy2EixgSKifp4beRY9QJroMNe7r+Uzn5
-         PUFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791823128; x=1792427928;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=HuWCbCHALjFKQvI6kk2Kyts8iE/+EiR+kuOdFcAFHro=;
-        b=p5tpDs5L+4JZmjpbVEoKP9uxWqBVBt4lttxwGiDUflCzRpjtIimxzOcdtqQwiL4vC2
-         qvy6IvUN32T2WNhT6E9J1FLy0UnzXK+nHK5m/YYeqfPznUhzHV+6tjxDn0B9SkC+IkqX
-         l7OUiI8tnn6OHaPLJH2h2trPMAvWPVPMBhNSPaK9NS8Y9L4zOM7garkTpfOFtBPK5IAy
-         UjPdWx8QHlRUsr+x0ULwhfH69fPP/miacn6+CjPldGURG1dZpNjRwoYLsJ/6Ae9zmiqa
-         q4E86vjxXObVEcfOR5Ns++1Hertmv97vkew3iv3isYq9JVptp7w0r2TjrFtSYbXdPEXL
-         4utQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwfw1Xt6oiKgwg+X0YwKZ/MTfjrWkgCVYpDgFQzVjJMEua0KTDZlq5gph42ALBKwaINFTeCdvA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLbzxjJZpeDsH6fZsbJgJva/9cZPfVkBkDYE+F9D1s7iGdLaN3Q
-	PdZy/MjSMWdfNcTDccxRb08j/nPi8RPGLAL3Ds06C1Wttxh2BvPJr1d8EtbDaBVQJw==
-X-Gm-Gg: AYBFou1h4MIyVTvAhTXBx7CFj0DyFLE8q/WNJWiLtA3oth/lnIpGKs+vKaMCuMkpyVa
-	ck4Pz5BqiRQq7mMl3ZtNLCL24M/1LZdAaC5O10TV3lQwjZPur95SEPdM9t4I6RPBQmqupTis4kx
-	uh5HZkEoTuVXMtDwItbaRFi9l4lLI5cjPrfp6IBPzOHLk1x6uDYxffTwkuY2r7Rh3rl9UnUxBzO
-	7hBqeIxjDBRRq1HqKfbZlZ+0Fowj9EG4DCEYvTutCxBnhGv6Yy7oEjVoXVVim7sKaKq2uHJRZYk
-	IZiSPS13dgl5ueETuu3s4OSqPostxG8IUtvzg2vRdZyK2MDo5JAWuII7TAitzfgH2r54NhKPnbG
-	Gidyh+PXg2OvJ6sekA8IJUdKjA80FLYRgkdkuXSwr9aSwAUm0LZc2+EPSP7EB0b65mvorNZV4pT
-	K2zDI7jT/M4DkNVUXCWKxWDYFXOhFkewEKpKzeiZwb2A4VKvIdrRTKT/2r7lxpYIiTUrk14JeEK
-	qbvi8egchRyZKYKD3PdpEAhYcRNcndB/f49sfIDZ0s=
-X-Received: by 2002:a05:6000:4a0b:b0:48b:11e1:8bc8 with SMTP id ffacd0b85a97d-48dbace678emr18199465f8f.39.1791823126911;
-        Mon, 12 Oct 2026 09:38:46 -0700 (PDT)
-Received: from google.com (197.183.140.34.bc.googleusercontent.com. [34.140.183.197])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc91e2sm297646f8f.55.2026.10.12.09.38.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 09:38:44 -0700 (PDT)
-Date: Mon, 12 Oct 2026 17:38:39 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Amit Machhiwal <amachhiw@linux.ibm.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	Michal =?iso-8859-1?Q?Such=E1nek?= <msuchanek@suse.de>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Harsh Prateek Bora <harshpb@linux.ibm.com>,
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-	kvm-ppc@vger.kernel.org, Mark-PK Tsai <mark-pk.tsai@mediatek.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] ring-buffer: Do not check si_mem_available() during
- SYSTEM_BOOTING
-Message-ID: <as0NDyaXsfQnWPQ4@google.com>
-References: <20261009163557.88467-1-amachhiw@linux.ibm.com>
- <20261009163557.88467-3-amachhiw@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="D19Ab7zG";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Zi758xX8";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Uwbarloh";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="zX03xJjP"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id ED90D1F38E;
+	Mon, 12 Oct 2026 16:38:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791823129; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=csrmG+kg/7i2sj29GJ6UcgK7Fx1EjcFlYaUAqC5zM2M=;
+	b=D19Ab7zGWgRqxioTti68cMnegodC9NqI0OopT4947r94LjuQC+4DGht2l7mlLuXrBtlYIZ
+	/xSpUt9uifLoRh0cu0NUqff8Gp8pHp7mwgkcOVdBt/YQFz481xH4/92RqDir0mL+l18Pxz
+	9e0kY5zo/7jMeI0EMFYoT3EtqJk9AbE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791823129;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=csrmG+kg/7i2sj29GJ6UcgK7Fx1EjcFlYaUAqC5zM2M=;
+	b=Zi758xX81PlX2RSwZxqO3OZBz3oCy9UBz1ZwquSPybFAAm3bUnjz3K4iWM34CM8c9JsaTO
+	lJcvK4Pj9LT9qDBg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791823128; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=csrmG+kg/7i2sj29GJ6UcgK7Fx1EjcFlYaUAqC5zM2M=;
+	b=UwbarlohlE0rKOf1x1aOkm3laMKzkLWLDBAqhPJRvV8TFLqe1gDUcxy96AitoZ+yX3yq/J
+	7mn3JaxBa0C/wvjcASGtwuHz038plwYUWILfzRTOOo1BHvBaZq4ohSb94PDkyFHj7nYvd4
+	z3rHRGpL16kuCbeNBTeaevmUgaP4MsI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791823128;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=csrmG+kg/7i2sj29GJ6UcgK7Fx1EjcFlYaUAqC5zM2M=;
+	b=zX03xJjPAFTgWUzEwQJV/VKuyXvputpOMDcHpO8U5UmdbyT4odqDFaHUkDYR8+Qw+6erAp
+	fgoikpd6NSKXYXBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C558913314;
+	Mon, 12 Oct 2026 16:38:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id debgJxgNzWr0XgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 12 Oct 2026 16:38:48 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 58B75A1405; Mon, 12 Oct 2026 18:38:48 +0200 (CEST)
+Date: Mon, 12 Oct 2026 18:38:48 +0200
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.com>, Al Viro <viro@zeniv.linux.org.uk>, 
+	ecryptfs@vger.kernel.org, linux-ext4@vger.kernel.org, jfs-discussion@lists.sourceforge.net, 
+	linux-nilfs@vger.kernel.org, exfat@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
+	ntfs@lists.linux.dev, ocfs2-devel@lists.linux.dev, linux-btrfs@vger.kernel.org, 
+	gfs2@lists.linux.dev, linux-efi@vger.kernel.org, linux-mtd@lists.infradead.org, 
+	linux-xfs@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH RFC 25/28] ext4: allow remounting read-only in the
+ emergency state
+Message-ID: <ixl4z4jusef2ou62hzqecfc4s7c45xx5slrwdhuzb6wctuia6b@i7hccjzpa433>
+References: <20261012-work-fs-sb_rdonly-v1-0-60743a3dc326@kernel.org>
+ <20261012-work-fs-sb_rdonly-v1-25-60743a3dc326@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261009163557.88467-3-amachhiw@linux.ibm.com>
+In-Reply-To: <20261012-work-fs-sb_rdonly-v1-25-60743a3dc326@kernel.org>
+X-Spam-Flag: NO
+X-Spam-Score: -3.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_COUNT_THREE(0.00)[3];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,imap1.dmz-prg2.suse.org:helo,suse.com:email]
 
-On Fri, Oct 09, 2026 at 10:05:57PM +0530, Amit Machhiwal wrote:
-> During early boot (early_trace_init() called from start_kernel()),
-> tracing allocates initial ring buffers (temp_buffer, array_buffer, and
-> snapshot_buffer) for CPU 0.
+On Mon 12-10-26 12:21:10, Christian Brauner wrote:
+> __ext4_remount() refuses any change of the read-only state with -EROFS
+> while ext4_emergency_state() is set, i.e. after FS_IOC_SHUTDOWN, after
+> an error with errors=remount-ro or after an error that forces the
+> filesystem read-only like ext4_abort(). None of them sets SB_RDONLY
+> anymore. So a plain remount to read-only fails and the filesystem stays
+> read-write.
 > 
-> Before attempting page allocation, __rb_allocate_pages() performs a
-> heuristic check using si_mem_available() to return early with -ENOMEM if
-> memory appears insufficient.
+> And emergency remount (sysrq u) asks every read-write superblock on a
+> block device to go read-only with SB_FORCE. ext4 refuses that too and
+> reconfigure_super() warns before it sets SB_RDONLY anyway:
 > 
-> However, on kernels built with CONFIG_DEFERRED_STRUCT_PAGE_INIT=y,
-> defer_init() leaves only a single section per node (e.g.  16 MiB with 64
-> KB pages) initialized up-front.  On kernels with large static binary
-> footprints (such as debug configurations enabling PAGE_OWNER,
-> DEBUG_PAGEALLOC, KFENCE, or SLUB_DEBUG), the static kernel image and
-> early core initialisations (SLUB caches, vmalloc, static ftrace records)
-> consume virtually all managed pages in this initial pool.
+>   EXT4-fs (vda): Remounting filesystem read-only
+>   sysrq: Emergency Remount R/O
+>   forced remount of a ext4 fs returned -30
+>   WARNING: fs/super.c:1133 at reconfigure_super+0x498/0xb20, CPU#3: kworker/3:1/50
+>    do_emergency_remount_callback+0xc4/0x100
+>    __iterate_supers+0x33d/0x410
+>    do_emergency_remount+0x20/0x40
 > 
-> At T=0.000000, watermarks have not yet been established
-> (totalreserve_pages = 0), so si_mem_available() returns the raw free
-> page count (often 0-1 pages).  When the snapshot buffer or global trace
-> buffer attempts to allocate 2 sub-pages, si_mem_available() returns <
-> nr_pages and prematurely aborts with -ENOMEM.
+> With panic_on_warn that's a panic from sysrq u.
 > 
-> This failure is false: if the page allocation were actually attempted
-> via alloc_pages_node(), the page allocator would trigger
-> deferred_grow_zone() on demand to initialise additional deferred memory
-> sections.  Checking si_mem_available() before attempting the allocation
-> short-circuits this on-demand growth.
+> Nothing may be written in the emergency state but becoming read-only
+> doesn't need to write anything. So allow going read-only and skip
+> everything in that branch that would touch the disk. That's
+> sync_filesystem(), which fails with the emergency errno anyway,
+> dquot_suspend(), the s_state update and ext4_mark_recovery_complete().
+> Note that after a shutdown with FS_SHUTDOWN_FLAGS_DEFAULT the journal is
+> still live and the latter would really write. Also skip the superblock
+> commit a remount does for a filesystem without a journal, like
+> ext4_put_super() does in that state. Going read-write is still refused
+> with -EROFS and option-only remounts work as before. Quotas stay on
+> until umount.
 > 
-> Skip the si_mem_available() check when system_state == SYSTEM_BOOTING.
-> Once the system transitions past early boot and page_alloc_init_late()
-> initialises all deferred memory, si_mem_available() accurately reflects
-> system-wide free memory and the check operates as intended for runtime
-> allocations.
+> That's the rule the filesystems converted earlier in this series follow
+> as well. In the emergency state going read-write fails and going
+> read-only works, writing at most what was dirtied before the error.
 > 
-> Fixes: 2a872fa4e9c8 ("ring-buffer: Check if memory is available before allocation")
+> Reproducer (the sb_rdonly selftest after this patch covers the mount(2)
+> path):
+> 
+>   truncate -s 64M img; mkfs.ext4 -q img
+>   mount -o loop,errors=remount-ro img /mnt
+>   xfs_io -x -c shutdown /mnt     # or any ext4 error, e.g.
+>                                  # echo x > /sys/fs/ext4/loop0/trigger_fs_error
+>   mount -o remount,ro /mnt       # EROFS, stays read-write
+>   echo u > /proc/sysrq-trigger   # WARNING: forced remount of a ext4 fs returned -30
+> 
+> Fixes: 95257987a638 ("ext4: drop EXT4_MF_FS_ABORTED flag")
+> Fixes: d3476f3dad4a ("ext4: don't set SB_RDONLY after filesystem errors")
 > Cc: stable@vger.kernel.org
-> Reported-by: Michal Suchánek <msuchanek@suse.de>
-> Closes: https://lore.kernel.org/all/arYskzbiaNzBR9MD@kunlun.suse.cz/
-> Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+
+Looks good. Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
 > ---
->  kernel/trace/ring_buffer.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
+>  fs/ext4/super.c | 20 ++++++++++++++------
+>  1 file changed, 14 insertions(+), 6 deletions(-)
 > 
-> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-> index 04bb94c29f58..a9f82e2f8fad 100644
-> --- a/kernel/trace/ring_buffer.c
-> +++ b/kernel/trace/ring_buffer.c
-> @@ -2452,9 +2452,15 @@ static int __rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
->  	 * memory. It may not be accurate. But we don't care, we just want
->  	 * to prevent doing any allocation when it is obvious that it is
->  	 * not going to succeed.
-> +	 *
-> +	 * Skip this check during early boot: with CONFIG_DEFERRED_STRUCT_PAGE_INIT,
-> +	 * NR_FREE_PAGES only reflects the initial non-deferred pool at this
-> +	 * stage. si_mem_available() returns a false negative while actual
-> +	 * allocations succeed by growing the zone on demand via
-> +	 * deferred_grow_zone().
-
-As Sashiko pointed-out, if si_mem_available() is only ready after
-page_alloc_init_late() when CONFIG_DEFERRED_STRUCT_PAGE_INIT, then checking for
-system_state >= SYSTEM_FREEING_INITMEM might be more correct.
-
-Also I wonder if we don't want to guard with CONFIG_DEFERRED_STRUCT_PAGE_INIT,
-to keep the verification when CONFIG_DEFERRED_STRUCT_PAGE_INIT is unset.
-
->  	 */
->  	i = si_mem_available();
-> -	if (i < nr_pages)
-> +	if (system_state != SYSTEM_BOOTING && i < nr_pages)
->  		return -ENOMEM;
+> diff --git a/fs/ext4/super.c b/fs/ext4/super.c
+> index d636b89090a2..643c304460ec 100644
+> --- a/fs/ext4/super.c
+> +++ b/fs/ext4/super.c
+> @@ -6711,11 +6711,18 @@ static int __ext4_remount(struct fs_context *fc, struct super_block *sb)
 >  
->  	/*
+>  	if ((bool)(fc->sb_flags & SB_RDONLY) != sb_rdonly(sb)) {
+>  		if (ext4_emergency_state(sb)) {
+> -			err = -EROFS;
+> -			goto restore_opts;
+> -		}
+> -
+> -		if (fc->sb_flags & SB_RDONLY) {
+> +			/*
+> +			 * Nothing may be written in the emergency state. Going
+> +			 * read-write stays refused, but going read-only must
+> +			 * not fail or emergency remount (sysrq u) WARNs. So
+> +			 * just become read-only without touching the disk.
+> +			 */
+> +			if (!(fc->sb_flags & SB_RDONLY)) {
+> +				err = -EROFS;
+> +				goto restore_opts;
+> +			}
+> +			sb->s_flags |= SB_RDONLY;
+> +		} else if (fc->sb_flags & SB_RDONLY) {
+>  			err = sync_filesystem(sb);
+>  			if (err < 0)
+>  				goto restore_opts;
+> @@ -6826,7 +6833,8 @@ static int __ext4_remount(struct fs_context *fc, struct super_block *sb)
+>  			goto restore_opts;
+>  	}
+>  
+> -	if (sbi->s_journal == NULL && !(old_sb_flags & SB_RDONLY)) {
+> +	if (sbi->s_journal == NULL && !(old_sb_flags & SB_RDONLY) &&
+> +	    !ext4_emergency_state(sb)) {
+>  		err = ext4_commit_super(sb);
+>  		if (err)
+>  			goto restore_opts;
+> 
 > -- 
-> 2.54.0 (Apple Git-157)
+> 2.53.0
 > 
-> 
-
 -- 
-Vincent
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
