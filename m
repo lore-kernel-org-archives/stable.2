@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D64C490C12
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 14:54:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12CD5490C17
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 14:54:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791816853; cv=none; b=aod/lvcucBWN37Ayqowo9GatRnf63XDEqe114SwGxqgqtb7W1H3dp96PHGGlCi7BnqDyMupOUaDZ3nmUT1F29SXD2fZUlEdk/KJe2czfZRTvDqiN7ZufLxsB2J6Rw/0aymxF+jqlqyY98NjXnsbP4Fs3jajpEOHG3onLBgtIzKI=
+	t=1791816859; cv=none; b=IbjMXwJpj9aLfufhsEKI3ubyfeYpdlKeqzKQlX0nz09EMX56iwXUb8g3B3iCgRuMF8ri3xmvxyzGi9ba3bLNhS0SuCeNtPTGyDwzrh9N/Xiy2thmGQjXPm7YHTOQLHBsrdqziZ+W8/CorS4c9Ae2xyD9tFICqXodSdIH0QX0aEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791816853; c=relaxed/simple;
-	bh=7liwENRCm3ZnET8a+qR5qpdZDioeU1qJqXDK6S9PUD8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=h3AAx3/SMTAt415C+vYuqAX2+y4Xor1Wm4VM99wemrVBkCeqjkc74MZWfSSM4Z+njyofmezVPutdvBoGEIv/qtJZMqWFpnIFCrrlYEY8HXA12X51TH++1ioI8wL1TPCvg5vfZKpWWcFNddMP1Ojq/ujVxG6BRleANJh6VdHHhGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EDDWCP+k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791816859; c=relaxed/simple;
+	bh=b0rXG/4pWPFhZWIN3zxHsU0xb20pjKKc2TbJqemPsj8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=eAmT2+Ltz/j9enroE6+kZTOugUz8fSKEjUFrrrz50mNVXmNcENQEUTpMFS4ODFI19lQ3Tp+9joKKlF4mZWwB7IahBhcMzAKezdrfnTdDkuH3cPFZIP0atkbx0j2icEbBcbsB65GKSL+KT/P2q78Ti4Egd4K+nwnrYfS608wk7PI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=W5gEcOFq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EDDWCP+k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38ECF1F0089B;
-	Mon, 12 Oct 2026 14:54:11 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="W5gEcOFq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 585251F0089B;
+	Mon, 12 Oct 2026 14:54:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791816851;
-	bh=lbnX6wLl6XWsWQjJceF2p3O4EU0WbLVcT3lrgp7t650=;
+	s=korg; t=1791816857;
+	bh=8lAZUTRxWOunUMl3gsWImaLbjwtsHb4DxBel0S8zgMo=;
 	h=Subject:To:Cc:From:Date;
-	b=EDDWCP+k0uV1gA8+ebCBkWMVd3XeMsFYatm3aIIMaaJZVWW8OtQZepaqLjw66k7dW
-	 MPNRhq4jNl30/a5grZoyVqdUsxyv8nUWmdzTwLjmXRbGdDV9p1y/gK+PRt1JVUue19
-	 hk9qgMUSpmq3IIXJ6QvxZD2JcPQEYrmQgG1DK7b8=
-Subject: FAILED: patch "[PATCH] dm-integrity: validate the superblock on resume" failed to apply to 6.6-stable tree
+	b=W5gEcOFqvHzEPIPn6TXRICHfqevXZPGF4LSlW84tecKRHXPhWCUtN6b601UbuHE3B
+	 wWjQoccPU0pBoHENGQJDB+O2eIizh71GlCV1Yja3Oo98FkX/BFaU2nfseK9pDU0VZb
+	 y2N6SGfQ/LsH5kJFkwJoO5QPpD6HpRUABAxt7YPE=
+Subject: FAILED: patch "[PATCH] dm: fix reading free memory in do_resume" failed to apply to 6.1-stable tree
 To: mpatocka@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 16:54:01 +0200
-Message-ID: <2026101201-magnetism-snugly-1c2c@gregkh>
+Date: Mon, 12 Oct 2026 16:54:23 +0200
+Message-ID: <2026101223-profusely-doorframe-dbf3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x fc79aeb86a2c244c1f1894e2d8f2966fe2b60fa2
+git cherry-pick -x c9417c1c5269e2bd0570fbe53e4ec03a8d31f008
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101201-magnetism-snugly-1c2c@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101223-profusely-doorframe-dbf3@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,121 +62,59 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From fc79aeb86a2c244c1f1894e2d8f2966fe2b60fa2 Mon Sep 17 00:00:00 2001
+From c9417c1c5269e2bd0570fbe53e4ec03a8d31f008 Mon Sep 17 00:00:00 2001
 From: Mikulas Patocka <mpatocka@redhat.com>
-Date: Wed, 30 Sep 2026 18:42:20 +0200
-Subject: [PATCH] dm-integrity: validate the superblock on resume
+Date: Wed, 23 Sep 2026 12:40:16 +0200
+Subject: [PATCH] dm: fix reading free memory in do_resume
 
-dm_integrity_resume() re-reads the superblock from the device so that it
-picks up the flags and the recalculate position. It performs no
-validation on the result, while the constructor validates the superblock
-it reads and sizes all the in-memory structures according to it. The user
-may modify the superblock on the underlying device while the dm-integrity
-device is suspended, so that the two no longer agree.
+When do_resume calls dm_table_get_mode(new_map), the call is done without
+holding any locks (it only holds a reference to the md). It may be
+possible that another concurrent ioctl on the same device will swap table
+after dm_swap_table and before dm_table_get_mode. In this case,
+dm_table_get_mode(new_map) reads freed memory.
 
-In particular, access_journal_data() shifts the journal entry index by
-ic->sb->log2_sectors_per_block, while ic->journal_section_sectors and the
-journal page list were computed with the value that was present at
-constructor time. Increasing log2_sectors_per_block makes the index run
-past the end of the journal, and dm-integrity then writes 512 bytes
-through lowmem_page_address(NULL).
+This race condition was triggered by syzbot.
 
-Snapshot the validated superblock in the constructor and refuse to resume
-if any of the fields that describe the on-disk geometry changed.
+This commit fixes the race by reading mode of the new table before
+dm_swap_table. Note that new_map is also passed to dm_ima_need_measure,
+but this function doesn't attempt to dereference it, so this call should
+be safe.
 
-Reported-by: syzbot+675c91651049ad042c5f@syzkaller.appspotmail.com
+Note that this is not a security bug because only root can trigger it and
+the commonly used tools such as lvm or cryptsetup do not call the ioctls
+concurrently, so that they can't trigger it acceidentally.
+
 Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Reported-by: syzbot+bdff1ecf726d2af66afd@syzkaller.appspotmail.com
 Cc: stable@vger.kernel.org
-Fixes: 118ba36e446c ("dm-integrity: fix recalculation in bitmap mode")
-Assisted-by: Claude:claude-opus-5
 
-diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
-index 0862f31b8498..802b377613b0 100644
---- a/drivers/md/dm-integrity.c
-+++ b/drivers/md/dm-integrity.c
-@@ -180,6 +180,7 @@ struct dm_integrity_c {
- 	struct dm_bufio_client *bufio;
- 	struct workqueue_struct *metadata_wq;
- 	struct superblock *sb;
-+	struct superblock *sb_copy;
- 	unsigned int journal_pages;
- 	unsigned int n_bitmap_blocks;
+diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
+index a005f124d706..8f945f0aeda5 100644
+--- a/drivers/md/dm-ioctl.c
++++ b/drivers/md/dm-ioctl.c
+@@ -1273,6 +1273,7 @@ static int do_resume(struct dm_ioctl *param)
+ 	/* Do we need to load a new map ? */
+ 	if (new_map) {
+ 		sector_t old_size, new_size;
++		blk_mode_t new_map_mode;
  
-@@ -3858,6 +3859,35 @@ static void dm_integrity_postsuspend(struct dm_target *ti)
- 	ic->journal_uptodate = true;
- }
+ 		dm_ima_context_table_op(md, ima_context, DM_IMA_TABLE_SAVE);
+ 		/* Suspend if it isn't already suspended */
+@@ -1305,6 +1306,7 @@ static int do_resume(struct dm_ioctl *param)
+ 			}
+ 		}
  
-+/*
-+ * The superblock is re-read from the device on every resume, so that we pick
-+ * up the flags and the recalculate position. The geometry described by the
-+ * superblock must not change though - the in-memory structures (and the
-+ * journal in particular) were sized according to the superblock that was
-+ * validated in the constructor. Reject a superblock that was modified behind
-+ * our back.
-+ *
-+ * Only the fields that the driver never rewrites may be tested here. In
-+ * particular, "version" is recalculated by sb_set_version on every superblock
-+ * write and it depends on SB_FLAG_RECALCULATING and SB_FLAG_DIRTY_BITMAP, and
-+ * SB_FLAG_DISCARD_KEYED may be set by dm_integrity_resume itself.
-+ */
-+static bool superblock_changed(struct dm_integrity_c *ic)
-+{
-+	const __le32 immutable_flags = cpu_to_le32(SB_FLAG_HAVE_JOURNAL_MAC |
-+						   SB_FLAG_FIXED_PADDING |
-+						   SB_FLAG_FIXED_HMAC |
-+						   SB_FLAG_INLINE);
-+
-+	return memcmp(ic->sb->magic, ic->sb_copy->magic, sizeof(ic->sb->magic)) != 0 ||
-+	       ic->sb->log2_interleave_sectors != ic->sb_copy->log2_interleave_sectors ||
-+	       ic->sb->integrity_tag_size != ic->sb_copy->integrity_tag_size ||
-+	       ic->sb->journal_sections != ic->sb_copy->journal_sections ||
-+	       ic->sb->log2_sectors_per_block != ic->sb_copy->log2_sectors_per_block ||
-+	       ((ic->sb->flags ^ ic->sb_copy->flags) & immutable_flags) != 0 ||
-+	       memcmp(ic->sb->salt, ic->sb_copy->salt, SALT_SIZE) != 0;
-+}
-+
- static void dm_integrity_resume(struct dm_target *ti)
- {
- 	struct dm_integrity_c *ic = ti->private;
-@@ -3876,6 +3906,18 @@ static void dm_integrity_resume(struct dm_target *ti)
- 	if (r)
- 		dm_integrity_io_error(ic, "reading superblock", r);
++		new_map_mode = dm_table_get_mode(new_map);
+ 		old_size = dm_get_size(md);
+ 		old_map = dm_swap_table(md, new_map);
+ 		if (IS_ERR(old_map)) {
+@@ -1320,7 +1322,7 @@ static int do_resume(struct dm_ioctl *param)
+ 		if (old_size && new_size && old_size != new_size)
+ 			need_resize_uevent = true;
  
-+	if (unlikely(superblock_changed(ic))) {
-+		/*
-+		 * Restore the superblock that we validated in the constructor,
-+		 * so that the rest of the driver doesn't operate on values
-+		 * that don't match the in-memory structures.
-+		 */
-+		memcpy(ic->sb, ic->sb_copy, sizeof(struct superblock));
-+		DMERR("The superblock was changed while the device was suspended");
-+		dm_integrity_io_error(ic, "superblock check", -EINVAL);
-+		goto skip_writes;
-+	}
-+
- 	if (ic->mode == 'R')
- 		goto skip_writes;
- 
-@@ -5427,6 +5469,13 @@ static int dm_integrity_ctr(struct dm_target *ti, unsigned int argc, char **argv
- 		ic->just_formatted = true;
- 	}
- 
-+	ic->sb_copy = kmemdup(ic->sb, sizeof(struct superblock), GFP_KERNEL);
-+	if (!ic->sb_copy) {
-+		ti->error = "Cannot allocate superblock copy";
-+		r = -ENOMEM;
-+		goto bad;
-+	}
-+
- 	if (!ic->meta_dev && ic->mode != 'I') {
- 		r = dm_set_target_max_io_len(ti, 1U << ic->sb->log2_interleave_sectors);
- 		if (r)
-@@ -5525,6 +5574,7 @@ static void dm_integrity_dtr(struct dm_target *ti)
- 	kvfree(ic->journal_tree);
- 	if (ic->sb)
- 		free_pages_exact(ic->sb, SB_SECTORS << SECTOR_SHIFT);
-+	kfree(ic->sb_copy);
- 
- 	if (ic->internal_shash)
- 		crypto_free_shash(ic->internal_shash);
+-		if (dm_table_get_mode(new_map) & BLK_OPEN_WRITE)
++		if (new_map_mode & BLK_OPEN_WRITE)
+ 			set_disk_ro(dm_disk(md), 0);
+ 		else
+ 			set_disk_ro(dm_disk(md), 1);
 
