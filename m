@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01E7549E149
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:31:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D146849BD83
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:31:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819104; cv=none; b=tcvPkixrskS3l4g7nP2vGO6mvD/plaNIz1fPeCYTGfE1G+t8Twhpu8Y/Xg0PwiqNvj4EgC1mW3vC91Z1D1P0srY/Puh3uRf3e4/W1R9/Jc1urWsK4RamOEZI+ngdterIC1ZiR6w2ACk7K/aCCRyZgSyrHTHZ91Cchvai8lYtNSc=
+	t=1791819106; cv=none; b=CPEykzNT5ef0hOeQ+P01129PXGJe32JBqP+dhmDmI2jJC+OOXoUgsXw2pxAyJxWTest9Min7RSGsQC8WjMtqRjpvG32d76dyDivr9BFWzDV6BhDQKLn4Z5FDDZtUNkLUgWZdGcuuFejYR9STB/y6OdLiUWC3MSssLsNaAmzdLdI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819104; c=relaxed/simple;
-	bh=1eeUL/N9OxslrJDm7ff0bSuHmj/WNfFRhdnJcAD9CKU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sGTT0PiW2TNbCJqcGV8ue7Z4rb8ooQhIFX8XbAlvE7/YBoBMMeWWrK4/pYkAUm2V29MyHE7MFi9rka+wKSwNd08Hs4BU+7rlgFOCGKfD53SDr06ydYcFT/P6hstuMPUGOQg7tk28n2ZQlj+RYt3UPJCThd7DYGhgXmThgoMTXD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MaftFx8F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791819106; c=relaxed/simple;
+	bh=KOgR/yDD7PwYnPybx7V5zqLAUBqnA0O7JvatgAJDxGs=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=cbI2rLQyMBFCn5TO8gmXj3R9EFY7IxWSkKwq5cQh2qcuYjsz2jJ2WfLxpt02zSDTj4Em7tlm/2//0dREMCWw/YU6QIXUb9Wmiy2+yi2asvPxyGvrjbvRia4Vl/UhqI1gbn/Ake1Az7vfmsF8XyzZuYeT6JVP0AMqYQyvKBdAzTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jwN4uQ9n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MaftFx8F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C3EF1F008A0;
-	Mon, 12 Oct 2026 15:31:41 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jwN4uQ9n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B3551F0089C;
+	Mon, 12 Oct 2026 15:31:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791819102;
-	bh=yWLzxjg5suFxtq3Fk64SrZicrVLg39Em7EF+TPGCKi0=;
+	s=korg; t=1791819105;
+	bh=DKRbcRhqY0zAdxLRqzKOAvasr6GSmuTxIibV4JfbQBk=;
 	h=Subject:To:Cc:From:Date;
-	b=MaftFx8FxqfhezjSwhL/iV9xpxfv8h09PtGdn3tjATs378xc1CbVkB3ngF1LMkUDD
-	 kW0TGuiJIKojKfxcDjWVWmsB3zReFOi8WuTWfl6oLAfX+62+2LLrSX6N3iHhXxZoqp
-	 F9Cme96EX8n2p61FuqId1iUrZXFsC205weYRGm+4=
-Subject: FAILED: patch "[PATCH] drm/i915/gt: Unmask interrupts only when ACTIVE is true" failed to apply to 5.10-stable tree
-To: krzysztof.karas@intel.com,andi.shyti@linux.intel.com,jani.nikula@intel.com
+	b=jwN4uQ9n/ge7KLAb50va2kDB4XHucolZzUCW8lBI7zlxlwPKnDiaS/VEDSV8qva8j
+	 mMg/VjUuL6KhXQIroBmrFXGQBPag2Exu3XFQ5ohdD39B3nGrQs/NNIrIi8QSz4WFK0
+	 zhFasgSPv+VEJ914GAJWV6WQ2/V1t/Tlgr2K7MKg=
+Subject: FAILED: patch "[PATCH] drm/panthor: validate userspace queue count against" failed to apply to 6.18-stable tree
+To: osama.abdelkader@gmail.com,boris.brezillon@collabora.com,liviu.dudau@arm.com,steven.price@arm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 17:30:16 +0200
-Message-ID: <2026101216-dislodge-starving-a54e@gregkh>
+Date: Mon, 12 Oct 2026 17:30:32 +0200
+Message-ID: <2026101232-cornhusk-quill-0ed4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5346b1cec6afa4f9b4b49a9f84e3cfef95a3f7bb
+git cherry-pick -x ec86c43dcfff68eab4db9bdafcd3e2b16e342e18
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101216-dislodge-starving-a54e@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101232-cornhusk-quill-0ed4@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,115 +62,50 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5346b1cec6afa4f9b4b49a9f84e3cfef95a3f7bb Mon Sep 17 00:00:00 2001
-From: Krzysztof Karas <krzysztof.karas@intel.com>
-Date: Thu, 10 Sep 2026 08:13:29 +0000
-Subject: [PATCH] drm/i915/gt: Unmask interrupts only when ACTIVE is true
+From ec86c43dcfff68eab4db9bdafcd3e2b16e342e18 Mon Sep 17 00:00:00 2001
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
+Date: Tue, 4 Aug 2026 18:00:47 +0200
+Subject: [PATCH] drm/panthor: validate userspace queue count against
+ initialized firmware slot count
 
-There is a small race window between intel_rps_boost() reading
-a stale ACTIVE state and queuing rps->work, where ACTIVE may be
-changed via asynchronous calls triggered by wakeref drop.
-This means that rps_work() could be triggered after the GT has
-been parked, so unmasking RPS PM interrupts would happen without
-holding PM wakelock. This sequence of events may be observed
-during live_rc6_ctx_wa() selftest:
+In panthor_drv.c:panthor_ioctl_group_create(),
+the queue count is validated against the hardcoded maximum:
 
-1) live_rc6_ctx_wa()
-   -> intel_engine_pm_put()
-      -> wakeref_put()
+	if (!args->queues.count || args->queues.count > MAX_CS_PER_CSG)
+		return -EINVAL;
 
-ASYNC1) wakeref_put() callback
-          -> __engine_park()
-             -> intel_gt_pm_put_async()
-                -> intel_gt_pm_put_async_untracked()
-                   -> intel_wakeref_put_async()
+However, if the firmware reports fewer slots than MAX_CS_PER_CSG,
+panthor_fw_init_ifaces() will only initialize that smaller number of
+stream interfaces.
 
-ASYNC2) wakeref_put_async() callback
-          -> __gt_park()
-             -> intel_rps_park()
-                -> intel_rps_clear_active() [clear ACTIVE]
-                WITH INTERRUPTS:
-                -> rps_disable_interrupts()
-                   -> cancel_work_sync(rps->work)
-                   -> rps_reset_interrupts() [rps->pm_iir = 0]
-                WITHOUT INTERRUPTS (TIMER mode):
-                -> rps_stop_timer()
-                   -> cancel_work_sync(rps->work)
+If unprivileged userspace requests more queues than the firmware reported
+(but no more than MAX_CS_PER_CSG), cs_slot_prog_locked() fetches an
+uninitialized stream interface and may crash when dereferencing
+cs_iface->input->ringbuf_base.
 
-2) live_rc6_ctx_wa()
-   -> intel_gt_wait_for_idle()
-      -> intel_gt_retire_requests_timeout()
-         -> dma_fence_wait_timeout()
-            -> ops->wait() [i915_fence_wait()]
-               -> i915_request_wait_timeout()
-                  -> intel_rps_boost()
-                     -> intel_rps_is_active() [check ACTIVE]
-                        [OPEN RACE WINDOW]
-                     -> queue_work(rps->work)
-         -> retire_requests()
-            -> i915_request_retire()
-               -> intel_rps_dec_waiters() [from 1 to 0]
+Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
+Cc: stable@vger.kernel.org
+Reported-by: sashiko-bot@kernel.org
+Closes: https://sashiko.dev/#/patchset/20260803141149.68182-1-osama.abdelkader@gmail.com?part=1
+Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+Reviewed-by: Steven Price <steven.price@arm.com>
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Link: https://patch.msgid.link/20260804160048.174148-1-osama.abdelkader@gmail.com
+Signed-off-by: Steven Price <steven.price@arm.com>
 
-If ASYNC1 and ASYNC2 would execute during [OPEN RACE WINDOW],
-then:
-
-3) rps_work() executes from the workqueue and may satisfy
-   "(!pm_iir && !client_boost)" test (in TIMER mode rps->pm_iir
-   is zeroed by an earlier rps_work() call or never gets a new
-   value after previous intel_rps_unpark() event), so it jumps
-   to "out" label, bypassing intel_rps_is_active() guard and
-   executes gen6_gt_pm_unmask_irq();
-
-4) GT is parked and runtime PM wakelock is dropped, so only
-   a raw reference in __gt_park() ->
-   intel_display_power_put_async() remains for 100ms, then the
-   MMIO write in gen6_gt_pm_unmask_irq() detects missing
-   wakelock via assert_rpm_wakelock_held() and emits
-   "RPM wakelock ref not held during HW access" tainting kernel.
-
-Commit 3e7abf814193 ("drm/i915: Extract GT render power state management")
-dropped the "if (rps->interrupts_enabled)" guard that
-gen6_pm_rps_work() had around this unmask in i915_irq.c.
-INTEL_RPS_ACTIVE brackets the same window, since it is set in
-intel_rps_unpark() before rps_enable_interrupts() and
-rps_start_timer() and cleared in intel_rps_park() before
-rps_stop_timer() and rps_disable_interrupts().
-
-Skip unmasking when RPS is no longer active (reaching unmask
-operation is independent of INTERRUPT mode). This does not
-prevent RPS operation from resuming on the next unpark.
-In interrupt mode, intel_rps_unpark() calls
-rps_enable_interrupts(), which enables and unmasks the PM
-interrupts. In timer mode, it calls rps_start_timer(),
-restarting periodic engine-busyness evaluation. The timer
-generates software RPS events and queues rps_work() directly,
-independently of PM interrupt delivery. Neither mode requires
-the late worker to unmask interrupts while the GT is parked
-
-Fixes: 3e7abf814193 ("drm/i915: Extract GT render power state management")
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16562
-Cc: stable@vger.kernel.org # v5.5+
-Assisted-by: GitHub-Copilot:claude-opus-5
-Assisted-by: GitHub-Copilot:gpt-6-astra
-Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
-Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
-Link: https://patch.msgid.link/20260910081329.3300417-1-krzysztof.karas@intel.com
-(cherry picked from commit ca4a6deadad15b91ee083afe445fa6bdbfb68206)
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
-index a33b19c04737..0f9b4f1dd3cb 100644
---- a/drivers/gpu/drm/i915/gt/intel_rps.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rps.c
-@@ -1904,7 +1904,8 @@ static void rps_work(struct work_struct *work)
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index 5778e23e20a0..653c6755896c 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -3674,6 +3674,9 @@ int panthor_group_create(struct panthor_file *pfile,
+ 	    hweight64(group_args->tiler_core_mask) < group_args->max_tiler_cores)
+ 		return -EINVAL;
  
- out:
- 	spin_lock_irq(gt->irq_lock);
--	gen6_gt_pm_unmask_irq(gt, rps->pm_events);
-+	if (intel_rps_is_active(rps))
-+		gen6_gt_pm_unmask_irq(gt, rps->pm_events);
- 	spin_unlock_irq(gt->irq_lock);
- }
- 
++	if (group_args->queues.count > sched->cs_slot_count)
++		return -EINVAL;
++
+ 	group = kzalloc_obj(*group);
+ 	if (!group)
+ 		return -ENOMEM;
 
