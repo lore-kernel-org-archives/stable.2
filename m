@@ -1,588 +1,219 @@
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC38823BD03
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 22:57:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791845857; cv=none; b=sMpKiWTj9wPmbha0QQXrSduBMKZytwCGUklUx35tYsOLR37CcGpHtBwvRtXtBlD8dzKg0NOpcmuYqVMKB4Sm0vsvv7Rq9gcRuFBIdEyANy1vBtEQpgMDe3C9kXG+KG0ThLLzxF/kphgNr+rSKYWmARyomLwGyr9qSCZ/sCr7GTg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791845857; c=relaxed/simple;
-	bh=eWo760y7gmI9cxnBusd7zY03p9gSKisC9GbRvpjXnnk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KvN4JDtJY1GdCefeq/RcZcgH7SWz+HOzVBQA7R6Mn5H0x9D9zGigLjc03dA4b7MwYdFueRPhcYAQVrF+rEcnCaNdjMm75SCnIrkXox57C4OC5nneqWvC50MKq0Ahl+rV2mA0lZhF/KW9UgZyL5LWyv8z2BhmY++Zi4tk4fFi5Oc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=gb5MUXUI; arc=none smtp.client-ip=209.85.128.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C286370AD4;
+	Mon, 12 Oct 2026 23:05:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791846325; cv=fail; b=lfqOTer5KpZ46uzbUxRtimn5v9B8Zc3wjc/0B+c08dRvj9dV++P9Moa9PpoeZi0dWevsLhB6JouHkHc5o2eD2XSKJUSriKIksZG3cKns2L4RlwJHISy+NpsbpiLYS4xdZu1GgXlZFip3OYYBMwEhp3RAsqdzq4Bm897gOmnR758=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791846325; c=relaxed/simple;
+	bh=5ojngxGhcnd9Rm0I0ShROQf7r2ZQhpelET1PYoRfVHU=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=p/UdqMON0wKQ1D0RyOH5rmNYEKqliKf7OqhkJrZhPQl8UVpkQTXHR+RUdadZd9qehPdrCgpXTDoCa4NUv6t9a2rwZgE8Yqw8vYQuHxoXOgPq9932sIvRSKSTLY8SvjR65iwfKB1sSn97Hqk/a2iEFQ09l1N6NdjGdgKM7BSEDco=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Pd1kIlUy; arc=fail smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="gb5MUXUI"
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-8acda240937so16419767b3.3
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:57:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1791845854; x=1792450654; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aMcvmUfQuTvPvphd1MGRcussZ+Yz/mLoC8RUhLXVZu0=;
-        b=gb5MUXUIFBcHoLiWNooxPrwlhK92hkDG/oz2ioqDX7uSM70i+A9KSjimcUcEA5MOL8
-         YWJryvwugkV4j1XnkumuWDtYmcjJW4AeXQXoRDXYt17x3bg4//bKZV2/dOS2+kOYst0T
-         fWcSKOB5lo7bLQcRVTEHJbAz/IcN+lklVpLW+Rnx9MkN6Inp3bA7ILY9zUilwLw5oouu
-         cpQUvUuB44TkAeIJUA3tmspN8UD/40AC6FQnqyVC2px24gqa8XnaQleT+XnawJ2Mtq33
-         ozgn1uAQKzNgxG8RD6pVoFrhaaFuUdqr4gPfQRrwxDvVnk6cyup0Ztopw/wCBDTeaCEz
-         7Jsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791845854; x=1792450654;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=aMcvmUfQuTvPvphd1MGRcussZ+Yz/mLoC8RUhLXVZu0=;
-        b=ML5apZ9W1qFgYdFQ/IuukWSNYIoFHXW6YK/UEgNlwwO6PyHY6lWB83qbmZ+IE4QBw/
-         GdKxsVkC39EOhEco7D0EPyLzGYae8EyGR4hlB1qPqcIsteGKJe57Elr5FMmIy0VvdQJT
-         xaX7upL2OOu1D4mtsY+0DqJCj+QKAPuJHNjPOOOara9evvFNFLEQOL+O816AGLOCW2bY
-         oQA7Q3zgNpEN42sRxbPUww49FewlmSYMjMwOG3SpRCfINJ5k8EMBwLChVB0F1OBrVZUK
-         8AEGGbI0efzc1I0Fw7mMWwldseHRLQfJUEII1MSq2D7UBkurKEMEIZ/BRbJsA4Y2/gFz
-         FnPg==
-X-Forwarded-Encrypted: i=1; AKwUvBwRSQ1mD/b/1pfT7crXb7jfWTBpxOphySR4576iQXLK9K4SXOZs0VKkXIJi4nxyHvIcnnBWgVY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCyRJ0Eniuc8YZ9wy1yk4Lx0kiaEpfMeY5hNy/cZzbizEVG1T+
-	Y82aM2cpB3PEQyrG9xpG7nYHRM+9iLJ5OghUt38Dy78UWzaJzaL7XbATYzk/LH2EGmY=
-X-Gm-Gg: AYBFou29sdSCs+d9rK5MfY3ENH3m5bGY8+2hPLXQcbR+Is7OglZMjx4XjOjQPyOwQ8i
-	V8xLt9EzqpsNKkalMRcTP0rTyyyJEewCBvaA112W9SJIqujvLU0Ra5jI/bX6VwBmWDg73SoFFGs
-	UGGXpIytVgUtwIcuzrZOts64Zfqk30G/vqhBEgj/ey5lCAyWowBkT7CZwTx04N3EY9NnPv4YCfK
-	Z8S2DCjkCxP5NB/I57yC2hPg4HOyFThaHk1ajH6ZRgElDb5bWtdD3Grd82NvAbhNi5OS6CwCRYG
-	/D92kRqgU1Ny3xt44oEAUWw0kV6xZP8zWny+tHK+DlJKtdxIov5k12uvpQ3vMazHHGigsAJ5lgL
-	/kth2I73rP/6N5W6uJHY062SoQbDrJDUwqwGmHhK4TESk13N8MSfdnTCUyAD13WCpU4UIxPYH6h
-	B85hnyWnz9RkqaKMQaJVIUrhEto5GyNzd6dmD2fuDO1yYqhunfkxavNT1n7hMUFUKMBj3amk5QU
-	cX39dk6GcnvVAsxU8z4p/TLOMqwn3g/9zmWJN3CM3yurojrB+aD9NNjUTonEEIKwXB0lIfxEe7A
-	deQUleiWPFs46Tu7/SZsojuroOHJZi7Iqw==
-X-Received: by 2002:a05:690e:e8b:b0:675:33c4:52be with SMTP id 956f58d0204a3-679360696eamr3300107d50.80.1791845853844;
-        Mon, 12 Oct 2026 15:57:33 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430::48? ([2600:1700:6476:1430::48])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0ac533a46sm9216647b3.16.2026.10.12.15.57.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 15:57:32 -0700 (PDT)
-Message-ID: <f6ed5d59ab7d0137982e1ea4e7facc48d07d458b.camel@dubeyko.com>
-Subject: Re: [Jfs-discussion] [PATCH RFC 09/28] hfs: don't set SB_RDONLY
- after MDB write errors
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.com>
-Cc: linux-xfs@vger.kernel.org, jfs-discussion@lists.sourceforge.net, 
-	linux-nilfs@vger.kernel.org, ntfs@lists.linux.dev,
- ocfs2-devel@lists.linux.dev, 	ecryptfs@vger.kernel.org,
- stable@vger.kernel.org, gfs2@lists.linux.dev, 	exfat@lists.linux.dev,
- linux-efi@vger.kernel.org, linux-mtd@lists.infradead.org,  Al Viro
- <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org,
- linux-ext4@vger.kernel.org, 	linux-btrfs@vger.kernel.org
-Date: Mon, 12 Oct 2026 15:57:29 -0700
-In-Reply-To: <20261012-work-fs-sb_rdonly-v1-9-60743a3dc326@kernel.org>
-References: <20261012-work-fs-sb_rdonly-v1-0-60743a3dc326@kernel.org>
-	 <20261012-work-fs-sb_rdonly-v1-9-60743a3dc326@kernel.org>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Pd1kIlUy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791846324; x=1823382324;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=5ojngxGhcnd9Rm0I0ShROQf7r2ZQhpelET1PYoRfVHU=;
+  b=Pd1kIlUyZI8TzmMD7jgEm7E2Bgv0Gyp5di09S8IJxx6CX2oPW+d0e5GT
+   EbVX5Nj74CcsKxr7Y8UlhumzSxIVVOCaWYwiCXADcqdR3fYRipy5qM1Od
+   uYFvVSUPR91MtVCeDzSYB5cyHfg4vj11TFLZGF2ATFw9wBRTJXNVPy6o7
+   qTEfXHxcwhDZSEqG4KE8Yjm7PBVmv/mCRUGAP/OoHGfJb1+QePhBXRWuY
+   KnDH66Re7DaOxZhJen5jXFGPje8b10aZE//i5p7FbnRhsyltcakGCQUNK
+   jXEK1A5l+a2pcoh0pL4lHoPftyOZpbrpCaagAPmJsBa/8AePswiC26WmP
+   w==;
+X-CSE-ConnectionGUID: chnYs0tXRcWGb4kJlWQ6eg==
+X-CSE-MsgGUID: wst1HdjaTKiBaoi/ayhptQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="569342"
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="569342"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 16:05:24 -0700
+X-CSE-ConnectionGUID: XeOARbvmRgahmh3WE0QY4w==
+X-CSE-MsgGUID: da2HM93WT7OLNKNYw1d6Aw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="1119248"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 16:05:23 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 12 Oct 2026 16:05:08 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Mon, 12 Oct 2026 16:05:08 -0700
+Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.3) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 12 Oct 2026 16:05:07 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=t1e4CvS+oTjkV5y7LgDwFEj//EQC5j7zksKe6mD2oKwDf9GHgYlJjELSXy02AGIHBPQv4GFtBzuWdQS/GunFyD8luiJ4Ivk3Azvx6Iz11/y+jHNtvigy18wqBvM4rkdo0vrw5r9qXirpJAy4qQiCZsXV48MsrLNERdyNAeOvWjgSne4vxENuXeZiiXB6lid8kq5q9BDtCFaZrFvaODOdxvuRe2wMXqxOfxVT4Li1LzQ7pUbZ2JTIKTYQJYjkn60tcfJm96EDme6IPw0ytdMnUa99v116wvXB3kqr64oYuRByKY9Q5X4nPZBKwjvoUEo/c+K9ePTpDL4FfmgWdww6+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WhUNDK5TIeqmwxSpZw5sloEDG25sFQ1nASzAOprGqgA=;
+ b=VhbRtn/MOo1fiaDcebbGqB43OGoJ4C9HRy8q8mnThv6euwvFvwOMNFlKJDGDu3ycrs3jVv4sMEXtjpO3mFx11z3DLsxrmYjVU6g+64+jk2a759Y8+ig37IT+dPuJ3dXEU1+G2OsBCvU2pp1vefiQAv/mi39dmQh1aGnHJkxhoOX1kyG83ChGcbsekyH0Y+bt1Vihe4IoXDBThc1BfkFJjkhJYWC9qf2C1vOgErhCKklE+TMTYceRvzALxsizCj35IwXFP6nuyrYg5XbODiAtlDOhzXqBJGmQcsaXg9GsTgVGv0bPYG2nn8F5mVQSeeCPlaPxEbMMa7paGSZOtvr2+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
+ by PH7PR11MB6005.namprd11.prod.outlook.com (2603:10b6:510:1e0::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
+ 2026 23:05:00 +0000
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::6fbf:c112:d0a8:f1a8]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::6fbf:c112:d0a8:f1a8%5]) with mapi id 15.21.0496.021; Mon, 12 Oct 2026
+ 23:05:00 +0000
+Date: Mon, 12 Oct 2026 16:04:57 -0700
+From: Alison Schofield <alison.schofield@intel.com>
+To: <jianyungao89@gmail.com>
+CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Dan Williams
+	<djbw@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang
+	<dave.jiang@intel.com>, "open list:DEVICE DIRECT ACCESS (DAX)"
+	<nvdimm@lists.linux.dev>, "open list:DEVICE DIRECT ACCESS (DAX)"
+	<linux-cxl@vger.kernel.org>
+Subject: Re: [PATCH v2] dax: fix dax_core_init error return code
+Message-ID: <as1nmV342j-eUOYm@aschofie-mobl2.lan>
+References: <20261012151857.22534-1-jianyungao89@gmail.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261012151857.22534-1-jianyungao89@gmail.com>
+X-ClientProxiedBy: BY3PR10CA0018.namprd10.prod.outlook.com
+ (2603:10b6:a03:255::23) To DS4PPF0BAC23327.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::9)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|PH7PR11MB6005:EE_
+X-MS-Office365-Filtering-Correlation-Id: 59822807-c139-41ba-6722-08df28b53ddd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|10067099003|261009223027099003|11063799006|6133799003|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: lSztvheXnQ4wYOeI5W9oJGeFok0yYE0fPgrZQDPO1S9sIJ65QvqQhyQgMObGVV5WbOwmQsGppXqIZkDPo/GErKrVQHyq9W7WAwq7ET8DR9p3EX8xKk46oR7Bdaxtm33VsWTCXFonqsnWUGzxTW9YA+wY2qw0zapnYtvEU0VTVMxX2DrXLfS6zlbz88p7IBGTJ3Uwro/g4HNTzF/uzKGzq4L/Bwj/LU6MCrIv0wvlvi104Q4zpDONWqjgND70kmVHQpu5fNbUQpr8ILkwpjR/FFgpymjQ0yH+1JCl9xZzZfcPTrgxBzr719hNj8GN48pUbS442ANwz+FJLiN3cyXHs3RPC1n7lVgd+NiaL5GFBX6uEl/QI3iTxzutBtduzcUIvLzfDiKBLPuaP9JdRlh9xD49bpfZR8afFwQw3M3hliYUigVBq5dMBI1+UhDPss5s/WT5zo6qRNDA8gvIWZvuYid6PUhvxtpkEBbrvgJYUX92LktUZMbA3LfaKUTQAgcJCzAO79hSMOPE9va9M2cHL9r6FBaBp31hzSgk5tk2L/MlBVvHZiPK1+Tll9VEvgje/BI5z94XY3LLKoJVdQHAmctE5f7vXrC/dNtnmxezEL0vsSGlJqrfl0obtTVax1woIA3AvnjC14NQdnVdTSNvArsOQTqmhhuw5dUYhw22cAM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(10067099003)(261009223027099003)(11063799006)(6133799003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?edfRcpzJ6wUpbsKtaXbNOVS2edbjkx5TP6ksgMzJg400Zl13r0HueBue7Kd/?=
+ =?us-ascii?Q?yhpw3byzEcAzYzeqjRLg/RK/SFuPDpwn47ca1pgYZhSizf4ZFPeDkEr1L844?=
+ =?us-ascii?Q?vaXiKGEFX+O8b8i/PEs5ZwRBhmXRMMPKUd0V16B+UC//N+nyw3qH0acHIOH+?=
+ =?us-ascii?Q?djTBC0WlvOv6l2HXrg6GIDtYSfrLjIA3rBOsor+UEIuwa2MXlOzodKGq0WtA?=
+ =?us-ascii?Q?rcF+iQ2q4D/IUztscEoH//GdtzW0IGdN7ORJzvWcSMSGLKfNHGTujsgxDpP2?=
+ =?us-ascii?Q?8PRsf5zBZZjyBsoeWCQaflDPhxwJKVvqePeBFktF65uRJP4yFlCU7LDb3Uvd?=
+ =?us-ascii?Q?T2Dv3o7nH9E4k7S/+C1A1RNkUXtwSlto60zQLICvOR3DaMC45kqLVuUiAVHp?=
+ =?us-ascii?Q?P8ocC2iS+qv0yOR9H/ZjUT4Cm5WcqvGaTn8ESjRTLW8VwglzQFEFtCDlzl27?=
+ =?us-ascii?Q?QC0hFJaskFUwwObccRg4+QjtjVg0u9heIlXjTeySJVpBR3Sumf822INIByk/?=
+ =?us-ascii?Q?L3cHSqnVHvYOabBRoN/ZFZ3Hum1ubl6rl6a/wPt5Y5qA86mNwgzqS+o8Z2tz?=
+ =?us-ascii?Q?OIrYO6JmFcy0ITBL9MSFSLO0k3y5TuMeH8U+imWX4t3i5GY1OcHy2rwxug4g?=
+ =?us-ascii?Q?ZnmmKqYeHm1KUZvCJYgoJ4GyhTEArN1NDN2GXd6lRvX5rJpj8LkbBTjyl4Yz?=
+ =?us-ascii?Q?6ZNhlkc4olen0Q61NutleX0l9yerFvy8AaBGcGpMI+SirK0nURNtdHERvBQk?=
+ =?us-ascii?Q?Qt4n3DR4QUPf+aWM9c9dFKRjOY1IgkBll6W2232U+QsoBDK8E0iX+ot/Cnwo?=
+ =?us-ascii?Q?L+CHZCG2XiP8Xb8TG2Ljq9vcxhuVf5fMoDBv42v0Y0Tw8PkR7fPcXuvaXcrM?=
+ =?us-ascii?Q?KQq5akt5LNLcKVFBQswCTVLJutE9LP8nZiKCtBSCXMSQTvYr7WceZebISwL0?=
+ =?us-ascii?Q?vjbHsJYBIBPq5soOfRZ3hOD8ZzMaIFyjvtm4hWvS/2VERG+2mxk6Xfj1CPql?=
+ =?us-ascii?Q?yk0iUGIMf77mMwrZN7wfbMsPK5UKHelIP9rkQJfFeksKXz0f+dBZ4a38VwDR?=
+ =?us-ascii?Q?PrHYz6OcYq6C7epIU0ewNIuUuQCeGot6CVS94oVyXFiuJj5lpibbpC31RTvi?=
+ =?us-ascii?Q?3bO6heBZiRMClwgIVLJeJkiugssMeurEh/aev8DXiGjHO8CdERfHlU2Tht9Y?=
+ =?us-ascii?Q?DuhJ6pQTOWvs6WeQlY8RlRM1QYpo9ncuswZfG8NNs0dzrdk5S29hOzPUl1bi?=
+ =?us-ascii?Q?TZTDIqEmGtITj1GCve4u7ZSZWyyjfefpYH+FuJzadhiW9FdQXmSfPR/Mn/JE?=
+ =?us-ascii?Q?0CBbJG3oKDUrmIWwclIg2hz3a/HlUA2LOD+q2WtuCpy1fXAPUBP+UqAByuCB?=
+ =?us-ascii?Q?hcjYBVLqEZgAkppbYkihl4NTTNQPKFdeYuTe4DKcG/WljtQKQKTHeCdvnIJ6?=
+ =?us-ascii?Q?WMAHadJ3xq04sts6w8YNPI975AyG6Isecgc5r+yTTp/RjAXUOyTm6X/oz01L?=
+ =?us-ascii?Q?TvhjFlorQdhEJ38tF0Ge1V9hxtn0VjjTlgdjy/FPJk6mr8N/LXz/6fj5mz2D?=
+ =?us-ascii?Q?E0HtRTLsnrD/AVwia1Gbq9kC08Tm/4inb5QbZ9PH8unaK6aBoYnrEkxOfvbo?=
+ =?us-ascii?Q?wJQl/822AD9rrt0xIhiWQ4m+FmcCj3xeZiMPeIo6zg8ZGDGtHvFE+f59S3pH?=
+ =?us-ascii?Q?8a6lBkfUwg4DdKkj3P3HofIYmVo3awCLFzVN257xyNjrIiR0SEmCISh4aYuF?=
+ =?us-ascii?Q?imkwFPRzFSnPvkscmdhspObwjRac9Ng=3D?=
+X-Exchange-RoutingPolicyChecked: 5otM4XMKqmWqd2uV3CU5XIiHcHxGcL+rDt99/MtQvz5D7nJs6vbL+gnOmDpov9U/BXWkzmxr0fz27HvjLEj3F0j6VhA/Agj6qBsmviRvwCK8O/4NDLbQHRN3pozrY++MraGFmQxCa4EBelHA10G6nms4I/uitIqE/6q0WSZJJ42ng3i1/T2a7AZ4UkSgcC6ibefuDryl2J0U830L1XvguFVS9+cLfTyUVccc2FLF39NP6+4OFNsjhtVLL5/ECnh3Vaxxjf5QAyWSJDqOprb3NcGB92oVkVzb0j0hWidn+0zq5sTs4zTQmPGOz28NQNCpaN0o2d9zUXKvk9u7Lvu2Cw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 59822807-c139-41ba-6722-08df28b53ddd
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 23:05:00.4519
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gm7Gvylh6LVMZO/oO/7KseoL/xg3pRucRv/7VbrDtWL4/fzdeWxa3MpTd1OyOVBgz7iQlWTT1/JWX09m9LybJOkLnyaVytfeFBnrA5knXDQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6005
+X-OriginatorOrg: intel.com
 
-On Mon, 2026-10-12 at 12:20 +0200, Christian Brauner via Jfs-discussion
-wrote:
-> Since commit fdbb95ff89b2 ("hfs: don't re-dirty MDB buffers after a
-> write failure") hfs_mdb_commit() sets SB_RDONLY when the MDB or the
-> alternate MDB buffer lost BH_Uptodate after a failed write.
-> hfs_mdb_commit() runs from the flush_mdb work without holding
-> sb->s_umount and from ->sync_fs(), e.g. for sync(2) which only holds
-> s_umount shared. Neither may change SB_RDONLY.
->=20
-> freeze_super() decides from sb_rdonly() whether to take the s_writers
-> rwsems and then drops s_umount while it waits for writers in
-> sb_wait_write(SB_FREEZE_WRITE). A sync(2) in that window gets to
-> hfs_mdb_commit() which flips SB_RDONLY. sync_filesystem() in
-> freeze_super() then returns early for the now read-only superblock,
-> the
-> freeze completes with all three rwsems held and thaw_super() sees
-> sb_rdonly() and skips sb_freeze_unlock(). So the rwsems stay
-> write-locked on a superblock that is marked unfrozen. The commit from
-> sync(2) reports:
->=20
-> =C2=A0 hfs: primary MDB is corrupt, mounting read-only
->=20
-> and after the thaw writers block forever and umount warns:
->=20
-> =C2=A0 INFO: task s3_fsop:162 blocked for more than 30 seconds.
-> =C2=A0 WARNING: kernel/rcu/sync.c:177 at rcu_sync_dtor+0x143/0x190
->=20
-> hfs has no ->freeze_fs() so this needs bdev_freeze(), e.g. through a
-> device mapper suspend with lockfs.
->=20
-> Follow what ext4 did in commit d3476f3dad4a ("ext4: don't set
-> SB_RDONLY
-> after filesystem errors") and record the condition in a new
-> HFS_FLG_EMERGENCY_RO bit next to the MDB and bitmap dirty bits
-> instead.
-> The bit is never cleared. The messages and the -EIO from the call
-> that
-> detects the problem stay as they are. Later calls to hfs_mdb_commit()
-> return 0 early exactly like they did for sb_rdonly(), so syncs and
-> freezes keep working after the error. And the MDB is never marked
-> cleanly unmounted after the error.
->=20
-> hfs now refuses modifications with -EROFS itself. That's the
-> namespace
-> operations, setattr, the hfs.type and hfs.creator xattrs, opening for
-> write, write_begin, O_DIRECT writes and block allocation for files in
-> hfs_get_block(). hfs_file_truncate() returns early too. It runs from
-> ->release() on the last close and frees preallocated blocks without
-> any
-> freeze protection.
->=20
-> Note that b-tree growth through hfs_bmap_reserve() isn't refused. A
-> read
-> that needs another extent record first writes back the cached one. If
-> that record was created before the error inserting it can need a new
-> b-tree node and refusing that would make such reads fail with -EIO
-> until
-> umount.
->=20
-> hfs_write_inode() refuses to write inodes back as well. Writeback
-> clears
-> the dirty state of an inode before it calls ->write_inode() and
-> doesn't
-> redirty it when that fails. So fsync() would happily report success
-> for
-> an inode that never made it to disk. Let fsync() fail with -EROFS
-> instead. Like on ext4 an operation that completed shortly before the
-> error can end up half-applied on disk and needs fsck.hfs.
->=20
-> Only the headers of the extents and catalog b-trees are still
-> written.
-> Writeback writes the b-tree nodes anyway and a node that gets
-> allocated
-> after the error, e.g. by a read that writes back a cached extent
-> record, needs a header that knows about it. Otherwise the next mount
-> starts from a stale root and misses records.
->=20
-> A remount to read-write fails with -EROFS until umount and a remount
-> to
-> read-only is allowed. Like ext4 we show "emergency_ro" in the mount
-> options. The mount stays "rw" and writes through file descriptors
-> opened
-> before the error now fail with -EROFS.
->=20
-> Reproducer. The writer parked in sb_start_write() keeps
-> freeze_super()
-> in sb_wait_write() with s_umount dropped while sync(2) runs:
->=20
-> =C2=A0 hformat /dev/vdb; N=3D$(blockdev --getsz /dev/vdb)
-> =C2=A0 dmsetup create h0 --table "0 $N linear /dev/vdb 0"
-> =C2=A0 mount -t hfs /dev/mapper/h0 /mnt; echo a > /mnt/f; sync
-> =C2=A0 printf '0 2 linear /dev/vdb 0\n2 1 error\n3 %d linear /dev/vdb 3\n=
-'
-> $((N-3)) |
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dmsetup load h0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 # fai=
-l writes to the MDB sector
-> =C2=A0 dmsetup suspend --nolockfs h0; dmsetup resume h0
-> =C2=A0 echo b > /mnt/h; sleep 6=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 # flush_mdb: MDB write fails,
-> mdb_bh !uptodate
-> =C2=A0 sync /mnt/f=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 # =
-fsync(): consumes the bdev
-> mapping's AS_EIO
-> =C2=A0 <writer: splice() from an empty pipe into /mnt/f>=C2=A0=C2=A0 # pa=
-rked in
-> sb_start_write()
-> =C2=A0 dmsetup suspend h0 &=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 # freeze_super() waits for the
-> writer
-> =C2=A0 sync=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 # hfs_mdb_commit(): "primary MDB
-> is corrupt" -> SB_RDONLY
-> =C2=A0 <feed the pipe>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 # freeze completes,
-> sync_filesystem() skipped
-> =C2=A0 dmsetup resume h0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 # thaw_super() skips
-> sb_freeze_unlock()
-> =C2=A0 touch /mnt/x=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 # hangs =
-in sb_start_write()
->=20
-> Fixes: fdbb95ff89b2 ("hfs: don't re-dirty MDB buffers after a write
-> failure")
+On Mon, Oct 12, 2026 at 11:18:57PM +0800, jianyungao89@gmail.com wrote:
+> From: Jianyun Gao <jianyungao89@gmail.com>
+> 
+> dax_core_init() mistakenly returns 0 on error paths. Change the
+> error return to use rc so the actual error code is propagated
+> to the caller.
+
+
+Hi Jianyun,
+
+Thanks for the patch. The change looks good to me.
+
+I'd like to expand the commit message to explain the impact of the bug,
+not just describe the correction. I've proposed a revised message below.
+
+	dax: Return errors from dax_core_init()
+
+	dax_core_init() returns success when either the character device
+	number allocation or DAX bus registration fails, even though the
+	error paths have already released the initialized resources.
+
+	For modular DAX, this allows the module to remain loaded despite
+	failed initialization, leaving subsequent users and module removal
+	to access resources that have already been released.
+
+	Return the error code from the failed operation so that module
+	loading fails rather than reporting successful initialization
+	after the resources have been released.
+
+Please let me know if you're OK with the above, and I'll amend the commit
+message and merge the patch.
+
+-- Alison
+
+
+> 
+> Fixes: 9567da0b408a ("device-dax: Introduce bus + driver model")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
 > ---
-> =C2=A0fs/hfs/attr.c=C2=A0=C2=A0 |=C2=A0 3 +++
-> =C2=A0fs/hfs/dir.c=C2=A0=C2=A0=C2=A0 | 12 ++++++++++++
-> =C2=A0fs/hfs/extent.c |=C2=A0 5 +++++
-> =C2=A0fs/hfs/hfs_fs.h | 11 +++++++++++
-> =C2=A0fs/hfs/inode.c=C2=A0 | 30 ++++++++++++++++++++++++++++++
-> =C2=A0fs/hfs/mdb.c=C2=A0=C2=A0=C2=A0 | 18 ++++++++++++------
-> =C2=A0fs/hfs/super.c=C2=A0 |=C2=A0 7 ++++++-
-> =C2=A07 files changed, 79 insertions(+), 7 deletions(-)
->=20
-> diff --git a/fs/hfs/attr.c b/fs/hfs/attr.c
-> index f8395cdd1adf..d7f8353322c8 100644
-> --- a/fs/hfs/attr.c
-> +++ b/fs/hfs/attr.c
-> @@ -129,6 +129,9 @@ static int hfs_xattr_set(const struct
-> xattr_handler *handler,
-> =C2=A0	if (!value)
-> =C2=A0		return -EOPNOTSUPP;
-> =C2=A0
-> +	if (unlikely(hfs_emergency_ro(inode->i_sb)))
-> +		return -EROFS;
-> +
-> =C2=A0	return __hfs_setxattr(inode, handler->flags, value, size,
-> flags);
-> =C2=A0}
-> =C2=A0
-> diff --git a/fs/hfs/dir.c b/fs/hfs/dir.c
-> index e1f1fb351464..e7ed6e829b77 100644
-> --- a/fs/hfs/dir.c
-> +++ b/fs/hfs/dir.c
-> @@ -189,6 +189,9 @@ static int hfs_create(struct mnt_idmap *idmap,
-> struct inode *dir,
-> =C2=A0	struct inode *inode;
-> =C2=A0	int res;
-> =C2=A0
-> +	if (unlikely(hfs_emergency_ro(dir->i_sb)))
-> +		return -EROFS;
-> +
-> =C2=A0	inode =3D hfs_new_inode(dir, &dentry->d_name, mode);
-> =C2=A0	if (IS_ERR(inode))
-> =C2=A0		return PTR_ERR(inode);
-> @@ -219,6 +222,9 @@ static struct dentry *hfs_mkdir(struct mnt_idmap
-> *idmap, struct inode *dir,
-> =C2=A0	struct inode *inode;
-> =C2=A0	int res;
-> =C2=A0
-> +	if (unlikely(hfs_emergency_ro(dir->i_sb)))
-> +		return ERR_PTR(-EROFS);
-> +
-> =C2=A0	inode =3D hfs_new_inode(dir, &dentry->d_name, mode);
-> =C2=A0	if (IS_ERR(inode))
-> =C2=A0		return ERR_CAST(inode);
-> @@ -252,6 +258,9 @@ static int hfs_remove(struct inode *dir, struct
-> dentry *dentry)
-> =C2=A0	struct inode *inode =3D d_inode(dentry);
-> =C2=A0	int res;
-> =C2=A0
-> +	if (unlikely(hfs_emergency_ro(sb)))
-> +		return -EROFS;
-> +
-> =C2=A0	if (S_ISDIR(inode->i_mode) && inode->i_size !=3D 2)
-> =C2=A0		return -ENOTEMPTY;
-> =C2=A0
-> @@ -290,6 +299,9 @@ static int hfs_rename(struct mnt_idmap *idmap,
-> struct inode *old_dir,
-> =C2=A0	if (flags & ~RENAME_NOREPLACE)
-> =C2=A0		return -EINVAL;
-> =C2=A0
-> +	if (unlikely(hfs_emergency_ro(old_dir->i_sb)))
-> +		return -EROFS;
-> +
-> =C2=A0	/* Unlink destination if it already exists */
-> =C2=A0	if (d_really_is_positive(new_dentry)) {
-> =C2=A0		res =3D hfs_remove(new_dir, new_dentry);
-> diff --git a/fs/hfs/extent.c b/fs/hfs/extent.c
-> index f066a99a863b..dab31f159b1a 100644
-> --- a/fs/hfs/extent.c
-> +++ b/fs/hfs/extent.c
-> @@ -350,6 +350,9 @@ int hfs_get_block(struct inode *inode, sector_t
-> block,
-> =C2=A0		if (block > HFS_I(inode)->fs_blocks)
-> =C2=A0			return -EIO;
-> =C2=A0		if (ablock >=3D HFS_I(inode)->alloc_blocks) {
-> +			/* No new allocations after an error. */
-> +			if (unlikely(hfs_emergency_ro(sb)))
-> +				return -EROFS;
-> =C2=A0			res =3D hfs_extend_file(inode);
-> =C2=A0			if (res)
-> =C2=A0				return res;
-> @@ -485,6 +488,8 @@ void hfs_file_truncate(struct inode *inode)
-> =C2=A0	hfs_dbg("ino %llu, phys_size %llu -> i_size %llu\n",
-> =C2=A0		inode->i_ino, (long long)HFS_I(inode)->phys_size,
-> =C2=A0		inode->i_size);
-> +	if (unlikely(hfs_emergency_ro(sb)))
-> +		return;
-> =C2=A0	if (inode->i_size > HFS_I(inode)->phys_size) {
-> =C2=A0		struct address_space *mapping =3D inode->i_mapping;
-> =C2=A0		void *fsdata =3D NULL;
-> diff --git a/fs/hfs/hfs_fs.h b/fs/hfs/hfs_fs.h
-> index e250f87a5e33..71ab81b649bc 100644
-> --- a/fs/hfs/hfs_fs.h
-> +++ b/fs/hfs/hfs_fs.h
-> @@ -143,6 +143,7 @@ struct hfs_sb_info {
-> =C2=A0#define HFS_FLG_BITMAP_DIRTY	0
-> =C2=A0#define HFS_FLG_MDB_DIRTY	1
-> =C2=A0#define HFS_FLG_ALT_MDB_DIRTY	2
-> +#define HFS_FLG_EMERGENCY_RO	3	/* read-only after an MDB
-> write error */
-> =C2=A0
-> =C2=A0/* bitmap.c */
-> =C2=A0extern u32 hfs_vbm_search_free(struct super_block *sb, u32 goal, u3=
-2
-> *num_bits);
-> @@ -293,6 +294,16 @@ static inline const char *hfs_mdb_name(struct
-> super_block *sb)
-> =C2=A0	return sb->s_id;
-> =C2=A0}
-> =C2=A0
-> +/*
-> + * Writing back the MDB failed and the filesystem stopped all
-> modifications
-> + * until unmount. SB_RDONLY isn't used for that because it must not
-> change
-> + * without s_umount.
-> + */
-> +static inline bool hfs_emergency_ro(struct super_block *sb)
-> +{
-> +	return test_bit(HFS_FLG_EMERGENCY_RO, &HFS_SB(sb)->flags);
-> +}
-> +
-> =C2=A0static inline void hfs_bitmap_dirty(struct super_block *sb)
-> =C2=A0{
-> =C2=A0	set_bit(HFS_FLG_BITMAP_DIRTY, &HFS_SB(sb)->flags);
-> diff --git a/fs/hfs/inode.c b/fs/hfs/inode.c
-> index 2aef3c36a150..42a2c2e390b2 100644
-> --- a/fs/hfs/inode.c
-> +++ b/fs/hfs/inode.c
-> @@ -54,6 +54,9 @@ int hfs_write_begin(const struct kiocb *iocb,
-> struct address_space *mapping,
-> =C2=A0	loff_t total_capacity;
-> =C2=A0	int ret;
-> =C2=A0
-> +	if (unlikely(hfs_emergency_ro(inode->i_sb)))
-> +		return -EROFS;
-> +
-> =C2=A0	total_capacity =3D (loff_t)sbi->fs_ablocks * sbi->alloc_blksz;
-> =C2=A0
-> =C2=A0	if (pos >=3D total_capacity)
-> @@ -139,6 +142,10 @@ static ssize_t hfs_direct_IO(struct kiocb *iocb,
-> struct iov_iter *iter)
-> =C2=A0	size_t count =3D iov_iter_count(iter);
-> =C2=A0	ssize_t ret;
-> =C2=A0
-> +	if (iov_iter_rw(iter) =3D=3D WRITE &&
-> +	=C2=A0=C2=A0=C2=A0 unlikely(hfs_emergency_ro(inode->i_sb)))
-> +		return -EROFS;
-> +
-> =C2=A0	ret =3D blockdev_direct_IO(iocb, inode, iter, hfs_get_block);
-> =C2=A0
-> =C2=A0	/*
-> @@ -472,6 +479,20 @@ int hfs_write_inode(struct inode *inode, struct
-> writeback_control *wbc)
-> =C2=A0	int res;
-> =C2=A0
-> =C2=A0	hfs_dbg("ino %llu\n", inode->i_ino);
-> +	if (unlikely(hfs_emergency_ro(inode->i_sb))) {
-> +		/*
-> +		 * Writeback still writes the b-tree nodes. Keep the
-> headers in
-> +		 * sync with them so the trees on disk stay intact.
-> +		 */
-> +		if (inode->i_ino =3D=3D HFS_EXT_CNID)
-> +			hfs_btree_write(HFS_SB(inode->i_sb)-
-> >ext_tree);
-> +		else if (inode->i_ino =3D=3D HFS_CAT_CNID)
-> +			hfs_btree_write(HFS_SB(inode->i_sb)-
-> >cat_tree);
-> +		else
-> +			return -EROFS;
-> +		return 0;
-> +	}
-> +
-> =C2=A0	res =3D hfs_ext_write_extent(inode);
-> =C2=A0	if (res)
-> =C2=A0		return res;
-> @@ -619,6 +640,8 @@ void hfs_evict_inode(struct inode *inode)
-> =C2=A0
-> =C2=A0static int hfs_file_open(struct inode *inode, struct file *file)
-> =C2=A0{
-> +	if ((file->f_mode & FMODE_WRITE) && hfs_emergency_ro(inode-
-> >i_sb))
-> +		return -EROFS;
-> =C2=A0	if (HFS_IS_RSRC(inode))
-> =C2=A0		inode =3D HFS_I(inode)->rsrc_inode;
-> =C2=A0	atomic_inc(&HFS_I(inode)->opencnt);
-> @@ -650,6 +673,9 @@ int hfs_inode_setattr(struct mnt_idmap *idmap,
-> struct dentry *dentry,
-> =C2=A0	struct hfs_sb_info *hsb =3D HFS_SB(inode->i_sb);
-> =C2=A0	int error;
-> =C2=A0
-> +	if (unlikely(hfs_emergency_ro(inode->i_sb)))
-> +		return -EROFS;
-> +
-> =C2=A0	error =3D setattr_prepare(&nop_mnt_idmap, dentry, attr);
-> =C2=A0	if (error)
-> =C2=A0		return error;
-> @@ -701,6 +727,10 @@ static int hfs_file_fsync(struct file *filp,
-> loff_t start, loff_t end,
-> =C2=A0	struct super_block * sb;
-> =C2=A0	int ret, err;
-> =C2=A0
-> +	/* Inodes aren't written back after an error. */
-> +	if (unlikely(hfs_emergency_ro(inode->i_sb)))
-> +		return -EROFS;
-> +
-> =C2=A0	ret =3D file_write_and_wait_range(filp, start, end);
-> =C2=A0	if (ret)
-> =C2=A0		return ret;
-> diff --git a/fs/hfs/mdb.c b/fs/hfs/mdb.c
-> index 277de712f9d4..ce20824bbdc8 100644
-> --- a/fs/hfs/mdb.c
-> +++ b/fs/hfs/mdb.c
-> @@ -322,8 +322,8 @@ int hfs_mdb_get(struct super_block *sb)
-> =C2=A0 *=C2=A0=C2=A0 NONE
-> =C2=A0 * Returns:
-> =C2=A0 *=C2=A0=C2=A0 0 on success, -EIO if the MDB or alternate MDB buffe=
-r is no
-> longer
-> - *=C2=A0=C2=A0 valid (e.g. after a prior write error), in which case the
-> volume is
-> - *=C2=A0=C2=A0 remounted read-only.
-> + *=C2=A0=C2=A0 valid (e.g. after a prior write error), in which case the
-> volume
-> + *=C2=A0=C2=A0 refuses all further modifications until it is unmounted.
-> =C2=A0 * Preconditions:
-> =C2=A0 *=C2=A0=C2=A0 'mdb' points to a "valid" (struct hfs_mdb).
-> =C2=A0 * Postconditions:
-> @@ -338,12 +338,18 @@ int hfs_mdb_commit(struct super_block *sb)
-> =C2=A0	struct hfs_mdb *mdb =3D HFS_SB(sb)->mdb;
-> =C2=A0	int ret =3D 0;
-> =C2=A0
-> -	if (sb_rdonly(sb))
-> +	if (sb_rdonly(sb) || hfs_emergency_ro(sb))
-> =C2=A0		return 0;
-> =C2=A0
-> +	/*
-> +	 * Don't set SB_RDONLY on errors: changing it requires
-> s_umount and a
-> +	 * remount. Setting it on a frozen superblock makes
-> thaw_super() mark
-> +	 * it unfrozen but skip sb_freeze_unlock(), so the s_writers
-> rwsems
-> +	 * stay write-locked and every writer hangs.
-> +	 */
-> =C2=A0	if (!buffer_uptodate(HFS_SB(sb)->mdb_bh)) {
-> =C2=A0		pr_err("primary MDB is corrupt, mounting read-
-> only\n");
-> -		sb->s_flags |=3D SB_RDONLY;
-> +		set_bit(HFS_FLG_EMERGENCY_RO, &HFS_SB(sb)->flags);
-> =C2=A0		return -EIO;
-> =C2=A0	}
-> =C2=A0
-> @@ -377,7 +383,7 @@ int hfs_mdb_commit(struct super_block *sb)
-> =C2=A0	=C2=A0=C2=A0=C2=A0 HFS_SB(sb)->alt_mdb) {
-> =C2=A0		if (!buffer_uptodate(HFS_SB(sb)->alt_mdb_bh)) {
-> =C2=A0			pr_err("alternate MDB is corrupt, mounting
-> read-only\n");
-> -			sb->s_flags |=3D SB_RDONLY;
-> +			set_bit(HFS_FLG_EMERGENCY_RO, &HFS_SB(sb)-
-> >flags);
-> =C2=A0			ret =3D -EIO;
-> =C2=A0			goto out;
-> =C2=A0		}
-> @@ -428,7 +434,7 @@ int hfs_mdb_commit(struct super_block *sb)
-> =C2=A0void hfs_mdb_close(struct super_block *sb)
-> =C2=A0{
-> =C2=A0	/* update volume attributes */
-> -	if (sb_rdonly(sb))
-> +	if (sb_rdonly(sb) || hfs_emergency_ro(sb))
-> =C2=A0		return;
-> =C2=A0
-> =C2=A0	if (!buffer_uptodate(HFS_SB(sb)->mdb_bh))
-> diff --git a/fs/hfs/super.c b/fs/hfs/super.c
-> index 5e6d66ff4bee..0f2c5ab0caf7 100644
-> --- a/fs/hfs/super.c
-> +++ b/fs/hfs/super.c
-> @@ -82,7 +82,7 @@ void hfs_mark_mdb_dirty(struct super_block *sb)
-> =C2=A0	struct hfs_sb_info *sbi =3D HFS_SB(sb);
-> =C2=A0	unsigned long delay;
-> =C2=A0
-> -	if (sb_rdonly(sb))
-> +	if (sb_rdonly(sb) || hfs_emergency_ro(sb))
-> =C2=A0		return;
-> =C2=A0
-> =C2=A0	spin_lock(&sbi->work_lock);
-> @@ -131,6 +131,9 @@ static int hfs_reconfigure(struct fs_context *fc)
-> =C2=A0		return 0;
-> =C2=A0
-> =C2=A0	if (!(fc->sb_flags & SB_RDONLY)) {
-> +		/* After an MDB write error it stays read-only until
-> unmount. */
-> +		if (hfs_emergency_ro(sb))
-> +			return -EROFS;
-> =C2=A0		if (!(HFS_SB(sb)->mdb->drAtrb &
-> cpu_to_be16(HFS_SB_ATTRIB_UNMNT))) {
-> =C2=A0			pr_warn("filesystem was not cleanly
-> unmounted, running fsck.hfs is recommended.=C2=A0 leaving read-only.\n");
-> =C2=A0			sb->s_flags |=3D SB_RDONLY;
-> @@ -169,6 +172,8 @@ static int hfs_show_options(struct seq_file *seq,
-> struct dentry *root)
-> =C2=A0		seq_printf(seq, ",iocharset=3D%s", sbi->nls_io-
-> >charset);
-> =C2=A0	if (sbi->s_quiet)
-> =C2=A0		seq_printf(seq, ",quiet");
-> +	if (hfs_emergency_ro(root->d_sb))
-> +		seq_puts(seq, ",emergency_ro");
-> =C2=A0	return 0;
-> =C2=A0}
-> =C2=A0
-
-Looks good.
-
-Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
-
-Thanks,
-Slava.
+> 
+> Changes in v2:
+> - Drop unnecessary goto label, keep direct return for dax_fs_init() error
+> - Add Fixes tag and Cc stable
+> 
+> Link: https://lore.kernel.org/lkml/20261011132017.31131-1-jianyungao89@gmail.com/ # v1
+> 
+>  drivers/dax/super.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/dax/super.c b/drivers/dax/super.c
+> index 45f84b0eb909..210f4af479f0 100644
+> --- a/drivers/dax/super.c
+> +++ b/drivers/dax/super.c
+> @@ -738,7 +738,7 @@ static int __init dax_core_init(void)
+>  	unregister_chrdev_region(dax_devt, MINORMASK+1);
+>  err_chrdev:
+>  	dax_fs_exit();
+> -	return 0;
+> +	return rc;
+>  }
+>  
+>  static void __exit dax_core_exit(void)
+> -- 
+> 2.34.1
+> 
