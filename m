@@ -1,41 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC4B04A9D66;
-	Mon, 12 Oct 2026 16:10:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E84E64B0C9C;
+	Mon, 12 Oct 2026 16:12:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791821442; cv=none; b=s3SUSOdC9cMooevIa3gCOgTD8DQJ4G11ohBwLNXQn8NuqIizSuEtKNQmzVqYEoXsqbETWydQrpYtOayr3wOK962ijGapDuaA6B9darvBpq2iCgVL4g+jkvGF+hZlAa5nMaUc9No1DxrUy6xUvAAN06YU6PJOPV67rGcwSR5kzcc=
+	t=1791821529; cv=none; b=s71uH4vO52kA2JkOTRfrwUmrU3YQNUoa8T0LmgSFdbeS/8VGbZHx4T92vqtfeekgIJWieAWVS6gLHUR33wlpbU3UxUXXYuPDjXjXUvmex7r8vcPXBd+nbHZT77xaYYznHRf2iALkxKgHpjyfw8zXvIo6p4b6IdNVz+EKkkjj/JQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791821442; c=relaxed/simple;
-	bh=mhNONTRaF/Na6+al0F6FIDV9/MARO9s8T4DrGw21Fgo=;
+	s=arc-20240116; t=1791821529; c=relaxed/simple;
+	bh=h1VOVH4BL7Ayez8le6YbqTo0p5ugOPLagQ7bqhsNpjg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lKeNSce4tlNckV0fh+wUofzhTrJAtzXi+PugzyC+Rfi1m7JpHWBLJfsd/qRtWBLHDdmuc1BHDh3t7SSGUPLP2SIgUP0loxftwkslUeSv3pTCjvIQ4uIFiZ78YaGdKKgviW4PqB9zqSM+LtZxhG7N/s1yJjTnzll6M6aKU9MM9+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mtVRV9EU; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=gSFmmNE1gnghjSDuRKvGCk2Byqm/Z44SVR41cfJkD8oYSQdcE2DKxLDAzHFQoOQwXzOQRLstYzdQOQjZlYMHwBWORSSATxTT5wnl72SdOecPdMEYdfs6eZdlvOBYhs/F4ZxmekQnOhaApr2aQKY1zRWp9uyZPU5JPmxD+a5Wz20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BLngqW/i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mtVRV9EU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DDD11F0089B;
-	Mon, 12 Oct 2026 16:10:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BLngqW/i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 409281F0089B;
+	Mon, 12 Oct 2026 16:12:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791821441;
-	bh=egAWEG+bcu6VYNzUqXMRIjdS7+btc7+MbL6C2aV6SSA=;
+	s=k20260515; t=1791821526;
+	bh=dwOf8Dc4TxSx32WOzwSp7Q6nGhu/G9ZRjwK/NvjcHHs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mtVRV9EUFgxksJVwh0JMvqSXLlXVHyRMWLkDBXVhdfreiTfFMTdb0e2X87Td9gEZj
-	 mwWc17HusNhEKQnUQ2C65paV7NO2Srk51v1zUs8zJBU89805gWgfKE3dH/Gh49djUf
-	 LXY2lOlhVlAJrjkMoagIa/E/J/1EOxd1WZLQJfr8QimQAGATBsOH6A6aLn5uqZTRQe
-	 qgFlEJxcHrMyCL66BLZb4g0NY5nBy9X1p7AMZma06E6cuGCnggOo+3Aa0xaTQbZuxR
-	 XciZyo7h0rvm0Fi/bnEzEVNiMCEqvFn71TcdTcjmSnNG0NyCJljILaOb1Cx9A+qf9w
-	 VkxoHG0hWDJXA==
-Date: Mon, 12 Oct 2026 21:40:33 +0530
+	b=BLngqW/i/yi7ouv1qN2l4qytDHWZGEsgW9NgpRR52R9+cyCj/rmsP5IvvkOB+5vQG
+	 R484XftbLYU9MiKQ9XKPIewGqbjy8WBgpeGCwosXf9nvFqxtfXY2V7h1uvRYbw/M8U
+	 Sxp15CxL6AIr1cVFAkS6AO0wvrFJ1wYIx1ydRFdIjrAHFCmf/5QB2zGf68tf8gq7Jy
+	 5OiFbxE/1SqAf4w0i5kg5CY1N1cxunIJUwZj9G4DM/cvLZdkp/nkgzF7aHVUiLEQuJ
+	 1OZGsZq3J7G8FOUYnO2yAUWC7fRgyZu3qgMtmFG+lJiggWml6+EAX4lIkXs0JlzgSV
+	 7p0q1lM1JO32g==
+Date: Mon, 12 Oct 2026 21:41:57 +0530
 From: Manivannan Sadhasivam <mani@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: hpchen0nvt@gmail.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, 
-	schung@nuvoton.com, vkoul@kernel.org, ychuang3@nuvoton.com, stable@vger.kernel.org
-Subject: Re: [PATCH] phy: nuvoton: Fix clock reference leak in
- ma35_usb_phy_probe()
-Message-ID: <as0GcwfgjRsI1O8N@debian>
-References: <20260917134353.2153788-1-vulab@iscas.ac.cn>
+Cc: bivvy.bi@rock-chips.com, heiko@sntech.de, kishon@kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, neil.armstrong@linaro.org, vkoul@kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] phy: rockchip: inno-dsidphy: Fix runtime PM leak in
+ inno_dsidphy_power_on()
+Message-ID: <as0GyAtxP7a0oqrB@debian>
+References: <20260917134627.2153845-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,18 +46,18 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260917134353.2153788-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260917134627.2153845-1-vulab@iscas.ac.cn>
 
-On Thu, Sep 17, 2026 at 01:43:53PM +0000, Wentao Liang wrote:
-> ma35_usb_phy_probe() obtains the USB PHY clock with of_clk_get(), but
-> returns without calling clk_put() when devm_phy_create() or
-> devm_of_phy_provider_register() fails, leaking the reference.  The
-> clock is only meant to be kept on the success path, where it is stored
-> in p_phy->clk and used by the PHY operations.
+On Thu, Sep 17, 2026 at 01:46:27PM +0000, Wentao Liang wrote:
+> inno_dsidphy_power_on() resumes the device with pm_runtime_get_sync(),
+> but the default case of the mode switch returns -EINVAL without
+> dropping that reference.  The matching pm_runtime_put() lives in
+> inno_dsidphy_power_off(), which the PHY core does not run when
+> power_on() fails.
 > 
-> Drop the reference on those two error paths.
+> Release the runtime PM reference before returning.
 > 
-> Fixes: b48baf69db97 ("phy: nuvoton: add new driver for the Nuvoton MA35 SoC USB 2.0 PHY")
+> Fixes: b7535a3bc0ba ("phy/rockchip: Add support for Innosilicon MIPI/LVDS/TTL PHY")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
