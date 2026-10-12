@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9806E41A4F6
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 11:37:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC09D3EA976
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 11:37:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791805033; cv=none; b=ggE7RdrFpTuiWCs8ZQZVU8smH9knbVhY7MVqQzMov0pDss+IoAydyjsI6DvLwUeWP5BwO/a0VZkjphw/lhLzdsVVxXDFMSioZixChxiVarS3eTE4YRVQlvNvqVUFCLch42/zZA87KF72aV5Y2NaeprDnMrZEQNtGiwL8iF4bt8U=
+	t=1791805042; cv=none; b=MUqBJliabukbScjLwZEIwJXRLy3ShN+eTZXw5zUvo6m225J9RMPcXR0GZMPeXkVnc5d0lXsb8ZYDGoWriLskwBVy/Y9xkwauuWxnwH3eKvTU2muI6i/25arEn3mVt99NPiLN3y/t6Rf8LH4dIPNoKeydO9VhVG2nWSwWv3uVvvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791805033; c=relaxed/simple;
-	bh=wJpWGHsP5Jt/1A3gHqzNcXXLSwcz3OoldLb7Nl14QUA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=bOAcn1OQQkC6DiYaBo6DA9YBCXk3f2TxvdqxQHuHDXnFspAtqcl4gtX1XwEs1qsW7Xy30RNR+nPfde1ERPjxpn+HgSNqZ2eRc9FbkUo9EXZRYy/BzqXVI6TZqZ6st1Dgasg+qEoIGzvYLNIRj8oFsVuVKPpdBLhmVgkN1aKJGdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=A4bncp4K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791805042; c=relaxed/simple;
+	bh=om2hvB9oe/4sLq/lBawQQUleM9tY+QXqQqRLIfc/z2k=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=rbxl2uBAcjtoqr1MJksxMex+7rCL1hCbW29Wt+SOkilNlmSQXf7y/RI8Oh27g5ubyB2PYOCJBNfhxEllWjb3wXLgbxXyUV4z+M3yagrpe+nfgN0wbaCG3fKTn6FP+3dVy6BlVC4AcPKCnO605gmyB+TAHCsV9VCE6YquQvziX4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RsUHwtcz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="A4bncp4K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C01471F0089B;
-	Mon, 12 Oct 2026 11:37:10 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RsUHwtcz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEDA31F0089B;
+	Mon, 12 Oct 2026 11:37:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791805031;
-	bh=gG9d481V9GbjMK37rokL8AntQAP9wCyT4n8bWfzd1WA=;
+	s=korg; t=1791805040;
+	bh=IlmBtfeJ0GDNft2f5UZGHbLyB7j08a11/qlFDKyel3w=;
 	h=Subject:To:Cc:From:Date;
-	b=A4bncp4KNqAIkYf3j98xTqoeuqrrLx/fKZzLt6tXCucYwgW4GFC1n53SgwANv+e07
-	 qCokwHD3xmHJbidNis94ETM3AS2MjxJpOuaHpSMfdQA1EEUht8tYhQKJ2tUwzZzdzA
-	 Y4p65T6tMo/dmNxdSMjWVNKF//G3vXVmdkmCK62Y=
-Subject: FAILED: patch "[PATCH] xfs: fix exchange-range-to-eof file size exchange" failed to apply to 7.2-stable tree
+	b=RsUHwtczCrHSESUfzn+QKvoMoNMkYgB6iIbPC9KMB1COfifU2YrjhZcO7SUWdvmzD
+	 UoX/I300yNCHwkuayeAFfd4Pq31TYKRm2ktzA0AStWMwoFiOFMelveeW2vuTm55gRj
+	 L1wUYOh6UzFwQNBpD9aJhN50fiKzYvV8o2KqPcS8=
+Subject: FAILED: patch "[PATCH] xfs: fix exchange-range-to-eof file size exchange" failed to apply to 6.18-stable tree
 To: djwong@kernel.org,cem@kernel.org,dchinner@redhat.com,norbert@doyensec.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 13:37:16 +0200
-Message-ID: <2026101216-sadly-relapse-b166@gregkh>
+Date: Mon, 12 Oct 2026 13:37:17 +0200
+Message-ID: <2026101217-request-humming-58e8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 7dfb218c829c1acb626e0fe92c5fddb9a26a03e9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101216-sadly-relapse-b166@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101217-request-humming-58e8@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
