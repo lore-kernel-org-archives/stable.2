@@ -1,173 +1,198 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1FE529E11A
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 04:43:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791780212; cv=none; b=rryR6RXIKQE4joskk4wsOh/nvjT3+lcShgtzxP+QuGT0NcaXz3YThXiIa4NMf4hCOeHhuq13umJEELSp4ca4olLhta5z8Nq6E6dB3J6zXsGUfpY9IDyMkqSYyE8MmEdSfu5TYAU/+nsChshPTtKvOGqxlY/9IziZjJMnwsI3u9E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791780212; c=relaxed/simple;
-	bh=LKXcja2ET4DhIT4TQNzA+oCPrkfivus8jlcxBSiY9n8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZmWdUJofJ1vquN4zbDFdQr4KZWmL/N87XSrTMKLRoB/QN2qe2UXj4jJnuwAC6/ML/GTQgCaOUD4fJovMVPaWJXcVXczke3Qj4U8qYzwSv6tHDuIWhaFD+AmRbVpK5Mh7YEIWBWbH8SNz2vhQHlYszKnfNdrv2aCAmORN8jLJX7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m63CuqrA; arc=none smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AED73AFCE6
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 05:00:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791781237; cv=fail; b=tEbANPWEwi6EFqdUg8ApMpmlbFIHGwdCZ4JTFwls21QSjonHflwxtljsglTHeF4tpZWUnIgJbtnbyIRESIh38Z3gdpK6mlpB274kkDajMJuLLl/raFDJ5eSYFn/LNCb7Jn+rjLem37ppZ/T1mzEQlxOh538KwhSdxypoqrg1P9Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791781237; c=relaxed/simple;
+	bh=NHtXM923WuY/i59Vz7F6JUnmQ2lfn9q+cztd0NOePU0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=GZQxoS3ntj5mVwTHbN9HEytZTUg9XZTwrOQe4w4ZE9QASmUvBYTkpisNcZCtfzFmpLvSJogMEVMLl4DpjzA86PVDd5PHEgES0h6Zg6enbbr2ft7yd9QoNsLowsbgywZfYeCKTOzPsF1UX0Y5G5U7d3KiJ+VdPLEbgZmWaeFIO7I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aPBVRj00; arc=fail smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m63CuqrA"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-887fb6c0ad1so291978b3a.0
-        for <stable@vger.kernel.org>; Sun, 11 Oct 2026 21:43:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791780210; x=1792385010; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=812oZShsKglP17d2qpRNJ3RXJ3mN2CCzFxSPZnEDsD8=;
-        b=m63CuqrAlMKF1Opna25vSx83gmA6AG+gNN6Y8m0VhCXYR4uAdq/VMbNHAhVdfkOyzR
-         1atE6qnvenTcvcdmHotP3AjdZTQzkaFtSKSVRiPo2Uv7w3rD4NrMTsCFa8X63DQD49xV
-         tzQSGkGkK0PU28RVeDlno6O0FDaVxQcJOLX1wsQn9zREkuNoroiIHezs/8lwnKi40e5Q
-         k9u7UgkBe8871tYvRWfFEJ1/nkEUZxO1Ak4EfnCnEdEAn1VVgdkR3DOpnk4fLj6xOtf5
-         FI6udHumdkyp+lmE0imw41E/64T8MUvXhzp1odsLGWkzKXLtuf6nMAR8ldrl0fb1Mm/D
-         QTzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791780210; x=1792385010;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=812oZShsKglP17d2qpRNJ3RXJ3mN2CCzFxSPZnEDsD8=;
-        b=g3WIOeBnoAQXxmEIVCS6BoBhXP6WhVJrexodMTPdAVxBB3PYlG7gu9Db9xjkdvmPm+
-         u0hY/+o4QgkBnnhrTnAsGat7vG4TGs3KfqOvypJ7w/9UppCeOSOaKIieIVaZqZuGEaUJ
-         w9nkmI3DCCz4QDBXGq398CT7YY+5eBnKpOpMc7WN924k7mrHe+RWh56egwjgVQcPNJ7N
-         3pP/nK3Ow4/V6js1yz80/ojXg4Ua6+QU8Ek0S3lSaCC2XzkVsYCEC80EWGdEznlZqBpI
-         Gy92flpLfVCBvmPGOqUkXV5eKvDp++zYbTuEA2WsU6vdnzcagYxKM6Q/iwts7ZxNVodo
-         Wm4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwC//y8t9gEUhbCdoQGQV/LnbzrxwxfHDwzNcU+yhAe26rBvB31K6JLjTt2/acpQuk184D/jKI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZ11MsFw5P4AKhY2E41p5857lmSDj9sJshxj/xnUAju57PfRlG
-	BiroQKkqrcBUQpqKD/SdtlJv3bg0KHy8cKcEvp78YfMmoVk3xj7BLtgR
-X-Gm-Gg: AYBFou2Gqu/htH6n7f9SjzQ9gwmKZb0f8yHrhSBpPnpf4MmUyOLqCF/1vHuT31XNz6+
-	nZTTAMszVRvdGXNCLUCEy0Of2/pNiQkD7i93yDQ7hCCvggO9CCOjy2Y/SqeIN7R5zmauqTAFCV+
-	805sT0XSeklrJQ/zjhf74olZgsavVatyIjZCD6aiLlU4yFsB2FdIbdM7HIhqv61vsOFLb2RCZCa
-	nxv8mLG/aHAldkyBh0PRKq5/6MPraZaG9oruGEsWRpWDYIqeGCg5nvxHbz/80y+uo5KjMhywoz1
-	5j+ZcKwOPDYb+knRwuHky4vnejwOf30aGyDj98hivSev7MRcKZ2W3YNiY3uonHusjN9sKc+0Fz3
-	mckch55Ektp5QWi4I1hRf1WRAze1TGOR0Pbb8Vjwb10b1gAIr8f337lXKeI0+I4E06NHOFyvFrm
-	YLrCMYgOzwb8RCmti3/dDZdYpmlUMfcutc2OcvUApnJZWEMfE2ZiMK2prlSgEGaKu5+N8=
-X-Received: by 2002:a05:6a00:348f:b0:880:a842:baff with SMTP id d2e1a72fcca58-897c79d2d5amr7100175b3a.43.1791780210286;
-        Sun, 11 Oct 2026 21:43:30 -0700 (PDT)
-Received: from dungbv.. ([116.98.134.138])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c3107373sm3326143b3a.9.2026.10.11.21.43.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 21:43:28 -0700 (PDT)
-From: Bui Viet Dung <dungvn2345@gmail.com>
-To: Stephen Hemminger <stephen@networkplumber.org>
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Hagen Paul Pfeifer <hagen@jauu.net>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bui Viet Dung <dungvn2345@gmail.com>
-Subject: [PATCH net v2] net/sched: sch_netem: prevent packet length underflow with negative overhead
-Date: Mon, 12 Oct 2026 11:43:22 +0700
-Message-ID: <20261012044322.503949-1-dungvn2345@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aPBVRj00"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791781233; x=1823317233;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=NHtXM923WuY/i59Vz7F6JUnmQ2lfn9q+cztd0NOePU0=;
+  b=aPBVRj00rbcYfYjmZMoQUyYcg6q5vt4fZAMkvyzgU5YFUoUQNaIcdKBY
+   1VwW7w6++H/x3PtE/35eE4Y1re3d4WSMpiYoT0Rzy61LxG5ftdAVIBHtv
+   ugIeflHU7ZgA7CQpJgUWfOgdVOD55UNPiPL+XTREoXZ+qoNYhd6v32nRa
+   wAHZ8EAcaIr0/u6weUR/RnPDop12sNxdoGm0jBkiQvAzV/dbVBTiVnq8R
+   JQ2J9+AJumP0X+u/4JoQELLpR35D9k8YGtss9Yw/iMDYTAvOyOkmghyk0
+   ry6xJ8V2+fyrT+HJ/L5HlMSqhiOiHd+wzAaimUo2o1keWVdSNd9bUq3aP
+   w==;
+X-CSE-ConnectionGUID: Z5vxjaLqQeGZmq1L59xORA==
+X-CSE-MsgGUID: RgOsqaiGQ1GAe0iqCwkELw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="489213"
+X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
+   d="scan'208";a="489213"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 22:00:33 -0700
+X-CSE-ConnectionGUID: u2RIdUg0QU6Sr4Amh1421w==
+X-CSE-MsgGUID: IDvKWnf7SZaM8Vkk79dAlw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
+   d="scan'208";a="1128075"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 22:00:32 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Sun, 11 Oct 2026 22:00:31 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Sun, 11 Oct 2026 22:00:31 -0700
+Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.68) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Sun, 11 Oct 2026 22:00:31 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XCQNysXy9r984J8M5MZM3P1CtK0C1WJ8SKhPFIDimgPFciiNNxFZoYLBlajmG7IWqNWyDhGuYQudUnIdkxr4faKpGGwPuM1Oj2ERyu0O9VaI8oLnWfCHkUWwd5AaUu4Pv47qxBDs1Ro5aHGbuqCiZJX8PxL4nv5AXjsvGUhVvSmwBlniUhbvZcQpQeJlzQZ+2eeDL6f61UyPngWEfVugwMgPCmVyYChgnE7nSoivlr14vdkqF7i8xq0QOK4vmDOo+1H9WOT//aHSnnpJhfVi+FB2aY2u++YW05vygkNlm68+S4QmuV9dPrFApAMbGoWRYP56IaxvtsaqsL2DTHKNbQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PXABab1uwLpiap80Ikv6a0r+6bvSnw8sOj0zGCaH5fI=;
+ b=Xq3x4CKYGEh7czSm87ii/gfh7rGNjRMX31+ioOtPyHa3YNglYjtx2jpr10PVJ+2P1zjv6z4D9O/6OfAWx9EtqcqIbWOHB8KiWJ/2lffDCqhW9ISidGE3Ew8jUTlHDgWdEHifgK2KCajGD/HtdWSXZgsIlljn8tmrCU59bVKpAH6bkVqCp1eX5gAOQuTa5hPItY45cHOvEwVFjxZP5DdmaroNxrmaBzUw3n8+l/TlNYmCxX47z8zWhPw8seJI5W0eX5Gizn8p7wb9XP0MoTtM4Z2LV8WGx0n96Gdd4cHYvrPay/Epuqg3rMBzTF6F31r7R5j/xqQytir2lNhp33VBMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::5b) by CY5PR11MB6463.namprd11.prod.outlook.com
+ (2603:10b6:930:31::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Mon, 12 Oct
+ 2026 05:00:29 +0000
+Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
+ ([fe80::19f5:13eb:df52:68ff]) by DS4PPFE901A304F.namprd11.prod.outlook.com
+ ([fe80::19f5:13eb:df52:68ff%8]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
+ 05:00:29 +0000
+From: "Kandpal, Suraj" <suraj.kandpal@intel.com>
+To: "Golani, Mitulkumar Ajitkumar" <mitulkumar.ajitkumar.golani@intel.com>,
+	"intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+CC: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH v1] drm/i915/display: Allow port sync on PTL
+Thread-Topic: [PATCH v1] drm/i915/display: Allow port sync on PTL
+Thread-Index: AQHdWgAYpHoy9l+YTU61BIdlDVpxOLb5VA7Q
+Date: Mon, 12 Oct 2026 05:00:29 +0000
+Message-ID: <DS4PPFE901A304F863A95A27770071C6901E39F2@DS4PPFE901A304F.namprd11.prod.outlook.com>
+References: <20261012040402.3332398-1-mitulkumar.ajitkumar.golani@intel.com>
+In-Reply-To: <20261012040402.3332398-1-mitulkumar.ajitkumar.golani@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS4PPFE901A304F:EE_|CY5PR11MB6463:EE_
+x-ms-office365-filtering-correlation-id: 4f76a46d-7ce2-41d5-b68c-08df281dbc7a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|261009223027099003|38070700021|56012099006|260925021311599003|260925022911599003|260925021911599003|11063799006|10067099003|18002099003|22082099003|3023799007;
+x-microsoft-antispam-message-info: vNQkeGC5QZoL2m2bxsgzZ/N3KcaSUd0qEtuF5KMtnvteeATKT6Tt0YLIyG+cpQqeOsL616sHkIPSNYt3wuiyqWafE9LXBWrk4ZXoYXmkHjgIqTKhqCsfnbDRmV9Vod8zeNfIF4tpYCoB/pDx7GnZgEaG4F+sMQvvVlbwcFJ7Im+6zO5ex9B2v2nFrVsQOkG/ZOnzJY6jHbDFSXtrFYHKqASp6p34nxpMdwKX0NEys+p3+Rq16kBXQi3ops8HQsXevIPiueCGMep9GtlsVTVrQFk3CzzPmH4pHfvhcJESyLgZ0yn3Fc9dnbeNsNPpz9k19ca4w2khjn2PSStBqw8mNNQ5kbPz2heYkjFFHrCxlyCo/SJGZ/9rl5xrdUdVi+0RqjnrGCNEO8Cd2yFv2PGhIMrlRW2crP8qNpqvxDNnFMVN5RewSBZcpzMOsF98S97kqURQin/izlUq1ty8nOc7z/zf4i7jTLz0eVovwMJIIWWr0L/QToodJNyJYTUbv39I5xWfkIL0sCN0kuftxAZGph/EKSO4fv968s7yGkAncU3bZuAA2VzAGN72Z2WL0sK14xqps8REqN8nmc4cGxR5kDtVxhPvnRAZe+4ei0PFaIk7tpb/5fIPktXpEgvDomJQ37XJAkXi64D8dNMNxQV/UwGU1yHbRgqB0vswLvOvP9Y=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPFE901A304F.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(261009223027099003)(38070700021)(56012099006)(260925021311599003)(260925022911599003)(260925021911599003)(11063799006)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ZycpueTBk6GrtT/zfj4H1q/vNoIzOKdDxLOF0yPi3p6GQePDif/YjZwWGTe9?=
+ =?us-ascii?Q?nSGcLthdzMFzGJy/FYEvISSXrBfdfD/kBRHqi3rrpO31nxlOT6AKpedjktz6?=
+ =?us-ascii?Q?+KM5kFe8mr8jU4b8NBZQCOgyxT9hQf8KS42WGP9qjwaJVtCZjN8F9dHrFjb1?=
+ =?us-ascii?Q?wOo5Bg6Udj83/WUpi7zQPjpV46HNIn0NUU0cba3JWtkNbHWdpx7QMf055MUY?=
+ =?us-ascii?Q?Qg8s9KlftekvBEM8LCawm1guW2gh8t5MgZZh0OuNZKNV1v/RegRYqN/jyTf0?=
+ =?us-ascii?Q?8tYRZfiffo2oJuf0vyJFL1wMPs55iqjxTFQPE/mhzwG64BDAQ+FDmhDULEsJ?=
+ =?us-ascii?Q?E+P9xKf6Y9vHO5by0Ab/W8J8mDLnICHjA6FZMoMmkeS7RTdI7Yvmcn068AMw?=
+ =?us-ascii?Q?l9Qr4ddTT6xpvY+EewBZZPPJjbjOPOvbHqX7+TGpLQRrzUElgYUbmWih8mSw?=
+ =?us-ascii?Q?bs2KiRwyUc6ZwvnAsSW1MjoljKcAzVZFU050KZDao1ut7fYybnyp04LSZHxk?=
+ =?us-ascii?Q?TltwVr4LXKARQP8yJEnmLef725IKMZAGyY+gvMf8OIrJIaDlcDMO2NEYwXCj?=
+ =?us-ascii?Q?nGlk9Ojpc67q4qI8D3ddtx6mZe8YhWwG1mPlo240Ooj4l6MwEIpvWhhr/BbV?=
+ =?us-ascii?Q?3ZU5lElbZKy2hGF2VXmYTxxBJezTCXWKaIIcWWA+T6pBEFr1TU8tPmeWs4aS?=
+ =?us-ascii?Q?RCT6rlqfkWMTB14bumx3X4ljGPtIFHkjoNyHAMYJfyRiilYbSOUcZmpwL62X?=
+ =?us-ascii?Q?m2HSswqCCqwvBoUOIaK5xeX16rJcgw73f0o1aVCaz7VD3XC1IAJLnPXGkC2Z?=
+ =?us-ascii?Q?1PBVTtxUszXz1cVbNQjZ7Uh80o7B1RXMcq0Qxut0qBTj/LVcC+Cu5OpTCTTU?=
+ =?us-ascii?Q?qjMMlZuDAqbyW8VeaV1o7eazqIwFD0CDqpll5ECxNaCv1sZ8TtJf4Vim+2ga?=
+ =?us-ascii?Q?Jnddmi8/Q2E9w08HJv+5A+IZlGVdSG+tizg4vHAf2EdfByuO/jagukzuADam?=
+ =?us-ascii?Q?yvOSBt0cGWpuvcz8xNZ0msCJuePiHO9fOdOWr0+81WaNMNvJCsXJwLd0hfFA?=
+ =?us-ascii?Q?f5WY142B8qXmd6ksoO9Yxkv/znf0xH0oziVohVIfKmaLh0xwPORd7tqG1jGb?=
+ =?us-ascii?Q?8psGN5/O3ozhNQa2W4yY6Fxx8PU2mQb6TJDKjy0RykluNaO/Ng3qg6jxyrne?=
+ =?us-ascii?Q?sSq70V83nHmkhxwASzoesMMU1tgw8LC5QQDDp25pGvhH/S/sg/o1Ju8qVrjc?=
+ =?us-ascii?Q?RrxqEvtU3LBEqCZlowkdmYSuD3//uWTDgOswuIw1TCEmosSeQnfne0w0pnCN?=
+ =?us-ascii?Q?CrDKOm+uQ0o02llhql7BMxPHAAEaNEfHY3QTtvpstpYy/EECH6Qs977SaANL?=
+ =?us-ascii?Q?5G8j2Vg4mgcLgOgI2sN6pxbjVwdJGnlLnGUt3RiUUH9+3yC/uxLPz2tErGTE?=
+ =?us-ascii?Q?uxEDsxjyqZIpqvWOYy35O925K3a7lESN/0UpmKqZ88BiUmA26atEgr/M0qfr?=
+ =?us-ascii?Q?XxuCfzN9bLW0aPVMZ58+kKxMPC5xqwm5z4psnOysRj3W974tm/l20KdgJKoQ?=
+ =?us-ascii?Q?G+PrmJZoUpR0A+3or70/iXhnuhXToS5kjlzv412AOW4Qu5vg7IyPeB3MVL71?=
+ =?us-ascii?Q?2ISRL+gk+vX3IOfeynwb45zHLejOMsZpiwpqr5qnmyKx4b6ucZQ+NfXC6iiP?=
+ =?us-ascii?Q?xSPvtGHCBtSeKRcuTHvKQ6TF3eA0DebcaC9LKFLA8UHg4ZYqCyHh9eBsv3G4?=
+ =?us-ascii?Q?H8uVssnChQ=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: II9Iw6JRNfUM1mdw30U+k5yBFH+vtpHXOHMHW+8m5SsBnCIHCel66BiZbFrsStfnDsMok2u27vMbrw1p2tdq+HytpIsMlNhE1Ale5J6dtofEDR5jUDK+jIMz5bsZjfN8nKcGwN3Ejq4BR4D60mE9UTpYc5HLsTiZMSxIhadiNw23x1aB9LtjzvRL9kGVoeqEzR57R9OBvbiwEjI4cNpniDQmHPqygpmlMUcyy/erA8yylSafB5j+NZCEBwaLoORmJEkgI/SaWz3xo96/5m2AvVYub+cyWn1M3UHc1t41AcPV/lti614xN2YiwMhkmcpBywisV/JNuApnIMoUiaUpEA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPFE901A304F.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f76a46d-7ce2-41d5-b68c-08df281dbc7a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Oct 2026 05:00:29.0617
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1a5cEDCqvXbU4OCisyLBJIs79MIhq05TZdAIO2CG2jB/UGD2ekWWx8HzTW5YkmTz44JNvoolfODUWa1Qt3HaoA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR11MB6463
+X-OriginatorOrg: intel.com
 
-packet_time_ns() calculates transmission time for netem rate shaping.
-It adds q->packet_overhead (signed 32-bit integer) to len (unsigned
-64-bit integer).
+> Subject: [PATCH v1] drm/i915/display: Allow port sync on PTL
+>=20
+> Some dual-SST tiled displays exhibit visual corruption on PTL, with one t=
+ile's
+> image vertically shifted or wrapped by a random amount that changes on
+> every hotplug.
+>=20
+> PTL supports port sync, so allow it to be used to avoid these display iss=
+ues.
+>=20
+> Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8991
+> Fixes: 05cffc074938 ("drm/i915/display: Implement Wa_16024710867")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_ddi.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c
+> b/drivers/gpu/drm/i915/display/intel_ddi.c
+> index a46ab5d3d70f..a0aff087fafa 100644
+> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> @@ -4629,7 +4629,7 @@ intel_ddi_port_sync_transcoders(const struct
+> intel_crtc_state *ref_crtc_state,
+>  	 * From, xe3lpd onwards we have defeatured this with reference to
+>  	 * Wa_16024710867
+>  	 */
+> -	if (!IS_DISPLAY_VER(display, 9, 20))
+> +	if (!IS_DISPLAY_VER(display, 9, 30))
 
-When userspace configures a negative packet overhead (via
-TCA_NETEM_RATE packet_overhead attribute) and an enqueued packet's
-length is smaller than the absolute overhead, (s64)len +
-q->packet_overhead is non-positive. Because len is u64, the addition
-wraps into an astronomical value (~2^64 - 1). When multiplied by
-NSEC_PER_SEC and divided by q->rate, the calculated delay spans days,
-causing enqueued packets to be frozen in the qdisc indefinitely and
-stalling transmission.
+I am guessing you may need to update the above comment too.
 
-A similar underflow can occur in cell length calculation when
-(q->cell_size + q->cell_overhead) is non-positive.
+Other than that
+LGTM,
+Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 
-Furthermore, computing cell_len in s64 prevents sign corruption if
-cell_size >= 0x80000000 or if cell_size + cell_overhead exceeds INT_MAX.
-Computing the final transmission time with mul_u64_u64_div_u64() and
-clamping to S64_MAX avoids 64-bit multiplication overflow and prevents
-the resulting delay from turning negative in s64 delay arithmetic.
 
-Return 0 delay if effective packet length or cell length is non-positive
-so that non-positive effective packet lengths experience no rate
-throttling rather than freezing transmission.
-
-The issue was discovered via manual code audit of sch_netem.c and
-verified on a test VM using 'tc qdisc add dev lo root netem rate 100Mbit
-overhead -100', which caused immediate backlog stalls on small packets.
-
-Fixes: 7bc0f28c7a0c ("netem: rate extension")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
----
-Link to v1: https://lore.kernel.org/netdev/20261008035656.330667-1-dungvn2345@gmail.com/
-
-v1 -> v2:
-- Calculate cell_len as s64 to avoid sign corruption when cell_size >= 0x80000000 or upon s32 overflow (Sashiko AI review).
-- Use mul_u64_u64_div_u64() to prevent u64 multiplication overflow with large cell configurations, and clamp result to S64_MAX to prevent negative s64 delays (Sashiko AI review).
-- Reword commit message: remove inaccurate comparisons to sch_cake and sch_tbf; clarify the clamping policy for non-positive effective length (Sashiko AI review).
-- Include <linux/math64.h>.
-
- net/sched/sch_netem.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/net/sched/sch_netem.c b/net/sched/sch_netem.c
-index 8a1b89a289d8..3eccdc93c0b6 100644
---- a/net/sched/sch_netem.c
-+++ b/net/sched/sch_netem.c
-@@ -21,6 +21,7 @@
- #include <linux/rtnetlink.h>
- #include <linux/reciprocal_div.h>
- #include <linux/rbtree.h>
-+#include <linux/math64.h>
- 
- #include <net/gso.h>
- #include <net/netlink.h>
-@@ -366,17 +367,26 @@ static s64 tabledist(s64 mu, s32 sigma,
- 
- static u64 packet_time_ns(u64 len, const struct netem_sched_data *q)
- {
-+	u64 d;
-+
-+	if ((s64)len + q->packet_overhead <= 0)
-+		return 0;
-+
- 	len += q->packet_overhead;
- 
- 	if (q->cell_size) {
- 		u32 cells = reciprocal_divide(len, q->cell_size_reciprocal);
-+		s64 cell_len = (s64)q->cell_size + q->cell_overhead;
- 
- 		if (len > cells * q->cell_size)	/* extra cell needed for remainder */
- 			cells++;
--		len = cells * (q->cell_size + q->cell_overhead);
-+		if (cell_len <= 0)
-+			return 0;
-+		len = (u64)cells * cell_len;
- 	}
- 
--	return div64_u64(len * NSEC_PER_SEC, q->rate);
-+	d = mul_u64_u64_div_u64(len, NSEC_PER_SEC, q->rate);
-+	return min_t(u64, d, S64_MAX);
- }
- 
- static void tfifo_reset(struct Qdisc *sch)
--- 
-2.43.0
+>  		return 0;
+>=20
+>  	if (!intel_crtc_has_type(ref_crtc_state, INTEL_OUTPUT_DP))
+> --
+> 2.48.1
 
