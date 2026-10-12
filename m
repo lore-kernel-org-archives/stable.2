@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BCB7330B3F
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:24:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3F5392C29
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:24:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791818645; cv=none; b=aidGwh3fAtBjH7p4X+pW2sLE5KkV7ulfvGtHrT2wrmXR4Qz7rbH9A+T/OT93koNmpz0XNcD7lx0aUTUtno/EVpjovZ3hS84ryWy9X/1pgLYbLKQtY+SrkhTgU7YsSPqI5w6a8/09bjimLNre8PArVkuAiXwZ6QCMYHa2xnN6ZJE=
+	t=1791818651; cv=none; b=qYClEfsuSmrfcirS3EnHq4eXx6U2MXh2y4/z4gLauh5q8GxWtD1cKufcy96AZQLinj8lulJ0T3Szh+YhRxgY+Lt41zxbGHXry60eg3X9j0CaweDrHKlZO1VqxZPdzMQgmSUqJUuRxFiM89ZyZ++VLtM1y4LADx/upj9PB1Z6CLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791818645; c=relaxed/simple;
-	bh=z1VtDQ5nYTExG/x6M1U0/RTJ9g39RwQhrgt9tWkmoVk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=q/N1vTHzRJeqae3OZ8AiAWXsVLwUasXcgAI2KIE4rqt3tr6UrTGbJjCRH8ZTVLgChDdLgCuQZK6wg6neN+xEKWlu7IPXsjWt7Pq7aopRJdFlzQns35wqDoaZi0P3SPayPEMOBl3NuUCBWnyq2aIZkfrOnWU/zs3yg8UK87zLZPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0Do1o89A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791818651; c=relaxed/simple;
+	bh=xxf/rqSU+vp+paTeTHDxcyJC1oyBGzcrQ2SJVt9Pino=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tQbo2R8rvz1OefKUcDNIsHi51N5OyedYLBE4cqsizELCrc+KVvWvvHeMHMYIUAO4R5AmQ2Uh8EQWKs/2RvwhZiL6i1wsieKzRZ7VY+ZG+57NGN4GNrxlTEj7ZrS+mVSF9iODwaXCaXnGNtm8bOtXy57+guVKIUjqk2ZBxsxkfvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1/xRUsGv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0Do1o89A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 922331F0089B;
-	Mon, 12 Oct 2026 15:24:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1/xRUsGv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79F271F0089B;
+	Mon, 12 Oct 2026 15:24:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791818644;
-	bh=fE9ttKtu2n12yuGcQU0PGA11NOqyKfUrlS4SbZiRpW8=;
+	s=korg; t=1791818650;
+	bh=dLSxaeYIBDmt+uFLJEoXIXufBH3hklVgI0V3pagQXss=;
 	h=Subject:To:Cc:From:Date;
-	b=0Do1o89AkJhG/PnYNXaKEwBtAQDMhWpHvWmIJvVyrMeOC2MLjU20tUtxGlWe2wl75
-	 c5XN1MBZslzKwolZlVixPTt4U3vh932CFIKrj8UQ/Vj+YRCA5WmViKlz/wv5+ezPgQ
-	 z6nk9B5FtfYN/O8ncc9l4/9p/mGZKTHl+dChGCDY=
-Subject: FAILED: patch "[PATCH] riscv: patch: fix handling of bpf-jit execmem addresses" failed to apply to 6.18-stable tree
+	b=1/xRUsGvSD6OWUU9H0DZhJKV9a2gzFRzQ3naXr1NC/c3lLGFrqTVrLDryky/ujyvC
+	 SFAYF8AO6RyiUZFn1FUEpOdLWRMUDq/YmYylhJQQG+8htV+IQRq3SsZHtEoaujFXyd
+	 agdSaPOX3Eiz4QbQbao3qJWTcAzMREUB+5+gHsUw=
+Subject: FAILED: patch "[PATCH] riscv: patch: fix handling of bpf-jit execmem addresses" failed to apply to 6.12-stable tree
 To: imbigking12@gmail.com,pjw@kernel.org,pulehui@huawei.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 17:24:08 +0200
-Message-ID: <2026101208-patio-blinking-92df@gregkh>
+Date: Mon, 12 Oct 2026 17:24:15 +0200
+Message-ID: <2026101215-envelope-tribute-9992@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x a510e1ae8c9030750c2edf7b0bc9b186cd8c7a06
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101208-patio-blinking-92df@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101215-envelope-tribute-9992@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
