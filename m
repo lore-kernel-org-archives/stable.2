@@ -1,100 +1,298 @@
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF4E48F835;
-	Mon, 12 Oct 2026 15:34:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA5149A3D6
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:35:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819294; cv=none; b=NH1ccI/dyo/N1vUGofJureBUq6KR6WeZlNVyvT5nAGbHlsTHIkqfDG6tyKvc/FZcyTnSCrDi/BPBKO7DGwnbOMkbtVuuIp834/G/7IVA2uxvo30zrGuOZgcNuh+HxwgZmaawllHcCw8niZ4V2XKIsxoeIWEC/8gjyhK2l+NqR40=
+	t=1791819310; cv=none; b=DaQHnRgqVjWyFTU88ibgdhotqu/R79QQGFUPdkeFeivv+dWIxVPbLfXSKcF0gmqymxnw6NMwIyQD2DfI1pvxpf5jHY1X7m/+UeChiqQQwj/a8WWpnWnphlBy540dl/GIphmmdvug+29V0CwpyjPqfmHaLfGVyaOol/Lt0+wcGoE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819294; c=relaxed/simple;
-	bh=/CvxO7x3U+n36HzgwXBUyyjfzFi/SWi9ii/2G/6rHPM=;
-	h=From:In-Reply-To:Content-Type:References:Date:Cc:To:MIME-Version:
-	 Message-ID:Subject; b=L6sBq4DHXP5Uw//ypIMI72I24QKKlbLA0b2iPq69TAyJZtaDjCXyKB0bxffh2yoOilGoPMLm4jFKWFUr923alw1T51u4yJCf7DkVAmUvoi7U56V5G6D5ejvV2mSXooy0XUR2qZnd1tBVfej0NUUlDuzH3PCrI0KAPmXSwE6swr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=rsSNXd4z; arc=none smtp.client-ip=37.230.196.243
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	s=arc-20240116; t=1791819310; c=relaxed/simple;
+	bh=s2oKfJfE0hUA/WOd3d+t5wzEJJrw7Y2DjBNExoi8y8E=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Z0bO0KjgVIm6jr6w7G8hgnbHwXRBKHYmYXddFARSdATJuknFJB6AdmeBGwP1NuarjYfWiUFLoVnEsOa/+2/ywg4211eFNhN/iDdOm4ZwlLiyjY+DWuBNUhD7vQly40fduefbKnDS5ezF49F6Md1D2rWJ81WSflHvG6/PYHygdk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oZb3DkfD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="rsSNXd4z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1791819284;
-	bh=/CvxO7x3U+n36HzgwXBUyyjfzFi/SWi9ii/2G/6rHPM=;
-	h=From:In-Reply-To:References:Date:Cc:To:Subject:From;
-	b=rsSNXd4zZoBKrpTCan16D67KPc+cdqAtbmFr6X5FoPq3NQOuvQUdyxtnk7jR/Xq7W
-	 P6eg08X8FiAbE3DpT32Pgz5kIMKKQurQLGjArZyataB+0WK7PUyWy2vTWXwhkM2xRl
-	 OfVtdf7LfXhj71AjGTjqy5GXveRJQxhpi4V4b9ID2i688EGh7doWxd8eNW7GPxpspZ
-	 b+4M+YcxulPaxH9IqJtYVDFmsxb1tN2ltfF/l1UOUVpzFxolIpLbz2mBpofLzNRcHO
-	 d9hmfAYoAEVlmNCDJ0Gm7TJCyFU+rn1y0D4IEeulbOGQRVRCRMrgYDuS3yPVw1r+bw
-	 9NmcJOyYlJmYg==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id C55EF2743B;
-	Mon, 12 Oct 2026 18:34:44 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.8])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Mon, 12 Oct 2026 18:34:44 +0300 (MSK)
-Received: from localhost (localhost [127.0.0.1])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j3M1Z3jKVz3rm;
-	Mon, 12 Oct 2026 18:33:22 +0300 (MSK)
-From: =?utf-8?q?=D0=9C=D0=B8=D1=85=D0=B0=D0=B8=D0=BB_=D0=94=D0=BC=D0=B8=D1=82=D1=80=D0=B8=D1=87=D0=B5=D0=BD=D0=BA=D0=BE?= <mdmitrichenko@astralinux.ru>
-In-Reply-To: <7e9af4f7528da1307cf62e53cf6b00fa9c4f674f@linux.dev>
-Content-Type: text/plain; charset="utf-8"
-X-Forward: 10.198.48.43
-References: <20261012140642.1076-1-mdmitrichenko@astralinux.ru> <7e9af4f7528da1307cf62e53cf6b00fa9c4f674f@linux.dev>
-Date: Mon, 12 Oct 2026 18:33:22 +0300
-Cc: stable@vger.kernel.org, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Sasha Levin" <sashal@kernel.org>, "Fabio Aiuto" <fabioaiuto83@gmail.com>, "Alexandru Hossu" <hossu.alexandru@gmail.com>, "Hans de Goede" <hdegoede@redhat.com>, "Navaneeth K" <knavaneeth786@gmail.com>, "Michael Straube" <straube.linux@gmail.com>, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, "Dan Carpenter" <error27@gmail.com>, "Andrei Khomenkov" <khomenkov@mailbox.org>, "Dalvin-Ehinoma Noah Aiguobas" <fliegbert2@gmail.com>, "Michael Huang" <tehsiu.huang@gmail.com>, "Jinke Wu" <coolbeaner@126.com>, "Nikolay Kulikov" <nikolayof23@gmail.com>, "William Hansen-Baird" <william.hansen.baird@gmail.com>, "Serhat Kumral" <serhatkumral1@gmail.com>, "Nazar Kletskii" <nazar.kletskii@gmail.com>, "Jennifer Guo" <guojy.bj@gmail.com>, "Hans de Goede" <hansg@kernel.org>, lvc-project@linuxtesting.org, "stable" <stable@kernel.org>
-To: "Luka Gejak" <luka.gejak@linux.dev>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oZb3DkfD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6670E1F0089B;
+	Mon, 12 Oct 2026 15:35:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791819309;
+	bh=FkS1DTxkW5bcraOm3/z5xIdKrll313cIfs7a6G7Zs3U=;
+	h=Subject:To:Cc:From:Date;
+	b=oZb3DkfDdUc8eq7X+JUxmwJN93WxB4YgsSGlYNTnJTKzxWm4ubfQKXGf6PVvENMDb
+	 c/2XYIDrZIgduA+irQg+jmvJEWFh0hSDACoTjESpS4cFIAnok40YMfPXiALjgdKL+x
+	 aqXo5w3Q0KFDEmtUmpxR+MPG9PXymZPdUs9Yi7iM=
+Subject: FAILED: patch "[PATCH] fs: don't silently unmount busy mounts" failed to apply to 6.12-stable tree
+To: brauner@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 12 Oct 2026 17:35:14 +0200
+Message-ID: <2026101214-manlike-playable-4429@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <fa2a1e43-8b9f-2c0c-609c-ca17bd20b7c0@astralinux.ru>
-Subject: =?utf-8?q?Re=3A?= [PATCH =?utf-8?q?5=2E10]?==?utf-8?q?_staging=3A?=
- =?utf-8?q?_rtl8723bs=3A?= fix OOB read in OnAssocRsp() IE loop
-User-Agent: SOGoMail 5.12.9-rp6
-Content-Transfer-Encoding: quoted-printable
-X-KSMG-AntiPhishing: NotDetected
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {diag_burst_silent}, {Tracking_from_domain_doesnt_match_to}, {Tracking_Sogomail}, astralinux.ru:7.1.1;new-mail.astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 206608 [Oct 12 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/12 14:59:00 #28677641
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Mon, 12 Oct 2026 at 17:19 MSK, Luka Gejak <luka.gejak@linux.dev> wro=
-te:
-> It seems to me that this was sent by accident by running git format-p=
-atch -1
->
-> You probably forgot to commit so git made last commit into a patch fi=
-le.
->
-> Either way staging rtl8723bs is getting removed in linux 7.4 so any
-> further commits for rtl8723bs are discouraged.
 
-Hi Luka,
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Thanks for taking a look. This was intentional: it is a backport of
-your reviewed fix f9654207e922 for the 5.10.y stable tree (hence the
-[PATCH 5.10] prefix). The upstream commit is tagged Cc: stable and is
-already in 5.15.y and newer, but 5.10.y is still missing it
-(CVE-2026-64444).=20
+To reproduce the conflict and resubmit, you may use the following commands:
 
-As far as I understand, the removal in 7.4 affects mainline only; the
-driver is still part of 5.10.y, so the fix is still relevant there.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 6857e209015f95be7a8f19a9cd5dac345b9b9859
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101214-manlike-playable-4429@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-Best regards,
-Mikhail
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 6857e209015f95be7a8f19a9cd5dac345b9b9859 Mon Sep 17 00:00:00 2001
+From: Christian Brauner <brauner@kernel.org>
+Date: Wed, 23 Sep 2026 14:27:57 +0200
+Subject: [PATCH] fs: don't silently unmount busy mounts
+
+The propagate_mount_busy() helper exists to decide whether a synchronous
+can suceed. It does that by looking at the copies of the victims in the
+mounts its parent propagates to. One of those functions from propagation
+hell.
+
+It skips a copy that has child mounts except for the case of a single
+child mount covering the copy's root. That algorithm used to be exact.
+It isn't anymore.
+
+Originally only childless copies were unmounted during propagation.
+And 1064f874abc0 ("mnt: Tuck mounts under others instead of creating
+shadow/side mounts.") ended up adding covered mounts to both sides in
+one go.
+
+Along came 99b19d16471e ("mnt: In propgate_umount handle visiting mounts
+in any order") and that started to unmount more than before:
+
+[1]: A copy of a mount is unmounted when each of its children is either
+     its overmount or a copy of the victim itself. In the former case
+     the overmount gets reparented. In the latter case the copy of the
+     victim will end up being unmounted.
+
+So propagate_umount() ended up being rewritten without adjusting
+propagate_mount_busy(). And currently propagate_mount_busy() doesn't
+look at copies of the victim that have two or more children nor a single
+child that is not the overmount.
+
+So any such copy in [1] is not checked for
+references. The result is that a synchronous unmount succeeds, pulling
+out a mount that is still in use.
+
+A container can run into this with its own mounts. The host shares a
+tree with the container and the host has a mount in that tree:
+
+  mount -t tmpfs none /mnt
+  mount --make-shared /mnt
+  mount -t tmpfs none /mnt/a
+
+The container's /mnt is a slave copy of the host mount. The container
+now takes a detached copy of the tree and mounts that copy beneath its
+propagated copy of /mnt/a and keeps the file descriptor to the tree
+open:
+
+  unshare -m --propagation unchanged
+  mount --make-rslave /
+  fd = open_tree(AT_FDCWD, "/mnt", OPEN_TREE_CLONE | AT_RECURSIVE)
+  move_mount(fd, "", AT_FDCWD, "/mnt/a", MOVE_MOUNT_BENEATH)
+
+  grep /mnt /proc/self/mountinfo
+  775 355 ... /mnt ...     master:646
+  777 775 ... /mnt/a ...   master:646
+  776 777 ... /mnt/a ...   master:647
+  778 777 ... /mnt/a/a ... master:647
+
+The now attached tree (777) is now mounted beneath the container's copy
+of /mnt/a. That's also where the host mount sits (as seen from the host
+mount namespace). So the propagated copy (776) of the host's mount is on
+top of its root and the copy of that (778) is inside it. Now the host
+runs:
+
+  umount /mnt/a
+
+and it succeeds. The moved tree tree and the copy inside of it are gone
+from the container. Now only the propagated copy is left and it got
+reparented to where it was before:
+
+  grep /mnt /proc/self/mountinfo
+  775 355 ... /mnt ... master:646
+  776 775 ... /mnt/a ...
+
+But the file descriptor still refers to the moved tree. So a synchronous
+umount detached a mount that is still in use.
+
+Teach propagate_mount_busy() the same checks that propagate_umount()
+does. It now checks for a single victim mount without children
+for which it can assume that MNT_LOCKED is cleared on every copy like
+propagate_umount() does. The copies form chains. IOW, when a copy itself
+receives propagation from the victim's parent then the mount at the same
+mountpoint inside that copy is a copy as well. Whether a mount receives
+propagation from the victim's can simply be checked by walking its
+masters. Walk each chain once from its top so we are sure that nested
+copies stay linear. Check every reference once of every copy that gets
+unmounted.
+
+Link: https://patch.msgid.link/20260923-work-mount-fixes-v1-5-f424cf8d3242@kernel.org
+Fixes: 99b19d16471e ("mnt: In propgate_umount handle visiting mounts in any order")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+
+diff --git a/fs/pnode.c b/fs/pnode.c
+index 5d91c3e58d2a..2cd667958efe 100644
+--- a/fs/pnode.c
++++ b/fs/pnode.c
+@@ -410,19 +410,99 @@ bool propagation_would_overmount(const struct mount *from,
+ 	return false;
+ }
+ 
++/* Does @m receive propagation from @parent? */
++static bool receives_from(struct mount *m, struct mount *parent)
++{
++	if (m == parent)
++		return false;
++	for (; m; m = m->mnt_master)
++		if (m == parent || peers(m, parent))
++			return true;
++	return false;
++}
++
++/*
++ * Does @m receive propagation from the victim's parent as well? If so, then
++ * the mount at the victim's mountpoint inside of @m is a umount candidate as
++ * well. So it's the next candidate in the chain. Otherwise the chain ends at
++ * @m.
++ */
++static struct mount *next_candidate(struct mount *m, struct mount *victim)
++{
++	if (!receives_from(m, victim->mnt_parent))
++		return NULL;
++	return __lookup_mnt(&m->mnt, victim->mnt_mountpoint);
++}
++
++/*
++ * Would propagate_umount() pull out a mount of the chain of candidates that
++ * starts at @c, and does that mount have references beyond its own?
++ *
++ * This mirrors how trim_one(), trim_ancestors() and handle_locked() handle a
++ * synchronous umount:
++ *
++ * - single victim
++ * - without children
++ * - with MNT_LOCKED already cleared on every candidate by propagate_mount_unlock()
++ *
++ * A copy of the victim gets unmounted when each of its children is
++ * the next candidate in the chain or its overmount, unless the next
++ * unmount candidate is not its overmount and some unmount candidate further
++ * down has a child outside the chain.  Keep this in sync with
++ * Documentation/filesystems/propagate_umount.txt.
++ */
++static bool chain_busy(struct mount *c, struct mount *victim)
++{
++	struct mount *m, *n, *next, *deepest = NULL;
++	bool above;
++
++	/* the deepest candidate with a child outside the chain */
++	for (m = c; m; m = next) {
++		next = next_candidate(m, victim);
++		list_for_each_entry(n, &m->mnt_mounts, mnt_child) {
++			if (n != next && n != victim) {
++				deepest = m;
++				break;
++			}
++		}
++	}
++
++	above = deepest != NULL;	/* @deepest is at or below @m */
++	for (m = c; m; m = next) {
++		bool goes = true;
++
++		next = next_candidate(m, victim);
++		list_for_each_entry(n, &m->mnt_mounts, mnt_child) {
++			if (n != next && n != m->overmount && n != victim) {
++				goes = false;
++				break;
++			}
++		}
++		if (goes && next && next != m->overmount && above && m != deepest)
++			goes = false;
++		if (m == deepest)
++			above = false;
++		if (goes && do_refcount_check(m, 1))
++			return true;
++	}
++	return false;
++}
++
+ /*
+  * check if the mount 'mnt' can be unmounted successfully.
+  * @mnt: the mount to be checked for unmount
+  * NOTE: unmounting 'mnt' would naturally propagate to all
+  * other mounts its parent propagates to.
+- * Check if any of these mounts that **do not have submounts**
+- * have more references than 'refcnt'. If so return busy.
++ * Check if any of the mounts that propagate_umount() would pull out
++ * along with it have more references than their own. If so return busy.
+  *
+  * vfsmount lock must be held for write
+  */
+ int propagate_mount_busy(struct mount *mnt, int refcnt)
+ {
+ 	struct mount *parent = mnt->mnt_parent;
++	struct dentry *mp = mnt->mnt_mountpoint;
++	struct mount *m;
+ 
+ 	/*
+ 	 * quickly check if the current mount can be unmounted.
+@@ -435,24 +515,16 @@ int propagate_mount_busy(struct mount *mnt, int refcnt)
+ 	if (mnt == parent)
+ 		return 0;
+ 
+-	for (struct mount *m = propagation_next(parent, parent); m;
+-	     		m = propagation_next(m, parent)) {
+-		struct list_head *head;
+-		struct mount *child = __lookup_mnt(&m->mnt, mnt->mnt_mountpoint);
++	/* the candidates are the mounts at @mp below the receivers */
++	for (m = propagation_next(parent, parent); m;
++	     m = propagation_next(m, parent)) {
++		struct mount *c = __lookup_mnt(&m->mnt, mp);
+ 
+-		if (!child)
++		/* each chain once, from its top: skip receivers that are candidates */
++		if (!c || (mnt_has_parent(m) && m->mnt_mountpoint == mp &&
++			   receives_from(m->mnt_parent, parent)))
+ 			continue;
+-
+-		head = &child->mnt_mounts;
+-		if (!list_empty(head)) {
+-			/*
+-			 * a mount that covers child completely wouldn't prevent
+-			 * it being pulled out; any other would.
+-			 */
+-			if (!list_is_singular(head) || !child->overmount)
+-				continue;
+-		}
+-		if (do_refcount_check(child, 1))
++		if (chain_busy(c, mnt))
+ 			return 1;
+ 	}
+ 	return 0;
 
