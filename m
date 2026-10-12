@@ -1,175 +1,103 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3851438466
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 07:42:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516AA44604E
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 07:46:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791790979; cv=none; b=qcM6wBeHqSi67H86nKKDOgNhQS/bQPiiOQlgQPwjfSLFiYU3ulIahcEQtrs5YU/nfzTjr9zV6+gHH2b7sOogbFORcUG+ON0Mh2Xold8XZCvpgg06CSPFfA44Z2KPFThfpVfrj9wOpJbazxLhy7XvmW6pgbK7Dt2Dro4hBoLPb3Y=
+	t=1791791169; cv=none; b=gEyaYBioQign7XdHQlKqI5VgP3MgU91yTMVBbSLMtHLRa90fsH4NOuILBWZ9ZHTZUKAJbHihCuOAtxne2yjo9GV3iYTjT/P5S51Kh9Hbky4K7F/6UxqcXBf5FBags+OuX5vXzSGv8qdoOlzyL/P/U2Rm9rmnY6pdhuZSJZ/Du2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791790979; c=relaxed/simple;
-	bh=5US6qHRDMsC7+3n4j55+vD2ffevfbGh9rWJssZb03RI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pEjETmRopGvZikk776+EPkZoBSZz+a7siPoJ37Vi+LhS6UGG4kNTaROsT/i9sbVIZOvWx7T6lS4WHEvG2JGzYwpx7UXWtHtaQFZwaioQnJu4+AUORk4FbOwaduRWoh4SaygQ8lP/A2G7+cBK3hTCh6OFyoBqDe5TdSc/N/6hOmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=db+sDMKX; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791791169; c=relaxed/simple;
+	bh=zWVsuj/ru3q95cCd/6cDOAqJPRoetdPZGWTKPAQPs/g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HQwJEJsB0iNQM8quDFbsY99oQFXj7WO5agjvo8qn+rLYf5vlCEyOCFdvb18id78N+ueQAg1T6P4EBEWGsHZnsLI4nOFK3OtewkhKtCbXBvPQitXx4nCyPs6IthOWWfz5R1/ExWo6mfgjeyneV1yZqp9Otm/bnK+cZSeH46HcubE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=jTP7xg4x; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="db+sDMKX"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ab066bef7dso701489a91.1
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 00:42:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791790975; x=1792395775; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Kcb5d4WbMF0RGuZ6n9zwqpNvEO0t828hCiSHNJS62Zk=;
-        b=db+sDMKXrXA5XmXgVN7YtlDXgq3epPo3+YfSrzqNCfGQfVxt2WKmN2I4ZTHq/4ONmZ
-         HzPdttzy9lu43H6Ab9+09lJhYVyEJmF5d/hIgfsYkblP/F6u9ZCKgOc7AM5lFmtfjuzs
-         h3J+zHBAEeTKnmuA+y06aHI8URtzJH0/SxemsRLbIQAOJMlljb5Po539pQsrCpS9oHS9
-         pGrgVlizlLM26HjZXZv7ojHVqsAffAPjKwzPwQWzMV6NO1+rHwp3pFtF7Qoh46W2JrIq
-         dvRFLIAQjtxgyw45uEoag5Nyamv202QD690J4SkoYWDS5oBru3F5CY4y9q+Yr1UNsGwR
-         FVrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791790975; x=1792395775;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Kcb5d4WbMF0RGuZ6n9zwqpNvEO0t828hCiSHNJS62Zk=;
-        b=Dbl6Ej6rofZXphYS0+XCItJXNvLLIrfczR4N8bmfGSX+mNivG5mssDAqnhfBMBNPh0
-         gRIij1n0WihCPLIiABDT9tHYDwSnRtHUCtSn004OQnGlBCBFvDiwy/nmkqG2Fdam/RkC
-         upLAndO6uFLZwoXyRmgaguRyqtwvKNGJNbme8dOvvgVO+W41XN6N05kSYefy2hxTQML+
-         4dqNLSAsSoGMEP+Hy+AP1HnVmjBAlwI5c8LrBlKeXgzjPjt7BmVjTMrJicCg9c74u5r7
-         4vpUEb9pvmr54XFQe24pdds53qLvmq0meMzLaUYRLuuo6zlCIzx20QBMWQ7t45U2xCSi
-         dlGw==
-X-Forwarded-Encrypted: i=1; AKwUvBwVkp8pA3O71/0L/lNEvX6ZjctA5oqiF4t9gH1uXF0nvuDQ7/bvtUJubxqaofd6MRHp6cXqKOc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZCJeF1LKVBCfEI/mBNVWXJwhyfbeeMWtjrhOBcbNeOuftzP5B
-	K14Rdlc7LviGrdX+kBHqAv5qfXu5tpbT/KJirPgW1Aq0TVxEnhDDCqNh
-X-Gm-Gg: AYBFou2uMQsysbuwSp2YuI37ZafS8xZtCBY83k3f+4Rk5avZf+CRd3RdUTO2y2mnXyY
-	s3OUtFqauFNafVy2yuIZHsbtIhB18FXiy8vNZo8PnDXGF2N/dU7+Pgz4NYYwNsomrDA5rgn0zPg
-	K9Am0ndpG5IliQuzTnvP74gxmb0bd2jUbi+t8OiBo1AGLsyRyVEPXMDT7qG+VJy6zAt9fn3I0rY
-	eI5dtwQJMJoun4xLwOeXO6vAu9iycNKwt1+3Hg0NCC3oIdron3XUke0E4l7TH+gMi+pGA7YdZKQ
-	PWqddSOLFAsyG+pF3FXKLL0oL/0TFYjwuSJ0+799XmjTlfnNhpHIqa1iHEcB4qW+/eXTWjN/BKD
-	oPuQh/y8cyBptKcJthjfcqHM9JQfr8iLjmsDjxNRqTv5O/UdTrlImW0tX4aUhuiri4YTms33T2s
-	Jvdha715G4tcltIWe31gOz3dkcNfsiOGiVQoIWVQbeHqm1kJN4vOChM+MgoKJnw3XTVtVxSYXHo
-	RFX5kRHxr7RnTXYGql8Dn9VtzPr0SH5Y+4sYQr1bg==
-X-Received: by 2002:a17:90a:c88b:b0:3a4:8c41:fab6 with SMTP id 98e67ed59e1d1-3ab3ab32a3amr6713683a91.46.1791790974980;
-        Mon, 12 Oct 2026 00:42:54 -0700 (PDT)
-Received: from lenovo.localdomain (211-23-53-87.hinet-ip.hinet.net. [211.23.53.87])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab37139b59sm15470556a91.13.2026.10.12.00.42.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 00:42:54 -0700 (PDT)
-From: Yu-Hsiang Tseng <asas1asas200@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] iio: acpi: Accept comma separated values in ROTM strings
-Date: Mon, 12 Oct 2026 15:41:44 +0800
-Message-ID: <20261012074144.1060625-1-asas1asas200@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="jTP7xg4x"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=TmnLgP+y1H71vWYuXUmZTmFTkqquXDqtP7vLnEohO00=; b=jTP7xg4xqLq4sdswNhW7Oa1tec
+	D0MuJ17lq+LwL3+AGb36fmIauiQ45RoQXnQmP7ZHpgkBAhZYhxWvwRawJjQCxipEjEaAO+FE01wck
+	WY8iKt8sqCYIgwaJxrIpKYSsoBGIGNptYb086FJ1kfDLqtvX8s9G9WwRQBPol/SubBH/BlfcMO+9a
+	RmcIUB8AvVinjFn+4Iw0QO0hit9apMZepk0zslCFAOd/cV7xjztdueWwplnUtHP8BZ0KnO8MuNbV5
+	oCV1izqNolV/COOPRhwhgBlod6YJIw7lfIFiF53LuZVPScxVdb8GwaPOVtHLoQjnkBBDvQzQQOiJy
+	tu3pnIyg==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xGAj9-00GE47-9r; Mon, 12 Oct 2026 09:45:43 +0200
+Message-ID: <770ded5a-e406-43d4-9909-1531de89fce1@igalia.com>
+Date: Mon, 12 Oct 2026 08:45:42 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/sched: c
+To: phasta@kernel.org, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, stable@vger.kernel.org
+References: <20261002124622.74696-1-tvrtko.ursulin@igalia.com>
+ <154fd1c6273812a804799cb82d11655c1726a83e.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <154fd1c6273812a804799cb82d11655c1726a83e.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The ROTM method of the MXC6655 accelerometer on the Higole F9B, an
-Alder Lake-N handheld (AMI BIOS F9D_16G_P800217, DMI strings are all
-"Default string"), separates the values with a comma and a space:
 
-	Method (ROTM, 0, NotSerialized)
-	{
-	    Name (SBUF, Package (0x03)
-	    {
-	        "-1, 0, 0",
-	        "0, 1, 0",
-	        "0, 0, 1"
-	    })
-	    Return (SBUF)
-	}
+On 08/10/2026 11:18, Philipp Stanner wrote:
+> On Fri, 2026-10-02 at 13:46 +0100, Tvrtko Ursulin wrote:
+>> When the out of range priority at entity init time is clamped to the
+>> number of run queues in the supplied scheduler the internal run-queue
+>> priority needs to be adjusted as well.
+>>
+>> There is no impact since none of the drivers hit the clamping path, but
+>> we still need to address it by moving the entity->rq_priority assignment
+>> to after the clamping is done.
+>>
+>> Note that a lot of this will hopefully get removed once again when the
+>> single run-queue simplification lands.
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
+> 
+> Help me out here; we recently landed this fix [1] that Luke reported.
+> Is there a relation? I guess not, since you say there is "no impact".
+> 
+> This did not exist before CFS in drm_sched, did it? Did you discover it
+> by review?
 
-iio_read_acpi_mount_matrix() only accepts the space separated form used
-in Microsoft's example ("0 1 0"). It rejects this matrix and mxc4005
-falls back to the identity matrix:
+Bug did not exist neither before CFS, nor with full CFS. It surfaced 
+after the reverts of FIFO and RR removals and the single run-queue 
+simplification. So the bug was in the middle of the original CFS series.
 
-	mxc4005 i2c-MXC6655:00: Incorrect ACPI mount matrix string format
-	mxc4005 i2c-MXC6655:00: mounting matrix not found: using identity...
+And there is indeed no impact, it's only theoretical. There would only 
+be impact if any of the in-tree drivers would passing an entity to 
+drm_sched_entity_init, with a scheduler which has fewer priority levels 
+(run-queues) than the entity. And I am pretty sure no driver does that 
+otherwise this would be firing:
 
-With the X axis not inverted, iio-sensor-proxy reports left-up when the
-device is held right-up and vice versa, so the desktop turns the
-picture upside down whenever the handheld is held in landscape.
+   dev_err(sched_list[0]->dev, "entity with out-of-bounds priority:%u 
+num_user_rqs:%u\n",...)
 
-It is not the only BIOS written this way. The BOSC0200 on the AYANEO
-Air Plus uses commas in its ROMS method as well, with a space before
-one of them, and its ROMK method has "1, 0,0":
+Which was there for ages, added in
+2bbe6ab2be53 ("drm/sched: Fix bounds limiting when given a malformed 
+entity")
+which says it should not happen. So it would have been noticed.
 
-	Method (ROMS, 0, NotSerialized)
-	{
-	    Name (SBUF, Package (0x03)
-	    {
-	        "-1, 0, 0",
-	        "0, -1 , 0",
-	        "0, 0, -1"
-	    })
-	    Return (SBUF)
-	}
+And yes, I spotted this while working on patches leading to the spsc 
+removal.
 
-The kernel's sscanf() does not support '%*[', so there is no clean way
-to take both separators in a single format string. That leaves either
-a second sscanf() call with a comma format, or normalizing the
-separator first. Do the latter: turn the commas into spaces before
-parsing, so the existing "%d %d %d" format, which already takes any
-amount of white space around the values, keeps working unchanged. The
-strings live in the buffer acpi_evaluate_object() allocated for us, so
-they can be modified in place.
+Once we re-land the single run-queue simplification the check and error 
+log get removed once again. But until then I think it makes sense to 
+have the code fully theoretically correct.
 
-With this change in_accel_mount_matrix on the Higole F9B reads
-"-1, 0, 0; 0, 1, 0; 0, 0, 1" and, with no udev hwdb override, the
-desktop rotates correctly in all four orientations. The AYANEO Air
-Plus was not tested; systemd's hwdb has an entry for it, which
-iio-sensor-proxy prefers over the kernel's matrix.
-
-Link: https://github.com/hhd-dev/hwinfo/blob/d9508123bee46ae3a59dc24826030ef51ea95058/devices/ayaneo_airplus/acpi/decoded/dsdt.dsl
-Cc: stable@vger.kernel.org # 6.10.x
-Assisted-by: LLM
-Signed-off-by: Yu-Hsiang Tseng <asas1asas200@gmail.com>
----
- drivers/iio/industrialio-acpi.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/drivers/iio/industrialio-acpi.c b/drivers/iio/industrialio-acpi.c
-index d67a43843..c77926f6d 100644
---- a/drivers/iio/industrialio-acpi.c
-+++ b/drivers/iio/industrialio-acpi.c
-@@ -6,6 +6,7 @@
- #include <linux/export.h>
- #include <linux/iio/iio.h>
- #include <linux/sprintf.h>
-+#include <linux/string.h>
- 
- /**
-  * iio_read_acpi_mount_matrix() - Read accelerometer mount matrix info from ACPI
-@@ -63,6 +64,14 @@ bool iio_read_acpi_mount_matrix(struct device *dev,
- 		}
- 
- 		str = elements[i].string.pointer;
-+		/*
-+		 * Microsoft's example separates the values with spaces, "0 1 0".
-+		 * Some BIOSes use commas instead, with or without spaces around
-+		 * them: "0, 1, 0", "0, -1 , 0", "1, 0,0". The string lives in
-+		 * the buffer allocated for us above, so turn the commas into
-+		 * spaces in place before parsing.
-+		 */
-+		strreplace(str, ',', ' ');
- 		if (sscanf(str, "%d %d %d", &val[0], &val[1], &val[2]) != 3) {
- 			dev_err(dev, "Incorrect ACPI mount matrix string format\n");
- 			goto out_free_buffer;
-
-base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
--- 
-2.55.0
+Tvrtko
 
