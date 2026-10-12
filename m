@@ -1,89 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 369AF32824B;
-	Mon, 12 Oct 2026 14:25:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A586348CD55;
+	Mon, 12 Oct 2026 14:29:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791815132; cv=none; b=dc3ax3gIxsRxlq86WJErdpM3JfgYTv5/ds3g9HKvpJT6LwzLhdrGI6Nodl8KX0JWtfkUtLXjhFMohv/fa0NpIcFU3KhKyC5J+5zb/UKmdZXUWFkR47ufwKibVRfmlzNKUaMjRlbGkoNDXjr3ccc6jL/uhbQVrRSGTxdvljtAG8w=
+	t=1791815351; cv=none; b=ssxgHNB91pyzKqepQ8TvKIV9g49L5dNdRFT4tiee6/hTSo9foxRzIAa3pFXg4LAlylr8D2uFhlbVPpKBraMqqxtu8Thgu6CwZBlJ/FHuEEYeYz96F4EH5xHUKe2CE4DGQfxtC96yNCVkVuxIvr6ydYBUHw9xno3F6hk6pOWF4lc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791815132; c=relaxed/simple;
-	bh=rSb27zLdpu0dYHiznSvxveaV1ziAQuwRQHdiQPEcrPg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=leHLBLb+vXCL4vi6CZNqtDlkhS1HZd8oq6csHU/MdRi1yN88KUL3lYaInBBpTRI8dRZogR8h27hwmJAnZglTYwyW3aBa94siAA2yq28x2WcIWS8QAzRVIgdeYdoAs/c3Ux6o3UEPotEGn9lHpldw1Rzl1bTVQ6ELQbC9GuX1tj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HsEHvGOL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791815351; c=relaxed/simple;
+	bh=LeDPnBgrM7pNQ8OlNZHsJRQR3r2PXLGLegBZ2Qsqzf8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nvyqM7kWChZkfouMT28MUz9fayCz7R8o1KzaZhprVjb1y580XEJFFJYF5Pi3I8A9jD3n9vsjyvRjdrpqDKYy1GBXcblzXLbCpck8x/jVADWXuYW4LaLSUq3EYjvJYt9Hj1no8w29tEWzByLqivpdyxb8YAt6ixf9grlGn1N72vw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=FjGgQOgH; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HsEHvGOL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C76201F0089B;
-	Mon, 12 Oct 2026 14:25:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791815130;
-	bh=mjEQR7BUyCacDd88k8LcDx+pGeS9YyLHTLECabn56ew=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=HsEHvGOLdNLNMk2ekkqfnbimIZtTFazE3X2Si695B0muhw/PzGvKqP3A5J6ZuAzNF
-	 LAjghAXJhElYFUuAdhUCTbo4Qjag0MpvECSP92lMxOABK5smPyGLKfVkl36zIRbIyd
-	 AyXIr+tcFX2N/thWxGZWc7H6kL7xTu7C6/RIb5fXsw4ILJxcwJiFNZ2B/XdoBES3UU
-	 B0Ps5MlRbBXkKKzZqblXBe2f8hJsmW/p62EJPJNQPy+c4Xvxu/TtGOui01Fi4DNQDo
-	 GqJWzJWVAKzzHcktQSPCkr/8e961uSm5F+sxJO2SAOEGwi/juK2vymTbAW7fTTw4IE
-	 fyYVyTxzonySw==
-From: Christian Brauner <brauner@kernel.org>
-To: Carlos Maiolino <cem@kernel.org>, 
- "Darrick J . Wong" <djwong@kernel.org>, 
- Joanne Koong <joannelkoong@gmail.com>, Brian Foster <bfoster@redhat.com>, 
- Christoph Hellwig <hch@infradead.org>, Damien Le Moal <dlemoal@kernel.org>, 
- Hannes Reinecke <hare@suse.de>, Daniel Gomez <da.gomez@samsung.com>, 
- Pankaj Raghav <p.raghav@samsung.com>, Dave Chinner <dchinner@redhat.com>, 
- Andrea Parri <parri.andrea@gmail.com>
-Cc: linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <cover.1790342457.git.parri.andrea@gmail.com>
-References: <cover.1790342457.git.parri.andrea@gmail.com>
-Subject: Re: [PATCH v3 0/4] iomap: fix error handling regressions
-Message-Id: <20261012-puschen-bibliothek-normung-535ea9605a95@brauner>
-Date: Mon, 12 Oct 2026 16:25:25 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="FjGgQOgH"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 40C1E4E411A5;
+	Mon, 12 Oct 2026 14:29:08 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0F22E601A6;
+	Mon, 12 Oct 2026 14:29:08 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F37FF11D708B4;
+	Mon, 12 Oct 2026 16:28:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791815339; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=kAb7NHjVc8QoTRTxUb1OG7thf2F5YhXlem84GhsJqnE=;
+	b=FjGgQOgHcTUDDGnIbSuozwmNqeMTRdBQVZaPNnUfhfNiHolctNHx1hOE21Ll6aYc6zsp1v
+	tYfEnkKxdGOOtY680hMNAcNEJaM9GkRVagicVm8ou5DFrd5VuLmwgGbbtWaPBFa0nRcAW7
+	iuGKxtDnIWPKwfwaYZObdeJ9zckNqniI+KLN1vyuvrXhXy0sCRuVe0N2R2v06p+hCVJxzJ
+	Oxu6iH3orqfi6ElTPOegR+Wj2TpZlYb7tN7T2IqKprgAnyueowX5lDSHa/Zsq+QxXiQiAc
+	GNRjXOfG2P+7tWArtGJk8xGwxsp+opS6e8tVRR7Xqp4HXMpqP3lAkPgm74kLIg==
+From: Herve Codina <herve.codina@bootlin.com>
+To: Richard Cheng <icheng@nvidia.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dan Williams <djbw@kernel.org>,
+	Ira Weiny <iweiny@kernel.org>,
+	Li Ming <ming.li@zohomail.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Lizhi Hou <lizhi.hou@amd.com>
+Cc: driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	linux-gpio@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-cxl@vger.kernel.org,
+	Allan Nielsen <allan.nielsen@microchip.com>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	Daniel Machon <daniel.machon@microchip.com>,
+	Steen Hegelund <steen.hegelund@microchip.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	stable@vger.kernel.org,
+	Ulf Hansson <ulf.hansson@linaro.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH v13 01/10] driver core: fw_devlink: Introduce fw_devlink_set_device()
+Date: Mon, 12 Oct 2026 16:28:15 +0200
+Message-ID: <20261012142826.159178-2-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261012142826.159178-1-herve.codina@bootlin.com>
+References: <20261012142826.159178-1-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-3d1b8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, 28 Sep 2026 10:48:05 +0200, Andrea Parri wrote:
-> Fix three independent error handling regressions in iomap:
-> 
->  - clear the writeback context after a failed ->writeback_submit() call,
->    preventing an already completed ioend from being submitted again;
->  - preserve an iomap iteration error when iomap_fiemap() has a pending
->    extent to emit; and
->  - preserve a direct I/O data path error when sub-block tail zeroing
->    succeeds.
-> 
-> [...]
+Setting fwnode->dev is specific to fw_devlink.
 
-Applied to the vfs-7.4.iomap branch of the vfs/vfs.git tree.
-Patches in the vfs-7.4.iomap branch should appear in linux-next soon.
+In order to avoid having a direct 'fwnode->dev = dev;' in several
+place in the kernel, introduce fw_devlink_set_device() helper to perform
+this operation.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+Having this helper allows to hide the fwnode devlink related stuff
+behind the helper.
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+Cc: stable@vger.kernel.org
+Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Reviewed-by: Ulf Hansson <ulf.hansson@linaro.org>
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Reviewed-by: Richard Cheng <icheng@nvidia.com>
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+---
+Cc stable because used by other patches with Fixes + Cc stable
+---
+ include/linux/fwnode.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.4.iomap
-
-[1/4] iomap: don't resubmit an ioend after ->writeback_submit() failed
-      https://git.kernel.org/vfs/vfs/c/9646682717e6
-[2/4] xfs: add an error tag to inject a ->writeback_submit() failure
-      https://git.kernel.org/vfs/vfs/c/e50b5a3028d0
-[3/4] iomap: don't lose a fiemap iteration error when emitting the last extent
-      https://git.kernel.org/vfs/vfs/c/ec2874845c99
-[4/4] iomap: don't lose a failed direct I/O bio's error when zeroing the tail
-      https://git.kernel.org/vfs/vfs/c/750148e10873
+diff --git a/include/linux/fwnode.h b/include/linux/fwnode.h
+index a9dcaf7e7076..3ce49575cf82 100644
+--- a/include/linux/fwnode.h
++++ b/include/linux/fwnode.h
+@@ -260,4 +260,10 @@ void fw_devlink_purge_absent_suppliers(struct fwnode_handle *fwnode);
+ void fw_devlink_refresh_fwnode(struct fwnode_handle *fwnode);
+ bool fw_devlink_is_strict(void);
+ 
++static inline void fw_devlink_set_device(struct fwnode_handle *fwnode,
++					 struct device *dev)
++{
++	fwnode->dev = dev;
++}
++
+ #endif
+-- 
+2.55.0
 
