@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D2548F835
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:36:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4871349EC7A
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 15:37:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791819419; cv=none; b=Y/R+MOKEfJUU1HMfdwP9Od0P+RsPh7QQ5YZ3EIaJAlfHazfZOJoa9I+5hIYqC+XOmUrmMVxidWMfzxtQKi6xmWcXynrGpgQgE1akUJLTeSY0/IR2w7tmd+XJeSOEuuzDtviqiiCio07xOEjBcXmjeX2cQ5dTM65KC8P4tSUEJO4=
+	t=1791819427; cv=none; b=hNWigYkj38wp5Pl4nykVlg9lRsudOYDiGAbjxQilsiwyKvMn1nkhfNBzZIu8kVNrREXO+wJLhz5PQz5KlfpTpKOvdKYDcxnJpRA5yOEAf13PLHYKdjwX7E8QbduY33czhDn9W34BepHR1lYdAeeGz+zBeeVBqnODkunogvOsGuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791819419; c=relaxed/simple;
-	bh=PsZs6uSEv6ovg5gyJHRBKi9v5OOsk/8PcwNcxleadMI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ixdNvfb1Rh/QBEdYGEUAg/WX5bB3n6FoxGJvbNNImK9Jpb9ZOL051u+UHpi3Gg+XP2XWnJQrE3v5bUeNab2Eg2GM/SMGDebONnCsmZ5lSvbUj75SHtioW4qWWWDJuu9dKQU6qbuJ0fbkAHzzgseVt0eW64FHSuxRVWa8/7pxsqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vWbxCwRG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791819427; c=relaxed/simple;
+	bh=XIiZiPXveMQw/f8nw7tt2fFKt/tifZazpmmzZ4KmXKo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=IKkQK63BRHCSl3H5HcLSN6Co8C3UBkXckZGVtZaATdBJjiDqzKmRHoCQetXv2VLvAeswQYCsijdB9gMUmzfIhUYyvjdjhBwZFQn6sJ+NNMy+mEsXLQzFd6z4x1DoC68JWg5FY8DJloskeJDKL23CaEYJaOQt6qumhmf53ji8mIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=upQzkQ2x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vWbxCwRG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43BF91F0089B;
-	Mon, 12 Oct 2026 15:36:57 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="upQzkQ2x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92FE11F0089B;
+	Mon, 12 Oct 2026 15:37:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791819417;
-	bh=WVylQfd6FymZIKBQzxZEnoOMwXkXLqM4y4riAUWS4a8=;
+	s=korg; t=1791819426;
+	bh=EjZQByzS+O7q3c3xXsRwi6H/blSULYR5yuYViEGaDWI=;
 	h=Subject:To:Cc:From:Date;
-	b=vWbxCwRG6e08K4p0U96DWQMrXGyV+dYCvdxzWekbCpjBnPCphOYPhBcmw8nHZx8+f
-	 OvwditXonssuQ0mGR6X4P0Np2/zRZ+QnZnVRzn6qHfTHxWCASYSVHiMAqVS6bnrr7H
-	 x3lA0ivyD35x0c9/UbRBqAZhHTcMOhJqJ+mcDC64=
-Subject: FAILED: patch "[PATCH] drm/amd/display: disable self-refresh on tearing flips" failed to apply to 6.18-stable tree
+	b=upQzkQ2xAe9wxZJ2eliRLAO8gSDApC1ypZkdDBAMBqyCZN2lpL2odINBWOQ8XuHMX
+	 4azcp6iv4HZcIODrQRZwnw1ix4EPNvIzBdyOhvVInuKMB7Sz8/FbH3CYC2iv6956pZ
+	 cLwyhNH9a0q6dLRmtDm90Gtf1H0bZSQ3k8qNFF6U=
+Subject: FAILED: patch "[PATCH] drm/amd/display: disable self-refresh on tearing flips" failed to apply to 6.12-stable tree
 To: sunpeng.li@amd.com,alexander.deucher@amd.com,harry.wentland@amd.com,timur.kristof@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Mon, 12 Oct 2026 17:37:03 +0200
-Message-ID: <2026101203-unfrozen-cannon-c4df@gregkh>
+Message-ID: <2026101203-cottage-snowstorm-def0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 2e54a92e0136c3ff5c7b542b95bf0940ad6687bf
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101203-unfrozen-cannon-c4df@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101203-cottage-snowstorm-def0@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
