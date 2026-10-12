@@ -1,310 +1,236 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B55DB427F8F
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 11:45:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 149F3472F91
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 11:46:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791805533; cv=none; b=pAqw2vSRR2KTSUrsTdkhBZTyfiPKj0RlOur2JMu1e9sXX5/NmBc6amLjnxbc+V9KtVKv5+nkU8NVNvLIl1bbw7+hmDEeH0aAOzPxuewT2PQA3raxEAjVMzizoNx55ozmO+4YSLEDNFJ5r3aqvfifv4mm5z6bQvuyMdCjZwliIoc=
+	t=1791805591; cv=none; b=KFRzaVfQNu5JuKKJgUODCLZI91a7+N5hmaZileHnDyjizri6MAKjw3OVax0RquZBFtzbQ0u54mIOeKGCvttjRMM4f07VbK5lUp183lI1TxlosL7gFnlotYz9ygpL2rScYhRSBWgoJcmYnlqVcHpks4tQ5vLFmfZ30f5okSm2fGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791805533; c=relaxed/simple;
-	bh=xFyWCunfb97oUwO9N5kwC514VZiM3O7Ox6r68OcqHoY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oJs+MkbRvuJuh8bStXqIFzGd2vZgDJBmRCn6ogA3bxLZ4co5aRw8CiPpv4ybYJkg+CkyvGhDUA8sPp9QltQoVcoSoyva44eEX+5CPy+ErW8iXeqNnPoKFwGMgqI+8mcxwLTnnHGWpdv/pQoXwAnjGRYUbrYlQUDAaeKba272Nr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Lkpkg8tp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791805591; c=relaxed/simple;
+	bh=p2qSVksJGutfNI1Byl2JEjvE6vPXDxZBq/b2rnciXU4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lmvcMIaB4Ry+ukDiv5FnM0dnmKwe9727annkFVv7mTBos9iGp/owonAZwuirZ4r4S8/8jvjrUv81NMOjtMUsF0PM9JdZNMTOADPtT9uUTMmGzv0+khRViozczrBoHo7tRrhlQE/pwLtitkCUfPHFpnL/6/twdNsSNd2Ie1QsrV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Klxsqf+Y; arc=none smtp.client-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Lkpkg8tp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF37A1F0089B;
-	Mon, 12 Oct 2026 11:45:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791805531;
-	bh=lwHwhjEjj46Q13/axNhUSiqQeGcIKz1MOqQ+Rn1Wtgo=;
-	h=Subject:To:Cc:From:Date;
-	b=Lkpkg8tpCnruO3I06vqnqu4L54iIKkaMTGWCA22B5DIuEYrHXv6iB2lriZ2cNkAfu
-	 9l1AgtplkfYK4wDhJmmkufDoqh/ND4D1Jxm5aTRXwVuuHx6BOUK76zyy/eI1ICzO1a
-	 2VbPaobWRaG30ymExRsgqlxaNj4VVTadGF4nMOhE=
-Subject: FAILED: patch "[PATCH] mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP" failed to apply to 5.10-stable tree
-To: ljs@kernel.org,akpm@linux-foundation.org,asrinivasan@oss.tenstorrent.com,azpijr@gmail.com,bgeffon@google.com,jannh@google.com,kas@kernel.org,liam@infradead.org,minchan@kernel.org,pfalcato@suse.de,stable@vger.kernel.org,vbabka@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 12 Oct 2026 13:45:36 +0200
-Message-ID: <2026101236-scarce-latrine-01e7@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Klxsqf+Y"
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c315869241fso254677866b.0
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 04:46:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791805588; x=1792410388; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5+gwZ0DMzJEgahDwJFnmqTiV0Gz8uFM1qeX8U/J7If8=;
+        b=Klxsqf+YoQ8h62nB80mHitvB3FZRF4lL9qjdcvTW6aZhYVuVaJPTW+T621vJ8EVECs
+         OjD4e756AG1yMBgaVyeoJZwhjQAWy42k/dEDtelIu1eYXFtEubtdHCOwHVRXGAqZfffd
+         uY9qGTOaoRkpoDGIL0LWqHe/OLas7F3VsKq9QQ4mX1e3gdTqDLoeQ9ZA2N/n8pD3Dw5Q
+         Vk0ZsXS0QkQ0pYzExf2pyG+92kBgJ0qx64SJ2C6HqSOa8IhihkDEfojCYlVtOHtN3aEv
+         orAyxmHEhRUMo2d53ZhGJgjZHxIUCF2Nm/8BwfuPbyJD7f+mQceIgWd4o73OEBRL+dtx
+         70vQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791805588; x=1792410388;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5+gwZ0DMzJEgahDwJFnmqTiV0Gz8uFM1qeX8U/J7If8=;
+        b=dBPlp4Q+rsaMGK2ujffo6diI7VlyDJf1KELh6l3cbQPpWy1Ywjm4x2i3FxOwCgbOT1
+         8QcHAkK2bVyeH9JSbNxrba5G2ANzJw42NSZdieqXislxKvQoccMheVI/JmKWi4NyLZhW
+         1uIq401x3fOSHavA357bBEUquy8KSXUZfwVoOhDVd2B7/QXGmu/YOwjtesm8HSAVKcT8
+         vWxxXGn0UxWHBhXkxrhaSqETItiDshGXrM+r2wuRUokkcUTtJF4NVwg50tR35x+N1pgW
+         cFJho7xTkdkCdQYg6gUCxi5+6Lvt2lVvtkUgLjlmIvVgI5IX5tGORMRfB6FJc7FRhgQM
+         bDdA==
+X-Forwarded-Encrypted: i=1; AKwUvByBRpmlzN1vHlHaXl940QkBonaoSrUXhUwXoimVLHxOOqWLFzHe91sACyldOM0p3aFOG71u5T0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIc9qKirTdkl8fOfLhK1fBrkiEsJhIjMk0bv3ODCOQNj6P/bez0
+	EaSdKnvphwFKERV4AU2hY1lrcbgvyOjSdx+ule4B+Hq36BAhk9OGAA+7
+X-Gm-Gg: AYBFou1EzwRCsFCg4Iygs6TCuVyMTuoiSaVFs8sFAhr8D36ZfpyTffI9a0rfoDp3jQU
+	Iw44e4C7PkRWnugUPNwxiFoHxjDkyklvMsuCx5HrUyaCNllvGzClxy4FLFBW26xEkZfIVkkTPHa
+	eBY4AGfSqKBl+ZPFCNF0xoWpfOQ8P7XA3p3C7mdV2I8vtMZRZLx3D0TUjd+SnA9jng0x9Sdq0bA
+	dm6I8YhehRIlKNUIOs3rxjLhv6JCOKB1AAC6Iu1KGD6MfHu6ewkGFF/h7mfCUGZgi3jAUgQ3jlI
+	V1ipfK73h3fZRED3N7zrO3SD/PmRsVuaBAfsTtXtLmu285rPiqNdh52uiK8qTNvyI0SAyCBPZwM
+	N2R7hyNqZu7DI0OZxLBfbOOLpluNgOk3tFql/jszsRK1vxxj/Dw6blajvHHhmVkB1WChtlOH3DY
+	y/oh0v8u8O26N9nZsrF4MBqOxa61gsL9mHFr4tIVGFhCl0M/RGxdzf3Ph/+ow9asHWzOQusSu3J
+	U4MotIOfFwt6YwtzXjbk+Kf/F49KDhLNc3heV+EzCNMgv2Vn3uwZ6RJ7aNgUfnLR3NtWJPN8o1v
+	Gd12HtsNJqucpQIUZBteQR0=
+X-Received: by 2002:a17:907:97d6:b0:c2e:4065:52a9 with SMTP id a640c23a62f3a-c31aa03d8c8mr892455466b.49.1791805588056;
+        Mon, 12 Oct 2026 04:46:28 -0700 (PDT)
+Received: from M-K2012N0113010.localdomain ([88.119.128.229])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c34d011dfccsm118669266b.42.2026.10.12.04.46.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 04:46:27 -0700 (PDT)
+From: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+X-Google-Original-From: Paulius Zaleckas <paulius.zaleckas@ui.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	linux-iio@vger.kernel.org
+Cc: Eddie James <eajames@linux.ibm.com>,
+	Joel Stanley <joel@jms.id.au>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rupesh Majhi <zoone.rupert@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Paulius Zaleckas <paulius.zaleckas@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/4] iio: pressure: dps310: fix overflow in the pressure compensation
+Date: Mon, 12 Oct 2026 14:45:47 +0300
+Message-ID: <20261012114550.1680054-2-paulius.zaleckas@ui.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261012114550.1680054-1-paulius.zaleckas@ui.com>
+References: <20261012114550.1680054-1-paulius.zaleckas@ui.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Paulius Zaleckas <paulius.zaleckas@gmail.com>
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+dps310_calculate_pressure() sums the compensation polynomial as
+p^n * c / kP^n fractions in s64. The raw pressure scales with kP, which
+goes up to 7864320, so p^3 * c30 overflows at most oversampling rates
+near sea level, kP^3 wraps negative at 4x and 8x, and the remainders
+overflow when scaled by 10^9. The c30 term is then lost: at about
+1006 hPa the pressure reads about 20 Pa low at oversampling 2, 4, 8, 64
+and 128, and hundreds of Pa off towards the ends of the 300-1200 hPa
+range.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Evaluate the polynomial in Q20 fixed point instead. The linear c10 and
+c01 terms are still divided exactly, the higher order terms use the
+scaled raw values. Over 300-1200 hPa and every oversampling rate the
+result is within 1 Pa of the floating point formula.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 838bb60dc21553e32df90f2f3bac5b905376e7aa
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101236-scarce-latrine-01e7@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+Tested on a register compatible Zilltek ZTS8032 (support added later in
+this series) at about 1007 hPa, against the datasheet formula evaluated
+from the raw and coefficient registers. A vendor driver with the same
+algebra read 13-20 Pa low at oversampling 2, 4, 8, 64 and 128; with this
+series every rate is within 1 Pa. Not tested on a DPS310.
 
-Possible dependencies:
+Fixes: d711a3c7dc82 ("iio: dps310: Add pressure sensing capability")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+---
+ drivers/iio/pressure/dps310.c | 83 ++++++++++++++---------------------
+ 1 file changed, 34 insertions(+), 49 deletions(-)
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 838bb60dc21553e32df90f2f3bac5b905376e7aa Mon Sep 17 00:00:00 2001
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Wed, 30 Sep 2026 19:47:09 +0100
-Subject: [PATCH] mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP
- self-merge
-
-Patch series "mm/mremap: fix two issues with MREMAP_DONTUNMAP", v2.
-
-The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
-operations that keep the original VMA in place.
-
-Historically this has led to a lot of bugs where non-obvious interactions
-occur between existing mremap() operations and the original VMA.
-
-Commit 397432cab17b ("mm/mremap: account mm->locked_vm correctly for
-MREMAP_DONTUNMAP") fixed an accidentally introduced bug around
-mm->locked_vm accounting, but this wasn't the only issue.
-
-And thus history repeats itself, as it turns out that mm->locked_vm
-accounting is broken by MREMAP_DONTUNMAP yet again by two further cases,
-and has been broken ever since the feature was introduced.
-
-Both relate to the fact that VMA_LOCKED_BIT is cleared on the source VMA
-(it has to be as all page tables are moved):
-
-1. If an unfaulted VMA_LOCKONFAULT_BIT anonymous VMA self-merges it
-   clears the VMA_LOCKED_BIT flag and permanently leaks mm->locked_vm
-   pages.
-
-2. If a partial mremap() is performed on a locked VMA there is a leak equal
-   to the number of pages not copied.
-
-(Both for MREMAP_DONTUNMAP operations only)
-
-Both issues can be fixed by treating the source range as distinct from the
-destination range, which is the definition of what MREMAP_DONTUNMAP does
-so is appropriate.
-
-In case 1, simply disallow the self-merge, keeping adjacent source and
-destination VMAs distinct.
-
-In case 2, split the source range ahead of time if the VMA is mlock()'d,
-so accounting is always correct.
-
-Both changes were tested locally and confirmed to fix the issues.
-
-For the purposes of a backport, the fixes are kept distinct, a follow-up
-series can add self-tests.
-
-
-This patch (of 2):
-
-The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
-operations that keep the original VMA in place.
-
-Historically this has led to a lot of bugs where non-obvious interactions
-occur between existing mremap() operations and the original VMA.
-
-Fix another of these - self-merge.
-
-Self-merge occurs when a VMA is moved in front of or behind itself and the
-attributes of the VMA permit such a merge.
-
-Practically this can only happen for unfaulted anonymous VMAs due to the
-page offset equality requirement for merge:
-
-                           |------------|
-                           |            |
-                           |            v
-        |...........||-----------||...........|
-        |           || unfaulted ||           |
-        |...........||-----------||...........|
-              ^            |
-              |            |
-              |------------|
-
-This becomes problematic if the VMA is configured by the user to
-mlock-on-fault, i.e. the VMA_LOCKED_BIT, VMA_LOCKONFAULT_BIT VMA flags are
-set.
-
-MREMAP_DONTUNMAP clears mlock flags for the source VMA and maintains them
-for the destination VMA.
-
-Self-merge makes this impossible (there is only one VMA) and incorrectly
-clears the destination VMA's mlock flags.
-
-This causes a leak in mm->locked_vm as clearing this flag does not
-decrement the counter and the VMA no longer has VMA_LOCKED_BIT set so it
-is not decremented on unmap.
-
-Resolve this by simply disallowing a self-merge in this case - the source
-and destination VMAs are kept distinct and then are able to have distinct
-mlock() flags.
-
-Update dontunmap_complete() to make the now-redundant self-merge check a
-VM_WARN_ON_ONCE() instead to guard against future regressions.
-
-Also update the VMA userland tests to reflect the change.
-
-Link: https://lore.kernel.org/20260930-fix-dontunmap-partial-self-merge-v2-0-f388985a0f0a@kernel.org
-Link: https://lore.kernel.org/20260930-fix-dontunmap-partial-self-merge-v2-1-f388985a0f0a@kernel.org
-Fixes: e346b3813067 ("mm/mremap: add MREMAP_DONTUNMAP to mremap()")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Brian Geffon <bgeffon@google.com>
-Cc: Minchan Kim <minchan@kernel.org>
-Cc: <stable@vger.kernel.org>
-
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 7c368440fafe..058dd66fe1d7 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -1275,7 +1275,8 @@ static int copy_vma_and_data(struct vma_remap_struct *vrm,
- 	PAGETABLE_MOVE(pmc, NULL, NULL, vrm->addr, vrm->new_addr, vrm->old_len);
+diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
+index 85df58ac1809..3bc690cc8609 100644
+--- a/drivers/iio/pressure/dps310.c
++++ b/drivers/iio/pressure/dps310.c
+@@ -660,71 +660,56 @@ static int dps310_write_raw(struct iio_dev *iio,
+ 	}
+ }
  
- 	new_vma = copy_vma(&vma, vrm->new_addr, vrm->new_len, new_pgoff,
--			   new_anon_pgoff, &pmc.need_rmap_locks);
-+			   new_anon_pgoff, &pmc.need_rmap_locks,
-+			   vrm->flags & MREMAP_DONTUNMAP);
- 	if (!new_vma) {
- 		vrm_uncharge(vrm);
- 		*new_vma_ptr = NULL;
-@@ -1335,6 +1336,9 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
- 	unsigned long old_start = vma->vm_start;
- 	unsigned long old_end = vma->vm_end;
- 
-+	/* Self-merge is disallowed. */
-+	VM_WARN_ON_ONCE(new_vma == vma);
++/* Fraction bits of the fixed point pressure compensation */
++#define DPS310_Q	20
++#define DPS310_Q_ONE	(1LL << DPS310_Q)
 +
- 	/* We always clear VMA_LOCKED[ONFAULT]_BIT on the old VMA. */
- 	vma_clear_flags_mask(vma, VMA_LOCKED_MASK);
- 
-@@ -1342,7 +1346,7 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
- 	 * anon_vma links of the old vma is no longer needed after its page
- 	 * table has been moved.
- 	 */
--	if (new_vma != vma && start == old_start && end == old_end) {
-+	if (start == old_start && end == old_end) {
- 		const pgoff_t pgoff_unfaulted = vma->vm_start >> PAGE_SHIFT;
- 
- 		unlink_anon_vmas(vma);
-diff --git a/mm/vma.c b/mm/vma.c
-index 6cde67883fb0..d8308c319daa 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -1943,7 +1943,7 @@ static int vma_link(struct mm_struct *mm, struct vm_area_struct *vma)
-  */
- struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
- 	unsigned long addr, unsigned long len, pgoff_t pgoff,
--	pgoff_t anon_pgoff, bool *need_rmap_locks)
-+	pgoff_t anon_pgoff, bool *need_rmap_locks, bool keep_source)
++static s64 dps310_mul_q(s64 a, s64 b)
++{
++	return (a * b) >> DPS310_Q;
++}
++
+ static int dps310_calculate_pressure(struct dps310_data *data, int *val)
+ 	__must_hold(&data->lock)
  {
- 	struct vm_area_struct *vma = *vmap;
- 	unsigned long old_vma_start = vma->vm_start;
-@@ -1981,6 +1981,21 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
- 	vmg.pgoff = pgoff;
- 	vmg.anon_pgoff = anon_pgoff;
- 	vmg.next = vma_iter_next_rewind(&vmi, NULL);
-+
+-	int i;
+ 	int rc;
+-	int kpi;
+-	int kti;
+-	s64 rem = 0ULL;
+-	s64 pressure = 0ULL;
++	int kp;
++	int kt;
++	s64 pressure;
+ 	s64 p;
+ 	s64 t;
+-	s64 denoms[7];
+-	s64 nums[7];
+-	s64 rems[7];
+-	s64 kp;
+-	s64 kt;
++	s64 ps;
++	s64 ts;
++	s64 x2;
++	s64 x3;
+ 
+-	rc = dps310_get_pres_k(data, &kpi);
++	rc = dps310_get_pres_k(data, &kp);
+ 	if (rc)
+ 		return rc;
+ 
+-	rc = dps310_get_temp_k(data, &kti);
++	rc = dps310_get_temp_k(data, &kt);
+ 	if (rc)
+ 		return rc;
+ 
+-	kp = (s64)kpi;
+-	kt = (s64)kti;
+-
+ 	p = (s64)data->pressure_raw;
+ 	t = (s64)data->temp_raw;
+ 
+-	/* Section 4.9.1 of the DPS310 spec; algebra'd to avoid underflow */
+-	nums[0] = (s64)data->c00;
+-	denoms[0] = 1LL;
+-	nums[1] = p * (s64)data->c10;
+-	denoms[1] = kp;
+-	nums[2] = p * p * (s64)data->c20;
+-	denoms[2] = kp * kp;
+-	nums[3] = p * p * p * (s64)data->c30;
+-	denoms[3] = kp * kp * kp;
+-	nums[4] = t * (s64)data->c01;
+-	denoms[4] = kt;
+-	nums[5] = t * p * (s64)data->c11;
+-	denoms[5] = kp * kt;
+-	nums[6] = t * p * p * (s64)data->c21;
+-	denoms[6] = kp * kp * kt;
+-
+-	/* Kernel lacks a div64_s64_rem function; denoms are all positive */
+-	for (i = 0; i < 7; ++i) {
+-		u64 irem;
+-
+-		if (nums[i] < 0LL) {
+-			pressure -= div64_u64_rem(-nums[i], denoms[i], &irem);
+-			rems[i] = -irem;
+-		} else {
+-			pressure += div64_u64_rem(nums[i], denoms[i], &irem);
+-			rems[i] = (s64)irem;
+-		}
+-	}
+-
+-	/* Increase precision and calculate the remainder sum */
+-	for (i = 0; i < 7; ++i)
+-		rem += div64_s64((s64)rems[i] * 1000000000LL, denoms[i]);
+-
+-	pressure += div_s64(rem, 1000000000LL);
 +	/*
-+	 * If the original VMA is kept (MREMAP_DONTUNMAP), the source and
-+	 * destination VMA must be treated distinctly.
-+	 *
-+	 * A merge violates this, so in this case disallow a self-merge.
++	 * Section 4.9.1 of the DPS310 spec in fixed point. Dividing p^3 * c30
++	 * by kP^3 directly overflows s64 at most oversampling rates.
 +	 */
-+	if (can_self_merge && keep_source) {
-+		if (vmg.prev == vma)
-+			vmg.prev = NULL;
-+		if (vmg.next == vma)
-+			vmg.next = NULL;
-+		can_self_merge = false;
-+	}
++	ps = div_s64(p * DPS310_Q_ONE, kp);
++	ts = div_s64(t * DPS310_Q_ONE, kt);
++	x2 = dps310_mul_q(ps, ps);
++	x3 = dps310_mul_q(x2, ps);
 +
- 	new_vma = vma_merge_copied_range(&vmg);
++	pressure = data->c00 * DPS310_Q_ONE;
++	pressure += div_s64(p * data->c10 * DPS310_Q_ONE, kp);
++	pressure += div_s64(t * data->c01 * DPS310_Q_ONE, kt);
++	pressure += dps310_mul_q(data->c11 * ps, ts);
++	pressure += data->c20 * x2 + data->c30 * x3;
++	pressure += dps310_mul_q(data->c21 * x2, ts);
++	pressure >>= DPS310_Q;
+ 	if (pressure < 0LL)
+ 		return -ERANGE;
  
- 	if (new_vma) {
-diff --git a/mm/vma.h b/mm/vma.h
-index 024fabe63560..39514fac72fc 100644
---- a/mm/vma.h
-+++ b/mm/vma.h
-@@ -535,7 +535,7 @@ void unlink_file_vma_batch_add(struct unlink_vma_file_batch *vb,
- 
- struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
- 	unsigned long addr, unsigned long len, pgoff_t pgoff,
--	pgoff_t anon_pgoff, bool *need_rmap_locks);
-+	pgoff_t anon_pgoff, bool *need_rmap_locks, bool keep_source);
- 
- struct anon_vma *find_mergeable_anon_vma(struct vm_area_struct *vma);
- 
-diff --git a/tools/testing/vma/tests/vma.c b/tools/testing/vma/tests/vma.c
-index c8ef7b8cd46b..e973e0a6d1a8 100644
---- a/tools/testing/vma/tests/vma.c
-+++ b/tools/testing/vma/tests/vma.c
-@@ -40,7 +40,7 @@ static bool test_copy_vma(void)
- 	vma = alloc_and_link_vma(&mm, 0x1000, 0x2000, 1, vma_flags);
- 	vma_set_anonymous(vma);
- 	vma_orig = vma;
--	vma_new = copy_vma(&vma, 0x2000, 0x1000, 1, 1, &need_locks);
-+	vma_new = copy_vma(&vma, 0x2000, 0x1000, 1, 1, &need_locks, false);
- 	ASSERT_EQ(vma_new, vma_orig);
- 	ASSERT_EQ(vma, vma_orig);
- 	ASSERT_EQ(vma_new->vm_start, 0x1000);
-@@ -53,7 +53,7 @@ static bool test_copy_vma(void)
- 	vma = alloc_and_link_vma(&mm, 0x2000, 0x3000, 2, vma_flags);
- 	vma_set_anonymous(vma);
- 	vma_orig = vma;
--	vma_new = copy_vma(&vma, 0x1000, 0x1000, 2, 2, &need_locks);
-+	vma_new = copy_vma(&vma, 0x1000, 0x1000, 2, 2, &need_locks, false);
- 	ASSERT_EQ(vma_new, vma_orig);
- 	ASSERT_EQ(vma, vma_orig);
- 	ASSERT_EQ(vma_new->vm_start, 0x1000);
-@@ -71,7 +71,7 @@ static bool test_copy_vma(void)
- 	vma = alloc_and_link_vma(&mm, 0x3000, 0x4000, 3, vma_flags);
- 	vma_set_anonymous(vma);
- 	vma_orig = vma;
--	vma_new = copy_vma(&vma, 0x2000, 0x1000, 3, 3, &need_locks);
-+	vma_new = copy_vma(&vma, 0x2000, 0x1000, 3, 3, &need_locks, false);
- 	ASSERT_NE(vma_new, vma_orig);
- 	ASSERT_EQ(vma_new, vma);
- 	ASSERT_EQ(vma_new->vm_start, 0x1000);
-@@ -82,7 +82,7 @@ static bool test_copy_vma(void)
- 	/* Move backwards and do not merge. */
- 
- 	vma = alloc_and_link_vma(&mm, 0x3000, 0x5000, 3, vma_flags);
--	vma_new = copy_vma(&vma, 0, 0x2000, 0, 3, &need_locks);
-+	vma_new = copy_vma(&vma, 0, 0x2000, 0, 3, &need_locks, false);
- 	ASSERT_NE(vma_new, vma);
- 	ASSERT_EQ(vma_new->vm_start, 0);
- 	ASSERT_EQ(vma_new->vm_end, 0x2000);
-@@ -95,7 +95,7 @@ static bool test_copy_vma(void)
- 
- 	vma = alloc_and_link_vma(&mm, 0, 0x2000, 0, vma_flags);
- 	vma_next = alloc_and_link_vma(&mm, 0x6000, 0x8000, 6, vma_flags);
--	vma_new = copy_vma(&vma, 0x4000, 0x2000, 4, 4, &need_locks);
-+	vma_new = copy_vma(&vma, 0x4000, 0x2000, 4, 4, &need_locks, false);
- 	vma_assert_attached(vma_new);
- 
- 	ASSERT_EQ(vma_new, vma_next);
+-- 
+2.55.0
 
