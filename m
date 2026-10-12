@@ -1,175 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A255B4D0CF5;
-	Mon, 12 Oct 2026 18:35:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875083F23D0;
+	Mon, 12 Oct 2026 18:40:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791830109; cv=none; b=MjydYaAQ1msWXfwSULdxjWQ0QZTGXrz5nM90lPkw9VPMlIekrFGyPekoHdpqILy1mdS5DQUB6sEUYO06vqL93y0MbTiQSfrTTidDMH/2VGPS1NzsEPRvjWOWEw1jog5EEUnnk9VJdFswRWeF8eh+FpSdZNyII0JjY22j7Nbr4qk=
+	t=1791830425; cv=none; b=dbWgBaijD7m2H1gzo5qyQyHfnpoUatJ9+jzwoSWGbZkMEbV7UJM16ejnsA8ojmx9QKqVYwKir97eH63Ga6ZlNXEQON7+N11p5C5MsjsEwysYFKS3dpp5mM0lTUaSc1v1MJOUfU+I3CQzSIoRMw5zQnyW6mBcsaV1kHH2OfmcPuQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791830109; c=relaxed/simple;
-	bh=vf5JylsYTStv7RSDoruMfG7bxf5zsMLqkqTKIoJ+ZOI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HAoUzWcqG+hEEqEI/KetBlM7ROeKiIs3RCWiXp+TjAnPoNjw3ac7E6elUBPxNZVeLthfODd5bB1X7nWn/UU4FjlSNqgY4ntQK6hRwO/8pF9EOlzHAI51oS4wDbYtQIV0hobWAhDH2qGvfCxbtA13bdcSwENyfgf44iXw5ADA6gM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j7HW4JUA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791830425; c=relaxed/simple;
+	bh=Y5WiD0nLj8+Bfh17drMQqQqgdDnkLsCE4wiqvxdRXas=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nQdfJqkzv7JkXOVd25DX37zJAI+Sz5Fg4d63SjeF3NSWfKwFU2Wmw6nf6xvB9pyylyFzGxBvy0JuDqJlZU2w++ZCPsX6pEJbDii3G4Nu2jB9k/h+qsazzekPJ9S+5P1QolXiQcAosdwlcTBx3lB1GlZKK8ZKa+dT/FhSODqF+Y0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nd/jIKBI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j7HW4JUA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2A641F008A1;
-	Mon, 12 Oct 2026 18:35:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nd/jIKBI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D0671F0089B;
+	Mon, 12 Oct 2026 18:40:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791830108;
-	bh=WxttROjiPvBoFTLT7MKASk0lgKHbSPdi4h7blxJxoqo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:Reply-To;
-	b=j7HW4JUAbMUbgbeBORocjFUrbIjmzvpYVG6IWe4gpdm2JHXZounGg5LgfRWl5XKca
-	 ngLZkk45UWBWZAJz4L8ayqWqOnAiCfqEfYEB3hCpJzqCWKQk+pfPRLdZh81a+r31Wa
-	 9HjsHx0pt5rEh3FG7KQbDkOnb5gAm1L5xgWxVn6tdqJOColQvLkKVzlA2xcvRWpCwF
-	 JFAMDhQ2oxYgiAR5c9XVbtK+ordJ4J/sgF9WhO5ZT1MnhazxYS53sAkFpj0JeMiJOu
-	 qYHQ02Xbd5ZuB067C9zhmSZ3UhmgqMofpvJsW5ma9CqJyTPYP/cWVKAgyFjoLpHg/v
-	 GSs+/3XwUJaxw==
-From: Len Brown <lenb@kernel.org>
-To: linux-pm@vger.kernel.org
-Cc: Ali Ahmet Memis <ali@iusegentoo.com>,
-	stable@vger.kernel.org,
-	Len Brown <len.brown@intel.com>
-Subject: [PATCH 1/9] tools/power turbostat: Read complete CPU lists
-Date: Mon, 12 Oct 2026 14:32:26 -0400
-Message-ID: <c24362650f7a8573dc9a9991a034b8500af8eb19.1791829903.git.len.brown@intel.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20261012183457.92243-1-lenb@kernel.org>
-References: <20261012183457.92243-1-lenb@kernel.org>
+	s=k20260515; t=1791830424;
+	bh=72S7hBFcXN3w+nzaQM5xVnbXCT1pkqZQ/s5TrKdSWRM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nd/jIKBIrNe+jWdwqLXsZ6U5C8wfRryaymjpG37eE25SYIcrk0Sy0eGMX+uxREr/t
+	 lL1dZEOvhDKKo8h6TleP5QBjXZ3KTopzMENZyruTOx48Yfc39tTqSqyC3XIROCs+9c
+	 BJ0ri6TLMO/zPoeAjkyyIjaavRH+y95nWGhLPPpPhyLxB3Ks0atkqAAcsAMWTGlfOv
+	 OAIokolG9DcGn0RXt5RmcCHsAHgR682g9CHO0n7Rh4IVPmjEjvdhtdCeeCTwhYckIZ
+	 xZyHt3zZmWbRPgiXY8Yc3vrRW0Y8oG5clBiuu9DmCJNDbASvvMJZ5+YY9FJM/fNv/N
+	 +I8cGbtra5ePw==
+Date: Mon, 12 Oct 2026 21:40:19 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Haitam Lazaar <haitam@lazaarsec.com>
+Cc: Bernard Metzler <bernard.metzler@linux.dev>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-rdma <linux-rdma@vger.kernel.org>,
+	stable <stable@vger.kernel.org>
+Subject: Re: [PATCH v2 for-rc] RDMA/siw: Enforce IB_ACCESS_REMOTE_READ for
+ read responses
+Message-ID: <20261012184019.GK219304@unreal>
+References: <1a10973a2a8.17e04b672219.8760522594078806286@lazaarsec.com>
+ <ecf307a2-e814-480d-8da8-1a7b76537d3f@linux.dev>
+ <1a10ca50b82.4c79b9977088.8671544618706545172@lazaarsec.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Reply-To: Len Brown <lenb@kernel.org>
-Organization: Intel Open Source Technology Center
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1a10ca50b82.4c79b9977088.8671544618706545172@lazaarsec.com>
 
-From: Ali Ahmet Memis <ali@iusegentoo.com>
+On Mon, Oct 05, 2026 at 03:18:25PM +0000, Haitam Lazaar wrote:
+> When generating an RDMA READ response (SIW_OP_READ_RESPONSE),
+> siw_check_sgl_tx() unconditionally passes 0 as the required permission
+> mask:
+> 
+>     /* Reference memory to be tx'd w/o checking access for LOCAL_READ */
+>     rv = siw_check_sgl_tx(qp->pd, wqe, 0);
+> 
+> Because perms is 0, siw_check_mem()'s authorization test:
+>     if ((mem->perms & perms) < perms)
+> evaluates to (mem->perms & 0) < 0, which is always false. Consequently,
+> an untrusted remote peer can issue an RDMA Read targeting any valid
+> STag in the Protection Domain, even if the memory was registered strictly
+> as write-only (IB_ACCESS_REMOTE_WRITE) without IB_ACCESS_REMOTE_READ.
+> 
+> Enforce that the target memory region was granted IB_ACCESS_REMOTE_READ
+> when answering SIW_OP_READ_RESPONSE work queue entries, while preserving
+> perms = 0 for standard local sends.
+> 
+> Fixes: b9be6f18cf9e ("rdma/siw: transmit path")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Haitam Lazaar <haitam@lazaarsec.com>
+> ---
+> v1 -> v2:
+>  - Compact READ_RESPONSE handling by combining num_sge and perms assignment
+>    as suggested by Bernard Metzler.
 
-CPU_SUBSET_MAXCPUS accepts CPU IDs through 8191, but the sysfs and
-cgroup CPU-list readers stop at 1024 bytes. A fragmented cpuset or
-hybrid PMU CPU list can exceed that size and be truncated.
-initialize_cpu_set_from_sysfs() can also pass a full, non-NUL-terminated
-buffer to parse_cpu_str(), causing an out-of-bounds read.
+Please don't send patches as Reply-to previous version.
 
-Additionally, initialize_cpu_set_from_sysfs() returns with the file
-still open on success. It is now called once per CPU for
-thread_siblings_list, so large systems can leak thousands of descriptors
-during topology discovery.
-
-Use getline() so both readers receive a complete, NUL-terminated line.
-Close and free the sysfs CPU-list resources on every path, and report
-malformed input from the correct buffer.
-
-Fixes: eb187540d13a ("tools/power turbostat: Increase CPU_SUBSET_MAXCPUS to 8192")
-Fixes: 58839fdbd441 ("tools/power turbostat: Process HT siblings in CPU order")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
-Signed-off-by: Len Brown <len.brown@intel.com>
----
- tools/power/x86/turbostat/turbostat.c | 44 +++++++++++++++------------
- 1 file changed, 25 insertions(+), 19 deletions(-)
-
-diff --git a/tools/power/x86/turbostat/turbostat.c b/tools/power/x86/turbostat/turbostat.c
-index 920694c3c1ec..cec3f2fbba45 100644
---- a/tools/power/x86/turbostat/turbostat.c
-+++ b/tools/power/x86/turbostat/turbostat.c
-@@ -6311,33 +6311,35 @@ int for_all_proc_cpus(int (func) (int))
- 
- #define PATH_EFFECTIVE_CPUS	"/sys/fs/cgroup/cpuset.cpus.effective"
- 
--static char cpu_effective_str[1024];
-+static char *cpu_effective_str;
- 
- static int update_effective_str(bool startup)
- {
- 	FILE *fp;
--	char *pos;
--	char buf[1024];
-+	char *buf = NULL;
-+	size_t size = 0;
- 	int ret;
- 
--	if (cpu_effective_str[0] == '\0' && !startup)
-+	if (!cpu_effective_str && !startup)
- 		return 0;
- 
- 	fp = fopen(PATH_EFFECTIVE_CPUS, "r");
- 	if (!fp)
- 		return 0;
- 
--	pos = fgets(buf, 1024, fp);
--	if (!pos)
-+	if (getline(&buf, &size, fp) < 0)
- 		err(1, "%s: file read failed", PATH_EFFECTIVE_CPUS);
- 
- 	fclose(fp);
- 
--	ret = strncmp(cpu_effective_str, buf, 1024);
--	if (!ret)
-+	ret = cpu_effective_str ? strcmp(cpu_effective_str, buf) : 1;
-+	if (!ret) {
-+		free(buf);
- 		return 0;
-+	}
- 
--	strncpy(cpu_effective_str, buf, 1024);
-+	free(cpu_effective_str);
-+	cpu_effective_str = buf;
- 	return 1;
- }
- 
-@@ -8529,13 +8531,16 @@ int add_rapl_perf_counter(int cpu, struct rapl_counter_info_t *rci, const struct
- 	return ret;
- }
- 
--char cpuset_buf[1024];
--int initialize_cpu_set_from_sysfs(cpu_set_t *cpu_set, char *sysfs_path, char *sysfs_file)
-+int initialize_cpu_set_from_sysfs(cpu_set_t *cpu_set, const char *sysfs_path,
-+				  const char *sysfs_file)
- {
- 	FILE *fp;
-+	char *cpuset_buf = NULL;
-+	size_t size = 0;
- 	char path[128];
-+	int ret = -1;
- 
--	if (snprintf(path, 128, "%s/%s", sysfs_path, sysfs_file) > 128)
-+	if (snprintf(path, sizeof(path), "%s/%s", sysfs_path, sysfs_file) >= (int)sizeof(path))
- 		err(-1, "%s %s", sysfs_path, sysfs_file);
- 
- 	fp = fopen(path, "r");
-@@ -8543,19 +8548,20 @@ int initialize_cpu_set_from_sysfs(cpu_set_t *cpu_set, char *sysfs_path, char *sy
- 		warn("open %s", path);
- 		return -1;
- 	}
--	if (fread(cpuset_buf, sizeof(char), 1024, fp) == 0) {
-+	if (getline(&cpuset_buf, &size, fp) < 0) {
- 		warn("read %s", sysfs_path);
--		goto err;
-+		goto out;
- 	}
- 	if (parse_cpu_str(cpuset_buf, cpu_set, cpu_possible_setsize)) {
--		warnx("%s: cpu str malformat %s\n", sysfs_path, cpu_effective_str);
--		goto err;
-+		warnx("%s: cpu str malformat %s\n", sysfs_path, cpuset_buf);
-+		goto out;
- 	}
--	return 0;
-+	ret = 0;
- 
--err:
-+out:
- 	fclose(fp);
--	return -1;
-+	free(cpuset_buf);
-+	return ret;
- }
- 
- void print_cpu_set(char *s, cpu_set_t *set)
--- 
-2.45.2
-
+Thanks
