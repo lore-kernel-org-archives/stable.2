@@ -1,165 +1,82 @@
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C74F31ED8B
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 04:28:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F3E12FD69A
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 04:37:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791779339; cv=none; b=aX28exeFjtPxTgY+KGaYSmzw3ab4aybq5UFNEgbchzvZFc3HYjkMoyBWu0QtTSCM5MXH1thq+1Oa1+NJvQErnNKh+RobZcqyezGMrnbPrncWJ8RVUwUgSYdKdK9R1DH4uHJCUEW+AGkRUJMcwVwt0GcnYVwZhgtstXPnfk3FnyY=
+	t=1791779869; cv=none; b=N/Gl9KSOA+OeYANamEgvJWa0eEbVi/z9vMGFa94ZBTKm6wC10XAYDOl5YTEJstpu1RLeCch1nXTbk8RzT1BOQv0zovSf3up16hG8/xJUdr3OOsXI4+1wQgslu6s9QslR7/gBslGWJLe1KpRtIj/1j9V6SYUA0I+AuYh1Jht82tI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791779339; c=relaxed/simple;
-	bh=pRlzebhzfMcwBYlKAjXu+UMHQRlq2AZuMEqk4W6Kg7c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QjsNvSOajQyQEJs79Q7yoFgjiAd5MiKKxOg1sNLBJrpgIZPJO96RTvg7kbQDGwd1nAlB1IMgAv8wREPL12FsK+zpjJxHxuL/AjAGtHg3V/rJ1BOYpGhmWR7obssS2w4GAdCCkO8h0twRAdNpw/d2S6JmW9JRG/7n6ja8XzWZtbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mng3E7jx; arc=none smtp.client-ip=209.85.219.48
+	s=arc-20240116; t=1791779869; c=relaxed/simple;
+	bh=9L3tqcVuwWT1lsikokZ8qkn9K8zI6RiafRhNL20/m3g=;
+	h=Message-ID:Date:Content-Type:MIME-Version:From:To:Cc:Subject:
+	 In-Reply-To:References; b=P8zNTz8Mt3ufPCSpWaJk2B9aFgPjV0Q4J/KbsC0alYFESh2BqWLIf+OCvL5dBdN5ydlwftvK6gGbCiF+955O583QdPmZ0fSN7rACf4ej6ReJCaZzGSmeiHtIvqasT+DOPJVOyXnOaR+nPUzgc82vMIfw8pFbSScufcn9T/Nt04o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cBOWAIhN; arc=none smtp.client-ip=209.85.210.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mng3E7jx"
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-91b8306b9f8so6120796d6.3
-        for <stable@vger.kernel.org>; Sun, 11 Oct 2026 21:28:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cBOWAIhN"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-88c72646f03so625593b3a.2
+        for <stable@vger.kernel.org>; Sun, 11 Oct 2026 21:37:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791779336; x=1792384136; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u/GOj9Vb9MItUiIqU9aNuHv58kWFfc6mqjL05EnCs3k=;
-        b=mng3E7jx3pG2gAebQ5UtLuJ/HDKL3yr4zxU8xVE+O3vjJ/XLsiIQ2UHtirqdewgYmH
-         yMm1pewQMbUCxQpyMQ2yWgTJj7ZQ4QjLVhX4z50qzg2wD2Tw0A8QpmcXfdcgQod2imNp
-         VmkYf1Cobshbet9LKCj1jSDN58pYnerYjgXNWVLVVuQPegX9L/yRrrxKsL7hHwf7IKpc
-         2+9Ywk6Nwr5ajZJNNECYD6x71WVMiwL1O8n/EYHeSBv+CLGlIC4Ndi9arGEvruX/VLEv
-         4jaDiA8g8+6XWzcU8UpJ69D+jratftcZyu522SSj+wcLf5xrOuJLFb7R3D1GhvJR2Fug
-         bdhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791779336; x=1792384136;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791779867; x=1792384667; darn=vger.kernel.org;
+        h=references:in-reply-to:subject:cc:to:from:content-transfer-encoding
+         :mime-version:content-type:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=u/GOj9Vb9MItUiIqU9aNuHv58kWFfc6mqjL05EnCs3k=;
-        b=DdhZdoXuhL3em2JzHXXcA6bwX+0Xh/mj1+033GjPMZpm2Q+kKyov37Ko+OSjPoQJry
-         dW/2N97GJ+RzXGZ97hp5thOBhwc2fF6lNC8LdmnwY0SvCYJEGQKszYNviFNiJWEV/tH3
-         Mo+jdjKgXk+57Sbcq26eoPsJiikGOfIghzbgJ2WaFT5nM2PVr2htRmtcF9SNuAGrPHVz
-         pnpgMjY7648MS4ZoOyTDIz7YHQ68eFnJtY58Je/G+triojo+6RHxmq73+Xguv6NA7l0D
-         2Z6ocfG4qeSZFCNftnPlKGKsSOS41gvXB3I4KppCGU0XBg4iIKg2FQsiO7twC/WcT0D2
-         2yAg==
-X-Forwarded-Encrypted: i=1; AKwUvBzSKFgo9P/yoC2PAYDSmymjVdfYXYCoMHeeVU2O20rF2uft1gUcptDrioYsYZGJILed6GpMu+E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLWvoUyKrqMq7Xx+b8JL+9zYA7tAPXwkj43V+++pyxyLjgaVfKz
-	ZuyrOe3zSpcdQjGjCVCSNiduDSY2E2EX9gAJ1iE5l2t2C+RQ+yl9xJGu
-X-Gm-Gg: AYBFou1BtGq9l2WYCMtRo72Ru35lGHl6BLHydUnkH00zYIamqUzrULm2bFcWQo67cBi
-	bdnn4SaoKWWMu1uwBufsN7CX4rQXAF9u5FoK151/qCmOKg0kroAc6MdRLJ4r9A5jBAN8IATa9oe
-	uUb/sTnD2KoVsbDwUTcxrU7JAy4DEorsmJH1acDd3urvxi3bM6aaOfyVKnl6okZCU6Dg+Ei1Qe8
-	rY9xfeUPgsfMR5HFR4BwVhY/G6jQMj1EcKu+9wJEfMVgj3GAvw7hmq0uFyXWI3fwn/3WtdCqgMO
-	X0NSVWMR/7og0Ag2I45HKYNvD+fYzcNmNmWyF57aNpCL3NNJqYWKN3/rKWsD9LhIZdiIdbBy811
-	shuR0R0iNGE/jH1Ebm/bHZ3u9y10f2Zk4Qbgqi0fYfrZyuLiQ2PhUD+YULLgtR0w41L08x/Nbqc
-	y/UJHK2LjbLNqzJxWcBm3b9NpCmT5SodSIpJu4dXcgvZVDcHfVdYBW+c4uyn0sXIlTokqbZkCqB
-	XBwwUa6O0KQ4VOsPkK7HZAAuVVgG16N
-X-Received: by 2002:a05:6214:4c8f:b0:91b:5d39:e142 with SMTP id 6a1803df08f44-91b5d39e995mr132501616d6.55.1791779335903;
-        Sun, 11 Oct 2026 21:28:55 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b550e6609sm85433906d6.43.2026.10.11.21.28.54
+        bh=9L3tqcVuwWT1lsikokZ8qkn9K8zI6RiafRhNL20/m3g=;
+        b=cBOWAIhNKKr0horrqDLF0oKX0DV/YZBB6l2A5kd543PLVYabo406OV+3X61XPZGii0
+         /VGhn6wgoIgCNMfNBu2Ohclx7AWVh73yIsxHBApXVKAp7vVSrHmu9JCPnvVDRshIXzht
+         7qd1bg19lPI/Bl74ryDn59jT1e5IarUgEb+QC/2RwreB9J95ubAubKddGJzq0l/z8/70
+         9hJefnubUZK9lMLOE5vwZoK1yks05NF0eSyzrVVhlhjg1g+j76k/+KONtwje4+Qal2L1
+         Ud8n8PohZ2kI4n4LeKPtKethXkkhdapDwcMiLRfzy/Zf5Uzkj/2+sI1DXpMivCpgx+za
+         eI8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791779867; x=1792384667;
+        h=references:in-reply-to:subject:cc:to:from:content-transfer-encoding
+         :mime-version:content-type:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9L3tqcVuwWT1lsikokZ8qkn9K8zI6RiafRhNL20/m3g=;
+        b=1s25SM2SStONexO/QUycYpxpNEuaSlewpRu6y3HWuI+HNpEqpeBtnvPVFXcU50zN+s
+         BtUBD5CYbMTvt2kZ4dQZSYQds3sJqJye51Iww1R15NfZYpaSFnpVwLy+ZKWVJnN8rclu
+         7vv2NidgEFM5rh0TLuDtqqDEYz4rShO8hxV6JQB6xyaXxnieM2vQNKRI9sWp++YyJqq5
+         U6Im/ikY9r7HsWxwCgZt0dQ9Y1CCMpAuq/g0NGo843K3fu21Scm8l6hpF0N6HiJRVjZT
+         u+duhHVacxoYnSxrJWYgaqKO3CQCJYaFBGTeWlQvERzFZqiUdnVF2E+xLbIwW+Zue7Tz
+         9NWg==
+X-Forwarded-Encrypted: i=1; AKwUvBybH6LrWJVA08xDW4zSYoQpt/jaXXI4dKy4MqGqXLBOMOv1PBej5TG+jlUKYX8jz62PGb8YY/g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+fcFvnK/FsXV/bAdvxTQR9wxoms8sojXIJlVxiqNn9cZ5zZIs
+	rgSyyoFKPHLlx1ptn2psR5jXyTBrHriC2XKGPKBkhCyGJYMG3y4jQmhM
+X-Gm-Gg: AYBFou36tacEpT3OMkWKEjwUM9RU0X5N+iCVbX4IDTDmkUCm7C+ps4ztS/cHEpY1Cnm
+	1K+Ur1sr3JSUcNqNFEtPmaADIjmmx9D5O/UWdPRHHLLptgcKQ/us+ER1tj5eHqpvW5A7p1Wjl7X
+	4F9Sr8imGkRn/Q/zT/pNFtlYABG/axCX9Zc9n+pMBqb36fmX78Mt+aAbuTb1iT4R6RpRv0evWtp
+	oXNldwT+SIj4WjA0myIJ4pnjN05YdJG3bKNmOS1OHBxeM7yX6GqnNhfshwM4499OQ2l6As/ai6J
+	p9Z6YFmp6LBdmYavE33PGwzG5hoxkr1A1IAEfrhwLt79n+B8qqNTSuUQmQcgXFzxv7WUwBbjxS8
+	qpiH8hrisi/gYJU+Rn5UOADBz/45128YBSMBT9i1p1JhHhx/SmrVjd7X1njifqV46RpMakN+5gE
+	w3qQmiCKU19Pan1AAOTkyIitXlSfa2i94MuRsMe5nODKU/Xm/GQ6N08TUTC8O4+JOeWrUWjLQ=
+X-Received: by 2002:a05:6a21:4598:b0:3dd:a195:fa1d with SMTP id adf61e73a8af0-3e16bf3fbbemr6620405637.66.1791779867370;
+        Sun, 11 Oct 2026 21:37:47 -0700 (PDT)
+Received: from [127.0.0.1] ([116.98.134.138])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3da05caaesm3704308a12.32.2026.10.11.21.37.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 21:28:55 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: "K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>
-Cc: Jinank Jain <jinankjain@linux.microsoft.com>,
-	Nuno Das Neves <nunodasneves@linux.microsoft.com>,
-	Easwar Hariharan <easwar.hariharan@linux.microsoft.com>,
-	Praveen K Paladugu <prapal@linux.microsoft.com>,
-	Tianyu Lan <tiala@microsoft.com>,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>
-Subject: [PATCH v1] mshv: Don't free overlay pages after a failed unmap
-Date: Mon, 12 Oct 2026 00:28:35 -0400
-Message-ID: <20261012042851.389128-1-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Sun, 11 Oct 2026 21:37:46 -0700 (PDT)
+Message-ID: <6acc641a.d3162159.e3fd8.3a5c@mx.google.com>
+Date: Sun, 11 Oct 2026 21:37:46 -0700 (PDT)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: base64
+From: Bui Viet Dung <dungvn2345@gmail.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: stephen@networkplumber.org, jhs@mojatatu.com, jiri@resnulli.us, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] net/sched: sch_netem: prevent packet length underflow with negative overhead
+In-Reply-To: <179177924024.434549.1159457377130534867@kernel.org>
+References: <20261008035656.330667-1-dungvn2345@gmail.com> <179177924024.434549.1159457377130534867@kernel.org>
 
-On L1VH partitions where the VMM can provide overlay GPFNs, the kernel
-allocates the VP state and stats pages and supplies them to the
-hypervisor as overlay locations through hv_map_vp_state_page() and
-hv_map_stats_page(). The hypervisor may write intercept messages,
-register state, and statistics to these pages. Only a successful
-HVCALL_UNMAP_VP_STATE_PAGE or HVCALL_UNMAP_STATS_PAGE confirms that the
-corresponding overlay has been revoked.
-
-hv_unmap_vp_state_page() and hv_unmap_stats_page() free the overlay
-page regardless of the hypercall result. If the unmap fails, revocation
-is unconfirmed, but dropping the driver's page reference may still
-allow the page to be returned to the allocator and reused. A subsequent
-hypervisor write through a retained overlay could then corrupt an
-unrelated kernel or user allocation.
-
-Free an overlay page only after the unmap hypercall succeeds. On failure,
-leak the page rather than return memory that the hypervisor may still be
-able to access. This matches how the rest of drivers/hv handles pages
-whose state is unknown after a failed hypervisor operation; for example,
-hv_free_page() leaks a page that could not be re-encrypted. Log a failed
-VP state page unmap here because its teardown callers discard the return
-value.
-
-Fixes: 19c515c27cee ("mshv: Allocate vp state page for HVCALL_MAP_VP_STATE_PAGE on L1VH")
-Fixes: d62313bdf596 ("mshv: Introduce new hypercall to map stats page for L1VH partitions")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
----
-Compile-tested with x86_64 defconfig, CONFIG_HYPERV=y,
-CONFIG_HYPERV_VMBUS=m, CONFIG_MSHV_ROOT=m, and W=1.
-
-Not tested on an L1VH system. No fault-injection reproducer was run for
-the failed-unmap paths.
-
- drivers/hv/mshv_root_hv_call.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/hv/mshv_root_hv_call.c b/drivers/hv/mshv_root_hv_call.c
-index cb55d4d4be2e5..9614cee4dad39 100644
---- a/drivers/hv/mshv_root_hv_call.c
-+++ b/drivers/hv/mshv_root_hv_call.c
-@@ -651,8 +651,18 @@ int hv_unmap_vp_state_page(u64 partition_id, u32 vp_index, u32 type,
- {
- 	int ret = hv_call_unmap_vp_state_page(partition_id, vp_index, type, input_vtl);
- 
--	if (mshv_use_overlay_gpfn() && state_page)
--		__free_page(state_page);
-+	if (mshv_use_overlay_gpfn() && state_page) {
-+		/*
-+		 * If the unmap failed, the hypervisor may still be using the
-+		 * page as an overlay. Leak it rather than handing it back to
-+		 * the page allocator.
-+		 */
-+		if (ret)
-+			pr_err("%s: failed to unmap partition %llu vp %u state page type %u, leaking page: %d\n",
-+			       __func__, partition_id, vp_index, type, ret);
-+		else
-+			__free_page(state_page);
-+	}
- 
- 	return ret;
- }
-@@ -1003,7 +1013,12 @@ int hv_unmap_stats_page(enum hv_stats_object_type type,
- 
- 	ret = hv_call_unmap_stats_page(type, identity);
- 
--	if (mshv_use_overlay_gpfn() && page_addr)
-+	/*
-+	 * If the unmap failed, the hypervisor may still be updating the
-+	 * overlay page. Leak it rather than handing it back to the page
-+	 * allocator.
-+	 */
-+	if (mshv_use_overlay_gpfn() && page_addr && !ret)
- 		__free_page(virt_to_page(page_addr));
- 
- 	return ret;
--- 
-2.43.0
+SGksCgpUaGFua3MgZm9yIHRoZSByZXZpZXcuIFRoZSBwb2ludHMgYXJlIHZhbGlkLiBJIHdpbGwg
+Zml4IHRoZSBzMzIgY2FzdGluZwppc3N1ZSwgdXNlIG11bF91NjRfdTY0X2Rpdl91NjQoKSB0byBw
+cmV2ZW50IHU2NCBtdWx0aXBsaWNhdGlvbiBvdmVyZmxvdywKYW5kIHJlZmluZSB0aGUgY29tbWl0
+IGRlc2NyaXB0aW9uIGluIHYyLgoKcHctYm90OiBjcgo=
