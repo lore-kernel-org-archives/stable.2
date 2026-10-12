@@ -1,145 +1,83 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7916C455607;
-	Mon, 12 Oct 2026 08:42:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD06B283FE5;
+	Mon, 12 Oct 2026 08:48:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791794566; cv=none; b=Nxx6o8rBn2QxL+nQhKMo/9t6Qd0crVYPFEJysz8dRlxY5S7ILDrYC9yI7oR6CcqibugetNCszPIrFACdfUY9yjbdspdPy2sjzs1+86SehisphvFLcwINVsivcL7sJJQMQYVyTHRn83omilhq1eyswXyZNnqFWdsdZiDfiddXhHE=
+	t=1791794915; cv=none; b=PXxVvwjIkJ85pJzUMDZT8GgGUwNw+Yr8YtiHUXxfhr4Y63NiIE5i1UbSGbv/JL3omuqXanBQ59jlF0LwhDZfZsimVfci8mKoIgvxtQJTaVyewiDHeRFM/wEf+TCP2wuQFOHHAEK5W+c+Mm/MXCeg0P8y/geKqj1/WQWYeJH6o+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791794566; c=relaxed/simple;
-	bh=t/NdJD5NAhn4Znk0l0sUNGnRewqktqylJ4czb2rqW8k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fHpeiCaGOhKW+CaSlD4Gan6RocUtYtvjfhV80XLQHr41RRDT55xk8I0sddRvNk4F0p7t2m74Dx9+WS2NcuSg50feZ4V8lrrTxsS7ESr6jurPJUrAbpjussYwXtlhsVGxGk7zZxDqiiJIVtfdjhU2Hnu23Quke5XEzxf69Rs5ACM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Yvz3t48a; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791794915; c=relaxed/simple;
+	bh=D2T/ZcrViDIEMuf2BBjGpYyjwTw2ZFyvcawker9vJZk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=H7YN3Ab10J6ExcS7u0O+ujdhpti23wi5TTtcAvC62iWZSrQ/2Zq+ppEBHIVc8LDKeIdgVr7Hgix0r+BPBfqVTTCE2OI42hR8lphFrQcxAVdzrOYYSf4ugpfxCXyzymP+UM3/ya8nK4j2RedF6a/5zm9VSPnDXOUpWBGfQm3M3Hk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bRqymb4x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Yvz3t48a"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=t5
-	4og3rvACAr8tHWID93e5cauTmzfGVR2GGol7R4X2Y=; b=Yvz3t48aovTY2dzsgC
-	b9hrKIhk35W7NKEzxG7CSy7zCDP2qwsnBAc1SUuHcw0qM2t3iTw/Iwd2mu5j+pYi
-	ULo/n5pQXxBxOdL0syYMnFgyGII03dbmNfd2KWYB/i/dpJGaHT4Q9cqAixbKMHYP
-	/PbHIzFDUP/JEZ10kJ5kAh2lo=
-Received: from ubuntu.. (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3F0lRncxqkmahEA--.36665S4;
-	Mon, 12 Oct 2026 16:42:01 +0800 (CST)
-From: Ma Ke <make_ruc2021@163.com>
-To: david.rhodes@cirrus.com,
-	rf@opensource.cirrus.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	sbinding@opensource.cirrus.com
-Cc: linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com,
-	linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org,
-	Ma Ke <make_ruc2021@163.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] ALSA: hda: cs35l41: Fix ACPI device reference leak on probe failure
-Date: Mon, 12 Oct 2026 16:41:52 +0800
-Message-ID: <20261012084152.3740340-1-make_ruc2021@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bRqymb4x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6790C1F0089B;
+	Mon, 12 Oct 2026 08:48:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791794914;
+	bh=G+CtPiDfQVkz9f3GwytSDEGRsU21v8WZagiW8IUBOdw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=bRqymb4x5bWra+5w9vuFnjASch7trGBb5KiYFmlG+o9C9L01prbkAWp09LazrU5Vt
+	 djBM4kDuFoSEYyFQolIIkyAfXxNOZYdzPYzSlrMuSn5cl7GmTaYi/Kwtr2STZITng/
+	 hkkgNB7QWa2WxBGDPAB8MnbE9VgesGlY+l8m5Agxyq7eZhDC6Y9/7yy52pd4HNO9dN
+	 EFdn79JAwT0zxl5awGHIy//DdiuVwug5Q7sehg9yZ74fS0gLSekzMjTA7nPohrLffD
+	 rNibgYva95rgOX+1fHYL3ZwxRoMUNuEJlOxIfyZMp7j/sKop03/2aPr/w5r3/IZ/5P
+	 yAKd5JxdY0l8w==
+From: Christian Brauner <brauner@kernel.org>
+To: David Howells <dhowells@redhat.com>, 
+ "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>, Kees Cook <kees@kernel.org>, 
+ "Dae R. Jeong" <threeearcat@gmail.com>, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, AutonomousCodeSecurity@microsoft.com, 
+ tgopinath@linux.microsoft.com
+In-Reply-To: <20261009224715.46121-1-cenzhang@linux.microsoft.com>
+References: <20261009224715.46121-1-cenzhang@linux.microsoft.com>
+Subject: Re: [PATCH v2] watch_queue: Fix note pool publication race in
+ watch_queue_set_size()
+Message-Id: <20261012-umgewandelt-drehung-ortskenntnis-40e943ecacac@brauner>
+Date: Mon, 12 Oct 2026 10:48:30 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3F0lRncxqkmahEA--.36665S4
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJFW7Zr4kXFWrWFW5GrW7Arb_yoWrJrWxpr
-	4YqayfKr9xJw109rnrZF4xW348Zry0vr15Wr1Fkw4rCwsxWryrJ3y7JFy7Xr1UArWvgay7
-	Xr43t3Z5ZF1jyw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piVT5JUUUUU=
-X-CM-SenderInfo: 5pdnvshuxfjiisr6il2tof0z/xtbC9RlLVmrMnVlT+wAA37
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-3d1b8
 
-cs35l41_hda_probe() takes an acpi_device through
-cs35l41_hda_read_acpi() and stores it in cs35l41->dacpi. Only the
-failures that happen later reach the err: label, which is where that
-reference and cs35l41->acpi_subsystem_id are released, so the early
-return taken when cs35l41_hda_read_acpi() fails leaves both behind.
+On Fri, 09 Oct 2026 18:47:15 -0400, Cen Zhang (Microsoft) wrote:
+> There is a race between watch_queue_set_size() and post_one_notification().
+> watch_queue_set_size() publishes wqueue->notes, notes_bitmap, nr_pages and
+> nr_notes with plain stores, and post_one_notification() reads them with
+> plain loads under a different lock, so nothing orders the four stores
+> against the poster's loads: depending on the build, notes can be stored
+> last (gcc 14 on x86-64 does this).  Since keyctl_watch_key() lets a watch
+> attach to a queue before it is sized, post_one_notification() can already
+> be running on another CPU at that moment: it reads nr_notes > 0, passes
+> its bounds check, and then reads notes while it is still NULL,
+> dereferencing notes[0].
+> 
+> [...]
 
-Keep the ownership in the caller instead of dropping the reference
-inside cs35l41_hda_read_acpi(). That removes the need to work out
-whether a given failure path has already released it, and with it the
-double put that cs35l41_hda_parse_acpi() would otherwise cause when it
-fails after having released the device itself.
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-cs35l41_hda_parse_acpi() and the !physdev path no longer put the
-reference, and the early failure enters the existing err: cleanup tail
-through a new err_acpi label.
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-The label sits between the reset of the codec and the gpio cleanup, so
-an early failure also releases the reset and chip-select descriptors
-that cs35l41_hda_parse_acpi() may already have taken, while still
-skipping cs35l41_safe_reset() on a codec that was never brought up.
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-cs35l41->dacpi comes from devm_kzalloc() and is only assigned once the
-ACPI device has been found, so the put is a no-op when the lookup
-itself failed.
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
-Found by code review.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
 
-Fixes: 447106e92a0c ("ALSA: hda: cs35l41: Support mute notifications for CS35L41 HDA")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ma Ke <make_ruc2021@163.com>
----
-Changes in v3:
-- Modify the patch. Thanks for Takashi Iwai and Sashiko's suggestions.
-Changes in v2:
-- cs35l41_hda_parse_acpi() drops cs35l41->dacpi in its own err: label, so
-  the err_acpi path added by v1 would have dropped that reference a second
-  time. Clear cs35l41->dacpi there as well, not only on the !physdev path.
----
- sound/hda/codecs/side-codecs/cs35l41_hda.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/sound/hda/codecs/side-codecs/cs35l41_hda.c b/sound/hda/codecs/side-codecs/cs35l41_hda.c
-index 62296be45c55..d50c3d8f5303 100644
---- a/sound/hda/codecs/side-codecs/cs35l41_hda.c
-+++ b/sound/hda/codecs/side-codecs/cs35l41_hda.c
-@@ -1907,7 +1907,6 @@ int cs35l41_hda_parse_acpi(struct cs35l41_hda *cs35l41, struct device *physdev,
- 	hw_cfg->valid = false;
- 	hw_cfg->gpio1.valid = false;
- 	hw_cfg->gpio2.valid = false;
--	acpi_dev_put(cs35l41->dacpi);
- 
- 	return ret;
- }
-@@ -1928,10 +1927,8 @@ static int cs35l41_hda_read_acpi(struct cs35l41_hda *cs35l41, const char *hid, i
- 	cs35l41->dacpi = adev;
- 	struct device *physdev __free(put_device) =
- 		get_device(acpi_get_first_physical_node(adev));
--	if (!physdev) {
--		acpi_dev_put(adev);
-+	if (!physdev)
- 		return -ENODEV;
--	}
- 
- 	sub = acpi_get_subsystem_id(ACPI_HANDLE(physdev));
- 	if (IS_ERR(sub))
-@@ -1986,8 +1983,10 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
- 	dev_set_drvdata(dev, cs35l41);
- 
- 	ret = cs35l41_hda_read_acpi(cs35l41, device_name, id);
--	if (ret)
--		return dev_err_probe(cs35l41->dev, ret, "Platform not supported\n");
-+	if (ret) {
-+		dev_err_probe(cs35l41->dev, ret, "Platform not supported\n");
-+		goto err_acpi;
-+	}
- 
- 	if (IS_ERR(cs35l41->reset_gpio)) {
- 		ret = PTR_ERR(cs35l41->reset_gpio);
-@@ -2074,6 +2073,7 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
- err:
- 	if (cs35l41_safe_reset(cs35l41->regmap, cs35l41->hw_cfg.bst_type))
- 		gpiod_set_value_cansleep(cs35l41->reset_gpio, 0);
-+err_acpi:
- 	gpiod_put(cs35l41->reset_gpio);
- 	gpiod_put(cs35l41->cs_gpio);
- 	acpi_dev_put(cs35l41->dacpi);
--- 
-2.43.0
+[1/1] watch_queue: Fix note pool publication race in watch_queue_set_size()
+      https://git.kernel.org/vfs/vfs/c/e184fdfd7ea0
 
