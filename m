@@ -1,76 +1,79 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A2D348EBF3
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 14:13:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EC1A48F018
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 14:13:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791814382; cv=none; b=r2tefWDoIt3U8G3QI4jUK1VjBYcZmFiga9sw6PmbaJ6cieKsmSaHzs1TrCboBJAYwiRl300tCw4eRJT+fEL7z3PpWobA43Wb5qvbIvwgnL0amgheqQ697eRiTuNTYFEnkEniysdUDF5k6uh3/ZgBGt4GSUneig/Ld2oDXXVqN0s=
+	t=1791814386; cv=none; b=EZw3FpG+EaifwbO2acFdi0mVtYOdwBih8M97T1xZlZOy6VVHLYfgooOkHqp6xNrx40O5G5/kAyav9Mrh0PnWgBYgjQs4w4sHsxNbj09De+YwEYdb19vYLxBrv/evksx9FfK1OFgsmYU2OvD6/ZZpaFNecHp7D2Bx0e3ranr2V0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791814382; c=relaxed/simple;
-	bh=S9T9R2mHJ1HQh10YHxIzMeuzc3FLyr0Tl+qKJMjpTB4=;
+	s=arc-20240116; t=1791814386; c=relaxed/simple;
+	bh=Op9mdkaqB5CNS94ylwnFmEPh8O+aB/lXmsYsw/4hf8I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DF5GJlZNos596THvLjVGno2D6EGus8we8RNovXg3TjJhaiQfGTq1Suk5Dy3X+Igk+PDz3lQ0AVy5oFw84zFrHXAYklQpAQa6aPrd+sIcRQCpE53Sm3lSkYAuv/71GbUcLBo3LOtLGKB62udEro2Rlj3tV0xpWq6QD9bcj75HzKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KRG/o7xJ; arc=none smtp.client-ip=209.85.221.50
+	 MIME-Version; b=APLystnsWCLoMoHf7Xwz/qpeeCjLQYGP5NQLIfSkP5LmOn1SyTpshzmf5Ifu6O/3DkO+whkrhejusoR3rntc2mcOXX/7KZC62yxzuRxsX/MIv0k65A5xsm9NV6FmJyT+UPGuJvk2a6YfwSGaeH2vSLIXdbn2f0FPJvs12yKbPm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GlHLtFv7; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KRG/o7xJ"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48afbd2c386so989967f8f.3
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 07:13:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GlHLtFv7"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a17baef589so15537925e9.0
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 07:13:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791814379; x=1792419179; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791814383; x=1792419183; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vUnD1LOeI7J0+oxZWNA094IG/xUwZAT8pRqcJaVVo9o=;
-        b=KRG/o7xJyXC5BtLwyvmhuZq+0vJB0EL8WRKJDFhlLIgb1nKltT78Pc59ZgwahF6cIm
-         dmf46+X+cFysU5kUpV1sCiNfyMP6gA/ZvjnRXvdOmVH5dXV0UDcGv9zt6iB/bcNN0exf
-         XuodeLG5nWRL1Pnv7dsHheVgfEYUYVEvPZDeAsvrAnR2iIK4PbHWp0CeqakKha//JzD3
-         icFWK2snxKj8zp3FcHOs/URv2tC0np6MbbSP9o2vgd9Ul8oCpUlgIrh7JnCVreUTTLhM
-         yqsGnSc4XoqojjDGehyN/qVgmp6Gwo7RJAiPuoYh2vwRsHWo0ZkhibtpwOnRJcJlPwgs
-         rvMg==
+        bh=FEGgdcLnqcVqT4VDy0LsmeHP+tq7RUbfRCvfJ7zm1f4=;
+        b=GlHLtFv7jxKrQRsMJLjlCynrQxeG6HHCWeaaKqrzsIvlE8frTFyGach8ZCvdOlObn7
+         P48+TnIioT1Fvr0sO1jNs/6xIQN9bHAOF0KjcmUjbtHxZbzVU/DHfWK9dgpytct3+Ec7
+         okHho/d/YrcgX1vUukbsZ4lE8hgEO0zkUih1UkCmmjEsBxXCHT49DEnDU9sSbeVBV7C4
+         sJ7Bs+kPoCBHT2wjoUOnEACiCIrtw4XdD7VgiSXmF7Z6n9n70KVhOwNzxcC6C/VbekUN
+         Dbp0mkG2mi+VmwjUtHidnHcQJGz+Hjt0h8wTvskTaRWwrtn7VCMM7NMrruwUDiU1J7Si
+         7Hqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791814379; x=1792419179;
+        d=1e100.net; s=20260707; t=1791814383; x=1792419183;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vUnD1LOeI7J0+oxZWNA094IG/xUwZAT8pRqcJaVVo9o=;
-        b=jNn3HF1vntE4ByV2eQThWA6OQjkPtnlVipVwJN8wlkvVe25ko+F6m+MfaTwsUNFP0Z
-         jTxXmBmYq+/Qv3yLmK0Lkkvc4PG1iMeUzGnN/PVBBYbnGZw2ghCmHV1B8gx402OATzhX
-         KIsBPfK+gpl00zz23Z86UjUyVt9eUH6oUqJMFDvjNA8mcy8vwS7zp6nT6adgO17Ivxq4
-         622mQ6ZFW8f7honeyc9qqlj5iiXM1+YQdv0rCH7LruRhGoEreTaP7F2qBwUOXMmQdvUO
-         iS4j+xQlXrL+k/8QcCYNZtsIfc+fIpTEyoZg91C57lgmSz2xLFP2i2998JkOCADWCPvp
-         bdzw==
-X-Forwarded-Encrypted: i=1; AKwUvBxunTtOKxNwmcCekqxRyRZEnKKWabJtFfegUJzfOxn/bQv2odbUC91e3ZE7xohHdS99KXPxtCU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/Dxm/mn0HxghBadPRWrsl17EiXqZ8/MKSHQOwcc1BVLAIIKPr
-	QN7GvehDGHY0fSat2y1mBIYK/QqU5M1+mY9rjVzNYuO07cNcD2j1ZGKJ
-X-Gm-Gg: AYBFou2xydSpVPfXms3w8KZAZy5QtVqaLzeER1C0pRiCUqFuIELMCW2zgIBvyrYtrso
-	g1G4ia5ECYxpY0RLEXkKze6lr1AeTy6mT7ReMGvE5Pebo/P2gaCR0soNFIL1YSh2rACBFW1eG5a
-	x12aG40H0DIX9KQSA3TzoqHHAsbJf5KzOtMteUXMjb7cOlO+mJZjT1+TESJ7HJ1HQTtFnR5+dWw
-	XghLex1cxwij5QaCkhyj1IXzzB6NhS/TRiU6nZQuhxTN14mLmAbiAhsuXXyXi8yuYzMczOAqXDS
-	uXNI4tt/tkX1/bjgoF2hjEeCYIMNajgHqBbAKR2f1T6wKmEROJgY4Sy5x8lOW1IT/9gUkBT4eB5
-	FKhQZUT4NLN4P4/qduDWzb3CEazVjaZyGRiq9AMRBG9uLEnp1EdZES8XfLZKWRe3hyxiVaP8pfs
-	4IXFzXbaab5dI0HsuO3ozhIy3z9bkodDspjQSk2LG19kNA1Z5wVdktRJZrYHi7pVN53ZpYP30Rf
-	fzX/i0wdNkKPUHxCyXRcu5Xh8j/jW7+1n5mQU7WPk4K
-X-Received: by 2002:a05:6000:3102:b0:48d:ca32:e90f with SMTP id ffacd0b85a97d-48dca32e9b5mr10853775f8f.55.1791814379073;
-        Mon, 12 Oct 2026 07:12:59 -0700 (PDT)
+        bh=FEGgdcLnqcVqT4VDy0LsmeHP+tq7RUbfRCvfJ7zm1f4=;
+        b=NLENuyuu66vF8q/ZlHJm+IjHXoFuf24OouG99fUIKSBOCmQuy9YfQRTzEKxqb6Fhtl
+         A7jWCmGp3E13yD6aPBzxxaPlKlcTSA8Z0ltvlHWl4H5E+3U/37OrFm1+8mx6MPMZpE3K
+         lT7tMhBlM/bYxioJbZXfuy25B7486fDa0OkrM6ieEkc+CIx71nOzlTxagA+ww6SyiQYU
+         sNw6D7HzvCts5rk0KP/0CmCYlU4GZKF7MqVAFjLaus/Gb2UzrQviVeNTZDljuXc8f3CR
+         VYu92ZZU/+QRyu2Hc6g47llZFQj9ZYoiuTwQj4qcwrMK57oIJDHUZdu/cnP058bmFDKf
+         FNbA==
+X-Forwarded-Encrypted: i=1; AKwUvBxCdsTjRd4+257qNxP1WZtomt/Mz7LfFl+wGzl5FwjdDtFthmgq5h0gnzes9WxXSgr8dJR0460=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKISATM9ETLd9o/PjnI+Yp18bkKVEAzkWs/0pgSkleQmoAEm8O2
+	KcFOrs2y4/8BJ3BoRlL8Xyac/YpA4/qe83icyiIgMQNiSiTx5VrttRxl
+X-Gm-Gg: AYBFou3iPV48u4zkWrTsiDBS68B4F/ZHg1pNiqRAvwH7nYkJ8pNPXGDhn8eDsSHlFLF
+	trDHrXmhawbJ8xcJ1GPWlnYfpswiDoOft5FGjHRCynXSKn6yjnZRy+xMICud64bP9zB5FaWpxso
+	t6NYJXSDd381SkPxTcC5wcTeBy/h5BgCWuzw88uLkQAwlujgxaOW7Uj0kMLQfUgQd4Mu/koU/nT
+	MR78sW70mOrFp6oArRXIJInotvtpr+e3zdczGuVwF8OuaL27f+1xmGk01HrqNakCMpuOly9ZI64
+	BPT9oIMvc8rD556o09wm4peY+3oimCo7EUxAZ2l+8lxq8CRoVBryT4peJaPTQCizT9MokfAsLEp
+	POqFpEMuXffWgnj0l+MBWc85jWfVXaAm6jKRM4e9oSfk/F4XUh6eLJaOIpsLTwKOP6dmQmxjSbf
+	9pLD6aE/wRxNIbtXoZmJE40ZuVul5KNL0ZqQXHlojZYljFmH8eBxANw9FHPca7aLweM/k14IXdy
+	ihpxYF1XFKsoHnM/Zkfqip6bWrziF4=
+X-Received: by 2002:a05:600c:8208:b0:4a0:1b14:d00c with SMTP id 5b1f17b1804b1-4a18e446f55mr177700555e9.3.1791814383286;
+        Mon, 12 Oct 2026 07:13:03 -0700 (PDT)
 Received: from andreayoga.wind3.hub ([151.76.59.204])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9ac02cfsm18703035f8f.39.2026.10.12.07.12.58
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9ac02cfsm18703035f8f.39.2026.10.12.07.13.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 07:12:58 -0700 (PDT)
+        Mon, 12 Oct 2026 07:13:02 -0700 (PDT)
 From: Andrea Parri <parri.andrea@gmail.com>
 To: Christoph Hellwig <hch@lst.de>,
 	Sagi Grimberg <sagi@grimberg.me>,
 	Chaitanya Kulkarni <kch@nvidia.com>
 Cc: Andrea Parri <parri.andrea@gmail.com>,
 	Damien Le Moal <dlemoal@kernel.org>,
+	Keith Busch <kbusch@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
 	linux-nvme@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 2/5] nvmet: zns: don't leak stale memory in zone management receive
-Date: Mon, 12 Oct 2026 16:12:29 +0200
-Message-ID: <20261012141239.156408-3-parri.andrea@gmail.com>
+Subject: [PATCH 4/5] nvmet: pci-epf: report transport errors in command completions
+Date: Mon, 12 Oct 2026 16:12:31 +0200
+Message-ID: <20261012141239.156408-5-parri.andrea@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261012141239.156408-1-parri.andrea@gmail.com>
 References: <20261012141239.156408-1-parri.andrea@gmail.com>
@@ -82,79 +85,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A Zone Management Receive report returns the full buffer the host asked
-for, but nvmet_bdev_zone_zmgmt_recv_work() writes only the 8-byte
-Number of Zones field and one 64-byte descriptor for each matching zone
-that fits. The 56 reserved header bytes and every descriptor slot past
-the last match keep whatever the buffer held before. A 4096-byte report
-covering a single zone leaves 4024 bytes unwritten.
+When the PCI endpoint target fails a command itself, the host receives a
+successful completion. This happens for a data length above MDTS,
+malformed PRPs or SGLs, a buffer allocation failure, an SQ that is not
+live, and a failed DMA of the command data. A write whose data cannot be
+fetched from the host is thus reported as written, though nothing was
+executed.
 
-The tcp, rdma and fc transports allocate that buffer with sgl_alloc()
-and pci-epf with kmalloc(), none with __GFP_ZERO, and on success each
-sends the whole buffer to the host (nvmet_setup_c2h_data_pdu() for
-tcp), so the host receives old kernel memory from the target.
+Each of these paths sets iod->status and calls
+nvmet_pci_epf_complete_iod(), which then reloads iod->status from
+iod->cqe.status. The nvmet core only fills that field when it completes
+the request, which these paths never do, so it is still zero and
+nvmet_pci_epf_cq_work() posts a success status to the host.
 
-nvmet_bdev_execute_zone_mgmt_recv() also never checks the transport
-data length against NUMD, so on transports where the host sets that
-length, the buffer sent back can be much larger than the report NUMD
-describes. pci-epf derives its data length from NUMD, so the length
-check below does not apply there, but the zeroing still covers the
-report.
+Drop the reload. Every path already sets iod->status before completion:
+nvmet_pci_epf_queue_response() copies it from the request's CQE, and
+the transport error paths set it themselves.
 
-Reject a data length that does not match NUMD with
-nvmet_check_transfer_len(), as nvmet_bdev_execute_zone_append() does,
-and zero the report with nvmet_zero_sgl() before filling it. Zeroing
-NUMD bytes is only enough because of the length check, so the two go
-together.
+Found by code inspection. Build-tested only (x86_64, W=1): no PCI
+endpoint hardware was available to run it.
 
-Allocating with __GFP_ZERO in the transports would also close the leak,
-but it adds a memset to every read command to fix one handler, so the
-transports are left alone.
-
-Tested over the loop, tcp, rdma and fc transports with a zoned
-null_blk namespace: before this patch, zone reports carried stale bytes
-and a data length larger than NUMD was accepted; with it, reports are
-fully initialized and such a length fails with Data SGL Length Invalid.
-
-Fixes: aaf2e048af27 ("nvmet: add ZBD over ZNS backend support")
+Fixes: 0faa0fe6f90e ("nvmet: New NVMe PCI endpoint function target driver")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 ---
-pci-epf has a separate, pre-existing problem with SGLs that describe more
-than the command's data length. Patch 5/5 fixes it.
+ drivers/nvme/target/pci-epf.c | 1 -
+ 1 file changed, 1 deletion(-)
 
- drivers/nvme/target/zns.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/drivers/nvme/target/zns.c b/drivers/nvme/target/zns.c
-index 23a17c02abee2..78d82b6ff1214 100644
---- a/drivers/nvme/target/zns.c
-+++ b/drivers/nvme/target/zns.c
-@@ -282,6 +282,11 @@ static void nvmet_bdev_zone_zmgmt_recv_work(struct work_struct *w)
- 	if (status)
- 		goto out;
+diff --git a/drivers/nvme/target/pci-epf.c b/drivers/nvme/target/pci-epf.c
+index c683450df4227..4c5fff232fb99 100644
+--- a/drivers/nvme/target/pci-epf.c
++++ b/drivers/nvme/target/pci-epf.c
+@@ -1152,7 +1152,6 @@ static void nvmet_pci_epf_complete_iod(struct nvmet_pci_epf_iod *iod)
+ 	unsigned long flags;
  
-+	/* Only the zone count and matching descriptors are written below. */
-+	status = nvmet_zero_sgl(req, 0, out_bufsize);
-+	if (status)
-+		goto out;
-+
- 	if (!req_slba_nr_zones) {
- 		status = NVME_SC_SUCCESS;
- 		goto out;
-@@ -317,6 +322,11 @@ static void nvmet_bdev_zone_zmgmt_recv_work(struct work_struct *w)
- 
- void nvmet_bdev_execute_zone_mgmt_recv(struct nvmet_req *req)
- {
-+	u32 out_bufsize = (le32_to_cpu(req->cmd->zmr.numd) + 1) << 2;
-+
-+	if (!nvmet_check_transfer_len(req, out_bufsize))
-+		return;
-+
- 	INIT_WORK(&req->z.zmgmt_work, nvmet_bdev_zone_zmgmt_recv_work);
- 	queue_work(zbd_wq, &req->z.zmgmt_work);
- }
+ 	/* Print an error message for failed commands, except AENs. */
+-	iod->status = le16_to_cpu(iod->cqe.status) >> 1;
+ 	if (iod->status && iod->cmd.common.opcode != nvme_admin_async_event)
+ 		dev_err(iod->ctrl->dev,
+ 			"CQ[%d]: Command %s (0x%x) status 0x%0x\n",
 -- 
 2.53.0
 
