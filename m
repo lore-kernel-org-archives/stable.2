@@ -1,281 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC8D4F96A8
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 21:34:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EBA94DA9AA;
+	Mon, 12 Oct 2026 21:34:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791840889; cv=none; b=IDXoRwlPp0Zp4gXP0pjAc/CNQBp6VTBYO21TY7mbdj5xzATqJu5WDWDASucMjM6EX7lZUQrYml3z2IkUTYRL7JL62tzS6NS+npEKrHBakgJZGQbKkek+KUZv6hiTA09mI37niINHSNdM2g+9CzcwS6VW7lkIpICpTdTE6f52baI=
+	t=1791840890; cv=none; b=GFWSNgqpEnwkWoIGCb/Qes+4UBcY+3eIhOg9jPzh6JAcHE7wdFEHLcZRCHjCmQxVAFE30oktRfUAOtxk/0fXxvRpmwONdynaBC8LHrSG+Zaciqjp0WgLbamVC4zltGOafwlsOgQ1Id0ETlhVWua1116fX4kbzUOEVXDSql/aCrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791840889; c=relaxed/simple;
-	bh=fZF4GDRZlsV5V5eRgvdQIIxhCYin2ZzRCZM2quT2ISw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AmvPWNz58hNMJ+SUTDTA39GWNRC9+9g09VdBdif0vc46c1p5ER2DBtjnoF9hpREK8gSihCuWzTxCeFMzqm6BGKFDa+7AXblOUMiaZTkx3WSg35sY0YVpe+OJ3PVefaV1LaNXoUeVeNDM6NplPbFNYsWe4VyJSL4mqFFgCV7UOsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fPR/yrXa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791840890; c=relaxed/simple;
+	bh=2rYQqctxIJ2NAfH8d5iXblRfcvOqUMnrMip1eofojvk=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=ZSyTMYmJ45xcWN2SDEBi89YMEBwokuqGNu+s8h/km3IiEWuT2ntYvii0AtBzvEfdJIdEgivkHpI1jhYQRrq6oRddTPhHyc48D/wjs5QBReA9/1bh0W17U/Our0Fxpi2uQQyM0ooPP/HhHBkgAUlig1HXkin+4plC93FoJLMlPEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HENcQPzl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fPR/yrXa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4CA41F0089B;
-	Mon, 12 Oct 2026 21:34:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HENcQPzl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C4411F008A1;
+	Mon, 12 Oct 2026 21:34:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791840885;
-	bh=l7FdJq4G3seMo6Yyd5JsUpoPS9toK3VBreZOTQadCXc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fPR/yrXaSciAG5m3SNzOvSL2+tcqNoslxWHwfFTVyHv6lo8HIN+aWerEZRMFXwvHx
-	 ZaY/PR8ucf94lBh2kdr9zhzWOY2K0l+9KW/G7+GYqyN38lbV98zzZRoMiWG8YtlffK
-	 z1JVpOaublnU+0oLWAYVLGwZIUIYdH//UjPEglwy0+gMSM8d7E6O1eVrivCxeCEEUl
-	 sfULLS5gLv4lsQyAuBQ90OfER5viNvU46RqxruqZh4clOClk1sBasjj6Yfv7hDNmxM
-	 LqCOs1mEuvxUusmnHa4AnggWtv43wvUSjcznvKzMylAoHCuB6TVmoHj4ONmHjn+MIk
-	 SfvtBEfBraM9Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Brian Geffon <bgeffon@google.com>,
-	Minchan Kim <minchan@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP self-merge
-Date: Mon, 12 Oct 2026 17:34:42 -0400
-Message-ID: <20261012213355.1593438-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101207-tapeless-haphazard-6b96@gregkh>
-References: <2026101207-tapeless-haphazard-6b96@gregkh>
+	s=k20260515; t=1791840888;
+	bh=+k/A8cNCSgFkxc2tpT06bk4634W3QnFn4AnLpYa6IdI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=HENcQPzl2lLQKWet8buJsvIU9gf4FXwjfIYCelfQDQPmPjJxz3KqOpYdwDZudafVZ
+	 Z3o1JqQOOZuYRCXPTmeBItGIj1dAX59mnCWc+gKqNyNkhZwsiqbIqYM8O2o9ZpB2e+
+	 wuuHRN9/wzrfpZfnfuT6IrfkNiYm7UtP+tlbdGQspPluyy03NXuhyH7QHXmwiSo2P9
+	 6DFwu/IAwnPSwde3a9dEyKgYmO6M32OMcppRRsMW5f4fdeqX51bd24gWO2IcZSY4BI
+	 dPrpJefJv6B7EK0qC8cOH/fZlaVeW2L1EVM4PKniM8V/vWcBj16QqQmlo1hwOJynt2
+	 pgw6vk/SA8FTQ==
+Date: Mon, 12 Oct 2026 16:34:47 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Imre Kaloz <kaloz@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+	Andreas Larsson <andreas@gaisler.com>, sparclinux@vger.kernel.org,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Shivasharan S <shivasharan.srikanteshwara@broadcom.com>,
+	Srinath Mannam <srinath.mannam@broadcom.com>,
+	Michael Chan <michael.chan@broadcom.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Vikas Gupta <vikas.gupta@broadcom.com>
+Subject: Re: [PATCH] PCI: Avoid D3 on PLX PEX 8532/8533/8548 downstream ports
+Message-ID: <20261012213447.GA1392402@bhelgaas>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927105609.8813-1-kaloz@kernel.org>
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+[+cc several Broadcom folks, help with possible switch erratum]
 
-[ Upstream commit 838bb60dc21553e32df90f2f3bac5b905376e7aa ]
+On Sun, Sep 27, 2026 at 12:56:09PM +0200, Imre Kaloz wrote:
+> Runtime PM suspends an idle downstream port of a PLX/Broadcom PEX
+> 8532/8533/8548 switch to D3hot, but that takes the whole switch down
+> with it: any device behind another port of the same switch then
+> faults with a fatal bus error on its next access, e.g. mptsas probe
+> on a Sun Ultra 45.
+> 
+> This surfaced on sparc64 once commit a5fb3ff63287 ("PCI: Allow PCI
+> bridges to go to D3Hot on all non-x86") let bridges enter D3hot. Keep
+> these downstream ports out of D3 by setting PCI_DEV_FLAGS_NO_D3.
 
-Patch series "mm/mremap: fix two issues with MREMAP_DONTUNMAP", v2.
+I don't really have any objection to this, but I am concerned that
+this quirk only applies to a few specific devices, but
+https://admin.pci-ids.ucw.cz/read/PC/10b5 shows a TON of
+similar-looking switches that I assume have the same behavior, so
+this may be just the tip of the iceberg.
 
-The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
-operations that keep the original VMA in place.
-
-Historically this has led to a lot of bugs where non-obvious interactions
-occur between existing mremap() operations and the original VMA.
-
-Commit 397432cab17b ("mm/mremap: account mm->locked_vm correctly for
-MREMAP_DONTUNMAP") fixed an accidentally introduced bug around
-mm->locked_vm accounting, but this wasn't the only issue.
-
-And thus history repeats itself, as it turns out that mm->locked_vm
-accounting is broken by MREMAP_DONTUNMAP yet again by two further cases,
-and has been broken ever since the feature was introduced.
-
-Both relate to the fact that VMA_LOCKED_BIT is cleared on the source VMA
-(it has to be as all page tables are moved):
-
-1. If an unfaulted VMA_LOCKONFAULT_BIT anonymous VMA self-merges it
-   clears the VMA_LOCKED_BIT flag and permanently leaks mm->locked_vm
-   pages.
-
-2. If a partial mremap() is performed on a locked VMA there is a leak equal
-   to the number of pages not copied.
-
-(Both for MREMAP_DONTUNMAP operations only)
-
-Both issues can be fixed by treating the source range as distinct from the
-destination range, which is the definition of what MREMAP_DONTUNMAP does
-so is appropriate.
-
-In case 1, simply disallow the self-merge, keeping adjacent source and
-destination VMAs distinct.
-
-In case 2, split the source range ahead of time if the VMA is mlock()'d,
-so accounting is always correct.
-
-Both changes were tested locally and confirmed to fix the issues.
-
-For the purposes of a backport, the fixes are kept distinct, a follow-up
-series can add self-tests.
-
-This patch (of 2):
-
-The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
-operations that keep the original VMA in place.
-
-Historically this has led to a lot of bugs where non-obvious interactions
-occur between existing mremap() operations and the original VMA.
-
-Fix another of these - self-merge.
-
-Self-merge occurs when a VMA is moved in front of or behind itself and the
-attributes of the VMA permit such a merge.
-
-Practically this can only happen for unfaulted anonymous VMAs due to the
-page offset equality requirement for merge:
-
-                           |------------|
-                           |            |
-                           |            v
-        |...........||-----------||...........|
-        |           || unfaulted ||           |
-        |...........||-----------||...........|
-              ^            |
-              |            |
-              |------------|
-
-This becomes problematic if the VMA is configured by the user to
-mlock-on-fault, i.e. the VMA_LOCKED_BIT, VMA_LOCKONFAULT_BIT VMA flags are
-set.
-
-MREMAP_DONTUNMAP clears mlock flags for the source VMA and maintains them
-for the destination VMA.
-
-Self-merge makes this impossible (there is only one VMA) and incorrectly
-clears the destination VMA's mlock flags.
-
-This causes a leak in mm->locked_vm as clearing this flag does not
-decrement the counter and the VMA no longer has VMA_LOCKED_BIT set so it
-is not decremented on unmap.
-
-Resolve this by simply disallowing a self-merge in this case - the source
-and destination VMAs are kept distinct and then are able to have distinct
-mlock() flags.
-
-Update dontunmap_complete() to make the now-redundant self-merge check a
-VM_WARN_ON_ONCE() instead to guard against future regressions.
-
-Also update the VMA userland tests to reflect the change.
-
-Link: https://lore.kernel.org/20260930-fix-dontunmap-partial-self-merge-v2-0-f388985a0f0a@kernel.org
-Link: https://lore.kernel.org/20260930-fix-dontunmap-partial-self-merge-v2-1-f388985a0f0a@kernel.org
-Fixes: e346b3813067 ("mm/mremap: add MREMAP_DONTUNMAP to mremap()")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Brian Geffon <bgeffon@google.com>
-Cc: Minchan Kim <minchan@kernel.org>
-Cc: <stable@vger.kernel.org>
-[ sashal: Translated can_self_merge logic to the inverse faulted_in_anon_vma flag. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/mremap.c             |  7 +++++--
- mm/vma.c                | 17 ++++++++++++++++-
- mm/vma.h                |  2 +-
- tools/testing/vma/vma.c |  4 ++--
- 4 files changed, 24 insertions(+), 6 deletions(-)
-
-diff --git a/mm/mremap.c b/mm/mremap.c
-index e60a63a36ea0b..fe666da4772c2 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -1191,7 +1191,7 @@ static int copy_vma_and_data(struct vma_remap_struct *vrm,
- 	PAGETABLE_MOVE(pmc, NULL, NULL, vrm->addr, vrm->new_addr, vrm->old_len);
- 
- 	new_vma = copy_vma(&vma, vrm->new_addr, vrm->new_len, new_pgoff,
--			   &pmc.need_rmap_locks);
-+			   &pmc.need_rmap_locks, vrm->flags & MREMAP_DONTUNMAP);
- 	if (!new_vma) {
- 		vrm_uncharge(vrm);
- 		*new_vma_ptr = NULL;
-@@ -1251,6 +1251,9 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
- 	unsigned long old_start = vma->vm_start;
- 	unsigned long old_end = vma->vm_end;
- 
-+	/* Self-merge is disallowed. */
-+	VM_WARN_ON_ONCE(new_vma == vma);
-+
- 	/* We always clear VM_LOCKED[ONFAULT] on the old VMA. */
- 	vm_flags_clear(vma, VM_LOCKED_MASK);
- 
-@@ -1258,7 +1261,7 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
- 	 * anon_vma links of the old vma is no longer needed after its page
- 	 * table has been moved.
- 	 */
--	if (new_vma != vma && start == old_start && end == old_end) {
-+	if (start == old_start && end == old_end) {
- 		const pgoff_t pgoff_unfaulted = vma->vm_start >> PAGE_SHIFT;
- 
- 		unlink_anon_vmas(vma);
-diff --git a/mm/vma.c b/mm/vma.c
-index d1158fdcde287..5f21555f6f7fd 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -1852,7 +1852,7 @@ int vma_link(struct mm_struct *mm, struct vm_area_struct *vma)
-  */
- struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
- 	unsigned long addr, unsigned long len, pgoff_t pgoff,
--	bool *need_rmap_locks)
-+	bool *need_rmap_locks, bool keep_source)
- {
- 	struct vm_area_struct *vma = *vmap;
- 	unsigned long vma_start = vma->vm_start;
-@@ -1885,6 +1885,21 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
- 
- 	vmg.pgoff = pgoff;
- 	vmg.next = vma_iter_next_rewind(&vmi, NULL);
-+
-+	/*
-+	 * If the original VMA is kept (MREMAP_DONTUNMAP), the source and
-+	 * destination VMA must be treated distinctly.
-+	 *
-+	 * A merge violates this, so in this case disallow a self-merge.
-+	 */
-+	if (!faulted_in_anon_vma && keep_source) {
-+		if (vmg.prev == vma)
-+			vmg.prev = NULL;
-+		if (vmg.next == vma)
-+			vmg.next = NULL;
-+		faulted_in_anon_vma = true;
-+	}
-+
- 	new_vma = vma_merge_copied_range(&vmg);
- 
- 	if (new_vma) {
-diff --git a/mm/vma.h b/mm/vma.h
-index 4c7ea8b893ab7..b7ae9d9ce3b3d 100644
---- a/mm/vma.h
-+++ b/mm/vma.h
-@@ -389,7 +389,7 @@ int vma_link(struct mm_struct *mm, struct vm_area_struct *vma);
- 
- struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
- 	unsigned long addr, unsigned long len, pgoff_t pgoff,
--	bool *need_rmap_locks);
-+	bool *need_rmap_locks, bool keep_source);
- 
- struct anon_vma *find_mergeable_anon_vma(struct vm_area_struct *vma);
- 
-diff --git a/tools/testing/vma/vma.c b/tools/testing/vma/vma.c
-index fd37ce3b26280..db580c5d21515 100644
---- a/tools/testing/vma/vma.c
-+++ b/tools/testing/vma/vma.c
-@@ -1558,7 +1558,7 @@ static bool test_copy_vma(void)
- 	/* Move backwards and do not merge. */
- 
- 	vma = alloc_and_link_vma(&mm, 0x3000, 0x5000, 3, vm_flags);
--	vma_new = copy_vma(&vma, 0, 0x2000, 0, &need_locks);
-+	vma_new = copy_vma(&vma, 0, 0x2000, 0, &need_locks, false);
- 	ASSERT_NE(vma_new, vma);
- 	ASSERT_EQ(vma_new->vm_start, 0);
- 	ASSERT_EQ(vma_new->vm_end, 0x2000);
-@@ -1571,7 +1571,7 @@ static bool test_copy_vma(void)
- 
- 	vma = alloc_and_link_vma(&mm, 0, 0x2000, 0, vm_flags);
- 	vma_next = alloc_and_link_vma(&mm, 0x6000, 0x8000, 6, vm_flags);
--	vma_new = copy_vma(&vma, 0x4000, 0x2000, 4, &need_locks);
-+	vma_new = copy_vma(&vma, 0x4000, 0x2000, 4, &need_locks, false);
- 	vma_assert_attached(vma_new);
- 
- 	ASSERT_EQ(vma_new, vma_next);
--- 
-2.53.0
-
+> Fixes: a5fb3ff63287 ("PCI: Allow PCI bridges to go to D3Hot on all non-x86")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+> ---
+>  drivers/pci/quirks.c | 18 ++++++++++++++++++
+>  1 file changed, 18 insertions(+)
+> 
+> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+> index de9bbccda21f..a3c9250182a6 100644
+> --- a/drivers/pci/quirks.c
+> +++ b/drivers/pci/quirks.c
+> @@ -2381,6 +2381,24 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_PLX, PCI_DEVICE_ID_PLX_9050,
+>  DECLARE_PCI_FIXUP_HEADER(0x1402, 0x2000, quirk_plx_pci9050);
+>  DECLARE_PCI_FIXUP_HEADER(0x1402, 0x2600, quirk_plx_pci9050);
+>  
+> +/*
+> + * An idle downstream port of a PLX/Broadcom PEX 8532/8533/8548 switch
+> + * autosuspends into D3hot, and that takes the whole switch down with
+> + * it -- any device behind another port of the same switch then sees a
+> + * fatal, non-recoverable bus fault on its next access. Keep these
+> + * ports out of D3 entirely.
+> + */
+> +static void quirk_plx_pex_no_d3(struct pci_dev *dev)
+> +{
+> +	if (pci_pcie_type(dev) == PCI_EXP_TYPE_DOWNSTREAM) {
+> +		dev->dev_flags |= PCI_DEV_FLAGS_NO_D3;
+> +		pci_info(dev, "avoiding D3 on this downstream port\n");
+> +	}
+> +}
+> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_PLX, 0x8532, quirk_plx_pex_no_d3);
+> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_PLX, 0x8533, quirk_plx_pex_no_d3);
+> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_PLX, 0x8548, quirk_plx_pex_no_d3);
+> +
+>  static void quirk_netmos(struct pci_dev *dev)
+>  {
+>  	unsigned int num_parallel = (dev->subsystem_device & 0xf0) >> 4;
+> 
+> base-commit: fe2ec83746e501645709761605c2464a44fd2929
+> -- 
+> 2.47.3
+> 
