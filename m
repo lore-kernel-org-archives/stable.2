@@ -1,227 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020088.outbound.protection.outlook.com [52.101.196.88])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D6038735D;
-	Mon, 12 Oct 2026 01:27:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791768447; cv=none; b=g95Py22Pa5dLjw6fZd6MADatZOukAotsHFvrGlavTKp3wI+8jVD3sYPsID0cFsb+5jfqXU/5wUaIMOPgaWdrXWmG2dvReP4tFZaAiaDHGlDcxIxmGqEfFf5dmjNaN2IMpMi0NkJtl7GEAtENh3tKaNmdqyoHFZS9OT56I9tjhB8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791768447; c=relaxed/simple;
-	bh=Z4YbKlMYfwjeCSuNzqsvvMhdovAKYj8NiZstvX0GOtc=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Z2Knk7K/Bu6Sjz2eCfQDPmQcCH2jZN1yItV6z51p5D2vkTMlaR6TZ6UdJmBiIoQKtxqKWbfzjWtaU9PtBCephp/78vmejYgKfU4iECtJx3KOn7H5sYyjQdu9rxPcdboA/T0xTQyPkHHbC38K3JFGbbZbstY2UznuqjitfP2xMgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NrsxjV8Y; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NrsxjV8Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 470B41F0089B;
-	Mon, 12 Oct 2026 01:27:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791768446;
-	bh=VMCIw3R1Suzemsm2WOv45XkZoDR3phWGGRoHPSwTczA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=NrsxjV8YWqZxwVWNHhzzsDoASrDAQIWFpgQ7ZRSM47lAK+J23jHgsUr6i1K7O4ZGi
-	 DDOfs51gwBL38aEM7NTOAKuV9Wbx9dAR+p1f7up7aiyg4VFktXr8O1zMmXzLbZi0zc
-	 QY5/Hf3wdQyObEOlTmEAk9sccnO07XmzMN9RON8wnIjSDXZxz8kqpVnRNlbhyvNRBF
-	 uBzbEBAKV0hn1uWOmCz0ylY15ZI2O8mUkLRv4FfEJnlsjmYriiHav99+hfcslR3RVX
-	 NZ2nQhojwTslxyFPDt1AbqbGjtF0xu8YmJqgC+V8iVChya24octqnCsqSEPsaeXykx
-	 zR7Mp+UvbHVsw==
-Subject: Re: [PATCH net v6] ip6_gre: use skb_vlan_inet_prepare() instead of
- pskb_inet_may_pull()
-From: netdev-bot+sashiko@kernel.org
-To: littlesmilingcloud@gmail.com
-Cc: netdev@vger.kernel.org, edumazet@kernel.org, fw@strlen.de, kuba@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, horms@kernel.org, dsahern@kernel.org,
- idosch@nvidia.com, mazin@getstate.dev, matthias.may@westermo.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon, 12 Oct 2026 01:27:24 +0000
-Message-ID: <179176844482.434549.5708346025808067831@kernel.org>
-In-Reply-To: <20261008012554.202925-1-littlesmilingcloud@gmail.com>
-References: <20261008012554.202925-1-littlesmilingcloud@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 075F22BF3F3;
+	Mon, 12 Oct 2026 01:29:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.88
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791768555; cv=fail; b=pZ+ijJ5Gr0YRxaSLHeoZQtLEahJlbsdMc9aN5nr8C7uLflTgrXf999H4tqUVTLjVqFUVnbCXJrEDvuzJrdvsRmBG7MGcSp/2onwANXZbiksMiv5EjtNsaj6hKzMLHjGTvVaXH9hbfZEr7Rn6O6a+F9mtUs2RAWxuPjDnLyprsFk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791768555; c=relaxed/simple;
+	bh=taW9B5hy6hpwTZ05nVw9IMW1U0q6lSexJKJ1GwnopYI=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=uzS/kqzHaC12JqN8Vn2AQITcxxggkxUyfv7UlBdfexwYQD2A3n/InOoBgz6fq7rOh+DvlKkS1zo58By4lh1XV2kY+5H9OaWjXad5VmWvgUzagC+V5rg42BE8VCNHvBR0c4M5UxNCMIiyYrPrR5V3DgUVrild+doCvgstIb62jTc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.196.88
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VxzB6WtqSsU1K3ob+p3pYuT9iDKMaeWRwQwjfhQpReBauoAXs/SHVcSITC0+3HXKxtJtexGS81zGAGRfRJpM5C6f+N0zYurm8IofK2Iy5cCQXigGFCb+YD5C83RkM0AQG9vZKSWP7bWrt+geKf9k0bjpVD0M7b/PV3QQd81OtoDXcus1NyRyDNYLYbNNedmyPPER62xhwvW61AB8kdvYH5EW55uwlyeWv9bjkjnSz8c4gI2RPGpyFujWz9ZrKu0S1CosNjm0hm6yD0cvkKRWl8Dev984M5uFZyOyebmYR84VyIiQGjUwyRDPVwBkw2ky5hQW520TnwYpqxp4fC08iw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=hi20PcVx5j/rEk/BQ+7VtpcAYS5mlc7WpcFes2HKqmg=;
+ b=M7sITXh+5kMZGu3eySPXtG4JUEK2Zbx3SGOjES6Ps1DHDSv6g1AtDWGT48BMsl+kZrdBU+2PN70hbB6I9nblo25tt2k2fHH4WnUN5CHx/tLMZKPy0+3GV42DA8yv0mrcE+XZatcuAE5q4BELxcrPXTOe1HpDh75j+Kj/fVFAtHJlrYQkNg0n1z0tMggJz+Dl4JDA8bmObIkErOntpIzjjfwig20OamwoRFiN6Lvun9drbVgN6Rrxkfxq6PJujuaZFPnGV+PToOc984jCuXkyCuNHtSdIiICJ/PTChZz4vyZB4KHeXHeRIM/xqs2UJTKv8kgtQjX6NwLgToJrkiYNKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by CWLP123MB7027.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:1f3::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
+ 2026 01:29:09 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
+ 01:29:09 +0000
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: axboe@kernel.dk
+Cc: tom.leiming@gmail.com,
+	hare@suse.de,
+	atomlin@atomlin.com,
+	sean@ashe.io,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] blk-mq: dispatch kworker to housekeeping CPU when hctx cpumask is empty
+Date: Sun, 11 Oct 2026 21:29:05 -0400
+Message-ID: <20261012012905.267920-1-atomlin@atomlin.com>
+X-Mailer: git-send-email 2.55.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BN9PR03CA0952.namprd03.prod.outlook.com
+ (2603:10b6:408:108::27) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CWLP123MB7027:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7359ab9-8210-4b41-889d-08df280036a5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|56012099006|18002099003|6133799003|261009223027099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	HnpAb7CuceWRbdlZD6TqRJ8UPHrst+3ZEx7zQENGbGdqA/32fFJrsCJD0dblOk4+YV636k4yHFmVyav67A+XnJmoxdAmuYrl0COeE4pmJh9xiFSRY2oJY+NJxiQzcl8J1MKwMfVNayCgkZu4SChrRDJ2AhDFUZPu1LPK4mSK3q+IFWFFbU9AoTEg1W4qhfCXzDn9pHYjc8n4rT6FJ477zexAfw+xpD2vqQ0AQcaH/LdURYWiiAR/e7FTvKKjmjSmjnjjbdtdpMqzCbv695c52s1D+XE6LG3zqqKYuZVhRWGae9SzXgM8JI3+QcUbIQRJNq7irYvmQHzwhyPWfm6klYPqwPg45mPxIwxJKqCVN++3Jo0RQ5RXrfyIs29cdF7dOC92e6rseBQsDWozCZlLoyjek8tcBaaVOou1bQSM0RjY/Q3mjiMvdOHjIdur+UgRBzvj2mz4a+7t5Do/jn84u+hIPbZgmZYolrD9tPpnOO5FIADw5KA6732OmAtq1/0sztMoaXpG3DuJR7blZNb0DUT+MWTDsmsWXyv2CRGa9fMem4Y34cYx6MzC2dizyKCTYjE3XFbBl8H2lzDlIUhXshn5i4UlwOR+nGXOD+kBGpa4gOQ5pn9zuWM5EtvDsdDFodpx7R9eafLLpLDKiZclNbYrwfi4+fA7H01rBXLmHAk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(56012099006)(18002099003)(6133799003)(261009223027099003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?QD7PAQk0cyqiRAmrJYozwY0Nx8rt4CA38ndDoqgMOCISUqrHmC++hie+QH4Q?=
+ =?us-ascii?Q?CNOpdz06SVy5FKL2Q51OwQj8DN9TpuF9tgGyvh22lc+Osz0aLMu/u1KqjFbj?=
+ =?us-ascii?Q?L5brKDASmmHt/frZGtAJqXLtzQZ3H4xD7WPsF77J5DgrmyvK2h7GJ2E6acx2?=
+ =?us-ascii?Q?gLxmk9k6I/ILvze0PkL+5o7dYG11AKK9nl5c7FgWlqh4pWh/fN3MtZN7Bt0e?=
+ =?us-ascii?Q?ghrpk2Rwj5qlMdSsnV7BpB2urYJvUI926Nfjd8R7mjaPmsxOamtQUkurXa1U?=
+ =?us-ascii?Q?W0XAyQgq9UtONP9/HhNs6P4mIBJ0bA9RDuL8V7U7OFphGkJkLk20U+qKkDU2?=
+ =?us-ascii?Q?G0hH1xQU1h1Ipon/R4/4bQmyjsqMwFMSNBS7oUgJquDhM5FYDKOg1gr56Rrt?=
+ =?us-ascii?Q?aOjHMOmWFwmqRKThy4E+n6VIeRKBkHr2DfXwSpPFXFLRnlpaNHB+LO3766D9?=
+ =?us-ascii?Q?Fm7H7NbuQwm7YTFx8m9k+fquHPpfzIcoP8GzLRc9eVmmXYksw70ETUOw0Wqe?=
+ =?us-ascii?Q?/GPL17Vo9zdol0SSgF8HawUYXEo7m/oPC8gLUstqpCcir9vM7Q+j/ydYHfae?=
+ =?us-ascii?Q?urc8VDrLKJDs1hLqvHH4x752M1W8nc/G8v5KlNJld+Bd1vA+XBjwYtdl0IBQ?=
+ =?us-ascii?Q?DB9AIBOwGmCy391Q3MHq/1zvtIxMv+ilGzGbEw8z0cZlPPC3yiBsgB7XnARH?=
+ =?us-ascii?Q?Z/ZNhwA+sJsPtoeftJFwc60V7blpki3FhPhVXtdK3jtWa+yZyeAjYiNTGYyd?=
+ =?us-ascii?Q?n1BNYMfRV2kfn3IR0vAqQHIDjyIZYfYYzcnm3gMyuy4gQLy6IN4woUS/8HLZ?=
+ =?us-ascii?Q?Bas5eq+P1RmByoOkNaL5/8wf8JFp6tNrAqmf0pGylXtqPSozFCJkvmOf30uT?=
+ =?us-ascii?Q?cNIpFF7R5qtTcIA86aqj9S3Mc/WLYpIjB4nOVWHu5kLxOA/f9z6zaxbKGLGK?=
+ =?us-ascii?Q?Ch9qTvdtNzlP98MGJi5Q7BkyibiifNluQaTMnYJ9QWnTeY9EmlY9c4s2MSCE?=
+ =?us-ascii?Q?wifL8fEu4/iMWSOvKC7F8Z2BOK5IasUNjbedoe6EO5P8ttmRRFlEvRtZBcQg?=
+ =?us-ascii?Q?acc5T5FHs8VlMI8jnnMzP/mrK+Lm5nocl7PCvMmjbFAZnoIaj5LXUsEB+J/I?=
+ =?us-ascii?Q?biesZ+TxgtL74CojjMoIbXEUctX7tCoPjKE3AKPBSsABHsPzb0Qge1yGYk4M?=
+ =?us-ascii?Q?WEcj6qa8HvBh+n4UibxflZbmVLXZYvvCR22KqJK4w5Bdbb59XSexPv5rYNoI?=
+ =?us-ascii?Q?7jMu2JHFSlerwXLHnNM2zIXSQVuqJjp2hjG3ED6PThkfQIMsZAA7T6iEE0f9?=
+ =?us-ascii?Q?SDcHbwLZ+Lbml4VvRUvyu0nKuu+MtXR4jo7HJdFgIGiOp+jFZymbfRccMWwJ?=
+ =?us-ascii?Q?fpXYKaBWJ6Gh5VXl7RPE7Fmb5oFtnN8QnA3/sDBsngRePvoYBh55KHQ87PVU?=
+ =?us-ascii?Q?GZBChakkR9NmLkFFufs3YH9Vma45L3DC9XvMv7O+eZ/rID8CEJu9rgpAUw02?=
+ =?us-ascii?Q?xAnk1ObV8hIOW0kRhOF5cb7JnGZ3MT18u9P3QtLmlABt1qhukjCaPXElJu4b?=
+ =?us-ascii?Q?egE3s4DSZsi9/BK4LqensuHyW2gJkkVxNNsStFjZv1n3lePOo4qQjnmRUExd?=
+ =?us-ascii?Q?kbGmUrQWv7iCvAN88S4//KE3q434LEX4O9t4jtXqa9pLpbHbH57IBMJ9v9gu?=
+ =?us-ascii?Q?M/RGWfq6zFQjX5tpyZejnJIO3Z4xRnVSn0Hq+bv9rAHPr0p4vAi6Z5nx1OJd?=
+ =?us-ascii?Q?mvnDxkN55A=3D=3D?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7359ab9-8210-4b41-889d-08df280036a5
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 01:29:09.3722
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MW+uXnMa0SkOip7cq6F5hfOlH2CL14rtN51JunLt/Ey6v3vW8agsGt3fJqYXr60jYy7H5R40tBH/atfqspOX5w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP123MB7027
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Commit a46c27026da1 ("blk-mq: don't schedule block kworker on isolated
+CPUs") excluded isolated CPUs from hctx->cpumask to prevent worker
+threads from executing block work on isolated CPUs. When all CPUs mapped
+to a hardware queue are isolated (i.e. blk_mq_hctx_empty_cpumask(hctx)
+evaluates to true), blk_mq_hctx_next_cpu() returns WORK_CPU_UNBOUND with
+the intention of offloading execution.
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0
+However, kblockd_workqueue is allocated as a per-CPU workqueue
+(WQ_PERCPU). When WORK_CPU_UNBOUND is queued on a per-CPU workqueue, the
+workqueue core resolves the target CPU via raw_smp_processor_id().
+Consequently, if a task executing on an isolated CPU submits I/O and
+triggers an asynchronous queue dispatch with zero delay, &hctx->run_work
+is queued directly onto the local isolated CPU's worker pool. This
+causes the local per-CPU high-priority kworker
+(e.g. "kworker/6:1H-kblockd") to be scheduled on the isolated CPU,
+introducing unwanted latency jitter and execution delays, thereby
+defeating the original objective of commit a46c27026da1.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Rectify this by selecting an online housekeeping CPU via
+housekeeping_any_cpu(HK_TYPE_TIMER) when blk_mq_hctx_empty_cpumask(hctx)
+is true. This ensures that:
+    1.  The delayed work is cleanly offloaded to a housekeeping CPU.
 
-- [Medium] Regression: in ip6gre_tunnel_xmit() (ip6gretap branch) and
-  ip6erspan_tunnel_xmit(), skb_vlan_inet_prepare() now always calls…
+    2.  The per-CPU high-priority kworker on the isolated CPU is not
+        scheduled.
 
-Pre-existing issues:
-- [Medium] ip6_tnl_xmit() calls skb_protocol(skb, true) again (line 1119)
-  after the GRE header (and, for ip6erspan, the ERSPAN header) has been…
+    3.  Hardware queues with valid mapped CPUs preserve their per-CPU
+        locality and batch round-robin behaviour.
 
---
+Fixes: a46c27026da1 ("blk-mq: don't schedule block kworker on isolated CPUs")
+Cc: Ming Lei <ming.lei@redhat.com>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: stable@vger.kernel.org
+Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+---
+ block/blk-mq.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-ip6_gre: use skb_vlan_inet_prepare() instead of pskb_inet_may_pull()
-
-This patch changes ip6gre_tunnel_xmit() and ip6erspan_tunnel_xmit() to
-use skb_vlan_inet_prepare() instead of pskb_inet_may_pull(). The length
-check then matches the VLAN-aware skb_protocol() parsing that comes after
-it. For Ethernet devices it first clears skb->mac_len, and it keeps
-pskb_inet_may_pull() for ip6gre devices that use ip6gre_header_ops.
-
-Closes: https://syzkaller.appspot.com/bug?extid=6023ea32e206eef7920a
-
-> diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
-> index 04f7c70b7320e..06dd53c5a9e25 100644
-> --- a/net/ipv6/ip6_gre.c
-> +++ b/net/ipv6/ip6_gre.c
-> @@ -883,8 +883,23 @@ static netdev_tx_t ip6gre_tunnel_xmit(struct sk_buff *skb,
->  	__be16 payload_protocol;
->  	int ret;
->  
-> -	if (!pskb_inet_may_pull(skb))
-> -		goto tx_err;
-> +	if (dev->type != ARPHRD_ETHER && dev->header_ops) {
-> +		/* ip6gre_header() has pushed a pseudo header in front of
-> +		 * the packet, so skb->data is not where the packet starts.
-> +		 */
-> +		if (!pskb_inet_may_pull(skb))
-> +			goto tx_err;
-> +	} else {
-> +		/* skb_vlan_inet_prepare() and the skb_protocol() dispatch
-> +		 * below walk the VLAN tags from skb->mac_len - VLAN_HLEN, or
-> +		 * from ETH_HLEN if it is 0; a forwarded skb still has the
-> +		 * mac_len of the device it was received on.
-> +		 */
-> +		if (dev->type == ARPHRD_ETHER)
-> +			skb->mac_len = 0;
-> +		if (skb_vlan_inet_prepare(skb, dev->type != ARPHRD_ETHER))
-> +			goto tx_err;
-
-[Severity: Medium]
-
-Can this move the network header onto the VLAN TCI? This would happen for
-skbs that already carry an in-band tag while skb->protocol holds the inner
-protocol.
-
-skb_vlan_inet_prepare() works out maclen from skb->protocol alone, and then
-always sets the network header:
-
-include/net/ip_tunnels.h:skb_vlan_inet_prepare() {
-    ...
-	if (eth_type_vlan(type))
-		type = __vlan_get_protocol(skb, type, &maclen);
-    ...
-	skb_set_network_header(skb, maclen);
-}
-
-vlan_do_receive() creates such skbs on a VLAN device with reorder_hdr off
-that is not a bridge or macvlan port:
-
-net/8021q/vlan_core.c:vlan_do_receive() {
-    ...
-		skb = *skbp = vlan_insert_inner_tag(skb, skb->vlan_proto,
-						    skb->vlan_tci, skb->mac_len);
-    ...
-		skb_reset_mac_len(skb);
-}
-
-That leaves skb->protocol as ETH_P_IP or ETH_P_IPV6, with the tag at
-offset 12 and the network header at offset 18 (mac_len is 18). Say tc
-mirred on that VLAN device's ingress sends the skb to ip6gretap or
-ip6erspan. tcf_mirred_to_dev() pushes mac_len, so the frame reaches the
-tunnel with the tag still in-band.
-
-With pskb_inet_may_pull() the network header stayed at 18. Here
-eth_type_vlan(ETH_P_IP) is false, so maclen stays ETH_HLEN and the network
-header moves to 14, which is the TCI.
-
-Would everything after the check then read the inner header 4 bytes off?
-For example:
-
-  - prepare_ip6gre_xmit_ipv4() with IP6_TNL_F_USE_ORIG_TCLASS takes the
-    dsfield from the low byte of the TCI.
-
-  - In ip6erspan_tunnel_xmit(), ip_hdr(skb)->tot_len reads the
-    encapsulated EtherType (0x0800). ipv6_hdr(skb)->payload_len reads the
-    0x6xxx version word. Either way truncate (the ERSPAN T bit) is set
-    for nearly every mirrored frame.
-
-  - prepare_ip6gre_xmit_ipv6() does the raddr loop check and
-    ip6_tnl_parse_tlv_enc_lim() on shifted bytes, so a flow label byte
-    acts as nexthdr. That can cause drops or bogus ICMPV6_PARAMPROB
-    replies.
-
-  - ICMP errors sent on -EMSGSIZE, and the inherited hop limit in
-    ip6_tnl_xmit(), are taken from the shifted header.
-
-All of these reads stay inside the pulled area.
-
-> +	}
->  
->  	if (!ip6_tnl_xmit_ctl(t, &t->parms.laddr, &t->parms.raddr))
->  		goto tx_err;
-> @@ -933,7 +948,13 @@ static netdev_tx_t ip6erspan_tunnel_xmit(struct sk_buff *skb,
->  	__u32 mtu;
->  	int nhoff;
->  
-> -	if (!pskb_inet_may_pull(skb))
-> +	/* skb_vlan_inet_prepare() below walks the VLAN tags from
-> +	 * skb->mac_len - VLAN_HLEN, or from ETH_HLEN if it is 0, to check
-> +	 * the length; a forwarded skb still has the mac_len of the device
-> +	 * it was received on.
-> +	 */
-> +	skb->mac_len = 0;
-
-[Severity: Medium]
-
-This is a pre-existing issue that the patch did not introduce, and the
-commit message already lists it as a follow-up. Still, clearing mac_len
-here changes where the second VLAN walk in ip6_tnl_xmit() lands.
-
-ip6_tnl_xmit() runs after the GRE header has been pushed (for ip6erspan,
-the ERSPAN header too):
-
-net/ipv6/ip6_tunnel.c:ip6_tnl_xmit() {
-    ...
-	payload_protocol = skb_protocol(skb, true);
-    ...
-	if (hop_limit == 0) {
-		if (payload_protocol == htons(ETH_P_IP))
-			hop_limit = ip_hdr(skb)->ttl;
-		else if (payload_protocol == htons(ETH_P_IPV6))
-			hop_limit = ipv6_hdr(skb)->hop_limit;
-    ...
-}
-
-Now that mac_len is 0, the walk starts ETH_HLEN past the GRE header. For
-keyed ip6gretap and for ip6erspan, that is on MAC or ERSPAN bytes the
-sender controls.
-
-Suppose those bytes read as ETH_P_IP or ETH_P_IPV6 and hop limit
-inheritance is on. Then ttl or hop_limit is read at the network header
-that skb_vlan_inet_prepare() set. For a short tagged frame with a non-IP
-inner type, only maclen bytes were pulled.
-
-Could this read a byte past skb->tail and put it in the outer IPv6 hop
-limit? A locally generated short frame, for example from veth or
-AF_PACKET, could hit this.
-
-In the other cases the real inner TTL and traffic class are just not
-inherited. For unkeyed ip6gretap, the second walk now lands on the real
-inner protocol.
-
-> +	if (skb_vlan_inet_prepare(skb, false))
->  		goto tx_err;
->  
->  	if (!ip6_tnl_xmit_ctl(t, &t->parms.laddr, &t->parms.raddr))
-
+diff --git a/block/blk-mq.c b/block/blk-mq.c
+index 025a799f35b9..9480c3aac898 100644
+--- a/block/blk-mq.c
++++ b/block/blk-mq.c
+@@ -2252,8 +2252,11 @@ static int blk_mq_hctx_next_cpu(struct blk_mq_hw_ctx *hctx)
+ 	bool tried = false;
+ 	int next_cpu = hctx->next_cpu;
+ 
+-	/* Switch to unbound if no allowable CPUs in this hctx */
+-	if (hctx->queue->nr_hw_queues == 1 || blk_mq_hctx_empty_cpumask(hctx))
++	/* Switch to housekeeping CPU if no allowable CPUs in this hctx */
++	if (blk_mq_hctx_empty_cpumask(hctx))
++		return housekeeping_any_cpu(HK_TYPE_TIMER);
++
++	if (hctx->queue->nr_hw_queues == 1)
+ 		return WORK_CPU_UNBOUND;
+ 
+ 	if (--hctx->next_cpu_batch <= 0) {
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008012554.202925-1-littlesmilingcloud%40gmail.com
+2.55.0
+
