@@ -1,69 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E84E64B0C9C;
-	Mon, 12 Oct 2026 16:12:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4333A4A387F;
+	Mon, 12 Oct 2026 16:13:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791821529; cv=none; b=s71uH4vO52kA2JkOTRfrwUmrU3YQNUoa8T0LmgSFdbeS/8VGbZHx4T92vqtfeekgIJWieAWVS6gLHUR33wlpbU3UxUXXYuPDjXjXUvmex7r8vcPXBd+nbHZT77xaYYznHRf2iALkxKgHpjyfw8zXvIo6p4b6IdNVz+EKkkjj/JQ=
+	t=1791821640; cv=none; b=TBziZ5cSx/i0hO1gV+qpfWTW3BhMCKsGdfer/qYu7iFAJi4l1Gm24S8EoMtb2JRuOBFMhU8hUSRWySx1N9Kjy7IE+5U2Vm3Nc7po74Er3t77WLA1RWQYIHjNuCjFAAmB3zFLoIL6tIN8g26R48I32kBWpUZAFY/oyUdmMmXdxUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791821529; c=relaxed/simple;
-	bh=h1VOVH4BL7Ayez8le6YbqTo0p5ugOPLagQ7bqhsNpjg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gSFmmNE1gnghjSDuRKvGCk2Byqm/Z44SVR41cfJkD8oYSQdcE2DKxLDAzHFQoOQwXzOQRLstYzdQOQjZlYMHwBWORSSATxTT5wnl72SdOecPdMEYdfs6eZdlvOBYhs/F4ZxmekQnOhaApr2aQKY1zRWp9uyZPU5JPmxD+a5Wz20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BLngqW/i; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791821640; c=relaxed/simple;
+	bh=ZchrZpqtkvDWRfz8meSczFuSA2w/MUsx6xnD2KxnOTM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lRkyzNm8Ry3kNZzAzrNMwxR374xFWreJTUxji3SqrJ9UUXjcZINjpRbqDJRqSuIHl9Wxt9hM4EXL0OD+HEhFJR+qE0GPmnbFM77f94hpZM01nISAxJvIy5g5kioI64oyChSxxGnd0dGZqfI9LERwP2qw3XKqQC0fpzliuSBvzjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=Odp6rZsc; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=qJylqf3c; arc=none smtp.client-ip=23.88.97.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BLngqW/i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 409281F0089B;
-	Mon, 12 Oct 2026 16:12:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791821526;
-	bh=dwOf8Dc4TxSx32WOzwSp7Q6nGhu/G9ZRjwK/NvjcHHs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BLngqW/i/yi7ouv1qN2l4qytDHWZGEsgW9NgpRR52R9+cyCj/rmsP5IvvkOB+5vQG
-	 R484XftbLYU9MiKQ9XKPIewGqbjy8WBgpeGCwosXf9nvFqxtfXY2V7h1uvRYbw/M8U
-	 Sxp15CxL6AIr1cVFAkS6AO0wvrFJ1wYIx1ydRFdIjrAHFCmf/5QB2zGf68tf8gq7Jy
-	 5OiFbxE/1SqAf4w0i5kg5CY1N1cxunIJUwZj9G4DM/cvLZdkp/nkgzF7aHVUiLEQuJ
-	 1OZGsZq3J7G8FOUYnO2yAUWC7fRgyZu3qgMtmFG+lJiggWml6+EAX4lIkXs0JlzgSV
-	 7p0q1lM1JO32g==
-Date: Mon, 12 Oct 2026 21:41:57 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: bivvy.bi@rock-chips.com, heiko@sntech.de, kishon@kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, neil.armstrong@linaro.org, vkoul@kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] phy: rockchip: inno-dsidphy: Fix runtime PM leak in
- inno_dsidphy_power_on()
-Message-ID: <as0GyAtxP7a0oqrB@debian>
-References: <20260917134627.2153845-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="Odp6rZsc";
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="qJylqf3c"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1791821637;
+	bh=ZchrZpqtkvDWRfz8meSczFuSA2w/MUsx6xnD2KxnOTM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Odp6rZscQ04kuWx8JGESmYnO+ECGUUTzbu2RHovx1TTdovQ7AXDrmvZM2qO5/OO5n
+	 weYYsIdeKhGwsYg2J4i/zuCdV74Kj0x85qL//bpNLWZMb5Ffn8dOFhp0L5obiszUoH
+	 NnUJ2mVdYv1WutNiugbRY0f+Qsk1xnpbnnUunWKUaECq/PamXgk3bSv2SDVvvzAlPx
+	 YPXTjlK61yK30+XVD0ItCX63Xmy8ixM62SC4EbY9Smf6oZttSbMy0L3dm//CfRu+W7
+	 EpWKhYM8A0QPME2Hkcp/LyFyLRMs4OIv5eBilMyE/YGsfSlFdrRs66BD6FrwoyzWEs
+	 olaP3ZBnLQfig==
+Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
+	id 2032648452; Mon, 12 Oct 2026 16:13:57 +0000 (UTC)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1791821636;
+	bh=ZchrZpqtkvDWRfz8meSczFuSA2w/MUsx6xnD2KxnOTM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qJylqf3cE2g56hAKdEK09Z5qLT8oxkEQNhyUblWVJmtDPpwCW4cKAUhgI1DkGW0/0
+	 whoHw78rnwKC6mTWvdLb+8VQzIqZyqyb+SzwGFi6I/juZ0vR4sIvEdAf31b1ApmtFf
+	 6C+2VzuxuGJQ+hUMKn2QbFmGc+Zo8mZZtwQMUwTzmHFWZvfwbQLwe6JaO4yj0Jm+Ii
+	 i94bEJOZNELin7EflQmO7kXGH9JTtjzJhq06nSTaTAlFJYHuy9imgA9JdzRT5rRCIU
+	 Vg1KmHb/mQXOs21w4ZlrJEWCLBwjkWanhhQs5WVkARVkILm/nD0XPjwEfApMRRnWRU
+	 o8IjeBITOw4Vg==
+Received: from [IPV6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb] (unknown [IPv6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb])
+	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id E92354825F;
+	Mon, 12 Oct 2026 16:13:55 +0000 (UTC)
+Message-ID: <6030ce9b-1e93-4d11-b9f3-6101fec2229e@birger-koblitz.de>
+Date: Mon, 12 Oct 2026 18:13:53 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] r8152: Use BMSR to detect the link state
+To: Linmao Li <lilinmao@kylinos.cn>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>
+Cc: Chih Kai Hsu <hsu.chih.kai@realtek.com>, nic_swsd@realtek.com,
+ Xiangqian Zhang <zhangxiangqian@kylinos.cn>, linux-usb@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261005105249.1281648-1-lilinmao@kylinos.cn>
+ <ee122a12-eae8-40a6-bad9-086228ae76f2@birger-koblitz.de>
+ <b56624e0-d1e4-4b52-9d3d-de923c471a58@kylinos.cn>
+From: Birger Koblitz <mail@birger-koblitz.de>
+Content-Language: en-US
+In-Reply-To: <b56624e0-d1e4-4b52-9d3d-de923c471a58@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260917134627.2153845-1-vulab@iscas.ac.cn>
 
-On Thu, Sep 17, 2026 at 01:46:27PM +0000, Wentao Liang wrote:
-> inno_dsidphy_power_on() resumes the device with pm_runtime_get_sync(),
-> but the default case of the mode switch returns -EINVAL without
-> dropping that reference.  The matching pm_runtime_put() lives in
-> inno_dsidphy_power_off(), which the PHY core does not run when
-> power_on() fails.
+Hi Linmao,
+
+On 09/10/2026 9:18 am, Linmao Li wrote:
+
+> Hi Birger,
 > 
-> Release the runtime PM reference before returning.
+> Thanks for testing. Only the first BMSR read after link up returns the
+> latched value, so ethtool shows the problem only if nothing else reads
+> the PHY first. On my systems NetworkManager reads it right after
+> carrier up, so a later ethtool reports 1000Mb/s while NetworkManager
+> keeps the unknown speed it read.
 > 
-> Fixes: b7535a3bc0ba ("phy/rockchip: Add support for Innosilicon MIPI/LVDS/TTL PHY")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> With an RTL8153B on v7.3-rc6, stopping NetworkManager was enough for
+> ethtool alone to show it after 3 of 3 USB rebinds:
+> 
+>    # systemctl stop NetworkManager
+>    # (rebind the device, bring the interface up, wait for carrier)
+>    # ethtool <iface> | grep Speed
+>            Speed: Unknown!
+>    # ethtool <iface> | grep Speed
+>            Speed: 1000Mb/s
+> 
+> I got the same result with cable replugs on a 6.6-based kernel. The
+> latch does not time out: the first ethtool still reported Unknown 3 s
+> after carrier up. On the 6.6-based system, the network service of a
+> Chromium-based browser also read the PHY first, so other tools may
+> need to be stopped too. I have not checked your setup and have not
+> tested an RTL8153A.
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Thanks for the explanation. I re-did the test and confirm that the fix 
+works. I tested on:
 
-- Mani
+RTL8157 (5GBit device, 2.5GBit link)
+driver: r8152
+version: 7.1.8+deb13-amd64
+firmware-version: rtl8157-1 v1 2026/01/01
 
--- 
-மணிவண்ணன் சதாசிவம்
+RTL8153A (1GBit device, 1GBit link)
+driver: r8152
+version: 7.1.8+deb13-amd64
+firmware-version: rtl8153a-4 v2 02/07/20
+
+both worked flawlessly. I tested
+- plug/unplug during normal operation
+- link-changes by peer in normal operation
+- plug or unplug during suspend, then resume
+
+Tested-by: Birger Koblitz <mail@birger-koblitz.de>
+
+Birger
