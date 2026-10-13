@@ -1,49 +1,78 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B2D435EE9;
-	Tue, 13 Oct 2026 01:57:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA17443A80C
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 01:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791856629; cv=none; b=ptZbTtQhcIPMyq/BPa669fGnlhYs82SegZ+udCrrT14IGTLQjFhdmrwAoGMeFNdiN1CyozYf4B1nN+Bae7WvmmjDBJ5uVWT0thqwaZqtB2S+7t2zscDOfYWRQSGcJ4Jp0Ggwsj1/Co2lBFuxTVRXqR6zgTbOKjxBdSMY+Okwsg0=
+	t=1791856746; cv=none; b=X7tHmoLq4LYmUBxn3GDjW0++NZBSz/5UYAmipyPd89JvtBMVOEl8EFFSCcUv7rgIUpVz2NPB41x2aF/67diQ8n3MKqvGIgQpaLxP87tQzKZTYTp6hkDWNrUhmuHlLaK3W60nXUuEw14ofEtMa/b1e+onBz4iXWtEJK2BYw2OaWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791856629; c=relaxed/simple;
-	bh=c6gfaETPHrM5Rx+9fwI2LV9fHfi779+GT7qtQeZqdlI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rwc70jrdQ99MN/5GlZYoXy6QvYt9W2sRnU3/790urgRc0dSZDccE369yMIYMWut+rhfBX5ZIuMGk0g7mCq0kdHUxv/M9JuWB7tOtoKw7O0ch1tIRT5iYtUSOnlgTOkowIxKQYfDVA6W48G2alfEiQoI16P9hPQHUTlrlHA5/oXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 5e85392ac6a911f19a56ed5b684f684d-20261013
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:bcaa385a-0472-482e-ac98-4bbeb390efd3,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:cfeb5d32f4d1350eb00756b3fa462e93,BulkI
-	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
-	5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 5e85392ac6a911f19a56ed5b684f684d-20261013
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 607085544; Tue, 13 Oct 2026 09:56:56 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
+	s=arc-20240116; t=1791856746; c=relaxed/simple;
+	bh=gdrhrrhojiYmNOqh2JvMQwXyKcDnKZ5DGo+JK3pZzbk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IaNWMeJ5+WFjrbG3XEr95jeNgr2yEjcZSsEP5V+EHCQ+kylK4iSNLYHGq0yANQXYNdApeqos1/k6QjwAvevO4drtMJunf6d2Ngz5Ckmvh2pak6ozEh5C+qf9c9FI4OQG5LoKk/U5iISvlo5CuqwL75Qqmcd6TCVjWhUnARHfYfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CjP94FxT; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CjP94FxT"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3a7cfe8f761so2671220a91.1
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 18:59:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791856745; x=1792461545; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VulKwxghGCCa25Yap2OP81AUAKiRy4s4zXpBxbouW5A=;
+        b=CjP94FxTyMtSuqAlDGaKklMK/IWfJFFjzcGwBGe/QLVbcexszJjnVZ+PMknVtEo/uI
+         BMHDC48hkUyoKEKAO2DsspE4NxpV9EaV68FiImo1yohtc5WN6HbZec3BGXobJXboPaB8
+         AC5nH/KfzcupUwqjT9tpXnbXf9Ef/Cdqf4MmvzJKw/Z/EStV2rT/aelBhkdPOlJPEz+y
+         6paONU96Khdvw+HV3K6k8fsndT4L+Dss5F2mBNQlcnQmh1XCP/P3TjzPhTOeP2rbEsDy
+         grfVakYjVaXD8Bw+6Vfm7+NNq8Rn8Glxx/YXRGqIotJ5Wf8on2VF45yx5tMSUnPcF8UW
+         UOaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791856745; x=1792461545;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VulKwxghGCCa25Yap2OP81AUAKiRy4s4zXpBxbouW5A=;
+        b=FiIy3tih/UwPzYx4tFEY0bQbpPnynNUYsD28tmxnmXRFrjTw8GClk7TwDP3MnUWI1y
+         3+hpVtwHZXCAMHhFjJppqXoZSFvF82QzYLxKgWRwm54VlCfrCIlPVYYvfUfczUwjny36
+         1JesgMcfFzxBSxHRSiJO8Z+eberxfVgeLg8hPTZr9RRb/ARdRkdy0u5ITsBAj/H2Qq4s
+         TgYlXlY91VquuQ2yv1cH/Dq8sG57cYp4wrqTGy2UXUdvnz07hRoHIqEXSJMruioOVT+p
+         i2DdmmNf/wuw35utFsmrPfMglVIWx3CR3uRMa15zOIPL66ctwtljKeFwJ5WYKuAK3hSf
+         0XOQ==
+X-Forwarded-Encrypted: i=1; AKwUvByihYLS613zldXIzd78po5Ga/CBejfjiVfknKfNqQpIP8y2qi0mA5aqMaWtJpYQKnXoZ44HOas=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9FNYVEFARhXjKoV8YDX3JoQqjqhr+86g5x0ynKXWZR3QC3gUt
+	F55ZzIpJ1wAqNUIapA1iSSirnoh648NEWa9r5pvC/hQESpPrTWEjKoIY
+X-Gm-Gg: AYBFou0ZediX8DW4zrChsot+obCDGaPY+hkF7WjLBjr2I083DEGQOFplgqAbggUZybl
+	Ukg6TbFrxxotG4WRUCzPtOka7hoivTwsnjdN4HJ2boAxIxw08sqWA79WLVxG+EupqQL83px78Al
+	X/77PZ+DOj9R+nObYHvpUFfZSmj+7is6EuzHjT5QwhQhAnvnWx5iYEdrlODFNYYLHJRJp5juPGp
+	QEVYo8ZP2e0Z2Um/Yk/4W7gLbBDySoVTpldgPv+CS+aVPPblOtD2O1MMBBvFvzlydU5yamhhZII
+	0h/5IXK/S4XQASeMSZ8j9G61lTeyz5CgmeEnMunqPh9+wp+S4+kK1mB3fMoPdnxwGwpOH2Oo7HO
+	VUoI2Wjc75VRNmLhMk43q+iaymUyXGSRfj3i5lrATYJ2RNoduUP0mSX9H25U0tyelyZu7Nq876g
+	9Qp8zQO5L8xDBZEnj64GX/AacxaE/nr943ZzP5Q0seHZjh6uVpNuR9f3ioPyniob9OgA==
+X-Received: by 2002:a17:90a:5185:b0:3a0:bf71:eccf with SMTP id 98e67ed59e1d1-3ab3a9533ecmr4229118a91.14.1791856744976;
+        Mon, 12 Oct 2026 18:59:04 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38ff0ce7sm19784735a91.15.2026.10.12.18.59.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 18:59:04 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com,
+	heming.zhao@suse.com,
+	ghe@suse.com,
+	akpm@linux-foundation.org
+Cc: ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v5] ntfs: roll back the ACL xattr commit when the WSL mode update fails
-Date: Tue, 13 Oct 2026 09:56:52 +0800
-Message-Id: <20261013015652.19724-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	stable@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH v2] ocfs2: Publish the filecheck owner before adding sysfs attributes
+Date: Tue, 13 Oct 2026 09:58:58 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0086-v4-1b3a3c5fd05c1fb41df9@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,144 +81,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ntfs_set_acl_ex() commits the ACL xattr before it rewrites the WSL
-mode EA, and removes it again when the rewrite fails.  That only
-undoes a set that created the xattr: when the update replaced or
-removed an existing one, the old ACL is discarded along with the
-failed update.  No error is recorded when the undo fails, so the
-new, typically more permissive, ACL is left on disk while i_mode,
-the mode EA and the cached ACL keep the old values.  After a
-remount, a chmod 0640 -> 0777 that reported failure leaves the file
-accessible to the relaxed ACL while stat() still reports 0640.
+ocfs2_filecheck_create_sysfs() initializes the filecheck allocation
+before calling kobject_init_and_add(), but assigns entry->fs_fcheck
+only after that call returns. The default attribute group can already
+be visible while registration is in progress. A concurrent read can
+therefore enter ocfs2_filecheck_attr_show() with a NULL fs_fcheck and
+try to lock its fc_lock.
 
-Save the previous xattr before committing the update, and restore it
-when the mode EA rewrite fails.  A removed xattr is created again,
-since XATTR_REPLACE fails with -ENODATA once the removal dropped the
-entry.  Remove the new xattr only when there was no previous one, and
-skip the undo when the commit changed nothing.  A failed rollback is
-recorded: NVolSetErrors(), which the next persistence point persists
-as VOLUME_IS_DIRTY, and a log message the errors= policy acts on.
-The flag cannot be written to disk here directly: the target inode's
-mrec_lock is held and the $Volume mrec_lock cannot be nested under
-it.
+Assign the initialized owner before adding the kobject, so every
+activated attribute has valid state. Clear the pointer when addition
+fails, preserving the existing teardown guard and error cleanup.
 
-Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
-Cc: stable@vger.kernel.org
-Suggested-by: Hyunchul Lee <hyc.lee@gmail.com>
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+A controlled probe-instrumented test kernel with the original OCFS2
+registration ordering produced this Oops during a concurrent sysfs read:
+
+  KASAN: null-ptr-deref in range [0x0000000000000028-0x000000000000002f]
+  RIP: 0010:kasan_byte_accessible+0x15/0x30
+  Call Trace:
+   <TASK>
+   __kasan_check_byte+0x13/0x50
+   lock_acquire+0x113/0x300
+   _raw_spin_lock+0x31/0x40
+   ocfs2_filecheck_attr_show+0x138/0x5f0
+   ocfs2_filecheck_show+0x5d/0x90
+   sysfs_kf_seq_show+0x1d3/0x360
+   seq_read_iter+0x480/0x1110
+   kernfs_fop_read_iter+0x419/0x5a0
+   vfs_read+0x7d2/0xc20
+   ksys_read+0x111/0x200
+   do_syscall_64+0x114/0x620
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
+  Modules linked in:
+
+Fixes: 5f483c4abb50 ("ocfs2: add kobject for online file check")
+Assisted-by: LLM
+Cc: <stable@vger.kernel.org>
+Reviewed-by: Heming Zhao <heming.zhao@suse.com>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+
 ---
-Changes in v4:
-- Undo a removal too: restore the previous xattr by creating it
-  again, since the removal dropped the entry
-- Skip the undo when the commit changed nothing, e.g. removing an
-  xattr that never existed
-Changes in v5:
-- Trim the rollback comments and drop old_exists in favour of
-  old_len >= 0
----
- fs/ntfs/ea.c | 67 ++++++++++++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 63 insertions(+), 4 deletions(-)
+Changes in v2:
+- Explain why fs_fcheck must be cleared on registration failure.
+- Retain that cleanup guard and add an inline error-unwind comment.
+- Rebase on 35eb6a2f; keep the original diagnostic unchanged.
 
-diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-index 1104fd72cd2a..f9c529fcd597 100644
---- a/fs/ntfs/ea.c
-+++ b/fs/ntfs/ea.c
-@@ -1038,8 +1038,9 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
- {
- 	const char *name;
- 	size_t size, name_len;
--	void *value;
--	int err;
-+	void *value, *old_value = NULL;
-+	int err, old_len = -ENODATA;
-+	bool acl_committed = false;
- 	int flags;
- 	umode_t mode;
+Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0086-v2-646731c4254a02823b4d@gmail.com
+
+ fs/ocfs2/filecheck.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/fs/ocfs2/filecheck.c b/fs/ocfs2/filecheck.c
+index be713d7d24a76b9aa8fcded3d83b3d91d124eb6e..75334e4bd0823fd8154717290bfe57d2e5198176 100644
+--- a/fs/ocfs2/filecheck.c
++++ b/fs/ocfs2/filecheck.c
+@@ -179,17 +179,20 @@ int ocfs2_filecheck_create_sysfs(struct ocfs2_super *osb)
+ 	fcheck->fc_size = 0;
+ 	fcheck->fc_done = 0;
  
-@@ -1083,7 +1084,34 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
++	/* Publish the initialized owner before activating its sysfs callbacks. */
++	entry->fs_fcheck = fcheck;
+ 	entry->fs_kobj.kset = osb->osb_dev_kset;
+ 	init_completion(&entry->fs_kobj_unregister);
+ 	ret = kobject_init_and_add(&entry->fs_kobj, &ocfs2_ktype_filecheck,
+ 					NULL, "filecheck");
+ 	if (ret) {
++		/* Mount failure still calls ocfs2_filecheck_remove_sysfs(). */
++		entry->fs_fcheck = NULL;
+ 		kobject_put(&entry->fs_kobj);
+ 		kfree(fcheck);
+ 		return ret;
  	}
  
- 	mutex_lock(&NTFS_I(inode)->mrec_lock);
-+	if (!init_acl) {
-+		/* Save the old xattr for rollback. */
-+		old_len = ntfs_get_ea(inode, name, name_len, NULL, 0);
-+		if (old_len >= 0) {
-+			/* kmalloc(0) returns the non-NULL ZERO_SIZE_PTR. */
-+			old_value = kmalloc(old_len, GFP_NOFS);
-+			if (!old_value) {
-+				err = -ENOMEM;
-+				goto out_unlock;
-+			}
-+			err = ntfs_get_ea(inode, name, name_len,
-+					  old_value, old_len);
-+			if (err != old_len) {
-+				kfree(old_value);
-+				old_value = NULL;
-+				if (err >= 0)
-+					err = -EIO;
-+				goto out_unlock;
-+			}
-+		} else if (old_len != -ENODATA) {
-+			err = old_len;
-+			goto out_unlock;
-+		}
-+	}
- 	err = ntfs_set_ea(inode, name, name_len, value, size, flags, NULL);
-+	if (!err)
-+		acl_committed = true;
-+out_unlock:
- 	mutex_unlock(&NTFS_I(inode)->mrec_lock);
- 	if (err == -ENODATA && !size)
- 		err = 0; /* Removing non existed xattr. */
-@@ -1095,8 +1123,38 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
- 		mutex_lock(&NTFS_I(inode)->mrec_lock);
- 		err = ntfs_ea_set_wsl_inode(inode, 0, &ea_size, NTFS_EA_MODE);
- 		if (err) {
--			ntfs_set_ea(inode, name, name_len, NULL, 0,
--				    XATTR_REPLACE, NULL);
-+			if (acl_committed) {
-+				int undo_err;
-+
-+				if (old_len >= 0) {
-+					/*
-+					 * A removed or zero-length xattr must
-+					 * be recreated without XATTR_REPLACE.
-+					 */
-+					int undo_flags = acl && old_len ?
-+						XATTR_REPLACE : 0;
-+
-+					undo_err = ntfs_set_ea(inode, name,
-+							name_len, old_value,
-+							old_len, undo_flags,
-+							NULL);
-+				} else {
-+					undo_err = ntfs_set_ea(inode, name,
-+							name_len, NULL, 0,
-+							XATTR_REPLACE, NULL);
-+				}
-+				if (undo_err) {
-+					/*
-+					 * Record a failed rollback so the next
-+					 * persistence point marks the volume
-+					 * dirty.  Run chkdsk.
-+					 */
-+					NVolSetErrors(NTFS_I(inode)->vol);
-+					ntfs_error(inode->i_sb,
-+						   "Failed to undo the ACL xattr: %d",
-+						   undo_err);
-+				}
-+			}
- 			mutex_unlock(&NTFS_I(inode)->mrec_lock);
- 			inode->i_mode = old_mode;
- 			goto out;
-@@ -1109,6 +1167,7 @@ static noinline int ntfs_set_acl_ex(struct mnt_idmap *idmap,
- 	}
- 
- out:
-+	kfree(old_value);
- 	kfree(value);
- 
- 	return err;
--- 
-2.25.1
+-	entry->fs_fcheck = fcheck;
+ 	return 0;
+ }
 
+Fixes: a860f6eb4c6a ("ocfs2: sysfile interfaces for online file check")
+ 
