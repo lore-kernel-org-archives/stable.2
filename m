@@ -1,146 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16596476CF1;
-	Tue, 13 Oct 2026 17:35:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B34F48C8CE;
+	Tue, 13 Oct 2026 17:35:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791912904; cv=none; b=I2SX+JiG2a7RBnhlnO7hmqOvB7VLwGZXFhHFis57oQ786LU+RjCn15ES6JW3UfAuRWY2jNutL5n0Oxso9yuOk1aICDXLwFtBngsRkw3wP57OkCbkk/UdQABVP8d1+JGk4/ynPV0vzehX/6iSOO44y++/c70SmY74mNcFDjGm9iU=
+	t=1791912925; cv=none; b=J2raOfNd1A2s/o62OA7XeZKqllIRqPFDyjROu9nVDfTQIbzQMjShlJPjIAfe3F+aRLva8mgC4lCeuzc8wcajVER3fB6Xj3R5ZLEZ5snlGnYpkX7OlYz4W2k5yP0u/2B2yEvNQo7ptczhnD+32SjXQx4tg0AljujHuEN7AXfaSAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791912904; c=relaxed/simple;
-	bh=y/X75DFMsJzsDjB9Jbo2Kj0HLFl1a/CrkiotRQ657Is=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=tM+4oKOz1kSbIYpNqZTeZ+0HVqhM6QKW+3hL4TYPJUW6q95yFT+GSDAgCsGM3df+s7cd0r+U2eW1XznumDlpUSd9LKSlG4H3YX3pZTdnLsogmuLdoYD4xCk8K2nIu9C83F4BT2cU38JuWDnaR0I+2V+m3w0BQ9RMHrmrDRfkitc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PQv3YNpe; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791912925; c=relaxed/simple;
+	bh=7mHVByUea5c34s1NdGTzuGVOx5szBHaF6Eyje3OS6lA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=mqeDrih3u6C+5jrJOYOYIc64D8BBYoWrrkSBFfNR/g1ulzlVgbP6Q1+4YuZbjvEteSw/5gYRE0MGDspaHR2B2LlaCi7EwTW5zfb+t0fzczlxlH+2f1BVF5agY/8f+FhUfnYe6j5Q98rKPnse4/lgLwFUSjvxskgyh8pPVE1dsIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SycErfN/; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=WJhL9YZk; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SycErfN/; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=WJhL9YZk; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PQv3YNpe"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B51A3C2BCF4;
-	Tue, 13 Oct 2026 17:35:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791912903;
-	bh=y/X75DFMsJzsDjB9Jbo2Kj0HLFl1a/CrkiotRQ657Is=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=PQv3YNpetWGez1mdIFKP/h4mEuOFFLZ085b/JFXhreEmlZIW3gTbvGsi8YavEQXpN
-	 +cxBA1aFJDGAzp3RDdWtinpFkcxXl07qW9Xb85ZfTCQ5F7vw0aStJnjoOqsnqF+wJC
-	 hw2EFqSTnL9xrcVHTDQ9cnVvwED4Tdx0G/AQHdkw2M25TMHNA/ec+Hgcbe3y7RauW0
-	 0ngQrkMZW1YyZvhix2pzGiH3j7F+iwf0OAtTA2nPyP7U5fSVGbo9QCw4PMR5TQd1oU
-	 Y6vVRGnY0NwlHZKBN8y1w4crN1P8pe0MJEEW0v4bR1MsCCKjxqAbXup3jWBnDnL12v
-	 6RMtThNOwIwoQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8AEAACC6B12;
-	Tue, 13 Oct 2026 17:35:03 +0000 (UTC)
-From: Brandon Williams via B4 Relay <devnull+turbine.bmw.gmail.com@kernel.org>
-Date: Tue, 13 Oct 2026 13:34:51 -0400
-Subject: [PATCH] power: supply: qcom_battmgr: Notify charger supplies of
- online changes
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SycErfN/";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="WJhL9YZk";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SycErfN/";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="WJhL9YZk"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 0B09921E04;
+	Tue, 13 Oct 2026 17:35:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791912921; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KbklspijRvdlfU7/CwOImEurfZ5evV9eiAhvXxXmFEI=;
+	b=SycErfN/kedLAEUrpRmu0MQs2Ez1OEGEx8n7xMmjBqmKiOk8fLWyJykziHxIFCFPyeUXos
+	v5IOMXc9Ewn9nkXJBptRD/OYd5/6gdyXen/slnD/ExRLhSHJjjflbXCym6PUSltcLGi/a+
+	K0Fot23xOvp9ose/nzomPXvnAkXpSTk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791912921;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KbklspijRvdlfU7/CwOImEurfZ5evV9eiAhvXxXmFEI=;
+	b=WJhL9YZkZp+aP6AUjVEWnoI8uJKmcpSB5i6053VoEt2tgDOPq6vE5GhueJzG189k/RXpTn
+	hoxiAtCbRDYEh3Cw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="SycErfN/";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=WJhL9YZk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791912921; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KbklspijRvdlfU7/CwOImEurfZ5evV9eiAhvXxXmFEI=;
+	b=SycErfN/kedLAEUrpRmu0MQs2Ez1OEGEx8n7xMmjBqmKiOk8fLWyJykziHxIFCFPyeUXos
+	v5IOMXc9Ewn9nkXJBptRD/OYd5/6gdyXen/slnD/ExRLhSHJjjflbXCym6PUSltcLGi/a+
+	K0Fot23xOvp9ose/nzomPXvnAkXpSTk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791912921;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KbklspijRvdlfU7/CwOImEurfZ5evV9eiAhvXxXmFEI=;
+	b=WJhL9YZkZp+aP6AUjVEWnoI8uJKmcpSB5i6053VoEt2tgDOPq6vE5GhueJzG189k/RXpTn
+	hoxiAtCbRDYEh3Cw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 32ACA134B8;
+	Tue, 13 Oct 2026 17:35:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 7DKDLNdrzmqwDAAAD6G6ig
+	(envelope-from <krisman@suse.de>); Tue, 13 Oct 2026 17:35:20 +0000
+From: Gabriel Krisman Bertazi <krisman@suse.de>
+To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+ linux-ext4@vger.kernel.org, linux-afs@lists.infradead.org,
+ v9fs@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
+ ntfs3@lists.linux.dev, "Christian Brauner (Amutable)"
+ <brauner@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH 6/8] unicode: free the map after a grace period
+In-Reply-To: <20261009-work-fixes-rcu-v1-6-7446d2d335e6@kernel.org>
+Organization: SUSE
+References: <20261009-work-fixes-rcu-v1-0-7446d2d335e6@kernel.org>
+ <20261009-work-fixes-rcu-v1-6-7446d2d335e6@kernel.org>
+Date: Tue, 13 Oct 2026 13:35:18 -0400
+Message-ID: <87qzhtbj1l.fsf@mailhost.krisman.be>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-upstream-battmgr-charger-online-v1-1-731973e133a0@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQqDMBCF4avIrDtgYpHaq5QuknSMU2qUmSiCe
- HfTdvnB4387KAmTwr3aQWhl5SkVmEsFYXApEvKrGGxtW1ObBpdZs5Ab0bucxyhYZhJJcEofToS
- hs7YxvnfXWwelMgv1vP0eHs+/dfFvCvmbheM4ARFO3mKDAAAA
-X-Change-ID: 20261013-upstream-battmgr-charger-online-c92231bfa489
-To: Sebastian Reichel <sre@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>, 
- linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Brandon Williams <turbine.bmw@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791912902; l=3326;
- i=turbine.bmw@gmail.com; s=20261013; h=from:subject:message-id;
- bh=2nahTR5uEsrzwi6gEYo9VL4sGI7ylJdvvKlUHbSEfWM=;
- b=LM56MtNNV6v+m7qf2P94pum++gKuqCP+2iZYUeT0ZwrYUbcRp4vk1/EeN/2uHg1OKY7eQ8nj4
- kevYfc+h5ziAyRr/Ifq8E3uREv8SLLuU13AvHBQeYaI/pV8TaeJpTEG
-X-Developer-Key: i=turbine.bmw@gmail.com; a=ed25519;
- pk=Bpa28klX84MV14dvc8stQXHQtbFQK0xDK15qggaz3JA=
-X-Endpoint-Received: by B4 Relay for turbine.bmw@gmail.com/20261013 with
- auth_id=1171
-X-Original-From: Brandon Williams <turbine.bmw@gmail.com>
-Reply-To: turbine.bmw@gmail.com
+Content-Type: text/plain
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 0B09921E04
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	HAS_ORG_HEADER(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	MISSING_XM_UA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -4.51
 
-From: Brandon Williams <turbine.bmw@gmail.com>
+Christian Brauner <brauner@kernel.org> writes:
 
-On SC8280XP and X1E80100 the AC, USB and wireless supplies take their
-online state from the charging source in the battery status response.
-The firmware sends no notification for those supplies when the charging
-source changes, and the driver only announces the battery, so userspace
-never learns that the charger was plugged in or out. UPower keeps the
-state it read at startup: a laptop booted on the charger never goes on
-battery.
+> generic_ci_d_hash() and generic_ci_d_compare() read sb->s_encoding and
+> dereference the unicode map while a pathwalk in rcu mode holds nothing
+> but rcu_read_lock(). The filesystems that use them, ext4, f2fs and
+> tmpfs, drop the map with utf8_unload() from ->put_super(), which runs
+> when the last reference to the mount goes away. A lookup that is still
+> inside such a filesystem at that point reads a freed map.
+>
+> With a pathwalk held up in utf8_casefold_hash() while the last reference
+> to a casefolded tmpfs goes away:
+>
+>   BUG: KASAN: slab-use-after-free in utf8nlookup+0x74c/0x950
+>   Read of size 8 at addr ff110001030fe658 by task walker/98
+>   Call Trace:
+>    <TASK>
+>    utf8nlookup+0x74c/0x950
+>    utf8byte+0x160/0x1560
+>    utf8_casefold_hash+0x167/0x230
+>    generic_ci_d_hash+0xdd/0x1c0
+>    link_path_walk+0x11ad/0x1d30
+>    path_lookupat+0x63/0xb00
+>    filename_lookup+0x1f1/0x5b0
+>    vfs_statx+0xd7/0x3b0
+>   [...]
+>   Allocated by task 94:
+>    __kmalloc_cache_noprof+0x249/0x560
+>    utf8_load+0x4e/0x570
+>    shmem_parse_opt_casefold.isra.0+0x92/0x270
+>   [...]
+>   Freed by task 97:
+>    kfree+0x1db/0x5b0
+>    shmem_put_super+0x72/0x170
+>    generic_shutdown_super+0x14c/0x530
+>    kill_anon_super+0x3a/0x60
+>    deactivate_locked_super+0x9c/0xf0
+>    cleanup_mnt+0x9f/0x130
+>
+> So far that has been hard to hit. umount(2) waits for a grace period
+> in namespace_unlock() before it drops the mount, so only a mount whose
+> last reference goes away elsewhere, like the close of a file or a chdir
+> out of a lazily unmounted directory, can race a walker. So it is
+> reachable.
+>
+> Delay the free until a grace period has passed. The map and the data
+> table it holds a reference to then outlive any pathwalk that found the
+> superblock before the mount went away. The reference on the data table
+> module is dropped from the rcu callback as well. utf8-core is built in
+> whenever CONFIG_UNICODE is set, so there is no module exit that would
+> have to wait for the callbacks.
+>
+> Overlayfs points the s_encoding of an overlay at the map of its first
+> layer without taking a reference of its own. That stays correct. The
+> layer is held by the overlay, so its map is dropped only after the
+> overlay is gone.
+>
+> Fixes: b886ee3e778e ("ext4: Support case-insensitive file name lookups")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Call power_supply_changed() for a supply whose online state changes when
-a status response is parsed. A supply that is not registered yet, when
-the battery is read during probe, reports its state when it registers.
+Hey, Christian!
 
-Tested on a Microsoft Surface Pro 11 (X1E80100): after restarting UPower
-on the charger, unplugging now sets OnBattery, and plugging in clears it.
+Interesting find and looks good to me.  Feel free to add:
 
-Fixes: 29e8142b5623 ("power: supply: Introduce Qualcomm PMIC GLINK power supply")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Brandon Williams <turbine.bmw@gmail.com>
----
- drivers/power/supply/qcom_battmgr.c | 26 +++++++++++++++++++++++---
- 1 file changed, 23 insertions(+), 3 deletions(-)
+Reviewed-by: Gabriel Krisman Bertazi <krisman@suse.de>
 
-diff --git a/drivers/power/supply/qcom_battmgr.c b/drivers/power/supply/qcom_battmgr.c
-index a7237ba09be1..4ca340981922 100644
---- a/drivers/power/supply/qcom_battmgr.c
-+++ b/drivers/power/supply/qcom_battmgr.c
-@@ -1255,6 +1255,23 @@ static unsigned int qcom_battmgr_sc8280xp_convert_temp(unsigned int temperature)
- 	return DIV_ROUND_CLOSEST(temperature, 10);
- }
- 
-+/*
-+ * The charger supplies' online state comes from the battery status response,
-+ * and the firmware sends no notification of its own when it changes, so
-+ * announce the change here. A supply that is not registered yet announces its
-+ * state when it is.
-+ */
-+static void qcom_battmgr_sc8280xp_set_online(struct power_supply *psy,
-+					     bool *online, bool value)
-+{
-+	if (*online == value)
-+		return;
-+
-+	*online = value;
-+	if (psy)
-+		power_supply_changed(psy);
-+}
-+
- static void qcom_battmgr_sc8280xp_callback(struct qcom_battmgr *battmgr,
- 					   const struct qcom_battmgr_message *resp,
- 					   size_t len)
-@@ -1324,9 +1341,12 @@ static void qcom_battmgr_sc8280xp_callback(struct qcom_battmgr *battmgr,
- 		battmgr->status.temperature = qcom_battmgr_sc8280xp_convert_temp(le32_to_cpu(resp->status.temperature));
- 
- 		source = le32_to_cpu(resp->status.charging_source);
--		battmgr->ac.online = source == BATTMGR_CHARGING_SOURCE_AC;
--		battmgr->usb.online = source == BATTMGR_CHARGING_SOURCE_USB;
--		battmgr->wireless.online = source == BATTMGR_CHARGING_SOURCE_WIRELESS;
-+		qcom_battmgr_sc8280xp_set_online(battmgr->ac_psy, &battmgr->ac.online,
-+						 source == BATTMGR_CHARGING_SOURCE_AC);
-+		qcom_battmgr_sc8280xp_set_online(battmgr->usb_psy, &battmgr->usb.online,
-+						 source == BATTMGR_CHARGING_SOURCE_USB);
-+		qcom_battmgr_sc8280xp_set_online(battmgr->wls_psy, &battmgr->wireless.online,
-+						 source == BATTMGR_CHARGING_SOURCE_WIRELESS);
- 		if (battmgr->info.last_full_capacity != 0) {
- 			/*
- 			 * 100 * battmgr->status.capacity can overflow a 32bit
+thanks,
 
----
-base-commit: 4eb2586bd40db27d77cc5b724ca9386ed0c71d53
-change-id: 20261013-upstream-battmgr-charger-online-c92231bfa489
-
-Best regards,
---  
-Brandon Williams <turbine.bmw@gmail.com>
-
-
+-- 
+Gabriel Krisman Bertazi
