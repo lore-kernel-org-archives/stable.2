@@ -1,41 +1,55 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDACB1A6803
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 01:28:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8DA512F6918;
+	Wed, 14 Oct 2026 01:37:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.22.67.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791941326; cv=none; b=k6smdNiRmfS/37GBLgLmtQuJ4nKX3PDfh3x7wN8H/gqYzIhTLxBhL/HFx/FgOHJgZW5cZAy/LgBRb2i064FGTAYIS8tEJj43BLA/HGCbqgQAZPX1tctqymSBdRBadUiVHk6bOQUyv/ax00Blif3NQEhXHJ8VXkncPQObcauoGy8=
+	t=1791941858; cv=none; b=kDF0ZdNpSGB6BIlHClXaBJe7GhRbYvQufSe9kFB2CFPL6dUI/xxwetJN7sOeIihxH0wD4VF92AB1VwlynKv026JwygF1aD/Rh5w/w2YKhWU+5mlyd+GLQuKOGEGvsH8R8dz6wgU085tl9HvCe42qaKZtmij5GM9bstxm7D6yz1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791941326; c=relaxed/simple;
-	bh=Xqq3lxeuDHrdKPYsqBzuCG6c8tCOfY4RCSwv3j0TBOo=;
+	s=arc-20240116; t=1791941858; c=relaxed/simple;
+	bh=Z9CtFutt3i5y9QcAljwbrTddCnkQNqW5WvaWJhg8yD8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XEQXhFT4dXhXvmY7jqENDUt2LukakwbTI9Uy+A/LQe7x54GAIKZp7biGdSNcoCZil0ECoaFOF9PDyGeLRNwmo5LVzkwdj0mj55m5lnXAJaK2xUJ4IZA8d1h9bwX+hgR4mcj9DRlyjKTdunMVrB9MPJyFUcAOQZawBjEjRcZMNbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f5K8z1wp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=FN4N1dACiaSGrWCZq8UoYkM3228c3ZsKFNS+GMO+xogAcD3f3IznINHCs96Daei+tssI7mYj8pXC+7FhSJBXgcgmq16v3t79Iz+torFULfgSDB/+bYM338VpkslcRYziHRF8nYuABXnLzEIBhGBbZ77d18021AMFEG34ogeszD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com; spf=pass smtp.mailfrom=cmss.chinamobile.com; dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b=KApWyCvu; arc=none smtp.client-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f5K8z1wp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4475A1F000FF;
-	Wed, 14 Oct 2026 01:28:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791941324;
-	bh=bV1HJKi5IVJJDJDfZlFTetWF8CmUMmRc3Jool8tF4Nk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f5K8z1wpyivD0uvE4Ve6lqKsu1JnD6v2A3jOwYPH6BtfPOuc3WLQp4iwmZVhOl65o
-	 0ky2r+RlpPrTaFocrEAklhX5+JW6EONQWk6UUChEKCbh2z+MAXOHUmWJLDLzZ6D/14
-	 cNChfu1e8S2gLSb2qivfn+SFNUhV+mhTznXwx+aMwuvUoubPHIlDWEL5d0xCBcion0
-	 Ce3efsPIs4KkZYNm2OXCfc28F8b+BUe3S6xPFqO+rKLRTX9Sz1u3dta1ASnnmRHs7I
-	 sW6xy0eZP+isJRUYw8jJ8q+MAcid5TNEs5KW8caVeJ9RcGqfOw5nyBS1pnUGlRB9eT
-	 JpKm5q7iZIsCw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] namespace: check the mounts before reading their parents in pivot_root()
-Date: Tue, 13 Oct 2026 21:28:43 -0400
-Message-ID: <20261014012801.1613585-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101250-enforcer-oasis-a289@gregkh>
-References: <2026101250-enforcer-oasis-a289@gregkh>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b="KApWyCvu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=KApWyCvutzsByHycrs9Lso5nUm+ttLKjiYtiwSf82Z0gDgwjsGUmclbbADzZYu282mPvt4gA3bOtX
+	 zr4hyRvG8ESvnhwHQmL9PqFkKKN3PZjsRPwx+fEhZw40PsZwAs3+bfii2LtgNraJ7zZrjwyADzdDHf
+	 EFkCA7+dCS2ixXuA=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56acedcd0163-e42f5;
+	Wed, 14 Oct 2026 09:37:20 +0800 (CST)
+X-RM-TRANSID:2ee56acedcd0163-e42f5
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[223.108.79.99])
+	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86acedcce873-3aa20;
+	Wed, 14 Oct 2026 09:37:20 +0800 (CST)
+X-RM-TRANSID:2ee86acedcce873-3aa20
+From: lvjunyu <lvjunyu@cmss.chinamobile.com>
+To: netdev@vger.kernel.org,
+	netdev-bot+sashiko@kernel.org
+Cc: pablo@netfilter.org,
+	fw@strlen.de,
+	phil@nwl.cc,
+	netfilter-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	kuba@kernel.org,
+	lvjunyu <lvjunyu@cmss.chinamobile.com>
+Subject: Re: [PATCH v3] netfilter: nf_nat: Fix stale outer UDP checksum on VXLAN encapsulated packets
+Date: Tue, 13 Oct 2026 17:00:59 +0800
+Message-ID: <20261013090059.2590-1-lvjunyu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261008054228.752274-1-lvjunyu@cmss.chinamobile.com>
+References: <20261008054228.752274-1-lvjunyu@cmss.chinamobile.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,75 +58,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+Thank you for the review.
 
-[ Upstream commit 6b7c001eb5857fa09041f47673666060a2e5fc1c ]
+> [High] The fix covers only one caller, __udp_manip_pkt() in
+> net/netfilter/nf_nat_proto.c.
 
-path_pivot_root() reads the parents of new_root and of the caller's root
-and checks whether they are shared before it checks that either mount is
-in the caller's mount namespace. Only namespace_sem is held. That's fine
-for a mount that is in the caller's mount namespace.
+The scope is intentional.  The LCO state this patch fixes is specific
+to the UDP encapsulation path: udp_set_csum() writes a complete
+(folded, complemented) checksum into uh->check while leaving
+csum_start pointing at the inner transport header.  This split state
+arises only for locally generated VXLAN/Geneve outer headers that
+traverse the conntrack NAT OUTPUT path.
 
-But new_root can be a file descriptor to a mount that has been unmounted
-and that only the file descriptor keeps alive. If that mount stayed
-attached to its parent when it was unmounted nothing pins the parent for
-it. The final mntput() of the parent unhooks the children under
-mount_lock alone and frees the parent afterwards:
+The flowtable software fast path (nf_flow_nat_ip_udp and friends) is
+not reached by these packets.  VXLAN outer headers are locally
+generated via vxlan_xmit() -> udp_set_csum() and enter the OUTPUT
+chain.  The flowtable hook (nf_flow_offload_ip_hook) is registered
+at NF_INET_FORWARD, which locally generated packets do not traverse.
+Even after the conntrack entry is established, subsequent outer
+packets still follow OUTPUT -> POSTROUTING -> __udp_manip_pkt(),
+because flowtable offload applies to forwarded flows, not locally
+generated ones.
 
-  pivot_root()                     close(fd), last ref on the parent
-  ------------                     ---------------------------------
-  ex_parent = new_mnt->mnt_parent
-                                   mntput_no_expire_slowpath()
-                                     __umount_mnt(new_mnt)
-                                   cleanup_mnt()
-                                     call_rcu()
-  IS_MNT_SHARED(ex_parent)
+For the sibling call sites:
 
-  BUG: KASAN: slab-use-after-free in path_pivot_root+0xf1a/0x1840
-  Read of size 4 at addr ffff8881047382f8 by task pivot_widen/157
-   path_pivot_root+0xf1a/0x1840
-   __x64_sys_pivot_root+0x165/0x190
+- tcp_manip_pkt() and icmpv6_manip_pkt(): the offload target is the
+  TCP/ICMPv6 header itself (csum_start + csum_offset == &hdr->check),
+  so the LCO condition does not arise.  The seed path is correct for
+  these protocols.
 
-The same goes for the caller's root via chroot(). Both outcomes of the
-check end in EINVAL so nothing but the read itself goes wrong. It's the
-same thing commit bb4609405752 ("statmount: read the parent of an
-unmounted mount under mount_lock") fixed for statmount().
+- Headers embedded in ICMP errors
+  (nf_nat_icmp_reply_translation): byte copies in the ICMP payload,
+  not live checksum-offloaded data; ip_summed is typically NONE or
+  COMPLETE.
 
-Check that both mounts are in the caller's namespace before their
-parents are read. Every path returns EINVAL either way.
+- tcf_nat_act() and IPVS: these paths handle LCO-state encapsulated
+  UDP packets in theory, but the practical deployment scenario
+  (locally generated VXLAN + MASQUERADE --random-fully) is specific
+  to the conntrack NAT OUTPUT path.
 
-Fixes: e0c9c0afd2fc ("mnt: Update detach_mounts to leave mounts connected")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260930-work-mount-fixes-3-v1-10-be34c83956ae@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: Adapted the checks to the pivot_root syscall using goto out4 instead of returning -EINVAL. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/namespace.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+A helper-level fix in inet_proto_csum_replace4/16/_by_diff() would
+cover all ~45 call sites at once and is architecturally preferable.
+However, modifying core checksum helpers that are shared by TCP, UDP,
+ICMPv6, eBPF, OVS, GSO offload, and ILA requires a separate, more
+thorough analysis and test cycle.  This patch is scoped to the UDP
+path where the bug is observed and verified; the helper-level
+approach is planned as a follow-up.
 
-diff --git a/fs/namespace.c b/fs/namespace.c
-index ff8d16a3eeb2d..e39c9a92f34f2 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -3927,14 +3927,15 @@ SYSCALL_DEFINE2(pivot_root, const char __user *, new_root,
- 	new_mnt = real_mount(new.mnt);
- 	root_mnt = real_mount(root.mnt);
- 	old_mnt = real_mount(old.mnt);
-+	/* only a mounted mount has a parent that namespace_sem pins */
-+	if (!check_mnt(root_mnt) || !check_mnt(new_mnt))
-+		goto out4;
- 	ex_parent = new_mnt->mnt_parent;
- 	root_parent = root_mnt->mnt_parent;
- 	if (IS_MNT_SHARED(old_mnt) ||
- 		IS_MNT_SHARED(ex_parent) ||
- 		IS_MNT_SHARED(root_parent))
- 		goto out4;
--	if (!check_mnt(root_mnt) || !check_mnt(new_mnt))
--		goto out4;
- 	if (new_mnt->mnt.mnt_flags & MNT_LOCKED)
- 		goto out4;
- 	error = -ENOENT;
--- 
-2.53.0
+--
+lvjunyu
+
 
