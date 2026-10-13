@@ -1,100 +1,159 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 246374E36C8;
-	Tue, 13 Oct 2026 10:31:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CEBA3DCD8D
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 10:32:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791887464; cv=none; b=rYRYMbShR7WFgGZeEdCS08382cUmw0OzwEljlyDV4Flwz/j2mUCRIlhaYnPexeUQQRUvrsELITP1Ub+xVQDhIqq40pRkCGLTLN2bGIxX6FustWIVyL5fWxGW77Ls0POLp4tiNMfUDeLRU1CuNXqBU7Wt3fKLXuN8/gzPAnEE6zk=
+	t=1791887540; cv=none; b=Rj2KQER0Qkex3l+wdXgSAPiEEdOqxhKCg8D6eAqPTwPYtMSFiyb0wdgCR10gtPmFwxYNJmj2ETUADRpnyDmZ3UoCcUDLDfaR73hv8geOtvathv5IgsF9ui6YlBXB77HjHsTap9P4F8kJS/kfWPqoJHsEGBnEUjeXdnAMuPJHONs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791887464; c=relaxed/simple;
-	bh=ph/I59TWPz3ZRmhDZlqj4Tr3vQPtkuQGStXlC1cwwvE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Uiop362LqRZXVWDCJXMvmegzVSruGxlE5iDYFCGE2OMZKtWRTtmExUTiYTjTQXLcY9yqVu5iJrPO/3YeyOWpHJ6O9adhIlcKRHD2hAxi3Qa3N54JNlejn1pfIzismAtxekvOAPmXbwNrZpBQwgk+1vqYR2FRAKqOQyMomkrkLXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=HxzVHtmf; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1791887540; c=relaxed/simple;
+	bh=dgaWyliRWsI+DQxRPeJtPipOXsA4t5H4YRraHpaECuQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ZIO6LN6GPgsktHkejbdkRrtyUrgsckUtCuub4HT2l0LRKOL5vA5YMZJybSBpesu6UGr+knauM4svVcbaCXQOKuqNICqVt4VseKvzC4Sf0ssbN0ZMmH2+i2pUMDuhBeECKL4f9IMT93T/sT83AotEjWCD3rwCbifOD70rrGnTQRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fnQA9+w3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="HxzVHtmf"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69DAUWWU0454001, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1791887432; bh=ph/I59TWPz3ZRmhDZlqj4Tr3vQPtkuQGStXlC1cwwvE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=HxzVHtmfIxm7z7UlMp2FyJ0NbRG7e5y/rc1RLEQJIYq2s0FYiD1JLh9Kvu9sZaPkD
-	 7F5h+X36kOyTocntTlUXqNzoZ1XdjAabE5wUuc6vnetY1gnCepESZ6KEoazIHjTly8
-	 sDpGM3nFOqv7uihiRMi79WGslhNmkssDO7oeDj4JMQYd5TpfqPJL59VW23GbjjMhU1
-	 zMspjukbN/BRUFhY/X2bxpkTDDpdwj3SEvC6blcl59TbEomHoBxy8sIGgQGtX6JdMT
-	 tvmNcHwmlpAA9ZACKipVX1v9/azBOiy+GWBnUQEe5+tjnquUv+zAL7IyJi4+0fBEE/
-	 BtCtimGajxzDw==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69DAUWWU0454001
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 13 Oct 2026 18:30:32 +0800
-Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 13 Oct 2026 18:30:32 +0800
-Received: from RTKEXHMBS03.realtek.com.tw ([::1]) by
- RTKEXHMBS03.realtek.com.tw ([fe80::f36f:a844:4916:93f2%9]) with mapi id
- 15.02.2562.049; Tue, 13 Oct 2026 18:30:32 +0800
-From: Hayes Wang <hayeswang@realtek.com>
-To: Linmao Li <lilinmao@kylinos.cn>, Andrew Lunn <andrew@lunn.ch>
-CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Chih Kai Hsu
-	<hsu.chih.kai@realtek.com>, nic_swsd <nic_swsd@realtek.com>, Birger Koblitz
-	<mail@birger-koblitz.de>, Xiangqian Zhang <zhangxiangqian@kylinos.cn>,
-	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH net v2] r8152: Use BMSR to detect the link state
-Thread-Topic: [PATCH net v2] r8152: Use BMSR to detect the link state
-Thread-Index: AQHdVLexra3FlE5swkqMdmzmTHCGJ7bwLnWg///8UICABCHSAIAAVXKAgAWlrQCAAPX7AA==
-Date: Tue, 13 Oct 2026 10:30:32 +0000
-Message-ID: <0573f6c64cac4bdd83388cb1bd76583a@realtek.com>
-References: <20261005105249.1281648-1-lilinmao@kylinos.cn>
- <fd3bff0e63304681b9e5f35f2f57e50e@realtek.com>
- <7a8d21bd-3484-4120-abd6-f7290f919b7d@lunn.ch>
- <2bd3886a-da6e-4703-bd7a-9baa32bfd2f4@kylinos.cn>
- <591ca604-b296-4469-94b5-957d9ba45ae4@lunn.ch>
- <c32ac5e1-ecbe-4857-b36f-cd0cb1f54f90@kylinos.cn>
-In-Reply-To: <c32ac5e1-ecbe-4857-b36f-cd0cb1f54f90@kylinos.cn>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fnQA9+w3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 573F31F0089A;
+	Tue, 13 Oct 2026 10:32:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791887538;
+	bh=I4DYzhqchztgt7h2c591DyPQ24pqH13JkA10a2Woxm8=;
+	h=Subject:To:Cc:From:Date;
+	b=fnQA9+w3taVdt5IYI22jT/m/EBOSKqhGTkVT+vAQbgcSyKvRITwpxnV04VhQAnkgz
+	 oQUaj3aKcckOYhBmoKW6+4hMcaKY2Fxn38OSqqgM8dJb7e2qC+SeVqoiygpmUHSrhY
+	 TaCV3Qgd8BMKToV+eJiL6QDeGYdY6HP6i56tjhHc=
+Subject: FAILED: patch "[PATCH] cifs: fix time_last_write stamp placement in setattr/truncate" failed to apply to 6.18-stable tree
+To: sorenson@redhat.com,pc@manguebit.org,stfrench@microsoft.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 13 Oct 2026 12:32:23 +0200
+Message-ID: <2026101323-delta-nappy-a3a1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-TGlubWFvIExpIDxsaWxpbm1hb0BreWxpbm9zLmNuPg0KPiBTZW50OiBUdWVzZGF5LCBPY3RvYmVy
-IDEzLCAyMDI2IDEwOjM2IEFNDQpbLi4uXQ0KPiBIaSBBbmRyZXcsDQo+IA0KPiBUaGFua3MuIElu
-IHRlc3RzIG9uIG15IFJUTDgxNTNCLCBkb3duIGFuZCB1cCBub3RpZmljYXRpb25zIHdlcmUgYWJv
-dXQNCj4gMy4xIHMgYXBhcnQgYWZ0ZXIgYSBxdWljayBjYWJsZSByZXBsdWcsIGFuZCBhYm91dCAz
-LjQgcyBhcGFydCBhZnRlciBldGh0b29sIC1yLiBBDQo+IGRvdWJsZSByZWFkIHNob3VsZCBzdGls
-bCByZXBvcnQgZG93biBpZiB0aGUgbGluayB3b3JrIHJ1bnMgZHVyaW5nIHRoYXQgaW50ZXJ2YWws
-DQo+IGJ1dCBJIGhhdmUgbm90IHZlcmlmaWVkIHRoaXMgZGlyZWN0bHkuDQo+IFRoZXNlIHJlc3Vs
-dHMgZG8gbm90IGNvdmVyIHNob3J0ZXIgbGluayBpbnRlcnJ1cHRpb25zIG9yIG90aGVyIGNoaXBz
-Lg0KPiANCj4gU2luY2UgdGhpcyBmaXhlcyBhIHJlZ3Jlc3Npb24gZm9yIG5ldCBhbmQgc3RhYmxl
-LCB3b3VsZCB5b3UgYWNjZXB0IGEpIHRoZXJlLA0KPiBrZWVwaW5nIFBMQV9QSFlTVEFUVVMgYW5k
-IHJlYWRpbmcgQk1TUiBvbmNlIGJlZm9yZSBhbiBvZmYtdG8tb24gY2Fycmllcg0KPiB0cmFuc2l0
-aW9uLCBhbmQgbW92aW5nIGNhcnJpZXIgZGV0ZWN0aW9uIHRvIEJNU1Igd2l0aCBwZXItY2hpcCBo
-YW5kbGluZyBhcyBhDQo+IGZvbGxvdy11cCBmb3IgbmV0LW5leHQsIG9uY2UgdGhlIGNoaXAgYmVo
-YXZpb3VyIGlzIGtub3duPw0KPiANCj4gSGF5ZXMsIHRvIGJ1aWxkIHRoYXQgbGlzdDogd2hpY2gg
-SUNzIG5vdGlmeSBvbmx5IG9uIGxpbmsgY2hhbmdlcz8gQW5kIG9uIGFueSBvZg0KPiB0aGVtLCBk
-b2VzIHJlYWRpbmcgQk1TUiwgd2hpY2ggY2xlYXJzIHRoZSBsYXRjaGVkIGxpbmsgZG93biwgdHJp
-Z2dlciBhbm90aGVyDQo+IG5vdGlmaWNhdGlvbj8gVGhlIHNpbmdsZSByZWFkIGRlcGVuZHMgb24g
-dGhhdC4gQmlyZ2VyIHRlc3RlZCB2MiBvbiBhbiBSVEw4MTU3DQo+IGFuZCBhbiBSVEw4MTUzQSB3
-aXRob3V0IHByb2JsZW1zLCBzbyBpdCB3b3VsZCBhbHNvIGhlbHAgdG8ga25vdyBob3cgdGhlDQo+
-IFJUTDgxNTcgbm90aWZpZXMuDQoNClNvbWUgdXNlcnMgaGF2ZSBjb21wbGFpbmVkIGFib3V0IHRo
-ZSBwZXJpb2RpYyBub3RpZmljYXRpb25zLCBzbyB3ZSBwbGFuIHRvIG1vZGlmeSB0aGUgZHJpdmVy
-IGFjY29yZGluZ2x5Lg0KUlRMODE1NiBhbmQgbGF0ZXIgY2hpcHMgd2lsbCBub3RpZnkgdGhlIGRy
-aXZlciBvbmx5IHdoZW4gdGhlIGxpbmsgc3RhdGUgY2hhbmdlcy4gDQpUaGUgV2luZG93cyBkcml2
-ZXIgYWxyZWFkeSB1c2VzIHRoaXMgYmVoYXZpb3IuDQpJbiBhZGRpdGlvbiwgSSBkb27igJl0IGJl
-bGlldmUgdGhhdCBjbGVhcmluZyB0aGUgbGF0Y2hlZCBsaW5rLWRvd24gc3RhdHVzIHdpbGwgdHJp
-Z2dlciBhbm90aGVyIG5vdGlmaWNhdGlvbi4NCg0KDQpCZXN0IFJlZ2FyZHMsDQpIYXllcw0KDQo=
+
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
+
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x ecababf08905958ba8c125979c4e39fc2f1a8a05
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101323-delta-nappy-a3a1@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From ecababf08905958ba8c125979c4e39fc2f1a8a05 Mon Sep 17 00:00:00 2001
+From: Frank Sorenson <sorenson@redhat.com>
+Date: Fri, 24 Jul 2026 11:30:36 -0500
+Subject: [PATCH] cifs: fix time_last_write stamp placement in setattr/truncate
+ paths
+
+cifs_file_set_size() calls cifs_setsize() on success, which calls
+i_size_write(), updating i_size to the new value.  The subsequent
+check attrs->ia_size != i_size_read() in both cifs_setattr_unix()
+and cifs_setattr_nounix() therefore always evaluates false after a
+successful cifs_file_set_size(), making the smp_store_release() of
+time_last_write dead code.  The truncate path was unprotected against
+stale readdir size updates.
+
+Move the stamp to before the cifs_file_set_size() RPC call, guarded
+by attrs->ia_size != i_size_read() to exclude no-op same-size
+ftruncate(2) calls from stamping time_last_write unnecessarily.
+
+On the error path the stamp remains rather than being restored:
+restoring a stale snapshot (prev_tlw) could silently erase a
+concurrent _cifsFileInfo_put() close stamp if that close arrived
+between the READ_ONCE and the smp_store_release.  readdir is
+suppressed until the stamp expires, which extends beyond one acregmax
+if the caller retries failed truncations.  stat() is unaffected: the
+cifs_revalidate_dentry_attr() path calls cifs_fattr_to_inode() with
+from_readdir=false, which bypasses the time_last_write check in
+is_size_safe_to_change() entirely and always writes the authoritative
+QUERY_INFO result to i_size.
+
+Remove the now-unreachable stamp from the dead block in both functions.
+
+Fixes: e8a8d54c2d50 ("cifs: prevent readdir from changing file size due to stale directory metadata")
+Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Reviewed-by: Paulo Alcantara (Red Hat) <pc@manguebit.org>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+
+diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
+index b2806371bfde..808085eb0cdc 100644
+--- a/fs/smb/client/inode.c
++++ b/fs/smb/client/inode.c
+@@ -3190,6 +3190,17 @@ cifs_setattr_unix(struct dentry *direntry, struct iattr *attrs)
+ 	rc = 0;
+ 
+ 	if (attrs->ia_valid & ATTR_SIZE) {
++		if (attrs->ia_size != i_size_read(inode)) {
++			/* Stamp before RPC. On failure the stamp remains: restoring a
++			 * stale snapshot could silently erase a concurrent
++			 * _cifsFileInfo_put() close stamp.  readdir is suppressed
++			 * until the stamp expires; stat() bypasses this via the
++			 * from_readdir=false path in is_size_safe_to_change() and
++			 * always returns an authoritative QUERY_INFO result.
++			 * Pairs with smp_load_acquire() in is_size_safe_to_change().
++			 */
++			smp_store_release(&cifsInode->time_last_write, jiffies);
++		}
+ 		rc = cifs_file_set_size(xid, direntry, full_path,
+ 					open_file, attrs->ia_size);
+ 		if (rc != 0)
+@@ -3279,8 +3290,6 @@ cifs_setattr_unix(struct dentry *direntry, struct iattr *attrs)
+ 
+ 	if ((attrs->ia_valid & ATTR_SIZE) &&
+ 	    attrs->ia_size != i_size_read(inode)) {
+-		/* Pairs with smp_load_acquire() in is_size_safe_to_change(). */
+-		smp_store_release(&cifsInode->time_last_write, jiffies);
+ 		truncate_setsize(inode, attrs->ia_size);
+ 		netfs_resize_file(&cifsInode->netfs, attrs->ia_size, true);
+ 		fscache_resize_cookie(cifs_inode_cookie(inode), attrs->ia_size);
+@@ -3370,6 +3379,17 @@ cifs_setattr_nounix(struct dentry *direntry, struct iattr *attrs)
+ 	}
+ 
+ 	if (attrs->ia_valid & ATTR_SIZE) {
++		if (attrs->ia_size != i_size_read(inode)) {
++			/* Stamp before RPC. On failure the stamp remains: restoring a
++			 * stale snapshot could silently erase a concurrent
++			 * _cifsFileInfo_put() close stamp.  readdir is suppressed
++			 * until the stamp expires; stat() bypasses this via the
++			 * from_readdir=false path in is_size_safe_to_change() and
++			 * always returns an authoritative QUERY_INFO result.
++			 * Pairs with smp_load_acquire() in is_size_safe_to_change().
++			 */
++			smp_store_release(&cifsInode->time_last_write, jiffies);
++		}
+ 		rc = cifs_file_set_size(xid, direntry, full_path,
+ 					cfile, attrs->ia_size);
+ 		if (rc != 0)
+@@ -3482,8 +3502,6 @@ cifs_setattr_nounix(struct dentry *direntry, struct iattr *attrs)
+ 
+ 	if ((attrs->ia_valid & ATTR_SIZE) &&
+ 	    attrs->ia_size != i_size_read(inode)) {
+-		/* Pairs with smp_load_acquire() in is_size_safe_to_change(). */
+-		smp_store_release(&cifsInode->time_last_write, jiffies);
+ 		truncate_setsize(inode, attrs->ia_size);
+ 		netfs_resize_file(&cifsInode->netfs, attrs->ia_size, true);
+ 		fscache_resize_cookie(cifs_inode_cookie(inode), attrs->ia_size);
+
