@@ -1,114 +1,100 @@
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 463AB3F929A
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 10:29:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 246374E36C8;
+	Tue, 13 Oct 2026 10:31:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791887363; cv=none; b=fzNQIOLGRYscykHP/L2g0S8wg8f12m2rTgCT+LOevhj7BcqqohYIoe1hHCXgewt5nA7hfTQe7BmOWh9LGODVK+r0U2rRM7TfHP2pX/m15qXtTs+ELuK9uZd7pa1+Yd2oG2TFcyeJBhh/V9AeUvCqB6gCFN8mv+QXhV3CmBwNVdE=
+	t=1791887464; cv=none; b=rYRYMbShR7WFgGZeEdCS08382cUmw0OzwEljlyDV4Flwz/j2mUCRIlhaYnPexeUQQRUvrsELITP1Ub+xVQDhIqq40pRkCGLTLN2bGIxX6FustWIVyL5fWxGW77Ls0POLp4tiNMfUDeLRU1CuNXqBU7Wt3fKLXuN8/gzPAnEE6zk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791887363; c=relaxed/simple;
-	bh=x6lJXlnw+7kScGp+KyssmQC0Hf4Uca7kpbxm6mYDoZw=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=sNRqRNPj31Eh/ygCGGtTZpNYCA2DCB2d67CixiSJB3AfxYvVtWFoCS8trlyfvT8PKB25/xm6EHn95TGK0Vk/rZmfw5M5YQwrNvkztP6piSn0Y+I+ZM4RJL/5TVMzwJpqizSrgWEpVjGm6ezsJI60BZxV47sjbgOQl1ML9M3dZLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=icUNwOJD; arc=none smtp.client-ip=209.85.214.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	s=arc-20240116; t=1791887464; c=relaxed/simple;
+	bh=ph/I59TWPz3ZRmhDZlqj4Tr3vQPtkuQGStXlC1cwwvE=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Uiop362LqRZXVWDCJXMvmegzVSruGxlE5iDYFCGE2OMZKtWRTtmExUTiYTjTQXLcY9yqVu5iJrPO/3YeyOWpHJ6O9adhIlcKRHD2hAxi3Qa3N54JNlejn1pfIzismAtxekvOAPmXbwNrZpBQwgk+1vqYR2FRAKqOQyMomkrkLXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=HxzVHtmf; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="icUNwOJD"
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e60bb65626so30451765ad.0
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 03:29:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791887362; x=1792492162; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rjHP0ikJt34WZ/clkFc39YeDIx8IXxXSFzB3iNtX7ts=;
-        b=icUNwOJD7N8eie3CRf7qB2s49zgTClW++D4bV2Agy7y9ZHoiVsTtOSfRc3UOt0MhH1
-         JdRcvnt1PXbPqoQsZQIOZOqXpcjp4pv1OZ0M9pVfVC7R95cB4vHstnAUaYF/qf/FNLxD
-         NTF22CEYCLTus3164iJs+hQSDyXIkl/od4tu4B+SWA+Fwn/6Tl85giKX3EEDedBWohIq
-         fuGxpqm+BkkdY9bBg10EkmfPz3bzAIZrsKKF0LxV66GELJ0FdJtlt+6Da32eWQ/C37+n
-         wf55cahQ66pTGSHLQw1zsA1uMct/ZbnJlTIeHUUFXhDaFA/IYSKDJmqTd/ifH1UvSkBt
-         LbTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791887362; x=1792492162;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rjHP0ikJt34WZ/clkFc39YeDIx8IXxXSFzB3iNtX7ts=;
-        b=ii/LynoYyGFfqwuL/LCdV3ax9HY1+hF7UhgDr+eCcYbWVTYBtt1QUt4lajODuE0tT+
-         SLLUEIoot3Jcrac8jo/lMXErWJ3yAT9M5nl0cXvrc/Ea/97w3ZHIommPUtrobz1BksVk
-         1y546vSGOFppI5G8/3qkg26PWel/m6UIgzE0V70HyZo8kKIiQyMdFCsPdJpAb4R6sIDF
-         fjsVZVQVquqqLLqHWAYG74RBpQ6j3CaHiXBcLAP8ecNk4Umopl9KcFIrpMj4P1teDpVC
-         xmG3TPEOTHYMgtvB4yTQXHQM6DUxk5n2wZ9524HPkfPeRqnk0SgqEyOa4bm36PuDx/lj
-         yYOw==
-X-Forwarded-Encrypted: i=1; AKwUvBxn7+xjHtw/eJEMWU+So8fypxTMa09towh4NlF2glgcfyMpgjOBGpn2UFY07Dnzix1k/aJVcj8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJPzJDR8b3ebotB28EgDrrU1O2o1fyIrZwYLA7iHbfHfwFycZSh
-	xrmHx9k7e15Vi04sEe/Jv3/Jqos1xsMHPSmZhSbzvjtpDcduo6zSSUm9I8IISoVVPb0ZbZOoHFS
-	j933dr9LzFEDnHAVvKrpmxA==
-X-Received: from plei20.prod.google.com ([2002:a17:902:e494:b0:2e2:cb09:d4a2])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:d4d1:b0:2e4:905f:5a3a with SMTP id d9443c01a7336-2e8428359eamr73415145ad.2.1791887361273;
- Tue, 13 Oct 2026 03:29:21 -0700 (PDT)
-Date: Tue, 13 Oct 2026 18:29:13 +0800
-In-Reply-To: <20261013102913.948718-1-stanleyjhu@google.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="HxzVHtmf"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69DAUWWU0454001, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1791887432; bh=ph/I59TWPz3ZRmhDZlqj4Tr3vQPtkuQGStXlC1cwwvE=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=HxzVHtmfIxm7z7UlMp2FyJ0NbRG7e5y/rc1RLEQJIYq2s0FYiD1JLh9Kvu9sZaPkD
+	 7F5h+X36kOyTocntTlUXqNzoZ1XdjAabE5wUuc6vnetY1gnCepESZ6KEoazIHjTly8
+	 sDpGM3nFOqv7uihiRMi79WGslhNmkssDO7oeDj4JMQYd5TpfqPJL59VW23GbjjMhU1
+	 zMspjukbN/BRUFhY/X2bxpkTDDpdwj3SEvC6blcl59TbEomHoBxy8sIGgQGtX6JdMT
+	 tvmNcHwmlpAA9ZACKipVX1v9/azBOiy+GWBnUQEe5+tjnquUv+zAL7IyJi4+0fBEE/
+	 BtCtimGajxzDw==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69DAUWWU0454001
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 13 Oct 2026 18:30:32 +0800
+Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 13 Oct 2026 18:30:32 +0800
+Received: from RTKEXHMBS03.realtek.com.tw ([::1]) by
+ RTKEXHMBS03.realtek.com.tw ([fe80::f36f:a844:4916:93f2%9]) with mapi id
+ 15.02.2562.049; Tue, 13 Oct 2026 18:30:32 +0800
+From: Hayes Wang <hayeswang@realtek.com>
+To: Linmao Li <lilinmao@kylinos.cn>, Andrew Lunn <andrew@lunn.ch>
+CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Chih Kai Hsu
+	<hsu.chih.kai@realtek.com>, nic_swsd <nic_swsd@realtek.com>, Birger Koblitz
+	<mail@birger-koblitz.de>, Xiangqian Zhang <zhangxiangqian@kylinos.cn>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH net v2] r8152: Use BMSR to detect the link state
+Thread-Topic: [PATCH net v2] r8152: Use BMSR to detect the link state
+Thread-Index: AQHdVLexra3FlE5swkqMdmzmTHCGJ7bwLnWg///8UICABCHSAIAAVXKAgAWlrQCAAPX7AA==
+Date: Tue, 13 Oct 2026 10:30:32 +0000
+Message-ID: <0573f6c64cac4bdd83388cb1bd76583a@realtek.com>
+References: <20261005105249.1281648-1-lilinmao@kylinos.cn>
+ <fd3bff0e63304681b9e5f35f2f57e50e@realtek.com>
+ <7a8d21bd-3484-4120-abd6-f7290f919b7d@lunn.ch>
+ <2bd3886a-da6e-4703-bd7a-9baa32bfd2f4@kylinos.cn>
+ <591ca604-b296-4469-94b5-957d9ba45ae4@lunn.ch>
+ <c32ac5e1-ecbe-4857-b36f-cd0cb1f54f90@kylinos.cn>
+In-Reply-To: <c32ac5e1-ecbe-4857-b36f-cd0cb1f54f90@kylinos.cn>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261013102913.948718-1-stanleyjhu@google.com>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261013102913.948718-4-stanleyjhu@google.com>
-Subject: [PATCH 3/3] scsi: ufs: core: Clear stale UIC result byte before peer
- DME retries
-From: Stanley Jhu <stanleyjhu@google.com>
-To: "Martin K. Petersen" <mkp@kernel.org>, 
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: powenkao@google.com, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>, 
-	Peter Wang <peter.wang@mediatek.com>, linux-scsi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
 
-Peer DME get and set retry a failed attempt with the same struct
-uic_command. UIC completion ORs the ConfigResultCode into
-argument2[7:0], and nothing clears it before the next attempt. Once an
-attempt fails, every retry keeps reporting that error code, even when
-the device returns success, so a transient failure becomes a hard
-failure after three retries. Each such retry also triggers the
-WARN_ON_ONCE() in ufshcd_dispatch_uic_cmd().
-
-Clear the result byte before each attempt.
-
-Fixes: 64238fbd15ea ("scsi: ufs: add retries to dme_peer get and set attribute")
-Cc: stable@vger.kernel.org
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
----
- drivers/ufs/core/ufshcd.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index bcc2512bf34b..9adb3b576e28 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -4398,6 +4398,7 @@ int ufshcd_dme_set_attr(struct ufs_hba *hba, u32 attr_sel,
- 	int retries = UFS_UIC_COMMAND_RETRIES;
- 
- 	do {
-+		uic_cmd.argument2 &= ~MASK_UIC_COMMAND_RESULT;
- 		/* for peer attributes we retry upon failure */
- 		ret = ufshcd_send_uic_cmd(hba, &uic_cmd);
- 		if (ret)
-@@ -4465,6 +4466,7 @@ int ufshcd_dme_get_attr(struct ufs_hba *hba, u32 attr_sel,
- 	}
- 
- 	do {
-+		uic_cmd.argument2 &= ~MASK_UIC_COMMAND_RESULT;
- 		/* for peer attributes we retry upon failure */
- 		ret = ufshcd_send_uic_cmd(hba, &uic_cmd);
- 		if (ret)
--- 
-2.56.0.385.gd3acb90ef8-goog
-
+TGlubWFvIExpIDxsaWxpbm1hb0BreWxpbm9zLmNuPg0KPiBTZW50OiBUdWVzZGF5LCBPY3RvYmVy
+IDEzLCAyMDI2IDEwOjM2IEFNDQpbLi4uXQ0KPiBIaSBBbmRyZXcsDQo+IA0KPiBUaGFua3MuIElu
+IHRlc3RzIG9uIG15IFJUTDgxNTNCLCBkb3duIGFuZCB1cCBub3RpZmljYXRpb25zIHdlcmUgYWJv
+dXQNCj4gMy4xIHMgYXBhcnQgYWZ0ZXIgYSBxdWljayBjYWJsZSByZXBsdWcsIGFuZCBhYm91dCAz
+LjQgcyBhcGFydCBhZnRlciBldGh0b29sIC1yLiBBDQo+IGRvdWJsZSByZWFkIHNob3VsZCBzdGls
+bCByZXBvcnQgZG93biBpZiB0aGUgbGluayB3b3JrIHJ1bnMgZHVyaW5nIHRoYXQgaW50ZXJ2YWws
+DQo+IGJ1dCBJIGhhdmUgbm90IHZlcmlmaWVkIHRoaXMgZGlyZWN0bHkuDQo+IFRoZXNlIHJlc3Vs
+dHMgZG8gbm90IGNvdmVyIHNob3J0ZXIgbGluayBpbnRlcnJ1cHRpb25zIG9yIG90aGVyIGNoaXBz
+Lg0KPiANCj4gU2luY2UgdGhpcyBmaXhlcyBhIHJlZ3Jlc3Npb24gZm9yIG5ldCBhbmQgc3RhYmxl
+LCB3b3VsZCB5b3UgYWNjZXB0IGEpIHRoZXJlLA0KPiBrZWVwaW5nIFBMQV9QSFlTVEFUVVMgYW5k
+IHJlYWRpbmcgQk1TUiBvbmNlIGJlZm9yZSBhbiBvZmYtdG8tb24gY2Fycmllcg0KPiB0cmFuc2l0
+aW9uLCBhbmQgbW92aW5nIGNhcnJpZXIgZGV0ZWN0aW9uIHRvIEJNU1Igd2l0aCBwZXItY2hpcCBo
+YW5kbGluZyBhcyBhDQo+IGZvbGxvdy11cCBmb3IgbmV0LW5leHQsIG9uY2UgdGhlIGNoaXAgYmVo
+YXZpb3VyIGlzIGtub3duPw0KPiANCj4gSGF5ZXMsIHRvIGJ1aWxkIHRoYXQgbGlzdDogd2hpY2gg
+SUNzIG5vdGlmeSBvbmx5IG9uIGxpbmsgY2hhbmdlcz8gQW5kIG9uIGFueSBvZg0KPiB0aGVtLCBk
+b2VzIHJlYWRpbmcgQk1TUiwgd2hpY2ggY2xlYXJzIHRoZSBsYXRjaGVkIGxpbmsgZG93biwgdHJp
+Z2dlciBhbm90aGVyDQo+IG5vdGlmaWNhdGlvbj8gVGhlIHNpbmdsZSByZWFkIGRlcGVuZHMgb24g
+dGhhdC4gQmlyZ2VyIHRlc3RlZCB2MiBvbiBhbiBSVEw4MTU3DQo+IGFuZCBhbiBSVEw4MTUzQSB3
+aXRob3V0IHByb2JsZW1zLCBzbyBpdCB3b3VsZCBhbHNvIGhlbHAgdG8ga25vdyBob3cgdGhlDQo+
+IFJUTDgxNTcgbm90aWZpZXMuDQoNClNvbWUgdXNlcnMgaGF2ZSBjb21wbGFpbmVkIGFib3V0IHRo
+ZSBwZXJpb2RpYyBub3RpZmljYXRpb25zLCBzbyB3ZSBwbGFuIHRvIG1vZGlmeSB0aGUgZHJpdmVy
+IGFjY29yZGluZ2x5Lg0KUlRMODE1NiBhbmQgbGF0ZXIgY2hpcHMgd2lsbCBub3RpZnkgdGhlIGRy
+aXZlciBvbmx5IHdoZW4gdGhlIGxpbmsgc3RhdGUgY2hhbmdlcy4gDQpUaGUgV2luZG93cyBkcml2
+ZXIgYWxyZWFkeSB1c2VzIHRoaXMgYmVoYXZpb3IuDQpJbiBhZGRpdGlvbiwgSSBkb27igJl0IGJl
+bGlldmUgdGhhdCBjbGVhcmluZyB0aGUgbGF0Y2hlZCBsaW5rLWRvd24gc3RhdHVzIHdpbGwgdHJp
+Z2dlciBhbm90aGVyIG5vdGlmaWNhdGlvbi4NCg0KDQpCZXN0IFJlZ2FyZHMsDQpIYXllcw0KDQo=
