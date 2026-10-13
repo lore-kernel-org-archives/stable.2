@@ -1,158 +1,206 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBA1F3C1D66;
-	Tue, 13 Oct 2026 14:06:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2BC83C65F0;
+	Tue, 13 Oct 2026 14:07:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791900408; cv=none; b=J3RcLtE6L05SJgUVH2FagI82pzYSxFMvw38GOv8/hBZ4WcB8Dv61FsowxOEV1F5VqtilNbPLbA/59QQ4E0vfydau9D+yiPXmC+1WhlU7dDoh6jfAoS62+9f2HlTiZpzb3WRQUpke44rxunq5zUfdB1TkWB7dYsa0RkuodIbmpj0=
+	t=1791900438; cv=none; b=kDFK4MsBaWyxrOd8nIhoYguVye+gfBURPg4c4e+VBSf3fUX0LUoyKoV/kZyntFWLzsyrTEyCbBV1ZwZv8wNlXS1a1DSPgSrc48Z+4A8Ux15eQnb3rQs+sMNdRU9pEuYfjv+NwyrM73twTT4c3MxUQkn4S52tYXTfTP6jF4X79+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791900408; c=relaxed/simple;
-	bh=qBM0oFJyiP5nGCBoW1aU1ZOtHYPwrvo1e/jOSOMCWDM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SxDE6+7QzwqY7tp9NKzWGyaK/HV6+1R6yKDo4yaZX2vNozyBS1MzH0jMCm1pIx/swK3lSCxLeavs/BlTJ21pHdTuFURboJDo/WTAbNTkJZ6CHBUVvWslGyUuW13qL3M7mpn//O7QjUQ0hdrtkhhPwTuLnXottwj/zR/KKNgueuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HiLs+rR0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791900438; c=relaxed/simple;
+	bh=umk+do6AA4iehzVvFZfr1gUxoj7dg1s+aAH6ZDQz6dg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fwhZ3tsU1BXZl3Qc5rFhlWZc/54JAx6/OKkld8IFtsTzaK9jtx9+8CW28fTJ9cbTaTXDnOszjIvQEbZs6K4NBdq49F52NqtwKWFfQmbOwz9lPsvaMdz90KKULy34uA1QVliRgJ8qoEoxXAEWdqSBEL4OlCJqKNuA7/GK7p1TFBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fm3Bmv3/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HiLs+rR0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8335B1F000FF;
-	Tue, 13 Oct 2026 14:06:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791900406;
-	bh=noQ+gtaIeSfcBbf4IVs7251oKyPHxgZa73oom00Xu90=;
-	h=From:To:Cc:Subject:Date;
-	b=HiLs+rR0/BU9LaVyfSNKyQlc22NVHi9JbrV1sUZgBhxd7aIy9ee7hKX2iWAt4I3Ma
-	 5Nj12dmK8i0N5XNfbLZ+/r5D3N/+jaHm2RoU0OLOpJ3ceA/QLAgS2bPpfd+yEwJP++
-	 DPRFXwDbJQSleg1sRhzazw7hl39RTzlaCmN1LGFWcx0WSs8pjQ8bYaimrZp8RpM7h6
-	 aFqWt3/TM19zLSSz1/Gaf3+kN2UdCU3Ow5t9hUCsoJGaogqj/U3PGxW/wKxweHMiOk
-	 GgjCJfN6bPqGzSxT3TD1ClDHqwFVb4hthzlRtlZusdNDEvavjDGbRQ5twSsxP+23kI
-	 P1bzV9lOy124Q==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xGd9Q-000000059Ct-1yfW;
-	Tue, 13 Oct 2026 16:06:44 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Johan Hovold <johan@kernel.org>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	driver-core@lists.linux.dev,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mario Peter <mario.peter@leica-geosystems.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] driver core: take parent lock on deferred probe
-Date: Tue, 13 Oct 2026 16:06:15 +0200
-Message-ID: <20261013140615.1226992-1-johan@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fm3Bmv3/"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 51654C2BCF4;
+	Tue, 13 Oct 2026 14:07:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791900438;
+	bh=umk+do6AA4iehzVvFZfr1gUxoj7dg1s+aAH6ZDQz6dg=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=Fm3Bmv3/VfSgFiQMWVQa9eYzZIJgrK2jN7pQt+iUoz91o5mCSreBc6atpXiq2EV/Z
+	 Ibx2BiC+zED40loXtCAyl/0T7DxkGDjvV2IGjI2zdl6UwjS1SxUA1zSuHIytjzJqZV
+	 uQIKZFowFVrf8skZUxK9P4ZcOuR9x3ChrSfMV5jG9VQ4oU8GWpfhUmiVyAPYYES+p9
+	 p+192HS/rMU+IpVUkwwCWI2BfHxKKRrvHlL6SycgFMLho6pn99x7goWr83vEpjBWXT
+	 LAgBQ0D1WtIp+hVixNUqq6VsNszZ7O3mWhc9wfrZMwvgiSnArFYfCmA3r9NKaMJRQa
+	 AlPKcHWVybBsg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3BAF8CC6B10;
+	Tue, 13 Oct 2026 14:07:18 +0000 (UTC)
+From: Phil Rosenthal via B4 Relay <devnull+phil.phil.gs@kernel.org>
+Date: Tue, 13 Oct 2026 10:07:16 -0400
+Subject: [PATCH v2] serial: core: Shut down a running console port before
+ removing it
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-serial-console-remove-v2-1-2eca1a92c10d@phil.gs>
+X-B4-Tracking: v=1; b=H4sIABM7zmoC/4WNQQ7CIBBFr9LM2jGAWqkr72G6QBjaSWppwBBNw
+ 92lvYDL9/P/+yskikwJbs0KkTInDnMFdWjAjmYeCNlVBiVUK4XQuPXNhDbMKUyEkV4hE7qO/Nk
+ Z3ZKwULdLJM+f3fvoK4+c3iF+95sst/SfMUuUqLR+dvYkL8Zf78vI03FI0JdSflUX8C+4AAAA
+X-Change-ID: 20261008-serial-console-remove-d9ef4da86e0c
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Johan Hovold <johan@kernel.org>, linux-serial@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Phil Rosenthal <phil@phil.gs>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791900437; l=6358;
+ i=phil@phil.gs; s=20260718; h=from:subject:message-id;
+ bh=BsCt8Br7wx0hA0cJvt2l/hyIzpxE51pEs/gRCgNdPtg=;
+ b=54qcslukDWUJAe+/2QJFHyACcPfyiYCUjUfT3kZ8ytbhXN7C1mACaN9/PsgeHJOpXAyUDYdPK
+ Hhd71AahafUCLjpMjzcbAng8WpGSlDC7IjM63Ay76RxWdDWgAPQPZLW
+X-Developer-Key: i=phil@phil.gs; a=ed25519;
+ pk=08BMg1YPtTS5NnKn5I1Mq1ra3MdAg49Awe6OjrC59fs=
+X-Endpoint-Received: by B4 Relay for phil@phil.gs/20260718 with auth_id=881
+X-Original-From: Phil Rosenthal <phil@phil.gs>
+Reply-To: phil@phil.gs
 
-USB interfaces should be probed with the parent USB device lock held,
-but this is not honoured when probe is deferred.
+From: Phil Rosenthal <phil@phil.gs>
 
-Add a new bus_probe_device_deferred() helper to handle deferred probe
-where the parent device lock is not held.
+A console port is not shut down when its last user closes it:
+tty_port_shutdown() returns early when tty_port::console is set, so the
+port stays initialized.  For an 8250 port this leaves its interrupt
+requested or, for a port without an interrupt, its poll timer armed.
 
-Fixes: d1c3414c2a9d ("drivercore: Add driver probe deferral mechanism")
-Reported-by: Mario Peter <mario.peter@leica-geosystems.com>
-Link: https://lore.kernel.org/20261007131514.1260696-1-mario.peter@leica-geosystems.com
-Cc: stable@vger.kernel.org	# 3.4
-Signed-off-by: Johan Hovold <johan@kernel.org>
+serial_core_remove_one_port() relies on tty_port_tty_vhangup() to shut
+the port down before releasing its resources, but the hangup reaches
+uart_hangup() -> uart_shutdown() only when a tty is attached.  For a
+console that was opened and closed, for example a serial console whose
+getty has been stopped, nothing shuts the port down.  The console is
+unregistered, ->release_port() releases the registers and the core frees
+uport->name while the port is still running.  On tty-next with 8250
+ports:
+
+ - A card bound to 8250_pci with an INTx interrupt and unbound through
+   sysfs keeps its interrupt requested after the driver is gone.  The
+   irqaction name points to the freed uport->name, so reading
+   /proc/interrupts is a slab-use-after-free in irq_seq_show().
+
+ - A polled (irq = 0) MMIO port with UPF_IOREMAP keeps running
+   serial8250_timeout() after serial8250_release_port() has cleared
+   membase, which dereferences NULL in timer softirq context about
+   10 ms after "console [ttyS5] disabled".
+
+After unregistering the console and before releasing the resources, call
+uart_shutdown().  It runs with port->mutex held, as for its other
+callers, and with no tty, so it also drops DTR and RTS.  For a port that
+is not initialized, because the hangup already shut it down or because it
+is suspended, uart_shutdown() leaves the hardware alone and only releases
+what the core still holds, such as the transmit buffer of a suspended
+port.
+
+Fixes: 761ed4a94582 ("tty: serial_core: convert uart_close to use tty_port_close")
+Cc: stable@vger.kernel.org # 6.6.x
+Assisted-by: LLM sparse
+Signed-off-by: Phil Rosenthal <phil@phil.gs>
 ---
- drivers/base/base.h |  1 +
- drivers/base/bus.c  | 28 +++++++++++++++++++++-------
- drivers/base/dd.c   |  7 ++++---
- 3 files changed, 26 insertions(+), 10 deletions(-)
+The bug goes back to v4.9 (761ed4a94582), but scoped_guard() for
+mutexes was only added in v6.5, so this version doesn't build on the
+6.1, 5.15 and 5.10 stable trees.  For those I'll send a backport that
+uses mutex_lock() and mutex_unlock() instead and is otherwise the same.
 
-diff --git a/drivers/base/base.h b/drivers/base/base.h
-index a5b7abc10ff0..3c36a2128f88 100644
---- a/drivers/base/base.h
-+++ b/drivers/base/base.h
-@@ -154,6 +154,7 @@ struct kobject *virtual_device_parent(void);
+I hit the bug on real hardware.  My serial console is a polled ASPEED
+BMC VUART, then driven by an out-of-tree module.  After I stopped its
+getty, unloading the driver oopsed in mem32_serial_in() from
+serial8250_timeout().
+
+History: before 761ed4a94582, uart_close() called uart_shutdown() for
+every port, consoles included.  761ed4a94582 made console ports skip the
+shutdown on close.  be2c92b8f164 reverted that part and 4dda864d7307
+reinstated it, all within v4.9.  Keeping a console running after close is
+intended, but the removal path was never updated for it.
+
+Tested in a QEMU guest on tty-next 36844ea19656 with KASAN, using in-tree
+8250_pci and a "serial8250" platform port.  Reproducers are available on
+request.  Without this patch:
+
+  8250_pci with INTx, reading /proc/interrupts after unbind:
+    BUG: KASAN: slab-use-after-free in string+0x3b6/0x4c0
+     irq_seq_show+0x34d/0x810
+    Allocated by task 1244:
+     kasprintf+0xac/0x100
+     serial_core_register_port+0x55f/0x1720
+    Freed by task 1276:
+     kfree+0x1a0/0x4a0
+     serial_core_unregister_port+0x44d/0xa80
+     serial8250_unregister_port+0x10d/0x6c0
+     pciserial_detach_ports+0x92/0x160
+
+  Polled MMIO port (irq 0, UPF_IOREMAP) after removal:
+    printk: console [ttyS5] disabled
+    BUG: kernel NULL pointer dereference, address: 0000000000000008
+    RIP: 0010:mem32_serial_in+0x74/0xa0
+     serial8250_timeout+0x44/0x140
+     call_timer_fn+0x32/0x260
+
+With this patch both cases are clean: the IRQ is freed on unbind,
+rebinding restores the console, and the polled port is shut down on
+removal.  A port held open across removal and a console that was never
+opened did not fail before and still work.  v2 was retested the same
+way.  W=1, sparse and checkpatch --strict are clean.
+
+Also tested on real hardware: the ASPEED BMC VUART that hit the bug
+(polled MMIO, irq 0) as the console, now bound to 8250_pci with my
+pending ASPEED support patch [1], on a 7.0.14 distribution kernel with
+both patches.  After stopping the getty, opening and closing the port,
+and unbinding the PCI device, there is no oops.  Rebinding restores the
+console, the getty and in-band IPMI.  That run used v1; v2 behaves the
+same on that path.
+
+Not tested: serial drivers other than 8250, and removing a port while it
+is suspended (the case v2 adds).
+
+[1] https://lore.kernel.org/r/20261008-aspeed-vuart-v1-1-d2be17c99cd7@phil.gs
+
+AI assistance: an LLM coding assistant (Claude, model claude-opus-5-5, in
+Claude Code) analysed the crash, wrote the reproducers and the patch, and
+built and ran the test kernels.  Two other LLMs reviewed the result
+(GPT-5.6 Sol via Codex, and Claude Fable 5.1 via Claude Code).  I reviewed
+it as well.
+---
+Changes in v2:
+- Call uart_shutdown() without checking tty_port_initialized() first,
+  so that a console port removed while suspended also gets its transmit
+  buffer freed and its suspended flag cleared (found by Sashiko's
+  review of v1).  uart_shutdown() already skips the hardware shutdown
+  for a port that is not initialized.  Comment and changelog updated.
+- Use scoped_guard() for port->mutex, as elsewhere in the function, and
+  drop the comment (Greg).
+- Link to v1: https://lore.kernel.org/r/20261008-serial-console-remove-v1-1-288b9c315af7@phil.gs
+---
+ drivers/tty/serial/serial_core.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index 319a4b427f3a3727d12cb58252bd8959f9be4cd6..d96d84a985cd972f3974da28cf3daa7fc05eefcf 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -3239,6 +3239,9 @@ static void serial_core_remove_one_port(struct uart_driver *drv,
+ 	if (uart_console(uport))
+ 		unregister_console(uport->cons);
  
- int bus_add_device(struct device *dev);
- void bus_probe_device(struct device *dev);
-+void bus_probe_device_deferred(struct device *dev);
- void bus_remove_device(struct device *dev);
- void bus_notify(struct device *dev, enum bus_notifier_event value);
- bool bus_is_registered(const struct bus_type *bus);
-diff --git a/drivers/base/bus.c b/drivers/base/bus.c
-index c51ad96d4de4..fd62594eb6f9 100644
---- a/drivers/base/bus.c
-+++ b/drivers/base/bus.c
-@@ -606,13 +606,7 @@ int bus_add_device(struct device *dev)
- 	return error;
- }
- 
--/**
-- * bus_probe_device - probe drivers for a new device
-- * @dev: device to probe
-- *
-- * - Automatically probe for a driver if the bus allows it.
-- */
--void bus_probe_device(struct device *dev)
-+static void __bus_probe_device(struct device *dev)
- {
- 	struct subsys_private *sp = bus_to_subsys(dev->bus);
- 	struct subsys_interface *sif;
-@@ -630,6 +624,26 @@ void bus_probe_device(struct device *dev)
- 	subsys_put(sp);
- }
- 
-+/**
-+ * bus_probe_device - probe drivers for a new device
-+ * @dev: device to probe
-+ *
-+ * - Automatically probe for a driver if the bus allows it.
-+ */
-+void bus_probe_device(struct device *dev)
-+{
-+	__bus_probe_device(dev);
-+}
++	scoped_guard(mutex, &port->mutex)
++		uart_shutdown(NULL, state);
 +
-+void bus_probe_device_deferred(struct device *dev)
-+{
-+	if (dev->parent && dev->bus->need_parent_lock)
-+		device_lock(dev->parent);
-+	__bus_probe_device(dev);
-+	if (dev->parent && dev->bus->need_parent_lock)
-+		device_unlock(dev->parent);
-+}
-+
- /**
-  * bus_remove_device - remove device from bus
-  * @dev: device to be removed
-diff --git a/drivers/base/dd.c b/drivers/base/dd.c
-index 9dc7cce9bd8d..87962f4e914c 100644
---- a/drivers/base/dd.c
-+++ b/drivers/base/dd.c
-@@ -86,8 +86,9 @@ static void deferred_probe_work_func(struct work_struct *work)
  	/*
- 	 * This block processes every device in the deferred 'active' list.
- 	 * Each device is removed from the active list and passed to
--	 * bus_probe_device() to re-attempt the probe.  The loop continues
--	 * until every device in the active list is removed and retried.
-+	 * bus_probe_device_deferred() to re-attempt the probe.  The loop
-+	 * continues until every device in the active list is removed and
-+	 * retried.
- 	 *
- 	 * Note: Once the device is removed from the list and the mutex is
- 	 * released, it is possible for the device get freed by another thread
-@@ -121,7 +122,7 @@ static void deferred_probe_work_func(struct work_struct *work)
- 		device_pm_move_to_tail(dev);
- 
- 		dev_dbg(dev, "Retrying from deferred list\n");
--		bus_probe_device(dev);
-+		bus_probe_device_deferred(dev);
- 		mutex_lock(&deferred_probe_mutex);
- 
- 		put_device(dev);
+ 	 * Free the port IO and memory resources, if any.
+ 	 */
+
+---
+base-commit: 36844ea19656fb41278799ef3d5cd52120d89149
+change-id: 20261008-serial-console-remove-d9ef4da86e0c
+
+Best regards,
 -- 
-2.55.0
+Phil Rosenthal <phil@phil.gs>
+
 
