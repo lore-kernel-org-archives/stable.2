@@ -1,23 +1,23 @@
 Received: from irl.hu (irl.hu [95.85.9.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B54B36AB77;
-	Tue, 13 Oct 2026 09:57:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D5793A1A56;
+	Tue, 13 Oct 2026 09:57:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.85.9.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791885472; cv=none; b=IEFI+7PEd8/+YfZwGjsuKcqGubpwKLTQC/fZ2TrV03xooeQzv38Dw4X3OkJ4+HuZmiExL2nlbTwihxSKra+ay11WjFBbiANJef1Vm3WEpfRwy3jGdtAAFkTvi5/7EtSER1SUTTahXl616u60UihlOQAjt9hvIL4P1BXIuDJjyPA=
+	t=1791885473; cv=none; b=KVrRuZ3Jr09qBb5zSPp7NcOXs0VmlwGSGMv7y2cmv6hn/s1yRI+jhilYUGtYx39tL7iFap4ig6Umq6Xen0JFj2l65uRoJC9k3C3N6ICaTMCgSPJrNfZbq94C4yJCoEVq14+scSC9rlXlrj9MobxDeMPLX0dPsT8k5we1CjJt5Ag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791885472; c=relaxed/simple;
-	bh=prPWdv1ovPiV6mUJhBmuV/hQo6DoAeZ3psLRQ1K4zGY=;
+	s=arc-20240116; t=1791885473; c=relaxed/simple;
+	bh=elZlIXvUMnp/geopM9cCW2TMimJmZqdyLzKhbGMqQNI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=KzQWHJYRO9e2qPmvTH/ZohGwoWFtf6yOsnKvJSNJqQRJPAqvzgqaOAxEEH42zA+EQHiLv/ehPpVjtpcGlUKTwva6dnWgMoCchJ8uovpp5KRnmm6yNFmwpI0jDy8+cfBwRdf+7Qd5W4yAYdErThSVHFoSXApu2iPS1dLr7KJyM6U=
+	 Mime-Version:Content-Type; b=QBprF5ko4RrLXyjITOKM3vIbPxKecnI9kimJTUg3I/6tc0Hh7Tx/b5JJRKFW/MFO5YS49g53yD7KJgv1okHagq9w5ZQfsHz40Um+piZsiX97IKSvXdrFbZmyg8F0Q2hkNbV5hYM5FbA+wK7U0AldENzAdUDvo4vLfZCbyPE4/QU=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irl.hu; spf=pass smtp.mailfrom=irl.hu; arc=none smtp.client-ip=95.85.9.111
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irl.hu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=irl.hu
 Received: from fedori.lan (51b68c74.dsl.pool.telekom.hu [::ffff:81.182.140.116])
   (AUTH: PLAIN soyer@irl.hu, )
   by irl.hu with ESMTPSA
-  id 00000000000C70AC.000000006ACE0098.003393E4; Tue, 13 Oct 2026 11:57:44 +0200
+  id 00000000000C70B2.000000006ACE0098.003393F6; Tue, 13 Oct 2026 11:57:44 +0200
 From: Gergo Koteles <soyer@irl.hu>
 To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
   Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
@@ -27,9 +27,9 @@ To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
 Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
   alsa-devel@alsa-project.org, Gergo Koteles <soyer@irl.hu>,
   stable@vger.kernel.org
-Subject: [PATCH 1/2] ALSA: hda/tas2781: Assign total_sz at the end of the function
-Date: Tue, 13 Oct 2026 11:57:03 +0200
-Message-ID: <08ad212c4590c0570aed7b2bb870bcdf9a222434.1791883592.git.soyer@irl.hu>
+Subject: [PATCH 2/2] ALSA: hda/tas2781: Skip invalid TAS2563 UEFI calibration data
+Date: Tue, 13 Oct 2026 11:57:04 +0200
+Message-ID: <36db4b33db6ef538103867afb793f12f86520ae0.1791883592.git.soyer@irl.hu>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <cover.1791883592.git.soyer@irl.hu>
 References: <cover.1791883592.git.soyer@irl.hu>
@@ -43,63 +43,35 @@ Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 X-Mime-Autoconverted: from 8bit to 7bit by courier 1.0
 
-In the tas2563_save_calibration() function, cd->total_sz is assigned in
-several error paths.
+Some Lenovo 14ARB7 laptops do not have proper calibration data.
 
-Move the assignment to the end of the function.
+Skip these zero calibration values and fall back to the calibration data
+provided by the DSP firmware.
 
-Fixes: b6016332b889 ("ALSA: hda/tas2781: clear cali_data.total_sz when calibration read fails")
+Tested-by: Georg Wenzel <g.wenzel@gmail.com>
+Fixes: c3ca4458cc2f ("ALSA: hda/tas2781: add TAS2563 support for 14ARB7")
 Cc: <stable@vger.kernel.org> # 6.18
 Signed-off-by: Gergo Koteles <soyer@irl.hu>
 ---
- sound/hda/codecs/side-codecs/tas2781_hda_i2c.c | 13 +++----------
- 1 file changed, 3 insertions(+), 10 deletions(-)
+ sound/hda/codecs/side-codecs/tas2781_hda_i2c.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
-index 5e5f46c9fb6b..f1329bb6adcd 100644
+index f1329bb6adcd..53d9c101b421 100644
 --- a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
 +++ b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
-@@ -337,8 +337,8 @@ static int tas2563_save_calibration(struct tas2781_hda *h)
- 	cd->cali_dat_sz_per_dev = TAS2563_CAL_DATA_SIZE * TASDEV_CALIB_N;
- 
- 	/* extra byte for each device is the device number */
--	cd->total_sz = (cd->cali_dat_sz_per_dev + 1) * p->ndev;
--	data = cd->data = devm_kzalloc(p->dev, cd->total_sz,
-+	data = cd->data = devm_kzalloc(p->dev,
-+		(cd->cali_dat_sz_per_dev + 1) * p->ndev,
- 		GFP_KERNEL);
- 	if (!data)
- 		return -ENOMEM;
-@@ -352,7 +352,6 @@ static int tas2563_save_calibration(struct tas2781_hda *h)
- 			if (ret < 0 || ret >= sizeof(var8) - 1) {
- 				dev_err(p->dev, "%s: Read %s failed\n",
- 					__func__, var8);
--				cd->total_sz = 0;
- 				return -EINVAL;
- 			}
- 			/*
-@@ -370,7 +369,6 @@ static int tas2563_save_calibration(struct tas2781_hda *h)
- 				dev_warn(p->dev,
- 					"Dev %d: Caldat[%d] read failed %ld\n",
+@@ -371,6 +371,11 @@ static int tas2563_save_calibration(struct tas2781_hda *h)
  					i, j, status);
--				cd->total_sz = 0;
  				return -EINVAL;
  			}
++			if (*(uint32_t *)&data[offset] == 0) {
++				dev_warn(p->dev,
++					 "Dev %d: Caldat[%d] is zero\n", i, j);
++				return -EINVAL;
++			}
  			bedata = cpu_to_be32(*(uint32_t *)&data[offset]);
-@@ -379,12 +377,7 @@ static int tas2563_save_calibration(struct tas2781_hda *h)
- 		}
- 	}
- 
--	if (cd->total_sz != offset) {
--		dev_err(p->dev, "%s: tot_size(%lu) and offset(%u) mismatch\n",
--			__func__, cd->total_sz, offset);
--		cd->total_sz = 0;
--		return -EINVAL;
--	}
-+	cd->total_sz = offset;
- 
- 	r->r0_reg = TAS2563_CAL_R0;
- 	r->invr0_reg = TAS2563_CAL_INVR0;
+ 			memcpy(&data[offset], &bedata, sizeof(bedata));
+ 			offset += TAS2563_CAL_DATA_SIZE;
 -- 
 2.56.0
 
