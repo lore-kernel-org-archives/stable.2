@@ -1,189 +1,162 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011012.outbound.protection.outlook.com [40.93.194.12])
+Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2781D4B0C9E;
-	Tue, 13 Oct 2026 10:32:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791887573; cv=fail; b=hvOfOfhtemlCwVEnR+5JPRccBVVqMxi88/Xw6TuVBrZej19Y3YvHEAE+SkEgACqCfRDTtQWwel4ZHVjLXXYgo4S94lGsepiv+xYWYeltXf/AEdiL6TBChSqASCpol74m5TYX73kd1oGB8zXI4zaeHmjhG1yP6efzxvmEHKnIgV4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791887573; c=relaxed/simple;
-	bh=qRMk9IeFCsOL5AOecD0ZD9eE41EBpJ2ikUrs5OE8cqg=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=dUL6De79pPhOjxWuSG+VLAVGOVfUopbiYQ2X8TkebHlHOkh4L4+atNb6T4RKVxSHuNMXIdnc9n3HMVk2Mknbkc+XDXGMzeh05lBzaE0krx3M+lymHX+VWEjI21JHkQe7APMUxjfd+1bqKk00kAhr7T4l5tK7A+3PSfLTVF6MPas=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=zWIpKHk7; arc=fail smtp.client-ip=40.93.194.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91CC83FE35F
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 10:37:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.153
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791887875; cv=none; b=AJ7PpFs6UWSHDDiti7CxWU1NaCYdwPP8w5VCduJttWsPfth/xnM7i45C9xTSg4U6gU7WkQGqtjDqDzs4Ha/syqG+2ojgn/QEIXTqkEonUp4H6FgTvb2UVfAyZa+ke6ugjGBLWk7l0KVvstKlWXfopabxn9GNpvGw/yRjO7MCAZA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791887875; c=relaxed/simple;
+	bh=/ui4dXjobdz5UqRZsY830TrRCZjFHMZMThYR8piTOSc=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=omZOxRST4rejM/KuhR1EADe9refaya6F8GvbXo5Xi4LrB32NoFzSMsWab/ZkEYMqlCKQ3Q8QErS9RtildiX1p8fHY8ijjg+chLzdk8I+CoSM4i1uI5W4nh0+Kehtm3meqBzIAPzBiWP20HwbRx/21MvmCkxT4adWJ+KIkfuonQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=nDZac4d0; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=u7/L9daB; arc=none smtp.client-ip=202.12.124.153
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="zWIpKHk7"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RhjUkNiEGRE+7sfg3egFvxztWyPCHst5jf6StTbY2EIsOl8A3QHh9cK2H8GU1SMSwNmdNV8/brh/aE7IaBgOkeOnHi6vI/wx+lVHv8dJK1HF22BW135pGVKYMfi1K/TpEGFa877elpqDR56UHHSerKmp/y9FkuRlCeon8hQtDdEY5+UECZd4mAxkAhr2FxHSsv2weyzXULTJyLLnc2WueaHJcVqSgnC4AxIqq247vQBpAYro7jZqgWgtax9z/ifjAD9y3e0Weh8YUI5Csrt2ukVBxQtxtyoHtk2Gcs0sLVPOJoIR5N8o0cpDwx07ULEaOuQdYkYEtKFW1SuSxKsYsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QADdGo93H30LhnDUtLuiGSRfN59vq/jLMxnf8LbGG6I=;
- b=RHFie8BTjJcauEWiiA5tlaRaGHaChlVJwOpLsUqbpSHUU+WIAL8xgy2g7xpVLiPUe2s7sDUJWzR9MPQF1p+GWwKAfp7XXNCJBoJirnO81iRu+Ax43qcyoGjjrz/EjZRjIWSyQKY3+V5Xwvr9KrutLWEbGHEBt/iGCKMLlSWMAetNwAcxfxrp3p2LDkN6hlCKJvoiZygmKAQK6NacEWO/K8WMT9zA6HTsCH4rBycP/MbmonQUWKuBPrPMJkPiP4PUJb7w0bYb5K+YoXhQaNHi+aBGDecZ+Z6bg0taban7XaRg8CdIt0HrO+K3QjWkZMtZ+sUZnHF558rL2BlBRrIj3g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QADdGo93H30LhnDUtLuiGSRfN59vq/jLMxnf8LbGG6I=;
- b=zWIpKHk7m6vaMVpLqUnh/2m+tMiuw0WZmWTejT3Q9zduuIYcTAv4arq3ZYnT5Mnm24SZXiLxjaRYCuPii2KnsM7VETyNzuMqIqO3xUtkml77gf59EXhDr2T36p1XzNsJAzVGzBRn8MeZ1zQqaalrOaO27+YIrufj8lbZAGjMfDg=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN5PR12MB9511.namprd12.prod.outlook.com (2603:10b6:408:2a9::14)
- by IA0PR12MB7604.namprd12.prod.outlook.com (2603:10b6:208:438::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Tue, 13 Oct
- 2026 10:32:46 +0000
-Received: from BN5PR12MB9511.namprd12.prod.outlook.com
- ([fe80::4d8d:5f91:6c3c:dc8c]) by BN5PR12MB9511.namprd12.prod.outlook.com
- ([fe80::4d8d:5f91:6c3c:dc8c%5]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
- 10:32:46 +0000
-Message-ID: <25da2a40-e197-4415-bcde-48f71d0e1f84@amd.com>
-Date: Tue, 13 Oct 2026 16:02:31 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] iommu/amd: Program device table when kdump reuse
- fails
-To: Matt Fleming <matt@readmodwrite.com>, Joerg Roedel <joro@8bytes.org>
-Cc: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Ashish Kalra <ashish.kalra@amd.com>, Sairaj Kodilkar <sarunkod@amd.com>,
- Baoquan He <bhe@redhat.com>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- kernel-team@cloudflare.com, Matt Fleming <mfleming@cloudflare.com>
-References: <20261002133143.3628181-1-matt@readmodwrite.com>
- <20261002133143.3628181-2-matt@readmodwrite.com>
-Content-Language: en-US
-From: Vasant Hegde <vasant.hegde@amd.com>
-In-Reply-To: <20261002133143.3628181-2-matt@readmodwrite.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0162.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1ba::17) To BL4PR12MB9505.namprd12.prod.outlook.com
- (2603:10b6:208:591::16)
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="nDZac4d0";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="u7/L9daB"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id B2DF37A00C3
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 06:37:52 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Tue, 13 Oct 2026 06:37:52 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1791887872; x=1791974272; bh=4iKO3Hw4MH
+	2oKvAYWzgzWMSA/7UnI2ec5ORW9Jd+MK0=; b=nDZac4d0ToSiiq4pbCm8ZKp5DZ
+	d+sRXerbTugRdnFpfe09yFahXFz3QS6bOFqqVYvaINtW8AYYUpggFEjqItNu+2HH
+	ohw1OOhXHDpaPB+y03Synk2SLzJa6VW2nEv38Q3tvi9mX50xxcoNVFfOABxBV+cq
+	zFxDHWLKCum0fng0nUdRjylY6FKgCJCauWuM+U5XuglOsMia0DqFhy1PTiqqHNQe
+	oLrlbmS0/LoxHGuG0t6w1eYv3Er0a8J657CT4nXH4gudh8DLE5LBCBhwQiVX28eC
+	ZQyQCoA7kRml3Gq8FY5txoMsRTiegPj1bZa3XHujqhM4WpvpTqIy0U1Yq1IA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1791887872; x=1791974272; bh=4iKO3Hw4MH2oKvAYWzgzWMSA/7UnI2ec5OR
+	W9Jd+MK0=; b=u7/L9daBkBT4Jv6Ym+/IdhmRDbNkpDIhzfK7VPsGdavMxqvXY9E
+	74s58ovmCs7hWQhN5Goip2MAeL+1gG7JZLI5RdnWsYYdqp3/r+wS1BZJriWWhOrx
+	Io17IPHvOvSXRs1RDfGmVx4RMKtRGSrm/1p/34ALa3wG5LSVxRoTRKZH5+9zU3bS
+	iWNqPOHQ80VjkiTNge31eMDPJWJJw2KYxLjuQuN9fcEsvxsCxGR+j46qylaarFfh
+	fHI0zQG5ZJIiNDM0QGh0UTVyj/WCZwsVhzcbSKlp7ebJ+4OnEPPTIorCLITxQNi2
+	ppiBaLTBo+QK+mQLlEuQ8AZn+P39ftpNCPQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791887872; d=kroah.com;
+	mf=PGdyZWdAa3JvYWguY29tPg==;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:oDHNp3vz5HGVYFIKpLTnFNEhYv0Wgtz6iHbXryydRGhqneP
+	K/eFzY8PjOgfhgCL75Pya6LxcUNjgwbgjt+WKDpcNwTE95FQkSUNwQYCYo0NQY1P
+	unabvLTIVIE33bNZUW4h4wCSc88Bn7/DKQYiV9e4PABQ37tBujta3EHwJsLUI5uP
+	syEg/Z5bgCag4AdoyZZPSLjmNcGbdKzXgufl1l8oDkQNdYvNA0RvNa28Lup0Sudq
+	0h7dYXjkycpE4QYNaEzQoG6doYfgJsBn2iX2rh34btCRO68XtPXn5vUk9kavtcgz
+	T534btTphe4u0I1Xon3qrOkxNacxz69o3Aj+Blg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:b9tPCqaniAXal9g0usUxceyCVrssoCHEAztGqWbW9FE=:/ui4dXjobdz5UqRZsY830TrRCZjFHMZMThYR8piTOSc=;
+X-ME-Sender: <xms:_wnOat6CKDxPQ7ewupZNPLK9p7QzEIsakAlilhqo7ZButVLs8jGZjw>
+    <xme:_wnOarqKUSbanm6dhOlM3tS044Uk7s5g8ih7ZTySLOnQ9lCgbcQtp6lqQOapgQVf-
+    sQM6G9ktr1GEjGkvy7-Y0sxnkGH7a4AB1197buNmPaSopId3yk>
+X-ME-Received: <xmr:_wnOaoRsyFake5IX9PCNnhQqWk9JBGvcXAfDkwa-bgf3crnU-PoXKxezkrbuOEf0BENcafjBzGaQmZnUJ5TjIieq_FrUGjNkG3IdItVjMfk>
+X-ME-Proxy-Cause: dmFkZTFPIMnMVCMZsP0EpKFW4O6lgv388cE7op1Tp5P4uL/JRnh0btbxq8M1slUHL+9oX0
+    eB8EnwDZ/WQwSWswc4Fz6bjkM4oA1mm6RJoIMFtyiXrVZSR6+PdWZFxu0Pnd2SYAjffsXE
+    EhLhat1fBf7z5S4PwxEIo8Rbl6zXGOTRdpcSa1zopVrTz/7P77WQaX2OPcylcX5JAh9iid
+    yosZ65JuXD9EqvKuZ1GUeoI9O5B+H1RioVPk8SYzOYicgOYYBuo5izVWnUGRSEi8zSeqyN
+    bNk/OETj2d/rt2IaWuDykdd3jtirebCi28xVlpAaeoaA6S8FRuaYILPHrwmKn+e7jayrET
+    durfl6XfcKTLcvUt1/OO+sxvlCJFb1AtG9JkhFIDgUkJA4zleHd2H3tgdQ8IKsjfidgl6F
+    Nbhv4h7fOo9kHj6tB6Xx1j4rnVsLpv1ZDLrhoF4ftxosupGX+xCiS3VgCZr1rvlUYY6Zaf
+    lklNm82TMa/mEfiYd1COZ5TpLaiISVo7OWmVnEUEsqkbDT3sjbxRiO0ThBCv6jZ9SOCV08
+    5sP69Lw4c+bliw9Zmp2Un2MGpZEb5eE3I1wflyqLPBL5nI3IKfuLOlwve/Sr1rMjgT+jVG
+    /dXAglsMtBKYMFIaZqOthr+rI0jpSoaWmL8H7sho5Qcc0iRFeIAQSUM0qCMA
+X-ME-Proxy: <xmx:_wnOant6nuBeRj1FpvBkpCjzCIU3X0w4-5vWgQwxAyNIqGLJn-rSPw>
+    <xmx:_wnOagOcbkjEaZFaJLbOXRSQei4IvjpFFm9x1fsixWNj2xBxswjs6A>
+    <xmx:_wnOapVFeYeopRYT1l9AIpYj80oJ70Wdr5SlVAIo0pz-rrBX701HGg>
+    <xmx:_wnOagiAFfiZAVkJn4J9Bn1HuNsaZx3rNoGct5strfHBKzGTGgs6Dg>
+    <xmx:AArOarMZAcNc-w7fbsJLXw7Jpj-vI8CfkCQnEh-yxpk1hGtiHRhzyN8g>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 13 Oct 2026 06:37:50 -0400 (EDT)
+Date: Tue, 13 Oct 2026 12:37:56 +0200
+From: Greg KH <greg@kroah.com>
+To: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>,
+	stable-commits@vger.kernel.org, xiang@kernel.org,
+	Chao Yu <chao@kernel.org>, Yue Hu <zbestahu@gmail.com>,
+	Jeffle Xu <jefflexu@linux.alibaba.com>,
+	Sandeep Dhavale <dhavale@google.com>,
+	Hongbo Li <hongbohbli@tencent.com>,
+	Chunhai Guo <guochunhai@vivo.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-erofs@lists.ozlabs.org
+Subject: Re: Patch "erofs: remove fscache backend entirely" has been added to
+ the 6.18-stable tree
+Message-ID: <2026101340-upcountry-wildland-6ebf@gregkh>
+References: <20261013020044.2527207-1-sashal@kernel.org>
+ <as3drCZLoTUPS_oC@XiangdeMacBook-Pro.local>
+ <2026101352-subtract-deflector-a77b@gregkh>
+ <as3o3Q8X-2gK2HyF@XiangdeMacBook-Pro.local>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN5PR12MB9511:EE_|IA0PR12MB7604:EE_
-X-MS-Office365-Filtering-Correlation-Id: d6013837-f212-440c-e0cd-08df2915527f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003|6133799003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	e/uAE8sAaor28KPJyGuk3QJXJeXjfxpUqMZG4YoJiI7Gv6vIrHElyySxyoCuySoDtM/orfkGZLMacyNADoNgRyn/IbJu3VStZgbjyD257JorsT9A+crulT/YImD0OR4xb+qULQj6KhxCYkM0vR4GKMzYZF4bn06vEdw3sN+ZCY1cYkKg0vq1HkEbcjOQ7XkkjrDPDlHcA5FZmxVLsqgGtL4cTfncalKpvtl3Iguki04k/Xqx2JlB7oSk+J8xOBhGnR3ynfXuYuDJHGULFngi8/pGPWQkwHMBrbN2DwiXfvMy6Jqgpbc7gbQBlSzbfT7xz08Tfu3o/DttkRL9yIYma4ojbjCchSO9tIHN4FH1Z2pN3780emgFAkEwEBH4jzJ/WrKQxBqyBQSd3ME+Ihc1rJOIVLNy0JDs7EgmGrCKiSm44ckCxZ7lGGuEzPDF8EqKRr1f44exMaVtsY7E7ISiz9S4ExcO2Awjtd8wZfqE9905LcuXqU34zJSXDZvsGfYPSKxLq06jajVKRPsT64WstDhRRbN4bqDcfzsDjEvD7l30VW98/IyMpYMBoAooKT6MyHFMalgU3SBPZIPtJJG+jOeDMZCRg6JApE8tN6hqERrlzDxupONYPqvg5czbyrMnFfUuBdeio+PQrp+/CF9+cxTmHIGgbfWzOO00FtvOIIw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN5PR12MB9511.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003)(6133799003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZEJNc1BrZzRkWXdoSlJzNnNDc1hoY1VUTkMrT2xLU0plRWJGbTAyaDZNaERz?=
- =?utf-8?B?VC92K1l6L0F0WFpwY3FJRW55Qkd3bWZCMDdWb2VOdmJmUEFoQ0VBRjI3WTRI?=
- =?utf-8?B?b3B2UUV3VlhvZ01YMmVBRGFPZ3hoenNhQkVtdkZ3bFhKcXBmc2VaeEg4ZHRC?=
- =?utf-8?B?LzM0K2YyNXNXcFRNUTQrcWNaOGZrMXFZNk40b0FrcFQvb3VlUzdOOXIwNXNn?=
- =?utf-8?B?bE53emZXSkVOWWlxR0phZ0JIb0pMYWdQaldoSyt6UnhPQ3JBU29XSW95RHpq?=
- =?utf-8?B?SHArOXcwNmdWL2VWcUwxRXBzUGRKYTZYTjZETHRkMFBoeGRKYUNCMWNqNzJn?=
- =?utf-8?B?b09oSFk4WHRNcVdoY0I2T3lNREpLZTB3dXBTbnpVUFFISEdiblMvTVAyeFAy?=
- =?utf-8?B?OEQ2cnNFMWdoQzZra0t4dnIwamd4c2duUmxNZGNrZ3JuWkFkSTJLMHIydTJs?=
- =?utf-8?B?SlJjWmZqUFdyQlNjL1lSVnpVOVFrU1ZzM21iN0p4bWFjUHF3ZmNIOWxCNVRI?=
- =?utf-8?B?M3Zxb3JqS2hoSzhpTlRkbk8zbW4zSjkwR2UxTVFiQ0lZSzdxN0pxc2I4dVhm?=
- =?utf-8?B?UFFSakRKVkRnaVZrRkFaeEthL3pOREJlRGUwVnFVVktBVFFRQ2U5aDU2VlEz?=
- =?utf-8?B?TUJ3T0ZFK2dzSEMyYVFkTngxcS9HY0dLb292cmdyZVhodWxTMzdFN0JDOGRB?=
- =?utf-8?B?QlU0bjdSbG1MVTFLOFFUU1lhWm9DMk9EcVRZVjVtZEdoUllrcE9MUWZDQ0ZW?=
- =?utf-8?B?eFdJb0pSdVl2U1M4QzVvSVRMMDQ2c1BIWGtxZ1l5Q0JPQi9tOGxhL3MxRlZB?=
- =?utf-8?B?Vml5TmlIOVVZaXpLbTJEeEF2SDlKdzZsUjZXbE1Cd3BqaWRnZlpHSHZocVpp?=
- =?utf-8?B?RlpOQjhHelZjUGNaRFVnWTljUjJtVk4wYXNWeXBTenp6OWR5cGt3aVJSU2Nt?=
- =?utf-8?B?R1NvaTR0ZHE5SDhvSFVpTGNxL0V2UlZrZDRpU3dERzVZVEptSFhxS1FERjNO?=
- =?utf-8?B?a3ZlUlA3V21KS3dGY3FGNkpNa1lCdFN2RFRvNXJzekZrS3YrbEdFendKT1hL?=
- =?utf-8?B?RHlrSUttSC9hbnMwakdqWmJJM1FnU2VheHEycW52bG12MUxDUXZNZzJGODV0?=
- =?utf-8?B?bjczeUxEMWJmeDR2alpHSWRJMThVVS9PbFAwVEZwc2dHRlZaMXk3QzV4dVdk?=
- =?utf-8?B?eFRuOHRvSGV2cjhsR0t3djBlQ2FmWjNuRnY3MXlzcVFjYmpWY0RJenFzdU03?=
- =?utf-8?B?L0p5a1dXclgvT1BSb0cvWnAxc1BPNnBqU0JsM0ZtQld3VXUyZTBtOGxLaGJ6?=
- =?utf-8?B?RUJIZitTMnF5aWpTc3R1MUZkMlZGVW5XZmZzaGNBZVl6aVN3MXYwNzJHZDF2?=
- =?utf-8?B?U0QyRmNWQ3dJemt3Z2VWM05qSitKOG9zbklRNGhhT3pWWmZwZ2E2TkVQV1Ax?=
- =?utf-8?B?REpKNzRJNVdmbFgwY01sMm01bW1BdUZBVnpkSUZrU1RXcThYclRZdWVFOXpL?=
- =?utf-8?B?VDVHd2RHek40TmpscllISFZRTksrMG16WkJDVGJyQk5TTFJLTXB1UmJtRS9E?=
- =?utf-8?B?TjNJRmtzend6WWdsOTMrK0d1VFQyN1RwdFdlNEV2blRKVWgya1NOMTRZUHZT?=
- =?utf-8?B?R2k4Rm1hWFo1L0N2emdqM3AyV2lNNHNGY2FHVnRSSDVWWGF3bXczOVQva2Zu?=
- =?utf-8?B?cTd0NTVlNCtuM09lT3pSTWZwclpkdnd2RWJ0UVVQNHFHSW9FaStTdFlCRS9W?=
- =?utf-8?B?Nmk3d1BMSFlubG9qRlBuMUk0WnhFUkJTdWJSaDFMbWlnaThsWkU2ZzN5VVZt?=
- =?utf-8?B?UmQ1eDVqRTZIMVRYbHZZN3IySFJoQnBKZGVwVHFaOFJ1bkdSaXRudDExNUlO?=
- =?utf-8?B?bTl1SmdoUWJlbXRlaHA0NFpxR3JreTcxTWVqbUtSa2h3Yys3NWtqNEJMWS9T?=
- =?utf-8?B?cm5OVjBUVXZiRTFxWkYzUy9yaWxxT21yYTRjVHhqSGtHRzJRL0JkSEtuaXVX?=
- =?utf-8?B?aE9xMm5kai9QQmQwUDNhNXpONlJ6ZTQvQnYwRk5jMkp1WjdBQVp4aEZZTjda?=
- =?utf-8?B?QjdDMCtEdWlXTHlRSFV6T0ExSUR6cCtsKzF6Q3R1MHVLNnFUaUZnQjNxa0ph?=
- =?utf-8?B?RVZiOHVaMEtMOE5MY1N5ekFGMjMwVk9qODdUYmVQbXVYQ3hYSk9RcUcvTXNO?=
- =?utf-8?B?RXBQbWpGeno4NFJGWXdoUEExT0JDZU5YMEI3L0pOdFVLQUVyc0VZVEJ3NXMw?=
- =?utf-8?B?d0FQVTdRdWI0L0pWVFZqSDMwb1BPRVhZRC9wY3lORXc2VlNoQnBiL01rYmcr?=
- =?utf-8?B?S1NwQU9aRDlqQ2FIR2gvZ1hvM2FqYWUwZzVlejBEdEo3OFFvMnVlZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6013837-f212-440c-e0cd-08df2915527f
-X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 10:32:46.7207
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jdXHc9yfKpaM8PDm6AAgr6FxWsqe5Rcj9ibjOJ3Dwgw3krGkCXmmzAodCyuv4spnrubrPLDPlPmHu4fj++mq1g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7604
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as3o3Q8X-2gK2HyF@XiangdeMacBook-Pro.local>
 
-
-
-On 10/2/2026 7:01 PM, Matt Fleming wrote:
-> From: Matt Fleming <mfleming@cloudflare.com>
+On Tue, Oct 13, 2026 at 10:16:29AM +0200, Gao Xiang wrote:
+> Hi Greg,
 > 
-> Commit 38e5f33ee359 ("iommu/amd: Reuse device table for kdump") made
-> iommu_set_device_table() return early in every kdump kernel. That is
-> needed when the previous kernel's device table is reused: the base
-> register already points at it, and on SNP-enabled systems the register
-> is locked.
+> On Tue, Oct 13, 2026 at 09:59:58AM +0200, Greg KH wrote:
+> > On Tue, Oct 13, 2026 at 09:28:44AM +0200, Gao Xiang wrote:
+> > > Hi Sasha,
+> > > 
+> > > I'm not sure why we need to backport this into stable kernels, as there
+> > > are users who use EROFS over fscache on these stable kernels.
+> > > 
+> > > The functionality works and it's a breaking change.  Could you please
+> > > kindly tell why?
+> > 
+> > Why would you have a breaking change in Linus's tree?  We never break
+> > existing users, so how was this ever accepted in mainline?
 > 
-> But if reuse isn't possible, early_enable_iommus() falls back to the
-> freshly allocated table and calls early_enable_iommu(). Because of the
-> early return, that table is never written to the base register. The
-> IOMMU keeps using whatever table the register pointed at before, while
-> the driver writes entries into the new one.
+> Because the similar + better functionality "erofs over fanotify" is
+> already available in the recent upstream, and it has simpler interfaces
+> than "erofs over fscache.", so we don't actually break users as long
+> as one of those functionalities exist ("erofs over fanotify" or
+> "erofs over fscache".  Many stable kernels don't support "erofs over
+> fsnotify", so backport this commit will make existing users using
+> old stable kernels have no choice (no "erofs over fanotify" nor
+> "erofs over fscache").
 > 
-> Only skip the write when the previous kernel's table was reused.
+> The commit message is already described well I think. 
 > 
-> Fixes: 38e5f33ee359 ("iommu/amd: Reuse device table for kdump")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
-> ---
->  drivers/iommu/amd/init.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
+> > 
+> > As this removal fixes known bugs, isn't that a good thing for those
+> > older users as well?  Why would you want them to run broken systems?
 > 
-> diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
-> index c07c3a01b978..0572e1a674f0 100644
-> --- a/drivers/iommu/amd/init.c
-> +++ b/drivers/iommu/amd/init.c
-> @@ -409,7 +409,13 @@ static void iommu_set_device_table(struct amd_iommu *iommu)
+> I think it depends on the importance of the bug, at least "erofs over
+> fscache" is usable (and it's used by vendors) on stable kernels, but
+> it's unneeded to address every edge case found by LLMs since I mostly
+> think it doesn't impact the real use case, and as I said, we have
+> a new unique interface ("erofs over fanotify") now, but only on very
+> latest kernels.
 > 
->         BUG_ON(iommu->mmio_base == NULL);
-> 
-> -       if (is_kdump_kernel())
-> +       /*
-> +        * A kdump kernel that reuses the previous kernel's device table must
-> +        * leave the base register alone. It already points at that table, and
-> +        * with SNP enabled the register is locked. If reuse failed, program
-> +        * the freshly allocated table like a normal boot.
-> +        */
-> +       if (iommu->pci_seg->old_dev_tbl_cpy)
+> Also there could always be breaking changes for various reasons (e.g.
+> obsolete/dispute filesystem breaking changes these years like
+> bcachefs, etc), will these commits be backported to all stable kernels
+> too?
 
-Yes. It fixes the regression and I am OK to pick this patch.
+Sometimes, yes they are.
 
-Ideally these low level functions shouldn't be called if we are reusing existing
-device table. With so many combinations (like normal, kdump, snp, etc) its
-becoming very hard. I had done prototype to get these init path somewhat clean
-with ops structure. I will try to rework and post that series soon. With that
+But this makes sense, I'll go drop this patch now, thanks.
 
-Reviewed-by: Vasant Hegde <vasant.hegde@amd.com>
-
-
--Vasant
-
+greg k-h
