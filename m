@@ -1,155 +1,174 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [81.169.146.163])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B4F4E56CB;
-	Tue, 13 Oct 2026 10:58:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4064E56D0;
+	Tue, 13 Oct 2026 10:59:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.163
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791889127; cv=pass; b=UdFm2pwxOfwueQWKJ0i+pY8y+VzWgBYJVzxdUR1GI31tNw8ov9hIqaJqtBY6CLKJfCCcltqCBnzwq58FQnFSD7HLxRy9ikZyPsfoJmEOm8TvWKqbXWy3nCBgcZSKa4zMini2ilnQco9c19RauGwCVS1ZN//6b2Q7emj+U69MJ/0=
+	t=1791889180; cv=pass; b=NUW4KO4+9JQVJh8x2ocW9N7X2DlNBApsc5WHUHXUuhUhAKeAL3TktRvj6+ysq/WybWxJJgpHIEtw9FAOlbjDggbXWgRqM8KSjBzEeSl0VCoeKeypSVZk8hcEN5RgqhVV0fZlWBEHdGDd+64x/ehE7ZUh5kxqbsNgJrM0nv8LOu0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791889127; c=relaxed/simple;
-	bh=oLhSYzOwujkBqrh0f9DoDHEmGMsT5+OaO+AH+QqxHZ8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O4s6S5v82F0ma7K4QHwTvwTwWX3qPgDHORUTvKpPeyZv4fhNy5ZHLUDGPW4xIE/XFkvaCDe4ox+VA32tITDHKiTdmAeywPnh9QTVNqnsfJlqWKmlB5caJRb3LDwDXijKe+0CJQBsHn9l99FxmdPG+i9Jp8zvhr19cMGeg6TJJMo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=Ft9dEqdS; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	s=arc-20240116; t=1791889180; c=relaxed/simple;
+	bh=Fmuux2S0sh4Z1LJcMlkj7thikJckHfLDUMlqtBUvrAY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=lyp2R0P7AH6o2DNpLAa0FVit8KaJehgA2eGonrqpqA/CZcfUF7G33K3bGRz79FMUKxva87RVILlkPSpnbWzVPJyAvgNDk0RhVgJsLm2FOnh2iekGpR0p6OL6naOn8ptvNk//1IDNqfuZxu/aZ2SZ+U8PFfs3+rOU9hK5YxUwQ/8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=UJxyNSi/; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=CZNMTlDq; arc=pass smtp.client-ip=81.169.146.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="Ft9dEqdS"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D89D5200582;
-	Tue, 13 Oct 2026 12:58:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791889118;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ibx4Wuf/nDfg8JytDfccS5wn8x8YmTr1cZIy71hpWvY=;
-	b=Ft9dEqdSqJcAUHVzPIc2Eix4ACSvnxYrBByJWx/dmOdIVRCmu/EeYRQP2CINQ7tuAtTN+/
-	Zys067Vs7HBtwPQyJNyvNv5Lh3hyUWpXmcILku2mXqsz46MNws2gfJI1O586Urlfo58qcU
-	9VyHc37+7jpex2p0wrt3C/wQGOE0+MD7inDL+q46sOhf40AiTKpiR7EAsDBK0ZvAinfgJO
-	9jmDQWCWriqusDxw0q/KDv7YeAYMFEvNGVYeaRpZtEXTe2CNP+BD4FSrTlmXR4ex56m0jM
-	tkb9dNyrp9togtfNL9QlKlskYUkqlbO2ZC264rzgmFZIV/gTvoxAX1sc9PT9dA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791889118; a=rsa-sha256;
-	cv=none;
-	b=H6lGdFXLC8FRo8ALFR+JY+10yIo5YK/+Ss/C/5Ge0Z7lmrzl0BemHysBpEXjjul0JMaCc3
-	Z/+L6EbsYtN9aakUCGvzNn7csRXqyyQmi9vsDWidakbgfQ2jPLFI5bJHKIHZ5fsouuL9Bi
-	Uz44QfRUT9PsyLJ6E0FRuvhDFXdh84ESkpZ9ti7Ev2wwZ6r3+G8lE0SB386d8cKhoZFaJU
-	0Zllheq8FeQVD8dMfKrZkkcJUs9fXBL+77v8pii+b7cRycZND4E/1/dPjhYDJutal28nic
-	GidRYbn9ynscfXEylHWlXhTdl5MzjPBItgQcpb0Hzrw47nPHLFSWdf0mllwGQA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791889118;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ibx4Wuf/nDfg8JytDfccS5wn8x8YmTr1cZIy71hpWvY=;
-	b=COiVH5dzxNsq4sj3ao+H39OF5fYjChNz/VJalg6MCyepxFLn+CCrFd2APcgYSxdwDl158h
-	3Ydjmn8PeKtThSxC1pOTzEp5JeWk4MA0fyMVE2xqX/DAduXGMv+Snd22wWXQKNTmxGMoij
-	295cJh1BqBtYuiP7cE26uELPkPrxCkw0cNDqiCmg+9SN6eELvKvjTGZgXVrGkfI0HjsPSp
-	OZD7EUe97EMR77WC6Hynn2RwG99GJBXSHN49JEGEAwwZCqC1MChtevdwuW4NGEvg1GzfhO
-	j/xP3UStSs9sAwhWExXm+v8Q0FmXqXKjvRNA5/QoslsFv/2qZOTSHoap4bHiGw==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xGaDO-005g8E-2X;
-	Tue, 13 Oct 2026 12:58:38 +0200
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 6C2E45C2F46;
-	Tue, 13 Oct 2026 10:58:38 +0000 (UTC)
-Date: Tue, 13 Oct 2026 12:58:37 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Cunhao Lu <1579567540@qq.com>
-Cc: Vincent Mailhol <mailhol@kernel.org>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, linux-can@vger.kernel.org, netdev@vger.kernel.org, 
-	kernel@pengutronix.de, Heiko Stuebner <heiko@sntech.de>, 
-	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] can: rockchip_canfd: stop bus-off restart before
- closing the device
-Message-ID: <20261013-hissing-saiga-of-endeavor-ef5e03-mkl@pengutronix.de>
-References: <tencent_5802EE88434010229EDF7A53084D994C6106@qq.com>
+	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="UJxyNSi/";
+	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="CZNMTlDq"
+ARC-Seal: i=1; a=rsa-sha256; t=1791889169; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=hcsr7YbjEcMLP/TVlLIQqT+KrIAvMZ73obLOkW5Aebb4ba7HQIa0KM+/n63JRhKBnE
+    1JA75kJ6W66+n5IU9AwLyrkEjDkVzfAyDLowYLRYiveC1UIX3Gz1wLgTqw0o/D5Ks8x5
+    fwTLI1ZzIGi8JpMIUwoVKP/QkgI/LIZsYbvkNY+JKFh8OqQj8tN9krFxEjv0GXSJPIQm
+    igP5EwGIlXOLpvoVADDI+Sm3k3lksZMTq4l5XefKYNWEHgG9MBbWSTOv1iGXKHg0VvzQ
+    KgNPuk6FZvpjjv9sUcVvvZ/nyPF8TQYQg8RzEaBuyDVCaKcUq1UX6j0yAeZsWw1+c8WK
+    cLcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1791889169;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=QG5FKUmGCAxlXwdaIkwiAfmKUN8QwHHv8/uZI+WMwlk=;
+    b=OmJzCje+DrYkPRg1T45ev8f8xWm/WdNXhOGtlNeJpp6KUh72xGNIQas73njYRB93FE
+    83rcG8hZQdZkrpSlMjuVwFlLa4oOXylqEM7WZTeqnEX2cGvdG/P4Qh499QOB/Bf5W2Qh
+    ldAuaME4T4HQ23yLkPdounCV8/fEojiI3d7QzToLUZ1LDnElBk9zR7vEmyOkGPTU2Hoi
+    WY6sspGo3sqepITmX5ciL+v1O49YO1ePiiENaqchLxNdxFX6Icy5pvHwJQEJeinxMmwF
+    xRQIhhrIJC321Ky//ZDv5/APaKcYtr+UI7Z9Be4/CY4lQp4BU7g0kC3t5GsEO2lK7chW
+    wLUw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1791889169;
+    s=strato-dkim-0002; d=hartkopp.net;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=QG5FKUmGCAxlXwdaIkwiAfmKUN8QwHHv8/uZI+WMwlk=;
+    b=UJxyNSi/wBasB7i5ygjc7whCEKPoEL4kXFQld03i2XPxtjj1WYpib3I/XUHqVK/5lg
+    Ti/vI/ZKgdjn9kPVjf3KpoJ+tgbUJWowiwLSfLt/Qqjk8inSQhmTT2MBl38iqEFEo5Tl
+    r0DP5OhJLm5s97WH0pxzG2w8HkObII40pgW7Q1Rjre6yl6kUtcNhtu/s6XC3N+R+TsE9
+    ro1/MMWNADc9CjWpTXn/OR0XTfN1C+djnR6a7+6PjWp+baEpuJE2HuicLGeHjVuCQy9G
+    rfhCmrvBX6wvYomssl/wEPAMRsfc3ZRVoZzfsmR/+C+S+dHxgBCj0gN1UrS2BZXNbb0Y
+    2EVw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1791889169;
+    s=strato-dkim-0003; d=hartkopp.net;
+    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=QG5FKUmGCAxlXwdaIkwiAfmKUN8QwHHv8/uZI+WMwlk=;
+    b=CZNMTlDqBivAoG2Fma3Mt70SiYFOeefN9uFTuTGyrxGOny+iOcdlMjzB3i8qzMvNz6
+    /i4Imatv3O/a0VY+wMAg==
+X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
+Received: from vivo.lan
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Kfdf2a29DAxT5uu
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Tue, 13 Oct 2026 12:59:29 +0200 (CEST)
+From: Oliver Hartkopp <socketcan@hartkopp.net>
+To: linux-can@vger.kernel.org
+Cc: Oliver Hartkopp <socketcan@hartkopp.net>,
+	Norbert Szetei <norbert@doyensec.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] can: isotp: fix filter removal race between release and netns change
+Date: Tue, 13 Oct 2026 12:59:09 +0200
+Message-ID: <20261013105909.91715-1-socketcan@hartkopp.net>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="25w3tbmyskksrjyb"
-Content-Disposition: inline
-In-Reply-To: <tencent_5802EE88434010229EDF7A53084D994C6106@qq.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
+isotp_release() removes the socket from isotp_notifier_list before it
+takes rtnl_lock(). As the netdev notifier chain runs under RTNL, a
+socket that leaves the list in this window is skipped by isotp_notify()
+and has to remove its CAN filters itself.
 
---25w3tbmyskksrjyb
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH net] can: rockchip_canfd: stop bus-off restart before
- closing the device
-MIME-Version: 1.0
+This fails when the bound device is moved to another network namespace
+in this window: isotp_release() passes sock_net(sk) to
+can_rx_unregister(), which silently returns when this namespace does not
+match dev_net(dev) anymore. As can_rx_register() stores rcv->sk without
+taking a reference, the remaining receivers point to the freed socket
+and travel with the device into the new namespace:
 
-On 13.10.2026 11:22:37, Cunhao Lu wrote:
-> The close path cancels restart_work after freeing the IRQ and stopping
-> hardware. A queued bus-off restart can therefore enable the controller
-> and interrupts after teardown. It can also restart timestamp work before
-> runtime suspend.
->
-> Serialize restart with the close transition using a mutex. Mark the
-> device closing and mask its interrupts before synchronizing the IRQ.
-> Release the mutex before cancelling restart_work, so a queued restart
-> can observe the closing state without deadlocking.
->
-> Exclude the IRQ handler while reinitializing the hardware on restart.
-> Do not disable the shared IRQ line while waiting for work to finish.
->
-> Fixes: ff60bfbaf67f ("can: rockchip_canfd: add driver for Rockchip CAN-FD=
- controller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Cunhao Lu <1579567540@qq.com>
+  BUG: KASAN: use-after-free in isotp_rcv+0x1570/0x24d0
+  Read of size 1 at addr ffff888118130552 by task isotp_ns_uaf/578
+   can_rcv_filter+0x4af/0x8c0
+   can_receive+0x28d/0x3c0
+   can_rcv+0x2a9/0x310
+   __netif_receive_skb_one_core+0x21a/0x260
+   process_backlog+0x210/0x760
 
-AFAICS this is a systematic problem and should IMHO not worked around in
-one driver only.
+Take rtnl_lock() before removing the socket from the notifier list, so
+that isotp_release() and isotp_notify() can not both skip the removal.
 
-netif_running() tests __LINK_STATE_START, which is removed in
-__dev_close_many() prior to calling the driver's ndo_stop().
+As the notifier chain is always invoked under RTNL (see ASSERT_RTNL() in
+call_netdevice_notifiers_info()), isotp_busy_notifier can not point to
+the released socket anymore. Replace the now dead busy-wait loop with a
+WARN_ON_ONCE(). isotp_notifier_lock is still needed, as isotp_init()
+adds new sockets to isotp_notifier_list without holding RTNL.
 
-Can we make use of netif_running() prior to calling do_set_mode(dev,
-CAN_MODE_START)? from can_restart()?
+Additionally use dev_net(so->dev) for the can_rx_unregister() calls, as
+the CAN filters live in the device's namespace. With the new locking
+both namespaces are equal there, but dev_net(so->dev) is stable under
+RTNL and always names the correct namespace.
 
-can_bus_off() should not schedule_delayed_work() if !netif_running().
+Fixes: 20bab8b88baa ("can: isotp: fix use-after-free race with concurrent NETDEV_UNREGISTER")
+Reported-by: Norbert Szetei <norbert@doyensec.com>
+Link: https://lore.kernel.org/linux-can/CEA6A38A-2646-4ADA-95B4-CBAE2F301A8E@doyensec.com/
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
+---
+ net/can/isotp.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-We still have to call cancel_delayed_work_sync(&priv->can.restart_work)
-=66rom each driver, though.
+diff --git a/net/can/isotp.c b/net/can/isotp.c
+index f5dc9d04bd68..186daa818647 100644
+--- a/net/can/isotp.c
++++ b/net/can/isotp.c
+@@ -1477,32 +1477,33 @@ static int isotp_release(struct socket *sock)
+ 	WRITE_ONCE(so->rx.state, ISOTP_IDLE);
+ 
+ 	/* forced SHUTDOWN may have skipped IDLE (gave up on a signal) */
+ 	wake_up_interruptible(&so->wait);
+ 
++	rtnl_lock();
++
++	/* The netdev notifier chain runs under RTNL, so isotp_notifier() can't
++	 * be walking isotp_notifier_list and point to this socket. The spinlock
++	 * is still needed as isotp_init() adds sockets without holding RTNL.
++	 */
+ 	spin_lock(&isotp_notifier_lock);
+-	while (isotp_busy_notifier == so) {
+-		spin_unlock(&isotp_notifier_lock);
+-		schedule_timeout_uninterruptible(1);
+-		spin_lock(&isotp_notifier_lock);
+-	}
++	WARN_ON_ONCE(isotp_busy_notifier == so);
+ 	list_del(&so->notifier);
+ 	spin_unlock(&isotp_notifier_lock);
+ 
+-	rtnl_lock();
+ 	lock_sock(sk);
+ 
+ 	/* remove current filters & unregister
+ 	 * tracked reference so->dev is taken at bind() time with rtnl_lock
+ 	 */
+ 	if (so->bound && so->dev) {
+ 		if (isotp_register_rxid(so))
+-			can_rx_unregister(net, so->dev, so->rxid,
++			can_rx_unregister(dev_net(so->dev), so->dev, so->rxid,
+ 					  SINGLE_MASK(so->rxid),
+ 					  isotp_rcv, sk);
+ 
+-		can_rx_unregister(net, so->dev, so->txid,
++		can_rx_unregister(dev_net(so->dev), so->dev, so->txid,
+ 				  SINGLE_MASK(so->txid),
+ 				  isotp_rcv_echo, sk);
+ 		netdev_put(so->dev, &so->dev_tracker);
+ 	}
+ 
+-- 
+2.53.0
 
-What do you think?
-
-Marc
-
---
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---25w3tbmyskksrjyb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCas4O2wAKCRDMOmT6rpmt
-0q+pAPwIF8wpYL7J1/gk9g6RXhUr5SARSzzpYTyGVX3yt2JlIQEAxgkwnBhMJin5
-BgazUeZQAgL09GXx7TEVzKpH1RZCUw0=
-=mEzK
------END PGP SIGNATURE-----
-
---25w3tbmyskksrjyb--
