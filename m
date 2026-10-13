@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CF4950B8A3
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:01:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B21C940DB33
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:01:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791907300; cv=none; b=nUntrj8LZZtSfHqNmBTKnoQ65SzhMCJEnabmlwATapuYWpyI3odqIPoRS277Kzw5pDyDAxvgY0ovyXwnlHyeCzAg12Bk9yAKDZXPKkWJc0DULIt/lJHbXr64gS5gu0K9m3QjM2W7CDSzOBAZVRtePFiEYIMtg61pRq/GjP0HD+Q=
+	t=1791907300; cv=none; b=Qi6DR0r6hqtVSVLbSVfrjM9FKvhA/rQ5fzNa1SPIrUDDgLgSRtlU2bQNFete5BNDZEMeK1Oz1/Z5W6d/1iP+xjFrwnw8P1MqFA3CAUYBzLXCncWHuNRa+n4a7nb1nM4wqa1QgEngXJ0EUlrOtGdGmUyB5lEVjp5Dy3VY0IAffQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791907300; c=relaxed/simple;
-	bh=/IwIrsI2sKhrSiZ9urI2Y9TUQKVGjKdCR15x0uL23K0=;
+	bh=2j8sDG9LRdm8FSr2oBUarVxbVOvuh+56cuBf6gSM/Gc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H1Eyuni6cftI7MILvhxl+KbDQYJ4hhVbYPt/yTRNMS4KT4lkIWPyM6lgeeOF/apX/1QopkiKSYOaLxr5JHD+l2M/ke6JfzgYasIhKVVGSwZ+bbFiY61MuL7b6Qc1ISKQsdsjLwoBMH3iWpoHMSEM/6ZhpbBTzKvPFERFBU1MimI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mf5V/MiN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TGq4c58dmTF9IehlJYWopWwBrOdX+bUdZdXESFC1y/YBZ25BtP/2eD6yeGzU6r9hY3blfLjx6LFbczO/SmUB+RWYJKDg81xtrEbW3+wPMAh1bdHDQLZIjhUtVcu887wxTpQFSFObuvwFBWx/uxxbyzDBtvJeGULJah0SDRZfKZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=liytWU4Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mf5V/MiN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 404811F00898;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="liytWU4Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1388B1F000FF;
 	Tue, 13 Oct 2026 16:01:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791907298;
-	bh=FMfLpkT7FfFXH4LZDPveBzSp4Fml6KKuNsFZT+W4DoQ=;
+	s=k20260515; t=1791907299;
+	bh=Qc2l++1WCFEOgcwQ/9BPfAFgSdeWMoV/p50cTfybVIs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mf5V/MiN/gaL4EhHxkK4SbMIAaTNPFJwvH3dA6FT9pW4gTqZfofaoKzN3ARgMUpMu
-	 SJRVuo3D11gqe5lhXvL6ByO1VM4j/VVMCd4y+X5DMT2hlGr26so+ak3bSc8g8UlQ/w
-	 sWlrDVTPcs2p1wpfi8QOlnW0uOkpWAx7jPnKAo8n816fawoE8L8r8IpAcRr+vK6JiM
-	 gg1WSPDsj3du+p4tpeOpWlUT0/6F7Wx+C54UGz9SSqJmmMs7QFJIqDK0HYOWpVLpqz
-	 vSBgV3Q4c7S2F0wnrkupl9hd7/s0jzcIHy/1Cf/s7cJ3a4aNDkG+Q4VL4OdTqwtMMU
-	 xweqVY3dMX/+g==
+	b=liytWU4YYBzw5irroyMT+TsKJzET29u5pICzJ0UhqLOlYMU26Zoglvlm2AtO5SArc
+	 MEFNSeIoCFHhK0urTtz1FQN/w1eY9kxX08Q+VsjVaBfKNFLO4081iCuVAY3s8pYtCK
+	 uci92xJGb9oegZnuORWgeu4MwMREnw/rf73hsakUKVM4lXJxJ1Mpilo5UQg3WkonOl
+	 tEsmKEIRUBYF9yI+Qsof15vpaq6NB75FfM2i6HAD1PEzI0E/CdrN1rP57hswQTp6qV
+	 FStZ5sAYaiXQHxPEljVQybrEOdP6NXhiQLuxBo9gi8jcBFT2wM3Sc+qppC0JsOi0oz
+	 7Y/J95uGTDX9g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Peter Wang <peter.wang@mediatek.com>,
-	Bart Van Assche <bvanassche@acm.org>,
+Cc: Bart Van Assche <bvanassche@acm.org>,
+	Peter Wang <peter.wang@mediatek.com>,
 	"Martin K. Petersen" <martin.petersen@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/5] scsi: ufs: core: Add debug log for MCQ command timeout
-Date: Tue, 13 Oct 2026 12:01:33 -0400
-Message-ID: <20261013160048.356245-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 4/5] scsi: ufs: core: Add a comment block above ufshcd_mcq_compl_all_cqes_lock()
+Date: Tue, 13 Oct 2026 12:01:34 -0400
+Message-ID: <20261013160048.356245-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261013160048.356245-1-sashal@kernel.org>
 References: <2026101216-sharpener-discover-cc77@gregkh>
@@ -47,37 +47,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Peter Wang <peter.wang@mediatek.com>
+From: Bart Van Assche <bvanassche@acm.org>
 
-[ Upstream commit 3abe4113e784b4a1135fe0e89828afecbfebf862 ]
+[ Upstream commit 1373df88d53594a32534fd8960c51d1d09be8ecb ]
 
-It is difficult to debug situations where an MCQ command timeout occurs,
-the corresponding CQ tag response is received, but the request is not
-completed.  Add a one-line log to indicate when the CQ entry is abnormal.
+Document the aspects of ufshcd_mcq_compl_all_cqes_lock() that are
+nontrivial in a comment block above this function.
 
-Signed-off-by: Peter Wang <peter.wang@mediatek.com>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Link: https://patch.msgid.link/20260210070837.1820710-3-peter.wang@mediatek.com
+Signed-off-by: Bart Van Assche <bvanassche@acm.org>
+Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+Link: https://patch.msgid.link/20260401202506.1445324-2-bvanassche@acm.org
 Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
 Stable-dep-of: 375f3a5691dd ("scsi: ufs: core: Avoid unsafe MMIO reads in ufshcd_mcq_compl_all_cqes_lock()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/ufs/core/ufs-mcq.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/ufs/core/ufs-mcq.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/ufs/core/ufs-mcq.c b/drivers/ufs/core/ufs-mcq.c
-index 90314980deed1..846d4c3eb3923 100644
+index 846d4c3eb3923..121601201fcd2 100644
 --- a/drivers/ufs/core/ufs-mcq.c
 +++ b/drivers/ufs/core/ufs-mcq.c
-@@ -280,6 +280,8 @@ static void ufshcd_mcq_process_cqe(struct ufs_hba *hba,
- 		ufshcd_compl_one_cqe(hba, tag, cqe);
- 		/* After processed the cqe, mark it empty (invalid) entry */
- 		cqe->command_desc_base_addr = 0;
-+	} else {
-+		dev_err(hba->dev, "Abnormal CQ entry!\n");
+@@ -285,6 +285,14 @@ static void ufshcd_mcq_process_cqe(struct ufs_hba *hba,
  	}
  }
  
++/*
++ * This function is called from the UFS error handler with the UFS host
++ * controller disabled (HCE = 0). Reading host controller registers, e.g. the
++ * CQ tail pointer (CQTPy), may not be safe with the host controller disabled.
++ * Hence, iterate over all completion queue entries. This won't result in
++ * double completions because ufshcd_mcq_process_cqe() clears a CQE after it
++ * has been processed.
++ */
+ void ufshcd_mcq_compl_all_cqes_lock(struct ufs_hba *hba,
+ 				    struct ufs_hw_queue *hwq)
+ {
 -- 
 2.53.0
 
