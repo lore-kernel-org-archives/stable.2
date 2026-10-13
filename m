@@ -1,104 +1,63 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B548F4F054D;
-	Tue, 13 Oct 2026 11:47:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892043; cv=none; b=HB/b3bduJ0/5Tt93dWVEeUKVMWu1W1PPDKI5kU4aYdkqnxv+I3pJiaJVrGA0dhIN7i6lw9C2dYO0zEYUf4oF98WoFfjFaI8Nma9Vx6618kh5XKphEVp+Q29iLXquZ98iH1///WzJtzNZVzKD52A+pPdl8hcAreyZ86EPjI31f7A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791892043; c=relaxed/simple;
-	bh=xIJnQe0A7rMo68yRUwKx/dHOa5MkAxtua1XXMFJpdQo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YNFBtejXr5203Fq5pjZvWD7QoK6pS4LBeMV9Vb0rzf4WYVB7Rj970twK90XAJCKJp7Xiz1ObHbNlt2KLmjyDzzV8EWabvTIGW1AisR+aHTnfmjy8y/TwQopI2jwheU6AZuZZsuhJh5miG7u9KMB4gzYYHe9WfApnaoC+rQ4j7aQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0Baj32pR; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0Baj32pR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C09811F00893;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23DB73AA1BC;
 	Tue, 13 Oct 2026 11:47:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791892042;
-	bh=Aq8AHRgq1OZqc9u7X5QdZzxpnUhx/8p3xIzre3dy0n0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=0Baj32pR+95a/2XKW+22MV2Wp1FRNCmNTonA5JWo69f8i5ni4A4CS6xOw/t4dTuIZ
-	 gq68/Pq9s6cwoPZ7nmXy7nNFiosorTKhPGbsQ1j1hz98xHQkhOg94q57yS7JYfHwda
-	 Z3cwSsprc7caMNov/S1pcuS425m5AkxCteB1vCC8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Daehyeon Ko <4ncienth@gmail.com>,
-	Mina Almasry <almasrymina@google.com>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 7.2 042/281] tcp: reject net_iov in zerocopy receive mapping hints
-Date: Tue, 13 Oct 2026 13:35:58 +0200
-Message-ID: <20261013112856.075181104@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261013112855.045212108@linuxfoundation.org>
-References: <20261013112855.045212108@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791892045; cv=none; b=dtJ/gGTkqEyVYrgFLGNeInP9V0sdb9hlhS52h2S6huG552nvQxh6AHpXh7v01SCnCW55aVcZDt/i84DaaSq9ZveKmWjkKaD9AJ6/trAzAYN46iycaPYDTZRLaS0KKj8hc0L1tkWXnQxTcMDrXCzQ6esk7dDRKgf973vjIjO1jKY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791892045; c=relaxed/simple;
+	bh=jBvqA4O4jklsj/aghiJlj9CDD9/vMZUkycL7dgqzyC0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hW+NClV2DEfn3iZipQGDjm8YYOm/YnCLxbkCqOTqBFl16O47/FCGo3iB+7a9Pj/FI7+9JyAoOrsyybMrjnWiE9WzlhfZKnzUlPwX3ym7aEsJB5LMEiobme8iOyNNqWUW6J8zscPVYWINuY+KoL993BvBaUIyhEvhQKwPgC2DQGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=swipXv9i; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="swipXv9i"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=GxlX+ShtNz1TQ/5m5AmkITi1xky44QKYlGpTPsQ2g/g=; b=swipXv9ipTOgfkPRxrOYETZpzk
+	7rz/MH/fEPWK4jqK2QYIESvWUn2nQsWom8bh48sgvclBP/nuwA5okc+4djCJoGl5lVFsjjFTKL3qF
+	pdlhWgbdfh810VY0148vBMN+VSu2YD+MCZHdPw/zDZthz2ZhTK/Od/C/9tuGHtIow7gaZvqP1Z90a
+	v3v5vSQytsSyeOUiB+W9dFfFB/pfj81IEFOI8EgSPposrepmsMQoGUCOTm13m/BaJafxm67AE/G1o
+	qRfrBOeLVu6RBFw9wKnEwd7J2MxjpijStynIKcWX0QeuO8C3jcFb5+QlPl17K1xMBxgLrltExXrxB
+	SSKvQGOw==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xGayX-0000000Ck7J-0Lbe;
+	Tue, 13 Oct 2026 11:47:21 +0000
+Date: Tue, 13 Oct 2026 04:47:21 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 06/12] xfs: only written file data blocks can be shared
+Message-ID: <as4aSXKdzAksvwey@infradead.org>
+References: <179186107061.1898400.3978552773417541744.stgit@frogsfrogsfrogs>
+ <179186107268.1898400.2017479521256451856.stgit@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179186107268.1898400.2017479521256451856.stgit@frogsfrogsfrogs>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+On Mon, Oct 12, 2026 at 11:06:46PM -0700, Darrick J. Wong wrote:
+> From: Darrick J. Wong <djwong@kernel.org>
+> 
+> LOLLM noticed that xchk_refcountbt_rmap_check (and its rt equivalent)
+> will count any rmap owner towards the shared count.  However, the only
+> blocks that can be shared between xfs files are written file data
+> blocks; and the only blocks that can have single-refcount entries are
+> COW staging extents.  Fix the checking code.
 
-------------------
+Looks good:
 
-From: Daehyeon Ko <4ncienth@gmail.com>
-
-commit 8b1f0af1fd5fd113432233ed8a3862ee7c30a84f upstream.
-
-After copying a readable prefix, receive_fallback_to_copy() asks
-tcp_zerocopy_set_hint_for_skb() where page mapping can resume. If the
-next skb is unreadable, find_next_mappable_frag() passes its net_iov
-fragment to can_map_frag().
-
-skb_frag_page() returns NULL for a net_iov, but can_map_frag()
-dereferences it in PageCompound(). A v7.2 KASAN run on a connected TCP
-socket with 64 readable bytes followed by a 4096-byte NET_IOV_DMABUF
-fragment reported:
-
-  BUG: KASAN: null-ptr-deref in can_map_frag
-  tcp_zerocopy_receive -> can_map_frag
-  Kernel panic - not syncing: KASAN: panic_on_warn set
-
-The diagnostic inserted the net_iov directly because the test host has
-no devmem-capable NIC. Hardware end-to-end reachability remains untested
-and requires CONFIG_NET_DEVMEM plus a supported DMA-buf-bound RX queue.
-
-Reject all net_iov fragments before skb_frag_page(). This covers both
-DMABUF and IOURING net_iov types while leaving page-backed checks
-unchanged. With the guard, the same queue copied the readable prefix,
-returned a 4096-byte skip hint, and completed without a fault.
-
-Fixes: 9f6b619edf2e ("net: support non paged skb frags")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Reviewed-by: Mina Almasry <almasrymina@google.com>
-Link: https://patch.msgid.link/20260930102524.1659847-1-4ncienth@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- net/ipv4/tcp.c |    2 ++
- 1 file changed, 2 insertions(+)
-
---- a/net/ipv4/tcp.c
-+++ b/net/ipv4/tcp.c
-@@ -1908,6 +1908,8 @@ static bool can_map_frag(const skb_frag_
- 
- 	if (skb_frag_size(frag) != PAGE_SIZE || skb_frag_off(frag))
- 		return false;
-+	if (skb_frag_is_net_iov(frag))
-+		return false;
- 
- 	page = skb_frag_page(frag);
- 
-
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 
