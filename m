@@ -1,164 +1,222 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8077C3B47E3
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 04:40:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C89293C07A;
+	Tue, 13 Oct 2026 04:51:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791866406; cv=none; b=KG61FHsG6E/3JDgtBEq4Gm/iJfpKrflZOqTJMzleCnrPGwgjmUoRTIejMHupM/f/HSPeRKDueDPDEpZZt6lrFrVrocxT45N7WwStl7sVKzhsbEDnJJ8/3YTNw6u67JcUgvRl13VYGiLNCkhEA8PXh5hpxGCq0uUnjJfqEKI34c0=
+	t=1791867101; cv=none; b=S9r/++EiTc3dw8zXbKd1o9YipvvtM3gIsBw6igi4oLZJiS8/i0ywuBznMLZRAtkY/qfkE0NPV7TjOj1EN3WQkC9zNtEUlALiXAY3o1BL0Zlpftdm8EPpLLhkyBmvDtEUza2gQIxhf5ygSeQzkZT46MS3AVcz1SfQJuvSIkYrctM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791866406; c=relaxed/simple;
-	bh=vddV8l0mQz8O3IHzxAknbEihgxflXBN5+PEEZMLY3zk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BRDIX/fShnLGE4W2autkVY6t0fxiF3bLGVigL9tJS8dfPIQTM/6wFTM/Ky4Y6PDdMfReAvNEA0YFHXLz8c/rh8s1T+/MghwnBNODFM1uBJ3VHjb71HAhKx2AxPMciLwOW+QJfN8dz55UhqLzCOOCnzpHNyI1A290U5fbYhk7vqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=dEbxDzBt; arc=none smtp.client-ip=209.85.215.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791867101; c=relaxed/simple;
+	bh=7RKZZItk8g+R4JYvSk3BdudnGBrDu4OaXsDqhSZZ/sM=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=GqTYyUxdTH4vNE3uWlRGYqTcq2yjg9hI1gNH/UEScrmR2kX+K15ypaOWA1e0FM6MdrARCXGn52u5GvhryquES/z2OnbEq6HoGMLAHzJmw5N1BOyrxarp6L894J4IBYHrJYyLJSqJvugQkYwm1cK0V6CsBp0yK9qpD/OmYTrjNwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JL3NE/lv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="dEbxDzBt"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cd61cef87f1so21529a12.0
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 21:40:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791866403; x=1792471203; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qnG57MFg7PrIckZ2E9sIhy4PvUmmL/cUOrrKMINTiz4=;
-        b=dEbxDzBtqGfbAZgvAPS6kvBfBLy0B/zNie8YP6Z5HtuWaA3npHZH2cSPOvKFDU8v+u
-         hxSRJMLDC2y68UTkAu2xjjeDaXahCfs1k23rUe7kCFAeR1Lp/0sOu/M/IiYYnnHoRzxG
-         EcrKRpwsiiZVf93zD+VB8x26RCQ62ZWLZFiicaxeBAtuUuRMLG0ZoKycd1AaYtRm3cnl
-         E2+y1xblZ3WzBMPheM16ZXfTg3Hyxe8/jQAtjUchVSAlljzint807TeXVHjVJHMv1B45
-         3F+iaEzZxHR7BjBd/tZ1BNIrOLeR5pXPyQgFXyNGmqANXClGQUM9Oy+JGoabU4f+qC6f
-         MJ3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791866403; x=1792471203;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qnG57MFg7PrIckZ2E9sIhy4PvUmmL/cUOrrKMINTiz4=;
-        b=N1T4U68St7BkGspIZuQGcqsLwBzNxUbYkBxEFIzIoXmzZphOvtTT/4T7HGHgwjMB//
-         Doryj9nsDEqhmE1XpHIk79mM2Pm07jEs6HR9OrHvQ8uT0Pi1hlw3RKRC7Lj/f3UP4g89
-         U01xJ0ZvBrj+fUPUcDZWsIc01vVsWZ09LCWhogLPM3pJcufG764dYqJtIURxq+DEBKC2
-         cHZ6XsTjwoVdjsLqqJhMgkDAjXBr+GDyNeogFs7ojy8ufIuE+XObcxygDJunpFDZf8UU
-         ce19FLtw6f6MDzuzPIldRYsUuwktkKS4yw6+lPktshI+ZuiXkACRnzTPNZOjctURc+l+
-         sj/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzXljBZYvpG9/H08mYA7MoyRkMq+yNzo2zkZ01LPGhLN1SLvaYrc09V1bMxWH0XqeH8tke3qAw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLyCQhxeSUc00vukPEFga1MFg923yTWoma2paVTUj12ppLI3Rzq
-	4AEhB6cPjkIwlc0+CX51UxN8GyGnqnnluafv30Cg0Whyf8JxdG8H8G8YI14kjdfbwA8=
-X-Gm-Gg: AYBFou1cLCtjJNIkzB6FuruCwHwi7mFJGNhnWoLGWiy914gcouC273PjAGociY9YR22
-	4t0aVmaFJa3R9NU4yOgbTMSDh5NXJpuLYtlYchbn7uIWOHwgbDuvkFZAg5pqYASda8ZAB6teNtg
-	BZcnVi4JSGjcNnIkme7t38wbJ2hV0NmZKpnlVWj1XEq2XTBrGJ9gPrwrFNUdLbEyH8DWC50wHs0
-	MNkzT4ogQvxFY80Wm2D8Gn+V+XkvFepnmvDJvjWo8t/KzU4uG1//k5GAbhhR0ZXxQK+L8yahqU5
-	0jpt4F1hPngzEMzIdXcwEh6lbXWQ+y9ZbpiTvMUdeHVNE4QgpmR/AyUP8r7av824ddTF1KQsMa7
-	u4XJbJnco7BAeKkZRO5+yjynzPle6SwmQrivAGq3FWECs3HwdgeW9K+0PxRTht1xNWcoPn93/VF
-	BJaXDjWixP4Efc/hdy2CQGXu02Da5xzfvHl/RZsOH7Dt99l+QJFGY10JoLcQWWP4YkYJ7FzMjHe
-	2jdng==
-X-Received: by 2002:a17:90b:5864:b0:3ac:38dc:6b9e with SMTP id 98e67ed59e1d1-3ac38dc6d80mr1310335a91.25.1791866402713;
-        Mon, 12 Oct 2026 21:40:02 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b9638fsm18861327a91.3.2026.10.12.21.40.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 21:40:02 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org
-Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v4] usb: gadget: f_tcm: reject a short write data-out transfer
-Date: Tue, 13 Oct 2026 13:39:51 +0900
-Message-ID: <20261013043951.2534225-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JL3NE/lv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DF231F000FF;
+	Tue, 13 Oct 2026 04:51:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791867099;
+	bh=2uoa3rlTPsqF5WVC1KJ22msnIAaVeXC7kqTLcn+GQmw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=JL3NE/lvcnHazw2aBgWOmEGQWiw1FvI+Q+0sWq+2itDqeMap2kB1BU43d7K9lrnvD
+	 n+TV8DuD/vCKi5PknrhzzhEP/kUdrNKTxm4y19xcKc05ms+1GgONJ9qlsjAgo8duVu
+	 9eGqqIm5v/WVuShIgDGEvRKk3J95Ege8YQav7h3RHJAiQRh7BGhFTf4/cxCNI34ODz
+	 rnjiD/QI6oioUY5+cpRa9xcoeEZplIMQrsOvlQrdji07V6IRGOc4yfCgKP5CYBwdlW
+	 3RdUxC0aS4T6UBv/5HSlUn5pxFnmn2p2VvHicnhlGdgebnXC4wD8GCPLXBCGPNKi0c
+	 oUKhpbpxHeRVg==
+Subject: Re: [PATCH net v2] net/sched: sch_netem: prevent packet length
+ underflow with negative overhead
+From: netdev-bot+sashiko@kernel.org
+To: dungvn2345@gmail.com
+Cc: stephen@networkplumber.org, jhs@mojatatu.com, jiri@resnulli.us,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, hagen@jauu.net, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Tue, 13 Oct 2026 04:51:38 +0000
+Message-ID: <179186709813.434549.16042014331752584322@kernel.org>
+In-Reply-To: <20261012044322.503949-1-dungvn2345@gmail.com>
+References: <20261012044322.503949-1-dungvn2345@gmail.com>
+X-sashiko-severity: Critical
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-usbg_data_write_cmpl() copies se_cmd->data_length bytes out of the bounce
-buffer into the command's scatter-gather list without checking how much the
-host actually sent.  A BOT host can declare a larger OUT transfer than it
-delivers and end the data stage with a short packet: req->actual is then
-shorter than req->length, but the completion handler still commits the full
-declared length.  The tail past req->actual is whatever was already in the
-kmalloc'd bounce buffer, which is not zeroed, so uninitialised kernel heap
-is written to the backing store and can be read back by the host.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Fail the command when req->actual does not match req->length instead of
-committing the stale tail.  The short packet means the host has already
-ended the OUT stage, so mark the command and report the residue in the CSW
-without re-arming ep_out to drain data that will never arrive, the way
-f_mass_storage treats a short_packet_received.
+Critical: 1 · High: 0 · Medium: 1 · Low: 0
 
-A short 8192/4096 WRITE then commits nothing to the backing store instead
-of 4096 bytes of stale heap, and the CSW reports a residue of 8192 with no
-OUT drain queued.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fixes: c52661d60f63 ("usb-gadget: Initial merge of target module for UASP + BOT")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
-v4:
-- Keep cmd->data_len so the CSW still reports the untransferred length as
-  the residue.  v2/v3 cleared it, which reported a residue of 0 and told
-  the host the whole transfer had been accepted.  Skip the ep_out drain
-  with a command flag instead, matching f_mass_storage.
-  v3: https://lore.kernel.org/linux-usb/20261013015416.2503787-1-yhlee@isslab.korea.ac.kr/
-  v2: https://lore.kernel.org/linux-usb/20261013005854.2470384-1-yhlee@isslab.korea.ac.kr/
-  v1: https://lore.kernel.org/linux-usb/20261012154422.2436134-1-yhlee@isslab.korea.ac.kr/
+- [Critical] In packet_time_ns() (net/sched/sch_netem.c), the patch swaps
+  `div64_u64(len * NSEC_PER_SEC, q->rate)` for `mul_u64_u64_div_u64(len,…
+- [Medium] The commit message says clamping packet_time_ns() to S64_MAX
+  "prevents the resulting delay from turning negative in s64 delay…
 
- drivers/usb/gadget/function/f_tcm.c | 14 +++++++++++---
- drivers/usb/gadget/function/tcm.h   |  1 +
- 2 files changed, 12 insertions(+), 3 deletions(-)
+--
 
-diff --git a/drivers/usb/gadget/function/f_tcm.c b/drivers/usb/gadget/function/f_tcm.c
-index 9e6d4f39900a2..d686fbcf36f72 100644
---- a/drivers/usb/gadget/function/f_tcm.c
-+++ b/drivers/usb/gadget/function/f_tcm.c
-@@ -120,7 +120,8 @@ static void bot_send_bad_status(struct usbg_cmd *cmd)
- 
- 	csw->Residue = cpu_to_le32(cmd->data_len);
- 
--	if (cmd->data_len) {
-+	/* a short data-out already ended the phase; draining it would hang */
-+	if (cmd->data_len && !(cmd->flags & USBG_CMD_OUT_SHORT)) {
- 		if (cmd->is_read) {
- 			ep = fu->ep_in;
- 			req = fu->bot_req_in;
-@@ -1090,8 +1091,15 @@ static void usbg_data_write_cmpl(struct usb_ep *ep, struct usb_request *req)
- 		return;
- 	}
- 
--	if (req->status) {
--		pr_err("%s() state %d transfer failed\n", __func__, cmd->state);
-+	/* a short data-out left the buffer unwritten; don't commit stale data */
-+	if (req->status || req->actual != req->length) {
-+		struct usb_gadget *gadget = fuas_to_gadget(cmd->fu);
-+
-+		if (!req->status)
-+			cmd->flags |= USBG_CMD_OUT_SHORT;
-+
-+		dev_err_ratelimited(&gadget->dev, "%s() state %d transfer failed\n",
-+				    __func__, cmd->state);
- 		goto cleanup;
- 	}
- 
-diff --git a/drivers/usb/gadget/function/tcm.h b/drivers/usb/gadget/function/tcm.h
-index e1d5a93916127..1f9f7181603f3 100644
---- a/drivers/usb/gadget/function/tcm.h
-+++ b/drivers/usb/gadget/function/tcm.h
-@@ -88,6 +88,7 @@ struct usbg_cmd {
- 
- 	u32 flags;
- #define USBG_CMD_PENDING_DATA_WRITE	BIT(0)
-+#define USBG_CMD_OUT_SHORT		BIT(1)
- 
- 	/* UAS only */
- 	u16 tag;
+net/sched: sch_netem: prevent packet length underflow with negative overhead
 
-base-commit: 2c3418fffa9d037b2038a6db48be63f9e2291806
+This patch makes packet_time_ns() return 0 when the effective packet
+length or the cell length is non-positive. A negative packet_overhead
+then no longer wraps len to a huge value and stalls the qdisc. The patch
+also computes cell_len as s64, uses mul_u64_u64_div_u64() for the final
+calculation, and clamps the result to S64_MAX.
+
+> diff --git a/net/sched/sch_netem.c b/net/sched/sch_netem.c
+> index 8a1b89a289d8f..3eccdc93c0b6b 100644
+> --- a/net/sched/sch_netem.c
+> +++ b/net/sched/sch_netem.c
+
+[ ... ]
+
+> @@ -366,17 +367,26 @@ static s64 tabledist(s64 mu, s32 sigma,
+>  
+>  static u64 packet_time_ns(u64 len, const struct netem_sched_data *q)
+>  {
+> +	u64 d;
+> +
+> +	if ((s64)len + q->packet_overhead <= 0)
+> +		return 0;
+> +
+>  	len += q->packet_overhead;
+>  
+>  	if (q->cell_size) {
+>  		u32 cells = reciprocal_divide(len, q->cell_size_reciprocal);
+> +		s64 cell_len = (s64)q->cell_size + q->cell_overhead;
+>  
+>  		if (len > cells * q->cell_size)	/* extra cell needed for remainder */
+>  			cells++;
+> -		len = cells * (q->cell_size + q->cell_overhead);
+> +		if (cell_len <= 0)
+> +			return 0;
+> +		len = (u64)cells * cell_len;
+>  	}
+>  
+> -	return div64_u64(len * NSEC_PER_SEC, q->rate);
+> +	d = mul_u64_u64_div_u64(len, NSEC_PER_SEC, q->rate);
+
+[Severity: Critical]
+Can this trap on x86-64 before the S64_MAX clamp is reached?
+
+mul_u64_u64_div_u64() expands to mul_u64_add_u64_div_u64(). On x86-64,
+arch/x86/include/asm/div64.h implements that as a plain mulq followed by
+divq:
+
+/*
+ * Will generate an #DE when the result doesn't fit u64, could fix with an
+ * __ex_table[] entry when it becomes an issue.
+ */
+static inline u64 mul_u64_add_u64_div_u64(u64 rax, u64 mul, u64 add, u64 div)
+{
+	...
+	asm ("divq %[div]" : "+a" (rax), "+d" (rdx) : [div] "rm" (div));
+	...
+}
+
+include/linux/math64.h also says "Architecture specific code may trap on
+zero or overflow". So this code can't depend on the saturating behaviour
+of the generic version.
+
+The new s64 cell_len also makes the overflow much easier to hit. The old
+expression cells * (q->cell_size + q->cell_overhead) was a u32 product,
+so len * NSEC_PER_SEC stayed within u64. With len = (u64)cells * cell_len,
+len can now get close to 2^62.
+
+get_rate() copies rate, packet_overhead, cell_size and cell_overhead from
+TCA_NETEM_RATE without range checks. For example, with rate=1,
+cell_size=1, cell_overhead=INT_MAX and a 100 byte packet:
+
+  cell_len                 = 2^31
+  len                      = 100 * 2^31   ~= 2.1e11
+  len * NSEC_PER_SEC / 1   ~= 2.1e20      > U64_MAX
+
+The divq would then raise #DE in this path:
+
+netem_enqueue()
+  packet_time_ns()
+    mul_u64_u64_div_u64()
+      mul_u64_add_u64_div_u64()   /* divq */
+
+This runs under the qdisc root lock, possibly in softirq context. The
+first packet enqueued would oops the kernel. Triggering it only needs
+CAP_NET_ADMIN in the netns, and unprivileged user namespaces can provide
+that.
+
+If packet_overhead=INT_MAX is also set, len is about 4.6e18. Any rate
+below roughly 250 MB/s then traps.
+
+The commit message says:
+
+    Computing the final transmission time with mul_u64_u64_div_u64() and
+    clamping to S64_MAX avoids 64-bit multiplication overflow
+
+Could the value be saturated before the helper is called? One option is
+to return S64_MAX when div64_u64(len, q->rate) >= div_u64(S64_MAX,
+NSEC_PER_SEC). Another is for get_rate()/netem_change() to reject rate and
+cell combinations that can overflow.
+
+> +	return min_t(u64, d, S64_MAX);
+
+[Severity: Medium]
+The commit message also says the clamp "prevents the resulting delay from
+turning negative in s64 delay arithmetic". Is that true for the caller?
+
+The clamp only limits the value that packet_time_ns() returns. In
+netem_enqueue() that value is added to a delay that may already be
+positive. The result is then added to a now that may already be a
+deadline far in the future:
+
+net/sched/sch_netem.c:netem_enqueue() {
+    ...
+			if (last) {
+				...
+				delay -= last->time_to_send - now;
+				delay = max_t(s64, 0, delay);
+				now = last->time_to_send;
+			}
+
+			delay += packet_time_ns(qdisc_pkt_len(skb), q);
+		}
+
+		cb->time_to_send = now + delay;
+    ...
+}
+
+validate_time() only checks that the TCA_NETEM_LATENCY64 latency is not
+negative, so delay can already be large before this addition. Adding a
+result close to S64_MAX to any positive delay wraps it negative.
+
+The absolute deadline can wrap even with zero latency. Take
+packet_overhead=0, cell_size=1, cell_overhead=INT_MAX, rate=8 and a 64
+byte packet. The quotient is about 1.7e19, which fits in u64 and gets
+clamped to S64_MAX:
+
+  packet 1: time_to_send = T + S64_MAX
+  packet 2: now = T + S64_MAX
+            time_to_send = T + 2 * S64_MAX  ~= T - 2
+
+tfifo_enqueue() would sort packet 2 ahead of packet 1, and
+netem_dequeue() would treat it as already due. The packet skips rate
+shaping and goes out of order.
+
+Should netem_enqueue() saturate the accumulated delay and
+cb->time_to_send as well, instead of only the per-packet interval?
+
+>  }
+>  
+>  static void tfifo_reset(struct Qdisc *sch)
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012044322.503949-1-dungvn2345%40gmail.com
