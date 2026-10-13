@@ -1,113 +1,104 @@
-Received: from irl.hu (irl.hu [95.85.9.111])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9683D45E5;
-	Tue, 13 Oct 2026 13:03:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.85.9.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483E14FECF5;
+	Tue, 13 Oct 2026 13:06:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896616; cv=none; b=fC168AiIdOcOTOG/cCrq2Fl5u66196tRpbuLZTb0KLApS4VS4J5UnaSPtnhMWWcNxmJo44r0KMiOWh6qV/WDedfQJkDDXdBx6unbZ+XXoSFkNQSxxMYytAAhMKj1GzClcrLYOBvk3fJJk5FFNpaNHEE9rlG5zy813kaagkN2WaA=
+	t=1791896764; cv=none; b=kXlX88T3N6rnB1SRAaPfATE/CA+zPOwzE9xLSPY4RZV86N8JiZGivtfyVPkoT7+Qp6gDXugRRkOPnlk3KGmsnnoWqT0PxPUdcdndopsFLU+bKgw/HSXVLPyQW5b+K64mDzfd+PnuK5nbhpeRt46hPEd9f3Qn4SeQX2QN38TY10k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896616; c=relaxed/simple;
-	bh=lA86Al6V7sXU4UI2Kbuzh1w9c2d+appMmJEFQVRANmU=;
+	s=arc-20240116; t=1791896764; c=relaxed/simple;
+	bh=RgeY3SIYk0SFWnc72FC7m6TtI/Swc5PiyC3oxjpf3oM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=u4TG1vAnXpFWjoBM+3N9bC0Kd2a9dbkFUt8GbzaohZsOSgFc3/bDlhc7Zj1PQaD0ritqnQL8BXhFESn200Eo6LXXz0Myl5BK/SDiUEcx/EKjWn8wtZMEF7TRcxyp4KE6UStJwvfbIqAPDE9c5ifRi00XLiyyaCeDUCNlJs2iWFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irl.hu; spf=pass smtp.mailfrom=irl.hu; arc=none smtp.client-ip=95.85.9.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irl.hu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=irl.hu
-Received: from fedori.lan (51b68c74.dsl.pool.telekom.hu [::ffff:81.182.140.116])
-  (AUTH: PLAIN soyer@irl.hu, )
-  by irl.hu with ESMTPSA
-  id 00000000000C70AB.000000006ACE2C24.00339CB6; Tue, 13 Oct 2026 15:03:32 +0200
-From: Gergo Koteles <soyer@irl.hu>
-To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-  Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
-  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-  Philipp Oster <philippdev5396@outlook.de>,
-  Georg Wenzel <g.wenzel@gmail.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-  alsa-devel@alsa-project.org, Gergo Koteles <soyer@irl.hu>,
-  stable@vger.kernel.org
-Subject: [PATCH v2 1/2] ALSA: hda/tas2781: Assign total_sz at the end of the function
-Date: Tue, 13 Oct 2026 15:02:20 +0200
-Message-ID: <4b357778dce1b70a647e7e47b5ab3f0a6b2fc0cc.1791895478.git.soyer@irl.hu>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <cover.1791895478.git.soyer@irl.hu>
-References: <cover.1791895478.git.soyer@irl.hu>
+	 MIME-Version; b=Z3m9os1VIMPCtQ+7RKO5jK52OFjrnbmqC+xjNJFVPBe60WF8+IbF7QaIVxOgOhmh5JIBZgZEq0TqzYyFStX7IqxCokmkjWQvFTE6ti+wAZ7xjnfOdpakrenQlaqA/nVSeoEUQredrIs9Log3Jj9UgXbLcsu1cTsr9hKTGFedQSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HtVuTxt5; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HtVuTxt5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1F8E1F00898;
+	Tue, 13 Oct 2026 13:06:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791896762;
+	bh=PBDIE7GzvCgmpzvw/ZsA/sK1+J/NGCAntQXTexS8NNk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HtVuTxt5ErtMpkbGfGL1xLIGCDowIsKArOzts/S2GWDBpLTkyRokZua5XIMXtIyN8
+	 joW/wMnxEDjwJ9Ql8CjM5dQ1hmqJCVRZdPrXeXIw8UAGd4Q/Ac5VnzFG0KRbzT6K0j
+	 wBimQdDybAaZET/8ngiJ2W8MPVOlk4tL2F/GP6h3BY0+8KcwLLB9+2DPmnXtcNnf+0
+	 wCEebhHPs6C/E6DwycpWYFa+I43PekwuhQadbpbXjHQS2GRO51zrwf3eJ7ikY7sEDc
+	 gewbugUHTN2eT1YpuzoMfNMkytyFiUezZY4cS3IOWATp7/5XPTK7Pv2ZjnH6L5bQlQ
+	 s0FnovQZYsipA==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: patches@lists.linux.dev,
+	pjw@kernel.org,
+	samuel.holland@sifive.com,
+	stable@vger.kernel.org,
+	yongxuan.wang@sifive.com,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	linux-riscv@lists.infradead.org
+Subject: Re: [PATCH 7.2 046/281] RISC-V: Clear HSTATUS.HU on CPU initialization
+Date: Tue, 13 Oct 2026 15:05:51 +0200
+Message-ID: <20261013130551.12527-1-ojeda@kernel.org>
+In-Reply-To: <20261013112856.169944981@linuxfoundation.org>
+References: <20261013112856.169944981@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-Mime-Autoconverted: from 8bit to 7bit by courier 1.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-In the tas2563_save_calibration() function, cd->total_sz is assigned in
-several error paths.
+On Tue, 13 Oct 2026 13:36:02 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+>
+> 7.2-stable review patch.  If anyone has any objections, please let me know.
+>
+> ------------------
+>
+> From: Yong-Xuan Wang <yongxuan.wang@sifive.com>
+>
+> commit 6694612317e5225086e39ca1ba97ada2b1942e48 upstream.
+>
+> The RISC-V privileged specification does not mandate HSTATUS reset
+> values, leaving the HU bit potentially set after hardware reset.
+> When HU=1, hypervisor instructions (HLV/HLVX/HSV) can execute in
+> U-mode to access guest memory, which may cause unintended behavior
+> if not explicitly controlled.
+>
+> Clear HSTATUS.HU during CPU initialization to ensure hypervisor
+> instructions are only available in HS-mode, preventing unexpected
+> guest memory access from U-mode code.
+>
+> Signed-off-by: Yong-Xuan Wang <yongxuan.wang@sifive.com>
+> Reviewed-by: Samuel Holland <samuel.holland@sifive.com>
+> Link: https://patch.msgid.link/20260924-hstatus_hu-v2-1-7e970f5f1d8d@sifive.com
+> Cc: stable@vger.kernel.org
+> [pjw@kernel.org: capitalized RISCV_ISA_EXT_h to fix build; added stable cc]
+> Signed-off-by: Paul Walmsley <pjw@kernel.org>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-Move the assignment to the end of the function.
+For riscv64, I am seeing:
 
-Fixes: b6016332b889 ("ALSA: hda/tas2781: clear cali_data.total_sz when calibration read fails")
-Cc: <stable@vger.kernel.org> # 6.18
-Signed-off-by: Gergo Koteles <soyer@irl.hu>
----
-Changes in v2:
- - Zero total_sz at the beginning of the function as it may run multiple 
-   times (Sashiko)
+    arch/riscv/kernel/cpufeature.c:1189:36: error: use of undeclared identifier 'RISCV_ISA_EXT_H'
+    1189 |         if (!riscv_has_extension_unlikely(RISCV_ISA_EXT_H))
+         |                                           ^
 
----
- sound/hda/codecs/side-codecs/tas2781_hda_i2c.c | 14 ++++----------
- 1 file changed, 4 insertions(+), 10 deletions(-)
+It seems it is missing commit
 
-diff --git a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
-index 5e5f46c9fb6b..cff8fab8133a 100644
---- a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
-+++ b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
-@@ -335,10 +335,11 @@ static int tas2563_save_calibration(struct tas2781_hda *h)
- 	}
- 
- 	cd->cali_dat_sz_per_dev = TAS2563_CAL_DATA_SIZE * TASDEV_CALIB_N;
-+	cd->total_sz = 0;
- 
- 	/* extra byte for each device is the device number */
--	cd->total_sz = (cd->cali_dat_sz_per_dev + 1) * p->ndev;
--	data = cd->data = devm_kzalloc(p->dev, cd->total_sz,
-+	data = cd->data = devm_kzalloc(p->dev,
-+		(cd->cali_dat_sz_per_dev + 1) * p->ndev,
- 		GFP_KERNEL);
- 	if (!data)
- 		return -ENOMEM;
-@@ -352,7 +353,6 @@ static int tas2563_save_calibration(struct tas2781_hda *h)
- 			if (ret < 0 || ret >= sizeof(var8) - 1) {
- 				dev_err(p->dev, "%s: Read %s failed\n",
- 					__func__, var8);
--				cd->total_sz = 0;
- 				return -EINVAL;
- 			}
- 			/*
-@@ -370,7 +370,6 @@ static int tas2563_save_calibration(struct tas2781_hda *h)
- 				dev_warn(p->dev,
- 					"Dev %d: Caldat[%d] read failed %ld\n",
- 					i, j, status);
--				cd->total_sz = 0;
- 				return -EINVAL;
- 			}
- 			bedata = cpu_to_be32(*(uint32_t *)&data[offset]);
-@@ -379,12 +378,7 @@ static int tas2563_save_calibration(struct tas2781_hda *h)
- 		}
- 	}
- 
--	if (cd->total_sz != offset) {
--		dev_err(p->dev, "%s: tot_size(%lu) and offset(%u) mismatch\n",
--			__func__, cd->total_sz, offset);
--		cd->total_sz = 0;
--		return -EINVAL;
--	}
-+	cd->total_sz = offset;
- 
- 	r->r0_reg = TAS2563_CAL_R0;
- 	r->invr0_reg = TAS2563_CAL_INVR0;
--- 
-2.56.0
+  0c5a9ab5192b ("riscv: Standardize extension capitalization")
 
+Either that or manually tweak the identifier to match 7.2.y.
+
+6.18.y also breaks for the same reason.
+
+I hope this helps!
+
+Cc: Paul Walmsley <pjw@kernel.org>
+Cc: Palmer Dabbelt <palmer@dabbelt.com>
+Cc: Albert Ou <aou@eecs.berkeley.edu>
+Cc: Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-riscv@lists.infradead.org
+
+Cheers,
+Miguel
