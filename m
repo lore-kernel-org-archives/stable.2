@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D5E6471D01;
-	Tue, 13 Oct 2026 16:35:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68547388E72;
+	Tue, 13 Oct 2026 16:35:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791909327; cv=none; b=CeYWg0C4f7F3XT+aNwR8FMFznujseqMhZyslYbtXR84BzmdrtK0fYynapMQEnq3q8WAIJZ8Ehkok7KUvchZ7+pB28d6sVlFc8txZgpS0WvN7G+yR/DzkZ6/lR1+xiaWZfq5sFNuBuITrs2a61bPOKWRDqbzg/3cIP55NBDqaIIY=
+	t=1791909348; cv=none; b=DADbxj0rprqETLd4rCc1N4ZRuul6zkaTGi7gGI55Liko8V0/FyNkIFjyzJgCqHCV3Bp6H6G6FNjgalwnVclyBl3ziipLJG2siDxzR42urY9r0s+sYxH8tVP4o/afftGamq8a/lhOrTVWk80HcvIJEgRFA5QxNglmBYT/Ry1UGyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791909327; c=relaxed/simple;
-	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
+	s=arc-20240116; t=1791909348; c=relaxed/simple;
+	bh=x8GQ9TqAFu5driuvo38kqzYt3n324pebOlaNmEELI+s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=C7S9OJo/zXvRfF1FKeN7HqN4fwv+nVIwv+y4Bbp/MxfBsmmNHVcOvRmRKF7d5x20dn4JwzzMMwIlpGvhLshP22qk4MqOhpXDKt3p3N+++1/dQoUzFIv5cDHw1uQ66gEK9j0vYYPYIDVz9qC//UZDCzUAL+CLmP00XpKdNlIE5LI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zp5MZOsO; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=G0emwUFhUyhV4mUgP4/SezZmFLKcdcckmGKvlpl48qIOUzQRArA7Rz8r5TgnqdYvd2IHDP21VKO00a0gQoXt1uah3KPkfC3asdJNb5GlnDbDMge20GHmynwhL982JGtJ9dwi2mFTOm6X/0vih4JPKdtrHsRC1mo79tybsWhqoRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yzy7EZuQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zp5MZOsO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AAD21F000FF;
-	Tue, 13 Oct 2026 16:35:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yzy7EZuQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 783FA1F000FF;
+	Tue, 13 Oct 2026 16:35:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791909325;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	s=k20260515; t=1791909347;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Zp5MZOsO9Mg3vyFVbda5fz2O89DKziTTwl6AgMBlG6t6m5mQWbAPvUe5NoirLjtI5
-	 o4AwDvdKCxyBD431obf8UefXbGVk0T8i5fBfwxGmy5hcqK5d5uW8AVUhR0K7oaPItV
-	 DNbGIL67EPm1DMSSCEoLAfZoVFjHwZARlkJ/I3WKG4kQZ5aLf9HicZ8RU7NFKbZWQf
-	 x9//M5kQ8opYkiY08cbGu5qSiedZtTVlCWhl2LyyVdUZHtndz+2hfDDoK49DAlh+6t
-	 FOCzizbPmFV/svZAAHzryZLrRp/FhLgU2g8gATesGQ90P/HbeDtLBhV3x4mBRaBNL+
-	 OX70QhKnziomA==
+	b=Yzy7EZuQBhKG92gICaBA+mFCaMDI6k1oND61iEkFUIjtT3El0jv9zcHwGFFSacLis
+	 XUuzbiwOa46vYW6CymqS/FE3hzWUfQoxT1WTPd9Y4xxbX7An3S8ocgOtmb6+x4ICiT
+	 rOcTO5PitB7Gli08/SDdmzx+2Ho2+r4FM1zz5G1sUBBEaB/QosZFE4IvEeEcoRfujA
+	 WOsXDTujVIoLMPnWJegpP2dGCDMOtK9rpU/OnMNEP5fN7t2uSkhwnovsH/gcJRm5ZV
+	 JyGI5k4X4wrTysfmxcSs0xtfiDsO6CSLKbQfesimvYL/uSOq7qdrTUVraRgzdBg3+L
+	 tZ69CB32cuNmg==
 From: netdev-bot+sinfo@kernel.org
 To: Qihang <q.h.hack.winter@gmail.com>
 Cc: netdev@vger.kernel.org, jhs@mojatatu.com, jiri@resnulli.us,
  davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, pablo@netfilter.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] net/sched: cls_api: unlink indr cb on a failed bind
-Date: Tue, 13 Oct 2026 16:35:24 +0000
-Message-ID: <179190932479.99822.1849833897354968750@kernel.org>
-In-Reply-To: <20261013162949.25622-1-q.h.hack.winter@gmail.com>
-References: <20261013162949.25622-1-q.h.hack.winter@gmail.com>
+ horms@kernel.org, elic@nvidia.com, stable@vger.kernel.org
+Subject: Re: [PATCH] net/sched: cls_api: skip indr register on failed bind
+Date: Tue, 13 Oct 2026 16:35:46 +0000
+Message-ID: <179190934605.99822.9665976540343357527@kernel.org>
+In-Reply-To: <20261013163014.25722-1-q.h.hack.winter@gmail.com>
+References: <20261013163014.25722-1-q.h.hack.winter@gmail.com>
 Auto-Submitted: auto-generated
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -54,10 +54,6 @@ commit messages seem to be missing some information:
  - How the issue was discovered, e.g. hit in production, hit during
    development, syzbot report, manual code inspection, LLM or static
    analysis tool scan.
-
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
 
 Please do not repost the series just to address the above. Instead,
 reply to this email with the missing information, so that reviewers
