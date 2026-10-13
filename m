@@ -1,257 +1,362 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011031.outbound.protection.outlook.com [52.101.57.31])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25093395273;
-	Tue, 13 Oct 2026 17:40:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.31
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791913203; cv=fail; b=BykVBFIlgsy2Ehqzxf4yrBEBih0CBRy7I5a/h6rBEzphqjq+ziaYREm7Oh2ZuIkJlV8YeMm9QS73bah6jinhQnPbbrinRcSXXUN8SUGPzEkYKZ6i6L0vRRJ3xkHx/YaP+d1A06ds+LXW+yCy9kROXA7yZBLI91fODtCcRVZysac=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791913203; c=relaxed/simple;
-	bh=rp7Q0HshPqololhaitCJMHHA7u5Z5p96bWRNlvdWBTA=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=WUZUdhjhTF4umyemHUFf2+z8PYAEVszSpNqZwIsRk6tN1C/r5kZgxg2cmS4NBZdhMxyhnneoX443udT3IGKW3G1eW24OJSCpL+JVKyRx1h5Vc0PF8j5nMgEIBkD2ZiCNObN0RnJXfPxfZHYFJ98btKCIHazg/oyPe8K3YhzfloU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=l45XppXp; arc=fail smtp.client-ip=52.101.57.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EEEA5012A5
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:40:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791913243; cv=none; b=cdcfIbOgPkwrvjZ1JhTtbKb1RYyrAuYsAdntKSrvRvMFmBwSJT52HrsS5NlW8q3SbW64hET2/Smlm2vzDWxytbS5FPQUwbBGErpybG62xdmooRb0vamwAxrvJMV+GSNcsYAs6CopuNdyxqL/YQQagm3FrPxg3Y5AvKFVgFUV/GI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791913243; c=relaxed/simple;
+	bh=CNonwbMTTxwWg7LVij/5ptWGPQS4pjtx4Q09QmngI6Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ATdWzAoeA5ayhCkRjGL37HdjjGha5/adusScqGtGXFoVzpy6NZPdEeAcERDHcFoFrPjXx3idZ/vXL4TRldYS6wHuK6nqxG25x+LvSg+k2/guku6cGc5jOhasdvD7GWgvMnTUe2aSAiY4galddJj7dLozOn1QEEWFgr19AJjPUM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bcnTH35W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="l45XppXp"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pfucchGE5yIFXhc1hR5ULRYoBt+CgHQJXaV3XN+RexjAukv/1oMorx86CXdmk2DqzRM125wa/LpNruFfO4sK2em+NW8kCcGwMaR3gsaEtiO4UQL5D+w/stJKALsrbLWLMG1YXcEdo7/+JXzemaMYFTLhlkHM+vrDavDj1UylS/ErFM677+8czySf3QNt9xtHH7+ZHg/j7OwiVUJCggdXHjQ/5PSqKxjNwm687zgfj7mpSM4x8+SYX7f7QoAkdMR9KI3Tk09e8yrCKSz8oVxlrYF6RkneTwpVEnOIh5I1Oe7j9x7X+Id6CR0YhSAXgfPWDMiGI4Zhr2M1wj0C+uPx3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KxX/OWG5qV+b3qb8VF54mpIKNbp0GWuHJzZ3J7YNev4=;
- b=TzD9uhqEQo3FXf8C5T37xmRGsZePmeqq4ffmQDXIDXnTBU5ofNdFoU7brYCHy4j5S2lsVGOr5TOuR2Y9LaOgCRc4n/luaQhSjrD3PH9P7JPPzfmMH1q3RoT8tZ8yPL+Wjr1n8vJEUKCwwgI5/SstagLqemt57BxLxQyL1xSw2Oc5R3i9Guea2zhGPRx1lQhRfZjPHfh4BevBo1TSyWcGm+oXKrYKMir38VcONQCqMzcpl/l0pck+xsYLN7xcvnEQzXtmMwgoWfiQBGlF9iDtR2x+vK49lHaMWXGO9wK8Yob8HscerU4yTqdkPRBg2/8jmGID/QVdw6E/kxGGf5BEAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KxX/OWG5qV+b3qb8VF54mpIKNbp0GWuHJzZ3J7YNev4=;
- b=l45XppXp8vq8Xyo8ZtmVyYkgHp2sLtNh2kXRSfG4UhGhNKMJMTWnb0vSQTtzZBQqaDh69LrOLmnFM7xhsTk+RlMRGIyR4rQgL9Wx7Ki+f+JsHDiVLBPIFd2TNk/uziBNxCQMaQFPtz7K0vwaTs51EAntuT+goyHQKHJeXBhe6mw=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607) by PH7PR12MB8777.namprd12.prod.outlook.com
- (2603:10b6:510:26b::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 17:39:56 +0000
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
- 17:39:55 +0000
-Message-ID: <4df51e6e-b017-4057-96dc-32d4003f8705@amd.com>
-Date: Tue, 13 Oct 2026 13:39:53 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] amdkfd: fix doorbell allocation race creating
- duplicate allocations
-To: Henry Martin <bsdhenrymartin@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <9e519955-e63b-469d-8acf-268b9802e0b6@amd.com>
- <20261010030230.1764682-1-bsdhenrymartin@gmail.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20261010030230.1764682-1-bsdhenrymartin@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0212.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:ad::10) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bcnTH35W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 110FB1F000FF;
+	Tue, 13 Oct 2026 17:40:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791913241;
+	bh=D3ywLaOgQIN+jC0hVfHUBCLiQVpcAuOIITkd5flIIXs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bcnTH35WgP5C5kXNVR0I9I4560YLyDv2/e8npE1aENx6KARCKHLFDIiy+ZpP7Rnn+
+	 9+qAMfleIH7dEb3pgi6h13qF7LVpM9FTBXGJWfs9527NwYI1SWGlKxw8tDWbRkhF9l
+	 VeNEkFCAihD/B5pJ/A8i+DprFnzBSeGEqMqpNJzxHSnudKkX1KPUV67N2BDCGthl9C
+	 wLZz5qaMdsh+ecuF4U6SgicJGtjlYRAasra46y7nmbzFmRGpDIBL2bTZnwXFH8XDTr
+	 6U4Nmx8Cby0XQLm1Ak5lbp40uxBrTZwzIuyrPBSonJTnZdDts2ouqhKNH1iFQ5ihHP
+	 3XBjqdEDCObLQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+	Pauli Virtanen <pav@iki.fi>,
+	syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com,
+	Jiaming Zhang <r772577952@gmail.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] Bluetooth: RFCOMM: connect the session socket without rfcomm_mutex
+Date: Tue, 13 Oct 2026 13:40:39 -0400
+Message-ID: <20261013174018.610543-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026101211-grievous-abreast-f308@gregkh>
+References: <2026101211-grievous-abreast-f308@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|PH7PR12MB8777:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4e3241f5-7878-4228-e9b7-08df2950fe43
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|56012099006|11063799006|4143699003|22082099003|18002099003|261009223027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	17iCFOV76jd1Q5T14w2jlvnxwl2v0pz+uJgkDBcEUYIBDvV/7EzDnz97eMUdqqjXRMol7qoXuf5JVCAPjlh1hRYO4qVI0BLhAwZ1QscCUWe/xB9SCpIQGJIWKKmWMvVr+8EZ39nMo56fy0rHSXCJyS7k1l9hoCHNPxKAYMtEZcz6d87ptF4cJ/CtFbX9eF4NahwDv8P7jl4lDPhxH+ZxsOaDB4JeiH4RqohwRjm7d/EdhQvhbLFq+75Y0E7eD9R9Zsnc60efQTLPJUGOnOZh1Q0Ghd5HOUxY7XliOA/kT+XQR6zsKvhh9y2HUtVFt4AJ3IzATljlsTIBViPvwvnmfBpvPZGFgs4K5U7f/+ZVSCVNRq61ghHa1X3/SmRsHUvAk4GiEUCRcuHIrsP+k/7Z+mxxgojYk6hSlUQ7L1jKweCp55XjlDRL9GvgvsS00GSnK1Bf8Bf4SsShDqIHLkxOQ4HUEVg4j/CGx8bwM3T+OwBqqN6oWrZOkrqDF1JswdVHJuync3AmuBTe14vH2+fYNGIbZSwSBUSWhVfqPydYAmlmVaouxQtSJJ9a2aZh8yCSu0+0FZOYGkhEe2vuMvhy5OUJuKS2UpFpknlQWSkjo0G88cxCDlAqM3q9P2tFNh9ftg0GEuUYbIIQxu6R6vVLzKgil4p/MchRAXQjhYO9hfc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aDV5dE5pTnRDWXloTElnb1kycjE2RCttYlp2c1I5VFNVK05FR1loc0MzM0lG?=
- =?utf-8?B?S0J3bzhYZ20wSGpZNXhLMUtCTTQ3VGRaeDRVR0pjSHdiMFZVSDl4TVpJcGRj?=
- =?utf-8?B?ZHFQZ2xrUm9sRjUxS1p5M2pJYXh6SmNsOFRXWWJ6R0hDQnZMWXQ2TnBvYWEw?=
- =?utf-8?B?ZERnMXBkeDRQM0loOFVhZGlxeUo4T1J6THpUdGlnNXBFcXhRRDVYajhYSkZi?=
- =?utf-8?B?V0dna0I5ZEJzdGkvYVRiODVPZTFpVFRGYTN3ZVVPdkc5cEJ0SlJvVTVpYS9S?=
- =?utf-8?B?WjhUK09kS1lGbkZ2eU1wNHFDNkdXNEhZNjMzOVRMZ1Q4a3JucGhhNGZadlF3?=
- =?utf-8?B?bnQ3bVNWcGZEbTB6cW84cHVUQ0N0ZUZoOGowQjdhc2NrbGJhd0czbittQjhB?=
- =?utf-8?B?Y3ZPQk5USUNwZDN6cEUzUlNFM3EwTE9lVFVld1R3bW5zQy9kYS9qcmdEYXVX?=
- =?utf-8?B?a21sc0JYdzZSRCtvNkFXSzRYeDMzMFUraVJmQnpnRzM2MFhyQmpqK3pWZ3Fk?=
- =?utf-8?B?UGdqWG1zYXFNZElIVWZCeW5pMlZpcXNQdjJNQmZwRXNFZTdMczNZSzFFdDlu?=
- =?utf-8?B?S3plajBBWlZibU0rbWxIcTRIS0hnUzQvTkViM3F0M3BGRXNJaGJnQXJUc3k0?=
- =?utf-8?B?Z3NHSTIxRXNjUnZ4RjVlbVJuMC9SZHpqS1E3RkFBcG13WXdKWjNDSUwzWkFm?=
- =?utf-8?B?eEtXOHU4Y2doVTZ1UGN3RzYxTGRLU3VFdHc3Qjl3TEpkcVhaU0hjYnJmNTVT?=
- =?utf-8?B?QktrRGxSN09BWUVlVHYvc2RnY29UbkdDZUZVQytvVy9LanFrOHU3aUVWaTln?=
- =?utf-8?B?bENDQ25lMTRma0tDVWVaV2FYYXZGNzQ4UkFTZlQ1eFVvSjgxSzEvbUN2Z1Vx?=
- =?utf-8?B?ZnVIMU9XSU5ValpGM3FoTTQ2YmJldHY2TGdnZFhjM2ZuVW5oK3Vxd29Hckdt?=
- =?utf-8?B?SlZhYjk0MG5IMU9GRDFKWTlnNWJWQU9qUWoxMVNqS1BvWmhsN2pqc3dCOVdx?=
- =?utf-8?B?eDdlUERMVDVhS2JoaXNsN2c0MGd3dGZXemo2WDNwZys0a3hGa21Rb3I2Ky96?=
- =?utf-8?B?eUNUSytoMUJ1YWthaDFmUFErSWFGSmgzaFVkUzdyckRqOTlXRnkyQUp1a0xD?=
- =?utf-8?B?akJ0cjBrQ3VTTVpxSkdrM0U0Smljc0VraTY4R1R4di9iMGVjbGdJNEkwRjhZ?=
- =?utf-8?B?djgyaFYyZW1JUWtyU2FGU2pSYTRza1dHcUN4KzU4MTRmbWlYVS8zWDRLNWdq?=
- =?utf-8?B?Q3BPVVJYdVZqZjhyTll3TElBcTBlb3lYaU04eHIzQWpRelBWZlptRm12R2J0?=
- =?utf-8?B?ZjNlOCtzZ2ZhYy9USFV6bThUNnFHMFdweDZJaUNHb0RLajQ1ODFwY0l4ekYv?=
- =?utf-8?B?R1MvZnRISHVmNWlFd2VJLzFZclZtMG9vRVJmQ2V6d0hXTmhRVFBpTXcvQVdt?=
- =?utf-8?B?WTVzeTNDMndoVzNyTUZldHpKQnZROWtRSklSVHBIZkJWS3JvOUlSSVNhQTVQ?=
- =?utf-8?B?aktTZXJpaEwrK3dKRTlZNjRCSXQ3MjVzTjZudVQ3TkI0b0p3aENibjZRK2Fu?=
- =?utf-8?B?WUxsbUpQNGVFNHlzZGNRMHlHbWpydGRPLzAwWTNVcUJMQVdsMUdENzhiK2dx?=
- =?utf-8?B?K2RSYzZrMXI5RzdpUmNENUlVempCWDBBTU5JL0FlUWJ5VnNIaTVSd2NaczhS?=
- =?utf-8?B?TzdPY2o0bzNCNHd2N0U0aWhoOE9mYUdHd2RwMjhPLyt5a01IZWxZdVZGVDln?=
- =?utf-8?B?N2twU01LTGJGNW5GdGFzTmVHeXE3cjQ3NUZ5YVNJSXdMZzBiSW0wQ25jdkdw?=
- =?utf-8?B?SXpOOUpXQmdTL1cxdVVtYlpmVkFPcU14YzlmdmJoQzVyV3V5WDlqYlNVT3Rh?=
- =?utf-8?B?ZEpLeU43S1pTalp4UkVNbTJ5NVpyUUZlcGVrdHZXb0ZyaGUzNnhHOEx1Mkhi?=
- =?utf-8?B?bFZDaXdQdmFzbmJLcmhHRCs2cG1INDE5a2xBYUdFZVJiNW95TTJjQ3JFVzg1?=
- =?utf-8?B?L1YwNzkrcXhnVWJ3eGxXRXI5UEs0a1A2QXZ0cUF1dHNxWDFJYUpQUDkxbUZS?=
- =?utf-8?B?cG5qdkxpbjRINVBXcTl0cHNGZ0NJdUFqalRqTzlkc0c1OWt6UGNoRzZZRU1L?=
- =?utf-8?B?U28xSVFIMnJrT3dycUVWMlZaY2VVSS9rQlZqYk80UXZyeGlRZzB2RGtSRGFk?=
- =?utf-8?B?OGxqMWpaRktwdmx5S0hVUWhyNzcwYzFabi85dlVCR3VjbmhyVlhYTVUxbDBF?=
- =?utf-8?B?TjdTNnZPUEhMTXVNQXRsUkJnUkdoY2N0eDdDK3gxZ3VERFp6aEFDbDRCTW1W?=
- =?utf-8?B?YWYrSndZdVdKRHZBUmlhTUFzSWhBZlkyNTAvM1lUdStGUU0rN0pkdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e3241f5-7878-4228-e9b7-08df2950fe43
-X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 17:39:55.2420
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7VnyCDokTS/KXQ6DC0PNpmiGhEpJtWVUDd3WidOi9aj0+7omJ0b+y3ApYOXbAQa6NodzPs58kWb0u24vCmZ4hA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8777
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-09 23:02, Henry Martin wrote:
-> The check-and-allocate sequence on pdd->qpd.proc_doorbells is
-> lockless at every call site of kfd_alloc_process_doorbells():
-> kfd_get_process_doorbells() (mmap of /dev/kfd),
-> kfd_ioctl_create_queue() and the CRIU restore path each test the
-> pointer under different locking (or none), so two racing threads can
-> both observe NULL and each allocate a doorbell BO and bitmap,
-> orphaning one allocation and handing the two mappings different
-> backing pages.
->
-> Move the serialization into kfd_alloc_process_doorbells() itself,
-> using a new per-process-device mutex so all three call sites are
-> covered regardless of their own locking.  The device-global
-> kfd->doorbell_mutex is not suitable here: it is acquired under
-> dqm->lock on the kernel-doorbell path (start_cpsch() -> pm_init() ->
-> kq_initialize() -> kfd_get_kernel_doorbell()), so holding it across
-> the sleeping allocations above would create a lock-ordering
-> inversion with dqm->lock via TTM eviction, and it would also
-> serialize doorbell setup of unrelated processes behind a
-> device-wide lock for per-process state.
->
-> This issue was discovered by Tencent CodeBuddy Security.
->
-> Cc: stable@vger.kernel.org
-> Fixes: 2105a15a2046 ("drm/amdgpu: use doorbell mgr for kfd process doorbells")
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 
-I don't think the Fixes tag is correct, even though that's what Claude 
-suggested. As far as I can see, the code had the same possible race 
-condition before that change. I believe the problem goes back all the 
-way to 16f0013157bf ("drm/amdkfd: Allocate doorbells only when needed"). 
-If you don't mind, I'll update that in the commit description before I 
-submit your patch. With that, the patch is
+[ Upstream commit ac022970e9fb0a5f7e7d1f6c8e104c1ed924dd1c ]
 
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+An RFCOMM connect() issued while a BR/EDR link is being authenticated
+makes lockdep report a circular dependency, and the reported cycle is a
+real AB/BA between rfcomm_mutex and hdev->lock.
 
-Thanks,
-   Felix
+rfcomm_security_cfm() is called from the HCI event path, which already
+holds hdev->lock:
 
+  hci_rx_work()
+    hci_event_packet()
+      hci_cc_read_enc_key_size()   [hdev->lock]
+        hci_encrypt_cfm()          [hci_cb_list_lock]
+          rfcomm_security_cfm()    [rfcomm_mutex]
 
-> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-> ---
->
-> v2: Use a per-process-device mutex instead of kfd->doorbell_mutex
->      (avoids the dqm->lock ordering inversion and the device-wide
->      serialization) and correct the Fixes tag.  Pointed out by Felix
->      Kuehling.
->
->   drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 15 ++++++++++++++-
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h     |  3 +++
->   drivers/gpu/drm/amd/amdkfd/kfd_process.c  |  1 +
->   3 files changed, 18 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> index fdcf7f2d1b5b4..55acadc986bee 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> @@ -257,12 +257,21 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
->   	int r;
->   	struct qcm_process_device *qpd = &pdd->qpd;
->   
-> +	mutex_lock(&pdd->doorbell_mutex);
-> +
-> +	/* Another thread may have won the check-and-allocate race */
-> +	if (qpd->proc_doorbells) {
-> +		mutex_unlock(&pdd->doorbell_mutex);
-> +		return 0;
-> +	}
-> +
->   	/* Allocate bitmap for dynamic doorbell allocation */
->   	qpd->doorbell_bitmap = bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS,
->   					     GFP_KERNEL);
->   	if (!qpd->doorbell_bitmap) {
->   		DRM_ERROR("Failed to allocate process doorbell bitmap\n");
-> -		return -ENOMEM;
-> +		r = -ENOMEM;
-> +		goto unlock;
->   	}
->   
->   	r = init_doorbell_bitmap(&pdd->qpd, kfd);
-> @@ -284,11 +293,15 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
->   		DRM_ERROR("Failed to allocate process doorbells\n");
->   		goto err;
->   	}
-> +
-> +	mutex_unlock(&pdd->doorbell_mutex);
->   	return 0;
->   
->   err:
->   	bitmap_free(qpd->doorbell_bitmap);
->   	qpd->doorbell_bitmap = NULL;
-> +unlock:
-> +	mutex_unlock(&pdd->doorbell_mutex);
->   	return r;
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index d8631847f0eb9..96e59133fee02 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -779,6 +779,9 @@ struct kfd_process_device {
->   	/* per-process-per device QCM data structure */
->   	struct qcm_process_device qpd;
->   
-> +	/* Serializes process doorbell allocation for this device */
-> +	struct mutex doorbell_mutex;
-> +
->   	/*Apertures*/
->   	uint64_t lds_base;
->   	uint64_t lds_limit;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index 0a7c1900da959..4efe4dae79c13 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -1788,6 +1788,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_node *dev,
->   	pdd->dev = dev;
->   	INIT_LIST_HEAD(&pdd->qpd.queues_list);
->   	INIT_LIST_HEAD(&pdd->qpd.priv_queue_list);
-> +	mutex_init(&pdd->doorbell_mutex);
->   	pdd->qpd.dqm = dev->dqm;
->   	pdd->qpd.pqm = &p->pqm;
->   	pdd->qpd.evicted = 0;
+while an RFCOMM connect() from userspace takes the same two locks the
+other way round:
+
+  rfcomm_sock_connect()
+    rfcomm_dlc_open()              [rfcomm_mutex]
+      __rfcomm_dlc_open()
+        rfcomm_session_create()
+          kernel_connect()
+            l2cap_sock_connect()
+              l2cap_chan_connect() [hdev->lock]
+
+  WARNING: possible circular locking dependency detected
+  kworker/u131:1/1128 is trying to acquire lock:
+  rfcomm_mutex, at: rfcomm_security_cfm+0x31/0x3e0 [rfcomm]
+  but task is already holding lock:
+  hci_cb_list_lock, at: hci_cc_read_enc_key_size+0x1d2/0xcc0
+  Chain exists of:
+    rfcomm_mutex --> &hdev->lock --> hci_cb_list_lock
+
+hci_auth_complete_evt() and hci_encrypt_change_evt() reach the callback
+the same way.
+
+Both orders have to be seen in the same boot, which is why a BR/EDR
+connection alone is not enough to show it: a session set up by the
+remote side is created by rfcomm_accept_connection() in krfcommd, which
+calls kernel_accept() and never takes hdev->lock under rfcomm_mutex.
+Connecting a device that authenticates and encrypts the link and then
+calling connect() on an RFCOMM socket towards any address - the connect
+does not have to succeed, the order is recorded before the page timeout
+- reports it every time.
+
+Only the session socket has to be connected with the lock held, and it
+does not: nothing else can see the socket before it is put on the
+session list.  So connect it first and take rfcomm_mutex afterwards,
+which removes the rfcomm_mutex -> hdev->lock order for good, rather
+than keeping the HCI event path out of rfcomm_mutex.
+
+rfcomm_session_create() becomes rfcomm_session_connect(), which returns
+the connected socket without touching the session list, and
+rfcomm_dlc_open() adds the session once it holds the lock again.  If
+another opener added a session for the same pair while this socket was
+connecting, that session is used and this socket is dropped.
+__rfcomm_dlc_open() now takes the session it should use, and its state
+check runs after the lock is re-acquired, so a DLC that was opened or
+closed in the meantime is still handled.
+
+Over an existing ACL link the connection can complete before the
+session reaches the list, and the wakeup from the socket callback is
+then lost, so krfcommd is woken once the session is visible.
+
+Connecting without the lock opens a window in which the socket can be
+closed.  The DLC is not on a session yet, so rfcomm_dlc_close() finds
+nothing to do and returns without touching it, and rfcomm_dlc_open()
+would then attach a DLC whose owner is gone.  rfcomm_dlc_close() now
+marks such a DLC with RFCOMM_CLOSED, and rfcomm_dlc_open() checks the
+mark once it holds rfcomm_mutex again and drops the socket instead of
+attaching the DLC.  The mark is cleared when an open starts, so a DLC
+that is reused is not affected.  This covers both callers of
+rfcomm_dlc_open(), the socket and the tty layer.
+
+Fixes: 759c185d0bbd ("Bluetooth: RFCOMM: serialize security confirmation handling")
+Suggested-by: Pauli Virtanen <pav@iki.fi>
+Reported-by: Pauli Virtanen <pav@iki.fi>
+Closes: https://lore.kernel.org/linux-bluetooth/5e76a95e934e451e7006db28827c2d64af5a88be.camel@iki.fi/
+Reported-by: syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/linux-bluetooth/6a92fadc.08e933ee.dbf97.008f.GAE@google.com/
+Reported-by: Jiaming Zhang <r772577952@gmail.com>
+Closes: https://lore.kernel.org/all/CANypQFabseTuRiyz2pGkc_Qj0moGDnY7KEp1qdTOqkw6gAL3hw@mail.gmail.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Tested-by: syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+[ sashal: changed the kernel_connect() address cast from struct sockaddr_unsized * to struct sockaddr * ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ include/net/bluetooth/rfcomm.h |   1 +
+ net/bluetooth/rfcomm/core.c    | 134 +++++++++++++++++++++++----------
+ 2 files changed, 96 insertions(+), 39 deletions(-)
+
+diff --git a/include/net/bluetooth/rfcomm.h b/include/net/bluetooth/rfcomm.h
+index ba8d3702853d2..d483830188f38 100644
+--- a/include/net/bluetooth/rfcomm.h
++++ b/include/net/bluetooth/rfcomm.h
+@@ -210,6 +210,7 @@ struct rfcomm_dlc {
+ #define RFCOMM_AUTH_REJECT  7
+ #define RFCOMM_DEFER_SETUP  8
+ #define RFCOMM_ENC_DROP     9
++#define RFCOMM_CLOSED       10
+ 
+ /* Scheduling flags and events */
+ #define RFCOMM_SCHED_WAKEUP 31
+diff --git a/net/bluetooth/rfcomm/core.c b/net/bluetooth/rfcomm/core.c
+index 6324e03ff0d07..1e21e1e38543f 100644
+--- a/net/bluetooth/rfcomm/core.c
++++ b/net/bluetooth/rfcomm/core.c
+@@ -63,10 +63,9 @@ static void rfcomm_make_uih(struct sk_buff *skb, u8 addr);
+ 
+ static void rfcomm_process_connect(struct rfcomm_session *s);
+ 
+-static struct rfcomm_session *rfcomm_session_create(bdaddr_t *src,
+-							bdaddr_t *dst,
+-							u8 sec_level,
+-							int *err);
++static struct socket *rfcomm_session_connect(bdaddr_t *src, bdaddr_t *dst,
++					     u8 sec_level, int *err);
++static struct rfcomm_session *rfcomm_session_add(struct socket *sock, int state);
+ static struct rfcomm_session *rfcomm_session_get(bdaddr_t *src, bdaddr_t *dst);
+ static struct rfcomm_session *rfcomm_session_del(struct rfcomm_session *s);
+ 
+@@ -364,28 +363,17 @@ static int rfcomm_check_channel(u8 channel)
+ 	return channel < 1 || channel > 30;
+ }
+ 
+-static int __rfcomm_dlc_open(struct rfcomm_dlc *d, bdaddr_t *src, bdaddr_t *dst, u8 channel)
++static int __rfcomm_dlc_open(struct rfcomm_dlc *d, struct rfcomm_session *s,
++			     u8 channel)
+ {
+-	struct rfcomm_session *s;
+-	int err = 0;
+ 	u8 dlci;
+ 
+-	BT_DBG("dlc %p state %ld %pMR -> %pMR channel %d",
+-	       d, d->state, src, dst, channel);
+-
+-	if (rfcomm_check_channel(channel))
+-		return -EINVAL;
++	BT_DBG("dlc %p state %ld session %p channel %d",
++	       d, d->state, s, channel);
+ 
+ 	if (d->state != BT_OPEN && d->state != BT_CLOSED)
+ 		return 0;
+ 
+-	s = rfcomm_session_get(src, dst);
+-	if (!s) {
+-		s = rfcomm_session_create(src, dst, d->sec_level, &err);
+-		if (!s)
+-			return err;
+-	}
+-
+ 	dlci = __dlci(__session_dir(s), channel);
+ 
+ 	/* Check if DLCI already exists */
+@@ -420,14 +408,84 @@ static int __rfcomm_dlc_open(struct rfcomm_dlc *d, bdaddr_t *src, bdaddr_t *dst,
+ 
+ int rfcomm_dlc_open(struct rfcomm_dlc *d, bdaddr_t *src, bdaddr_t *dst, u8 channel)
+ {
+-	int r;
++	struct rfcomm_session *s;
++	struct socket *sock;
++	int err;
++
++	BT_DBG("dlc %p state %ld %pMR -> %pMR channel %d",
++	       d, d->state, src, dst, channel);
++
++	if (rfcomm_check_channel(channel))
++		return -EINVAL;
+ 
+ 	rfcomm_lock();
+ 
+-	r = __rfcomm_dlc_open(d, src, dst, channel);
++	clear_bit(RFCOMM_CLOSED, &d->flags);
+ 
++	/* Do not page the remote device for a DLC that cannot be opened
++	 * anyway.  __rfcomm_dlc_open() looks at the state again once the
++	 * lock has been re-acquired below.
++	 */
++	if (d->state != BT_OPEN && d->state != BT_CLOSED) {
++		rfcomm_unlock();
++		return 0;
++	}
++
++	s = rfcomm_session_get(src, dst);
++	if (s) {
++		err = __rfcomm_dlc_open(d, s, channel);
++		rfcomm_unlock();
++		return err;
++	}
+ 	rfcomm_unlock();
+-	return r;
++
++	/* There is no session for this pair yet.  kernel_connect() ends up in
++	 * l2cap_chan_connect(), which takes hdev->lock, and the HCI event
++	 * path takes rfcomm_mutex while holding hdev->lock, so the socket has
++	 * to be connected with rfcomm_mutex released.
++	 */
++	sock = rfcomm_session_connect(src, dst, d->sec_level, &err);
++	if (!sock)
++		return err;
++
++	rfcomm_lock();
++
++	/* The DLC may have been closed while the socket was connecting.  It
++	 * was not on a session, so rfcomm_dlc_close() could only mark it;
++	 * attaching it now would leave it with no owner.
++	 */
++	if (test_bit(RFCOMM_CLOSED, &d->flags)) {
++		rfcomm_unlock();
++		sock_release(sock);
++		return -ECONNRESET;
++	}
++
++	/* Another opener may have added a session for the same pair in the
++	 * meantime; that one is used and this socket is dropped.
++	 */
++	s = rfcomm_session_get(src, dst);
++	if (!s) {
++		s = rfcomm_session_add(sock, BT_BOUND);
++		if (s) {
++			s->initiator = 1;
++			sock = NULL;
++		}
++	}
++
++	err = s ? __rfcomm_dlc_open(d, s, channel) : -ENOMEM;
++
++	rfcomm_unlock();
++
++	if (sock)
++		sock_release(sock);
++
++	/* Over an existing ACL link the connection can complete before the
++	 * session reaches the list, and that wakeup is then lost, so let
++	 * krfcommd look at the socket state now.
++	 */
++	rfcomm_schedule();
++
++	return err;
+ }
+ 
+ static void __rfcomm_dlc_disconn(struct rfcomm_dlc *d)
+@@ -507,8 +565,14 @@ int rfcomm_dlc_close(struct rfcomm_dlc *d, int err)
+ 	rfcomm_lock();
+ 
+ 	s = d->session;
+-	if (!s)
++	if (!s) {
++		/* Not on a session yet: rfcomm_dlc_open() may be connecting a
++		 * socket for it with rfcomm_mutex released.  Leave a mark so
++		 * that it does not attach the DLC once it holds the lock again.
++		 */
++		set_bit(RFCOMM_CLOSED, &d->flags);
+ 		goto no_session;
++	}
+ 
+ 	/* after waiting on the mutex check the session still exists
+ 	 * then check the dlc still exists
+@@ -756,12 +820,12 @@ static struct rfcomm_session *rfcomm_session_close(struct rfcomm_session *s,
+ 	return rfcomm_session_del(s);
+ }
+ 
+-static struct rfcomm_session *rfcomm_session_create(bdaddr_t *src,
+-							bdaddr_t *dst,
+-							u8 sec_level,
+-							int *err)
++/* Creates the L2CAP socket a new session will run on and starts connecting
++ * it.  Must be called with rfcomm_mutex released.
++ */
++static struct socket *rfcomm_session_connect(bdaddr_t *src, bdaddr_t *dst,
++					     u8 sec_level, int *err)
+ {
+-	struct rfcomm_session *s = NULL;
+ 	struct sockaddr_l2 addr;
+ 	struct socket *sock;
+ 	struct sock *sk;
+@@ -791,24 +855,16 @@ static struct rfcomm_session *rfcomm_session_create(bdaddr_t *src,
+ 		l2cap_pi(sk)->chan->mode = L2CAP_MODE_ERTM;
+ 	release_sock(sk);
+ 
+-	s = rfcomm_session_add(sock, BT_BOUND);
+-	if (!s) {
+-		*err = -ENOMEM;
+-		goto failed;
+-	}
+-
+-	s->initiator = 1;
+-
+ 	bacpy(&addr.l2_bdaddr, dst);
+ 	addr.l2_family = AF_BLUETOOTH;
+ 	addr.l2_psm    = cpu_to_le16(L2CAP_PSM_RFCOMM);
+ 	addr.l2_cid    = 0;
+ 	addr.l2_bdaddr_type = BDADDR_BREDR;
+ 	*err = kernel_connect(sock, (struct sockaddr *) &addr, sizeof(addr), O_NONBLOCK);
+-	if (*err == 0 || *err == -EINPROGRESS)
+-		return s;
++	if (*err && *err != -EINPROGRESS)
++		goto failed;
+ 
+-	return rfcomm_session_del(s);
++	return sock;
+ 
+ failed:
+ 	sock_release(sock);
+-- 
+2.53.0
+
