@@ -1,77 +1,298 @@
-Received: from irl.hu (irl.hu [95.85.9.111])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D5793A1A56;
-	Tue, 13 Oct 2026 09:57:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.85.9.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 416DE31618B
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 09:58:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791885473; cv=none; b=KVrRuZ3Jr09qBb5zSPp7NcOXs0VmlwGSGMv7y2cmv6hn/s1yRI+jhilYUGtYx39tL7iFap4ig6Umq6Xen0JFj2l65uRoJC9k3C3N6ICaTMCgSPJrNfZbq94C4yJCoEVq14+scSC9rlXlrj9MobxDeMPLX0dPsT8k5we1CjJt5Ag=
+	t=1791885485; cv=none; b=p4kMEbLzjULaOUZxPwBS6AlQjnDl6KOj12D2hKQca/n8tHNfqMCJOEtjocFlraxJ2DpmmlLe2mygmQXOjVJyvKKX4WV8KV+sg0iPNXAKf3KZ+01l7xrWhy78DQ3pGZ3cmQTn5DFPTt3zvNz/+LAAShsUAXaFYFqLM4EOXt/G5t4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791885473; c=relaxed/simple;
-	bh=elZlIXvUMnp/geopM9cCW2TMimJmZqdyLzKhbGMqQNI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=QBprF5ko4RrLXyjITOKM3vIbPxKecnI9kimJTUg3I/6tc0Hh7Tx/b5JJRKFW/MFO5YS49g53yD7KJgv1okHagq9w5ZQfsHz40Um+piZsiX97IKSvXdrFbZmyg8F0Q2hkNbV5hYM5FbA+wK7U0AldENzAdUDvo4vLfZCbyPE4/QU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irl.hu; spf=pass smtp.mailfrom=irl.hu; arc=none smtp.client-ip=95.85.9.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irl.hu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=irl.hu
-Received: from fedori.lan (51b68c74.dsl.pool.telekom.hu [::ffff:81.182.140.116])
-  (AUTH: PLAIN soyer@irl.hu, )
-  by irl.hu with ESMTPSA
-  id 00000000000C70B2.000000006ACE0098.003393F6; Tue, 13 Oct 2026 11:57:44 +0200
-From: Gergo Koteles <soyer@irl.hu>
-To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-  Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
-  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-  Philipp Oster <philippdev5396@outlook.de>,
-  Georg Wenzel <g.wenzel@gmail.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-  alsa-devel@alsa-project.org, Gergo Koteles <soyer@irl.hu>,
-  stable@vger.kernel.org
-Subject: [PATCH 2/2] ALSA: hda/tas2781: Skip invalid TAS2563 UEFI calibration data
-Date: Tue, 13 Oct 2026 11:57:04 +0200
-Message-ID: <36db4b33db6ef538103867afb793f12f86520ae0.1791883592.git.soyer@irl.hu>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <cover.1791883592.git.soyer@irl.hu>
-References: <cover.1791883592.git.soyer@irl.hu>
+	s=arc-20240116; t=1791885485; c=relaxed/simple;
+	bh=b78OH44dk3W7bznJ8EXqzn2H7m89nwXtdkJrfQuGZq8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=oXTmcRGD8kMefzXm9ebNk7b00gp/745ZUzzNg3rZwFUmKtv1O+ezmjhu1geXo/gHs/p3WG7SwbrQuj7oFOvzowoa/yjkqb9Q7r8imuKZXdXsUkfuD6UVbNCiIuUoK2Wa/5oxjL0SctykFru+eOGTFGWfJs1+7QAl/0bQ/tQrESQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kBd09fqX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BD6R/b0P; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kBd09fqX";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BD6R/b0P"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D7Oaf2015549
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 09:58:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=XQ5iQnNPR8pVf/sjy9fV4D
+	Tar/X6Zhmuz/nTn3PkjgY=; b=kBd09fqXlbCyANCX5OGy8EHKW1W9sI21EAkaST
+	WokDjcM5G/g4MVhPkRQk8OenoT45lCXZEN9XEQ/wFq3TyaVaDtWk98H8OyPoEfqU
+	IzGgRt8YBOWz/3LBl2t/LfDZy3Avea/ayxINEFhOAv1enN4EiBIvIE06MbNVGqCb
+	JkjKBYgDocG6maqMEYKyIIjzdAS4GlMvDDk6uVmZYtDbPPzjzaxMF3ClGGN/MGgk
+	Ks72G9wHbOeWDpNLo6YDQODNcpJxu0V7eDl1V/7DwwI7s0wjRh4HjKEgisUf2GeF
+	PDYkJFbdY3PiLNeGLrtYWdgOy4yXbUXJgTor0wOoMhokwwVA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9g7ugmj4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 09:58:03 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93dea1b6c89so536272685a.2
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 02:58:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791885482; x=1792490282; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=XQ5iQnNPR8pVf/sjy9fV4DTar/X6Zhmuz/nTn3PkjgY=;
+        b=BD6R/b0P6aciBrtVg1/Bv5l5DwgpEsFjfgO/LtJMyTaH+5aw78P5sPBPGw2bBvZG2d
+         +pSS5/mU1N+cIbglqMBb4AWeSpkaqFoTD4FVsB0IxrOuRBIPYbWFwTkMoAAXdt1LVfw9
+         MOkOiEerxuaaJ23Aav9uPXkN2a+qt6SvM/sZC+yK4Vq9MydPdhcX47yuWOh+XFe9ECOO
+         yJ2T5Nqh322Zl6Nr5sq3eiU1OnOp2kWGlFydYgd8pn5hoe0p4/DyStSKDab/ftH2gcu+
+         XD5sCFbXhf3BvqENWOddo4ferc1HXGV1RKaMF9BLnlj5YGzx8ZcXf+IjYRFkTYbnfAu/
+         Hw1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791885482; x=1792490282;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=XQ5iQnNPR8pVf/sjy9fV4DTar/X6Zhmuz/nTn3PkjgY=;
+        b=qqOKB9qHAzOwynreaJY8nR/n2U8tQoFkpuS31aeOzI6AZttiNCmcyaS5Bm0ZC/cyD0
+         NfnkP4MLmkestY+5cGY96N70L44LhN72lFir1/055TPEO3kf9Cm8Fc+jvdM8pkSe8LPP
+         3Wmh0Xp9otq5NQtRJb4Y+tUHozA9PnG3JDaXIxN3jktU3SgxfaGOmKcyeNrWV5Ol0JAT
+         3GHgYM9uI6Sn4HIVVyebTHXrnayBWSMx08bcT8qBRBEafzWragbIvm5ajH3+r9pXT5f8
+         a7MXDRpXXZdADuxcDcPK8ChUT+Ojn9wbcHUxqHND2v0aQbRyGpkF1w5/tIGcNznn1ZRu
+         +V5Q==
+X-Forwarded-Encrypted: i=1; AKwUvByXV4zSHr9/Xj6IiybVpDecixjsZE15fqLHCY+Q/ZxTgLq0kd10BJFAwWFpFcO0UslbiGKUgG8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLsfJhQbVpeV8IAyI85vrxM7N55cntJAMxgrC4torTaJN31JDuy
+	x1NOUa9sv7fQgmav3s0wAeDdp3jkan5XeCEm8D+bsWJ+GLGcUlbEU3aixK/RzoeH56RHpObtTWu
+	AD3KsEA7sclBNEBw6UVJrw9djyplaSuZ+1qMfd1uAn3PNO2Wj0UlXZQ5jcSo=
+X-Gm-Gg: AYBFou14aADhO5bhYpvETB/M2zqYyJRW9lEu9fjHU793+d493yQHAaFMfcXgFRqbki3
+	VICr4Gg6V/g2XtcVrNNz9W1CpKQ+cDwiDJlSZZ+x0yN0ENcgHgV7qVgvsXQLdS+t2OYufVrNC46
+	zQr0NMkiBl1dxSCeAzqCqoNUVhLi1y16Lpuh3m0XW5ltSYldN0sXlYbbvwy1Hqftorxk0UC2Qj5
+	y/R8yK7yvRDx8cVMN9XHOdV8zAPKo9Gn76ypJ3a2sGhXD9wDE5hsuQLkfTddctvsC5Xakv2XbZO
+	AMrHkEis5cszxMZ0EgRxwOwUbTezda761dvPPwhGeE+EOAv18eE7KM0bN1EL5fGWg7w3qzggBww
+	rWVyslfZHbJ8bT9bpvQk0ZpffdAeG
+X-Received: by 2002:a05:620a:19a8:b0:93e:74e5:2b1a with SMTP id af79cd13be357-93ebd0e4407mr1897089885a.10.1791885482343;
+        Tue, 13 Oct 2026 02:58:02 -0700 (PDT)
+X-Received: by 2002:a05:620a:19a8:b0:93e:74e5:2b1a with SMTP id af79cd13be357-93ebd0e4407mr1897086085a.10.1791885481808;
+        Tue, 13 Oct 2026 02:58:01 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bb6beaesm209412025e9.0.2026.10.13.02.57.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 02:57:59 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH v10 00/14] crypto: qce - Fix crypto self-test failures
+Date: Tue, 13 Oct 2026 11:57:29 +0200
+Message-Id: <20261013-qce-fix-self-tests-v10-0-57162a38a554@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mime-Autoconverted: from 8bit to 7bit by courier 1.0
+X-B4-Tracking: v=1; b=H4sIAIoAzmoC/3XSwW7DIAwA0F+pOI8KXMCw0/5j2oECXiO1zRqya
+ FPVf59baWoOcEGyBQ8bcxW1TEOp4nVzFVNZhjqMZw60etmIdIjnzyKHzAkBCpxyWslLKpKGH1n
+ LkeRc6lylCUCUoVCwVvDBr6nwjof6/sHxYajzOP0+Llngnv3nbItbQCqZU9CadIzZwNtY6/byH
+ Y9pPJ22vIi7uuzWEjalHUslJdibXHKi3JHMSgJoSoYlQ54bjahdch3JPiVUrilZlrwj4zSR9hA
+ 6kltJne7cvSZrES0VSy51JHxKoT3ABVlKeZ8BtY+kTUfyKwl0U/IsaYV2h96FiL3ZhbXUfvHA0
+ p4/ABooGCI1pNvt9gc/39s7wgIAAA==
+X-Change-ID: 20260610-qce-fix-self-tests-492ffd2ef955
+To: Thara Gopinath <thara.gopinath@gmail.com>,
+        Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>,
+        Stanimir Varbanov <svarbanov@mm-sol.com>,
+        Eneas U de Queiroz <cotequeiroz@gmail.com>,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Eric Biggers <ebiggers@kernel.org>,
+        Demi Marie Obenour <demiobenour@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Russell King <linux@armlinux.org.uk>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, brgl@kernel.org,
+        linux-arm-kernel@lists.infradead.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        stable@vger.kernel.org, Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6324;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=b78OH44dk3W7bznJ8EXqzn2H7m89nwXtdkJrfQuGZq8=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqzgCVQL4s5gavr3UglkZwz3d4nnyTokNOrqimg
+ Ty1GvfrxXyJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCas4AlQAKCRAFnS7L/zaE
+ w19VD/9ILs7+O4FP+h4MhIk6OCgKWqh65AiCLsfW0/xLm4Npaz4rQw/S3YCAuLJu0fIR9M/a8nt
+ IX3W2nG+U2yfqmXchdAGzKaDkaHh6/vZqL9qXAcwtdr5yEI4iBIA4/H6y7L8fC3t48pvu0eqM48
+ meDh/IARIfMfJvGUVlCs7t1TsHdVoFKmOxP6svaRmMszY4iNguw6WX7MRNJ2cGX+g7CmT7t4ADH
+ 8AGwQHm5w2wkD+O3+lTYqXkrMHbhFsec0UkVDE2tss6nradLRtp/CVG91Vie/oDOvZhjJQyWSP6
+ v5VbkAKMfui8DZH3uch6JUTZe0SAIDCmQwkJnv0CjO+Ae020jUbPMz7pPs7Wur2MZuIyZgtxGsu
+ 87i41GHa4zqpq+eoXsuUKq+K3PELqxJ+pixZWkek1SO1O3+m4di5Vrj9VJk943hZQMAsjNzKfgD
+ PmCmLz6MrBV28RtB76Sq0fW0MC12lZEcUFA1JK7GImA6YTygABY/xdvujp//niyOtoTPQEvzHle
+ BH+x1Uv/4wPlla2csvvd4QCmVpGUscGowamHaxbRogK9QuAoMALFQMWvP0ga6HQ0rc3H8wv3aIm
+ r1heNgox6bPwDzJS5mC3wuqJSmdsRsVkapVJV3NNdmwPfl7WO35Wo7LkR1Zp58F6uXYEbXbCe1v
+ pZmVt4rxpdGFa5w==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzOSBTYWx0ZWRfXye4GvciFbrFm
+ NaXxkdeBWG12tkK+0HLh4OnvMqRcVyD6wA5O6YWBVhj/GPdENVm90+6WwlDVzctymAsTzlutXj9
+ P3ujs7al0XMugAvZ3sumY0WLDdeup17cObCa4uV0lXucO0gjTyUy1y+T3id7od7gJ5rJ9TE0nTR
+ /m62N7fFRofWFN8flYuYJswYnW9PYSzh9L6pjl/PHywEGZ9DxhR2tVetbEnw9KGuz7dboZ5Ebz7
+ R9UR/JuLpcOJHi4xCe3SHGU64BLNRjDUylZdR7kLpkgMkGkXnPjv3N77shxG7vcOhJttBAFM3jl
+ JwC2OLOIoWmws7jJ96nOtcnT4umBgUrcoz1GyQXUJgtABGA+0ngFMZcHkNCwldbDCCm5SUIF4rw
+ rKKTfVlgDh589LEfDJiWoq1Ab+w1yQeqjazX3EtXcp4I7LTBhACWmqLe+pWoZxVkCpxKxODuDQB
+ tPbYOUfW/5h7Fqg5j3A==
+X-Authority-Analysis: v=2.4 cv=Z495j3RA c=1 sm=1 tr=0 ts=6ace00ab cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=WbXel1EKDWabkshC50YA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: 8q6L060TKIH-wX50kuXdivsaTxDO-tII
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzOSBTYWx0ZWRfX2atzRbEK+5UV
+ m2AnC5to1DmKVf6vpaKvWG41fhonYdCXOK/8a8MP3TGVv1F/T5BrUu3UtZkNHw0lIKeNFq6T0u9
+ 1CU0VPNCaLgOZAc2zZv7FXWVF8dlgkc=
+X-Proofpoint-GUID: 8q6L060TKIH-wX50kuXdivsaTxDO-tII
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015
+ malwarescore=0 priorityscore=1501 phishscore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130039
 
-Some Lenovo 14ARB7 laptops do not have proper calibration data.
+This iteration addresses issues raised by sashiko.
 
-Skip these zero calibration values and fall back to the calibration data
-provided by the DSP firmware.
+The QCE hardware crypto engine has several limitations that cause it to
+produce incorrect results or stall on certain inputs. This series fixes
+several bugs and adds workaround allowing the deiver to pass crypto
+self-tests.
 
-Tested-by: Georg Wenzel <g.wenzel@gmail.com>
-Fixes: c3ca4458cc2f ("ALSA: hda/tas2781: add TAS2563 support for 14ARB7")
-Cc: <stable@vger.kernel.org> # 6.18
-Signed-off-by: Gergo Koteles <soyer@irl.hu>
+The failures addressed are:
+
+- HMAC self-test failures for empty messages
+- AES-XTS returning success on zero-length input (should be -EINVAL)
+- AES-CTR: partial final block causes the engine to stall, output IV
+  derivation was incorrect
+- AES-XTS with key1 == key2 is not supported by the CE
+- AES-CCM: partial final block and fragmented payload both stall the
+  engine
+
+All fixes were tested on an SM8650 QRD board with
+CONFIG_CRYPTO_SELFTESTS=y and CONFIG_CRYPTO_SELFTESTS_FULL=y.
+
+Split the QCE driver into a core part necessary to bind to the QCE DT
+node and enable runtime power management in order to allow to drop the
+interconnect votes, and the crypto part registering the crypto
+algorithms. The core module is then enabled in arm64 defconfig while the
+crypto part stays disabled by default. In addition: the actual
+registration of crypto algos is gated with a module parameter that
+default to false.
+
+Note that remaining reported bugs will still be fixed in follow-up
+series. This series addresses self-tests and disables the algos by
+default.
+
+Merging strategy: patches 1-10 should go through the cryptodev tree and
+be backported to stable branches. Patches 11-14 are v7.4 material and
+I'll resend them separately.
+
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
- sound/hda/codecs/side-codecs/tas2781_hda_i2c.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Changes in v10:
+- don't pass a NULL buffer to sg_init_one()
+- fix byte order of the imported hash state on empty finalization
+- don't recompute the CTR counter in software for every request
+- reject skcipher requests with a too short scatterlist
+- check fragmentation for empty CCM decryption requests too
+- don't use a static loop iterator (duh...)
+- initialize the return value in qce_handle_queue()
+- Link to v9: https://patch.msgid.link/20260922-qce-fix-self-tests-v9-0-b1aa742e79af@oss.qualcomm.com
 
-diff --git a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
-index f1329bb6adcd..53d9c101b421 100644
---- a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
-+++ b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
-@@ -371,6 +371,11 @@ static int tas2563_save_calibration(struct tas2781_hda *h)
- 					i, j, status);
- 				return -EINVAL;
- 			}
-+			if (*(uint32_t *)&data[offset] == 0) {
-+				dev_warn(p->dev,
-+					 "Dev %d: Caldat[%d] is zero\n", i, j);
-+				return -EINVAL;
-+			}
- 			bedata = cpu_to_be32(*(uint32_t *)&data[offset]);
- 			memcpy(&data[offset], &bedata, sizeof(bedata));
- 			offset += TAS2563_CAL_DATA_SIZE;
+Changes in v9:
+- Rebase on top of cryptodev/master
+- Rephrase Kconfig help text changes
+- Link to v8: https://patch.msgid.link/20260921-qce-fix-self-tests-v8-0-107537869a72@oss.qualcomm.com
+
+Changes in v8:
+- Add a patch making the crypto driver *not* register algos by default
+  but only if the user explicitly requests it with the provided module
+  parameter
+- Use the "offloader" name for the crypto IP instead of "accelerator"
+- Fix device module table issues
+- Make the core driver use a list (despite it only having a single
+  member now) of child auxiliary devices to register to make it clear we
+  have the intention of extending this once we start the work on secure
+  media playback
+- Link to v7: https://patch.msgid.link/20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com
+
+Changes in v7:
+- Add follow-up changes converting the QCE crypto driver to auxiliary
+  bus, adding the core QCE driver under drivers/soc/ registering the
+  auxiliary device and removing the BROKEN Kconfig label
+- Link to v6: https://patch.msgid.link/20260717-qce-fix-self-tests-v6-0-455775fe5f6c@oss.qualcomm.com
+
+Changes in v6:
+- Handle all zero-length HMAC finalizations (like imported state with
+  data already hashed), not only the genuinely empty message case
+- Add an additional patch addressing the fragmented skcipher payload
+  issue
+- Link to v5: https://patch.msgid.link/20260706-qce-fix-self-tests-v5-0-86f461ff1829@oss.qualcomm.com
+
+Changes in v5:
+- Dropped patch 1/8 that's already queued
+- Use the pre-allocated fallback ahash for HMAC transforms (Herbert)
+- Link to v4: https://patch.msgid.link/20260622-qce-fix-self-tests-v4-0-4f82ffa716c6@oss.qualcomm.com
+
+Changes in v4:
+- Remove remaining ECB and DES3 bits
+- Pick up tags
+- Link to v3: https://patch.msgid.link/20260617-qce-fix-self-tests-v3-0-ecc2b4dedcfd@oss.qualcomm.com
+
+Changes in v3:
+- Remove even more algorithms and dead code in patch 1/8
+- Link to v2: https://patch.msgid.link/20260615-qce-fix-self-tests-v2-0-dc911f1aad42@oss.qualcomm.com
+
+Changes in v2:
+- Add fixes for the full suite of crypto self-tests
+- Add Fixes and Cc tags
+- Link to v1: https://patch.msgid.link/20260610-qce_selftest_fix-v1-0-1b0504783a46@oss.qualcomm.com/
+
+---
+Bartosz Golaszewski (12):
+      crypto: qce - Fix HMAC self-test failures for empty messages
+      crypto: qce - Reject empty messages for AES-XTS
+      crypto: qce - Use a fallback for AES-CTR with a partial final block
+      crypto: qce - Use fallback for fragmented skcipher payloads
+      crypto: qce - Use a fallback for CCM with a partial final block
+      crypto: qce - Use fallback for CCM with a fragmented payload
+      crypto: qce - Only register algos if the user really wants it
+      Revert "crypto: qce - Mark QCE as BROKEN"
+      crypto: qce - convert to auxiliary bus
+      soc: qcom: add core driver for the Qualcomm Crypto Engine
+      arm64: defconfig: enable the Qualcomm Crypto Engine core driver
+      arm: multi_v7_defconfig: enable the Qualcomm Crypto Engine core driver
+
+Kuldeep Singh (2):
+      crypto: qce - Fix CTR-AES for partial block requests
+      crypto: qce - Fix xts-aes-qce for weak keys
+
+ arch/arm/configs/multi_v7_defconfig |   1 +
+ arch/arm64/configs/defconfig        |   1 +
+ drivers/crypto/Kconfig              |  26 +++++----
+ drivers/crypto/qce/aead.c           |  44 ++++++++++++---
+ drivers/crypto/qce/cipher.h         |   1 +
+ drivers/crypto/qce/common.h         |   1 -
+ drivers/crypto/qce/core.c           | 107 ++++++++++++++++++------------------
+ drivers/crypto/qce/core.h           |   5 +-
+ drivers/crypto/qce/sha.c            |  74 ++++++++++++++++++-------
+ drivers/crypto/qce/skcipher.c       |  59 +++++++++++++++-----
+ drivers/soc/qcom/Kconfig            |  11 ++++
+ drivers/soc/qcom/Makefile           |   1 +
+ drivers/soc/qcom/qce-core.c         |  92 +++++++++++++++++++++++++++++++
+ 13 files changed, 313 insertions(+), 110 deletions(-)
+---
+base-commit: 666d66df25253070cb297cb920b0bcfcfe5eb871
+change-id: 20260610-qce-fix-self-tests-492ffd2ef955
+
+Best regards,
 -- 
-2.56.0
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
