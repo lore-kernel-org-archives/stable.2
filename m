@@ -1,117 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 976143B42FC
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:03:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3DEC47AF69;
+	Tue, 13 Oct 2026 17:03:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791911003; cv=none; b=lgT6bHgKqOielHDa3jmL3b6dgXW0pSAm+aQgIip7AGTfWOZzQukdLk+Cfs0lYSnaOv/OKnkPZdnQ/ITJhaVJv+RYq8cF4JuX0BQLSHt1SiSyaFrxRfe3pT/ATXw4Z/hQ2DqqXrotPlaI3tPUBDAcrUcvn5jQUbflXuH4I2y6K7E=
+	t=1791911036; cv=none; b=YWUa3Tfg0JL3BiMpuUZMhkNXpFuInD6bTnlxG3/eNERp4vye31UriW/H30ffdr8Cp7gb2tycX+a3D9Nh3VfuV5hWGrYYvmRT9yKSWC5LVYeIuGVjri/9m528EyFwQjV2jllMooOgFoYA4P9lfX3jC5CWKpHSD20gWzzZScGWfik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791911003; c=relaxed/simple;
-	bh=nGtEsFPmo1lMbRzF0qFl6lf7ZGOj0bXizioQ3LbuTz4=;
+	s=arc-20240116; t=1791911036; c=relaxed/simple;
+	bh=l4me5eq9qvD4sA95K/mdLe/rdGBXH223D/ydDo5UTqM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IS+XLILk2gXfai3iHR0/iDDJOcDKtdgWb5SiEgp2A8RnSv6JkuqHNPSmmEswucIHSV+LpiYir0LhLTOetvvWoYXTf8rU0CGj3ucOK5v+Ih2l2i1lrcjGGS1omCaeaFo2AfMPUA1ptTiRs8yPlKrGruqaDiwCXOn9pAymAGCdkXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hA7C6vYd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=QeDUxACi63Mun1pTjYgyIFbyC9t9E2RROJhSZpICJ7BEYlz4AvpyNARNA262zrjaBfIZ5atKMFVjg3J4y3QxKoMRXwwfhzqmvbKyycdK4F4/vjrUaupKNV92078+F5XRfF5jfNAIgr75Ey2tArlXbAZiVKQ4Tq/78FsTX2AccDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FhuKe9I8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hA7C6vYd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9717B1F000FF;
-	Tue, 13 Oct 2026 17:03:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FhuKe9I8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 972701F00893;
+	Tue, 13 Oct 2026 17:03:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791911002;
-	bh=yioia+bVMC9IwzRhQiPymg/dvZ51Ssg67WVfi8HZhPc=;
+	s=k20260515; t=1791911035;
+	bh=IdoTl08jwxNFavbJ/t/Zy3Nw20nqZDIgGX6bK/w//rg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hA7C6vYdkc0azvepJhI4QXJ/4FAHeDd6v2aFxgNZsmYnMQGoPPtaIHftecco/h1vs
-	 XPr2ugGiYSvOCPuIWVXaAKXsDR/xcYb96Fp+4JtObcDakakh5AVhnVdwB5WOcOPQ8d
-	 P4ZmBITmedYBuKa1S+bpDvqhWlt/rkumrOPv13YxzB4qaQcG4qUBbaF2loQ29W/jve
-	 3owNlrmtdbImedFYXgmE528SvH8aOHUoECk4R03raTsOtEOX9uqPVK8tZDSKzD9Ia1
-	 K4fvqGUU1SGnzi29cT5X6OBHTja9/cXevI80IqU4Ck6R4U+CEnvFqx/i0koTwO8/c3
-	 lbnoNRIWTma5Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	syzbot+ca23c8570669ead78867@syzkaller.appspotmail.com,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] drm/fb-helper: defer setup when fbdev_probe() fails, not just on -EAGAIN
-Date: Tue, 13 Oct 2026 13:03:20 -0400
-Message-ID: <20261013170308.397883-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101246-encourage-caboose-cffc@gregkh>
-References: <2026101246-encourage-caboose-cffc@gregkh>
+	b=FhuKe9I8vfsVThdx4aiGHURTiiMMpPo2mvOEy3E7cdkQoHjxaX4aJeO9C2SUvK5Z/
+	 +vFz6u4h9M5waNfUZpgdqZEEiJJSefjRevvNIkL/DV8HMQl7dUj6izvVZP2X4Hashd
+	 ov7AG8m3EKTTUnTvQgKy88xAXVYcHlS7uHGSyo1jp5FPs5ljbj2yoziRNx4qdtj93B
+	 5koy18UCHjIH+ux+QzJT8Cqyfd3BcXh8rPmQi6eMu/8pYyNS1vnsML3rQEyzTiL4fE
+	 R+r7AYg7Vblja9ljQwiTUIJHygeRhtu5m/j5Pu4N87vYsDLfbtXBzzy+Q4XbkF2vnc
+	 ecZRCkVimcIOg==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Miguel Ojeda <ojeda@kernel.org>
+Subject: Re: [PATCH 7.2 000/281] 7.2.11-rc1 review
+Date: Tue, 13 Oct 2026 19:03:43 +0200
+Message-ID: <20261013170343.22020-1-ojeda@kernel.org>
+In-Reply-To: <20261013112855.045212108@linuxfoundation.org>
+References: <20261013112855.045212108@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+On Tue, 13 Oct 2026 13:35:16 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.2.11 release.
+> There are 281 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Thu, 15 Oct 2026 11:28:22 +0000.
+> Anything received after that time might be too late.
 
-[ Upstream commit 755c94d178b7e972bb766199d34e4ba4f63a89eb ]
+Boot-tested under QEMU for Rust x86_64, arm64; built-tested for loongarch64
+and arm32:
 
-__drm_fb_helper_initial_config_and_unlock() calls
-drm_client_modeset_probe() first, which already fills in each
-mode_set->mode/num_connectors for every connected output, and only
-afterwards calls drm_fb_helper_single_fb_probe() to create
-fb_helper->fb and wire it into those mode_sets via
-drm_setup_crtcs_fb().
+Tested-by: Miguel Ojeda <ojeda@kernel.org>
 
-If drm_fb_helper_single_fb_probe() fails with anything other than
--EAGAIN (e.g. dev->driver->fbdev_probe() itself fails), the function
-bails out before drm_setup_crtcs_fb() runs and before setting
-fb_helper->deferred_setup. The client is left with mode_sets that
-have a mode and connectors but mode_set->fb == NULL, and nothing
-marks this fb_helper as needing a retry.
+riscv64 fails (as mentioned in the patch).
 
-__drm_fb_helper_restore_fbdev_mode_unlocked() only skips committing
-when fb_helper->deferred_setup is set, so a later .restore() call
-(drm_lastclose() on process exit, in this report) commits the stale
-mode_set through drm_client_modeset_commit() ->
-drm_client_modeset_commit_atomic() -> __drm_atomic_helper_set_config(),
-which hits WARN_ON(!set->fb).
+Thanks!
 
-Mark fb_helper->deferred_setup on any drm_fb_helper_single_fb_probe()
-failure, not just -EAGAIN, so restore keeps skipping the commit until
-a later hotplug event successfully re-probes and re-populates
-mode_set->fb. The real error code is still returned to the caller
-unchanged.
-
-Reported-by: syzbot+ca23c8570669ead78867@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=ca23c8570669ead78867
-Fixes: ca91a2758fce ("drm/fb-helper: Support deferred setup")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Link: https://patch.msgid.link/20260927075434.72658-1-ngocthang2710.1999@gmail.com
-Link: https://patch.msgid.link/20260917154743.1621-1-shechenglong@xfusion.com
-[ sashal: Moved the existing preferred_bpp assignment alongside deferred_setup because upstream’s earlier initialization is absent. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/drm_fb_helper.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index a0abfb3f05f04..954ca9215fb88 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -1942,11 +1942,11 @@ __drm_fb_helper_initial_config_and_unlock(struct drm_fb_helper *fb_helper,
- 	drm_client_modeset_probe(&fb_helper->client, width, height);
- 	ret = drm_fb_helper_single_fb_probe(fb_helper, bpp_sel);
- 	if (ret < 0) {
--		if (ret == -EAGAIN) {
--			fb_helper->preferred_bpp = bpp_sel;
--			fb_helper->deferred_setup = true;
-+		fb_helper->preferred_bpp = bpp_sel;
-+		/* modesets are probed but fb_helper->fb isn't; defer restore too */
-+		fb_helper->deferred_setup = true;
-+		if (ret == -EAGAIN)
- 			ret = 0;
--		}
- 		mutex_unlock(&fb_helper->lock);
- 
- 		return ret;
--- 
-2.53.0
-
+Cheers,
+Miguel
