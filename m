@@ -1,136 +1,180 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-yx2-f2.google.com (mail-yx2-f2.google.com [74.125.224.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E17B2EEE89
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 00:59:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791853160; cv=none; b=IXaiYWq/GglWIYkVm4YV8ZW8IKzHIi9gkilSWjI2fosMSDatpeDsz8UNPWmwXAzOk42Bz3cZQJSj79bMJcsOiwgvfvSVMBSM9TdEZseX7TMwaWmLWyS0A30Jr6MQQL+kdvq1zBGOZryRZSAoK205WJm/wsVsB2TeTXA8ZaR9UO8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791853160; c=relaxed/simple;
-	bh=7D0ueLF5U0UC1KdmFom1A5HOnKTONJlWgvjZkLkoPEY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U7qpoTMKhSH5u3gJRgOTTrNSUU4xzmqdCpUjlrHCh39FCKgUP5gmVYKsN4UlgLsaczP4oSbOOx0EhxSFCxYtWKjDJm9ZHNnRypzeOdKvr09Oe6eVCTHd1J6U0GyjhSx7w3f8m/3+0JW/0y+tp1g4fq9ZINZ8HxAUJUTX+BYKvmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=jYv90Qb3; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6822431E84B
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 01:03:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.130
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791853389; cv=pass; b=e6JYLGFWR0eaxc/oJiERnYLwyXEZZq3+Z8Om8S3LvFh3DhXjLJ089VPS9TiZ1odXfYC+xgzLBcXDWgwsfKbHUF5TPf/nNeDr76dkJlZO4u2zHP52ZiJ1jscdzwFIWYsrOp5ZnZWESS6srmQsqDBFEQNn/mS3XSHSg2PDzGofW30=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791853389; c=relaxed/simple;
+	bh=lowpFmrvsNjlgMHo2szT6XZJz28KEXOM+3vhDqNGI3s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AX+JOS/eJTdrkCr40Y8SJV5LFx3T68EOyfKMvPDm/q8nFsLUvWhSVmBAZwkaUGiy9vn9bF9UJETs5uIOdx15UkCJJYiye8kuGULhHOZzuWTxDozERkWd+reMY3PEgsVDsdmLZ4PH7I1sajoGejyHBGFbHm+QXkPf/ni9Zz9QVak=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l0Pd+vdV; arc=pass smtp.client-ip=74.125.224.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="jYv90Qb3"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e81738d24eso20646915ad.1
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 17:59:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l0Pd+vdV"
+Received: by mail-yx2-f2.google.com with SMTP id 956f58d0204a3-6753d1555a6so874684d50.0
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 18:03:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791853387; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UDpeZ9nGMww/2ja7aFjVXhQ55U8nWohbKSJSbI1rqODTP//+dSYl/d17ntDIaejKQ1
+         7rqG3v9zKA4HWogQHwBeczxlcgkcO10A96gthaXYXcAY3rNjdJEXAitytlyxBzFo1MkH
+         KfMMT4kx3y5y5cCqUoBYC3Z/JyKTNWpN+BAioJVYIEltDOnoxWMxGHDeGVdV3A9VGc7j
+         ls3Uhanx+NaNX+w2kSiFiJHdT6ItHCF5q/4ZLBEOQ1YWH4ao+JPyk2ivv7gwuulsqzKf
+         POBVQNK5XsInT/SFqvgSQDB6JIULArd69sjQkinz68NuYkjFiyG10Mk5Z3d97+kHdteP
+         Sibg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=UTuAYK18jDYjig15mU1GjIAjcvhGQddvH30uBR7Fy04=;
+        fh=OlMRtR3lDlQ6QunpWfh8XMG2m3e+Tv5EgGTcCudgc6w=;
+        b=PAgvXVHHLYVNLUsyb5tlLJFZqQx4MkV5wapwPYQbbEpviHKNXk9PEyX6DI5CqHD+RB
+         VVrb6VtTxzGDNTueV+UvzViqQBc5gxZPIoNOiwhs9t/FTldc2TgWIqiKeaAU6UyWaav/
+         ny2NG0V949RGiOsj6C87IBquR8sB+P0uXszzxDdc758kwU6lm8+ooYtFHlVTWE6cLbbj
+         JbCwoy80rhfFLHgar8Y3tfvh/pLDY2FibAd0jbb+Jq39p93Vdg/rM0f3LxZPOumW2jEV
+         uq5YQcABOttPr7OYNuiPb5abe0Qslkr+odgb7iaqWkwkZHXpzVqJf91S/qlRUmG6UZBA
+         bnQA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791853157; x=1792457957; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KD/O0ovUlmAuZHc6X9wXGWv7XROc25F1YO2O1JLs2oM=;
-        b=jYv90Qb3V8IYczVtrMAn0qtBmM0TuNKlRGrB2CJQYO6A5aTycKQVnHCNCojteZElFK
-         ccpx9tLMDiNFuha3hGDHEBhEB7+fO2FLwbnh80d+ROil2ja6VqAmefFq8eAhaeKMxiJg
-         TB515+dhw0YEeKK7jc31aKOr24HPlq8QbYFURTZrOCXuDdCT8IPjWvmc+x/nKpWfSaWv
-         i3w2c6yoAfLPJJeiQzIY1l7PHpVqDc2+xpy9WrfSQ8T4iKVB4lLQUKijxy4jc2Efiey3
-         mSFUFSj+4R6s/X/eDXbNRV8b3RIT2iX3KT3kgP9FPgH7CGV2WYkNQByK3ffbaiST0g0o
-         N4lg==
+        d=gmail.com; s=20251104; t=1791853387; x=1792458187; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UTuAYK18jDYjig15mU1GjIAjcvhGQddvH30uBR7Fy04=;
+        b=l0Pd+vdVYxaIyeC3wlw8iz6yekNOjFLzUxorbnIHaO3rH/NPSXb+NfFWPmsMenEmEv
+         bN0V5yjapEJ40ueLuITXA8FQniQFbfwC9nIFuE0+6qBL1XWxkosbkJMuqNjwNhxwwQ4Y
+         PDlN7gCV/0iikMfpolnJlH3r2IokWltkciwHdptBCnfhnb8u2CIvQ0mUH4uBdWI71gmy
+         dvU2895amFkfOdb9xsSCFGqSM26xjPvnQ3cmd6Zc03pYTHudPdOavVG60fJOmBpaYGQw
+         0KTDDz4oa+vrQ3WR/KR44iBG7XEI2IGg+XCfsdu0LZUBkKwytGC3cn4BALtHd7W5+pKF
+         2FHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791853157; x=1792457957;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KD/O0ovUlmAuZHc6X9wXGWv7XROc25F1YO2O1JLs2oM=;
-        b=CIhvRr8J3eGXNTXhlFYVW4A6ahNSpDbV01SJoLVz/g1aPHB+6qHxKpikKuit0gy/wb
-         Tas7CPuvdSUlwi5G6fHwzN3VyFf0wdaSlT9jW8efY8cPWozNnwL/kJENkZrBZxW+Ne6L
-         Z5jdmf3RJCbskvB659ylQF2d246uoxDpOiSC/35x07/vjx4Uu3KTD+FLmetzVqd6pXdn
-         m46oiXb7wXPwQE/lF6A8GQCeDd2kI4vVj3DWmnu4aw0Topy/qOfrXGVEy/Ys0ZuTx8Hb
-         TaK2/3orEiAOnNA9Z1vPWhJ6B4iDUkLtMy+uDUkJ3/rIyF+QLqmBDIgp0QiosDF3RXHA
-         oI3w==
-X-Forwarded-Encrypted: i=1; AKwUvByWxroqKwIQz2LlCz43wA/uJlRPt19zDaVm33mWSdwLQOTo2lvbKg1jwsYVwUXeXlT+9T3q358=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJaZPGsb99L47Nm53oHW3uwGjrglf1+HoACBcQ76a4dfvCjWA9r
-	HuVzEVhKryry9c1sJI5utTnsgzBHhYGVBOtfRKyfUBV8B1iyeoNqgkOMSoBOXHk/Jd0=
-X-Gm-Gg: AYBFou0XA8VEgGfb6vO4t2nirdV51IunGEISrC6DufjYX2int/8gRbtJk2SyaBESSoC
-	5r3J9D7KZ5Abu5rt/1h14mRoJPk0uDEG8bLAwycK4ewkDs3d+7evvPHejvpw5A0qWf4f+DAmHk7
-	1LO+jEjuL6eVvHyQK/zL/e/P7NqK65sbJEdla3Tps+nvIVLnf25j3nyYDWdpORCYhxMdU7A9dN0
-	9TCudmbyaxSl+0R5VTc9DJpykX+mPpDz25n7UTCblWB15NBkDCic1VmN9xCt19wNEwwFyHKGwjf
-	aTBLq994+Oi1ihsfEDofUrq84iZqFhBeMuFN5lr/7fzDjhVfd172DH5FLXWrkIqbKKk2n+RscOk
-	I38MN91OI7FQ06mcLOg0cZM3ZCQ8hefL8mOtjdRBHFr+7Nq5DrxZ07uA+xtNUySQOv3fs8fT5D3
-	E/P0vp9wollb6EyU+HB6TKFX7fKIOsbvn6cW6ZHCFmBXMm3whHGdyvfePpltdh7PUZgoKlAFegJ
-	BEYMA==
-X-Received: by 2002:a17:902:e888:b0:2e8:4078:84e5 with SMTP id d9443c01a7336-2e842cd449fmr90537535ad.20.1791853157038;
-        Mon, 12 Oct 2026 17:59:17 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e1643sm49225935ad.70.2026.10.12.17.59.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 17:59:16 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org
-Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] usb: gadget: f_tcm: reject a short write data-out transfer
-Date: Tue, 13 Oct 2026 09:58:54 +0900
-Message-ID: <20261013005854.2470384-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1791853387; x=1792458187;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UTuAYK18jDYjig15mU1GjIAjcvhGQddvH30uBR7Fy04=;
+        b=lMamG1dUHlBme2spV9yszIN54jNvK4xv7cCmotvo656z9fiy0Vh9mAKNPkSMVXIbGT
+         QVh93nxg9F+5Uxdgo87LN/ITAb0Eq8iBcQjk42DDirLxr4RVsRVxlBxvMkD0weseS5LB
+         f/JQSKK/6UWntYUV9FFK/hQMHSVj6KEAfZty5lxtq6Mn2acX5rm/scXE7CLffXA+pk4F
+         RxX2JSPL/izF8XRylIaMryPvoGd7n/17cQW+1NYy7DconPGMhfv/4I619wjfQJk5DjNc
+         872bp0/OR5pE6FHqO2ZvV5MNcY+AbRP+6W+AIA0w+4PW6JhOJCaJ8twF1p7Pf13pqs2h
+         eeYg==
+X-Forwarded-Encrypted: i=1; AKwUvBzhtGwmVx21amI+8xFNuJ9xewbK7RV9Z0nazQxBq/CKlR6N5ICZ9h7en9G3X+yGUKbqkQzn7og=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJi1xVaHz4pBlmHsMZj5BQ4Dw55wNC0N53RSP4QjYIG49SXXmoY
+	e/LURsaCOFem7b+fj92nRDzspQfbD+NEZxPAKdOlx+0X5UQcel1ZpKZmwLSz/Azcm9Qzhj3n72j
+	TtOEPbbL/1F5riuR0EnIFM6PeShJRTM0=
+X-Gm-Gg: AYBFou1wfFf26paqZCpWbik57ziK5VI7Ikgxe5QKJir12fTdTHnXTq0+NvsyRxNRztC
+	6LI5Ytsr9smZR9K3dZoqv7dkxgCH4BMnTJkMrvDWYYa5qQr9779LslaUEwUsLD3qONFlujqtGx+
+	QLm0jstpa9/9qfDS9XBeZNumvt12txIqjYAPSvfA5d2Un5ALocMelNM9zNVkleQFn8Q8dFCZvO5
+	3QsiRwCrFqReS62iQ6EzTdxj4hdkkza0OAUpmaYGw9Crx9U4GaGhMm2nKakAwjCJzMDf0u03IgS
+	gUf/vzSEUaPejxTnWJCYugdN+WgMmoMwWoOf4hnog1gcTbHjar2ZhUM=
+X-Received: by 2002:a05:690e:1688:b0:679:42c1:d156 with SMTP id
+ 956f58d0204a3-67942c1d3e2mr2820147d50.137.1791853387325; Mon, 12 Oct 2026
+ 18:03:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261012151857.22534-1-jianyungao89@gmail.com> <as1nmV342j-eUOYm@aschofie-mobl2.lan>
+In-Reply-To: <as1nmV342j-eUOYm@aschofie-mobl2.lan>
+From: Jianyun Gao <jianyungao89@gmail.com>
+Date: Tue, 13 Oct 2026 09:02:56 +0800
+X-Gm-Features: AclHuK9sFgO33rPYLTn8ixdiEhdZBta4PDJKOZxl9dlxJLJscw0iQpyhSfFl2bw
+Message-ID: <CAHP3+4Dr-XsZggVSf=THU7NBb8RANc5MCREHORkXV5shcgk22w@mail.gmail.com>
+Subject: Re: [PATCH v2] dax: fix dax_core_init error return code
+To: Alison Schofield <alison.schofield@intel.com>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Dan Williams <djbw@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>, 
+	Dave Jiang <dave.jiang@intel.com>, 
+	"open list:DEVICE DIRECT ACCESS (DAX)" <nvdimm@lists.linux.dev>, 
+	"open list:DEVICE DIRECT ACCESS (DAX)" <linux-cxl@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-usbg_data_write_cmpl() commits the WRITE buffer to the backend as soon as
-the OUT request completes successfully, looking only at req->status and
-never at req->actual.  A host that declares an 8192-byte WRITE but ends the
-data-out after 4096 bytes still reaches target_execute_cmd() with the full
-length.
+Hi Dan,
 
-The buffer is not zeroed (transport_generic_new_cmd() leaves zero_flag
-clear for a data CDB), so the bytes that never arrived keep the previous
-page contents, which the backend writes to the device for the host to read
-back. The target core refuses a WRITE whose declared length is wrong, but
-it does not see a data phase that simply falls short.
+Thank you for reviewing the patch! The revised commit message looks
+great to me. I'm OK with it.
 
-Fail the command when the data-out is short.  The OUT data phase is over at
-this point, so clear cmd->data_len too: otherwise the BOT status phase
-treats it as outstanding WRITE data and queues another OUT request to drain
-a host that has already stopped, wedging the bulk pipe.  Rate-limit the
-failure message, which a host can now trigger at will.
+Best regards,
+Jianyun
 
-There is no oops; poisoning the buffer and ending an 8192-byte write at
-4096 bytes leaves 4096 stale bytes committed before the change, and after
-it the command is aborted with nothing committed.
-
-Fixes: c52661d60f63 ("usb-gadget: Initial merge of target module for UASP + BOT")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
-v2: on a short data-out also clear cmd->data_len so the BOT status phase
-    does not queue an OUT drain for a host that already stopped (would
-    wedge the bulk pipe, reported by Sashiko); rate-limit the failure log.
-
- drivers/usb/gadget/function/f_tcm.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/usb/gadget/function/f_tcm.c b/drivers/usb/gadget/function/f_tcm.c
-index 9e6d4f39900a2..cbe64f934724e 100644
---- a/drivers/usb/gadget/function/f_tcm.c
-+++ b/drivers/usb/gadget/function/f_tcm.c
-@@ -1090,8 +1090,14 @@ static void usbg_data_write_cmpl(struct usb_ep *ep, struct usb_request *req)
- 		return;
- 	}
- 
--	if (req->status) {
--		pr_err("%s() state %d transfer failed\n", __func__, cmd->state);
-+	/* a short data-out left the buffer unwritten; don't commit stale data */
-+	if (req->status || req->actual != req->length) {
-+		struct usb_gadget *gadget = fuas_to_gadget(cmd->fu);
-+
-+		/* the OUT data phase is over; nothing left for the status phase to drain */
-+		cmd->data_len = 0;
-+		dev_err_ratelimited(&gadget->dev, "%s() state %d transfer failed\n",
-+				    __func__, cmd->state);
- 		goto cleanup;
- 	}
- 
--- 
-2.43.0
-
+On Tue, Oct 13, 2026 at 7:05=E2=80=AFAM Alison Schofield
+<alison.schofield@intel.com> wrote:
+>
+> On Mon, Oct 12, 2026 at 11:18:57PM +0800, jianyungao89@gmail.com wrote:
+> > From: Jianyun Gao <jianyungao89@gmail.com>
+> >
+> > dax_core_init() mistakenly returns 0 on error paths. Change the
+> > error return to use rc so the actual error code is propagated
+> > to the caller.
+>
+>
+> Hi Jianyun,
+>
+> Thanks for the patch. The change looks good to me.
+>
+> I'd like to expand the commit message to explain the impact of the bug,
+> not just describe the correction. I've proposed a revised message below.
+>
+>         dax: Return errors from dax_core_init()
+>
+>         dax_core_init() returns success when either the character device
+>         number allocation or DAX bus registration fails, even though the
+>         error paths have already released the initialized resources.
+>
+>         For modular DAX, this allows the module to remain loaded despite
+>         failed initialization, leaving subsequent users and module remova=
+l
+>         to access resources that have already been released.
+>
+>         Return the error code from the failed operation so that module
+>         loading fails rather than reporting successful initialization
+>         after the resources have been released.
+>
+> Please let me know if you're OK with the above, and I'll amend the commit
+> message and merge the patch.
+>
+> -- Alison
+>
+>
+> >
+> > Fixes: 9567da0b408a ("device-dax: Introduce bus + driver model")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
+> > ---
+> >
+> > Changes in v2:
+> > - Drop unnecessary goto label, keep direct return for dax_fs_init() err=
+or
+> > - Add Fixes tag and Cc stable
+> >
+> > Link: https://lore.kernel.org/lkml/20261011132017.31131-1-jianyungao89@=
+gmail.com/ # v1
+> >
+> >  drivers/dax/super.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/dax/super.c b/drivers/dax/super.c
+> > index 45f84b0eb909..210f4af479f0 100644
+> > --- a/drivers/dax/super.c
+> > +++ b/drivers/dax/super.c
+> > @@ -738,7 +738,7 @@ static int __init dax_core_init(void)
+> >       unregister_chrdev_region(dax_devt, MINORMASK+1);
+> >  err_chrdev:
+> >       dax_fs_exit();
+> > -     return 0;
+> > +     return rc;
+> >  }
+> >
+> >  static void __exit dax_core_exit(void)
+> > --
+> > 2.34.1
+> >
