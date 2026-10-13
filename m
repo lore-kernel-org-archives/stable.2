@@ -1,212 +1,115 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DE5B4F68C8
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 12:36:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE264F3939;
+	Tue, 13 Oct 2026 12:36:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791895017; cv=none; b=JoHzAEUIKlwvbXCSDHhxL9SHzfv46/jQwJ2D/UMXjwTn30+v0IZX5pnvMOypq/uRvIdxI0V6NY8fbIZLZI5GlkSPa+7dtSxEdpRcCMxrYWDC2l89NqJQz/Un3ci9/pCfIUlMMRGXgdC5rwxi2SWmVyvYzEb1I1IPrtuaL1TIXvM=
+	t=1791895020; cv=none; b=iFFx7vapMlAA/9+JjHjJEJjoG7etsVy2ECn0HUDtFI5bCa9aDfQJAvjjXxoOvEoIK/piVzJEbBu9WzsJ5H4n8iMB6lMpzv2ZIgfwG3LoygvMpNKXxdz44iniBkRT7pqukozvFWLKOl1woxAQVc1Brp2g8DIum/aehfgEoqehOfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791895017; c=relaxed/simple;
-	bh=4tDSexQf2fi/8v5u8iOE1sYKrQ2ZjTNNwBwAriwHXRg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tsGVaqxMSWaVqJD2xXjr/ZQTUKZqcxliNsLwMAx+VNb74aZrJmv+Jxno+Fgfkjgxad4ziKymrQhbLDmdpYFqST4yGJ0biotEJ2df9ZMAyOHbG6KW8ZnATpnZpL0hOK0RcSzB+f+KtWDJIefYW/d2Yw0uD/I8jcBOWJ56UETImC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gCdRYnWE; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791895020; c=relaxed/simple;
+	bh=LlTrK0QeSi0udyachBCd6YmW9c+xp5AA08tBx1g9jc0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BAJ2OB7w8C6dqI8xwlTHyN/VwKt4SDgzRjRBlA0g00uXn8s58MdfHSx4+ydmTxOAiIGeKOg2q/oGV7UfzkIhUXX5Xu+I1D1FQ9l9uqFLXOJjsiGBcOofeGn6Yb+lZioWg9HRHL+tbUWtCkP5IXKZBoUa9ixvMAAniuVvhaeoYsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=o54/WCqT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gCdRYnWE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791895016; x=1823431016;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=4tDSexQf2fi/8v5u8iOE1sYKrQ2ZjTNNwBwAriwHXRg=;
-  b=gCdRYnWE4c5/gV1O/K4x9Co665nh6KrDeB55ZkuXBWAOLQDCnzwYqB9q
-   6d5cVZO+qf5LHpzbOoecxbQAEc9XB5HW6OnQ3y+z2VoRtpd5bC2dW9pNY
-   14dDKOsaCcYPm7KgjLpkL86hxg41GpwMUTn2IxKwuKaVS+bgKtN517kws
-   av9+apfnIE4KJOsW8e+RbC90ESFZs7DuDMM97tQMrUyvSVx41FrMoQHLM
-   R+lTWo4Ff6T5qkGqS2LX8JYzk3vX+5KvvDL54LqnxALmWo3kpkHiio2Cc
-   ePbctVEYeBO8ZSX1Jp2ZL6M0BwvVwIDmekb+mRbFbUn7xFvLeoTUYqz07
-   Q==;
-X-CSE-ConnectionGUID: DIdI7nP1SQmBqNiKm0MYwg==
-X-CSE-MsgGUID: M/88OhtmTBy532kC1NMfGw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="622399"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="622399"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 05:36:55 -0700
-X-CSE-ConnectionGUID: LpKqYIAaRTy8kJvFR73giA==
-X-CSE-MsgGUID: lxyKQ9l2STqk9kwSwFK27A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1081418"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.245.122]) ([10.245.245.122])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 05:36:54 -0700
-Message-ID: <b025d829-0911-4b38-8a6b-8ddf5cbcd897@intel.com>
-Date: Tue, 13 Oct 2026 13:36:51 +0100
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="o54/WCqT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A64F1F000FF;
+	Tue, 13 Oct 2026 12:36:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791895018;
+	bh=WRi2lbAb4L85oBQ6BiJWUgdwCrGuM/l+9v2OXduEmN8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=o54/WCqT5TzrTuK55V3KwJSFBCz7CBJoGNhyYuwpbuPn4Lexl3n/Uo6JvT2Y+LFI+
+	 gqF4HKhIeeanXoglF+YvjCmx9BnGLgnwUA0995M1OM6Q+cQup3x0ozhdOp3uKMGlsA
+	 DdIZQ5jGScr2D/RZSmIf7DprG3mAdCGq92Sa/Emk=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Niklas Cassel <cassel@kernel.org>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 090/497] virtio_blk: set the zone write granularity
+Date: Tue, 13 Oct 2026 13:34:17 +0200
+Message-ID: <20261013112910.025633791@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261013112907.864180619@linuxfoundation.org>
+References: <20261013112907.864180619@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] drm/xe: skip p2p for suspected display buffers
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: Matthew Brost <matthew.brost@intel.com>, stable@vger.kernel.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-References: <20261007153605.1743626-5-matthew.auld@intel.com>
- <20261007153605.1743626-8-matthew.auld@intel.com>
- <2c6a97ac21c5ef161dbac279f9b971f383b6b944.camel@linux.intel.com>
- <dbabed4e-468d-4ecf-b295-f5d8c9c4b263@intel.com>
- <bc2f4d82-5a8e-4d1b-a921-ee819ca5cac2@amd.com>
- <992d57f0-7327-4c36-adf7-6dd72137fe73@intel.com>
- <31f7eb68-6dfa-4ea7-93a4-d4897fbe6a74@intel.com>
- <3579864a-0283-4f92-b895-5cf399c2ee69@amd.com>
- <16cfde6b-8881-4ffe-8068-9530286da72a@intel.com>
- <1a852df2-c2a4-48bb-84de-cdd4b98b95bb@amd.com>
- <d493d4d1-96d5-4194-bbae-5c1e5d54d91a@intel.com>
- <5545db90-3365-4d75-9fc0-77dda42b7000@intel.com>
- <2fcd10d5-c1f9-47be-9a68-422f9bbd6837@amd.com>
- <8d0eb215394e7a285813fe87def6bee358063431.camel@linux.intel.com>
- <f570087d-9d67-4199-b5db-959741379835@amd.com>
- <9ba9558a85e3df1bf50db7a2265ecb99d746cf9c.camel@linux.intel.com>
- <9a77cde3-641f-45b0-8c30-69184c0f1a4d@amd.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <9a77cde3-641f-45b0-8c30-69184c0f1a4d@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 13/10/2026 12:45, Christian König wrote:
-> On 10/13/26 12:16, Thomas Hellström wrote:
->> On Tue, 2026-10-13 at 11:55 +0200, Christian König wrote:
->>> On 10/13/26 11:18, Thomas Hellström wrote:
->>> ...
->>>>>>>>>>>> Ideas on how do that? Could we do something like
->>>>>>>>>>>> allow_peer2peer = false in
->>>>>>>>>>>> amdgpu_gem_prime_import() if
->>>>>>>>>>>> this is an APU device, or further check if the
->>>>>>>>>>>> exporter
->>>>>>>>>>>> side is not amdgpu, like APU + Xe?
->>>>>>>>>>>
->>>>>>>>>>> For example:
->>>>>>>>>>> https://gitlab.freedesktop.org/mwa/kernel/-/ commit/7
->>>>>>>>>>> ec86
->>>>>>>>>>> c68b42655b4bb85ee90af434a617e7bec8c
->>>>>>>>>>>
->>>>>>>>>>> Is that something you would accept?
->>>>>>>>>>
->>>>>>>>>> No, you misunderstood me. Enabling P2P is perfectly
->>>>>>>>>> fine
->>>>>>>>>> for APUs and mandatory for a couple of customer
->>>>>>>>>> projects.
->>>>>>>>>>
->>>>>>>>>> The buffer should just be rejected from scanout in the
->>>>>>>>>> display code and on the AMDGPU side we already do that
->>>>>>>>>> if
->>>>>>>>>> I'm not completely mistaken.
->>>>>>>>>
->>>>>>>>> Reporter confirmed seeing the issue in windowed mode
->>>>>>>>> also. So
->>>>>>>>> I don't think it's just a case of rejecting from scanout?
->>>>>>>>
->>>>>>>> Then I don't understand what the problem is.
->>>>>>>>
->>>>>>>> When the dGPU renders and the iGPU displays you have only
->>>>>>>> two
->>>>>>>> possibilities, either the dGPU pushes the frames over the
->>>>>>>> bus
->>>>>>>> or the iGPU pulls the frames over the bus. Both should be
->>>>>>>> equaly slow or fast, so what exactly is the expectation
->>>>>>>> here?
->>>>>>>
->>>>>>> I assume the AMD APU/iGPU is sampling/reading from the p2p
->>>>>>> window
->>>>>>> buffer every frame.
->>>>>
->>>>> That is not possible. The HW can't do this and because of this we
->>>>> should have a check for that in the DAL/DC code.
->>>>>
->>>> Couldn't the issue be that the compositor, running on the amd iGPU
->>>> blits from the dma-buf rather than scans out from it? And the
->>>> scanout
->>>> is not the shared buffer at all?
->>>
->>> Yeah that is possible, but that should only happen when there is some
->>> change.
->>>
->>> When the iGPU reads the buffer only once then that isn't really
->>> problematic, it's actually exactly what should happen.
->>>
->>> It only becomes problematic when the buffer is read multiple times to
->>> construct multiple frames, either because the compositor does
->>> something unexpected or we really start to scanout from the buffer.
->>
->> But in windowed mode (and perhaps even fullscreen?) the compositor
->> blits repeatedly over PCI each frame from the dma-buf?
-> 
-> It usually doesn't.
-> 
-> In fullscreen mode using the buffer directly for scanout in an atomic commit should be rejected by the kernel because the HW can't do this.
-> 
-> The fallback path then copies the buffer content to a locally allocated buffer exactly once and then display that new buffer.
-> 
-> I'm not 100% sure what happens in windowed mode for the specific compositor the end user is using. What could be is that when the compositor gets buffers from multiple applications that it composes multiple times over PCIe, but it is unlikely that this will cause problems. You would need something like game/test running on dGPU and glxgears without vblank sync on the iGPU.
-> 
-> AMD uses basically exactly that setup in the Tesla infotainment system for example and it works perfectly fine there.
-> 
-> I have not the slightest idea what's going wrong here.
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-My rough mental model here (could be waaaay wrong), is that dgpu is 
-constantly rendering into a private VRAM buffer, and then copying that 
-to a linear buffer which is the window buffer exported to the 
-compositor. Display is plugged into the igpu. DRI_PRIME=1 is used for 
-the game (like GravityMark) to the do rendering on the dgpu.
+------------------
 
-In windowed mode, every frame the compositor needs to somehow sample the 
-exported window/texture from a shader, like in mutter. In this flow the 
-igpu is still using native buffer for the actual scanout.
+From: Niklas Cassel <cassel@kernel.org>
 
-That exported window buffer is using a flexible placement, so it could 
-technically go in VRAM or system memory. But I don't think p2p was on 
-the bingo cards here for Intel. So if you suddenly negotiate p2p instead 
-of moving it, it now stays in VRAM. So igpu is now constantly reading 
-over pcie every frame, which is extremely slow it seems, for the user.
+[ Upstream commit 684b413b5483f57c890c171b9400076a0143b918 ]
 
-Other thing is that when I tried to repro this locally, I used xe igpu + 
-xe dgpu, and manually forcing p2p in the kernel. When I traced it with 
-bpf I just see the private VRAM buffer sitting there, and the exported 
-window buffer as system memory. So no p2p. There was also no ping-pong, 
-so it must mean that the exported window buffer is NOT flexible 
-placement in this multi-GPU setup.
+virtblk_read_zoned_limits() reads the write granularity that the device
+reports in virtio_blk_zoned_characteristics and assigns it to the
+physical block size and to io_min, but never to the limit that is named
+after it. queue_limits.zone_write_granularity is left at zero, so
+blk_validate_zoned_limits() raises it to the logical block size:
 
-So it could potentially be specific to some cross-driver flow with 
-OpenGL, like with amd + intel, where you can end up with the flexible 
-placement for the exported window buffer on some multi-GPU setups. Not 
-100% sure though.
+	if (lim->zone_write_granularity < lim->logical_block_size)
+		lim->zone_write_granularity = lim->logical_block_size;
 
-> 
-> Regards,
-> Christian.
-> 
-> 
-> 
->>
->> /Thomas
->>
->>
->>
->>>
->>> Regards,
->>> Christian.
->>>
->>>>
->>>> /Thomas
->>>>
->>>>
-> 
+A device that reports a granularity coarser than its logical block size,
+which is what the field exists to express, therefore has it silently
+reduced. A 512e host managed disk passed through to a guest reports a
+logical block size of 512 and a write granularity of 4096, and the guest
+ends up with a zone write granularity of 512.
+
+bio_split_alignment() returns lim->zone_write_granularity if it is non-zero
+and bio_split_io_at() may split a bio with as per bio_split_alignment().
+This can real to the write getting rejected by the host drive, as the write
+is not aligned to the physical block size.
+
+zonefs also takes its block size from bdev_zone_write_granularity(), so it
+would incorrectly use 512 on a disk that requires 4096.
+
+sd_zbc_read_zones() sets the limit from the physical block size for the
+same reason. NVMe ZNS and null_blk leave it unset, but the fallback
+gives the right answer for them, as their write granularity is the
+logical block size. virtio carries a separate value that may exceed it.
+
+Set the zone write granularity from the value that the device reports.
+
+Fixes: 95bfec41bd3d ("virtio-blk: add support for zoned block devices")
+Signed-off-by: Niklas Cassel <cassel@kernel.org>
+Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
+Link: https://patch.msgid.link/20260918140641.2031075-2-cassel@kernel.org
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/block/virtio_blk.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
+index 4bedcb49a73a7..789890f3c5ff4 100644
+--- a/drivers/block/virtio_blk.c
++++ b/drivers/block/virtio_blk.c
+@@ -741,6 +741,7 @@ static int virtblk_read_zoned_limits(struct virtio_blk *vblk,
+ 		dev_warn(&vdev->dev, "zero write granularity reported\n");
+ 		return -ENODEV;
+ 	}
++	lim->zone_write_granularity = wg;
+ 	lim->physical_block_size = wg;
+ 	lim->io_min = wg;
+ 
+-- 
+2.53.0
+
+
 
