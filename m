@@ -1,146 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B42953C3B1;
-	Tue, 13 Oct 2026 23:12:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1AEA541E62
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 23:14:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791933177; cv=none; b=HmnstuJuQqi7UWOBk/1+J9wyymSjvzSUk5bgddmkllXFfpQIREyzoTsXA/aihm53KQtlQx4mQkRsgXRbBG5BZXSBsD3MHxqCBmVxoNPRemdmbg0h7avHgmK0/8NgbUO5hDD9tiiy0yg2ZZcoOr+si+UxiJzH6YqN4eMWRGD906w=
+	t=1791933280; cv=none; b=b3JhFnSub0Ci+GXd+ckHqGGst+9I0VGujOsUfGweJdGXuaBjBw5zP2A3s7lmVnQn0G7uGSYlD415tMCDMFd9EBnpOEdv2nCpzQbaMnz44T88RLHw4IUVX8HKP9UmtzPTVw1xPGUXOkSYNF8CjcA67+INZBN23f08NnmYTrF1j4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791933177; c=relaxed/simple;
-	bh=LpH5gn50+Zo2maNQBCqMb+nYChPecUTQBn5Ohj1ofp4=;
-	h=Date:To:From:Subject:Message-Id; b=cg+PdoYoIsk9euoeL2exlI453gSJ1HCA/9syrv1yILfMfxfjNox+Itgmw1OuDB+WyuYe8zL20Ue8PTEyb+qoU5RCvP8vvhlZCXyXtbckMJs4MhpX4etlqZ5yk11kd8dQB77bg+Vpr6OeN52yFdRcTKlav9cIKziYUgnW3TtLHng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ULX5nUnU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791933280; c=relaxed/simple;
+	bh=DC42cWd2trpkC3wxiUy1rcWuGzrdo7MnCskLH/OFWU4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kTuCUqIUrRTzPFAGHcvXlgJwmdNvy3fwZRvB4R0vQwhkIVFia6cacTmd+tSdwO0KOWmHqtaja8AerY02Qa9HG5J8/1ySMozM0bxWto6UOb5DO4SQhSUPXhCkTAS6DIxqMTF/0hJTjCBU8y+frYEScyEoq8eyhL5Zb/M4XelEIU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YazW4scO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ULX5nUnU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A76F21F000FF;
-	Tue, 13 Oct 2026 23:12:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791933175;
-	bh=ZOWV6rdhDOZJG/Mcg4JsyZJkan/4mk11ffPp88KUEOs=;
-	h=Date:To:From:Subject;
-	b=ULX5nUnUM1S1CTOeTiNlQnDQKYm7aVin+B8SKzjSegp6F1PKQt6TmrFd1jqkhpGAX
-	 O3V6bZB7+e0iObcsHxcjddT0m2RoJrVb5C0Any3cvPFEcljTfEnJFD17zlAKNnzRHG
-	 FFLC6bZE9N8YdB4xl/lmiHFRUumsBohUzA0l8evE=
-Date: Tue, 13 Oct 2026 16:12:55 -0700
-To: mm-commits@vger.kernel.org,tj@kernel.org,surenb@google.com,stable@vger.kernel.org,hao.ge@linux.dev,dennis@kernel.org,cl@gentwo.org,harry@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-percpu-account-full-object-size-for-percpu-memory-allocations.patch added to mm-new branch
-Message-Id: <20261013231255.A76F21F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YazW4scO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44E101F0089B;
+	Tue, 13 Oct 2026 23:14:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791933279;
+	bh=AH4fBKAgmnByv5N9xi6rG4qDFmjGB+AipYU2dyW8K3Q=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YazW4scOeYi/Tgdy4V4B04s1RBBM1uEORfTSrbi//YqcG3Vc4SssbX4V0I/bpX7sm
+	 8K9iSTF9U38mfFp6wShO99OJYopzIdb+DGlU2wK4CA/OzO9RiIikO0ONLBZdcP7IAS
+	 uVDKZvGbZ8tFGm4BzCoojoHhzYMu6+G+joTnzHOQRlGimgNqF+KsTYyzZfP3c/hJlr
+	 r+mgf+8Xw8/ZQeTl5m6vSkw0DBMj35JM70QvS9c3HSZM8qxnBqVg87ohsglY38/Yj1
+	 V8iMDw/ery+0/THWSLFBmXx/TM1cqXMy6NsyhoU6Vc1sc91nVHvFOh2uJDQGrxA3ca
+	 jd4LI9vR7IsWg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Christian Brauner <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] namespace: don't copy an unmounted mount tree
+Date: Tue, 13 Oct 2026 19:14:38 -0400
+Message-ID: <20261013231421.1476273-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026101252-skimmed-repossess-aea1@gregkh>
+References: <2026101252-skimmed-repossess-aea1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+From: Christian Brauner <brauner@kernel.org>
 
-The patch titled
-     Subject: mm/percpu: account full object size for percpu memory allocations
-has been added to the -mm mm-new branch.  Its filename is
-     mm-percpu-account-full-object-size-for-percpu-memory-allocations.patch
+[ Upstream commit 8bacbf6be959973b28b691713a872c12eae69eec ]
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-percpu-account-full-object-size-for-percpu-memory-allocations.patch
+may_copy_tree() accepts a mount whose root is an nsfs or pidfs file
+before it checks whether that mount is mounted. This exception exists
+for nsfs and pidfs mounts. They are part of no mount namespace so
+neither check_mnt() nor is_mounted() would let them through and
+bind-mounting a nsfsfd or a pidfd wouldn't work.
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Problem is that exception also admits a bind mount of such a file when
+it was lazily unmounted and is only kept alive by a file descriptor:
 
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
+  mount --bind /proc/self/ns/net /tmp/x
+  exec 3< /tmp/x
+  umount -l /tmp/x
+  mount --rbind /proc/self/fd/3 /tmp/y
 
-The mm-new branch of mm.git is not included in linux-next
+With MS_REC or AT_RECURSIVE copy_tree() doesn't stop at the unmounted
+mount. It copies every mount that stayed attached to it as well. So if
+you have a bunch of overmounts over the nsfsfd or the pidfd the whole
+unmounted stack is copied. That's a bug.
 
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
+So refuse to walk an unmounted tree. Copying its root alone stays
+possible. So a bind mount of a namespace that is gone can still be
+recreated from a file descriptor on the old one. The file descriptor
+pins that mount and its root and __has_locked_children() only reads the
+direct children which don't leave the parent's list without
+namespace_sem. The internal mounts carry MNT_NS_INTERNAL instead of NULL
+and are still walked. Copying an unmounted tree recursively fails with
+EINVAL.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: "Harry Yoo (Meta)" <harry@kernel.org>
-Subject: mm/percpu: account full object size for percpu memory allocations
-Date: Tue, 13 Oct 2026 20:34:39 +0100
-
-When memory allocation profiling is enabled, the pages backing percpu
-memory chunks are attributed to func:pcpu_alloc_pages.  However, the
-accounting of individual percpu memory allocations via alloc_percpu()
-and friends record only the size of a single object rather than its
-full size across all CPUs.
-
-As a result, it is often not straightforward to identify which kernel code
-is actually responsible for percpu memory, because the size is
-under-accounted by a factor of num_possible_cpus().
-
-Account full object size with pcpu_obj_full_size(size) instead, which
-multiplies the object size by num_possible_cpus() and adds the objcg
-pointer overhead.  This is consistent with what memcg already does for
-charging percpu allocations.
-
-Verified with 64-CPU VM by spawning 400 processes in a memory cgroup and
-measuring mm_init()'s rss_stat counters.
-
-Delta of kernel/fork.c:1142 func:mm_init in /proc/allocinfo:
-
-                  bytes   calls   per allocation
-    unpatched      6320     395         16
-    patched      418176     396       1056
-
-'percpu' field in memory.stat: 422400 (1056 bytes per process)
-
-Memory allocation profiling now accounts the same amount of memory as
-what memcg charges.
-
-Link: https://lore.kernel.org/20261013-fix-alloc-percpu-accounting-v1-1-03e788a1e41f@kernel.org
-Fixes: 60fa4a9e2323 ("mm: percpu: add codetag reference into pcpuobj_ext")
-Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Assisted-by: LLM # Verification
-Cc: Dennis Zhou <dennis@kernel.org>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Christoph Lameter <cl@gentwo.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Hao Ge <hao.ge@linux.dev>
-Cc: <stable@vger.kernel.org>
+Fixes: e149ed2b805f ("take the targets of /proc/*/ns/* symlinks to separate fs")
+Fixes: ef4144ac2dec ("pidfs: allow bind-mounts")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260926-work-mount-fixes-2-v1-4-f357abf3d17b@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: adjusted context for the inline mount check instead of may_copy_tree() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ fs/namespace.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
- mm/percpu.c |    5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
---- a/mm/percpu.c~mm-percpu-account-full-object-size-for-percpu-memory-allocations
-+++ a/mm/percpu.c
-@@ -1696,14 +1696,15 @@ static void pcpu_alloc_tag_alloc_hook(st
- {
- 	if (mem_alloc_profiling_enabled() && likely(chunk->obj_exts)) {
- 		alloc_tag_add(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag,
--			      current->alloc_tag, size);
-+			      current->alloc_tag, pcpu_obj_full_size(size));
- 	}
- }
+diff --git a/fs/namespace.c b/fs/namespace.c
+index 769f22c0bc66d..66fcf3ec886b8 100644
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@ -2360,6 +2360,9 @@ static struct mount *__do_loopback(struct path *old_path, int recurse)
+ 	if (!check_mnt(old) && old_path->dentry->d_op != &ns_dentry_operations)
+ 		return mnt;
  
- static void pcpu_alloc_tag_free_hook(struct pcpu_chunk *chunk, int off, size_t size)
- {
- 	if (mem_alloc_profiling_enabled() && likely(chunk->obj_exts))
--		alloc_tag_sub(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag, size);
-+		alloc_tag_sub(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag,
-+			      pcpu_obj_full_size(size));
- }
- #else
- static void pcpu_alloc_tag_alloc_hook(struct pcpu_chunk *chunk, int off,
-_
-
-Patches currently in -mm which might be from harry@kernel.org are
-
-mm-percpu-account-full-object-size-for-percpu-memory-allocations.patch
++	if (recurse && !old->mnt_ns)
++		return ERR_PTR(-EINVAL);
++
+ 	if (!recurse && has_locked_children(old, old_path->dentry))
+ 		return mnt;
+ 
+-- 
+2.53.0
 
