@@ -1,43 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED40051CF48
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:39:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4CF351C047
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:39:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791909576; cv=none; b=BlqsrTqN6mF1mqthe+36idSMsF/XW4L8kBZV0j2Fa1rtTO0RagcdprFx/hJ3qOrHUNaPIjwZi3CT4/KUOMLhHM/L5TMFNdWbdHqF3O4twg9PAuy1XAyagzhwAKpGN6C9cS4oKn0YmjZoiWCYZVFESJB+qG9NsEeaCD18f9mexHg=
+	t=1791909577; cv=none; b=XT3jMGHWPF9EgexZVXCSkB3fRcKg0DhvRFNJLnD+eEQ1ihkbNQiYutEgm3CWld0zGOIOnQHMAJG/kdWqZn088KcVjne7GhvNnq/ky3j29azH2DYmV3kcIqGM/HNnlgo7E56pFz0tpKg0Q3d7txA1XojL2NwYIDuXo9BzUETIGPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791909576; c=relaxed/simple;
-	bh=KaVi1mH5KqVnoXdZfyCZyx7KdHR8r7UM+IH9h/TVCy8=;
+	s=arc-20240116; t=1791909577; c=relaxed/simple;
+	bh=aMdlHivVE24MrjO3cUhU9sukhGwbcUYf5TJ4ocTvuEc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l8lJWbkbHly518Smj4wzva4j+r2g3QZFNkQWQUpYoE7Qlg1IOL97s1gWS9KoL5oa8GFTmI1N6+RZcZzs9/72/X39Ba9zm1b3yRe583GcjsDW1ADkHNvEDaZdp5DZ/9+bkdNSgiD9JTY7QUmTcnuSGMpC46AQvLRjlucfnTPCVCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EvFqI7Kn; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=DbjgaXaRzEI0hz4+pJ79bwoCrEY3ZQ0yyjD5twvDNB/e8L0bAA/Nr62BOZsQTQJ0KRogi5ZQpQL/Es2WmVUedxKjC6OgBNQjGS5trkAZhRnzprpEdQeWvNS5xftLNQA6tRGfc2cnufEtEke7TL2zwiEHSoDynwl5dofEAeAq3Vc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ESmWMp6S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EvFqI7Kn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD9D31F00899;
-	Tue, 13 Oct 2026 16:39:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ESmWMp6S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C12B91F0089A;
+	Tue, 13 Oct 2026 16:39:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791909574;
-	bh=ewTRJ/soX09J/jxb0PR8onrgIltUIfRp0NzK5Cya5Ow=;
+	s=k20260515; t=1791909575;
+	bh=Y3jKK+DgZTmrCQ6rlhSgG77EeGlvDizMsURvcA5F754=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EvFqI7Kns9Sjt57lJFkTHqsKOYis/PAEZZ9Knm6C68rAv54LiucDvnWstEvujzUoH
-	 BBT0RZfO+4vH8scLx60vU4bWr2d3paN9nEQKA0EMpAvh1STvsNXzMMuqn5xsc4lu35
-	 9ob8tgMjarPGrELlAZirkFky6Qfc0SZbl/ra3ZJ25KgoRU1y+Yn9JtCuMniJvLwOkI
-	 rnmRRhvYFcBDhZNvUNee8G1zx37KuIndi8PK+vPc6H07RYtSiwC+OEH0SWOhbx7bWe
-	 fy7Gq8Ob7exSVsHFuUtS3993jVTgZO75Uv+JBO2VjG9W2CAyy7jOATfDreSUGd6WLy
-	 A4KlWgL6oXiLA==
+	b=ESmWMp6ShupfTdrsCBNwsCci40y8PqVvOGlBr6ov8DvF7uu/9bDqm5BvjQumkGsBW
+	 xP43QOgcX/VW4T/ysylYn4he5WErMVv63/hoA563we+sEudeZ0/xNaybaWyseM+aYk
+	 KBM4wpsirVi5aK5MTLvqQx88p5U/ktAWksxvZX0rHC6wr/k5InMktdfuk+53be/6gO
+	 WlL42kLzn70DUT3O8Q3B2Zqh4DXRfQK/e5FcRYIOsWwvelEL4tKXQU9ZtBAJRXU5Ka
+	 O8bCntRR2sd5SY7Xye0KAUgLShHrLwM1TP2DhJmzmF+C2uqTQhdLJ6lPdf1GDc5L3k
+	 +x2fIYnyvOR9w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
-	Maxime Ripard <mripard@kernel.org>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Wentao Liang <vulab@iscas.ac.cn>,
+	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/3] drm/vc4: Use video aperture helpers
-Date: Tue, 13 Oct 2026 12:39:30 -0400
-Message-ID: <20261013163917.466761-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/3] drm/vc4: Fix firmware reference leak in vc4_drm_bind()
+Date: Tue, 13 Oct 2026 12:39:31 -0400
+Message-ID: <20261013163917.466761-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261013163917.466761-1-sashal@kernel.org>
 References: <2026101258-operator-prior-e880@gregkh>
@@ -48,58 +44,48 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+From: Wentao Liang <vulab@iscas.ac.cn>
 
-[ Upstream commit 7e89e4365fd36ca006670788ec2c1527bfd0c61c ]
+[ Upstream commit b816da5d5df1461446a0a5f3fe2b4948a659a790 ]
 
-DRM's aperture functions have long been implemented as helpers
-under drivers/video/ for use with fbdev. Avoid the DRM wrappers by
-calling the video functions directly.
+The firmware reference obtained via rpi_firmware_get() is leaked when
+aperture_remove_all_conflicting_devices() fails, as the error label
+returns without putting it. This happens before the firmware is
+consumed and put further down in the function.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Acked-by: Javier Martinez Canillas <javierm@redhat.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20240930130921.689876-25-tzimmermann@suse.de
-Stable-dep-of: b816da5d5df1 ("drm/vc4: Fix firmware reference leak in vc4_drm_bind()")
+Put the firmware reference before jumping to err.
+
+Fixes: c406ad5e4a85 ("drm/vc4: Notify the firmware when DRM is in charge")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Link: https://patch.msgid.link/20260916154015.2056797-1-vulab@iscas.ac.cn
+Reviewed-by: Maíra Canal <mcanal@igalia.com>
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/vc4/vc4_drv.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/vc4/vc4_drv.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
-index c133e96b8aca2..dd6bd490d4da9 100644
+index dd6bd490d4da9..ca6a8f96e461f 100644
 --- a/drivers/gpu/drm/vc4/vc4_drv.c
 +++ b/drivers/gpu/drm/vc4/vc4_drv.c
-@@ -20,6 +20,7 @@
-  * driver.
-  */
- 
-+#include <linux/aperture.h>
- #include <linux/clk.h>
- #include <linux/component.h>
- #include <linux/device.h>
-@@ -30,7 +31,6 @@
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- 
--#include <drm/drm_aperture.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_fbdev_dma.h>
-@@ -352,7 +352,7 @@ static int vc4_drm_bind(struct device *dev)
- 		}
+@@ -353,8 +353,11 @@ static int vc4_drm_bind(struct device *dev)
  	}
  
--	ret = drm_aperture_remove_framebuffers(driver);
-+	ret = aperture_remove_all_conflicting_devices(driver->name);
- 	if (ret)
+ 	ret = aperture_remove_all_conflicting_devices(driver->name);
+-	if (ret)
++	if (ret) {
++		if (firmware)
++			rpi_firmware_put(firmware);
  		goto err;
++	}
  
+ 	if (firmware) {
+ 		ret = rpi_firmware_property(firmware,
 -- 
 2.53.0
 
