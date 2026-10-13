@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFAA45349C9
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 15:19:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8D14FE2F1
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 15:20:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904759; cv=none; b=BqyUiGaj5gB2S/qS3N1VWYq/WND8+vVmu+HcfDjNtEToVZer+jEfQwnVImzVjE5AbxesXiqWEHp/Zv2nmtZsObUkX7eNHmpJ7ZS32raq5r6BI/TSpTtN8blo/ou8xC9I26WDyhnlzguFFOnMfcFH1QxsuqdQpbpNSFZd2hkD0Bg=
+	t=1791904828; cv=none; b=hpI12vElUHmzGB2n/lBRqARlqN3ZHmFwzOcsUoc2v66uutCttDrDh03xF4hKZBhoRYtuYPVSf33t1pIpAZimeRxai5PGzyLC79y94Mx9T+A1D+8jVDfXPPmcsan4zTQsb5wjHsdECEEh58XqURJ3eWhYKnR2JP0b/o3oek7FP70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904759; c=relaxed/simple;
-	bh=ggWbtHPYSAiZT9lKoZwNuhTB6eGmevstPnx9G1HxWN8=;
+	s=arc-20240116; t=1791904828; c=relaxed/simple;
+	bh=+T8rFbXfa6KiN6iZXTSR1+oqUWoJn3/gG2djQDa7JJ8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KzRayEHLY2z0lHyRjiW/8QOmcQU/nb6u022aFuMVZLSbXIKQ05v1J6dfd5VabPlXaE4Uh+XD72BvQY7Qt8teY0D15tPnc9XOb2CmJ3kP8dZi1ehxs2GU9LQHxixC6q8wydRwpYpPb5ArMjtrhaOZlQTbapCW7Tydusgtx6L7xow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iIzOPY3h; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Fd1DXlpWVv1XMllZEX+G9LaPkkJmvSQgbgtK0KPNFT7ocPANyE3URgkm3UOyTpdveTGGXoC3dTyVCQkQ7tt5VgYt5Ik/u+u8bN0Lx5hhhYFQ+mChkGAPzCAGmwZkbhnUOBPr7etkrFT/WynC+5VSGcRO9rBuqyWR4DJd2+AyyrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RIjl+1nz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iIzOPY3h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F8811F00898;
-	Tue, 13 Oct 2026 15:19:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RIjl+1nz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A915C1F0089E;
+	Tue, 13 Oct 2026 15:20:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791904757;
-	bh=aDTRaLqLD+54pmyctK5IC0LC1Gtcp/4spbMay+hp59Q=;
+	s=k20260515; t=1791904826;
+	bh=nAMHyf2WN4/3+yEYcHNrUlW/z8RlewmwboNeN4vNcr4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iIzOPY3h2/9EVCaPga7ziqYWryTWdNZtvDODl5CghRxtaSCOz/bCRQ64tW6ieJkLz
-	 Fs33l/+maSbXd2wf1sm+KwDFgAu+ALB6gMOyC7QiSvwWvRkBmV/+5GyVCPTRTm5GG5
-	 AD0LZDJVc0vqN4uazbmY/wb789sgkS5BIE2y9wyhYqloR7PymUm+h93AkG/WEjxQVm
-	 GU17ae8kaMJJ9JusO8tq9gtaRE2z90tEv3Fcl+GxC+xPSHhJfwR36NOsDO2iWEylBa
-	 C3nCUaibMqyYpXQ/KJEYqdh4jYV8ur3M+VEx6lohfAx4Q6F0B8nyYNbmVfDPlP1Dop
-	 WRbRlSHn7vHdQ==
+	b=RIjl+1nz9BzZzv6Eb8Y+nEnk9l6P5KmCKr0zEoke70mTGP9mxk99gz0ABcvdts0bl
+	 6idKysdWPyvxf8FuMXdBlO8JYuhon+cFYEhSm4crZ9w9E8Maf+BdzXpdQFe5q2BJLd
+	 G/YWP3U9+NWVHeqTD5hM25HQDKeC2k509iJSBHJtpU0WBUSyAdHmvHQDtLstFuDm/1
+	 OWrLDvK8oYs/80/1aTTV3qq2cfRm+HLYr6Nzj1b00U2QmiTeeMFIRivLtO19CoFOcr
+	 En85ahsIPRa+J+Ibyf8iCLEToPBr+JRpZUkd8sGZPPgBWB1XdNqOSgLoy+4/Ui28Vn
+	 ok4rIoz3Xr32A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Wei-Jie Hung <imbigking12@gmail.com>,
-	Pu Lehui <pulehui@huawei.com>,
-	Paul Walmsley <pjw@kernel.org>,
+Cc: Tejun Heo <tj@kernel.org>,
+	Alap Mohan <mohaalap@meta.com>,
+	Joonwoo Park <joonwoo@meta.com>,
+	Andrea Righi <arighi@nvidia.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] riscv: patch: fix handling of bpf-jit execmem addresses
-Date: Tue, 13 Oct 2026 11:19:15 -0400
-Message-ID: <20261013151849.209222-2-sashal@kernel.org>
+Subject: [PATCH 7.2.y] sched_ext: Fix CPU hotplug hang when a dying CPU's tasks sit in the BPF scheduler
+Date: Tue, 13 Oct 2026 11:20:24 -0400
+Message-ID: <20261013152005.130065-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261013151849.209222-1-sashal@kernel.org>
-References: <2026101215-envelope-tribute-9992@gregkh>
- <20261013151849.209222-1-sashal@kernel.org>
+In-Reply-To: <2026101224-counting-undrafted-69cb@gregkh>
+References: <2026101224-counting-undrafted-69cb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,76 +47,126 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Wei-Jie Hung <imbigking12@gmail.com>
+From: Tejun Heo <tj@kernel.org>
 
-[ Upstream commit a510e1ae8c9030750c2edf7b0bc9b186cd8c7a06 ]
+[ Upstream commit d35a535d3e3e71f92a051d94e415f43612c4edfc ]
 
-Commit 8718e5a3090b ("riscv: patch: skip fixmap mapping when kernel text
-is already writable") gated the core_kernel_text() branch of patch_map()
-on CONFIG_STRICT_KERNEL_RWX, and explicitly left the vmalloc branch
-unchanged. That branch has a separate problem.
+A CPU going down has to empty its own rq. Its hotplug thread waits in
+sched_cpu_wait_empty() until nothing else is left, and the only thing that
+wakes it is balance_push(), which runs from __schedule() on the dying CPU
+and pushes off the migratable tasks the CPU picks.
 
-That branch only creates a temporary writable fixmap alias when
-CONFIG_STRICT_MODULE_RWX is enabled, and otherwise assumes the target is
-directly writable and returns the address unchanged. That assumption no
-longer holds: bpf_prog_pack_alloc calls set_memory_rox() on every pack
-unconditionally in alloc_new_pack(), independently of any
-CONFIG_STRICT_*_RWX option, so BPF text in the vmalloc area is read-only
-regardless of what CONFIG_STRICT_MODULE_RWX says.
+sched_ext breaks this. A task sitting on a user DSQ or held by the BPF
+scheduler is still counted on its rq, but an inactive CPU no longer calls
+ops.dispatch() and can't pull the task back. The dying CPU goes idle with
+the task still counted, and one of two things happens:
 
-With CONFIG_STRICT_MODULE_RWX=n, patch_map() returns the read-only
-address directly, the subsequent copy_to_kernel_nofault() takes a
-page fault and returns -EFAULT. bpf_arch_text_copy() turns that into
--EINVAL, which propagates through bpf_jit_binary_pack_finalize() to the
-WARN_ON() in bpf_int_jit_compile() and leaves the program un-JITed.
+- Another CPU consumes the task. The rq empties without a __schedule() on
+  the dying CPU, so the hotplug thread is never woken and cpu_down() hangs
+  holding cpu_hotplug_lock.
+- The task is affine only to the dying CPU. Nothing can move it, and the
+  offline stalls until the watchdog ejects the BPF scheduler.
 
-Note that BPF cannot be fixed the way kprobes was in
-commit bdc46e507b59 ("riscv: mm: make EXECMEM_KPROBES writable without
-CONFIG_STRICT_MODULE_RWX"). EXECMEM_BPF is already PAGE_KERNEL, i.e.
-writable at allocation time; the read-only mapping is established
-afterwards by generic code in alloc_new_pack(), which arch code cannot
-influence. The only place this can be handled is patch_map().
+When the rq goes offline, re-enqueue every task on it that isn't already on
+the local DSQ. An enqueue on an offline rq lands on the local DSQ, so the
+dying CPU itself picks the tasks and balance_push() pushes them off, the
+same as for the other sched classes. From then on no sched_ext path on
+another CPU can pull a task off the rq.
 
-This is the same problem that was fixed on arm64 by commit b1480ed230ac
-("arm64: patching: fix handling of execmem addresses"), and the fix is
-the same: CONFIG_EXECMEM is what actually tracks whether the vmalloc
-area can hold executable memory that needs a temporary alias to be
-written. CONFIG_BPF_JIT, CONFIG_KPROBES and CONFIG_MODULES all select
-it.
+ops.dispatch() currently stops as soon as the CPU goes inactive, and CPU
+hotplug then waits for an RCU grace period before taking the rq offline. A
+BPF-held task affine only to the dying CPU and preempted inside an RCU
+read-side critical section would block that grace period, and the rq would
+never go offline. Test SCX_RQ_ONLINE directly so that ops.dispatch() keeps
+running until the rq goes offline. Only the dying CPU's own hotplug thread
+clears the flag during teardown, and task_can_run_on_remote_rq() still keeps
+other rqs' tasks off the CPU.
 
-Note that this is not limited to CONFIG_MODULES=n. Unlike arm64, riscv
-selects CONFIG_ARCH_OPTIONAL_KERNEL_RWX, so CONFIG_STRICT_MODULE_RWX can
-be disabled with CONFIG_MODULES=y as well, and the bug is reachable in
-that configuration too.
-
-The !CONFIG_MMU build is unaffected: it has its own __patch_insn_set()
-and __patch_insn_write() implementations and never calls patch_map().
-
-Fixes: 2c9e5d4a0082 ("bpf: remove CONFIG_BPF_JIT dependency on CONFIG_MODULES of")
-Signed-off-by: Wei-Jie Hung <imbigking12@gmail.com>
-Reviewed-by: Pu Lehui <pulehui@huawei.com>
-Tested-by: Pu Lehui <pulehui@huawei.com>
-Link: https://patch.msgid.link/20260914115607.350097-1-imbigking12@gmail.com
-Cc: stable@vger.kernel.org
-Signed-off-by: Paul Walmsley <pjw@kernel.org>
+Fixes: f0e1a0643a59 ("sched_ext: Implement BPF extensible scheduler class")
+Fixes: 991ef53a4832 ("sched_ext: Make scx_rq_online() also test cpu_active() in addition to SCX_RQ_ONLINE")
+Cc: stable@vger.kernel.org # v6.12+
+Reported-by: Alap Mohan <mohaalap@meta.com>
+Reported-by: Joonwoo Park <joonwoo@meta.com>
+Signed-off-by: Tejun Heo <tj@kernel.org>
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
+[ sashal: Omitted rescue-related changes because the rescue machinery is absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/riscv/kernel/patch.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ kernel/sched/ext/ext.c | 29 ++++++++++++++++++++++++++---
+ kernel/sched/sched.h   |  5 +++--
+ 2 files changed, 29 insertions(+), 5 deletions(-)
 
-diff --git a/arch/riscv/kernel/patch.c b/arch/riscv/kernel/patch.c
-index f8826f1595e16..9c9282f8a3a50 100644
---- a/arch/riscv/kernel/patch.c
-+++ b/arch/riscv/kernel/patch.c
-@@ -46,7 +46,7 @@ static __always_inline void *patch_map(void *addr, const unsigned int fixmap)
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index a9f33e2b17ace..8d4992e7e0120 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -2031,8 +2031,8 @@ static void set_task_runnable(struct rq *rq, struct task_struct *p)
+ 	}
  
- 	if (core_kernel_text(uintaddr) || is_kernel_exittext(uintaddr)) {
- 		phys = __pa_symbol(addr);
--	} else if (IS_ENABLED(CONFIG_STRICT_MODULE_RWX)) {
-+	} else if (IS_ENABLED(CONFIG_EXECMEM)) {
- 		struct page *page = vmalloc_to_page(addr);
+ 	/*
+-	 * list_add_tail() must be used. scx_bypass() depends on tasks being
+-	 * appended to the runnable_list.
++	 * list_add_tail() must be used. scx_bypass() and rq_offline_scx()
++	 * depend on tasks being appended to the runnable_list.
+ 	 */
+ 	list_add_tail(&p->scx.runnable_node, &rq->scx.runnable_list);
+ }
+@@ -2868,7 +2868,13 @@ scx_dispatch_sched(struct scx_sched *sch, struct rq *rq,
+ #endif	/* CONFIG_EXT_SUB_SCHED */
+ 	}
  
- 		BUG_ON(!page);
+-	if (unlikely(!SCX_HAS_OP(sch, dispatch)) || !scx_rq_online(rq))
++	/*
++	 * scx_rq_online() can't be used. Its cpu_active() test goes false
++	 * before CPU hotplug waits for an RCU grace period, and
++	 * rq_offline_scx() moves this CPU's tasks to the local DSQ only after
++	 * the wait. The grace period can depend on those tasks running.
++	 */
++	if (unlikely(!SCX_HAS_OP(sch, dispatch)) || !(rq->scx.flags & SCX_RQ_ONLINE))
+ 		return SCX_DSP_NONE;
+ 
+ 	dspc->rq = rq;
+@@ -3608,7 +3614,24 @@ static void rq_online_scx(struct rq *rq)
+ 
+ static void rq_offline_scx(struct rq *rq)
+ {
++	struct task_struct *p, *n;
++
+ 	rq->scx.flags &= ~SCX_RQ_ONLINE;
++
++	/* sched domain rebuilds call rq_offline with the CPU staying alive */
++	if (cpu_active(cpu_of(rq)))
++		return;
++
++	/*
++	 * An offline CPU no longer calls ops.dispatch(). Re-enqueue its tasks
++	 * onto the local DSQ so that they run here and balance_push() moves
++	 * them off.
++	 */
++	list_for_each_entry_safe_reverse(p, n, &rq->scx.runnable_list, scx.runnable_node) {
++		if (p->scx.dsq == &rq->scx.local_dsq)
++			continue;
++		guard(sched_change)(p, DEQUEUE_SAVE | DEQUEUE_MOVE | DEQUEUE_NOCLOCK);
++	}
+ }
+ 
+ static bool check_rq_for_timeouts(struct rq *rq)
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index a6c6f8165eecc..d25defb116caa 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -4185,8 +4185,9 @@ extern void balance_callbacks(struct rq *rq, struct balance_callback *head);
+  * after which it is enqueued again.
+  *
+  * Typically this must be called while holding task_rq_lock, since most/all
+- * properties are serialized under those locks. There is currently one
+- * exception to this rule in sched/ext which only holds rq->lock.
++ * properties are serialized under those locks. There are currently two
++ * exceptions to this rule in sched/ext which only hold rq->lock: scx_bypass()
++ * and rq_offline_scx().
+  */
+ 
+ /*
 -- 
 2.53.0
 
