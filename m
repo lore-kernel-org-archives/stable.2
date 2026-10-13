@@ -1,63 +1,62 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 381FB3F20EC
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 13:59:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DC9D3F3285
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 13:59:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791899950; cv=none; b=qb/P5PKvfQLthkuBKKSOcConX11UszvZ2z4m2lgdBU/KLEwhJlJ4aXdLHVfkqwy4ninTEvbFelp3BNe3w4MhkVF5wu6+pjsJZjkoesZQLiGCUEo3vDytBpKhtZHCUd9a1yACRLJ+Yiyz1ZLCyICvoEaz/T3gNORx8wW8Y+T5wOg=
+	t=1791899950; cv=none; b=s4x0fWhCMbI898pQeiWbKyY9VgE6qemdtqPew62tzMO1nbQ6aXJwNWUaAM2F0ENAiWvIppH81hqrXulX3nnG74FfkO8NqkoUCkfnpWnHAngid7UQnMGRusAkatHTkeDXwZgZwjOygllUiCWX8jrivGnOGhNTFE6KfK0kzubqe/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791899950; c=relaxed/simple;
-	bh=WOrWvfr8F/bc8103YaEPQIOAyJt2G1/CvZJxsN2jIPc=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=Bzq3NIB+zYrItw+pImoWYQz0B9pQQOOrmNa6kiazJp035Q8AkpR+2V0YTMZglUhwVv1UQKoYAYNi9B1tgfuXH7Qe01w2apZasWD8BxiM3fcyfWf/pYK1CDAuhKGjLb4OEY1RlthPfeZ6Wtf2L3dt0MB2IeOYLjIOZvpUmRt39fU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=D0NqAaQZ; arc=none smtp.client-ip=74.125.82.179
+	bh=i33+tNxQs9vDFfwbCffS2QA0V2fkSK+ODrnRPbBvcPQ=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=q9i2nJDGrhWvfgrmm9dXnLQgNTx8iilcglhan11jwW76XUibw4fQRx+R1Q4gUY52dXuBkN4NkVClI1iGyyW9Mh8JZq4QPn2UogdsAMB1iikPxu3sBi/ufG8IJ8F7su196s8053Yl/TUuZV0GcRcZhGWWuup8g6Mqbogq91/B7bY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=N3ZrEtYr; arc=none smtp.client-ip=74.125.82.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="D0NqAaQZ"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-35834f72d94so5316116eec.0
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 06:59:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="N3ZrEtYr"
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-17bc533fda3so440292c88.1
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 06:59:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1791899947; x=1792504747; darn=vger.kernel.org;
+        d=kernelci.org; s=google; t=1791899948; x=1792504748; darn=vger.kernel.org;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=W3Zs8m3fHqsUTXsByCg8ZGVAnu50R9yC5vTB3RIMVjI=;
-        b=D0NqAaQZWd+Chv7qbkWZQutvAnrBiaFn34WloDuUlwx8xcJO/0UvtHga9HjPGmJ2rQ
-         wbkAZBmbP5xbRoisSvTX0pTLvQX4fGGG6C1RwumyJ5JrUyHkbLCXowfFox/na2qAEvSt
-         g7JR6hVekryY2zsJlq3zSEJNgsrLWGyaekrcpvIhd21LlpKbT2lbNPnD23QZUtcwldhc
-         w0iPD26wYiCiaweZ7BCeRrynNz3wK0cP2DJyo+Wm/rSliaPspz1wofmWBlL8YRs3Tqb5
-         MpufsAd6t7SjIcuLjp6x/oW13WS5zXZrNM2zcIOJE7LQfiMb0/V1yF9AJiXUOwP7sKxp
-         A0Ng==
+        bh=p33dkzGVAoSlXjbFW4ld0/xNb5fH3JIT8ZatkJMGZJI=;
+        b=N3ZrEtYrYFaKeDH1RKzHm01SoidCHRxldo79PGWuPNJ9HoxPRWv1K7KALN3Ysfkybv
+         ej5++mZPjzLeewx18/nH4dDWGkLHQcnBxuu3XbUkoPIBN0Eg22DWHidna/yxD1QvFmmJ
+         wVBSb4aep+pdj5GVwdFgfJdp6v+0DG1oA+m97BhBRiLjuZdaxR8v5wEXE5hC86c+nIhP
+         Ugjnk4id3PkCzVg/Bc3IfL6qJrAkzEHFtD9OwSo2H+2Z2uPRCthyTHVwp0JAhW2L9Ug/
+         NDvc35znH3nUchF/jXuZAWsIgYF9eEvgKsbqcxh2nfXF2BFBqWgiclc4s1T6tt8oHRzc
+         oykA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791899947; x=1792504747;
+        d=1e100.net; s=20260707; t=1791899948; x=1792504748;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=W3Zs8m3fHqsUTXsByCg8ZGVAnu50R9yC5vTB3RIMVjI=;
-        b=LBmlRnxJH3p0r3MYFFvYQ91VgYUg99TiM3nXtdV9K+15S4GKsz2urSQpKQkPCCiIZS
-         kLMH6oXFLUGxHK6z9kA9Llyq60SeEVGNubNtd1At5emE0VyIbJ8xzRiLH3gcYAHSel6C
-         g5JhDMIHBNSxGorVJ+I/VVyT+wM/VDSQXw8SD3Pfvhlv868QOuaC716Q3aR4ZKnho6Te
-         iRvZJauAkL2ZJOmLbwZUkllrdgvFc+uGj7wPQ226qxQ5mWIPOdrHKSZLWI6QcTmY8/yR
-         uGEmMPwOxffk11Mlpc4b5ZgTp/Q3dQgQe1QS9v1EbvRsi+BSlp2FSZR6JZS2i0fHpz6f
-         KK5Q==
-X-Gm-Message-State: AFq9FYIy5kpOl3J6mD22kmxu4F4NaMC7SXAwaNMVTNFYsgwlZMUC+l6m
-	RU+WjfiB/AOvNxdyXr3o27HriwJD6n7YcXoQBQrA3xuLlab61Jx2RIi47G3pve8RlKEZ8s7d7Ps
-	Z83+r
-X-Gm-Gg: AYBFou0t/I7lvCi8ZTt4EQCsUlYs/2NxBBL4hSNvRW5a7LrCfyOzZRNMC/MNInlbfYL
-	k5z0rXM80rgd4jTy1A4zBlEYJN4QM5ruDJNyfoO0mv+0UFVeC/Z15sCY90YaEv+08VtGh7szzI6
-	DyRJVcKqDv1pczbTy01v15Hpu0dLKAGMpRrs32oQzL83MIMtRkDUckMRKa1SCFbb8vqFWf1+BHQ
-	sLjUNe3i0Q1k/3FgNkxqlk/mS6NAAXKYyybCkZyZh25VeJHYKsZAoUxFfD+rt+JSkFwleatRPyo
-	pCysQ/2cyz1uRKoGk+NcwY4TYlfx2fx3vxEDYPePrB6q2CehJ61YbnmNgDbSrfXQtZ7w+nZNEvJ
-	Vl+AbAwJp1suXI455qEBWDdRirVR25UO9krkj8Ilyl7KaGSJaHxUgUK86vQuzBVy1gcgwLnIqeZ
-	tL1ZMPt5QNW79ueK9CUXvE54Qm18QzkM90ZqDzrtOvULbo/7HnFlKirWs8nRU6P+4=
-X-Received: by 2002:a05:7300:e60b:b0:34e:e8e3:6469 with SMTP id 5a478bee46e88-3537db99095mr21941443eec.0.1791899946941;
-        Tue, 13 Oct 2026 06:59:06 -0700 (PDT)
+        bh=p33dkzGVAoSlXjbFW4ld0/xNb5fH3JIT8ZatkJMGZJI=;
+        b=MQzbKfj9S/jzT2qqgk2M4L1N9JgFLW7HgdSyRuhCxtJTG9FCxjv9f+HhnLqO/XL+1x
+         mAUdyBU4TvnjiARYGvNegBChTaYsKqGfhN0cATdGdAHrDkxLZ8/fUrK7TYDm3Z4d/y3/
+         TfC8TiT9USWWVEIwKs8VI6yiL19zjBsm3OmZYgWZnq9zU3HobW/+Q3i0i+2CAE7dKYgX
+         t9X/QLmvQXXidTMOGpSrXeosZ+lVcijalLvhI59WD2ksaNDQ9dg1lsBUrOK8EY+EkHJV
+         qx2D6t69yaH/SI7938Mrr4YgpDaYtY+W+p8HOgj+IxBvV1Gi8DAy5nNQosC12216GUYl
+         jEkw==
+X-Gm-Message-State: AFq9FYKEtPY6SGibwr9aum9+f39SgdHvBOazC03WsDy+ryr5314MYZQP
+	NpR8KjKCp3Nm+razfcJJQimbRKFNQRM922IGd8yEjFf6gQ+lJykvnMeBIWw21cE2kcc=
+X-Gm-Gg: AYBFou2yidAaKvA07iDCN2ulXMg+BohxH/OdhUkkPJp+O107gx2dQLwTLDMwaiVkL8s
+	mY1Hn3aHncaktV0oEPDn4aLj2vKwUajZIql06FN54Ih9dSvRPfb03qQqkYEoUDvqiV6FDdr9Mbw
+	EcOUxwuhmIuHRUNexOGdbX70IbC0MopTzJr6bGBbhQdqEbdMWsI9CHKRPCcvoliwWlp9BF2SZK0
+	6AtR+WSwNBeqZfX3uwOZSfeCj/9vB9RqZegD+d1eMVb1cGPSGJjrAxHwv98mkkHR/fL3kpsqEPx
+	Jz4u8LG0xoNzaiD34vUPeqj6BXcDvVbh49WZ5QSed/LPbC8dIdC3PshmfQXSJWs5BLB7Y+yyrEr
+	NdzDKxAzs6xKwUJy3ot/G24Y0tu/p9XEvxDAUwoCu13OMyz+TAcWMAgBrpvgl/1l5OdBOdA8iI/
+	lWavBzSGTSc0fLmWBjUQ1AiUlBcbW7papfFMzt2zyymWMD3GxnsBc+qXSI4lz9o4c=
+X-Received: by 2002:a05:701b:2093:20b0:163:fd28:5658 with SMTP id a92af1059eb24-16a5f9b0ab5mr18255904c88.22.1791899948154;
+        Tue, 13 Oct 2026 06:59:08 -0700 (PDT)
 Received: from 244668f92ec4 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35a352d4b05sm25052382eec.19.2026.10.13.06.59.06
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a442956asm49782736c88.16.2026.10.13.06.59.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 06:59:06 -0700 (PDT)
+        Tue, 13 Oct 2026 06:59:07 -0700 (PDT)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -65,37 +64,31 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-6.18.y: (build)undefined reference to
- `crypto_krb5_encrypt' in vmlinux.unstripped ...
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?b?W1JFR1JFU1NJT05dIHN0YWJsZS1yYy9saW51eC02LjE4Lnk6IChidWlsZCnigJhS?=
+ =?utf-8?b?SVNDVl9JU0FfRVhUX0jigJkgdW5kZWNsYXJlZCAoZmlyc3QgdXNlIGluIHRoaXMg?=
+ =?utf-8?b?ZnVuY3Rpb24pOyBkaWQgeW91IC4uLg==?=
 From: KernelCI bot <bot@kernelci.org>
 To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
 Reply-To: kernelci@lists.linux.dev
-Date: Tue, 13 Oct 2026 13:59:06 -0000
-Message-ID: <179189994604.261652.8424341821406313937@kernelci.org>
+Date: Tue, 13 Oct 2026 13:59:07 -0000
+Message-ID: <179189994717.261652.595413665788348689@kernelci.org>
 
 New build issue found on stable-rc/linux-6.18.y:
 
 ---
-undefined reference to `crypto_krb5_encrypt' in vmlinux.unstripped (net/sunrpc/auth_gss/gss_krb5_crypto.c) [logspec:kbuild,kbuild.compiler.linker_error]
+‘RISCV_ISA_EXT_H’ undeclared (first use in this function); did you mean ‘RISCV_ISA_EXT_h’? in arch/riscv/kernel/cpufeature.o (arch/riscv/kernel/cpufeature.c) [logspec:kbuild,kbuild.compiler.error]
 ---
 
 Log excerpt:
 =====================================================
-  LD      .tmp_vmlinux1
-arc-elf32-ld: net/sunrpc/auth_gss/gss_krb5_crypto.o: in function `gss_krb5_aead_encrypt':
-gss_krb5_crypto.c:(.text+0x1016): undefined reference to `crypto_krb5_encrypt'
-arc-elf32-ld: gss_krb5_crypto.c:(.text+0x1016): undefined reference to `crypto_krb5_encrypt'
-arc-elf32-ld: net/sunrpc/auth_gss/gss_krb5_crypto.o: in function `gss_krb5_aead_decrypt':
-gss_krb5_crypto.c:(.text+0x10ec): undefined reference to `crypto_krb5_decrypt'
-arc-elf32-ld: gss_krb5_crypto.c:(.text+0x10ec): undefined reference to `crypto_krb5_decrypt'
-arc-elf32-ld: net/sunrpc/auth_gss/gss_krb5_seal.o: in function `gss_krb5_get_mic_v2':
-gss_krb5_seal.c:(.text+0xd0): undefined reference to `crypto_krb5_get_mic'
-arc-elf32-ld: gss_krb5_seal.c:(.text+0xd0): undefined reference to `crypto_krb5_get_mic'
-arc-elf32-ld: net/sunrpc/auth_gss/gss_krb5_unseal.o: in function `gss_krb5_verify_mic_v2':
-gss_krb5_unseal.c:(.text+0xd4): undefined reference to `crypto_krb5_verify_mic'
-arc-elf32-ld: gss_krb5_unseal.c:(.text+0xd4): undefined reference to `crypto_krb5_verify_mic'
+/tmp/kci/linux/arch/riscv/kernel/cpufeature.c:1140:43: error: ‘RISCV_ISA_EXT_H’ undeclared (first use in this function); did you mean ‘RISCV_ISA_EXT_h’?
+ 1140 |         if (!riscv_has_extension_unlikely(RISCV_ISA_EXT_H))
+      |                                           ^~~~~~~~~~~~~~~
+      |                                           RISCV_ISA_EXT_h
+/tmp/kci/linux/arch/riscv/kernel/cpufeature.c:1140:43: note: each undeclared identifier is reported only once for each function it appears in
 
 =====================================================
 
@@ -107,18 +100,18 @@ Reported-by: kernelci.org bot <bot@kernelci.org>
 For complete logs and details about the environment used, see the issue
 on the KernelCI dashboard:
 
-- dashboard: https://d.kernelci.org/i/maestro:f00781b90a8f76c2e8daaffc165a2f16e1b157d3
+- dashboard: https://d.kernelci.org/i/maestro:9c2d7156a851892d9928708e16cdf53f301aae26
 - giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
 - commit HEAD:  b12a02dd090ec1b0b00fc16d1be95e7b53677ceb
 
 # Builds where the incident occurred:
 
-## haps_hs_smp_defconfig on (arc):
+## nommu_k210_defconfig on (riscv):
 - compiler: gcc-14
-- config: https://files.kernelci.org/kbuild-gcc-14-arc-haps_hs_smp_defconfig-6ace28bfa3f195e1aa757dcb/.config
-- dashboard: https://d.kernelci.org/build/maestro:6ace28bfa3f195e1aa757dcb
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6ace2945a3f195e1aa7583bb
 
-#kernelci issue maestro:f00781b90a8f76c2e8daaffc165a2f16e1b157d3
+#kernelci issue maestro:9c2d7156a851892d9928708e16cdf53f301aae26
 
 --
 This is an experimental report format. Please send feedback in!
