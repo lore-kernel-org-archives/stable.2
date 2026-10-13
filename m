@@ -1,109 +1,39 @@
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89178414A0C
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 01:35:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4A8414430;
+	Tue, 13 Oct 2026 01:41:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791855352; cv=none; b=fOfXmuY8yIThMisbprcpnxVVLRps54D2hoyKizjDJ+/VltUZ4PZOxuSnmoTzUtdteB/ulmkipUNWyNUbEuvwBs9KAi8Jcv3Dk2/h//RygKFM8rjomfjBqp4Ir2FT4Mpf5Da/4j9HmxNfk7fk9LjUhO310t3Sc3jO54JGhciDyN8=
+	t=1791855668; cv=none; b=FApBnxZnKSK+7OyjSIV9wfLH018U/8j7E3mL4hAUkCpH2AUuoaeIt/RykbUENpetPmnF8JFlJKcrbCr78vRNyiif/S9Juu0YnYPQskt7ZTudSzISab4Xhwl1k/Qvu5KlNl7oOKFmoqn78B+joVhDl0MDlrTxWjdoVvqTTL8GehI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791855352; c=relaxed/simple;
-	bh=IIVOJsgn1Fzp6J2UaPQgxgn6NYtZB1HT9aJu1pdQroM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=shDknkWQD5hQ8yaIgkGW61A/HfTA6d8/HJ/qz+sYEP7PyU+r/GW30EhVEifXsd6YUlPFx1m3ZX1JnRGe7NqYEcC7hlvc+vsUgIKpiAnTpXqD+52cvQj6yusrKrckOtm1B37qTIkU4aqj+4mCvmVunmUxGIR2Jrw4Eq5TjhbYkXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=timdoug.com; spf=pass smtp.mailfrom=timdoug.com; dkim=pass (2048-bit key) header.d=timdoug.com header.i=@timdoug.com header.b=bCHEsw7v; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=KDUzT5e1; arc=none smtp.client-ip=103.168.172.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=timdoug.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=timdoug.com
+	s=arc-20240116; t=1791855668; c=relaxed/simple;
+	bh=YJRlazg5QsL/y79yYMixv4JDEMKPMWl41OOPS/6WTOo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Judy0TIs8z6sb5XtDCljeqDG7mnzWOQzAy2Hsz3EveL9oZTYkm0HQj52/J9iXT8VGW1jHuoFop6meIVaRPfB9hMzGQKsVg4QPI+5PBSGUzP3L9fBOMhOXxeylgaDGsxmDR3vtJyKG0bnE2739RRC4LFN03EY/mYco4qRfrHuRjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=dGQHgVLc; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=timdoug.com header.i=@timdoug.com header.b="bCHEsw7v";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="KDUzT5e1"
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfout.phl.internal (Postfix) with ESMTP id C426DEC093D
-	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 21:35:49 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-12.internal (MEProxy); Mon, 12 Oct 2026 21:35:49 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=timdoug.com; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1791855349; x=
-	1791941749; bh=ynU+Bv1nkxtpTw5yF1AgPdxSe9NKymP1ojZfCaIJGWg=; b=b
-	CHEsw7vaLLJVUH8XekA8hgEtCs3js4FQ5LZGANyllY3HVvthqV/15X4WdRZ6dd+x
-	RKZ4HptJljsj9CoknD8RJSAm4ZLK9/C/m1obuWQC7LO1Bt/HgqfF2FR8wzp4Xbg+
-	VZ/g/hXoeZ1IcAi0Pv6tFVguBJ0Znmr34HkE82sKZ/3zQaanJldVU/XnAybq4QBb
-	3oxwE8PHC0d5lwTrVFSAMyPfKhqMKTGH5B+OtJRn8F3Bl5f/k9FGZHBJGwFxR2FH
-	3oySrK3t4Lar4xmz6/MBvPGTywIFCSQdP+7PPtS9RO8pcQJXCut/Whe1kugob+XS
-	PqisVpIozH723HtHKEDgQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1791855349; x=1791941749; bh=y
-	nU+Bv1nkxtpTw5yF1AgPdxSe9NKymP1ojZfCaIJGWg=; b=KDUzT5e1uXPYXNSde
-	wc0+tVcQDsX/eSNSaarzG/FeMuXyRqBN1z0RHUSeFTfRfYOqxSQPpBWYqx2p6zXq
-	C1G132vPiHJ7GUwAQ8X29ISE6UbX/7ZPaWBh0WySDEECcJP+eIPJqA7JDUYb1om+
-	FyHmJtxZGq+tS9HkZR/nBZLINSZnj9N5wYiFFcsWiBQH82GZ53LnWhP+/09mn6VA
-	MyRI1eHfCwYdqrXx4S0OdhRmH7dGLCEBfN8Juiz69D0xxShjtVx8iT09IgD7u8G4
-	l9GPecWx3edDvaqd0vnX2IE+fnrcHAYect4D+yX1+iE709/4GW/LRi2zlG7HtAQM
-	b1Z3Q==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=timdoug.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791855349; d=timdoug.com;
-	mf=PG1lQHRpbWRvdWcuY29tPg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:g/6gvFqgmwfsMeBbf3CYsFau/Mcm+Fagq3RPu64c2e7sD6R
-	abG32Qt/46HcwavV8F/0YgkaCxptW99B8hnDI+IbrIDNweolaX33TxceV3EyBtOH
-	mIURnzsf5+19wBiYbIFWaK3xt45NvtsxBVw1vQUmEHO2Bclx4/uDenqcMSqssUo4
-	nMkK+ajJK3lmqKDbvIRZ5WK7wUfifHbFSR4NwC70VSw1oUQ9s2sJiBfHZAXk4pmp
-	F+QpdBwyugeo04+N9333NzS+iisc/z0nq81yNcUTqhoFIMw3fiI3h1O4r2b1Ylgu
-	R8VzChV/o8r+/Jt0P0TSZVg5t1AGZXkRNWZd33w==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:UQfw95Fz+iiaKhM4B0x3CiboQNps0uiguSgaWYaEfus=:IIVOJsgn1Fzp6J2UaPQgxgn6NYtZB1HT9aJu1pdQroM=;
-X-ME-Sender: <xms:9YrNaonMRSAxG4NW42C6VGKvOsZ_VLvCBMovkGLuqWz2FGLBu1I5eA>
-    <xme:9YrNav_9xfoBccUTdcmF998KYas9gDKCnjJf9GfpTzYcUy6KSpmrwA16yZf7x1Iia
-    m59KKsSG7JaJ5MWQ3ljI7BuMIsRTg80wLXnlR6ffxvDunKS5ur0qw>
-X-ME-Received: <xmr:9YrNamJNLbt15yvhEDa86_QL276vFiL3ayuX0I426bdA_9E2nznQlMEEu4Qq>
-X-ME-Proxy-Cause: dmFkZTEs+D062zKm0g1Z6uCgWCfkrFCAifr7RRfExPlp2j9+nb3h4r6gXg5CPa1Hy28Gb3
-    jjDLtlUgehkFGvKDjacNQVtZmY23pAF2FYbp1x1/5WsfXHbMKYRnZ+oQxz1fhwjXas6rKu
-    O3Nic0YZYD3FpXcovN1s3R7DDK+4Hj1a5uljDvBzZS+QeauDTrkmI+gPO2CmEBM6fWNjv8
-    Djeb8EpppwYC7edHx9ftnnCjzX5VJXWtrTADVNS4avcixVuC0kwn7oOy4yRPpbQ4M0xpTk
-    MmxPAM3Unja5wAJOz1sQKNPVQ6CUgMoR1EdLi6JhrBSuMn5LiWNNsi4Kz8D85j94CaW+C/
-    zfQRUKnl+FFLPQYZ0KHet3ZLw5lvm+8hadwApEPbAsd/FzVn0J9saV93O2FZ9gZR451E6I
-    nZchxAfQzUh3qnVemeWmPsiENbHKF21Eb/qfgIxiBPg8bds6sEdtE0HUmvmUaDC5wCqnxy
-    1sdDDtGv0+Qp4GNLcTSWa/KHUOFPqBBaND/STNL21IrhDAXDD4JLid5BjKwEDfGY1uTByL
-    s6zzICKIWoTuFatUM0KWEpZOgQq/fXgs92TvsQdIjjpMIwHeS+aEWmf/G5VDReVWQPROdh
-    miG9Pup4vaD8yvW1KPm+TL9SMcI1pAkQ2GZtFtQTyhCCkT7ivz81YQzeFN8A
-X-ME-Proxy: <xmx:9YrNakh9kgryqBTLfSijKIwWI-VIkZ16k7U0KC6keeKB1kKNa8OmWA>
-    <xmx:9YrNai8pPoij5JEzMsrkTeHuX7HaIvD2tJ3wYYkyWPzzEa1-mWZjFA>
-    <xmx:9YrNapNiOfpLeyXP2WOjceAY0OMWwJIkgEkAyISP9wzWRwVNUipP1Q>
-    <xmx:9YrNamAVbQtRO5jiOXzcu9Ww3Dv3xRwUdtb3ZdfkdeI7yg5qnRULXw>
-    <xmx:9YrNarPlmUz_4Gpz5l1mMHBmOA27ju6S51F9TJzRFo1AxHdEYJlzf1Ek>
-Feedback-ID: i12bc4175:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 12 Oct 2026 21:35:48 -0400 (EDT)
-From: Tim Douglas <me@timdoug.com>
-To: gregkh@linuxfoundation.org,
-	jirislaby@kernel.org
-Cc: linux-serial@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
+	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="dGQHgVLc"
+Received: from localhost (gy-adaptive-ssl-proxy-4-entmail-virt151.gy.ntes [IPV6:240e:471:430:37de:7ca5:8deb:704c:6197])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 50cb20ab6;
+	Tue, 13 Oct 2026 09:40:59 +0800 (GMT+08:00)
+From: guolingxing <guolingxing@tju.edu.cn>
+To: Theodore Ts'o <tytso@mit.edu>,
+	Jan Kara <jack@suse.com>
+Cc: linux-ext4@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	chleroy@kernel.org,
-	Tim Douglas <me@timdoug.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] serial: pmac_zilog: push received data to the port that received it
-Date: Mon, 12 Oct 2026 21:35:40 -0400
-Message-ID: <20261013013541.4535-2-me@timdoug.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261013013541.4535-1-me@timdoug.com>
-References: <20261013013541.4535-1-me@timdoug.com>
+	guolingxing <guolingxing@tju.edu.cn>,
+	stable@vger.kernel.org,
+	Jan Kara <jack@suse.cz>
+Subject: [PATCH v2 1/3] jbd2: check return value of blkdev_issue_flush() when checkpointing
+Date: Tue, 13 Oct 2026 01:40:26 +0000
+Message-Id: <20261013014028.1152277-2-guolingxing@tju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261013014028.1152277-1-guolingxing@tju.edu.cn>
+References: <20261012114713.4049391-1-guolingxing@tju.edu.cn>
+ <20261013014028.1152277-1-guolingxing@tju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -111,44 +41,58 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa132eb893903a2kunmb88d3ae949bae7
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGBpNVhpDHhhLSkMYH0xCQlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0seQU9MSkFPSEtBSEwfHkFMGBpOQUMfHhlBTEtPGEFNSk
+	JMWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ01CVUpLS1VLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=dGQHgVLcDvxqk5zcO2zOcbugYkZfWMtAPR2ZtkhzQ0oR6l2qo7Bo8QtfFHW08wCHnHPNwTgDKNZacD/ZPs5+h0Erx/ommT11ER8LlPG75MjQyb50hAQklIQ5RUxWVK4zDnNTx0h148O3/DMzJAtlQwrFW/c+vEshKMT/tcxExNU=; s=default; c=relaxed/relaxed; d=tju.edu.cn; v=1;
+	bh=Z8ytFmjSG2iKp7uCnnbxl0GToVPS6y6xjh9NXApiaC4=;
+	h=date:mime-version:subject:message-id:from;
 
-pmz_interrupt() drains both channels but, since commit 2e124b4a390c
-("TTY: switch tty_flip_buffer_push"), pushes the flip buffer of the
-port whose handler is running rather than the port that was drained.
-With both ports open, data received on the other port can be left in
-its flip buffer until something else pushes it, so its reader may not
-see it.
+jbd2_cleanup_journal_tail() calls blkdev_issue_flush() on the file
+system device to make sure all checkpointed data are on permanent
+storage before it updates the log tail in the superblock.  However
+the return value of blkdev_issue_flush() is ignored so if the flush
+fails, we still advance the log tail.  After a crash the journal
+recovery will consider the checkpointed transactions as committed
+and skip the replay while their data may have never reached the
+disk, which may lead to a filesystem corruption.
 
-Fixes: 2e124b4a390c ("TTY: switch tty_flip_buffer_push")
+Abort the journal when the flush fails, similar to how we abort
+when detecting writeback errors of the file system device.
+
+Fixes: 79feb521a447 ("jbd2: issue cache flush after checkpointing even with internal journal")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Tim Douglas <me@timdoug.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
 ---
- drivers/tty/serial/pmac_zilog.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/jbd2/checkpoint.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/tty/serial/pmac_zilog.c b/drivers/tty/serial/pmac_zilog.c
-index e3a9193..f49d605 100644
---- a/drivers/tty/serial/pmac_zilog.c
-+++ b/drivers/tty/serial/pmac_zilog.c
-@@ -444,7 +444,7 @@ static irqreturn_t pmz_interrupt(int irq, void *dev_id)
-  skip_a:
- 	uart_port_unlock(&uap_a->port);
- 	if (push)
--		tty_flip_buffer_push(&uap->port.state->port);
-+		tty_flip_buffer_push(&uap_a->port.state->port);
+diff --git a/fs/jbd2/checkpoint.c b/fs/jbd2/checkpoint.c
+index 513273712010..9bbce4c8cadb 100644
+--- a/fs/jbd2/checkpoint.c
++++ b/fs/jbd2/checkpoint.c
+@@ -346,8 +346,14 @@ int jbd2_cleanup_journal_tail(journal_t *journal)
+ 	 * need this to guarantee correctness.  Fortunately
+ 	 * jbd2_cleanup_journal_tail() doesn't get called all that often.
+ 	 */
+-	if (journal->j_flags & JBD2_BARRIER)
+-		blkdev_issue_flush(journal->j_fs_dev);
++	if (journal->j_flags & JBD2_BARRIER) {
++		int err = blkdev_issue_flush(journal->j_fs_dev);
++
++		if (err) {
++			jbd2_journal_abort(journal, err);
++			return err;
++		}
++	}
  
- 	if (!uap_b)
- 		goto out;
-@@ -469,7 +469,7 @@ static irqreturn_t pmz_interrupt(int irq, void *dev_id)
-  skip_b:
- 	uart_port_unlock(&uap_b->port);
- 	if (push)
--		tty_flip_buffer_push(&uap->port.state->port);
-+		tty_flip_buffer_push(&uap_b->port.state->port);
- 
-  out:
- 	return rc;
+ 	return __jbd2_update_log_tail(journal, first_tid, blocknr);
+ }
 -- 
-2.54.0 (Apple Git-157)
+2.34.1
 
