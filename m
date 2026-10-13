@@ -1,154 +1,141 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E58052120D;
-	Tue, 13 Oct 2026 15:48:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A4EB542EED
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 15:48:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791906511; cv=none; b=aenV6UvNvvQyALLZsCLcw72dsufMTiowvPonNDEMIgnPGrKmyhS8bGb9c6wRhXFbDHr6440JbpQCnGpHzm2ZflAiie6gnw87MUoB2EaA3Ui9tpO0CSDrGUTUmomisFnCCncnJpjtMDNiDmvZgi8EVnDdkSltVJsVxsexhj+6N9Q=
+	t=1791906513; cv=none; b=lZtBCccrEeppIc4KwQrppYmFW7fqIa3wbdcyJQ9zPrj5CyzMR8Ib4NsMxfli/Mzw7M/TwVLum5MiTuqOP8meaUcpBWd2HBgwUTrcAhHND6cRrlbEI/3iKfEPSjEp+n7owATuh/Q3XP1QdrzrDO5UY/dI+Te6Dyxefm7Nyviiako=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791906511; c=relaxed/simple;
-	bh=g80R4+/eZeabAUVwDGl5wHDT0KFztyhPDglDl7tKId4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nHN3fzSp7T0DxH0vliExjtjtBQiJ/xQAGxmCwudtf9nt2XjzVIs10LfJfkQNn2jpYb/0jUTkp88y44d0eHF60pNyz3uX88sNiYxsASAiL8G6uuaTyZxz+ZTlIhGPFl4sekiutctT7Djxu4htYQYyltJnl+bxkdmU0FW5DZtPdm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GK2y5Vvn; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791906513; c=relaxed/simple;
+	bh=eEncPETdG+btE4hHADl6X+MPyj5yF9pkYOwyYldL40Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IJiM6vfPA16OTilOE/NmjfEjNYfZqcJvr+OuyXzLuDYdiXWMKO8Vs8/8YAHlL4/xYr1CRbwF7InW+X1QneMAKQDDJ4jsR5MZxW52Wx73Fes3fj6N4bK3KSXzHqq8zSsgK2iP7eXt9XWB6bjeb1ncKKP+OUT5klwdKQAIT/LUM40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W9cn6d+R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GK2y5Vvn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791906510; x=1823442510;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=g80R4+/eZeabAUVwDGl5wHDT0KFztyhPDglDl7tKId4=;
-  b=GK2y5VvnDkwjImsmck+YIdkefJhzljRGCI4Z9Md5lwuej38pmKceGPo/
-   ugEO5qD/ytbaOrvlwfinCZI2x5tTQTJDnQNIQ61tYB6VdLBP3MwngWtnJ
-   fdtsPbubdBAGFX4jK44LmGqy1sNuVMZ5bAlOX6pC3+btpoYKyNgLAG1Bi
-   H2fEGkl1Ss+dgFoPqPKnPdajaG3B2PnjTzzlmV/5F1n8+u40vHktZrJZv
-   KSJYnnJKpkpGzN0HSbZ5tsHNGYAGU4IkVDEFaj9joCs8IYPlk8skx4lND
-   x3DyhzSp5AawSkxKqJBhn2DY/e5RkXbj9gvVn0Gv3RmCxZmU2RTiUjDKh
-   w==;
-X-CSE-ConnectionGUID: fTEEwFmJQv690hAZtJEnpw==
-X-CSE-MsgGUID: pEpSvO7qSNCIM6fLzsh/kA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="644525"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="644525"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 08:48:29 -0700
-X-CSE-ConnectionGUID: V3c6m8oSRguzy9dQ4arp+Q==
-X-CSE-MsgGUID: UWLnhG4TRjiRC6Cfa8QoPA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1517171"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 08:48:27 -0700
-Date: Tue, 13 Oct 2026 18:48:24 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Kent Gibson <warthog618@gmail.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Jia Jia <physicalmtea@gmail.com>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 4/6] gpiolib: cdev: don't sleep in the SRCU read section
- in read()
-Message-ID: <as5SyJjLd24B8jde@ashevche-desk.local>
-References: <20261012-gpiolib-chip-removal-v1-0-aambrozewicz@nvidia.com>
- <20261012-gpiolib-chip-removal-v1-4-aambrozewicz@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W9cn6d+R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65E211F00893;
+	Tue, 13 Oct 2026 15:48:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791906511;
+	bh=MWK0GC/z66VaZePB1RFe2O1Nu61Z52gxUm7fwpUhawM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=W9cn6d+RVUkZDnv9jGp4vRuj60DhHuKZs6+F3hM+OuD5d7yZ9eGCKhDRTcaOrOEPq
+	 BdkrG1MZ0RmEtPrDUkDPshD/0nfJyvWco6semyd7OHrDJa54OL8kHrSpiaJol522iv
+	 CEHurSVE8uvplTAiEM31K6ydwaffJb7X0cw93NCSuAvkiq/kTo74FVVoZFFYKaQMH5
+	 t0kbs2Jz4rfunzoT1lLVdXG8jAxNHUDweZ5e2bWaokX5wDa6AfZcYleoI3YO7hSHda
+	 I373zMRfohub5W+COWry7HJzfq2Qd51AoKkgGv2qBu3KTxCuKTE+n255t/UbvHdK3d
+	 FqFTz5FELMFZw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Shao-Fu Chen <shf.chen@mediatek.com>,
+	Jens Wiklander <jens.wiklander@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] optee: register TEE devices only once fully initialized
+Date: Tue, 13 Oct 2026 11:48:30 -0400
+Message-ID: <20261013154808.313464-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026101248-triumph-stingray-457f@gregkh>
+References: <2026101248-triumph-stingray-457f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012-gpiolib-chip-removal-v1-4-aambrozewicz@nvidia.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 12, 2026 at 04:49:58PM +0300, Adrian Ambrozewicz wrote:
-> linereq_read(), lineevent_read() and lineinfo_watch_read() enter the
-> gdev->srcu read section to check that the chip is still there and stay
-> in it while they sleep waiting for an event. gpiochip_remove() clears
-> the chip pointer and then calls synchronize_srcu() on gdev->srcu, which
-> cannot return while a reader sleeps there. The wake-up meant for that
-> reader is sent by the device notifier, which runs later in
-> gpiochip_remove() and would not end the wait anyway, as the wait
-> condition only looks at the event FIFO. Unless an event arrives, a
-> process blocked in read() on a line request, a v1 line event or a chip
-> file with watched lines holds up the removal of the chip until it is
-> signalled:
-> 
->   task:init state:D stack:0 pid:1 tgid:1 ppid:0
->   Call Trace:
->    __synchronize_srcu
->    gpiochip_remove
->    release_nodes
->    devres_release_all
->    device_unbind_cleanup
->    device_release_driver_internal
->    bus_remove_device
->    device_del
->    platform_device_unregister
->    gpio_sim_device_deactivate
->    gpio_sim_device_config_live_store
->    configfs_write_iter
->    vfs_write
-> 
-> and since the device lock is held meanwhile, so does device_shutdown()
-> on power-off.
-> 
-> Check the chip pointer in a scoped SRCU section only. Nothing after the
-> check dereferences the chip, the request and its FIFO belong to the
-> file. Also end the wait once the chip is gone, which the notifiers'
-> wake-ups now see, and return -ENODEV if there is no event to report.
-> 
-> This dates back to the RW semaphore that the SRCU section replaced,
-> which these functions also held while sleeping and gpiochip_remove()
-> took for writing.
-> 
-> Reproduced with gpio-sim: one thread blocked in read() on a line
-> request while another sets the chip's configfs "live" attribute to 0.
-> The write does not return until the reader is killed; with this change
-> it returns at once and read() fails with -ENODEV.
+From: Shao-Fu Chen <shf.chen@mediatek.com>
 
-...
+[ Upstream commit c108feca0a096f8db25d1b69130035025e9e936d ]
 
-> -	guard(srcu)(&lr->gdev->srcu);
-> -
-> -	if (!rcu_access_pointer(lr->gdev->chip))
-> -		return -ENODEV;
-> +	/*
-> +	 * Don't stay in the SRCU read section while sleeping: that would stall
-> +	 * gpiochip_remove() until an event arrives.
-> +	 */
-> +	scoped_guard(srcu, &lr->gdev->srcu) {
-> +		if (!rcu_access_pointer(lr->gdev->chip))
-> +			return -ENODEV;
-> +	}
+optee_probe() called tee_device_register() on both the client and the
+supplicant device before the rest of struct optee had been initialized.
 
-It's duplicated a few times, perhaps you can make a static helper?
+tee_device_register() calls cdev_device_add(), which does two things at
+once: it creates /dev/tee0 and /dev/teepriv0, and it links the device
+into the tee class so that class_find_device() can find it. From that
+moment on the device is reachable both from user space via tee_open()
+and from kernel space via tee_client_open_context(). The only gate in
+teedev_open() is tee_device_get(), which merely checks that
+teedev->desc is non-NULL, which was already set by tee_device_alloc().
+Therefore, there is effectively no gate at all.
 
-static int ...()
-{
-	guard(srcu)(&gdev->srcu);
+A context opened in that window can run against a struct optee where
 
-	if (!rcu_access_pointer(gdev->chip))
-		return -ENODEV;
+  - optee->call_queue.mutex is not initialized by optee_cq_init()
+  - optee->supp mutex and completions is not initialized by
+    optee_supp_init()
+  - optee->rpmb_dev_mutex is not initialized yet,
+  - the message argument cache is not initialized by
+    optee_shm_arg_cache_init()
+  - optee->ctx is still NULL
 
-	return 0;
-}
+Any open session or invoke during this window takes uninitialized
+mutexes and dereferences a NULL pointer.
 
-Caveat: not an SRCU expert, so it might be actually wrong from run-time
-behaviour perspective.
+Fix it by moving both tee_device_register() calls down to the point
+where all of struct optee is set up.
 
+Fixes: 4fb0a5eb364d ("tee: add OP-TEE driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shao-Fu Chen <shf.chen@mediatek.com>
+[JW: adding fixes and cc]
+Signed-off-by: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
+[ sashal: Adapted the fix to the existing optee_probe() implementation using optee_remove() for cleanup. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/tee/optee/core.c | 26 ++++++++++++++------------
+ 1 file changed, 14 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/tee/optee/core.c b/drivers/tee/optee/core.c
+index 50c0d839fe751..a1bb5652d9081 100644
+--- a/drivers/tee/optee/core.c
++++ b/drivers/tee/optee/core.c
+@@ -707,14 +707,6 @@ static int optee_probe(struct platform_device *pdev)
+ 	}
+ 	optee->supp_teedev = teedev;
+ 
+-	rc = tee_device_register(optee->teedev);
+-	if (rc)
+-		goto err;
+-
+-	rc = tee_device_register(optee->supp_teedev);
+-	if (rc)
+-		goto err;
+-
+ 	mutex_init(&optee->call_queue.mutex);
+ 	INIT_LIST_HEAD(&optee->call_queue.waiters);
+ 	optee_wait_queue_init(&optee->wait_queue);
+@@ -744,14 +736,24 @@ static int optee_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, optee);
+ 
++	rc = tee_device_register(optee->teedev);
++	if (rc)
++		goto err_remove;
++
++	rc = tee_device_register(optee->supp_teedev);
++	if (rc)
++		goto err_remove;
++
+ 	rc = optee_enumerate_devices(PTA_CMD_GET_DEVICES);
+-	if (rc) {
+-		optee_remove(pdev);
+-		return rc;
+-	}
++	if (rc)
++		goto err_remove;
+ 
+ 	pr_info("initialized driver\n");
+ 	return 0;
++
++err_remove:
++	optee_remove(pdev);
++	return rc;
+ err:
+ 	if (optee) {
+ 		/*
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
