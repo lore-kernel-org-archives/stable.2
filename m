@@ -1,62 +1,63 @@
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DC9D3F3285
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 13:59:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CC0E3F0A8C
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 13:59:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791899950; cv=none; b=s4x0fWhCMbI898pQeiWbKyY9VgE6qemdtqPew62tzMO1nbQ6aXJwNWUaAM2F0ENAiWvIppH81hqrXulX3nnG74FfkO8NqkoUCkfnpWnHAngid7UQnMGRusAkatHTkeDXwZgZwjOygllUiCWX8jrivGnOGhNTFE6KfK0kzubqe/M=
+	t=1791899951; cv=none; b=FQqv+6T7t5df/eQkwyUU7Iu/bybgprdAg/+Qh16+I1r3fqddFTS0lvWQIo5Gb/Ln0WLoCi6cGuRn5Pf2vR/sAnt4RrFP4sHlnmn7NJAx8sXFr7h4vBW5jnI0GrDteyHbspUPvAipAXVmSV0JNjTQ0kCe8w63g4Ce2+85yXEZNdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791899950; c=relaxed/simple;
-	bh=i33+tNxQs9vDFfwbCffS2QA0V2fkSK+ODrnRPbBvcPQ=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=q9i2nJDGrhWvfgrmm9dXnLQgNTx8iilcglhan11jwW76XUibw4fQRx+R1Q4gUY52dXuBkN4NkVClI1iGyyW9Mh8JZq4QPn2UogdsAMB1iikPxu3sBi/ufG8IJ8F7su196s8053Yl/TUuZV0GcRcZhGWWuup8g6Mqbogq91/B7bY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=N3ZrEtYr; arc=none smtp.client-ip=74.125.82.48
+	s=arc-20240116; t=1791899951; c=relaxed/simple;
+	bh=OpSn9n9dq7uOUvPbiFHQ2KL/LHAm9RykzJvbZJG0VP8=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=uHizt3uD+5chNIsQOuc7b72MdM6m7oBnEb0hONZAWHJRYlG7hmGka0EnK5yfhvW1jjSfirpdUjbn4pOoGcIGRK+IG54Gcmu5yVSvMIgkKeltAuf4AEpFnbYlrwgqOjm+zF6ViZQeGywhi6u7TAcxe9upxxxm8qFHaYhGynfUhkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=cemjMCqK; arc=none smtp.client-ip=74.125.82.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="N3ZrEtYr"
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-17bc533fda3so440292c88.1
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 06:59:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="cemjMCqK"
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35a31bb9fb6so2275221eec.1
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 06:59:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1791899948; x=1792504748; darn=vger.kernel.org;
+        d=kernelci.org; s=google; t=1791899946; x=1792504746; darn=vger.kernel.org;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=p33dkzGVAoSlXjbFW4ld0/xNb5fH3JIT8ZatkJMGZJI=;
-        b=N3ZrEtYrYFaKeDH1RKzHm01SoidCHRxldo79PGWuPNJ9HoxPRWv1K7KALN3Ysfkybv
-         ej5++mZPjzLeewx18/nH4dDWGkLHQcnBxuu3XbUkoPIBN0Eg22DWHidna/yxD1QvFmmJ
-         wVBSb4aep+pdj5GVwdFgfJdp6v+0DG1oA+m97BhBRiLjuZdaxR8v5wEXE5hC86c+nIhP
-         Ugjnk4id3PkCzVg/Bc3IfL6qJrAkzEHFtD9OwSo2H+2Z2uPRCthyTHVwp0JAhW2L9Ug/
-         NDvc35znH3nUchF/jXuZAWsIgYF9eEvgKsbqcxh2nfXF2BFBqWgiclc4s1T6tt8oHRzc
-         oykA==
+        bh=z43N0k78xY9u1gk2XeCAGA5BfApKPDk2XmED9O8gcHM=;
+        b=cemjMCqK6md7lD8YRxZff8Tt5s2qun9yZHDraPcnxX5FWQZvFI+W2EAy0To3fVgMsq
+         IDKCrIjTacoMgY/Rx+/rXE+BBu21iZBuxWvKa7trDBgI7/zHrTGoIi9xQ1j8fGiyK5no
+         1qeX09MpwBQlEDiSnd6vQuL39sgOxrP2qA1URDuuMqeDkK7YLCA3XF7/2FQgzc681azk
+         De2b47hh7jnKDrhVfpRy8mYW9Is/BvmjxDhoqQYHXKtHc8oPGhVuQj3CZnSjz9DZPus/
+         pNRff8Adcc/5EMaMbl20+5HZnhKtwJ8kAMVGmWClPImHHRt/0eVsT79sB8YLSqTuwhGs
+         Cwnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791899948; x=1792504748;
+        d=1e100.net; s=20260707; t=1791899946; x=1792504746;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=p33dkzGVAoSlXjbFW4ld0/xNb5fH3JIT8ZatkJMGZJI=;
-        b=MQzbKfj9S/jzT2qqgk2M4L1N9JgFLW7HgdSyRuhCxtJTG9FCxjv9f+HhnLqO/XL+1x
-         mAUdyBU4TvnjiARYGvNegBChTaYsKqGfhN0cATdGdAHrDkxLZ8/fUrK7TYDm3Z4d/y3/
-         TfC8TiT9USWWVEIwKs8VI6yiL19zjBsm3OmZYgWZnq9zU3HobW/+Q3i0i+2CAE7dKYgX
-         t9X/QLmvQXXidTMOGpSrXeosZ+lVcijalLvhI59WD2ksaNDQ9dg1lsBUrOK8EY+EkHJV
-         qx2D6t69yaH/SI7938Mrr4YgpDaYtY+W+p8HOgj+IxBvV1Gi8DAy5nNQosC12216GUYl
-         jEkw==
-X-Gm-Message-State: AFq9FYKEtPY6SGibwr9aum9+f39SgdHvBOazC03WsDy+ryr5314MYZQP
-	NpR8KjKCp3Nm+razfcJJQimbRKFNQRM922IGd8yEjFf6gQ+lJykvnMeBIWw21cE2kcc=
-X-Gm-Gg: AYBFou2yidAaKvA07iDCN2ulXMg+BohxH/OdhUkkPJp+O107gx2dQLwTLDMwaiVkL8s
-	mY1Hn3aHncaktV0oEPDn4aLj2vKwUajZIql06FN54Ih9dSvRPfb03qQqkYEoUDvqiV6FDdr9Mbw
-	EcOUxwuhmIuHRUNexOGdbX70IbC0MopTzJr6bGBbhQdqEbdMWsI9CHKRPCcvoliwWlp9BF2SZK0
-	6AtR+WSwNBeqZfX3uwOZSfeCj/9vB9RqZegD+d1eMVb1cGPSGJjrAxHwv98mkkHR/fL3kpsqEPx
-	Jz4u8LG0xoNzaiD34vUPeqj6BXcDvVbh49WZ5QSed/LPbC8dIdC3PshmfQXSJWs5BLB7Y+yyrEr
-	NdzDKxAzs6xKwUJy3ot/G24Y0tu/p9XEvxDAUwoCu13OMyz+TAcWMAgBrpvgl/1l5OdBOdA8iI/
-	lWavBzSGTSc0fLmWBjUQ1AiUlBcbW7papfFMzt2zyymWMD3GxnsBc+qXSI4lz9o4c=
-X-Received: by 2002:a05:701b:2093:20b0:163:fd28:5658 with SMTP id a92af1059eb24-16a5f9b0ab5mr18255904c88.22.1791899948154;
-        Tue, 13 Oct 2026 06:59:08 -0700 (PDT)
+        bh=z43N0k78xY9u1gk2XeCAGA5BfApKPDk2XmED9O8gcHM=;
+        b=zyYN4kJzhhPG5NBLqlADNcOD63x/zy4H59iLgWjh7ByNhPUXUfyV5HT4gqEHTDEWYn
+         p84Mt8ewuv51hukMeJAGSBXiT8QPolXkb8sasp0AjsR3IA23CufKouFumEfgQrTq/wgi
+         RZTdEJ/z7rG63cQFS6ZfoxzazI4DRXsmtAkIxQUg776pukvLP5KO67EdyEWSBOlZlUpg
+         EIZuiYoq2TBzlNOYeksPnqaivR/wtTd0BczsdbHGC81fdBnbWU4vgJcBNZcQ/CnalFYg
+         2DDLXDR3yoW1hPKkAw4/ela2AQeLQXCwEtIpSYClOsCkvm8ADj7ZW5WxNxbd5x4WQ9tg
+         r5Xw==
+X-Gm-Message-State: AFq9FYK3GiSI9d2aiS7N0+NK6+Dq0qy7LYXCluGQ4Wd98+mV8AeRLQI+
+	AWKk4vnjb4JkLvIxjomBFm1gThNvLRL+mXtAwRBPf5o/EmccAd0pE/TlGglUyfplGRs=
+X-Gm-Gg: AYBFou3D4nVicx0Q4A/3MGib5gQ+MMCVl++jCAhW0Xzndpe9SRaUETciP+nrsSSE9w4
+	SN54VC7tZA8MIsvMb2nOsPQfxZ8P2Og+UB0S+jQ8zhEhLegWEWNh7nH0Leb7AL9CySXdPwzlObC
+	ijCY0QKXrFcuvPHjUvis3wGI0vFqYgXvQaCIrfDJWs2PSFRHZOBHQEDktsmJYfiL6MAU4i14Olv
+	XwRF4OuIP0xnpTz60XQ7rE9Z/s1GNcOkprabXAnpHJIWRNkXMXxQ4ZTGQq93uqYYUIPS0K+hwXt
+	6Wl38XWyx1C69sdgSijPk0j+R+q2X28V5TGMhmzSGAGP7inqKG3ILjIEqpKlMe+cFTmM9OamS2z
+	Bb2brAbi/fk7y41XLpb7aRfGIdGJ+jqyv/Z4lKhVAAXuun4X0N8SiMew+qSf5PCLYRY7XdTrfpI
+	fZ3jYWYw3pzrIrIF1YaoYdhEwYvDf7MVNDU5lLHM6KEj96N942gpOG8niub3/ldOpSLmpdPQ8Nz
+	Q==
+X-Received: by 2002:a05:693c:87c4:10b0:356:4b46:9393 with SMTP id 5a478bee46e88-3564b46940amr14743780eec.24.1791899945848;
+        Tue, 13 Oct 2026 06:59:05 -0700 (PDT)
 Received: from 244668f92ec4 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a442956asm49782736c88.16.2026.10.13.06.59.07
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c841648sm49971991eec.3.2026.10.13.06.59.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 06:59:07 -0700 (PDT)
+        Tue, 13 Oct 2026 06:59:05 -0700 (PDT)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -66,29 +67,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Subject: 
- =?utf-8?b?W1JFR1JFU1NJT05dIHN0YWJsZS1yYy9saW51eC02LjE4Lnk6IChidWlsZCnigJhS?=
- =?utf-8?b?SVNDVl9JU0FfRVhUX0jigJkgdW5kZWNsYXJlZCAoZmlyc3QgdXNlIGluIHRoaXMg?=
- =?utf-8?b?ZnVuY3Rpb24pOyBkaWQgeW91IC4uLg==?=
+ =?utf-8?q?=5BREGRESSION=5D_stable-rc/linux-6=2E18=2Ey=3A_=28build=29implicit?=
+ =?utf-8?q?_declaration_of_function_=E2=80=98bpf=5Fatomic=5Fload=5Freg?=
+ =?utf-8?q?=E2=80=99=3B_did_you_mea=2E=2E=2E?=
 From: KernelCI bot <bot@kernelci.org>
 To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
 Reply-To: kernelci@lists.linux.dev
-Date: Tue, 13 Oct 2026 13:59:07 -0000
-Message-ID: <179189994717.261652.595413665788348689@kernelci.org>
+Date: Tue, 13 Oct 2026 13:59:04 -0000
+Message-ID: <179189994404.261652.13159578693708911661@kernelci.org>
 
 New build issue found on stable-rc/linux-6.18.y:
 
 ---
-‘RISCV_ISA_EXT_H’ undeclared (first use in this function); did you mean ‘RISCV_ISA_EXT_h’? in arch/riscv/kernel/cpufeature.o (arch/riscv/kernel/cpufeature.c) [logspec:kbuild,kbuild.compiler.error]
+implicit declaration of function ‘bpf_atomic_load_reg’; did you mean ‘bpf_atomic_is_load_acq’? [-Wimplicit-function-declaration] in arch/s390/net/bpf_jit_comp.o (arch/s390/net/bpf_jit_comp.c) [logspec:kbuild,kbuild.compiler.error]
 ---
 
 Log excerpt:
 =====================================================
-/tmp/kci/linux/arch/riscv/kernel/cpufeature.c:1140:43: error: ‘RISCV_ISA_EXT_H’ undeclared (first use in this function); did you mean ‘RISCV_ISA_EXT_h’?
- 1140 |         if (!riscv_has_extension_unlikely(RISCV_ISA_EXT_H))
-      |                                           ^~~~~~~~~~~~~~~
-      |                                           RISCV_ISA_EXT_h
-/tmp/kci/linux/arch/riscv/kernel/cpufeature.c:1140:43: note: each undeclared identifier is reported only once for each function it appears in
+/tmp/kci/linux/arch/s390/net/bpf_jit_comp.c:790:20: error: implicit declaration of function ‘bpf_atomic_load_reg’; did you mean ‘bpf_atomic_is_load_acq’? [-Wimplicit-function-declaration]
+  790 |         load_reg = bpf_atomic_load_reg(insn);
+      |                    ^~~~~~~~~~~~~~~~~~~
+      |                    bpf_atomic_is_load_acq
 
 =====================================================
 
@@ -100,18 +100,18 @@ Reported-by: kernelci.org bot <bot@kernelci.org>
 For complete logs and details about the environment used, see the issue
 on the KernelCI dashboard:
 
-- dashboard: https://d.kernelci.org/i/maestro:9c2d7156a851892d9928708e16cdf53f301aae26
+- dashboard: https://d.kernelci.org/i/maestro:8b4d37814a498128289dbab602b54c227d5c1d15
 - giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
 - commit HEAD:  b12a02dd090ec1b0b00fc16d1be95e7b53677ceb
 
 # Builds where the incident occurred:
 
-## nommu_k210_defconfig on (riscv):
+## defconfig on (s390):
 - compiler: gcc-14
 - config: None
-- dashboard: https://d.kernelci.org/build/maestro:6ace2945a3f195e1aa7583bb
+- dashboard: https://d.kernelci.org/build/maestro:6ace294aa3f195e1aa7583cc
 
-#kernelci issue maestro:9c2d7156a851892d9928708e16cdf53f301aae26
+#kernelci issue maestro:8b4d37814a498128289dbab602b54c227d5c1d15
 
 --
 This is an experimental report format. Please send feedback in!
