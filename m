@@ -1,298 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B4E64FD799;
-	Tue, 13 Oct 2026 12:20:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E66134F3EAF;
+	Tue, 13 Oct 2026 12:20:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791894023; cv=none; b=PeblNR9uQ9WMa7XjEAqLj7zokzf/jJ3V/KnecouUG9IDEGx6E82MHmWhm2moI/PsNUQzMhcRNnCCYXE8oNxzxlrZlqr8jG5NrCRdgZ5f1zadaidpkPt6RVHwE7Swd0AcTgaw4qXdc7cVfimSNLwOpp0B+h7IwU10htaaFJh8pW8=
+	t=1791894026; cv=none; b=W9B9mRLGwFNJ+ZFvaeFPcEXy/F8TghmTnvI0uNxSreNh93xrbF9V2xJzPzPsFTCrNZZS2QxpFQafbNu4ss9P35V9emyN3Ov86kvhUa0mOFEsrMWhAZB3IXgZbwtAvSI3lh7pKX8debiDIluVtUT+RsPdMIB2yzvil3VYAjaEEqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791894023; c=relaxed/simple;
-	bh=bWC9fMSiL+tu20YPJgeGGWhWRTEU5yA5bdh8Q/xVaJs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CNLekixx7EoLr7LGeUu8YCdDEY5HMrcv+OJ+Pn0K8T4eHCSfs6ipLK1JtsOnwzZc8Iy5QYD44I5jHqm68HOFBBGJIIDM1P0Xz65y7pBMM+oPvcFXwcRw+JUDs4vzI4HXmcfjigE+SNQMgCzL/rDmJwpH/lpMXELF4NJ2YEX6Jhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PP1bibep; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791894026; c=relaxed/simple;
+	bh=gLHOz6njKTNxjDFN02B8L8v99H/7ZMGByM9sSmYJovA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TBSXfE6Yj6kaipm58utFFXUQMq2HsXfjBx78q3OLrkJfkMq+Kwx6sMUf1foT+1rHOm60nfO4BlljMOtiD4J1NknZUFy1XPY7byvhMDItqiVjyiMn7i+0kbY9ls4YZwjcoCqFwUBy0elI++2y+92DtZfMJDoylJtU8HKOWPx6YYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=MYPtX1pq; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=UIMJ6gtk; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=MYPtX1pq; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=UIMJ6gtk; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PP1bibep"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCB4A1F000FF;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="MYPtX1pq";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="UIMJ6gtk";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="MYPtX1pq";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="UIMJ6gtk"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 3B4851F38E;
+	Tue, 13 Oct 2026 12:20:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791894022; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OlJGBCagWvXQGO1VIHshMZ8zFkjRtPwQ0FF4ct4s8xw=;
+	b=MYPtX1pqwVUK0zZLZ7JvsDlUrVeuxO2nws3ChajkvINSlQYgy3PyDbw/9d3fAfPnyrfW4K
+	H1IH3q1/ZDU6NP3Zefp8sgQM0853fsandUaEbxwiTPkRc5qAIp0dVWrQ4vArbygF1shmv+
+	FJYGCSiEF+Zh1pTqYt1GO43sCfgdH+U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791894022;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OlJGBCagWvXQGO1VIHshMZ8zFkjRtPwQ0FF4ct4s8xw=;
+	b=UIMJ6gtkD8PBH05LiVAMA2MYaKywXMR4QoVM3vTGpCC7e704+xtAI6w1wc/TFo8fJltuF9
+	+vdubEu+r1kOTgDA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=MYPtX1pq;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=UIMJ6gtk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791894022; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OlJGBCagWvXQGO1VIHshMZ8zFkjRtPwQ0FF4ct4s8xw=;
+	b=MYPtX1pqwVUK0zZLZ7JvsDlUrVeuxO2nws3ChajkvINSlQYgy3PyDbw/9d3fAfPnyrfW4K
+	H1IH3q1/ZDU6NP3Zefp8sgQM0853fsandUaEbxwiTPkRc5qAIp0dVWrQ4vArbygF1shmv+
+	FJYGCSiEF+Zh1pTqYt1GO43sCfgdH+U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791894022;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OlJGBCagWvXQGO1VIHshMZ8zFkjRtPwQ0FF4ct4s8xw=;
+	b=UIMJ6gtkD8PBH05LiVAMA2MYaKywXMR4QoVM3vTGpCC7e704+xtAI6w1wc/TFo8fJltuF9
+	+vdubEu+r1kOTgDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DAA73134B8;
 	Tue, 13 Oct 2026 12:20:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791894022;
-	bh=Bvv1RoAE38AtCsUfIw1qJysFbbSZlZYAw/1easpv/Bw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PP1bibep1MOP8zjj8eI4xQyn0ph/sIkVCm8q9VtC2d2tz3RrGi1CU/Tn4eftm/vja
-	 yuZiExp5lqya+eOsGu/sYUN20gMvFA81ndQC4XpwOOUH0+t2evnR9xqt/43r231C5Y
-	 llDhAjSKpWEJl52LYonAfYErdUN7XVU6fS4H+BFo=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 420/621] clocksource/drivers/samsung_pwm: Switch to raw_spinlock_t type
-Date: Tue, 13 Oct 2026 13:36:55 +0200
-Message-ID: <20261013112930.802604074@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261013112920.855194808@linuxfoundation.org>
-References: <20261013112920.855194808@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Cd1nLAUizmraJgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 13 Oct 2026 12:20:21 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 627C6A1407; Tue, 13 Oct 2026 14:20:21 +0200 (CEST)
+Date: Tue, 13 Oct 2026 14:20:21 +0200
+From: Jan Kara <jack@suse.cz>
+To: guolingxing <guolingxing@tju.edu.cn>
+Cc: Theodore Ts'o <tytso@mit.edu>, Jan Kara <jack@suse.com>, 
+	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] jbd2: check return value of blkdev_issue_flush()
+ for async commits
+Message-ID: <ntruc4otct22v67ajoclslm7dr73fuyhqlcwpt3djnzhcacnjy@tap3ofwarqim>
+References: <20261012114713.4049391-1-guolingxing@tju.edu.cn>
+ <20261013014028.1152277-1-guolingxing@tju.edu.cn>
+ <20261013014028.1152277-4-guolingxing@tju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013014028.1152277-4-guolingxing@tju.edu.cn>
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 3B4851F38E
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	DWL_DNSWL_BLOCKED(0.00)[suse.cz:dkim];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:email,suse.cz:dkim]
+X-Spam-Flag: NO
+X-Spam-Score: -4.01
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+On Tue 13-10-26 01:40:28, guolingxing wrote:
+> When asynchronous commits are enabled, jbd2_commit_transaction()
+> calls blkdev_issue_flush() on the journal device to make the commit
+> record permanent.  However the return value is ignored so if the
+> flush fails, the transaction is considered committed although the
+> commit record may have never reached the disk.  Abort the journal
+> when the flush fails, as we already do when waiting for the commit
+> record fails.
+> 
+> Fixes: f73bee49855f ("jbd2: Modify ASYNC_COMMIT code to not rely on queue draining on barrier")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
 
-------------------
+Looks good. Feel free to add:
 
-From: Marek Szyprowski <m.szyprowski@samsung.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-[ Upstream commit 3b212f9d70805d91febae01d618868f4860e267c ]
+								Honza
 
-Samsung PWM timer might be used as a clock source on some legacy systems.
-When PREEMPT_RT is enabled on ARM, regular spinlock is converted to a
-sleeping lock (mutex-based), which must not be used in atomic context
-such as hard interrupt handlers. Switch the samsung_pwm_lock to the
-raw_spinlock, which remains a true non-sleeping spinlock even
-under PREEMPT_RT.
-
-Fixes: 7aac482e6290 ("clocksource: samsung_pwm_timer: Make PWM spinlock global")
-Fixes: f11899894c0a ("clocksource: add samsung pwm timer driver")
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Signed-off-by: Daniel Lezcano <daniel.lezcano@kernel.org>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Acked-by: Uwe Kleine-König <ukleinek@kernel.org>
-Link: https://patch.msgid.link/20260713085653.1145015-1-m.szyprowski@samsung.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/clocksource/samsung_pwm_timer.c | 22 +++++++++++-----------
- drivers/pwm/pwm-samsung.c               | 22 +++++++++++-----------
- include/clocksource/samsung_pwm.h       |  2 +-
- 3 files changed, 23 insertions(+), 23 deletions(-)
-
-diff --git a/drivers/clocksource/samsung_pwm_timer.c b/drivers/clocksource/samsung_pwm_timer.c
-index b9561e3f196c4..0544124cf5cea 100644
---- a/drivers/clocksource/samsung_pwm_timer.c
-+++ b/drivers/clocksource/samsung_pwm_timer.c
-@@ -56,7 +56,7 @@
- #define TCON_AUTORELOAD(chan)		\
- 	((chan < 5) ? _TCON_AUTORELOAD(chan) : _TCON_AUTORELOAD4(chan))
- 
--DEFINE_SPINLOCK(samsung_pwm_lock);
-+DEFINE_RAW_SPINLOCK(samsung_pwm_lock);
- EXPORT_SYMBOL(samsung_pwm_lock);
- 
- struct samsung_pwm_clocksource {
-@@ -87,14 +87,14 @@ static void samsung_timer_set_prescale(unsigned int channel, u16 prescale)
- 	if (channel >= 2)
- 		shift = TCFG0_PRESCALER1_SHIFT;
- 
--	spin_lock_irqsave(&samsung_pwm_lock, flags);
-+	raw_spin_lock_irqsave(&samsung_pwm_lock, flags);
- 
- 	reg = readl(pwm.base + REG_TCFG0);
- 	reg &= ~(TCFG0_PRESCALER_MASK << shift);
- 	reg |= (prescale - 1) << shift;
- 	writel(reg, pwm.base + REG_TCFG0);
- 
--	spin_unlock_irqrestore(&samsung_pwm_lock, flags);
-+	raw_spin_unlock_irqrestore(&samsung_pwm_lock, flags);
- }
- 
- static void samsung_timer_set_divisor(unsigned int channel, u8 divisor)
-@@ -106,14 +106,14 @@ static void samsung_timer_set_divisor(unsigned int channel, u8 divisor)
- 
- 	bits = (fls(divisor) - 1) - pwm.variant.div_base;
- 
--	spin_lock_irqsave(&samsung_pwm_lock, flags);
-+	raw_spin_lock_irqsave(&samsung_pwm_lock, flags);
- 
- 	reg = readl(pwm.base + REG_TCFG1);
- 	reg &= ~(TCFG1_MUX_MASK << shift);
- 	reg |= bits << shift;
- 	writel(reg, pwm.base + REG_TCFG1);
- 
--	spin_unlock_irqrestore(&samsung_pwm_lock, flags);
-+	raw_spin_unlock_irqrestore(&samsung_pwm_lock, flags);
- }
- 
- static void samsung_time_stop(unsigned int channel)
-@@ -124,13 +124,13 @@ static void samsung_time_stop(unsigned int channel)
- 	if (channel > 0)
- 		++channel;
- 
--	spin_lock_irqsave(&samsung_pwm_lock, flags);
-+	raw_spin_lock_irqsave(&samsung_pwm_lock, flags);
- 
- 	tcon = readl_relaxed(pwm.base + REG_TCON);
- 	tcon &= ~TCON_START(channel);
- 	writel_relaxed(tcon, pwm.base + REG_TCON);
- 
--	spin_unlock_irqrestore(&samsung_pwm_lock, flags);
-+	raw_spin_unlock_irqrestore(&samsung_pwm_lock, flags);
- }
- 
- static void samsung_time_setup(unsigned int channel, unsigned long tcnt)
-@@ -142,7 +142,7 @@ static void samsung_time_setup(unsigned int channel, unsigned long tcnt)
- 	if (tcon_chan > 0)
- 		++tcon_chan;
- 
--	spin_lock_irqsave(&samsung_pwm_lock, flags);
-+	raw_spin_lock_irqsave(&samsung_pwm_lock, flags);
- 
- 	tcon = readl_relaxed(pwm.base + REG_TCON);
- 
-@@ -153,7 +153,7 @@ static void samsung_time_setup(unsigned int channel, unsigned long tcnt)
- 	writel_relaxed(tcnt, pwm.base + REG_TCMPB(channel));
- 	writel_relaxed(tcon, pwm.base + REG_TCON);
- 
--	spin_unlock_irqrestore(&samsung_pwm_lock, flags);
-+	raw_spin_unlock_irqrestore(&samsung_pwm_lock, flags);
- }
- 
- static void samsung_time_start(unsigned int channel, bool periodic)
-@@ -164,7 +164,7 @@ static void samsung_time_start(unsigned int channel, bool periodic)
- 	if (channel > 0)
- 		++channel;
- 
--	spin_lock_irqsave(&samsung_pwm_lock, flags);
-+	raw_spin_lock_irqsave(&samsung_pwm_lock, flags);
- 
- 	tcon = readl_relaxed(pwm.base + REG_TCON);
- 
-@@ -178,7 +178,7 @@ static void samsung_time_start(unsigned int channel, bool periodic)
- 
- 	writel_relaxed(tcon, pwm.base + REG_TCON);
- 
--	spin_unlock_irqrestore(&samsung_pwm_lock, flags);
-+	raw_spin_unlock_irqrestore(&samsung_pwm_lock, flags);
- }
- 
- static int samsung_set_next_event(unsigned long cycles,
-diff --git a/drivers/pwm/pwm-samsung.c b/drivers/pwm/pwm-samsung.c
-index 951b38ff5f8ec..14fb460a45655 100644
---- a/drivers/pwm/pwm-samsung.c
-+++ b/drivers/pwm/pwm-samsung.c
-@@ -102,7 +102,7 @@ struct samsung_pwm_chip {
-  * IP. Should this change, both drivers will need to be modified to
-  * properly synchronize accesses to particular instances.
-  */
--static DEFINE_SPINLOCK(samsung_pwm_lock);
-+static DEFINE_RAW_SPINLOCK(samsung_pwm_lock);
- #endif
- 
- static inline
-@@ -141,14 +141,14 @@ static void pwm_samsung_set_divisor(struct samsung_pwm_chip *our_chip,
- 
- 	bits = (fls(divisor) - 1) - our_chip->variant.div_base;
- 
--	spin_lock_irqsave(&samsung_pwm_lock, flags);
-+	raw_spin_lock_irqsave(&samsung_pwm_lock, flags);
- 
- 	reg = readl(our_chip->base + REG_TCFG1);
- 	reg &= ~(TCFG1_MUX_MASK << shift);
- 	reg |= bits << shift;
- 	writel(reg, our_chip->base + REG_TCFG1);
- 
--	spin_unlock_irqrestore(&samsung_pwm_lock, flags);
-+	raw_spin_unlock_irqrestore(&samsung_pwm_lock, flags);
- }
- 
- static int pwm_samsung_is_tdiv(struct samsung_pwm_chip *our_chip, unsigned int chan)
-@@ -249,7 +249,7 @@ static int pwm_samsung_enable(struct pwm_chip *chip, struct pwm_device *pwm)
- 	unsigned long flags;
- 	u32 tcon;
- 
--	spin_lock_irqsave(&samsung_pwm_lock, flags);
-+	raw_spin_lock_irqsave(&samsung_pwm_lock, flags);
- 
- 	tcon = readl(our_chip->base + REG_TCON);
- 
-@@ -263,7 +263,7 @@ static int pwm_samsung_enable(struct pwm_chip *chip, struct pwm_device *pwm)
- 
- 	our_chip->disabled_mask &= ~BIT(pwm->hwpwm);
- 
--	spin_unlock_irqrestore(&samsung_pwm_lock, flags);
-+	raw_spin_unlock_irqrestore(&samsung_pwm_lock, flags);
- 
- 	return 0;
- }
-@@ -275,7 +275,7 @@ static void pwm_samsung_disable(struct pwm_chip *chip, struct pwm_device *pwm)
- 	unsigned long flags;
- 	u32 tcon;
- 
--	spin_lock_irqsave(&samsung_pwm_lock, flags);
-+	raw_spin_lock_irqsave(&samsung_pwm_lock, flags);
- 
- 	tcon = readl(our_chip->base + REG_TCON);
- 	tcon &= ~TCON_AUTORELOAD(tcon_chan);
-@@ -290,7 +290,7 @@ static void pwm_samsung_disable(struct pwm_chip *chip, struct pwm_device *pwm)
- 
- 	our_chip->disabled_mask |= BIT(pwm->hwpwm);
- 
--	spin_unlock_irqrestore(&samsung_pwm_lock, flags);
-+	raw_spin_unlock_irqrestore(&samsung_pwm_lock, flags);
- }
- 
- static void pwm_samsung_manual_update(struct samsung_pwm_chip *our_chip,
-@@ -298,11 +298,11 @@ static void pwm_samsung_manual_update(struct samsung_pwm_chip *our_chip,
- {
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&samsung_pwm_lock, flags);
-+	raw_spin_lock_irqsave(&samsung_pwm_lock, flags);
- 
- 	__pwm_samsung_manual_update(our_chip, pwm);
- 
--	spin_unlock_irqrestore(&samsung_pwm_lock, flags);
-+	raw_spin_unlock_irqrestore(&samsung_pwm_lock, flags);
- }
- 
- static int __pwm_samsung_config(struct pwm_chip *chip, struct pwm_device *pwm,
-@@ -390,7 +390,7 @@ static void pwm_samsung_set_invert(struct samsung_pwm_chip *our_chip,
- 	unsigned long flags;
- 	u32 tcon;
- 
--	spin_lock_irqsave(&samsung_pwm_lock, flags);
-+	raw_spin_lock_irqsave(&samsung_pwm_lock, flags);
- 
- 	tcon = readl(our_chip->base + REG_TCON);
- 
-@@ -404,7 +404,7 @@ static void pwm_samsung_set_invert(struct samsung_pwm_chip *our_chip,
- 
- 	writel(tcon, our_chip->base + REG_TCON);
- 
--	spin_unlock_irqrestore(&samsung_pwm_lock, flags);
-+	raw_spin_unlock_irqrestore(&samsung_pwm_lock, flags);
- }
- 
- static int pwm_samsung_set_polarity(struct pwm_chip *chip,
-diff --git a/include/clocksource/samsung_pwm.h b/include/clocksource/samsung_pwm.h
-index 9b435caa95fef..36f6f246e5594 100644
---- a/include/clocksource/samsung_pwm.h
-+++ b/include/clocksource/samsung_pwm.h
-@@ -15,7 +15,7 @@
-  * spinlock is not shared between both drivers.
-  */
- #ifdef CONFIG_CLKSRC_SAMSUNG_PWM
--extern spinlock_t samsung_pwm_lock;
-+extern raw_spinlock_t samsung_pwm_lock;
- #endif
- 
- struct samsung_pwm_variant {
+> ---
+>  fs/jbd2/commit.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/jbd2/commit.c b/fs/jbd2/commit.c
+> index 8c561e42b60a..4e8ebce34077 100644
+> --- a/fs/jbd2/commit.c
+> +++ b/fs/jbd2/commit.c
+> @@ -912,7 +912,10 @@ void jbd2_journal_commit_transaction(journal_t *journal)
+>  	stats.run.rs_blocks_logged++;
+>  	if (jbd2_has_feature_async_commit(journal) &&
+>  	    journal->j_flags & JBD2_BARRIER) {
+> -		blkdev_issue_flush(journal->j_dev);
+> +		int flush_err = blkdev_issue_flush(journal->j_dev);
+> +
+> +		if (!err)
+> +			err = flush_err;
+>  	}
+>  
+>  	if (err)
+> -- 
+> 2.34.1
+> 
 -- 
-2.53.0
-
-
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
