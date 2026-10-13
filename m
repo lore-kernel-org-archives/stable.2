@@ -1,42 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BDB03F871B
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 14:58:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D75E4398F1
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 14:58:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791903503; cv=none; b=aqM4IustRHi1kMvWsfMw45ocl5KibvRp8krw72xRZhTYPay8B9wBdO0pAJhjIVi014mCkzsDEaYzPMvPwvVQVLs6yMBzVzdMtLzPGl6NEvrSWJLwZrNSm80lucLHehYPmObTMG9BJLgMCd1LIejgbvtsChJzbAu1VLAdHgAU3x8=
+	t=1791903537; cv=none; b=fCcmAKqI2ZwjRJpKl5CP4RO3xN/O4+0my7wFNQnJDdyFn24jqP56tQCuD+E2PLBk/XHx6JSqSZ/vvmnsXBtBl/3ET18zzFprfax5sHOT35MfrOPtMWsUHmcI9LzftqByunJMhTUpngw2eSjq6B0b6dQcLjDp/ikdGHFgspstziE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791903503; c=relaxed/simple;
-	bh=WZc2u5yUu0RtNt1UDgIg2t6VDqGya6haL9QRtmGZqyI=;
+	s=arc-20240116; t=1791903537; c=relaxed/simple;
+	bh=2z05PsLR0ucgKWMN9vPAks1g4BAjgoGGRk7Omt7dCw8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iaYSiiINensEhaNLX4WLU4LrGKA5GcyEdVs8pU2zNUWk0V98nvsebz2oEDEcD4Q6G9rkDcyARKwnYhg0w0JXpf6HTIX3owV1fNtwoBKGk8MW7nBIsacupZWcr4nAlq4IS/XHSJP66r9tC51w952tTKMWBQx5J8fx14OvCPZL1oM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nWFq1Y4O; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=B0nTvz3MOZba/L4YM3eN3tXrQt4DOkDq9OGKD0uztLPHL5UQw2ygaGDZeGsGXefzQjHzrEePadGwP5bWEFtttzQnk3iOvYh1IXN0KSGS+xKnvxq+QuAnzubUR8uytvyYleInTjxRMzvHGaWgO7+yW1oUFPraNAOqx0H1qaquzpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZzdqV4+d; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nWFq1Y4O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 554221F000FF;
-	Tue, 13 Oct 2026 14:58:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791903501;
-	bh=NkuW575T6MZ1UbzPH4xyfmzATYLb7dkjpFFnNkxZuw0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nWFq1Y4Ovt5GdWpqtO8TJ+tlE2Maw1fFeEaYX62ytCUjE5ptlc3BFjLAR0pN6dnNu
-	 RwOVCgbQe4njlZSFn3CIvc3zj6nIpm0Y+6pGKx5wlPXL1oczpP29tGchvWu8LLXN//
-	 LTJDdZoTe2+pO2XvKPfNLht6Hj04D7OdcIU3RE6iTjci2Khc9PXTlPP6A5cm9wnz7z
-	 iMFKYMtUYctQIpfc+NYy6oii8MKvjJRlBOgAy6IWGXHY1uossT8lLj2LKahhrwxF9K
-	 bcmkULR0StgOggv2/qvJih6bPlktjCTFcVddlbXpmqMz2y+BmGxv12u+Gg2+8pmp/7
-	 cilRdsSF/CsJQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Mikulas Patocka <mpatocka@redhat.com>,
-	syzbot+bdff1ecf726d2af66afd@syzkaller.appspotmail.com,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] dm: fix reading free memory in do_resume
-Date: Tue, 13 Oct 2026 10:58:20 -0400
-Message-ID: <20261013145807.90957-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101224-cough-approval-fc0f@gregkh>
-References: <2026101224-cough-approval-fc0f@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZzdqV4+d"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-89a837bf00eso228417b3a.2
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 07:58:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791903535; x=1792508335; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rYeCLMrRw+7sZKn7J2Wy4tI9g40PN4nI4PwnmcaAXWQ=;
+        b=ZzdqV4+dVLVxbaUbPsHq/gNx0FHdBdgz0z1wKUOwATlxmymIpSDbpx4kxPzHR8as09
+         KcrJTinoCPmJDRrJzzTlLNje6CvyLbRv3BmB3DksPS6IKZCTNsHOuJv8WARgxmv4WEa6
+         ch5W4yCMMdJxcjxuSPpQ7D36Qzeqk740vBSoaKGwqbHf47RqILZPTAmu00mYOQpMNfUw
+         cMVpP830htJugqTh66ijmkBiGGj8frW+grN75xYcbdFWny4mF0yy00ZY/fplxvA1PbM0
+         Ydk7RN98Q+0jGfIAu9z9iJljxs2EORk6sxyj9hLgsQVntWsEMpUp7slEpZR089reDLhd
+         1iWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791903535; x=1792508335;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rYeCLMrRw+7sZKn7J2Wy4tI9g40PN4nI4PwnmcaAXWQ=;
+        b=rlI4MsF8wz41ExB9Zmex+ZFsEySeU6uZ/BzWsUUNFvmIW+IxNtZ+ibWVUz7TAX6oZD
+         a85jjF5UkmJAZFJVCOZw4QF3xNOQVgE4czwPjcAGez4yj+UFIf+3aTPdwwXHo4pqeniP
+         7Mwfpdw2twoEUObZxNju+QGw0Te7k4+dHnSpaobIWt+yBfkOmZ15Pk788UvT0YEf8vdH
+         SFH9JIBPnyw1cFfSrbJfZ4iZA9N34E7Acm2GpaBlgxfXofaCRH7yeCBkgOWE4sa1lGck
+         5KOZQ/r9hewnNXkLBSvP3FiG17KJFkXTyBTiLOUlNa48p3ApXgnOzJdTFqE9uRM6puxe
+         /sQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz0yOdbASy3XmuLwZAzyVyUO7ywmUffB2Eja0FLlp6QAg6cNKj3sLNnsRsOK1loGgelXgj98vc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJFCkQ/s9gSYnHWnfxNaOhBJYw+Sb+3jcXSCRHltgGfa3laOZgP
+	9DKt4/UFF1Wq9ydTXYSjyh43zd1PEJ5M0t3q59TyGe4CLCcpRObTm2kqU0vPvZs9
+X-Gm-Gg: AYBFou2qRWU2XnLvboFFzcqo35Mjbg7F5EuRtJxHbZmVKjM/dIb+xlto108Pw/Fhnrl
+	R/BesfMDE0qw5wlaVw+sqjgTDFne7GEffexZJQkYCuaR+pTm6yeKeqVRzK5PQIxciv2oflayC+M
+	FYaHImo9RZThPRhIfRavUC8V5bGv2VgXzWYoY7RAs8BLCOYDXM5Mwst6LGpaSZkZpgGYaKoGBZa
+	GU9VdohGzzA23LJHjNAChn1MxB4L+A6ldK4JdCtS49pYMeRZA7PujWbAfFk/42lkDHph+uPhsg/
+	sByOHNFDKhAFcPf67xgvvawv/OUYLR0Fw50/L23hF5Bcpqt5RI89nBqTvyfXgkl4UrO+e5dMuwj
+	AEtlLWJTk/7gyUi64u0NLaa0uc9NY7nxIgx5xBDahJfQ6kS/6aRZa9MnqYVpts6s+21mr8R0RaT
+	WhaoYm4O27voItyE0zSYkBfVJdCCqLFtwC1NVziLHE/lEYHVkKayxtI5nYlWgIPCE=
+X-Received: by 2002:a05:6a00:4906:b0:89c:9569:93cf with SMTP id d2e1a72fcca58-89c9578e022mr2814601b3a.1.1791903534922;
+        Tue, 13 Oct 2026 07:58:54 -0700 (PDT)
+Received: from ser8.. ([221.156.231.192])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89a0724a045sm2987330b3a.45.2026.10.13.07.58.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 07:58:54 -0700 (PDT)
+From: DaeMyung Kang <charsyam@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>,
+	Hyunchul Lee <hyc.lee@gmail.com>
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	DaeMyung Kang <charsyam@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] ntfs: report block device flush failures from fsync
+Date: Tue, 13 Oct 2026 23:58:45 +0900
+Message-ID: <20261013145846.56415-2-charsyam@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261013145846.56415-1-charsyam@gmail.com>
+References: <20261013145846.56415-1-charsyam@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,66 +79,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mikulas Patocka <mpatocka@redhat.com>
+ntfs_file_fsync() calls blkdev_issue_flush() after writeback but discards
+its return value. If the device cannot flush its write cache, fsync()
+reports success even though the file is not guaranteed to be durable.
 
-[ Upstream commit c9417c1c5269e2bd0570fbe53e4ec03a8d31f008 ]
+Reproduce this with QEMU blkdebug failing flush_to_disk with -EIO.
+On ntfs-next at 04fb910da2c8, a kretprobe recorded -EIO from
+blkdev_issue_flush() while fsync() returned 0. With this change,
+fsync() returns -EIO and logs the failure. The syncfs() path already
+reports this error.
 
-When do_resume calls dm_table_get_mode(new_map), the call is done without
-holding any locks (it only holds a reference to the md). It may be
-possible that another concurrent ioctl on the same device will swap table
-after dm_swap_table and before dm_table_get_mode. In this case,
-dm_table_get_mode(new_map) reads freed memory.
-
-This race condition was triggered by syzbot.
-
-This commit fixes the race by reading mode of the new table before
-dm_swap_table. Note that new_map is also passed to dm_ima_need_measure,
-but this function doesn't attempt to dereference it, so this call should
-be safe.
-
-Note that this is not a security bug because only root can trigger it and
-the commonly used tools such as lvm or cryptsetup do not call the ioctls
-concurrently, so that they can't trigger it acceidentally.
-
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Reported-by: syzbot+bdff1ecf726d2af66afd@syzkaller.appspotmail.com
+Fixes: 9c87959601e8 ("ntfs: update file operations")
 Cc: stable@vger.kernel.org
-[ sashal: Replaced blk_mode_t/BLK_OPEN_WRITE with fmode_t/FMODE_WRITE to match the existing API. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: DaeMyung Kang <charsyam@gmail.com>
 ---
- drivers/md/dm-ioctl.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ fs/ntfs/file.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
-index 12bc13bde0af5..d067006285e64 100644
---- a/drivers/md/dm-ioctl.c
-+++ b/drivers/md/dm-ioctl.c
-@@ -1065,6 +1065,8 @@ static int do_resume(struct dm_ioctl *param)
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index 58afd310d57b..afc2efb4b699 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -417,14 +417,14 @@ int ntfs_file_fsync(struct file *filp, loff_t start, loff_t end,
+ 	err = sync_blockdev(vi->i_sb->s_bdev);
+ 	if (unlikely(err && !ret))
+ 		ret = err;
++	if (!ret)
++		ret = blkdev_issue_flush(vi->i_sb->s_bdev);
+ 	if (likely(!ret))
+ 		ntfs_debug("Done.");
+ 	else
+ 		ntfs_warning(vi->i_sb,
+ 				"Failed to f%ssync inode 0x%llx.  Error %u.",
+ 				datasync ? "data" : "", ni->mft_no, -ret);
+-	if (!ret)
+-		blkdev_issue_flush(vi->i_sb->s_bdev);
+ 	return ret;
+ }
  
- 	/* Do we need to load a new map ? */
- 	if (new_map) {
-+		fmode_t new_map_mode;
-+
- 		/* Suspend if it isn't already suspended */
- 		if (param->flags & DM_SKIP_LOCKFS_FLAG)
- 			suspend_flags &= ~DM_SUSPEND_LOCKFS_FLAG;
-@@ -1091,6 +1093,7 @@ static int do_resume(struct dm_ioctl *param)
- 			}
- 		}
- 
-+		new_map_mode = dm_table_get_mode(new_map);
- 		old_map = dm_swap_table(md, new_map);
- 		if (IS_ERR(old_map)) {
- 			dm_sync_table(md);
-@@ -1099,7 +1102,7 @@ static int do_resume(struct dm_ioctl *param)
- 			return PTR_ERR(old_map);
- 		}
- 
--		if (dm_table_get_mode(new_map) & FMODE_WRITE)
-+		if (new_map_mode & FMODE_WRITE)
- 			set_disk_ro(dm_disk(md), 0);
- 		else
- 			set_disk_ro(dm_disk(md), 1);
 -- 
-2.53.0
+2.43.0
 
