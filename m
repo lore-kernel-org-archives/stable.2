@@ -1,169 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431A8515970;
-	Tue, 13 Oct 2026 16:24:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C874F4F7CA5
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:30:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791908688; cv=none; b=JTPuXhIht9jmQH2Rhch6DAAd98zDbMjaJComqyrZiJQFHtKrg3K6tLSLDZ1NUOWUNLHkp1qzUGn1Qed4gi3lwDsVuXpjsW/CH26TrhFC/neRaHemWWFGmR+kNLL2iU724/dxaxmrBMEi95XvFp/bgpCUnv6cBTCuIGGvnHY+gS4=
+	t=1791909011; cv=none; b=fIarfXgCgTcSSSFocakKrnrpe6vSPobKZKbBpBcQf0ZtpWAXLpZSaoH/UMnaKXjG6RwxQJiy3BoGRTKADrxUhkhlM68V+Tn+4PRkpv6CRX+t1UdOz6nExYPYk9LpRTpaO1syyorVfBvlEjlCrpEqYbnO+49kIK0OLIRmMJWb2Ro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791908688; c=relaxed/simple;
-	bh=Wq0KK60KB9cvB3i/Qy1xvz1MQHW4MAXTigPshF7yeIo=;
-	h=Date:To:From:Subject:Message-Id; b=Wo9RHyq+EdMQ6WneWHKRi6pEY3f2sIrFOxNP66NhsTxDzxUIsqmDZNdZlmnvkK1ja8meuoC8CCTdx8E2qqCUTlPaCVQcDxtCI9Z7b74JuMdtMkEp8gHfkukwtDzCWcEqh6GNYrLb22kc+Ca4T8Uz7zJulzs50uHqPHCc6nfV/KM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=BTF6WD4M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791909011; c=relaxed/simple;
+	bh=+HGJ91G3vE8I+hjbAj7JZo7VbwjxkPRsRJSUwJ2/ZT4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=liqJCgJfRb4qMqKjaQZFef0DqdmFhaV8ygvyLCR9QwnJ2va1ID2vNde3LoWzDcKvGStal7y8nMXwvBVuclKn2wfYh+KWgzZ+kG7Fs4yCq4XlchRHz/54e51aXTOIWaiqCwQiUmMdKTjQPrj5461vfMcpUYO/a3wBKA/ZFlxjprM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FPqEYhYM; arc=none smtp.client-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="BTF6WD4M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1F5B1F000FF;
-	Tue, 13 Oct 2026 16:24:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FPqEYhYM"
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cd15c885bdaso196388a12.1
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 09:30:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791908686;
-	bh=y6zQvWK5/jrYI/WBrzHiqGh1VRGjntPigrgFt2cFchM=;
-	h=Date:To:From:Subject;
-	b=BTF6WD4MMxLgx93Zi8G8kJBBTUfSe6JKYyeyUeSUzeM4vpbmehbXQHRkTZXlLztiE
-	 qLEVuxV+IphzGu/C99i71TsTwWuxPqo7/IErFhE8aXXltRuSZHxbJTpMAZMZzNvLXO
-	 v/CEW5x7SeeFC225Ge0CbWdDAJ1f+SH20O3JyW8Y=
-Date: Tue, 13 Oct 2026 09:24:46 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com,surenb@google.com,stable@vger.kernel.org,rppt@kernel.org,riel@redhat.com,ngocthang2710.1999@gmail.com,mhocko@suse.com,ljs@kernel.org,liam@infradead.org,benh@kernel.crashing.org,a.p.zijlstra@chello.nl,david@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-disallow-ioremaping-ordinary-ram-in-generic_access_phys.patch added to mm-hotfixes-unstable branch
-Message-Id: <20261013162446.C1F5B1F000FF@smtp.kernel.org>
+        d=gmail.com; s=20251104; t=1791909009; x=1792513809; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=T42dDgF1G2T5CFLnp1NKvSC8C3hiWB9MunCO19ie1Ug=;
+        b=FPqEYhYM14VrOChheN/JPEgFgIlnbyAWoiz+Dgdn9Zqf3oEM/6jRQhDKk5iP6YXxAA
+         ypGOxF6nL+ZX9xXEkrrolvMO7NFdDUcU8zgBXJh+cuJIVkeODW3mzODXax3c+1HVNyfM
+         Atz8b6d+AvV6cnGlVBTVdRFily8TLgkeRcqowt6hsIZ7u3MGL7+BCBWldsB/kg/9RYZs
+         /5XWBVuh4CpbVhyM1381mDhbau8GjUux2bdXoY+cv1QPhUnZjF+9OiC3y/z4vZ1a4Ej1
+         7VKEcTfKTj+YSXjnDqjhaIkeJlPQV/fIZRWMLfyjYENf1RAV3xxEec4BUY71LzvGvEJy
+         GO+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791909009; x=1792513809;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=T42dDgF1G2T5CFLnp1NKvSC8C3hiWB9MunCO19ie1Ug=;
+        b=x1rTP71p2Vw2adWtzCa2nQ+QXn47hw/GLm4dhrBKIMcwVRoiHGuWkJd6WqNbhT1vBG
+         EKlv0XTdlFaa8uR9p/8mxCThLeMDE4UEClfgCXfqv+KxoNZE9DV+Lq9FkhdYOQFK0eUV
+         q/sCNV/Hwkor6DnAr7GcxXpziUlGRnhUMpKinlMCXnbYr3i/tdE5NJ+gbGgAaOL+pgie
+         iY0LAZKJltjcJotkU8j25Jl/FdHSBSB9gsYuPv+SBv9pcU+L3vChbQnVWRkajor5FKXF
+         pAfN5fwL1xLSZROAAJEdeYwRdtBMi6Qz7SQrtoteREBTPNSQkhFdxp5tYV8nR7IqQ55T
+         hvxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwAlPaS92+Cla/TaaTixxhAcqYX6aYfVTKD4qWf7yezHd6gaVn2W+sKC5WF5mfqWErLNYf69Io=@vger.kernel.org
+X-Gm-Message-State: AFq9FYID5YMnQP4BkbzOtLDn7KFwC+P/4WRN/mg9jSAU+xZk7BEhnEij
+	ceds8YI9TC8EEHpWFnR/6/TVnM8rWx9HJ3XTMC/qFbPlKxHGRWZ2/I7i
+X-Gm-Gg: AYBFou1dVXzQWF6Iy4+Ks71UOvIHHx4T3lvjYHqyIicyT/lDB+afPVPB7eS+2QpEK/I
+	UvIDikqybsPG5Aq4KRJe4zu+wL1NOGlO3onnrD13NZExn6ztTaDzVu4Zr8tklHiXmpg8+ZJU9e5
+	wYPf95jTYV4x2/1nqxoZoNVA9tkMf6kn+oaE26J5Ozwe/+heyX0YQKrVPkmD9infM2b/wWEjBPu
+	tNS/zEnooYgC8fbJoOsySxGbl+RqereWX9wfNNhtNPtJJy09mh7p8AYyEwN/Mey0s5NqmfEH5S0
+	y5LuB+lt/bIi7tQcAKM0RmCgu7yKJPmrzE3SHJlyUWGKoXjRGdzfXMppVurY+VT+6mfJz92DY0w
+	psUlHz3y0Fr7cugfV+3XkAX/Rv88RTIi33D6R23pwwxYFDBwCYfF7fLw+tSy6VMYn0tcOOCneXC
+	RT4ITPsjWymfoLM5zIP1jfIqdjjkDUi0EEvtN4HgCt3KHLwSP6pSn34M1r9QCm/fzfJ9ImrIXXU
+	S3agk3qpLlHlvmCHk1bKHWagX4sSipuwk0fFQUjjt/F5zfT0d68CnCv6zUJyc7xX/U5
+X-Received: by 2002:a17:90a:d49:b0:3ab:be66:ddc5 with SMTP id 98e67ed59e1d1-3abbe66df3bmr7123391a91.6.1791909008669;
+        Tue, 13 Oct 2026 09:30:08 -0700 (PDT)
+Received: from localhost.localdomain ([119.127.198.225])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9e26ddfsm5672992a12.17.2026.10.13.09.29.55
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 13 Oct 2026 09:30:07 -0700 (PDT)
+From: Qihang <q.h.hack.winter@gmail.com>
+To: netdev@vger.kernel.org
+Cc: jhs@mojatatu.com,
+	jiri@resnulli.us,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	pablo@netfilter.org,
+	stable@vger.kernel.org,
+	Qihang <q.h.hack.winter@gmail.com>
+Subject: [PATCH net] net/sched: cls_api: unlink indr cb on a failed bind
+Date: Wed, 14 Oct 2026 00:29:49 +0800
+Message-ID: <20261013162949.25622-1-q.h.hack.winter@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+Binding a device without ndo_setup_tc() to a shared block goes through the
+indirect path, and when that bind fails tcf_block_bind()'s error path
+frees the driver callback while it is still linked on the global
+flow_block_indr_list.  The next flow_indr_dev_unregister() of that driver
+walks the freed node:
 
-The patch titled
-     Subject: mm: disallow ioremap'ing ordinary RAM in generic_access_phys()
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-disallow-ioremaping-ordinary-ram-in-generic_access_phys.patch
+  tcf_block_get_ext()
+    -> tcf_block_offload_cmd()
+       -> flow_indr_dev_setup_offload()  [ allocates block_cb and links it
+                                            on flow_block_indr_list ]
+       -> tcf_block_setup() -> tcf_block_bind()
+          -> err_unroll: list_del(&block_cb->driver_list);
+                         flow_block_cb_free(block_cb);   [ kfree() ]
+    -> err_block_offload_bind            [ no tcf_block_offload_unbind() ]
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-disallow-ioremaping-ordinary-ram-in-generic_access_phys.patch
+The only unlink is flow_indr_block_cb_remove(), which a driver calls while
+handling FLOW_BLOCK_UNBIND, and a failed bind never delivers that command,
+so nothing removes the node before the callback is freed.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+commit da94a7781fc3 ("net/sched: cls_api: remove block_cb from driver_list
+before freeing") fixed this loop for driver_list; indr.list is the link
+that change still misses.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+Fix by unlinking the callback before it is freed, and by initialising
+indr.list in flow_block_cb_alloc(), so an unlinked callback carries an
+empty list instead of an all-NULL one.  That is what makes the
+list_empty() test exact for the direct and the indirect path alike.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Subject: mm: disallow ioremap'ing ordinary RAM in generic_access_phys()
-Date: Tue, 13 Oct 2026 13:41:24 +0200
-
-generic_access_phys() can end up getting called on CoW PFNMAP mappings,
-resulting in it trying to ioremap anonymous folios, which especially
-the x86 code doesn't enjoy, and which is in general just odd/wrong.
-
-E.g., with a CoW mapping of a PCI BAR:
-
-ioremap on RAM at 0x0000000045623000 - 0x0000000045623fff
-  WARNING: arch/x86/mm/ioremap.c:216 at __ioremap_caller.isra.0+0x4c2/0x5f0
-  Call Trace:
-   generic_access_phys+0x130/0x4d0 mm/memory.c:7178
-   kernfs_vma_access+0x1ce/0x280 fs/kernfs/file.c:437
-   __access_remote_vm+0x58f/0x890 mm/memory.c:7256
-   mem_rw+0x2a1/0x670 fs/proc/base.c:912
-
-But more generically, we should disallow access to anything that looks
-like ordinary RAM in the system: including allocating memory (e.g.,
-alloc_pages) and mapping them in a VM_PFNMAP.
-
-For pages with an online memmap, allow only pages marked as reserved
-(PageReserved). This also includes memblock allocations, however,
-distinguishing them from other MMIO is tricky, and nobody should really
-be mapping them in a PFNMAP (except someone abusing /dev/mem, which we
-do not care about).
-
-So only allow access if there is no online memmap, or if the pages are
-marked reserved. Reject other pages with -EINVAL.
-
-Note that, just like other pfn_to_online_page() users, we won't care about
-concurrent memory offlining; mapping memory that can concurrently get
-offlined is highly dubious.
-
-Link: https://lore.kernel.org/20261013-generic_access_phys-v1-1-b3963ef76e37@kernel.org
-Fixes: 28b2ee20c7cb ("access_process_vm device memory infrastructure")
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: <syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com>
-Closes: https://syzkaller.appspot.com/bug?extid=49b1021becba70c1f3f6
-Reported-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Closes: https://lore.kernel.org/r/20261001152524.171115-1-ngocthang2710.1999@gmail.com/
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Cc: Peter Zijlstra <a.p.zijlstra@chello.nl>
-Cc: Rik van Riel <riel@redhat.com>
-Cc: <stable@vger.kernel.org>
+Fixes: 1fac52da5942c ("net: flow_offload: consolidate indirect flow_block infrastructure")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
 ---
+ net/core/flow_offload.c | 2 ++
+ net/sched/cls_api.c     | 3 +++
+ 2 files changed, 5 insertions(+)
 
- mm/memory.c |   14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
---- a/mm/memory.c~mm-disallow-ioremaping-ordinary-ram-in-generic_access_phys
-+++ a/mm/memory.c
-@@ -7170,6 +7170,7 @@ int generic_access_phys(struct vm_area_s
- 	resource_size_t phys_addr;
- 	pgprot_t prot = __pgprot(0);
- 	void __iomem *maddr;
-+	struct page *page;
- 	int offset = offset_in_page(addr);
- 	int ret = -EINVAL;
- 	bool writable;
-@@ -7178,6 +7179,19 @@ int generic_access_phys(struct vm_area_s
- retry:
- 	if (follow_pfnmap_start(&args))
- 		return -EINVAL;
+diff --git a/net/core/flow_offload.c b/net/core/flow_offload.c
+index 5071d7fe6ce2..64451129a230 100644
+--- a/net/core/flow_offload.c
++++ b/net/core/flow_offload.c
+@@ -266,6 +266,8 @@ struct flow_block_cb *flow_block_cb_alloc(flow_setup_cb_t *cb,
+ 	if (!block_cb)
+ 		return ERR_PTR(-ENOMEM);
+ 
++	INIT_LIST_HEAD(&block_cb->indr.list);
 +
-+	/*
-+	 * Reject anything that looks like ordinary RAM, including anonymous
-+	 * folios in CoW mappings or allocated kernel memory. Note that we
-+	 * cannot distinguish memblock allocations from non-RAM reliably, so
-+	 * we cannot easily reject them here.
-+	 */
-+	page = pfn_to_online_page(args.pfn);
-+	if (page && !PageReserved(page)) {
-+		follow_pfnmap_end(&args);
-+		return -EINVAL;
-+	}
-+
- 	prot = args.pgprot;
- 	phys_addr = (resource_size_t)args.pfn << PAGE_SHIFT;
- 	writable = args.writable;
-_
-
-Patches currently in -mm which might be from david@kernel.org are
-
-mm-disallow-ioremaping-ordinary-ram-in-generic_access_phys.patch
-arm64-mm-move-__check_safe_pte_update-fix.patch
-mm-sparse-move-mem_section-init-to-sparse_extreme_init.patch
-mm-sparse-refactor-sparse_sections_init.patch
-mm-sparse-move-initialization-of-section-metadata-to-sparse_metadata_init.patch
-mm-sparse-rename-and-cleanup-sparse_init_nid.patch
-mm-sparse-cleanup-sparse_init_one_section.patch
-mm-sparse-rename-__highest_present_section_nr-to-__highest_used_section_nr.patch
-mm-sparse-remove-pfn_in_present_section.patch
-mm-sparse-move-__highest_used_section_nr-handling.patch
-scripts-gdb-mmpy-remove-fallbacks-for-section_has_mem_map-and-section_is_early.patch
-mm-sparse-remove-section_marked_present.patch
-mm-sparse-remove-flags-parameter-from-sparse_init_one_section.patch
-fs-proc-page-clarify-comment-in-get_max_dump_pfn.patch
-mm-memory_hotplug-drop-config_have_arch_pfn_valid-handling-from-pfn_to_online_page.patch
-vmcoreinfo-export-section_has_mem_map.patch
+ 	block_cb->cb = cb;
+ 	block_cb->cb_ident = cb_ident;
+ 	block_cb->cb_priv = cb_priv;
+diff --git a/net/sched/cls_api.c b/net/sched/cls_api.c
+index a9f54988561f..ffbb8353251b 100644
+--- a/net/sched/cls_api.c
++++ b/net/sched/cls_api.c
+@@ -1665,6 +1665,9 @@ static int tcf_block_bind(struct tcf_block *block,
+ err_unroll:
+ 	list_for_each_entry_safe(block_cb, next, &bo->cb_list, list) {
+ 		list_del(&block_cb->driver_list);
++		/* linked only for an indirect bind */
++		if (!list_empty(&block_cb->indr.list))
++			list_del_init(&block_cb->indr.list);
+ 		if (i-- > 0) {
+ 			list_del(&block_cb->list);
+ 			tcf_block_playback_offloads(block, block_cb->cb,
+-- 
+2.54.0 (Apple Git-157)
 
