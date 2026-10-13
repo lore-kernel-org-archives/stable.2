@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA8225349CC
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 19:07:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CC774F96C9
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 19:07:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791918422; cv=none; b=HACnaXy3rCiRLos9PyV/4oxVNCtvpXxzi3eFNdOUn+VL4NNqOtVVYLntmBUw5agbgxIGmHhujJz+k39GY4+2raN/fgawbM8/9C1ABNS+S1jEPjGQi45YTHb4unH2uNwMe5MB30zSUKZZrFM6Xv9PWn/byF/tvAOwhFFQcLZxtcU=
+	t=1791918430; cv=none; b=BT/fnw2P+d7WrfcyaPOP4WNDNFaZaO3TYeVG8BNXsGrVobgYU2q4Y4B6r1dgeaEcr/gUf1qQWPe4Z1sFh6LSMep1W+nUbHlyWE/kifH2Bjmmr+KUafcC8jvSc21fzGcCf+SqbZZ6W8sYpwsRh1iphvLDnHHACchDa4/rUOGSl10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791918422; c=relaxed/simple;
-	bh=fYi1h53Cv+XGdedZcLFVl4B5vljwt9RH55t6e/FPCQw=;
+	s=arc-20240116; t=1791918430; c=relaxed/simple;
+	bh=1x27oMuQ1wDh7EqIaS4m8y7oDASrZV2FVfZfI39UgYo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HJhUkKJfrLJfVEdM0+wo17SwF3Y+Sm01B6kIZDMQc+ijVmNPCJefVqawjSBLNKTuNEpymF1c3Wg7VuXcliQ7UoN21LUVBxn1KZ/2AGfdipOcJLXuwanG371v1QUZppMRS+234xPTwmE/qt/dVDI3TWDVmvqN9yPi7Thi8rUO4L8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FN+jsjSr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cMM+10NMGPij0+pQjK6iUVe5im0PPDeNx++vNvY60PtZNkFN5hhTRPoB75cbFY5N8pBjPHHW9E+sv05OCFMcDMFNBMdviMmvtNfCl19+VdR0bSMmd+Dt9qOE79vUAGjt0yXVVfE8RovkjXrPdbLCQucg4hMbC/GcH/UjY2awtks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oKF3QBpX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FN+jsjSr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D72CC1F000FF;
-	Tue, 13 Oct 2026 19:07:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oKF3QBpX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C8301F000FF;
+	Tue, 13 Oct 2026 19:07:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791918421;
-	bh=JCJ//6wrtwXvavoX8tclxcY4PjoRbJB+Iba6Gi66dAs=;
+	s=k20260515; t=1791918428;
+	bh=ETOnK6FeryHG6bx7W/6Io1KtAWIGO7q0Wxhp7gY90Zk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FN+jsjSrW0WWOrlGimF7Al6L5HVVazNyRDhnRktqoiDPVhkpiUBaslBJLiyhKQPS5
-	 5UnJs0AVWNlewvRe67lIeoGZPLug/kBGXtUVXa0p04If6/yX9Nu1oy8PR36U0WxoOI
-	 s/vSIteKzrw2N8SAQqLvXV5HZDV8YAC5gIUOBeHdX5nCEjPSFpyEJrGXIGRJy4ymxZ
-	 swl2yxupjF+JUsvbCJ+KFNIlMVUYvbVsLY1L2EIIDo0gPPJQVjdqcEH1HOQOLjrQRf
-	 VRAGdZwSl/SoaGYfnttGaLtRR9XkDRpxkORaBWh12Zl169PZQbLqWYHGA/EZQ7J6zX
-	 yFS37ba8BeKiQ==
+	b=oKF3QBpXrIznidCKWLJtPB3RAGjx+9madIbWnpzqwUcgXEbHYUqIyZjE6cY4aHJ71
+	 JVeeHr7rT+R2dXbDGSQYbBvar2rnrRAXUoeCDZaeYR3c1dCFSsJdXQircYHsZu+Pzf
+	 r6NgLUlLOSApyyI5vFU+2LapVhelh5yapnUasvnLuq/rz///5TrEBQqPB56zR14smV
+	 QL6P1plTnt8g5Of4FXFg/WPxw1y7bmOb0FkGflxr/j/yws5uiYZnViF71w4h9+dch3
+	 sZwo3z8Wq8oA+38wyO6YeuHOv/CTrqqbpDNqa1x1o5DrIuxzCitxA6W2zEHHBT6k3G
+	 WLERBrBaj2Eog==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] namespace: check the target before walking it in do_mount_setattr()
-Date: Tue, 13 Oct 2026 15:06:59 -0400
-Message-ID: <20261013190624.829930-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] namei: don't reveal overmounted entries in refwalk
+Date: Tue, 13 Oct 2026 15:07:07 -0400
+Message-ID: <20261013190625.831102-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101201-thrower-fascism-1179@gregkh>
-References: <2026101201-thrower-fascism-1179@gregkh>
+In-Reply-To: <2026101255-acutely-ignore-ea23@gregkh>
+References: <2026101255-acutely-ignore-ea23@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,64 +46,400 @@ Content-Transfer-Encoding: 8bit
 
 From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit 08f4288a37ef4b3d19b4a9599ec3048219cac828 ]
+[ Upstream commit 8189ab688f5a2c745dc90b63374da02f213d6994 ]
 
-When mount_setattr() changes the propagation type to MS_SHARED
-do_mount_setattr() takes namespace_sem and calls invent_group_ids()
-which walks the whole target tree with next_mnt() and allocates a peer
-group id for every mount that doesn't have one.
+In rcuwalk the dentry is validated before it is accepted. step_into()
+step_into() rechecks d_seq and __follow_mount_rcu() rechecks mount_lock.
+An entry that gets unlinked in between causes the lookup to retry and
+miss.
 
-Whether the caller may touch the target at all is only checked
-afterwards under mount_lock. If it may not, cleanup_group_ids() walks
-the tree a second time on the way out to free the ids again.
+A refwalk doesn't do this. lookup_fast() takes a reference on the hashed
+dentry and simply accepts it. So an unlink that happens after the
+reference was taken isn't seen by refwalk. That's fine for a simple
+file. We just happened to open it before it was unlinked, no problem.
 
-A detached tree that a file descriptor keeps alive, a mount in another
-mount namespace or a mount below the root of an anonymous mount
-namespace does a bunch of allocation work that is completely useless
-because it will fail and revert right after.
+For a mountpoint and specifically a locked mountpoint it very much
+isn't. The unlink detaches all mounts and then removes the name. Any
+refwalk that hasn't traversed the mounts yet simply reveals the
+underlying entry. It's a very narrow window but it can be hit:
 
-Do the right thing and check the target right after taking namespace_sem
-instead. A mount leaves its namespace only under namespace_sem so the
-mount stays stable. The check under mount_lock stays for the case where
-no propagation change is requested and namespace_sem isn't taken.
-Callers get the same EINVAL as before.
+  reads of a covered file in 60 s, 3 walkers, ~15000 unlinks
+    no widening            27
+    that step + 200 us   3741
 
-Fixes: 2a1867219c7b ("fs: add mount_setattr()")
+See the appended patch for a more reliable reproducer.
+
+So check the entry after step_into(). unlink(), rmdir() and rename()
+mark the dentry with dont_mount() before they detach the mounts and
+remove the dentry.
+
+So a dentry that is marked with DCACHE_CANT_MOUNT and is unhashed by the
+time its mounts were looked at is a name that was unlinked under the
+refwalk. DCACHE_CANT_MOUNT is read after the mounts were looked up and
+it is set before they are detached by detach_mounts(). A refwalk that
+missed the mounts will see DCACHE_CANT_MOUNT.
+
+Plain d_unlinked() is fine. A rename takes the dentry off its hash chain
+but ___d_drop() leaves d_hash.pprev set. So only __d_drop() and a rename
+over the dentry unhash it. The only move that flips IS_ROOT splices in a
+disconnected alias. That doesn't have DCACHE_CANT_MOUNT set.
+
+Add the to step_into_slowpath(). ".." and LOOKUP_DOWN may legitimately
+land on an unhashed directory. A refwalk that crossed onto a mount has
+path.mnt different from nd->path.mnt. A dentry that a filesystem dropped
+on its own (d_invalidate(), d_drop()) doesn't have the flag set and is
+treated as before.
+
+  // SPDX-License-Identifier: GPL-2.0
+  /*
+   * unlink_covered: unlink a file that is a mountpoint in a detached copy of
+   * its mount, against walkers that open it through that copy.
+   *
+   * A is a tmpfs with the file f1 (content SECRET_F) and the plain file
+   * MARK_A. A' is an open_tree(OPEN_TREE_CLONE) copy of A with MARK_A bound
+   * on A'/f1, held through an O_PATH fd on its root once the tree fd is
+   * closed. Walkers open f1 through that fd while the driver unlinks A/f1,
+   * where nothing is mounted on it. A walker may read MARK_A or get ENOENT.
+   * A read of SECRET_F is a hit: the name was found after its mount was
+   * gone. The lockless walks use openat2(RESOLVE_CACHED).
+   *
+   * usage: unlink_covered [-t seconds] [-w walkers]
+   */
+  #ifndef _GNU_SOURCE
+  #define _GNU_SOURCE
+  #endif
+  #include <errno.h>
+  #include <fcntl.h>
+  #include <pthread.h>
+  #include <stdatomic.h>
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <string.h>
+  #include <unistd.h>
+  #include <sys/mount.h>
+  #include <sys/stat.h>
+  #include <sys/syscall.h>
+  #include <linux/openat2.h>
+
+  #ifndef __NR_open_tree
+  #define __NR_open_tree 428
+  #endif
+  #ifndef __NR_move_mount
+  #define __NR_move_mount 429
+  #endif
+  #ifndef __NR_openat2
+  #define __NR_openat2 437
+  #endif
+  #ifndef OPEN_TREE_CLONE
+  #define OPEN_TREE_CLONE 1
+  #endif
+  #ifndef OPEN_TREE_CLOEXEC
+  #define OPEN_TREE_CLOEXEC O_CLOEXEC
+  #endif
+  #ifndef MOVE_MOUNT_F_EMPTY_PATH
+  #define MOVE_MOUNT_F_EMPTY_PATH 0x00000004
+  #endif
+
+  #define WORK "/tmp/uc"
+  #define ADIR WORK "/A"
+
+  static int duration = 60, nwalkers = 3;
+  static atomic_int stop, writer_waiting;
+  static pthread_rwlock_t cur_lock = PTHREAD_RWLOCK_INITIALIZER;
+  static int cur_fd = -1;		/* the root of A', -1 while there is none */
+  static atomic_long n_unlink, n_walk, n_mark, n_enoent, n_other, n_secret,
+  		   n_secret_cached;
+
+  static void die(const char *what)
+  {
+  	fprintf(stderr, "FATAL %s: %s\n", what, strerror(errno));
+  	exit(2);
+  }
+
+  static void put_file(int dfd, const char *name, const char *content)
+  {
+  	int fd = openat(dfd, name, O_CREAT | O_WRONLY | O_TRUNC | O_CLOEXEC,
+  			0644);
+
+  	if (fd < 0 || write(fd, content, strlen(content)) < 0)
+  		die(name);
+  	close(fd);
+  }
+
+  /* "plain/../" @n times, then f1: a longer walk that checks nothing on its way */
+  static char *longpath(int n)
+  {
+  	char *p = malloc(n * 9 + 3), *q = p;
+
+  	for (int i = 0; i < n; i++, q += 9)
+  		memcpy(q, "plain/../", 9);
+  	strcpy(q, "f1");
+  	return p;
+  }
+
+  static void try_read(int dfd, const char *path, int cached)
+  {
+  	struct open_how how = { .flags = O_RDONLY | O_CLOEXEC,
+  				.resolve = RESOLVE_CACHED };
+  	char buf[32] = "";
+  	long n;
+  	int fd;
+
+  	if (cached)
+  		fd = syscall(__NR_openat2, dfd, path, &how, sizeof(how));
+  	else
+  		fd = openat(dfd, path, O_RDONLY | O_CLOEXEC);
+  	atomic_fetch_add(&n_walk, 1);
+  	if (fd < 0) {
+  		if (errno == ENOENT)
+  			atomic_fetch_add(&n_enoent, 1);
+  		else if (!cached || errno != EAGAIN)
+  			atomic_fetch_add(&n_other, 1);
+  		return;
+  	}
+  	n = read(fd, buf, sizeof(buf) - 1);
+  	close(fd);
+  	if (n >= 6 && !strncmp(buf, "SECRET", 6)) {
+  		if (cached)
+  			atomic_fetch_add(&n_secret_cached, 1);
+  		if (!atomic_fetch_add(&n_secret, 1))
+  			printf("HIT: read \"%s\" through %s (%s walk)\n", buf,
+  			       path, cached ? "lockless" : "any");
+  	} else {
+  		atomic_fetch_add(&n_mark, 1);
+  	}
+  }
+
+  static void *walker(void *arg)
+  {
+  	unsigned int r = (long)arg * 2654435761u;
+
+  	while (!atomic_load(&stop)) {
+  		char *p_long, *p_short;
+  		int dfd;
+
+  		while (atomic_load(&writer_waiting) && !atomic_load(&stop))
+  			usleep(20);
+  		pthread_rwlock_rdlock(&cur_lock);
+  		dfd = cur_fd;
+  		if (dfd < 0) {
+  			pthread_rwlock_unlock(&cur_lock);
+  			usleep(100);
+  			continue;
+  		}
+  		r = r * 1103515245u + 12345u;
+  		p_long = longpath(1 + (r >> 8) % 400);
+  		p_short = longpath(0);
+  		try_read(dfd, p_long, 0);
+  		try_read(dfd, p_short, 0);
+  		try_read(dfd, p_long, 1);
+  		pthread_rwlock_unlock(&cur_lock);
+  		free(p_long);
+  		free(p_short);
+  	}
+  	return NULL;
+  }
+
+  /* hand the walkers a new A' (or none), close the old one */
+  static void publish(int fd)
+  {
+  	int old;
+
+  	atomic_fetch_add(&writer_waiting, 1);
+  	pthread_rwlock_wrlock(&cur_lock);
+  	old = cur_fd;
+  	cur_fd = fd;
+  	pthread_rwlock_unlock(&cur_lock);
+  	atomic_fetch_sub(&writer_waiting, 1);
+  	if (old >= 0)
+  		close(old);
+  }
+
+  static void *driver(void *arg __attribute__((unused)))
+  {
+  	int a;
+
+  	if (mkdir(ADIR, 0755) && errno != EEXIST)
+  		die("mkdir A");
+  	if (mount("A", ADIR, "tmpfs", 0, "size=4M"))
+  		die("mount A");
+  	a = open(ADIR, O_PATH | O_DIRECTORY | O_CLOEXEC);
+  	if (a < 0 || mkdirat(a, "plain", 0755))
+  		die("A/plain");
+  	put_file(a, "MARK_A", "MARK_A");
+  	while (!atomic_load(&stop)) {
+  		int t, m, fd_a;
+
+  		put_file(a, "f1", "SECRET_F");
+  		t = syscall(__NR_open_tree, a, "",
+  			    OPEN_TREE_CLONE | OPEN_TREE_CLOEXEC | AT_EMPTY_PATH);
+  		if (t < 0)
+  			die("open_tree A");
+  		m = syscall(__NR_open_tree, a, "MARK_A",
+  			    OPEN_TREE_CLONE | OPEN_TREE_CLOEXEC);
+  		if (m < 0)
+  			die("open_tree MARK_A");
+  		if (syscall(__NR_move_mount, m, "", t, "f1",
+  			    MOVE_MOUNT_F_EMPTY_PATH))
+  			die("move_mount");
+  		close(m);
+  		fd_a = openat(t, ".", O_PATH | O_DIRECTORY | O_CLOEXEC);
+  		if (fd_a < 0)
+  			die("open A'");
+  		publish(fd_a);
+  		usleep(200 + rand() % 1000);
+  		close(t);			/* A' is unmounted, fd_a holds it */
+  		usleep(200 + rand() % 1000);
+  		if (unlinkat(a, "f1", 0))	/* through A, a plain file there */
+  			die("unlink f1");
+  		atomic_fetch_add(&n_unlink, 1);
+  		usleep(rand() % 300);
+  		publish(-1);
+  	}
+  	close(a);
+  	umount2(ADIR, MNT_DETACH);
+  	return NULL;
+  }
+
+  int main(int argc, char **argv)
+  {
+  	pthread_t d, *w;
+  	int c, i;
+
+  	setvbuf(stdout, NULL, _IOLBF, 0);
+  	while ((c = getopt(argc, argv, "t:w:")) != -1) {
+  		switch (c) {
+  		case 't':
+  			duration = atoi(optarg);
+  			break;
+  		case 'w':
+  			nwalkers = atoi(optarg);
+  			break;
+  		default:
+  			fprintf(stderr, "usage: unlink_covered [-t seconds] [-w walkers]\n");
+  			return 2;
+  		}
+  	}
+  	if (unshare(CLONE_NEWNS) ||
+  	    mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL))
+  		die("unshare");
+  	if (mkdir(WORK, 0755) && errno != EEXIST)
+  		die("mkdir");
+  	w = calloc(nwalkers, sizeof(*w));
+  	for (i = 0; i < nwalkers; i++)
+  		if (pthread_create(&w[i], NULL, walker, (void *)(long)i))
+  			die("pthread_create");
+  	if (pthread_create(&d, NULL, driver, NULL))
+  		die("pthread_create");
+  	sleep(duration);
+  	atomic_store(&stop, 1);
+  	pthread_join(d, NULL);
+  	for (i = 0; i < nwalkers; i++)
+  		pthread_join(w[i], NULL);
+  	printf("unlink_covered: %d s, %d walkers: unlinks %ld walks %ld mark %ld enoent %ld other %ld SECRET %ld (lockless %ld)\n",
+  	       duration, nwalkers, atomic_load(&n_unlink), atomic_load(&n_walk),
+  	       atomic_load(&n_mark), atomic_load(&n_enoent),
+  	       atomic_load(&n_other), atomic_load(&n_secret),
+  	       atomic_load(&n_secret_cached));
+  	return atomic_load(&n_secret) ? 1 : 0;
+  }
+
+  diff --git a/fs/namei.c b/fs/namei.c
+  --- a/fs/namei.c
+  +++ b/fs/namei.c
+  @@ -35,6 +35,7 @@
+   #include <linux/fcntl.h>
+   #include <linux/device_cgroup.h>
+   #include <linux/fs_struct.h>
+  +#include <linux/delay.h>
+   #include <linux/posix_acl.h>
+   #include <linux/hash.h>
+   #include <linux/bitops.h>
+  @@ -1205,9 +1206,26 @@ static int sysctl_protected_symlinks __read_mostly;
+   static int sysctl_protected_hardlinks __read_mostly;
+   static int sysctl_protected_fifos __read_mostly;
+   static int sysctl_protected_regular __read_mostly;
+  +/* debug: widen the two windows of the detach_mounts() race */
+  +static int sysctl_detach_race_walk_us __read_mostly;
+  +static int sysctl_detach_race_unlink_us __read_mostly;
+
+   #ifdef CONFIG_SYSCTL
+   static const struct ctl_table namei_sysctls[] = {
+  +	{
+  +		.procname	= "detach_race_walk_us",
+  +		.data		= &sysctl_detach_race_walk_us,
+  +		.maxlen		= sizeof(int),
+  +		.mode		= 0644,
+  +		.proc_handler	= proc_dointvec,
+  +	},
+  +	{
+  +		.procname	= "detach_race_unlink_us",
+  +		.data		= &sysctl_detach_race_unlink_us,
+  +		.maxlen		= sizeof(int),
+  +		.mode		= 0644,
+  +		.proc_handler	= proc_dointvec,
+  +	},
+   	{
+   		.procname	= "protected_symlinks",
+   		.data		= &sysctl_protected_symlinks,
+  @@ -1878,6 +1896,10 @@ static struct dentry *lookup_fast(struct nameidata *nd)
+   		dentry = __d_lookup(parent, &nd->last);
+   		if (unlikely(!dentry))
+   			return NULL;
+  +		/* debug: between finding a mountpoint and crossing its mounts */
+  +		if (unlikely(sysctl_detach_race_walk_us) && d_mountpoint(dentry))
+  +			usleep_range(sysctl_detach_race_walk_us,
+  +				     sysctl_detach_race_walk_us + 10);
+   		status = d_revalidate(nd->inode, &nd->last, dentry, nd->flags);
+   	}
+   	if (unlikely(status <= 0)) {
+  @@ -5693,6 +5715,10 @@ int vfs_unlink(struct mnt_idmap *idmap, struct inode *dir,
+   			if (!error) {
+   				dont_mount(dentry);
+   				detach_mounts(dentry);
+  +				/* debug: the mounts are gone, d_delete() is still to come */
+  +				if (unlikely(sysctl_detach_race_unlink_us))
+  +					usleep_range(sysctl_detach_race_unlink_us,
+  +						     sysctl_detach_race_unlink_us + 10);
+   			}
+   		}
+   	}
+
+Fixes: 8ed936b5671b ("vfs: Lazily remove mounts on unlinked files and directories.")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260926-work-mount-fixes-2-v1-5-f357abf3d17b@kernel.org
+Link: https://patch.msgid.link/20261002-work-mount-fixes-4-v1-2-dd44b89d44ce@kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: replaced anon_ns_root() with explicit checks using is_mounted(), mnt_has_parent(), and is_anon_ns() ]
+[ sashal: Inlined unlink_may_reveal() logic into the existing step_into() refwalk branch. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/namespace.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ fs/namei.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/fs/namespace.c b/fs/namespace.c
-index 3311e4edbc734..3ef78370ed297 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -4524,6 +4524,13 @@ static int do_mount_setattr(struct path *path, struct mount_kattr *kattr)
- 		 * propagation.
- 		 */
- 		namespace_lock();
-+		/* invent_group_ids() walks the tree, only walk a mounted one */
-+		if (!is_mounted(&mnt->mnt) ||
-+		    ((mnt_has_parent(mnt) || !is_anon_ns(mnt->mnt_ns)) &&
-+		     !check_mnt(mnt))) {
-+			namespace_unlock();
-+			return -EINVAL;
-+		}
- 		if (kattr->propagation == MS_SHARED) {
- 			err = invent_group_ids(mnt, kattr->recurse);
- 			if (err) {
-@@ -4536,6 +4543,7 @@ static int do_mount_setattr(struct path *path, struct mount_kattr *kattr)
- 	err = -EINVAL;
- 	lock_mount_hash();
- 
-+	/* Checked under namespace_sem already if the propagation changes. */
- 	/* Ensure that this isn't anything purely vfs internal. */
- 	if (!is_mounted(&mnt->mnt))
- 		goto out;
+diff --git a/fs/namei.c b/fs/namei.c
+index 6ffa898ea3c86..d9b0d2c6fba9b 100644
+--- a/fs/namei.c
++++ b/fs/namei.c
+@@ -1712,6 +1712,20 @@ static const char *step_into(struct nameidata *nd, int flags,
+ 	   (flags & WALK_NOFOLLOW)) {
+ 		/* not a symlink or should not follow */
+ 		if (!(nd->flags & LOOKUP_RCU)) {
++			/*
++			 * Be careful in case the dentry is unlinked or renamed. Any mounts
++			 * stacked on top of it are going away. We need to make sure that we
++			 * don't reveal the underyling dentry during refwalk. In rcuwalk we
++			 * catch this via d_seq and another lookup for the name. Give the same
++			 * guarantee in refwalk.
++			 */
++			if (unlikely(!(flags & WALK_NOFOLLOW) &&
++				     !(nd->flags & LOOKUP_REVAL) &&
++				     path.mnt == nd->path.mnt &&
++				     cant_mount(dentry) && d_unlinked(dentry))) {
++				dput(path.dentry);
++				return ERR_PTR(-ESTALE);
++			}
+ 			dput(nd->path.dentry);
+ 			if (nd->path.mnt != path.mnt)
+ 				mntput(nd->path.mnt);
 -- 
 2.53.0
 
