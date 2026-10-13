@@ -1,87 +1,50 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 815A935DA68
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 08:48:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B0FA3AEF5F
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 08:52:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791881330; cv=none; b=L/XxohP0+LQ+1LCjyVhcT4ca6O9Uia5CLyLkPnKux/jPyg9gjUyXxT56+joJSIG7G9voRaGGqkmh6X02Wiv3xKMHIHn7vjRYg7/b+CgSZ2V6AUEG3USer6ImBjaRGncfnOjIRSpwc5htD+7BGquQJJAdktjozQ+IfSxLWbO0Xok=
+	t=1791881545; cv=none; b=SZcmYTZ/jPsdy/4pOgaT1lPYVppeeSEKo6ZDawsSxySZr4xteQQ+9ytNJyTf7FltA+lZYstCqQCTrgWUJYsde5U0pvDiZ7KcjF3n52hG+S16iwVAUR4hEQ8xP6rXjMgBnwPugCdYeHRXQ6+mABUoWzPxaTj206Hq601IFUz9MWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791881330; c=relaxed/simple;
-	bh=YtQ34cQ9XmFi6zcNdYGMdmbtWTCoLVnZxtAsP94R6sk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mqcSDiozj8jDA4V4jwq49fZIWm+8n52c1dgzxGCwY1iif+0BbnJ5h3CG8wUTv3j9E2HjS/Sx4UGl706jU/DxKM2VKydoBTyJaZozUR9XG9RjduJ0LCLmEBar5ApHfA9ybtj/NpLvLgG1Ze30C7iH0WX52m6qSsPbLvoK6eaif8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=K2VWao6A; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LvpKYrS6; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791881545; c=relaxed/simple;
+	bh=PvalXjq6O8BfPA78mO6+qg+xEqOnuJAR4EiP6Qah4+4=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=mkxPV1TNSIah2oIE4AyBbAol478Ha2uXGF+wljHR+nzWgWCJJTHFEQTlY5SAmbOO8NPK4RHjVQZpaUMVFbf9W1EdCzOz8eNsyfprhgz5qjh2b3z5c6jDZc0Dqk7WA01KAmpd6tSm0qAOWbUtDdmA6eYCJaIqE/pglWG7FuKPzKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AI6BpIj8; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="K2VWao6A";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LvpKYrS6"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8dqXS302843
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 08:48:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	JjxJi1akmR350BjqJjUpsg/JBkPEFxqTxpfhmQt0rP0=; b=K2VWao6AEPk4LMGn
-	35Waa8iTcpOgbuYSmwTYe0FtW4M05O9CZjHTZDPpEvsNL+bMOWWfzPJf0pANq9Yg
-	/SAzOHHOVcaQN7m3yIXKvms+ZydoW4SCvGfsblVH8cNoatZHKQaQFitxH4H2/O/k
-	3duo9w7IfJu9Ad7Seh+0cgCLOSKXblbsQAHauG+ZcHTb2STCDzZ1CsDXoVMxUue4
-	V02ncNdLbvWJW2iWtN0zayH6BvIrB9MsRXd4Sn7vwodCszH2V0VdeA/Zn6FhFZlw
-	Kn86a9PB6mL2HKCtwYMLjyaF0avKCyYfOszNTJvw613zbP+nlycrEhyvCvk0hp3Y
-	9U2eKg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h98sq9xnn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 08:48:48 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93ae8e7e546so570759385a.1
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 01:48:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791881328; x=1792486128; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JjxJi1akmR350BjqJjUpsg/JBkPEFxqTxpfhmQt0rP0=;
-        b=LvpKYrS6TBZWPt/wDNvEE6brivkqi0rTcljdTba60yGtlbHmv0mrLxwAzgKFdHNBFK
-         69D4IOiGij/i/URa2558flsR3WdO+A2q+QHSUaqVqaUa9im80emTUThOU3YsUD+71C75
-         /nqYQn0KQWt8RYYrH29IZPcNNSjw2d2f2ltpKy+l5FA8FKa0M4WggMMBgwnuAeY2CCLS
-         kvyduHTnpvPzjz23xh4KnfO7KLu+uyCb1PBe5jnbgtqQbgt5MHtANzRnFcHJNyRcbV9r
-         nis8BhBKisfDlsauM/yymZHgiUifFIeEp3nNgdAek2Wre5fbT6/DWtVCsv1KFDKw1MiE
-         F/kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791881328; x=1792486128;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JjxJi1akmR350BjqJjUpsg/JBkPEFxqTxpfhmQt0rP0=;
-        b=IQdNsvkbJebx3Rj9EbSzZXmMoTE7F1hPnyO7cXTK74bwVMgTBO4/H+AYzcIGUl+qhc
-         tyMzZ80zqLiyiBWnXmraX49F7mO4swsnXw6QKoBOLz6EkleGXiZlYe8mi0LIosZcv/4a
-         NRbvCqDZZtXMywAh5XgQRKJ6n7sX9uwOmovTleBofRnqtlsiptiOgBMxuZe+3CIOtJaa
-         U7itzGLllJE76pYANVvQljHpYWu25NOIEX41xmIgzPgybVdYmJd6G5JvkKDCn9bJNYeu
-         8W7Vq77s5cp/DvkN1B+WtJw9IhOYM400UAIa9XgTw1y+9zgFajnj2JZjRHF70CsU5r5f
-         AXmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBylb6gvyoW06jo372FMffQwoA5VZPxqT/+uEQ2CJRJLAWREm1Loahkgn9n++TbpOguSVoYajpc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLUmcQqrTnbnAP9sbVTxG4k0Z+84j40QFtmQUsy/axaX//KmN5e
-	15fjBRVMoREs7uJRXk9oABN7QFt2SJLKvHo8MRFnqsz1UiHJblRcNJPnPV0thAICDdF2ftJaLMX
-	VP4bZ4me7sWvkl1qqYOPcuRWFTYTxOqd4r3x3xv+YW/7rf5CyKLYN2HSU9lw=
-X-Gm-Gg: AYBFou3fWhnL6EyI47h3FLAsbCIjxCjeDK1gkEFyIzOx/hJzsanksvjIAuK7EwdqY5J
-	v+qBaOq0LdsjDtQKzp3NP2z0lLfZcqy5tmHN1QvY9zAIiilQUJ3yjXRuUZLC2pygLllrDbilmF3
-	BYzLl1zitWu4cMqltr6SBiPBnSakvcxSDk3Dho/xGFIo+RE21yjEbSWJckoE/2taRzSA3+lO1nz
-	WcHlZfZVs3kHt9EuU7XS49HyInpyJ572lIfbnUJqXqz3Eme50QDCN9C3zYv8Mhiczh0Mrxx5CDW
-	ovVBTcrom0PxhvNjrnAA48qas+tEqZKDb9Dc1Xf7q216A3ZgsrvY+4vi6qoxeidaEwKAXZS0qZ+
-	HUFXz/BCqlrpHwZP7qGk36LjbMRGYJ5LY6bEszQaCKRG9P03f1JQgEZs2QqJvqg==
-X-Received: by 2002:a05:620a:170d:b0:93c:7f48:8f46 with SMTP id af79cd13be357-93ebd0cbba3mr2018273885a.4.1791881327650;
-        Tue, 13 Oct 2026 01:48:47 -0700 (PDT)
-X-Received: by 2002:a05:620a:170d:b0:93c:7f48:8f46 with SMTP id af79cd13be357-93ebd0cbba3mr2018271885a.4.1791881327187;
-        Tue, 13 Oct 2026 01:48:47 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7? ([2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ac35dfsm3905304f8f.33.2026.10.13.01.48.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 01:48:46 -0700 (PDT)
-Message-ID: <8e42db37-3aad-4825-8287-8578fb3eadd3@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 10:48:44 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AI6BpIj8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791881542; x=1823417542;
+  h=message-id:date:mime-version:subject:from:to:cc:
+   references:in-reply-to:content-transfer-encoding;
+  bh=PvalXjq6O8BfPA78mO6+qg+xEqOnuJAR4EiP6Qah4+4=;
+  b=AI6BpIj8Ltyn11jwU+2V5E7TbdzTZSxAOjIA/y1DngEfSWbJ3HTC7TU1
+   ryYG8/5Mp1/3Y8E7YPBja5Fl2ufn/ebsZrflyG/ltXFaJvX90vAZmfLzx
+   Nd3qI36c5/8LA3aNLMz90FqdwSJQ1t+pt1wnBLLiXH+LxDAR2IxlpHFZH
+   6avHvk1StfIs/SIU8d4bDbOaarIyDQwKsFH+1zRx/J6BRljwoXT5DPHaL
+   95VX7BTTJSMco7cjag8lbFQSg7NuOUTAhoAUcqLhQOprJ9Ci3vwx0+1/b
+   b6ReIpt1awIXf5Ig6t+3E/a7KrbpMC+pxwqcwqnRRVjjgQdCDwPd+IAf8
+   g==;
+X-CSE-ConnectionGUID: DM3THsgLTQGqZrRdCn3tCA==
+X-CSE-MsgGUID: dwU21C85RZ2JtT/sQuXrVg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="630084"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="630084"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 01:51:57 -0700
+X-CSE-ConnectionGUID: rRIbW83QTjqVQ0tWyn0zog==
+X-CSE-MsgGUID: 6vFizhd+Q2+kRSeC9Da6VA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="2871096"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.245.122]) ([10.245.245.122])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 01:51:53 -0700
+Message-ID: <5545db90-3365-4d75-9fc0-77dda42b7000@intel.com>
+Date: Tue, 13 Oct 2026 09:51:50 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,154 +52,414 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 3/8] thermal/drivers/loongson2: Fix Loongson-2K2000
- trip point programming
-To: Binbin Zhou <zhoubinbin@loongson.cn>,
-        Binbin Zhou
- <zhoubb.aaron@gmail.com>,
-        Huacai Chen <chenhuacai@loongson.cn>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Yinbo Zhu <zhuyinbo@loongson.cn>,
-        zhanghongchen <zhanghongchen@loongson.cn>,
-        "Rafael J . Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>
-Cc: Huacai Chen <chenhuacai@kernel.org>, Xuerui Wang <kernel@xen0n.name>,
-        loongarch@lists.linux.dev, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, stable@vger.kernel.org
-References: <cover.1791512067.git.zhoubinbin@loongson.cn>
- <93d78dbedc091117d8fc7ecb29a0fdf2a6d096b7.1791512067.git.zhoubinbin@loongson.cn>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <93d78dbedc091117d8fc7ecb29a0fdf2a6d096b7.1791512067.git.zhoubinbin@loongson.cn>
+Subject: Re: [PATCH v2 3/3] drm/xe: skip p2p for suspected display buffers
+From: Matthew Auld <matthew.auld@intel.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Cc: Matthew Brost <matthew.brost@intel.com>, stable@vger.kernel.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+References: <20261007153605.1743626-5-matthew.auld@intel.com>
+ <20261007153605.1743626-8-matthew.auld@intel.com>
+ <2c6a97ac21c5ef161dbac279f9b971f383b6b944.camel@linux.intel.com>
+ <dbabed4e-468d-4ecf-b295-f5d8c9c4b263@intel.com>
+ <bc2f4d82-5a8e-4d1b-a921-ee819ca5cac2@amd.com>
+ <992d57f0-7327-4c36-adf7-6dd72137fe73@intel.com>
+ <31f7eb68-6dfa-4ea7-93a4-d4897fbe6a74@intel.com>
+ <3579864a-0283-4f92-b895-5cf399c2ee69@amd.com>
+ <16cfde6b-8881-4ffe-8068-9530286da72a@intel.com>
+ <1a852df2-c2a4-48bb-84de-cdd4b98b95bb@amd.com>
+ <d493d4d1-96d5-4194-bbae-5c1e5d54d91a@intel.com>
+Content-Language: en-GB
+In-Reply-To: <d493d4d1-96d5-4194-bbae-5c1e5d54d91a@intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzNCBTYWx0ZWRfX2NjoIPQOzefC
- erQjw+BQ3MUIXL10MbT8r271D4rgobvB2ZVayL3aGFCaXy9iuXsj2YDdx7PqyTBO86ae9Vxkrok
- fLpEqxDzdNKcjdoq9t+CLV8Moa+BJx3SV1o1CCFd6k8023oqmE8EYKRLgWggj3TATcaWGo5NrY5
- RXIuC9tYRwMXO+NYh/LLjgnevzvZ+4mJzlvGb9FHxDPvW74ce2wNp3FvY+XHcFuHDBxvkw15Kk3
- XalgcFT6N0pQHrt/ljtn37qHI/p9l71OCv6bVlE/UC4/lLhhB2bk5CbBkGVfT4ioT+C5G90XTxw
- wHhIa31tXAxj4EhgrWMRnhyi9BLjYSeoEtO78iKh+UnDRjleW01jlZDJ8nSk0EPZswu8WBiwnSx
- 4+1dznwUXg84IlpA4UUF3c9PdrwIXEDWTc6MYQP45Vm6K9DrBYX24xrHpHoI4EMVvZC9gaPCqUD
- vSnCSgJAmit5FmQ/SaQ==
-X-Authority-Analysis: v=2.4 cv=JN+uIMKb c=1 sm=1 tr=0 ts=6acdf070 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
- a=B0Tmh5SJC70KtaT1dDUA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzNCBTYWx0ZWRfX+nEJyvKScQkA
- Mr5VEXzfi4I2kaSh0Lc5usFrnfsiP5DGl8h5wvtci6pUMo6YyKAP0t54epcb/8t8asTXvgJO8NR
- YzJKPGE0jg+yRLCvr+UlkR6Re9AATqQ=
-X-Proofpoint-ORIG-GUID: GvHFFYD9P0F5l_W84PJj6RLTqz5PIh3P
-X-Proofpoint-GUID: GvHFFYD9P0F5l_W84PJj6RLTqz5PIh3P
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 priorityscore=1501 adultscore=0 suspectscore=0
- phishscore=0 impostorscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130034
+Content-Transfer-Encoding: 8bit
 
-On 10/9/26 04:58, Binbin Zhou wrote:
-> The Loongson-2K2000 splits its 16-bit gate value across the control
-> register (low byte) and a dedicated HI_GATE register (high byte), and
-> derives the gate value from the target temperature with a different
-> formula than the Loongson-2K1000.
+On 09/10/2026 14:02, Matthew Auld wrote:
+> On 09/10/2026 12:38, Christian König wrote:
+>> On 10/9/26 12:29, Matthew Auld wrote:
+>>> On 09/10/2026 10:26, Christian König wrote:
+>>>> On 10/9/26 11:16, Matthew Auld wrote:
+>>>>> On 08/10/2026 12:17, Matthew Auld wrote:
+>>>>>> On 08/10/2026 10:55, Christian König wrote:
+>>>>>>> On 10/8/26 11:46, Matthew Auld wrote:
+>>>>>>>> On 07/10/2026 19:11, Thomas Hellström wrote:
+>>>>>>>>> On Wed, 2026-10-07 at 16:36 +0100, Matthew Auld wrote:
+>>>>>>>>>> If p2p is allowed on the CPU (like on AMD), we currently 
+>>>>>>>>>> permit p2p
+>>>>>>>>>> for
+>>>>>>>>>> all exported VRAM buffers. However, in some multi-GPU setups, 
+>>>>>>>>>> like
+>>>>>>>>>> with
+>>>>>>>>>> prime rendering on a dgpu and scanout/compositor using the 
+>>>>>>>>>> igpu, it
+>>>>>>>>>> looks like the exported dma-buf window buffer can in some 
+>>>>>>>>>> cases end
+>>>>>>>>>> up
+>>>>>>>>>> using p2p.
+>>>>>>>>>>
+>>>>>>>>>> However, user is reporting a kernel regression where 
+>>>>>>>>>> performance here
+>>>>>>>>>> massively tanks across many games/workloads, where it looks 
+>>>>>>>>>> like on
+>>>>>>>>>> each
+>>>>>>>>>> frame, the igpu is reading/sampling from VRAM over pcie for the
+>>>>>>>>>> window
+>>>>>>>>>> buffer, since it uses p2p. p2p is currently more intended for 
+>>>>>>>>>> dgpu <-
+>>>>>>>>>>>
+>>>>>>>>>> dgpu, and not so much display buffers with igpu <-> dgpu, at 
+>>>>>>>>>> least
+>>>>>>>>>> for
+>>>>>>>>>> now.
+>>>>>>>>>>
+>>>>>>>>>> We don't currently have any hints to say "please use p2p for this
+>>>>>>>>>> buffer, or please don't", however we can use some heuristics 
+>>>>>>>>>> to try
+>>>>>>>>>> to
+>>>>>>>>>> determine if this is likely a display buffer being exported to an
+>>>>>>>>>> igpu,
+>>>>>>>>>> which probably never intended for p2p:
+>>>>>>>>>>
+>>>>>>>>>>      1. FLAG_SCANOUT being set on the buffer. Window buffers 
+>>>>>>>>>> usually get
+>>>>>>>>>>         tagged with this, but not always.
+>>>>>>>>>>
+>>>>>>>>>>      2. Importer being a PCI device with display, which is not 
+>>>>>>>>>> xe driver.
+>>>>>>>>>>
+>>>>>>>>>> We also rely on the existing p2p Intel CPU whitelist to stop this
+>>>>>>>>>> happening on xe igpu. Currently p2p is only enabled for server 
+>>>>>>>>>> CPUs,
+>>>>>>>>>> on
+>>>>>>>>>> Intel. We also limit the above to dual placement buffers.
+>>>>>>>>>>
+>>>>>>>>>> The original regression was bisected to commit 609fc8766d68 
+>>>>>>>>>> ("dma-
+>>>>>>>>>> buf:
+>>>>>>>>>> Always build with DMABUF_MOVE_NOTIFY"), however the behaviour was
+>>>>>>>>>> already present when enabling that knob, so this goes back even
+>>>>>>>>>> further.
+>>>>>>>>>>
+>>>>>>>>>> User has confirmed that along with the sticky dma-buf TT 
+>>>>>>>>>> placement
+>>>>>>>>>> fix,
+>>>>>>>>>> to prevent ping-ponging, the performance is back to normal.
+>>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>> Actually, I think this needs to be fixed on the importer side. 
+>>>>>>>>> Until we
+>>>>>>>>> have some some user-space hints, I don't think the exporter should
+>>>>>>>>> second-guess. Most sane solution IMO is if igfx importers could 
+>>>>>>>>> just
+>>>>>>>>> not advertise pcie p2p support?
+>>>>>>>>
+>>>>>>>> Yeah, not sure tbh. I'm not a huge fan of this patch either. But 
+>>>>>>>> you could argue that the SCANOUT flag is already a good implicit 
+>>>>>>>> hint/ signal on the exporter side, but unfortunately there were 
+>>>>>>>> some games where this did not reliably work. The other implicit 
+>>>>>>>> hint/signal is perhaps the dual placement angle. For example, in 
+>>>>>>>> compute-runtime, it might be that they use VRAM-only if they 
+>>>>>>>> want p2p? AFAICT mesa for us always uses a dual placement or 
+>>>>>>>> just system memory for these types of buffers.
+>>>>>>>>
+>>>>>>>> Christian, do you have any thoughts here? We have a kernel perf 
+>>>>>>>> regression after DMABUF_MOVE_NOTIFY was made the default after 
+>>>>>>>> updating to a new kernel. The gist is that this then turned on 
+>>>>>>>> the p2p paths, with a multi-GPU setup with an AMD igpu/APU and 
+>>>>>>>> Xe dgpu doing prime rendering. From the user bug report it 
+>>>>>>>> sounds like the dgpu linear window buffer exported to the 
+>>>>>>>> compositor (igpu) is dual placement VRAM + TT, and so this now 
+>>>>>>>> attempts to keep that memory in VRAM instead of moving it. 
+>>>>>>>> Compositor then uses p2p to access it. It works but performance 
+>>>>>>>> falls off a massive cliff here.
+>>>>>>>>
+>>>>>>>> Perhaps Intel Mesa side should use tt-only for this type buffer 
+>>>>>>>> (?), but since this is a kernel regression I was hoping we could 
+>>>>>>>> fix this on the kernel side.
+>>>>>>>>
+>>>>>>>> Some questions:
+>>>>>>>>
+>>>>>>>> 1. Do you know what is the general story with p2p between igpu 
+>>>>>>>> and dgpu? Is this a legit thing? For igpus/APUs, advertising p2p 
+>>>>>>>> can't be dropped? It clearly seems to work though.
+>>>>>>>>
+>>>>>>>> 2. If this is legit, do you guys then also prevent p2p with 
+>>>>>>>> display buffers? Are you just doing that at the Mesa level, or 
+>>>>>>>> is there some magic in the kernel also?
+>>>>>>>
+>>>>>>> If I understand that correctly that the igpu is the importer and 
+>>>>>>> the dgpu is the exporter then yeah Thomas is right that 
+>>>>>>> definately needs to be fixed on the importer side.
+>>>>>>
+>>>>>> Ideas on how do that? Could we do something like allow_peer2peer = 
+>>>>>> false in amdgpu_gem_prime_import() if this is an APU device, or 
+>>>>>> further check if the exporter side is not amdgpu, like APU + Xe?
+>>>>>
+>>>>> For example: https://gitlab.freedesktop.org/mwa/kernel/-/ 
+>>>>> commit/7ec86c68b42655b4bb85ee90af434a617e7bec8c
+>>>>>
+>>>>> Is that something you would accept?
+>>>>
+>>>> No, you misunderstood me. Enabling P2P is perfectly fine for APUs 
+>>>> and mandatory for a couple of customer projects.
+>>>>
+>>>> The buffer should just be rejected from scanout in the display code 
+>>>> and on the AMDGPU side we already do that if I'm not completely 
+>>>> mistaken.
+>>>
+>>> Reporter confirmed seeing the issue in windowed mode also. So I don't 
+>>> think it's just a case of rejecting from scanout?
+>>
+>> Then I don't understand what the problem is.
+>>
+>> When the dGPU renders and the iGPU displays you have only two 
+>> possibilities, either the dGPU pushes the frames over the bus or the 
+>> iGPU pulls the frames over the bus. Both should be equaly slow or 
+>> fast, so what exactly is the expectation here?
 > 
-> Add a per-SoC set_trips_regs callback and implement the Loongson-2K2000
-> variant alongside the existing Loongson-2K1000 one.
+> I assume the AMD APU/iGPU is sampling/reading from the p2p window buffer 
+> every frame.
 > 
-> Cc: stable@vger.kernel.org
-> Fixes: 734b5def91b5 ("thermal/drivers/loongson2: Add Loongson-2K2000 support")
-> Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
-> ---
+> Expectation is that buffer rather gets moved from VRAM to system memory 
+> when mapping the buffer with dma-buf, where it stays, and never 
+> negotiated to use p2p in the first place. I don't think p2p is really 
+> valid here.
+> 
+> What happened is that user updated their kernel and due to the 
+> MOVE_NOTIFY config getting removed and enabled by default on newer 
+> kernels this suddenly started negotiating p2p for things like the window 
+> buffer AFAICT, instead of moving it to system memory and keeping it 
+> there. On previous kernel versions the buffer would just get moved and 
+> pinned in system memory. From user pov this is a kernel regression, 
+> given the perf they are now getting.
+> 
+> On AMD CPUs you allow p2p for everything. On Intel iGPUs we currently 
+> ban p2p. Maybe there is bigger question here for what is the story for 
+> p2p and iGPU? Should it really be blanket allowed like this? Should it 
+> not be opt-in with some userspace hints or something?
+> 
+> The other important part is that even when you move to system memory, 
+> it's no longer pinned (MOVE_NOTIFY) so can you now can also get violent 
+> ping-ponging, which is addressed in the first patch in this series.
+> 
+>>
+>> The only thing you need to avoid is that the iGPU starts to scan out 
+>> over the PCIe bus directly, cause then the frame is pulled over the 
+>> bus multiple times (if that actually works correctly).
+>>
+>> Do you have a link to the original bug report? I was only added later 
+>> to the discussion so I don't have that.
+> 
+> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9415
 
-[ ... ]
+Christian, did you get a chance to look at this? Any further thoughts?
 
-> +static void loongson2_thermal_set_trip_temp(struct loongson2_thermal_data *data,
-> +					    int low, int high, bool enable)
->   {
-> -	int reg_ctrl = 0;
-> -	int reg_off  = data->chip_data->thermal_sensor_sel * 2;
-> -	int ctrl_reg = low ? LOONGSON2_THSENS_CTRL_LOW_REG : LOONGSON2_THSENS_CTRL_HI_REG;
-> +	low = clamp(low, -40000, 125000);
-> +	high = clamp(high, -40000, 125000);
->   
-> -	reg_ctrl = ctrl_data + HECTO;
-> -	reg_ctrl |= enable ? 0x100 : 0;
-> -	writew(reg_ctrl, data->ctrl_reg + ctrl_reg + reg_off);
-> +	/* Set low temperature threshold */
-> +	data->chip_data->set_trips_regs(data, low / (int)MILLI, true, enable);
-> +
-> +	/* Set high temperature threshold */
-> +	data->chip_data->set_trips_regs(data, high / (int)MILLI, false, enable);
+> 
+>>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>>>
+>>>> Userspace has fallback path that when a DRM atomic requests fails 
+>>>> for an imported buffer it falls back to copying the buffer first.
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>>>>>
+>>>>>>>
+>>>>>>> At least for AMD APUs we clearly support P2P both as exporter and 
+>>>>>>> importer, but what isn't supported is to scan out over P2P. We 
+>>>>>>> explicitely reject that inside DC/DAL.
+>>>>>>>
+>>>>>>> And I'm pretty sure that you should do that as well. I'm actually 
+>>>>>>> really suprised that this works technically and doesn't cause 
+>>>>>>> corruption or anything.
+>>>>>>
+>>>>>> AFAICT on Intel iGPUs it will currently always end up with 
+>>>>>> peer2peer = false on attach. Not 100% sure if direct scanout was 
+>>>>>> happening on the p2p buffer itself, for the user report.
+>>>>>>
+>>>>>>>
+>>>>>>> Regards,
+>>>>>>> Christian.
+>>>>>>>
+>>>>>>>>
+>>>>>>>>>
+>>>>>>>>> Thanks,
+>>>>>>>>> Thomas
+>>>>>>>>>
+>>>>>>>>>> Assisted-by: LLM
+>>>>>>>>>> Closes:
+>>>>>>>>>> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9415
+>>>>>>>>>> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+>>>>>>>>>> Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for 
+>>>>>>>>>> Intel
+>>>>>>>>>> GPUs")
+>>>>>>>>>> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>>>>>>>>>> Cc: Matthew Brost <matthew.brost@intel.com>
+>>>>>>>>>> Cc: <stable@vger.kernel.org> # v6.12
+>>>>>>>>>> ---
+>>>>>>>>>>      drivers/gpu/drm/xe/xe_bo.c      |  3 +-
+>>>>>>>>>>      drivers/gpu/drm/xe/xe_bo.h      |  1 +
+>>>>>>>>>>      drivers/gpu/drm/xe/xe_dma_buf.c | 63 ++++++++++++++++++++ 
+>>>>>>>>>> ++++ +------
+>>>>>>>>>> -- 
+>>>>>>>>>>      3 files changed, 51 insertions(+), 16 deletions(-)
+>>>>>>>>>>
+>>>>>>>>>> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/ 
+>>>>>>>>>> xe_bo.c
+>>>>>>>>>> index 5065a7bac39c..e63437a261cb 100644
+>>>>>>>>>> --- a/drivers/gpu/drm/xe/xe_bo.c
+>>>>>>>>>> +++ b/drivers/gpu/drm/xe/xe_bo.c
+>>>>>>>>>> @@ -3658,7 +3658,7 @@ int xe_gem_create_ioctl(struct 
+>>>>>>>>>> drm_device *dev,
+>>>>>>>>>> void *data,
+>>>>>>>>>>           * Display scanout is always non-coherent with the CPU
+>>>>>>>>>> cache.
+>>>>>>>>>>           */
+>>>>>>>>>>          if (args->flags & DRM_XE_GEM_CREATE_FLAG_SCANOUT)
+>>>>>>>>>> -        bo_flags |= XE_BO_FLAG_FORCE_WC;
+>>>>>>>>>> +        bo_flags |= XE_BO_FLAG_FORCE_WC |
+>>>>>>>>>> XE_BO_FLAG_SCANOUT;
+>>>>>>>>>>            if (args->flags & 
+>>>>>>>>>> DRM_XE_GEM_CREATE_FLAG_NO_COMPRESSION) {
+>>>>>>>>>>              if (XE_IOCTL_DBG(xe, GRAPHICS_VER(xe) < 20))
+>>>>>>>>>> @@ -4228,6 +4228,7 @@ int xe_bo_dumb_create(struct drm_file
+>>>>>>>>>> *file_priv,
+>>>>>>>>>>                         DRM_XE_GEM_CPU_CACHING_WC,
+>>>>>>>>>> XE_BO_FLAG_VRAM_IF_DGFX(xe_device_get_root_tile(xe)) |
+>>>>>>>>>>                         XE_BO_FLAG_FORCE_WC |
+>>>>>>>>>> +                   XE_BO_FLAG_SCANOUT |
+>>>>>>>>>>                         XE_BO_FLAG_NEEDS_CPU_ACCESS, NULL);
+>>>>>>>>>>          if (IS_ERR(bo))
+>>>>>>>>>>              return PTR_ERR(bo);
+>>>>>>>>>> diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/ 
+>>>>>>>>>> xe_bo.h
+>>>>>>>>>> index 1ddf3b6d4a9e..6965c2655731 100644
+>>>>>>>>>> --- a/drivers/gpu/drm/xe/xe_bo.h
+>>>>>>>>>> +++ b/drivers/gpu/drm/xe/xe_bo.h
+>>>>>>>>>> @@ -56,6 +56,7 @@
+>>>>>>>>>>      #define XE_BO_FLAG_FORCE_USER_VRAM    BIT(25)
+>>>>>>>>>>      #define XE_BO_FLAG_NO_COMPRESSION    BIT(26)
+>>>>>>>>>>      #define XE_BO_FLAG_NEEDS_1G        BIT(27)
+>>>>>>>>>> +#define XE_BO_FLAG_SCANOUT        BIT(28)
+>>>>>>>>>>        /* this one is trigger internally only */
+>>>>>>>>>>      #define XE_BO_FLAG_INTERNAL_TEST    BIT(30)
+>>>>>>>>>> diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c
+>>>>>>>>>> b/drivers/gpu/drm/xe/xe_dma_buf.c
+>>>>>>>>>> index b973579a69b8..0a347f09cee4 100644
+>>>>>>>>>> --- a/drivers/gpu/drm/xe/xe_dma_buf.c
+>>>>>>>>>> +++ b/drivers/gpu/drm/xe/xe_dma_buf.c
+>>>>>>>>>> @@ -36,10 +36,40 @@ static void xe_ddebug_flip_bool(const struct
+>>>>>>>>>> _ddebug *desc, bool *flag)
+>>>>>>>>>>      #define xe_dma_buf_p2p_debug_flip(flag) do { } while (0)
+>>>>>>>>>>      #endif
+>>>>>>>>>>      +static void xe_dma_buf_move_notify(struct 
+>>>>>>>>>> dma_buf_attachment
+>>>>>>>>>> *attach)
+>>>>>>>>>> +{
+>>>>>>>>>> +    struct drm_gem_object *obj = attach->importer_priv;
+>>>>>>>>>> +    struct xe_bo *bo = gem_to_xe_bo(obj);
+>>>>>>>>>> +    struct drm_exec *exec = XE_VALIDATION_UNSUPPORTED;
+>>>>>>>>>> +
+>>>>>>>>>> +    XE_WARN_ON(xe_bo_evict(bo, exec));
+>>>>>>>>>> +}
+>>>>>>>>>> +
+>>>>>>>>>> +static const struct dma_buf_attach_ops xe_dma_buf_attach_ops = {
+>>>>>>>>>> +    .allow_peer2peer = true,
+>>>>>>>>>> +    .invalidate_mappings = xe_dma_buf_move_notify
+>>>>>>>>>> +};
+>>>>>>>>>> +
+>>>>>>>>>> +static struct pci_dev *xe_find_parent_pci_dev(struct device 
+>>>>>>>>>> *dev)
+>>>>>>>>>> +{
+>>>>>>>>>> +    while (dev) {
+>>>>>>>>>> +        if (dev_is_pci(dev))
+>>>>>>>>>> +            return to_pci_dev(dev);
+>>>>>>>>>> +        dev = dev->parent;
+>>>>>>>>>> +    }
+>>>>>>>>>> +    return NULL;
+>>>>>>>>>> +}
+>>>>>>>>>> +
+>>>>>>>>>> +static bool xe_dma_buf_attach_is_xe_device(struct 
+>>>>>>>>>> dma_buf_attachment
+>>>>>>>>>> *attach)
+>>>>>>>>>> +{
+>>>>>>>>>> +    return attach->importer_ops == &xe_dma_buf_attach_ops;
+>>>>>>>>>> +}
+>>>>>>>>>> +
+>>>>>>>>>>      static int xe_dma_buf_attach(struct dma_buf *dmabuf,
+>>>>>>>>>>                       struct dma_buf_attachment *attach)
+>>>>>>>>>>      {
+>>>>>>>>>>          struct drm_gem_object *obj = attach->dmabuf->priv;
+>>>>>>>>>> +    struct xe_bo *bo = gem_to_xe_bo(obj);
+>>>>>>>>>>          bool verbose_p2p_dist = 
+>>>>>>>>>> drm_debug_enabled(DRM_UT_DRIVER);
+>>>>>>>>>>            xe_dma_buf_p2p_debug_flip(&verbose_p2p_dist);
+>>>>>>>>>> @@ -48,7 +78,24 @@ static int xe_dma_buf_attach(struct dma_buf
+>>>>>>>>>> *dmabuf,
+>>>>>>>>>>              pci_p2pdma_distance(to_pci_dev(obj->dev->dev), 
+>>>>>>>>>> attach-
+>>>>>>>>>>> dev, verbose_p2p_dist) < 0)
+>>>>>>>>>>              attach->peer2peer = false;
+>>>>>>>>>>      -    if (!attach->peer2peer &&
+>>>>>>>>>> !xe_bo_can_migrate(gem_to_xe_bo(obj), XE_PL_TT))
+>>>>>>>>>> +    if (attach->peer2peer && xe_bo_can_migrate(bo, XE_PL_TT)) {
+>>>>>>>>>> +        struct pci_dev *client =
+>>>>>>>>>> xe_find_parent_pci_dev(attach->dev);
+>>>>>>>>>> +
+>>>>>>>>>> +        /*
+>>>>>>>>>> +         * There are perf issues with using p2p with display
+>>>>>>>>>> buffers,
+>>>>>>>>>> +         * like with igpu (compositor) <-> dgpu (exported
+>>>>>>>>>> p2p window
+>>>>>>>>>> +         * buffer). Probably we need some actual userspace
+>>>>>>>>>> hints. We
+>>>>>>>>>> +         * shouldn't really assume anything. Also, note that
+>>>>>>>>>> some of
+>>>>>>>>>> +         * these buffers are not always tagged with SCANOUT.
+>>>>>>>>>> +         */
+>>>>>>>>>> +        if (bo->flags & XE_BO_FLAG_SCANOUT)
+>>>>>>>>>> +            attach->peer2peer = false;
+>>>>>>>>>> +        else if (client && pci_is_display(client) &&
+>>>>>>>>>> +             !xe_dma_buf_attach_is_xe_device(attach))
+>>>>>>>>>> +            attach->peer2peer = false;
+>>>>>>>>>> +    }
+>>>>>>>>>> +
+>>>>>>>>>> +    if (!attach->peer2peer && !xe_bo_can_migrate(bo, XE_PL_TT))
+>>>>>>>>>>              return -EOPNOTSUPP;
+>>>>>>>>>>            xe_pm_runtime_get(to_xe_device(obj->dev));
+>>>>>>>>>> @@ -349,20 +396,6 @@ xe_dma_buf_create_obj(struct drm_device 
+>>>>>>>>>> *dev,
+>>>>>>>>>> struct dma_buf *dma_buf)
+>>>>>>>>>>          return ret ? ERR_PTR(ret) : &bo->ttm.base;
+>>>>>>>>>>      }
+>>>>>>>>>>      -static void xe_dma_buf_move_notify(struct 
+>>>>>>>>>> dma_buf_attachment
+>>>>>>>>>> *attach)
+>>>>>>>>>> -{
+>>>>>>>>>> -    struct drm_gem_object *obj = attach->importer_priv;
+>>>>>>>>>> -    struct xe_bo *bo = gem_to_xe_bo(obj);
+>>>>>>>>>> -    struct drm_exec *exec = XE_VALIDATION_UNSUPPORTED;
+>>>>>>>>>> -
+>>>>>>>>>> -    XE_WARN_ON(xe_bo_evict(bo, exec));
+>>>>>>>>>> -}
+>>>>>>>>>> -
+>>>>>>>>>> -static const struct dma_buf_attach_ops xe_dma_buf_attach_ops = {
+>>>>>>>>>> -    .allow_peer2peer = true,
+>>>>>>>>>> -    .invalidate_mappings = xe_dma_buf_move_notify
+>>>>>>>>>> -};
+>>>>>>>>>> -
+>>>>>>>>>>      #if IS_ENABLED(CONFIG_DRM_XE_KUNIT_TEST)
+>>>>>>>>>>        struct dma_buf_test_params {
+>>>>>>>>
+>>>>>>>
+>>>>>>
+>>>>>
+>>>>
+>>>
+>>
+> 
 
-MILLIDEGREE_PER_DEGREE
-
->   }
->   
-> -static int loongson2_thermal_set(struct loongson2_thermal_data *data,
-> -				 int low, int high, bool enable)
-> +static int loongson2_thermal_set_trips(struct thermal_zone_device *tz, int low, int high)
->   {
-> -	/* Set low temperature threshold */
-> -	loongson2_set_ctrl_regs(data, clamp(low, -40, 125), true, enable);
-> +	struct loongson2_thermal_data *data = thermal_zone_device_priv(tz);
->   
-> -	/* Set high temperature threshold */
-> -	loongson2_set_ctrl_regs(data, clamp(high, -40, 125), false, enable);
-> +	loongson2_thermal_set_trip_temp(data, low, high, true);
->   
->   	return 0;
->   }
->   
-> +static void loongson2_2k1000_set_trips_regs(struct loongson2_thermal_data *data,
-> +					    int temp, bool low, bool enable)
-> +{
-> +	int reg_ctrl = 0;
-> +	int reg_off  = data->chip_data->thermal_sensor_sel * 2;
-> +	int ctrl_reg = low ? LOONGSON2_THSENS_CTRL_LOW_REG : LOONGSON2_THSENS_CTRL_HI_REG;
-> +
-> +	reg_ctrl = temp + HECTO;
-> +	reg_ctrl |= enable ? 0x100 : 0;
-
-bitfield.h helpers
-
-> +	writew(reg_ctrl, data->ctrl_reg + ctrl_reg + reg_off);
-> +}
-> +
->   static int loongson2_2k1000_get_temp(struct thermal_zone_device *tz, int *temp)
->   {
->   	int val;
-> @@ -81,6 +99,27 @@ static int loongson2_2k1000_get_temp(struct thermal_zone_device *tz, int *temp)
->   	return 0;
->   }
->   
-> +static void loongson2_2k2000_set_trips_regs(struct loongson2_thermal_data *data,
-> +					    int temp, bool low, bool enable)
-> +{
-> +	unsigned int sel = data->chip_data->thermal_sensor_sel;
-> +	int hi_reg, ctrl_reg, val, gate;
-> +
-> +	gate = (temp + 311) * 0x4000 / 820;
-
-litterals -> macro
-
-> +	/* Low byte of the gate value goes to the control register */
-> +	ctrl_reg = low ? LOONGSON2_THSENS_CTRL_LOW_REG : LOONGSON2_THSENS_CTRL_HI_REG;
-> +	val = gate & 0xff;
-> +	val |= enable ? 0x100 : 0;
-> +	val |= sel << 10;
-> +	writew(val, data->ctrl_reg + ctrl_reg + sel * 2);
-
-bitfield.h helpers
-
-> +	/* High byte of the gate value goes to the low byte of the HI_GATE register */
-> +	hi_reg = low ? LS2K2000_THSENS_HI_GATE_LOW_REG : LS2K2000_THSENS_HI_GATE_HI_REG;
-> +	val = (gate >> 8) & 0xff;
-> +	writeb(val, data->ctrl_reg + hi_reg + sel);
-> +}
-> +
-
-[ ... ]
