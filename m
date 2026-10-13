@@ -1,100 +1,154 @@
-Received: from out28-50.mail.aliyun.com (out28-50.mail.aliyun.com [115.124.28.50])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00A330F52B;
-	Tue, 13 Oct 2026 03:17:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E961314D18;
+	Tue, 13 Oct 2026 03:17:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791861450; cv=none; b=BnQMVaYRQnWTToAjaHWeSqdETe5uI/41W7hQt9auPIMuFZuELAF/GD0spnDoqkohx3jneKFCep0IbFiKvxQDa2u3HDPnBH7H8rgqd8Jfx5LMTDzJiaeP95doNPbpFRdBVYXnGp6Uyg2m8dmZzFWe0LBjx/3oyeWKDE6Ss8YJ4Z0=
+	t=1791861472; cv=none; b=WBbeBdeZpjDMHcWaoamB6jNPbMX48aNNMpGrvjBW2E6iQs5SFoyK/F8m7vNidym8GzsXLNwVZqdFUuEixCjxhpcp0r4tcMXTSV6VePy/mANt9966eOH2V4Y/PeEwCUjpWOLsGLhEZR8VqKl1IWply65+YukUSCNcUPUie+oTASw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791861450; c=relaxed/simple;
-	bh=oqDRtHDHS8cfhEC9V7UJ37223+ayv8mJTGtMcuQillU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NekBUbYNbYACEXLh6iwfBIIEAS4kcd9Yz4j1cFYG1hVKxQA+E02OiaaGH+pyZb158TVioJDNZpBn1HjuQsaLNhZuzdNG0/7Or05pdMLGE8scMF/fj0VzHc1cplf/uu7ntjn4vWhdeY/Dquf8GOJJHrhZHLDnNvzObSYuE1bvV68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=lD5aGH/k; arc=none smtp.client-ip=115.124.28.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1791861472; c=relaxed/simple;
+	bh=g5/Dt1fKxyckXDKsmBiZt3qV0oGfxPcin4Wkt8kvIYk=;
+	h=Date:To:From:Subject:Message-Id; b=fmBmBO/QXtooizzyoEO6W7xr0PWyqPzmFiO6/lEQ8TDDlNyrEUfi8jQg7CUvGuiDlyzwqm9tE7vYmEP8MrjbIjkNnHQnX6s0ogwzOceuk70uZohbaUt8b/Xnbj5LZ8/J2/xAMfDBDUW8MOMf2K6ZDeMXTVNq2WbSgLyhikpbczs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=c4wsJlH2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="lD5aGH/k"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1791861439; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=lPN+z3EgMFXPMSMODHApgJuDQCNeOicr2z2iHKWcDk8=;
-	b=lD5aGH/kuh1A4Kpx7h6Cr6eJ+T2nRB+HUWi45MB0dy974n+tT+0Siq/GJ7LUjTSCXnzVx8nhJShZzPyp8LhP0RgJ82BinEwL5L7uP/9e6W8wfgsev4MNStOsCmI6X8kdPQCI9nuLHhVSbWPrbecEEqDx/VR7ywNbhUUFSPBTX30=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07451011|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00509174-0.00094658-0.993962;FP=10146692383684185273|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037032089;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=7;RT=7;SR=0;TI=SMTPD_---.jatvAiU_1791861437;
-Received: from localhost(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jatvAiU_1791861437 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 13 Oct 2026 11:17:18 +0800
-From: Weibin Liu <liuwb@xiaopeng.com>
-To: broonie@kernel.org
-Cc: wentong.wu@intel.com,
-	lixu.zhang@intel.com,
-	sakari.ailus@linux.intel.com,
-	linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] spi: ljca: validate the response length before copying the data
-Date: Tue, 13 Oct 2026 11:17:17 +0800
-Message-ID: <20261013031717.3933277-1-liuwb@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260929080126.4168981-1-liuwb@xiaopeng.com>
-References: <20260929080126.4168981-1-liuwb@xiaopeng.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="c4wsJlH2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A81EF1F000FF;
+	Tue, 13 Oct 2026 03:17:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1791861470;
+	bh=cAFeWWrRdF1aknNPKf9t1+jQ/UlQMcw/jT87xWcBlqw=;
+	h=Date:To:From:Subject;
+	b=c4wsJlH2OmlWUzEysspFiBe4VqzueGhhYyHGZDv5b8ht+42jrheDBJMe3aIvJ7DJm
+	 YW5nvvwG2JbpawLr4IUJXMahYr9E3vbttKdW/c/v9zJd8vWPnAOakGEOODohPw7JM8
+	 q8Wt1cVz8nsftFeegXnyuhQH9SU6+IJSk7bn9pFE=
+Date: Mon, 12 Oct 2026 20:17:50 -0700
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,riel@surriel.com,ljs@kernel.org,liam@infradead.org,lance.yang@linux.dev,kylebot@openai.com,jannh@google.com,harry@kernel.org,david@kernel.org,ziy@nvidia.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-rmap-dont-discard-lazyfree-thps-at-pmd-level.patch added to mm-unstable branch
+Message-Id: <20261013031750.A81EF1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-ljca_spi_read_write() only checks that the response from the adapter
-carries the packet header and a non-zero payload length before copying
-r_packet->len bytes from the response into the transfer buffer.
 
-The payload length is taken from the packet the device sent back and is
-neither bounded by the number of bytes actually received nor by the
-size of the requested transfer: a misbehaving adapter can announce a
-payload larger than what it actually sent, and the memcpy then reads
-past the end of the 60-byte input buffer and writes past the end of the
-caller's transfer buffer.
+The patch titled
+     Subject: mm/rmap: don't discard lazyfree THPs at PMD level
+has been added to the -mm mm-unstable branch.  Its filename is
+     mm-rmap-dont-discard-lazyfree-thps-at-pmd-level.patch
 
-Check that the response carries the full header before reading
-r_packet->len, then reject responses whose payload is not contained in
-the data received or is longer than the requested transfer.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-rmap-dont-discard-lazyfree-thps-at-pmd-level.patch
 
-Fixes: caee8e38da67 ("spi: Add support for Intel LJCA USB SPI driver")
-Cc: stable@vger.kernel.org # 6.8+
-Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
+This patch will later appear in the mm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Zi Yan <ziy@nvidia.com>
+Subject: mm/rmap: don't discard lazyfree THPs at PMD level
+Date: Mon, 12 Oct 2026 22:20:16 -0400
+
+__discard_anon_folio_pmd_locked() clears a lazyfree THP's PMD before it
+determines whether the folio can be discarded, and restores it if the
+folio is dirty or has extra references.  It is done under only the PMD
+lock and the anon_vma read lock inside try_to_unmap_one() and no mmap lock
+is held.  The temporarily none PMD causes UAF.
+
+A parallel munmap() or mremap() is supposed to serialize with it on the
+PMD lock, but zap_pmd_range() (called by munmap()) and move_page_tables()
+(called by mremap()) do not take the lock when they see the temporarily
+none PMD and skip the PMD.  There is no more page table walk after the
+none PMD is restored:
+
+- munmap(): free_pgtables() waits in unlink_anon_vmas() for the anon_vma
+  lock, then free_pmd_range() drops the restored PMD as bad without
+  removing the rmap, so the folio keeps a stale mapcount.
+
+- whole-VMA MREMAP_DONTUNMAP: dontunmap_complete() unlinks the source VMA
+  from its anon_vma while the restored PMD still maps the folio.
+
+- plain mremap(): the THP is not moved but unmapped, so the THP's data is
+  lost.
+
+In the first two cases, the folio stays mapped, but no VMA that maps it is
+linked to its anon_vma.  When the anon_vma is freed, it is still reachable
+when one rmap walks the folio.  Racing lazyfree reclaim against
+MREMAP_DONTUNMAP as an unprivileged user reproduces a KASAN use-after-free
+in folio_lock_anon_vma_read() as reported in the Closes link.
+
+One solution is to use an invalidated PMD instead of a cleared one until
+the discard is committed, but it needs arch fixes first.
+1. GUP-fast still follows an invalidated PMD on riscv, LoongArch and s390.
+2. sparc64 miscounts thp_pte_count when an invalidated PMD is set again or
+   cleared.
+
+To keep the fix simple for backport, stop discarding lazyfree THPs at PMD
+level instead. try_to_unmap_one() splits the PMD and discards the folio at
+PTE level.
+
+unmap_huge_pmd_locked() and __discard_anon_folio_pmd_locked() are left in
+place, unused, to minimize this fix for backport and the invalidated PMD
+approach is planned as a follow-up series to use them again.
+
+Link: https://lore.kernel.org/20261012-lazyfree-stable-fix-v2-1-6387d6e30063@nvidia.com
+Fixes: 735ecdfaf4e8 ("mm/vmscan: avoid split lazyfree THP during shrink_folio_list()")
+Signed-off-by: Zi Yan <ziy@nvidia.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Kyle Zeng <kylebot@openai.com>
+Closes: https://lore.kernel.org/r/20261009165214.40212-2-kylebot@openai.com
+Reviewed-by: Kyle Zeng <kylebot@openai.com>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Assisted-by: LLM
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Harry Yoo <harry@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: <stable@vger.kernel.org>
 ---
-Changes in v2:
 
-- Check for the full header before reading r_packet->len (Mark Brown).
-- Regenerate on a clean tree; v1 carried prerequisite-patch-id entries
-  for unrelated patches.
----
- drivers/spi/spi-ljca.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ mm/rmap.c |   11 -----------
+ 1 file changed, 11 deletions(-)
 
-diff --git a/drivers/spi/spi-ljca.c b/drivers/spi/spi-ljca.c
-index 0c6e6248d..8fd001610 100644
---- a/drivers/spi/spi-ljca.c
-+++ b/drivers/spi/spi-ljca.c
-@@ -105,7 +105,12 @@ static int ljca_spi_read_write(struct ljca_spi_dev *ljca_spi, const u8 *w_data,
- 			    (u8 *)r_packet, LJCA_SPI_BUF_SIZE);
- 	if (ret < 0)
- 		return ret;
--	else if (ret < sizeof(*r_packet) || r_packet->len <= 0)
-+
-+	if (ret < sizeof(*r_packet))
-+		return -EIO;
-+
-+	if (!r_packet->len || ret < sizeof(*r_packet) + r_packet->len ||
-+	    r_packet->len > len)
- 		return -EIO;
+--- a/mm/rmap.c~mm-rmap-dont-discard-lazyfree-thps-at-pmd-level
++++ a/mm/rmap.c
+@@ -2275,17 +2275,6 @@ static bool try_to_unmap_one(struct foli
+ 		}
  
- 	if (r_data)
+ 		if (!pvmw.pte) {
+-			if (folio_test_lazyfree(folio)) {
+-				if (unmap_huge_pmd_locked(vma, pvmw.address, pvmw.pmd, folio))
+-					goto walk_done;
+-				/*
+-				 * unmap_huge_pmd_locked has either already marked
+-				 * the folio as swap-backed or decided to retain it
+-				 * due to GUP or speculative references.
+-				 */
+-				goto walk_abort;
+-			}
+-
+ 			if (flags & TTU_SPLIT_HUGE_PMD) {
+ 				/*
+ 				 * We temporarily have to drop the PTL and
+_
 
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
--- 
-2.50.1
+Patches currently in -mm which might be from ziy@nvidia.com are
+
+mm-rmap-dont-discard-lazyfree-thps-at-pmd-level.patch
 
