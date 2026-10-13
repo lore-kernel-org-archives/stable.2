@@ -1,123 +1,228 @@
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5170540DFB6
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 14:59:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852254F7CAA
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 15:00:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791903549; cv=none; b=syvjNSUniU769zFaQWlNip8GM/Gk2/TPVTXYZ3Z43hNlHvJL+2v2WdBNWhmN43y+iYpTQ0kLMSL4KIoAlTRJNXwogjSY4UFbmlVd/K0o8jTlyY73fw+msLVmHKV512kuIN1EDyHI+3tSExjSVapXYTnMoLPxhxCouCRsDsGoavo=
+	t=1791903627; cv=none; b=vF9Pco/XLFU6J/nP/H5Gk3OvhZTOA4FMwpaatBe95cjjdF4Cx65SmXevQBXaNw0Iw1m8OduN1ECl1CxAN3kSVUppdALuQUE498/e4awh4DAp9dk86NOWvcHg4r9Og9huJk36CV5B8Sub+z+iPTynFJUrPYAfI1M4vo73ymsan3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791903549; c=relaxed/simple;
-	bh=FgkWTWbqcPdXr4jKYrYqdoWxmHIu+ljUEKnrHgHf4YU=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=I8d6JYgrGlqZxHHAbQBQCmg68lxgT55Iw38jwBkL7kVtUT921OBNSFwpy29QyRKIisjX3s7oBcxkM8Rn7+sDE0WRZBfE79KkF/JKHOWVqqaH8eduo8A4UHl/tc82ebjsTyZ3osVYh9U7KHK+JZclHXDa8WhLhQiGn0Q8y6vduXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=YW01WO0K; arc=none smtp.client-ip=74.125.82.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	s=arc-20240116; t=1791903627; c=relaxed/simple;
+	bh=pEVFmhPJR1NGBLeLRSO0ArD/nmRROxT/4Ja/5m66fjk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZtmDgB/yITA2z5CK7/ylw05SHcp4LK8ON+C0YFRZVMo7pVEyN6u+cWEGsaaG6ftlm5BW6Y9ahw/sC8Hblo9KkvlpS6DMuZbhC/K57sZF+ooi65T2ChaXIdXckEKx84vr9pSAswWlNj3Yi+GKLBii0f3GHyvUzohPLLQFcJFr71w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O33Ki8x4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="YW01WO0K"
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-16079d54c17so3823954c88.0
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 07:59:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1791903547; x=1792508347; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ZyOz/1gESRgIynZV6sqj/cTvkKIFGO3QAjEEsEdvkU0=;
-        b=YW01WO0KSzF6RS772M/ZsMxrcKHCPni9IPUuxQwQ1iIDD4L6E/tYRwES/4eYDk3SV2
-         zYkSDyMLj2iD+2BfS0/ts7A5SF7+xbVfzW29EzISiqjMNiri0UdSCwEGrORQmA7WIixC
-         hMvWW44IBFtvQBSwvxyshfREWl58lN482rjr/NaUpEuoRnxpl+1bWGVh+ghAFuEWMccv
-         x0+WY2t3OwXS7agzCmmjRioF5ED61m9XbRILDNzh+Ehxcdiaz53IbdwrpKi28ZavgRzL
-         hQJXO1CwElwXEfiWPJweA6nDMujqDesdmqFhNFTS/PfMwIUfRNX2pEhEDySTOLoXL9je
-         h0dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791903547; x=1792508347;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZyOz/1gESRgIynZV6sqj/cTvkKIFGO3QAjEEsEdvkU0=;
-        b=MsWsG2P0JDyHSdHGmEo3frmrkIeifqfT3sXMTzKjw9r9NYsH7nQC3eeebbA/JAtXwr
-         YU/JBOJhpcRYm4AqRX0U1d8T5j4pgi5lgWnKLJRD2tQr2BGN3YyOCvD6EhDL80SEYkfA
-         jVonVSFWjdA9LODLX1Tww712tczi2get1BpX0ZyxZzFoyVht6m6JcrrBajWFxjqgkbD0
-         f/THq/HtWtn6vhopP0wqWVKYhs6O8bnaHsHml6Qc1j+vHU4hn8afWnyz7TNbnMARcIw2
-         oEg7MYsEVSNDfWslNPDjeyK8/T+lsj/SUO9mLjeIV2y17KKjGE8/puKLWbmqmgXRGE64
-         zJiA==
-X-Gm-Message-State: AFq9FYKKsXEreaJJmTPZwa9ISUPcOTC9RibnczGCQYUDfLbt0NT5prn8
-	dMwKJPb/nmQOPW50yhGXrhdkSjy4aTNco5iqcd6CZEb7zBVg7+exhTjfFPag9lVqtT/AcPRFoHq
-	kw6N8
-X-Gm-Gg: AYBFou0oKvxMsUJRhNeSM8Ij3/yFe6QQR3IDY/g4X3zX1eOnIn0OFcmH6RJTRJf52Lu
-	lK7oQILvTQLlKlFRr93WxBLgvGJjW8mpU08JGDUHFXFrLXuXn0jN0LcuheTASdnRYaNmb078q33
-	l8GGolQCGxnJh4k0rPDcA1Wp574CIC4x7BJNtSc8oLLNYR7uoKHjJgR7WhSaQhZFJWcfBlwTH3q
-	WP5j+wXIeXwSgfvSzCp24R2kU3Na6qjzOs2NJFKxuiZ0VLkLV0P7wQ9C+J9Eezvh1ujpgSupriE
-	E1y5Jh/3LV6qaPXrB7dyC/EJiXPD9YPhbrDecw459RE2osRYMJUxgCuiA+vk8TIIWxKf8NPNZ3w
-	YBBPJrTIuLzXjOAJx2NB+XfvpaxPXqKeg7hfY2Q5W9d5yCO5pZRMVlz8CLurdVqOChHvhY+ZTRv
-	7Feo4ja5Y1awmWGajHXV/2e/vqtAYLP6L/SDpbqIt92BJBABGM9hIsbPtgkojmtfA=
-X-Received: by 2002:a05:7022:1581:b0:149:50cb:216f with SMTP id a92af1059eb24-16a5ef287bemr23520577c88.33.1791903547233;
-        Tue, 13 Oct 2026 07:59:07 -0700 (PDT)
-Received: from 244668f92ec4 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a442ac67sm60541057c88.18.2026.10.13.07.59.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 07:59:06 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O33Ki8x4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DECF1F000FF;
+	Tue, 13 Oct 2026 15:00:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791903626;
+	bh=DBnEajkojAYeLbVprqTj17Aj2uQ5sy1WVz+LGafgmSI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=O33Ki8x4eoBRFFUw19iAg+Kev8plaUamzWj59aOeuu/3wDNeUGNllliIExGcL7/FM
+	 gTVBjm00/gNeQoeUGw24FCVat94B/UcH7PUT+dr7Rc+vKjNQrkXzQ41uU2wiCWtXkz
+	 ycC3F9hY0KZZQCd/XAw5oVzBKOi1AsSGwzcUfKsGaj4e1K4zEG1o9lVitjx54WlNtN
+	 wFEFWBP1ptJTD9TjakcUItF9QjdlHXdWxiQSI4LP0jciOUflGGdQ82+FStTjVxlyAK
+	 1ULwknQWzxy7IXfoezneeSU+5AbfE/pEyNIpbS65RzGIW3iKJoe+bqpuqlai3mizdf
+	 AgGP2kb+Vxocg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Suraj Gupta <suraj.gupta2@amd.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] net: xilinx: axienet: Free outstanding DMA buffers on dmaengine stop
+Date: Tue, 13 Oct 2026 11:00:24 -0400
+Message-ID: <20261013150006.67924-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026101248-endanger-limpness-b70f@gregkh>
+References: <2026101248-endanger-limpness-b70f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-6.18.y: (build)undefined reference to
- `crypto_krb5_get_mic' in vmlinux.unstripped ...
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
+Content-Transfer-Encoding: 8bit
+
+From: Suraj Gupta <suraj.gupta2@amd.com>
+
+[ Upstream commit bcf2573a68a808a5b54cadafa72b6672e662c2bf ]
+
+In the dmaengine path the driver pre-submits RX buffers and holds
+in-flight TX buffers whose SKBs are DMA-mapped by the driver and freed
+only in the completion callbacks. On ndo_stop() dmaengine_terminate_sync()
+aborts these descriptors without running their callbacks, and the driver
+then frees only the ring shells, leaking every SKB still owned by the
+engine and its DMA mapping on each ifdown. With 128 RX buffers pre-posted
+per channel, the mapping leak can eventually exhaust a limited IOMMU
+aperture.
+
+Clear the slot's skb in the TX and RX callbacks so a non-NULL skb marks a
+slot that still owns a live, DMA-mapped buffer, and on stop unmap and free
+every such buffer.
+
+axienet_dma_rx_cb() runs from the DMA tasklet and re-arms the RX ring on
+each completion, so it can race axienet_stop(): a completion may submit a
+fresh buffer after dmaengine_terminate_sync() has returned, leaving the
+channel armed with a buffer the teardown then frees while the engine may
+still write into it (dma_release_channel() does not stop it either). Add a
+lock that axienet_dma_rx_cb() holds across the @stopping check and the
+resubmit, and axienet_stop() holds to set @stopping before terminating.
+Once @stopping is set no callback can arm a new buffer, and any armed just
+before is aborted by the terminate, so teardown only frees buffers the
+engine no longer owns.
+
+Fixes: 6a91b846af85 ("net: axienet: Introduce dmaengine support")
 Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Tue, 13 Oct 2026 14:59:06 -0000
-Message-ID: <179190354625.263783.217366201919821901@kernelci.org>
-
-New build issue found on stable-rc/linux-6.18.y:
-
+Signed-off-by: Suraj Gupta <suraj.gupta2@amd.com>
+Link: https://patch.msgid.link/20260928184207.2361931-1-suraj.gupta2@amd.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: Adjusted context for existing kcalloc() allocation and missing interrupt-coalescing locks. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-undefined reference to `crypto_krb5_get_mic' in vmlinux.unstripped (net/sunrpc/auth_gss/gss_krb5_seal.c) [logspec:kbuild,kbuild.compiler.linker_error]
----
+ drivers/net/ethernet/xilinx/xilinx_axienet.h  |  7 ++-
+ .../net/ethernet/xilinx/xilinx_axienet_main.c | 51 +++++++++++++++----
+ 2 files changed, 47 insertions(+), 11 deletions(-)
 
-Log excerpt:
-=====================================================
-  LD      .tmp_vmlinux1
-ld: net/sunrpc/auth_gss/gss_krb5_seal.o: in function `gss_krb5_get_mic_v2':
-gss_krb5_seal.c:(.text+0x1cc): undefined reference to `crypto_krb5_get_mic'
-ld: net/sunrpc/auth_gss/gss_krb5_unseal.o: in function `gss_krb5_verify_mic_v2':
-gss_krb5_unseal.c:(.text+0x13f): undefined reference to `crypto_krb5_verify_mic'
-ld: net/sunrpc/auth_gss/gss_krb5_crypto.o: in function `gss_krb5_aead_encrypt':
-gss_krb5_crypto.c:(.text+0x18bb): undefined reference to `crypto_krb5_encrypt'
-ld: net/sunrpc/auth_gss/gss_krb5_crypto.o: in function `gss_krb5_aead_decrypt':
-gss_krb5_crypto.c:(.text+0x1a5c): undefined reference to `crypto_krb5_decrypt'
+diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet.h b/drivers/net/ethernet/xilinx/xilinx_axienet.h
+index cbdca0fb89454..f9e8e83cfed93 100644
+--- a/drivers/net/ethernet/xilinx/xilinx_axienet.h
++++ b/drivers/net/ethernet/xilinx/xilinx_axienet.h
+@@ -516,8 +516,9 @@ struct skbuf_dma_descriptor {
+  * @stats_work: Work for reading the hardware statistics counters often enough
+  *              to catch overflows.
+  * @dma_err_task: Work structure to process Axi DMA errors
+- * @stopping:   Set when @dma_err_task shouldn't do anything because we are
+- *              about to stop the device.
++ * @stopping:   Set when we are about to stop the device: makes @dma_err_task
++ *              a no-op (legacy DMA path) and fences RX descriptor
++ *              resubmission in axienet_dma_rx_cb() (dmaengine path).
+  * @tx_irq:	Axidma TX IRQ number
+  * @rx_irq:	Axidma RX IRQ number
+  * @eth_irq:	Ethernet core IRQ number
+@@ -542,6 +543,7 @@ struct skbuf_dma_descriptor {
+  * @tx_ring_tail: TX skb ring buffer tail index.
+  * @rx_ring_head: RX skb ring buffer head index.
+  * @rx_ring_tail: RX skb ring buffer tail index.
++ * @rx_submit_lock: Protects RX ring resubmission vs teardown in dmaengine path.
+  */
+ struct axienet_local {
+ 	struct net_device *ndev;
+@@ -620,6 +622,7 @@ struct axienet_local {
+ 	int tx_ring_tail;
+ 	int rx_ring_head;
+ 	int rx_ring_tail;
++	spinlock_t rx_submit_lock;
+ };
+ 
+ /**
+diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+index 3339c5e1a57a9..76970a8065494 100644
+--- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
++++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+@@ -841,6 +841,7 @@ static void axienet_dma_tx_cb(void *data, const struct dmaengine_result *result)
+ 	u64_stats_update_end(&lp->tx_stat_sync);
+ 	dma_unmap_sg(lp->dev, skbuf_dma->sgl, skbuf_dma->sg_len, DMA_TO_DEVICE);
+ 	dev_consume_skb_any(skbuf_dma->skb);
++	skbuf_dma->skb = NULL;
+ 	netif_txq_completed_wake(txq, 1, len,
+ 				 CIRC_SPACE(lp->tx_ring_head, lp->tx_ring_tail, TX_BD_NUM_MAX),
+ 				 2);
+@@ -1127,6 +1128,7 @@ static void axienet_dma_rx_cb(void *data, const struct dmaengine_result *result)
+ 						       &meta_max_len);
+ 	dma_unmap_single(lp->dev, skbuf_dma->dma_address, lp->max_frm_size,
+ 			 DMA_FROM_DEVICE);
++	skbuf_dma->skb = NULL;
+ 
+ 	if (IS_ERR(app_metadata)) {
+ 		if (net_ratelimit())
+@@ -1149,10 +1151,17 @@ static void axienet_dma_rx_cb(void *data, const struct dmaengine_result *result)
+ 	u64_stats_update_end(&lp->rx_stat_sync);
+ 
+ rx_submit:
++	spin_lock(&lp->rx_submit_lock);
++	if (lp->stopping) {
++		spin_unlock(&lp->rx_submit_lock);
++		return;
++	}
++
+ 	for (i = 0; i < CIRC_SPACE(lp->rx_ring_head, lp->rx_ring_tail,
+ 				   RX_BUF_NUM_DEFAULT); i++)
+ 		axienet_rx_submit_desc(lp->ndev);
+ 	dma_async_issue_pending(lp->rx_chan);
++	spin_unlock(&lp->rx_submit_lock);
+ }
+ 
+ /**
+@@ -1475,6 +1484,7 @@ static int axienet_init_dmaengine(struct net_device *ndev)
+ 	lp->tx_ring_head = 0;
+ 	lp->rx_ring_tail = 0;
+ 	lp->rx_ring_head = 0;
++	lp->stopping = false;
+ 	lp->tx_skb_ring = kcalloc(TX_BD_NUM_MAX, sizeof(*lp->tx_skb_ring),
+ 				  GFP_KERNEL);
+ 	if (!lp->tx_skb_ring) {
+@@ -1686,20 +1696,42 @@ static int axienet_stop(struct net_device *ndev)
+ 		free_irq(lp->rx_irq, ndev);
+ 		axienet_dma_bd_release(ndev);
+ 	} else {
++		struct skbuf_dma_descriptor *skbuf_dma;
++
++		spin_lock_bh(&lp->rx_submit_lock);
++		lp->stopping = true;
++		spin_unlock_bh(&lp->rx_submit_lock);
++
+ 		dmaengine_terminate_sync(lp->tx_chan);
+-		dmaengine_synchronize(lp->tx_chan);
+ 		dmaengine_terminate_sync(lp->rx_chan);
+-		dmaengine_synchronize(lp->rx_chan);
+-
+-		for (i = 0; i < TX_BD_NUM_MAX; i++)
+-			kfree(lp->tx_skb_ring[i]);
+-		kfree(lp->tx_skb_ring);
+-		for (i = 0; i < RX_BUF_NUM_DEFAULT; i++)
+-			kfree(lp->rx_skb_ring[i]);
+-		kfree(lp->rx_skb_ring);
+ 
+ 		dma_release_channel(lp->rx_chan);
+ 		dma_release_channel(lp->tx_chan);
++
++		/* Unmap and free any buffer the terminate did not reclaim, so it
++		 * is not leaked; a non-NULL skb marks such a slot.
++		 */
++		for (i = 0; i < TX_BD_NUM_MAX; i++) {
++			skbuf_dma = lp->tx_skb_ring[i];
++			if (skbuf_dma && skbuf_dma->skb) {
++				dma_unmap_sg(lp->dev, skbuf_dma->sgl,
++					     skbuf_dma->sg_len, DMA_TO_DEVICE);
++				dev_kfree_skb_any(skbuf_dma->skb);
++			}
++			kfree(skbuf_dma);
++		}
++		kfree(lp->tx_skb_ring);
++
++		for (i = 0; i < RX_BUF_NUM_DEFAULT; i++) {
++			skbuf_dma = lp->rx_skb_ring[i];
++			if (skbuf_dma && skbuf_dma->skb) {
++				dma_unmap_single(lp->dev, skbuf_dma->dma_address,
++						 lp->max_frm_size, DMA_FROM_DEVICE);
++				dev_kfree_skb_any(skbuf_dma->skb);
++			}
++			kfree(skbuf_dma);
++		}
++		kfree(lp->rx_skb_ring);
+ 	}
+ 
+ 	axienet_iow(lp, XAE_IE_OFFSET, 0);
+@@ -2615,6 +2647,7 @@ static int axienet_probe(struct platform_device *pdev)
+ 	u64_stats_init(&lp->rx_stat_sync);
+ 	u64_stats_init(&lp->tx_stat_sync);
+ 
++	spin_lock_init(&lp->rx_submit_lock);
+ 	mutex_init(&lp->stats_lock);
+ 	seqcount_mutex_init(&lp->hw_stats_seqcount, &lp->stats_lock);
+ 	INIT_DEFERRABLE_WORK(&lp->stats_work, axienet_refresh_stats);
+-- 
+2.53.0
 
-=====================================================
-
-When fixing this issue, please attribute this report according to the
-patch submission rules:
-
-Reported-by: kernelci.org bot <bot@kernelci.org>
-
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:174c2fe239c0fc73d0c58b91a55db7ce48eefafa
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  b12a02dd090ec1b0b00fc16d1be95e7b53677ceb
-
-# Builds where the incident occurred:
-
-## i386_defconfig on (i386):
-- compiler: gcc-14
-- config: https://files.kernelci.org/kbuild-gcc-14-i386-6ace2919a3f195e1aa7582c9/.config
-- dashboard: https://d.kernelci.org/build/maestro:6ace2919a3f195e1aa7582c9
-
-#kernelci issue maestro:174c2fe239c0fc73d0c58b91a55db7ce48eefafa
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
