@@ -1,80 +1,81 @@
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+Received: from irl.hu (irl.hu [95.85.9.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F29014FECC6
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 13:00:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD6963F1077;
+	Tue, 13 Oct 2026 13:03:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.85.9.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896440; cv=none; b=DeIehzMJsU7Zmf6kqhH0zXVlFUrw2+hI9EDBHJFylFmEqXBw/hJGNZfD61aBfUiaBt8PU5nEEDLmSs8GMtWUbkSPrrJnZznbF93aaTT5Wa1DnC5oUsO/RjNz+CxyyYvMVSztrvPoa7m3jZ5H0QHBg+A+qTosjqS0zP7rSQ9ZuII=
+	t=1791896616; cv=none; b=LRwVJnp2e0lW2pWNxisIn1O4Wwi5d5yIlL/JNoud69ev1akW6BMbFYPQaVWrqwJAA3w9t5S6QO20F01MfVul0cHbP4Fo2bHWimtd3sPC+wn/TmFObvaJwmDTD1VPS9Bz7Ek5rgPWkfVXh0+oHXDycAj95zkoH+l+aBO3F3zunGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896440; c=relaxed/simple;
-	bh=CDEZnZFYpuffzPq3yVbIulrNbfblS4pwlFeEeefac3s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=t+SFYXDh/CyArMtUGf1po7vfKNvGlah7pCJvJfyOlOoDWA2b64LZQ727ey6uxdchIXuCruO0a4BeJg6ZZRGKEbyVJMo4Fixsf3pZWcs9MZB9p2HGYZg2PPE0b1vwsH211L/UH9zmVDrWfatIsrpulWJ9NsKloqmaIUd0cHT2f1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=FrnXINfp; arc=none smtp.client-ip=203.254.224.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="FrnXINfp"
-Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261013130034epoutp03763a241c5e19c776b8a65f7b1a100482~eGFBHY22e1299212992epoutp03P
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 13:00:34 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261013130034epoutp03763a241c5e19c776b8a65f7b1a100482~eGFBHY22e1299212992epoutp03P
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791896434;
-	bh=CDEZnZFYpuffzPq3yVbIulrNbfblS4pwlFeEeefac3s=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=FrnXINfpsmzFR60SEEZ+Ifmg51zWVer0rh+6K11bq9DZ89iJWBt1p+jVQ+Wivj/iK
-	 hWNftO2X9lrBfGeDB1mXucnzR5DQiaAMmiRczjJWr33juaHgjoGcT3Hxukme03jeDc
-	 9DfGapZIT1y6d0dMEnAgDCQIxfBrBZNCNk5JFYVg=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
-	20261013130034epcas5p21afebfcd95e6f4718230475486d5b6e3~eGFApo0__1130811308epcas5p2X;
-	Tue, 13 Oct 2026 13:00:34 +0000 (GMT)
-Received: from epcas5p1.samsung.com (unknown [182.195.38.94]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4j3vZn2G3sz6B9m9; Tue, 13 Oct
-	2026 13:00:33 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
-	20261013130032epcas5p4f27978a49d4f5f169affa17d28ce8049~eGE-W2lUN0272202722epcas5p4K;
-	Tue, 13 Oct 2026 13:00:32 +0000 (GMT)
-Received: from [107.122.11.51] (unknown [107.122.11.51]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261013130031epsmtip13f0de6001ef3f2850768a03770582e27~eGE96Cykg1973519735epsmtip18;
-	Tue, 13 Oct 2026 13:00:31 +0000 (GMT)
-Message-ID: <8102549a-d440-4d37-8b0f-531a001e230e@samsung.com>
-Date: Tue, 13 Oct 2026 18:30:30 +0530
+	s=arc-20240116; t=1791896616; c=relaxed/simple;
+	bh=uVjcc/KF4L/qAuKP4Nvyrp/+uPdvAFWs4UANUOE+N8s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=LTTh1KEZtdKGnZrCSZFZBMQEHc9lOjvQtshFReRQPSDg3tLQdjalzFYXhRNA2XpepYzjDpnESKJY3pPuRhHwS8PZiSto9yh9g+bvEMohIQ9DXV/chp1w1kMIj+/nid840oYv7mfnctIm7c7JLEPqyevA9AXPclBv7iAjlKtxu/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irl.hu; spf=pass smtp.mailfrom=irl.hu; arc=none smtp.client-ip=95.85.9.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irl.hu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=irl.hu
+Received: from fedori.lan (51b68c74.dsl.pool.telekom.hu [::ffff:81.182.140.116])
+  (AUTH: PLAIN soyer@irl.hu, )
+  by irl.hu with ESMTPSA
+  id 00000000000C70B2.000000006ACE2C24.00339CD6; Tue, 13 Oct 2026 15:03:32 +0200
+From: Gergo Koteles <soyer@irl.hu>
+To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+  Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+  Philipp Oster <philippdev5396@outlook.de>,
+  Georg Wenzel <g.wenzel@gmail.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+  alsa-devel@alsa-project.org, Gergo Koteles <soyer@irl.hu>,
+  stable@vger.kernel.org
+Subject: [PATCH v2 2/2] ALSA: hda/tas2781: Skip invalid TAS2563 UEFI calibration data
+Date: Tue, 13 Oct 2026 15:02:21 +0200
+Message-ID: <12a1ab265a1dc0e3a062a54287c8ef48682c4efc.1791895478.git.soyer@irl.hu>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <cover.1791895478.git.soyer@irl.hu>
+References: <cover.1791895478.git.soyer@irl.hu>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] nvme: bound FDP config log reads to the received
- buffer
-To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>, Keith Busch
-	<kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, Christoph Hellwig
-	<hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
-Cc: Nitesh Shetty <nj.shetty@samsung.com>, Hannes Reinecke <hare@suse.de>,
-	gliuxen@gmail.com, linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Language: en-US
-From: Kanchan Joshi <joshi.k@samsung.com>
-In-Reply-To: <20261013102812.3020500-1-yhlee@isslab.korea.ac.kr>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261013130032epcas5p4f27978a49d4f5f169affa17d28ce8049
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261013102825epcas5p38d2293e8e6c86a9142f6d24ba9fd371e
-References: <CGME20261013102825epcas5p38d2293e8e6c86a9142f6d24ba9fd371e@epcas5p3.samsung.com>
-	<20261013102812.3020500-1-yhlee@isslab.korea.ac.kr>
+X-Mime-Autoconverted: from 8bit to 7bit by courier 1.0
 
-On 10/13/2026 3:58 PM, Yehyeong Lee wrote:
-> A malicious or buggy controller triggers this during namespace scan with a
-> short FDP Configurations log:
+Some Lenovo 14ARB7 laptops do not have proper calibration data.
 
-Reviewed-by: Kanchan Joshi <joshi.k@samsung.com>
+Skip these zero calibration values and fall back to the calibration data
+provided by the DSP firmware.
+
+Tested-by: Georg Wenzel <g.wenzel@gmail.com>
+Fixes: c3ca4458cc2f ("ALSA: hda/tas2781: add TAS2563 support for 14ARB7")
+Cc: <stable@vger.kernel.org> # 6.18
+Signed-off-by: Gergo Koteles <soyer@irl.hu>
+---
+Changes is v2:
+ - none
+
+---
+ sound/hda/codecs/side-codecs/tas2781_hda_i2c.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
+index cff8fab8133a..44855f593daf 100644
+--- a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
++++ b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
+@@ -372,6 +372,11 @@ static int tas2563_save_calibration(struct tas2781_hda *h)
+ 					i, j, status);
+ 				return -EINVAL;
+ 			}
++			if (*(uint32_t *)&data[offset] == 0) {
++				dev_warn(p->dev,
++					 "Dev %d: Caldat[%d] is zero\n", i, j);
++				return -EINVAL;
++			}
+ 			bedata = cpu_to_be32(*(uint32_t *)&data[offset]);
+ 			memcpy(&data[offset], &bedata, sizeof(bedata));
+ 			offset += TAS2563_CAL_DATA_SIZE;
+-- 
+2.56.0
+
