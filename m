@@ -1,44 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D865221CD
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:28:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7FE93F326A
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:31:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791912495; cv=none; b=S3rTG4yS8DjegdVp08p6RjF7AkQRggzspmmWGUoXytjFSbBnf/dGJ8K1OaD1FW9wuXo4K6CBa9Nz/yJwU78gx/4nE1ltPGFtxdW8hiUlPGJFQpD1UclxzaROdJNmFuGZU6reiKKhc0wIoJ1gqoU/xbLDSxHset5xFIKnjsOSSqs=
+	t=1791912681; cv=none; b=KX78ujBb/S9iCwB4EhVf0KNOTH/QieoK9MYGPZatenjTtQImrV/WAaHzvOaWGPUSJ3ihCXniyfnM0eN1dqog5ffam6EJpvN9iGE3aKrMjAblsUlMgyJahsCehDaVqaOt7C/IEQyrus7n0oNOW3IrL6YNjVyQHi9tSRg2rEsTsCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791912495; c=relaxed/simple;
-	bh=5e/+ZH2xbeuqLo8Nu0AJc/uivNoZ4fkqFnMJ+s58+NU=;
+	s=arc-20240116; t=1791912681; c=relaxed/simple;
+	bh=9mrCqlwDR6uqlqCwwKfgnYlxFaq0N8xH8mMgKo1Ryok=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=g3btbtCW/zzorQJPYEutpeah05tXsg8ADR2WqcBP2lhMvJtWYVbrBzW4Ul2O9CJB+yo1y6e+ram8lKC+OYOVXovREA6HE6W1oOuXno5KsgUsgFCQYV0g9Wt3cgsuNZFkIGl0xs7J36HuK6EOPMDeVQVXaBLExLoKhWOZ0DYRNgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Grg2iCQK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AICdLQWrL6mQSrMHaIxOSlGFihnKxCAKivzmdp16ropC4Xf30ZV+RlFdo+aZZUbbLFA/ashPUg4thWtBZXwacte7i0RuJcQfVL5V8zy9uf3N+Wb4C0KqorV0t7oX+KEPTGmW+fU97aaXcy7jEvprFKZecYOMzjTARBfXjOAOS1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YW6Hqza9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Grg2iCQK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17BEB1F00893;
-	Tue, 13 Oct 2026 17:28:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YW6Hqza9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 663481F000FF;
+	Tue, 13 Oct 2026 17:31:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791912493;
-	bh=8IHyKgytEIIzVesWxMUASLw5+dSCO/RZyjLDSUSShcU=;
+	s=k20260515; t=1791912679;
+	bh=2HGZRSUDBGC+CLn5uvDMT7rosRjKjR37Wd7RRpxYQJY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Grg2iCQKez1Y9V1OXVUsApcbXk4Fq5vCj5p/wkWFYy4WyNs/GBMneR0QcSwM+tNn/
-	 ebBsXY409o9zC1eSG7q+VrNGQxbplwmPuCR3CICsqwvsQkYfL8Gh6wgzkMkUlK1JS0
-	 lAUoc+Mi03hO7Q+vLpsoNoo/yUJMRwtrS/H0ZzTJLl+NsGLIU0G/OftIY1YtzD88Oy
-	 N6h9/tbI48xwiYVdqyM6D5TAgjZX1u3DlUWH36AFMFmTD0njhx8ArgAPpAqfBDRURZ
-	 ZihHZ4vFkGeQcIFIEGLVV3ZSPhf+4qf3lL9s8HhE3kAKSuxueQc4JtEeHnUuKzPaOP
-	 /yB91qF+cfDgg==
-From: Sasha Levin <sashal@kernel.org>
+	b=YW6Hqza9V3FLE2BukAlfgjI/hR8GHixFB70jVg1x7LjhVnX6gaGrzfH6snTP/8ZIq
+	 p77ZZSDwwrQWMwYFpOzgy+wNzXOU+mTqb6PeaAHiXP2Kc+vOC+8+0sKmo/sVKysELB
+	 iWS8I3CIV60P3EFy8qpVbokVabd+H1z1SZn1K0cLDipzIgvswGqCUvJ0EFc2ucmYdU
+	 UMyOsWk63vpUtH4rXQOWCUeedouq9OCxIacggy/fksKw8W0yGQUu4+Xq6sY4MFWIxq
+	 iNt1Mkb773s9b6pRSOYgPl/f7wl5/4+7IYX+rX54un7dFJuzCLKC4XgL5Ws7UTY/bz
+	 D5PMTAZa0MUKg==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Song Li <songl@zju.edu.cn>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] drm/xe/i2c: cancel the client work on remove
-Date: Tue, 13 Oct 2026 13:28:12 -0400
-Message-ID: <20261013172744.427371-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101217-clumsily-geology-fe31@gregkh>
-References: <2026101217-clumsily-geology-fe31@gregkh>
+Cc: ljs@kernel.org
+Subject: [PATCH 5.10.y] mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP self-merge
+Date: Tue, 13 Oct 2026 18:31:15 +0100
+Message-ID: <20261013173115.2539223-1-ljs@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <2026101236-scarce-latrine-01e7@gregkh>
+References: <2026101236-scarce-latrine-01e7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,76 +43,175 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
+operations that keep the original VMA in place.
 
-[ Upstream commit 611857adc9e7b0ee1239a0baf38498922ca5a12e ]
+Historically this has led to a lot of bugs where non-obvious interactions
+occur between existing mremap() operations and the original VMA.
 
-xe_i2c_notifier() stores the DesignWare adapter in i2c->adapter and
-schedules i2c->work when the adapter is registered under the xe I2C
-platform device, and xe_i2c_client_work() then instantiates the AMC
-client device on that adapter.
+Fix another of these - self-merge.
 
-xe_i2c_remove() tears down the AMC, unregisters the client devices,
-the bus notifier and the adapter platform device, but it never drains
-i2c->work. A work item that is still queued or running when the
-adapter is unregistered dereferences i2c->adapter in
-i2c_new_client_device() after platform_device_unregister() has
-released the adapter. The work item is also embedded in the
-devm-allocated struct xe_i2c, so a work item still queued after the
-drm device devm unwind frees that allocation runs its callback on
-freed memory.
+Self-merge occurs when a VMA is moved in front of or behind itself and the
+attributes of the VMA permit such a merge.
 
-The bus notifier is the only thing that schedules this work, and it is
-unregistered after the client devices. An instance that is still queued
-when the teardown runs can therefore write
-i2c->client[XE_I2C_CLIENT_AMC] while the loop is unregistering and
-clearing the same array, and an AMC client it instantiates late is only
-cleaned up by the adapter's own child sweep in i2c_del_adapter().
+Practically this can only happen for unfaulted anonymous VMAs due to the
+page offset equality requirement for merge:
 
-Move bus_unregister_notifier() in front of the client teardown loop
-and cancel the work right after it, so no new instance can be
-scheduled and a queued instance is drained before the client array is
-touched. A running instance still finds a live adapter, since the
-adapter is unregistered later.
+                           |------------|
+                           |            |
+                           |            v
+        |...........||-----------||...........|
+        |           || unfaulted ||           |
+        |...........||-----------||...........|
+              ^            |
+              |            |
+              |------------|
 
-Fixes: f0e53aadd702 ("drm/xe: Support for I2C attached MCUs")
-Link: https://lore.kernel.org/intel-xe/20260912085932.101598-1-fanwu01@zju.edu.cn/
-Cc: stable@vger.kernel.org
-Assisted-by: LLM, in-house static analysis tool
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Link: https://patch.msgid.link/20260928013030.612592-1-fanwu01@zju.edu.cn
-Link: https://patch.msgid.link/20261006000413.318561-2-rodrigo.vivi@intel.com
-Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-(cherry picked from commit a23f27d5ec11c3f418c5e5531eea34ccda2b5b20)
-Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-[ sashal: Adjusted xe_i2c_remove() context for the older teardown implementation. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+This becomes problematic if the VMA is configured by the user to
+mlock-on-fault, i.e. the VMA_LOCKED_BIT, VMA_LOCKONFAULT_BIT VMA flags are
+set.
+
+MREMAP_DONTUNMAP clears mlock flags for the source VMA and maintains them
+for the destination VMA.
+
+Self-merge makes this impossible (there is only one VMA) and incorrectly
+clears the destination VMA's mlock flags.
+
+This causes a leak in mm->locked_vm as clearing this flag does not
+decrement the counter and the VMA no longer has VMA_LOCKED_BIT set so it
+is not decremented on unmap.
+
+Resolve this by simply disallowing a self-merge in this case - the source
+and destination VMAs are kept distinct and then are able to have distinct
+mlock() flags.
+
+Update to make the now-redundant self-merge check a VM_WARN_ON_ONCE()
+instead to guard against future regressions.
+
+Fixes: e346b3813067 ("mm/mremap: add MREMAP_DONTUNMAP to mremap()")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+Cc: <stable@vger.kernel.org>
+(cherry picked from commit 838bb60dc21553e32df90f2f3bac5b905376e7aa)
+[ ljs - Converted to work with vma_merge(), tweaked commit msg, removed
+  redundant self-merge code and comment. ]
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- drivers/gpu/drm/xe/xe_i2c.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ include/linux/mm.h |  2 +-
+ mm/mmap.c          | 23 +++++++++++++++++++----
+ mm/mremap.c        | 16 ++++------------
+ 3 files changed, 24 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
-index 25c7eb725ce26..43311886dbf81 100644
---- a/drivers/gpu/drm/xe/xe_i2c.c
-+++ b/drivers/gpu/drm/xe/xe_i2c.c
-@@ -330,10 +330,13 @@ static void xe_i2c_remove(void *data)
- 	struct xe_i2c *i2c = data;
- 	unsigned int i;
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 4787d39bbad4..38825a944ee5 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -2562,7 +2562,7 @@ extern void __vma_link_rb(struct mm_struct *, struct vm_area_struct *,
+ extern void unlink_file_vma(struct vm_area_struct *);
+ extern struct vm_area_struct *copy_vma(struct vm_area_struct **,
+ 	unsigned long addr, unsigned long len, pgoff_t pgoff,
+-	bool *need_rmap_locks);
++	bool *need_rmap_locks, bool keep_source);
+ extern void exit_mmap(struct mm_struct *);
  
-+	/* Stop the notifier from arming the client work before teardown. */
-+	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
-+	cancel_work_sync(&i2c->work);
+ static inline int check_data_rlimit(unsigned long rlim,
+diff --git a/mm/mmap.c b/mm/mmap.c
+index 4d5e9d085f0a..68a2b51fd380 100644
+--- a/mm/mmap.c
++++ b/mm/mmap.c
+@@ -3322,7 +3322,7 @@ int insert_vm_struct(struct mm_struct *mm, struct vm_area_struct *vma)
+  */
+ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
+ 	unsigned long addr, unsigned long len, pgoff_t pgoff,
+-	bool *need_rmap_locks)
++	bool *need_rmap_locks, bool keep_source)
+ {
+ 	struct vm_area_struct *vma = *vmap;
+ 	unsigned long vma_start = vma->vm_start;
+@@ -3330,6 +3330,7 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
+ 	struct vm_area_struct *new_vma, *prev;
+ 	struct rb_node **rb_link, *rb_parent;
+ 	bool faulted_in_anon_vma = true;
++	bool can_self_merge = false;
+ 
+ 	/*
+ 	 * If anonymous vma has not yet been faulted, update new pgoff
+@@ -3338,13 +3339,27 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
+ 	if (unlikely(vma_is_anonymous(vma) && !vma->anon_vma)) {
+ 		pgoff = addr >> PAGE_SHIFT;
+ 		faulted_in_anon_vma = false;
++		can_self_merge = true;
+ 	}
+ 
+ 	if (find_vma_links(mm, addr, addr + len, &prev, &rb_link, &rb_parent))
+ 		return NULL;	/* should never get here */
+-	new_vma = vma_merge(mm, prev, addr, addr + len, vma->vm_flags,
+-			    vma->anon_vma, vma->vm_file, pgoff, vma_policy(vma),
+-			    vma->vm_userfaultfd_ctx);
 +
- 	for (i = 0; i < XE_I2C_MAX_CLIENTS; i++)
- 		i2c_unregister_device(i2c->client[i]);
++	/*
++	 * If the original VMA is kept (MREMAP_DONTUNMAP), the source and
++	 * destination VMA must be treated distinctly.
++	 *
++	 * A merge violates this, so in this case disallow a self-merge. A
++	 * self-merge can only occur if the new range is immediately adjacent to
++	 * the source VMA, so simply do not attempt to merge in that case.
++	 */
++	if (can_self_merge && keep_source &&
++	    (addr == vma->vm_end || vma->vm_start == addr + len))
++		new_vma = NULL;
++	else
++		new_vma = vma_merge(mm, prev, addr, addr + len, vma->vm_flags,
++				    vma->anon_vma, vma->vm_file, pgoff,
++				    vma_policy(vma), vma->vm_userfaultfd_ctx);
+ 	if (new_vma) {
+ 		/*
+ 		 * Source vma may have been merged into new_vma
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 3334c4022210..cb83305e5bd3 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -368,7 +368,7 @@ static unsigned long move_vma(struct vm_area_struct *vma,
  
--	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
- 	xe_i2c_unregister_adapter(i2c);
- 	xe_i2c_remove_irq(i2c);
- }
+ 	new_pgoff = vma->vm_pgoff + ((old_addr - vma->vm_start) >> PAGE_SHIFT);
+ 	new_vma = copy_vma(&vma, new_addr, new_len, new_pgoff,
+-			   &need_rmap_locks);
++			   &need_rmap_locks, flags & MREMAP_DONTUNMAP);
+ 	if (!new_vma)
+ 		return -ENOMEM;
+ 
+@@ -424,6 +424,9 @@ static unsigned long move_vma(struct vm_area_struct *vma,
+ 		untrack_pfn_moved(vma);
+ 
+ 	if (unlikely(!err && (flags & MREMAP_DONTUNMAP))) {
++		/* Self-merge is disallowed. */
++		VM_WARN_ON_ONCE(new_vma == vma);
++
+ 		if (vm_flags & VM_ACCOUNT) {
+ 			/* Always put back VM_ACCOUNT since we won't unmap */
+ 			vma->vm_flags |= VM_ACCOUNT;
+@@ -431,17 +434,6 @@ static unsigned long move_vma(struct vm_area_struct *vma,
+ 			vm_acct_memory(new_len >> PAGE_SHIFT);
+ 		}
+ 
+-		/*
+-		 * VMAs can actually be merged back together in copy_vma
+-		 * calling merge_vma. This can happen with anonymous vmas
+-		 * which have not yet been faulted, so if we were to consider
+-		 * this VMA split we'll end up adding VM_ACCOUNT on the
+-		 * next VMA, which is completely unrelated if this VMA
+-		 * was re-merged.
+-		 */
+-		if (split && new_vma == vma)
+-			split = 0;
+-
+ 		/* We always clear VM_LOCKED[ONFAULT] on the old vma */
+ 		vma->vm_flags &= VM_LOCKED_CLEAR_MASK;
+ 
 -- 
-2.53.0
+2.56.0
 
