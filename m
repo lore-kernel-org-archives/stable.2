@@ -1,44 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E98453163D
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 15:49:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E388D5372E6
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 15:53:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791906564; cv=none; b=LWXgWS4vmQWGEgqtI2kkbgv8k81wMZSr5I4xunXiPJqGs5KN1SKq/VvAvQXirSU/KlEq4sS5SDnTs7mJaW2xcEFWEZS8YPguvbCKij8BEbhzlrYBXH1tj3guUZyef+5PmeDCjSmr82pC9fEbzBJxNFofpGAzaCH3xGXsFFEuLF4=
+	t=1791906786; cv=none; b=cXnIv00JnLQO19tji/tUznUeMbYwtjw1WqRRP9pU7Py08UOBuWAKk8/dwSypImcFnVjsQD/bjHKvh1L1sITLbqkeccSI1xeI3YPPP5tNYC79njB1HUc8CgPxiZx85/qirnhk9zdDAt0+XY/ItYTH02AVSJyzR3TG69cjGiT53fo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791906564; c=relaxed/simple;
-	bh=c+XBaL3QmA0f2lRstaym0/pXRx40UyMNzVEWeRD+1MA=;
+	s=arc-20240116; t=1791906786; c=relaxed/simple;
+	bh=qOMnAQshZi5I2yY9rgOyo/tDqeNoazX7meSK44gFpfo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eDlKVR3rfXu7wBKK9sFCvpc1ijbKEbkXa4BNrnIxCsivzRjbStaeONRY8LZgHDAEzeRW+RVww2ATU7tEi724UoBU7svApc0c2i9r1SLgVs7IiiBCxmktwv+SGc/LciWSSOQrc7lSLvUgSgIqxc0DHX5+PoK93OWtHbXZ7ag24Fw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iAWBylB1; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=D5AP9g/FYoMFwesRhs2YCBn6Z2vOzcx9B0RcqgrdcB30hHLqX1NS05UvDC49ipu3sAG/qgcnPGDq4L40ItXJ7o8vMrk4wU3BwEVPmQgxZwJ5cPPfJqIixzQ42DFJHb4n+7+OYLJsVqENCQaiLZ63MQbsW5sncsz1iTkMt35y+sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=apNgJkD0; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iAWBylB1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9483A1F000FF;
-	Tue, 13 Oct 2026 15:49:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791906563;
-	bh=A/7x/ITEIVPQsKZ+hB4+z0xjwxwIFXIIOvbMsGtJO3w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iAWBylB1WbkyMIIK23HFeyqWsRTooXa82AHFGRjaRE8uqGzM61PJaF7i+uP6ZuxhI
-	 nBKYSD1mmzsJq0WY3mXjH3+C4HWOMp7eg1VQ0K1e8FqzNCaN0ziluzHI74LvenkGoy
-	 m/3y+BOD3/+UVJcxaP4Q8Jwyr/s5Bvoo1rpqiS/GIiDNrTqhXUg+n53Hp/o3pcAfn5
-	 XcVtovoBlpOK2WKpewehRo3D1HrhYmrS/IMticXtzhs82HViFBb4Hm5vhTAIctgw/h
-	 tOhy4XgCQylIVguqTN1aTjAav/homgTUB2GLe2/eGNctywpkV+2W+doWIO665QPCRN
-	 be8nPA92Awv5w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Stanley Jhu <stanleyjhu@google.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Peter Wang <peter.wang@mediatek.com>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] scsi: ufs: core: Decouple CQ sweep from request iterator in MCQ
-Date: Tue, 13 Oct 2026 11:49:21 -0400
-Message-ID: <20261013154905.292232-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101229-boots-shortcut-fa1c@gregkh>
-References: <2026101229-boots-shortcut-fa1c@gregkh>
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="apNgJkD0"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38759bcd877so1915864a91.2
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 08:53:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791906784; x=1792511584; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vlJ72bvKXAZMaGRlcugIP3h82wTWg8aaVMxMBFjQrAs=;
+        b=apNgJkD00Rwd/fWzRGdzIRiHFuDx00OqweM/VVm/BXrJDhuZaV8HFF4EUfhKtyFKdy
+         jywTjAm9BbhrSq/0/uqw4lFGe+fV8f/3BZtCWPvT6IcZRgANll+LBqhstBQx2BZ1D7c8
+         b7Jr+7B9I5rxYTwckyMYkc47hbf/p955tL2wSKP2LTs2753wn1n0ONKCnM4HmFaVRwFX
+         UiI+McEUQZt2lpUItFO9oYLCw8eLyqwMDjihSr8xKM6YaKs6Zo6QFjkSFdComOYV7dyM
+         RnyA9sji5aMS8/7TG1cgMGRQDY5kRiwPcbvfUHqEkiY11J8McPGww3DYFh8PV1xr5ob1
+         Zz4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791906784; x=1792511584;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vlJ72bvKXAZMaGRlcugIP3h82wTWg8aaVMxMBFjQrAs=;
+        b=spG3HtNmAkQegmItdbCgmLxRAL8sHfwne/WJavIREd47Xzu0Lzt8p2groNvZAxVMB8
+         uTBMwow18w6fHuTKMKrysY7BjO1kkGgzg5KTJ5v5UEhpe/ItBZqher8sk2FA0pY0YTG/
+         163M1NaInDgFPUb5kpfsBSLCsSKngGsrMLdlzPIbCfEncoLWYY5zJ4070cEW/wb1kb/2
+         doJQVK0vXBHyLprHIpqpX1MQ9Dalt4Hqe7Lran+XqXsSlkuU9oZyKYVCPW0QlJuBMH8u
+         Y0EraBhOnDzb4zKSQ49je+yj609KZBIn5gAuqddFjxegq9BafOW2hwQE6duumvz+Pqlr
+         hKuA==
+X-Forwarded-Encrypted: i=1; AKwUvBxzfOLYsXLO6dgvlmkQ3QKs4To9ZgNt5NihalK7NFhWSEcWQKSoxXZDIhozxK8nTlvpK57ieEY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYITl9w538riEvOimfm6/D2kksM2IoFnHpCQVWn3cpdsp92HAMFr
+	EB7vjghJRDjcfYfHiJZkUALSz/JhcS4+9ly4L3q+aPf8QucpBc3JN0ourvCEoP0z6tQ=
+X-Gm-Gg: AYBFou0Ic61m2lfAwFUnAjy/0Rq6VjssRPQBKOUdFhqH3B5hvA4xPKdiQXrYba5rUvE
+	xgmSQupsYbJ7MKw9u6xofhbhWRLGCJFXwDC4Tru0cudkwlFERZje2STIxJfyDbEcNtvrZGurSWB
+	ehIuZ5aqqdFdg6uRdEgu8gp0yU7JOdbpUMNK2MjcYmpW4D8GIeX+wzSy2KebP7COaNrGVzG2h9v
+	8K3he6QdDXJbp/J5tH4TPiHA5HizCV+k0r+yjc1d1aWWt0Gwnz4GSYJW3HOoCWs9+SBUVnGml9y
+	XIhXwYFu89fHMZhN1NE62vtG3YXEep4rZ71H88tyElRPo0RV1Nzdlzqnso4GX8hQTGdhwYhljKB
+	EwKqPn3ObTT8t5KCoY/XG+f2TOwuScEATDFl2XckWnIqOk+Y4WM+OV6s6/mRdQTBoWrX33+EcGG
+	00mZPPHVuYz4v3hVzDNBOgkbF3siK9X3Pg6gY0hL5WUHtQBk9IR3qaD4vcW5nvzMnbt9IaZwrSx
+	G4txcW1WfzjLS4tQ3az
+X-Received: by 2002:a17:90b:2ccb:b0:3ab:17b6:9a93 with SMTP id 98e67ed59e1d1-3ab3afcdc6emr11228102a91.52.1791906784181;
+        Tue, 13 Oct 2026 08:53:04 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:c51c:be8a:c517:276])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f27d491sm165944a91.12.2026.10.13.08.52.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 08:53:02 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>
+Cc: Nitesh Shetty <nj.shetty@samsung.com>,
+	Hannes Reinecke <hare@kernel.org>,
+	Kanchan Joshi <joshi.k@samsung.com>,
+	gliuxen@gmail.com,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: Re: [PATCH v4] nvme: bound FDP config log reads to the received buffer
+Date: Wed, 14 Oct 2026 00:52:36 +0900
+Message-ID: <20261013155236.3188723-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261013142003.GA14422@lst.de>
+References: <20261013102812.3020500-1-yhlee@isslab.korea.ac.kr> <20261013142003.GA14422@lst.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,100 +86,6 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Stanley Jhu <stanleyjhu@google.com>
-
-[ Upstream commit 469fa055664bfd8717b087a80d59c03055789c17 ]
-
-In MCQ mode, ufshcd_mcq_compl_pending_transfer() uses
-blk_mq_tagset_busy_iter() to iterate over busy requests during error
-recovery and host reset. However, both iterator callbacks perform
-whole-queue operations redundantly for each visited request:
-
- - force_compl == true: ufshcd_mcq_force_compl_one() calls
-   ufshcd_mcq_compl_all_cqes_lock() on every busy request, sweeping the
-   entire completion ring (hwq->max_entries slots) once per active request
-   under spin_lock_irqsave even though the first sweep already cleared all
-   completion entries.
-
- - force_compl == false: ufshcd_mcq_compl_one() acquires cq_lock and polls
-   CQTPy over MMIO via ufshcd_mcq_poll_cqe_lock() for every busy request
-   without doing any per-request work.
-
-Sweep or poll each hardware queue (hba->uhq[i]) once at the start of
-ufshcd_mcq_compl_pending_transfer(). When force_compl is true, run
-blk_mq_tagset_busy_iter() afterward to complete residual in-flight
-requests with DID_REQUEUE, and remove the now-unused
-ufshcd_mcq_compl_one() callback.
-
-Fixes: ab248643d3d6 ("scsi: ufs: core: Add error handling for MCQ mode")
-Cc: stable@vger.kernel.org
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
-Link: https://patch.msgid.link/20260928035816.1294326-3-stanleyjhu@google.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ sashal: adapted blk_mq_tagset_busy_iter() callback changes to the existing tag-based completion loop ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/ufs/core/ufshcd.c | 37 +++++++++++++++++++++----------------
- 1 file changed, 21 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index 22f4f5f08e74a..9c2f407da28a1 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -5685,7 +5685,17 @@ static void ufshcd_mcq_compl_pending_transfer(struct ufs_hba *hba,
- 	struct ufshcd_lrb *lrbp;
- 	struct scsi_cmnd *cmd;
- 	unsigned long flags;
--	int tag;
-+	int tag, i;
-+
-+	for (i = 0; i < hba->nr_hw_queues; i++) {
-+		if (force_compl)
-+			ufshcd_mcq_compl_all_cqes_lock(hba, &hba->uhq[i]);
-+		else
-+			ufshcd_mcq_poll_cqe_lock(hba, &hba->uhq[i]);
-+	}
-+
-+	if (!force_compl)
-+		return;
- 
- 	for (tag = 0; tag < hba->nutrs; tag++) {
- 		lrbp = &hba->lrb[tag];
-@@ -5698,22 +5708,17 @@ static void ufshcd_mcq_compl_pending_transfer(struct ufs_hba *hba,
- 		if (!hwq)
- 			continue;
- 
--		if (force_compl) {
--			ufshcd_mcq_compl_all_cqes_lock(hba, hwq);
--			/*
--			 * For those cmds of which the cqes are not present
--			 * in the cq, complete them explicitly.
--			 */
--			spin_lock_irqsave(&hwq->cq_lock, flags);
--			if (cmd && !test_bit(SCMD_STATE_COMPLETE, &cmd->state)) {
--				set_host_byte(cmd, DID_REQUEUE);
--				ufshcd_release_scsi_cmd(hba, lrbp);
--				scsi_done(cmd);
--			}
--			spin_unlock_irqrestore(&hwq->cq_lock, flags);
--		} else {
--			ufshcd_mcq_poll_cqe_lock(hba, hwq);
-+		/*
-+		 * For those cmds of which the cqes are not present
-+		 * in the cq, complete them explicitly.
-+		 */
-+		spin_lock_irqsave(&hwq->cq_lock, flags);
-+		if (cmd && !test_bit(SCMD_STATE_COMPLETE, &cmd->state)) {
-+			set_host_byte(cmd, DID_REQUEUE);
-+			ufshcd_release_scsi_cmd(hba, lrbp);
-+			scsi_done(cmd);
- 		}
-+		spin_unlock_irqrestore(&hwq->cq_lock, flags);
- 	}
- }
- 
--- 
-2.53.0
-
+Thanks, all.  No objection to trimming the KASAN trace down to a few
+frames in the commit log if a shorter one reads better -- please feel
+free to cut it down.
