@@ -1,87 +1,44 @@
-Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2235C4F055E
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 11:56:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C574F3EDE;
+	Tue, 13 Oct 2026 11:56:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892602; cv=none; b=kYOY75aFCGWscIVT0TvuA1aIAOTQnt7MEvGuTMRAT6uZ7YRAxFM1IYrmbVevfPt5/iZ+UHTjdZgE5MggMdUy2rhE84V7NXgD939E9wN8eEKEr+vr4yttIWDb4P6ZVEaLEWUIsoGpPFuJ0o6ABhApIN804BzR3c8XHV5kDmJiBTk=
+	t=1791892604; cv=none; b=CQZK3yGSfFypMxVhJcxZOvWlPeWIF3Bo/VcxukvgykxGWfQb4x9+yZQU8PgMscfr0H8/A58oAAHqUtCUttLzKSC5KSLl/aRm3Ga00FF18gBK6qtfNZLv9DEqg35wggo9h7AT3nw3PyVoAIhP5vStPxwwB6ytDftzdLlgfqgghyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791892602; c=relaxed/simple;
-	bh=jta5wjdiHYkDEBCD2FaUvr4GTFcZOd1wWSt7UE0AljA=;
+	s=arc-20240116; t=1791892604; c=relaxed/simple;
+	bh=4MlE2kFlYNQd7iYH/9t7/8PmQhUUuHeYgggwD+ltwe4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q9K27s6oq17MfQaQ0UDDOvIk8dPmzes8HImADZq/WTzo0QlbEV13F8WzVFDlwxGpYoQUMCNp5qtYvMS/9nIgDjxUfnxsXS0vXpQxiCA3JmJMBv7c+R2k5hBKlTuWUwufHa0FDxiYWnO+ElSXLjDCnA0sBbvOOK/MbAlQ1tu8jEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qScQltUU; arc=none smtp.client-ip=74.125.227.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=KbBG4GlLSUY0+2dBKZCZYYekhbc7OOKlb2P5uGTQvsp1bg1Dv6/xrdXhPXVNXz5SbdpL4Ufzppz16zHefFypBuSC5Egrzel7ev/1qM+1dAiqko9bngRG0ZNJddWaIvcMEVR9tlfG66WSi3Q+AgMGqOrhmFYU9JaShuG2iVOTDP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yLe15+5F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qScQltUU"
-Received: by mail-pj2-f4.google.com with SMTP id 98e67ed59e1d1-3ab00078c22so85876a91.0
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 04:56:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791892600; x=1792497400; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ggaf4ZWPiCf8BenJlAZtFehpccMR0Zs42ekbOs3yAZc=;
-        b=qScQltUUkP9Q+z5kB8A7OofnHSzWQqrhr3a/VQ/zI5TwxMGaRqJU8/XFKWb9q41jDx
-         vR5KXzMNlbB/IcXe/OwXN5q8ry4JMd8Ttn1Uvt++tTWzzp5ACDY7RZgaDPz/jExn8GjM
-         HIWY3AKXqK/HhAvlnlW3184j9H0RsDqJDb4hlpa4HMMN6XHHYWGkd0Vd5iKmH/F1S0+R
-         L8M8PBEEke8SHq1IN63vVIA0SG1mRPcsmP0+rKwalS9o1jPLNhPco/uY/6KspURLZdwz
-         +aCvnIW8ZD1aNSOEzqRSLgVT+85jZ76KeRDvI5tiOnlZuwNqKDomC/3LQQiSL41KKc24
-         jBzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791892600; x=1792497400;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ggaf4ZWPiCf8BenJlAZtFehpccMR0Zs42ekbOs3yAZc=;
-        b=IJK823urkNNzlm5A1jWhtMF533RpH9xFNJPPzPJhuibKqlO/eZQycLkpr5+xrxWPpn
-         NoS9r5wrzHvAA5Rd42HiuORxaI2vKqozsOgBxvSWZklxQ+GJoR6xjtvDHTANvnuPBEsH
-         Vy0TpEUNcuWYb14A1sjyCcGn7r9J+6kI0a+SrMZrhGMLSpjI8kBZHBEIzWOuUWQn+qsA
-         G+CoDHL0vyv4ZDu8r3tRucLYGq7etscZa4gTwf+souaSMKLZiwU+B/r2BDXUosbjEB4N
-         clAPuv2bYTz9VkH8MrKLhYv8Yqv1erjuus8/yD65wJRgMZxTFaFsoNS+pvEeLA/ot4AR
-         mI5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxviXHeA9rdNJkosw+H7vcEt7Xbtkd5TmVcuiJtYyk5FlFyxndBOAU/OPTOmpz2VZ+KfdLLdX0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI9rbdIysVr0OhWVE2sKx/Db1+JYLeh8c5AaiS8NtALrdkDAeNY
-	rBLRRIpgzyo7qnmMANleEZLqahUhX7FmrSrmtWaI5iVmW6A/SYIO+DsF
-X-Gm-Gg: AYBFou0en5KxPINmHoa3WRMZSTpfWoK1PNoPlYBTKqu864WiAm1kCYHVukxzqxY+J02
-	H+tcBb1kDPGLsBFPpVLOYlFi/lP3bvh83xH/aUMjZnYqpL91YFrjybNKCvvtyParYlKvKIogR3S
-	2pH0Qy7SZhxMHLOVa9Y7omUC5uRqJGyxNrUpOuZk8d4F3Mbnw+/CoFkcnRhSMihhouQiSnLlH6n
-	PcLIxvtsJLcNCcwItljPye9+St5usXr7PfH7mc2DkFoZ0jjHqTilB+2ttIoFMs3yprEb3C1PDhr
-	pxmllIVPXX700/kLyGjbIPbxdgN9gTEenOfUb0tFJ/cXtADrxKjRpHRoKA2phSuxGjiovIo7N3h
-	9GjVomB99XzNc11sK/NJxUFRM/TXhh6Y7bI+18PtTCmJQUL8G/MDDQIShsa2GZ21lS5J4SODlOj
-	yV9gVSAVZdt4ZNCJpVJ+P7RWCFhZWN5Rw0gKu6nC31lSn/m+RhbDdW1ZDlWaxxvuYivYpyKM9TA
-	Su9pZo9+QpNtq2HAoIVDeJ3X1q0TPn9Id0l
-X-Received: by 2002:a17:90b:3a48:b0:3a8:337d:228a with SMTP id 98e67ed59e1d1-3ab3a367926mr6555917a91.6.1791892600332;
-        Tue, 13 Oct 2026 04:56:40 -0700 (PDT)
-Received: from nzzhao-ThinkCentre-M760t.mioffice.cn ([43.224.245.179])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab37139b59sm21248516a91.13.2026.10.13.04.56.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 04:56:39 -0700 (PDT)
-From: Nanzhe Zhao <nzzhao.sigma@gmail.com>
-To: linux-f2fs-devel@lists.sourceforge.net,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Chao Yu <chao@kernel.org>
-Cc: Barry Song <baohua@kernel.org>,
-	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
-	Juan Yescas <jyescas@google.com>,
-	Daeho Jeong <daehojeong@google.com>,
-	Dev Jain <Dev.Jain@arm.com>,
-	David Hildenbrand <David.Hildenbrand@arm.com>,
-	linux-kernel@vger.kernel.org,
-	Bo Zhang <zhangbo56@xiaomi.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	Nanzhe Zhao <nzzhao@126.com>,
-	Pengfei Li <lipengfei28@xiaomi.com>,
-	Ryan Roberts <Ryan.Roberts@arm.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v4 02/18] f2fs: remove mappedtodisk flag usage in mmap write path
-Date: Tue, 13 Oct 2026 19:56:05 +0800
-Message-ID: <20261013115621.968742-3-nzzhao.sigma@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261013115621.968742-1-nzzhao.sigma@gmail.com>
-References: <20261013115621.968742-1-nzzhao.sigma@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yLe15+5F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 203391F000FF;
+	Tue, 13 Oct 2026 11:56:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791892602;
+	bh=CpnsreHKEd4uaXYKw4Xy8MEaXTxqJyvPfyNkQpJ4FkA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=yLe15+5FaQmH278IRLpdKuOlf5guBLE4gnGdeuL8YBcZe4eSMyows3BjOKU8+Fawq
+	 1UrVJoIBQ3/cMoT78isoElS+XF3tA82V7HfayvUuHXtMMJvQPBl4ILD1bsIcNSsHHy
+	 65fe0nmgG5xfNW3jKjyTi/ooCA0rs0SbuDoW3h34=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Felix Fietkau <nbd@nbd.name>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.2 229/281] wifi: mac80211: add AQL support for multicast packets
+Date: Tue, 13 Oct 2026 13:39:05 +0200
+Message-ID: <20261013112900.710687723@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261013112855.045212108@linuxfoundation.org>
+References: <20261013112855.045212108@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -90,79 +47,336 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-PG_mappedtodisk was inherited from the nobh/buffer-head era.  However,
-f2fs has no buffer heads and the flag is no longer meaningful.  The only
-user of the flag is the "no holes" shortcut in f2fs_vm_page_mkwrite(),
-which makes mmap write faults skip marking the folio dirty.  Moreover,
-it causes the following race condition with filesystem freezing:
+------------------
 
- CPU0 (write fault)     CPU1 (freeze_super)
- ----                   ----
- f2fs_vm_page_mkwrite()
- sb_start_pagefault()
- /* shortcut: no dirty */
- sb_end_pagefault()
+From: Felix Fietkau <nbd@nbd.name>
 
-                        sb_wait_write(SB_FREEZE_PAGEFAULT)
-                        /* no waiter, passes */
-                        sync_filesystem()
-                        /* folio not dirty, skipped */
+[ Upstream commit 836c1addd3bf42d47ca5f7a5780a7ec52abf332e ]
 
- finish_fault()
- /* PTE writable */
- fault_dirty_shared_page()
- folio_mark_dirty()
- /* dirty folio on a frozen fs */
+Excessive multicast traffic with little competing unicast traffic can easily
+flood hardware queues, leading to throughput issues. Additionally, filling
+the hardware queues with too many packets breaks FQ for multicast data.
+Fix this by enabling AQL for multicast packets.
 
-It will also skip APP_MAPPED_IO iostat/REQ_TIME updates and post-EOF
-folio zeroing.
-
-Remove this shortcut in f2fs_vm_page_mkwrite() and stop setting it in
-f2fs_read_single_page().
-
-Reported-by: Chao Yu <chao@kernel.org>
-Link: https://lore.kernel.org/linux-f2fs-devel/496b913c-eb81-4fa8-be72-c6a06a10aba2@kernel.org/
-Reviewed-by: Chao Yu <chao@kernel.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Fixes: fbfa2cc58d53 ("f2fs: add file operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Link: https://patch.msgid.link/20260724115429.3921457-3-nbd@nbd.name
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Stable-dep-of: 752770d7a58c ("wifi: mt76: account non-AQL frames per peer rather than per link")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/data.c | 1 -
- fs/f2fs/file.c | 6 ------
- 2 files changed, 7 deletions(-)
+ include/net/cfg80211.h     |  1 +
+ include/net/mac80211.h     |  3 ++-
+ net/mac80211/debugfs.c     | 13 ++++++++--
+ net/mac80211/ieee80211_i.h |  2 ++
+ net/mac80211/main.c        |  1 +
+ net/mac80211/sta_info.c    | 17 ++++++++++++-
+ net/mac80211/sta_info.h    |  3 ++-
+ net/mac80211/status.c      |  5 ++--
+ net/mac80211/tx.c          | 52 ++++++++++++++++++++------------------
+ 9 files changed, 66 insertions(+), 31 deletions(-)
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 29c4a81eb..f2d2f0106 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -2481,7 +2481,6 @@ static int f2fs_read_single_page(struct inode *inode, struct fsverity_info *vi,
- got_it:
- 	if ((map->m_flags & F2FS_MAP_MAPPED)) {
- 		block_nr = map->m_pblk + block_in_file - map->m_lblk;
--		folio_set_mappedtodisk(folio);
+diff --git a/include/net/cfg80211.h b/include/net/cfg80211.h
+index f5abf1db7558b..7354ba079363a 100644
+--- a/include/net/cfg80211.h
++++ b/include/net/cfg80211.h
+@@ -3722,6 +3722,7 @@ enum wiphy_params_flags {
+ /* The per TXQ device queue limit in airtime */
+ #define IEEE80211_DEFAULT_AQL_TXQ_LIMIT_L	5000
+ #define IEEE80211_DEFAULT_AQL_TXQ_LIMIT_H	12000
++#define IEEE80211_DEFAULT_AQL_TXQ_LIMIT_MC	50000
  
- 		if (!f2fs_is_valid_blkaddr(F2FS_I_SB(inode), block_nr,
- 						DATA_GENERIC_ENHANCE_READ)) {
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index fc959cdb9..d680f6f8a 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -225,12 +225,6 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
- 	/* wait for GCed page writeback via generic cache */
- 	f2fs_wait_on_block_writeback(inode, dn.data_blkaddr);
+ /* The per interface airtime threshold to switch to lower queue limit */
+ #define IEEE80211_AQL_THRESHOLD			24000
+diff --git a/include/net/mac80211.h b/include/net/mac80211.h
+index 36055d40172a1..8007d3e5a8483 100644
+--- a/include/net/mac80211.h
++++ b/include/net/mac80211.h
+@@ -1317,6 +1317,7 @@ ieee80211_rate_get_vht_nss(const struct ieee80211_tx_rate *rate)
+  * @status_data: internal data for TX status handling, assigned privately,
+  *	see also &enum ieee80211_status_data for the internal documentation
+  * @status_data_idr: indicates status data is IDR allocated ID for ack frame
++ * @tx_time_mc: TX time estimate is for a multicast frame, used internally
+  * @tx_time_est: TX time estimate in units of 4us, used internally
+  * @control: union part for control data
+  * @control.rates: TX rates array to try
+@@ -1354,8 +1355,8 @@ struct ieee80211_tx_info {
+ 	    status_data_idr:1,
+ 	    status_data:13,
+ 	    hw_queue:4,
++	    tx_time_mc:1,
+ 	    tx_time_est:10;
+-	/* 1 free bit */
  
--	/*
--	 * check to see if the page is mapped already (no holes)
--	 */
--	if (folio_test_mappedtodisk(folio))
--		goto out_sem;
+ 	union {
+ 		struct {
+diff --git a/net/mac80211/debugfs.c b/net/mac80211/debugfs.c
+index f36cc25903050..3a671225c1277 100644
+--- a/net/mac80211/debugfs.c
++++ b/net/mac80211/debugfs.c
+@@ -210,11 +210,13 @@ static ssize_t aql_pending_read(struct file *file,
+ 			"VI     %u us\n"
+ 			"BE     %u us\n"
+ 			"BK     %u us\n"
++			"MC     %u us\n"
+ 			"total  %u us\n",
+ 			atomic_read(&local->aql_ac_pending_airtime[IEEE80211_AC_VO]),
+ 			atomic_read(&local->aql_ac_pending_airtime[IEEE80211_AC_VI]),
+ 			atomic_read(&local->aql_ac_pending_airtime[IEEE80211_AC_BE]),
+ 			atomic_read(&local->aql_ac_pending_airtime[IEEE80211_AC_BK]),
++			atomic_read(&local->aql_mc_pending_airtime),
+ 			atomic_read(&local->aql_total_pending_airtime));
+ 	return simple_read_from_buffer(user_buf, count, ppos,
+ 				       buf, len);
+@@ -239,7 +241,8 @@ static ssize_t aql_txq_limit_read(struct file *file,
+ 			"VO	%u		%u\n"
+ 			"VI	%u		%u\n"
+ 			"BE	%u		%u\n"
+-			"BK	%u		%u\n",
++			"BK	%u		%u\n"
++			"MC	%u\n",
+ 			local->aql_txq_limit_low[IEEE80211_AC_VO],
+ 			local->aql_txq_limit_high[IEEE80211_AC_VO],
+ 			local->aql_txq_limit_low[IEEE80211_AC_VI],
+@@ -247,7 +250,8 @@ static ssize_t aql_txq_limit_read(struct file *file,
+ 			local->aql_txq_limit_low[IEEE80211_AC_BE],
+ 			local->aql_txq_limit_high[IEEE80211_AC_BE],
+ 			local->aql_txq_limit_low[IEEE80211_AC_BK],
+-			local->aql_txq_limit_high[IEEE80211_AC_BK]);
++			local->aql_txq_limit_high[IEEE80211_AC_BK],
++			local->aql_txq_limit_mc);
+ 	return simple_read_from_buffer(user_buf, count, ppos,
+ 				       buf, len);
+ }
+@@ -273,6 +277,11 @@ static ssize_t aql_txq_limit_write(struct file *file,
+ 	else
+ 		buf[count] = '\0';
+ 
++	if (sscanf(buf, "mcast %u", &q_limit_low) == 1) {
++		local->aql_txq_limit_mc = q_limit_low;
++		return count;
++	}
++
+ 	if (sscanf(buf, "%u %u %u", &ac, &q_limit_low, &q_limit_high) != 3)
+ 		return -EINVAL;
+ 
+diff --git a/net/mac80211/ieee80211_i.h b/net/mac80211/ieee80211_i.h
+index 011ec7fbb7118..2854dcc86b21b 100644
+--- a/net/mac80211/ieee80211_i.h
++++ b/net/mac80211/ieee80211_i.h
+@@ -1464,10 +1464,12 @@ struct ieee80211_local {
+ 	spinlock_t handle_wake_tx_queue_lock;
+ 
+ 	u16 airtime_flags;
++	u32 aql_txq_limit_mc;
+ 	u32 aql_txq_limit_low[IEEE80211_NUM_ACS];
+ 	u32 aql_txq_limit_high[IEEE80211_NUM_ACS];
+ 	u32 aql_threshold;
+ 	atomic_t aql_total_pending_airtime;
++	atomic_t aql_mc_pending_airtime;
+ 	atomic_t aql_ac_pending_airtime[IEEE80211_NUM_ACS];
+ 
+ 	const struct ieee80211_ops *ops;
+diff --git a/net/mac80211/main.c b/net/mac80211/main.c
+index 8edfef2b57f80..d5ef44f2b3f2d 100644
+--- a/net/mac80211/main.c
++++ b/net/mac80211/main.c
+@@ -988,6 +988,7 @@ struct ieee80211_hw *ieee80211_alloc_hw_nm(size_t priv_data_len,
+ 	spin_lock_init(&local->rx_path_lock);
+ 	spin_lock_init(&local->queue_stop_reason_lock);
+ 
++	local->aql_txq_limit_mc = IEEE80211_DEFAULT_AQL_TXQ_LIMIT_MC;
+ 	for (i = 0; i < IEEE80211_NUM_ACS; i++) {
+ 		INIT_LIST_HEAD(&local->active_txqs[i]);
+ 		spin_lock_init(&local->active_txq_lock[i]);
+diff --git a/net/mac80211/sta_info.c b/net/mac80211/sta_info.c
+index 01d70f71c43ec..ce7a3f839ce2e 100644
+--- a/net/mac80211/sta_info.c
++++ b/net/mac80211/sta_info.c
+@@ -2493,13 +2493,28 @@ EXPORT_SYMBOL(ieee80211_sta_recalc_aggregates);
+ 
+ void ieee80211_sta_update_pending_airtime(struct ieee80211_local *local,
+ 					  struct sta_info *sta, u8 ac,
+-					  u16 tx_airtime, bool tx_completed)
++					  u16 tx_airtime, bool tx_completed,
++					  bool mcast)
+ {
+ 	int tx_pending;
+ 
+ 	if (!wiphy_ext_feature_isset(local->hw.wiphy, NL80211_EXT_FEATURE_AQL))
+ 		return;
+ 
++	if (mcast) {
++		if (!tx_completed) {
++			atomic_add(tx_airtime, &local->aql_mc_pending_airtime);
++			return;
++		}
++
++		tx_pending = atomic_sub_return(tx_airtime,
++					       &local->aql_mc_pending_airtime);
++		if (tx_pending < 0)
++			atomic_cmpxchg(&local->aql_mc_pending_airtime,
++				       tx_pending, 0);
++		return;
++	}
++
+ 	if (!tx_completed) {
+ 		if (sta)
+ 			atomic_add(tx_airtime,
+diff --git a/net/mac80211/sta_info.h b/net/mac80211/sta_info.h
+index 5da3142d8516e..ee0d32877c5b4 100644
+--- a/net/mac80211/sta_info.h
++++ b/net/mac80211/sta_info.h
+@@ -147,7 +147,8 @@ struct airtime_info {
+ 
+ void ieee80211_sta_update_pending_airtime(struct ieee80211_local *local,
+ 					  struct sta_info *sta, u8 ac,
+-					  u16 tx_airtime, bool tx_completed);
++					  u16 tx_airtime, bool tx_completed,
++					  bool mcast);
+ 
+ struct sta_info;
+ 
+diff --git a/net/mac80211/status.c b/net/mac80211/status.c
+index e10e5bcc279b6..a9da9fe87cf15 100644
+--- a/net/mac80211/status.c
++++ b/net/mac80211/status.c
+@@ -774,7 +774,7 @@ static void ieee80211_report_used_skb(struct ieee80211_local *local,
+ 		ieee80211_sta_update_pending_airtime(local, sta,
+ 						     skb_get_queue_mapping(skb),
+ 						     tx_time_est,
+-						     true);
++						     true, info->tx_time_mc);
+ 		rcu_read_unlock();
+ 	}
+ 
+@@ -1255,10 +1255,11 @@ void ieee80211_tx_status_ext(struct ieee80211_hw *hw,
+ 		/* Do this here to avoid the expensive lookup of the sta
+ 		 * in ieee80211_report_used_skb().
+ 		 */
++		bool mcast = IEEE80211_SKB_CB(skb)->tx_time_mc;
+ 		ieee80211_sta_update_pending_airtime(local, sta,
+ 						     skb_get_queue_mapping(skb),
+ 						     tx_time_est,
+-						     true);
++						     true, mcast);
+ 		ieee80211_info_set_tx_time_est(IEEE80211_SKB_CB(skb), 0);
+ 	}
+ 
+diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
+index 65c5a6519b895..546646aabb41c 100644
+--- a/net/mac80211/tx.c
++++ b/net/mac80211/tx.c
+@@ -4083,20 +4083,20 @@ struct sk_buff *ieee80211_tx_dequeue(struct ieee80211_hw *hw,
+ encap_out:
+ 	info->control.vif = vif;
+ 
+-	if (tx.sta &&
+-	    wiphy_ext_feature_isset(local->hw.wiphy, NL80211_EXT_FEATURE_AQL)) {
+-		bool ampdu = txq->ac != IEEE80211_AC_VO;
++	if (wiphy_ext_feature_isset(local->hw.wiphy, NL80211_EXT_FEATURE_AQL)) {
++		bool ampdu = txq->sta && txq->ac != IEEE80211_AC_VO;
+ 		u32 airtime;
+ 
+ 		airtime = ieee80211_calc_expected_tx_airtime(hw, vif, txq->sta,
+ 							     skb->len, ampdu);
+-		if (airtime) {
+-			airtime = ieee80211_info_set_tx_time_est(info, airtime);
+-			ieee80211_sta_update_pending_airtime(local, tx.sta,
+-							     txq->ac,
+-							     airtime,
+-							     false);
+-		}
++		if (!airtime)
++			return skb;
++
++		airtime = ieee80211_info_set_tx_time_est(info, airtime);
++		info->tx_time_mc = !tx.sta;
++		ieee80211_sta_update_pending_airtime(local, tx.sta, txq->ac,
++						     airtime, false,
++						     info->tx_time_mc);
+ 	}
+ 
+ 	return skb;
+@@ -4148,6 +4148,7 @@ struct ieee80211_txq *ieee80211_next_txq(struct ieee80211_hw *hw, u8 ac)
+ 	struct ieee80211_txq *ret = NULL;
+ 	struct txq_info *txqi = NULL, *head = NULL;
+ 	bool found_eligible_txq = false;
++	bool aql_check;
+ 
+ 	spin_lock_bh(&local->active_txq_lock[ac]);
+ 
+@@ -4171,26 +4172,28 @@ struct ieee80211_txq *ieee80211_next_txq(struct ieee80211_hw *hw, u8 ac)
+ 	if (!head)
+ 		head = txqi;
+ 
++	aql_check = ieee80211_txq_airtime_check(hw, &txqi->txq);
++	if (aql_check)
++		found_eligible_txq = true;
++
+ 	if (txqi->txq.sta) {
+ 		struct sta_info *sta = container_of(txqi->txq.sta,
+ 						    struct sta_info, sta);
+-		bool aql_check = ieee80211_txq_airtime_check(hw, &txqi->txq);
+-		s32 deficit = ieee80211_sta_deficit(sta, txqi->txq.ac);
+ 
+-		if (aql_check)
+-			found_eligible_txq = true;
 -
- 	/* page is wholly or partially inside EOF */
- 	if (((loff_t)(folio->index + 1) << PAGE_SHIFT) > isize) {
- 		loff_t offset;
+-		if (deficit < 0)
++		if (ieee80211_sta_deficit(sta, txqi->txq.ac) < 0) {
+ 			sta->airtime[txqi->txq.ac].deficit +=
+ 				sta->airtime_weight;
+ 
+-		if (deficit < 0 || !aql_check) {
+-			list_move_tail(&txqi->schedule_order,
+-				       &local->active_txqs[txqi->txq.ac]);
+-			goto begin;
++			aql_check = false;
+ 		}
+ 	}
+ 
++	if (!aql_check) {
++		list_move_tail(&txqi->schedule_order,
++				   &local->active_txqs[txqi->txq.ac]);
++		goto begin;
++	}
++
+ 	if (txqi->schedule_round == local->schedule_round[ac])
+ 		goto out;
+ 
+@@ -4257,7 +4260,8 @@ bool ieee80211_txq_airtime_check(struct ieee80211_hw *hw,
+ 		return true;
+ 
+ 	if (!txq->sta)
+-		return true;
++		return atomic_read(&local->aql_mc_pending_airtime) <
++		       local->aql_txq_limit_mc;
+ 
+ 	if (unlikely(txq->tid == IEEE80211_NUM_TIDS))
+ 		return true;
+@@ -4306,15 +4310,15 @@ bool ieee80211_txq_may_transmit(struct ieee80211_hw *hw,
+ 
+ 	spin_lock_bh(&local->active_txq_lock[ac]);
+ 
+-	if (!txqi->txq.sta)
+-		goto out;
+-
+ 	if (list_empty(&txqi->schedule_order))
+ 		goto out;
+ 
+ 	if (!ieee80211_txq_schedule_airtime_check(local, ac))
+ 		goto out;
+ 
++	if (!txqi->txq.sta)
++		goto out;
++
+ 	list_for_each_entry_safe(iter, tmp, &local->active_txqs[ac],
+ 				 schedule_order) {
+ 		if (iter == txqi)
 -- 
-2.43.0
+2.53.0
+
+
 
