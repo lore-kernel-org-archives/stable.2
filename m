@@ -1,63 +1,63 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12D7B4E5350
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 23:43:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D004E77F4
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 23:43:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791935019; cv=none; b=Bj3Cte133iQ5hAZJjze8RnkpZYJM0abRcQlgDv9lJPrtQHkh2L3JYpcuOm4M/ohrirbjbBkEod7jMk/vowgtgr89IS/JBd2fa6FSXkS60lNtodnHkx/9DTlau8NhR3DYiNpZn80L9TNj9rdW9J/umZahUcolAvqJn0TTa2nAdtE=
+	t=1791935022; cv=none; b=Kix4vd902jIgTpzAFz1AWQYWtwxntsw4AWYlDo5qE2RUsySmCLNpFZwpWSykoW2rOw/N5Vb0iEZI6ZR/rPuo/EkSLLPrsItxYUUBHW+PK/TCQHGF2mwYUCIcC2qD5wfypaBUGZQVzy/17lP7/Fx2/DGDHL4ne2xfl4pQU16i+2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791935019; c=relaxed/simple;
-	bh=5jdOROMNUHVO4P/XHZZp6UpoiUjluiQa0QfEWuTjMEc=;
+	s=arc-20240116; t=1791935022; c=relaxed/simple;
+	bh=z9P6KITTwFMPfaZVuYchO3kdrM+2Gnkfl/U6dQlwDDg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=i0ES54yAFjRdi1nQX9Glgx9D8fRWATUa7aAh0R8IkZqon5mQYv64y9nD6FvXtgPVXU+5wSTEGe+bdah6xzJYgJXyPn6/8YlLg5/WAPp1DF2uihtHs3MEvv/rGX6TnEMshdC2a3Two/A974ezesBlGDFivBd5pTUe7zZ6cvuuT6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KWDbdg3T; arc=none smtp.client-ip=209.85.128.42
+	 MIME-Version; b=GumPlXCtKBVjJQzb6aEa3+x53H6m1A2v86BRzUh16cfl7xNpivfmAHt7YmtaVM1qz3ITyuqE6e5T7/5tMSytuk6KZi3oy9KgFv5r1ASnp+YynkVRv43IpF3ZmyoDroTe/P2+5rZ/v6LH+cjRvCdeccqJYPD2I6pFo752phhJNhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rwJtxEzS; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KWDbdg3T"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a16c399641so34854635e9.2
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:43:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rwJtxEzS"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so30170445e9.2
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:43:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791935016; x=1792539816; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791935018; x=1792539818; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fzq/x4mddpbPm3Ds57DNlSCPWkulDVxUviBcc2SD7NI=;
-        b=KWDbdg3T+ybtsvARg3GOaK1CNyJ+QSbEVuDuVVyHwQTPypNjluQXXZ5nrioYUug8EC
-         z6hmKhWL7ip0lV2+t9jdfB3lenkEdzVsnxXh/2yz8Kc/Jf9JmjzcEHDxO2Vo1xfJjDYb
-         MgMLBSuh5OOnWYxu+3Kc2jgNaXQbIcOvIbRPjFCpsSMDoMDd1OH6z+agAeQZzqv/EcUx
-         qsvQrJPdLpLSU7fy+MokCSZM6NvTrkcRo4SDV7R48F8RBiHhhNpeTwzW7cJr9kfjc+9/
-         ZvjjFZrbVn3YtGrW+4ix8vCY8n+aubrvh9kwtgDaoXIsdCcDcZMrOT1iOQYq1sxS3bGR
-         tDxw==
+        bh=z8k7tmHDTDUzhs4EZzTfjEgudqhDgAgf4R6Mi8sm3xc=;
+        b=rwJtxEzSQF7nZ9Dzi/ctWftjSD0o+ypE53IEqqTI5kT1aKWx6Ib/ifkxS3f7GbYXbN
+         prm/h+ipu+pQAEdqMOt+QaiN0ZMm7SjcbDH/YDcI8ntMrAecty8s8TVD0xpJfChe6hih
+         7EtLol9ZUg1HBiK6rd9jO4jSgWvI30Dnboaq71555Yq3Pwnl5NEvp/MtKNJ4RQtoBlqH
+         9FjySwBUAni0uXUTr037E2tUTsirlw0tXOhHyNgFwDyEMMRTM29u5buLOBWlreYZXY8L
+         W3Iokjkhvsmsl/DZYj2rGRq1O5uQuMhK6ygXY3xdEq58b2REoD+3XL1Ztf8L7BdMeKFr
+         E+IQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791935016; x=1792539816;
+        d=1e100.net; s=20260707; t=1791935018; x=1792539818;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fzq/x4mddpbPm3Ds57DNlSCPWkulDVxUviBcc2SD7NI=;
-        b=HJ3a49Bb4qCn0wfSWUoMeXE7biD1AdGGsAtQKhGqoFM6LxZ6kjAp3Ck+fCqKiweCqh
-         AHmATWOuFSiIEhvJB4YFYoDg4Cmvc11Vz0G1SJ2iV+iOlVxt8K2amnueXCVE0FkZfNez
-         VgGjffQJo7ranNgZSCXto+b8DxlsJy+nKPwlSRWNAJ+v0nyIlyrcWMyq1r3BRUdVm1v7
-         ME2qvzOYRvTloh8Vl20I5CuWvWohlYyIXnNc+rdGNlFl+giIfdfcXCQde13XImLPdnGP
-         IhnE5e4WV2gFSTJOG3gqsgLMMnsmuTTN1nuSiTir4/Is69+IFIWoH8Z53+AsACICnMVJ
-         zcBg==
-X-Forwarded-Encrypted: i=1; AKwUvBwMN0CJsuFkt9U+JM+9W1W0xsBzwFbJQ9Ldekuu9SXunBmPIaOmDwIswPuF2T/SFYYNeZ3hvUY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/NjpYmY1grLdeUqpUna1es372xkvZsn8reMqiYlwhlLrXeYfC
-	trd2V2F+wO3+3MIWU4G1XXQft2bVJTicYuOOjYVVYiSd+4kHt6KpP6U=
-X-Gm-Gg: AYBFou2gQabip0obGOhc2jJi3EzX3ZMQCNTM/KoBcNIbtpuYlNuerocG6yla6jvilw1
-	YQ3/r06ha8AjnELTws4EbI6Tygj6jfg6zHEpgP5oulKPk6Kj2Wy1qAktmpzLfe0sPsRbc6pAegN
-	S9K5If2IFYcmDPC7wGt5o/gawB2alHz95gOQiAvJ7+tThOR6qMezEoCqNvrQiJ+Mmf66LEobXbJ
-	WYu+XbOR7veUndTjusiiNw+hfNF9xDQn9t7GyDpPovnUujD1cZO3bY8NmB3TzmAE3T7r+VBpaKp
-	IsAvpWdqATsLoH+HBjH3oMlLAdV0TweiCd0a5TCN4Z4ItAhBdsQp5AI+6gNvXmh575Vy7iR/JGi
-	CwtAuiqBWgOkjgfpVDJdvBteJ2v24OwBJ4fsfqY3TmLWqLk4X9Vqudx7O4NMQSFYzhUZo6hvUhL
-	P1ehU+hJcv77l/F+iizG8JtIv8mYKEOQys/i0Uf0+wZ98ib7IypA==
-X-Received: by 2002:a05:600c:3f1a:b0:4a1:ac66:6ac6 with SMTP id 5b1f17b1804b1-4a1ac667160mr77160605e9.26.1791935016224;
-        Tue, 13 Oct 2026 16:43:36 -0700 (PDT)
+        bh=z8k7tmHDTDUzhs4EZzTfjEgudqhDgAgf4R6Mi8sm3xc=;
+        b=Bk3bg8XC3Z040wZraoKCc1lSREjR0uzLCznDfPadksQYHUyH3Ya5App7FE/WbaC7nS
+         99fuo6HLRlS+082jZiTvpaSHqN8dhuqRn3RjMI3W4EfyDCn2qtwFO7PGLwnwLyeTmyKq
+         pTcsx9I9vUiSwhX4BRabDuttENKV4/E19qVfslgzsh6iv+u05joNa6NJCuDEUm7KOktZ
+         kcnbrtTF/MBCJEux9ZqdkwSC0E8Zd8FJMms1x4xmYxh3vbXlcn9tnKf7t56KIBhpciaL
+         8Yd/umMG+M44pA55zEfbUtmbQ9cN9z/w24XVMC2Hx6ktzxkzDeWzvmoIwPh1Q31G807j
+         kKqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwzU+JyNmqWjvAqGM08HV+oRAU4rB9G4cG7kmNYJ7ob3boUpKTN9APWuwn8cG1zBTOLTkt7lPM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI1kmAQMhusAtUeas8JVHUWlRTBEuxckwKBd2/Q5C3JPXh1HzFg
+	EjtnXjZ9OzBNq5BxTpLFZnvFoXdYfI1JyOGQDh1SXMgoxb2FRPw6I20=
+X-Gm-Gg: AYBFou3X9NSuUuzsjE733OjWtrpDyXzBvDdDoAgUv+YbwBfdmGMbksif4mwEODtZdGn
+	ROgC0zg5M1TtSTm9MBYY1UVPHc9JzIAqUjNoDEBIFq+ZwYyDOFszWdRLC802vgOAYyJ7sRATWhg
+	KLh0FD/JGacJOF7507CC9Bjt38YQOMQdujS0gub0yQEA37B3ZyB0NUFfPuusIoCjc3PPDgymTIE
+	Fo6/0onHnxVmEpWIWvj1TCkzX+hQyPG2A9b0WAqlXtLWEq4nB+GYC81cH/nNiUQyX4M6x9b7o+5
+	wBK6DXxTgIU8sAmB3FWkNUvEH70VtEQAXilNO4DAMGScqDWomCIK6yy7p2BeHxg5ARRAVHMsc4p
+	drNNWx8DAAy5tkJVHStsJeO5HPGX0zu1VFxopwOvkFSG8lD2TEAEYFXsQqlJ3dgtGdvf9vz9URP
+	mgvqQxl5abaZvtJ4vwN8RvZ/I/7BiG0xmVN8IYX/I=
+X-Received: by 2002:a05:600c:1906:b0:4a1:71ab:63ba with SMTP id 5b1f17b1804b1-4a18e4e5c87mr276940925e9.29.1791935017948;
+        Tue, 13 Oct 2026 16:43:37 -0700 (PDT)
 Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf35930sm390372155e9.13.2026.10.13.16.43.35
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf35930sm390372155e9.13.2026.10.13.16.43.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 16:43:35 -0700 (PDT)
+        Tue, 13 Oct 2026 16:43:37 -0700 (PDT)
 From: Tristan Madani <tristmd@gmail.com>
 To: Pablo Neira Ayuso <pablo@netfilter.org>,
 	Florian Westphal <fw@strlen.de>
@@ -73,9 +73,9 @@ Cc: Phil Sutter <phil@nwl.cc>,
 	netdev@vger.kernel.org,
 	Tristan Madani <tristan@talencesecurity.com>,
 	stable@vger.kernel.org
-Subject: [PATCH nf 1/5] netfilter: xt_owner: pin file with get_file_rcu() before reading f_cred
-Date: Tue, 13 Oct 2026 23:43:24 +0000
-Message-ID: <20261013234329.2797868-2-tristmd@gmail.com>
+Subject: [PATCH nf 2/5] netfilter: nft_meta: pin file with get_file_rcu() before reading f_cred
+Date: Tue, 13 Oct 2026 23:43:25 +0000
+Message-ID: <20261013234329.2797868-3-tristmd@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261013234329.2797868-1-tristmd@gmail.com>
 References: <20261013234329.2797868-1-tristmd@gmail.com>
@@ -91,39 +91,35 @@ From: Tristan Madani <tristan@talencesecurity.com>
 
 Since commit 0ede61d8589cc ("file: convert to SLAB_TYPESAFE_BY_RCU"),
 struct file objects can have their slab slot reused while RCU readers
-still hold pointers to them. The xt_owner match reads file->f_cred to
-check fsuid/fsgid/group_info in the packet path without pinning the
-file. If the file is freed and the slab slot is reused between reading
-sock->file and dereferencing f_cred, the credential check will operate
-on stale or unrelated credential data.
+still hold pointers to them. The nft_meta skuid/skgid evaluation reads
+file->f_cred to extract fsuid/fsgid without pinning the file. If the
+file is freed and the slab slot is reused, the credential data may
+belong to a different file.
 
 Use get_file_rcu() to take a reference on the file before accessing its
-credentials, and fput() to release it on all return paths.
+credentials, and fput() to release it afterward.
 
 Fixes: 0ede61d8589cc ("file: convert to SLAB_TYPESAFE_BY_RCU")
 Cc: stable@vger.kernel.org
 Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- net/netfilter/xt_owner.c | 27 ++++++++++++++++++---------
- 1 file changed, 18 insertions(+), 9 deletions(-)
+ net/netfilter/nft_meta.c | 19 ++++++++++++-------
+ 1 file changed, 12 insertions(+), 7 deletions(-)
 
-diff --git a/net/netfilter/xt_owner.c b/net/netfilter/xt_owner.c
-index 8f2e57b2a5868..6386b52147d87 100644
---- a/net/netfilter/xt_owner.c
-+++ b/net/netfilter/xt_owner.c
-@@ -65,8 +65,8 @@ owner_mt(const struct sk_buff *skb, struct xt_action_param *par)
- 	const struct xt_owner_match_info *info = par->matchinfo;
- 	struct sock *sk = skb_to_full_sk(skb);
- 	struct net *net = xt_net(par);
+diff --git a/net/netfilter/nft_meta.c b/net/netfilter/nft_meta.c
+index 01cfbaa365250..069c01a71df16 100644
+--- a/net/netfilter/nft_meta.c
++++ b/net/netfilter/nft_meta.c
+@@ -135,19 +135,23 @@ nft_meta_get_eval_skugid(enum nft_meta_keys key,
+ 			 const struct nft_pktinfo *pkt)
+ {
+ 	const struct sock *sk = skb_to_full_sk(pkt->skb);
 -	const struct socket *sock;
--	const struct file *filp;
+-	const struct file *file;
 +	struct socket *sock;
-+	struct file *filp;
++	struct file *file;
  
- 	if (!sk || !READ_ONCE(sk->sk_socket) || !net_eq(net, sock_net(sk)))
- 		return (info->match ^ info->invert) == 0;
-@@ -77,13 +77,17 @@ owner_mt(const struct sk_buff *skb, struct xt_action_param *par)
- 		 */
+ 	if (!sk || !sk_fullsock(sk) || !net_eq(nft_net(pkt), sock_net(sk)))
  		return false;
  
 -	/* The sk pointer remains valid as long as the skb is. The sk_socket and
@@ -137,38 +133,19 @@ index 8f2e57b2a5868..6386b52147d87 100644
 +	 * reused slab slot.
  	 */
  	sock = READ_ONCE(sk->sk_socket);
--	filp = sock ? READ_ONCE(sock->file) : NULL;
+-	file = sock ? READ_ONCE(sock->file) : NULL;
 +	if (sock)
-+		filp = get_file_rcu(&sock->file);
++		file = get_file_rcu(&sock->file);
 +	else
-+		filp = NULL;
- 	if (filp == NULL)
- 		return ((info->match ^ info->invert) &
- 		       (XT_OWNER_UID | XT_OWNER_GID)) == 0;
-@@ -94,8 +98,10 @@ owner_mt(const struct sk_buff *skb, struct xt_action_param *par)
++		file = NULL;
+ 	if (!file)
+ 		return false;
  
- 		if ((uid_gte(filp->f_cred->fsuid, uid_min) &&
- 		     uid_lte(filp->f_cred->fsuid, uid_max)) ^
--		    !(info->invert & XT_OWNER_UID))
-+		    !(info->invert & XT_OWNER_UID)) {
-+			fput(filp);
- 			return false;
-+		}
+@@ -164,6 +168,7 @@ nft_meta_get_eval_skugid(enum nft_meta_keys key,
+ 		break;
  	}
  
- 	if (info->match & XT_OWNER_GID) {
-@@ -120,10 +126,13 @@ owner_mt(const struct sk_buff *skb, struct xt_action_param *par)
- 			}
- 		}
- 
--		if (match ^ !(info->invert & XT_OWNER_GID))
-+		if (match ^ !(info->invert & XT_OWNER_GID)) {
-+			fput(filp);
- 			return false;
-+		}
- 	}
- 
-+	fput(filp);
++	fput(file);
  	return true;
  }
  
