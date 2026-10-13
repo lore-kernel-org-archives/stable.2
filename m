@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC33051DE15
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:54:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6905B51E422
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:54:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910497; cv=none; b=c8Ci6P49MmdkBwAdxV9QuBsYbY0xrctrU843Rqv2Z8h9galOgaILpgCRvjoQuUd+WbYKUVkxDEDsprWeSwSrMYSxiNObXsB5QZYXajH6CRscwsUkCBLHK1ALQTRXGZ98kzNTHGe7KYO9SZrqz0xfyhMjs0B3D75EuF/z91gtObs=
+	t=1791910498; cv=none; b=LfofdhMzePpB4c1GJiYVV8jpb5qGvufDDG8N+OlOLtxAWdkrXSZD6vrNcGe9c+56aW1KhiH4nLt4EKa01S6HdHUGbp8WNivSZvCtLxF9C1YRNnHgT5uAemBrF5llDsDRYHefJ9fsZQnnurix02ZQ6IMd5/blF5EaLdyw9bdC4tI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910497; c=relaxed/simple;
-	bh=2Mv+FCMvvib0Eeoraw+RBminAz6lGKAn94jJ4R9v474=;
+	s=arc-20240116; t=1791910498; c=relaxed/simple;
+	bh=eQPYo7ob4zbDEwJV86D2WX6nlgvrkj+zi01A9Dfe+I4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eD/SVCAmMLYc/vR5qj8KotvUKsyic+zAXQ+H0fCcBbyX5nbIYvlukcDcMDi1gXoTdB1lzug0L4c4Et/nI8/FnWb0/p2VsY/9OM7YfRKJmoUbYzCyS7zNaoE7LFYQum7QKuHjwdxCS4/IOfDEpivHCA0XWhsxppQ8u4ot9YsqUic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NoRTa6dj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=g2IybTmV6R6huIuCP6xIQp10IoGSwoCKpd3ksAxgTrBHSu0sZGnrjiGTnTinChk1bcD8lZEf6AD6QawgEpuqMp+FhTU8LfPu2tEScevIAsveWR97CpI0OqrYzSCEoNGbrMWyyPZW0DdhtSHH4dsfwjrJbf1bnA85g759ZY77l1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gqkOuvRZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NoRTa6dj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7C9B1F000FF;
-	Tue, 13 Oct 2026 16:54:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gqkOuvRZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 877A11F00893;
+	Tue, 13 Oct 2026 16:54:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791910496;
-	bh=OzMZpOVQenacCR5FrtEhAxIlcf3dKMQqx2UeYK6FJEg=;
+	s=k20260515; t=1791910497;
+	bh=Y9sSbNiO2Zz087MHSd3wLLx4VyurQnXWfq/7sPglcMY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NoRTa6djJkyyKDTbZyJngth6ce/VQ+hq/7Y8D75F9fQUHJy4vMxpfRt94+pGtzbgF
-	 581N7qabg3fKD9ETLoH88bhHCFgkmvhGbryXo7ZFs6HgUg7YP0cPMJyshnHzMuqnaI
-	 54XDYgtO84m0JP4pRwD9SwRPmHG1dtbqHRtovE/usZON70Y28HtJJVtor166TiiwNG
-	 fTQjtYP4dQ9t0d/3wUFPAHAItydQ0vlOwLwiN27UgHyKmlQdR91IidLo/bXPEJ34hG
-	 +3Q/Ej0rsbdIR+0YPgSaPYXGgd3VioP6IDKvw91/vVM7v0N3b7FGUaGUqnr60qqU3a
-	 BGBmtvoR1Aseg==
+	b=gqkOuvRZX6dApDGXMY4sQzkvzeMJVAtXfHcCJB0o6gYlBiQtElGq6BmEopvcfGtGy
+	 F8eUdxwDBj6gEqpOx2k64ZckMhkwINgPF/hCCTEB61wdhzRHcoH7LehCOTsdhdQ0xF
+	 19b6J09n30GmQj9gqIIT6hQx8nlacNp9u0poiwbEpRDeYtvrh6vXpEnhi+DbrRdrVP
+	 M+unn+esJWctsbQYKKZPIFu3O14U8ZTRA2Un9W1lZZrb5ngItAccAPzSQ9S4N3UBdm
+	 40quCGGhnv+SOvEOQaWEOkbK60xqppgTDacjpkthrW4uWVFk6KPfx+etCIddbBbB92
+	 Uhb2g3bxVYYsQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Maaz Mombasawala <maaz.mombasawala@broadcom.com>,
-	Zack Rusin <zack.rusin@broadcom.com>,
+Cc: Zack Rusin <zack.rusin@broadcom.com>,
+	Youness HFA <hfa.youness@gmail.com>,
+	Maaz Mombasawala <maaz.mombasawala@broadcom.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] drm/vmwgfx: Stop using dev_private to store driver data.
-Date: Tue, 13 Oct 2026 12:54:53 -0400
-Message-ID: <20261013165424.426719-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] drm/vmwgfx: validate pitch coming from userspace
+Date: Tue, 13 Oct 2026 12:54:54 -0400
+Message-ID: <20261013165424.426719-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101207-unpaid-wok-72a4@gregkh>
+In-Reply-To: <20261013165424.426719-1-sashal@kernel.org>
 References: <2026101207-unpaid-wok-72a4@gregkh>
+ <20261013165424.426719-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,79 +47,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+From: Zack Rusin <zack.rusin@broadcom.com>
 
-[ Upstream commit 1b1d5fe66ca591d34c5501aab8f5f09f347e8a3e ]
+[ Upstream commit 21bc51cb89ced74d6645a138cc2f21184bc75094 ]
 
-Currently vmwgfx uses the dev_private opaque pointer in drm_device to store
-driver data in vmw_private struct. Using dev_private is deprecated, and the
-recommendation is to embed struct drm_device in the larger per-device
-structure.
+Validate the pitch, alongside the box dimensions before trying
+to copy data from the underlying surface. Fixes possible
+out of bounds reads with cursor snooping.
 
-The vmwgfx driver already embeds struct drm_device in its struct
-vmw_private, so switch to using that exclusively and stop using
-dev_private.
-
-Signed-off-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-Reviewed-by: Zack Rusin <zack.rusin@broadcom.com>
+Fixes: 2ac863719e51 ("vmwgfx: Snoop DMA transfers with non-covering sizes")
+Cc: stable@vger.kernel.org
+Reported-by: Youness HFA <hfa.youness@gmail.com>
 Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20240502004033.107533-1-maaz.mombasawala@broadcom.com
-Stable-dep-of: 21bc51cb89ce ("drm/vmwgfx: validate pitch coming from userspace")
+Reviewed-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Link: https://patch.msgid.link/20260809204515.211045-1-zack.rusin@broadcom.com
+[ sashal: Applied the changes to vmw_kms_cursor_snoop() in its original location because the cursor refactor is absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c | 2 --
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.h | 2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c | 4 ++--
- 3 files changed, 3 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.c | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-index 2e84e1029732d..1b0b9d2d4e720 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-@@ -856,8 +856,6 @@ static int vmw_driver_load(struct vmw_private *dev_priv, u32 pci_id)
- 	bool refuse_dma = false;
- 	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
- 
--	dev_priv->drm.dev_private = dev_priv;
--
- 	vmw_sw_context_init(dev_priv);
- 
- 	mutex_init(&dev_priv->cmdbuf_mutex);
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
-index 4e2807f5f94cf..b21831ef214a6 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
-@@ -639,7 +639,7 @@ static inline struct vmw_surface *vmw_res_to_srf(struct vmw_resource *res)
- 
- static inline struct vmw_private *vmw_priv(struct drm_device *dev)
- {
--	return (struct vmw_private *)dev->dev_private;
-+	return container_of(dev, struct vmw_private, drm);
- }
- 
- static inline struct vmw_private *vmw_priv_from_ttm(struct ttm_device *bdev)
 diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-index 5f99f7437ae61..800a79e035ed6 100644
+index 800a79e035ed6..985774f22a130 100644
 --- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
 +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-@@ -280,7 +280,7 @@ static void vmw_du_put_cursor_mob(struct vmw_cursor_plane *vcp,
- static int vmw_du_get_cursor_mob(struct vmw_cursor_plane *vcp,
- 				 struct vmw_plane_state *vps)
- {
--	struct vmw_private *dev_priv = vcp->base.dev->dev_private;
-+	struct vmw_private *dev_priv = vmw_priv(vcp->base.dev);
- 	u32 size = vmw_du_cursor_mob_size(vps->base.crtc_w, vps->base.crtc_h);
- 	u32 i;
- 	u32 cursor_max_dim, mob_max_size;
-@@ -519,7 +519,7 @@ void vmw_du_cursor_plane_destroy(struct drm_plane *plane)
- 	struct vmw_cursor_plane *vcp = vmw_plane_to_vcp(plane);
- 	u32 i;
+@@ -382,6 +382,7 @@ void vmw_kms_cursor_snoop(struct vmw_surface *srf,
+ 	unsigned long kmap_num;
+ 	SVGA3dCopyBox *box;
+ 	unsigned box_count;
++	u64 src_extent;
+ 	void *virtual;
+ 	bool is_iomem;
+ 	struct vmw_dma_cmd {
+@@ -393,6 +394,8 @@ void vmw_kms_cursor_snoop(struct vmw_surface *srf,
+ 		vmw_surface_get_desc(VMW_CURSOR_SNOOP_FORMAT);
+ 	const u32 image_pitch = VMW_CURSOR_SNOOP_WIDTH * desc->pitchBytesPerBlock;
  
--	vmw_cursor_update_position(plane->dev->dev_private, false, 0, 0);
-+	vmw_cursor_update_position(vmw_priv(plane->dev), false, 0, 0);
++	BUILD_BUG_ON(sizeof(*srf->snooper.image) != desc->pitchBytesPerBlock);
++
+ 	cmd = container_of(header, struct vmw_dma_cmd, header);
  
- 	for (i = 0; i < ARRAY_SIZE(vcp->cursor_mobs); i++)
- 		vmw_du_destroy_cursor_mob(&vcp->cursor_mobs[i]);
+ 	/* No snooper installed, nothing to copy */
+@@ -430,8 +433,19 @@ void vmw_kms_cursor_snoop(struct vmw_surface *srf,
+ 		return;
+ 	}
+ 
++	if (box->w == 0 || box->h == 0)
++		return;
++
++	src_extent = (u64)(box->h - 1) * cmd->dma.guest.pitch +
++		     (u64)box->w * desc->pitchBytesPerBlock;
++	if (src_extent > bo->base.size) {
++		DRM_ERROR("Cursor snoop source of %llu bytes exceeds the %zu byte buffer\n",
++			  src_extent, bo->base.size);
++		return;
++	}
++
+ 	kmap_offset = cmd->dma.guest.ptr.offset >> PAGE_SHIFT;
+-	kmap_num = (VMW_CURSOR_SNOOP_HEIGHT*image_pitch) >> PAGE_SHIFT;
++	kmap_num = PFN_UP(src_extent);
+ 
+ 	ret = ttm_bo_reserve(bo, true, false, NULL);
+ 	if (unlikely(ret != 0)) {
+@@ -445,14 +459,16 @@ void vmw_kms_cursor_snoop(struct vmw_surface *srf,
+ 
+ 	virtual = ttm_kmap_obj_virtual(&map, &is_iomem);
+ 
+-	if (box->w == VMW_CURSOR_SNOOP_WIDTH && cmd->dma.guest.pitch == image_pitch) {
++	if (box->w == VMW_CURSOR_SNOOP_WIDTH &&
++	    box->h == VMW_CURSOR_SNOOP_HEIGHT &&
++	    cmd->dma.guest.pitch == image_pitch) {
+ 		memcpy(srf->snooper.image, virtual,
+ 		       VMW_CURSOR_SNOOP_HEIGHT*image_pitch);
+ 	} else {
+-		/* Image is unsigned pointer. */
++		/* The destination stride is in pixels. */
+ 		for (i = 0; i < box->h; i++)
+-			memcpy(srf->snooper.image + i * image_pitch,
+-			       virtual + i * cmd->dma.guest.pitch,
++			memcpy(srf->snooper.image + i * VMW_CURSOR_SNOOP_WIDTH,
++			       virtual + (size_t)i * cmd->dma.guest.pitch,
+ 			       box->w * desc->pitchBytesPerBlock);
+ 	}
+ 
 -- 
 2.53.0
 
