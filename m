@@ -1,124 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF2201A7264
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 12:56:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F6644F30FD
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 12:57:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896204; cv=none; b=mR/RdRMcU9xaTAuSZtQWuwq+bmsiFf5CxcY0n6uIlOfBPcHgAf6sXigps5zDjM+5/JF9B7X6TgYnyDIhO5oNJl/9j75V2arTfXi7+55iZvXx8nx3mJRYbz13s0hPZpXXjtUcWXVYA+oteEX2y/Sm8ytXoHSD49d07fA5bQNvbNU=
+	t=1791896249; cv=none; b=APMNEXRD6ZtWwskOKAIZRDJT5jkXWOZg6NIRP2aRshEcozaIuirK8oJ6RNYdCe51ZXDJZYQM3zU84zipav4lFniKCgdN4JKHFUlqDZvN37umdbiQKaYeXeDAPSKGZcbM5N/eBMUcvx9jGWBxek9FRLYjaFS/AuU++wVQDqPAuWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896204; c=relaxed/simple;
-	bh=zMYTyrf3I15Js8ygcd8tyjsEvwoH+054x9RksQFizRw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QADbxpYouQq7UgQvaFD84k6x4pLKnpAc0gwf0bpHFFGgV3moP3j3Q8dhXrlf168/EYg3dv1L0Z9uHi3K3RaMzljqvEr0oHrko+ViHOOH21wiOOszyOFwjogAEBlVI7SL8TOHiSeqjNG6i9FEHultLEjNlt+y+udH5gDErSF8Ie0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lsl0g0qk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791896249; c=relaxed/simple;
+	bh=EMvZFec+aEZgob/bO36XSk9Xavr5m3zM18K2N4GEyaI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fVcpZTfNRT6nCq3FDQapPwdQcG+ibInhFjvHC3QvEoio2IE0svU9+Fxx+DpWaRRnwBYYzvOrDbIRDrZfv50oiHqmefLAQlMdqJva88X28X+bBrKjaHlQz31xFNoPXz4IM11S5X2jviiM1+XrawxPeW38c3feMFwbXz+qy//uX8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tvs3LSld; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lsl0g0qk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B54121F00899
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 12:56:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tvs3LSld"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E58841F00898;
+	Tue, 13 Oct 2026 12:57:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791896203;
-	bh=+j2J0y/28lU7ye3epBMxr5hc7VlERZW/96Am70/hEbk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Lsl0g0qkhifHY4hcobeDlfkAJUDfavHEJ7gPbi4+tDk5EQ0Ca7JiMYrJzKTTgIO/I
-	 PacIinj90q68JEqrV0aRWbFZBgm9I4uv+4Qp+sp0kKDnQ89xIBMZsI5tYN83TJblEZ
-	 nIdmhnmH9E2q3b5ci8FN4uDJ9jL37YdQCmxWJAMlbL/pRtF5g8lSB3bJv3RtmswBcC
-	 aMowhkxpyX9hUzEC6N4+5g+cpAcq1wM9kYvysW0Z2qkzXLnec8u2FGXJ2H/VKSJI4k
-	 rbNEd2kbQ7z9tNFeXi6161B/B4jIsx8D7omKt9IQmk208sS7ij1oCHnJyJqYNmzazt
-	 6noLAGrcycqIQ==
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c2e6df2742cso444871866b.2
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 05:56:43 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzYa5Yv+52Ba1vOKoBsSLC2R50ruZUxAY3Fg/Sf9+NfCsnuggs5/qAWHDoYObWOU7rQJq4KrKg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKExT4Koc4QzSENDikeGZMAV0DUFXZIHNzHsQVk3hBRulPrBpdA
-	GFVU+nIu/hwpxNOErxi80WRJzMAjkcA17zlEW+Bxy6vzEeaZ2OHGBlOwWAt+hP2aWbh4ETUUAmX
-	6kpunZA14gjfqywfVOFFxNEmfsi+zlCE=
-X-Received: by 2002:a17:907:7ba3:b0:c29:f5d5:5aa1 with SMTP id
- a640c23a62f3a-c31aa097acdmr1256017766b.43.1791896202356; Tue, 13 Oct 2026
- 05:56:42 -0700 (PDT)
+	s=k20260515; t=1791896248;
+	bh=X9BFwpcjmKrDdzhZwTDHl5KDt9LrzcnjBY0dqWfL9Uo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Tvs3LSld6tUOqgkZKYngv0FmdeG0q1D4nK6h04teUeYxBoab4M5KthE50Krt/exvX
+	 JyWmFbKyIdLtbdUddbPSqXTmGk1CxfRC4ancItw1dDxA7FcpxmnoVckHJb9GF4TXGM
+	 eIIrxYa8LaA5aEQSzvCGOBVBq1isxW9CymOp7LsWQMDRhcu8+mHLYENEh8FsneAMz3
+	 3WLZIpNLaMZv8G958r1z7Iqlen3ytbWiJ7BCjbwzc6o34+6JDBJwhad1kQxm+NXKQk
+	 geGFq0J5M5eucOpf0Glj2uWASn+KdTqiQBD6jXpmamaIOPn7Y8Aoz42IWwFP8vEA7k
+	 KES+tEtmYXRow==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.ams.internal (Postfix) with ESMTP id B609F198003A;
+	Tue, 13 Oct 2026 08:57:22 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Tue, 13 Oct 2026 08:57:25 -0400
+X-ME-Sender: <xms:sirOaj7t20PPBmC0VgF_kX-BH_szYJkQ1lz5y8Ujzn6YONWN3iITRw>
+    <xme:sirOalU4gdiujkt2P6LsVs_jbh5nWBI8zXgOpKSF_RPczri9K0FzdUDoz1dwCjYRJ
+    vK6XnP2jojY0Tjhg_kQ3F6X_RGlAEMhwuWmWVpwnICQIvQ0_usyvsWJ>
+X-ME-Received: <xmr:sirOahul2_b8Rh5BgbU47dVYAXwNtIUY0HIB8RfgeWHEA0qicCsOa_LHdAY>
+X-ME-Proxy-Cause: dmFkZTEetqmizud+clew86He+iiifUKs94ePsfMAGNNPMmxgxaJcQtNwftmQ4FOsIRMZFd
+    p1MeZZgEA67dwqEqwnkr9c8OjvKQsDfeAsifflVQReL3Pft+JJQzZK/OJoNXOjH6QFKY1a
+    532uP9WhuX8Gl/oakRel8YxZcScQ182XP8mCDVloKrpc1ubB/YrgUwTFFzCtyoDK8vabJ4
+    KmBMY3r/03LHp3KTiVQvPSpcMw8RIXIkBRo7d2UWWyg5HdQDMUQ5SJD4LgUB2hnRqejjuE
+    E1ZFIiECiniGuVUPUMgC7vY+pflwKfQx2mdVyPbFen760/u7kdhq25cN79pi87MrgbR2HB
+    i9QhoZxOz7VJYTBjfS2SH6+BIM6AqXvlQY7HkAxNrn/CUD3hBligPhZqBs1MWtMk1rjQrR
+    CdLfeZu3RDnu2z2nrTqzR3NwlFsfj3utQppyMi+BQeDGbR2iO2rxS/p49qPmDzD6HmCLG+
+    Dx8/Gem37n8bZyTqaMbP7yuyN4BXCyyTLaJCOhtODibFchmq18+3ExOlh0DHAaJmILTeYz
+    NHZyQ9ZtbVyS+Qat+s5v5hPzl/+hCEfxyaOVr70AjmzlWwcuyHHjrvN4xJWidHZfUMsVLj
+    qhKdlGgOAZX5kE2Jmf5p+9IAEihQKqaiu7KnsGEes40g2HF423c3tJ48JKyw
+X-ME-Proxy: <xmx:sirOaqqqFM4nvubugARgJOFlU8NG2zgnWtQ1wJg84r-NRAMqsopH3g>
+    <xmx:sirOanbLvGRBuLjeMPAKNFk2MMGzUwpGA7huIAcIBmf-Xy8vPEnIsQ>
+    <xmx:sirOajycdr5YvGZP8lhrx023NDnRgbjQybVtD2iDv9z_H26Fx0wjDg>
+    <xmx:sirOal9iEI2KeJoJunp9ApN6o8vMcOa5Okfy0tlrdFxwzWnVS8-HcA>
+    <xmx:sirOahW_uXsL7xG2EIb5ixBaQ85q3xBwRNBArPSHh6vnFgNYgSzpac1p>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 13 Oct 2026 08:57:21 -0400 (EDT)
+Date: Tue, 13 Oct 2026 13:57:20 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Ying Huang <huang.ying.caritas@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Barry Song <baohua@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>, 
+	Chuanhua Han <hanchuanhua@oppo.com>, Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm: fix address wraparound when scanning large folio PTEs
+Message-ID: <as4qKLx_XwQ6qY3p@thinkstation>
+References: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012094046.2592731-1-hengyul@cs.unc.edu>
-In-Reply-To: <20261012094046.2592731-1-hengyul@cs.unc.edu>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 13 Oct 2026 21:56:29 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9V3oL8J+D3a9N0g-aTeOOVH+K56PDatCfPqgjkiMRMNA@mail.gmail.com>
-X-Gm-Features: AclHuK_YGwXl2gvJJzwsbFHh9MWmEy7xISbD5IppmTPVkWDT6pcKFrpr8MeVnCw
-Message-ID: <CAKYAXd9V3oL8J+D3a9N0g-aTeOOVH+K56PDatCfPqgjkiMRMNA@mail.gmail.com>
-Subject: Re: [PATCH] exfat: free clusters beyond EOF when a write fails or is short
-To: Hengyu Liang <hengyul@cs.unc.edu>
-Cc: Sungjong Seo <sj1557.seo@samsung.com>, Yuezhang Mo <yuezhang.mo@sony.com>, exfat@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
 
-On Mon, Oct 12, 2026 at 6:41=E2=80=AFPM Hengyu Liang <hengyul@cs.unc.edu> w=
-rote:
->
-> Commit 82a81a7352bc ("exfat: add iomap buffered I/O support") and commit
-> 867b9c96dc83 ("exfat: add iomap direct I/O support") made a write
-> allocate the clusters for its whole range in one step. They also dropped
-> exfat_write_failed(), which freed the clusters beyond the end of the
-> file after a failed or short write.
->
-> However, a write can stop early, for example when the process is killed
-> or when a part of the buffer cannot be read. As of now, the clusters for
-> the part that was not written stay allocated beyond the end of the file.
-> exfat_cont_expand() does not expect them, so a later write or truncate
-> that extends the file fails with ENOSPC. The directory entry records
-> only the size of the file, so the space can be lost for good once the
-> volume is unmounted.
->
-> The issue can be reproduced on a 64M volume made by mkfs.exfat and
-> mounted on /mnt, with a write of 1M from a buffer that has only its
-> first 4K mapped:
->
->     #include <fcntl.h>
->     #include <stdio.h>
->     #include <sys/mman.h>
->     #include <sys/stat.h>
->     #include <unistd.h>
->
->     int main(void)
->     {
->             char *p =3D mmap(NULL, 8192, PROT_READ | PROT_WRITE,
->                            MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
->             int fd =3D open("/mnt/f", O_CREAT | O_WRONLY, 0644);
->             struct stat st;
->
->             munmap(p + 4096, 4096);
->             printf("write: %zd\n", write(fd, p, 1 << 20));
->             fstat(fd, &st);
->             printf("blocks: %ld\n", (long)st.st_blocks);
->             printf("ftruncate: %d\n", ftruncate(fd, 1 << 16));
->             return 0;
->     }
->
-> Before commit 82a81a7352bc ("exfat: add iomap buffered I/O support"),
-> the result is:
->
->     write: 4096
->     blocks: 8
->     ftruncate: 0
->
-> After that commit, the result is:
->
->     write: 4096
->     blocks: 2048
->     ftruncate: -1
->
-> This patch will bring back exfat_write_failed() and call it when a write
-> ends before the end of its range, so that the clusters beyond the end of
-> the file are freed again. It waits for direct I/O in flight first, as
-> exfat_setattr() does before it frees clusters.
->
-> Fixes: 82a81a7352bc ("exfat: add iomap buffered I/O support")
-> Fixes: 867b9c96dc83 ("exfat: add iomap direct I/O support")
+On Tue, Oct 13, 2026 at 02:30:37PM +0200, David Hildenbrand (Arm) wrote:
+> numa_rebuild_large_mapping() and do_swap_page() can be tricked into
+> generating an address wraparound, crashing the kernel. All that's required
+> is to map a tail page of a large folio close enough to the start/end of
+> the address space to e.g., make
+> 
+> 	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
+> 
+> to wrap around.
+> 
+> Let's fix it by providing a better helper, folio_pte_scan_range(), that
+> takes care of staying within VMA and page table boundaries while
+> handling possible wraparounds.
+> 
+> Reported-by: Kyle Zeng <kylebot@openai.com>
+> Fixes: d2136d749d76 ("mm: support multi-size THP numa balancing")
+> Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
 > Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
-Applied it to #exfat-next.
-Thanks!
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>  mm/memory.c | 43 +++++++++++++++++++++++++++++--------------
+>  1 file changed, 29 insertions(+), 14 deletions(-)
+> 
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 1f5d5f7d39cd2..a3823010aa981 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -4933,6 +4933,27 @@ static void check_swap_exclusive(struct folio *folio, swp_entry_t entry,
+>  	} while (--nr_pages);
+>  }
+>  
+> +/*
+> + * Get the address range in which a folio might be mapped, assuming its pages
+> + * are mapped consecutively and the folio page at the given idx is mapped at
+> + * the given address.
+> + */
+> +static void folio_pte_scan_range(const struct folio *folio,
+> +		const struct vm_area_struct *vma, unsigned long addr,
+> +		unsigned long idx, unsigned long *start, unsigned long *end)
+> +{
+> +	/* Stay within the page table and VMA boundaries. */
+> +	const unsigned long pmd_start = addr & PMD_MASK;
+> +	const unsigned long pmd_end = pmd_start + PMD_SIZE;
+> +	const unsigned long lower = max(pmd_start, vma->vm_start);
+> +	const unsigned long upper = min(pmd_end - 1, vma->vm_end - 1) + 1;
+
+These -1/+1 gave me a pause. I guess it is for pmd_end wrapping to 0 in
+the top PMD? A comment would be nice.
+
+Otherwise:
+
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
