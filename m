@@ -1,92 +1,363 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91C15539789
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 15:53:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16FCD53978F
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 15:53:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791906830; cv=none; b=gIZ9VA3GDD5xqBpFHetO/8eWDabvyjsx8ejzQXO0b4K6asPszoC0gUf+iE5bWrL6OajnJdQLUPJ1b1Tpv5sTCeRWM/3PX81EaHCTpc6F8mHTM41MtIfUB6j8wz3HPkrkKhhRcDkYe70wnRhDTkAHKGSrvNq3uMqWPYnqsoYOFk4=
+	t=1791906831; cv=none; b=OY360vviQo7o093gq2ZkfKFmAHLutLYww3nd1nqv+23kywzGgfoFEPhATuUiAmA3MpMzP4+152ig8qeZ90XgnET/LFvluNIWrnTSgUW2fKBlRpQ+e8iKfaegs1HOnDmdX3gdtY82+qHxFQtXO6NIRdb1pBYuzynDfUfJdHtVyeU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791906830; c=relaxed/simple;
-	bh=tM02Joz9t7HVO00dryrG+Vb1mg0Gn1AtgSVS/LJ4eHg=;
+	s=arc-20240116; t=1791906831; c=relaxed/simple;
+	bh=S4B2sQtgMdKmRlfP19fprOxiC/0taVFIeEOknofchC4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VUzSQ97R1NwptUzNff5f4TsgczUnJJs6o5C9UnEEXP3qGX54oCeQ46fQdkxC6aQug1itNwwslHFjcI3ENeZ0wC/lMhEy+FRs9pQOLaBwRYc9ICx4UrHXOMerk5NtPRCML2dz6DewCy+uEESemRTr90ojuHGXaQCP4AA0eVMUcP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=Lq9R+323; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	 MIME-Version:Content-Type; b=XQl6HVaiHN+2vK/ikAlBqxWaet5KXb4ham7COsHnckAk0RbLH4MpNMFSkIORf87YrxxrVTeRo48zh3sLQ1KzWDA+TGz8R1rlUgLlcBS80CbbmhjSQAahFqZbnKb6Ghqw1ZXySkHYB5xQBndzca68b4xURAF6r+kXbsFNnTNWCv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c6lJ4Qh3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="Lq9R+323"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e7006bbf77so567855ad.0
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 08:53:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791906829; x=1792511629; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=weVoMVk7+8IBm1YGLO6BLCJKDE8BQGTsOSBOllMfeck=;
-        b=Lq9R+323j5eKecJoQEJWiZPopyykoaX6Tan5QKfJ02sNDheYGP6tI6plf6NlTbGcyi
-         9zfOpI9Ew4Kb8t98Uk5FWL/aNZNGKYDBCMBfCj1nxQUIcHNhlfwOgmocGYeSSGbeJTHH
-         iVwl5R5O6a66R19Y3fea9rNqAZaTKSp+L99gremNTH9llyVkQB5uVQGFpcshfL6QX2xQ
-         eyGqSRq2DIL+bm89H2eR4NZOfJFOLLAPQlTaYAsGlMNIvMXmCDQGQafwa1Hem980HVF4
-         NyCOCEjdDVeqZ+09eZgFrw75XKQw1clBst84csqx4lyuPbRSwagehd7edde7tBXmmufa
-         dYMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791906829; x=1792511629;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=weVoMVk7+8IBm1YGLO6BLCJKDE8BQGTsOSBOllMfeck=;
-        b=v789Oq2oV+mbHoUHs14UkRMhjdshLPsbcY7C1NY7ruU8iWsWXERA0dPY/Midgk5all
-         06uZl+OKN2obfxZRHYayWh+auyjT2ovhKviuWevDNpG95ILX4lPe9/ylUocB+ALi+snc
-         BG8sOG5SAauK+2IsQ7cShNfJ/j9G2C7Zwm6ipvBtJR/QSXb9jfihGU/79Bwuucib1npg
-         UW0ax5RQRasufiN80IWLTO589sJX9Mdsw25YDG8cqDl2DNlEEnjHt1Xa40daM99PHRgk
-         GOGlij1qclkZjNA0BfO5inabjzZSBYf2yEFGJ3fn+Wnu1x6hQ7/eYn3Rsvcw6FzbskkL
-         BAqA==
-X-Forwarded-Encrypted: i=1; AKwUvBxcHnQIN3BkAgPEfrQ1hNGrEwTArbgsstzwqD9R1J4GGmR/gxUjVFl7f6xtKPcMi6edwITvio8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLfQ29wjSr5jtKG+0oLSv04KdC+gciHaZBCz8rg0HNFYidPvZ2Z
-	Y1+5+ICg4rzveMyRha7pc9NjdSrWDwC1nwDlSOAhRpIR1arkUnF0u4mzgty5NbXVsew=
-X-Gm-Gg: AYBFou3fVNtJCF6r7JiwyA30MQDQmlSD68GCAWtYEq4zs2xz7Xfz+IL+NJ/KZbamzUz
-	4RXNHgze6p6UH0Ru6cGlWodtIc7dx9L12zodln09bsQ5HNBW8aahajn44kc4Vun4DpsOUpMkfqQ
-	M1FPskDq4jwu77ADF4AgdjIUd/VcQYJ89tOkezJdGNLqDVazQIr8hQHoDkdSSaBYgg1fSgU+T3G
-	uX3U9kjgJDCR5SI+x0VuSAYCFgxvswBMKaazho+b/xjv1RuZmGn8h6DwcLPos/wZJXLKT2twbkB
-	0eHBqNp6UMtMbV86voaTajqm1E4RBLN6HSrmbukiDEgZphD6EYI9dsvg/eqH+3U91sVWgOXpSuc
-	FzmkiRMfikVVmr0rpCLuYUMmZTvvqGYeglx5LloSlIg7MeTTQPpGV96r9YxFbAJ54lTIl1VWTPW
-	rauTqtq/hE0CSK1W6IyzYa+y2IBO82HJZGKgQB2STEX/DrGZXW7nvPjsjkmMmTc4/iLQRuxP6Hf
-	lYrhLOPiVyLYG0gwT0L2s/15KBWAg4=
-X-Received: by 2002:a17:902:d583:b0:2e8:3f72:4c2c with SMTP id d9443c01a7336-2e842f1519amr122389725ad.62.1791906828923;
-        Tue, 13 Oct 2026 08:53:48 -0700 (PDT)
-Received: from localhost.localdomain ([2406:5900:1044:110c:c51c:be8a:c517:276])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b5fd2sm59793355ad.50.2026.10.13.08.53.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 08:53:47 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Justin Tee <justin.tee@broadcom.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Keith Busch <kbusch@kernel.org>,
-	linux-nvme@lists.infradead.org
-Cc: Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	James Smart <jsmart2021@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: Re: [PATCH] nvmet-fc: bound the FCP command data length before allocating buffers
-Date: Wed, 14 Oct 2026 00:53:07 +0900
-Message-ID: <20261013155308.3188757-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261013141904.GA14323@lst.de>
-References: <20261013104038.3078601-1-yhlee@isslab.korea.ac.kr> <20261013141904.GA14323@lst.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c6lJ4Qh3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A4251F000FF;
+	Tue, 13 Oct 2026 15:53:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791906830;
+	bh=UbbWu1KGaKIu/P0GRezCLDfabwdBLZhnWMxfz2ZsOVY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=c6lJ4Qh3gcmC0vCPYZSCFBxiKFFW/nLIxwEhjDv1HFsEtUP60ANDfu0xD9eLQvxSh
+	 0ES4m/jrSiTAq6ZSNysx2FSkBzdaF1MeHmjQOPi6hkAd1P7SNLztDIFiHWwgLNQV+B
+	 OWT5i0OTP1C0kIG0/ktuBk6cTL7+OJTtBh2i1HgxGKkSe1VSpcxZqPada9rC4P0Xrf
+	 ZZXReAHbA33rt/Gmt7NlII4JEW0093war6zsVgGODdjaqK4oCdZV8mWPbYWB+na2EG
+	 Ln+Q+66SpUUDpkLHpIho6p3lZdfpqcH+JLvGPuinh17CyoQeRRZxS39NPq+Gg7xU3D
+	 BhKmFAyh2N4YQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+	Pauli Virtanen <pav@iki.fi>,
+	syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com,
+	Jiaming Zhang <r772577952@gmail.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] Bluetooth: RFCOMM: connect the session socket without rfcomm_mutex
+Date: Tue, 13 Oct 2026 11:53:48 -0400
+Message-ID: <20261013155313.280615-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026101207-excavator-emcee-d1be@gregkh>
+References: <2026101207-excavator-emcee-d1be@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Agreed.  v2 adds a ->get_mdts callback that advertises the 16 MiB ceiling
-so a compliant host keeps its transfers under it, and keeps the
-allocation-time bound as enforcement for one that does not:
-https://lore.kernel.org/linux-nvme/20261013153316.3178656-1-yhlee@isslab.korea.ac.kr/
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+
+[ Upstream commit ac022970e9fb0a5f7e7d1f6c8e104c1ed924dd1c ]
+
+An RFCOMM connect() issued while a BR/EDR link is being authenticated
+makes lockdep report a circular dependency, and the reported cycle is a
+real AB/BA between rfcomm_mutex and hdev->lock.
+
+rfcomm_security_cfm() is called from the HCI event path, which already
+holds hdev->lock:
+
+  hci_rx_work()
+    hci_event_packet()
+      hci_cc_read_enc_key_size()   [hdev->lock]
+        hci_encrypt_cfm()          [hci_cb_list_lock]
+          rfcomm_security_cfm()    [rfcomm_mutex]
+
+while an RFCOMM connect() from userspace takes the same two locks the
+other way round:
+
+  rfcomm_sock_connect()
+    rfcomm_dlc_open()              [rfcomm_mutex]
+      __rfcomm_dlc_open()
+        rfcomm_session_create()
+          kernel_connect()
+            l2cap_sock_connect()
+              l2cap_chan_connect() [hdev->lock]
+
+  WARNING: possible circular locking dependency detected
+  kworker/u131:1/1128 is trying to acquire lock:
+  rfcomm_mutex, at: rfcomm_security_cfm+0x31/0x3e0 [rfcomm]
+  but task is already holding lock:
+  hci_cb_list_lock, at: hci_cc_read_enc_key_size+0x1d2/0xcc0
+  Chain exists of:
+    rfcomm_mutex --> &hdev->lock --> hci_cb_list_lock
+
+hci_auth_complete_evt() and hci_encrypt_change_evt() reach the callback
+the same way.
+
+Both orders have to be seen in the same boot, which is why a BR/EDR
+connection alone is not enough to show it: a session set up by the
+remote side is created by rfcomm_accept_connection() in krfcommd, which
+calls kernel_accept() and never takes hdev->lock under rfcomm_mutex.
+Connecting a device that authenticates and encrypts the link and then
+calling connect() on an RFCOMM socket towards any address - the connect
+does not have to succeed, the order is recorded before the page timeout
+- reports it every time.
+
+Only the session socket has to be connected with the lock held, and it
+does not: nothing else can see the socket before it is put on the
+session list.  So connect it first and take rfcomm_mutex afterwards,
+which removes the rfcomm_mutex -> hdev->lock order for good, rather
+than keeping the HCI event path out of rfcomm_mutex.
+
+rfcomm_session_create() becomes rfcomm_session_connect(), which returns
+the connected socket without touching the session list, and
+rfcomm_dlc_open() adds the session once it holds the lock again.  If
+another opener added a session for the same pair while this socket was
+connecting, that session is used and this socket is dropped.
+__rfcomm_dlc_open() now takes the session it should use, and its state
+check runs after the lock is re-acquired, so a DLC that was opened or
+closed in the meantime is still handled.
+
+Over an existing ACL link the connection can complete before the
+session reaches the list, and the wakeup from the socket callback is
+then lost, so krfcommd is woken once the session is visible.
+
+Connecting without the lock opens a window in which the socket can be
+closed.  The DLC is not on a session yet, so rfcomm_dlc_close() finds
+nothing to do and returns without touching it, and rfcomm_dlc_open()
+would then attach a DLC whose owner is gone.  rfcomm_dlc_close() now
+marks such a DLC with RFCOMM_CLOSED, and rfcomm_dlc_open() checks the
+mark once it holds rfcomm_mutex again and drops the socket instead of
+attaching the DLC.  The mark is cleared when an open starts, so a DLC
+that is reused is not affected.  This covers both callers of
+rfcomm_dlc_open(), the socket and the tty layer.
+
+Fixes: 759c185d0bbd ("Bluetooth: RFCOMM: serialize security confirmation handling")
+Suggested-by: Pauli Virtanen <pav@iki.fi>
+Reported-by: Pauli Virtanen <pav@iki.fi>
+Closes: https://lore.kernel.org/linux-bluetooth/5e76a95e934e451e7006db28827c2d64af5a88be.camel@iki.fi/
+Reported-by: syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/linux-bluetooth/6a92fadc.08e933ee.dbf97.008f.GAE@google.com/
+Reported-by: Jiaming Zhang <r772577952@gmail.com>
+Closes: https://lore.kernel.org/all/CANypQFabseTuRiyz2pGkc_Qj0moGDnY7KEp1qdTOqkw6gAL3hw@mail.gmail.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Tested-by: syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+[ sashal: Retained the struct sockaddr * cast instead of struct sockaddr_unsized * to match kernel_connect()’s API. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ include/net/bluetooth/rfcomm.h |   1 +
+ net/bluetooth/rfcomm/core.c    | 134 +++++++++++++++++++++++----------
+ 2 files changed, 96 insertions(+), 39 deletions(-)
+
+diff --git a/include/net/bluetooth/rfcomm.h b/include/net/bluetooth/rfcomm.h
+index 7e40d3c5f5a97..e8e82869b2812 100644
+--- a/include/net/bluetooth/rfcomm.h
++++ b/include/net/bluetooth/rfcomm.h
+@@ -210,6 +210,7 @@ struct rfcomm_dlc {
+ #define RFCOMM_AUTH_REJECT  7
+ #define RFCOMM_DEFER_SETUP  8
+ #define RFCOMM_ENC_DROP     9
++#define RFCOMM_CLOSED       10
+ 
+ /* Scheduling flags and events */
+ #define RFCOMM_SCHED_WAKEUP 31
+diff --git a/net/bluetooth/rfcomm/core.c b/net/bluetooth/rfcomm/core.c
+index d45ea1807f8bd..59fb93be9c20e 100644
+--- a/net/bluetooth/rfcomm/core.c
++++ b/net/bluetooth/rfcomm/core.c
+@@ -65,10 +65,9 @@ static void rfcomm_make_uih(struct sk_buff *skb, u8 addr);
+ 
+ static void rfcomm_process_connect(struct rfcomm_session *s);
+ 
+-static struct rfcomm_session *rfcomm_session_create(bdaddr_t *src,
+-							bdaddr_t *dst,
+-							u8 sec_level,
+-							int *err);
++static struct socket *rfcomm_session_connect(bdaddr_t *src, bdaddr_t *dst,
++					     u8 sec_level, int *err);
++static struct rfcomm_session *rfcomm_session_add(struct socket *sock, int state);
+ static struct rfcomm_session *rfcomm_session_get(bdaddr_t *src, bdaddr_t *dst);
+ static struct rfcomm_session *rfcomm_session_del(struct rfcomm_session *s);
+ 
+@@ -368,28 +367,17 @@ static int rfcomm_check_channel(u8 channel)
+ 	return channel < 1 || channel > 30;
+ }
+ 
+-static int __rfcomm_dlc_open(struct rfcomm_dlc *d, bdaddr_t *src, bdaddr_t *dst, u8 channel)
++static int __rfcomm_dlc_open(struct rfcomm_dlc *d, struct rfcomm_session *s,
++			     u8 channel)
+ {
+-	struct rfcomm_session *s;
+-	int err = 0;
+ 	u8 dlci;
+ 
+-	BT_DBG("dlc %p state %ld %pMR -> %pMR channel %d",
+-	       d, d->state, src, dst, channel);
+-
+-	if (rfcomm_check_channel(channel))
+-		return -EINVAL;
++	BT_DBG("dlc %p state %ld session %p channel %d",
++	       d, d->state, s, channel);
+ 
+ 	if (d->state != BT_OPEN && d->state != BT_CLOSED)
+ 		return 0;
+ 
+-	s = rfcomm_session_get(src, dst);
+-	if (!s) {
+-		s = rfcomm_session_create(src, dst, d->sec_level, &err);
+-		if (!s)
+-			return err;
+-	}
+-
+ 	dlci = __dlci(__session_dir(s), channel);
+ 
+ 	/* Check if DLCI already exists */
+@@ -424,14 +412,84 @@ static int __rfcomm_dlc_open(struct rfcomm_dlc *d, bdaddr_t *src, bdaddr_t *dst,
+ 
+ int rfcomm_dlc_open(struct rfcomm_dlc *d, bdaddr_t *src, bdaddr_t *dst, u8 channel)
+ {
+-	int r;
++	struct rfcomm_session *s;
++	struct socket *sock;
++	int err;
++
++	BT_DBG("dlc %p state %ld %pMR -> %pMR channel %d",
++	       d, d->state, src, dst, channel);
++
++	if (rfcomm_check_channel(channel))
++		return -EINVAL;
+ 
+ 	rfcomm_lock();
+ 
+-	r = __rfcomm_dlc_open(d, src, dst, channel);
++	clear_bit(RFCOMM_CLOSED, &d->flags);
+ 
++	/* Do not page the remote device for a DLC that cannot be opened
++	 * anyway.  __rfcomm_dlc_open() looks at the state again once the
++	 * lock has been re-acquired below.
++	 */
++	if (d->state != BT_OPEN && d->state != BT_CLOSED) {
++		rfcomm_unlock();
++		return 0;
++	}
++
++	s = rfcomm_session_get(src, dst);
++	if (s) {
++		err = __rfcomm_dlc_open(d, s, channel);
++		rfcomm_unlock();
++		return err;
++	}
+ 	rfcomm_unlock();
+-	return r;
++
++	/* There is no session for this pair yet.  kernel_connect() ends up in
++	 * l2cap_chan_connect(), which takes hdev->lock, and the HCI event
++	 * path takes rfcomm_mutex while holding hdev->lock, so the socket has
++	 * to be connected with rfcomm_mutex released.
++	 */
++	sock = rfcomm_session_connect(src, dst, d->sec_level, &err);
++	if (!sock)
++		return err;
++
++	rfcomm_lock();
++
++	/* The DLC may have been closed while the socket was connecting.  It
++	 * was not on a session, so rfcomm_dlc_close() could only mark it;
++	 * attaching it now would leave it with no owner.
++	 */
++	if (test_bit(RFCOMM_CLOSED, &d->flags)) {
++		rfcomm_unlock();
++		sock_release(sock);
++		return -ECONNRESET;
++	}
++
++	/* Another opener may have added a session for the same pair in the
++	 * meantime; that one is used and this socket is dropped.
++	 */
++	s = rfcomm_session_get(src, dst);
++	if (!s) {
++		s = rfcomm_session_add(sock, BT_BOUND);
++		if (s) {
++			s->initiator = 1;
++			sock = NULL;
++		}
++	}
++
++	err = s ? __rfcomm_dlc_open(d, s, channel) : -ENOMEM;
++
++	rfcomm_unlock();
++
++	if (sock)
++		sock_release(sock);
++
++	/* Over an existing ACL link the connection can complete before the
++	 * session reaches the list, and that wakeup is then lost, so let
++	 * krfcommd look at the socket state now.
++	 */
++	rfcomm_schedule();
++
++	return err;
+ }
+ 
+ static void __rfcomm_dlc_disconn(struct rfcomm_dlc *d)
+@@ -511,8 +569,14 @@ int rfcomm_dlc_close(struct rfcomm_dlc *d, int err)
+ 	rfcomm_lock();
+ 
+ 	s = d->session;
+-	if (!s)
++	if (!s) {
++		/* Not on a session yet: rfcomm_dlc_open() may be connecting a
++		 * socket for it with rfcomm_mutex released.  Leave a mark so
++		 * that it does not attach the DLC once it holds the lock again.
++		 */
++		set_bit(RFCOMM_CLOSED, &d->flags);
+ 		goto no_session;
++	}
+ 
+ 	/* after waiting on the mutex check the session still exists
+ 	 * then check the dlc still exists
+@@ -760,12 +824,12 @@ static struct rfcomm_session *rfcomm_session_close(struct rfcomm_session *s,
+ 	return rfcomm_session_del(s);
+ }
+ 
+-static struct rfcomm_session *rfcomm_session_create(bdaddr_t *src,
+-							bdaddr_t *dst,
+-							u8 sec_level,
+-							int *err)
++/* Creates the L2CAP socket a new session will run on and starts connecting
++ * it.  Must be called with rfcomm_mutex released.
++ */
++static struct socket *rfcomm_session_connect(bdaddr_t *src, bdaddr_t *dst,
++					     u8 sec_level, int *err)
+ {
+-	struct rfcomm_session *s = NULL;
+ 	struct sockaddr_l2 addr;
+ 	struct socket *sock;
+ 	struct sock *sk;
+@@ -795,24 +859,16 @@ static struct rfcomm_session *rfcomm_session_create(bdaddr_t *src,
+ 		l2cap_pi(sk)->chan->mode = L2CAP_MODE_ERTM;
+ 	release_sock(sk);
+ 
+-	s = rfcomm_session_add(sock, BT_BOUND);
+-	if (!s) {
+-		*err = -ENOMEM;
+-		goto failed;
+-	}
+-
+-	s->initiator = 1;
+-
+ 	bacpy(&addr.l2_bdaddr, dst);
+ 	addr.l2_family = AF_BLUETOOTH;
+ 	addr.l2_psm    = cpu_to_le16(L2CAP_PSM_RFCOMM);
+ 	addr.l2_cid    = 0;
+ 	addr.l2_bdaddr_type = BDADDR_BREDR;
+ 	*err = kernel_connect(sock, (struct sockaddr *) &addr, sizeof(addr), O_NONBLOCK);
+-	if (*err == 0 || *err == -EINPROGRESS)
+-		return s;
++	if (*err && *err != -EINPROGRESS)
++		goto failed;
+ 
+-	return rfcomm_session_del(s);
++	return sock;
+ 
+ failed:
+ 	sock_release(sock);
+-- 
+2.53.0
+
