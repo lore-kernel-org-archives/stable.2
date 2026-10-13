@@ -1,114 +1,70 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EF63955EC;
-	Tue, 13 Oct 2026 12:31:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791894672; cv=none; b=HYy5gOEX+v692zCrvpmP3lDXKzE4ZU5Ktzy1L9HVhUQBfHXXWLZFFkPc7GeFvxx/EiB9nVIVP09AT21Y3HOocl2c5Wz1aHTOvyyleVKYh734E/9Z4seeHBRAz2IfvR4ZYnhnM+L4BYfpfh/nplbIOTMLSVOBlSG97J9/Sa3mDsc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791894672; c=relaxed/simple;
-	bh=7tkYpPdrTZQyBMA+LMp8uAcWoI9D24WD7jRzasP9+uk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PwYmQRz+m/urAH9+uK8jyLzoWWTLP92pTfQlPnXbl+tn1AoTPwI/olEty/c9b3FhliDswoFsYFQghRB0RPnlN6AHQ5FAIAejaj4FjFk0OiObYpVqx/uGTp+Gof9F8gZGtreKIp9MF4GpBMw/PeKTLea4hIspJQUI+Buie1y8jJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1DX6uerK; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1DX6uerK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7E991F000FF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8BD03A16AE;
 	Tue, 13 Oct 2026 12:31:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791894671;
-	bh=N7VQGkNP44TrVLyTkfHTOMCbjF4YGL3WL7nu9qboqVk=;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791894673; cv=none; b=DMPJiPLehzc/L++AyV3DXZfP4U5UUr7yxPAVPeQcFbCibXCB5LK/UOSmY4N7DFCcegYuwliJfeSTGcCCUDdxlyIFfsTs9H1wtXuZZ6/wUoG+3oxyjuUiV8PVHe7f8ME1Puffd9iD3cYUYlvhPfxlg61fKjj5bZSf+V9K3xpF+Pw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791894673; c=relaxed/simple;
+	bh=StQO+WhQWEUOezy/nce9AWZ+lPoybPZoOMXTtNPI3X4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VaSlf2AdcGZkbwout8YkDLXh6Rs/Kr/OUNFl93TbKVuzDcdXG6atqpFkoADInKyHFSk5Dv3oDEIcRnMqYvwnulrRRtzdrolIRzm9LFHReRs2uH50cev/kvpGg2727X7WReGPRQIuo/ZrY3OGH6uNiMi+5UTrV2UOgigDtlk9L90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=CKiF6LU4; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="CKiF6LU4"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id EB02F80BD0;
+	Tue, 13 Oct 2026 14:31:08 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id K-TzazeVR3Rg; Tue, 13 Oct 2026 14:31:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1791894668; bh=StQO+WhQWEUOezy/nce9AWZ+lPoybPZoOMXTtNPI3X4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=1DX6uerKXRPqdmmNZiAie/fLG6aTJV+01magekAvY14eKDCJE/ogvALyIHFF0x1y9
-	 XqpXJeOpN/09/yHRYVT0vLKXtx+eYAbO2Go+Gq1uH13SQGENA+rdrI8iHCaBkVZN+F
-	 WsK0CoC9kj0SoU3OfwQTIbExqLHEuZOsDW2Oomgo=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 018/497] Bluetooth: ISO: release unused CIS holds after channel attach
-Date: Tue, 13 Oct 2026 13:33:05 +0200
-Message-ID: <20261013112908.311588859@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261013112907.864180619@linuxfoundation.org>
-References: <20261013112907.864180619@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	b=CKiF6LU4EMVYgXzGpq0qlS+CWwAKP6GVH71/cR2g9VdYTEOXbEtzyRxbgNYhziq5+
+	 +C6nWt/bAUMdKNUUDF7p9BMHbObVdPBwXhDS75guUZ/P1RgJMDEqZRrI2By/2Okxz/
+	 nIod/UBNsVk1qfLWuhwgxoHCQ9IK3xKy05Q/t3VgRs9SMplqoDlBMjQptuwoP5oeAf
+	 kwH9T/HpcwiORC4snVfckbzEuIAjqyjWpuFiaVMr7+h6nlE6kGEaPn6A1QABF7fhwh
+	 BKuK+2uc+LVLY9d63AqXVPLi6DaBpsDI0vYQZi8GxoeJDJxAHM81aGf/l0DlA+MrWk
+	 Eh/ttJP7k2bog==
+From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: johannes.goede@oss.qualcomm.com,
+	Len Brown <lenb@kernel.org>,
+	Armin Wolf <W_Armin@gmx.de>,
+	Charis Stratakis <c.stratakis@proton.me>,
+	linux-acpi@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	regressions@lists.linux.dev,
+	Mark Pearson <mpearson-lenovo@squebb.ca>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ACPI: battery: Re-read battery information in the complete callback
+Date: Tue, 13 Oct 2026 15:30:52 +0300
+Message-ID: <20261013123055.46306-1-aliamemis@disroot.org>
+In-Reply-To: <CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com>
+References: <37N_jFulf7n-Z55NfKfE71C_wVPxYvZ0xD_iRUg2fXu7TypDiF5PStQ6siSfVBih6fThg5WoPes8U5ZQpfVm_teMFcUGXFxz2DdMbfSWuws=@proton.me> <20261012225141.13683-1-aliamemis@disroot.org> <fb993dd3-ee56-4e3d-aa16-573f011518f1@oss.qualcomm.com> <CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+On Tue, Oct 13, 2026 at 01:58:15PM +0200, Rafael J. Wysocki (Intel) wrote:
+> An alternative might be to introduce an "exclusive" variant of
+> acpi_evaluate_object() with built-in locking and use it in the cases
+> that are known-problematic.
 
-------------------
+An exclusive variant would have to be used on both sides here, for
+_BIX/_BST and for the INT3403 _TMP, since it is \GTST in _TMP that
+switches the page.  I can do that and test it the same way.
 
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-
-[ Upstream commit 0fcd4dad555c96e0bd3a1b8c569f989be85c7341 ]
-
-hci_bind_cis() and hci_connect_cis() return one hci_conn hold for the
-ISO layer.  A new channel association consumes that hold, which is
-eventually released by iso_conn_free().
-
-There are two cases where iso_chan_add() does not create an association:
-it returns success when the socket is already attached to the same
-iso_conn, and it returns -EBUSY when another socket is attached.  The
-hold returned for the current call is unused in both cases.  This occurs
-when deferred setup calls iso_connect_cis() again for its existing
-socket, or when another socket attempts to reuse the CIS.
-
-Detect the idempotent case while the connection is locked and release
-the unused hold after iso_chan_add().  Also release it on -EBUSY.  Do not
-drop it for other errors: a newly allocated iso_conn releases the
-transferred hold when its last temporary reference is put.
-
-Fixes: 69997d50ec57 ("Bluetooth: ISO: handle bound CIS cleanup via hci_conn")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/bluetooth/iso.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
-index b3df3a5137fee..fc9b9c11ab4c5 100644
---- a/net/bluetooth/iso.c
-+++ b/net/bluetooth/iso.c
-@@ -450,6 +450,7 @@ static int iso_connect_cis(struct sock *sk)
- 	struct hci_dev  *hdev;
- 	bdaddr_t src, dst;
- 	u8 src_type;
-+	bool already_attached;
- 	int err;
- 
- 	lock_sock(sk);
-@@ -511,8 +512,14 @@ static int iso_connect_cis(struct sock *sk)
- 		goto unlock;
- 	}
- 
-+	iso_conn_lock(conn);
-+	already_attached = iso_pi(sk)->conn == conn && conn->sk == sk;
-+	iso_conn_unlock(conn);
-+
- 	err = iso_chan_add(conn, sk, NULL);
- 	iso_conn_put(conn);
-+	if (already_attached || err == -EBUSY)
-+		hci_conn_drop(hcon);
- 	if (err)
- 		goto unlock;
- 
--- 
-2.53.0
-
-
-
+Should this patch still go in for the regression meanwhile?
