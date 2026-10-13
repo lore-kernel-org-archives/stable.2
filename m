@@ -1,42 +1,36 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30FA4B04A5;
-	Tue, 13 Oct 2026 06:27:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0362D39890A;
+	Tue, 13 Oct 2026 06:28:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791872825; cv=none; b=rrVL2hEif763np2cRX8gZtaeu5M3UgzIZZ0uNMX4mNlmbNKzd6txLjkOAsakWLF7KDMBaJtEUnAT/kD0v/nt7qhcuk6/rtAA5IyNJ/dAU/liSchHfvy1HHrmGb5V+iMMsGdML39ElHFMZ4i/XyHQdNk67cNIN6KYM+ihl6oqRaI=
+	t=1791872935; cv=none; b=WU+GOzJw8dfFxYYgZUQC2/lj5IuQOWextEIPrPLEZT/5L3/a7SYuogydkxyjKcq05g5HajKcdkAF7xUyzhyZd86jhhMcoWzMZPrNsetWhqajCR+ydq74SajhNlEZUrQcANeNEAnGL7C1HQPSxTG1BDd8c7ZL+t+B2Ko5Fj8kDZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791872825; c=relaxed/simple;
-	bh=PLMTjdpTRR7dXWKVFB6R1lmLronijpQC1Ak3MNcThX4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=BlcFZi8zEKZjtRiuLgWPoQOXIKoHVvjdgr3LlVTzbsDkGIY7fIHiDxBSyVC4wZiRqiZJ5xb6/Ty6vACKWRXBfGy0zWZqc3cn/1HV/5mGvh9PrrtTezB73g4g9YSECVS44XRz/k3jM+PpMGzi2dIOg2IpNvDMNv5KrfsqKqSVtpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=d05zacp4; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="d05zacp4"
-Received: from localhost (gy-adaptive-ssl-proxy-4-entmail-virt151.gy.ntes [IPV6:2409:8d28:39:f54:a8d0:6ae:755d:34f6])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 50d4ab5fd;
-	Tue, 13 Oct 2026 14:26:56 +0800 (GMT+08:00)
-From: guolingxing <guolingxing@tju.edu.cn>
-To: tytso@mit.edu
-Cc: adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	linux-ext4@vger.kernel.org,
+	s=arc-20240116; t=1791872935; c=relaxed/simple;
+	bh=r7L/wpvW6OUHmZRiByBkrxsFi6xyWpZf9I6Fbv+y7DY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FOS6rBxGRRZXr4dNMTDwVSxXOr98sq5puIJkChPn6shFYaXjx3WJdjZYCo3zxGDl/Fmy68f5DZifRAH6jw6sDdhZGWqgivIfdN9fsTVuildVIoNlL7r51LnP3WxYGECydrRHBJIfDWHgVG0e58zRnQkHdpPy2nJMA/hfZqs85ug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.68.159])
+	by gateway (Coremail) with SMTP id _____8DxOvCkz81qTz8VAA--.61815S3;
+	Tue, 13 Oct 2026 14:28:52 +0800 (CST)
+Received: from kernelserver (unknown [223.64.68.159])
+	by front1 (Coremail) with SMTP id qMiowJDxxMyZz81qkLcrAA--.65201S2;
+	Tue, 13 Oct 2026 14:28:52 +0800 (CST)
+From: Huacai Chen <chenhuacai@loongson.cn>
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: loongarch@lists.linux.dev,
+	Xuefeng Li <lixuefeng@loongson.cn>,
+	Guo Ren <guoren@kernel.org>,
+	Xuerui Wang <kernel@xen0n.name>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	guolingxing <guolingxing@tju.edu.cn>
-Subject: [PATCH 3/3] ext4: check return value of blkdev_issue_flush() when replaying fast commits
-Date: Tue, 13 Oct 2026 06:26:18 +0000
-Message-Id: <20261013062618.1741670-3-guolingxing@tju.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261013062618.1741670-1-guolingxing@tju.edu.cn>
-References: <20261013062618.1741670-1-guolingxing@tju.edu.cn>
+	Huacai Chen <chenhuacai@loongson.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] LoongArch: Don't init & online empty nodes
+Date: Tue, 13 Oct 2026 14:28:34 +0800
+Message-ID: <20261013062834.60797-1-chenhuacai@loongson.cn>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,48 +38,51 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa133f154da03a2kunm6f2d423a4a95a3
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGBhDVh5JTEkfS08YHUhCGlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0tCQUMfSUNBSEJBHU5PQRpDH0tBTRoeQUxOTh9BSE8dTV
-	lXWRYaDxIVHRRZQVlPS0hVSktJQkNNQlVKS0tVS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=d05zacp4LkcIpqRxjJtOir/bHEIPmq2AvtGOLKGtI2UFWjOKL/s1qZS/zUZ+c7pZrGJdmvPdAjIIOkFGNRZmwY+IWZgBfqG1o9RfN10PaqMo9XRMQbNcgLmCEEbgmG5WOmahbbPJMtpT5eKD6ANoD9EQ3LLVTN975SEZb5QL1eY=; s=default; c=relaxed/relaxed; d=tju.edu.cn; v=1;
-	bh=ZVnlfFMJpSzHTrUQJyetICb8UH4vltaTrahoAkGoHas=;
-	h=date:mime-version:subject:message-id:from;
+X-CM-TRANSID:qMiowJDxxMyZz81qkLcrAA--.65201S2
+X-CM-SenderInfo: hfkh0x5xdftxo6or00hjvr0hdfq/
+X-Coremail-Antispam: 1Uk129KBj9xXoWrZFWrtr4fCFW8KF17KF4xKrX_yoWfuFc_Gr
+	1xX3y5Gr4rJayIvws0kF4fX398u3y8Ka4FkFn2kF4xAw15Jws8Jr43X3Z8Ar90gFZ3urZx
+	C3yUWF93Ar4UtosvyTuYvTs0mTUanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUb7kYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	WUJVW8JwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc
+	02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAF
+	wI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxAIw28IcxkI7V
+	AKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
+	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6x
+	IIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x
+	0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxU7_MaUUUUU
 
-ext4_fc_replay_inode() writes the replayed inode to disk and then
-issues a cache flush, but the return value is ignored.  If the cache
-flush fails, the fast commit replay continues and the mount may
-succeed, even though the replayed inode contents are not guaranteed to
-be on stable storage yet.
+Don't init & online empty nodes without any CPU cores (and memory), in
+this way "lscpu" will not display confusing empty nodes.
 
-Check the return value of blkdev_issue_flush() and abort the fast
-commit replay if the cache flush fails, like any other error detected
-while replaying the inode.  This causes the mount to fail instead of
-silently succeeding with potentially unreplayed data.
-
-Fixes: 8016e29f4362e ("ext4: fast commit recovery path")
 Cc: stable@vger.kernel.org
-Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
 ---
- fs/ext4/fast_commit.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/loongarch/kernel/numa.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/fs/ext4/fast_commit.c b/fs/ext4/fast_commit.c
-index ead8b16f9be0..f554405ebabf 100644
---- a/fs/ext4/fast_commit.c
-+++ b/fs/ext4/fast_commit.c
-@@ -2019,7 +2019,7 @@ static int ext4_fc_replay_inode(struct super_block *sb,
- out:
- 	iput(inode);
- 	if (!ret)
--		blkdev_issue_flush(sb->s_bdev);
-+		ret = blkdev_issue_flush(sb->s_bdev);
+diff --git a/arch/loongarch/kernel/numa.c b/arch/loongarch/kernel/numa.c
+index c96c53623715..a38fccc76087 100644
+--- a/arch/loongarch/kernel/numa.c
++++ b/arch/loongarch/kernel/numa.c
+@@ -244,8 +244,10 @@ int __init init_numa_memory(void)
+ 		return -EINVAL;
  
- 	return ret;
- }
+ 	for_each_node_mask(node, node_possible_map) {
+-		node_mem_init(node);
+-		node_set_online(node);
++		if (!cpumask_empty(&cpus_on_node[node])) {
++			node_mem_init(node);
++			node_set_online(node);
++		}
+ 	}
+ 	max_pfn = PFN_DOWN(memblock_end_of_DRAM());
+ 	max_low_pfn = min(PFN_DOWN(HIGHMEM_START), max_pfn);
 -- 
-2.34.1
+2.52.0
 
