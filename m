@@ -1,192 +1,363 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16A6D3EB80D;
-	Tue, 13 Oct 2026 16:12:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7965E3C3449
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:14:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791907968; cv=none; b=FvqgM+vGJzyJ908g257FKS6Gml4Y0ShOzsV79yqZTojgI+m2P+b+miRCA+ZpXCvDRkD2l1sfHsaFWMdaWpQ1wxetEWueRfnyBrOaemdhcYs7Jd735Hf/P2R3bl7gPCMR6VLWBe//wzrU86rI1y7YJkbqnsdijY6hwOoF29W5bDI=
+	t=1791908060; cv=none; b=CzgjL4rWWG22dZgJhwe+Cb2zn+uedO0Q2L7UzbC/Gw9wLW3XBGPPZInXuxZfXkqLPHj93YT9hshAwICv1TD99I0xpYiO4SvWPnsTrgujHI1hOAve3f+prJOfBStEN4J9Vaj8YNbESJb4AIYxd2PVFSBp9kPCh6w60oybUgi2MBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791907968; c=relaxed/simple;
-	bh=BD6B5AWuoUyLRawFMrKIWyZS/DIN6Qh/5AGXKSmUv0o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IrXRIBnHyhzL5VIgMI0sVl2+udL6DiXxI8pytIAWQhuMTA+McaW5V+SuGYMSS41EsAswUpZkQfeUFqucym5x3YnoW0xrOz2CMivvF6oUWYOAwS1LjWrCF1cqUDkjuqw5i8yAavg/ykH2gRL6rGV6sYAIGEu959VWhRpoAA3N7gk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nc6DLfZb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791908060; c=relaxed/simple;
+	bh=wRQd+JGR/zsNhfrJULvcfquJz1AyNJ44pr1RnZVl9u8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jHKNALce1BhNiK31A6Ma6H428c+XdIX12ERIQi/pGdWY5KTCJttbm4ynb98JCefNmFVIzazGjEuPgkG0MMWzxnNJYEQ39hKs4RYMAKP0r4EQzGyKhUfaIkX4/dx1v4dNwl0SaZ5miPZetKAG03MSUITiRubyh+N7Lbm+FGOJSnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PX9cO8mI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nc6DLfZb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D3FF1F00893;
-	Tue, 13 Oct 2026 16:12:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791907966;
-	bh=/nvqiBKnlCgESbrrlE/W7lJKU0GKm8Az/q9QJTSymdI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nc6DLfZb1+FifpVz4vrA8z/TZVgkZwanYdcBW1LoRPh2aA3nDhmNupYs+w7MRI4r+
-	 WvVd3oqepIJEbNobYigZRZweV9unsMvC1huXOTGGcr3+m0VnZYPmg7XGbtQl4Rr6JN
-	 SPJbK5Ab0weFjVBKo7rssvbp56ClJ2K8kyURws7o=
-Date: Tue, 13 Oct 2026 18:12:52 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: phil@phil.gs
-Cc: Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Johan Hovold <johan@kernel.org>, linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] serial: core: Shut down a running console port before
- removing it
-Message-ID: <2026101326-outmatch-regular-f8ae@gregkh>
-References: <20261013-serial-console-remove-v2-1-2eca1a92c10d@phil.gs>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PX9cO8mI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5561B1F000FF;
+	Tue, 13 Oct 2026 16:14:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791908059;
+	bh=CmDHhCQoAbUpBFuaclxDedRPDNY86rjCRM+GuNia0jA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PX9cO8mIkF2PI+qYTApJqcG5HOSuPSAVA9bQaaOlb4WLud/YcKJT+yHIdACRuyf3i
+	 K6cxP47Eaz5hK+TwIhpEUoQDv5t3y66omX9HXtm+4ae6FaHLQ8YBdJLuMxatNrdhu9
+	 cyjtA2riBzN2rqEKMhjV8Vl63hWX19CzH1kvjO3ztSXNkhrJI+JFOBZr/hjnTk06fS
+	 Le86sfjeRPA69A1WhKYJK8B42TH1TdTNMXlqN4xNj5IQPRxNaANF1J38StamMDXLbr
+	 ZpHermwD5ZcB4j2De6NtmSm3cBesFRZmvqltUiWyOhVMFmrX9MXZOfvQbVg7hieEUE
+	 DhuUlY33+b8pw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+	Pauli Virtanen <pav@iki.fi>,
+	syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com,
+	Jiaming Zhang <r772577952@gmail.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] Bluetooth: RFCOMM: connect the session socket without rfcomm_mutex
+Date: Tue, 13 Oct 2026 12:14:17 -0400
+Message-ID: <20261013161351.396382-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026101208-jailbreak-cuddly-877a@gregkh>
+References: <2026101208-jailbreak-cuddly-877a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013-serial-console-remove-v2-1-2eca1a92c10d@phil.gs>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 10:07:16AM -0400, Phil Rosenthal via B4 Relay wrote:
-> From: Phil Rosenthal <phil@phil.gs>
-> 
-> A console port is not shut down when its last user closes it:
-> tty_port_shutdown() returns early when tty_port::console is set, so the
-> port stays initialized.  For an 8250 port this leaves its interrupt
-> requested or, for a port without an interrupt, its poll timer armed.
-> 
-> serial_core_remove_one_port() relies on tty_port_tty_vhangup() to shut
-> the port down before releasing its resources, but the hangup reaches
-> uart_hangup() -> uart_shutdown() only when a tty is attached.  For a
-> console that was opened and closed, for example a serial console whose
-> getty has been stopped, nothing shuts the port down.  The console is
-> unregistered, ->release_port() releases the registers and the core frees
-> uport->name while the port is still running.  On tty-next with 8250
-> ports:
-> 
->  - A card bound to 8250_pci with an INTx interrupt and unbound through
->    sysfs keeps its interrupt requested after the driver is gone.  The
->    irqaction name points to the freed uport->name, so reading
->    /proc/interrupts is a slab-use-after-free in irq_seq_show().
-> 
->  - A polled (irq = 0) MMIO port with UPF_IOREMAP keeps running
->    serial8250_timeout() after serial8250_release_port() has cleared
->    membase, which dereferences NULL in timer softirq context about
->    10 ms after "console [ttyS5] disabled".
-> 
-> After unregistering the console and before releasing the resources, call
-> uart_shutdown().  It runs with port->mutex held, as for its other
-> callers, and with no tty, so it also drops DTR and RTS.  For a port that
-> is not initialized, because the hangup already shut it down or because it
-> is suspended, uart_shutdown() leaves the hardware alone and only releases
-> what the core still holds, such as the transmit buffer of a suspended
-> port.
-> 
-> Fixes: 761ed4a94582 ("tty: serial_core: convert uart_close to use tty_port_close")
-> Cc: stable@vger.kernel.org # 6.6.x
-> Assisted-by: LLM sparse
-> Signed-off-by: Phil Rosenthal <phil@phil.gs>
-> ---
-> The bug goes back to v4.9 (761ed4a94582), but scoped_guard() for
-> mutexes was only added in v6.5, so this version doesn't build on the
-> 6.1, 5.15 and 5.10 stable trees.  For those I'll send a backport that
-> uses mutex_lock() and mutex_unlock() instead and is otherwise the same.
-> 
-> I hit the bug on real hardware.  My serial console is a polled ASPEED
-> BMC VUART, then driven by an out-of-tree module.  After I stopped its
-> getty, unloading the driver oopsed in mem32_serial_in() from
-> serial8250_timeout().
-> 
-> History: before 761ed4a94582, uart_close() called uart_shutdown() for
-> every port, consoles included.  761ed4a94582 made console ports skip the
-> shutdown on close.  be2c92b8f164 reverted that part and 4dda864d7307
-> reinstated it, all within v4.9.  Keeping a console running after close is
-> intended, but the removal path was never updated for it.
-> 
-> Tested in a QEMU guest on tty-next 36844ea19656 with KASAN, using in-tree
-> 8250_pci and a "serial8250" platform port.  Reproducers are available on
-> request.  Without this patch:
-> 
->   8250_pci with INTx, reading /proc/interrupts after unbind:
->     BUG: KASAN: slab-use-after-free in string+0x3b6/0x4c0
->      irq_seq_show+0x34d/0x810
->     Allocated by task 1244:
->      kasprintf+0xac/0x100
->      serial_core_register_port+0x55f/0x1720
->     Freed by task 1276:
->      kfree+0x1a0/0x4a0
->      serial_core_unregister_port+0x44d/0xa80
->      serial8250_unregister_port+0x10d/0x6c0
->      pciserial_detach_ports+0x92/0x160
-> 
->   Polled MMIO port (irq 0, UPF_IOREMAP) after removal:
->     printk: console [ttyS5] disabled
->     BUG: kernel NULL pointer dereference, address: 0000000000000008
->     RIP: 0010:mem32_serial_in+0x74/0xa0
->      serial8250_timeout+0x44/0x140
->      call_timer_fn+0x32/0x260
-> 
-> With this patch both cases are clean: the IRQ is freed on unbind,
-> rebinding restores the console, and the polled port is shut down on
-> removal.  A port held open across removal and a console that was never
-> opened did not fail before and still work.  v2 was retested the same
-> way.  W=1, sparse and checkpatch --strict are clean.
-> 
-> Also tested on real hardware: the ASPEED BMC VUART that hit the bug
-> (polled MMIO, irq 0) as the console, now bound to 8250_pci with my
-> pending ASPEED support patch [1], on a 7.0.14 distribution kernel with
-> both patches.  After stopping the getty, opening and closing the port,
-> and unbinding the PCI device, there is no oops.  Rebinding restores the
-> console, the getty and in-band IPMI.  That run used v1; v2 behaves the
-> same on that path.
-> 
-> Not tested: serial drivers other than 8250, and removing a port while it
-> is suspended (the case v2 adds).
-> 
-> [1] https://lore.kernel.org/r/20261008-aspeed-vuart-v1-1-d2be17c99cd7@phil.gs
-> 
-> AI assistance: an LLM coding assistant (Claude, model claude-opus-5-5, in
-> Claude Code) analysed the crash, wrote the reproducers and the patch, and
-> built and ran the test kernels.  Two other LLMs reviewed the result
-> (GPT-5.6 Sol via Codex, and Claude Fable 5.1 via Claude Code).  I reviewed
-> it as well.
-> ---
-> Changes in v2:
-> - Call uart_shutdown() without checking tty_port_initialized() first,
->   so that a console port removed while suspended also gets its transmit
->   buffer freed and its suspended flag cleared (found by Sashiko's
->   review of v1).  uart_shutdown() already skips the hardware shutdown
->   for a port that is not initialized.  Comment and changelog updated.
-> - Use scoped_guard() for port->mutex, as elsewhere in the function, and
->   drop the comment (Greg).
-> - Link to v1: https://lore.kernel.org/r/20261008-serial-console-remove-v1-1-288b9c315af7@phil.gs
-> ---
->  drivers/tty/serial/serial_core.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-> index 319a4b427f3a3727d12cb58252bd8959f9be4cd6..d96d84a985cd972f3974da28cf3daa7fc05eefcf 100644
-> --- a/drivers/tty/serial/serial_core.c
-> +++ b/drivers/tty/serial/serial_core.c
-> @@ -3239,6 +3239,9 @@ static void serial_core_remove_one_port(struct uart_driver *drv,
->  	if (uart_console(uport))
->  		unregister_console(uport->cons);
->  
-> +	scoped_guard(mutex, &port->mutex)
-> +		uart_shutdown(NULL, state);
-> +
->  	/*
->  	 * Free the port IO and memory resources, if any.
->  	 */
-> 
-> ---
-> base-commit: 36844ea19656fb41278799ef3d5cd52120d89149
-> change-id: 20261008-serial-console-remove-d9ef4da86e0c
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 
-Is this the same as:
-	https://patch.msgid.link/20261003163337.45577-1-igorpetindev@gmail.com
-?
+[ Upstream commit ac022970e9fb0a5f7e7d1f6c8e104c1ed924dd1c ]
 
-Why does that commit set a field and this change does not?  Which is
-correct?
+An RFCOMM connect() issued while a BR/EDR link is being authenticated
+makes lockdep report a circular dependency, and the reported cycle is a
+real AB/BA between rfcomm_mutex and hdev->lock.
 
-thanks,
+rfcomm_security_cfm() is called from the HCI event path, which already
+holds hdev->lock:
 
-greg k-h
+  hci_rx_work()
+    hci_event_packet()
+      hci_cc_read_enc_key_size()   [hdev->lock]
+        hci_encrypt_cfm()          [hci_cb_list_lock]
+          rfcomm_security_cfm()    [rfcomm_mutex]
+
+while an RFCOMM connect() from userspace takes the same two locks the
+other way round:
+
+  rfcomm_sock_connect()
+    rfcomm_dlc_open()              [rfcomm_mutex]
+      __rfcomm_dlc_open()
+        rfcomm_session_create()
+          kernel_connect()
+            l2cap_sock_connect()
+              l2cap_chan_connect() [hdev->lock]
+
+  WARNING: possible circular locking dependency detected
+  kworker/u131:1/1128 is trying to acquire lock:
+  rfcomm_mutex, at: rfcomm_security_cfm+0x31/0x3e0 [rfcomm]
+  but task is already holding lock:
+  hci_cb_list_lock, at: hci_cc_read_enc_key_size+0x1d2/0xcc0
+  Chain exists of:
+    rfcomm_mutex --> &hdev->lock --> hci_cb_list_lock
+
+hci_auth_complete_evt() and hci_encrypt_change_evt() reach the callback
+the same way.
+
+Both orders have to be seen in the same boot, which is why a BR/EDR
+connection alone is not enough to show it: a session set up by the
+remote side is created by rfcomm_accept_connection() in krfcommd, which
+calls kernel_accept() and never takes hdev->lock under rfcomm_mutex.
+Connecting a device that authenticates and encrypts the link and then
+calling connect() on an RFCOMM socket towards any address - the connect
+does not have to succeed, the order is recorded before the page timeout
+- reports it every time.
+
+Only the session socket has to be connected with the lock held, and it
+does not: nothing else can see the socket before it is put on the
+session list.  So connect it first and take rfcomm_mutex afterwards,
+which removes the rfcomm_mutex -> hdev->lock order for good, rather
+than keeping the HCI event path out of rfcomm_mutex.
+
+rfcomm_session_create() becomes rfcomm_session_connect(), which returns
+the connected socket without touching the session list, and
+rfcomm_dlc_open() adds the session once it holds the lock again.  If
+another opener added a session for the same pair while this socket was
+connecting, that session is used and this socket is dropped.
+__rfcomm_dlc_open() now takes the session it should use, and its state
+check runs after the lock is re-acquired, so a DLC that was opened or
+closed in the meantime is still handled.
+
+Over an existing ACL link the connection can complete before the
+session reaches the list, and the wakeup from the socket callback is
+then lost, so krfcommd is woken once the session is visible.
+
+Connecting without the lock opens a window in which the socket can be
+closed.  The DLC is not on a session yet, so rfcomm_dlc_close() finds
+nothing to do and returns without touching it, and rfcomm_dlc_open()
+would then attach a DLC whose owner is gone.  rfcomm_dlc_close() now
+marks such a DLC with RFCOMM_CLOSED, and rfcomm_dlc_open() checks the
+mark once it holds rfcomm_mutex again and drops the socket instead of
+attaching the DLC.  The mark is cleared when an open starts, so a DLC
+that is reused is not affected.  This covers both callers of
+rfcomm_dlc_open(), the socket and the tty layer.
+
+Fixes: 759c185d0bbd ("Bluetooth: RFCOMM: serialize security confirmation handling")
+Suggested-by: Pauli Virtanen <pav@iki.fi>
+Reported-by: Pauli Virtanen <pav@iki.fi>
+Closes: https://lore.kernel.org/linux-bluetooth/5e76a95e934e451e7006db28827c2d64af5a88be.camel@iki.fi/
+Reported-by: syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/linux-bluetooth/6a92fadc.08e933ee.dbf97.008f.GAE@google.com/
+Reported-by: Jiaming Zhang <r772577952@gmail.com>
+Closes: https://lore.kernel.org/all/CANypQFabseTuRiyz2pGkc_Qj0moGDnY7KEp1qdTOqkw6gAL3hw@mail.gmail.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Tested-by: syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+[ sashal: Changed kernel_connect()’s address cast from struct sockaddr_unsized * to struct sockaddr *. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ include/net/bluetooth/rfcomm.h |   1 +
+ net/bluetooth/rfcomm/core.c    | 134 +++++++++++++++++++++++----------
+ 2 files changed, 96 insertions(+), 39 deletions(-)
+
+diff --git a/include/net/bluetooth/rfcomm.h b/include/net/bluetooth/rfcomm.h
+index 7e40d3c5f5a97..e8e82869b2812 100644
+--- a/include/net/bluetooth/rfcomm.h
++++ b/include/net/bluetooth/rfcomm.h
+@@ -210,6 +210,7 @@ struct rfcomm_dlc {
+ #define RFCOMM_AUTH_REJECT  7
+ #define RFCOMM_DEFER_SETUP  8
+ #define RFCOMM_ENC_DROP     9
++#define RFCOMM_CLOSED       10
+ 
+ /* Scheduling flags and events */
+ #define RFCOMM_SCHED_WAKEUP 31
+diff --git a/net/bluetooth/rfcomm/core.c b/net/bluetooth/rfcomm/core.c
+index 6c57f5a766c17..b2d9bd743ea2e 100644
+--- a/net/bluetooth/rfcomm/core.c
++++ b/net/bluetooth/rfcomm/core.c
+@@ -65,10 +65,9 @@ static void rfcomm_make_uih(struct sk_buff *skb, u8 addr);
+ 
+ static void rfcomm_process_connect(struct rfcomm_session *s);
+ 
+-static struct rfcomm_session *rfcomm_session_create(bdaddr_t *src,
+-							bdaddr_t *dst,
+-							u8 sec_level,
+-							int *err);
++static struct socket *rfcomm_session_connect(bdaddr_t *src, bdaddr_t *dst,
++					     u8 sec_level, int *err);
++static struct rfcomm_session *rfcomm_session_add(struct socket *sock, int state);
+ static struct rfcomm_session *rfcomm_session_get(bdaddr_t *src, bdaddr_t *dst);
+ static struct rfcomm_session *rfcomm_session_del(struct rfcomm_session *s);
+ 
+@@ -368,28 +367,17 @@ static int rfcomm_check_channel(u8 channel)
+ 	return channel < 1 || channel > 30;
+ }
+ 
+-static int __rfcomm_dlc_open(struct rfcomm_dlc *d, bdaddr_t *src, bdaddr_t *dst, u8 channel)
++static int __rfcomm_dlc_open(struct rfcomm_dlc *d, struct rfcomm_session *s,
++			     u8 channel)
+ {
+-	struct rfcomm_session *s;
+-	int err = 0;
+ 	u8 dlci;
+ 
+-	BT_DBG("dlc %p state %ld %pMR -> %pMR channel %d",
+-	       d, d->state, src, dst, channel);
+-
+-	if (rfcomm_check_channel(channel))
+-		return -EINVAL;
++	BT_DBG("dlc %p state %ld session %p channel %d",
++	       d, d->state, s, channel);
+ 
+ 	if (d->state != BT_OPEN && d->state != BT_CLOSED)
+ 		return 0;
+ 
+-	s = rfcomm_session_get(src, dst);
+-	if (!s) {
+-		s = rfcomm_session_create(src, dst, d->sec_level, &err);
+-		if (!s)
+-			return err;
+-	}
+-
+ 	dlci = __dlci(__session_dir(s), channel);
+ 
+ 	/* Check if DLCI already exists */
+@@ -424,14 +412,84 @@ static int __rfcomm_dlc_open(struct rfcomm_dlc *d, bdaddr_t *src, bdaddr_t *dst,
+ 
+ int rfcomm_dlc_open(struct rfcomm_dlc *d, bdaddr_t *src, bdaddr_t *dst, u8 channel)
+ {
+-	int r;
++	struct rfcomm_session *s;
++	struct socket *sock;
++	int err;
++
++	BT_DBG("dlc %p state %ld %pMR -> %pMR channel %d",
++	       d, d->state, src, dst, channel);
++
++	if (rfcomm_check_channel(channel))
++		return -EINVAL;
+ 
+ 	rfcomm_lock();
+ 
+-	r = __rfcomm_dlc_open(d, src, dst, channel);
++	clear_bit(RFCOMM_CLOSED, &d->flags);
+ 
++	/* Do not page the remote device for a DLC that cannot be opened
++	 * anyway.  __rfcomm_dlc_open() looks at the state again once the
++	 * lock has been re-acquired below.
++	 */
++	if (d->state != BT_OPEN && d->state != BT_CLOSED) {
++		rfcomm_unlock();
++		return 0;
++	}
++
++	s = rfcomm_session_get(src, dst);
++	if (s) {
++		err = __rfcomm_dlc_open(d, s, channel);
++		rfcomm_unlock();
++		return err;
++	}
+ 	rfcomm_unlock();
+-	return r;
++
++	/* There is no session for this pair yet.  kernel_connect() ends up in
++	 * l2cap_chan_connect(), which takes hdev->lock, and the HCI event
++	 * path takes rfcomm_mutex while holding hdev->lock, so the socket has
++	 * to be connected with rfcomm_mutex released.
++	 */
++	sock = rfcomm_session_connect(src, dst, d->sec_level, &err);
++	if (!sock)
++		return err;
++
++	rfcomm_lock();
++
++	/* The DLC may have been closed while the socket was connecting.  It
++	 * was not on a session, so rfcomm_dlc_close() could only mark it;
++	 * attaching it now would leave it with no owner.
++	 */
++	if (test_bit(RFCOMM_CLOSED, &d->flags)) {
++		rfcomm_unlock();
++		sock_release(sock);
++		return -ECONNRESET;
++	}
++
++	/* Another opener may have added a session for the same pair in the
++	 * meantime; that one is used and this socket is dropped.
++	 */
++	s = rfcomm_session_get(src, dst);
++	if (!s) {
++		s = rfcomm_session_add(sock, BT_BOUND);
++		if (s) {
++			s->initiator = 1;
++			sock = NULL;
++		}
++	}
++
++	err = s ? __rfcomm_dlc_open(d, s, channel) : -ENOMEM;
++
++	rfcomm_unlock();
++
++	if (sock)
++		sock_release(sock);
++
++	/* Over an existing ACL link the connection can complete before the
++	 * session reaches the list, and that wakeup is then lost, so let
++	 * krfcommd look at the socket state now.
++	 */
++	rfcomm_schedule();
++
++	return err;
+ }
+ 
+ static void __rfcomm_dlc_disconn(struct rfcomm_dlc *d)
+@@ -511,8 +569,14 @@ int rfcomm_dlc_close(struct rfcomm_dlc *d, int err)
+ 	rfcomm_lock();
+ 
+ 	s = d->session;
+-	if (!s)
++	if (!s) {
++		/* Not on a session yet: rfcomm_dlc_open() may be connecting a
++		 * socket for it with rfcomm_mutex released.  Leave a mark so
++		 * that it does not attach the DLC once it holds the lock again.
++		 */
++		set_bit(RFCOMM_CLOSED, &d->flags);
+ 		goto no_session;
++	}
+ 
+ 	/* after waiting on the mutex check the session still exists
+ 	 * then check the dlc still exists
+@@ -760,12 +824,12 @@ static struct rfcomm_session *rfcomm_session_close(struct rfcomm_session *s,
+ 	return rfcomm_session_del(s);
+ }
+ 
+-static struct rfcomm_session *rfcomm_session_create(bdaddr_t *src,
+-							bdaddr_t *dst,
+-							u8 sec_level,
+-							int *err)
++/* Creates the L2CAP socket a new session will run on and starts connecting
++ * it.  Must be called with rfcomm_mutex released.
++ */
++static struct socket *rfcomm_session_connect(bdaddr_t *src, bdaddr_t *dst,
++					     u8 sec_level, int *err)
+ {
+-	struct rfcomm_session *s = NULL;
+ 	struct sockaddr_l2 addr;
+ 	struct socket *sock;
+ 	struct sock *sk;
+@@ -795,24 +859,16 @@ static struct rfcomm_session *rfcomm_session_create(bdaddr_t *src,
+ 		l2cap_pi(sk)->chan->mode = L2CAP_MODE_ERTM;
+ 	release_sock(sk);
+ 
+-	s = rfcomm_session_add(sock, BT_BOUND);
+-	if (!s) {
+-		*err = -ENOMEM;
+-		goto failed;
+-	}
+-
+-	s->initiator = 1;
+-
+ 	bacpy(&addr.l2_bdaddr, dst);
+ 	addr.l2_family = AF_BLUETOOTH;
+ 	addr.l2_psm    = cpu_to_le16(L2CAP_PSM_RFCOMM);
+ 	addr.l2_cid    = 0;
+ 	addr.l2_bdaddr_type = BDADDR_BREDR;
+ 	*err = kernel_connect(sock, (struct sockaddr *) &addr, sizeof(addr), O_NONBLOCK);
+-	if (*err == 0 || *err == -EINPROGRESS)
+-		return s;
++	if (*err && *err != -EINPROGRESS)
++		goto failed;
+ 
+-	return rfcomm_session_del(s);
++	return sock;
+ 
+ failed:
+ 	sock_release(sock);
+-- 
+2.53.0
+
