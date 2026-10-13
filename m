@@ -1,81 +1,72 @@
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 240E93D3CE5
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 09:04:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C08D0331200
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 09:04:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791882253; cv=none; b=u6GJ/JYz6tXij34EtOio02oUoI2lbUyps5YOjnk5LmQROWPnE7EpJDi+mvaWa+LzWM4bI8iVEx775YmAli9r5wyPKUFDcPgaZLhBpl4MQUQfVef6ZfCf3mGMpkW5oPX3ZuNsE0FPkhcSVV5RIPH7BDwd9p76SKE+Nr23leU5ilE=
+	t=1791882297; cv=none; b=Pt4I+rSr8KD0lt9hWHxjsGH5cYpzZPMHH0bJ6+27x1u+8FPDW9TiMoNheInCgtQuo4wStFoV2CSec5GqulVGkIhzfo33bqwfOe1S5c3UrTh8f0Mjzd7k4EbnS+wqCFjttLt+YvMemQUKyhGrk7SeE2XDB22JhA+/fty4SqURrUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791882253; c=relaxed/simple;
-	bh=/nK5IKQC21UoPbNXSYgntVq7qevvTsm2IPtKkOtsXd0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aVvH5t0QAXDM+x40l6DFDfquQF/NGEdSMaSu9b6lEkv0Qkv4xLpmSQR5oBokx/JFLvSE1Rth64sCAaL6uxXe5En+bjlMCRmBVkUbw9exSknThJg2LGOIZHlyg7cDT8wHrupo3SU9GFPbD1XSdbTZgALBOmmGAWssN9APnUpTI3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ioBl8FXz; arc=none smtp.client-ip=74.125.82.52
+	s=arc-20240116; t=1791882297; c=relaxed/simple;
+	bh=GEyscDG3hRct4i5PqeupCLPTXDZZMD3LI88vgtxk/oI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QuWezhfA8Qg9GpZRjVxl67O9UGzQO0nkeWlsMVbtZdwIo7SMt+ltU0ZgwCqPyW6wAv7U3Oq6lvby2kpX8tc+F3tbNKs8Slu3sf+EW1djzbe55IB0oE9dIxs12RS30bETPpKsZ2oVW8h5l2+oZhKgHU4RrSEy0czqFRfWQGN4RcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SsuiHND5; arc=none smtp.client-ip=74.125.82.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ioBl8FXz"
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-142eed7df08so228034c88.1
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 02:04:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SsuiHND5"
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3535dd9a601so200443eec.0
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 02:04:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791882250; x=1792487050; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fa9vZBayEtyLCk+UCPP6j3yznT2w8lB21Q+YTXQARCw=;
-        b=ioBl8FXz8736U1/rcja4KWj7IvRUxJYH0o4+QpETEIfZCYCDdwjtCCTq4UMfJwIvE4
-         Z1+ISCoO59miUBax1HZ10FVzPWDzzX4T93YL/mNibLr6lnicujIv5+grRtm3Laa+dg8E
-         4aCYaZyKCvsv9/ZglTEW6faYTgRlzjTuGVqIVpBTYsAJRIp6ywQbqz03Z+6LWvPoxxBN
-         r4ZdBLMNeQ5vpaWB+Y4RCuAxAxUyTYG91okU5PHSCAjEUBrT4VZF/ZdvPuBd84Bve4V0
-         AtSg7DaPRtFn9Q8rTkqpzevQV6PpIldi5QbSr5kL3j7XkPp8i8qw9V1bFNW4NiM0fQs2
-         5Rqw==
+        d=gmail.com; s=20251104; t=1791882294; x=1792487094; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dxhG2H1+Sm23DRdhBURFp45TF5bOWuOpjOESI+s8Fjw=;
+        b=SsuiHND5UcztOFPmlpRUzqFDIddDCL5nVwQxbuwx/X8zyVb94TfJ+lg5bRSoFwiQjZ
+         9i1cDNadjyTsxPMMq43gPSEA5HjvhGAMj6kF0KuW68Km6QTXOVrjtHvh3+SgRkrKmwQr
+         Rx4sIoN7bnc6Dswtk4oDJZPRMM5vF4rm6SZcoY4+zoZek3ORcX5BSvhxcQpwlytMJohx
+         sulTHaxBjqF60+VBHhaCabSDWGzk7DA+d0U2n0FFeqZRPNAqHFl22iqZqU4KL6cFBqg6
+         cm4GWRzz3SDKkaVFj6rEqw1bcs/nzJgzl5hE52p4jDdSAKis6KNuEK9AtbwScLxSqjhr
+         T4lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791882250; x=1792487050;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fa9vZBayEtyLCk+UCPP6j3yznT2w8lB21Q+YTXQARCw=;
-        b=OcJs8ewmcCvsgpt0LBunULRW0kgcJgYv0gZ0oTq8S+yOjBBrpY0cW4LSoUKNjnePLS
-         2SOAW5/F9C+nUgZIPTXat1hgWdq5ONofKHfYW0rWbTnuSJ0s4TBBLkizUUQV2L6Fvc4b
-         +RpSWY6cIyoZ9XICnV0hoEvsL/k/vkJB/MMxILKu7ezfJARFkJBxS/fQxLLjuyClirqZ
-         4+f7XQVw9CtTO1e1KzBjSv2gX89OFKQ7QqA6b0R+UhIC+YTN5VewknvpZ9YDbsTdX72r
-         7Li60Uvbb/gTuE36aAfHPWtYh2DQOyZcEn8jRr69OxAStr6VARQ/RGKNYu1odQppYZzC
-         1rfQ==
-X-Forwarded-Encrypted: i=1; AKwUvByjcFfRm15UCDWKo3SgeDmSWER5eb85VQUzRklmv1hxzIEhUdxJwrVJ2wWaGfByHPfaEtxbm/o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI8NnlUCTL59EMF1ND7PFi4Mce0cmGJyF/8MSDwPrWkzegrM4IH
-	ponTfUAr8D/pVTcnoJDhKkpVH5SoF25d3BluCvFl9GVkDsy5ERgvwcwE
-X-Gm-Gg: AYBFou2/dWSReFlFduZf/Fa0/vj502xNrrVvUDPWcSuSaS4+Rue8qP6WLg8HIIupqDc
-	gTnJSj+tST284R+bKUiTKieccQ9rvpWghPK0cny1Bqn47i+I7Z7TxsptnOF3tmrHV91u2U78M8B
-	PcjY2Wr/MJtJ7u2wtEXVeIrKYLmnWje/yGPmUbUHV0VnHLj1YrlUgKrNfEHmcisep0wPuHrCuqM
-	JbOky1XzxTJPk5DrIxf9RkR6VspwwZPJ6u8ctXzO4emmVsftxjSdVt2jviPtW/3HL85Kx4+xTB0
-	xrNr6+NBsUmjGNBgx/pgcXZNpk42xmWBaFw8H0FtPwybS6DLi8nDGCOZvAv+OQaUdOaI529hs9G
-	UPF2Ffae8uFhsZyhPebI+06F4hHQTXQI8hoWB+NLF1M32Vhz1Gl01qRrHhGFLzdgUkVi42c+lkz
-	Y0MVGe7Gyt3X5JJsxGPq0HHUTZl6aZiOEd2pjIdC2MpEFmsCoS1OAg868WFEb8M0SZAPm8nhT8J
-	/f/bWKNM6odCeJVhalJ+qupm5Rhb01C4EXLQ8UCe0H7OOFVkp+vQYh7mCWouxs8wg8iGKGtYkI=
-X-Received: by 2002:a05:701b:4515:20b0:144:fd17:3b21 with SMTP id a92af1059eb24-16a4e2f6033mr24392643c88.0.1791882250034;
-        Tue, 13 Oct 2026 02:04:10 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791882294; x=1792487094;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dxhG2H1+Sm23DRdhBURFp45TF5bOWuOpjOESI+s8Fjw=;
+        b=qnkTfjz8NXkCnIQowb2fRBDlp1pobqf7r4b8jkaZydxD+LwYQjijO0XEfrDWE545Ac
+         dD/i2hHZawHjdxkuUkVStzddEoR99vYIV/ysNMwnpqhBHOJ0ALphToSygHWxb29rVW32
+         Pj/MYKQbIajWKEhOCq91cnsr3UZJRp2Bx4whvDVVHvMzg+jd/bs8B38wal1zq9ksQ5xT
+         pwmFuTrMOmm+57hPhfT0qts11uJ+MFHFc34RKwbYOGXRHT5/r2U/A7AW27iFCSUs5abO
+         Exx+yqVK46ig2Z++KNiMSK4Cc8ZNXuCcCw/bEVhn5GJ8xyXYnvqxXfC8hqnl8vCXbHAC
+         669A==
+X-Forwarded-Encrypted: i=1; AKwUvBzXE4tBDm/jna2jRyGnOCzwThyRuyh9spB9kYl55b/GfUnVQtoq8+Si7LXgnYwWnlvVXBNT/M0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2RcEa2eWFwD4kyTmbVpvkLhVc1Ox96Bxq0pjqCKOouRA1UgP+
+	ykRoXrj5XasffZwZauoKOsxjWnGwyFzAjEvb/LTSp7Myfaq7EHiLcb2S3ph7mVu9
+X-Gm-Gg: AYBFou2OxeP/5t8wGStSxLTyiVUjZvDiAYk5tnK0xHIfsqHfF3FDucL9JXYMDCPZULF
+	tXHR2EQaF54cEuFm/4l2yYT69e9IgTZyc/33anF/yrObfBoCHUeaVGrujNxOgF/5a0m8k1skz6o
+	5JdBSv6CEnz8+h7NxIa4myjoMDX+tiQkUlGwlICp4CcWpc/8dEMYFjTxFSwNAzQIODllaQR89ME
+	pncV+hEoZyyHHVJOGx/P3rlp+tYJCvFvP9xaylg0aGX5IF7RiLcYtvIythX87lrcQ/jyejqIigP
+	2ZBnrEyTL7nrx7SyfBPC743xTV2wwlIW4Jq5IZRHuK/h1gjMU88KK8uhKKTPWGmNh5KfxDr6S6H
+	PUaRc8m7GjnjjL6SjfBwYhuaBqZqDGWoi4iX/g2YzkLaUJJbjETE6K1MdBj5dMQEgI+H2++lL69
+	PH0VCAP/3D0N32I/imJsUNteu5eS15YWATpKXKn1dqHWlDEvSm/xhHx2yUVD007OGCR4EOpDHXr
+	dcDnXlyONB5kHPkdWrf+toTvczEg1NeMsC4gRRmZrENSXS28xtXAQb1wryNJ0Sv
+X-Received: by 2002:a05:701b:21ce:b0:149:c766:2965 with SMTP id a92af1059eb24-17a0d84a29amr2902969c88.2.1791882293581;
+        Tue, 13 Oct 2026 02:04:53 -0700 (PDT)
 Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a31f6f5csm36281803c88.11.2026.10.13.02.04.06
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a2d2db98sm35211947c88.10.2026.10.13.02.04.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 02:04:09 -0700 (PDT)
+        Tue, 13 Oct 2026 02:04:52 -0700 (PDT)
 From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>,
-	David Howells <dhowells@redhat.com>
-Cc: Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E . Hallyn" <serge@hallyn.com>,
-	keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
+To: Miklos Szeredi <miklos@szeredi.hu>
+Cc: fuse-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>
-Subject: [PATCH v4 2/2] keys: Serialize ownership transfers with key accounting
-Date: Tue, 13 Oct 2026 17:03:58 +0800
-Message-ID: <20261013090358.1178367-2-nicoyip.dev@gmail.com>
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] fuse: fix copy_file_range reply handling race
+Date: Tue, 13 Oct 2026 17:04:47 +0800
+Message-ID: <20261013090447.1180121-1-nicoyip.dev@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261013084056.1070923-1-nicoyip.dev@gmail.com>
-References: <20261013084056.1070923-1-nicoyip.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,153 +75,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Protecting individual accesses to key->user does not make ownership
-transfers atomic with accounting updates. keyctl_chown_key() holds
-key->sem, but instantiation is serialized by key_construction_mutex and
-need not hold that semaphore. KEY_LOOKUP_PARTIAL also permits chown of
-an uninstantiated key.
+__fuse_copy_file_range() selects its request opcode and output buffer
+using fc->no_copy_file_range_64, then reads the flag again to handle the
+reply. Copies to different destination inodes can run concurrently on
+the same connection, so the flag may change while a request is pending.
 
-The instantiated-key count can therefore be charged to the wrong owner:
+For example, task A submits FUSE_COPY_FILE_RANGE_64 and waits for its
+reply. Task B submits the same opcode, receives -ENOSYS and sets
+no_copy_file_range_64. When A receives a successful reply, it reads the
+uninitialized outarg.size instead of outarg_64.bytes_copied. This can
+produce an incorrect return value, page cache invalidation range and
+inode size update, and disclose stack contents if automatic stack
+initialization is disabled.
 
-  instantiate                       keyctl_chown_key()
-  increment old->nikeys
-                                    observe KEY_IS_UNINSTANTIATED
-                                    skip the nikeys transfer
-                                    replace key->user
-  mark key instantiated
+If A also receives -ENOSYS, it instead mistakes that reply for rejection
+of the legacy opcode and sets no_copy_file_range, skipping the legacy
+fallback and unnecessarily disabling copy offload for the connection.
 
-The key becomes instantiated under the new owner while the increment
-remains with the old owner. Negative instantiation has the same race.
+KCSAN reported the conflicting accesses:
 
-Quota reservation can likewise run between charging the new owner and
-replacing key->user. It then adjusts the old owner's quota and changes
-key->quotalen while chown is transferring that quota burden.
-key_payload_reserve() can run during instantiation without key->sem,
-so it needs the same exclusion against chown.
+  BUG: KCSAN: data-race in __fuse_copy_file_range / __fuse_copy_file_range
 
-Hold key_user_lock in keyctl_chown_key() across the quota and key-count
-transfers, state check, and owner replacement; locking only the pointer
-store leaves the preceding accounting exposed. In
-__key_instantiate_and_link() and key_reject_and_link(), hold it across
-the instantiated-key count increment and state update, so chown observes
-both together. Atomic counter operations alone do not stabilize the
-owner or couple the increment with state publication.
+  read to 0xffff8881014a4d4d of 1 bytes by task 123 on cpu 4:
+   __fuse_copy_file_range+0x1a7/0x6e0
+   fuse_copy_file_range+0x54/0xd0
+   vfs_copy_file_range+0x290/0x9d0
+   __do_sys_copy_file_range+0x10f/0x2f0
 
-Hold the same lock in key_payload_reserve() from owner selection through
-updating qnbytes and key->quotalen. The per-user quota lock cannot
-stabilize key->user during a transfer. Retain the existing per-user locks
-to serialize quota changes against other keys owned by the same user.
+  write to 0xffff8881014a4d4d of 8 bytes by task 119 on cpu 0:
+   __fuse_copy_file_range+0x633/0x6e0
+   fuse_copy_file_range+0x54/0xd0
+   vfs_copy_file_range+0x290/0x9d0
+   __do_sys_copy_file_range+0x10f/0x2f0
 
-Keep allocations, notifications and reference release outside
-key_user_lock, and release it on the quota-overrun path.
+The bug can lead to leak kernel base address for KASLR bypass, the 
+corresponding reproducer can be provided per request.
 
-Normal updates through key_update() and __key_update() already hold
-key->sem and exclude chown. key_alloc() charges a referenced owner before
-publishing the key. Final key_put() and key_gc_unused_keys() cannot race
-with chown, which requires a key reference. Their existing per-user locks
-and atomic counters still protect totals shared with other keys.
-key_user_lookup()/key_user_put() already protect owner creation and final
-removal with key_user_lock. These sites need no new ownership lock.
+Use args.opcode for both -ENOSYS handling and output buffer selection.
+It records the opcode actually sent and is updated on fallback, keeping
+each reply tied to its request regardless of concurrent flag updates.
 
-This accounting race was identified by source inspection.
-
-Fixes: 5801649d8b83 ("[PATCH] keys: let keyctl_chown() change a key's owner")
+Fixes: 7a37f55af7af ("fuse: add COPY_FILE_RANGE_64 that allows large copies")
 Cc: stable@vger.kernel.org
-Assisted-by: GPT-6-Astra
+Assisted-by: GPT-6 Astra
 Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 ---
-Changes in v4:
-- Include the reservation and instantiation scopes formerly in v3 1/2;
-  retain the same combined lock coverage while making this fix complete.
-- Keep accounting serialization as patch 2/2, matching v3. Include the
-  full lock/count/state/unlock scope at both instantiation sites.
-- Include quota reservation and the entire chown accounting transaction;
-  this patch can be applied without the namespace-reader fix.
+ fs/fuse/file.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-v3: https://lore.kernel.org/r/20260927162528.943886-3-nicoyip.dev@gmail.com/
-v3 1/2: https://lore.kernel.org/r/20260927162528.943886-2-nicoyip.dev@gmail.com/
-v2: https://lore.kernel.org/r/20260904080940.575882-1-nicoyip.dev@gmail.com/
-
- security/keys/key.c    | 15 +++++++++++++--
- security/keys/keyctl.c |  4 ++++
- 2 files changed, 17 insertions(+), 2 deletions(-)
-
-diff --git a/security/keys/key.c b/security/keys/key.c
-index a438c4508595d..61dd991cee543 100644
---- a/security/keys/key.c
-+++ b/security/keys/key.c
-@@ -21,6 +21,9 @@ struct rb_root		key_serial_tree; /* tree of keys indexed by serial */
- DEFINE_SPINLOCK(key_serial_lock);
- 
- struct rb_root	key_user_tree; /* tree of quota records indexed by UID */
-+/*
-+ * Protects key_user_tree and serializes ownership changes with key accounting.
-+ */
- DEFINE_SPINLOCK(key_user_lock);
- 
- unsigned int key_quota_root_maxkeys = 1000000;	/* root's key count quota */
-@@ -380,9 +383,12 @@ int key_payload_reserve(struct key *key, size_t datalen)
- 
- 	/* contemplate the quota adjustment */
- 	if (delta != 0 && test_bit(KEY_FLAG_IN_QUOTA, &key->flags)) {
--		unsigned maxbytes = uid_eq(key->user->uid, GLOBAL_ROOT_UID) ?
--			key_quota_root_maxbytes : key_quota_maxbytes;
- 		unsigned long flags;
-+		unsigned int maxbytes;
-+
-+		spin_lock(&key_user_lock);
-+		maxbytes = uid_eq(key->user->uid, GLOBAL_ROOT_UID) ?
-+			key_quota_root_maxbytes : key_quota_maxbytes;
- 
- 		spin_lock_irqsave(&key->user->lock, flags);
- 
-@@ -396,6 +402,7 @@ int key_payload_reserve(struct key *key, size_t datalen)
- 			key->quotalen += delta;
- 		}
- 		spin_unlock_irqrestore(&key->user->lock, flags);
-+		spin_unlock(&key_user_lock);
+diff --git a/fs/fuse/file.c b/fs/fuse/file.c
+index 9a36d0329e221..939391b48cc9b 100644
+--- a/fs/fuse/file.c
++++ b/fs/fuse/file.c
+@@ -3019,7 +3019,7 @@ static ssize_t __fuse_copy_file_range(struct file *file_in, loff_t pos_in,
  	}
+ 	err = fuse_simple_request(fm, &args);
+ 	if (err == -ENOSYS) {
+-		if (fc->no_copy_file_range_64) {
++		if (args.opcode == FUSE_COPY_FILE_RANGE) {
+ 			fc->no_copy_file_range = 1;
+ 			err = -EOPNOTSUPP;
+ 		} else {
+@@ -3030,7 +3030,7 @@ static ssize_t __fuse_copy_file_range(struct file *file_in, loff_t pos_in,
+ 	if (err)
+ 		goto out;
  
- 	/* change the recorded data length if that didn't generate an error */
-@@ -447,8 +454,10 @@ static int __key_instantiate_and_link(struct key *key,
+-	bytes_copied = fc->no_copy_file_range_64 ?
++	bytes_copied = args.opcode == FUSE_COPY_FILE_RANGE ?
+ 		outarg.size : outarg_64.bytes_copied;
  
- 		if (ret == 0) {
- 			/* mark the key as being instantiated */
-+			spin_lock(&key_user_lock);
- 			atomic_inc(&key->user->nikeys);
- 			mark_key_instantiated(key, 0);
-+			spin_unlock(&key_user_lock);
- 			notify_key(key, NOTIFY_KEY_INSTANTIATED, 0);
- 
- 			if (test_and_clear_bit(KEY_FLAG_USER_CONSTRUCT, &key->flags))
-@@ -604,8 +613,10 @@ int key_reject_and_link(struct key *key,
- 	/* can't instantiate twice */
- 	if (key->state == KEY_IS_UNINSTANTIATED) {
- 		/* mark the key as being negatively instantiated */
-+		spin_lock(&key_user_lock);
- 		atomic_inc(&key->user->nikeys);
- 		mark_key_instantiated(key, -error);
-+		spin_unlock(&key_user_lock);
- 		notify_key(key, NOTIFY_KEY_INSTANTIATED, -error);
- 		key_set_expiry(key, ktime_get_real_seconds() + timeout);
- 
-diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
-index c89a4d6efed40..e74fa0076ee0b 100644
---- a/security/keys/keyctl.c
-+++ b/security/keys/keyctl.c
-@@ -1006,2 +1006,4 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
- 
-+		spin_lock(&key_user_lock);
-+
- 		/* transfer the quota burden to the new user */
-@@ -1041,2 +1043,3 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
- 		key->uid = uid;
-+		spin_unlock(&key_user_lock);
- 	}
-@@ -1060,2 +1063,3 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
- 	spin_unlock_irqrestore(&newowner->lock, flags);
-+	spin_unlock(&key_user_lock);
- 	zapowner = newowner;
+ 	if (bytes_copied > len) {
 -- 
 2.43.0
 
