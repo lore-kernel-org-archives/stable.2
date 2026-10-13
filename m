@@ -1,64 +1,65 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B4CA4B0C82
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 06:21:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9038A4B405E
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 06:21:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791872509; cv=none; b=YgAbSrjtjRaGj9+hFOTW1kh13A09+fDgVe4a3/VrsYW4rmp5K9viaMnig6cTDqrqESIw7peK9GZzXcvJ2c1xK75KgH1IsuPNEi9bS20wEbw49zzhevaUCc5LfKcJSU4NbEpkyGsldN5fXdTyan43W1ofs3x6jm9SZbzqkoTSokI=
+	t=1791872513; cv=none; b=bKhA7OqWWDGh+dpwyQNwPaZfWATyIo8WCrE45PKigI9IITexzLJ4C5AWk9U52sbXlz8hvOctLZZwshyLKVyz8z+7kOq2QhzqPRzkybzAjFnRtrAGMpCLklLHMnomjzWiWd3pymXxG1Hy/cse71zjhwc7jnJTWqs0UpdaRKACbYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791872509; c=relaxed/simple;
-	bh=yKooLcN7CHgsaZDkbyO505c2en4X/luvbmOSMQrltvQ=;
+	s=arc-20240116; t=1791872513; c=relaxed/simple;
+	bh=v2xoffiL2VDz5NojqZv0T7MpCAZB7J4RpYDb1c9cCbg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=X67kk2AAFOpAfXFBZRS2L1yS74JG2U91kfLZdCxqlj7Skm/VX0EtrZMwF5aDj/bzD/58HJ2EaqYvjTiW8QJzpsyZWR3gvjsX4KBM7o4XssIQs0Kr9Rjihme5dOwkFEfQVIeUFkAsrzNc0dC/B4IP+e9L9OWFP+MyncywLCQckGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=QJ1kEgx8; arc=none smtp.client-ip=209.85.216.50
+	 MIME-Version; b=VD1tRIpkc5q7+35kAswp867Ae5Ju0CSNdMA/mqP7OoXBPeh+k+U1u8KwXVD1oKBw0qJzXBgHWSlUK8HX42adUaadDlzjlNREe/2bfbQ/06ADtMPBL/P1tL+Q0BIbybUJDx7TTcWSBqY+A0K6MhXE6ttu7M8yoLevHO/OLQ0Mk9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=zqBE63TG; arc=none smtp.client-ip=209.85.216.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="QJ1kEgx8"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ab4178ee33so1281868a91.3
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 23:21:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="zqBE63TG"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ab9268d90eso1106176a91.3
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 23:21:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791872508; x=1792477308; darn=vger.kernel.org;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791872510; x=1792477310; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nwgbOTwZS+Wdyws/KBJ7MPJ9pBsymYg2xZOg5DiPzmg=;
-        b=QJ1kEgx8z5465tqjVNSNRin25Dx7PonvzJRGqMcfEU+2TfvhEqn53+CCvAVQBGmNsa
-         nKZhPERxK5QFcDZIBMDzRNAidFYuop/ABZRdGMNzxX4Wvx8bhn2acu3xciVxp1lkFZe9
-         VILlzqWvSDlUHLv+hbg3GRXF9HKs83WOII1LFUB2LjXlIVvWBTyyOm/4rD72Zj3VnKBF
-         xnZGPqfFkN5LmWE559jUYfuqpg+RieZKgNl/O8f9eSUiIe8wrssk0tGDJg/5nWs+4p8g
-         gQ48K0EzR/H5j5phqdo1UxJyGk8XbSu6R57ieAethjJzUgLTfhOQzA/b+06NRViTDAJy
-         mptA==
+        bh=POSn5GjUfqQ74/iwNoPgD0VKPoE1QYtcinfIgdFuRqw=;
+        b=zqBE63TGRXvepYvPvyZReCISYe3dPCAhV4JEldeaU9go7EzhQ7/DUukfzXgNnbsCrk
+         mMGs0+APpNeFty37LzKb5+7fFNl1eUHujDrYAqUyprbOydJFAAxlB+zxUiJtbFqo0O3J
+         8/qOQQjiuL5xYLepRe2wVQdMf4Iv7Sc23Xp+boiTkHAln7oKbZLAa92kCWhP6Iyl7TS5
+         GghxE2dsFgUjfAENLoBjgUmvWWEFtvIJ+eQx0Gv6PfFKzOarRVCTgqYaTzCHtr+HvviY
+         cHVWFQBFxc9Jaedx8hKmxqj1v9kujz9YYxY+/QmQNYRB8dcIl0iPdHF+J09OAsq60DY5
+         do6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791872508; x=1792477308;
+        d=1e100.net; s=20260707; t=1791872510; x=1792477310;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nwgbOTwZS+Wdyws/KBJ7MPJ9pBsymYg2xZOg5DiPzmg=;
-        b=a0/jO5rfhSy0+c6ghn2kZGM0wUGICHAINnBUKG4AK1edaeML8ftNYB39tlYP2//2Fm
-         Cwe/sw9CAA84Wt1Js+jvoP0hOH6HQ1hAey5SgIxYqLf3em8azxJYGe+aBu1DZpUVMzBf
-         eo7rCJpsCyy0797hDsaP2Lvo2mSxE2t0vDkFeRudIzvnAUCJ69mhbvsKYoNm7RqsH4+G
-         sQGTVj6NkHtFSI6Ao7US8/mIKd/3jOy+xFuZIoV5T17DimVGpfoQQuhxXExoeog3QWhx
-         moPVNP5Fwwxqo06y48I4M+tquiNuDt9HaUhPtIjnTow3rO1wtzCgYCtv4z/05Qbh8jfp
-         z84Q==
-X-Forwarded-Encrypted: i=1; AKwUvByJeRJGefR/2vodJ2Wp2Zrwu5NmSQWiETpOMHNOjXFIcNl1uRjGKODxAswIH0/XHxta8X1Ur7Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJSPP57u8/eADwPLo2xEllXCHXh0W3AehonYcP/E4VUYZ+2cyUY
-	wOFHj7eoZGeZ2vxC3IxFZ6i8HajRZn+lN618cy1dZBi8cL1qIZJ88uQmCXzQ3NfSN1k=
-X-Gm-Gg: AYBFou1Xz6+MPS5PhS3sxkc2iqXdrw+1a407fTt2e/iJe4ihwp6rCb9hUWXy4VatSdU
-	fBh3zaLazIodOQq2v7dxywDVzFSRTYmZbGFV0bzZyCAdNBxCiWIkVGwsuy5shbsxDf1SEd48GqB
-	0Ux+0oSj9qe/mgaHL7TuHnJEA7VkWBCxGxEnlVeJbmtV7cg9nSRS2LpZhuRKIXjke27Cn0YtySX
-	fF5wx62rfAehlpkMWcpMILLLu3Jwb6ZqD7RAICfYwDRRQM6XNPQro32PVQtcjw2ieBoJ8hBaHWx
-	LbG2Fv7vanpp+VwFEUqOPAVMqYLgoeodJ8CfXk3/Ylwo7ZuU7c7K+uTDRIR5gfnXGxEc7qicZlU
-	7TmTsKywHj+gKu4Cwh34pSE3Iu7KVkuyytJZduk2vhfbqEOIRXdIg+/GdL3hy+ZeqxugftyMSDV
-	R67RCpdPU9bZXM/EzK5O8GFXnWGb2arHxfS/xeqDWUpCMU6fcw40MO040hDw0ybFmeX0ZGuujPs
-	yl0oA==
-X-Received: by 2002:a17:90a:d450:b0:3ab:364a:951f with SMTP id 98e67ed59e1d1-3ab3a3593dbmr7775494a91.6.1791872507175;
-        Mon, 12 Oct 2026 23:21:47 -0700 (PDT)
+        bh=POSn5GjUfqQ74/iwNoPgD0VKPoE1QYtcinfIgdFuRqw=;
+        b=aMYiukdBmJOT3MuI3gxvEZ/gVkWniJckKuWW9honrdDoGEKRuE2OZjQtMyNERa4rGh
+         5OcweUH2BRmJBH0tCz7juncpFKMpN6SoONl3nwgfgaLwImAMchN31k2wgV7FYdjhBG1k
+         QDRJF2wv/dkQOG7c9dJVekplGLvskt0qxH/B7rpis41fIWcr51eCW0DUDqz5I9+m41Ha
+         y10+XMlbW41TcC2xKLKP76oDQ708rNMkdT/eYptqsoBdj++oCcAlSgZ2q2GMEmpF8t0h
+         2H4nKEPMr1OxZYbdOqxzcIhXqoldJw+zIEkBmKy1C3Z76VcAnPQXdA+MZs2PI5B/Spkn
+         Cw6g==
+X-Forwarded-Encrypted: i=1; AKwUvBwePiItSYkHRXrKM7Na/XeVbK41hOO26oIKUszoJmr9tk1fiA3cZfHh4OUJhgpgkdh+p6FBn64=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLS1nMQpiRGgfi3X4/mRAad2Y3TjH2HqMWI4u0vZD1haCXZipWC
+	njeTGTK2z+oVotIQIsu+keL5JRYo66SDfJmN7FPqNVEJzGruXMmNPlIbWxChAjkEu2xygPoFFQq
+	Cu0et9riVgA==
+X-Gm-Gg: AYBFou3euQDNJWMxHhjrKB5ddyx5PBLiinp0u5gBnOUqgnbOpl3c6M4nQTN66jb3B6n
+	LPDQNR6gLhiZE1d7RqDlb2rfEVC8N9/aRsvCf/ADZmIRVR4pMi4xCCvjYNWtDvKlP4/JTHZedLa
+	w6ia4YTroIoBikesu9Zwm/ChHtiqyAyGrmwHyf9fM3lvy6pTe+/YrNr7PHJ5ludHlrlnTA38YP5
+	dLR1Rm2A8ltd4ckD+1uAHy4FOG415A5OTTvnIUcnPknnHryqTpCEi3lAKajuF6wkLXkr2c3Eh1t
+	ZO1R0yQAheUaAYtGQ3vzUUBP12UfAEJl//exKeOZo9gsHw/5rQxbly0jNl7nscKd1VFiq2oO7Fl
+	HfGz8YRRKf0yaPjrGE5wurzQdOza28bTa/xuTc8MmKTZUgXi4kFPcBVeaRYF3yrv2X1Q7VHYdMt
+	RwWAyHxSR7gmggNxRP6tOBnVGJM3bqKE6nephs3xKAwZjkqeTnC+ytCH3I7Dpnnfacqbj2k/no/
+	zBlNA==
+X-Received: by 2002:a17:90a:ec87:b0:3a0:516d:9f88 with SMTP id 98e67ed59e1d1-3ab3aafbd09mr8834314a91.26.1791872509775;
+        Mon, 12 Oct 2026 23:21:49 -0700 (PDT)
 Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab32d3b4f7sm9253553a91.0.2026.10.12.23.21.44
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab32d3b4f7sm9253553a91.0.2026.10.12.23.21.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 23:21:46 -0700 (PDT)
+        Mon, 12 Oct 2026 23:21:49 -0700 (PDT)
 From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 To: gregkh@linuxfoundation.org,
 	linux-usb@vger.kernel.org
@@ -67,9 +68,9 @@ Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
 	target-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v6 1/2] usb: gadget: f_tcm: queue the BOT status requests with GFP_ATOMIC
-Date: Tue, 13 Oct 2026 15:21:28 +0900
-Message-ID: <20261013062129.2568405-2-yhlee@isslab.korea.ac.kr>
+Subject: [PATCH v6 2/2] usb: gadget: f_tcm: reject a short write data-out transfer
+Date: Tue, 13 Oct 2026 15:21:29 +0900
+Message-ID: <20261013062129.2568405-3-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261013062129.2568405-1-yhlee@isslab.korea.ac.kr>
 References: <20261013062129.2568405-1-yhlee@isslab.korea.ac.kr>
@@ -81,44 +82,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-bot_send_bad_status() and bot_send_status() run from endpoint completion
-callbacks - bot_send_bad_status() via usbg_data_write_cmpl()'s cleanup
-path, and both of them via bot_read_compl() after a BOT read.  Those
-callbacks are called with interrupts disabled and must not sleep, but both
-functions queue the status or drain request with GFP_KERNEL, which can.
+usbg_data_write_cmpl() copies se_cmd->data_length bytes out of the bounce
+buffer into the command's scatter-gather list without checking how much the
+host actually sent.  A BOT host can declare a larger OUT transfer than it
+delivers and end the data stage with a short packet: req->actual is then
+shorter than req->length, but the completion handler still commits the full
+declared length.  The tail past req->actual is whatever was already in the
+kmalloc'd bounce buffer, which is not zeroed, so uninitialised kernel heap
+is written to the backing store and can be read back by the host.
 
-Queue with GFP_ATOMIC, like the other usb_ep_queue() calls reached from the
-same callbacks (bot_enqueue_sense_code() and bot_err_compl()).
+Fail the command when req->actual does not match req->length instead of
+committing the stale tail.  By the time usbg_data_write_cmpl() runs the OUT
+data request has completed, so mark the command and skip the ep_out drain
+in bot_send_bad_status() - there is nothing left on the wire, and draining
+it re-arms ep_out for data the host already finished sending and wedges the
+bulk pipe.  This mirrors how f_mass_storage stops draining once the host
+ends the OUT stage.  A command rejected before its data stage still drains,
+since the host has yet to send it.
+
+A short 8192/4096 WRITE then commits nothing to the backing store instead
+of 4096 bytes of stale heap, and no OUT drain is queued.
 
 Fixes: c52661d60f63 ("usb-gadget: Initial merge of target module for UASP + BOT")
 Cc: stable@vger.kernel.org
 Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- drivers/usb/gadget/function/f_tcm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/usb/gadget/function/f_tcm.c | 14 +++++++++++---
+ drivers/usb/gadget/function/tcm.h   |  1 +
+ 2 files changed, 12 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/usb/gadget/function/f_tcm.c b/drivers/usb/gadget/function/f_tcm.c
-index 9e6d4f39900a2..12e2b20e33b92 100644
+index 12e2b20e33b92..a37a3ec8e7a4d 100644
 --- a/drivers/usb/gadget/function/f_tcm.c
 +++ b/drivers/usb/gadget/function/f_tcm.c
-@@ -139,7 +139,7 @@ static void bot_send_bad_status(struct usbg_cmd *cmd)
- 		req->complete = bot_err_compl;
- 		req->context = cmd;
- 		req->buf = fu->cmd[0].buf;
--		usb_ep_queue(ep, req, GFP_KERNEL);
-+		usb_ep_queue(ep, req, GFP_ATOMIC);
- 	} else {
- 		bot_enqueue_sense_code(fu, cmd);
- 	}
-@@ -167,7 +167,7 @@ static int bot_send_status(struct usbg_cmd *cmd, bool moved_data)
- 		csw->Status = US_BULK_STAT_OK;
- 		fu->bot_status.req->context = cmd;
+@@ -120,7 +120,8 @@ static void bot_send_bad_status(struct usbg_cmd *cmd)
  
--		ret = usb_ep_queue(fu->ep_in, fu->bot_status.req, GFP_KERNEL);
-+		ret = usb_ep_queue(fu->ep_in, fu->bot_status.req, GFP_ATOMIC);
- 		if (ret)
- 			pr_err("%s(%d) ERR: %d\n", __func__, __LINE__, ret);
- 	} else {
+ 	csw->Residue = cpu_to_le32(cmd->data_len);
+ 
+-	if (cmd->data_len) {
++	/* nothing to drain once the OUT data phase has completed */
++	if (cmd->data_len && !(cmd->flags & USBG_CMD_OUT_DATA_DONE)) {
+ 		if (cmd->is_read) {
+ 			ep = fu->ep_in;
+ 			req = fu->bot_req_in;
+@@ -1090,8 +1091,15 @@ static void usbg_data_write_cmpl(struct usb_ep *ep, struct usb_request *req)
+ 		return;
+ 	}
+ 
+-	if (req->status) {
+-		pr_err("%s() state %d transfer failed\n", __func__, cmd->state);
++	/* the OUT data request completed; nothing is left to drain */
++	cmd->flags |= USBG_CMD_OUT_DATA_DONE;
++
++	/* a short data-out left the tail unwritten; don't commit stale data */
++	if (req->status || req->actual != req->length) {
++		struct usb_gadget *gadget = fuas_to_gadget(cmd->fu);
++
++		dev_err_ratelimited(&gadget->dev, "%s() state %d transfer failed\n",
++				    __func__, cmd->state);
+ 		goto cleanup;
+ 	}
+ 
+diff --git a/drivers/usb/gadget/function/tcm.h b/drivers/usb/gadget/function/tcm.h
+index e1d5a93916127..50764a33cdf36 100644
+--- a/drivers/usb/gadget/function/tcm.h
++++ b/drivers/usb/gadget/function/tcm.h
+@@ -88,6 +88,7 @@ struct usbg_cmd {
+ 
+ 	u32 flags;
+ #define USBG_CMD_PENDING_DATA_WRITE	BIT(0)
++#define USBG_CMD_OUT_DATA_DONE		BIT(1)
+ 
+ 	/* UAS only */
+ 	u16 tag;
 -- 
 2.43.0
 
