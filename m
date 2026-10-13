@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC9AD3955CA
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:20:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A7E4FDA59
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:20:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791908455; cv=none; b=tg1smnb1k0youaiP+iPs26sm8U7wDj4zTKnBDk/sDQ6S1wHDttsoGQWL6aYzQkataT4wXjy/4l7dJlZFQedynC3G7yR8Q3H8YCe+QlcU5vwDKCK2/dmi6vLTtr1WrlVSPZErUZ+CX5UZ+7/vck5agOJrbSEfTonMFPkprBmsf0M=
+	t=1791908460; cv=none; b=HCfUTiR4dCY23DEyD4j6qxP1g4pkUWVq/EQAsV/6fsayspP4BjcW1JsHiUox9Ewu3jaEquIP/piMHV+v4Si+zOKTAb1mcyIgyn2/3mcGk+fvxU2du+dKyAG6rCmEcvc+pyAM068xnk/XzRs3kLBvyj5sRx8GLUuTTBKM5vUMYJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791908455; c=relaxed/simple;
-	bh=v04mpo0JNMgTecnlxVTBeL6HJ02ClQMha4tdQcn5bwQ=;
+	s=arc-20240116; t=1791908460; c=relaxed/simple;
+	bh=1qnHEWCxAu3zy2ICILfGeAEtjOYBdd2ySHYV73IIH24=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tMY//Q0+CuMw89ipKNDMR2u7yQP8AHTXnLPOcabgxgZPw794TEYsnL7Wn1/x88eXaofpprbIsxlgQiX/sL5zyFhcUFSPDToXin4gX3S3Vx82ozd9Kkudro4WawwYNKgW/L7jlsOjilPUSi1cMUle1klh4ijyoBvLf4WJok5atzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBKIyHqT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=iHxBkN34SoL40/ezkWBCCMzS8lHldpQLsHR7rSuiXoLBBYf/0bvmF+VmJKwrZUME7+NUum/2btNOWobjZ1eit0twXZghsw6wE3B/rmazgaSUQW72DyRPp0WKJI0oto8ct46LQp8xCpACYbbjMwh6pjVAuEgBj9ph66ATOH15BJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KO6YivTP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBKIyHqT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0FFF1F000FF;
-	Tue, 13 Oct 2026 16:20:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KO6YivTP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77F021F000FF;
+	Tue, 13 Oct 2026 16:20:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791908454;
-	bh=AoHxCGElMKv/rjaZ8writLnvQoIRADfWi+DpGpsMkb4=;
+	s=k20260515; t=1791908459;
+	bh=PvJabatw3/NWzrLts9A97ttzO+iq3v+LlLpaBM8T4iA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EBKIyHqTO0KblUqAXvjyh7Ir7cYWnTTzdyE9UTyti2wlKJt1Wocy1TmHaICNDEgMN
-	 cWiP4wWXV2+SE9MO6LomYM+6Hlz1/vSVtPwC7Sslh4YQlJBCb0zgrDQuVBx+2eSXfE
-	 fCO2lKzH2VVReo1jmzpn4gi+8rI6+TvvotJ09kujaWQv1hGpf+kMNulZHghijoQvH5
-	 lsnSGtpiHenxgztqi2Oz4Phlo8bG8x2lpiK1/vTjj2hR+HyswoFA21VSuzTKNX19Q5
-	 5xCSTSTnAbOMsqVVU55MHVc8FwZzsb8tEW+kIBHlJCE7U0YzIOSJsU6dEluUGXkZSy
-	 QEj7B0l796Uqw==
+	b=KO6YivTPQeaEJvEEVqju/ouCFyl/zKlhaFJv61vk7uos3zKEQT2hfNbZKca/RN7/i
+	 y0Sgm/mIj3h/0blDwVAqlawTJ9eFFu1rnboG0lrj/fDovbpbBJTUJK736XIrVxYaws
+	 gYIyuHt74fAajwlJrzJK9wIOIKq/DsirdJ7s3wKIt4PnRIGZUZUhIHWqnbkWP4wYf0
+	 aYE5OfTI2EiNxz9BuciDM2tIgr3rPBCTNkTVNi8ubdnIUXJstF16wQyA0GbGJK1hKT
+	 Qk9HMORCUYha/Hq78IagyKNIBQOUYyM/R3W7MPktDll7uUp0j2mrGWPRKMV1DM7/Z9
+	 oPqIT65hRuCRw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>,
-	Laurence Oberman <loberman@redhat.com>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] scsi: ch: Do not keep references to data transfer element devices
-Date: Tue, 13 Oct 2026 12:20:52 -0400
-Message-ID: <20261013162028.378392-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] Bluetooth: hci_sync: Fix command skb lifetime during scan setup
+Date: Tue, 13 Oct 2026 12:20:57 -0400
+Message-ID: <20261013162029.280386-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101238-ladylike-chevy-a690@gregkh>
-References: <2026101238-ladylike-chevy-a690@gregkh>
+In-Reply-To: <2026101207-gamma-undermost-7763@gregkh>
+References: <2026101207-gamma-undermost-7763@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,124 +45,123 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-[ Upstream commit 27c0f718d3b3c99e6d315308e95d987d0382a8a8 ]
+[ Upstream commit 9af12272061d206af8bc3e40215cb694421ab73a ]
 
-ch_readconfig() looks up the scsi_device of every data transfer element
-whose SCSI id the changer reports in READ ELEMENT STATUS, and stores it in
-ch->dt[]. scsi_device_lookup() takes a reference, and nothing ever drops
-it: ch_destroy() frees the array with kfree(). ch->dt[] is read nowhere
-else - it only supplies the vendor, model and revision printed in the same
-loop.
+During PA sync scan setup, hci_le_set_ext_scan_param_sync() gets the
+address used for the PA_LINK lookup from hci_sent_cmd_data(). The
+returned pointer borrows storage from sent_cmd or req_skb, without
+holding a reference to either skb.
 
-Once such a drive is removed, its scsi_device can never be released. It
-stays on the host's device list at its address, so a new device there is
-refused by anything that walks the list - target_core_pscsi reports
-"scsi_device_get() failed for H:C:T:L" - and the low-level driver's module
-can no longer be unloaded. Only a reboot recovers.
+The scan worker runs on req_workqueue while hci_cmd_work() runs on the
+separate device workqueue. After the scan worker loads sent_cmd, the
+command worker can free and replace it before hci_sent_cmd_data()
+dereferences the skb. The command payload can also be freed between
+returning from the helper and comparing the address. The connection
+lookup's RCU critical section does not protect the command skb.
 
-It shows with any changer that reports its drives' ids; with the mhvtl
-virtual library (IBM 3573-TL personality), each create and remove of a
-library with four drives leaves four references behind, counted by the
-module's use count in lsmod. With ch not bound the count is unchanged, and
-with this patch applied it is unchanged too.
+KASAN reported:
 
-Drop the reference as soon as the name has been printed, and remove the now
-unused dt[] array. That also removes the array leaked when ch_probe() fails
-after ch_readconfig().
+  BUG: KASAN: slab-use-after-free in hci_sent_cmd_data+0x27c/0x2f0
+  Workqueue: hci0 hci_cmd_sync_work
+  Call Trace:
+   hci_sent_cmd_data+0x27c/0x2f0
+   hci_le_set_scan_param_sync+0x43a/0x850
+   hci_passive_scan_sync+0xb09/0x1460
+   hci_update_passive_scan_sync+0x47c/0x6e0
+   hci_le_pa_create_sync+0x200/0xa70
+   hci_cmd_sync_work+0x13c/0x290
 
-The same leak was reported with an RFC patch in 2022, which was not merged.
+  Allocated by task 95:
+   skb_clone+0x13f/0x340
+   hci_cmd_work+0x2a9/0x7e0
 
-Fixes: daa6eda65a53 ("[SCSI] add scsi changer driver")
+  Freed by task 95:
+   kmem_cache_free+0xba/0x3a0
+   hci_cmd_work+0x29c/0x7e0
+
+Use hdev->lock to serialize the address snapshot with sent_cmd
+replacement. Protect req_skb replacement and completion cleanup with
+the same lock because the helper falls back to that skb. Copy the
+address before releasing the lock and use the copy for the existing
+RCU-protected connection lookup. Release the mutex before sending or
+waiting for commands, preserving the lookup and completion ordering.
+
+Fixes: 22cbf4f84c00 ("Bluetooth: hci_sync: Use QoS to determine which PHY to scan")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/linux-scsi/20220719075442.6215-1-yanghao_ht@163.com/
-Signed-off-by: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
-Reviewed-by: Laurence Oberman <loberman@redhat.com>
-Fixes: daa6eda65a53 ("[SCSI] add scsi changer driver")
-Link: https://patch.msgid.link/20260929-ch-dt-leak-v2-1-ddda8d635dca@gmail.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ sashal: adapted kzalloc_objs() removal to the existing kcalloc() allocation ]
+Assisted-by: GPT-6 Astra
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+[ sashal: Adapted the PA_LINK lookup to the existing BIS_LINK lookup without an outer RCU section. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/ch.c | 30 +++++++++---------------------
- 1 file changed, 9 insertions(+), 21 deletions(-)
+ net/bluetooth/hci_core.c |  4 ++++
+ net/bluetooth/hci_sync.c | 10 +++++++++-
+ 2 files changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/scsi/ch.c b/drivers/scsi/ch.c
-index cb0a399be1cce..b4c877bb41637 100644
---- a/drivers/scsi/ch.c
-+++ b/drivers/scsi/ch.c
-@@ -110,7 +110,6 @@ typedef struct {
- 	int                 minor;
- 	char                name[8];
- 	struct scsi_device  *device;
--	struct scsi_device  **dt;        /* ptrs to data transfer elements */
- 	u_int               firsts[CH_TYPES];
- 	u_int               counts[CH_TYPES];
- 	u_int               unit_attention;
-@@ -358,16 +357,10 @@ ch_readconfig(scsi_changer *ch)
- 			vendor_labels[i]);
+diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
+index d4fac0987dd8e..ebbe16bdc3e20 100644
+--- a/net/bluetooth/hci_core.c
++++ b/net/bluetooth/hci_core.c
+@@ -4075,9 +4075,11 @@ static void hci_send_cmd_sync(struct hci_dev *hdev, struct sk_buff *skb)
+ 
+ 	bt_dev_dbg(hdev, "skb %p", skb);
+ 
++	hci_dev_lock(hdev);
+ 	kfree_skb(hdev->sent_cmd);
+ 
+ 	hdev->sent_cmd = skb_clone(skb, GFP_KERNEL);
++	hci_dev_unlock(hdev);
+ 	if (!hdev->sent_cmd) {
+ 		skb_queue_head(&hdev->cmd_q, skb);
+ 		queue_work(hdev->workqueue, &hdev->cmd_work);
+@@ -4092,8 +4094,10 @@ static void hci_send_cmd_sync(struct hci_dev *hdev, struct sk_buff *skb)
+ 
+ 	if (READ_ONCE(hdev->req_status) == HCI_REQ_PEND &&
+ 	    !hci_dev_test_and_set_flag(hdev, HCI_CMD_PENDING)) {
++		hci_dev_lock(hdev);
+ 		kfree_skb(hdev->req_skb);
+ 		hdev->req_skb = skb_get(hdev->sent_cmd);
++		hci_dev_unlock(hdev);
  	}
  
--	/* look up the devices of the data transfer elements */
--	ch->dt = kcalloc(ch->counts[CHET_DT], sizeof(*ch->dt),
--			 GFP_KERNEL);
--
--	if (!ch->dt) {
--		kfree(buffer);
--		return -ENOMEM;
--	}
--
-+	/* report the devices of the data transfer elements */
- 	for (elem = 0; elem < ch->counts[CHET_DT]; elem++) {
-+		struct scsi_device *sdev;
+ 	atomic_dec(&hdev->cmd_cnt);
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index 607667cc35755..4781ac734d951 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -32,8 +32,10 @@ static void hci_cmd_sync_complete(struct hci_dev *hdev, u8 result, u16 opcode,
+ 	WRITE_ONCE(hdev->req_status, HCI_REQ_DONE);
+ 
+ 	/* Free the request command so it is not used as response */
++	hci_dev_lock(hdev);
+ 	kfree_skb(hdev->req_skb);
+ 	hdev->req_skb = NULL;
++	hci_dev_unlock(hdev);
+ 
+ 	if (skb) {
+ 		struct sock *sk = hci_skb_sk(skb);
+@@ -3050,13 +3052,19 @@ static int hci_le_set_ext_scan_param_sync(struct hci_dev *hdev, u8 type,
+ 	 */
+ 	if (hci_dev_test_flag(hdev, HCI_PA_SYNC)) {
+ 		struct hci_cp_le_add_to_accept_list *sent;
++		bdaddr_t bdaddr;
+ 
++		hci_dev_lock(hdev);
+ 		sent = hci_sent_cmd_data(hdev, HCI_OP_LE_ADD_TO_ACCEPT_LIST);
++		if (sent)
++			bacpy(&bdaddr, &sent->bdaddr);
++		hci_dev_unlock(hdev);
 +
- 		id  = -1;
- 		lun = 0;
- 		if (elem < CH_DT_MAX  &&  -1 != dt_id[elem]) {
-@@ -383,10 +376,8 @@ ch_readconfig(scsi_changer *ch)
- 			VPRINTK(KERN_INFO, "dt 0x%x: ",elem+ch->firsts[CHET_DT]);
- 			if (data[6] & 0x80) {
- 				VPRINTK(KERN_CONT, "not this SCSI bus\n");
--				ch->dt[elem] = NULL;
- 			} else if (0 == (data[6] & 0x30)) {
- 				VPRINTK(KERN_CONT, "ID/LUN unknown\n");
--				ch->dt[elem] = NULL;
- 			} else {
- 				id  = ch->device->id;
- 				lun = 0;
-@@ -396,18 +387,16 @@ ch_readconfig(scsi_changer *ch)
- 		}
- 		if (-1 != id) {
- 			VPRINTK(KERN_CONT, "ID %i, LUN %i, ",id,lun);
--			ch->dt[elem] =
--				scsi_device_lookup(ch->device->host,
--						   ch->device->channel,
--						   id,lun);
--			if (!ch->dt[elem]) {
-+			sdev = scsi_device_lookup(ch->device->host,
-+						  ch->device->channel,
-+						  id, lun);
-+			if (!sdev) {
- 				/* should not happen */
- 				VPRINTK(KERN_CONT, "Huh? device not found!\n");
- 			} else {
- 				VPRINTK(KERN_CONT, "name: %8.8s %16.16s %4.4s\n",
--					ch->dt[elem]->vendor,
--					ch->dt[elem]->model,
--					ch->dt[elem]->rev);
-+					sdev->vendor, sdev->model, sdev->rev);
-+				scsi_device_put(sdev);
- 			}
- 		}
- 	}
-@@ -571,7 +560,6 @@ static void ch_destroy(struct kref *ref)
- 	scsi_changer *ch = container_of(ref, scsi_changer, ref);
+ 		if (sent) {
+ 			struct hci_conn *conn;
  
- 	ch->device = NULL;
--	kfree(ch->dt);
- 	kfree(ch);
- }
+ 			conn = hci_conn_hash_lookup_ba(hdev, BIS_LINK,
+-						       &sent->bdaddr);
++						       &bdaddr);
+ 			if (conn) {
+ 				struct bt_iso_qos *qos = &conn->iso_qos;
  
 -- 
 2.53.0
