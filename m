@@ -1,130 +1,172 @@
-Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F084A3A16AE
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 08:00:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791878408; cv=none; b=lOP+y+WeXOwxKXSJtEvOYY8qcOxlDyzNtigMBA0roLmf1mH6TCUq2QWQdTyayIU9UjMKhGSlMTZ89O5o+om1fjgO0+0V96iaho138yVVAltlLWDhHp7ND4KP6WWw3f1luWIg8suhn4Ka5srjsI53oqIWjBNzEV4XraJYO60X/p4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791878408; c=relaxed/simple;
-	bh=/7snYSTLWtxiOrUiGydIr2lBpsv+T55XzFM83JywWDM=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k4V58osG0+vQpOzpwDPnf633eMVpOV0rYG8H32Y7ioPO3z5DElOv2cyi6v4F+iq3w/ytwSM5TmjUoTsplC7nzVrjtaK0AnToaicV/KIxTaD+jwU3Nkty5aSCkzxbOjvOpjBx1zUDU13GtLH9mwCkTC6dnYFIqdrQGplnDPAZVkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=AmF14MgU; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=OzI4tGHT; arc=none smtp.client-ip=202.12.124.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB658397338
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 08:01:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791878496; cv=pass; b=JCX7eV4vmetQs3norFj+9xTEBfN1kC5jPKd7zIsWGiIaPvhQamN/HnkDCexMvfnRdHFDR87askqZXNRIb/4yWT4yzjzSUZmZjcpb4nYPz+TA6y1RmZEQSB6I7ZxvUpIxl+AtB5sOxXjUkp4rOvz6/mMeaG96lcLiXbK5XTFauKk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791878496; c=relaxed/simple;
+	bh=KFFRxFxAH5AteS6INOuRURvfggPbMI9GON1e33BH2eU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qndvEhSjwRJ/wcME4/kjgq95IIVF6fcZF+4h80glcA6E7j4mxZMbBHoUzMK4i1on24Us5+QgKmPwwguQKN4RH60SfmGqV2pUFkFzFvG749OIXWWB4SX8te/O133w1qPuUgV8srNHygS37Cgj6x8FsGkA9JDmZas6iIa4jSgkirk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qxyXFq1b; arc=pass smtp.client-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="AmF14MgU";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="OzI4tGHT"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.stl.internal (Postfix) with ESMTP id E3EBB1D00141
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 04:00:05 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Tue, 13 Oct 2026 04:00:05 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1791878405; x=1791964805; bh=Isxc2GhNg6
-	8SWDuxrkfLroFvPPE5nBWS3oaZ7ZEW5Hc=; b=AmF14MgUwx1zpVKiLEnz8IoMjY
-	5mjKqGxE/sfabjmibRDPaZ2jhwj6G1QUQLuNAr3s511oMAsX2ZkaCAreJFexayAA
-	YXPz1C53jiUE7S4nBgV3jagGcJmmvslxv05Z2GNspZs5fgHZN324OUsPPQlfbvIj
-	ng1JVWyCPQOmgLn/id+k26kn9H2nBH4LtK+h16aAUCelw0Lc71LnUw7HBYZ25AuN
-	FuTV0mWQSPY+OXOUaaPxF6jDwUR+3SHMxyeifkvblRtOrKU7lpmxfR0bIDgKobPS
-	uk1NXOCwSOjjcaskkSaLTV5TKyZeCyGR8+DXzQtsM3FGoJBDqX9mQS9PEMpA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791878405; x=1791964805; bh=Isxc2GhNg68SWDuxrkfLroFvPPE5nBWS3oa
-	Z7ZEW5Hc=; b=OzI4tGHTLLSk588onT+uY9Y/L3CWGUB1EoSpUIWrAYTfs3AvW5d
-	mcOGZWlPfnVD94oldXTKX9PCkwffr5TTJr8O3BsV6KMaNhAz1Cw42tSaKYBSXXLR
-	kbL0zRMfONmYWQNqvFkMiBt5LXPi54od0nfXHoGxc3AlkTJL3s21VkYtip8ivOL5
-	ktxXpuOzXC4ieyM+pS29c0Xq++qPZd9dVtpjRhc9qJHSYSqTv9d4RDQMGb6nQcyg
-	TNfYlmop7yXibueRveLARj4jsF6ZddB8yHb7TrLO0AxgT+16dllNlC255PGcnoXT
-	AJa2eIYG1mWzvXp6pbyuhAj7J8+jNZxgWug==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=kroah.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791878405; d=kroah.com;
-	mf=PGdyZWdAa3JvYWguY29tPg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:YqBUmL6tfERFdxtTQxsq1GMQ2n0UbmfIbSmxLBayR3TsVkx
-	Atbwt1UWIMJ5pwb8iTxMGPsedxQRzvED9Kk++a+oYIaKViXfwWh8uMISlyYrVlO6
-	bCbe5RKkjSiVEEDsPWR/IpXPe5wcRQCddqVboqFGSL7+omV+GQWEqNv+3Sq2r3MT
-	PVEoti54gMstmImW8m3sm/p72OIupY2UGwHmzJ6Bt7Bg9Oma+v2W+KAofCP1uDhZ
-	Am3CWV1PGH0Vuoq1XXNJpBbalBB3ci9NLaA5FP935J9XfmxzOLV0FFf0hfy7FHk1
-	1kIHTUiz8snYe/OdxcSKZn7KIuMUgMTM4/9kwZg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:UKly7Djlsjae3Fc9uCiXVzNbMcEJOfneN++LH63ZKyo=:/7snYSTLWtxiOrUiGydIr2lBpsv+T55XzFM83JywWDM=;
-X-ME-Sender: <xms:BOXNagKaRpqQ5J4x8pdhtfFdeb-i4_e3qm9CjNJALVogYHOwnAgfOg>
-    <xme:BOXNagQ_TUJJWLZRxy7fuqJ7vSpNNQSapQmm5W5dLk1ijpYZg2-yo9tnxrsGPsX_E
-    6lffitPpLyKptXmkg8sTI06H299wAB_uNGKzniKgV9KjwffMg>
-X-ME-Received: <xmr:BOXNaujKBywu9yU9VXJlrqIGZchwfprbAOPXJa3aYGJZnS6FBQDP_KilwPvxsYJSAOsIOpJ1JDs4lqNDQpp1a-Ll6bPJlDukbDhblvXTJVI>
-X-ME-Proxy-Cause: dmFkZTFfGDd9W11BJLdxFv4xbErCKSp6wRpGJcghIbCjfi6mf8yzPlCQBZdU+faI/Cf6sN
-    KC4N0oPPPtIbqIGmYxdMBJOdFXQt9UyljN0kaL3yQmPoxFzAaL/XvpiJJMQ9PA/6J2R0gJ
-    NqEMyLorSAaA6+xuVyzMh5n2tujVKyUg1hlwnMU3TFWaEVhCTRPzOpedsIcYlzSMGdT/ni
-    fehLGQJK+kqC58P6BpDBUXJlHQrc0hABYFI4DYC5EKet8/zVUWRUaAmafuMxr74HqGihDR
-    IBc28waRrL5OwyT3sfoRhuZgTyqJT/r0pPrD198udBE4AKTnrQPAYsd5pOxTZZmJ1WGndf
-    8qKSEH32v9afZpT6mq2kGsRBtvZQNXrhAzXVfGCwQk5AHJVMmF/LhS3cVq7YeBVDXLDzAS
-    hmeaN2HKA6dTJ7Fw7NqeFhooxA/xKt1C4Rndu8IeyzouFwq1W9bI2vK8CWSC0CtlKV3psB
-    rC9ZDkjzuR3NH/IKM2yDrdeU55IGk2pvDhZfv9U9ZocZfPAtg3asyKD1Eo0JDTjMNh1AXU
-    fV3UblEOryY2esgiDr5ihzTKDFjXqHa2dDvky5cPCSQ9+tnt48KNib2HNsd+HxMDlb+wW2
-    MWVeWYicr6Lt8Vv7fmc0BIUfyX6rZE0uE6GOlhkGi7RRaMgcs/xWRQauzNIg
-X-ME-Proxy: <xmx:BOXNahoUc5GoyikHTdw50F-1KlZs0E__lKdQxFOdcP_1zSYM9EtdpQ>
-    <xmx:BOXNalmZIMDGVLHUFgX7V2MDNsrPUGlu4JO8EoiJ-njGcB8MDyCtqA>
-    <xmx:BOXNaok0OVOcsZIicdpuXQO0nTqnnyZzDWsfmp2aEG50fcXKj39-Hw>
-    <xmx:BOXNaqOaTPS3OW0JoiW6JLWMxR0MMzLEtc-_o0hrPP2ZvHD8h-EKiQ>
-    <xmx:BeXNajJiJkDF7fyfLIjgrPFKx-Vzs9LX2kzncKH_bUNKficyaedVbiiA>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 13 Oct 2026 04:00:02 -0400 (EDT)
-Date: Tue, 13 Oct 2026 09:59:58 +0200
-From: Greg KH <greg@kroah.com>
-To: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>,
-	stable-commits@vger.kernel.org, xiang@kernel.org,
-	Chao Yu <chao@kernel.org>, Yue Hu <zbestahu@gmail.com>,
-	Jeffle Xu <jefflexu@linux.alibaba.com>,
-	Sandeep Dhavale <dhavale@google.com>,
-	Hongbo Li <hongbohbli@tencent.com>,
-	Chunhai Guo <guochunhai@vivo.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-erofs@lists.ozlabs.org
-Subject: Re: Patch "erofs: remove fscache backend entirely" has been added to
- the 6.18-stable tree
-Message-ID: <2026101352-subtract-deflector-a77b@gregkh>
-References: <20261013020044.2527207-1-sashal@kernel.org>
- <as3drCZLoTUPS_oC@XiangdeMacBook-Pro.local>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qxyXFq1b"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c33700b6435so38234766b.1
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 01:01:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791878493; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XcLsgAkJ1bFzfXQZrwVQJpPgMQFdtlBcVDX2gE6tBILPI/CQbWK9EMJmSzDDKZjcrH
+         cy4pyltT2GgJ/tpisczjUQgWX0aLKyt3eQ1m9yPhlxvYEHnTCMBmzJi2DlKcdJe9SsPh
+         xzX0EmF9LTYc5YpD0U/68z5/JHgzjAUycMlmRtmWb38IhNdCjRe18t5qrbn0rF5bwHot
+         36QiH3c2ETI1i5ULmgqsh8MVLf/eHsM58GuixtUcv3ONFK5Mw/flo57Hg/A4YJwi6WfB
+         vRK+A34mpGUFGWyWeCzjhMKEPFWGlqQGu0dsyivCmzh2/TVpuDJg9MetzPXM2ihvIMN7
+         S32Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=PqPcad7Yc6oLW4/1CPglWS7qsNLhjHruOO8KWIE39Fw=;
+        fh=Eo0Dj49uePQmq12sdX0rj3GFRmZOdeu+lBFRQ9dcTFE=;
+        b=iOu7uDQxNpYRcdlIFKeZfSqIWAeaeKSrfnFl3JOnvvUvbUZxUG83Al279L/zTTUMcu
+         PResDHtIvt9XrClqwSnz0+oMqWPzDBvQ8kfBZPfQbhEkarkEMXrKiujFBYdQhJQwGkKz
+         aKshqd0Q7quBRxkLPjzryIfd6GIPaFxrdr+SxCcy9FvCjIoo0AvYWjGGQ3fhN3MWeaX1
+         sYQv53x95j2229nxgRohgUkbeTtzL+X/Nh/nXhGwAjHcXkdVdws9pEvsvPz9JZ9MY+Jx
+         RX2rjIeUoHaSeWPdV3roF/SgBiAw9rpWv0diZkClyshu4Tm789y9LW8YMOevs4luQXvf
+         ozZA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791878493; x=1792483293; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PqPcad7Yc6oLW4/1CPglWS7qsNLhjHruOO8KWIE39Fw=;
+        b=qxyXFq1bkcx3ruf2GbgzoDHzEi3foh5FTPhb6eDIfq06WFvDo2cU3f/JgloT1j0w01
+         CTW9wzFWZqWX14s4r59kfu2qRfSu9BuslmOQrano5rW+nlNthebikB8Ylgn6uHj15cVe
+         0drtlcRZbc2Z1U110MccU7QZxa6YHV6xveVrfz0hvqsKdjo3x/PTjWtZdqe4vSV0yNiF
+         FEIi2DlNxUWrUS9XQGfC0a+CkGBVLeXQ8pz84PO9Z0xHdcci/DvxebVkU1dby1DX2Frc
+         ZgFIx/OMQCtvBdGZh7hJSinVlH2VbPN7jR/uLZqv2HSsjv8MvrDU0pDWBFCFLTHnlGm0
+         z1Hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791878493; x=1792483293;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PqPcad7Yc6oLW4/1CPglWS7qsNLhjHruOO8KWIE39Fw=;
+        b=cz0Dsnul2vkiKuyIhvj3vq/8Hc5gJHE4ZO2gM8f5s5JOs3gO2pReZVvBm6s5f5Ae5Q
+         WQ/AhNFmFuPKXKBKaoIK5cam8LjNB7A/eXDOvKzTeyplTMzXawxQMpmZZl80sYY0T+SF
+         yg9wzwu91BwuUj9HpRzYEAOBXMN0VErXHJfbry9bKhw8tJIea8kiC59DUEzS1CbmAq/T
+         ERJSIsr4nlqCIdMVjvhLqARZr4W4Dad8lOvuDLz1GEBUIX/ye2AtG0YZIe26LccOVeEw
+         zoZnfvHpqyKyX/a3A4B5uimAokHlTZJZ2FSUVmBwPUG+dV/1eflYqaxsrZiBAo0Tokkv
+         +WRA==
+X-Forwarded-Encrypted: i=1; AKwUvBxvzUtSUitV8Cwbbb5CkFfbrkw3a/8LluTyiFE4Sp6NcCtpshwC3NkiGNmqte+G7FckEQa0/Nc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIKJ+v5Gpmn3ydF+lHFxre9bCbxdLaKHnIc7zr+q6f5PsGbfIuB
+	Jajr1XdGvNdU4+xlu5HrUqQuQnQCw2s1k6EIT2Ucp6dFgyFtfeWlcF2Rpj37D3PRmchXfUKra2a
+	fP8FQ/qvb0K+xYRLrcpuVsmHVuOSpvmoW2XzlBt5Afz3g
+X-Gm-Gg: AYBFou3FiD3sSWHAwJYKCOphyy5Fu7MbZTMVUJQSmXEo+KUcSi2d1hf77344AZNZ45P
+	TmjRv9UuHu2e48cExd2R7TlIpjWCclkHXim7LBdwoIgOD6nklqcjrZ3FlFqXLTFirgyfNgyICQ3
+	74YtPfs2r+jhH0GfcoBG1VsVZRi+37SYvpwdBWND1SKPyBljavKdPtRW4qMJl0uocEQhAAl0JXL
+	+ztvPL3Nb64GnuqmWl/K1FXII6+1eKgvn5+zYSTF5gsbWh6s2ZsGpX5GcS/YkLiYDUzZzlbZJYn
+	mLTe/yp+JiCd0Gh7QOTudlalPFEPzsZBsa8nVR7jN1G4OWdHgE0q1zKKupGhVSKEXebO9AOP3v2
+	oVFO6AR5yNmnArRT7oD4=
+X-Received: by 2002:a17:906:2092:b0:c34:d75b:ddd6 with SMTP id
+ a640c23a62f3a-c34d75bea07mr278330066b.3.1791878492661; Tue, 13 Oct 2026
+ 01:01:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <as3drCZLoTUPS_oC@XiangdeMacBook-Pro.local>
+References: <20261002173844.3537111-1-nicoyip.dev@gmail.com> <20261012200752.3771786-1-kuniyu@google.com>
+In-Reply-To: <20261012200752.3771786-1-kuniyu@google.com>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Tue, 13 Oct 2026 16:01:20 +0800
+X-Gm-Features: AclHuK9knlLJpyn2NKb20q7UFVWoMrjulr9UbG2ELaElJRyP4Qnhyg0dvU7dqcE
+Message-ID: <CAAo+4rXMefUoP3BwwK20remeQ=qrS5fj-9y0w99LDu0mY0eJxg@mail.gmail.com>
+Subject: Re: [PATCH net v4] net: pin protocol module before inet socket allocation
+To: Kuniyuki Iwashima <kuniyu@google.com>
+Cc: davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, 
+	kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	pabeni@redhat.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 09:28:44AM +0200, Gao Xiang wrote:
-> Hi Sasha,
-> 
-> I'm not sure why we need to backport this into stable kernels, as there
-> are users who use EROFS over fscache on these stable kernels.
-> 
-> The functionality works and it's a breaking change.  Could you please
-> kindly tell why?
+Hi Kuniyuki
 
-Why would you have a breaking change in Linus's tree?  We never break
-existing users, so how was this ever accepted in mainline?
+On Tue, Oct 13, 2026 at 4:07=E2=80=AFAM Kuniyuki Iwashima <kuniyu@google.co=
+m> wrote:
+>
+> From: Chengfeng Ye <nicoyip.dev@gmail.com>
+> Date: Sat,  3 Oct 2026 01:38:44 +0800
+> > inet_create() and inet6_create() look up the protocol under RCU, then d=
+rop
+> > RCU before using the resulting proto. A concurrent module unload can
+> > unregister the protosw, wait for the RCU readers, and destroy the proto=
+'s
+> > slab before sk_alloc() uses it. sk_alloc() may sleep, so the RCU read-s=
+ide
+> > critical section cannot simply be extended across the allocation.
+> >
+> > The reported failure occurred during concurrent L2TP socket creation an=
+d
+> > module unload:
+> >
+> >   Oops: general protection fault, probably for non-canonical address
+> >         0xffff1108974182a0
+> >   KASAN: maybe wild-memory-access in range
+> >          [0xfff8a844ba0c1500-0xfff8a844ba0c1507]
+> >   RIP: kmem_cache_alloc_noprof+0x63/0x370
+> >   Call Trace:
+> >    sk_prot_alloc+0x74/0x2c0
+> >    sk_alloc+0x2b/0x6c0
+> >    inet_create+0x2cd/0xd40
+> >    __sock_create+0x1c3/0x430
+> >    __sys_socket+0x116/0x1d0
+> >
+> > Cache the proto and its owner under RCU and acquire a temporary module
+> > reference before dropping RCU. This prevents normal module unload while
+> > the proto is in use. sk_prot_alloc() takes the socket's own reference;
+> > drop the temporary reference on every exit after allocation. Use the
+> > cached proto for the IPv6 backlog callback as well.
+> >
+> > Use try_module_get() with its existing initialization semantics. SCTP
+> > creates its kernel control socket during module initialization, so
+> > rejecting MODULE_STATE_COMING would prevent modular SCTP from loading.
+> > Failed module initialization can still unwind published protocols despi=
+te
+> > module references; that separate publication/unwind lifetime issue is n=
+ot
+> > fixed here.
+> >
+> > Fixes: a79af59efd20 ("[NET]: Fix module reference counts for loadable p=
+rotocol modules")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: GPT-6-Astra
+> > Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+> > ---
+> > Changes in v4:
+> > - Remove the MODULE_STATE_COMING rejection. SCTP creates its kernel con=
+trol
+> >   socket from module init and must be allowed to use the published prot=
+osw.
+>
+> You can filter the case by @kern.
+>
+> sockets created from __init_net functions always have
+> @kern=3Dtrue otherwise we cannot tear down netns.
+>
 
-As this removal fixes known bugs, isn't that a good thing for those
-older users as well?  Why would you want them to run broken systems?
+Thanks for the review and suggestion, v5 adds that @kern checking and
+adds back the STATE_COMING rejection in v3
 
-thanks,
+https://lore.kernel.org/netdev/20261013075604.868273-1-nicoyip.dev@gmail.co=
+m/T/#u
 
-greg k-h
+Best regards,
+Chengfeng
