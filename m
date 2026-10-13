@@ -1,95 +1,87 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7532A5038F3
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 13:34:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791898446; cv=pass; b=oYaVyI6vI7G+RujGYbceUDOtQYFH6mNcMdvtrulzPci3r3o/1ESapTW/nkJQ9ssR6AzlJsi/1kfiPVmce8/z3w7YI/iIQ/HzF+3mnSMM1V7NJyJ/YuEmDo4OUIkYw7XQ8FgApf5EM6xqDQ1axpSRM9fIay8e83MfPeB79xZx3VM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791898446; c=relaxed/simple;
-	bh=g2IBQVq9CabMttw1l3dEAhRw8JS4FDGb8SVrYlvFAg0=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=mmLKaLYk1XDCSQxyViSI1iTxJM8JW9Nt2AHjSeBy5XcICqteW1qlAkMKMe7S+3aghrnFoT3SuwOLT+Egb4PX7nme5GdMvZwckfKi+8g+Ki7DrXqgPjIKn46uM0VnhIXHul4kH7uPYkJkdTMqaQOVxKOUbMLW8YQh8jYpm/MLQLA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=antithesis.com; spf=pass smtp.mailfrom=antithesis.com; dkim=pass (1024-bit key) header.d=antithesis.com header.i=@antithesis.com header.b=AJOwDntD; arc=pass smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=antithesis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antithesis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B4A35172FA;
+	Tue, 13 Oct 2026 13:34:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791898465; cv=none; b=uw3fkynazuLiVR7B2KfehuO+KuudJx+M/nr6UiqDQJSXkKvWmB6jfBNNI5fNiSrI30IXh+wpxx9A5UgjtfoT0VCE8YHk01nTGyGjq6wcCDRXYeYHevSvt9YMzDJ99gg1Kkx+XlrH/3/eacGRAi7lPzy+nXqYs/TKfitMYe1Q7IM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791898465; c=relaxed/simple;
+	bh=LSXJqaEfNhoKn4Y8icI9Y0OhipJ0KE6t7s7Cr2RDBGE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W6jA2HgDyUsAGQP6OaBpxuxqH6Eu9sKgsfy0l8S6uiDwU6EXTaFUjvpk0vpo6qE+AL3mTl/7z0aOlM/wN6sbbWvtrjPbreOjmFahKohM7JewohdJrZP2N1bnTr5oIlL5B46ujXiDDlwzROJBNf4qo/wabAGsm6cgGyqfTqm2QhA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=W6z4sD5p; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=antithesis.com header.i=@antithesis.com header.b="AJOwDntD"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3a4cdc9025bso1462997a91.0
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 06:34:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791898445; cv=none;
-        d=google.com; s=arc-20260327;
-        b=b5hy9Vv732d9aoxLSmT8vRP5R1q5AIojSffTpYBs+HrJGZYswalGQtMS7gS2ozBVzE
-         JM74iZAHXL03pnnD57mqUQbCuwgrQ82iEtJt+Kqe8CZHd/O641PpMc2Cch3S8IRiPd+8
-         d7bYnhu5XTiX98IWXW9Yhhus0KU3cYbTO2rNfmj3s1nNkD5AmWrwozGYNslua+4HFQ+J
-         HTVnTpYEME8LjqM68AG+uqj5+05YWcXjjHtOu1DVRKSkaxbD8+ytZIfCSXZrrfd9/EDX
-         MWoi1f6UxT83cUKHdX4WfP8ecBeANEE97JEeUNGcLtQK+KfjGUo70EQlZT+sHxxPyQjp
-         bfig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=4E98OAS2nEkNBGwcfAXAZO7AtpPdbTQcWCenrE9MK/U=;
-        fh=RvEWwL4CdzthXqFPrJY1v5EhszSUJtREhzms1oh7XMQ=;
-        b=BWf1m2adQ9Q8HxcY5myR8B1A4F86Olczzg9VvTJH+d+VHS1YsVsLJ/UYhaFwKs+Afo
-         lcRtCNo5T9OK+tppeOhU7DWVkWhn/sYIFg3HixNukbyGUjTQtRCFCTl+VjH1dOkuLu2V
-         XWz2NPjEJYKzTF7jdIIbzok+QQFJuq43g+mhC5nVvdvJvSTxZ20OMAuzFEAfk7jEd+SE
-         /MZHjnv2KiRMfmbItxMec8nguStZ6poHX/EgO0lRjXl/byPvnssMMjbI5XU15d0fVLLe
-         22tfkheXEzvz50D3hguBm3eKhiQr33Ux55LMCvEz5B4wM2cHMat9aCb9YzfieQdqdtuQ
-         X2rw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=antithesis.com; s=google; t=1791898445; x=1792503245; darn=vger.kernel.org;
-        h=content-type:to:subject:message-id:date:from:mime-version:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=4E98OAS2nEkNBGwcfAXAZO7AtpPdbTQcWCenrE9MK/U=;
-        b=AJOwDntD+YB8sFY3ETvkZpVvtZC4xAKCjP3xyhQ8Epm9zvz+Y38igGW5TLuxj4rBM7
-         qL6dKTyce1a5f67rEFxyzof5isPOBnM+gVva4JzY49gFE4HJfdtOH4SPHx9iLEA1SA+c
-         UJgg6rwXrU6RfXuJ+O08Kxup02VYBfUkCkwQM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791898445; x=1792503245;
-        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4E98OAS2nEkNBGwcfAXAZO7AtpPdbTQcWCenrE9MK/U=;
-        b=cmycUXE6PBdJJ539JAI4IAjFHdho5+qa7O9mjNYRiJz5qTfwK8WWWr7JkND6QffYoS
-         YPl1FWKsrvwj+bcfULWvY1HFDd6XTIP02/XPdmwqsLWvZUHEezkbDVYkKTxVYdsYTnF0
-         gmRdHzt+2Va4WjWdhqjlRV7N+M5B4fr2modE2+3w68SbCSYRBB1A8aQJ5t8tCTiM2/S2
-         WpXTsnXvG3Qbz3PBA5dvBVFBDV4TLrae5NzeKgBrBV5NWlmrg8RHiy9A8B1hZ4YOvYls
-         fDIgC5jCNzFJwbFq6sQw4ChGxScB1YuImDPp5uzkme+rV/0sHKUbadJWStA1ESVSiS0L
-         uh1w==
-X-Gm-Message-State: AFq9FYLfqlMjwsirJoAoPjHIo1Pvh50jtcjA9+jMxfVmAcV+EqtMBjet
-	j9IXJVYvOzvTiq+QDRzmarPat37s2Q6/Zd3f6P0+GEHfWSM4p2OT4QHsONlDQWmAmu+cFwloVOF
-	1D/lFVccTQNk90erLzHTcaSR7rCuJhQSCT+Ti55XWfdIhTIoQSdwPfeC7VQ==
-X-Gm-Gg: AYBFou0Y/IA7YC9QRC8lqOXuzaVd0AiLOlyTg6iK8V5vdNIr7eWlADuRkA6+KaScNKK
-	hgyuiSp6/clW2f9jkvimyj37NfGcmtxF3FL0ukH286MamaMmfDhHsVfsc8v4UkoMhIMhHgeTU1f
-	b5B9b7Kjl5OtjmFTFgWnOk/S+yE4Gyms5V7BKUOfMkDx6UJHFxja+JoOEv4ljHelhg/EfF8/UPH
-	wnVCKThO7Uss69Q38mK0uTdtc/H43E0v7fJ6EIu0mGtkuU8XQZp/mEPJ/KrBneyMrf1jzL69fO9
-	sQ2zYuW7VssAIs/Bfd+4WI8Jlj315k9QbrY9+UT/sY8hOD4M1vT4oaSN
-X-Received: by 2002:a17:90b:5864:b0:3ac:38dc:6b9e with SMTP id
- 98e67ed59e1d1-3ac38dc6d80mr2423528a91.25.1791898444649; Tue, 13 Oct 2026
- 06:34:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="W6z4sD5p"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2974D10920A;
+	Tue, 13 Oct 2026 15:34:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1791898458;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=ogj3MdZsbQuJ47Ycv02IMxQMigFdazGxRlb0UPCgRmk=;
+	b=W6z4sD5paFCQZqEt8x6Emy9p4jK+7rl1SEmw21wTDux7cxNx1faaLjPFI9wCC4UeY+Wkpa
+	qLQvpzbAtLf3eOjVxMfJ+/PXnLx2s/ivWfO2eHkHMWIWPmQTkpYtpkQYxqHkki8MfPikFs
+	3bDnZ4i8f684eLPyA6NYBw9qDY96auNSwUf/kzLb4+9yPiYz7x6LTM5Qdb3PKR2Bw0GZeL
+	w3Iw4FbQcE0WQ8SKhPnrgfd4dGYbVIbdHb/TkcAHXnyCzu5CiOlVD/qtejfXXiOctSwBGP
+	8Ky7ZQeVvKvZYNCFdHfQ3I2MfHOkGFioA29m57EoaZtFlLIkY4l7kPXm03AtmQ==
+Date: Tue, 13 Oct 2026 15:34:14 +0200
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 000/497] 6.12.113-rc1 review
+Message-ID: <as4zVj-VpU6nrqpm@duo.ucw.cz>
+References: <20261013112907.864180619@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Lorenz Bauer <lorenz.bauer@antithesis.com>
-Date: Tue, 13 Oct 2026 14:33:54 +0100
-X-Gm-Features: AclHuK__i27KbdnIIXFdrD6YDSeVr5VUbeM-Hkgm-UihKrIyNCiJ1-3k7lPx5tc
-Message-ID: <CANo-qm0u0NegPA7x_ymsLeC7f+v-nR8w9BEQTndvVbetYtUmUw@mail.gmail.com>
-Subject: Request for backport: "drm/amd: Create a device link between APU
- display and XHCI devices" to 6.18.y
-To: stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="HYNdXmOeU0tPpXJ1"
+Content-Disposition: inline
+In-Reply-To: <20261013112907.864180619@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Please backport
 
-   07c93d7eeb0d990bc1b8e3b1eafa464bc9feee97 ("drm/amd: Create a device
-link between APU display and XHCI devices")
+--HYNdXmOeU0tPpXJ1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-to 6.18.y. It fixes a problem with my webcam not working after suspend
-and resume on my Lenovo P14s AMD Gen 6.
+Hi!
 
-Thanks!
-Lorenz
+> This is the start of the stable review cycle for the 6.12.113 release.
+> There are 497 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+
+CIP testing did not find any problems here:
+
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.12.y
+
+Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
+
+Best regards,
+                                                                Pavel
+
+--HYNdXmOeU0tPpXJ1
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCas4zVgAKCRAw5/Bqldv6
+8ki9AKCNVE/3L4RuAWVJD1fqqMt4XjJtkACdEqDQ34RsanHYL9JIxGY8q2pRtWE=
+=IhXv
+-----END PGP SIGNATURE-----
+
+--HYNdXmOeU0tPpXJ1--
