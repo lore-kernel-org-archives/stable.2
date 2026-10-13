@@ -1,190 +1,158 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5534514744
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 14:40:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8397F5172DA;
+	Tue, 13 Oct 2026 14:40:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791902424; cv=none; b=FWqLBmWTkeJihQCoRslyuZSJX/lPLfHvriRhjqCoY8AfpvxIHqFbDNdb/XfhjsR91Sh7GS9m/R36oXIK9v1UOZM3dVgpYkmjynUtBwYkRBtQf6HnC66WC7SMVArfxdsCyKYBhfXdu3bTs2iZ196QWoYFbnTkRuoW955mP4cQxUM=
+	t=1791902452; cv=none; b=GeMcXyX3jUUeS/Sdz+6e9A2ru8kPQez0H+fXGfKnu7iAvg0e3/3fDcD2lseVE+YEtbDWstOnbKZNDxkFukhLHv+uIQUsoapvZx9m85kZxEZjx6o7nxC5dB19lCyoCqPibW5OXOezyQ+mIgMbIGbgyORRcoIrHYfyoEUfljqMQwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791902424; c=relaxed/simple;
-	bh=kUxVa5mGjgd3Hwbquj61TOyvRjlHlIbwg1qSJUSNsZo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qxIgHICey6eJCEQ68a5uV61hsCVC+nAG3xPkvw9RN9Xmuv/V09SJRWWArauY8/YP6Xq7xkDsz4DKrwC7aEm8KuZJeTY6leNwAGHWlv3us8AeTW0qmuaQrbdZPLIk0O0HlPpq+unDmqC9iZEqn8M9I7Bw61l1k+OtQuF056hpXcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JUdbCzpG; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791902452; c=relaxed/simple;
+	bh=tshp6hN17mH0meZuCKVUXcZoCinEb1JlKAYw+wtFHrU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AEdF7qGYaCjzzdoNIcbetLfG4xxl2MQW+p6Cpa5J50RuEA0npOdlCKm3QcxdqbH1S84RFwtveHrNnYcqhxFmNeYJucby2vtHdYEv8DHE0bq6pcbAn6W0Tv4rPlkgG+nENWnaMzk21Z8giD778PFlb87SlTia0WAdF/6n58yy/DE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E3dxMwqL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JUdbCzpG"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a19cba5c14so24176785e9.3
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 07:40:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791902420; x=1792507220; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3+dcTjNdpl6sXOUJMEgViEWWx4Hbq5B7m0gg3ou9K64=;
-        b=JUdbCzpGr9iiCG2hIh2ePKqwJAsecubVQ+FqoYeRnDzjwDraryHs1+4NJmImZosUzq
-         UtXLIzEflFlc2+mUXk7sA8gfb8Q7FyiP/uACK2VV4H/4qQgbgn+21cyis76rQELq03d0
-         /g7PaOLzLsstioL1whpnBtq9ufPI1c/JOY8y1Rz1lXS7iV69dbZiw6wa2t+PxcjpHiSH
-         eJgZUAmo6I+fPW6eTJpDDpExRN7kGL6f7+ueQYPYWQQSpzmZwQAui0AUlWimk7/pS4eC
-         zda/p0A/9DzHx28noJQ2C85uwEqsA/gzY+KZr3U/8EJybBjRdmLBM/Xd+uutbHdVCI4I
-         B0jA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791902420; x=1792507220;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3+dcTjNdpl6sXOUJMEgViEWWx4Hbq5B7m0gg3ou9K64=;
-        b=VbnKLkIkzLozTLgsaxTSnFjNw2r1Y+Qb4R2yuD997J+fjAwhF5NL2iKczNcd8PuHDp
-         bCpK/BAiTzdRKQwM8ayZmR4lVgXjLwRbp/d+2649ngKEXKx/t8CwtFIMkkL4lrEZ9ERZ
-         7LUB3NdpvW44KEYJMsjAo2LrOfP7hfMd7h+its0fSCYsdIjSPhoiIVaR9pWdOgTkTp30
-         WOn7pDGEulssWVwoaFYdi2DaT5qU1VeU9jlRcTyeUxb8v+AWEng2SutdNk/wN1lwv/dO
-         6RtrubzO4mFn9GxTpgeYDMkHBGJvaPoiiiZWUjiZbyFf7Rr1wn0RZlrNizDifVUSMn9G
-         cjTg==
-X-Forwarded-Encrypted: i=1; AKwUvBy3SILx3ILvkUqdaP1ZU9F0Kl0EDvUBfiu7fjO7dTy0ftVNog//+2Oj5166RUM+KDyZI5rqODg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJT97hqe74WnFKA+FYtQ80LHgRVE4cTbHIclWcT7w7ji6GjJBa2
-	PeO5a4YeGWTohmPqJbmgFJ200BFQNjVhP45WvwsJPTX6THurp7qyqvBy
-X-Gm-Gg: AYBFou04bYH05h9MO0L2cmvGm6KzL8s4FcajL0SK2jxk3WWKv3hHG4LzkEeIscTgZbs
-	ApxKmjD3c1ijAO0DIAXKFpa+j+dENwVIu1j96nW+AKQIrF+LX7L+GSQLpE5UoLAjg4BzEC9awFa
-	HJ0huOwStecdXESyxxhHCxc0JzLfpdYons8XVKcOSFz+sHxqTbSUUuXf8tUk4kEXk6NLskBtEI7
-	tNZ/HyM+OT60Er7tJoU7rHPEM3xEthSTCNDaxVJS6mgVve4Hn4b2F96VjZDAB4KNBOKq9jlFqC5
-	PjUg/mhHz6CBL0U9AOGdKZnKwxtNmJqH7oDRuw4pML3H6V40JKT/xG/TFv5JaOtVq+5h82E/qfW
-	g3lTgmNCcEnZwAnTk/fwLSFBMHvSYVkwhLjr02zG+3IjxVnZdTi0c5zrkFwIybjyJtB+FtixU4m
-	EWSeT0uOaqeFoUGyoqoZDVlw5ytlBHgM7l9JXVVfdPEmKwHi3XHUbvffr7VygOPi1nuKKCamcbP
-	TyHPBU8AaRM1QOvy/I70DOrb5PCJM1V
-X-Received: by 2002:a05:600c:8b70:b0:4a0:108:3b48 with SMTP id 5b1f17b1804b1-4a18e4a174amr246218995e9.7.1791902418613;
-        Tue, 13 Oct 2026 07:40:18 -0700 (PDT)
-Received: from mm-ntb-00805 (ip-94-113-240-150.net.vodafone.cz. [94.113.240.150])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bb6b3cbsm294892585e9.0.2026.10.13.07.40.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 07:40:18 -0700 (PDT)
-From: Jan Remes <ciakval@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Joe Sandom <joe.g.sandom@gmail.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jan Remes <jan.remes@mycroftmind.com>,
-	stable@vger.kernel.org,
-	Martin Triska <martin.triska@mycroftmind.com>
-Subject: [PATCH 1/4] iio: light: tsl2591: don't divide by zero
-Date: Tue, 13 Oct 2026 16:39:40 +0200
-Message-ID: <20261013143943.436816-2-ciakval@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261013143943.436816-1-ciakval@gmail.com>
-References: <20261013143943.436816-1-ciakval@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E3dxMwqL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2FB81F000FF;
+	Tue, 13 Oct 2026 14:40:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791902450;
+	bh=JMF/X4p2JMQOAWL5F8hcgnR0xRgqfvQmfw3SYOWs+Bc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=E3dxMwqLMttYe0HqZS0dZWPQZ5GG3zyuI0bjf3NPCgljWbcwXvEdkz5wNfUKIR9uO
+	 zrID0Xq18gpwNsFxSeaTpXMu8IwYvTbAvA58g/QChfUKY8hGkNGiN4cQV5qWD6opX+
+	 czt4bQbb2TFIbQ+a7fGK/AISz3uh4NW3NwTCV79PSHfDdS+t6BHS/IGf34Y/d5KAns
+	 M3gTuKmkeJop2tA3nk1lKWpdnTe5rxUBYy9KSRVGqkiyJWnz1hBMENfuevLW/x8W+N
+	 dnMl3rvQi04aFvYZ475GaDry7zGNs8sGWJ6xqhJ3Olx/m16Qsr2Sf2cBNTLEwlys6f
+	 Ia9OFnVh7q93g==
+Message-ID: <e300f046-dcae-4539-bf89-92eb8c575e25@kernel.org>
+Date: Tue, 13 Oct 2026 16:40:43 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fs/proc/task_mmu: fix lost maps entries above 2^63
+To: Stian Halseth <stian@itx.no>, Andrew Morton <akpm@linux-foundation.org>,
+ Suren Baghdasaryan <surenb@google.com>
+Cc: "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Andreas Larsson <andreas@gaisler.com>,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ sparclinux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261011162019.922436-1-stian@itx.no>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261011162019.922436-1-stian@itx.no>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Jan Remes <jan.remes@mycroftmind.com>
+On 10/11/26 18:20, Stian Halseth wrote:
+> When a read of /proc/pid/{maps,smaps,numa_maps} resumes, m_start()
+> rewinds *ppos to priv->last_pos so that the vma which did not fit into
+> the previous buffer is shown again. It only does so for last_addr > 0,
+> meaning to exclude the start of the file and SENTINEL_VMA_GATE, but
+> last_addr is a signed loff_t holding a vm_end. sparc64 maps shared
+> libraries, anonymous memory and the stack above 0x8000000000000000, so
+> the rewind does not happen there and one entry is lost at every read()
+> boundary.
+> 
+> Reading the maps file of a process with read sizes from 64 to 8192
+> bytes in steps of 64 loses lines at 126 of the 128 sizes, smaps at 123
+> and numa_maps at 97, and the proc-maps-race selftest fails 4 of its 6
+> tests. Python's sys.remote_exec() reads maps with fgets() and fails
+> intermittently when it misses the libpython data mapping.
+> 
+> Test for the two values that are not a vma end instead.
+> 
+> Fixes: 5631da56c9a87 ("fs/proc/task_mmu: read proc/pid/maps under per-vma lock")
+> Closes: https://github.com/sparclinux/issues/issues/111
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Stian Halseth <stian@itx.no>
+> ---
+> 
+> Notes:
+>     Tested on a SPARC T7-1 (sun4v, 7.3-rc5), a T4-1 (7.2.9) and a Sun Fire
+>     V240 (sun4u, 7.3-rc5): no lost lines at any read size afterwards, and
+>     Python's sys.remote_exec() test passes 20/20. On an amd64 KVM guest maps,
+>     smaps, numa_maps and the proc selftests are unchanged.
+> 
+>  fs/proc/task_mmu.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+> index 5c54aebe21182..cdce513edcb1d 100644
+> --- a/fs/proc/task_mmu.c
+> +++ b/fs/proc/task_mmu.c
+> @@ -339,7 +339,7 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
+>  	 * Reset current position if last_addr was set before
+>  	 * and it's not a sentinel.
+>  	 */
+> -	if (last_addr > 0)
+> +	if (last_addr && last_addr != SENTINEL_VMA_GATE)
+>  		*ppos = last_addr = priv->last_pos;
+>  	vma_iter_init(&priv->iter, mm, (unsigned long)last_addr);
+>  	hold_task_mempolicy(priv);
 
-The TSL2591 has two raw light channels - CH0 and CH1. The algorithm for
-calculating illumination from the raw channels requires division by CH0
-(which can be zero) and by "counts per lux" (CPL) value which is also zero
-for (gain = LOW, integration time <= 400 ms).
+I hope Suren can review as well.
 
-Furthermore, the algorithm assumes CH0 > CH1, which can be violated in
-almost complete darkness.
+Would it be cleaner to reject any special values, that is, SENTINEL_VMA_END and
+SENTINEL_VMA_GATE?
 
-As a result, reading from 'in_illuminance_input' results in
-division-by-zero whenever CH0 is 0 (complete darkness) or whenever the
-parameters result in CPL being zero. This results in kernel oops on
-x86_64 and in reading the value as 0 on arm64.
+That would match the comment and the previous code idea: exclude only 0 and
+sentinels.
 
-Fix that by:
-- reporting CH0 <= CH1 as zero (catches also CH0 = 0)
-- updating the lux algorithm to only do the division at the end
+Could consider a simple addr_is_sentinel() helper.
 
-Fixes: 2335f0d7c790 ("iio: light: Added AMS tsl2591 driver implementation")
-Cc: stable@vger.kernel.org
-Reported-by: Martin Triska <martin.triska@mycroftmind.com>
-Assisted-by: LLM
-Signed-off-by: Jan Remes <jan.remes@mycroftmind.com>
----
- drivers/iio/light/tsl2591.c | 32 ++++++++++++++++++++++----------
- 1 file changed, 22 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/iio/light/tsl2591.c b/drivers/iio/light/tsl2591.c
-index ef3ed9635a1e..f56d31404c25 100644
---- a/drivers/iio/light/tsl2591.c
-+++ b/drivers/iio/light/tsl2591.c
-@@ -16,6 +16,7 @@
- #include <linux/interrupt.h>
- #include <linux/iopoll.h>
- #include <linux/kernel.h>
-+#include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/pm_runtime.h>
-@@ -362,6 +363,10 @@ static int tsl2591_wait_adc_complete(struct tsl2591_chip *chip)
-  * Scale values to get more representative value of lux i.e.
-  * lux = ((C0DATA - C1DATA) * (1000 - ((C1DATA * 1000) / C0DATA))) / CPL
-  *
-+ * CPL is not computed on its own: at 1x gain it is below 1 for integration
-+ * times under 500 ms, so the division by LUX DF is folded into the final
-+ * division instead.
-+ *
-  * Channel 0 = IR + Visible
-  * Channel 1 = IR only
-  */
-@@ -373,8 +378,10 @@ static int tsl2591_read_channel_data(struct iio_dev *indio_dev,
- 	struct tsl2591_als_settings *settings = &chip->als_settings;
- 	struct i2c_client *client = chip->client;
- 	u8 als_data[TSL2591_NUM_DATA_REGISTERS];
--	int counts_per_lux, int_time_fval, gain_multi, lux;
-+	int int_time_fval, gain_multi;
- 	u16 als_ch0, als_ch1;
-+	u64 lux;
-+	u32 rem;
- 	int ret;
- 
- 	ret = tsl2591_wait_adc_complete(chip);
-@@ -410,23 +417,28 @@ static int tsl2591_read_channel_data(struct iio_dev *indio_dev,
- 			return gain_multi;
- 		}
- 
--		int_time_fval = TSL2591_FVAL_TO_MSEC(settings->als_int_time);
--		/* Calculate counts per lux value */
--		counts_per_lux = (int_time_fval * gain_multi) / TSL2591_LUX_COEFFICIENT;
-+		/* No visible light, this also catches C0DATA == 0 */
-+		if (als_ch0 <= als_ch1) {
-+			*val = 0;
-+			*val2 = 0;
-+			break;
-+		}
- 
--		dev_dbg(&client->dev, "Counts Per Lux: %d\n", counts_per_lux);
-+		int_time_fval = TSL2591_FVAL_TO_MSEC(settings->als_int_time);
- 
- 		/* Calculate lux value */
--		lux = ((als_ch0 - als_ch1) *
--		       (1000 - ((als_ch1 * 1000) / als_ch0))) / counts_per_lux;
-+		lux = (u64)(als_ch0 - als_ch1) *
-+		      (1000 - ((als_ch1 * 1000) / als_ch0)) *
-+		      TSL2591_LUX_COEFFICIENT;
-+		lux = div_u64(lux, int_time_fval * gain_multi);
- 
--		dev_dbg(&client->dev, "Raw lux calculation: %d\n", lux);
-+		dev_dbg(&client->dev, "Raw lux calculation: %llu\n", lux);
- 
- 		/* Divide by 1000 to get real lux value before scaling */
--		*val = lux / 1000;
-+		*val = div_u64_rem(lux, 1000, &rem);
- 
- 		/* Get the decimal part of lux reading */
--		*val2 = (lux - (*val * 1000)) * 1000;
-+		*val2 = rem * 1000;
- 
- 		break;
- 	default:
 -- 
-2.53.0
+Cheers,
 
+David
