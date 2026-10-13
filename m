@@ -1,135 +1,110 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DBC553163D;
-	Tue, 13 Oct 2026 21:13:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9457152D2DC
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 21:23:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791926021; cv=none; b=cKkC6NstTCun5dQp99MM+dlUp+VcnAQRLqusy2kHT/ArC10e6Yn3Oj9h/HgXAbTeJZ7Wns1qBinodpzemh4h/fs57bIhQRHiJjmBKKy3rkcCvwutz5PlNR833FL8oaGAwLXRPh4gJYgkDipEa7wR4NQ1BuJAlB3LaDdkQ5RnT6w=
+	t=1791926589; cv=none; b=f9/SNVbbpXpARyF+gdux4mDx+oOi3Eve2q8UtT6H8+xrvW0/KqTd8ZGcuilvtfPCTNnW4k2ovQLtlgUUBpYZhAWTtQ80m6/kq1ReDE66v9FIBytAveK3ijbFMsWOY0KlUudPDU4LE/GGxrpbZuYUFNOS5VMPsioTF6pXbtoCKqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791926021; c=relaxed/simple;
-	bh=PFDwp3ve20Tz9F5GKmdlFdLeXZwU0oECJgtbAN1tiFw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YGZqNG4xMz9/AcqsyT3p7FpI3hW3V0Q4ydix+UMCeDw6AYz/ivDaO5AktxZjcfxfr91jDHubh/y3aVJZPw5L4eH3xOMtsTvqjlG8L64tZzz0qZdhXL2TvWvKCguCJGszWzndJiWg1pJHzuKFndO0rIFObbt+FvLUJamSzXVatKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nMAYHWZa; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791926589; c=relaxed/simple;
+	bh=yiESBERC+Xl3L7/FsxOPHfK5bIOLCgd7G0wZyXxK1mM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jfA9sSJtOEgsesn8DaH+mBaZAZUjlsv8ajSN0aIK8zOmSWltrvcG/reViUZSsVJkj8GVIGhkubgyDGwmv5bBNI+NzBm90ubFcq59q6LdScU56jAJH73lGghTZjFLqTswc+i3ReLMZY974JcirS8253veGLzPN1/RwYwp+m2RaJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=FiF4LpHU; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nMAYHWZa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791926019; x=1823462019;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=PFDwp3ve20Tz9F5GKmdlFdLeXZwU0oECJgtbAN1tiFw=;
-  b=nMAYHWZawtDZzPZG/Qs2mhX7ygeLizXJP0D3VO7UjhUbi/bsaSVu//Yt
-   fcBLXXeGq+YjFN8ls5jjS20Q3I2GYU1Z/TutcAuxkNrI+16huTzXCs8pQ
-   Y8vMMKJ16YHn0WWOJJPsFnqct89UAN0v0Ys8ZDImFsLUQwUeO/QU1mTIJ
-   HIdEGumM7QQo6HRBuPVquEFNyuDjQQcUzvZI+lKkX/z66azrvyoxEuiVb
-   xqn83nFQOEBqZx49tHncdFeY6+cBiqTvhLQT65wty8+5DL5UV+IWxx5RQ
-   Hsta3O1MYYTUUdnOVM72fb5LiJSz+G64F3l5vFk4FXygbT+kfkDmsUpkR
-   w==;
-X-CSE-ConnectionGUID: Y9yAIoFxSuusrgu9Bxhhpw==
-X-CSE-MsgGUID: y7piBJlPTX6BlNKHejDMew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="552933"
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="552933"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 14:13:38 -0700
-X-CSE-ConnectionGUID: JA9yd4VORrWtRwQw7FOb0Q==
-X-CSE-MsgGUID: FYCBG7gWRFS2d+4JnZdz8w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="1702672"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 14:13:36 -0700
-Date: Wed, 14 Oct 2026 00:13:34 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
-Cc: gregkh@linuxfoundation.org, linux-serial@vger.kernel.org,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 4/6] serial: 8250_lpss: do not touch uninitialized
- line in ehl_serial_exit()
-Message-ID: <as6e_qLKWT5bXR9V@ashevche-desk.local>
-References: <cover.1791873876.git.jirislaby@kernel.org>
- <f389df34aaa538270313ebd4cea75c2baaf46b95.1791873876.git.jirislaby@kernel.org>
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="FiF4LpHU"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so29702805e9.2
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 14:23:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1791926582; x=1792531382; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zNr9QrvvLJoXy24Y9C0L722O7ExNexOvKEg2BEzpUi0=;
+        b=FiF4LpHUWTc7u89iIkiTPgfMImLvX7iKSW8Lj45AdTsCMpEOu7S0Qw4/+iRaDiNuJn
+         UNEQwVuLtxeRaVn51aqyQBYONkrFw7bC7mhtLWbnMK5eoUEs5kdr5Rwc9oifFOvh8hOI
+         b5Z8sSb3EyZ0qis79oCnYsxKcli80Vpflixt3xYWRqOqmJJGckqIXjEIHLygNyuQDFeq
+         IB0nmMMkd4XrDLq7d2iqz8w5eNxGHFA1ub6+fCaeQUEXJKJoCPYTFzJFxRvg4uLJ6KE4
+         Fv0qopsINOJbGAh9ruO/huvBEqRbt0EjkvXXp+0nw4ZCwc4AwbfpzJmRoOVgYRnwMctw
+         KpsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791926582; x=1792531382;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zNr9QrvvLJoXy24Y9C0L722O7ExNexOvKEg2BEzpUi0=;
+        b=ucANnuntZ66x10DC61PyQHsQ4eHkP7t5de+FxahAZLTsh1uswDlfyFwCaFGKTDpQU4
+         34fc0+Uwcd9j472CtlK+tvd0KSH1ox04B2Mh6r1ntHuwAY+Tiy3UE84yfz0+Gt5PDGYp
+         JEe7YSBJuLzJpB0dvOyssWxQ97Pzx5eegn5FG24V9ydsdP45Uu5Wrv8Iru+YNf3GUmF6
+         TGhGRSGnF5+QZhSDPLI5giF26A1yKWhQEFzIZwga+SQ+dSALI4VMeBaB3aLX+66bkx7y
+         v11AVdJZYI8v6CdOZ+P5I6sOyC4icmACPjd8vojSB8z7VpsJzkB38m0AzLF6Vd8czHAZ
+         NtiA==
+X-Forwarded-Encrypted: i=1; AKwUvBz2AAHy7AP+qpZgbFhYhipIuZ2d0CBYs2lz/TgqFBc4Oy5XBmQkuW6HEDAavlwyOXe9qRCLpig=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLGiYc3LUdngwnB4jKJ7ZInLJDi73Z8ZDWLt8GQoIZhebT67996
+	caC05vslgwChj9Xp+Zr3d+1rPw0cGiTh4T78kSSb4icdhOHynuMords=
+X-Gm-Gg: AYBFou04HLpNWo1k/XHY1C+HHagCl0Kua1Sq47Eyr1LXL1FjWLcajEcDD+fCGZgNwLB
+	wD8in0Oz/vqU+X+5OyfDslX/n4YNxwktknmGc2c8kzuQnueo4Ae3wy1gQdmWqkwM7e2lB7XW4KI
+	lzMJamqUzXkZVyX9hcCfEth3lbVgXxEGFIW3vZjnzq9byhevRFGDdB127Vh7/lJM4hjlU4mOawi
+	rZgXaRfPys0ADse5tsHr6i1oPyQEAd4WwgAkrIqPzgJYlM9ja7GY31TvN37i7O3H/HKUEh7pWz2
+	tbDPZqBhIamnu87GUiUnEV4EpAyzD+37HlDZ/niTONME6cR4SqhuqvW3QlKuq+FP1/JgC8IeU3U
+	wPm1rt/DHPmpY/INomEsEi8P522bI7uH8QYd5vlc7sXRMcuura9JxRXxwCiw/Piwx3upujLDYJR
+	015uGkc4WK7P01YkaLc8SSsfxJ+f7HHFv5XTaDl5OkEhQZwTx+EiP9HvUVB1MzijgeiQ/i45+3q
+	P4lgkge1MVqWLHru0vZj/UC88opYaLJAv3KZ4zoEp0g2wQ2
+X-Received: by 2002:a05:600c:8519:b0:49d:4ef:bf70 with SMTP id 5b1f17b1804b1-4a18e4a16femr256430895e9.10.1791926582261;
+        Tue, 13 Oct 2026 14:23:02 -0700 (PDT)
+Received: from [192.168.1.3] (p5b057b0e.dip0.t-ipconnect.de. [91.5.123.14])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be97d1esm613852585e9.8.2026.10.13.14.23.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 14:23:01 -0700 (PDT)
+Message-ID: <d65b9db1-3445-440c-917d-fce806af41c6@googlemail.com>
+Date: Tue, 13 Oct 2026 23:23:00 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 7.2 000/281] 7.2.11-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261013112855.045212108@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20261013112855.045212108@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <f389df34aaa538270313ebd4cea75c2baaf46b95.1791873876.git.jirislaby@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Oct 13, 2026 at 08:48:49AM +0200, Jiri Slaby (SUSE) wrote:
-> lpss8250_probe() calls lpss->board->exit() on its error path. For the
-> EHL board, that is ehl_serial_exit() and it does:
-> serial8250_get_port(lpss->data.line)->dma = NULL;
-> 
-> But when lpss8250_dma_setup() or serial8250_register_8250_port() fails,
-> lpss->data.line was never assigned. As lpss is kzalloc()ed, line is 0
-> and ehl_serial_exit() clears the dma pointer of an unrelated port --
-> serial8250_ports[0], i.e. ttyS0, which is often the console.
-> 
-> Initialize lpss->data.line to -1 in probe and skip the clearing in
-> ehl_serial_exit() if no port was registered.
+Am 13.10.2026 um 13:35 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 7.2.11 release.
+> There are 281 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Thanks for the catch and the fix, my comments below.
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
 
-> Fixes: 5318f70da7e8 ("serial: 8250_lpss: Balance reference count for PCI DMA device")
-> Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-> Assisted-by: LLM
-> Cc: "Ilpo J‰rvinen" <ilpo.jarvinen@linux.intel.com>
-> Cc: stable@vger.kernel.org
-> -- pick
-> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Cc: linux-serial@vger.kernel.org
-> 
-> [v2] no declaration in the middle of a function (Ilpo)
-> ---
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-Hmm... Something went wrong with the Cc list, I would expect to see
 
-  Assisted-by: LLM
-  Cc: stable@vger.kernel.org
-  ---
-  Cc: "Ilpo J‰rvinen" <ilpo.jarvinen@linux.intel.com>
-  Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-  Cc: linux-serial@vger.kernel.org
-
-  [v2] no declaration in the middle of a function (Ilpo)
-  ---
-
-...
-
->  static void ehl_serial_exit(struct lpss8250 *lpss)
->  {
-> -	struct uart_8250_port *up = serial8250_get_port(lpss->data.line);
-> -
-> -	up->dma = NULL;
-> +	if (lpss->data.line >= 0)
-> +		serial8250_get_port(lpss->data.line)->dma = NULL;
-
-I would rather make it more readable by splitting the operations.
-
-	struct uart_8250_port *up;
-
-	if (lpss->data.line < 0)
-		return;
-
-	up = serial8250_get_port(lpss->data.line);
-	up->dma = NULL;
-
->  }
+Beste Gr√º√üe,
+Peter Schneider
 
 -- 
-With Best Regards,
-Andy Shevchenko
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
-
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
