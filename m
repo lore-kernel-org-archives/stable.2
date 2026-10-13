@@ -1,141 +1,128 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 698C14F4030
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:30:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 119773E49DD;
+	Tue, 13 Oct 2026 16:33:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791909028; cv=none; b=mC9P7a+FIsTNwzNZvoXrHdZpNYz63VJ1NuTydPY1TIrXhAIsRaZj7keF+hFTFAw4sa46M4M2heO6f5bRrNmLlNJQhdPWPAeXykcVbrabLP9U8SRMyY/jKuuks7yu6py3XICcVF+9IZX9sa8GrnCQNSp0CR6POMJrmVuOw6qhphc=
+	t=1791909212; cv=none; b=ou2GXV1vtb6M0zH5vO6e48oEUX9SKXc0vyNbV3prCOulPUsc2aizndutJgKNWeeVEu2DSZL7wufVSOCEqUdryT6WAoRmnYBosu4lnJzkChI3OfkMy3q0FegJUFyIYcs63JRWE2ktSSlnUuvhQdDtpJVpyaGjN1r9k2p5nwXWhgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791909028; c=relaxed/simple;
-	bh=9m7NtTHET6m83f9Mk11W5vw2NZvap3fwY2zve4r26nk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IXAnU3y+NMgYjnsn/hgjt7XRC34Y68r8qWjz8Mz0slNQXUufgaIBOFvouWPdhH9bGHnGBx+CUnItk7h65cRCRaqVx0tYP1BpsvS4o7DN5JR8N9n62pS0NEvF8I074RFvBxA1Eaxb/f6S4r0gZWSS6/ak7CCkpU/Agp4sz6sV6yk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=igm1WB07; arc=none smtp.client-ip=209.85.215.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791909212; c=relaxed/simple;
+	bh=r6w4NhKAxrSM4e/Gue+k2qcYUxQHhjAVDn1gfJyJIG4=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=tsO/6PsJGuOKF52NqFByGBu13xKUSscxZCtFOv8WLkNMUxqKndv31o6fLMs575oLYt5sMDuZJn//e6ZGJHUm6U5NLHlQIIfQ4mRGSk+J1/XX94P/g7gCfaytB5/vTmrKgWng8YPrnRpY5KK7FMUWTPPy1ThrVo6xTYTadetkpvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vcz4Mnl7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="igm1WB07"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cd1006978ecso169706a12.0
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 09:30:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791909027; x=1792513827; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PlQnD3vqPXRC6bXv4DWDPrp7sKdyCguQyIZC8BvmMCk=;
-        b=igm1WB07j28aCQZqVpjaX3R624Nz2pQOth8j6We+ByOhmftIfEWP4cGdd13agEIt3d
-         xDNFenXvhjW/guWsor6u2hloBljzxSide3iFYlLf78UR5AbtuB4hVDG1Pn5yd/axeMxp
-         kOCnyX4IUIk/M47iMjFyjeAsT2J6HTs/xONcBiNG4TuJCQ/OqDjTVEhWIKPEIBTEMtqz
-         +0/C/H1/CBySZ8nY93aPRykDoDrI5GWvFTG/zH5/UqIARmEtyZkCXs/S2kt/SupHE3Au
-         rhzdvnMqfHFNEBeVWIw4FoEE/IR61s861U9OkmNRx7E/yVevqDZK018xB2kSbzk/ECqe
-         4zRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791909027; x=1792513827;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PlQnD3vqPXRC6bXv4DWDPrp7sKdyCguQyIZC8BvmMCk=;
-        b=Br+kC6c46hkHVGkJ03sUeacwhxT+X42T/amluS4tkzPzNS7hdJTng3Ska1J0kMrdhB
-         z6x02HWqUjPjfP+7Ompfq2mopMLVXNtx9G26MYcgPWixxCkaNKQAlWlpTlSdJOtbRgU0
-         bmWf+UWkcw2ntNqsWhepsgg4O7svas29374LKRqbQIYyQ4HSia/TetfD23xezIl6hAUI
-         sKnkfLbmLJTidzjQMW6ti04lKSvLmUxNIGFsGkaVeZf0yTFK+cqaAAFvrqm0Qv+TEgDo
-         nFqCywSqecsUm2E64kZnorxUJ5PRFmt/dH8FmlAMypYiKtRElKlizu6DZYu0VKaoiii1
-         +FDg==
-X-Forwarded-Encrypted: i=1; AKwUvBye1iquL4bCxkwa2tDMinApuQY4/hKswvxUIbPHsakiQIjkWfXr4OdeInFR2u1uIh6BBIMYnTU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7ImA9QNk1G3XJ8TX4ODgx9haIfdm9zjBgV1XQjZPV8l0QArZB
-	bB8jA4BKmNF6vyL8pgfraICCMzL5u30UU8pmHM5FE4yOCDkDFVpY9/Vf
-X-Gm-Gg: AYBFou0aKdMUyhDsRVjWoMwAzjBxeNOKKXE22DwgiV+i9pU9et5nB5OdTFK248bXzX/
-	EyXdqne2i9GUwIfvczGBnBmMUtDEBzXTCbzJPoeDrtiKRVjy8e4miEEiIp3ttqxgwoEh9Oq7Nw1
-	4ra1LS8aSlAkwj6Z9Cj69XqqGmb5akRMpN1VmG0CshE8Sga56djfATns2u/JavS4Fa3l6Qx6Bjc
-	QnAUjX+Jr/eZ7TxzAlEAIo624ldPsP1LslypGopySwdMFmua+bzOxvhBbxxXKC/GVGQQxVsr91f
-	xMl4Pm2DgCT50T0V/NWNNLPNrgX+t9KBJC+KXGAPm9dT4p4YcZFKp36f6SxUGZYTEftmyZD4g5V
-	eNkQnaPOcJPyibTwkjVQXUta19F2EEBSGVjl69i0KenM0Dof8HaKmM+UDBhyaQ7SKvr8lhqAryW
-	Ldp+o/xgclMf4Lgn/65/nmzI245dIajXR/AJ/+F17rOdKG4437xsnwb9+yceJBccUiEZB6TWe+P
-	6M6lTY3slX/8g3kB3u7oFc9XOQL9lbCW6jdII+JVn9mtZXbSL2CQzaKWyrHPHGxbuZf
-X-Received: by 2002:a05:6a20:430e:b0:3de:7dd4:e32a with SMTP id adf61e73a8af0-3e16bdae01emr16584442637.2.1791909024978;
-        Tue, 13 Oct 2026 09:30:24 -0700 (PDT)
-Received: from localhost.localdomain ([119.127.198.225])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9e0816csm6462483a12.7.2026.10.13.09.30.18
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 13 Oct 2026 09:30:24 -0700 (PDT)
-From: Qihang <q.h.hack.winter@gmail.com>
-To: netdev@vger.kernel.org
-Cc: jhs@mojatatu.com,
-	jiri@resnulli.us,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	elic@nvidia.com,
-	stable@vger.kernel.org,
-	Qihang <q.h.hack.winter@gmail.com>
-Subject: [PATCH] net/sched: cls_api: skip indr register on failed bind
-Date: Wed, 14 Oct 2026 00:30:14 +0800
-Message-ID: <20261013163014.25722-1-q.h.hack.winter@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vcz4Mnl7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C4D51F000FF;
+	Tue, 13 Oct 2026 16:33:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791909210;
+	bh=6T2EyX04RGGoQAm4CXmcxngdnZP3I2uya54Wk47L/0Y=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=Vcz4Mnl7SMcC5EofSiSNhkawGfHClWTALjiOo4bER3V4Z0amj7+3YO26sm20FniHx
+	 S6Z1wIpgHT+QqLyz5khvTt4j2b5dCgs32N0hAPzfBUyf4YIiSF9Mls15T2xzzqSVuK
+	 iFJ4qGpJK0J/7Hao1ozrXxNme8Uw6CLt4bMRmfHPifSg8qXZWTUcFcTrTHcOmtAEVV
+	 CZT17t3CpuMVDPcBcUPMrNWpSSwq8pIUnVLDI30ax4iaoWy6eWqvtXvW4JcXq+jESj
+	 HYxsbgl/gcyeCjNbw11aa4jo4BN/s4GEwp9mfWD/jMel0RYFlZEvHWhnEjz8MdweiL
+	 xvMxsgLunmnZA==
+Date: Tue, 13 Oct 2026 18:32:26 +0200 (CEST)
+From: Imre Kaloz <kaloz@kernel.org>
+To: Harry Yoo <harry@kernel.org>
+cc: Vlastimil Babka <vbabka@kernel.org>, 
+    Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, 
+    Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
+    Roman Gushchin <roman.gushchin@linux.dev>, Jann Horn <jannh@google.com>, 
+    linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/slab: sample slab_state once in
+ kmem_cache_destroy()
+In-Reply-To: <as4q2WlR7mLhMBpG@thinkstation>
+Message-ID: <e4184209-75ee-929d-0103-ca15d5886000@kernel.org>
+References: <20260930195110.13296-1-kaloz@kernel.org> <ar5pESlkEMqNsgxv@thinkstation> <aef97b97-0bd7-d720-7f59-8c0078747370@kernel.org> <as4QhUscRVtBzYpm@thinkstation> <481e9a16-cd30-d463-14ee-b5602bcd5a21@kernel.org> <as4q2WlR7mLhMBpG@thinkstation>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII; format=flowed
 
-Binding a device without ndo_setup_tc() to a shared block that already
-offloads records the block on flow_indir_dev_list and then fails.  Nothing
-removes that record, so once the block is destroyed the next
-flow_indr_dev_register() splices a list into freed memory:
+Hi Harry,
 
-  tcf_block_offload_cmd()
-    -> flow_indr_dev_setup_offload()
-       -> indir_dev_add()   [ record: data = block,
-                                cb_list = &block->flow_block.cb_list ]
-    -> return -EOPNOTSUPP
-  tcf_block_offload_bind()
-    -> tcf_block_offload_in_use(block) is true    [ offloadcnt > 0 ]
-    -> return -EOPNOTSUPP
-  tcf_block_get_ext()
-    -> err_block_offload_bind            [ no tcf_block_offload_unbind() ]
+On Tue, 13 Oct 2026, Harry Yoo wrote:
 
-Only a FLOW_BLOCK_UNBIND calls indir_dev_remove(), and the failed bind
-never issues one.  The next flow_indr_dev_register() replays the record
-through existing_qdiscs_register(), where list_splice() writes the new
-linkage into the freed block's cb_list; the callback that the replay
-allocates keeps indr.data pointing at the freed block, so a later driver
-unregister reaches tc_block_indr_cleanup() on it as well.
+<snip>
 
-The fix was built and the reproducer re-run clean on it.
+>>>> There is a related older window: after list_del() and before that
+>>>> single read, slab_sysfs_init() could set FULL, skip this cache, and
+>>>> the single read would then call both unlink and release on an
+>>>> uninitialized kobject.
+>>>
+>>> No, with this patch slab_sysfs_init() cannot set the state to FULL
+>>> because the slab_caches list and slab_state are protected by slab_mutex.
+>>>
+>>>> I have not hit that, and this patch does not close it.
+>>>
+>>> I think the patch does close two bugs.
+>>>
+>>> One introduced by 4ec10268ed98 (reading slab_state twice),
+>>> another (reading slab_state outside slab_mutex) introduced by, hmm,
+>>> not sure which commit introduced it :) should be very old.
+>>
+>> You're right, I got that one wrong. Sampling under slab_mutex in the
+>> same section as the list_del() means slab_late_init() either sees the
+>> cache on the list or we see slab_state < FULL, so the older window is
+>> closed too.
+>>
+>> As for where the outside-mutex read came from, as far as I can tell it's
+>> 0495e337b703 ("mm/slab_common: Deleting kobject in kmem_cache_destroy()
+>> without holding slab_mutex/cpu_hotplug_lock"). Before that, the unlink
+>> and release and their slab_state checks ran in shutdown_cache() under
+>> slab_mutex.
+>
+> 0495e337b703 Probably yes. Not 100% sure.
+>
+> It's quite messy, reading slab_state has been done inside, switched
+> to outside, and back to inside, and so on.
+>
+> But should be fine as long as we can find the first commit that
+> affects -stable kernels (>= 5.10.y)
+>
+>> SLAB_TYPESAFE_BY_RCU caches were already released from the
+>> workfn outside the mutex since 657dc2f97220.
+>>
+>> Want me to send a v2 with a second Fixes: for 0495e337b703, or is it
+>> fine to add it when applying?
+>
+> Could you please verify fixing which bugs resolves the issue on sparc64
+> described in the changelog? Reading it twice, or outside slab_mutex, or
+> both?
 
-Fix by returning -EOPNOTSUPP before flow_indr_dev_setup_offload() when the
-command is FLOW_BLOCK_BIND and the block is already offloading, which is
-the condition tcf_block_offload_bind() rejects the bind with, so that no
-record is created.  Keep the check limited to the bind: on unbind this
-branch is the only caller of indir_dev_remove(), and it runs while
-offloadcnt is still non-zero.
+I tested it. I built five variants of rc7 with a small test that
+destroys a SLAB_TYPESAFE_BY_RCU cache while slab_late_init() runs
+(same path the floppy bio slab takes), and booted each 10 times on
+x86 and 8 times on sparc64. Boots that hit the WARN:
 
-Fixes: 74fc4f828769c ("net: Fix offloading indirect devices dependency on qdisc order creation")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
----
- net/sched/cls_api.c | 4 ++++
- 1 file changed, 4 insertions(+)
+                                              x86     sparc64
+   mainline                                   9/10    8/8
+   one read, in kmem_cache_release()          9/10    8/8
+   unlink check under slab_mutex,
+     release still re-reads                   10/10   8/8
+   one read under slab_mutex (this patch)     0/10    0/8
+   one read right after mutex_unlock()        0/10    0/8
 
-diff --git a/net/sched/cls_api.c b/net/sched/cls_api.c
-index a9f54988561f..7acfe71853a7 100644
---- a/net/sched/cls_api.c
-+++ b/net/sched/cls_api.c
-@@ -860,6 +860,10 @@ static int tcf_block_offload_cmd(struct tcf_block *block,
- 		return tcf_block_setup(block, &bo);
- 	}
- 
-+	/* a bind that cannot succeed must not leave a record behind */
-+	if (command == FLOW_BLOCK_BIND && tcf_block_offload_in_use(block))
-+		return -EOPNOTSUPP;
-+
- 	flow_indr_dev_setup_offload(dev, sch, TC_SETUP_BLOCK, block, &bo,
- 				    tc_block_indr_cleanup);
- 	tcf_block_setup(block, &bo);
--- 
-2.54.0 (Apple Git-157)
+So it takes both. The read that hurts is the one at release time,
+after rcu_barrier(); fixing only the double read keeps it, and so
+does moving only the unlink check under the mutex. Reading once
+right after the unlock didn't trigger it, but that is still racy,
+just a much smaller window.
 
+For stable, as far as I can tell the release-side read has been
+outside slab_mutex since d50d82faa0c9 ("slub: fix failure when we
+delete and create a slab cache") in v4.18, so that would cover
+5.10.y. The patch doesn't apply before 6.12, so the older branches
+need their own backports.
+
+
+Best,
+Imre
