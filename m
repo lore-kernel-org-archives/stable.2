@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5280F499F20;
-	Tue, 13 Oct 2026 06:09:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D37C7496D47;
+	Tue, 13 Oct 2026 06:10:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791871781; cv=none; b=Dpi26++x91TXYoZshHqe5rhbo4tJ1crs1s2rHoeMGW7L2MWIc1vlEYH6Aew3E95g1OgJJwqLfqYdaQOcjiW1oa2bTZ66CLKvqOX9+qghmHxpTjRP75BlfvAxbFAJ4v3NFblabs9o9cuJZqofpq6oUzUsd8Vvdanb5SCzLKlQ7b4=
+	t=1791871814; cv=none; b=k2xrpKZDkR7asFzr+aiaGBYnW/5z802yZ3r9zYE7QNGP44QtTXI1BjAAsIyZiTF67xBiha/om/iBn/ZNIBuoRE9bx/ma1wr7szH3WGUoQnVJiIi7TBdG1K32rz2t2PgjEF12ndRPGsfp3OD9HkGKA3K5ttKYNcF84Ub+8JXKSMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791871781; c=relaxed/simple;
-	bh=mIrmOBrHrg2nUpyE80GVrEseOD0XnKtDxXHrv15OhQI=;
+	s=arc-20240116; t=1791871814; c=relaxed/simple;
+	bh=DtuVEi3F8CLUBk5cEkvkPZUoTApajOgYtNw7goGwS4M=;
 	h=Date:Subject:From:To:Cc:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pLS+H4bp2efaOY3ZuUoZJzFvzDMZ3NB0c3FsrZ+3iinvvsjq5VZSWOy5RaGGkJUkS0KIW4KohTBsWG28AYz5tbp62W0YFJFzH2vw54wm58uOHTLuXBLw1xoVgtKqFp0LOhsYClWl9J6IFrL0YGAqIA6f1gw9wmBnEVnpF7GzAy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F5NImxBF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=m2j64kH5JwoLWi7RcHQKl0IsAbcstrmk0vB2O09VDTFbfb/r4600nEnL/t/xKS8Yr7jqejJH9ErxjCPYoChG+HDm3jng4sU98c7m98JRIvTWvRCAEtuscR1hFDdSSFrWEd/BlGnbZ3v7I+3qFJPsThSD9ejcbHE3DivK65ErWKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WNFe4UYg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F5NImxBF"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D8BF41F000FF;
-	Tue, 13 Oct 2026 06:09:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WNFe4UYg"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 1A3711F000FF;
+	Tue, 13 Oct 2026 06:10:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791871778;
-	bh=bWRhghy11gS04pYgXQqq5ZyQB95VJsuwhYUZu7pk5Y4=;
+	s=k20260515; t=1791871810;
+	bh=4LRqZzhG6aJjmoyD0QcTschH1y33RezbtFjT8uiKuXA=;
 	h=Date:Subject:From:To:Cc:In-Reply-To:References;
-	b=F5NImxBFMqW0Ec0n6/3PI8Eq8gR5nijF46D2nFB2eVN14JGLBd8RDbYPf4Qowo63v
-	 0zdYJNF852K/77lwRM+BOc/CyBj2KceCKXiBhttMCj67+kAxEuqkhB2emTIdLlTZZ+
-	 DYMft8JCSzFtU3pZDoa5Z0LWavfPxXMlMgKOm3PmXB7gUftKiOaSt+JJdHnr3y1Uhv
-	 L9P0incSgKN8xk+7Rr9xVP6gXjTwAt1TU50oail3nF7s8x0zmBRWzMlmxFEtoQ2nSL
-	 ewNNsrWNpP7HOi3z9/lLES2gknDQsZ/by+WDKeNL0dRbRysqLak/0M0yqqlUz6If9o
-	 Sak68UkeRAm5Q==
-Date: Mon, 12 Oct 2026 23:09:38 -0700
-Subject: [PATCH 05/12] xfs: update quota flags on secondary supers when
- metadir enabled
+	b=WNFe4UYgGlJDXUbSW0+SP4TWJGvFxKxD7D7mozUO+bQxG1YD2nL90BtWuMqIni6fm
+	 dpwzp1Jgsy3V2u/PEGMae9ZeSGu+Yp2wTg1pjskrjlMg8LAQCoszkhqaToqnQA9hfA
+	 j7EjQjEVlsaG7ch+HWIAFDSj5UTrqMofVa0PTXfj/VEajdOb1bWaJYqOVAVwu6946e
+	 D0cu+X+C2q1KYpYq5hLOCdaIOd7/cqxnxMjHa4X97u9QaTg+qhnAbXdYYdWtlwZcDN
+	 bf45gO4stouYrM0Jsn1Ve4Yrx/givRJVl4G+utdKdJZRgpBUCa8rGyo/CWLIuMycIb
+	 owtGKgG8VR/ew==
+Date: Mon, 12 Oct 2026 23:10:09 -0700
+Subject: [PATCH 07/12] xfs: improve dirent bounds checking in scrub and repair
 From: "Darrick J. Wong" <djwong@kernel.org>
 To: djwong@kernel.org, cem@kernel.org
-Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Message-ID: <179186107949.1898896.7157266495683086793.stgit@frogsfrogsfrogs>
+Cc: hch@lst.de, stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Message-ID: <179186107993.1898896.11064440818288255193.stgit@frogsfrogsfrogs>
 In-Reply-To: <179186107760.1898896.12318125940367230627.stgit@frogsfrogsfrogs>
 References: <179186107760.1898896.12318125940367230627.stgit@frogsfrogsfrogs>
 Precedence: bulk
@@ -46,181 +45,229 @@ Content-Transfer-Encoding: 7bit
 
 From: Darrick J. Wong <djwong@kernel.org>
 
-xfs/085 exposes an interesting bug when metadir is enabled, quotas are
-enabled via mount option, and the primary superblock crc fails
-validation:
+LOLLM complains that we don't do enough bounds checking of the directory
+entries in directory blocks when we're looking for errors or trying to
+salvage entries.  Let's improve that with more detailed checks.
 
- Phase 1 - find and verify superblock...
- bad primary superblock - bad CRC in superblock !!!
-
- attempting to find secondary superblock...
- .found candidate secondary superblock...
- verified secondary superblock...
- quota accounting and enforcement flags lost
-
-<snip>
-
- Phase 3 - for each AG...
-         - scan and clear agi unlinked lists...
-         - process known inodes and perform inode discovery...
-         - agno = 0
-         - agno = 1
-         - agno = 2
- unexpected regular file inode 16908418 with metadata flag will zap
- cleared inode 16908418
- unexpected regular file inode 16908419 with metadata flag will zap
- cleared inode 16908419
- unexpected regular file inode 16908420 with metadata flag will zap
- cleared inode 16908420
-         - agno = 3
-         - process newly discovered inodes...
-
-Quota files have been created, but xfs_repair thinks that quotas aren't
-enabled and trashes the quota files.  Looking at the filesystem reveals
-that the quota accounting flags were indeed persisted to the primary
-superblock but not the secondary:
-
- # xfs_db -c 'sb 0' -c 'print qflags' -c 'sb 1' -c 'print qflags' /dev/sdf
- Metadata corruption detected at 0x561c68436080, inode 0x81 dinode
- xfs_db: Failed to load metadir root directory, error 117
- Metadata corruption detected at 0x561c683f7c80, xfs_agf block 0x1/0x200
- xfs_db: cannot init perag data (117). Continuing anyway.
- Metadata CRC error detected at 0x561c6844d1b5, xfs_sb block 0x0/0x200
- qflags = 0x7cf
- qflags = 0
-
-On a metadir filesystem, quota state is supposed to persist across
-mount cycles if the sysadmin doesn't provide any quota mount options.
-Therefore, any time we update the quota flags on a metadir filesystem,
-we should write the same change to the secondary supers so that
-xfs_repair will find the quota data if it ever has to restore from a
-secondary.
-
-Cc: <stable@vger.kernel.org> # v6.13
-Fixes: d5d9dd5b3026a8 ("xfs: persist quota flags with metadir")
+Cc: <stable@vger.kernel.org> # v4.16
+Fixes: ce92d29ddf9908 ("xfs: directory scrubber must walk through data block to offset")
 Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 ---
- fs/xfs/xfs_quota.h |    9 +++++++++
- fs/xfs/xfs_mount.c |    9 ++++++++-
- fs/xfs/xfs_qm.c    |   36 +++++++++++++++++++++++++++++++++++-
- 3 files changed, 52 insertions(+), 2 deletions(-)
+ fs/xfs/scrub/dir.c        |   68 ++++++++++++++++++++++++++++++++++++++-------
+ fs/xfs/scrub/dir_repair.c |   37 ++++++++++++++++++++++--
+ 2 files changed, 91 insertions(+), 14 deletions(-)
 
 
-diff --git a/fs/xfs/xfs_quota.h b/fs/xfs/xfs_quota.h
-index 105e6eb5762011..b323a72dafbcde 100644
---- a/fs/xfs/xfs_quota.h
-+++ b/fs/xfs/xfs_quota.h
-@@ -151,6 +151,8 @@ void xfs_dqtrx_hook_setup(struct xfs_dqtrx_hook *hook, notifier_fn_t mod_fn,
- 		xfs_trans_mod_dquot((tp), (dqp), (field), (delta))
- # endif /* CONFIG_XFS_LIVE_HOOKS */
- 
-+void __xfs_qm_update_secondary_sb(struct xfs_mount *mp,
-+		const char *func);
- #else
- static inline int
- xfs_qm_vop_dqalloc(struct xfs_inode *ip, kuid_t kuid, kgid_t kgid,
-@@ -216,8 +218,15 @@ static inline int xfs_quota_reserve_blkres(struct xfs_inode *ip, int64_t blocks)
- #  define xfs_dqtrx_hook_disable()		((void)0)
- # endif /* CONFIG_XFS_LIVE_HOOKS */
- 
-+static inline void __xfs_qm_update_secondary_sb(struct xfs_mount *mp,
-+		const char *func)
-+{
-+}
- #endif /* CONFIG_XFS_QUOTA */
- 
-+#define xfs_qm_update_secondary_sb(mp) \
-+	__xfs_qm_update_secondary_sb((mp), __func__)
-+
- static inline void
- xfs_quota_unreserve_blkres(struct xfs_inode *ip, uint64_t blocks)
+diff --git a/fs/xfs/scrub/dir.c b/fs/xfs/scrub/dir.c
+index 8de593c5382d11..d99e2a73272306 100644
+--- a/fs/xfs/scrub/dir.c
++++ b/fs/xfs/scrub/dir.c
+@@ -325,11 +325,24 @@ xchk_dir_check_unused(
+ 	struct xchk_da_btree		*ds,
+ 	struct xfs_buf			*bp,
+ 	unsigned int			iter_off,
+-	unsigned int			end)
++	unsigned int			end,
++	xfs_dablk_t			rec_bno)
  {
-diff --git a/fs/xfs/xfs_mount.c b/fs/xfs/xfs_mount.c
-index be90c7b0399484..8838eff1f054d5 100644
---- a/fs/xfs/xfs_mount.c
-+++ b/fs/xfs/xfs_mount.c
-@@ -446,6 +446,8 @@ int
- xfs_mount_reset_sbqflags(
- 	struct xfs_mount	*mp)
- {
-+	int			error;
-+
- 	mp->m_qflags = 0;
+ 	struct xfs_dir2_data_unused	*dup = bp->b_addr + iter_off;
++	unsigned int			advance;
  
- 	/* It is OK to look at sb_qflags in the mount path without m_sb_lock. */
-@@ -458,7 +460,12 @@ xfs_mount_reset_sbqflags(
- 	if (!xfs_fs_writable(mp, SB_FREEZE_WRITE))
+-	return be16_to_cpu(dup->length);
++	if (iter_off + sizeof(*dup) > end) {
++		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
++		return -1;
++	}
++
++	advance = xfs_dir2_data_unusedsize(be16_to_cpu(dup->length));
++	if (!advance || iter_off + advance > end) {
++		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
++		return -1;
++	}
++
++	return advance;
+ }
+ 
+ /*
+@@ -343,15 +356,31 @@ xchk_dir_check_entry(
+ 	struct xfs_buf			*bp,
+ 	unsigned int			iter_off,
+ 	unsigned int			end,
+-	struct xfs_dir2_data_entry	*dent)
++	struct xfs_dir2_data_entry	*dent,
++	xfs_dablk_t			rec_bno)
+ {
+ 	struct xfs_dir2_data_entry	*dep = bp->b_addr + iter_off;
+ 	struct xfs_mount		*mp = ds->state->mp;
++	unsigned int			advance;
++
++	/* must have namelen */
++	advance = offsetof(typeof(*dep), name);
++	if (iter_off + advance >= end) {
++		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
++		return -1;
++	}
++
++	/* Don't walk off the end of the block. */
++	advance = xfs_dir2_data_entsize(mp, dep->namelen);
++	if (!advance || iter_off + advance > end) {
++		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
++		return -1;
++	}
+ 
+ 	if (dep == dent)
  		return 0;
  
--	return xfs_sync_sb(mp, false);
-+	error = xfs_sync_sb(mp, false);
-+	if (error)
-+		return error;
-+
-+	xfs_qm_update_secondary_sb(mp);
-+	return 0;
+-	return xfs_dir2_data_entsize(mp, dep->namelen);
++	return advance;
  }
  
- static const char *const xfs_free_pool_name[] = {
-diff --git a/fs/xfs/xfs_qm.c b/fs/xfs/xfs_qm.c
-index 008fed8624be2c..dd5011f578a63b 100644
---- a/fs/xfs/xfs_qm.c
-+++ b/fs/xfs/xfs_qm.c
-@@ -693,6 +693,32 @@ xfs_qm_create_metadir_qinos(
- 	return 0;
- }
+ /* Scrub a directory btree record. */
+@@ -379,6 +408,7 @@ xchk_dir_rec(
+ 	xfs_dahash_t			hash;
+ 	struct xfs_dir3_icleaf_hdr	hdr;
+ 	unsigned int			tag;
++	bool				foundit = false;
+ 	int				error;
  
-+/*
-+ * For metadir filesystems, quota flag state persists across mounts, so update
-+ * secondary superblocks in case xfs_repair ever has to recover the primary
-+ * from a secondary.  growfs also updates backup supers so lock against that.
-+ * Note that the secondary backups are opportunistic, so we log but do not
-+ * return write errors.
-+ */
-+void
-+__xfs_qm_update_secondary_sb(
-+	struct xfs_mount	*mp,
-+	const char		*func)
-+{
-+	int			error;
-+
-+	if (!xfs_has_metadir(mp))
-+		return;
-+
-+	mutex_lock(&mp->m_growlock);
-+	error = xfs_update_secondary_sbs(mp);
-+	mutex_unlock(&mp->m_growlock);
-+
-+	if (error)
-+		xfs_alert(mp, "%s: Secondary super update failed, err=%d!",
-+				func, error);
-+}
-+
- /*
-  * Add QUOTABIT to sb_versionnum and initialize qflags in preparation for
-  * creating quota files on a metadir filesystem.
-@@ -718,7 +744,12 @@ xfs_qm_prep_metadir_sb(
- 	spin_unlock(&mp->m_sb_lock);
- 	xfs_log_sb(tp);
+ 	ASSERT(blk->magic == XFS_DIR2_LEAF1_MAGIC ||
+@@ -423,33 +453,44 @@ xchk_dir_rec(
+ 	dent = bp->b_addr + off;
  
--	return xfs_trans_commit(tp);
-+	error = xfs_trans_commit(tp);
-+	if (error)
-+		return error;
-+
-+	xfs_qm_update_secondary_sb(mp);
-+	return 0;
- }
- 
- /*
-@@ -1683,6 +1714,9 @@ xfs_qm_mount_quotas(
- 			ASSERT(!(XFS_IS_QUOTA_ON(mp)));
- 			xfs_alert(mp, "%s: Superblock update failed!",
- 				__func__);
-+		} else {
-+			/* Primary update succeeded, try to write secondary */
-+			xfs_qm_update_secondary_sb(mp);
- 		}
+ 	/* Make sure we got a real directory entry. */
+-	iter_off = geo->data_entry_offset;
+ 	end = xfs_dir3_data_end_offset(geo, bp->b_addr);
+ 	if (!end) {
+ 		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
+ 		goto out_relse;
  	}
+-	for (;;) {
++	iter_off = geo->data_entry_offset;
++	while (iter_off < end) {
+ 		struct xfs_dir2_data_unused	*dup = bp->b_addr + iter_off;
+ 		int				advance;
+ 
+-		if (iter_off >= end) {
++		/* must have freetag */
++		advance = offsetof(typeof(*dup), length);
++		if (iter_off + advance >= end) {
+ 			xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
+ 			goto out_relse;
+ 		}
+ 
+ 		if (dup->freetag == cpu_to_be16(XFS_DIR2_DATA_FREE_TAG))
+-			advance = xchk_dir_check_unused(ds, bp, iter_off, end);
++			advance = xchk_dir_check_unused(ds, bp, iter_off, end,
++					rec_bno);
+ 		else
+ 			advance = xchk_dir_check_entry(ds, bp, iter_off, end,
+-					dent);
++					dent, rec_bno);
+ 		if (advance < 0)
+ 			goto out_relse;
+-		if (!advance)
++		if (!advance) {
++			foundit = true;
+ 			break;
++		}
+ 		iter_off += advance;
+ 	}
+ 
++	/* Hash tree must point to the exact dirent */
++	if (!foundit) {
++		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
++		goto out_relse;
++	}
++
+ 	/* Retrieve the entry, sanity check it, and compare hashes. */
+ 	ino = be64_to_cpu(dent->inumber);
+ 	hash = be32_to_cpu(ent->hashval);
+@@ -461,6 +502,13 @@ xchk_dir_rec(
+ 		goto out_relse;
+ 	}
+ 
++	/* Name must not overflow end of block */
++	if ((char *)dent->name + dent->namelen >
++	    (char *)bp->b_addr + BBTOB(bp->b_length)) {
++		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
++		goto out_relse;
++	}
++
+ 	/* Does the directory hash match? */
+ 	dname.name = dent->name;
+ 	dname.len = dent->namelen;
+diff --git a/fs/xfs/scrub/dir_repair.c b/fs/xfs/scrub/dir_repair.c
+index 1169a2ad26876f..84fe3dda0d4213 100644
+--- a/fs/xfs/scrub/dir_repair.c
++++ b/fs/xfs/scrub/dir_repair.c
+@@ -473,8 +473,16 @@ xrep_dir_recover_unused(
+ 	unsigned int			end)
+ {
+ 	struct xfs_dir2_data_unused	*dup = bp->b_addr + offset;
++	unsigned int			advance;
+ 
+-	return be16_to_cpu(dup->length);
++	if (offset + sizeof(*dup) > end)
++		return 0;
++
++	advance = xfs_dir2_data_unusedsize(be16_to_cpu(dup->length));
++	if (!advance || offset + advance > end)
++		return 0;
++
++	return advance;
+ }
+ 
+ /*
+@@ -492,11 +500,14 @@ xrep_dir_recover_entry(
+ 	unsigned int			advance;
+ 	int				error;
+ 
++	/* must have namelen */
++	advance = offsetof(typeof(*dep), name);
++	if (offset + advance >= end)
++		return 0;
++
+ 	/* Don't walk off the end of the block. */
+ 	advance = xfs_dir2_data_entsize(rd->sc->mp, dep->namelen);
+-	if (!advance)
+-		return 0;
+-	if (offset + advance > end)
++	if (!advance || offset + advance > end)
+ 		return 0;
+ 
+ 	/* Ok, let's save this entry. */
+@@ -534,6 +545,11 @@ xrep_dir_recover_data(
+ 		if (xchk_should_terminate(rd->sc, &error))
+ 			return error;
+ 
++		/* must have freetag */
++		advance = offsetof(typeof(*dup), length);
++		if (offset + advance >= end)
++			break;
++
+ 		if (dup->freetag == cpu_to_be16(XFS_DIR2_DATA_FREE_TAG))
+ 			advance = xrep_dir_recover_unused(bp, offset, end);
+ 		else
+@@ -565,6 +581,19 @@ xrep_dir_recover_sf(
+ 	hdr = ifp->if_data;
+ 	end = (unsigned char *)ifp->if_data + ifp->if_bytes;
+ 
++	/* sf header must be big enough for count/i8count */
++	if (!hdr || ifp->if_bytes < 2)
++		return 0;
++
++	/* and large enough for the parent inumber */
++	if (hdr->i8count) {
++		if (ifp->if_bytes < offsetof(struct xfs_dir2_sf_hdr, parent[8]))
++			return 0;
++	} else {
++		if (ifp->if_bytes < offsetof(struct xfs_dir2_sf_hdr, parent[4]))
++			return 0;
++	}
++
+ 	ino = xfs_dir2_sf_get_parent_ino(hdr);
+ 	trace_xrep_dir_salvaged_parent(rd->sc->ip, ino);
  
 
