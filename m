@@ -1,44 +1,48 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8D14FE2F1
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 15:20:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33EA753F6B0;
+	Tue, 13 Oct 2026 15:21:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904828; cv=none; b=hpI12vElUHmzGB2n/lBRqARlqN3ZHmFwzOcsUoc2v66uutCttDrDh03xF4hKZBhoRYtuYPVSf33t1pIpAZimeRxai5PGzyLC79y94Mx9T+A1D+8jVDfXPPmcsan4zTQsb5wjHsdECEEh58XqURJ3eWhYKnR2JP0b/o3oek7FP70=
+	t=1791904875; cv=none; b=dOry2NVKtwayD/s1WeVTTbE9vRTSQXatO6phNJh3Fl5bB1ZBCeV2g92RuHzSFxhcmDVNh+vMtYQtJpKhHyxzqnolc5NRWppbHb8HZcisrYELx6QtTcDqolyoiRrMsgUP/XNoWOfPDxrdqMtz5k+s5LcN7K143jcuFeMtHyxqwRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904828; c=relaxed/simple;
-	bh=+T8rFbXfa6KiN6iZXTSR1+oqUWoJn3/gG2djQDa7JJ8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Fd1DXlpWVv1XMllZEX+G9LaPkkJmvSQgbgtK0KPNFT7ocPANyE3URgkm3UOyTpdveTGGXoC3dTyVCQkQ7tt5VgYt5Ik/u+u8bN0Lx5hhhYFQ+mChkGAPzCAGmwZkbhnUOBPr7etkrFT/WynC+5VSGcRO9rBuqyWR4DJd2+AyyrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RIjl+1nz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791904875; c=relaxed/simple;
+	bh=6d019nn8BwUs8GO+4tHGPEPmX9fd53978uK5Jj7cPeo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IekJPoZ26GkgD+DOsJkFX833EENo86+uPJnMcDx1W4ghIAtuYH/bGGMUVsd8DmI4AlMSyJLBFvTeWHFIuA1gzObbogRHrpNhceThprCDbt4NOthjDXR59DEjBCaCw69IN8DKApdT6lQOUmWoxNgAgJhF+4P0hGH3OvThG79apA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=AdybLNnH; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RIjl+1nz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A915C1F0089E;
-	Tue, 13 Oct 2026 15:20:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791904826;
-	bh=nAMHyf2WN4/3+yEYcHNrUlW/z8RlewmwboNeN4vNcr4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RIjl+1nz9BzZzv6Eb8Y+nEnk9l6P5KmCKr0zEoke70mTGP9mxk99gz0ABcvdts0bl
-	 6idKysdWPyvxf8FuMXdBlO8JYuhon+cFYEhSm4crZ9w9E8Maf+BdzXpdQFe5q2BJLd
-	 G/YWP3U9+NWVHeqTD5hM25HQDKeC2k509iJSBHJtpU0WBUSyAdHmvHQDtLstFuDm/1
-	 OWrLDvK8oYs/80/1aTTV3qq2cfRm+HLYr6Nzj1b00U2QmiTeeMFIRivLtO19CoFOcr
-	 En85ahsIPRa+J+Ibyf8iCLEToPBr+JRpZUkd8sGZPPgBWB1XdNqOSgLoy+4/Ui28Vn
-	 ok4rIoz3Xr32A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Tejun Heo <tj@kernel.org>,
-	Alap Mohan <mohaalap@meta.com>,
-	Joonwoo Park <joonwoo@meta.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y] sched_ext: Fix CPU hotplug hang when a dying CPU's tasks sit in the BPF scheduler
-Date: Tue, 13 Oct 2026 11:20:24 -0400
-Message-ID: <20261013152005.130065-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101224-counting-undrafted-69cb@gregkh>
-References: <2026101224-counting-undrafted-69cb@gregkh>
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="AdybLNnH"
+From: Stian Halseth <stian@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1791904872;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Rc71fgZHwADEeq4p7dd0dPWf8I5xcTbvFS9HuN595XE=;
+	b=AdybLNnHYsQIKddtDVjlqYbw+JX0uwW3/3h9KaTu+nDjUnxsOM5m32URnOTQKjhZXY4bVW
+	FODW0E1hcM7TGwhV5rxCEY1HZfPRCeEEz6XrClJNUmU66iFLINybac2BAPeqa2ShtQw9NP
+	jj2WZ6if4aBZgvIB9lbLFUracOBJ1Gg=
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Andreas Larsson <andreas@gaisler.com>,
+	linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org,
+	sparclinux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Stian Halseth <stian@itx.no>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] fs/proc/task_mmu: fix lost maps entries above 2^63
+Date: Tue, 13 Oct 2026 17:21:06 +0200
+Message-ID: <20261013152106.1834364-1-stian@itx.no>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,126 +51,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tejun Heo <tj@kernel.org>
+When a read of /proc/pid/{maps,smaps,numa_maps} resumes, m_start()
+rewinds *ppos to priv->last_pos so that the vma which did not fit into
+the previous buffer is shown again. It only does so for last_addr > 0,
+meaning to exclude the start of the file and SENTINEL_VMA_GATE, but
+last_addr is a signed loff_t holding a vm_end. sparc64 maps shared
+libraries, anonymous memory and the stack above 0x8000000000000000, so
+the rewind does not happen there and one entry is lost at every read()
+boundary.
 
-[ Upstream commit d35a535d3e3e71f92a051d94e415f43612c4edfc ]
+Reading the maps file of a process with read sizes from 64 to 8192
+bytes in steps of 64 loses lines at 126 of the 128 sizes, smaps at 123
+and numa_maps at 97, and the proc-maps-race selftest fails 4 of its 6
+tests. Python's sys.remote_exec() reads maps with fgets() and fails
+intermittently when it misses the libpython data mapping.
 
-A CPU going down has to empty its own rq. Its hotplug thread waits in
-sched_cpu_wait_empty() until nothing else is left, and the only thing that
-wakes it is balance_push(), which runs from __schedule() on the dying CPU
-and pushes off the migratable tasks the CPU picks.
+Skip the rewind only for 0 and the two sentinels instead, with an
+addr_is_sentinel() helper.
 
-sched_ext breaks this. A task sitting on a user DSQ or held by the BPF
-scheduler is still counted on its rq, but an inactive CPU no longer calls
-ops.dispatch() and can't pull the task back. The dying CPU goes idle with
-the task still counted, and one of two things happens:
-
-- Another CPU consumes the task. The rq empties without a __schedule() on
-  the dying CPU, so the hotplug thread is never woken and cpu_down() hangs
-  holding cpu_hotplug_lock.
-- The task is affine only to the dying CPU. Nothing can move it, and the
-  offline stalls until the watchdog ejects the BPF scheduler.
-
-When the rq goes offline, re-enqueue every task on it that isn't already on
-the local DSQ. An enqueue on an offline rq lands on the local DSQ, so the
-dying CPU itself picks the tasks and balance_push() pushes them off, the
-same as for the other sched classes. From then on no sched_ext path on
-another CPU can pull a task off the rq.
-
-ops.dispatch() currently stops as soon as the CPU goes inactive, and CPU
-hotplug then waits for an RCU grace period before taking the rq offline. A
-BPF-held task affine only to the dying CPU and preempted inside an RCU
-read-side critical section would block that grace period, and the rq would
-never go offline. Test SCX_RQ_ONLINE directly so that ops.dispatch() keeps
-running until the rq goes offline. Only the dying CPU's own hotplug thread
-clears the flag during teardown, and task_can_run_on_remote_rq() still keeps
-other rqs' tasks off the CPU.
-
-Fixes: f0e1a0643a59 ("sched_ext: Implement BPF extensible scheduler class")
-Fixes: 991ef53a4832 ("sched_ext: Make scx_rq_online() also test cpu_active() in addition to SCX_RQ_ONLINE")
-Cc: stable@vger.kernel.org # v6.12+
-Reported-by: Alap Mohan <mohaalap@meta.com>
-Reported-by: Joonwoo Park <joonwoo@meta.com>
-Signed-off-by: Tejun Heo <tj@kernel.org>
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
-[ sashal: Omitted rescue-related changes because the rescue machinery is absent. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 5631da56c9a87 ("fs/proc/task_mmu: read proc/pid/maps under per-vma lock")
+Closes: https://github.com/sparclinux/issues/issues/111
+Cc: stable@vger.kernel.org
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Stian Halseth <stian@itx.no>
 ---
- kernel/sched/ext/ext.c | 29 ++++++++++++++++++++++++++---
- kernel/sched/sched.h   |  5 +++--
- 2 files changed, 29 insertions(+), 5 deletions(-)
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index a9f33e2b17ace..8d4992e7e0120 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -2031,8 +2031,8 @@ static void set_task_runnable(struct rq *rq, struct task_struct *p)
- 	}
+Notes:
+    v3: drop the inline from addr_is_sentinel(), add David's Acked-by.
+    v2: https://lore.kernel.org/all/20261013150712.1827315-1-stian@itx.no/
+    v2: addr_is_sentinel() covering both sentinels, as the comment says
+    (David Hildenbrand). No functional change: m_start() returns early on
+    SENTINEL_VMA_END. Re-tested on the T4 (7.2.10): maps and smaps read at
+    128 sizes, 200 and 1000 mappings, no lost lines.
+    v1: https://lore.kernel.org/all/20261011162019.922436-1-stian@itx.no/
+    
+    Tested on a SPARC T7-1 (sun4v, 7.3-rc5), a T4-1 (7.2.9) and a Sun Fire
+    V240 (sun4u, 7.3-rc5): no lost lines at any read size afterwards, and
+    Python's sys.remote_exec() test passes 20/20. On an amd64 KVM guest maps,
+    smaps, numa_maps and the proc selftests are unchanged.
+
+ fs/proc/task_mmu.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index 5c54aebe21182..24c2a5079f080 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -32,6 +32,11 @@
+ #define SENTINEL_VMA_END	-1
+ #define SENTINEL_VMA_GATE	-2
  
- 	/*
--	 * list_add_tail() must be used. scx_bypass() depends on tasks being
--	 * appended to the runnable_list.
-+	 * list_add_tail() must be used. scx_bypass() and rq_offline_scx()
-+	 * depend on tasks being appended to the runnable_list.
++static bool addr_is_sentinel(loff_t addr)
++{
++	return addr == SENTINEL_VMA_END || addr == SENTINEL_VMA_GATE;
++}
++
+ #define SEQ_PUT_DEC(str, val) \
+ 		seq_put_decimal_ull_width(m, str, (val) << (PAGE_SHIFT-10), 8)
+ void task_mem(struct seq_file *m, struct mm_struct *mm)
+@@ -339,7 +344,7 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
+ 	 * Reset current position if last_addr was set before
+ 	 * and it's not a sentinel.
  	 */
- 	list_add_tail(&p->scx.runnable_node, &rq->scx.runnable_list);
- }
-@@ -2868,7 +2868,13 @@ scx_dispatch_sched(struct scx_sched *sch, struct rq *rq,
- #endif	/* CONFIG_EXT_SUB_SCHED */
- 	}
- 
--	if (unlikely(!SCX_HAS_OP(sch, dispatch)) || !scx_rq_online(rq))
-+	/*
-+	 * scx_rq_online() can't be used. Its cpu_active() test goes false
-+	 * before CPU hotplug waits for an RCU grace period, and
-+	 * rq_offline_scx() moves this CPU's tasks to the local DSQ only after
-+	 * the wait. The grace period can depend on those tasks running.
-+	 */
-+	if (unlikely(!SCX_HAS_OP(sch, dispatch)) || !(rq->scx.flags & SCX_RQ_ONLINE))
- 		return SCX_DSP_NONE;
- 
- 	dspc->rq = rq;
-@@ -3608,7 +3614,24 @@ static void rq_online_scx(struct rq *rq)
- 
- static void rq_offline_scx(struct rq *rq)
- {
-+	struct task_struct *p, *n;
-+
- 	rq->scx.flags &= ~SCX_RQ_ONLINE;
-+
-+	/* sched domain rebuilds call rq_offline with the CPU staying alive */
-+	if (cpu_active(cpu_of(rq)))
-+		return;
-+
-+	/*
-+	 * An offline CPU no longer calls ops.dispatch(). Re-enqueue its tasks
-+	 * onto the local DSQ so that they run here and balance_push() moves
-+	 * them off.
-+	 */
-+	list_for_each_entry_safe_reverse(p, n, &rq->scx.runnable_list, scx.runnable_node) {
-+		if (p->scx.dsq == &rq->scx.local_dsq)
-+			continue;
-+		guard(sched_change)(p, DEQUEUE_SAVE | DEQUEUE_MOVE | DEQUEUE_NOCLOCK);
-+	}
- }
- 
- static bool check_rq_for_timeouts(struct rq *rq)
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index a6c6f8165eecc..d25defb116caa 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -4185,8 +4185,9 @@ extern void balance_callbacks(struct rq *rq, struct balance_callback *head);
-  * after which it is enqueued again.
-  *
-  * Typically this must be called while holding task_rq_lock, since most/all
-- * properties are serialized under those locks. There is currently one
-- * exception to this rule in sched/ext which only holds rq->lock.
-+ * properties are serialized under those locks. There are currently two
-+ * exceptions to this rule in sched/ext which only hold rq->lock: scx_bypass()
-+ * and rq_offline_scx().
-  */
- 
- /*
+-	if (last_addr > 0)
++	if (last_addr && !addr_is_sentinel(last_addr))
+ 		*ppos = last_addr = priv->last_pos;
+ 	vma_iter_init(&priv->iter, mm, (unsigned long)last_addr);
+ 	hold_task_mempolicy(priv);
 -- 
-2.53.0
+2.43.0
 
