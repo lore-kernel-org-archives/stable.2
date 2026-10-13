@@ -1,180 +1,173 @@
-Received: from mail-yx2-f2.google.com (mail-yx2-f2.google.com [74.125.224.130])
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6822431E84B
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 01:03:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C5D33F5A8
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 01:07:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791853389; cv=pass; b=e6JYLGFWR0eaxc/oJiERnYLwyXEZZq3+Z8Om8S3LvFh3DhXjLJ089VPS9TiZ1odXfYC+xgzLBcXDWgwsfKbHUF5TPf/nNeDr76dkJlZO4u2zHP52ZiJ1jscdzwFIWYsrOp5ZnZWESS6srmQsqDBFEQNn/mS3XSHSg2PDzGofW30=
+	t=1791853656; cv=pass; b=s+XiXKGr2JVYXlcEIdMpdADvXSfqHhZ+CglUFqrBMqxkoNkVfW2DGmy7L2YyHtBnI1MsMi363iLy61oc4zzZP5mDBlEuI1j1UfIEpGxcJlFPLWo4lMLszzrOAiRnAVFP1fTlCSGhKgVSsciXzmOfy/P/XpDAMtdNvaUZ66ycw3c=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791853389; c=relaxed/simple;
-	bh=lowpFmrvsNjlgMHo2szT6XZJz28KEXOM+3vhDqNGI3s=;
+	s=arc-20240116; t=1791853656; c=relaxed/simple;
+	bh=dmqo/rRKwcI4JGSucbf6w7qYELLj1zZNxK6pc8Chn7A=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AX+JOS/eJTdrkCr40Y8SJV5LFx3T68EOyfKMvPDm/q8nFsLUvWhSVmBAZwkaUGiy9vn9bF9UJETs5uIOdx15UkCJJYiye8kuGULhHOZzuWTxDozERkWd+reMY3PEgsVDsdmLZ4PH7I1sajoGejyHBGFbHm+QXkPf/ni9Zz9QVak=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l0Pd+vdV; arc=pass smtp.client-ip=74.125.224.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=hwvZ3M+J/KofZdHeZWVYCx11sxm2hNp281G4sSuFkLrD67o6LfmMjleON/2Ii9gePu8POKddPeGsijCzGbJU2t8HfAjij16P+LJ0dZ1jBhd1eLI+zRr0Wqeqn0I6i01uHKvmnhtbHnrY/T2OuqNd3L/zyVhJxG+Xn8w1lsaVI5U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=n01nLI9t; arc=pass smtp.client-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l0Pd+vdV"
-Received: by mail-yx2-f2.google.com with SMTP id 956f58d0204a3-6753d1555a6so874684d50.0
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 18:03:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791853387; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="n01nLI9t"
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-15ea896ddc8so3432113c88.0
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 18:07:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791853654; cv=none;
         d=google.com; s=arc-20260327;
-        b=UDpeZ9nGMww/2ja7aFjVXhQ55U8nWohbKSJSbI1rqODTP//+dSYl/d17ntDIaejKQ1
-         7rqG3v9zKA4HWogQHwBeczxlcgkcO10A96gthaXYXcAY3rNjdJEXAitytlyxBzFo1MkH
-         KfMMT4kx3y5y5cCqUoBYC3Z/JyKTNWpN+BAioJVYIEltDOnoxWMxGHDeGVdV3A9VGc7j
-         ls3Uhanx+NaNX+w2kSiFiJHdT6ItHCF5q/4ZLBEOQ1YWH4ao+JPyk2ivv7gwuulsqzKf
-         POBVQNK5XsInT/SFqvgSQDB6JIULArd69sjQkinz68NuYkjFiyG10Mk5Z3d97+kHdteP
-         Sibg==
+        b=II/qT6rKyt0IDiY6UHk8hWb4eX1oDR2KGb7n8LWYXpyTbq22f0hKXx16CndavuWqIv
+         BmS8GT4U91vKauMhIzd/10uXGAT6GKZZAicBrnRh48hly/EOtlUm3ZI9LZKmCHw9thJU
+         Np2bvs7zNAHWTBnQbqv8u2dtXe8cPHveuFXeuzCkXKi62zqB6Nh0LMXyyA0uyaw16izO
+         BbnhMZf7NCbLtnRaz3TmQamcuo6+mJ6NYeKlX8+ZAA5NVtKyRMdrPuA+Hbr1X39YSljm
+         6nj638nX7F17ih09yW2PYShaeZEKRhAFTYCX93AJ8DcMcg5QBjI7eBhsA5/TK6CmckGF
+         jv+w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=UTuAYK18jDYjig15mU1GjIAjcvhGQddvH30uBR7Fy04=;
-        fh=OlMRtR3lDlQ6QunpWfh8XMG2m3e+Tv5EgGTcCudgc6w=;
-        b=PAgvXVHHLYVNLUsyb5tlLJFZqQx4MkV5wapwPYQbbEpviHKNXk9PEyX6DI5CqHD+RB
-         VVrb6VtTxzGDNTueV+UvzViqQBc5gxZPIoNOiwhs9t/FTldc2TgWIqiKeaAU6UyWaav/
-         ny2NG0V949RGiOsj6C87IBquR8sB+P0uXszzxDdc758kwU6lm8+ooYtFHlVTWE6cLbbj
-         JbCwoy80rhfFLHgar8Y3tfvh/pLDY2FibAd0jbb+Jq39p93Vdg/rM0f3LxZPOumW2jEV
-         uq5YQcABOttPr7OYNuiPb5abe0Qslkr+odgb7iaqWkwkZHXpzVqJf91S/qlRUmG6UZBA
-         bnQA==;
+        bh=l/Dt1a3m1BsN0Ve4mSC4iIes1pIXA7Iv0yCJdw8/D+s=;
+        fh=DLtoEv7RxE4G2z+w/AQo3uRnhq1dCVz904+kAys1mtE=;
+        b=W4CnKTVrEz8wympYNtypyZHweQ34+1TCp7t2Q9sxlb3wWvnkJIJs3NAfogTnKoFRLF
+         eO8ypwnhHjyd73niWZRI4mhoXziMIaDlLR2VRyjtkX/EOFQN/da0/4XXHJt6+DWtST7j
+         MmsDc7hCdbqoyQKIGiMMDkfVdwhbBpaNxfsgTMNzr+KVNE2tnPPeQl1vLZATlBRaBq4U
+         CouXldk2C5FIzIoJ8Tvs3iOfOI9fSloQ24ZllBlWjzUp5yoWxvb7syOd/IPBym40mD7O
+         0Pn5d3obqaPk+KS7Z067qaReoifg3GWATjOXpEWUiVvSZxUgDHAmlDyOQt//RGElfo1K
+         AUdA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791853387; x=1792458187; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791853654; x=1792458454; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=UTuAYK18jDYjig15mU1GjIAjcvhGQddvH30uBR7Fy04=;
-        b=l0Pd+vdVYxaIyeC3wlw8iz6yekNOjFLzUxorbnIHaO3rH/NPSXb+NfFWPmsMenEmEv
-         bN0V5yjapEJ40ueLuITXA8FQniQFbfwC9nIFuE0+6qBL1XWxkosbkJMuqNjwNhxwwQ4Y
-         PDlN7gCV/0iikMfpolnJlH3r2IokWltkciwHdptBCnfhnb8u2CIvQ0mUH4uBdWI71gmy
-         dvU2895amFkfOdb9xsSCFGqSM26xjPvnQ3cmd6Zc03pYTHudPdOavVG60fJOmBpaYGQw
-         0KTDDz4oa+vrQ3WR/KR44iBG7XEI2IGg+XCfsdu0LZUBkKwytGC3cn4BALtHd7W5+pKF
-         2FHQ==
+        bh=l/Dt1a3m1BsN0Ve4mSC4iIes1pIXA7Iv0yCJdw8/D+s=;
+        b=n01nLI9tTahXPzhkNGk5WJu3/XLttTVjE6krUDQVo50KSSD/EMEaQc0e7yU6IlUkUK
+         ww5YHsN6r8590jwr+wg96XCoWHngSVfyvmdTF+KMJpN5ock8xvExtQLTwjpCQwPaZOTq
+         xtOp+7IlwHdnjgZwItQp5EPgpZRdzZgtQXghRAGzYOj+nSNXzeP4mcfExjmbyWePrwTx
+         Py1U6e8JMFe0nOXEK/vA3vi/QJwKO4d7bhqo2EVn+zV93ae9K9Mwk0hK82KycQg0oISc
+         a4uv8K5cH8uNeHTRBmwAKhdWwVaQL+F08q3qC9fQV0VOjVKn5XSDU0RcpIPXRBbdjPdv
+         gTuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791853387; x=1792458187;
+        d=1e100.net; s=20260707; t=1791853654; x=1792458454;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UTuAYK18jDYjig15mU1GjIAjcvhGQddvH30uBR7Fy04=;
-        b=lMamG1dUHlBme2spV9yszIN54jNvK4xv7cCmotvo656z9fiy0Vh9mAKNPkSMVXIbGT
-         QVh93nxg9F+5Uxdgo87LN/ITAb0Eq8iBcQjk42DDirLxr4RVsRVxlBxvMkD0weseS5LB
-         f/JQSKK/6UWntYUV9FFK/hQMHSVj6KEAfZty5lxtq6Mn2acX5rm/scXE7CLffXA+pk4F
-         RxX2JSPL/izF8XRylIaMryPvoGd7n/17cQW+1NYy7DconPGMhfv/4I619wjfQJk5DjNc
-         872bp0/OR5pE6FHqO2ZvV5MNcY+AbRP+6W+AIA0w+4PW6JhOJCaJ8twF1p7Pf13pqs2h
-         eeYg==
-X-Forwarded-Encrypted: i=1; AKwUvBzhtGwmVx21amI+8xFNuJ9xewbK7RV9Z0nazQxBq/CKlR6N5ICZ9h7en9G3X+yGUKbqkQzn7og=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJi1xVaHz4pBlmHsMZj5BQ4Dw55wNC0N53RSP4QjYIG49SXXmoY
-	e/LURsaCOFem7b+fj92nRDzspQfbD+NEZxPAKdOlx+0X5UQcel1ZpKZmwLSz/Azcm9Qzhj3n72j
-	TtOEPbbL/1F5riuR0EnIFM6PeShJRTM0=
-X-Gm-Gg: AYBFou1wfFf26paqZCpWbik57ziK5VI7Ikgxe5QKJir12fTdTHnXTq0+NvsyRxNRztC
-	6LI5Ytsr9smZR9K3dZoqv7dkxgCH4BMnTJkMrvDWYYa5qQr9779LslaUEwUsLD3qONFlujqtGx+
-	QLm0jstpa9/9qfDS9XBeZNumvt12txIqjYAPSvfA5d2Un5ALocMelNM9zNVkleQFn8Q8dFCZvO5
-	3QsiRwCrFqReS62iQ6EzTdxj4hdkkza0OAUpmaYGw9Crx9U4GaGhMm2nKakAwjCJzMDf0u03IgS
-	gUf/vzSEUaPejxTnWJCYugdN+WgMmoMwWoOf4hnog1gcTbHjar2ZhUM=
-X-Received: by 2002:a05:690e:1688:b0:679:42c1:d156 with SMTP id
- 956f58d0204a3-67942c1d3e2mr2820147d50.137.1791853387325; Mon, 12 Oct 2026
- 18:03:07 -0700 (PDT)
+        bh=l/Dt1a3m1BsN0Ve4mSC4iIes1pIXA7Iv0yCJdw8/D+s=;
+        b=iywtMm1wM5J1Z6+YQeRks/jxVQCNdEsDwMHEeasvB6Vf9cZLwTcCEv7Pwidmm3/ofC
+         wTlna4+uxn5lpeR7WQBc8BID+fzPu44GCsFKUM0jy4DqRBbzGs26ogZQtRpJ1PBKdvYw
+         i84Hq2+ecRN1IYRtW0Ug8bot0aBqw9BSK56qTWKiXlZSSUVwGI/LvYYhw7YiWEISs0LK
+         S155CjYtuhgHlj6iFG5jCvcsTqKNXfg1C1b4rZ1WIPmJ8oS77kgHnM9FuhV4majzYTyg
+         d6tgMUo0liYFwKvvJFZ85b9gfChK5b+JrAhRLyYypfAyd9ZDQRDYsyvWMH3Qgar9Hzmz
+         v46w==
+X-Forwarded-Encrypted: i=1; AKwUvBwP1KbYK0c+g021rAzQayxMMDT7XN82ffe080xpD+CfACJXBkxhDKk5/22FOl71e0VL6FEWk84=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL92Pps9DHdm3sKwcwnRIfbNcY+wGEKIh6rtbL0r/zuL0PMbb7n
+	XKV8xabpRyKHiwqriTkXyi+ouu9ySfRTPuZsrBKyJkCp1sUJ0Ki8UyLDdLoYznSuYCtIyMcQi1m
+	OX0auOWgWMsyyYoJEBq8VCRrjau4/9e1JQLtJvfze
+X-Gm-Gg: AYBFou3PT3yeb3+HDNWIqEW2ndaBsZYKm5mei17SIeXpmyYAVgHSyP9fXf138luonxB
+	cDesX+MoG0SZUPM3cxWzQzymbo9ijFhF1FqD6c0UqXkC3JnVInuo6vAJqtMuzikFvGXygRO0Y/f
+	uU4elIBBnBzxi/7jnI55mnFlZWv8mNHRxy6oMZlXzjznCFzqVDXf1KxnxX9iBbxyDIs5RAPSgM+
+	rmHIep4Chcn/+Yhxv/Ngi5n84Ykb16VUzPWK0cY/xYmwccXiPLXI3+E67Yahc6MtCYQzUPbll6T
+	GOvtlsO6nyUJuLm8WhjzF9YQfpsTlZNO3B8T3sfuZYabWVYBA8eMGoRRgJH53XQJDH7ERVFy5Ga
+	6KQc/2Dpp3T8BymZJHKlG5e+SX/kVwt0bsnAfPDkoIYPCmassJNVVxbjbYL333bEIoVvM
+X-Received: by 2002:a05:701a:c96f:b0:179:50d7:9ba4 with SMTP id
+ a92af1059eb24-17950d79e34mr1584682c88.41.1791853649982; Mon, 12 Oct 2026
+ 18:07:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012151857.22534-1-jianyungao89@gmail.com> <as1nmV342j-eUOYm@aschofie-mobl2.lan>
-In-Reply-To: <as1nmV342j-eUOYm@aschofie-mobl2.lan>
-From: Jianyun Gao <jianyungao89@gmail.com>
-Date: Tue, 13 Oct 2026 09:02:56 +0800
-X-Gm-Features: AclHuK9sFgO33rPYLTn8ixdiEhdZBta4PDJKOZxl9dlxJLJscw0iQpyhSfFl2bw
-Message-ID: <CAHP3+4Dr-XsZggVSf=THU7NBb8RANc5MCREHORkXV5shcgk22w@mail.gmail.com>
-Subject: Re: [PATCH v2] dax: fix dax_core_init error return code
-To: Alison Schofield <alison.schofield@intel.com>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Dan Williams <djbw@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>, 
-	Dave Jiang <dave.jiang@intel.com>, 
-	"open list:DEVICE DIRECT ACCESS (DAX)" <nvdimm@lists.linux.dev>, 
-	"open list:DEVICE DIRECT ACCESS (DAX)" <linux-cxl@vger.kernel.org>
+References: <20261013010323.1058-1-kj2864@nyu.edu>
+In-Reply-To: <20261013010323.1058-1-kj2864@nyu.edu>
+From: Kuniyuki Iwashima <kuniyu@google.com>
+Date: Mon, 12 Oct 2026 18:07:18 -0700
+X-Gm-Features: AclHuK9fb-xIidc3O6m-1UunJL34PxLpQ58IP8Bcl0fSdhalNCCQj8xNELr3Jyw
+Message-ID: <CAAVpQUC33fc7di-7a5tgTdsuD4_ADEM8ZAXn4BcfxNDi-1df1A@mail.gmail.com>
+Subject: Re: [PATCH net] net: ipv4: add zero check for snd_cwnd_clamp
+To: Kaho Jiang <kj2864@nyu.edu>
+Cc: ncardwell@google.com, davem@davemloft.net, kuba@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, edumazet@google.com, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	co+71b6509cb791e531@bugs.sh, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Dan,
+On Mon, Oct 12, 2026 at 6:03=E2=80=AFPM Kaho Jiang <kj2864@nyu.edu> wrote:
+>
+> User can pass zero to snd_cwnd_clamp via RTAX_CWND type.
 
-Thank you for reviewing the patch! The revised commit message looks
-great to me. I'm OK with it.
+We should reject it then instead of ignoring it later.
 
-Best regards,
-Jianyun
 
-On Tue, Oct 13, 2026 at 7:05=E2=80=AFAM Alison Schofield
-<alison.schofield@intel.com> wrote:
+> This could lead to division of zero error if not checked properly.
 >
-> On Mon, Oct 12, 2026 at 11:18:57PM +0800, jianyungao89@gmail.com wrote:
-> > From: Jianyun Gao <jianyungao89@gmail.com>
-> >
-> > dax_core_init() mistakenly returns 0 on error paths. Change the
-> > error return to use rc so the actual error code is propagated
-> > to the caller.
+> Oops: divide error: 0000 [#1] SMP KASAN NOPTI
+> Call Trace:
+>  <IRQ>
+>  tcp_reno_cong_avoid (net/ipv4/tcp_cong.c:510 (discriminator 1))
+>  tcp_ack (net/ipv4/tcp_input.c:3517 net/ipv4/tcp_input.c:3873 net/ipv4/tc=
+p_input.c:4440)
+>  tcp_rcv_established (net/ipv4/tcp_input.c:6685)
+>  tcp_v4_do_rcv (net/ipv4/tcp_ipv4.c:1854)
+>  tcp_v4_rcv (net/ipv4/tcp_ipv4.c:2248)
+>  ip_protocol_deliver_rcu (net/ipv4/ip_input.c:207 (discriminator 1))
+>  ip_local_deliver_finish (net/ipv4/ip_input.c:241 (discriminator 1))
+>  ip_local_deliver (./include/linux/netfilter.h:325 ./include/linux/netfil=
+ter.h:319 net/ipv4/ip_input.c:262)
+>  ip_rcv (./include/net/dst.h:481 (discriminator 6) net/ipv4/ip_input.c:49=
+2 (discriminator 6) ./include/linux/netfilter.h:325 (discriminator 6) ./inc=
+lude/li)
+>  __netif_receive_skb_one_core (net/core/dev.c:6297 (discriminator 4))
+>  __netif_receive_skb (net/core/dev.c:6410)
+>  process_backlog (net/core/dev.c:6761)
+>  __napi_poll.constprop.0 (net/core/dev.c:7830)
+>  net_rx_action (net/core/dev.c:7893 net/core/dev.c:8050)
+>  handle_softirqs (kernel/softirq.c:645)
+>  __irq_exit_rcu (kernel/softirq.c:679 kernel/softirq.c:519 kernel/softirq=
+.c:758)
+>  irq_exit_rcu (kernel/softirq.c:775)
+>  sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.c:1062 (discrimin=
+ator 35) arch/x86/kernel/apic/apic.c:1062 (discriminator 35))
+> RIP: 0010:tcp_cong_avoid_ai (net/ipv4/tcp_cong.c:482)
 >
+> Fix by checking if user pass in zero as parameter,
+> if so use the default value of snd_cwnd_clamp.
 >
-> Hi Jianyun,
+> Fixes: 51c5d0c4b169 ("tcp: Maintain dynamic metrics in local cache.")
+> Cc: stable@vger.kernel.org
+> Reported-by: co+71b6509cb791e531@bugs.sh
+> Assisted-by: LLM
+> Signed-off-by: Kaho Jiang <kj2864@nyu.edu>
+> ---
+>  net/ipv4/tcp_metrics.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
 >
-> Thanks for the patch. The change looks good to me.
+> diff --git a/net/ipv4/tcp_metrics.c b/net/ipv4/tcp_metrics.c
+> index dc0c081fc1f3..ff41804ad086 100644
+> --- a/net/ipv4/tcp_metrics.c
+> +++ b/net/ipv4/tcp_metrics.c
+> @@ -484,8 +484,11 @@ void tcp_init_metrics(struct sock *sk)
+>                 goto reset;
+>         }
 >
-> I'd like to expand the commit message to explain the impact of the bug,
-> not just describe the correction. I've proposed a revised message below.
+> -       if (tcp_metric_locked(tm, TCP_METRIC_CWND))
+> -               tp->snd_cwnd_clamp =3D tcp_metric_get(tm, TCP_METRIC_CWND=
+);
+> +       if (tcp_metric_locked(tm, TCP_METRIC_CWND)) {
+> +               val =3D tcp_metric_get(tm, TCP_METRIC_CWND);
+> +               if (val)
+> +                       tp->snd_cwnd_clamp =3D val;
+> +       }
 >
->         dax: Return errors from dax_core_init()
+>         val =3D READ_ONCE(net->ipv4.sysctl_tcp_no_ssthresh_metrics_save) =
+?
+>               0 : tcp_metric_get(tm, TCP_METRIC_SSTHRESH);
+> --
+> 2.43.0
 >
->         dax_core_init() returns success when either the character device
->         number allocation or DAX bus registration fails, even though the
->         error paths have already released the initialized resources.
->
->         For modular DAX, this allows the module to remain loaded despite
->         failed initialization, leaving subsequent users and module remova=
-l
->         to access resources that have already been released.
->
->         Return the error code from the failed operation so that module
->         loading fails rather than reporting successful initialization
->         after the resources have been released.
->
-> Please let me know if you're OK with the above, and I'll amend the commit
-> message and merge the patch.
->
-> -- Alison
->
->
-> >
-> > Fixes: 9567da0b408a ("device-dax: Introduce bus + driver model")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
-> > ---
-> >
-> > Changes in v2:
-> > - Drop unnecessary goto label, keep direct return for dax_fs_init() err=
-or
-> > - Add Fixes tag and Cc stable
-> >
-> > Link: https://lore.kernel.org/lkml/20261011132017.31131-1-jianyungao89@=
-gmail.com/ # v1
-> >
-> >  drivers/dax/super.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/dax/super.c b/drivers/dax/super.c
-> > index 45f84b0eb909..210f4af479f0 100644
-> > --- a/drivers/dax/super.c
-> > +++ b/drivers/dax/super.c
-> > @@ -738,7 +738,7 @@ static int __init dax_core_init(void)
-> >       unregister_chrdev_region(dax_devt, MINORMASK+1);
-> >  err_chrdev:
-> >       dax_fs_exit();
-> > -     return 0;
-> > +     return rc;
-> >  }
-> >
-> >  static void __exit dax_core_exit(void)
-> > --
-> > 2.34.1
-> >
