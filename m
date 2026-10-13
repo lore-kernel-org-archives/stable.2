@@ -1,155 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B46E53E302
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 23:05:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D145372DB
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 23:11:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791932704; cv=none; b=f3URb8wdGfCr9KZy49uqRY6OEAisj5jJfABGb6gm6riu3ioxpgeMINHZYnHCJR6iqHXY3vwAVUXwYrPZui9qX2hu5FjTqRZ4EDcR+WnAdAO77nq+MwswPqigMNoy5pq/FcBJoYU5jvqXfb59zlOurX9fVpfCC1eyDXRFhg8c924=
+	t=1791933090; cv=none; b=QJB/DzDLPai1FevAHfH6wP17OtBaIBMgmtcM91UiZUsSZZIMuNei1YWiXUyyNIj6DO5HPT5+0hCDOu19DabucDjCtjm7KoTxOElUArDsG+umP64P+6zfw8IHWvH5frBZQRY/y3G/SwElRSaT7DBIPCwc1Uo5Azdk/rcF0COKD4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791932704; c=relaxed/simple;
-	bh=E6L8UcjjnASUgQGMhYCSSW+Wnahr42npvjB4bw0pE+Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Wc3+ky+DdxpLIRFwlwvqCFCz3+wmu6zjhLdy3KBziAgj4nbOFvryWmfIJE1cG2/av6HQJSw9EyCgiEXzndon9hT6/QzEBEMk9c3ffv99/tr8TMb3u+/1y1egd2a9O3NxNQPuquYqM0lD4bGeQKVxCr7Bmuk/qeg+dcStRa8JQw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YdpFOpwn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791933090; c=relaxed/simple;
+	bh=5IBhaLUp5MdLPNUcVu4QR7/5QsLhjzo7lK/mXulxCHc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Uu8luOpepG9I7LIFd2Di5gjq3Posof7+MqgsLv2AsudqWVuuYilJtiICjLfi1noTDRYeE1oVMrNx36dzOyPPLx7KfEAd9Na7VZOUZPJK5ATT92QvymenaMicBID0gd3aSBiLU4HwhsAvDM3PWdi4PWH/fEGxGt8nEkna5UuLX64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Cd60tQ+d; arc=none smtp.client-ip=209.85.210.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YdpFOpwn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9F831F00893;
-	Tue, 13 Oct 2026 23:05:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791932703;
-	bh=uOX9ZZKNvogpJcAQv/hvxUR70/BK6QqaA96Buut8Y6Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YdpFOpwna5ExHWURgwOX6bmODs8oN31GTguLHV1wUdGYXzm9d8JknV+6yeKMmfyLl
-	 fVPsStYmRxkPpuHNcLh7xSUH5Gl6E8BZ824a9c8RPpo9elqJU8xSXmVrh+K/Z8Fm8Z
-	 fWF47oIDjZTc1M+o4pAK7ETmHsFT9M2wE8YaGcrjBLvFYd1C5u0Y4wDd6f0+IvIfAz
-	 pVjHiVXQUmCB89wzGgipby7ePp6ZdsCnThzEtd6X9YO/Z+Y2PIyDl94LVhUoCttbXv
-	 PKk0W3MtS92KY1PR6aAkiMgkFR6m+08VSBKPpLZ4BcJS/0e+c82XzlA6C1psXDixhA
-	 yWcLReX54gjtA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 2/2] readdir: take no inode lock on an immutable directory
-Date: Tue, 13 Oct 2026 19:05:01 -0400
-Message-ID: <20261013230336.829040-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261013230336.829040-1-sashal@kernel.org>
-References: <2026101206-reexamine-jolliness-5e12@gregkh>
- <20261013230336.829040-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Cd60tQ+d"
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-8198a3a54d7so5668236a34.1
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:11:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1791933087; x=1792537887; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b/a5/AdXnTf6cDcdZphHu5UXWH0M+sRSxBHGhoRv5/E=;
+        b=Cd60tQ+dNNPULA1mMHJSfnHi9O48jP+52GArxc38nhUyI7hJHlEa6j44+hQF2MXadU
+         98DkdEq57cVskwmn4R7/oK7Kq16huWRvRZr80IX8ITnjvAzfR+prRyC3xR0cYn9kkI3N
+         hwiz8+moPHwXK85LvvqodDUKKDPVo3dEDc6Y8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791933087; x=1792537887;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b/a5/AdXnTf6cDcdZphHu5UXWH0M+sRSxBHGhoRv5/E=;
+        b=HSNZH1EUmh6z+IpuqHGj4UEpTiN6onrnQmYezrNNzsGZqIGRGIxr9IKsBXWzjweCLi
+         nldlpUDV4Q90+qwCBSfHfpwBGjL87dasi+zNe7FRDOIerrXUt8HwD6fZgGBHTTc1ld8E
+         SUZ61SlBO+RdzX23a2tkxSpwKh0f+u6BJXkdRmieZkTbC2FOy8vU5Bzc4vdoiTDqo1Rn
+         /bdgh8oipGbnCjrgLC1rxpAwIiu1eok3XfcvpOcY7mjwB3UblyxICnUqYLs1NxNI+CGk
+         T61dQTgX+xuOkEw/azmAChWFWQIxRNSwnADaviMLYQvdg1qslJxslexnvaqhHxQMFeZ/
+         m3/g==
+X-Forwarded-Encrypted: i=1; AKwUvBzVcsR0wabqs/65S3IlBCM/CsnDdFPHRJ3wBFo1HBQXpBXSmkm3I7bbwwdNkzaB/gJhVU6F9h4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKXXFPY90Fbxm0r3f6+IvwIwEWDqnN67DMlINg3x18/FwDYTZEB
+	QiRY0ej3FevbfM/OrD24khQnOdwpZfJgyvP9cM5+aO7vYMbh8vltwJgjd1sFh3l84bA=
+X-Gm-Gg: AYBFou1z3Yy5D8aByCYMxIwifpOsUu/jitfFhUSrpd2NBmYt9Dwgx6BsFmEiyLX3uSY
+	Z1saVJUn1NH8tg7mK7rSNSWfX01cfgKQy2gJlVPoMjhQjBszj0xqTq4T4DXWE8pTCpjpqFFXmEC
+	yJ4vxaJqhCo7EQ8thhDOJz6HECmD4cFZQqFZj5YqipYnV6JOulwfgXMdGtuOhMlH7XFiB8gbm7X
+	3FMpE59U1AFcUox8BA2NL/Ozslcvy2lGM6ny+FcvkJzsTuYYzcIltvZEiow8j91zGgdW944u+Sz
+	e6900NvbSZ6a4NfPoYkzFNaiXtlqH0A44JEonodiVJAvLig1/8CxfaQkPjyTpQNsL1j0TN9zv69
+	5GdqGM3zCPZIObQ1NbxfsqO/ZcQz6xwr2jRZKFlYgVoURm0XJXDp3XcmqBiqpysw/Hwn/1L3IhH
+	RqJpTuZrgYVujiIO96laifHiAq0d1yBgGufsjMvWq6KVgH/Tb8n9VN51hBVMlfhUkfqt1nLF5cS
+	Ql2R4w=
+X-Received: by 2002:a05:6808:250a:b0:4b8:4703:db91 with SMTP id 5614622812f47-50b621adba4mr10283311b6e.26.1791933087183;
+        Tue, 13 Oct 2026 16:11:27 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a6dfc44a5csm860681fac.12.2026.10.13.16.11.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 16:11:26 -0700 (PDT)
+Message-ID: <6f18fa43-9fda-4787-9e2f-63eec412ad9a@linuxfoundation.org>
+Date: Tue, 13 Oct 2026 17:11:21 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/621] 6.18.57-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20261013112920.855194808@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20261013112920.855194808@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Christian Brauner <brauner@kernel.org>
+On 10/13/26 05:29, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.57 release.
+> There are 621 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Thu, 15 Oct 2026 11:28:22 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.57-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+> 
 
-[ Upstream commit e08f57a7dcb83818c058e415988c23beb6c5a47f ]
+Compiled and booted on my test system. No dmesg regressions.
 
-iterate_dir() takes the directory's i_rwsem shared and holds it across
-->iterate_shared(). For a directory that never has an entry and is
-never removed the lock keeps nothing still, it only orders every reader
-and every writer of that inode behind each other.
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
-For the directory of a nullfs instance that matters. The instance of
-the initial mount namespace is the root of every empty mount namespace
-and the private instance is the root of every kernel thread, so one
-inode is shared across users who have nothing else in common. And a
-reader can hold the lock for as long as it likes: back the getdents()
-buffer with a mapping of a file on a FUSE mount of your own, let the
-copy of "." and ".." fault and let the server wait. Queue an exclusive
-taker behind it, a mkdir() in that directory goes through start_dirop()
-before the read-only mount is reported, and from then on every lookup
-that misses the dcache in that directory, every create and every mount
-on it waits until the server answers. One user of an empty mount
-namespace stalls all the others.
-
-Add FOP_IMMUTABLE for the file operations of a directory that never
-changes and is never removed and let iterate_dir() skip the lock for
-it. The flag never changes for a file, ->f_pos is protected by
-f_pos_lock since directories are FMODE_ATOMIC_POS, IS_DEADDIR can't be
-set on such a directory and neither touch_atime() nor fsnotify take
-i_rwsem. Set it on the nullfs directory. The placeholder directories of
-libfs never have an entry either but their owners remove them, so they
-keep the lock.
-
-Fixes: 9d4e752a24f7 ("namespace: allow creating empty mount namespaces")
-Cc: stable@vger.kernel.org # v7.1+
-Link: https://patch.msgid.link/20261002-work-mount-fixes-4-v1-19-dd44b89d44ce@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/nullfs.c        |  1 +
- fs/readdir.c       | 13 +++++++++----
- include/linux/fs.h |  2 ++
- 3 files changed, 12 insertions(+), 4 deletions(-)
-
-diff --git a/fs/nullfs.c b/fs/nullfs.c
-index fc79ca42bb178..c89181daf208c 100644
---- a/fs/nullfs.c
-+++ b/fs/nullfs.c
-@@ -34,6 +34,7 @@ static const struct file_operations nullfs_dir_operations = {
- 	.fsync		= noop_fsync,
- 	.lock		= nullfs_nolock,
- 	.flock		= nullfs_nolock,
-+	.fop_flags	= FOP_IMMUTABLE,
- };
- 
- static int nullfs_fs_fill_super(struct super_block *s, struct fs_context *fc)
-diff --git a/fs/readdir.c b/fs/readdir.c
-index 76bb1ae3a4504..f2288841337ad 100644
---- a/fs/readdir.c
-+++ b/fs/readdir.c
-@@ -87,6 +87,8 @@ EXPORT_SYMBOL(wrap_directory_iterator);
- int iterate_dir(struct file *file, struct dir_context *ctx)
- {
- 	struct inode *inode = file_inode(file);
-+	/* never an entry, never removed: nothing for the lock to keep still */
-+	bool locked = !(file->f_op->fop_flags & FOP_IMMUTABLE);
- 	int res = -ENOTDIR;
- 
- 	if (!file->f_op->iterate_shared)
-@@ -100,9 +102,11 @@ int iterate_dir(struct file *file, struct dir_context *ctx)
- 	if (res)
- 		goto out;
- 
--	res = down_read_killable(&inode->i_rwsem);
--	if (res)
--		goto out;
-+	if (locked) {
-+		res = down_read_killable(&inode->i_rwsem);
-+		if (res)
-+			goto out;
-+	}
- 
- 	res = -ENOENT;
- 	if (!IS_DEADDIR(inode)) {
-@@ -112,7 +116,8 @@ int iterate_dir(struct file *file, struct dir_context *ctx)
- 		fsnotify_access(file);
- 		file_accessed(file);
- 	}
--	inode_unlock_shared(inode);
-+	if (locked)
-+		inode_unlock_shared(inode);
- out:
- 	return res;
- }
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 09de7bf6f1d28..a07031fd4ae24 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -1980,6 +1980,8 @@ struct file_operations {
- #define FOP_ASYNC_LOCK		((__force fop_flags_t)(1 << 6))
- /* File system supports uncached read/write buffered IO */
- #define FOP_DONTCACHE		((__force fop_flags_t)(1 << 7))
-+/* Never changes and is never removed, readdir of a directory takes no lock */
-+#define FOP_IMMUTABLE		((__force fop_flags_t)(1 << 8))
- 
- /* Wrap a directory iterator that needs exclusive inode access */
- int wrap_directory_iterator(struct file *, struct dir_context *,
--- 
-2.53.0
-
+thanks,
+-- Shuah
