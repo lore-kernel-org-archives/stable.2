@@ -1,90 +1,80 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF0E44C33E5;
-	Thu, 15 Oct 2026 10:29:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C74F4518154;
+	Thu, 15 Oct 2026 10:37:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792060197; cv=none; b=H9A+BTC+hpRLo0n6for+ilAyNecQn0BksFLr9tbmLe2cdpFBwRLIYqssIrdHtr/GbvyrY3Pwq3CAos618/oQl1Lh/2YVMJONwN7Truybfjt3Mw835OQMWBy/IL6EswRPJGtQOSpJBtJ1RVSqQTzNKd8euFzvbx5Ru/IP8jQIBK8=
+	t=1792060633; cv=none; b=ptBH8hYilohMCTBDvFQjmiiLehXGSOeKbIpOuAk9sO+ZfoL8CSOWUV/a4VQB0nrV1JF72Ggodq2qwRa9XbDmE3lf9P5AO6A7O1Ibxcm1lngXbFdjA1NJQula4u5dnW0cSgybYkUylSbGslPoUQQgpHu0HDL1Zucw3j29RaTzhog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792060197; c=relaxed/simple;
-	bh=wp2qSWROyWZ+r3redg4Nlmqxreb8WRoDsgJs16qBVO8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nnFvUkqAZysnX5zDlvJqIdt1DgTH+l0Pvxk3EdeHb7JJ0S1rkjL7x9jhPYNy8Hgce7676DasA6H0po1adDHdVDWPu/eQJ4oPth8vRnJbjpp3UoLb8A6ybl1cQcqPR3590HuOTsxS5pFNeFlRvjPLIE8YcH6wf3/w6zuWEWQqZhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=qq1T3XE6; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
+	s=arc-20240116; t=1792060633; c=relaxed/simple;
+	bh=Wnh+yTn5VRy80ooHJ0Y7kTfmQJ5mxLAND5fcKjWoTyg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=revlSeV/umH1orhmxjIcz9GErBiAzin1uyp0nRoAKoRHsELoCDZM6L8hfdi1rEelcRyUocVmyCxlbk0FzKpW4Q+rdcXu9mRNwha9WCC4BZMcT+B6Sm07WHPxS2yYQgcp/lFdB7+A9QLulJUiDBwyIqxjj3kPfriAZ4tPShE05g4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MBoXkmcU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="qq1T3XE6"
-Received: from localhost (gy-adaptive-ssl-proxy-4-entmail-virt151.gy.ntes [IPV6:2409:8d28:39:f54:403e:4083:f623:91af])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 512956c60;
-	Thu, 15 Oct 2026 18:29:46 +0800 (GMT+08:00)
-From: guolingxing <guolingxing@tju.edu.cn>
-To: Theodore Ts'o <tytso@mit.edu>,
-	Andreas Dilger <adilger.kernel@dilger.ca>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Jan Kara <jack@suse.cz>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>
-Cc: linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	guolingxing <guolingxing@tju.edu.cn>
-Subject: [PATCH] ext4: report unwritten extent conversion failures as writeback errors
-Date: Thu, 15 Oct 2026 10:29:43 +0000
-Message-Id: <20261015102943.74632-1-guolingxing@tju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MBoXkmcU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06C9C1F000C4;
+	Thu, 15 Oct 2026 10:37:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792060632;
+	bh=SdEwhG5OKUH7Q2rjmi2sUS/ilNjd+DIPkUBQAZWnV/o=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=MBoXkmcUcYZPsdPqkss45qaOGT+Qaaj1gmN3mfW5IeHSoGGAECQ8tVLtdqs/u/sh8
+	 I7bypE/kc82IK7H+E1uR7BxOzOsCXk+9m/CiTsZ3rQ4O8Q9oDqK5yvBYryI6QzONb9
+	 5eYYXZOsZVumxOF/i81zXhq0TZ5uwzTtDVQHRrtyLiTcqLuwISpHqxQcnCoL5Rq4L/
+	 s1UnQxKOxDx1Vym8dYryGEWRtVde6fU+fDJIDhoM+kVlYXQbcsty/beBnasFOvtbSN
+	 E8DBXem7kK6NWjGo5QUekSDyfPlQAbxfSsWZHBf4VxPwu26eZUlMYzx/nwjdCcBOt1
+	 BhQlpg1OntERQ==
+From: Mark Brown <broonie@kernel.org>
+To: Weibin Liu <liuwb@xiaopeng.com>
+Cc: wentong.wu@intel.com, lixu.zhang@intel.com, 
+ sakari.ailus@linux.intel.com, linux-spi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20261013031717.3933277-1-liuwb@xiaopeng.com>
+References: <20261013031717.3933277-1-liuwb@xiaopeng.com>
+Subject: Re: [PATCH v2] spi: ljca: validate the response length before
+ copying the data
+Message-Id: <179192081341.1606900.18392588969047801645.b4-ty@b4>
+Date: Tue, 13 Oct 2026 20:46:53 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa13f1c5f8703a2kunm59b97cd470211
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSk1CVhhPHUJCSE1JSU5CTVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0tCQUMfSUNBSEJBHU5PQU9LSB5BT0tDSEEdTUlIQUJKGh
-	1ZV1kWGg8SFR0UWUFZT0tIVUpLSUJDQ0xVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=qq1T3XE6A+/iaB28ThsxhrEQT1zBkQcE9W0r4nmCFC+AeU7me3hWYe4plhbP0IDVRS0YTjv5uWhTe1Jfo4qveczZOOugl4Huh5lQlolqe/MScUPG9x0wppWWKDSvISqwXFXaByyPltfjeBu4a/gEf1+Kv3znhf2i3wmmHz1PLYM=; s=default; c=relaxed/relaxed; d=tju.edu.cn; v=1;
-	bh=6WClDbYaFlwWZT9MauoEsYrLdd/m9hn5aeKmSVgPILc=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
 
-When a data writeback bio completes successfully but the subsequent
-unwritten extent conversion fails, ext4_end_io_end() does not record
-the error in the inode's mapping writeback error state.
+On Tue, 13 Oct 2026 11:17:17 +0800, Weibin Liu wrote:
+> spi: ljca: validate the response length before copying the data
 
-Bio failures are already recorded by ext4_end_bio(), but conversion
-failures are not. When the conversion is processed asynchronously,
-its return value is not propagated to userspace, so fsync() may
-return success despite the failed conversion.
+Applied to
 
-Record conversion errors with mapping_set_error() before
-ext4_release_io_end() ends folio writeback and wakes waiters. This
-allows fsync() to observe the failure.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
 
-Fixes: b82e384c7bb9 ("ext4: optimize locking for end_io extent conversion")
-Cc: stable@vger.kernel.org
-Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
----
- fs/ext4/page-io.c | 2 ++
- 1 file changed, 2 insertions(+)
+Thanks!
 
-diff --git a/fs/ext4/page-io.c b/fs/ext4/page-io.c
-index 0236b6b9785a..2afa4c096156 100644
---- a/fs/ext4/page-io.c
-+++ b/fs/ext4/page-io.c
-@@ -189,6 +189,8 @@ static int ext4_end_io_end(ext4_io_end_t *io_end)
- 			jbd2_journal_abort(EXT4_SB(sb)->s_journal, ret);
- 	} else {
- 		ret = ext4_convert_unwritten_io_end_vec(handle, io_end);
-+		if (ret < 0)
-+			mapping_set_error(inode->i_mapping, ret);
- 	}
- 	if (ret < 0 && !ext4_emergency_state(sb) &&
- 	    io_end->flag & EXT4_IO_END_UNWRITTEN) {
--- 
-2.34.1
+[1/1] spi: ljca: validate the response length before copying the data
+      https://git.kernel.org/broonie/spi/c/0fe4573c822c
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
