@@ -1,144 +1,111 @@
-Received: from mta1.migadu.com (out-205.mta1.migadu.com [95.215.58.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB36C5012AE
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 13:12:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD7994F93B8;
+	Tue, 13 Oct 2026 13:13:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897139; cv=none; b=YW2IjmzcVZJHlddFnwkdJbcbjDwR7oMwMyKyEG22M0/LBZpjxXiv98/iuUGxqZeJuoq928eHesxEGDFbp/zH2z/sAe2bAcnmnu9o5QcxF/7phHLagP4OzTioeZ+ySxGJi9BuGyvNMGFDVnxRjrOog9EcwHiniptNLj0nkd+hFU4=
+	t=1791897215; cv=none; b=kys5IDaFNAz8uulrxu6LoiINX1zJnVfynBcRV8OqgxJOjsm/VbhYwFjEppvEqaYDuDEsVY2nWL3fknFR8+3HwIS6yZIp8goA3Nig1Rk/pBinbFhqA4O83NqF4/ayXIT0f5a2BMwr/Y8YfZYpGcNQxKP16XwpBA8o8DpIAH2FGJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897139; c=relaxed/simple;
-	bh=GxGoMm4vBKXboCWqEywkB1ImT232d0kryycTPDywOvA=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=ngsGkpI2I5vAjgBlUOsn20M063afPN2JSaCNuV5fo/vInYFBm1uPHUV2DUPzOQKbIn6wZutDj20aHA16iOT2JUfR3McFyxzTfmbC1MHEahmgnbFvYrLFzTMnux93rxtvRqdm8Tqbq4Wv7kSeruy0DApHhYiS141py5PgS+2yCfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kzZB8/lw; arc=none smtp.client-ip=95.215.58.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791897215; c=relaxed/simple;
+	bh=oSqzfpW5nTbwNrZBL7FSV+YIsqZvgcikk1ymv71OOVU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LAHvp2Qu0IaLBB9jbqs3sLNOzSEisjFrDDvJVB1DDGTkBEMh+NQhxGyJ5AmOrvNRvmDjhV5WX4KA5X8gaYzIm+DvX7nXYIuNU92xoc+ALuie8xiKSz4IXz/VGFD8x96ao/0ufGVFZ7loE7bxPtp1sCCtpVdmJx971ebWcoksuVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=CHm+2Tgu; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kzZB8/lw"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=GxGoMm4vBKXboCWqEywkB1ImT232d0kryycTPDywOvA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791897134; v=1; x=1792501934;
- b=kzZB8/lwMeNbLUdjZV8TbLFvLtF/o6EeW3PgDCK1gNj1AtCu4JTADoRJAj7+NAEiWAI1SD+I
- ZB98d8xRPaNVKGRWOmr/TuRrhhwIgwtPKyDbYQJCvk5cmojxhNPFHD1mKBrWB1SORqZKqVI9Xnz
- ZT353KTwb/kXSmHdCxkGwcxk=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 66a73f73837eb63b;
-	Tue, 13 Oct 2026 13:12:14 +0000
-X-Mizu-Trace-ID: 66a73f73837eb63b
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 13 Oct 2026 16:12:04 +0300
-From: Denis Benato <denis.benato@linux.dev>
-To: Thorsten Leemhuis <regressions@leemhuis.info>
-Cc: Ahmed Yaseen <yaseen@ghoul.dev>, Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Antheas Kapenekakis <lkml@antheas.dev>,
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Kerim Kabirov <the.privat33r+linux@pm.me>,
-	GameBurrow <gameburrow@pm.me>, regressions@lists.linux.dev,
-	linux-usb@vger.kernel.org, linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Message-ID: <2f85200c-ecc3-4318-9156-16ace09cac7f@linux.dev>
-In-Reply-To: <fe51a4ac-540f-4d14-ba76-b69b0eb17164@leemhuis.info>
-References: <20260828104159.62399-1-yaseen@ghoul.dev> <20260828104159.62399-2-yaseen@ghoul.dev> <fe51a4ac-540f-4d14-ba76-b69b0eb17164@leemhuis.info>
-Subject: Re: [PATCH v2] HID: usbhid: skip interrupt IN polling for devices
- with no input reports
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="CHm+2Tgu"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0339B109293;
+	Tue, 13 Oct 2026 15:13:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1791897202;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=iiIT6zWZ/KVEDN/d6m/g5jw3NGQ/LPd5aQ4Ylyijp44=;
+	b=CHm+2TguNGzZaoJQpj0YRLONcrZfKddU8CkddpE5j44aKktVRIJ56BVCqELsdw5Pkqz2gl
+	nuaTOPQxBUVM+D3/d0jjK7ZJN0SuGQSwhYL4m8nurXhPk8yu0JV8+Z/TXYCfep6wP2UfE8
+	T4p4fr/uA9PNL4I0sWAHFkyWBmdiNUpFVJ+uJ774bNVQMvdti7kxhP1ZVlcqbK1KYLo6Zg
+	htG77n/+jJhNmRzSTgZbTUTDNUVvxprphp4lmR6ZUhqhOV9XgLxlpXhUec7sZvMLCGPSR8
+	gpOFRf1FpdgQd7yXrBEmGO7HMUfiZGOgljK66aDL2ztNhAe8Ljh52NLfJM2ntQ==
+Date: Tue, 13 Oct 2026 15:13:17 +0200
+From: Pavel Machek <pavel@nabladev.com>
+To: Brett A C Sheffield <bacs@librecast.net>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
+	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org, akpm@linux-foundation.org,
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+	lkft-triage@lists.linaro.org, pavel@nabladev.com,
+	jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.18 000/621] 6.18.57-rc1 review
+Message-ID: <as4ubep0jWRi-b2G@duo.ucw.cz>
+References: <20261013112920.855194808@linuxfoundation.org>
+ <as4kGIjqjrKzu0O0@auntie.librecast.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="b/mMEdGYDAzhgiIm"
+Content-Disposition: inline
+In-Reply-To: <as4kGIjqjrKzu0O0@auntie.librecast.net>
+X-Last-TLS-Session-Version: TLSv1.3
+
+
+--b/mMEdGYDAzhgiIm
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-X-Correlation-ID: <2f85200c-ecc3-4318-9156-16ace09cac7f@linux.dev>
 
-13 ott 2026 15:55:33 Thorsten Leemhuis <regressions@leemhuis.info>:
+On Tue 2026-10-13 12:29:12, Brett A C Sheffield wrote:
+> On 2026-10-13 13:29, Greg Kroah-Hartman wrote:
+> > This is the start of the stable review cycle for the 6.18.57 release.
+> > There are 621 patches in this series, all will be posted as a response
+> > to this one.  If anyone has any issues with these being applied, please
+> > let me know.
+> >=20
+> > Responses should be made by Thu, 15 Oct 2026 11:28:22 +0000.
+> > Anything received after that time might be too late.
+>=20
+> Build failing on amd64:
+>=20
+> /usr/x86_64-pc-linux-gnu/binutils-bin/2.47/ld: vmlinux.o: in function `gs=
+s_krb5_get_mic_v2':
+> (.text+0xfc2762): undefined reference to `crypto_krb5_get_mic'
+> /usr/x86_64-pc-linux-gnu/binutils-bin/2.47/ld: vmlinux.o: in function `gs=
+s_krb5_verify_mic_v2':
+> (.text+0xfc293a): undefined reference to `crypto_krb5_verify_mic'
+> /usr/x86_64-pc-linux-gnu/binutils-bin/2.47/ld: vmlinux.o: in function `gs=
+s_krb5_aead_encrypt':
+> (.text+0xfc47a1): undefined reference to `crypto_krb5_encrypt'
+> /usr/x86_64-pc-linux-gnu/binutils-bin/2.47/ld: vmlinux.o: in function `gs=
+s_krb5_aead_decrypt':
+> (.text+0xfc48f8): undefined reference to `crypto_krb5_decrypt'
+> make[2]: *** [scripts/Makefile.vmlinux:72: vmlinux.unstripped] Error 1
+> make[1]: *** [/usr/src/linux-stable-rc/Makefile:1272: vmlinux] Error 2
+> make: *** [Makefile:248: __sub-make] Error 2
+>=20
 
-> On 8/28/26 12:42, Ahmed Yaseen wrote:
->> usbhid starts polling a device's interrupt IN endpoint on open
->> (usbhid_open() -> hid_start_in()). If the report descriptor declares no
->> input reports there is nothing to read there, so the poll is useless,
->> and on some composite devices it is also harmful.
->>
->> The ASUS ROG N-Key keyboards expose a second, input-less interface used
->> only for RGB control via feature reports. Opening its hidraw node (any
->> hidraw reader does, including SDL/Steam Input or a plain cat) starts the
->> pointless IN poll and keypress reports on the keyboard interface get
->> dropped for as long as the node stays open: a lost key-down drops a
->> letter, a lost key-up leaves the key stuck. usbmon shows the dropped
->> reports never reach the URB layer.
->>
->> The useless poll itself is long-standing; commit 4ac74ea68f64 ("HID:
->> asus: early return for ROG devices") is what exposes it on these
->> devices by keeping the input-less interface alive instead of ejecting
->> it, so its hidraw node can be opened and the poll started.
->
-> Hmmm, what's the status here? Ahmed, is this still needed, or was this
-> fixed in some other way? From the the outside it looks a lot like this
-> regression fix feel through the cracks, but would be good to get into
-> 7.4-rc1 to finally fix the dropped keypress reports.
->
+We see same problem here:
 
-Hi Thorsten,
-
-This is very much needed and we had to include it in OGC kernel to avoid hi=
-d devices resetting constantly.
-
-It is a very important fix and we are waiting for inclusion upstream becaus=
-e games becomes flat out unplayable with certain combination of tools.
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/jobs/171391=
+16508
 
 Best regards,
-Denis Benato
+									Pavel
 
-> Ciao, Thorsten
->> Skip the poll in usbhid_open() when the device has no input reports.
->> Feature reports and hidraw output keep working over the control and OUT
->> endpoints, so the interface is otherwise unaffected.
->>
->> Fixes: 4ac74ea68f64 ("HID: asus: early return for ROG devices")
->> Link: https://discuss.cachyos.org/t/keyboard-input-issues-on-asus-rog-st=
-rix-16-2025-with-cachyos-during-gaming/30823
->> Link: https://github.com/ublue-os/bazzite/issues/4590
->> Cc: stable@vger.kernel.org
->> Tested-by: Kerim Kabirov <the.privat33r+linux@pm.me>
->> Tested-by: GameBurrow <gameburrow@pm.me>
->> Signed-off-by: Ahmed Yaseen <yaseen@ghoul.dev>
->> Reviewed-by: Denis Benato <denis.benato@linux.dev>
->> ---
->> drivers/hid/usbhid/hid-core.c | 9 ++++++++-
->> 1 file changed, 8 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/hid/usbhid/hid-core.c b/drivers/hid/usbhid/hid-core=
-.c
->> index 96b0181cf819..d7cf2b56e117 100644
->> --- a/drivers/hid/usbhid/hid-core.c
->> +++ b/drivers/hid/usbhid/hid-core.c
->> @@ -688,7 +688,14 @@ static int usbhid_open(struct hid_device *hid)
->>
->> =C2=A0=C2=A0=C2=A0 set_bit(HID_OPENED, &usbhid->iofl);
->>
->> -=C2=A0=C2=A0 if (hid->quirks & HID_QUIRK_ALWAYS_POLL) {
->> +=C2=A0=C2=A0 /*
->> +=C2=A0=C2=A0=C2=A0 * ALWAYS_POLL devices are already polled from usbhid=
-_start(), and a
->> +=C2=A0=C2=A0=C2=A0 * device with no input reports has nothing to send o=
-n the interrupt
->> +=C2=A0=C2=A0=C2=A0 * IN endpoint. In some cases polling is harmful: on =
-the ASUS ROG
->> +=C2=A0=C2=A0=C2=A0 * N-Key keyboards it makes the sibling interface dro=
-p keypresses.
->> +=C2=A0=C2=A0=C2=A0 */
->> +=C2=A0=C2=A0 if ((hid->quirks & HID_QUIRK_ALWAYS_POLL) ||
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 list_empty(&hid->report_enum[HID_I=
-NPUT_REPORT].report_list)) {
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 res =3D 0;
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto Done;
->> =C2=A0=C2=A0=C2=A0 }
->>
->> base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+--b/mMEdGYDAzhgiIm
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCas4ubQAKCRAw5/Bqldv6
+8tCHAJ9F+IraIEYRLM/Shea1iZp/uEN8kQCfQxo9tfvh4Hyp3szwrr1JCyZqRa4=
+=duju
+-----END PGP SIGNATURE-----
+
+--b/mMEdGYDAzhgiIm--
