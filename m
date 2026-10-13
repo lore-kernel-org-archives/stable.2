@@ -1,43 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF453FE348
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 14:39:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5534514744
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 14:40:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791902391; cv=none; b=L1jQNuLJvAbZaraqjDLBwWxxOwVVh9H3srZzurKQ3Xn+abVvTqBEbrEBegV4Hti++wCr5vtElMDiFp2OOM3e9Fp1+OelpJQy8dRnTtjiLtbcUCKE+YA0CLeqfNZb+LqoAlafpAUU5VIOsCfjeUyUG8BSAVFV6L740Gwo2QbIOK0=
+	t=1791902424; cv=none; b=FWqLBmWTkeJihQCoRslyuZSJX/lPLfHvriRhjqCoY8AfpvxIHqFbDNdb/XfhjsR91Sh7GS9m/R36oXIK9v1UOZM3dVgpYkmjynUtBwYkRBtQf6HnC66WC7SMVArfxdsCyKYBhfXdu3bTs2iZ196QWoYFbnTkRuoW955mP4cQxUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791902391; c=relaxed/simple;
-	bh=3Xctwozj6PkwjJZRINh97wZLY5EiF+SJ68VmytdZVwg=;
+	s=arc-20240116; t=1791902424; c=relaxed/simple;
+	bh=kUxVa5mGjgd3Hwbquj61TOyvRjlHlIbwg1qSJUSNsZo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=I45WdfUdbZjR095fBzGTzDY7E5smHntMS2mo9eTEN93fRyPl3as06qqcilrL2RWcf/TZQOhovcZyPGFFf/ilXzv2ZlVQggO0hv7VplKPKAJ+Ro2RCeiCaVot8ok15VeLjf4rxxlCMsg19qcEtkMdJWzC9ePjSyusBpmfC4KRUek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UgJwbmvX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qxIgHICey6eJCEQ68a5uV61hsCVC+nAG3xPkvw9RN9Xmuv/V09SJRWWArauY8/YP6Xq7xkDsz4DKrwC7aEm8KuZJeTY6leNwAGHWlv3us8AeTW0qmuaQrbdZPLIk0O0HlPpq+unDmqC9iZEqn8M9I7Bw61l1k+OtQuF056hpXcQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JUdbCzpG; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UgJwbmvX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF09C1F00898;
-	Tue, 13 Oct 2026 14:39:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791902390;
-	bh=FzIARM9O1LWHTVggLPMq1lQczRQQG87FOHmtnHVRkBo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UgJwbmvXKkle64PiCGZQVFg1lWJujFZ2OwBgYyW/dSrxuD24i9rWO3gdm48twx6K2
-	 UWbNUd+OHRvqtC4CtS0Br5RvLD2odPzMP3xYCUA/YpomLjTB/V01SMsO96/U2Hpq5C
-	 mB+ouTrTkMiJXUzZbfk9F4nJqkPSVoyPtBeZ8bIxEIpWqZbtxy9bY/ozNbYrrUs6De
-	 /gLz+hran5rjqApgZMlQYi406F0fwbH+bHtMxbtLQf4QkorPnsU1OlICx6aE7LQSOE
-	 jN6LS5s9yUtvo9tQmkbFQh1/Anhjl7e2aab/dtHPyaIVt8Rr0dV0LzTAGMkTqfLEu3
-	 mCBP3RjG0Q+eg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Mikulas Patocka <mpatocka@redhat.com>,
-	syzbot+675c91651049ad042c5f@syzkaller.appspotmail.com,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] dm-integrity: validate the superblock on resume
-Date: Tue, 13 Oct 2026 10:39:48 -0400
-Message-ID: <20261013143849.4164284-2-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JUdbCzpG"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a19cba5c14so24176785e9.3
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 07:40:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791902420; x=1792507220; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3+dcTjNdpl6sXOUJMEgViEWWx4Hbq5B7m0gg3ou9K64=;
+        b=JUdbCzpGr9iiCG2hIh2ePKqwJAsecubVQ+FqoYeRnDzjwDraryHs1+4NJmImZosUzq
+         UtXLIzEflFlc2+mUXk7sA8gfb8Q7FyiP/uACK2VV4H/4qQgbgn+21cyis76rQELq03d0
+         /g7PaOLzLsstioL1whpnBtq9ufPI1c/JOY8y1Rz1lXS7iV69dbZiw6wa2t+PxcjpHiSH
+         eJgZUAmo6I+fPW6eTJpDDpExRN7kGL6f7+ueQYPYWQQSpzmZwQAui0AUlWimk7/pS4eC
+         zda/p0A/9DzHx28noJQ2C85uwEqsA/gzY+KZr3U/8EJybBjRdmLBM/Xd+uutbHdVCI4I
+         B0jA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791902420; x=1792507220;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3+dcTjNdpl6sXOUJMEgViEWWx4Hbq5B7m0gg3ou9K64=;
+        b=VbnKLkIkzLozTLgsaxTSnFjNw2r1Y+Qb4R2yuD997J+fjAwhF5NL2iKczNcd8PuHDp
+         bCpK/BAiTzdRKQwM8ayZmR4lVgXjLwRbp/d+2649ngKEXKx/t8CwtFIMkkL4lrEZ9ERZ
+         7LUB3NdpvW44KEYJMsjAo2LrOfP7hfMd7h+its0fSCYsdIjSPhoiIVaR9pWdOgTkTp30
+         WOn7pDGEulssWVwoaFYdi2DaT5qU1VeU9jlRcTyeUxb8v+AWEng2SutdNk/wN1lwv/dO
+         6RtrubzO4mFn9GxTpgeYDMkHBGJvaPoiiiZWUjiZbyFf7Rr1wn0RZlrNizDifVUSMn9G
+         cjTg==
+X-Forwarded-Encrypted: i=1; AKwUvBy3SILx3ILvkUqdaP1ZU9F0Kl0EDvUBfiu7fjO7dTy0ftVNog//+2Oj5166RUM+KDyZI5rqODg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJT97hqe74WnFKA+FYtQ80LHgRVE4cTbHIclWcT7w7ji6GjJBa2
+	PeO5a4YeGWTohmPqJbmgFJ200BFQNjVhP45WvwsJPTX6THurp7qyqvBy
+X-Gm-Gg: AYBFou04bYH05h9MO0L2cmvGm6KzL8s4FcajL0SK2jxk3WWKv3hHG4LzkEeIscTgZbs
+	ApxKmjD3c1ijAO0DIAXKFpa+j+dENwVIu1j96nW+AKQIrF+LX7L+GSQLpE5UoLAjg4BzEC9awFa
+	HJ0huOwStecdXESyxxhHCxc0JzLfpdYons8XVKcOSFz+sHxqTbSUUuXf8tUk4kEXk6NLskBtEI7
+	tNZ/HyM+OT60Er7tJoU7rHPEM3xEthSTCNDaxVJS6mgVve4Hn4b2F96VjZDAB4KNBOKq9jlFqC5
+	PjUg/mhHz6CBL0U9AOGdKZnKwxtNmJqH7oDRuw4pML3H6V40JKT/xG/TFv5JaOtVq+5h82E/qfW
+	g3lTgmNCcEnZwAnTk/fwLSFBMHvSYVkwhLjr02zG+3IjxVnZdTi0c5zrkFwIybjyJtB+FtixU4m
+	EWSeT0uOaqeFoUGyoqoZDVlw5ytlBHgM7l9JXVVfdPEmKwHi3XHUbvffr7VygOPi1nuKKCamcbP
+	TyHPBU8AaRM1QOvy/I70DOrb5PCJM1V
+X-Received: by 2002:a05:600c:8b70:b0:4a0:108:3b48 with SMTP id 5b1f17b1804b1-4a18e4a174amr246218995e9.7.1791902418613;
+        Tue, 13 Oct 2026 07:40:18 -0700 (PDT)
+Received: from mm-ntb-00805 (ip-94-113-240-150.net.vodafone.cz. [94.113.240.150])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bb6b3cbsm294892585e9.0.2026.10.13.07.40.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 07:40:18 -0700 (PDT)
+From: Jan Remes <ciakval@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Joe Sandom <joe.g.sandom@gmail.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jan Remes <jan.remes@mycroftmind.com>,
+	stable@vger.kernel.org,
+	Martin Triska <martin.triska@mycroftmind.com>
+Subject: [PATCH 1/4] iio: light: tsl2591: don't divide by zero
+Date: Tue, 13 Oct 2026 16:39:40 +0200
+Message-ID: <20261013143943.436816-2-ciakval@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261013143849.4164284-1-sashal@kernel.org>
-References: <2026101259-ember-outbreak-0e5f@gregkh>
- <20261013143849.4164284-1-sashal@kernel.org>
+In-Reply-To: <20261013143943.436816-1-ciakval@gmail.com>
+References: <20261013143943.436816-1-ciakval@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,126 +84,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mikulas Patocka <mpatocka@redhat.com>
+From: Jan Remes <jan.remes@mycroftmind.com>
 
-[ Upstream commit fc79aeb86a2c244c1f1894e2d8f2966fe2b60fa2 ]
+The TSL2591 has two raw light channels - CH0 and CH1. The algorithm for
+calculating illumination from the raw channels requires division by CH0
+(which can be zero) and by "counts per lux" (CPL) value which is also zero
+for (gain = LOW, integration time <= 400 ms).
 
-dm_integrity_resume() re-reads the superblock from the device so that it
-picks up the flags and the recalculate position. It performs no
-validation on the result, while the constructor validates the superblock
-it reads and sizes all the in-memory structures according to it. The user
-may modify the superblock on the underlying device while the dm-integrity
-device is suspended, so that the two no longer agree.
+Furthermore, the algorithm assumes CH0 > CH1, which can be violated in
+almost complete darkness.
 
-In particular, access_journal_data() shifts the journal entry index by
-ic->sb->log2_sectors_per_block, while ic->journal_section_sectors and the
-journal page list were computed with the value that was present at
-constructor time. Increasing log2_sectors_per_block makes the index run
-past the end of the journal, and dm-integrity then writes 512 bytes
-through lowmem_page_address(NULL).
+As a result, reading from 'in_illuminance_input' results in
+division-by-zero whenever CH0 is 0 (complete darkness) or whenever the
+parameters result in CPL being zero. This results in kernel oops on
+x86_64 and in reading the value as 0 on arm64.
 
-Snapshot the validated superblock in the constructor and refuse to resume
-if any of the fields that describe the on-disk geometry changed.
+Fix that by:
+- reporting CH0 <= CH1 as zero (catches also CH0 = 0)
+- updating the lux algorithm to only do the division at the end
 
-Reported-by: syzbot+675c91651049ad042c5f@syzkaller.appspotmail.com
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Fixes: 2335f0d7c790 ("iio: light: Added AMS tsl2591 driver implementation")
 Cc: stable@vger.kernel.org
-Fixes: 118ba36e446c ("dm-integrity: fix recalculation in bitmap mode")
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reported-by: Martin Triska <martin.triska@mycroftmind.com>
+Assisted-by: LLM
+Signed-off-by: Jan Remes <jan.remes@mycroftmind.com>
 ---
- drivers/md/dm-integrity.c | 50 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+ drivers/iio/light/tsl2591.c | 32 ++++++++++++++++++++++----------
+ 1 file changed, 22 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
-index 5ad2b85cef049..24d2e76c21a9a 100644
---- a/drivers/md/dm-integrity.c
-+++ b/drivers/md/dm-integrity.c
-@@ -179,6 +179,7 @@ struct dm_integrity_c {
- 	struct dm_bufio_client *bufio;
- 	struct workqueue_struct *metadata_wq;
- 	struct superblock *sb;
-+	struct superblock *sb_copy;
- 	unsigned int journal_pages;
- 	unsigned int n_bitmap_blocks;
- 
-@@ -3856,6 +3857,35 @@ static void dm_integrity_postsuspend(struct dm_target *ti)
- 	ic->journal_uptodate = true;
- }
- 
-+/*
-+ * The superblock is re-read from the device on every resume, so that we pick
-+ * up the flags and the recalculate position. The geometry described by the
-+ * superblock must not change though - the in-memory structures (and the
-+ * journal in particular) were sized according to the superblock that was
-+ * validated in the constructor. Reject a superblock that was modified behind
-+ * our back.
+diff --git a/drivers/iio/light/tsl2591.c b/drivers/iio/light/tsl2591.c
+index ef3ed9635a1e..f56d31404c25 100644
+--- a/drivers/iio/light/tsl2591.c
++++ b/drivers/iio/light/tsl2591.c
+@@ -16,6 +16,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/iopoll.h>
+ #include <linux/kernel.h>
++#include <linux/math64.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+ #include <linux/pm_runtime.h>
+@@ -362,6 +363,10 @@ static int tsl2591_wait_adc_complete(struct tsl2591_chip *chip)
+  * Scale values to get more representative value of lux i.e.
+  * lux = ((C0DATA - C1DATA) * (1000 - ((C1DATA * 1000) / C0DATA))) / CPL
+  *
++ * CPL is not computed on its own: at 1x gain it is below 1 for integration
++ * times under 500 ms, so the division by LUX DF is folded into the final
++ * division instead.
 + *
-+ * Only the fields that the driver never rewrites may be tested here. In
-+ * particular, "version" is recalculated by sb_set_version on every superblock
-+ * write and it depends on SB_FLAG_RECALCULATING and SB_FLAG_DIRTY_BITMAP, and
-+ * SB_FLAG_DISCARD_KEYED may be set by dm_integrity_resume itself.
-+ */
-+static bool superblock_changed(struct dm_integrity_c *ic)
-+{
-+	const __le32 immutable_flags = cpu_to_le32(SB_FLAG_HAVE_JOURNAL_MAC |
-+						   SB_FLAG_FIXED_PADDING |
-+						   SB_FLAG_FIXED_HMAC |
-+						   SB_FLAG_INLINE);
-+
-+	return memcmp(ic->sb->magic, ic->sb_copy->magic, sizeof(ic->sb->magic)) != 0 ||
-+	       ic->sb->log2_interleave_sectors != ic->sb_copy->log2_interleave_sectors ||
-+	       ic->sb->integrity_tag_size != ic->sb_copy->integrity_tag_size ||
-+	       ic->sb->journal_sections != ic->sb_copy->journal_sections ||
-+	       ic->sb->log2_sectors_per_block != ic->sb_copy->log2_sectors_per_block ||
-+	       ((ic->sb->flags ^ ic->sb_copy->flags) & immutable_flags) != 0 ||
-+	       memcmp(ic->sb->salt, ic->sb_copy->salt, SALT_SIZE) != 0;
-+}
-+
- static void dm_integrity_resume(struct dm_target *ti)
- {
- 	struct dm_integrity_c *ic = ti->private;
-@@ -3874,6 +3904,18 @@ static void dm_integrity_resume(struct dm_target *ti)
- 	if (r)
- 		dm_integrity_io_error(ic, "reading superblock", r);
+  * Channel 0 = IR + Visible
+  * Channel 1 = IR only
+  */
+@@ -373,8 +378,10 @@ static int tsl2591_read_channel_data(struct iio_dev *indio_dev,
+ 	struct tsl2591_als_settings *settings = &chip->als_settings;
+ 	struct i2c_client *client = chip->client;
+ 	u8 als_data[TSL2591_NUM_DATA_REGISTERS];
+-	int counts_per_lux, int_time_fval, gain_multi, lux;
++	int int_time_fval, gain_multi;
+ 	u16 als_ch0, als_ch1;
++	u64 lux;
++	u32 rem;
+ 	int ret;
  
-+	if (unlikely(superblock_changed(ic))) {
-+		/*
-+		 * Restore the superblock that we validated in the constructor,
-+		 * so that the rest of the driver doesn't operate on values
-+		 * that don't match the in-memory structures.
-+		 */
-+		memcpy(ic->sb, ic->sb_copy, sizeof(struct superblock));
-+		DMERR("The superblock was changed while the device was suspended");
-+		dm_integrity_io_error(ic, "superblock check", -EINVAL);
-+		goto skip_writes;
-+	}
-+
- 	if (ic->mode == 'R')
- 		goto skip_writes;
+ 	ret = tsl2591_wait_adc_complete(chip);
+@@ -410,23 +417,28 @@ static int tsl2591_read_channel_data(struct iio_dev *indio_dev,
+ 			return gain_multi;
+ 		}
  
-@@ -5411,6 +5453,13 @@ static int dm_integrity_ctr(struct dm_target *ti, unsigned int argc, char **argv
- 		ic->just_formatted = true;
- 	}
+-		int_time_fval = TSL2591_FVAL_TO_MSEC(settings->als_int_time);
+-		/* Calculate counts per lux value */
+-		counts_per_lux = (int_time_fval * gain_multi) / TSL2591_LUX_COEFFICIENT;
++		/* No visible light, this also catches C0DATA == 0 */
++		if (als_ch0 <= als_ch1) {
++			*val = 0;
++			*val2 = 0;
++			break;
++		}
  
-+	ic->sb_copy = kmemdup(ic->sb, sizeof(struct superblock), GFP_KERNEL);
-+	if (!ic->sb_copy) {
-+		ti->error = "Cannot allocate superblock copy";
-+		r = -ENOMEM;
-+		goto bad;
-+	}
-+
- 	if (!ic->meta_dev && ic->mode != 'I') {
- 		r = dm_set_target_max_io_len(ti, 1U << ic->sb->log2_interleave_sectors);
- 		if (r)
-@@ -5509,6 +5558,7 @@ static void dm_integrity_dtr(struct dm_target *ti)
- 	kvfree(ic->journal_tree);
- 	if (ic->sb)
- 		free_pages_exact(ic->sb, SB_SECTORS << SECTOR_SHIFT);
-+	kfree(ic->sb_copy);
+-		dev_dbg(&client->dev, "Counts Per Lux: %d\n", counts_per_lux);
++		int_time_fval = TSL2591_FVAL_TO_MSEC(settings->als_int_time);
  
- 	if (ic->internal_shash)
- 		crypto_free_shash(ic->internal_shash);
+ 		/* Calculate lux value */
+-		lux = ((als_ch0 - als_ch1) *
+-		       (1000 - ((als_ch1 * 1000) / als_ch0))) / counts_per_lux;
++		lux = (u64)(als_ch0 - als_ch1) *
++		      (1000 - ((als_ch1 * 1000) / als_ch0)) *
++		      TSL2591_LUX_COEFFICIENT;
++		lux = div_u64(lux, int_time_fval * gain_multi);
+ 
+-		dev_dbg(&client->dev, "Raw lux calculation: %d\n", lux);
++		dev_dbg(&client->dev, "Raw lux calculation: %llu\n", lux);
+ 
+ 		/* Divide by 1000 to get real lux value before scaling */
+-		*val = lux / 1000;
++		*val = div_u64_rem(lux, 1000, &rem);
+ 
+ 		/* Get the decimal part of lux reading */
+-		*val2 = (lux - (*val * 1000)) * 1000;
++		*val2 = rem * 1000;
+ 
+ 		break;
+ 	default:
 -- 
 2.53.0
 
