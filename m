@@ -1,244 +1,410 @@
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011025.outbound.protection.outlook.com [52.101.52.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCD9A39FCAE;
-	Tue, 13 Oct 2026 09:10:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.177.32
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74AF039FCAE
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 09:10:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.25
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791882619; cv=fail; b=EUdLMydQr2CwSf/KM7jOF49vQOims3Ptl6Co+zxiHz56vAAgngvMGP9AuGp84NXGw2O3C9ukzGmfrslEle5XtssTg7tooXbg1BwAAOmHwTAerIAsnnx+HlG8zIXyFNUTAYChLTmfgVIrQT6WEhuUNHVCHkdNtYe5xF5bO0me+YI=
+	t=1791882642; cv=fail; b=jZ3s/l4BBcOWCDGTNaTBIHtBKWj9t4Va+MYxEApKJ0X2rMJpeAy+lHwkZ4P+P8kGHdm917Wn4OuCS2qB9+dE+8zhCnYyC7j1PetS8zb9+gCa7QLM6JKzYXN2GvRhaxGFv94nl0u6OAXeBtN9wB2AEpXkMmyAMjM0qZcn8uyi48A=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791882619; c=relaxed/simple;
-	bh=gAfniZ05E1jIzkjesXmIGOPCRjxpQuxKCHnArnnUrok=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=f0bvQFLWM6rXxrSX/DRSD1rPHMTz4P+cZees0ovw3Rp+Dddi/CyhLJt5Id+GWAQDD4aWuJh4CwKiK0qTjGcxgDoPk9Qv713Duj/kQktWHd83PUqw2HqbJggxGqzQ1J/oEjvaOWY9bg7gHSc54gRNRcLDB39QbL51FHaXJZO7oUU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=jub/iu5K; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=PQXimCgf; arc=fail smtp.client-ip=205.220.177.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	s=arc-20240116; t=1791882642; c=relaxed/simple;
+	bh=Ovr6Hj3FyFUonZndI6vJTH0W+lbGpItD8/IDtzQVDss=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=WIY1K+ZSGdVgYtV3ONFMmC/QgpjDbDyyzg3nNLWFiWbSrECThGbnlnMnDtvtZju+8eGqTSamOqLglbDkAOifOLGW4TUI31zjKg7RkmBmofrzUP7JTFTwcuDOLWndbG3NBcDHQDIwKXoGipkmslgRytlV4YDg2IXnvCt/AbB/1LI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=oCAS87/p; arc=fail smtp.client-ip=52.101.52.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="jub/iu5K";
-	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="PQXimCgf"
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D2BrsT3200294;
-	Tue, 13 Oct 2026 09:10:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=corp-2025-04-25; bh=T6HiuOM4YYtdE5fnga
-	m6U9dIhCxOqjq8Bdjj3U8bWFA=; b=jub/iu5KqHWjrL1+wZV0rezmnBpytfiw5D
-	75snNDtDu4bMGMtGhQRLMUUD/xVqS6l5z5umsCPPoCtEA58JdkpToPnRBxr+nigr
-	NA72RayaSPSbxEMvr7PoCbrMqgr2uOIlciWBwebjNSSDPcveNO8kiukj6zTFDtWv
-	DU6G3897avucrEcxynBpw+xYLm/aMUpPZrSjgV7m6CBbgqdjvYT2oR3WhLCIn5iP
-	LxQdamNTZKePoJLvim1/KABWcLplMd21kpQjeDhhp7gFgyvCB7jkoRsYz+GQRXAe
-	vCC4t5GQDM9qnSjOy2mmSUwy/uh27pPgb8tEsohednH99QlF9l0g==
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4h7demknss-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 13 Oct 2026 09:10:11 +0000 (GMT)
-Received: from pps.filterd (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 69D8pg9w040138;
-	Tue, 13 Oct 2026 09:10:11 GMT
-Received: from sn4pr0501cu005.outbound.protection.outlook.com (mail-southcentralusazon11011020.outbound.protection.outlook.com [40.93.194.20])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4h7btp8yah-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 13 Oct 2026 09:10:10 +0000 (GMT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="oCAS87/p"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rv1jBmHN9HGEe5CFJAlG+7LJQ6AmIVSwFFrGNSBoIT2saCiJyuwQp2L8jSxykGjhGJUXZimmIK8A3bfPqQQIpGBgsm0IFmGJTEBDv7ivHtWf0saE+o6dOecrXQad+brz9yaqIH3tsniQJRVXEDb4yzMokEii00thoFsZiNhTd8uUW0t3PtkvP/dN2U8bvTa2hk6PCZr7PexIOQerwKG9v/tHF0MIAsC5xVza1xbcyyi96wrx5OqnuuvIiL8VCJMpZgbvvFUQDEaQ56RfAC8rnRnzVy9c6vrdN5EdfuRyGO+qsbJHFCXPohaPdLSArHJ54SX4nGqu5sgn/rdZU5p6qQ==
+ b=Xd5eN1DZr/n1rjF3x00H10hyQMGFYEv8dA6iV4co66CDEeJlKiRNEG0Ia+N0bMgJ4qhD+63Shp6Ea9M22SQUnh7iye1YMOkFVkLtPgA90PTAGFSTMVS2WFkC8MzmErV7ELfvBimmxLNzeC7ROOUqD5SVvCXKGMnKG5vfiJATH+/k4x41GqfP3qni3Y4bHwHVuU/2+pCnHb2uNjS8WrM5GKoFGDB++Xaeqd5ozjGdSJ654Z8ECSARGqwBjY6rEOD1Ksb4y+ajPcvLgrkY0MbReA3neaquOF8Aij/fZkzDdq99oIOgi7rBejrVXEHsuXS2a36DTOlBligjyDo9WCGopA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T6HiuOM4YYtdE5fngam6U9dIhCxOqjq8Bdjj3U8bWFA=;
- b=Qk4AF184JMWGd0rIMTCoobQG+tgC3b9z62ODHGFmHGEjNDDMhnh9lNiy59wiZ/1eJvmPzYKFudJ/Uo/s1FNqJuBOf53bXGb4BDMJIpVOpk7iZ9dMJdYXFSCK7cGu5HhIQBMSeHe7i+Slj8xMZ3rfqihVNGJHkyu5wlSVtL2cAzTFfRXFN2KURSjQkPXS5QtydLyyps4GXN3DKS/w85zSZBBnNBYtSwVrK0NUI/Wnh0x8BtCREhW99zTVKVYGj68l/pTnhVgn7mkXG40YpM5DAdL37dYwJGD+hb4OSyuqXrpfHyTV1HnGcw1e6Df3CPT3bvXvXnhA7M1gRx0QU1T1HQ==
+ bh=qEM/VGlCia1IojqQaq/eKJ2KoklBNZBPmgol8Vsz2ig=;
+ b=EodZOTmhLmclxfnSm/BY6LTQWoAbd1ezliZjbpuxUClhC5yWfun7EAMogEy+EY7QwJUYtmz3t5Owy7/cgv0R2DEsNWpAIA9Rdi/oLfUWOIQEnx3F3VGZF68Hl+ihwPcG/2WmTU2HlfakjZdccq/OPgTK/7cktm0IUViokzfBuGIRfxYo1q7X6dvp5lz0Ge65cQbTl2V0WftCbWQNklhtmt+dTXIkr2SKBAb3zxPhBaSF0nGD5Q7S0K45GiV+FNkjyjVcyyKzzALNX9LslDnpjyvDHThmQ+pBsRT1M4n3goc/339eQ+GSLaxENNHRWk5ouTamGLvE55Isy1hNSCofvg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T6HiuOM4YYtdE5fngam6U9dIhCxOqjq8Bdjj3U8bWFA=;
- b=PQXimCgfM4Va9cH6DxVUmXM4tzy7K4i3WuuyVBe3dgaueOuxGuFLD/0iPBueA7IWAWjLzWE4LEXMsji2CmORstb4Vjzi//LykYyrXIbcAVavyJE2GKoBnfOSRjXxwkP55pLU/+H7PYPz+mcbbm3zwO9jMkd6qeQ0ixbUVdq+bnA=
-Received: from DM4PR10MB7505.namprd10.prod.outlook.com (2603:10b6:8:18a::7) by
- LV1PR10MB375422.namprd10.prod.outlook.com (2603:10b6:408:516::23) with
+ bh=qEM/VGlCia1IojqQaq/eKJ2KoklBNZBPmgol8Vsz2ig=;
+ b=oCAS87/pWB2s25LLQT6JkQkc5gqG/l85NyOv63pR4qlpNFg6stvs+lSmbdOJk4NyhcTcbngDsan+DevFNZiPLW6DJAtj+7mVd1/uYRDSXg3xhEyi1liCLpiXEIG1wAOOwh60PZgZzVG8zBe7po1PYc6Hrb/y6pmlMQBH4Bjp4ww=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by MN2PR12MB4359.namprd12.prod.outlook.com (2603:10b6:208:265::24) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
- 2026 09:10:08 +0000
-Received: from DM4PR10MB7505.namprd10.prod.outlook.com
- ([fe80::f14:5389:d117:967c]) by DM4PR10MB7505.namprd10.prod.outlook.com
- ([fe80::f14:5389:d117:967c%4]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
- 09:10:08 +0000
-From: Siddh Raman Pant <siddh.raman.pant@oracle.com>
-To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-CC: "sashal@kernel.org" <sashal@kernel.org>,
-        "djwong@kernel.org"
-	<djwong@kernel.org>,
-        "stable@vger.kernel.org" <stable@vger.kernel.org>,
-        "dchinner@redhat.com" <dchinner@redhat.com>,
-        "linux-xfs@vger.kernel.org"
-	<linux-xfs@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 6.1 v2 0/5] Backport of XFS umount hang fixes
-Thread-Topic: [PATCH 6.1 v2 0/5] Backport of XFS umount hang fixes
-Thread-Index: AQHdWvKkQwwToH5xk0ifJpk80wWHlQ==
-Date: Tue, 13 Oct 2026 09:10:08 +0000
-Message-ID: <745f6033a34f91322ddfff4545de1e1e1f784bc3.camel@oracle.com>
-References:
- <2026-10-01-1-daily-reply-0012-re-xfs-umount-hang-backports@kernel.org>
-	 <cover.1791877866.git.siddh.raman.pant@oracle.com>
-	 <2026101349-punctured-overload-7f09@gregkh>
-In-Reply-To: <2026101349-punctured-overload-7f09@gregkh>
-Accept-Language: en-US, en-IN
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
+ 2026 09:10:38 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
+ 09:10:37 +0000
+Message-ID: <2fcd10d5-c1f9-47be-9a68-422f9bbd6837@amd.com>
+Date: Tue, 13 Oct 2026 11:10:33 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] drm/xe: skip p2p for suspected display buffers
+To: Matthew Auld <matthew.auld@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Cc: Matthew Brost <matthew.brost@intel.com>, stable@vger.kernel.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+References: <20261007153605.1743626-5-matthew.auld@intel.com>
+ <20261007153605.1743626-8-matthew.auld@intel.com>
+ <2c6a97ac21c5ef161dbac279f9b971f383b6b944.camel@linux.intel.com>
+ <dbabed4e-468d-4ecf-b295-f5d8c9c4b263@intel.com>
+ <bc2f4d82-5a8e-4d1b-a921-ee819ca5cac2@amd.com>
+ <992d57f0-7327-4c36-adf7-6dd72137fe73@intel.com>
+ <31f7eb68-6dfa-4ea7-93a4-d4897fbe6a74@intel.com>
+ <3579864a-0283-4f92-b895-5cf399c2ee69@amd.com>
+ <16cfde6b-8881-4ffe-8068-9530286da72a@intel.com>
+ <1a852df2-c2a4-48bb-84de-cdd4b98b95bb@amd.com>
+ <d493d4d1-96d5-4194-bbae-5c1e5d54d91a@intel.com>
+ <5545db90-3365-4d75-9fc0-77dda42b7000@intel.com>
 Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oracle.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR10MB7505:EE_|LV1PR10MB375422:EE_
-x-ms-office365-filtering-correlation-id: 958efdd2-2021-42aa-6501-08df2909c73a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|1800799024|10070799003|6049299003|366016|376014|10067099003|38070700021|4053099003|4143699003|22082099003|18002099003|56012099006;
-x-microsoft-antispam-message-info:
- Dntvpboca9G7chYFFkVNKaa14WqhzOd86UcaCtKNnl0yuXkCK7Q0ILgujHTeOa++D1/5Qdn1y0pCY+OMCeSbyoaN8b41N6JvfeUO7An+Kw8OZiCXHznrmF+3p9TDjo+2msvGxw06iATyEu11uViaPZHOgnAGStn+YTtH91oiASzQRATQfw5ZGUcXeLS6fSTiYCigZWrOZui/Ztcy+3OFKCEK82hXZgcOTidr5ucMX9zr/jHrltei3w942+8GKFjIj/tlc0Tt8cd6ZhG5x6KTsbQ3DZmBJp7t5UyUOxqhlK6fHZ10HLu4FhzTVNZA3/R0l6h3rRjKee+p+6FbDcpYA1V4s72hXkiwbibTsKHNnB15VdcWgIFTPV3Q413w+meCuMNzVwJFVEc+8SCncWGE3ARNIkcWt2WrkMBGz3593Pl/h4bOJm/WieminQXRHLbOeyD+AgDzDJUDkr7qfhfDcJD0KK9WAmuGLW+ghYokORkxEXZKcOdvVdSjOdo5R93JRBQuDUG2B62DfnvIdpstGOlO58anosOI0ROzsuaEgod1zhHpGniIN2GZcvjLwioXVEnp/igVJFHRvGaUD6AEqODpU192t8VhzuVUtgdyihR504jR0x+VTeLZaB99L3gsZ5uSXoyTAD3MUko22DW9JA45rEJdVB8hfKloevDxLDUk8tfaL4N/gWcDZBpApSlqzfgaEly3A6LdXqYGTbLxJp25Cn1rshOuW+WPRWtTFJ8=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR10MB7505.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(10070799003)(6049299003)(366016)(376014)(10067099003)(38070700021)(4053099003)(4143699003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 2
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?VEFHY1YwSzJnWVFmUS8xc2tTOThQRzFoVC9ZWEtYam05Zkg5bnBJeURHRjZN?=
- =?utf-8?B?N1NnWTZKLzNaeFhIcVdUdU5OMGhlM3dpQTl3Y1YrbGI1MFRFS1ZHb3RCMTBE?=
- =?utf-8?B?ejNIS1lvWWRHR0NUZS9lU3BMR0EzRkF5TDU3TFZBbEQ3d09GMjZqSG15OEVD?=
- =?utf-8?B?VVc2VFR1bFRBUmY2Q2FRVWM5YXJNSzd4N2E3K2xCdHREU1RzTERFYkxWVlhT?=
- =?utf-8?B?V0hrNkpOVUltZW5JQldtZzVLcXo0N010aGxRSDlTdlpLN1JNV3o0dFpEUDZn?=
- =?utf-8?B?am45NXdjdWlycFlIeU16Zml2KytuL2ZsZ1ZlZG9NaXB2Qm9YMkQ4NksvUlpF?=
- =?utf-8?B?UlcyUmMyOEZORTYvcVgvMmpSUlhUM2QvdTNVSmFFR2c1SVJJU0gwbWNYUTNP?=
- =?utf-8?B?aGp4ZHVMalBSZGU2bnVVVXFXVXlsVWJkYm0rTUw2alBtSHp5VHprVVV6bEdi?=
- =?utf-8?B?WU9YUzA5cmR2emFlcTU3QjhsSHNQT0tJRnJuRFVnUHp4ekR2QXZubEtvS21C?=
- =?utf-8?B?NzVkS1BDZ0NPUnk0NzVKWS94K0M0b2ZPbStETENoMElPMG5aK1MxZ0tpbWkx?=
- =?utf-8?B?eEJOU3JsVzYvV2dUdEdtV3JrWWhac1JMTjNWbjBYdHhNVWFxbi9XenBjUDg0?=
- =?utf-8?B?ak9nRUFSb1RsWVRYbnBsMzdaMThrSlo4VmVPbEcxNStVMDFpTDJmbFUwRjhD?=
- =?utf-8?B?VzZUa09BWjNRLzZTUTZVSlNRMWRiZ3JWaVJHcitiY0FsWnBtK1NlYy9iM216?=
- =?utf-8?B?YXNxR3NXVWhHKy9QWURRN3JUaDhZZGRMMUl0TmRncis0Y3RUbU1iVWl6azRT?=
- =?utf-8?B?YVo1aGhRb0M3dERRUXhwUnFKQWpBUFdqTEw1RzZMWk1SSThMdzNWeFFRKytT?=
- =?utf-8?B?dW5VS1JjaXg5bTNlbDBjSzJHQVQ5ZXhxTGZ6SnI3dnFKZTlRWmY4emtFTDhV?=
- =?utf-8?B?c2ZTZ2dMSXZRaTgwQU9WeXJtMzNWZTZqcEkrNE9xcDFyeXkwVzV6ZFRBYkhr?=
- =?utf-8?B?ZEQ3SGdoYjhOQ3h1RGlVNUxmckVLWnFTVnVqSS9zWlB4VUpnbTBBSXVObXdL?=
- =?utf-8?B?TzlWbnNXdVdMQlhxWk82L2YwSlRJZ3BvdXVzK1JjcDYrTUpRYXdIeEwyb1or?=
- =?utf-8?B?UXFqZ0N2VGk1bmdlSVhYcFcwcDUwRXpEQzNpcTkxVzgzczUrbVZCdUpLcGNh?=
- =?utf-8?B?SXB0ZzhJTmhXZnhkN3ZlNTZaeUNJRzB2d1hlc0hWYjdpdUM0UUJrRkZ1VGZ2?=
- =?utf-8?B?VXZNbk5DamkwK0Y0cUc1M082YXhFcG1OVWxOOEFhV0tUOHJhb2RkSWZrMnA3?=
- =?utf-8?B?TDNqS1A0WDE3cjhFd2l4VzJwN20rSCtpY1lhOEF0SUxGOEZ0WXZYRHk3Um5K?=
- =?utf-8?B?M01qbWdyRXh2TkRlRnBhUFFrVkF1cFRTUnZXc0dyeGR1SjB2alpkdHdtU2xs?=
- =?utf-8?B?bDMxQ0VnSVowODBhL2psU1FlSkp5ZmJIZ1BwcFcwb1dudWpEMEtPNDhHK0ti?=
- =?utf-8?B?M1NEcUxuYktjS25UbnYyWlE3ZzZLZDZlQ3BUVWI5MVZzbmNlb09lMkJsRU00?=
- =?utf-8?B?aDlSUGhaNDlhMzFZdG9oSVN0dE1WSXFmaVlJZmcrMTVYVTZRWTRkYVkyaHJG?=
- =?utf-8?B?TUxTeUd1aUt0M0p0NzlwYTc5OW5wb3p3bUFDTkZGTmJ5OW5FeFZGUE14bHJI?=
- =?utf-8?B?dDR6RkZTK1J1aHI4Yk5BUG1pNSt6Y3hwVGRzOUFmdmVzcUpoSmZxSnlrSU9u?=
- =?utf-8?B?ZGNyUUN1dFJtMDVrd2RQQkdwZGlYSXdZL2ZJbVFiL1pab3hlY0pUSFRuWmR0?=
- =?utf-8?B?YUZ3L2Q5dTdGMVdibGFlVnNsNWp0QWEwc1hWd2Q2cmhNNEVESy9BUGFoM1Z3?=
- =?utf-8?B?UTlxZmFmVW4xK2M1N3h3VzhxR2J6QUVyTWZpWVFuVGFKaHFIYXdXZm96YWsx?=
- =?utf-8?B?aDkrMjRESmlsb1h2QkE4eTArc09xeXJHS213Qjl4UElPcVdWZE1PVzl5cVRk?=
- =?utf-8?B?ZklzRzBsQXhMMjBBc21HWEk4TzN5YlN1ZVJtS00veU41RjNqWEVBMm95UXE5?=
- =?utf-8?B?L0M5YzlLdi9WZkpKYmtaTkwvZmlSSkVFTXMwYW1XZ0hNSlQ0MFFYTThLVUxE?=
- =?utf-8?B?WFl3S2w3TUxPZ1lYZERzdHNPUkhjcXRpeGZoc1Zqdy9pb3hCTkJEdUFnZmdm?=
- =?utf-8?B?dGJPZXpRR0M2MUo1UE5yaDVyeStEaVVhRW40WGdNSWpzSUx3UXFiVWtaRVdG?=
- =?utf-8?B?eWUrcjRTbjd1YStoV0VWMXBxYmplRjBTYVhGMUlqTW9oUzNRaGdMVXoxOWIx?=
- =?utf-8?B?OVBoL2NSMWp0Q3JnTk8yUVVzOWxYVWFOZDNHNHhDV3RmRHVPVGxnRVVHdXh4?=
- =?utf-8?Q?HKW8K3snaI8w5SeOcyPBMd3vJSgXPWr5ZO4uRZ9JEGK08?=
-x-ms-exchange-antispam-messagedata-1: EQLyr3LUjsAEKqyqBmtp/1goCgaPLOxxuYI=
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="=-e+yeFbQg0gBEWqUQ9G52"
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <5545db90-3365-4d75-9fc0-77dda42b7000@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0342.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ea::20) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	OSvD5CFDERLCFqoUJfTBzYNv/KmuX9URlZiL9Q/rFpEU6/5CddfVXZhbHirreCCpbssjjyJHC25gKYw/N0EuiVYeUzfU1E2/20+Kv346dWA2Ac5Ezwv1gHQ3+dM8IEmrU1sRxhBaMmG4fxm05Q6+xqKBGf+BPveS/BWdpFID45KyScGGCRsH8cS+ZEfuq1MvjV3Ua3ylD9ibKVyTBE3W+ZCHcDilfnXIfLB8Dt/Q6WBNnhz84yjzupzjW+d7aNF90DTffKFYv2/QYaN4iiTE2ccea9/iUigEPN5sWKhZpAvYQzL770tW0j4nc8OmxnW6HXprMmPRRlp42N7w1fuOhg==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	n4Ka8ulprG0W4JYQEx7X6NSkZfXMh9KPLAl8MHZ7N3Km6lW8uQ7ku1qpgA4+X1D1eFddJF5jYkBwjq/TvZVWVohIRThf3xVZtreaMMN6EThQJBghKgAizy8VRxHZ3KCuOT3sPymcPV24qWv55JW9QhHEGKTC+zVdjwIk8j/Jnnd5Ltaplt/uVuk3P+LLFAEOyCelAiecIaGOtRDPvIFTl73fb/YQoY8UjQIdwj2JSvHzNhZzJa4etjTtcrYbJltGgCmrY96CimtMcz6y7bQDjCK5dPrpOrdrOCMzhI0BO4mQV1cG4iLS8Grj93OY40dfNL01lhRA/sDkI+rDbitiKJr0UXBMkvbhQz675I+9ENcfQaYX3OTTBMA0uO6z3F4PVY+sgup3kvVpIQmq+X6ppqqYESja1T0tr2KxrbsR8urUOi+8HuGPmgnnct8GOL5GylWWJ6A4iHbyVXGEuv52Ekl35Bz6I3L4iN/cw/WN9giEpBVHMp+AHcBn7ZBUqxwuFrpnJDmX+Ed09BUS04yYfO4AFHz3YF1CXNHLaKZo9T7tdnm9HyKDnx0i9o5VZ37XogCi4W0WtvIEgd585QwzQ1IFKTUcDFsPzfsObSPTeu8=
-X-OriginatorOrg: oracle.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN2PR12MB4359:EE_
+X-MS-Office365-Filtering-Correlation-Id: 817604a2-a5d3-4934-7eeb-08df2909d851
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|10067099003|13003099007|261009223027099003|11063799006|4143699003|6133799003|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	9gYnSYqAWXkvWh+VzEibKNDUO8En6JojZ/BkYirpBhdlrvuaWStRFtFKVHDIiyQENadFvwTudIwbYOxzz1YI3PM8PhzOD0lXYtlZwXgmN6Mmj6KmZqceHdg4iKllZ8PFfl32dRsDF/2AC1e84ALGOwAKhqlj/hw6RNS5hbFRJl0FNUC4nczACDI0/h0NpFIg4Ensh31KLs0eo0rrCsOezKSYO7QMUHmaH6Mz1JE8Vk4yeUXUxkPw3ATXNQTK3c6hFBgrrOwTChm/42WDDuyITznOqFynNgRdDLaRn4L+EE1Z5U34lVhDVnyWNtn2JKuoSs92ix6Avd9h06eGNf1FnrSyKRjmVWm/8DWTT4ZmL0m3KDsbDKIuzxiTqmapVChN190KrrFFszYDctaR266Di/GR/rehwKWOYm8Sb/vu8Me+KhjbWLsbWvYj0gpWibpfLdk4DKiaY7eP6ItojBPq5X9ihBfehymy2tTkgBxh/xPvV+xSbpmTGR3/2p1WdDRSr8R4MLbsFi+YhqOsRZr7yrQ9YpvNtfm1CtcZxjpaOlkRvAiMHGlhYVVmQhdASTICibA8HVAgZbQD1seTM8jyORwCzZvhl0mjKTYIJV1WYi6BWsf+HqFisIQ2gEUKBN/2
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(10067099003)(13003099007)(261009223027099003)(11063799006)(4143699003)(6133799003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bkVNWWZEU0FnK3NXRjViL3BFVkg4Q25MVW9mL1NBT2sxdXR6VWZlWWVEQ3E3?=
+ =?utf-8?B?VFppUGtJV3BERkNLV3NPOURHQnE0QjFCcEZzd0YraWFGVWN4aUthU0tSVk5s?=
+ =?utf-8?B?d2JyYjdLek5sQmh3OTlCOFFIeDRsdFhsOElpV1Y2QTVHMzJ6Q3lwRkhxV2ZH?=
+ =?utf-8?B?YzFCb0FicFk0NkY2b1ZjQTFUNVVQeGtETDl1Ujc5SlpFYktxRGxrTnVxeFgr?=
+ =?utf-8?B?YmFjUCtva0tZTFhHdGFwQ3FIeGJQT0N1eVZuVUw2V1RWeU5tcFFzS2hOV3lX?=
+ =?utf-8?B?Y005OVE4L0RraVBFSkNqK3dNWnorVVNKcjV1cFJWU3NqQUNnRlBYNENvUkli?=
+ =?utf-8?B?a0JoVldhbWltU21qV242U3Z5UVZaWVpvZys5ejJNTHRWdW4vZDUyVzlkLzVo?=
+ =?utf-8?B?aERSNW5BQmJFU3VMNjlwUjJubEkzL3lGa0xBTmdOMFRGRjdYZ3Vpb0RHN3Fo?=
+ =?utf-8?B?QS9DSjBucjlONHgyaEJKRTZ5dFpEa1V3S08xekw2YmsvRm5rOTFycjBOdmcy?=
+ =?utf-8?B?S3ZIQnFzMHNKNVhza3RNTDczVzNOZDQ1ZlRqSUNrMm9SS1hXeTFDRWJPNnpN?=
+ =?utf-8?B?MlZ5WjNQRFNEMmdlNmpXZnZiOXdLTWE4U3BUVDE0WE1BNUpzRmp5NXVaRWZF?=
+ =?utf-8?B?TVNSOUpQMFhUU1dDb1J2UkFmOE5CbHJYMElJcW9iUHJOd0hUYklaYTBLaUxp?=
+ =?utf-8?B?SkxiN2JldUxvcGMvUGV2Ky9mNHNhaHQzR1lhK1JTL1ZsMnkwOWY2bjRWSytu?=
+ =?utf-8?B?QlIvaG5WeGE0bk5IZk1CUkFKak5XcXp0Y1dDTjdqSmJIbFgrelExVHo2NTBk?=
+ =?utf-8?B?KzdJaG94eFBFUHJNVWxVckFtVVdWWHNYUGVqbnU0R2EvVlphaXVZVlQrNkF5?=
+ =?utf-8?B?SkMvODVENkJRR1N5TUN3MlgvZEcvMXFOa1hicDdqd2IzL0lwa2lNcE91RXBI?=
+ =?utf-8?B?R3lJSmpYTUZINHd0VkMwS0tPejdVcEdKbzMzYUZrY1NmS3Y1dmlYRWdZRk9I?=
+ =?utf-8?B?MisrUFlPdVdlZWMwb29xTitWM0h0azY2V1Zkc0hwSC9lTjJJdElaV3lyQU5U?=
+ =?utf-8?B?TXZOUDBqc2JuUDkrdzIxRjFldlBWMi9mNVh3WWxBdU9iM0k0ajFrV1hJUHJ6?=
+ =?utf-8?B?RDNHZ0VrNnZUTmJ6K2czZlhMUkhKUFU5N2QwS2pabzc2VkllSkFxd25TTWZt?=
+ =?utf-8?B?bVpKcXhqVnZvaVkyTHo0d0ZheDBMVythUTQ3M3dKb0oxUzNtOXR0cWFkVWRX?=
+ =?utf-8?B?SDdqQkVOc3RVbW92Wm0yWXQxYmpTUHIyM00wSy8vQlQ1K0RsYzQ4ZXI1YU9K?=
+ =?utf-8?B?Z1FVVC9vczEzdTZaMVZPWlJmZU9yTyszWk9yM2hmc2hEYkRUdllOZFJzWmRu?=
+ =?utf-8?B?di8xVG8zNURpQisyQThqS2RvRVhZdUM2MWhjMExFbWk3Mnl4ZG80MDgxZmRl?=
+ =?utf-8?B?b1h2cjlWZVRTb3FFMEpFVnpFNUlzMzZVYmR2eTNyRmFIeFR2QUFOWnNQNHNl?=
+ =?utf-8?B?U2lZRjJLVys4MVNkMHpONnRXdm5LMUhjbmtwNE1QOGFlVHFnU0dkUU9Ucm1w?=
+ =?utf-8?B?SkNPZUdQb28zRDdHcm9NV2ZvTnBlYkhMWWJrRmFOK01xbmVLRUF0UEc5bjlh?=
+ =?utf-8?B?Sk91aFVPZE0wMXk1akk3cW9kZzVCaENIMHlPM25mL0xhTUtNTnF3Yjl5OHlO?=
+ =?utf-8?B?WDMrdUxhK1g2b2JPN3NDVE1QQVdYbWw5N3FpRSt5WjRoZ2NXTzFFRVJLUmo5?=
+ =?utf-8?B?bEMzU04xdGNXYWhlMWVuRys2eFJEdjEyZnNEaTR6RVh2YU5jdUVhclV5Tlkx?=
+ =?utf-8?B?OTVGcDZ0SmxqcE5wZEhONkRwclBzV05xa1cxVFBHREFyblEvWnlDQmgza1JZ?=
+ =?utf-8?B?bmN2d09aZUUyYlpaYTlVM1RyVXdza3pHT1Z6bmZZVFBsQ1U2RTFUSDlLL3Bx?=
+ =?utf-8?B?QzU2SkVtakhydWRKR2lKbGlsRmQ3YWJCdGZTUHhTOWZWZ3h3SjAzaDR2TlNy?=
+ =?utf-8?B?SFNRVUhaQVdLQ2k2VmxiTFg5UzZ5NGV1YW8zK2dReXp2OUV6VmdQM2tJa3Zz?=
+ =?utf-8?B?cE5VNGpHVXEwSmVRVm9XbUZoWWVVWFZOd3JxMTdJdW14Uy9YQWpGNWR2Wm1Q?=
+ =?utf-8?B?YnEyaXhYZG9CczhYdDFlVnRlL3JRZEM0VWtmZUtwbVFMMzFWS01aSnA5VmhS?=
+ =?utf-8?B?SmNVZmRTV1lDVzl1dU5EZXUxeFBCNWRSWkdQOHd6Z0xINHNyY0dRZFpWd2tV?=
+ =?utf-8?B?cnNvYUNwSW9RanFxOE5DT3ZWSFRrQUZkc1BBYzc0YytrcGF3TGhtdGl1T0J0?=
+ =?utf-8?Q?MuhnhDNop9tBTYpLk+?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 817604a2-a5d3-4934-7eeb-08df2909d851
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR10MB7505.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 958efdd2-2021-42aa-6501-08df2909c73a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Oct 2026 09:10:08.3327
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 09:10:37.2306
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: XQxhXiph+GmBwSbeznfOTSC96u3iwEpMFK2vTDjUZ3fth82DMwQW/Fs73Nt091Vcf+IGi8UPL6BXjk4TTQDCtSLIzxugU4crNrT6kSJZ6bE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR10MB375422
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- spamscore=0 adultscore=0 bulkscore=0 malwarescore=0 mlxscore=0
- lowpriorityscore=0 suspectscore=0 mlxlogscore=827 classifier=spam adjust=0
- reason=mlx scancount=1 engine=8.19.0-2610020000 definitions=main-2610130035
-X-Authority-Analysis: v=2.4 cv=CoEq4X4D c=1 sm=1 tr=0 ts=6acdf573 b=1 cx=c_pps
- a=zPCbziy225d3KhSqZt3L1A==:117 a=zPCbziy225d3KhSqZt3L1A==:17
- a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=xqWC_Br6kY4A:10 a=660iZSQnnn4A:10 a=GoEa3M9JfhUA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22 a=3I1J8UUJPc9JN9BFgKH3:22
- a=myWyeSLEAMoXE5n_Ie0A:9 a=QEXdDO2ut3YA:10 a=6LdZSa1JIexiLRnm348A:9
- a=FfaGCDsud1wA:10 a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf
- awl=host:12107
-X-Proofpoint-GUID: z75aIV4JP8kDpiElpcjEl-hONL5czoNS
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzNiBTYWx0ZWRfX5ALwMK7uuJxl
- rEJ6BaTRTU66n6ZtgP8iAVQgpRWKUv7kV1vtw5pynsAI8X88dZ+/m/jwH8BbWPRgJ8UIkqxUT76
- cYO/LeWCbv4tUOcoOpdhM53lmt4ysQgALO/+2gi14o1evpJT2CZp
-X-Proofpoint-ORIG-GUID: z75aIV4JP8kDpiElpcjEl-hONL5czoNS
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzNiBTYWx0ZWRfX7UrDl1CrTpsp
- 4g2JhFjJuacrecocd1+UbXSHPl1nExt4qEq4zNq+SgvtIW/Yxm+3ZUBXlPYB6RfOdPCifIn//6J
- XLSTGP8CWSLL6HeLsACwe0u2uQSMfquXnM4fePEJqV61ZWljbfReYWlczn9SAPl0A6x016C7pj8
- 2Mrl/ga3ZPjv6t8Q19zpLQMGZ1coujTZU5NkGzzHZERD9ZfV3J1ajIH2t8UU00SD05AqNn4uDe6
- rGcwmOzydALxsQE45DnDrLnkrZiNv8KbkBSqcwZ2UiNyFrYbm2Xz9NiGQJGeyIU/2fe6lgP4Q01
- 1qnV1j/II20MHalkyEnkH+MjxIpx7r8qujQHePZQvp9l5Ne2yTDvUVuzir7J/bx+C4PmnuH4R1t
- GomHLTyItAHHbNwx2N5XDEVWYSvG9IXRBoLjoFPWgo1+JdQrTtGdStD1haNQ1WVGRa3MtALhmDN
- 5YhDMRjNC5w56eRySrhGbUjYVpJODp5ezVFgkWos=
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2BYkgnI4GhwMhfofk5GSc2n1lnP3jheSwlbGonSxXSgT5TdC/tnxEJeKU6HJeGb4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4359
 
---=-e+yeFbQg0gBEWqUQ9G52
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 10/13/26 10:51, Matthew Auld wrote:
+> On 09/10/2026 14:02, Matthew Auld wrote:
+>> On 09/10/2026 12:38, Christian König wrote:
+>>> On 10/9/26 12:29, Matthew Auld wrote:
+>>>> On 09/10/2026 10:26, Christian König wrote:
+>>>>> On 10/9/26 11:16, Matthew Auld wrote:
+>>>>>> On 08/10/2026 12:17, Matthew Auld wrote:
+>>>>>>> On 08/10/2026 10:55, Christian König wrote:
+>>>>>>>> On 10/8/26 11:46, Matthew Auld wrote:
+>>>>>>>>> On 07/10/2026 19:11, Thomas Hellström wrote:
+>>>>>>>>>> On Wed, 2026-10-07 at 16:36 +0100, Matthew Auld wrote:
+....
+>>>>>>>>> Perhaps Intel Mesa side should use tt-only for this type buffer (?), but since this is a kernel regression I was hoping we could fix this on the kernel side.
+>>>>>>>>>
+>>>>>>>>> Some questions:
+>>>>>>>>>
+>>>>>>>>> 1. Do you know what is the general story with p2p between igpu and dgpu? Is this a legit thing? For igpus/APUs, advertising p2p can't be dropped? It clearly seems to work though.
+>>>>>>>>>
+>>>>>>>>> 2. If this is legit, do you guys then also prevent p2p with display buffers? Are you just doing that at the Mesa level, or is there some magic in the kernel also?
+>>>>>>>>
+>>>>>>>> If I understand that correctly that the igpu is the importer and the dgpu is the exporter then yeah Thomas is right that definately needs to be fixed on the importer side.
+>>>>>>>
+>>>>>>> Ideas on how do that? Could we do something like allow_peer2peer = false in amdgpu_gem_prime_import() if this is an APU device, or further check if the exporter side is not amdgpu, like APU + Xe?
+>>>>>>
+>>>>>> For example: https://gitlab.freedesktop.org/mwa/kernel/-/ commit/7ec86c68b42655b4bb85ee90af434a617e7bec8c
+>>>>>>
+>>>>>> Is that something you would accept?
+>>>>>
+>>>>> No, you misunderstood me. Enabling P2P is perfectly fine for APUs and mandatory for a couple of customer projects.
+>>>>>
+>>>>> The buffer should just be rejected from scanout in the display code and on the AMDGPU side we already do that if I'm not completely mistaken.
+>>>>
+>>>> Reporter confirmed seeing the issue in windowed mode also. So I don't think it's just a case of rejecting from scanout?
+>>>
+>>> Then I don't understand what the problem is.
+>>>
+>>> When the dGPU renders and the iGPU displays you have only two possibilities, either the dGPU pushes the frames over the bus or the iGPU pulls the frames over the bus. Both should be equaly slow or fast, so what exactly is the expectation here?
+>>
+>> I assume the AMD APU/iGPU is sampling/reading from the p2p window buffer every frame.
 
-On Tue, Oct 13 2026 at 14:16:56 +0530, Greg KH wrote:
-> I appreciate the backports, but wow, this is going to be a mess to sift
-> through because you mixed all the different branches together.  Here's
-> how it looks in my email client:
->=20
-> [...]
->
-> What would you do if you got something like this?  :)
+That is not possible. The HW can't do this and because of this we should have a check for that in the DAL/DC code.
 
-Huh right, I'm sorry for that. I will resend.
+It could be that this check doesn't work and because of low resolution and/or not busy PCIe it somehow works, but that would then clearly not be intended behavior.
 
-I only used git-format-patch --thread and git-send-email in a bash
-loop. Seems like the operation was too fast for format-patch message-id
-generator to have the same time in ID for the cover :/
+What could also be is that the frame is pulled over the PCIe bus using the SDMA multiple times, but that would then be a bug in userspace somewhere.
 
-Thanks,
-Siddh
+>> Expectation is that buffer rather gets moved from VRAM to system memory when mapping the buffer with dma-buf, where it stays, and never negotiated to use p2p in the first place. I don't think p2p is really valid here.
 
---=-e+yeFbQg0gBEWqUQ9G52
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+No, that is incorrect. When P2P is available it should be used, it's just that AMDs APUs can't scanout over P2P.
 
------BEGIN PGP SIGNATURE-----
+>> What happened is that user updated their kernel and due to the MOVE_NOTIFY config getting removed and enabled by default on newer kernels this suddenly started negotiating p2p for things like the window buffer AFAICT, instead of moving it to system memory and keeping it there. On previous kernel versions the buffer would just get moved and pinned in system memory. From user pov this is a kernel regression, given the perf they are now getting.
+>>
+>> On AMD CPUs you allow p2p for everything. On Intel iGPUs we currently ban p2p. Maybe there is bigger question here for what is the story for p2p and iGPU? Should it really be blanket allowed like this? Should it not be opt-in with some userspace hints or something?
 
-iQIzBAABCgAdFiEEQ4+7hHLv3y1dvdaRBwq/MEwk8ioFAmrN9V4ACgkQBwq/MEwk
-8ip2gRAAp7hvMEDFIJmkvrJ7w2VvjLcrdiMt5+NSsQvECHzQVLs62ahs9Uf/w1Jt
-AF5I0HKV6xrJRjZjQN0KPzi8RRgdphwF5BMno9xT7nGds61y8fnf+393Vm/rLuhz
-SviPLxtkb8XhwCORItBeSvnHlKt/CHT0UXQFq4xLa1NPxouPd3b+GHeJ1MF+i5Os
-7BBApcYrsovzA7RbpT7vSJqjpvNO5Z4Y13JDrI8pILE+J5YMr+FdAUa0nY+ZhWA5
-SqD+ucX9iFRj/7vv8zRLrUYZQLSWIGJshyj82TZKiCh8AixoWNv+il4xTmFg3+W0
-GPbZeoUwfmbtQK2vSLvduF9u8IPsE5Zb4xOq824Oi3ApPojGbyW+Q9FsQmNf/cGZ
-qNamGwBm9dgFuowsjyrqa3a42pvHu5ScdQzOQK4bBCxQgyOp0p3gQ/lYcM3b/AWK
-yn1Rx2dAFQz8ifz72hKfel/CME9RDMbdUb5aiKXspUbeB7bUCPkFiKRUS/rqCj7g
-HlKP+L5f8f70uXUn7zZvhI7mHdAGU2vIKrTUxn0ORCu2VbaZwecRoIoFw6uHaNGS
-tcPAaCcWjgwExJRXvVliRZptgqtyJ1viTvKQqYo9OJdF6UwRejBFonD4evVIPkYp
-seUqEzPnoFxJstEiU/YozO9CBAQDkg/neRJiv4c6dwYf/xTf+ZE=
-=NDj4
------END PGP SIGNATURE-----
+Again no, P2P is mandatory for APUs. We have basically tons of customers using that with AMD dGPU and AMD iGPU and that works fine.
 
---=-e+yeFbQg0gBEWqUQ9G52--
+>>
+>> The other important part is that even when you move to system memory, it's no longer pinned (MOVE_NOTIFY) so can you now can also get violent ping-ponging, which is addressed in the first patch in this series.
+
+Yeah that is something which we have seen before as well. That should definately be prevented by the kernel.
+
+Does that patch help with the performance?
+
+>>
+>>>
+>>> The only thing you need to avoid is that the iGPU starts to scan out over the PCIe bus directly, cause then the frame is pulled over the bus multiple times (if that actually works correctly).
+>>>
+>>> Do you have a link to the original bug report? I was only added later to the discussion so I don't have that.
+>>
+>> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9415
+> 
+> Christian, did you get a chance to look at this? Any further thoughts?
+
+Sorry for the delay, I'm quite busy at the moment with AMD internal things and preparing a presentation for FOSDEM.
+
+Regards,
+Christian.
+
+> 
+>>
+>>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>>
+>>>>>
+>>>>> Userspace has fallback path that when a DRM atomic requests fails for an imported buffer it falls back to copying the buffer first.
+>>>>>
+>>>>> Regards,
+>>>>> Christian.
+>>>>>>>
+>>>>>>>>
+>>>>>>>> At least for AMD APUs we clearly support P2P both as exporter and importer, but what isn't supported is to scan out over P2P. We explicitely reject that inside DC/DAL.
+>>>>>>>>
+>>>>>>>> And I'm pretty sure that you should do that as well. I'm actually really suprised that this works technically and doesn't cause corruption or anything.
+>>>>>>>
+>>>>>>> AFAICT on Intel iGPUs it will currently always end up with peer2peer = false on attach. Not 100% sure if direct scanout was happening on the p2p buffer itself, for the user report.
+>>>>>>>
+>>>>>>>>
+>>>>>>>> Regards,
+>>>>>>>> Christian.
+>>>>>>>>
+>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>> Thanks,
+>>>>>>>>>> Thomas
+>>>>>>>>>>
+>>>>>>>>>>> Assisted-by: LLM
+>>>>>>>>>>> Closes:
+>>>>>>>>>>> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9415
+>>>>>>>>>>> Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+>>>>>>>>>>> Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel
+>>>>>>>>>>> GPUs")
+>>>>>>>>>>> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>>>>>>>>>>> Cc: Matthew Brost <matthew.brost@intel.com>
+>>>>>>>>>>> Cc: <stable@vger.kernel.org> # v6.12
+>>>>>>>>>>> ---
+>>>>>>>>>>>      drivers/gpu/drm/xe/xe_bo.c      |  3 +-
+>>>>>>>>>>>      drivers/gpu/drm/xe/xe_bo.h      |  1 +
+>>>>>>>>>>>      drivers/gpu/drm/xe/xe_dma_buf.c | 63 ++++++++++++++++++++ ++++ +------
+>>>>>>>>>>> -- 
+>>>>>>>>>>>      3 files changed, 51 insertions(+), 16 deletions(-)
+>>>>>>>>>>>
+>>>>>>>>>>> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/ xe_bo.c
+>>>>>>>>>>> index 5065a7bac39c..e63437a261cb 100644
+>>>>>>>>>>> --- a/drivers/gpu/drm/xe/xe_bo.c
+>>>>>>>>>>> +++ b/drivers/gpu/drm/xe/xe_bo.c
+>>>>>>>>>>> @@ -3658,7 +3658,7 @@ int xe_gem_create_ioctl(struct drm_device *dev,
+>>>>>>>>>>> void *data,
+>>>>>>>>>>>           * Display scanout is always non-coherent with the CPU
+>>>>>>>>>>> cache.
+>>>>>>>>>>>           */
+>>>>>>>>>>>          if (args->flags & DRM_XE_GEM_CREATE_FLAG_SCANOUT)
+>>>>>>>>>>> -        bo_flags |= XE_BO_FLAG_FORCE_WC;
+>>>>>>>>>>> +        bo_flags |= XE_BO_FLAG_FORCE_WC |
+>>>>>>>>>>> XE_BO_FLAG_SCANOUT;
+>>>>>>>>>>>            if (args->flags & DRM_XE_GEM_CREATE_FLAG_NO_COMPRESSION) {
+>>>>>>>>>>>              if (XE_IOCTL_DBG(xe, GRAPHICS_VER(xe) < 20))
+>>>>>>>>>>> @@ -4228,6 +4228,7 @@ int xe_bo_dumb_create(struct drm_file
+>>>>>>>>>>> *file_priv,
+>>>>>>>>>>>                         DRM_XE_GEM_CPU_CACHING_WC,
+>>>>>>>>>>> XE_BO_FLAG_VRAM_IF_DGFX(xe_device_get_root_tile(xe)) |
+>>>>>>>>>>>                         XE_BO_FLAG_FORCE_WC |
+>>>>>>>>>>> +                   XE_BO_FLAG_SCANOUT |
+>>>>>>>>>>>                         XE_BO_FLAG_NEEDS_CPU_ACCESS, NULL);
+>>>>>>>>>>>          if (IS_ERR(bo))
+>>>>>>>>>>>              return PTR_ERR(bo);
+>>>>>>>>>>> diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/ xe_bo.h
+>>>>>>>>>>> index 1ddf3b6d4a9e..6965c2655731 100644
+>>>>>>>>>>> --- a/drivers/gpu/drm/xe/xe_bo.h
+>>>>>>>>>>> +++ b/drivers/gpu/drm/xe/xe_bo.h
+>>>>>>>>>>> @@ -56,6 +56,7 @@
+>>>>>>>>>>>      #define XE_BO_FLAG_FORCE_USER_VRAM    BIT(25)
+>>>>>>>>>>>      #define XE_BO_FLAG_NO_COMPRESSION    BIT(26)
+>>>>>>>>>>>      #define XE_BO_FLAG_NEEDS_1G        BIT(27)
+>>>>>>>>>>> +#define XE_BO_FLAG_SCANOUT        BIT(28)
+>>>>>>>>>>>        /* this one is trigger internally only */
+>>>>>>>>>>>      #define XE_BO_FLAG_INTERNAL_TEST    BIT(30)
+>>>>>>>>>>> diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c
+>>>>>>>>>>> b/drivers/gpu/drm/xe/xe_dma_buf.c
+>>>>>>>>>>> index b973579a69b8..0a347f09cee4 100644
+>>>>>>>>>>> --- a/drivers/gpu/drm/xe/xe_dma_buf.c
+>>>>>>>>>>> +++ b/drivers/gpu/drm/xe/xe_dma_buf.c
+>>>>>>>>>>> @@ -36,10 +36,40 @@ static void xe_ddebug_flip_bool(const struct
+>>>>>>>>>>> _ddebug *desc, bool *flag)
+>>>>>>>>>>>      #define xe_dma_buf_p2p_debug_flip(flag) do { } while (0)
+>>>>>>>>>>>      #endif
+>>>>>>>>>>>      +static void xe_dma_buf_move_notify(struct dma_buf_attachment
+>>>>>>>>>>> *attach)
+>>>>>>>>>>> +{
+>>>>>>>>>>> +    struct drm_gem_object *obj = attach->importer_priv;
+>>>>>>>>>>> +    struct xe_bo *bo = gem_to_xe_bo(obj);
+>>>>>>>>>>> +    struct drm_exec *exec = XE_VALIDATION_UNSUPPORTED;
+>>>>>>>>>>> +
+>>>>>>>>>>> +    XE_WARN_ON(xe_bo_evict(bo, exec));
+>>>>>>>>>>> +}
+>>>>>>>>>>> +
+>>>>>>>>>>> +static const struct dma_buf_attach_ops xe_dma_buf_attach_ops = {
+>>>>>>>>>>> +    .allow_peer2peer = true,
+>>>>>>>>>>> +    .invalidate_mappings = xe_dma_buf_move_notify
+>>>>>>>>>>> +};
+>>>>>>>>>>> +
+>>>>>>>>>>> +static struct pci_dev *xe_find_parent_pci_dev(struct device *dev)
+>>>>>>>>>>> +{
+>>>>>>>>>>> +    while (dev) {
+>>>>>>>>>>> +        if (dev_is_pci(dev))
+>>>>>>>>>>> +            return to_pci_dev(dev);
+>>>>>>>>>>> +        dev = dev->parent;
+>>>>>>>>>>> +    }
+>>>>>>>>>>> +    return NULL;
+>>>>>>>>>>> +}
+>>>>>>>>>>> +
+>>>>>>>>>>> +static bool xe_dma_buf_attach_is_xe_device(struct dma_buf_attachment
+>>>>>>>>>>> *attach)
+>>>>>>>>>>> +{
+>>>>>>>>>>> +    return attach->importer_ops == &xe_dma_buf_attach_ops;
+>>>>>>>>>>> +}
+>>>>>>>>>>> +
+>>>>>>>>>>>      static int xe_dma_buf_attach(struct dma_buf *dmabuf,
+>>>>>>>>>>>                       struct dma_buf_attachment *attach)
+>>>>>>>>>>>      {
+>>>>>>>>>>>          struct drm_gem_object *obj = attach->dmabuf->priv;
+>>>>>>>>>>> +    struct xe_bo *bo = gem_to_xe_bo(obj);
+>>>>>>>>>>>          bool verbose_p2p_dist = drm_debug_enabled(DRM_UT_DRIVER);
+>>>>>>>>>>>            xe_dma_buf_p2p_debug_flip(&verbose_p2p_dist);
+>>>>>>>>>>> @@ -48,7 +78,24 @@ static int xe_dma_buf_attach(struct dma_buf
+>>>>>>>>>>> *dmabuf,
+>>>>>>>>>>>              pci_p2pdma_distance(to_pci_dev(obj->dev->dev), attach-
+>>>>>>>>>>>> dev, verbose_p2p_dist) < 0)
+>>>>>>>>>>>              attach->peer2peer = false;
+>>>>>>>>>>>      -    if (!attach->peer2peer &&
+>>>>>>>>>>> !xe_bo_can_migrate(gem_to_xe_bo(obj), XE_PL_TT))
+>>>>>>>>>>> +    if (attach->peer2peer && xe_bo_can_migrate(bo, XE_PL_TT)) {
+>>>>>>>>>>> +        struct pci_dev *client =
+>>>>>>>>>>> xe_find_parent_pci_dev(attach->dev);
+>>>>>>>>>>> +
+>>>>>>>>>>> +        /*
+>>>>>>>>>>> +         * There are perf issues with using p2p with display
+>>>>>>>>>>> buffers,
+>>>>>>>>>>> +         * like with igpu (compositor) <-> dgpu (exported
+>>>>>>>>>>> p2p window
+>>>>>>>>>>> +         * buffer). Probably we need some actual userspace
+>>>>>>>>>>> hints. We
+>>>>>>>>>>> +         * shouldn't really assume anything. Also, note that
+>>>>>>>>>>> some of
+>>>>>>>>>>> +         * these buffers are not always tagged with SCANOUT.
+>>>>>>>>>>> +         */
+>>>>>>>>>>> +        if (bo->flags & XE_BO_FLAG_SCANOUT)
+>>>>>>>>>>> +            attach->peer2peer = false;
+>>>>>>>>>>> +        else if (client && pci_is_display(client) &&
+>>>>>>>>>>> +             !xe_dma_buf_attach_is_xe_device(attach))
+>>>>>>>>>>> +            attach->peer2peer = false;
+>>>>>>>>>>> +    }
+>>>>>>>>>>> +
+>>>>>>>>>>> +    if (!attach->peer2peer && !xe_bo_can_migrate(bo, XE_PL_TT))
+>>>>>>>>>>>              return -EOPNOTSUPP;
+>>>>>>>>>>>            xe_pm_runtime_get(to_xe_device(obj->dev));
+>>>>>>>>>>> @@ -349,20 +396,6 @@ xe_dma_buf_create_obj(struct drm_device *dev,
+>>>>>>>>>>> struct dma_buf *dma_buf)
+>>>>>>>>>>>          return ret ? ERR_PTR(ret) : &bo->ttm.base;
+>>>>>>>>>>>      }
+>>>>>>>>>>>      -static void xe_dma_buf_move_notify(struct dma_buf_attachment
+>>>>>>>>>>> *attach)
+>>>>>>>>>>> -{
+>>>>>>>>>>> -    struct drm_gem_object *obj = attach->importer_priv;
+>>>>>>>>>>> -    struct xe_bo *bo = gem_to_xe_bo(obj);
+>>>>>>>>>>> -    struct drm_exec *exec = XE_VALIDATION_UNSUPPORTED;
+>>>>>>>>>>> -
+>>>>>>>>>>> -    XE_WARN_ON(xe_bo_evict(bo, exec));
+>>>>>>>>>>> -}
+>>>>>>>>>>> -
+>>>>>>>>>>> -static const struct dma_buf_attach_ops xe_dma_buf_attach_ops = {
+>>>>>>>>>>> -    .allow_peer2peer = true,
+>>>>>>>>>>> -    .invalidate_mappings = xe_dma_buf_move_notify
+>>>>>>>>>>> -};
+>>>>>>>>>>> -
+>>>>>>>>>>>      #if IS_ENABLED(CONFIG_DRM_XE_KUNIT_TEST)
+>>>>>>>>>>>        struct dma_buf_test_params {
+>>>>>>>>>
+>>>>>>>>
+>>>>>>>
+>>>>>>
+>>>>>
+>>>>
+>>>
+>>
+> 
+
