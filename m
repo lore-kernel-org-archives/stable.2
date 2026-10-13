@@ -1,33 +1,33 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 125E052D2CC;
-	Tue, 13 Oct 2026 15:46:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B091D47142B;
+	Tue, 13 Oct 2026 15:46:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791906378; cv=none; b=KZEYVExpFj8NfDrBpeuZp/UlZ0vSS+CpySyPpuHqEGkOh6iQWYK7Ikuj8kZrBxpet9xS6+28xGTMVjPZu6YsSolVlCzltenp4BxBWYIqzYpHU7suMePbLnlhAqgHkK2SyZq6X4akAi5rYrwkX89+SasJgu1nlR/lMeRwPi9w+TQ=
+	t=1791906395; cv=none; b=BCEKB6ALXG2g7ouisbUG6SIJ/knh6SLSgyLdjlAuCSoUpQrY2oxaX3zuCCFpaMyjghPK8DnpxuoAXXjxCmWPsjMJvfPP0afaiOmiP67VZS+BbwxoPRFLB5U0hKMsyGd9HJR4Ns05VQ74sa4p0HLqlM/uiw4+80y834tmBLYs+JI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791906378; c=relaxed/simple;
-	bh=XuWA6CDAD0oKpnT54prmMz8xHDjG+uiR1e6XzEDjg3k=;
+	s=arc-20240116; t=1791906395; c=relaxed/simple;
+	bh=eMq2mDhfJOst6GyLz1Fcuo6efNgXRerZYOqtWjNZhOM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bjzquDYtCT4DN0XUifQqzE/lUQgFMbensb3xRm2xRdfyNBb0suDQsSJgiZqo7WJ+TFC/j3yYCQur5wDoAxOrW4huCVLp/exoEx3nuXnINrNyGQ3Lxu+rO4QhcvHzLGrLqf8zv2ocSrJ8bAgMhr8OXw8EAa55c5vupIgEy4ksEbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ZjFOOBmK; arc=none smtp.client-ip=217.140.110.172
+	 In-Reply-To:Content-Type; b=i4RcWnYc4ZUIci7n46XaPKhEpwCCuvlLiiUgU7kbYximHXpm9PdC22GU+N3RztOgjcvkWgdvG7TA31tbj6hWCkpI/W1uiD4BaX6ZHLsu4Rmo7h0XSrNDcrHaf4ffoKlRPvqEH+JULJ1cUEEWDYujjKgBf6rFS0nypVuLcOx+AsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=kgXLF/sO; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ZjFOOBmK"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="kgXLF/sO"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B3BEF1650;
-	Tue, 13 Oct 2026 08:46:11 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 278D7169E;
+	Tue, 13 Oct 2026 08:46:24 -0700 (PDT)
 Received: from [10.57.13.106] (unknown [10.57.13.106])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0B34B3F673;
-	Tue, 13 Oct 2026 08:46:10 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CE6DF3F673;
+	Tue, 13 Oct 2026 08:46:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791906375; bh=XuWA6CDAD0oKpnT54prmMz8xHDjG+uiR1e6XzEDjg3k=;
+	t=1791906387; bh=eMq2mDhfJOst6GyLz1Fcuo6efNgXRerZYOqtWjNZhOM=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ZjFOOBmKsahlAoLaaCP80butvn34rJwBxI/KlXTDwEbOHXbvc9w6p2iFn5xnwkUbY
-	 8pX/C4RRzfAkFQXwAN03mQEp1RDWDe34NtNMndsb900iRhte6mST01qKnGH7YZpnF8
-	 66UGXrxvp+Iivp9v6L5hUgLq6glrE6G5Ev0gmlEU=
-Message-ID: <2552e0bd-0e50-4dd5-a3d9-00e9204eb2c2@arm.com>
-Date: Tue, 13 Oct 2026 17:46:08 +0200
+	b=kgXLF/sOnmA/PaXP6KqDXjeIIPMuJW8hGp/vG4LTJIbgJAMKEq+rFi9KOnkBxr2Mp
+	 bkt1V8H8Xs7ERmZYQ5D/uHy1DT8Mz3tJmtmFa8Gd2DjouQowQllwPE6ZsV7jtWw/y4
+	 j1YlZw8422v0Rx693Qyax36zmWLe8F6JxZOz0ID4=
+Message-ID: <d63f1f76-5bfe-4206-b6ce-189d6948a909@arm.com>
+Date: Tue, 13 Oct 2026 17:46:21 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] mm: fix missing page-table destructor in
- pagetable_free()
+Subject: Re: [PATCH v2 2/4] riscv/mm: fix hotplug page-table destructor
+ handling
 To: Muchun Song <songmuchun@bytedance.com>,
  Andrew Morton <akpm@linux-foundation.org>
 Cc: David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>,
@@ -51,136 +51,32 @@ Cc: David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org,
  Muchun Song <muchun.song@linux.dev>
 References: <20261010112457.49485-1-songmuchun@bytedance.com>
- <20261010112457.49485-2-songmuchun@bytedance.com>
+ <20261010112457.49485-3-songmuchun@bytedance.com>
 From: Kevin Brodsky <kevin.brodsky@arm.com>
 Content-Language: en-GB
-In-Reply-To: <20261010112457.49485-2-songmuchun@bytedance.com>
+In-Reply-To: <20261010112457.49485-3-songmuchun@bytedance.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 10/10/2026 13:24, Muchun Song wrote:
-> Since commit 49f599666420 ("mm: call ctor/dtor for kernel PTEs"),
-> pte_alloc_one_kernel() runs the page-table constructor for kernel PTE
-> tables.
+> RISC-V uses the same memory-hotplug teardown code for linear-map and
+> vmemmap page tables. Late linear-map allocations run page-table
+> constructors, while vmemmap and early allocations may not.
 >
-> HVO (HugeTLB Vmemmap Optimization) uses pte_alloc_one_kernel() when
-> splitting a PMD. Restoring the vmemmap backing pages does not collapse
-> the PTE table, so a later memory hot-remove eventually frees it through
-> pagetable_free() on x86-64. That releases the page without running the
-> matching destructor and leaves NR_PAGETABLE elevated.
+> free_pte_table() unconditionally calls pagetable_dtor(), corrupting
+> NR_PAGETABLE accounting for constructor-free tables. free_pmd_table()
+> avoids that for vmemmap using is_vmemmap, but mapping type is not a
+> reliable proxy for constructor state. In particular, it becomes invalid
+> once runtime vmemmap tables use the normal pgalloc helpers.
 >
-> Make pagetable_free() detect constructor-backed pages and run the
-> destructor before releasing their memory to fix the problem.
+> Introduce free_pgtable_page() to select free_reserved_page() for reserved
+> pages and pagetable_free() otherwise. The latter runs the destructor only
+> when PageTable() is set, handling both constructor-backed and
+> constructor-free tables.
 >
-> Fixes: 49f599666420 ("mm: call ctor/dtor for kernel PTEs")
+> Fixes: c75a74f4ba19 ("riscv: mm: Add memory hotplugging support")
 > Cc: stable@vger.kernel.org
 > Assisted-by: LLM
 > Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> ---
-> v2:
-> - Move destructor handling from x86 into pagetable_free() (suggested by
->   David Hildenbrand)
-> - Trim and update the commit message (requested by Dave Hansen)
-> ---
->  include/linux/mm.h | 37 ++++++++++++++++++++-----------------
->  1 file changed, 20 insertions(+), 17 deletions(-)
->
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 5cca90fc1df6..771a7d60b0a5 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -3969,23 +3969,6 @@ static inline void pagetable_free_kernel(struct ptdesc *pt)
->  	__pagetable_free(pt);
->  }
->  #endif
-> -/**
-> - * pagetable_free - Free pagetables
-> - * @pt:	The page table descriptor
-> - *
-> - * pagetable_free frees the memory of all page tables described by a page
-> - * table descriptor and the memory for the descriptor itself.
-> - */
-> -static inline void pagetable_free(struct ptdesc *pt)
-> -{
-> -	if (ptdesc_test_kernel(pt)) {
-> -		ptdesc_clear_kernel(pt);
-> -		pagetable_free_kernel(pt);
-> -	} else {
-> -		__pagetable_free(pt);
-> -	}
-> -}
-> -
->  #if defined(CONFIG_SPLIT_PTE_PTLOCKS)
->  #if ALLOC_SPLIT_PTLOCKS
->  void __init ptlock_cache_init(void);
-> @@ -4078,6 +4061,26 @@ static inline void pagetable_dtor(struct ptdesc *ptdesc)
->  	lruvec_stat_sub_folio(folio, NR_PAGETABLE);
->  }
->  
-> +/**
-> + * pagetable_free - Free pagetables
-> + * @pt:	The page table descriptor
-> + *
-> + * pagetable_free frees the memory of all page tables described by a page
-> + * table descriptor and the memory for the descriptor itself.
-> + */
-> +static inline void pagetable_free(struct ptdesc *pt)
-> +{
-> +	if (PageTable(ptdesc_page(pt)))
-> +		pagetable_dtor(pt);
-
-Took me a while to understand why this is fine. Currently we have:
-
-    ptdesc = pagetable_alloc();
-    pagetable_*_ctor(mm, ptdesc);
-    [...]
-    pagetable_dtor(ptdesc);
-    pagetable_free(ptdesc);
-
-All good, nice and balanced.
-
-Now we're saying that pagetable_free() should call the dtor. But of
-course, in most cases, the dtor has already been called. Yes, this is
-fine because in that case PageTable(page) returns false. Still, the
-casual reader is likely to be confused (like I was).
-
-The commit message should really explain this. I'm not a big fan of the
-asymmetry we're creating between explicit alloc+ctor and free implicitly
-calling dtor, but I suppose it's safer this way. (And looking at the
-rest of the series, it does bring some nice cleanups.)
-
-I understand this is a bugfix series so its scope is limited, but if
-time allows please post a follow-up series removing all those explicit
-dtor calls that are no longer required.
-
-Now don't get me wrong, I am absolutely in favour of moving as much
-handling as possible out of the ctor/dtor and into
-pagetable_{alloc,free}; a series I posted earlier [1] was a step in that
-direction. It unfortunately had many issues, including the unmatched
-alloc/free calls [2]. The work you're doing in this series, and your
-plan to use pagetable_alloc() for vmemmap, are exactly what I was
-planning to do next, so thank you for taking care of that :)
-
-With the commit message improved:
 
 Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
-
-- Kevin
-
-[1]
-https://lore.kernel.org/linux-mm/20260714-remove_pgtable_cdtor-v1-0-44be8a7685d7@arm.com/
-[2]
-https://lore.kernel.org/linux-mm/6d167aaa-e9b0-4687-970c-1c67d0df6344@arm.com/
-
-> +
-> +	if (ptdesc_test_kernel(pt)) {
-> +		ptdesc_clear_kernel(pt);
-> +		pagetable_free_kernel(pt);
-> +	} else {
-> +		__pagetable_free(pt);
-> +	}
-> +}
-> +
->  static inline void pagetable_dtor_free(struct ptdesc *ptdesc)
->  {
->  	pagetable_dtor(ptdesc);
