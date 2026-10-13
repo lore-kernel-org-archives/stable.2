@@ -1,150 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ADFD4B2046
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 10:49:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB344DAF86
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 10:57:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791888544; cv=none; b=miVv+tkFkrsEYVt1XA/mXpG3AMQ1j/429qLAZZtl23/OhSbznXKN3/C5ERN5mGLnzmNH6C6Yp9xzBq0Sidp4i8dzUAuYAqiaJZ973CjClb8xshGWhCLAbaf50EAtFYQqmDgUgR08bqJG6778o6jvfONfW97xJNLsl8F9lyAR4xk=
+	t=1791889037; cv=none; b=FKguVqNlTau2NT1rhRWNNGNfL+Z/7v2iC5SI18Aozhh2DzPkzXH3oB+iTREMLyjXOxq/z/lEtO1EsvUsD7SIiBoyJ1iXmf3bMEOWQh0eZN6buCM95vFoDpHczmAcJolooW+DY+GjpobZi23ggSYBdZOph3lCu+xZccYRgxkSEjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791888544; c=relaxed/simple;
-	bh=ceqOgw+eUwkEPOCMIsd/aR0vDEN5Uo0UJ8VYVSf4+So=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=dMq9/75kI09Lqgd1QanJKOVUR68sWr++b+Bk54tTxCNHVpp3QN+UAkyS7MaV86cA5qQID5CGm0aQXO0ZyiXp7XLyKAq+BUnjotYPjXt0yMC1z9rFy5awmHHt+SWYEmItjv/ai56776t1AM9zR6GDwZ5dUFDA+55fAbtQxzRgjzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=aKsdO/oe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791889037; c=relaxed/simple;
+	bh=PKOtIVmoxiXekCrQGq+8VW5JPyKM55JbexQZJaDCvv8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lkTsAp5KMrngtG0Cxab4OSGCqNmaLgDB+bNPqJgVVQK79/lx1fyZcm6AmkjU9BF64AdDhsg7F/90a5LUdYXAgCsJzy/ZMVW85+zTb7kwvRDga/vtM6eCpSbtg7YT3zp9UCmUuOO/Vb3HinD1w6r1V1HYlzNXa0krokPPpIPMgT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=loMR8PaS; arc=none smtp.client-ip=117.135.210.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aKsdO/oe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9270F1F000FF;
-	Tue, 13 Oct 2026 10:49:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791888542;
-	bh=ja/OFQGpTZrV7XCtNf2eRGoCw33Vfj3jRsZz6PdhB2E=;
-	h=Subject:To:Cc:From:Date;
-	b=aKsdO/oe73p2ysyJYxN9bwOYOwcUP8p1xx1Nkje9BWyPumQEzZktIyuRpvYPBrw6p
-	 iLCsWzgFwPk/UvhTAPO9vjioRi8XbkaBRE5H1WFSutcxEcUZJ7z5yov2XHzgK/a9vn
-	 Fmcgsa/dLqz1Q+Wex6r70UrIU0zEX8MVP7o2HHFg=
-Subject: FAILED: patch "[PATCH] Bluetooth: hci_conn: Fix UAF Write in" failed to apply to 6.1-stable tree
-To: luiz.von.dentz@intel.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 13 Oct 2026 12:49:07 +0200
-Message-ID: <2026101307-tableware-velvet-7ee4@gregkh>
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="loMR8PaS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Lt
+	5ewSSKVzWK4j0y3jnQChKbSYVDLFqRFfBCIyCb35E=; b=loMR8PaSlN2MNmZpZb
+	QRa8tyFx06b+JQQ7sPIxV0uH9IApPeFF7717Wgu+YHIIGor9SLPhFeg/LQdrxO2N
+	vrJ/b3PrGcaqwT+m+d8z8BwqIpLNZKqo2GJxa/LcYQHkXlMHFPwJTM6T15zp8Gvy
+	zFifzKP+uJEyOx2odeTSWEMuI=
+Received: from nzzhao-ThinkCentre-M760t.mioffice.cn (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PikvCgBXx+xdDs5qMT3bBQ--.29131S2;
+	Tue, 13 Oct 2026 18:56:30 +0800 (CST)
+From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+To: linux-f2fs-devel@lists.sourceforge.net,
+	Chao Yu <chao@kernel.org>,
+	Daeho Jeong <daehojeong@google.com>,
+	Jaegeuk Kim <jaegeuk@kernel.org>
+Cc: Barry Song <baohua@kernel.org>,
+	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] f2fs: read i_size once in f2fs_vm_page_mkwrite
+Date: Tue, 13 Oct 2026 18:56:28 +0800
+Message-ID: <20261013105628.869156-1-zhaonanzhe@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PikvCgBXx+xdDs5qMT3bBQ--.29131S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGFy3Cry3ZFW5tw4rCw4rZrb_yoW5Xw47pr
+	WYkrn8Ar4fWry3uws3WFn0v3WrK3s7WF47WFnrGw43Z3Wqqrn3Kay8ta48WF4Yqry3Ar1I
+	qFWDtFyfZ3WUJw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j1KZXUUUUU=
+Sender: nzzhao@126.com
+X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBoh7ouGrODl55PAAA3d
 
+f2fs_vm_page_mkwrite() reads i_size twice: once to check whether the
+folio is partially beyond EOF, and once to calculate the offset for
+folio_zero_segment(). But a concurrent buffered write can extend isize
+and cause the following race condition to corrupt data:
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+buffered write writes [0,3500)
 
-To reproduce the conflict and resubmit, you may use the following commands:
+CPU0 (write fault)                        CPU1 (buffered write)
+ ----                                     ----
+ f2fs_vm_page_mkwrite()
+ folio_lock(folio)
+ if (((loff_t)(folio->index + 1) << PAGE_SHIFT) >
+ i_size_read(inode))
+ /* i_size_read() = 3500 */
+                                           write(fd, buf, 200, 4096)
+                                           /* writes into page1, does not
+                                              wait for folio lock */
+                                           i_size_write(inode, 4296)
+ offset = i_size_read(inode) & ~PAGE_MASK
+ /* i_size_read() = 4296, offset = 200 */
+ folio_zero_segment(folio, offset, folio_size(folio))
+ /* valid data [200, 3500) is zeroed */
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x 5f641f03abccddd1a37233ff1b8e774b9ff1f4e8
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026101307-tableware-velvet-7ee4@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+Fix this by reading i_size once and using the same value for both the
+EOF check and the zeroing offset.
 
-Possible dependencies:
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20261012030315.978375-1-zhaonanzhe%40xiaomi.com
+Fixes: fbfa2cc58d53 ("f2fs: add file operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+---
+v2: move the isize read earlier (right after folio_lock).
 
+ fs/f2fs/file.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 5f641f03abccddd1a37233ff1b8e774b9ff1f4e8 Mon Sep 17 00:00:00 2001
-From: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Date: Fri, 9 Feb 2024 09:08:06 -0500
-Subject: [PATCH] Bluetooth: hci_conn: Fix UAF Write in
- __hci_acl_create_connection_sync
-
-This fixes the UAF on __hci_acl_create_connection_sync caused by
-connection abortion, it uses the same logic as to LE_LINK which uses
-hci_cmd_sync_cancel to prevent the callback to run if the connection is
-abort prematurely.
-
-Reported-by: syzbot+3f0a39be7a2035700868@syzkaller.appspotmail.com
-Fixes: 45340097ce6e ("Bluetooth: hci_conn: Only do ACL connections sequentially")
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-
-diff --git a/include/net/bluetooth/hci_sync.h b/include/net/bluetooth/hci_sync.h
-index 824660f8f30d..ed334c253ebc 100644
---- a/include/net/bluetooth/hci_sync.h
-+++ b/include/net/bluetooth/hci_sync.h
-@@ -139,5 +139,4 @@ int hci_le_big_terminate_sync(struct hci_dev *hdev, u8 handle);
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index edc352569e87..a0e09cea64d3 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -124,6 +124,7 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+ 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+ 	struct dnode_of_data dn;
+ 	bool need_alloc = !f2fs_is_pinned_file(inode);
++	loff_t isize;
+ 	int err = 0;
+ 	vm_fault_t ret;
  
- int hci_le_pa_terminate_sync(struct hci_dev *hdev, u16 handle);
+@@ -187,8 +188,14 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+ 	filemap_invalidate_lock_shared(inode->i_mapping);
  
--int hci_acl_create_connection_sync(struct hci_dev *hdev,
--				   struct hci_conn *conn);
-+int hci_connect_acl_sync(struct hci_dev *hdev, struct hci_conn *conn);
-diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
-index 8164502234c5..587eb27f374c 100644
---- a/net/bluetooth/hci_conn.c
-+++ b/net/bluetooth/hci_conn.c
-@@ -1645,7 +1645,7 @@ struct hci_conn *hci_connect_acl(struct hci_dev *hdev, bdaddr_t *dst,
- 		acl->auth_type = auth_type;
- 		acl->conn_timeout = timeout;
- 
--		err = hci_acl_create_connection_sync(hdev, acl);
-+		err = hci_connect_acl_sync(hdev, acl);
- 		if (err) {
- 			hci_conn_del(acl);
- 			return ERR_PTR(err);
-@@ -2942,6 +2942,7 @@ int hci_abort_conn(struct hci_conn *conn, u8 reason)
- 	 */
- 	if (conn->state == BT_CONNECT && hdev->req_status == HCI_REQ_PEND) {
- 		switch (hci_skb_event(hdev->sent_cmd)) {
-+		case HCI_EV_CONN_COMPLETE:
- 		case HCI_EV_LE_CONN_COMPLETE:
- 		case HCI_EV_LE_ENHANCED_CONN_COMPLETE:
- 		case HCI_EVT_LE_CIS_ESTABLISHED:
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index 788a889210d8..e1fdcb3c2706 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -6493,13 +6493,18 @@ int hci_update_adv_data(struct hci_dev *hdev, u8 instance)
- 				  UINT_PTR(instance), NULL);
- }
- 
--static int __hci_acl_create_connection_sync(struct hci_dev *hdev, void *data)
-+static int hci_acl_create_conn_sync(struct hci_dev *hdev, void *data)
- {
--	struct hci_conn *conn = data;
-+	struct hci_conn *conn;
-+	u16 handle = PTR_UINT(data);
- 	struct inquiry_entry *ie;
- 	struct hci_cp_create_conn cp;
- 	int err;
- 
-+	conn = hci_conn_hash_lookup_handle(hdev, handle);
-+	if (!conn)
-+		return 0;
+ 	folio_lock(folio);
++	/*
++	 * A concurrent buffered write can extend isize, so we store isize in a
++	 * local variable to let the zeroing offset match the EOF check below.
++	 */
++	isize = i_size_read(inode);
 +
- 	/* Many controllers disallow HCI Create Connection while it is doing
- 	 * HCI Inquiry. So we cancel the Inquiry first before issuing HCI Create
- 	 * Connection. This may cause the MGMT discovering state to become false
-@@ -6556,9 +6561,8 @@ static int __hci_acl_create_connection_sync(struct hci_dev *hdev, void *data)
- 	return err;
- }
+ 	if (unlikely(folio->mapping != inode->i_mapping ||
+-			folio_pos(folio) > i_size_read(inode) ||
++			folio_pos(folio) > isize ||
+ 			!folio_test_uptodate(folio))) {
+ 		folio_unlock(folio);
+ 		err = -EFAULT;
+@@ -224,11 +231,10 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+ 		goto out_sem;
  
--int hci_acl_create_connection_sync(struct hci_dev *hdev,
--				   struct hci_conn *conn)
-+int hci_connect_acl_sync(struct hci_dev *hdev, struct hci_conn *conn)
- {
--	return hci_cmd_sync_queue(hdev, __hci_acl_create_connection_sync,
--				  conn, NULL);
-+	return hci_cmd_sync_queue(hdev, hci_acl_create_conn_sync,
-+				  UINT_PTR(conn->handle), NULL);
- }
+ 	/* page is wholly or partially inside EOF */
+-	if (((loff_t)(folio->index + 1) << PAGE_SHIFT) >
+-						i_size_read(inode)) {
++	if (((loff_t)(folio->index + 1) << PAGE_SHIFT) > isize) {
+ 		loff_t offset;
+ 
+-		offset = i_size_read(inode) & ~PAGE_MASK;
++		offset = isize & ~PAGE_MASK;
+ 		folio_zero_segment(folio, offset, folio_size(folio));
+ 	}
+ 	folio_mark_dirty(folio);
+-- 
+2.43.0
 
