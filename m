@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57F83E49D6;
-	Tue, 13 Oct 2026 09:12:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E69E93FC5A1;
+	Tue, 13 Oct 2026 09:12:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791882775; cv=none; b=oQhPNneIknVl03wMpW6//ET0gBREiY3G+jvAcgd9iYVOnjm/I0lLBXhVTiEX8sgMWwKeecG/+kHJmrOtdJo/yJpEJTS/Lnze27bNgZincq/4yBbjTYp/Hf9/Kmyh+Q5w1Biy4+OUTK0Z0bs7vIIZ5x+4r/0WrW9amefCJjrqVsQ=
+	t=1791882775; cv=none; b=HSvXPdFgFQublS+mwlaqz4vJd7bAndWtzT4uy5tM2P+BHygwrt8odMd/S0JTNSVp7ZqIJwZktn1dZVXN9ovIS2ofNt7FsX3THjNV6c/AVIVQA2jSrXE8/iINsqwGcj6WkWTujoxS8ebwfLJxX3kt0NX0qEJj8hDEeCQziyoOZsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791882775; c=relaxed/simple;
-	bh=fCg/XafmONy4zK80Xo8MpGd6WOrbEFMaQ5EGFXFX5BA=;
+	bh=k3JUhnLG/fEVL6MTdbgwQ1bJfZA6Hqew1SjN5dTjac8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c4409pxYh4lpoTvBO2TA2RWU2AS83t7qFW8vy2ntBNs5IL1r1b4u01Bvyan4qFrUT0OhCwLzg6gM/+0pTPY8bCh6t2vM3PD7nQyCNSRzVVfzotv0hn+bvT1IHfgBMjBIXqGOAZadRH4Hv4GcQ5UufG+5YDD/hI4elSuqP7QTF6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NXeV4ynA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=K5+47t+f76Cr8UMBsRtCi6PQzCir2IM2fnpWHgzRePpMqLRLIBh3GzWbDp2aVNGK5bOo87lMxOCjjm7qxGxBkjbMFXX7zAM2zQCDMB9DnvKVzimwqO1o9HAHc/XJ8vMSZnRgw0FsALjn5WjrCg16hhwWWj6unaHj65qKwiIlxrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KGfDJ6Oe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NXeV4ynA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 280B81F008A3;
-	Tue, 13 Oct 2026 09:12:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KGfDJ6Oe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 633C31F000FF;
+	Tue, 13 Oct 2026 09:12:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791882772;
-	bh=7OE1B/v4bgMMIEv0Rw9+c/eWfgmduE+geNi0on9pUoQ=;
+	s=k20260515; t=1791882773;
+	bh=XvRme1wLbfEnG39mQIRuWu8cnZGIYE7/pah4420ffqI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NXeV4ynAAI9DQHCcFmvVyZymL3WQQGCf6aZvhOkTt4zsQBzy/Gr2xtvy2TW1QZtZq
-	 bF1Mt48lGD0ghgOtvaFcjZKU+Mi8rQmByvTPN6xkvXxUcw3yctxTrkkFMeuORj5l6a
-	 3nFYREprWoWiUYqUXXNOBZ9bTCUx/0HXC8LoOAAvj+hwmDSxTMLOOjbpUtMDYC8yU5
-	 zQWKORCoWXRXr7BkaRLa+wSs+1zuXBgvT9B8Q0inIA9gfp6bI69hCH/08s/HXBHkXa
-	 2snA31LeqIIsumw86fAXyu5Vn+H/Et6d07GtmUWTxwBYo+1jcBve/lYMhvwl5+VHXg
-	 XY4ZAdXemjC7Q==
+	b=KGfDJ6OeDham0hGAnWltw1syXNEalG8SLMQyEnNpuQTH4tYz8grKfuKmWH6kELTXm
+	 55w8TAY5ZqlKHhZka5DCEdEhjEUWAYSgU+iEvX67Id2OGsgz2wu+veOXp4S6YrCxyy
+	 knhQkd8mkNi2dhAM5E+tQKNHi8gbanMiPibKcudrMCeJNMee0WVBCH6SoIE0+YbCoe
+	 k8j4yHh8R/oMv89jzzeSGmEb2rXerqZ0Eo25JMe+PgKnOnO5giq1RHjL6rru/+a9wH
+	 2DVKEezeKCo7nhCWHgL+6ruJTdumb4xiZoCqTlYbd2GeUkoXijWfmTPt49XPydlRVb
+	 Kb96RB1aMNQLg==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
+	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+	Vicki Pfau <vi@endrift.com>,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org,
-	Vicki Pfau <vi@endrift.com>,
 	Jiri Kosina <jkosina@suse.com>
-Subject: [STABLE v6.12 4/4] HID: steam: Clean up locking
-Date: Tue, 13 Oct 2026 09:11:43 +0000
-Message-ID: <20261013091146.527985-4-lee@kernel.org>
+Subject: [STABLE v5.15-v5.10 2/6] HID: hid-steam: Make client_opened a counter
+Date: Tue, 13 Oct 2026 09:12:09 +0000
+Message-ID: <20261013091215.529531-2-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-In-Reply-To: <20261013091146.527985-1-lee@kernel.org>
-References: <20261013091146.527985-1-lee@kernel.org>
+In-Reply-To: <20261013091215.529531-1-lee@kernel.org>
+References: <20261013091215.529531-1-lee@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,336 +51,79 @@ Content-Transfer-Encoding: 8bit
 
 From: Vicki Pfau <vi@endrift.com>
 
-[ Upstream commit de1d341b9b3ec9655f31fb8b44f784cca5e670ad ]
+[ Upstream commit 555b818adb97eca70210a49ba3f1d27882dde092 ]
 
-This cleans up several issues with locking behavior, including RCU accesses
-not being guarded behind a lock.
+The client_opened variable was used to track if the hidraw was opened by any
+clients to silence keyboard/mouse events while opened. However, there was no
+counting of how many clients were opened, so opening two at the same time and
+then closing one would fool the driver into thinking it had no remaining opened
+clients.
 
 Signed-off-by: Vicki Pfau <vi@endrift.com>
 Signed-off-by: Jiri Kosina <jkosina@suse.com>
-[Lee: Drop report_mutex from steam_get_serial() instead of
-      steam_exchange_report_id() and omit sensor open/close,
-      coalesce_rumble_work and Ibex changes as a0fbd9437d7d, 1d4549fd1115,
-      fcfa7db89f7a and 0a80b4e8ec6a are not present]
+[Lee: Adapt steam_client_ll_open() and steam_client_ll_close() as
+      691ead124a0c and e1147961b214 are not present]
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/hid/hid-steam.c | 93 ++++++++++++++++++++++-------------------
- 1 file changed, 50 insertions(+), 43 deletions(-)
+ drivers/hid/hid-steam.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/hid/hid-steam.c b/drivers/hid/hid-steam.c
-index 7db756a80ed1..0f826acfbf27 100644
+index 8832f7987006..159b55dff799 100644
 --- a/drivers/hid/hid-steam.c
 +++ b/drivers/hid/hid-steam.c
-@@ -295,6 +295,7 @@ struct steam_device {
+@@ -114,7 +114,7 @@ struct steam_device {
  	spinlock_t lock;
  	struct hid_device *hdev, *client_hdev;
- 	struct mutex report_mutex;
-+	struct mutex registration_mutex;
- 	unsigned long client_opened;
+ 	struct mutex mutex;
+-	bool client_opened;
++	unsigned long client_opened;
  	struct input_dev __rcu *input;
- 	struct input_dev __rcu *sensors;
-@@ -447,22 +448,17 @@ static int steam_get_serial(struct steam_device *steam)
- 	u8 cmd[] = {ID_GET_STRING_ATTRIBUTE, sizeof(steam->serial_no), ATTRIB_STR_UNIT_SERIAL};
- 	u8 reply[3 + STEAM_SERIAL_LEN + 1];
- 
--	mutex_lock(&steam->report_mutex);
- 	ret = steam_send_report(steam, cmd, sizeof(cmd));
- 	if (ret < 0)
--		goto out;
-+		return ret;
- 	ret = steam_recv_report(steam, reply, sizeof(reply));
- 	if (ret < 0)
--		goto out;
-+		return ret;
- 	if (reply[0] != ID_GET_STRING_ATTRIBUTE || reply[1] < 1 ||
--	    reply[1] > sizeof(steam->serial_no) || reply[2] != ATTRIB_STR_UNIT_SERIAL) {
--		ret = -EIO;
--		goto out;
--	}
-+	    reply[1] > sizeof(steam->serial_no) || reply[2] != ATTRIB_STR_UNIT_SERIAL)
-+		return -EIO;
- 	reply[3 + STEAM_SERIAL_LEN] = 0;
- 	strscpy(steam->serial_no, reply + 3, reply[1]);
--out:
--	mutex_unlock(&steam->report_mutex);
- 	return ret;
- }
- 
-@@ -505,9 +501,7 @@ static inline int steam_haptic_pulse(struct steam_device *steam, u8 pad,
- 	report[8] = count >> 8;
- 	report[9] = gain;
- 
--	mutex_lock(&steam->report_mutex);
- 	ret = steam_send_report(steam, report, sizeof(report));
--	mutex_unlock(&steam->report_mutex);
- 	return ret;
- }
- 
-@@ -527,9 +521,7 @@ static inline int steam_haptic_rumble(struct steam_device *steam,
- 	report[9] = left_gain;
- 	report[10] = right_gain;
- 
--	mutex_lock(&steam->report_mutex);
- 	ret = steam_send_report(steam, report, sizeof(report));
--	mutex_unlock(&steam->report_mutex);
- 	return ret;
- }
- 
-@@ -537,8 +529,11 @@ static void steam_haptic_rumble_cb(struct work_struct *work)
- {
- 	struct steam_device *steam = container_of(work, struct steam_device,
- 							rumble_work);
-+
-+	mutex_lock(&steam->report_mutex);
- 	steam_haptic_rumble(steam, 0, steam->rumble_left,
- 		steam->rumble_right, 2, 0);
-+	mutex_unlock(&steam->report_mutex);
- }
- 
- #ifdef CONFIG_STEAM_FF
-@@ -560,14 +555,11 @@ static void steam_set_lizard_mode(struct steam_device *steam, bool enable)
- 		enable = false;
- 
- 	if (enable) {
--		mutex_lock(&steam->report_mutex);
- 		/* enable esc, enter, cursors */
- 		steam_send_report_byte(steam, ID_SET_DEFAULT_DIGITAL_MAPPINGS);
- 		/* reset settings */
- 		steam_send_report_byte(steam, ID_LOAD_DEFAULT_SETTINGS);
--		mutex_unlock(&steam->report_mutex);
- 	} else {
--		mutex_lock(&steam->report_mutex);
- 		/* disable esc, enter, cursor */
- 		steam_send_report_byte(steam, ID_CLEAR_DIGITAL_MAPPINGS);
- 
-@@ -579,13 +571,11 @@ static void steam_set_lizard_mode(struct steam_device *steam, bool enable)
- 				SETTING_RIGHT_TRACKPAD_CLICK_PRESSURE, 0xFFFF, /* disable haptic click */
- 				SETTING_STEAM_WATCHDOG_ENABLE, 0, /* disable watchdog that tests if Steam is active */
- 				0);
--			mutex_unlock(&steam->report_mutex);
- 		} else {
- 			steam_write_settings(steam,
- 				SETTING_LEFT_TRACKPAD_MODE, TRACKPAD_NONE, /* disable mouse */
- 				SETTING_RIGHT_TRACKPAD_MODE, TRACKPAD_NONE, /* disable mouse */
- 				0);
--			mutex_unlock(&steam->report_mutex);
- 		}
- 	}
- }
-@@ -594,7 +584,7 @@ static int steam_input_open(struct input_dev *dev)
- {
- 	struct steam_device *steam = input_get_drvdata(dev);
- 	unsigned long flags;
--	bool set_lizard_mode;
-+	bool client_opened;
- 
- 	/*
- 	 * Disabling lizard mode automatically is only done on the Steam
-@@ -603,9 +593,10 @@ static int steam_input_open(struct input_dev *dev)
- 	 */
- 	if (!(steam->quirks & STEAM_QUIRK_DECK)) {
- 		spin_lock_irqsave(&steam->lock, flags);
--		set_lizard_mode = !steam->client_opened && lizard_mode;
-+		client_opened = steam->client_opened;
- 		spin_unlock_irqrestore(&steam->lock, flags);
--		if (set_lizard_mode)
-+		guard(mutex)(&steam->report_mutex);
-+		if (!client_opened && lizard_mode)
- 			steam_set_lizard_mode(steam, false);
- 	}
- 
-@@ -616,13 +607,14 @@ static void steam_input_close(struct input_dev *dev)
- {
- 	struct steam_device *steam = input_get_drvdata(dev);
- 	unsigned long flags;
--	bool set_lizard_mode;
-+	bool client_opened;
- 
- 	if (!(steam->quirks & STEAM_QUIRK_DECK)) {
- 		spin_lock_irqsave(&steam->lock, flags);
--		set_lizard_mode = !steam->client_opened && lizard_mode;
-+		client_opened = steam->client_opened;
- 		spin_unlock_irqrestore(&steam->lock, flags);
--		if (set_lizard_mode)
-+		guard(mutex)(&steam->report_mutex);
-+		if (!client_opened && lizard_mode)
- 			steam_set_lizard_mode(steam, true);
- 	}
- }
-@@ -957,15 +949,19 @@ static int steam_register(struct steam_device *steam)
+ 	unsigned long quirks;
+ 	struct work_struct work_connect;
+@@ -509,7 +509,7 @@ static void steam_battery_unregister(struct steam_device *steam)
+ static int steam_register(struct steam_device *steam)
  {
  	int ret;
+-	bool client_opened;
++	unsigned long client_opened;
  
-+	mutex_lock(&steam->registration_mutex);
  	/*
  	 * This function can be called several times in a row with the
- 	 * wireless adaptor, without steam_unregister() between them, because
- 	 * another client send a get_connection_status command, for example.
- 	 * The battery and serial number are set just once per device.
- 	 */
--	if (steam->registered)
-+	if (steam->registered) {
-+		mutex_unlock(&steam->registration_mutex);
- 		return 0;
-+	}
+@@ -634,7 +634,7 @@ static int steam_client_ll_open(struct hid_device *hdev)
+ 	struct steam_device *steam = hdev->driver_data;
  
-+	mutex_lock(&steam->report_mutex);
- 	/*
- 	 * Unlikely, but getting the serial could fail, and it is not so
- 	 * important, so make up a serial number and go on.
-@@ -977,11 +973,13 @@ static int steam_register(struct steam_device *steam)
- 	hid_info(steam->hdev, "Steam Controller '%s' connected",
- 			steam->serial_no);
+ 	mutex_lock(&steam->mutex);
+-	steam->client_opened = true;
++	steam->client_opened++;
+ 	mutex_unlock(&steam->mutex);
  
-+	steam_set_lizard_mode(steam, lizard_mode);
-+	mutex_unlock(&steam->report_mutex);
-+
- 	/* ignore battery errors, we can live without it */
- 	if (steam->quirks & STEAM_QUIRK_WIRELESS)
- 		steam_battery_register(steam);
- 
--	steam_set_lizard_mode(steam, lizard_mode);
- 	ret = steam_input_register(steam);
- 	if (ret != 0)
- 		goto steam_register_input_fail;
-@@ -990,6 +988,7 @@ static int steam_register(struct steam_device *steam)
- 		goto steam_register_sensors_fail;
- 
- 	steam->registered = true;
-+	mutex_unlock(&steam->registration_mutex);
- 	mutex_lock(&steam_devices_lock);
- 	if (list_empty(&steam->list))
- 		list_add(&steam->list, &steam_devices);
-@@ -1000,6 +999,7 @@ static int steam_register(struct steam_device *steam)
  	steam_input_unregister(steam);
- steam_register_input_fail:
- 	steam_battery_unregister(steam);
-+	mutex_unlock(&steam->registration_mutex);
- 	cancel_work_sync(&steam->rumble_work);
- 	cancel_delayed_work_sync(&steam->mode_switch);
- 	return ret;
-@@ -1012,10 +1012,12 @@ static void steam_unregister(struct steam_device *steam)
+@@ -654,12 +654,12 @@ static void steam_client_ll_close(struct hid_device *hdev)
+ 	spin_unlock_irqrestore(&steam->lock, flags);
  
- 	hid_info(steam->hdev, "Steam Controller '%s' disconnected",
- 			steam->serial_no);
-+	mutex_lock(&steam->registration_mutex);
- 	steam->registered = false;
- 	steam_battery_unregister(steam);
- 	steam_sensors_unregister(steam);
- 	steam_input_unregister(steam);
-+	mutex_unlock(&steam->registration_mutex);
- 	cancel_work_sync(&steam->rumble_work);
- 	cancel_delayed_work_sync(&steam->mode_switch);
- 	mutex_lock(&steam_devices_lock);
-@@ -1056,22 +1058,25 @@ static void steam_mode_switch_cb(struct work_struct *work)
- 							struct steam_device, mode_switch);
- 	unsigned long flags;
- 	bool client_opened;
-+	bool gamepad_mode;
-+
- 	if (!lizard_mode)
- 		return;
+ 	mutex_lock(&steam->mutex);
+-	steam->client_opened = false;
+-	if (connected)
++	steam->client_opened--;
++	if (connected && !steam->client_opened)
+ 		steam_set_lizard_mode(steam, lizard_mode);
+ 	mutex_unlock(&steam->mutex);
  
-+	spin_lock_irqsave(&steam->lock, flags);
- 	steam->gamepad_mode = !steam->gamepad_mode;
--	if (steam->gamepad_mode)
-+	gamepad_mode = steam->gamepad_mode;
-+	client_opened = steam->client_opened;
-+	spin_unlock_irqrestore(&steam->lock, flags);
-+
-+	guard(mutex)(&steam->report_mutex);
-+	if (gamepad_mode)
- 		steam_set_lizard_mode(steam, false);
--	else {
--		spin_lock_irqsave(&steam->lock, flags);
--		client_opened = steam->client_opened;
--		spin_unlock_irqrestore(&steam->lock, flags);
--		if (!client_opened)
--			steam_set_lizard_mode(steam, lizard_mode);
--	}
-+	else if (!client_opened)
-+		steam_set_lizard_mode(steam, lizard_mode);
+-	if (connected)
++	if (connected && !steam->client_opened)
+ 		steam_input_register(steam);
+ }
  
- 	steam_haptic_pulse(steam, STEAM_PAD_RIGHT, 0x190, 0, 1, 0);
--	if (steam->gamepad_mode) {
-+	if (gamepad_mode) {
- 		steam_haptic_pulse(steam, STEAM_PAD_LEFT, 0x14D, 0x14D, 0x2D, 0);
- 	} else {
- 		steam_haptic_pulse(steam, STEAM_PAD_LEFT, 0x1F4, 0x1F4, 0x1E, 0);
-@@ -1226,6 +1231,7 @@ static int steam_probe(struct hid_device *hdev,
- 	hid_set_drvdata(hdev, steam);
- 	spin_lock_init(&steam->lock);
- 	mutex_init(&steam->report_mutex);
-+	mutex_init(&steam->registration_mutex);
- 	steam->quirks = id->driver_data;
- 	INIT_WORK(&steam->work_connect, steam_work_connect_cb);
- 	INIT_DELAYED_WORK(&steam->mode_switch, steam_mode_switch_cb);
-@@ -1321,13 +1327,10 @@ static void steam_remove(struct hid_device *hdev)
- 
- static void steam_do_connect_event(struct steam_device *steam, bool connected)
- {
--	unsigned long flags;
- 	bool changed;
- 
--	spin_lock_irqsave(&steam->lock, flags);
- 	changed = steam->connected != connected;
- 	steam->connected = connected;
--	spin_unlock_irqrestore(&steam->lock, flags);
- 
- 	if (changed && schedule_work(&steam->work_connect) == 0)
- 		dbg_hid("%s: connected=%d event already queued\n",
-@@ -1697,8 +1700,6 @@ static void steam_do_deck_sensors_event(struct steam_device *steam,
- static void steam_do_battery_event(struct steam_device *steam,
- 		struct power_supply *battery, u8 *data)
- {
--	unsigned long flags;
--
- 	s16 volts = steam_le16(data + 12);
- 	u8 batt = data[14];
- 
-@@ -1706,10 +1707,8 @@ static void steam_do_battery_event(struct steam_device *steam,
- 	rcu_read_lock();
- 	battery = rcu_dereference(steam->battery);
- 	if (likely(battery)) {
--		spin_lock_irqsave(&steam->lock, flags);
- 		steam->voltage = volts;
- 		steam->battery_charge = batt;
--		spin_unlock_irqrestore(&steam->lock, flags);
- 		power_supply_changed(battery);
+@@ -824,7 +824,7 @@ static void steam_remove(struct hid_device *hdev)
  	}
- 	rcu_read_unlock();
-@@ -1727,6 +1726,7 @@ static int steam_raw_event(struct hid_device *hdev,
- 	if (!steam)
- 		return 0;
  
-+	guard(spinlock_irqsave)(&steam->lock);
- 	if (steam->client_opened)
- 		hid_input_report(steam->client_hdev, HID_FEATURE_REPORT,
- 				data, size, 0);
-@@ -1811,6 +1811,8 @@ static int steam_param_set_lizard_mode(const char *val,
- {
- 	struct steam_device *steam;
- 	int ret;
-+	bool client_opened;
-+	unsigned long flags;
- 
- 	ret = param_set_bool(val, kp);
- 	if (ret)
-@@ -1818,8 +1820,13 @@ static int steam_param_set_lizard_mode(const char *val,
- 
- 	mutex_lock(&steam_devices_lock);
- 	list_for_each_entry(steam, &steam_devices, list) {
--		if (!steam->client_opened)
-+		spin_lock_irqsave(&steam->lock, flags);
-+		client_opened = steam->client_opened;
-+		spin_unlock_irqrestore(&steam->lock, flags);
-+		if (!client_opened) {
-+			guard(mutex)(&steam->report_mutex);
- 			steam_set_lizard_mode(steam, lizard_mode);
-+		}
- 	}
- 	mutex_unlock(&steam_devices_lock);
- 	return 0;
+ 	hid_destroy_device(steam->client_hdev);
+-	steam->client_opened = false;
++	steam->client_opened = 0;
+ 	cancel_work_sync(&steam->work_connect);
+ 	if (steam->quirks & STEAM_QUIRK_WIRELESS) {
+ 		hid_info(hdev, "Steam wireless receiver disconnected");
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
