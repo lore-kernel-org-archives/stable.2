@@ -1,130 +1,107 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC730519DE5
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 20:26:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791923173; cv=none; b=q27vC49YcHvuU5pDNUz11iWvl9/XKvLhx5uOsXkLvRWfmXaA1jumhb3sD8LJYkZVwNYglJzQFSpNIH0ZLjvMikn9Kh3L7sJxZgZao7nvBiLRSWvB+hNeCpa4AWEBPBN68wNva3t3KBVdT0Ln82cpDzegRpZ8bl/8yiE+dINEtjc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791923173; c=relaxed/simple;
-	bh=lhGsaBvRq0uX0dt1fMGP04Ng0z24qw3si/oEBKwkbjE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=soD9l+E+cdQWL7iaUa8Bxx9FCiIexbdaruWhCn+aa33A+CTDg/YUAeO6ozuuIiZAyphpcMh1JunUi34h+1Gy6//DCDNHspOu7TW+2bWLXme1QT5/u/VDXdJhyKC6AmIihRYidyPH9jzruZEyMSleJtmB5LMrkWR4jGwmwoRPzYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YRZ27+2x; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8622739DBF4
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 20:31:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791923496; cv=pass; b=HNOJWfrzzeIWmXld3cBYwVHIVfQIj5I3s4pLt2JNBbJ0Fl2CQzumgrt271zXJMolEQMtg0pDIX1H/4Ptoqjphoysn5n249228dTJpXU30q8c9K+Sv73kXGcfdp748233Dc1VOoQPf5L3+/oAMYmxnN8tL4rg0ZwjmuCS/vIyCyU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791923496; c=relaxed/simple;
+	bh=P1U2KJcqn+7HTIBgCJXu1/5Q+Ev60OJUfqLEphUdszw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ON8GW+2sqXJDKBo6AFckIUg95FVqdWhzYFcEdu+yhxSaFSKsu9KovJINGwYRHU5CndLdHQKqBeui00vTYyN+NpDqo3IrNCUq32soRknzo+KrGLpJEcAqqXHqROy7KFi4DBr2OSToAwDryd1Z07bo/gMXYiwg7NX4gTmfJq0RSQw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YG6QR1y/; arc=pass smtp.client-ip=209.85.161.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YRZ27+2x"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791923170;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4w56Ex/koEEl4gzBJ57SY8fAkvghhpTRhqIuK0vZtOY=;
-	b=YRZ27+2xLM3ajIZDSFyP5RscckeCrEZjjx+cRhU8s8RfsrsaiUsjsVLbeYrJC5dHVCfNMT
-	0QAeX0d0rpGRfADnKYOohWtG0zLJDUZALxEdlABC+cXeM0e8s/2QMdKON9bAvzQ8hasP47
-	mVO3p39ffY97HvVbTHDIda/rv3eBfpM=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-594-cZll0NVNO5C4g6DEPAt-Ww-1; Tue,
- 13 Oct 2026 20:26:05 +0000
-X-MC-Unique: cZll0NVNO5C4g6DEPAt-Ww-1
-X-Mimecast-MFC-AGG-ID: cZll0NVNO5C4g6DEPAt-Ww_1791923163
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6A28C180A96F;
-	Tue, 13 Oct 2026 20:26:03 +0000 (UTC)
-Received: from loberman-thinkpadp1gen5.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id C23DF769;
-	Tue, 13 Oct 2026 20:26:01 +0000 (UTC)
-From: loberman@redhat.com
-To: linux-scsi@vger.kernel.org,
-	martin.petersen@oracle.com
-Cc: James.Bottomley@HansenPartnership.com,
-	Kai.Makisara@kolumbus.fi,
-	jmeneghi@redhat.com,
-	dingiso.kernel@gmail.com,
-	Laurence Oberman <loberman@redhat.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: st: Fix use-after-free race between st_remove() and st_open()
-Date: Tue, 13 Oct 2026 16:25:48 -0400
-Message-ID: <20261013202548.249628-1-loberman@redhat.com>
-In-Reply-To: <20261013200148.1942808-1-dingiso.kernel@gmail.com>
-References: <20261013200148.1942808-1-dingiso.kernel@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YG6QR1y/"
+Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6df5e315bd1so2326076eaf.2
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 13:31:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791923494; cv=none;
+        d=google.com; s=arc-20260327;
+        b=h/GB2MJx1Iu+S8bNOHm7Slo8vr8aVwYv2mAfgfO/lQBFrRgowHOWzV5I8VLXXMoEOw
+         2xGCaRTPTk/LpJUxuxA0srxK7ij+RLT1w9tZFTkXUc8Ae/+vKLqENSuyKB00HYeurPdb
+         b1JVf92d5j906qdMbg8Y/BP2GFohY1l1hoi5OssVU5Wa8ly4BGCIpc5kiME8M5QrbAG9
+         jpZ/BFnVK8UwbGoV8nqATUkQKkUDyFFz+8AawWEVbZogAkh/CgeH4gYz8D+9JgL/XJQP
+         Ur3EakLvuyDjHR0ZYl8r6v7/upmIIidXEasAPONReXw8hteSAHg5PQMeYUETgRI+lmcE
+         ZLZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=P1U2KJcqn+7HTIBgCJXu1/5Q+Ev60OJUfqLEphUdszw=;
+        fh=3UqDzzfiix2WCZ3GvU8hvNsCd1JlHo0rNsRzJpwxEjE=;
+        b=mrEemorwFsKEy4W2gFof2obYqIaIGVDiYZiQfBwmMm/NtOlfDxCnvMXVRBW3Mcs6Ax
+         JBctorzpF4G2R4NoCdOYXe+a8RArVjf/FBAVvJX6RP0mW7YtJHr9Ol9kSj9jPOQPx8QW
+         nlv/MyXLWD2eaxIT2dFSmGCDeBDkfzypUZ1AmhfkmkE3YOLjyC2sfVSnFmZOjQI+MX6q
+         4E6RZcxKevHtPxnPmRVN+Mo/kNT5qj9j7SykcN4zQI1NARXECylrqmguvEVQVjIvX+2C
+         h4Q0Q5AVgHeN904aAgejGMe3WLtgOgi+/P6oNEQrcUhq3ChRr1u/NnKVEG4tPjSFBJcM
+         Lo2A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791923494; x=1792528294; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P1U2KJcqn+7HTIBgCJXu1/5Q+Ev60OJUfqLEphUdszw=;
+        b=YG6QR1y/XKAfrLQ4/T9vTs19LcGRORCy1/+DUXw4ZPzcQ53q8cpQ3SbjffIIdu5BY5
+         gVk9Cpo4QHwOcc15oOvS+TG5WcJ9upIPzgwyNCrhlbDePvojUcBO43+Nc3xPXSDHJC0Y
+         jg35IKXtJW0uLz41imRw8NKkA268/WEmLSuXLH9UiJTS5uPQ6v31IfeRo+7HZq/m1h5D
+         SWgEQtUNz2pl2HqUeUFDjhUKCwKDdh3jiLDIEF7EKgH7fFtJMhzNYIOUTKpbNy9j9jHL
+         zuCzaEBZ3jXi2unuhWn67nCqyD6UNudqF2rxZieCH6suOoZ9UcYRCbhBN0ypoTBPV37H
+         EjEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791923494; x=1792528294;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=P1U2KJcqn+7HTIBgCJXu1/5Q+Ev60OJUfqLEphUdszw=;
+        b=JnsZAHo2iSAFRkubL6gyxdbJmXBojMHCSY+eZ3JqXI6YfKKSys2AG1JPp5WJB2MpDn
+         gLlDcMdel1sfSXhrkBcHiR3qokplZjmgccEWAxIRix4pBdfJSA6xsBq4XEXNcudbLcRv
+         nBvAkBizNKpdXRV+Ye66np0CGD6WIRQszuRxF7fFBBTaMJ7M546kzS4F7ozEp63TG07I
+         pny8zvX/tClQQCVXAyJgnbuBhkXHJeMtfc4cqY4asTM9XDzpSvRtXMg7RXqCmmledRnO
+         IlCOQhEqnN6fab0RL4DOYNCyW5sM+hRLt7A/U/TZr6a+Y2SfIs6MTVP9xZ9XSFm4Bp43
+         BSmQ==
+X-Gm-Message-State: AFq9FYIZ58LSSSkJOZb9y5N6TNJZIIVlyDkcT3sXiY6v3N4RY+CqkN1z
+	IM47P5fIfedztVRHYFCbPuy6iJ6VocxF5p/saIEzh5XBVsG94FUkXnWzMzYdMAexYhPfRailySN
+	nF8qD1RPoQjS5MO+bV2BAfAf7SnOsW98xHiovAhGjIdtXD1g=
+X-Gm-Gg: AYBFou3rmB8SU0f4pqJ4V6IBcrQICRccebmUwTJBkdtvivvvNl/Wc4EpwoAM1ijFtYw
+	9E+prhUm+W0eoWC19Sv24CUC9TjeV4CgyJ5P69s4xp7hcDou2VAmzk0wNFEylS2EVQNU8jOjJJU
+	3aeFFf/i8kWJZgatBY1W0Ea+JJHeinqGsLV/V5IOYev+9n9rG+MEgI4P+0bzWOAtG56wWoE8lZU
+	OLx179mpGKuINyh9yj9EeJ2DCk+Sa25sNlZDq9KKQ5XcV8djANMexI3rmhdyWqarFeQ5wuPL+b4
+	9IwdeYSqs+0Tns+wIhE/caegwNZZQTAQs/vXXIzyqjX7glfnTBdCsuhydP8NXt58lRqP+qtRUe/
+	dG78IRsb9D7s1DA==
+X-Received: by 2002:a05:6820:984:b0:6da:82a6:3a13 with SMTP id
+ 006d021491bc7-6ef0e9dc4damr8661799eaf.28.1791923494303; Tue, 13 Oct 2026
+ 13:31:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+References: <20261008184328.2857037-1-andrey.misyrov@gmail.com> <irfspelsns7bao36eh5i5gebv2ktqguoinjsvmeebmwpbet34h@kuteiore4fx6>
+In-Reply-To: <irfspelsns7bao36eh5i5gebv2ktqguoinjsvmeebmwpbet34h@kuteiore4fx6>
+From: =?UTF-8?B?0JDQvdC00YDQtdC5INCc0LjRgdGO0YDQvtCy?= <andrey.misyrov@gmail.com>
+Date: Wed, 14 Oct 2026 01:31:21 +0500
+X-Gm-Features: AclHuK-SxhHlzeO_FcT0DBvs6n2VY866fwKs3FpS2QkVVf-UWDK_UKtl7-bg2Ro
+Message-ID: <CAC=piAoYrNzCX3OutKpoEPVEcJmGttTA0Z6NP=vE9wBK=kqPzA@mail.gmail.com>
+Subject: Re: [PATCH 6.1.y] scsi: lpfc: Fix use-after-free of mboxq in lpfc_sli4_driver_resource_setup()
+To: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+Cc: stable@vger.kernel.org, gregkh@linuxfoundation.org, sashal@kernel.org, 
+	paul.ely@broadcom.com, martin.petersen@oracle.com, linux-scsi@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Laurence Oberman <loberman@redhat.com>
+On Sat, Oct 10, 2026 at 11:19:35AM +0530, Abdun Nihaal wrote:
+> How did you detect this? Just curious.
 
-st_remove() drops the probe reference on the scsi_tape with kref_put()
-and only afterwards removes its index from st_index_idr. If that was the
-last reference, scsi_tape_release() frees the structure while it is
-still published in the idr.
+Hi Nihaal,
 
-scsi_tape_get(), called from st_open(), looks up the tape in
-st_index_idr and takes a reference under st_ref_mutex and
-st_index_lock. remove_cdevs() does not wait for opens that are already
-past chrdev_open(), so an open that is blocked on st_ref_mutex while
-st_remove() holds it can take the mutex as soon as st_remove() drops
-it, find the freed tpnt in the idr and call kref_get() on it:
+Thanks for the ack!
 
-  BUG: KASAN: slab-use-after-free in st_open
-  Write of size 4 ...
-   st_open (drivers/scsi/st.c:254 drivers/scsi/st.c:1291)
-   chrdev_open
-  ...
-  Freed by task ...:
-   kfree
-   st_remove (drivers/scsi/st.c:4512)
+I work on kernel live-patching and hit this while backporting the
+CVE-2026-72087 fix. I just compared the 6.1.y version with the mainline.
 
-Remove the index from the idr before dropping the reference, all under
-st_ref_mutex. A concurrent scsi_tape_get() now either runs first and
-holds a valid reference that keeps the tape alive, or runs afterwards
-and finds nothing, so st_open() fails with -ENXIO.
-
-This restores the ordering st_remove() had before the conversion to
-st_index_idr, where the tape was unpublished from scsi_tapes[] before
-the final kref_put().
-
-Fixes: 6c648d95a6af ("[SCSI] st: get rid of scsi_tapes array")
-Cc: stable@vger.kernel.org
-Reported-by: Dingisoul <dingiso.kernel@gmail.com>
-Closes: https://lore.kernel.org/linux-scsi/20261007211520.1428497-1-dingiso.kernel@gmail.com/
-Tested-by: Dingisoul <dingiso.kernel@gmail.com>
-Signed-off-by: Laurence Oberman <loberman@redhat.com>
----
- drivers/scsi/st.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/scsi/st.c b/drivers/scsi/st.c
-index f1c3c4946637..d5b90bd1c6dc 100644
---- a/drivers/scsi/st.c
-+++ b/drivers/scsi/st.c
-@@ -4509,11 +4509,11 @@ static void st_remove(struct scsi_device *SDp)
- 	remove_cdevs(tpnt);
- 
- 	mutex_lock(&st_ref_mutex);
--	kref_put(&tpnt->kref, scsi_tape_release);
--	mutex_unlock(&st_ref_mutex);
- 	spin_lock(&st_index_lock);
- 	idr_remove(&st_index_idr, index);
- 	spin_unlock(&st_index_lock);
-+	kref_put(&tpnt->kref, scsi_tape_release);
-+	mutex_unlock(&st_ref_mutex);
- }
- 
- /**
--- 
-2.56.0
-
+Regards,
+Andrey
