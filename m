@@ -1,252 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03D55111B2
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:53:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC33051DE15
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:54:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910398; cv=none; b=pLaR+8r1TRaRmsMFUDjEahkIbstp6EsJ/IJqxKVpfsJQywcW30zd7I7w5bu9w1x/OEOIf42OvGn2oJIU+7kSODhitxUOvl5ny1BVsuWxM5P77xR2RZYkrlUFA+msnH/xtL8YdAi2BuX+VfsyRZT35L++4OGDlU4X301Wua/WHDo=
+	t=1791910497; cv=none; b=c8Ci6P49MmdkBwAdxV9QuBsYbY0xrctrU843Rqv2Z8h9galOgaILpgCRvjoQuUd+WbYKUVkxDEDsprWeSwSrMYSxiNObXsB5QZYXajH6CRscwsUkCBLHK1ALQTRXGZ98kzNTHGe7KYO9SZrqz0xfyhMjs0B3D75EuF/z91gtObs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910398; c=relaxed/simple;
-	bh=+rijj7b02vByeWQ30YO4xht8WTsrPGz8nag63ze9/ws=;
+	s=arc-20240116; t=1791910497; c=relaxed/simple;
+	bh=2Mv+FCMvvib0Eeoraw+RBminAz6lGKAn94jJ4R9v474=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EC6vEdF49Bh6th/wy1AiWPfbQDt2TEnHPluOUyh/KqlL4ISaaGto27Rnt2lfYEcM7mEzfBkjLUea6o5N7GXWAqkzb+jOPvTkEmImK6DTyHOgjHvdKlboWlm778Q6NqExWErRwq/5C4mwHtsb+ppny3pfVL6gaNyV5XA5K0ThQVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Igg6KX+r; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=eD/SVCAmMLYc/vR5qj8KotvUKsyic+zAXQ+H0fCcBbyX5nbIYvlukcDcMDi1gXoTdB1lzug0L4c4Et/nI8/FnWb0/p2VsY/9OM7YfRKJmoUbYzCyS7zNaoE7LFYQum7QKuHjwdxCS4/IOfDEpivHCA0XWhsxppQ8u4ot9YsqUic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NoRTa6dj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Igg6KX+r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FD2D1F00898;
-	Tue, 13 Oct 2026 16:53:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NoRTa6dj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7C9B1F000FF;
+	Tue, 13 Oct 2026 16:54:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791910396;
-	bh=e3AN4gQn/P8mey5aWEE2BvrSt+ht+NW8ENW28vQ8OoQ=;
+	s=k20260515; t=1791910496;
+	bh=OzMZpOVQenacCR5FrtEhAxIlcf3dKMQqx2UeYK6FJEg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Igg6KX+r+DZW5Ijx4VeY3BPyYpmz4LeweJfw4m/Dm9bA8V5YrPiFPD0PwKiF2m0Pb
-	 pWx8RKrLzE+w50L+KGSFX5nadDbvHI7hbsYXX/8bFVGjKJKWsgn7DxNwZiPDXoqDDw
-	 wUIettxhOb6Df03MXnra4NkV6cWj6Or/TPZEF0SuJvkG39nIVNl2ay1sdZVwF1l/xH
-	 1qdioicI4JIyXe+QitAogus72rRfjs5ar4HOG3qRjCNCOXx61tc/SOGtQHWKlo19Us
-	 TBqB85nrVUddBMLO9bQckjR/kYA/39DL9hkZaKbpt++OBpDKlg9vAJN8eQT8gv9mS+
-	 LMpdHxubw3KTw==
+	b=NoRTa6djJkyyKDTbZyJngth6ce/VQ+hq/7Y8D75F9fQUHJy4vMxpfRt94+pGtzbgF
+	 581N7qabg3fKD9ETLoH88bhHCFgkmvhGbryXo7ZFs6HgUg7YP0cPMJyshnHzMuqnaI
+	 54XDYgtO84m0JP4pRwD9SwRPmHG1dtbqHRtovE/usZON70Y28HtJJVtor166TiiwNG
+	 fTQjtYP4dQ9t0d/3wUFPAHAItydQ0vlOwLwiN27UgHyKmlQdR91IidLo/bXPEJ34hG
+	 +3Q/Ej0rsbdIR+0YPgSaPYXGgd3VioP6IDKvw91/vVM7v0N3b7FGUaGUqnr60qqU3a
+	 BGBmtvoR1Aseg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Tom St Denis <tom.stdenis@amd.com>,
-	Vitaly Prosyak <vitaly.prosyak@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Maaz Mombasawala <maaz.mombasawala@broadcom.com>,
+	Zack Rusin <zack.rusin@broadcom.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] drm/amdgpu: copy debugfs register data outside the GRBM/SRBM locks
-Date: Tue, 13 Oct 2026 12:53:14 -0400
-Message-ID: <20261013165248.428513-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] drm/vmwgfx: Stop using dev_private to store driver data.
+Date: Tue, 13 Oct 2026 12:54:53 -0400
+Message-ID: <20261013165424.426719-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101229-prize-machinist-e35b@gregkh>
-References: <2026101229-prize-machinist-e35b@gregkh>
+In-Reply-To: <2026101207-unpaid-wok-72a4@gregkh>
+References: <2026101207-unpaid-wok-72a4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 
-[ Upstream commit 16c64495859f13f75602f439588883f2a4a4d6a6 ]
+[ Upstream commit 1b1d5fe66ca591d34c5501aab8f5f09f347e8a3e ]
 
-Reading or writing a register through the amdgpu_regs2 debugfs file
-with GRBM bank selection, which umr does for every banked access (a
-single "umr -b x x x -r <reg>" is enough, as is the wave dump with
-"-O halt_waves"), makes lockdep report a circular locking dependency,
-after which lockdep stays off until reboot:
+Currently vmwgfx uses the dev_private opaque pointer in drm_device to store
+driver data in vmw_private struct. Using dev_private is deprecated, and the
+recommendation is to embed struct drm_device in the larger per-device
+structure.
 
-  WARNING: possible circular locking dependency detected
-  umr/63306 is trying to acquire lock:
-  ffff8882cf4b8350 (&mm->mmap_lock){++++}-{4:4}, at: __might_fault+0x9b/0x140
-  but task is already holding lock:
-  ffff8881aec010d0 (&amdgpu_grbm_lock_key){+.+.}-{4:4}, at: amdgpu_debugfs_regs2_op.isra.0+0x20d/0xd00 [amdgpu]
-  ...
-  Chain exists of:
-    &mm->mmap_lock --> &amdgpu_srbm_lock_key --> &amdgpu_grbm_lock_key
-  ...
-   __might_fault+0xc5/0x140
-   amdgpu_debugfs_regs2_op.isra.0+0x441/0xd00 [amdgpu]
-   full_proxy_write+0x10e/0x1d0
-   vfs_write+0x1d0/0xf50
-   ksys_write+0x116/0x250
+The vmwgfx driver already embeds struct drm_device in its struct
+vmw_private, so switch to using that exclusively and stop using
+dev_private.
 
-amdgpu_debugfs_regs2_op() and amdgpu_debugfs_process_reg_op() call
-get_user()/put_user() for every dword while holding grbm_idx_mutex or
-srbm_mutex, and pm.mutex if requested, so a fault there takes mmap_lock
-inside those locks. The lock hierarchy in amdgpu_lockdep.c puts
-srbm_mutex and grbm_idx_mutex below notifier_lock, which
-amdgpu_cs_submit() takes with the BO reservations held, and
-dma_resv_lockdep() orders the reservations inside mmap_lock. So
-mmap_lock is outside grbm_idx_mutex and srbm_mutex, and these two
-debugfs paths nest it the other way round. The copies under the locks
-are as old as the bank selection in both files; commit 1d0f5838b126
-("drm/amdgpu: Add lockdep annotations for lock ordering validation")
-only made them visible to lockdep.
-
-Copy the user buffer in before any of the locks is taken and the result
-out after all of them are dropped, as amdgpu_debugfs_wave_read(),
-amdgpu_debugfs_gpr_read() and amdgpu_debugfs_gprwave_read() already do.
-The buffer is sized by the count passed to read() or write(), so an
-access larger than PAGE_SIZE is now rejected with -EINVAL; umr reads and
-writes one register at a time. A fault on the user buffer of a write now
-fails with -EFAULT before any register is written, instead of after a
-partial write.
-
-Fixes: 566281595037 ("drm/amd/amdgpu: Add bank selection for MMIO debugfs (v3)")
-Fixes: 37df9560cd3e ("drm/amd/amdgpu: New debugfs interface for MMIO registers (v5)")
-Acked-by: Christian König <christian.koenig@amd.com>
-Acked-by: Tom St Denis <tom.stdenis@amd.com>
-Reviewed-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit ccf9e35ed6811f2c25ba6368e7dc6481da17159d)
-Cc: stable@vger.kernel.org
-[ sashal: Omitted the XCC argument from amdgpu_mm_wreg_mmio_rlc() calls to match the three-argument API. ]
+Signed-off-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Reviewed-by: Zack Rusin <zack.rusin@broadcom.com>
+Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20240502004033.107533-1-maaz.mombasawala@broadcom.com
+Stable-dep-of: 21bc51cb89ce ("drm/vmwgfx: validate pitch coming from userspace")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 76 ++++++++++++---------
- 1 file changed, 45 insertions(+), 31 deletions(-)
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.c | 2 --
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.h | 2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.c | 4 ++--
+ 3 files changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 2300752e2fa8c..b80b34b8aa5c4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -114,6 +114,20 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+index 2e84e1029732d..1b0b9d2d4e720 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+@@ -856,8 +856,6 @@ static int vmw_driver_load(struct vmw_private *dev_priv, u32 pci_id)
+ 	bool refuse_dma = false;
+ 	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
  
- 	*pos &= (1UL << 22) - 1;
- 
-+	if (size > PAGE_SIZE)
-+		return -EINVAL;
-+
-+	/*
-+	 * Access the user buffer only while none of the locks below are held:
-+	 * a fault takes mmap_lock, and grbm_idx_mutex and srbm_mutex nest
-+	 * inside it.
-+	 */
-+	u32 *data __free(kfree) = kmalloc(size, GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+	if (!read && copy_from_user(data, buf, size))
-+		return -EFAULT;
-+
- 	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
- 	if (r < 0) {
- 		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-@@ -146,28 +160,16 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
- 		mutex_lock(&adev->pm.mutex);
- 
- 	while (size) {
--		uint32_t value;
+-	dev_priv->drm.dev_private = dev_priv;
 -
--		if (read) {
--			value = RREG32(*pos >> 2);
--			r = put_user(value, (uint32_t *)buf);
--		} else {
--			r = get_user(value, (uint32_t *)buf);
--			if (!r)
--				amdgpu_mm_wreg_mmio_rlc(adev, *pos >> 2, value);
--		}
--		if (r) {
--			result = r;
--			goto end;
--		}
-+		if (read)
-+			data[result >> 2] = RREG32(*pos >> 2);
-+		else
-+			amdgpu_mm_wreg_mmio_rlc(adev, *pos >> 2, data[result >> 2]);
+ 	vmw_sw_context_init(dev_priv);
  
- 		result += 4;
--		buf += 4;
- 		*pos += 4;
- 		size -= 4;
- 	}
+ 	mutex_init(&dev_priv->cmdbuf_mutex);
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
+index 4e2807f5f94cf..b21831ef214a6 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
+@@ -639,7 +639,7 @@ static inline struct vmw_surface *vmw_res_to_srf(struct vmw_resource *res)
  
--end:
- 	if (use_bank) {
- 		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
- 		mutex_unlock(&adev->grbm_idx_mutex);
-@@ -183,6 +185,10 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
- 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
- 
- 	amdgpu_virt_disable_access_debugfs(adev);
-+
-+	if (read && copy_to_user(buf, data, result))
-+		return -EFAULT;
-+
- 	return result;
+ static inline struct vmw_private *vmw_priv(struct drm_device *dev)
+ {
+-	return (struct vmw_private *)dev->dev_private;
++	return container_of(dev, struct vmw_private, drm);
  }
  
-@@ -232,11 +238,24 @@ static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 off
- 	struct amdgpu_device *adev = rd->adev;
- 	ssize_t result = 0;
- 	int r;
--	uint32_t value;
+ static inline struct vmw_private *vmw_priv_from_ttm(struct ttm_device *bdev)
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
+index 5f99f7437ae61..800a79e035ed6 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
+@@ -280,7 +280,7 @@ static void vmw_du_put_cursor_mob(struct vmw_cursor_plane *vcp,
+ static int vmw_du_get_cursor_mob(struct vmw_cursor_plane *vcp,
+ 				 struct vmw_plane_state *vps)
+ {
+-	struct vmw_private *dev_priv = vcp->base.dev->dev_private;
++	struct vmw_private *dev_priv = vmw_priv(vcp->base.dev);
+ 	u32 size = vmw_du_cursor_mob_size(vps->base.crtc_w, vps->base.crtc_h);
+ 	u32 i;
+ 	u32 cursor_max_dim, mob_max_size;
+@@ -519,7 +519,7 @@ void vmw_du_cursor_plane_destroy(struct drm_plane *plane)
+ 	struct vmw_cursor_plane *vcp = vmw_plane_to_vcp(plane);
+ 	u32 i;
  
- 	if (size & 0x3 || offset & 0x3)
- 		return -EINVAL;
+-	vmw_cursor_update_position(plane->dev->dev_private, false, 0, 0);
++	vmw_cursor_update_position(vmw_priv(plane->dev), false, 0, 0);
  
-+	if (size > PAGE_SIZE)
-+		return -EINVAL;
-+
-+	/*
-+	 * Access the user buffer only while none of the locks below are held:
-+	 * a fault takes mmap_lock, and grbm_idx_mutex and srbm_mutex nest
-+	 * inside it.
-+	 */
-+	u32 *data __free(kfree) = kmalloc(size, GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+	if (write_en && copy_from_user(data, buf, size))
-+		return -EFAULT;
-+
- 	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
- 	if (r < 0) {
- 		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-@@ -276,24 +295,15 @@ static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 off
- 		mutex_lock(&adev->pm.mutex);
- 
- 	while (size) {
--		if (!write_en) {
--			value = RREG32(offset >> 2);
--			r = put_user(value, (uint32_t *)buf);
--		} else {
--			r = get_user(value, (uint32_t *)buf);
--			if (!r)
--				amdgpu_mm_wreg_mmio_rlc(adev, offset >> 2, value);
--		}
--		if (r) {
--			result = r;
--			goto end;
--		}
-+		if (!write_en)
-+			data[result >> 2] = RREG32(offset >> 2);
-+		else
-+			amdgpu_mm_wreg_mmio_rlc(adev, offset >> 2, data[result >> 2]);
- 		offset += 4;
- 		size -= 4;
- 		result += 4;
--		buf += 4;
- 	}
--end:
-+
- 	if (rd->id.use_grbm) {
- 		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
- 		mutex_unlock(&adev->grbm_idx_mutex);
-@@ -313,6 +323,10 @@ static ssize_t amdgpu_debugfs_regs2_op(struct file *f, char __user *buf, u32 off
- 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
- 
- 	amdgpu_virt_disable_access_debugfs(adev);
-+
-+	if (!write_en && copy_to_user(buf, data, result))
-+		return -EFAULT;
-+
- 	return result;
- }
- 
+ 	for (i = 0; i < ARRAY_SIZE(vcp->cursor_mobs); i++)
+ 		vmw_du_destroy_cursor_mob(&vcp->cursor_mobs[i]);
 -- 
 2.53.0
 
