@@ -1,222 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C89293C07A;
-	Tue, 13 Oct 2026 04:51:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2989635C1A6
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 05:00:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791867101; cv=none; b=S9r/++EiTc3dw8zXbKd1o9YipvvtM3gIsBw6igi4oLZJiS8/i0ywuBznMLZRAtkY/qfkE0NPV7TjOj1EN3WQkC9zNtEUlALiXAY3o1BL0Zlpftdm8EPpLLhkyBmvDtEUza2gQIxhf5ygSeQzkZT46MS3AVcz1SfQJuvSIkYrctM=
+	t=1791867632; cv=none; b=M4S8VVvLoen5ToKWIK8v3LbmwcJ21hQKbY7QPViqcHzHhOls/M2aJytQNpXfFzsySf5IGUUfV55wyV9o53ZVkFF11B2qpN/HvcWL3wGHJ0YtaUuHzuIHton14sQcCG6+00xtbdD0YIMphKguou0mRa8uePOCISvwvKbTLUHkjtg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791867101; c=relaxed/simple;
-	bh=7RKZZItk8g+R4JYvSk3BdudnGBrDu4OaXsDqhSZZ/sM=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=GqTYyUxdTH4vNE3uWlRGYqTcq2yjg9hI1gNH/UEScrmR2kX+K15ypaOWA1e0FM6MdrARCXGn52u5GvhryquES/z2OnbEq6HoGMLAHzJmw5N1BOyrxarp6L894J4IBYHrJYyLJSqJvugQkYwm1cK0V6CsBp0yK9qpD/OmYTrjNwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JL3NE/lv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791867632; c=relaxed/simple;
+	bh=LdE0xymDLLhP6FyFsOtswIPlcVUTACJJ3icf151iCu4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P1tQnmsJVnyz3SompSFGvz4+yJctBuwUKQka6ikKL8Fkjw8G6fNBTPwVxuXzNi7+fpKlDopGnbfeBvm7ms7BECfho73OfBjsPMHPp0WLXuEnC8YtDf5uo/9AhYO6Hc2wHF/ElpvTMtnOziANgHQsNNj5DGheehUhldoE7YR9H7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tyhicks.com; spf=pass smtp.mailfrom=tyhicks.com; dkim=pass (2048-bit key) header.d=tyhicks.com header.i=@tyhicks.com header.b=eag8rL17; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=w0ouBNIB; arc=none smtp.client-ip=202.12.124.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tyhicks.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tyhicks.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JL3NE/lv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DF231F000FF;
-	Tue, 13 Oct 2026 04:51:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791867099;
-	bh=2uoa3rlTPsqF5WVC1KJ22msnIAaVeXC7kqTLcn+GQmw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=JL3NE/lvcnHazw2aBgWOmEGQWiw1FvI+Q+0sWq+2itDqeMap2kB1BU43d7K9lrnvD
-	 n+TV8DuD/vCKi5PknrhzzhEP/kUdrNKTxm4y19xcKc05ms+1GgONJ9qlsjAgo8duVu
-	 9eGqqIm5v/WVuShIgDGEvRKk3J95Ege8YQav7h3RHJAiQRh7BGhFTf4/cxCNI34ODz
-	 rnjiD/QI6oioUY5+cpRa9xcoeEZplIMQrsOvlQrdji07V6IRGOc4yfCgKP5CYBwdlW
-	 3RdUxC0aS4T6UBv/5HSlUn5pxFnmn2p2VvHicnhlGdgebnXC4wD8GCPLXBCGPNKi0c
-	 oUKhpbpxHeRVg==
-Subject: Re: [PATCH net v2] net/sched: sch_netem: prevent packet length
- underflow with negative overhead
-From: netdev-bot+sashiko@kernel.org
-To: dungvn2345@gmail.com
-Cc: stephen@networkplumber.org, jhs@mojatatu.com, jiri@resnulli.us,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, hagen@jauu.net, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 13 Oct 2026 04:51:38 +0000
-Message-ID: <179186709813.434549.16042014331752584322@kernel.org>
-In-Reply-To: <20261012044322.503949-1-dungvn2345@gmail.com>
-References: <20261012044322.503949-1-dungvn2345@gmail.com>
-X-sashiko-severity: Critical
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=tyhicks.com header.i=@tyhicks.com header.b="eag8rL17";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="w0ouBNIB"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.stl.internal (Postfix) with ESMTP id A90331D0011D
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 01:00:29 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Tue, 13 Oct 2026 01:00:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tyhicks.com; h=
+	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1791867629; x=1791954029; bh=6ytJmHD3Qx
+	XFaO1zCqmFc2AaBnITHvr88LGMaQ4ENDo=; b=eag8rL17nQ9UA0APcrIic6/uYg
+	0P0aBBgb1PDHCd9AJicriBpDblBboakOpyHLu46It2e8z6d1/Ox1p3VTZwOacbhy
+	4jegFmfdI2jlIArowJwsHxXGVkCIG9Lua6HioGH6BZDaobRQO+RYWbE7dICszIHB
+	AF2Q24yZWMYdsrWG+xs6u5ZuuFo4Wss3/gZIiWK1Lgc4nO7OcPXWaeV33KAr0Efz
+	IlApYwiop70mCKuA9QG8pHdRstDchq1v63azl0rQK1CMw0HKo5ulabqzbTV8BJC0
+	y6AflAMfy/j8PO3hywlcTwuOEONBQNpkyFtzx0r50eIHXfflqCJLCsnpW7Dg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1791867629; x=1791954029; bh=6ytJmHD3QxXFaO1zCqmFc2AaBnITHvr88LG
+	MaQ4ENDo=; b=w0ouBNIB3yj512V6kKlp7eojd/DDD2BFR0wvAWCygSRB9m1Jpdc
+	LxfAah1fAMvZYMYgTaDsvRvcc36jxYKAtD6UJo5/rH+kKdvZZ4xaSq5aS4/uorhG
+	cLMBgrRE2pq/TNLohoWJsczKJfio4mQvxtrITX3NfXvhrM9fyO0hN+osneDHmZ/x
+	P0RZpnAXJTHfe1MO+ZOCtJns6pLTqf1zErKF0hvkSCExxXwJht/aFX5zy0dj5qi4
+	uys0KgO/YfLOn877mgMcnx1qy1VMr/Vv0Xa+tT0emLhIo/jb/jGHCtzxSwXyb4UN
+	nCjmuTRpo3XodgybTFqxEMyHFft+LC5NQzg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=tyhicks.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791867629; d=tyhicks.com;
+	mf=PGNvZGVAdHloaWNrcy5jb20+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:khhY/dF29z7EOHEY7z4U23izaXEyrxUnWX4RbVryqFZTq3l
+	p8nI2D0G30F3CiCU+Z2ZigdgccL51cVOEvknCqbahkpDykVp0XVh6bSd/HicAG4D
+	3rzTkIyaw4i6XUTi56WgN5Krsx3t6hYkKMvYR4NPf0BMRDTdZ9W6SCQSxh9DgkzB
+	QxnaS5odqEfMk34IgGIT/dwXVNM5lBjdWGY0NTqYymjfkZgisq5Hu500CbcEI8au
+	vzOMu/Qpt6myXyJXIxz5Kjrn+686HfR3eN3a20aeAvCpSboCy9SDxEt+EFjMLHFX
+	1tKCxp5QkjrLHDxI+vvpiITxYgVyHDcSSvQxNNg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:a4spjgoiUCy+Zyrkwu0Pu2oiBQZigTPC/TVWWKiQGK0=:LdE0xymDLLhP6FyFsOtswIPlcVUTACJJ3icf151iCu4=;
+X-ME-Sender: <xms:7LrNagm1J0Mx9u10ZkDhBHodl9Qp4NLINQId6aIaAzDH6uRy9p8ryA>
+    <xme:7LrNaiEvqPUzAd80uFhpQS8_s4so9Kp219WIQ2BKy3qY8jSrmHU5IMAV9XrKV8Rxt
+    IiyPJV6VxQVzk9oVrVcFisuHSKY2_hQZhrFQd0UjWAnIiExTfxfi3hV>
+X-ME-Received: <xmr:7LrNag6To64Mn8-KYkAzl5ByfHffQbY325jAgAwNHjo5_0lsc1N89Q>
+X-ME-Proxy-Cause: dmFkZTEn+yWHwxafRD/i2Vu8vELSZ1/iKjbNbXn0i7w9Im0HrUqudqVifejFm9Qp+sAbJC
+    +XvdV9pmwM/vTEQ7i2TdcQ+4rwzNabERTdWqfJ/DUqPouY0vrWoQbnXKWKG5YyTHWaSA3j
+    mcTXaffJFOnVtuZv4Q5riWYpbXYgAncPUxnENp3KKMXgVc+CCPZa7kjYgzU0t060AK/iix
+    yo9fYxCNR8vLQxfo6gdZbRoqMOiP8VV/NhNLVYX7HTsKCXD8tDgU7DHBBxFd4sT0GW5npM
+    SrZm97EtwOXxNZtMsvbSW3ibj6AinD5sgojUwpyugEaNQ76bEgJpfM21KRbxvDm5RbpFWB
+    ISMXB0vp6PsLLVh6c4YtsGmmHnvL57kgQPUu3LX8oKjRuJ3YFNParlJfedjMf1Z88Qox5l
+    rhMV44IhQ8lZfLVstEAjgWDMnBa1CJOK9IQEpr7+2CcgjxqXRPrEJoahVF5G57xZsiMMiC
+    wBDCoH4XbxyxL5UB+g9P8rz7hZMeUULGZlgvOerT2RBp7iktIKAgvR/ZLFltWG4xHEZxlH
+    JW7RyCxEud1Y5OtiAlheTdOauYLhpwF1f7IJZ8cSJf622pKbPzBmYQsqbymbDYDiPU/bpZ
+    WQFlVTkIgMkMk3RrVphGmJZv0/u5fUcZxAZu+byp3H8KsZXHOCG1Je8odcSQ
+X-ME-Proxy: <xmx:7LrNaimfW5UlM5a3IfvRFyeShFNpgotYPrplnHJW7_bHylQ5h7o2Cg>
+    <xmx:7LrNatpugnhZfQh-DPh7MVBlKBHn_NBYNbDHylhPLFYgmrltvii-Cg>
+    <xmx:7LrNaptuZg4MfcOGgX_51Nmsoj3wy1zcuEwv8BsM-gBvhAJbwJO4Rg>
+    <xmx:7LrNaqG1uv2gUVrqI-BaR41fxf8A8iqrYkv3kS2ybR3YJoAM2lzTEg>
+    <xmx:7brNaiZODYEMrVUKdXpMV8f7bxIpZY0CAVQihktsRgvST68IKTQiWrNh>
+Feedback-ID: i78e14604:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 13 Oct 2026 01:00:28 -0400 (EDT)
+Date: Tue, 13 Oct 2026 00:00:26 -0500
+From: Tyler Hicks <code@tyhicks.com>
+To: Adriano Cordova <adrianox@gmail.com>
+Cc: ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+03c68e42ce4b33f7ce9b@syzkaller.appspotmail.com,
+	Nguyen Duy Nhat Anh <neganhat@gmail.com>
+Subject: Re: [PATCH v2] ecryptfs: validate auth tok payload size
+Message-ID: <as266is_fT232oMM@elm>
+References: <20261004123755.14642-1-adrianox@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004123755.14642-1-adrianox@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 2026-10-04 09:37:55, Adriano Cordova wrote:
+> Validate that a key payload is large enough to hold a struct
+> ecryptfs_auth_tok, and that the password token's
+> session_key_encryption_key_bytes fits within
+> session_key_encryption_key[], before the payload is dereferenced.
 
-Critical: 1 · High: 0 · Medium: 1 · Low: 0
+Hi Adriano - Thank you for the fixes!
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+> 
+> Cc: <stable@vger.kernel.org>
+> Reported-by: syzbot+03c68e42ce4b33f7ce9b@syzkaller.appspotmail.com
+> Reported-by: Nguyen Duy Nhat Anh <neganhat@gmail.com>
+> Tested-by: syzbot+03c68e42ce4b33f7ce9b@syzkaller.appspotmail.com
+> Link: https://syzkaller.appspot.com/bug?extid=03c68e42ce4b33f7ce9b
 
-- [Critical] In packet_time_ns() (net/sched/sch_netem.c), the patch swaps
-  `div64_u64(len * NSEC_PER_SEC, q->rate)` for `mul_u64_u64_div_u64(len,…
-- [Medium] The commit message says clamping packet_time_ns() to S64_MAX
-  "prevents the resulting delay from turning negative in s64 delay…
+Change this tag from `Link:` to `Closes:`, please.
 
---
-
-net/sched: sch_netem: prevent packet length underflow with negative overhead
-
-This patch makes packet_time_ns() return 0 when the effective packet
-length or the cell length is non-positive. A negative packet_overhead
-then no longer wraps len to a huge value and stalls the qdisc. The patch
-also computes cell_len as s64, uses mul_u64_u64_div_u64() for the final
-calculation, and clamps the result to S64_MAX.
-
-> diff --git a/net/sched/sch_netem.c b/net/sched/sch_netem.c
-> index 8a1b89a289d8f..3eccdc93c0b6b 100644
-> --- a/net/sched/sch_netem.c
-> +++ b/net/sched/sch_netem.c
-
-[ ... ]
-
-> @@ -366,17 +367,26 @@ static s64 tabledist(s64 mu, s32 sigma,
+> Signed-off-by: Adriano Cordova <adrianox@gmail.com>
+> ---
+> Changes in v2:
+> - Add Reported-by tag.
+> 
+>  fs/ecryptfs/ecryptfs_kernel.h | 6 ++++++
+>  fs/ecryptfs/keystore.c        | 7 +++++++
+>  2 files changed, 13 insertions(+)
+> 
+> diff --git a/fs/ecryptfs/ecryptfs_kernel.h b/fs/ecryptfs/ecryptfs_kernel.h
+> index 58165928ed1e..4315c18ba1cd 100644
+> --- a/fs/ecryptfs/ecryptfs_kernel.h
+> +++ b/fs/ecryptfs/ecryptfs_kernel.h
+> @@ -88,6 +88,9 @@ ecryptfs_get_encrypted_key_payload_data(struct key *key)
+>  	if (!payload)
+>  		return ERR_PTR(-EKEYREVOKED);
 >  
->  static u64 packet_time_ns(u64 len, const struct netem_sched_data *q)
->  {
-> +	u64 d;
+> +	if (payload->payload_datalen < sizeof(struct ecryptfs_auth_tok))
+> +		return ERR_PTR(-EINVAL);
 > +
-> +	if ((s64)len + q->packet_overhead <= 0)
-> +		return 0;
-> +
->  	len += q->packet_overhead;
->  
->  	if (q->cell_size) {
->  		u32 cells = reciprocal_divide(len, q->cell_size_reciprocal);
-> +		s64 cell_len = (s64)q->cell_size + q->cell_overhead;
->  
->  		if (len > cells * q->cell_size)	/* extra cell needed for remainder */
->  			cells++;
-> -		len = cells * (q->cell_size + q->cell_overhead);
-> +		if (cell_len <= 0)
-> +			return 0;
-> +		len = (u64)cells * cell_len;
->  	}
->  
-> -	return div64_u64(len * NSEC_PER_SEC, q->rate);
-> +	d = mul_u64_u64_div_u64(len, NSEC_PER_SEC, q->rate);
 
-[Severity: Critical]
-Can this trap on x86-64 before the S64_MAX clamp is reached?
+This change should be in its own patch with the following Fixes tag:
 
-mul_u64_u64_div_u64() expands to mul_u64_add_u64_div_u64(). On x86-64,
-arch/x86/include/asm/div64.h implements that as a plain mulq followed by
-divq:
+  Fixes: 1252cc3b232e ("eCryptfs: added support for the encrypted key type")
 
-/*
- * Will generate an #DE when the result doesn't fit u64, could fix with an
- * __ex_table[] entry when it becomes an issue.
- */
-static inline u64 mul_u64_add_u64_div_u64(u64 rax, u64 mul, u64 add, u64 div)
-{
-	...
-	asm ("divq %[div]" : "+a" (rax), "+d" (rdx) : [div] "rm" (div));
-	...
-}
-
-include/linux/math64.h also says "Architecture specific code may trap on
-zero or overflow". So this code can't depend on the saturating behaviour
-of the generic version.
-
-The new s64 cell_len also makes the overflow much easier to hit. The old
-expression cells * (q->cell_size + q->cell_overhead) was a u32 product,
-so len * NSEC_PER_SEC stayed within u64. With len = (u64)cells * cell_len,
-len can now get close to 2^62.
-
-get_rate() copies rate, packet_overhead, cell_size and cell_overhead from
-TCA_NETEM_RATE without range checks. For example, with rate=1,
-cell_size=1, cell_overhead=INT_MAX and a 100 byte packet:
-
-  cell_len                 = 2^31
-  len                      = 100 * 2^31   ~= 2.1e11
-  len * NSEC_PER_SEC / 1   ~= 2.1e20      > U64_MAX
-
-The divq would then raise #DE in this path:
-
-netem_enqueue()
-  packet_time_ns()
-    mul_u64_u64_div_u64()
-      mul_u64_add_u64_div_u64()   /* divq */
-
-This runs under the qdisc root lock, possibly in softirq context. The
-first packet enqueued would oops the kernel. Triggering it only needs
-CAP_NET_ADMIN in the netns, and unprivileged user namespaces can provide
-that.
-
-If packet_overhead=INT_MAX is also set, len is about 4.6e18. Any rate
-below roughly 250 MB/s then traps.
-
-The commit message says:
-
-    Computing the final transmission time with mul_u64_u64_div_u64() and
-    clamping to S64_MAX avoids 64-bit multiplication overflow
-
-Could the value be saturated before the helper is called? One option is
-to return S64_MAX when div64_u64(len, q->rate) >= div_u64(S64_MAX,
-NSEC_PER_SEC). Another is for get_rate()/netem_change() to reject rate and
-cell combinations that can overflow.
-
-> +	return min_t(u64, d, S64_MAX);
-
-[Severity: Medium]
-The commit message also says the clamp "prevents the resulting delay from
-turning negative in s64 delay arithmetic". Is that true for the caller?
-
-The clamp only limits the value that packet_time_ns() returns. In
-netem_enqueue() that value is added to a delay that may already be
-positive. The result is then added to a now that may already be a
-deadline far in the future:
-
-net/sched/sch_netem.c:netem_enqueue() {
-    ...
-			if (last) {
-				...
-				delay -= last->time_to_send - now;
-				delay = max_t(s64, 0, delay);
-				now = last->time_to_send;
-			}
-
-			delay += packet_time_ns(qdisc_pkt_len(skb), q);
-		}
-
-		cb->time_to_send = now + delay;
-    ...
-}
-
-validate_time() only checks that the TCA_NETEM_LATENCY64 latency is not
-negative, so delay can already be large before this addition. Adding a
-result close to S64_MAX to any positive delay wraps it negative.
-
-The absolute deadline can wrap even with zero latency. Take
-packet_overhead=0, cell_size=1, cell_overhead=INT_MAX, rate=8 and a 64
-byte packet. The quotient is about 1.7e19, which fits in u64 and gets
-clamped to S64_MAX:
-
-  packet 1: time_to_send = T + S64_MAX
-  packet 2: now = T + S64_MAX
-            time_to_send = T + 2 * S64_MAX  ~= T - 2
-
-tfifo_enqueue() would sort packet 2 ahead of packet 1, and
-netem_dequeue() would treat it as already due. The packet skips rate
-shaping and goes out of order.
-
-Should netem_enqueue() saturate the accumulated delay and
-cb->time_to_send as well, instead of only the per-packet interval?
-
+>  	return (struct ecryptfs_auth_tok *)payload->payload_data;
 >  }
 >  
->  static void tfifo_reset(struct Qdisc *sch)
+> @@ -124,6 +127,9 @@ ecryptfs_get_key_payload_data(struct key *key)
+>  	if (!ukp)
+>  		return ERR_PTR(-EKEYREVOKED);
+>  
+> +	if (ukp->datalen < sizeof(struct ecryptfs_auth_tok))
+> +		return ERR_PTR(-EINVAL);
+> +
 
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012044322.503949-1-dungvn2345%40gmail.com
+Nguyen Duy Nhat Anh submitted this fix prior to your v1 so it is best if
+I take that initial patch. Please drop this change.
+
+>  	return (struct ecryptfs_auth_tok *)ukp->data;
+>  }
+>  
+> diff --git a/fs/ecryptfs/keystore.c b/fs/ecryptfs/keystore.c
+> index 51651314b7a6..7f2dbc81fcbc 100644
+> --- a/fs/ecryptfs/keystore.c
+> +++ b/fs/ecryptfs/keystore.c
+> @@ -477,6 +477,13 @@ ecryptfs_verify_auth_tok_from_key(struct key *auth_tok_key,
+>  		rc = -EINVAL;
+>  		goto out;
+>  	}
+> +	if ((*auth_tok)->token_type == ECRYPTFS_PASSWORD
+> +	    && (*auth_tok)->token.password.session_key_encryption_key_bytes
+> +	       > ECRYPTFS_MAX_KEY_BYTES) {
+> +		printk(KERN_ERR "Invalid password auth_tok sKEK size\n");
+> +		rc = -EINVAL;
+> +		goto out;
+> +	}
+
+This change should be in its own patch with the following Fixes tag:
+
+  Fixes: 9c79f34f7ee7 ("eCryptfs: Filename Encryption: Tag 70 packets")  
+
+Thanks again!
+
+Tyler
+
+>  out:
+>  	return rc;
+>  }
+> -- 
+> 2.51.0
+> 
