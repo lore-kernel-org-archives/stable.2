@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642E33CE4B5;
-	Tue, 13 Oct 2026 04:35:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D49B6485507;
+	Tue, 13 Oct 2026 04:35:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791866137; cv=none; b=IV+qSn4c/Cw9s6StRTFbb0r9xJLkBHF5c48v3KnsONakQ0vgQxYpa++x0TRJTdUfAWyLd32wis3Cr770BBlA2KqCOPvpS9WdH8Am6rp3MzW9g2bwuQDYdCKyT87BTXjYWr6jFvs8iL8xQXiG54ODgX/ujtFPHOpXTWBX9n+29CQ=
+	t=1791866139; cv=none; b=awMQnJZcNvCH/DgF/Cn9XAx3uAg3zhWrvfKnCD7CTEYNe+4/lGdiBng5b5Ib3ztYTdyGbr/cRz9b5n5Y65ZojUy0Ycx2dTMq+ecjqDm99or4ZVOtaLizX3wv92dD9+u9SRVuB7QWxdp+batRXTF7xXK/syua5MWBaZVthYkTJhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791866137; c=relaxed/simple;
-	bh=EH+xaYCLWuQB/Yv0HxiMNA0p61Kk+Jv047HsXAHaUN4=;
+	s=arc-20240116; t=1791866139; c=relaxed/simple;
+	bh=Tfr6dvHzRV+70FHAgTz1TLAjPYBHw+Yd0piT4b891Hs=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=msbxGvpz7vYxlUyrRxP0Ujjs807Ah9FXp73dhcG5nvcu/6j4ewd8qclWd/XDYFtkjSXBmPYINWeiX9hiFe/VCczCstgTMce+RkcJY0hFbBFBej4tMPyQ1LNTKCPaNbSJO4kyNh2ZoKrIlst0+3VdnPwDTFQ84r8OzjNOuoiSsd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h7wDeMN1; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=fB7sXQljCm4ScHenCULuen4oMOYtQm+IJjdcJwPKxoe7XEKLBlDWJSfnKMNylo/mccxdz0YimSOR27oE18dHdo3XqFV6iT+evP6CoNjioDCR1RpO8zB+EgQF/HcjR89mFNc9SixII66IImIctOy+RmbgxBBLpatl8Rqo2JNJewc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jbfWgguS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h7wDeMN1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28AFD1F000FF;
-	Tue, 13 Oct 2026 04:35:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jbfWgguS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABBE31F00893;
+	Tue, 13 Oct 2026 04:35:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791866136;
-	bh=WaRImVBsUFE4eVUeB1PEiSi3TIH9bh1+r5KroOTpC6M=;
+	s=k20260515; t=1791866137;
+	bh=SPCI5H7VsZ2fQG972JLDNRfK05GncDQslo1Z5y4FNbg=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=h7wDeMN1FyVQF+HZAQGNGmJmwz7FJiB20VAVrnIl0RS/X2GiMgP9e42563iL/5T/4
-	 E6/R5e5NfdDS8GRI0ogNhzCJyy1I1/Fs7E7/4SJ14boE3rjv2RVxS4CyDNMsPN5/Tz
-	 TTNEHE3g6VUaFbo/0/2v/6XHyKgv4qABF+/rwPRxBpj/GUq9bATYgoExjS58UQYC4q
-	 OR/BP/LmCfo61XJAMG6GOp691W7s8gXJP+fU7GCp9HV9pJ0qTYF6Op2bh48dn/m7JO
-	 AZHG/F0VeskAzoH923qAEoEEhD9LRs50WaSVMcQc0P/fz5NYBKuPyKTwrKh718F4MV
-	 a4gcbqQiXQ7xg==
-Subject: Re: [PATCH net v3 1/5] eth: fbnic: only act on Rx completions naming
- a posted buffer
+	b=jbfWgguSJj5MkRPNyW59qf0qrWgHaYbF07NTIQd9lEsMmEi4Dk3veWXho5XSAmlBc
+	 tk4Z7pPism42eM2QMB+gLE5afw+p9uWKCxrGDXcdTmf2MC9nwQ06sURiQ5AUVchZ3m
+	 e28et8x5jIJuaSdRoafVCgYuO0jx7foowSbY2XOJnUOf36wvaC1btv+gTKnl0nVbe6
+	 /29/7BcgxhwM6KAkxYKtAWug/t7vtkFk3H7HUIGredO01d+2rlB08gU7JsbpfFjCie
+	 NYnW9Bm/HYka11i+FYa4X4PV6dAEsOZxBP6ErDJqeyoFCXnwOH/SrRkzkTBMY+f+A/
+	 Hjt0XqTEuGszg==
+Subject: Re: [PATCH net v3 2/5] eth: fbnic: validate the Rx completion offset
+ and length
 From: netdev-bot+sashiko@kernel.org
 To: yhlee@isslab.korea.ac.kr
 Cc: alexanderduyck@fb.com, kuba@kernel.org, netdev@vger.kernel.org,
@@ -35,11 +35,11 @@ Cc: alexanderduyck@fb.com, kuba@kernel.org, netdev@vger.kernel.org,
  edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org, daskald@meta.com,
  mohsin.bashr@gmail.com, bobbyeshleman@meta.com, daniel.zahka@gmail.com,
  stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 13 Oct 2026 04:35:34 +0000
-Message-ID: <179186613465.434549.17421358167809172410@kernel.org>
-In-Reply-To: =?utf-8?q?=3C25ce85c9821fba5d94932b36b9c9afb9a2fbd12a=2E1791775?=
+Date: Tue, 13 Oct 2026 04:35:36 +0000
+Message-ID: <179186613625.434549.4689508518886265061@kernel.org>
+In-Reply-To: =?utf-8?q?=3C5b7c2618b56d35f50b6847d565a0050cf2a7f371=2E1791775?=
  =?utf-8?q?409=2Egit=2Eyhlee=40isslab=2Ekorea=2Eac=2Ekr=3E?=
-References: =?utf-8?q?=3C25ce85c9821fba5d94932b36b9c9afb9a2fbd12a=2E17917754?=
+References: =?utf-8?q?=3C5b7c2618b56d35f50b6847d565a0050cf2a7f371=2E17917754?=
  =?utf-8?q?09=2Egit=2Eyhlee=40isslab=2Ekorea=2Eac=2Ekr=3E?=
 X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
@@ -51,10 +51,10 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 (2) · Medium: 0 (2) · Low: 0
+Critical: 0 · High: 1 · Medium: 0 (1) · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -62,248 +62,180 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] Rx header offset/length validation is still incomplete at the
-  end of the series.
+- [High] fbnic_pkt_prepare()
+  (drivers/net/ethernet/meta/fbnic/fbnic_txrx.c) still lets a device-…
+- [Low] The commit message says the derived frame end and truesize are
+  clamped "so a FIN descriptor cannot push them past the page".
 
 Pre-existing issues:
-- [High] The Tx completion path still trusts device-reported heads in
-  fbnic_clean_twq0(), even at the end of the series.
-- [High] fbnic_rx_buf_posted() only checks that an ID is inside [head,
-  tail).
-- [Medium] At the reviewed commit, fbnic_pkt_prepare() only does
-  WARN_ON_ONCE(pkt->buff.data_hard_start) when a second HDR_AL…
-- [Medium] At the reviewed commit, fbnic_add_rx_frag() takes a page_pool
-  reference with fbnic_page_pool_get_data() (pagecnt_bias--) and does…
+- [Medium] In fbnic_add_rx_frag(), fbnic_page_pool_get_data() takes a
+  fragment reference by decrementing rx_buf->pagecnt_bias (line 782).
 
 --
 
-eth: fbnic: only act on Rx completions naming a posted buffer
+eth: fbnic: validate the Rx completion offset and length
 
-This patch drops Rx completions whose buffer id is outside the rx_buf[]
-array or outside the posted [head, tail) window, so the driver no longer
-dereferences a NULL page. It also bounds the BDQ head used by
-fbnic_clean_bdq(), and drops META completions that arrive without a
-header buffer.
+This commit adds checks on the header offset and length in
+fbnic_pkt_prepare() and on the payload offset and length in
+fbnic_add_rx_frag(). Completions that fall outside the 4K fragment are
+dropped. It also clamps the derived header frame end and the payload
+truesize to the fragment.
+
+> exceeds the fragment, via the drop path. Clamp the derived frame end and
+> truesize to the fragment so a FIN descriptor cannot push them past the
+> page. A maximum-size header (offset 192, length 3584) stays inside the
+> fragment and is still accepted.
+
+[Severity: Low]
+
+Is this description accurate? The FIN branches already produce values
+inside the fragment:
+
+	hdr_pg_end = FIELD_GET(FBNIC_RCD_AL_PAGE_FIN, rcd) ?
+		     FBNIC_BD_FRAG_SIZE : fbnic_hdr_pg_end(hdr_pg_off, len);
+
+	truesize = FIELD_GET(FBNIC_RCD_AL_PAGE_FIN, rcd) ?
+		   FBNIC_BD_FRAG_SIZE - pg_off : ALIGN(len, 128);
+
+So both new min() calls change only non-FIN completions. The new in-code
+comments describe this correctly, but the commit message says the
+opposite.
+
+The clamp also changes in-spec traffic. Take the 192/3584 example without
+FIN. fbnic_hdr_pg_end() returns ALIGN(4288, 128) - 192 = 4160. Before this
+patch, the shinfo sat at 3840..4160, past the fragment. After it,
+frame_sz is 4096.
+
+Could the commit message say that the clamp fixes an overrun on valid
+non-FIN descriptors? It could also note that the clamp reduces frame_sz
+and the charged truesize for them, since this is headed to stable.
 
 > diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-> index 10caacffee0f0..305fe6d2f511f 100644
+> index 305fe6d2f511f..7dda59bba14ee 100644
 > --- a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
 > +++ b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-> @@ -797,6 +797,34 @@ static void fbnic_page_pool_drain(struct fbnic_ring *ring, unsigned int idx,
->  	rx_buf->netmem = 0;
->  }
+> @@ -1037,13 +1037,34 @@ static void fbnic_pkt_prepare(struct fbnic_napi_vector *nv, u64 rcd,
+>  		return;
+>  	}
 >  
-> +/* The device names an Rx buffer by its index in the buffer descriptor
-> + * ring.  A completion may only name a buffer we posted, that is one in
-> + * [head, tail), so test the index against the array and against the
-> + * posted window.  The window test is not enough on its own: it masks the
-> + * index, so an index past the end of the array can fold back into the
-> + * window and run off rx_buf[].
-> + */
-> +static bool fbnic_rx_buf_posted(struct fbnic_ring *ring, unsigned int idx)
-> +{
-> +	if (idx > ring->size_mask)
-> +		return false;
-> +
-> +	return ((idx - ring->head) & ring->size_mask) < fbnic_desc_used(ring);
-> +}
-
-[Severity: High]
-This is a pre-existing issue, but the commit message rejects masking
-because it "corrupts that buffer's page_pool reference count". Can the
-device still corrupt that count by repeating an id that is inside the
-window?
-
-Every accepted HDR_AL or PAY_AL completion takes a reference, and nothing
-puts a lower bound on the bias:
-
-fbnic_page_pool_get_head() {
-	...
-	rx_buf->pagecnt_bias--;
-	...
-}
-
-fbnic_page_pool_get_data() does the same thing. fbnic_page_pool_init()
-fragmented the page with only FBNIC_PAGECNT_BIAS_MAX (PAGE_SIZE)
-references.
-
-Suppose the device keeps naming idx == ring->head:
-
-- fbnic_rx_buf_posted() returns true every time.
-- fbnic_clean_rcq() sets head0 to ring->head.
-- fbnic_clean_bdq() then returns early without advancing:
-
-	if (head == hw_head)
-		return;
-
-After PAGE_SIZE such completions, pagecnt_bias reaches zero. When those
-skbs are freed, pp_ref_count drops to zero. The page then goes back to
-the page_pool or to the page allocator, while rx_buf[head].netmem still
-points at it.
-
-Later completions naming the slot would hand out references to a freed or
-reused page. fbnic_page_pool_drain() would also call
-page_pool_unref_netmem() with a negative bias.
-
-Can this become a use-after-free of the Rx page? It still looks reachable
-at the end of the series, though only with a misbehaving device.
-
-> +
-> +/* fbnic_clean_bdq() is given a position to consume up to rather than a
-> + * buffer to use, so unlike fbnic_rx_buf_posted() it also accepts tail,
-> + * which is how the teardown path asks for the whole ring to be drained.
-> + */
-> +static bool fbnic_bdq_head_valid(struct fbnic_ring *ring, unsigned int hw_head)
-> +{
-> +	if (hw_head > ring->size_mask)
-> +		return false;
-> +
-> +	return ((hw_head - ring->head) & ring->size_mask) <=
-> +	       fbnic_desc_used(ring);
-> +}
-> +
->  static void fbnic_clean_twq(struct fbnic_napi_vector *nv, int napi_budget,
->  			    struct fbnic_q_triad *qt, s32 ts_head, s32 head0,
->  			    s32 head1)
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the Tx completion side
-trusts a device-reported head in the same way. fbnic_clean_tcq() reads
-head0 straight from the descriptor:
-
-	head0 = FIELD_GET(FBNIC_TCD_TYPE0_HEAD0_MASK, tcd);
-
-fbnic_clean_twq() then passes it to fbnic_clean_twq0() without checking
-it against the posted window. Because clean_desc is masked, the loop
-always terminates. But if hw_head is past ring->tail, can the loop walk
-into a slot that was never posted?
-
-fbnic_clean_twq0() {
-	...
-	clean_desc = (hw_head - head) & ring->size_mask;
-
-	while (clean_desc) {
-		struct sk_buff *skb = ring->tx_buf[head];
-		unsigned int desc_cnt;
-
-		desc_cnt = FBNIC_XMIT_CB(skb)->desc_count;
-	...
-		ring->tx_buf[head] = NULL;
-	...
-}
-
-Consumed slots are set to NULL, and only the first slot of a packet ever
-holds an skb. So once head reaches tail, or right away if the ring is
-empty, skb is NULL and FBNIC_XMIT_CB(skb) dereferences it in NAPI
-context.
-
-The later commit "eth: fbnic: bound the XDP Tx completion head to the
-ring" in this series fixes the twq1 side. Its commit message says:
-
-  "fbnic_clean_twq0() masks the head difference to the ring and is
-  finite"
-
-That holds for termination, but it doesn't cover this NULL dereference
-past the tail. Should twq0 get the same window check?
+> -	page = fbnic_page_pool_get_head(qt, hdr_pg_idx);
 
 [ ... ]
 
-> @@ -985,14 +1020,25 @@ static void fbnic_pkt_prepare(struct fbnic_napi_vector *nv, u64 rcd,
->  {
->  	unsigned int hdr_pg_idx = FIELD_GET(FBNIC_RCD_AL_BUFF_PAGE_MASK, rcd);
->  	unsigned int hdr_pg_off = FIELD_GET(FBNIC_RCD_AL_BUFF_OFF_MASK, rcd);
-> -	struct page *page = fbnic_page_pool_get_head(qt, hdr_pg_idx);
->  	unsigned int len = FIELD_GET(FBNIC_RCD_AL_BUFF_LEN_MASK, rcd);
->  	unsigned int frame_sz, hdr_pg_start, hdr_pg_end, headroom;
->  	unsigned char *hdr_start;
-> +	struct page *page;
->  
->  	/* data_hard_start should always be NULL when this is called */
->  	WARN_ON_ONCE(pkt->buff.data_hard_start);
-
-[Severity: Medium]
-This is a pre-existing issue. If a second HDR_AL completion arrives
-before META, this only warns, and then xdp_init_buff() and
-xdp_prepare_buff() overwrite pkt->buff. Does that leak the earlier header
-page reference and any frags already attached?
-
-The later commit "eth: fbnic: return a pending Rx packet before reusing
-its buffer" in this series fixes this. It calls fbnic_put_pkt_buff() and
-clears data_hard_start before the posted-id check, so the leak is gone by
-the end of the series.
-
->  
-> +	/* A buffer ID we never posted cannot name a buffer we own, so drop
-> +	 * the packet instead of running off the end of rx_buf[] or picking
-> +	 * up a slot we have already drained.
-> +	 */
-> +	if (unlikely(!fbnic_rx_buf_posted(&qt->sub0, hdr_pg_idx))) {
+> +	if (unlikely(hdr_pg_off < FBNIC_RX_HROOM ||
+> +		     hdr_pg_off + len > FBNIC_BD_FRAG_SIZE)) {
 > +		pkt->add_frag_failed = true;
 > +		return;
 > +	}
-> +
-> +	page = fbnic_page_pool_get_head(qt, hdr_pg_idx);
-> +
+>  
 >  	/* Short-cut the end calculation if we know page is fully consumed */
 >  	hdr_pg_end = FIELD_GET(FBNIC_RCD_AL_PAGE_FIN, rcd) ?
 >  		     FBNIC_BD_FRAG_SIZE : fbnic_hdr_pg_end(hdr_pg_off, len);
+>  	hdr_pg_start = fbnic_hdr_pg_start(hdr_pg_off);
+>  
+
+[ ... ]
+
+> +	hdr_pg_end = min(hdr_pg_end, FBNIC_BD_FRAG_SIZE);
+> +
+> +	page = fbnic_page_pool_get_head(qt, hdr_pg_idx);
+> +
+>  	headroom = hdr_pg_off - hdr_pg_start + FBNIC_RX_PAD;
+>  	frame_sz = hdr_pg_end - hdr_pg_start;
+>  	xdp_init_buff(&pkt->buff, frame_sz, &qt->xdp_rxq);
 
 [Severity: High]
-The id is validated now, but hdr_pg_off and len from the same completion
-still feed hdr_pg_end, hdr_pg_start, frame_sz and the DMA sync without any
-check. Two questions here:
 
-- Can an offset below FBNIC_RX_HROOM underflow fbnic_hdr_pg_start()?
-- Can offset plus length push frame_sz and
-  dma_sync_single_range_for_cpu() past the FBNIC_BD_FRAG_SIZE fragment?
+Does the new upper bound in fbnic_pkt_prepare() leave room for the
+skb_shared_info that napi_build_skb() puts at the end of the frame?
 
-The later commit "eth: fbnic: validate the Rx completion offset and
-length" in this series adds checks for these. The header bound it adds
-seems to leave out FBNIC_RX_TROOM, though:
+The check only rejects hdr_pg_off + len > FBNIC_BD_FRAG_SIZE. The frame
+also has to hold FBNIC_RX_TROOM, which is
+SKB_DATA_ALIGN(sizeof(struct skb_shared_info)), or 320 bytes on x86_64.
 
-	if (unlikely(hdr_pg_off < FBNIC_RX_HROOM ||
-		     hdr_pg_off + len > FBNIC_BD_FRAG_SIZE)) {
-	...
-	hdr_pg_end = min(hdr_pg_end, FBNIC_BD_FRAG_SIZE);
+Take a non-FIN completion with hdr_pg_off = 4000 and len = 64. It passes
+the check (4064 <= 4096), and then:
 
-Take hdr_pg_off = 192 and len = 3904. Then hdr_pg_start is 0 and frame_sz
-is 4096. napi_build_skb() puts skb_shared_info at
-4096 - FBNIC_RX_TROOM (3776 on x86-64). xdp_build_skb_from_buff() then
-does:
+  fbnic_hdr_pg_end(4000, 64) = ALIGN(4576, 128) - 192 = 4416
+  hdr_pg_end = min(4416, FBNIC_BD_FRAG_SIZE)        = 4096
+  hdr_pg_start = 4000 - 192                         = 3808
+  frame_sz = 4096 - 3808                            = 288
 
-	__skb_put(skb, xdp->data_end - xdp->data);
+That frame_sz then reaches the core skb builder:
 
-This leaves skb->tail past skb->end, and the packet data overlaps the
-shared info.
+  fbnic_clean_rcq()
+    fbnic_run_xdp()                (no program, or XDP_PASS)
+      fbnic_build_skb()
+        xdp_build_skb_from_buff()
+          napi_build_skb(hard_start, 288)
+            __finalize_skb_around()
+              size -= SKB_DATA_ALIGN(sizeof(struct skb_shared_info));
 
-The CPU writes frags[] netmem pointers, dataref and nr_frags into that
-area. Could kernel pointers end up in the payload delivered to the stack?
-And could a later skb_put() on this skb trip skb_over_panic()?
+Can this subtraction wrap to 0xFFFFFFE0? If so, skb_shinfo() points about
+4 GiB past head, and the memset() of the shinfo writes there. That looks
+like the same __build_skb_around() memset crash quoted in the commit
+message.
 
-That commit's own message gives the legitimate maximum as offset 192 plus
-length 3584, which is 4096 - FBNIC_RX_TROOM. Should the check be
-hdr_pg_off + len + FBNIC_RX_TROOM > FBNIC_BD_FRAG_SIZE instead?
+Any hdr_pg_off above 3968 gives frame_sz below 320, with or without FIN.
+FIN completions already had this before the patch. A non-FIN frame,
+though, always had frame_sz >= len + 512. For these completions, the new
+min() clamp turns a short overrun past the fragment into a write about
+4 GiB away.
+
+A second case is when frame_sz is large enough but the shinfo overlaps
+packet data. With hdr_pg_off = 192 and len = 3900, the frame is clamped
+to frame_sz = 4096, and the shinfo starts at fragment offset 3776, on top
+of received bytes. napi_build_skb() zeroes it. The unchecked __skb_put()
+in xdp_build_skb_from_buff() then leaves skb->tail (4092) past skb->end
+(3776).
+
+Wouldn't a later skb_put() on that skb hit skb_over_panic()?
+
+With an XDP program attached, xdp_buff_add_frag() also writes nr_frags
+and frags[] into those overlapping packet bytes. The program can read and
+modify them. fbnic_put_pkt_buff() later trusts them for
+page_pool_put_full_netmem().
+
+The driver programs the device with MIN_TROOM = FBNIC_RX_TROOM in
+fbnic_config_drop_mode_rcq(). FBNIC_HDS_THRESH_MAX is also defined as:
+
+  (4096 - FBNIC_RX_HROOM - FBNIC_RX_TROOM - FBNIC_RX_PAD)
+
+The commit message's maximum example (192 + 3584 = 3776) ends exactly at
+4096 - FBNIC_RX_TROOM.
+
+Should the check be something like this instead?
+
+	hdr_pg_off + len + FBNIC_RX_TROOM > FBNIC_BD_FRAG_SIZE
+
+That still accepts the 192/3584 case. It also keeps frame_sz >= len + 512
+with no overlap. The last patch in the series leaves this check
+unchanged.
+
+> @@ -1091,11 +1112,25 @@ static void fbnic_add_rx_frag(struct fbnic_napi_vector *nv, u64 rcd,
+>  		return;
+>  	}
+>  
+> -	netmem = fbnic_page_pool_get_data(qt, pg_idx);
+> -
+>  	truesize = FIELD_GET(FBNIC_RCD_AL_PAGE_FIN, rcd) ?
+>  		   FBNIC_BD_FRAG_SIZE - pg_off : ALIGN(len, 128);
+>  
 
 [ ... ]
 
-> @@ -1026,10 +1072,27 @@ static void fbnic_add_rx_frag(struct fbnic_napi_vector *nv, u64 rcd,
-
-[ ... ]
-
-> +	if (unlikely(!fbnic_rx_buf_posted(&qt->sub1, pg_idx))) {
-> +		pkt->add_frag_failed = true;
-> +		return;
-> +	}
+> +	truesize = min(truesize, FBNIC_BD_FRAG_SIZE - pg_off);
 > +
 > +	netmem = fbnic_page_pool_get_data(qt, pg_idx);
 > +
->  	truesize = FIELD_GET(FBNIC_RCD_AL_PAGE_FIN, rcd) ?
->  		   FBNIC_BD_FRAG_SIZE - pg_off : ALIGN(len, 128);
 
 [Severity: Medium]
-This is a pre-existing issue. Further down in fbnic_add_rx_frag(), the
-failure path doesn't return the reference taken by
-fbnic_page_pool_get_data():
+
+This isn't a bug introduced by this patch, but does fbnic_add_rx_frag()
+leak the sub1 page reference taken here when xdp_buff_add_frag() fails?
+
+fbnic_page_pool_get_data() decrements rx_buf->pagecnt_bias. Further down,
+the failure path only marks the packet:
 
 	added = xdp_buff_add_frag(&pkt->buff, netmem, pg_off, len, truesize);
 	if (unlikely(!added)) {
@@ -312,13 +244,16 @@ fbnic_page_pool_get_data():
 				"Failed to add fragment to xdp_buff\n");
 	}
 
-If the device sends more than MAX_SKB_FRAGS payload completions for one
-packet, does this leak the sub1 page?
+When the buffer already holds MAX_SKB_FRAGS fragments, the netmem never
+reaches shinfo->frags[], so fbnic_put_pkt_buff() never puts it.
+fbnic_page_pool_drain() then unrefs with the reduced bias, and the page
+never goes back to the pool.
 
-The later commit "eth: fbnic: return the page reference taken for a
-dropped Rx fragment" in this series fixes this. It restores
-qt->sub1.rx_buf[pg_idx].pagecnt_bias on the failure path, so the leak is
-gone by the end of the series.
+This patch only moves the fbnic_page_pool_get_data() call below the new
+checks. A later patch in this series, "eth: fbnic: return the page
+reference taken for a dropped Rx fragment", adds
+qt->sub1.rx_buf[pg_idx].pagecnt_bias++ on this path, so the leak is gone
+by the end of the series.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1791775409.git.yhlee%40isslab.korea.ac.kr
