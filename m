@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAB6133F59C;
-	Tue, 13 Oct 2026 09:12:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3BA3EEAC4;
+	Tue, 13 Oct 2026 09:12:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791882773; cv=none; b=HBrpzbT6CGCEBsFEZ9nGROuqGFktQkKL/Rk/8uSeg+YYyAeAlfRLyF913DhCn/fIyDyD0jlfq2KdE5Tb0j+8fqDi4s0QCIz7LGP6nL/5SWV8mDddwU+9newXtxjHf3Tng7j6ghE3YpsNRIgMPBq3lXDYj1sb1/+egoTfMid4FxA=
+	t=1791882774; cv=none; b=oWbQmTtWbtHxsrAk5mIJb1m8Ih2ueesBoOPxYKINjj06iW66G7+HgYgglArS46/clFVymMw4wRR7AIguNpzKa69B8YaAvwFqeBQF4SzClqfbWVAXk7ZGRjWhMuUB6NiKG0oIAUHmexuPHb4FDp/eJLzmf/bXur5kdt/mKz5KHns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791882773; c=relaxed/simple;
-	bh=dXssZh07vJMDpSMqwEZqpjTMP3R2Z2flK5Tzc/DqKF0=;
+	s=arc-20240116; t=1791882774; c=relaxed/simple;
+	bh=HBj6SHWAb8z8E8i92WgSzX/GnYHsPAizc+RXwUhPG1Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=smhq+83FBhrCh9wjRWcZIQsoBY9r2aZlfdFUDrGhFva6l2pkG6LtBIAnEuMV3CFjgwIDhCVkRRLuixyUV9cBTbER/UXOF/Yt99dmkpe65R/9FmTX1O72EAZn9p7e1cs/zft14tMjmrNpAevaufC1Z1d54pzlldiUshcxzV85/s8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QKDKgOhX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=L0TFNt0d7wZrIU7RTkCEF6qqB0+HL+iyFSRag+lVanDxckQ3dUsJoNL/0v+jahaEMkCMQD55LWo5KgpOKRuJR9C3ZEHqMK+F2FZ6UvGX3y1zfWKwadauMZR22+g6evqkXrxNYuDFSqWPRnbiBxD5LnK0LgsjuUIbnu4WiwZD4tE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BX6cTYUt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QKDKgOhX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B3A81F00899;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BX6cTYUt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DE621F0089A;
 	Tue, 13 Oct 2026 09:12:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1791882771;
-	bh=Jjya3k/Vj1CbSCqnYl95YQIUgdoL4SO+7EvpsBHpjnw=;
+	bh=ZAogXmbMRVSsrP9Od8GzwAseGRotthvQNg3JPjIf67k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QKDKgOhX+QHWomH93e5skSJGrbmelzXwBTqmFQUUbRb64A4nMb75b88aITGxboGEF
-	 nLffdEYsX0vOVTRD+JQUCyFb3aoM0mVthC6a/R9eQjurQWqHn4IKImDBj0rjkkHMaS
-	 +TVz9w6ml9Pv46JHRbPn/suyKb6w1zNAmv00tCLnazK8zeTRuYwjJtE9BLBeQM4VlO
-	 PlbIwWUQaBqzFCG9C7Jdzas1GkFqFssyu5wwX2O4g5lLkEWVRQT24eMr4JD/lpCjK4
-	 JoWC2rZpgqh4Eugk6SZUdLtBJxOUXQ1gfqXDU7n4FYNxTwuC3ln/VXJQ3+nbGtMPLJ
-	 WkCO6CYJ7wAzw==
+	b=BX6cTYUti0RFJRaH/1kYr8nuSE12IBm31OfvDhHweUSMS7sTG0GF3wjBSH+E/eOH7
+	 hZbC/S2oOQfguDmHhhqh3NN/p1TZUQvU9Zb2vFjsAgXOlGc54hzKr3IDtvR0xCl1JW
+	 Dzx4tgmfEvoW4sMwemQZdM8Dkh+U9YbK4QVqCXVucjg3XrJk9SO6KG36Abemv0hebV
+	 R5Avgo8tW2tbib8REm9g+Fl8VeQOc3oQH04NLlNQY65f5Rbg6//YMH7q1+gG9DrphR
+	 BUFR49WYx/uaLBwFrEhLyFL+0cPeSo5kjXX18DELB943BQzhZJhtT8Ks7sAX0/AzYL
+	 R3MQqzHVbjLkg==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+	Vicki Pfau <vi@endrift.com>,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org,
-	Vicki Pfau <vi@endrift.com>,
 	Jiri Kosina <jkosina@suse.com>
-Subject: [STABLE v6.6 3/5] HID: steam: Rearrange teardown sequence
-Date: Tue, 13 Oct 2026 09:11:52 +0000
-Message-ID: <20261013091156.528734-3-lee@kernel.org>
+Subject: [STABLE v6.1 2/6] HID: hid-steam: Make client_opened a counter
+Date: Tue, 13 Oct 2026 09:11:58 +0000
+Message-ID: <20261013091204.529049-2-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-In-Reply-To: <20261013091156.528734-1-lee@kernel.org>
-References: <20261013091156.528734-1-lee@kernel.org>
+In-Reply-To: <20261013091204.529049-1-lee@kernel.org>
+References: <20261013091204.529049-1-lee@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,68 +51,79 @@ Content-Transfer-Encoding: 8bit
 
 From: Vicki Pfau <vi@endrift.com>
 
-[ Upstream commit ddce9641ce924ed91ec8304577e463823a29ffaf ]
+[ Upstream commit 555b818adb97eca70210a49ba3f1d27882dde092 ]
 
-This fixes a narrow window during the teardown sequence where callbacks
-could still be scheduled during cleanup that would then have a dangling
-pointer to the now-freed steam struct.
-
-This also puts work canceling for rumble and mode switch in
-steam_unregister, as that shouldn't persist while the client hdev is open.
+The client_opened variable was used to track if the hidraw was opened by any
+clients to silence keyboard/mouse events while opened. However, there was no
+counting of how many clients were opened, so opening two at the same time and
+then closing one would fool the driver into thinking it had no remaining opened
+clients.
 
 Signed-off-by: Vicki Pfau <vi@endrift.com>
 Signed-off-by: Jiri Kosina <jkosina@suse.com>
-[Lee: Omit coalesce_rumble_work cancellation as 1d4549fd1115 ("HID:
-      steam: Coalesce rumble packets") is not present]
+[Lee: Adapt steam_client_ll_open() and steam_client_ll_close() as
+      691ead124a0c and e1147961b214 are not present]
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/hid/hid-steam.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ drivers/hid/hid-steam.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/hid/hid-steam.c b/drivers/hid/hid-steam.c
-index 59e39bdf34ed..df176a722061 100644
+index 2f5e9d3e6499..4a0a13b0ae62 100644
 --- a/drivers/hid/hid-steam.c
 +++ b/drivers/hid/hid-steam.c
-@@ -1020,6 +1020,8 @@ static void steam_unregister(struct steam_device *steam)
- 	steam_battery_unregister(steam);
- 	steam_sensors_unregister(steam);
- 	steam_input_unregister(steam);
-+	cancel_work_sync(&steam->rumble_work);
-+	cancel_delayed_work_sync(&steam->mode_switch);
- 	mutex_lock(&steam_devices_lock);
- 	list_del_init(&steam->list);
- 	mutex_unlock(&steam_devices_lock);
-@@ -1301,24 +1303,24 @@ static int steam_probe(struct hid_device *hdev,
- static void steam_remove(struct hid_device *hdev)
+@@ -114,7 +114,7 @@ struct steam_device {
+ 	spinlock_t lock;
+ 	struct hid_device *hdev, *client_hdev;
+ 	struct mutex mutex;
+-	bool client_opened;
++	unsigned long client_opened;
+ 	struct input_dev __rcu *input;
+ 	unsigned long quirks;
+ 	struct work_struct work_connect;
+@@ -509,7 +509,7 @@ static void steam_battery_unregister(struct steam_device *steam)
+ static int steam_register(struct steam_device *steam)
  {
- 	struct steam_device *steam = hid_get_drvdata(hdev);
-+	unsigned long flags;
+ 	int ret;
+-	bool client_opened;
++	unsigned long client_opened;
  
- 	if (!steam || hdev->group == HID_GROUP_STEAM) {
- 		hid_hw_stop(hdev);
- 		return;
- 	}
+ 	/*
+ 	 * This function can be called several times in a row with the
+@@ -634,7 +634,7 @@ static int steam_client_ll_open(struct hid_device *hdev)
+ 	struct steam_device *steam = hdev->driver_data;
  
-+	hid_hw_close(hdev);
- 	hid_destroy_device(steam->client_hdev);
--	cancel_delayed_work_sync(&steam->mode_switch);
--	cancel_work_sync(&steam->work_connect);
--	cancel_work_sync(&steam->rumble_work);
--	steam->client_hdev = NULL;
-+	spin_lock_irqsave(&steam->lock, flags);
- 	steam->client_opened = 0;
-+	spin_unlock_irqrestore(&steam->lock, flags);
-+	cancel_work_sync(&steam->work_connect);
- 	if (steam->quirks & STEAM_QUIRK_WIRELESS) {
- 		hid_info(hdev, "Steam wireless receiver disconnected");
- 	}
--	hid_hw_close(hdev);
--	hid_hw_stop(hdev);
- 	steam_unregister(steam);
-+	hid_hw_stop(hdev);
+ 	mutex_lock(&steam->mutex);
+-	steam->client_opened = true;
++	steam->client_opened++;
+ 	mutex_unlock(&steam->mutex);
+ 
+ 	steam_input_unregister(steam);
+@@ -654,12 +654,12 @@ static void steam_client_ll_close(struct hid_device *hdev)
+ 	spin_unlock_irqrestore(&steam->lock, flags);
+ 
+ 	mutex_lock(&steam->mutex);
+-	steam->client_opened = false;
+-	if (connected)
++	steam->client_opened--;
++	if (connected && !steam->client_opened)
+ 		steam_set_lizard_mode(steam, lizard_mode);
+ 	mutex_unlock(&steam->mutex);
+ 
+-	if (connected)
++	if (connected && !steam->client_opened)
+ 		steam_input_register(steam);
  }
  
- static void steam_do_connect_event(struct steam_device *steam, bool connected)
+@@ -824,7 +824,7 @@ static void steam_remove(struct hid_device *hdev)
+ 	}
+ 
+ 	hid_destroy_device(steam->client_hdev);
+-	steam->client_opened = false;
++	steam->client_opened = 0;
+ 	cancel_work_sync(&steam->work_connect);
+ 	if (steam->quirks & STEAM_QUIRK_WIRELESS) {
+ 		hid_info(hdev, "Steam wireless receiver disconnected");
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
