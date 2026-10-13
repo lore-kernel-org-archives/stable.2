@@ -1,127 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com [209.85.221.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D22B3BCD16;
-	Tue, 13 Oct 2026 09:00:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6A3349CF0
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 09:02:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791882033; cv=none; b=polg0g3tQE7QwJpJQIkfAt5nop1WCNepFR7MEe2ZJnOy6Pm+Ly1jsOVWBYehAeimrEiY9EqP2biBWQmyGT8xUsaeVe8i7AVeXynM8GFymz8NFJalODKw7sXyjy4hePFOVnm6/ljwNCo03+aKzzboJnB5CXlfao1KuRIeVRsV0Nc=
+	t=1791882154; cv=none; b=L5e+eY1JYhcZ0ow2Cj/YJbt+WYd3DVoAEuIanrJbOyZBTEn3bITSzq9bMe/F0Sr8Dbazn+2BX1wRlGqlJcdHNNJk591EZgqJJyp3toi2RLaV5cp9dZmSWXmL0hUdTNsHIS4ADtYuUkvjpBv8B3YDq54BB5iHovN5+/k0Z+os7eE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791882033; c=relaxed/simple;
-	bh=GRE6ERaWL+Ad+SdPNiy47nxXkJAumlHKORcVMihtbi4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rMGgUyRktOKLHMVlUiCKdYkuCx08jPZEbikKTbH4A8ATSr/Z3Fl2SIYuh16m0nXRqxUPjh/AEzJKYETvfmDcU7kVh+TMZqihWq/R0WjvTh32zovPtf2RABVFK4NmJrqJeePIaZu+gLr54lkSYXootf5VsEoX22VA/kHAP46Pveo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=STblXv/1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791882154; c=relaxed/simple;
+	bh=BvEydwlc8/td6/sy8cQ8BY25Jx9eOqFIF3aXqYyOBCo=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=SSzRrJJMR5TwZq9J14KnU/ZRuH9NRji0XpCdJW1nZ1r2Wc8nH5l7GvyWii8PDQYdZieM4D2rir2GQjn3lVLXsnN+CWJ06gAX/jsJBQ32ObLOyEOSz03yo6eK2iBkDfQvz2NqCiRVPAaATbtL4rIs1JJ0LnIDQHvbzvY0jyODnng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=SH2xzQuu; arc=none smtp.client-ip=209.85.221.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="STblXv/1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B9AF1F000FF;
-	Tue, 13 Oct 2026 09:00:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791882031;
-	bh=eKmb89Y/N1R79MXrWMtUJkPTpf2JG7q7c2wsunA5liM=;
-	h=From:To:Cc:Subject:Date;
-	b=STblXv/1mp8oATNgOhdan4MxbVF3StuxgixVxfdU4MUrqnaOW5nnbOPeGfW3N/Uee
-	 ybUmMDzwURNusmAlaEGZY9ovk68JAvJ0MeyfCea+OPbiQ7E75kIb3jGP+mAdCsSVoH
-	 oygx8Drk9ZFnvXCFs6y7dAk/zpTLe9g2wv/DY1DEGD7raRThmPtusOBwS1zZtNw9xZ
-	 CB3ARoUuF4fjyJQV2+bSdh50wVjHj70wJRFDLD5TKQ6Prr2RVmPaQJ/iQqjiOa4AwS
-	 0auo2JOFmM9nLCc/jC2tENF78Cf3zYu2GbwQoXc5UrbCM/2X8x0ZQlYnSEYB3AJSrQ
-	 7lsF6yUFK4kfg==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] tracing/synthetic: Handle dynamic string read faults
-Date: Tue, 13 Oct 2026 08:44:38 +0000
-Message-ID: <20261013084439.487647-1-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="SH2xzQuu"
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48c415561aaso1655650f8f.1
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 02:02:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791882151; x=1792486951; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6XndXt4WnkjBG+HEbSkFWOOVRpYsu25e8KIZ/tWatG4=;
+        b=SH2xzQuugfDzjZ2G0w/vz+E0Mj0tCTCwkfun+4wyilGLUM3k2LNSvIxWKvR82oFHGx
+         fv5zuLUaEqOH+QMaWQMyCgUGiEF6al2/Icw4CPVUwAUaA9xeULwsmPtdS6XGMc6Exrqr
+         nH6saBWFU+BmrXl2pspOer8/3AxKhaX2YIP4Gx1Ws5Mf6cgQYHBbbEbG32tZDqP2S/G3
+         mMCTRD4/FShOdAeDK9ImkJHGgQMY/kY0z8rqV4OE4To2DDJ/hmAkv0D0EcnVfCGUrGau
+         61kSf/sNj1vGUf2JSdJduN8jNWG0Am/kcxRCZ4VTlRWiiEw2yZcE4uQduLXPgpJLgwjK
+         al0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791882151; x=1792486951;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6XndXt4WnkjBG+HEbSkFWOOVRpYsu25e8KIZ/tWatG4=;
+        b=FsAZwneG6QnmgkuRtqwAqY6qlYaz/wqVVl1di5w24ZELlv266AS3oYM5Wypf3N3MJX
+         Uo4ekGywjFJiOchIWwCGf9Nx6Gej4W4igFbyWv3I+WLjNWOn7TynmBe7qhRHKv8GxRXu
+         lQL/dKeCseAnXsgd+zs6G7+ytoNEJrWGQhrFIsJw9m7FqVixaUm7N3QRy2PG+RwB/5uL
+         Hxte0Z9o4ubEGgT3geS6zExLiZz80zNFkn5Ldr/6L5WC+q1dnpC1HBX53p5y+r/jbP2r
+         ZQ7CCoINOBG8FtLLjh/0OO5HPP7O/UWXkgfXzozWpr/aAfvkPoAxIzqgZAsb+oF7oHY7
+         q7Lg==
+X-Gm-Message-State: AFq9FYKwE9rzyH5aZmq9iVDTkW4cwYpYTrxiDgE4sHLbErfuscZs/7Fa
+	RxxsC0ZLHuCGQ19qzD1E2yV3jmy4190NRwQrB/huzkfVZol6riT9P/W27ugiDCq/dv6SI0ZQHEx
+	Yv1/HsDMcH5Rny2OTIFE62H5VKS5gAT4V+yK7vdcqefWzwhayPGB1uIC1PJvDr0QdfaD4FKA96h
+	Zwny4zAWNHf+/CLlLzzb72TqgPEaQUtitUC3SV/pF2l/VWS8M=
+X-Received: from wmbgz6.prod.google.com ([2002:a05:600c:8886:b0:4a1:96ee:9879])
+ (user=jpiecuch job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:3e07:b0:4a1:a009:9724 with SMTP id 5b1f17b1804b1-4a1a00997f1mr85035105e9.7.1791882150446;
+ Tue, 13 Oct 2026 02:02:30 -0700 (PDT)
+Date: Tue, 13 Oct 2026 09:02:24 +0000
+In-Reply-To: <2026101233-atlantic-thwarting-31cc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <2026101233-atlantic-thwarting-31cc@gregkh>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261013090229.3584603-1-jpiecuch@google.com>
+Subject: [PATCH 7.2.y] sched_ext: Call ops.dequeue() when a task arrives on a
+ remote local DSQ
+From: Kuba Piecuch <jpiecuch@google.com>
+To: stable@vger.kernel.org
+Cc: Kuba Piecuch <jpiecuch@google.com>, Andrea Righi <arighi@nvidia.com>, Tejun Heo <tj@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Commit 0934ae9977c2 ("tracing: Fix reading strings from synthetic
-events") switched synthetic event dynamic strings to use
-fetch_store_strlen() and fetch_store_string(), relying on commit
-2e9906f84fc7 ("tracing: Add "(fault)" name injection to kernel probes")
-to reserve and store FAULT_STRING when a string address faults.
+When a task in the BPF scheduler's custody is moved to another CPU's
+local DSQ, ops.dequeue() is only called once the task is picked for
+execution, from set_next_task_scx() with SCX_DEQ_CORE_SCHED_EXEC, even
+though no core-sched pick took place. It should instead be called
+without flags when the task is inserted into the destination DSQ, as it
+is for same-rq dispatches.
 
-When commit 4ed8f337dee3 ("Revert "tracing: Add "(fault)" name injection
-to kernel probes"") and commit 797311bce5c2 ("tracing/probes: Fix to
-record 0-length data_loc in fetch_store_string*() if fails") later
-reverted FAULT_STRING injection in favour of recording a 0-length
-data_loc on fault, synthetic events were left unchanged.
+move_remote_task_to_local_dsq() sets p->scx.sticky_cpu across the
+migration so that deactivate_task() on the source rq doesn't end custody.
+Since commit b75aaea24c9f ("sched_ext: Properly mark SCX-internal
+migrations via sticky_cpu"), enqueue_task_scx() only clears it after
+inserting the task, so task_leave_custody() still sees the migration in
+progress and skips the custody exit.
 
-Consequently, a faulting kernel string address causes get_field_size()
-to add a negative error code (-EFAULT) to fields_size, under-reserving
-the trace buffer entry, while trace_string() casts the negative return
-value to an unsigned length and passes it to fetch_store_string() and
-write_synth_entry(), corrupting the ring buffer.
+Clear p->scx.sticky_cpu as soon as enqueue_task_scx() has read it, as
+was done before that commit. The source side is unaffected.
 
-Skip non-positive lengths in get_field_size(), record a 0-length
-dynamic field in trace_string() when fetching a dynamic string fails,
-and print FAULT_STRING in print_synth_event() when a dynamic string has
-zero length, matching trace_probe.
-
-Fixes: 4ed8f337dee3 ("Revert "tracing: Add "(fault)" name injection to kernel probes"")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
+Fixes: ebf1ccff79c4 ("sched_ext: Fix ops.dequeue() semantics")
+Cc: stable@vger.kernel.org # 7.1.x: 18d62044cda7: sched_ext: Preserve rq tracking across local DSQ dispatch
+Cc: stable@vger.kernel.org # 7.1.x
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
+Assisted-by: Claude:claude-opus-5.5
+Signed-off-by: Kuba Piecuch <jpiecuch@google.com>
+Signed-off-by: Tejun Heo <tj@kernel.org>
+(cherry picked from commit af701b8d3238b9eb7cd450b0491300452c700bf5)
+[ jpiecuch: resolved context conflict, 7.2.y still names the function
+  do_enqueue_task() rather than scx_do_enqueue_task() ]
+Signed-off-by: Kuba Piecuch <jpiecuch@google.com>
 ---
- kernel/trace/trace_events_synth.c | 19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
+ kernel/sched/ext/ext.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/trace/trace_events_synth.c b/kernel/trace/trace_events_synth.c
-index dc15658a887c..7506e2e1f64a 100644
---- a/kernel/trace/trace_events_synth.c
-+++ b/kernel/trace/trace_events_synth.c
-@@ -376,7 +376,9 @@ static enum print_line_t print_synth_event(struct trace_iterator *iter,
- 				union trace_synth_field *data = &entry->fields[n_u64];
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index cd7cbd1c99a2..0a6002cdfe08 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -2044,6 +2044,13 @@ static void enqueue_task_scx(struct rq *rq, struct task_struct *p, int core_enq_
+ 	int sticky_cpu = p->scx.sticky_cpu;
+ 	u64 enq_flags = core_enq_flags | rq->scx.extra_enq_flags;
  
- 				trace_seq_printf(s, print_fmt, se->fields[i]->name,
--						 (char *)entry + data->as_dynamic.offset,
-+						 data->as_dynamic.len ?
-+						 (char *)entry + data->as_dynamic.offset :
-+						 FAULT_STRING,
- 						 i == se->n_fields - 1 ? "" : " ");
- 				n_u64++;
- 			} else {
-@@ -438,11 +440,20 @@ static unsigned int trace_string(struct synth_trace_event *entry,
- 	if (is_dynamic) {
- 		union trace_synth_field *data = &entry->fields[*n_u64];
- 
--		len = fetch_store_strlen((unsigned long)str_val);
- 		data->as_dynamic.offset = struct_size(entry, fields, event->n_u64) + data_size;
--		data->as_dynamic.len = len;
++	/*
++	 * An SCX-internal migration ends on arrival. Clear sticky_cpu so @p can
++	 * leave custody when inserted into the destination DSQ.
++	 */
++	if (sticky_cpu >= 0)
++		p->scx.sticky_cpu = -1;
 +
-+		ret = fetch_store_strlen((unsigned long)str_val);
-+		if (ret <= 0) {
-+			data->as_dynamic.len = 0;
-+			(*n_u64)++;
-+			return 0;
-+		}
-+
-+		data->as_dynamic.len = ret;
+ 	/*
+ 	 * SCX_RQ_IN_WAKEUP promises a task_woken_scx() call once this enqueue
+ 	 * returns. Only the core's wakeup path delivers one. The flags stashed
+@@ -2082,9 +2089,6 @@ static void enqueue_task_scx(struct rq *rq, struct task_struct *p, int core_enq_
+ 		dl_server_start(&rq->ext_server);
  
- 		ret = fetch_store_string((unsigned long)str_val, &entry->fields[*n_u64], entry);
-+		if (ret > 0)
-+			len = ret;
+ 	do_enqueue_task(rq, p, enq_flags, sticky_cpu);
+-
+-	if (sticky_cpu >= 0)
+-		p->scx.sticky_cpu = -1;
+ out:
+ 	rq->scx.flags &= ~SCX_RQ_IN_WAKEUP;
  
- 		(*n_u64)++;
- 	} else {
-@@ -522,6 +533,8 @@ static __always_inline int get_field_size(struct synth_event *event,
- 			len *= sizeof(unsigned long);
- 		} else {
- 			len = fetch_store_strlen((unsigned long)str_val);
-+			if (len <= 0)
-+				continue;
- 		}
- 
- 		fields_size += len;
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
