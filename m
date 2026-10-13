@@ -1,77 +1,77 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mail-yx2-f9.google.com (mail-yx2-f9.google.com [74.125.224.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC1B148AE17
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:32:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A70847A872
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:33:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791912724; cv=none; b=sv+KlAFnK1TU5zlbRa6BDFTRtrlggioSzAfska6ng9Eobjs886LCS6S0uYe7+N7Xc6ItfNbCCl/oKox3jNGhekkdyiYErsFd0cOyLrYeqgPMMvLBr0nCnyoq3qCrlpFTnUVwYYy4Xbv35rZhFtHOPxhGhw8ReGnXFs3F39t7A2M=
+	t=1791912804; cv=none; b=UxUWGa6A36zvp6K53U03fiq8lk9h+0zQEvKNAUo2WIKmu9ZYgfzbFytdDhDldfOx5qXyL4H8WqLa9JFw7lFntbGJNyxgoqMmXYmnCew0Af0bCTNlInSMJfS3DzeH5sJYU1GLgaLbEX0PVO/tV0/vsrHDDQBbGDbhOIkuwNpfSDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791912724; c=relaxed/simple;
-	bh=mZ+27cf/ial1Kmh8g9YuKRqBc89avEfQ355XOYWXwMY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MAanwWOzac+Ms1U66Lng1FugkT2E5pPfEs+L18yDu/6SMoqMIHAVc+/QKITZJ0IEtZkqpnzMsa5qbvXUoWgMu3kGiBfiXc0xcglsFq1f3m5uSwl9gE/ZySWaufp4qsrlKMONjZuQSQBf/pi8SEcXilGo0rQt+ghB6F79MK30k9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=Thp24BMc; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791912804; c=relaxed/simple;
+	bh=JVFkb7Cu6YP094+ZnATto6Q9s4QbtUg3QlEdZAc0Qo4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rAoOXAx5kXImoesHWc23bJTaVntKZfOeF/zczTDUNYYGWsjdqrj/l2LBEh1yCcNmod1s1r5u5UuM3xVRNU4M6e29iTkVOyYXKWJlXb0myFcVoLcFwvADOUdoSfpE+7O7OIZbwSiGkUstT92P8FGjecLNtKIDr/2qxaqtFURjtqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AiqjafpK; arc=none smtp.client-ip=74.125.224.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="Thp24BMc"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ab868eb9cfso40059a91.0
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 10:32:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AiqjafpK"
+Received: by mail-yx2-f9.google.com with SMTP id 956f58d0204a3-6757067f4e9so1339580d50.0
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 10:33:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791912721; x=1792517521; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6gF7titqAQOhWgf/cID4J3N6cuUz4241e7eJ9tfRVLQ=;
-        b=Thp24BMc++oldWYY5fJ7dvx+TdCjnRPA4JnxFYP9mLFe2Yt5QA1V4bkIt29GoVaFAH
-         yX2JegtgW4zGXUBgD9KTzqhGSczjsDkvmra5VVMYGV5trlrTQou7NbmiBOIlpiKJ9ARb
-         3Q9RTwS1376Hzf7gyxY6VX4u4iwQm/r5yYYa/FpgRAOrw/cnMiGuSWzUwquh09vdYt3d
-         K5o65iluAV+5+gRAMYSLF/sdSo8/pVCmfXcuB/SZ776bmArJ4ffEw7XYh4vjqEI0NJiW
-         taYkdd+e7Nibxm00WEsg1XGqCQgHMMVSRiwQViulwzdLqSzJPP3FjZXB2SkPXowdFXdK
-         b5rg==
+        d=gmail.com; s=20251104; t=1791912802; x=1792517602; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ktaJr2DM5Zu0cnAztDTvIMhfnw3Hsx1asRS1ecJrXeg=;
+        b=AiqjafpK1JYuCmn+s3TiNuPOZcd9gH6oLc0ptahOzx4EMyOWymGzmF43/cg+rE4h/z
+         DWLLDpTEmEX+1qUBfe9zkkJSk/KWhxS7D/IMwyQeHiTl+25Fr1oGh6ueEGoOdPD/30kH
+         9xpDhE6rKyDWK+sHipKQcBJtbAWPqTBA4juOAmRDB77qtH7M+gfSOU7SffhwJxQeWaLH
+         BO09wPhjIcEqMtDriZvP27sPMgnlVFusMUc2cipCF5iaF4blzTN/kfVw3gNt6ic3Ly5f
+         bTFYI2T6Lk6JX5UqXWsZqm4iQZwxC78BUrprcUrupB/ICwS6wiuVs5iuyOV1oAiJ5Sgk
+         H77Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791912721; x=1792517521;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6gF7titqAQOhWgf/cID4J3N6cuUz4241e7eJ9tfRVLQ=;
-        b=wuJH+tGAgdSkvVvoKKj+PKrAWV/bUzmckJmY+3cXN6AxoZAs6UqRagp+wTqLBjtdza
-         UIOE20OBDqzGY7mrk1yM0kJ8gVjOLBnvej6U3ssfBkmbL1PV7X/KF6+hxEw+98cxqj+T
-         2m/M/oEDnoYT81U7Ro5P1k6l37w5Wdvw3cy57GeH7WYKBDQqtUltNqm8oqp9k3VDttNL
-         +Ttj8yShoyMLuCOnCBgBPZqf46GzIZwdG1uZ/we0afAxNRVV1epG53ZRWAYKCjMbHh05
-         iAyho+nQNUBcfXbff1E829Mx9bekGmg6xfiPe83bu5yv30ZzxAglXcihQdebgrn1JyZH
-         nBrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz+7myJx3CG2ykOSung6CnKh/yvbz0hCdcvfHxGDyzZ2/6Bp8cJRM2DZD4KOFEKQLKekg/WQl8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLG86W4bCbEPy5JW01Y0t4AnrjrsHhEbk1ZQPZzHII/O54eyAub
-	t6/7CDD3X+OV0VDy6xATyn4xy9tX/AcaDmEhjY9D7iLJWp+eU07yubR73H/HFfgnnCY=
-X-Gm-Gg: AYBFou3B53tGLiRCSLOuohk0TAytMX1gpgAWH0AX3BXRfyiI+NCr/6eoT0MFkKyyEU8
-	3rJUx//yeR25+3SCroYsEdBa7BhotejhTgZRecfbKBUA3QstglmiKMvWFyCh1sLX03RB7biCAz8
-	yQO80b0fFnWEo3gVoYSyzDgz6dbiQWENQWRGZXMi2mKSbdSR0U2V9ce/pHWu8AHLyri92VvmiSD
-	jv228NEh3bo/0P7XadF4xXdpmSPJoCEEIQkwuxyZGa5SnBiVMQhrgWMoa5XSu7fQXxK8U9S3kyo
-	izz8Q9C4UkEdKFDrphcDRRObDTXkpHdhIy2DIpoNnjku9xhBs12d6lmw79DJyrA+iT5nsaswcGg
-	H+RM0A/lpkjgP1r9fQRdkbY94vWySDz+iy60IU+tyhfT4dMQWvQ6s/ehBM49/ybZSgv+sDE6zbL
-	/ad7dkmUybJu7kVbM+Pajz14ij/lNURqi/IAWeshkf6exFYi7o3fMxTlT7EzTajAjAjWBFs4pPV
-	a0kafMdyXkQVPyvJHx9oTm496MOifg=
-X-Received: by 2002:a17:90a:d006:b0:3a8:6a04:80ef with SMTP id 98e67ed59e1d1-3ab3a2901c2mr9313055a91.6.1791912721027;
-        Tue, 13 Oct 2026 10:32:01 -0700 (PDT)
-Received: from localhost.localdomain ([2406:5900:1044:110c:c51c:be8a:c517:276])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac6019ca59sm607396a91.9.2026.10.13.10.31.57
+        d=1e100.net; s=20260707; t=1791912802; x=1792517602;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ktaJr2DM5Zu0cnAztDTvIMhfnw3Hsx1asRS1ecJrXeg=;
+        b=MAmuVXgJ0QsKPfE0lrN3Uafl5NHrb9baSD/Joi92EGIUOD5NWu3Xp4jobhm3kc2k/O
+         F5mhoAQ6C7Zu6EitHWYZxT4oSl4gprhu8BP2ldMs87nn8j7Bx7/uCIXjCJCHFlQmCPw5
+         1qj9RD1ZVFxhqv2KHrclv7M4lTrs8LC5H4MO+qCBkYG32WKOzWZMIcqvTTC9lFKi1hg5
+         LNrslkyWDMtcRy2+fMDYecgYyodS83nOVgFZAoNGcQuniDrxVh+vmZlReN0KQfAhcI4U
+         wfMOrW9iwxXMi2bzKdZxErFXlQ2Xh3Jt8u2dyPkuWvRbo7VEgtiPfcQZqW9iYJO35srD
+         H5rw==
+X-Forwarded-Encrypted: i=1; AKwUvBzkrRsJy95ypCxgaXrqJ4pd0cuF3cyNhBbZoEAgfr6zck16UOvEroAtrkGifsT0t16BdjLerHk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKr1RRjDAdQPiZTewijXhFVuKW0O7P8Yc/VeIHT60fr2SNfsu04
+	YwZQE6LRb3ju0S5mFMlO71BDWGuBerBbhSsqha1MqdjKS9rnSowOs5n1
+X-Gm-Gg: AYBFou2ar2jyxd1888MM29dgdQdLHyMwchC0DRxZivVh0a9L33Q0E/wCxLNGfpviqL/
+	78h2Q05JM6tCESkruU8xbfov9O8ES11kGOol0+vm7+jqH/MjpAVIbg+ZELPmQpPdPzOMgUa7Cki
+	kDcxTcVoqJdqn0XRXeWrypB3aoQtuPJHMHR+Vo78C7qJvSron/6QS85E1KNIl+mTOA/jzQXI40f
+	j30jiD3PG8UlxEc6Czue3B1UfMtsBqqcetVmwyYU50X1N6NxHQjcDpRsj6zNjc2mz0jlPyeMd9w
+	W23lfLPQQ1Ic3XT6ie1fkiaY0M8kkSzrgGMzCJu2vEhdcz/wX/86EXzIkyY/Qgqsx0mlte7YW4v
+	9Ru3BJhuAJ4F4DvddydPG3XeEvqQ8TqsSEdPzSrogT2HqY5wTxnGqyf3hk3yR8JwNn8ti+aR/QU
+	BUoCxS+cWoloditboukprMs44enogRGW9eKS2kITOcQyvZEvnhDE0wkY1aLQMZetGTxgpgdCup
+X-Received: by 2002:a05:690e:14c1:b0:675:40a6:142c with SMTP id 956f58d0204a3-67935f1c770mr4649463d50.22.1791912801676;
+        Tue, 13 Oct 2026 10:33:21 -0700 (PDT)
+Received: from paradox ([98.122.223.224])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07f1ecbfbsm46571567b3.23.2026.10.13.10.33.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 10:32:00 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: "Martin K . Petersen" <mkp@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: linux-scsi@vger.kernel.org,
+        Tue, 13 Oct 2026 10:33:21 -0700 (PDT)
+From: Martin Belanger <martin.nvme.dev@gmail.com>
+To: linux-nvme@lists.infradead.org,
+	kbusch@kernel.org,
+	sagi@grimberg.me,
+	hch@lst.de
+Cc: axboe@kernel.dk,
+	hare@suse.de,
 	linux-kernel@vger.kernel.org,
+	security@kernel.org,
+	Martin Belanger <martin.nvme.dev@gmail.com>,
 	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v2 2/2] scsi: mvumi: reject an out-of-range handshake frame length
-Date: Wed, 14 Oct 2026 02:31:45 +0900
-Message-ID: <20261013173145.3412863-3-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261013173145.3412863-1-yhlee@isslab.korea.ac.kr>
-References: <20261013173145.3412863-1-yhlee@isslab.korea.ac.kr>
+	Daniel Wagner <wagi@kernel.org>
+Subject: [PATCH] nvme: make the DH-HMAC-CHAP secret attributes readable by root only
+Date: Tue, 13 Oct 2026 13:32:41 -0400
+Message-ID: <20261013173241.1713708-1-martin.nvme.dev@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,50 +80,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mvumi_hs_process_page() checksums and parses a handshake page using
-frame_length from the page header, a u16 the firmware fills in, without
-checking it against the HSP_MAX_SIZE buffer the page lives in.
-mvumi_calculate_checksum() then walks frame_length bytes of frame_content
-with an unsigned char loop counter, so a frame_length of 256 or more never
-terminates and the probe path hangs; values between the buffer size and
-255 read past the page.
+The dhchap_secret and dhchap_ctrl_secret sysfs attributes have mode
+0644. Their show functions return the secret, so any local user can
+read the DH-HMAC-CHAP secrets of a connected controller.
 
-Reject a frame_length that does not fit the handshake buffer before using
-it.
+Change the mode to 0600. Writing the attributes was already limited to
+root and is not changed.
 
-Read frame_length once into a local and use it for both the bound check
-and the checksum, so the device cannot change the value in the DMA page
-between the two.
-
-Fixes: f0c568a478f0 ("[SCSI] mvumi: Add Marvell UMI driver")
+Fixes: f50fff73d620 ("nvme: implement In-Band authentication")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Cc: Daniel Wagner <wagi@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Martin Belanger <martin.nvme.dev@gmail.com>
 ---
- drivers/scsi/mvumi.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/nvme/host/sysfs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/scsi/mvumi.c b/drivers/scsi/mvumi.c
-index 38a92f8c25f5b..910505ef4f3ee 100644
---- a/drivers/scsi/mvumi.c
-+++ b/drivers/scsi/mvumi.c
-@@ -1039,9 +1039,15 @@ static int mvumi_hs_process_page(struct mvumi_hba *mhba,
- {
- 	struct mvumi_hs_page1 *hs_page1;
- 	unsigned char page_checksum;
-+	u16 frame_length = hs_header->frame_length;
+diff --git a/drivers/nvme/host/sysfs.c b/drivers/nvme/host/sysfs.c
+index e1e3dcfd084b..e0cb34545b97 100644
+--- a/drivers/nvme/host/sysfs.c
++++ b/drivers/nvme/host/sysfs.c
+@@ -864,7 +864,7 @@ static ssize_t nvme_ctrl_dhchap_secret_store(struct device *dev,
+ 	return count;
+ }
  
--	page_checksum = mvumi_calculate_checksum(hs_header,
--						hs_header->frame_length);
-+	if (frame_length > HSP_MAX_SIZE - sizeof(struct mvumi_hs_header)) {
-+		dev_err(&mhba->pdev->dev, "invalid handshake frame length %d\n",
-+			frame_length);
-+		return -1;
-+	}
-+
-+	page_checksum = mvumi_calculate_checksum(hs_header, frame_length);
- 	if (page_checksum != hs_header->checksum) {
- 		dev_err(&mhba->pdev->dev, "checksum error\n");
- 		return -1;
+-static DEVICE_ATTR(dhchap_secret, S_IRUGO | S_IWUSR,
++static DEVICE_ATTR(dhchap_secret, 0600,
+ 	nvme_ctrl_dhchap_secret_show, nvme_ctrl_dhchap_secret_store);
+ 
+ static ssize_t nvme_ctrl_dhchap_ctrl_secret_show(struct device *dev,
+@@ -922,7 +922,7 @@ static ssize_t nvme_ctrl_dhchap_ctrl_secret_store(struct device *dev,
+ 	return count;
+ }
+ 
+-static DEVICE_ATTR(dhchap_ctrl_secret, S_IRUGO | S_IWUSR,
++static DEVICE_ATTR(dhchap_ctrl_secret, 0600,
+ 	nvme_ctrl_dhchap_ctrl_secret_show, nvme_ctrl_dhchap_ctrl_secret_store);
+ #endif
+ 
 -- 
-2.43.0
+2.53.0
 
