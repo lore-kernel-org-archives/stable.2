@@ -1,131 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C498552BE4F
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 19:38:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EADDB52B1C5
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 19:38:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791920294; cv=none; b=Gqw+LOYr/kHPlNl5xK59is1IHSy72BLnEp7YAEr5/Cjv1rxkeqnWAoIqQRy+BmsN1KnxK/ey3YtwnaPZppQD4UxMwQ0l8YWvXo2kwzlQ6A5E2ll4WE67cbGTpwViqTVdEIDdXHzbzHOl7oNCgYzrvrAlrWAFSafghsQVrNQfPQQ=
+	t=1791920300; cv=none; b=InSYxgO2M42j8L18b4YTyTZbecfKxptrb2NIwWMFU6N0LNSmGEoukbTCo3jCYQBFFb1Xh/sfpTvESbI79qoXTrTbdYH5ZuDLnWvzENObn+IOp62B/A4TMHHTboD/OKZHzhtd03XnGoiMmnbBLS6Bmhyme1clg9mz8C+AKkTLS/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791920294; c=relaxed/simple;
-	bh=/Vfkta5z2BwP5nOE7cMYdUvhStFhCAo6L4Fq0Jlfreo=;
+	s=arc-20240116; t=1791920300; c=relaxed/simple;
+	bh=vnqi5HjSjnhUijERoj4GYUEH6LwL1FpWpuTyfhoOMQc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tmboLI5uckMQDNgNVrsIipxoI0gVvjkAX9CoJEZEtYcEU/NblWcSZezWEMDm/UF7T14lIfgBkfpPIrO+dPKwPwX7UIGqr7fTLGLbKDI4Oe5Thdnnw8NlaK9LBsenWUQGRapQmiuexcDm8JlxlztM6JvLfmj7lkBsxuh9l6uEgiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kKP7VbAc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nhPfciK1tFN6Mez3QBvgJro6toa8ZsTguT/8QXCuBoYq5/QLg5FDhXHErmAuGbd1DjW8dNNjcsGMNpyUIM+IUK2F5UFhBO1bqpbWn2Z5ppxhSu6o/4LIF8C4ojXvlTEim9sf2aUaWCvHiYX/D0i1FAc6ZzL5qlz53OTUvsNRz+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RmvycDwd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kKP7VbAc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFDB71F00893;
-	Tue, 13 Oct 2026 19:38:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RmvycDwd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73A471F00898;
+	Tue, 13 Oct 2026 19:38:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791920293;
-	bh=Z71YF/TQM3R1u7C9u09V5W8zAETrrdNm3XG4xPLdvtA=;
+	s=k20260515; t=1791920298;
+	bh=g5mi6ZdOxIYpIDWUtrFDRTcKzx+tjj5VkAfo3Md6tEw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kKP7VbAcPQoERjvANKY7YmZN+KB48u1O25tN8yW0XKhu177t7nZZiGpep3OhdIG1n
-	 TkVxeBS4ikhILsJSTR3EdcSMhHrTxASy4NApNjMdM2ZsfVJgJ7pMWeH9MH2zk62s8V
-	 8+xA8Ou9VVvuMYLXe5moAW4tLLwhY7r4TXcCCUdRm80C4HtFroaeIuL7bSDiGEDjXa
-	 EEiW2dKZbrIQL2m7kTIeJpfQSpgbhEo7PhAM4T1kjuvTVxEy3+yZ1Eq3XowpCQptrp
-	 zfgt4QpKE3Lk+D/GjX1XO5aLasg5bkW5H7PUGNV3x+MSI4kfW9rinBODS2YZumIWlq
-	 OO4w6qO0TgYYA==
+	b=RmvycDwdkXh6Q7g9AxWiC9AvxuMaBtyBRK02aMbBkLb2DDfarFqbgdRmNFeoK+o9+
+	 KDBsYmSyiAZ7mJwzNw5W3EdzJp/F/5A7xODmqJ+ojmJy4yzsEhhbS6R8HYb7tk4x2N
+	 I6xgykdZfJASxIbATapultW4/x9fI8SBQmeBQSTft7LVBQMvv3NHlfGmDNKqMfuvnB
+	 qRDyiReRfDWvE6lztzWR1xdkYQuk7CI9fa5O070TqHQg3A3J+sg9/F0MqZAosgOezl
+	 T5RqR07mvbssDOt1pHEKRaUp9Rn434id3qUVpkl32rY8BvMR1aLokR4ChDwQU/2d/Y
+	 U7Ri/qayUmJew==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zack Rusin <zack.rusin@broadcom.com>,
-	Youness HFA <hfa.youness@gmail.com>,
-	Maaz Mombasawala <maaz.mombasawala@broadcom.com>,
+Cc: Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] drm/vmwgfx: validate pitch coming from userspace
-Date: Tue, 13 Oct 2026 15:38:11 -0400
-Message-ID: <20261013193729.882548-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] namespace: check the target before walking it in do_mount_setattr()
+Date: Tue, 13 Oct 2026 15:38:17 -0400
+Message-ID: <20261013193735.855575-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101209-yield-esteemed-f1ca@gregkh>
-References: <2026101209-yield-esteemed-f1ca@gregkh>
+In-Reply-To: <2026101206-tag-crisply-1381@gregkh>
+References: <2026101206-tag-crisply-1381@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Zack Rusin <zack.rusin@broadcom.com>
+From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit 21bc51cb89ced74d6645a138cc2f21184bc75094 ]
+[ Upstream commit 08f4288a37ef4b3d19b4a9599ec3048219cac828 ]
 
-Validate the pitch, alongside the box dimensions before trying
-to copy data from the underlying surface. Fixes possible
-out of bounds reads with cursor snooping.
+When mount_setattr() changes the propagation type to MS_SHARED
+do_mount_setattr() takes namespace_sem and calls invent_group_ids()
+which walks the whole target tree with next_mnt() and allocates a peer
+group id for every mount that doesn't have one.
 
-Fixes: 2ac863719e51 ("vmwgfx: Snoop DMA transfers with non-covering sizes")
+Whether the caller may touch the target at all is only checked
+afterwards under mount_lock. If it may not, cleanup_group_ids() walks
+the tree a second time on the way out to free the ids again.
+
+A detached tree that a file descriptor keeps alive, a mount in another
+mount namespace or a mount below the root of an anonymous mount
+namespace does a bunch of allocation work that is completely useless
+because it will fail and revert right after.
+
+Do the right thing and check the target right after taking namespace_sem
+instead. A mount leaves its namespace only under namespace_sem so the
+mount stays stable. The check under mount_lock stays for the case where
+no propagation change is requested and namespace_sem isn't taken.
+Callers get the same EINVAL as before.
+
+Fixes: 2a1867219c7b ("fs: add mount_setattr()")
 Cc: stable@vger.kernel.org
-Reported-by: Youness HFA <hfa.youness@gmail.com>
-Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
-Reviewed-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-Link: https://patch.msgid.link/20260809204515.211045-1-zack.rusin@broadcom.com
-[ sashal: Adapted descriptor-based cursor sizing to hard-coded 64×64 dimensions and 4-byte pixels. ]
+Link: https://patch.msgid.link/20260926-work-mount-fixes-2-v1-5-f357abf3d17b@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: replaced anon_ns_root() with explicit checks using existing mount helpers. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c | 22 ++++++++++++++++++----
- 1 file changed, 18 insertions(+), 4 deletions(-)
+ fs/namespace.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-index 8a9b61920496a..590267c8a2fd9 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-@@ -155,6 +155,7 @@ void vmw_kms_cursor_snoop(struct vmw_surface *srf,
- 	unsigned long kmap_num;
- 	SVGA3dCopyBox *box;
- 	unsigned box_count;
-+	u64 src_extent;
- 	void *virtual;
- 	bool dummy;
- 	struct vmw_dma_cmd {
-@@ -163,6 +164,8 @@ void vmw_kms_cursor_snoop(struct vmw_surface *srf,
- 	} *cmd;
- 	int i, ret;
+diff --git a/fs/namespace.c b/fs/namespace.c
+index 42ecf070b6f76..63ccd426fb4ee 100644
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@ -4213,6 +4213,13 @@ static int do_mount_setattr(struct path *path, struct mount_kattr *kattr)
+ 		 * propagation.
+ 		 */
+ 		namespace_lock();
++		/* invent_group_ids() walks the tree, only walk a mounted one */
++		if (!is_mounted(&mnt->mnt) ||
++		    ((mnt_has_parent(mnt) || !is_anon_ns(mnt->mnt_ns)) &&
++		     !check_mnt(mnt))) {
++			namespace_unlock();
++			return -EINVAL;
++		}
+ 		if (kattr->propagation == MS_SHARED) {
+ 			err = invent_group_ids(mnt, kattr->recurse);
+ 			if (err) {
+@@ -4225,6 +4232,7 @@ static int do_mount_setattr(struct path *path, struct mount_kattr *kattr)
+ 	err = -EINVAL;
+ 	lock_mount_hash();
  
-+	BUILD_BUG_ON(sizeof(*srf->snooper.image) != 4);
-+
- 	cmd = container_of(header, struct vmw_dma_cmd, header);
- 
- 	/* No snooper installed */
-@@ -200,8 +203,19 @@ void vmw_kms_cursor_snoop(struct vmw_surface *srf,
- 		return;
- 	}
- 
-+	if (box->w == 0 || box->h == 0)
-+		return;
-+
-+	src_extent = (u64)(box->h - 1) * cmd->dma.guest.pitch +
-+		     (u64)box->w * 4;
-+	if (src_extent > bo->base.size) {
-+		DRM_ERROR("Cursor snoop source of %llu bytes exceeds the %zu byte buffer\n",
-+			  src_extent, bo->base.size);
-+		return;
-+	}
-+
- 	kmap_offset = cmd->dma.guest.ptr.offset >> PAGE_SHIFT;
--	kmap_num = (64*64*4) >> PAGE_SHIFT;
-+	kmap_num = PFN_UP(src_extent);
- 
- 	ret = ttm_bo_reserve(bo, true, false, NULL);
- 	if (unlikely(ret != 0)) {
-@@ -215,13 +229,13 @@ void vmw_kms_cursor_snoop(struct vmw_surface *srf,
- 
- 	virtual = ttm_kmap_obj_virtual(&map, &dummy);
- 
--	if (box->w == 64 && cmd->dma.guest.pitch == 64*4) {
-+	if (box->w == 64 && box->h == 64 && cmd->dma.guest.pitch == 64*4) {
- 		memcpy(srf->snooper.image, virtual, 64*64*4);
- 	} else {
--		/* Image is unsigned pointer. */
-+		/* The destination stride is in pixels. */
- 		for (i = 0; i < box->h; i++)
- 			memcpy(srf->snooper.image + i * 64,
--			       virtual + i * cmd->dma.guest.pitch,
-+			       virtual + (size_t)i * cmd->dma.guest.pitch,
- 			       box->w * 4);
- 	}
- 
++	/* Checked under namespace_sem already if the propagation changes. */
+ 	/* Ensure that this isn't anything purely vfs internal. */
+ 	if (!is_mounted(&mnt->mnt))
+ 		goto out;
 -- 
 2.53.0
 
