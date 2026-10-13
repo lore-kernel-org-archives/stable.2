@@ -1,155 +1,170 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BBD34AEBDA
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 18:44:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 718A9535FB7
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 18:52:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791917051; cv=none; b=DF+VXKfHe2VsEamjZv2yqSZWns3ScV0cZPxPsWTuBV6EgkaLVFfmQ1DxNbgBU6Ov5048Z4tUk24OgT++Slgu+GFA6V00eMtvLA2ujkbdVJj4ThAcpoKNt9WiSxlE1OftVAaUpSwXSUg0881E2AswitxZ8vgIavYzT8v6tAvcyEw=
+	t=1791917546; cv=none; b=jJw4TDJwjayj9BW5vxluphdBO2KccL4VUl81HJS4y32kYxBLVQkhE3KTgsxOQQM/RofXT5JF630LTqrTSWuigoULUxMzsWeIrh2wKMhKaxAvOzLhwfxAa4cSQ5G5n1EpImaZhRJYv2tu9pAoZ3rF6o2ehXldOJr+7EwHakTHZcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791917051; c=relaxed/simple;
-	bh=kSGlsz4/kVX/O8qL2dH1ve++stecX3FGYtYzX2OQDNo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NN0/ShsuZApUgg/JCAtPiURoLpwKAYQ9K1S6m4GLeHnzZ4IODUNT+BkzgpQN1siv/qL874JyBTvDLFPQWtEZwpAfbUVnpkCZolV2J2hoYSv2uL3NuGYKlWgJa7EEQmYO6AVPNIRowKkM4bWPqg0ciY6K5nzIAIy8/fq1lZqE6nY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HxJc2XMJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=F6NY2Miu; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791917546; c=relaxed/simple;
+	bh=HXKjRK6Jz6l/mSCLKzBD6b1Nu+5VYo3oxQtEygLLL8U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=a4SmRrE4TjSafta2MpYp/dVy1PL6pbzxTs+cZFVDLf2aAG7qb5X9ZTKCu4VHOHePwCtS1CyBDfUFQE3CaVqAwgkZ/TtOQfKvcav1Et3kU8WEHQEifJ0RPfuRBeWtUINzuCMM1DNxKOW6mlCCe8mGeQ57Uk+AQuu9D37tX/MauiI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bxTL9lOR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HxJc2XMJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F6NY2Miu"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DHNLYh2332987
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 18:44:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	TAJ3OilOPOsiftZNwjsnJ+TIz9YE9dQrowEOurHsbB8=; b=HxJc2XMJwqPJDmQu
-	OZRAgDrOy+Gs9DZy4hksAW9MZDS9tQo22XwOT3Qr9mc3uO64t07R+IvzFHzyNo/X
-	JejiIwF70nvPy+UCYOiIO6e/+Se8cSxNet2oY4z6QwWSYAIDVyIn8GbiQqRR0OMh
-	IRuGVxemsg/iVlDQprHHXdDAiYgvz97zu5RXQZLM+HV/9AeNXI4RIor/GAFUn0J5
-	EtB+c9YAuldzJ+iR3ieek+tiliykDYoz+jhrXEMJIlEq6igpUewlycfOeh/STaTq
-	Mkg/TyqjXkoApj+QlxfyWpHDGG53KGhilHMQdklMqXzXAbph5DsZSgziSh3fX+Nf
-	XDPNOg==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9s0hgd8y-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 18:44:08 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1665200f4c2so4600882c88.0
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 11:44:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791917047; x=1792521847; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TAJ3OilOPOsiftZNwjsnJ+TIz9YE9dQrowEOurHsbB8=;
-        b=F6NY2MiuDYqfOTMX0vgKqcGzh3Lk5kQusstcQIAkGDvUh6PZoHRJvI+SAg8TbPHnf9
-         Al2vHYJkke7WJ2jRsThyqtIPKZRtbKonWzfQwABt8fsAN32WK7sjN8sFEo+DODuVH3Ur
-         KIuHOfdpK80uNaBPa6qZPwq6armrhmANliMfdPZ9Y7zHDyZomFfJgUJ4FErcNcoKQ1A7
-         krzdRGzD142JfNO4V2ZJim1hi+LMWqgeZhUNhh5EFa/g0OT3XCoyTO6vATfsygn55F9q
-         o1mxIHfRMoaHy1gjYH3cG2LDVCl8AbQpOzdJe/5xtdJrXquh6KC3T4kEHaHP7a+lVbMO
-         /pRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791917047; x=1792521847;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TAJ3OilOPOsiftZNwjsnJ+TIz9YE9dQrowEOurHsbB8=;
-        b=pIRS0331VCGiiLvuUBqp+0339it+AcqMP5rsQ8aW6lVlasFSw2C1tex19VRl4DoYWi
-         Qof/T2sCAI0EdrVNJg56ejywhfQ4Jx7klGUMtuTK8yrEIdEMxGwfNkg3B2WQJ7mtqwt8
-         bNVYP6ZLDZx3qV8SNeor8Bdn1ktOZjIa/urdXN0lma+9e36Vn2Pver/tUvM9Io8lUxEn
-         Hvu1sk4qiJx+j+fH8P52JTTZnDJ87YlkJ2k/GUpRbMtcSEipXBhOY7ruWXYe7f+C+Js0
-         OYiJi2MXbZqJUPCUClCVsfe6xK0UtA/9htJZUM3lH9piXgvmbcTM+fVeIhyQYmkI5lr+
-         j1kQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy4Lb6njZf9pBlmJyfOLOmQpijAGFZuXcavKL24EQ070THQoNDVua9GvCkH4c65/2a8Fihgpck=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJY9xgTBAAoikahtR5RWnRYGOv7o6sy2I88prUsQM+ej710uzMv
-	If7vLsPX4VvIQzP6OCEEB9f6nao0WYj8XHt/VFPtgCmD396LNJNI4yHJQjcuaz0QNo6ZwwobaGv
-	wYyLnv4SgPhXXlv53CeYzxTFHI07QpewonqmzTGjO4DYlU0RfEsZkl7oTDgo=
-X-Gm-Gg: AYBFou1bqELMA3el1QdcZZInbr5k1LKdLtnbTF6ln2f5OE8OLXP/rfomuNLRbvwgsV9
-	cfecWht03JoMlXdZAZMiwklhvAUDUj5UJ4LQ8SyhBEoAsuRMx2KMHba0c2hFFM78E3BsvJwu7nR
-	riOQiiP3jxpLLJvI7CJ3brsCOksSJysmSYeZAb4NC5ljMNa1Mph+n5L00sOrlDfKaUg8jX4ceb7
-	BZ1pN6CEBvvpGGkfTkRviYamRxxkHQQmMDHlPGiYE/3xhOD177+5cj5/gTTqOlXEJVWcOj8Bgz+
-	nQ3bRnlOHM8EKS+NHz61ExKZUqnNizG4ygVsg9C8ITcQvl/2TxHETtlLCWmFSHIf90V90o2ggJg
-	yz+XPwCmORpvS7qIaOPb8iDqU6ROJIvDlIv5tcviMSya/4zFdfg==
-X-Received: by 2002:a05:701b:4588:20b0:156:3684:96d4 with SMTP id a92af1059eb24-16a5cac06f7mr19510303c88.25.1791917047285;
-        Tue, 13 Oct 2026 11:44:07 -0700 (PDT)
-X-Received: by 2002:a05:701b:4588:20b0:156:3684:96d4 with SMTP id a92af1059eb24-16a5cac06f7mr19510270c88.25.1791917046694;
-        Tue, 13 Oct 2026 11:44:06 -0700 (PDT)
-Received: from [10.226.59.182] (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16997c21ff3sm40087467c88.2.2026.10.13.11.44.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 11:44:06 -0700 (PDT)
-Message-ID: <1fc34b15-f762-4ae0-ab3b-735d750b7581@oss.qualcomm.com>
-Date: Tue, 13 Oct 2026 12:44:05 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bxTL9lOR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD2A61F00893;
+	Tue, 13 Oct 2026 18:52:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791917545;
+	bh=aPg3+K6abWOI6LCuBRcvn1eCB+SMCbLEGkvP9yt9ST8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bxTL9lORb+LzErYDytz54wpPBwftmyP4oSgexnfu2/N0SMvPE0NKucy94NvK/HWAg
+	 nsh8JbB68+9zlELnFuDWHFOctmlbadW337wH0TwckSlJsiUIb2iBBbUQDGolJ0c3DW
+	 q80kR6HHletk3xCik939U6sHqEt8mWMT3e7nlujXlJ7nl//usfnKAoZEyxyCRPVzVN
+	 EMU9eKnqHjyquJrhdAqxbkBoxPcMA+7QG9ZYecchTapm0mVpt9fq8jGK0e0uLhA7gR
+	 LtCEGqxKXNB9qxtPdk0TUrZIQw9hlifoBpCml/m3Ks/qVCSxPfR36c9kub+0M9Clx2
+	 4C0yMcRdF/Vxw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>,
+	Laurence Oberman <loberman@redhat.com>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] scsi: ch: Do not keep references to data transfer element devices
+Date: Tue, 13 Oct 2026 14:52:23 -0400
+Message-ID: <20261013185158.729069-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026101244-groove-imply-f3eb@gregkh>
+References: <2026101244-groove-imply-f3eb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] accel/qaic: Cancel Sahara read data work on removal
-To: Myeonghun Pak <mhun512@gmail.com>, Oded Gabbay <ogabbay@kernel.org>
-Cc: Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Ijae Kim <ae878000@gmail.com>
-References: <20260917192512.56205-1-mhun512@gmail.com>
-Content-Language: en-US
-From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-In-Reply-To: <20260917192512.56205-1-mhun512@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=GL+dgeNK c=1 sm=1 tr=0 ts=6ace7bf8 cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=M-qdFEnyM_m4QQ1dQMsA:9 a=QEXdDO2ut3YA:10
- a=vr4QvYf-bLy2KjpDp97w:22
-X-Proofpoint-ORIG-GUID: 0tzd132mIdabA0x_nCWv_TEihN_xCFXJ
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA3NCBTYWx0ZWRfXwvoaBh1qb34C
- 8ZPDb7Z9hr+RptItCWA2u1QqUS4dnFitQrIQS+5tXojjM+al14KzRexcmUmhh6uEJ29gykgl4R6
- ZMMlDhjDCoz4ufNR/+dHEmXoejmXJeg=
-X-Proofpoint-GUID: 0tzd132mIdabA0x_nCWv_TEihN_xCFXJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA3NCBTYWx0ZWRfX4+0OYFaOSR23
- wWee8uwa1kgT9jM+BPK30pkuRAimjhE4VUdUTliJ84FzBjSCiMWqAPfMhdKM0BPUnBicx//qk6B
- osLaPvNhICKfyu2jAXokzbO5vJWjNNSUrNnYD+c6KZnmAV/48pz+q3pB9Ejy8rVI83P9hmU6q4+
- lxYulj1A1UU/P4fDtTOsFqveJ9l3D6ENf9vHgMGIHF4kKPgqa76ENDY1Q9DOnhjAR1oPp5wajy+
- h0SrHRSiFKT7MJv2ZzRMywB7CYaH/31w+gRKQ0Gx7EBMnTvHELqvkzFMDa33Tk8zzVdNa47AOjg
- 5NvW94kvbiUVxbDfecM8HXvdDmzrAX15BBMb3+GDQqlcL59IYVZTQ/cJ+OHRnrsk2jSTYZZfTPd
- z+4IEEIeAc6jo5uPQEk3mfO9E+v6+T0ZEpCNTZKYN+fwEDICTaHoA00SDZdspwje81FtRfZqA29
- +zObCYAJrV3XFaNHYYA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 spamscore=0 phishscore=0 adultscore=0
- bulkscore=0 malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130074
+Content-Transfer-Encoding: 8bit
 
-On 9/17/2026 1:25 PM, Myeonghun Pak wrote:
-> Sahara removal cancels fw_work and dump_work, but leaves read_data_work
-> pending or running. The latter accesses the firmware and the device-managed
-> context and transfer buffer, which are released during removal.
-> 
-> Cancel read_data_work after fw_work, which can schedule it, and before
-> releasing the firmware. The MHI core suspends and resets the channels
-> before invoking the driver's remove callback.
-> 
-> This issue was identified during our ongoing static-analysis research
-> while reviewing kernel code. The same omission was also reported by the
-> Sashiko bot while reviewing the Sahara relocation series.
-> 
-> Fixes: 7fb19ea1ec6a ("accel/qaic: Support the new READ_DATA implementation")
-> Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/all/20260701105055.8D4371F00A3A@smtp.kernel.org/
-> Assisted-by: LLM
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+From: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
 
-Pushed to drm-misc-next
+[ Upstream commit 27c0f718d3b3c99e6d315308e95d987d0382a8a8 ]
 
--Jeff
+ch_readconfig() looks up the scsi_device of every data transfer element
+whose SCSI id the changer reports in READ ELEMENT STATUS, and stores it in
+ch->dt[]. scsi_device_lookup() takes a reference, and nothing ever drops
+it: ch_destroy() frees the array with kfree(). ch->dt[] is read nowhere
+else - it only supplies the vendor, model and revision printed in the same
+loop.
+
+Once such a drive is removed, its scsi_device can never be released. It
+stays on the host's device list at its address, so a new device there is
+refused by anything that walks the list - target_core_pscsi reports
+"scsi_device_get() failed for H:C:T:L" - and the low-level driver's module
+can no longer be unloaded. Only a reboot recovers.
+
+It shows with any changer that reports its drives' ids; with the mhvtl
+virtual library (IBM 3573-TL personality), each create and remove of a
+library with four drives leaves four references behind, counted by the
+module's use count in lsmod. With ch not bound the count is unchanged, and
+with this patch applied it is unchanged too.
+
+Drop the reference as soon as the name has been printed, and remove the now
+unused dt[] array. That also removes the array leaked when ch_probe() fails
+after ch_readconfig().
+
+The same leak was reported with an RFC patch in 2022, which was not merged.
+
+Fixes: daa6eda65a53 ("[SCSI] add scsi changer driver")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/linux-scsi/20220719075442.6215-1-yanghao_ht@163.com/
+Signed-off-by: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
+Reviewed-by: Laurence Oberman <loberman@redhat.com>
+Fixes: daa6eda65a53 ("[SCSI] add scsi changer driver")
+Link: https://patch.msgid.link/20260929-ch-dt-leak-v2-1-ddda8d635dca@gmail.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+[ sashal: adapted removal of kzalloc_objs() to the existing kcalloc() allocation ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/scsi/ch.c | 30 +++++++++---------------------
+ 1 file changed, 9 insertions(+), 21 deletions(-)
+
+diff --git a/drivers/scsi/ch.c b/drivers/scsi/ch.c
+index cb74ab1ae5a4d..cf44ab033112b 100644
+--- a/drivers/scsi/ch.c
++++ b/drivers/scsi/ch.c
+@@ -110,7 +110,6 @@ typedef struct {
+ 	int                 minor;
+ 	char                name[8];
+ 	struct scsi_device  *device;
+-	struct scsi_device  **dt;        /* ptrs to data transfer elements */
+ 	u_int               firsts[CH_TYPES];
+ 	u_int               counts[CH_TYPES];
+ 	u_int               unit_attention;
+@@ -356,16 +355,10 @@ ch_readconfig(scsi_changer *ch)
+ 			vendor_labels[i]);
+ 	}
+ 
+-	/* look up the devices of the data transfer elements */
+-	ch->dt = kcalloc(ch->counts[CHET_DT], sizeof(*ch->dt),
+-			 GFP_KERNEL);
+-
+-	if (!ch->dt) {
+-		kfree(buffer);
+-		return -ENOMEM;
+-	}
+-
++	/* report the devices of the data transfer elements */
+ 	for (elem = 0; elem < ch->counts[CHET_DT]; elem++) {
++		struct scsi_device *sdev;
++
+ 		id  = -1;
+ 		lun = 0;
+ 		if (elem < CH_DT_MAX  &&  -1 != dt_id[elem]) {
+@@ -381,10 +374,8 @@ ch_readconfig(scsi_changer *ch)
+ 			VPRINTK(KERN_INFO, "dt 0x%x: ",elem+ch->firsts[CHET_DT]);
+ 			if (data[6] & 0x80) {
+ 				VPRINTK(KERN_CONT, "not this SCSI bus\n");
+-				ch->dt[elem] = NULL;
+ 			} else if (0 == (data[6] & 0x30)) {
+ 				VPRINTK(KERN_CONT, "ID/LUN unknown\n");
+-				ch->dt[elem] = NULL;
+ 			} else {
+ 				id  = ch->device->id;
+ 				lun = 0;
+@@ -394,18 +385,16 @@ ch_readconfig(scsi_changer *ch)
+ 		}
+ 		if (-1 != id) {
+ 			VPRINTK(KERN_CONT, "ID %i, LUN %i, ",id,lun);
+-			ch->dt[elem] =
+-				scsi_device_lookup(ch->device->host,
+-						   ch->device->channel,
+-						   id,lun);
+-			if (!ch->dt[elem]) {
++			sdev = scsi_device_lookup(ch->device->host,
++						  ch->device->channel,
++						  id, lun);
++			if (!sdev) {
+ 				/* should not happen */
+ 				VPRINTK(KERN_CONT, "Huh? device not found!\n");
+ 			} else {
+ 				VPRINTK(KERN_CONT, "name: %8.8s %16.16s %4.4s\n",
+-					ch->dt[elem]->vendor,
+-					ch->dt[elem]->model,
+-					ch->dt[elem]->rev);
++					sdev->vendor, sdev->model, sdev->rev);
++				scsi_device_put(sdev);
+ 			}
+ 		}
+ 	}
+@@ -569,7 +558,6 @@ static void ch_destroy(struct kref *ref)
+ 	scsi_changer *ch = container_of(ref, scsi_changer, ref);
+ 
+ 	ch->device = NULL;
+-	kfree(ch->dt);
+ 	kfree(ch);
+ }
+ 
+-- 
+2.53.0
+
