@@ -1,201 +1,143 @@
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B894B515E
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 09:46:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C68C3EA97A;
+	Tue, 13 Oct 2026 09:51:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884785; cv=none; b=mNDidvxsAFGiceGuWNoablrSMs4JX9keEHSlNSCHn1jnYoM0G9io/hbT1I95TMzb1jOs3Tb0I6P/RRcwuv0shzJY25LMHs+F+mowwNGsIsbT6iuS2i5CBCKgrhA98GFfN5vsM9LII+6sq+Gx92NV4frwSoCFCwo4IRQ214eKhII=
+	t=1791885100; cv=none; b=XtaRPHzH+5ZKEyRSWojselUamlSspGM0O5+00KpVz76HFx0hZ1sGV7eaP9KmbGkq5roftgMWyal8J5+7BnfSQc2WXSpfDqBtnI60suVwX9C+JxvWgSx17M3TM3nQBBHwWkiO+xQA/1ex9iBwND6ZRXLjdxiCddbw/SK094zk740=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791884785; c=relaxed/simple;
-	bh=lrQxtCL4bB6hq1YttWIYK9/1MVcUraxTJTUjoNNbQM0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=M004rsXc2yxczbtnfQGQbFvTZwW2nmHFIiOxmxTfN4iE+uuR8yLQQlMVHzEhF/dZtE/RdinSKt8ioTDMY9jQw5Pg8VZhwCEBdwCJec4mERA/Uv0814qfhf5z4XEDkkOIZsixa26A/AGsCFTLcO07+8RHD2wW8YnnAwn+K7elHZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=nUcb/E00; arc=none smtp.client-ip=203.254.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1791885100; c=relaxed/simple;
+	bh=uzrXPLMvqXiBDcQftrpFHfqmH5aI7M4XqJ0tPb6ooRw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hetMTDjaKWy1dP2kXdPcukJvNN6Bvwbh+8O/8/GJGi33KNfhre+zKr/Er3uMfxJlKbuy5oExRR4tYH4xZeKFzNqHVBOjhnSOlCe2PgD3Hw2zidVTz7oq6RO1l0ckruFDLfRSOU4jhv1N9tzvuiulZWwYDV396tymbt+y9WWPH+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=lL28Tkmw; arc=none smtp.client-ip=115.124.30.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="nUcb/E00"
-Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261013094618epoutp046e04922d3503bd3c123c981136d8bd32~eDbZY6IzX1596515965epoutp04j
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 09:46:18 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261013094618epoutp046e04922d3503bd3c123c981136d8bd32~eDbZY6IzX1596515965epoutp04j
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791884778;
-	bh=zcR3PlylQnyqBRxWX+O7qoT4qEtgWVHKV1DgLyS+mFs=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=nUcb/E00r5cb2ogVnTS543Eg8m+GIn0dOZJlh68XOJP5lfzMtbKYsM7kA+pL+K1a+
-	 pIe52jtjzQeQ7GuR9BDbUOnJFufIgwY92tjrA4/4mCoolI9orxJs/XwJnO8LEAqYd5
-	 rXBsM0xUzul7t3XQ32FGV/iK4FNYMPsgWaWdAgnQ=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
-	20261013094617epcas5p313e0734d2c7db7bbe03c473bb234212e~eDbYth67v3006230062epcas5p3d;
-	Tue, 13 Oct 2026 09:46:17 +0000 (GMT)
-Received: from epcas5p4.samsung.com (unknown [182.195.38.91]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4j3qGc5Wd0z3hhTB; Tue, 13 Oct
-	2026 09:46:16 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261013094616epcas5p28bf84b929cf60a77eb94cdb96dda7589~eDbXPcQd12244922449epcas5p2E;
-	Tue, 13 Oct 2026 09:46:16 +0000 (GMT)
-Received: from [107.122.11.51] (unknown [107.122.11.51]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261013094614epsmtip224a207ec66e03df7efa597a945cf76c7~eDbVilTUS2166721667epsmtip2i;
-	Tue, 13 Oct 2026 09:46:14 +0000 (GMT)
-Message-ID: <66bf5def-eabb-4c9f-bcd5-0143655ffd1f@samsung.com>
-Date: Tue, 13 Oct 2026 15:16:13 +0530
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="lL28Tkmw"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791885089; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=mHJmlxh0JQdpNiWV3C7IoHHFL2rjw3jyGHSsWS10e0M=;
+	b=lL28TkmwRy4o4DkqFESGvDjfVtHZjutdQoOzKS1g7GlBF8tLi2PuqNcHf/GcxIqaiT5utuZe7oZQhK1NvSiSFQpQW8+YILCpjl3XDiLKA5lbaeuIMRy5K3quWRzx39w46BzZ0I1/vSlbMbwN+poSWRymIR45zfZihQAcWofXrow=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R311e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XClPKIU_1791885066;
+Received: from x31h02109.sqa.na131.tbsite.net(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XClPKIU_1791885066 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 13 Oct 2026 17:51:28 +0800
+From: Baokun Li <libaokun@linux.alibaba.com>
+To: axboe@kernel.dk,
+	linux-block@vger.kernel.org
+Cc: ebiggers@kernel.org,
+	linux-fscrypt@vger.kernel.org,
+	hch@lst.de,
+	bvanassche@acm.org,
+	dm-devel@lists.linux.dev,
+	mpatocka@redhat.com,
+	linlin.zhang@oss.qualcomm.com,
+	libaokun@linux.alibaba.com,
+	stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH] blk-crypto: fix NULL deref and UAF in __blk_crypto_evict_key()
+Date: Tue, 13 Oct 2026 17:51:06 +0800
+Message-ID: <20261013095106.881914-1-libaokun@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] nvme: bound FDP config log reads to the received
- buffer
-To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>, Keith Busch
-	<kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, Christoph Hellwig
-	<hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
-Cc: Nitesh Shetty <nj.shetty@samsung.com>, Hannes Reinecke <hare@suse.de>,
-	gliuxen@gmail.com, linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Language: en-US
-From: Kanchan Joshi <joshi.k@samsung.com>
-In-Reply-To: <20261008182453.1262733-1-yhlee@isslab.korea.ac.kr>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261013094616epcas5p28bf84b929cf60a77eb94cdb96dda7589
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261008182524epcas5p358972aeaced27431d3c1412e88a1fae5
-References: <CGME20261008182524epcas5p358972aeaced27431d3c1412e88a1fae5@epcas5p3.samsung.com>
-	<20261008182453.1262733-1-yhlee@isslab.korea.ac.kr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 10/8/2026 11:54 PM, Yehyeong Lee wrote:
-> v3: read the descriptor fields with get_unaligned_le*() since a device-supplied
-> dsze can leave subsequent descriptors unaligned, which could fault on
-> architectures without efficient unaligned access.
+Sashiko reported a possible NULL pointer dereference, triggered by the
+following flow:
 
-Were you able to test this part.
+  dm-inlinecrypt ctor            # first use of the fallback
+   ├─ blk_crypto_init_key()      # succeeds, ctx->key.size != 0
+   ├─ blk_crypto_start_using_key()
+   │   ├─ return -EOPNOTSUPP     # uninit profile, will NULL deref
+   │   └─ blk_crypto_fallback_start_using_key()
+   │      └─ blk_crypto_fallback_init() fails
+   │         └─ kfree(profile)   # not NULLed, will UAF
+   ├─ goto bad
+   └─ inlinecrypt_dtr()          # evicts whenever key.size is set
+      └─ blk_crypto_evict_key()
+         └─ blk_crypto_config_supported_natively() = false
+            └─ blk_crypto_fallback_evict_key()
+               └─ __blk_crypto_evict_key(blk_crypto_fallback_profile)
+                  └─ profile->num_slots # BOOM!!!
 
-> v2: allocate the log buffer with kvzalloc() so that if the controller completes
-> the Get Log Page with a short transfer, the uninitialized tail reads as zero
-> and is rejected by the existing dsze check instead of being parsed (hardening).
-> v1:https://lore.kernel.org/linux-nvme/20261008132604.1168105-1- 
-> yhlee@isslab.korea.ac.kr/
-> 
->   drivers/nvme/host/core.c | 24 ++++++++++++++++++++----
->   1 file changed, 20 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-> index 9bcab3dc4c118..094df0e6ed326 100644
-> --- a/drivers/nvme/host/core.c
-> +++ b/drivers/nvme/host/core.c
-> @@ -2272,13 +2272,17 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
->   	}
->   
->   	size = le32_to_cpu(hdr.sze);
-> +	if (size < sizeof(*h)) {
+This issue can be reproduced using the following commands:
 
-header plus at least one descriptor is expected. So this can changed to:
+  dd if=/dev/zero of=/tmp/backing bs=1M count=64
+  LOOP=$(losetup -f --show /tmp/backing)
+  SZ=$(blockdev --getsz $LOOP)
+  KEY=$(head -c 64 /dev/urandom | od -An -tx1 | tr -d ' \n')
+  dmsetup create ic --table "0 $SZ inlinecrypt aes-xts-plain64 \
+    $KEY 0 $LOOP 0 1 keytype:hw-wrapped"
 
-if (size < sizeof(hdr) + sizeof(*desc)) {
+And the following oops is triggered:
 
-  > +		dev_warn(ctrl->device, "FDP config log too small\n");
-> +		return 0;
-> +	}
->   	if (size > PAGE_SIZE * MAX_ORDER_NR_PAGES) {
->   		dev_warn(ctrl->device, "FDP config size too large:%zu\n",
->   			 size);
->   		return 0;
->   	}
->   
-> -	h = kvmalloc(size, GFP_KERNEL);
-> +	h = kvzalloc(size, GFP_KERNEL);
->   	if (!h)
->   		return -ENOMEM;
->   
-> @@ -2304,8 +2308,12 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
->   	desc = log;
->   	end = log + size - sizeof(*h);
->   	for (i = 0; i < fdp_idx; i++) {
-> -		u16 dsze = le16_to_cpu(desc->dsze);
-> +		u16 dsze;
->   
-> +		if ((u8 *)desc + sizeof(*desc) > (u8 *)h + size)
-> +			goto short_desc;
+  ==================================================================
+  blk-crypto: loop0: no support for wrapped keys
+  Oops: general protection fault, probably for non-canonical address
+        0xdffffc000000000b: 0000 [#1] SMP KASAN PTI
+  KASAN: null-ptr-deref in range [0x0000000000000058-0x000000000000005f]
+  CPU: 5 UID: 0 PID: 901 Comm: dmsetup 7.3.0-rc3 #1 PREEMPT(lazy)
+  RIP: 0010:__blk_crypto_evict_key+0x2e/0x3b0
+  Call Trace:
+   blk_crypto_evict_key+0x24c/0x320
+   inlinecrypt_dtr+0xf6/0x160
+   inlinecrypt_ctr+0x2d3/0xbd0
+   dm_table_add_target+0x661/0xf40
+   table_load+0x1c4/0x490
+   ctl_ioctl+0x32f/0x5f0
+   dm_ctl_ioctl+0xe/0x20
+  ==================================================================
 
-This and other short_desc check can be covered by extending the existing 
-check below
+Fix this by checking the profile for NULL in __blk_crypto_evict_key()
+to avoid the NULL pointer dereference, and by clearing the profile
+pointer after it is freed to avoid the use-after-free.
 
-> +
-> +		dsze = get_unaligned_le16(&desc->dsze);
->   		if (!dsze || log + dsze > end) {
+Fixes: e7f57d2c47e2 ("dm-inlinecrypt: add target for inline block device encryption")
+Cc: stable@vger.kernel.org # v7.2+
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://patch.msgid.link/sashiko-outbox-167341@kernel.org
+Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
+---
+ block/blk-crypto-fallback.c | 1 +
+ block/blk-crypto-profile.c  | 3 +++
+ 2 files changed, 4 insertions(+)
 
-here, by checking that next descriptor fits completely.
-Also !dsze does not cover other invalid values from 1 to 63.
-
-Overall, something like this:
-
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index 7eb0f9fe6b18..9991cff5c332 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -2273,13 +2273,19 @@ static int nvme_query_fdp_granularity(struct 
-nvme_ctrl *ctrl,
-         }
-
-         size = le32_to_cpu(hdr.sze);
-+       if (size < sizeof(hdr) + sizeof(*desc)) {
-+               dev_warn(ctrl->device, "FDP config size too small:%zu\n",
-+                               size);
-+               return 0;
-+       }
+diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
+index 2a8f40a65158..b7890ee1951c 100644
+--- a/block/blk-crypto-fallback.c
++++ b/block/blk-crypto-fallback.c
+@@ -605,6 +605,7 @@ static int blk_crypto_fallback_init(void)
+ 	blk_crypto_profile_destroy(blk_crypto_fallback_profile);
+ fail_free_profile:
+ 	kfree(blk_crypto_fallback_profile);
++	blk_crypto_fallback_profile = NULL;
+ fail_free_bioset:
+ 	bioset_exit(&enc_bio_set);
+ out:
+diff --git a/block/blk-crypto-profile.c b/block/blk-crypto-profile.c
+index 53126c091b0b..1c5feca3b856 100644
+--- a/block/blk-crypto-profile.c
++++ b/block/blk-crypto-profile.c
+@@ -346,6 +346,9 @@ int __blk_crypto_evict_key(struct blk_crypto_profile *profile,
+ 	struct blk_crypto_keyslot *slot;
+ 	int err;
+ 
++	if (!profile)
++		return 0;
 +
-         if (size > PAGE_SIZE * MAX_ORDER_NR_PAGES) {
-                 dev_warn(ctrl->device, "FDP config size too large:%zu\n",
-                          size);
-                 return 0;
-         }
+ 	if (profile->num_slots == 0) {
+ 		if (profile->ll_ops.keyslot_evict) {
+ 			blk_crypto_hw_enter(profile);
 
--       h = kvmalloc(size, GFP_KERNEL);
-+       h = kvzalloc(size, GFP_KERNEL);
-         if (!h)
-                 return -ENOMEM;
-
-@@ -2305,9 +2311,10 @@ static int nvme_query_fdp_granularity(struct 
-nvme_ctrl *ctrl,
-         desc = log;
-         end = log + size - sizeof(*h);
-         for (i = 0; i < fdp_idx; i++) {
--               u16 dsze = le16_to_cpu(desc->dsze);
-+               u16 dsze = get_unaligned_le16(&desc->dsze);
-
--               if (!dsze || log + dsze > end) {
-+               /* next descriptor must fit within the log */
-+               if (dsze < sizeof(*desc) || log + dsze + sizeof(*desc) > 
-end) {
-                         dev_warn(ctrl->device,
-                                  "FDP invalid config descriptor at 
-index %d\n", i);
-                         ret = 0;
-@@ -2317,13 +2324,13 @@ static int nvme_query_fdp_granularity(struct 
-nvme_ctrl *ctrl,
-                 desc = log;
-         }
-
--       if (le32_to_cpu(desc->nrg) > 1) {
-+       if (get_unaligned_le32(&desc->nrg) > 1) {
-                 dev_warn(ctrl->device, "FDP NRG > 1 not supported\n");
-                 ret = 0;
-                 goto out;
-         }
-
--       info->runs = le64_to_cpu(desc->runs);
-+       info->runs = get_unaligned_le64(&desc->runs);
-  out:
-         kvfree(h);
-         return ret;
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+-- 
+2.43.7
 
