@@ -1,136 +1,98 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 588402749C1;
-	Tue, 13 Oct 2026 06:36:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 745344B44A1;
+	Tue, 13 Oct 2026 06:40:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791873382; cv=none; b=NFs4/BcIkWf3esir5wTV4CtkzAlRNM9pdm+v9m5HuekMhnJYhnCDQYdF4G07IMwSu8o5wmCD3V1AFWU9C0mtjrKE7kowT//RheCeh0BxlRQLnlYXx4l1IUjzkIIQK7teAzMg9VJyH7iUwsBVNVhxlNy1gvgBi7BeLCICm/MC8uI=
+	t=1791873641; cv=none; b=saDmhJpEpbS5lnwKt8N+Qw8FpF9OXFzuN4F8Mycic3Dx77IszJLWT+VWVVSMv77TDva5DZt5TQnZDSX+45dLav1ALY1vCdRL2f4w5Z8EGsu7Pbb50EMofQMdZKD/R4R8AX9Ozicfx3kDFtrAcxApCssUuRgCagjXK5janto6KcI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791873382; c=relaxed/simple;
-	bh=Ceyw8sW1uQSG9L3tZsAcOWZK6ja+h5N0pQDLNcJOL/Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZyblCkZKRkhtvpMlgEODl2nY/PrvO6Rs30OOPnGz600AAoBmmjW6yhXjtnMiNO62ZTHFCPE6TSiXwZcs4MfVdJE8QHYhAFMj3YMumLSdE4NuNUlWzXqWNZLz7jgcRKIsp7WuSD4GdHjy93nrKre/qjC+3tIBzG2N2m8LRLmOCmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=yG3N7igH reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	s=arc-20240116; t=1791873641; c=relaxed/simple;
+	bh=pufvseFPv7SRb1Qgh0FRdHx2ORcY7iConWw/5V0rGEY=;
+	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
+	 References:In-Reply-To; b=UgtCowfO2se1+Zj1fJaQfKP+R6yfBHMNy1k8Lj79GD5vuQqt+7wrQ3vi/VrmWTDTzzN00Zc76nJxY+DcGITPIqfI4chAVkJAWNuA4LCK+JuabuWZ5Y3tv3zgEYIF6I4mwd2pvgI7tFUMEWjq4sXaIe7Meqo0Rakx0eU2AJhYEAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=e7VHHeWG; arc=none smtp.client-ip=162.62.58.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="yG3N7igH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=q7IMoPi6cB
-	q3Lu2yZEUX+n26UiMI3GTE5jFEMNS0ckM=; b=yG3N7igH3rq1gaaeh78b9Q7b04
-	V/xwfMyeJrFkkddmCAYrQnlTbyFeAVMRyYr1L3Mw2oXx4krcvEUItNf43qCVdONY
-	4D7W2z3Hrh6csQ5Fn8imnRKvFvqNMb0RsHPTMynwE7V005dBLYjL1l6fGkpwNo24
-	nN76x6nriBiKQGHMQ=
-Received: from localhost.localdomain (unknown [113.200.174.77])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkDmKwFX0c1qe7CLAA--.40611S2;
-	Tue, 13 Oct 2026 14:36:09 +0800 (CST)
-From: Yuanzhe Liu <25031212351@stu.xidian.edu.cn>
-To: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Subject: [PATCH] ALSA: line6: Clear prev_fbuf on capture buffer release
-Date: Tue, 13 Oct 2026 14:35:54 +0800
-Message-ID: <20261013063554.571-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.45.1.windows.1
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="e7VHHeWG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1791873627; bh=pufvseFPv7SRb1Qgh0FRdHx2ORcY7iConWw/5V0rGEY=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=e7VHHeWG3aMNrya1UBYpPqDoDx5rlu/7bUGe11vDG8RnhwO00wWNE7BHSOxvDHELf
+	 8zoN+VhL9kKbnKowFIzXZPfOJO2Rfp0Wwkf72Tc1i0+c1B6IXrRyjj5X8D/xR88AXF
+	 67le0VRvOwuX/xRjzRrftiFz8rYO4+ON/IFJKTM4=
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-XMAILINFO: Nyxko0BhXiLd41+Tw1uOs1BrxflslPSuTweuL7/54vmiFn65mefZgLh3iJk0vk
+	 4PgO9c7OYsrvouL0DCf7NvL0FnAY1OugU9nc6oG1RSyVaQQYnCbDrjfRHwkNaMNwbIitX/KFUy0+b
+	 vQZQEvC9TWG8cgMZqG6mo1KO3ImT+3q0JS4SIu6dhSE8H/PLXFFCNrCXjwDh38Rxir59UvwkHy/Ob
+	 1iFyXxvqEqq3s9i0cflrbzPIhUCm5/QYeulrMjW/hyDYVYVlu4QuiWvY+LAtvKF2oB97KiVh7HdBu
+	 vZYjICUlz+tec5u7Wm8oE0zBT5+4dEiJnfFN8fdDoL8Kp+6zqKWsr5OWBvayO3zRuKbnilymr0X9+
+	 xbpw5PFHXVm5skbrwRF9he+Tmdl3o3hzPs0LJQD+FA6+P5FJADNnnWYxmwRowiKsOyHgPW2Ftj2zQ
+	 o2RN9WT5ojU/sGWyI7M3WJ0kzOI0mEcq9Drcm9U7TQRNcoqKasP0kQtcs5XPmNpdwK1WAUsarwi9W
+	 zsnQRsoUfEJsZTqM0AanWJ9bPGROJoMmLEkQLL7cTYMtuJXJABZRpo7PwhIY4wh53oVvCpq0lQUrC
+	 vbPeLrlSwarpLSTg96Kc56cvPLOceAxLOnodo5MUbFoi1VlVs1rf0ghnBA9ibEYUo/ylziOwcEzE7
+	 3yEFl0D2/JFbyCIVTbbb0BeeK6yl0J/bnAlYgPQ5S+VrFOdaKNlFHyVtPvOvx1/5oUoUxZOyJ7gOW
+	 8JyAqmHv5yGQsfj929TBRyq5YTiq1FOVLRenMVOR0HopbLAevLLJ0vc/GDghICuUdy8gHOn+kLSGz
+	 qeCoFzd3q3j4yxVeE3qZmNeAt54uBU7OwwCIHw4Y6WLptPnCyQnXSJlTx3ALHwRjz+AGAUBd0Yylt
+	 vubGXg02JvAnJQ+b8ICAbaYgerS26pq3G2qBq5sPW9ENd2UgJPiMk6DP3gzw1M71fuKt7O9y1EmSC
+	 qGnRHrpLMCXRzGOrlHhkVmPu9BcJt2SZGhJI0X1d/bxPOW5CYLMJ52pk7E4qhYn/GxWpW4w48fn3L
+	 TWWUM34sJbtpv70o1MwxLQp1aZ4NEAQy8ffHfQhGRThZ+kMlq/n0+RP8YyRwW//3XNWNTNXyt1WHe
+	 1qQwGqRGK3v0nA==
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?bmV0ZGV2LWJvdCtzaW5mbw==?=" <netdev-bot+sinfo@kernel.org>
+Cc: "=?utf-8?B?TWFyYyBLbGVpbmUtQnVkZGU=?=" <mkl@pengutronix.de>, "=?utf-8?B?VmluY2VudCBNYWlsaG9s?=" <mailhol@kernel.org>, "=?utf-8?B?U2ViYXN0aWFuIEFuZHJ6ZWogU2lld2lvcg==?=" <bigeasy@linutronix.de>, "=?utf-8?B?Q2xhcmsgV2lsbGlhbXM=?=" <clrkwllms@kernel.org>, "=?utf-8?B?U3RldmVuIFJvc3RlZHQ=?=" <rostedt@goodmis.org>, "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?SGVpa28gU3R1ZWJuZXI=?=" <heiko@sntech.de>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
+Subject: Re: [PATCH net] can: rockchip_canfd: stop bus-off restart before closing the device
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkDmKwFX0c1qe7CLAA--.40611S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxCrW8CFW8tFy7XF1DWFW8Xrb_yoW5Zr1DpF
-	Z5Ca1jyFyDJr9FyrWDJwnxZw1fZan5tF9rGr13K39xG3W3J3Z8X347ArZ0gr4jkF409F47
-	XFW5Ca1rWry5AwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9K14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
-	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr
-	0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
-	x2IErcIFxwCY1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_GF1l42xK82IYc2Ij64vIr4
-	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
-	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
-	8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
-	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
-	v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfU8KZXUUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUFD2rM+jyYtgAAsD
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Tue, 13 Oct 2026 14:39:15 +0800
+X-Priority: 3
+Message-ID: <tencent_1385D030CB2025348D8C05842272FB01350A@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <tencent_5802EE88434010229EDF7A53084D994C6106@qq.com>
+	<179186216396.2527009.17545175870858054500@kernel.org>
+In-Reply-To: <179186216396.2527009.17545175870858054500@kernel.org>
+X-QQ-mid: xmsezb41-0t1791873555t7ffge0n2
 
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-
-A KASAN slab-use-after-free read was reported in submit_audio_out_urb()
-when generating an impulse test signal:
-
-  BUG: KASAN: slab-use-after-free in create_impulse_test_signal sound/usb/line6/playback.c:76 [inline]
-  BUG: KASAN: slab-use-after-free in submit_audio_out_urb+0x1848/0x1b20 sound/usb/line6/playback.c:249
-  Read of size 2 at addr ffff888008d74870 by task syz.2.3214/7785
-
-  Allocated by task 11:
-   kmem_cache_alloc_noprof+0x2f0/0x390 mm/slub.c:4144
-   line6_buffer_acquire+0x1a1/0x220 sound/usb/line6/pcm.c:158
-   line6_pcm_acquire+0xb6/0x230 sound/usb/line6/pcm.c:329
-   line6_startup_work+0x3c/0x50 sound/usb/line6/driver.c:728
-
-  Freed by task 7785:
-   kfree+0xf8/0x390 mm/slub.c:6566
-   line6_buffer_release sound/usb/line6/pcm.c:176 [inline]
-   line6_buffer_release+0xa5/0xf0 sound/usb/line6/pcm.c:170
-   __line6_pcm_release sound/usb/line6/pcm.c:305 [inline]
-   line6_pcm_release+0x5a/0x80 sound/usb/line6/pcm.c:313
-   snd_toneport_monitor_put+0x11b/0x190 sound/usb/line6/toneport.c:183
-
-line6pcm->prev_fbuf points into the capture PCM stream buffer
-(line6pcm->in.buffer), which is updated during audio_in_callback() to
-feed rate synchronization, software monitoring, and impulse test signal
-generation on playback side.
-
-When all capture streams are closed, line6_buffer_release() frees
-pstr->buffer with kfree().  However, it does not clear line6pcm->prev_fbuf.
-If playback is subsequently started (e.g. via impulse test signal
-volume control snd_line6_impulse_volume_put()), submit_audio_out_urb()
-dereferences the stale pointer line6pcm->prev_fbuf under in.lock,
-resulting in a slab-use-after-free read.
-
-Clear prev_fbuf and prev_fsize in line6_buffer_release() when releasing
-the capture stream buffer under in.lock, ensuring that no stale buffer
-pointer can be accessed by submit_audio_out_urb().
-
-Fixes: 63e20df1e5b2 ("ALSA: line6: Reorganize PCM stream handling")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- sound/usb/line6/pcm.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/sound/usb/line6/pcm.c b/sound/usb/line6/pcm.c
-index 2932eaf157f4..b4c594add1ae 100644
---- a/sound/usb/line6/pcm.c
-+++ b/sound/usb/line6/pcm.c
-@@ -173,6 +173,14 @@ static void line6_buffer_release(struct snd_line6_pcm *line6pcm,
- 	clear_bit(type, &pstr->opened);
- 	if (!pstr->opened) {
- 		line6_wait_clear_audio_urbs(line6pcm, pstr);
-+		if (pstr == &line6pcm->in) {
-+			/* prev_fbuf points into the capture buffer we are about
-+			 * to free; drop it while no capture URB is in flight.
-+			 */
-+			guard(spinlock_irqsave)(&line6pcm->in.lock);
-+			line6pcm->prev_fbuf = NULL;
-+			line6pcm->prev_fsize = 0;
-+		}
- 		kfree(pstr->buffer);
- 		pstr->buffer = NULL;
- 	}
--- 
-2.34.1
+SGksCgo+ICAtIEhvdyB0aGUgaXNzdWUgd2FzIGRpc2NvdmVyZWQsIGUuZy4gaGl0IGluIHBy
+b2R1Y3Rpb24sIGhpdCBkdXJpbmcKPiAgICBkZXZlbG9wbWVudCwgc3l6Ym90IHJlcG9ydCwg
+bWFudWFsIGNvZGUgaW5zcGVjdGlvbiwgTExNIG9yIHN0YXRpYwo+ICAgIGFuYWx5c2lzIHRv
+b2wgc2Nhbi4KClRoYW5rcyBmb3IgcG9pbnRpbmcgdGhpcyBvdXQuIFRoaXMgd29yayBzdGFy
+dGVkIHdpdGggYSByZWFsIGZhaWx1cmUgb24gYQpwcm9kdWN0aW9uIHJvYm90LCByYXRoZXIg
+dGhhbiBhIGdlbmVyYWwgc2NhbiBmb3IgcG90ZW50aWFsIGRyaXZlciBidWdzLgoKVGhlIHBy
+b2R1Y3Rpb24gc3lzdGVtIHVzZWQgYSBMdWJhbkNhdC01SU8gd2l0aCBhbiBSSzM1ODgsIHJ1
+bm5pbmcgYQo2LjE4LjU1LWN1cnJlbnQtcm9ja2NoaXA2NCBQUkVFTVBUX1JUIGtlcm5lbCB3
+aXRoIGxvY2FsIENBTiBwYXRjaGVzLiBJdHMKMSBNYml0L3MgQ0FOIGJ1cyBjb25uZWN0ZWQg
+Zm91ciBDQU5vcGVuIG1vdG9ycyBvcGVyYXRpbmcgYXQgMTAwIEh6IGFuZApmb3VyIHNlbnNv
+cnMgb3BlcmF0aW5nIGF0IDIwIEh6LgoKPiAgLSBXaGV0aGVyIHRoZSBpc3N1ZSB3YXMgYWN0
+dWFsbHkgdHJpZ2dlcmVkLCBvciBpcyBvbmx5IHRoZW9yZXRpY2FsCj4gICAgKGUuZy4gZm91
+bmQgYnkgY29kZSBpbnNwZWN0aW9uKS4gSWYgaXQgd2FzIHRyaWdnZXJlZCBwbGVhc2UgaW5j
+bHVkZQo+ICAgIHRoZSBzeW1wdG9tcywgbGlrZSB0aGUgc3RhY2sgdHJhY2Ugb3IgZXJyb3Ig
+bWVzc2FnZXMuCgpUaGUgb2JzZXJ2ZWQgZmFpbHVyZSB3YXMgYSBwZXJzaXN0ZW50IFRYIHN0
+YWxsOiBSWCBjb250aW51ZWQsIGJ1dCB0aGUgVFgKcXVldWUgcmVtYWluZWQgc3RvcHBlZCBh
+bmQgc3Vic2VxdWVudCBzZW5kcyByZXR1cm5lZCBFTk9CVUZTLiBUaGUKaW50ZXJmYWNlIHN0
+aWxsIHJlcG9ydGVkIEVSUk9SLUFDVElWRSwgYW5kIHRoZSBoYXJkd2FyZSBpbmRpY2F0ZWQg
+bmVpdGhlcgphIGJ1cy1vZmYgY29uZGl0aW9uIG5vciBhIHBlbmRpbmcgVFggcmVxdWVzdC4K
+Ckkgd2lsbCBzdWJtaXQgdHdvIHBhdGNoZXMgZm9yIHRoaXMgaXNzdWU7IHRoaXMgaXMgdGhl
+IGZpcnN0IG9uZS4KClRoaXMgcGF0Y2ggaXMgbm90IGEgZGlyZWN0IGZpeCBmb3IgdGhhdCBm
+YWlsdXJlLiBJdCBmaXhlcyBhIHJhY2UKdGhhdCB3YXMgYWxyZWFkeSBwcmVzZW50IGluIHRo
+ZSBkcml2ZXIgYW5kIHRoYXQgSSBmb3VuZCBkdXJpbmcKZmF1bHQtaW5qZWN0aW9uIHRlc3Rp
+bmcgb2YgdGhlIGVjaG8tbG9zcyBmaXg6IGNsb3NlX2NhbmRldigpIGNhbmNlbHMKcmVzdGFy
+dF93b3JrIG9ubHkgYWZ0ZXIgdGhlIElSUSBoYXMgYmVlbiBmcmVlZCBhbmQgdGhlIGNvbnRy
+b2xsZXIgaGFzCmJlZW4gc3RvcHBlZCwgc28gYSBxdWV1ZWQgYnVzLW9mZiByZXN0YXJ0IGNh
+biByZS1lbmFibGUgdGhlIGNvbnRyb2xsZXIKYW5kIGl0cyBpbnRlcnJ1cHRzIGFmdGVyIElS
+USB0ZWFyZG93biwgYW5kIGNhbiByZXF1ZXVlIHRpbWVzdGFtcCB3b3JrCnRoYXQgbWF5IGxh
+dGVyIGFjY2VzcyByZWdpc3RlcnMgYWZ0ZXIgcnVudGltZSBzdXNwZW5kIGhhcyBkaXNhYmxl
+ZCB0aGUKY2xvY2tzLiBUaGUgc2Vjb25kIHBhdGNoIGJ1aWxkcyBvbiB0aGlzIHNlcmlhbGl6
+YXRpb24gYW5kIGFkZHJlc3NlcyB0aGUKZWNoby1sb3NzIHN0YWxsIGl0c2VsZi4KClJlZ2Fy
+ZHMsCkN1bmhhbyBMdQo=
 
