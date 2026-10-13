@@ -1,173 +1,127 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E66134F3EAF;
-	Tue, 13 Oct 2026 12:20:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 817BD4F472E;
+	Tue, 13 Oct 2026 12:20:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791894026; cv=none; b=W9B9mRLGwFNJ+ZFvaeFPcEXy/F8TghmTnvI0uNxSreNh93xrbF9V2xJzPzPsFTCrNZZS2QxpFQafbNu4ss9P35V9emyN3Ov86kvhUa0mOFEsrMWhAZB3IXgZbwtAvSI3lh7pKX8debiDIluVtUT+RsPdMIB2yzvil3VYAjaEEqU=
+	t=1791894026; cv=none; b=BXH89yh6TZqTFP3zda5+EYaYpCCpm+ie7fFQOS3Entp8LPPL/SPvzydTtIQMKPLTnPTe1iabyeLwFndU0+muOW4FWyZ0LR1fvx3AP+rUjU7F1ho6gtdB81B8/M0ebYQcn6EwHsABZCYlbONpS9vwXww86tsI/KJam+uY3LCsNTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791894026; c=relaxed/simple;
-	bh=gLHOz6njKTNxjDFN02B8L8v99H/7ZMGByM9sSmYJovA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TBSXfE6Yj6kaipm58utFFXUQMq2HsXfjBx78q3OLrkJfkMq+Kwx6sMUf1foT+1rHOm60nfO4BlljMOtiD4J1NknZUFy1XPY7byvhMDItqiVjyiMn7i+0kbY9ls4YZwjcoCqFwUBy0elI++2y+92DtZfMJDoylJtU8HKOWPx6YYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=MYPtX1pq; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=UIMJ6gtk; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=MYPtX1pq; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=UIMJ6gtk; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	bh=amAjXlWUW92rXFWuKlAncXVMpg2dHRFSFdzBkg1u3IY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e+vGMt6Ogc/2lJbXa7Vg6cInckJ7NlEIDSEh2+P1nto7z0bs1G/83B4DR+jDHR71zcYOSKesEXdDnesZZIu89MuanSaCwuPVN7aocyi99x5oicKjfeUczGjhex8f59wzXyqJAqbQ0NS3bqh5bV1XduKrCI1/znl8QYsPnhf/Gjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RgzkgLIQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="MYPtX1pq";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="UIMJ6gtk";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="MYPtX1pq";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="UIMJ6gtk"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 3B4851F38E;
-	Tue, 13 Oct 2026 12:20:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791894022; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OlJGBCagWvXQGO1VIHshMZ8zFkjRtPwQ0FF4ct4s8xw=;
-	b=MYPtX1pqwVUK0zZLZ7JvsDlUrVeuxO2nws3ChajkvINSlQYgy3PyDbw/9d3fAfPnyrfW4K
-	H1IH3q1/ZDU6NP3Zefp8sgQM0853fsandUaEbxwiTPkRc5qAIp0dVWrQ4vArbygF1shmv+
-	FJYGCSiEF+Zh1pTqYt1GO43sCfgdH+U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791894022;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OlJGBCagWvXQGO1VIHshMZ8zFkjRtPwQ0FF4ct4s8xw=;
-	b=UIMJ6gtkD8PBH05LiVAMA2MYaKywXMR4QoVM3vTGpCC7e704+xtAI6w1wc/TFo8fJltuF9
-	+vdubEu+r1kOTgDA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=MYPtX1pq;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=UIMJ6gtk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791894022; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OlJGBCagWvXQGO1VIHshMZ8zFkjRtPwQ0FF4ct4s8xw=;
-	b=MYPtX1pqwVUK0zZLZ7JvsDlUrVeuxO2nws3ChajkvINSlQYgy3PyDbw/9d3fAfPnyrfW4K
-	H1IH3q1/ZDU6NP3Zefp8sgQM0853fsandUaEbxwiTPkRc5qAIp0dVWrQ4vArbygF1shmv+
-	FJYGCSiEF+Zh1pTqYt1GO43sCfgdH+U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791894022;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OlJGBCagWvXQGO1VIHshMZ8zFkjRtPwQ0FF4ct4s8xw=;
-	b=UIMJ6gtkD8PBH05LiVAMA2MYaKywXMR4QoVM3vTGpCC7e704+xtAI6w1wc/TFo8fJltuF9
-	+vdubEu+r1kOTgDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DAA73134B8;
-	Tue, 13 Oct 2026 12:20:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Cd1nLAUizmraJgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 13 Oct 2026 12:20:21 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 627C6A1407; Tue, 13 Oct 2026 14:20:21 +0200 (CEST)
-Date: Tue, 13 Oct 2026 14:20:21 +0200
-From: Jan Kara <jack@suse.cz>
-To: guolingxing <guolingxing@tju.edu.cn>
-Cc: Theodore Ts'o <tytso@mit.edu>, Jan Kara <jack@suse.com>, 
-	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] jbd2: check return value of blkdev_issue_flush()
- for async commits
-Message-ID: <ntruc4otct22v67ajoclslm7dr73fuyhqlcwpt3djnzhcacnjy@tap3ofwarqim>
-References: <20261012114713.4049391-1-guolingxing@tju.edu.cn>
- <20261013014028.1152277-1-guolingxing@tju.edu.cn>
- <20261013014028.1152277-4-guolingxing@tju.edu.cn>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RgzkgLIQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D59AD1F00893;
+	Tue, 13 Oct 2026 12:20:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791894025;
+	bh=kOAait4zLbF120UZasGFUiQN57PgjKibJyzrwNuxp4M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RgzkgLIQaWbq/9eKfguVXqrTj3zP3os6JvEFZC3axBr4MTbR0TCudbySrZ8BY3QTF
+	 lUc06HAu6cDrTF0YzzmB3AQ8vqu3ywtcw/q3DoL/+JPa1icnYmmv1tXz/+TrUz71qW
+	 VM8MPk+amj1JHP1FVA89uOEbtUjH/y0GT906EeeQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Ilya Leoshkevich <iii@linux.ibm.com>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 421/621] bpf, s390: Clear fetch destination on faulting arena atomic
+Date: Tue, 13 Oct 2026 13:36:56 +0200
+Message-ID: <20261013112930.826720139@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261013112920.855194808@linuxfoundation.org>
+References: <20261013112920.855194808@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013014028.1152277-4-guolingxing@tju.edu.cn>
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 3B4851F38E
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	DWL_DNSWL_BLOCKED(0.00)[suse.cz:dkim];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:email,suse.cz:dkim]
-X-Spam-Flag: NO
-X-Spam-Score: -4.01
+Content-Transfer-Encoding: 8bit
 
-On Tue 13-10-26 01:40:28, guolingxing wrote:
-> When asynchronous commits are enabled, jbd2_commit_transaction()
-> calls blkdev_issue_flush() on the journal device to make the commit
-> record permanent.  However the return value is ignored so if the
-> flush fails, the transaction is considered committed although the
-> commit record may have never reached the disk.  Abort the journal
-> when the flush fails, as we already do when waiting for the commit
-> record fails.
-> 
-> Fixes: f73bee49855f ("jbd2: Modify ASYNC_COMMIT code to not rely on queue draining on barrier")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-Looks good. Feel free to add:
+------------------
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+From: Daniel Borkmann <daniel@iogearbox.net>
 
-								Honza
+[ Upstream commit cc3e12330599f097f0e1f792435686ddc276f26d ]
 
-> ---
->  fs/jbd2/commit.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/jbd2/commit.c b/fs/jbd2/commit.c
-> index 8c561e42b60a..4e8ebce34077 100644
-> --- a/fs/jbd2/commit.c
-> +++ b/fs/jbd2/commit.c
-> @@ -912,7 +912,10 @@ void jbd2_journal_commit_transaction(journal_t *journal)
->  	stats.run.rs_blocks_logged++;
->  	if (jbd2_has_feature_async_commit(journal) &&
->  	    journal->j_flags & JBD2_BARRIER) {
-> -		blkdev_issue_flush(journal->j_dev);
-> +		int flush_err = blkdev_issue_flush(journal->j_dev);
-> +
-> +		if (!err)
-> +			err = flush_err;
->  	}
->  
->  	if (err)
-> -- 
-> 2.34.1
-> 
+Same missing register clear as on riscv64. A RMW atomic on an arena pointer
+is converted to BPF_PROBE_ATOMIC and gets an exception table entry, but
+bpf_jit_probe_atomic_pre() only fills in the arena base and the probe
+offset, leaving probe->reg at the -1 that bpf_jit_probe_init() set, which
+bpf_jit_probe_post() writes into the entry and ex_handler_bpf() then reads
+back as "there is nothing to clear".
+
+That is right for a plain BPF_{ADD,AND,OR,XOR}, which only writes memory,
+but an RMW carrying BPF_FETCH also reads the old value into a register:
+src_reg for BPF_{ADD,AND,OR,XOR} | BPF_FETCH and BPF_XCHG, and r0 for
+BPF_CMPXCHG. So on a fault over an unmapped arena page the program resumes
+at the landing pad with whatever that register held before the atomic
+instead of the 0 that every other BPF_PROBE_* access delivers.
+
+Fill probe->reg in from bpf_atomic_load_reg(). Unlike x86-64 and arm64,
+s390x does not report arena violations from its exception handler, so there
+is no access direction to correct here, only the missing register clear.
+
+Fixes: 2f9469484a3b ("s390/bpf: Support arena atomics")
+Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
+Reviewed-by: Ilya Leoshkevich <iii@linux.ibm.com>
+Link: https://patch.msgid.link/20260811131600.506721-5-daniel@iogearbox.net
+Signed-off-by: Eduard Zingerman <eddyz87@gmail.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/s390/net/bpf_jit_comp.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/arch/s390/net/bpf_jit_comp.c b/arch/s390/net/bpf_jit_comp.c
+index d7cdd907ac797..c3ff2d82cd1c9 100644
+--- a/arch/s390/net/bpf_jit_comp.c
++++ b/arch/s390/net/bpf_jit_comp.c
+@@ -771,6 +771,8 @@ static void bpf_jit_probe_atomic_pre(struct bpf_jit *jit,
+ 				     struct bpf_insn *insn,
+ 				     struct bpf_jit_probe *probe)
+ {
++	int load_reg;
++
+ 	if (BPF_MODE(insn->code) != BPF_PROBE_ATOMIC)
+ 		return;
+ 
+@@ -780,6 +782,14 @@ static void bpf_jit_probe_atomic_pre(struct bpf_jit *jit,
+ 	EMIT4(0xb9080000, REG_W1, insn->dst_reg);
+ 	probe->arena_reg = REG_W1;
+ 	probe->prg = jit->prg;
++	/*
++	 * A read-modify-write carrying BPF_FETCH reads the old value into
++	 * src_reg, or into r0 for a BPF_CMPXCHG. Clear that register on
++	 * fault, the remaining atomics only write memory.
++	 */
++	load_reg = bpf_atomic_load_reg(insn);
++	if (load_reg >= 0)
++		probe->reg = reg2hex[load_reg];
+ }
+ 
+ static int bpf_jit_probe_post(struct bpf_jit *jit, struct bpf_prog *fp,
+@@ -1642,6 +1652,7 @@ static noinline int bpf_jit_insn(struct bpf_jit *jit, struct bpf_prog *fp,
+ 			if (load_probe.prg != -1) {
+ 				probe.prg = jit->prg;
+ 				probe.arena_reg = load_probe.arena_reg;
++				probe.reg = load_probe.reg;
+ 			}
+ 			loop_start = jit->prg;
+ 			/* 0: {csy|csg} %w0,%src,off(%arena) */
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.53.0
+
+
+
