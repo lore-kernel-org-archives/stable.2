@@ -1,39 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18A5D5226BF
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:48:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C933F86EF
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:53:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910125; cv=none; b=OKEf12o5GWWdqnbByZvE4mYiVNo4EM54a++5Zdg3gPsQmSAmME17J4YDF/zftumUh7hU4uD9i36DxSoxI7Mmzn6bTnUTZlts4b2Ro2CDW+ETMDtqjdyySOckhxQPM9q5nb5UwrqPhpJFqg3fck7knppRIFydI6auAbyELz5mI2M=
+	t=1791910392; cv=none; b=IFIQ8kaE/eO537VzsUVE8M7z4/clObdz0EH0RHNL8eKCbPZrFWtvNgwJ6sJAugIay0F5WdzLa+c1ZOzyA/+YaibK8BbHNH3NWQJMOXxz589vLPpqh4wZok2kbpxuEV9KMNiX/C31c3RKT7vG5i27niye8Yr6d0bRsAIoS2EYJ9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910125; c=relaxed/simple;
-	bh=kH6PVbdCdR/YZom3xg9JBY5LJ4KbUTrTI+LWL8MKpiA=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y4w9cZkxbYE1TuWcvftlSc3XVG0ej4R6YIUrfin7cONLv+GNkf0HmMNtlyLsVwl3h2N0zolm64JwdufyNoj+fd58g86GLawli5VKUMnwrwq8zjJO58jjmasNY+PyksYOM5Bpvf6D5koJ+VWdFW1x8Org6aMheIv7AeuNSj/8nkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jLW4Vss9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791910392; c=relaxed/simple;
+	bh=Xco4H97XQ9YaU8BG9TknS62N3XM87BxafcaGAlpOI0A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NKR44saQqm5MRlBQl9q2SWONn720XQmZMoiSNwZ85F7H9jMmWqMoqC4wM9G6ltarU5lwYwT9EsvVauQrTO6quwgUAc/TTte2t3sHSuBSTvApZXzO7U7SPpx8z3fEu2+tVBoknuwk2+iHFbD3TNUcooI9BHXqcEtaKRN1cGHbNWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J/CMYarN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jLW4Vss9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10AE81F00898
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:48:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J/CMYarN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 024681F00893;
+	Tue, 13 Oct 2026 16:53:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791910122;
-	bh=5i8ER2T8wp5AvP3jicWqLnw2aG9hMk+CPRtS/3TTtnA=;
-	h=From:To:Subject:Date:In-Reply-To:References;
-	b=jLW4Vss9CUUD+QJAvtvWLg/4/LdeZxX2q0ooWkD5yWE6aIVKUqV184B/4Tz4at+7S
-	 eMyKicSBirrlj0+5JzdtpQ3IaWpdcElnnlED4JamtMlPnvB5OyskipzbMlmNvakwNX
-	 Z1B69+bZRIGtCSIIqG01V6vaaJs2Uznq0EWlA/B4Tznydbxs62eVjlaoI0BG+fcKd3
-	 L5kuCK0dT6ZoX9q49bVHYIJ1jBarOTX39Oj+eVn+QQC93g5rgTfgQD7Y1qmL1oSaSP
-	 E5tTTL/lI3Zntg2MPmT0HiH0j0vOBLD2f8c1tYjBF7qEne/T2JncyoFssI3+5TUsrM
-	 JaJjxmWVCYXew==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+	s=k20260515; t=1791910391;
+	bh=Mmi2YirzwUnHdo7Fpg5d611/EopTUItAC/HF3D8GFoQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=J/CMYarNfClTS9zJNzdRks4GWAybwP7T8EPHzAcLXTmX297p8xX43YhR3GdZo4ZO0
+	 UPYdOs1hfJ+7oRkg1k3gPIeUQF7/smxf+NRKdR+t6L3EfvgnuaSrj1unQcUhYA4AgU
+	 L9MMpRVu+1H2TsnGwYQ0/V6HVfzqKs1t5JFLZOok7rU5UwDxqe1hFDf8ajOqU84CEv
+	 beR4Hv3GRBKP8ABJzrT0V+LTHx7nuQV/R8gPuY1H4LGTUzAEA7qghQfcHcHU4nGjye
+	 u92RIegPv3tsWH/XF8YadXs5b9GdTu59dn7W3AoNOxX38bm8LSynvdt+V/SvhMA4aX
+	 m9NddhyyYpz0g==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.6.y] mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP self-merge
-Date: Tue, 13 Oct 2026 17:48:37 +0100
-Message-ID: <20261013164837.2509912-1-ljs@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <2026101210-unicycle-configure-b7b7@gregkh>
-References: <2026101210-unicycle-configure-b7b7@gregkh>
+Cc: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>,
+	Laurence Oberman <loberman@redhat.com>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] scsi: ch: Do not keep references to data transfer element devices
+Date: Tue, 13 Oct 2026 12:53:09 -0400
+Message-ID: <20261013165248.459443-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026101240-identity-dormitory-be3b@gregkh>
+References: <2026101240-identity-dormitory-be3b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -42,166 +46,125 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
-operations that keep the original VMA in place.
+From: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
 
-Historically this has led to a lot of bugs where non-obvious interactions
-occur between existing mremap() operations and the original VMA.
+[ Upstream commit 27c0f718d3b3c99e6d315308e95d987d0382a8a8 ]
 
-Fix another of these - self-merge.
+ch_readconfig() looks up the scsi_device of every data transfer element
+whose SCSI id the changer reports in READ ELEMENT STATUS, and stores it in
+ch->dt[]. scsi_device_lookup() takes a reference, and nothing ever drops
+it: ch_destroy() frees the array with kfree(). ch->dt[] is read nowhere
+else - it only supplies the vendor, model and revision printed in the same
+loop.
 
-Self-merge occurs when a VMA is moved in front of or behind itself and the
-attributes of the VMA permit such a merge.
+Once such a drive is removed, its scsi_device can never be released. It
+stays on the host's device list at its address, so a new device there is
+refused by anything that walks the list - target_core_pscsi reports
+"scsi_device_get() failed for H:C:T:L" - and the low-level driver's module
+can no longer be unloaded. Only a reboot recovers.
 
-Practically this can only happen for unfaulted anonymous VMAs due to the
-page offset equality requirement for merge:
+It shows with any changer that reports its drives' ids; with the mhvtl
+virtual library (IBM 3573-TL personality), each create and remove of a
+library with four drives leaves four references behind, counted by the
+module's use count in lsmod. With ch not bound the count is unchanged, and
+with this patch applied it is unchanged too.
 
-                           |------------|
-                           |            |
-                           |            v
-        |...........||-----------||...........|
-        |           || unfaulted ||           |
-        |...........||-----------||...........|
-              ^            |
-              |            |
-              |------------|
+Drop the reference as soon as the name has been printed, and remove the now
+unused dt[] array. That also removes the array leaked when ch_probe() fails
+after ch_readconfig().
 
-This becomes problematic if the VMA is configured by the user to
-mlock-on-fault, i.e. the VMA_LOCKED_BIT, VMA_LOCKONFAULT_BIT VMA flags are
-set.
+The same leak was reported with an RFC patch in 2022, which was not merged.
 
-MREMAP_DONTUNMAP clears mlock flags for the source VMA and maintains them
-for the destination VMA.
-
-Self-merge makes this impossible (there is only one VMA) and incorrectly
-clears the destination VMA's mlock flags.
-
-This causes a leak in mm->locked_vm as clearing this flag does not
-decrement the counter and the VMA no longer has VMA_LOCKED_BIT set so it
-is not decremented on unmap.
-
-Resolve this by simply disallowing a self-merge in this case - the source
-and destination VMAs are kept distinct and then are able to have distinct
-mlock() flags.
-
-Update to make the now-redundant self-merge check a VM_WARN_ON_ONCE()
-instead to guard against future regressions.
-
-Fixes: e346b3813067 ("mm/mremap: add MREMAP_DONTUNMAP to mremap()")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-Cc: <stable@vger.kernel.org>
-(cherry picked from commit 838bb60dc21553e32df90f2f3bac5b905376e7aa)
-[ ljs - Converted to work with vma_merge(), tweaked commit msg. ]
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: daa6eda65a53 ("[SCSI] add scsi changer driver")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/linux-scsi/20220719075442.6215-1-yanghao_ht@163.com/
+Signed-off-by: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
+Reviewed-by: Laurence Oberman <loberman@redhat.com>
+Fixes: daa6eda65a53 ("[SCSI] add scsi changer driver")
+Link: https://patch.msgid.link/20260929-ch-dt-leak-v2-1-ddda8d635dca@gmail.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+[ sashal: Adjusted allocation removal for kcalloc() instead of kzalloc_objs(). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/mm.h |  2 +-
- mm/mmap.c          | 23 +++++++++++++++++++----
- mm/mremap.c        |  7 +++++--
- 3 files changed, 25 insertions(+), 7 deletions(-)
+ drivers/scsi/ch.c | 30 +++++++++---------------------
+ 1 file changed, 9 insertions(+), 21 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 09669ea23084..c365c33b9c3a 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -3313,7 +3313,7 @@ extern int insert_vm_struct(struct mm_struct *, struct vm_area_struct *);
- extern void unlink_file_vma(struct vm_area_struct *);
- extern struct vm_area_struct *copy_vma(struct vm_area_struct **,
- 	unsigned long addr, unsigned long len, pgoff_t pgoff,
--	bool *need_rmap_locks);
-+	bool *need_rmap_locks, bool keep_source);
- extern void exit_mmap(struct mm_struct *);
- 
- static inline int check_data_rlimit(unsigned long rlim,
-diff --git a/mm/mmap.c b/mm/mmap.c
-index 8cf23a07ae50..374a6e02c299 100644
---- a/mm/mmap.c
-+++ b/mm/mmap.c
-@@ -3383,13 +3383,14 @@ int insert_vm_struct(struct mm_struct *mm, struct vm_area_struct *vma)
-  */
- struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
- 	unsigned long addr, unsigned long len, pgoff_t pgoff,
--	bool *need_rmap_locks)
-+	bool *need_rmap_locks, bool keep_source)
- {
- 	struct vm_area_struct *vma = *vmap;
- 	unsigned long vma_start = vma->vm_start;
- 	struct mm_struct *mm = vma->vm_mm;
- 	struct vm_area_struct *new_vma, *prev;
- 	bool faulted_in_anon_vma = true;
-+	bool can_self_merge = false;
- 	VMA_ITERATOR(vmi, mm, addr);
- 
- 	/*
-@@ -3399,15 +3400,29 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
- 	if (unlikely(vma_is_anonymous(vma) && !vma->anon_vma)) {
- 		pgoff = addr >> PAGE_SHIFT;
- 		faulted_in_anon_vma = false;
-+		can_self_merge = true;
+diff --git a/drivers/scsi/ch.c b/drivers/scsi/ch.c
+index 7ab29eaec6f38..fa0317402ba4e 100644
+--- a/drivers/scsi/ch.c
++++ b/drivers/scsi/ch.c
+@@ -110,7 +110,6 @@ typedef struct {
+ 	int                 minor;
+ 	char                name[8];
+ 	struct scsi_device  *device;
+-	struct scsi_device  **dt;        /* ptrs to data transfer elements */
+ 	u_int               firsts[CH_TYPES];
+ 	u_int               counts[CH_TYPES];
+ 	u_int               unit_attention;
+@@ -357,16 +356,10 @@ ch_readconfig(scsi_changer *ch)
+ 			vendor_labels[i]);
  	}
  
- 	new_vma = find_vma_prev(mm, addr, &prev);
- 	if (new_vma && new_vma->vm_start < addr + len)
- 		return NULL;	/* should never get here */
- 
--	new_vma = vma_merge(&vmi, mm, prev, addr, addr + len, vma->vm_flags,
--			    vma->anon_vma, vma->vm_file, pgoff, vma_policy(vma),
--			    vma->vm_userfaultfd_ctx, anon_vma_name(vma));
-+	/*
-+	 * If the original VMA is kept (MREMAP_DONTUNMAP), the source and
-+	 * destination VMA must be treated distinctly.
-+	 *
-+	 * A merge violates this, so in this case disallow a self-merge. A
-+	 * self-merge can only occur if the new range is immediately adjacent to
-+	 * the source VMA, so simply do not attempt to merge in that case.
-+	 */
-+	if (can_self_merge && keep_source &&
-+	    (addr == vma->vm_end || vma->vm_start == addr + len))
-+		new_vma = NULL;
-+	else
-+		new_vma = vma_merge(&vmi, mm, prev, addr, addr + len,
-+				    vma->vm_flags, vma->anon_vma, vma->vm_file,
-+				    pgoff, vma_policy(vma),
-+				    vma->vm_userfaultfd_ctx, anon_vma_name(vma));
- 	if (new_vma) {
- 		/*
- 		 * Source vma may have been merged into new_vma
-diff --git a/mm/mremap.c b/mm/mremap.c
-index d458ef218a37..18cbc4b526df 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -645,7 +645,7 @@ static unsigned long move_vma(struct vm_area_struct *vma,
- 	vma_start_write(vma);
- 	new_pgoff = vma->vm_pgoff + ((old_addr - vma->vm_start) >> PAGE_SHIFT);
- 	new_vma = copy_vma(&vma, new_addr, new_len, new_pgoff,
--			   &need_rmap_locks);
-+			   &need_rmap_locks, flags & MREMAP_DONTUNMAP);
- 	if (!new_vma) {
- 		if (vm_flags & VM_ACCOUNT)
- 			vm_unacct_memory(to_account >> PAGE_SHIFT);
-@@ -706,6 +706,9 @@ static unsigned long move_vma(struct vm_area_struct *vma,
- 		untrack_pfn_clear(vma);
- 
- 	if (unlikely(!err && (flags & MREMAP_DONTUNMAP))) {
-+		/* Self-merge is disallowed. */
-+		VM_WARN_ON_ONCE(new_vma == vma);
+-	/* look up the devices of the data transfer elements */
+-	ch->dt = kcalloc(ch->counts[CHET_DT], sizeof(*ch->dt),
+-			 GFP_KERNEL);
+-
+-	if (!ch->dt) {
+-		kfree(buffer);
+-		return -ENOMEM;
+-	}
+-
++	/* report the devices of the data transfer elements */
+ 	for (elem = 0; elem < ch->counts[CHET_DT]; elem++) {
++		struct scsi_device *sdev;
 +
- 		/* We always clear VM_LOCKED[ONFAULT] on the old vma */
- 		vm_flags_clear(vma, VM_LOCKED_MASK);
+ 		id  = -1;
+ 		lun = 0;
+ 		if (elem < CH_DT_MAX  &&  -1 != dt_id[elem]) {
+@@ -382,10 +375,8 @@ ch_readconfig(scsi_changer *ch)
+ 			VPRINTK(KERN_INFO, "dt 0x%x: ",elem+ch->firsts[CHET_DT]);
+ 			if (data[6] & 0x80) {
+ 				VPRINTK(KERN_CONT, "not this SCSI bus\n");
+-				ch->dt[elem] = NULL;
+ 			} else if (0 == (data[6] & 0x30)) {
+ 				VPRINTK(KERN_CONT, "ID/LUN unknown\n");
+-				ch->dt[elem] = NULL;
+ 			} else {
+ 				id  = ch->device->id;
+ 				lun = 0;
+@@ -395,18 +386,16 @@ ch_readconfig(scsi_changer *ch)
+ 		}
+ 		if (-1 != id) {
+ 			VPRINTK(KERN_CONT, "ID %i, LUN %i, ",id,lun);
+-			ch->dt[elem] =
+-				scsi_device_lookup(ch->device->host,
+-						   ch->device->channel,
+-						   id,lun);
+-			if (!ch->dt[elem]) {
++			sdev = scsi_device_lookup(ch->device->host,
++						  ch->device->channel,
++						  id, lun);
++			if (!sdev) {
+ 				/* should not happen */
+ 				VPRINTK(KERN_CONT, "Huh? device not found!\n");
+ 			} else {
+ 				VPRINTK(KERN_CONT, "name: %8.8s %16.16s %4.4s\n",
+-					ch->dt[elem]->vendor,
+-					ch->dt[elem]->model,
+-					ch->dt[elem]->rev);
++					sdev->vendor, sdev->model, sdev->rev);
++				scsi_device_put(sdev);
+ 			}
+ 		}
+ 	}
+@@ -570,7 +559,6 @@ static void ch_destroy(struct kref *ref)
+ 	scsi_changer *ch = container_of(ref, scsi_changer, ref);
  
-@@ -713,7 +716,7 @@ static unsigned long move_vma(struct vm_area_struct *vma,
- 		 * anon_vma links of the old vma is no longer needed after its page
- 		 * table has been moved.
- 		 */
--		if (new_vma != vma && vma->vm_start == old_addr &&
-+		if (vma->vm_start == old_addr &&
- 			vma->vm_end == (old_addr + old_len))
- 			unlink_anon_vmas(vma);
+ 	ch->device = NULL;
+-	kfree(ch->dt);
+ 	kfree(ch);
+ }
  
 -- 
-2.56.0
+2.53.0
 
