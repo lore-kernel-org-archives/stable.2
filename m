@@ -1,92 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2095753FD54
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 22:05:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 130774EBAC7;
+	Tue, 13 Oct 2026 22:09:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791929152; cv=none; b=tn3Ilsanay3tz5Xgp4MOhH16FvHd8y0GxlFHY3mo+7UARsom9kgUvlbOAUg0dpzX0dpRA8WuhkXvE3vylrlL/t7rEXBjvauiUMGX4no6MMOGOFmbJ8r/r6IngIwA49DDhOKSm7EGs0WPE3KbXM6NM5D2HSsr+2dIkcbXVBwvem4=
+	t=1791929382; cv=none; b=p16QX0vTHAYGrRbacwKIXuQUSk0oVBOa28WWi1FaRgoVJqGrbiDeK3ahP1XZ4EE7W0t4ReW2XqzbHq9r1jS3Jva4c30gsskqudqsZ66J/8PTFSaW7lvfkRHoC2OI+SrYmtHle9P2cn/xVLSDDdwAXyR5CPLhsuY9iGlk/tcjZ5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791929152; c=relaxed/simple;
-	bh=KGcSNFnOdtZ1j8YPD0xStb9u5TMKlxiMTz+h15OXRao=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-Id; b=tAUFX6xO5aX8jGdoqkEbzUnhiFX/A6ItP3o6NxsXq91T0DfYISshJacknEz0qFuM3M41jBeP9DUoq+YvhwU1rrTlqjgyYgqxFe+6k16iJFqjLJgSk4qgN7HhtFCbpuZRcgCrPITafw2MfkjlL+BmjqctJk93irM5q6njcXCWN/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N7mLxaGO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791929382; c=relaxed/simple;
+	bh=WEYZ3J98KpR+UxeSqA7xaY2Y4RzXIGwC2ttOq5ulyok=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SXuI6k2mtfJ1Rq7SDqu376EOjjWd6JP2TdPRx34nA6EGg1OkZe4NDSOUeQXGqhLxaoidBx6X+JxXFYmBedwTVrAziYmu6vySLH0BIuULHzvBbP4q57QmR54Zg0B4Tw4GyA0pTH7ee+ZSBstRZJxmTxZl1R/YdGD7xxSVLp04q+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ds58Vcdy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N7mLxaGO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 468CC1F0089A;
-	Tue, 13 Oct 2026 22:05:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ds58Vcdy"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id CEA061F000FF;
+	Tue, 13 Oct 2026 22:09:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791929150;
-	bh=QpQhe1h5SK+XILdjYJWIdfcanWqFAKZNLqOFT1Yptyc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=N7mLxaGOLWDBC28owwMXW01k1ZMxuZbl9WIJFlTgUNH6Lcu84gnBsuiQwFGj5Mfv6
-	 +3jKX0h9+d7JjW050Or/lEdOfrDMEeLdeRVBIaZukxVhZMMnpxLmWWD8tX0nMQA5sl
-	 GeSrX80HMCs60T+VJQPSn+4Wt20PXFpiRJZEmBIJqXP+Z5DFG+jsMwb4g0G/zopcOG
-	 fNVhmwP6kwWQnxMbQ8JfhKgMWFF9byJe1icu0uuHITC+kjCr5+JjBAP8TDBFvz9PMs
-	 La1tx3HvzI6JH11y4Yit6Y8/U6jNF9xsEotFWtPtEAWo/AT/9rgQNUb4rWixyzd7rh
-	 gbgNs6aWOQjow==
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: lee@kernel.org
-Cc: stable@vger.kernel.org
-Subject: Re: [PATCH v2] tracing/histograms: Reject non-stacktrace fields for
- synthetic stacktrace fields
-Date: Wed, 14 Oct 2026 07:05:47 +0900
-X-Mailer: UndineD 0.1
-In-Reply-To: <20261013112449.1006088-1-lee@kernel.org>
-References: <20261013112449.1006088-1-lee@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1791929380;
+	bh=qls4g8YUAa7fch+xmhxHOWoEVnBiTm0WfNE6hOSDAro=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ds58VcdyYjHFOtl9w9kQ/lwh1yCF2Q9VqSIKEgPVSUKhky92L8HJPjdgJi2+/wwfD
+	 pX6m/MJwBYkuiMPpoNmh+RPB1QpYvEbgxjJ+kqrGiGoTNJRVaz1vL/TYClUfxfmxzm
+	 ioWktmHsBZ6Mj/XOwh6kE6Rd+e5w3ruUGLcQYX8yzd6Z62WlgUTqMwrVX1/oUtDXsS
+	 BjGPJYE7uDlUPWmeCDjvEtdtZ0RrFoWkWWtCBS3z1FmR05z+9AlX1UkayoC7p9o90V
+	 RA2atP7VoiakED0tY5Ltjd2VpLDRO1zbc6rRlu4qwWtRQ9KtMd7CaRCA3p4CcpIpp7
+	 1zYMBYZrKOVPA==
+Date: Tue, 13 Oct 2026 15:09:40 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Siddh Raman Pant <siddh.raman.pant@oracle.com>
+Cc: linux-xfs@vger.kernel.org, stable@vger.kernel.org,
+	Dave Chinner <dchinner@redhat.com>, linux-kernel@vger.kernel.org,
+	Sasha Levin <sashal@kernel.org>,
+	Mark Tinguely <mark.tinguely@oracle.com>
+Subject: Re: [PATCH RESEND 6.12 v2 0/6] Backport of XFS umount hang fixes
+Message-ID: <20261013220940.GH2705364@frogsfrogsfrogs>
+References: <cover.1791883280.git.siddh.raman.pant@oracle.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <20261013220550.468CC1F0089A@smtp.kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1791883280.git.siddh.raman.pant@oracle.com>
 
-On Tue, 13 Oct 2026 11:24:48 +0000, Lee Jones <lee@kernel.org> wrote:
-> In check_synth_field(), when a synthetic event field is a stacktrace
-> (field->is_stack) and the histogram field is not a "long[" stacktrace
-> array, validation falls through to the generic size and signedness
-> comparison.
->
-> Because parse_synth_field() sets a stacktrace field's type to
-> "__data_loc unsigned long[]", its size is sizeof(u64) and
-> synth_field_signed() marks it as signed.  Consequently, any 8-byte
-> signed scalar histogram field passes the fallback check, and its scalar
-> value is subsequently dereferenced as a kernel stacktrace pointer in
-> get_field_size() and trace_stack().
->
-> Furthermore, checking strstr(hist_field->type, "long[") is insufficient
-> because tracepoint fields defined with __bitmask() or __rel_bitmask()
-> also have type "__data_loc unsigned long[]" or "__rel_loc unsigned
-> long[]", whilst create_hist_field() treats them as 4-byte scalar values
-> without HIST_FIELD_FL_STACKTRACE.
->
-> Propagate HIST_FIELD_FL_STACKTRACE to variable references and field
-> variables (whilst excluding variable aliases from per-element
-> stacktrace capture), and reject any mismatch between
-> HIST_FIELD_FL_STACKTRACE and field->is_stack in check_synth_field().
+On Tue, Oct 13, 2026 at 03:07:23PM +0530, Siddh Raman Pant wrote:
+> Backport of this series:
+> https://lore.kernel.org/all/20250625224957.1436116-1-david@fromorbit.com/
+> 
+> I have added information in commit message upon conflict resolutions.
+> 
+> v2: Address Sasha's comments to v1 in the below mail:
+> https://lore.kernel.org/stable/2026-10-01-1-daily-reply-0012-re-xfs-umount-hang-backports@kernel.org/
+> 
+> xfstests_xfs testing results:
+> 	Generic:
+> 		Ran: 001 to 771 (672 tests; gaps)
+> 
+> 		Failures before changes:
+> 			Count: 4
+> 			IDs: 633, 696, 697, 753
+> 
+> 		Failures after changes:
+> 			Count: 4
+> 			IDs: 633, 696, 697, 753
+> 
+> 		No new success or failure after changes.
+> 
+> 	XFS:
+> 		Ran: 001 to 789 (311 tests; gaps)
+> 
+> 		Failures before changes:
+> 			Count: 2
+> 			IDs: 300, 556
+> 
+> 		Failures after changes:
+> 			Count: 2
+> 			IDs: 300, 556
+> 
+> 		No new success or failure after changes.
+> 
+> Thanks,
+> Siddh
 
-Good catch! Looks good to me.
+Looks good to me, thanks for actually running fstests!
 
-Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+That said -- generic goes up to 805 now, so I guess your branch is from
+somewhere between July and October 2025?
 
-Thanks
+Acked-by: "Darrick J. Wong" <djwong@kernel.org>
 
->
-> Fixes: 00cf3d672a9d ("tracing: Allow synthetic events to pass around stacktraces")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
-> ---
-> v1 -> v2:
->   - Check HIST_FIELD_FL_STACKTRACE instead of strstr(hist_field->type, "long[")
->     so __bitmask() and __rel_bitmask() fields are also rejected.
->   - Propagate HIST_FIELD_FL_STACKTRACE to variable references and field
->     variables, whilst excluding variable aliases from per-element stacktrace
->     capture.
->
+--D
 
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> 
+> Dave Chinner (6):
+>   xfs: xfs_ifree_cluster vs xfs_iflush_shutdown_abort deadlock
+>   xfs: catch stale AGF/AGF metadata
+>   xfs: avoid dquot buffer pin deadlock
+>   xfs: rearrange code in xfs_buf_item.c
+>   xfs: factor out stale buffer item completion
+>   xfs: fix unmount hang with unflushable inodes stuck in the AIL
+> 
+>  fs/xfs/libxfs/xfs_alloc.c  |  41 ++++-
+>  fs/xfs/libxfs/xfs_ialloc.c |  31 +++-
+>  fs/xfs/xfs_buf.c           |  55 -------
+>  fs/xfs/xfs_buf.h           |   1 -
+>  fs/xfs/xfs_buf_item.c      | 297 ++++++++++++++++++++++---------------
+>  fs/xfs/xfs_buf_item.h      |   3 +-
+>  fs/xfs/xfs_dquot.c         |   4 +-
+>  fs/xfs/xfs_icache.c        |   8 +
+>  fs/xfs/xfs_inode.c         |   2 +-
+>  fs/xfs/xfs_qm.c            |  87 +++--------
+>  fs/xfs/xfs_trace.h         |   1 -
+>  11 files changed, 270 insertions(+), 260 deletions(-)
+> 
+> -- 
+> 2.53.0
+> 
+> 
