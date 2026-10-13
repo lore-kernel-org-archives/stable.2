@@ -1,95 +1,148 @@
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B95173D2FEC
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 11:10:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791889838; cv=none; b=H8J/lcQwXyGIXlRXzBan90/89xuNGnl4eLFKKRTUSay22lsqfiLgD2CLJUCwPaPIOVT1O98E0bStvldEOeQGbdnoJprBrgWHNQF5lZZmDCpp+LtOsgD69dsDSKilKtE1EP5774JQeQJKXPFYGKC4sR87ssgPNEgchNFH3GZxnIQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791889838; c=relaxed/simple;
-	bh=UAd3pyrjYJ79zz7XvVbYN8zMVTiBQfNrye9emGFKP5E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hOvZTarzo5k5F00S3yAW8XFhltYPHK/5KtirSVXT1cU1s9p9A1Fg9uBNpK5wQRyMrw9NjYd5QugUMWEKQ8STlA3RQgU93a1+fhlfTFHejUijLMDmDMY/LbeOVD1ZyXauvixv/PHsXvwG33J3aEY5wXrN3o2fyX84XVkv1X84VKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sVaAixj8; arc=none smtp.client-ip=209.85.222.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5C04EB857
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 11:18:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791890326; cv=pass; b=DX7xRB4d13wL3X5zF5SJcUHQxP9rNJt1eher6FNcvtHvdFeah8dm+AFn3r9XM2RhUPk5r8JlHW//LxO3tAQGUU8sq+BDgIhDRP3k0Y2Au5giK9lUAT4QzFa2meSvd63GdFelk25LbPGuKsq0t3phN0AE67w3cH9jJ20nHo+gHis=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791890326; c=relaxed/simple;
+	bh=Q63BcNZyGyVpop4uzp221nM7vw8JR/lEp1p43PpSduQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Oq1QvH5O/eKZYBmx5v/QEXKxRmNRAGF8KqxFNAiwB3tTcIR2yC2pEPjVGD0o67mcrtqywG78wT8qXRC0mCUaluWj+sR+seFRFUlw4rlzbor8GuC6bHszswhf4ZodNIoaR8VsU2bxGFoXrAaIHiuQvwNWUB/Iw33s0quBhR7Qjlc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HkZpI+el; arc=pass smtp.client-ip=209.85.160.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sVaAixj8"
-Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93e762768f3so335924085a.0
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 04:10:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HkZpI+el"
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-5337c7b9937so706231cf.0
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 04:18:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791890323; cv=none;
+        d=google.com; s=arc-20260327;
+        b=O03U09WuXTs9iI3OoixY+J7Ur3AdRR/M76yoXN0d2eh9wlZwOmB6Wo776mWhmOKPL3
+         4O/ZOE2n9tpUVXPWmiQlrDzWINsPguNv79s+UuZaTyvafR33UgRI0CXFeZIdl7ngN4Tn
+         vO/vu0Sqh7I+LAbJyyyCkH9Qgxrw1dwWyocWHkRvFKJciGLs10Se9lyRj7CVCh5a3cR0
+         6mWnvHJxOEVx/Bv5ERcW0V9IFgqYknmJkb4VOORlRs73TjCIPYl+CbepHhxpU7Z+gaH5
+         Xp3FKg+6eh2s8g+YKkcGL0NUaWHXeldzSvdkSWZtVJ7xosHwgbwJ6LbwC84npr5zlGAP
+         RRwg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=02lGd8mbATmejUO3KQVY/K9npSJMZS97UeoTBHaxfAg=;
+        fh=R2u+LZKaqcaSU/yr218naIoZPLTmwoPodFMTL4fpEyY=;
+        b=ZfekqddovUlQQt45MFIFwKxmhyz0L9GbbvpRouo5jGOgRN+4P6ZSgV+ckOpOGDBXgQ
+         yr5olDX0a3AeRWd8wZAboppeh78S1nUn7PQGrAx2ZttH+kKMd5dtptyzWj9uZ4hlrpiE
+         nVU5CMn3X5c3ZzT1tGk+M7AaKsNWRghNwHvNGBrIUkPOIxHFZVZl5+6lj5EMNrxpbs2o
+         2jDcfmZby4mBXSWGa5moZEkRS+yAMGGcR4qGQBfDXSTl2DUrzw7aXwwFoixkiCbFZ6Ys
+         cJN1JG7wr2iPnPBBZ7ZlvywnrcaqILi1cvk2fjtPMkYKstV8/+qYKF613vo332Oy8OZF
+         zBFg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791889836; x=1792494636; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=google.com; s=20251104; t=1791890323; x=1792495123; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=UAd3pyrjYJ79zz7XvVbYN8zMVTiBQfNrye9emGFKP5E=;
-        b=sVaAixj8n6mW5lttIFrdGDdfQ+taPo0y1Euck2qGQ8pdQ0cj6+cacTSUeItSOqO/9A
-         XoJ4ynr6L4HjuRs/gJstu7kpOc04QIJhcw/CbvV4qDm5fCnzsHfDJ5IeZPJpJanuDn+P
-         +Q27ImxuLdauqZTGt/idPeKMtMKWmVVrOznXR0NVqzWvRfQu6LoaRxl2+yWR0Ur6lt/E
-         83MQqUfFwwrk2O+9+k0pZXRfExtWWVV2o6EJXIs3HJSn0DnGtZj+2iWL1R4FL0kQfCVo
-         RwPzYAq/mlKCDs7wfc4MtQjWfd58GKuMmr81JoXLVkGl4OQu9CRZu4M1PqKYoFkwD3cA
-         Wf5Q==
+        bh=02lGd8mbATmejUO3KQVY/K9npSJMZS97UeoTBHaxfAg=;
+        b=HkZpI+elt5tGTiVYG2jz4qK9ByUe1O8zK7ppp0VkxSuHFSxtda6G22rxjgtnpUtofZ
+         3BjfQYYJYXq6lWdLghkm6ekOZdY+sJXsahpLTMeikazO55wvSfT7DnwZ607qaGXOyj/Y
+         uqq1cM3/iyVleESX8sUqH1b3Eqw703vmXQihYLcvPvWuYcDtc3m8WYTY3OhDXkaHvvlN
+         RQ3BQVrU180Ha/QmHx7XnTZQMINZcEbqygbG9yYBNViHfruuxFPqAz6yTMKIpQn4QEL1
+         OQ/M8McYuxkG1S3ugmaNu2N8bu9S0eRr3VDQ9MnN8DgEd8cuwkZ+9Nq7dXPagzP6206P
+         0JzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791889836; x=1792494636;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1791890323; x=1792495123;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UAd3pyrjYJ79zz7XvVbYN8zMVTiBQfNrye9emGFKP5E=;
-        b=DV27/7hqdv7j8b0woyMskXygCxAPE+e6cpNpOhxFBi0hRDIhOpNCXCXQXwweNsrVKs
-         stwiXvfLuU2mOfVrkX+T+bky1b5Nk8GqGYlXmiKmGMzevPu9EQia+Q2wCm+hKtKtG5lA
-         xL1hp/MzK4nkH5N+V1BH5vsNqpSGn1oYeB7RRL6bWccN/eadpwG0e4dT9ge6zvsGaJO8
-         oeeX+g8iaOJo3UTdQLHOaP0h1TyE1toZuxT1jD0pfRRK++IgXTy5B5KlCxSsMc8k7DzF
-         3EvGfYNxdgVT5bdjL3lFA3sKc+egO4oFTzDnRPQPgha64fWxBQ5ScTDf3+yBWHOAQNWT
-         uqDw==
-X-Gm-Message-State: AFq9FYJw3zIK2vOTcicNSkr/2BwdZp5Kxx57ixdYuDC3aqyYk6cKphq4
-	xhTxjP26aAasRs7L4Wvkp9XN1SVyynmlN9xOr9fIgd2tdop1GIcwrw60
-X-Gm-Gg: AYBFou1WygYIfgVk7wFh9eseiO3uN6jKYbPT6140guw5u9tcTH8HRY/sL0LTu4cNp37
-	V4KzO3dHFYE5Tt2iTw0zHbz6tlwF2a1wCHsGiOy9i88Hf6JWoSZFq+CWpxePY4rviWp6WVXFp9y
-	xtAZqteZDQV9JbSDwshOjbKKLsZ0dnvDBvRJ16rm3bfBBe9fjAf32q5vJApeKuszaztMF+b2TfT
-	sBApiFII+I/i8LlDVeVp7hOCcGBIzUl4atRP1TIwpOpjw0voaD6OP1pwHNPUPtklQpITTB0S85f
-	yca088hKKl5HL1Y9mKp4R/rkXEEfhXZNOJuzu9eNzxJEz2oScdzT1lFQeAQ8bG2KgZvcgpWgJ5i
-	KqDc+ESnEjuwNtRIolgmFjNdXloXmXhushCDaFA0GBT8yNbZhsGCd4soM4eQwxr+8YHS1UvFuCs
-	ksHyxOa551ytIzeDTftUoV2sXm4fm1jNaVfXLZBSoDyMBtAyXxJkYPx2cyP2y5x9krGGtUmN2rP
-	lTu03iE5gQHkFo9fUlSi5Wt3lQYhi1Bx7cH8HNEsAIvxrehg9D0wwyGF8zhEL7fBLj9LMardQ==
-X-Received: by 2002:a05:620a:4515:b0:93e:9171:b72 with SMTP id af79cd13be357-93ebd27ab18mr2002162085a.49.1791889835669;
-        Tue, 13 Oct 2026 04:10:35 -0700 (PDT)
-Received: from server0.lan (c-68-48-65-54.hsd1.mi.comcast.net. [68.48.65.54])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef502497bsm212394585a.17.2026.10.13.04.10.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 04:10:34 -0700 (PDT)
-From: Michael Bommarito <michael.bommarito@gmail.com>
-To: Gao Xiang <xiang@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org,
-	Chao Yu <chao@kernel.org>,
-	linux-erofs@lists.ozlabs.org
-Subject: Re: Patch "erofs: remove fscache backend entirely" has been added to the 6.18-stable tree
-Date: Tue, 13 Oct 2026 07:10:11 -0400
-Message-ID: <20261013111011.2814836-1-michael.bommarito@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <as3drCZLoTUPS_oC@XiangdeMacBook-Pro.local>
-References: <20261013020044.2527207-1-sashal@kernel.org> <as3drCZLoTUPS_oC@XiangdeMacBook-Pro.local>
+        bh=02lGd8mbATmejUO3KQVY/K9npSJMZS97UeoTBHaxfAg=;
+        b=kwUMj+a9zrQmiEty4gNQ9jG9UQDdfmcC7bt+tYcNfqrakFKEFDkAW89MxISHgpQjGG
+         1zJr1hXw61Rt476wc0eNyUV91VDo7/hdVW1myirLIjFedbXGbVgJz6RhtghV2mMx2FbR
+         ih3FT77rES995OBhmg9P+wPaEVP9bURn45iL1+PyhuLo1a/2Btqjd6im9d/wZ3L86s+j
+         p7uj92+TEv2rzkLIE1CupDMTjI2s+Fp46olRZZWP7eugnyWSGCB9ffo5+EYmGZzjwQHq
+         UZ0qfvO1kVUQO8ek1PbT5Zm3veO2XmdJOFymuRTp3vqdijzmczIN/I0JONNcO3Fj1+Ii
+         XrAg==
+X-Forwarded-Encrypted: i=1; AKwUvBw2S0Y+XYuQSdKUBsCUKLLg5Y7mccuAuOQXSlW3at8p/awIJWLCp2dolwMcMBozHZIVq3NI/I4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJvGfg24Ai1urb+KYAz/aD1s7smFPGtEyDsF5DUtFvIKfFI5mep
+	hmXP3IwKnBVGlVrS5iES7/G/TavrCD26b/HMqg3bGIVVOG5z3AdZBTmX6EBpoTUFWXW5rE4pw/6
+	QOWtPzdMPODJ68/wb+39OBqoPZlP5fkQJtwkHjENY
+X-Gm-Gg: AYBFou08VRuUfZnr8QL+RNW+WcmXlzcsY+2YV8BXRt6RUJXqMmSj2Zven+z8RC1YDPw
+	cAGdgFCrsTe8VQf20UWNXeYgMWl5UTOrRshjlHnzyynK8XqSC3u1Ytu+noPX0WNwRa3NRzP3xcD
+	bEmFgDZkP0Hbun7H48Ay6d8qsuiacBeTsrg57pNUEIMoPNdqdYhkIFjn3UYBtogk9reCPBYtZ+N
+	BkQaC57ufse1Lfg5ZfUxOVy5eRt9c7a43F0bRbCzbZlcrCK+XIrIJDXtxRDf5EWVdMACFoM5Xmk
+	ZvicJVu5acTLT4+5Ur6hjgvOQzoGHmB3Kh3DB11nZZY0/d6aChqfCSY5
+X-Received: by 2002:a05:622a:4cc:b0:52f:8389:29e0 with SMTP id
+ d75a77b69052e-535b2910266mr48102151cf.0.1791890322506; Tue, 13 Oct 2026
+ 04:18:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261009063619.112313-1-hao.ge@linux.dev> <20261009063619.112313-2-hao.ge@linux.dev>
+In-Reply-To: <20261009063619.112313-2-hao.ge@linux.dev>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Tue, 13 Oct 2026 15:18:29 +0400
+X-Gm-Features: AclHuK-qvcUVrSOqAHUBuFhMyipfniAtX1mtGlvajg8JTqSPRj6kAwYVpLqLul8
+Message-ID: <CAJuCfpG4Zq6zRyvXkf40XcsiMSvS78Za28zY2xcaAh=kXpuD8Q@mail.gmail.com>
+Subject: Re: [RFC PATCH 1/4] mm/kmsan: undo the shadow mapping when the origin
+ mapping fails
+To: Hao Ge <hao.ge@linux.dev>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+	Nicholas Piggin <npiggin@gmail.com>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
+	Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
+	Christoph Lameter <cl@gentwo.org>, Uladzislau Rezki <urezki@gmail.com>, linuxppc-dev@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-For context, the original bug I found can hit both 100% deterministic
-local DoS and a textbook UAF on kmalloc-128 slab that requires timing,
-but I don't think an LPE can be ruled out...
+On Fri, Oct 9, 2026 at 10:35=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
+>
+> kmsan_vmap_pages_range_noflush() first maps the shadow pages and then
+> the origin pages. If the second mapping fails, the first one is left
+> mapped, and the callers do not roll it back. The next vmap of the
+> same metadata range hits the stale PTEs again and BUG()s on the huge
+> mapping path, or gets -EBUSY with a WARN_ON() on the small page one.
+>
+> Undo the shadow mapping on that error path, the same way
+> kmsan_ioremap_page_range() cleans up after a partial failure.
+> __vunmap_range_noflush() only clears the PTEs; nothing has touched
+> the shadow mapping, so no TLB flush is needed.
+>
+> Fixes: 47ebd0310e89 ("mm: kmsan: handle alloc failures in kmsan_vmap_page=
+s_range_noflush()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hao Ge <hao.ge@linux.dev>
 
-Since it is reachable by an ordinary read() on Nydus or others that
-enabled ondemand in Kconfig, I think it is worth thinking about what to
-do for all of the pre-deprecation users (even if it's just comms).
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 
-I would defer to Gao, but I sent a minimal fix in June that can
-close the UAF without any other breaking changes.
 
-Thanks,
-Michael Bommarito
+> ---
+>  mm/kmsan/shadow.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
+> index 0c88d89bf0d6..2166086d3dc3 100644
+> --- a/mm/kmsan/shadow.c
+> +++ b/mm/kmsan/shadow.c
+> @@ -258,6 +258,10 @@ int kmsan_vmap_pages_range_noflush(unsigned long sta=
+rt, unsigned long end,
+>                                             o_pages, page_shift);
+>         kmsan_leave_runtime();
+>         if (mapped) {
+> +               /* Undo the shadow mapping set up above. */
+> +               kmsan_enter_runtime();
+> +               __vunmap_range_noflush(shadow_start, shadow_end);
+> +               kmsan_leave_runtime();
+>                 err =3D mapped;
+>                 goto ret;
+>         }
+> --
+> 2.25.1
+>
