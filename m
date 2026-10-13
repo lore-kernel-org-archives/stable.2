@@ -1,214 +1,207 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A8CE51EDF0
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:58:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910736; cv=fail; b=JqlXvOzuqvbHvE1okyXnqMc6KSntIxZ9etZGXnrNGprWBI0IbE9MnRIIEDWNrF9+30FKNUQkfibMJFBbI+qmFutZZE0Pu16eeblRxBi+Tltyl2T1UxIL0+pM1fwrKzlPtwfoA4Tf4h4OREJWidINsnGF8bVYN8Uym9aDaDb04+Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910736; c=relaxed/simple;
-	bh=MPFNsC1Ai+WRsTk8J+ykiDiMqwcgqWtsJB0h5qehKhU=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=G/o2Fy6gdO2cLAT/G51B9PNWGTLnQhFox2mjJx56KdhVuKOBPZp9S72CqJsK49iemIwgaDbKT5VxQGo7G1hQF1Z+Yx8nN7KUHhYjLv4GqE97gvWZAkfOUihYG/zY31AiAgSQdtN5BjCyy2jXMLWF9rW1wj6nd3PwUIux2VZpvu8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HPqPix7G; arc=fail smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B5951EDF0
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:59:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791910755; cv=none; b=V7pmRZbiWADFtqAWUxZq7JdQVfKFsOoKVsggQmriBDz5YnGyPgh/JIymwXhH2QBx5ZJ7efnLgU8/G4CdRLd8BjqPTzZBdVGwF0jnpNr5+PL7Vzr/e/uINTLx6l8J1726zJXtk3Pjlk2x27QCYkA8njTPl5QdFhAgC1heCZS8X8s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791910755; c=relaxed/simple;
+	bh=PmA3B14IdHFKrCx/X7X3ZlYSbFv5GhxXreqYpXUB/IE=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=O47wZkhd/MoYGSsRtBzltcgAB7W/FlHbml7KW+6S/GJtKUCrSNx6AZMdpS/N5RSQmcM5S1LmoMobfvA8W21uNoDYFx4OgKSw45L6BoRGh18XefCkCnW8cyFIeToi3XBiIgBmbC3F7kHqBZiYmpYrndvzg4/W76DxrjG0i3GwMgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=miKb+NVA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HPqPix7G"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791910735; x=1823446735;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=MPFNsC1Ai+WRsTk8J+ykiDiMqwcgqWtsJB0h5qehKhU=;
-  b=HPqPix7GWFgnWFz6hKXMEFQPHPZK0w7iNVo3dO9LcsRgpPji58zzz50R
-   mYuUYD9nw9RHUwfno2J/cea2M1TeDxOYiSEOOVQimhPDqSqPLl4F3HmdR
-   m3CMkjWqYcBz/o31PpgvCd3ScbB7+ibFc8err2/J+TqUXbEroy4xXaZPR
-   Lu0U9eX+MnySgNa90BHxlz37TsYnFH1jDbZoDbonmV8R09/YiWm6j9jus
-   q3Haik6V9Wir8ixHeU8rnx37v0r8JqkgtKiRSVt26tqJP8skzJHvfsSnT
-   D9bOkO6iM46BEREUZMlLe+Cc7wA6cuWQWSVZpGZ9o8HwcWi1zMve8wSj9
-   A==;
-X-CSE-ConnectionGUID: SZy7naSFTLOoojU4iI4AAQ==
-X-CSE-MsgGUID: pbJ4jT7qQB28O0StZe0AGQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="546270"
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="546270"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:58:54 -0700
-X-CSE-ConnectionGUID: g65cLtmvRgGZy36d1p1z3w==
-X-CSE-MsgGUID: 9mROKdi/QQGKKPW9ypXXKg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="1179279"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:58:54 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 13 Oct 2026 09:58:52 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Tue, 13 Oct 2026 09:58:52 -0700
-Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.50) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 13 Oct 2026 09:58:52 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cphVSKM5RpRhA9OcwgRytgDlBfB1ZPjxfLIcGbgq4lgB4OlG3EQ68rEKb4gt0gn0UXY83yjK4g/DZbK4cZt3mtwmQ9PqNhHjpxUuRuiwXiCPNvcOmR+5UZIUmSolafnBvSquvF6pz0wOxKPB9tk1epN7ECqNVdhZKpQa5LDmYmFM9BOagM1dYFqta+m2ksXslPLVmdPq4+1niyw072EubykBqNA4ZOMNmxVkjeNZRD1u1TyLIU/3AOt0Y+FN3RGP/ziypx6D2gTSwiHG+8ylOuE/AZ2DBZT2l9ybyunnfdfErWO4iKEUeXyMlKVjVCQNchawtxwVU7uD4qRyDdhf/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uRQ+1slNCjGYCXVtBlp5DuHI5NpdVPunJP3DUSAWqJ4=;
- b=BxrSLxZKczshma4N6E8g1XodNfk4GiSsX5OhBBWrGsrsusyFXlgKCkQh7lLrnnuHCwUGd2aa5GltHvTpF8FoG5jsGkrwGNaYRv9R5sfQcFC9JgP62Io1mI8JCptBOceHrQykI0kmSO3hKxOTZKfBfmS8A6zLg8bOKMUxrfRSSNRxUvYOjL918C0lCFaZGjgOWG1HLxeLpwRPRZStrSD13QyqNXnW40RnLwvDQAxX3D5tZl7dtd1vYQQ9bH8Ab18UToz6qicRSC77Uo7kOO0xHJ3vl1Aj58n2W03ewKC98q2if67mQzxCINehsLNo1dQr20n51EJe3TzRUgzMdIb3Aw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB8718.namprd11.prod.outlook.com (2603:10b6:8:1b9::20)
- by LVXPR11MB9780.namprd11.prod.outlook.com (2603:10b6:408:387::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 16:58:50 +0000
-Received: from DS0PR11MB8718.namprd11.prod.outlook.com
- ([fe80::6aa:411d:4bfa:619c]) by DS0PR11MB8718.namprd11.prod.outlook.com
- ([fe80::6aa:411d:4bfa:619c%4]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
- 16:58:50 +0000
-Message-ID: <fce25d6d-8fd7-4f83-8d8d-929871aff885@intel.com>
-Date: Tue, 13 Oct 2026 18:58:43 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 158/621] ice: drop page splitting and recycling
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>
-CC: <patches@lists.linux.dev>, Jacob Keller <jacob.e.keller@intel.com>,
-	"Michal Kubiak" <michal.kubiak@intel.com>, Alexander Nowlin
-	<alexander.nowlin@intel.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
-	"Sasha Levin" <sashal@kernel.org>
-References: <20261013112920.855194808@linuxfoundation.org>
- <20261013112924.605588927@linuxfoundation.org>
-Content-Language: en-US
-From: Alexander Lobakin <aleksander.lobakin@intel.com>
-In-Reply-To: <20261013112924.605588927@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TL2P290CA0013.ISRP290.PROD.OUTLOOK.COM (2603:1096:950:2::7)
- To DS0PR11MB8718.namprd11.prod.outlook.com (2603:10b6:8:1b9::20)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="miKb+NVA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ADAF1F000FF;
+	Tue, 13 Oct 2026 16:59:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791910753;
+	bh=lfy4if2FWqLwZaIrUPep/vMVzTHLBgj3phIufZi6Mt8=;
+	h=From:To:Subject:Date:In-Reply-To:References;
+	b=miKb+NVAGymSrLn3a9GnvBlViHN5abGjiYDCRGyhT6z+jYsLFOo4lVuZk1P/XBWbl
+	 iu4K1tH5j+8qQrYKDGm3SBJUvd8Hnii3HRHF500EvvNd+gNJXnPJQdB56QaBJDGyCC
+	 7THMLjDFCFIZwx1AAWc1UVW/neyFdBih41Qt0H0Vii3iw+KG5gQ0dp8yQbQgL2N50c
+	 O3fKoOSPufkTnrBdEr2EVFqDk/unPXydVt7kObLpiSJ0vTwYTwB2Lt3BH3zEerJSwq
+	 fDXFHVe5rw3aHXyKLj8+szpUeEyNics2TPZd/7w7+UohZ4USVn3cxxcNbjgmgxb9JT
+	 bEGvGnZqZQKTA==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: stable@vger.kernel.org
+Subject: [PATCH 6.1.y] mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP self-merge
+Date: Tue, 13 Oct 2026 17:59:04 +0100
+Message-ID: <20261013165904.2517439-1-ljs@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <2026101214-monetize-print-c590@gregkh>
+References: <2026101214-monetize-print-c590@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB8718:EE_|LVXPR11MB9780:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8546358b-05f9-4c3e-38af-08df294b40d1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|4143699003|11063799006|56012099006|18002099003|22082099003|10067099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info: pCNdve/Q5e2NlXQNZyBnpFbkXczEqWjpGHB6oiwaAWsHmVJkMeHhD4TR4dKM9JxicVX4u6jDcePUUMf/l3BI25fmzAtJJrTV2VlZOEeDY50Ull/z7hhhPENgfjkYf1Ki+uuyLjaJHqIVEF0h8Q5pC++2MeCClfwxcAecn2XapimLl+JLww0nKyVt7S7X9xL49ST//nWP8Uv772aG8NwL2AfC48d0nkBheZ+k0SQMrzkfUebqWmhhgJbHbM3MXVPtgx8EcF6M7FYSdhhGfatyBjvsluvMtP1PeOSCtV8zck3nZY3j25g385ZJhJTnuFXbaNwDLaEjs6j9/CrJUjLbu2fajDQP92d0pFYwBEbZZ+/g8ZeXHq8E971kfJNv6Y+lV1EXi4bvxSc+h2Ad3Siv6YEsoYYfdwNbG7JEsB4LHo4APdlO2fPLmLb0hh63qXeFQXLfqt7qxx6e6D+dJktYQwXZ7VSKzYcW+SXL4WJmVtD8pqsHhlC8R3zTr0Tjt6CjigKKgdZ/iYJ5cLg3Lu7+4XKDC6Fi0lXJVt1sj0D4gRGD54mo0PZA0yG+bVaUh0mBim1p3OERs8P8PLy92blGF46n++0+SS1SOeEyCrbzAztum//v15acnoeHw+2WXv7YmFtvmtggXU7SUxtpx3emeT4F+IgUW45m2ZBjW1By/xA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB8718.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003)(10067099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VlhzazVNcXMxRzZtL3dSUTB6WGVUZnk3Z1NtN09yNDMxTWtVNXd3ZXhSK1d4?=
- =?utf-8?B?Nk5KRWNMSVRUeUpSc0RVaXkxY3poQ0JLVTBwMnhTL2M0UTRwV0RXTTc1a29T?=
- =?utf-8?B?TDVFZGxhcnBTWEhHM05iMjBYK2F0enM3R3BoZ1F2L2xUOU5VQjhZOGJnaW9U?=
- =?utf-8?B?VEtFUXNBRHphckJQQWRvMmRuVmd6U1J4RnYvcGl2ak45c0t1NFdoK3FOdXFM?=
- =?utf-8?B?VFJ2Nkh1b280eENERUk2cm5tcys4QVlkK202RHNMb3NGcllGU2FXRlpHcHNE?=
- =?utf-8?B?QXdCeGoycGM2L1cyU3ZKRFJ3elNPUmIwUmVnSXJ6M3F3Z0VIdzg3Q1RIZXBE?=
- =?utf-8?B?b1JGazdWR2ZmbXQxOEVXZ3NONGg5SWZJMWUrclhUaXNSc09JanV0VGhUWkND?=
- =?utf-8?B?MzVpekp2Q3h2bFFOMWFzN3FKeHFqVHcyNDVOSXl0M1MrVW5YU3FRWXhrSXZj?=
- =?utf-8?B?Sk9xSEZFcW0xc1ZOUmg0TlV5T25vd0ZGRndCeEFtbENmL1Qxem44NlpmMHZ4?=
- =?utf-8?B?ZjE4YXRsWVBmMkhjMDZmeWZqMzI1QmVkTjNSOHFlRlBIbksvREE1Q1pxVWhL?=
- =?utf-8?B?dEs5L3N6ZUdnS1AwVkQ2UWJKTDAwZUM1RStzTmFmWHpiSWRHN09teHB6Z0tM?=
- =?utf-8?B?ZFJTalJkaTF2V0RRSzRIaTczR3JJN0RwbHNOYllhWEJ5SkQwTjUwTU00WHRk?=
- =?utf-8?B?NGJkRHNkeXFQUUVBQnJramtSajhuOTNtMmZhSm0xYTNRQ3pPbGRhRFM1eDVY?=
- =?utf-8?B?Y0NJVGpVTC9ZRU4zMkFoYnZ0eFpscThvRmZLNTZKell0ZXZud1ZieHBManBG?=
- =?utf-8?B?U3cvWXAyY0p6YkZIQisvS1czaWVkK3NiWDlFa0lWcllJNXRsTVdkVkw1M3A0?=
- =?utf-8?B?Q1pRZGh4dTBQZG1SNXg1MUhidW4xTXI3NWpGeTczbGR0c21wYjFyL3dsNHZU?=
- =?utf-8?B?WGp0Z1FiZjlpRGRPVldRRmIySE9teUp1U2UyVitiNCtRWU8wU0JyNEovTzRw?=
- =?utf-8?B?dnFVMU9Ub2RpTitEdzJrYm45d2QvRzBPZmx1REYwNmR4bkNuNmQ5M1BuWmdY?=
- =?utf-8?B?NThuWHBSZW93RmtudjFwTTRvVWFLcWtRek9BQVRQM2RsQldTU1NCVmRRYlF4?=
- =?utf-8?B?dkhTdHVrWnRuVzQzcUdVMTNiUmc0emdrb25Ra28yQitFeS94bDhHMnpVbFcx?=
- =?utf-8?B?MzVNZTVBdnptS1h3VHZoYnJqaWRYQXdEUlFxMm55bnJDV0FEdWt5TUJIUXRx?=
- =?utf-8?B?MWlJQ3JCWTBEOXRweXB1aFlZZlZ2V20vaUc5YVhsRTFlT003c1UvMlJtcmFh?=
- =?utf-8?B?dzJTd1NaakdocEpaK2M1cnFnMVNLaTZUbEI1cE9LZXB5R1FiTWl4a2tjbkVP?=
- =?utf-8?B?REhUbVBSK0pjQnFCZEp5ZHdtRmQxdHh1ZG1YU1cwb0FrK0FyRUJPZFhhWUxV?=
- =?utf-8?B?Q1pyWHJrZnZWd3hCVHlDMld1Ti9vaXFNaVdKWitiOUh0MXVPQ0lOSjNMUktp?=
- =?utf-8?B?MFZUai9FNzF1U3V4Ni9pdjlFcU9OVnZmVHd1T0VKemhWS0p1WWxLbkRNMzZW?=
- =?utf-8?B?WXdrM21aNXkvMFBZdXNBRW15REhxRWZtbXdDeXhmb0VRcTBsWC9Yc3BLYXlQ?=
- =?utf-8?B?V2xZVWp6czJHWVpMMnZlUEhrVFVIeFVXamNadnZ0N0xFTWNqU3gzYnJObVdn?=
- =?utf-8?B?amY5aDZrY2JYRUhtWUdyTkE0TUVxd3NRRDNhaFVSY0plKzk4MForVkZqWkd3?=
- =?utf-8?B?amFjTG9wWVVSWkd3TzZrb2NzckRaK1k1dnEvc1BhSW9PNXdCb1ozeTdDdzM0?=
- =?utf-8?B?RTZwaUFBQ244ZzhsSEYxQzBRUVJnV1F3b2k0ZTd6Y1krb200MFl4TzZmTU0r?=
- =?utf-8?B?NXJOK1V6cVh4WVJicGV2YUlXYlV2QlJZOU91UzR1cWM4ZENvL1NpeG56aXk2?=
- =?utf-8?B?cTBYSGR6WlVJbkcrY013OEJ3QTdGSVJFRkxmTFhvRW1LWTFnWmxHUFYxMmUx?=
- =?utf-8?B?QnN5M21VOGsza2tkcUV1dDI3dEpzYU1LZDkxQ2NzN1I3bzBuZ2xlRENxY3N0?=
- =?utf-8?B?eDlWeU1JUFZDK1N0WlJLV1VXbTRIemhnQWZ2NEZ0aitiM1Z3RkMzVk9BTkJi?=
- =?utf-8?B?Y2UwcGNPRDZVL0RKSjFrMzR0S3RwTjdhUGduNkhwbkJmMUhDVk1BTTN0YzlH?=
- =?utf-8?B?SWl6Rjg2ZGowVy95eGVoSXJnaHVpVWVSYyswWE51aU9iZ0NCQ3pSZkh0Yk5D?=
- =?utf-8?B?dDFoMVhISE5KQVdFM0hQVzF5WGt3WFVicHBEdlVPR3NvMGhVRHRaNHBHTXBo?=
- =?utf-8?B?WHI2N1B6dGJETEthTk9QZnVLZzc5dDRmM2dRUFFVUEd3L2MvU3RPc24rSEFZ?=
- =?utf-8?Q?lIkyK+pYX8ZzFpco=3D?=
-X-Exchange-RoutingPolicyChecked: N7Q9Jf6C9mp/Sk6U1MNuYhgApUa79y8eK8+kRu0TSqsMzzrxJ0+QPfx5H7ihA9hgLIpy0aR4KPM8EUIZpgXRrxBZj1MGkEd/offK3aziJTBZXLJYk6ZlO8MyBPg+dLCu3mV9qYWfBSQbr/rfsY9wRPAVZrTWvKLRYTWy7ff32XsII2zHNsfdeJ8f3v0C6bZeA8RZwW/J/aHeDMQCZiHIPLqrg1o9eisUK26UMOv50NhRpTMO5yrJu/dUYv5s044C6ir2bW3Dgr2hkzmK4VHzP2ir61iIcYH1CGjfcVqJP4Q6GGsYFJGoGX0SorhM7TrtavHGbaAphRJJdbRnfZOs7A==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8546358b-05f9-4c3e-38af-08df294b40d1
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8718.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 16:58:49.9583
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jDkuub9DLgyoDf4SNHxoia6X6ut0DQVeWk5VQY5qX5fmyVboplk2RFI1rt9CNhXkmpuSjFwvzi6wqnbkYujXvwldTs1ZPtnAX4mqEcfWEO4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LVXPR11MB9780
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Tue, 13 Oct 2026 13:32:33 +0200
+The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
+operations that keep the original VMA in place.
 
-> 6.18-stable review patch.  If anyone has any objections, please let me know.
-> 
-> ------------------
-> 
-> From: Michal Kubiak <michal.kubiak@intel.com>
-> 
-> [ Upstream commit 3a4f419f750946181e3d6a339a1ef1942c5b5685 ]
-> 
-> As part of the transition toward Page Pool integration, remove the
-> legacy page splitting and recycling logic from the ice driver. This
-> mirrors the approach taken in commit 920d86f3c552 ("iavf: drop page
-> splitting and recycling").
+Historically this has led to a lot of bugs where non-obvious interactions
+occur between existing mremap() operations and the original VMA.
 
-This is intermediate commit, if taken without
-93f53db9f9dc ("ice: switch to Page Pool")
-there'll be huge performance regression on all ice cards.
+Fix another of these - self-merge.
 
-> 
-> The previous model attempted to reuse partially consumed pages by
-> splitting them and tracking their usage across descriptors. While
-> this was once a memory optimization, it introduced significant
-> complexity and overhead in the Rx path, including:
-> - Manual refcount management and page reuse heuristics;
-> - Per-descriptor buffer shuffling, which could involve moving dozens
->   of `ice_rx_buf` structures per NAPI cycle;
-> - Increased branching and cache pressure in the hotpath.
-> 
-> This change simplifies the Rx logic by always allocating fresh pages
-> and letting the networking stack handle their lifecycle. Although this
-> may temporarily reduce performance (up to ~98% in some XDP cases), it
-> greatly improves maintainability and paves the way for Page Pool,
-> which will restore and exceed previous performance levels.
-> 
-> The `ice_rx_buf` array is retained for now to minimize diffstat and
-> ease future replacement with a shared buffer abstraction.
-> 
-> Co-developed-by: Alexander Lobakin <aleksander.lobakin@intel.com>
-> Signed-off-by: Alexander Lobakin <aleksander.lobakin@intel.com>
-> Reviewed-by: Alexander Lobakin <aleksander.lobakin@intel.com>
-> Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
-> Signed-off-by: Michal Kubiak <michal.kubiak@intel.com>
-> Tested-by: Alexander Nowlin <alexander.nowlin@intel.com>
-> Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
-> Stable-dep-of: e142dc4ef0f4 ("ice: change XDP RxQ frag_size from DMA write length to xdp.frame_sz")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-Thanks,
-Olek
+Self-merge occurs when a VMA is moved in front of or behind itself and the
+attributes of the VMA permit such a merge.
+
+Practically this can only happen for unfaulted anonymous VMAs due to the
+page offset equality requirement for merge:
+
+                           |------------|
+                           |            |
+                           |            v
+        |...........||-----------||...........|
+        |           || unfaulted ||           |
+        |...........||-----------||...........|
+              ^            |
+              |            |
+              |------------|
+
+This becomes problematic if the VMA is configured by the user to
+mlock-on-fault, i.e. the VMA_LOCKED_BIT, VMA_LOCKONFAULT_BIT VMA flags are
+set.
+
+MREMAP_DONTUNMAP clears mlock flags for the source VMA and maintains them
+for the destination VMA.
+
+Self-merge makes this impossible (there is only one VMA) and incorrectly
+clears the destination VMA's mlock flags.
+
+This causes a leak in mm->locked_vm as clearing this flag does not
+decrement the counter and the VMA no longer has VMA_LOCKED_BIT set so it
+is not decremented on unmap.
+
+Resolve this by simply disallowing a self-merge in this case - the source
+and destination VMAs are kept distinct and then are able to have distinct
+mlock() flags.
+
+Update to make the now-redundant self-merge check a VM_WARN_ON_ONCE()
+instead to guard against future regressions.
+
+Fixes: e346b3813067 ("mm/mremap: add MREMAP_DONTUNMAP to mremap()")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+Cc: <stable@vger.kernel.org>
+(cherry picked from commit 838bb60dc21553e32df90f2f3bac5b905376e7aa)
+[ ljs - Converted to work with vma_merge(), tweaked commit msg. ]
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ include/linux/mm.h |  2 +-
+ mm/mmap.c          | 23 +++++++++++++++++++----
+ mm/mremap.c        |  7 +++++--
+ 3 files changed, 25 insertions(+), 7 deletions(-)
+
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 4f0aa81257c5..279c121ef6b3 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -2822,7 +2822,7 @@ extern int insert_vm_struct(struct mm_struct *, struct vm_area_struct *);
+ extern void unlink_file_vma(struct vm_area_struct *);
+ extern struct vm_area_struct *copy_vma(struct vm_area_struct **,
+ 	unsigned long addr, unsigned long len, pgoff_t pgoff,
+-	bool *need_rmap_locks);
++	bool *need_rmap_locks, bool keep_source);
+ extern void exit_mmap(struct mm_struct *);
+ 
+ void vma_mas_store(struct vm_area_struct *vma, struct ma_state *mas);
+diff --git a/mm/mmap.c b/mm/mmap.c
+index f93526b3df0c..cab176cb607e 100644
+--- a/mm/mmap.c
++++ b/mm/mmap.c
+@@ -3329,13 +3329,14 @@ int insert_vm_struct(struct mm_struct *mm, struct vm_area_struct *vma)
+  */
+ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
+ 	unsigned long addr, unsigned long len, pgoff_t pgoff,
+-	bool *need_rmap_locks)
++	bool *need_rmap_locks, bool keep_source)
+ {
+ 	struct vm_area_struct *vma = *vmap;
+ 	unsigned long vma_start = vma->vm_start;
+ 	struct mm_struct *mm = vma->vm_mm;
+ 	struct vm_area_struct *new_vma, *prev;
+ 	bool faulted_in_anon_vma = true;
++	bool can_self_merge = false;
+ 
+ 	validate_mm_mt(mm);
+ 	/*
+@@ -3345,15 +3346,29 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
+ 	if (unlikely(vma_is_anonymous(vma) && !vma->anon_vma)) {
+ 		pgoff = addr >> PAGE_SHIFT;
+ 		faulted_in_anon_vma = false;
++		can_self_merge = true;
+ 	}
+ 
+ 	new_vma = find_vma_prev(mm, addr, &prev);
+ 	if (new_vma && new_vma->vm_start < addr + len)
+ 		return NULL;	/* should never get here */
+ 
+-	new_vma = vma_merge(mm, prev, addr, addr + len, vma->vm_flags,
+-			    vma->anon_vma, vma->vm_file, pgoff, vma_policy(vma),
+-			    vma->vm_userfaultfd_ctx, anon_vma_name(vma));
++	/*
++	 * If the original VMA is kept (MREMAP_DONTUNMAP), the source and
++	 * destination VMA must be treated distinctly.
++	 *
++	 * A merge violates this, so in this case disallow a self-merge. A
++	 * self-merge can only occur if the new range is immediately adjacent to
++	 * the source VMA, so simply do not attempt to merge in that case.
++	 */
++	if (can_self_merge && keep_source &&
++	    (addr == vma->vm_end || vma->vm_start == addr + len))
++		new_vma = NULL;
++	else
++		new_vma = vma_merge(mm, prev, addr, addr + len, vma->vm_flags,
++				    vma->anon_vma, vma->vm_file, pgoff,
++				    vma_policy(vma), vma->vm_userfaultfd_ctx,
++				    anon_vma_name(vma));
+ 	if (new_vma) {
+ 		/*
+ 		 * Source vma may have been merged into new_vma
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 6ed28eeae5a8..d2d24d92c6d5 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -624,7 +624,7 @@ static unsigned long move_vma(struct vm_area_struct *vma,
+ 
+ 	new_pgoff = vma->vm_pgoff + ((old_addr - vma->vm_start) >> PAGE_SHIFT);
+ 	new_vma = copy_vma(&vma, new_addr, new_len, new_pgoff,
+-			   &need_rmap_locks);
++			   &need_rmap_locks, flags & MREMAP_DONTUNMAP);
+ 	if (!new_vma) {
+ 		if (vm_flags & VM_ACCOUNT)
+ 			vm_unacct_memory(to_account >> PAGE_SHIFT);
+@@ -685,6 +685,9 @@ static unsigned long move_vma(struct vm_area_struct *vma,
+ 		untrack_pfn_clear(vma);
+ 
+ 	if (unlikely(!err && (flags & MREMAP_DONTUNMAP))) {
++		/* Self-merge is disallowed. */
++		VM_WARN_ON_ONCE(new_vma == vma);
++
+ 		/* We always clear VM_LOCKED[ONFAULT] on the old vma */
+ 		vma->vm_flags &= VM_LOCKED_CLEAR_MASK;
+ 
+@@ -692,7 +695,7 @@ static unsigned long move_vma(struct vm_area_struct *vma,
+ 		 * anon_vma links of the old vma is no longer needed after its page
+ 		 * table has been moved.
+ 		 */
+-		if (new_vma != vma && vma->vm_start == old_addr &&
++		if (vma->vm_start == old_addr &&
+ 			vma->vm_end == (old_addr + old_len))
+ 			unlink_anon_vmas(vma);
+ 
+-- 
+2.56.0
+
