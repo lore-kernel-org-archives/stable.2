@@ -1,162 +1,104 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA17443A80C
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 01:59:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DA8044AB6C;
+	Tue, 13 Oct 2026 02:09:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.221
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791856746; cv=none; b=X7tHmoLq4LYmUBxn3GDjW0++NZBSz/5UYAmipyPd89JvtBMVOEl8EFFSCcUv7rgIUpVz2NPB41x2aF/67diQ8n3MKqvGIgQpaLxP87tQzKZTYTp6hkDWNrUhmuHlLaK3W60nXUuEw14ofEtMa/b1e+onBz4iXWtEJK2BYw2OaWU=
+	t=1791857352; cv=none; b=KPftz5LY+GXtM5qcDk3iEf/4iuej/2Goc6Xyz/IPVhy6dJAJ+CPwZRJdUodYs7g2MSHk2+yCQtxfaniYay3HBi1f3Ny1GjNd/nV/PGYwrPzsowtcmoIOEczmlspmr1c7UAfk9XzB62jf9XunxvTA0J7fj5/68b4lOlarsykvvjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791856746; c=relaxed/simple;
-	bh=gdrhrrhojiYmNOqh2JvMQwXyKcDnKZ5DGo+JK3pZzbk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IaNWMeJ5+WFjrbG3XEr95jeNgr2yEjcZSsEP5V+EHCQ+kylK4iSNLYHGq0yANQXYNdApeqos1/k6QjwAvevO4drtMJunf6d2Ngz5Ckmvh2pak6ozEh5C+qf9c9FI4OQG5LoKk/U5iISvlo5CuqwL75Qqmcd6TCVjWhUnARHfYfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CjP94FxT; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791857352; c=relaxed/simple;
+	bh=sDfy9Z5QAMrwsYeCouvZ8Ptc0ebIS8iYhvWWC7F2jsM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=hJrtjnq2pO4FhVNq9Zi9vlyIcWPfSp2X3HB0QftU9B6++yHZSSZXO65bWqXu4gwzIvs3XC5/SXlyFhYyXKu7yn1jADmVQSsPGTUcBqfgdfXGrG0+5cK+rkaPZoAFLfbuv36qXyxnBYA29ZccSv4+GHVkmP6CjN2HyquwXeOKcPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=FFMga55F; arc=none smtp.client-ip=113.46.200.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CjP94FxT"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3a7cfe8f761so2671220a91.1
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 18:59:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791856745; x=1792461545; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VulKwxghGCCa25Yap2OP81AUAKiRy4s4zXpBxbouW5A=;
-        b=CjP94FxTyMtSuqAlDGaKklMK/IWfJFFjzcGwBGe/QLVbcexszJjnVZ+PMknVtEo/uI
-         BMHDC48hkUyoKEKAO2DsspE4NxpV9EaV68FiImo1yohtc5WN6HbZec3BGXobJXboPaB8
-         AC5nH/KfzcupUwqjT9tpXnbXf9Ef/Cdqf4MmvzJKw/Z/EStV2rT/aelBhkdPOlJPEz+y
-         6paONU96Khdvw+HV3K6k8fsndT4L+Dss5F2mBNQlcnQmh1XCP/P3TjzPhTOeP2rbEsDy
-         grfVakYjVaXD8Bw+6Vfm7+NNq8Rn8Glxx/YXRGqIotJ5Wf8on2VF45yx5tMSUnPcF8UW
-         UOaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791856745; x=1792461545;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VulKwxghGCCa25Yap2OP81AUAKiRy4s4zXpBxbouW5A=;
-        b=FiIy3tih/UwPzYx4tFEY0bQbpPnynNUYsD28tmxnmXRFrjTw8GClk7TwDP3MnUWI1y
-         3+hpVtwHZXCAMHhFjJppqXoZSFvF82QzYLxKgWRwm54VlCfrCIlPVYYvfUfczUwjny36
-         1JesgMcfFzxBSxHRSiJO8Z+eberxfVgeLg8hPTZr9RRb/ARdRkdy0u5ITsBAj/H2Qq4s
-         TgYlXlY91VquuQ2yv1cH/Dq8sG57cYp4wrqTGy2UXUdvnz07hRoHIqEXSJMruioOVT+p
-         i2DdmmNf/wuw35utFsmrPfMglVIWx3CR3uRMa15zOIPL66ctwtljKeFwJ5WYKuAK3hSf
-         0XOQ==
-X-Forwarded-Encrypted: i=1; AKwUvByihYLS613zldXIzd78po5Ga/CBejfjiVfknKfNqQpIP8y2qi0mA5aqMaWtJpYQKnXoZ44HOas=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI9FNYVEFARhXjKoV8YDX3JoQqjqhr+86g5x0ynKXWZR3QC3gUt
-	F55ZzIpJ1wAqNUIapA1iSSirnoh648NEWa9r5pvC/hQESpPrTWEjKoIY
-X-Gm-Gg: AYBFou0ZediX8DW4zrChsot+obCDGaPY+hkF7WjLBjr2I083DEGQOFplgqAbggUZybl
-	Ukg6TbFrxxotG4WRUCzPtOka7hoivTwsnjdN4HJ2boAxIxw08sqWA79WLVxG+EupqQL83px78Al
-	X/77PZ+DOj9R+nObYHvpUFfZSmj+7is6EuzHjT5QwhQhAnvnWx5iYEdrlODFNYYLHJRJp5juPGp
-	QEVYo8ZP2e0Z2Um/Yk/4W7gLbBDySoVTpldgPv+CS+aVPPblOtD2O1MMBBvFvzlydU5yamhhZII
-	0h/5IXK/S4XQASeMSZ8j9G61lTeyz5CgmeEnMunqPh9+wp+S4+kK1mB3fMoPdnxwGwpOH2Oo7HO
-	VUoI2Wjc75VRNmLhMk43q+iaymUyXGSRfj3i5lrATYJ2RNoduUP0mSX9H25U0tyelyZu7Nq876g
-	9Qp8zQO5L8xDBZEnj64GX/AacxaE/nr943ZzP5Q0seHZjh6uVpNuR9f3ioPyniob9OgA==
-X-Received: by 2002:a17:90a:5185:b0:3a0:bf71:eccf with SMTP id 98e67ed59e1d1-3ab3a9533ecmr4229118a91.14.1791856744976;
-        Mon, 12 Oct 2026 18:59:04 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38ff0ce7sm19784735a91.15.2026.10.12.18.59.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 18:59:04 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com,
-	heming.zhao@suse.com,
-	ghe@suse.com,
-	akpm@linux-foundation.org
-Cc: ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH v2] ocfs2: Publish the filecheck owner before adding sysfs attributes
-Date: Tue, 13 Oct 2026 09:58:58 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0086-v4-1b3a3c5fd05c1fb41df9@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="FFMga55F"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=B6gv9uUY5MOvyVWJ/IrxGRZFdVkZuQ0mQIaGycRX9XU=;
+	b=FFMga55FkQcJsg4DK5rabS536AIz3glLytZciLu6YaM2a+SiQ3iieef3Aw866E7BSgezf50hC
+	5TI0eii/yPzYoOyCwKsA39e7TM4mF+k/yAub9FZ5j0hvK8dCW0vIUT5HOl4Q6FDjznKWS+RXApO
+	W7/EFkQc5mzL53W2IoWyqDA=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4j3cs12qVrzRhVS;
+	Tue, 13 Oct 2026 09:56:53 +0800 (CST)
+Received: from kwepemo500007.china.huawei.com (unknown [7.202.195.114])
+	by mail.maildlp.com (Postfix) with ESMTPS id 0C59E20333;
+	Tue, 13 Oct 2026 10:09:07 +0800 (CST)
+Received: from [10.67.120.170] (10.67.120.170) by
+ kwepemo500007.china.huawei.com (7.202.195.114) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 13 Oct 2026 10:09:06 +0800
+Message-ID: <a8343e1f-92c5-4d20-bc07-1b32f72d8109@huawei.com>
+Date: Tue, 13 Oct 2026 10:09:06 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] tools/dma: fix building from the top level with O=
+To: Sasha Levin <sashal@kernel.org>, Barry Song <baohua@kernel.org>, Marek
+ Szyprowski <m.szyprowski@samsung.com>
+CC: <stable@vger.kernel.org>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>
+References: <20261011223358.2327625-4-sashal@kernel.org>
+From: Qinxin Xia <xiaqinxin@huawei.com>
+In-Reply-To: <20261011223358.2327625-4-sashal@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemo500007.china.huawei.com (7.202.195.114)
 
-ocfs2_filecheck_create_sysfs() initializes the filecheck allocation
-before calling kobject_init_and_add(), but assigns entry->fs_fcheck
-only after that call returns. The default attribute group can already
-be visible while registration is in progress. A concurrent read can
-therefore enter ocfs2_filecheck_attr_show() with a NULL fs_fcheck and
-try to lock its fc_lock.
 
-Assign the initialized owner before adding the kobject, so every
-activated attribute has valid state. Clear the pointer when addition
-fails, preserving the existing teardown guard and error cleanup.
 
-A controlled probe-instrumented test kernel with the original OCFS2
-registration ordering produced this Oops during a concurrent sysfs read:
+On 2026/10/12 06:33:32, Sasha Levin <sashal@kernel.org> wrote:
+> "make O=<dir> tools/dma" fails:
+> 
+>    Makefile:27: /tools/build/Makefile.include: No such file or directory
+> 
+> tools/Makefile clears srctree, and the dma Makefile only works it out
+> again when building_out_of_srctree is not set, which the top-level
+> Makefile sets for O= builds.
+> 
+> Also work out srctree when it is empty, as tools/bpf/Makefile does
+> since commit a89b2cbf71d64 ("tools, bpf: Fix build for 'make -s
+> tools/bpf O=<dir>'").
+> 
+> Fixes: f74ee32963f1b ("tools/dma: move dma_map_benchmark from selftests to tools/dma")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>   tools/dma/Makefile | 6 ++++++
+>   1 file changed, 6 insertions(+)
+> 
+> diff --git a/tools/dma/Makefile b/tools/dma/Makefile
+> index 0c239a6b9eae5..20ae7f09cd206 100644
+> --- a/tools/dma/Makefile
+> +++ b/tools/dma/Makefile
+> @@ -7,7 +7,13 @@ bindir ?= /usr/bin
+>   # isn't set and when invoked from selftests build, where srctree
+>   # is set to ".". building_out_of_srctree is undefined for in srctree
+>   # builds
+> +ifeq ($(srctree),)
+> +update_srctree := 1
+> +endif
+>   ifndef building_out_of_srctree
+> +update_srctree := 1
+> +endif
+> +ifeq ($(update_srctree),1)
+>   srctree := $(patsubst %/,%,$(dir $(CURDIR)))
+>   srctree := $(patsubst %/,%,$(dir $(srctree)))
+>   endif
 
-  KASAN: null-ptr-deref in range [0x0000000000000028-0x000000000000002f]
-  RIP: 0010:kasan_byte_accessible+0x15/0x30
-  Call Trace:
-   <TASK>
-   __kasan_check_byte+0x13/0x50
-   lock_acquire+0x113/0x300
-   _raw_spin_lock+0x31/0x40
-   ocfs2_filecheck_attr_show+0x138/0x5f0
-   ocfs2_filecheck_show+0x5d/0x90
-   sysfs_kf_seq_show+0x1d3/0x360
-   seq_read_iter+0x480/0x1110
-   kernfs_fop_read_iter+0x419/0x5a0
-   vfs_read+0x7d2/0xc20
-   ksys_read+0x111/0x200
-   do_syscall_64+0x114/0x620
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
-  Modules linked in:
+Acked-by: Qinxin Xia <xiaqinxin@huawei.com>
+-- 
+Thanks,
+Qinxin
 
-Fixes: 5f483c4abb50 ("ocfs2: add kobject for online file check")
-Assisted-by: LLM
-Cc: <stable@vger.kernel.org>
-Reviewed-by: Heming Zhao <heming.zhao@suse.com>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-
----
-Changes in v2:
-- Explain why fs_fcheck must be cleared on registration failure.
-- Retain that cleanup guard and add an inline error-unwind comment.
-- Rebase on 35eb6a2f; keep the original diagnostic unchanged.
-
-Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0086-v2-646731c4254a02823b4d@gmail.com
-
- fs/ocfs2/filecheck.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/fs/ocfs2/filecheck.c b/fs/ocfs2/filecheck.c
-index be713d7d24a76b9aa8fcded3d83b3d91d124eb6e..75334e4bd0823fd8154717290bfe57d2e5198176 100644
---- a/fs/ocfs2/filecheck.c
-+++ b/fs/ocfs2/filecheck.c
-@@ -179,17 +179,20 @@ int ocfs2_filecheck_create_sysfs(struct ocfs2_super *osb)
- 	fcheck->fc_size = 0;
- 	fcheck->fc_done = 0;
- 
-+	/* Publish the initialized owner before activating its sysfs callbacks. */
-+	entry->fs_fcheck = fcheck;
- 	entry->fs_kobj.kset = osb->osb_dev_kset;
- 	init_completion(&entry->fs_kobj_unregister);
- 	ret = kobject_init_and_add(&entry->fs_kobj, &ocfs2_ktype_filecheck,
- 					NULL, "filecheck");
- 	if (ret) {
-+		/* Mount failure still calls ocfs2_filecheck_remove_sysfs(). */
-+		entry->fs_fcheck = NULL;
- 		kobject_put(&entry->fs_kobj);
- 		kfree(fcheck);
- 		return ret;
- 	}
- 
--	entry->fs_fcheck = fcheck;
- 	return 0;
- }
-
-Fixes: a860f6eb4c6a ("ocfs2: sysfile interfaces for online file check")
- 
