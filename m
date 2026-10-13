@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 350244A4F04
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 23:04:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 983135625FE
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 23:04:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791932682; cv=none; b=naa3ifRjeyBV7KJK5e+3RuJIurzd+AImmohKUYVT8WnKmOibCzfY9PhPuv3lO0Zsj3rccuaAAERCR9bTCSEjEqoXfm1AGGDyBkm3ienFWoLILx1vuwiqQd4SyzFoymdP/zO8IAZan6z2Iqp9QbfgwVoK0m5OMvqIPyMSKJMey5k=
+	t=1791932689; cv=none; b=r76uSLr4aEOE4Zna3nEXNr6NP1xGyT/ku5rQCmxlSLmOei3uwJ+KxUnuLU9YHFvx2nUkhwMCfM/TDLw1JUMufU8Q1w3qpU+/5RGQ3aOwTgpwno23h7Ixq5oNQaOLh2yv0hQst62yI4gKeSFGlbu8DCvar6VtwdO1ysKJkxFkBNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791932682; c=relaxed/simple;
-	bh=CvXlApr1sqSpr8FrQqLIrLk4T/FLmkGUqGoITcrtRBo=;
+	s=arc-20240116; t=1791932689; c=relaxed/simple;
+	bh=RibZqkAW123g5McNBc/gZ14G0thh0uINRssN4qvv3aM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rcL+JYFFsXqFZbP0YLOeMDwj1fpVt6f7RWTG0UUziBCruZ4zEgpIbFFYWMzn9dDbbDdMkRsc+QqmTamTxmU74kkYAHsh5A28Dc4lr6xBJe1JUHjINfy/ePWbXKIUedM+i1tiXarQjxUThnpqkc4hnsUWfC1iuf4ZWZtMT2xDYrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=naZjI7oD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JMIH8FsFKA6NJm6mj0pD85UF4FDBfniISUcKkf08pKKWsOwg2QwrZ9kZfaL4XlxwXEQRyFYdjmH4XARQHMCogPAGlut54gWXPadOG+oVM0BmRjEiydDVc5RXdzqblQv5TSQi7XWE4zS8rNpi9eld1Cu2XdZbsZdf55vdcM9se8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UT2rUNN0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="naZjI7oD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 833841F000FF;
-	Tue, 13 Oct 2026 23:04:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UT2rUNN0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5E511F000FF;
+	Tue, 13 Oct 2026 23:04:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791932679;
-	bh=LWaMdoQH8fF3wIGP7V43eOHnJkSv9twBYr8AnSCYPfQ=;
+	s=k20260515; t=1791932687;
+	bh=sYT2WG19xbMfT2Mkk6aQwhwVe4LU3+cp52YSJ4IYr0I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=naZjI7oDKDjMOJ1iRJlrReoQnQVwtqtn0tDhGUDXDIHgPEM1z6vR/SE/tM30lXFoL
-	 uvCwRlppXAm6J2Tul3oc0/GuwZp2Y5YIc8mQk1dk4CnwX1NODJOaemoTzeSLoY5fNI
-	 yPkJMAOTss6A42SmuzTLb44tXAmNucCtoMMCprLCKZkxI8s7V5yHdNGxLMeLtkxgMJ
-	 9N/alWCrJFM/Tfdg1QflpeGkZ7YaDKpSs9QGYT3tSaTfcX83XuUYCGRO/ckqBBtcim
-	 0zP6NNDo8P3sWho+RbZkgsb1hizSZjUp/HaLdFkLxnD1mX6hNtgO+5ElugYO7JE8xW
-	 vASitCXIlcS/Q==
+	b=UT2rUNN0Me5AYqKn1Yl7Dz7Di362kMLFuesSrEX8DvbnDTdB43P9vNwrQoUsAgx17
+	 5AVNCQbLpCFoOQqAhwMVbZj5WAN9Par4UYP2Wct2Ddqo5gJ/fPFXppBpFz0h0AGyU3
+	 SH/TbCnuih17QhkBkWbXAdxzy/5s3v9mBa4eaEDR0P2mZ5eEyUkRumQNlxpfAKSOzj
+	 sPP8DBZUzHXl+INdpjvUCkAXP4qUwbpMM1LOUU/OSin7k4HWHxBtOghMnCfmP7br+2
+	 ofk5buGCOmqveXW0MKs29ozcOfwqisjLd4b17dtt4xQVxtRwW0+EvSfWSTJw3RMOHR
+	 P1ktwUZ6JoCQQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] namespace: check the mounts before reading their parents in pivot_root()
-Date: Tue, 13 Oct 2026 19:04:38 -0400
-Message-ID: <20261013230341.828552-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] fcntl: refuse F_SET_RW_HINT on an immutable inode
+Date: Tue, 13 Oct 2026 19:04:45 -0400
+Message-ID: <20261013230339.760451-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101249-monogram-subscript-9e06@gregkh>
-References: <2026101249-monogram-subscript-9e06@gregkh>
+In-Reply-To: <2026101222-human-eradicate-1a07@gregkh>
+References: <2026101222-human-eradicate-1a07@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,73 +46,36 @@ Content-Transfer-Encoding: 8bit
 
 From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit 6b7c001eb5857fa09041f47673666060a2e5fc1c ]
+[ Upstream commit b0d1022b9bdb1e98aa7fb3244fdd50a58c61766c ]
 
-path_pivot_root() reads the parents of new_root and of the caller's root
-and checks whether they are shared before it checks that either mount is
-in the caller's mount namespace. Only namespace_sem is held. That's fine
-for a mount that is in the caller's mount namespace.
+An immutable inode is never written to so write hints are pointless.
+Refuse the hint on an immutable inode the way setattr(), fallocate() and
+etxattr() refuse their changes.
 
-But new_root can be a file descriptor to a mount that has been unmounted
-and that only the file descriptor keeps alive. If that mount stayed
-attached to its parent when it was unmounted nothing pins the parent for
-it. The final mntput() of the parent unhooks the children under
-mount_lock alone and frees the parent afterwards:
-
-  pivot_root()                     close(fd), last ref on the parent
-  ------------                     ---------------------------------
-  ex_parent = new_mnt->mnt_parent
-                                   mntput_no_expire_slowpath()
-                                     __umount_mnt(new_mnt)
-                                   cleanup_mnt()
-                                     call_rcu()
-  IS_MNT_SHARED(ex_parent)
-
-  BUG: KASAN: slab-use-after-free in path_pivot_root+0xf1a/0x1840
-  Read of size 4 at addr ffff8881047382f8 by task pivot_widen/157
-   path_pivot_root+0xf1a/0x1840
-   __x64_sys_pivot_root+0x165/0x190
-
-The same goes for the caller's root via chroot(). Both outcomes of the
-check end in EINVAL so nothing but the read itself goes wrong. It's the
-same thing commit bb4609405752 ("statmount: read the parent of an
-unmounted mount under mount_lock") fixed for statmount().
-
-Check that both mounts are in the caller's namespace before their
-parents are read. Every path returns EINVAL either way.
-
-Fixes: e0c9c0afd2fc ("mnt: Update detach_mounts to leave mounts connected")
+Fixes: c75b1d9421f8 ("fs: add fcntl() interface for setting/getting write life time hints")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260930-work-mount-fixes-3-v1-10-be34c83956ae@kernel.org
+Link: https://patch.msgid.link/20261002-work-mount-fixes-4-v1-3-dd44b89d44ce@kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: replaced return -EINVAL with goto out4 in the inline pivot_root syscall ]
+[ sashal: Adjusted context due to the missing inode_owner_or_capable() check. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/namespace.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ fs/fcntl.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/fs/namespace.c b/fs/namespace.c
-index 3311e4edbc734..5ba59fe4f3e42 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -4282,14 +4282,15 @@ SYSCALL_DEFINE2(pivot_root, const char __user *, new_root,
- 	new_mnt = real_mount(new.mnt);
- 	root_mnt = real_mount(root.mnt);
- 	old_mnt = real_mount(old.mnt);
-+	/* only a mounted mount has a parent that namespace_sem pins */
-+	if (!check_mnt(root_mnt) || !check_mnt(new_mnt))
-+		goto out4;
- 	ex_parent = new_mnt->mnt_parent;
- 	root_parent = root_mnt->mnt_parent;
- 	if (IS_MNT_SHARED(old_mnt) ||
- 		IS_MNT_SHARED(ex_parent) ||
- 		IS_MNT_SHARED(root_parent))
- 		goto out4;
--	if (!check_mnt(root_mnt) || !check_mnt(new_mnt))
--		goto out4;
- 	if (new_mnt->mnt.mnt_flags & MNT_LOCKED)
- 		goto out4;
- 	error = -ENOENT;
+diff --git a/fs/fcntl.c b/fs/fcntl.c
+index c4cdee6a78005..cb40e1f661eb2 100644
+--- a/fs/fcntl.c
++++ b/fs/fcntl.c
+@@ -374,6 +374,9 @@ static long fcntl_set_rw_hint(struct file *file, unsigned int cmd,
+ 	u64 __user *argp = (u64 __user *)arg;
+ 	u64 hint;
+ 
++	/* nothing is ever written to it */
++	if (IS_IMMUTABLE(inode))
++		return -EPERM;
+ 	if (copy_from_user(&hint, argp, sizeof(hint)))
+ 		return -EFAULT;
+ 	if (!rw_hint_valid(hint))
 -- 
 2.53.0
 
