@@ -1,228 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852254F7CAA
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 15:00:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 031403F9A1E;
+	Tue, 13 Oct 2026 15:03:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791903627; cv=none; b=vF9Pco/XLFU6J/nP/H5Gk3OvhZTOA4FMwpaatBe95cjjdF4Cx65SmXevQBXaNw0Iw1m8OduN1ECl1CxAN3kSVUppdALuQUE498/e4awh4DAp9dk86NOWvcHg4r9Og9huJk36CV5B8Sub+z+iPTynFJUrPYAfI1M4vo73ymsan3k=
+	t=1791903797; cv=none; b=nGsrVA2hOrqvOoi9qWnnofACGARRlF/XSoDzHXivhi2QH2vfYUuRncVAyLZPCY8vn/WKwZCQOJWPXyoUSrz1Fu/RnFuJx+h8TTqvOneh7Sk9aKCp1Id/aDOtb4L5A6j9ndz60Tv0+otSdCsADncmBU31fsjGbFB/Jn1Z/FG+lkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791903627; c=relaxed/simple;
-	bh=pEVFmhPJR1NGBLeLRSO0ArD/nmRROxT/4Ja/5m66fjk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZtmDgB/yITA2z5CK7/ylw05SHcp4LK8ON+C0YFRZVMo7pVEyN6u+cWEGsaaG6ftlm5BW6Y9ahw/sC8Hblo9KkvlpS6DMuZbhC/K57sZF+ooi65T2ChaXIdXckEKx84vr9pSAswWlNj3Yi+GKLBii0f3GHyvUzohPLLQFcJFr71w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O33Ki8x4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791903797; c=relaxed/simple;
+	bh=Pi9LSYarjLX+3vvzjZhtTrpY5MChzmnUBJGMA66TyCA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=fmEMQTyUiiL/DABHJTE9XYHBV7Yk59s2Ui7EUJGcSXSsOoW0TC6fAKz49MhVjQ5YpJ/1DBLwmtPdcj9j+OMx4n5l6ffN8IO9r/uTwIQxIQi1v8elFKOtSKYfj0sp939l4uM5cjFpqBhPD4NnjJiJEJbcwAtr/OU/HPDU5sTjLMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=PP6KBkiG; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O33Ki8x4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DECF1F000FF;
-	Tue, 13 Oct 2026 15:00:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791903626;
-	bh=DBnEajkojAYeLbVprqTj17Aj2uQ5sy1WVz+LGafgmSI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=O33Ki8x4eoBRFFUw19iAg+Kev8plaUamzWj59aOeuu/3wDNeUGNllliIExGcL7/FM
-	 gTVBjm00/gNeQoeUGw24FCVat94B/UcH7PUT+dr7Rc+vKjNQrkXzQ41uU2wiCWtXkz
-	 ycC3F9hY0KZZQCd/XAw5oVzBKOi1AsSGwzcUfKsGaj4e1K4zEG1o9lVitjx54WlNtN
-	 wFEFWBP1ptJTD9TjakcUItF9QjdlHXdWxiQSI4LP0jciOUflGGdQ82+FStTjVxlyAK
-	 1ULwknQWzxy7IXfoezneeSU+5AbfE/pEyNIpbS65RzGIW3iKJoe+bqpuqlai3mizdf
-	 AgGP2kb+Vxocg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Suraj Gupta <suraj.gupta2@amd.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] net: xilinx: axienet: Free outstanding DMA buffers on dmaengine stop
-Date: Tue, 13 Oct 2026 11:00:24 -0400
-Message-ID: <20261013150006.67924-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101248-endanger-limpness-b70f@gregkh>
-References: <2026101248-endanger-limpness-b70f@gregkh>
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="PP6KBkiG"
+Message-ID: <662b749c05634b6990d072cb87a442687b41be33.camel@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1791903793;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Pi9LSYarjLX+3vvzjZhtTrpY5MChzmnUBJGMA66TyCA=;
+	b=PP6KBkiGllBsDBfJ+qINnKOAPEz9uCFYbkchSzqWQ1pm7bapeEDpUXBktj2ihx3XYoXRo/
+	H6+F/uKmotuqTl8IebEPWJ8JpZNpQPSUILLcfX3Q7Qa39rg67bjFFkSosaPB1VqJQvSHp7
+	t5cVmwJV01QNkHIqswer6KpwLlfqLAU=
+Subject: Re: [PATCH] fs/proc/task_mmu: fix lost maps entries above 2^63
+From: Stian Halseth <stian@itx.no>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, Andrew Morton
+	 <akpm@linux-foundation.org>, Suren Baghdasaryan <surenb@google.com>
+Cc: "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes
+ <ljs@kernel.org>,  Vlastimil Babka <vbabka@kernel.org>, Jann Horn
+ <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, Andreas Larsson
+ <andreas@gaisler.com>, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, 
+ sparclinux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Tue, 13 Oct 2026 17:03:12 +0200
+In-Reply-To: <e300f046-dcae-4539-bf89-92eb8c575e25@kernel.org>
+References: <20261011162019.922436-1-stian@itx.no>
+	 <e300f046-dcae-4539-bf89-92eb8c575e25@kernel.org>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-uXyPDiAoKUAB3fHHAbUw"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Suraj Gupta <suraj.gupta2@amd.com>
 
-[ Upstream commit bcf2573a68a808a5b54cadafa72b6672e662c2bf ]
+--=-uXyPDiAoKUAB3fHHAbUw
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-In the dmaengine path the driver pre-submits RX buffers and holds
-in-flight TX buffers whose SKBs are DMA-mapped by the driver and freed
-only in the completion callbacks. On ndo_stop() dmaengine_terminate_sync()
-aborts these descriptors without running their callbacks, and the driver
-then frees only the ring shells, leaking every SKB still owned by the
-engine and its DMA mapping on each ifdown. With 128 RX buffers pre-posted
-per channel, the mapping leak can eventually exhaust a limited IOMMU
-aperture.
+On Tue, 2026-10-13 at 16:40 +0200, David Hildenbrand (Arm) wrote:
+>=20
+> Would it be cleaner to reject any special values, that is,
+> SENTINEL_VMA_END and
+> SENTINEL_VMA_GATE?
+>=20
+> That would match the comment and the previous code idea: exclude only
+> 0 and
+> sentinels.
+>=20
+> Could consider a simple addr_is_sentinel() helper.
+>=20
+Agreed, that reads better. SENTINEL_VMA_END never gets this far, since
+m_start() returns early for it, so it is no functional change.=A0
 
-Clear the slot's skb in the TX and RX callbacks so a non-NULL skb marks a
-slot that still owns a live, DMA-mapped buffer, and on stop unmap and free
-every such buffer.
+I'll send a v2 now, and maybe Suren can have a look directly at that
+version.
 
-axienet_dma_rx_cb() runs from the DMA tasklet and re-arms the RX ring on
-each completion, so it can race axienet_stop(): a completion may submit a
-fresh buffer after dmaengine_terminate_sync() has returned, leaving the
-channel armed with a buffer the teardown then frees while the engine may
-still write into it (dma_release_channel() does not stop it either). Add a
-lock that axienet_dma_rx_cb() holds across the @stopping check and the
-resubmit, and axienet_stop() holds to set @stopping before terminating.
-Once @stopping is set no callback can arm a new buffer, and any armed just
-before is aborted by the terminate, so teardown only frees buffers the
-engine no longer owns.
+Thanks,
+Stian
 
-Fixes: 6a91b846af85 ("net: axienet: Introduce dmaengine support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Suraj Gupta <suraj.gupta2@amd.com>
-Link: https://patch.msgid.link/20260928184207.2361931-1-suraj.gupta2@amd.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: Adjusted context for existing kcalloc() allocation and missing interrupt-coalescing locks. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/ethernet/xilinx/xilinx_axienet.h  |  7 ++-
- .../net/ethernet/xilinx/xilinx_axienet_main.c | 51 +++++++++++++++----
- 2 files changed, 47 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet.h b/drivers/net/ethernet/xilinx/xilinx_axienet.h
-index cbdca0fb89454..f9e8e83cfed93 100644
---- a/drivers/net/ethernet/xilinx/xilinx_axienet.h
-+++ b/drivers/net/ethernet/xilinx/xilinx_axienet.h
-@@ -516,8 +516,9 @@ struct skbuf_dma_descriptor {
-  * @stats_work: Work for reading the hardware statistics counters often enough
-  *              to catch overflows.
-  * @dma_err_task: Work structure to process Axi DMA errors
-- * @stopping:   Set when @dma_err_task shouldn't do anything because we are
-- *              about to stop the device.
-+ * @stopping:   Set when we are about to stop the device: makes @dma_err_task
-+ *              a no-op (legacy DMA path) and fences RX descriptor
-+ *              resubmission in axienet_dma_rx_cb() (dmaengine path).
-  * @tx_irq:	Axidma TX IRQ number
-  * @rx_irq:	Axidma RX IRQ number
-  * @eth_irq:	Ethernet core IRQ number
-@@ -542,6 +543,7 @@ struct skbuf_dma_descriptor {
-  * @tx_ring_tail: TX skb ring buffer tail index.
-  * @rx_ring_head: RX skb ring buffer head index.
-  * @rx_ring_tail: RX skb ring buffer tail index.
-+ * @rx_submit_lock: Protects RX ring resubmission vs teardown in dmaengine path.
-  */
- struct axienet_local {
- 	struct net_device *ndev;
-@@ -620,6 +622,7 @@ struct axienet_local {
- 	int tx_ring_tail;
- 	int rx_ring_head;
- 	int rx_ring_tail;
-+	spinlock_t rx_submit_lock;
- };
- 
- /**
-diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-index 3339c5e1a57a9..76970a8065494 100644
---- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-+++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-@@ -841,6 +841,7 @@ static void axienet_dma_tx_cb(void *data, const struct dmaengine_result *result)
- 	u64_stats_update_end(&lp->tx_stat_sync);
- 	dma_unmap_sg(lp->dev, skbuf_dma->sgl, skbuf_dma->sg_len, DMA_TO_DEVICE);
- 	dev_consume_skb_any(skbuf_dma->skb);
-+	skbuf_dma->skb = NULL;
- 	netif_txq_completed_wake(txq, 1, len,
- 				 CIRC_SPACE(lp->tx_ring_head, lp->tx_ring_tail, TX_BD_NUM_MAX),
- 				 2);
-@@ -1127,6 +1128,7 @@ static void axienet_dma_rx_cb(void *data, const struct dmaengine_result *result)
- 						       &meta_max_len);
- 	dma_unmap_single(lp->dev, skbuf_dma->dma_address, lp->max_frm_size,
- 			 DMA_FROM_DEVICE);
-+	skbuf_dma->skb = NULL;
- 
- 	if (IS_ERR(app_metadata)) {
- 		if (net_ratelimit())
-@@ -1149,10 +1151,17 @@ static void axienet_dma_rx_cb(void *data, const struct dmaengine_result *result)
- 	u64_stats_update_end(&lp->rx_stat_sync);
- 
- rx_submit:
-+	spin_lock(&lp->rx_submit_lock);
-+	if (lp->stopping) {
-+		spin_unlock(&lp->rx_submit_lock);
-+		return;
-+	}
-+
- 	for (i = 0; i < CIRC_SPACE(lp->rx_ring_head, lp->rx_ring_tail,
- 				   RX_BUF_NUM_DEFAULT); i++)
- 		axienet_rx_submit_desc(lp->ndev);
- 	dma_async_issue_pending(lp->rx_chan);
-+	spin_unlock(&lp->rx_submit_lock);
- }
- 
- /**
-@@ -1475,6 +1484,7 @@ static int axienet_init_dmaengine(struct net_device *ndev)
- 	lp->tx_ring_head = 0;
- 	lp->rx_ring_tail = 0;
- 	lp->rx_ring_head = 0;
-+	lp->stopping = false;
- 	lp->tx_skb_ring = kcalloc(TX_BD_NUM_MAX, sizeof(*lp->tx_skb_ring),
- 				  GFP_KERNEL);
- 	if (!lp->tx_skb_ring) {
-@@ -1686,20 +1696,42 @@ static int axienet_stop(struct net_device *ndev)
- 		free_irq(lp->rx_irq, ndev);
- 		axienet_dma_bd_release(ndev);
- 	} else {
-+		struct skbuf_dma_descriptor *skbuf_dma;
-+
-+		spin_lock_bh(&lp->rx_submit_lock);
-+		lp->stopping = true;
-+		spin_unlock_bh(&lp->rx_submit_lock);
-+
- 		dmaengine_terminate_sync(lp->tx_chan);
--		dmaengine_synchronize(lp->tx_chan);
- 		dmaengine_terminate_sync(lp->rx_chan);
--		dmaengine_synchronize(lp->rx_chan);
--
--		for (i = 0; i < TX_BD_NUM_MAX; i++)
--			kfree(lp->tx_skb_ring[i]);
--		kfree(lp->tx_skb_ring);
--		for (i = 0; i < RX_BUF_NUM_DEFAULT; i++)
--			kfree(lp->rx_skb_ring[i]);
--		kfree(lp->rx_skb_ring);
- 
- 		dma_release_channel(lp->rx_chan);
- 		dma_release_channel(lp->tx_chan);
-+
-+		/* Unmap and free any buffer the terminate did not reclaim, so it
-+		 * is not leaked; a non-NULL skb marks such a slot.
-+		 */
-+		for (i = 0; i < TX_BD_NUM_MAX; i++) {
-+			skbuf_dma = lp->tx_skb_ring[i];
-+			if (skbuf_dma && skbuf_dma->skb) {
-+				dma_unmap_sg(lp->dev, skbuf_dma->sgl,
-+					     skbuf_dma->sg_len, DMA_TO_DEVICE);
-+				dev_kfree_skb_any(skbuf_dma->skb);
-+			}
-+			kfree(skbuf_dma);
-+		}
-+		kfree(lp->tx_skb_ring);
-+
-+		for (i = 0; i < RX_BUF_NUM_DEFAULT; i++) {
-+			skbuf_dma = lp->rx_skb_ring[i];
-+			if (skbuf_dma && skbuf_dma->skb) {
-+				dma_unmap_single(lp->dev, skbuf_dma->dma_address,
-+						 lp->max_frm_size, DMA_FROM_DEVICE);
-+				dev_kfree_skb_any(skbuf_dma->skb);
-+			}
-+			kfree(skbuf_dma);
-+		}
-+		kfree(lp->rx_skb_ring);
- 	}
- 
- 	axienet_iow(lp, XAE_IE_OFFSET, 0);
-@@ -2615,6 +2647,7 @@ static int axienet_probe(struct platform_device *pdev)
- 	u64_stats_init(&lp->rx_stat_sync);
- 	u64_stats_init(&lp->tx_stat_sync);
- 
-+	spin_lock_init(&lp->rx_submit_lock);
- 	mutex_init(&lp->stats_lock);
- 	seqcount_mutex_init(&lp->hw_stats_seqcount, &lp->stats_lock);
- 	INIT_DEFERRABLE_WORK(&lp->stats_work, axienet_refresh_stats);
--- 
-2.53.0
+--=-uXyPDiAoKUAB3fHHAbUw
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCas5IMAAKCRDoeAEuJe36
+VsL8AP9E+0k4mprykfqrvUdh7fvR+jw8P0kF49qCLBaCfiRY3AEA33afxSogFsKp
+woQkB2y6j4zmffrBo1NCiMSYSU3b3QQ=
+=sVmV
+-----END PGP SIGNATURE-----
+
+--=-uXyPDiAoKUAB3fHHAbUw--
