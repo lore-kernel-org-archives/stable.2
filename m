@@ -1,193 +1,299 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D25795221C0
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:09:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DBFB5221E0
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:09:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791911376; cv=none; b=drwR3PI5q8HipPdLpa/Vy/Vrr48S1BbhoBr8F7m8xfSIfW+BOZgm5/jmon5FyD9Xkt5T+lYn5IzWslQxzrwyiyuCjBMSY54lzWWV3/docIwOBNBkw3HeDB1XWeMD43pQkGUChW3KAxmT5EC75GOE0PtUm91tiJi85kv7AL6xzqs=
+	t=1791911378; cv=none; b=CG6yYqLkUKRAXl1ZM5XVgDaOibLZIGvVJb7L7VIp99fero91N7x/wt5vuJ/VoLV7EM5UpK7XAiaGe0p0lW4TpsV1K+kQPZ1BspP224vMMflGJrdtZu9kcD2lmRq9Cx57WvZYZhIKNjN4Z55S6acBZ2+yP8UT4w67viwsME6IW3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791911376; c=relaxed/simple;
-	bh=9xASxftw/8PJ3+NKhxfK5aiwSfxieLtALX9MvNQrmiw=;
+	s=arc-20240116; t=1791911378; c=relaxed/simple;
+	bh=6OYMFUiz+Pty5Tk/aSfcPyAv8SUe8BPwQR5g6vcvPKo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WIs6vCOcLIVFnqpYxrrXX3b6KpK7vL0sw3e6DbRtU8436YuROO17GrlSKVU7Bo0BorqGgbYSkgJLsaeSo+0PKanT8rCnoMjHRaCE+ulZxQxdxcJOSaW6CsJP4eOwGsxSrmw9T/la9mlV9a079HTb+A6R3P4Grz5m9HKGOPgEuCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cuHL2P18; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=h1RBsVg+LbDaHFj9f70UiTBhbTY5MKE9uPKX2Pduir9IUvMKkCIeOSTxNxwIT1nxoZSyAR3cno3WNAeXSLHXvrvaBRcB9czglPNNBV3PL1WGsc3VqYz+AhOtRDShHY7ZB+QxggItJBzqo4iEhuab53WELIBwVJUX92Xd3MoipiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V85OI/6N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cuHL2P18"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA5D81F000FF;
-	Tue, 13 Oct 2026 17:09:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V85OI/6N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27ED81F00893;
+	Tue, 13 Oct 2026 17:09:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791911374;
-	bh=3vVxWo4LYDEG3AEizsh+1dXWNzwfN3GLDYdQEFWg74Y=;
+	s=k20260515; t=1791911376;
+	bh=5kjU0yUH00I7mrAU8jJdycDhTuemmRd87WV3gNkuh0I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cuHL2P181fcibtuOvDc4U12k7VsLPlqwMVM42ZBYfO8IZD12ib/ANjaeZ0r9oh9FQ
-	 07lWoLs1flQFrERkhI9Xfn1+oWxxg1krpqjLbmz+M+3trG/InpXz4F9cILwPhH7ab2
-	 1muuqk0Nw2tXgOmQTH30pax4AtvuMfQP1ldBxMsUsZ5Gskw1hNy/EaFOzQ27YLWu0N
-	 c5JP3b4BcGtlwag/BwFF+y5+E4JRjlqebkaucvQBopNorTtS+5Anx0Smths9530EXa
-	 axlxvM1+C+ddYyjEZACMfu3EvOovxRlNYI63IAfbrLlGwxLDvzNRdXZX9kFs2H2b3z
-	 DJkUZhB+6QeEg==
+	b=V85OI/6Nfmj4dWfkeA4SFOFrqOGc/eVH1HTdSRoC0k2RX5gINtUI34j9qn72bmYXz
+	 yRE0w/91icBMrmPSRXtp6ig03TmkKahCEz8kbsvLU8lq2ShPZYbcRYTkmaVx9DKPvN
+	 dJvypH1PsMAaeF11J+fWJB1WjJVUEKFb1YTAp8RnYeOgI+61L1z5Pol7Ljj//KtF96
+	 lS5fLigwqQ8ZBgOJ102ZId1iqPhvRrthMU3Afglv1+kWwLcqKnKb8ScnZsc0LZ39hf
+	 yql7+nul6ogfPKIzte8wyp0Mv0f9qP808lHdQQlKjGppbyQHhOWEnm1e9+KdXTcu6J
+	 soWz51wADPTLQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Tom St Denis <tom.stdenis@amd.com>,
-	Vitaly Prosyak <vitaly.prosyak@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
+	Pauli Virtanen <pav@iki.fi>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] drm/amdgpu: copy debugfs register data outside the GRBM/SRBM locks
-Date: Tue, 13 Oct 2026 13:09:32 -0400
-Message-ID: <20261013170910.593022-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] Bluetooth: ISO: Serialize concurrent connect calls
+Date: Tue, 13 Oct 2026 13:09:35 -0400
+Message-ID: <20261013170911.255700-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101230-expedited-brewing-2f54@gregkh>
-References: <2026101230-expedited-brewing-2f54@gregkh>
+In-Reply-To: <2026101225-clench-crowbar-615f@gregkh>
+References: <2026101225-clench-crowbar-615f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-[ Upstream commit 16c64495859f13f75602f439588883f2a4a4d6a6 ]
+[ Upstream commit e32d80293a0e1a160d5e5101daa8c82148c07510 ]
 
-Reading or writing a register through the amdgpu_regs2 debugfs file
-with GRBM bank selection, which umr does for every banked access (a
-single "umr -b x x x -r <reg>" is enough, as is the wave dump with
-"-O halt_waves"), makes lockdep report a circular locking dependency,
-after which lockdep stays off until reboot:
+iso_sock_connect() checks the socket state before taking the socket lock
+and drops the lock again before setting up a connection. Two callers can
+both pass the admission check while the socket is open or bound.
 
-  WARNING: possible circular locking dependency detected
-  umr/63306 is trying to acquire lock:
-  ffff8882cf4b8350 (&mm->mmap_lock){++++}-{4:4}, at: __might_fault+0x9b/0x140
-  but task is already holding lock:
-  ffff8881aec010d0 (&amdgpu_grbm_lock_key){+.+.}-{4:4}, at: amdgpu_debugfs_regs2_op.isra.0+0x20d/0xd00 [amdgpu]
-  ...
-  Chain exists of:
-    &mm->mmap_lock --> &amdgpu_srbm_lock_key --> &amdgpu_grbm_lock_key
-  ...
-   __might_fault+0xc5/0x140
-   amdgpu_debugfs_regs2_op.isra.0+0x441/0xd00 [amdgpu]
-   full_proxy_write+0x10e/0x1d0
-   vfs_write+0x1d0/0xf50
-   ksys_write+0x116/0x250
+Caller A can copy its destination for route selection, then caller B can
+replace the socket destination before A binds or connects the CIS. A
+then uses B's destination with the route selected for its own request.
+B can also proceed after A attaches a connection and sets BT_CONNECT.
+For deferred BIS setup, B can bind a second BIS and overwrite
+iso_pi(sk)->conn, leaving the first connection's reference and conn->sk
+back-pointer stranded. Concurrent CIS connects can likewise replace the
+socket's connection. Later teardown only detaches the current connection,
+so a callback on the old connection can race with socket release and
+access a freed socket.
 
-amdgpu_debugfs_regs2_op() and amdgpu_debugfs_process_reg_op() call
-get_user()/put_user() for every dword while holding grbm_idx_mutex or
-srbm_mutex, and pm.mutex if requested, so a fault there takes mmap_lock
-inside those locks. The lock hierarchy in amdgpu_lockdep.c puts
-srbm_mutex and grbm_idx_mutex below notifier_lock, which
-amdgpu_cs_submit() takes with the BO reservations held, and
-dma_resv_lockdep() orders the reservations inside mmap_lock. So
-mmap_lock is outside grbm_idx_mutex and srbm_mutex, and these two
-debugfs paths nest it the other way round. The copies under the locks
-are as old as the bank selection in both files; commit 1d0f5838b126
-("drm/amdgpu: Add lockdep annotations for lock ordering validation")
-only made them visible to lockdep.
+KASAN reported:
 
-Copy the user buffer in before any of the locks is taken and the result
-out after all of them are dropped, as amdgpu_debugfs_wave_read(),
-amdgpu_debugfs_gpr_read() and amdgpu_debugfs_gprwave_read() already do.
-The buffer is sized by the count passed to read() or write(), so an
-access larger than PAGE_SIZE is now rejected with -EINVAL; umr reads and
-writes one register at a time. A fault on the user buffer of a write now
-fails with -EFAULT before any register is written, instead of after a
-partial write.
+  BUG: KASAN: slab-use-after-free in iso_sock_hold+0xf7/0x1b0
+  Call Trace:
+   iso_sock_hold+0xf7/0x1b0
+   iso_conn_del+0x7b/0x1d0
+   iso_connect_cfm+0x186/0x16a0
+   hci_conn_failed+0x154/0x280
+   hci_abort_conn_sync+0x3dc/0x7d0
+   hci_cmd_sync_work+0x173/0x300
 
-Fixes: 566281595037 ("drm/amd/amdgpu: Add bank selection for MMIO debugfs (v3)")
-Fixes: 37df9560cd3e ("drm/amd/amdgpu: New debugfs interface for MMIO registers (v5)")
-Acked-by: Christian König <christian.koenig@amd.com>
-Acked-by: Tom St Denis <tom.stdenis@amd.com>
-Reviewed-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit ccf9e35ed6811f2c25ba6368e7dc6481da17159d)
+  Allocated by task 121:
+   sk_alloc+0x2b/0x6d0
+   bt_sock_alloc+0x29/0x370
+   iso_sock_alloc.constprop.0+0x19/0x300
+   iso_sock_create+0x94/0x100
+
+  Freed by task 121:
+   kfree+0x121/0x3c0
+   __sk_destruct+0x42b/0x540
+   iso_sock_release+0x29d/0x340
+   __sock_release+0xa1/0x260
+
+Check admission under the socket lock and mark the connect operation in
+progress before publishing its destination. Keep that flag set across
+route lookup and connection setup, rejecting another connect with
+-EBADFD before it can change the destination or attach a connection.
+Clear the flag after either helper returns, including on failure, so a
+failed setup can be retried.
+
+A separate flag is needed because the socket lock must be released before
+acquiring the HCI device lock, while BT_CONNECT requires an attached
+connection. Keep the existing state transitions and the deferred CIS
+completion through iso_sock_recvmsg().
+
+Reject an existing socket attachment in __iso_chan_add() before taking
+a new reference or publishing either pointer, so every caller preserves
+the connection association. Keep the same-socket, same-connection success
+case for deferred CIS setup. Reject an attached socket before BIS setup
+so a reusable BIS is not claimed before the attachment is rejected.
+
+In CIS setup, reject a different HCI connection before iso_conn_add()
+and drop the per-attempt HCI hold directly. An unowned iso_conn may still
+carry another reference after detachment, so its destruction cannot be
+relied on to release that hold.
+
+iso_listen_bis() creates a fresh PA HCI/ISO pair under the device lock,
+so the temporary iso_conn_put() frees the ISO candidate and drops its
+HCI hold on rejection. iso_conn_ready() uses a freshly allocated,
+unpublished child with no connection, making the socket-side rejection
+unreachable.
+
+Fixes: ccf74f2390d6 ("Bluetooth: Add BTPROTO_ISO socket type")
 Cc: stable@vger.kernel.org
-[ sashal: omitted changes to the absent amdgpu_debugfs_regs2_op() function. ]
+Suggested-by: Pauli Virtanen <pav@iki.fi>
+Assisted-by: GPT-6 Astra
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+[ sashal: Moved socket locking earlier in the connection helpers to provide the locking coverage assumed by upstream. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 39 ++++++++++++---------
- 1 file changed, 23 insertions(+), 16 deletions(-)
+ net/bluetooth/iso.c | 67 +++++++++++++++++++++++++++++----------------
+ 1 file changed, 43 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 944ecf780781e..01320252e5e04 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -73,6 +73,7 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
- 	int r;
- 	bool pm_pg_lock, use_bank, use_ring;
- 	unsigned instance_bank, sh_bank, se_bank, me, pipe, queue, vmid;
-+	u32 *data __free(kfree) = NULL;
+diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
+index 23bd4d8c397f7..2dd8e6e6beac5 100644
+--- a/net/bluetooth/iso.c
++++ b/net/bluetooth/iso.c
+@@ -55,6 +55,7 @@ enum {
+ 	BT_SK_BIG_SYNC,
+ 	BT_SK_PA_SYNC,
+ 	BT_SK_PA_SYNC_TERM,
++	BT_SK_CONNECTING,
+ };
  
- 	pm_pg_lock = use_bank = use_ring = false;
- 	instance_bank = sh_bank = se_bank = me = pipe = queue = vmid = 0;
-@@ -110,6 +111,20 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
- 
- 	*pos &= (1UL << 22) - 1;
- 
-+	if (size > PAGE_SIZE)
-+		return -EINVAL;
-+
-+	/*
-+	 * Access the user buffer only while none of the locks below are held:
-+	 * a fault takes mmap_lock, and grbm_idx_mutex and srbm_mutex nest
-+	 * inside it.
-+	 */
-+	data = kmalloc(size, GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+	if (!read && copy_from_user(data, buf, size))
-+		return -EFAULT;
-+
- 	r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
- 	if (r < 0) {
- 		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-@@ -142,28 +157,16 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
- 		mutex_lock(&adev->pm.mutex);
- 
- 	while (size) {
--		uint32_t value;
--
--		if (read) {
--			value = RREG32(*pos >> 2);
--			r = put_user(value, (uint32_t *)buf);
--		} else {
--			r = get_user(value, (uint32_t *)buf);
--			if (!r)
--				amdgpu_mm_wreg_mmio_rlc(adev, *pos >> 2, value);
--		}
--		if (r) {
--			result = r;
--			goto end;
--		}
-+		if (read)
-+			data[result >> 2] = RREG32(*pos >> 2);
-+		else
-+			amdgpu_mm_wreg_mmio_rlc(adev, *pos >> 2, data[result >> 2]);
- 
- 		result += 4;
--		buf += 4;
- 		*pos += 4;
- 		size -= 4;
+ struct iso_pinfo {
+@@ -277,6 +278,9 @@ static int __iso_chan_add(struct iso_conn *conn, struct sock *sk,
+ 		return -EBUSY;
  	}
  
--end:
- 	if (use_bank) {
- 		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
- 		mutex_unlock(&adev->grbm_idx_mutex);
-@@ -179,6 +182,10 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
- 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
++	if (iso_pi(sk)->conn)
++		return -EISCONN;
++
+ 	iso_pi(sk)->conn = conn;
+ 	conn->sk = sk;
  
- 	amdgpu_virt_disable_access_debugfs(adev);
+@@ -321,6 +325,12 @@ static int iso_connect_bis(struct sock *sk)
+ 		return -EHOSTUNREACH;
+ 
+ 	hci_dev_lock(hdev);
++	lock_sock(sk);
 +
-+	if (read && copy_to_user(buf, data, result))
-+		return -EFAULT;
++	if (iso_pi(sk)->conn) {
++		err = -EISCONN;
++		goto unlock;
++	}
+ 
+ 	if (!bis_capable(hdev)) {
+ 		err = -EOPNOTSUPP;
+@@ -367,13 +377,9 @@ static int iso_connect_bis(struct sock *sk)
+ 		goto unlock;
+ 	}
+ 
+-	lock_sock(sk);
+-
+ 	err = iso_chan_add(conn, sk, NULL);
+-	if (err) {
+-		release_sock(sk);
++	if (err)
+ 		goto unlock;
+-	}
+ 
+ 	/* Update source addr of the socket */
+ 	bacpy(&iso_pi(sk)->src, &hcon->src);
+@@ -389,9 +395,8 @@ static int iso_connect_bis(struct sock *sk)
+ 		iso_sock_set_timer(sk, sk->sk_sndtimeo);
+ 	}
+ 
+-	release_sock(sk);
+-
+ unlock:
++	release_sock(sk);
+ 	hci_dev_unlock(hdev);
+ 	hci_dev_put(hdev);
+ 	return err;
+@@ -412,6 +417,7 @@ static int iso_connect_cis(struct sock *sk)
+ 		return -EHOSTUNREACH;
+ 
+ 	hci_dev_lock(hdev);
++	lock_sock(sk);
+ 
+ 	if (!cis_central_capable(hdev)) {
+ 		err = -EOPNOTSUPP;
+@@ -450,6 +456,13 @@ static int iso_connect_cis(struct sock *sk)
+ 		}
+ 	}
+ 
++	/* The socket lock keeps the current attachment and its hcon stable. */
++	if (iso_pi(sk)->conn && iso_pi(sk)->conn->hcon != hcon) {
++		hci_conn_drop(hcon);
++		err = -EISCONN;
++		goto unlock;
++	}
 +
- 	return result;
+ 	conn = iso_conn_add(hcon);
+ 	if (!conn) {
+ 		hci_conn_drop(hcon);
+@@ -457,13 +470,9 @@ static int iso_connect_cis(struct sock *sk)
+ 		goto unlock;
+ 	}
+ 
+-	lock_sock(sk);
+-
+ 	err = iso_chan_add(conn, sk, NULL);
+-	if (err) {
+-		release_sock(sk);
++	if (err)
+ 		goto unlock;
+-	}
+ 
+ 	/* Update source addr of the socket */
+ 	bacpy(&iso_pi(sk)->src, &hcon->src);
+@@ -479,9 +488,8 @@ static int iso_connect_cis(struct sock *sk)
+ 		iso_sock_set_timer(sk, sk->sk_sndtimeo);
+ 	}
+ 
+-	release_sock(sk);
+-
+ unlock:
++	release_sock(sk);
+ 	hci_dev_unlock(hdev);
+ 	hci_dev_put(hdev);
+ 	return err;
+@@ -1000,17 +1008,26 @@ static int iso_sock_connect(struct socket *sock, struct sockaddr *addr,
+ 	    addr->sa_family != AF_BLUETOOTH)
+ 		return -EINVAL;
+ 
+-	if (sk->sk_state != BT_OPEN && sk->sk_state != BT_BOUND)
+-		return -EBADFD;
++	lock_sock(sk);
+ 
+-	if (sk->sk_type != SOCK_SEQPACKET)
+-		return -EINVAL;
++	if ((sk->sk_state != BT_OPEN && sk->sk_state != BT_BOUND) ||
++	    test_bit(BT_SK_CONNECTING, &iso_pi(sk)->flags)) {
++		err = -EBADFD;
++		goto done;
++	}
++
++	if (sk->sk_type != SOCK_SEQPACKET) {
++		err = -EINVAL;
++		goto done;
++	}
+ 
+ 	/* Check if the address type is of LE type */
+-	if (!bdaddr_type_is_le(sa->iso_bdaddr_type))
+-		return -EINVAL;
++	if (!bdaddr_type_is_le(sa->iso_bdaddr_type)) {
++		err = -EINVAL;
++		goto done;
++	}
+ 
+-	lock_sock(sk);
++	set_bit(BT_SK_CONNECTING, &iso_pi(sk)->flags);
+ 
+ 	bacpy(&iso_pi(sk)->dst, &sa->iso_bdaddr);
+ 	iso_pi(sk)->dst_type = sa->iso_bdaddr_type;
+@@ -1022,16 +1039,18 @@ static int iso_sock_connect(struct socket *sock, struct sockaddr *addr,
+ 	else
+ 		err = iso_connect_bis(sk);
+ 
+-	if (err)
+-		return err;
+-
+ 	lock_sock(sk);
+ 
++	clear_bit(BT_SK_CONNECTING, &iso_pi(sk)->flags);
++	if (err)
++		goto done;
++
+ 	if (!test_bit(BT_SK_DEFER_SETUP, &bt_sk(sk)->flags)) {
+ 		err = bt_sock_wait_state(sk, BT_CONNECTED,
+ 					 sock_sndtimeo(sk, flags & O_NONBLOCK));
+ 	}
+ 
++done:
+ 	release_sock(sk);
+ 	return err;
  }
- 
 -- 
 2.53.0
 
