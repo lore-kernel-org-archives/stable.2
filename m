@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2561D3AF66E
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 23:05:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1BFF4A7C95
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 23:05:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791932701; cv=none; b=CMtyPmKiOqaVwc6i5VwFsRM9RdG+XK1kXrCRj5vjK2N9lYlM8RQNpWbkWUjCm/SiGdfTaB3KIYz7IUbScNh9VrN37D5BEtnq/VXmbFYjZKIXPDvEOAgdGFOGCCyRAXMlE6wE4+cu0V3z3XqY3Sf3EIDIAixQra9xho1nfi+Rr4M=
+	t=1791932704; cv=none; b=M2aBcNC0Ag8UPSslnLJXZASOlWK5rhCC5/6DSEwfgrrabxE6qSTYOzr6CrbM67lQ9XYpyXzis2pgPSIM+dvoZR9cl5MijMBrT/H5pzEYatQV3KaZ0qD5oGLv7uWVqJKP98VJdORjTAKYFceK4TzG4lkAzhGZrqEBoghf4eohVVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791932701; c=relaxed/simple;
-	bh=WGCs44MA1vRFnUfpAItXjYZxu5F1W7h/x9JqN30dZfM=;
+	s=arc-20240116; t=1791932704; c=relaxed/simple;
+	bh=SkIPOGple8dkYvlIPN+jFTIGwPSLOhXZpZ8RjCO1Raw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qdmb64UjNPfUFySpSlNd0uF8sCjqZbXPYAixkBA1JPOgNqew41LXH70NcpgBLfTfA/IVVC/+27GySMz7wR3DcZCrt7U8gOLQTrZYuCxqcQUa4WweXHbT+P1sZvqxj9Ya6hLXvbobmu6fWlQpsJqDU6A09yQpQIqLWe85KyPVyhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lEQaGexH; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=H+IO0cWkHMNGw8jLKA0cJ69MucUEuEkMkKaucfFy8JOPwkA0vmJdpI0H+HYKBxlgy4TFQ/ihdbMK3QChZLyMKYjhJCKqcuQuPanarK6JZX8tEqZbAiP/8AV3bR7FPyR4jqA5Hz7dhGP0sPK6AG0nCefTT46FCCv8rCYZcuNxsXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CPTr7vaY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lEQaGexH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A11171F000FF;
-	Tue, 13 Oct 2026 23:04:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CPTr7vaY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16A201F000FF;
+	Tue, 13 Oct 2026 23:05:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791932700;
-	bh=ml3EcGGAY2u1m4xdZJJR2JxHvVVL/qW72F6SP+GTQSY=;
+	s=k20260515; t=1791932702;
+	bh=cHgUSfg10SrNUvasgD6ScpIgH0kacQL+3+ofOQydi80=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lEQaGexH4AxCLHBWJpclH5HlgEjjl0ehUGW3MrLZpZb3HzG4hXnnNIo352azIA1No
-	 +MdGpRW1vJ6OUkX0PHfNSu5NPMhY29mDXD8KGFn8uz355FfxLAcQ9cUKZlBRyXA/6G
-	 GB+GUvea9/6jlOwn0HQS757tLXPDiJEDWTMTeDLXcvwwEo9EkFT/b57FHG/kJsEl/e
-	 TShTVUrbLiJurP+wccYPZbznJGJ1h0FwCDIzXAtfiymWyJzjwVb1JrEMUfZ4f1iiHJ
-	 EE4o0TxsiipY8lqdrDdew0yi+umczaDIiM2HKAv+O8uUcCCV+3KKxqUmFtuzdRkzHm
-	 Rp8RDkFiIVsNQ==
+	b=CPTr7vaYH0kD3PXQ5Yq5ao5+WhHaR78hLBlIDjExo4WK6g/VMv3plsSWFxe6N9Z1Q
+	 0EP5ykcRH1CZTcSZe7qaIt+RF1a75/pBRjsFPwQZQC4CMfa4gMT+BvDBZdORNxj14t
+	 JJY+8+CaPu1XmFntU3WH3v/tGCJOLFvNEB4OQZY5qKgIkxVmhLrI3zSLXdA2d2s1eO
+	 QtbTm0UC5yVS0QZvnNeip5ws3mJyW6Q3J7AH7sIZjOcbKefUX8ayOXh1d+ArZdbhZ0
+	 zAz8W30TSLFSsbiJGf2WCCU/xu/GH6v+3ogWRW9GVkusSaidqsY6EE2ywxkSV38E5J
+	 AIRHvTjpTX/eg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] namespace: handle mount locking for automounts correctly
-Date: Tue, 13 Oct 2026 19:04:58 -0400
-Message-ID: <20261013230339.827955-1-sashal@kernel.org>
+Subject: [PATCH 7.2.y 1/2] nullfs: refuse file locks
+Date: Tue, 13 Oct 2026 19:05:00 -0400
+Message-ID: <20261013230336.829040-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101251-squeamish-molecule-f775@gregkh>
-References: <2026101251-squeamish-molecule-f775@gregkh>
+In-Reply-To: <2026101206-reexamine-jolliness-5e12@gregkh>
+References: <2026101206-reexamine-jolliness-5e12@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,93 +46,71 @@ Content-Transfer-Encoding: 8bit
 
 From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit 33aadc7c72055fca93cb5a3691d836ebf8b31c9b ]
+[ Upstream commit 31a1fb90624d7e275db775a29a0e00a7f8b3df63 ]
 
-If mounts are propagated across user namespaces, attach_recursive_mnt()
-locks every copy of the source mount to protect overmounts from
-vanishing and revealing the underlying files or directories.
+Refuse flock() and POSIX locks on nullfs. Its one inode is the root of
+every kernel thread and the following patches make it the directory
+that stands in for an unmounted mount, so a lock taken through one such
+directory would block the locks of every other holder and F_GETLK would
+tell them the pid of the holder. Give the directory file operations of
+its own: what libfs gives an empty directory plus ->lock and ->flock
+that fail with ENOLCK, the way a filesystem without lock support does.
 
-The user namespace is taken from the caller's mount namespaces since
-this is where the mounts end up. Except, that's not always true.
-Automounts may legitimately get popped in by tasks located in a
-different mount and user namespace during path lookup.
-
-Then check doesn't make sense at that point. The copy in the namespace
-of the parent - which may be the host's - is now locked and the host
-cannot change the flags of its own mounts anymore.
-
-Here's the reproducer:
-
-- host has debugfs mounted nosuid,nodev,noexec and shared
-- tracefs automount below it is not yet active
-- hand a child process a directory descriptor on that mount
-- child process enters auser and mount namespace
-- child process' namespace now holds a locked copy of the host's debugfs
-  mount that receives propagation from it
-- child process stats "tracing/." through the descriptor
-- lookup runs on the host's mount so the automount lands below the host's mount
-- propagation puts a copy below the child's copy
-- both try to clear the flags on the mount they got, with a bind remount:
-
-    host, on its own automount:            MS_REMOUNT|MS_BIND = EPERM
-    child, on the copy in its namespace:   MS_REMOUNT|MS_BIND = 0
-
-So the lock landed on the host's mount instead of the child's copy.
-Congrats. So we need to compare with the owner of the namespace the
-mount actually gets mounted on. For all regular cases that is the
-caller's mount namespace and so nothing changes.
-
-Detached trees in anonymous mount namespaces by be handed over via
-SCM_RIGHTS or inherited in other ways on purpose so the attaching task's
-mount namespace is authoritative, not the creator of the detached tree.
-
-Fixes: 132c94e31b8b ("vfs: Carefully propogate mounts across user namespaces")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261002-work-mount-fixes-4-v1-6-dd44b89d44ce@kernel.org
+Link: https://patch.msgid.link/20261002-work-mount-fixes-4-v1-17-dd44b89d44ce@kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: adapted destination namespace access from dest->parent->mnt_ns to the existing top_mnt->mnt_ns. ]
+Stable-dep-of: e08f57a7dcb8 ("readdir: take no inode lock on an immutable directory")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/namespace.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ fs/nullfs.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-diff --git a/fs/namespace.c b/fs/namespace.c
-index f87bdff661664..6d7c7b9b096d2 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -2487,15 +2487,31 @@ static int attach_recursive_mnt(struct mount *source_mnt,
- 				struct mountpoint *dest_mp,
- 				enum mnt_tree_flags_t flags)
- {
--	struct user_namespace *user_ns = current->nsproxy->mnt_ns->user_ns;
- 	HLIST_HEAD(tree_list);
- 	struct mnt_namespace *ns = top_mnt->mnt_ns;
-+	struct user_namespace *user_ns = ns->user_ns;
- 	struct mountpoint *smp;
- 	struct mount *child, *dest_mnt, *p;
- 	struct hlist_node *n;
- 	int err = 0;
- 	bool moving = flags & MNT_TREE_MOVE, beneath = flags & MNT_TREE_BENEATH;
+diff --git a/fs/nullfs.c b/fs/nullfs.c
+index 20d3aa627a47d..fc79ca42bb178 100644
+--- a/fs/nullfs.c
++++ b/fs/nullfs.c
+@@ -8,6 +8,34 @@ static const struct super_operations nullfs_super_operations = {
+ 	.statfs	= simple_statfs,
+ };
  
-+	/*
-+	 * A caller in an unprivileged mount namespaces may trigger an
-+	 * automount and propagate locked mounts into privileged mount
-+	 * namespaces. Take ownership from the target mount namespace.
-+	 * It's equivalent for everything but the automount case.
-+	 *
-+	 * Detached trees in anonymous mount namespaces by be handed
-+	 * over via SCM_RIGHTS or inherited in other ways on purpose
-+	 * the attaching task's mount namespace is authoritative, not
-+	 * the creator of the detached tree.
-+	 */
-+	if (is_anon_ns(ns))
-+		user_ns = current->nsproxy->mnt_ns->user_ns;
-+	else
-+		user_ns = ns->user_ns;
++static loff_t nullfs_dir_llseek(struct file *file, loff_t offset, int whence)
++{
++	/* an empty directory has two entries . and .. at offsets 0 and 1 */
++	return generic_file_llseek_size(file, offset, whence, 2, 2);
++}
 +
- 	/*
- 	 * Preallocate a mountpoint in case the new mounts need to be
- 	 * mounted beneath mounts on the same mountpoint.
++static int nullfs_dir_readdir(struct file *file, struct dir_context *ctx)
++{
++	dir_emit_dots(file, ctx);
++	return 0;
++}
++
++/* the one inode of nullfs is shared by every holder, so no locks on it */
++static int nullfs_nolock(struct file *file, int cmd, struct file_lock *fl)
++{
++	return -ENOLCK;
++}
++
++/* what libfs gives an empty directory, plus the refusal of file locks */
++static const struct file_operations nullfs_dir_operations = {
++	.llseek		= nullfs_dir_llseek,
++	.read		= generic_read_dir,
++	.iterate_shared	= nullfs_dir_readdir,
++	.fsync		= noop_fsync,
++	.lock		= nullfs_nolock,
++	.flock		= nullfs_nolock,
++};
++
+ static int nullfs_fs_fill_super(struct super_block *s, struct fs_context *fc)
+ {
+ 	struct inode *inode;
+@@ -28,6 +56,7 @@ static int nullfs_fs_fill_super(struct super_block *s, struct fs_context *fc)
+ 
+ 	/* nullfs is permanently empty... */
+ 	make_empty_dir_inode(inode);
++	inode->i_fop = &nullfs_dir_operations;
+ 	simple_inode_init_ts(inode);
+ 	inode->i_ino	= 1;
+ 	/* ... and immutable, reading it leaves no trace either. */
 -- 
 2.53.0
 
