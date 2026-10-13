@@ -1,157 +1,226 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 374A53FD957
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 09:18:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB9893F329F
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 09:18:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791883109; cv=none; b=Trv/C0bbZYEH47KlmTLvJ8XIaSt7mjumfC/o5+kGHlDIv/pGeXtPMpHIhURuhoxWvH94mPmwc8EbxpQDs3IncCX1GRHsgzxU9Mmh6m2DBsUWOG8DUqI72hp+VQlM22yjLCYOkE0yB4Sl7p6uG1i9LSIdYcodFm+P3NnDq4vsIE8=
+	t=1791883111; cv=none; b=guzjMaGNLZ/nAntS7LW5zWT4Rp0f+ZWzJxAfn4fgUxTECAlLNgY8Hr71ofyGNshf9unmzQnr5+cBUZSow2NTQcTccQLhalwwHfQRE60HBxPOQCr3yKu2vpWUmDnM1JcY80m33TKBw50SvtHuAVG0gFqpqc6ff9Og0tMPiftm3bA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791883109; c=relaxed/simple;
-	bh=zirvr5Z+/G/FU1YxpxLmJnWlCOLWHK3ANrDWkR1xQQA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=noK1ClxUqzGk3f2L9YJta+MJcdEX5Xwq3HPOMRJtSkdJvXnbF0IwrxqLBn7HSuKfmcZagDIavJJ0bAFPiDAzZIsfkc0nD4R78Aba7xTGfwoiy2PC5Blmy4GJKgY344tidZZA3EZvNbXN54n+3tcEysW58b0om3+N0SplYGHsVN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VUcyOcsL; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791883111; c=relaxed/simple;
+	bh=Qw8zae9NOxAk0It4XupnieJPLdroSQEYcZSuuA8SXV4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EPW01npG103UiMYGQpD1bW7yn/MtyA1CK/YlLQWCnNbXis2HnKrXSbU5ylACku1Q7cFlTRwhwg8+FjR0TahotoORqEcQfczrTpwyWIm4f/tlF/CEPGjGLTMi9bodYdzyYjFsGECYMIzXhAxVZkzGSowMPZSaqlYsBtsyiNNaYvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hRSPCnVn; arc=none smtp.client-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VUcyOcsL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791883106; x=1823419106;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=zirvr5Z+/G/FU1YxpxLmJnWlCOLWHK3ANrDWkR1xQQA=;
-  b=VUcyOcsLaqz+FJF9dN24E5lWCxUVBuYydxD0M7cRZufgpVAyiL4SVvj2
-   Gb/4ukcWk//pZHsptZDaXD1Iy8Nwp3yyL3bEQJdzzk5kkvhgprX01hhCc
-   oleaaPl5vVd9N+Pbym61yO/aq+APgWCEXjlyBPg77dKhDbwuIZqkVj1PX
-   kpGHP8JnI08KA3jUOGY0UC2RzV8qPOItttjxN8TnVuRWUe2XuJ2pmL3DP
-   r94Rt0xtZiMTMAma3Dv0OK8Xg6i1tzhKu3jNLY8lanK5gR7jHrmy1bWgO
-   +HF4vVz7WBg5EYAxB7mqZxGNoBya0gJRroVSuae1u+m3rePpqf/XYCOgV
-   Q==;
-X-CSE-ConnectionGUID: /zTnf53PQvW1ZvkjvFDPoA==
-X-CSE-MsgGUID: dfaO37fITwyn66zcGhDCXw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="610616"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="610616"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 02:18:25 -0700
-X-CSE-ConnectionGUID: 0Saa6EbsQx2XGqYomowfDg==
-X-CSE-MsgGUID: Sbz+hzmJQqiSYOec6g9pdg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1214506"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO [10.245.245.84]) ([10.245.245.84])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 02:18:23 -0700
-Message-ID: <8d0eb215394e7a285813fe87def6bee358063431.camel@linux.intel.com>
-Subject: Re: [PATCH v2 3/3] drm/xe: skip p2p for suspected display buffers
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Matthew
- Auld <matthew.auld@intel.com>, intel-xe@lists.freedesktop.org
-Cc: Matthew Brost <matthew.brost@intel.com>, stable@vger.kernel.org, 
- Christian =?ISO-8859-1?Q?K=F6nig?=
-	 <ckoenig.leichtzumerken@gmail.com>
-Date: Tue, 13 Oct 2026 11:18:21 +0200
-In-Reply-To: <2fcd10d5-c1f9-47be-9a68-422f9bbd6837@amd.com>
-References: <20261007153605.1743626-5-matthew.auld@intel.com>
-	 <20261007153605.1743626-8-matthew.auld@intel.com>
-	 <2c6a97ac21c5ef161dbac279f9b971f383b6b944.camel@linux.intel.com>
-	 <dbabed4e-468d-4ecf-b295-f5d8c9c4b263@intel.com>
-	 <bc2f4d82-5a8e-4d1b-a921-ee819ca5cac2@amd.com>
-	 <992d57f0-7327-4c36-adf7-6dd72137fe73@intel.com>
-	 <31f7eb68-6dfa-4ea7-93a4-d4897fbe6a74@intel.com>
-	 <3579864a-0283-4f92-b895-5cf399c2ee69@amd.com>
-	 <16cfde6b-8881-4ffe-8068-9530286da72a@intel.com>
-	 <1a852df2-c2a4-48bb-84de-cdd4b98b95bb@amd.com>
-	 <d493d4d1-96d5-4194-bbae-5c1e5d54d91a@intel.com>
-	 <5545db90-3365-4d75-9fc0-77dda42b7000@intel.com>
-	 <2fcd10d5-c1f9-47be-9a68-422f9bbd6837@amd.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hRSPCnVn"
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3550dd02c9cso208354eec.0
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 02:18:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791883108; x=1792487908; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XJeGv4gE+1nP/kqGfhMNUpT5saqR4ArNAelaYTNhWl0=;
+        b=hRSPCnVnM+EHmuYlE6ocgu8bFlYbbx0yCbV2F6dkIDyPBWkKHOffX8JJhRlcrv5N8+
+         2zga9kSqa1Os9SMjjI/Dp+IA5OU8ID7CsEDA5DIGR1cqp3Ou4cjHYvmb/4KLprqJfk82
+         B9RDQdRqMDQgjt/cSOBuD8LRNW4CR142xkWL9vYPOcPkhyX3tD9RwSt0X/ByxWVBH8q2
+         Ajc6u9oqWonfo4LMiWOElLSBqwdiZWVKGVGolb029gkYrKiKXEejg8a0VlJYe++z1ndE
+         go/l1R8QZjlfOsa6SV9emb7iPHXHaIgLoNeAG2WQOCn89P+jkXmDXXecrNYXIPovevrV
+         iBvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791883108; x=1792487908;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XJeGv4gE+1nP/kqGfhMNUpT5saqR4ArNAelaYTNhWl0=;
+        b=xpdXJwjnzIuMlLeCpPuoeoAvPB5aQI3YqPnQ02eJBDCSWKCUkJbs2iBy2S+SJLgTT2
+         gd/1tkjVSQTFH4phLFs5dtoGd/w4YgOz9Bfoht+2Ytser5qgbSLGhFpSdMST9TTmZrsO
+         gKgHsKOg+CkKAUwpJt35J+bzIEnHvEi1OKvZJKtgK3Rg6jkttG1iOCa4GZOFA/hLc6YU
+         ghi3qoh1Dn+CtSOIKy/2yLZQKi8j4z/wVxLKZnlh2dgEUeeQzbfnOlDEKs7VsdSwab1y
+         zLRr3vKqAs9ySX+EhweKnL30Ev4zjoYZPS74r8NX35PDH2aXs6zEEiuqCPh+nNuhZuXL
+         /SuA==
+X-Forwarded-Encrypted: i=1; AKwUvBwbpTUgRbXc/CU3KlmjkZD0dg56cyG/edCWvBn7EoaM6YHQS+i1JqEO5vXY5rijIoyV1sxEQBY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLUmdCp+rr1ZqOf8rSP/XLG5paKjluxkBg7zFJJxZqjsM2l7xt7
+	RKatovB8NgXw9w+l0ZA5Wvsjq2jDpyk91DuIpYTpxDMUfGDgA7RlrwTp
+X-Gm-Gg: AYBFou3VXDnxY5keg23CRVCm7dK3BWWOcJUBcJcnJmK47gAIKo+b/War8OG8pg8ZOUp
+	AGm4lLBAzKhVksGLDmc6mFgG65/DQKkNi8/1B3solHPjFeiOiQzl4yNq/Z4UyE4NSwja62JmLI0
+	GzKs0mFW7w7SxkbFeqyzx92qqBdVy0RGsjFQ++m0szIMOmDBadHLb9RQU2k+t0HfVpbJux6HLdO
+	plGFtKqUsHuNySu8eJpRjjIHQYSWjY1FBrBpxXx6lPdWFRDTSoZ+JOrPyYvkzMGpd+4ndJFE7dn
+	/5jeDIWymxs/T2aJl4KemLnRrKC+w74itf0h7GewJIw+5ABkZdHJQRJ5R59KZbGZPHUt37q00jn
+	TKKnKw32raFeTRNn/MEt7Epn3/XydqyGwkljS52BtbX19hsWmfq1AF9tDRclcLR/tFU0bpBO9iZ
+	SfxCtYzPW6uRcc9bY8Xdah9AzhdO1TSoSNX43YmgxjLNtwhRR/0JVfi1N66XL73/kwiRuLT79YL
+	+IItyMowRipiw/ZSgTvPpv3UT77yaNCfTp6ec+cXN+8wfOZuDYlZrUSXupLSpCBKkItQoG48nU=
+X-Received: by 2002:a05:7300:d40a:b0:359:8492:20f8 with SMTP id 5a478bee46e88-35984922315mr16399593eec.2.1791883107751;
+        Tue, 13 Oct 2026 02:18:27 -0700 (PDT)
+Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb6a279sm41437975eec.30.2026.10.13.02.18.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 02:18:26 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: alibuda@linux.alibaba.com,
+	dust.li@linux.alibaba.com,
+	sidraya@linux.ibm.com,
+	mjambigi@linux.ibm.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: tonylu@linux.alibaba.com,
+	guwen@linux.alibaba.com,
+	horms@kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v3 3/3] net/smc: hold a link group reference for free work
+Date: Tue, 13 Oct 2026 17:17:16 +0800
+Message-ID: <20261013091716.1210420-4-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261013091716.1210420-1-nicoyip.dev@gmail.com>
+References: <20261013091716.1210420-1-nicoyip.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-10-13 at 11:10 +0200, Christian K=C3=B6nig wrote:
-> On 10/13/26 10:51, Matthew Auld wrote:
-> > On 09/10/2026 14:02, Matthew Auld wrote:
-> > > On 09/10/2026 12:38, Christian K=C3=B6nig wrote:
-> > > > On 10/9/26 12:29, Matthew Auld wrote:
-> > > > > On 09/10/2026 10:26, Christian K=C3=B6nig wrote:
-> > > > > > On 10/9/26 11:16, Matthew Auld wrote:
-> > > > > > > On 08/10/2026 12:17, Matthew Auld wrote:
-> > > > > > > > On 08/10/2026 10:55, Christian K=C3=B6nig wrote:
-> > > > > > > > > On 10/8/26 11:46, Matthew Auld wrote:
-> > > > > > > > > > On 07/10/2026 19:11, Thomas Hellstr=C3=B6m wrote:
-> > > > > > > > > > > On Wed, 2026-10-07 at 16:36 +0100, Matthew Auld
-> > > > > > > > > > > wrote:
-> ....
-> > > > > > > > > > Perhaps Intel Mesa side should use tt-only for this
-> > > > > > > > > > type buffer (?), but since this is a kernel
-> > > > > > > > > > regression I was hoping we could fix this on the
-> > > > > > > > > > kernel side.
-> > > > > > > > > >=20
-> > > > > > > > > > Some questions:
-> > > > > > > > > >=20
-> > > > > > > > > > 1. Do you know what is the general story with p2p
-> > > > > > > > > > between igpu and dgpu? Is this a legit thing? For
-> > > > > > > > > > igpus/APUs, advertising p2p can't be dropped? It
-> > > > > > > > > > clearly seems to work though.
-> > > > > > > > > >=20
-> > > > > > > > > > 2. If this is legit, do you guys then also prevent
-> > > > > > > > > > p2p with display buffers? Are you just doing that
-> > > > > > > > > > at the Mesa level, or is there some magic in the
-> > > > > > > > > > kernel also?
-> > > > > > > > >=20
-> > > > > > > > > If I understand that correctly that the igpu is the
-> > > > > > > > > importer and the dgpu is the exporter then yeah
-> > > > > > > > > Thomas is right that definately needs to be fixed on
-> > > > > > > > > the importer side.
-> > > > > > > >=20
-> > > > > > > > Ideas on how do that? Could we do something like
-> > > > > > > > allow_peer2peer =3D false in amdgpu_gem_prime_import() if
-> > > > > > > > this is an APU device, or further check if the exporter
-> > > > > > > > side is not amdgpu, like APU + Xe?
-> > > > > > >=20
-> > > > > > > For example:
-> > > > > > > https://gitlab.freedesktop.org/mwa/kernel/-/=C2=A0commit/7ec8=
-6
-> > > > > > > c68b42655b4bb85ee90af434a617e7bec8c
-> > > > > > >=20
-> > > > > > > Is that something you would accept?
-> > > > > >=20
-> > > > > > No, you misunderstood me. Enabling P2P is perfectly fine
-> > > > > > for APUs and mandatory for a couple of customer projects.
-> > > > > >=20
-> > > > > > The buffer should just be rejected from scanout in the
-> > > > > > display code and on the AMDGPU side we already do that if
-> > > > > > I'm not completely mistaken.
-> > > > >=20
-> > > > > Reporter confirmed seeing the issue in windowed mode also. So
-> > > > > I don't think it's just a case of rejecting from scanout?
-> > > >=20
-> > > > Then I don't understand what the problem is.
-> > > >=20
-> > > > When the dGPU renders and the iGPU displays you have only two
-> > > > possibilities, either the dGPU pushes the frames over the bus
-> > > > or the iGPU pulls the frames over the bus. Both should be
-> > > > equaly slow or fast, so what exactly is the expectation here?
-> > >=20
-> > > I assume the AMD APU/iGPU is sampling/reading from the p2p window
-> > > buffer every frame.
->=20
-> That is not possible. The HW can't do this and because of this we
-> should have a check for that in the DAL/DC code.
->=20
-Couldn't the issue be that the compositor, running on the amd iGPU
-blits from the dma-buf rather than scans out from it? And the scanout
-is not the shared buffer at all?
+__smc_lgr_terminate() cancels free_work asynchronously. If the callback
+has already started, it can still access the group after the terminator
+drops the last reference. The callback has to dereference the group to
+find its list lock and check freeing, so that check cannot protect its
+own access to the allocation. This lifetime gap was identified during
+code review of the scheduling and early-cleanup fixes.
 
-/Thomas
+Take a group reference before mod_delayed_work(). Keep it when a new
+execution is queued, including when a previous callback is still running.
+If the work was already pending, release the extra reference because that
+pending execution already owns one. Release the queued reference when
+cancellation succeeds, or at every callback exit when it executes.
 
+Use the reference-aware cancellation helper for connection reuse,
+termination and cancellation of a rearmed instance by the free worker.
+The callback's reference keeps the group alive even after smc_lgr_free()
+drops the teardown owner's reference.
+
+Keep cancellation asynchronous. Waiting for free_work from connection
+setup can deadlock: the free worker drains tx_wq, whose worker needs the
+socket lock held by setup.
+
+This builds on "net/smc: serialize link group free work scheduling" and
+"net/smc: serialize early link group cleanup with termination". Together
+they close admission before cancellation and give resource teardown a
+single owner; the work reference then protects callbacks that are already
+running when that owner cancels pending work.
+
+Link: https://lore.kernel.org/r/179113886433.434549.10069135669585050618@kernel.org/
+Fixes: 13085e1b5cab ("net/smc: fix deadlock triggered by cancel_delayed_work_syn()")
+Cc: stable@vger.kernel.org
+Assisted-by: GPT-6.1-Sol
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+---
+New in v3:
+- Address the independent running-free_work lifetime issue reported against
+  both v2 patches by sashiko, with the complete reference protocol in this commit.
+- Cover new scheduling, rearming, all three cancellation sites and every
+  callback exit while retaining asynchronous cancellation.
+
+Review: https://lore.kernel.org/r/179113886433.434549.10069135669585050618@kernel.org/
+Review: https://lore.kernel.org/r/179113886579.434549.12546097168507601074@kernel.org/
+
+ net/smc/smc_core.c | 32 +++++++++++++++++++++-----------
+ 1 file changed, 21 insertions(+), 11 deletions(-)
+
+diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+index c1bb284c4233..9b54f873c6a9 100644
+--- a/net/smc/smc_core.c
++++ b/net/smc/smc_core.c
+@@ -89,14 +89,22 @@ static void smc_lgr_schedule_free_work(struct smc_link_group *lgr)
+ 	 * otherwise there is a risk of out-of-sync link groups.
+ 	 */
+ 	if (!lgr->freeing) {
+-		mod_delayed_work(system_percpu_wq, &lgr->free_work,
+-				 (!lgr->is_smcd && lgr->role == SMC_CLNT) ?
+-						SMC_LGR_FREE_DELAY_CLNT :
+-						SMC_LGR_FREE_DELAY_SERV);
++		smc_lgr_hold(lgr); /* released by the worker or cancellation */
++		if (mod_delayed_work(system_percpu_wq, &lgr->free_work,
++				     (!lgr->is_smcd && lgr->role == SMC_CLNT) ?
++					     SMC_LGR_FREE_DELAY_CLNT :
++					     SMC_LGR_FREE_DELAY_SERV))
++			smc_lgr_put(lgr); /* pending work already owns a reference */
+ 	}
+ 	spin_unlock_bh(lgr_lock);
+ }
+ 
++static void smc_lgr_cancel_free_work(struct smc_link_group *lgr)
++{
++	if (cancel_delayed_work(&lgr->free_work))
++		smc_lgr_put(lgr); /* cancelled work will not release its reference */
++}
++
+ /* Register connection's alert token in our lookup structure.
+  * To use rbtrees we have to implement our own insert core.
+  * Requires @conns_lock
+@@ -733,19 +741,19 @@ static void smc_lgr_free_work(struct work_struct *work)
+ 	spin_lock_bh(lgr_lock);
+ 	if (lgr->freeing) {
+ 		spin_unlock_bh(lgr_lock);
+-		return;
++		goto out;
+ 	}
+ 	read_lock_bh(&lgr->conns_lock);
+ 	conns = RB_EMPTY_ROOT(&lgr->conns_all);
+ 	read_unlock_bh(&lgr->conns_lock);
+ 	if (!conns) { /* number of lgr connections is no longer zero */
+ 		spin_unlock_bh(lgr_lock);
+-		return;
++		goto out;
+ 	}
+ 	list_del_init(&lgr->list); /* remove from smc_lgr_list */
+ 	lgr->freeing = 1; /* this instance does the freeing, no new schedule */
+ 	spin_unlock_bh(lgr_lock);
+-	cancel_delayed_work(&lgr->free_work);
++	smc_lgr_cancel_free_work(lgr);
+ 
+ 	if (!lgr->is_smcd && !lgr->terminating)
+ 		smc_llc_send_link_delete_all(lgr, true,
+@@ -755,6 +763,8 @@ static void smc_lgr_free_work(struct work_struct *work)
+ 	if (!lgr->is_smcd)
+ 		smcr_lgr_link_deactivate_all(lgr);
+ 	smc_lgr_free(lgr);
++out:
++	smc_lgr_put(lgr); /* smc_lgr_hold in smc_lgr_schedule_free_work() */
+ }
+ 
+ static void smc_lgr_terminate_work(struct work_struct *work)
+@@ -1576,8 +1586,8 @@ static void __smc_lgr_terminate(struct smc_link_group *lgr, bool soft)
+ 
+ 	if (lgr->terminating)
+ 		return;	/* lgr already terminating */
+-	/* cancel pending free_work */
+-	cancel_delayed_work(&lgr->free_work);
++	/* A running free_work holds its own link group reference. */
++	smc_lgr_cancel_free_work(lgr);
+ 	lgr->terminating = 1;
+ 
+ 	/* kill remaining link group connections */
+@@ -2029,8 +2039,8 @@ int smc_conn_create(struct smc_sock *smc, struct smc_init_info *ini)
+ 			conn->lgr = lgr;
+ 			rc = smc_lgr_register_conn(conn, false);
+ 			write_unlock_bh(&lgr->conns_lock);
+-			if (!rc && delayed_work_pending(&lgr->free_work))
+-				cancel_delayed_work(&lgr->free_work);
++			if (!rc)
++				smc_lgr_cancel_free_work(lgr);
+ 			break;
+ 		}
+ 		write_unlock_bh(&lgr->conns_lock);
+-- 
+2.43.0
 
