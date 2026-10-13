@@ -1,112 +1,103 @@
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D145372DB
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 23:11:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 943EC5616B4;
+	Tue, 13 Oct 2026 23:12:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791933090; cv=none; b=QJB/DzDLPai1FevAHfH6wP17OtBaIBMgmtcM91UiZUsSZZIMuNei1YWiXUyyNIj6DO5HPT5+0hCDOu19DabucDjCtjm7KoTxOElUArDsG+umP64P+6zfw8IHWvH5frBZQRY/y3G/SwElRSaT7DBIPCwc1Uo5Azdk/rcF0COKD4s=
+	t=1791933147; cv=none; b=ZCmcg7S5JQ+IFywcwN/jL2j/p2P3v2q0O73EgVMBY3xSEiVBBNZ9ljYuSjDy7flAYIvgv6ZXn/KuKXk5O1MCoOry0G9tpnVn6ErwTnvgkUvyOHGdBuBETibZD7vS/ge5kgMH0E0Jt5HYc/fikA+ZBuLzGKEk/QTpiONlrOC2qJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791933090; c=relaxed/simple;
-	bh=5IBhaLUp5MdLPNUcVu4QR7/5QsLhjzo7lK/mXulxCHc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Uu8luOpepG9I7LIFd2Di5gjq3Posof7+MqgsLv2AsudqWVuuYilJtiICjLfi1noTDRYeE1oVMrNx36dzOyPPLx7KfEAd9Na7VZOUZPJK5ATT92QvymenaMicBID0gd3aSBiLU4HwhsAvDM3PWdi4PWH/fEGxGt8nEkna5UuLX64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Cd60tQ+d; arc=none smtp.client-ip=209.85.210.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1791933147; c=relaxed/simple;
+	bh=Hoqy9Bxw203545uH9ZKZrV9cb8QHxKQAGEjDHea9Zx0=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=TWkPY7t337RQSl716KZNgVv+0mcLqO03bpOYshZSKuEn6Kt0bxsV++HtbOVt4wAGMOD3mkzTDWsnE1C13TW47pBXoTwLWuJr4tOh9TxQL/xXfl4e2u9dJXIg6W/jg4YE0WrZPMauY429hL5jG0dS/5+x+00ljKZHAAJImlYYcWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=nh0uxDtZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Cd60tQ+d"
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-8198a3a54d7so5668236a34.1
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:11:28 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="nh0uxDtZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEB341F000FF;
+	Tue, 13 Oct 2026 23:12:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1791933087; x=1792537887; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b/a5/AdXnTf6cDcdZphHu5UXWH0M+sRSxBHGhoRv5/E=;
-        b=Cd60tQ+dNNPULA1mMHJSfnHi9O48jP+52GArxc38nhUyI7hJHlEa6j44+hQF2MXadU
-         98DkdEq57cVskwmn4R7/oK7Kq16huWRvRZr80IX8ITnjvAzfR+prRyC3xR0cYn9kkI3N
-         hwiz8+moPHwXK85LvvqodDUKKDPVo3dEDc6Y8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791933087; x=1792537887;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b/a5/AdXnTf6cDcdZphHu5UXWH0M+sRSxBHGhoRv5/E=;
-        b=HSNZH1EUmh6z+IpuqHGj4UEpTiN6onrnQmYezrNNzsGZqIGRGIxr9IKsBXWzjweCLi
-         nldlpUDV4Q90+qwCBSfHfpwBGjL87dasi+zNe7FRDOIerrXUt8HwD6fZgGBHTTc1ld8E
-         SUZ61SlBO+RdzX23a2tkxSpwKh0f+u6BJXkdRmieZkTbC2FOy8vU5Bzc4vdoiTDqo1Rn
-         /bdgh8oipGbnCjrgLC1rxpAwIiu1eok3XfcvpOcY7mjwB3UblyxICnUqYLs1NxNI+CGk
-         T61dQTgX+xuOkEw/azmAChWFWQIxRNSwnADaviMLYQvdg1qslJxslexnvaqhHxQMFeZ/
-         m3/g==
-X-Forwarded-Encrypted: i=1; AKwUvBzVcsR0wabqs/65S3IlBCM/CsnDdFPHRJ3wBFo1HBQXpBXSmkm3I7bbwwdNkzaB/gJhVU6F9h4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKXXFPY90Fbxm0r3f6+IvwIwEWDqnN67DMlINg3x18/FwDYTZEB
-	QiRY0ej3FevbfM/OrD24khQnOdwpZfJgyvP9cM5+aO7vYMbh8vltwJgjd1sFh3l84bA=
-X-Gm-Gg: AYBFou1z3Yy5D8aByCYMxIwifpOsUu/jitfFhUSrpd2NBmYt9Dwgx6BsFmEiyLX3uSY
-	Z1saVJUn1NH8tg7mK7rSNSWfX01cfgKQy2gJlVPoMjhQjBszj0xqTq4T4DXWE8pTCpjpqFFXmEC
-	yJ4vxaJqhCo7EQ8thhDOJz6HECmD4cFZQqFZj5YqipYnV6JOulwfgXMdGtuOhMlH7XFiB8gbm7X
-	3FMpE59U1AFcUox8BA2NL/Ozslcvy2lGM6ny+FcvkJzsTuYYzcIltvZEiow8j91zGgdW944u+Sz
-	e6900NvbSZ6a4NfPoYkzFNaiXtlqH0A44JEonodiVJAvLig1/8CxfaQkPjyTpQNsL1j0TN9zv69
-	5GdqGM3zCPZIObQ1NbxfsqO/ZcQz6xwr2jRZKFlYgVoURm0XJXDp3XcmqBiqpysw/Hwn/1L3IhH
-	RqJpTuZrgYVujiIO96laifHiAq0d1yBgGufsjMvWq6KVgH/Tb8n9VN51hBVMlfhUkfqt1nLF5cS
-	Ql2R4w=
-X-Received: by 2002:a05:6808:250a:b0:4b8:4703:db91 with SMTP id 5614622812f47-50b621adba4mr10283311b6e.26.1791933087183;
-        Tue, 13 Oct 2026 16:11:27 -0700 (PDT)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a6dfc44a5csm860681fac.12.2026.10.13.16.11.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 16:11:26 -0700 (PDT)
-Message-ID: <6f18fa43-9fda-4787-9e2f-63eec412ad9a@linuxfoundation.org>
-Date: Tue, 13 Oct 2026 17:11:21 -0600
+	d=linux-foundation.org; s=korg; t=1791933146;
+	bh=chWKPe6Jv6DSrpAzSu8B8yBVA/m1DZxXRX4ZIJ40tPs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=nh0uxDtZ9iwQ1ZIEtlXgAVgxR0jRhYBNM8kDLNiv95iV5WEL1a3Sp9b6a6OaHqemf
+	 3aqCellWqqAGtRlWzYIuN+WL2rdrschvIrwVoQ6yopfczTVqRn3qCDIZeX6ZJ76LPi
+	 8TnyEBudwHh0wO4116e4p5lnM1SOpT47j/JdypWI=
+Date: Tue, 13 Oct 2026 16:12:25 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Harry Yoo <harry@kernel.org>
+Cc: Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph
+ Lameter <cl@gentwo.org>, Suren Baghdasaryan <surenb@google.com>, Hao Ge
+ <hao.ge@linux.dev>, kernel-team@meta.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/percpu: account full object size for percpu memory
+ allocations
+Message-Id: <20261013161225.9286887bec0ee7fe6627aadd@linux-foundation.org>
+In-Reply-To: <as6q8H5qxb5Gd471@thinkpad>
+References: <20261013-fix-alloc-percpu-accounting-v1-1-03e788a1e41f@kernel.org>
+	<20261013145424.341cb25ffdd488297bffd1a1@linux-foundation.org>
+	<as6q8H5qxb5Gd471@thinkpad>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/621] 6.18.57-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20261013112920.855194808@linuxfoundation.org>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20261013112920.855194808@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 10/13/26 05:29, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.57 release.
-> There are 621 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Thu, 15 Oct 2026 11:28:22 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.57-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
-> 
+On Tue, 13 Oct 2026 23:23:17 +0100 Harry Yoo <harry@kernel.org> wrote:
 
-Compiled and booted on my test system. No dmesg regressions.
+> On Tue, Oct 13, 2026 at 02:54:24PM -0700, Andrew Morton wrote:
+> > On Tue, 13 Oct 2026 20:34:39 +0100 "Harry Yoo (Meta)" <harry@kernel.org> wrote:
+> > 
+> > > When memory allocation profiling is enabled, the pages backing percpu
+> > > memory chunks are attributed to func:pcpu_alloc_pages. However, the
+> > > accounting of individual percpu memory allocations via alloc_percpu()
+> > > and friends record only the size of a single object rather than its
+> > > full size across all CPUs.
+> > > 
+> > > As a result, it is often not straightforward to identify which kernel
+> > > code is actually responsible for percpu memory, because the size is
+> > > under-accounted by a factor of num_possible_cpus().
+> > > 
+> > > Account full object size with pcpu_obj_full_size(size) instead, which
+> > > multiplies the object size by num_possible_cpus() and adds the objcg
+> > > pointer overhead. This is consistent with what memcg already does for
+> > > charging percpu allocations.
+> > > 
+> > > Verified with 64-CPU VM by spawning 400 processes in a memory cgroup and
+> > > measuring mm_init()'s rss_stat counters.
+> > > 
+> > > Delta of kernel/fork.c:1142 func:mm_init in /proc/allocinfo:
+> > 
+> > Please make it use mm_init() rather than func:mm_init.
+> 
+> This is the output format of /proc/allocinfo:
 
-Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+oh, OK.
 
-thanks,
--- Shuah
+> https://docs.kernel.org/filesystems/proc.html#allocinfo
+> > Example output.
+> > 
+> >  > tail -n +3 /proc/allocinfo | sort -rn
+> > 127664128    31168 mm/page_ext.c:270 func:alloc_page_ext
+> >  56373248     4737 mm/slub.c:2259 func:alloc_slab_page
+> >  14880768     3633 mm/readahead.c:247 func:page_cache_ra_unbounded
+
+Well that's odd.  What can a caller be other than a function?
+
+> > 
+> > Why cc:stable?
+> 
+> For anyone who uses memory allocation profiling to understand which
+> code locations allocated how much memory, it gives a false impression
+> that certain perpcu memory allocations are not as big as they actually
+> are.
+> 
+> On some workloads percpu memory (func:pcpu_alloc_pages) shows up as one
+> of the biggest memory allocations, but the actual users of percpu
+> memory allocator don't show up as they are under-reported.
+
+OK.  I guess it's a small deal, but a larger deal for allocinfo users!
