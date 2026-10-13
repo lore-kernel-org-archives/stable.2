@@ -1,54 +1,78 @@
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7572DC32E;
-	Tue, 13 Oct 2026 14:30:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D8A3FA5C4;
+	Tue, 13 Oct 2026 14:31:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791901853; cv=none; b=Gxf950GIxNx4UlFFRyL/FFmOmZym8EGTQO0UqqutmGx5j5X75vCVuKNXVOFSsbWOUOFrIjQ9ifxt14aGcG6gj3JzOvbv/GLCK1CVPmtLzuthQK2r+DLYRHbTvj4aJC4v3iMDmsw+D2KTMnf04Ba6Ba8HeGDPcwSEoeFKVYq+7fY=
+	t=1791901870; cv=none; b=NBQXF/yZQtMxw61dM/BDvxUg0o10NNRgKM5W4BjbKKbZeCiWL3Nuo1SVKz/z7nxkjkxjieZ90i2V2FgC4oKuPAUoWyYDi2el6VwTGFo2LAmxmrDvp2YXCSPm0D2TXtUtbwieaLNTQ77tbvEU6yKf413+kM5TRReGuN9ZWtAOHWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791901853; c=relaxed/simple;
-	bh=7ftmANhW1ye5/jCMGeP3tBR2Narv/Ux6uRx0QYRyx+Y=;
+	s=arc-20240116; t=1791901870; c=relaxed/simple;
+	bh=XezWxoxr52QgNTOigpQOkPZ/6USeVoHCDDfBlsURRzo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SE0gSBZqzta9ku+b3Mx8HFgqlxWjfNyQfeO8WKMPCEQojGeP1v66t+1wHdCp8uViJSnfBJL9X0lg02RD9G00VLjZ4B+JMSvAEgX3pefM4p5qQUx+AcV1t0nJju4W6UOZaA2pheZZ6muQMO93Ftf2DY7HkLY26o7Tjytrr04gcLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id E2DC1227A88; Tue, 13 Oct 2026 16:30:48 +0200 (CEST)
-Date: Tue, 13 Oct 2026 16:30:48 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: =?iso-8859-1?B?Suly6W15?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>, linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] nvmet: free the bvec on file namespace range errors
-Message-ID: <20261013143048.GD15192@lst.de>
-References: <20261007192745.160060-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	 Content-Type:Content-Disposition:In-Reply-To; b=RtXhCMYs85t3z5gxgEULBy+SKzJEY4FO8dZ2ex6zqMQ/YjTc6pQlw/mri6ogkS0fUMIT5b03GrQk7JVlfMW6qViyZX8qEiVZf2mJQ9KF0RquTV8NdNDdaE/JhjLCiLB68WnlUXt7306DpEeilZdRviX6DEJppGOHmZ19dO7So78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kjO7jhTy; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kjO7jhTy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E819C1F000FF;
+	Tue, 13 Oct 2026 14:31:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791901869;
+	bh=2QEPzDdVqnC451L8dwbXZr7mHrBs04BcKxy5XlIs9Ww=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kjO7jhTyvJge8n//nrwmgDlyfWiG6n00z+ytkheLV73Lm/eiUYYiwXbSNhSIvF4aa
+	 +m7lWYk6NdnzfHGSXQhd4F+LLntekIjfVOCQ4G4uOfN1RVZ9rYgddrygaqNZlVeI18
+	 dUKBJ4CULZv69nuFVl2KifTak2gcVzRcvk51/ZwzrIOOTa6tayinZv+noL9Ek31b+e
+	 DruEtsTfoVzRHgymDuWdEPrcBw030n1wJ+y3SFGltOQZ3pA8vexwhljHgYlkB9Ft1Y
+	 ArikOzSasbqY5WvfmpbDjy1OBs/DBGuHMttesOyByZYxJl4BTimUBkTm5oS8tUpvV3
+	 l7YHl5IWyqUGw==
+Date: Tue, 13 Oct 2026 16:31:04 +0200
+From: Carlos Maiolino <cem@kernel.org>
+To: Siddh Raman Pant <siddh.raman.pant@oracle.com>
+Cc: "Darrick J . Wong" <djwong@kernel.org>, 
+	Dave Chinner <dchinner@redhat.com>, linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] xfs: Fix duplicate assignment in xfs_alloc_read_agf.
+Message-ID: <as5AloTkTT3bZkyq@nidhogg.toxiclabs.cc>
+References: <20261001145153.308087-1-siddh.raman.pant@oracle.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261007192745.160060-2-Jeremy.Jean@oss.cyber.gouv.fr>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+In-Reply-To: <20261001145153.308087-1-siddh.raman.pant@oracle.com>
 
-On Wed, Oct 07, 2026 at 07:27:46PM +0000, Jérémy Jean wrote:
-> nvmet_file_execute_rw() allocates the bvec before
-> nvmet_file_execute_io() checks whether the request fits in the backing
-> file. If the request extends beyond the file, nvmet_file_execute_io()
-> calls nvmet_req_complete() to return an error. This skips
-> nvmet_file_io_done(), so the allocated memory is never freed. Repeated
-> requests can exhaust memory.
+On Thu, Oct 01, 2026 at 08:21:53PM +0530, Siddh Raman Pant wrote:
+> Probably an (harmless) error in copy-paste.
 > 
-> Use nvmet_file_io_done() to free the bvec before returning the range
-> error to the client.
+> Fixes: db6a2274162d ("xfs: catch stale AGF/AGF metadata")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Siddh Raman Pant <siddh.raman.pant@oracle.com>
+> ---
+> Put in stables <= 6.12 after the backport series lands.
 
-Looks good:
+Fix the tags accordingly to Darrick's review and re-send please.
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-
+> 
+>  fs/xfs/libxfs/xfs_alloc.c | 1 -
+>  1 file changed, 1 deletion(-)
+> 
+> diff --git a/fs/xfs/libxfs/xfs_alloc.c b/fs/xfs/libxfs/xfs_alloc.c
+> index f762dcce8d13..0ffa82400007 100644
+> --- a/fs/xfs/libxfs/xfs_alloc.c
+> +++ b/fs/xfs/libxfs/xfs_alloc.c
+> @@ -3461,7 +3461,6 @@ xfs_alloc_read_agf(
+>  	if (!xfs_is_shutdown(pag_mount(pag))) {
+>  		bool	ok = true;
+>  
+> -		ok &= pag->pagf_freeblks == be32_to_cpu(agf->agf_freeblks);
+>  		ok &= pag->pagf_freeblks == be32_to_cpu(agf->agf_freeblks);
+>  		ok &= pag->pagf_btreeblks == be32_to_cpu(agf->agf_btreeblks);
+>  		ok &= pag->pagf_flcount == be32_to_cpu(agf->agf_flcount);
+> -- 
+> 2.53.0
+> 
+> 
