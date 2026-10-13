@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212F7399372
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 14:39:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E270399372
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 14:39:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791902350; cv=none; b=dG7B6FXMV9sZVTC1ZQL9nPAeiT+RoLt8bEUkmZE5tD8IlrA+aOIDoKTR+azXJ6hB5hlykafe/B0Q/6iZhDxAxQhzWnLPyV/ksj2JyDnnMEafPZ1IArWXUCztK+cxkTdJOEUzwknbXrJKCvRKrIhXj6eegB0Ft+xaNKp3bIul45M=
+	t=1791902352; cv=none; b=icCYBkGs9VrMD5n/LaIBt6AdYmx3SvBoZ5cyRSf7h4m7/kr+j102BnKWArsun61WMtBqgD1UWxkmxeG9Ek6SGj8LMT1dmp8366vXuVgYX0y+LZThdIHpCeoAlSo8ERhFXs9TgF1OPD5eteEKEElzH4ONGY7QwanyJgkVBvuglcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791902350; c=relaxed/simple;
-	bh=coN6Citiof3NV1xoDlhgeNfsTHMNOblEIfuFBsdBR14=;
+	s=arc-20240116; t=1791902352; c=relaxed/simple;
+	bh=+DoKu9AqbiyYeOx7qu96oenwsdqRMtbCnGeWzlsfMlk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lNOpQa+u93X+ehNV8N4VfiTuYpWN4cg4Yt7b42yPvy2AL4jjpvEWSsBBsJ33qC3K2j8tD5M5deB98g6jyPvJsosNszUwAhSPJKxWuCk81JGxY8GE8CsXeONY3a4CCO/eIY1AQEHQlNCITZCpHKaTd/mYnD4EpXDluQ8Af/p/MZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dLisSSST; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=EdOJdZE9bmXW41nq5DIJIFTnMkUr/tkutRNx6UL795FO0gB/YjE9JaMbcc7PGIQt2W0NJxZ5ejuzFDkx89GlOfu2HeLjeIWoyDH0rk1xuk7LcFkfXypeRILU/1DTJRRm/srBwVbpl0BItjg6vgnniHPoOLp44c86aC0yn/DQii0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fdjXBP1h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dLisSSST"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 544171F000FF;
-	Tue, 13 Oct 2026 14:39:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fdjXBP1h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FDC21F00893;
+	Tue, 13 Oct 2026 14:39:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791902349;
-	bh=HRtBNxdhUAmIDHiHrNRAdeydqcg300IxlzSrAI0OJuI=;
+	s=k20260515; t=1791902350;
+	bh=3ucvozH4bBthCViaDI3Zv42KNopsgT4zACujCzfsHxE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dLisSSSTh/Z75A0WHoYg658jkUn3tF058mr/Uki2hSvUvMQx7kCKzq6wqSVKe6G8p
-	 EhUhh96ccpYMTXcSb37mOResivqgg+9dcUX7OF/d2blWJC3H80cmVq2hqyzLU3qkCG
-	 mxwD+7P86QrkYrQeQPRBxbCZtm4oWzWwMLEHcaM84vGHficiVrmUo6MMkCzcQbsLZN
-	 EjXU23IeysOyFBmBMNtSU8HDaBgTPuJoMMXoL1atEj9iGfp24+cdPzEJAxylixH+n3
-	 w9cm4Mc20Ax/J+DalZpIZzSI51MnoWrRl6dWZ87xwimRjCr8Wen/LWkcW5EUPy9Dt3
-	 qgEYyNfPuOHfQ==
+	b=fdjXBP1hXZwkSzKsieri7ONcV+ST33DSPgjEBHh0QXzR/be4mZWfdpsr3Ifc70Ei5
+	 fqwEQYSy27j75G+Sro7xu+FJT5cKaiLQqmrJSRc/FoWTbXXRhFT0jg/S3jbwM4MyBF
+	 5kCJQ4YkbtA5l0t1ndZR28a6Pdv6nQMdBs9M4qZK4ryfo/+//lGNzkqT988r2XTjZY
+	 Gzo6PEoK5Ra7viq0zs/D/J78woFljl0Bb4A6wZIu8P6c80fKej0qQvGuycDrP9yeKg
+	 7YwTq2/PhBuyqdYZAJseprAwOJ1x3WvzgHmFwucMfWtXgr7fXvPNEcvcBdf1xESztS
+	 a+T157taQb2mA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zixuan Chai <petalzu987@gmail.com>,
-	Vega <vega@nebusec.ai>,
-	Ren Wei <weir@nebusec.ai>,
-	"David S. Miller" <davem@davemloft.net>,
+Cc: Mikulas Patocka <mpatocka@redhat.com>,
+	syzbot+bdff1ecf726d2af66afd@syzkaller.appspotmail.com,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] net: bridge: avoid recursive multicast port cleanup
-Date: Tue, 13 Oct 2026 10:39:07 -0400
-Message-ID: <20261013143849.4044254-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] dm: fix reading free memory in do_resume
+Date: Tue, 13 Oct 2026 10:39:08 -0400
+Message-ID: <20261013143850.4044093-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101240-savanna-duplicate-1e1b@gregkh>
-References: <2026101240-savanna-duplicate-1e1b@gregkh>
+In-Reply-To: <2026101223-profusely-doorframe-dbf3@gregkh>
+References: <2026101223-profusely-doorframe-dbf3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,95 +45,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zixuan Chai <petalzu987@gmail.com>
+From: Mikulas Patocka <mpatocka@redhat.com>
 
-[ Upstream commit 5158353121bae4f552cb677ce8c5c3ef52f93a0d ]
+[ Upstream commit c9417c1c5269e2bd0570fbe53e4ec03a8d31f008 ]
 
-br_multicast_sg_del_exclude_ports() removes automatically added STAR_EXCL
-port groups by calling br_multicast_del_pg(). For S,G entries, that
-deletion calls back into br_multicast_sg_del_exclude_ports(), so a large
-number of STAR_EXCL ports consumes one kernel stack frame per port and can
-hit the stack guard page.
+When do_resume calls dm_table_get_mode(new_map), the call is done without
+holding any locks (it only holds a reference to the md). It may be
+possible that another concurrent ioctl on the same device will swap table
+after dm_swap_table and before dm_table_get_mode. In this case,
+dm_table_get_mode(new_map) reads freed memory.
 
-Keep the complete port-group deletion path for cleanup, but suppress the
-S,G exclude-port cleanup while that helper is already walking the same
-entry. Normal deletion callers retain the existing behavior.
+This race condition was triggered by syzbot.
 
-Fixes: 8266a0491e92 ("net: bridge: mcast: handle port group filter modes")
+This commit fixes the race by reading mode of the new table before
+dm_swap_table. Note that new_map is also passed to dm_ima_need_measure,
+but this function doesn't attempt to dereference it, so this call should
+be safe.
+
+Note that this is not a security bug because only root can trigger it and
+the commonly used tools such as lvm or cryptsetup do not call the ioctls
+concurrently, so that they can't trigger it acceidentally.
+
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Reported-by: syzbot+bdff1ecf726d2af66afd@syzkaller.appspotmail.com
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Signed-off-by: Zixuan Chai <petalzu987@gmail.com>
-Signed-off-by: Ren Wei <weir@nebusec.ai>
-Signed-off-by: David S. Miller <davem@davemloft.net>
-[ sashal: Adjusted context for the __br_multicast_del_pg() declaration because neighboring upstream forward declarations are absent. ]
+[ sashal: Replaced blk_mode_t and BLK_OPEN_WRITE with fmode_t and FMODE_WRITE. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/bridge/br_multicast.c | 23 ++++++++++++++++++-----
- 1 file changed, 18 insertions(+), 5 deletions(-)
+ drivers/md/dm-ioctl.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/net/bridge/br_multicast.c b/net/bridge/br_multicast.c
-index 5cc65f51b3785..53dd2d56c37ef 100644
---- a/net/bridge/br_multicast.c
-+++ b/net/bridge/br_multicast.c
-@@ -76,6 +76,10 @@ __br_multicast_add_group(struct net_bridge *br,
- 			 bool blocked);
- static void br_multicast_find_del_pg(struct net_bridge *br,
- 				     struct net_bridge_port_group *pg);
-+static void __br_multicast_del_pg(struct net_bridge_mdb_entry *mp,
-+				  struct net_bridge_port_group *pg,
-+				  struct net_bridge_port_group __rcu **pp,
-+				  bool sg_del_exclude_ports);
+diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
+index 4cfdd50e32d70..57d0bc1545b73 100644
+--- a/drivers/md/dm-ioctl.c
++++ b/drivers/md/dm-ioctl.c
+@@ -1166,6 +1166,7 @@ static int do_resume(struct dm_ioctl *param)
+ 	/* Do we need to load a new map ? */
+ 	if (new_map) {
+ 		sector_t old_size, new_size;
++		fmode_t new_map_mode;
  
- static struct net_bridge_port_group *
- br_sg_port_find(struct net_bridge *br,
-@@ -361,7 +365,7 @@ static void br_multicast_sg_del_exclude_ports(struct net_bridge_mdb_entry *sgmp)
- 	for (pp = &sgmp->ports;
- 	     (p = mlock_dereference(*pp, sgmp->br)) != NULL;) {
- 		if (!(p->flags & MDB_PG_FLAGS_PERMANENT))
--			br_multicast_del_pg(sgmp, p, pp);
-+			__br_multicast_del_pg(sgmp, p, pp, false);
+ 		/* Suspend if it isn't already suspended */
+ 		if (param->flags & DM_SKIP_LOCKFS_FLAG)
+@@ -1193,6 +1194,7 @@ static int do_resume(struct dm_ioctl *param)
+ 			}
+ 		}
+ 
++		new_map_mode = dm_table_get_mode(new_map);
+ 		old_size = dm_get_size(md);
+ 		old_map = dm_swap_table(md, new_map);
+ 		if (IS_ERR(old_map)) {
+@@ -1205,7 +1207,7 @@ static int do_resume(struct dm_ioctl *param)
+ 		if (old_size && new_size && old_size != new_size)
+ 			need_resize_uevent = true;
+ 
+-		if (dm_table_get_mode(new_map) & FMODE_WRITE)
++		if (new_map_mode & FMODE_WRITE)
+ 			set_disk_ro(dm_disk(md), 0);
  		else
- 			pp = &p->next;
- 	}
-@@ -582,9 +586,10 @@ static void br_multicast_destroy_port_group(struct net_bridge_mcast_gc *gc)
- 	kfree_rcu(pg, rcu);
- }
- 
--void br_multicast_del_pg(struct net_bridge_mdb_entry *mp,
--			 struct net_bridge_port_group *pg,
--			 struct net_bridge_port_group __rcu **pp)
-+static void __br_multicast_del_pg(struct net_bridge_mdb_entry *mp,
-+				  struct net_bridge_port_group *pg,
-+				  struct net_bridge_port_group __rcu **pp,
-+				  bool sg_del_exclude_ports)
- {
- 	struct net_bridge *br = pg->key.port->br;
- 	struct net_bridge_group_src *ent;
-@@ -598,7 +603,8 @@ void br_multicast_del_pg(struct net_bridge_mdb_entry *mp,
- 	if (!br_multicast_is_star_g(&mp->addr)) {
- 		rhashtable_remove_fast(&br->sg_port_tbl, &pg->rhnode,
- 				       br_sg_port_rht_params);
--		br_multicast_sg_del_exclude_ports(mp);
-+		if (sg_del_exclude_ports)
-+			br_multicast_sg_del_exclude_ports(mp);
- 	} else {
- 		br_multicast_star_g_handle_mode(pg, MCAST_INCLUDE);
- 	}
-@@ -609,6 +615,13 @@ void br_multicast_del_pg(struct net_bridge_mdb_entry *mp,
- 		mod_timer(&mp->timer, jiffies);
- }
- 
-+void br_multicast_del_pg(struct net_bridge_mdb_entry *mp,
-+			 struct net_bridge_port_group *pg,
-+			 struct net_bridge_port_group __rcu **pp)
-+{
-+	__br_multicast_del_pg(mp, pg, pp, true);
-+}
-+
- static void br_multicast_find_del_pg(struct net_bridge *br,
- 				     struct net_bridge_port_group *pg)
- {
+ 			set_disk_ro(dm_disk(md), 1);
 -- 
 2.53.0
 
