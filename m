@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 222F75304B3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A983F52D2D7
 	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 18:13:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791915190; cv=none; b=jgnnANH8miXB+2+dPRG2h7iS1cf37EvfBJGuCDKfJbEwj3QoRzfYJRThGJffdtv0l8mWCdab/7DZeDznnpdxJQ2Q0+EcDtOCLH/Sd2k2bMHu4hCe6HVh7QiGbLGqbP1b7nMHAiAeVEwdiBT3/UuqCYFI5ENaHNXRCdntWxXad70=
+	t=1791915191; cv=none; b=iXBhMsD4nOj793q52e3Ura2HANDa7mnf/x0SiAODZUaajk+atAFD+GGuOcPO750NLnoNNFmxR1nWybDIgW9rL5Cigr5T6I3szqaGdFcurtFUfrmQGQTVvSv8d3mrP0cFc7ZIZH8ndwGqXdfLfkZo9mS5ddfLxwhLK5ZXuI9LFlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791915190; c=relaxed/simple;
-	bh=Sqc7psR3R9F1ycOtEJijn9i+aUGeM6E1Jq+9MXzu3E4=;
+	s=arc-20240116; t=1791915191; c=relaxed/simple;
+	bh=BppX5weKnQx2PKMpErmDTN5EM2TQ7f5AdisW8hEhwnQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nFws6T03UbcXL+vg5IHuvuEnOY5GBwhTam0ZyWMXRzMLisySqUC1TYaGYvw8durYufNDmIKTqwBZsDbu56MQnn8B4P0B4gmahg4h8vcYC3ec76QE2Ahg46uXXHrfkdGs+nqpbv9uHbxb3JfQHvnUPHvAVzoPI3YYT7n8R29MIyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QTNNzRam; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=J0oScyJTxKG1hcPh1fnsSTZq7AF0oSmWK2CWmEXNAVZWJ3s5PZp+C+TVcWwQcKQv5E/EQCr7rH5oOS7TT5sp7fM91U/u0zKNVC0baYSXeUK+Yugx8MjvFCY1WNv0H0h7Zz7RL75o6de8TeRLMbTR7SaD06clfG2o/0HRVBfoOwo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=da/IdJCG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QTNNzRam"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FB021F000FF;
-	Tue, 13 Oct 2026 18:13:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="da/IdJCG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 438C81F00893;
+	Tue, 13 Oct 2026 18:13:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1791915188;
-	bh=MGf8xa6Szws8B3uDV4w9/TaPiv+vU85T9sNe6EDzFcA=;
+	bh=YgnpjU+oW4+RZMLqTSP4l0VTIvEx0jNbXoXbtVT4q1g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QTNNzRam+4PqcYn4jBrU3lBGcwfugztOj2W9Mqv33FSSAIXwAvAF10YxUk95phoi3
-	 TPgmevCASprjbzyAEY8JjTYb6FpcjkBPQLSo6+somotpdAJk8VV6C0O60wOg6G6103
-	 XL6HD5CMAqobEO1ImQmnB08/Y/6DN6IwL3jgGgrqCO5LUBS7ZafTi2Bs4/u5rnyluR
-	 7HD5vTcN8F/yMx59sWs9G2kKiX66DEU0Lsfew16JAZ34RRMNq6WI5f2D5Msh/JrIU1
-	 glLW21Wr89Ke70PwpsOvLqvPFhwC/myaDUkXNNfu/q0JbjUKDlguy+Q4QYQYpFba1H
-	 Fv986EqHVOmVQ==
+	b=da/IdJCG+7E/4ALFJT4fIRabGIz/d16/Lox29P3/ro26jcXiigofdKHgeZosyvd/m
+	 BlmTgGbApFLMKb4xfBQx/glFzqqlTzGiOdak2V4ZQmNcrjkCfm7zrGygXcQ0AYsja2
+	 IXXRrIU0PqQYjZsFaKUwuxSWHoNDqSdLElXp2wWPEnqGSnrUvLUW7ikGv9yI23Xh94
+	 xUNIJoW5wzHZg1RTGhImu36jk0KL8CEKICyH2tm1hY9TtuZwN5udBeUcZCffmAS6rh
+	 PO4gfzbPUynrJW8VRDt9iXFjvQKSXaK8ofm4TNsxM/zqfc2lQ8lPYVjOyDJJh6Lq2n
+	 F5PV/faz4hxNw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Junxuan Liao <ljx@cs.wisc.edu>,
-	Christian Brauner <brauner@kernel.org>,
+Cc: Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] docs/vfs: update references to i_mutex to i_rwsem
-Date: Tue, 13 Oct 2026 14:13:05 -0400
-Message-ID: <20261013181246.702440-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] namespace: unhash a dentry before detaching the mounts on it
+Date: Tue, 13 Oct 2026 14:13:06 -0400
+Message-ID: <20261013181246.702440-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101252-mushily-wrought-79e6@gregkh>
+In-Reply-To: <20261013181246.702440-1-sashal@kernel.org>
 References: <2026101252-mushily-wrought-79e6@gregkh>
+ <20261013181246.702440-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,473 +45,405 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Junxuan Liao <ljx@cs.wisc.edu>
+From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit 2773d282cd56464f62e9b4703c41d2f733a67842 ]
+[ Upstream commit 528b383dc35d1e5caf64ddf5d35f983ae543b0d0 ]
 
-VFS has switched to i_rwsem for ten years now (9902af79c01a: parallel
-lookups actual switch to rwsem), but the VFS documentation and comments
-still has references to i_mutex.
+unlink(), rmdir() and rename() remove the entry from the filesystem,
+call detach_mounts() on the entry with the inode locked and then call
+d_delete() once the inode is unlocked.
 
-Signed-off-by: Junxuan Liao <ljx@cs.wisc.edu>
-Link: https://lore.kernel.org/72223729-5471-474a-af3c-f366691fba82@cs.wisc.edu
-Signed-off-by: Christian Brauner <brauner@kernel.org>
-Stable-dep-of: 528b383dc35d ("namespace: unhash a dentry before detaching the mounts on it")
+The thing is that between detach_mounts() and d_delete() the dentry is
+still hashed and positive. But after detach_mounts() nothing covers the
+dentry anymore. A lookup that finds this dentry in the dcache can
+uncover what the mounts hid.
+
+That's a problem when unlinking files or directories that are
+mountpoints in other mount namespaces. Everybody who had the underlying
+entry covered can race the detach_mount() call until d_delete() has run.
+
+The race window isn't all that small. It encompasses namespace_unlock()
+with a full synchronize_rcu_expedited() grace period and the
+inode_unlock() of the entry.
+
+In my experiments three walkers that kept trying read an overmounted
+file in 11938 of the 16140 unlinks that removed its mountpoint from a
+bind mount of the filesystem within a minute.
+
+Fun fact, d_invalidate() has the same ordering problem but gets it
+right. It unhashes the dentry first and detaches the mounts afterwards.
+Let's do the same in __detach_mounts():
+
+- A lookup that hasn't found the dentry yet misses it in the dcache and
+  waits for the directory lock that the caller holds until the name is
+  gone for good.
+
+- A lockless lookup that found it already fails the mount_lock check
+  while the dentry still counts as a mountpoint and the d_seq check once
+  it doesn't, and retries.
+
+This fixes the lockless path. We still need to fix the reference count
+lookup in a follow-up patch.
+
+So d_drop() the dentry. The dentry stays positive and held but can't be
+found anymore. Then proceed with the detach and unlink.
+
+Reproducer:
+
+The reads were counted with the program below, three walkers for 60 s
+in a VM with 4 CPUs. The race window is stretched with the debug patch
+pasted here. fs.detach_race_walk_us sleeps in lookup_fast() once it
+found a mountpoint dentry and before its mounts are crossed.
+fs.detach_race_unlink_us sleeps in vfs_unlink() between detach_mounts()
+and d_delete().
+
+  // SPDX-License-Identifier: GPL-2.0
+  /*
+   * unlink_covered: unlink a file that is a mountpoint in a detached copy of
+   * its mount, against lookups that open it through that copy.
+   *
+   * A is a tmpfs with the file f1 (content SECRET_F) and the plain file
+   * MARK_A. A' is an open_tree(OPEN_TREE_CLONE) copy of A with MARK_A bound
+   * on A'/f1, held through an O_PATH fd on its root once the tree fd is
+   * closed. Walkers open f1 through that fd while the driver unlinks A/f1,
+   * where nothing is mounted on it. A walker may read MARK_A or get ENOENT.
+   * A read of SECRET_F is a hit: the name was found after its mount was
+   * gone. The lockless walks use openat2(RESOLVE_CACHED).
+   *
+   * usage: unlink_covered [-t seconds] [-w walkers]
+   */
+  #ifndef _GNU_SOURCE
+  #define _GNU_SOURCE
+  #endif
+  #include <errno.h>
+  #include <fcntl.h>
+  #include <pthread.h>
+  #include <stdatomic.h>
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <string.h>
+  #include <unistd.h>
+  #include <sys/mount.h>
+  #include <sys/stat.h>
+  #include <sys/syscall.h>
+  #include <linux/openat2.h>
+
+  #ifndef __NR_open_tree
+  #define __NR_open_tree 428
+  #endif
+  #ifndef __NR_move_mount
+  #define __NR_move_mount 429
+  #endif
+  #ifndef __NR_openat2
+  #define __NR_openat2 437
+  #endif
+  #ifndef OPEN_TREE_CLONE
+  #define OPEN_TREE_CLONE 1
+  #endif
+  #ifndef OPEN_TREE_CLOEXEC
+  #define OPEN_TREE_CLOEXEC O_CLOEXEC
+  #endif
+  #ifndef MOVE_MOUNT_F_EMPTY_PATH
+  #define MOVE_MOUNT_F_EMPTY_PATH 0x00000004
+  #endif
+
+  #define WORK "/tmp/uc"
+  #define ADIR WORK "/A"
+
+  static int duration = 60, nwalkers = 3;
+  static atomic_int stop, writer_waiting;
+  static pthread_rwlock_t cur_lock = PTHREAD_RWLOCK_INITIALIZER;
+  static int cur_fd = -1;		/* the root of A', -1 while there is none */
+  static atomic_long n_unlink, n_walk, n_mark, n_enoent, n_other, n_secret,
+  		   n_secret_cached;
+
+  static void die(const char *what)
+  {
+  	fprintf(stderr, "FATAL %s: %s\n", what, strerror(errno));
+  	exit(2);
+  }
+
+  static void put_file(int dfd, const char *name, const char *content)
+  {
+  	int fd = openat(dfd, name, O_CREAT | O_WRONLY | O_TRUNC | O_CLOEXEC,
+  			0644);
+
+  	if (fd < 0 || write(fd, content, strlen(content)) < 0)
+  		die(name);
+  	close(fd);
+  }
+
+  /* "plain/../" @n times, then f1: a longer walk that checks nothing on its way */
+  static char *longpath(int n)
+  {
+  	char *p = malloc(n * 9 + 3), *q = p;
+
+  	for (int i = 0; i < n; i++, q += 9)
+  		memcpy(q, "plain/../", 9);
+  	strcpy(q, "f1");
+  	return p;
+  }
+
+  static void try_read(int dfd, const char *path, int cached)
+  {
+  	struct open_how how = { .flags = O_RDONLY | O_CLOEXEC,
+  				.resolve = RESOLVE_CACHED };
+  	char buf[32] = "";
+  	long n;
+  	int fd;
+
+  	if (cached)
+  		fd = syscall(__NR_openat2, dfd, path, &how, sizeof(how));
+  	else
+  		fd = openat(dfd, path, O_RDONLY | O_CLOEXEC);
+  	atomic_fetch_add(&n_walk, 1);
+  	if (fd < 0) {
+  		if (errno == ENOENT)
+  			atomic_fetch_add(&n_enoent, 1);
+  		else if (!cached || errno != EAGAIN)
+  			atomic_fetch_add(&n_other, 1);
+  		return;
+  	}
+  	n = read(fd, buf, sizeof(buf) - 1);
+  	close(fd);
+  	if (n >= 6 && !strncmp(buf, "SECRET", 6)) {
+  		if (cached)
+  			atomic_fetch_add(&n_secret_cached, 1);
+  		if (!atomic_fetch_add(&n_secret, 1))
+  			printf("HIT: read \"%s\" through %s (%s walk)\n", buf,
+  			       path, cached ? "lockless" : "any");
+  	} else {
+  		atomic_fetch_add(&n_mark, 1);
+  	}
+  }
+
+  static void *walker(void *arg)
+  {
+  	unsigned int r = (long)arg * 2654435761u;
+
+  	while (!atomic_load(&stop)) {
+  		char *p_long, *p_short;
+  		int dfd;
+
+  		while (atomic_load(&writer_waiting) && !atomic_load(&stop))
+  			usleep(20);
+  		pthread_rwlock_rdlock(&cur_lock);
+  		dfd = cur_fd;
+  		if (dfd < 0) {
+  			pthread_rwlock_unlock(&cur_lock);
+  			usleep(100);
+  			continue;
+  		}
+  		r = r * 1103515245u + 12345u;
+  		p_long = longpath(1 + (r >> 8) % 400);
+  		p_short = longpath(0);
+  		try_read(dfd, p_long, 0);
+  		try_read(dfd, p_short, 0);
+  		try_read(dfd, p_long, 1);
+  		pthread_rwlock_unlock(&cur_lock);
+  		free(p_long);
+  		free(p_short);
+  	}
+  	return NULL;
+  }
+
+  /* hand the walkers a new A' (or none), close the old one */
+  static void publish(int fd)
+  {
+  	int old;
+
+  	atomic_fetch_add(&writer_waiting, 1);
+  	pthread_rwlock_wrlock(&cur_lock);
+  	old = cur_fd;
+  	cur_fd = fd;
+  	pthread_rwlock_unlock(&cur_lock);
+  	atomic_fetch_sub(&writer_waiting, 1);
+  	if (old >= 0)
+  		close(old);
+  }
+
+  static void *driver(void *arg __attribute__((unused)))
+  {
+  	int a;
+
+  	if (mkdir(ADIR, 0755) && errno != EEXIST)
+  		die("mkdir A");
+  	if (mount("A", ADIR, "tmpfs", 0, "size=4M"))
+  		die("mount A");
+  	a = open(ADIR, O_PATH | O_DIRECTORY | O_CLOEXEC);
+  	if (a < 0 || mkdirat(a, "plain", 0755))
+  		die("A/plain");
+  	put_file(a, "MARK_A", "MARK_A");
+  	while (!atomic_load(&stop)) {
+  		int t, m, fd_a;
+
+  		put_file(a, "f1", "SECRET_F");
+  		t = syscall(__NR_open_tree, a, "",
+  			    OPEN_TREE_CLONE | OPEN_TREE_CLOEXEC | AT_EMPTY_PATH);
+  		if (t < 0)
+  			die("open_tree A");
+  		m = syscall(__NR_open_tree, a, "MARK_A",
+  			    OPEN_TREE_CLONE | OPEN_TREE_CLOEXEC);
+  		if (m < 0)
+  			die("open_tree MARK_A");
+  		if (syscall(__NR_move_mount, m, "", t, "f1",
+  			    MOVE_MOUNT_F_EMPTY_PATH))
+  			die("move_mount");
+  		close(m);
+  		fd_a = openat(t, ".", O_PATH | O_DIRECTORY | O_CLOEXEC);
+  		if (fd_a < 0)
+  			die("open A'");
+  		publish(fd_a);
+  		usleep(200 + rand() % 1000);
+  		close(t);			/* A' is unmounted, fd_a holds it */
+  		usleep(200 + rand() % 1000);
+  		if (unlinkat(a, "f1", 0))	/* through A, a plain file there */
+  			die("unlink f1");
+  		atomic_fetch_add(&n_unlink, 1);
+  		usleep(rand() % 300);
+  		publish(-1);
+  	}
+  	close(a);
+  	umount2(ADIR, MNT_DETACH);
+  	return NULL;
+  }
+
+  int main(int argc, char **argv)
+  {
+  	pthread_t d, *w;
+  	int c, i;
+
+  	setvbuf(stdout, NULL, _IOLBF, 0);
+  	while ((c = getopt(argc, argv, "t:w:")) != -1) {
+  		switch (c) {
+  		case 't':
+  			duration = atoi(optarg);
+  			break;
+  		case 'w':
+  			nwalkers = atoi(optarg);
+  			break;
+  		default:
+  			fprintf(stderr, "usage: unlink_covered [-t seconds] [-w walkers]\n");
+  			return 2;
+  		}
+  	}
+  	if (unshare(CLONE_NEWNS) ||
+  	    mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL))
+  		die("unshare");
+  	if (mkdir(WORK, 0755) && errno != EEXIST)
+  		die("mkdir");
+  	w = calloc(nwalkers, sizeof(*w));
+  	for (i = 0; i < nwalkers; i++)
+  		if (pthread_create(&w[i], NULL, walker, (void *)(long)i))
+  			die("pthread_create");
+  	if (pthread_create(&d, NULL, driver, NULL))
+  		die("pthread_create");
+  	sleep(duration);
+  	atomic_store(&stop, 1);
+  	pthread_join(d, NULL);
+  	for (i = 0; i < nwalkers; i++)
+  		pthread_join(w[i], NULL);
+  	printf("unlink_covered: %d s, %d walkers: unlinks %ld walks %ld mark %ld enoent %ld other %ld SECRET %ld (lockless %ld)\n",
+  	       duration, nwalkers, atomic_load(&n_unlink), atomic_load(&n_walk),
+  	       atomic_load(&n_mark), atomic_load(&n_enoent),
+  	       atomic_load(&n_other), atomic_load(&n_secret),
+  	       atomic_load(&n_secret_cached));
+  	return atomic_load(&n_secret) ? 1 : 0;
+  }
+
+  diff --git a/fs/namei.c b/fs/namei.c
+  --- a/fs/namei.c
+  +++ b/fs/namei.c
+  @@ -35,6 +35,7 @@
+   #include <linux/fcntl.h>
+   #include <linux/device_cgroup.h>
+   #include <linux/fs_struct.h>
+  +#include <linux/delay.h>
+   #include <linux/posix_acl.h>
+   #include <linux/hash.h>
+   #include <linux/bitops.h>
+  @@ -1205,9 +1206,26 @@ static int sysctl_protected_symlinks __read_mostly;
+   static int sysctl_protected_hardlinks __read_mostly;
+   static int sysctl_protected_fifos __read_mostly;
+   static int sysctl_protected_regular __read_mostly;
+  +/* debug: widen the two windows of the detach_mounts() race */
+  +static int sysctl_detach_race_walk_us __read_mostly;
+  +static int sysctl_detach_race_unlink_us __read_mostly;
+
+   #ifdef CONFIG_SYSCTL
+   static const struct ctl_table namei_sysctls[] = {
+  +	{
+  +		.procname	= "detach_race_walk_us",
+  +		.data		= &sysctl_detach_race_walk_us,
+  +		.maxlen		= sizeof(int),
+  +		.mode		= 0644,
+  +		.proc_handler	= proc_dointvec,
+  +	},
+  +	{
+  +		.procname	= "detach_race_unlink_us",
+  +		.data		= &sysctl_detach_race_unlink_us,
+  +		.maxlen		= sizeof(int),
+  +		.mode		= 0644,
+  +		.proc_handler	= proc_dointvec,
+  +	},
+   	{
+   		.procname	= "protected_symlinks",
+   		.data		= &sysctl_protected_symlinks,
+  @@ -1878,6 +1896,10 @@ static struct dentry *lookup_fast(struct nameidata *nd)
+   		dentry = __d_lookup(parent, &nd->last);
+   		if (unlikely(!dentry))
+   			return NULL;
+  +		/* debug: between finding a mountpoint and crossing its mounts */
+  +		if (unlikely(sysctl_detach_race_walk_us) && d_mountpoint(dentry))
+  +			usleep_range(sysctl_detach_race_walk_us,
+  +				     sysctl_detach_race_walk_us + 10);
+   		status = d_revalidate(nd->inode, &nd->last, dentry, nd->flags);
+   	}
+   	if (unlikely(status <= 0)) {
+  @@ -5693,6 +5715,10 @@ int vfs_unlink(struct mnt_idmap *idmap, struct inode *dir,
+   			if (!error) {
+   				dont_mount(dentry);
+   				detach_mounts(dentry);
+  +				/* debug: the mounts are gone, d_delete() is still to come */
+  +				if (unlikely(sysctl_detach_race_unlink_us))
+  +					usleep_range(sysctl_detach_race_unlink_us,
+  +						     sysctl_detach_race_unlink_us + 10);
+   			}
+   		}
+   	}
+
+Fixes: 8ed936b5671b ("vfs: Lazily remove mounts on unlinked files and directories.")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261002-work-mount-fixes-4-v1-1-dd44b89d44ce@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- Documentation/filesystems/vfs.rst |  5 +++--
- fs/attr.c                         | 10 +++++-----
- fs/buffer.c                       |  2 +-
- fs/dcache.c                       | 10 +++++-----
- fs/direct-io.c                    |  8 ++++----
- fs/inode.c                        |  9 ++++-----
- fs/libfs.c                        |  5 +++--
- fs/locks.c                        |  2 +-
- fs/namei.c                        | 22 +++++++++++-----------
- fs/namespace.c                    |  2 +-
- fs/stack.c                        |  4 ++--
- fs/xattr.c                        |  2 +-
- include/linux/exportfs.h          |  4 ++--
- include/linux/fs.h                |  6 +++---
- include/linux/fs_stack.h          |  2 +-
- include/linux/quotaops.h          |  2 +-
- 16 files changed, 48 insertions(+), 47 deletions(-)
+ fs/namespace.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/Documentation/filesystems/vfs.rst b/Documentation/filesystems/vfs.rst
-index 0b18af3f954eb..7bd60c97dd7a5 100644
---- a/Documentation/filesystems/vfs.rst
-+++ b/Documentation/filesystems/vfs.rst
-@@ -740,8 +740,9 @@ process is more complicated and uses write_begin/write_end or
- dirty_folio to write data into the address_space, and writepage and
- writepages to writeback data to storage.
- 
--Adding and removing pages to/from an address_space is protected by the
--inode's i_mutex.
-+Removing pages from an address_space requires holding the inode's i_rwsem
-+exclusively, while adding pages to the address_space requires holding the
-+inode's i_mapping->invalidate_lock exclusively.
- 
- When data is written to a page, the PG_Dirty flag should be set.  It
- typically remains set until writepage asks for it to be written.  This
-diff --git a/fs/attr.c b/fs/attr.c
-index 927cb18d25d52..b038b9bcd265a 100644
---- a/fs/attr.c
-+++ b/fs/attr.c
-@@ -240,7 +240,7 @@ EXPORT_SYMBOL(setattr_prepare);
-  * @inode:	the inode to be truncated
-  * @offset:	the new size to assign to the inode
-  *
-- * inode_newsize_ok must be called with i_mutex held.
-+ * inode_newsize_ok must be called with i_rwsem held exclusively.
-  *
-  * inode_newsize_ok will check filesystem limits and ulimits to check that the
-  * new inode size is within limits. inode_newsize_ok will also send SIGXFSZ
-@@ -287,7 +287,7 @@ EXPORT_SYMBOL(inode_newsize_ok);
-  * @inode:	the inode to be updated
-  * @attr:	the new attributes
-  *
-- * setattr_copy must be called with i_mutex held.
-+ * setattr_copy must be called with i_rwsem held exclusively.
-  *
-  * setattr_copy updates the inode's metadata with that specified
-  * in attr on idmapped mounts. Necessary permission checks to determine
-@@ -364,13 +364,13 @@ EXPORT_SYMBOL(may_setattr);
-  * @attr:	new attributes
-  * @delegated_inode: returns inode, if the inode is delegated
-  *
-- * The caller must hold the i_mutex on the affected object.
-+ * The caller must hold the i_rwsem exclusively on the affected object.
-  *
-  * If notify_change discovers a delegation in need of breaking,
-  * it will return -EWOULDBLOCK and return a reference to the inode in
-  * delegated_inode.  The caller should then break the delegation and
-  * retry.  Because breaking a delegation may take a long time, the
-- * caller should drop the i_mutex before doing so.
-+ * caller should drop the i_rwsem before doing so.
-  *
-  * Alternatively, a caller may pass NULL for delegated_inode.  This may
-  * be appropriate for callers that expect the underlying filesystem not
-@@ -417,7 +417,7 @@ int notify_change(struct mnt_idmap *idmap, struct dentry *dentry,
- 		if (S_ISLNK(inode->i_mode))
- 			return -EOPNOTSUPP;
- 
--		/* Flag setting protected by i_mutex */
-+		/* Flag setting protected by i_rwsem */
- 		if (is_sxid(attr->ia_mode))
- 			inode->i_flags &= ~S_NOSEC;
- 	}
-diff --git a/fs/buffer.c b/fs/buffer.c
-index c5aaf1419d341..2c57eff673493 100644
---- a/fs/buffer.c
-+++ b/fs/buffer.c
-@@ -2623,7 +2623,7 @@ EXPORT_SYMBOL(block_commit_write);
-  * holes and correct delalloc and unwritten extent mapping on filesystems that
-  * support these features.
-  *
-- * We are not allowed to take the i_mutex here so we have to play games to
-+ * We are not allowed to take the i_rwsem here so we have to play games to
-  * protect against truncate races as the page could now be beyond EOF.  Because
-  * truncate writes the inode size before removing pages, once we have the
-  * page lock we can determine safely if the page is beyond EOF. If it is not
-diff --git a/fs/dcache.c b/fs/dcache.c
-index 982559a94d155..dc6d85de920e8 100644
---- a/fs/dcache.c
-+++ b/fs/dcache.c
-@@ -2733,10 +2733,10 @@ static void copy_name(struct dentry *dentry, struct dentry *target)
-  * @target: new dentry
-  * @exchange: exchange the two dentries
-  *
-- * Update the dcache to reflect the move of a file name. Negative
-- * dcache entries should not be moved in this way. Caller must hold
-- * rename_lock, the i_mutex of the source and target directories,
-- * and the sb->s_vfs_rename_mutex if they differ. See lock_rename().
-+ * Update the dcache to reflect the move of a file name. Negative dcache
-+ * entries should not be moved in this way. Caller must hold rename_lock, the
-+ * i_rwsem of the source and target directories (exclusively), and the sb->
-+ * s_vfs_rename_mutex if they differ. See lock_rename().
-  */
- static void __d_move(struct dentry *dentry, struct dentry *target,
- 		     bool exchange)
-@@ -2882,7 +2882,7 @@ struct dentry *d_ancestor(struct dentry *p1, struct dentry *p2)
-  * This helper attempts to cope with remotely renamed directories
-  *
-  * It assumes that the caller is already holding
-- * dentry->d_parent->d_inode->i_mutex, and rename_lock
-+ * dentry->d_parent->d_inode->i_rwsem, and rename_lock
-  *
-  * Note: If ever the locking in lock_rename() changes, then please
-  * remember to update this too...
-diff --git a/fs/direct-io.c b/fs/direct-io.c
-index bbd05f1a21453..1694ee9a93820 100644
---- a/fs/direct-io.c
-+++ b/fs/direct-io.c
-@@ -1083,8 +1083,8 @@ static inline int drop_refcount(struct dio *dio)
-  * The locking rules are governed by the flags parameter:
-  *  - if the flags value contains DIO_LOCKING we use a fancy locking
-  *    scheme for dumb filesystems.
-- *    For writes this function is called under i_mutex and returns with
-- *    i_mutex held, for reads, i_mutex is not held on entry, but it is
-+ *    For writes this function is called under i_rwsem and returns with
-+ *    i_rwsem held, for reads, i_rwsem is not held on entry, but it is
-  *    taken and dropped again before returning.
-  *  - if the flags value does NOT contain DIO_LOCKING we don't use any
-  *    internal locking but rather rely on the filesystem to synchronize
-@@ -1094,7 +1094,7 @@ static inline int drop_refcount(struct dio *dio)
-  * counter before starting direct I/O, and decrement it once we are done.
-  * Truncate can wait for it to reach zero to provide exclusion.  It is
-  * expected that filesystem provide exclusion between new direct I/O
-- * and truncates.  For DIO_LOCKING filesystems this is done by i_mutex,
-+ * and truncates.  For DIO_LOCKING filesystems this is done by i_rwsem,
-  * but other filesystems need to take care of this on their own.
-  *
-  * NOTE: if you pass "sdio" to anything by pointer make sure that function
-@@ -1279,7 +1279,7 @@ ssize_t __blockdev_direct_IO(struct kiocb *iocb, struct inode *inode,
- 
- 	/*
- 	 * All block lookups have been performed. For READ requests
--	 * we can let i_mutex go now that its achieved its purpose
-+	 * we can let i_rwsem go now that its achieved its purpose
- 	 * of protecting us from looking up uninitialized blocks.
- 	 */
- 	if (iov_iter_rw(iter) == READ && (dio->flags & DIO_LOCKING))
-diff --git a/fs/inode.c b/fs/inode.c
-index 7942673f686fd..9f622a05ca8dc 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -1133,9 +1133,8 @@ void lockdep_annotate_inode_mutex_key(struct inode *inode)
- 		/* Set new key only if filesystem hasn't already changed it */
- 		if (lockdep_match_class(&inode->i_rwsem, &type->i_mutex_key)) {
- 			/*
--			 * ensure nobody is actually holding i_mutex
-+			 * ensure nobody is actually holding i_rwsem
- 			 */
--			// mutex_destroy(&inode->i_mutex);
- 			init_rwsem(&inode->i_rwsem);
- 			lockdep_set_class(&inode->i_rwsem,
- 					  &type->i_mutex_dir_key);
-@@ -2552,7 +2551,7 @@ EXPORT_SYMBOL(inode_dio_finished);
-  * proceed with a truncate or equivalent operation.
-  *
-  * Must be called under a lock that serializes taking new references
-- * to i_dio_count, usually by inode->i_mutex.
-+ * to i_dio_count, usually by inode->i_rwsem.
-  */
- void inode_dio_wait(struct inode *inode)
- {
-@@ -2570,7 +2569,7 @@ EXPORT_SYMBOL(inode_dio_wait_interruptible);
- /*
-  * inode_set_flags - atomically set some inode flags
-  *
-- * Note: the caller should be holding i_mutex, or else be sure that
-+ * Note: the caller should be holding i_rwsem exclusively, or else be sure that
-  * they have exclusive access to the inode structure (i.e., while the
-  * inode is being instantiated).  The reason for the cmpxchg() loop
-  * --- which wouldn't be necessary if all code paths which modify
-@@ -2578,7 +2577,7 @@ EXPORT_SYMBOL(inode_dio_wait_interruptible);
-  * code path which doesn't today so we use cmpxchg() out of an abundance
-  * of caution.
-  *
-- * In the long run, i_mutex is overkill, and we should probably look
-+ * In the long run, i_rwsem is overkill, and we should probably look
-  * at using the i_lock spinlock to protect i_flags, and then make sure
-  * it is so documented in include/linux/fs.h and that all code follows
-  * the locking convention!!
-diff --git a/fs/libfs.c b/fs/libfs.c
-index 028f2cf729d5d..831884e5c5ee4 100644
---- a/fs/libfs.c
-+++ b/fs/libfs.c
-@@ -932,7 +932,8 @@ EXPORT_SYMBOL(simple_write_begin);
-  * simple_write_end does the minimum needed for updating a folio after
-  * writing is done. It has the same API signature as the .write_end of
-  * address_space_operations vector. So it can just be set onto .write_end for
-- * FSes that don't need any other processing. i_mutex is assumed to be held.
-+ * FSes that don't need any other processing. i_rwsem is assumed to be held
-+ * exclusively.
-  * Block based filesystems should use generic_write_end().
-  * NOTE: Even though i_size might get updated by this function, mark_inode_dirty
-  * is not called, so a filesystem that actually does store data in .write_inode
-@@ -959,7 +960,7 @@ static int simple_write_end(struct file *file, struct address_space *mapping,
- 	}
- 	/*
- 	 * No need to use i_size_read() here, the i_size
--	 * cannot change under us because we hold the i_mutex.
-+	 * cannot change under us because we hold the i_rwsem.
- 	 */
- 	if (last_pos > inode->i_size)
- 		i_size_write(inode, last_pos);
-diff --git a/fs/locks.c b/fs/locks.c
-index 3bc5f88121602..b70f29fcec3e1 100644
---- a/fs/locks.c
-+++ b/fs/locks.c
-@@ -1794,7 +1794,7 @@ generic_add_lease(struct file *filp, int arg, struct file_lease **flp, void **pr
- 
- 	/*
- 	 * In the delegation case we need mutual exclusion with
--	 * a number of operations that take the i_mutex.  We trylock
-+	 * a number of operations that take the i_rwsem.  We trylock
- 	 * because delegations are an optional optimization, and if
- 	 * there's some chance of a conflict--we'd rather not
- 	 * bother, maybe that's a sign this just isn't a good file to
-diff --git a/fs/namei.c b/fs/namei.c
-index 0c47a14e88a6b..433b1a432ffc9 100644
---- a/fs/namei.c
-+++ b/fs/namei.c
-@@ -1417,7 +1417,7 @@ static int __traverse_mounts(struct path *path, unsigned flags, bool *jumped,
- 	int ret = 0;
- 
- 	while (flags & DCACHE_MANAGED_DENTRY) {
--		/* Allow the filesystem to manage the transit without i_mutex
-+		/* Allow the filesystem to manage the transit without i_rwsem
- 		 * being held. */
- 		if (flags & DCACHE_MANAGE_TRANSIT) {
- 			if (lookup_flags & LOOKUP_NO_XDEV) {
-@@ -2925,7 +2925,7 @@ EXPORT_SYMBOL(try_lookup_one_len);
-  * Note that this routine is purely a helper for filesystem usage and should
-  * not be called by generic code.
-  *
-- * The caller must hold base->i_mutex.
-+ * The caller must hold base->i_rwsem.
-  */
- struct dentry *lookup_one_len(const char *name, struct dentry *base, int len)
- {
-@@ -2954,7 +2954,7 @@ EXPORT_SYMBOL(lookup_one_len);
-  * Note that this routine is purely a helper for filesystem usage and should
-  * not be called by generic code.
-  *
-- * The caller must hold base->i_mutex.
-+ * The caller must hold base->i_rwsem.
-  */
- struct dentry *lookup_one(struct mnt_idmap *idmap, const char *name,
- 			  struct dentry *base, int len)
-@@ -4521,13 +4521,13 @@ SYSCALL_DEFINE1(rmdir, const char __user *, pathname)
-  * @dentry:	victim
-  * @delegated_inode: returns victim inode, if the inode is delegated.
-  *
-- * The caller must hold dir->i_mutex.
-+ * The caller must hold dir->i_rwsem exclusively.
-  *
-  * If vfs_unlink discovers a delegation, it will return -EWOULDBLOCK and
-  * return a reference to the inode in delegated_inode.  The caller
-  * should then break the delegation on that inode and retry.  Because
-  * breaking a delegation may take a long time, the caller should drop
-- * dir->i_mutex before doing so.
-+ * dir->i_rwsem before doing so.
-  *
-  * Alternatively, a caller may pass NULL for delegated_inode.  This may
-  * be appropriate for callers that expect the underlying filesystem not
-@@ -4586,7 +4586,7 @@ EXPORT_SYMBOL(vfs_unlink);
- 
- /*
-  * Make sure that the actual truncation of the file will occur outside its
-- * directory's i_mutex.  Truncate can take a long time if there is a lot of
-+ * directory's i_rwsem.  Truncate can take a long time if there is a lot of
-  * writeout happening, and we don't want to prevent access to the directory
-  * while waiting on the I/O.
-  */
-@@ -4766,13 +4766,13 @@ SYSCALL_DEFINE2(symlink, const char __user *, oldname, const char __user *, newn
-  * @new_dentry:	where to create the new link
-  * @delegated_inode: returns inode needing a delegation break
-  *
-- * The caller must hold dir->i_mutex
-+ * The caller must hold dir->i_rwsem exclusively.
-  *
-  * If vfs_link discovers a delegation on the to-be-linked file in need
-  * of breaking, it will return -EWOULDBLOCK and return a reference to the
-  * inode in delegated_inode.  The caller should then break the delegation
-  * and retry.  Because breaking a delegation may take a long time, the
-- * caller should drop the i_mutex before doing so.
-+ * caller should drop the i_rwsem before doing so.
-  *
-  * Alternatively, a caller may pass NULL for delegated_inode.  This may
-  * be appropriate for callers that expect the underlying filesystem not
-@@ -4968,7 +4968,7 @@ SYSCALL_DEFINE2(link, const char __user *, oldname, const char __user *, newname
-  *	c) we may have to lock up to _four_ objects - parents and victim (if it exists),
-  *	   and source (if it's a non-directory or a subdirectory that moves to
-  *	   different parent).
-- *	   And that - after we got ->i_mutex on parents (until then we don't know
-+ *	   And that - after we got ->i_rwsem on parents (until then we don't know
-  *	   whether the target exists).  Solution: try to be smart with locking
-  *	   order for inodes.  We rely on the fact that tree topology may change
-  *	   only under ->s_vfs_rename_mutex _and_ that parent of the object we
-@@ -4980,9 +4980,9 @@ SYSCALL_DEFINE2(link, const char __user *, oldname, const char __user *, newname
-  *	   has no more than 1 dentry.  If "hybrid" objects will ever appear,
-  *	   we'd better make sure that there's no link(2) for them.
-  *	d) conversion from fhandle to dentry may come in the wrong moment - when
-- *	   we are removing the target. Solution: we will have to grab ->i_mutex
-+ *	   we are removing the target. Solution: we will have to grab ->i_rwsem
-  *	   in the fhandle_to_dentry code. [FIXME - current nfsfh.c relies on
-- *	   ->i_mutex on parents, which works but leads to some truly excessive
-+ *	   ->i_rwsem on parents, which works but leads to some truly excessive
-  *	   locking].
-  */
- int vfs_rename(struct renamedata *rd)
 diff --git a/fs/namespace.c b/fs/namespace.c
-index f87bdff661664..6f8a75dbae786 100644
+index 6f8a75dbae786..fd572b22e37dd 100644
 --- a/fs/namespace.c
 +++ b/fs/namespace.c
-@@ -1955,7 +1955,7 @@ static int do_umount(struct mount *mnt, int flags)
+@@ -1955,6 +1955,9 @@ static int do_umount(struct mount *mnt, int flags)
   * detach_mounts allows lazily unmounting those mounts instead of
   * leaking them.
   *
-- * The caller may hold dentry->d_inode->i_mutex.
-+ * The caller may hold dentry->d_inode->i_rwsem.
++ * The dentry is unhashed before the mounts go so that no lookup finds
++ * what they covered. The caller removes it for good afterwards.
++ *
+  * The caller may hold dentry->d_inode->i_rwsem.
   */
  void __detach_mounts(struct dentry *dentry)
- {
-diff --git a/fs/stack.c b/fs/stack.c
-index f189201199443..d8c782e064e3e 100644
---- a/fs/stack.c
-+++ b/fs/stack.c
-@@ -3,7 +3,7 @@
- #include <linux/fs.h>
- #include <linux/fs_stack.h>
+@@ -1968,6 +1971,8 @@ void __detach_mounts(struct dentry *dentry)
+ 	if (!mp)
+ 		goto out_unlock;
  
--/* does _NOT_ require i_mutex to be held.
-+/* does _NOT_ require i_rwsem to be held.
-  *
-  * This function cannot be inlined since i_size_{read,write} is rather
-  * heavy-weight on 32-bit systems
-@@ -41,7 +41,7 @@ void fsstack_copy_inode_size(struct inode *dst, struct inode *src)
- 	 * If CONFIG_SMP or CONFIG_PREEMPTION on 32-bit, it's vital for
- 	 * fsstack_copy_inode_size() to hold some lock around
- 	 * i_size_write(), otherwise i_size_read() may spin forever (see
--	 * include/linux/fs.h).  We don't necessarily hold i_mutex when this
-+	 * include/linux/fs.h).  We don't necessarily hold i_rwsem when this
- 	 * is called, so take i_lock for that case.
- 	 *
- 	 * And if on 32-bit, continue our effort to keep the two halves of
-diff --git a/fs/xattr.c b/fs/xattr.c
-index 23b9e4b1f3dd8..cb672c010976e 100644
---- a/fs/xattr.c
-+++ b/fs/xattr.c
-@@ -215,7 +215,7 @@ EXPORT_SYMBOL(__vfs_setxattr);
-  *
-  *  returns the result of the internal setxattr or setsecurity operations.
-  *
-- *  This function requires the caller to lock the inode's i_mutex before it
-+ *  This function requires the caller to lock the inode's i_rwsem before it
-  *  is executed. It also assumes that the caller will make the appropriate
-  *  permission checks.
-  */
-diff --git a/include/linux/exportfs.h b/include/linux/exportfs.h
-index 0ac405f884859..1ffcb6499819f 100644
---- a/include/linux/exportfs.h
-+++ b/include/linux/exportfs.h
-@@ -205,7 +205,7 @@ struct fid {
-  *    directory.  The name should be stored in the @name (with the
-  *    understanding that it is already pointing to a %NAME_MAX+1 sized
-  *    buffer.   get_name() should return %0 on success, a negative error code
-- *    or error.  @get_name will be called without @parent->i_mutex held.
-+ *    or error.  @get_name will be called without @parent->i_rwsem held.
-  *
-  * get_parent:
-  *    @get_parent should find the parent directory for the given @child which
-@@ -216,7 +216,7 @@ struct fid {
-  *    @commit_metadata should commit metadata changes to stable storage.
-  *
-  * Locking rules:
-- *    get_parent is called with child->d_inode->i_mutex down
-+ *    get_parent is called with child->d_inode->i_rwsem down
-  *    get_name is not (which is possibly inconsistent)
-  */
- 
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 19211eb49a8c0..2b8f863c3b643 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -818,7 +818,7 @@ static inline void inode_fake_hash(struct inode *inode)
- }
- 
- /*
-- * inode->i_mutex nesting subclasses for the lock validator:
-+ * inode->i_rwsem nesting subclasses for the lock validator:
-  *
-  * 0: the object of the current VFS operation
-  * 1: parent
-@@ -970,7 +970,7 @@ static inline loff_t i_size_read(const struct inode *inode)
- 
- /*
-  * NOTE: unlike i_size_read(), i_size_write() does need locking around it
-- * (normally i_mutex), otherwise on 32bit/SMP an update of i_size_seqcount
-+ * (normally i_rwsem), otherwise on 32bit/SMP an update of i_size_seqcount
-  * can be lost, resulting in subsequent i_size_read() calls spinning forever.
-  */
- static inline void i_size_write(struct inode *inode, loff_t i_size)
-@@ -1895,7 +1895,7 @@ static inline void sb_end_intwrite(struct super_block *sb)
-  * freeze protection should be the outermost lock. In particular, we have:
-  *
-  * sb_start_write
-- *   -> i_mutex			(write path, truncate, directory ops, ...)
-+ *   -> i_rwsem			(write path, truncate, directory ops, ...)
-  *   -> s_umount		(freeze_super, thaw_super)
-  */
- static inline void sb_start_write(struct super_block *sb)
-diff --git a/include/linux/fs_stack.h b/include/linux/fs_stack.h
-index 2b1f74b240707..0cc2fa283305b 100644
---- a/include/linux/fs_stack.h
-+++ b/include/linux/fs_stack.h
-@@ -3,7 +3,7 @@
- #define _LINUX_FS_STACK_H
- 
- /* This file defines generic functions used primarily by stackable
-- * filesystems; none of these functions require i_mutex to be held.
-+ * filesystems; none of these functions require i_rwsem to be held.
-  */
- 
- #include <linux/fs.h>
-diff --git a/include/linux/quotaops.h b/include/linux/quotaops.h
-index 2334a02c30149..f9c0f9d7c9d93 100644
---- a/include/linux/quotaops.h
-+++ b/include/linux/quotaops.h
-@@ -19,7 +19,7 @@ static inline struct quota_info *sb_dqopt(struct super_block *sb)
- 	return &sb->s_dquot;
- }
- 
--/* i_mutex must being held */
-+/* i_rwsem must being held */
- static inline bool is_quota_modification(struct mnt_idmap *idmap,
- 					 struct inode *inode, struct iattr *ia)
- {
++	/* the name goes first, what covered it goes second */
++	d_drop(dentry);
+ 	event++;
+ 	while (!hlist_empty(&mp->m_list)) {
+ 		mnt = hlist_entry(mp->m_list.first, struct mount, mnt_mp_list);
 -- 
 2.53.0
 
