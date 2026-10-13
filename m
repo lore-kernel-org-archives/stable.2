@@ -1,112 +1,154 @@
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC7543A1690
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 01:32:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89178414A0C
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 01:35:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791855125; cv=none; b=jXtFPXe6P9lTlEV065pcK6myKWrxVcotxHtYF1XK/QriGJisgkQX0b3btdIamEIh2YhFGFh1vHZ1zDaRSBGIx3uYOmIpfisjLY9o0bLdS779UKSDc+amxhlO2evG2kYcu9XRvMMk9eDSIDdDf0yII0uGv6bPt6eM8W6pi4ZEWVI=
+	t=1791855352; cv=none; b=fOfXmuY8yIThMisbprcpnxVVLRps54D2hoyKizjDJ+/VltUZ4PZOxuSnmoTzUtdteB/ulmkipUNWyNUbEuvwBs9KAi8Jcv3Dk2/h//RygKFM8rjomfjBqp4Ir2FT4Mpf5Da/4j9HmxNfk7fk9LjUhO310t3Sc3jO54JGhciDyN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791855125; c=relaxed/simple;
-	bh=idMX5yjXEYO7wOauDUhlwU9op3jmAaxp8ofbmmlqgfc=;
-	h=Mime-Version:Subject:From:To:CC:In-Reply-To:Message-ID:Date:
-	 Content-Type:References; b=P4JCpihTBz6kpnlRo4EoTkxMtl4KjOrM+/lrJKuiHbxF1llNGL1Wj8B/4Qx8YAUC450nxjazDAwdaxmuMZq7e6/zcB385jQoaFT0wpLRNOdwm3kHyJzaqxZ3i/QUJODHJPZrAdyclNL5TpHirwR9YFq2LXfltfl4du573N4KVhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=FdihwLgr; arc=none smtp.client-ip=203.254.224.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1791855352; c=relaxed/simple;
+	bh=IIVOJsgn1Fzp6J2UaPQgxgn6NYtZB1HT9aJu1pdQroM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=shDknkWQD5hQ8yaIgkGW61A/HfTA6d8/HJ/qz+sYEP7PyU+r/GW30EhVEifXsd6YUlPFx1m3ZX1JnRGe7NqYEcC7hlvc+vsUgIKpiAnTpXqD+52cvQj6yusrKrckOtm1B37qTIkU4aqj+4mCvmVunmUxGIR2Jrw4Eq5TjhbYkXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=timdoug.com; spf=pass smtp.mailfrom=timdoug.com; dkim=pass (2048-bit key) header.d=timdoug.com header.i=@timdoug.com header.b=bCHEsw7v; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=KDUzT5e1; arc=none smtp.client-ip=103.168.172.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=timdoug.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=timdoug.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="FdihwLgr"
-Received: from epcas2p3.samsung.com (unknown [182.195.41.55])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261013013200epoutp0179d51ef9c8c5d9d60776b88a4e405568~d8r0RCMXh2793127931epoutp01d
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 01:32:00 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261013013200epoutp0179d51ef9c8c5d9d60776b88a4e405568~d8r0RCMXh2793127931epoutp01d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791855120;
-	bh=b2wRoMcomqylst5Dp7BtwRuc75Xrdr2sGwl1cj2yqaI=;
-	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
-	b=FdihwLgrg5HH5PrTrTbPhFaUDaUYiuZKGgp2i2BAiHrPAtBXaeq5Ar7hVKbFQbqIF
-	 IzIcIklHCCRVmsgB1CARzdxvjRgY4EDxFCWfaiMJ5T4h2ZFmrCunCNyWsITlQKmh1b
-	 /JZ1EWYA5Y1xAtT0YQA0lO8+kTDPxWSXTCLDh3Rg=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
-	20261013013200epcas2p35f3cd7367bed795a25beeb1b587b3527~d8rzyKzwX1789417894epcas2p3D;
-	Tue, 13 Oct 2026 01:32:00 +0000 (GMT)
-Received: from epcas2p4.samsung.com (unknown [182.195.38.211]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4j3cJH5n0tz6B9m9; Tue, 13 Oct
-	2026 01:31:59 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=timdoug.com header.i=@timdoug.com header.b="bCHEsw7v";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="KDUzT5e1"
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailfout.phl.internal (Postfix) with ESMTP id C426DEC093D
+	for <stable@vger.kernel.org>; Mon, 12 Oct 2026 21:35:49 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-12.internal (MEProxy); Mon, 12 Oct 2026 21:35:49 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=timdoug.com; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1791855349; x=
+	1791941749; bh=ynU+Bv1nkxtpTw5yF1AgPdxSe9NKymP1ojZfCaIJGWg=; b=b
+	CHEsw7vaLLJVUH8XekA8hgEtCs3js4FQ5LZGANyllY3HVvthqV/15X4WdRZ6dd+x
+	RKZ4HptJljsj9CoknD8RJSAm4ZLK9/C/m1obuWQC7LO1Bt/HgqfF2FR8wzp4Xbg+
+	VZ/g/hXoeZ1IcAi0Pv6tFVguBJ0Znmr34HkE82sKZ/3zQaanJldVU/XnAybq4QBb
+	3oxwE8PHC0d5lwTrVFSAMyPfKhqMKTGH5B+OtJRn8F3Bl5f/k9FGZHBJGwFxR2FH
+	3oySrK3t4Lar4xmz6/MBvPGTywIFCSQdP+7PPtS9RO8pcQJXCut/Whe1kugob+XS
+	PqisVpIozH723HtHKEDgQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1791855349; x=1791941749; bh=y
+	nU+Bv1nkxtpTw5yF1AgPdxSe9NKymP1ojZfCaIJGWg=; b=KDUzT5e1uXPYXNSde
+	wc0+tVcQDsX/eSNSaarzG/FeMuXyRqBN1z0RHUSeFTfRfYOqxSQPpBWYqx2p6zXq
+	C1G132vPiHJ7GUwAQ8X29ISE6UbX/7ZPaWBh0WySDEECcJP+eIPJqA7JDUYb1om+
+	FyHmJtxZGq+tS9HkZR/nBZLINSZnj9N5wYiFFcsWiBQH82GZ53LnWhP+/09mn6VA
+	MyRI1eHfCwYdqrXx4S0OdhRmH7dGLCEBfN8Juiz69D0xxShjtVx8iT09IgD7u8G4
+	l9GPecWx3edDvaqd0vnX2IE+fnrcHAYect4D+yX1+iE709/4GW/LRi2zlG7HtAQM
+	b1Z3Q==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=timdoug.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791855349; d=timdoug.com;
+	mf=PG1lQHRpbWRvdWcuY29tPg==;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:g/6gvFqgmwfsMeBbf3CYsFau/Mcm+Fagq3RPu64c2e7sD6R
+	abG32Qt/46HcwavV8F/0YgkaCxptW99B8hnDI+IbrIDNweolaX33TxceV3EyBtOH
+	mIURnzsf5+19wBiYbIFWaK3xt45NvtsxBVw1vQUmEHO2Bclx4/uDenqcMSqssUo4
+	nMkK+ajJK3lmqKDbvIRZ5WK7wUfifHbFSR4NwC70VSw1oUQ9s2sJiBfHZAXk4pmp
+	F+QpdBwyugeo04+N9333NzS+iisc/z0nq81yNcUTqhoFIMw3fiI3h1O4r2b1Ylgu
+	R8VzChV/o8r+/Jt0P0TSZVg5t1AGZXkRNWZd33w==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:UQfw95Fz+iiaKhM4B0x3CiboQNps0uiguSgaWYaEfus=:IIVOJsgn1Fzp6J2UaPQgxgn6NYtZB1HT9aJu1pdQroM=;
+X-ME-Sender: <xms:9YrNaonMRSAxG4NW42C6VGKvOsZ_VLvCBMovkGLuqWz2FGLBu1I5eA>
+    <xme:9YrNav_9xfoBccUTdcmF998KYas9gDKCnjJf9GfpTzYcUy6KSpmrwA16yZf7x1Iia
+    m59KKsSG7JaJ5MWQ3ljI7BuMIsRTg80wLXnlR6ffxvDunKS5ur0qw>
+X-ME-Received: <xmr:9YrNamJNLbt15yvhEDa86_QL276vFiL3ayuX0I426bdA_9E2nznQlMEEu4Qq>
+X-ME-Proxy-Cause: dmFkZTEs+D062zKm0g1Z6uCgWCfkrFCAifr7RRfExPlp2j9+nb3h4r6gXg5CPa1Hy28Gb3
+    jjDLtlUgehkFGvKDjacNQVtZmY23pAF2FYbp1x1/5WsfXHbMKYRnZ+oQxz1fhwjXas6rKu
+    O3Nic0YZYD3FpXcovN1s3R7DDK+4Hj1a5uljDvBzZS+QeauDTrkmI+gPO2CmEBM6fWNjv8
+    Djeb8EpppwYC7edHx9ftnnCjzX5VJXWtrTADVNS4avcixVuC0kwn7oOy4yRPpbQ4M0xpTk
+    MmxPAM3Unja5wAJOz1sQKNPVQ6CUgMoR1EdLi6JhrBSuMn5LiWNNsi4Kz8D85j94CaW+C/
+    zfQRUKnl+FFLPQYZ0KHet3ZLw5lvm+8hadwApEPbAsd/FzVn0J9saV93O2FZ9gZR451E6I
+    nZchxAfQzUh3qnVemeWmPsiENbHKF21Eb/qfgIxiBPg8bds6sEdtE0HUmvmUaDC5wCqnxy
+    1sdDDtGv0+Qp4GNLcTSWa/KHUOFPqBBaND/STNL21IrhDAXDD4JLid5BjKwEDfGY1uTByL
+    s6zzICKIWoTuFatUM0KWEpZOgQq/fXgs92TvsQdIjjpMIwHeS+aEWmf/G5VDReVWQPROdh
+    miG9Pup4vaD8yvW1KPm+TL9SMcI1pAkQ2GZtFtQTyhCCkT7ivz81YQzeFN8A
+X-ME-Proxy: <xmx:9YrNakh9kgryqBTLfSijKIwWI-VIkZ16k7U0KC6keeKB1kKNa8OmWA>
+    <xmx:9YrNai8pPoij5JEzMsrkTeHuX7HaIvD2tJ3wYYkyWPzzEa1-mWZjFA>
+    <xmx:9YrNapNiOfpLeyXP2WOjceAY0OMWwJIkgEkAyISP9wzWRwVNUipP1Q>
+    <xmx:9YrNamAVbQtRO5jiOXzcu9Ww3Dv3xRwUdtb3ZdfkdeI7yg5qnRULXw>
+    <xmx:9YrNarPlmUz_4Gpz5l1mMHBmOA27ju6S51F9TJzRFo1AxHdEYJlzf1Ek>
+Feedback-ID: i12bc4175:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 12 Oct 2026 21:35:48 -0400 (EDT)
+From: Tim Douglas <me@timdoug.com>
+To: gregkh@linuxfoundation.org,
+	jirislaby@kernel.org
+Cc: linux-serial@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	maddy@linux.ibm.com,
+	mpe@ellerman.id.au,
+	npiggin@gmail.com,
+	chleroy@kernel.org,
+	Tim Douglas <me@timdoug.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] serial: pmac_zilog: push received data to the port that received it
+Date: Mon, 12 Oct 2026 21:35:40 -0400
+Message-ID: <20261013013541.4535-2-me@timdoug.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261013013541.4535-1-me@timdoug.com>
+References: <20261013013541.4535-1-me@timdoug.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Subject: RE:(2) [PATCH] xfs: mark the inode preallocated for pNFS write
- layouts past EOF
-Reply-To: daejun7.park@samsung.com
-Sender: Daejun Park <daejun7.park@samsung.com>
-From: Daejun Park <daejun7.park@samsung.com>
-To: Christoph Hellwig <hch@lst.de>
-CC: Carlos Maiolino <cem@kernel.org>, "linux-xfs@vger.kernel.org"
-	<linux-xfs@vger.kernel.org>, "Darrick J. Wong" <djwong@kernel.org>, Dave
-	Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton
-	<jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>, Sergey Bashirov
-	<sergeybashirov@gmail.com>, "linux-nfs@vger.kernel.org"
-	<linux-nfs@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>, Daejun Park <daejun7.park@samsung.com>
-X-Priority: 3
-X-Content-Kind-Code: NORMAL
-In-Reply-To: <20261012124118.GB32488@lst.de>
-X-CPGS-Detection: blocking_info_exchange
-X-Drm-Type: N,general
-X-Msg-Generator: Mail
-X-Msg-Type: PERSONAL
-X-Reply-Demand: N
-Message-ID: <20261013013159epcms2p3fea98953ac15bf1c1505057e5cd2c5ba@epcms2p3>
-Date: Tue, 13 Oct 2026 10:31:59 +0900
-X-CMS-MailID: 20261013013159epcms2p3fea98953ac15bf1c1505057e5cd2c5ba
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-223,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261012124126epcas2p136e362cfd7a8ec3b16cca7d192565650
-References: <20261012124118.GB32488@lst.de>
-	<20261012-xfs-pnfs-eof-prealloc-v1-1-e4864d917a00@samsung.com>
-	<CGME20261012124126epcas2p136e362cfd7a8ec3b16cca7d192565650@epcms2p3>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 12, 2026 at 02:41:18PM +0200, Christoph Hellwig wrote:
-> > +		if (write && !(ip->i_diflags & XFS_DIFLAG_PREALLOC) &&
-> > +		    imap.br_startoff + imap.br_blockcount >
-> > +		    XFS_B_TO_FSB(mp, XFS_ISIZE(ip))) {
-> > +			error = xfs_fs_map_update_inode(ip);
-> > +			if (!error)
-> > +				error = xfs_log_force_inode(ip);
-> > +			if (error)
-> > +				goto out_unlock;
-> > +		}
->
-> Let's avoid the code duplication here.  Add a boolean flag that
-> we need the update, set it both for the new allocation in the if
-> le, and based on the condition here, and then do the update
-> in a separate conditional below.
->
-> And mayne the xfs_log_force_inode should move into
-> xfs_fs_map_update_inode while we're at it.
+pmz_interrupt() drains both channels but, since commit 2e124b4a390c
+("TTY: switch tty_flip_buffer_push"), pushes the flip buffer of the
+port whose handler is running rather than the port that was drained.
+With both ports open, data received on the other port can be left in
+its flip buffer until something else pushes it, so its reader may not
+see it.
 
-Will do both in v2. xfs_fs_map_blocks() sets a flag for the allocation
-and for a write mapping that ends past EOF over blocks that are already
-there, and calls xfs_fs_map_update_inode() once after the if/else.
-xfs_fs_map_update_inode() forces the log after committing the
-transaction, so the separate xfs_log_force_inode() calls go away.
+Fixes: 2e124b4a390c ("TTY: switch tty_flip_buffer_push")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Tim Douglas <me@timdoug.com>
+---
+ drivers/tty/serial/pmac_zilog.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-The behaviour does not change: the update still happens under the
-IOLOCK, before the blocks are handed out. On nfsd-testing with the same
-reproducer, the inode is marked at LAYOUTGET, blockgc keeps the blocks,
-and the LAYOUTCOMMIT after 360 seconds succeeds with the data in place,
-as with v1.
+diff --git a/drivers/tty/serial/pmac_zilog.c b/drivers/tty/serial/pmac_zilog.c
+index e3a9193..f49d605 100644
+--- a/drivers/tty/serial/pmac_zilog.c
++++ b/drivers/tty/serial/pmac_zilog.c
+@@ -444,7 +444,7 @@ static irqreturn_t pmz_interrupt(int irq, void *dev_id)
+  skip_a:
+ 	uart_port_unlock(&uap_a->port);
+ 	if (push)
+-		tty_flip_buffer_push(&uap->port.state->port);
++		tty_flip_buffer_push(&uap_a->port.state->port);
+ 
+ 	if (!uap_b)
+ 		goto out;
+@@ -469,7 +469,7 @@ static irqreturn_t pmz_interrupt(int irq, void *dev_id)
+  skip_b:
+ 	uart_port_unlock(&uap_b->port);
+ 	if (push)
+-		tty_flip_buffer_push(&uap->port.state->port);
++		tty_flip_buffer_push(&uap_b->port.state->port);
+ 
+  out:
+ 	return rc;
+-- 
+2.54.0 (Apple Git-157)
 
-I will wait a few days for other comments on v1 and then send v2.
