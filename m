@@ -1,106 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05975372EC
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 18:52:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CB05372F6
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 18:52:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791917553; cv=none; b=IxuvOi0wuKjB+FC36iALTc7lHSk2u7hjZBNMVmVw3crzxtr/hgV9eYQQv5B6xAfc6ocoAUMPZOueBuTNtx+bsHldkRt5pPJRRuCLoHx738VNi3jmDqnxj/5QrCT8Au+zQyAu+80C+skFfZGl88UzXAuTxlG0/9meDW/8ge9p4II=
+	t=1791917554; cv=none; b=q3M4vrhs0gI/kBh3jt54UreUyY4nuv6FNh/cYKL+1oOCVFv2ZgQipdUWNaPIprHduTDq8P82XmN6D02HgmgFUjfZIcqHDvdL5txgzpHFTiOf14OSp3WnXzmtkYvsNaM4nzwcA6TxRHB4ZE9SPWWIFKghVYE2Wz6Z6gcLeWKe2UA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791917553; c=relaxed/simple;
-	bh=5XdPylDRDaT+x5t0GGjZLctpGaYwZiDzGoNkusNE2jE=;
+	s=arc-20240116; t=1791917554; c=relaxed/simple;
+	bh=3EQdEq6vLMmw8nxcHfBLm/eOOpvL0tRiL4HnJUtsEnI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KocQo1hajhARxEamU1GyindETVotPJbN/vLqEiV3lNmnouXuE4nxFo8WSa7xAfLOVLtFgT4vTNhQro8H/t6pdTlDe6oPRNKuhKn98M1GeZBNBm4wHskUvOlOBtbnGqChDrOQStJH7owzrLIIHD0A4eSNVa6B6Xl9zhYgxAz6gtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UUoNVYzs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=DDlmpTo0Z6lap2EGbW0f4FIfrsXht0xwI/YX60XdHv+0JYLAStQn/HH5jK+ikMf2bEyUPK08QQ6CRSn5FFDoQ57QdRrGlLYOxiV5n7jY3M1f6/1jagz3OVcrEsTY1zEkqHhPjGF1JSe+XX4fooLb0WlGJ+sOZyJtn4738jZFW4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U3IlFytf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UUoNVYzs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E367E1F000FF;
-	Tue, 13 Oct 2026 18:52:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U3IlFytf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF5A51F00893;
+	Tue, 13 Oct 2026 18:52:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791917552;
-	bh=Q7ZCPV200IiAeJzUqgXR+XFLqeB8zOOdpMXxWAsSmg8=;
+	s=k20260515; t=1791917553;
+	bh=rgWgwyHXz0iObMNnF2gY8K/WZxi79SJ498ROUICOpyQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UUoNVYzsl144OIgdzfBgyZtAMk4KSfh7WQwk9JMwD+eKKXg25G6w6InJ8KPJRkk3f
-	 yLkk5ExI24atYgYSKzQSeyGxR3vqPij3vl6WIUhlCmOMyLkTZ+GEkTHrHO38I1domj
-	 sQ5eodDxmeiFoUkllh3LcAJRoxzzzfSQbZqK8Zz9pnhTjm8E3D+tXmJbohhYkd3YFp
-	 o9ZwLFspeAcK8GIw5Vr3wSA9ebyDTQ7B/cED23dIqR61soxWJV7weGcp2+Mn8U/Otx
-	 lvR1/fPzPRJL69zXL5kWhjN5jC9VitUjiidqQ5/2CCZxj4tMcK0PsEVUd5ihMjCT2f
-	 gsBxrR/5S/Llg==
+	b=U3IlFytfb9txtRbQJX+er/V4L2XeIdqUrN7ouy3Xg2NdTbFBZu5ADAsVMBOJBsNEo
+	 5x9Q4YxQYhXC0NyoesO8dwuTg8LIGiAUP/r8IopNL95PTHs7kWh5zy0+RmLYerOukc
+	 QRDXbX/Cw3DCbf/AVPtqiOVIiobOJJ2qm88CQsc0srOMIZbEaOblxQMwXHIyDX8KSs
+	 2n8RA1fFRrRX6Zlhgq3cC3NcTRVxkICPf43X+hV69+4LcYCYCZ2g4Mq1YGgxcjKs/w
+	 rr9xskP2pM60bg1QXJsU30VjiQ3ZsckvSK4bsnIqAHkn9AVgn6wnWZ0I2x6B/WHz8Z
+	 idbn0RPc3M8nw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] namespace: don't copy an unmounted mount tree
-Date: Tue, 13 Oct 2026 14:52:30 -0400
-Message-ID: <20261013185159.650572-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] namespace: check the mounts before reading their parents in pivot_root()
+Date: Tue, 13 Oct 2026 14:52:31 -0400
+Message-ID: <20261013185201.667629-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101247-wagon-grimacing-e886@gregkh>
-References: <2026101247-wagon-grimacing-e886@gregkh>
+In-Reply-To: <2026101248-uniformly-prevail-5c24@gregkh>
+References: <2026101248-uniformly-prevail-5c24@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit 8bacbf6be959973b28b691713a872c12eae69eec ]
+[ Upstream commit 6b7c001eb5857fa09041f47673666060a2e5fc1c ]
 
-may_copy_tree() accepts a mount whose root is an nsfs or pidfs file
-before it checks whether that mount is mounted. This exception exists
-for nsfs and pidfs mounts. They are part of no mount namespace so
-neither check_mnt() nor is_mounted() would let them through and
-bind-mounting a nsfsfd or a pidfd wouldn't work.
+path_pivot_root() reads the parents of new_root and of the caller's root
+and checks whether they are shared before it checks that either mount is
+in the caller's mount namespace. Only namespace_sem is held. That's fine
+for a mount that is in the caller's mount namespace.
 
-Problem is that exception also admits a bind mount of such a file when
-it was lazily unmounted and is only kept alive by a file descriptor:
+But new_root can be a file descriptor to a mount that has been unmounted
+and that only the file descriptor keeps alive. If that mount stayed
+attached to its parent when it was unmounted nothing pins the parent for
+it. The final mntput() of the parent unhooks the children under
+mount_lock alone and frees the parent afterwards:
 
-  mount --bind /proc/self/ns/net /tmp/x
-  exec 3< /tmp/x
-  umount -l /tmp/x
-  mount --rbind /proc/self/fd/3 /tmp/y
+  pivot_root()                     close(fd), last ref on the parent
+  ------------                     ---------------------------------
+  ex_parent = new_mnt->mnt_parent
+                                   mntput_no_expire_slowpath()
+                                     __umount_mnt(new_mnt)
+                                   cleanup_mnt()
+                                     call_rcu()
+  IS_MNT_SHARED(ex_parent)
 
-With MS_REC or AT_RECURSIVE copy_tree() doesn't stop at the unmounted
-mount. It copies every mount that stayed attached to it as well. So if
-you have a bunch of overmounts over the nsfsfd or the pidfd the whole
-unmounted stack is copied. That's a bug.
+  BUG: KASAN: slab-use-after-free in path_pivot_root+0xf1a/0x1840
+  Read of size 4 at addr ffff8881047382f8 by task pivot_widen/157
+   path_pivot_root+0xf1a/0x1840
+   __x64_sys_pivot_root+0x165/0x190
 
-So refuse to walk an unmounted tree. Copying its root alone stays
-possible. So a bind mount of a namespace that is gone can still be
-recreated from a file descriptor on the old one. The file descriptor
-pins that mount and its root and __has_locked_children() only reads the
-direct children which don't leave the parent's list without
-namespace_sem. The internal mounts carry MNT_NS_INTERNAL instead of NULL
-and are still walked. Copying an unmounted tree recursively fails with
-EINVAL.
+The same goes for the caller's root via chroot(). Both outcomes of the
+check end in EINVAL so nothing but the read itself goes wrong. It's the
+same thing commit bb4609405752 ("statmount: read the parent of an
+unmounted mount under mount_lock") fixed for statmount().
 
-Fixes: e149ed2b805f ("take the targets of /proc/*/ns/* symlinks to separate fs")
-Fixes: ef4144ac2dec ("pidfs: allow bind-mounts")
+Check that both mounts are in the caller's namespace before their
+parents are read. Every path returns EINVAL either way.
+
+Fixes: e0c9c0afd2fc ("mnt: Update detach_mounts to leave mounts connected")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260926-work-mount-fixes-2-v1-4-f357abf3d17b@kernel.org
+Link: https://patch.msgid.link/20260930-work-mount-fixes-3-v1-10-be34c83956ae@kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: Adjusted context for existing inline permission checks and has_locked_children(). ]
+[ sashal: Replaced `return -EINVAL` with `goto out4` to preserve the syscall’s explicit cleanup path. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/namespace.c | 3 +++
- 1 file changed, 3 insertions(+)
+ fs/namespace.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/fs/namespace.c b/fs/namespace.c
-index 3311e4edbc734..cb082885b721d 100644
+index f87bdff661664..49742673e0d5c 100644
 --- a/fs/namespace.c
 +++ b/fs/namespace.c
-@@ -2614,6 +2614,9 @@ static struct mount *__do_loopback(struct path *old_path, int recurse)
- 	if (!check_mnt(old) && old_path->dentry->d_op != &ns_dentry_operations)
- 		return mnt;
- 
-+	if (recurse && !old->mnt_ns)
-+		return ERR_PTR(-EINVAL);
-+
- 	if (!recurse && has_locked_children(old, old_path->dentry))
- 		return mnt;
- 
+@@ -4467,14 +4467,15 @@ SYSCALL_DEFINE2(pivot_root, const char __user *, new_root,
+ 	new_mnt = real_mount(new.mnt);
+ 	root_mnt = real_mount(root.mnt);
+ 	old_mnt = real_mount(old.mnt);
++	/* only a mounted mount has a parent that namespace_sem pins */
++	if (!check_mnt(root_mnt) || !check_mnt(new_mnt))
++		goto out4;
+ 	ex_parent = new_mnt->mnt_parent;
+ 	root_parent = root_mnt->mnt_parent;
+ 	if (IS_MNT_SHARED(old_mnt) ||
+ 		IS_MNT_SHARED(ex_parent) ||
+ 		IS_MNT_SHARED(root_parent))
+ 		goto out4;
+-	if (!check_mnt(root_mnt) || !check_mnt(new_mnt))
+-		goto out4;
+ 	if (new_mnt->mnt.mnt_flags & MNT_LOCKED)
+ 		goto out4;
+ 	error = -ENOENT;
 -- 
 2.53.0
 
