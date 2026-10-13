@@ -1,147 +1,136 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89D92D73B8
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 00:58:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791853128; cv=pass; b=pF3PMUZeLD60LMLZbjzIv64Wys184dyf+zu7w6v+V+kpdPlk+RSHEtGFbxyTjlg6PicHKFU7Qlfn1Qbvfl1Va+I0EqQpTiPt+NqyXizFxpaVg91zU+/Qq1o4I2Zq1qhb+tB17u4viV0gsjHDcQ5+LnhcOIPazGZnQLtfIFvhNe0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791853128; c=relaxed/simple;
-	bh=k4uBOr3fUC9C9V/2LEU8KbJ93ho9bjIXmyZyw7xe/xQ=;
-	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nw92op9Ke8hn2lpNOuJQP9I7CYpNfat43Rm1j+EBXgnJeBlzLmRZgV7CPJd537F0mWVDNXLrhag4Xy1gARsOn6MhNmNkngArwFlpb6oDwZ3FZEnWtHAxbesFHS/Zt+3X3z+/KdY+hr50K4Bq+dh2IABT/wAi1W7kQnM4gYnbQKk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr; spf=pass smtp.mailfrom=khu.ac.kr; dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b=BMtkzgR9; arc=pass smtp.client-ip=209.85.167.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=khu.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E17B2EEE89
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 00:59:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791853160; cv=none; b=IXaiYWq/GglWIYkVm4YV8ZW8IKzHIi9gkilSWjI2fosMSDatpeDsz8UNPWmwXAzOk42Bz3cZQJSj79bMJcsOiwgvfvSVMBSM9TdEZseX7TMwaWmLWyS0A30Jr6MQQL+kdvq1zBGOZryRZSAoK205WJm/wsVsB2TeTXA8ZaR9UO8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791853160; c=relaxed/simple;
+	bh=7D0ueLF5U0UC1KdmFom1A5HOnKTONJlWgvjZkLkoPEY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U7qpoTMKhSH5u3gJRgOTTrNSUU4xzmqdCpUjlrHCh39FCKgUP5gmVYKsN4UlgLsaczP4oSbOOx0EhxSFCxYtWKjDJm9ZHNnRypzeOdKvr09Oe6eVCTHd1J6U0GyjhSx7w3f8m/3+0JW/0y+tp1g4fq9ZINZ8HxAUJUTX+BYKvmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=jYv90Qb3; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b="BMtkzgR9"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5bcb6faf862so1767183e87.2
-        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 17:58:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791853123; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kyBzXsifkaXowrKour0gGnDvgD1NruEsYuyL8xeiG5j80XPaMqk5+qLeg5yYitvIW9
-         JjxWK0x86ReMRTAZQbOHWbXLTDgNA+YoTEN7bz9w1iDdZDkyfNny+vkoUwVv/XlyZnFm
-         JuEnrrOMKpLY/BLmaHTHHoJhbh34wWyzecV+q5nSwVQKSW+lAXTgMyor7UtXLCLq85AL
-         BxovYAJMULZ0v4i3i+uVd7LFd5KerW3hI6K3I00ICQTos0NBqnSQwKdmhAUMr1Z0S2fC
-         ykZE7AqPY32x10Yg5pC5fspJzTobbekAV7uiULQ5yF+sx3qmNExclpKzDnTwBHqRawYB
-         47EA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:references:in-reply-to:from
-         :mime-version:dkim-signature;
-        bh=0wOhigAERgw/ecq9Zfp4x327PQ7aRIqMRodPt/se31w=;
-        fh=+H3hPjQ9II7oN5PxrSIvXfTepoJRi0Fu8NiQSY+LcbM=;
-        b=SeEzSxM4RbQKrKISySthbua8qrKnAJlnLKE4/aPSIo6N0KYV325t72/A9BrDre/ERB
-         +8afrTpiikNNBCylZYjSqg3IqZ0vVViYMXMjQ6CQSJxCGoik3nRrfBBcI6k/J83A33cy
-         TA001t94Ynl3KNOT2YhNJgeS89HyNfwX43LzYkxGSqhR18MSm4fR7UBUurprITRAsuxx
-         RtV/BKai8AT6cgieSDgWlRxJgvbY6JQCre2E+caTkwrn0DHdjszl9L9/oQTJXvD5imm/
-         fPSWzoKYLB5KGpOODactDsE6CAnTNEnB02WSRkXOwsTNW1ufux7r4BO3mvuskRMQGxF6
-         Q+Yg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="jYv90Qb3"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e81738d24eso20646915ad.1
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 17:59:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=khu.ac.kr; s=google; t=1791853123; x=1792457923; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0wOhigAERgw/ecq9Zfp4x327PQ7aRIqMRodPt/se31w=;
-        b=BMtkzgR9AyZ2IkE6qpDGPnMWdFbq/no756w7o58F1IxN0ulDLrxzXRlpH+bgKG1kXn
-         ZkoFrAhqXXnKT9U/iFKiN5nbvcl1MZT5XUXnt/pNuaMantJfrlaUAyISTCm8ejPyh78G
-         gRa/YfGRIn6GmIwKJz7tJcSswfp+Tis5FQBcU=
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791853157; x=1792457957; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KD/O0ovUlmAuZHc6X9wXGWv7XROc25F1YO2O1JLs2oM=;
+        b=jYv90Qb3V8IYczVtrMAn0qtBmM0TuNKlRGrB2CJQYO6A5aTycKQVnHCNCojteZElFK
+         ccpx9tLMDiNFuha3hGDHEBhEB7+fO2FLwbnh80d+ROil2ja6VqAmefFq8eAhaeKMxiJg
+         TB515+dhw0YEeKK7jc31aKOr24HPlq8QbYFURTZrOCXuDdCT8IPjWvmc+x/nKpWfSaWv
+         i3w2c6yoAfLPJJeiQzIY1l7PHpVqDc2+xpy9WrfSQ8T4iKVB4lLQUKijxy4jc2Efiey3
+         mSFUFSj+4R6s/X/eDXbNRV8b3RIT2iX3KT3kgP9FPgH7CGV2WYkNQByK3ffbaiST0g0o
+         N4lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791853123; x=1792457923;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0wOhigAERgw/ecq9Zfp4x327PQ7aRIqMRodPt/se31w=;
-        b=MHbCV60YTlDy+a4Sx2ib2R7dE000AIEMiFVv2Cm0Ny0f7I839FZtj+w92ZUWuRamxx
-         RhXU8kKIqzXHTxUgSBMp4PcYsKds4Bx79aOnUgTu3Ght3Zk9gGSpACV9OSSWxCLIASnh
-         K3FNqzOOLldu9sXnasjba5OAp2z7k5g/1Xx93Z4ectbvAsZG38GVByys3fN0aBzdVj0w
-         2yD/ebbbkfGRP96bCG27FIYB68YT/wQxWChHcDFUytKfJ9lGzVXbbQOD9nDuUkpk/sI+
-         wAcdoYH1rqrSR5vgsp63p7oE14bDxZhLC0KAQqhYCFXMEw9gYeqW/JHGNQXMy0jV4Wce
-         qKVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzhlHyNz6PpIbfjrKAz0aitJ/DtGD0wMO1vodd5usib9PTojAU4BTHzUDpV6udAcLFKj3HDFAc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIKqKE9js8aM1x8aALtILu9XrMpB04jGBOc2EjGQhgRRT/Ut7qO
-	9n5PR8i4GwbQnXZG5nvwFdogTga4y9cp7xZ0j5MoVw5BLj2xp7I2IdrpP+exF9n6m/N6bOPf5uG
-	Q9RDq75yRdKRj9vpxp6y4GOrJm40ekmh3WnQrnjt+IjvOG7BFLwMgCuM=
-X-Gm-Gg: AYBFou2yfjlcul57koPSjYunwG5tj5IG/N+OLkhkQmANEIAdsQhPeoVydPNjuNmRttM
-	hSqqjcGFNupFKXhsYA7kT07ES3bhlvWf7WRh6Bj97W8DqFz1HLIRvkTCJ/uNBf8Rnrm8za/0hCU
-	jkpD+ydC+EMhu5jgPjOcU+HvS36nEJriXepc4f7n3d59CSSnzpIxt6JhchtNZjxQCP743ql/x4M
-	SorPWyiVNB74lNejSZPsXFGrHkjDbU8eogFFmb28VSlua2K4azs+Itnjcfmwuc1mKtTUSrwapUT
-	eQYLvbkB4yPTKb1qYwfxwWWNTQPu6ozVhkBU+6+057iWriQoVKEu98zZwc9IDBX0/8buhP18QjU
-	EFb62gOphPX+mPpkLFhxgIhnn8lnPJ1P6sZM=
-X-Received: by 2002:a05:6512:696:b0:5ba:3339:6f6b with SMTP id
- 2adb3069b0e04-5bcde6bcb06mr3984876e87.20.1791853123500; Mon, 12 Oct 2026
- 17:58:43 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Mon, 12 Oct 2026 17:58:43 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Mon, 12 Oct 2026 17:58:20 -0700
+        d=1e100.net; s=20260707; t=1791853157; x=1792457957;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KD/O0ovUlmAuZHc6X9wXGWv7XROc25F1YO2O1JLs2oM=;
+        b=CIhvRr8J3eGXNTXhlFYVW4A6ahNSpDbV01SJoLVz/g1aPHB+6qHxKpikKuit0gy/wb
+         Tas7CPuvdSUlwi5G6fHwzN3VyFf0wdaSlT9jW8efY8cPWozNnwL/kJENkZrBZxW+Ne6L
+         Z5jdmf3RJCbskvB659ylQF2d246uoxDpOiSC/35x07/vjx4Uu3KTD+FLmetzVqd6pXdn
+         m46oiXb7wXPwQE/lF6A8GQCeDd2kI4vVj3DWmnu4aw0Topy/qOfrXGVEy/Ys0ZuTx8Hb
+         TaK2/3orEiAOnNA9Z1vPWhJ6B4iDUkLtMy+uDUkJ3/rIyF+QLqmBDIgp0QiosDF3RXHA
+         oI3w==
+X-Forwarded-Encrypted: i=1; AKwUvByWxroqKwIQz2LlCz43wA/uJlRPt19zDaVm33mWSdwLQOTo2lvbKg1jwsYVwUXeXlT+9T3q358=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJaZPGsb99L47Nm53oHW3uwGjrglf1+HoACBcQ76a4dfvCjWA9r
+	HuVzEVhKryry9c1sJI5utTnsgzBHhYGVBOtfRKyfUBV8B1iyeoNqgkOMSoBOXHk/Jd0=
+X-Gm-Gg: AYBFou0XA8VEgGfb6vO4t2nirdV51IunGEISrC6DufjYX2int/8gRbtJk2SyaBESSoC
+	5r3J9D7KZ5Abu5rt/1h14mRoJPk0uDEG8bLAwycK4ewkDs3d+7evvPHejvpw5A0qWf4f+DAmHk7
+	1LO+jEjuL6eVvHyQK/zL/e/P7NqK65sbJEdla3Tps+nvIVLnf25j3nyYDWdpORCYhxMdU7A9dN0
+	9TCudmbyaxSl+0R5VTc9DJpykX+mPpDz25n7UTCblWB15NBkDCic1VmN9xCt19wNEwwFyHKGwjf
+	aTBLq994+Oi1ihsfEDofUrq84iZqFhBeMuFN5lr/7fzDjhVfd172DH5FLXWrkIqbKKk2n+RscOk
+	I38MN91OI7FQ06mcLOg0cZM3ZCQ8hefL8mOtjdRBHFr+7Nq5DrxZ07uA+xtNUySQOv3fs8fT5D3
+	E/P0vp9wollb6EyU+HB6TKFX7fKIOsbvn6cW6ZHCFmBXMm3whHGdyvfePpltdh7PUZgoKlAFegJ
+	BEYMA==
+X-Received: by 2002:a17:902:e888:b0:2e8:4078:84e5 with SMTP id d9443c01a7336-2e842cd449fmr90537535ad.20.1791853157038;
+        Mon, 12 Oct 2026 17:59:17 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e1643sm49225935ad.70.2026.10.12.17.59.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 17:59:16 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org
+Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] usb: gadget: f_tcm: reject a short write data-out transfer
+Date: Tue, 13 Oct 2026 09:58:54 +0900
+Message-ID: <20261013005854.2470384-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
- Tue, 13 Oct 2026 02:58:08 +0200
-From: Kim Wooseok <5mghybrid@khu.ac.kr>
-In-Reply-To: <04d26f79d5984920a9584d3f31ec3b58@realtek.com>
-References: <20261010-rtl8xxxu-usb-dma-v1-0-e670d9c08fdf@khu.ac.kr>
- <20261010-rtl8xxxu-usb-dma-v1-1-e670d9c08fdf@khu.ac.kr> <1fc8c339df1944afa6186197337edda3@realtek.com>
- <CAH1Bc_yOhZ9oqreJOLKb5RDFEW=0Zid=h4xu9oTR51RDwj_bww@mail.gmail.com> <04d26f79d5984920a9584d3f31ec3b58@realtek.com>
-Date: Mon, 12 Oct 2026 17:58:42 -0700
-X-Gm-Features: AclHuK_Ifxw9QoHyehe9vofNrat2BMmKWVVJ1nmld41C-se66_6KTgRsHhz1IK0
-Message-ID: <CAH1Bc_wUq2Nmhvd9q85JP+KyCYHB_xqStfmo6ZirOxOkXzAg9A@mail.gmail.com>
-Subject: Re: [PATCH rtw-next] wifi: rtl8xxxu: isolate the USB register buffer
- from CPU state
-To: Ping-Ke Shih <pkshih@realtek.com>, linux-wireless@vger.kernel.org
-Cc: Jes Sorensen <Jes.Sorensen@gmail.com>, Kalle Valo <kvalo@kernel.org>, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Ping-Ke,
+usbg_data_write_cmpl() commits the WRITE buffer to the backend as soon as
+the OUT request completes successfully, looking only at req->status and
+never at req->actual.  A host that declares an 8192-byte WRITE but ends the
+data-out after 4096 bytes still reaches target_execute_cmd() with the full
+length.
 
-> Does it mean that data in a cache line can't be modified while a USB
-> transfer? Even the data isn't a part of transferring data.
-> How can it affect the transfer?
+The buffer is not zeroed (transport_generic_new_cmd() leaves zero_flag
+clear for a data CDB), so the bytes that never arrived keep the previous
+page contents, which the backend writes to the device for the host to read
+back. The target core refuses a WRITE whose declared length is wrong, but
+it does not see a data phase that simply falls short.
 
-Yes, in this non-coherent DMA case, even modifying bytes outside the
-transfer buffer can cause corruption if they share its cache line.
+Fail the command when the data-out is short.  The OUT data phase is over at
+this point, so clear cmd->data_len too: otherwise the BOT status phase
+treats it as outstanding WRITE data and queues another OUT request to drain
+a host that has already stopped, wedging the bulk pipe.  Rate-limit the
+failure message, which a host can now trigger at will.
 
-On the affected Pi, the 4-byte usb_buf shares a 64-byte cache line with
-the mutex's waiter state.
+There is no oops; poisoning the buffer and ending an 8192-byte write at
+4096 bytes leaves 4096 stale bytes committed before the change, and after
+it the command is aborted with nothing committed.
 
-The important detail is that a task waiting for the mutex still updates
-its wait list before acquiring the lock. So the mutex serializes access
-to usb_buf, but its own waiter state can change during the transfer.
+Fixes: c52661d60f63 ("usb-gadget: Initial merge of target module for UASP + BOT")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+v2: on a short data-out also clear cmd->data_len so the BOT status phase
+    does not queue an OUT drain for a host that already stopped (would
+    wedge the bulk pipe, reported by Sashiko); rate-limit the failure log.
 
-For example, suppose the buffer initially contains 10:
+ drivers/usb/gadget/function/f_tcm.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-1. Task A holds usb_buf_mutex and starts a USB register read.
-2. Task B tries to acquire the same mutex and joins its wait list.
-   This can bring the shared cache line into the CPU cache, including
-   the old buffer value 10. Updating the list makes that line dirty.
-3. The USB controller writes the new value 20 to RAM via DMA. Since
-   this DMA is not cache-coherent, the cached copy still contains 10.
-4. If the dirty cache line is then written back, the old buffer value
-   10 can be written back along with the updated wait list, overwriting
-   the value 20 from DMA.
+diff --git a/drivers/usb/gadget/function/f_tcm.c b/drivers/usb/gadget/function/f_tcm.c
+index 9e6d4f39900a2..cbe64f934724e 100644
+--- a/drivers/usb/gadget/function/f_tcm.c
++++ b/drivers/usb/gadget/function/f_tcm.c
+@@ -1090,8 +1090,14 @@ static void usbg_data_write_cmpl(struct usb_ep *ep, struct usb_request *req)
+ 		return;
+ 	}
+ 
+-	if (req->status) {
+-		pr_err("%s() state %d transfer failed\n", __func__, cmd->state);
++	/* a short data-out left the buffer unwritten; don't commit stale data */
++	if (req->status || req->actual != req->length) {
++		struct usb_gadget *gadget = fuas_to_gadget(cmd->fu);
++
++		/* the OUT data phase is over; nothing left for the status phase to drain */
++		cmd->data_len = 0;
++		dev_err_ratelimited(&gadget->dev, "%s() state %d transfer failed\n",
++				    __func__, cmd->state);
+ 		goto cleanup;
+ 	}
+ 
+-- 
+2.43.0
 
-Task B never directly touched usb_buf, but the writeback operates on
-the shared cache line. A subsequent register read-modify-write can
-then propagate that incorrect value into the hardware configuration.
-
-I think one possible overlap during a rescan is between the
-channel-change path in rtl8xxxu_config() and the periodic
-rtl8xxxu_watchdog_callback(). The watchdog runs every two seconds
-and may update frequency correction settings through
-rtl8xxxu_track_cfo(). Both paths use the same register buffer and
-usb_buf_mutex, so the watchdog could join the wait list while the
-channel-change path is waiting for a USB read to finish.
-
-Allocating usb_buf separately removes that sharing. The mutex still
-serializes register accesses, while updates to its wait list no longer
-affect the cache line containing the DMA buffer.
-
-Wooseok
