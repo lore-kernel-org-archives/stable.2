@@ -1,63 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E8E2517BCF;
-	Tue, 13 Oct 2026 15:12:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E740517BCB
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 15:12:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904341; cv=none; b=EJmsR2v5l6V+X0Hd1vhtzaUS/rgHEeNrO2ZLbSFZB5H+ffCMYm+xskrt41Wxl5TKvJbbXxCfOwc97+BABv090EJB7pC+nM/P6MXGXoSIqNQYGMakcKm9bqcMw7lQlUdL6UXKnOuMil9ZBPA388aPkfqE1ZXW0Yi4ylBuTW6cwq8=
+	t=1791904345; cv=none; b=QDXHF/xPFilD87vFtRvQiSUp0tFQmQIuIj4kJBC1ye9B9C8v1GE6rnpBY8urvyFYT96FF7kfmiI8bIqBg3Xvr4ZVgdjEg3ohnneNfIV0cuCx52qdGakjP6ZhK6G6ytNlU6t+cY50OyE84JxbId+1ZCI1GEQm9iHpVegClXzmTvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904341; c=relaxed/simple;
-	bh=Q5ojD8krtc+Aao6lRyqsW/wzOgUxEecgOimL8EqdajQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ti+XAQOnCFhtOHhBC3IiL361iGkoEXhQ+TNosgRNsmESvJ5sshgzGcfVsEAshYfxmDQnfpYLGA20ZzHR7iBLTXHX8sUGl+RoZ6k6BoezSW57PErKj1GFRUzpX36ZhBRZNE+dCgO8LavvgnKjLr4qhcnHU3Nt9YfPkvIl+9mdelM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XUYw4GGN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791904345; c=relaxed/simple;
+	bh=Q0dOKPsVJizLh4TgJUMaqb8iRXWfabyQf8dzB5ht60Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gDAnBtsfc4bLv8pnHcSLEVYWq12jh/Adk1dhBCBwR4tRxA4jedvxOIxsWImQNYhkDhUSahT0r3EVPBtLdTAsqiPK76YHhMxrDiSKCDHUEab0jLy3xO+OU3j48yxS6la6MEqIDb5PNDfbuEbX46a8I+bkBJLVtdKtLaz9dxTJTJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=epjw8Sg6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XUYw4GGN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 511BC1F00898;
-	Tue, 13 Oct 2026 15:12:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="epjw8Sg6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 760421F00893;
+	Tue, 13 Oct 2026 15:12:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791904340;
-	bh=HwNY1rgM6q4Ctj/+3tD0gRogjIimRT6p7jVBUT2kqPk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XUYw4GGNTknWnm65i6mHq+XLq9CcfwRdNYS+uR0S6mPSBSBLfdwVmzXO8EiGiPfxT
-	 6JJJ8/AdSVzOEvFRwgN8EAb9ag9sKNgcb+WWfUKYL+1UCcmoEUVqhd5huncqDVVdbi
-	 qeDUhKZnj+MXP5OfWjtyxYc7Nd5hMzmLy0aIDKZFkyry86AMIZ/5XYIpClsnQSwmvi
-	 HsI/LEP6Ysr8va2NNnSuqMPSVRsb68bLrkcAEFGkrgi9fl7qEUcpGeE9u6wSHLvAYF
-	 Cx5/Q5qDlMsJiy8/jvk0q6r4WNpJoXqIOHEWYvqOqw7F678UilyZa9NhOuAVi98d/O
-	 M2B4UCPriv3hA==
-Message-ID: <1b4ee842-844e-4b6a-9ce8-0c4e7229825f@kernel.org>
-Date: Tue, 13 Oct 2026 17:12:16 +0200
+	s=k20260515; t=1791904344;
+	bh=f/fBz9AACAm605LLkT3iSyIwpWKlaSfTFglyAjyP6v0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=epjw8Sg6Xw6fC9RHi8xsuTi85j6ghcWyA31UKCtZUMGteONskrTQSFICkm8hWiMGy
+	 PEcJowkYD2jk9z3ai/2eNRGdR1Kkf34C9f+2UobmynvyBLG7o3sfqOp5cZ2+J0XC6e
+	 M7hqgrTFuGnUqBB256s7HYu3tILxm8J+8fiNXQYRMRqQI7WmORIDqQ5C3RGU3FXE5s
+	 BEO7Jb95ei7fwPEroYMwf7lqrQH3tDB2u3CqkbNB0Ro0MdBUXmrbFmZCRYX3MQlJuO
+	 2qKK7vqLhqOCoWXMktnXp7ShzYp48NGK9AWQ2RomjnJxas4/AwRcuQowqEI2V8pdL4
+	 GM0P6JA9Sg+rg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Shawn Lin <shawn.lin@rock-chips.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] pmdomain: rockchip: fix clock leak on domain probe failure
+Date: Tue, 13 Oct 2026 11:12:22 -0400
+Message-ID: <20261013151209.102419-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026101258-outdoors-settle-2eb1@gregkh>
+References: <2026101258-outdoors-settle-2eb1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] nvmet: pci-epf: report transport errors in command
- completions
-To: Christoph Hellwig <hch@lst.de>, Andrea Parri <parri.andrea@gmail.com>
-Cc: Sagi Grimberg <sagi@grimberg.me>, Chaitanya Kulkarni <kch@nvidia.com>,
- Keith Busch <kbusch@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Niklas Cassel <cassel@kernel.org>, linux-nvme@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261012141239.156408-1-parri.andrea@gmail.com>
- <20261012141239.156408-5-parri.andrea@gmail.com>
- <20261013142736.GE14759@lst.de>
-From: Damien Le Moal <dlemoal@kernel.org>
-Content-Language: en-US
-Organization: Western Digital Research
-In-Reply-To: <20261013142736.GE14759@lst.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 2026/10/13 16:27, Christoph Hellwig wrote:
-> I think this looks good.  Damien/Niklas, can you test this on hardware?
+From: Shawn Lin <shawn.lin@rock-chips.com>
 
-I do not have the hardware available right now. Niklas ? Can you test this?
+[ Upstream commit d8b3847770661b7109146e6479eeadcdab9cecf0 ]
 
+When of_clk_get() failed in the middle of the loop, the references of
+the clocks acquired so far were leaked instead of being released by
+the error path.
+
+Fixes: d909072d0521 ("soc: rockchip: power-domain: use clk_bulk APIs")
+Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/soc/rockchip/pm_domains.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/soc/rockchip/pm_domains.c b/drivers/soc/rockchip/pm_domains.c
+index 0868b7d406fba..67f78378d7f13 100644
+--- a/drivers/soc/rockchip/pm_domains.c
++++ b/drivers/soc/rockchip/pm_domains.c
+@@ -443,7 +443,7 @@ static int rockchip_pm_add_one_domain(struct rockchip_pmu *pmu,
+ 			dev_err(pmu->dev,
+ 				"%pOFn: failed to get clk at index %d: %d\n",
+ 				node, i, error);
+-			return error;
++			goto err_put_clocks;
+ 		}
+ 	}
+ 
 -- 
-Damien Le Moal
-Western Digital Research
+2.53.0
+
