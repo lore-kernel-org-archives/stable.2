@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1450A485924;
-	Tue, 13 Oct 2026 04:33:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A26CD4848A5;
+	Tue, 13 Oct 2026 04:34:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791866014; cv=none; b=utVprd7UcN+FQ/gitA/F+cEQqEbZHZQwmpe9kjDdMfuyAbypsNKODuyp/9Tz3yiEzWf7wv6prC50p5rV7DaiRdfKBLj8QJBZOEEc42AKFUFNrw3gcQK+1IXKNu13X5HBq5eKMnJ0KR/JTJ3J6ZngPh+0RIHJUPoHnVIC0jabOVU=
+	t=1791866047; cv=none; b=mhuoIQXIQOWEFXz2p1YQwLEY3ZB2XzsxX0Bj/R6q/5JOBJ+oSb67wfOjmJS/G1w8Y9hktTutOeCkxfIBh5FS3NNoMk7LAUJPPgQ4j7+Pt4T6WgzSj1cqOuzyAsMPhgM6iEJNsSp/PjYSbtSCwAR5Ze8Bt/x8mvxBbmdBxooR4jU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791866014; c=relaxed/simple;
-	bh=QPZqEh1JG1JowJVES+t4fse0kI0krnywPLOVHu42Y1I=;
-	h=Date:To:From:Subject:Message-Id; b=U9shJSyeo0QYaXlKT5SAVCZmF8cuB/eocyI1GJaDNldM0p34HdXsaAXT4GwAtTiW9F2ZxicIi8D5Jy7t43EhvpkLEFubq+SvLyQJwgJjxk15xhR4EsjTj9jPCiq1qXjkMyLMKvmX/eLPyWaO7abUacbLGw6w88h9l5DfxeqSt14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=kQdCiEL9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791866047; c=relaxed/simple;
+	bh=beg+Q7REVhP42iavj2C5HouSLDfPxa9rSXe969Zew1Y=;
+	h=Date:To:From:Subject:Message-Id; b=EZPNkCLh4Aavugbtnauk/Obsvwkp0SM9O5kyoefNXCxPUTEKSTXm9wqeIDLtGXufJ3v714W1n3Iw94X2VqNQmZJnsl/3RpYcrkwByRY6BnHZxK2wtfSs+CaIlJWkd3QJ+9bYNoO3EQuYONX6i8qqd8dIzw9Zvzds+m6QQ2N6fHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Gzw5uk4h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="kQdCiEL9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEDA41F000FF;
-	Tue, 13 Oct 2026 04:33:32 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Gzw5uk4h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 794B31F00893;
+	Tue, 13 Oct 2026 04:34:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791866013;
-	bh=qPja8RIU9noBswcpGbCo4OC3FRdK7PD8zJ441cKnado=;
+	d=linux-foundation.org; s=korg; t=1791866044;
+	bh=CBvpEWbS4C2LqxsYy/6x1X3sgYiJ/vNd2eL+iwFxRvU=;
 	h=Date:To:From:Subject;
-	b=kQdCiEL9+AAPr33KkiNrHo5iFLmsOYRHm54YqbfqsqH+tV7Ahq34pdgLoJ/41l0Tk
-	 eNPIVM5ltcO0w42O4uAhfbOxQJM74mx5byyauu5gdVimhZ+gYTuEZlBVBy3WPaIyFi
-	 +Al38SwP20DCejNfVL3O9iuOZHrlJ7B+M+tQ3Q7k=
-Date: Mon, 12 Oct 2026 21:33:32 -0700
-To: mm-commits@vger.kernel.org,syzbot+23b25ba3c6bf971f9c57@syzkaller.appspotmail.com,stable@vger.kernel.org,shikemeng@huaweicloud.com,nphamcs@gmail.com,kasong@tencent.com,hughd@google.com,chrisl@kernel.org,bhe@redhat.com,baolin.wang@linux.alibaba.com,baohua@kernel.org,devnexen@gmail.com,akpm@linux-foundation.org
+	b=Gzw5uk4hCyWkMrlq2kduirPHKbzGJQjWCLgJTHvXGjy5BsLNVQb6rDKjduOQM9Cmj
+	 glr+BYjBxHdnx1cLpHj6ivIGBmMtkX49YbDMdpsJn5PzG3avmxJz+0d+J1VkmdcOpy
+	 bHAs2sFcgiGteeNnv8MtOuewmDFIGDCkhNNbjJZE=
+Date: Mon, 12 Oct 2026 21:34:04 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,david@davidgow.net,brendan.higgins@linux.dev,donggeunyoo.kernel@gmail.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-shmem-dont-release-a-swapin-error-marker-as-a-swap-entry.patch removed from -mm tree
-Message-Id: <20261013043332.DEDA41F000FF@smtp.kernel.org>
+Subject: [merged mm-stable] mm-damon-core-charge-only-the-part-of-a-region-the-filter-left.patch removed from -mm tree
+Message-Id: <20261013043404.794B31F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,71 +35,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: mm/shmem: don't release a swapin-error marker as a swap entry
+     Subject: mm/damon/core: charge only the part of a region the filter left
 has been removed from the -mm tree.  Its filename was
-     mm-shmem-dont-release-a-swapin-error-marker-as-a-swap-entry.patch
+     mm-damon-core-charge-only-the-part-of-a-region-the-filter-left.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: David Carlier <devnexen@gmail.com>
-Subject: mm/shmem: don't release a swapin-error marker as a swap entry
-Date: Sun, 20 Sep 2026 16:50:02 +0100
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Subject: mm/damon/core: charge only the part of a region the filter left
+Date: Mon, 21 Sep 2026 08:24:41 -0700
 
-A failed shmem swapin (eg, EIO) frees the swap slot and leaves a
-PTE_MARKER_POISONED entry in the page cache.  On truncate or eviction
-shmem_free_swap() passes that marker to swap_put_entries_direct(), which
-warns because it is not a swap entry.  There is nothing left to release
-either way.
+Patch series "mm/damon/core: fix the size charged for a filter-trimmed
+region", v2.
 
-Skip the release for non-swap entries, as every other caller already does.
+An address range DAMOS filter that partially overlaps a monitoring region
+splits it, so the scheme action reaches only one side of the boundary. 
+damos_apply_scheme() reads the region size before that split and never
+re-reads it, so the quota charge and schemes/<S>/stats/sz_tried account
+for the whole original region.
 
-Link: https://lore.kernel.org/20260920155002.1030454-1-devnexen@gmail.com
-Fixes: ac2d3268284b ("mm/swapfile.c: remove the unneeded checking")
-Signed-off-by: David Carlier <devnexen@gmail.com>
+Patch 1 re-reads the size after the core filters have run.  Patch 2 adds
+KUnit coverage for what the function charges and reports, for the trimmed
+cases and for the cases that must not change.
+
+
+This patch (of 2):
+
+An address range DAMOS filter that partially overlaps a monitoring region
+splits the region at the filter boundary, so the scheme action is applied
+to only one side of it.  damos_apply_scheme() reads the region size once
+on entry, before damos_core_filter_out() performs that split.
+
+The quota charge and the statistics update therefore account for the
+region as it was before the trim.  schemes/<S>/stats/sz_tried counts
+memory the filter excluded, which Documentation/mm/damon/design.rst says
+is not counted as tried, and with quotas/bytes set the excluded part is
+charged against the budget, throttling the scheme to a fraction of what
+was configured.
+
+User impact is that DAMOS could unexpectedly slowly run, due to
+over-charged quota.  DAMOS stat could also be confusing.  No critical
+events such as crashes or leask happen.
+
+Re-read the region size after the core filters have run.
+
+Link: https://lore.kernel.org/20260921152443.80132-1-sj@kernel.org
+Link: https://lore.kernel.org/20260921152443.80132-2-sj@kernel.org
+Fixes: ab9bda001b68 ("mm/damon/core: introduce address range type damos filter")
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: syzbot+23b25ba3c6bf971f9c57@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=23b25ba3c6bf971f9c57
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Baoquan he <bhe@redhat.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Chis Li <chrisl@kernel.org> (Google)
-Cc: Hugh Dickens <hughd@google.com>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Kemeng Shi <shikemeng@huaweicloud.com>
-Cc: Nhat Pham <nphamcs@gmail.com>
+Reviewed-by: SJ Park <sj@kernel.org>
+Cc: Brendan Higgins <brendan.higgins@linux.dev>
+Cc: David Gow <david@davidgow.net>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/shmem.c |    6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ mm/damon/core.c |    1 +
+ 1 file changed, 1 insertion(+)
 
---- a/mm/shmem.c~mm-shmem-dont-release-a-swapin-error-marker-as-a-swap-entry
-+++ a/mm/shmem.c
-@@ -1184,6 +1184,7 @@ static long shmem_free_swap(struct addre
- 			    pgoff_t index, pgoff_t end, void *radswap)
- {
- 	XA_STATE(xas, &mapping->i_pages, index);
-+	const softleaf_t swp = radix_to_swp_entry(radswap);
- 	unsigned int nr_pages = 0;
- 	pgoff_t base;
- 	void *entry;
-@@ -1200,8 +1201,9 @@ static long shmem_free_swap(struct addre
- 	}
- 	xas_unlock_irq(&xas);
- 
--	if (nr_pages)
--		swap_put_entries_direct(radix_to_swp_entry(radswap), nr_pages);
-+	/* A swapin-error marker holds no swap slot, so just drop it. */
-+	if (nr_pages && softleaf_is_swap(swp))
-+		swap_put_entries_direct(swp, nr_pages);
- 
- 	return nr_pages;
- }
+--- a/mm/damon/core.c~mm-damon-core-charge-only-the-part-of-a-region-the-filter-left
++++ a/mm/damon/core.c
+@@ -2784,6 +2784,7 @@ static void damos_apply_scheme(struct da
+ 		}
+ 		if (damos_core_filter_out(c, t, r, s))
+ 			return;
++		sz = damon_sz_region(r);
+ 		ktime_get_coarse_ts64(&begin);
+ 		trace_damos_before_apply(cidx, sidx, tidx, r, nr_accesses,
+ 				damon_nr_regions(t), do_trace);
 _
 
-Patches currently in -mm which might be from devnexen@gmail.com are
+Patches currently in -mm which might be from donggeunyoo.kernel@gmail.com are
 
-mm-swap-pm-hibernate-atomically-replace-hibernation-pin.patch
+userfaultfd-clear-the-inherited-uffd-bit-in-move_swap_pte.patch
+mm-damon-core-prevent-size-quota-overflow-in-the-temporal-goal-tuner.patch
+mm-damon-tests-core-kunit-test-the-temporal-tuners-size-quota-conversion.patch
 
