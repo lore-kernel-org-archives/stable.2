@@ -1,99 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B253815F0;
-	Tue, 13 Oct 2026 03:25:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A20F52E06EF;
+	Tue, 13 Oct 2026 03:29:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791861935; cv=none; b=lCCGuM7ZVjJtw/lqRBfHvwP2KDSAcTsYCUEgD4+9XxwKjQDGcf149fyOclPqsgNvWLePLWZCjjpTFuKlHOAKGuc0CXzz1NR5LcvF5o6+04TuIFfWGzc4TU2s9KUFfGyFXd2Tq0OjLSvjGIEC8qKsyg4pA9rN6Bgb1rU7Hme+xBM=
+	t=1791862166; cv=none; b=a0YS4+36uWOCqkGIk4PtkXA9LhrfeTen8j0Ul7noQMs6pCHDiOwmy8pXUSKQEeg5kaFnD1rzC8+cCeBJUfp5fCcM11gEUDA8JwavRePU9QX1XXtI6QzTVMrNn120HZYjHnxJJ0Eh4sG+m32oZaPHKxms4H5IKpYBE+lyuJp+61M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791861935; c=relaxed/simple;
-	bh=hOSsdBCFKim2eSjme5XkOUXmJN5W8YlRsgA6oHvXmZM=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=HLK+OZRKp7KKzEm937GeNJGpri9P8khFt1YQ855Pgn0vtOlNtOOUgIlEd2yXO/oJInLzUFI1/LjpeOa3UbsyjcFcw+30f+sttSHksWJvR1E57AmWLNnkRQYB6qkw6IptbxnPk4uplOxkab/pQykL0JGI2h81ZuUA1hF6zoGN3rA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=NyRm1VrF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791862166; c=relaxed/simple;
+	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=NtZKaS6IujJwdfx5A/BI/zSX/St4CLN352OPwRIjfjrySOKWFacygD/VMK7ZiMZw9l+5ipAS8NaaBF71QvqmMNvmJEDkQR6czYb6upQTxL1VqFAqaTXGb1wTF6Vz1UZ06+lIwKS3Z/Xjx2z8e+eig36U79cOx6n3nRbpecZSrH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bYnFXpkM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="NyRm1VrF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 167851F00893;
-	Tue, 13 Oct 2026 03:25:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791861933;
-	bh=pJssChfaw/WlnaVysEqwe4Z1tfuZOFEKdXZG/EwVI3I=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=NyRm1VrFt9ZFJC62cb/GZbpmwcM4V21aTV9sKGdVMrIs2z9WqCR99Zm3HyOqUlF7S
-	 ENwjeRfGAaG1XErBHECIiyNgzJtP5yvlDy8GfISuPQkn8Wu67qs4UUCq0v+VtVgB5o
-	 H0cAA5rwHjdJTzV8Yor6vR8GbpG7w74vqDpKdWrs=
-Date: Mon, 12 Oct 2026 20:25:32 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Muchun Song <muchun.song@linux.dev>
-Cc: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, Muchun Song
- <songmuchun@bytedance.com>, David Hildenbrand <david@kernel.org>, Oscar
- Salvador <osalvador@suse.de>, Dave Hansen <dave.hansen@intel.com>, Paul
- Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- =?ISO-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@rivosinc.com>, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Kevin Brodsky <kevin.brodsky@arm.com>, Alexander
- Gordeev <agordeev@linux.ibm.com>, Alistair Popple <apopple@nvidia.com>,
- linux-mm@kvack.org, linux-riscv@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bYnFXpkM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75D561F000FF;
+	Tue, 13 Oct 2026 03:29:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791862165;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bYnFXpkMNtiJAML/w5KxQ7cWKsQmhDiXM0x2NnhfiuPdxn0wwg4B8979yGVrhm4q+
+	 FLXRfZaHWovuTgweq1Hm75MNV5WL9DemVgdYkF3vmm22EAEV9XHoaf4dcVBW0Igf7G
+	 odjTRBgGLAeXYRUaabEeqR+y914M8nKO/LQbvJ6j4LnHdzZ2RNmbGpumvAoRRk4i6t
+	 3YpVp7K6dTrZFv9FataZdyCB0yhydd/JHGiYc2AtwjN1xsIBkOp0nMEOunrab6SWP5
+	 og12dum1A+fZsX+D0GymRrCqwATX9Bz7LxeDhNyKnOB9szypR5Zk7P46KfvU719gzt
+	 gVpF3L27+B7Uw==
+From: netdev-bot+sinfo@kernel.org
+To: Cunhao Lu <1579567540@qq.com>
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>,
+ Vincent Mailhol <mailhol@kernel.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ linux-can@vger.kernel.org, netdev@vger.kernel.org, kernel@pengutronix.de,
+ Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] mm: fix missing page-table destructor in
- pagetable_free()
-Message-Id: <20261012202532.f059fd5ab947510a21d34cd1@linux-foundation.org>
-In-Reply-To: <200A83B9-233C-44C7-B4AF-0900BA1E09DF@linux.dev>
-References: <20261010112457.49485-1-songmuchun@bytedance.com>
-	<20261010112457.49485-2-songmuchun@bytedance.com>
-	<asy-b7_C3SjnmSaS@gmail.com>
-	<145CD5DC-6457-4E1E-8B9D-AE7D1EDB0AB8@linux.dev>
-	<20261012193114.77147e0a43affa8ee1ae896c@linux-foundation.org>
-	<200A83B9-233C-44C7-B4AF-0900BA1E09DF@linux.dev>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Subject: Re: [PATCH net] can: rockchip_canfd: stop bus-off restart before
+ closing the device
+Date: Tue, 13 Oct 2026 03:29:23 +0000
+Message-ID: <179186216396.2527009.17545175870858054500@kernel.org>
+In-Reply-To: <tencent_5802EE88434010229EDF7A53084D994C6106@qq.com>
+References: <tencent_5802EE88434010229EDF7A53084D994C6106@qq.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
 
-On Tue, 13 Oct 2026 10:50:21 +0800 Muchun Song <muchun.song@linux.dev> wrote:
+Hi!
 
-> >> The correct trailer is:
-> >> 
-> >> Cc: <stable@vger.kernel.org> # 6.16-6.18: bf9e4e30f353: x86/mm: use pagetable_free()
-> >> 
-> >> Andrew, would you be able to update the trailer in the patch when you
-> >> pick it up? If there are further review comments that require code
-> >> changes, I'll fix this trailer as part of the v3 respin. Thanks a lot!
-> > 
-> > I don't know if/how the -stable maintainers handle a comment like that.
-> > I expect it's more reliable to do this via Fixes:.  Possible?
-> > 
-> 
-> Thanks. I used this format because it is explicitly documented by the
-> stable kernel rules.
-> 
-> The shell-style comment is the format documented in
-> Documentation/process/stable-kernel-rules.rst for specifying additional
-> patch prerequisites:
-> 
->   Cc: <stable@vger.kernel.org> # 3.3.x: <commit>: <subject>
->   Cc: <stable@vger.kernel.org> # 3.3.x
-> 
-> See:
-> 
->   https://docs.kernel.org/process/stable-kernel-rules.html#option-1
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Oh.  Consider me educated.  Edited.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-> A Fixes tag alone cannot express this dependency. It does not specify
-> an additional commit that must be cherry-picked first. The documented
-> Cc comment provides both the prerequisite and the required cherry-pick
-> order.
-> 
-> Would this be sufficient for the stable team to pick up the prerequisite?
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-Hopefully.  I suggest you double-check when you get the emails as these
-are applied to the various stable trees.
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
