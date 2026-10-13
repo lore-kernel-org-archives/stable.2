@@ -1,125 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF67A4F68A9;
-	Tue, 13 Oct 2026 11:58:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CAA94F4757;
+	Tue, 13 Oct 2026 11:58:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892705; cv=none; b=GqKVp7pY5nRs9l/ZaUz6uHsMSBMiwyFOCxfEQTSGgahZ/IayWKjUbMGYndMj1v8z4I6aNPsTNMJ4VTX7RmXy+3fOUy+Fcx9hUwz1LC+5rfkhJMiVlcLaCWBSy5RFW9wJlGPEPYrhEi8i2fSNLB1B4aLKRZagsSAL2sM/PoT5Rwo=
+	t=1791892707; cv=none; b=pDrajSZZBn6UhDpjEk8obl9Wi94uDiZIPASUxGeBivDFP7p6JuTPCRoFraPnGPmNpBPv60woks2Fqokon2Kf22kASGzFbYIFbuHeqEj5xNwVa9v7Ngv/pw/z9PdbftquIjWYLFcVf01LL+ioWTSCnlFIYKcTNerhYsCpo9k+K0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791892705; c=relaxed/simple;
-	bh=ffRFtOeoz2x9iT//dRKuQr1HfXk/M22GXD42ZkPlwWI=;
+	s=arc-20240116; t=1791892707; c=relaxed/simple;
+	bh=pJNt5/IhWyhOjxeNW40zNDjN+UIFt7l8LvGFaJLmBdM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ajsvjw78pidvFn0iUTCsXodBTDLItvSpDA6jHgNGq7W82zUFNrMhFUD5ck9KLiYecgvCE3CutP3aD9MkqT8M3Gf+dc1p6J/T00wFCm/txpBUpgfzArhOzhYgqiJo9m+KYSNmACUqqIUobgicz+dv+rTIYPECtTD0PcDne+fG9DM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WS+kjYkY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=GgfaNhQvt3HZC4vIeQr3oigPs3MxDJ3SnVMfLpSdLE3F6KAkpTeqsm97/05WBu5SWdhIH2AEkAkFrD+mtmHoXGi3ZEKk0FresFaa3WJtPR9muaF+AHRSDNAR+weKxonokPvZl/B6N+V1jr6TNDkRwbcWvoOssxGAom6VzRGQ2XM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=beEAKW6+; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WS+kjYkY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09D4A1F000FF;
-	Tue, 13 Oct 2026 11:58:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791892704;
-	bh=jRVNNHSJrPX+3llSt8b1VL/u0dc1GOP9KtR3qEIs4e8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WS+kjYkYi9vwh0w8BWklXQXsCsJRMFjcpzMJe92MBFrTC7/4JSy7o/mYx4JEk0Zt2
-	 omg8eI+ETdByv38eWKfa3RCPCMLIAP25KGvaeumIcq10/wODYCLtMDcCn1wuuhIOku
-	 kJAzFwdrzS4mFyyvWr4CjXP0K2uMQSBoXc1FnHqg=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
-	Somnath Kotur <somnath.kotur@broadcom.com>,
-	Joe Damato <joe@dama.to>,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Michael Chan <michael.chan@broadcom.com>,
-	Jacob Keller <jacob.e.keller@intel.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 260/281] bnxt_en: Add bnxt_clear_bars() helper
-Date: Tue, 13 Oct 2026 13:39:36 +0200
-Message-ID: <20261013112901.451521823@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261013112855.045212108@linuxfoundation.org>
-References: <20261013112855.045212108@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="beEAKW6+"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=ZykDT+ldOzat3VDDIfdr94Z8vYDUwlbjCPKhDjwqAq8=; b=beEAKW6+D9+iNxOMMY0U47alwX
+	9IM+2guNvCmM+zaK7ZAK5V4YiBCz1N7/1xsrp9vpTMaI/swxy4BFxZ1ERfm4Gzaz0rsCcdpeznHQO
+	sQQwDsEM+rbxRo5GOQ4TRZBE+EojBkkWgWWr8StSUeWPl0Aj90lkeF7b5oLGWdmBQeqJsED7wHRCL
+	JcRIDDYZHZ9pSspM4AueDpJy68wDjkffQG6bbKTYypYB3tx0KItxaJWPRwExZrgtXrta3DWyb287W
+	YzCpuU5OOmnVq9Ee55bAgfaaFoXIdaOT/Kqi7+XkCggOd/1XRWLgFFZvQELYdn2mLIBPe3fgNiShW
+	8chlMX5A==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	Igor Paunovic <royalnet026@gmail.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	Jiaxing Hu <gahing@gahingwoo.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] accel/rocket: search every core slot when a core is removed
+Date: Tue, 13 Oct 2026 13:58:08 +0200
+Message-ID: <179189268363.3989522.7509478122641676060.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260904125936.26234-1-royalnet026@gmail.com>
+References: <20260904125936.26234-1-royalnet026@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
 
-------------------
+On Fri, 04 Sep 2026 14:59:36 +0200, Igor Paunovic wrote:
+> rocket_remove() decrements rdev->num_cores for each core it removes,
+> while find_core_for_dev() searches slots 0 to num_cores - 1. Unbinding
+> the cores in the order they were bound therefore loses the last one: by
+> the time it is removed the search range has already shrunk past its
+> slot, so find_core_for_dev() returns -1 and rocket_remove() gives up
+> without doing anything.
+> 
+> [...]
 
-From: Michael Chan <michael.chan@broadcom.com>
+Applied, thanks!
 
-[ Upstream commit 8f5d59b9cfa69beab3b52cca621bb301c5af98aa ]
+[1/1] accel/rocket: search every core slot when a core is removed
+      commit: 6eff1d69dae808a1518aee5a58d0853a8db3f1be
 
-In bnxt_io_slot_reset(), we clear the 6 BAR registers.  Add a helper
-function to do that.  The helper will be used again in the next patch.
-
-Reviewed-by: Kalesh AP <kalesh-anakkur.purayil@broadcom.com>
-Reviewed-by: Somnath Kotur <somnath.kotur@broadcom.com>
-Reviewed-by: Joe Damato <joe@dama.to>
-Signed-off-by: Pavan Chebbi <pavan.chebbi@broadcom.com>
-Signed-off-by: Michael Chan <michael.chan@broadcom.com>
-Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
-Link: https://patch.msgid.link/20261005204246.3822563-2-michael.chan@broadcom.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 386f887c8290 ("bnxt_en: Fix driver init in kdump kernel")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/ethernet/broadcom/bnxt/bnxt.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-index cad3bbe1b12f0..da35fec65d1b0 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-@@ -17066,6 +17066,14 @@ void bnxt_print_device_info(struct bnxt *bp)
- 	pcie_print_link_status(bp->pdev);
- }
- 
-+static void bnxt_clear_bars(struct pci_dev *pdev)
-+{
-+	int off;
-+
-+	for (off = PCI_BASE_ADDRESS_0; off <= PCI_BASE_ADDRESS_5; off += 4)
-+		pci_write_config_dword(pdev, off, 0);
-+}
-+
- static int bnxt_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
- {
- 	struct bnxt_hw_resc *hw_resc;
-@@ -17547,7 +17555,6 @@ static pci_ers_result_t bnxt_io_slot_reset(struct pci_dev *pdev)
- 	struct bnxt *bp = netdev_priv(netdev);
- 	int retry = 0;
- 	int err = 0;
--	int off;
- 
- 	netdev_info(bp->dev, "PCI Slot Reset\n");
- 
-@@ -17576,11 +17583,8 @@ static pci_ers_result_t bnxt_io_slot_reset(struct pci_dev *pdev)
- 		 * write the BARs to 0 to force restore, in case of fatal error.
- 		 */
- 		if (test_and_clear_bit(BNXT_STATE_PCI_CHANNEL_IO_FROZEN,
--				       &bp->state)) {
--			for (off = PCI_BASE_ADDRESS_0;
--			     off <= PCI_BASE_ADDRESS_5; off += 4)
--				pci_write_config_dword(bp->pdev, off, 0);
--		}
-+				       &bp->state))
-+			bnxt_clear_bars(pdev);
- 		pci_restore_state(pdev);
- 
- 		bnxt_inv_fw_health_reg(bp);
+Best regards,
 -- 
-2.53.0
-
-
-
+Heiko Stuebner <heiko@sntech.de>
