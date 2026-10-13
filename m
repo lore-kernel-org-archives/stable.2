@@ -1,166 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49DCB3C5826
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:10:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B66D6521216;
+	Tue, 13 Oct 2026 17:10:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791911413; cv=none; b=av84yxOfcDu7Y77o8KP3wlz8OzKE43GnWkrkSf1PLoEirFPYFdtAa20obBSEHGoVwrtCy5aB1VBIxjQuQedBmc61qys1BFmgY5EArsHJ5huJUifNdaIAQOh4x6/rHUSz3zKbcr8ZFKlEAeATQYjEHX1WDLCmB5g8006snoDFVbc=
+	t=1791911417; cv=none; b=i+T8Ej2qkna1Z2q4ORHI2eMJKxs1dTdqHf8IbpSTApy6qCFoekaDQ5L65YcIaRtw1OaXnZwbx+m76ABW0qjdBKjms6FEHgXOA85UhXlg+ikx53ubqAetBS5Stm5xGW/o09IJrcGU5bVtSMWuVPNMZVVBNGc+sjILVme/mT5zXpc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791911413; c=relaxed/simple;
-	bh=RpVQYpdCmbCezqO+sD4PmfNbdmwSCsyRifeAkaU1Ufk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HssThsmmCdAiJB2JkHBhfpXiaYl/v9g2W4Sk2Qn5bsqe42dI3VrHLGcshI4gS2HUM6U7xqGcX+AMBkcj+WP52IUMjWN5Djbo+azVDYxbC06hH3vVlYvWjFK6/5amaUssqWyGn8cq33G1jZRujLobcBpqt0+GqXp+q3K9VQmXrr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YCKjrSAS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791911417; c=relaxed/simple;
+	bh=31wSxNICfkmal3vU/eprJthAv0OgifKabJQZRPNxV7k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UTsTHRVhSiR1amWX35X3PBC8ONmykEm9y9lDzj3WEF3xjiIdiih+5iReS/QlCa4cJQoyokLfbS8oNeK9UMe+GgNdn+C8Fg5bdQdRof6A60T/UIkVyklThzXAYQViLq2iSaInMCOvnVAH0olAHVPCdKuAZt7N/TJX/Oimi5sN2jc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OIW2VPXQ; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YCKjrSAS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 401D81F000FF;
-	Tue, 13 Oct 2026 17:10:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791911411;
-	bh=V6LRfv8ML05HJQ4V/imxrXUvRmEgXi4xaG99xW8tmxw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YCKjrSASErODqiCgsom6omYe1rGj9qzhtXQWRCKftcCaefIrHFQkahpAlJe1GTO+z
-	 lIhfi+qKz3KD6VQa9yQrdBd1MTXHnDetENJwLaDAPThP9d1nGyE4r7+qIhy3afymzz
-	 uTBI9eR5/0vQwqCpD2Xk/6wsFUMngJhP+6z49AYhtcwnKUUV6WFCfvK1Vg1ZW62VPQ
-	 KOX0YX95uEYpnOBc1zoPkUr2atSfJdTqrVztWajLTn2H76fKYcWJ7NUpLr3NTb9Ih5
-	 rBMNZtizNXnEkl/tiXrA7FHwu1qHXDuVQQrN5nX+pzmtvj7RNYK1QN3T+Hb24cW8af
-	 X2BAdzFNTnMAg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Krzysztof Karas <krzysztof.karas@intel.com>,
-	Andi Shyti <andi.shyti@linux.intel.com>,
-	Jani Nikula <jani.nikula@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] drm/i915/gt: Unmask interrupts only when ACTIVE is true
-Date: Tue, 13 Oct 2026 13:10:10 -0400
-Message-ID: <20261013170953.408416-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101215-poem-latter-1f1d@gregkh>
-References: <2026101215-poem-latter-1f1d@gregkh>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OIW2VPXQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791911416; x=1823447416;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=31wSxNICfkmal3vU/eprJthAv0OgifKabJQZRPNxV7k=;
+  b=OIW2VPXQwRv0rlDyNyDJNswUyLSy7pd7Q9roc+QyRDCrjSdahYKVD0jN
+   i5lNx8zlq+duIDgVqu/Lx3tvKO+XGaPH1OcBgnqOv0fe6iPmzErs7AfHC
+   PhHv3Y+a4bNLtkZGu1cWk08rnNnPFpxIxr4ohObhKfezia23LMYujb+Pa
+   yr7hsSbLKzCnFkW8nMi/YRVTuXFai3VuX+qD7Q+9JS7xetb7Lef6aPq2+
+   vNFhwKFaioWonVElnSlob5Um6cLNKVvCEPaq0kbh8lfyjx6z/RfD/sNDu
+   Qr4J4s/e6CVw+mcj8W+nydT2/uvG4MAygI6GZpBWR9TvNeEzuRrQRMyAW
+   A==;
+X-CSE-ConnectionGUID: CqCjNvZCS5m5qIKQzQpWXA==
+X-CSE-MsgGUID: mza4WC9ITWOiYhgXaqpb7g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="739432"
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="739432"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 10:10:15 -0700
+X-CSE-ConnectionGUID: +uj1hekMSVmlGCrwEtJFgA==
+X-CSE-MsgGUID: cIZRl4ylRMqq5Fv/h+mL0Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="1105737"
+Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.109.235]) ([10.125.109.235])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 10:10:15 -0700
+Message-ID: <e6d4933a-f448-450f-a85f-16d2bb459a50@intel.com>
+Date: Tue, 13 Oct 2026 10:10:13 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dax: fix dax_core_init error return code
+To: jianyungao89@gmail.com, linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org, Dan Williams <djbw@kernel.org>,
+ Vishal Verma <vishal.l.verma@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ "open list:DEVICE DIRECT ACCESS (DAX)" <nvdimm@lists.linux.dev>,
+ "open list:DEVICE DIRECT ACCESS (DAX)" <linux-cxl@vger.kernel.org>
+References: <20261012151857.22534-1-jianyungao89@gmail.com>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20261012151857.22534-1-jianyungao89@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Krzysztof Karas <krzysztof.karas@intel.com>
 
-[ Upstream commit 5346b1cec6afa4f9b4b49a9f84e3cfef95a3f7bb ]
 
-There is a small race window between intel_rps_boost() reading
-a stale ACTIVE state and queuing rps->work, where ACTIVE may be
-changed via asynchronous calls triggered by wakeref drop.
-This means that rps_work() could be triggered after the GT has
-been parked, so unmasking RPS PM interrupts would happen without
-holding PM wakelock. This sequence of events may be observed
-during live_rc6_ctx_wa() selftest:
+On 10/12/26 8:18 AM, jianyungao89@gmail.com wrote:
+> From: Jianyun Gao <jianyungao89@gmail.com>
+> 
+> dax_core_init() mistakenly returns 0 on error paths. Change the
+> error return to use rc so the actual error code is propagated
+> to the caller.
+> 
+> Fixes: 9567da0b408a ("device-dax: Introduce bus + driver model")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
 
-1) live_rc6_ctx_wa()
-   -> intel_engine_pm_put()
-      -> wakeref_put()
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
 
-ASYNC1) wakeref_put() callback
-          -> __engine_park()
-             -> intel_gt_pm_put_async()
-                -> intel_gt_pm_put_async_untracked()
-                   -> intel_wakeref_put_async()
-
-ASYNC2) wakeref_put_async() callback
-          -> __gt_park()
-             -> intel_rps_park()
-                -> intel_rps_clear_active() [clear ACTIVE]
-                WITH INTERRUPTS:
-                -> rps_disable_interrupts()
-                   -> cancel_work_sync(rps->work)
-                   -> rps_reset_interrupts() [rps->pm_iir = 0]
-                WITHOUT INTERRUPTS (TIMER mode):
-                -> rps_stop_timer()
-                   -> cancel_work_sync(rps->work)
-
-2) live_rc6_ctx_wa()
-   -> intel_gt_wait_for_idle()
-      -> intel_gt_retire_requests_timeout()
-         -> dma_fence_wait_timeout()
-            -> ops->wait() [i915_fence_wait()]
-               -> i915_request_wait_timeout()
-                  -> intel_rps_boost()
-                     -> intel_rps_is_active() [check ACTIVE]
-                        [OPEN RACE WINDOW]
-                     -> queue_work(rps->work)
-         -> retire_requests()
-            -> i915_request_retire()
-               -> intel_rps_dec_waiters() [from 1 to 0]
-
-If ASYNC1 and ASYNC2 would execute during [OPEN RACE WINDOW],
-then:
-
-3) rps_work() executes from the workqueue and may satisfy
-   "(!pm_iir && !client_boost)" test (in TIMER mode rps->pm_iir
-   is zeroed by an earlier rps_work() call or never gets a new
-   value after previous intel_rps_unpark() event), so it jumps
-   to "out" label, bypassing intel_rps_is_active() guard and
-   executes gen6_gt_pm_unmask_irq();
-
-4) GT is parked and runtime PM wakelock is dropped, so only
-   a raw reference in __gt_park() ->
-   intel_display_power_put_async() remains for 100ms, then the
-   MMIO write in gen6_gt_pm_unmask_irq() detects missing
-   wakelock via assert_rpm_wakelock_held() and emits
-   "RPM wakelock ref not held during HW access" tainting kernel.
-
-Commit 3e7abf814193 ("drm/i915: Extract GT render power state management")
-dropped the "if (rps->interrupts_enabled)" guard that
-gen6_pm_rps_work() had around this unmask in i915_irq.c.
-INTEL_RPS_ACTIVE brackets the same window, since it is set in
-intel_rps_unpark() before rps_enable_interrupts() and
-rps_start_timer() and cleared in intel_rps_park() before
-rps_stop_timer() and rps_disable_interrupts().
-
-Skip unmasking when RPS is no longer active (reaching unmask
-operation is independent of INTERRUPT mode). This does not
-prevent RPS operation from resuming on the next unpark.
-In interrupt mode, intel_rps_unpark() calls
-rps_enable_interrupts(), which enables and unmasks the PM
-interrupts. In timer mode, it calls rps_start_timer(),
-restarting periodic engine-busyness evaluation. The timer
-generates software RPS events and queues rps_work() directly,
-independently of PM interrupt delivery. Neither mode requires
-the late worker to unmask interrupts while the GT is parked
-
-Fixes: 3e7abf814193 ("drm/i915: Extract GT render power state management")
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16562
-Cc: stable@vger.kernel.org # v5.5+
-Assisted-by: GitHub-Copilot:claude-opus-5
-Assisted-by: GitHub-Copilot:gpt-6-astra
-Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
-Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
-Link: https://patch.msgid.link/20260910081329.3300417-1-krzysztof.karas@intel.com
-(cherry picked from commit ca4a6deadad15b91ee083afe445fa6bdbfb68206)
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-[ sashal: Retained `&gt->irq_lock` in lock/unlock calls because the lock is stored directly rather than as a pointer. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/i915/gt/intel_rps.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
-index 0a03fbed9f9b7..3f2101885cfcc 100644
---- a/drivers/gpu/drm/i915/gt/intel_rps.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rps.c
-@@ -1752,7 +1752,8 @@ static void rps_work(struct work_struct *work)
- 
- out:
- 	spin_lock_irq(&gt->irq_lock);
--	gen6_gt_pm_unmask_irq(gt, rps->pm_events);
-+	if (intel_rps_is_active(rps))
-+		gen6_gt_pm_unmask_irq(gt, rps->pm_events);
- 	spin_unlock_irq(&gt->irq_lock);
- }
- 
--- 
-2.53.0
+> ---
+> 
+> Changes in v2:
+> - Drop unnecessary goto label, keep direct return for dax_fs_init() error
+> - Add Fixes tag and Cc stable
+> 
+> Link: https://lore.kernel.org/lkml/20261011132017.31131-1-jianyungao89@gmail.com/ # v1
+> 
+>  drivers/dax/super.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/dax/super.c b/drivers/dax/super.c
+> index 45f84b0eb909..210f4af479f0 100644
+> --- a/drivers/dax/super.c
+> +++ b/drivers/dax/super.c
+> @@ -738,7 +738,7 @@ static int __init dax_core_init(void)
+>  	unregister_chrdev_region(dax_devt, MINORMASK+1);
+>  err_chrdev:
+>  	dax_fs_exit();
+> -	return 0;
+> +	return rc;
+>  }
+>  
+>  static void __exit dax_core_exit(void)
 
