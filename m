@@ -1,164 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 279F0364935
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89D92D73B8
 	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 00:58:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791853127; cv=none; b=KLMDXPgkeBG0YaYmrEzRVTQAiNFvj50EY8xjflab0T8EGz0qqG8gZcyQLmbDXZynx+BI6Yh//vx3cRQEVMzM7IF67MKWk8gdz8jpcYWkOlqOYnomwJFMMNW4s786pmddb2mq4qKBiC5VfjFTGlDZFD50ZxFS7YM38uYwxsKixZs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791853127; c=relaxed/simple;
-	bh=heWcCHPmqXzlQ5yQRsra+9y1HwWq7w4MR38QyLtFc44=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fl2AegSvADLQpJz3rSI7PhtS4OMUDAGUbwOnKYlkfwfopkzOMz7UFLZEwBSMpHe79Xu5SaV84WIARV8ETOkgOFwzyFL4UquXEpc0mqawXvzokltWRlAV8JZhO/wNAyylYnqpGHLDCUrepieDP6UWkn8+jH2MhCrz9S/5ocrYwhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WMFnafwh; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791853128; cv=pass; b=pF3PMUZeLD60LMLZbjzIv64Wys184dyf+zu7w6v+V+kpdPlk+RSHEtGFbxyTjlg6PicHKFU7Qlfn1Qbvfl1Va+I0EqQpTiPt+NqyXizFxpaVg91zU+/Qq1o4I2Zq1qhb+tB17u4viV0gsjHDcQ5+LnhcOIPazGZnQLtfIFvhNe0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791853128; c=relaxed/simple;
+	bh=k4uBOr3fUC9C9V/2LEU8KbJ93ho9bjIXmyZyw7xe/xQ=;
+	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nw92op9Ke8hn2lpNOuJQP9I7CYpNfat43Rm1j+EBXgnJeBlzLmRZgV7CPJd537F0mWVDNXLrhag4Xy1gARsOn6MhNmNkngArwFlpb6oDwZ3FZEnWtHAxbesFHS/Zt+3X3z+/KdY+hr50K4Bq+dh2IABT/wAi1W7kQnM4gYnbQKk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr; spf=pass smtp.mailfrom=khu.ac.kr; dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b=BMtkzgR9; arc=pass smtp.client-ip=209.85.167.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=khu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WMFnafwh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6921D1F0089B;
-	Tue, 13 Oct 2026 00:58:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791853125;
-	bh=lS+noAx85Og/x7eKYSiZng6mGQ0RegZIQQSA9qUfR+s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WMFnafwhW2J89v1rgl+YSOKy9Ux6Fzy1IZq81wXBRdgNmo48Qj3mavedIBfKaELd6
-	 vDXRUY+FJmWGq2QROtsgSd5B61GrlCLX7Rr8ZONpc8ozYADpSItGSCRveS1HrafQLm
-	 1kQEAotgnFXWvwKdIpwXsc5ziT2YJ53T/x2AnVE8+XzSrmsVc0dVeNEK2q3cLUSiXE
-	 cS6Gw+qjc+KB7SOEyD2HymXS71g6iLqgaUKInqJYyboRLRUn/ty6FheJwSVLRV0SEn
-	 HwQrM6oliIw24b+RFUSmbi8LaEwub6MJMU2LyffuM4O+rJb3LJnQSLuE5oewdG4Bkc
-	 nO5HUe3ZDiT3Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Brian Geffon <bgeffon@google.com>,
-	Minchan Kim <minchan@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] mm/mremap: fix locked_vm leak by splitting VMA for MREMAP_DONTUNMAP
-Date: Mon, 12 Oct 2026 20:58:43 -0400
-Message-ID: <20261013005814.2346821-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101247-outage-wrinkly-2ff5@gregkh>
-References: <2026101247-outage-wrinkly-2ff5@gregkh>
+	dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b="BMtkzgR9"
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5bcb6faf862so1767183e87.2
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 17:58:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791853123; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kyBzXsifkaXowrKour0gGnDvgD1NruEsYuyL8xeiG5j80XPaMqk5+qLeg5yYitvIW9
+         JjxWK0x86ReMRTAZQbOHWbXLTDgNA+YoTEN7bz9w1iDdZDkyfNny+vkoUwVv/XlyZnFm
+         JuEnrrOMKpLY/BLmaHTHHoJhbh34wWyzecV+q5nSwVQKSW+lAXTgMyor7UtXLCLq85AL
+         BxovYAJMULZ0v4i3i+uVd7LFd5KerW3hI6K3I00ICQTos0NBqnSQwKdmhAUMr1Z0S2fC
+         ykZE7AqPY32x10Yg5pC5fspJzTobbekAV7uiULQ5yF+sx3qmNExclpKzDnTwBHqRawYB
+         47EA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:references:in-reply-to:from
+         :mime-version:dkim-signature;
+        bh=0wOhigAERgw/ecq9Zfp4x327PQ7aRIqMRodPt/se31w=;
+        fh=+H3hPjQ9II7oN5PxrSIvXfTepoJRi0Fu8NiQSY+LcbM=;
+        b=SeEzSxM4RbQKrKISySthbua8qrKnAJlnLKE4/aPSIo6N0KYV325t72/A9BrDre/ERB
+         +8afrTpiikNNBCylZYjSqg3IqZ0vVViYMXMjQ6CQSJxCGoik3nRrfBBcI6k/J83A33cy
+         TA001t94Ynl3KNOT2YhNJgeS89HyNfwX43LzYkxGSqhR18MSm4fR7UBUurprITRAsuxx
+         RtV/BKai8AT6cgieSDgWlRxJgvbY6JQCre2E+caTkwrn0DHdjszl9L9/oQTJXvD5imm/
+         fPSWzoKYLB5KGpOODactDsE6CAnTNEnB02WSRkXOwsTNW1ufux7r4BO3mvuskRMQGxF6
+         Q+Yg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=khu.ac.kr; s=google; t=1791853123; x=1792457923; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0wOhigAERgw/ecq9Zfp4x327PQ7aRIqMRodPt/se31w=;
+        b=BMtkzgR9AyZ2IkE6qpDGPnMWdFbq/no756w7o58F1IxN0ulDLrxzXRlpH+bgKG1kXn
+         ZkoFrAhqXXnKT9U/iFKiN5nbvcl1MZT5XUXnt/pNuaMantJfrlaUAyISTCm8ejPyh78G
+         gRa/YfGRIn6GmIwKJz7tJcSswfp+Tis5FQBcU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791853123; x=1792457923;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0wOhigAERgw/ecq9Zfp4x327PQ7aRIqMRodPt/se31w=;
+        b=MHbCV60YTlDy+a4Sx2ib2R7dE000AIEMiFVv2Cm0Ny0f7I839FZtj+w92ZUWuRamxx
+         RhXU8kKIqzXHTxUgSBMp4PcYsKds4Bx79aOnUgTu3Ght3Zk9gGSpACV9OSSWxCLIASnh
+         K3FNqzOOLldu9sXnasjba5OAp2z7k5g/1Xx93Z4ectbvAsZG38GVByys3fN0aBzdVj0w
+         2yD/ebbbkfGRP96bCG27FIYB68YT/wQxWChHcDFUytKfJ9lGzVXbbQOD9nDuUkpk/sI+
+         wAcdoYH1rqrSR5vgsp63p7oE14bDxZhLC0KAQqhYCFXMEw9gYeqW/JHGNQXMy0jV4Wce
+         qKVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzhlHyNz6PpIbfjrKAz0aitJ/DtGD0wMO1vodd5usib9PTojAU4BTHzUDpV6udAcLFKj3HDFAc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIKqKE9js8aM1x8aALtILu9XrMpB04jGBOc2EjGQhgRRT/Ut7qO
+	9n5PR8i4GwbQnXZG5nvwFdogTga4y9cp7xZ0j5MoVw5BLj2xp7I2IdrpP+exF9n6m/N6bOPf5uG
+	Q9RDq75yRdKRj9vpxp6y4GOrJm40ekmh3WnQrnjt+IjvOG7BFLwMgCuM=
+X-Gm-Gg: AYBFou2yfjlcul57koPSjYunwG5tj5IG/N+OLkhkQmANEIAdsQhPeoVydPNjuNmRttM
+	hSqqjcGFNupFKXhsYA7kT07ES3bhlvWf7WRh6Bj97W8DqFz1HLIRvkTCJ/uNBf8Rnrm8za/0hCU
+	jkpD+ydC+EMhu5jgPjOcU+HvS36nEJriXepc4f7n3d59CSSnzpIxt6JhchtNZjxQCP743ql/x4M
+	SorPWyiVNB74lNejSZPsXFGrHkjDbU8eogFFmb28VSlua2K4azs+Itnjcfmwuc1mKtTUSrwapUT
+	eQYLvbkB4yPTKb1qYwfxwWWNTQPu6ozVhkBU+6+057iWriQoVKEu98zZwc9IDBX0/8buhP18QjU
+	EFb62gOphPX+mPpkLFhxgIhnn8lnPJ1P6sZM=
+X-Received: by 2002:a05:6512:696:b0:5ba:3339:6f6b with SMTP id
+ 2adb3069b0e04-5bcde6bcb06mr3984876e87.20.1791853123500; Mon, 12 Oct 2026
+ 17:58:43 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Mon, 12 Oct 2026 17:58:43 -0700
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Mon, 12 Oct 2026 17:58:20 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
+ Tue, 13 Oct 2026 02:58:08 +0200
+From: Kim Wooseok <5mghybrid@khu.ac.kr>
+In-Reply-To: <04d26f79d5984920a9584d3f31ec3b58@realtek.com>
+References: <20261010-rtl8xxxu-usb-dma-v1-0-e670d9c08fdf@khu.ac.kr>
+ <20261010-rtl8xxxu-usb-dma-v1-1-e670d9c08fdf@khu.ac.kr> <1fc8c339df1944afa6186197337edda3@realtek.com>
+ <CAH1Bc_yOhZ9oqreJOLKb5RDFEW=0Zid=h4xu9oTR51RDwj_bww@mail.gmail.com> <04d26f79d5984920a9584d3f31ec3b58@realtek.com>
+Date: Mon, 12 Oct 2026 17:58:42 -0700
+X-Gm-Features: AclHuK_Ifxw9QoHyehe9vofNrat2BMmKWVVJ1nmld41C-se66_6KTgRsHhz1IK0
+Message-ID: <CAH1Bc_wUq2Nmhvd9q85JP+KyCYHB_xqStfmo6ZirOxOkXzAg9A@mail.gmail.com>
+Subject: Re: [PATCH rtw-next] wifi: rtl8xxxu: isolate the USB register buffer
+ from CPU state
+To: Ping-Ke Shih <pkshih@realtek.com>, linux-wireless@vger.kernel.org
+Cc: Jes Sorensen <Jes.Sorensen@gmail.com>, Kalle Valo <kvalo@kernel.org>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Hi Ping-Ke,
 
-[ Upstream commit 597e4b9ab48a3f841080f627722064853d3f650e ]
+> Does it mean that data in a cache line can't be modified while a USB
+> transfer? Even the data isn't a part of transferring data.
+> How can it affect the transfer?
 
-The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
-operations that keep the original VMA in place.
+Yes, in this non-coherent DMA case, even modifying bytes outside the
+transfer buffer can cause corruption if they share its cache line.
 
-Historically this has led to a lot of bugs where non-obvious interactions
-occur between existing mremap() operations and the original VMA.
+On the affected Pi, the 4-byte usb_buf shares a 64-byte cache line with
+the mutex's waiter state.
 
-Fix another of these - partial copies.
+The important detail is that a task waiting for the mutex still updates
+its wait list before acquiring the lock. So the mutex serializes access
+to usb_buf, but its own waiter state can change during the transfer.
 
-The long-standing mremap() partial VMA logic has the baked-in assumption
-that the originating VMA is unmapped and thus moved.
+For example, suppose the buffer initially contains 10:
 
-However MREMAP_DONTUNMAP defeats this by performing a partial copy
-instead since it keeps the source VMA around.
+1. Task A holds usb_buf_mutex and starts a USB register read.
+2. Task B tries to acquire the same mutex and joins its wait list.
+   This can bring the shared cache line into the CPU cache, including
+   the old buffer value 10. Updating the list makes that line dirty.
+3. The USB controller writes the new value 20 to RAM via DMA. Since
+   this DMA is not cache-coherent, the cached copy still contains 10.
+4. If the dirty cache line is then written back, the old buffer value
+   10 can be written back along with the updated wait list, overwriting
+   the value 20 from DMA.
 
-An mremap(..., MREMAP_DONTUNMAP) operation disallows resizing of the VMA,
-but the operation can be performed partially:
+Task B never directly touched usb_buf, but the writeback operates on
+the shared cache line. A subsequent register read-modify-write can
+then propagate that incorrect value into the hardware configuration.
 
-                           |-----------------|
-                           |                 |
-                           |                 v
-                        <------>          <------>
-                        .new_sz.           new_sz
-                     |--.------.--|       |------|
-                     |  .source.  |       | dest |
-                     |--.------.--|       |------|
-                     <------------>
-                         old_sz
+I think one possible overlap during a rescan is between the
+channel-change path in rtl8xxxu_config() and the periodic
+rtl8xxxu_watchdog_callback(). The watchdog runs every two seconds
+and may update frequency correction settings through
+rtl8xxxu_track_cfo(). Both paths use the same register buffer and
+usb_buf_mutex, so the watchdog could join the wait list while the
+channel-change path is waiting for a USB read to finish.
 
-The page tables in the specified range are moved, but the original VMA is
-kept intact.
+Allocating usb_buf separately removes that sharing. The mutex still
+serializes register accesses, while updates to its wait list no longer
+affect the cache line containing the DMA buffer.
 
-This interacts poorly with mlock()'d VMAs, as the VMA_LOCKED_BIT flag is
-cleared for the entire source VMA and set for the entire destination VMA.
-
-This results in an mm->locked_vm leak as the change is therefore not
-accounted correctly.
-
-The clear solution here is to make the portion of the source VMA which is
-mremap()'d distinct from the rest of it, a.k.a. split it.
-
-Therefore resolve this issue by splitting it ahead of the rest of the
-mremap() operation if the VMA is mlock()'d.
-
-This is valid, as the source VMA will lose its VMA_LOCKED_BIT flag, so if a
-partial remap it will become distinct from the rest of the VMA.
-
-In order to make this change re-expose split_vma() in vma.h for
-CONFIG_MMU (nommu doesn't compile mremap.c and uses a static helper
-instead).
-
-Finally, update the sys_map_count check to account for this case.
-
-Note that the early check does not use needs_pre_split() - this is because
-the VMA has not been looked up by this point, so be conservative and assume
-that the VMA is mlock()'d in this case for the purposes of the
-sys_map_count check.
-
-Link: https://lore.kernel.org/20260930-fix-dontunmap-partial-self-merge-v2-2-f388985a0f0a@kernel.org
-Fixes: e346b3813067 ("mm/mremap: add MREMAP_DONTUNMAP to mremap()")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Brian Geffon <bgeffon@google.com>
-Cc: Minchan Kim <minchan@kernel.org>
-Cc: <stable@vger.kernel.org>
-[ sashal: Replaced upstream VMA preparation helpers with inline logic in move_vma() using the existing split_vma(mm, ...) API. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/mremap.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 3334c40222101..8d8b39f821380 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -366,6 +366,19 @@ static unsigned long move_vma(struct vm_area_struct *vma,
- 	if (err)
- 		return err;
- 
-+	/*
-+	 * To account mlock()'d pages correctly in the MREMAP_DONTUNMAP
-+	 * case perform any split ahead of time for an mlock()'d VMA.
-+	 */
-+	if ((flags & MREMAP_DONTUNMAP) && (vma->vm_flags & VM_LOCKED)) {
-+		if (vma->vm_start != old_addr)
-+			err = split_vma(mm, vma, old_addr, 1);
-+		if (!err && vma->vm_end != old_addr + old_len)
-+			err = split_vma(mm, vma, old_addr + old_len, 0);
-+		if (err)
-+			return err;
-+	}
-+
- 	new_pgoff = vma->vm_pgoff + ((old_addr - vma->vm_start) >> PAGE_SHIFT);
- 	new_vma = copy_vma(&vma, new_addr, new_len, new_pgoff,
- 			   &need_rmap_locks);
--- 
-2.53.0
-
+Wooseok
