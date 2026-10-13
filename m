@@ -1,115 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F61953ED0B;
-	Tue, 13 Oct 2026 19:26:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791919562; cv=none; b=TGTRBQWxI9Qdz/8yWRCiCuCIRFIfuN3hCzrmWCE4+pEHcREy3OQrhYY4tGPHCIqMDuX7JuvbvZrkAJKS6NEgwmsZ5iR84FfMampzp/5Az63kcn6RUdDLWpDEq80hieyp7iFRl5jajK1oZ+bb5ae7xMOmRczbcputA/HLBcXKzI4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791919562; c=relaxed/simple;
-	bh=O2WfSHA5BqmJQAhI3glLScjeo8JowpQjhgl4D+5znds=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jCKx/cFWdzbpa6+qoNmvLM0yLjvwUDDhpC22SAYaccnIbAW2ezJk0f4KsF2hdXMi+s1S9L/+csNg1xpBiZ1w92DNBTexGOpwqp1mxsdttw2a7k03ku5ZG3Wpme3/1s+ceDCEHrVehir86TrRc55VEKM6TbhA3VcKrzEwjJ7C91w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LEQ4jgJr; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1314A8A12;
+	Tue, 13 Oct 2026 19:26:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791919618; cv=pass; b=dv228XClq4PTq4DnyAlr4cOVWtNSUDII2pn1HPQiHQbJ0e7RRqwqGR7I6pPAOqsXMW7pVjaZmZsKMLE4GSkqvc6u/dTEoVzeMFXhPxkAp3sp3+ehpyQZemt9hTXTeS17AHrmRfKrfjZ5i4LBwlWm1T6fAAkJ/ZIH+ZZXb4bcavc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791919618; c=relaxed/simple;
+	bh=7L2LUduwdjvDLlykNwu57vo798DN5qlPDEDY+cv++V0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cx+B9Qi9CAbXvcwW1H0sD7badV8iMU0EbJujD9ofpBviPt61wLhglNNCdOGzQS2tsaoMkngowictfIBjuyPu7SeaJnzmXSTYhoLMyvTanHJc6mWKi/+nWz80uMg0chIJb3/wg36HUIVaXeHULPMlBwReBrGmqjmzmjsbc6UINsc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=Hyb77tmm; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LEQ4jgJr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA6C61F000FF;
-	Tue, 13 Oct 2026 19:25:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791919560;
-	bh=q3/jPWbD4Y65ng+PTGU9BYhfLvNaBq2HBFRRf6YGolQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LEQ4jgJra/xBSGA0p1PCZ+WwEZAZgvu+Q5WPbH7rK9mmcFgJ8tHQ2YH29qmbx5KdP
-	 U5IfMxG4ZWnMNMHzWJsYqQufelcGHfg0O06CqNvnQpy+MCGdA3FkbScCSF/ZrtQJ38
-	 2ZzzZxwY0wVO0FUTQsEFWoQd6fm7Pt0xacEcpSz8/gFyCKbYLb0cqM9iQwopsZBBAo
-	 PoFpG3N8mzCdgLYVkj6XYnRfdzBXqcWC/ya/TxuoKk17CRCttnfSoLIxJoRLiGavJ4
-	 fe4QirKOIpIGuo9JevjIjMz29JbxJxD0am0zmRpYYolRErE62oD++XiuzeG3kGREtq
-	 m5t2vRlyVTqUQ==
-Date: Tue, 13 Oct 2026 21:25:55 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Jan Kara <jack@suse.cz>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, linux-ext4@vger.kernel.org, linux-afs@lists.infradead.org, 
-	v9fs@lists.linux.dev, linux-trace-kernel@vger.kernel.org, ntfs3@lists.linux.dev, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 0/8] fs: fix a range of UAFs during rcu pathwalk caused
- by non-rcu frees
-Message-ID: <20261013-hektik-kommunal-zischen-f7e37ee3ddff@brauner>
-References: <20261009-work-fixes-rcu-v1-0-7446d2d335e6@kernel.org>
- <r72foycb4ol4hywl5m2sj6h6yxee3nladaw7g2zdxhejmhrkgc@v24cfppcak2h>
- <20261012-gaukeln-zeltlager-etikettieren-73ae50ccac01@brauner>
- <voobrqryqulmrq7gyt5vdwuiqd3wrhsrgfcadszclcgs6smw64@qb7yne64airm>
- <20261013-tante-unwiederholbar-summieren-de1079d8fb05@brauner>
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="Hyb77tmm"
+ARC-Seal: i=1; a=rsa-sha256; t=1791919604; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Lv0EiGwEsXPaX3/rXFIdXIpJf/6NF882tsPOHOXEgNbShFGCpawi2jlDUuVZYbM5gzbSiLhpFB5Pr8WyYfoPbo0qnHoqpJD3bTTcCe9U4XAWJM2RsClE8viEZ0RKyH2zGpvpwmLQ759lCQqbm6Tq/SEbk2dzgqaN/w/Leb2Z7hU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791919604; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=h/tMn+T6Wlw9vmSCmnp+MuQO758YUfPhORdaTlw2Ebs=; 
+	b=NgCUhFnqEc5PiYiikKsXagWQkhlB8AXS9T87CY6yIMv5TN66f8uHyFsTlk2dkw/samRD8hEyKgLBvrA+KWGJQ7G3UJsEyZnwtFlOVNuoKx+khdBoLtBVs0NIml6yA1yBDaBFUEnk+YAhFTaScEJfV9/ZbufH1Ns8HUWRxI2vjVU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791919604;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+	bh=h/tMn+T6Wlw9vmSCmnp+MuQO758YUfPhORdaTlw2Ebs=;
+	b=Hyb77tmm0A3vq3Pb/CEOYzfHAORGJGuNJ3lqGNuIUG2Jvne2R0Ny8K/JaoGg9YFt
+	yt5rjf+Yu6Kj2iEC9sLC65XzbjzSd9i1t2ZvyH46ixykTeVj8TNRUxetPOyCUQ7CnPf
+	LWciQ7mA+9CICcG82mKD2vLXxGkRZ/SE+W8GcsZ/ETASJawb0IbsbzFIP6yKzyOFN5a
+	sP1T+ureOyAYEmiwFjvBIwFX7fFvgD3JhL3uKkIPztNXzGHznus2/Vp/dgucbnwl0iG
+	TDZs9n1SOvRjRCwGdaZYsrgh28+eDyWXBxT/4lLecJqDJ4cUAxyA20TBB6cIN5SGWpD
+	74bxb4gZLw==
+Received: by smtp.zohomail.com with SMTPS id 1791919600234687.7503413524335;
+	Tue, 13 Oct 2026 12:26:40 -0700 (PDT)
+From: Rong Zhang <i@rong.moe>
+Subject: [PATCH v3 00/12] platform/x86: lenovo-wmi-{other,capdata,helpers}:
+ Improve robustness on faulty firmware
+Date: Wed, 14 Oct 2026 03:21:43 +0800
+Message-Id: <20261014-lwmi-wmi-new-api-v3-0-e1032bed1c81@rong.moe>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261013-tante-unwiederholbar-summieren-de1079d8fb05@brauner>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22OQQ6CMBBFr0K6tmYYCrSuvIdxUaGFGimkxaIh3
+ F2KiTHRxSx+8t/7MxOvnFGeHJKZOBWMN71dQ7ZLSNVK2yhq6jUTmQOTAgW9TZ2h8ayaqBwM1Xn
+ GWM245IUkKzY4pc1jU57O7+zvl6uqxuiJjdb4sXfPbTOksUcQsACRsl99SCnQUjIAjboQmh9db
+ 5t91ysS7QE/fArw572AK88AOfKMY1GKL35ZlhewVJjAAQEAAA==
+X-Change-ID: a504a929-lwmi-wmi-new-api-f5344d48a86a
+To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Armin Wolf <W_Armin@gmx.de>
+Cc: Charles <hanker007@gmail.com>, 
+ Navon John Lukose <navonjohnlukose@gmail.com>, 
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Rong Zhang <i@rong.moe>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-73bef
+X-ZohoMailClient: External
 
-On Tue, Oct 13, 2026 at 09:23:07PM +0200, Christian Brauner wrote:
-> On Tue, Oct 13, 2026 at 12:47:58PM +0200, Jan Kara wrote:
-> > On Mon 12-10-26 12:42:06, Christian Brauner wrote:
-> > > On Mon, Oct 12, 2026 at 12:36:15PM +0200, Jan Kara wrote:
-> > > > On Fri 09-10-26 23:51:50, Christian Brauner wrote:
-> > > > > While working on eliding the grace period in namespace_unlock() I went
-> > > > > through what filesystems free when they're shut down and what a pathwalk
-> > > > > in rcu mode can still read at that point. Since 66a97c2ec953's rcu
-> > > > > pathwalk fixes that's the filesystem's job. Whatever ->permission(),
-> > > > > ->d_revalidate(), ->get_link(), ->d_hash() and ->d_compare() look at in
-> > > > > rcu mode has to be freed after a grace period. A few filesystems don't
-> > > > > do that.
-> > > > > 
-> > > > > Most of it is hidden by umount(2). namespace_unlock() waits for a grace
-> > > > > period before it drops the mounts, so a walker that was inside the
-> > > > > filesystem is gone by the time the filesystem is shut down.
-> > > > > 
-> > > > > But the last reference to a mount doesn't have to go away in umount(2).
-> > > > > A chdir() out of a lazily unmounted directory or the close() of the last
-> > > > > file on it drops it without a grace period. A walker can then still be
-> > > > > in the filesystem while ->put_super() and ->kill_sb() free what it
-> > > > > reads.
-> > > > 
-> > > > Good catches! But I find it very counter-intuitive that pathname lookups
-> > > > can still be running against a filesystem while its ->put_super is called.
-> > > > People will keep forgetting about that and as a result these UAF bugs will
-> > > > be introduced again. Isn't it feasible we'd guarantee to the filesystem
-> > > > ->put_super() gets called only after all lookups are done (i.e., after RCU
-> > > > grace period expires)?
-> > > > 
-> > > > I understand this is a hairy bussiness because this has userspace visible
-> > > > implications (like when filesystem's sysfs files disappear, when the bdev
-> > > > really gets unused, etc.) but keeping all filesystems safe to run RCU
-> > > > lookup after ->put_super() will be IMHO a headache.
-> > > 
-> > > I don't think delaying put_super() or freeing the superblock helps.
-> > > That's not where the issue is. The issue is with sb->s_fs_info being
-> > > available after a grace period and that can go away in different
-> > > locations ->put_super() or ->kill_sb().
-> > 
-> > So my thinking was: Cannot we separate the teardown of mounts and the
-> > teardown of the sb by an RCU grace period? Then by the time the filesystem
-> > gets to any freeing of filesystem related structures all RCU lookups are
-> > guaranteed to be done so there's no problem with them accessing possibly
-> > freed structures pointed to by the sb.
-> > 
-> > But then I've read more of the changelogs and AFAIU getting rid of the RCU
-> > grace period waiting in the unmount path is actually your point to speedup
-> 
-> So I prototyped your thing and all version I could see working end up
-> penalizing umount and filesystem shutdown quite heavily. Maybe I'm not
-> imagnative enough but everything involving synchronize_rcu* should be
-> kicked in the n*ts. Because if you're going onto big machines your
-> workloads will get said kick.
+Some devices do not support LENOVO_CAPABILITY_DATA_01 and define the
+query method as a stub that returns zero buffer. Unfortunately, some
+devices do not implement the stub properly, causing WMI errors
+(including ACPI errors). This was reported by Charles.
 
-And one thing I forgot to say: that requirement exists today. It is
-entirely accidental that this wasn't an issue in the umount() path
-because of the synchronize_rcu* in there. But said grace period doesn't
-exist if you e.g., chdir() out of a mount and put the last reference
-while still in lookup. Then said filesystems are fscked today because
-that is a requirement. And various reproducers in this series illustrate
-that.
+The current lenovo-wmi-* implementation enforces the binding between
+LENOVO_CAPABILITY_DATA_00+01 and LENOVO_OTHER_MODE because of a
+limitation of the device component framework. When the capdata device
+bailing out due to a WMI error, lenovo-wmi-other becomes unbound and
+unable to provide firmware-attributes or hwmon/power_supply_ext devices
+for the other functional capdata device.
+
+Therefore, errors must be non-fatal in order not to break the
+assumptions made by the device component framework.
+
+Poison the capdata device by releasing the capability data list in this
+case. After that, NULL list will be passed to lenovo-wmi-other on bind.
+The latter will provide whatever is available, or unbind the components
+if nothing is available.
+
+A poisoned capdata device releases or skips allocating most resources,
+e.g., the capability data list and the debugfs directory. The device
+itself is only used to satisfy the component dependency of lenovo-wmi-
+other and coordinate with the latter about the absence of the capability
+data.
+
+Meanwhile, for devices that properly stubs the WMI query method (but
+still declares >0 instances), keeping the capability data list with
+empty data is meaningless and causes lenovo-wmi-other to call
+lwmi_cd*_get_data() to retrieve nonexistent capdata in vain. These
+capdata devices are poisoned as well to save resources.
+
+In order to release or skip allocating most resources for poisoned
+devices, some preparatory work is done in prior. With the preparatory
+work, it also skips allocating most resources for the WMI devices that
+declare 0 instance.
+
+Also identify missing components using the new wmidev_exists() interface
+(introduced at the very beginning of the series), and skip adding them
+to the match list, so that all components in the list must present,
+fulfilling the binding requirement. Some devices need this because they
+either do not have the WMI GUID of LENOVO_CAPABILITY_DATA_01, or do not
+implement the query method, causing the WMI core not to create the
+corresponding WMI device. This was reported by Navon.
+
+The new WMI API is also adopted to conform to the behavior of the
+Windows WMI-ACPI driver and improve robustness on various WMI ACPI
+method implementation.
+
+Finally, add myself as a LENOVO drivers maintainer as previously
+suggested by Derek.
+
+Reported-by: Charles <hanker007@gmail.com>
+Closes: https://msgid.link/CAKtz0s8UYRQYW_0bh=0TMx47Axm-W-muEay-r3rqUBS1NHMPVw@mail.gmail.com/
+Reported-by: Navon John Lukose <navonjohnlukose@gmail.com>
+Closes: https://msgid.link/20260928190901.1369497-1-navonjohnlukose@gmail.com
+Suggested-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+Link: https://msgid.link/9789f452-d7eb-4f1e-8a13-7335332193a7@app.fastmail.com
+Suggested-by: Derek J. Clark <derekjohn.clark@gmail.com>
+Link: https://msgid.link/782FE636-A06A-4E12-9563-786374805947@gmail.com
+Signed-off-by: Rong Zhang <i@rong.moe>
+---
+Changes in v3:
+- Shorten the comments of struct lwmi_cd_priv's members (thanks Derek
+  J. Clark)
+- Leave struct cd_fan_block's __packed attribute as is (thanks Armin
+  Wolf)
+- Link to v2: https://patch.msgid.link/20261009-lwmi-wmi-new-api-v2-0-402828382679@rong.moe
+
+Changes in v2:
+- Add PATCH 1 ("platform/wmi: Introduce wmidev_exists()") to the series
+  as discussed at https://msgid.link/83776200-4A60-4756-A99F-D5A3BB4D834A@rong.moe
+- Add PATCH 2 ("lenovo-wmi-capdata: Do not stop the AC notifier chain on
+  error") to the series, as adopting the new WMI API will intentionally
+  catch more faulty firmware and propagate more errors
+- Synchronize mutex initialization with release-acquire barriers (thanks
+  Ilpo Järvinen)
+- Refine line wrap (ditto)
+- Replace the term "poison" with "stub" (ditto)
+- Add PATCH 10 ("platform/x86: lenovo-wmi-capdata: Do not match missing
+  components") to the series to solve the report made by Navon
+- Update outdated comments, function documentations and commit messages
+- Link to v1: https://patch.msgid.link/20260914-lwmi-wmi-new-api-v1-0-7a400f2f69f8@rong.moe
+
+---
+Armin Wolf (1):
+      platform/wmi: Introduce wmidev_exists()
+
+Rong Zhang (11):
+      platform/x86: lenovo-wmi-capdata: Do not stop the AC notifier chain on error
+      platform/x86: lenovo-wmi-capdata: Only allocate sub-master info when necessary
+      platform/x86: lenovo-wmi-capdata: Store a pointer to component info
+      platform/x86: lenovo-wmi-capdata: Defer mutex initialization
+      platform/x86: lenovo-wmi-{capdata,other}: Only allocate capdata list when necessary
+      platform/x86: lenovo-wmi-capdata: Adopt new WMI API
+      platform/x86: lenovo-wmi-capdata: Register component even on WMI error
+      platform/x86: lenovo-wmi-capdata: Detect stubbed capdata device
+      platform/x86: lenovo-wmi-capdata: Do not match missing components
+      platform/x86: lenovo-wmi-helpers: Adopt new WMI API
+      MAINTAINERS: Add myself as a LENOVO drivers co-maintainer
+
+ MAINTAINERS                               |   1 +
+ drivers/platform/wmi/core.c               |  33 ++-
+ drivers/platform/x86/lenovo/wmi-capdata.c | 447 ++++++++++++++++++++++--------
+ drivers/platform/x86/lenovo/wmi-helpers.c |  61 ++--
+ drivers/platform/x86/lenovo/wmi-other.c   |  24 +-
+ include/linux/wmi.h                       |   3 +
+ 6 files changed, 397 insertions(+), 172 deletions(-)
+---
+base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+change-id: a504a929-lwmi-wmi-new-api-f5344d48a86a
+
+Thanks,
+Rong
+
