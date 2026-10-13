@@ -1,266 +1,218 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022095.outbound.protection.outlook.com [52.101.101.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55DFE4D17B3
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 13:27:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791898033; cv=none; b=Gd8owyXuWb1IHIhUgz5X223h0J8aoCah/oDve3t8GKMRdfaK0ibuNQnH5NYwzoHylr7oBZzvrpGlfWtfTlf5tEMgBf2FSIIj9u9IY3bUQ/Mv8c1dkwZuBSf90Vx7kE6ZCd4BefqFHxEzx8I5Vs0ayCl2pfctSuuX08blS5fHMNo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791898033; c=relaxed/simple;
-	bh=NWurmtMdk1iCQy/jvDuOguTbKlkAdVuo1eJca4ASPNw=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=TWa06lww78SrFUHhIyhVqR5oqQnDS2DaqA4lli4weGW0rvXLUK3OKbwvmmXxi4G7+dEH1H98SEa7Xgip/z57WXCGG3VPDP2UkmGCwEwjm84yYOerABKD2EgJwkCddrKmqy8vZQlmjgaGhz0deEtV6/bkTF2yG8YL5BzeTmsVjxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jmOJo0Of; arc=none smtp.client-ip=209.85.214.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jmOJo0Of"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e8e16d22d8so22864055ad.1
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 06:27:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791898030; x=1792502830; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Tz3XQeMDsa80BNjtP5zSjVPIr7ggAOeydAFlJIaMfm8=;
-        b=jmOJo0OftGkdbVMB3g6vPDk0m4TxC++Wsw+hQSAC9FYLT5Q92oL2+9ac4pWD/Rzb8r
-         2EIjYvnyKAP24gBE9MSD7a8zrOdJrQmx/eLuTpVmAREN/Tf6/RsVD2quOlabdx7vJ2x0
-         qBp53qJ627FXtFkdVTHmV44JrifmbMIY0Fiiq41Kg24Zr3b5nkIhn3E8yFkNpgGko2k0
-         tIdzFiCSU64zCPcJR70SmAuoj8VG5ZGs6WigWGsquClO+nl0QVSKw9w6XeaQJT9bSYg4
-         oK3qfsoanh0oS5uRvLxDJ349NEnMwXy8FAAd7HABJHXbY0blcEW0/yY8IlgKOFywcXTW
-         6qcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791898030; x=1792502830;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Tz3XQeMDsa80BNjtP5zSjVPIr7ggAOeydAFlJIaMfm8=;
-        b=EJr+uqPXUvMv8y/bRLDAB/VwdshXqHcXHGJfQFVNTx2BPziP8K8zN/7dfv1ridtIjk
-         PzUe+uiv/Tk6QmRdEmujftOuqlqWSxF0yQO627Pxk8LiDvKfn23des2/2+wiSfV3NqWT
-         t3dCU8fTmH9A/4oDYEzxSG5nl7hmFbJRgu0zqEKJNGpjZHmKAfdxUCXZApB6msvnbdOm
-         k6l3xnzunV4Fxui1I/8IwsaLRM3K4ernWac8ifzY7Ozq0xnJvWdYT1nvsy6D7KnCA2RE
-         DsUxMeMvkFYZbwfu99vToZIXsxJ6B22wnZ3T2+SHwImpOvf1RKyvZMezhcvU/FL/z/LJ
-         mu/A==
-X-Forwarded-Encrypted: i=1; AKwUvBz8uizE+ZikNoiD42f2j9gkJnxvyQC7P0fg7PqJOc6cxCcXpHx82Pck5rTpLlWTrUo8NncI82g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6U5Jds/uFxWdnn8rI9FEnetAvK5PcBP25RNW5aHVyjw58IZOp
-	H7PSDGh/KQoEDWfOzAGj0/iUK91ovZvEaSWKyPYBMlvORnuA+o4H9VKLMsxXu01Q+klPIgSB0/W
-	GS1Vzr2H9jMVbudun1EEBGg==
-X-Received: from plbjx17.prod.google.com ([2002:a17:903:1391:b0:2e9:64c:38da])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:f60e:b0:2e7:ff92:25f5 with SMTP id d9443c01a7336-2e8431428b2mr100542525ad.61.1791898030303;
- Tue, 13 Oct 2026 06:27:10 -0700 (PDT)
-Date: Tue, 13 Oct 2026 21:27:08 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3245038F3;
+	Tue, 13 Oct 2026 13:33:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.95
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791898433; cv=fail; b=YuutOJdsmcm2fVdjM/rhecNgC3MXrzz+D4zHCRJ5NhWCQjcFc7rJNlKJsawT0HdapS9/PVGvV07/chBPuXi8huSfRAhE0gj+xHqzChOEWfRWpu1z7Fus5AY5V0ZLzLt6TdBjlIjriM35uMJ2JpP8+gP0tELepodZ/Z7IQ2EzlxY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791898433; c=relaxed/simple;
+	bh=1zUB1hvE7CjvDA9o5+cDOG2QiMkBnTqKyy7/cTJNi4k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=TlbSUezwJQhWySgO/LJHT3uKmxJWrSHI9rmEAJt6m0fbPsu2GuyDk8MBg+kYYC4AGf/YGpAJhowyH2e1RmwoURW9ecQgAlcT1cWGpqrlsdUN08DzRz6zGS0GPtXxAohQAyoW+/uV19ha9E+A02o0dH1w/i3+32QYXmoL6GARPT4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.101.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=x43zUszwlroCMzHpFFsvTXa6OtP0HnJl9YWGbS1ohyXJv0MVex/yKoedfj8mkwcPPJayWnoxn2T8HUrHdoFfO+TrZ8v8pHoyR+kQv2pWTkqVpFCZVmZgz2oladDXeswdkzztLmMwg7ys6YbwaxiqydRnboZUdQKf/zjYvI21KBc+84to7ojy0P/jGTQ4qNiEOGUIiN9AzcN5HQvSREYMgDLdp3ptcVJWr0qGLFt19jczkqk6yl8knFd8ef7/XGUcEqZQN3q6EjUHeiB5xPKvD2kog7MF7HFWZQ5NZy1TQHLqeaQBtrCboyw0o63C3MB23j70Ifsf+3bGeoptwub+rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=DYBxRudDdOvxcPmQXQTxLVffxf4Wc+BkoSM5uvUm544=;
+ b=Tx354RzlA6xUclxmLZ3Md1rvqyLHumCL/WaWKX1WC/0bYP5VZSxsWQa1vx3Q4OUytotSwS6tdQ9FbduD/4ciyph9CKGdgM5teKM2V3D5EdNi0f2PiC+5S4A6SaQfj5fTV8xpzjICV6m3/tMV1Bg7RhH1mYwvnn976c/QsHgg22Z4kIUJcdUeaXOHESeqOmfiyBUioe/5gUkJQb+SzszX0GlDZQWIH5Om4M5hyIbamaIZtQVdTmcsFZR8QFgJ19I9+tN5pVjTm5O+V8OjVJwEzdFguz5J713FVmS6wuswjch6l6gE3e9ycyxrr0xfPIXiOcHQ0WLszmHVSDdwFhbjNA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by CWLP123MB7344.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:229::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
+ 2026 13:33:47 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
+ 13:33:46 +0000
+Date: Tue, 13 Oct 2026 09:33:42 -0400
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: Ming Lei <tom.leiming@gmail.com>
+Cc: axboe@kernel.dk, hare@suse.de, sean@ashe.io, tj@kernel.org, 
+	neelx@suse.com, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] blk-mq: dispatch kworker to housekeeping CPU when hctx
+ cpumask is empty
+Message-ID: <i4xh6jsm222rtn7pka57fuo3scelrlzywrvq5kor5sy2jjlrmq@tkqbbrzimfrd>
+References: <20261012012905.267920-1-atomlin@atomlin.com>
+ <CACVXFVMTr8mORGSVM4JWHrLYgk+9O0J20bjaL_08uYmRCbzC3A@mail.gmail.com>
+ <o2hxbjxbkg3wv25lyj3nluwv4e6cb6q5qaukrhjzwg2hodwk5c@wgpc25peito7>
+ <asxLLWOQQzolER0a@fedora-laptop>
+ <pvnvyzf3cbebpxmobjntvovrruxgnygm7pwgx3tl2jczc7ji5z@ygmd6z4cfxh4>
+ <as4j_Zk7zcNsBuo1@fedora-laptop>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <as4j_Zk7zcNsBuo1@fedora-laptop>
+X-ClientProxiedBy: MN0P220CA0001.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:208:52e::29) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261013132708.1669415-1-stanleyjhu@google.com>
-Subject: [PATCH] scsi: bsg: Pass reply_len to bsg_setup_queue() to fit UFS
- ARPMB replies
-From: Stanley Jhu <stanleyjhu@google.com>
-To: Jens Axboe <axboe@kernel.dk>, 
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, 
-	"Martin K . Petersen" <mkp@kernel.org>, Bart Van Assche <bvanassche@acm.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Sathya Prakash Veerichetty <sathya.prakash@broadcom.com>, Kashyap Desai <kashyap.desai@broadcom.com>, 
-	Sumit Saxena <sumit.saxena@broadcom.com>, Sreekanth Reddy <sreekanth.reddy@broadcom.com>, 
-	Lee Duncan <lduncan@suse.com>, Chris Leech <cleech@redhat.com>, 
-	Mike Christie <michael.christie@oracle.com>, Bean Huo <beanhuo@micron.com>, 
-	Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	mpi3mr-linuxdrv.pdl@broadcom.com, open-iscsi@googlegroups.com, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CWLP123MB7344:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2f220956-61d5-4d7a-312d-08df292e9b97
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|6133799003|10067099003|22082099003|18002099003|4143699003|261009223027099003|56012099006|27256017;
+X-Microsoft-Antispam-Message-Info:
+	25PnpOwGFTIPwU9P43I261tVDZKjyySqlnEfySoNqmKQwNQqGtOimvZtc9EYI6TehnBzcdAN/VVDbB84ldeM+Yql0d9P84dlsGk3+qSn3Nd/JQkFMvVmb1K7LHeplFA1/eTDx/NvD4QefB2lnpSEpJVSDp7ZTOw9Gsiqsbm9ZGfO7W8dnlmmPDxhW3HK5VhyAAC89COFv255GplHGAtv9JAOcypCnyKO8tupvWpRwy/5XBWar9UlhRlU7e8n5FivEdyTxJbSJ+Toz3RHbGO8ZftkSHgdrevUD1N0M2tA8iByqE3ac5DCdqZq42iPwhNJylKA9/Ttq5WUZdFvYElOuOJ8/ZsECmDvXZ2cF3o6g26Az5NeOH1SmR5cFXrQVQls8jeuTsaeBtIfYtvMi5Mao1ALzPOIwvWr9kzAUeDQtshbj2Zgu/qzGvnpsw9FLcUG7xmwLWAo0wzjv7BRrQD1peCEo/VWaFMjyJR6hROhULzqK3OemYUNfAZ7dWQrdkC79vjiKzKELLxJZ4jGqn7G9+2El2ZVF46zySItHJ23jB8TeXIn36knQn536ScgtPpX8EmjBbz8S96XZxxMp0fLfgK4Z/NTSwE5g3PdBfg84/h6mX/yTOEDXYLF64JsBwWQ90yeiZIypaDl5NpHjnoeTYB+5q1uNYGOpWlDDLlHFBxRQKGJrzFpHyuQAB44G3uMq7ZO+/ibbCQSwLsLM3WWPg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(6133799003)(10067099003)(22082099003)(18002099003)(4143699003)(261009223027099003)(56012099006)(27256017);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MFBjUmdkL0g0Nnh4WDRpanFPZG16N3BZZHZMekVLTFZLU3VwcEk4OEIxU1Rx?=
+ =?utf-8?B?Q2NTMTU2KzYxWHhpdTNaOElrRFhWVW54a1NpU1p4WmtMaC9pdEZmaGw0SUJK?=
+ =?utf-8?B?ZDNYUDh0bWRmS0VXd3VjRy9jRmdPallWNXBLK2M0dzZUaXFEc1pBbWRYRHVX?=
+ =?utf-8?B?TTkrbUQzYmtYRGZ5eWxmV25Kck93T3dFTE54a1N2SHhvQks4eDZhVzlhQVpr?=
+ =?utf-8?B?c0x1UjNrUWU4Zm1sS2N1dEcxS2J1cGFjNE04UlRJdUQ4YnhIWEJsWTIyOHY3?=
+ =?utf-8?B?ek83NUhXRW10SU1pTTFNdlZhRTdDM2JRUjdybTc0WUtQMVFYTnJPWnZIbndN?=
+ =?utf-8?B?RzVTbmFHQkhRWWZhSFl0SzcwbGhpU0dnRnpSR0hlRFEyV0xWUWx0ZDUrQUcv?=
+ =?utf-8?B?RFBEanRJMmxFeTV2dTF4d2U3c3llM215SWdJVVRjdWlJbmFyZkY2bkpDaTFq?=
+ =?utf-8?B?OE45d1QxcXY1a1BBS1ljR0dYbVc4LzJZSUFUUFI4WjdkMnFlbVFFcDRZc0Yy?=
+ =?utf-8?B?cHhtTXZqVDVyZmFRdE5KY3Z6Z3d6MnlKbWFzREpXTDZtTTdEMEMxL2lGdkVS?=
+ =?utf-8?B?SWpCcnVIS3l5a0ZBbjRqWm9XV1V1d1FFMXBVR2RqVFd5T3dBN0JET3Y1Mkx0?=
+ =?utf-8?B?bGJ5QUVOU3NHaW5QYVpIMHc1aUVqMnBtczhqUXJFQkFnMlZtOXNtWkw4RWNh?=
+ =?utf-8?B?Q1VIN2FVUy9NNVRKUzg3UXY5UnlWcTNwZjRDMm5IMG9QUE16Z0w1STlReTI1?=
+ =?utf-8?B?QWwxYmp3bE1reUVEc1RJL1M5SlQvbnlJRmd6dFoyVCtNRSs5L3V5ZUNtV0Z0?=
+ =?utf-8?B?N1ZkOHRzWnhlMHpyWEs1YWFRT2FtYUJsZ3Q2TGVVRzB6OXZJcU16Y2pYZCtX?=
+ =?utf-8?B?RXlUZHBySk5YY3pZM0hRbG5VaGdWdnNlcldQZzN1Z3oxMW81RDRGajFIRGNK?=
+ =?utf-8?B?R3dsU0k0bW1CY3Zvb1F0SmlvcUI4aWwrQlFGc2Z3eTVPSFJsU1lLQjhLb1FP?=
+ =?utf-8?B?aEs1THM2VHpmYVVOaXk5dUI1TkROaHh1NWhERmZLcml1ckNyVGJKRHVMdVNz?=
+ =?utf-8?B?bHVta2ptTFluRTc1S3NKa2lXWTBIWWdSeGFldXpwUG9nZ05QMTRjWHZTQm54?=
+ =?utf-8?B?Y0x1Q3A5L1hVYVIyajR5Uk11TDF0TDJtWFhKemkrQ2JVdmg1T1EzUVFjdUUy?=
+ =?utf-8?B?S3ZpM3QrWXZhSzVRSTNWNWhEaGhFUjRFdHhLcyt4VG1DeEVSOU9sS1QzVGVj?=
+ =?utf-8?B?dEE5WVBWcENHWUxxM215NmptaEhYdjZNcU8wU0FKU1RFTjdRWEMxd0VpalFH?=
+ =?utf-8?B?b1N0T3JSa1AyVFU5ZTZqa05OdUtWb0JPTkxES3lNMWs1ekpSMUJndlJ6SjA2?=
+ =?utf-8?B?WHFZcTVyWjJkeHFuaXNpMHN5M0pkelNJb2R0U1RmNkxJMldmQ2JUYUh6Ykkv?=
+ =?utf-8?B?Q3lxSVkyWDJIL3RRK0hidHdWMElRanY4Tm5IVUtlS0dnTlNGK3VENHdBemg5?=
+ =?utf-8?B?UXM3YlU4VE1Ba2RYWWRNMy9Rb0JNamxnSmo4cGVwMmh0RjFaVERtWWUyYTY1?=
+ =?utf-8?B?MW4wMWtjQnlNTjRSSFZzUU02QXNZdFpOZVZmT1diME9MbTBFOEhrWThNc3k4?=
+ =?utf-8?B?aFFVNGVVbmNUY21OMENmRy8yanNOaWd6QzU0dGpTOWo0V2drQ1p5V3FuL0R0?=
+ =?utf-8?B?ZnZMY0d2dXg2eHZ1dWUvbUd3a2duK0lUYVFuQXFIU2t3Y2YzbUh3L3lOZTJp?=
+ =?utf-8?B?em5uYnk2Z2JmaUIwRlBnMGdsY05jQWNPU3RlZXNkQmhtc3BzbUp0Y1NWK0R1?=
+ =?utf-8?B?M2ZrcWJjRUJGRDhjdktKRUFoSDdQditUZExVbTZqTUxFWjFsZkFIeUw4UHRI?=
+ =?utf-8?B?SHo3azVWTDZHSWlqWFU4Nzd6Mm9lNHhkbGVGV3huQlFZRUYxZms0NW9aNHJO?=
+ =?utf-8?B?QmtpSE04UUVIclkzK21yUHRyN2RRNWRReWY3Z2RZRlF1ZGNXZzVYVDFFYS9I?=
+ =?utf-8?B?d25qTktUWnlYSDIxTm9taDNrRzhBOG1yK3lSM2h4VTlVUXN3cHdOV3ZwS2dE?=
+ =?utf-8?B?emdxc1ZnbXB4N1lxZ0hxQ2FEZGFxYlNJRDdFZ1Y2WS9SamZRYjJLRjhVandu?=
+ =?utf-8?B?REd5WENaVkVVSjhDWVRhcDBJMUpISWVmbEpsejNSbHF2Y3FIVEhqbDRCNXFG?=
+ =?utf-8?B?NXl6bk5RRnp3U1h2NWNqR2E5c0lzUkFlRms3dU04bGJkSjd0KzdwTXZyc1F6?=
+ =?utf-8?B?ekU2VzVrWUNvYzRZQlM2dE5XZWozajVyUjRydk5oMmo3S0oyVFNZOTJzVnY5?=
+ =?utf-8?B?K1pSQ2EvS2tDRWdMOEFmQXUzYXdhcHJuWFpqak9HWlovQlhOeVdmUT09?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2f220956-61d5-4d7a-312d-08df292e9b97
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 13:33:46.6991
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yj8hXHsHWZfnQW0LNsSZ59lG3SUauWieXB+g7c2xgus7lTGD7iVnIBicOyQF6TvoVr9Ju0PSjFrNXnDM9rInUg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP123MB7344
 
-bsg-lib allocates a 96-byte (SCSI_SENSE_BUFFERSIZE) reply buffer per
-job, but struct ufs_rpmb_reply is 104 bytes: a 40-byte struct
-ufs_bsg_reply followed by a 64-byte EHS. When an Advanced RPMB command
-returns an EHS, ufshcd_advanced_rpmb_req_handler() copies it right
-after the 40-byte header and writes 8 bytes past the end of the buffer.
+On Tue, Oct 13, 2026 at 07:28:45AM -0500, Ming Lei wrote:
+> No.
+> 
+> For example, schedule_work() is queue_work_on(WORK_CPU_UNBOUND, system_percpu_wq),
+> a WQ_PERCPU workqueue, so every schedule_work() from an isolated CPU runs
+> on that CPU. blk-mq isn't special here; this is the general tradeoff of
+> submitting IO from an isolated CPU.
 
-Let each BSG transport pass its reply buffer size to bsg_setup_queue()
-and have ufs_bsg request sizeof(struct ufs_rpmb_reply), so the full
-reply reaches user space. Other transports keep SCSI_SENSE_BUFFERSIZE.
+Fair point regarding schedule_work(). I concede that mechanically,
+kblockd_workqueue is not unique in accepting WORK_CPU_UNBOUND on a per-CPU
+workqueue. schedule_work() indeed directs WORK_CPU_UNBOUND to
+system_percpu_wq, which resolves to raw_smp_processor_id() within
+__queue_work().
 
-Fixes: 6ff265fc5ef6 ("scsi: ufs: core: bsg: Add advanced RPMB support in ufs_bsg")
-Cc: stable@vger.kernel.org
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
----
-Tested on QEMU arm64 with KASAN: the reproducer no longer triggers.
+However, the crucial distinction lies in the semantic contract and intent.
+Callers of schedule_work() seek local (or best-effort local) execution;
+there is neither an assumption nor a guarantee that schedule_work() avoids
+isolated CPUs.
 
- block/bsg-lib.c                     | 13 ++++++++++---
- drivers/scsi/mpi3mr/mpi3mr_app.c    |  2 +-
- drivers/scsi/scsi_transport_fc.c    |  6 ++++--
- drivers/scsi/scsi_transport_iscsi.c |  2 +-
- drivers/scsi/scsi_transport_sas.c   |  6 ++++--
- drivers/ufs/core/ufs_bsg.c          |  2 +-
- include/linux/bsg-lib.h             |  3 ++-
- 7 files changed, 23 insertions(+), 11 deletions(-)
+By contrast, blk-mq has an explicit architectural contract to avoid running
+block kworkers on isolated CPUs. In commit a46c27026da1 ("blk-mq: don't
+schedule block kworker on isolated CPUs"), the intent was to deliberately
+excluded isolated CPUs from hctx->cpumask precisely because:
 
-diff --git a/block/bsg-lib.c b/block/bsg-lib.c
-index 895db30a7033..536cee4430a7 100644
---- a/block/bsg-lib.c
-+++ b/block/bsg-lib.c
-@@ -23,11 +23,14 @@ struct bsg_set {
- 	struct bsg_device	*bd;
- 	bsg_job_fn		*job_fn;
- 	bsg_timeout_fn		*timeout_fn;
-+	unsigned int		reply_len;
- };
- 
- static int bsg_transport_sg_io_fn(struct request_queue *q, struct sg_io_v4 *hdr,
- 		bool open_for_write, unsigned int timeout)
- {
-+	struct bsg_set *bset =
-+		container_of(q->tag_set, struct bsg_set, tag_set);
- 	struct bsg_job *job;
- 	struct request *rq;
- 	struct bio *bio;
-@@ -50,7 +53,7 @@ static int bsg_transport_sg_io_fn(struct request_queue *q, struct sg_io_v4 *hdr,
- 	reply = job->reply;
- 	memset(job, 0, sizeof(*job));
- 	job->reply = reply;
--	job->reply_len = SCSI_SENSE_BUFFERSIZE;
-+	job->reply_len = bset->reply_len;
- 	job->dd_data = job + 1;
- 
- 	job->request_len = hdr->request_len;
-@@ -301,9 +304,10 @@ static blk_status_t bsg_queue_rq(struct blk_mq_hw_ctx *hctx,
- static int bsg_init_rq(struct blk_mq_tag_set *set, struct request *req,
- 		       unsigned int hctx_idx, int numa_node)
- {
-+	struct bsg_set *bset = container_of(set, struct bsg_set, tag_set);
- 	struct bsg_job *job = blk_mq_rq_to_pdu(req);
- 
--	job->reply = kzalloc(SCSI_SENSE_BUFFERSIZE, GFP_KERNEL);
-+	job->reply = kzalloc(bset->reply_len, GFP_KERNEL);
- 	if (!job->reply)
- 		return -ENOMEM;
- 	return 0;
-@@ -358,10 +362,12 @@ static const struct blk_mq_ops bsg_mq_ops = {
-  * @job_fn: bsg job handler
-  * @timeout: timeout handler function pointer
-  * @dd_job_size: size of LLD data needed for each job
-+ * @reply_len: size of the reply buffer needed for each job
-  */
- struct request_queue *bsg_setup_queue(struct device *dev, const char *name,
- 		struct queue_limits *lim, bsg_job_fn *job_fn,
--		bsg_timeout_fn *timeout, int dd_job_size)
-+		bsg_timeout_fn *timeout, int dd_job_size,
-+		unsigned int reply_len)
- {
- 	struct bsg_set *bset;
- 	struct blk_mq_tag_set *set;
-@@ -374,6 +380,7 @@ struct request_queue *bsg_setup_queue(struct device *dev, const char *name,
- 
- 	bset->job_fn = job_fn;
- 	bset->timeout_fn = timeout;
-+	bset->reply_len = reply_len;
- 
- 	set = &bset->tag_set;
- 	set->ops = &bsg_mq_ops;
-diff --git a/drivers/scsi/mpi3mr/mpi3mr_app.c b/drivers/scsi/mpi3mr/mpi3mr_app.c
-index 1353a8ff9c85..094490713d69 100644
---- a/drivers/scsi/mpi3mr/mpi3mr_app.c
-+++ b/drivers/scsi/mpi3mr/mpi3mr_app.c
-@@ -3053,7 +3053,7 @@ void mpi3mr_bsg_init(struct mpi3mr_ioc *mrioc)
- 	}
- 
- 	q = bsg_setup_queue(bsg_dev, dev_name(bsg_dev), &lim,
--			mpi3mr_bsg_request, NULL, 0);
-+			mpi3mr_bsg_request, NULL, 0, SCSI_SENSE_BUFFERSIZE);
- 	if (IS_ERR(q)) {
- 		ioc_err(mrioc, "%s: bsg registration failed\n",
- 		    dev_name(bsg_dev));
-diff --git a/drivers/scsi/scsi_transport_fc.c b/drivers/scsi/scsi_transport_fc.c
-index 173ed6373f04..b66365a382c7 100644
---- a/drivers/scsi/scsi_transport_fc.c
-+++ b/drivers/scsi/scsi_transport_fc.c
-@@ -4345,7 +4345,8 @@ fc_bsg_hostadd(struct Scsi_Host *shost, struct fc_host_attrs *fc_host)
- 	scsi_init_limits(shost, &lim);
- 	lim.max_segments = min_not_zero(lim.max_segments, i->f->max_bsg_segments);
- 	q = bsg_setup_queue(dev, bsg_name, &lim, fc_bsg_dispatch,
--			fc_bsg_job_timeout, i->f->dd_bsg_size);
-+			fc_bsg_job_timeout, i->f->dd_bsg_size,
-+			SCSI_SENSE_BUFFERSIZE);
- 	if (IS_ERR(q)) {
- 		dev_err(dev,
- 			"fc_host%d: bsg interface failed to initialize - setup queue\n",
-@@ -4378,7 +4379,8 @@ fc_bsg_rportadd(struct Scsi_Host *shost, struct fc_rport *rport)
- 	scsi_init_limits(shost, &lim);
- 	lim.max_segments = min_not_zero(lim.max_segments, i->f->max_bsg_segments);
- 	q = bsg_setup_queue(dev, dev_name(dev), &lim, fc_bsg_dispatch_prep,
--				fc_bsg_job_timeout, i->f->dd_bsg_size);
-+				fc_bsg_job_timeout, i->f->dd_bsg_size,
-+				SCSI_SENSE_BUFFERSIZE);
- 	if (IS_ERR(q)) {
- 		dev_err(dev, "failed to setup bsg queue\n");
- 		return PTR_ERR(q);
-diff --git a/drivers/scsi/scsi_transport_iscsi.c b/drivers/scsi/scsi_transport_iscsi.c
-index 8aa76f813bcd..b50ff8a1d0a9 100644
---- a/drivers/scsi/scsi_transport_iscsi.c
-+++ b/drivers/scsi/scsi_transport_iscsi.c
-@@ -1545,7 +1545,7 @@ iscsi_bsg_host_add(struct Scsi_Host *shost, struct iscsi_cls_host *ihost)
- 	snprintf(bsg_name, sizeof(bsg_name), "iscsi_host%d", shost->host_no);
- 	scsi_init_limits(shost, &lim);
- 	q = bsg_setup_queue(dev, bsg_name, &lim, iscsi_bsg_host_dispatch, NULL,
--			0);
-+			0, SCSI_SENSE_BUFFERSIZE);
- 	if (IS_ERR(q)) {
- 		shost_printk(KERN_ERR, shost, "bsg interface failed to "
- 			     "initialize - no request queue\n");
-diff --git a/drivers/scsi/scsi_transport_sas.c b/drivers/scsi/scsi_transport_sas.c
-index d689b9ed08a6..a825966f60e5 100644
---- a/drivers/scsi/scsi_transport_sas.c
-+++ b/drivers/scsi/scsi_transport_sas.c
-@@ -199,7 +199,8 @@ static int sas_bsg_initialize(struct Scsi_Host *shost, struct sas_rphy *rphy)
- 
- 	if (rphy) {
- 		q = bsg_setup_queue(&rphy->dev, dev_name(&rphy->dev), NULL,
--				sas_smp_dispatch, NULL, 0);
-+				sas_smp_dispatch, NULL, 0,
-+				SCSI_SENSE_BUFFERSIZE);
- 		if (IS_ERR(q))
- 			return PTR_ERR(q);
- 		rphy->q = q;
-@@ -208,7 +209,8 @@ static int sas_bsg_initialize(struct Scsi_Host *shost, struct sas_rphy *rphy)
- 
- 		snprintf(name, sizeof(name), "sas_host%d", shost->host_no);
- 		q = bsg_setup_queue(&shost->shost_gendev, name, NULL,
--				sas_smp_dispatch, NULL, 0);
-+				sas_smp_dispatch, NULL, 0,
-+				SCSI_SENSE_BUFFERSIZE);
- 		if (IS_ERR(q))
- 			return PTR_ERR(q);
- 		to_sas_host_attrs(shost)->q = q;
-diff --git a/drivers/ufs/core/ufs_bsg.c b/drivers/ufs/core/ufs_bsg.c
-index 7a66917b3fc0..156637dd76c8 100644
---- a/drivers/ufs/core/ufs_bsg.c
-+++ b/drivers/ufs/core/ufs_bsg.c
-@@ -258,7 +258,7 @@ int ufs_bsg_probe(struct ufs_hba *hba)
- 		goto out;
- 
- 	q = bsg_setup_queue(bsg_dev, dev_name(bsg_dev), NULL, ufs_bsg_request,
--			NULL, 0);
-+			NULL, 0, sizeof(struct ufs_rpmb_reply));
- 	if (IS_ERR(q)) {
- 		ret = PTR_ERR(q);
- 		device_del(bsg_dev);
-diff --git a/include/linux/bsg-lib.h b/include/linux/bsg-lib.h
-index 14fa93268630..a697246feeac 100644
---- a/include/linux/bsg-lib.h
-+++ b/include/linux/bsg-lib.h
-@@ -66,7 +66,8 @@ void bsg_job_done(struct bsg_job *job, int result,
- 		  unsigned int reply_payload_rcv_len);
- struct request_queue *bsg_setup_queue(struct device *dev, const char *name,
- 		struct queue_limits *lim, bsg_job_fn *job_fn,
--		bsg_timeout_fn *timeout, int dd_job_size);
-+		bsg_timeout_fn *timeout, int dd_job_size,
-+		unsigned int reply_len);
- void bsg_remove_queue(struct request_queue *q);
- void bsg_job_put(struct bsg_job *job);
- int __must_check bsg_job_get(struct bsg_job *job);
+    "blk-mq kworker shouldn't be scheduled on isolated CPUs."
+
+Furthermore, blk_mq_run_hw_queue() explicitly honours this policy:
+
+    if (async || !cpumask_test_cpu(raw_smp_processor_id(), hctx->cpumask)) {
+        blk_mq_delay_run_hw_queue(hctx, 0);
+        return;
+    }
+
+When executing on an isolated core (!cpumask_test_cpu(...)), blk-mq
+deliberately refrains from inline dispatch specifically to offload the work
+asynchronously via blk_mq_delay_run_hw_queue().
+
+When all CPUs mapped to that hardware queue are isolated
+(blk_mq_hctx_empty_cpumask(hctx)), commit a46c27026da1 added:
+
+    /* Switch to unbound if no allowable CPUs in this hctx */
+    if (hctx->queue->nr_hw_queues == 1 || blk_mq_hctx_empty_cpumask(hctx))
+        return WORK_CPU_UNBOUND;
+
+The express intention of that change was to switch away from the isolated
+CPUs. However, because kblockd_workqueue is WQ_PERCPU, returning
+WORK_CPU_UNBOUND inadvertently resolves to raw_smp_processor_id(), queuing
+the work right back onto the isolated CPU that blk-mq just went out of its
+way to avoid.
+
+That is why blk-mq is in an unusual position; it intended to avoid isolated
+cores, but relied on WORK_CPU_UNBOUND to achieve that on a bound per-CPU
+workqueue where that mechanism cannot take effect.
+
+> You already disturb isolated CPUs by submitting IO via syscall in this
+> case, so why does it matter here to dispatch on same isolated CPU one more
+> time?
+
+There is a fundamental difference between synchronous syscall execution and
+asynchronous background kworker execution:
+
+    1.  When an isolated user task issues a synchronous I/O request (e.g.
+        via write(2)), execution occurs synchronously within the task's own
+        context and CPU accounting. The application remains in control of
+        when this overhead is incurred.
+
+    2.  When dispatch must be deferred (e.g. BLK_STS_RESOURCE), blk-mq
+        queues &hctx->run_work. A background kworker runs under
+        SCHED_NORMAL. On isolated cores, workloads typically execute under
+        real-time scheduling classes (SCHED_FIFO, SCHED_RR, SCHED_DEADLINE)
+        or tight polling loops. A SCHED_FIFO task executing on that core
+        will completely starve the local kworker. Consequently,
+        blk_mq_run_work_fn() never runs, hardware dispatch stalls, pending
+        completions cannot occur, and the I/O pipeline hangs indefinitely.
+
+    3.  Even where starvation is avoided (e.g. via the EEVDF scheduler's
+        Fair server or cooperative yielding), queuing bound work on a
+        nohz_full isolated core forces the scheduler tick to re-activate,
+        injecting unwanted jitter and defeating deterministic isolation
+        guarantees.
+
+Steering deferred queue dispatch to an online housekeeping CPU via
+housekeeping_any_cpu(HK_TYPE_TIMER) sidesteps these pitfalls entirely.
+The kworker executes promptly on a housekeeping core without priority
+inversion, hardware dispatch proceeds unhindered, and the isolated CPU's
+low-latency domain is preserved.
+
+
+Kind regards,
 -- 
-2.56.0.385.gd3acb90ef8-goog
-
+Aaron Tomlin
