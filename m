@@ -1,104 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67C64539786
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 19:10:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB54153C3DB
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 19:11:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791918614; cv=none; b=o3NcdE+XhS3TVF2eKDuBwR/S1vgSUoyz56m3EOPRAxFY4Sh3mxuxRTF6mz2jUJv+XHaf9SnS/RkEBzXvUr9Sj172TEgeSmyzTcxA0BbJj+wiH883+yJ9Cg3IPLAKYk1C4GZyAoTF96M2ikA9zU9jjhbdXeSsF7iScG+qIrJ9fUo=
+	t=1791918714; cv=none; b=k1TfqzASXfgPQAQexEEW2+In2vlvc8c3Tfv70MN9Tbzsv7wtALNXHa/rHXvFMhJff9gA8q/cTjsc7nCI3Et9a7awhZHis8cuRuk9I94jdp8b4IC0h++iBj8urjEVfKXs13iWGYedWGafWqVAoml548IA0xwdYMuw7uO080YCK/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791918614; c=relaxed/simple;
-	bh=kgDt0QtjD4rWqE26JI0a9S1+vEnqhAt5PUTkanFcZfU=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=YWN5rmZa9diGaY5mjkjNsY67ndmXB+50CZYnnPqFulaXRoSsMjymKsqZyxJcjjeIPy/9j97BWBArR0XXqOI6GdAMgVGCv07vsvE9zUzKKYXxu/b4DGruhGOl/zTpbDaM8HdqWr9zv78LR9hLmwghDBWWoXSuZ6Y2qToQQea+R68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ojerFzHZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791918714; c=relaxed/simple;
+	bh=3HuQAdiPdsh0jwsZb5sHsgSWrdEkCX/qTBEkBhJKRIQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LrHr+QYom4m0U4YKscjAzgEkLSb0unaX/705Y5Fw+QYk78NAIydywhvlcoLi3Xj2B4eP2bk+CH1i2D49ryJgC67TIzgjhSwjw9eRnsi8swoGZDIwGyjzJ0OT/IfS8IZZO+rYwOfQL4Ba7Jy/epz/wSV7007T6Z+LMfQfckaglOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=jYB5HlbR; arc=none smtp.client-ip=209.85.160.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ojerFzHZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF23C1F000FF
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 19:10:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791918613;
-	bh=kgDt0QtjD4rWqE26JI0a9S1+vEnqhAt5PUTkanFcZfU=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=ojerFzHZ3Jv0HbWBtEvWogBd3/IjAJvSjKjmwWaJljCGEAtNjitfw+fz7sNCsu8HI
-	 EQz2UD62CGs53pf7oUX6RFgilpPbeXzHYsnNYl6I0dIpRUKqzEBwzqn7xZB9RvDr4n
-	 MzFDrCSgI6cdKwc6NK/LdB5hni0jfmYQtGEWOfBS/eLpuPqpK7vndmSUO7SYBlcDGq
-	 Zf8KMlF4kCCvW8BaV8sjnHmiGEZIQwXMYq+vF+SmIXI5zVE+uOjZW2axd/iO300i9h
-	 7KDy2Q1wxFg+hws2x7/MtXAP7pe4lTKm2NQXbaVMd7+DoJDfBaQ9Fa4Y0GBixhZeqt
-	 5QrP6+Tq4Mvdw==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 0B698F4006E;
-	Tue, 13 Oct 2026 15:10:12 -0400 (EDT)
-Received: from phl-imap-04 ([10.202.2.82])
-  by phl-compute-02.internal (MEProxy); Tue, 13 Oct 2026 15:10:12 -0400
-X-ME-Sender: <xms:E4LOai7NwwzcOj5yPSHhAcrG0DFsxalVL1g2QCFRExdeqfBDZyNOcw>
-    <xme:E4LOamuErD-5mlaxYBv3ZdHISliI-m8WGLImH_6EwyG0S9AZTAH_imJEMJnzOdd7T
-    8UZyT7N_V6h4AIBFZNI46aLpATCeGBcTSqcv0kV1urFG2y_zp1xTWg>
-X-ME-Proxy-Cause: dmFkZTEd2rtBwbkaWrWZrgOaUkT88gktJFrEb1+xB9o1IS+tF4mNpE+JoW1KBvYanzbv8H
-    8AzTLM0sfXqxsSG43v2DDjP4caaBbtwOoyBCWgwm3F2vpqKZ4cD+zawhdI4WQzoshFmMnz
-    Ky18dABWABv5alNWKLXmiRSkBIj86NXxwyEjFf0QhIGQxPLnQ49TScqRAOAT84yCMaQpo/
-    gmAWziumX9+Ne3+8BSKagAy1p9GffjLtBAL23Glv9SNJVjeCjzhwLQOUcxQI1HhoIR0dee
-    hsisNXNb68zWdc1tE8JS2Xr9/O3IOOBzD9LsNQEkLhZYsin+IVdY40SQrGiLLHbvXMExt2
-    EHz45EJIdCPELCbDDlAyuv/8mIT9OyjKAPo0E+Y6okaAw905BU3eDeeVpTL5OUIStM0Exm
-    v7VFX7ErUFpswDUYWxPYiPr2r/ESURCo1x77Fr+kxB7F03P39cXDbbJqoERGspF56RJnHv
-    jCjwJhp/qk20ufp6fD/mO3p4Y+game6GjvBT1VYI+6aRDsRQwTa3hneI3ge4LZPnSH/wQi
-    o+XbTIFkJewx33XrkBHVyNsFj0wo5afK8ScxKKcOjQIriHYcbKMJxFmAMbOIHZ8Pt0f8Mq
-    BlHd8VTp53Sjwhx+38+e6zV2xGGBUgUiI3eHFKJbV6Uxn1F0gFlRzahJic0Q
-X-ME-Proxy: <xmx:FILOan-jRc7qYnm5STOz9B6hlKAmAwBeCmo7VS0rat5K9PtMJkTfrg>
-    <xmx:FILOaiyyB869pxSlApWtFY_2F1HhN9_dzpzsarsPm71H_83hY_Db_A>
-    <xmx:FILOarMid582NGA4UWxH5T6bdpgRmyQ3uFTdf-V9dMUdo3qPTvX8NA>
-    <xmx:FILOav-105pApJ_bNKqdTIbaXh16jc7r_NeqidZ9ovJwqfkDvPqRPg>
-    <xmx:FILOag4m-jJ1-dmPmNOXvFGOtbAkFEwRRUYcIfw2XRpegKNisvinqzgZ>
-Feedback-ID: i20964851:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id DF2A8B6006E; Tue, 13 Oct 2026 15:10:11 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="jYB5HlbR"
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-53396adbc53so41720651cf.3
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 12:11:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1791918710; x=1792523510; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EUvFEr9KZQAlEL8z8vQRJTx2wZ9st4nMmUN/wIzO9UQ=;
+        b=jYB5HlbRG5U/2bWjeQZ0e1BIVUMFP+thLqGog9vaQfAEiKHAPsF198vD52pAlmjbu3
+         wzhTppJOCWuUFd6tzpAxIpKlGqshaJ3Ap8ACpWD9T0UbdCfbIEmkUMO6h7yX/0dB+45L
+         nbirKPSHlsE7kepk2T70UlSzu17r5edw7hmV3/DlCvvRPMmHH+aURwXGw1Exgz8eVujJ
+         NQKVFkwMXILXElBEKaYr0VU8uYpIcMFQU6T5kdutbaH3VI1X55DyFvzLuS5UdkAR/uuW
+         0jGQvTFiBCwlNc4U3yhH/kmtaO4lctSTz3+EhBP9Ah/xhUT9cV/+OuAdw/G4HZd375QO
+         CviQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791918710; x=1792523510;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EUvFEr9KZQAlEL8z8vQRJTx2wZ9st4nMmUN/wIzO9UQ=;
+        b=2u3wxRwywEc83Km7P2qrBdCm8kDkvurQxYX9SMhpuwfnoikPxeVCfYx2GCAJYpuxXd
+         ZHDQaAg118akF5BiPDxWE8GquqiUsrHvunA35GyxfQFInbf6cRJOZvpWlJddXi9oPaxz
+         DfNJL9Xc4BEsKgUp1UbfnXeJBZjElU8cL+GAZ2mDVZl/jbfIej6Eq5OTyA40Xt2aZp5d
+         ORQ3TEbeMIAF6CGwo6ViS25EfJlFN1gQEXKYZI53abUmf1Dj4MCxC0PWi1oe+rJtL/e7
+         ziU1uggu3RHIf0dz9176e30HHRQ5ZskXIcLLMyK3nhLSl1nlDTM4rkdjeGpMrk0un49Q
+         JnyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxSjfm0LAJBltHtMyuxzN3SpKPQmShsHOYa0vq2CdMHu4L2Kb8jT2Jvuzv75+0Jfb0LbW59PGg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKzUgDslP9s3MAuv10CMcXx+V2ixKfI5D/0paTaRfIgXH8Q3KQF
+	iURmmCx04Ii1pjmRrnlPCyYhvOz8WR+0JqKFdRsyNwTP5UU4RN7uEc7+mmJ3GlDukA==
+X-Gm-Gg: AYBFou2UhLgPHdfUGCz9Pw9tt/4HSHC1qQ7ne6UDUbbJ139BHcYK+T2KIj4sJeZe79i
+	IK19c68Y1tPQAJxQfVn51AAaPeNjsPuo57god0bPLHoAuGeOqQ5f26rQW4cO0xXrKCSc4aIH64D
+	bDD18fJ9A0s4/YunWQPsp0DGonaVXFebeSnSRtABKLfpiV4VhFcFk39QzFpqE8WDZdjAyX0yeen
+	/KWjkQQ5OoulZAh8oBLDeY+eXn5PzL3VJ5vcVR7ckS+yiiHthTAeO1mkHhsAVVHOYjl94DsbckO
+	N4/B4RLPfCMPcXNyP9titNypo2bCxTOVBFIiJTXTQm9ctEebi6D30A/8bLZFzRnU9xipHSHvVZX
+	fqUcCOikTgvkLC5LQBCrVDer8OqK76qqx2YoupKrRDsOGWp8D6lS2cw8LtpUaLO8goeYuPD0LDd
+	x1IVs9qK1OzGCz/ainwTsQt9sck/f1avouwrD7baMVBp+Doo4iKH7gPTjDcYN5lJRAt4vkAZ7Xm
+	75PIXPW9x7usH7fj8hsxk+tuj7L4NBlwRWMsVWvRg==
+X-Received: by 2002:a05:622a:48e:b0:535:a5fb:67fa with SMTP id d75a77b69052e-535a5fb84aamr206754931cf.70.1791918710428;
+        Tue, 13 Oct 2026 12:11:50 -0700 (PDT)
+Received: from rowland.harvard.edu ([2607:fb60:1011:2006:2008:aeb7:73d7:d8ff])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b7ad30csm109382571cf.23.2026.10.13.12.11.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 12:11:49 -0700 (PDT)
+Date: Tue, 13 Oct 2026 15:11:46 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Johan Hovold <johan@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	driver-core@lists.linux.dev, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mario Peter <mario.peter@leica-geosystems.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] driver core: take parent lock on deferred probe
+Message-ID: <ba24846a-7403-4bb1-a0cb-869cf1d44e05@rowland.harvard.edu>
+References: <20261013140615.1226992-1-johan@kernel.org>
+ <DM3WA69YX6WE.2Q4DY9MIU7A0L@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A1CqOqGV3QlV
-Date: Tue, 13 Oct 2026 15:09:50 -0400
-From: "Anna Schumaker" <anna@kernel.org>
-To: "Tim Menninger" <tmenninger@everpuredata.com>,
- "Trond Myklebust" <trondmy@kernel.org>
-Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, "Eric Badger" <ebadger@everpuredata.com>,
- "Jon Curley" <jcurley@everpuredata.com>
-Message-Id: <04579cd9-a4bf-435e-86a1-4d5e55005e76@app.fastmail.com>
-In-Reply-To: <20261013135327.1695983-1-tmenninger@everpuredata.com>
-References: <20260921235520.502987-1-tmenninger@everpuredata.com>
- <20261013135327.1695983-1-tmenninger@everpuredata.com>
-Subject: Re: [PATCH] NFSv4/pNFS: Preserve layoutreturn seqid while lsegs drain
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DM3WA69YX6WE.2Q4DY9MIU7A0L@kernel.org>
 
-Hi Tim,
+On Tue, Oct 13, 2026 at 07:43:08PM +0200, Danilo Krummrich wrote:
+> On Tue Oct 13, 2026 at 4:06 PM CEST, Johan Hovold wrote:
+> > +void bus_probe_device_deferred(struct device *dev)
+> > +{
+> > +	if (dev->parent && dev->bus->need_parent_lock)
+> > +		device_lock(dev->parent);
+> 
+> This looks like it has the same potential UAF as the other patch.  It's quite
+> unfortunate we need the whole need_parent_lock thing just for USB.  IIUC the
+> main reason USB needs this is because interface devices share resources of USB
+> devices and we need to keep the locking order to avoid inversions, right?  Is
+> there more to this from the USB side of things?
 
-On Tue, Oct 13, 2026, at 9:53 AM, Tim Menninger wrote:
-> Hi Trond, Anna,
->
-> Please hold off on applying this patch for now.
+That's pretty much it.
 
-Will do!
+> I think we can probably do something like this
+> 
+> 	struct device *parent = NULL;
+> 
+> 	scoped_guard(device, dev) {
+> 		if (dev->p->dead)
+> 			return;
+> 	
+> 		if (dev->bus->need_parent_lock)
+> 			parent = get_device(dev->parent);
+> 	}
+> 
+> to avoid the problem, but it's still a bit ugly.
+> 
+> > +	__bus_probe_device(dev);
+> > +	if (dev->parent && dev->bus->need_parent_lock)
+> > +		device_unlock(dev->parent);
+> > +}
 
->
-> Further testing has revealed incomplete recovery under sustained
-> pNFS/RDMA I/O. Some workload ranks remain slow after DS recovery, even
-> with the reconnect loop gone.
->
-> I have not yet established whether this patch is incorrect or exposes
-> another layout-recovery issue.
+Wouldn't it be simpler just to make each USB interface take a reference 
+to its parent device?  And likewise for USB devices, if needed?
 
-Makes sense. I'll keep my eyes out for an updated patch
-once you track down what's happening.
-
-Anna
-
->
-> Apologies for the noise.
->
-> Thanks,
-> Tim
+Alan Stern
