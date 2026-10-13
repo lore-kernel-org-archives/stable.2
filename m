@@ -1,42 +1,40 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 225BE4BD359
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 14:47:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9FBA35013B9;
+	Tue, 13 Oct 2026 14:47:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791902851; cv=none; b=hTwXPY57moS778t/ElJbntF5D1VYmjU9RAADoyMaSapeEH7XY8COL2lXHn7L2ZZ5ds/15ReCNSew6/DMqaxEigvdv/J124q7g9NQMP+p4MrLjP0g5NueUYXk8uB0iIMs3NY4F0fKbt2YbExtxWwS0jOJUpteaJLpF88Z1CwtLw0=
+	t=1791902861; cv=none; b=JXyhOJuK5D40dhRygzAp96I5ZBA4TRdiF6GsjnTawF/+LMhqK/zHw893TIFCog1O2RFNJ4Qf2bKHT7KnA/6Z/r8IGxZFimk9KgkXK4YDoBqdbukeVmGD0vRd8zNfR8157WS9iH2W8YztlOViWPB9m6MSNM4xJxmqAvtiC1om2Cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791902851; c=relaxed/simple;
-	bh=rOF7FapUimfcfmUM6NCWMWYnNiEeelJnBr4hbjPXndw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nPCzMec+ez8vw7i48w1Y10y3dAApnVCGtofzl25cO/+9m/2Ej59+tHZMnhaOQqGi14kUaObe3AlzJvtbfWM/xn3FNTRx70WX9TZ484wNG7mQo4EtpoH01UrDIMIXu/LmjsGEm/Ku4HALrpQHnbLKKW6qFIHbYLND18xNT5hrhU8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H99FbGJh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791902861; c=relaxed/simple;
+	bh=Tl8dWZ2c1JiqeuXayNIW3lODPyejvDXdZ9J6nROe4h4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SifCc3Tfg46ulr6NFHsTGc6gvO8q0RkyWdy5697zC3T3OegNHtVzysD7SXAp+nxuAeuPEVUtlfRmmT74FJgvhDP2q1+W6+0Z1lhFb149pCf00dhmUp0oPyzSOxKD6smackISUOsS5Xq5uBvjkVzObQB5tml2h3l93WhCe3LNHDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=jPbC3KAZ reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H99FbGJh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 805901F000FF;
-	Tue, 13 Oct 2026 14:47:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791902850;
-	bh=P9WNdpy1FL0d7m+kIBXwi1956uHSjh3tBsIxy4wilWw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H99FbGJh1j9ipikGudXZY5Pld9G1NyHgJZPEfDt8YOncUkfp5U5TTm1h5zFwXM5HS
-	 piiTPtJkU81Rr4vFAcUCRM+q2EGzPa2aTfISNKxCm8eZKgL8XxNdXVQUsQTNlP6GCP
-	 wyTbEIsOqu3dYVjQS8hrns0qXU4+sTu4lSeSviLQ2kZFKes03Tf/Dex9rha6eNSsIr
-	 s5UQFthwxmUAizdg8HahHxMVg9f2298a1lLsg7AkgF+0daQpmR1Hq0/FYwfmbnV1U0
-	 LUL7WZxQU4mWO+75J3M1SWDkwg1MFm2qz3UiP2pVZLiZPUVCYFU/RMVERlnNmD8vyk
-	 lB8Q9+P8x84uA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Mikulas Patocka <mpatocka@redhat.com>,
-	syzbot+bdff1ecf726d2af66afd@syzkaller.appspotmail.com,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] dm: fix reading free memory in do_resume
-Date: Tue, 13 Oct 2026 10:47:28 -0400
-Message-ID: <20261013144710.66437-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101223-trinity-renewed-a2ca@gregkh>
-References: <2026101223-trinity-renewed-a2ca@gregkh>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="jPbC3KAZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=aCbPFN9EmS
+	JHSCbJaRZ03CYLMK4KvH2MF1s9BptRg3E=; b=jPbC3KAZ3jrK7/Omhhl9MsMhuX
+	oWLRuOjRovL+ImdoHE+bZ04/x9Rjuyc5RusHQyFJIpUCdkMK9EQ1FrrE8h9oHK+/
+	xSWcUlaHBEVma79Spl+2N7BbG0d8rruiVar2wNRqbScfX8nZZpA27Po/WQTUnYWZ
+	3w11ophna+xslhuKY=
+Received: from localhost.localdomain (unknown [113.200.174.18])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkDGzwKBRM5q9CWOAA--.34153S2;
+	Tue, 13 Oct 2026 22:47:31 +0800 (CST)
+From: Yuanzhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: az6007: stop CA thread on probe failure
+Date: Tue, 13 Oct 2026 22:47:17 +0800
+Message-ID: <20261013144717.1621-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.45.1.windows.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,66 +42,87 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BbQMCkDGzwKBRM5q9CWOAA--.34153S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGw1xWryfWw1rAFW5KF1fXrb_yoW5Xw18pa
+	97KFWSkrWkXrsag3WUJw17Gry8Wa1kAr98Kry7Gw1ruF4Sk3WYkryFk3y8KF1UGrZ5AryS
+	qas3Xr17GF45CF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9G14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
+	0_GcWlnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
+	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r
+	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I
+	648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6ry5MxAIw28IcxkI7VAKI48JMx
+	C20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAF
+	wI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20x
+	vE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v2
+	0xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxV
+	W8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUb5fQtUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUFD2rOQtcCHAAAsh
 
-From: Mikulas Patocka <mpatocka@redhat.com>
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 
-[ Upstream commit c9417c1c5269e2bd0570fbe53e4ec03a8d31f008 ]
+During device initialization, az6007_frontend_attach() calls
+az6007_ci_init() to start the EN50221 conditional access kernel
+polling thread via dvb_ca_en50221_init().
 
-When do_resume calls dm_table_get_mode(new_map), the call is done without
-holding any locks (it only holds a reference to the md). It may be
-possible that another concurrent ioctl on the same device will swap table
-after dm_swap_table and before dm_table_get_mode. In this case,
-dm_table_get_mode(new_map) reads freed memory.
+However, if dvb_usbv2_probe() subsequently encounters a failure
+(for instance, in tuner_attach or dvb_create_media_graph), it
+enters the err_free_all error path in dvb_usb_core.c:
 
-This race condition was triggered by syzbot.
+    err_free_all:
+        dvb_usbv2_exit(d);
+        if (d->props->disconnect)
+            d->props->disconnect(d);
+    err_kfree_priv:
+        kfree(d->priv);
 
-This commit fixes the race by reading mode of the new table before
-dm_swap_table. Note that new_map is also passed to dm_ima_need_measure,
-but this function doesn't attempt to dereference it, so this call should
-be safe.
+Because az6007_props does not set .disconnect, the active CA polling
+thread is never stopped. When d->priv (struct az6007_device_state)
+is freed, the still-running thread calls ca->pub->poll_slot_status()
+which accesses the freed state, resulting in a slab-use-after-free
+read or crash when dereferencing ca->data.
 
-Note that this is not a security bug because only root can trigger it and
-the commonly used tools such as lvm or cryptsetup do not call the ioctls
-concurrently, so that they can't trigger it acceidentally.
+Assign az6007_ci_uninit to the .disconnect callback of both az6007_props
+and az6007_cablestar_hdci_props. az6007_ci_uninit() invokes
+dvb_ca_en50221_release() to terminate the polling thread and tear down
+the CA interface before d->priv is freed. az6007_ci_uninit() is
+idempotent because it checks state->ca.data before releasing and zeroes
+the structure, so calling it from both the probe error path and normal
+disconnect is safe.
 
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Reported-by: syzbot+bdff1ecf726d2af66afd@syzkaller.appspotmail.com
+Fixes: 962f8f67e486 ("[media] Add CI support to az6007 driver")
 Cc: stable@vger.kernel.org
-[ sashal: Replaced blk_mode_t and BLK_OPEN_WRITE with fmode_t and FMODE_WRITE. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
- drivers/md/dm-ioctl.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/media/usb/dvb-usb-v2/az6007.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
-index 2c1e6eb93b787..816b9527394cd 100644
---- a/drivers/md/dm-ioctl.c
-+++ b/drivers/md/dm-ioctl.c
-@@ -1151,6 +1151,7 @@ static int do_resume(struct dm_ioctl *param)
- 	/* Do we need to load a new map ? */
- 	if (new_map) {
- 		sector_t old_size, new_size;
-+		fmode_t new_map_mode;
- 
- 		/* Suspend if it isn't already suspended */
- 		if (param->flags & DM_SKIP_LOCKFS_FLAG)
-@@ -1178,6 +1179,7 @@ static int do_resume(struct dm_ioctl *param)
- 			}
- 		}
- 
-+		new_map_mode = dm_table_get_mode(new_map);
- 		old_size = dm_get_size(md);
- 		old_map = dm_swap_table(md, new_map);
- 		if (IS_ERR(old_map)) {
-@@ -1190,7 +1192,7 @@ static int do_resume(struct dm_ioctl *param)
- 		if (old_size && new_size && old_size != new_size)
- 			need_resize_uevent = true;
- 
--		if (dm_table_get_mode(new_map) & FMODE_WRITE)
-+		if (new_map_mode & FMODE_WRITE)
- 			set_disk_ro(dm_disk(md), 0);
- 		else
- 			set_disk_ro(dm_disk(md), 1);
+diff --git a/drivers/media/usb/dvb-usb-v2/az6007.c b/drivers/media/usb/dvb-usb-v2/az6007.c
+index 65ef045b74ca..c4fdf437695c 100644
+--- a/drivers/media/usb/dvb-usb-v2/az6007.c
++++ b/drivers/media/usb/dvb-usb-v2/az6007.c
+@@ -906,6 +906,7 @@ static struct dvb_usb_device_properties az6007_props = {
+ 	.download_firmware   = az6007_download_firmware,
+ 	.identify_state	     = az6007_identify_state,
+ 	.power_ctrl          = az6007_power_ctrl,
++	.disconnect          = az6007_ci_uninit,
+ 	.num_adapters        = 1,
+ 	.adapter             = {
+ 		{ .stream = DVB_USB_STREAM_BULK(0x02, 10, 4096), }
+@@ -929,6 +930,7 @@ static struct dvb_usb_device_properties az6007_cablestar_hdci_props = {
+ 	.download_firmware   = az6007_download_firmware,
+ 	.identify_state	     = az6007_identify_state,
+ 	.power_ctrl          = az6007_power_ctrl,
++	.disconnect          = az6007_ci_uninit,
+ 	.num_adapters        = 1,
+ 	.adapter             = {
+ 		{ .stream = DVB_USB_STREAM_BULK(0x02, 10, 4096), }
 -- 
-2.53.0
+2.34.1
 
