@@ -1,327 +1,201 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 490EE23ABBF
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 09:42:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884565; cv=pass; b=jmnploABxx/UtN4WLYmI8EZVeE3FTnmNxSENCiSoU4Jb6DD/KRED/lO8/WiPkbJjVzewRIQ4bVK8QhoBayb1VWE4wXuJnS0prZUGiKHhmTspDEck+O9TZngBscJLaOOtsjciovSU76kyOFbLzjEAjViXUHBI+k/0Xbogo8CE8cw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791884565; c=relaxed/simple;
-	bh=g3HNUhftQqwhz9Welt2hL10odBEgirJr3RX580gxRQw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tTlkcwFih4l/iaktPVv0Ti5RbdNnfAr0MySfkvU1HIWQkWOSp2GGqAMM2J9LjV2IrqfWjwNgl6PE1Vsdx9nFJikXXaWAFw5F5f1dYljXVR/nqUQNyqiva3xt3uR0F7Hu8euRVQ3brthbnuE2mY+655S74sMJisVe12dhbHD4EzE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Wia5DDba; arc=pass smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B894B515E
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 09:46:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791884785; cv=none; b=mNDidvxsAFGiceGuWNoablrSMs4JX9keEHSlNSCHn1jnYoM0G9io/hbT1I95TMzb1jOs3Tb0I6P/RRcwuv0shzJY25LMHs+F+mowwNGsIsbT6iuS2i5CBCKgrhA98GFfN5vsM9LII+6sq+Gx92NV4frwSoCFCwo4IRQ214eKhII=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791884785; c=relaxed/simple;
+	bh=lrQxtCL4bB6hq1YttWIYK9/1MVcUraxTJTUjoNNbQM0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=M004rsXc2yxczbtnfQGQbFvTZwW2nmHFIiOxmxTfN4iE+uuR8yLQQlMVHzEhF/dZtE/RdinSKt8ioTDMY9jQw5Pg8VZhwCEBdwCJec4mERA/Uv0814qfhf5z4XEDkkOIZsixa26A/AGsCFTLcO07+8RHD2wW8YnnAwn+K7elHZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=nUcb/E00; arc=none smtp.client-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Wia5DDba"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e5378b281aso13980395ad.2
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 02:42:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791884564; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pxkLHgisF1GGhQ5Cz8+jjhAKZ39MZIVfY8DPgsDZavP1A5mDYoEAhmE5rTepWAryG2
-         oqT9AihzHwC/UJhtrXzIwydF9fojuszHVjz5v5ug+bjcdapnc9uKb3lDiRTpyupv9v+v
-         Mefz2xuMt4lZf/mTCH+US+AJ21t3IVeVJDlGVGITaClWZfwRpC3rqSprkZwmwAD2jHHu
-         RIs8GpbbVeWU0FXO5vRayNcPAI+6uwe8XMN5GbcgOKr/BVS7uESCvv2LptujjoyE4GrA
-         itY5LckVADotihw147dpY34F9qly7y+Sd9pVAODdpnX3jCMP85OTwZi1Z1EZDO9tti2h
-         wrvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mAnI3gMMigPQ9sJy4LtfAXQtpJGm0jNh6om1FnFHKWE=;
-        fh=QO4qvSfhqqhGzgOe4Pbn6G9lFS60nNN0c2kB099jQ4s=;
-        b=Tfx2CjIlH6rG/MFoxh4SR3M3Q2tOMqyirWo7ze2qukBQeol6pYS3azB9Z1lwEu3Un7
-         M4sXE9F+pIaPRcmoGykzDW8RO5eZ0iEdJ5/b0d1xxGCyqXIt0HLTAurtp9+eHgMoakrE
-         R2avRHqNUk4pXci8m48TPvdxGm1PHdFF2+gEhyGJR0INYX9HQqxWrzuY7Mz0U0HGwaSz
-         D1vDoqx7XAz5c9e0jIuHN0qjEvL7IJWpT2a0GRYxTs5lXtbukh+SIbnlvNZElA8RTugs
-         1H1laX336kaw9f31pmPT9hf4UvzWO2mtPoWEGODmFYh7U3f718CqNIJyDjeZZG7dz6lX
-         NeyQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791884564; x=1792489364; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mAnI3gMMigPQ9sJy4LtfAXQtpJGm0jNh6om1FnFHKWE=;
-        b=Wia5DDbaOY0bqMhCX2fawRLk61ag1O3GcX43DjG4Nq79Me6aMI+ddnJl7wcYlGdCOc
-         yje7MrTMfmoCMNUZRSQr1trMjltfu33vOW/iUHH1iqGX25gBE/vWAvSLkdiFceUEJ1oS
-         5/dgblaEiSNNrrxcTMNTXusZMqGOm4OGeQzqcI6al/uUfMU7cf0hh5Amkrtxa28CIlua
-         aHDzkrzCpKxvNtM6bPB+y4mC7AXun1TgLXFjP4Y2AkvhspaqgsQVZoPGpSMS4ol9gGup
-         6GmlWUSrnUo8d9y183gDHOwGdzEvKoxFR7gdWYLuQPpSYZMINs9HYXERt+GrcrmQ9pLQ
-         uILQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791884564; x=1792489364;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mAnI3gMMigPQ9sJy4LtfAXQtpJGm0jNh6om1FnFHKWE=;
-        b=G9Fb6HCYuNR+WizhPNKjLwUmmQgCLJIpkIEml4lGy+yA3UCqdCbba1RsUbTAqOAooZ
-         V5qe3WLvwxEJhXtlqQ8CSrYlGgjdwY1oGJOd3rsfERiNQROs8e2WZWoEbLOAMC6fxZVw
-         hICKYqnainiNN6RZP7bSIF9bHqJny8W65phFXURSwuhBssf93v3Oa6kIE3wvJ9mLSUN3
-         ADYVaI2dje7MSHjgei2R98PnNqr21TZPjsiX7N+4ljd4m0n3I9zRMkMi79RN1fKDXoyK
-         e7YAKdX6B1zKtDrvoLOTgkv6LLaSIxCJrfuanilGziB1TT4wi0lQxBoHE+ReeSdSpBdL
-         JPSg==
-X-Gm-Message-State: AFq9FYJFlGljyw4jVXeVF9T9rQi5dLeB/5l1W4KuDtnU9AsbnF58EkIF
-	/hT7hsqYh/vFW27kv7TIQbQIuP03cecUXPSEVu/YqeLo3zk33PUZPtaJ3ZHnVMyyMDnOfu2MfO9
-	26IxCn8JB9J8ls2DhdWtfT37MYyte3lnqZRo/754k2vYOZZg9tqqghglbMTo=
-X-Gm-Gg: AYBFou0hg0RgowWqmH3RLJu8CRPefKQ/yXZVm2bIRWJ9P9tm1L0t3gd+RGINT8Q+E9W
-	8OgFiKqZs6a+GyNxoPZE6TXUnWHwdZV0L3xG2D2mLoTy2yPitKGs/fKqgRu90G1WA8ZilZyLa48
-	FF1soVanlFRkC78G154UURM4NNZ7Pt7eMmS6np9shzL95ZHjocrg+zG09XGXTxixYZz6p+bOO3G
-	h4IQe7bU/rxNuOuVkLaXNy27ZKQC20YzPz3aVTcnQg2monlKGNN1Eas7EVzvXqpBI3HmVhv6JFi
-	fnRfHAPeJpe8E60eWZlkII39mCf44AXUpE70yAOxg6VOAyBqQiM1t3H0E4kyDMhMtLbl9jujB/y
-	jgl8kjmTuUg0=
-X-Received: by 2002:a17:902:c946:b0:2e7:e73e:7091 with SMTP id
- d9443c01a7336-2e842bc6d99mr111206765ad.31.1791884562866; Tue, 13 Oct 2026
- 02:42:42 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="nUcb/E00"
+Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261013094618epoutp046e04922d3503bd3c123c981136d8bd32~eDbZY6IzX1596515965epoutp04j
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 09:46:18 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261013094618epoutp046e04922d3503bd3c123c981136d8bd32~eDbZY6IzX1596515965epoutp04j
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791884778;
+	bh=zcR3PlylQnyqBRxWX+O7qoT4qEtgWVHKV1DgLyS+mFs=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=nUcb/E00r5cb2ogVnTS543Eg8m+GIn0dOZJlh68XOJP5lfzMtbKYsM7kA+pL+K1a+
+	 pIe52jtjzQeQ7GuR9BDbUOnJFufIgwY92tjrA4/4mCoolI9orxJs/XwJnO8LEAqYd5
+	 rXBsM0xUzul7t3XQ32FGV/iK4FNYMPsgWaWdAgnQ=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261013094617epcas5p313e0734d2c7db7bbe03c473bb234212e~eDbYth67v3006230062epcas5p3d;
+	Tue, 13 Oct 2026 09:46:17 +0000 (GMT)
+Received: from epcas5p4.samsung.com (unknown [182.195.38.91]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4j3qGc5Wd0z3hhTB; Tue, 13 Oct
+	2026 09:46:16 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261013094616epcas5p28bf84b929cf60a77eb94cdb96dda7589~eDbXPcQd12244922449epcas5p2E;
+	Tue, 13 Oct 2026 09:46:16 +0000 (GMT)
+Received: from [107.122.11.51] (unknown [107.122.11.51]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261013094614epsmtip224a207ec66e03df7efa597a945cf76c7~eDbVilTUS2166721667epsmtip2i;
+	Tue, 13 Oct 2026 09:46:14 +0000 (GMT)
+Message-ID: <66bf5def-eabb-4c9f-bcd5-0143655ffd1f@samsung.com>
+Date: Tue, 13 Oct 2026 15:16:13 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013093836.1269134-1-treapking@google.com> <20261013093836.1269134-2-treapking@google.com>
-In-Reply-To: <20261013093836.1269134-2-treapking@google.com>
-From: Pin-yen Lin <treapking@google.com>
-Date: Tue, 13 Oct 2026 17:42:31 +0800
-X-Gm-Features: AclHuK_bB5VS8GEFpHH9ZqOFM9Rsqlq1VDPi33wdjPgbjp5EcirAl-08uJfWySM
-Message-ID: <CAHwYsioSa0TvmjBK2rU0KB9OKHKdcnbmybqHCvZ5VjDtMLbKbA@mail.gmail.com>
-Subject: Re: [PATCH net v3 1/5] gve: Fix race between stats query and queue reconfig
-To: treapking@google.com
-Cc: stable@vger.kernel.org, Debarghya Kundu <debarghyak@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] nvme: bound FDP config log reads to the received
+ buffer
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>, Keith Busch
+	<kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, Christoph Hellwig
+	<hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
+Cc: Nitesh Shetty <nj.shetty@samsung.com>, Hannes Reinecke <hare@suse.de>,
+	gliuxen@gmail.com, linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Language: en-US
+From: Kanchan Joshi <joshi.k@samsung.com>
+In-Reply-To: <20261008182453.1262733-1-yhlee@isslab.korea.ac.kr>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261013094616epcas5p28bf84b929cf60a77eb94cdb96dda7589
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261008182524epcas5p358972aeaced27431d3c1412e88a1fae5
+References: <CGME20261008182524epcas5p358972aeaced27431d3c1412e88a1fae5@epcas5p3.samsung.com>
+	<20261008182453.1262733-1-yhlee@isslab.korea.ac.kr>
 
-Hi everyone,
+On 10/8/2026 11:54 PM, Yehyeong Lee wrote:
+> v3: read the descriptor fields with get_unaligned_le*() since a device-supplied
+> dsze can leave subsequent descriptors unaligned, which could fault on
+> architectures without efficient unaligned access.
 
-Please disregard this patch series. It was sent to the mailing list by
-mistake. I intended to send it to myself for verification and
-accidentally included the stable list in the CC.
+Were you able to test this part.
 
-My apologies for the noise and any confusion caused.
+> v2: allocate the log buffer with kvzalloc() so that if the controller completes
+> the Get Log Page with a short transfer, the uninitialized tail reads as zero
+> and is rejected by the existing dsze check instead of being parsed (hardening).
+> v1:https://lore.kernel.org/linux-nvme/20261008132604.1168105-1- 
+> yhlee@isslab.korea.ac.kr/
+> 
+>   drivers/nvme/host/core.c | 24 ++++++++++++++++++++----
+>   1 file changed, 20 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+> index 9bcab3dc4c118..094df0e6ed326 100644
+> --- a/drivers/nvme/host/core.c
+> +++ b/drivers/nvme/host/core.c
+> @@ -2272,13 +2272,17 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
+>   	}
+>   
+>   	size = le32_to_cpu(hdr.sze);
+> +	if (size < sizeof(*h)) {
 
-Best regards,
-Pin-yen
+header plus at least one descriptor is expected. So this can changed to:
 
+if (size < sizeof(hdr) + sizeof(*desc)) {
 
-On Tue, Oct 13, 2026 at 5:38=E2=80=AFPM Pin-yen Lin <treapking@google.com> =
-wrote:
->
-> Fix a concurrency bug where network statistics queries race with queue
-> reconfiguration or interface teardown, causing a Use-After-Free (UAF) or
-> NULL pointer dereference.
->
-> Currently, statistics queries access priv->tx and priv->rx without
-> locking. When an interface is brought down or reconfigured,
-> gve_queues_mem_remove() frees these arrays. A concurrent stats query
-> can dereference freed queue structures and crash the kernel.
->
-> This issue was discovered and actually triggered by the
-> drivers/net/stats.py selftest. When an interface was brought down,
-> querying per-queue statistics via Netlink caused a kernel NULL pointer
-> dereference in gve_get_rx_queue_stats():
->
->   BUG: kernel NULL pointer dereference, address: 00000000000000a0
->   RIP: 0010:gve_get_rx_queue_stats+0x17/0x50 [gve]
->   Call Trace:
->    <TASK>
->    netdev_stat_queue_sum+0x11c/0x250
->    netdev_nl_stats_by_netdev+0x21b/0x2d0
->    netdev_nl_qstats_get_dumpit+0xd2/0x220
->    genl_dumpit+0x32/0x90
->    netlink_dump+0x1d2/0x450
->    __netlink_dump_start+0x1db/0x2a0
->    genl_family_rcv_msg_dumpit+0x9b/0x100
->    ...
->
-> Additionally, concurrent stats queries during queue reconfiguration can
-> race with gve_queues_mem_remove(), causing a Use-After-Free.
->
-> Fix this by introducing stats_lock to serialize stats queries against
-> queue teardown. In gve_queues_mem_remove(), queue pointers are set to
-> NULL under stats_lock before freeing. Stats readers acquire the lock
-> and verify pointers are non-NULL before reading counters.
->
-> This change was tested using the DQO RDA queue format.
->
-> Cc: stable@vger.kernel.org
-> Fixes: 2e5e0932dff5 ("gve: add support for basic queue stats")
-> Co-developed-by: Debarghya Kundu <debarghyak@google.com>
-> Signed-off-by: Debarghya Kundu <debarghyak@google.com>
-> Signed-off-by: Pin-yen Lin <treapking@google.com>
-> ---
->
-> Changes in v3:
-> - Retitled from "gve: Add NULL pointer checks for per-queue statistics"
-> - Protect all stats queries and queue lifecycle updates with spinlock
->   (sashiko)
-> - Refined the commit message
->
->  drivers/net/ethernet/google/gve/gve.h      |  2 ++
->  drivers/net/ethernet/google/gve/gve_main.c | 37 +++++++++++++++++++---
->  2 files changed, 35 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet=
-/google/gve/gve.h
-> index c280ff35ee77..6f1eef11715b 100644
-> --- a/drivers/net/ethernet/google/gve/gve.h
-> +++ b/drivers/net/ethernet/google/gve/gve.h
-> @@ -883,6 +883,8 @@ struct gve_priv {
->         struct workqueue_struct *gve_wq;
->         struct work_struct service_task;
->         struct work_struct stats_report_task;
-> +       /* Synchronizes stats accesses and queue teardown */
-> +       spinlock_t stats_lock;
->         unsigned long service_task_flags;
->         unsigned long state_flags;
->
-> diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/eth=
-ernet/google/gve/gve_main.c
-> index a6c18e2431cc..b6168bdf2ce7 100644
-> --- a/drivers/net/ethernet/google/gve/gve_main.c
-> +++ b/drivers/net/ethernet/google/gve/gve_main.c
-> @@ -114,6 +114,7 @@ static void gve_get_stats(struct net_device *dev, str=
-uct rtnl_link_stats64 *s)
->         int num_tx_queues;
->         int ring;
->
-> +       spin_lock_bh(&priv->stats_lock);
->         num_tx_queues =3D gve_num_tx_queues(priv);
->         if (priv->rx) {
->                 for (ring =3D 0; ring < priv->rx_cfg.num_queues; ring++) =
-{
-> @@ -141,6 +142,7 @@ static void gve_get_stats(struct net_device *dev, str=
-uct rtnl_link_stats64 *s)
->                         s->tx_bytes +=3D bytes;
->                 }
->         }
-> +       spin_unlock_bh(&priv->stats_lock);
->  }
->
->  static int gve_alloc_flow_rule_caches(struct gve_priv *priv)
-> @@ -1386,9 +1388,13 @@ static void gve_queues_mem_remove(struct gve_priv =
-*priv)
->         struct gve_rx_alloc_rings_cfg rx_alloc_cfg =3D {0};
->
->         gve_get_curr_alloc_cfgs(priv, &tx_alloc_cfg, &rx_alloc_cfg);
-> -       gve_queues_mem_free(priv, &tx_alloc_cfg, &rx_alloc_cfg);
+  > +		dev_warn(ctrl->device, "FDP config log too small\n");
+> +		return 0;
+> +	}
+>   	if (size > PAGE_SIZE * MAX_ORDER_NR_PAGES) {
+>   		dev_warn(ctrl->device, "FDP config size too large:%zu\n",
+>   			 size);
+>   		return 0;
+>   	}
+>   
+> -	h = kvmalloc(size, GFP_KERNEL);
+> +	h = kvzalloc(size, GFP_KERNEL);
+>   	if (!h)
+>   		return -ENOMEM;
+>   
+> @@ -2304,8 +2308,12 @@ static int nvme_query_fdp_granularity(struct nvme_ctrl *ctrl,
+>   	desc = log;
+>   	end = log + size - sizeof(*h);
+>   	for (i = 0; i < fdp_idx; i++) {
+> -		u16 dsze = le16_to_cpu(desc->dsze);
+> +		u16 dsze;
+>   
+> +		if ((u8 *)desc + sizeof(*desc) > (u8 *)h + size)
+> +			goto short_desc;
+
+This and other short_desc check can be covered by extending the existing 
+check below
+
 > +
-> +       spin_lock_bh(&priv->stats_lock);
->         priv->tx =3D NULL;
->         priv->rx =3D NULL;
-> +       spin_unlock_bh(&priv->stats_lock);
-> +
-> +       gve_queues_mem_free(priv, &tx_alloc_cfg, &rx_alloc_cfg);
->  }
->
->  /* The passed-in queue memory is stored into priv and the queues are mad=
-e live.
-> @@ -1402,6 +1408,7 @@ static int gve_queues_start(struct gve_priv *priv,
->         int err;
->
->         /* Record new resources into priv */
-> +       spin_lock_bh(&priv->stats_lock);
->         priv->tx =3D tx_alloc_cfg->tx;
->         priv->rx =3D rx_alloc_cfg->rx;
->
-> @@ -1413,10 +1420,11 @@ static int gve_queues_start(struct gve_priv *priv=
-,
->         priv->rx_desc_cnt =3D rx_alloc_cfg->ring_size;
->         priv->tx_pages_per_qpl =3D tx_alloc_cfg->pages_per_qpl;
->         priv->rx_pages_per_qpl =3D rx_alloc_cfg->pages_per_qpl;
-> +       gve_init_sync_stats(priv);
-> +       spin_unlock_bh(&priv->stats_lock);
->
->         gve_tx_start_rings(priv, gve_num_tx_queues(priv));
->         gve_rx_start_rings(priv, rx_alloc_cfg->qcfg_rx->num_queues);
-> -       gve_init_sync_stats(priv);
->
->         err =3D netif_set_real_num_tx_queues(dev, priv->tx_cfg.num_queues=
-);
->         if (err)
-> @@ -2296,6 +2304,7 @@ void gve_handle_report_stats(struct gve_priv *priv)
->         if (!gve_get_report_stats(priv))
->                 return;
->
-> +       spin_lock_bh(&priv->stats_lock);
->         be64_add_cpu(&priv->stats_report->written_count, 1);
->         /* tx stats */
->         if (priv->tx) {
-> @@ -2360,6 +2369,7 @@ void gve_handle_report_stats(struct gve_priv *priv)
->                         };
->                 }
->         }
-> +       spin_unlock_bh(&priv->stats_lock);
->  }
->
->  /* Handle NIC status register changes, reset requests and report stats *=
-/
-> @@ -2775,9 +2785,15 @@ static void gve_get_rx_queue_stats(struct net_devi=
-ce *dev, int idx,
->                                    struct netdev_queue_stats_rx *rx_stats=
-)
->  {
->         struct gve_priv *priv =3D netdev_priv(dev);
-> -       struct gve_rx_ring *rx =3D &priv->rx[idx];
-> +       struct gve_rx_ring *rx;
->         unsigned int start;
->
-> +       spin_lock_bh(&priv->stats_lock);
-> +       if (!priv->rx)
-> +               goto unlock;
-> +
-> +       rx =3D &priv->rx[idx];
-> +
->         do {
->                 start =3D u64_stats_fetch_begin(&rx->statss);
->                 rx_stats->packets =3D rx->rpackets;
-> @@ -2785,20 +2801,32 @@ static void gve_get_rx_queue_stats(struct net_dev=
-ice *dev, int idx,
->                 rx_stats->alloc_fail =3D rx->rx_skb_alloc_fail +
->                                        rx->rx_buf_alloc_fail;
->         } while (u64_stats_fetch_retry(&rx->statss, start));
-> +
-> +unlock:
-> +       spin_unlock_bh(&priv->stats_lock);
->  }
->
->  static void gve_get_tx_queue_stats(struct net_device *dev, int idx,
->                                    struct netdev_queue_stats_tx *tx_stats=
-)
->  {
->         struct gve_priv *priv =3D netdev_priv(dev);
-> -       struct gve_tx_ring *tx =3D &priv->tx[idx];
-> +       struct gve_tx_ring *tx;
->         unsigned int start;
->
-> +       spin_lock_bh(&priv->stats_lock);
-> +       if (!priv->tx)
-> +               goto unlock;
-> +
-> +       tx =3D &priv->tx[idx];
-> +
->         do {
->                 start =3D u64_stats_fetch_begin(&tx->statss);
->                 tx_stats->packets =3D tx->pkt_done;
->                 tx_stats->bytes =3D tx->bytes_done;
->         } while (u64_stats_fetch_retry(&tx->statss, start));
-> +
-> +unlock:
-> +       spin_unlock_bh(&priv->stats_lock);
->  }
->
->  static void gve_get_base_stats(struct net_device *dev,
-> @@ -2915,6 +2943,7 @@ static int gve_probe(struct pci_dev *pdev, const st=
-ruct pci_device_id *ent)
->         }
->         INIT_WORK(&priv->service_task, gve_service_task);
->         INIT_WORK(&priv->stats_report_task, gve_stats_report_task);
-> +       spin_lock_init(&priv->stats_lock);
->         priv->tx_cfg.max_queues =3D max_tx_queues;
->         priv->rx_cfg.max_queues =3D max_rx_queues;
->
-> --
-> 2.56.0.385.gd3acb90ef8-goog
->
+> +		dsze = get_unaligned_le16(&desc->dsze);
+>   		if (!dsze || log + dsze > end) {
+
+here, by checking that next descriptor fits completely.
+Also !dsze does not cover other invalid values from 1 to 63.
+
+Overall, something like this:
+
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index 7eb0f9fe6b18..9991cff5c332 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -2273,13 +2273,19 @@ static int nvme_query_fdp_granularity(struct 
+nvme_ctrl *ctrl,
+         }
+
+         size = le32_to_cpu(hdr.sze);
++       if (size < sizeof(hdr) + sizeof(*desc)) {
++               dev_warn(ctrl->device, "FDP config size too small:%zu\n",
++                               size);
++               return 0;
++       }
++
+         if (size > PAGE_SIZE * MAX_ORDER_NR_PAGES) {
+                 dev_warn(ctrl->device, "FDP config size too large:%zu\n",
+                          size);
+                 return 0;
+         }
+
+-       h = kvmalloc(size, GFP_KERNEL);
++       h = kvzalloc(size, GFP_KERNEL);
+         if (!h)
+                 return -ENOMEM;
+
+@@ -2305,9 +2311,10 @@ static int nvme_query_fdp_granularity(struct 
+nvme_ctrl *ctrl,
+         desc = log;
+         end = log + size - sizeof(*h);
+         for (i = 0; i < fdp_idx; i++) {
+-               u16 dsze = le16_to_cpu(desc->dsze);
++               u16 dsze = get_unaligned_le16(&desc->dsze);
+
+-               if (!dsze || log + dsze > end) {
++               /* next descriptor must fit within the log */
++               if (dsze < sizeof(*desc) || log + dsze + sizeof(*desc) > 
+end) {
+                         dev_warn(ctrl->device,
+                                  "FDP invalid config descriptor at 
+index %d\n", i);
+                         ret = 0;
+@@ -2317,13 +2324,13 @@ static int nvme_query_fdp_granularity(struct 
+nvme_ctrl *ctrl,
+                 desc = log;
+         }
+
+-       if (le32_to_cpu(desc->nrg) > 1) {
++       if (get_unaligned_le32(&desc->nrg) > 1) {
+                 dev_warn(ctrl->device, "FDP NRG > 1 not supported\n");
+                 ret = 0;
+                 goto out;
+         }
+
+-       info->runs = le64_to_cpu(desc->runs);
++       info->runs = get_unaligned_le64(&desc->runs);
+  out:
+         kvfree(h);
+         return ret;
+
