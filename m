@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66CBF3C13E9;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDAB53C0621;
 	Tue, 13 Oct 2026 23:17:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791933459; cv=none; b=jgfgkRVPCqnvFfT68NCROcre8KiaDeJwqrPr2ZRh9ysyI3IAbNy7R1ReWrf99WxBMe1aV5cif6Kx7YXORiGa24vQwZDsz3gmxRr+vwMnQaQvcMJHeZwoW/wN55LTWiQqjJ1Sdnm4Fuln3s7Len7mP99ZQ+acg9NOfBFORntboBs=
+	t=1791933461; cv=none; b=fB9ACjUL8luWaUD+lX81Z1+ZHuCYLdVcC3aB4u+jzJ58L64kQU8BR8JsPRha2rCU40+vvcr/i/ojm1a9sk2b220+AI+9n8T2RrmBcOlzAk9Ru5GzAwRUB+bdMBkRMfmabmm1ujui3hEHpm90TUgHCOs743jvHSJzWfpK3ZIeHaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791933459; c=relaxed/simple;
-	bh=33JnG/F84+g7dW9gc7B9FgRHqcmovFDITnsF1eHITJs=;
+	s=arc-20240116; t=1791933461; c=relaxed/simple;
+	bh=N+QuY7jOUaTog5mihZYTkDizuIk/wKQu6E8r/TLcB20=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gD04bTWA3FFdwAw4WLw9d1qcao0sgQGofL/0U9cl1382c77UjRqt1NZKZE7A9+LjxZC964qwQEnbCieK6Cw6N3lREY6pEHfan+JM2GoafC01UqnaUl1iWm6YS8Qd6KNDpwqJ/ldoYePwv4xr1daRg/baH0o7Ayz2n+XwnZlHWmw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BGP5oktP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TaI1OwYGKEJdFQtmPnarot8td1+viotia9r85Q6CyV9FdCbCfrmAO2XCwVsqh/mLpj5Splk1xAqIFBQ0w//u1T61D2nuW4YabSVGmRwUrmCHXtDFqXu8MNO8e0cWM8ppxJl1dAQO6626tQ8uP4Xx2l+fSyEDQBcBEDLFJYkOgOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NSoaz6Wa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BGP5oktP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C6721F00898;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NSoaz6Wa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 742E81F00899;
 	Tue, 13 Oct 2026 23:17:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1791933458;
-	bh=EY8kA5PqbX97Y5Nf/7EbUqW1b4OJop/vthxq+shRPtU=;
+	bh=4xzWyHD1dvLnqjxEawX73VA1q7KC44KCJfhrkSUuGUE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BGP5oktP75MG5jRkn713lv4F5JBoczj6kimNZ/HWRyzQbwqS+u+q2m9/9YNY0ll3p
-	 3dB2Yl1qvGIsBfednV9soMEDvw6tVzu9VKBpdw17zrkJOY4Z4IIa20X8x6UPJCtGP3
-	 lI+6du/q6yK3h8UQ+5Yairv+DwgAXdUimo5cbdEln6HYVZpIDDXHic6mcSkXNoFldF
-	 MAmnX+zPoS6AbI+TWseXV5BvYMRfRHUdBEo7GJrQF4NOvOPixmeMhqALuQsNOn9buk
-	 cV+/MrwXfGpss/ELpGVKgyGS6SmaumEFcv/7EWTQ7zEp9vFzP/wY8zsC3mBXRvGYnJ
-	 YoYzw/LMvARLw==
+	b=NSoaz6WaJBo8ZOYdRLJG+8Xw0LunnC+rBvUHQUcWrzEU6YfyU6u7w9xku/uEYRNC2
+	 zp5qpMVJatpsqRfSLxZby4GFJzmFSXYQQqDSSNqbbF8QLgeyqoH78Q9qCTuM8HqxpP
+	 vSq1EhfYmo8alDXxx94CvYuuY822agkS+N4IHLyu2DIIkDOgV1bcXwLLIvXj0LwwgA
+	 4RLwv2AI/5FnykHyLlvGz2hmROKI3rf9Q5AAbia6yFVpztMMPnVXpPMMKhdsqEtSG5
+	 u5Qb0Nwe0xypMHWaw9Bt8ePMvjO7XXmpspXCJcAIH/Bichgb2rBQdSVjKps/regtK7
+	 Lp6whd91rjTlA==
 From: Yosry Ahmed <yosry@kernel.org>
 To: Sean Christopherson <seanjc@google.com>
 Cc: Paolo Bonzini <pbonzini@redhat.com>,
@@ -34,9 +34,9 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>,
 	linux-kernel@vger.kernel.org,
 	Yosry Ahmed <yosry@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/4] KVM: x86/mmu: WARN, don't BUG, when walking a cached root with a PAE MMU
-Date: Tue, 13 Oct 2026 23:17:25 +0000
-Message-ID: <20261013231728.883001-2-yosry@kernel.org>
+Subject: [PATCH 2/4] KVM: x86/mmu: Drop for_each_shadow_entry_using_root()
+Date: Tue, 13 Oct 2026 23:17:26 +0000
+Message-ID: <20261013231728.883001-3-yosry@kernel.org>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 In-Reply-To: <20261013231728.883001-1-yosry@kernel.org>
 References: <20261013231728.883001-1-yosry@kernel.org>
@@ -48,67 +48,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace the BUG_ON() in shadow_walk_init_using_root() that guards against
-walking a cached (previous) root while the MMU is configured for PAE
-paging with a WARN_ON_ONCE(), and terminate the walk if the WARN fires.
-Walking a cached root with a PAE MMU is a KVM bug, as PAE roots are never
-cached, but there's no need to bring down the host, as KVM can simply
-bail from the walk.
+Drop for_each_shadow_entry_using_root() and open code the walk in
+__kvm_mmu_invalidate_addr(), the macro's only user, in preparation for
+handling failure to initialize the walk, e.g. if a cached root was created
+for a different MMU context and so can't be walked.
 
-Note, the BUG_ON() is currently reachable by a guest if TDP is disabled,
-as KVM walks cached roots even if they were created for a different MMU
-context, e.g. if L2 executes INVLPG while using PAE paging, L1 doesn't
-intercept INVLPG, and L1's 64-bit root is cached.
+No functional change intended.
 
-Add a common error label for terminating the walk, and use it for the
-existing invalid/dummy root check as well.
-
-Fixes: 7eb77e9f5fcf ("kvm: x86: Add a root_hpa parameter to kvm_mmu->invlpg()")
+Suggested-by: Sean Christopherson <seanjc@google.com>
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Yosry Ahmed <yosry@kernel.org>
 ---
- arch/x86/kvm/mmu/mmu.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ arch/x86/kvm/mmu/mmu.c | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
 
 diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index aadd5bdc2c97a..126faef5a6476 100644
+index 126faef5a6476..2fc23a36433c5 100644
 --- a/arch/x86/kvm/mmu/mmu.c
 +++ b/arch/x86/kvm/mmu/mmu.c
-@@ -2558,10 +2558,8 @@ static void shadow_walk_init_using_root(struct kvm_shadow_walk_iterator *iterato
- 	iterator->addr = addr;
- 	iterator->shadow_addr = root;
+@@ -166,12 +166,6 @@ struct kvm_shadow_walk_iterator {
+ 	unsigned index;
+ };
  
--	if (WARN_ON_ONCE(!VALID_PAGE(root)) || kvm_mmu_is_dummy_root(root)) {
--		iterator->level = 0;
--		return;
--	}
-+	if (WARN_ON_ONCE(!VALID_PAGE(root)) || kvm_mmu_is_dummy_root(root))
-+		goto error;
+-#define for_each_shadow_entry_using_root(_vcpu, _root, _addr, _walker)     \
+-	for (shadow_walk_init_using_root(&(_walker), (_vcpu),              \
+-					 (_root), (_addr));                \
+-	     shadow_walk_okay(&(_walker));			           \
+-	     shadow_walk_next(&(_walker)))
+-
+ #define for_each_shadow_entry(_vcpu, _addr, _walker)            \
+ 	for (shadow_walk_init(&(_walker), _vcpu, _addr);	\
+ 	     shadow_walk_okay(&(_walker));			\
+@@ -6754,7 +6748,8 @@ static void __kvm_mmu_invalidate_addr(struct kvm_vcpu *vcpu, struct kvm_mmu *mmu
+ 		return;
  
- 	iterator->level = vcpu->arch.mmu->root_role.level;
+ 	write_lock(&vcpu->kvm->mmu_lock);
+-	for_each_shadow_entry_using_root(vcpu, root_hpa, addr, iterator) {
++	shadow_walk_init_using_root(&iterator, vcpu, root_hpa, addr);
++	for ( ; shadow_walk_okay(&iterator); shadow_walk_next(&iterator)) {
+ 		struct kvm_mmu_page *sp = sptep_to_sp(iterator.sptep);
  
-@@ -2575,7 +2573,8 @@ static void shadow_walk_init_using_root(struct kvm_shadow_walk_iterator *iterato
- 		 * prev_root is currently only used for 64-bit hosts. So only
- 		 * the active root_hpa is valid here.
- 		 */
--		BUG_ON(root != vcpu->arch.mmu->root.hpa);
-+		if (WARN_ON_ONCE(root != vcpu->arch.mmu->root.hpa))
-+			goto error;
- 
- 		iterator->shadow_addr
- 			= vcpu->arch.mmu->pae_root[(addr >> 30) & 3];
-@@ -2584,6 +2583,10 @@ static void shadow_walk_init_using_root(struct kvm_shadow_walk_iterator *iterato
- 		if (!iterator->shadow_addr)
- 			iterator->level = 0;
- 	}
-+	return;
-+
-+error:
-+	iterator->level = 0;
- }
- 
- static void shadow_walk_init(struct kvm_shadow_walk_iterator *iterator,
+ 		if (sp->unsync) {
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
