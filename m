@@ -1,129 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB3C501F3F
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 13:17:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A8951DAED;
+	Tue, 13 Oct 2026 13:18:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897472; cv=none; b=GWVKZq10IA2aII+B/tDcrN/vyRhpBIpjKCWSvscLdlznuTYZLG1NuPU1RZfglB2Z2yzV8EkMYwsuP+Uk/z9VkbnuqysfvIOSP7jG2HKO5exFeXhMxwB6hJ+k7b2dxVLIERYpz6uuESsSxMJUqOXq+5OeHkolgW9JYiCfHLg7yIM=
+	t=1791897514; cv=none; b=CE8B1+XRVQ+0tNKnUekpxGVao49sQXCVg8xWsGLWrilbSOr3GB4PdACH1SvtXID7fbpO0OiuQq2Hi0Jjb0KGb6SIYrBHgrRnealV+ODv2lNMaW6Q2qr0QrJm1U6aZN6voYpQuv5zhmzb6n6j98fuR5AlTsVANoFsOSb/+73rcrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897472; c=relaxed/simple;
-	bh=u7P34VXTVrZeRHCTgOSJ39iptX9DGQzvBLDeL4ULINw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZwmcDWSyg0U6KTSGeJaq+vvu549lI6MdQTXnTvbasp7hn308lcNq93n5IbNLHobdq88suUOrFpCwRqCcJLAsyo/4J3ergu9b/voSGxdOdUZN45RkTEtsllh2hKUkZUTT3Hiaks8AfaR9eHG346DyZhTw/ZPup0EblavHaIXc2Ss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i0JfCusr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791897514; c=relaxed/simple;
+	bh=lD/YM5+m9+//J4cmi5Y2vvc2Cwgf8dFKNc3eqPU8FPU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=V6lmVldkVrPXrw7284cgFz/t0WlEp7ZCvgUOfsKJA/4fSzgWCh+NazLKuBDuay/FkFBMnJ084fton0guaVpV0zxpsdc1XmLiIkQo3dwbY1+am63sjjiX7v4yBPGgM1Jcw8qoAfNtvkn38PBTJRTrhDe9M60FCX1eGh2jXp82r0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lrdD73Nh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i0JfCusr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B3CE1F000FF
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 13:17:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lrdD73Nh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19CD91F00893;
+	Tue, 13 Oct 2026 13:18:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791897471;
-	bh=IPrWbjd6nlCGQgcl4vkfUhJWd2/tw6kriYkWa0oA5aA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=i0JfCusrums781dzuimaRkDiw69YSLDenNcPkMtStbdprggrX8A0gZmpFPim6Kx3r
-	 nyWF5cYYX3aiwI2UJ5hpkmXW2KRzNQ+StdA7uf1L2Zh8GgxpMWjzZQHkWxcYajVV7g
-	 9vuvFCLqItpCWOSFPxBXdw/fqbRRC5N/OGYBIeRJpAM//sSzhSc4CCiQywUwI36qNI
-	 YRdTVuWG+BQHpWsu5r+yQqP54nZlVAzUR4wzfS4A7shpCmGLkiBfU78RNy8iNa1sci
-	 giCVODBBZe371VXgAk+qdMIByl2x0sKuxXfwi7OJxsA8zl+cky6p4G+ajlioLl1846
-	 ysGRiJEjz7cSw==
-Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-91b54d1e9cdso30765816d6.1
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 06:17:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzJ3A0x2tHfomhNjvTtYLQUj89dILiVskZiK0EHGnTVVSMTelNIqZ4zF4hYujFwPurtc9NbizQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKs4kc+r3SbCMpBxVlBCW0ve+S8RUV/5c5pXEKvcrGVKyW5wtFd
-	lZffyVW53BmKpl5dIcBz+HY+k09lnoc2RD7NlkRLZ3UYS/UOuHmEGzak8TFFGYuVSmB1NWA47Fj
-	I7gXmZNb4Rrz7y1LtmrM3SJsNqAm7ZLE=
-X-Received: by 2002:a05:620a:6487:b0:93e:4c1b:a06d with SMTP id
- af79cd13be357-93ebd1bac2bmr2200083985a.20.1791897470973; Tue, 13 Oct 2026
- 06:17:50 -0700 (PDT)
+	s=k20260515; t=1791897512;
+	bh=eNwlMcIN6RDfAUguyWL/lGNST8kVj4qrOgrHU6lN4e8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lrdD73NhCplelqb1JA7bhOw8ScnOgr3cAsp9HigfsK8ugSU6RVjL97x3gIxWe5pVM
+	 XFA80g0kc9Vrak8wBLFrx4SrGd+ZDlyXVXJFWXWJ56aqncBEMrbOqMj7tBvX0WV8dx
+	 83FB3CJfwp2U+BdLlVFiFhFJY0fNguq8LbVgooVqzlTG3r51OBd4a/0YwEy4UMYCiH
+	 KgMhYf6lTxg6FEzrwTu92IHNw6Op7WiV65b4n0ddEJmckT81wSHwfOqSgTbhBfBfst
+	 KkkTNQoAC5UZSCjVO4VvPOl63aEkWyqtAPhgU+moebwzOSKKhTXxIstKW2gpuez97d
+	 Q5AnxJI9THq/Q==
+From: Imre Kaloz <kaloz@kernel.org>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lee Jones <lee@kernel.org>,
+	stable@vger.kernel.org,
+	linux-pci@vger.kernel.org
+Subject: [PATCH v2 01/53] MIPS: PCI: xtalk-bridge: refuse device numbers past the last slot
+Date: Tue, 13 Oct 2026 15:16:21 +0200
+Message-ID: <ab272dadb6186ab7aa3e9c6aad87fe3f08c235da.1791890466.git.kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1791890466.git.kaloz@kernel.org>
+References: <cover.1791890466.git.kaloz@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org> <as4qKLx_XwQ6qY3p@thinkstation>
-In-Reply-To: <as4qKLx_XwQ6qY3p@thinkstation>
-From: Barry Song <baohua@kernel.org>
-Date: Tue, 13 Oct 2026 21:17:19 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4y5j+p0-VdEzpnS-Q31vhvBZRa96VJtA6+HyNj=+r+Ufg@mail.gmail.com>
-X-Gm-Features: AclHuK9MQ_S043rSI_HtPCWrZsAEX4W_aIKduLBdZpTWuX0GQiW4Y22oKWiSD_0
-Message-ID: <CAGsJ_4y5j+p0-VdEzpnS-Q31vhvBZRa96VJtA6+HyNj=+r+Ufg@mail.gmail.com>
-Subject: Re: [PATCH] mm: fix address wraparound when scanning large folio PTEs
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Ying Huang <huang.ying.caritas@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Chuanhua Han <hanchuanhua@oppo.com>, 
-	Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 8:57=E2=80=AFPM Kiryl Shutsemau <kas@kernel.org> wr=
-ote:
->
-> On Tue, Oct 13, 2026 at 02:30:37PM +0200, David Hildenbrand (Arm) wrote:
-> > numa_rebuild_large_mapping() and do_swap_page() can be tricked into
-> > generating an address wraparound, crashing the kernel. All that's requi=
-red
-> > is to map a tail page of a large folio close enough to the start/end of
-> > the address space to e.g., make
-> >
-> >       unsigned long addr_start =3D addr - (nr << PAGE_SHIFT);
-> >
-> > to wrap around.
-> >
-> > Let's fix it by providing a better helper, folio_pte_scan_range(), that
-> > takes care of staying within VMA and page table boundaries while
-> > handling possible wraparounds.
-> >
-> > Reported-by: Kyle Zeng <kylebot@openai.com>
-> > Fixes: d2136d749d76 ("mm: support multi-size THP numa balancing")
-> > Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swap=
-cache")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> > ---
-> >  mm/memory.c | 43 +++++++++++++++++++++++++++++--------------
-> >  1 file changed, 29 insertions(+), 14 deletions(-)
-> >
-> > diff --git a/mm/memory.c b/mm/memory.c
-> > index 1f5d5f7d39cd2..a3823010aa981 100644
-> > --- a/mm/memory.c
-> > +++ b/mm/memory.c
-> > @@ -4933,6 +4933,27 @@ static void check_swap_exclusive(struct folio *f=
-olio, swp_entry_t entry,
-> >       } while (--nr_pages);
-> >  }
-> >
-> > +/*
-> > + * Get the address range in which a folio might be mapped, assuming it=
-s pages
-> > + * are mapped consecutively and the folio page at the given idx is map=
-ped at
-> > + * the given address.
-> > + */
-> > +static void folio_pte_scan_range(const struct folio *folio,
-> > +             const struct vm_area_struct *vma, unsigned long addr,
-> > +             unsigned long idx, unsigned long *start, unsigned long *e=
-nd)
-> > +{
-> > +     /* Stay within the page table and VMA boundaries. */
-> > +     const unsigned long pmd_start =3D addr & PMD_MASK;
-> > +     const unsigned long pmd_end =3D pmd_start + PMD_SIZE;
-> > +     const unsigned long lower =3D max(pmd_start, vma->vm_start);
-> > +     const unsigned long upper =3D min(pmd_end - 1, vma->vm_end - 1) +=
- 1;
->
-> These -1/+1 gave me a pause. I guess it is for pmd_end wrapping to 0 in
-> the top PMD? A comment would be nice.
+Config slots 8 and up alias the type 1 window, so a root bus scan finds
+phantom copies of whatever device b_pci_cfg selects.  Refuse root bus
+accesses past the ASIC's last slot.
 
-Will pmd_addr_end() make it better? I mean
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+---
+ arch/mips/pci/pci-xtalk-bridge.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
-upper =3D pmd_addr_end(address, vma->vm_end);
+diff --git a/arch/mips/pci/pci-xtalk-bridge.c b/arch/mips/pci/pci-xtalk-bridge.c
+index cf115abb54e0..9451b7546068 100644
+--- a/arch/mips/pci/pci-xtalk-bridge.c
++++ b/arch/mips/pci/pci-xtalk-bridge.c
+@@ -92,6 +92,11 @@ static int ioc3_cfg_wr(void *addr, int where, int size, u32 value)
+ 	return PCIBIOS_SUCCESSFUL;
+ }
+ 
++static int bridge_nslots(struct bridge_controller *bc)
++{
++	return BRIDGE_DEV_CNT;
++}
++
+ static void bridge_disable_swapping(struct pci_dev *dev)
+ {
+ 	struct bridge_controller *bc = BRIDGE_CONTROLLER(dev->bus);
+@@ -127,6 +132,13 @@ static int pci_conf0_read_config(struct pci_bus *bus, unsigned int devfn,
+ 	u32 cf;
+ 	int res;
+ 
++	/*
++	 * Only bridge_nslots() slots exist.  Config slots 8 and up alias the
++	 * type 1 window and would answer for whatever b_pci_cfg selects.
++	 */
++	if (slot >= bridge_nslots(bc))
++		return PCIBIOS_DEVICE_NOT_FOUND;
++
+ 	addr = &bridge->b_type0_cfg_dev[slot].f[fn].c[PCI_VENDOR_ID];
+ 	if (get_dbe(cf, (u32 *)addr))
+ 		return PCIBIOS_DEVICE_NOT_FOUND;
+@@ -212,6 +224,9 @@ static int pci_conf0_write_config(struct pci_bus *bus, unsigned int devfn,
+ 	u32 cf;
+ 	int res;
+ 
++	if (slot >= bridge_nslots(bc))
++		return PCIBIOS_DEVICE_NOT_FOUND;
++
+ 	addr = &bridge->b_type0_cfg_dev[slot].f[fn].c[PCI_VENDOR_ID];
+ 	if (get_dbe(cf, (u32 *)addr))
+ 		return PCIBIOS_DEVICE_NOT_FOUND;
+@@ -695,7 +710,7 @@ static int bridge_probe(struct platform_device *pdev)
+ 	bridge_write(bc, b_dir_map, (bd->masterwid << 20));	/* DMA */
+ 	bridge_write(bc, b_int_enable, 0);
+ 
+-	for (slot = 0; slot < 8; slot++) {
++	for (slot = 0; slot < bridge_nslots(bc); slot++) {
+ 		bridge_set(bc, b_device[slot].reg, BRIDGE_DEV_SWAP_DIR);
+ 		bc->pci_int[slot][0] = -1;
+ 		bc->pci_int[slot][1] = -1;
+-- 
+2.47.3
 
-nop?
-
-Thanks
-Barry
