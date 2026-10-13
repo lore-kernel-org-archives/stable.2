@@ -1,187 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17DA43859E9;
-	Tue, 13 Oct 2026 20:57:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A2A518148;
+	Tue, 13 Oct 2026 21:01:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791925024; cv=none; b=pGU05kxBK+44lATe1oGzB0r4pSSZ33r7eFXgvnaKCKIUfp//L7xtecEsQZQdbfVT2rDDsfE6JucD8h9hiwE7DELCNygIDO5TQu8cGZCwEqSFTAGy31cpk/nSDRxlj0UK14dcp81EL3SgnQGeFblXfFEnsKrbgu2SdX0XbYBMIiI=
+	t=1791925281; cv=none; b=HoGsBJlOHyW/R6puQ6d9MSvfKUAgBuDGqqZhxi/L1NP//g0C4ANCX4J50y2SoR6CZA+p40+uPPlFGHcZpQJBPKEDtMmoSZt9qALkAUoOHL+P+XhQzZ9mCLvW9kh1U7ARL6JtgChhLx/44Jy+GPEC/01FR78NXRuMGbvfSHE5U0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791925024; c=relaxed/simple;
-	bh=zFW41uXxIm89Xo0kS85JmVYU3Rr6/II4shy7lQulyOk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Ey3auCRcD1SFwzI7+M3U9s9ITElH7MMu1Xk8fJUZVNoKpkO9CI7c6QwFBI2Q+ALrDL65M6NidPEoWd45nS39T5OBX8dwmILPlSBOWGIpKdlBeU1Kt1KK8SOh8truc+kctJZE4fYICwMAtbMchm1dkLfPxQKsqZRX23fACs/4ttk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ltZXKPXT; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791925281; c=relaxed/simple;
+	bh=Z5QE8bDGwjv5rpz0E6KvjEKBlO2PL0gMiX6i/nSwbI4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
+	 References:In-Reply-To; b=NvuYQY73552/cGD2sb6pLktiy6ISF2rdgIm3RbTtgS24SvtoOy/C3ltWit+4Ph/4XeStx1fb8UODbrH2dQpgv36DqEai1Oh7DelKXpLdsIjmt29aooBT17yk0mJWkL4YvE2VMizR3xDp9Qtd5cw7RCKIYE6sovPiW4ogkbUloiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bkgxwb8k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ltZXKPXT"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 71F82C2BCF4;
-	Tue, 13 Oct 2026 20:57:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791925023;
-	bh=zFW41uXxIm89Xo0kS85JmVYU3Rr6/II4shy7lQulyOk=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=ltZXKPXTSoonxdTvTQ8DF6WAF/4eMHgemYrrJt9E2yup8bUg8wbrLMlazufYqaCwt
-	 j4Ll5qD4OJ5Bux1o8vMzd+bE/m1wVwzDczrhb/9+igr37003T9zUv3Nw4i5V1tIWcS
-	 jVuUYtQ7rHP55099EPYPwRYPsi24kOuHKgTRVfRoAtTLpwO7Cz1O5XgnPBkpZqpiuo
-	 zFymsH5XbOezp9WePkgL28Mr9LIGXKLCFAnWN5Lzn5xMxjgkryRsItd4cfMRO3sE8P
-	 C5U7eztWHVT1iFejrrEOBdy7dbUBBAauP+S/Jdy+VIRcJG6ItRDJWpvCMoY27MEg+/
-	 L7pgpyo3QJAuw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D9D0CC6B12;
-	Tue, 13 Oct 2026 20:57:03 +0000 (UTC)
-From: Brian Ellis via B4 Relay <devnull+brianellis.gotenna.com@kernel.org>
-Date: Tue, 13 Oct 2026 14:57:03 -0600
-Subject: [PATCH v4] usb: gadget: u_serial: fix NULL deref in gs_close()
- after failed open
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bkgxwb8k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46E7D1F000FF;
+	Tue, 13 Oct 2026 21:01:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791925280;
+	bh=Pi/onS5WtRQMlO8FS9+xnweQOK38nFxgcItu9oVclZc=;
+	h=Date:To:From:Subject:Cc:References:In-Reply-To;
+	b=Bkgxwb8kRgeWfVfeeZcRxvKNQNPflLWum9CcF1B566WzH3xACQW7zpJyShAF3K2dH
+	 XWcpqSD2QWZ0fkbe169FnGbQDOg01JCGEM4A883eRARN8SXTyq51ngI8P/hU4SkpRq
+	 oo/SWcbKMuGsyWO8evcVYbeYzfkRmv3Q/o3yGc2+ox8xBdN33R8eUddVcS9d8PCPbY
+	 c7YulMljG+lESEAcAZU8iSMQXQxD3m5/kLgV6vcMC3z8RfjjUmbb2DHzgi7Nq9O6dP
+	 +dnEA9LuTuZkXr2bwVFiOVQX1q6A6iYDlxiZ46FIItWb9lNWrpmzJz5eYuIiPJkxx/
+	 XZjVg/KX3E+lw==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-u_serial-gs-close-null-v4-1-9ea038501994@gotenna.com>
-X-B4-Tracking: v=1; b=H4sIAB6bzmoC/4XN0Q6CIBQG4FdpXEcTRIWueo/WGsJB2QwaqKs53
- z30ytZc5+7/t/87E4oQLER0PkwowGij9S4Fdjwg1UrXALY6ZUQzWmaCZHi4LwvZ4SZi1fkI2A1
- dhyXPJMvLdMBRGj8DGPta4est5dbG3of3+mckS/uXHAkmWMgCOOM10aa+NL4H5+RJ+Qda0JFuI
- FrtQjRBtQZtisqAKM0vlG8hvgvlCVIl51rkNVNMfEPzPH8AmhFavlABAAA=
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Kuen-Han Tsai <khtsai@google.com>, 
- Prashanth K <prashanth.k@oss.qualcomm.com>, 
- Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>, 
- Krystian Kaniewski <krystianmkaniewski@gmail.com>, 
- syzbot+782b2f1063e38ba8fa6e@syzkaller.appspotmail.com, 
- stable@vger.kernel.org, Brian Ellis <brianellis@gotenna.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791925022; l=4895;
- i=brianellis@gotenna.com; s=20260910; h=from:subject:message-id;
- bh=w9DTZeMtZkRd3FXGUqJ8HyiRNMOLz1JAQ9tb8EK17uE=;
- b=iESdUBqYiTWAx0NzwAsbRuSLsYWTQYTCqqki4XjUH+QXlOWIeGwwgDPXXjga/pYuWuM3SSmew
- IcjUACmyrhODZ6Wf9l8c3qHqa68PQOIS+k5ZgHK3mXsoX8rv3nvrfZv
-X-Developer-Key: i=brianellis@gotenna.com; a=ed25519;
- pk=JciDR8ctfMqvKeRCDP8VPwNLUDULxCAqDum6H+/ByBY=
-X-Endpoint-Received: by B4 Relay for brianellis@gotenna.com/20260910 with
- auth_id=1022
-X-Original-From: Brian Ellis <brianellis@gotenna.com>
-Reply-To: brianellis@gotenna.com
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 13 Oct 2026 23:01:16 +0200
+Message-Id: <DM40HVOBKMFI.3W1DK371ZWI80@kernel.org>
+To: "Alan Stern" <stern@rowland.harvard.edu>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH] driver core: take parent lock on deferred probe
+Cc: "Johan Hovold" <johan@kernel.org>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
+ <driver-core@lists.linux.dev>, <linux-usb@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Mario Peter"
+ <mario.peter@leica-geosystems.com>, <stable@vger.kernel.org>
+References: <20261013140615.1226992-1-johan@kernel.org>
+ <DM3WA69YX6WE.2Q4DY9MIU7A0L@kernel.org>
+ <ba24846a-7403-4bb1-a0cb-869cf1d44e05@rowland.harvard.edu>
+In-Reply-To: <ba24846a-7403-4bb1-a0cb-869cf1d44e05@rowland.harvard.edu>
 
-From: Brian Ellis <brianellis@gotenna.com>
+On Tue Oct 13, 2026 at 9:11 PM CEST, Alan Stern wrote:
+> On Tue, Oct 13, 2026 at 07:43:08PM +0200, Danilo Krummrich wrote:
+>> On Tue Oct 13, 2026 at 4:06 PM CEST, Johan Hovold wrote:
+>> > +void bus_probe_device_deferred(struct device *dev)
+>> > +{
+>> > +	if (dev->parent && dev->bus->need_parent_lock)
+>> > +		device_lock(dev->parent);
+>>=20
+>> This looks like it has the same potential UAF as the other patch.  It's =
+quite
+>> unfortunate we need the whole need_parent_lock thing just for USB.  IIUC=
+ the
+>> main reason USB needs this is because interface devices share resources =
+of USB
+>> devices and we need to keep the locking order to avoid inversions, right=
+?  Is
+>> there more to this from the USB side of things?
+>
+> That's pretty much it.
+>
+>> I think we can probably do something like this
+>>=20
+>> 	struct device *parent =3D NULL;
+>>=20
+>> 	scoped_guard(device, dev) {
+>> 		if (dev->p->dead)
+>> 			return;
+>> =09
+>> 		if (dev->bus->need_parent_lock)
+>> 			parent =3D get_device(dev->parent);
+>> 	}
+>>=20
+>> to avoid the problem, but it's still a bit ugly.
+>>=20
+>> > +	__bus_probe_device(dev);
+>> > +	if (dev->parent && dev->bus->need_parent_lock)
+>> > +		device_unlock(dev->parent);
+>> > +}
+>
+> Wouldn't it be simpler just to make each USB interface take a reference=
+=20
+> to its parent device?  And likewise for USB devices, if needed?
 
-gs_close() opens with
+The driver core already holds a reference count of the parent between
+device_add() and device_del(), which is where a "parent" is technically def=
+ined.
+But the deferred retry can extend beyond device_del().
 
-	struct gs_port *port = tty->driver_data;
-	...
-	spin_lock_irq(&port->port_lock);
+USB interfaces already take an additional reference to their USB device in
+usb_set_configuration() and drop it in usb_release_interface(), so they sho=
+uld
+already be protected against this particular UAF.
 
-and never checks port.  gs_open() assigns tty->driver_data only on the
-port.count 0 -> 1 edge, so any failure earlier in gs_open() leaves it NULL,
-and tty_open() calls tty_release(), and hence ->close(), when ->open()
-fails.
+The issue concerns a USB device and its parent hub's USB device.  (This mak=
+es me
+wonder whether probing a USB device actually requires the parent USB HUB
+device's lock to be held, or whether this is just a consequence of sharing =
+the
+same usb_bus_type?)
 
-syzbot hit exactly this on arm64.  Fault injection failed the kfifo_alloc()
-of the write buffer in gs_open():
+In theory a USB device could also keep a reference count to its parent, but=
+ then
+the driver core code would rely on an implementation detail of its users; I=
+'d
+prefer not to make driver core's access to dev->parent depend on references
+maintained by individual subsystems.
 
-   __kfifo_alloc_node+0x10c/0x208 lib/kfifo.c:44
-   gs_open+0x144/0x514 drivers/usb/gadget/function/u_serial.c:636
-   tty_open+0x404/0x89c drivers/tty/tty_io.c:2137
-
-and the tty core's close of the failed open then took port_lock through
-the NULL port:
-
-  BUG: unable to handle kernel paging request in gs_close
-  KASAN: null-ptr-deref in range [0x00000000000003a0-0x00000000000003a7]
-  Call trace:
-   spin_lock_irq include/linux/spinlock.h:372 [inline]
-   gs_close+0xac/0x65c drivers/usb/gadget/function/u_serial.c:698
-   tty_release+0x2c4/0xffc drivers/tty/tty_io.c:1745
-   tty_open+0x46c/0x89c drivers/tty/tty_io.c:2146
-
-Return early instead.  There is nothing to release when the open never got
-far enough to claim the port.
-
-Unlike the check reverted by commit f6c7bc4a6823 ("Revert "usb: gadget:
-u_serial: Add null pointer check in gs_start_io""), this is not hiding a
-race: the tty core calls ->close() for an ->open() that failed by design,
-so driver_data is legitimately unset on that path.
-
-Fixes: c1dca562be8a ("usb gadget: split out serial core")
-Reported-by: syzbot+782b2f1063e38ba8fa6e@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=782b2f1063e38ba8fa6e
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Brian Ellis <brianellis@gotenna.com>
----
-Found by reading the code while working on a downstream 6.6-based gadget
-kernel, where gserial_free_line() clearing ports[n].port makes the same
-path reachable, and matched to the syzbot report afterwards.  It has not
-been hit here, and syzbot has no reproducer for it.
-
-Compile-tested against usb-linus with allmodconfig (CONFIG_USB_U_SERIAL=m).
-Not boot-tested on mainline, and the failed-open path has not been
-exercised.
-
-Two lifetime reworks posted for a different syzbot report in this driver
-(fe63e4d633540f230624) add the same check as part of larger changes:
-
-  https://lore.kernel.org/r/20260910105359.12915-1-syedtayyabfarooq08@gmail.com
-  https://lore.kernel.org/r/6941beb7-8cae-4cc5-ba07-e1c8a8753fe1@mail.kernel.org
-
-This is the minimal fix, aimed at stable.  If either of those lands first,
-this one is redundant.
----
-Changes in v4:
-- Reported-by:/Closes: now use the ID from syzbot's public report; v3
-  used the ID from its moderation stage.
-- Quote the trace from the public report, including the injected
-  kfifo_alloc() failure in gs_open().  v3 misread the shadow index 0x74 as
-  the offset (it is 0x3a0) and quoted a "Write" line not in the report.
-- Correct v3's notes: syzbot has no reproducer, and this was found by
-  reading the code, not hit downstream.
-- Mention the two overlapping lifetime reworks.
-- Add Assisted-by: LLM.
-- Link to v3: https://lore.kernel.org/r/20260928-u_serial-gs-close-null-v3-1-c688d93b4c49@gotenna.com
-
-Changes in v3:
-- Restore the Reported-by:/Closes: syzbot tags and the KASAN trace. They were
-  dropped from v1 and v2 in error when the commit message was rewritten. The
-  report is still open, and without Closes: syzbot cannot associate this fix
-  with it.
-- Say why this differs from the check reverted in f6c7bc4a6823, since that
-  revert's reasoning is the obvious objection here.
-- Link to v2: https://lore.kernel.org/r/20260927-u_serial-gs-close-null-v2-1-bdedf57fe96f@gotenna.com
-
-Changes in v2:
-- Remove the comment above the check, rather than reword it as Prashanth
-  suggested. The commit message already explains the path that leaves
-  tty->driver_data NULL, so the comment only restated it. Happy to add a
-  reworded one instead if that is preferred.
-- Link to v1: https://lore.kernel.org/r/20260910-u_serial-gs-close-null-v1-1-9a5e848b1dfb@gotenna.com
----
- drivers/usb/gadget/function/u_serial.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
-index cdd1dfc66..892d2673e 100644
---- a/drivers/usb/gadget/function/u_serial.c
-+++ b/drivers/usb/gadget/function/u_serial.c
-@@ -695,6 +695,9 @@ static void gs_close(struct tty_struct *tty, struct file *file)
- 	struct gs_port *port = tty->driver_data;
- 	struct gserial	*gser;
- 
-+	if (!port)
-+		return;
-+
- 	spin_lock_irq(&port->port_lock);
- 
- 	if (port->port.count != 1) {
-
----
-base-commit: be4219dd98608736e13e0b790ef742b76a13254d
-change-id: 20260910-u_serial-gs-close-null-a80a436666e8
-
-Best regards,
--- 
-Brian Ellis <brianellis@gotenna.com>
-
-
+I'd even go a step further any say that if subsystems try to keep this poin=
+ter
+valid beyond what's guaranteed by the driver core, they should do this with=
+ a
+separate bus specific pointer.  The reason is that otherwise the lifetime a=
+nd
+ownership definition of this pointer does not depend on API contracts, but =
+on
+individual implementation details, which is a very common source for all ki=
+nds
+of bugs.
