@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 153EA5111A5
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 15:28:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F36545208C2
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 15:30:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791905334; cv=none; b=UuC20E8VWcwt6CjKwvjA9oWh9kdJ/hc3AMyUrI8QW9gquZbPPYw/WvJ8F4qUoDyKA3hqimcFFtmr0EowS8c/oDXmUJRGvrwh1/s9i0s/YLuxV9+r//s6uOT0FxKFHtLaJXiwdq6pDVIDttW/Q/aFuTVL73rkPwWYuJe1yGy4oUk=
+	t=1791905442; cv=none; b=VNMMStPSCV8z4KjK/Ld3GAbce0ZgTyGt8uABQen+2mqx08AXVZXUDj/gEk+acr1rWln6BQi1ZDjqyiPQJrwwvelBgG4+37qvEvz1VyLZ2MIc8JAKfw94pFDSFMEoAAGS0R0hpEXN76kJJo30Kc8Oc2/hIQI4K3LSjZSlGZEqgYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791905334; c=relaxed/simple;
-	bh=DZvx9uuVX+R62XvAOTcIL5FOE32lgb8V0YUoO3uqiLw=;
+	s=arc-20240116; t=1791905442; c=relaxed/simple;
+	bh=vI1whC2UHr08PRNscHMjg9JWy5qJZ2+SmQizjamldDw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OGspq25aue0xwpuBvYdxdRXS0otjvgedlg5v95F02B/cwGKt2m+OCWKTPvagzIEqtFBURhKXXwWYxAOsiUG9g3c22M144+1lwUOjT0hQCe2WfvXX6QzA492AzrxT7FGMdmP0eUONTTM1sys0xDXr3gTWShNl02E0dDpSaEuVxGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LgeoKV0A; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ftw2vjVgFmeo7w04yOCqcaom0EoBD5kXtuYMhWaGDMHK/WeKQvRFNUY0mg7DG1D/1neVmNiPMn4KWpsx6vVeJt/f+o5DVpOt0kPZzmP70zgR3J8/tv8XTTe2YYn/SWDx0K5sbK4l5OmAX9aWO0Vf3lBF4OI1hh2bAeTNrDzTrkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ayUOyNzh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LgeoKV0A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2170F1F00893;
-	Tue, 13 Oct 2026 15:28:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ayUOyNzh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E0261F000FF;
+	Tue, 13 Oct 2026 15:30:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791905332;
-	bh=NeLbXwZcji3KQDwrwcABlWjMjSkOyn+zygJrJKoE4SI=;
+	s=k20260515; t=1791905440;
+	bh=H73THGAyHHVZIvksx970Dz9HsWhKYFU7fIHpG2gEznQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LgeoKV0A2cJxs1vmAVhzr6O7c3MDxIrl557KF44G6GJfdLQPLbyOA24KcaM+NaHuG
-	 q+TgyJwimPVKpyVU94Q34nqTQOegv2XIxzyApLyArJodxZ/wMi0EH9VgWvM0rdvsqy
-	 pXAAYYSgxs66h514p1w0/1E1xvgqHtIxZua97xcxckr0OmrO675DQAzYvygnV5Rreg
-	 +E9nvtKKAKzfhEXVhT524mTYFsipvP0E5YUdtNZJ2MmHIq8+cX+WnF1/wjse8gmJs+
-	 saR2DEknKv8X6I1fpJgu193F2X26V30FXC/t+sj4ckEs69W+OKST9c7GaBv3ksiGMp
-	 hunpgnhuWR9fQ==
+	b=ayUOyNzhSJjpotvdOzXlwswPqYe6bQdfkzMBRVLb4seKAMHtKqNquSyp+tQ7LhAdi
+	 cS57Ubz5UbAaFq/oTRFgGzn1Km47REjGHSvlEb6eE1YPdSO3xlPiCGIxPuaaQYELQS
+	 BCBJm57kNpoghnOMa2iDvAu4Ix86vtd+UuR4VvtKplt7FLRqXbDPnWlsOd+Bl8VJ0p
+	 9ujOCGmBn9VBrsx7Nt94iLmYPnz+WK1+u4ndhiPU/ePMl+quQWVE6o8kcPkAFdSUrI
+	 MCeywA4/9+bnLEzWmKeLLbvzsWkwg9pu83PQRqhhsssGR6q81nf51abCV3ZrY3qrH/
+	 iWHJsYNhKeTfA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Shao-Fu Chen <shf.chen@mediatek.com>,
-	Jens Wiklander <jens.wiklander@oss.qualcomm.com>,
+Cc: Stanley Jhu <stanleyjhu@google.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Peter Wang <peter.wang@mediatek.com>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] optee: register TEE devices only once fully initialized
-Date: Tue, 13 Oct 2026 11:28:50 -0400
-Message-ID: <20261013152837.72784-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] scsi: ufs: core: Decouple CQ sweep from request iterator in MCQ
+Date: Tue, 13 Oct 2026 11:30:38 -0400
+Message-ID: <20261013153028.109176-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101247-unthawed-scholar-cae3@gregkh>
-References: <2026101247-unthawed-scholar-cae3@gregkh>
+In-Reply-To: <2026101228-dislike-clambake-14b0@gregkh>
+References: <2026101228-dislike-clambake-14b0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,126 +47,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Shao-Fu Chen <shf.chen@mediatek.com>
+From: Stanley Jhu <stanleyjhu@google.com>
 
-[ Upstream commit c108feca0a096f8db25d1b69130035025e9e936d ]
+[ Upstream commit 469fa055664bfd8717b087a80d59c03055789c17 ]
 
-optee_probe() called tee_device_register() on both the client and the
-supplicant device before the rest of struct optee had been initialized.
+In MCQ mode, ufshcd_mcq_compl_pending_transfer() uses
+blk_mq_tagset_busy_iter() to iterate over busy requests during error
+recovery and host reset. However, both iterator callbacks perform
+whole-queue operations redundantly for each visited request:
 
-tee_device_register() calls cdev_device_add(), which does two things at
-once: it creates /dev/tee0 and /dev/teepriv0, and it links the device
-into the tee class so that class_find_device() can find it. From that
-moment on the device is reachable both from user space via tee_open()
-and from kernel space via tee_client_open_context(). The only gate in
-teedev_open() is tee_device_get(), which merely checks that
-teedev->desc is non-NULL, which was already set by tee_device_alloc().
-Therefore, there is effectively no gate at all.
+ - force_compl == true: ufshcd_mcq_force_compl_one() calls
+   ufshcd_mcq_compl_all_cqes_lock() on every busy request, sweeping the
+   entire completion ring (hwq->max_entries slots) once per active request
+   under spin_lock_irqsave even though the first sweep already cleared all
+   completion entries.
 
-A context opened in that window can run against a struct optee where
+ - force_compl == false: ufshcd_mcq_compl_one() acquires cq_lock and polls
+   CQTPy over MMIO via ufshcd_mcq_poll_cqe_lock() for every busy request
+   without doing any per-request work.
 
-  - optee->call_queue.mutex is not initialized by optee_cq_init()
-  - optee->supp mutex and completions is not initialized by
-    optee_supp_init()
-  - optee->rpmb_dev_mutex is not initialized yet,
-  - the message argument cache is not initialized by
-    optee_shm_arg_cache_init()
-  - optee->ctx is still NULL
+Sweep or poll each hardware queue (hba->uhq[i]) once at the start of
+ufshcd_mcq_compl_pending_transfer(). When force_compl is true, run
+blk_mq_tagset_busy_iter() afterward to complete residual in-flight
+requests with DID_REQUEUE, and remove the now-unused
+ufshcd_mcq_compl_one() callback.
 
-Any open session or invoke during this window takes uninitialized
-mutexes and dereferences a NULL pointer.
-
-Fix it by moving both tee_device_register() calls down to the point
-where all of struct optee is set up.
-
-Fixes: 4fb0a5eb364d ("tee: add OP-TEE driver")
+Fixes: ab248643d3d6 ("scsi: ufs: core: Add error handling for MCQ mode")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shao-Fu Chen <shf.chen@mediatek.com>
-[JW: adding fixes and cc]
-Signed-off-by: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
-[ sashal: Adjusted initialization context to preserve direct mutex and wait-list setup. ]
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+Link: https://patch.msgid.link/20260928035816.1294326-3-stanleyjhu@google.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tee/optee/ffa_abi.c | 16 ++++++++--------
- drivers/tee/optee/smc_abi.c | 17 ++++++++---------
- 2 files changed, 16 insertions(+), 17 deletions(-)
+ drivers/ufs/core/ufshcd.c | 37 +++++++++++++++++++++----------------
+ 1 file changed, 21 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/tee/optee/ffa_abi.c b/drivers/tee/optee/ffa_abi.c
-index 927c3d7947f9c..f0ecd931035e3 100644
---- a/drivers/tee/optee/ffa_abi.c
-+++ b/drivers/tee/optee/ffa_abi.c
-@@ -844,14 +844,6 @@ static int optee_ffa_probe(struct ffa_device *ffa_dev)
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index 8b011c26e9cbf..9ce72915657aa 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -5743,7 +5743,17 @@ static void ufshcd_mcq_compl_pending_transfer(struct ufs_hba *hba,
+ 	struct ufshcd_lrb *lrbp;
+ 	struct scsi_cmnd *cmd;
+ 	unsigned long flags;
+-	int tag;
++	int tag, i;
++
++	for (i = 0; i < hba->nr_hw_queues; i++) {
++		if (force_compl)
++			ufshcd_mcq_compl_all_cqes_lock(hba, &hba->uhq[i]);
++		else
++			ufshcd_mcq_poll_cqe_lock(hba, &hba->uhq[i]);
++	}
++
++	if (!force_compl)
++		return;
+ 
+ 	for (tag = 0; tag < hba->nutrs; tag++) {
+ 		lrbp = &hba->lrb[tag];
+@@ -5756,22 +5766,17 @@ static void ufshcd_mcq_compl_pending_transfer(struct ufs_hba *hba,
+ 		if (!hwq)
+ 			continue;
+ 
+-		if (force_compl) {
+-			ufshcd_mcq_compl_all_cqes_lock(hba, hwq);
+-			/*
+-			 * For those cmds of which the cqes are not present
+-			 * in the cq, complete them explicitly.
+-			 */
+-			spin_lock_irqsave(&hwq->cq_lock, flags);
+-			if (cmd && !test_bit(SCMD_STATE_COMPLETE, &cmd->state)) {
+-				set_host_byte(cmd, DID_REQUEUE);
+-				ufshcd_release_scsi_cmd(hba, lrbp);
+-				scsi_done(cmd);
+-			}
+-			spin_unlock_irqrestore(&hwq->cq_lock, flags);
+-		} else {
+-			ufshcd_mcq_poll_cqe_lock(hba, hwq);
++		/*
++		 * For those cmds of which the cqes are not present
++		 * in the cq, complete them explicitly.
++		 */
++		spin_lock_irqsave(&hwq->cq_lock, flags);
++		if (cmd && !test_bit(SCMD_STATE_COMPLETE, &cmd->state)) {
++			set_host_byte(cmd, DID_REQUEUE);
++			ufshcd_release_scsi_cmd(hba, lrbp);
++			scsi_done(cmd);
+ 		}
++		spin_unlock_irqrestore(&hwq->cq_lock, flags);
  	}
- 	optee->supp_teedev = teedev;
+ }
  
--	rc = tee_device_register(optee->teedev);
--	if (rc)
--		goto err_unreg_supp_teedev;
--
--	rc = tee_device_register(optee->supp_teedev);
--	if (rc)
--		goto err_unreg_supp_teedev;
--
- 	rc = rhashtable_init(&optee->ffa.global_ids, &shm_rhash_params);
- 	if (rc)
- 		goto err_unreg_supp_teedev;
-@@ -871,6 +863,14 @@ static int optee_ffa_probe(struct ffa_device *ffa_dev)
- 	if (rc)
- 		goto err_close_ctx;
- 
-+	rc = tee_device_register(optee->teedev);
-+	if (rc)
-+		goto err_unregister_devices;
-+
-+	rc = tee_device_register(optee->supp_teedev);
-+	if (rc)
-+		goto err_unregister_devices;
-+
- 	rc = optee_enumerate_devices(PTA_CMD_GET_DEVICES);
- 	if (rc)
- 		goto err_unregister_devices;
-diff --git a/drivers/tee/optee/smc_abi.c b/drivers/tee/optee/smc_abi.c
-index d5b28fd35d665..39941bcf1bb92 100644
---- a/drivers/tee/optee/smc_abi.c
-+++ b/drivers/tee/optee/smc_abi.c
-@@ -1717,14 +1717,6 @@ static int optee_probe(struct platform_device *pdev)
- 	}
- 	optee->supp_teedev = teedev;
- 
--	rc = tee_device_register(optee->teedev);
--	if (rc)
--		goto err_unreg_supp_teedev;
--
--	rc = tee_device_register(optee->supp_teedev);
--	if (rc)
--		goto err_unreg_supp_teedev;
--
- 	mutex_init(&optee->call_queue.mutex);
- 	INIT_LIST_HEAD(&optee->call_queue.waiters);
- 	optee_supp_init(&optee->supp);
-@@ -1781,6 +1773,14 @@ static int optee_probe(struct platform_device *pdev)
- 	if (optee->smc.sec_caps & OPTEE_SMC_SEC_CAP_DYNAMIC_SHM)
- 		pr_info("dynamic shared memory is enabled\n");
- 
-+	rc = tee_device_register(optee->teedev);
-+	if (rc)
-+		goto err_disable_shm_cache;
-+
-+	rc = tee_device_register(optee->supp_teedev);
-+	if (rc)
-+		goto err_disable_shm_cache;
-+
- 	rc = optee_enumerate_devices(PTA_CMD_GET_DEVICES);
- 	if (rc)
- 		goto err_disable_shm_cache;
-@@ -1801,7 +1801,6 @@ static int optee_probe(struct platform_device *pdev)
- 	optee_shm_arg_cache_uninit(optee);
- 	optee_supp_uninit(&optee->supp);
- 	mutex_destroy(&optee->call_queue.mutex);
--err_unreg_supp_teedev:
- 	tee_device_unregister(optee->supp_teedev);
- err_unreg_teedev:
- 	tee_device_unregister(optee->teedev);
 -- 
 2.53.0
 
