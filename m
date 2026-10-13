@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D5A83F871B
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 14:58:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BDB03F871B
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 14:58:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791903489; cv=none; b=WQUD6mPaMMZUI8wKjbMJLlDCAKK5Kk/3mEnsIDfNQv8n4BTOWNi+1iciihs0xwsaeBBLClk7RCCsEYGJbzWnWvtmjp2lfWhBawiu2yN2+iGXGfKlfTO9nZD8I5SSMAOOEPyrZsH5LjLImxYQATd6tShNlYQ3UaZ+xwxXGcVelUY=
+	t=1791903503; cv=none; b=aqM4IustRHi1kMvWsfMw45ocl5KibvRp8krw72xRZhTYPay8B9wBdO0pAJhjIVi014mCkzsDEaYzPMvPwvVQVLs6yMBzVzdMtLzPGl6NEvrSWJLwZrNSm80lucLHehYPmObTMG9BJLgMCd1LIejgbvtsChJzbAu1VLAdHgAU3x8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791903489; c=relaxed/simple;
-	bh=5ao+Z54WuUjvwffl1JtYs+tlY1IzYp6LHZDIokv4Fok=;
+	s=arc-20240116; t=1791903503; c=relaxed/simple;
+	bh=WZc2u5yUu0RtNt1UDgIg2t6VDqGya6haL9QRtmGZqyI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Hj9TNVnVOosF3qTfNaaR/Zi44aNmOMTIfSrYIDJZpivXgA7B/T3ZfhTfUIZEdoxHrI0gtMjg6mCKofkZveTexsVBE4f6ly2xZ76Tm2WDZ9p3VINHwF1kdfEKaGU0DX9NTsRXgaM2WXyJHGUJH2Cq0ke3sQ7EnCljG2ZduObeAms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KYUhliXA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=iaYSiiINensEhaNLX4WLU4LrGKA5GcyEdVs8pU2zNUWk0V98nvsebz2oEDEcD4Q6G9rkDcyARKwnYhg0w0JXpf6HTIX3owV1fNtwoBKGk8MW7nBIsacupZWcr4nAlq4IS/XHSJP66r9tC51w952tTKMWBQx5J8fx14OvCPZL1oM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nWFq1Y4O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KYUhliXA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BDAD1F000FF;
-	Tue, 13 Oct 2026 14:58:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nWFq1Y4O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 554221F000FF;
+	Tue, 13 Oct 2026 14:58:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791903488;
-	bh=aYCmv95XbVCTstzIU/OwARGkP9It/K/B4aFkPuzhBJA=;
+	s=k20260515; t=1791903501;
+	bh=NkuW575T6MZ1UbzPH4xyfmzATYLb7dkjpFFnNkxZuw0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KYUhliXAjy/946Ch76JVtzGvGQB2O4Rnimt3isYd5EOMcoOuwNU01K4+HE5CEXIP+
-	 ienyMBzP9Z91wTGC7KpMKHlA4FQwi9NEZO87KFPA9QWlepfa8Ds2N07JVKdTXUarzo
-	 6pBkkQu6ImPqMg/gYw1k6KwHgFfbVZmadg+LyaS273uqQyeBCq7V4mjZBmRF358DKB
-	 udZ63ckL1iUrJXKaw3apZcF5mAvYyUMxOlGq3fcC9YTPkGmqt+q45WZ7dmhJMaoGmW
-	 P4tCNzpt/UYTqesnw5YM9H+oWjnVjphnq+Xhg3Vrw336fMBssmKKwp11s5nPIavAWS
-	 DGKvth+MToFzw==
+	b=nWFq1Y4Ovt5GdWpqtO8TJ+tlE2Maw1fFeEaYX62ytCUjE5ptlc3BFjLAR0pN6dnNu
+	 RwOVCgbQe4njlZSFn3CIvc3zj6nIpm0Y+6pGKx5wlPXL1oczpP29tGchvWu8LLXN//
+	 LTJDdZoTe2+pO2XvKPfNLht6Hj04D7OdcIU3RE6iTjci2Khc9PXTlPP6A5cm9wnz7z
+	 iMFKYMtUYctQIpfc+NYy6oii8MKvjJRlBOgAy6IWGXHY1uossT8lLj2LKahhrwxF9K
+	 bcmkULR0StgOggv2/qvJih6bPlktjCTFcVddlbXpmqMz2y+BmGxv12u+Gg2+8pmp/7
+	 cilRdsSF/CsJQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Shawn Lin <shawn.lin@rock-chips.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Ulf Hansson <ulfh@kernel.org>,
+Cc: Mikulas Patocka <mpatocka@redhat.com>,
+	syzbot+bdff1ecf726d2af66afd@syzkaller.appspotmail.com,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] pmdomain: rockchip: propagate subdomain add errors
-Date: Tue, 13 Oct 2026 10:58:06 -0400
-Message-ID: <20261013145757.103437-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] dm: fix reading free memory in do_resume
+Date: Tue, 13 Oct 2026 10:58:20 -0400
+Message-ID: <20261013145807.90957-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101216-quantum-murky-3a7f@gregkh>
-References: <2026101216-quantum-murky-3a7f@gregkh>
+In-Reply-To: <2026101224-cough-approval-fc0f@gregkh>
+References: <2026101224-cough-approval-fc0f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,39 +45,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Shawn Lin <shawn.lin@rock-chips.com>
+From: Mikulas Patocka <mpatocka@redhat.com>
 
-[ Upstream commit 4c0d69d677cf5b0065ebbb3ceb8ba66fddbec630 ]
+[ Upstream commit c9417c1c5269e2bd0570fbe53e4ec03a8d31f008 ]
 
-rockchip_pm_add_subdomain() ignored the return value of its recursive
-call, so a failure deeper in the hierarchy was silently dropped and
-probe still succeeded with an incomplete domain tree.
+When do_resume calls dm_table_get_mode(new_map), the call is done without
+holding any locks (it only holds a reference to the md). It may be
+possible that another concurrent ioctl on the same device will swap table
+after dm_swap_table and before dm_table_get_mode. In this case,
+dm_table_get_mode(new_map) reads freed memory.
 
-Fixes: 6be05b5ec161 ("soc: rockchip: power-domain: add support for sub-power domains")
-Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+This race condition was triggered by syzbot.
+
+This commit fixes the race by reading mode of the new table before
+dm_swap_table. Note that new_map is also passed to dm_ima_need_measure,
+but this function doesn't attempt to dereference it, so this call should
+be safe.
+
+Note that this is not a security bug because only root can trigger it and
+the commonly used tools such as lvm or cryptsetup do not call the ioctls
+concurrently, so that they can't trigger it acceidentally.
+
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Reported-by: syzbot+bdff1ecf726d2af66afd@syzkaller.appspotmail.com
 Cc: stable@vger.kernel.org
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+[ sashal: Replaced blk_mode_t/BLK_OPEN_WRITE with fmode_t/FMODE_WRITE to match the existing API. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/soc/rockchip/pm_domains.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/md/dm-ioctl.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/soc/rockchip/pm_domains.c b/drivers/soc/rockchip/pm_domains.c
-index 5ba582ffaa1a2..0a22bd2324e6a 100644
---- a/drivers/soc/rockchip/pm_domains.c
-+++ b/drivers/soc/rockchip/pm_domains.c
-@@ -755,7 +755,9 @@ static int rockchip_pm_add_subdomain(struct rockchip_pmu *pmu,
- 				parent_domain->name, child_domain->name);
+diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
+index 12bc13bde0af5..d067006285e64 100644
+--- a/drivers/md/dm-ioctl.c
++++ b/drivers/md/dm-ioctl.c
+@@ -1065,6 +1065,8 @@ static int do_resume(struct dm_ioctl *param)
+ 
+ 	/* Do we need to load a new map ? */
+ 	if (new_map) {
++		fmode_t new_map_mode;
++
+ 		/* Suspend if it isn't already suspended */
+ 		if (param->flags & DM_SKIP_LOCKFS_FLAG)
+ 			suspend_flags &= ~DM_SUSPEND_LOCKFS_FLAG;
+@@ -1091,6 +1093,7 @@ static int do_resume(struct dm_ioctl *param)
+ 			}
  		}
  
--		rockchip_pm_add_subdomain(pmu, np);
-+		error = rockchip_pm_add_subdomain(pmu, np);
-+		if (error)
-+			return error;
- 	}
++		new_map_mode = dm_table_get_mode(new_map);
+ 		old_map = dm_swap_table(md, new_map);
+ 		if (IS_ERR(old_map)) {
+ 			dm_sync_table(md);
+@@ -1099,7 +1102,7 @@ static int do_resume(struct dm_ioctl *param)
+ 			return PTR_ERR(old_map);
+ 		}
  
- 	return 0;
+-		if (dm_table_get_mode(new_map) & FMODE_WRITE)
++		if (new_map_mode & FMODE_WRITE)
+ 			set_disk_ro(dm_disk(md), 0);
+ 		else
+ 			set_disk_ro(dm_disk(md), 1);
 -- 
 2.53.0
 
