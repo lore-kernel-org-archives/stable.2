@@ -1,194 +1,173 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A743515F1;
-	Tue, 13 Oct 2026 12:30:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AFB033D6F8;
+	Tue, 13 Oct 2026 12:30:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791894657; cv=none; b=PnkcN/+8CVWW5lTql8mLqtfQPXbK986HhOt2wL+Ym6RYhDsmwKHWnSVCUkOl/Mns2Xmf68R70052we/9FxfjthVppUrRIaozXO7jCt5qN0yQB5+bompZbEcHkzYkgfGklcJ4Paf+KGLFGwV2V4keEgvhFDL7tU6UC8OiIC0nJTE=
+	t=1791894658; cv=none; b=L8+jl1LDMjDPa0ncWpLAeq4bv6RhaD986V+wpCfVlvDHLYfoGucv/jzUW9RtSNWV1BrMdLCr4ihQTwcUn3yjQj3biAUFUxFdZyc4iZHVPF+PZD/PoWJP8NSlAH6OF5ibB++yfIEqp5IzE76jlO0tPmiLAuRg7MZcR8HgYPYhosI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791894657; c=relaxed/simple;
-	bh=Eds2hsNrdvrPY3ijR3b+SpdidBiyJXD7DvAo57OHjFY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Qp3pLwXAc1hi5gW2EjYNJgGG+rAQxU/28RH9aGiNo7gR33CKnjjbc8xzuh4VW7wijM7b5oTJ3bzPzIzWH7zURLuR6F7LeTABycG3XpbbRysWmbeghL7SHv76j2zyF1lKhwXTYh3glRe6J54Hyv/iHcqkE+jJRhpo6VkrDWIGxLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1zXVOuwh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791894658; c=relaxed/simple;
+	bh=q6nRAbWGhJmgn8/3tLbirUhaQCaDCSXwvO/2ykqrnTY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gA1jsAiEr3TsdK6o57YmOa4Qv//lBkVuKuS05iBxKADgnP2A6hZPUQs5/bGPRkRN+ujqv0F4tfOA5SMlJFLhW3jxUGcCtSw//M8SVOn1WxRhol6qFvJct5hc6mzYBbvjkT/00rKDaHNDPOZd/9nzj+Xw9IWlwTF7T4LnHRCBm3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gZTRINwc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1zXVOuwh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B53C91F000FF;
-	Tue, 13 Oct 2026 12:30:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791894656;
-	bh=yNq6KJ9C6FghCAGRjnkBZVgcpgnGIC8oMDXAMW+Ejt8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=1zXVOuwhvR19qRT23pf/iqW/SUhtIZMBjEGHVvCG+rr9bDlc2c5Xmqi21zCsdsuCE
-	 FqRAoT6WsEa7UeVbAfteOtAFbAUFXD5jHtRS3bASsRkCbTm8GrGglLBrbuUFrzHg54
-	 Gl/L7imyVEHmmJ0Fmi5ciLAqrkLXGqRz7FL/zRu0=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
-	Liam Girdwood <liam.r.girdwood@intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 013/497] ASoC: SOF: ipc4/Intel: Add support for library restore firmware functionality
-Date: Tue, 13 Oct 2026 13:33:00 +0200
-Message-ID: <20261013112908.194221666@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261013112907.864180619@linuxfoundation.org>
-References: <20261013112907.864180619@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gZTRINwc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E3101F00893;
+	Tue, 13 Oct 2026 12:30:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791894657;
+	bh=Xb1hOH7i9YqMB45ChD69mFDwlRw95h31SKU2E12G4YQ=;
+	h=From:Date:Subject:To:Cc;
+	b=gZTRINwczHe7ZL8f1PcBeMY2tu1LxVXEWFrHCNBd59lQhR9MedBrhgfDx9Et3dRi8
+	 f6FoDnd2y7gIFlEctA7LwOEwX5rQdx3x3J5HQp5Yrklf4+XEdg0QPex25WzYeMC1OO
+	 M1k18osGBO5pgsWsaWy4NevXyn6+d2hEBOteBitDaa/nZLl2phfi/bBmWuTJ9xy6gn
+	 8oZhn69X+lszyFM30TxsixPD0ZbUkxKWJa6KfgCOO3OuLdLF4En+VtGFC1LKL7CWui
+	 CcTg5oUhXYvFReIGCZCWo3RmgJmWLxphKvPMD81i0+t1zysS0NLtXYmLo7XJkmJu7s
+	 HTkBgsINt+kzw==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Tue, 13 Oct 2026 14:30:37 +0200
+Subject: [PATCH] mm: fix address wraparound when scanning large folio PTEs
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAGwkzmoC/yXM0QpAQBCF4VfRXFOWEl5F2tYYjLSrHaTk3S0uv
+ zrnv0DIMwnU0QWeDhZ2NkDFEeBk7EgJ98GQpVmhUpUng1vY6XUjLWis9t8GCzSqQiyp6iFcV08
+ Dn1+2aX/L3s2E29uC+34ANex0hHgAAAA=
+X-Change-ID: 20261013-folio_pte_scan_range-c6ca19cc8e9d
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Ying Huang <huang.ying.caritas@gmail.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <baohua@kernel.org>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Chuanhua Han <hanchuanhua@oppo.com>, 
+ Mike Rapoport <rppt@kernel.org>, Kiryl Shutsemau <kas@kernel.org>, 
+ Kyle Zeng <kylebot@openai.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4181; i=david@kernel.org;
+ h=from:subject:message-id; bh=q6nRAbWGhJmgn8/3tLbirUhaQCaDCSXwvO/2ykqrnTY=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLOqRTY7REJCHv+Oc5wyrsQY85DXHtSTqgvU5xxJCtRs
+ 8/y8Yu5HaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEwkTJfhf2i1y5Xmsthvm1Jc
+ JupN/tP07EzGhtsH+iZfDrue6vPVcSfDH+7NvOdtDjh5Ou/ozjkY8mGRWJ4+X4RO/55zV6dvqIn
+ eyQAA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+numa_rebuild_large_mapping() and do_swap_page() can be tricked into
+generating an address wraparound, crashing the kernel. All that's required
+is to map a tail page of a large folio close enough to the start/end of
+the address space to e.g., make
 
-------------------
+	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
 
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+to wrap around.
 
-[ Upstream commit ace9b3daf2b4778358573d3698e34cb1c0fa7e14 ]
+Let's fix it by providing a better helper, folio_pte_scan_range(), that
+takes care of staying within VMA and page table boundaries while
+handling possible wraparounds.
 
-The firmware will be able to only save and restore the context related to
-library management.
-This means that even without a full context save, the libraries do not
-need to be re-loaded to the firmware after second or consecutive boots.
-
-This is reported via the FW_READY notification, where BIT(15) indicates:
-0 - the library restore is not done
-1 - library restore is done
-
-This bit is only valid if full context save is not enabled, full context
-save is by definition saves and restores the library related book-keeping
-as well.
-
-Add a new flag to tell the platform code if the libraries have been
-restored, no need to reload them after boot.
-
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Reviewed-by: Liam Girdwood <liam.r.girdwood@intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Link: https://patch.msgid.link/20250619105623.4546-3-peter.ujfalusi@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reported-by: Kyle Zeng <kylebot@openai.com>
+Fixes: d2136d749d76 ("mm: support multi-size THP numa balancing")
+Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- include/sound/sof/ipc4/header.h  |  2 ++
- sound/soc/sof/intel/hda-loader.c |  7 +++++--
- sound/soc/sof/ipc4-loader.c      |  6 ++++++
- sound/soc/sof/ipc4-priv.h        |  2 ++
- sound/soc/sof/ipc4.c             | 14 ++++++++++++--
- 5 files changed, 27 insertions(+), 4 deletions(-)
+ mm/memory.c | 43 +++++++++++++++++++++++++++++--------------
+ 1 file changed, 29 insertions(+), 14 deletions(-)
 
-diff --git a/include/sound/sof/ipc4/header.h b/include/sound/sof/ipc4/header.h
-index 0c0cf47946b1d..5302721c154d0 100644
---- a/include/sound/sof/ipc4/header.h
-+++ b/include/sound/sof/ipc4/header.h
-@@ -485,6 +485,8 @@ struct sof_ipc4_dx_state_info {
- #define SOF_IPC4_LOG_CORE_GET(x)		(((x) & SOF_IPC4_LOG_CORE_MASK) >> \
- 						 SOF_IPC4_LOG_CORE_SHIFT)
+diff --git a/mm/memory.c b/mm/memory.c
+index 1f5d5f7d39cd2..a3823010aa981 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -4933,6 +4933,27 @@ static void check_swap_exclusive(struct folio *folio, swp_entry_t entry,
+ 	} while (--nr_pages);
+ }
  
-+#define SOF_IPC4_FW_READY_LIB_RESTORED		BIT(15)
++/*
++ * Get the address range in which a folio might be mapped, assuming its pages
++ * are mapped consecutively and the folio page at the given idx is mapped at
++ * the given address.
++ */
++static void folio_pte_scan_range(const struct folio *folio,
++		const struct vm_area_struct *vma, unsigned long addr,
++		unsigned long idx, unsigned long *start, unsigned long *end)
++{
++	/* Stay within the page table and VMA boundaries. */
++	const unsigned long pmd_start = addr & PMD_MASK;
++	const unsigned long pmd_end = pmd_start + PMD_SIZE;
++	const unsigned long lower = max(pmd_start, vma->vm_start);
++	const unsigned long upper = min(pmd_end - 1, vma->vm_end - 1) + 1;
++	const unsigned long offset = idx << PAGE_SHIFT;
 +
- /* Value of notification type field - must fit into 8 bits */
- enum sof_ipc4_notification_type {
- 	/* Phrase detected (notification from WoV module) */
-diff --git a/sound/soc/sof/intel/hda-loader.c b/sound/soc/sof/intel/hda-loader.c
-index 9d8ebb7c6a106..a1cd80eba6ebc 100644
---- a/sound/soc/sof/intel/hda-loader.c
-+++ b/sound/soc/sof/intel/hda-loader.c
-@@ -548,8 +548,11 @@ int hda_dsp_ipc4_load_library(struct snd_sof_dev *sdev,
- 	struct snd_dma_buffer dmab;
- 	int ret, ret1;
++	/* Avoid any address wraparounds. */
++	*start = addr - min(addr - lower, offset);
++	*end = addr + min(upper - addr, folio_size(folio) - offset);
++}
++
+ /*
+  * We enter with either the VMA lock or the mmap_lock held (see
+  * FAULT_FLAG_VMA_LOCK), and pte mapped but not yet locked.
+@@ -5121,16 +5142,15 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+ 	address = vmf->address;
+ 	ptep = vmf->pte;
+ 	if (folio_test_large(folio) && folio_test_swapcache(folio)) {
+-		int nr = folio_nr_pages(folio);
+-		unsigned long idx = folio_page_idx(folio, page);
+-		unsigned long folio_start = address - idx * PAGE_SIZE;
+-		unsigned long folio_end = folio_start + nr * PAGE_SIZE;
++		const int nr = folio_nr_pages(folio);
++		const unsigned long idx = folio_page_idx(folio, page);
++		unsigned long folio_start, folio_end;
+ 		pte_t *folio_ptep;
+ 		pte_t folio_pte;
  
--	/* if IMR booting is enabled and fw context is saved for D3 state, skip the loading */
--	if (reload && hda->booted_from_imr && ipc4_data->fw_context_save)
-+	/*
-+	 * if IMR booting is enabled and libraries have been restored during fw
-+	 * boot, skip the loading
-+	 */
-+	if (reload && hda->booted_from_imr && ipc4_data->libraries_restored)
- 		return 0;
+-		if (unlikely(folio_start < max(address & PMD_MASK, vma->vm_start)))
+-			goto check_folio;
+-		if (unlikely(folio_end > pmd_addr_end(address, vma->vm_end)))
++		folio_pte_scan_range(folio, vma, address, idx, &folio_start,
++				     &folio_end);
++		if (unlikely((folio_end - folio_start) >> PAGE_SHIFT != nr))
+ 			goto check_folio;
  
- 	/* the fw_lib has been verified during loading, we can trust the validity here */
-diff --git a/sound/soc/sof/ipc4-loader.c b/sound/soc/sof/ipc4-loader.c
-index bcdb33d036820..bba5c1a8e27ed 100644
---- a/sound/soc/sof/ipc4-loader.c
-+++ b/sound/soc/sof/ipc4-loader.c
-@@ -401,6 +401,12 @@ int sof_ipc4_query_fw_configuration(struct snd_sof_dev *sdev)
- 			break;
- 		case SOF_IPC4_FW_CONTEXT_SAVE:
- 			ipc4_data->fw_context_save = *tuple->value;
-+			/*
-+			 * Set the default libraries_restored value - if full
-+			 * context save is supported then it means that
-+			 * libraries are restored
-+			 */
-+			ipc4_data->libraries_restored = ipc4_data->fw_context_save;
- 			break;
- 		default:
- 			break;
-diff --git a/sound/soc/sof/ipc4-priv.h b/sound/soc/sof/ipc4-priv.h
-index 0889de04b0170..bd3cb79084154 100644
---- a/sound/soc/sof/ipc4-priv.h
-+++ b/sound/soc/sof/ipc4-priv.h
-@@ -72,6 +72,7 @@ struct sof_ipc4_fw_library {
-  * @max_libs_count: Maximum number of libraries support by the FW including the
-  *		    base firmware
-  * @fw_context_save: Firmware supports full context save and restore
-+ * @libraries_restored: The libraries have been retained during firmware boot
-  *
-  * @load_library: Callback function for platform dependent library loading
-  * @pipeline_state_mutex: Mutex to protect pipeline triggers, ref counts, states and deletion
-@@ -87,6 +88,7 @@ struct sof_ipc4_fw_data {
- 	int max_num_pipelines;
- 	u32 max_libs_count;
- 	bool fw_context_save;
-+	bool libraries_restored;
- 
- 	int (*load_library)(struct snd_sof_dev *sdev,
- 			    struct sof_ipc4_fw_library *fw_lib, bool reload);
-diff --git a/sound/soc/sof/ipc4.c b/sound/soc/sof/ipc4.c
-index e4eb8e004885e..9427d80ceafaa 100644
---- a/sound/soc/sof/ipc4.c
-+++ b/sound/soc/sof/ipc4.c
-@@ -616,9 +616,19 @@ EXPORT_SYMBOL(sof_ipc4_find_debug_slot_offset_by_type);
- 
- static int ipc4_fw_ready(struct snd_sof_dev *sdev, struct sof_ipc4_msg *ipc4_msg)
+ 		folio_ptep = vmf->pte - idx;
+@@ -6280,16 +6300,11 @@ static void numa_rebuild_large_mapping(struct vm_fault *vmf, struct vm_area_stru
+ 				       struct folio *folio, pte_t fault_pte,
+ 				       bool ignore_writable, bool pte_write_upgrade)
  {
--	/* no need to re-check version/ABI for subsequent boots */
--	if (!sdev->first_boot)
-+	if (!sdev->first_boot) {
-+		struct sof_ipc4_fw_data *ipc4_data = sdev->private;
-+
-+		/*
-+		 * After the initial boot only check if the libraries have been
-+		 * restored when full context save is not enabled
-+		 */
-+		if (!ipc4_data->fw_context_save)
-+			ipc4_data->libraries_restored = !!(ipc4_msg->primary &
-+							   SOF_IPC4_FW_READY_LIB_RESTORED);
-+
- 		return 0;
-+	}
+-	int nr = pte_pfn(fault_pte) - folio_pfn(folio);
++	const unsigned long idx = pte_pfn(fault_pte) - folio_pfn(folio);
+ 	unsigned long start, end, addr = vmf->address;
+-	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
+-	unsigned long pt_start = ALIGN_DOWN(addr, PMD_SIZE);
+ 	pte_t *start_ptep;
  
- 	sof_ipc4_create_exception_debugfs_node(sdev);
+-	/* Stay within the VMA and within the page table. */
+-	start = max3(addr_start, pt_start, vma->vm_start);
+-	end = min3(addr_start + folio_size(folio), pt_start + PMD_SIZE,
+-		   vma->vm_end);
++	folio_pte_scan_range(folio, vma, addr, idx, &start, &end);
+ 	start_ptep = vmf->pte - ((addr - start) >> PAGE_SHIFT);
  
--- 
-2.53.0
+ 	/* Restore all PTEs' mapping of the large folio */
 
+---
 
+base-commit: 634cbf5b794b734c78631b92e381cfc85f357bbe
+
+change-id: 20261013-folio_pte_scan_range-c6ca19cc8e9d
+
+--
+
+Cheers,
+
+David
 
