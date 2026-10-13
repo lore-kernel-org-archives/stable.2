@@ -1,125 +1,463 @@
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D4E5326A5
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:59:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2767252F26F
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 18:02:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914384; cv=none; b=lDd9uCiRTIN0UUdSTmWxRORcuNYQdKiXh/aPjd47pPV7hnEUwdCxUYw1rFejH9cDLNkREmXKjlqaZnfsdFkGALidkT1sP8uB7vtt0pkP/5IbF9dtZbXS+LjdfVrG0WiKEffQWhZViiqGzYdBs7aaI18PAPtGzuSEjeG6QPIsqtY=
+	t=1791914582; cv=none; b=l66lvyH7ya7UJLZOFIaRWWKk7m0AK6fyFUrYHI55l0yjTBjs5GtfJouADSOUCnv0gSjEH5VQ0Z6BvuawpDwqhyOhVnmh0LqGkjG55c0c/X6ypY29BuqIMSmoVkHWPePy5BJOhpJl9LdULhGQtd323xSWWbDEtjPTeFPxl+l4/dU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791914384; c=relaxed/simple;
-	bh=tJra5WXUJUAErMt026HVIKG9BLHea906af/cVQLm8tw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=a1GlJ4ior2wiN7Rzz5AbmQhR7lsapbdceiIxoDChO/0B7+sVykzct0ttubU2yVstTiKED8QfxVhHYSetJrco9h8fvZv1t32tj+tfF1eGbVyop/Op7/bKmrtl4qktZcaLljR3/QBdA5V2JPnJW8XUOJCcx/3ARU6nCDiqZNMCqzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=i+nr1hx1; arc=none smtp.client-ip=209.85.222.182
+	s=arc-20240116; t=1791914582; c=relaxed/simple;
+	bh=wBlk6u4aG2EVlQyPisgf3bspxRI3Odan0m/rs96yEjs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=giPTO6aZzKqSj+56rj2WQmuLkINxtfn53AZwsbkuGgEcbOn8r5kYVf1KZJ4MyP95XC1pvrMvShb6T1J0wouzcPu3Yw6g424ta62On1V/71DsVszZk9P/vsiDW77mdaGAp8Hpa0GAWH8tHaQFD+busrmR+yzHLikKnlhZcMRTIlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=ZEa+04P7; arc=none smtp.client-ip=209.85.219.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="i+nr1hx1"
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93e635220b4so328416985a.1
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 10:59:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="ZEa+04P7"
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-91b834592afso22110786d6.0
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 11:02:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1791914382; x=1792519182; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=I7PYK2NFBnnrBKq5En7ZMWWtpUU9RPTiFiLhdaDzGE0=;
-        b=i+nr1hx1jUqGqLAJHMSKKDOI2nVJS2NqWUt624pJ/sUN0URhOZFLoWVA2iI1oMKVl3
-         /mGQ3tRjJiMD3qaK2ftzqtjASF9hLj3xbGL2hMst2I9H5d+OVZFnzN+uz5CH7IK3NUjy
-         c+PEnt2Zd8tWl13kqRoqXXK6ho4mL0ZrErLJGYhUYAEugShty2NpAl1UoZxnLm7SZP6o
-         7mB32ty3hsaA6bdaGKoOCeP0GQHvefHZ45noD2b3RHB2JtORgCoOip7t9lCV6zai3cBT
-         5vP1nB3vDfPNdTeHnZE/fagvvX5zVzu0MEM19ftCo/CdrABiqUdvwAJrWJBPDCTCGV7z
-         EJPg==
+        d=toxicpanda.com; s=google; t=1791914576; x=1792519376; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=+hmJG7kWwVUskELoxr9dmPJXmwIZ8AA6DUhkJgvB+ls=;
+        b=ZEa+04P7E05+KuSuek28IRqX+wKrrZO3y/NkzQ4sETO66NeC/0cwnzjv6gaoVoMdS6
+         as8z2BU8J5ERl98pLqjWuij1drq3YkZ3YKxBV5YB1JRlDBuD/tVIG6v7ROaL75QlHkky
+         wj5IX2XbKEteRXcJ2xEaxQtWvHknlrrzuFlmAtCTOXT5NoJwBfN/wa0EKn2UZFWiOAHR
+         9wOsH5nYwCz9uAqy41PnIuJUT0qfbBppkE8P6G5AgcOyTqDldg30zsAHDygCAXxwXRUb
+         nYrnpdiNjflqIiWCRzPzdnxfcyjZ1Rdrz5XxLjGSH8nd5NfuE7BHLbAyCcd6csSCV1mV
+         LCKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791914382; x=1792519182;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I7PYK2NFBnnrBKq5En7ZMWWtpUU9RPTiFiLhdaDzGE0=;
-        b=L4BYEVMNsgxj65ZthlV4aBbNV84B0LPHft44M0ukD7ZUyR3d9Nn8xX7ciqxjluRa1F
-         Nlv+2Xc3CGwIIw3CjvYs2mEkgaEzQHE9x5LMWAyLJpORTIgVBtoPvZ4ORQmIsrEbAABa
-         Rwv2PdQQtfXKQIyxWgTG6BEe+QypNPWXvslun0TJYOy+YYZZAZOP5TmjcBaIrcVTTbNK
-         +n8eUrheXJQoH+zeLlpZGvRDZLQVaGUQWQYVj9IGohBJpWKr0hxhuJtODo3gW/rC0xe8
-         fsq+fNO2kJP/uMroaccX4i2GVUreE/yMylMlcI3SdsLtX7U7Iowslz2UCCCPM/DS6rOX
-         73Mg==
-X-Forwarded-Encrypted: i=1; AKwUvBzcO3UmVZEGTz3knEVCOP0XWhloHeHT8Qhm/55BqkmsWIrUB7B4qmflXHyZtrUWU3BreLMMPXA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKHJfIBJpQJg/xwMwllZ/7KUAd6Qi4GU0sDZfZrbS4rC4qGarz/
-	cjN7MVmk+DrfrMNuhzcw6wPZZJiBt5abemmugdxCCSMFhd03LYsr2t1Gm+TX9zTWuSE=
-X-Gm-Gg: AYBFou1mK8T/42I3EzSmSZqjeJNFY8yYJ7fmc1FJuMDwBiZQqhp8PpJplm/4qbWQ4MO
-	mIiCFL92OTjSTnl4iMRBaJvGgyavipurwio5XSODPmwc2pOB3fpvpMqA6l9k9kMvP64UAUPWYID
-	5lMmO15zjYGKliSWMqk4UubR5rMnJR8YbvyMdl4dR+KtOrbWZF9fSqMKyo3EHLHAbH+/cnWmO27
-	hUQWjTRfBfLRI9oABp2aIY7pVzHuQxJjnXbo3tLUFCnk7APfkjWD+MFamGZNutOgXeKavH3bx5O
-	aQzg8/i9zcpHffwHv4HfveI5ypIlOLj11koCca+VdcxTsRbEk01NoKFPTT7aWIAi2VhK+OzurcG
-	lhu61FMdW7N/ypf1Pqmz7rZjIGnR6lya49iZGD1xntLyaDwXAuU9x4wdp2DetcsfJwHHn7we5tl
-	wIl6zoNC53OS90pfQf18uuUPqXdVAbMT3H7psMpxoz9tPlTWIOmrOYepDblwynfdg00LIhNSMFe
-	HkIWxM3Ek19V6U=
-X-Received: by 2002:a05:620a:6405:b0:93d:e031:5ad with SMTP id af79cd13be357-93ebd224911mr2124184885a.17.1791914380656;
-        Tue, 13 Oct 2026 10:59:40 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.248])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef5086fe3sm292732185a.37.2026.10.13.10.59.39
+        d=1e100.net; s=20260707; t=1791914576; x=1792519376;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=+hmJG7kWwVUskELoxr9dmPJXmwIZ8AA6DUhkJgvB+ls=;
+        b=fCrhWo9RD3Db1jguJaBXthI6TV5tYxgn0bOEnmFUx8u251Rlnxq9ksAS/Zxkhxmdt0
+         gKTfmQQ33TUs4KtlTN9pR84c4QkYttFhooho6BQqiBQdNt7h7ndWRt56nxJQNdkeseW6
+         IVkqdB5UNjGRwbu1LM+fCWLIVvrDphx5KCdNAAXET7oFOMCXOUtTYMrRgqGhKgrtzYe1
+         Bn74EE7emwr/rSEQxrLIOjlN1sxh+QxpUOZv7OgWo41fe6zOEKPeG8B96Fe8LfL7ft4s
+         sT00dP5x7JzvNRIVWXO4uNTjS92Bqj6cvcCeJu9tXQuZXnf2mw4z9Q2QyVrkp0tPrTdQ
+         BdKQ==
+X-Forwarded-Encrypted: i=1; AKwUvByO5Cptg3MmpVC7TlLqNjsN1b7zVnJ5RYEqkn0ASx5ha+t4GpJntULyCOPMERt6c/znFkHYaMw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJkwo9ep3Tr2EYuUrQWLJmPQwdsUNU4HjWbYz3kJ4gIZCj4j5s
+	f1hjxXpbSjAwn7jiHPn3DAWvZFpLUdP1VzHYZUVUtxG/PuR0h8fQkeSDdKA5owFVqRM=
+X-Gm-Gg: AYBFou0JziLvJCFiwuTO0nGY0OWaH5rUe/jvb0gie7D1UzvjW3PVzd3RlFCyT030V0j
+	UeydSwYjGceL47ettuFG5gmFSt6vWsvPHrzPPDIlYucGW2QZQLOG3rlF85q9lKC5amMovTpC9XW
+	glsioMt9ZHmFY1Qt9DCuPfnEWHNQjpFzRkqjV3ecBonJrYURRCKkLrD6EztOUuvDxOhGEiF5Lg1
+	lzMKdtzK5X+rniIea6nYLBB0qQ/hVH1M75c4JWvL4bf+b6vugxIa+jrG+BPulrEPn9TK9J97WzW
+	EuR8wSGOJ4NPa8KMaZnK7C3ylYTq0TmU6P7AMOBnuTKBfI1kct4LbCUE5fznZw6lKXjCFFb0VEt
+	SISHxISwQf0fDa5oMEo68IBz1QLS3KMR3Urv2qgPb1krSw/rcp+qj5aGuioF6ic+UWCoQNVkfyq
+	PPiV5HuTJf+ER+UrPmVeBlYyGkbumaDl3lEx0Ay2cXYZYiU4H+y+VVWmPC8lS1frBbFvv63suBn
+	R4b1Pt/rTUT+/s=
+X-Received: by 2002:a05:6214:b6a:b0:91b:8e32:efdf with SMTP id 6a1803df08f44-91b8e32f30dmr83817526d6.41.1791914575403;
+        Tue, 13 Oct 2026 11:02:55 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.249])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b3bca7sm30846996d6.10.2026.10.13.11.02.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 10:59:39 -0700 (PDT)
+        Tue, 13 Oct 2026 11:02:54 -0700 (PDT)
 From: Josef Bacik <josef@toxicpanda.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Mina Almasry <almasrymina@google.com>,
- Willem de Bruijn <willemb@google.com>, Kaiyuan Zhang <kaiyuanz@google.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH net] net: skbuff: don't segment unreadable skbs without
- SG
-Date: Tue, 13 Oct 2026 17:58:45 +0000
-Message-ID: <179191432558777.2.414389277062940952@toxicpanda.com>
-In-Reply-To: <179163919450.434549.9325877615055483977@kernel.org>
-References: <20261009-b4-skb-segment-nosg-unreadable-v1-1-7e2334a55fe8@toxicpanda.com>
- <179163919450.434549.9325877615055483977@kernel.org>
+Date: Tue, 13 Oct 2026 18:02:44 +0000
+Subject: [PATCH net v2] net: skbuff: make skb_copy_and_csum_bits() report
+ unreadable frags
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-b4-skb-segment-nosg-unreadable-v2-1-6c28d8ffa51e@toxicpanda.com>
+X-B4-Tracking: v=1; b=H4sIAERyzmoC/4WOSw7CMAxEr4K8xtCElt+KeyAWTuq24ZNUcahAq
+ HenLaxhOU/2vHmBcHQssJ+9IHLnxAU/BD2fgW3I14yuHDLoTK9Vlm3R5CgXg8L1jX1CH6TGu49
+ MJZkrI1GhN5aVUXkFQ0kbuXKPSXAEzwlOHyh3c2abxurxzJAwmkjeNiO6tkuTLyf4QzY+Nk5Si
+ M9pf6cmy3fq7t/UTqHCDevVKqeiqHh7SOHhbEu+pIUNNzj1ff8G3KlniSEBAAA=
+X-Change-ID: 20261008-b4-skb-segment-nosg-unreadable-aa527ce1b14f
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>, 
+ Ido Schimmel <idosch@nvidia.com>, Trond Myklebust <trondmy@kernel.org>, 
+ Anna Schumaker <anna@kernel.org>, Chuck Lever <cel@kernel.org>, 
+ Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
+ Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
+ Tom Talpey <tom@talpey.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Mina Almasry <almasrymina@google.com>, Kaiyuan Zhang <kaiyuanz@google.com>, 
+ Willem de Bruijn <willemb@google.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-nfs@vger.kernel.org, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1791914572; l=13742;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=wBlk6u4aG2EVlQyPisgf3bspxRI3Odan0m/rs96yEjs=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QIqF05W7DA/gz1DPeLpctZ5GJfzMYz9pra+axIkjZgacwEhfL5KRs+lN/WqgaRArclYEfEwaQg/
+ 4VcRq6g6LfAU=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-On Sat, Oct 10, 2026 at 01:33:14PM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Does this guard also need to cover the sg && !csum case?
->
-> The commit message says:
->
->   "and with only checksum offload off the segments keep sharing
->   the frags."
+skb_copy_and_csum_bits() has no way to fail.  When it reaches
+unreadable frags it zero-fills the rest of the buffer and returns 0,
+and since commit ab9414ed70bd ("net: skbuff: don't leave stale bytes in
+skb_copy_and_csum_bits()") that 0 is the correct checksum for what's in
+the buffer.  Its callers can't tell the copy didn't happen.
 
-The segments do keep sharing the frags in that case, so this bug, the
-payload being replaced with zeroes, doesn't happen there.  The commit
-message shouldn't have implied the case is fine though.
+That matters in the !sg && !csum branch of skb_segment().  A devmem TCP
+skb keeps its whole payload in unreadable frags, so every segment ends
+up with a payload of zeroes, tcp_gso_segment() writes a valid TCP
+checksum over it, and the peer accepts the zeroes as stream data.  This
+is reachable when both SG and TX checksum offload are turned off on a
+device used for devmem TX: sk_setup_caps() still gives TCP SG and
+HW_CSUM, so the dmabuf send is accepted, validate_xmit_unreadable_skb()
+lets the skb through for a NETMEM_TX_NO_DMA device or a matching
+binding, and software GSO segments it with neither feature.  Before
+that commit the segments carried uninitialized memory with a checksum
+that almost never matched.
 
-> The devmem MSG_ZEROCOPY path in tcp_sendmsg_locked() goes through
-> skb_zerocopy_iter_stream() and never sets SKBFL_SHARED_FRAG. As far as I
-> can tell, only the MSG_SPLICE_PAGES branch sets it. That means the
-> __skb_linearize() fallback is skipped and skb_checksum() is called on an
-> nskb whose payload is entirely in unreadable frags.
+Make skb_copy_and_csum_bits() return 0 or -EFAULT and hand the checksum
+back through a pointer, and make it __must_check so a new caller can't
+ignore the failure.  Each caller takes the error path it already has
+for a failed copy:
 
-With SG on and checksum offload off, skb_segment() calls
-skb_checksum() on each segment, and skb_checksum() can't report
-failure, so on unreadable frags it WARNs and returns 0 and the segment
-goes out with a checksum that doesn't cover the payload.  That's been
-there since 65249feb6b3d ("net: add support for skbs with unreadable
-frags").
+ - skb_segment() fails the segmentation, as the csum branch already
+   does when skb_copy_bits() fails.
+ - icmp_glue_bits() and icmpv6_getfrag() return the error, so the ICMP
+   error isn't sent.
+ - __ip_append_data() and __ip6_append_data() drop the new skb and
+   return -EFAULT, as they do when getfrag fails.
+ - vnet_skb_shape() fails the same way it does when its skb_copy_bits()
+   call fails.
+ - xdr_skb_read_bits() returns 0 without consuming anything, as it does
+   when skb_copy_bits() fails, so desc.count stays non-zero and
+   csum_partial_copy_to_xdr() fails.  csum_partial_copy_to_xdr() used
+   to checksum the bytes it hadn't copied before checking desc.count.
+   desc.offset and desc.count always add up to skb->len, so that only
+   ran when it was about to fail anyway, and on an unreadable skb
+   skb_checksum() would WARN.  Drop it.
+ - skb_copy_and_csum_dev() can't return an error, so it leaves the
+   checksum alone and the frame goes out with a bad one.  Its callers
+   are drivers that never see unreadable skbs anyway.
 
-> Would checking !sg || !csum here be more appropriate?
+The zero-fill stays, so a caller that does send the buffer still
+doesn't leak anything.
 
-v2 drops this check.  Mina asked for skb_copy_and_csum_bits() to
-report the error itself instead, so v2 changes it to return -EFAULT on
-unreadable frags and every caller handles that, skb_segment() included.
-The commit message there only describes the case with both SG and
-checksum offload off.  The sg && !csum case needs skb_checksum() to
-report failure the same way, and I'll do that as a separate fix.
+This was found by the Sashiko AI review of that commit, and
+Mina suggested reporting the error from the helper rather than checking
+for unreadable frags in skb_segment().
 
-pw-bot: cr
+Fixes: ab9414ed70bd ("net: skbuff: don't leave stale bytes in skb_copy_and_csum_bits()")
+Fixes: 65249feb6b3d ("net: add support for skbs with unreadable frags")
+Link: https://lore.kernel.org/all/179148235783.434549.14322374227477832817@kernel.org/
+Suggested-by: Mina Almasry <almasrymina@google.com>
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+v1: https://lore.kernel.org/all/20261009-b4-skb-segment-nosg-unreadable-v1-1-7e2334a55fe8@toxicpanda.com/
+
+v1->v2:
+- Report the failure from skb_copy_and_csum_bits() itself and handle it
+  in every caller, instead of checking for unreadable frags up front in
+  skb_segment() (Mina).
+- Rebased onto current net.
 
 Thanks,
 Josef
+---
+ drivers/net/ethernet/sun/sunvnet_common.c | 10 +++--
+ include/linux/skbuff.h                    |  4 +-
+ net/core/skbuff.c                         | 61 ++++++++++++++++++++++---------
+ net/ipv4/icmp.c                           |  9 +++--
+ net/ipv4/ip_output.c                      | 11 ++++--
+ net/ipv6/icmp.c                           |  7 +++-
+ net/ipv6/ip6_output.c                     | 11 ++++--
+ net/sunrpc/socklib.c                      |  9 ++---
+ 8 files changed, 82 insertions(+), 40 deletions(-)
+
+diff --git a/drivers/net/ethernet/sun/sunvnet_common.c b/drivers/net/ethernet/sun/sunvnet_common.c
+index 5cca95869052..4f229fcecc32 100644
+--- a/drivers/net/ethernet/sun/sunvnet_common.c
++++ b/drivers/net/ethernet/sun/sunvnet_common.c
+@@ -1167,9 +1167,13 @@ static inline struct sk_buff *vnet_skb_shape(struct sk_buff *skb, int ncookies)
+ 
+ 			/* copy the rest, with csum calculation */
+ 			*(__sum16 *)(skb->data + offset) = 0;
+-			csum = skb_copy_and_csum_bits(skb, start,
+-						      nskb->data + start,
+-						      skb->len - start);
++			if (skb_copy_and_csum_bits(skb, start,
++						   nskb->data + start,
++						   skb->len - start, &csum)) {
++				dev_kfree_skb(nskb);
++				dev_kfree_skb(skb);
++				return NULL;
++			}
+ 
+ 			/* add in the header checksums */
+ 			if (skb->protocol == htons(ETH_P_IP)) {
+diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+index a3ff380d43f0..542494fabbc4 100644
+--- a/include/linux/skbuff.h
++++ b/include/linux/skbuff.h
+@@ -4268,8 +4268,8 @@ void skb_free_datagram(struct sock *sk, struct sk_buff *skb);
+ int skb_kill_datagram(struct sock *sk, struct sk_buff *skb, unsigned int flags);
+ int skb_copy_bits(const struct sk_buff *skb, int offset, void *to, int len);
+ int skb_store_bits(struct sk_buff *skb, int offset, const void *from, int len);
+-__wsum skb_copy_and_csum_bits(const struct sk_buff *skb, int offset, u8 *to,
+-			      int len);
++int __must_check skb_copy_and_csum_bits(const struct sk_buff *skb, int offset,
++					u8 *to, int len, __wsum *csum);
+ int skb_splice_bits(struct sk_buff *skb, struct sock *sk, unsigned int offset,
+ 		    struct pipe_inode_info *pipe, unsigned int len,
+ 		    unsigned int flags);
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index 41beaf625421..9152448324f8 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -3611,14 +3611,27 @@ EXPORT_SYMBOL(skb_checksum);
+ 
+ /* Both of above in one bottle. */
+ 
+-__wsum skb_copy_and_csum_bits(const struct sk_buff *skb, int offset,
+-				    u8 *to, int len)
++/**
++ *	skb_copy_and_csum_bits - copy data out of an skb and checksum it
++ *	@skb: source buffer
++ *	@offset: offset in @skb to start copying from
++ *	@to: destination buffer
++ *	@len: number of bytes to copy
++ *	@csump: where to store the checksum of the copied bytes
++ *
++ *	Return: 0 on success, or -EFAULT if @skb has unreadable frags.  On
++ *	failure *@csump is not set and the part of @to that couldn't be filled
++ *	is zeroed.
++ */
++int skb_copy_and_csum_bits(const struct sk_buff *skb, int offset,
++			   u8 *to, int len, __wsum *csump)
+ {
+ 	int start = skb_headlen(skb);
+ 	int i, copy = start - offset;
+ 	struct sk_buff *frag_iter;
+ 	int pos = 0;
+ 	__wsum csum = 0;
++	int err;
+ 
+ 	/* Copy header. */
+ 	if (copy > 0) {
+@@ -3627,7 +3640,7 @@ __wsum skb_copy_and_csum_bits(const struct sk_buff *skb, int offset,
+ 		csum = csum_partial_copy_nocheck(skb->data + offset, to,
+ 						 copy);
+ 		if ((len -= copy) == 0)
+-			return csum;
++			goto out;
+ 		offset += copy;
+ 		to     += copy;
+ 		pos	= copy;
+@@ -3637,7 +3650,7 @@ __wsum skb_copy_and_csum_bits(const struct sk_buff *skb, int offset,
+ 		/* Don't hand the caller a buffer with stale bytes in it. */
+ 		if (len > 0)
+ 			memset(to, 0, len);
+-		return 0;
++		return -EFAULT;
+ 	}
+ 
+ 	for (i = 0; i < skb_shinfo(skb)->nr_frags; i++) {
+@@ -3669,7 +3682,7 @@ __wsum skb_copy_and_csum_bits(const struct sk_buff *skb, int offset,
+ 			}
+ 
+ 			if (!(len -= copy))
+-				return csum;
++				goto out;
+ 			offset += copy;
+ 			to     += copy;
+ 		}
+@@ -3686,12 +3699,16 @@ __wsum skb_copy_and_csum_bits(const struct sk_buff *skb, int offset,
+ 		if ((copy = end - offset) > 0) {
+ 			if (copy > len)
+ 				copy = len;
+-			csum2 = skb_copy_and_csum_bits(frag_iter,
+-						       offset - start,
+-						       to, copy);
++			err = skb_copy_and_csum_bits(frag_iter, offset - start,
++						     to, copy, &csum2);
++			if (err) {
++				/* The child zeroed its part; zero the rest. */
++				memset(to + copy, 0, len - copy);
++				return err;
++			}
+ 			csum = csum_block_add(csum, csum2, pos);
+ 			if ((len -= copy) == 0)
+-				return csum;
++				goto out;
+ 			offset += copy;
+ 			to     += copy;
+ 			pos    += copy;
+@@ -3699,7 +3716,9 @@ __wsum skb_copy_and_csum_bits(const struct sk_buff *skb, int offset,
+ 		start = end;
+ 	}
+ 	BUG_ON(len);
+-	return csum;
++out:
++	*csump = csum;
++	return 0;
+ }
+ EXPORT_SYMBOL(skb_copy_and_csum_bits);
+ 
+@@ -3964,9 +3983,13 @@ void skb_copy_and_csum_dev(const struct sk_buff *skb, u8 *to)
+ 	skb_copy_from_linear_data(skb, to, csstart);
+ 
+ 	csum = 0;
+-	if (csstart != skb->len)
+-		csum = skb_copy_and_csum_bits(skb, csstart, to + csstart,
+-					      skb->len - csstart);
++	/* On failure the rest of @to is zeroed; leave the checksum alone so
++	 * the frame goes out with a bad one.
++	 */
++	if (csstart != skb->len &&
++	    skb_copy_and_csum_bits(skb, csstart, to + csstart,
++				   skb->len - csstart, &csum))
++		return;
+ 
+ 	if (skb->ip_summed == CHECKSUM_PARTIAL) {
+ 		long csstuff = csstart + skb->csum_offset;
+@@ -4993,11 +5016,13 @@ struct sk_buff *skb_segment(struct sk_buff *head_skb,
+ 			if (!csum) {
+ 				if (!nskb->remcsum_offload)
+ 					nskb->ip_summed = CHECKSUM_NONE;
+-				SKB_GSO_CB(nskb)->csum =
+-					skb_copy_and_csum_bits(head_skb, offset,
+-							       skb_put(nskb,
+-								       len),
+-							       len);
++				if (skb_copy_and_csum_bits(head_skb, offset,
++							   skb_put(nskb, len),
++							   len,
++							   &SKB_GSO_CB(nskb)->csum)) {
++					err = -EFAULT;
++					goto err;
++				}
+ 				SKB_GSO_CB(nskb)->csum_start =
+ 					skb_headroom(nskb) + doffset;
+ 			} else {
+diff --git a/net/ipv4/icmp.c b/net/ipv4/icmp.c
+index 90c0e22c29be..35008785e3d2 100644
+--- a/net/ipv4/icmp.c
++++ b/net/ipv4/icmp.c
+@@ -364,12 +364,15 @@ static int icmp_glue_bits(void *from, char *to, int offset, int len, int odd,
+ 	DEFINE_RAW_FLEX(struct icmp_bxm, icmp_param, replyopts.opt.__data,
+ 			IP_OPTIONS_DATA_FIXED_SIZE);
+ 	__wsum csum;
++	int err;
+ 
+ 	icmp_param = from;
+ 
+-	csum = skb_copy_and_csum_bits(icmp_param->skb,
+-				      icmp_param->offset + offset,
+-				      to, len);
++	err = skb_copy_and_csum_bits(icmp_param->skb,
++				     icmp_param->offset + offset,
++				     to, len, &csum);
++	if (err)
++		return err;
+ 
+ 	skb->csum = csum_block_add(skb->csum, csum, odd);
+ 	if (icmp_param->data.icmph.type <= NR_ICMP_TYPES &&
+diff --git a/net/ipv4/ip_output.c b/net/ipv4/ip_output.c
+index eaa6fabda347..e3a927066f07 100644
+--- a/net/ipv4/ip_output.c
++++ b/net/ipv4/ip_output.c
+@@ -1162,9 +1162,14 @@ static int __ip_append_data(struct sock *sk,
+ 			data += fragheaderlen + exthdrlen;
+ 
+ 			if (fraggap) {
+-				skb->csum = skb_copy_and_csum_bits(
+-					skb_prev, maxfraglen,
+-					data + transhdrlen, fraggap);
++				if (skb_copy_and_csum_bits(skb_prev, maxfraglen,
++							   data + transhdrlen,
++							   fraggap,
++							   &skb->csum)) {
++					err = -EFAULT;
++					kfree_skb(skb);
++					goto error;
++				}
+ 				skb_prev->csum = csum_sub(skb_prev->csum,
+ 							  skb->csum);
+ 				data += fraggap;
+diff --git a/net/ipv6/icmp.c b/net/ipv6/icmp.c
+index a95b0351824f..31ca3da80b1f 100644
+--- a/net/ipv6/icmp.c
++++ b/net/ipv6/icmp.c
+@@ -322,9 +322,12 @@ static int icmpv6_getfrag(void *from, char *to, int offset, int len, int odd, st
+ 	struct icmpv6_msg *msg = (struct icmpv6_msg *) from;
+ 	struct sk_buff *org_skb = msg->skb;
+ 	__wsum csum;
++	int err;
+ 
+-	csum = skb_copy_and_csum_bits(org_skb, msg->offset + offset,
+-				      to, len);
++	err = skb_copy_and_csum_bits(org_skb, msg->offset + offset,
++				     to, len, &csum);
++	if (err)
++		return err;
+ 	skb->csum = csum_block_add(skb->csum, csum, odd);
+ 	if (!(msg->type & ICMPV6_INFOMSG_MASK))
+ 		nf_ct_attach(skb, org_skb);
+diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
+index 550965058991..5c297d38eb8c 100644
+--- a/net/ipv6/ip6_output.c
++++ b/net/ipv6/ip6_output.c
+@@ -1724,9 +1724,14 @@ static int __ip6_append_data(struct sock *sk,
+ 			skb->transport_header = (skb->network_header +
+ 						 fragheaderlen);
+ 			if (fraggap) {
+-				skb->csum = skb_copy_and_csum_bits(
+-					skb_prev, maxfraglen,
+-					data + transhdrlen, fraggap);
++				if (skb_copy_and_csum_bits(skb_prev, maxfraglen,
++							   data + transhdrlen,
++							   fraggap,
++							   &skb->csum)) {
++					err = -EFAULT;
++					kfree_skb(skb);
++					goto error;
++				}
+ 				skb_prev->csum = csum_sub(skb_prev->csum,
+ 							  skb->csum);
+ 				data += fraggap;
+diff --git a/net/sunrpc/socklib.c b/net/sunrpc/socklib.c
+index d8d8842c7de5..5d780ad4ae3a 100644
+--- a/net/sunrpc/socklib.c
++++ b/net/sunrpc/socklib.c
+@@ -49,7 +49,9 @@ xdr_skb_read_bits(struct xdr_skb_reader *desc, void *to, size_t len)
+ 	if (desc->need_checksum) {
+ 		__wsum csum;
+ 
+-		csum = skb_copy_and_csum_bits(desc->skb, desc->offset, to, len);
++		if (unlikely(skb_copy_and_csum_bits(desc->skb, desc->offset,
++						    to, len, &csum)))
++			return 0;
+ 		desc->csum = csum_block_add(desc->csum, csum, desc->offset);
+ 	} else {
+ 		if (unlikely(skb_copy_bits(desc->skb, desc->offset, to, len)))
+@@ -142,11 +144,6 @@ int csum_partial_copy_to_xdr(struct xdr_buf *xdr, struct sk_buff *skb)
+ 	desc.csum = csum_partial(skb->data, desc.offset, skb->csum);
+ 	if (xdr_partial_copy_from_skb(xdr, &desc) < 0)
+ 		return -1;
+-	if (desc.offset != skb->len) {
+-		__wsum csum2;
+-		csum2 = skb_checksum(skb, desc.offset, skb->len - desc.offset, 0);
+-		desc.csum = csum_block_add(desc.csum, csum2, desc.offset);
+-	}
+ 	if (desc.count)
+ 		return -1;
+ 	if (csum_fold(desc.csum))
+
+---
+base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+change-id: 20261008-b4-skb-segment-nosg-unreadable-aa527ce1b14f
+
