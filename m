@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 008A1484222;
-	Tue, 13 Oct 2026 04:33:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E6D4848A5;
+	Tue, 13 Oct 2026 04:33:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791865990; cv=none; b=IsdeNXXbQm9eaydGtAwFqsbsa1wElwmwvZmd5JJOeKpE8er0eVsp+4fAz2FYErTa5e3bGvYjYj/KD+iSCQrVRbTGpHLKv1bFBgVotj46dtQzP9YIc1bBgS3NYOy4k9Jm6PSs9h5DipDH1BRext71LF7+GJY2ZEe7VFAllNoiULk=
+	t=1791866011; cv=none; b=DcmcNo54h2lLNWcRLK9ppVCQffhic8UTPWnnv4wxTST97363f/fqithSthgCYX1pxv+VTOklRNjPfBpwqsWyJlaE9eGbVu6JNaALrb1xNaTMH3VLXu6BgE63K4ojiObKE8o0+2dGQfXuRBR30++JuRLJoWejlbqf9snjbrmkUFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791865990; c=relaxed/simple;
-	bh=Km12nEYM4voutnoiIq9ZxNNCTKZHTz6z396oyE+vNok=;
-	h=Date:To:From:Subject:Message-Id; b=On76KQ0p5UXVKl6kTwWEe/Ndstbnc2mVWkRDchR3IP+i6bRWddwdKDlbRnutc1HkSFEJ9GRo/3L4SWGeay76WHOZ/NH2CR0V7ci/rSAjm2EY7hqwM25GORd4nR9PhK1HSCaR0uVvWyjaGBK+SVebT3K4tjYcW3siGt0Rnl1uPt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=gdMY3FXp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791866011; c=relaxed/simple;
+	bh=LxU5Juz9kSoqD0JyDxlyA2S0m3BQNUtI8AF5u6M1LmI=;
+	h=Date:To:From:Subject:Message-Id; b=HWBYn4qdGrskugJmTG2On5zts12blJPCDPAdizkhZRytxtKrezuFIBW60nrH5A2YmB84AhXmj7NQqjNjG/2umijz4aa0ZOgiXlpZGyJ+RiuvZMk3JAghiXc5F14ma9kDLI16rQCGlfi/l2JLVIcGRbej5J+y/BDkv7oXiqH3yhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Pigmyr0m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="gdMY3FXp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5B641F00893;
-	Tue, 13 Oct 2026 04:33:08 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Pigmyr0m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBF1D1F00893;
+	Tue, 13 Oct 2026 04:33:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791865988;
-	bh=87COmUTPCIpGpkgi1vaUqWPNPsrfYfKn4NsRWqds6rg=;
+	d=linux-foundation.org; s=korg; t=1791866009;
+	bh=J/7QxNrBYn49lJF+FgAThlNSHL0e9GGvl5xudSqUi28=;
 	h=Date:To:From:Subject;
-	b=gdMY3FXpnOgVQ9PvIngJry2Pu6pU65M2qVCRMBX9VTJY6uaVm5aOAS49dun7Kkbdb
-	 3X/6vChkg0mLVSMxZ8DUzE1xy0vIQeU3mBhyzcZsIXClDRafyZopjsC6bXM3PErs2Q
-	 hqYrZ37BkuOOZI/nQd/rtOYvyWqV2SctOWAWXUeg=
-Date: Mon, 12 Oct 2026 21:33:08 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,osalvador@suse.de,muchun.song@linux.dev,kees@kernel.org,david@kernel.org,colin.i.king@gmail.com,almasrymina@google.com,lihongfu@kylinos.cn,akpm@linux-foundation.org
+	b=Pigmyr0m18Ci+FAums8/akpRnQM2b2cvd1mDr5Ig/DkI1ZZ0+sY0BMRH74tC9jXad
+	 7rSrXFFltiSs5O628oP2JRB7ob7G5g0XtTvip/bzzgcxDe31ByapDc7aBn32zoc+Ll
+	 URuMQW3Zsg5179oqpTnQmhpE5Of6CQkOrDFzVbPw=
+Date: Mon, 12 Oct 2026 21:33:29 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,paulmck@kernel.org,hughd@google.com,baolin.wang@linux.alibaba.com,leitao@debian.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-hugetlb_cgroup-move-per-node-usage-on-cgroup-reparenting.patch removed from -mm tree
-Message-Id: <20261013043308.C5B641F00893@smtp.kernel.org>
+Subject: [merged mm-stable] mm-shmem-report-rcu-tasks-quiescent-states-while-undoing-a-range.patch removed from -mm tree
+Message-Id: <20261013043329.BBF1D1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,61 +35,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: mm/hugetlb_cgroup: move per-node usage on cgroup reparenting
+     Subject: mm/shmem: report RCU-tasks quiescent states while undoing a range
 has been removed from the -mm tree.  Its filename was
-     mm-hugetlb_cgroup-move-per-node-usage-on-cgroup-reparenting.patch
+     mm-shmem-report-rcu-tasks-quiescent-states-while-undoing-a-range.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Hongfu Li <lihongfu@kylinos.cn>
-Subject: mm/hugetlb_cgroup: move per-node usage on cgroup reparenting
-Date: Fri, 18 Sep 2026 10:56:11 +0800
+From: Breno Leitao <leitao@debian.org>
+Subject: mm/shmem: report RCU-tasks quiescent states while undoing a range
+Date: Fri, 18 Sep 2026 04:24:37 -0700
 
-hugetlb_cgroup_css_offline() hands the folios of a dying cgroup over to
-its parent with hugetlb_cgroup_move_parent(), which moves the page_counter
-charges and the hugetlb_cgroup pointer of the folio but not its per-node
-usage.  The parent's hugetlb.<size>.numa_stat is short by that usage while
-they are charged, and underflows once they are freed, exposing incorrect
-per-node usage values to userspace.
+This shows up in the Meta fleet on ftruncate() of large tmpfs files:
 
-Move the per-node usage to the parent as well.  The folios keep their node
-here, so only the cgroup which holds the usage changes.
+  INFO: rcu_tasks detected stalls on tasks:
+  00000000752fd185: .. nvcsw: 59455/59455 holdout: 1 idle_cpu: -1/0
+  task:rocksdb:bottom  state:R  running task
+    __folio_split
+    find_get_entry
+    find_get_entries
+    truncate_inode_partial_folio
+    shmem_undo_range
+    shmem_setattr
+    notify_change
+    do_ftruncate
+    __x64_sys_ftruncate
+    do_syscall_64
 
-Link: https://lore.kernel.org/20260918-for-hugetlb-charge-v2-2-2b6d8c2bdc36@kylinos.cn
-Fixes: f47761999052 ("hugetlb: add hugetlb.*.numa_stat file")
-Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+shmem_undo_range() walks the whole of the requested range in folio_batch
+sized steps, twice, and its two cond_resched() calls are the only
+reschedule points in that walk.
+
+cond_resched() is not an RCU-tasks quiescent state.  Use
+cond_resched_tasks_rcu_qs() at both points so the walk reports an
+RCU-tasks quiescent state as it proceeds.
+
+Link: https://lore.kernel.org/20260918-shmem-tasks-rcu-v1-1-79acf91a2569@debian.org
+Fixes: 8315f42295d2 ("rcu: Add call_rcu_tasks()")
+Signed-off-by: Breno Leitao <leitao@debian.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Cc: Colin Ian King <colin.i.king@gmail.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Mina Almasry <almasrymina@google.com>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Reviewed-by: SJ Park <sj@kernel.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: "Paul E . McKenney" <paulmck@kernel.org>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/hugetlb_cgroup.c |    2 ++
- 1 file changed, 2 insertions(+)
+ mm/shmem.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
---- a/mm/hugetlb_cgroup.c~mm-hugetlb_cgroup-move-per-node-usage-on-cgroup-reparenting
-+++ a/mm/hugetlb_cgroup.c
-@@ -241,6 +241,8 @@ static void hugetlb_cgroup_move_parent(i
- 	/* Take the pages off the local counter */
- 	page_counter_cancel(counter, nr_pages);
+--- a/mm/shmem.c~mm-shmem-report-rcu-tasks-quiescent-states-while-undoing-a-range
++++ a/mm/shmem.c
+@@ -1367,7 +1367,7 @@ static void shmem_undo_range(struct inod
+ 		}
+ 		folio_batch_remove_exceptionals(&fbatch);
+ 		folio_batch_release(&fbatch);
+-		cond_resched();
++		cond_resched_tasks_rcu_qs();
+ 	}
  
-+	hugetlb_cgroup_move_usage(h_cg, parent, folio, folio);
-+
- 	set_hugetlb_cgroup(folio, parent);
- out:
- 	return;
+ 	/*
+@@ -1408,7 +1408,7 @@ whole_folios:
+ 
+ 	index = start;
+ 	while (index < end) {
+-		cond_resched();
++		cond_resched_tasks_rcu_qs();
+ 
+ 		if (!find_get_entries(mapping, &index, end - 1, &fbatch,
+ 				indices)) {
 _
 
-Patches currently in -mm which might be from lihongfu@kylinos.cn are
+Patches currently in -mm which might be from leitao@debian.org are
 
-mm-hugetlb-account-migration-target-folio-in-per-node-nr_hugetlb-vmstat.patch
-mm-memcg-migrate-per-node-hugetlb-lruvec-stat-together-with-hugetlb-folio.patch
-mm-memfd-fix-hugetlb-reservation-accounting-in-error-paths.patch
 
