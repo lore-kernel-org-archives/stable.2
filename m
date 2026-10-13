@@ -1,166 +1,141 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D265847D94E;
-	Tue, 13 Oct 2026 16:30:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 698C14F4030
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:30:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791909020; cv=none; b=Jt71kRn4+IJ4y/o3hq0VNyytHcgzJ7nnwZ2K5eKRrZ2wxXmPaFbad8yunxCllmdJNtsns638Bu/LVOTx0yJfXBfPCBArtRK5f+I82tjNM3QOlXhKdk8WI1J2nKO2d94eJx3+2b/H6h+aNsc03kLtEUg2MsoM4L7u7L/W4ivjTIs=
+	t=1791909028; cv=none; b=mC9P7a+FIsTNwzNZvoXrHdZpNYz63VJ1NuTydPY1TIrXhAIsRaZj7keF+hFTFAw4sa46M4M2heO6f5bRrNmLlNJQhdPWPAeXykcVbrabLP9U8SRMyY/jKuuks7yu6py3XICcVF+9IZX9sa8GrnCQNSp0CR6POMJrmVuOw6qhphc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791909020; c=relaxed/simple;
-	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iNwM/HrUvao+i/OLWhhycheK3tPaX74XsjtDgEv63q+1fIch2aPtOUugqxFx+e0E0Uq/GzDZnVlJLS0Fk4mMFKpi95im6auL51arV8Ory0OVvHRa020is4pd2PXIr5dFf4/Hj2XBRzuKaDWeeGkLrYYryV4OFcX0tsTh+9Jx9EE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b=Mw/gSHvd; arc=none smtp.client-ip=212.227.17.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	s=arc-20240116; t=1791909028; c=relaxed/simple;
+	bh=9m7NtTHET6m83f9Mk11W5vw2NZvap3fwY2zve4r26nk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IXAnU3y+NMgYjnsn/hgjt7XRC34Y68r8qWjz8Mz0slNQXUufgaIBOFvouWPdhH9bGHnGBx+CUnItk7h65cRCRaqVx0tYP1BpsvS4o7DN5JR8N9n62pS0NEvF8I074RFvBxA1Eaxb/f6S4r0gZWSS6/ak7CCkpU/Agp4sz6sV6yk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=igm1WB07; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b="Mw/gSHvd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1791909004; x=1792513804; i=rwarsow@gmx.de;
-	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=Mw/gSHvdgOANKkQ4Fuu9jAlPMv3oSn8rL18HQLcf1EPTBlhE1CrcP5jmrllXQ9EI
-	 Lln5iKRkD7HOAfldX19aQ7z+OHH5ez16zVq7+bW97keWQF3onJJmSht3bSPueU0iu
-	 0UuBd8ouQMUFcV8Pm2Mb5dxSy6uvRiez6kWdkSkj4sQCsrXdD0NC2hocNwcbPnXio
-	 o5PCrAehGH3TlRa/qYQdLaMeWXpMt7M0QQOiGsdKBW5J3/Us4knXbcV8o+UYtnvZA
-	 OXvb4U1L0yke9eKyHTKByfNz+uZQALtu/7+8l2soFYVzswhudzSXEWW9R2eZWP9LM
-	 fv+onUGE6O3NmC5Hpg==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MYvcG-1xCDRE0aK8-00RQVY; Tue, 13
- Oct 2026 18:30:04 +0200
-Message-ID: <730578bf-1017-464c-b4f9-d8e7872fa2fe@gmx.de>
-Date: Tue, 13 Oct 2026 18:30:01 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="igm1WB07"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cd1006978ecso169706a12.0
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 09:30:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791909027; x=1792513827; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PlQnD3vqPXRC6bXv4DWDPrp7sKdyCguQyIZC8BvmMCk=;
+        b=igm1WB07j28aCQZqVpjaX3R624Nz2pQOth8j6We+ByOhmftIfEWP4cGdd13agEIt3d
+         xDNFenXvhjW/guWsor6u2hloBljzxSide3iFYlLf78UR5AbtuB4hVDG1Pn5yd/axeMxp
+         kOCnyX4IUIk/M47iMjFyjeAsT2J6HTs/xONcBiNG4TuJCQ/OqDjTVEhWIKPEIBTEMtqz
+         +0/C/H1/CBySZ8nY93aPRykDoDrI5GWvFTG/zH5/UqIARmEtyZkCXs/S2kt/SupHE3Au
+         rhzdvnMqfHFNEBeVWIw4FoEE/IR61s861U9OkmNRx7E/yVevqDZK018xB2kSbzk/ECqe
+         4zRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791909027; x=1792513827;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PlQnD3vqPXRC6bXv4DWDPrp7sKdyCguQyIZC8BvmMCk=;
+        b=Br+kC6c46hkHVGkJ03sUeacwhxT+X42T/amluS4tkzPzNS7hdJTng3Ska1J0kMrdhB
+         z6x02HWqUjPjfP+7Ompfq2mopMLVXNtx9G26MYcgPWixxCkaNKQAlWlpTlSdJOtbRgU0
+         bmWf+UWkcw2ntNqsWhepsgg4O7svas29374LKRqbQIYyQ4HSia/TetfD23xezIl6hAUI
+         sKnkfLbmLJTidzjQMW6ti04lKSvLmUxNIGFsGkaVeZf0yTFK+cqaAAFvrqm0Qv+TEgDo
+         nFqCywSqecsUm2E64kZnorxUJ5PRFmt/dH8FmlAMypYiKtRElKlizu6DZYu0VKaoiii1
+         +FDg==
+X-Forwarded-Encrypted: i=1; AKwUvBye1iquL4bCxkwa2tDMinApuQY4/hKswvxUIbPHsakiQIjkWfXr4OdeInFR2u1uIh6BBIMYnTU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7ImA9QNk1G3XJ8TX4ODgx9haIfdm9zjBgV1XQjZPV8l0QArZB
+	bB8jA4BKmNF6vyL8pgfraICCMzL5u30UU8pmHM5FE4yOCDkDFVpY9/Vf
+X-Gm-Gg: AYBFou0aKdMUyhDsRVjWoMwAzjBxeNOKKXE22DwgiV+i9pU9et5nB5OdTFK248bXzX/
+	EyXdqne2i9GUwIfvczGBnBmMUtDEBzXTCbzJPoeDrtiKRVjy8e4miEEiIp3ttqxgwoEh9Oq7Nw1
+	4ra1LS8aSlAkwj6Z9Cj69XqqGmb5akRMpN1VmG0CshE8Sga56djfATns2u/JavS4Fa3l6Qx6Bjc
+	QnAUjX+Jr/eZ7TxzAlEAIo624ldPsP1LslypGopySwdMFmua+bzOxvhBbxxXKC/GVGQQxVsr91f
+	xMl4Pm2DgCT50T0V/NWNNLPNrgX+t9KBJC+KXGAPm9dT4p4YcZFKp36f6SxUGZYTEftmyZD4g5V
+	eNkQnaPOcJPyibTwkjVQXUta19F2EEBSGVjl69i0KenM0Dof8HaKmM+UDBhyaQ7SKvr8lhqAryW
+	Ldp+o/xgclMf4Lgn/65/nmzI245dIajXR/AJ/+F17rOdKG4437xsnwb9+yceJBccUiEZB6TWe+P
+	6M6lTY3slX/8g3kB3u7oFc9XOQL9lbCW6jdII+JVn9mtZXbSL2CQzaKWyrHPHGxbuZf
+X-Received: by 2002:a05:6a20:430e:b0:3de:7dd4:e32a with SMTP id adf61e73a8af0-3e16bdae01emr16584442637.2.1791909024978;
+        Tue, 13 Oct 2026 09:30:24 -0700 (PDT)
+Received: from localhost.localdomain ([119.127.198.225])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9e0816csm6462483a12.7.2026.10.13.09.30.18
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 13 Oct 2026 09:30:24 -0700 (PDT)
+From: Qihang <q.h.hack.winter@gmail.com>
+To: netdev@vger.kernel.org
+Cc: jhs@mojatatu.com,
+	jiri@resnulli.us,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	elic@nvidia.com,
+	stable@vger.kernel.org,
+	Qihang <q.h.hack.winter@gmail.com>
+Subject: [PATCH] net/sched: cls_api: skip indr register on failed bind
+Date: Wed, 14 Oct 2026 00:30:14 +0800
+Message-ID: <20261013163014.25722-1-q.h.hack.winter@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 000/281] 7.2.11-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261013112855.045212108@linuxfoundation.org>
-From: Ronald Warsow <rwarsow@gmx.de>
-Content-Language: de-DE, en-US
-In-Reply-To: <20261013112855.045212108@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:eliAH5UsBprtvA+IC/cyyrVcW8pNcOIil6/J1GIWEm7SVh6pfEN
- QnQfrpe8oIsxYnARhxkeNmO5p4stRaPnZCVcJPBlGquruDwmqAhkCNmAvjDZ7G73iQR043v
- G/W7Rzexo9lK8QMWT+BLSwiBS6i7Nxof9fiCtDTUsmuhljMYq7c7lxZP0kkyoTaqBaRpiAj
- w8qgNLuvwPaMVtK5U1q8g==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:qA+EEQ/Pg+I=;0AYlbh9uzt+e/dkLtNqhiwtmGbH
- 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
- jQYj
+Content-Transfer-Encoding: 8bit
 
-Hi
+Binding a device without ndo_setup_tc() to a shared block that already
+offloads records the block on flow_indir_dev_list and then fails.  Nothing
+removes that record, so once the block is destroyed the next
+flow_indr_dev_register() splices a list into freed memory:
 
-kernel build / boot test on x86_64 (Intel).
+  tcf_block_offload_cmd()
+    -> flow_indr_dev_setup_offload()
+       -> indir_dev_add()   [ record: data = block,
+                                cb_list = &block->flow_block.cb_list ]
+    -> return -EOPNOTSUPP
+  tcf_block_offload_bind()
+    -> tcf_block_offload_in_use(block) is true    [ offloadcnt > 0 ]
+    -> return -EOPNOTSUPP
+  tcf_block_get_ext()
+    -> err_block_offload_bind            [ no tcf_block_offload_unbind() ]
 
-No regressions here.
+Only a FLOW_BLOCK_UNBIND calls indir_dev_remove(), and the failed bind
+never issues one.  The next flow_indr_dev_register() replays the record
+through existing_qdiscs_register(), where list_splice() writes the new
+linkage into the freed block's cb_list; the callback that the replay
+allocates keeps indr.data pointing at the freed block, so a later driver
+unregister reaches tc_block_indr_cleanup() on it as well.
 
-Thanks
+The fix was built and the reproducer re-run clean on it.
 
-Tested-by: Ronald Warsow <rwarsow@gmx.de>
+Fix by returning -EOPNOTSUPP before flow_indr_dev_setup_offload() when the
+command is FLOW_BLOCK_BIND and the block is already offloading, which is
+the condition tcf_block_offload_bind() rejects the bind with, so that no
+record is created.  Keep the check limited to the bind: on unbind this
+branch is the only caller of indir_dev_remove(), and it runs while
+offloadcnt is still non-zero.
+
+Fixes: 74fc4f828769c ("net: Fix offloading indirect devices dependency on qdisc order creation")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
+---
+ net/sched/cls_api.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/net/sched/cls_api.c b/net/sched/cls_api.c
+index a9f54988561f..7acfe71853a7 100644
+--- a/net/sched/cls_api.c
++++ b/net/sched/cls_api.c
+@@ -860,6 +860,10 @@ static int tcf_block_offload_cmd(struct tcf_block *block,
+ 		return tcf_block_setup(block, &bo);
+ 	}
+ 
++	/* a bind that cannot succeed must not leave a record behind */
++	if (command == FLOW_BLOCK_BIND && tcf_block_offload_in_use(block))
++		return -EOPNOTSUPP;
++
+ 	flow_indr_dev_setup_offload(dev, sch, TC_SETUP_BLOCK, block, &bo,
+ 				    tc_block_indr_cleanup);
+ 	tcf_block_setup(block, &bo);
+-- 
+2.54.0 (Apple Git-157)
+
