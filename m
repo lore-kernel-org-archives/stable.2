@@ -1,130 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15662E4257;
-	Tue, 13 Oct 2026 22:04:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2095753FD54
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 22:05:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791929086; cv=none; b=j+VwJFQKVW6GEHtRh05emhxCWrRzxwOEABkMgNaiE3oiAUeA9OhE38RmiAPmm8atddEaOOqdS/s+IlKbRV5CTLZVvblRvJYCHiD0EiQMaMfrD0hWf3/DEbU9cDq3rzGJ6VNeYkqZ0V/Cq+ShW5xpCy4cFRIwGgwsHSKrYpJ58zE=
+	t=1791929152; cv=none; b=tn3Ilsanay3tz5Xgp4MOhH16FvHd8y0GxlFHY3mo+7UARsom9kgUvlbOAUg0dpzX0dpRA8WuhkXvE3vylrlL/t7rEXBjvauiUMGX4no6MMOGOFmbJ8r/r6IngIwA49DDhOKSm7EGs0WPE3KbXM6NM5D2HSsr+2dIkcbXVBwvem4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791929086; c=relaxed/simple;
-	bh=bqViiTd77EM1kuy6eCNnJD78Z9Ge3008/seCNG0raH0=;
-	h=Date:To:From:Subject:Message-Id; b=oOcJhvD8HPKSHPdxKGKmSVLzvQ/i8N+6RORqTA7yqdw+OGXctGwN1pcRxRwNnjZKr2Yuo+A4Whgeq5pLzDLJ3K4luNf0DM+IlchhWeycIAOzqUsu2i49uAD5l+wc8ukiD6eq47HUS8kNYcP9+lUYIXc7I4rFF0uomgdhcySi7hM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=xq4Yu54v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791929152; c=relaxed/simple;
+	bh=KGcSNFnOdtZ1j8YPD0xStb9u5TMKlxiMTz+h15OXRao=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-Id; b=tAUFX6xO5aX8jGdoqkEbzUnhiFX/A6ItP3o6NxsXq91T0DfYISshJacknEz0qFuM3M41jBeP9DUoq+YvhwU1rrTlqjgyYgqxFe+6k16iJFqjLJgSk4qgN7HhtFCbpuZRcgCrPITafw2MfkjlL+BmjqctJk93irM5q6njcXCWN/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N7mLxaGO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="xq4Yu54v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88EAF1F000FF;
-	Tue, 13 Oct 2026 22:04:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791929084;
-	bh=Yq/4uiVdOKBsWCNpdvYvAGdimjd+WTugXDl5QfjFIUE=;
-	h=Date:To:From:Subject;
-	b=xq4Yu54vOVHxo6C/MDYhWOW1aEyGyAi9KuVRG7UpS1Ni521D3FCspDCLWOMJZV9pv
-	 alwm2jANOXvG8btD6trfEatMHKNfc0ftzwBml3PUpUqlKX2mG18AWg7y/O/c/gTbcp
-	 2dyyKtApUtXWKyikkT7XqHHTMh5cgL+AFTxGZK0s=
-Date: Tue, 13 Oct 2026 15:04:44 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,pfalcato@suse.de,ljs@kernel.org,liam@infradead.org,jannh@google.com,david@kernel.org,andreas@gaisler.com,stian@itx.no,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + fs-proc-task_mmu-fix-lost-maps-entries-above-263.patch added to mm-unstable branch
-Message-Id: <20261013220444.88EAF1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N7mLxaGO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 468CC1F0089A;
+	Tue, 13 Oct 2026 22:05:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791929150;
+	bh=QpQhe1h5SK+XILdjYJWIdfcanWqFAKZNLqOFT1Yptyc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=N7mLxaGOLWDBC28owwMXW01k1ZMxuZbl9WIJFlTgUNH6Lcu84gnBsuiQwFGj5Mfv6
+	 +3jKX0h9+d7JjW050Or/lEdOfrDMEeLdeRVBIaZukxVhZMMnpxLmWWD8tX0nMQA5sl
+	 GeSrX80HMCs60T+VJQPSn+4Wt20PXFpiRJZEmBIJqXP+Z5DFG+jsMwb4g0G/zopcOG
+	 fNVhmwP6kwWQnxMbQ8JfhKgMWFF9byJe1icu0uuHITC+kjCr5+JjBAP8TDBFvz9PMs
+	 La1tx3HvzI6JH11y4Yit6Y8/U6jNF9xsEotFWtPtEAWo/AT/9rgQNUb4rWixyzd7rh
+	 gbgNs6aWOQjow==
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: lee@kernel.org
+Cc: stable@vger.kernel.org
+Subject: Re: [PATCH v2] tracing/histograms: Reject non-stacktrace fields for
+ synthetic stacktrace fields
+Date: Wed, 14 Oct 2026 07:05:47 +0900
+X-Mailer: UndineD 0.1
+In-Reply-To: <20261013112449.1006088-1-lee@kernel.org>
+References: <20261013112449.1006088-1-lee@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Message-Id: <20261013220550.468CC1F0089A@smtp.kernel.org>
 
+On Tue, 13 Oct 2026 11:24:48 +0000, Lee Jones <lee@kernel.org> wrote:
+> In check_synth_field(), when a synthetic event field is a stacktrace
+> (field->is_stack) and the histogram field is not a "long[" stacktrace
+> array, validation falls through to the generic size and signedness
+> comparison.
+>
+> Because parse_synth_field() sets a stacktrace field's type to
+> "__data_loc unsigned long[]", its size is sizeof(u64) and
+> synth_field_signed() marks it as signed.  Consequently, any 8-byte
+> signed scalar histogram field passes the fallback check, and its scalar
+> value is subsequently dereferenced as a kernel stacktrace pointer in
+> get_field_size() and trace_stack().
+>
+> Furthermore, checking strstr(hist_field->type, "long[") is insufficient
+> because tracepoint fields defined with __bitmask() or __rel_bitmask()
+> also have type "__data_loc unsigned long[]" or "__rel_loc unsigned
+> long[]", whilst create_hist_field() treats them as 4-byte scalar values
+> without HIST_FIELD_FL_STACKTRACE.
+>
+> Propagate HIST_FIELD_FL_STACKTRACE to variable references and field
+> variables (whilst excluding variable aliases from per-element
+> stacktrace capture), and reject any mismatch between
+> HIST_FIELD_FL_STACKTRACE and field->is_stack in check_synth_field().
 
-The patch titled
-     Subject: fs/proc/task_mmu: fix lost maps entries above 2^63
-has been added to the -mm mm-unstable branch.  Its filename is
-     fs-proc-task_mmu-fix-lost-maps-entries-above-263.patch
+Good catch! Looks good to me.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/fs-proc-task_mmu-fix-lost-maps-entries-above-263.patch
+Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-This patch will later appear in the mm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Thanks
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+>
+> Fixes: 00cf3d672a9d ("tracing: Allow synthetic events to pass around stacktraces")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
+> ---
+> v1 -> v2:
+>   - Check HIST_FIELD_FL_STACKTRACE instead of strstr(hist_field->type, "long[")
+>     so __bitmask() and __rel_bitmask() fields are also rejected.
+>   - Propagate HIST_FIELD_FL_STACKTRACE to variable references and field
+>     variables, whilst excluding variable aliases from per-element stacktrace
+>     capture.
+>
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Stian Halseth <stian@itx.no>
-Subject: fs/proc/task_mmu: fix lost maps entries above 2^63
-Date: Tue, 13 Oct 2026 17:21:06 +0200
-
-When a read of /proc/pid/{maps,smaps,numa_maps} resumes, m_start() rewinds
-*ppos to priv->last_pos so that the vma which did not fit into the
-previous buffer is shown again.  It only does so for last_addr > 0,
-meaning to exclude the start of the file and SENTINEL_VMA_GATE, but
-last_addr is a signed loff_t holding a vm_end.  sparc64 maps shared
-libraries, anonymous memory and the stack above 0x8000000000000000, so the
-rewind does not happen there and one entry is lost at every read()
-boundary.
-
-Reading the maps file of a process with read sizes from 64 to 8192 bytes
-in steps of 64 loses lines at 126 of the 128 sizes, smaps at 123 and
-numa_maps at 97, and the proc-maps-race selftest fails 4 of its 6 tests. 
-Python's sys.remote_exec() reads maps with fgets() and fails
-intermittently when it misses the libpython data mapping.
-
-Skip the rewind only for 0 and the two sentinels instead, with an
-addr_is_sentinel() helper.
-
-Link: https://lore.kernel.org/20261013152106.1834364-1-stian@itx.no
-Fixes: 5631da56c9a87 ("fs/proc/task_mmu: read proc/pid/maps under per-vma lock")
-Signed-off-by: Stian Halseth <stian@itx.no>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Closes: https://github.com/sparclinux/issues/issues/111
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Andreas Larsson <andreas@gaisler.com>
-Cc: <stable@vger.kernel.org>
----
-
- fs/proc/task_mmu.c |    7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
---- a/fs/proc/task_mmu.c~fs-proc-task_mmu-fix-lost-maps-entries-above-263
-+++ a/fs/proc/task_mmu.c
-@@ -32,6 +32,11 @@
- #define SENTINEL_VMA_END	-1
- #define SENTINEL_VMA_GATE	-2
- 
-+static bool addr_is_sentinel(loff_t addr)
-+{
-+	return addr == SENTINEL_VMA_END || addr == SENTINEL_VMA_GATE;
-+}
-+
- #define SEQ_PUT_DEC(str, val) \
- 		seq_put_decimal_ull_width(m, str, (val) << (PAGE_SHIFT-10), 8)
- void task_mem(struct seq_file *m, struct mm_struct *mm)
-@@ -263,7 +268,7 @@ static void *m_start(struct seq_file *m,
- 	 * Reset current position if last_addr was set before
- 	 * and it's not a sentinel.
- 	 */
--	if (last_addr > 0)
-+	if (last_addr && !addr_is_sentinel(last_addr))
- 		*ppos = last_addr = priv->last_pos;
- 	vma_iter_init(&priv->iter, mm, (unsigned long)last_addr);
- 	hold_task_mempolicy(priv);
-_
-
-Patches currently in -mm which might be from stian@itx.no are
-
-fs-proc-task_mmu-fix-lost-maps-entries-above-263.patch
-
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
