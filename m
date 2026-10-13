@@ -1,125 +1,187 @@
-Received: from mta1.migadu.com (out-126.mta1.migadu.com [95.215.58.126])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9772F18DB1F
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 06:47:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.126
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A2803F484B;
+	Tue, 13 Oct 2026 06:48:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791874064; cv=none; b=AuSDChrprQcADBB+EHnYxRX2GXVVZlED314EosrnaTmT5hVKDCn7Orm4KX0d36QoPMVZnbDYtcnNkjC7/MZhxrtttPjxnjG5xdDUZqugzaFywXSee7nr46lE6N3adYPunMIg7Xum5U/p0qqd7Tf2VZMT032+sXMY7ng//bYqZCA=
+	t=1791874140; cv=none; b=IuWk9z9YYu/ScY7rkdDAsFM07k5rGotSm82yFpbPBH3XIjNf+yregocIfgpP78prAfQ++wOKtVzL/B/TeHbDY1lF2oLd0s/o49IRWppOK3pcj2hIJvQx10DM6/X8YeWYL0DrbA/Gg7xUkH50RsU/hyhCD5E1akZ8n5mPnJjFK4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791874064; c=relaxed/simple;
-	bh=mqDh8Taoi/5OosStcy5PCLFM6IlRW4x/WEjWfMzbF+o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QIXkIUYThDz7UYEM8tiqOF1aRA1YQ1UJV8TmcGUP58lk8q2JBpwKvOswqQi1Ai+Q0se0o8xO8Nq+jwaj/WNUI7JZG71OjdeUwqBiKbyBDT/IUnq08rksRGd3VttuCZJXZrzdQ5uHmX+MSYGRgwShj1LRzReGYOX5oh1hWiarXCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Kailuf/9; arc=none smtp.client-ip=95.215.58.126
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791874140; c=relaxed/simple;
+	bh=BsExbPks/9atrGMqAIQEbORJ/HV3Gde9sjnE+xlmIFc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Y0jLtTCqPYpuGTkNIqNp00I/PZwPPXeYrLX5rYoI8l0mw5w83mb0ae4R9TwZ0hCN9tqxcxX8caasV40ji89CeWU6linpHRCNJOnbG9Oue3P6DPsgWOXT2OSTujsmvWvcGSk8THsbzvrSHTtHH13Frn5A8ao8lkeEqxzAOv7AGxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ExxoPnNI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Kailuf/9"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=mqDh8Taoi/5OosStcy5PCLFM6IlRW4x/WEjWfMzbF+o=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791874059; v=1; x=1792478859;
- b=Kailuf/9q2bG6WqYicwnQ+YVBXzXY9wEGzMcfX6H3w4EPpRr8/OaDT7tDjcJedZkZD+dAO9t
- +whBJOApDkGDuSLqswUqGnDCmUdxTWWfFFDp3eKcKF2GpTeUtK7z0XBDaLyDE03EceWqFdWoA+V
- QR3omZ1MsgpPBI88HlBXoLo8=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 12800683dfe4e02b;
-	Tue, 13 Oct 2026 06:47:39 +0000
-X-Mizu-Trace-ID: 12800683dfe4e02b
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 13 Oct 2026 14:47:25 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Jiacheng Xu <stitch@zju.edu.cn>
-Cc: kuba@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@google.com, pabeni@redhat.com, jiri@resnulli.us,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ExxoPnNI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6C461F00893;
+	Tue, 13 Oct 2026 06:48:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791874138;
+	bh=FJnbJzt1GSjHQXpFrI0Hev3Fd3vza7oPHmPAZ3g3MSo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ExxoPnNILn6czMrb/GFnzZwHWB+iinVsaz0CoG/i4cSmzT3h9/AwMQ3BfXU7woh6q
+	 1/mtmChEdl0h/eoayFxlDHexxHB6+pFl/3ZSXOnnZm+I4jTTD09Xwsk4MgChNJyezK
+	 NCaJuMd54oBFXVUvw8VoBBo+JS602NuL82Me0TfG1pHQ65y26Fpvzo2bLeFMyanEup
+	 z4W7vJggyA+a52sr/beoODB1fzEi7wmzgTqle7rqiIzfyC5jbV2JBqHjTLveznXxOx
+	 +98R/rQtFuvS9REqyfMA2NmJpvAe61ipTV/rPS5TmO0wzKvVu/1VK0kkAAY99dFMf4
+	 n3dErxFGza3tw==
+From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: linux-serial@vger.kernel.org,
+	"Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH net] netdevsim: avoid NULL dereference after failed probe
-Message-ID: <as3T_XTQtC5-S8Dq@fedora>
-References: <20261012135941.78329-1-stitch@zju.edu.cn>
+Subject: [PATCH v2 3/6] serial: 8250_exar: store the GPIO platform device in struct exar8250
+Date: Tue, 13 Oct 2026 08:48:48 +0200
+Message-ID: <03a8b5c71614fc672fef1e55c083bda6c73b5bf3.1791873876.git.jirislaby@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <cover.1791873876.git.jirislaby@kernel.org>
+References: <cover.1791873876.git.jirislaby@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012135941.78329-1-stitch@zju.edu.cn>
+Content-Transfer-Encoding: 8bit
 
-Hi Jiacheng,
-On Mon, Oct 12, 2026 at 09:59:41PM +0800, Jiacheng Xu wrote:
-> device_register() reports whether device registration succeeded, not
-> whether the matching driver's probe succeeded. If nsim_drv_probe()
-> fails, the driver core leaves the nsim_bus_dev registered while the probe
-> error path clears its driver data.
-> 
-> new_device_store() subsequently marks the nsim_bus_dev initialized. A
-> write to its new_port or del_port attribute therefore passes the init
-> check and calls nsim_drv_port_add() or nsim_drv_port_del() with no valid
-> nsim_dev. Both helpers pass the NULL driver data to priv_to_devlink(),
-> leading to a NULL pointer dereference.
-> 
-> This can be reproduced by creating a netdevsim device for which
-> nsim_drv_probe() fails and then writing to the new_port or del_port
-> attribute of the registered device.
-> 
-> Serialize the driver data check and the port operation with the device
-> lock, and reject the operation with -ENODEV when no driver data is
-> present. This also prevents driver unbind from freeing nsim_dev between
-> the check and its use, and follows the locking used by sriov_numvfs.
-> 
-> Fixes: 794b2c05ca1c ("netdevsim: extend device attrs to support port addition and deletion")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiacheng Xu <stitch@zju.edu.cn>
-> ---
->  drivers/net/netdevsim/bus.c | 17 ++++++++++++++---
->  1 file changed, 14 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/net/netdevsim/bus.c b/drivers/net/netdevsim/bus.c
-> index 41483e371f05..0ab51306ad0a 100644
-> --- a/drivers/net/netdevsim/bus.c
-> +++ b/drivers/net/netdevsim/bus.c
-> @@ -93,8 +93,13 @@ new_port_store(struct device *dev, struct device_attribute *attr,
->  		return -EINVAL;
->  	}
->  
-> -	ret = nsim_drv_port_add(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF, port_index,
-> -				addr_set ? eth_addr : NULL);
-> +	device_lock(dev);
-> +	if (!dev_get_drvdata(dev))
-> +		ret = -ENODEV;
-> +	else
-> +		ret = nsim_drv_port_add(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF,
-> +					port_index, addr_set ? eth_addr : NULL);
-> +	device_unlock(dev);
->  	return ret ? ret : count;
->  }
->  
-> @@ -115,7 +120,13 @@ del_port_store(struct device *dev, struct device_attribute *attr,
->  	if (ret)
->  		return ret;
->  
-> -	ret = nsim_drv_port_del(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF, port_index);
-> +	device_lock(dev);
-> +	if (!dev_get_drvdata(dev))
-> +		ret = -ENODEV;
-> +	else
-> +		ret = nsim_drv_port_del(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF,
-> +					port_index);
-> +	device_unlock(dev);
->  	return ret ? ret : count;
->  }
->  
+The GPIO platform device is registered via platform->register_gpio()
+when port 0 is being set up. It is stored to port->port.private_data of
+the on-stack uart template (and from there it is copied into every
+registered port). pci_xr17v35x_exit() then fetches it back by
+serial8250_get_port(priv->line[0]).
 
-I remember you had a reproducer in v1 patch
-https://lore.kernel.org/netdev/42315c2c.15f85.1a01853d723.Coremail.stitch@zju.edu.cn/
+But port 0 does not have to exist at that point. If
+serial8250_register_8250_port() fails for port 0, priv->line[0] holds a
+negative error code. The probe still succeeds (it only breaks the loop),
+so on unbind, priv->line[0] (a negative value) is passed to
+serial8250_get_port(). The GPIO device is never unregistered and a
+bogus port is accessed.
 
-In v2 we talked about try unregister the device if failed. But looks not easy.
-This patch only rebase to latest net tree. But no version tag and change log.
+The same problem would also occur after the planned conversion of
+serial8250_register_8250_port() to return a uart port instead of a
+line. As Sashiko pointed out in that case:
+  If board->setup() fails for the first port (i=0) in exar_pci_probe(),
+  priv->uport[0] remains NULL. If serial8250_register_8250_port() fails,
+  it returns an ERR_PTR. In either case, the loop breaks and probe
+  returns success. When the device is later unbound,
+  pci_xr17v35x_exit() unconditionally passes priv->uport[0] to
+  platform->unregister_gpio(), which will dereference it without
+  checking for validity.
 
-Over all, the code change looks good to me.
+The GPIO device belongs to the PCI device, not to any particular port.
+So store it in a new struct exar8250::gpio member. Pass priv to both
+->register_gpio() and ->unregister_gpio(), so that pci_xr17v35x_exit()
+does not need to look up any port at all.
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+Fixes: d0aeaa83f0b0 ("serial: exar: split out the exar code from 8250_pci")
+Link: https://lore.kernel.org/all/sashiko-outbox-166269@kernel.org/
+Assisted-by: LLM
+Cc: stable@vger.kernel.org
+---
+[v2] this is new in v2
+---
+ drivers/tty/serial/8250/8250_exar.c | 36 ++++++++++++++---------------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
+
+diff --git a/drivers/tty/serial/8250/8250_exar.c b/drivers/tty/serial/8250/8250_exar.c
+index ad2e5841fbf6..29b2a29ab6f3 100644
+--- a/drivers/tty/serial/8250/8250_exar.c
++++ b/drivers/tty/serial/8250/8250_exar.c
+@@ -231,8 +231,9 @@ struct exar8250_platform {
+ 	int (*rs485_config)(struct uart_port *port, struct ktermios *termios,
+ 			    struct serial_rs485 *rs485);
+ 	const struct serial_rs485 *rs485_supported;
+-	int (*register_gpio)(struct pci_dev *pcidev, struct uart_8250_port *port);
+-	void (*unregister_gpio)(struct uart_8250_port *port);
++	int (*register_gpio)(struct exar8250 *priv, struct pci_dev *pcidev,
++			     struct uart_8250_port *port);
++	void (*unregister_gpio)(struct exar8250 *priv);
+ };
+ 
+ /**
+@@ -256,6 +257,7 @@ struct exar8250 {
+ 	struct exar8250_board	*board;
+ 	struct eeprom_93cx6	eeprom;
+ 	void __iomem		*virt;
++	struct platform_device	*gpio;
+ 	int			line[];
+ };
+ 
+@@ -1167,22 +1169,21 @@ static const struct software_node exar_gpio_node = {
+ 	.properties = exar_gpio_properties,
+ };
+ 
+-static int xr17v35x_register_gpio(struct pci_dev *pcidev, struct uart_8250_port *port)
++static int xr17v35x_register_gpio(struct exar8250 *priv, struct pci_dev *pcidev,
++				  struct uart_8250_port *port)
+ {
+ 	if (pcidev->vendor == PCI_VENDOR_ID_EXAR)
+-		port->port.private_data =
+-			__xr17v35x_register_gpio(pcidev, &exar_gpio_node);
++		priv->gpio = __xr17v35x_register_gpio(pcidev, &exar_gpio_node);
+ 
+ 	return 0;
+ }
+ 
+-static void xr17v35x_unregister_gpio(struct uart_8250_port *port)
++static void xr17v35x_unregister_gpio(struct exar8250 *priv)
+ {
+-	if (!port->port.private_data)
+-		return;
+-
+-	__xr17v35x_unregister_gpio(port->port.private_data);
+-	port->port.private_data = NULL;
++	if (priv->gpio) {
++		__xr17v35x_unregister_gpio(priv->gpio);
++		priv->gpio = NULL;
++	}
+ }
+ 
+ static int sealevel_rs485_config(struct uart_port *port, struct ktermios *termios,
+@@ -1279,8 +1280,9 @@ static const struct software_node iot2040_gpio_node = {
+ 	.properties = iot2040_gpio_properties,
+ };
+ 
+-static int iot2040_register_gpio(struct pci_dev *pcidev,
+-			      struct uart_8250_port *port)
++static int iot2040_register_gpio(struct exar8250 *priv,
++				 struct pci_dev *pcidev,
++				 struct uart_8250_port *port)
+ {
+ 	u8 __iomem *p = port->port.membase;
+ 
+@@ -1289,8 +1291,7 @@ static int iot2040_register_gpio(struct pci_dev *pcidev,
+ 	writeb(IOT2040_UARTS_ENABLE, p + UART_EXAR_MPIOLVL_15_8);
+ 	writeb(IOT2040_UARTS_GPIO_HI_MODE, p + UART_EXAR_MPIOSEL_15_8);
+ 
+-	port->port.private_data =
+-		__xr17v35x_register_gpio(pcidev, &iot2040_gpio_node);
++	priv->gpio = __xr17v35x_register_gpio(pcidev, &iot2040_gpio_node);
+ 
+ 	return 0;
+ }
+@@ -1367,7 +1368,7 @@ pci_xr17v35x_setup(struct exar8250 *priv, struct pci_dev *pcidev,
+ 		/* Setup Multipurpose Input/Output pins. */
+ 		setup_gpio(pcidev, p);
+ 
+-		ret = platform->register_gpio(pcidev, port);
++		ret = platform->register_gpio(priv, pcidev, port);
+ 	}
+ 
+ 	return ret;
+@@ -1377,9 +1378,8 @@ static void pci_xr17v35x_exit(struct pci_dev *pcidev)
+ {
+ 	const struct exar8250_platform *platform = exar_get_platform();
+ 	struct exar8250 *priv = pci_get_drvdata(pcidev);
+-	struct uart_8250_port *port = serial8250_get_port(priv->line[0]);
+ 
+-	platform->unregister_gpio(port);
++	platform->unregister_gpio(priv);
+ }
+ 
+ static inline void exar_misc_clear(struct exar8250 *priv)
+-- 
+2.56.0
+
