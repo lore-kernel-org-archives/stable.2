@@ -1,75 +1,42 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.53])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A633EFFA8;
-	Tue, 13 Oct 2026 11:36:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791891409; cv=pass; b=BgItBbQqfCZYcjunXAe7CCjCYeLvWEAwTdV6WTxz9/vppdbiPFRF82FS0QXC0fG6HL4ZRYE0e7eKJjvO/qnNN7Dd4Ox3NHbrfrBshDwTIhF+KKMwcDlW5zECo1BnXBtKAIwz3o+EcrbfxpJjVJetVMxXU8TJAWK8tDf/fWgdwC8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791891409; c=relaxed/simple;
-	bh=0eieI49GKSYaLWQyfEMtgZkoWqiAb51Z54E1IJDNfZI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=TS0sqJEY9tyHRjlO334LgrqKz/a1nQMnwbbYZ6PrlhmQjfc29h2gfh4nc/MA4Uv+WnQvBi0ZPeSeorH4cjRQb886BB1CcVvxyQ82Fm/wjoqwsSWmrtwXJIjCIT31czC5fU24rc6U0ajroEE61OjggJOvJ/fp4wJwY2rt7c8YaZY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=Lnd0Yodk; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=a5GyDdZ9; arc=pass smtp.client-ip=85.215.255.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA88D3DB33C;
+	Tue, 13 Oct 2026 11:38:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791891541; cv=none; b=DiA2AzjhDgqQ3BIonqC3MRY+ED5IbINJhaGjgRdXIIWhL1yhNesDr5XuyTaa6Ad3rPq4xwmVfP/+0d1vTAWTMLz09lRnAyby8OxEIjY83rSKiz9VAIhCWJzshfk/VEleqjD6egYD9c4GAO2mjMlLnEv27KfOVU7ZVCS/olu0QyE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791891541; c=relaxed/simple;
+	bh=F3jbrUon50I/esfgt38aY5mZa678/5mAa/00VYW7/nc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BALNjAeggFBuFFeVxi5Tv+DcOHG0dOIAt7+3knOe6eiElfJc67UsURc5z5zZ56UllV7LDXgro1ga5xXp6mN3a5oPmbNeb61fUVmVTxho14SFiimaHpESsp2fAiCDnj9jWSs5oyGHGO9I0FDNoxO9kmxuCQs/JsSPU0kXkixasxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BLyRBUQx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="Lnd0Yodk";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="a5GyDdZ9"
-ARC-Seal: i=1; a=rsa-sha256; t=1791891403; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=S2EUgz0oz4UbKo52L40y0Qq7Dlyji08SUAH7IGlZ8CaX4jmNHF79/gHjTBba7dFVmU
-    f7EPnMfPxwMOExBHjlHetmvlYq7C1HLC+9oEp5LpiGhAqI19MpDsaQMB+IVW2hXIpmSS
-    DBrC+Cl3yohI4ccizV8xpx2lHOy9RTKrNXY9QHtfgPwX+PpTAwzgU1f9V3qXZjfWlnvF
-    W4dGAQ/1prIIduGfh0RiKDAo/qagrd0b14m6boYAQBEVzzEwKSCdhHVWcICUNdbub5B6
-    MC3sx0gsYsSubTUMBFyq98K2v4R36M80OR7v3TMgk3jWYhsYXwdiTozQIkd3H4IWhYXC
-    3e5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1791891403;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=t4GqaJ5Eda9C4Lipna5ZBdK9RgO6931sj9w4m8IwJgI=;
-    b=IXnYo/PCqHYP+/6dIM0dEyqwQBXbVazzGTAxaN9n58KFCpGWFSdcPFZmOiiDlhVAPt
-    EqARrwNh2P73UYqCDGsmGtjGcZMY87XNvAdGi16J8wUCSCGjWD8el2c2boL3+7GPEapP
-    WXjAtAoXJmlJdG8z0aLSarZ5OxjXQoifdMshv1WahRvStUpcZ1VqMS/Rf/8jJCH5GHYa
-    D9UHxJwuqUMPPsfCLrM4C8Zle2j6l8fJUOnPmW15S4qxyo7RKPs4jmzQ0IbRVcwcrah+
-    MUHQG+2I4rjQArbuIzZY4iuU8cKuo3nx1rQtB+0NoNVAF9COPiVW6uHmjQY+0UbmwhNF
-    O9RQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1791891403;
-    s=strato-dkim-0002; d=hartkopp.net;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=t4GqaJ5Eda9C4Lipna5ZBdK9RgO6931sj9w4m8IwJgI=;
-    b=Lnd0Yodk4hz2ukq4rz96GOLkFnmsbJg45ZH6bgGSkw4n9swARtxRYtwvcMGm8d/mOr
-    ueqKX2u7G1/G6P0ScxCR5sctfMqZWGoAo7UT0hFrrPuV4R7zjeitF0mZjmCwmxfxqEg4
-    VpgoZZPGdrVTHHCy+f6PIaDVzzsDgqE8UAc7AGSmzthuL0Cu3qK8X0z/edz2zjhXbPUL
-    74IHRRIv5GzAT8r/KGvUF9HpstX2/kVhnPiXBEAJ7RDhdIt/k/8fcCYzwDLjPeWriNPh
-    QUvS6pkBE9CJ5+7z8MVWgtBO5yCqqgB7zjEtjNRBxPxyn6+Exc928r2x4PynowzmF6xg
-    RfEQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1791891403;
-    s=strato-dkim-0003; d=hartkopp.net;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=t4GqaJ5Eda9C4Lipna5ZBdK9RgO6931sj9w4m8IwJgI=;
-    b=a5GyDdZ9U9Ql8ZcWlONLcPn/04oUC3wcenvoRlcCyKXOe9E5f7l6zHyK3PVJeoHfW6
-    Q3xxEYRS4g7womh4D9Dg==
-X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
-Received: from vivo.lan
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Kfdf2a29DBah66a
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Tue, 13 Oct 2026 13:36:43 +0200 (CEST)
-From: Oliver Hartkopp <socketcan@hartkopp.net>
-To: linux-can@vger.kernel.org
-Cc: Oliver Hartkopp <socketcan@hartkopp.net>,
-	Norbert Szetei <norbert@doyensec.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] can: bcm: fix filter removal race between release and netns change
-Date: Tue, 13 Oct 2026 13:36:28 +0200
-Message-ID: <20261013113628.104020-1-socketcan@hartkopp.net>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BLyRBUQx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D5421F000FF;
+	Tue, 13 Oct 2026 11:38:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791891539;
+	bh=iM7Kn1upRKCYgX3my+5a9iEmzXraOMK8a7ELFfehbz4=;
+	h=From:To:Cc:Subject:Date;
+	b=BLyRBUQxmYZGUAeaHFZEzWN0WXTwLON5T6iRtekbZ28LOLeR9AvTb8QnRRsdR8UrL
+	 796ejjZfccuD7wK8vjH6e0Boe62b7KWRJAiNsO2+/iFFqlivG90MLbN+zX+XtyeNxw
+	 BSOsSoNeyqlzfthkBIEKIsy42+fN+u5Y542Fwl+ZhuPt370uFubIHQvZTVro25+q3G
+	 tRsN7O6rWjrxm6G1c9oVjlNalmF8GBsO+FEPP10IVtM0IHNoAr6fGG4YbFEdoI54UX
+	 5ecw6Ce9ekUpN7fcRiYXc8kTPpNqGYgksodQGALu3/elqjmoNWNVpMzBLY+7FwgNJq
+	 Y3OIPV+5Y3Cfw==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2] tracing/histograms: Reject non-stacktrace fields for synthetic stacktrace fields
+Date: Tue, 13 Oct 2026 11:24:48 +0000
+Message-ID: <20261013112449.1006088-1-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,78 +44,98 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
 
-bcm_release() removes the socket from bcm_notifier_list before it takes
-any lock that serializes against the netdev notifier chain, which runs
-under RTNL. A socket that leaves the list in this window is skipped by
-bcm_notify() and has to remove its CAN filters itself.
+In check_synth_field(), when a synthetic event field is a stacktrace
+(field->is_stack) and the histogram field is not a "long[" stacktrace
+array, validation falls through to the generic size and signedness
+comparison.
 
-This is the same problem as reported for isotp_release() and fixed in a
-separate patch: if the bound device changes its namespace in this
-window, can_rx_unregister() can see a different netns than the one
-passed in by bcm_rx_unreg() and silently skips the removal. The op is
-freed anyway and the remaining receiver leads to a use-after-free in
-bcm_rx_handler().
+Because parse_synth_field() sets a stacktrace field's type to
+"__data_loc unsigned long[]", its size is sizeof(u64) and
+synth_field_signed() marks it as signed.  Consequently, any 8-byte
+signed scalar histogram field passes the fallback check, and its scalar
+value is subsequently dereferenced as a kernel stacktrace pointer in
+get_field_size() and trace_stack().
 
-Take rtnl_lock() before removing the socket from the notifier list, so
-that bcm_release() and bcm_notify() can not both skip the removal and
-dev_net(dev) is stable while the filters are removed. RTNL is dropped
-before synchronize_rcu(). As bcm_busy_notifier can not point to the
-released socket under RTNL, replace the busy-wait loop with a
-WARN_ON_ONCE().
+Furthermore, checking strstr(hist_field->type, "long[") is insufficient
+because tracepoint fields defined with __bitmask() or __rel_bitmask()
+also have type "__data_loc unsigned long[]" or "__rel_loc unsigned
+long[]", whilst create_hist_field() treats them as 4-byte scalar values
+without HIST_FIELD_FL_STACKTRACE.
 
-Fixes: 8e8cda6d737d ("can: initial support for network namespaces")
-Link: https://lore.kernel.org/linux-can/CEA6A38A-2646-4ADA-95B4-CBAE2F301A8E@doyensec.com/
-Cc: Norbert Szetei <norbert@doyensec.com>
+Propagate HIST_FIELD_FL_STACKTRACE to variable references and field
+variables (whilst excluding variable aliases from per-element
+stacktrace capture), and reject any mismatch between
+HIST_FIELD_FL_STACKTRACE and field->is_stack in check_synth_field().
+
+Fixes: 00cf3d672a9d ("tracing: Allow synthetic events to pass around stacktraces")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- net/can/bcm.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+v1 -> v2:
+  - Check HIST_FIELD_FL_STACKTRACE instead of strstr(hist_field->type, "long[")
+    so __bitmask() and __rel_bitmask() fields are also rejected.
+  - Propagate HIST_FIELD_FL_STACKTRACE to variable references and field
+    variables, whilst excluding variable aliases from per-element stacktrace
+    capture.
 
-diff --git a/net/can/bcm.c b/net/can/bcm.c
-index 3d637a1e0ac1..4765c14947fc 100644
---- a/net/can/bcm.c
-+++ b/net/can/bcm.c
-@@ -1924,16 +1924,18 @@ static int bcm_release(struct socket *sock)
- 	net = sock_net(sk);
- 	bo = bcm_sk(sk);
+ kernel/trace/trace_events_hist.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 8af97fd4ee2d..d8864b3165d2 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -2121,7 +2121,8 @@ static int init_var_ref(struct hist_field *ref_field,
+ 	ref_field->size = var_field->size;
+ 	ref_field->is_signed = var_field->is_signed;
+ 	ref_field->flags |= var_field->flags &
+-		(HIST_FIELD_FL_TIMESTAMP | HIST_FIELD_FL_TIMESTAMP_USECS);
++		(HIST_FIELD_FL_TIMESTAMP | HIST_FIELD_FL_TIMESTAMP_USECS |
++		 HIST_FIELD_FL_STACKTRACE);
  
- 	/* remove bcm_ops, timer, rx_unregister(), etc. */
- 
-+	rtnl_lock();
-+
-+	/* The netdev notifier chain runs under RTNL, so bcm_notifier() can't
-+	 * be walking bcm_notifier_list and point to this socket. The spinlock
-+	 * is still needed as bcm_init() adds sockets without holding RTNL.
-+	 */
- 	spin_lock(&bcm_notifier_lock);
--	while (bcm_busy_notifier == bo) {
--		spin_unlock(&bcm_notifier_lock);
--		schedule_timeout_uninterruptible(1);
--		spin_lock(&bcm_notifier_lock);
--	}
-+	WARN_ON_ONCE(bcm_busy_notifier == bo);
- 	list_del(&bo->notifier);
- 	spin_unlock(&bcm_notifier_lock);
- 
- 	lock_sock(sk);
- 
-@@ -1971,10 +1973,12 @@ static int bcm_release(struct socket *sock)
- 					  REGMASK(op->can_id),
- 					  bcm_rx_handler, op);
- 
+ 	if (system) {
+ 		ref_field->system = kstrdup(system, GFP_KERNEL);
+@@ -3318,6 +3319,7 @@ static struct field_var *create_field_var(struct hist_trigger_data *hist_data,
+ 		ret = PTR_ERR(var);
+ 		goto err;
  	}
++	var->flags |= val->flags & HIST_FIELD_FL_STACKTRACE;
  
-+	rtnl_unlock();
+ 	field_var = kzalloc_obj(struct field_var);
+ 	if (!field_var) {
+@@ -3946,7 +3948,10 @@ static int check_synth_field(struct synth_event *event,
+ 	    && field->is_dynamic)
+ 		return 0;
+ 
+-	if (strstr(hist_field->type, "long[") && field->is_stack)
++	if (!!(hist_field->flags & HIST_FIELD_FL_STACKTRACE) != field->is_stack)
++		return -EINVAL;
 +
- 	synchronize_rcu();
++	if (field->is_stack)
+ 		return 0;
  
- 	list_for_each_entry_safe(op, next, &bo->rx_ops, list) {
- 		list_del_rcu(&op->list);
- 		bcm_remove_op(op);
+ 	if (strcmp(field->type, hist_field->type) != 0) {
+@@ -4487,7 +4492,8 @@ static int create_var_field(struct hist_trigger_data *hist_data,
+ 	if (!ret && hist_data->fields[val_idx]->flags & HIST_FIELD_FL_EXECNAME)
+ 		update_var_execname(hist_data->fields[val_idx]);
+ 
+-	if (!ret && hist_data->fields[val_idx]->flags &
++	if (!ret && !(hist_data->fields[val_idx]->flags & HIST_FIELD_FL_ALIAS) &&
++	    hist_data->fields[val_idx]->flags &
+ 	    (HIST_FIELD_FL_STRING | HIST_FIELD_FL_STACKTRACE))
+ 		hist_data->fields[val_idx]->var_str_idx = hist_data->n_var_str++;
+ 
+@@ -5228,7 +5234,8 @@ static void hist_trigger_elt_update(struct hist_trigger_data *hist_data,
+ 		if (hist_field->flags & HIST_FIELD_FL_VAR) {
+ 			var_idx = hist_field->var.idx;
+ 
+-			if (hist_field->flags &
++			if (!(hist_field->flags & HIST_FIELD_FL_ALIAS) &&
++			    hist_field->flags &
+ 			    (HIST_FIELD_FL_STRING | HIST_FIELD_FL_STACKTRACE)) {
+ 				unsigned int str_start, var_str_idx, idx;
+ 				char *str, *val_str;
 -- 
-2.53.0
+2.56.0.385.gd3acb90ef8-goog
 
