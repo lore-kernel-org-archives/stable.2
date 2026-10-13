@@ -1,172 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841DA53E2EF
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 19:30:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6B8953C3C2;
+	Tue, 13 Oct 2026 19:35:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791919850; cv=none; b=D+Otw9MaCjk10Pk/UhryMDC3zQdWerpMynFl7osbNIKIHpBtBf+k8VTavZdRZ5a2vR7Pj8vczb7ky4mCtcHmmeL7Sp5IO/bB+mOkpqt8XWosjGzRe9Fvpy/PZ0ob9nCw4SJorrEyBVkqE6zb1QjJp4khhxUFj/SB3QVZv9TS4r0=
+	t=1791920102; cv=none; b=jl6V6MuNNj/5xNJ/WfMJ9PVHSMCLJu7+GaUgo3uk9CnlaTHkxwoKNzCByxSXZsZvo5UQIxaTwmmYG95gBUQotvp5p7Ho47NmxMBUA+3UmWfYb9j9B5oTIJvCBRQR8Y1hYEpNZnonJ/EKXKL2FD8m6VcW/Te3+8al1l7jZhMDmeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791919850; c=relaxed/simple;
-	bh=paauPkaVJbrdDjHEcfZZ9niUqvuJhcPdXpxOLo0Wkm0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fvte/Mqns+5grEh4dk8N2ltHDua8fZH6DXC1ghZ8AL3ttHI366GsJjFh8+IVMvkfYrVgLJqyiP8umcvEbhfhu5pvt29mpQFJ8FvMxXaE54Lr/FZcNUAqJME0CQYoVXYOpfkWX/zveB1b8I9DB5m9p6SmPXQOnuu7VNIS3FXYgYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mGUI9eV0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791920102; c=relaxed/simple;
+	bh=EKE+BrURLABnFg60A84Ac3H9FK1qvZV8iXW0jusei8M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=cSeSUT894B73ITdcqIBnk1N/A1yLlY/L2gxhbrXCzomkWunUz/pNUXyhGmuh3IWRJACQU/6hIH3i3+qoI/cV3Bl5GcURYvhBDB08BIDryF5QD6m87ZppI5dnLgyqiJSzTSZcchM493HzAipg9mNf/nIlaXIzN52SxQPSnLXS4pM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T/HY68Sc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mGUI9eV0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C5551F0089A
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 19:30:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T/HY68Sc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59A701F000FF;
+	Tue, 13 Oct 2026 19:34:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791919849;
-	bh=uPqQ0vIPN/soLCMFGUyT1DIcNjqx30fFPuNDdPzV0V8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=mGUI9eV0pRKXRdEb00mojNJn8VadRvvPj5QruhwmP0KYmKdxK4W8+UcC9SBZLi2Xe
-	 b8ToGHnyVCPmNmB/ndsX8cr13KsvICnQqSASwg/x+MepZnyuH+pnbBOSVnVsjIecus
-	 0hYQgr35vyc4gEfvRXT9LwE1iIX23sJ++Ej3SZ8OaAA3FGVrk5frDsKpQTVg6XhoN9
-	 z0VYm/3pyKY43WBOAAe6bIvc7zl9zeAgrD267FA/HBJZAvlmEe4JkT4gcjEvZ1Ipty
-	 rgMc8iIWexMchlN9y6IxtZLc6g55Wfzn0HfnSwWI5HVofuiaHq3q5GF5V6V+n5uKE8
-	 lXW7ICIZ22uGg==
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c2e69aa07c3so39338466b.1
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 12:30:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByNHUc0cpdC27DLR+B7usodlhbhTa59qs70xN+Zw59Ie1inveWuy0/Hvt3bdhbbA940D/8YiMc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9bJjo27lclK5InYJB7Bnk4URwKF/L1MGP3D/QnO0woua/oJUf
-	kLlz2aypJb4GDsiOJm6L2V4ymbqgVbm4n9yboEbqfFrg/L15zdWG1P/6X6hay7Rm+LElqgLwr09
-	qChfdMQ/FgZsBnuVrp29upF9/g8QD+nU=
-X-Received: by 2002:a17:907:d86:b0:c2e:7e0b:6294 with SMTP id
- a640c23a62f3a-c31a9fed470mr1333487166b.8.1791919848062; Tue, 13 Oct 2026
- 12:30:48 -0700 (PDT)
+	s=k20260515; t=1791920101;
+	bh=6e7sCTs9s2Q0EweL+aD9Wlvk19OnMX+Ssr0sngoSMhI=;
+	h=From:Date:Subject:To:Cc;
+	b=T/HY68Sc3QjRCNkCifO5o9mK2HsfUUeyjqxEFjjGOPL45cILAPxsmu+/5apeQDJ42
+	 9VKSkKYJVksoR7WCpG2IbG92C45ERFGoL5MJSJvyj64QiYTWDWPIof9ApirDYt+nhY
+	 iN0kHFgqDXqtF/Xjg+hurJq1Ei35YbBkdOWsi56Sz1GtDNmOfJ2aUUMs3A+KkshaPw
+	 Zay5U2NKLJH/dLkYJ9w0iGUkh6u7/Y9cqsEbVjrdfq2Z9Om9gaYkfzgO5Omdp2nKn7
+	 0GjZ9KIclZsmEKWaQSs5ui+sQ4ikal6AGdwte2I0u+Te2Nymx8Dvb6+OZxAFsI2Uyo
+	 QkjSxBIjdFjVg==
+From: "Harry Yoo (Meta)" <harry@kernel.org>
+Date: Tue, 13 Oct 2026 20:34:39 +0100
+Subject: [PATCH] mm/percpu: account full object size for percpu memory
+ allocations
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012224736.2306637-1-yosry@kernel.org> <CALMp9eT6eJSDaJVJ_1mrn8-sP6F88q-OcGrEgUWy-YpAkuA9vg@mail.gmail.com>
- <CAO9r8zMsih9vRJFWgbE=bgWAqBzwPO3KJiAyBVA_hJBgjPp6mQ@mail.gmail.com>
- <CALMp9eRRb_8vbm3YM9dw7XbDsnjQ1wRYK10oNq4JAgkUZdpFLg@mail.gmail.com>
- <CAO9r8zMBxWT=A7+tFUTtDiTu0GNodQEiGw+EKRLesQghk9aBSg@mail.gmail.com> <CALMp9eTqEWczivrxr06hhGg=519-POMRiSTg5WzRieuXZzTK6Q@mail.gmail.com>
-In-Reply-To: <CALMp9eTqEWczivrxr06hhGg=519-POMRiSTg5WzRieuXZzTK6Q@mail.gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Tue, 13 Oct 2026 12:30:36 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zMc1BA0beaoS-4L9_xrvU_R5GHJ6tQ1jLZ7k7G_ESRa1w@mail.gmail.com>
-X-Gm-Features: AclHuK_VmVWn5lsSGsJ8NDu_doh2aGVIk_oXyzeOAJfB1m5k_GVRfMXRguTlK0c
-Message-ID: <CAO9r8zMc1BA0beaoS-4L9_xrvU_R5GHJ6tQ1jLZ7k7G_ESRa1w@mail.gmail.com>
-Subject: Re: [PATCH] KVM: SVM: Update tracked pCPU on pCPU switch
-To: Jim Mattson <jmattson@google.com>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Stefan Teodorescu <fane@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-fix-alloc-percpu-accounting-v1-1-03e788a1e41f@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAM6HzmoC/yXMQQqDMBBA0avIrDtgUinqVaSLOJ3oiCQhMSKId
+ 29slw8+/4TEUThBX50QeZck3hWoRwU0GzcxyqcYdK1fqlZPtHKgWVdPGDhSyGiIfHabuAmbdrS
+ 66VRHxkI5hMgl/92H998pjwvTdi/hur6pRrqsfwAAAA==
+X-Change-ID: 20261013-fix-alloc-percpu-accounting-48bf24919caf
+To: Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
+ Christoph Lameter <cl@gentwo.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Hao Ge <hao.ge@linux.dev>
+Cc: kernel-team@meta.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, "Harry Yoo (Meta)" <harry@kernel.org>
+X-Mailer: b4 0.16.0
 
-On Tue, Oct 13, 2026 at 12:00=E2=80=AFPM Jim Mattson <jmattson@google.com> =
-wrote:
->
-> On Tue, Oct 13, 2026 at 11:11=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> w=
-rote:
-> >
-> > On Tue, Oct 13, 2026 at 10:55=E2=80=AFAM Jim Mattson <jmattson@google.c=
-om> wrote:
-> > >
-> > > On Tue, Oct 13, 2026 at 7:49=E2=80=AFAM Yosry Ahmed <yosry@kernel.org=
-> wrote:
-> > > >
-> > > > On Mon, Oct 12, 2026 at 4:58=E2=80=AFPM Jim Mattson <jmattson@googl=
-e.com> wrote:
-> > > > >
-> > > > > On Mon, Oct 12, 2026 at 3:47=E2=80=AFPM Yosry Ahmed <yosry@kernel=
-.org> wrote:
-> > > [ ... ]
-> > > > > > @@ -3892,13 +3893,22 @@ static int pre_svm_run(struct kvm_vcpu =
-*vcpu)
-> > > > > >          * - The new VMCB does not detect a pCPU change and run=
-s on pCPU A with
-> > > > > >          *   the new ASID allocated on pCPU B, which is potenti=
-ally used by
-> > > > > >          *   another vCPU/VM.
-> > > > > > +        *
-> > > > > > +        * Note that dirtying both VMCBs is not strictly needed=
-, but the per-CPU
-> > > > > > +        * tracking is shared for both ASID and clean bits, and=
- that CPU must
-> > > > > > +        * match where the ASID was allocated.
-> > > > >
-> > > > > Is dirtying both VMCBs not strictly needed?
-> > > > >
-> > > > > Per APM vol. 2 (rev. 3.45), section 15.15.2:
-> > > > >
-> > > > > > The hypervisor must clear the entire VMCB [Clean] field to 0 fo=
-r a guest, under the following circumstances:
-> > > > > > ...
-> > > > > >  - The hypervisor executes the guest on a different CPU core th=
-an one used the last time that guest was executed.
-> > > > > > ...
-> > > > > > Failure to clear the VMCB Clean bits to zero in these cases may=
- result in undefined behavior.
-> > > > >
-> > > > > Suppose vmcb02 runs on pCPU A, migrates to (and runs on) pCPU B, =
-and
-> > > > > then migrates back to pCPU A with some clean bits set. At the nex=
-t
-> > > > > VMRUN, pCPU A will happily load stale state for anything marked c=
-lean.
-> > > > >
-> > > > > At some point before that VMRUN, something has to clear the clean=
- bits!
-> > > >
-> > > > Dirtying both VMCBs is not needed in all cases covered with the new
-> > > > code here. IIUC, clean bits are VMCB-specific, unlike the ASID here
-> > > > which is shared.
-> > > >
-> > > > Because ASID is shared, we have to reset the ASID generation for bo=
-th
-> > > > VMCBs when a new ASID is allocated through either, and update the c=
-pu
-> > > > variable tracking which pCPU allocated that ASID. Since that cpu
-> > > > variable is also shared for tracking which pCPU ran the VMCB last, =
-we
-> > > > also need to clear the clean bits every time we updated. IOW, if we
-> > > > had two variables, asid_cpu and vmcb_dirty_cpu, we would need to
-> > > > update asid_cpu on pCPU migration for both VMCBs, but only update
-> > > > vmcb_run_cpu for the current VMCB.
-> > > >
-> > > > This is all annoying and confusing, but that should go away in the
-> > > > static ASIDs series, and we should go back to only updating pCPU
-> > > > tracking, flushing the ASID, and clearing the clean bits only for t=
-he
-> > > > current VMCB.
-> > >
-> > > I haven't read the static ASIDs series, but in any case, this patch
-> > > should stand on its own, in case that series never gets committed or
-> > > gets committed much later.
-> >
-> > It does. I just didn't spend time trying to improve things beyond the f=
-ix.
-> >
-> > >
-> > > My complaint is with the claim, "dirtying both VMCBs is not strictly
-> > > needed," which seems to imply that dirtying the inactive VMCB here is
-> > > optional. In fact, once you update vmcb02.cpu/vmcb01.cpu for both
-> > > VMCBs, dirtying both *is* strictly needed so the inactive VMCB doesn'=
-t
-> > > later miss a pCPU switch.
-> >
-> > Yeah I guess it can be verbed more accurately, something like this:
->
-> I don't understand your prevarication. The comment, as written, isn't
-> "inaccurately verbed." It's wrong. With the current implementation,
-> dirtying both VMCBs *is* strictly needed.
+When memory allocation profiling is enabled, the pages backing percpu
+memory chunks are attributed to func:pcpu_alloc_pages. However, the
+accounting of individual percpu memory allocations via alloc_percpu()
+and friends record only the size of a single object rather than its
+full size across all CPUs.
 
-Yeah I am just trying to clarify that ASID is shared, so we must flush
-both VMCBs, but the clean bits aren't, we are only clearing them
-because of the shared pCPU tracking. That being said, no comment is
-better than a confusing comment, so I can just drop the note at the
-end of the comment.
+As a result, it is often not straightforward to identify which kernel
+code is actually responsible for percpu memory, because the size is
+under-accounted by a factor of num_possible_cpus().
 
->
-> > Dirtying both VMCBs is generally not required if only one VMCB
-> > switches pCPUs, but since the pCPU tracking is shared between ASID and
-> > VMCB clean bits, it must be done once pCPU tracking is updated.
->
-> Clear as mud. :)
->
+Account full object size with pcpu_obj_full_size(size) instead, which
+multiplies the object size by num_possible_cpus() and adds the objcg
+pointer overhead. This is consistent with what memcg already does for
+charging percpu allocations.
+
+Verified with 64-CPU VM by spawning 400 processes in a memory cgroup and
+measuring mm_init()'s rss_stat counters.
+
+Delta of kernel/fork.c:1142 func:mm_init in /proc/allocinfo:
+
+                  bytes   calls   per allocation
+    unpatched      6320     395         16
+    patched      418176     396       1056
+
+'percpu' field in memory.stat: 422400 (1056 bytes per process)
+
+Memory allocation profiling now accounts the same amount of memory as
+what memcg charges.
+
+Cc: stable@vger.kernel.org
+Fixes: 60fa4a9e2323 ("mm: percpu: add codetag reference into pcpuobj_ext")
+Assisted-by: LLM # Verification
+Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
+---
+ mm/percpu.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/mm/percpu.c b/mm/percpu.c
+index 3eff382e565a..d7883507dc15 100644
+--- a/mm/percpu.c
++++ b/mm/percpu.c
+@@ -1696,14 +1696,15 @@ static void pcpu_alloc_tag_alloc_hook(struct pcpu_chunk *chunk, int off,
+ {
+ 	if (mem_alloc_profiling_enabled() && likely(chunk->obj_exts)) {
+ 		alloc_tag_add(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag,
+-			      current->alloc_tag, size);
++			      current->alloc_tag, pcpu_obj_full_size(size));
+ 	}
+ }
+ 
+ static void pcpu_alloc_tag_free_hook(struct pcpu_chunk *chunk, int off, size_t size)
+ {
+ 	if (mem_alloc_profiling_enabled() && likely(chunk->obj_exts))
+-		alloc_tag_sub(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag, size);
++		alloc_tag_sub(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag,
++			      pcpu_obj_full_size(size));
+ }
+ #else
+ static void pcpu_alloc_tag_alloc_hook(struct pcpu_chunk *chunk, int off,
+
+---
+base-commit: 0e199ae6e803e76ebf128e009d336e5917221e63
+change-id: 20261013-fix-alloc-percpu-accounting-48bf24919caf
+
+Best regards,
+--  
+Cheers,
+Harry / Hyeonggon
+
