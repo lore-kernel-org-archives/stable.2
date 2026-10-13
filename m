@@ -1,66 +1,43 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC67D390615;
-	Tue, 13 Oct 2026 19:50:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3503F5437FA;
+	Tue, 13 Oct 2026 19:54:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791921042; cv=none; b=fREzjomJtZL3ZfF3Sn/tC2WNCPMj78BfphxArPRH2LLJMtKzm1HM9quJK4T82rl8VoKj5yeACxXSS0BOo8tR9vu8cvRP6FPEAkmjl3OPkz9ka7y9YadZxM92rXonGK0IoE8CSRyKjwGjUE4KkoeutNQlOLYDLsfwgnJ8v6cafnc=
+	t=1791921248; cv=none; b=DkkLmdKc/+COeaut56pTSTlDSspoHJVSMwrRl8H6ps6PBUy/zLlIgaaQRh/e+CXhR2iy8EJp2ZcFWVSVOqpyhjngPT//+VUY5bJ+KpK+HUiONJRsi9eD90bDfASWf2SjHuNGt30y3I3kBX2C1Hruaw1AfyYh2/zRp7koKV5q4jo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791921042; c=relaxed/simple;
-	bh=zfp3QTAVDB7Us/Tj3COiXiTe0bsauGFQmFOWT9PU0hA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BRInRXPvUbzOQGRwt54BxKAtf7ZvoWQPDFW9u67jodJQWhoGc9nH5igOZhtrINdlu3K8qrEEKI5/x65M3/6lZVz6cauVWHMuKFIEjCsfKSa5G6JDTavHQ/T9nRkBD6NDmO5tkjs1IXnqIFrInw4+Ka0qfdekhQ7rHhzOfTDDvXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cDs0LkBZ; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791921248; c=relaxed/simple;
+	bh=KgBJVhi+a3JJR/FFzMsm9BkMDU3pz5CXbIUC9gHYIwg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WTCXt58BMbAkxxbsna54qhmPwY4SannCHKBMb//1HB7mabIB5vNdcF/PXdQ4itk5Q5eULBqh/FZpfLFD76PuLzNtvH4jg5n9Ie94eqoluTZ9X+XVpZTs1mmu+FuL4PVKJMRNF/V3oH6hmZ2Mk6ie4/cLs9Klrlc/AZDQAAUDN8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KgV+Oq7Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cDs0LkBZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791921039; x=1823457039;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=zfp3QTAVDB7Us/Tj3COiXiTe0bsauGFQmFOWT9PU0hA=;
-  b=cDs0LkBZq+k06Lr3+lR20gYhJs4M77ixjEY6EnQIwezut8uAAg4jopSM
-   HNUCeoyZ5dVEr8nYIh+uP2MxlRLBzey/kynYKQpumNqF5rYiV0gNhahiJ
-   n0uX8NM5o/hIyJA5PVHLeMOuyhTluFEo58iSkW8vjibQLGsidIdl3xClN
-   msGvtKz4n0t5AGPzuuoz/XU+QBTpFM8xoXI0S2upNIyz3srpZHqItyTxM
-   XbqTZAiJ0b/3Ui7UACI+m6aYYjrJ1k62RoLfFCPT9kO8HYAuLp9o7K1aq
-   /R2dM4mDPKhxM8cnvfuJpo2FGG66BilKoMIISiJ1QOHRThrlzuIPAWX4k
-   w==;
-X-CSE-ConnectionGUID: KreLLAqyTwyBRXqtrrMFHA==
-X-CSE-MsgGUID: 1YBZlFODSsi2aIuRjDvYVw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="668006"
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="668006"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 12:50:39 -0700
-X-CSE-ConnectionGUID: 8nzlnYWzTi6zDH6pY1AN/A==
-X-CSE-MsgGUID: xUAcx0OIR2eYoWsPcNYmCg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="1608135"
-Received: from 9cc2c43eec6b.jf.intel.com ([10.54.77.29])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 12:50:39 -0700
-From: Zide Chen <zide.chen@intel.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Andi Kleen <ak@linux.intel.com>,
-	Eranian Stephane <eranian@google.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KgV+Oq7Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 311211F0089A;
+	Tue, 13 Oct 2026 19:54:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791921246;
+	bh=y8BNGx1B+oJ+F1czJnSm0HLm4uNAk3ocNXTsT6UmXCo=;
+	h=From:To:Cc:Subject:Date;
+	b=KgV+Oq7Yicw3cY/oF11b9sTL2uJUm8BHlsqgSoHg/l9GGJWDZI/z3NWdTMfCC5na8
+	 tC6T7tn/JYBTZc6jkFp7LCd77MP20bqNfWjl0/dVNQWxi2IgDa+NZm1fwjgEn7D2Uk
+	 W/xGR4triixpqhc65C7ny6rrxK1C8EpHYH2CQ2TEf2aAqjv9G84XfyvKoaqLH2UlR0
+	 SdREkbyIDLiwk5AGgW4fmL+nvBQyVvzUoG2uTJyDM7WOlqWVr16nIFhKrw10OrmYCQ
+	 a4hyzo+4+GR2wTmnrPj3ZfnEWKwMEPEIiwrL/REA26M6P9V1jnY6MjMJI7hQQwujKs
+	 rhEMNYrPzHeLw==
+From: Yosry Ahmed <yosry@kernel.org>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	Jim Mattson <jmattson@google.com>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yosry Ahmed <yosry@kernel.org>,
 	stable@vger.kernel.org,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>,
-	Zide Chen <zide.chen@intel.com>
-Subject: [PATCH] perf/x86/intel/uncore: Add Granite Rapids CMS PMU support
-Date: Tue, 13 Oct 2026 12:40:05 -0700
-Message-ID: <20261013194005.96615-1-zide.chen@intel.com>
-X-Mailer: git-send-email 2.55.0
+	Stefan Teodorescu <fane@google.com>
+Subject: [PATCH v2] KVM: SVM: Update tracked pCPU on pCPU switch
+Date: Tue, 13 Oct 2026 19:53:58 +0000
+Message-ID: <20261013195358.163375-1-yosry@kernel.org>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,167 +46,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for the CMS (Common Mesh Stop) uncore PMON unit, shared by
-GNR, SRF, GRR, and CWF. One CMS box exists per CHA box, at a fixed MSR
-address: 0x3400 + 0x10 * unit_no + <reg offset>.
+When a pCPU switch is detected in pre_svm_run(), update the tracked pCPU
+and mark all fields dirty in both VMCBs (if nested is initialized), in
+addition to resetting the ASID generation in both VMCBs.
 
-CMS is not enumerated in the discovery table, so it is added as an
-extra MSR uncore type instead of going through the normal gnr_uncores[]
-array. Since the CMS unit numbering matches the CHA unit numbering,
-build the CMS box rb-tree by mirroring the discovered CHA (die, id)
-pairs, ensuring CMS boxes only appear where a corresponding CHA exists.
+Commit bf260dc9e7b8 ("KVM: SVM: Trigger new ASID allocation in both
+VMCBs on pCPU switch") reset the ASID generation in both VMCBs on a pCPU
+switch, but only updated the tracked pCPU for the active VMCB to avoid
+unnecessarily dirtying the inactive VMCB. Leaving the inactive VMCB's
+tracked pCPU set to an old pCPU still allows an ASID allocated on one
+pCPU to be used on another:
 
-Make generic_uncore_msr_ops global so the CMS type can reuse it.
-Opportunistically add the intel_ prefix to match the naming convention.
+- vCPU runs with both vmcb01 and vmcb02 on pCPU A (both track cpu=A).
+- With vmcb01 active, vCPU migrates to pCPU B. vmcb01.cpu is updated to
+B, asid_generation is reset to 0 in both VMCBs, and a new ASID is
+allocated on pCPU B (setting vmcb01.asid_generation = gen_B).
+vmcb02.cpu remains A.
+- vCPU switches to vmcb02 and migrates back to pCPU A before
+pre_svm_run(). Because vmcb02.cpu is still A, no pCPU switch is
+detected, leaving vmcb01 with cpu=B and asid_generation=gen_B.
+Because vmcb02.asid_generation is 0, a new ASID (asid_A) is allocated
+on pCPU A.
+- vCPU switches back to vmcb01 and migrates to pCPU B. Neither a pCPU
+change nor a generation mismatch is detected for vmcb01, so VMRUN on
+pCPU B uses asid_A (allocated on pCPU A), which may collide with
+another vCPU on pCPU B.
 
+Because the per-VMCB cpu tracking is shared between ASID management and
+per-pCPU hardware VMCB clean bits, also mark both VMCBs dirty when
+updating their tracked pCPU so that the inactive VMCB does not run with
+stale clean bits when later entered on the new pCPU.
+
+Fixes: bf260dc9e7b8 ("KVM: SVM: Trigger new ASID allocation in both VMCBs on pCPU switch")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zide Chen <zide.chen@intel.com>
+Reported-by: Stefan Teodorescu <fane@google.com>
+Signed-off-by: Yosry Ahmed <yosry@kernel.org>
 ---
- arch/x86/events/intel/uncore_discovery.c |  4 +-
- arch/x86/events/intel/uncore_discovery.h |  1 +
- arch/x86/events/intel/uncore_snbep.c     | 81 +++++++++++++++++++++++-
- 3 files changed, 82 insertions(+), 4 deletions(-)
 
-diff --git a/arch/x86/events/intel/uncore_discovery.c b/arch/x86/events/intel/uncore_discovery.c
-index 0a22edf4d509..170f299385a0 100644
---- a/arch/x86/events/intel/uncore_discovery.c
-+++ b/arch/x86/events/intel/uncore_discovery.c
-@@ -532,7 +532,7 @@ static void intel_generic_uncore_msr_disable_event(struct intel_uncore_box *box,
- 	wrmsrq(hwc->config_base, 0);
- }
+v1 -> v2:
+- Drop confusing comment [Jim].
+
+---
+ arch/x86/kvm/svm/svm.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
+
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index 136069dfcd44f..95c61b7a470b8 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -3880,7 +3880,8 @@ static int pre_svm_run(struct kvm_vcpu *vcpu)
  
--static struct intel_uncore_ops generic_uncore_msr_ops = {
-+struct intel_uncore_ops intel_generic_uncore_msr_ops = {
- 	.init_box		= intel_generic_uncore_msr_init_box,
- 	.disable_box		= intel_generic_uncore_msr_disable_box,
- 	.enable_box		= intel_generic_uncore_msr_enable_box,
-@@ -743,7 +743,7 @@ static bool uncore_update_uncore_type(enum uncore_access_type type_id,
- 
- 	switch (type_id) {
- 	case UNCORE_ACCESS_MSR:
--		uncore->ops = &generic_uncore_msr_ops;
-+		uncore->ops = &intel_generic_uncore_msr_ops;
- 		break;
- 	case UNCORE_ACCESS_PCI:
- 		uncore->ops = &generic_uncore_pci_ops;
-diff --git a/arch/x86/events/intel/uncore_discovery.h b/arch/x86/events/intel/uncore_discovery.h
-index 142e1b56cfc2..cececf6ecdc5 100644
---- a/arch/x86/events/intel/uncore_discovery.h
-+++ b/arch/x86/events/intel/uncore_discovery.h
-@@ -151,6 +151,7 @@ void intel_uncore_generic_uncore_mmio_init(void);
- int intel_generic_uncore_msr_init_box(struct intel_uncore_box *box);
- void intel_generic_uncore_msr_disable_box(struct intel_uncore_box *box);
- void intel_generic_uncore_msr_enable_box(struct intel_uncore_box *box);
-+extern struct intel_uncore_ops intel_generic_uncore_msr_ops;
- 
- int intel_generic_uncore_mmio_init_box(struct intel_uncore_box *box);
- void intel_generic_uncore_mmio_disable_box(struct intel_uncore_box *box);
-diff --git a/arch/x86/events/intel/uncore_snbep.c b/arch/x86/events/intel/uncore_snbep.c
-index a97cd029db36..3abbc1bbf577 100644
---- a/arch/x86/events/intel/uncore_snbep.c
-+++ b/arch/x86/events/intel/uncore_snbep.c
-@@ -6492,6 +6492,32 @@ int gnr_uncore_units_ignore[] = {
- 	UNCORE_IGNORE_END
- };
- 
-+/*
-+ * One CMS box exists per CHA box, at a fixed MSR address:
-+ * 0x3400 + 0x10 * unit_no + <reg offset>.
-+ */
-+#define GNR_CMS_MSR_PMON_BOX_CTL	0x3400
-+#define GNR_CMS_MSR_PMON_CTL0		0x02
-+#define GNR_CMS_MSR_PMON_CTR0		0x08
-+#define GNR_CMS_MSR_OFFSET		0x10
-+/* Type ID for CMS */
-+#define UNCORE_GNR_CMS			50
+ 	/*
+ 	 * If the previous VMRUN of the VMCB occurred on a different physical
+-	 * cpu, then mark the VMCB dirty as hardware's clean bits are per pCPU.
++	 * cpu, mark the VMCB dirty and reset the ASID generation, as hardware's
++	 * clean bits and ASIDs are per pCPU.
+ 	 *
+ 	 * Reset the ASID generation in both VMCBs. This will lead to assigning
+ 	 * a new ASID now, and then again when switching to the other VMCB.
+@@ -3894,11 +3895,16 @@ static int pre_svm_run(struct kvm_vcpu *vcpu)
+ 	 *   another vCPU/VM.
+ 	 */
+ 	if (unlikely(svm->current_vmcb->cpu != vcpu->cpu)) {
+-		vmcb_mark_all_dirty(svm->vmcb);
+-		svm->current_vmcb->cpu = vcpu->cpu;
++		vmcb_mark_all_dirty(svm->vmcb01.ptr);
++		svm->vmcb01.cpu = vcpu->cpu;
+ 		svm->vmcb01.asid_generation = 0;
+-		svm->nested.vmcb02.asid_generation = 0;
+-        }
 +
-+static struct intel_uncore_type gnr_uncore_cms = {
-+	/* Keep the PMU name aligned with the published CHACMS event list. */
-+	.name			= "chacms",
-+	.type_id		= UNCORE_GNR_CMS,
-+	.event_mask		= SNBEP_PMON_RAW_EVENT_MASK,
-+	.num_counters		= 4,
-+	.perf_ctr_bits		= 48,
-+	.event_ctl		= GNR_CMS_MSR_PMON_CTL0,
-+	.perf_ctr		= GNR_CMS_MSR_PMON_CTR0,
-+	.ops			= &intel_generic_uncore_msr_ops,
-+	.format_group		= &snbep_uncore_format_group,
-+	.attr_update		= uncore_alias_groups,
-+	.cleanup_extra_boxes	= spr_extra_boxes_cleanup,
-+};
-+
- static struct intel_uncore_type gnr_uncore_ubox = {
- 	.name			= "ubox",
- 	.attr_update		= uncore_alias_groups,
-@@ -6595,15 +6621,66 @@ static struct freerunning_counters gnr_iio_freerunning[] = {
- 	[SPR_IIO_MSR_BW_OUT]	= { 0x2e0e, 0x10, 0x80, 8, 48 },
- };
- 
-+/*
-+ * Neither the free-running IIO counters nor CMS are covered by the
-+ * discovery table, so both are added as "extra" MSR uncore types, in
-+ * addition to the ones enumerated in gnr_uncores[].
-+ */
-+#define UNCORE_GNR_MSR_EXTRA_UNCORES	2
-+
-+static struct intel_uncore_type *gnr_msr_uncores[UNCORE_GNR_MSR_EXTRA_UNCORES] = {
-+	&spr_uncore_iio_free_running,
-+	&gnr_uncore_cms,
-+};
-+
-+/* Build the CMS boxes rb-tree by mirroring CHA's discovered boxes. */
-+static void gnr_uncore_cms_init_boxes(struct intel_uncore_type **uncores)
-+{
-+	struct intel_uncore_discovery_unit *cha_unit, *cms_unit;
-+	struct intel_uncore_type *cha;
-+	struct rb_root *root;
-+	struct rb_node *node;
-+	u16 num_units = 0;
-+
-+	cha = uncore_find_type_by_id(uncores, UNCORE_SPR_CHA);
-+	if (!cha || !cha->boxes)
-+		return;
-+
-+	root = kzalloc_obj(*root);
-+	if (!root)
-+		return;
-+	*root = RB_ROOT;
-+
-+	for (node = rb_first(cha->boxes); node; node = rb_next(node)) {
-+		cha_unit = rb_entry(node, struct intel_uncore_discovery_unit, node);
-+
-+		cms_unit = kzalloc_obj(*cms_unit);
-+		if (!cms_unit)
-+			break;
-+
-+		cms_unit->id   = cha_unit->id;
-+		cms_unit->die  = cha_unit->die;
-+		cms_unit->addr = GNR_CMS_MSR_PMON_BOX_CTL +
-+				 cha_unit->id * GNR_CMS_MSR_OFFSET;
-+
-+		uncore_find_add_unit(cms_unit, root, &num_units);
++		if (svm->nested.initialized) {
++			svm->nested.vmcb02.cpu = vcpu->cpu;
++			svm->nested.vmcb02.asid_generation = 0;
++			vmcb_mark_all_dirty(svm->nested.vmcb02.ptr);
++		}
 +	}
-+
-+	gnr_uncore_cms.boxes = root;
-+	gnr_uncore_cms.num_boxes = num_units;
-+}
-+
- void gnr_uncore_cpu_init(void)
- {
- 	uncore_msr_uncores = uncore_get_uncores(UNCORE_ACCESS_MSR,
--						UNCORE_SPR_MSR_EXTRA_UNCORES,
--						spr_msr_uncores,
-+						UNCORE_GNR_MSR_EXTRA_UNCORES,
-+						gnr_msr_uncores,
- 						UNCORE_GNR_NUM_UNCORE_TYPES,
- 						gnr_uncores);
- 	spr_uncore_iio_free_running.num_boxes = uncore_type_max_boxes(uncore_msr_uncores, UNCORE_SPR_IIO);
- 	spr_uncore_iio_free_running.freerunning = gnr_iio_freerunning;
-+
-+	gnr_uncore_cms_init_boxes(uncore_msr_uncores);
- }
  
- int gnr_uncore_pci_init(void)
+ 	if (is_sev_guest(vcpu))
+ 		return pre_sev_run(svm, vcpu->cpu);
+
+base-commit: 6bd2905303c58679e303941b7d8ae8c074cd95ce
 -- 
-2.55.0
+2.56.0.385.gd3acb90ef8-goog
 
