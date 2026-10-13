@@ -1,144 +1,138 @@
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 792FF535FC1
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 20:42:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791924145; cv=none; b=emiK8TOrmhbpooAuhilXZogGzT3y7NmWy9ObGptlkroi0aGs5jL9JPKDajCZwWDojQoqCeFGNmD6WZyylNkMpl4vQubyK5w0wF0gOBsNLaH8v97y9uCSnyoHT3a46joPQpf133deYMnZXYoPV9hyAJb7m9eKrDZkC8SAI2xQZoY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791924145; c=relaxed/simple;
-	bh=EU/lXhcyesppo2k4iqqbE1WUHSYLUnCdm/FVETA/lG0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=c8hS1+aT0DVf4sJBJhopOBQdf7MzGO0453tAv1SqWLZLrjvtw0svXAGaTIbWSE3G43LKIk1WCvboUkZ1krlyxxlfADJpKX25XMyQS0752pqK8cerZY2SrkARTDI2+g3Jnd2RT1UWkTV/5+aebDs0SRkhJA5HvXsmyQ2LPFBt0fw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S+X5sNFu; arc=none smtp.client-ip=74.125.82.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 235EB51E432
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 20:43:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791924197; cv=pass; b=dx2akjDtSQkSdUfGC160ScbC87ynNzbhBpOB2L/YQR8lLHmq8uQCz/LGq1tBZLv/19M/+kPvilFx9S/x3+DWQPXifOs5b7itfj2V1oavRLKpXbZIHqwgz/Ypm+Z9lqMd5PK9V9y6h4xmoK9egJB8lUmqiD5Iag0UkdfqwafQvUQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791924197; c=relaxed/simple;
+	bh=aUqSZx5Jyb/Fk1gOVNP06/1f1jP/+rE+8FXc33EN0Jk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ett//T3BBY10z3QZA/t5YK7+8o/Xo7hPxqx85sgzyiuWW778W5+pfeOkSbwZMYeECETn40zNcKPdrhXSUIMqlqwEUJKcB7FwLE6UTSXjOT+pwexVS6bNSKlLUMAJglUKPcRhxYjYKB8ZYgc3mb7I5GnzYoaMH7hFZkCaGGFG5Og=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VXHaanHQ; arc=pass smtp.client-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S+X5sNFu"
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-15354aa70e8so806284c88.1
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 13:42:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VXHaanHQ"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b1b12de661so31261a12.0
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 13:43:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791924192; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GNqYOZs+carmD+GZZVSgXuX3XpJHNzGdryICZ5JFp1Wb5o4v2TY13ccdhwJOw/jQqI
+         wsqW+MRaRwT4iFuqD4pmO1jl4an3NPutdfR3HyTRiNhJVY+dNmr7DsyqZZKoXuC6Q8vM
+         b8Y1ui4ximfaU6wAcFb7HnwDzzGkJhQv9Lk5scc9QVkzMLtEG7oTY9+mLv0oOFs3BpqF
+         WoYe0wDHsvboz40RmqM04zU+fjnRNgexbyS3/KvhQIXLkSOfipJRkbEYzHKOxhp3YtkC
+         u2UAN1Jk5mwDeEVvc8hYVgExjwLHj6qUP1KtupeBgO/4d34xQ2XbCjr7aseaBfQw/9+5
+         PJFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=aUqSZx5Jyb/Fk1gOVNP06/1f1jP/+rE+8FXc33EN0Jk=;
+        fh=fQ+Lo6hbPzOj65hr6P1uiduRDoBqNjNm6Cx+Y1ME/GY=;
+        b=bNRsXBJvMOyYZfbrq5PIf9WyZzc7rATDAEUkBbBB0tdgG+lEBvxgrPzs21PrNibylB
+         /nVzXpnydAQIPoOvEzQYVAHQBsVPjw0VIOoNtieyfaqkn3pBAZFnu9o7OW0ZCtNSRe6e
+         15wxE6rokuBGeidj0LHFiNrBS7qxqdfggYDbH/KCBiS39qx5f2gLSKma0ps6ZTyIZjbv
+         nZjDaOxImshNeYJJHRKMAqt26xaOK0bsPuulWehFuac9s1tgbsdGwwUMVpeNj4d7p0NX
+         dV2Jd+AJT239gSJFrZE1DA7pVg09QHq/KnSJGTpCfLdX0KNtDVzieAVpfVd6wh4RqxAl
+         VDNA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791924143; x=1792528943; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iLt6GKuvAarV8gdf+zpsyObKDRlnXSW8t5lVL3DEXxI=;
-        b=S+X5sNFuYrBsi1WR8vN9OktaV8ts6Tgcf8FVPR+wcIgjkonfrogXtxjCd27jY32lGm
-         ieTVmz6+xKgJ6ueiWYG3sOxZW5FxuroAvh0/qQqNYJhvBa8iBqApokceLhjBpeC8Xc0I
-         kqk1UHDpVOdRIHOULswFRLi1JP8NIU+93vvkEi44L8Uxc1d+yIdfVvQu4bV3pbFIb67k
-         nNqF4cvcOMDYtdTWIQLsOsDBYIQ+PIPJJjwUYZloY/cF2tvD9oW+yUPih4N6Q8XV+Qpl
-         XGwNm0h54LFzzauV8/UEPq2LVp9WNtgY8CcwSVbrPmqHkgGogpwCEKBZw0yx1h8U6PWt
-         yVZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791924143; x=1792528943;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=google.com; s=20251104; t=1791924192; x=1792528992; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=iLt6GKuvAarV8gdf+zpsyObKDRlnXSW8t5lVL3DEXxI=;
-        b=gyp4HDP9DA0SfTiGkKHP/unq2x3NS2aaIAV559X95CjXGhY+Yo+ZwJDZ7+aLbrli62
-         TiiO1odvXRZdOBSWBXMl6osnhwtvkX62DtkoLfTIc0E+VFXoaaUbzQlIKHDgEJbkqdb0
-         k91opCqPx0T9cBxtk9noiYTya+Ipk0n6/YbKqYiYFREtqmi/5vRFBF9R2R2ImwTumOH1
-         uR7eCQwKXv56D1lDZqaQw1EXeebCvqI3uItu/YNtHA2fKuWyqCY1sk88AsXemPw3W/N/
-         JGiaUZvkbkYrz76R9uBN/UZHgkstB1eJBNbvYIcq5AaD0LZjKAnw4jMJmBacvMvBc6Xu
-         5S4w==
-X-Forwarded-Encrypted: i=1; AKwUvBw9CGv3fq5aAtN0AxwstG+5fPPktPJUKyLNOX6VY71gAo5X8x/Z3BHCw8BKgtddg9E98k5Hjvc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLIQg9L1oHIDWJH4nvy2y2S0gMZ0vbiO33BNxvxaxt6roAB7aPX
-	Wj/x3lhXETRfgRy3vA+uJj6dBZVYJyw8ZEh4DyDKRFhATcas8nltIGmo
-X-Gm-Gg: AYBFou3LJXt7gP5txB3V5Svmn4X3QfS34rLZ7Gv0UnW3VNZYN5fQhM+k4tHc9mfvwuX
-	AW4sVjcj5yqicKQvSvbdkbWaSrHOJAr+UtMR9C6nA1hhmBRpLxC1Fz8eKjSHKVhbhIiRCTAYooy
-	mcDU+23kEuUpGpXjlzWX/FL9DvOwug3vbLuJkGOZFv3pSSyxx8JvPuZ9AXGfqi8ggiY8V9OLl5Z
-	XR8+PlNlWNpyLYsNF34dV89j7zchdU57SE8Y3kcUK8AF5xBMvBsIVSvIiDB5CpkYypsK6DMOcS/
-	ix7LfqX36sYq9K/dhA8UsGTl2FGoNUuUloHnY2lm2s1gOt7M8tF7jAbTZCmTAvSzTAWbAAyZFi5
-	Z0xt+vOsFda3FB5p59HqE8N0DijiVAwbocoBjt3QMMIdUUl7HqoTp+DjrXhCmyA56VVUfa6QxVo
-	pyfBBEQMz3tdL8rC8tBErCJorVZ5uKO3eqYcLFE+T9xJb2dM43vIKe4ENWndu1jlNl
-X-Received: by 2002:a05:7022:296:10b0:153:4a27:4ea5 with SMTP id a92af1059eb24-16a600667a0mr17435729c88.28.1791924143269;
-        Tue, 13 Oct 2026 13:42:23 -0700 (PDT)
-Received: from unix.. ([181.229.23.179])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a6021e49sm41761598c88.20.2026.10.13.13.42.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 13:42:22 -0700 (PDT)
-From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
-To: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org
-Cc: Kailang Yang <kailang@realtek.com>,
-	Naser Al-Asbahi <nasserqahtan0@gmail.com>,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: hda/realtek: keep headset mic on Acer SSID 0x1640
-Date: Tue, 13 Oct 2026 17:42:19 -0300
-Message-ID: <20261013204219.9649-1-ivanrwcm25@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=aUqSZx5Jyb/Fk1gOVNP06/1f1jP/+rE+8FXc33EN0Jk=;
+        b=VXHaanHQ/eTBrPRL2Xka3nGMQGz2gCSnvjbzw1gMtINrNoibDMWmIxJAjhOQWAliyB
+         zkFYB4W0QH6afS8XSud2PgiNPOpVk/c3VE8iMAB1vb3izGOsgUGCto+PRE4A2zQD8gza
+         r4b46Onr2K4fPrYmrrJX4jB55wHQRhkT1vh43lUN9wve0RwchnXyO0XGm7OcA0fxx7mn
+         rV3/lC73Rg64thxnyP70r5LRkJD4Q681jgvt2gWbHQ51WOObNlkjYkBX0u+4bQkzg5iD
+         5outp2Yre+pBSi0PGPGGDseSDJKhyp3CDNsKW9/5GtVEbgXI/2MSsGFBVf60Ihvxyuvn
+         1WeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791924192; x=1792528992;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aUqSZx5Jyb/Fk1gOVNP06/1f1jP/+rE+8FXc33EN0Jk=;
+        b=103MzG8nHIgAqaa9/zDtzInlzfmQ29acKz1E/l4DFZxCQe3JT2R+KkoNXjngJZQcG+
+         D0KbTDqEkUNyiT6E2hVWTLJDa1Fz1+BadLi8qNKVuijg4fVQjPglwj72xEWCJmSUnfFZ
+         /0dynLgrzeEfkggsfobmQLPGmTJRZLdupHKevaxtwYd39IXlev88mVqREgC7wFqCa127
+         nES1+N0G6h+C1tpDtgby/a/CfGkPBBj5SNbRCq0h3b6rV0DVBE6TaQo4MuNS1E3PQxln
+         1L+cZZuPYt3OhsEXqSSSMRZcL6RlWn1oRTYzwIOletRr0yI7J7YXIdlITzMHJygJNYUt
+         g2Ww==
+X-Forwarded-Encrypted: i=1; AKwUvBxtfH/wS9YrFTxi1Ht4B0XPECn6b+8XewWiSJaUY/P1dK33yD7948ywdXd8N8FNrzJATp1oR2E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJSb9/yT+lOPDPHQLjI1zkHOCaKJJygq0vOlaaAnmUjyF9fxkdi
+	YJKKriXf1eqBAEz+2K6Nx6aCWf2YdU1K+mwBS/CWvlj6oylTFVlvs1Upyf40gcDk+iT1EXmC/rK
+	58XN+7z2RtZ+7aMjEi0+1Cq3dxcM0hDRd48EJokbO
+X-Gm-Gg: AYBFou1J0gvh1hTR5hg7PMdAnj6o6Rk837Vi3Hlz1KvgZdIInrpbI2gS1uy2Zpj/QvH
+	Zv/g/aOB/WJRlQTtmfWtcLB/FMQEfIxhcyiQE/e3TUvGb2OyoRAHAwMC7Bk6lAudngrIMXUusvd
+	TW0HaaA2tldtEew29iNBAsSSSutrDoosfmLptwpnzyE8E9Kx8nMMgLxEIwU0qF8nzq+gdVrIuBQ
+	qpCZ1Ut1n/rKJVqLUfrme3v1hOYjPQhpIJCRXzuU0Z2dJmMN+Q5rympOsI5pwMre6vt5c1Tvhvi
+	p/g2/to+XChNUdIQ44WLj3gGEN1si+iAwluVrAoY930i+IwRWpxN1LY=
+X-Received: by 2002:a05:6402:a593:10b0:6b1:d313:16f8 with SMTP id
+ 4fb4d7f45d1cf-6b1d3131c5emr128393a12.0.1791924191858; Tue, 13 Oct 2026
+ 13:43:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261013195358.163375-1-yosry@kernel.org>
+In-Reply-To: <20261013195358.163375-1-yosry@kernel.org>
+From: Jim Mattson <jmattson@google.com>
+Date: Tue, 13 Oct 2026 13:42:59 -0700
+X-Gm-Features: AclHuK-YmNn8NSDVLimMh9Yal2P17VNQJ0PnXTL8TAurb31p4J1MK23ZmaxEhr8
+Message-ID: <CALMp9eRDjH=GgeCUe50JngFJtup4Lx2t-uHgpyEwyVB9VjQPVg@mail.gmail.com>
+Subject: Re: [PATCH v2] KVM: SVM: Update tracked pCPU on pCPU switch
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The micmute-LED quirk for the Aspire A315-44P matches PCI SSID
-1025:1640 before the Acer ALC256 pin fallback. The Aspire Go 15
-AG15-42P shares that SSID and leaves nid 0x19 as 0x411111f0, so
-selecting the LED-only fixup drops the headset-mic pin remap that
-the fallback would have applied.
-
-Chain ALC2XX_FIXUP_HEADSET_MIC before the GPIO3 micmute LED on that
-SSID. Leave the Swift SFG16 entry (0x169a) unchanged.
-
-Tested on Acer Aspire AG15-42P (Callisto_BCU): PCI pick 1025:1640,
-Headset Mic=0x19, GPIO3 enabled with no physical micmute LED, speaker
-and capture paths functional.
-
-Fixes: d830631a128b ("ALSA: hda/realtek: Add micmute LED quirk for Acer Aspire A315-44P")
-Cc: stable@vger.kernel.org
-Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
----
- sound/hda/codecs/realtek/alc269.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
-
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 1623cf926c71..2793d09fbf6f 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -4388,6 +4388,7 @@ enum {
- 	ALC285_LENOVO_DAC_RENAME,
- 	ALC287_FIXUP_YOGA9_SPEAKER2_TO_DAC1,
- 	ALC256_FIXUP_IPASON_SMARTBOOK_S1,
-+	ALC256_FIXUP_ACER_HEADSET_MICMUTE_LED,
- };
- 
- /* A special fixup for Lenovo C940 and Yoga Duet 7;
-@@ -6900,6 +6901,13 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc256_fixup_acer_sfg16_micmute_led,
- 	},
-+	[ALC256_FIXUP_ACER_HEADSET_MICMUTE_LED] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc256_fixup_acer_sfg16_micmute_led,
-+		.chained = true,
-+		.chained_before = true,
-+		.chain_id = ALC2XX_FIXUP_HEADSET_MIC,
-+	},
- 	[ALC256_FIXUP_HEADPHONE_AMP_VOL] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc256_decrease_headphone_amp_val,
-@@ -7230,7 +7238,13 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1025, 0x160e, "Acer PT316-51S", ALC2XX_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1025, 0x1616, "Acer Aspire A515-57", ALC256_FIXUP_ACER_COLDBOOT),
- 	SND_PCI_QUIRK(0x1025, 0x161f, "Acer S40-54", ALC256_FIXUP_ACER_MIC_NO_PRESENCE),
--	SND_PCI_QUIRK(0x1025, 0x1640, "Acer Aspire A315-44P", ALC256_FIXUP_ACER_SFG16_MICMUTE_LED),
-+	/*
-+	 * Shared SSID: A315-44P needs GPIO3 micmute LED; AG15-42P needs
-+	 * the headset pin remap (BIOS leaves 0x19 as 0x411111f0). One
-+	 * entry applies both. GPIO3 is unused on AG15.
-+	 */
-+	SND_PCI_QUIRK(0x1025, 0x1640, "Acer Aspire A315-44P / AG15-42P",
-+		      ALC256_FIXUP_ACER_HEADSET_MICMUTE_LED),
- 	SND_PCI_QUIRK(0x1025, 0x166c, "Acer Predator PH16-71", ALC2XX_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1025, 0x1679, "Acer Nitro 16 AN16-41", ALC2XX_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1025, 0x169a, "Acer Swift SFG16", ALC256_FIXUP_ACER_SFG16_MICMUTE_LED),
--- 
-2.43.0
-
+On Tue, Oct 13, 2026 at 12:54=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wro=
+te:
+>
+> When a pCPU switch is detected in pre_svm_run(), update the tracked pCPU
+> and mark all fields dirty in both VMCBs (if nested is initialized), in
+> addition to resetting the ASID generation in both VMCBs.
+>
+> Commit bf260dc9e7b8 ("KVM: SVM: Trigger new ASID allocation in both
+> VMCBs on pCPU switch") reset the ASID generation in both VMCBs on a pCPU
+> switch, but only updated the tracked pCPU for the active VMCB to avoid
+> unnecessarily dirtying the inactive VMCB. Leaving the inactive VMCB's
+> tracked pCPU set to an old pCPU still allows an ASID allocated on one
+> pCPU to be used on another:
+>
+> - vCPU runs with both vmcb01 and vmcb02 on pCPU A (both track cpu=3DA).
+> - With vmcb01 active, vCPU migrates to pCPU B. vmcb01.cpu is updated to
+> B, asid_generation is reset to 0 in both VMCBs, and a new ASID is
+> allocated on pCPU B (setting vmcb01.asid_generation =3D gen_B).
+> vmcb02.cpu remains A.
+> - vCPU switches to vmcb02 and migrates back to pCPU A before
+> pre_svm_run(). Because vmcb02.cpu is still A, no pCPU switch is
+> detected, leaving vmcb01 with cpu=3DB and asid_generation=3Dgen_B.
+> Because vmcb02.asid_generation is 0, a new ASID (asid_A) is allocated
+> on pCPU A.
+> - vCPU switches back to vmcb01 and migrates to pCPU B. Neither a pCPU
+> change nor a generation mismatch is detected for vmcb01, so VMRUN on
+> pCPU B uses asid_A (allocated on pCPU A), which may collide with
+> another vCPU on pCPU B.
+>
+> Because the per-VMCB cpu tracking is shared between ASID management and
+> per-pCPU hardware VMCB clean bits, also mark both VMCBs dirty when
+> updating their tracked pCPU so that the inactive VMCB does not run with
+> stale clean bits when later entered on the new pCPU.
+>
+> Fixes: bf260dc9e7b8 ("KVM: SVM: Trigger new ASID allocation in both VMCBs=
+ on pCPU switch")
+> Cc: stable@vger.kernel.org
+> Reported-by: Stefan Teodorescu <fane@google.com>
+> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+Reviewed-by: Jim Mattson <jmattson@google.com>
