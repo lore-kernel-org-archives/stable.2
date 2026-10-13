@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8614547CA69;
-	Tue, 13 Oct 2026 09:12:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9DD49B5DE;
+	Tue, 13 Oct 2026 09:13:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791882781; cv=none; b=iDKMj4iXhXDBBXvQwvSmCEJQWrNJnd5rjUbbK1/CW7hBNTkr4LqTHGGLzJB0nTjg0kigodGcO+4d7SoDiH338k1SVVnU4OEKeFTJ28DpOjJcHDh/u4Zt+VfZ/C9qIQOFY4+CtM2fgjoyAQydZ8BKspATzxuUEeLiLbpQ52j9K1s=
+	t=1791882783; cv=none; b=mTynzSuBhXhE3+n0rNBmGbQPbLyyTt8NL2wDKtigFUui1FKbVJoQ20xRmcNZMFjWdVLY1W7Vi6WeSUOv885WMs0XX0yQQySurBPOQwSYqA0dRIw844TeAbVE4ZnGEsPySMNUkSH7ZPwQLhZ20Cw4YmrOzA9is9+kLJ9+5nWYL2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791882781; c=relaxed/simple;
-	bh=K65YELmFDe5gq2djaT+dmfWmAC1fMXgimAXDqnlUiiI=;
+	s=arc-20240116; t=1791882783; c=relaxed/simple;
+	bh=z6q0v/OIIm/FDJSjI8IZcJWCk9bfTlqkTyJbXPmjdL8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QvOnkeSLNRPA65MeNW5v4JBlnOWDQdPABtiFG/DD/dx3qWVrPqaGodwznWt8yg8p61bPxNIyyNFQYCCUiZ9J639+PNSMwBDwU2KrTYsPh7geMvTOjIRg57dbRaSdxINlGELKKivueMP0UF5ECiIHiT55IxiWVree6/fF9nRlsv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SSlwp97N; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Vnul7B8whPeI3oOA3zJ8OAkljW+FaJmanHwyIsn8mkkLFenuwJ86RhjoMtki3fOwzIiqMPcaxy/jLX0wnv6XKz0nbqo7eVNjqi4mdqJtxXI+Jt711U3gMrjK0PXz5gq1U49lwVxeEhl4OiLikIYm5PVNg7573+ZHBI9ysQ305qs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g7n3liwp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SSlwp97N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0121A1F00893;
-	Tue, 13 Oct 2026 09:12:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g7n3liwp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF76D1F00899;
+	Tue, 13 Oct 2026 09:12:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791882778;
-	bh=cuPDmC5TcpEz5XIvNWOyzCF2s2TxtB+UiVzenSB10Ew=;
+	s=k20260515; t=1791882780;
+	bh=TfvmEslww1H80E7freFkkZiQjXEIa5eJx0R0ZZIgCsM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SSlwp97NxVoEredO//ULPoIrQ0YKTmiXYo8jUcoKXLAxTrBwWUAFz1lhtDJNbudjV
-	 SkfXAyI6cbVmlvHD0frCdHT8OWrZc62VBu6nkYDG1rI8ABkWOgIp54h5ZZNg/RMJl2
-	 QRqHx0WNiPhVkz6bws95h7pa1VJw6Jxhewl2sRnyd50Zt4/+O62zMo2C0dyhJfHIHG
-	 j0+PMxcoh9nbJsX/jt1nc8Rx9rLQCIgFFDNTooiBSSv3P7qv8spJNAtESl6AFEr3B/
-	 mQLYF3NXAs9lEq48CouXFgym0b1aDCgxmEGX1F0kCXAXovLKzK/mAtSQg7LTet6XqA
-	 ofaW5KD74RYyg==
+	b=g7n3liwp5/8TIKEdRtU3NndCaneyEWeRXDAC9zJ4jmAkAu0rWzBHx6TQkhVxALXA7
+	 LK+QQZvmZlzEkkUUwBWANo1JlpU8UNFYMvw7DsoiSGL3WmZpAS3C/StBiSbXkZKf2M
+	 8FcvY3Khpn28HlWIdCSOomw/sApLBUclpleFAnzJrmL1fxawJA2py9fhW9Z/r+mEzU
+	 sb9kkjiMsRgyMirr7jmDDkcovvolsADfQlSGvFmTUYB3ZPtq+DQ68QMXFvRSedHdsy
+	 2G4q4JiWyXjED+pUCQh8B4KMWbnHS+AT/gY7WXkS1KOnjMhbdd8A4RlX5tdInUWqKM
+	 Sni3LingCJNYw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Jiri Kosina <jikos@kernel.org>,
@@ -35,12 +35,12 @@ To: lee@kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org,
 	Jiri Kosina <jkosina@suse.com>
-Subject: [STABLE v6.1 5/6] HID: steam: Refactor registration
-Date: Tue, 13 Oct 2026 09:12:01 +0000
-Message-ID: <20261013091204.529049-5-lee@kernel.org>
+Subject: [STABLE v5.15-v5.10 5/6] HID: steam: Refactor registration
+Date: Tue, 13 Oct 2026 09:12:12 +0000
+Message-ID: <20261013091215.529531-5-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-In-Reply-To: <20261013091204.529049-1-lee@kernel.org>
-References: <20261013091204.529049-1-lee@kernel.org>
+In-Reply-To: <20261013091215.529531-1-lee@kernel.org>
+References: <20261013091215.529531-1-lee@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,7 +77,7 @@ Signed-off-by: Lee Jones <lee@kernel.org>
  1 file changed, 31 insertions(+), 39 deletions(-)
 
 diff --git a/drivers/hid/hid-steam.c b/drivers/hid/hid-steam.c
-index 0e5fba060c91..aa001a293a36 100644
+index 628e4ef72b81..544d45f3fc6b 100644
 --- a/drivers/hid/hid-steam.c
 +++ b/drivers/hid/hid-steam.c
 @@ -119,6 +119,7 @@ struct steam_device {
@@ -109,7 +109,7 @@ index 0e5fba060c91..aa001a293a36 100644
 -		 */
 -		mutex_lock(&steam->mutex);
 -		if (steam_get_serial(steam) < 0)
--			strscpy(steam->serial_no, "XXXXXXXXXX",
+-			strlcpy(steam->serial_no, "XXXXXXXXXX",
 -					sizeof(steam->serial_no));
 -		mutex_unlock(&steam->mutex);
 +	if (steam->registered)
@@ -123,7 +123,7 @@ index 0e5fba060c91..aa001a293a36 100644
 +	 */
 +	mutex_lock(&steam->mutex);
 +	if (steam_get_serial(steam) < 0 || !steam->serial_no[0])
-+		strscpy(steam->serial_no, "XXXXXXXXXX",
++		strlcpy(steam->serial_no, "XXXXXXXXXX",
 +				sizeof(steam->serial_no));
 +	mutex_unlock(&steam->mutex);
  
