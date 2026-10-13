@@ -1,65 +1,64 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C362E3C584A
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 14:02:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6994C3D0BED
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 14:02:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791900157; cv=none; b=ZJdcQnTjbcqL38aPdqJepyr5nlCd7CPa0Ea90OXcRp648G58wxUzlq47Oi4fhEM/j3l4I1ljfMfIZzivgf7IBR/amwQsC9Yn+SzKpoPL+va5rfi+CEKQCD0uRIL6NDG70H1rpZN967USfij04mSmMLmCCC8+L12Oc3AyhIIOXK0=
+	t=1791900161; cv=none; b=hBYBBTE3hgQI0A0YE1VXt/ccytiK0gC+MOgRN9j2Q0W1l5R0lqaNZH12JvyzyBZVmF/7RXxzDRm2/YJjnxukbltuFULVaUg+UM54Vnw3VEeUUjzxktpoLH2Fr8Rw1q3hbTGZKcw3UiJx3rw8t2Yg7uL0RtUr5zYnoNxOyHiLs6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791900157; c=relaxed/simple;
-	bh=1fPGSy2gCY4+NnIDtWYS1xEOb8mLeLGa/eJfNd+L12I=;
+	s=arc-20240116; t=1791900161; c=relaxed/simple;
+	bh=/mEYgtD7sPEZVYSTwXebZ4dJNlAF4fUdeIQAKaL7y9g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KIGg7xhot2EvFJxHp2yEoUaz7C7PoJuGwIiUx21Z4075PwO9fgvqQRkzz9EiMXbip56eQr1uFgs8f/B4BVI7zNXHLaVdZCwGPkE65c7cWc6a4Wof4PysoDMuLsYDVpX0eDHhjxyluhPCtjE7J1dJre5NK/AS1/HQmlAUbYDTxlM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=WlOIjDwk; arc=none smtp.client-ip=209.85.214.173
+	 MIME-Version; b=iVGU0rjk2yweWH6o0XLCz7MG3FLQD/b2HYfbKz/52ockGNuou8OeotiMRhhaJqgY10Q8dpMf8BBSc3vvBeiyZN9MbkxADCC+2uZ3Ke6U+e3KlBthr2JqSsltRMsjT2rsOBFy8uwBzgGSSGk2pfdLmtgF+U+3PrBCue/fKDI4uUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=dhRNGbCW; arc=none smtp.client-ip=209.85.214.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="WlOIjDwk"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e7e742a2c7so19883985ad.0
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 07:02:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="dhRNGbCW"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e8662d5e95so16859605ad.0
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 07:02:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791900155; x=1792504955; darn=vger.kernel.org;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791900160; x=1792504960; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qeI9NvOsFwArQ2zk9ob7BZcHn+VlKHqwrYxnGf5soGE=;
-        b=WlOIjDwkSDPyWAzxAOtUM5+bzdr/NTK9VjXbetbqsy9LfOZR9aixPWKj5d+bgnDKX3
-         en9h1L8JFLqk5bKr5TK7fwsGT2yw5ZZ3EeDeCYGPdP1+k/LqhGvKveXfr9LiLIU57NTF
-         WFkR9K0onA0fkzS42vYb4/du9knjwLDnkndpGe7hLPNZ3zUq1DaGuUNHA0LJAUUZdaIv
-         WBBpuKEigvq9Juj+CZDJE0+fKNoWZpaxZ1HEIZoePBzKn8sxfG4tgs/+0E0rwIX1wc4P
-         XlTCkNkV6GxLgQFonn1Q9ylsf56BVE2nvkQe/aZNiBvuKHtgqeH192H/u35grkfnTxlp
-         eacg==
+        bh=JIwhV2UA408K2f7C4cB3y92uRUokSrDJADAS6XPBFwc=;
+        b=dhRNGbCWtvIjfi6nLMnnC928Ij6k0Or5BOPiijpgLfyHtksIcEvISwo78VBEQSh8iF
+         CTqlbyTSUNTlatgdo1lQqxo9Rlm7ZO+MCW3q7KvcNlEY2SM2iyJ79ftBIaxhXk+fJA2X
+         OvCrVkONMFOK1xk3dnUbPXGn2vZWOmXPoewFzX93lLBfNj7SAj2jRaBUIdHHHOrGLJIn
+         SDEc7PZE6s4t9NPOdXbDPjx0tj50fTq9SLTMGY+4u3GwATPbMSZXv6wHuCkYkHXB07Ms
+         g6Ktz9VJ69eambLRpWmkdoH/FtdIzDjhZyhc6+yxYeFmJi3oPlplg3LUWl7Y0lXC5ztb
+         Z6CA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791900155; x=1792504955;
+        d=1e100.net; s=20260707; t=1791900160; x=1792504960;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qeI9NvOsFwArQ2zk9ob7BZcHn+VlKHqwrYxnGf5soGE=;
-        b=R02AwbvttT+SJDyjPHus+Lreljy6vSoIUVk47C8IFFOUdUk4dcxNIXCS+lOESv3WtD
-         c0s9IfAvubbPhSPtCmpon36a+Itc4N3AVVUQk9nDEH0pzRN2lwP/G2wRUGIoT53K9U6/
-         E3/oMYd+kgnyZWyEo/e5DSJVQxjo3y0PBKEWjxDRF1xwz+ZC5NfhOR4NEvLtmb0odUHN
-         Ey9VbUOpbypmi3OZVak2b+eKus4suaVI6fvrF13QHGc2j3LTNqoegWA/WWJw6+nQ8CJC
-         mSY1vrxzjgELbLKsUWinolxrB0J+9BcwuMOsuY5uYE+Zbl0RIoM/4EvEtR5oYKbOaFIV
-         e7gQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy/hzoGoVbBIUjYnWaPmnfarFO3xuL9tSVLFLfnC9rxKOezYmYLoyMWcloP12uxAGkUTWJs1qg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJcoUJVx0AU/hQ0qi75fFgyIOj+IjIBUvjA0a9CRU+PNmcaXVQy
-	Va7DyyGSi9DyCeOjHKZLcluc7/FlKxnH4LOf1TWcvMmv/khvtGW0qwd0YyUlctmdPyGyc41clrM
-	MUbtoQCu0Uw==
-X-Gm-Gg: AYBFou2xV1VpOmgPtEaAtgJ31Q0SZP6r45gxaqWZMd9avpYzBftTreGzpgLtWwSyY1e
-	rIqrGKmkH8Q/BLU30lnylWcLjovfjvX05dGKOcfXdnQiFKzWEpYPRnurpvKsr6qX/LHKwOwzlok
-	Cp11Mce3qnTMwFAMxGhGtPG2zvF4c2iNr5NPIo1kZBRb+sUAyzuZBAKknvRIbPH9lebtM64AtSB
-	36pNb7yUhroTDCHvXox9DuHDsB04+4bkPSX09y2w+hl850Dqprv2ngmhLt4AlGajd/F2HCTNoDn
-	4Jyj9Jw7pKLiPAl2pSSz9OGpc5OishG9M3uUhj8k0IauLX2faY+7LoKsoOdxPWh7Bz4pc82g9KU
-	c8t/StvhafTewNpoyA77eEvV4r9lx9YfSpwpDlFisOnvRirqFONr196iiWXk7toZz8tdMS+hT8E
-	2Km5q8F//6GytvK2QE1EGwsD9uzdDSIDWvjG5qalv83k2MJ1XUACXF/fZpWJEmssayISKQ9WNGf
-	hdOkn9+qwMqmEOLv0Ye
-X-Received: by 2002:a17:902:f786:b0:2e6:f3ed:a551 with SMTP id d9443c01a7336-2e842ac436cmr75551955ad.8.1791900154923;
-        Tue, 13 Oct 2026 07:02:34 -0700 (PDT)
+        bh=JIwhV2UA408K2f7C4cB3y92uRUokSrDJADAS6XPBFwc=;
+        b=Nwwpg5aJgFMzU/SVajxh77wEy6iaw6+kRbvvghpxspZnf2RpHTZf63FrawGpcPkTJo
+         Q5i12ITRb2GFSUfIq5XatOyvcLqYZIdmr+vBNv59VxP1EmLwvKFFHRuqRK+DFBuBB6DJ
+         8oCZckCy+XsFUjZPlWzyYLJaUe3X3Q3+b0ZlqYey6oC4kY0zvGgdBIUIBRsgDVBqmhJh
+         SKkzTRi0XdImn8ifFy6ccMq7uC1+ujEh23VRQYTxdFOtt5jH02X5y2KebJ8y7w7thE8v
+         TjpOzqyzJXuYs8TQHCd9VO54hMqnBYuIKuY3USxIDXzXRNm2dyMRF5JOus1ug9g51+Eb
+         +Pgg==
+X-Forwarded-Encrypted: i=1; AKwUvBxVY94YGCjZ1Rnaqa0Yokr5YFRt97GXXtHwysYLlIlBVUMAlWtEFfmi5OXsIKc60EQg9mmwhhA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqg6lyUARLZzR5p0+9QgD/glYH0nKjJqdeOpC48G9qPhDxcw42
+	oVMBKt9CSebdJfs+MqA8F2vWSpe7J8lR6qB1LOUxq6Kdu9Xu5cFHxD4EsxCPbb8GlCk=
+X-Gm-Gg: AYBFou3wavrvznxHi37vnAuX79NH+NyXWfbWXSimUGcds03vDTKAsed00mblPpvoIDc
+	pVsfst3EdKYXahX/TVvUQsBuTcbI+KElS1CyLtwOvQxTv2IYYFrD6iGLd8STc37XrAjuvsgaQ3m
+	ayKBjnhtdH7wzj2OLAXfcEh2MzCRkEBjo2QYYwH0JZOSowCWafCkQBo3/JmcbhrTd0XbBK2Rlt5
+	NqXDBQ1IDtd8Q/qetPS/A10dX29Ok4OVTxsr9j3/WpghEot8HY+4f9xE3zm2LNyyV40hXVDgHAy
+	f8+ZBtJkkxwBUvehSjUbt9jFkRDlKPBG8foWs3mJ+5LPCGhsaztCbxaMXTWinbhwnC5/StD/WqT
+	UsZEjj9H8sgYPQbOIWX8zyl/Tg7bS/PjqK7KszixiGWFaLyrA2haEMIHMM8G0AV8HC75SXggIYo
+	vL6Sfc4ibFhHJttH96gIHmuEW2p7PQfaiG1fLpo3INlhmBjLuIwbhH0QV0qu1xMZxsvdeMRoM7O
+	8b2jea/aAZ+uFFoaQXr
+X-Received: by 2002:a17:902:d2c8:b0:2e6:646:8ee5 with SMTP id d9443c01a7336-2e842cd3e90mr106695435ad.39.1791900158216;
+        Tue, 13 Oct 2026 07:02:38 -0700 (PDT)
 Received: from localhost.localdomain ([2406:5900:1044:110c:c51c:be8a:c517:276])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e841a02f85sm56433065ad.10.2026.10.13.07.02.32
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e841a02f85sm56433065ad.10.2026.10.13.07.02.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 07:02:34 -0700 (PDT)
+        Tue, 13 Oct 2026 07:02:37 -0700 (PDT)
 From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 To: Adaptec OEM Raid Solutions <aacraid@microsemi.com>,
 	"Martin K . Petersen" <mkp@kernel.org>,
@@ -68,9 +67,9 @@ Cc: linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	yhlee@isslab.korea.ac.kr
-Subject: [PATCH 1/2] scsi: aacraid: bound the SRB sense data copy to the source buffer
-Date: Tue, 13 Oct 2026 23:02:13 +0900
-Message-ID: <20261013140214.3156938-2-yhlee@isslab.korea.ac.kr>
+Subject: [PATCH 2/2] scsi: aacraid: bound the HBA sense response copy to the source buffer
+Date: Tue, 13 Oct 2026 23:02:14 +0900
+Message-ID: <20261013140214.3156938-3-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261013140214.3156938-1-yhlee@isslab.korea.ac.kr>
 References: <20261013140214.3156938-1-yhlee@isslab.korea.ac.kr>
@@ -82,50 +81,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-aac_srb_callback() copies the sense data from an adapter SRB reply into
-the command's sense buffer, using a length that is only capped at
-SCSI_SENSE_BUFFERSIZE (96 bytes).  The source, srbreply->sense_data, is
-AAC_SENSE_BUFFERSIZE (30 bytes), so an adapter that reports a larger
-sense_data_size makes the copy read up to 66 bytes past the sense array.
+hba_resp_task_complete() copies the sense data from a native HBA
+response into the command's sense buffer, using a length that is only
+capped at SCSI_SENSE_BUFFERSIZE (96 bytes).  The source,
+err->sense_response_buf, is HBA_SENSE_DATA_LEN_MAX (32 bytes), so an
+adapter that reports a larger sense_response_data_len makes the copy
+read up to 64 bytes past the array and hand that memory to user space
+in the sense buffer.
 
-The reply is placed in the FIB data area that the outgoing SRB request
-was built in, and that area is not cleared between uses, so the bytes
-past the sense array are the previous request's scatter-gather list --
-DMA addresses and lengths -- which are then handed to user space in the
-sense buffer of a pass-through command.
+Cap the copy at the size of the source array.
 
-Cap the copy at the size of the source array, matching the container
-sense paths in this driver.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: ab5d129f93c9 ("scsi: aacraid: Add task management functionality")
 Cc: stable@vger.kernel.org
 Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- drivers/scsi/aacraid/aachba.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/scsi/aacraid/aachba.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/scsi/aacraid/aachba.c b/drivers/scsi/aacraid/aachba.c
-index df9492247631f..89d8e33517584 100644
+index 89d8e33517584..23512648e389e 100644
 --- a/drivers/scsi/aacraid/aachba.c
 +++ b/drivers/scsi/aacraid/aachba.c
-@@ -3418,7 +3418,7 @@ static void aac_srb_callback(void *context, struct fib * fibptr)
- 		pr_warn("aac_srb_callback: srb failed, status = %d\n",
- 				le32_to_cpu(srbreply->status));
- 		len = min_t(u32, le32_to_cpu(srbreply->sense_data_size),
--			    SCSI_SENSE_BUFFERSIZE);
-+			    sizeof(srbreply->sense_data));
- 		scsicmd->result = DID_ERROR << 16 | SAM_STAT_CHECK_CONDITION;
- 		memcpy(scsicmd->sense_buffer,
- 				srbreply->sense_data, len);
-@@ -3544,7 +3544,7 @@ static void aac_srb_callback(void *context, struct fib * fibptr)
+@@ -3579,7 +3579,7 @@ static void hba_resp_task_complete(struct aac_dev *dev,
+ 		int len;
  
- 		scsicmd->result |= SAM_STAT_CHECK_CONDITION;
- 		len = min_t(u32, le32_to_cpu(srbreply->sense_data_size),
--			    SCSI_SENSE_BUFFERSIZE);
-+			    sizeof(srbreply->sense_data));
- #ifdef AAC_DETAILED_STATUS_INFO
- 		pr_warn("aac_srb_callback: check condition, status = %d len=%d\n",
- 					le32_to_cpu(srbreply->status), len);
+ 		len = min_t(u8, err->sense_response_data_len,
+-			SCSI_SENSE_BUFFERSIZE);
++			sizeof(err->sense_response_buf));
+ 		if (len)
+ 			memcpy(scsicmd->sense_buffer,
+ 				err->sense_response_buf, len);
 -- 
 2.43.0
 
