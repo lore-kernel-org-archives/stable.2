@@ -1,141 +1,154 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA88D3DB33C;
-	Tue, 13 Oct 2026 11:38:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64AC24E4C28;
+	Tue, 13 Oct 2026 11:41:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791891541; cv=none; b=DiA2AzjhDgqQ3BIonqC3MRY+ED5IbINJhaGjgRdXIIWhL1yhNesDr5XuyTaa6Ad3rPq4xwmVfP/+0d1vTAWTMLz09lRnAyby8OxEIjY83rSKiz9VAIhCWJzshfk/VEleqjD6egYD9c4GAO2mjMlLnEv27KfOVU7ZVCS/olu0QyE=
+	t=1791891694; cv=none; b=C9iVOE7m4hgpODN1czonydreE0tW7gB0MMGQickcznOFe4lr0eKf5QqHCDWzSPD/OL+lOz+ZSZtg+f6KUGnHcuIMYm0+GO+I9E8LF6/HWeX3vE2PbbAllS6iw5l6egqRwFiqCVQDciUR2M2DFf7obl5M3QlRVTRRGUO5YxjpQ0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791891541; c=relaxed/simple;
-	bh=F3jbrUon50I/esfgt38aY5mZa678/5mAa/00VYW7/nc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BALNjAeggFBuFFeVxi5Tv+DcOHG0dOIAt7+3knOe6eiElfJc67UsURc5z5zZ56UllV7LDXgro1ga5xXp6mN3a5oPmbNeb61fUVmVTxho14SFiimaHpESsp2fAiCDnj9jWSs5oyGHGO9I0FDNoxO9kmxuCQs/JsSPU0kXkixasxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BLyRBUQx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791891694; c=relaxed/simple;
+	bh=9fyepUSFbap3das+eKlha3QFUTceWJGofHIg/6dNGCg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=quJsgYcw8sUgLZMynRnsOReM8BUBH1zjH9SjHGod2/G2/m04XPAQEY2/RUEijJutMFt14hz9Erx3+KNi5O8e+Iy6Vye7dogXF76zG8k8AWPKG4TTk8M4uema3e/q93x04pSTn2eb7+184ovJ7w2ydjHZ+ic0lX+DeaIbSNFkmNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OOLZmlgc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BLyRBUQx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D5421F000FF;
-	Tue, 13 Oct 2026 11:38:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OOLZmlgc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B81F1F000FF;
+	Tue, 13 Oct 2026 11:41:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791891539;
-	bh=iM7Kn1upRKCYgX3my+5a9iEmzXraOMK8a7ELFfehbz4=;
-	h=From:To:Cc:Subject:Date;
-	b=BLyRBUQxmYZGUAeaHFZEzWN0WXTwLON5T6iRtekbZ28LOLeR9AvTb8QnRRsdR8UrL
-	 796ejjZfccuD7wK8vjH6e0Boe62b7KWRJAiNsO2+/iFFqlivG90MLbN+zX+XtyeNxw
-	 BSOsSoNeyqlzfthkBIEKIsy42+fN+u5Y542Fwl+ZhuPt370uFubIHQvZTVro25+q3G
-	 tRsN7O6rWjrxm6G1c9oVjlNalmF8GBsO+FEPP10IVtM0IHNoAr6fGG4YbFEdoI54UX
-	 5ecw6Ce9ekUpN7fcRiYXc8kTPpNqGYgksodQGALu3/elqjmoNWNVpMzBLY+7FwgNJq
-	 Y3OIPV+5Y3Cfw==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2] tracing/histograms: Reject non-stacktrace fields for synthetic stacktrace fields
-Date: Tue, 13 Oct 2026 11:24:48 +0000
-Message-ID: <20261013112449.1006088-1-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+	s=k20260515; t=1791891693;
+	bh=F93gnhxwnZO5S1/DscLlicVfv27bgs8rbwtUzEPimv0=;
+	h=From:Date:Subject:To:Cc;
+	b=OOLZmlgce05m/yaxI8/uEpHWHpgwwZWngSGvYKvMt2dwL8iUBw3yTtiW2JE1wSqo0
+	 /V88R5r9cuNnozbtMFjr5aHJW0+fUKM65LvgQKklm9RpD/MN9e3EMj4Xz3DReAydiB
+	 gm10EpbDJBWYtymh9vwAaDLXkRP0OENRNrsD9OUNJ2E5q6S5ZR6EGc1kW9lISklk70
+	 f5IsMMJhlEEPafgI+jSCPFzSsz4xKFuZ0RU9iYsJG6N/uigsVV1pGkqgAQhS+NEpKl
+	 IZO5Kqo7VwWVut+6nd/joTJONbId64t663bDwBl6nbNOFxyJ23XgOqSGIyA8PLNpEl
+	 R1ILmp+IVBkmg==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Tue, 13 Oct 2026 13:41:24 +0200
+Subject: [PATCH] mm: disallow ioremap'ing ordinary RAM in
+ generic_access_phys()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261013-generic_access_phys-v1-1-b3963ef76e37@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAOMYzmoC/yXMQQqDQAxG4atI1h2ISqX1KlLExl+Ni1EmKop49
+ 07b5bd47yRDUBiVyUkBm5pOPiK9JSRD43s4baMp46xImZ+uh4+F1I0IzOp5OMxxl4MfXOR8bym
+ Wc0Cn++9avf629T1Clu+KrusD+UT1mncAAAA=
+X-Change-ID: 20261009-generic_access_phys-0f3e0806305d
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Benjamin Herrensmidt <benh@kernel.crashing.org>, 
+ Peter Zijlstra <a.p.zijlstra@chello.nl>, Rik van Riel <riel@redhat.com>, 
+ Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com, 
+ stable@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3277; i=david@kernel.org;
+ h=from:subject:message-id; bh=9fyepUSFbap3das+eKlha3QFUTceWJGofHIg/6dNGCg=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLOSTx7YW87s+XvMXWn2Z+4+nZU/npuMLN5rZ3H0VTdX
+ suDoS8rO0pZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZiInzTDP6utt7Qf5NvM7+9+
+ nnrm5fEjTTvyK9mqLR/sjOiyubf28m6G/7UHtOZsP9r8sGFl2te4mWqPdbkC5mne/rbjwxe96mu
+ Jp9gA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-In check_synth_field(), when a synthetic event field is a stacktrace
-(field->is_stack) and the histogram field is not a "long[" stacktrace
-array, validation falls through to the generic size and signedness
-comparison.
+generic_access_phys() can end up getting called on CoW PFNMAP mappings,
+resulting in it trying to ioremap anonymous folios, which especially
+the x86 code doesn't enjoy, and which is in general just odd/wrong.
 
-Because parse_synth_field() sets a stacktrace field's type to
-"__data_loc unsigned long[]", its size is sizeof(u64) and
-synth_field_signed() marks it as signed.  Consequently, any 8-byte
-signed scalar histogram field passes the fallback check, and its scalar
-value is subsequently dereferenced as a kernel stacktrace pointer in
-get_field_size() and trace_stack().
+E.g., with a CoW mapping of a PCI BAR:
 
-Furthermore, checking strstr(hist_field->type, "long[") is insufficient
-because tracepoint fields defined with __bitmask() or __rel_bitmask()
-also have type "__data_loc unsigned long[]" or "__rel_loc unsigned
-long[]", whilst create_hist_field() treats them as 4-byte scalar values
-without HIST_FIELD_FL_STACKTRACE.
+ioremap on RAM at 0x0000000045623000 - 0x0000000045623fff
+  WARNING: arch/x86/mm/ioremap.c:216 at __ioremap_caller.isra.0+0x4c2/0x5f0
+  Call Trace:
+   generic_access_phys+0x130/0x4d0 mm/memory.c:7178
+   kernfs_vma_access+0x1ce/0x280 fs/kernfs/file.c:437
+   __access_remote_vm+0x58f/0x890 mm/memory.c:7256
+   mem_rw+0x2a1/0x670 fs/proc/base.c:912
 
-Propagate HIST_FIELD_FL_STACKTRACE to variable references and field
-variables (whilst excluding variable aliases from per-element
-stacktrace capture), and reject any mismatch between
-HIST_FIELD_FL_STACKTRACE and field->is_stack in check_synth_field().
+But more generically, we should disallow access to anything that looks
+like ordinary RAM in the system: including allocating memory (e.g.,
+alloc_pages) and mapping them in a VM_PFNMAP.
 
-Fixes: 00cf3d672a9d ("tracing: Allow synthetic events to pass around stacktraces")
+For pages with an online memmap, allow only pages marked as reserved
+(PageReserved). This also includes memblock allocations, however,
+distinguishing them from other MMIO is tricky, and nobody should really
+be mapping them in a PFNMAP (except someone abusing /dev/mem, which we
+do not care about).
+
+So only allow access if there is no online memmap, or if the pages are
+marked reserved. Reject other pages with -EINVAL.
+
+Note that, just like other pfn_to_online_page() users, we won't care about
+concurrent memory offlining; mapping memory that can concurrently get
+offlined is highly dubious.
+
+Reported-by: syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=49b1021becba70c1f3f6
+Reported-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Closes: https://lore.kernel.org/r/20261001152524.171115-1-ngocthang2710.1999@gmail.com/
+Fixes: 28b2ee20c7cb ("access_process_vm device memory infrastructure")
 Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
-v1 -> v2:
-  - Check HIST_FIELD_FL_STACKTRACE instead of strstr(hist_field->type, "long[")
-    so __bitmask() and __rel_bitmask() fields are also rejected.
-  - Propagate HIST_FIELD_FL_STACKTRACE to variable references and field
-    variables, whilst excluding variable aliases from per-element stacktrace
-    capture.
+I went back and forth 10 times and concluded that using PageReserved
+should be the right thing to check for now.
+---
+ mm/memory.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
- kernel/trace/trace_events_hist.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
-
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 8af97fd4ee2d..d8864b3165d2 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -2121,7 +2121,8 @@ static int init_var_ref(struct hist_field *ref_field,
- 	ref_field->size = var_field->size;
- 	ref_field->is_signed = var_field->is_signed;
- 	ref_field->flags |= var_field->flags &
--		(HIST_FIELD_FL_TIMESTAMP | HIST_FIELD_FL_TIMESTAMP_USECS);
-+		(HIST_FIELD_FL_TIMESTAMP | HIST_FIELD_FL_TIMESTAMP_USECS |
-+		 HIST_FIELD_FL_STACKTRACE);
- 
- 	if (system) {
- 		ref_field->system = kstrdup(system, GFP_KERNEL);
-@@ -3318,6 +3319,7 @@ static struct field_var *create_field_var(struct hist_trigger_data *hist_data,
- 		ret = PTR_ERR(var);
- 		goto err;
- 	}
-+	var->flags |= val->flags & HIST_FIELD_FL_STACKTRACE;
- 
- 	field_var = kzalloc_obj(struct field_var);
- 	if (!field_var) {
-@@ -3946,7 +3948,10 @@ static int check_synth_field(struct synth_event *event,
- 	    && field->is_dynamic)
- 		return 0;
- 
--	if (strstr(hist_field->type, "long[") && field->is_stack)
-+	if (!!(hist_field->flags & HIST_FIELD_FL_STACKTRACE) != field->is_stack)
-+		return -EINVAL;
+diff --git a/mm/memory.c b/mm/memory.c
+index 1f5d5f7d39cd2..5d9f757a00073 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -7226,6 +7226,7 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
+ 	resource_size_t phys_addr;
+ 	pgprot_t prot = __pgprot(0);
+ 	void __iomem *maddr;
++	struct page *page;
+ 	int offset = offset_in_page(addr);
+ 	int ret = -EINVAL;
+ 	bool writable;
+@@ -7240,6 +7241,19 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
+ retry:
+ 	if (follow_pfnmap_start(&args))
+ 		return -EINVAL;
 +
-+	if (field->is_stack)
- 		return 0;
- 
- 	if (strcmp(field->type, hist_field->type) != 0) {
-@@ -4487,7 +4492,8 @@ static int create_var_field(struct hist_trigger_data *hist_data,
- 	if (!ret && hist_data->fields[val_idx]->flags & HIST_FIELD_FL_EXECNAME)
- 		update_var_execname(hist_data->fields[val_idx]);
- 
--	if (!ret && hist_data->fields[val_idx]->flags &
-+	if (!ret && !(hist_data->fields[val_idx]->flags & HIST_FIELD_FL_ALIAS) &&
-+	    hist_data->fields[val_idx]->flags &
- 	    (HIST_FIELD_FL_STRING | HIST_FIELD_FL_STACKTRACE))
- 		hist_data->fields[val_idx]->var_str_idx = hist_data->n_var_str++;
- 
-@@ -5228,7 +5234,8 @@ static void hist_trigger_elt_update(struct hist_trigger_data *hist_data,
- 		if (hist_field->flags & HIST_FIELD_FL_VAR) {
- 			var_idx = hist_field->var.idx;
- 
--			if (hist_field->flags &
-+			if (!(hist_field->flags & HIST_FIELD_FL_ALIAS) &&
-+			    hist_field->flags &
- 			    (HIST_FIELD_FL_STRING | HIST_FIELD_FL_STACKTRACE)) {
- 				unsigned int str_start, var_str_idx, idx;
- 				char *str, *val_str;
--- 
-2.56.0.385.gd3acb90ef8-goog
++	/*
++	 * Reject anything that looks like ordinary RAM, including anonymous
++	 * folios in CoW mappings or allocated kernel memory. Note that we
++	 * cannot distinguish memblock allocations from non-RAM reliably, so
++	 * we cannot easily reject them here.
++	 */
++	page = pfn_to_online_page(args.pfn);
++	if (page && !PageReserved(page)) {
++		follow_pfnmap_end(&args);
++		return -EINVAL;
++	}
++
+ 	prot = args.pgprot;
+ 	phys_addr = (resource_size_t)args.pfn << PAGE_SHIFT;
+ 	writable = args.writable;
+
+---
+
+base-commit: 634cbf5b794b734c78631b92e381cfc85f357bbe
+
+change-id: 20261009-generic_access_phys-0f3e0806305d
+
+--
+
+Cheers,
+
+David
 
