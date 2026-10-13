@@ -1,112 +1,114 @@
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D53833A3E7C
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 23:15:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66CBF3C13E9;
+	Tue, 13 Oct 2026 23:17:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791933338; cv=none; b=nHeCH42b2O2JOhpzCOd7VpnGlkt9EMFzyhnRZATt1ncYCiIxTsjZ187T2bEh9KORjL7mYRF5hqH1T9Pcs90NTPaulLZFj4lsXGRNSuGMER+ZiIYufrDPg/gVnPPbsNCceN3Iw3MLR0Dtj8zLSt7YLYltlPXW2SRywW2C2zf7ZA8=
+	t=1791933459; cv=none; b=jgfgkRVPCqnvFfT68NCROcre8KiaDeJwqrPr2ZRh9ysyI3IAbNy7R1ReWrf99WxBMe1aV5cif6Kx7YXORiGa24vQwZDsz3gmxRr+vwMnQaQvcMJHeZwoW/wN55LTWiQqjJ1Sdnm4Fuln3s7Len7mP99ZQ+acg9NOfBFORntboBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791933338; c=relaxed/simple;
-	bh=bJtFuAfjAsK2013vUx7Og4Fl2Xotxf6AIMZPLzNs+QI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=U46VgbUyEBQVfzr5xhCRe0lV5FHmvvIXUjcSUNnrZTr1KMXFsf7m20X7K9zZJgxkC4kN0pziRrINg/vRJze0huZtm0H7Rm62wL3DelWktHKvO4VB0sln+WpsZywgEjX3/7aA/wSsdu9INc1vw1tjsuCtLT0X2kaX0uAZyXod93s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Lx9dK1Fi; arc=none smtp.client-ip=209.85.210.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1791933459; c=relaxed/simple;
+	bh=33JnG/F84+g7dW9gc7B9FgRHqcmovFDITnsF1eHITJs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gD04bTWA3FFdwAw4WLw9d1qcao0sgQGofL/0U9cl1382c77UjRqt1NZKZE7A9+LjxZC964qwQEnbCieK6Cw6N3lREY6pEHfan+JM2GoafC01UqnaUl1iWm6YS8Qd6KNDpwqJ/ldoYePwv4xr1daRg/baH0o7Ayz2n+XwnZlHWmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BGP5oktP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Lx9dK1Fi"
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7f432ac553fso3971556a34.3
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:15:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1791933334; x=1792538134; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Dmwu/a/YbEyOYEh3D24w+BEmPqrGxVIF7pjSO5iEBzs=;
-        b=Lx9dK1FiBppAA7ATxu3OT0at4cRsoql7/Fy32S3ayzf5nTSdl6UjaUEGKhrp6GDIm+
-         9/sDLn4lv58aBtO39SiU/dZYjHBCt2PkKrRvW9h3l4PapJJE88ZIt0Uq3ZgDsAYRn+ke
-         p6jb4oEr3UCF3nF7k1DiHpdxrh0Q6TE16HTeA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791933334; x=1792538134;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Dmwu/a/YbEyOYEh3D24w+BEmPqrGxVIF7pjSO5iEBzs=;
-        b=NN1LLlaV9rWyXJv1AK5h9nFABKgu7puQZuJF/JVeJZfxzqo/chlBGSY0pTm0b+WFFh
-         2z4Gd4NrkhwsSDkKOWExZPfQxpy4sZ0Mr+gPRSp3Q/TisopmopN198wGbEFqXSllYZ4g
-         0mL8djj6pWFBGaw0fAMrXS32qV9L3ZTPcguQBrETEthFpGZ2TnoUuuUtCQMT/+8gMVLJ
-         4tiJtuX+w2gnc3Z1us9xCENAFZXe31RB9VnLiHgZ3/IrzetOJCtcFaPC9MMCAvyG4Nue
-         iMRN44ICYot6lBmDq3jh9/PH3FLSlMfBoUia71PQuZCRztHvnakWpCHuv5kdTU/+LY38
-         r2GA==
-X-Forwarded-Encrypted: i=1; AKwUvBxQvEr32jUPSswO4vc1eRJafVoIxX+cANfOnEqGqJeZ0rHtJaAWbDAmoQgVuNWp9wlRBZWk/Tc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCuU044xHZvXW3ihrzDtxI7EkWMsTKQNxNFhs3w67PjYKwg8h2
-	fzts7u5vcxzQk5A6IrXi98xEzG0POxAVqVqUYGgW3elu7El/U6REf3hAFoi270TLsr4=
-X-Gm-Gg: AYBFou082MmKHx945bTzLUgvDkraD87XU6gAaYnXgcYvmWxmQfws29YCxDdiFdXoOy5
-	xqR3ILY9vR55zvW8KeCZaPvBklSzzMdFi6dM5/2qSSYPL1KPqHf4SfUSe000EAV0udDSv4tb6QW
-	f9aAQlHi/4yqXXpFje/VsPgL4sxOtAOnOJJ3iHXYph7/gKKQYtMEtuaVUqqT0P8XWl/Sq7Idmi8
-	RpI5fNTWat2nQZxQYpr2C52vEOPMJlMg7wWBic7AVOVex7wzr9gHt96NpkCVJ9T35M4fvvo0kgn
-	48TaE435AbVUKj44DdHjUSrgjtJkQqGusZ0pv0WGDutU+Qwzwpk3oRE5JTzy6Kiobx1q5bBeMSA
-	2q7mTg2/HYqSGfyU9ApJpcksUv7CeG9zRpc7Yya+Pk1qcDpdRDHjv5ciDfqJC/389nL63A4Na32
-	KP1Lp+hlMOPXHU1mR1j1EdkmrVaiZaIdUrMIQPXfva9FRNV6Sk5rSa80dJdylJz/RcoGVVoJt0v
-	Sf5RmMC
-X-Received: by 2002:a05:6830:828a:b0:822:a76e:95a3 with SMTP id 46e09a7af769-8308b71a774mr14023795a34.0.1791933333694;
-        Tue, 13 Oct 2026 16:15:33 -0700 (PDT)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-83618a94fb0sm8058530a34.24.2026.10.13.16.15.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 16:15:32 -0700 (PDT)
-Message-ID: <b63c8496-a3b6-454c-914c-1f94b122b4dd@linuxfoundation.org>
-Date: Tue, 13 Oct 2026 17:15:28 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BGP5oktP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C6721F00898;
+	Tue, 13 Oct 2026 23:17:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791933458;
+	bh=EY8kA5PqbX97Y5Nf/7EbUqW1b4OJop/vthxq+shRPtU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BGP5oktP75MG5jRkn713lv4F5JBoczj6kimNZ/HWRyzQbwqS+u+q2m9/9YNY0ll3p
+	 3dB2Yl1qvGIsBfednV9soMEDvw6tVzu9VKBpdw17zrkJOY4Z4IIa20X8x6UPJCtGP3
+	 lI+6du/q6yK3h8UQ+5Yairv+DwgAXdUimo5cbdEln6HYVZpIDDXHic6mcSkXNoFldF
+	 MAmnX+zPoS6AbI+TWseXV5BvYMRfRHUdBEo7GJrQF4NOvOPixmeMhqALuQsNOn9buk
+	 cV+/MrwXfGpss/ELpGVKgyGS6SmaumEFcv/7EWTQ7zEp9vFzP/wY8zsC3mBXRvGYnJ
+	 YoYzw/LMvARLw==
+From: Yosry Ahmed <yosry@kernel.org>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	Jim Mattson <jmattson@google.com>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yosry Ahmed <yosry@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/4] KVM: x86/mmu: WARN, don't BUG, when walking a cached root with a PAE MMU
+Date: Tue, 13 Oct 2026 23:17:25 +0000
+Message-ID: <20261013231728.883001-2-yosry@kernel.org>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+In-Reply-To: <20261013231728.883001-1-yosry@kernel.org>
+References: <20261013231728.883001-1-yosry@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 000/497] 6.12.113-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20261013112907.864180619@linuxfoundation.org>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20261013112907.864180619@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/13/26 05:32, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.113 release.
-> There are 497 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Thu, 15 Oct 2026 11:28:22 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.113-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
-> 
+Replace the BUG_ON() in shadow_walk_init_using_root() that guards against
+walking a cached (previous) root while the MMU is configured for PAE
+paging with a WARN_ON_ONCE(), and terminate the walk if the WARN fires.
+Walking a cached root with a PAE MMU is a KVM bug, as PAE roots are never
+cached, but there's no need to bring down the host, as KVM can simply
+bail from the walk.
 
-Compiled and booted on my test system. No dmesg regressions.
+Note, the BUG_ON() is currently reachable by a guest if TDP is disabled,
+as KVM walks cached roots even if they were created for a different MMU
+context, e.g. if L2 executes INVLPG while using PAE paging, L1 doesn't
+intercept INVLPG, and L1's 64-bit root is cached.
 
-Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+Add a common error label for terminating the walk, and use it for the
+existing invalid/dummy root check as well.
 
-thanks,
--- Shuah
+Fixes: 7eb77e9f5fcf ("kvm: x86: Add a root_hpa parameter to kvm_mmu->invlpg()")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+---
+ arch/x86/kvm/mmu/mmu.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
+
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index aadd5bdc2c97a..126faef5a6476 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -2558,10 +2558,8 @@ static void shadow_walk_init_using_root(struct kvm_shadow_walk_iterator *iterato
+ 	iterator->addr = addr;
+ 	iterator->shadow_addr = root;
+ 
+-	if (WARN_ON_ONCE(!VALID_PAGE(root)) || kvm_mmu_is_dummy_root(root)) {
+-		iterator->level = 0;
+-		return;
+-	}
++	if (WARN_ON_ONCE(!VALID_PAGE(root)) || kvm_mmu_is_dummy_root(root))
++		goto error;
+ 
+ 	iterator->level = vcpu->arch.mmu->root_role.level;
+ 
+@@ -2575,7 +2573,8 @@ static void shadow_walk_init_using_root(struct kvm_shadow_walk_iterator *iterato
+ 		 * prev_root is currently only used for 64-bit hosts. So only
+ 		 * the active root_hpa is valid here.
+ 		 */
+-		BUG_ON(root != vcpu->arch.mmu->root.hpa);
++		if (WARN_ON_ONCE(root != vcpu->arch.mmu->root.hpa))
++			goto error;
+ 
+ 		iterator->shadow_addr
+ 			= vcpu->arch.mmu->pae_root[(addr >> 30) & 3];
+@@ -2584,6 +2583,10 @@ static void shadow_walk_init_using_root(struct kvm_shadow_walk_iterator *iterato
+ 		if (!iterator->shadow_addr)
+ 			iterator->level = 0;
+ 	}
++	return;
++
++error:
++	iterator->level = 0;
+ }
+ 
+ static void shadow_walk_init(struct kvm_shadow_walk_iterator *iterator,
+-- 
+2.56.0.385.gd3acb90ef8-goog
+
