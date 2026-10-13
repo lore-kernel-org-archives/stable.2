@@ -1,95 +1,55 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB03F4E4302;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648AE4F30F8;
 	Tue, 13 Oct 2026 11:48:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892109; cv=none; b=uxFoSttDURUZslQm2+oIdosvKxYH36bUCwadoyyTesXDrSOO6YODe1sWGatzHqiWIDhN70X/l4IcBmLgVLar5+tBOVSsoevfla86dMtQ23VFpUwZNH94qGs27vfj/+edywUdZGHeV0uWPEb1wLBsl5vpeAQc1bxxGwbwwacaQSw=
+	t=1791892112; cv=none; b=otg0mrKqUZ2a61RVzNV7gZVeSDVf1k+wpPsBg6Odf0ljG8Ft4qakQH40Isj/BGHW4U3O10p2gxl3ySm+TocksrK/il34Le5Wc//R/U626M2orHaOieB352KaRDoQvjgDfr4jgABRYXIcfu/58U/xKZmHHlSA9O69zraxdeoZSyk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791892109; c=relaxed/simple;
-	bh=j61rn5uNNMnBS2Dc8vfHCvFup9nYNC1yD25a6Q8jXr8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cfePiVbRHvDuKEXdJgtsMNmTzaxAk6/asbENmvV0w89I4lZve8Hyv8ZX5BoBxbesT4yYwzak0Z+Wr1KUgPydGZw4NTIcWBl/45vk80RkyVwKmHH8Xn72KeMLN//hUpu1i8k9FXvbQXzb92mZ46Bw9/MThCy2se1J/oDuYHU1B2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HemthCJA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791892112; c=relaxed/simple;
+	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pG+VkTFcNBbEgdjjQc7oNxqrjCKfmertsKfRrO9xsvr9311XXkLcPqzNRZ0ocqUZVZYjkVzPT4xk0Bn3YieEYZHru8ce5r3V7mfKjkn/O9WBnCwV/iK7w2ktU8ImzAd0m9v00fphoEvs/CVMGS3RYo8JtMYIm4tR8SdQ143kGMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=uUfg8LJ3; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HemthCJA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C842B1F000FF;
-	Tue, 13 Oct 2026 11:48:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791892108;
-	bh=m3ALDQ6N6zqcqteO//EILgnqkGYvl2aVM8WpOw+eio8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HemthCJAbjMyRaHOJw51Iaj9y5Pi/A77Q2mpjCQq/hEAMc5Fo+2Q7aS8d++xEegaa
-	 6dN/RigYMNU6Ra1MdnVrNWENonUz4WkKCSADNSfzmrp0kaPfCqATthGh2yOwSnQDHA
-	 zhmgCHC7dAkF0qGiSZGegA0ecf639MVAuvjxXa+I=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
-	Marcin Szycik <marcin.szycik@linux.intel.com>,
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
-	Patryk Holda <patryk.holda@intel.com>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 7.2 062/281] ice: fix use-after-free in dynamic port cleanup
-Date: Tue, 13 Oct 2026 13:36:18 +0200
-Message-ID: <20261013112856.632786586@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261013112855.045212108@linuxfoundation.org>
-References: <20261013112855.045212108@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="uUfg8LJ3"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=; b=uUfg8LJ31uXmA2uPbIKhAJVOG9
+	2iRe3H/GTtwVq7LB7bbGdaVnXt+xslizclbhG/ExlMIgyC/LKtcfUir3rxWEVoDi8X/ld3jrNcGFQ
+	RRqWps2s7X9sdNOGxoysmoWgHuIT7+XvRnV2LnU7oSHOZiBzUPNP218luyUUKrCyUkkhPYTMh8Eyt
+	Jk5Im9IWZJzB9cJi9+Arg31IKKMRX8hh7Sw3SESWOVqsV6puOpejE8Ilhr9RJiXgP25oCaLuVJ3r1
+	Cz5QrwPEscQWapusUV/W4eH40PCChfa2mcNbxR7IujsWQsCvmEUIvLtZGIFC5h6YiVWaih067JNdm
+	uQW2W9NA==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xGaza-0000000CkDn-2xah;
+	Tue, 13 Oct 2026 11:48:28 +0000
+Date: Tue, 13 Oct 2026 04:48:26 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 03/12] xfs: rescan the AGs if incore delalloc counter is
+ negative
+Message-ID: <as4aiufz-VRuones@infradead.org>
+References: <179186107760.1898896.12318125940367230627.stgit@frogsfrogsfrogs>
+ <179186107906.1898896.10797643225456623847.stgit@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179186107906.1898896.10797643225456623847.stgit@frogsfrogsfrogs>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+Looks good:
 
-------------------
-
-From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-
-commit 1402fc67d2f4e2e1fc7bf8ee0825b8ad994557ff upstream.
-
-ice_dealloc_dynamic_port() uses dyn_port->vsi->idx to erase the dynamic
-port from pf->dyn_ports. However, it frees the VSI before reading the
-index for the erase, resulting in a use-after-free.
-
-Follow the reverse of the allocation order in ice_alloc_dynamic_port()
-by erasing the xarray entry before freeing the VSI.
-
-Fixes: eda69d654c7e ("ice: add basic devlink subfunctions support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-Reviewed-by: Marcin Szycik <marcin.szycik@linux.intel.com>
-Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-Tested-by: Patryk Holda <patryk.holda@intel.com>
-Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
-Link: https://patch.msgid.link/20260928230429.495442-3-anthony.l.nguyen@intel.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/net/ethernet/intel/ice/devlink/port.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/drivers/net/ethernet/intel/ice/devlink/port.c
-+++ b/drivers/net/ethernet/intel/ice/devlink/port.c
-@@ -590,8 +590,8 @@ static void ice_dealloc_dynamic_port(str
- 
- 	xa_erase(&pf->sf_nums, devlink_port->attrs.pci_sf.sf);
- 	ice_eswitch_detach_sf(pf, dyn_port);
--	ice_vsi_free(dyn_port->vsi);
- 	xa_erase(&pf->dyn_ports, dyn_port->vsi->idx);
-+	ice_vsi_free(dyn_port->vsi);
- 	kfree(dyn_port);
- }
- 
-
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 
