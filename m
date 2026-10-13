@@ -1,63 +1,43 @@
-Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 026814E80B5;
-	Tue, 13 Oct 2026 11:49:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.83.148.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA9074F4030;
+	Tue, 13 Oct 2026 11:49:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892178; cv=none; b=Qw7ghtPAKcpggK0Od/EimxbSwp000CBpg4R0j6Pl46RqIrR2Q4JWZ6pZetxtEC8kW1GecOYZBwpKHyB5PX+9QUZNmF/ct6j3u2wWxNzpQvQ41Vj0ckaLbW9B54OmoBashzxl4WZ7/y4ja0bcLePoeBYc8wZwcUW055gZSj9Ym5c=
+	t=1791892181; cv=none; b=n6qTg/x32TIAl9syqcqQxDxnreDW9Rs1vhuienOXphHliDjm4vWP/Ak7bc5V7rdSYPwtcvuoDwERCleF21B+xQ9dlXnDBiJDLUMMuvwcw24m+DkLXJXAQVEIX3Z19Rg0g4Y0DPa3Qc45DVDo0OL0Dnf/JkhZKPYoctZMMEPlM6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791892178; c=relaxed/simple;
-	bh=Cte5O82E4/8bFHVFurW8q0kZBNGKBHzylnYtAdWodvo=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=A+HG5T42L6NFzQQl8KkEXT+dgi126R5/l/+ncwml3NY68abiGnOCdT7MTEPzQpjF2ax220OOqMSi3n9DfmiFqS43yD423iCP36YdrMMysOBCNkeFYn3q+VyiAkYparuAgpmfqykVze2KBGNLby3+IPCajHaNIo6cfdp+z9zAiLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=IEHgFf4s; arc=none smtp.client-ip=35.83.148.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1791892181; c=relaxed/simple;
+	bh=k8iiltljkaH+v5tO61qd7aYGzsmzzT9b1toFsCvLlgc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=J+vnywrggRrSEkCPuPCxxQaIgCnZBsgJUTD5Ue0fvHgkcd4bAgSApTGGqba/B3q/0b2wae5zEkBOKbPoUpRrzFZKfaIZBAYFEbWxOJAk/4lcY6HybTLiGVYCXFmI4CHqh3PCQfgKPJBsmGk+KzShceODv4+6tP3G7WWc0MtxHqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kRHxzAzO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="IEHgFf4s"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1791892177; x=1823428177;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=d1/3CR8iNFzg6a+c2iFJKHRtJ9jB+pXXqdrPAFY9eqQ=;
-  b=IEHgFf4sXEs0mwu3nmMjcO9xXMlEiL7jZ1K5OEZPR6qN63nahf9Ot8Sf
-   /vyLcok3FyyUM0MV1NF/ggnZzEQ3idMpNKiziHMxf80TVJJV/1sed+wPj
-   z4HqtPfrSusb+YazQDyUQqL9Ns+ahY0lMoTXzIa+bt3EiTgFUbGILdWy1
-   lEMWrapUYoIKhVi2Nl2qgokhPB7DQhlI4/GfB49/Nj7DqtJY8Z2C0xOw9
-   RbcXb5Q7TDG7zNai7etBivbMpvhT0XN/AlZjS38ryx0xKQEbxnE6ZFfiK
-   ET610FJcw7jwm3UeDQnhJM3iuPxBZKjWcyIGB4Nk7+moWEN69G8z6FSAU
-   A==;
-X-CSE-ConnectionGUID: +hVgvGnySviiWalscu6ICg==
-X-CSE-MsgGUID: A66rsOw7TTWNZ0M0YLN++w==
-X-IronPort-AV: E=Sophos;i="6.27,155,1787011200"; 
-   d="scan'208";a="30918700"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 11:49:34 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:24991]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.1.91:2525] with esmtp (Farcaster)
- id d5f6198b-e63f-4fd2-a0c5-44c5a33f4cee; Tue, 13 Oct 2026 11:49:34 +0000 (UTC)
-X-Farcaster-Flow-ID: d5f6198b-e63f-4fd2-a0c5-44c5a33f4cee
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Tue, 13 Oct 2026 11:49:33 +0000
-Received: from dev-dsk-gyokhan-1a-87ab81cc.eu-west-1.amazon.com
- (10.253.85.128) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Tue, 13 Oct 2026
- 11:49:31 +0000
-From: Gyokhan Kochmarla <gyokhan@amazon.de>
-To: <linux-erofs@lists.ozlabs.org>
-CC: Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>, Yue Hu
-	<zbestahu@gmail.com>, Jeffle Xu <jefflexu@linux.alibaba.com>, Sandeep Dhavale
-	<dhavale@google.com>, Hongbo Li <hongbohbli@tencent.com>, Chunhai Guo
-	<guochunhai@vivo.com>, <stable@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Gyokhan Kochmarla <gyokhan@amazon.de>
-Subject: [PATCH] erofs: use on-disk blkszbits for lz4 max pcluster bound
-Date: Tue, 13 Oct 2026 11:48:52 +0000
-Message-ID: <20261013114852.174175-1-gyokhan@amazon.de>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kRHxzAzO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EBDE1F000FF;
+	Tue, 13 Oct 2026 11:49:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791892179;
+	bh=5z1nkH+99aAT01aSwogDfCMeiHRCI4qGURf0RHuvj/M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kRHxzAzOBiYxN4Jy2gqIstvR4ICtWNimZEemD0OTIIuqup37dnrmn3JfOfUM9Jj+t
+	 x+X4dlR6yMuVo0KaNRAqxCdK8uH3eSPtnDfiIzUMy0JCK116CoBpMS0FQqSFmeqM43
+	 7GB2DAK0stea2O47sFizC+SgNWOT6y4SmP3j9mJU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Suraj Gupta <suraj.gupta2@amd.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 7.2 088/281] net: xilinx: axienet: Free outstanding DMA buffers on dmaengine stop
+Date: Tue, 13 Oct 2026 13:36:44 +0200
+Message-ID: <20261013112857.270286557@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261013112855.045212108@linuxfoundation.org>
+References: <20261013112855.045212108@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,72 +45,183 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA004.ant.amazon.com (10.13.139.19) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-z_erofs_load_lz4_config() rejects a valid LZ4 image when the kernel's
-page size differs from the image's block size. It bounds the on-disk
-max_pclusterblks with erofs_blknr(sb, Z_EROFS_PCLUSTER_MAX_SIZE), which
-expands to Z_EROFS_PCLUSTER_MAX_SIZE >> sb->s_blocksize_bits.
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-At the point this runs, sb->s_blocksize_bits still holds PAGE_SHIFT:
-erofs_fc_fill_super() seeds s_blocksize_bits to PAGE_SHIFT before
-reading the superblock, and only corrects it down to the on-disk
-blkszbits after erofs_read_superblock() returns. The LZ4 config is
-parsed inside erofs_read_superblock(), before that correction, so the
-bound is computed with the wrong shift.
+------------------
 
-On a 64K-page kernel mounting a 4K-block image (e.g. one built with
-mkfs.erofs -C 262144 on a 4K-page host), the bound evaluates to
-1 MiB >> 16 = 16 blocks instead of the correct 1 MiB >> 12 = 256
-blocks. The image's legitimate max_pclusterblks of 64 then fails the
-check, mount returns -EINVAL, and booting from such an image as the
-root filesystem panics:
+From: Suraj Gupta <suraj.gupta2@amd.com>
 
-  erofs (device dm-0): too large lz4 pclusterblks 64
-  Kernel panic - not syncing: VFS: Unable to mount root fs
+commit bcf2573a68a808a5b54cadafa72b6672e662c2bf upstream.
 
-sbi->blkszbits already holds the on-disk block size at this point, so
-compute the bound from it directly. This makes the check independent of
-the host page size and of superblock-parse ordering.
+In the dmaengine path the driver pre-submits RX buffers and holds
+in-flight TX buffers whose SKBs are DMA-mapped by the driver and freed
+only in the completion callbacks. On ndo_stop() dmaengine_terminate_sync()
+aborts these descriptors without running their callbacks, and the driver
+then frees only the ring shells, leaking every SKB still owned by the
+engine and its DMA mapping on each ifdown. With 128 RX buffers pre-posted
+per channel, the mapping leak can eventually exhaust a limited IOMMU
+aperture.
 
-commit 3acea5fc3354 ("erofs: avoid hardcoded blocksize for subpage block
-support") already handled the same ordering hazard for the superblock
-checksum path by using sbi->blkszbits in erofs_superblock_csum_verify();
-the lz4 config path was missed.
+Clear the slot's skb in the TX and RX callbacks so a non-NULL skb marks a
+slot that still owns a live, DMA-mapped buffer, and on stop unmap and free
+every such buffer.
 
-Fixes: 3acea5fc3354 ("erofs: avoid hardcoded blocksize for subpage block support")
+axienet_dma_rx_cb() runs from the DMA tasklet and re-arms the RX ring on
+each completion, so it can race axienet_stop(): a completion may submit a
+fresh buffer after dmaengine_terminate_sync() has returned, leaving the
+channel armed with a buffer the teardown then frees while the engine may
+still write into it (dma_release_channel() does not stop it either). Add a
+lock that axienet_dma_rx_cb() holds across the @stopping check and the
+resubmit, and axienet_stop() holds to set @stopping before terminating.
+Once @stopping is set no callback can arm a new buffer, and any armed just
+before is aborted by the terminate, so teardown only frees buffers the
+engine no longer owns.
+
+Fixes: 6a91b846af85 ("net: axienet: Introduce dmaengine support")
 Cc: stable@vger.kernel.org
-Assisted-by: Kirocrew:gpt-5.6-sol
-Signed-off-by: Gyokhan Kochmarla <gyokhan@amazon.de>
+Signed-off-by: Suraj Gupta <suraj.gupta2@amd.com>
+Link: https://patch.msgid.link/20260928184207.2361931-1-suraj.gupta2@amd.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
+ drivers/net/ethernet/xilinx/xilinx_axienet.h      |    7 ++-
+ drivers/net/ethernet/xilinx/xilinx_axienet_main.c |   51 ++++++++++++++++++----
+ 2 files changed, 47 insertions(+), 11 deletions(-)
 
-Tested on arm64 (Graviton) with CONFIG_ARM64_64K_PAGES=y (64K pages),
-mounting an LZ4 EROFS image built on a 4K-page host with 4K blocks and a
-large pcluster (mkfs.erofs -zlz4 -C 262144 -b 4096, max_pclusterblks=64):
+--- a/drivers/net/ethernet/xilinx/xilinx_axienet.h
++++ b/drivers/net/ethernet/xilinx/xilinx_axienet.h
+@@ -523,8 +523,9 @@ struct skbuf_dma_descriptor {
+  * @stats_work: Work for reading the hardware statistics counters often enough
+  *              to catch overflows.
+  * @dma_err_task: Work structure to process Axi DMA errors
+- * @stopping:   Set when @dma_err_task shouldn't do anything because we are
+- *              about to stop the device.
++ * @stopping:   Set when we are about to stop the device: makes @dma_err_task
++ *              a no-op (legacy DMA path) and fences RX descriptor
++ *              resubmission in axienet_dma_rx_cb() (dmaengine path).
+  * @tx_irq:	Axidma TX IRQ number
+  * @rx_irq:	Axidma RX IRQ number
+  * @eth_irq:	Ethernet core IRQ number
+@@ -545,6 +546,7 @@ struct skbuf_dma_descriptor {
+  * @tx_ring_tail: TX skb ring buffer tail index.
+  * @rx_ring_head: RX skb ring buffer head index.
+  * @rx_ring_tail: RX skb ring buffer tail index.
++ * @rx_submit_lock: Protects RX ring resubmission vs teardown in dmaengine path.
+  */
+ struct axienet_local {
+ 	struct net_device *ndev;
+@@ -626,6 +628,7 @@ struct axienet_local {
+ 	int tx_ring_tail;
+ 	int rx_ring_head;
+ 	int rx_ring_tail;
++	spinlock_t rx_submit_lock;
+ };
+ 
+ /**
+--- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
++++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+@@ -881,6 +881,7 @@ static void axienet_dma_tx_cb(void *data
+ 	u64_stats_update_end(&lp->tx_stat_sync);
+ 	dma_unmap_sg(lp->dev, skbuf_dma->sgl, skbuf_dma->sg_len, DMA_TO_DEVICE);
+ 	dev_consume_skb_any(skbuf_dma->skb);
++	skbuf_dma->skb = NULL;
+ 	netif_txq_completed_wake(txq, 1, len,
+ 				 CIRC_SPACE(lp->tx_ring_head, lp->tx_ring_tail, TX_BD_NUM_MAX),
+ 				 2);
+@@ -1171,6 +1172,7 @@ static void axienet_dma_rx_cb(void *data
+ 						       &meta_max_len);
+ 	dma_unmap_single(lp->dev, skbuf_dma->dma_address, lp->max_frm_size,
+ 			 DMA_FROM_DEVICE);
++	skbuf_dma->skb = NULL;
+ 
+ 	if (IS_ERR(app_metadata)) {
+ 		if (net_ratelimit())
+@@ -1193,10 +1195,17 @@ static void axienet_dma_rx_cb(void *data
+ 	u64_stats_update_end(&lp->rx_stat_sync);
+ 
+ rx_submit:
++	spin_lock(&lp->rx_submit_lock);
++	if (lp->stopping) {
++		spin_unlock(&lp->rx_submit_lock);
++		return;
++	}
++
+ 	for (i = 0; i < CIRC_SPACE(lp->rx_ring_head, lp->rx_ring_tail,
+ 				   RX_BUF_NUM_DEFAULT); i++)
+ 		axienet_rx_submit_desc(lp->ndev);
+ 	dma_async_issue_pending(lp->rx_chan);
++	spin_unlock(&lp->rx_submit_lock);
+ }
+ 
+ /**
+@@ -1541,6 +1550,7 @@ static int axienet_init_dmaengine(struct
+ 	lp->tx_ring_head = 0;
+ 	lp->rx_ring_tail = 0;
+ 	lp->rx_ring_head = 0;
++	lp->stopping = false;
+ 	lp->tx_skb_ring = kzalloc_objs(*lp->tx_skb_ring, TX_BD_NUM_MAX);
+ 	if (!lp->tx_skb_ring) {
+ 		ret = -ENOMEM;
+@@ -1752,20 +1762,42 @@ static int axienet_stop(struct net_devic
+ 		free_irq(lp->rx_irq, ndev);
+ 		axienet_dma_bd_release(ndev);
+ 	} else {
++		struct skbuf_dma_descriptor *skbuf_dma;
++
++		spin_lock_bh(&lp->rx_submit_lock);
++		lp->stopping = true;
++		spin_unlock_bh(&lp->rx_submit_lock);
++
+ 		dmaengine_terminate_sync(lp->tx_chan);
+-		dmaengine_synchronize(lp->tx_chan);
+ 		dmaengine_terminate_sync(lp->rx_chan);
+-		dmaengine_synchronize(lp->rx_chan);
+-
+-		for (i = 0; i < TX_BD_NUM_MAX; i++)
+-			kfree(lp->tx_skb_ring[i]);
+-		kfree(lp->tx_skb_ring);
+-		for (i = 0; i < RX_BUF_NUM_DEFAULT; i++)
+-			kfree(lp->rx_skb_ring[i]);
+-		kfree(lp->rx_skb_ring);
+ 
+ 		dma_release_channel(lp->rx_chan);
+ 		dma_release_channel(lp->tx_chan);
++
++		/* Unmap and free any buffer the terminate did not reclaim, so it
++		 * is not leaked; a non-NULL skb marks such a slot.
++		 */
++		for (i = 0; i < TX_BD_NUM_MAX; i++) {
++			skbuf_dma = lp->tx_skb_ring[i];
++			if (skbuf_dma && skbuf_dma->skb) {
++				dma_unmap_sg(lp->dev, skbuf_dma->sgl,
++					     skbuf_dma->sg_len, DMA_TO_DEVICE);
++				dev_kfree_skb_any(skbuf_dma->skb);
++			}
++			kfree(skbuf_dma);
++		}
++		kfree(lp->tx_skb_ring);
++
++		for (i = 0; i < RX_BUF_NUM_DEFAULT; i++) {
++			skbuf_dma = lp->rx_skb_ring[i];
++			if (skbuf_dma && skbuf_dma->skb) {
++				dma_unmap_single(lp->dev, skbuf_dma->dma_address,
++						 lp->max_frm_size, DMA_FROM_DEVICE);
++				dev_kfree_skb_any(skbuf_dma->skb);
++			}
++			kfree(skbuf_dma);
++		}
++		kfree(lp->rx_skb_ring);
+ 	}
+ 
+ 	netdev_reset_queue(ndev);
+@@ -3062,6 +3094,7 @@ static int axienet_probe(struct platform
+ 
+ 	spin_lock_init(&lp->rx_cr_lock);
+ 	spin_lock_init(&lp->tx_cr_lock);
++	spin_lock_init(&lp->rx_submit_lock);
+ 	INIT_WORK(&lp->rx_dim.work, axienet_rx_dim_work);
+ 	lp->rx_dim_enabled = true;
+ 	lp->rx_dim.profile_ix = 1;
 
-  - Before: mount fails, dmesg "erofs: too large lz4 pclusterblks 64".
-  - After:  mounts cleanly; file contents verified byte-for-byte.
-
-A 4K-page kernel mounts the same image before and after (no regression).
-
- fs/erofs/decompressor.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/erofs/decompressor.c b/fs/erofs/decompressor.c
-index 3c54e95964c9..00055d103da9 100644
---- a/fs/erofs/decompressor.c
-+++ b/fs/erofs/decompressor.c
-@@ -27,7 +27,7 @@ static int z_erofs_load_lz4_config(struct super_block *sb,
- 		if (!sbi->lz4.max_pclusterblks) {
- 			sbi->lz4.max_pclusterblks = 1;	/* reserved case */
- 		} else if (sbi->lz4.max_pclusterblks >
--			   erofs_blknr(sb, Z_EROFS_PCLUSTER_MAX_SIZE)) {
-+			   Z_EROFS_PCLUSTER_MAX_SIZE >> sbi->blkszbits) {
- 			erofs_err(sb, "too large lz4 pclusterblks %u",
- 				  sbi->lz4.max_pclusterblks);
- 			return -EINVAL;
--- 
-2.50.1
 
