@@ -1,104 +1,167 @@
-Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DA8044AB6C;
-	Tue, 13 Oct 2026 02:09:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.221
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BBAA44A40A;
+	Tue, 13 Oct 2026 02:09:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791857352; cv=none; b=KPftz5LY+GXtM5qcDk3iEf/4iuej/2Goc6Xyz/IPVhy6dJAJ+CPwZRJdUodYs7g2MSHk2+yCQtxfaniYay3HBi1f3Ny1GjNd/nV/PGYwrPzsowtcmoIOEczmlspmr1c7UAfk9XzB62jf9XunxvTA0J7fj5/68b4lOlarsykvvjU=
+	t=1791857353; cv=none; b=Z05obiKuXKAgGMDPVLG+TT0/0PLqiomVAWgiRQN/GIs1ej+6qz9oPPR/MMKFV/X2/qFh4hrotgt5NMScGNVOcwefn2R/Mqi9n0jNBbGVbFh/wOyHX93BKshEV0wsZWwX987v/Z4L+Me2LlvxbqjtsAyr5Pt2c1kCTdOlZUMN054=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791857352; c=relaxed/simple;
-	bh=sDfy9Z5QAMrwsYeCouvZ8Ptc0ebIS8iYhvWWC7F2jsM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=hJrtjnq2pO4FhVNq9Zi9vlyIcWPfSp2X3HB0QftU9B6++yHZSSZXO65bWqXu4gwzIvs3XC5/SXlyFhYyXKu7yn1jADmVQSsPGTUcBqfgdfXGrG0+5cK+rkaPZoAFLfbuv36qXyxnBYA29ZccSv4+GHVkmP6CjN2HyquwXeOKcPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=FFMga55F; arc=none smtp.client-ip=113.46.200.221
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1791857353; c=relaxed/simple;
+	bh=i0MS4qgu9PObpyuQPeggxh/NmzNRKVcLRLyQV5MC8FU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FhD7KxnmJCc5vtcUCaTuHL2qcq5CLTf7bIba5NS7V3FCehtAWtGQFxMcRAqhvp0DCDS+sDYDNW/fvw8VwsXxUOXiMoc9o364jP2pf239aAWEfTM+txIfHzPs57oRqjPo1oXwd4tH0HTAq+xm3l6kbTzuCQrtq+gzpCrw5rgDl8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=onqYbyY5; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="FFMga55F"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=B6gv9uUY5MOvyVWJ/IrxGRZFdVkZuQ0mQIaGycRX9XU=;
-	b=FFMga55FkQcJsg4DK5rabS536AIz3glLytZciLu6YaM2a+SiQ3iieef3Aw866E7BSgezf50hC
-	5TI0eii/yPzYoOyCwKsA39e7TM4mF+k/yAub9FZ5j0hvK8dCW0vIUT5HOl4Q6FDjznKWS+RXApO
-	W7/EFkQc5mzL53W2IoWyqDA=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
-	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4j3cs12qVrzRhVS;
-	Tue, 13 Oct 2026 09:56:53 +0800 (CST)
-Received: from kwepemo500007.china.huawei.com (unknown [7.202.195.114])
-	by mail.maildlp.com (Postfix) with ESMTPS id 0C59E20333;
-	Tue, 13 Oct 2026 10:09:07 +0800 (CST)
-Received: from [10.67.120.170] (10.67.120.170) by
- kwepemo500007.china.huawei.com (7.202.195.114) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 13 Oct 2026 10:09:06 +0800
-Message-ID: <a8343e1f-92c5-4d20-bc07-1b32f72d8109@huawei.com>
-Date: Tue, 13 Oct 2026 10:09:06 +0800
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="onqYbyY5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=G2
+	IJGoUUfLa2xG5P9/wT00uiOud9f9XwAM3xSFZ6TMU=; b=onqYbyY5uf6rW+Zjy8
+	pZGfoTc0nJ/4V6uPxuodj/Z0xY14aFSZshyNGssifQVU0XdJkeklWFMsulzK5J0m
+	3kttwJs/EkD5/AjbhB4Cr9MSjMsrsIc2lTSTXQdMwsj1SrVZ5ZMishRxfN4HTRI+
+	tJRBVGe4F+9QEb0HjqGoXGItE=
+Received: from ubuntu.. (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgDHKsWcks1qZMCpDw--.41545S4;
+	Tue, 13 Oct 2026 10:08:35 +0800 (CST)
+From: Ma Ke <make_ruc2021@163.com>
+To: peter.chen@kernel.org,
+	pawell@cadence.com,
+	rogerq@kernel.org,
+	gregkh@linuxfoundation.org,
+	felipe.balbi@linux.intel.com
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	Ma Ke <make_ruc2021@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] usb: cdns3: Fix PCI device reference leak in cdns3_pci_probe()
+Date: Tue, 13 Oct 2026 10:08:27 +0800
+Message-ID: <20261013020827.4099844-1-make_ruc2021@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/dma: fix building from the top level with O=
-To: Sasha Levin <sashal@kernel.org>, Barry Song <baohua@kernel.org>, Marek
- Szyprowski <m.szyprowski@samsung.com>
-CC: <stable@vger.kernel.org>, <iommu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>
-References: <20261011223358.2327625-4-sashal@kernel.org>
-From: Qinxin Xia <xiaqinxin@huawei.com>
-In-Reply-To: <20261011223358.2327625-4-sashal@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemo500007.china.huawei.com (7.202.195.114)
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PSgvCgDHKsWcks1qZMCpDw--.41545S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWryDZF1kCw15urWDJF1xAFb_yoW5Kr4xpF
+	Z3WF4rCrWkJFy3trs8Xr48uaySkr4Sk34xKw1Ik347Zw45Ar1xtFWFvFyjgF4DCrWkXa40
+	qw1jqw4q9F4jva7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piJGYdUUUUU=
+X-CM-SenderInfo: 5pdnvshuxfjiisr6il2tof0z/xtbC9gPa5WrNkqOTEQAA3e
 
+cdns3_get_second_fun() looks up the second PCI function with
+pci_get_device(), which returns the device with a reference held, and
+hands it back to its callers. Neither cdns3_pci_probe() nor
+cdns3_pci_remove() ever drops that reference, so the second function's
+pci_dev can never be released.
 
+Route the error paths of cdns3_pci_probe() through a put_pci label and
+drop the reference there.
 
-On 2026/10/12 06:33:32, Sasha Levin <sashal@kernel.org> wrote:
-> "make O=<dir> tools/dma" fails:
-> 
->    Makefile:27: /tools/build/Makefile.include: No such file or directory
-> 
-> tools/Makefile clears srctree, and the dma Makefile only works it out
-> again when building_out_of_srctree is not set, which the top-level
-> Makefile sets for O= builds.
-> 
-> Also work out srctree when it is empty, as tools/bpf/Makefile does
-> since commit a89b2cbf71d64 ("tools, bpf: Fix build for 'make -s
-> tools/bpf O=<dir>'").
-> 
-> Fixes: f74ee32963f1b ("tools/dma: move dma_map_benchmark from selftests to tools/dma")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->   tools/dma/Makefile | 6 ++++++
->   1 file changed, 6 insertions(+)
-> 
-> diff --git a/tools/dma/Makefile b/tools/dma/Makefile
-> index 0c239a6b9eae5..20ae7f09cd206 100644
-> --- a/tools/dma/Makefile
-> +++ b/tools/dma/Makefile
-> @@ -7,7 +7,13 @@ bindir ?= /usr/bin
->   # isn't set and when invoked from selftests build, where srctree
->   # is set to ".". building_out_of_srctree is undefined for in srctree
->   # builds
-> +ifeq ($(srctree),)
-> +update_srctree := 1
-> +endif
->   ifndef building_out_of_srctree
-> +update_srctree := 1
-> +endif
-> +ifeq ($(update_srctree),1)
->   srctree := $(patsubst %/,%,$(dir $(CURDIR)))
->   srctree := $(patsubst %/,%,$(dir $(srctree)))
->   endif
+cdns3_pci_remove() needs the reference dropped too, and it is missing
+a NULL check while at it. cdns3_get_second_fun() can return NULL, and
+pci_is_enabled() reads pci_dev->enable_cnt without checking its
+argument.
 
-Acked-by: Qinxin Xia <xiaqinxin@huawei.com>
+The same error path also frees the wrong object. When the second
+function has already been probed, wrap is its drvdata, obtained with
+pci_get_drvdata(), and it is shared. The second function keeps
+pointing at it, and cdns3_pci_remove() dereferences it when that
+function goes away.  Freeing it here leaves that function with a
+dangling drvdata.
+
+Both branches that assign wrap are guarded by the same
+pci_is_enabled() test as the registration block that can fail, so the
+wrap freed there is always the one taken from the sibling function.
+Track whether wrap was allocated here and only free it in that case.
+
+Found by code review.
+
+Fixes: 7733f6c32e36 ("usb: cdns3: Add Cadence USB3 DRD Driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ma Ke <make_ruc2021@163.com>
+---
+Changes in v3:
+- Do not free a wrap that was taken from the second function's drvdata.
+  The free in that error path can only ever run on the shared object, so
+  it left the sibling function with a dangling drvdata. Reported by
+  Sashiko. cdnsp-pci.c has the same construct.
+- Keep the rest of v2.
+Changes in v2:
+- rebase on current mainline. cdns3_pci_probe() gained a -EPROBE_DEFER
+  path in e5052f2c5c73 that returns after the reference has been taken, 
+  so it has to drop it too.
+---
+ drivers/usb/cdns3/cdns3-pci-wrap.c | 23 +++++++++++++++++------
+ 1 file changed, 17 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/usb/cdns3/cdns3-pci-wrap.c b/drivers/usb/cdns3/cdns3-pci-wrap.c
+index fd06a3d8e638..31089eb9ca29 100644
+--- a/drivers/usb/cdns3/cdns3-pci-wrap.c
++++ b/drivers/usb/cdns3/cdns3-pci-wrap.c
+@@ -72,6 +72,7 @@ static int cdns3_pci_probe(struct pci_dev *pdev,
+ 	struct cdns3_wrap *wrap;
+ 	struct resource *res;
+ 	struct pci_dev *func;
++	bool own_wrap;
+ 	int err;
+ 
+ 	/*
+@@ -99,12 +100,17 @@ static int cdns3_pci_probe(struct pci_dev *pdev,
+ 		if (!wrap) {
+ 			dev_err(&pdev->dev,
+ 				"second function not initialized, retrying\n");
+-			return -EPROBE_DEFER;
++			err = -EPROBE_DEFER;
++			goto put_pci;
+ 		}
++		own_wrap = false;
+ 	} else {
+ 		wrap = kzalloc_obj(*wrap);
+-		if (!wrap)
+-			return -ENOMEM;
++		if (!wrap) {
++			err = -ENOMEM;
++			goto put_pci;
++		}
++		own_wrap = true;
+ 	}
+ 
+ 	res = wrap->dev_res;
+@@ -164,12 +170,15 @@ static int cdns3_pci_probe(struct pci_dev *pdev,
+ 		wrap->plat_dev = platform_device_register_full(&plat_info);
+ 		if (IS_ERR(wrap->plat_dev)) {
+ 			err = PTR_ERR(wrap->plat_dev);
+-			kfree(wrap);
+-			return err;
++			if (own_wrap)
++				kfree(wrap);
++			goto put_pci;
+ 		}
+ 	}
+ 
+ 	pci_set_drvdata(pdev, wrap);
++put_pci:
++	pci_dev_put(func);
+ 	return err;
+ }
+ 
+@@ -184,8 +193,10 @@ static void cdns3_pci_remove(struct pci_dev *pdev)
+ 	if (wrap->devfn == pdev->devfn)
+ 		platform_device_unregister(wrap->plat_dev);
+ 
+-	if (!pci_is_enabled(func))
++	if (!func || !pci_is_enabled(func))
+ 		kfree(wrap);
++
++	pci_dev_put(func);
+ }
+ 
+ static const struct pci_device_id cdns3_pci_ids[] = {
 -- 
-Thanks,
-Qinxin
+2.43.0
 
