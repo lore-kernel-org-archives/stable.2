@@ -1,60 +1,86 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC58D322749;
-	Tue, 13 Oct 2026 13:45:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9695D3CF67F
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 13:48:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791899113; cv=none; b=jG/BAXkUwqph5AjOgsiVScMdlh5DADkQL62NntuC2M2yS8KMJ6E5+r+iwQLm39kUTT6yTWywTGLDoCQaX91wrYuuR6so/Bop20yb0CcGLw0plltB8fgGxg9RZB74Lbv29/7QC9TxSq0qACTh2iY+QEA3bWRifgQginyhXmsWr/o=
+	t=1791899285; cv=none; b=hffkEJhclPAiRgjeI2+C/k/n3YPkdFmA2BFDMBc6ueQhXxg9Y/1f31w418o6OjhFnP5fcDZf0eEAx9Z1EdTcCt0/kwXGj5qwziNQmVmMBa5SktfLI1NKj+UAkkzMS0rBNN+vyHuwEWXGZcZ+fx4jZPBtPGvs3pOcp6BJPeqRmBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791899113; c=relaxed/simple;
-	bh=QSRGdC6xICoZtrzBYDuiV8GKbYzY4ggrqUxmlEhioIY=;
+	s=arc-20240116; t=1791899285; c=relaxed/simple;
+	bh=REg5Mntcb+tsmQNtdHglZYMVn8Nwol6pChdRnAFVNkA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hubeygBMtpmlkA7BQ2MDJrTL1MOqHJhq2pEJg0yBp4/a3XPe2eVfxAom5Cyt447jn78hUc6Asltdbp3oNcmfCBlZ8ecYZnWz5QUuL7uUVd0dQ3ve+gjyJPFUnUiJF12OAaeH95na7Jp3Kc71RIQuR2HbMFvyrq3WwAqPx1/ySa8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Ic2AjTUK; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 In-Reply-To:Content-Type; b=IW695KxjFjaACBrmPUoPjg6if9a+nk8CcZTOUpkwG1auCod8vOOqU69z35Scoco/WlPprw792AlRHdzgIByxogVF+fGJeaALeBtaj9VABJtxrosajjZ0R1m7YMA/F3swX8skohLvoRbCOB8q4r+cpgMUIT+LqmKiuVGiyhr9jJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QGSXWaZE; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=KreR4oPM; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Ic2AjTUK"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D2ErAi1932337;
-	Tue, 13 Oct 2026 13:45:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=NIT35x
-	qvv84SmJoWXK5jX+LUQey2iXexsvZBNl097Pw=; b=Ic2AjTUKXjpWLuERolxgUq
-	GEcSoPhcSmrOw3dqgRlnUeAsdpSEhd060HVF+iDZLEyHLF6mKVvdEvCPucRGXZRc
-	HfT8Hx3wMLxme0rLnydoMScHOPnCwdePQrp4dObAyj7zEd5QC+1dN4rsbH883asU
-	FwtLFWfHyOSayMByXxmssWr0wJZeby1QAeTJfsmGwnwCPNXKF/IRDX8Aepq2rZju
-	LVU5cEyTAmMdiI1AoqqN0e3WJiBjOYhBATGEiv7nYnJzXXmI1lGprHwxsLSqKaPa
-	PdtotUVggSXgpGhcCj3dY4MdnaAP3aabgLzANZU61l7BxFtdXnrfjcqw0NWOolIA
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QGSXWaZE";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="KreR4oPM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791899281;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YgGQEF0Pnm38fJNWvw8gvjA222tZmizMgG6WO+7xu+8=;
+	b=QGSXWaZE9X9VrDkPqWtT9FSOG6OIBx/FuFc/LvSTr1rV7SflkcukbS/OECe4ZMxwCkChqD
+	p4zSB5bi8HSY+cq5FkDAtfEskw2xFLkTkQAgSqxOf82SmnJtk6f/7uHZXxwYm6E9hCezHq
+	XWrVbjXEc2Zd3ktLPutrfbfJyNFUFhg=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-61-_-XKqGflMvObvUc-pTGBGA-1; Tue, 13 Oct 2026 13:48:00 +0000
+X-MC-Unique: _-XKqGflMvObvUc-pTGBGA-1
+X-Mimecast-MFC-AGG-ID: _-XKqGflMvObvUc-pTGBGA_1791899279
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48c437ae81eso1723675f8f.1
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 06:47:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1791899279; x=1792504079; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YgGQEF0Pnm38fJNWvw8gvjA222tZmizMgG6WO+7xu+8=;
+        b=KreR4oPMlzeA0zSZnRmCu3+uNiACc7J02qXHHcbrVfGaA0nN4/L2X+KtpS6T8de04f
+         BjIckzJrTgDP1J8JUCueZWKvjyiGHBJmVLmGSmqNM2l+hajdR9TNl9/tZLvoM1iAEp1W
+         EF7N7G44nH7c0aQXyVPurYyVkNt2ylKQWfe2JY9GG/zR/kC/XVPOjTU4aNIs/3+BZUTW
+         JXn0M1aorNcTo5RvKE2VUdp2TzeROyaEJWXP0SjqEt2S0XKLq+BjSOVRZqrHlueUHdAF
+         oOcihgJupZ65XRipFYuMyyZRe+U14RydMdak3vKdn4w2ursn6703M756EeJqAnH7d4y5
+         32sQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791899279; x=1792504079;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YgGQEF0Pnm38fJNWvw8gvjA222tZmizMgG6WO+7xu+8=;
+        b=TazvhbN9446x7NRklD2JHRuKLdPQv/8LtbKQAf87zMv/xGFfbGMl7LFhfxMEU16dVs
+         /5NEEWrbSIrkbFfdM8QfoRul4KPt90hn75mArFBv1Tb9HwyByXVmriCB4OVX7utLuqme
+         ZUNgP1N2gfKDDWcvXOTTVa2YBWzrFWo21PlPoagSOduKRJElS/zqpYjxFnQFmUXrIy52
+         36Fwd5VJkRAxAx0fOQWfEi6z7EQfWUOpLKxxA5ItfQUvs6JsVqXwRfR7ufz0EoOJ84KS
+         kGcMNZim/vfygNG0pLRWWlUftWpNAaZFc9NQEWKVk1oQYPWMV+RE5fjDwxXhJVRJvy1f
+         lRzQ==
+X-Gm-Message-State: AFq9FYLtZEB0S1tlstZm+MCC1KlPF65eKRFNy0/n2XjUVCnIVvFn6t3P
+	I+BtoE2FLJUaDWCuQkZ/PLfdDT/aQkugKsm5cdH6E5sSOidjKfbJtYe1PtWB50HLc9816af+784
+	70+QLYQO4agZQxN6YHN2i8MGjNDme2hLBGQ2+S+AwdyPMd4TXwHa9Kb15bg==
+X-Gm-Gg: AYBFou0glM6EwRQ68v+jGabOg5onJYEHjcqBXjAgRQ2cjCQBBzCJWAqOa0MQnmCMbUh
+	jqnn/SuLWnH9MW0EviJTif6T4Zv8oBxr8QOMJLM/dnEu7CqTrlhT15csvftqxIZAAIwLpXDy1k5
+	rMHTVIvkPLQ5y5O3pPcMQfGyZqnUdCDIEucgRbBqEMac878snQIR0ylcJThVnR08/PRPOisFIQ6
+	WWmjQZ1QdY8BhaChkVxBjrkohyVY3n6kYantSgtogmOdCt4Q6ak6JjlkmiJYe6vqcT6O/p94IB2
+	Tz4dF1MZqN+EbpylBV0hiuflJhERNqG1dVBceAtmG0TPKqHcUwnYrZsUwWfs4vKSXfNYcAh5NID
+	SuRZNKT8TrdJruxz+EKJm4nnNKUWkkMeDZcKMgnIw3OvU/+Y3Rau0fvX66aozbunvH4JxsVsGvQ
 	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7e1w5yr7-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 13:45:03 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69DCUHGp1440160;
-	Tue, 13 Oct 2026 13:45:03 GMT
-Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h81wg1wsu-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 13 Oct 2026 13:45:03 +0000 (GMT)
-Received: from smtpav01.wdc07v.mail.ibm.com (smtpav01.wdc07v.mail.ibm.com [10.39.53.228])
-	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69DDj1aM19530244
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 13 Oct 2026 13:45:02 GMT
-Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D6D605806A;
-	Tue, 13 Oct 2026 13:45:01 +0000 (GMT)
-Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E65215804B;
-	Tue, 13 Oct 2026 13:44:54 +0000 (GMT)
-Received: from [9.124.215.85] (unknown [9.124.215.85])
-	by smtpav01.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 13 Oct 2026 13:44:54 +0000 (GMT)
-Message-ID: <2a851672-3ef0-45a4-bcdc-c2bfe9370886@linux.ibm.com>
-Date: Tue, 13 Oct 2026 19:14:53 +0530
+X-Received: by 2002:a05:600c:3b8b:b0:4a1:811c:8078 with SMTP id 5b1f17b1804b1-4a18e4a7cfcmr308259065e9.26.1791899278728;
+        Tue, 13 Oct 2026 06:47:58 -0700 (PDT)
+X-Received: by 2002:a05:600c:3b8b:b0:4a1:811c:8078 with SMTP id 5b1f17b1804b1-4a18e4a7cfcmr308258425e9.26.1791899278275;
+        Tue, 13 Oct 2026 06:47:58 -0700 (PDT)
+Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc85b1sm4979371f8f.54.2026.10.13.06.47.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 06:47:57 -0700 (PDT)
+Message-ID: <8c40f576-08d5-4b42-b125-abda8da2a335@redhat.com>
+Date: Tue, 13 Oct 2026 15:47:56 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -62,398 +88,39 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v9] net/smc: fix lgr/lnk lifetime vs diag reader race
-To: netdev-bot+sashiko@kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-        kuba@kernel.org, pabeni@redhat.com, alibuda@linux.alibaba.com,
-        dust.li@linux.alibaba.com, sidraya@linux.ibm.com,
-        hidayath@linux.ibm.com, pasic@linux.ibm.com, horms@kernel.org,
-        tonylu@linux.alibaba.com, guwen@linux.alibaba.com,
-        stable@vger.kernel.org, netdev@vger.kernel.org,
-        linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
-References: <20261012080034.38770-1-mjambigi@linux.ibm.com>
- <179187859972.434549.160211929714609734@kernel.org>
+Subject: Re: [PATCH net] net: alacritech: fix dma_free_coherent() in error
+ path
+To: Thomas Fourier <fourier.thomas@gmail.com>
+Cc: stable@vger.kernel.org, Lino Sanfilippo <LinoSanfilippo@gmx.de>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>,
+ "open list:NETWORKING DRIVERS" <netdev@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20261006140912.50828-2-fourier.thomas@gmail.com>
 Content-Language: en-US
-From: Mahanta Jambigi <mjambigi@linux.ibm.com>
-In-Reply-To: <179187859972.434549.160211929714609734@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA1NCBTYWx0ZWRfX/hpvL4E24sHS
- x8gE7PXb0t6rUAw5qrd7VBBz2j8HjqKfzKXOFrTw8GrXrRtQUR02/1tlTgeGfSnMqBTWWhJSKf+
- ATXzFthF+mvyWE/36WZbf3eUzATh71I=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA1NCBTYWx0ZWRfX1aYVHa01eFGD
- QzvWI/uZPzczwUHvyx44+XCDv9IrjehFUBFPREZ1p93EIiR67a6L5TUf4FO6iRAizli5249gftl
- XFYmBVyHewlpExMay/OD6i6rX9eGMWK/b185qYGEk+/Q0YkgbWRUGpkfhhQKIkKkrSRSbFspMRY
- JQ72Mf0N93jOkKHUWBscTYqcb2+NOW4wHUmoWWbnWvC+v0aXJB6BNjzqiCvQk+Xr0/HDLMJIwMe
- RVl+aSkWkkUsG1V7U29VOMP/PaXhOrXKfzAX1istVQbBlG9c9X6yumsAAGnGndT6pivAGkIWr4b
- e4DHzC5hqD6lfExCjd88BoVvNUbqgZozeNVzCryaeE+B2Pq/Ew5IJwlroavH7MjxPlzuHXerZzZ
- x7BMtcYQGEMj0LhURBQ+WGj/cMcBlQVBdofGQK9gvsoM3FFi+BBzGPmLlL+2lv7GlbANeGyC2Mn
- ez/WHskAJtEhujLzHIw==
-X-Authority-Analysis: v=2.4 cv=E6pYNqdl c=1 sm=1 tr=0 ts=6ace35e0 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=BeDyHFNucifB5wfUc5IA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: 9Vjz8dmj8LoBZRuQxdonLKCFox42RsHX
-X-Proofpoint-GUID: ag2I18yveNTAbog_ZNycXib5NjbdfiNb
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
- spamscore=0 adultscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130054
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261006140912.50828-2-fourier.thomas@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 10/6/26 16:09, Thomas Fourier wrote:
+> In slic_init_stat_queue(), a series of coherent buffers is allocated
+> with the length size. The size is then stored in stq->mem_size for
+> normal deallocation. However, in the error path, stq->mem_size is also
+> used but is not initialized. This error may leave the freed buffers
+> mapped, leaking a resource and allowing the device to access freed
+> memory.
+> 
+> Change the length in error path to size.
+> 
+> Fixes: 60c140df15db ("net: ethernet: slicoss: add slicoss gigabit ethernet driver")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
 
+FTR, bad things in NIC error path for old drivers is the exact
+prototype of things we are actively redirecting to net-next at
+this point of the cycle. Also stripping the stable tag.
 
-On 13/10/26 1:33 pm, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 2 (2) · Low: 1
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] The patch adds `smc->sk.sk_prot->unhash(&smc->sk)` as the
->   first statement of smc_conn_kill() (net/smc/smc_core.c:1520), so it…
-> - [Medium] The new sk_state-based guards in __smc_diag_dump()
->   (net/smc/smc_diag.c) change the sock_diag uAPI output for sockets…
-> - [Low] __smc_diag_dump() (net/smc/smc_diag.c:161) now copies
->   link->ibname into smc_diag_linkinfo.ibname instead of…
-> 
-> Pre-existing issues:
-> - [Medium] This problem wasn't introduced by this patch, but
->   smc_conn_free() (net/smc/smc_core.c:1279-1280) calls…
-> - [Medium] This problem wasn't introduced by this patch, but
->   smc_diag_handler_dump() (net/smc/smc_diag.c:244) starts the dump…
-> 
-> --
-> 
-> net/smc: fix lgr/lnk lifetime vs diag reader race
-> 
-> This patch closes several windows where the SMC sock_diag dump can
-> dereference freed conn/lgr/lnk state of a socket that is still hashed. It
-> adds sk_state guards and acquire/release ordering in __smc_diag_dump(), and
-> unhashes the socket before smc_conn_free() in the close paths and at the
-> top of smc_conn_kill(). It also reports the cached link->ibname instead of
-> link->smcibdev->ibdev->name.
-> 
->> diff --git a/net/smc/smc_close.c b/net/smc/smc_close.c
->> index bb0313ef5f7c1..aa6363abdd747 100644
->> --- a/net/smc/smc_close.c
->> +++ b/net/smc/smc_close.c
-> 
-> [ ... ]
-> 
->> @@ -433,6 +435,7 @@ static void smc_close_passive_work(struct work_struct *work)
->>  		sk->sk_state_change(sk);
->>  		if ((sk->sk_state == SMC_CLOSED) &&
->>  		    (sock_flag(sk, SOCK_DEAD) || !sk->sk_socket)) {
->> +			sk->sk_prot->unhash(sk);
->>  			smc_conn_free(conn);
-> 
-> [Severity: Medium]
-> This isn't a bug introduced by this patch, but it came up while looking at
-> the smc_conn_free() calls here. Can smc_conn_free() leak the smc_sock
-> reference that a pending abort_work holds?
-
-Agreed, and it is a pre-existing bug, not something introduced by this
-patch. smc_cdc_msg_validate() takes the reference with sock_hold() for
-abort_work, and smc_conn_free() drops the return value of
-cancel_work_sync(), so a still-pending work leaks the socket. I will
-fix it in a separate patch, using the same pattern as
-smc_close_cancel_work():
-
-	if (cancel_work_sync(&conn->abort_work))
-		sock_put(&smc->sk);
-
-with Fixes: b286a0651e44 ("net/smc: handle incoming CDC validation
-message"). It is unrelated to the diag lifetime race, so I would like
-to keep it out of this patch.
-
-> 
-> On SMC-R, smc_cdc_msg_validate() takes a reference for the work:
-> 
-> net/smc/smc_cdc.c:smc_cdc_msg_validate() {
->     ...
-> 		sock_hold(&smc->sk); /* sock_put in abort_work */
-> 		if (!queue_work(smc_close_wq, &conn->abort_work))
-> 			sock_put(&smc->sk);
->     ...
-> }
-> 
-> That reference is normally dropped at the end of smc_conn_abort_work():
-> 
-> 	sock_put(&smc->sk); /* sock_hold done by schedulers of abort_work */
-> 
-> smc_conn_free() ignores the return value of the cancel:
-> 
-> net/smc/smc_core.c:smc_conn_free() {
->     ...
-> 		if (current_work() != &conn->abort_work)
-> 			cancel_work_sync(&conn->abort_work);
->     ...
-> }
-> 
-> Suppose smc_conn_free() runs from __smc_release() or
-> smc_close_passive_work() while abort_work is still pending. Then
-> cancel_work_sync() returns true, and nothing drops the reference the work
-> was holding.
-> 
-> smc_close_cancel_work() handles the same pattern for close_work:
-> 
-> 	if (cancel_work_sync(&smc->conn.close_work))
-> 		sock_put(sk);
-> 
-> Should smc_conn_free() do the same for abort_work?
-> 
->>  			if (smc->clcsock)
->>  				release_clcsock = true;
->> diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
->> index 9974149659c2f..663926465ba7f 100644
->> --- a/net/smc/smc_core.c
->> +++ b/net/smc/smc_core.c
->> @@ -1517,6 +1517,7 @@ static void smc_conn_kill(struct smc_connection *conn, bool soft)
->>  {
->>  	struct smc_sock *smc = container_of(conn, struct smc_sock, conn);
->>  
->> +	smc->sk.sk_prot->unhash(&smc->sk);
-> 
-> [Severity: Medium]
-> Does this hide sockets that stay open from sock_diag for the rest of their
-> lifetime?
-
-Yes, you are right. The unhash at the top of smc_conn_kill() hides
-sockets that stay open after the kill (SMC_ACTIVE, SMC_APPCLOSEWAIT*,
-and the early-break exits in smc_close_active_abort()). It also
-decrements the inuse count while they are still alive. Only the SMC-D
-dmb_nocopy smcd_buf_detach() needs the socket unhashed first.
-
-v10 moves the unhash into the smc_ism_support_dmb_nocopy() branch,
-right before smcd_buf_detach(). The sites that really free the
-connection (smc_close_active_abort(), smc_close_passive_work() and
-__smc_release()) keep their own unhash, and smc_unhash_sk() is
-idempotent, so there is no double accounting.
-
-> 
-> The unhash runs for every SMC-R and SMC-D kill. Only the SMC-D dmb_nocopy
-> smcd_buf_detach() further down needs it.
-> 
-> smc_conn_kill() is called from __smc_lgr_terminate() for every connection
-> of a terminating link group (link down, device removal, admin
-> termination). It is also called from smc_conn_abort_work().
-> 
-> For SMC_ACTIVE, SMC_APPCLOSEWAIT1 and SMC_APPCLOSEWAIT2,
-> smc_close_active_abort() does not free the conn afterwards:
-> 
-> net/smc/smc_close.c:smc_close_active_abort() {
->     ...
-> 	case SMC_ACTIVE:
-> 	case SMC_APPCLOSEWAIT1:
-> 	case SMC_APPCLOSEWAIT2:
-> 		sk->sk_state = SMC_PEERABORTWAIT;
-> 		smc_close_cancel_work(smc);
-> 		if (sk->sk_state != SMC_PEERABORTWAIT)
-> 			break;
-> 		sk->sk_state = SMC_CLOSED;
-> 		sock_put(sk); /* (postponed) passive closing */
-> 		break;
->     ...
-> }
-> 
-> The early "if (sk->sk_state != SMC_PEERABORTWAIT) break;" exits also leave
-> the socket alive. The application keeps its fd until close().
-> 
-> SMC sockets are hashed only once, in smc_sk_init(), so they never go back
-> into the hash table.
-> 
-> smc_unhash_sk() also calls sock_prot_inuse_add(..., -1). The inuse count in
-> /proc/net/protocols then drops while the socket is still alive.
-> 
-> On SMC-R this doesn't seem to add any safety:
-> - smc_lgr_unregister_conn() clears alert_token_local
-> - the conn keeps its lgr and link references until smc_conn_free()
-> - the free inside smc_close_active_abort() now has its own unhash
-> 
-> The v6 changelog says the per-site placement "avoids prematurely hiding
-> live SMC_ACTIVE/APPCLOSEWAIT sockets from smcss". The commit message
-> describes this hunk only as an SMC-D dmb_nocopy reorder.
-> 
-> Would it be enough to move the unhash into the
-> smc_ism_support_dmb_nocopy() branch, right before smcd_buf_detach()?
-> 
->>  	if (conn->lgr->is_smcd && conn->lgr->peer_shutdown)
->>  		conn->local_tx_ctrl.conn_state_flags.peer_conn_abort = 1;
->>  	else
->> diff --git a/net/smc/smc_diag.c b/net/smc/smc_diag.c
->> index bf0beaa23bdb6..36a3b8f31f28d 100644
->> --- a/net/smc/smc_diag.c
->> +++ b/net/smc/smc_diag.c
->> @@ -87,10 +87,11 @@ static int __smc_diag_dump(struct sock *sk, struct sk_buff *skb,
->>  
->>  	r = nlmsg_data(nlh);
->>  	smc_diag_msg_common_fill(r, sk);
->> -	r->diag_state = sk->sk_state;
->> +	r->diag_state = smp_load_acquire(&sk->sk_state);
->>  	if (smc->use_fallback)
->>  		r->diag_mode = SMC_DIAG_MODE_FALLBACK_TCP;
->> -	else if (smc_conn_lgr_valid(&smc->conn) && smc->conn.lgr->is_smcd)
->> +	else if (r->diag_state != SMC_INIT &&
->> +		 smc_conn_lgr_valid(&smc->conn) && smc->conn.lgr->is_smcd)
->>  		r->diag_mode = SMC_DIAG_MODE_SMCD;
->>  	else
->>  		r->diag_mode = SMC_DIAG_MODE_SMCR;
->> @@ -103,6 +104,9 @@ static int __smc_diag_dump(struct sock *sk, struct sk_buff *skb,
->>  	if (nla_put(skb, SMC_DIAG_FALLBACK, sizeof(fallback), &fallback) < 0)
->>  		goto errout;
->>  
->> +	if (r->diag_state == SMC_INIT || r->diag_state == SMC_CLOSED)
->> +		goto out;
->> +
-> 
-> [Severity: Medium]
-> Do these two sk_state checks change the sock_diag uAPI output for sockets
-> whose connection is still live?
-
-Yes, they do, and the commit message did not say so. v10 documents it:
-
- - SMC_DIAG_CONNINFO, SMC_DIAG_LGRINFO and SMC_DIAG_DMBINFO are no
-   longer reported, even if requested, while a socket is in SMC_INIT
-   or SMC_CLOSED.
- - diag_mode is reported as SMC_DIAG_MODE_SMCR for a non-fallback SMC-D
-   socket in SMC_INIT. This was already the case before
-   smc_conn_create() had run, because conn->lgr is still NULL then and
-   the code falls through to SMC_DIAG_MODE_SMCR.
- - smcss, the only consumer, does not print any of these attributes
-   for SMC_INIT and SMC_CLOSED rows. It does apply its -R/-D filters to
-   diag_mode, so with -a an SMC-D socket in SMC_INIT is matched as
-   SMC-R. The commit message says so, instead of claiming that there
-   is no visible change.
-
-I am keeping the guard. For SMC_INIT it is what keeps a reader from
-dereferencing conn->lgr while smc_conn_abort() frees it synchronously,
-and the uAPI has no value to report "unknown" for diag_mode. For
-SMC_CLOSED, the extension data describes a connection that no longer
-transfers data, and smcss never reads it for those rows.
-
-> 
-> With the diag_mode change, every non-fallback SMC-D socket in SMC_INIT now
-> reports SMC_DIAG_MODE_SMCR. In include/uapi/linux/smc_diag.h, SMCR is 0
-> and SMCD has its own value, so there is no "unknown" value to fall back on.
-> 
-> SMC_INIT is not limited to the abort window:
-> - smc_connect_ism() and smc_connect_rdma() run smc_conn_create(),
->   smc_buf_create(), smcd_buf_attach() and the whole CLC confirm exchange
->   while in SMC_INIT
-> - on the server side the socket stays in SMC_INIT through
->   smc_listen_work() until smc_listen_out_connected()
-> 
-> During these windows the lgr, alert_token_local and the buffers are all
-> valid, and the socket is hashed and visible to diag.
-> 
-> The new goto out also skips SMC_DIAG_CONNINFO, SMC_DIAG_LGRINFO and
-> SMC_DIAG_DMBINFO even when req->diag_ext asks for them. That bypasses the
-> existing alert_token_local, smc_conn_lgr_valid(), list_empty(&lgr->list)
-> and rmb_desc checks.
-> 
-> SMC_CLOSED doesn't mean the conn was freed either:
-> - smc_close_active() reached through shutdown(SHUT_RDWR) sets SMC_CLOSED in
->   the APPCLOSEWAIT/APPFINCLOSEWAIT/PROCESSABORT cases without calling
->   smc_conn_free()
-> - the SMC_ACTIVE branch of smc_close_active_abort() does the same
-> - smc_close_passive_work() frees the conn only when SOCK_DEAD is set or
->   sk->sk_socket is NULL:
-> 
-> net/smc/smc_close.c:smc_close_passive_work() {
->     ...
-> 		if ((sk->sk_state == SMC_CLOSED) &&
-> 		    (sock_flag(sk, SOCK_DEAD) || !sk->sk_socket)) {
->     ...
-> }
-> 
-> These sockets keep their conn until close(), but now report no extension
-> data.
-> 
-> The commit message says:
-> 
->     As a side effect the diag_mode field is
->     reported as SMC_DIAG_MODE_SMCR for SMC-D sockets still in SMC_INIT; smcss
->     suppresses those rows before printing the mode string so there is no rendered
->     regression.
-> 
-> That covers only one consumer, smcss. It also doesn't mention the dropped
-> extensions for live SMC_CLOSED sockets.
-> 
-> Is this change in uAPI output intended for sockets that still have a live
-> connection?
-> 
->>  	if ((req->diag_ext & (1 << (SMC_DIAG_CONNINFO - 1))) &&
->>  	    smc->conn.alert_token_local) {
-> 
-> [Severity: Medium]
-> This is a pre-existing issue, not one introduced by this patch. Can
-> req->diag_ext be read past the end of the request payload here?
-
-Agreed, this is pre-existing and not part of this patch. I will send a
-separate fix that returns -EINVAL from smc_diag_handler_dump() when
-nlmsg_len(h) < sizeof(struct smc_diag_req), as inet_diag and unix_diag
-do, with Fixes: f16a7dd5cf27 ("smc: netlink interface for SMC sockets").
-
-> 
-> smc_diag_handler_dump() calls netlink_dump_start() without checking
-> nlmsg_len(h) against sizeof(struct smc_diag_req). The only length check
-> before that is in __sock_diag_cmd():
-> 
-> net/core/sock_diag.c:__sock_diag_cmd() {
->     ...
-> 	if (nlmsg_len(nlh) < sizeof(*req))
-> 		return -EINVAL;
->     ...
-> }
-> 
-> That checks only the 2-byte struct sock_diag_req, but diag_ext is at
-> payload offset 3.
-> 
-> An unprivileged user can send a SOCK_DIAG_BY_FAMILY/NLM_F_DUMP request with
-> nlmsg_len = NLMSG_HDRLEN + 2. This read then lands in uninitialized
-> tailroom of the request skb.
-> 
-> Whether CONNINFO, LGRINFO and DMBINFO appear in the reply would then reveal
-> bits of that byte, and KMSAN would report uninit-value.
-> 
-> inet_diag and unix_diag both check nlmsg_len against their full request
-> struct. Should smc_diag_handler_dump() return -EINVAL when
-> nlmsg_len(h) < sizeof(struct smc_diag_req)?
-> 
-> [ ... ]
-> 
->> @@ -154,8 +158,7 @@ static int __smc_diag_dump(struct sock *sk, struct sk_buff *skb,
->>  			.lnk[0].link_id = link->link_id,
->>  		};
->>  
->> -		memcpy(linfo.lnk[0].ibname, link->smcibdev->ibdev->name,
->> -		       sizeof(link->smcibdev->ibdev->name));
->> +		memcpy(linfo.lnk[0].ibname, link->ibname, sizeof(link->ibname));
-> 
-> [Severity: Low]
-> Can this report a stale RDMA device name after the device is renamed?
-
-Yes, but this is intended. The cached link->ibname is what the SMC
-netlink link dump (smc_nl_fill_lgr_link()) and the tracepoints already
-report, so diag now follows the same convention. The cached name is
-needed because __smcr_link_clear() memsets the link, so
-link->smcibdev can be NULL under the diag reader. Following a rename
-would need an ib_client .rename callback that walks all link groups,
-which is not something I would put in a fix for net. v10 now says in the
-commit message that the name is the one cached at link creation. I
-will leave the callback as possible follow-up work.
-
-pw-bot: cr
+/P
 
