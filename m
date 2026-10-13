@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9251E50B8A3
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:01:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA764F5DFE
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 16:04:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791907301; cv=none; b=LMWblkbQlVlA8llxSN7bK8iDfD3Y1MaaGE0hNS8fSFZlU82ebvOxsFpxFSUeeVLe6NWdmyZZMxzAxi0DF7wottI6JIgEGErQRADZ7Vg3QlVpcYMXj4IOl16TOKRuQ+th3Pu9Q8eoMq85WMowfD+v3nmLtTkCO2EXAt4a9eu+b+o=
+	t=1791907492; cv=none; b=t8yI4d30GXDOTv1p7RoBffwBlv/kZ73y/3wHalWWTQWGqdPrrzK/7cpdlXtZgKcglc5HvWAq5lIfUjchECzyXQ1ftjAvMPpEXYBBvVKOBjKP7vYiXy+ojHts9svxabSl2LaotY+tfN4PPdUEqqktgdh5xBJok6HOMwOVLtHmu1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791907301; c=relaxed/simple;
-	bh=mEjEum812ISkZzV6GDb2rduTCfjRLhqm5yvGG+PmKyg=;
+	s=arc-20240116; t=1791907492; c=relaxed/simple;
+	bh=VdEJmCEh+Ty6Mm4cAu73JzgTOG8R/5fXqJWHVjEM6YM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MFF9hI1X1x7/3YKkep6/REDKEAOvH1IIOOCRmZiaFVluESX6tNe6zvDRGVJCfoxP2GfayONRgO63jHG3jaoPZlWfHZu7a0x8U1oBjyMeub/R8TGsafY/eQvuJBDSWFsV61q53f+ChDeKO/pKokPANp+ipQ5Ba9NxeC60x7Sb04o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=biNvnCtP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=kv/C9yGddDxIvXZfeY/Vn8OZC3vzuAyvgIJDpaXmVvb1khtkinT7+3izoCMAk6q8+CJ0BS4DQqHuAjrahcmO/2oNlp17pt7/pU1WfRQA4hPuuxOGX8mbZFmZ7ac30jpGMaFd7+Kbb4R55E+bN6IqW4m1uyZ5N8Hnfea+k2GLzbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F0w6O6F3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="biNvnCtP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D77FB1F00899;
-	Tue, 13 Oct 2026 16:01:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F0w6O6F3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40FC51F000FF;
+	Tue, 13 Oct 2026 16:04:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791907300;
-	bh=tA/zd9YRP2By5asC5+dpmr1AJejLmCjcztxD709w1Ho=;
+	s=k20260515; t=1791907490;
+	bh=9cvbttadbSrTArsQwcNzqHsZdw84Lrx6prIuM6+YQd8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=biNvnCtPycmP9PcV+4rjL/pCBBAW1qyj4SCsgtcN6iW5os0ihejwy4mqwPfQhbfAF
-	 hXBhBG4kqZ4yXIdIf8XebRDZIPcOPiMezW1Fd6a7KoH+g/BXlNb2+/RPzQVKclEeS7
-	 djGdX62ma6RyRgmY+Zf9cQ4eiG6Hws7/WqvbyiF/2eDM+X2lpTDueLfISuzMpgiqpS
-	 MjSyKKuH8xDg8R1Y4d0ZUAyPlRcT2IJrpLrboRiyNcrHlBoY7it3aIXh9Jqyup7VLQ
-	 6Q3j8ZEHcHqM+AyPQAWe4/sSR5oVzvhtXIwHFLi8j6UESsYV6ICRWtQzdUCcpkaDJS
-	 gXgTNtb+WR2WA==
+	b=F0w6O6F3jwCa85k/WASt1+OmQkV4u98EjKvFqBaF9hvzS7ix3UIKP6C8M9mGpCrX0
+	 HdfbqWCzNz+gcuGmjUXrv8tYgx/NZGB3ksadaEDU/QGAQZecRp+2AGwheSwbqsRABw
+	 IPstJEU14wxFEQlMtHyjtOP9toE7RuxRFjdax6W4CFyTYlwgxq4VjHSeWBRmdh0zXK
+	 toCHigFH6XVIKaK2/bMpR/S92txuIuLc+3mJ5TvmrGjfVbCK0LnoBUEBIx4WXnuzVb
+	 uxygssY5nK5UGzrKqu7A0TLXr/Oln/QPlgiYwFKVb7xfSjyneQodV1o3rUKC3wXsmw
+	 ppQMutRCS/loA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Stanley Jhu <stanleyjhu@google.com>,
-	Peter Wang <peter.wang@mediatek.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+Cc: Marc Harvey <marcharvey@google.com>,
+	Jiri Pirko <jiri@nvidia.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 5/5] scsi: ufs: core: Avoid unsafe MMIO reads in ufshcd_mcq_compl_all_cqes_lock()
-Date: Tue, 13 Oct 2026 12:01:35 -0400
-Message-ID: <20261013160048.356245-5-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/4] net: team: Remove unused team_mode_op, port_enabled
+Date: Tue, 13 Oct 2026 12:04:46 -0400
+Message-ID: <20261013160440.383603-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261013160048.356245-1-sashal@kernel.org>
-References: <2026101216-sharpener-discover-cc77@gregkh>
- <20261013160048.356245-1-sashal@kernel.org>
+In-Reply-To: <2026101205-aluminum-trading-cda4@gregkh>
+References: <2026101205-aluminum-trading-cda4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,123 +47,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Stanley Jhu <stanleyjhu@google.com>
+From: Marc Harvey <marcharvey@google.com>
 
-[ Upstream commit 375f3a5691dd46b5d05b90a8968872ec8b2248c5 ]
+[ Upstream commit 014f249121d73909528df320818fba7693d0ec92 ]
 
-During MCQ host reset, ufshcd_host_reset_and_restore() stops the host
-controller via ufshcd_hba_stop() (HCE = 0) before calling
-ufshcd_complete_requests(hba, true) ->
-ufshcd_mcq_compl_pending_transfer(hba, true) ->
-ufshcd_mcq_force_compl_one() -> ufshcd_mcq_compl_all_cqes_lock().  Because
-ufshcd_mcq_force_compl_one() is its sole caller,
-ufshcd_mcq_compl_all_cqes_lock() always runs with HCE = 0.
+This team_mode_op wasn't used by any of the team modes, so remove it.
 
-Despite the comment above ufshcd_mcq_compl_all_cqes_lock() stating that
-reading CQTPy may not be safe with the controller disabled, the function
-still calls ufshcd_mcq_update_cq_tail_slot() at the end of its sweep:
-
- 1. Unsafe CQTPy MMIO read:
-    Calling ufshcd_mcq_update_cq_tail_slot() at the end of the sweep reads
-    CQTPy over MMIO while HCE = 0, directly contradicting the function's
-    documented contract (commit 1373df88d535 ("scsi: ufs: core: Add a
-    comment block above ufshcd_mcq_compl_all_cqes_lock()")) that reading
-    CQTPy may not be safe with the controller disabled.
-
- 2. Spurious error logs on empty slots:
-    Sweeping all max_entries slots visits empty entries where
-    command_desc_base_addr is 0, causing ufshcd_mcq_process_cqe() to log
-    unguarded dev_err(hba->dev, "Abnormal CQ entry!\n") messages.
-
-Fix both issues in ufshcd_mcq_compl_all_cqes_lock():
-
- - Remove the ufshcd_mcq_update_cq_tail_slot() call and the redundant
-   hwq->cq_head_slot = hwq->cq_tail_slot assignment without replacement.
-   The two indices are already equal after the sweep: they are equal when
-   the sweep starts, since ufshcd_mcq_poll_cqe_lock() consumes entries
-   until cq_head_slot reaches cq_tail_slot, and the sweep advances
-   cq_head_slot by exactly one full ring. Both indices are also
-   reinitialized before the queue is reused.
-
- - Extract ufshcd_mcq_compl_cqe() and invoke it only on non-empty slots
-   during full-ring sweeps, keeping "Abnormal CQ entry!" logging strictly
-   for unexpected empty entries in ufshcd_mcq_poll_cqe_lock().
-
-Fixes: ab248643d3d6 ("scsi: ufs: core: Add error handling for MCQ mode")
-Cc: stable@vger.kernel.org
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Link: https://patch.msgid.link/20260928035816.1294326-2-stanleyjhu@google.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+Reviewed-by: Jiri Pirko <jiri@nvidia.com>
+Signed-off-by: Marc Harvey <marcharvey@google.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/20260409-teaming-driver-internal-v7-2-f47e7589685d@google.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Stable-dep-of: b7454f1940c5 ("net: team: stop reusing skb after queue override")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/ufs/core/ufs-mcq.c | 30 +++++++++++++++++-------------
- 1 file changed, 17 insertions(+), 13 deletions(-)
+ drivers/net/team/team.c | 2 --
+ include/linux/if_team.h | 1 -
+ 2 files changed, 3 deletions(-)
 
-diff --git a/drivers/ufs/core/ufs-mcq.c b/drivers/ufs/core/ufs-mcq.c
-index 121601201fcd2..0b930160a430f 100644
---- a/drivers/ufs/core/ufs-mcq.c
-+++ b/drivers/ufs/core/ufs-mcq.c
-@@ -269,20 +269,24 @@ static int ufshcd_mcq_get_tag(struct ufs_hba *hba, struct cq_entry *cqe)
- 	return div_u64(addr, ufshcd_get_ucd_size(hba));
- }
- 
-+static void ufshcd_mcq_compl_cqe(struct ufs_hba *hba, struct cq_entry *cqe)
-+{
-+	int tag = ufshcd_mcq_get_tag(hba, cqe);
-+
-+	ufshcd_compl_one_cqe(hba, tag, cqe);
-+	/* After processing the CQE, mark it as an empty (invalid) entry. */
-+	cqe->command_desc_base_addr = 0;
-+}
-+
- static void ufshcd_mcq_process_cqe(struct ufs_hba *hba,
- 				   struct ufs_hw_queue *hwq)
- {
- 	struct cq_entry *cqe = ufshcd_mcq_cur_cqe(hwq);
- 
--	if (cqe->command_desc_base_addr) {
--		int tag = ufshcd_mcq_get_tag(hba, cqe);
--
--		ufshcd_compl_one_cqe(hba, tag, cqe);
--		/* After processed the cqe, mark it empty (invalid) entry */
--		cqe->command_desc_base_addr = 0;
--	} else {
-+	if (cqe->command_desc_base_addr)
-+		ufshcd_mcq_compl_cqe(hba, cqe);
-+	else
- 		dev_err(hba->dev, "Abnormal CQ entry!\n");
--	}
- }
- 
- /*
-@@ -290,7 +294,7 @@ static void ufshcd_mcq_process_cqe(struct ufs_hba *hba,
-  * controller disabled (HCE = 0). Reading host controller registers, e.g. the
-  * CQ tail pointer (CQTPy), may not be safe with the host controller disabled.
-  * Hence, iterate over all completion queue entries. This won't result in
-- * double completions because ufshcd_mcq_process_cqe() clears a CQE after it
-+ * double completions because ufshcd_mcq_compl_cqe() clears a CQE after it
-  * has been processed.
-  */
- void ufshcd_mcq_compl_all_cqes_lock(struct ufs_hba *hba,
-@@ -301,13 +305,13 @@ void ufshcd_mcq_compl_all_cqes_lock(struct ufs_hba *hba,
- 
- 	spin_lock_irqsave(&hwq->cq_lock, flags);
- 	while (entries > 0) {
--		ufshcd_mcq_process_cqe(hba, hwq);
-+		struct cq_entry *cqe = ufshcd_mcq_cur_cqe(hwq);
-+
-+		if (cqe->command_desc_base_addr)
-+			ufshcd_mcq_compl_cqe(hba, cqe);
- 		ufshcd_mcq_inc_cq_head_slot(hwq);
- 		entries--;
- 	}
--
--	ufshcd_mcq_update_cq_tail_slot(hwq);
--	hwq->cq_head_slot = hwq->cq_tail_slot;
- 	spin_unlock_irqrestore(&hwq->cq_lock, flags);
- }
+diff --git a/drivers/net/team/team.c b/drivers/net/team/team.c
+index 0b62e204c7bb1..58dfecea5ef96 100644
+--- a/drivers/net/team/team.c
++++ b/drivers/net/team/team.c
+@@ -939,8 +939,6 @@ static void team_port_enable(struct team *team,
+ 			   team_port_index_hash(team, port->index));
+ 	team_adjust_ops(team);
+ 	team_queue_override_port_add(team, port);
+-	if (team->ops.port_enabled)
+-		team->ops.port_enabled(team, port);
+ 	team_notify_peers(team);
+ 	team_mcast_rejoin(team);
+ 	team_lower_state_changed(port);
+diff --git a/include/linux/if_team.h b/include/linux/if_team.h
+index 762c77d13e7dd..ef1f566b90a05 100644
+--- a/include/linux/if_team.h
++++ b/include/linux/if_team.h
+@@ -121,7 +121,6 @@ struct team_mode_ops {
+ 	int (*port_enter)(struct team *team, struct team_port *port);
+ 	void (*port_leave)(struct team *team, struct team_port *port);
+ 	void (*port_change_dev_addr)(struct team *team, struct team_port *port);
+-	void (*port_enabled)(struct team *team, struct team_port *port);
+ 	void (*port_disabled)(struct team *team, struct team_port *port);
+ };
  
 -- 
 2.53.0
