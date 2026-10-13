@@ -1,156 +1,274 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C343F4DC5;
-	Tue, 13 Oct 2026 14:09:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD483C3F40;
+	Tue, 13 Oct 2026 14:11:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791900570; cv=none; b=YRetLdI8M9+Cy9Rtw4XUrIGL0Mhti7ru0IHS39bG6wkg/pc9f3z20QIkmECWJ5TDSNsso8UT9Fu0+wHmCLwDpuhtQ0ct39YK4q117iw9o73BHm3927+BX42S/x3nc0BqNY5d2TdWRp9v6JcmTucOtUu7vIAA22F0NT8BTsQvtbU=
+	t=1791900682; cv=none; b=nGCh4r4QsI/lOEKe4FckTUtbzcTQbscrXaaSurSXoJRWq1z2bLmysPA+0GOBYBVHrUrjchehRDKyOdPHTW/7lLAk5InKlLurrseYX9HAzCGj9hgof8wzRdhJ3QuQ/npjY2YSzsSloUCV7dHnn8EaHN/cxjF/L9ppzCK12IpIIUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791900570; c=relaxed/simple;
-	bh=lEC0ImydFuSeefjzcTaGVGN4ZB7kKX+wsph3q4lBdLg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OchKv7gdSslBDFyCKNyTrsfq6VwrOxcm9cSLriwYcAfmY744Ykferzgxu8oeIVu3b3QYTil9rAj8YBnSG5NtJ7h8Mg408UloYPkdavOs+k26CWA224f9+2eWUUnYPUoVwG1dKueUBOfO9q7OoYp8GHKYksONjfQXxrmZF7PRL2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JcHZ+0H+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791900682; c=relaxed/simple;
+	bh=HYAGIj77WyC/Jcq+g6tnLubWVbk/cd83F1lLqIPCKhI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OBOU6ZS95FT0xEmTZp1b2brDaFBXc0CJgd2RnqjTbgXSIq/Y8iv0rLa16WHxN/d6pJqN85ecm4aKNjOse5UwhK+E1z+mlJynaVTTaOjSDw/VgFzI3mejRhbz/+84eK/ggCSGoC1j9pT2A21VpOYKYeWUQGkETCtwxORMgI4fISI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WTTmcHwc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JcHZ+0H+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 638C91F000FF;
-	Tue, 13 Oct 2026 14:09:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WTTmcHwc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 667CB1F000FF;
+	Tue, 13 Oct 2026 14:11:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791900568;
-	bh=MFi7HA+n4yyZpEE6/mTBJhffFB9f0mw35Sw3/OfeOhg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JcHZ+0H+PO2ZSkVshMyc8Zi76XkV/sWMa4sjZd9CHiTINaoQ1MWTTDoCEFXtXuH40
-	 CgTSgRDAmNO5gLRph1j/XSLKRXp83wkhavmSImtYTiewt5iWlGf8kN3vVWiy2vB122
-	 QlEkqv0gFU6nhcsG9+15u384uYxQuSJAS6oCWF/yYOr89nBRH8BNvtU5DheenidH+a
-	 P/qQri/m5TsEg+rtdeBvHPgXrI82LRMlfIjgoRwlX7WdGfMPg8Kz4jjSicnL7j22g1
-	 ZRyT4LP9E6RIIqfaBsjOeIN/UvMr+0ogVyHMs7adh0+PYpPTyB2vpQJNw9vAPreY0a
-	 6BnFVU4mIeixA==
-From: SJ Park <sj@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	patches@lists.linux.dev,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH 6.18 177/621] srcu: Use irq_work to start GP in tiny SRCU
-Date: Tue, 13 Oct 2026 07:09:16 -0700
-Message-ID: <20261013140916.139338-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261013112925.062661881@linuxfoundation.org>
-References: 
+	s=k20260515; t=1791900681;
+	bh=PafVWtiiBVG/CnUNItxta5c64k8qSC/5mZ/lxcbSfuw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WTTmcHwcZrWC6wIHZ4MKlhp2UbxVVfnyQhygIA7pwCuO27EWQQwjjy5Pr/G5PjLRS
+	 kgu/qr2UpU9jczKBTuspnklruSAY//9u1nNJhv6wDTzTLlaQiSxAxN4l/7OUtXVSsS
+	 utiaQToztMh3L+geyoayp0jZRBM8D+SMSgRuNA6V/DiZj52mLpNYo+qqKM+1qOhCJr
+	 ZsJYlUB39tnfy1QnhHMpH8iylJjTqh254YQk5QEC7K3wgtChYqUtFbdGRoChr4Qb4I
+	 Fq1tIiyCQ2UCxNRQSqHQ8V423ClS3wK9y4vLE2uPuMGFVKEsPPtakP49z36XcjbkOy
+	 ngOWAENHP5YmQ==
+Date: Tue, 13 Oct 2026 15:11:13 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Ying Huang <huang.ying.caritas@gmail.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <baohua@kernel.org>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Chuanhua Han <hanchuanhua@oppo.com>, 
+	Kiryl Shutsemau <kas@kernel.org>, Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm: fix address wraparound when scanning large folio PTEs
+Message-ID: <as4kvHe9IFZH5qrC@gremlin>
+References: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
 
-Hello,
+On Tue, Oct 13, 2026 at 02:30:37PM +0200, David Hildenbrand (Arm) wrote:
+> numa_rebuild_large_mapping() and do_swap_page() can be tricked into
+> generating an address wraparound, crashing the kernel. All that's required
+> is to map a tail page of a large folio close enough to the start/end of
+> the address space to e.g., make
+>
+> 	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
+>
+> to wrap around.
 
-On Tue, 13 Oct 2026 13:32:52 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+Yeah damn.
 
-> 6.18-stable review patch.  If anyone has any objections, please let me know.
-> 
-> ------------------
-> 
-> From: Joel Fernandes <joelagnelf@nvidia.com>
-> 
-> [ Upstream commit a6fc88b22bc8d12ad52e8412c667ec0f5bf055af ]
-> 
-> Tiny SRCU's srcu_gp_start_if_needed() directly calls schedule_work(),
-> which acquires the workqueue pool->lock.
-> 
-> This causes a lockdep splat when call_srcu() is called with a scheduler
-> lock held, due to:
-> 
->   call_srcu() [holding pi_lock]
->     srcu_gp_start_if_needed()
->       schedule_work() -> pool->lock
-> 
->   workqueue_init() / create_worker() [holding pool->lock]
->     wake_up_process() -> try_to_wake_up() -> pi_lock
-> 
-> Also add irq_work_sync() to cleanup_srcu_struct() to prevent a
-> use-after-free if a queued irq_work fires after cleanup begins.
-> 
-> Tested with rcutorture SRCU-T and no lockdep warnings.
-> 
-> [ Thanks to Boqun for similar fix in patch "rcu: Use an intermediate irq_work
-> to start process_srcu()" ]
-> 
-> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
-> Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
-> Signed-off-by: Boqun Feng <boqun@kernel.org>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+I feel like we need to generalise the underflow/overflow checks we have
+arbitrarily around the place into helper functions.
+
+I know somebody schlopped something like that for one function in particular
+recently, but a non-schlopped, generalised version of that would be nice.
+
+>
+> Let's fix it by providing a better helper, folio_pte_scan_range(), that
+> takes care of staying within VMA and page table boundaries while
+> handling possible wraparounds.
+
+OK so this is effectively abstracting this very thing :) though I guess
+perhaps not quite a match for the general 'did we over/underflow stuff with
+the addr, size pair we just got'.
+
+Anyway that's something to think about separately I guess.
+
+>
+> Reported-by: Kyle Zeng <kylebot@openai.com>
+> Fixes: d2136d749d76 ("mm: support multi-size THP numa balancing")
+> Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 > ---
->  include/linux/srcutiny.h |  4 ++++
->  kernel/rcu/srcutiny.c    | 19 ++++++++++++++++++-
->  2 files changed, 22 insertions(+), 1 deletion(-)
-> 
-> diff --git a/include/linux/srcutiny.h b/include/linux/srcutiny.h
-> index 51ce25f07930e..1f9a226e6fd81 100644
-> --- a/include/linux/srcutiny.h
-> +++ b/include/linux/srcutiny.h
-> @@ -11,6 +11,7 @@
->  #ifndef _LINUX_SRCU_TINY_H
->  #define _LINUX_SRCU_TINY_H
->  
-> +#include <linux/irq_work_types.h>
+>  mm/memory.c | 43 +++++++++++++++++++++++++++++--------------
+>  1 file changed, 29 insertions(+), 14 deletions(-)
+>
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 1f5d5f7d39cd2..a3823010aa981 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -4933,6 +4933,27 @@ static void check_swap_exclusive(struct folio *folio, swp_entry_t entry,
+>  	} while (--nr_pages);
+>  }
+>
+> +/*
+> + * Get the address range in which a folio might be mapped, assuming its pages
+> + * are mapped consecutively and the folio page at the given idx is mapped at
+> + * the given address.
+> + */
 
-I just found this makes UM build for kunit fails like below:
+I know it's a static function but kdoc here might be nice given the number of
+params, including 2 output parameters.
 
-'''
-$ ./tools/testing/kunit/kunit.py run --kunitconfig mm/damon/tests/
-[07:00:33] Configuring KUnit Kernel ...
-[07:00:33] Building KUnit Kernel ...
-Populating config with:
-$ make ARCH=um O=.kunit olddefconfig
-Building with:
-$ make all compile_commands.json scripts_gdb ARCH=um O=.kunit --jobs=14
-ERROR:root:In file included from ../include/linux/srcu.h:59,
-                 from ../include/linux/notifier.h:16,
-                 from ../include/linux/memory_hotplug.h:7,
-                 from ../include/linux/mmzone.h:1538,
-                 from ../include/linux/gfp.h:7,
-                 from ../include/linux/slab.h:17,
-                 from ../include/linux/crypto.h:18,
-                 from ../arch/x86/um/shared/sysdep/kernel-offsets.h:5,
-                 from ../arch/um/kernel/asm-offsets.c:3:
-../include/linux/srcutiny.h:14:10: fatal error: linux/irq_work_types.h: No such file or directory
-   14 | #include <linux/irq_work_types.h>
-      |          ^~~~~~~~~~~~~~~~~~~~~~~~
-compilation terminated.
-'''
+Also then can specify exclusive end, etc.
 
-Seems commit c809f081fe40 ("irqwork: Move data struct to a types header") which
-made irq_work_types.h is not in the queue.  Below simple change fixed the issue
-on my setup.
+> +static void folio_pte_scan_range(const struct folio *folio,
+> +		const struct vm_area_struct *vma, unsigned long addr,
+> +		unsigned long idx, unsigned long *start, unsigned long *end)
 
-'''
-diff --git a/include/linux/srcutiny.h b/include/linux/srcutiny.h
-index 1f9a226e6fd81..786693905accc 100644
---- a/include/linux/srcutiny.h
-+++ b/include/linux/srcutiny.h
-@@ -11,7 +11,7 @@
- #ifndef _LINUX_SRCU_TINY_H
- #define _LINUX_SRCU_TINY_H
+I don't love the name - to me it implies to me that you're scanning the range.
 
--#include <linux/irq_work_types.h>
-+#include <linux/irq_work.h>
- #include <linux/swait.h>
+Maybe clamp_folio_pte_range()? I guess though clamp implies it limits an input
+range.
 
- struct srcu_struct {
-'''
+Maybe get_folio_pte_range()?
 
-Cherry-picking the commit c809f081fe40 ("irqwork: Move data struct to a types
-header") also fixed the issue on my setup.
+Also I think it might be useful to have it return the number of pages contained
+within the range?
 
+Then this below:
 
-Thanks,
-SJ
++		folio_pte_scan_range(folio, vma, address, idx, &folio_start,
++				     &folio_end);
++		if (unlikely((folio_end - folio_start) >> PAGE_SHIFT != nr))
 
-[...]
+Could be:
+
++		if (unlikely(get_folio_pte_range(folio, vma, address, idx,
++						 &folio_start, &folio_end)) != nr)
+
+OTOH, that's pretty ugly... :))
+
+> +{
+> +	/* Stay within the page table and VMA boundaries. */
+> +	const unsigned long pmd_start = addr & PMD_MASK;
+> +	const unsigned long pmd_end = pmd_start + PMD_SIZE;
+
+OK so get the range of the PTE page table.
+
+> +	const unsigned long lower = max(pmd_start, vma->vm_start);
+
+Then clamp to VMA start...
+
+> +	const unsigned long upper = min(pmd_end - 1, vma->vm_end - 1) + 1;
+
+This is trickier :)
+
+I guess you're doing this in case either bound is right at wraparound
+somehow?
+
+But then couldn't the +1 push you over the edge?
+
+Oh wait no, because then vma->vm_end would have to equal 0, which would
+fail the other-place enforced invariant that vma->vm_start < vma->vm_end.
+
+So it's pmd_end that could overflow, hence the -1, +1 dance.
+
+Yeah I kind of hate that, that's a lot of 'just have to know' right there.
+
+Actually we have pmd_addr_end() already, could we use that?
+
+#define pmd_addr_end(addr, end)                                         \
+({      unsigned long __boundary = ((addr) + PMD_SIZE) & PMD_MASK;      \
+        (__boundary - 1 < (end) - 1)? __boundary: (end);                \
+})
+
+That embeds the trick in the helper and it expresses what you're getting.
+
+Then it could be:
+
+	const unsigned long pmd_start = addr & PMD_MASK;
+	const unsigned long lower = max(pmd_start, vma->vm_start);
+	const unsigned long upper = pmd_addr_end(addr, vma->vm_end);
+
+> +	const unsigned long offset = idx << PAGE_SHIFT;
+> +
+> +	/* Avoid any address wraparounds. */
+> +	*start = addr - min(addr - lower, offset);
+
+This is also tricky. This is clamping to max(lower, addr - offset) right,
+but being very careful about underflow?
+
+I don't love the addr - (addr - lower) = lower here, and it feels like it
+embeds a comparison there too. It's all very implicit.
+
+Actually maybe just naming addr - lower gets us there:
+
+	const unsigned long max_offset = addr - lower;
+	...
+	*start = addr - min(max_offset, offset);
+
+There's check_sub_overflow() or you could use a ternary also but both feel
+like they add more complexity than is useful.
+
+> +	*end = addr + min(upper - addr, folio_size(folio) - offset);
+
+Same deal here.
+
+Maybe something like:
+
+	const unsigned long max_remaining_bytes = upper - addr;
+	...
+	*end = addr + min(max_remaining_bytes, folio_size(folio) - offset);
+
+> +}
+> +
+>  /*
+>   * We enter with either the VMA lock or the mmap_lock held (see
+>   * FAULT_FLAG_VMA_LOCK), and pte mapped but not yet locked.
+> @@ -5121,16 +5142,15 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+>  	address = vmf->address;
+>  	ptep = vmf->pte;
+>  	if (folio_test_large(folio) && folio_test_swapcache(folio)) {
+> -		int nr = folio_nr_pages(folio);
+> -		unsigned long idx = folio_page_idx(folio, page);
+> -		unsigned long folio_start = address - idx * PAGE_SIZE;
+> -		unsigned long folio_end = folio_start + nr * PAGE_SIZE;
+> +		const int nr = folio_nr_pages(folio);
+> +		const unsigned long idx = folio_page_idx(folio, page);
+> +		unsigned long folio_start, folio_end;
+>  		pte_t *folio_ptep;
+>  		pte_t folio_pte;
+>
+> -		if (unlikely(folio_start < max(address & PMD_MASK, vma->vm_start)))
+> -			goto check_folio;
+> -		if (unlikely(folio_end > pmd_addr_end(address, vma->vm_end)))
+> +		folio_pte_scan_range(folio, vma, address, idx, &folio_start,
+> +				     &folio_end);
+> +		if (unlikely((folio_end - folio_start) >> PAGE_SHIFT != nr))
+>  			goto check_folio;
+>
+>  		folio_ptep = vmf->pte - idx;
+> @@ -6280,16 +6300,11 @@ static void numa_rebuild_large_mapping(struct vm_fault *vmf, struct vm_area_stru
+>  				       struct folio *folio, pte_t fault_pte,
+>  				       bool ignore_writable, bool pte_write_upgrade)
+>  {
+> -	int nr = pte_pfn(fault_pte) - folio_pfn(folio);
+> +	const unsigned long idx = pte_pfn(fault_pte) - folio_pfn(folio);
+>  	unsigned long start, end, addr = vmf->address;
+> -	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
+> -	unsigned long pt_start = ALIGN_DOWN(addr, PMD_SIZE);
+>  	pte_t *start_ptep;
+>
+> -	/* Stay within the VMA and within the page table. */
+> -	start = max3(addr_start, pt_start, vma->vm_start);
+> -	end = min3(addr_start + folio_size(folio), pt_start + PMD_SIZE,
+> -		   vma->vm_end);
+> +	folio_pte_scan_range(folio, vma, addr, idx, &start, &end);
+>  	start_ptep = vmf->pte - ((addr - start) >> PAGE_SHIFT);
+>
+>  	/* Restore all PTEs' mapping of the large folio */
+>
+> ---
+>
+> base-commit: 634cbf5b794b734c78631b92e381cfc85f357bbe
+>
+> change-id: 20261013-folio_pte_scan_range-c6ca19cc8e9d
+>
+> --
+>
+> Cheers,
+>
+> David
+>
+
+In general though the logic as a whole looks correct to me, AFAICT.
+
+--
+Cheers, Lorenzo
