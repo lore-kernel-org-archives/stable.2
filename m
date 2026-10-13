@@ -1,110 +1,156 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B50344D88;
-	Tue, 13 Oct 2026 12:38:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00FAE4FD278;
+	Tue, 13 Oct 2026 12:38:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791895082; cv=none; b=KRFeW6D/BMGqb/ORv1cD5r9o6ACDD0+fQDsLxICHjafIsWqBamNO+dl9LwCL2mY5CpGdWwLJkCbJLYrANVc9Ini04HBPGOP0RNh5OUii3zDaubzptuPQOXE9VTFV1Q16FRKEcsao34Sj36aCzoj7mA3caXc6kNvucwN5GHlyjTw=
+	t=1791895085; cv=none; b=ZYxtneaLKbK4WT9UqDd/7JEfxWmM8HnRfcNrU18TI3VmhWpZOLl6+0r/X+bdfS3ae6eadbo66TSq4dJhYpRSwK35QRR9YPGwc8NfW17FQtsIBFgoyheFHLvoQX+REvup5mllLSXcfZVboJgVNVOC7E9HYfT5cMaYJpdCrDY482g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791895082; c=relaxed/simple;
-	bh=o75F/NJrrS59A1J8fHdwNdOSyDotw68x4+u93a7nYkc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r1z+RNDO1/O3Wl8S8xrr2Uxha8dClUQvt/qHUqR4dfXXjyKp0A9NfbfYBnGd2vwzPEmQQvoNfV2EhYSFqhXhi4P8lbufB8+J4c8eeuerDDrILC3tCejl7poEIiDnM2P/kA0UElcAUH/AYEb+uXH7m6JxBGxtEz3vPlaCGKRUXlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=spPL54zY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791895085; c=relaxed/simple;
+	bh=mwv9tJyKWWB3fTaJlLAmaVNIrw837U7j1ebYpEUuW/8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZBnc7nM/f9EWnAbZbKSg3zXiBzWuKl4L3vmA/NiQczsHxkO6bfkaBC3tVp/ijGPkINrXuqLDHFMdzK7C8MPnOgjKc0tRLXxHORgTjxLp8ghD7dahv+XQ97xQLyM2A61vC0CS9VdmMDC0DsF2Ug2ymgzvWPFpGyMCGGTdjG4rh3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yl0qMY6j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="spPL54zY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9AE41F0089B;
-	Tue, 13 Oct 2026 12:38:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791895081;
-	bh=Y9JueEWkjlT9QBCnr2NOMvrRuDkBzT39pXHLnihE/Xk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=spPL54zYz28TLTuwsLlnT3IkK8LAjEtSXShcrMnQa+PWhNgQ8o0/gUwgxdQdD6ai0
-	 xcjmMasr2lcJDREYOPTWXGpRCQR5kmYjkn7+kUF0/B60+wyMkmGYA3OvEBqyChiHDH
-	 r7Nppbul+Y6ialyLH2rv8uQXj3JYzAjYFyfXYJ+0=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	stable <stable@kernel.org>,
-	Prashanth K <prashanth.k@oss.qualcomm.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Subject: [PATCH 6.12 155/497] usb: typec: ucsi: Get the connector fwnode based on reg value
-Date: Tue, 13 Oct 2026 13:35:22 +0200
-Message-ID: <20261013112911.566865824@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261013112907.864180619@linuxfoundation.org>
-References: <20261013112907.864180619@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yl0qMY6j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 212401F000FF;
+	Tue, 13 Oct 2026 12:38:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791895083;
+	bh=GIMflr91/F4+/ElLk2iXFBQgQtgrPATZUPG9GvQDims=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Yl0qMY6jwCOkNLtLFv6sTgRB1mFOK6e1GRyA5DvrmtTpv9MgjAnLuOroXeYhBaoXd
+	 w1Mb/XI3ZfZ66+gSYg74JLpiau3G3m2WvcCkDhka8jj7mBJnLDBN9KmWL8+rMtXKCI
+	 OrNCmQW42sUy4awxQNvvPnJ/C+2kpIVVY1hnwh1ux5FKn9DufDQNj05+2le4KGpsQa
+	 evJCGrPVkclf16YP7RKRmxutWMVj5WjBI2g5IMuHPNgdG1p3LSTlX+98lskSdlvkhE
+	 eKDMh9WcKcCU90jvTRa2PiE8o2Tjp7t38iY85i6B4hMrfG0csK4ZZMkwI9Kc1+/pe0
+	 wwaJYkfkou8fA==
+Date: Tue, 13 Oct 2026 13:38:01 +0100
+From: Harry Yoo <harry@kernel.org>
+To: Imre Kaloz <kaloz@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Jann Horn <jannh@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/slab: sample slab_state once in kmem_cache_destroy()
+Message-ID: <as4QhUscRVtBzYpm@thinkstation>
+References: <20260930195110.13296-1-kaloz@kernel.org>
+ <ar5pESlkEMqNsgxv@thinkstation>
+ <aef97b97-0bd7-d720-7f59-8c0078747370@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aef97b97-0bd7-d720-7f59-8c0078747370@kernel.org>
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+Uh, apologies for the late reply.
+Catching up after trip at LPC...
 
-------------------
+On Thu, Oct 01, 2026 at 05:42:36PM +0200, Imre Kaloz wrote:
+> Hi Harry,
+> 
+> On Thu, 1 Oct 2026, Harry Yoo wrote:
+> 
+> > Hi Imre,
+> > Thanks for catching and fixing this!
+> > 
+> > On Wed, Sep 30, 2026 at 09:51:09PM +0200, Imre Kaloz wrote:
+> > > kmem_cache_destroy() tests slab_state >= FULL for sysfs_slab_unlink()
+> > > and again in kmem_cache_release() for sysfs_slab_release(), with the
+> > > cache already off slab_caches in between. If slab_late_init() runs in
+> > > that gap it sets slab_state to FULL but never calls sysfs_slab_add() for
+> > > the unlinked cache, so kmem_cache_release() ends up in kobject_put() on
+> > > a kobject that was never initialized:
+> > > 
+> > >   WARNING: lib/kobject.c:734 at kobject_put+0x64/0x2c0, CPU#1: kworker/u8:3/55
+> > >   kobject: '(null)' ((____ptrval____)): is not initialized, yet kobject_put() is being called.
+> > >   refcount_t: underflow; use-after-free.
+> > >   kobject_put+0x64/0x2c0
+> > >   sysfs_slab_release+0xc/0x20
+> > >   kmem_cache_destroy+0x104/0x1e0
+> > >   bioset_exit+0x13c/0x1e0
+> > >   disk_release+0x54/0x140
+> > >   put_disk+0x18/0x40
+> > >   floppy_async_init+0xbec/0xd10
+> > > 
+> > > Seen on sparc64 at boot, where the asynchronous floppy init tears down
+> > > its bio slab while the late initcalls are running.
+> > > 
+> > > Read slab_state once, under slab_mutex which slab_late_init() holds when
+> > > it sets FULL, and use the result for both the unlink and the release.
+> > > The kobject flags (state_initialized, state_in_sysfs) were considered as
+> > > the key instead, but slab_state is what cache creation and
+> > > slab_late_init() decide on.
+> > > 
+> > > debugfs_slab_release() is not part of the race: it only looks the cache
+> > > up by name in the debugfs root and does nothing before that root exists.
+> > > 
+> > > Fixes: 4ec10268ed98 ("mm, slab: unlink slabinfo, sysfs and debugfs immediately")
+> > 
+> > Overall looks good to me, but could you please explain why it's
+> > not relevant before this commit? pre-4ec10268 still reads slab_state
+> > outside slab_mutex.
+> > 
+> 
+> The outside-mutex read is older, yes. What 4ec10268ed98 changed is that
+> unlink and release no longer share it.
 
-From: Prashanth K <prashanth.k@oss.qualcomm.com>
+Right.
 
-commit 6c51f09c6db5868a5090e8dd4d7764660c87f1ad upstream.
+> Before that commit, kmem_cache_release() did one test and used it for
+> both:
+> 
+>     if (slab_state >= FULL) {
+>         sysfs_slab_unlink(s);
+>         sysfs_slab_release(s);
+>     } else {
+>         slab_kmem_cache_release(s);
+>     }
+> 
+> So the two could not disagree.
 
-ucsi_find_fwnode() currently maps UCSI connectors to Device tree
-connector nodes based on the order in which connector child nodes
-are described in DT.
+Right.
 
-This can fail because the ordering of child nodes isn't guaranteed
-in Device-tree. For example, DTB may contain connector@1 before
-connector@0, causing connector numbers to be associated with the wrong
-fwnode. As a result, role switch and Type-C notifications can be
-delivered to the wrong remote endpoints.
+> 4ec10268 moved sysfs_slab_unlink() into
+> kmem_cache_destroy(), after list_del() and after dropping slab_mutex,
+> and left a second slab_state test in kmem_cache_release() for
+> sysfs_slab_release(). The cache is already off slab_caches in between.
 
-Fix this by using the "reg" property of each connector to match
-its corresponding fwnode. While at it, if the reg property isn't
-present, then fall back to the old method.
+Right.
 
-Fixes: c1b0bc2dabfa ("usb: typec: Add support for UCSI interface")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Prashanth K <prashanth.k@oss.qualcomm.com>
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Link: https://patch.msgid.link/20260916042808.2879079-1-prashanth.k@oss.qualcomm.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/usb/typec/ucsi/ucsi.c |   17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+> That is the window in the warning: the first test sees < FULL, so the
+> kobject is never linked; slab_late_init() then sets FULL under
+> slab_mutex and calls sysfs_slab_add() only for caches still on the
+> list; the second test sees FULL and kobject_put()s a kobject that
+> kobject_init() never ran on.
+> 
+> A single read cannot produce that split decision, which is why Fixes:
+> points at 4ec10268ed98.
 
---- a/drivers/usb/typec/ucsi/ucsi.c
-+++ b/drivers/usb/typec/ucsi/ucsi.c
-@@ -1542,10 +1542,21 @@ static struct fwnode_handle *ucsi_find_f
- {
- 	struct fwnode_handle *fwnode;
- 	int i = 1;
-+	int ret;
-+	u32 port;
- 
--	device_for_each_child_node(con->ucsi->dev, fwnode)
--		if (i++ == con->num)
--			return fwnode;
-+	device_for_each_child_node(con->ucsi->dev, fwnode) {
-+		ret = fwnode_property_read_u32(fwnode, "reg", &port);
-+		if (ret < 0) {
-+			if (i == con->num)
-+				return fwnode;
-+		} else {
-+			if (port == con->num - 1)
-+				return fwnode;
-+		}
-+
-+		i++;
-+	}
- 	return NULL;
- }
- 
+Right.
 
+> There is a related older window: after list_del() and before that
+> single read, slab_sysfs_init() could set FULL, skip this cache, and
+> the single read would then call both unlink and release on an
+> uninitialized kobject.
 
+No, with this patch slab_sysfs_init() cannot set the state to FULL
+because the slab_caches list and slab_state are protected by slab_mutex.
+
+> I have not hit that, and this patch does not close it.
+
+I think the patch does close two bugs.
+
+One introduced by 4ec10268ed98 (reading slab_state twice),
+another (reading slab_state outside slab_mutex) introduced by, hmm,
+not sure which commit introduced it :) should be very old.
+
+-- 
+Cheers,
+Harry / Hyeonggon
