@@ -1,126 +1,147 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE0447ACF4;
-	Tue, 13 Oct 2026 02:38:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35ED472F65;
+	Tue, 13 Oct 2026 02:45:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791859116; cv=none; b=pDnst835cX4REQrJy6GlJ81K7McOHHn6Vr/LYmDdoZ5KODbzYPywZqt2d3/b+oPZWgcF8Doi6KcOY/dMxH1+Kt+MVcSNRmKwSNDQL2RrYLsDkTbXve3opNu911l5ZT2ukbWtc2Fx3yNowcLqq3eckF3qyAud+wyh3qk6vs8yjhw=
+	t=1791859527; cv=none; b=ViEPupLTBmQYSg5FSHePKawVbJbEOOtRVQUGyud4YpkWyiY+teCaMTsLHy8/WI6p0C+wazo2nAh2JBr4A/55xOcV4IRAX4t54HmdoqlFDvJ3V6QicL0DKC5GHB306m2B98CtdXA0TL8KNfEWj8iFV+TGkMyEfINYPp4XRLk6Kic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791859116; c=relaxed/simple;
-	bh=I3coorphk9JkdHrAoSg2U+w+wpGHjRGOgo1vR8YJqP8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QMYDPhXHov6ISJJmn7g/GmiSpiaZzzZvqkiAArE7je6MeTG/axjBYOwMD81IaJrU8dkGIhTNN13wYqlug9qSTU+G9uYIdqgaTeAWZdZq0UVxig1RmGadTIzQsie5urraUUvMnrqT73pU3V29rCsesrSKzzWzMvRP79p/7xLHmvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 2ac00dbcc6af11f19a56ed5b684f684d-20261013
-X-CID-CACHE: Type:Local,Time:202610131036+08,HitQuantity:1
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:e9b0ed25-595d-416b-b600-acb5362e38f8,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:f6862183627acf49100bff84daa64240,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898|915,TC:nil,Content:0|15|52
-	|99,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:
-	0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 2ac00dbcc6af11f19a56ed5b684f684d-20261013
-X-User: lilinmao@kylinos.cn
-Received: from [192.168.1.101] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <lilinmao@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 112571573; Tue, 13 Oct 2026 10:38:26 +0800
-Message-ID: <e7ba57f2-092e-4801-9659-7e7533f031c4@kylinos.cn>
-Date: Tue, 13 Oct 2026 10:38:22 +0800
+	s=arc-20240116; t=1791859527; c=relaxed/simple;
+	bh=WeehgmvqQnP25MuVHW11H3D9E7AtzSWp/Eej5Xiqnu8=;
+	h=Date:To:From:Subject:Message-Id; b=VwaLDLg6+ZAYu84tBImQy2zqzZm7+LRc7HUndeW+2YuDu+MsEfqBYv/Us1iZ+FY11f8311ARgoSpM05WjOi2etZby9KpyCLZ7WyljNvIrBZ/3sXw6p0f77k03X9H3633urz2nV0vEum4aA2Wc95vPWHsM8uvVGD+CntUps1O0dI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=icPC7ZY3; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="icPC7ZY3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F5431F000FF;
+	Tue, 13 Oct 2026 02:45:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1791859525;
+	bh=V4afKLdFxWirfZ4LA1N4o2DSZ//qZVuqWnEFtGG6cPY=;
+	h=Date:To:From:Subject;
+	b=icPC7ZY3LfuJJO3JvhuXwC5HrtAGuSGUI8FT+SJUXwTR2B3z+fT2iazSx2J0GHnAR
+	 ftWzECcFAhe9Vi6UusZVDEDU3d5ARklvequTjLNxJaIsxv+AkftWdRDZNJiDcqvMT1
+	 badoLUWljizTndjpuJx1BpffHiFuzKAy2TwbpJHc=
+Date: Mon, 12 Oct 2026 19:45:25 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mark@fasheh.com,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,heming.zhao@suse.com,ghe@suse.com,baijiaju1990@gmail.com,zzzccc427@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + ocfs2-publish-the-filecheck-owner-before-adding-sysfs-attributes.patch added to mm-nonmm-unstable branch
+Message-Id: <20261013024525.8F5431F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] r8152: Use BMSR to detect the link state
-To: Birger Koblitz <mail@birger-koblitz.de>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Chih Kai Hsu <hsu.chih.kai@realtek.com>, nic_swsd@realtek.com,
- Xiangqian Zhang <zhangxiangqian@kylinos.cn>, linux-usb@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261005105249.1281648-1-lilinmao@kylinos.cn>
- <ee122a12-eae8-40a6-bad9-086228ae76f2@birger-koblitz.de>
- <b56624e0-d1e4-4b52-9d3d-de923c471a58@kylinos.cn>
- <6030ce9b-1e93-4d11-b9f3-6101fec2229e@birger-koblitz.de>
-From: Linmao Li <lilinmao@kylinos.cn>
-In-Reply-To: <6030ce9b-1e93-4d11-b9f3-6101fec2229e@birger-koblitz.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
 
-在 2026/10/13 0:13, Birger Koblitz 写道:
-> Hi Linmao,
->
-> On 09/10/2026 9:18 am, Linmao Li wrote:
->
->> Hi Birger,
->>
->> Thanks for testing. Only the first BMSR read after link up returns the
->> latched value, so ethtool shows the problem only if nothing else reads
->> the PHY first. On my systems NetworkManager reads it right after
->> carrier up, so a later ethtool reports 1000Mb/s while NetworkManager
->> keeps the unknown speed it read.
->>
->> With an RTL8153B on v7.3-rc6, stopping NetworkManager was enough for
->> ethtool alone to show it after 3 of 3 USB rebinds:
->>
->>    # systemctl stop NetworkManager
->>    # (rebind the device, bring the interface up, wait for carrier)
->>    # ethtool <iface> | grep Speed
->>            Speed: Unknown!
->>    # ethtool <iface> | grep Speed
->>            Speed: 1000Mb/s
->>
->> I got the same result with cable replugs on a 6.6-based kernel. The
->> latch does not time out: the first ethtool still reported Unknown 3 s
->> after carrier up. On the 6.6-based system, the network service of a
->> Chromium-based browser also read the PHY first, so other tools may
->> need to be stopped too. I have not checked your setup and have not
->> tested an RTL8153A.
->
-> Thanks for the explanation. I re-did the test and confirm that the fix 
-> works. I tested on:
->
-> RTL8157 (5GBit device, 2.5GBit link)
-> driver: r8152
-> version: 7.1.8+deb13-amd64
-> firmware-version: rtl8157-1 v1 2026/01/01
->
-> RTL8153A (1GBit device, 1GBit link)
-> driver: r8152
-> version: 7.1.8+deb13-amd64
-> firmware-version: rtl8153a-4 v2 02/07/20
->
-> both worked flawlessly. I tested
-> - plug/unplug during normal operation
-> - link-changes by peer in normal operation
-> - plug or unplug during suspend, then resume
->
-> Tested-by: Birger Koblitz <mail@birger-koblitz.de>
->
-> Birger
-Hi Birger,
+The patch titled
+     Subject: ocfs2: publish the filecheck owner before adding sysfs attributes
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     ocfs2-publish-the-filecheck-owner-before-adding-sysfs-attributes.patch
 
-Thanks a lot for testing both devices. Just to be sure, was it the v2
-patch as posted, without other changes? The RTL8157 result is
-interesting given Hayes's comment about the newer ICs.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-publish-the-filecheck-owner-before-adding-sysfs-attributes.patch
 
-The next version will probably change the approach, so I will only
-keep your Tested-by if the code stays the same, and would be glad if
-you could test it again.
+This patch will later appear in the mm-nonmm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Thanks,
-Linmao
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Cen Zhang <zzzccc427@gmail.com>
+Subject: ocfs2: publish the filecheck owner before adding sysfs attributes
+Date: Tue, 13 Oct 2026 09:58:58 +0800
+
+ocfs2_filecheck_create_sysfs() initializes the filecheck allocation before
+calling kobject_init_and_add(), but assigns entry->fs_fcheck only after
+that call returns.  The default attribute group can already be visible
+while registration is in progress.  A concurrent read can therefore enter
+ocfs2_filecheck_attr_show() with a NULL fs_fcheck and try to lock its
+fc_lock.
+
+Assign the initialized owner before adding the kobject, so every activated
+attribute has valid state.  Clear the pointer when addition fails,
+preserving the existing teardown guard and error cleanup.
+
+A controlled probe-instrumented test kernel with the original OCFS2
+registration ordering produced this Oops during a concurrent sysfs read:
+
+  KASAN: null-ptr-deref in range [0x0000000000000028-0x000000000000002f]
+  RIP: 0010:kasan_byte_accessible+0x15/0x30
+  Call Trace:
+   <TASK>
+   __kasan_check_byte+0x13/0x50
+   lock_acquire+0x113/0x300
+   _raw_spin_lock+0x31/0x40
+   ocfs2_filecheck_attr_show+0x138/0x5f0
+   ocfs2_filecheck_show+0x5d/0x90
+   sysfs_kf_seq_show+0x1d3/0x360
+   seq_read_iter+0x480/0x1110
+   kernfs_fop_read_iter+0x419/0x5a0
+   vfs_read+0x7d2/0xc20
+   ksys_read+0x111/0x200
+   do_syscall_64+0x114/0x620
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
+  Modules linked in:
+
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0086-v4-1b3a3c5fd05c1fb41df9@gmail.com
+Fixes: 5f483c4abb50 ("ocfs2: add kobject for online file check")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Heming Zhao <heming.zhao@suse.com>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Assisted-by: LLM
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Gang He <ghe@suse.com>
+Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
+Cc: <jjzuming@gmail.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ fs/ocfs2/filecheck.c |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+--- a/fs/ocfs2/filecheck.c~ocfs2-publish-the-filecheck-owner-before-adding-sysfs-attributes
++++ a/fs/ocfs2/filecheck.c
+@@ -179,17 +179,20 @@ int ocfs2_filecheck_create_sysfs(struct
+ 	fcheck->fc_size = 0;
+ 	fcheck->fc_done = 0;
+ 
++	/* Publish the initialized owner before activating its sysfs callbacks. */
++	entry->fs_fcheck = fcheck;
+ 	entry->fs_kobj.kset = osb->osb_dev_kset;
+ 	init_completion(&entry->fs_kobj_unregister);
+ 	ret = kobject_init_and_add(&entry->fs_kobj, &ocfs2_ktype_filecheck,
+ 					NULL, "filecheck");
+ 	if (ret) {
++		/* Mount failure still calls ocfs2_filecheck_remove_sysfs(). */
++		entry->fs_fcheck = NULL;
+ 		kobject_put(&entry->fs_kobj);
+ 		kfree(fcheck);
+ 		return ret;
+ 	}
+ 
+-	entry->fs_fcheck = fcheck;
+ 	return 0;
+ }
+ 
+_
+
+Patches currently in -mm which might be from zzzccc427@gmail.com are
+
+ocfs2-heartbeat-unlink-live-slots-when-their-node-is-missing.patch
+ocfs2-initialize-status-waiters-before-publishing-them.patch
+ocfs2-publish-the-filecheck-owner-before-adding-sysfs-attributes.patch
+
