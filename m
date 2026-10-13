@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94D2483830;
-	Tue, 13 Oct 2026 04:32:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90282484889;
+	Tue, 13 Oct 2026 04:33:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791865961; cv=none; b=pBgE3Kk5ON/fgK1+HEo+4wSx8NuwwO0Ki32HzxSqnglh6t+h1lhGBXP6G2rL7Udy6401O34oT5vdSRH1q3WHtStsCioP/CFEE/daRMEebJlRY67pKA7LmG3f/y2+dj2y9UUoENZmPhlL2Fwq0pVbTbbocPLXQOdoppEwrsrsnpA=
+	t=1791865989; cv=none; b=Vbww67KCbjU14N+4XVWkw5Z8DoOcK7YJh/TO4LPQ+MTu/cGyUX65THvnvSMWX3b7KR7OpvevKxlyzPLjEojRshRibodrBMARCfkbnIkvqykH645VzovyDg7yLsygBv6Iwc6Sy87wWX203Jx+lMf4c4U2RocY3Ra3Gunrx9FdSZg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791865961; c=relaxed/simple;
-	bh=LiAfohgMLkffHtZafOBYJyB6f+rE0knUX+VU7kVul1Q=;
-	h=Date:To:From:Subject:Message-Id; b=BQ30X6/3QZecCj7KekHHyZB+MVrFtFtHcPgqqzDgcK7/lyUGM/OmC9fkP4UJEHVmKVt4al4bsu6NqdaKrVWmsKF/y15+h90A3nPZajwPyF+M2IYgK1c+LiBkwZD8ka6f+H8ALHgBj/9fv2ldIzWx6EpC8NjjMei8fIAGyG4/uLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=n4yJfZqE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791865989; c=relaxed/simple;
+	bh=kjtoB2WbLZN+4WMIePtmXIPTf6oLK7EidU6vfqUYegs=;
+	h=Date:To:From:Subject:Message-Id; b=sZtNb8wh5SLodWZHlHHtsY00oDQ9ll+faHyb0KouCRSJivez30g/UyPrgmZVv1o3VImfkvUKwvaCZwO4qYp4FmZqqwQqRIoOQRpHwuhLVl1XyucIhGJgUhSDgbYNzdY3ZSVy5MlnLCOSKjiO5SJUfdGcH04NJUdYvejcg8Uby6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=jf/FASTD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="n4yJfZqE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DB291F000FF;
-	Tue, 13 Oct 2026 04:32:39 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="jf/FASTD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 632C51F000FF;
+	Tue, 13 Oct 2026 04:33:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791865959;
-	bh=I6YV5zFI2Qtmp9vRfMOF1rahkGQKuvSLNImz4NkmO3o=;
+	d=linux-foundation.org; s=korg; t=1791865987;
+	bh=a5PKf1Hg0CIdy55n8qMp4eapn+6iEoBK7AWlQ5AIOnk=;
 	h=Date:To:From:Subject;
-	b=n4yJfZqEv/XhD6GWvPjRBbC8+ctujdDbftZ2c/h/trvWT+H6bmlC7nmRqLA8onx24
-	 4scV+xrZ83dlJUjd+wToORC7loIuSnvjOUrybgw4iI6vr9u3LYPr3zs/Fw/RfU+lTc
-	 y6QnU2nL+PVMMqSXu/wJ3fn0aybVL8d426rRlh24=
-Date: Mon, 12 Oct 2026 21:32:39 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,mhocko@suse.com,mgorman@techsingularity.net,henry.willard@oracle.com,hannes@cmpxchg.org,david@kernel.org,brendan.jackman@linux.dev,xiangzao@linux.alibaba.com,akpm@linux-foundation.org
+	b=jf/FASTDhzT0o5gFyjPzTSadcnZeq1ZN6NjGjFBzntoozrkvnSp3rBlDyUIq6Qd84
+	 e0wvY+22QLjdfsdrqTs2TsMyE6dBHwdRnxW4GrbhUF/JP/FEv6Ki30c/ni+35zFL/L
+	 y0gpu8VJ4ZV3SrJp01cmKbJeCK74z6/WhzgClknQ=
+Date: Mon, 12 Oct 2026 21:33:07 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,shakeel.butt@linux.dev,osalvador@suse.de,muchun.song@linux.dev,kees@kernel.org,david@kernel.org,colin.i.king@gmail.com,almasrymina@google.com,lihongfu@kylinos.cn,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-stable] mm-page_alloc-do-not-boost-watermarks-in-kdump-capture-kernels.patch removed from -mm tree
-Message-Id: <20261013043239.9DB291F000FF@smtp.kernel.org>
+Subject: [merged mm-stable] mm-hugetlb_cgroup-move-per-node-usage-on-cross-node-migration.patch removed from -mm tree
+Message-Id: <20261013043307.632C51F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,112 +35,125 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: mm/page_alloc: do not boost watermarks in kdump capture kernels
+     Subject: mm/hugetlb_cgroup: move per-node usage on cross node migration
 has been removed from the -mm tree.  Its filename was
-     mm-page_alloc-do-not-boost-watermarks-in-kdump-capture-kernels.patch
+     mm-hugetlb_cgroup-move-per-node-usage-on-cross-node-migration.patch
 
 This patch was dropped because it was merged into the mm-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Yuanhe Shu <xiangzao@linux.alibaba.com>
-Subject: mm/page_alloc: do not boost watermarks in kdump capture kernels
-Date: Wed, 16 Sep 2026 19:25:45 +0800
+From: Hongfu Li <lihongfu@kylinos.cn>
+Subject: mm/hugetlb_cgroup: move per-node usage on cross node migration
+Date: Fri, 18 Sep 2026 10:56:10 +0800
 
-A watermark boost is not confined to one watermark: wmark_pages() adds it
-to min, low and high alike, so every watermark check sees it, including
-should_reclaim_retry() and the last ditch ALLOC_WMARK_HIGH attempt in
-__alloc_pages_may_oom().  Once the boost exceeds the memory still free the
-allocator gives up and invokes the OOM killer, and a capture kernel that
-is still booting has nothing to kill: the boot panics and the vmcore is
-lost.
+Patch series "mm/hugetlb_cgroup: move the per-node usage along with the
+folio", v2.
 
-Seen on an arm64 machine with 64K pages, CONFIG_PAGE_BLOCK_MAX_ORDER=10
-(pageblock = 64M) and crashkernel=512M, running a distribution kernel
-based on 7.0.14.  A high order UNMOVABLE allocation fell back to a MOVABLE
-pageblock while the capture kernel was still in do_initcalls():
+The per-node usage reported by hugetlb.<size>.numa_stat is accounted
+against folio_nid() in __hugetlb_cgroup_commit_charge() and
+__hugetlb_cgroup_uncharge_folio(), so it is only correct while a folio
+stays charged on the same node and in the same hugetlb_cgroup.
 
-  Node 0 DMA free:68096kB boost:65536kB min:68160kB
-  low:68800kB high:69440kB managed:479168kB
-  Out of memory and no killable processes...
-  Kernel panic - not syncing: System is deadlocked on memory
+Two paths move a folio which stays charged, and neither moves the usage
+with it.  hugetlb_cgroup_migrate() only moves the hugetlb_cgroup pointers
+of a folio migrated to another node, and hugetlb_cgroup_move_parent() only
+moves the page_counter charges and the hugetlb_cgroup pointer of the
+folios of a dying cgroup.  In both cases the node (or cgroup) which was
+charged keeps a usage which never goes away, while the node (or cgroup)
+which ends up uncharging the folio underflows as soon as the folio is
+freed.
 
-The zone was not short of memory.  Subtracting the boost gives min:2624kB
-low:3264kB high:3904kB, so the 68096kB still free sat 17 times above the
-high watermark and the allocator would not even have entered its slow
-path.  The boost supplied 65536kB of the 68160kB min and by itself put the
-zone 64kB under water.  It is that large because boost_watermark() clamps
-it with max(pageblock_nr_pages, max_boost); watermark_boost_factor alone
-would have allowed 5824kB.
+Patch 1/2 moves the usage along with the folio on cross node migration,
+patch 2/2 does the same for the folios a dying cgroup reparents.
 
-Commit 14f69140ff9c ("mm: limit boost_watermark on small zones") already
-tried to protect capture kernels, but it infers them from the zone size
-and skips the boost only below four pageblocks.  arm64 64K pageblocks were
-512M then, so the guard reached zones up to 2G;
-CONFIG_PAGE_BLOCK_MAX_ORDER can cap them at 64M, which shrinks the guard
-to zones under 256M and lets this 468M zone through.
 
-kdump is a property of the kernel, not of the zone, so test for it
-directly.  A capture kernel exits within seconds and never uses the
-fragmentation avoidance the boost buys.  Normal kernels are unaffected:
-the size based check still covers their genuinely tiny zones.
+This patch (of 2):
 
-Passing sysctl.vm.watermark_boost_factor=0 to the capture kernel does not
-cover this window: sysctl.* parameters are written through procfs by
-do_sysctl_args(), which runs after do_initcalls() where the panic above
-happened, and watermark_boost_factor has no early_param of its own.
+hugetlb.<size>.numa_stat uses folio_nid() to account usage in
+__hugetlb_cgroup_commit_charge() and __hugetlb_cgroup_uncharge_folio(). 
+hugetlb_cgroup_migrate() only moves hugetlb_cgroup pointers, leaving
+per-node usage behind on the source node during cross-node migration.
 
-Link: https://lore.kernel.org/20260916112545.3707893-1-xiangzao@linux.alibaba.com
-Fixes: 1c30844d2dfe ("mm: reclaim small amounts of memory when an external fragmentation event occurs")
-Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
+When the migrated folio gets uncharged, we subtract usage from the
+destination node counter.  This creates stale usage on the source node and
+unsigned long counter underflow on the destination node.  The
+hugetlb.<size>.numa_stat interface exposes these incorrect per-node usage
+values to userspace.
+
+Add a hugetlb_cgroup_move_usage() helper which moves the usage from the
+old node to the new node, and call it from hugetlb_cgroup_migrate().
+
+Link: https://lore.kernel.org/20260918-for-hugetlb-charge-v2-0-2b6d8c2bdc36@kylinos.cn
+Link: https://lore.kernel.org/20260918-for-hugetlb-charge-v2-1-2b6d8c2bdc36@kylinos.cn
+Fixes: f47761999052 ("hugetlb: add hugetlb.*.numa_stat file")
+Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Henry Willard <henry.willard@oracle.com>
-Cc: Brendan Jackman <brendan.jackman@linux.dev>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Cc: Colin Ian King <colin.i.king@gmail.com>
 Cc: David Hildenbrand <david@kernel.org>
-Cc: Mel Gorman <mgorman@techsingularity.net>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org> # v5.0
+Cc: Kees Cook <kees@kernel.org>
+Cc: Mina Almasry <almasrymina@google.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: <stable@vger.kernel.org>
 ---
 
- mm/page_alloc.c |   12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ mm/hugetlb_cgroup.c |   31 +++++++++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
---- a/mm/page_alloc.c~mm-page_alloc-do-not-boost-watermarks-in-kdump-capture-kernels
-+++ a/mm/page_alloc.c
-@@ -37,6 +37,7 @@
- #include <linux/vmstat.h>
- #include <linux/fault-inject.h>
- #include <linux/compaction.h>
-+#include <linux/crash_dump.h>
- #include <trace/events/kmem.h>
- #include <trace/events/oom.h>
- #include <linux/prefetch.h>
-@@ -2160,10 +2161,17 @@ static inline bool boost_watermark(struc
+--- a/mm/hugetlb_cgroup.c~mm-hugetlb_cgroup-move-per-node-usage-on-cross-node-migration
++++ a/mm/hugetlb_cgroup.c
+@@ -179,6 +179,34 @@ static void hugetlb_cgroup_css_free(stru
+ 	hugetlb_cgroup_free(hugetlb_cgroup_from_css(css));
+ }
  
- 	if (!watermark_boost_factor)
- 		return false;
++static void hugetlb_cgroup_move_usage(struct hugetlb_cgroup *from,
++				      struct hugetlb_cgroup *to,
++				      struct folio *from_folio,
++				      struct folio *to_folio)
++{
++	int idx = hstate_index(folio_hstate(from_folio));
++	unsigned long nr_pages = folio_nr_pages(from_folio);
++	int from_nid = folio_nid(from_folio);
++	int to_nid = folio_nid(to_folio);
++	unsigned long usage;
 +
-+	/*
-+	 * A kdump capture kernel exits before a boost can pay off, while
-+	 * the raised watermark can exceed the memory left for the dump.
-+	 */
-+	if (is_kdump_kernel())
-+		return false;
++	lockdep_assert_held(&hugetlb_lock);
 +
- 	/*
- 	 * Don't bother in zones that are unlikely to produce results.
--	 * On small machines, including kdump capture kernels running
--	 * in a small area, boosting the watermark can cause an out of
-+	 * On small machines, boosting the watermark can cause an out of
- 	 * memory situation immediately.
- 	 */
- 	if ((pageblock_nr_pages * 4) > zone_managed_pages(zone))
++	if (!from || !to)
++		return;
++
++	if (from == to && from_nid == to_nid)
++		return;
++
++	usage = from->nodeinfo[from_nid]->usage[idx];
++	if (WARN_ON_ONCE(usage < nr_pages))
++		return;
++	WRITE_ONCE(from->nodeinfo[from_nid]->usage[idx], usage - nr_pages);
++
++	usage = to->nodeinfo[to_nid]->usage[idx];
++	WRITE_ONCE(to->nodeinfo[to_nid]->usage[idx], usage + nr_pages);
++}
++
+ /*
+  * Should be called with hugetlb_lock held.
+  * Since we are holding hugetlb_lock, pages cannot get moved from
+@@ -906,6 +934,9 @@ void hugetlb_cgroup_migrate(struct folio
+ 	/* move the h_cg details to new cgroup */
+ 	set_hugetlb_cgroup(new_folio, h_cg);
+ 	set_hugetlb_cgroup_rsvd(new_folio, h_cg_rsvd);
++
++	hugetlb_cgroup_move_usage(h_cg, h_cg, old_folio, new_folio);
++
+ 	list_move(&new_folio->lru, &h->hugepage_activelist);
+ 	spin_unlock_irq(&hugetlb_lock);
+ }
 _
 
-Patches currently in -mm which might be from xiangzao@linux.alibaba.com are
+Patches currently in -mm which might be from lihongfu@kylinos.cn are
 
+mm-hugetlb-account-migration-target-folio-in-per-node-nr_hugetlb-vmstat.patch
+mm-memcg-migrate-per-node-hugetlb-lruvec-stat-together-with-hugetlb-folio.patch
+mm-memfd-fix-hugetlb-reservation-accounting-in-error-paths.patch
 
