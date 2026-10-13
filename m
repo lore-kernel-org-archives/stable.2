@@ -1,124 +1,105 @@
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA95F53C3AD
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 19:19:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B7E3CB2FA;
+	Tue, 13 Oct 2026 19:23:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791919185; cv=none; b=NwLm3PDOqKs0q/LRP88M/vIkYyOvknFbPmp/sQ7+qMqg5kKgsssEjfkgWV7p+8NySaa3E3csTChT/o9Yvq1IPv+PRCTKAiJt8znf0rqBfxG0D4xCesKmTHw0hhWvbThvvXq/PvF7kPKxzP8TQK/LbFUndDdqLWF8LipiCrfRYPw=
+	t=1791919395; cv=none; b=FWhJo44I6mUkHVzMT5YPwCpsdbJQtwTbdFsKNMWQOUdCmdshgH8V6KWsqqIav7S7ugMksQqjMg7zLU+VxAtYpOz/irsytHxSbz6lTM+94443ak47H0koZfOz1V/wMTCSuIRgXRyorGLpC5tvbDEN2OHpnFhrt1ovgwP8xyPOLkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791919185; c=relaxed/simple;
-	bh=Q0xoJoHTPOGkBU/ykGam9+aTXGu8sCVurjmTpYiGjKk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UaGk57yc88e5EKqK4xdINQaZ9h4dDhpqAZ5GiPUWSpnpIWdK4ucHiN+1F84RDObv2nWfDU5plo3rzEGm4w4YzqG/FV1bcQ+P2DIvQwAAUH2nDp3pmoWljI2mRcUvCABZ7zv3jiJN+U6UKYvNkB4E0jL1nu3L+GwjHtGEoYnMX6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aLfz6Jim; arc=none smtp.client-ip=209.85.222.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791919395; c=relaxed/simple;
+	bh=fLVJvchgOrr/FoB90dGBUSI2t4PI/G0g/rO3vrxD65Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QeprmwOdA2uwtKOrMNm5uNg9SypBqa/GiG8rNKqZcFbOYJ5As5ZoWy84WCaIV5vQCG3nzNgcUUX6/R2Wxm8Sw3ZN1+7jWU+libDn+ioZlL5E9R5FgpkJug5g25Igz7RhFGvN7qSkSr+a8vt3paMWLYtV/F5J8YnngYn6NI01KiI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FwPoKWZh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aLfz6Jim"
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-93cc1ab5f6cso400530885a.0
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 12:19:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791919183; x=1792523983; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pfgvs3MJEbW2BwnwAhjd9SKbBYEufXUXojUMotaCz9A=;
-        b=aLfz6JimkR0Rtx927ja30vUnHJfI7IGnPW4knsNAOshj4zU4hnyk60MRNOHWTjXXO7
-         tqrY7QbSEy4/LcqbQDykFZCnhB6v1PSDOpU+0JFKxhD++c4Y9sbb682qlPSPHQQXYmRf
-         d1Pvctgl0vcEcywr17rZRRj6FoX3acFhm551uJW4QbTrQV6qPA1OFYFdGGGXBuLPwGxl
-         lBxmKGCZRf+yMuuJQ8tUvBJEulwmxTsW6BsrsiK2Dy0RUvqVeTU0k6gHauupgDp9qa73
-         eooOp4KR+BlAyRtYzg9KsIGT7nyYxl3V3afcXxO2fct6eBKumJ6mDlc/1abg8emOB8t3
-         9eQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791919183; x=1792523983;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pfgvs3MJEbW2BwnwAhjd9SKbBYEufXUXojUMotaCz9A=;
-        b=P7G9h/qnxvTqlKsQBeW5DzFL1iwzSLA9FAlrTOkWmVBBVvs0klkfhkqUtoX1A6r/Y+
-         ARPjokUjNpxbBqxBCNktxC/KmKNJrMRoLZOSZjPIPdyIG4qql6r9EKjAgqFRsM8obtzY
-         dW9bnbmthYZpHQUc5Z9SeXg04DqKSdTOYAff6MTjDERvc9bIyif9rPnw+JMHRed7Axl+
-         LjegCYQAdMB3Yl+KPVG8CZQEdtEeSWY3bAdNeGt3obm55bMODYNUzGSQ3kSeGS3xMxek
-         vUwS9F0QMK7zJdzV4e95+msUOK8I2C+pdL7l50H3JPUiAvBedHQtGhJBJL00tLBbp3ZT
-         5HGA==
-X-Forwarded-Encrypted: i=1; AKwUvBzEkUAhIBSwcs2/+74hZLKsKETQSMhFCk9MF8cY3w6X6keYrEISLn+ovtFKgXWbivKFpMOmpoY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIm4BFRohzLIwLApH6qCH4k5UlViHJ41id0RMBS3+iTgIaDk6Cy
-	ug41j8QOwcokCdBAql/qmJoZ+9Q2ViuTyqRcUBIke7nkpsPVJB7+XqXA
-X-Gm-Gg: AYBFou0TTEGiCxNnnCWn9YIXikGO/skw0W5M+nveVZ9aHaK+6Urcb51XJuNM5Odlh6i
-	5NQuoCNPJmoJkG/JwHwo2QtoQetyHv9hcxwuQ81IvBeHZuVoF6qBh0ICtBYIKViJ8vdbGkC0tL1
-	zG/cvavH78SaxOAbdvz5j4FLmw8HEO40Iboha34dAC6dmj7RM2JDq4nKhmDG66gY3+BlEovrpa7
-	bxnMUzvtRxBdvJ17Yulj88heAD23rUrWybP676kW7UbLTi8SojxYBYApkda/pgYgWyX7iintATb
-	NfBXFNbcTDyg8kxEHCZ9m/VPYVjGwJVWzpkNEtwV1fbFFpumtOpJCNEnjKYpYsmYOiHUy5rAouv
-	vVaHMPlqIk8gRCWDIcLI1VjxO2aK8cn301aE24kT/lWr+TwPQua8OSlAry5dBwbfLIQl/v4zkN6
-	OssZ6PGwDwXlJtrj09wDSgScj1YJatdyzruumjdN/J2SehAQHAiMsgE1qpR/pE5I6UtoSNSMH/K
-	cu4IXEEiq2MjJtNQllkrnEY
-X-Received: by 2002:a05:620a:6606:b0:93e:bcbf:4ad with SMTP id af79cd13be357-93ebd24d7acmr2270223785a.33.1791919183457;
-        Tue, 13 Oct 2026 12:19:43 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef5009b87sm305039785a.11.2026.10.13.12.19.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 12:19:42 -0700 (PDT)
-Message-ID: <0b797c37-afae-479b-b84e-68bcd8369f4d@gmail.com>
-Date: Tue, 13 Oct 2026 12:19:38 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FwPoKWZh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 193DF1F000FF;
+	Tue, 13 Oct 2026 19:23:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791919393;
+	bh=uTpljzLsM4ar3FCb7KQFeG+fZveMF5TVm3VuizQw5Aw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FwPoKWZh4Jdm3xYp5Z2UEeji2S0sc8BibE2kmFgYdtbRFkVtAG+F5oTeMF4HSX4wA
+	 BXwhu4Tg7faX7C/wi2avb/ftAbZ4HLphkSVhh+MntGKpAliF/UFlt/2pV5o+4PXo/5
+	 /u8Po9+te8dhKEnreffeVmXfMHWWhq2MPbxD3jnPckRBfhwcfD6zMtjOwEf3YZWO3Y
+	 ip0fjcgrbnRKJsrjJihEcTbjn5hnNgLNmrb6KmLxMRnSJr5MixImxpDg305gYYmOJq
+	 fo4s0av+Pr9cTli2dvk0TXdDYUFSmsLku+c4SM9Rf6l7mI3CjwNwXQ01x/iRDl3BYm
+	 mMWZVTHtI4SAw==
+Date: Tue, 13 Oct 2026 21:23:07 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Jan Kara <jack@suse.cz>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, linux-ext4@vger.kernel.org, linux-afs@lists.infradead.org, 
+	v9fs@lists.linux.dev, linux-trace-kernel@vger.kernel.org, ntfs3@lists.linux.dev, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 0/8] fs: fix a range of UAFs during rcu pathwalk caused
+ by non-rcu frees
+Message-ID: <20261013-tante-unwiederholbar-summieren-de1079d8fb05@brauner>
+References: <20261009-work-fixes-rcu-v1-0-7446d2d335e6@kernel.org>
+ <r72foycb4ol4hywl5m2sj6h6yxee3nladaw7g2zdxhejmhrkgc@v24cfppcak2h>
+ <20261012-gaukeln-zeltlager-etikettieren-73ae50ccac01@brauner>
+ <voobrqryqulmrq7gyt5vdwuiqd3wrhsrgfcadszclcgs6smw64@qb7yne64airm>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/621] 6.18.57-rc1 review
-To: Pavel Machek <pavel@nabladev.com>,
- Brett A C Sheffield <bacs@librecast.net>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
- patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261013112920.855194808@linuxfoundation.org>
- <as4kGIjqjrKzu0O0@auntie.librecast.net> <as4ubep0jWRi-b2G@duo.ucw.cz>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <as4ubep0jWRi-b2G@duo.ucw.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <voobrqryqulmrq7gyt5vdwuiqd3wrhsrgfcadszclcgs6smw64@qb7yne64airm>
 
-On 10/13/26 06:13, Pavel Machek wrote:
-> On Tue 2026-10-13 12:29:12, Brett A C Sheffield wrote:
->> On 2026-10-13 13:29, Greg Kroah-Hartman wrote:
->>> This is the start of the stable review cycle for the 6.18.57 release.
->>> There are 621 patches in this series, all will be posted as a response
->>> to this one.  If anyone has any issues with these being applied, please
->>> let me know.
->>>
->>> Responses should be made by Thu, 15 Oct 2026 11:28:22 +0000.
->>> Anything received after that time might be too late.
->>
->> Build failing on amd64:
->>
->> /usr/x86_64-pc-linux-gnu/binutils-bin/2.47/ld: vmlinux.o: in function `gss_krb5_get_mic_v2':
->> (.text+0xfc2762): undefined reference to `crypto_krb5_get_mic'
->> /usr/x86_64-pc-linux-gnu/binutils-bin/2.47/ld: vmlinux.o: in function `gss_krb5_verify_mic_v2':
->> (.text+0xfc293a): undefined reference to `crypto_krb5_verify_mic'
->> /usr/x86_64-pc-linux-gnu/binutils-bin/2.47/ld: vmlinux.o: in function `gss_krb5_aead_encrypt':
->> (.text+0xfc47a1): undefined reference to `crypto_krb5_encrypt'
->> /usr/x86_64-pc-linux-gnu/binutils-bin/2.47/ld: vmlinux.o: in function `gss_krb5_aead_decrypt':
->> (.text+0xfc48f8): undefined reference to `crypto_krb5_decrypt'
->> make[2]: *** [scripts/Makefile.vmlinux:72: vmlinux.unstripped] Error 1
->> make[1]: *** [/usr/src/linux-stable-rc/Makefile:1272: vmlinux] Error 2
->> make: *** [Makefile:248: __sub-make] Error 2
->>
+On Tue, Oct 13, 2026 at 12:47:58PM +0200, Jan Kara wrote:
+> On Mon 12-10-26 12:42:06, Christian Brauner wrote:
+> > On Mon, Oct 12, 2026 at 12:36:15PM +0200, Jan Kara wrote:
+> > > On Fri 09-10-26 23:51:50, Christian Brauner wrote:
+> > > > While working on eliding the grace period in namespace_unlock() I went
+> > > > through what filesystems free when they're shut down and what a pathwalk
+> > > > in rcu mode can still read at that point. Since 66a97c2ec953's rcu
+> > > > pathwalk fixes that's the filesystem's job. Whatever ->permission(),
+> > > > ->d_revalidate(), ->get_link(), ->d_hash() and ->d_compare() look at in
+> > > > rcu mode has to be freed after a grace period. A few filesystems don't
+> > > > do that.
+> > > > 
+> > > > Most of it is hidden by umount(2). namespace_unlock() waits for a grace
+> > > > period before it drops the mounts, so a walker that was inside the
+> > > > filesystem is gone by the time the filesystem is shut down.
+> > > > 
+> > > > But the last reference to a mount doesn't have to go away in umount(2).
+> > > > A chdir() out of a lazily unmounted directory or the close() of the last
+> > > > file on it drops it without a grace period. A walker can then still be
+> > > > in the filesystem while ->put_super() and ->kill_sb() free what it
+> > > > reads.
+> > > 
+> > > Good catches! But I find it very counter-intuitive that pathname lookups
+> > > can still be running against a filesystem while its ->put_super is called.
+> > > People will keep forgetting about that and as a result these UAF bugs will
+> > > be introduced again. Isn't it feasible we'd guarantee to the filesystem
+> > > ->put_super() gets called only after all lookups are done (i.e., after RCU
+> > > grace period expires)?
+> > > 
+> > > I understand this is a hairy bussiness because this has userspace visible
+> > > implications (like when filesystem's sysfs files disappear, when the bdev
+> > > really gets unused, etc.) but keeping all filesystems safe to run RCU
+> > > lookup after ->put_super() will be IMHO a headache.
+> > 
+> > I don't think delaying put_super() or freeing the superblock helps.
+> > That's not where the issue is. The issue is with sb->s_fs_info being
+> > available after a grace period and that can go away in different
+> > locations ->put_super() or ->kill_sb().
 > 
-> We see same problem here:
+> So my thinking was: Cannot we separate the teardown of mounts and the
+> teardown of the sb by an RCU grace period? Then by the time the filesystem
+> gets to any freeing of filesystem related structures all RCU lookups are
+> guaranteed to be done so there's no problem with them accessing possibly
+> freed structures pointed to by the sb.
 > 
-> https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/jobs/17139116508
+> But then I've read more of the changelogs and AFAIU getting rid of the RCU
+> grace period waiting in the unmount path is actually your point to speedup
 
-And here as well.
--- 
-Florian
+So I prototyped your thing and all version I could see working end up
+penalizing umount and filesystem shutdown quite heavily. Maybe I'm not
+imagnative enough but everything involving synchronize_rcu* should be
+kicked in the n*ts. Because if you're going onto big machines your
+workloads will get said kick.
