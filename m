@@ -1,149 +1,89 @@
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E6DE371068;
-	Tue, 13 Oct 2026 00:27:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B7613815C3;
+	Tue, 13 Oct 2026 00:44:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791851228; cv=none; b=mWBkMfAVHl9f5g+ewNwiKqYF+9wn1r68gRClGGV0KfJog60naR/vc9ZZ1Jbr6R9qxCz0f0Y+aJR/P0eDJlbDa5D7sHtByKRU/2lP9PU86jyywzMi2YCtXZ7cc+F/LlseHt9Ave7ugPT0Rc40pJtfTTiQuyoNd0vU+p9wRrExUEw=
+	t=1791852257; cv=none; b=P+wRPMFLf14Ky9C3djuBMSo9v3YXOzqINHdmBXiKcKo8rF8Rd+56K3Lm5s5PpvjIOy2F4nmkSKTXixRyPBQfTYIDAnBlIzHsk8M42thgMMTL30qrKljNtJ5dqSmG6lx9GO8DamBY/AkbLMm+4uam6PccrZVeEfZRAeP5tjhvZHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791851228; c=relaxed/simple;
-	bh=ac84fA9Xlz6n/G3G6c1lu7kdxnKvzIRZKJQUWfPifHg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CixFP2yPgN81AR2w8N/V+xYla5P3E1R8WufEkWPtBvKzWHHy6uOgcoRZLWOHpyRZVtoW3vigJs4QziYabBiX5g4QAq/3UErNIRMZ7s8DseUwCzxo/r3XaeB5o8Fhh32DCKsD4HgeDIUCxbOoeovMCldw3fdiCDoEP3EesJifBfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xGQMC-00GgqH-Be;
-	Mon, 12 Oct 2026 20:27:04 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Matthew Wilcox <willy@infradead.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1 3/3] ida: free the preallocated node on the ida_alloc_range() failure paths
-Date: Mon, 12 Oct 2026 20:27:03 -0400
-Message-ID: <20261013002703.773923-4-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261013002703.773923-1-nickolai@csail.mit.edu>
-References: <20261013002703.773923-1-nickolai@csail.mit.edu>
+	s=arc-20240116; t=1791852257; c=relaxed/simple;
+	bh=F2/6gOJsn3Zg5kiWTHMbF0lvSyAIqPOYRaJ2mHOCpQc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=MT8NptnI3B/s+ZlyxQWOMrifEe8C71ggWMboAQqW1aMVoTQpRUCVrnhcDuxujuHk6psZs1s7hcDMR3J+M2o0wAZQvsTBcwduv8dK5y61g5HDZxnIrO2vVynlfTNcE/3BpFG1qci+0dJLYTvhteiUNAip1K876/ENiN8qvo51050=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=feVsXiQV; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="feVsXiQV"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69D0i2zR5055986, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1791852242; bh=F2/6gOJsn3Zg5kiWTHMbF0lvSyAIqPOYRaJ2mHOCpQc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=feVsXiQVvb3QQeKJnhvHcnaoYZYf8y2Cg5NGM8Py2WUKYtsuzxNwqBcSMwhbMj4Kj
+	 fW8VOZKlC6AZC/nEj+CwGj1MI/oDpcZmQriCeGVCJskFAbFuc/KxuCGpsmIzLuQq1w
+	 BTYNT8MpQTo95r9lnteZorlwjcUgKZWaibF0IrlFswQj5HncvTKDEtwtk389IyaE8N
+	 3gOen1QPRgTQMvqim8U+F1Bjb4M/dEcwnZbDbrfEOwx7PrSm/OPlPoomT/BQ6U0Viz
+	 NHdF+J3jLwmg/t8rDw43cnWzm+EZBJmi2yTjKPsqwrlrZUrHpxPiEh4B8wwqS5yhFf
+	 Q0MjS7hV5m4PQ==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69D0i2zR5055986
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 13 Oct 2026 08:44:02 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 13 Oct 2026 08:44:03 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Tue, 13 Oct 2026 08:44:03 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: =?utf-8?B?4oCN6rmA7Jqw7ISdW+2VmeyDnV0o7KCE7J6Q7KCV67O064yA7ZWZIOyghA==?=
+ =?utf-8?B?7J6Q6rO17ZWZ6rO8KQ==?= <5mghybrid@khu.ac.kr>,
+	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>
+CC: Jes Sorensen <Jes.Sorensen@gmail.com>, Kalle Valo <kvalo@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH rtw-next] wifi: rtl8xxxu: isolate the USB register buffer
+ from CPU state
+Thread-Topic: [PATCH rtw-next] wifi: rtl8xxxu: isolate the USB register buffer
+ from CPU state
+Thread-Index: AQHdWD8IbE0sWRKeB0i8lqEjk1P2g7b5aFkwgACxEYCAAIwWUA==
+Date: Tue, 13 Oct 2026 00:44:03 +0000
+Message-ID: <04d26f79d5984920a9584d3f31ec3b58@realtek.com>
+References: <20261010-rtl8xxxu-usb-dma-v1-0-e670d9c08fdf@khu.ac.kr>
+ <20261010-rtl8xxxu-usb-dma-v1-1-e670d9c08fdf@khu.ac.kr>
+ <1fc8c339df1944afa6186197337edda3@realtek.com>
+ <CAH1Bc_yOhZ9oqreJOLKb5RDFEW=0Zid=h4xu9oTR51RDwj_bww@mail.gmail.com>
+In-Reply-To: <CAH1Bc_yOhZ9oqreJOLKb5RDFEW=0Zid=h4xu9oTR51RDwj_bww@mail.gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-When xas_store() in ida_alloc_range() fails for want of a node,
-xas_nomem() allocates one into xas.xa_alloc and the function retries.
-The retry either consumes that node in xas_store() or, if it reaches
-"out:" without needing it, returns it through xas_nomem(), which calls
-xas_destroy() when the state is not -ENOMEM.  Two exits do neither:
-
- - "nospc:", when the retry finds no free ID in [min, max] any more.
-   The failed round stored nothing, so this means that another
-   allocation took the IDs while the lock was dropped in xas_nomem();
-   exact-ID callers, ida_alloc_range(ida, id, id, gfp), are the usual
-   way to get there.
-
- - The -ENOMEM return at "alloc:", when the retry needs a bitmap and
-   both the GFP_NOWAIT and the gfp allocation of it fail.
-
-Each occurrence leaks a struct xa_node (576 bytes) from the
-radix_tree_node cache.
-
-Call xas_destroy() on both exits.  It is called with the lock dropped,
-as xas_nomem() itself does, and it is a no-op when nothing was
-preallocated.
-
-This was found while formally verifying ida_alloc_range() against the
-kernel binary.  Add ida_check_retry_nospc() to the
-tools/testing/radix-tree harness: an exact-ID allocation whose first
-store fails loses its ID to an allocation made in the window where
-xas_nomem() has dropped the lock, for an ID in a value entry and for one
-in a bitmap.  Without the fix the harness counts one node still
-allocated after the IDA has been emptied.
-
-Fixes: f32f004cddf8 ("ida: Convert to XArray")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
----
- lib/idr.c                           |  5 ++++-
- tools/testing/radix-tree/idr-test.c | 24 ++++++++++++++++++++++++
- 2 files changed, 28 insertions(+), 1 deletion(-)
-
-diff --git a/lib/idr.c b/lib/idr.c
-index 86c572e60f75..468a9b7adb14 100644
---- a/lib/idr.c
-+++ b/lib/idr.c
-@@ -473,13 +473,16 @@ int ida_alloc_range(struct ida *ida, unsigned int min, unsigned int max,
- alloc:
- 	xas_unlock_irqrestore(&xas, flags);
- 	alloc = kzalloc_obj(*bitmap, gfp);
--	if (!alloc)
-+	if (!alloc) {
-+		xas_destroy(&xas);
- 		return -ENOMEM;
-+	}
- 	xas_set(&xas, min / IDA_BITMAP_BITS);
- 	bit = min % IDA_BITMAP_BITS;
- 	goto retry;
- nospc:
- 	xas_unlock_irqrestore(&xas, flags);
-+	xas_destroy(&xas);
- 	kfree(alloc);
- 	return -ENOSPC;
- }
-diff --git a/tools/testing/radix-tree/idr-test.c b/tools/testing/radix-tree/idr-test.c
-index f1e0be0e09ec..4b862f2080cf 100644
---- a/tools/testing/radix-tree/idr-test.c
-+++ b/tools/testing/radix-tree/idr-test.c
-@@ -522,6 +522,29 @@ void ida_check_retry_stale(void)
- 	IDA_BUG_ON(&ida, !ida_is_empty(&ida));
- }
- 
-+/*
-+ * The node preallocated by xas_nomem() must be freed when the retry finds
-+ * that another allocation took the only ID in range, whether that ID lives
-+ * in a value entry or in a bitmap.
-+ */
-+void ida_check_retry_nospc(void)
-+{
-+	DEFINE_IDA(ida);
-+	unsigned int ids[] = { IDA_BITMAP_BITS + 5, IDA_BITMAP_BITS + 63 };
-+	int allocated, i, id;
-+
-+	rcu_barrier();
-+	allocated = nr_allocated;
-+	for (i = 0; i < ARRAY_SIZE(ids); i++) {
-+		id = ida_alloc_window(&ida, ids[i], ids[i], ids[i]);
-+		IDA_BUG_ON(&ida, id != -ENOSPC);
-+		ida_free(&ida, ids[i]);
-+		IDA_BUG_ON(&ida, !ida_is_empty(&ida));
-+		rcu_barrier();
-+		IDA_BUG_ON(&ida, nr_allocated != allocated);
-+	}
-+}
-+
- /*
-  * Check handling of conversions between exceptional entries and full bitmaps.
-  */
-@@ -594,6 +617,7 @@ void user_ida_checks(void)
- 
- 	ida_check_nomem();
- 	ida_check_retry_stale();
-+	ida_check_retry_nospc();
- 	ida_check_conv_user();
- 	ida_check_random();
- 	ida_alloc_free_test();
--- 
-2.53.0
-
+4oCN6rmA7Jqw7ISdW+2VmeyDnV0o7KCE7J6Q7KCV67O064yA7ZWZIOyghOyekOqzte2VmeqzvCkg
+PDVtZ2h5YnJpZEBraHUuYWMua3I+IHdyb3RlOg0KPiBIaSBQaW5nLUtlLA0KPiANCj4gPiBDb29s
+LiBIb3cgZGlkIHlvdSBkaWcgdGhhdD8NCj4gDQo+IEkgd2FzIHJlcGVhdGVkbHkgcG93ZXItY3lj
+bGluZyB0aGUgQVAgdG8gdGVzdCByZWNvdmVyeSBvZiBhIHBlcnNpc3RlbnQNCj4gcXVldWUgaW4g
+bXkgcHJvamVjdC4gQWZ0ZXIgZml4aW5nIGEgc2VwYXJhdGUgTmV0d29ya01hbmFnZXIgaXNzdWUs
+DQo+IHNvbWUgcmVjb25uZWN0IGZhaWx1cmVzIHJlbWFpbmVkLCBzbyBJIHN0YXJ0ZWQgbG9va2lu
+ZyBhdCB0aGUgZHJpdmVyLg0KPiANCj4gSSB3YXMgdGVzdGluZyB3aXRoIGZvdXIgUmFzcGJlcnJ5
+IFBpcywgYW5kIGRpZmZlcmVudCB1bml0cyB3b3VsZCBoaXQNCj4gdGhlIHNhbWUgZmFpbHVyZSBh
+Y3Jvc3MgcnVucy4gT24gYSBmYWlsaW5nIHVuaXQsIFJGX01PREUgd2FzIGNvcnJ1cHRlZCwNCj4g
+YW5kIHJlc3RvcmluZyBpdHMgaW5pdGlhbGl6ZWQgdmFsdWUgYnJvdWdodCByZWNlcHRpb24gYmFj
+ay4NCj4gDQo+IEkgbmFycm93ZWQgaXQgZG93biB0byByZWdpc3RlciBjb3JydXB0aW9uIGR1cmlu
+ZyBzY2FubmluZywgdGhlbiB0cmFjZWQNCj4gdGhlIHJlZ2lzdGVyIGFjY2VzcyBwYXRoLiBUaGF0
+IGxlZCBtZSB0byB1c2JfYnVmIHNoYXJpbmcgYSBjYWNoZSBsaW5lDQo+IHdpdGggdGhlIG11dGV4
+J3Mgd2FpdGVyIHN0YXRlLCB3aGljaCBjYW4gY2hhbmdlIHdoaWxlIGEgVVNCIHRyYW5zZmVyDQo+
+IGlzIGluIHByb2dyZXNzLg0KDQpEb2VzIGl0IG1lYW4gdGhhdCBkYXRhIGluIGEgY2FjaGUgbGlu
+ZSBjYW4ndCBiZSBtb2RpZmllZCB3aGlsZSBhIFVTQg0KdHJhbnNmZXI/IEV2ZW4gdGhlIGRhdGEg
+aXNuJ3QgYSBwYXJ0IG9mIHRyYW5zZmVycmluZyBkYXRhLg0KSG93IGNhbiBpdCBhZmZlY3QgdGhl
+IHRyYW5zZmVyPyANCg0KKEknbSBub3QgYSBjYWNoZS1saW5lIGV4cGVydC4gSnVzdCB0cnkgdG8g
+dW5kZXJzdGFuZCB0aGUgY2F1c2UpLg0KDQpQaW5nLUtlDQoNCg==
