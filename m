@@ -1,69 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 170543515F1;
-	Tue, 13 Oct 2026 15:38:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC44522690;
+	Tue, 13 Oct 2026 15:38:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791905899; cv=none; b=F4jahcjMGLlS2IkafFspTvfLZfh4QO5PTJAxciHFc9c54wvuHKU2j0rd5/deC9L/L9c40jQhBJeQ42j0QVHtFkI+adKRvXX7Su/B7Cpav4KxnT89nWOvSiyyT3maJfpOkdeQLc1/G+AlKgtyIzyigWU3LiBxyt5Yov62y/vyRHU=
+	t=1791905925; cv=none; b=gAWrJjdJO0Lo5pZ1ESZMMytH4/VOH/aGokAE0AxqSGS1I1Azi9r5M7gAfH2tfwUK/f7VWpc7KMGWbXLk443a+gGdgfdFmcEXAe15zmBM78h+OLytvCh883tVyta10E5ZtVdSFGt0TREuTQwmQV9LzV9C+JAXB/YQHWlCGAeab+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791905899; c=relaxed/simple;
-	bh=kTCzeYGjpwQkoEKHv8h7Ma4D/dFX+AeHEOwDr+fUDZo=;
+	s=arc-20240116; t=1791905925; c=relaxed/simple;
+	bh=CnWWEy/ddbqgJgBpiyf6uiuVBIV4KpQJhpSdyAUwKRI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E0HWSraDjh9JyiP6HMMSDXbz8b26j7/PeIYYjCW6sh8Gh2LCGPoDZMwshr2gtOkmh/SZ4rej1P40ozvfXdfOBdkmWnTMWP/yPpk0Cf5CErQ8exhdhwWKSjEMfSGvfyxrKRdr9+AuMhlgMHt+pPLkBEY72LHwFkdBRAAnzkPnQSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ioCEEFu0; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=eGJuldVkZ9fYubulXhXpwqN5fQJaeUnyedbJP58q52FGpRAS8GZ/K97e7p7XFZeN8KxOYMTjAiQvRTSIQZOc+bCX8puBJlYKaXMCAb9Y4Kf1HNLJTBxipgSJusYFXWzElrDAbdgvlrPbdH3v8nsbt/qjdVJTcXTrMNk3ygEpDMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ABw4N1PW; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ioCEEFu0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B31E1F000FF;
-	Tue, 13 Oct 2026 15:38:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791905897;
-	bh=fRac/ENAf8sbWAIo8siY+nB/tJsXS7y2nHVsGkQK6zk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ioCEEFu0T8VAMITdUgiseYpyrNZcylEasjSvB/52gdAjb7MpKfrigZtNehfc+4O84
-	 2Ss8bW/XCj2GFuOxCy6cOYxU46pWWLTwCcd7b1HZrrdZCYZ+nGo8aOxHnIt5ihnjpF
-	 Z7NPQyj1Zc9vJhkveWnIGur253+R7yMWwG+Hya6gTdSJyZb1pAkFtEocNRxNd0ym1P
-	 spj4AajzxqpabqMXQctdPSjUdoPYMgy1d/xosgLDq1wI8fL5yRGp3BiEd+oLoQMHxE
-	 Oecrk9BVgP0BFNMaK7fAjJDdC/Hjrn52mn+jFmuGaTp6Mjv4XTJ29jNfkVuQpcvRXr
-	 eumrKq3nLrozA==
-Date: Tue, 13 Oct 2026 09:38:16 -0600
-From: Keith Busch <kbusch@kernel.org>
-To: =?iso-8859-1?B?Suly6W15?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: Hannes Reinecke <hare@suse.de>, Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>, linux-nvme@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ABw4N1PW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791905924; x=1823441924;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=CnWWEy/ddbqgJgBpiyf6uiuVBIV4KpQJhpSdyAUwKRI=;
+  b=ABw4N1PW2ttBxGfT4Th3wONADz2jGNzaS3qT/TSZgjhfbzG2jzXlwdkr
+   ZFyF5/wjsSCWMzTK6+3rtz28hx3uTZrlNTKZNAGMxKvfOroIiUu4XGj55
+   jmhZgVy3MCylBqhrDRfMjLjvhg1KSZM3jc7DAOsQEUJx5tblLTjqnMHi4
+   Eqk3MGJC6xynfsdopOU5hWqDCulsuwjNlXTqj+IMNJgvM+uj9wRoaNPed
+   XqezrCAF0NvhZ4o99xVbdImslGdSXsZLq3XJB1T5YSDkp+hvov1p0D+9e
+   ty1uqRgVdsixF6GAzGWlvugO22hiaDJPRzw4vODbtVcyduc9OEOXeT0mj
+   g==;
+X-CSE-ConnectionGUID: 4KTNyfbkS7CWFso0pI68Ig==
+X-CSE-MsgGUID: MF5v0vJLRau6+Wh3pPR/3w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="646646"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="646646"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 08:38:43 -0700
+X-CSE-ConnectionGUID: 2RemoOKoSWiO6bLMBLSNCQ==
+X-CSE-MsgGUID: dmxwydZrQOyan6SyCnVJsA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1515449"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 08:38:41 -0700
+Date: Tue, 13 Oct 2026 18:38:38 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Kent Gibson <warthog618@gmail.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Jia Jia <physicalmtea@gmail.com>, linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] nvmet-auth: serialize access to DH-HMAC-CHAP state to
- fix UAF
-Message-ID: <as5QaLgssz5ZK7IB@kbusch-mbp>
-References: <20261003210154.2453077-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: Re: [PATCH 2/6] gpiolib: free the label of lines released after
+ their chip was removed
+Message-ID: <as5QfrAaQQO_q0dr@ashevche-desk.local>
+References: <20261012-gpiolib-chip-removal-v1-0-aambrozewicz@nvidia.com>
+ <20261012-gpiolib-chip-removal-v1-2-aambrozewicz@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261003210154.2453077-2-Jeremy.Jean@oss.cyber.gouv.fr>
+In-Reply-To: <20261012-gpiolib-chip-removal-v1-2-aambrozewicz@nvidia.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sat, Oct 03, 2026 at 09:01:55PM +0000, Jérémy Jean wrote:
-> A REPLY AUTH_SEND command can derive a dhchap_skey key while a
-> concurrent AUTH_RECEIVE command observing this REPLY state executes
-> the failure path and frees that key. The REPLY command then continues
-> and writes into freed memory, causing a use-after-free. KASAN reports
-> it as:
+On Mon, Oct 12, 2026 at 04:49:56PM +0300, Adrian Ambrozewicz wrote:
+> gpiod_free_commit() only drops the consumer label while the chip is
+> still there:
 > 
->   BUG: KASAN: slab-use-after-free in __sha256_final
->   Write of size 4 at addr ffff88800359c540
->   ...
->   nvmet_auth_sq_free (drivers/nvme/target/auth.c:237)
->   nvmet_execute_auth_receive (drivers/nvme/target/fabrics-cmd-auth.c:621)
+> 	if (guard.gc && test_bit(GPIOD_FLAG_REQUESTED, &flags)) {
+> 		...
+> 		desc_set_label(desc, NULL);
 > 
-> Add a mutex to each submission queue to serialize authentication
-> commands and timeout handling. Unlock the mutex before completing
-> requests and ignore outdated timeout callbacks. Limit timeout delays
-> to prevent immediate expiry on 32-bit kernels.
+> A line that is still requested when gpiochip_remove() runs, for instance
+> by a character device line request that user space keeps open, is
+> released only afterwards, when gdev->chip is already NULL. Its label is
+> then never freed, as gpiodev_release() frees the descriptor array but
+> not the labels, and kmemleak reports one object per such line:
+> 
+>   unreferenced object 0xff110000057b63c0 (size 32):
+>     comm "gpio-hold", pid 111, jiffies 4294696675
+>     hex dump (first 32 bytes):
+>       00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+>       3f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ?...............
+>     backtrace (crc 7ff222d9):
+>       __kmalloc_noprof+0x4ee/0x670
+>       desc_set_label+0x32/0x110
+>       gpiod_request_commit+0x1dd/0x320
+>       gpiod_request+0x28/0x100
+>       linereq_create+0x61a/0xce0
+>       gpio_ioctl+0x49c/0xc80
+>       __x64_sys_ioctl+0x134/0x1c0
+>       do_syscall_64+0x109/0x5d0
+>       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+> Commit 1f2bcb8c8ccd ("gpio: protect the descriptor label with SRCU")
+> cleared the label unconditionally; it moved under the chip check with
+> the removal of gpio_lock. Clear it when the chip is gone as well. The
+> ->free() callback and the line state notification still need the chip
+> and stay where they are.
+> 
+> The label is now often freed just before the last reference to the GPIO
+> device goes away, which depends on gpiodev_release() waiting for pending
+> label frees (previous patch).
+> 
+> Reproduced with gpio-sim: request a line through the character device,
+> set the chip's configfs "live" attribute to 0 while the request is open,
+> then close it. Without this change kmemleak reports between 15 and 30
+> such objects after 30 cycles; with it, none after 100.
 
-Thanks, applied to nvme-7.4.
+...
+
+> --- a/drivers/gpio/gpiolib.c
+> +++ b/drivers/gpio/gpiolib.c
+> @@ -2689,6 +2689,9 @@ void gpiod_free_commit(struct gpio_desc *desc)
+>  		WRITE_ONCE(desc->debounce_period_us, 0);
+>  #endif
+>  		gpiod_line_state_notify(desc, GPIO_V2_LINE_CHANGED_RELEASED);
+> +	} else if (!guard.gc) {
+> +		/* The chip is gone but the consumer label is still ours. */
+> +		desc_set_label(desc, NULL);
+>  	}
+>  }
+
+I have two questions here.
+
+1/ Do we still need to notify user space in the case of the chip gone?
+2/ Can we write the above as
+
+	if (guard.gc && !test_bit(GPIOD_FLAG_REQUESTED, &flags))
+		return;
+
+	desc_set_label(desc, NULL);
+
+	if (guard_gc) {
+		...current code...
+	}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
