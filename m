@@ -1,162 +1,174 @@
-Received: from mta1.migadu.com (out-106.mta1.migadu.com [95.215.58.106])
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF75381EBD
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 02:50:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26473470E8B
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 02:57:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791859850; cv=none; b=knD3izNlpOWnX82oTzcJYTMeIEQXDf8R2AiRlzNuKqSU9WCCQ8piSYf2xw3h+pnPr4OGHDRfP9u7kMvLBSN6IycQqEgCAjTQXTbPDxAFhCFbUKPZk6eI6ZUh1JWELO3IkX2eZI+oz0kRpaPtrXp6gag6ggmu4Lll8atC8LF+hVs=
+	t=1791860260; cv=none; b=Nh3fBIuHWlQB+FoVcYxlljxAgJYB6iwmhhcLZhp59XPuV9PABZFTAb+fkeRRAWqxwrXh0L9j8L7OZFIrjcZmmA+7c1Qgm0c2wxEv0gKlFbxNu4fcL/NxHZ/RNlNVqyoiHhccr5FJg4sa4e1lMVjHA1bPlfkNRJl6/bncgYuBMcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791859850; c=relaxed/simple;
-	bh=8wMdqUD76bepHOzOME5xbGf9H6wBMPJCOauRyfPWxJE=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=ubg72RDhNf/v0rPE9horKYShRdwMFYaj/yOtkkCmCxGjS5SZgC9wYj1WJLDf9XxeuAX+yVJeq4L57ENXHcT0pvq8VgooCKupRmaWX2KEVXGWilK4AIHEidaG62M2LpjUXGysF12ZnwMcR+Fn5l7Q+l8YpWszHhl4EeILKeKFV3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oNPtqFiX; arc=none smtp.client-ip=95.215.58.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791860260; c=relaxed/simple;
+	bh=rU6/NcSV6wlLvUaIiIjQl2cds/mD4DK5bYnjCOtOQ+8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JgnPbd2mb/+f6nyB7MpIGiL2LZ+PC1ZBkBXd+Bmtl+oLJ1trQy53CvCHFAajGVK9s/JO8C+AIb06GdZf9nnd4t4REGeODS+S4+l0gk3yJpxwdijohjyJHTVHdqRqlQu0x3JwkLKYL73CFpUu4RgfRUXY0TMpbz4a9uA+UUHf7Rc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=octane.security; spf=pass smtp.mailfrom=octane.security; dkim=pass (2048-bit key) header.d=octane.security header.i=@octane.security header.b=luB6FJbd; arc=none smtp.client-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=octane.security
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=octane.security
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oNPtqFiX"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=8wMdqUD76bepHOzOME5xbGf9H6wBMPJCOauRyfPWxJE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791859845; v=1; x=1792464645;
- b=oNPtqFiXxOnTU0X6djyqNB5Ani+3gr1I6RXWS1BqRJvAY16ZMR4dOS8JM5773LU8YHIiFcjn
- Bv1zvPpk1o0kxvVbA+SeDa2/4LNFdl6no0YIWSlHSQSsaH5xf3Rwttgyrl7E+zB/DFCIZSlN+8C
- ChXlTFK6PauB81+RAz+tia2g=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a849ca26c8b26880;
-	Tue, 13 Oct 2026 02:50:38 +0000
-X-Mizu-Trace-ID: a849ca26c8b26880
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=octane.security header.i=@octane.security header.b="luB6FJbd"
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-15354aa70e8so2838211c88.1
+        for <stable@vger.kernel.org>; Mon, 12 Oct 2026 19:57:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=octane.security; s=google; t=1791860257; x=1792465057; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/RJ4GyWHSPpIYsWpDseMdmR+JugHfXlVBzuKwLssRqI=;
+        b=luB6FJbdZbr0o8Ab9fQY8Y4FpIEsDSMMzELrrJHKPDaZliUIg82gKyWEIIFVb2R8PK
+         BhpTDsBywetxDI4QmijSV6xBB36JHbJXhhRc8LnnmtAsq4wwD6VX+cdPooxgIVe2XJR2
+         Llg06DD8cYUN+o1zH0TsQA9hf/oaGQwAM+nnBM/L9PIWOzALSDnkEB6mjkDzMXeU00Qf
+         op3BjGkfsfqxkGfnzXxUf28Bjf2kckOPBFzJFG7Qae7Um0N0VN7NpDxVVZTNoKeNtBfg
+         OlIlYBR8OcuecgVfeuxMetz08CUIvUVZsWnFkrMEzgxFXXlVQiqwEgtA8KvWJpmt1O+t
+         rX7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791860257; x=1792465057;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/RJ4GyWHSPpIYsWpDseMdmR+JugHfXlVBzuKwLssRqI=;
+        b=OV+DHC5/SIoC4amaVokhJi1h8DH5jJt+JQEN4FIQkmYfH5tixnUo89E9eUcbnz0yTq
+         hq7AB+TjId06VTaVqONAE83CuCLfY7DWQ+jqTBLU3aUOFDLFWOqaAdlWKLmv3haKl4Wn
+         WQAdqkntsbueDUu7AhGe1bSppmIEahki72Z9NVdfB83YTdMl/OMTvGe8D1V31tHS024K
+         9/Lqfy4rUwA2wJFoJNu+JQfGxyDXA2igvI9tp9PfRDb1KFzlQQDAsIvjbYupHzdZwjD/
+         ats+8ogVEu/8AqFItn4nOcBuwPlkvY32IoVrIiC1SYVpyUzgzsDQl6xZrdz/Oqc4FWNI
+         PCnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzXfRzoNj8LwnjP3V+l3Y8uACqiCcOQRfO+XMxcOCE1tWlyRCilZfdApuVjSpqmp0CZbDZ0rsE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIseForudKN7zqbo21kISNRjwUdKap5/TTqlJ31jRDn8er+Xf5z
+	WmcP0oK02mbmgA9ZjIywyWWGPGViVarumbbUTf+qHs6ieJHE5tMdDWeJ6XMxPHRg/+g=
+X-Gm-Gg: AYBFou1DTdQp4H84N8bGn9sazWHHTUPgN3QBbOjlLsCYMTyff/b6S9BsFuHEv3EuXQl
+	6lit8Y/T4tBIVb+0ZtgB3xsK4P/QUvNlTEkTHwbmSe4SrVllZ0yO5P6XdraQfrPQawIROjtN1wJ
+	9K/0K02jC5ixWDb1CTB/zJmwS7ooSWfXilgxmfQk9CiVlvBYlg1gwGJFHC0KEz/T5qdbogm4bGx
+	DHAGVnxIKvEK6myDMUue3GXZ1TowwqLNdUEg//oKuG8Rpp4dYRrFKWJo9D3R67NJIKp835ZQq4o
+	rrwvGMQGTFMBj1btuamNvYl+SQ0vJ8JGGBtZcJejPX2R8ACanSyV3U5OYGZxdRN7z0Oy+qBrTC+
+	dtMKQCU5QIkkHxY7lVDLHfx9YzNju3DkIeoJO7L0QzR/JcqDubP4oylKDdNn83MxpSetK7SFZvo
+	6fJfddnRnqru0kW/7sFUk5ugUoJlwMZQyHGoU6APDoPtjumbkso+w8hvv5v7yyrFu0WD/cmKeRa
+	dR+8UEhBBFHd/u7xc8Ufy7Dz5ioy0r3aQdMOtwNuEvA+8vRzAmsiy/zEJy7/wtCsVWWTa+x/oUm
+	EzQj0RzNzVQM+Q==
+X-Received: by 2002:a05:701b:240d:b0:144:eb46:c3f with SMTP id a92af1059eb24-16a572659bamr17782878c88.2.1791860257094;
+        Mon, 12 Oct 2026 19:57:37 -0700 (PDT)
+Received: from localhost.localdomain ([103.207.175.177])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a6021e49sm34465316c88.20.2026.10.12.19.57.31
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 12 Oct 2026 19:57:36 -0700 (PDT)
+From: Shubham Antil <shubham@octane.security>
+To: netdev@vger.kernel.org
+Cc: achender@kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	andy.grover@oracle.com,
+	linux-rdma@vger.kernel.org,
+	rds-devel@oss.oracle.com,
+	linux-kernel@vger.kernel.org,
+	gio@octane.security,
+	Shubham Antil <shubham@octane.security>,
+	sungbyeongchan <tjdqudcks0424@naver.com>,
+	Robert van Eijk <robert@octane.security>,
+	Paolo Gentry <paolo@octane.security>,
+	stable@vger.kernel.org
+Subject: [PATCH net v4] RDS/IB: validate receive fragment completions
+Date: Tue, 13 Oct 2026 08:27:29 +0530
+Message-ID: <20261013025729.40815-1-shubham@octane.security>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH v2 1/4] mm: fix missing page-table destructor in
- pagetable_free()
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261012193114.77147e0a43affa8ee1ae896c@linux-foundation.org>
-Date: Tue, 13 Oct 2026 10:50:21 +0800
-Cc: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
- Muchun Song <songmuchun@bytedance.com>,
- David Hildenbrand <david@kernel.org>,
- Oscar Salvador <osalvador@suse.de>,
- Dave Hansen <dave.hansen@intel.com>,
- Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>,
- =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@rivosinc.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Kevin Brodsky <kevin.brodsky@arm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Alistair Popple <apopple@nvidia.com>,
- linux-mm@kvack.org,
- linux-riscv@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <200A83B9-233C-44C7-B4AF-0900BA1E09DF@linux.dev>
-References: <20261010112457.49485-1-songmuchun@bytedance.com>
- <20261010112457.49485-2-songmuchun@bytedance.com>
- <asy-b7_C3SjnmSaS@gmail.com> <145CD5DC-6457-4E1E-8B9D-AE7D1EDB0AB8@linux.dev>
- <20261012193114.77147e0a43affa8ee1ae896c@linux-foundation.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+rds_ib_process_recv() accounts every receive fragment as contributing
+min(i_recv_data_rem, RDS_FRAG_SIZE) bytes, regardless of the completion
+length. When a completion is shorter than the header-declared amount,
+receive accounting can advance beyond the payload supplied by the
+completion.
 
+Only an IB_WC_RECV completion has the buffer layout expected by this
+receive path. Other successful completion opcodes must not be interpreted
+as ordinary receive completions.
 
-> On Oct 13, 2026, at 10:31, Andrew Morton <akpm@linux-foundation.org> =
-wrote:
->=20
-> On Mon, 12 Oct 2026 20:55:06 +0800 Muchun Song <muchun.song@linux.dev> =
-wrote:
->=20
->>=20
->>=20
->>> On Oct 12, 2026, at 19:15, Jose A. Perez de Azpillaga =
-<azpijr@gmail.com> wrote:
->>>=20
->>> On Sat, Oct 10, 2026 at 07:24:54PM +0800, Muchun Song wrote:
->>>> Since commit 49f599666420 ("mm: call ctor/dtor for kernel PTEs"),
->>>> pte_alloc_one_kernel() runs the page-table constructor for kernel =
-PTE
->>>> tables.
->>>>=20
->>>> HVO (HugeTLB Vmemmap Optimization) uses pte_alloc_one_kernel() when
->>>> splitting a PMD. Restoring the vmemmap backing pages does not =
-collapse
->>>> the PTE table, so a later memory hot-remove eventually frees it =
-through
->>>> pagetable_free() on x86-64. That releases the page without running =
-the
->>>> matching destructor and leaves NR_PAGETABLE elevated.
->>>>=20
->>>> Make pagetable_free() detect constructor-backed pages and run the
->>>> destructor before releasing their memory to fix the problem.
->>>>=20
->>>> Fixes: 49f599666420 ("mm: call ctor/dtor for kernel PTEs")
->>>> Cc: stable@vger.kernel.org
->>>=20
->>> is the x86 case covered for 6.16-6.18? as far as I can see, x86
->>> free_pagetable() only uses pagetable_free() since bf9e4e30f353
->>> ("x86/mm: use pagetable_free()") in v6.19, so the backport wouldn't
->>> change anything there. or am I missing something?
->>=20
->> Yes, you are absolutely right =E2=80=94 thanks for catching this.
->>=20
->> I double-checked and indeed x86's free_pagetable() only starts using
->> pagetable_free() since bf9e4e30f353 ("x86/mm: use pagetable_free()"),
->> which landed in v6.19. So for 6.16-6.18 the prerequisite is not =
-present
->> and the backport would be a no-op there.
->>=20
->> The correct trailer is:
->>=20
->> Cc: <stable@vger.kernel.org> # 6.16-6.18: bf9e4e30f353: x86/mm: use =
-pagetable_free()
->>=20
->> Andrew, would you be able to update the trailer in the patch when you
->> pick it up? If there are further review comments that require code
->> changes, I'll fix this trailer as part of the v3 respin. Thanks a =
-lot!
->=20
-> I don't know if/how the -stable maintainers handle a comment like =
-that.
-> I expect it's more reliable to do this via Fixes:.  Possible?
->=20
+Reject successful completions with any other opcode before processing
+their length. For ordinary receive completions, require enough payload
+to cover the amount accounted to the fragment before linking its page
+into the incoming message.
 
-Thanks. I used this format because it is explicitly documented by the
-stable kernel rules.
+This is compatible with the current transmit paths. MSG_ZEROCOPY is
+restricted to RDS/TCP, while RDS/IB copied and page-vector messages use
+full-sized non-final scatterlist entries.
 
-The shell-style comment is the format documented in
-Documentation/process/stable-kernel-rules.rst for specifying additional
-patch prerequisites:
+Found during an LLM-assisted source audit and validated under KMSAN with
+a malformed short receive completion.
 
-  Cc: <stable@vger.kernel.org> # 3.3.x: <commit>: <subject>
-  Cc: <stable@vger.kernel.org> # 3.3.x
+Reported-by: sungbyeongchan <tjdqudcks0424@naver.com>
+Closes: https://lore.kernel.org/netdev/20261006205204.1322102-1-tjdqudcks0424@naver.com/
+Reported-by: Giovanni Vignone <gio@octane.security>
+Link: https://lore.kernel.org/netdev/8a6ee1d5336ae65b8ffdc8c40a1135657207e204.camel@kernel.org/
+Reported-by: Robert van Eijk <robert@octane.security>
+Link: https://lore.kernel.org/netdev/8a6ee1d5336ae65b8ffdc8c40a1135657207e204.camel@kernel.org/
+Reported-by: Paolo Gentry <paolo@octane.security>
+Link: https://lore.kernel.org/netdev/8a6ee1d5336ae65b8ffdc8c40a1135657207e204.camel@kernel.org/
+Fixes: 1e23b3ee0e94 ("RDS/IB: Receive datagrams via IB")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM (OpenAI Codex, gpt-5.6-sol)
+Signed-off-by: Shubham Antil <shubham@octane.security>
+---
+Changes in v4:
+- Reject malformed short fragments instead of normalizing their length.
+- Reject successful non-IB_WC_RECV completions before trusting byte_len.
+- Explain why MSG_ZEROCOPY cannot reach the RDS/IB transmit path.
+- Add the source-audit and KMSAN discovery details.
+- Remove the author's self-Reported-by while retaining linked reporters.
+- Leave maximum h_len validation to a separate investigation.
 
-See:
+v3: https://lore.kernel.org/netdev/20261008124940.13371-1-shubham@octane.security/
+v2: https://lore.kernel.org/netdev/20261007062135.49946-1-shubham@octane.security/
 
-  https://docs.kernel.org/process/stable-kernel-rules.html#option-1
+ net/rds/ib_recv.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-A Fixes tag alone cannot express this dependency. It does not specify
-an additional commit that must be cherry-picked first. The documented
-Cc comment provides both the prerequisite and the required cherry-pick
-order.
+diff --git a/net/rds/ib_recv.c b/net/rds/ib_recv.c
+index bd6cb3ffaa..aa50b85b0f 100644
+--- a/net/rds/ib_recv.c
++++ b/net/rds/ib_recv.c
+@@ -949,6 +949,12 @@ static void rds_ib_process_recv(struct rds_connection *conn,
+ 		}
+ 	}
+ 
++	if (data_len < min_t(u32, ic->i_recv_data_rem, RDS_FRAG_SIZE)) {
++		rds_ib_conn_error(conn,
++				  "fragment shorter than header-declared length; forcing reconnect\n");
++		goto done;
++	}
++
+ 	list_add_tail(&recv->r_frag->f_item, &ibinc->ii_frags);
+ 	recv->r_frag = NULL;
+ 
+@@ -1004,7 +1010,12 @@ void rds_ib_recv_cqe_handler(struct rds_ib_connection *ic,
+ 	 * event is processed.
+ 	 */
+ 	if (wc->status == IB_WC_SUCCESS) {
+-		rds_ib_process_recv(conn, recv, wc->byte_len, state);
++		if (wc->opcode != IB_WC_RECV)
++			rds_ib_conn_error(conn,
++					  "recv completion had unexpected opcode %u, disconnecting and reconnecting\n",
++					  wc->opcode);
++		else
++			rds_ib_process_recv(conn, recv, wc->byte_len, state);
+ 	} else {
+ 		/* We expect errors as the qp is drained during shutdown */
+ 		if (rds_conn_up(conn) || rds_conn_connecting(conn))
 
-Would this be sufficient for the stable team to pick up the =
-prerequisite?
-
-Thanks,
-Muchun
-
-
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+-- 
+2.43.0
