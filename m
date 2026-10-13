@@ -1,316 +1,350 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C50053D5241;
-	Tue, 13 Oct 2026 12:17:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E7C647604A;
+	Tue, 13 Oct 2026 12:17:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791893823; cv=none; b=VHGcrLj13Z+wnG8RqtfOiqA2Rcq5ElsQS4uQpdHFGD/dDCgWpEDns/cRBJAirgo2Kbpx1WpIakrgyVe9UI8EmHigcC2KlhANdVfvDu2lvyWPVkpNDOp5//7K4wai7y4t6HLMNz9cyXJ/QuyTHrdtfOqtNTXO0Q2gzMlR7wA0wx8=
+	t=1791893823; cv=none; b=mXrXKgyGHTI6QtC0EKavM3d2bxR/3NSFXPZAtEf+M8A88zezyF2qpo6hI4bGBfFYMMVng0hP9W/i+R8mI2vofwlaVFYb0BWbjvVk+Cpr5rUVVKCQbU8puZ6Fhkf3HXtydom/5CE6zKJAzb6tiAAWvrqXcLOqxRVmyuL7+q0riW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791893823; c=relaxed/simple;
-	bh=dyXZtpVKPnT+18kqwB+UxcCYr5KufROoNkMPK1tbyWA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c6MIjxvqEsRZsK4NzPmW+8YPf3DbzDfTSSlvzcfUM6WJ2tQQspaksV5t7VeGQN4LZqNiQ9cKwL2wBXOJuAfd/bLmajGeZ933TEMuxoq5KYiSOaoTwJyRPPf9mt15l22eRuZKt246K9yerOjmv6L6acM9fnb+SU9vLCq6S/btZmg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Bh7DAixc; arc=none smtp.client-ip=100.103.45.18
+	bh=G8PGqIrQ5k77evT2wG7WUTBFPlNbw5frBEVT5qJlGVE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=N8OwECyJNDThwT0pXxPNsX+xsr6ZXhqwfhhFBpvt2gORpxk4J+yeYb4cyeM+kNq+vcDR+BD252SvbT5Kv/TspYaW27xoBQwMVVjNA3MEW6dDG1iT4lrfHxNdTLZeggtfCoLqqcwhZRTJlx0Ql3VaTircKyJsBz95Li6xBwgWWY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=0sKq94An; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=6p47P9iC; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=0sKq94An; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=6p47P9iC; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Bh7DAixc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B4031F00893;
-	Tue, 13 Oct 2026 12:17:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791893821;
-	bh=iIVcLDbDHse1TM0+i1ZxnwAEQ6pwiYVrBSpANSpk5Xo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Bh7DAixcLi7WncDJrRk2Xc2zbnqB7jKQV9D/Beps8k/CCF3TuNhnCc0OXft43JkHD
-	 BZNHdliT1tkSwobFh4xJZ1SAo1NpU9NjvykkGOKOZ1PzmgWNhGT/ngl3RPz35PZFJC
-	 Mo0Xn67aG7XgBg0QCA4/o+En/eTz3N/2xBQcCkCc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Jay Buddhabhatti <jay.buddhabhatti@amd.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 355/621] drivers: firmware: xilinx: Switch to new family code in zynqmp_pm_get_family_info()
-Date: Tue, 13 Oct 2026 13:35:50 +0200
-Message-ID: <20261013112929.274531265@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261013112920.855194808@linuxfoundation.org>
-References: <20261013112920.855194808@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="0sKq94An";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="6p47P9iC";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="0sKq94An";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="6p47P9iC"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 38DB51F452;
+	Tue, 13 Oct 2026 12:16:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791893819; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PIWtiPrsYf/toAj2P9j+sTaCeU3Ul60tHOhLtN5agvw=;
+	b=0sKq94AnOavcl7gDRZOyLluSHmY5g71LY5JROosKZsO1N1IdLZlZBrRfVzCXSFJQOBTuN3
+	w9hKyDiEaoNm/F8NtqM9TT018p4WsZRQe8/4iA7QLDAqvxDqi+o3U0+3gwS4TgI26JZhLv
+	fFN6wG9dXmft+KkzK2+FPGchHHt8dPM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791893819;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PIWtiPrsYf/toAj2P9j+sTaCeU3Ul60tHOhLtN5agvw=;
+	b=6p47P9iCrndYpS5aCQ79HN/DuH3C4+9dKrkHYxNlLiQk0K6p8z9D4Jwwo1wlBB5G/l1AOE
+	lglU1CzvRYmwp6Bw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791893819; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PIWtiPrsYf/toAj2P9j+sTaCeU3Ul60tHOhLtN5agvw=;
+	b=0sKq94AnOavcl7gDRZOyLluSHmY5g71LY5JROosKZsO1N1IdLZlZBrRfVzCXSFJQOBTuN3
+	w9hKyDiEaoNm/F8NtqM9TT018p4WsZRQe8/4iA7QLDAqvxDqi+o3U0+3gwS4TgI26JZhLv
+	fFN6wG9dXmft+KkzK2+FPGchHHt8dPM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791893819;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PIWtiPrsYf/toAj2P9j+sTaCeU3Ul60tHOhLtN5agvw=;
+	b=6p47P9iCrndYpS5aCQ79HN/DuH3C4+9dKrkHYxNlLiQk0K6p8z9D4Jwwo1wlBB5G/l1AOE
+	lglU1CzvRYmwp6Bw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 10B7813341;
+	Tue, 13 Oct 2026 12:16:59 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 6fCqNzohzmoPIwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 13 Oct 2026 12:16:59 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 940F0A1407; Tue, 13 Oct 2026 14:16:54 +0200 (CEST)
+Date: Tue, 13 Oct 2026 14:16:54 +0200
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-ext4@vger.kernel.org, 
+	linux-afs@lists.infradead.org, v9fs@lists.linux.dev, linux-trace-kernel@vger.kernel.org, 
+	ntfs3@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH 6/8] unicode: free the map after a grace period
+Message-ID: <ytvtvt4ejwcfm63jcmrqz7hdktsmp4tg55ddliwnrgvotuwngm@wljc272orwac>
+References: <20261009-work-fixes-rcu-v1-0-7446d2d335e6@kernel.org>
+ <20261009-work-fixes-rcu-v1-6-7446d2d335e6@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009-work-fixes-rcu-v1-6-7446d2d335e6@kernel.org>
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_COUNT_THREE(0.00)[3];
+	URIBL_BLOCKED(0.00)[suse.com:email,suse.cz:email,imap1.dmz-prg2.suse.org:helo];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.com:email]
+X-Spam-Score: -3.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+On Fri 09-10-26 23:51:56, Christian Brauner wrote:
+> generic_ci_d_hash() and generic_ci_d_compare() read sb->s_encoding and
+> dereference the unicode map while a pathwalk in rcu mode holds nothing
+> but rcu_read_lock(). The filesystems that use them, ext4, f2fs and
+> tmpfs, drop the map with utf8_unload() from ->put_super(), which runs
+> when the last reference to the mount goes away. A lookup that is still
+> inside such a filesystem at that point reads a freed map.
+> 
+> With a pathwalk held up in utf8_casefold_hash() while the last reference
+> to a casefolded tmpfs goes away:
+> 
+>   BUG: KASAN: slab-use-after-free in utf8nlookup+0x74c/0x950
+>   Read of size 8 at addr ff110001030fe658 by task walker/98
+>   Call Trace:
+>    <TASK>
+>    utf8nlookup+0x74c/0x950
+>    utf8byte+0x160/0x1560
+>    utf8_casefold_hash+0x167/0x230
+>    generic_ci_d_hash+0xdd/0x1c0
+>    link_path_walk+0x11ad/0x1d30
+>    path_lookupat+0x63/0xb00
+>    filename_lookup+0x1f1/0x5b0
+>    vfs_statx+0xd7/0x3b0
+>   [...]
+>   Allocated by task 94:
+>    __kmalloc_cache_noprof+0x249/0x560
+>    utf8_load+0x4e/0x570
+>    shmem_parse_opt_casefold.isra.0+0x92/0x270
+>   [...]
+>   Freed by task 97:
+>    kfree+0x1db/0x5b0
+>    shmem_put_super+0x72/0x170
+>    generic_shutdown_super+0x14c/0x530
+>    kill_anon_super+0x3a/0x60
+>    deactivate_locked_super+0x9c/0xf0
+>    cleanup_mnt+0x9f/0x130
+> 
+> So far that has been hard to hit. umount(2) waits for a grace period
+> in namespace_unlock() before it drops the mount, so only a mount whose
+> last reference goes away elsewhere, like the close of a file or a chdir
+> out of a lazily unmounted directory, can race a walker. So it is
+> reachable.
+> 
+> Delay the free until a grace period has passed. The map and the data
+> table it holds a reference to then outlive any pathwalk that found the
+> superblock before the mount went away. The reference on the data table
+> module is dropped from the rcu callback as well. utf8-core is built in
+> whenever CONFIG_UNICODE is set, so there is no module exit that would
+> have to wait for the callbacks.
+> 
+> Overlayfs points the s_encoding of an overlay at the map of its first
+> layer without taking a reference of its own. That stays correct. The
+> layer is held by the overlay, so its map is dropped only after the
+> overlay is gone.
+> 
+> Fixes: b886ee3e778e ("ext4: Support case-insensitive file name lookups")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-------------------
+Looks good. Feel free to add:
 
-From: Jay Buddhabhatti <jay.buddhabhatti@amd.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-[ Upstream commit 25e3ae0ce364fa725a6eea68d63d6a2ee09e019f ]
+								Honza
 
-Currently, the family code and subfamily code are derived from the
-PMC_TAP_IDCODE register. Versal, Versal NET share the same family
-code. Also some platforms share the same subfamily code, making it
-difficult to distinguish between platforms. Update
-zynqmp_pm_get_family_info() to use IDs derived from the compatible
-string instead of silicon ID codes derived from PMC_TAP_IDCODE register.
-
-Signed-off-by: Jay Buddhabhatti <jay.buddhabhatti@amd.com>
-Link: https://lore.kernel.org/r/20250701123851.1314531-4-jay.buddhabhatti@amd.com
-Signed-off-by: Michal Simek <michal.simek@amd.com>
-Stable-dep-of: fb4459353384 ("soc: xilinx: Fix race condition in event registration")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/firmware/xilinx/zynqmp.c        | 42 ++++++++++---------------
- drivers/pinctrl/pinctrl-zynqmp.c        |  7 ++---
- drivers/soc/xilinx/xlnx_event_manager.c |  8 ++---
- drivers/soc/xilinx/zynqmp_power.c       | 10 +++---
- include/linux/firmware/xlnx-zynqmp.h    | 15 ++-------
- 5 files changed, 31 insertions(+), 51 deletions(-)
-
-diff --git a/drivers/firmware/xilinx/zynqmp.c b/drivers/firmware/xilinx/zynqmp.c
-index e62197a37c32e..cae5ddc145a2d 100644
---- a/drivers/firmware/xilinx/zynqmp.c
-+++ b/drivers/firmware/xilinx/zynqmp.c
-@@ -474,8 +474,6 @@ EXPORT_SYMBOL_GPL(zynqmp_pm_invoke_fn);
- 
- static u32 pm_api_version;
- static u32 pm_tz_version;
--static u32 pm_family_code;
--static u32 pm_sub_family_code;
- 
- int zynqmp_pm_register_sgi(u32 sgi_num, u32 reset)
- {
-@@ -542,32 +540,18 @@ EXPORT_SYMBOL_GPL(zynqmp_pm_get_chipid);
- /**
-  * zynqmp_pm_get_family_info() - Get family info of platform
-  * @family:	Returned family code value
-- * @subfamily:	Returned sub-family code value
-  *
-  * Return: Returns status, either success or error+reason
-  */
--int zynqmp_pm_get_family_info(u32 *family, u32 *subfamily)
-+int zynqmp_pm_get_family_info(u32 *family)
- {
--	u32 ret_payload[PAYLOAD_ARG_CNT];
--	u32 idcode;
--	int ret;
--
--	/* Check is family or sub-family code already received */
--	if (pm_family_code && pm_sub_family_code) {
--		*family = pm_family_code;
--		*subfamily = pm_sub_family_code;
--		return 0;
--	}
-+	if (!active_platform_fw_data)
-+		return -ENODEV;
- 
--	ret = zynqmp_pm_invoke_fn(PM_GET_CHIPID, ret_payload, 0);
--	if (ret < 0)
--		return ret;
-+	if (!family)
-+		return -EINVAL;
- 
--	idcode = ret_payload[1];
--	pm_family_code = FIELD_GET(FAMILY_CODE_MASK, idcode);
--	pm_sub_family_code = FIELD_GET(SUB_FAMILY_CODE_MASK, idcode);
--	*family = pm_family_code;
--	*subfamily = pm_sub_family_code;
-+	*family = active_platform_fw_data->family_code;
- 
- 	return 0;
- }
-@@ -1248,8 +1232,13 @@ int zynqmp_pm_pinctrl_set_config(const u32 pin, const u32 param,
- 				 u32 value)
- {
- 	int ret;
-+	u32 pm_family_code;
-+
-+	ret = zynqmp_pm_get_family_info(&pm_family_code);
-+	if (ret)
-+		return ret;
- 
--	if (pm_family_code == ZYNQMP_FAMILY_CODE &&
-+	if (pm_family_code == PM_ZYNQMP_FAMILY_CODE &&
- 	    param == PM_PINCTRL_CONFIG_TRI_STATE) {
- 		ret = zynqmp_pm_feature(PM_PINCTRL_CONFIG_PARAM_SET);
- 		if (ret < PM_PINCTRL_PARAM_SET_VERSION) {
-@@ -2017,6 +2006,7 @@ static int zynqmp_firmware_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	struct zynqmp_devinfo *devinfo;
-+	u32 pm_family_code;
- 	int ret;
- 
- 	ret = get_set_conduit_method(dev->of_node);
-@@ -2060,8 +2050,8 @@ static int zynqmp_firmware_probe(struct platform_device *pdev)
- 	pr_info("%s Platform Management API v%d.%d\n", __func__,
- 		pm_api_version >> 16, pm_api_version & 0xFFFF);
- 
--	/* Get the Family code and sub family code of platform */
--	ret = zynqmp_pm_get_family_info(&pm_family_code, &pm_sub_family_code);
-+	/* Get the Family code of platform */
-+	ret = zynqmp_pm_get_family_info(&pm_family_code);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -2088,7 +2078,7 @@ static int zynqmp_firmware_probe(struct platform_device *pdev)
- 
- 	zynqmp_pm_api_debugfs_init();
- 
--	if (pm_family_code == VERSAL_FAMILY_CODE) {
-+	if (pm_family_code != PM_ZYNQMP_FAMILY_CODE) {
- 		em_dev = platform_device_register_data(&pdev->dev, "xlnx_event_manager",
- 						       -1, NULL, 0);
- 		if (IS_ERR(em_dev))
-diff --git a/drivers/pinctrl/pinctrl-zynqmp.c b/drivers/pinctrl/pinctrl-zynqmp.c
-index 585fe1661e170..aba129ead04c0 100644
---- a/drivers/pinctrl/pinctrl-zynqmp.c
-+++ b/drivers/pinctrl/pinctrl-zynqmp.c
-@@ -100,7 +100,6 @@ struct zynqmp_pctrl_group {
- 
- static struct pinctrl_desc zynqmp_desc;
- static u32 family_code;
--static u32 sub_family_code;
- 
- static int zynqmp_pctrl_get_groups_count(struct pinctrl_dev *pctldev)
- {
-@@ -605,7 +604,7 @@ static int zynqmp_pinctrl_prepare_func_groups(struct device *dev, u32 fid,
- 				return -ENOMEM;
- 
- 			for (pin = 0; pin < groups[resp[i]].npins; pin++) {
--				if (family_code == ZYNQMP_FAMILY_CODE)
-+				if (family_code == PM_ZYNQMP_FAMILY_CODE)
- 					__set_bit(groups[resp[i]].pins[pin], used_pins);
- 				else
- 					__set_bit((u8)groups[resp[i]].pins[pin] - 1, used_pins);
-@@ -958,11 +957,11 @@ static int zynqmp_pinctrl_probe(struct platform_device *pdev)
- 	if (!pctrl)
- 		return -ENOMEM;
- 
--	ret = zynqmp_pm_get_family_info(&family_code, &sub_family_code);
-+	ret = zynqmp_pm_get_family_info(&family_code);
- 	if (ret < 0)
- 		return ret;
- 
--	if (family_code == ZYNQMP_FAMILY_CODE) {
-+	if (family_code == PM_ZYNQMP_FAMILY_CODE) {
- 		ret = zynqmp_pinctrl_prepare_pin_desc(&pdev->dev, &zynqmp_desc.pins,
- 						      &zynqmp_desc.npins);
- 	} else {
-diff --git a/drivers/soc/xilinx/xlnx_event_manager.c b/drivers/soc/xilinx/xlnx_event_manager.c
-index a572d15f61616..6fdf4d14b7e74 100644
---- a/drivers/soc/xilinx/xlnx_event_manager.c
-+++ b/drivers/soc/xilinx/xlnx_event_manager.c
-@@ -77,17 +77,17 @@ struct registered_event_data {
- 
- static bool xlnx_is_error_event(const u32 node_id)
- {
--	u32 pm_family_code, pm_sub_family_code;
-+	u32 pm_family_code;
- 
--	zynqmp_pm_get_family_info(&pm_family_code, &pm_sub_family_code);
-+	zynqmp_pm_get_family_info(&pm_family_code);
- 
--	if (pm_sub_family_code == VERSAL_SUB_FAMILY_CODE) {
-+	if (pm_family_code == PM_VERSAL_FAMILY_CODE) {
- 		if (node_id == VERSAL_EVENT_ERROR_PMC_ERR1 ||
- 		    node_id == VERSAL_EVENT_ERROR_PMC_ERR2 ||
- 		    node_id == VERSAL_EVENT_ERROR_PSM_ERR1 ||
- 		    node_id == VERSAL_EVENT_ERROR_PSM_ERR2)
- 			return true;
--	} else {
-+	} else if (pm_family_code == PM_VERSAL_NET_FAMILY_CODE) {
- 		if (node_id == VERSAL_NET_EVENT_ERROR_PMC_ERR1 ||
- 		    node_id == VERSAL_NET_EVENT_ERROR_PMC_ERR2 ||
- 		    node_id == VERSAL_NET_EVENT_ERROR_PMC_ERR3 ||
-diff --git a/drivers/soc/xilinx/zynqmp_power.c b/drivers/soc/xilinx/zynqmp_power.c
-index 84ef7c87dfaa3..26cbb52049d8d 100644
---- a/drivers/soc/xilinx/zynqmp_power.c
-+++ b/drivers/soc/xilinx/zynqmp_power.c
-@@ -285,7 +285,7 @@ static int register_event(struct device *dev, const enum pm_api_cb_id cb_type, c
- static int zynqmp_pm_probe(struct platform_device *pdev)
- {
- 	int ret, irq;
--	u32 pm_api_version, pm_family_code, pm_sub_family_code, node_id;
-+	u32 pm_api_version, pm_family_code, node_id;
- 	struct mbox_client *client;
- 
- 	ret = zynqmp_pm_get_api_version(&pm_api_version);
-@@ -315,14 +315,16 @@ static int zynqmp_pm_probe(struct platform_device *pdev)
- 		INIT_WORK(&zynqmp_pm_init_suspend_work->callback_work,
- 			  zynqmp_pm_init_suspend_work_fn);
- 
--		ret = zynqmp_pm_get_family_info(&pm_family_code, &pm_sub_family_code);
-+		ret = zynqmp_pm_get_family_info(&pm_family_code);
- 		if (ret < 0)
- 			return ret;
- 
--		if (pm_sub_family_code == VERSALNET_SUB_FAMILY_CODE)
-+		if (pm_family_code == PM_VERSAL_NET_FAMILY_CODE)
- 			node_id = PM_DEV_ACPU_0_0;
--		else
-+		else if (pm_family_code == PM_VERSAL_FAMILY_CODE)
- 			node_id = PM_DEV_ACPU_0;
-+		else
-+			return -ENODEV;
- 
- 		ret = register_event(&pdev->dev, PM_NOTIFY_CB, node_id, EVENT_SUBSYSTEM_RESTART,
- 				     false, subsystem_restart_event_callback);
-diff --git a/include/linux/firmware/xlnx-zynqmp.h b/include/linux/firmware/xlnx-zynqmp.h
-index 790cbe7937bd6..2f96f91be6c22 100644
---- a/include/linux/firmware/xlnx-zynqmp.h
-+++ b/include/linux/firmware/xlnx-zynqmp.h
-@@ -51,22 +51,11 @@
- 
- #define PM_PINCTRL_PARAM_SET_VERSION	2
- 
--#define ZYNQMP_FAMILY_CODE 0x23
--#define VERSAL_FAMILY_CODE 0x26
--
- /* Family codes */
- #define PM_ZYNQMP_FAMILY_CODE 0x1 /* ZynqMP family code */
- #define PM_VERSAL_FAMILY_CODE 0x2 /* Versal family code */
- #define PM_VERSAL_NET_FAMILY_CODE 0x3 /* Versal NET family code */
- 
--/* When all subfamily of platform need to support */
--#define ALL_SUB_FAMILY_CODE		0x00
--#define VERSAL_SUB_FAMILY_CODE		0x01
--#define VERSALNET_SUB_FAMILY_CODE	0x03
--
--#define FAMILY_CODE_MASK	GENMASK(27, 21)
--#define SUB_FAMILY_CODE_MASK	GENMASK(20, 19)
--
- #define API_ID_MASK		GENMASK(7, 0)
- #define MODULE_ID_MASK		GENMASK(11, 8)
- #define PLM_MODULE_ID_MASK	GENMASK(15, 8)
-@@ -582,7 +571,7 @@ int zynqmp_pm_invoke_fw_fn(u32 pm_api_id, u32 *ret_payload, u32 num_args, ...);
- #if IS_REACHABLE(CONFIG_ZYNQMP_FIRMWARE)
- int zynqmp_pm_get_api_version(u32 *version);
- int zynqmp_pm_get_chipid(u32 *idcode, u32 *version);
--int zynqmp_pm_get_family_info(u32 *family, u32 *subfamily);
-+int zynqmp_pm_get_family_info(u32 *family);
- int zynqmp_pm_query_data(struct zynqmp_pm_query_data qdata, u32 *out);
- int zynqmp_pm_clock_enable(u32 clock_id);
- int zynqmp_pm_clock_disable(u32 clock_id);
-@@ -661,7 +650,7 @@ static inline int zynqmp_pm_get_chipid(u32 *idcode, u32 *version)
- 	return -ENODEV;
- }
- 
--static inline int zynqmp_pm_get_family_info(u32 *family, u32 *subfamily)
-+static inline int zynqmp_pm_get_family_info(u32 *family)
- {
- 	return -ENODEV;
- }
+> ---
+> Reproducer: delay.c holds a task named walker in utf8_casefold_hash() in
+> rcu pathwalk mode for two seconds and repro.c drops the last reference
+> to a lazily unmounted casefolded tmpfs meanwhile.
+> 
+>     mount -t tmpfs -o casefold tmpfs /mnt
+>     chattr +F /mnt
+>     echo hello > /mnt/Foo
+>     insmod delay.ko
+>     ./repro
+> 
+> Without this patch that gives the splat above, with it it runs clean.
+> 
+> delay.c:
+> 
+>     #include <linux/delay.h>
+>     #include <linux/kprobes.h>
+>     #include <linux/module.h>
+> 
+>     /* keep a task named "walker" in utf8_casefold_hash() in rcu pathwalk */
+>     static int pre(struct kprobe *p, struct pt_regs *regs)
+>     {
+>     	if (!strcmp(current->comm, "walker"))
+>     		mdelay(2000);
+>     	return 0;
+>     }
+> 
+>     static struct kprobe kp = {
+>     	.symbol_name	= "utf8_casefold_hash",
+>     	.pre_handler	= pre,
+>     };
+> 
+>     static int __init delay_init(void)
+>     {
+>     	return register_kprobe(&kp);
+>     }
+> 
+>     static void __exit delay_exit(void)
+>     {
+>     	unregister_kprobe(&kp);
+>     }
+> 
+>     module_init(delay_init);
+>     module_exit(delay_exit);
+>     MODULE_LICENSE("GPL");
+> 
+> repro.c:
+> 
+>     #define _GNU_SOURCE
+>     #include <pthread.h>
+>     #include <sched.h>
+>     #include <string.h>
+>     #include <sys/mman.h>
+>     #include <sys/mount.h>
+>     #include <sys/prctl.h>
+>     #include <sys/stat.h>
+>     #include <unistd.h>
+> 
+>     static void pin(int cpu)
+>     {
+>     	cpu_set_t set;
+> 
+>     	CPU_ZERO(&set);
+>     	CPU_SET(cpu, &set);
+>     	sched_setaffinity(0, sizeof(set), &set);
+>     }
+> 
+>     static void *walker(void *arg)
+>     {
+>     	struct stat st;
+>     	char *p;
+> 
+>     	/*
+>     	 * The delay spins. Empty this cpu's lru batches so that an
+>     	 * lru_add_drain_all() on the other side has no work to wait for here.
+>     	 */
+>     	pin(1);
+>     	p = mmap(NULL, 4096, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+>     	memset(p, 1, 4096);
+>     	madvise(p, 4096, MADV_COLD);
+> 
+>     	prctl(PR_SET_NAME, "walker");
+>     	stat("FOO", &st);
+>     	return NULL;
+>     }
+> 
+>     int main(void)
+>     {
+>     	struct stat st;
+>     	pthread_t t;
+> 
+>     	pin(0);
+>     	chdir("/mnt");
+>     	stat("FOO", &st);
+>     	/* the cwd now holds the last reference to the mount */
+>     	umount2("/mnt", MNT_DETACH);
+>     	pthread_create(&t, NULL, walker, NULL);
+>     	sleep(1);
+>     	/* drop it, ->kill_sb() runs before chdir() returns */
+>     	chdir("/");
+>     	pthread_join(t, NULL);
+>     	return 0;
+>     }
+> ---
+>  fs/unicode/utf8-core.c  | 21 +++++++++++++++++----
+>  include/linux/unicode.h |  1 +
+>  2 files changed, 18 insertions(+), 4 deletions(-)
+> 
+> diff --git a/fs/unicode/utf8-core.c b/fs/unicode/utf8-core.c
+> index f313532f5e80..74a74a48dd8b 100644
+> --- a/fs/unicode/utf8-core.c
+> +++ b/fs/unicode/utf8-core.c
+> @@ -3,6 +3,7 @@
+>  #include <linux/kernel.h>
+>  #include <linux/string.h>
+>  #include <linux/slab.h>
+> +#include <linux/rcupdate.h>
+>  #include <linux/parser.h>
+>  #include <linux/errno.h>
+>  #include <linux/stringhash.h>
+> @@ -183,12 +184,24 @@ struct unicode_map *utf8_load(unsigned int version)
+>  }
+>  EXPORT_SYMBOL(utf8_load);
+>  
+> +static void utf8_unload_rcu(struct rcu_head *head)
+> +{
+> +	struct unicode_map *um = container_of(head, struct unicode_map, rcu);
+> +
+> +	symbol_put(utf8_data_table);
+> +	kfree(um);
+> +}
+> +
+> +/*
+> + * A pathwalk in rcu mode may still be in ->d_hash() or ->d_compare() of a
+> + * filesystem that is being torn down and read the map through its
+> + * superblock, so the map and the tables it points to have to outlive the
+> + * grace period.
+> + */
+>  void utf8_unload(struct unicode_map *um)
+>  {
+> -	if (um) {
+> -		symbol_put(utf8_data_table);
+> -		kfree(um);
+> -	}
+> +	if (um)
+> +		call_rcu(&um->rcu, utf8_unload_rcu);
+>  }
+>  EXPORT_SYMBOL(utf8_unload);
+>  
+> diff --git a/include/linux/unicode.h b/include/linux/unicode.h
+> index 64fa44fe180c..3a8cb603eb93 100644
+> --- a/include/linux/unicode.h
+> +++ b/include/linux/unicode.h
+> @@ -53,6 +53,7 @@ struct unicode_map {
+>  	unsigned int version;
+>  	const struct utf8data *ntab[UTF8_NMAX];
+>  	const struct utf8data_table *tables;
+> +	struct rcu_head rcu;
+>  };
+>  
+>  int utf8_validate(const struct unicode_map *um, const struct qstr *str);
+> 
+> -- 
+> 2.53.0
+> 
 -- 
-2.53.0
-
-
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
