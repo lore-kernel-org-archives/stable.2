@@ -1,105 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A7D94EF15A;
-	Tue, 13 Oct 2026 12:30:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 122184FC32D;
+	Tue, 13 Oct 2026 12:30:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791894604; cv=none; b=jI8IZT88CLH7EJ0pAg45+XPgMnwhJQZms0vSNwlQtlYZD6Xw9ViO2viZaqpvxFLm9e/iumiR+9pEpAlERM1SOCyHoFQKV1JrbS++7Rmxi1+kkAhGuKpYQLTOVgjEKmOTiSqQst7tVeiF+x2eStM/o2jUY95zNTYuu8+syUNBdSU=
+	t=1791894607; cv=none; b=YVWfWeAU4xGJbJkcb8mKGWNZWKgo4XGIBm2v0kfQLj4DQoAxSSeXn9kW1wkRQE6VMdviDWUfODgmGVAmRtJHlopCCYpFzlM9j+wvmcI9t6XKjJUwpoFTiy8TjeSTvtOeEToOnK1y+722VdUt43gqnLP12E1qNzwM6oFFXLDBgO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791894604; c=relaxed/simple;
-	bh=MeT4p62Vg3W5rEOMLU5gGEQ/qWtpbUn23PWoxTiRh9A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u/XEsjAVbCkuDY1zq9eQOxrDT+t8ymUimiQpuEcoQfbWPuf3xifAcVlTxulVazat1CO0+jGlbKVd7ZcTt0uf1CNTq8cFuoDa6T5UgoFFQ6fr0rGL4DLXuNQM/7xBuK05bmPJ9e79QmuvvIaMsD0pspKkzCVCTYJh3LbGyjN/AXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KL3PmDik; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791894607; c=relaxed/simple;
+	bh=B2UhcZv6wX0YdSYb+gZa47T0Q2peLLEgfPoACQqd0ZY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E6jlVgiOKhTTCG39pq6Qr1iA6dHERfmTfbGRTyoJtxSi9Y6Acn0VVEB2e1/roOfrRJTX+Hc0YcbA8BKYQborVmX+yJdfTLYTT5Ub4RyYMapZ1bigpFnBCJSIq1scGIRB4ckGysCyVpeq6h1Dbnhaj6ghEFzrzAFpAwhlLCiifBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mlnL/hy1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KL3PmDik"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15B871F00893;
-	Tue, 13 Oct 2026 12:30:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791894603;
-	bh=C86D0YeBf+bWlF8ovWGmDGxZVo9faZXFQYyj64qSZ6s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KL3PmDikS/2s9m/RH0h+W6EMI42as2VccegFKpIgz0iFeqIfrwGs80HYafxmL6BEp
-	 FHOWNwnTPNpAgb6/MXYy4OzVVHlcxvTFPIwWfhx6up2Sh8ZuNjNvqz1BahVF+c2A+I
-	 Yw6KOZK0LM8OuPL4gLwZXQnRyN7UZVEOOIfq0qzs=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Harald Freudenberger <freude@linux.ibm.com>,
-	Holger Dengler <dengler@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>
-Subject: [PATCH 6.18 615/621] s390/zcrypt: Pad trailing CCA or EP11 message with zeros
-Date: Tue, 13 Oct 2026 13:40:10 +0200
-Message-ID: <20261013112935.394530370@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261013112920.855194808@linuxfoundation.org>
-References: <20261013112920.855194808@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mlnL/hy1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05B6A1F000FF;
+	Tue, 13 Oct 2026 12:30:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791894605;
+	bh=W1KVneCgXArp9zppiaGo3yxvYAKNVn0jTmgz8OZUh50=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mlnL/hy1yfvWUPlwGgRpNziga7S536l9AtbIIdBcPDHXBeex7a011lJvl3QJXrpMu
+	 nq6wqtcldjoLyPz/FTp5XqzlgoJgG5dWHc6bsSDy+MEx+ANP417gSJh5G6lAcq1qRE
+	 6f1EwkqpiyhFHQPbIWhLSgacm20PByzywuye3tWz8c5fpvSku3CQ3mPKQEE1A7jZqQ
+	 6S3cQIqOGKQtxiRTQfcwm/VBqUHillXFZ/xXLZikhv5ezLwt5GHzxb7PkJXR5WFmYG
+	 dfM42lXX+JVdBLra9GjTF9b+Q/gRT0T8qG8h4w/Wqq6+Uv3PSm4KDYkOqBR/aF1IQY
+	 MLoI8E6342m+Q==
+Date: Tue, 13 Oct 2026 13:29:58 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Benjamin Herrensmidt <benh@kernel.crashing.org>, 
+	Peter Zijlstra <a.p.zijlstra@chello.nl>, Rik van Riel <riel@redhat.com>, 
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com, stable@vger.kernel.org
+Subject: Re: [PATCH] mm: disallow ioremap'ing ordinary RAM in
+ generic_access_phys()
+Message-ID: <as4aeYkqZywLo4Gx@gremlin>
+References: <20261013-generic_access_phys-v1-1-b3963ef76e37@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013-generic_access_phys-v1-1-b3963ef76e37@kernel.org>
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+On Tue, Oct 13, 2026 at 01:41:24PM +0200, David Hildenbrand (Arm) wrote:
+> generic_access_phys() can end up getting called on CoW PFNMAP mappings,
+> resulting in it trying to ioremap anonymous folios, which especially
+> the x86 code doesn't enjoy, and which is in general just odd/wrong.
 
-------------------
+Ugh god.
 
-From: Harald Freudenberger <freude@linux.ibm.com>
+>
+> E.g., with a CoW mapping of a PCI BAR:
+>
+> ioremap on RAM at 0x0000000045623000 - 0x0000000045623fff
+>   WARNING: arch/x86/mm/ioremap.c:216 at __ioremap_caller.isra.0+0x4c2/0x5f0
+>   Call Trace:
+>    generic_access_phys+0x130/0x4d0 mm/memory.c:7178
+>    kernfs_vma_access+0x1ce/0x280 fs/kernfs/file.c:437
+>    __access_remote_vm+0x58f/0x890 mm/memory.c:7256
+>    mem_rw+0x2a1/0x670 fs/proc/base.c:912
+>
+> But more generically, we should disallow access to anything that looks
+> like ordinary RAM in the system: including allocating memory (e.g.,
+> alloc_pages) and mapping them in a VM_PFNMAP.
 
-commit eb363254472493e3458156fc11fd56dca92f4333 upstream.
+Yes.
 
-The both functions xcrb_msg_to_type6cprb_msgx() and
-xcrb_msg_to_type6_ep11cprb_msgx() copy the user space message into a
-kernel buffer based on the message length. But on further processing
-the message is supposed to be 4 byte length adjusted. Thus up to 3
-bytes of uninitialized kernel memory are forwarded to further
-processing steps and may unwanted expose kernel memory to the crypto
-card firmware.
+>
+> For pages with an online memmap, allow only pages marked as reserved
+> (PageReserved). This also includes memblock allocations, however,
+> distinguishing them from other MMIO is tricky, and nobody should really
+> be mapping them in a PFNMAP (except someone abusing /dev/mem, which we
+> do not care about).
 
-This patch contains code to pad the gap between user space copied
-message and message buffer length sent down to further processing of
-the CCA or EP11 message to zeros.
+Yeah I guess we shouldn't try too hard for weird edge cases, or at least
+can revisit it later potentially.
 
-Fixes: e2c6d91eb8b1 ("s390/zcrypt: Rework domain processing within zcrypt device driver")
-Signed-off-by: Harald Freudenberger <freude@linux.ibm.com>
-Reviewed-by: Holger Dengler <dengler@linux.ibm.com>
-Cc: stable@vger.kernel.org # 7.1+
-Signed-off-by: Vasily Gorbik <gor@linux.ibm.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/s390/crypto/zcrypt_msgtype6.c |    8 ++++++++
- 1 file changed, 8 insertions(+)
+>
+> So only allow access if there is no online memmap, or if the pages are
+> marked reserved. Reject other pages with -EINVAL.
 
---- a/drivers/s390/crypto/zcrypt_msgtype6.c
-+++ b/drivers/s390/crypto/zcrypt_msgtype6.c
-@@ -399,6 +399,10 @@ static int xcrb_msg_to_type6cprb_msgx(bo
- 			     xcrb->request_control_blk_addr,
- 			     xcrb->request_control_blk_length))
- 		return -EFAULT;
-+	/* pad tail with 0 up to req_cblen */
-+	if (xcrb->request_control_blk_length < req_cblen)
-+		memset(msg->userdata + xcrb->request_control_blk_length,
-+		       0, req_cblen - xcrb->request_control_blk_length);
- 	/* copy subfunction code into AP msg type 6 function code field */
- 	if (msg->cprbx.cprb_len > req_cblen - sizeof(msg->hdr.function_code))
- 		return -EINVAL;
-@@ -544,6 +548,10 @@ static int xcrb_msg_to_type6_ep11cprb_ms
- 	if (z_copy_from_user(userspace, msg->userdata,
- 			     (char __force __user *)xcrb->req, xcrb->req_len))
- 		return -EFAULT;
-+	/* pad tail with 0 up to req_len */
-+	if (xcrb->req_len < req_len)
-+		memset(msg->userdata + xcrb->req_len, 0,
-+		       req_len - xcrb->req_len);
- 
- 	pld = msg->userdata + sizeof(struct ep11_cprb);
- 	pld_len = msg->cprbx.payload_len;
+Seems reasonable overall.
 
+>
+> Note that, just like other pfn_to_online_page() users, we won't care about
+> concurrent memory offlining; mapping memory that can concurrently get
+> offlined is highly dubious.
 
+Yeah sounds like the user would be doing something crazy in this case,
+therefore their problem!
+
+>
+> Reported-by: syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=49b1021becba70c1f3f6
+> Reported-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+> Closes: https://lore.kernel.org/r/20261001152524.171115-1-ngocthang2710.1999@gmail.com/
+> Fixes: 28b2ee20c7cb ("access_process_vm device memory infrastructure")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+LGTM so:
+
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+> ---
+> I went back and forth 10 times and concluded that using PageReserved
+> should be the right thing to check for now.
+
+It seems the sensible choice, yes. And locally, AI review agrees with you, FWIW!
+
+--
+Cheers, Lorenzo
