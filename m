@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DBDB472074
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 15:40:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289D751AEE5
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 15:40:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791906012; cv=none; b=fih9SFe9JcXifQPLcacOAW3fxJvTbutmHLawmGJn0L/PJdT7kcOHcHn/dswz6h+jJsAXiIkP2A60L26fVEK/SVUcIPZuIsPb0Mm/f5Ion+sVnjjOxZkHuyT5rjKxTVUrVGd5qzJAsOC4axK6mn5kHoJxjADfTTezRkuZDSdT9MQ=
+	t=1791906013; cv=none; b=u5xKmxKJ24NZvu9uku0fUC+zqpnWrvma93UtQUTAB7cNqJ5/NQuIlTb/Vb7+ShepPqf6nMJhYsadoFuGoyEca1lxheoJ8E9CaaEH9I0f5slFsWSsQlL5Y2smZRvCpUDy1oKM7B8lSYkM9M71ym4guylADcNXAKbdNhvDwD+LO8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791906012; c=relaxed/simple;
-	bh=wpI/9WgA4KbjRMwiiQsOW9BgxJ0kpAnEKSC0EcgYu3U=;
+	s=arc-20240116; t=1791906013; c=relaxed/simple;
+	bh=azt15MeTLko6561NNz1h87GE/Zt5uc3Ng22G6lgQqg0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ROXnEXHDNT8OmskpzvzK/yipcklWJdIGlFO3V5MAy08vQJVhTVQv4NNMJGpNmHSz55txkQ4pT5uJrqKU22j6wF1yXeMNk4CXHeHiwXQubAiZT4v2ASw6reZKXyurBmIV/22zFAAwcX8MxZgcif/5YoiEtH5ZRtdY72BneOG9dxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fywio2Qf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=beMIdZixeZ5CLReDxvMRKjse473Z/1QguXS8xdHjqxG8QQ/stPm4HbRNNay0fOeawqL1rQxI/yF744gI3rLr9RzfaAlj1ZV6L0jI5tNVPKcxwjItn4jmdA+2OrLVDpFDaqQJOHLHj6Whr1Zt4z1X0VDFhm963vwRX+gQbObOsDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h7eXw7qL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fywio2Qf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 520171F0089C;
-	Tue, 13 Oct 2026 15:40:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h7eXw7qL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E81F1F0089F;
+	Tue, 13 Oct 2026 15:40:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1791906011;
-	bh=1Cz43tD+6E90XK1RXVW30EJ+2s1LzzdP/8Mhu0FZ1OE=;
+	bh=jUzl+d1Emr1yjmJfCUnvDue/zxs+q4cvNgv7FPuyW2w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fywio2QfYNMvEWwVJwlqM8og22v4vRQ0cjTxJAxH7vCiF+qvmvLt+1KJ2sC7iBvP8
-	 NRDuS6dCOsnL5LmWlSl/hIEweoiG19I9ygGCNJX5l3sAtx0K0jtZ580/dX7umi5EgB
-	 e83OXyZu+ZA1hmSeLAX7SZLuOXropG/2OjnxlVFwul6Ex7llSItMG7eY4YYj6jLGD9
-	 0y6hNtCY1cFvIiYzm1/QKBPjfYLaHpcUEk6Hs4AKnqB2FVzA/mHVn36Po06yq6hpTL
-	 JpfI+lpf5cODf4RF2tIjSy/d+/bLSNTRxdrlDhCylxeIwxGMaAmONfzrG+WMqO5HBb
-	 KqGHyFHrfysHA==
+	b=h7eXw7qL5p7mAsUeDoXQ3P1ckssFsJBEkr27Gazvg3SSCn/MXaNLniWyZKSrB+s/K
+	 iOLTp2I3+M/royVDOMkpxpzIQhOfVvvre0LF9Uy0vIgB+6FqU17j5aqZuD7AI1mqZm
+	 S599k9THfgOljK38kS90YIqXExmw9kh1/dQUvRX82vzaMn+keZPbv+a8nAEIzrnq3p
+	 qkNdHxmliuGQ1V2cwNuVuWXdMsI/rJoeaZ3zljzY/CnGngtuDjq2y+Uft5wCYbHwPK
+	 Iiz1sDJTA9UcTm79OlXQfM7D8+HSInJZFvMOzXF2BYYKeMO2zzSQx+R8HukwwcTwPf
+	 nEJqJ7v3wMfqQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Marc Harvey <marcharvey@google.com>,
@@ -33,12 +33,13 @@ Cc: Marc Harvey <marcharvey@google.com>,
 	Kuniyuki Iwashima <kuniyu@google.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/4] net: team: Remove unused team_mode_op, port_enabled
-Date: Tue, 13 Oct 2026 11:40:06 -0400
-Message-ID: <20261013153957.280683-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/4] net: team: Rename port_disabled team mode op to port_tx_disabled
+Date: Tue, 13 Oct 2026 11:40:07 -0400
+Message-ID: <20261013153957.280683-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101204-platform-squealing-b6e9@gregkh>
+In-Reply-To: <20261013153957.280683-1-sashal@kernel.org>
 References: <2026101204-platform-squealing-b6e9@gregkh>
+ <20261013153957.280683-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,47 +50,74 @@ Content-Transfer-Encoding: 8bit
 
 From: Marc Harvey <marcharvey@google.com>
 
-[ Upstream commit 014f249121d73909528df320818fba7693d0ec92 ]
+[ Upstream commit cfa477df2cc62ba53cb936669886361152b594a7 ]
 
-This team_mode_op wasn't used by any of the team modes, so remove it.
+This team mode op is only used by the load balance mode, and it only
+uses it in the tx path.
 
 Reviewed-by: Jiri Pirko <jiri@nvidia.com>
 Signed-off-by: Marc Harvey <marcharvey@google.com>
 Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/20260409-teaming-driver-internal-v7-2-f47e7589685d@google.com
+Link: https://patch.msgid.link/20260409-teaming-driver-internal-v7-3-f47e7589685d@google.com
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Stable-dep-of: b7454f1940c5 ("net: team: stop reusing skb after queue override")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/team/team.c | 2 --
- include/linux/if_team.h | 1 -
- 2 files changed, 3 deletions(-)
+ drivers/net/team/team.c                  | 4 ++--
+ drivers/net/team/team_mode_loadbalance.c | 4 ++--
+ include/linux/if_team.h                  | 2 +-
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/net/team/team.c b/drivers/net/team/team.c
-index ea2a7cea3f6a0..32ca12211e7e6 100644
+index 32ca12211e7e6..b552c79411254 100644
 --- a/drivers/net/team/team.c
 +++ b/drivers/net/team/team.c
-@@ -945,8 +945,6 @@ static void team_port_enable(struct team *team,
- 			   team_port_index_hash(team, port->index));
- 	team_adjust_ops(team);
- 	team_queue_override_port_add(team, port);
--	if (team->ops.port_enabled)
--		team->ops.port_enabled(team, port);
- 	team_notify_peers(team);
- 	team_mcast_rejoin(team);
- 	team_lower_state_changed(port);
+@@ -969,8 +969,8 @@ static void team_port_disable(struct team *team,
+ {
+ 	if (!team_port_enabled(port))
+ 		return;
+-	if (team->ops.port_disabled)
+-		team->ops.port_disabled(team, port);
++	if (team->ops.port_tx_disabled)
++		team->ops.port_tx_disabled(team, port);
+ 	hlist_del_rcu(&port->hlist);
+ 	__reconstruct_port_hlist(team, port->index);
+ 	port->index = -1;
+diff --git a/drivers/net/team/team_mode_loadbalance.c b/drivers/net/team/team_mode_loadbalance.c
+index b095a4b4957bb..89ee6bee049c1 100644
+--- a/drivers/net/team/team_mode_loadbalance.c
++++ b/drivers/net/team/team_mode_loadbalance.c
+@@ -672,7 +672,7 @@ static void lb_port_leave(struct team *team, struct team_port *port)
+ 	free_percpu(lb_port_priv->pcpu_stats);
+ }
+ 
+-static void lb_port_disabled(struct team *team, struct team_port *port)
++static void lb_port_tx_disabled(struct team *team, struct team_port *port)
+ {
+ 	lb_tx_hash_to_port_mapping_null_port(team, port);
+ }
+@@ -682,7 +682,7 @@ static const struct team_mode_ops lb_mode_ops = {
+ 	.exit			= lb_exit,
+ 	.port_enter		= lb_port_enter,
+ 	.port_leave		= lb_port_leave,
+-	.port_disabled		= lb_port_disabled,
++	.port_tx_disabled	= lb_port_tx_disabled,
+ 	.receive		= lb_receive,
+ 	.transmit		= lb_transmit,
+ };
 diff --git a/include/linux/if_team.h b/include/linux/if_team.h
-index 34bcba5a70677..1e378d3a7eaa0 100644
+index 1e378d3a7eaa0..7a69cd251bfb3 100644
 --- a/include/linux/if_team.h
 +++ b/include/linux/if_team.h
-@@ -121,7 +121,6 @@ struct team_mode_ops {
+@@ -121,7 +121,7 @@ struct team_mode_ops {
  	int (*port_enter)(struct team *team, struct team_port *port);
  	void (*port_leave)(struct team *team, struct team_port *port);
  	void (*port_change_dev_addr)(struct team *team, struct team_port *port);
--	void (*port_enabled)(struct team *team, struct team_port *port);
- 	void (*port_disabled)(struct team *team, struct team_port *port);
+-	void (*port_disabled)(struct team *team, struct team_port *port);
++	void (*port_tx_disabled)(struct team *team, struct team_port *port);
  };
  
+ extern int team_modeop_port_enter(struct team *team, struct team_port *port);
 -- 
 2.53.0
 
