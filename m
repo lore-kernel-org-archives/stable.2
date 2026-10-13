@@ -1,206 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2BC83C65F0;
-	Tue, 13 Oct 2026 14:07:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E5373EEAD0
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 14:07:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791900438; cv=none; b=kDFK4MsBaWyxrOd8nIhoYguVye+gfBURPg4c4e+VBSf3fUX0LUoyKoV/kZyntFWLzsyrTEyCbBV1ZwZv8wNlXS1a1DSPgSrc48Z+4A8Ux15eQnb3rQs+sMNdRU9pEuYfjv+NwyrM73twTT4c3MxUQkn4S52tYXTfTP6jF4X79+0=
+	t=1791900477; cv=none; b=LW/W3Bu70UiFONTJKLIKIWCoSt6AxCixxIbSq3rGn3ZOjClLm4FZ/PJHf8TnpJwC0g2j+qvuoTI8Eptyg1tpRA4R30/QYCiuep0LWGQRhWU1dwxNk5MbvusD/5cyYlgYcJ7GsorUIWKfk5quawuHuC1sfjcqsps4H/X7iKkbnFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791900438; c=relaxed/simple;
-	bh=umk+do6AA4iehzVvFZfr1gUxoj7dg1s+aAH6ZDQz6dg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fwhZ3tsU1BXZl3Qc5rFhlWZc/54JAx6/OKkld8IFtsTzaK9jtx9+8CW28fTJ9cbTaTXDnOszjIvQEbZs6K4NBdq49F52NqtwKWFfQmbOwz9lPsvaMdz90KKULy34uA1QVliRgJ8qoEoxXAEWdqSBEL4OlCJqKNuA7/GK7p1TFBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fm3Bmv3/; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791900477; c=relaxed/simple;
+	bh=OzuAp0rlEJdsfQomS5ope4HzayW0l3aekZR9Acx0XzE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=on/lwToBykEU0HBbRKh793PUbTwaBP+2TvMVH6EJb5oDORuD0BQ5Kwx4EStTZtvk+3v5gZRzAV7SsDCc4DKhc8ghG2gLSXHE21y063hrj+LUMbkHwbW7q7odBseHMCLvQ4JBpxasHlhLns1jhpzsOlpipX8DysWbbzkGOzqTfRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BUk/GI4W; arc=none smtp.client-ip=209.85.210.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fm3Bmv3/"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 51654C2BCF4;
-	Tue, 13 Oct 2026 14:07:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791900438;
-	bh=umk+do6AA4iehzVvFZfr1gUxoj7dg1s+aAH6ZDQz6dg=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=Fm3Bmv3/VfSgFiQMWVQa9eYzZIJgrK2jN7pQt+iUoz91o5mCSreBc6atpXiq2EV/Z
-	 Ibx2BiC+zED40loXtCAyl/0T7DxkGDjvV2IGjI2zdl6UwjS1SxUA1zSuHIytjzJqZV
-	 uQIKZFowFVrf8skZUxK9P4ZcOuR9x3ChrSfMV5jG9VQ4oU8GWpfhUmiVyAPYYES+p9
-	 p+192HS/rMU+IpVUkwwCWI2BfHxKKRrvHlL6SycgFMLho6pn99x7goWr83vEpjBWXT
-	 LAgBQ0D1WtIp+hVixNUqq6VsNszZ7O3mWhc9wfrZMwvgiSnArFYfCmA3r9NKaMJRQa
-	 AlPKcHWVybBsg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3BAF8CC6B10;
-	Tue, 13 Oct 2026 14:07:18 +0000 (UTC)
-From: Phil Rosenthal via B4 Relay <devnull+phil.phil.gs@kernel.org>
-Date: Tue, 13 Oct 2026 10:07:16 -0400
-Subject: [PATCH v2] serial: core: Shut down a running console port before
- removing it
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BUk/GI4W"
+Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-838aaf42b2fso83052a34.0
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 07:07:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791900475; x=1792505275; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8sNOFg4Wj9OYyKeIVnikxJmvj26NKKSzvljXjsvUtTY=;
+        b=BUk/GI4WpKFi1kxDhm1sTBlrEmU1Co3SCKtDsEDF/5wUMztCOSMxHgUVwS43gvXJnP
+         OxUTyaD8xK6TXM1Xwm2ICoxAvtfq3YSBN1XmMvinoJKhhxLvVBdGchn3QyKelCtGVzy9
+         fiNNvfXTTwnsGRtUSWVfyKrhL1q/i/UjrX0KnVlhLFCpEvCTGzkRY0xYAKDAdR3fUpCQ
+         OoSIKPhgvfarvqswKWvSs2SkZ+Cc9CcyhFt9u/6u1TyjRpElE2K8WqFVb3gtiY5qVZdg
+         ip8PJKep9E4oQDFly2RsT3VvvOr3n+QJSj1rDVw78Or0oaVFunzBdXkO41FBPj0lDbKt
+         c60A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791900475; x=1792505275;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8sNOFg4Wj9OYyKeIVnikxJmvj26NKKSzvljXjsvUtTY=;
+        b=tmpCiKaW7G+W35PulWLNuZvgZ5RkgIc/Sb2hyBft2O3YQc1M+HyUIwypsxGtChr40P
+         PWmzNI8TrGHJAQPCaPZMpB9p47Ssj5tQzPIJOYdUW3Jww9XJFRg+hNy02tmw+9+Q17ga
+         /XaNKsvsamDFPzRJ7zAMzQV5lWX1GmgqvOrDqCe+HrEMyEiclPfPunRJlPDSVV/kTshr
+         ZZsuQXogSvatjmEgcDIu2TiexlqL6EbLxReRw5khI/IUfIkay7FRDY1JIwf5d4UHQQBw
+         atWfltuTRkK+RMoUjdhvpJD62TGEaTsMstV2P7JEw3zhPoUJrssUvaKVJVUbRzinQnML
+         /KEQ==
+X-Forwarded-Encrypted: i=1; AKwUvByH/+cgQ2aYMsS2sRXYguNM7Xx9xCj/Cn3Pa5q8leXpqmz/pfM1HOwdOZkEPOkMJQhy0AvD+U0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIetnntnexqqNPfVa9nEQA7DM4RswENNCoCE9/XEn4NEvC1y+DA
+	uklZ5ov1bxQ/6BjtTk2jXD9GPEgqM/Pg6Aqw9J+mMQSvXsC39VglqpQ9
+X-Gm-Gg: AYBFou2uj+aBr3/1oFejc8UF//dXgrV4Uc+XgFBYCHI+CI7MS0C09ifePgo1lnNbtjb
+	g+lquIrrkmo29PPkkFlbMZEkTI301688hzpR0zIEtQH27f0H5swfBMNT3HzFe0bG6WFlC115UNA
+	o2G8isxItvLlGD7vFlmXUJnVqUOuWrU8/Gc1XYXmV/o6GlBJN1I7zCo8srFK+pymEDc5nen5QGS
+	oXt6oEaXeKHhq1k6znYyKrN+4nSJeV6AHMariu9s3ydmhwZU9+qXLVerWSJbvO+D9Om/VGlhGEN
+	6bbNpIDAhmytd4ZqY74Cz6a8zXpfmMYNqNJYwl4JDGBeC/Yreso+ibDz7L794CEsrYQGQbHtcym
+	xywuxM7QeINA6ulUhfJ9yNeMBM4mctsuru2zd9re6POfOsi+laJNQmooVd+9SruifuS1ZbXz1u5
+	PPES2+URhlgSOZTMxGHQwitpjRWWI+jMoP5gKxLcd3ex/Czx4fiqsC/nfLGCQPrLp7ISrDaM233
+	ydkIdjFAgBkPToKYYj9ujTOq69a6SoOCZ+M50HeAity6sK7Q6RFSytSiatP6+aUV4pUCQnyYagx
+	yTI=
+X-Received: by 2002:a05:6830:854b:10b0:839:c62a:1661 with SMTP id 46e09a7af769-839c6398053mr1807548a34.7.1791900474853;
+        Tue, 13 Oct 2026 07:07:54 -0700 (PDT)
+Received: from fedora-laptop ([172.245.82.59])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-83039a3dfa1sm12646295a34.18.2026.10.13.07.07.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 07:07:54 -0700 (PDT)
+Date: Tue, 13 Oct 2026 09:07:46 -0500
+From: Ming Lei <tom.leiming@gmail.com>
+To: Aaron Tomlin <atomlin@atomlin.com>
+Cc: axboe@kernel.dk, hare@suse.de, sean@ashe.io, tj@kernel.org,
+	neelx@suse.com, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] blk-mq: dispatch kworker to housekeeping CPU when hctx
+ cpumask is empty
+Message-ID: <as47Mma7pksi_i9C@fedora-laptop>
+References: <20261012012905.267920-1-atomlin@atomlin.com>
+ <CACVXFVMTr8mORGSVM4JWHrLYgk+9O0J20bjaL_08uYmRCbzC3A@mail.gmail.com>
+ <o2hxbjxbkg3wv25lyj3nluwv4e6cb6q5qaukrhjzwg2hodwk5c@wgpc25peito7>
+ <asxLLWOQQzolER0a@fedora-laptop>
+ <pvnvyzf3cbebpxmobjntvovrruxgnygm7pwgx3tl2jczc7ji5z@ygmd6z4cfxh4>
+ <as4j_Zk7zcNsBuo1@fedora-laptop>
+ <i4xh6jsm222rtn7pka57fuo3scelrlzywrvq5kor5sy2jjlrmq@tkqbbrzimfrd>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-serial-console-remove-v2-1-2eca1a92c10d@phil.gs>
-X-B4-Tracking: v=1; b=H4sIABM7zmoC/4WNQQ7CIBBFr9LM2jGAWqkr72G6QBjaSWppwBBNw
- 92lvYDL9/P/+yskikwJbs0KkTInDnMFdWjAjmYeCNlVBiVUK4XQuPXNhDbMKUyEkV4hE7qO/Nk
- Z3ZKwULdLJM+f3fvoK4+c3iF+95sst/SfMUuUqLR+dvYkL8Zf78vI03FI0JdSflUX8C+4AAAA
-X-Change-ID: 20261008-serial-console-remove-d9ef4da86e0c
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Johan Hovold <johan@kernel.org>, linux-serial@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Phil Rosenthal <phil@phil.gs>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791900437; l=6358;
- i=phil@phil.gs; s=20260718; h=from:subject:message-id;
- bh=BsCt8Br7wx0hA0cJvt2l/hyIzpxE51pEs/gRCgNdPtg=;
- b=54qcslukDWUJAe+/2QJFHyACcPfyiYCUjUfT3kZ8ytbhXN7C1mACaN9/PsgeHJOpXAyUDYdPK
- Hhd71AahafUCLjpMjzcbAng8WpGSlDC7IjM63Ay76RxWdDWgAPQPZLW
-X-Developer-Key: i=phil@phil.gs; a=ed25519;
- pk=08BMg1YPtTS5NnKn5I1Mq1ra3MdAg49Awe6OjrC59fs=
-X-Endpoint-Received: by B4 Relay for phil@phil.gs/20260718 with auth_id=881
-X-Original-From: Phil Rosenthal <phil@phil.gs>
-Reply-To: phil@phil.gs
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <i4xh6jsm222rtn7pka57fuo3scelrlzywrvq5kor5sy2jjlrmq@tkqbbrzimfrd>
 
-From: Phil Rosenthal <phil@phil.gs>
+On Tue, Oct 13, 2026 at 09:33:42AM -0400, Aaron Tomlin wrote:
+> On Tue, Oct 13, 2026 at 07:28:45AM -0500, Ming Lei wrote:
+> > No.
+> > 
+> > For example, schedule_work() is queue_work_on(WORK_CPU_UNBOUND, system_percpu_wq),
+> > a WQ_PERCPU workqueue, so every schedule_work() from an isolated CPU runs
+> > on that CPU. blk-mq isn't special here; this is the general tradeoff of
+> > submitting IO from an isolated CPU.
+> 
+> Fair point regarding schedule_work(). I concede that mechanically,
+> kblockd_workqueue is not unique in accepting WORK_CPU_UNBOUND on a per-CPU
+> workqueue. schedule_work() indeed directs WORK_CPU_UNBOUND to
+> system_percpu_wq, which resolves to raw_smp_processor_id() within
+> __queue_work().
+> 
+> However, the crucial distinction lies in the semantic contract and intent.
+> Callers of schedule_work() seek local (or best-effort local) execution;
+> there is neither an assumption nor a guarantee that schedule_work() avoids
+> isolated CPUs.
 
-A console port is not shut down when its last user closes it:
-tty_port_shutdown() returns early when tty_port::console is set, so the
-port stays initialized.  For an 8250 port this leaves its interrupt
-requested or, for a port without an interrupt, its poll timer armed.
+Then you admit the same generic problem, nothing different with blk-mq.
 
-serial_core_remove_one_port() relies on tty_port_tty_vhangup() to shut
-the port down before releasing its resources, but the hangup reaches
-uart_hangup() -> uart_shutdown() only when a tty is attached.  For a
-console that was opened and closed, for example a serial console whose
-getty has been stopped, nothing shuts the port down.  The console is
-unregistered, ->release_port() releases the registers and the core frees
-uport->name while the port is still running.  On tty-next with 8250
-ports:
+> 
+> By contrast, blk-mq has an explicit architectural contract to avoid running
+> block kworkers on isolated CPUs. In commit a46c27026da1 ("blk-mq: don't
+> schedule block kworker on isolated CPUs"), the intent was to deliberately
+> excluded isolated CPUs from hctx->cpumask precisely because:
+> 
+>     "blk-mq kworker shouldn't be scheduled on isolated CPUs."
 
- - A card bound to 8250_pci with an INTx interrupt and unbound through
-   sysfs keeps its interrupt requested after the driver is gone.  The
-   irqaction name points to the freed uport->name, so reading
-   /proc/interrupts is a slab-use-after-free in irq_seq_show().
+I am pretty sure that the pre-condition is that IO isn't submitted from isolated
+CPU. You can send a patch to make the point explicitly.
 
- - A polled (irq = 0) MMIO port with UPF_IOREMAP keeps running
-   serial8250_timeout() after serial8250_release_port() has cleared
-   membase, which dereferences NULL in timer softirq context about
-   10 ms after "console [ttyS5] disabled".
+> 
+> Furthermore, blk_mq_run_hw_queue() explicitly honours this policy:
+> 
+>     if (async || !cpumask_test_cpu(raw_smp_processor_id(), hctx->cpumask)) {
+>         blk_mq_delay_run_hw_queue(hctx, 0);
+>         return;
+>     }
+> 
+> When executing on an isolated core (!cpumask_test_cpu(...)), blk-mq
+> deliberately refrains from inline dispatch specifically to offload the work
+> asynchronously via blk_mq_delay_run_hw_queue().
+> 
+> When all CPUs mapped to that hardware queue are isolated
+> (blk_mq_hctx_empty_cpumask(hctx)), commit a46c27026da1 added:
+> 
+>     /* Switch to unbound if no allowable CPUs in this hctx */
+>     if (hctx->queue->nr_hw_queues == 1 || blk_mq_hctx_empty_cpumask(hctx))
+>         return WORK_CPU_UNBOUND;
+> 
+> The express intention of that change was to switch away from the isolated
+> CPUs. However, because kblockd_workqueue is WQ_PERCPU, returning
+> WORK_CPU_UNBOUND inadvertently resolves to raw_smp_processor_id(), queuing
+> the work right back onto the isolated CPU that blk-mq just went out of its
+> way to avoid.
+> 
+> That is why blk-mq is in an unusual position; it intended to avoid isolated
+> cores, but relied on WORK_CPU_UNBOUND to achieve that on a bound per-CPU
+> workqueue where that mechanism cannot take effect.
+> 
+> > You already disturb isolated CPUs by submitting IO via syscall in this
+> > case, so why does it matter here to dispatch on same isolated CPU one more
+> > time?
+> 
+> There is a fundamental difference between synchronous syscall execution and
+> asynchronous background kworker execution:
+> 
+>     1.  When an isolated user task issues a synchronous I/O request (e.g.
+>         via write(2)), execution occurs synchronously within the task's own
+>         context and CPU accounting. The application remains in control of
+>         when this overhead is incurred.
+> 
+>     2.  When dispatch must be deferred (e.g. BLK_STS_RESOURCE), blk-mq
+>         queues &hctx->run_work. A background kworker runs under
+>         SCHED_NORMAL. On isolated cores, workloads typically execute under
+>         real-time scheduling classes (SCHED_FIFO, SCHED_RR, SCHED_DEADLINE)
+>         or tight polling loops. A SCHED_FIFO task executing on that core
+>         will completely starve the local kworker. Consequently,
+>         blk_mq_run_work_fn() never runs, hardware dispatch stalls, pending
+>         completions cannot occur, and the I/O pipeline hangs indefinitely.
+> 
+>     3.  Even where starvation is avoided (e.g. via the EEVDF scheduler's
+>         Fair server or cooperative yielding), queuing bound work on a
+>         nohz_full isolated core forces the scheduler tick to re-activate,
+>         injecting unwanted jitter and defeating deterministic isolation
+>         guarantees.
+> 
+> Steering deferred queue dispatch to an online housekeeping CPU via
+> housekeeping_any_cpu(HK_TYPE_TIMER) sidesteps these pitfalls entirely.
+> The kworker executes promptly on a housekeeping core without priority
+> inversion, hardware dispatch proceeds unhindered, and the isolated CPU's
+> low-latency domain is preserved.
 
-After unregistering the console and before releasing the resources, call
-uart_shutdown().  It runs with port->mutex held, as for its other
-callers, and with no tty, so it also drops DTR and RTS.  For a port that
-is not initialized, because the hangup already shut it down or because it
-is suspended, uart_shutdown() leaves the hardware alone and only releases
-what the core still holds, such as the transmit buffer of a suspended
-port.
-
-Fixes: 761ed4a94582 ("tty: serial_core: convert uart_close to use tty_port_close")
-Cc: stable@vger.kernel.org # 6.6.x
-Assisted-by: LLM sparse
-Signed-off-by: Phil Rosenthal <phil@phil.gs>
----
-The bug goes back to v4.9 (761ed4a94582), but scoped_guard() for
-mutexes was only added in v6.5, so this version doesn't build on the
-6.1, 5.15 and 5.10 stable trees.  For those I'll send a backport that
-uses mutex_lock() and mutex_unlock() instead and is otherwise the same.
-
-I hit the bug on real hardware.  My serial console is a polled ASPEED
-BMC VUART, then driven by an out-of-tree module.  After I stopped its
-getty, unloading the driver oopsed in mem32_serial_in() from
-serial8250_timeout().
-
-History: before 761ed4a94582, uart_close() called uart_shutdown() for
-every port, consoles included.  761ed4a94582 made console ports skip the
-shutdown on close.  be2c92b8f164 reverted that part and 4dda864d7307
-reinstated it, all within v4.9.  Keeping a console running after close is
-intended, but the removal path was never updated for it.
-
-Tested in a QEMU guest on tty-next 36844ea19656 with KASAN, using in-tree
-8250_pci and a "serial8250" platform port.  Reproducers are available on
-request.  Without this patch:
-
-  8250_pci with INTx, reading /proc/interrupts after unbind:
-    BUG: KASAN: slab-use-after-free in string+0x3b6/0x4c0
-     irq_seq_show+0x34d/0x810
-    Allocated by task 1244:
-     kasprintf+0xac/0x100
-     serial_core_register_port+0x55f/0x1720
-    Freed by task 1276:
-     kfree+0x1a0/0x4a0
-     serial_core_unregister_port+0x44d/0xa80
-     serial8250_unregister_port+0x10d/0x6c0
-     pciserial_detach_ports+0x92/0x160
-
-  Polled MMIO port (irq 0, UPF_IOREMAP) after removal:
-    printk: console [ttyS5] disabled
-    BUG: kernel NULL pointer dereference, address: 0000000000000008
-    RIP: 0010:mem32_serial_in+0x74/0xa0
-     serial8250_timeout+0x44/0x140
-     call_timer_fn+0x32/0x260
-
-With this patch both cases are clean: the IRQ is freed on unbind,
-rebinding restores the console, and the polled port is shut down on
-removal.  A port held open across removal and a console that was never
-opened did not fail before and still work.  v2 was retested the same
-way.  W=1, sparse and checkpatch --strict are clean.
-
-Also tested on real hardware: the ASPEED BMC VUART that hit the bug
-(polled MMIO, irq 0) as the console, now bound to 8250_pci with my
-pending ASPEED support patch [1], on a 7.0.14 distribution kernel with
-both patches.  After stopping the getty, opening and closing the port,
-and unbinding the PCI device, there is no oops.  Rebinding restores the
-console, the getty and in-band IPMI.  That run used v1; v2 behaves the
-same on that path.
-
-Not tested: serial drivers other than 8250, and removing a port while it
-is suspended (the case v2 adds).
-
-[1] https://lore.kernel.org/r/20261008-aspeed-vuart-v1-1-d2be17c99cd7@phil.gs
-
-AI assistance: an LLM coding assistant (Claude, model claude-opus-5-5, in
-Claude Code) analysed the crash, wrote the reproducers and the patch, and
-built and ran the test kernels.  Two other LLMs reviewed the result
-(GPT-5.6 Sol via Codex, and Claude Fable 5.1 via Claude Code).  I reviewed
-it as well.
----
-Changes in v2:
-- Call uart_shutdown() without checking tty_port_initialized() first,
-  so that a console port removed while suspended also gets its transmit
-  buffer freed and its suspended flag cleared (found by Sashiko's
-  review of v1).  uart_shutdown() already skips the hardware shutdown
-  for a port that is not initialized.  Comment and changelog updated.
-- Use scoped_guard() for port->mutex, as elsewhere in the function, and
-  drop the comment (Greg).
-- Link to v1: https://lore.kernel.org/r/20261008-serial-console-remove-v1-1-288b9c315af7@phil.gs
----
- drivers/tty/serial/serial_core.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index 319a4b427f3a3727d12cb58252bd8959f9be4cd6..d96d84a985cd972f3974da28cf3daa7fc05eefcf 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -3239,6 +3239,9 @@ static void serial_core_remove_one_port(struct uart_driver *drv,
- 	if (uart_console(uport))
- 		unregister_console(uport->cons);
- 
-+	scoped_guard(mutex, &port->mutex)
-+		uart_shutdown(NULL, state);
-+
- 	/*
- 	 * Free the port IO and memory resources, if any.
- 	 */
-
----
-base-commit: 36844ea19656fb41278799ef3d5cd52120d89149
-change-id: 20261008-serial-console-remove-d9ef4da86e0c
-
-Best regards,
--- 
-Phil Rosenthal <phil@phil.gs>
+Any user visible effect? Both are a piece of code running on isolated CPU,
+the choice is in application. If they want to run IO on isolated CPU, we
+do it in same way. Otherwise, we won't schedule work on isolated CPU for
+respecting the kernel interface.
 
 
+Thanks,
+Ming
