@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FAE52D2B0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C2E52F289
 	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 15:27:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791905248; cv=none; b=vBzM+TXpY5fyqa5RqyyKJ0bkkuppqLNE5/YYUZwNTe3E2jwtSyh/A8kJHNFvxfZnMsE8mu6MmZ/cNt7Xzx6RRSFurkPTGWa6Wbkv3/ahzOJebIjFHUqKAAMPXRHXxKkfmLFkZsQez/Q4Ds0yj6CqI8AEOX1PHD59hhlV0ZHZtxw=
+	t=1791905248; cv=none; b=hxVsp6WtZc8M8bjCf7Whupb0SaeDqsQsHGUcfY8fWfMkmJPsjZuMg1BqJVaFTCgWNLoa4PgtxK/c2SOc3051mtXfY3K8+zeDG+WyAo4dXQhkjdT1iiz7R69r7y8ukURMJOzEzrYd1+fZDgfOVN/jMSR5MXpoGyAd3TUpXkCx+M4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791905248; c=relaxed/simple;
-	bh=SPFpzg6Rf75LXFVYUUHkpDB0iOWz0HPPHQmOhmUAGuE=;
+	bh=AU9kWaS+ah7/2Sq1BZDH+PM81Z6iFFmtW0d0gPHW3tk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TK3iTi7UqQtYo5ZboBSv3siMpHapVYvR39LJWzYOTj8qw/BNIUT5tLa97Zx4E1+5E96a1Gv9KqhuRXlkoaPISIrYR6TdLYbWndnQgtH2gSMqj7oVkcOUAkTjScZv+sChbvBp5JWh+qmwNqqL8PhDHSFrkky6Vat7TBGCcXnjCdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LG2KyyvS; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=u7Gm06Hm63MXPBF/vFI//nhvuLHEM+VWV0+Op0OstbzHspZ4JIBY/aEDG56s4kALBydM08rCNvu2+rwcXndzpoyTojDuR7iZaptFvgf0bfPRVVh2myq/5/tnFJDHLTwMZN+5ZssfTg8aiBFpKaE+y1rEgPWCerFYIfphtskAesk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iH5CDae1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LG2KyyvS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10C421F00893;
-	Tue, 13 Oct 2026 15:27:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iH5CDae1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ADFC1F00898;
+	Tue, 13 Oct 2026 15:27:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1791905246;
-	bh=R3uzxkdbQIn3cjDa4m1RXavqiiFWfm9EL4GzOzSJ+b8=;
+	bh=dQQ3DjHUoGzwR1QEyHkVHhhLMjyU7jEjaTsZS923nBs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LG2KyyvS3Y0NPd02D3fFj4wUZY5cBl49n3PPsv16gNEPSsMQ3nDBVv7YaM950nMaU
-	 CK16QzGQiRvNgisuiyeA0LswMHnmnVz8VaHVPvRZbqTl7V/KFCz0F3etJgFC/rxINe
-	 cUN4trW0SRF0ho6z5QKvWQb0qMpEH6AY1CdsDId58QD6zXYelvkmEN8z2u2U1dE1is
-	 jihiGiZ10ipL1PDvlicKcGel8FHS6Qpt5o8EzYlOzf2uM852yVNGzE2vLxgl8vZg1y
-	 +WC0oev6DR8/jLZ6QAE21t8R/KgUiNifcxjO7iytnuolGnLKxZK9HiDCSDZxUPDMrS
-	 RnqDOTwgEQHew==
+	b=iH5CDae1QLpVrHqq/b7ZdoHD79uTDw9d3XCejsxwRIvbSQGFbgY+1Y0QVMETv8Su8
+	 x6bAt9898R1uX22TNhmRV8s5xnLs9Z6py5FKau9OJhOJSdU9vf6I8NhFSB1a9dEOEG
+	 hxcQmXc1YUQE2I+j3lGJPvC++NUmGIlGZwv9RD3KuzsqHiWY+a57H/5+K51pVQEqhk
+	 LXtoG7iU/lRrP2Z6UOSGIkrEcx3YxAKiBFQ473h3lJD9TRDtSbTr+ZofyIUku7Bcr/
+	 AJyzf93EVEf41eMKBtPE64jtDUY+8MmvN1gX9X5eJolAGbms4T2gKIG68kvlbAIy1k
+	 QJYNfUannj2Lw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Marc Harvey <marcharvey@google.com>,
-	Jiri Pirko <jiri@nvidia.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/4] net: team: Rename port_disabled team mode op to port_tx_disabled
-Date: Tue, 13 Oct 2026 11:27:22 -0400
-Message-ID: <20261013152713.222800-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] Bluetooth: hci_sync: Fix command skb lifetime during scan setup
+Date: Tue, 13 Oct 2026 11:27:25 -0400
+Message-ID: <20261013152714.130958-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261013152713.222800-1-sashal@kernel.org>
-References: <2026101203-kennel-comprised-be30@gregkh>
- <20261013152713.222800-1-sashal@kernel.org>
+In-Reply-To: <2026101206-hurray-deftly-6159@gregkh>
+References: <2026101206-hurray-deftly-6159@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,76 +45,123 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Marc Harvey <marcharvey@google.com>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-[ Upstream commit cfa477df2cc62ba53cb936669886361152b594a7 ]
+[ Upstream commit 9af12272061d206af8bc3e40215cb694421ab73a ]
 
-This team mode op is only used by the load balance mode, and it only
-uses it in the tx path.
+During PA sync scan setup, hci_le_set_ext_scan_param_sync() gets the
+address used for the PA_LINK lookup from hci_sent_cmd_data(). The
+returned pointer borrows storage from sent_cmd or req_skb, without
+holding a reference to either skb.
 
-Reviewed-by: Jiri Pirko <jiri@nvidia.com>
-Signed-off-by: Marc Harvey <marcharvey@google.com>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/20260409-teaming-driver-internal-v7-3-f47e7589685d@google.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Stable-dep-of: b7454f1940c5 ("net: team: stop reusing skb after queue override")
+The scan worker runs on req_workqueue while hci_cmd_work() runs on the
+separate device workqueue. After the scan worker loads sent_cmd, the
+command worker can free and replace it before hci_sent_cmd_data()
+dereferences the skb. The command payload can also be freed between
+returning from the helper and comparing the address. The connection
+lookup's RCU critical section does not protect the command skb.
+
+KASAN reported:
+
+  BUG: KASAN: slab-use-after-free in hci_sent_cmd_data+0x27c/0x2f0
+  Workqueue: hci0 hci_cmd_sync_work
+  Call Trace:
+   hci_sent_cmd_data+0x27c/0x2f0
+   hci_le_set_scan_param_sync+0x43a/0x850
+   hci_passive_scan_sync+0xb09/0x1460
+   hci_update_passive_scan_sync+0x47c/0x6e0
+   hci_le_pa_create_sync+0x200/0xa70
+   hci_cmd_sync_work+0x13c/0x290
+
+  Allocated by task 95:
+   skb_clone+0x13f/0x340
+   hci_cmd_work+0x2a9/0x7e0
+
+  Freed by task 95:
+   kmem_cache_free+0xba/0x3a0
+   hci_cmd_work+0x29c/0x7e0
+
+Use hdev->lock to serialize the address snapshot with sent_cmd
+replacement. Protect req_skb replacement and completion cleanup with
+the same lock because the helper falls back to that skb. Copy the
+address before releasing the lock and use the copy for the existing
+RCU-protected connection lookup. Release the mutex before sending or
+waiting for commands, preserving the lookup and completion ordering.
+
+Fixes: 22cbf4f84c00 ("Bluetooth: hci_sync: Use QoS to determine which PHY to scan")
+Cc: stable@vger.kernel.org
+Assisted-by: GPT-6 Astra
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/team/team_core.c             | 4 ++--
- drivers/net/team/team_mode_loadbalance.c | 4 ++--
- include/linux/if_team.h                  | 2 +-
- 3 files changed, 5 insertions(+), 5 deletions(-)
+ net/bluetooth/hci_core.c |  4 ++++
+ net/bluetooth/hci_sync.c | 10 +++++++++-
+ 2 files changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/team/team_core.c b/drivers/net/team/team_core.c
-index daf12b362d034..89f33ad6a0603 100644
---- a/drivers/net/team/team_core.c
-+++ b/drivers/net/team/team_core.c
-@@ -967,8 +967,8 @@ static void team_port_disable(struct team *team,
- {
- 	if (!team_port_enabled(port))
- 		return;
--	if (team->ops.port_disabled)
--		team->ops.port_disabled(team, port);
-+	if (team->ops.port_tx_disabled)
-+		team->ops.port_tx_disabled(team, port);
- 	hlist_del_rcu(&port->hlist);
- 	__reconstruct_port_hlist(team, port->index);
- 	port->index = -1;
-diff --git a/drivers/net/team/team_mode_loadbalance.c b/drivers/net/team/team_mode_loadbalance.c
-index 00f8989c29c0f..3ca419884185b 100644
---- a/drivers/net/team/team_mode_loadbalance.c
-+++ b/drivers/net/team/team_mode_loadbalance.c
-@@ -658,7 +658,7 @@ static void lb_port_leave(struct team *team, struct team_port *port)
- 	free_percpu(lb_port_priv->pcpu_stats);
- }
+diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
+index 95900c2325631..ff3ccb33da0c7 100644
+--- a/net/bluetooth/hci_core.c
++++ b/net/bluetooth/hci_core.c
+@@ -4155,9 +4155,11 @@ static int hci_send_cmd_sync(struct hci_dev *hdev, struct sk_buff *skb)
  
--static void lb_port_disabled(struct team *team, struct team_port *port)
-+static void lb_port_tx_disabled(struct team *team, struct team_port *port)
- {
- 	lb_tx_hash_to_port_mapping_null_port(team, port);
- }
-@@ -668,7 +668,7 @@ static const struct team_mode_ops lb_mode_ops = {
- 	.exit			= lb_exit,
- 	.port_enter		= lb_port_enter,
- 	.port_leave		= lb_port_leave,
--	.port_disabled		= lb_port_disabled,
-+	.port_tx_disabled	= lb_port_tx_disabled,
- 	.receive		= lb_receive,
- 	.transmit		= lb_transmit,
- };
-diff --git a/include/linux/if_team.h b/include/linux/if_team.h
-index 31a4f13ab2986..06fec0a78db5a 100644
---- a/include/linux/if_team.h
-+++ b/include/linux/if_team.h
-@@ -121,7 +121,7 @@ struct team_mode_ops {
- 	int (*port_enter)(struct team *team, struct team_port *port);
- 	void (*port_leave)(struct team *team, struct team_port *port);
- 	void (*port_change_dev_addr)(struct team *team, struct team_port *port);
--	void (*port_disabled)(struct team *team, struct team_port *port);
-+	void (*port_tx_disabled)(struct team *team, struct team_port *port);
- };
+ 	bt_dev_dbg(hdev, "skb %p", skb);
  
- extern int team_modeop_port_enter(struct team *team, struct team_port *port);
++	hci_dev_lock(hdev);
+ 	kfree_skb(hdev->sent_cmd);
+ 
+ 	hdev->sent_cmd = skb_clone(skb, GFP_KERNEL);
++	hci_dev_unlock(hdev);
+ 	if (!hdev->sent_cmd) {
+ 		skb_queue_head(&hdev->cmd_q, skb);
+ 		queue_work(hdev->workqueue, &hdev->cmd_work);
+@@ -4178,8 +4180,10 @@ static int hci_send_cmd_sync(struct hci_dev *hdev, struct sk_buff *skb)
+ 
+ 	if (READ_ONCE(hdev->req_status) == HCI_REQ_PEND &&
+ 	    !hci_dev_test_and_set_flag(hdev, HCI_CMD_PENDING)) {
++		hci_dev_lock(hdev);
+ 		kfree_skb(hdev->req_skb);
+ 		hdev->req_skb = skb_get(hdev->sent_cmd);
++		hci_dev_unlock(hdev);
+ 	}
+ 
+ 	return err;
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index f4dea6fffa727..6d7caf00fc897 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -32,8 +32,10 @@ static void hci_cmd_sync_complete(struct hci_dev *hdev, u8 result, u16 opcode,
+ 	WRITE_ONCE(hdev->req_status, HCI_REQ_DONE);
+ 
+ 	/* Free the request command so it is not used as response */
++	hci_dev_lock(hdev);
+ 	kfree_skb(hdev->req_skb);
+ 	hdev->req_skb = NULL;
++	hci_dev_unlock(hdev);
+ 
+ 	if (skb) {
+ 		struct sock *sk = hci_skb_sk(skb);
+@@ -3058,13 +3060,19 @@ static int hci_le_set_ext_scan_param_sync(struct hci_dev *hdev, u8 type,
+ 	 */
+ 	if (hci_dev_test_flag(hdev, HCI_PA_SYNC)) {
+ 		struct hci_cp_le_add_to_accept_list *sent;
++		bdaddr_t bdaddr;
+ 
++		hci_dev_lock(hdev);
+ 		sent = hci_sent_cmd_data(hdev, HCI_OP_LE_ADD_TO_ACCEPT_LIST);
++		if (sent)
++			bacpy(&bdaddr, &sent->bdaddr);
++		hci_dev_unlock(hdev);
++
+ 		if (sent) {
+ 			struct hci_conn *conn;
+ 
+ 			conn = hci_conn_hash_lookup_ba(hdev, PA_LINK,
+-						       &sent->bdaddr);
++						       &bdaddr);
+ 			if (conn) {
+ 				struct bt_iso_qos *qos = &conn->iso_qos;
+ 
 -- 
 2.53.0
 
