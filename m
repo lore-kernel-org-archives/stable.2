@@ -1,100 +1,221 @@
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B689404BE9;
-	Tue, 13 Oct 2026 15:23:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 919F251EE1A
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 15:24:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904990; cv=none; b=n1Bv8a0ILAxu/s4DDNO71aR+xS254R97PcNQ86enalqfR6gSloWL6oZ6y2jFIDa0ir67D1rVfOrNupV51O13pszNXrzWe3wiioFGZGRQxVaV7qq/UWx7VscCuZzQqABJ/Qf6n3lehE3v1/KDIEQ6+WMS82+/c8H+FlJaPSOasVE=
+	t=1791905090; cv=none; b=ex+/iBPFD9MmzYmL+yj6QNLmiNxdow1LMnYuVic7lirsfPzuJhzMSgS5WYcc9Hhqzq8RT48U5dd+yL+CdAKneUwQrpgB7SiMqbXp3wj2ElLm2bFUE67Ol6Xj/F614ofXIUg+rmmzJ2o+rXVcbNSYugIWrY9N1VqAO5uX2GwfYD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791904990; c=relaxed/simple;
-	bh=FeLrzmexsRmfrToQgkJfwU8h6OCDT+AJrtkO1ZcrUKE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IlNHGs540ozaaHqYLhBuhXZhyvRmKaIdmCqUZwFWUKI0A7WUeF/Mm+fMwo9bmCX7hvXbYzs0LH693IIveNbRt7QiX6UMlcJaO8e4VfBRPsopOK8xSYaA72wzxRdIh+eqWMgwiXP2XbVGbtxZcohuFiRfY+pMZU435ttJpWDxNwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=Y4E6dTkP; arc=none smtp.client-ip=199.89.1.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1791905090; c=relaxed/simple;
+	bh=96F9PV+j38vr9JZtGaXtdDDlDapcWPgRP5cd8+I2Lqw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lA8G0uYMr5+BDW1ctU3h5r22BG9nCtU2jR90kIpOuN9f2/3OhOg7pixFWK89Nuh0z6+hDHyvJ91SDrE2kaMvovVv3K5SX91HNo0dSjfEmBY7GqJTP56lwF15f5vp2cCdXXUS1+dupG6aELrq1HxrDCyfc3AJmvGin2uXmq+uz5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=liiIWToH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="Y4E6dTkP"
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4j3ylB3cHwzlfvpn;
-	Tue, 13 Oct 2026 15:23:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1791904975; x=1794496976; bh=b91r9jQmFKJ4zQ1mNy101uUz
-	jObi7ERuqBR8BecRt/A=; b=Y4E6dTkP5bl1THRMqAa04D9X7EHouCXGFzeutP7K
-	1wpRuYMkMRXkvqzWcjLAPuWIptAJ30hPTuaGIP7ul9OIEvdLL8Omo8LliXP1MbEg
-	tNMgG8OSSt6QQHltWqnTDteet+fZkYHUE3IV9wIgHaPp9keRyg3MywMlX04TEKuS
-	UpLTvKm1DrLoq4DyoMluM6eU81F/gfvLiWuajQRdHOWst6bX7ygx/juPJ1U/ETGp
-	elOT6HT1ycLkSHj5pYeFV20Elb3gmrVeUPeEFfTnsEHFbUrpGTcuBRwKIAjLUnrw
-	RRu26EpQco8x+auJM6zrZpKw4KXIGaU1UzHciCBDzWHNSw==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id 0xx5WMOl1eAS; Tue, 13 Oct 2026 15:22:55 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4j3yl24l0nzlfvpb;
-	Tue, 13 Oct 2026 15:22:54 +0000 (UTC)
-Message-ID: <9c28fbe7-089f-4d72-86be-5805bfebb213@acm.org>
-Date: Tue, 13 Oct 2026 08:22:53 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="liiIWToH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 968941F000FF;
+	Tue, 13 Oct 2026 15:24:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791905089;
+	bh=gLx+AY/G2R5F6+N4BKbmGVNkOnLq8hwkK2tOiTyElI4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=liiIWToHTXFek0JBKpBGTYtQndrXkkaz55srr1QSXS0Lw3RQXDh3mjOQxVrDkp4ha
+	 DffVngXyesV5XMYzz2SfeDqq+CHpbbKH4pvboHb4QgWAEIzGlHbJgt732Qk7KRhDka
+	 sJJLcH6RaTpeW/RntP3h8WNPxdsit8QGwYogjoeQZlTfwOkq6XjYaaSVKq8G10jt5M
+	 4ohEPBa3brZRZBCvJjb42/wBdmyYtRjyZBkIZOegk4/6KjQoyVmVs9wI9e5TYhEIMv
+	 83MG4V7svcs0ph1O4O55YDHuoXmiEtj/AaAKa9QST56xBhb6nw68xPlBOIvWwYiugN
+	 64+R7B4Ar60nQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>,
+	Simon Horman <horms@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] net: mana: reserve RX buffer headroom to fix forwarding performance
+Date: Tue, 13 Oct 2026 11:24:47 -0400
+Message-ID: <20261013152425.95983-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026101214-empathy-corridor-b98d@gregkh>
+References: <2026101214-empathy-corridor-b98d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: =?UTF-8?B?UmU6IOetlOWkjTogW1BBVENIIHY1IDEvMl0gc2NzaTogc2Q6IG1hcmsg?=
- =?UTF-8?Q?disk_dead_on_surprise_host_removal_to_avoid_I/O_hang?=
-To: =?UTF-8?B?6IOh6L+e5Yuk?= <hulianqin@vivo.com>,
- Christoph Hellwig <hch@lst.de>
-Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alan Stern <stern@rowland.harvard.edu>, Jens Axboe <axboe@kernel.dk>,
- Hannes Reinecke <hare@suse.de>, Mike Christie <michael.christie@oracle.com>,
- Damien Le Moal <dlemoal@kernel.org>, John Garry <john.g.garry@oracle.com>,
- Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
- "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "usb-storage@lists.one-eyed-alien.net"
- <usb-storage@lists.one-eyed-alien.net>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-References: <TYUPR06MB6217DD31B1B3CD09E431CC12D2922@TYUPR06MB6217.apcprd06.prod.outlook.com>
- <20261012144923.GA10852@lst.de>
- <TYUPR06MB62172FD04314EFE34D8091EAD29E2@TYUPR06MB6217.apcprd06.prod.outlook.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <TYUPR06MB62172FD04314EFE34D8091EAD29E2@TYUPR06MB6217.apcprd06.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On 10/12/26 7:14 PM, =E8=83=A1=E8=BF=9E=E5=8B=A4 wrote:
-> diff --git a/drivers/usb/storage/usb.c b/drivers/usb/storage/usb.c
-> index 064c7fc8e368..3a5a0cac2b78 100644
-> --- a/drivers/usb/storage/usb.c
-> +++ b/drivers/usb/storage/usb.c
-> @@ -930,6 +930,9 @@ static void quiesce_and_remove_host(struct us_data =
-*us)
->   	if (us->pusb_dev->state =3D=3D USB_STATE_NOTATTACHED) {
->   		set_bit(US_FLIDX_DISCONNECTING, &us->dflags);
->   		wake_up(&us->delay_wait);
-> +
-> +		/* Device is physically gone, cannot handle I/O */
-> +		set_bit(SHOST_SURPRISE_REMOVAL, &host->flags);
->   	}
-Why is a new member variable introduced in struct Scsi_Host instead of
-e.g. changing the state of all SCSI devices that are associated with the
-host to SDEV_OFFLINE?
+From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
 
-Thanks,
+[ Upstream commit 259c4a519100e9182f264f8009ee212b32774277 ]
 
-Bart.
+Commit 730ff06d3f5c ("net: mana: Use page pool fragments for RX buffers
+instead of full pages to improve memory efficiency.") started handing
+out RX buffers with zero headroom so that two buffers fit into one page
+at the default MTU.
+
+The MANA TX path, however, stores the per scatter-gather entry DMA
+mappings in `struct mana_skb_head` at skb->head, and mana_start_xmit()
+therefore calls skb_cow_head(skb, MANA_HEADROOM). The port advertises
+this requirement as ndev->needed_headroom = MANA_HEADROOM.
+
+As a result every packet that is received and then forwarded out of a
+MANA port fails the skb_cow() in ip_forward() and gets reallocated and
+copied by pskb_expand_head(). This is invisible to a plain RX or TX
+workload, but it puts a full skb reallocation plus memcpy on the hot
+path of every single forwarded packet, which is exactly what a
+router/NVA workload does.
+
+Restore the headroom. Note that reserving MANA_HEADROOM (232) is not
+enough: ip_forward() asks for LL_RESERVED_SPACE(dev), which rounds
+hard_header_len + needed_headroom up to HH_DATA_MOD and is 256 bytes on
+ethernet. Use LL_RESERVED_SPACE() directly so the value keeps tracking
+both constants. Also, since LL_RESERVED_SPACE() tracks MANA_HEADROOM,
+it grows with MAX_SKB_FRAGS and for MAX_SKB_FRAGS >= 19 it is greater
+than 256, so we have to account for that by using the headroom the RX
+queue actually uses (instead of assuming XDP_PACKET_HEADROOM) and
+turning MANA_XDP_MTU_MAX into MANA_XDP_MTU_MAX(ndev) (note that at the
+default CONFIG_MAX_SKB_FRAGS=17 they are equivalent).
+
+At the default MTU on a 4K page this means a buffer no longer fits twice
+into a page (SKB_DATA_ALIGN(1500 + MANA_RXBUF_PAD + 256) = 2112), so the
+frag-vs-single decision is now made by computing the real buffer size
+instead of comparing the MTU against PAGE_SIZE / 2. The page_pool
+fragment path is still used wherever at least two buffers genuinely fit,
+e.g. on 16K and 64K page sizes.
+
+Measured on an Azure VM with a MANA NIC acting as a forwarding NVA (UDP,
+1400 byte payload, 4 streams, 8 Gbps offered, only the forwarding
+node's kernel differs), 8 runs each, median:
+
+                  forwarded pps    throughput
+  before              272,830       3.06 Gbps
+  after               390,560       4.37 Gbps   (+43%)
+
+perf on the forwarding node, same workload:
+
+                  memset_orig   __pi_memcpy   pskb_expand_head
+  before             10.07%         3.96%         present
+  after               0.94%         0.64%         gone
+
+Cc: stable@vger.kernel.org
+Fixes: 730ff06d3f5c ("net: mana: Use page pool fragments for RX buffers instead of full pages to improve memory efficiency.")
+Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://patch.msgid.link/20261003013647.2051416-1-hamzamahfooz@linux.microsoft.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: Kept headroom and buffer-sizing calculations in mana_get_rxbuf_cfg() because full-page RX flag support is absent. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../net/ethernet/microsoft/mana/mana_bpf.c    |  8 +++---
+ drivers/net/ethernet/microsoft/mana/mana_en.c | 26 +++++++++----------
+ include/net/mana/mana.h                       |  4 ++-
+ 3 files changed, 19 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_bpf.c b/drivers/net/ethernet/microsoft/mana/mana_bpf.c
+index 7bb8382940b38..caf77991a54e9 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_bpf.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_bpf.c
+@@ -91,7 +91,7 @@ u32 mana_run_xdp(struct net_device *ndev, struct mana_rxq *rxq,
+ 		goto out;
+ 
+ 	xdp_init_buff(xdp, PAGE_SIZE, &rxq->xdp_rxq);
+-	xdp_prepare_buff(xdp, buf_va, XDP_PACKET_HEADROOM, pkt_len, true);
++	xdp_prepare_buff(xdp, buf_va, rxq->headroom, pkt_len, true);
+ 
+ 	act = bpf_prog_run_xdp(prog, xdp);
+ 
+@@ -183,9 +183,9 @@ static int mana_xdp_set(struct net_device *ndev, struct bpf_prog *prog,
+ 	if (!old_prog && !prog)
+ 		return 0;
+ 
+-	if (prog && ndev->mtu > MANA_XDP_MTU_MAX) {
++	if (prog && ndev->mtu > MANA_XDP_MTU_MAX(ndev)) {
+ 		netdev_err(ndev, "XDP: mtu:%u too large, mtu_max:%lu\n",
+-			   ndev->mtu, MANA_XDP_MTU_MAX);
++			   ndev->mtu, MANA_XDP_MTU_MAX(ndev));
+ 		NL_SET_ERR_MSG_MOD(extack, "XDP: mtu too large");
+ 
+ 		return -EOPNOTSUPP;
+@@ -238,7 +238,7 @@ static int mana_xdp_set(struct net_device *ndev, struct bpf_prog *prog,
+ 		bpf_prog_put(old_prog);
+ 
+ 	if (prog)
+-		ndev->max_mtu = MANA_XDP_MTU_MAX;
++		ndev->max_mtu = MANA_XDP_MTU_MAX(ndev);
+ 	else
+ 		ndev->max_mtu = gc->adapter_mtu - ETH_HLEN;
+ 
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+index 5cbe24a1596c8..befeb20fb7d59 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_en.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+@@ -749,7 +749,7 @@ static void *mana_get_rxbuf_pre(struct mana_rxq *rxq, dma_addr_t *da)
+ 	return va;
+ }
+ 
+-/* Get RX buffer's data size, alloc size, XDP headroom based on MTU */
++/* Get RX buffer's data size, alloc size, headroom and frag count based on MTU */
+ static void mana_get_rxbuf_cfg(struct mana_port_context *apc,
+ 			       int mtu, u32 *datasize, u32 *alloc_size,
+ 			       u32 *headroom, u32 *frag_count)
+@@ -759,16 +759,20 @@ static void mana_get_rxbuf_cfg(struct mana_port_context *apc,
+ 	/* Calculate datasize first (consistent across all cases) */
+ 	*datasize = mtu + ETH_HLEN;
+ 
+-	/* For xdp and jumbo frames make sure only one packet fits per page */
+-	if (mtu + MANA_RXBUF_PAD > PAGE_SIZE / 2 || mana_xdp_get(apc)) {
+-		if (mana_xdp_get(apc)) {
+-			*headroom = XDP_PACKET_HEADROOM;
++	*headroom = LL_RESERVED_SPACE(apc->ndev);
++	if (mana_xdp_get(apc))
++		*headroom = max_t(u32, *headroom, XDP_PACKET_HEADROOM);
++
++	len = SKB_DATA_ALIGN(mtu + MANA_RXBUF_PAD + *headroom);
++	buf_size = ALIGN(len, MANA_RX_FRAG_ALIGNMENT);
++
++	/* For xdp and large buffers make sure only one packet fits per page */
++	if (PAGE_SIZE / buf_size < 2 || mana_xdp_get(apc)) {
++		if (mana_xdp_get(apc))
+ 			*alloc_size = PAGE_SIZE;
+-		} else {
+-			*headroom = 0; /* no support for XDP */
++		else
+ 			*alloc_size = SKB_DATA_ALIGN(mtu + MANA_RXBUF_PAD +
+ 						     *headroom);
+-		}
+ 
+ 		*frag_count = 1;
+ 
+@@ -782,12 +786,6 @@ static void mana_get_rxbuf_cfg(struct mana_port_context *apc,
+ 	}
+ 
+ 	/* Standard MTU case - optimize for multiple packets per page */
+-	*headroom = 0;
+-
+-	/* Calculate base buffer size needed */
+-	len = SKB_DATA_ALIGN(mtu + MANA_RXBUF_PAD + *headroom);
+-	buf_size = ALIGN(len, MANA_RX_FRAG_ALIGNMENT);
+-
+ 	/* Calculate how many packets can fit in a page */
+ 	*frag_count = PAGE_SIZE / buf_size;
+ 	*alloc_size = buf_size;
+diff --git a/include/net/mana/mana.h b/include/net/mana/mana.h
+index a134b12352797..f03438a4b1dbd 100644
+--- a/include/net/mana/mana.h
++++ b/include/net/mana/mana.h
+@@ -325,7 +325,9 @@ struct mana_recv_buf_oob {
+ #define MANA_RXBUF_PAD (SKB_DATA_ALIGN(sizeof(struct skb_shared_info)) \
+ 			+ ETH_HLEN)
+ 
+-#define MANA_XDP_MTU_MAX (PAGE_SIZE - MANA_RXBUF_PAD - XDP_PACKET_HEADROOM)
++#define MANA_XDP_MTU_MAX(ndev) \
++	(PAGE_SIZE - MANA_RXBUF_PAD - \
++	 max_t(u32, LL_RESERVED_SPACE(ndev), XDP_PACKET_HEADROOM))
+ 
+ struct mana_rxq {
+ 	struct gdma_queue *gdma_rq;
+-- 
+2.53.0
+
