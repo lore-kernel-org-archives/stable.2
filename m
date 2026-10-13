@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD94152120A
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:58:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EC3E52120A
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:58:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914320; cv=none; b=WARzSFDKnORir66YnE2tPfqh/4NKuuWKNhfnGwrKsjvnqvb1tUXGuvBMrfHd1MDdEXqQOBeyGYhbLYpNNE/vMEIcagbM33hnQTxGUbH0IeLg58JRrTJOb6dhPqI/IdhitAhlX+JATYq5n6hpoRuJTHxqgiopPSPHJCb3weSkMpU=
+	t=1791914325; cv=none; b=EJUzz0gITmXQDAEF03+/hlXVWocP0PM5C0WBFDjk75kR7nDPnqz6Cju917N5DOukL0mmT2vMBQ3JEnX07CXqcM4t0M29LKRFgq1ht1q3WInAGz4pYyQacMfVOhIlnhKn6qpnPP/r1DJr65Ute+5DLQEcUaJ+6WS9FZHaHhL24Jo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791914320; c=relaxed/simple;
-	bh=JZdY1uVFMBjI9GJTj1r653dEm6z0M11J3IKdwY9BLLM=;
+	s=arc-20240116; t=1791914325; c=relaxed/simple;
+	bh=tCKKutIINjTKgErzj0nQEJUj0mID1seYaVAV9XjezRM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NsmYN3cs0b1N/TL0EhdfXjU9n08I8/DhTGpoCaKy8WV45dd776OrB1E72tWQuU69dFDNOKkquDmHi3XT1DpqbRsLKA5hYabkAi8DheyEgHqsD31v3zoM2P4qB8D1+W6pjTO9huEY8bpXb8xXnMo39VwvgcHG+SK6hs8CBq78Zwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eCZ5uxfd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NUCVtLMYW75kXIfrhocFGh7SlgcAeA7p5SyHQX/wzD2WSUiyeQnWHPS9R3wV665zt28Sq4Dh6o8VmVswuNqLNJXtu12jP80TdXo331c8vBmDXIBfUKIpe9KSKT7riDpc0+TWeGu2YtvRs/2bk6F5ksCPg4vkD6pT04pxTeMV84E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WiPsRUjB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eCZ5uxfd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E97021F000FF;
-	Tue, 13 Oct 2026 17:58:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WiPsRUjB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9DC61F000FF;
+	Tue, 13 Oct 2026 17:58:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791914318;
-	bh=p33QtJiISYwZnMS8zc4up6a1QQfxkjPBtjTEvfW0swk=;
+	s=k20260515; t=1791914324;
+	bh=kOya4Yqm97qfJXu75NDHHVgFaHpJvZ+VJmgklppjLu4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eCZ5uxfdDUysSf4OlPOGiEuUVNS3YnQ7U8gc7lRuaCbuH4M40giGysphro2d/avgf
-	 5bRBYV7FRPXE1waF3J4FECwG9/qAJYFVtNo1b6UPg3W+uZ5LrZDt+rvi2BPqLEnC+X
-	 69ctThu++vpfubec9k5Z7YlzuEziHTczq3sK4htEkDi9BoiPZ5H/En5CFMaoGLodgr
-	 tjXqmKtehGYd+v4elG1Wosx0suJyZzW+TGut9UUo5q+lCsTnXuKi1x7o5XIotBuw/f
-	 uPRnLFOVP1yRdUo4dvGAWlXMlcpRZFNG8jGfrFd9GnBsKjEjhHkwjZRsTAvDEw9j/F
-	 36phZy3jh7CKQ==
+	b=WiPsRUjB00zfydB7nNMcR7ZXPY4r081257HoN4FMIjCk9OjNkmHRcrF4NHVQsJ+Xn
+	 yXsxpBXYA5jCeu3cCLt1TzpvA10wSYZjde8pMwZJe1sJekx/jwlwCDPcAiCKjx5wN+
+	 YvdW6aUXGtqUn8ZNf3daNYvaqrzr55OcJctvCCD3oVecSCxMY7N7eOh7n5JDPp6AAY
+	 0ssnTGEbHbyFhwVmW0rIx3PsUsyYgQaiZBt+BCAFHuQSD0hWxOAPUOAVHIX7JHd4ej
+	 MEZi6TZ8dhmp9ShsFMzXD79zpJnwk9Z9ZUaoYUP4WWoUPEy9GH9DigIMW8i0S+y9HV
+	 xTn3/zhV7NZeg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	syzbot+ca23c8570669ead78867@syzkaller.appspotmail.com,
-	Thomas Zimmermann <tzimmermann@suse.de>,
+Cc: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>,
+	Laurence Oberman <loberman@redhat.com>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] drm/fb-helper: defer setup when fbdev_probe() fails, not just on -EAGAIN
-Date: Tue, 13 Oct 2026 13:58:36 -0400
-Message-ID: <20261013175820.630042-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] scsi: ch: Do not keep references to data transfer element devices
+Date: Tue, 13 Oct 2026 13:58:42 -0400
+Message-ID: <20261013175819.592584-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101246-reason-finished-ac79@gregkh>
-References: <2026101246-reason-finished-ac79@gregkh>
+In-Reply-To: <2026101242-palace-translate-3944@gregkh>
+References: <2026101242-palace-translate-3944@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,71 +46,125 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+From: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
 
-[ Upstream commit 755c94d178b7e972bb766199d34e4ba4f63a89eb ]
+[ Upstream commit 27c0f718d3b3c99e6d315308e95d987d0382a8a8 ]
 
-__drm_fb_helper_initial_config_and_unlock() calls
-drm_client_modeset_probe() first, which already fills in each
-mode_set->mode/num_connectors for every connected output, and only
-afterwards calls drm_fb_helper_single_fb_probe() to create
-fb_helper->fb and wire it into those mode_sets via
-drm_setup_crtcs_fb().
+ch_readconfig() looks up the scsi_device of every data transfer element
+whose SCSI id the changer reports in READ ELEMENT STATUS, and stores it in
+ch->dt[]. scsi_device_lookup() takes a reference, and nothing ever drops
+it: ch_destroy() frees the array with kfree(). ch->dt[] is read nowhere
+else - it only supplies the vendor, model and revision printed in the same
+loop.
 
-If drm_fb_helper_single_fb_probe() fails with anything other than
--EAGAIN (e.g. dev->driver->fbdev_probe() itself fails), the function
-bails out before drm_setup_crtcs_fb() runs and before setting
-fb_helper->deferred_setup. The client is left with mode_sets that
-have a mode and connectors but mode_set->fb == NULL, and nothing
-marks this fb_helper as needing a retry.
+Once such a drive is removed, its scsi_device can never be released. It
+stays on the host's device list at its address, so a new device there is
+refused by anything that walks the list - target_core_pscsi reports
+"scsi_device_get() failed for H:C:T:L" - and the low-level driver's module
+can no longer be unloaded. Only a reboot recovers.
 
-__drm_fb_helper_restore_fbdev_mode_unlocked() only skips committing
-when fb_helper->deferred_setup is set, so a later .restore() call
-(drm_lastclose() on process exit, in this report) commits the stale
-mode_set through drm_client_modeset_commit() ->
-drm_client_modeset_commit_atomic() -> __drm_atomic_helper_set_config(),
-which hits WARN_ON(!set->fb).
+It shows with any changer that reports its drives' ids; with the mhvtl
+virtual library (IBM 3573-TL personality), each create and remove of a
+library with four drives leaves four references behind, counted by the
+module's use count in lsmod. With ch not bound the count is unchanged, and
+with this patch applied it is unchanged too.
 
-Mark fb_helper->deferred_setup on any drm_fb_helper_single_fb_probe()
-failure, not just -EAGAIN, so restore keeps skipping the commit until
-a later hotplug event successfully re-probes and re-populates
-mode_set->fb. The real error code is still returned to the caller
-unchanged.
+Drop the reference as soon as the name has been printed, and remove the now
+unused dt[] array. That also removes the array leaked when ch_probe() fails
+after ch_readconfig().
 
-Reported-by: syzbot+ca23c8570669ead78867@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=ca23c8570669ead78867
-Fixes: ca91a2758fce ("drm/fb-helper: Support deferred setup")
+The same leak was reported with an RFC patch in 2022, which was not merged.
+
+Fixes: daa6eda65a53 ("[SCSI] add scsi changer driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Link: https://patch.msgid.link/20260927075434.72658-1-ngocthang2710.1999@gmail.com
-Link: https://patch.msgid.link/20260917154743.1621-1-shechenglong@xfusion.com
-[ sashal: Preserved the existing bpp_sel-based preferred_bpp assignment in the deferred-setup error path. ]
+Link: https://lore.kernel.org/linux-scsi/20220719075442.6215-1-yanghao_ht@163.com/
+Signed-off-by: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
+Reviewed-by: Laurence Oberman <loberman@redhat.com>
+Fixes: daa6eda65a53 ("[SCSI] add scsi changer driver")
+Link: https://patch.msgid.link/20260929-ch-dt-leak-v2-1-ddda8d635dca@gmail.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+[ sashal: Adapted the allocation-removal hunk for kcalloc() instead of kzalloc_objs(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/drm_fb_helper.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/scsi/ch.c | 30 +++++++++---------------------
+ 1 file changed, 9 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index bc265aa0f692b..acd90c22ea1fd 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -1841,11 +1841,11 @@ __drm_fb_helper_initial_config_and_unlock(struct drm_fb_helper *fb_helper,
- 	drm_client_modeset_probe(&fb_helper->client, width, height);
- 	ret = drm_fb_helper_single_fb_probe(fb_helper, bpp_sel);
- 	if (ret < 0) {
--		if (ret == -EAGAIN) {
--			fb_helper->preferred_bpp = bpp_sel;
--			fb_helper->deferred_setup = true;
-+		fb_helper->preferred_bpp = bpp_sel;
-+		/* modesets are probed but fb_helper->fb isn't; defer restore too */
-+		fb_helper->deferred_setup = true;
-+		if (ret == -EAGAIN)
- 			ret = 0;
--		}
- 		mutex_unlock(&fb_helper->lock);
+diff --git a/drivers/scsi/ch.c b/drivers/scsi/ch.c
+index 27012908b5861..c1f714664bfc5 100644
+--- a/drivers/scsi/ch.c
++++ b/drivers/scsi/ch.c
+@@ -110,7 +110,6 @@ typedef struct {
+ 	int                 minor;
+ 	char                name[8];
+ 	struct scsi_device  *device;
+-	struct scsi_device  **dt;        /* ptrs to data transfer elements */
+ 	u_int               firsts[CH_TYPES];
+ 	u_int               counts[CH_TYPES];
+ 	u_int               unit_attention;
+@@ -357,16 +356,10 @@ ch_readconfig(scsi_changer *ch)
+ 			vendor_labels[i]);
+ 	}
  
- 		return ret;
+-	/* look up the devices of the data transfer elements */
+-	ch->dt = kcalloc(ch->counts[CHET_DT], sizeof(*ch->dt),
+-			 GFP_KERNEL);
+-
+-	if (!ch->dt) {
+-		kfree(buffer);
+-		return -ENOMEM;
+-	}
+-
++	/* report the devices of the data transfer elements */
+ 	for (elem = 0; elem < ch->counts[CHET_DT]; elem++) {
++		struct scsi_device *sdev;
++
+ 		id  = -1;
+ 		lun = 0;
+ 		if (elem < CH_DT_MAX  &&  -1 != dt_id[elem]) {
+@@ -382,10 +375,8 @@ ch_readconfig(scsi_changer *ch)
+ 			VPRINTK(KERN_INFO, "dt 0x%x: ",elem+ch->firsts[CHET_DT]);
+ 			if (data[6] & 0x80) {
+ 				VPRINTK(KERN_CONT, "not this SCSI bus\n");
+-				ch->dt[elem] = NULL;
+ 			} else if (0 == (data[6] & 0x30)) {
+ 				VPRINTK(KERN_CONT, "ID/LUN unknown\n");
+-				ch->dt[elem] = NULL;
+ 			} else {
+ 				id  = ch->device->id;
+ 				lun = 0;
+@@ -395,18 +386,16 @@ ch_readconfig(scsi_changer *ch)
+ 		}
+ 		if (-1 != id) {
+ 			VPRINTK(KERN_CONT, "ID %i, LUN %i, ",id,lun);
+-			ch->dt[elem] =
+-				scsi_device_lookup(ch->device->host,
+-						   ch->device->channel,
+-						   id,lun);
+-			if (!ch->dt[elem]) {
++			sdev = scsi_device_lookup(ch->device->host,
++						  ch->device->channel,
++						  id, lun);
++			if (!sdev) {
+ 				/* should not happen */
+ 				VPRINTK(KERN_CONT, "Huh? device not found!\n");
+ 			} else {
+ 				VPRINTK(KERN_CONT, "name: %8.8s %16.16s %4.4s\n",
+-					ch->dt[elem]->vendor,
+-					ch->dt[elem]->model,
+-					ch->dt[elem]->rev);
++					sdev->vendor, sdev->model, sdev->rev);
++				scsi_device_put(sdev);
+ 			}
+ 		}
+ 	}
+@@ -570,7 +559,6 @@ static void ch_destroy(struct kref *ref)
+ 	scsi_changer *ch = container_of(ref, scsi_changer, ref);
+ 
+ 	ch->device = NULL;
+-	kfree(ch->dt);
+ 	kfree(ch);
+ }
+ 
 -- 
 2.53.0
 
