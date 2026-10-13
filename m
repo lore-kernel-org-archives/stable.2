@@ -1,143 +1,125 @@
-Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C68C3EA97A;
-	Tue, 13 Oct 2026 09:51:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 201FD3D667D
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 09:54:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791885100; cv=none; b=XtaRPHzH+5ZKEyRSWojselUamlSspGM0O5+00KpVz76HFx0hZ1sGV7eaP9KmbGkq5roftgMWyal8J5+7BnfSQc2WXSpfDqBtnI60suVwX9C+JxvWgSx17M3TM3nQBBHwWkiO+xQA/1ex9iBwND6ZRXLjdxiCddbw/SK094zk740=
+	t=1791885261; cv=none; b=mrVYgbnl7ofPKuKI02zjtSjq16f08nyc6+as+Z/u3FZZbew7uaVd3xZoQAXoJHRLae9F/6Jgywf7sP5b10JSshOkHy72F8bpn1+Y22BySwBup4Vbay+9zWvF0/mA7l7hKGXnx3u1mqMO7BT58rSZ83OtcYMhU3yPLtz5jXRRvAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791885100; c=relaxed/simple;
-	bh=uzrXPLMvqXiBDcQftrpFHfqmH5aI7M4XqJ0tPb6ooRw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hetMTDjaKWy1dP2kXdPcukJvNN6Bvwbh+8O/8/GJGi33KNfhre+zKr/Er3uMfxJlKbuy5oExRR4tYH4xZeKFzNqHVBOjhnSOlCe2PgD3Hw2zidVTz7oq6RO1l0ckruFDLfRSOU4jhv1N9tzvuiulZWwYDV396tymbt+y9WWPH+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=lL28Tkmw; arc=none smtp.client-ip=115.124.30.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791885261; c=relaxed/simple;
+	bh=div+Ou21HPwvbQnZhN5P7XYJdEa9ICzLG3RzHc+7684=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LFnqyLJYQuBWm+D+Ct0BbPmo9y5hAfWxtIdaJ91UTrvU7lgc6VR8FeLjATBLRNOpzuXtYjYz+SJNVXN0yu2NeYziPf0ZhfjFDkNCWG7MCiZXlGC0jANuAL1oCHYuyf8PJ6xRWPOZSeXx7ISesDDmNa+P723CAdYVJERBjzzyFxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=RvXJqo5f; arc=none smtp.client-ip=117.135.210.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="lL28Tkmw"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791885089; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	bh=mHJmlxh0JQdpNiWV3C7IoHHFL2rjw3jyGHSsWS10e0M=;
-	b=lL28TkmwRy4o4DkqFESGvDjfVtHZjutdQoOzKS1g7GlBF8tLi2PuqNcHf/GcxIqaiT5utuZe7oZQhK1NvSiSFQpQW8+YILCpjl3XDiLKA5lbaeuIMRy5K3quWRzx39w46BzZ0I1/vSlbMbwN+poSWRymIR45zfZihQAcWofXrow=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R311e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XClPKIU_1791885066;
-Received: from x31h02109.sqa.na131.tbsite.net(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XClPKIU_1791885066 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 13 Oct 2026 17:51:28 +0800
-From: Baokun Li <libaokun@linux.alibaba.com>
-To: axboe@kernel.dk,
-	linux-block@vger.kernel.org
-Cc: ebiggers@kernel.org,
-	linux-fscrypt@vger.kernel.org,
-	hch@lst.de,
-	bvanassche@acm.org,
-	dm-devel@lists.linux.dev,
-	mpatocka@redhat.com,
-	linlin.zhang@oss.qualcomm.com,
-	libaokun@linux.alibaba.com,
-	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH] blk-crypto: fix NULL deref and UAF in __blk_crypto_evict_key()
-Date: Tue, 13 Oct 2026 17:51:06 +0800
-Message-ID: <20261013095106.881914-1-libaokun@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="RvXJqo5f"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=0o
+	kxf7ehqUJ0LZKPerGNiv4PTPkPmQEewfHfZJI5Fug=; b=RvXJqo5ff5IkC2yayF
+	LpL8/U938JxHydCuP7FrIuUxgHrxGEs6/egcPvy1OXQSbVSahfx65+rgKFvcnVBh
+	bcGpB5Rsh8tPGmgJBUPSFgOqNmVPFYMmReSelWoMU393Wb/saKMCVV3RGRJ/Fb1d
+	3FJNF2BHX2lJ1JL+FGLPvXwTc=
+Received: from nzzhao-ThinkCentre-M760t.mioffice.cn (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3P9Oe_81qEuNLBA--.35692S2;
+	Tue, 13 Oct 2026 17:53:35 +0800 (CST)
+From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+To: linux-f2fs-devel@lists.sourceforge.net,
+	Chao Yu <chao@kernel.org>,
+	Daeho Jeong <daehojeong@google.com>,
+	Jaegeuk Kim <jaegeuk@kernel.org>
+Cc: Barry Song <baohua@kernel.org>,
+	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] f2fs: read i_size once in f2fs_vm_page_mkwrite
+Date: Tue, 13 Oct 2026 17:52:34 +0800
+Message-ID: <20261013095235.731331-1-zhaonanzhe@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3P9Oe_81qEuNLBA--.35692S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uF1rtr17ZF43ArykWF4UArb_yoW8KFyxpr
+	Z0krn8Cr4fWr15uwsagFn0v3WrK3s7WF47WFnrGw1fX3Wjgrn5K3Wrta48WF4YqrW3Ar1I
+	qFWDKFyfX3WUJr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j1MKZUUUUU=
+Sender: nzzhao@126.com
+X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBsR81BWrN-58VXQAA3R
 
-Sashiko reported a possible NULL pointer dereference, triggered by the
-following flow:
+f2fs_vm_page_mkwrite() reads i_size twice: once to check whether the
+folio is partially beyond EOF, and once to calculate the offset for
+folio_zero_segment(). But a concurrent buffered write can extend isize
+and cause the following race condition to corrupt data:
 
-  dm-inlinecrypt ctor            # first use of the fallback
-   ├─ blk_crypto_init_key()      # succeeds, ctx->key.size != 0
-   ├─ blk_crypto_start_using_key()
-   │   ├─ return -EOPNOTSUPP     # uninit profile, will NULL deref
-   │   └─ blk_crypto_fallback_start_using_key()
-   │      └─ blk_crypto_fallback_init() fails
-   │         └─ kfree(profile)   # not NULLed, will UAF
-   ├─ goto bad
-   └─ inlinecrypt_dtr()          # evicts whenever key.size is set
-      └─ blk_crypto_evict_key()
-         └─ blk_crypto_config_supported_natively() = false
-            └─ blk_crypto_fallback_evict_key()
-               └─ __blk_crypto_evict_key(blk_crypto_fallback_profile)
-                  └─ profile->num_slots # BOOM!!!
+buffered write writes [0,3500)
 
-This issue can be reproduced using the following commands:
+CPU0 (write fault)                        CPU1 (buffered write)
+ ----                                     ----
+ f2fs_vm_page_mkwrite()
+ folio_lock(folio)
+ if (((loff_t)(folio->index + 1) << PAGE_SHIFT) >
+ i_size_read(inode))
+ /* i_size_read() = 3500 */
+                                           write(fd, buf, 200, 4096)
+                                           /* writes into page1, does not
+                                              wait for folio lock */
+                                           i_size_write(inode, 4296)
+ offset = i_size_read(inode) & ~PAGE_MASK
+ /* i_size_read() = 4296, offset = 200 */
+ folio_zero_segment(folio, offset, folio_size(folio))
+ /* valid data [200, 3500) is zeroed */
 
-  dd if=/dev/zero of=/tmp/backing bs=1M count=64
-  LOOP=$(losetup -f --show /tmp/backing)
-  SZ=$(blockdev --getsz $LOOP)
-  KEY=$(head -c 64 /dev/urandom | od -An -tx1 | tr -d ' \n')
-  dmsetup create ic --table "0 $SZ inlinecrypt aes-xts-plain64 \
-    $KEY 0 $LOOP 0 1 keytype:hw-wrapped"
+Fix this by reading i_size once and using the same value for both the
+EOF check and the zeroing offset.
 
-And the following oops is triggered:
-
-  ==================================================================
-  blk-crypto: loop0: no support for wrapped keys
-  Oops: general protection fault, probably for non-canonical address
-        0xdffffc000000000b: 0000 [#1] SMP KASAN PTI
-  KASAN: null-ptr-deref in range [0x0000000000000058-0x000000000000005f]
-  CPU: 5 UID: 0 PID: 901 Comm: dmsetup 7.3.0-rc3 #1 PREEMPT(lazy)
-  RIP: 0010:__blk_crypto_evict_key+0x2e/0x3b0
-  Call Trace:
-   blk_crypto_evict_key+0x24c/0x320
-   inlinecrypt_dtr+0xf6/0x160
-   inlinecrypt_ctr+0x2d3/0xbd0
-   dm_table_add_target+0x661/0xf40
-   table_load+0x1c4/0x490
-   ctl_ioctl+0x32f/0x5f0
-   dm_ctl_ioctl+0xe/0x20
-  ==================================================================
-
-Fix this by checking the profile for NULL in __blk_crypto_evict_key()
-to avoid the NULL pointer dereference, and by clearing the profile
-pointer after it is freed to avoid the use-after-free.
-
-Fixes: e7f57d2c47e2 ("dm-inlinecrypt: add target for inline block device encryption")
-Cc: stable@vger.kernel.org # v7.2+
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://patch.msgid.link/sashiko-outbox-167341@kernel.org
-Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
+Closes: https://sashiko.dev/#/patchset/20261012030315.978375-1-zhaonanzhe%40xiaomi.com
+Fixes: fbfa2cc58d53 ("f2fs: add file operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
 ---
- block/blk-crypto-fallback.c | 1 +
- block/blk-crypto-profile.c  | 3 +++
- 2 files changed, 4 insertions(+)
+ fs/f2fs/file.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
-index 2a8f40a65158..b7890ee1951c 100644
---- a/block/blk-crypto-fallback.c
-+++ b/block/blk-crypto-fallback.c
-@@ -605,6 +605,7 @@ static int blk_crypto_fallback_init(void)
- 	blk_crypto_profile_destroy(blk_crypto_fallback_profile);
- fail_free_profile:
- 	kfree(blk_crypto_fallback_profile);
-+	blk_crypto_fallback_profile = NULL;
- fail_free_bioset:
- 	bioset_exit(&enc_bio_set);
- out:
-diff --git a/block/blk-crypto-profile.c b/block/blk-crypto-profile.c
-index 53126c091b0b..1c5feca3b856 100644
---- a/block/blk-crypto-profile.c
-+++ b/block/blk-crypto-profile.c
-@@ -346,6 +346,9 @@ int __blk_crypto_evict_key(struct blk_crypto_profile *profile,
- 	struct blk_crypto_keyslot *slot;
- 	int err;
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index edc352569e87..672182300991 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -124,6 +124,7 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+ 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+ 	struct dnode_of_data dn;
+ 	bool need_alloc = !f2fs_is_pinned_file(inode);
++	loff_t isize;
+ 	int err = 0;
+ 	vm_fault_t ret;
  
-+	if (!profile)
-+		return 0;
+@@ -223,12 +224,17 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+ 	if (folio_test_mappedtodisk(folio))
+ 		goto out_sem;
+ 
++	/*
++	 * A concurrent buffered write can extend isize, so we store isize in a
++	 * local variable to let the zeroing offset match the EOF check below.
++	 */
++	isize = i_size_read(inode);
 +
- 	if (profile->num_slots == 0) {
- 		if (profile->ll_ops.keyslot_evict) {
- 			blk_crypto_hw_enter(profile);
-
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+ 	/* page is wholly or partially inside EOF */
+-	if (((loff_t)(folio->index + 1) << PAGE_SHIFT) >
+-						i_size_read(inode)) {
++	if (((loff_t)(folio->index + 1) << PAGE_SHIFT) > isize) {
+ 		loff_t offset;
+ 
+-		offset = i_size_read(inode) & ~PAGE_MASK;
++		offset = isize & ~PAGE_MASK;
+ 		folio_zero_segment(folio, offset, folio_size(folio));
+ 	}
+ 	folio_mark_dirty(folio);
 -- 
-2.43.7
+2.43.0
 
