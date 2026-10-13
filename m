@@ -1,117 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BB9E49AA34;
-	Tue, 13 Oct 2026 06:09:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E38A44A1DF6;
+	Tue, 13 Oct 2026 06:09:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791871771; cv=none; b=jqm96vEGCo6YbJuExDU2UtoJj6ei6ffonpVMP3AJtyoXf0UjsD8cf2h3tbJMCNY5i1jXuUVFsF4zlNdk8+wyJVBpW98owqDvyk1Q4EDLnr+tLdBHlB5CxeFp9BtmveEnE4QqalxBK4tftMhTitWNugrondP4BMmGYkiuxTtplPc=
+	t=1791871772; cv=none; b=rvvBVXa/2vnBoPy6QCnhuTeWT7K2PmE6K8XgOYApbw9SExWusBC/TZ9BM/b+zk+lF74sFh6G5l9KGT4ykVj9N50+rc6UWgqBQGlSCJPTmAtFVTMv4qjr/m1xW4znUlQMNkXPe0zgV8UeaGQH3ikCKPUFlGfehiAZJSJdNjWCTeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791871771; c=relaxed/simple;
-	bh=v1rOVrPY/N8ZbMbW3fzsdNiXfdBSex3pUwAjVY/4fJY=;
-	h=Date:Subject:From:To:Cc:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Iv+v7kek4coMNOYd+I39jji5CApq+F0XNid3Ia7Auv8RE788t3qCpxzZoBSnh3L5Oty6S0CuQZAwsFR6C0Vu4FwjWqf8N1KoU9oP1+XaNwJLku+AR/rsWgv82OWm1jrHvIqKx6pLq1WKsGVjkaW/gRGcEwnmMyaYlek4t686Tqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M4JKGBbZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791871772; c=relaxed/simple;
+	bh=I0j7RbCrTfKM1uhXvZfToRpPgD/9ZzE7Ma2FksYWCKs=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=PqqoxeBNN/LBk0VkvgnTFnm6TrWmiXQ6ukS8MnlWcWDC265Xs7D8KEJpicM6iwiORi9sg2XFNH/eAS1fE3r1r7mSiPGTpG9weUCulfhD1/hIy/j/vZ7ZXVBztuE23ZtedKPkZPWozCFpLCQQ9WRokolpSGhg5k/T92s4GVREArg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=hOQfiPjp; arc=none smtp.client-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M4JKGBbZ"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3C8441F000FF;
-	Tue, 13 Oct 2026 06:09:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791871763;
-	bh=iP4yiHEFrQX75zyn+yXQUQ/0V6/QXOXjqMtiJhf9MlA=;
-	h=Date:Subject:From:To:Cc:In-Reply-To:References;
-	b=M4JKGBbZzyrcSuDONJqwVJ87+IhqzbOvb+XiWJWPEawb+5fVS42OCyuLy6EJvDcph
-	 14qgUlYQKh10A8gPkr7oviDLa2gasI8VsJ52bHa9S0sqQw2K+yR0UgrXHTc4zJuy15
-	 l2FnoChAXc4fY8037bAxlqmjdDPk5qdTcL7/o2OcUH5v4R55pAfOHKXxMIxPktmcZT
-	 FGn4n2CWRjayXhfgO79nfJVUqoYi7+f5FzCdTWJCaEuDbYZobiBocr66ilhv86kv4V
-	 WtfAzJdLPDESjb+knjNjBDR4Y3TLYMS8glntL3IOC/1uFycEUfpkMeQacHa2oRGTjq
-	 +cK7EJTsh6sZQ==
-Date: Mon, 12 Oct 2026 23:09:22 -0700
-Subject: [PATCH 04/12] xfs: don't try to repair rtsummary if the summary file
- isn't computed
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: djwong@kernel.org, cem@kernel.org
-Cc: hch@lst.de, stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Message-ID: <179186107927.1898896.4105859314616542318.stgit@frogsfrogsfrogs>
-In-Reply-To: <179186107760.1898896.12318125940367230627.stgit@frogsfrogsfrogs>
-References: <179186107760.1898896.12318125940367230627.stgit@frogsfrogsfrogs>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="hOQfiPjp"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=40uAvGtB89UrnliI+trk4ouePijCjFhtYsvGS/V1SXw=;
+	b=hOQfiPjpIAoFpTW1jY9Ti5gnF0iwjU3DR6NTOIfes5GK6oIFW7bsMn0lqUZmvK9+JLH4MP7SV
+	X3T9Ef2shjvcNOYGMuLeSBG4rPd+r8FTJmDRkIKNUfHwDCPMuVxHtKNDaLxG/5Tjgj5liCLbqp+
+	TNzKTgKVAzqAfD5uI4Yr7Mc=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4j3kBC0H3hzLlSh;
+	Tue, 13 Oct 2026 13:57:07 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id AAD9940578;
+	Tue, 13 Oct 2026 14:09:24 +0800 (CST)
+Received: from [10.174.178.46] (10.174.178.46) by
+ whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 13 Oct 2026 14:09:23 +0800
+Subject: Re: [PATCH v2] ubifs: fix host inode TNC offset when deleting an
+ xattr
+To: Nan Lin <lin.nan@h3c.com>, <richard@nod.at>
+CC: <linux-kernel@vger.kernel.org>, <linux-mtd@lists.infradead.org>,
+	<wangxiaoqing@h3c.com>, <zhou.kete@h3c.com>, <stable@vger.kernel.org>
+References: <mv5oa6u2.f135b439-8d58-4f22-b346-3aacaa66e9e4@nod.at>
+ <20261013052953.1401741-1-lin.nan@h3c.com>
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+Message-ID: <e9bde32f-753c-a803-3fab-cb49e1031aeb@huawei.com>
+Date: Tue, 13 Oct 2026 14:09:22 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <20261013052953.1401741-1-lin.nan@h3c.com>
+Content-Type: text/plain; charset="gbk"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-From: Darrick J. Wong <djwong@kernel.org>
+ÔÚ 2026/10/13 13:29, Nan Lin Ð´µÀ:
+> ubifs_jnl_delete_xattr() writes a group of three nodes: the xent, the
+> xattr inode and the host inode. The host inode is packed at
+> xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ, but its TNC position is
+> computed backwards as xent_offs + len - hlen. Since len includes the
+> group's tail padding, ALIGN(hlen, 8) - hlen, the two differ whenever
+> the host inode's inline data length is not a multiple of 8. This
+> affects symlinks and device nodes.
+> 
+> The unaligned offset ends up in the on-flash index and the next mount
+> rejects the index node, turning the filesystem read-only.
+> 
+> Fixes: 1e51764a3c2a ("UBIFS: add new flash file system")
+> Cc: stable@vger.kernel.org
+> Tested-by: Zhihao Cheng <chengzhihao1@huawei.com>
+> Signed-off-by: Nan Lin <lin.nan@h3c.com>
+> 
+> Changes since v1:
+>   - compute the host inode offset into a new host_offs variable instead
+>     of open-coding the offset (Richard Weinberger);
+>   - shorten the commit message.
+> 
+> ---
+>   fs/ubifs/journal.c | 7 +++++--
+>   1 file changed, 5 insertions(+), 2 deletions(-)
 
-LOLLM observed that we can erroneously try to repair the rtsummary file
-if we've not yet computed its contents.  That results in a corrupt
-summary file, so let's add a flag to track whether or not the incore
-data is complete.
-
-Cc: <stable@vger.kernel.org> # v6.10
-Fixes: abf039e2e4afde ("xfs: online repair of realtime summaries")
-Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
----
- fs/xfs/scrub/rtsummary.h        |    1 +
- fs/xfs/scrub/rtsummary.c        |    9 ++++++++-
- fs/xfs/scrub/rtsummary_repair.c |    2 +-
- 3 files changed, 10 insertions(+), 2 deletions(-)
-
-
-diff --git a/fs/xfs/scrub/rtsummary.h b/fs/xfs/scrub/rtsummary.h
-index e44b04cb6e2d5e..af1ab64c3f2125 100644
---- a/fs/xfs/scrub/rtsummary.h
-+++ b/fs/xfs/scrub/rtsummary.h
-@@ -17,6 +17,7 @@ struct xchk_rtsummary {
- 	xfs_filblks_t		rsumblocks;
- 	unsigned int		rsumlevels;
- 	unsigned int		resblks;
-+	bool			summary_computed;
- 
- 	/* suminfo position of xfile as we write buffers to disk. */
- 	xfs_rtsumoff_t		prep_wordoff;
-diff --git a/fs/xfs/scrub/rtsummary.c b/fs/xfs/scrub/rtsummary.c
-index 546b335ade1354..fa358746beaf5c 100644
---- a/fs/xfs/scrub/rtsummary.c
-+++ b/fs/xfs/scrub/rtsummary.c
-@@ -212,13 +212,20 @@ xchk_rtsum_compute(
- {
- 	struct xfs_mount	*mp = sc->mp;
- 	struct xfs_rtgroup	*rtg = sc->sr.rtg;
-+	struct xchk_rtsummary	*rts = sc->buf;
-+	int			error;
- 
- 	/* If the bitmap size doesn't match the computed size, bail. */
- 	if (XFS_FSB_TO_B(mp, xfs_rtbitmap_blockcount(mp)) !=
- 	    rtg_bitmap(rtg)->i_disk_size)
- 		return -EFSCORRUPTED;
- 
--	return xfs_rtalloc_query_all(rtg, sc->tp, xchk_rtsum_record_free, sc);
-+	error = xfs_rtalloc_query_all(rtg, sc->tp, xchk_rtsum_record_free, sc);
-+	if (error)
-+		return error;
-+
-+	rts->summary_computed = true;
-+	return 0;
- }
- 
- /* Compare the rtsummary file against the one we computed. */
-diff --git a/fs/xfs/scrub/rtsummary_repair.c b/fs/xfs/scrub/rtsummary_repair.c
-index ed763290aec1e5..45bdefaeab013e 100644
---- a/fs/xfs/scrub/rtsummary_repair.c
-+++ b/fs/xfs/scrub/rtsummary_repair.c
-@@ -122,7 +122,7 @@ xrep_rtsummary(
- 		return -EOPNOTSUPP;
- 
- 	/* Walk away if we disagree on the size of the rt bitmap. */
--	if (rts->rbmblocks != mp->m_sb.sb_rbmblocks)
-+	if (rts->rbmblocks != mp->m_sb.sb_rbmblocks || !rts->summary_computed)
- 		return 0;
- 
- 	/* Make sure any problems with the fork are fixed. */
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+> 
+> diff --git a/fs/ubifs/journal.c b/fs/ubifs/journal.c
+> index 40a95a2fad50..0b2dae57e467 100644
+> --- a/fs/ubifs/journal.c
+> +++ b/fs/ubifs/journal.c
+> @@ -1858,7 +1858,8 @@ int ubifs_jnl_delete_xattr(struct ubifs_info *c, const struct inode *host,
+>   			   const struct inode *inode,
+>   			   const struct fscrypt_name *nm)
+>   {
+> -	int err, xlen, hlen, len, lnum, xent_offs, aligned_xlen, write_len;
+> +	int err, xlen, hlen, len, lnum, xent_offs, host_offs, aligned_xlen,
+> +		write_len;
+>   	struct ubifs_dent_node *xent;
+>   	struct ubifs_ino_node *ino;
+>   	union ubifs_key xent_key, key1, key2;
+> @@ -1915,6 +1916,8 @@ int ubifs_jnl_delete_xattr(struct ubifs_info *c, const struct inode *host,
+>   		ubifs_wbuf_add_ino_nolock(&c->jheads[BASEHD].wbuf, host->i_ino);
+>   	release_head(c, BASEHD);
+>   
+> +	host_offs = xent_offs + aligned_xlen + UBIFS_INO_NODE_SZ;
+> +
+>   	ubifs_add_auth_dirt(c, lnum);
+>   	kfree(xent);
+>   	if (err)
+> @@ -1943,7 +1946,7 @@ int ubifs_jnl_delete_xattr(struct ubifs_info *c, const struct inode *host,
+>   
+>   	/* And update TNC with the new host inode position */
+>   	ino_key_init(c, &key1, host->i_ino);
+> -	err = ubifs_tnc_add(c, &key1, lnum, xent_offs + len - hlen, hlen, hash);
+> +	err = ubifs_tnc_add(c, &key1, lnum, host_offs, hlen, hash);
+>   	if (err)
+>   		goto out_ro;
+>   
+> 
 
