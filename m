@@ -1,162 +1,155 @@
-Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91CC83FE35F
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 10:37:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.153
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3A64734F4
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 10:40:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791887875; cv=none; b=AJ7PpFs6UWSHDDiti7CxWU1NaCYdwPP8w5VCduJttWsPfth/xnM7i45C9xTSg4U6gU7WkQGqtjDqDzs4Ha/syqG+2ojgn/QEIXTqkEonUp4H6FgTvb2UVfAyZa+ke6ugjGBLWk7l0KVvstKlWXfopabxn9GNpvGw/yRjO7MCAZA=
+	t=1791888052; cv=none; b=JWW3gfLLJie+wTcTvqvkDTIzoP1JrXKK07qBaYW/xB0w4y3xTxmOROKsrPAVmNQauPZ2g2e3qF3rhJrMhS6ZcfA3OS4kpJICQw0y+97LSuPdsRRGGnWTjPKzdH6ZQynD5B0qhFdTX88cUJwWgvYJX1acahRrnvu6bv4JKGzcgmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791887875; c=relaxed/simple;
-	bh=/ui4dXjobdz5UqRZsY830TrRCZjFHMZMThYR8piTOSc=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=omZOxRST4rejM/KuhR1EADe9refaya6F8GvbXo5Xi4LrB32NoFzSMsWab/ZkEYMqlCKQ3Q8QErS9RtildiX1p8fHY8ijjg+chLzdk8I+CoSM4i1uI5W4nh0+Kehtm3meqBzIAPzBiWP20HwbRx/21MvmCkxT4adWJ+KIkfuonQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=nDZac4d0; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=u7/L9daB; arc=none smtp.client-ip=202.12.124.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	s=arc-20240116; t=1791888052; c=relaxed/simple;
+	bh=I4Ems3vL652kUBJ7YrXNoMXu+UN6uhhl6YM7Tg8At9Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YA6/zrbvXB657h9TkP/48ca1NKoHEv6AEv9x6LjBCNoNqCTL1DahTTgD4aiaudwt5gVdgLgMU3BbsGVJtJB5E+qGfy70wK2qz+rLFdrGoqJ/RZVpd0XEgFAdaHsyfdilFws132o+a4paU0ppG+oMjk88lcOf9ZuGKA+p7CeKZ8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=O5/rRv7F; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="nDZac4d0";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="u7/L9daB"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id B2DF37A00C3
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 06:37:52 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Tue, 13 Oct 2026 06:37:52 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1791887872; x=1791974272; bh=4iKO3Hw4MH
-	2oKvAYWzgzWMSA/7UnI2ec5ORW9Jd+MK0=; b=nDZac4d0ToSiiq4pbCm8ZKp5DZ
-	d+sRXerbTugRdnFpfe09yFahXFz3QS6bOFqqVYvaINtW8AYYUpggFEjqItNu+2HH
-	ohw1OOhXHDpaPB+y03Synk2SLzJa6VW2nEv38Q3tvi9mX50xxcoNVFfOABxBV+cq
-	zFxDHWLKCum0fng0nUdRjylY6FKgCJCauWuM+U5XuglOsMia0DqFhy1PTiqqHNQe
-	oLrlbmS0/LoxHGuG0t6w1eYv3Er0a8J657CT4nXH4gudh8DLE5LBCBhwQiVX28eC
-	ZQyQCoA7kRml3Gq8FY5txoMsRTiegPj1bZa3XHujqhM4WpvpTqIy0U1Yq1IA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791887872; x=1791974272; bh=4iKO3Hw4MH2oKvAYWzgzWMSA/7UnI2ec5OR
-	W9Jd+MK0=; b=u7/L9daBkBT4Jv6Ym+/IdhmRDbNkpDIhzfK7VPsGdavMxqvXY9E
-	74s58ovmCs7hWQhN5Goip2MAeL+1gG7JZLI5RdnWsYYdqp3/r+wS1BZJriWWhOrx
-	Io17IPHvOvSXRs1RDfGmVx4RMKtRGSrm/1p/34ALa3wG5LSVxRoTRKZH5+9zU3bS
-	iWNqPOHQ80VjkiTNge31eMDPJWJJw2KYxLjuQuN9fcEsvxsCxGR+j46qylaarFfh
-	fHI0zQG5ZJIiNDM0QGh0UTVyj/WCZwsVhzcbSKlp7ebJ+4OnEPPTIorCLITxQNi2
-	ppiBaLTBo+QK+mQLlEuQ8AZn+P39ftpNCPQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=kroah.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791887872; d=kroah.com;
-	mf=PGdyZWdAa3JvYWguY29tPg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:oDHNp3vz5HGVYFIKpLTnFNEhYv0Wgtz6iHbXryydRGhqneP
-	K/eFzY8PjOgfhgCL75Pya6LxcUNjgwbgjt+WKDpcNwTE95FQkSUNwQYCYo0NQY1P
-	unabvLTIVIE33bNZUW4h4wCSc88Bn7/DKQYiV9e4PABQ37tBujta3EHwJsLUI5uP
-	syEg/Z5bgCag4AdoyZZPSLjmNcGbdKzXgufl1l8oDkQNdYvNA0RvNa28Lup0Sudq
-	0h7dYXjkycpE4QYNaEzQoG6doYfgJsBn2iX2rh34btCRO68XtPXn5vUk9kavtcgz
-	T534btTphe4u0I1Xon3qrOkxNacxz69o3Aj+Blg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:b9tPCqaniAXal9g0usUxceyCVrssoCHEAztGqWbW9FE=:/ui4dXjobdz5UqRZsY830TrRCZjFHMZMThYR8piTOSc=;
-X-ME-Sender: <xms:_wnOat6CKDxPQ7ewupZNPLK9p7QzEIsakAlilhqo7ZButVLs8jGZjw>
-    <xme:_wnOarqKUSbanm6dhOlM3tS044Uk7s5g8ih7ZTySLOnQ9lCgbcQtp6lqQOapgQVf-
-    sQM6G9ktr1GEjGkvy7-Y0sxnkGH7a4AB1197buNmPaSopId3yk>
-X-ME-Received: <xmr:_wnOaoRsyFake5IX9PCNnhQqWk9JBGvcXAfDkwa-bgf3crnU-PoXKxezkrbuOEf0BENcafjBzGaQmZnUJ5TjIieq_FrUGjNkG3IdItVjMfk>
-X-ME-Proxy-Cause: dmFkZTFPIMnMVCMZsP0EpKFW4O6lgv388cE7op1Tp5P4uL/JRnh0btbxq8M1slUHL+9oX0
-    eB8EnwDZ/WQwSWswc4Fz6bjkM4oA1mm6RJoIMFtyiXrVZSR6+PdWZFxu0Pnd2SYAjffsXE
-    EhLhat1fBf7z5S4PwxEIo8Rbl6zXGOTRdpcSa1zopVrTz/7P77WQaX2OPcylcX5JAh9iid
-    yosZ65JuXD9EqvKuZ1GUeoI9O5B+H1RioVPk8SYzOYicgOYYBuo5izVWnUGRSEi8zSeqyN
-    bNk/OETj2d/rt2IaWuDykdd3jtirebCi28xVlpAaeoaA6S8FRuaYILPHrwmKn+e7jayrET
-    durfl6XfcKTLcvUt1/OO+sxvlCJFb1AtG9JkhFIDgUkJA4zleHd2H3tgdQ8IKsjfidgl6F
-    Nbhv4h7fOo9kHj6tB6Xx1j4rnVsLpv1ZDLrhoF4ftxosupGX+xCiS3VgCZr1rvlUYY6Zaf
-    lklNm82TMa/mEfiYd1COZ5TpLaiISVo7OWmVnEUEsqkbDT3sjbxRiO0ThBCv6jZ9SOCV08
-    5sP69Lw4c+bliw9Zmp2Un2MGpZEb5eE3I1wflyqLPBL5nI3IKfuLOlwve/Sr1rMjgT+jVG
-    /dXAglsMtBKYMFIaZqOthr+rI0jpSoaWmL8H7sho5Qcc0iRFeIAQSUM0qCMA
-X-ME-Proxy: <xmx:_wnOant6nuBeRj1FpvBkpCjzCIU3X0w4-5vWgQwxAyNIqGLJn-rSPw>
-    <xmx:_wnOagOcbkjEaZFaJLbOXRSQei4IvjpFFm9x1fsixWNj2xBxswjs6A>
-    <xmx:_wnOapVFeYeopRYT1l9AIpYj80oJ70Wdr5SlVAIo0pz-rrBX701HGg>
-    <xmx:_wnOagiAFfiZAVkJn4J9Bn1HuNsaZx3rNoGct5strfHBKzGTGgs6Dg>
-    <xmx:AArOarMZAcNc-w7fbsJLXw7Jpj-vI8CfkCQnEh-yxpk1hGtiHRhzyN8g>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 13 Oct 2026 06:37:50 -0400 (EDT)
-Date: Tue, 13 Oct 2026 12:37:56 +0200
-From: Greg KH <greg@kroah.com>
-To: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>,
-	stable-commits@vger.kernel.org, xiang@kernel.org,
-	Chao Yu <chao@kernel.org>, Yue Hu <zbestahu@gmail.com>,
-	Jeffle Xu <jefflexu@linux.alibaba.com>,
-	Sandeep Dhavale <dhavale@google.com>,
-	Hongbo Li <hongbohbli@tencent.com>,
-	Chunhai Guo <guochunhai@vivo.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-erofs@lists.ozlabs.org
-Subject: Re: Patch "erofs: remove fscache backend entirely" has been added to
- the 6.18-stable tree
-Message-ID: <2026101340-upcountry-wildland-6ebf@gregkh>
-References: <20261013020044.2527207-1-sashal@kernel.org>
- <as3drCZLoTUPS_oC@XiangdeMacBook-Pro.local>
- <2026101352-subtract-deflector-a77b@gregkh>
- <as3o3Q8X-2gK2HyF@XiangdeMacBook-Pro.local>
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="O5/rRv7F"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3a8af3a704fso1316443a91.2
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 03:40:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791888051; x=1792492851; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LoNEcPDXDDbnlveBeeC45rD3sgSjJXZHddsvFQD932A=;
+        b=O5/rRv7Fio7rOnc+2uxlYD/kL+Mobc1n9pO+zJBIJegCF1nU+L/yfKNtvRtdbbaJyq
+         Ne2mYLYKQgQqYynH0jf/SHHyLv/zjOyQR0ftcsv4pXNTe8KZkctfunYZYJ1nKnKBQesS
+         drbsJC8epyDJgIooxsWmL/iVSGyuxEL5f7dPgLPRtB24vzOy+FVdlBmOkqYxzoRnN6ZM
+         yUA3LOtA5ovLWkTq6lZBUuXtpM+KLMtO7oSLoOmD1ztbH9W9Rz89Y3PdwupR1xcGJL06
+         72m654Ag0f/TOF8Gwf4qk2qtLpdveMCAEgTvEPWCpJIy6SQccuLNk5l8rwidbHDPMmNx
+         kEXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791888051; x=1792492851;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LoNEcPDXDDbnlveBeeC45rD3sgSjJXZHddsvFQD932A=;
+        b=HrcD1IWABOr+qDsvDOsw9MmQfbuiu2WbfT3o477O3xI2JFZFhsCQhxd0DjBZbhMhK9
+         aegJB6nDWLh30zzpOt+AjPkR/V4XnFGF8WczIR9ZQZgTI5nmtEDVYytIk+eZg9YGSsfk
+         7amM/dyRJKsnH/45Lit198vLuUomEgGhQpPz6+kIkZQ9yczlN1jdd8vyqZ3NfVEWgK8t
+         5x6PD/7U2T+Rl1lmUGKHZusXqWfPgNigN7lCDL9osGviPN4FuuU40IwBYuwsc3y/2fVi
+         ahGMSvA7Rjq+KSxlD1xgRP6rf+ZRpu/WpR3lpZlikIGd4D/tCOXycCUl+CF8fW8u9qzG
+         nPEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwRRLbCW5U5FtM6NQMLc0hN6CrR+IBwifDZuN+bcgxg63Zv6fifEuBc0w7NYKKD/dlIwGr67w8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIWSfFnaXE2OP/uV8tQ9Al5erSUzLmVNkC6VF7RY71ek92u/fb3
+	7iVtKsfzjcR0iBXPphXEmwnVlMRxqXarc22J1PaVp123vkF5gkuy7JybiiZ6yI1/uAM=
+X-Gm-Gg: AYBFou3nHt7JsjqbV6y1exmsXyzJd8M+T2+duHRTdKEfH3no1aZGtdOVjCrhde+3OIT
+	vEAOnEBq1alfQ293UlDANeXPq/Yi2hDbXcrbHLZfuF+tOyBByNOGFLYXiuLXvfrQr6idRuKPicm
+	CdROFNqak+xf2YoEZ1KhI0/1n7x6aQSBZbqv1bt/S9TJucZMSjLkVo9Nr4GBkdPrkydUfQW1JJf
+	mRmcJvOkAUXiAdsC9btlooOSMd4Yn/jEZsIqY7muXZPakp6MBIt7dk0e2A402Yjhpi4x9znQnQQ
+	wuY899eJE7BeDg40f0SdDOLBSE88adXF522mWuUSHg1JffSUmaRwhRy2vL+iOKrLRYUY2o5Mwbf
+	EocQJvAw3GTRwzV3+Ge7jJbX2GSg8+wBYwQHBr+IAQHUdTCo1ZFRT2DHofkUjVfs9VcnuyT0fON
+	pew3XGriz61gth159mlLb5xyJQxZM3sqJF8eLJGhDSF6dJNf/tbPCFfMHJoc/NTaahb1tBg5uua
+	zMOwAkVTRAFcxgs
+X-Received: by 2002:a17:90a:1196:b0:3a8:a1f6:3b32 with SMTP id 98e67ed59e1d1-3ab423f7336mr6083299a91.38.1791888050617;
+        Tue, 13 Oct 2026 03:40:50 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab3386ba90sm12332028a91.1.2026.10.13.03.40.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 03:40:50 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Justin Tee <justin.tee@broadcom.com>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Keith Busch <kbusch@kernel.org>,
+	linux-nvme@lists.infradead.org
+Cc: Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+	Paul Ely <paul.ely@broadcom.com>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	James Smart <jsmart2021@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH] nvmet-fc: bound the FCP command data length before allocating buffers
+Date: Tue, 13 Oct 2026 19:40:38 +0900
+Message-ID: <20261013104038.3078601-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <as3o3Q8X-2gK2HyF@XiangdeMacBook-Pro.local>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 10:16:29AM +0200, Gao Xiang wrote:
-> Hi Greg,
-> 
-> On Tue, Oct 13, 2026 at 09:59:58AM +0200, Greg KH wrote:
-> > On Tue, Oct 13, 2026 at 09:28:44AM +0200, Gao Xiang wrote:
-> > > Hi Sasha,
-> > > 
-> > > I'm not sure why we need to backport this into stable kernels, as there
-> > > are users who use EROFS over fscache on these stable kernels.
-> > > 
-> > > The functionality works and it's a breaking change.  Could you please
-> > > kindly tell why?
-> > 
-> > Why would you have a breaking change in Linus's tree?  We never break
-> > existing users, so how was this ever accepted in mainline?
-> 
-> Because the similar + better functionality "erofs over fanotify" is
-> already available in the recent upstream, and it has simpler interfaces
-> than "erofs over fscache.", so we don't actually break users as long
-> as one of those functionalities exist ("erofs over fanotify" or
-> "erofs over fscache".  Many stable kernels don't support "erofs over
-> fsnotify", so backport this commit will make existing users using
-> old stable kernels have no choice (no "erofs over fanotify" nor
-> "erofs over fscache").
-> 
-> The commit message is already described well I think. 
-> 
-> > 
-> > As this removal fixes known bugs, isn't that a good thing for those
-> > older users as well?  Why would you want them to run broken systems?
-> 
-> I think it depends on the importance of the bug, at least "erofs over
-> fscache" is usable (and it's used by vendors) on stable kernels, but
-> it's unneeded to address every edge case found by LLMs since I mostly
-> think it doesn't impact the real use case, and as I said, we have
-> a new unique interface ("erofs over fanotify") now, but only on very
-> latest kernels.
-> 
-> Also there could always be breaking changes for various reasons (e.g.
-> obsolete/dispute filesystem breaking changes these years like
-> bcachefs, etc), will these commits be backported to all stable kernels
-> too?
+nvmet_fc_handle_fcp_rqst() takes the data length straight from the FCP
+command IU (cmdiu->data_len, a 32-bit value from the wire) into
+fod->req.transfer_len and calls nvmet_fc_alloc_tgt_pgs(), which hands it to
+sgl_alloc() with no upper bound.  nvmet_req_init() only parses the command
+and clears transfer_len; nvmet_check_transfer_len(), the only other place
+the length is checked, runs later from req->execute(), after the allocation
+has already happened.
 
-Sometimes, yes they are.
+A remote, effectively unauthenticated host can therefore declare a huge
+transfer length and make the target allocate that much kernel memory for a
+command that never delivers the data.  nvmet-tcp bounds the equivalent
+length and the rdma transport is limited by its 24-bit SGL length field;
+the fc transport had no such limit.
 
-But this makes sense, I'll go drop this patch now, thanks.
+Reject a command whose data length exceeds NVMET_FC_MAX_XFR_LENGTH before
+allocating anything.  The ceiling is 16 MiB, the largest transfer any
+in-tree fc LLDD can describe (lpfc maps up to LPFC_MAX_SG_SEG_CNT 4096
+segments, qla2xxx 1024), so no in-tree configuration is rejected.
 
-greg k-h
+A command declaring 4 GiB reaches sgl_alloc() unbounded before this change;
+afterwards a length above 16 MiB is failed with SGL_INVALID_DATA before any
+allocation is attempted.
+
+Fixes: c53432030d86 ("nvme-fabrics: Add target support for FC transport")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/nvme/target/fc.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/drivers/nvme/target/fc.c b/drivers/nvme/target/fc.c
+index 1b557775e033a..5ec581780454e 100644
+--- a/drivers/nvme/target/fc.c
++++ b/drivers/nvme/target/fc.c
+@@ -62,6 +62,16 @@ struct nvmet_fc_ls_req_op {		/* for an LS RQST XMT */
+ /* desired maximum for a single sequence - if sg list allows it */
+ #define NVMET_FC_MAX_SEQ_LENGTH		(256 * 1024)
+ 
++/*
++ * Upper bound on the data length a host may declare in an FCP CMD IU.
++ * This is the largest transfer any in-tree LLDD can describe: lpfc maps
++ * at most LPFC_MAX_SG_SEG_CNT (4096) segments and qla2xxx 1024, so 4096
++ * pages covers both.  The length arrives from the wire as a full 32-bit
++ * value and sizes the command's buffer allocation, so it has to be
++ * bounded before anything is allocated for it.
++ */
++#define NVMET_FC_MAX_XFR_LENGTH		(16 * 1024 * 1024)
++
+ enum nvmet_fcp_datadir {
+ 	NVMET_FCP_NODATA,
+ 	NVMET_FCP_WRITE,
+@@ -2577,6 +2587,14 @@ nvmet_fc_handle_fcp_rqst(struct nvmet_fc_tgtport *tgtport,
+ 	atomic_inc(&fod->queue->sqtail);
+ 
+ 	if (fod->req.transfer_len) {
++		/* bound the host-declared length before allocating for it */
++		if (fod->req.transfer_len > NVMET_FC_MAX_XFR_LENGTH) {
++			nvmet_req_complete(&fod->req,
++					   NVME_SC_SGL_INVALID_DATA |
++					   NVME_STATUS_DNR);
++			return;
++		}
++
+ 		ret = nvmet_fc_alloc_tgt_pgs(fod);
+ 		if (ret) {
+ 			nvmet_req_complete(&fod->req, ret);
+
+base-commit: 2c3418fffa9d037b2038a6db48be63f9e2291806
+-- 
+2.43.0
+
