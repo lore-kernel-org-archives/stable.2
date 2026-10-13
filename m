@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7013F472F9B;
-	Tue, 13 Oct 2026 09:13:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B56224908B2;
+	Tue, 13 Oct 2026 09:13:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791882784; cv=none; b=Uwd2liVyvMyJv+8OkeIvoK377bvR4oUrH4s/5QxfqtUzrQoTYVCT8ttvLM09/KX0AoTybIsX/UiZxn0TRxpNIVyi1ulv5pBTP1Ve0BWJChaI1HOpWzmp7oqSL3df9glNu10V53s2OGfZ1FDH5Db67djm3uUXjpNm3vrcNxNfSRE=
+	t=1791882785; cv=none; b=OpIFhfn7Gg8ZhA+F6qK1t0C062niLnMSr2JuUlEZB02lsp4/kvwPvNaydXLDHv4FX2fdW4hNPCbXy/Vly4b8aQM3BOr7wexPY7XHuIVjNHWuqH82SQVfFTvbjaLXldpuP9Xadg/khYJCFXeYMzFjn6BMKktTEwWWcvAott7jpv0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791882784; c=relaxed/simple;
-	bh=Rlaaj32c4q+IQzjqStLsCF0+kxSlxn087A9NmRe24GY=;
+	s=arc-20240116; t=1791882785; c=relaxed/simple;
+	bh=JaoV95Ls6c5Dxw9M12b8xV79tsA3XmDO632worOibiU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NI7Z1ewrNES07gLP3zLGhan7GRNYMb1yIwDImcLuQm305NRHtbkybg5JhWilMv0SfrW1fMt4gQqhmn2RhtYZzsRP9ar6SUz3b98vh9MGj0kNhC1BUqueXtWZDPD4AiHA4h3nRMjDSzcRenSyV4toxY7Tg32Scp4ykH59krGUAS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WEKgegrK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fh8HesBcDDcEikzkldILVdDLED7Gcie1e/ipWmTRwzqMbRYkBrjTZIDvsvlyQw2iXz7+PBaiRXdWuK+uUsV8aujbXZRcH/CjAwhK3pS10ipJwZm2lrxOpy9/uCS7C6Ggu1699DrGuSahaG67+7FPBermn4pJ3b+Sd9UrRev17Bk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JnHowGhV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WEKgegrK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E14811F0089B;
-	Tue, 13 Oct 2026 09:13:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JnHowGhV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CD2A1F00898;
+	Tue, 13 Oct 2026 09:12:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791882782;
-	bh=gaAEBv0k6J+QMI0lIXjkKfM+Q2HVxPsWs9aln6118g8=;
+	s=k20260515; t=1791882780;
+	bh=T8njoKiw74NOo2HycKeJ1o+njVKhOn3Rn65hLB43klk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WEKgegrKYiNG26PdgBz4lSeOXvULNQPAlsRvWr7Eg3csxZiiAUC1MCaiDo/zHOzwm
-	 tZg7DAq/Y9kbL0kohFgufvdTkbt/aYn9A2/74WVP/SC3cSCJhJ609FSFKgL9D0bjOZ
-	 jwF4QKmk8xog2IWQRgEajM2DP+HpFCUI/jQeVOm1PCEanqbxlVpuhQYeAnelk5iyFg
-	 5UiPoXEpEPQNTtTQ9xJNFe6z8mC5SvP+XfwAAN7NXNU0asAZhQis8BHd6P9NKvvl58
-	 yr8o1721GqinEAYf4mtXxTXJEDDjIJeOzw7FSsHxiMmyXXoS//P8ZqSJYoYzQ/sUm6
-	 3HASomhGrNdOA==
+	b=JnHowGhVCIhSk1ST0j234rFDQqgEMjgdccIse60r3n2dmCQqkYsq74WlPnSe3J0W8
+	 oHLfZqiFRe0ABHEb++xtjwNjQdZlHzDu/iqanYcdfgF58XH4lrykL5NaGMi4VrUSqB
+	 kDr8Ul4IcAms3+qDaaUD5flS28gpK3r4OhKzFeG73csWKrZKWCCMt6R5zdUBYwle/Y
+	 3Hw9iZLybKliO/9vhshKT6XOuaOCkKignhiXKPhIhn0tN2apJ2xxv2eSJDGFOOC0gf
+	 QJCF2Juqv7DXnA93fMdl0MDIP/92Bq9aOlpfWiwH65Reo4ZLyrLHwmjgcAUR4969dU
+	 yIM4jMnEXWjfQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Jiri Kosina <jikos@kernel.org>,
@@ -35,12 +35,12 @@ To: lee@kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org,
 	Jiri Kosina <jkosina@suse.com>
-Subject: [STABLE v5.15-v5.10 6/6] HID: steam: Clean up locking
-Date: Tue, 13 Oct 2026 09:12:13 +0000
-Message-ID: <20261013091215.529531-6-lee@kernel.org>
+Subject: [STABLE v6.1 6/6] HID: steam: Clean up locking
+Date: Tue, 13 Oct 2026 09:12:02 +0000
+Message-ID: <20261013091204.529049-6-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-In-Reply-To: <20261013091215.529531-1-lee@kernel.org>
-References: <20261013091215.529531-1-lee@kernel.org>
+In-Reply-To: <20261013091204.529049-1-lee@kernel.org>
+References: <20261013091204.529049-1-lee@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -58,18 +58,17 @@ not being guarded behind a lock.
 
 Signed-off-by: Vicki Pfau <vi@endrift.com>
 Signed-off-by: Jiri Kosina <jkosina@suse.com>
-[Lee: Use explicit lock/unlock calls instead of guard(), adapt to
-      steam->mutex, and omit Steam Deck sensors, mode_switch,
+[Lee: Adapt to steam->mutex and omit Steam Deck sensors, mode_switch,
       rumble_work, coalesce_rumble_work and Ibex changes as
       691ead124a0c, e133dc99fc07, a0fbd9437d7d, 1d4549fd1115,
       fcfa7db89f7a and 0a80b4e8ec6a are not present]
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/hid/hid-steam.c | 61 +++++++++++++++++++++++++++--------------
- 1 file changed, 41 insertions(+), 20 deletions(-)
+ drivers/hid/hid-steam.c | 59 ++++++++++++++++++++++++++---------------
+ 1 file changed, 37 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/hid/hid-steam.c b/drivers/hid/hid-steam.c
-index 544d45f3fc6b..4ba922d750df 100644
+index aa001a293a36..bbc150167a7f 100644
 --- a/drivers/hid/hid-steam.c
 +++ b/drivers/hid/hid-steam.c
 @@ -114,6 +114,7 @@ struct steam_device {
@@ -80,39 +79,44 @@ index 544d45f3fc6b..4ba922d750df 100644
  	unsigned long client_opened;
  	struct input_dev __rcu *input;
  	unsigned long quirks;
-@@ -294,9 +295,14 @@ static void steam_set_lizard_mode(struct steam_device *steam, bool enable)
+@@ -294,22 +295,30 @@ static void steam_set_lizard_mode(struct steam_device *steam, bool enable)
  static int steam_input_open(struct input_dev *dev)
  {
  	struct steam_device *steam = input_get_drvdata(dev);
 +	unsigned long flags;
 +	bool client_opened;
  
+-	mutex_lock(&steam->mutex);
+-	if (!steam->client_opened && lizard_mode)
 +	spin_lock_irqsave(&steam->lock, flags);
 +	client_opened = steam->client_opened;
 +	spin_unlock_irqrestore(&steam->lock, flags);
- 	mutex_lock(&steam->mutex);
--	if (!steam->client_opened && lizard_mode)
++	guard(mutex)(&steam->mutex);
 +	if (!client_opened && lizard_mode)
  		steam_set_lizard_mode(steam, false);
- 	mutex_unlock(&steam->mutex);
+-	mutex_unlock(&steam->mutex);
  	return 0;
-@@ -305,9 +311,14 @@ static int steam_input_open(struct input_dev *dev)
+ }
+ 
  static void steam_input_close(struct input_dev *dev)
  {
  	struct steam_device *steam = input_get_drvdata(dev);
 +	unsigned long flags;
 +	bool client_opened;
  
+-	mutex_lock(&steam->mutex);
+-	if (!steam->client_opened && lizard_mode)
 +	spin_lock_irqsave(&steam->lock, flags);
 +	client_opened = steam->client_opened;
 +	spin_unlock_irqrestore(&steam->lock, flags);
- 	mutex_lock(&steam->mutex);
--	if (!steam->client_opened && lizard_mode)
++	guard(mutex)(&steam->mutex);
 +	if (!client_opened && lizard_mode)
  		steam_set_lizard_mode(steam, true);
- 	mutex_unlock(&steam->mutex);
+-	mutex_unlock(&steam->mutex);
  }
-@@ -513,40 +524,43 @@ static int steam_register(struct steam_device *steam)
+ 
+ static enum power_supply_property steam_battery_props[] = {
+@@ -513,40 +522,43 @@ static int steam_register(struct steam_device *steam)
  {
  	int ret;
  
@@ -136,7 +140,7 @@ index 544d45f3fc6b..4ba922d750df 100644
  	 */
 -	mutex_lock(&steam->mutex);
  	if (steam_get_serial(steam) < 0 || !steam->serial_no[0])
- 		strlcpy(steam->serial_no, "XXXXXXXXXX",
+ 		strscpy(steam->serial_no, "XXXXXXXXXX",
  				sizeof(steam->serial_no));
 -	mutex_unlock(&steam->mutex);
  
@@ -162,7 +166,7 @@ index 544d45f3fc6b..4ba922d750df 100644
  	mutex_lock(&steam_devices_lock);
  	if (list_empty(&steam->list))
  		list_add(&steam->list, &steam_devices);
-@@ -555,6 +569,7 @@ static int steam_register(struct steam_device *steam)
+@@ -555,6 +567,7 @@ static int steam_register(struct steam_device *steam)
  
  steam_register_input_fail:
  	steam_battery_unregister(steam);
@@ -170,7 +174,7 @@ index 544d45f3fc6b..4ba922d750df 100644
  	return ret;
  }
  
-@@ -565,9 +580,11 @@ static void steam_unregister(struct steam_device *steam)
+@@ -565,9 +578,11 @@ static void steam_unregister(struct steam_device *steam)
  
  	hid_info(steam->hdev, "Steam Controller '%s' disconnected",
  			steam->serial_no);
@@ -182,7 +186,7 @@ index 544d45f3fc6b..4ba922d750df 100644
  	mutex_lock(&steam_devices_lock);
  	list_del_init(&steam->list);
  	mutex_unlock(&steam_devices_lock);
-@@ -745,6 +762,7 @@ static int steam_probe(struct hid_device *hdev,
+@@ -745,6 +760,7 @@ static int steam_probe(struct hid_device *hdev,
  	hid_set_drvdata(hdev, steam);
  	spin_lock_init(&steam->lock);
  	mutex_init(&steam->mutex);
@@ -190,7 +194,7 @@ index 544d45f3fc6b..4ba922d750df 100644
  	steam->quirks = id->driver_data;
  	INIT_WORK(&steam->work_connect, steam_work_connect_cb);
  	INIT_LIST_HEAD(&steam->list);
-@@ -835,13 +853,10 @@ static void steam_remove(struct hid_device *hdev)
+@@ -835,13 +851,10 @@ static void steam_remove(struct hid_device *hdev)
  
  static void steam_do_connect_event(struct steam_device *steam, bool connected)
  {
@@ -204,7 +208,7 @@ index 544d45f3fc6b..4ba922d750df 100644
  
  	if (changed && schedule_work(&steam->work_connect) == 0)
  		dbg_hid("%s: connected=%d event already queued\n",
-@@ -1008,8 +1023,6 @@ static void steam_do_input_event(struct steam_device *steam,
+@@ -1008,8 +1021,6 @@ static void steam_do_input_event(struct steam_device *steam,
  static void steam_do_battery_event(struct steam_device *steam,
  		struct power_supply *battery, u8 *data)
  {
@@ -213,7 +217,7 @@ index 544d45f3fc6b..4ba922d750df 100644
  	s16 volts = steam_le16(data + 12);
  	u8 batt = data[14];
  
-@@ -1017,10 +1030,8 @@ static void steam_do_battery_event(struct steam_device *steam,
+@@ -1017,10 +1028,8 @@ static void steam_do_battery_event(struct steam_device *steam,
  	rcu_read_lock();
  	battery = rcu_dereference(steam->battery);
  	if (likely(battery)) {
@@ -224,44 +228,15 @@ index 544d45f3fc6b..4ba922d750df 100644
  		power_supply_changed(battery);
  	}
  	rcu_read_unlock();
-@@ -1033,10 +1044,12 @@ static int steam_raw_event(struct hid_device *hdev,
- 	struct steam_device *steam = hid_get_drvdata(hdev);
- 	struct input_dev *input;
- 	struct power_supply *battery;
-+	unsigned long flags;
- 
+@@ -1037,6 +1046,7 @@ static int steam_raw_event(struct hid_device *hdev,
  	if (!steam)
  		return 0;
  
-+	spin_lock_irqsave(&steam->lock, flags);
++	guard(spinlock_irqsave)(&steam->lock);
  	if (steam->client_opened)
  		hid_input_report(steam->client_hdev, HID_FEATURE_REPORT,
  				data, size, 0);
-@@ -1057,12 +1070,12 @@ static int steam_raw_event(struct hid_device *hdev,
- 	 */
- 
- 	if (size != 64 || data[0] != 1 || data[1] != 0)
--		return 0;
-+		goto out;
- 
- 	switch (data[2]) {
- 	case STEAM_EV_INPUT_DATA:
- 		if (steam->client_opened)
--			return 0;
-+			goto out;
- 		rcu_read_lock();
- 		input = rcu_dereference(steam->input);
- 		if (likely(input))
-@@ -1100,6 +1113,8 @@ static int steam_raw_event(struct hid_device *hdev,
- 		}
- 		break;
- 	}
-+out:
-+	spin_unlock_irqrestore(&steam->lock, flags);
- 	return 0;
- }
- 
-@@ -1108,6 +1123,8 @@ static int steam_param_set_lizard_mode(const char *val,
+@@ -1108,6 +1118,8 @@ static int steam_param_set_lizard_mode(const char *val,
  {
  	struct steam_device *steam;
  	int ret;
@@ -270,7 +245,7 @@ index 544d45f3fc6b..4ba922d750df 100644
  
  	ret = param_set_bool(val, kp);
  	if (ret)
-@@ -1115,10 +1132,14 @@ static int steam_param_set_lizard_mode(const char *val,
+@@ -1115,10 +1127,13 @@ static int steam_param_set_lizard_mode(const char *val,
  
  	mutex_lock(&steam_devices_lock);
  	list_for_each_entry(steam, &steam_devices, list) {
@@ -280,10 +255,9 @@ index 544d45f3fc6b..4ba922d750df 100644
 +		client_opened = steam->client_opened;
 +		spin_unlock_irqrestore(&steam->lock, flags);
 +		if (!client_opened) {
-+			mutex_lock(&steam->mutex);
++			guard(mutex)(&steam->mutex);
  			steam_set_lizard_mode(steam, lizard_mode);
 -		mutex_unlock(&steam->mutex);
-+			mutex_unlock(&steam->mutex);
 +		}
  	}
  	mutex_unlock(&steam_devices_lock);
