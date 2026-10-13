@@ -1,183 +1,197 @@
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9AC1A7264;
-	Tue, 13 Oct 2026 13:11:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D68348445
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 13:11:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791897073; cv=none; b=DNj0lzLEatERfP0OMNCi8KM4EmHjlUxqMvJ2zP8oanghUbkXfY/giWPMzUMMAf/4sjx/lQtfL+UgI+jfvR6chW7fXADNq3qsnzE86O17RaEK24RsJhKNGlWyasxyBiIl7K+bsAGMGP/A3IUoIlatsQohWU9ML7ZrRm8fsmShZx4=
+	t=1791897116; cv=none; b=fhBMQyt5mO88FzMkLzNpmCprTffhnrmdJrjB6Q3qIG+59OIjqsvkcZReeHl24RKBgMC74HTIgh3LxAgo5BLx3gSHDTRwpzl8g5q4I5kuerQ5dXpOYSoZPCepm2pYNVRRLbap5dbxb3Qobusof+R4O5aQx2/splSnJmrxvdk2xRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791897073; c=relaxed/simple;
-	bh=Fp34FYfTQc+YTGKGK6lC+tQUOsD84gcR8WE1MZCV/Mw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=r+0d7wHS4ephoLATA2ulmTQ4fSkKetpYBA8SVVJUboLqCC2vm8Y5yx2FsZr6a/mv4eVaoufXoLDwpkMifZlmiia+dUJHkAZDa1sJGiAm7QL/X8XjX1EEG/sPpdsAP3UbZLCYJWJLbBAJprdC19WQLv6OOObMW9rbJLLBLrneA3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=lf+pnWGm; arc=none smtp.client-ip=37.230.196.243
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	s=arc-20240116; t=1791897116; c=relaxed/simple;
+	bh=znPdOFOwZBUMCj5EAY5o5FOSIiA+E9Kvc8jNsKVmGTI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ooTjgjf4p/yjvpU7kl708ZEHPIWAR+wkaRSPcsTQQ1QX++aRAi8n3zHHOzhYAJeUo0bmKdAoZPIwfp/3IBtqMyBEy6RW68s3afi77lSQyqbugyr/Rb7qoE92WABGNkBygV3iwS8uUP23QQPV2Wsn8RZ+ZSsJJja/r7zXRla+MBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lXFwhIGN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZQR7+oyA; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="lf+pnWGm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1791897064;
-	bh=Fp34FYfTQc+YTGKGK6lC+tQUOsD84gcR8WE1MZCV/Mw=;
-	h=From:To:Cc:Subject:Date:From;
-	b=lf+pnWGmlEynW4sOeWDlcSnQWC01WGZgxN8e3CIF+168MqmblIN1yD7cnfCMRHbEb
-	 WWfbLIQvuSY1jtaaDeWIHfNyE+IyQzVJ8kL5yx2vve+ZQ10+fU1fM1vLU07uetzKcb
-	 hScSuztXKesZ/EM99dfuLa2iIhOoZ/khPc25+/JazboE5E//nIFKJEyNLc4aer8/nF
-	 uN9sL8g5UFo8GT8qg8cH7jXoDpiu5y/PaOa6yPC/PmeFAe/88l5kiWUdFW3PJ7T50b
-	 RCh/hk91k/zfVrKTLyalZWsYOhPNCg70jUqgRWw7Gho48MpcqnfjoHpZfyHsF5gtMh
-	 RMzjg3GiTjZxg==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id BFFE625222;
-	Tue, 13 Oct 2026 16:11:04 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.10])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Tue, 13 Oct 2026 16:11:03 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.63.202])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j3vnM0xN9z19Bw;
-	Tue, 13 Oct 2026 16:09:43 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Victor Nogueira <victor@mojatatu.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Cong Wang <xiyou.wangcong@gmail.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Vega <vega@nebusec.ai>
-Subject: [PATCH 5.10] net/sched: sch_htb: limit htb_classify inner-class filter hops
-Date: Tue, 13 Oct 2026 16:09:00 +0300
-Message-ID: <20261013130903.1223-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lXFwhIGN";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZQR7+oyA"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DBURn2949375
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 13:11:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=q6rsWUbniNR+35DRdgW8wR
+	wITWrJkhIyDXQjUBXS89w=; b=lXFwhIGNcyWrnKksud6+Yifza6NwoUkRKZqPgR
+	/yJG9ugFb2EDYcjsW0RRj1i1ZbD0N+KfnJBOsLx3h4780I3ym/towluelNcewv/k
+	07cdDcZd4pWDdnaqmsTTl+ZlPqWdfJfFATitUqxL25Zf/d8jdgrc09H+dGbChtr0
+	ZjlD/Mv+JTT3/7cYrTHKVt4/ekR8b8DaxW30o0AFgO0GqqttZ6Ge+qAAFWyV47+d
+	5Us2GmUF3s549N1Yrg6oYE88K1AovcvR/sOLAkS6ixleNQyv/2H0uBbcK2s8J1Xm
+	+s4Pfi2e7gXEVjlnE0wc0240KQ96DQzw6t2sFHKNuORmu1+A==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9f629qt6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 13:11:54 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-988d79b90e6so119247241.3
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 06:11:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791897113; x=1792501913; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=q6rsWUbniNR+35DRdgW8wRwITWrJkhIyDXQjUBXS89w=;
+        b=ZQR7+oyA1h33NFDshWetgFLDfkWSDrVrY8uT5mPP95KHQvR+v+HQWYqCR/aUjguaEm
+         wq/OkC3wRFa4lD9v6xF72E60FhZfEdLc3k0enqCu1pC1JxycfwWrpp16J7lsVGV62gwf
+         JqXYNySlTYFkfW9QeygGWLXmDpX3+3afgt1wJ8LfZJY0c0eylShTNaG6Kf+bhOR/X0Wd
+         bV//4UcghvkzQ8ELCtcYW46vpp/+FMx9MXIVw5dD0DPvESl6rddtZ4UlmM2ec9jHFckR
+         GWMrY9L0Jqg70dGd9czdDGtRUrBYBl8RPqPzK3V4ICsmbM0fgFWg0qLFkkn9TeSuTikM
+         RDrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791897113; x=1792501913;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=q6rsWUbniNR+35DRdgW8wRwITWrJkhIyDXQjUBXS89w=;
+        b=yAnyw5CFMMEKci/BsMCp7UWERNAFJVkimyn/USlgpBuwoJLyfi6JpYaj0VCv8ZqVrA
+         vIO5tWi3MY2KJ1XioKpCzvlvzNUsJzFIlSYo0YKb+a+pWfkfqY6Bkp83acTVX+vyJF+b
+         6XJqszIPjVOak9KSfZsaC8ozJVLXylQcEd43tFBbX1oH2R4x4nmpCNAV1XMA5fwD6kkX
+         5w7w0+YFtJBUVvlK1KRZqKL550ASYOS6WWfAnYf2849MgIW5AvrhYH3NqBSTzeEbi6Ek
+         NH+av5EcByBY/v/d30lqTIHmRo3p9FxhemCEhf5u8rYL1UBG+9IArdW7ANDGwB5dLFey
+         wfPA==
+X-Forwarded-Encrypted: i=1; AKwUvBywZ06RmhUU7NSC+hl7I6Rb5AmtA2K5f5U7BumMICNbUFRr+nZt/G4F4aa95UmTC/TzSJibNGc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLrNiYChRP2uSR2+E/69xqwhyZI7hHBfd6+zXIXywUu8QouHfCU
+	270jecWP4EesgZ5ndu7pkFW32CmmaoO3dK5a0/yry3iKwUSQ5boT9a790VXDHQxTScpjT3cZZsi
+	MbMXeeO10rFZgqlVvCv3sXRFqaCFqD2uKIFz3B21yWUoTAFzhK9oTvzBi46s=
+X-Gm-Gg: AYBFou2GKoGC1uth/vuoE5qlbefnZi5I+FypPw1Hr9xRbCdURVT5zKz/g6ogi1YD6Ys
+	xkHV8yyJongbQAJxtLoIluKklvpaIKuTIAsGqEP988hIpE6iDIYqJDHtYOQ4vliyq7vYTSruqny
+	R/eC0pnWk4A6A+YkAB+diBYPxVzCxsh9Em1VP/1ohsxaXlIoOsk2yKhw/E0YLatQM9nHbYIBJy4
+	mkm6ugMKbidFZ/co4GFJJleEDNNPtFHlrCtWr5AJ/hLyEqPtdtKuluPhMDqZCAT73CKOiIPsLG5
+	NWGoqsY6VoypuffZcfKCdFTrgO44QIYdOi6LZgOmWtQiuQ+lx1NdGi+gzqByVY1aNJn61jxpcnO
+	Uwp+3nHIgBZMdddvSkCheobO+gaOX
+X-Received: by 2002:a05:6102:2926:b0:7a1:f980:e934 with SMTP id ada2fe7eead31-7cb372b60b9mr2953261137.16.1791897113500;
+        Tue, 13 Oct 2026 06:11:53 -0700 (PDT)
+X-Received: by 2002:a05:6102:2926:b0:7a1:f980:e934 with SMTP id ada2fe7eead31-7cb372b60b9mr2953253137.16.1791897112868;
+        Tue, 13 Oct 2026 06:11:52 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a190344032sm371862945e9.15.2026.10.13.06.11.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 06:11:51 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH v3 0/4] gpio: shared: replace platform lookup with dummy
+ software nodes
+Date: Tue, 13 Oct 2026 15:11:43 +0200
+Message-Id: <20261013-gpio-shared-fwnode-lookup-v3-0-4553c1a7d80f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/13 12:30:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;new-mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;patch.msgid.link:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 206634 [Oct 13 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/13 04:56:00 #28679670
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/10/13 12:30:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAA8uzmoC/43NwQ6CMAyA4VchOzuyDhjgyfcwHgYrsAgMN5kaw
+ rs7OHgyxkuTv0m/LsSh1ejIMVqIRa+dNmOI5BCRupNji1Sr0IQzLljJS9pO2lDXSYuKNo/RKKS
+ 9Mdd5olgI0UisskohCfeTxUY/d/t8Cd1pdzf2tb/ysG3/UT1QRrNcZWkBoBDkyTgX32bZ12YY4
+ jDIhnv+AYEx+AXyAJYyZaKAHJK6/gKu6/oG9ksB8hoBAAA=
+X-Change-ID: 20260929-gpio-shared-fwnode-lookup-e866faeb5bde
+To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        stable@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2053;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=znPdOFOwZBUMCj5EAY5o5FOSIiA+E9Kvc8jNsKVmGTI=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqzi4RXrdsC65I4MjBMM8tUmtxLP2yFKhw57Z0X
+ ubdJjjS/R6JAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCas4uEQAKCRAFnS7L/zaE
+ w8GID/433Qh79G6boT6tYRR1lO0R1CnFBlp5Dl4whYb4Cf3YF27rilpZhkXIKafBZrBL6SDJfII
+ uOgRPUmF0GOF0kh5eaB90XRDmu5vaaB/IINYPkQhas0mb4UfNesmgHCJSicWPgtn9CLeoGmQkki
+ Iadg4RiBYKkD1ehaJpNdixHtBh36U+Xm+hyHVAPdXRHcia7+RCGAJmCNzLIPo4xHdnDHvTI+LlN
+ EN13MUm5miKU+TIW2FMI+RkPgOhty+hmP6MRVKeq5Z4MUJhPklqch5ece+PrBmzrzjHLPZh+r65
+ VmaOAeLPx0EGj4QjfGcrBP8HkSwfBgkaiqSH8xmcuBzcIAa0JY+2jYtnaG9b9h35HwIFrpK5oNX
+ /pH1d0sxlzrlvIORXqQvkmOXBI76L9XEZoF3Vzcw4gxazXceRJaHP2nF7Y9NdAD4OgfTOqAvyU4
+ tOwBZT4tiXdXKOFDlTg5B/1glPcjpcLd1JKcF+xg4EddwBZhNXkkE8uoiXf6/J1olFznVzlxCCo
+ azvrYSnYg09wwiMM57FllabsbS9E3098IkYh3YeUi6gYxLjWDKoAHT15q2YlC8CVo3xCIoeU92Q
+ Wi/fAPnWHlegacL7WDDGgSkMUazcfJHohPZs1mUevko6MkojXsxRA6vKAKds7wk+edFq7cGpP0q
+ u5umYYfKWHZ2sOQ==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Authority-Analysis: v=2.4 cv=FOKOVOos c=1 sm=1 tr=0 ts=6ace2e1a cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=cYHgvgXoKsdrWYhR6y0A:9 a=QEXdDO2ut3YA:10
+ a=TD8TdBvy0hsOASGTdmB-:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA1MiBTYWx0ZWRfXw8mVgeg99Ev5
+ eoOzKJntef2hhXqM9VsecaUXhC4AGyylLeXd1d9G+KJhu0GHhUqh37MNQbCru9m+SrFb5fhS5dz
+ cGZhWBgStW/ZcibhyJfnPb21NH9ddjU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA1MiBTYWx0ZWRfX5fDQvTpVdOzr
+ R06+amOAanjp3Vo+E7MhsOKpaFZoMgkyIzrMQM8UIBLl0i9IQFGnwLR8TodSCFi8toiZZCNIWyp
+ lQmniJz3sDdtzx1UYDniixoBxhVPJ3zypjh1J7FVUr5FNbiG2d1VEHF+rRHp1+y9FMZPSLlzHVN
+ 7Y4+136DB9Cx8TGr6SUfNTXBMqFerb0T3YjJU8XmW6EiEH0MkRFzuxiNoIAHMnK00DBWHB5/v/i
+ OMLZrd/loKMPfO8PVOiVcUenlaBacp7QqaiUo/5gSY65eyERZ9m1WKflYFRvUDJUyTeetGIq94s
+ ziQtaqU4i3cM0DR4n4nuNeTHHFyYP1yV1Q20yczDNhuObYcf68hnlEtakXZceIum/Qj0neXm/Cm
+ X+eeRDSvYqio1s3capQ6so/1ieVFi6T0RKQEz/g1eGOlErvSO8vmhQrW35uS69L3M31Upbr16k3
+ Z4Yv5FP/54e6f8wBEiA==
+X-Proofpoint-GUID: -02i42tDQT9GwcN0ATWvxD_KfjROr03a
+X-Proofpoint-ORIG-GUID: -02i42tDQT9GwcN0ATWvxD_KfjROr03a
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0
+ spamscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130052
 
-From: Jamal Hadi Salim <jhs@mojatatu.com>
+Abel reported to me a crash on Eliza linked to fwnode GPIO lookup for
+shared GPIOs. Turns out we don't support no-device, fwnode-based lookup
+for shared GPIOs. In fact: we trigger a NULL-pointer deference.
 
-commit 729c4896ab829169f95915d65edd530325910b37 upstream.
+Making it work requires a more serious rework. This is what patch 4/4
+does with 3/4 introducing a preparatory improvement.
 
-htb_classify() follows each filter-selected inner class by switching
-to cl->filter_list, but never bounds the number of hops. A filter on
-an inner class can point back to itself or to another inner class that
-points back, creating an infinite loop in the packet classification
-path with the qdisc lock held and BH disabled — a soft lockup / panic
-from a single packet.
+The second patch fixes the NULL-pointer dereference in favor of
+gracefully returning an error. The first patch fixes another problem the
+clanker found during review.
 
-Bound the traversal with a hop counter and drop the packet with a
-rate-limited warning once the bound is exceeded. The counter is
-incremented at the point the inner filter chain is picked up, after the
-TC_ACT_* switch has consumed the classifier verdict, so a terminal
-TC_ACT_QUEUED/STOLEN/TRAP on the last permitted chain still sets *qerr
-to __NET_XMIT_STOLEN and the packet is not charged as a drop by this
-qdisc or its parent.
+Tested that the issue no longer happens and that fwnode-based sharing of
+GPIOs  works on Qualcomm Eliza.
 
-The bound is TC_HTB_MAXDEPTH, taken from HTB's own parameters rather than
-from the qdisc hierarchy depth limit. Class levels run from 0 to
-TC_HTB_MAXDEPTH - 1, so a traversal that strictly descends in level can
-take at most TC_HTB_MAXDEPTH hops. That descent is what a sane
-configuration does, but it is assumed here rather than enforced:
-htb_find() resolves a classid against every class in the qdisc, so a
-filter may equally select a sibling or an ancestor. The normal
-root -> inner -> leaf path takes a single hop, so the bound does not
-affect legitimate classification.
+Patches 1-2 should go into v7.3 and stable. Patches 3-4 are v7.4
+material.
 
-htb_classify() can now return NULL irrespective of CONFIG_NET_CLS_ACT,
-whereas previously every NULL return sat inside that ifdef. The NULL
-handler in htb_enqueue() therefore cannot stay conditional either, so
-drop the ifdef around it. This matches hfsc_enqueue(), which has always
-handled a NULL class unconditionally. Without it, a kernel built
-without actions would dereference a NULL class instead of dropping.
+Sashiko pointed out two more issues under v2 but they're false positives.
 
-Conditions to recreate the bug:
-- CONFIG_NET_SCHED, CONFIG_NET_SCH_HTB, CONFIG_NET_CLS_U32,
-  CONFIG_LOCKUP_DETECTOR.
-- Create an HTB qdisc on a device (e.g. lo), add an inner class
-  1:1 with a leaf child 1:10, install a root u32 filter selecting
-  1:1, and an inner-class u32 filter on 1:1 also selecting 1:1.
-- Send one packet (ping). On the unfixed kernel the classify loop
-  spins with the qdisc lock held; with softlockup_panic=1 it panics.
-- Reachable from unprivileged user via unshare -Urn (CAP_NET_ADMIN).
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: Vega <vega@nebusec.ai>
-Co-developed-by: Victor Nogueira <victor@mojatatu.com>
-Signed-off-by: Victor Nogueira <victor@mojatatu.com>
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20260826143339.271935-1-victor@mojatatu.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
-Backport fix for CVE-2026-90053
- net/sched/sch_htb.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+Changes in v3:
+- Move struct auxiliary_device out of struct gpio_shared_ref
+- Link to v2: https://patch.msgid.link/20261001-gpio-shared-fwnode-lookup-v2-0-9a40681713cc@oss.qualcomm.com
 
-diff --git a/net/sched/sch_htb.c b/net/sched/sch_htb.c
-index 75ca5e5def3f..c6cdbbb8c898 100644
---- a/net/sched/sch_htb.c
-+++ b/net/sched/sch_htb.c
-@@ -213,6 +213,7 @@ static struct htb_class *htb_classify(struct sk_buff *skb, struct Qdisc *sch,
- 	struct htb_class *cl;
- 	struct tcf_result res;
- 	struct tcf_proto *tcf;
-+	unsigned int hops = 0;
- 	int result;
- 
- 	/* allow to select class by setting skb->priority to valid classid;
-@@ -255,6 +256,10 @@ static struct htb_class *htb_classify(struct sk_buff *skb, struct Qdisc *sch,
- 		if (!cl->level)
- 			return cl;	/* we hit leaf; return it */
- 
-+		if (++hops > TC_HTB_MAXDEPTH) {
-+			pr_warn_ratelimited("htb: classify loop detected, dropping packet\n");
-+			return NULL;
-+		}
- 		/* we have got inner class; apply inner filter chain */
- 		tcf = rcu_dereference_bh(cl->filter_list);
- 	}
-@@ -596,13 +601,11 @@ static int htb_enqueue(struct sk_buff *skb, struct Qdisc *sch,
- 		} else {
- 			return qdisc_drop(skb, sch, to_free);
- 		}
--#ifdef CONFIG_NET_CLS_ACT
- 	} else if (!cl) {
- 		if (ret & __NET_XMIT_BYPASS)
- 			qdisc_qstats_drop(sch);
- 		__qdisc_drop(skb, to_free);
- 		return ret;
--#endif
- 	} else if ((ret = qdisc_enqueue(skb, cl->leaf.q,
- 					to_free)) != NET_XMIT_SUCCESS) {
- 		if (net_xmit_drop_count(ret)) {
+Changes in v2:
+- Rework the shared GPIO management to replace platform lookup with
+  software nodes associated with proxy GPIO controllers
+- Link to v1: https://patch.msgid.link/20260929-gpio-shared-fwnode-lookup-v1-0-57d54811de1a@oss.qualcomm.com
+
+---
+Bartosz Golaszewski (4):
+      gpio: shared: fix use-after-free bug when adding shared proxies
+      gpio: shared: gracefully handle no-device lookup of shared GPIOs
+      gpio: shared: detach the proxy device from struct gpio_shared_ref
+      gpio: shared: convert to using software nodes for GPIO shared proxy lookup
+
+ drivers/gpio/gpiolib-shared.c | 154 ++++++++++++++++++++++--------------------
+ drivers/gpio/gpiolib-shared.h |  15 ++--
+ drivers/gpio/gpiolib.c        |  20 +-----
+ 3 files changed, 90 insertions(+), 99 deletions(-)
+---
+base-commit: 4eb2586bd40db27d77cc5b724ca9386ed0c71d53
+change-id: 20260929-gpio-shared-fwnode-lookup-e866faeb5bde
+
+Best regards,
 -- 
-2.43.0
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
