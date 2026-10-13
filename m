@@ -1,101 +1,106 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96F74A9D44;
-	Tue, 13 Oct 2026 22:56:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791932208; cv=pass; b=VFY1ADXec5ShA83Gh2EacPnUE3yAgsjFyORDEZHwCv2eTQ2WNXzxO79yyhx3lIv/s+jTIJzpfElFmfAVIYkJmLAMkNoBnKlEWRyckQVKDH4rFVgova2NTruCB5S1kmpdYd4WrfzghMY72QmpZCoSGMk+kwd6gzRbR1BPLl35dUY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791932208; c=relaxed/simple;
-	bh=bAB7dsPzcz67xHbWPAM5JI8JnYKNsnf4lQG5iXou8Kw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cBLLOaIRCkw3O0Y3iakDAlwsiFsbNkaYgKutSHVk0mI5fr5BiUCBKPD2mV80KSJjZL63GUwoS1ZorZOxTdt85N5xhBlSdFVlIydH6W+BSvsoYZMnT5c2UkTSOU6aMPrZM91ggGOI/S02raYbwQS2AICDuXUltUHPHqgfPXW4rFk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=kHdQx/yk; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F764A4F04
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 23:04:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791932661; cv=none; b=ep80eBIx/kitWAREWzZId15KhdNLMkryrx3nDfmNCBfrDlesrrA1xATTw1hX3yq0n9G+8zZlgW35SpT6qmGnL5Q7qLF3KMBU3rF21g12HxX9S5iIN7n5Sn9UAe3V9HuqBOj7G2Tbi1/Adw0wD31QSMqN6FCl6wPB9rxCgoQp8ig=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791932661; c=relaxed/simple;
+	bh=e4mv65ZTz92dGckJMFBeQXXM66LYL8r2iUOEEhsNcCk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dGylSgrjPlYqFEW1HUMTPXAK919XH4bXiZ4jkhfyO6eCkzAcgMoskgoT/XJmdFIrVi4+64oFqzlewxrvvWq+pqq1T9NRneeLUw0Ij7UN/k22V7nq9j+puP/JJ5Tj8GP2YAYzDqFr20lt/xXV6mK1f55vHvUQU/sUMWj1kZ7tPX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iZGN+wCv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="kHdQx/yk"
-ARC-Seal: i=1; a=rsa-sha256; t=1791932185; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=bNVvhYdc3iC1WLIzS0fZNO0qcM7zrvTBm9pfdKoDA+dxTRkfdxZ02pISKtbT+BzLrYeO2J8AEcGXsYm5GU9j5xnM7/R2UoMGMmX6PA/b1pCkFxUNEjQo6kNQHn47mkxfyzHNWkJKikzFz5zhcFpQouVnvAmepLUuKIHvdLyJrro=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791932185; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=is/u4zp7L+bid1uy+FMp9cPkHU9FjH1P79khU+iYi1s=; 
-	b=jpMfXxH3wSI0OkaZcD1lHZ2MWkAxUqb7eEgx5BNwsaqFP/Z6lM17Rszj8IRfgnxI3BAuYq/ezE5UnKUFZzvsQV+ccz5UTSc5e1sO2gqtaiFBYmkYKlUXqydc1zg7NzPTJLGotAgvxZyDwrtxT57yu2fFdSl2IIhQaGVfPrI4dZ0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791932185;
-	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=is/u4zp7L+bid1uy+FMp9cPkHU9FjH1P79khU+iYi1s=;
-	b=kHdQx/yka/sQoYcL1VofEdOgUAAShvGiyVxKxTPRMe/IE6JEaiemAH47QtlGVkz6
-	I4uQTtv82fP4bvdZ123YaiAYKd1b3pn9jVbRmrSxChZD8Poippv5dh0i4U70oxlK1Wf
-	yl7pBDuKVqWKUAmcaN1z6zNHIyvdCpEw4ILiwgtA=
-Received: by smtp.zohomail.com with SMTPS id 1791932183629232.553043639708;
-	Tue, 13 Oct 2026 15:56:23 -0700 (PDT)
-Message-ID: <05f4612c-a034-4e77-9a00-9cadd9f7e2c9@collabora.com>
-Date: Wed, 14 Oct 2026 01:56:19 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iZGN+wCv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5433D1F000FF;
+	Tue, 13 Oct 2026 23:04:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791932659;
+	bh=wgSTFME8wCbtsDD6iy97+jq0HP3toFBnGcwPU/giGSw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iZGN+wCvxfIjIpcL0S3zgze18XX3+GdvpUWXUXlBKK3423990wmX3PQImwBxIpmJM
+	 A0OA7BjwLtZVGwrER5o4wSMXLfuJN9WVG4Wv4k/KMalhoCiXTGYvFlgbnHG1qilcRM
+	 /cvjLzM1L/Gj0Ur7FB4Eje5Jz/xhXKlvwNXDzhGh1PA9GhE3DaaBh+QC6XFBDhGtrp
+	 HAK3KtNoBbmlaQ3tsc3lCFxryvoPRERdFKqxFJZXC9h6elFoKyXGok6oePY0IdeQDm
+	 YA6YOoNwY+NoHTqgMrvLTX0AZMAKsEdxueWXwW6odWjgDHFJwHCqMnsXcdBzoTT967
+	 XYavZp3TeQxbg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Christian Brauner <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] namespace: don't copy an unmounted mount tree
+Date: Tue, 13 Oct 2026 19:04:17 -0400
+Message-ID: <20261013230334.1057236-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026101201-arrogance-designer-e9e2@gregkh>
+References: <2026101201-arrogance-designer-e9e2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] drm/virtio: Reset device before deleting virtqueues on
- freeze
-To: Yuho Choi <oss.patchbox@gmail.com>, David Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>, Dongwon Kim <dongwon.kim@intel.com>
-Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260926202040.1313385-1-oss.patchbox@gmail.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20260926202040.1313385-1-oss.patchbox@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-On 9/26/26 23:20, Yuho Choi wrote:
-> virtgpu_freeze() waits for the control and cursor queues to drain and
-> then deletes the virtqueues, but nothing tells the device to stop first.
-> del_vqs() frees the vring backing, but does not provide a generic device
-> quiesce operation. In particular, modern virtio-pci keeps enabled queues
-> active until the device is reset, so the device is left DRIVER_OK with
-> its queues pointing at memory that has been freed and may be reused while
-> the guest is suspended. virtio_device_restore() only resets the device
-> later, on resume.
-> 
-> Reset the device before deleting the virtqueues, the way
-> virtio_gpu_deinit() already does on removal.
-> 
-> Fixes: cad6a879a7fb ("drm/virtio: Freeze and restore hooks to support suspend and resume")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
-> ---
->  drivers/gpu/drm/virtio/virtgpu_drv.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
-> index 2aaa7cb08085..52c174f9bff7 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-> @@ -225,6 +225,7 @@ static int virtgpu_freeze(struct virtio_device *vdev)
->  		goto err_resume;
->  	}
->  
-> +	virtio_reset_device(vdev);
->  	vdev->config->del_vqs(vdev);
->  
->  	return 0;
+From: Christian Brauner <brauner@kernel.org>
 
-Applied to misc-fixes, thanks!
+[ Upstream commit 8bacbf6be959973b28b691713a872c12eae69eec ]
 
+may_copy_tree() accepts a mount whose root is an nsfs or pidfs file
+before it checks whether that mount is mounted. This exception exists
+for nsfs and pidfs mounts. They are part of no mount namespace so
+neither check_mnt() nor is_mounted() would let them through and
+bind-mounting a nsfsfd or a pidfd wouldn't work.
+
+Problem is that exception also admits a bind mount of such a file when
+it was lazily unmounted and is only kept alive by a file descriptor:
+
+  mount --bind /proc/self/ns/net /tmp/x
+  exec 3< /tmp/x
+  umount -l /tmp/x
+  mount --rbind /proc/self/fd/3 /tmp/y
+
+With MS_REC or AT_RECURSIVE copy_tree() doesn't stop at the unmounted
+mount. It copies every mount that stayed attached to it as well. So if
+you have a bunch of overmounts over the nsfsfd or the pidfd the whole
+unmounted stack is copied. That's a bug.
+
+So refuse to walk an unmounted tree. Copying its root alone stays
+possible. So a bind mount of a namespace that is gone can still be
+recreated from a file descriptor on the old one. The file descriptor
+pins that mount and its root and __has_locked_children() only reads the
+direct children which don't leave the parent's list without
+namespace_sem. The internal mounts carry MNT_NS_INTERNAL instead of NULL
+and are still walked. Copying an unmounted tree recursively fails with
+EINVAL.
+
+Fixes: e149ed2b805f ("take the targets of /proc/*/ns/* symlinks to separate fs")
+Fixes: ef4144ac2dec ("pidfs: allow bind-mounts")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260926-work-mount-fixes-2-v1-4-f357abf3d17b@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: adjusted context for inline mount validation in __do_loopback() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/namespace.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/fs/namespace.c b/fs/namespace.c
+index ff8d16a3eeb2d..ca8108097a2aa 100644
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@ -2384,6 +2384,9 @@ static struct mount *__do_loopback(struct path *old_path, int recurse)
+ 	if (!check_mnt(old) && old_path->dentry->d_op != &ns_dentry_operations)
+ 		return mnt;
+ 
++	if (recurse && !old->mnt_ns)
++		return ERR_PTR(-EINVAL);
++
+ 	if (!recurse && has_locked_children(old, old_path->dentry))
+ 		return mnt;
+ 
 -- 
-Best regards,
-Dmitry
+2.53.0
+
