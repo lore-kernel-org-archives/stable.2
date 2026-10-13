@@ -1,68 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-113.mta0.migadu.com [91.218.175.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC40472F63
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 06:25:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02744485518
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 06:26:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791872726; cv=none; b=elyOW2UJRfsfIw7Mpwh9/p8w46LkiO9Ngxm3Mdq4mV0w3/ijNKFQfceNa0Yp/dT8XrgMFi1Q7Duto8zJG8yRGsFlzNikW4SzkTTSG4cDKUh9U5g4CZIN561ZhdqhJqFywk3/8VZIvMN5bIjdRzlrdT5iJPnQAw+PYF71ZsjynSg=
+	t=1791872802; cv=none; b=CZvXRGK96Dk7G4sTr942aOjgDeb5Pgnxczd1fjWEZX2rnLZnGARGMqSQ1+zEqcNz7ycY2Tv6pp9R9SsQeL4DUfsvBLUtaPSvbj6BQstS+FfUBG9j7ldYpKkd2IDtuBdBxPb32BNXUHT3qCAqwEVzyKglgDHgsWjU8M905UAOODE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791872726; c=relaxed/simple;
-	bh=tdpx2ZIjUIQ052VmpzkRQH3IGdLgU/eWNPlZmRH9DXs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l3RGR1Vuxx/Z52rYhO3BnWZ1EGEuJvfwlucA3Km818NMp6LdtBCzmnw74840+6TKS/jv06mLmHK+j/uQ09lcxXh04xdxqnCvq1ghn9erpMLkj4Io5WVSibKcghQI426aIh8oTfqdPLbLTOZttcsy4l3GF2/g+KRmtS//nSmqP/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uHeyCyjW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791872802; c=relaxed/simple;
+	bh=ijzhhCvBzPeAT3SqmYXHx89D90VBI7qukSZjs8T278I=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=SaaQLCYvopJJrHGwhEUeOVK9gXP8NgyiYARyfWqUfwc31SMWWK9PlwEPglZh4hzAHyQrGleJ10RaN+XTNJ4jOyfRJ1TagCtQXMjWoadgi4RV8L221prFL4GYG7AE/6+BzYYj2EeT7o40NoXjNxKXQhkMb5Gxe7jVby9SjhRYX5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=u9i9HxGs; arc=none smtp.client-ip=91.218.175.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uHeyCyjW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B8CB1F000FF;
-	Tue, 13 Oct 2026 06:25:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791872722;
-	bh=/4s6DjAXr+EzO659uZ3MWnaixmJ68f1Y4pGdwciGruI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=uHeyCyjWI09MBx0LdfDn0Es4b/bTf/X4ZRmm3YLBei5ZcmuLCeKXIbKafal24tNuY
-	 +a+I8nvXjh7q/BI0vW19/nzZFH112JqakpDPiQbo12XredoQjuyu9KUOqVWYAiGf8/
-	 H4/cjtYxZd+8LyS8oIubv8XOFdkcVCiSA+HqfrJo=
-Date: Tue, 13 Oct 2026 08:25:27 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: stable@vger.kernel.org
-Subject: Re: FAILED: patch "[PATCH] io_uring/waitid: fix KCSAN warning on
- io_waitid->head" failed to apply to 6.12-stable tree
-Message-ID: <2026101320-given-crispness-72c3@gregkh>
-References: <2026093018-boneless-remorse-ee12@gregkh>
- <6ed8abf0-15d3-4de9-88e2-a44a7a11b32b@kernel.dk>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="u9i9HxGs"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ijzhhCvBzPeAT3SqmYXHx89D90VBI7qukSZjs8T278I=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791872798; v=1; x=1792477598;
+ b=u9i9HxGsO3x2RvdZiMo1y0Po1scVIFQibDJHRCRougUnPXM9w7PcUAd1D5oZEM5Q58NsF8KY
+ CTMpA5sg+FfSAq+7QglTMJahRbZKRUojynG++lked1XiHGWAQoySDRDBtF72CCpb/hM08/hxCum
+ JrAENks08xw5/XfDhdt0Xc38=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id afbacc7007ea9f8d;
+	Tue, 13 Oct 2026 06:26:38 +0000
+X-Mizu-Trace-ID: afbacc7007ea9f8d
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6ed8abf0-15d3-4de9-88e2-a44a7a11b32b@kernel.dk>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH v2 1/4] mm: fix missing page-table destructor in
+ pagetable_free()
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261012202532.f059fd5ab947510a21d34cd1@linux-foundation.org>
+Date: Tue, 13 Oct 2026 14:26:15 +0800
+Cc: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+ Muchun Song <songmuchun@bytedance.com>,
+ David Hildenbrand <david@kernel.org>,
+ Oscar Salvador <osalvador@suse.de>,
+ Dave Hansen <dave.hansen@intel.com>,
+ Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>,
+ =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@rivosinc.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Kevin Brodsky <kevin.brodsky@arm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ linux-mm@kvack.org,
+ linux-riscv@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <1F709D85-8F18-4237-BA0B-BE8442DD221C@linux.dev>
+References: <20261010112457.49485-1-songmuchun@bytedance.com>
+ <20261010112457.49485-2-songmuchun@bytedance.com>
+ <asy-b7_C3SjnmSaS@gmail.com> <145CD5DC-6457-4E1E-8B9D-AE7D1EDB0AB8@linux.dev>
+ <20261012193114.77147e0a43affa8ee1ae896c@linux-foundation.org>
+ <200A83B9-233C-44C7-B4AF-0900BA1E09DF@linux.dev>
+ <20261012202532.f059fd5ab947510a21d34cd1@linux-foundation.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-On Mon, Oct 12, 2026 at 03:26:46PM -0600, Jens Axboe wrote:
-> On 9/30/26 8:59 AM, gregkh@linuxfoundation.org wrote:
-> > 
-> > The patch below does not apply to the 6.12-stable tree.
-> > If someone wants it applied there, or to any other stable or longterm
-> > tree, then please email the backport, including the original git commit
-> > id to <stable@vger.kernel.org>.
-> > 
-> > To reproduce the conflict and resubmit, you may use the following commands:
-> > 
-> > git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-> > git checkout FETCH_HEAD
-> > git cherry-pick -x b994ace83a2bc7699420f6a4c6b860c8da133159
-> > # <resolve conflicts, build, test, etc.>
-> > git commit -s
-> > git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026093018-boneless-remorse-ee12@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
-> > 
-> > Possible dependencies:
-> 
-> Missing dependency, here's the dep with the commit too.
 
-Thanks now queued up.
 
-greg k-h
+> On Oct 13, 2026, at 11:25, Andrew Morton <akpm@linux-foundation.org> =
+wrote:
+>=20
+> On Tue, 13 Oct 2026 10:50:21 +0800 Muchun Song <muchun.song@linux.dev> =
+wrote:
+>=20
+>>>> The correct trailer is:
+>>>>=20
+>>>> Cc: <stable@vger.kernel.org> # 6.16-6.18: bf9e4e30f353: x86/mm: use =
+pagetable_free()
+>>>>=20
+>>>> Andrew, would you be able to update the trailer in the patch when =
+you
+>>>> pick it up? If there are further review comments that require code
+>>>> changes, I'll fix this trailer as part of the v3 respin. Thanks a =
+lot!
+>>>=20
+>>> I don't know if/how the -stable maintainers handle a comment like =
+that.
+>>> I expect it's more reliable to do this via Fixes:.  Possible?
+>>>=20
+>>=20
+>> Thanks. I used this format because it is explicitly documented by the
+>> stable kernel rules.
+>>=20
+>> The shell-style comment is the format documented in
+>> Documentation/process/stable-kernel-rules.rst for specifying =
+additional
+>> patch prerequisites:
+>>=20
+>>  Cc: <stable@vger.kernel.org> # 3.3.x: <commit>: <subject>
+>>  Cc: <stable@vger.kernel.org> # 3.3.x
+>>=20
+>> See:
+>>=20
+>>  https://docs.kernel.org/process/stable-kernel-rules.html#option-1
+>=20
+> Oh.  Consider me educated.  Edited.
+>=20
+>> A Fixes tag alone cannot express this dependency. It does not specify
+>> an additional commit that must be cherry-picked first. The documented
+>> Cc comment provides both the prerequisite and the required =
+cherry-pick
+>> order.
+>>=20
+>> Would this be sufficient for the stable team to pick up the =
+prerequisite?
+>=20
+> Hopefully.  I suggest you double-check when you get the emails as =
+these
+> are applied to the various stable trees.
+
+OK. I'll keep an eye on it.
+
+Thanks.
+
