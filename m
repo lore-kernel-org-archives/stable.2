@@ -1,159 +1,131 @@
-Received: from mta0.migadu.com (out-233.mta0.migadu.com [91.218.175.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C88DE3EA94C
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 06:51:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BF1523392D;
+	Tue, 13 Oct 2026 07:00:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791874279; cv=none; b=GvSJW4tHuuXrNfccnlYoYIRSdUeVVs6URNIzaYhyMRSB6935wdtirdQYEt7kw/OkM563RFvhJufOPzfnhomcy3zCzSY2SYV0EouRSsGXSJhNf02ri7SKeWHhy4yLPmtcNcsv5/WvcL3f1znhMGE3Rxm/uI+IGSegOWIPvam1m+8=
+	t=1791874853; cv=none; b=bCddOz+3w6NvDppdR398pERY4dttW5GppZIpb6joVFewAVwUWJvQd6CqtMq2l3GLLW9+eL8Q9eqHfq21gsOGvLQVtwtowxuUUaMNwH17CoypWIvvh9TE3OyuUt+tmhTZtmzlv5fOOdFetpCI7jjRRDvUBvQG/P2TT4FPG5aD2sw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791874279; c=relaxed/simple;
-	bh=PpqVuzPzg8SDxXOWgKNV7iFrqgNDiAsyJhClQMf5ARw=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=necLkAOWqEi81iImDVG4Ah8AULt8F9q9tuAB8ZsprzpO22/Rr0iU+oQwSXF2lOvvcvsv+Yhs/KIPnrn3PiaonFSQa6gWUj9DjbNbOX/nPdiczSR4sgDrtNOVhdBLz1xwGdlQ2APur/0oZUXwIkcdykLoSdCInmrXGsbD0p2WcfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AaRGqzYV; arc=none smtp.client-ip=91.218.175.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791874853; c=relaxed/simple;
+	bh=MCvURXVDNqtwrsTYwhupxgidDS6LkB99D2/ekPu5keM=;
+	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
+	 References:In-Reply-To; b=CYV/EVC7QlUfs95tTPxhCL653/Cec8y5foYP5wcuBfoX392Kzrvb/bzGg29j4UG6EXHtJglZD9u2jfEwXm/qV4HU3wYzJ5fx57mMXltYXDeVL4J0rjoFTtoMU55MIhImTcFo/J2oENsJZcXNKDrrTVa+c1upUyG35hY1/ml1W5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=dkivvlnl; arc=none smtp.client-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AaRGqzYV"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=PpqVuzPzg8SDxXOWgKNV7iFrqgNDiAsyJhClQMf5ARw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791874275; v=1; x=1792479075;
- b=AaRGqzYVlXLHPQYTXkYBSS/51UXdcBuPUD1Ki4RsyVWgbIvTtKFR69jDWgPrd5XxQAdpdqEH
- GSfWMZ1yvbgJd3MC8j+CJB3d7boudu9CpzMcg3FJk1HR5Y5aYXn5Jbg0+wJq6FZoz/y3MlPcTn6
- 3KSoSbKkyGiRHIoAh+I9HK7Q=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 726380c402274b50;
-	Tue, 13 Oct 2026 06:51:15 +0000
-X-Mizu-Trace-ID: 726380c402274b50
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="dkivvlnl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1791874808;
+	bh=MCvURXVDNqtwrsTYwhupxgidDS6LkB99D2/ekPu5keM=;
+	h=From:To:Subject:Mime-Version:Date:Message-ID;
+	b=dkivvlnlWBz5wtOKGqC9iTJ0XdBjrzX2CFuzQalJ9MNSyvROMnyh/MtShodW9H0sE
+	 TuFihVbGhPHNcpHvaBjE134Jrqt5F4YZqX9lVwI7nQ1R4KCkS5c09yZDq48Az+bhTy
+	 yBktLPm7z86lKVgx7w+Bt8kLNaI34qpxN5Rdgcbk=
+EX-QQ-RecipientCnt: 8
+X-QQ-GoodBg: 1
+X-QQ-SSF: 00400000000000F0
+X-QQ-FEAT: D4aqtcRDiqQnft7kyUuJbd/1GndRJklzmB5VJlBX//o=
+X-QQ-BUSINESS-ORIGIN: 2
+X-QQ-Originating-IP: /6Uw1c5u993PWpcukGUx6luJKSi6w5nYoyyQSaAiISo=
+X-QQ-STYLE: 
+X-QQ-mid: lv3gz7b-6t1791874801tcf0ad032
+From: "=?utf-8?B?V2VudGFvIEd1YW4=?=" <guanwentao@uniontech.com>
+To: "=?utf-8?B?R3JlZyBLSA==?=" <gregkh@linuxfoundation.org>
+Cc: "=?utf-8?B?U2FzaGEgTGV2aW4=?=" <sashal@kernel.org>, "=?utf-8?B?a2FydGlrZXk0MDY=?=" <kartikey406@gmail.com>, "=?utf-8?B?SGFyc2hpdCBNb2dhbGFwYWxsaQ==?=" <harshit.m.mogalapalli@oracle.com>, "=?utf-8?B?am9oYW5uZXM=?=" <johannes@sipsolutions.net>, "=?utf-8?B?bGludXgtd2lyZWxlc3NAdmdlci5rZXJuZWwub3Jn?=" <linux-wireless@vger.kernel.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
+Subject: Re: [PATCH 6.1.y] wifi: cfg80211: release locks on error in cfg80211_wext_siwgenie()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 13 Oct 2026 06:51:14 +0000
-Message-Id: <DM3IF1RE7901.FAXJ1LU10C96@linux.dev>
-To: "Alastair D'Silva" <alastair@d-silva.org>,
- <linux-wireless@vger.kernel.org>, "Ping-Ke Shih" <pkshih@realtek.com>,
- "Kalle Valo" <kvalo@kernel.org>
-Cc: "Luka Gejak" <luka.gejak@linux.dev>, "Martin Blumenstingl"
- <martin.blumenstingl@googlemail.com>, "Jernej Skrabec"
- <jernej.skrabec@gmail.com>, "Ulf Hansson" <ulfh@kernel.org>,
- <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: Re: [PATCH rtw-next v5 3/4] wifi: rtw88: sdio: Fix unhandled RX
- request interrupt storm
-From: "Luka Gejak" <luka.gejak@linux.dev>
-X-Mailer: aerc 0.22.0
-References: <20261011220755.1673367-1-alastair@d-silva.org>
- <20261011220755.1673367-4-alastair@d-silva.org>
-In-Reply-To: <20261011220755.1673367-4-alastair@d-silva.org>
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Tue, 13 Oct 2026 15:00:01 +0800
+X-Priority: 3
+Message-ID: <tencent_7D240953233FF6C810CA7875@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261012154246.1233496-1-guanwentao@uniontech.com>
+	<2026101331-bullpen-carnation-3533@gregkh>
+In-Reply-To: <2026101331-bullpen-carnation-3533@gregkh>
+X-QQ-ReplyHash: 2242530464
+X-BIZMAIL-ID: 1574893119301239894
+X-Address-Ticket:version=;type=;ticket_id=;id_list=;display_name=;session_id=;
+X-QQ-SENDSIZE: 520
+Received: from qq.com (unknown [127.0.0.1])
+	by smtp.qq.com (ESMTP) with SMTP
+	id ; Tue, 13 Oct 2026 15:00:02 +0800 (CST)
+Feedback-ID: lv:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: NLH1RjbartcJ7FFFPwdS1gdNOXMWgZv/66sn8d0royjcP8CQd4L3n5pv
+	ZGUIj0uEjk8slvWOLb9pzXARwXwvqG+vp/YsZLOixgUhKiMuO2648juneXht8P7MJr0R/0W
+	6H4+vEzjOv0654etyuyz/WTNH4gu3eyPQuwO2bYk1QgdLaaP2Xx3YyDP2Mykf/6M9c+tV+b
+	cPvXbXOlFKvpkTP/i6XzjrgYBl8WJla2lsIibadyVclumoNqxTIuvSnGMiCttJSseDpJbee
+	psx0s617k087MMVCRPOxDk6coB21F9+Sh0YPUmScQTBe/H74LfEjxHm3eYoFxmIvkgeURwn
+	z5e4eqCjkrDkXGSg4ajMA6IwyMvVqY6K1GQXKJUtZ0wYYAiyH1aaW+N1tlmFwPu6XMR9Nkg
+	+wak/ZIPAt/0aWmbcvn8PdxeocSeMIFSArvMnoOfLuhhFt+tclZSTsZpOVJ5m8z87S0Cc/d
+	ZAvbwTA3zqldAQbP+Me5kptx+io0A+OTiwLwt7Tp6I59/HuVB29qgOlGco0UYN0BzObjQj4
+	vTg8vG8CAaNbviyXIr6OMRL013elM7BM/XEgKwzaWX7rNZsbgEoPdjAUWFpzN4/7U2hjh9R
+	F9qlH3I6tGBc2zF15KWWp7WRJugvWI+TidVUoMpw4mNx8P4MYHeOQBijkSiMYCa4UahKX6O
+	ZS6Jq03f1yL8znHXFR70ueVZBmov7E1cE4MjRZmC/mPEsEKkYUg5w3x56UtOi+kCNQnoLlV
+	5m3nOaMijxyBLp6GdzMtiToY6jPt6gW4RrmPt42dCISvlXWRGPjmQCgw8FUlxZlvj02WZuN
+	AIjYWt/gQT3pYARNdwotarIlrywnNx6Kr5BqhJUzMhgaHCN/blQthW1cDPmk1j82njNdeDg
+	zn6d1b8htW3DnkqvIOgDiIA0p9z7J8oQF2olU2SNiAPJYm8lhcVgIbC0viQu1scQGZPaXVk
+	WquIBGiu6CS/cdpLKviA7uCUhXEh1L3lM05CFzbstFNhL4izXvGv1YKCO7QgUVO+VdLvz8B
+	Dpak/VYjHc2t8jbpixjDoSmKZTSiF9HTzgEA21QWNJH42McZyKeqguvfXbPm/cyBbaP0zwG
+	hVPdQ0TXviSLqIorkDUO/VbnUYg/ru7vQ==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-Hi Alastair,
+SGksDQoNCj4gT24gTW9uLCBPY3QgMTIsIDIwMjYgYXQgMTE6NDI6NDZQTSArMDgwMCwgV2Vu
+dGFvIEd1YW4gd3JvdGU6DQo+ID4gVGhpcyBlcnJvciBwYXRoIHJldHVybnMgd2hpbGUgd2Rl
+dl9sb2NrKCkgaXMgc3RpbGwgaGVsZCwgc28gb25lDQo+ID4gbWFsZm9ybWVkIElFIHJlcXVl
+c3QgY2FuIHBlcm1hbmVudGx5IGJsb2NrIGxhdGVyIG9wZXJhdGlvbnMgb24gdGhpcw0KPiA+
+IHdpcGh5LiBSb3V0ZSB0aGUgZXJyb3IgdGhyb3VnaCBvdXQgdG8gcmVsZWFzZSB0aGUgbG9j
+ay4NCj4gPg0KPiA+IFJlcG9ydGVkLWJ5OiBIYXJzaGl0IE1vZ2FsYXBhbGxpIDxoYXJzaGl0
+Lm0ubW9nYWxhcGFsbGlAb3JhY2xlLmNvbT4NCj4gPiBDbG9zZXM6IGh0dHBzOi8vbG9yZS5r
+ZXJuZWwub3JnL2FsbC85M2RiMGVhZS1mNDc5LTQzNDMtYTEyNi01OTk4N2FlMGRjMjJAb3Jh
+Y2xlLmNvbS8NCj4gPiBGaXhlczogOGI5MjFhODk5MzQ2ICgid2lmaTogY2ZnODAyMTE6IHZh
+bGlkYXRlIElFcyBpbiBjZmc4MDIxMV93ZXh0X3Npd2dlbmllKCkiKQ0KPiA+IFNpZ25lZC1v
+ZmYtYnk6IFdlbnRhbyBHdWFuIDxndWFud2VudGFvQHVuaW9udGVjaC5jb20+DQo+ID4gLS0t
+DQo+ID4gIG5ldC93aXJlbGVzcy93ZXh0LXNtZS5jIHwgNiArKysrLS0NCj4gPiAgMSBmaWxl
+IGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkNCj4gPg0KPiA+IGRp
+ZmYgLS1naXQgYS9uZXQvd2lyZWxlc3Mvd2V4dC1zbWUuYyBiL25ldC93aXJlbGVzcy93ZXh0
+LXNtZS5jDQo+ID4gaW5kZXggYmUxMjFmYTM2YzUxNC4uYmE2ZDg4MjdmNjRiMyAxMDA2NDQN
+Cj4gPiAtLS0gYS9uZXQvd2lyZWxlc3Mvd2V4dC1zbWUuYw0KPiA+ICsrKyBiL25ldC93aXJl
+bGVzcy93ZXh0LXNtZS5jDQo+ID4gQEAgLTM1Miw4ICszNTIsMTAgQEAgaW50IGNmZzgwMjEx
+X3dleHRfc2l3Z2VuaWUoc3RydWN0IG5ldF9kZXZpY2UgKmRldiwNCj4gPiAgLyogbm90aGlu
+ZyAqLw0KPiA+ICB9DQo+ID4gDQo+ID4gLSBpZiAoIWZvcl9lYWNoX2VsZW1lbnRfY29tcGxl
+dGVkKGVsZW0sIGV4dHJhLCBpZV9sZW4pKQ0KPiA+IC0gcmV0dXJuIC1FSU5WQUw7DQo+ID4g
+KyBpZiAoIWZvcl9lYWNoX2VsZW1lbnRfY29tcGxldGVkKGVsZW0sIGV4dHJhLCBpZV9sZW4p
+KSB7DQo+ID4gKyBlcnIgPSAtRUlOVkFMOw0KPiA+ICsgZ290byBvdXQ7DQo+ID4gKyB9DQo+
+ID4gDQo+ID4gIGllID0ga21lbWR1cChleHRyYSwgaWVfbGVuLCBHRlBfS0VSTkVMKTsNCj4g
+PiAgaWYgKCFpZSkgew0KPiA+IC0tDQo+ID4gMi4zOS41DQo+ID4NCj4gPg0KPiANCj4gPGZv
+cm1sZXR0ZXI+DQo+IA0KPiBUaGlzIGlzIG5vdCB0aGUgY29ycmVjdCB3YXkgdG8gc3VibWl0
+IHBhdGNoZXMgZm9yIGluY2x1c2lvbiBpbiB0aGUNCj4gc3RhYmxlIGtlcm5lbCB0cmVlLiAg
+UGxlYXNlIHJlYWQ6DQo+ICAgIGh0dHBzOi8vd3d3Lmtlcm5lbC5vcmcvZG9jL2h0bWwvbGF0
+ZXN0L3Byb2Nlc3Mvc3RhYmxlLWtlcm5lbC1ydWxlcy5odG1sDQo+IGZvciBob3cgdG8gZG8g
+dGhpcyBwcm9wZXJseS4NCj4gDQo+IDwvZm9ybWxldHRlcj4NCg0KPiBJdCBvciBhbiBlcXVp
+dmFsZW50IGZpeCBtdXN0IGFscmVhZHkgZXhpc3QgaW4gTGludXggbWFpbmxpbmUgKHVwc3Ry
+ZWFtKS4NClRoaXMgaXMgYSB0cml2YWwgZml4IGZvciB0aGVzZSBzdGFibGUgdHJlZXMsIHRo
+ZSBwcm9ibGVtIGlzIG5vdCBleGlzdGVkIGluIG1haW5saW5lIA0KDQo+IEl0IG11c3QgYmUg
+b2J2aW91c2x5IGNvcnJlY3QgYW5kIHRlc3RlZC4NCkl0IGlzIGNsZWFybHkgcmlnaHQuDQoN
+Cj4gSXQgY2Fubm90IGJlIGJpZ2dlciB0aGFuIDEwMCBsaW5lcywgd2l0aCBjb250ZXh0Lg0K
+SXQgaXMgc21hbGwuLyArNCBsaW5lcyAtMiBsaW5lcw0KDQo+IEl0IG11c3QgZm9sbG93IHRo
+ZSBEb2N1bWVudGF0aW9uL3Byb2Nlc3Mvc3VibWl0dGluZy1wYXRjaGVzLnJzdCBydWxlcy4N
+Ckl0cyBmaXhlcyB0YWdzIHBvaW50IHRvIHRoZSBzdGFibGUgYmFja3BvcnQgY29tbWl0IGlk
+cy4NCg0KPkl0IG11c3QgZWl0aGVyIGZpeCBhIHJlYWwgYnVnIHRoYXQgYm90aGVycyBwZW9w
+bGUgb3IganVzdCBhZGQgYSBkZXZpY2UgSUQuIFRvIGVsYWJvcmF0ZSBvbiB0aGUgZm9ybWVy
+Og0KPiBJdCBmaXhlcyBhIHByb2JsZW0gbGlrZSBhbiBvb3BzLCBhIGhhbmcsIGRhdGEgY29y
+cnVwdGlvbiwgYSByZWFsIHNlY3VyaXR5IGlzc3VlLCBhIGhhcmR3YXJlIHF1aXJrLCBhIGJ1
+aWxkIGVycm9yIChidXQgbm90IGZvciB0aGluZ3MgbWFya2VkIENPTkZJR19CUk9LRU4pLCBv
+ciBzb21lIOKAnG9oLCB0aGF04oCZcyBub3QgZ29vZOKAnSBpc3N1ZS4NCkl0cyBmaXhlcyBh
+IGxvY2sgd2l0aCBvdXQgdW5sb2NrLCBhbmQgd2Ugbm8gbmVlZCB0byBiYWNrcG9ydCBmNDJk
+MjJkM2Y3OTYzOSANCigid2lmaTogY2ZnODAyMTE6IGRlZmluZSBhbmQgdXNlIHdpcGh5IGd1
+YXJkIikNCmFuZCBndWFyZCBmb3Igb2xkZXIga2VybmVsIHRyZWUuDQoNCkJScw0KV2VudGFv
+IEd1YW4=
 
-On Sun Oct 11, 2026 at 10:07 PM UTC, Alastair D'Silva wrote:
-> On 3081-based SDIO chips (e.g. RTL8821CS), hardware does not automaticall=
-y
-> clear REG_SDIO_HISR_RX_REQUEST when the RX buffer is empty. Masking this
-> bit out before writing back to HISR prevents it from being acknowledged,
-> causing an infinite interrupt storm loop that locks up the system.
->
-> 8051-based chips instead rely on hardware to clear this bit automatically
-> once the buffer is empty, and software must not clear it.
->
-> Split rtw_sdio_handle_interrupt() into separate 8051 and 3081 handlers.
-> For 3081, disable interrupts via HIMR, acknowledge pending status bits
-> via W1C writeback, service pending events, and re-enable interrupts under
-> irq_lock if still running. For 8051 chips, preserve the existing behavior=
-.
->
-> Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO =
-based chipsets")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
-> ---
->  drivers/net/wireless/realtek/rtw88/sdio.c | 62 +++++++++++++++++------
->  1 file changed, 46 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wire=
-less/realtek/rtw88/sdio.c
-> index 7d4f17e96648..9fbd7654ada4 100644
-> --- a/drivers/net/wireless/realtek/rtw88/sdio.c
-> +++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-[...]
-> +     rtw_sdio_disable_interrupt(rtwdev);
-> +     rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
-> +
-> +     if (hisr & REG_SDIO_HISR_TXERR)
-> +             rtw_sdio_tx_err_isr(rtwdev);
-> +     if (hisr & REG_SDIO_HISR_RX_REQUEST)
-> +             rtw_sdio_rx_isr(rtwdev);
-> +
-> +     /* Unmasking HIMR re-asserts the IRQ line if new packets arrived */
-> +     scoped_guard(mutex, &rtwsdio->irq_lock) {
-> +             if (rtwsdio->running)
-> +                     rtw_sdio_enable_interrupt(rtwdev);
-> +     }
-
-The ack goes out before the drain, so RX_REQUEST is cleared on the card
-before rtw_sdio_rx_isr() has read anything. That is fine while the drain en=
-ds
-with RX0_REQ_LEN reading zero. It does not end that way in two cases, when
-total_rx_bytes reaches SZ_64K and when rtw_sdio_rxfifo_recv() returns an
-error from 1/4. There the data is left in the FIFO with the bit already
-cleared, and the interface depends on the card setting RX_REQUEST again for
-data that is already sitting in the buffer. The comment only claims that fo=
-r
-newly arrived packets.
-
-Your RX test probably covers this, 65 MB in 15 s would have hit the 64K
-budget many times, and a stalled interface would have shown up. I would sti=
-ll
-want either the datasheet sentence that the bit is set while the RX buffer =
-is
-not empty, or a second look after the unmask:
-
-        if (rtw_read32(rtwdev, REG_SDIO_HISR) & REG_SDIO_HISR_RX_REQUEST)
-                rtw_sdio_rx_isr(rtwdev);
-
-> +     rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
-
-Here the whole snapshot goes back. On 8051 the write back is masked to
-RTW_SDIO_HISR_CLEAR_MASK, because undefined bits written back raise the
-interrupt again after resume, and that mask leaves out RX_REQUEST and also
-AVAL, bits 8 to 15, BCNERLY_INT, ATIMEND, ATIMEND_E and CTWEND. RX_REQUEST =
-is
-the only bit that has to go on 3081, so would
-
-        rtw_write32(rtwdev, REG_SDIO_HISR,
-                          hisr & (RTW_SDIO_HISR_CLEAR_MASK |
-                                REG_SDIO_HISR_RX_REQUEST));
-
-be enough? If the full write back is deliberate, I would say why.
-
->       hisr =3D rtw_read32(rtwdev, REG_SDIO_HISR);
-> +     if (!hisr)
-> +             goto out;
-
-include/linux/cleanup.h:148 asks that goto and the cleanup helpers are not
-mixed in one function, and this function now has both. Wrapping the two
-handler calls in if (hisr) { ... } would remove the label.
-
-Two questions on the cover. The storm is described for 8821CS and 8822CS
-while the validation lists RTL8821CS only. Was 8822CS observed, or is it
-inferred from the same 3081 behaviour? And the board tested is sunxi-mmc,
-which runs the handler from ksdioirqd. sdhci, dw_mmc, meson-gx-mmc, mtk-sd
-and mmci set MMC_CAP2_SDIO_IRQ_NOTHREAD, so there the handler runs from
-sdio_irq_work and the host has its own way of rearming the card IRQ. A line
-in the cover saying which of the two the mask and unmask timing was tested =
-on
-would help.
-
-Best regards,
-Luka Gejak
