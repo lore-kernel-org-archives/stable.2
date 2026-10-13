@@ -1,121 +1,80 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C137348445
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 12:59:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F29014FECC6
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 13:00:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896353; cv=none; b=MVhH8GPi/LbgIzt9toDbGF/EoXyJREvYGP1pACorfyFjlozKQhge71eI296S9hgCuVU+GgazNW1MC82htxzT6YBmML/NNHT+ZTzqOTBpFcXT7B8BXPust7iTZF2R2u2gCeZD8LyqiLnRpX+fKfvE4m3wUYvFQnEPafXMO1fKbHs=
+	t=1791896440; cv=none; b=DeIehzMJsU7Zmf6kqhH0zXVlFUrw2+hI9EDBHJFylFmEqXBw/hJGNZfD61aBfUiaBt8PU5nEEDLmSs8GMtWUbkSPrrJnZznbF93aaTT5Wa1DnC5oUsO/RjNz+CxyyYvMVSztrvPoa7m3jZ5H0QHBg+A+qTosjqS0zP7rSQ9ZuII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896353; c=relaxed/simple;
-	bh=qyYb4Eq726CUS2SNReYaAzM5j+ZVcsjAdSZMVaJR+VE=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=D4ZRo88s7S6tVD2shA4oKseLem5PI29LM3zAkot7Vp9Y0cULce3Uqii0qMGVanexqTVG0z04vgFur0t5p1b0gtO1YyjH+IJkAKClPcP4kbr7xeZs+SJVMXf6W47NWmdtc/XVb3f8gK0v41X5pNzhCL9aieCQs4GtcjYQ/us13zE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=jfftfPeq; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	s=arc-20240116; t=1791896440; c=relaxed/simple;
+	bh=CDEZnZFYpuffzPq3yVbIulrNbfblS4pwlFeEeefac3s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=t+SFYXDh/CyArMtUGf1po7vfKNvGlah7pCJvJfyOlOoDWA2b64LZQ727ey6uxdchIXuCruO0a4BeJg6ZZRGKEbyVJMo4Fixsf3pZWcs9MZB9p2HGYZg2PPE0b1vwsH211L/UH9zmVDrWfatIsrpulWJ9NsKloqmaIUd0cHT2f1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=FrnXINfp; arc=none smtp.client-ip=203.254.224.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="jfftfPeq"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc4c7fab7b6so1840376a12.0
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 05:59:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1791896351; x=1792501151; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=cLvW9/4iBafexcRcmFxADFITNJkPKYRhKK9DKhGCLUA=;
-        b=jfftfPeqoyxr5MxRfZyyLap5Fy6WxGvN+GDVsUb1iSWNAgb5aGCLaBEC1BDAgtkesw
-         EdExvoyyDvbm1pd5/km14a9rK2d0eIYweUmgTp8/7DSax5VAypTJGGQ8HauFLpWQSYur
-         n/XLWdvURxnM34FyYNBdZP5/elTpHKqC8v5G8LBTx6WwfA8tuYp9nYRBcIhK8xSTRlBA
-         V3pCAc2yNzYX1AKMJAJ8tjwro4yfpkvRTNPH3AP8BI8p/4muZtl0/nQBIMaWtSar2Ldf
-         DnkIfrk3Xaj29KnZGxoi6SCiAX7jtgjXmCmLvACdMzXbyjqnYdxacqkfg1WSDDd19OVI
-         BzHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791896351; x=1792501151;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cLvW9/4iBafexcRcmFxADFITNJkPKYRhKK9DKhGCLUA=;
-        b=ZRw722lhs9QaN5Pep1NPzwLnKeF2ApXQMw9hbOxluia+5S01+RChlzCgG0ugJgrJhY
-         DdUuMlf/bu4K+qtMbkPvcFrvnDTiQLj9W8U5B7hB1BYvvrTLKy58ZX+7FG8umajoIbOg
-         8BnttJTLJaH/12uT4nfHWgjFqkS5lapM4bhSutzKJRK5deP82i+6yiJrTC+l0757JFcN
-         YB2j1Xfk56ZRmZJ5MfbRQ2+Xhwnfrah1wBw3QAVGSF61eAuUrcTjEmax8nptJLpMUelm
-         /RvAV4BWf21Tzo0l4LISjVYFZZVzDTc5RH3Ssp91gh/kFX+J1rfJXC5k0QMYvuPmSHnr
-         QfWQ==
-X-Gm-Message-State: AFq9FYLbRgaQJRCJz8kjgSYp8OTr87qc3rKHbUZdzXE/RVYSkbHUgwv0
-	5++Lw9kCUBk90lkgQV3EO0bbhffteC75xQLeFxJtqJpDPhTpnyD1xiYYNASpIiO4mI1yax2odok
-	ZBo7g
-X-Gm-Gg: AYBFou10nVDxMw2N7gALPOFnPsPm4rxnZwhZf5Kx6lAXQWx5me1VXStx6h9MfM4+5WQ
-	OtkXBaotDFVaLXswEfh6vkP9JMj63/WaONhaK+ReYgDkhRMOnp4S3NHcSggRglEq8b2IO25j8ps
-	YBL1hkfS4lYXLl0QtnDU9kkGJjRJqZPf6RQN/vt0F2xIwiUSMm857czpcCKV673/+KRw+nD+1E1
-	adDMAZcfIrnP9yXZcJ6uicrUqs2588VLq1bu7bgAnL2dvKfVxyeF9u0n964U384sow7bTaquK0C
-	BAuNIuxYyxWgihsTsH74kucDdD315oqrQrCTpzbGcge2bh2UOS2O2iBErhYbzXhMl5Yeg0/4uSA
-	MELn87Bfacg55VFQhfyCgXxPN9PftffoaqIqheideSrCy7oIxh8OaDM2mKwH49zhJTr+g4ByVbV
-	zWunfyprVeIKGu4Zv5XaLS4uiGJkID9eq14dAMZ5LmLX2LdFBndjOtpbhIGRAhHP8E73HvooKu3
-	g==
-X-Received: by 2002:a05:701b:2411:b0:170:aeef:a170 with SMTP id a92af1059eb24-170aeefa475mr11811707c88.36.1791896351147;
-        Tue, 13 Oct 2026 05:59:11 -0700 (PDT)
-Received: from 244668f92ec4 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1746482c978sm18811478c88.13.2026.10.13.05.59.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 05:59:10 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="FrnXINfp"
+Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261013130034epoutp03763a241c5e19c776b8a65f7b1a100482~eGFBHY22e1299212992epoutp03P
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 13:00:34 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261013130034epoutp03763a241c5e19c776b8a65f7b1a100482~eGFBHY22e1299212992epoutp03P
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791896434;
+	bh=CDEZnZFYpuffzPq3yVbIulrNbfblS4pwlFeEeefac3s=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=FrnXINfpsmzFR60SEEZ+Ifmg51zWVer0rh+6K11bq9DZ89iJWBt1p+jVQ+Wivj/iK
+	 hWNftO2X9lrBfGeDB1mXucnzR5DQiaAMmiRczjJWr33juaHgjoGcT3Hxukme03jeDc
+	 9DfGapZIT1y6d0dMEnAgDCQIxfBrBZNCNk5JFYVg=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
+	20261013130034epcas5p21afebfcd95e6f4718230475486d5b6e3~eGFApo0__1130811308epcas5p2X;
+	Tue, 13 Oct 2026 13:00:34 +0000 (GMT)
+Received: from epcas5p1.samsung.com (unknown [182.195.38.94]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4j3vZn2G3sz6B9m9; Tue, 13 Oct
+	2026 13:00:33 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+	20261013130032epcas5p4f27978a49d4f5f169affa17d28ce8049~eGE-W2lUN0272202722epcas5p4K;
+	Tue, 13 Oct 2026 13:00:32 +0000 (GMT)
+Received: from [107.122.11.51] (unknown [107.122.11.51]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261013130031epsmtip13f0de6001ef3f2850768a03770582e27~eGE96Cykg1973519735epsmtip18;
+	Tue, 13 Oct 2026 13:00:31 +0000 (GMT)
+Message-ID: <8102549a-d440-4d37-8b0f-531a001e230e@samsung.com>
+Date: Tue, 13 Oct 2026 18:30:30 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: 
- =?utf-8?q?=5BREGRESSION=5D_stable-rc/linux-5=2E10=2Ey=3A_=28build=29implicit?=
- =?utf-8?q?_declaration_of_function_=E2=80=98timer=5Fshutdown=5Fsync?=
- =?utf-8?q?=E2=80=99_=5B-Werror=3Dimp=2E=2E=2E?=
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
-Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Tue, 13 Oct 2026 12:59:10 -0000
-Message-ID: <179189634982.259497.9375661127898345576@kernelci.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] nvme: bound FDP config log reads to the received
+ buffer
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>, Keith Busch
+	<kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, Christoph Hellwig
+	<hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
+Cc: Nitesh Shetty <nj.shetty@samsung.com>, Hannes Reinecke <hare@suse.de>,
+	gliuxen@gmail.com, linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Language: en-US
+From: Kanchan Joshi <joshi.k@samsung.com>
+In-Reply-To: <20261013102812.3020500-1-yhlee@isslab.korea.ac.kr>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261013130032epcas5p4f27978a49d4f5f169affa17d28ce8049
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261013102825epcas5p38d2293e8e6c86a9142f6d24ba9fd371e
+References: <CGME20261013102825epcas5p38d2293e8e6c86a9142f6d24ba9fd371e@epcas5p3.samsung.com>
+	<20261013102812.3020500-1-yhlee@isslab.korea.ac.kr>
 
-New build issue found on stable-rc/linux-5.10.y:
+On 10/13/2026 3:58 PM, Yehyeong Lee wrote:
+> A malicious or buggy controller triggers this during namespace scan with a
+> short FDP Configurations log:
 
----
-implicit declaration of function ‘timer_shutdown_sync’ [-Werror=implicit-function-declaration] in drivers/usb/gadget/udc/at91_udc.o (drivers/usb/gadget/udc/at91_udc.c) [logspec:kbuild,kbuild.compiler.error]
----
-
-Log excerpt:
-=====================================================
-/tmp/kci/linux/drivers/usb/gadget/udc/at91_udc.c:1815:9: error: implicit declaration of function ‘timer_shutdown_sync’ [-Werror=implicit-function-declaration]
- 1815 |         timer_shutdown_sync(&udc->vbus_timer);
-      |         ^~~~~~~~~~~~~~~~~~~
-cc1: some warnings being treated as errors
-
-=====================================================
-
-When fixing this issue, please attribute this report according to the
-patch submission rules:
-
-Reported-by: kernelci.org bot <bot@kernelci.org>
-
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:29e7664f098f6157e6e013888bd3bb7e5aa1f9b3
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  1757ae41a94814c347aa9db18b08da11b3a7e7be
-
-# Builds where the incident occurred:
-
-## multi_v5_defconfig on (arm):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6ace2519a3f195e1aa756377
-
-#kernelci issue maestro:29e7664f098f6157e6e013888bd3bb7e5aa1f9b3
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
+Reviewed-by: Kanchan Joshi <joshi.k@samsung.com>
