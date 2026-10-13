@@ -1,170 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EC3E52120A
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:58:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2043952BE53
+	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 17:59:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914325; cv=none; b=EJUzz0gITmXQDAEF03+/hlXVWocP0PM5C0WBFDjk75kR7nDPnqz6Cju917N5DOukL0mmT2vMBQ3JEnX07CXqcM4t0M29LKRFgq1ht1q3WInAGz4pYyQacMfVOhIlnhKn6qpnPP/r1DJr65Ute+5DLQEcUaJ+6WS9FZHaHhL24Jo=
+	t=1791914348; cv=none; b=jXYv2Ox+O1H/DRIxlAK09OW+qkT5isgZenVQzrLoW+NGTbU96wLtSdtppzaFqkodPilEwOhMKDwgjUeqMcqMxbWm5jPuB4cH0aFCM3uhGeevFMKd9bxzXI8eQxoJtpp2Tpb9nGlZDm6nAqB3+4IOsMnLIusWiEok8cfeRDOc9Ao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791914325; c=relaxed/simple;
-	bh=tCKKutIINjTKgErzj0nQEJUj0mID1seYaVAV9XjezRM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NUCVtLMYW75kXIfrhocFGh7SlgcAeA7p5SyHQX/wzD2WSUiyeQnWHPS9R3wV665zt28Sq4Dh6o8VmVswuNqLNJXtu12jP80TdXo331c8vBmDXIBfUKIpe9KSKT7riDpc0+TWeGu2YtvRs/2bk6F5ksCPg4vkD6pT04pxTeMV84E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WiPsRUjB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791914348; c=relaxed/simple;
+	bh=6pfPbi/Wkd4DhUyqEvpBarmM6KLSGC9efq3aoBxrf04=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=EiAKIEU2BAeIu+AZFDfS3mO0pI9wn1B2xznLAKAtdgpcGqp8Wn9XmfIeCDUvF3sPwapUc0vfO2KSdNnuixIukfPhH1k0iQIUutXSq7bQv/47UlFlaLqDRB+psaU3U2fDBkTwdMIIrmWSeN0PiqRwEul/faZXwvR6E6Fx18EymVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=GEn6o8Jg; arc=none smtp.client-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WiPsRUjB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9DC61F000FF;
-	Tue, 13 Oct 2026 17:58:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791914324;
-	bh=kOya4Yqm97qfJXu75NDHHVgFaHpJvZ+VJmgklppjLu4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WiPsRUjB00zfydB7nNMcR7ZXPY4r081257HoN4FMIjCk9OjNkmHRcrF4NHVQsJ+Xn
-	 yXsxpBXYA5jCeu3cCLt1TzpvA10wSYZjde8pMwZJe1sJekx/jwlwCDPcAiCKjx5wN+
-	 YvdW6aUXGtqUn8ZNf3daNYvaqrzr55OcJctvCCD3oVecSCxMY7N7eOh7n5JDPp6AAY
-	 0ssnTGEbHbyFhwVmW0rIx3PsUsyYgQaiZBt+BCAFHuQSD0hWxOAPUOAVHIX7JHd4ej
-	 MEZi6TZ8dhmp9ShsFMzXD79zpJnwk9Z9ZUaoYUP4WWoUPEy9GH9DigIMW8i0S+y9HV
-	 xTn3/zhV7NZeg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>,
-	Laurence Oberman <loberman@redhat.com>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] scsi: ch: Do not keep references to data transfer element devices
-Date: Tue, 13 Oct 2026 13:58:42 -0400
-Message-ID: <20261013175819.592584-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101242-palace-translate-3944@gregkh>
-References: <2026101242-palace-translate-3944@gregkh>
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="GEn6o8Jg"
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-141395927feso6272821c88.0
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 10:59:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernelci.org; s=google; t=1791914346; x=1792519146; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=UB7YwH9UMo6ocIPwvGQ9Gv6RDNORnP2iRPaKNDxyTzo=;
+        b=GEn6o8JgJx/7xH6d+/jWcBzlZVLXBRF4XQzqdS+dFrrP77fTbVBBI6u7Og/pIUeLfG
+         1SENSEo+dajwfuP3mFpDgntx24yT+OsVp7xYW1bx7wUc9BmcApM/OiwIvFqlPmvS4WHT
+         deJIhDsfQyUTO6w+pigklRXh72ZexV/wMu2XVJg9QLBqTx9YuyOeXoa89fjdKm2dXNt3
+         3+XmOF02UUmZQH9YCRbf6VMWlh1GIXLSXc9VG+g7yGe5a8ayS6QRCI/l8zQl8D/7hkp3
+         BOz8ANdKOEDSD4YulF6oNE3dK9qTXrCQqZzF7TkkZ1xZajRNDPbJfULzz14OLChRtobz
+         Q6HQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791914346; x=1792519146;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UB7YwH9UMo6ocIPwvGQ9Gv6RDNORnP2iRPaKNDxyTzo=;
+        b=fEYRwltWTHgaUnNtrCiu/ONjX2ubSBTDW01f1+b5oPz271NAdoBPxMoLZ5NG8ToZUx
+         NliX6ryefmITtnP7FNiq16jjq2AClf5QuS7oLTsZy67EjiW1zGZCYP2r1ZH3KQu0yHbw
+         iT0uBxEWY5XA0j7D6fhiatoikOt25qM78vhpx56ok5ugml1CluIVXDRG8JP4UoQX2RZY
+         xlpu8jHJpIe9Vzsjf1GPj9iHzMJo42eK+VJwDl5uiQQ127JM1k0UfnS3bgrsnkethtqf
+         yN6TSW3zI5jEfHLOalM2DfCEJPNM1aofAq6RbNLTY34gdeqt4CRps4arTuIfyVvYnola
+         EaYw==
+X-Gm-Message-State: AFq9FYKFGBVbepiId85DXsEkbs5oFPwh8GNiU/4herQZx5v2nkrACeK9
+	UmBcUxhR7zozUzNKmhMbcK8uM0+12Y826yXxeWXcs9VCi6xlbyVLY1IVioqnPj1728BPmr1XPEB
+	tqNze
+X-Gm-Gg: AYBFou1/K9dXBKIbJuEEopXkdElotjBOGkz0+g5E+NMD/k8dNB1alc7uPFciSXDLktj
+	R3hE4DyWAvJ+wuTFSzlNwiEwNmf+UuCoTKSIMnNrl6i0N6l34bFZFIJcXA8elwmRwOeNoxsuT/3
+	5x3lkf7f8LGVBgR9LHX3JeJIUbx0r680ST9ODbcfjs6gN/+PEn+xEJ8ITz8RjbE8rfAvsvqzTcD
+	GeuP2f2As4qx0VfgyV2J8iOmSb3aILWPNa8n1tolCqotq8VRgnViJZ7QZZKfSNbwuvK9wLVXPRp
+	8b14lIHBIUF9g0gqi8RO7V2JRp3TsF/RaPNB/uTeF5nFSLJpXFMcsUpfyNOLGZLUORJV/Y+IarW
+	6uFBM82mNvSLjX3G/+vIp9WZng7nQXAyLQdNtlP0nFqrzFDF66bB/8I9IcBSBe+PafOonIfqG79
+	SVmONy2HHYUWlAKYBqD26e3bYWLmZPL2sO4VsM2qHvzyJ/j12mFQU1DY1kDU2SiMM=
+X-Received: by 2002:a05:701b:291c:b0:141:4951:f150 with SMTP id a92af1059eb24-16a5ea5d6famr17016087c88.18.1791914345841;
+        Tue, 13 Oct 2026 10:59:05 -0700 (PDT)
+Received: from 244668f92ec4 ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a567aef5sm39301704c88.19.2026.10.13.10.59.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 10:59:04 -0700 (PDT)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-From: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
-
-[ Upstream commit 27c0f718d3b3c99e6d315308e95d987d0382a8a8 ]
-
-ch_readconfig() looks up the scsi_device of every data transfer element
-whose SCSI id the changer reports in READ ELEMENT STATUS, and stores it in
-ch->dt[]. scsi_device_lookup() takes a reference, and nothing ever drops
-it: ch_destroy() frees the array with kfree(). ch->dt[] is read nowhere
-else - it only supplies the vendor, model and revision printed in the same
-loop.
-
-Once such a drive is removed, its scsi_device can never be released. It
-stays on the host's device list at its address, so a new device there is
-refused by anything that walks the list - target_core_pscsi reports
-"scsi_device_get() failed for H:C:T:L" - and the low-level driver's module
-can no longer be unloaded. Only a reboot recovers.
-
-It shows with any changer that reports its drives' ids; with the mhvtl
-virtual library (IBM 3573-TL personality), each create and remove of a
-library with four drives leaves four references behind, counted by the
-module's use count in lsmod. With ch not bound the count is unchanged, and
-with this patch applied it is unchanged too.
-
-Drop the reference as soon as the name has been printed, and remove the now
-unused dt[] array. That also removes the array leaked when ch_probe() fails
-after ch_readconfig().
-
-The same leak was reported with an RFC patch in 2022, which was not merged.
-
-Fixes: daa6eda65a53 ("[SCSI] add scsi changer driver")
+Content-Transfer-Encoding: 7bit
+Subject: [REGRESSION] stable-rc/linux-5.10.y: (build)implicit declaration of
+ function
+ 'timer_shutdown_sync' [-Werror,-Wi...
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/linux-scsi/20220719075442.6215-1-yanghao_ht@163.com/
-Signed-off-by: Ahmed Abdelhaleem Ahmed <ahmedhal@gmail.com>
-Reviewed-by: Laurence Oberman <loberman@redhat.com>
-Fixes: daa6eda65a53 ("[SCSI] add scsi changer driver")
-Link: https://patch.msgid.link/20260929-ch-dt-leak-v2-1-ddda8d635dca@gmail.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ sashal: Adapted the allocation-removal hunk for kcalloc() instead of kzalloc_objs(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reply-To: kernelci@lists.linux.dev
+Date: Tue, 13 Oct 2026 17:59:04 -0000
+Message-ID: <179191434384.270170.743076822009670118@kernelci.org>
+
+New build issue found on stable-rc/linux-5.10.y:
+
 ---
- drivers/scsi/ch.c | 30 +++++++++---------------------
- 1 file changed, 9 insertions(+), 21 deletions(-)
+implicit declaration of function 'timer_shutdown_sync' [-Werror,-Wimplicit-function-declaration] in drivers/usb/gadget/udc/at91_udc.o (drivers/usb/gadget/udc/at91_udc.c) [logspec:kbuild,kbuild.compiler.error]
+---
 
-diff --git a/drivers/scsi/ch.c b/drivers/scsi/ch.c
-index 27012908b5861..c1f714664bfc5 100644
---- a/drivers/scsi/ch.c
-+++ b/drivers/scsi/ch.c
-@@ -110,7 +110,6 @@ typedef struct {
- 	int                 minor;
- 	char                name[8];
- 	struct scsi_device  *device;
--	struct scsi_device  **dt;        /* ptrs to data transfer elements */
- 	u_int               firsts[CH_TYPES];
- 	u_int               counts[CH_TYPES];
- 	u_int               unit_attention;
-@@ -357,16 +356,10 @@ ch_readconfig(scsi_changer *ch)
- 			vendor_labels[i]);
- 	}
- 
--	/* look up the devices of the data transfer elements */
--	ch->dt = kcalloc(ch->counts[CHET_DT], sizeof(*ch->dt),
--			 GFP_KERNEL);
--
--	if (!ch->dt) {
--		kfree(buffer);
--		return -ENOMEM;
--	}
--
-+	/* report the devices of the data transfer elements */
- 	for (elem = 0; elem < ch->counts[CHET_DT]; elem++) {
-+		struct scsi_device *sdev;
-+
- 		id  = -1;
- 		lun = 0;
- 		if (elem < CH_DT_MAX  &&  -1 != dt_id[elem]) {
-@@ -382,10 +375,8 @@ ch_readconfig(scsi_changer *ch)
- 			VPRINTK(KERN_INFO, "dt 0x%x: ",elem+ch->firsts[CHET_DT]);
- 			if (data[6] & 0x80) {
- 				VPRINTK(KERN_CONT, "not this SCSI bus\n");
--				ch->dt[elem] = NULL;
- 			} else if (0 == (data[6] & 0x30)) {
- 				VPRINTK(KERN_CONT, "ID/LUN unknown\n");
--				ch->dt[elem] = NULL;
- 			} else {
- 				id  = ch->device->id;
- 				lun = 0;
-@@ -395,18 +386,16 @@ ch_readconfig(scsi_changer *ch)
- 		}
- 		if (-1 != id) {
- 			VPRINTK(KERN_CONT, "ID %i, LUN %i, ",id,lun);
--			ch->dt[elem] =
--				scsi_device_lookup(ch->device->host,
--						   ch->device->channel,
--						   id,lun);
--			if (!ch->dt[elem]) {
-+			sdev = scsi_device_lookup(ch->device->host,
-+						  ch->device->channel,
-+						  id, lun);
-+			if (!sdev) {
- 				/* should not happen */
- 				VPRINTK(KERN_CONT, "Huh? device not found!\n");
- 			} else {
- 				VPRINTK(KERN_CONT, "name: %8.8s %16.16s %4.4s\n",
--					ch->dt[elem]->vendor,
--					ch->dt[elem]->model,
--					ch->dt[elem]->rev);
-+					sdev->vendor, sdev->model, sdev->rev);
-+				scsi_device_put(sdev);
- 			}
- 		}
- 	}
-@@ -570,7 +559,6 @@ static void ch_destroy(struct kref *ref)
- 	scsi_changer *ch = container_of(ref, scsi_changer, ref);
- 
- 	ch->device = NULL;
--	kfree(ch->dt);
- 	kfree(ch);
- }
- 
--- 
-2.53.0
+Log excerpt:
+=====================================================
+/tmp/kci/linux/drivers/usb/gadget/udc/at91_udc.c:1815:2: error: implicit declaration of function 'timer_shutdown_sync' [-Werror,-Wimplicit-function-declaration]
+ 1815 |         timer_shutdown_sync(&udc->vbus_timer);
+      |         ^
+1 error generated.
 
+=====================================================
+
+When fixing this issue, please attribute this report according to the
+patch submission rules:
+
+Reported-by: kernelci.org bot <bot@kernelci.org>
+
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
+
+- dashboard: https://d.kernelci.org/i/maestro:734fa1707d5c4b4d4521135b415fa88e8118ab9d
+- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+- commit HEAD:  1757ae41a94814c347aa9db18b08da11b3a7e7be
+
+# Builds where the incident occurred:
+
+## defconfig+allmodconfig+CONFIG_FRAME_WARN=2048 on (arm):
+- compiler: clang-21
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6ace24eba3f195e1aa75624f
+
+#kernelci issue maestro:734fa1707d5c4b4d4521135b415fa88e8118ab9d
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
