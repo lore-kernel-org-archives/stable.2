@@ -1,177 +1,160 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 82F4B2BD09;
-	Tue, 13 Oct 2026 10:13:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B22D53DEFF1;
+	Tue, 13 Oct 2026 10:15:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791886430; cv=none; b=YNbQA60LDi2LXjrusL9fo0uauSVGZE2cw3Drtx6dEeFdkJp9zE/w4gIMfy2VWnC/inBx2Tvh2mqjXDE/KvA6j3PeaZaP1tHEr5dUKqKp3CB/ve5q3nmTVl3U9imOLl7na3RDtMsITLOKkltzRcxCSnZvlB9eAbTBPZClkOAtwF0=
+	t=1791886550; cv=none; b=LHNV2+skj8NlyrdR4RCIn9IjDCFEWWKZA6xhwwgv2J3Z8qQjcX9oAEy99Zji0siC3OZSP/3m8ADMCum2s+N4hV5/ckPVG3hBaPw8WA0u4AFvWkBaLI/Hpv17RvWvI4/+10yuiIrLb0LVng4sfFOp5VTopzvhFuwDwIvLNFrEmLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791886430; c=relaxed/simple;
-	bh=frG0so7TQeI6J8IN5+TVXwZehcv6LBDQHtosnjB44ng=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UwqHpLfAXMm3OVNFz37sIN8t4YsFJN3OZI4EHx9wP6UTItIanrMn9Gzhu0vQFgwBikheQ2MzI7C1MIjSSF3jWrK9AB+jPztW32Ckr3wze3wluA0VVpUGNvKxrp3YE1yMx9No6IKG3RTDaXqfCl7ssgrD1lDq3hrctmLVS0KPEss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=vPt/TJBM; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791886550; c=relaxed/simple;
+	bh=yH0RlSjasJVtxJz2L4bygZ31Sm66c6PG9hYfruCGQjk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=f28mpeHBlj/HBdieIOO+6cBZA71ZqrbctrGy6QFYe00cKPFKpbNB0YeL5DgaaH7AyMzz2MFAo7jgxGOiMIOQDRvmrzIAuQ4pUNKqoVmiCd67NlbU7n9DKvv6hJIWslvmrsCA7sDpgvCP0P1JOMTmLogysbwKpNF9YqIThznrh8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D23ldwya; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="vPt/TJBM"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4A0C4169C;
-	Tue, 13 Oct 2026 03:13:45 -0700 (PDT)
-Received: from [10.164.19.62] (unknown [10.164.19.62])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CE6393F7B4;
-	Tue, 13 Oct 2026 03:13:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791886428; bh=frG0so7TQeI6J8IN5+TVXwZehcv6LBDQHtosnjB44ng=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=vPt/TJBM5bSkHglczz78hY7BXD6SECatQcMU54W0ej74QhW76cpEiJFbPOEw8K7JU
-	 WqyxnjPkS4K6NPE26B912TQjoDzXTTsDExrMgBstckn+8MUOIndkJq14UA0k5lNrJl
-	 ao3zLpmO6rM7bJBP3j5Np6l8ehJV6OeOT6g0fdYo=
-Message-ID: <6a10b61f-5c4f-4d04-9742-97a358147c39@arm.com>
-Date: Tue, 13 Oct 2026 15:43:41 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D23ldwya"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6F761F00898;
+	Tue, 13 Oct 2026 10:15:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791886549;
+	bh=yH0RlSjasJVtxJz2L4bygZ31Sm66c6PG9hYfruCGQjk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=D23ldwyaxZzGXr829U3HVPbAKZtcPHIwFBQSXmPdf72OPVCgTZyVVSfDGM3nmFs06
+	 T18XPphP8lhuDuTtXOiNnnkuVNzcjNWg8U9+iUQFGbzpO04PutqBg61pH9SnZgvMqE
+	 pK7pKSKIbSJXeXRfic36Aj+d3Wqa1ycpWtzsnSlEOEUTghyhvx9fSppfKLGg1fL5xg
+	 fdbjzBEI5SBT6FjmeDzZnL3tbDrrsHqiyxOLnDne4kMEl9RJZ4Ww7Z82uLFpEE860o
+	 vaotWu0I3+CMpNnlR9segiLjd2vgun/V99c/aOqHdsXfGNWD2AlcbM/LF2uffKH1XR
+	 rJXpIRqKt1cvw==
+Message-ID: <e67eb43ccee21fc4271269e56be668b3dbf1b055.camel@kernel.org>
+Subject: Re: [REGRESSION] 7.2.4: nfsd sends CB_OFFLOAD with all-zero
+ stateid, async NFSv4.2 COPY never completes
+From: Jeff Layton <jlayton@kernel.org>
+To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
+Cc: Chuck Lever <cel@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-nfs@vger.kernel.org, Lubos Rendek <l.rendek@proxmox.com>, 
+	regressions@lists.linux.dev, Fabian =?ISO-8859-1?Q?Gr=FCnbichler?=
+	 <f.gruenbichler@proxmox.com>
+Date: Tue, 13 Oct 2026 06:15:46 -0400
+In-Reply-To: <2026-10-12-1-daily-reply-0001-nfsd-cb-offload-zero-stateid@kernel.org>
+References: <1791797151.oll70jtyaa.astroid@yuna.none>
+	 <2026-10-12-1-daily-reply-0001-nfsd-cb-offload-zero-stateid@kernel.org>
+Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
+ keydata=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
+ QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid
- PTEs
-To: Zhao Gongyi <zhaogongyi@bytedance.com>, catalin.marinas@arm.com,
- will@kernel.org
-Cc: ryan.roberts@arm.com, baolin.wang@linux.alibaba.com,
- lance.yang@linux.dev, mark.rutland@arm.com, akpm@linux-foundation.org,
- david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org,
- rppt@kernel.org, surenb@google.com, mhocko@suse.com,
- linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261013093600.54995-1-zhaogongyi@bytedance.com>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <20261013093600.54995-1-zhaogongyi@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
+On Mon, 2026-10-12 at 10:59 -0400, Sasha Levin wrote:
+> > AFAICT (for 7.2.x) you queued a full pick of
+> >=20
+> > f307b4f7ed17 nfsd: split nfsd4_copy into transient and durable async co=
+py objects
+> >=20
+> > in
+> >=20
+> > 0b2963340727 nfsd: split nfsd4_copy into transient and durable async co=
+py objects
+> >=20
+> > despite Jeff stating the following up-thread:
+> >=20
+> > > We should probably just take Lubos' two-line fix as a separate one-of=
+f
+> > > patch for stable. Backporting the COPY code refactor is too risky IMO=
+.
+> >=20
+> > Was this intentional, or an accident?
+>=20
+> That was not what Jeff recommended, thanks for catching it. The full pick=
+ is
+> now dropped from the 7.2 and 6.18 queues.
+>=20
+> Jeff, Chuck: could one of you send that fix as a proper signed-off patch =
+for
+> 7.2.y and 6.18.y?
 
+Lubis, since you did the original patch, would you like to send ones
+for those releases? Then Chuck and I can just send R-b's for it. If
+not, then I'll plan to send some.
 
-On 13/10/26 3:06 pm, Zhao Gongyi wrote:
-> The transparent contpte layer treats PTE_CONT as software state: when a
-> PTE has PTE_CONT set, the contpte helpers may align the operation to a
-> CONT_PTE_SIZE block and operate on the whole block. That invariant only
-> makes sense for valid mappings. Explicit users such as hugetlb manage
-> their contiguous encodings separately.
-> 
-> contpte_set_ptes() currently sets PTE_CONT from alignment alone. Batched
-> set_ptes() users can therefore install present-invalid PTEs with
-> PTE_CONT set, for example mprotect(PROT_NONE), NUMA hinting through
-> modify_prot_commit_ptes(), fork() copying a PROT_NONE large folio, or a
-> PMD split installing PAGE_NONE PTEs.
-> 
-> This is not a hardware programming problem: invalid descriptors are not
-> translated, so the hardware ignores descriptor bits such as PTE_CONT. It
-> is a software-state problem. Some arm64 fast paths intentionally test
-> pte_cont() directly instead of pte_valid_cont(), for example commit
-> 9970a9a27ffc ("arm64: mm: implement the architecture-specific
-> test_and_clear_young_ptes()"). Fixing the producer side preserves these
-> fast paths and covers all consumers.
-> 
-> In the observed failure, mprotect(PROT_NONE) installed a full
-> CONT_PTE_SIZE range of present-invalid PTEs with PTE_CONT set.
-> MADV_GUARD_INSTALL then zapped one PTE. The nr == 1 clear_full_ptes()
-> path only unfolds pte_valid_cont() entries, so the neighbouring
-> present-invalid entries kept PTE_CONT while the target entry became a
-> guard marker.
-> 
-> clear_refs_pte_range() then reached the marker through:
-> 
->   ptep_test_and_clear_young()
->   test_and_clear_young_ptes()
->   contpte_test_and_clear_young_ptes()
->   contpte_align_addr_ptep()
->   __ptep_test_and_clear_young()
-> 
-> The marker changed from old_pte=0x00000000000047c0 to
-> new_pte=0x00000000000043c0 by clearing PTE_AF. For swap PTEs, bit 10 is
-> part of the swap type field, bits 6-10: 0x47c0 is SWP_PTE_MARKER with
-> offset 4, while 0x43c0 has type 15 and is decoded as an ordinary swap
-> entry. Zap later warned in swap_put_entries_direct() with a bad swap
-> entry.
-> 
-> This is triggerable by a user process against its own address space. On
-> systems running with panic_on_warn, the warning becomes a denial of
-> service.
-> 
-> Fix the root cause by making contpte_set_ptes() use the transparent
-> contpte encoding only for valid descriptors. After this change, the
-> transparent contpte layer preserves the invariant that pte_cont(pte)
-> implies pte_valid(pte), so fast consumers can keep using PTE_CONT as
-> sufficient evidence of a transparent contpte block.
-> 
-> Fixes: 4602e5757bcc ("arm64/mm: wire up PTE_CONT for user mappings")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
-> ---
-> Validation on an arm64 QEMU/KVM KASAN setup with CONFIG_ARM64_4K_PAGES=y
-> and CONFIG_ARM64_CONTPTE=y, using an out-of-tree guard-region reproducer:
-> 
->   populate a CONT_PTE_SIZE anonymous THP range
->   mprotect(PROT_NONE) on the range
->   MADV_GUARD_INSTALL on one PTE in that range
->   write "1" to /proc/self/clear_refs
->   restore access and remove the guard marker
-
-Thanks, could you please give the code of the reproducer. That will
-save us some time.
-
-
-> 
->   Unfixed kernel: failed in the first iteration, with 65 bad swap
->                   messages and a WARNING in swap_put_entries_direct()
->   This patch:     completed 100 iterations without warnings
-> 
-> Additional producer-side instrumentation confirmed the same invalid
-> batch state outside the mprotect reproducer:
-> 
->   Unfixed fork():     copy_page_range() wrote out_cont=1
->   Unfixed PMD split: split_huge_pmd_locked() wrote out_cont=1
->   This patch:        both paths wrote out_cont=0
-> 
->  arch/arm64/include/asm/pgtable.h | 5 ++++-
->  arch/arm64/mm/contpte.c          | 7 +++++++
->  2 files changed, 11 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-> index 6000905a2..d6246042b 100644
-> --- a/arch/arm64/include/asm/pgtable.h
-> +++ b/arch/arm64/include/asm/pgtable.h
-> @@ -1650,7 +1650,10 @@ extern void modify_prot_commit_ptes(struct vm_area_struct *vma, unsigned long ad
->  /*
->   * The contpte APIs are used to transparently manage the contiguous bit in ptes
->   * where it is possible and makes sense to do so. The PTE_CONT bit is considered
-> - * a private implementation detail of the public ptep API (see below).
-> + * a private implementation detail of the public ptep API (see below). The
-> + * transparent contpte layer maintains the invariant that pte_cont(pte) implies
-> + * pte_valid(pte); explicit contiguous-encoding users such as hugetlb manage
-> + * their entries separately.
->   */
->  extern void __contpte_try_fold(struct mm_struct *mm, unsigned long addr,
->  				pte_t *ptep, pte_t pte);
-> diff --git a/arch/arm64/mm/contpte.c b/arch/arm64/mm/contpte.c
-> index 0acab179f..851fa2e44 100644
-> --- a/arch/arm64/mm/contpte.c
-> +++ b/arch/arm64/mm/contpte.c
-> @@ -463,6 +463,13 @@ void contpte_set_ptes(struct mm_struct *mm, unsigned long addr,
->  	if (!mm_is_user(mm))
->  		return __set_ptes(mm, addr, ptep, pte, nr);
->  
-> +	/*
-> +	 * Keep the producer-side invariant documented in pgtable.h true even
-> +	 * if a direct caller passes an invalid descriptor with PTE_CONT set.
-> +	 */
-> +	if (!pte_valid(pte))
-> +		return __set_ptes(mm, addr, ptep, pte_mknoncont(pte), nr);
-> +
->  	end = addr + (nr << PAGE_SHIFT);
->  	pfn = pte_pfn(pte);
->  	prot = pte_pgprot(pte);
-
+Thanks,
+--=20
+Jeff Layton <jlayton@kernel.org>
