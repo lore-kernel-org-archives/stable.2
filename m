@@ -1,43 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4856D3ACF14;
-	Wed, 14 Oct 2026 12:29:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 222EA4D4871;
+	Wed, 14 Oct 2026 12:30:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791980951; cv=none; b=rH62/5zJJxxPfJJd2CUfVpv6tv9zVhEZKMkzJJxyhQJQFMrPxIi5czD63mTUVw8FQlEt6Kk7K1J/RxjjF/iImxhgztuOi1142vANKWFg/wMVqayXr7SNFloI1oWsJ2BdCmY/wEW0fiWbogYSj74ui3OL976A8Vc+G2EEVjKKxQc=
+	t=1791981007; cv=none; b=rcCcxT1jSR4dBMWLYcR8DFzwtz/VR6k2xQlS0CqiutKmoq9MAEd9QauiSZqfytW25UJ+VyNV8rVqTvf0EzhaG5dzPgCT951iVT69VPqlaFx5dkVaPm/Q0h6QbNlkllY5UivUeyZMAJINuFRwsLI7UabijuEbdRhNIC/FTjDhdsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791980951; c=relaxed/simple;
-	bh=8V5WBRZu+4QsmvpsrqfcWqEhk6oztuR9t7zuMYE/NgU=;
+	s=arc-20240116; t=1791981007; c=relaxed/simple;
+	bh=bCFxC+G5LkvNJl1avUiZgUBgnk+2WI1hyc8TP8Xm1uU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=FOEksqDFcZX71egQw9bqKc7bQM4m+cbMTNEsieueg0jANjolG4pMEekzmxrH7peL8WEcP73MyUHnczkBp9xtrUQZmIDJOs4CNH9mLDcUNV5RVeXVv1GLnYLG28MLdA7FtpUIcVIicg/JtX0P1UVugRGZap+GxM7okGC9lWh2Cig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xt7892Jy; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=hLib0f1UDuF4Tr+onoM6sCHYXkV2PFnl27ItmNZkBueJRVdrNLaQa5goTglF11muQZnK+r9f5mBD2gXUHLtnRLppjk5RZ/MQDqscz8JQHvB1E3Lc/F1EqkJl0a+BSHdTepKHLZnejKt07ueYIqU/oqKAcXLXkGOMgTeDKTNBcW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ljil3pb0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xt7892Jy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EF2E1F000FF;
-	Wed, 14 Oct 2026 12:29:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ljil3pb0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13A231F000FF;
+	Wed, 14 Oct 2026 12:30:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791980950;
-	bh=ou04b0/hFtdaOVEHHTNfPP1cCZvVZf6j4VI84q0WiWk=;
+	s=k20260515; t=1791981006;
+	bh=vEb5Gx0LrtGn+0frlTWsSNwPuSCsK7a2RD1SMA1DXnU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Xt7892Jy0n6EC0YO2YLdu/mTSi1jgJ/5gXXOwZ2GsnGDO3fS/SmBX/8nZjQs/QAh4
-	 1Klb3+ZNTo8HMpvShYos8H7tnn5TE6JRkoj+Eaj4t+QFv5Cile15hu3Wk0w3CrpqvS
-	 52Rx6d08+9xMU5fjvc1aB1/dnBY3LCikDiX/hiiR+2ICnSRlaJsS0QnYmNpPzIb0tO
-	 urzEY33DSzOsIDAvd4BtUKf3owCPfT5KMh7H9klQ/TjiDr9Rt4C9Qc/JHBeYfrBMCp
-	 0ZEQsCYXPl+BKuo8dCThX8XSPkKoxfOhzf47p8ML2GMJ0w41nCGMPGNrEwlRG8xmgX
-	 r3rmsw/AIINOQ==
+	b=Ljil3pb0zmj/wIQfZB/cQuB9DS2AhIvaEixXz+DRu0ctwfV+uIB5+aTb+AKr4fGtv
+	 pda6bfzDOZgAGvX9cTgJh/VbcqoQmK1GKRVXUvFSQr2721LDY1hZ3oyzu1IDfyAmsF
+	 RE5XPBwu5tH+L1Oc7nUddPsAR7vVPUxNYWiT7YUraox48N3v0514slWNq+e49lNfoR
+	 kTxHBW256PTScguOamk6dTxfUP6llVcZS63QHzv5pudOpYNtwUmiHJQpV2BDHx1Ul+
+	 wHFDM381bh0i4wyCgeT4b1xXOJiWVs+7eKoNvOKyqss19TjaEhItjTA5x2wTseNagL
+	 awPFYwfKeAzgA==
 From: Lee Jones <lee@kernel.org>
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Myeonghun Pak <mhun512@gmail.com>
-Cc: Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org, 
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>, 
+ Kiran Gunda <quic_kgunda@quicinc.com>, 
+ Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+ =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>, 
+ David Heidelberg <david@ixit.cz>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-In-Reply-To: <20261003030439.599330-1-mhun512@gmail.com>
-References: <20261003030439.599330-1-mhun512@gmail.com>
-Subject: Re: (subset) [PATCH] backlight: lm3630a: Cancel delayed work
- before destroying workqueue
-Message-Id: <179198094807.807209.15203791412466567063.b4-ty@b4>
-Date: Wed, 14 Oct 2026 13:29:08 +0100
+ phone-devel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Joel Selvaraj <foss@joelselvaraj.com>, stable@vger.kernel.org
+In-Reply-To: <20260921-qcom-wled-backlight-v4-0-bab8c7ef73cb@ixit.cz>
+References: <20260921-qcom-wled-backlight-v4-0-bab8c7ef73cb@ixit.cz>
+Subject: Re: [PATCH v4 0/4] backlight: qcom-wled: Fix OVP IRQ imbalance and
+ start from the hardware state
+Message-Id: <179198100282.808561.2750105116872314866.b4-ty@b4>
+Date: Wed, 14 Oct 2026 13:30:02 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,23 +53,27 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.16-dev-ad80c
 
-On Fri, 02 Oct 2026 23:04:39 -0400, Myeonghun Pak wrote:
-> The interrupt handler queues delayed work to read the interrupt status.
-> After free_irq() stops the producer, this work can still be waiting on its
-> timer. destroy_workqueue() cannot drain delayed work that has not yet been
-> queued by its timer, so the timer can outlive both the workqueue and the
-> devm-allocated chip containing the work.
-> 
-> Cancel the delayed work synchronously after freeing the IRQ and before
-> destroying the workqueue. This also waits for any running status read to
-> finish before the chip's resources are released.
+On Mon, 21 Sep 2026 12:46:21 +0200, David Heidelberg wrote:
+> The qcom-wled OVP interrupt is enabled at probe whenever the module is
+> already on, but the driver still believes the backlight is off, so the
+> first brightness update re-enables the interrupt and trips "Unbalanced
+> enable for IRQ". sdm845-mainline has carried a workaround for years and
+> Joel posted a flag-based version last October [1], which Konrad and
+> Daniel asked to be replaced by something that does not track the IRQ
+> state by hand.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] backlight: lm3630a: Cancel delayed work before destroying workqueue
-      commit: 2cf184caab8b406fdd9db126ee40d62418237456
+[1/4] backlight: qcom-wled: Fix NULL pointer dereference in wled_remove()
+      commit: 186fc521f211a207c323b753659f28d3dda7bc45
+[2/4] backlight: qcom-wled: Fix WLED3 brightness register stride
+      commit: e60dc9c05e0f415ef8bc63b3179abdd49830a619
+[3/4] backlight: qcom-wled: Fix unbalanced OVP IRQ enable at probe
+      commit: b32a8c32fea3855e707717155f198f03fdbf6f1e
+[4/4] backlight: qcom-wled: Read back the programmed brightness at probe
+      commit: 2ffcac916578f4a57347e717786d1e07e85cbf2b
 
 --
 Lee Jones [李琼斯]
