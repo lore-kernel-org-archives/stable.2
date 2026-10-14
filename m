@@ -1,135 +1,94 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AD302248BE
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 15:21:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11A3C524AE3;
+	Wed, 14 Oct 2026 15:22:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991306; cv=none; b=tgYHzz6EQWgZj18ll453gRfDfELh1rcXv90ickTyxgQmtufAJv2Ev5a2yzWHc6pga/GiqQzAmwI+UdLT0O9iB3mVKACWr8LNkPMGKN1DpBYPzgLI3UTciOAA1JQrXuw+CDTFPuYW94DpMQo8HiY0uCBySzrZmS/SOI5kREpaYR4=
+	t=1791991368; cv=none; b=I322p/PH1dMCotmUH5cT31djaWcQ6cPlBtY1UQ13sRbZktM7yqFG8NZczeHwBVEVuB3f4S97scvYqlhn7166lNJn5ikVn8uDnVtiW5qozdGnaD+pV19G8uOS0V85VQboGVVgqTXb+MWOgHH5gi6Wt2vfmRLV5W+dqxzYSrlmD/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991306; c=relaxed/simple;
-	bh=pBs7Y297Oe1QIg0d52pT6AvqcNoJZd3gOVtKlHKarwY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f2SUGmMrq/YahG8zquLyFblmI71Ux/JMfeTz1Z+ZVdbjdM7l8/liLFXHBoNAUlmaj4Cj6LmzWVcC5Wtr20U2/rDsFbliGtacAfNI/ReV4i1QBtJ3IxPKKs1oGO90PX56MnthU0NaZlz8VyNQS5m24qUitweQ9DL/ovH9RBBU+u8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E/1wFQeH; arc=none smtp.client-ip=209.85.215.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791991368; c=relaxed/simple;
+	bh=z4/KILe9h6AG65fvMrS3TzrPnhmDDErK68zn/OTZ/DY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=ehgQYBEKhck+ccBUpWq/1QmB88Dz0ATiycunBMTHHFYfAKeSbQo9E7IHVgWR6RyLIZQYuBgw+9IQTwMsgcffQQdGqZZLO1v1K+SnJIUge9x0tfgfHNBtVqERx7efdt3HBLfmVZDRimlFFF9x5xJSnEJoyoED78V6lr6CNXvX/Ns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JF2RXRnO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E/1wFQeH"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cd60c5da24cso1945498a12.0
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 08:21:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791991304; x=1792596104; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=03Sv77pdv2enIYJcIXZDBzD47e3X9YUsV2CCINJLlls=;
-        b=E/1wFQeHbWrk9VjLiUUbrqamLzeyosY8O8po6J0tOoX29328kfqN1WXWtjInrVwd2/
-         imR+/J9IcBguinufj+F2oEiR5TEbjX/LkM//0AFWcCLxpVYYOnWopBtIG/Gcc1/TD4Ul
-         YtKLy0zoIVmXDysWLWUgI9Y8ZczliTFEGqzuo+cYkRRm6iDb7EoSTBpg6cqOiov5X+0C
-         1dTyCiYOAMWPbctWdzkB8ZBEXJohVl9BDEV5flTdR5fek/4ns3dCL4gHfMLTB/QJ9FY7
-         WbLirxlil/Xbz3dc0kkTO1F452fuQtfmL1U6cQD2QmZXm2ywpRHppF+2lI4brjOUfL8v
-         MZ9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791991304; x=1792596104;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=03Sv77pdv2enIYJcIXZDBzD47e3X9YUsV2CCINJLlls=;
-        b=XbiWOm/xk3SDlUBZ6QQFfMXUjIwe4lKmbOdftBhY3AePWvJ/GqJSBJAVOhaeCZ2CrI
-         CppIz705GvkHWHCEXOFY4AicGth3QOG2+LaBV9Ih9JLEXvnq3AUeocN+QHSMkRzfkIK0
-         V4/1RJjX+ZOZCqA4Wv6j0J1j3oDd8vxLQvqbEnNlysdwhvSIU+a+xJpRM9hhZJr+L0fG
-         vFf0xAU9g676jWJGZzt6m3HpZpHZ58mf3ukZwa8IXE0qDn1h2Z1LEt3MEP9+IR1Ai3D7
-         4wL4OReS2MdEV1yd2l6QRsFqkcz3GP2GSIzxVg+zKfz65n/BkZQlHVFo5837P9OojAGU
-         sHxw==
-X-Forwarded-Encrypted: i=1; AKwUvBx8nZsFTQeFv2GqztJ5VKVCBaUI7s5abozsYW8NmeQMCUSpqV2hmmQIgn3zyRa4nEI1x4cCBoM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLdXaWVbAlX3kXfcPK8amR4h8Ux+Gaewh/c6SXX6muXdTPScLJt
-	SSWn0Zx3fPzVX6ZeKUGykgDjhU3pmOoRmWU9oezKs+yfnMYdP7hbEHSj
-X-Gm-Gg: AYBFou3eKAt/KE2j123vdQbfBXINLOpXO6NSJVTr6k81njvWVOGnLNCn6TaSXVycszn
-	hw0WD8dlZQU0y6C1thNGsqKEa50Vjn71qGWSM+XbfZr9uXRMlzCpmlAOjir5lYjNsLuYLn74me1
-	JunRgIrIJ4mSLny5TJ+0WGGfkGUPiBo7fOXdUkLYmktPVBBaW3ecB2u+qPEyasMekt/H4su7MHk
-	/RhR6d7ImEVTRM/v7EnGJuHwIlFhBRf2IZfIX9sm0FtPNdNMw7/F7Kdq1e9lv10roJaB8oYKTrd
-	wWMOs3UWB5IxluhC3aS2yFtjTnPujJ/LOAlVIuHXkdJwTvCmtZw9CKy2RDcr9qnun6Ki7sDAdSA
-	Yz9MdeKXSH2jxQlT45ZQ6gbF9TH8nSR3Yq7Prp9sfYsbuHlnKKXFWdZCICxRAuq1nvPi+Pjzn+W
-	ZIgSeUwkLbBI+wVtHClNyEEQ5VEjRQ4yUZXlCFKqRBQXWG0A7BghC0Wf+J6mG/1BOjw0cQlVchr
-	xcnakOUra3AfRc4OGw7emBE2eq0wO629iIrU6Lv6xNErsr/5uWQhEUao1k/UPoiFqfKPLJ2tMsE
-	KxgxpwFJNSXo1dk=
-X-Received: by 2002:a05:6a20:8f29:b0:3e0:2b03:4008 with SMTP id adf61e73a8af0-3e16bd8348cmr13712804637.12.1791991304125;
-        Wed, 14 Oct 2026 08:21:44 -0700 (PDT)
-Received: from f2fs-test.c.googlers.com.com (225.134.16.34.bc.googleusercontent.com. [34.16.134.225])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9d49af2sm6732967a12.2.2026.10.14.08.21.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 08:21:43 -0700 (PDT)
-From: Daeho Jeong <daeho43@gmail.com>
-To: linux-kernel@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	kernel-team@android.com
-Cc: Daeho Jeong <daehojeong@google.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] f2fs: expose resizable_tail feature via sysfs
-Date: Wed, 14 Oct 2026 15:21:38 +0000
-Message-ID: <20261014152138.138281-1-daeho43@gmail.com>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JF2RXRnO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB2F31F000C4;
+	Wed, 14 Oct 2026 15:22:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791991366;
+	bh=z4/KILe9h6AG65fvMrS3TzrPnhmDDErK68zn/OTZ/DY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=JF2RXRnOGOF9KlVthYBoCYRl108o9cSB4waUMUnVVRyDfmlN72nuxyg3aLcSU6tLs
+	 JGcq48E8drHDplsNvn9c2uns7JAb15bDbCGcRY5huhnxMsIkf84tY5YwBp2oLDXwQJ
+	 g2zrxmxSTF5CbvXzr4C0CJ57g4SiFPOsaeBwf54MYCpn4d8SYfbSymoEC29hrtTo9s
+	 upAIzSb1wZWm0W8pau7PJjA6iRmIvpEAaoCkM8x44UMEqqKe+gWhaaMB/ZSJSWuPQK
+	 9xs9gQO9VQYA9vEgFiIKQ3Z8Lew7pyKzCnt/b9ZNiqK6SjyY8F2dtZf3VEAFycnl6t
+	 oQp58CjlyzjKg==
+Date: Wed, 14 Oct 2026 17:21:41 +0200 (CEST)
+From: Imre Kaloz <kaloz@kernel.org>
+To: Harry Yoo <harry@kernel.org>
+cc: Vlastimil Babka <vbabka@kernel.org>, 
+    Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, 
+    Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
+    Roman Gushchin <roman.gushchin@linux.dev>, Jann Horn <jannh@google.com>, 
+    linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/slab: sample slab_state once in
+ kmem_cache_destroy()
+In-Reply-To: <as96u-sh8BbjXW24@thinkstation>
+Message-ID: <d1579925-2067-5a7d-8f30-fd56ccf89c26@kernel.org>
+References: <20260930195110.13296-1-kaloz@kernel.org> <ar5pESlkEMqNsgxv@thinkstation> <aef97b97-0bd7-d720-7f59-8c0078747370@kernel.org> <as4QhUscRVtBzYpm@thinkstation> <481e9a16-cd30-d463-14ee-b5602bcd5a21@kernel.org> <as4q2WlR7mLhMBpG@thinkstation>
+ <e4184209-75ee-929d-0103-ca15d5886000@kernel.org> <as96u-sh8BbjXW24@thinkstation>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII; format=flowed
 
-From: Daeho Jeong <daehojeong@google.com>
+Hi Harry,
 
-Userspace has no way to know whether the kernel supports the
-resizable_tail_secno mount option before mounting. Passing it to a
-kernel without the support fails the mount with -EINVAL, and checking
-/sys/fs/f2fs/<disk>/pinned_area_max_secno requires an f2fs instance
-to be mounted already.
+On Wed, 14 Oct 2026, Harry Yoo wrote:
 
-Export /sys/fs/f2fs/features/resizable_tail so that userspace can check
-the support before formatting or mounting a filesystem that relies on
-resizable_tail_secno, e.g. a filesystem whose tail is going to be shrunk
-online later.
+<snip>
 
-Fixes: c966d29e01bb ("f2fs: support resizable tail section and unify pinned allocation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
----
- Documentation/ABI/testing/sysfs-fs-f2fs | 2 +-
- fs/f2fs/sysfs.c                         | 2 ++
- 2 files changed, 3 insertions(+), 1 deletion(-)
+>> So it takes both. The read that hurts is the one at release time,
+>> after rcu_barrier(); fixing only the double read keeps it, and so
+>> does moving only the unlink check under the mutex. Reading once
+>> right after the unlock didn't trigger it, but that is still racy,
+>> just a much smaller window.
+>
+> Thanks for verifying that.
+>
+>> For stable, as far as I can tell the release-side read has been
+>> outside slab_mutex since d50d82faa0c9 ("slub: fix failure when we
+>> delete and create a slab cache") in v4.18
+>
+> For SLAB_TYPESAFE_BY_RCU caches, yes.
+> and others since 0495e337b703.
+>
+> I think Fixes: d50d82faa0c9 should be fine.
+>
+>> , so that would cover
+>> 5.10.y. The patch doesn't apply before 6.12, so the older branches
+>> need their own backports.
+>
+> Ack.
+> Are you willing to backport it to -stable kernels as well?
+>
+> And could you please post v2 with updated Fixes: and the
+> commit message ;)
+>
+> Thanks for fixing this!
 
-diff --git a/Documentation/ABI/testing/sysfs-fs-f2fs b/Documentation/ABI/testing/sysfs-fs-f2fs
-index c4746c416ac..8df18b5d479 100644
---- a/Documentation/ABI/testing/sysfs-fs-f2fs
-+++ b/Documentation/ABI/testing/sysfs-fs-f2fs
-@@ -271,7 +271,7 @@ Description:	Shows all enabled kernel features.
- 		inode_crtime, lost_found, verity, sb_checksum,
- 		casefold, readonly, compression, test_dummy_encryption_v2,
- 		atomic_write, pin_file, encrypted_casefold, linear_lookup,
--		fserror.
-+		fserror, resizable_tail.
- 
- What:		/sys/fs/f2fs/<disk>/inject_rate
- Date:		May 2016
-diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
-index 9749da70089..8b844a8b0bf 100644
---- a/fs/f2fs/sysfs.c
-+++ b/fs/f2fs/sysfs.c
-@@ -1421,6 +1421,7 @@ F2FS_FEATURE_RO_ATTR(linear_lookup);
- #endif
- F2FS_FEATURE_RO_ATTR(packed_ssa);
- F2FS_FEATURE_RO_ATTR(fserror);
-+F2FS_FEATURE_RO_ATTR(resizable_tail);
- 
- #define ATTR_LIST(name) (&f2fs_attr_##name.attr)
- static struct attribute *f2fs_attrs[] = {
-@@ -1592,6 +1593,7 @@ static struct attribute *f2fs_feat_attrs[] = {
- #endif
- 	BASE_ATTR_LIST(packed_ssa),
- 	BASE_ATTR_LIST(fserror),
-+	BASE_ATTR_LIST(resizable_tail),
- 	NULL,
- };
- ATTRIBUTE_GROUPS(f2fs_feat);
--- 
-2.56.0.385.gd3acb90ef8-goog
+Sure thing. v2 is out:
+https://lore.kernel.org/all/20261014150844.8536-1-kaloz@kernel.org/
 
+I'll send the backports for 6.6, 6.1, 5.15 and 5.10 once it's in
+mainline; 6.12 and later should take it as is.
+
+
+Best,
+Imre
