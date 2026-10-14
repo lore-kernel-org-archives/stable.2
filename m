@@ -1,161 +1,112 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.164])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 071EB4BEE30;
-	Wed, 14 Oct 2026 10:02:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.164
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791972165; cv=pass; b=SUx7/qH+NROJbYo33qWbAF2qcqsXs91Jn9+YI0UACr9WpXP49t/zXBFcYX45VEbfJmKoluUg+CvT4y2FILLR/IjapV1INZkulYy0ScoGz+91h6ZeE4+JHlpscshpTKPRmbk21GHdjMsfvlq0ZviRG7z2szzhtOkwky7BvHm65ZQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791972165; c=relaxed/simple;
-	bh=LU7vNk9YRQ1bVdmZHWK7IWnOehUVxwe+e/ZzXKTUHlU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=NDBGIaAU892dI7JsGDfqH/ztSM3vXiSz/sofVIPdS3WDKb5lb/D+DDwoHMQU6ICGmDzIkwvrKujuVed+xQIEOiOfoykxV28mEozzpAERSbqCeXvzS0nF904Q6dUFcktEqGQSzg4ga1EUv2X7i0rIdCA4k7fG8pU/Si6krhQHLPE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=P6g4o/PQ; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=Bfzu6UdI; arc=pass smtp.client-ip=81.169.146.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E8A3449EC46;
+	Wed, 14 Oct 2026 10:03:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791972225; cv=none; b=JUKLw/IT6bUgSt27ae+l2etmXaaaZFdvP6l9kr2jUw6ILwY9Scc81i5cRQf0FO5fpns7iBNMqTztGmvCHEWy40ZZyZJHhPRgJZ71I/IYfOSK8tHeQ1XREbFr6EFf1mmaRkVDnXnPipeldWjQYMGWy3Fj+TEIfF4SnhJZm0rKvnU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791972225; c=relaxed/simple;
+	bh=eb+1OnhCrwcLrcQXmju+ZI4BR5IYqvlaJ9YM0fXSEG0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lpxipW2JFeTbawZ6b9QkiwAOSuR3NIFrc+vAIwthmhF4oZCCOdTRWzK5cufJDiN98QlNKzKd5sHaz+LNUSqoMIAewpqEKNQnaPkUZ9pMnIbOaJqrEX0s8cchLieuyylsGk+g2ajZEDq7lzyGA6y+4b0Tr2Ds3zmyM1TFWK4TUs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ZzZ3EuQ2; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="P6g4o/PQ";
-	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="Bfzu6UdI"
-ARC-Seal: i=1; a=rsa-sha256; t=1791972158; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=Wt9QYJIMbvQvExV74rkMMGrMtoQl1RaxB5LYWO3T6/DlIKABs/uGFGREwSfLcK/OU2
-    NRz/0ASbebaI71zaeHA7GLEg1vYsb8IYI0yoTEFCjTyPqbWzCcnwUk21epbMG7EtrYXg
-    FUW2dMpsXO31YPJUdMNbN+W4FOyfbrVRyvqGXkc+r330QhweUG5r5lnGxOjukoaYou0e
-    Mg4jMHim2Lks+L4Fi01dh3Xu4++SZscZwW0Dh+6otezF1Sws0jTNUYzEPs8R5UXylm4w
-    M6HEtyzXodIiLuNDEEB31McD8JaQXJwJjB2ux0BpgxDXzvs3pBgpZ4wv5xFhKeLPrWV0
-    ISKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1791972158;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=LU7vNk9YRQ1bVdmZHWK7IWnOehUVxwe+e/ZzXKTUHlU=;
-    b=GeyvGAA2a3F8s8kPAVIEiOQBzf50+Vsq+ajLDWj+bOZRn9y7YCF+SeFJ/kpkufixmf
-    Q4AGcnTOK3MrimoKBzFL4PutsyLCkmi+wNfu+tAeFbtdr/MoZp618H7O5/JAHiazNJwb
-    Lw1dfQb7eyDVEvKeeofbwjj1iITEoLDOq9SW/I8vuD35tQgsWkOlM5qjMpWMJq4BKk0I
-    oLK5JhtxAXajN0w+RzHzyWXiRM86m0vy8LO2dJxTiRNdotp8C75eUzil2hgTOK7tzpBe
-    7TZkSlMBenMKlTE/MXYfgKcNEDquCs6fo0nqa9uNuoNBjDltDjJOTM94ZOH3Jq4m7r61
-    Clmw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1791972158;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=LU7vNk9YRQ1bVdmZHWK7IWnOehUVxwe+e/ZzXKTUHlU=;
-    b=P6g4o/PQEa7sOu7vq6bz9ksS5oOFG8rXp8Sb3ZvpQV+4nU9RKC0UjOkPFHvB6GlMoL
-    HckKNmuSlu5AkDDlMDTylMiPjjUDX+ZOgyadgvR+hfMeVYvJQrNTmOKtYesngsTt9Ine
-    nef2Ylfn4513+wNzdOHSUeLBOsYLe4rHNixeWU7zSNHmBMp3KG6431CMtV3numvg/Udp
-    rBRoB/pFhc+d9UREEJ23PKLyUYRAyVP8hXG487Du2bML2LuW0qdmJH1Lda88Uh4XXOTC
-    HUS+55GgLJAChL1+fOEDQ7VCgbpXhSq1vQ4PBGuNruGEOXICXF1eyhbgptBEaFA74ADC
-    WBgA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1791972158;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=LU7vNk9YRQ1bVdmZHWK7IWnOehUVxwe+e/ZzXKTUHlU=;
-    b=Bfzu6UdIjU7MKlW6t+Y3RAb9MvujxZ5P6Od2FD/gM+n+LyrYsjaCcAEpQvjl4dHiET
-    ++bNgTJ1YzZoz7zCSoDA==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0DBslXBtZUxPOub3IZuk"
-Received: from [10.176.237.108]
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id z831ad29EA2b3Nq
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Wed, 14 Oct 2026 12:02:37 +0200 (CEST)
-Message-ID: <4275c168417c7f5b8f89f06dc15b7459a6346ec0.camel@iokpp.de>
-Subject: Re: [PATCH 1/3] scsi: ufs: bsg: Validate request_len before
- accessing request
-From: Bean Huo <beanhuo@iokpp.de>
-To: Stanley Jhu <stanleyjhu@google.com>, "Martin K. Petersen"
- <mkp@kernel.org>,  "James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>
-Cc: powenkao@google.com, Alim Akhtar <alim.akhtar@samsung.com>, Bart Van
- Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>, Peter Wang
- <peter.wang@mediatek.com>, linux-scsi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 14 Oct 2026 12:02:36 +0200
-In-Reply-To: <20261013102913.948718-2-stanleyjhu@google.com>
-References: <20261013102913.948718-1-stanleyjhu@google.com>
-	 <20261013102913.948718-2-stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ZzZ3EuQ2"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CE654153B;
+	Wed, 14 Oct 2026 03:03:38 -0700 (PDT)
+Received: from [10.164.19.62] (unknown [10.164.19.62])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5CD293F673;
+	Wed, 14 Oct 2026 03:03:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791972222; bh=eb+1OnhCrwcLrcQXmju+ZI4BR5IYqvlaJ9YM0fXSEG0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ZzZ3EuQ2qjlvO7W7V1MYgf1owieL7IFjWffRoEL3LS4XoiUrOOsBiva2N3xoTaB3m
+	 ktyfzIBiW8F5zFoFUKnSoDcMAPPosaXEIG0VceWlD1JAPEHVIGBTHR8uURhM7gloEu
+	 EMDBhP4TLCF+Xc0McZABfw9o0Mr/DTa6Ivxb4efE=
+Message-ID: <0bbbe312-47a4-4eeb-8299-1f20daf4e949@arm.com>
+Date: Wed, 14 Oct 2026 15:33:34 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-On Tue, 2026-10-13 at 18:29 +0800, Stanley Jhu wrote:
-> ufs_bsg_request() and ufs_bsg_exec_advanced_rpmb_req() read the
-> request buffer without checking job->request_len, which userspace
-> controls. A short request causes an out-of-bounds read. Found by
-> syzkaller.
->=20
-> Reject requests shorter than the structure each path reads.
->=20
-> Fixes: 64d4864714c2 ("scsi: ufs: bsg: Remove unnecessary length checkup")
-> Fixes: 6ff265fc5ef6 ("scsi: ufs: core: bsg: Add advanced RPMB support in
-> ufs_bsg")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-> ---
-> =C2=A0drivers/ufs/core/ufs_bsg.c | 8 ++++++++
-> =C2=A01 file changed, 8 insertions(+)
->=20
-> diff --git a/drivers/ufs/core/ufs_bsg.c b/drivers/ufs/core/ufs_bsg.c
-> index 7a66917b3fc0..dab1f05aff38 100644
-> --- a/drivers/ufs/core/ufs_bsg.c
-> +++ b/drivers/ufs/core/ufs_bsg.c
-> @@ -73,6 +73,9 @@ static int ufs_bsg_exec_advanced_rpmb_req(struct ufs_hb=
-a
-> *hba, struct bsg_job *j
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (hba->ufs_version < uf=
-shci_version(4, 0) || !hba-
-> >dev_info.b_advanced_rpmb_en)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0return -EINVAL;
-> =C2=A0
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (job->request_len < sizeof(=
-*rpmb_request))
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0return -EINVAL;
-> +
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (rpmb_request->ehs_req=
-.length !=3D 2 || rpmb_request-
-> >ehs_req.ehs_type !=3D 1)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0return -EINVAL;
-> =C2=A0
-> @@ -142,6 +145,11 @@ static int ufs_bsg_request(struct bsg_job *job)
-> =C2=A0
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0bsg_reply->reply_payload_=
-rcv_len =3D 0;
-> =C2=A0
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (job->request_len < sizeof(=
-*let )) {
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0bsg_reply->result =3D -EINVAL;
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0return -EINVAL;
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0}
-> +
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0ufshcd_rpm_get_sync(hba);
-> =C2=A0
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0msgcode =3D bsg_request->=
-msgcode;
-
-Stanley,=20
-
-The check was removed by my commit 64d4864714c2 when adding arpmb support, =
-since
-msgcode check was thought to be enough, thanks for fixing it.=20
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid
+ PTEs
+To: Zhao Gongyi <zhaogongyi@bytedance.com>, Lance Yang <lance.yang@linux.dev>
+Cc: catalin.marinas@arm.com, will@kernel.org, ryan.roberts@arm.com,
+ baolin.wang@linux.alibaba.com, mark.rutland@arm.com,
+ akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261013093600.54995-1-zhaogongyi@bytedance.com>
+ <20261013153953.77575-1-lance.yang@linux.dev>
+ <516828fb-558d-4a20-9532-51f50d6ba042@bytedance.com>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <516828fb-558d-4a20-9532-51f50d6ba042@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
-Reviewed-by: Bean Huo <beanhuo@micron.com>
 
+On 14/10/26 12:01 pm, Zhao Gongyi wrote:
+> On 10/13/26 11:39 PM, Lance Yang wrote:
+>>>
+>>> +	/*
+>>> +	 * Keep the producer-side invariant documented in pgtable.h true even
+>>> +	 * if a direct caller passes an invalid descriptor with PTE_CONT set.
+>>> +	 */
+>>> +	if (!pte_valid(pte))
+>>> +		return __set_ptes(mm, addr, ptep, pte_mknoncont(pte), nr);
+>>
+>> set_ptes() is the only in-tree caller, and it already clears PTE_CONT
+>> before we get here ... no? Why not fold !pte_valid(pte) into the
+>> !mm_is_user(mm) check below and return __set_ptes() directly?
+>>
+>> 	if (!mm_is_user(mm) || !pte_valid(pte))
+>> 		return __set_ptes(mm, addr, ptep, pte, nr);
+>>
+>> If a direct caller does pass a !pte_valid PTE with PTE_CONT set, I'd
+>> rather add a VM_WARN_ON() to catch that. Silently clearing the bit would
+>> hide a caller bug :)
+>>
+> 
+> Hi Lance,
+> 
+> Thanks for taking a look.
+> 
+> Yes, you are right. The public set_ptes() wrapper already strips PTE_CONT
+> before calling contpte_set_ptes(), so the pte_mknoncont() in the invalid
+> path is unnecessary for the current in-tree path.
+> 
+> The issue I was trying to avoid is not that the incoming pte already has
+> PTE_CONT set, but that contpte_set_ptes() rebuilds the pte from pfn/prot
+> and then adds PTE_CONT again based on alignment. For an invalid descriptor,
+> that transparent contiguous encoding should be skipped entirely.
+> 
+> So your suggested shape makes sense to me. I will change this to return
+> through __set_ptes() directly for invalid descriptors, and add a warning
+> for any unexpected direct caller that passes an invalid PTE with PTE_CONT
+> set, e.g.:
+> 
+> 	if (!mm_is_user(mm) || !pte_valid(pte)) {
+> 		VM_WARN_ON_ONCE(!pte_valid(pte) && pte_cont(pte));
+
+set_ptes does pte_mknoncont(), so the warning will *never* fire I think?
+
+
+> 		return __set_ptes(mm, addr, ptep, pte, nr);
+> 	}
+> 
+> That keeps the fix focused on not creating new invalid contpte entries,
+> while still catching a bad direct caller instead of silently sanitizing it.
+> 
+> Thanks,
+> Zhao
 
