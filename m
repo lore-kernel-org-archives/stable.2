@@ -1,195 +1,188 @@
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689B554B1DB
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 14:44:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3BFD36A376
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 14:48:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791989061; cv=none; b=NlCs6i6XSU/1jlfwEybcVE4ZowflR/6xJslQHHMGCtfYfZsUOc5o3XS65cegFehC1OcAxDwwivzIOX0AYTKyBpK3NOf85wnfT9reeUhAmwuZHuphGATRKP1FqLO762WrwGneq/pV4MJxojgjrG7wl4l8MCihEMJomfkK92QR8xE=
+	t=1791989340; cv=none; b=kpqkr8El1OWiE2dKDKf9XBoIWJktPF/P4L+g81Y1uJ4YS622I2Q6Vorx5RA6+UAEg565m+bOs/IXvMi6NTyWfRPoVuH5N7BycZOmoQebJGP7BjczWXP+RPAg+uaDWgVI20DUBq4IoKrP55jSvw6NT0tXQQqkaYfjz/3/Owt0JcI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791989061; c=relaxed/simple;
-	bh=d7yeQHNUAQalWHt6gI1JaR3r0kw3Io2Ajb+zkdzQP/8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lhrh7BP4wmdz+SvuuWMnTC5EbA57katbVis9gqD5mepl2FAXvm4NdKSx/Y9qpH1dleIQwFa8V964ro4t1K1nUnE44tuyM2mI14nALfnmUxKpqFpAyfTHwSPT8Y1v4Um6s9EaGCL73dJLXH1n+MDXPFWcnZnAKU7UsyfjLa/+vbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=u0T3JsgO; arc=none smtp.client-ip=209.85.222.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1791989340; c=relaxed/simple;
+	bh=j9+aZgHEnds3ISh/9ClPqudGNuxATzy9WD9d0bNw14o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Aa+f4Aa26kcWkSP4AoqzR6hEPej4mOXWYuxucHaZ3n8I3ZEP4zuVP29WHlXB0lr+6HxpX+GwFbnkK+Bqi2M15RuO+tt8v+Oxvjspl8XvGE+nO5dFk0txzFo/dvNz7RU1Gjk9kPwXU4MK4+cPI5Wj16C8rJkA52lL9LLyxvg7VdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TahbXIvA; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="u0T3JsgO"
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93c5b7f5bfaso120938485a.1
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 07:44:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TahbXIvA"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49e71fc84bbso4018895e9.3
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 07:48:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1791989054; x=1792593854; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vriP8FELCtgoC3m/NLZgUWDkbznuFEZ4v+5g9V4G9cs=;
-        b=u0T3JsgOrkJOL0jVY+wSe9+ekXUH0Fbvyoauwos+ckqL0ErMwpFBK7m31wSicUJlUd
-         LMBwLt8qOTajegV06rzQmH+IYLS88zLRvbRfXlWPrFAQtO8l9un01g8m1iayN6stnipW
-         mp6PcapDl8YoIuk3C6UOAOgEwQlI6MKR7CkTuaXMaNpqDtBPT73XITTD0qxFBDL3udNV
-         YSxzh5lWqFKxaVLfLZR1WSRgkB0eUYl/DEtq+e3zciLKwHSdfJ5jKupcHfrSZHZ1QfUJ
-         JQhH/0RJ8vYmABGvC5VQeR7YB1LiY+lXUhwybGEkoK02qIrjU3vAI0i53bTX6KrE03qU
-         2qAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791989054; x=1792593854;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791989337; x=1792594137; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vriP8FELCtgoC3m/NLZgUWDkbznuFEZ4v+5g9V4G9cs=;
-        b=ONDPvxC9D7r2hkgO7mDM+zFh+ymHlo1GqcMcL1KEl9Ho5yBWOwQEeAX3DZ0Xni9I4f
-         PoQjzCKK60l26WhcKIIcnMcMi4sf7/bJntl6NFbES0Ptnhqm5HDG9RlgT42i4JqEbXxQ
-         wp4iNUEkLnhm9ulJQ/srvCu74+1P60Um3/pUJS7tJKN1vb3qX25712BsE3Bb6QQERNJE
-         QmNHqfngtJ5o4LB7syrGHUyAdghyN0t7BacDzf67lRLFKqxmKHARH7gX3cRunJAK2DAq
-         HjQEGh1CX10jbj95xDV0tH9vnr4vGkDjNA5WGMO+/yUzaD9rDG4NitK0Cm7iwoLvYDYX
-         hcAg==
-X-Forwarded-Encrypted: i=1; AKwUvBzBn2Cu10sX1SM0EiE/9lzCF1Edq0NGNDRNL5A64PsmIJenFcPGAVmSNkG+QLKCJAt0vSI5r4g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJbxx3rHfsu+q0GRzBW+jXGclNeq7guCeINvNdw+Xc2kzkMBFkP
-	jj7IdSNgw/3B0h2W7ZJlCZ1GDWlEUOLx0hsvqXkD6dS1rN58YGNoJZRfho29JZZQ6Q==
-X-Gm-Gg: AYBFou2YEHYJ/t75nn95qo1vkitX5duklcljTYFc0LVv61B8qTO6aeCHd5zov+Mp2fG
-	WHiDpwoP7HqB6LK966ZJbB6xBSMVqlEwR42vP80UBqonaIB3lTf8jh4whr7w+rH/Kkx2FsRAWOV
-	J1SQ8W4a8sRCiIJszJv1d5NzAdt5JTshv34POLGqlVn8Jx8zxKw0XsHXsvSzkMyH1/BZ8cmVH8T
-	/xNVIoIFTYSNhWJRfFnTAzxViaCEpUIE+eSITEefmRkkGE82IzBzbJ2sL9ISzPT3CotlJevlIq6
-	9MQpDciDwvqEcpnWWJ7QRuwN1/QhXL/fofhkq7+xHp0nkck7gfOOTWOcSrb/7rqNGlWXOLZQXgg
-	dTPuZcy53tnqhiP+pdcniGJ1f/i7jbvuMQ7TBYfrdqS0lMJnj/K8gRPci3dnR/I5/i2uaPv+QRT
-	vjljJEPpMMAsoTTCOFf2y6zMeE1T+rDGZxaZ4SmsARsGyUQUHyc0qb2wOP/uq3qrBPXs+2+FGyh
-	OQ45gaC0eggNq+b
-X-Received: by 2002:a05:620a:1792:b0:93e:97a3:1c53 with SMTP id af79cd13be357-93ec14825bamr2388450285a.22.1791989053909;
-        Wed, 14 Oct 2026 07:44:13 -0700 (PDT)
-Received: from rowland.harvard.edu ([140.247.181.15])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef50a4f82sm503565585a.43.2026.10.14.07.44.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 07:44:11 -0700 (PDT)
-Date: Wed, 14 Oct 2026 10:44:09 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Hongyu Xie <xiehongyu1@kylinos.cn>
-Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
-	usb-storage@lists.one-eyed-alien.net, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [usb-storage] [PATCH] usb: storage: bound timeout=0 URB waits to
- 30s
-Message-ID: <c1a82ee2-c48a-44ca-9da7-d3bad26dc240@rowland.harvard.edu>
-References: <20261014093856.415812-1-xiehongyu1@kylinos.cn>
+        bh=KIXMvV4RGxrQI2o+3q8hLAdGHWQv5V0aUAuVvLhThJE=;
+        b=TahbXIvAjZFCxZR/gFYJ9jaFOc1J9ViibFe2uye0wcYfEiz8nkbwwCuC0yU5Et8sJO
+         EmYev/bi1Jpm+hTWaxpf6mg2vx3UVmrPF5cY6haNFMLAcRxPhcbaHxqZsbXWi0ioImK6
+         JwiJRbD3YRR5mISEK6k8kadBlSuhk92GxeAIaUBwMR3z1+rwi739tsql19jQs3apLD4s
+         b0GckAYdO0LcUcWM+BpvXrAbb+3sddyl4vctKA5ELOd9rsbmhGza4pKjM9y8des4XYMZ
+         e8GXhE3DQrkCsbVzvNreSZeqg+/hU+Wg+OIRBb04lb4HW3eKhQvP1TLZnVGkJKqvaGfb
+         Ji3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791989337; x=1792594137;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KIXMvV4RGxrQI2o+3q8hLAdGHWQv5V0aUAuVvLhThJE=;
+        b=tuQbWDWaUOnsKoIt6Nup/TZsQhUdNje8CYMXqvUqr0soHEw6KA3p7wvelJlbiT0np2
+         1Ya+0tuFVVCo3/tQGhE2FWtxQAYMTmRo9myxb6vwLqRLHaqqH3/UMAMKf9lmVWfN+ONn
+         ZCGojtnmns+tdWgZj+VZhqMRTuV8v/LLqZYjJjFvmIW7P/4sH6dSAK/BAUEyNZqJ7lLd
+         gljlwlOrpwERKLNdmER/PQAIiOQbEnHdVpZeJosU//eJRXynXx3eiCYSw12GB95+MSQs
+         4tvef8lYkTwLfXUmJKTGazx8nkme/Bu2zI+1dNdqVUYoj3/BHyA3S+lsYdWIsoxEMx8N
+         +tRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz0tevHFSIoqyBT1REv5+6gYHE9/QhbLB7As4uKswwTX3Fwj/ZS0smJ5vl9xCbb5OvvAJibMn0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJpjq5EPo1+3rVB/cPKqHxGS+qqia4/731wmAo8v9qL/O/C5tok
+	PSmdM8X1vysuGTUnECkq8J6af/ujeXRAdWL9mZMX2pyfvUFkYg+Nb82G
+X-Gm-Gg: AYBFou1dOzSxgN+SEUS7m1Q5D5NvjMyCST3HHuZU01vJ9kmiU2WDDOIBlnUycd+RyvV
+	YHRPsEBdPyOJZPgnRfsV6DYlGw740EtYAf/a5l/PucVkKiey5o+r7muwlwJPnr/ArZMV/rd4qqt
+	X7A/ftDCejclnBySpKlKEfyHgvWjg60a/XvDI4zVAp2IeLdAxUADaCFXY0ZtEPevDUGzIiw8WzJ
+	r8S6gw9Fxzjv9zHI2IidiU3CYcDy2uslse5EJkavpGN9haQEVTXwVOCZjwDUxgzIa+pJcTBzWDg
+	/G04Z+LCW2mOQx6qhnLdL7B/5Yvbnsk2/WgCnQ53mZXijmPb1The8dfPYjnrojjy4eOv91W3rrF
+	Y45mBYdazkjf7EodcXA6+y0mm0GXFWlffrpvwjLzBINJsbkbTtv/AZQJKoMUwet2m4tteZ9gnNr
+	ImobJmdzZ1npez1CJrDWk5A9mDuUakN+S15lDl42Z6ubfZVhjxn8aDnK2XBcwvD0NvL1jhyCszV
+	RHX+e+APR0wCS0TMg5BtBW0evpadUwRejtLo/RNbBfZpG8DMRFomSVx7yD9q1IExE7NM4EYGR1S
+	aJfRyK5Q/7JehctZ+YPlSSGZqvw/4+JlRLVHpBMaOS6YzlV5oebAvVfFXIc2mfGvVR1gbVriu3Y
+	6J+Fjt9K4Uu0gl12lwF3A
+X-Received: by 2002:a05:600c:6285:b0:4a1:715d:1913 with SMTP id 5b1f17b1804b1-4a18e4760demr324543655e9.1.1791989336820;
+        Wed, 14 Oct 2026 07:48:56 -0700 (PDT)
+Received: from ?IPV6:2a02:3100:5ad1:60fc:7c7a:4c9b:4d41:afaf? (dynamic-2a02-3100-5ad1-60fc-7c7a-4c9b-4d41-afaf.310.pool.telefonica.de. [2a02:3100:5ad1:60fc:7c7a:4c9b:4d41:afaf])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd068126sm4449255e9.11.2026.10.14.07.48.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 07:48:56 -0700 (PDT)
+Message-ID: <003d3e2a-3568-44f6-a9cc-3202de60da58@gmail.com>
+Date: Wed, 14 Oct 2026 16:48:55 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014093856.415812-1-xiehongyu1@kylinos.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v7 2/4] net: hsr: preserve submission order without a
+ forwarding lock
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, liuhangbin@gmail.com,
+ Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, andrew+netdev@lunn.ch, shuah@kernel.org,
+ kees@kernel.org, petr.wozniak@gmail.com, qingfang.deng@linux.dev,
+ fmaurer@redhat.com, luka.gejak@linux.dev, xiaoliang.yang_1@nxp.com,
+ skhawaja@google.com, stable@vger.kernel.org, sdf.kernel@gmail.com,
+ syzbot+fbf74291c3b7e753b481@syzkaller.appspotmail.com
+References: <20261009201324.17-1-xiexinet@gmail.com>
+ <20261009201324.17-3-xiexinet@gmail.com>
+ <20261014134718.YGcKmfB9@linutronix.de>
+Content-Language: en-GB
+From: Xin Xie <xiexinet@gmail.com>
+Autocrypt: addr=xiexinet@gmail.com; keydata=
+ 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
+ sNySbH3veZ/55EtlXA==
+In-Reply-To: <20261014134718.YGcKmfB9@linutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 14, 2026 at 05:38:56PM +0800, Hongyu Xie wrote:
-> usb_stor_msg_common() is the common URB submission/wait helper for
-> usb-storage transfers.  Callers that pass a positive timeout get that
-> timeout, but the three internal transfer helpers (usb_stor_ctrl_transfer,
-> usb_stor_intr_transfer and usb_stor_bulk_transfer_buf) all pass 0,
-> which selects MAX_SCHEDULE_TIMEOUT: the control thread waits for the URB
-> forever.
-> 
-> A device that stops responding while such a transfer is pending hangs the
-> control thread permanently,
+> What are stacked HSR devices? Looking from the setup in the referenced
+> report this is a bridge device attached to a HSR ring.
+> An announce frame is sent and this goes to hsr_dev_xmit(). This does not
+> look like a normal setup. Is this something you use or is this something
+> the bot came up with?
+It is the setup from the syzbot report, not something we use. In that
+report the slave port of one HSR device is a bridge, and one bridge
+port is a second HSR device. The announce frame of the first device
+holds its seqnr_lock, goes through the bridge, and ends in
+hsr_dev_xmit() of the second device, which takes its own seqnr_lock.
+Lockdep sees the same lock class twice and reports it. With two
+devices this is not a real deadlock. It only becomes one when the
+transmit path comes back to the same device.
 
-Why do you say it hangs _permanently_?  I've seen plenty of examples 
-where the hang ended when the transfer was aborted.
+> This looks very complex and I am not a big fan of it. I would prefer to
+> break lock chain early assuming the setup is valid/ sane (see above).
+I understand. The queue exists only for the ordering you pointed out
+in v6: frame N must reach every lower device before frame N+1 gets its
+number, otherwise a receiver without the bitmap discard (aae9d6b616b5)
+drops N as stale. In our test an unpatched HSRv0 peer received 19128
+of 20000 frames with the narrowed lock, and all 20000 with the queue.
 
->  and the hang propagates into the SCSI error
-> handler:
-> 
->     scsi command timeout -> eh_abort_handler -> command_abort()
->       -> usb_stor_stop_transport()  /* URB unlink issued, but the URB of
->                                       a device wedged mid-transition
->                                       never completes */
+> The ID by itself can be assigned with an atomic_inc() but then you don't
+> have the transmit ordering. So you introduce the workqueue for the
+> ordering which is ugh. I'm not sure how this works if you get
+> submissions from two CPUs given the lock is gone and the workqueue is
+> per-CPU.
+The FIFO and the owner flag are protected by fwd_lock. Only one
+context owns the consumer at a time: either the CPU that found it idle
+and processes its own frame, or the single work item of this HSR
+device. A frame submitted from another CPU meanwhile is appended to
+the FIFO and processed after the current frame, in that order. The
+work item is one work_struct per device, so the per-CPU workqueue
+cannot run it twice at the same time. But I agree it is a lot of code
+for this, and it also serializes all forwarding of one device, like the
+lock does today.
 
-Why do you say the URB never completes?  Unlinking an URB should always 
-cause it to complete, whether the device is responding or not.
+So for v8 I see two simple options:
+(a) Keep seqnr_lock across the submission like today and only break
+    the re-entry: a frame that enters HSR transmit while this CPU is
+    already inside HSR forwarding is dropped and counted. Ordering is
+    kept, but all forwarding of one device stays serialized.
+(b) Narrow the lock to the counter update, as in v6 and in Hangbin's
+    patch [1]. Several CPUs can forward in parallel. A receiver without
+    the bitmap discard can drop a reordered frame, so the patch would
+    carry "Cc: <stable@vger.kernel.org> # aae9d6b616b5: ..." as Simon
+    suggested there, and the TX statistics move to per-CPU counters.
 
->       -> wait_for_completion(&us->notify)  /* no timeout */
-> 
-> The unbounded wait also closes a deadlock cycle observed on arm64 servers
-> running 5.4.x, where a Realtek USB WiFi dongle in CD-ROM mode (sr0)
-> wedges during usb_modeswitch's re-enumeration transition: the system
-> shutdown hook (mdadm --wait-clean --scan, which opens every block device)
-> blocks in disk_block_events() holding ev->block_mutex, waiting for the
-> disk events work whose TEST UNIT READY timed out into the
-> command_abort() wait above.  No timeout anywhere in the cycle means the
-> shutdown hangs forever -- hung_task warnings every 120s until power loss,
-> two production incidents with identical stacks.
+I would prefer (b) because of the parallel forwarding, if the old
+receiver limitation is acceptable to you. Otherwise (a). 
 
-Then the appropriate fix is to add a suitable timeout at the appropriate 
-point in this cycle.  Not to force every command to be limited to a 
-pre-defined 30-second timeout.
+Hangbin, Simon, your view is welcome too.
 
-> Bound the fallback wait to 30s, matching the SCSI layer's default command
-> timeout for disk and CD-ROM LUs (SD_TIMEOUT / SR_TIMEOUT).  When the bound
-> fires, the URB is killed, the transport reports USB_STOR_XFER_ERROR, and
-> the command fails through the regular paths: the control thread
-> completes, notify is signalled, the abort returns, and the events work
-> (and with it the shutdown) can finish.
-> 
-> For disk and CD-ROM LUs this bound introduces no new policy: a transfer
-> that produced no URB completion for 30s has already exhausted the SCSI
-> layer's patience, and the error handler trying to abort it cannot make
-> progress while the control thread is stuck in the unbounded wait.
-> 
-> A blanket bound for this helper was suggested before [1] but dropped over
-> concern that legitimate SCSI commands (format, tape rewind) can exceed
-> 60 seconds.  Those commands are issued to tape LUs whose SCSI timeouts
-> are much longer than 30s; usb-storage-attached tapes holding back a CSW
-> for more than 30 seconds remain the residual false-positive window of
-> this change (modern tape bridges use UAS, which is unaffected).
-> 
-> The scatter-gather data path (usb_stor_bulk_transfer_sglist(), which
-> waits in usb_sg_wait()) is a separate unbounded wait and is not covered
-> by this change; a device that stalls mid data phase can still wedge the
-> control thread there.
+Patch 3 works with both: it segments before the lock, and each
+segment is numbered and submitted under the lock.
 
-Again, why doesn't the scsi error handler procedure unwedge the thread?
+[1] https://lore.kernel.org/netdev/20260805-hsr_deadlock-v1-1-d8a6f06fc5a8@kylinos.cn/
 
-Alan Stern
-
-> Validation: on the affected production machine the hang occurred twice
-> across ~4800 hibernate cycles with identical stacks; with this bound in
-> place, 990+ hibernate cycles completed without a recurrence.
-> 
-> [1] https://lkml.rescloud.iu.edu/hypermail/linux/kernel/2207.0/05816.html
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongyu Xie <xiehongyu1@kylinos.cn>
-> ---
-> --- a/drivers/usb/storage/transport.c
-> +++ b/drivers/usb/storage/transport.c
-> @@ -112,6 +112,15 @@
->   * command _must_ pass through this function (or something like it) for the
->   * abort mechanisms to work properly.
->   */
-> +
-> +/*
-> + * Bound for the URB wait when the caller passes timeout == 0: matches the
-> + * SCSI layer's default command timeout for disk and CD-ROM LUs (SD_TIMEOUT /
-> + * SR_TIMEOUT), so a wedged device surfaces as a regular command failure
-> + * instead of hanging the control thread forever.
-> + */
-> +#define USB_STOR_URB_TIMEOUT	(30 * HZ)
-> +
->  static int usb_stor_msg_common(struct us_data *us, int timeout)
->  {
->  	struct completion urb_done;
-> @@ -164,7 +173,7 @@
->   
->  	/* wait for the completion of the URB */
->  	timeleft = wait_for_completion_interruptible_timeout(
-> -			&urb_done, timeout ? : MAX_SCHEDULE_TIMEOUT);
-> +			&urb_done, timeout ? : USB_STOR_URB_TIMEOUT);
->   
->  	clear_bit(US_FLIDX_URB_ACTIVE, &us->dflags);
-> 
-> -- 
-> 2.25.1
-> 
-> -- 
-> You received this message because you are subscribed to the Google Groups "USB Mass Storage on Linux" group.
-> To unsubscribe from this group and stop receiving emails from it, send an email to usb-storage+unsubscribe@lists.one-eyed-alien.net.
-> To view this discussion visit https://groups.google.com/a/lists.one-eyed-alien.net/d/msgid/usb-storage/20261014093856.415812-1-xiehongyu1%40kylinos.cn.
+-- 
+Xin
