@@ -1,76 +1,70 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9672347143D;
-	Wed, 14 Oct 2026 19:59:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1D523E325;
+	Wed, 14 Oct 2026 19:59:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792007944; cv=none; b=dXMKMMvUfkvGpSEWfBCM7Z+VsWak/4zjGVuJprVkoRodoIRJTuHc3m+lmcPD4pEJ+PP+27v1Zb30O1+BykG+21PF6EaBX4H0FpNlE8g+a/8KP8WE4kIO9baYVc5mycB7/pLfkLqa/zMhjEtaRgRE1KoTf+T4p2ggE3ZUQkF+jl4=
+	t=1792007950; cv=none; b=B6PKT40x6cD2tHk8KNGuB5aCkW8KDVZ+pySgYwfDU0y9/tuAq2BnVGXwYPQni9naOv+N5c7j/A8R/O5K0AlKOLICLVI9w5w9cIw8WG358wP0w2E08YzQlzDHcH85+rnPISiKScu/Nr+TTG+x1RCQdlBAIpfFuIXtB5by+gv3Vco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792007944; c=relaxed/simple;
-	bh=hiLwKxvcV0lpXtZh04hY0S+tdD/qJ6dDwVbBKSrEqhI=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Th7P1bW1sE16GllXwqWanhzrrXRPXMx0rdG1UueBu8jdfRFOxiuZBW3cNVuov9h7oSDc+7EJdEhEtNJw29W5y6zJGpX4S55x/UG4Vnx9Zgd6S3FlJfYJhmjMqeelDDPKeklLwq2CbBZ4pZO6N+YthebBMb0qHJ6a7VMsrWlc3xg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=QVVZ5vi0; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1792007950; c=relaxed/simple;
+	bh=cgvDACsSx3OYlBdbu4Yz6RdZtVaqIsMBtdbBv/xIn1o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eiWrQD5Wt3Oql6hIN8xSLGA9dQjwEu/SJ9+CLFpIvu3fkoad0gY1WJVShqCaDfBFET8cH0CaLmxUcCIKymrdi0hiLcf7ls1h7s8yURR5tjmqSDzIWz3Xo1SDNSD9ok1cswlZHCrCNAuFnXnq4iyfPB0b9RWLTmhEl85mI9f+9Ao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gI3k8wat; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="QVVZ5vi0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1792007950; x=1823543950;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=hiLwKxvcV0lpXtZh04hY0S+tdD/qJ6dDwVbBKSrEqhI=;
-  b=QVVZ5vi0Ox0rmRYKktLo2Cv68Hph9tPrNJ5cHrUue435AnqPM3iKw+ID
-   KGLt2WBXzuGYWJd4dC1018eofJY9+2DhQxiM90fmyROm9/RF8Ydi9Dtck
-   l+RnP4QhGxloe2TtRq4rP3wIrB6awy/V+QMSYIiY79WZqbVRsmNOSkr87
-   JI6z/fVKc7T/qP7XOW26r/A6wvaV6H+ymDLVWAf837vL8XkSeR1lwHjrN
-   9JZ/uTtzzQg4WUYYuwFR2D20owi7oflA7xeo9WQLgbB9fQ5ND908bKDMP
-   Iyxn8b7lY3dgD3m54OaF0vRdQOu6fic6ihbAVF3hQN1o55R4+sL8Tt2Qp
-   w==;
-X-CSE-ConnectionGUID: 9cTc4mc2Q9KSu8O/EXolLA==
-X-CSE-MsgGUID: 7M4PT3xqTESVATViwMLhQw==
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="296466926"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 14 Oct 2026 12:59:04 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Wed, 14 Oct 2026 12:58:56 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 14 Oct 2026 12:58:54 -0700
-Date: Wed, 14 Oct 2026 21:58:53 +0200
-From: Daniel Machon <daniel.machon@microchip.com>
-To: Thomas Fourier <fourier.thomas@gmail.com>
-CC: <stable@vger.kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Thomas
- Bogendoerfer <tsbogend@alpha.franken.de>, "open list:NETWORKING DRIVERS"
-	<netdev@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net] net: korina: fix dma_unmap_single() length in
- korina_rx()
-Message-ID: <20261014195853.ncvqfx3qkedhv7a7@DEN-DL-M70577.microsemi.net>
-References: <20261013132319.22253-2-fourier.thomas@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gI3k8wat"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 783001F000C4;
+	Wed, 14 Oct 2026 19:59:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792007948;
+	bh=pS/KNOJaK0AZwKUD/L/8m7QFZRj2fsRj82r/sdiQEWE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gI3k8watXRl1bgsoF8D1kj8tgMgDHOarxvHetnoYH3vI0a0KBskOZLcuAS91+xD0B
+	 E4ZW0IQ8Bd5pKfJJJL/VqPddPGXYuf0RsygIrATZNrc7GcgqqJ89q8npEBK3Bgnjq5
+	 qocBMFEnvxYN8UxyOiDANY2jZeaMr7UME3Cfnzp3CoXDrCZdy4nYWJBdzAAcATTQ04
+	 nGXbey6Pv+WCMyJ6TeLRfHXci52/YskTmy/K3PjXF+JjZRDBstnvgJYgMROPeucEg5
+	 P7mZoDepEwAGp25Ibt/jdJqzkKSe8bcxjg88eQqZRyGmC2UsregIRaUdHwILSQA/Mk
+	 zE244BSgVZOtA==
+Date: Wed, 14 Oct 2026 20:59:06 +0100
+From: Harry Yoo <harry@kernel.org>
+To: Imre Kaloz <kaloz@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Jann Horn <jannh@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, "Jose A . Perez de Azpillaga" <azpijr@gmail.com>
+Subject: Re: [PATCH v2] mm/slab: sample slab_state once in
+ kmem_cache_destroy()
+Message-ID: <as_eaUXfCni0sofu@thinkstation>
+References: <20261014150844.8536-1-kaloz@kernel.org>
+ <as_MPz_gXzkuGqFq@thinkstation>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261013132319.22253-2-fourier.thomas@gmail.com>
+In-Reply-To: <as_MPz_gXzkuGqFq@thinkstation>
 
-> dma_map_single() is called with size KORINA_RBSIZE and
-> dma_unmap_single() is called with size pkt_len which might be smaller.
-> Therefore, parts of the buffer may stay mapped after dma_unmap_single()
-> is called, which leaks a resource and might leave exposed mapped memory
-> that might be eventually freed.
+On Wed, Oct 14, 2026 at 08:46:56PM +0100, Harry Yoo wrote:
+> On Wed, Oct 14, 2026 at 05:08:43PM +0200, Imre Kaloz wrote:
 > 
-> Change dma_unmap_single() length to KORINA_RBSIZE.
+> Looks good to me,
+> Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+> 
+> I guess it's late to queue this to slab/for-next-fixes.
+> Let's queue this to slab/for-next for 7.4-rc1.
 
-Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
+I can already see this won't be a straightforward backport as
+the code has changed a lot over the history.
+
+Let's try best to minimize divergence from the mainline commit,
+and let's backport to older kernels only when it can be reproduced
+fairly easily.
+
+-- 
+Cheers,
+Harry / Hyeonggon
