@@ -1,241 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF9D4D9553;
-	Wed, 14 Oct 2026 09:19:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68E7E4DA9C6
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 09:20:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791969544; cv=none; b=Wf5n6z2JutVtCqmPHG/Z1+8KMJ3YCQ6VL/N0IkHOfzG3CewbPe2KTKXxLlZzyYlN4uXCssUv+h5fFXJQnmnYQhtImKNJRlO3TL2+vIwgvkyffbytk5KG+JsHR/EIqCCa+p6jkzEj+fG4Wjx7IzAQtdhzRRQclBdeozG6LrH5Zv0=
+	t=1791969644; cv=none; b=IeUcT3dV7qbKD25Vv6lhns1HPaNd1JNDx2fTd4UYBvfFBT9L2azF19h17v7USHbssvk/h4zRt6rY6coFKWFVV+I4TRSqY6nh8lxg8Qsf0yVS3ixIfVhzB5CUQ5AoY5NkKzkmJmvUGvN/VfG8BqZ8X0PaM7WruJcjfLVT/RuvRmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791969544; c=relaxed/simple;
-	bh=aWoHk6bfCU6GEFGRBjDPmci3vy6gPcBSfm/Wo/0OwA0=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=oZ2FwrgWWG3h/ukITPoaLlBTEePcCI0tLlIdOuQ53j/0EgdnrbzwGLnjYMzVlQps0VynFmU1eTIaZUAMJibRXYy1W1SQw4Y9KeETnGHf2oPf8gAJAJKj6pz4rQv/ypGYzyKxR29gdQ/1d2r/AcpHDXoT8A3knObQobvdqDo+Q6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UUCADQJ1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791969644; c=relaxed/simple;
+	bh=t9l4cf/ejDslJkLGB4fjTNcS7dre+IaaCm+V3SX9DNg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Sg5yswhn/2fryg3fC1yUm/Laa79UotTBvZoC52RavMopT1orfFQs59J5HlbpR5+QlNPEx9qSx/TW50kvesQm1qF014fOsa1eUQhWtAAuCvADSJQlSSc4KfNEDLVXC6AC/QsEsQrF5vqAiujrpNDfi4tHa990GViTAmb67NOINXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=FGpaBhX3; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UUCADQJ1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D60B31F00893;
-	Wed, 14 Oct 2026 09:19:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791969541;
-	bh=7/GazLolrh9SC1oM993KawgUj9hk+/fSIU/uyEmws8A=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UUCADQJ1NZrvectXuiCTpvNrS9fOd4cMAA9nMcUgpfwGe5vksOWlTRy26G1MOmNkf
-	 Tqfc71bQt9UWgyQfnPOtrtKsS1LqEXn7IVzSyZT+5SEuAQzu9fNgo+X6OVOpONCiIa
-	 PnEYVCt/XeynT1qc9eJ3vTJnlAgiOxmN7/Z+o+3vsZU7jpI9jt8HK8vucZGx/FMrEx
-	 A1I6xIYTAaAhwz2hENiMS7AdngiXKrHVKdcG1/Ck7IGK6jpzRI++JYfzKccGLPHF/d
-	 /+qga1SG9w6SmKfDsDUVkFgIrvrZKe5LnFS/lLGINBaTG1VrArcvsVO+x268rgHoXa
-	 RpajTiUO0JPoQ==
-Subject: Re: [PATCH net v3 2/3] net/smc: serialize early link group cleanup
- with termination
-From: netdev-bot+sashiko@kernel.org
-To: nicoyip.dev@gmail.com
-Cc: alibuda@linux.alibaba.com, dust.li@linux.alibaba.com,
- sidraya@linux.ibm.com, mjambigi@linux.ibm.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- tonylu@linux.alibaba.com, guwen@linux.alibaba.com, horms@kernel.org,
- linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 14 Oct 2026 09:19:00 +0000
-Message-ID: <179196954042.434549.15240033866309361464@kernel.org>
-In-Reply-To: <20261013091716.1210420-3-nicoyip.dev@gmail.com>
-References: <20261013091716.1210420-3-nicoyip.dev@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="FGpaBhX3"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a161d9b8c7so27022835e9.3
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 02:20:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1791969639; x=1792574439; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=DbipYcdBzgikA0RA56wnTn7ugEMIxXdTA2zCuwUQ6uU=;
+        b=FGpaBhX3QlXA8peWmQG5CavJ4WGoqMukjpJBRR+9oSvET/AgiZTqB20Ptg9vtNGDJt
+         UoWm69CladyDKPJ22Hlhp0+fmNEmY/eBgb/AohufCRojjAp9TJVCyyq9KrQwDB6jKQ9z
+         M26i7iCQCDtgvk92Tvz37zz9IELqnEThd0A555k2sk0lwrjhrdupzq4zsmpseoRG/IJ/
+         4f4oRfnHh7l8X/OttNTu50cpjwzk7zVnaBlVwWv2YwKbeRwkCGdZR31TvMT0lAPafXJD
+         p0eDPsQrsgdGB2xCJFxbm3+AmZ+E26VOcZj9YNyosD/aUQPVr3wbin05wnZKkROm7qpL
+         D1rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791969639; x=1792574439;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=DbipYcdBzgikA0RA56wnTn7ugEMIxXdTA2zCuwUQ6uU=;
+        b=Ry7CTN8qT64Tpb3NJgk5th2ioUFJZ3Iu+QlapTq5sIqu+cLCnpzPct6Ry0h2JC0bRs
+         1msB+3yq5zl+iR2r+ZjLRdBHS5W9O6dwk3wCvxWooJ1gXUV36Nh4kzXFBt5hwKPKW5P2
+         KIiJ3rpiuxmk2BcB87TnrN9C8h0rrvbXzE2MEFbl/l9pcxQzLff8xAdIk7G531EyNEbf
+         yHnkxZl23FskcA6rNE3dVvi4MBdfyJQ7XRaWPRPwE4kwfB56a6IZBT9/u1SggVPA5QF+
+         rfCmIh5ULK5MxiaZo1ZnbGpbO5BOet+huk9KQMOc0+D2jARGh9owcipT2MTsOeEza3p0
+         SzmA==
+X-Forwarded-Encrypted: i=1; AKwUvBzfe/osH7F7ClOYvIfClpVvZPrUMb6cbrAt/dmxFYe0dixJ8Kb8t+3817paHoaaQRelHrQ9krw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLAdNSZ4Id0Yq+N7XVTvIpRwo8agkzRCMFygzGHTCO/q7EmS2Ou
+	HbpVvllQQ5sJcCNADbw7d2S0cd+NN6gBt4E09S8TPMtGZl+/VKm3uVPxKUe+L0K/k2E=
+X-Gm-Gg: AYBFou3HAW/5BDEYI2uqE2xRY6Zq6g57lxF7xiqVVnhAHpYE8M1ZY0S8u10tXNrQK5e
+	8bisppdqmXAIIOU1/pq3UMMG3UUibivF0FEf60XgC17Sv+UwvqxRgc7BKdzbeT5l256fmmG6hOp
+	5D6AS0yM861Gc2TVtte5ptjX2/0NAY94X/wnHFJ9EHaZ8pajopowMmq3Vz91xAjCDd1E1aBuoWa
+	8rVhh+NEIzanxrp5wLDLpikYTeBYkgqP1nXERGQIx+XZT3YW2eDg4LNS8lOZf7HejYnslsMEDbx
+	OERCV3Qk9OcBgIVim+JewyNwneYJRLtFnkipNVrOSTNVJsfvKzbnbR1qLF0io+CUa1mHtUrEQYg
+	6cvEeKFFlfVL/bDFvGxvRwQfsugGmTeJjUwfOzIb3O/jzkVmQOnGUeVLSaC5UPpLq9c2TDcRRhr
+	J6hGjGCyJW4x9fkboamxXMC/spSISpaHf2T0IGwoPVx99aQIK6KKo8pjksRJAIo1BK6KE/mvW92
+	nG+2CIvgf8lbCdhZY7nsFkP4gt+FMbpE57o5+2iUlSaKdw9tg==
+X-Received: by 2002:a05:600c:c0c6:b0:4a1:96cd:2f6b with SMTP id 5b1f17b1804b1-4a196cd31fbmr189516745e9.2.1791969639499;
+        Wed, 14 Oct 2026 02:20:39 -0700 (PDT)
+Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48de0ab4e8csm9983503f8f.23.2026.10.14.02.20.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 02:20:39 -0700 (PDT)
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Wed, 14 Oct 2026 10:19:54 +0100
+Subject: [PATCH] media: pwm-ir-tx: Correct timer calculation
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-media-rc-pwm-ir-tx-v1-1-1ae862427fd2@raspberrypi.com>
+X-B4-Tracking: v=1; b=H4sIADlJz2oC/x3MPQqAMAxA4atIZgO24u9VxKHUqBlaSyoqSO9uc
+ fyG916IJEwRxuIFoYsjHz5DlQXY3fiNkJds0JVuVaVqdLSwQbEYbocseD44dMpqQ71dmxpyGIR
+ Wfv7pNKf0AUIQuPpkAAAA
+To: Sean Young <sean@mess.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
+ Thomas Gleixner <tglx@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
+X-Mailer: b4 0.14.1
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Commit 44d7fb8acdf8 ("media: pwm-ir-tx: Avoid direct access to
+hrtimer clockbase") converted a loop conditional from
+               now = timer->base->get_time();
+       } while (hrtimer_get_expires_tv64(timer) < now);
+to
+       while (hrtimer_expires_remaining(timer) > 0);
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0
+hrtimer_expires_remaining returns (expires - now), so the
+change has inverted the condition.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Convert back to follow the original pattern, but using the
+proper API call.
 
-- [Medium] This patch adds a new source of SMC_CLC_DECL_SYNCERR, and it
-  uses that code for a purely local event.
+Fixes: 44d7fb8acdf8 ("media: pwm-ir-tx: Avoid direct access to hrtimer clockbase")
+Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+---
+Reported via https://github.com/raspberrypi/linux/issues/7678
+---
+ drivers/media/rc/pwm-ir-tx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but
-  smc_lgr_cleanup_early() now always hands teardown to the existing…
+diff --git a/drivers/media/rc/pwm-ir-tx.c b/drivers/media/rc/pwm-ir-tx.c
+index 047472dc9244..bffdda489950 100644
+--- a/drivers/media/rc/pwm-ir-tx.c
++++ b/drivers/media/rc/pwm-ir-tx.c
+@@ -138,7 +138,7 @@ static enum hrtimer_restart pwm_ir_timer(struct hrtimer *timer)
+ 		hrtimer_add_expires_ns(timer, ns);
+ 
+ 		pwm_ir->txbuf_index++;
+-	} while (hrtimer_expires_remaining(timer) > 0);
++	} while (hrtimer_get_expires(timer) < hrtimer_cb_get_time(timer));
+ 
+ 	return HRTIMER_RESTART;
+ }
 
---
+---
+base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+change-id: 20261013-media-rc-pwm-ir-tx-971c2ae8cf53
 
-net/smc: serialize early link group cleanup with termination
-
-With this patch, smc_lgr_cleanup_early() returns early if another teardown
-path has already set lgr->freeing. It also adds temporary link group
-references in smc_conn_abort() and around first-contact registration in
-smc_conn_create(), and checks lgr->freeing under the list lock before the
-first connection of a new link group is registered.
-
-> diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
-> index 660cd41ec720a..c1bb284c42334 100644
-> --- a/net/smc/smc_core.c
-> +++ b/net/smc/smc_core.c
-> @@ -693,6 +693,10 @@ void smc_lgr_cleanup_early(struct smc_link_group *lgr)
->  
->  	smc_lgr_list_head(lgr, &lgr_lock);
->  	spin_lock_bh(lgr_lock);
-> +	if (lgr->freeing) {
-> +		spin_unlock_bh(lgr_lock);
-> +		return;
-> +	}
-
-[Severity: Medium]
-This is a pre-existing issue, not one introduced by this patch. With this
-early return, the existing teardown owner is always the one that finishes
-teardown. On some paths that means it kills a connection that
-smc_conn_free() left registered.
-
-smc_conn_free() only unregisters the connection while the lgr is still on
-its list:
-
-net/smc/smc_core.c:smc_conn_free() {
-    ...
-	if (!list_empty(&lgr->list)) {
-		smc_buf_unuse(conn, lgr); /* allow buffer reuse */
-		smc_lgr_unregister_conn(conn);
-	}
-    ...
-}
-
-When they claim freeing, smc_lgr_terminate_sched() and the second loop of
-smc_smcr_terminate_all() and smc_smcd_terminate_all() call list_del_init()
-on lgr->list.
-
-Take a client first-contact connect that has already registered its conn.
-A terminator then claims the group. The trigger could be a link down, an
-LLC delete link request, or a CLC decline with the first-contact bit
-received in smcr_clnt_conf_first_link()->smc_clc_wait_msg():
-
-smc_connect_rdma()
-  connect_abort:
-  smc_conn_abort(smc, 1)
-    smc_conn_free()
-      conn->freed = 1, link and lgr references dropped
-      lgr->list is empty, smc_lgr_unregister_conn() skipped
-    smc_lgr_cleanup_early()
-      lgr->freeing is set, returns
-__smc_connect()
-  falls back to TCP, sk_state = SMC_ACTIVE, socket lock released
-
-terminate worker:
-__smc_lgr_terminate()
-  conn still found in conns_all
-  lock_sock(&smc->sk);
-  smc_conn_kill(conn, soft);
-    smc_close_active_abort()
-      tcp_abort(smc->clcsock->sk, ECONNABORTED);
-
-Could this reset a TCP fallback connection that userspace already sees as
-established? The server side looks able to hit the same thing through
-smc_listen_decline().
-
-Before this patch, the early cleanup thread either ended up in this same
-state, or ran __smc_lgr_terminate() itself and blocked in lock_sock() on
-its own socket. The hang is gone, but the stale registration remains.
-
-The commit message says:
-
-  "Once the connection is unregistered, a termination worker can finish
-  without taking its socket lock."
-
-Does that still hold on this path, where smc_conn_free() skips the
-unregistration?
-
->  	/* do not use this link group for new connections */
->  	if (!list_empty(&lgr->list))
->  		list_del_init(&lgr->list);
-
-[ ... ]
-
-> @@ -2049,15 +2054,25 @@ int smc_conn_create(struct smc_sock *smc, struct smc_init_info *ini)
->  		if (rc)
->  			goto out;
->  		lgr = conn->lgr;
-> -		write_lock_bh(&lgr->conns_lock);
-> -		rc = smc_lgr_register_conn(conn, true);
-> -		write_unlock_bh(&lgr->conns_lock);
-> +		spin_lock_bh(lgr_lock);
-> +		if (lgr->freeing) {
-> +			conn->lgr = NULL;
-> +			rc = SMC_CLC_DECL_SYNCERR;
-
-[Severity: Medium]
-Is SMC_CLC_DECL_SYNCERR the right code for a purely local teardown race?
-
-smc_clc.h defines it as a synchronization error. The comment earlier in
-smc_conn_create() limits it to the case where the server reuses a link
-group but the client wants a new one.
-
-It also changes what goes on the wire. smc_clc_send_decline() sets
-SMC_FIRST_CONTACT_MASK only for this code:
-
-	dclc.hdr.typev2 = (peer_diag_info == SMC_CLC_DECL_SYNCERR) ?
-					SMC_FIRST_CONTACT_MASK : 0;
-
-and the peer reacts to it in smc_clc_wait_msg():
-
-	if ((dclc->hdr.typev2 & SMC_FIRST_CONTACT_MASK) &&
-	    smc->conn.lgr) {
-		smc->conn.lgr->sync_err = 1;
-		smc_lgr_terminate_sched(smc->conn.lgr);
-	}
-
-In the client role, a local teardown can set freeing after smc_lgr_create()
-has published the group and before this check. That teardown could be
-smc_smcr_terminate_all(NULL), smc_smcd_terminate() from an ISM peer
-shutdown event, smc_smcd_terminate_all() or smc_lgr_terminate_sched().
-The result is:
-
-__smc_connect()
-  smc_connect_decline_fallback(..., SMC_CLC_DECL_SYNCERR, ...)
-    smc_clc_send_decline()   /* sets SMC_FIRST_CONTACT_MASK */
-
-The server is waiting for the CLC confirm in smc_listen_work(), with
-conn.lgr pointing at its new first-contact group. It then sets sync_err on
-that group and schedules its termination, which empties lgr->list and sets
-freeing.
-
->From there, smc_listen_decline()->smc_conn_abort(new_smc, 1)->smc_conn_free()
-skips smc_lgr_unregister_conn() because lgr->list is empty.
-smc_lgr_cleanup_early() then returns early because freeing is set.
-
-The server then falls back to TCP, and smc_listen_out() drops the socket
-lock. Wouldn't the terminate worker's __smc_lgr_terminate() then find the
-still-registered conn and call smc_conn_kill()? That ends in tcp_abort()
-on the server's fallback clcsock.
-
-Would a code without the first-contact side effect, such as
-SMC_CLC_DECL_INTERR, avoid resetting the peer's fallback connection here?
-
-In the server-role case the peer's conn.lgr is still NULL, so there it
-would only give the peer the wrong diagnosis and statistics.
-
-> +		} else {
-> +			write_lock_bh(&lgr->conns_lock);
-> +			rc = smc_lgr_register_conn(conn, true);
-> +			write_unlock_bh(&lgr->conns_lock);
-> +		}
-> +		spin_unlock_bh(lgr_lock);
->  		if (rc) {
->  			smc_lgr_cleanup_early(lgr);
-> +			smc_lgr_put(lgr); /* lgr_hold in smc_lgr_create() */
->  			goto out;
->  		}
->  	}
-
-[ ... ]
-
+Best regards,
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013091716.1210420-1-nicoyip.dev%40gmail.com
+Dave Stevenson <dave.stevenson@raspberrypi.com>
+
