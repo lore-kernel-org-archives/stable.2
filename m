@@ -1,169 +1,111 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A6AE3CFF65;
-	Wed, 14 Oct 2026 05:44:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791956679; cv=pass; b=p+JEsz6vU2tR07AldMJ72vzcUuHxmvdR3Fu4/P5H4EnK1zU2sK5+2ReNuom2kKQSf8VcMJzqYAPYU57aGOBIogOazcmptIu47RBSXCPS/f/EGpDAzQIxWOcAVXl5LVufP5BvGzqfPil08CD6ETpil5f6WTIwAM7i0Jn6HJAVYl0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791956679; c=relaxed/simple;
-	bh=fXtoNcOdvkomLJmBNUK2gtCZe5Vc4SS2qMz1wIvAufA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JGI1sd2bRcQA9+Oh8HV4Lm2x26DsmCSVNtl9PGc2xDSWfERgvHkT1jA1k37O3niOJ8LuMe4yq4p/FBiXpy2HYe1kqMqBEpgjxAZJMPkfk0Tgo/POPrlXXbf7TJx3as9j+kwhfOO3qMEY+5lJNNhGB6edihWZKkfMzBnkMHj610U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=Z7iy8eqd; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A03719D07E;
+	Wed, 14 Oct 2026 05:45:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791956749; cv=none; b=nvf7ANkWxcnqOfCyJSlS5Wl2LwKp3kvQoOx30iEY7Vo6RTYGnKAPvaDl3aRUns+YvT6z7lhoMNrExTcjpD317CwTo0gHbv7XmeZYbx7XOKqdFzDjRhQ8kur5mO0k7G9YOY06tR7wh6yg+HfxP44CejcallDxA0cOqVq32AepL88=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791956749; c=relaxed/simple;
+	bh=heWpzQqvBVGU82Yz174oBmscC8H0jUS7+X9SkkbbirQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=e8XaLF9OAPLd63wcoe9H6VsaBPZpyG7rw1vadyHnoZmpKWIqsrfAzNGwdehNSbjO4w0EWclCqndkYywvjagwBCQ6sPPzVm9Kpa9zFl3VKrhum7AFQD09Mzfrv3M0R3qxW3tRt3rKoY2mwJ9YZyGnkctHgQLRs03H4u6tVYpEbpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=J9f6vMpa; arc=none smtp.client-ip=18.194.254.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="Z7iy8eqd"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 378EC201E03;
-	Wed, 14 Oct 2026 07:44:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791956674;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6uza6PpaZ0+pqzEIwL1v815myEpERgJfMgVOiQgMLXo=;
-	b=Z7iy8eqdt4Xwc/8pa1pG56CDteTKtxLTTDy+XHUNbWzcLdMzLFID7jA4M9u3cp+wm0+Aoy
-	2qDi7C6t5uwr0Y9VtaxzDquvLdUljsuTvUZCXPf2XsZ5Ddb0g8vBvFYsgp3XNbbHGkDcGp
-	RcrOgSBte1u+WbrbjAuHTAZEKeJ75wezQW1Ue9KLPAvk8xn3dm4WAjmIlWTBaIL6mX2Oem
-	aDqaZnnPM362B8fI5jTYvff0mKWru7ZdLlIZJh3zGAS1/O9ZmYQ4FOASuKKdvYQ9NHY9E4
-	x2ci91YQzrITMwoc575+9Qkkxrv30H0VHdkCqQAEEpEOg6cdemXx/OEkp49i7w==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791956674; a=rsa-sha256;
-	cv=none;
-	b=D+1+pzwVsOXpM00YnX3qkn6ZXhrgU7141hXDfAFYeBbih0nzUInirL2XJbZLej+5/dMbnt
-	h0U3mxE8BGyOZixSJKpkGR7A1TRZmWX4EJvp5J4TVT/nX3wKD1bK6ZfkiAOWnlVu0xYTVo
-	0w0ZHXtQcX0wuNsu4senb/9fCKPcWMuzg033+orMiOFEdJqRDTQsSy568nXCaPXjNacqqv
-	fvhUVvM3+0hwxa5GnECLhh/tP9UWiSPO6gDA/o260h+IZ9lqAz1Je+3YTSAEqs//T5Fu/y
-	y3OT/7Q+zn65UoxYWzvu1xj+pYAJjopP7jk4qej/MhOgGh9GGmXba2l7nTgeDQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791956674;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6uza6PpaZ0+pqzEIwL1v815myEpERgJfMgVOiQgMLXo=;
-	b=XDS0MXgmxUfdVwuJa6uIhIKpZOBlf30xJYPj81Na4i31QHWZrKjGILr7dYToAQ4du0Vaa5
-	vc9uzCLRPkz98DwmLqOO7gapM7vHxp/0Xat6pNUZ3KSEKOtOX6z+/xwW75sLAQvFtw91pr
-	7et1mPzgKlI+utJu+ACXowbeKROIgVTLCinx0H3j/XRjYOm1Pc1/OwQ8j9iKrE0uNyuQL1
-	DGRclsaUnG50NWIgvJm6gMaU+ibXKS99COl6H+3HmuHJlKCq0ElAlpNWDCo2TAtWkI4hTC
-	7tLB3jjALtZ6mmOLUQSsv2Mwf5LpU1jd3bchQVRMyDmHFnpbC2Uye3woEzuT7A==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xGrn0-005o3A-0N;
-	Wed, 14 Oct 2026 07:44:34 +0200
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id C416B5C39D3;
-	Wed, 14 Oct 2026 05:44:33 +0000 (UTC)
-Date: Wed, 14 Oct 2026 07:44:32 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Cunhao Lu <1579567540@qq.com>
-Cc: Vincent Mailhol <mailhol@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
-	"David S. Miller" <davem@davemloft.net>, Wolfgang Grandegger <wg@grandegger.com>, 
-	Oliver Hartkopp <socketcan@hartkopp.net>, kernel@pengutronix.de, linux-can@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v2 0/3] can: fix bus-off restart during device close
-Message-ID: <20261014-solid-slug-of-tempering-22b862-mkl@pengutronix.de>
-References: <tencent_82C93561D200C84C24608C80049C23EEF80A@qq.com>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="J9f6vMpa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1791956653;
+	bh=nYNbuYDcorJRISriCvwRL7UvKeCbKyVCU4parzj9WZI=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=J9f6vMpaKnCMW5Aapkh2RMgLr7X7W6GJ0BqzEQ5N6U2hOh5RPceUFo7rJNRZnUQbf
+	 Ai+Wl3zBFZ0fapUwskewFW7QDkWGFERfjig2/4k2wJeg0sXYQ96AMZFT2zfAkR3Ew0
+	 GNPZ+eBhCNeGEEW2fzSSOUTpt5M5xa20cgkRiTW0=
+X-QQ-mid: zesmtpip3t1791956647t1430a70e
+X-QQ-Originating-IP: Q+V//eZXL1jo7H+ERbHDy0fyDgUkskzDbCdSiFF0V5k=
+Received: from localhost.localdomain ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 14 Oct 2026 13:44:02 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 13114247789848424888
+EX-QQ-RecipientCnt: 21
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re:  [PATCH 6.18 000/621] 6.18.57-rc1 review
+Date: Wed, 14 Oct 2026 13:43:55 +0800
+Message-Id: <20261014054354.4048552-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261013112920.855194808@linuxfoundation.org>
+References: <20261013112920.855194808@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="iqvdsuvim664ntyz"
-Content-Disposition: inline
-In-Reply-To: <tencent_82C93561D200C84C24608C80049C23EEF80A@qq.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NDiTMgVNbn1gxbTIOrXqa50RLn7v5VEX2hD0VNLa++6FVNYN8W2U4Ucp
+	sfQBm2HydRqPjP2a53Op9LQ2amkAPogAFJYdBH2YTBmU3zkiZ5XjyabAwqNgdepqLTBzUoL
+	9Uqt3KwpLDxHElGMRyv3J9cOZoXIulIoTrbm/74POIiUzoMHT3Y7FNMjnqoVBT4lfK0CNFO
+	qp+Lr50q1JgX1/Q+f7feskQWl/9ensc5zdNgH1hzWfJn3i9LJkWqJcvw+Bw2Kutg0PDfLQp
+	MrXjPPQWvuxhyao+o5Db1r5eLfZbzC5oC1Sa63VNKUsOuiILG4fyP2g0iJTqu1Q/bkM1W16
+	7CI6GxbZVtd3i05YsNbbuQN/5MPH7xtqNJwkw0EHdXZPEg4OGcuZ8Kt/vNdGM+IrPY2L2Ew
+	Sr5RtXI5rA3opQ9i9fsVM23ok/8CA3xwt17E4BJzHU95AMIUWc7jXLaZakvt0bGdlAC+6fm
+	DViooKRl/MYawHepzc5fsNbSvgeTndMnJ/AasrkpRbHdOFMzZ6WjcLMWTsFEuG/9WOb52mv
+	NWjewL2aR8ReCbWUhlP1pVFoZ/lMiByOL3hxKHPMISmn5pDEaKXeVMWKXOksPtVLDxcgAQv
+	BPNN6K6ftVkblGcO/JcSlbr42NlZuIXR0nqJNIC6t+4hGkq3YrJZsVZgNllcW8uMQt8DDhI
+	2tXjbIOuFz3Tgk9W/siqMUyPbaqq9H9iLlNf8grTH/g0aM8fhogOGWBrtwMO7ylyzYLyJ8x
+	P+Yl/fzHl40ulORXh/UlbgfLtL66hqhumXSwz7g612xw4w6vylm4m+DxrNkEigoDuBhESkw
+	/c3ujvlKO96BthxzOXj+GS5oadvb2dO0h6bpAIVzHdALNXDMnhW7b2b06QB4lW4r4+yqGTH
+	fYA9nxNvZ2zBoO8KB/oh6xeBmOZtuZSzSwbislD3I+RUHvtwolF5UMKQfUN3Xs1W2hOPxm4
+	VAJY+wMPrSh97sh8BQXmkmFbV5RBRF9C1LVAYl5EhrnEluXviC4MiU6dX8hPIWsUjTkDbeQ
+	9z/xfvL1Glhb3xchzMquT6kOe1LiXW/2uZczaHVYHBVv1tqFBbTASjfFNRdJU=
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
+Build tested in our x86,arm64,loongarch config successfully without error.
 
---iqvdsuvim664ntyz
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH net v2 0/3] can: fix bus-off restart during device close
-MIME-Version: 1.0
+Tested-by: Wentao Guan <guanwentao@uniontech.com>
 
-On 14.10.2026 10:54:21, Cunhao Lu wrote:
-> This work started from a real failure on a production robot using a
-> LubanCat-5IO with an RK3588. RX continued, but the TX queue remained
-> stopped and subsequent sends returned ENOBUFS. The interface still
-> reported ERROR-ACTIVE, and the hardware indicated neither a bus-off
-> condition nor a pending TX request.
->
-> While testing the echo-loss fix with fault injection, I discovered a
-> separate race between bus-off restart and device close. This series fixes
-> that race; the fix for the original TX stall will follow separately.
->
-> When automatic bus-off recovery is enabled, bringing the interface down
-> can race with a pending or running restart. The Rockchip driver currently
-> relies on close_candev() to cancel restart_work, but calls it only after
-> freeing the IRQ, disabling RX offload, and stopping the controller. A
-> restart in that interval can re-enable the controller and its interrupts
-> after IRQ teardown, and requeue timestamp work after it has been stopped.
-> That work can subsequently access registers after runtime suspend
-> disables the controller clocks.
->
-> The networking core clears the running flag before calling ndo_stop().
-> The first patch uses that flag to avoid scheduling or starting bus-off
-> recovery once the interface is observed to be no longer running. The
-> second patch adds close_candev_cancel_restart_sync() so drivers can wait
-> for recovery separately from the echo cleanup in close_candev(). The
-> third patch uses this helper at the start of the Rockchip close path.
->
-> The running-state checks do not replace synchronization with a restart
-> that has already passed the check. Rockchip waits for that work before
-> tearing down its resources, and keeps close_candev() at the end for the
-> final cancellation and echo cleanup. IRQ exclusion during hardware
-> reinitialization is retained; the shared IRQ is not disabled while the
-> close path waits for restart work.
->
-> I tested v2 on a LubanCat-5IO running a PREEMPT_RT kernel, using the same
-> setup and procedure as v1. The 1 Mbit/s CAN bus was connected to four
-> CANopen motors operating at 100 Hz and four sensors operating at 20 Hz.
-> A bitrate mismatch forced bus-off with automatic restart set to 100 ms.
-> The v2 campaign completed 380 valid bus-off iterations, covering automatic
-> recovery, close while recovery was pending, close near three delay points,
-> 200 randomized stress iterations, manual recovery, and reopen after close.
-> All 380 iterations reached bus-off and scheduled recovery.
+I met the same riscv 'RISCV_ISA_EXT_H' build issue others had reported.
 
-FYI: The threading of your series is broken, due to wrong/changes
-"Message-ID".
+Best Regards
+Wentao Guan
 
-You can use the b4 "web submission" instead? It bypasses any mail system
-completely.
+Log:
+arch/riscv/kernel/cpufeature.c: In function ‘riscv_clear_hypervisor_csr’:
+arch/riscv/kernel/cpufeature.c:1140:43: error: ‘RISCV_ISA_EXT_H’ undeclared (first use in this function); did you mean ‘RISCV_ISA_EXT_h’?
+ 1140 |         if (!riscv_has_extension_unlikely(RISCV_ISA_EXT_H))
+      |                                           ^~~~~~~~~~~~~~~
+      |                                           RISCV_ISA_EXT_h
+arch/riscv/kernel/cpufeature.c:1140:43: note: each undeclared identifier is reported only once for each function it appears in
+  CC      arch/riscv/kernel/acpi.o
+  CC      arch/riscv/kernel/pi/cmdline_early.o
+  CC      arch/riscv/kernel/acpi_numa.o
 
-| https://b4.docs.kernel.org/en/latest/contributor/send.html
-
-regards,
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---iqvdsuvim664ntyz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCas8WvgAKCRDMOmT6rpmt
-0sJeAPwIvBNFwhbZe95g0ffTZF+mL/ZK566Mh4xHIsWt+4rCsQEAmjSMcdiy8FPc
-/izydOSxmmTTbZZLa2AspdMyIYHI0Qk=
-=Q/RN
------END PGP SIGNATURE-----
-
---iqvdsuvim664ntyz--
