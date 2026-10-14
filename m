@@ -1,74 +1,73 @@
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98C83EEAC1
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:22:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0D73D1702
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:23:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792005736; cv=none; b=SrybQUyeRzaPvP/oJCeMixAALXLI5rKfil7FDdNXURSvIOk6GrfpmtAO7ZjXogZY3JcWqCcb+wuwTXXFeFD80cF5jOGplF6/QcLuB7yDWh+rBkgFAURXDXiY+g4hB8DXrFo6ioEpp3EjPAxH4ddFm8XpMl5kgN0Ntid1CSu4zl0=
+	t=1792005818; cv=none; b=cW+t9pqOuhHrW8KNk6uf5S50lzBT29SyOsMH9mS5TtmfD4oSvSLqLVVPiTsc3MdNY57r4C2sM6Y5L5lq52tAGsptWyAIsrbxFpdc08UWQHbMcO5SQb9rv4iJV5F7unUj5fovqwfvqMduTc1I+9JxmowofghMaFVzmh4QM/rDKPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792005736; c=relaxed/simple;
-	bh=tan2hb3670Vm2sGmIPiTgFxKcLfv39XdtlpSAF/OsPc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=DgFyGOJd3kDrRanQYNjupOUjy8xxXAJfRDuXiaOmgvljcJNfsQvClsbklZe9/hGdyCcgK8NlvaSUmd8rWmXqCCiBZ6BLLzfuo8lUM50bfcALaLascUCVPShk/JqQT1KMwEW/gH3OSS4jwMVQJPSsgItM1ZX1DbFIR/1pvEqb/CM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=X7u8WNHz; arc=none smtp.client-ip=74.125.82.48
+	s=arc-20240116; t=1792005818; c=relaxed/simple;
+	bh=JrkCeigUQ9nhxy4Iz8HWwsNNfRdowuDyaN/d6zvOutI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kD0UoL4jXdecHx44kM4PqBSFp8DipBftjW6ZKw1UqPACEkM7/3vuVyaGZBzKt2eFqRDXECTcQkEFt4mowA8kMoDOIAlqP6H05Dntqgtpxt1zDgQzZWb1ZpZyqRFmzfujwYe4k+NwY4pvFlfyKoLTN2aFkNkq+IT+9KLLS32HRUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=Be1SUkZ9; arc=none smtp.client-ip=74.125.82.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="X7u8WNHz"
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1517bda04a0so3102196c88.0
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 12:22:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="Be1SUkZ9"
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-157fe9d771bso2102435c88.0
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 12:23:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792005734; x=1792610534; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=of2vVv6MKAeILs87Fg9QkgH0OUFv0IlSW4buiHQEMUM=;
-        b=X7u8WNHzj3pd6HvtBu2DfYMcaqkg/bf7Bw50QVFG9XYk1CH6AjD0AhC6NS4RZnvKZ8
-         9OVyj0+gFxeZ0qY/pRi6OvtgEjZuRDWoWbfW7N3yl4UH9jiboDN6DUuBVZEENmy9Adw5
-         mnjkQThPQnHybXh53Qb7f0buDC7XczHB74aCwT6nFETCQeA1KrS2QgBXBJY994mwhnBe
-         sxngvBE2qqp60Kq2BI1HtZMKmdE0O1t8n7czw1bZel9D4GTgUovG2lJwQxhuaCSUVD9B
-         YWfI4Plmns2QXWuLJBKtLTormlmeRYRKVttRxK0IZyxzC5nP9M4VTEAw/L2KmPY9XBBP
-         jpOw==
+        d=trailofbits.com; s=google; t=1792005809; x=1792610609; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nGbwhr15/hqX12VrEIuqyIcS9ohxldPnTFrEtZ54fV0=;
+        b=Be1SUkZ9MGOSYqsQLjcRR06YcoeXptXtNv2WieZiTiPMlJsaHuThHCrD4/Y2ZFTH5/
+         RJUOWPFW9CUcVl8L41tzOiMi18b/oWmbNoryXI09K4icSffJ6qXP5w0Cr5kS36Bb4h2d
+         ekqZRXf90TD2ErZPnGAgiMfl3EcymFEtogSrv7jLmpeiXRuAQnj/FHS11hoVvVv2pf2O
+         dILFp+rTqyBA15cytmjOdqzQzNSquAayMnDR8Wz9xBs8STkXRmKT0zPtNypuHemdxi20
+         i2Gap2lvVanWTTJsxAmJCUbIrbxMm/G0k9+ejAvw/7FqChc4j+eDluMCfPKhadmOEHhO
+         fFXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792005734; x=1792610534;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=of2vVv6MKAeILs87Fg9QkgH0OUFv0IlSW4buiHQEMUM=;
-        b=xKzfw5S6eJ4mVJ1XStyP2wv0QBmJAvFaAXHFBP5/yAOajASkPOlSgHIZ0av2ri2oxQ
-         sHz/e+MjO+VT2Aniha2wbINyeLZmqt2ZqlgTZcFo16BI8CpANotiU+vD7UspF70epsFV
-         tyEtU+9JeqvhQioHWenXACifxwPHoMrkLDgN+SQHJzv6ZAde1BNlPNnWiLPIh/dgTxSK
-         /C6LeqYq72CZQFs0m11EpTrwCE3yVDtWQ0/kzn65QvDH/LRL3D0jT9qiVNfcyBHTJ/+i
-         mIVlpt/Qbt/aYIHryH7PQBbaMJLezQL7X1GAA3uN5SvfZbxaUKkSM4x6UyHgR6qR0q1o
-         vd4w==
-X-Gm-Message-State: AFq9FYKXHE6QZ1RGiEJyJuDVGrgEVVUYJsLVCDq/KXgehqwciMq1yner
-	TLukYEg+MnpSKktoJmF7R8Vk2Wzo5Zmlauynapbr3E4gIfH/STq9WcA9jh8WPc4G0lHY02266wd
-	+g1BLFt1hxg==
-X-Gm-Gg: AYBFou2M/613DmqltIv4g3CCxjicUCqEpNV0UA9Hcah5MQk1uMfqMFZdL412GP5Dp33
-	h03MewVhZhA4IxrBySauqv9SimrQIYKzg/3FdH+FUpzFYp8wTxMirl7UoI2unHFohhgO4/Vv7V9
-	SyursZ8nThzOh5qoPl+OAJH6Y3VMn1/jbraSdU0LYurQ17Kx1GmcU5jJp5VO4CQVWTFSMup9A7h
-	ShDYwTIVjE/h1Kl/17iJQq+LmClQfaStEreAFunv812z/v/sZS4+fDPRTw/IggaM350fZJ9QrpH
-	T/mzv4VxcSycJ6kBzAE4TL+p1s3gRztOJVtAAoxgsJT2nxwcgaSYsxe0HWM8Owi1TkHqCFI0qEI
-	IGKPzk31qo41kkaR1BBjHc/Xnk5C0UT/oZbJ/1qHFktkld/2ISQBLJSgdFkQ3NMccOO8QhqIKZP
-	pRw21t6ja0r0DmTtdVdRkIGqHGSxrnt8T9wD2AJiwTpryYui8kt4VQL2PMox7aNmkldzOX63B6a
-	wkfNkr3WbrohelsmtGngO41m9J5szcjVzJpk2F4ei4g4FgbViQNWUtkSRZk0/61J85brLs=
-X-Received: by 2002:a05:701b:2717:b0:16d:dd5c:4261 with SMTP id a92af1059eb24-16ddd5c42a5mr22557356c88.46.1792005733513;
-        Wed, 14 Oct 2026 12:22:13 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792005809; x=1792610609;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nGbwhr15/hqX12VrEIuqyIcS9ohxldPnTFrEtZ54fV0=;
+        b=zIg7EJB2o9yx1+Xq29aEF6Ta7HDljZxJY2WoDCNJM/S4s0ykueybdLHCVDkKh4Urh8
+         KPPLn1LK2JPzPJtzq5k2ZqUm8GKVR0ed1kQMyrqRNHvVo4HNY9Z4+kpwjWPO6oVn1N7E
+         FuYYbNZx7FE8Wg8dreyMf9tGZFjANQOf4ySQYgtZ4DUrNn+CohxgM/i0uIWzv4Sr8R8h
+         MEtVHybwTHXqZWuzkDbN00v5Pe8wEig3vqLncomJU6whFAD3+BoAGB2WmPsQIUP0xjqu
+         EzFfhk/Q+z1aceSw1EQnWzswFuaL4E5v81aPHYstous+j7S800gOvKCIzPlp3fTxiN2T
+         BuGg==
+X-Gm-Message-State: AFq9FYL4Iq7OAd+nhAR9pcPJcwPXrXL95bGG4A1vHvyVzOqMFh7DwWLf
+	jcc8ShmqNQ+CQSXqADDrK++pykUfZIRw36ey4f9u7BqpLra2xJzSnUF7gkZT3E0gvrqeWT0Tb+W
+	Wg3LOGTwl5Q==
+X-Gm-Gg: AYBFou3f9hPMbuRRytET/SIf+xUrCY1P0PFYF4dYN2aveQnVe/LPp7oy1KhDh6Tg1EF
+	bZraoRYMJjuIeakP/+GIELS7E75Ko2WMBbV+ci7tGQeadsoIPCvqQ1FCyj7cBdZ+TL/33ttWtdc
+	dIUqu7Y78Iw/UuYYH0hXx545TZ2D0TnIIN+mHyM8GV3SR5mGl42VdXkWCp8fYiC2i/lQmPLm1B5
+	VtcVfvuRXjqDUEv2gAVmI+CTyAsW4USTfpWgR7yEXKMtyiNqn5kyJy5z07gZx8GwfulBuFpIS/m
+	hctLpbU+pwQWnib5TuU9y3xVas6gynMwg6GZOKgnJpsIw7BOuJ+jsuvqoQUmnd0pzMhHd8RuCpi
+	XcTdvuYF6YCESxCWm6PnGag+aEYVvuBhSgNqRBKs6HxiW/VcMeSAV8QjYZOT8NkQoJve09BnHoJ
+	M1eOKVyqI1D4I2mEpEKPnI6AddNImk9gQeKxyfQIYvsInNJ5TIXsy7Ri7C8wrqGJN2/2qcLALOT
+	ihxKviHxs+3gKvO52/KJk7yqRV4lWoFxym4GabEswOwfbay1OoRtWBbR/u3blrFc4wPfEI=
+X-Received: by 2002:a05:7022:7f14:b0:14b:992f:c168 with SMTP id a92af1059eb24-16a56c9d73emr24145402c88.4.1792005809104;
+        Wed, 14 Oct 2026 12:23:29 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:39d1:d8de:aae7:23dd])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a31f6f5csm47780318c88.11.2026.10.14.12.22.12
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-17dc865cbffsm12341237c88.6.2026.10.14.12.23.27
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 14 Oct 2026 12:22:12 -0700 (PDT)
+        Wed, 14 Oct 2026 12:23:28 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
-Cc: cassiogabrielcontato@gmail.com,
+Cc: jjy600901@snu.ac.kr,
 	linux-kernel@vger.kernel.org,
 	linux-sound@vger.kernel.org,
 	perex@perex.cz,
 	tiwai@suse.com,
 	tiwai@suse.de
-Subject: [PATCH 6.6.y] ALSA: pcm: oss: Fix setup list UAF on proc write error
-Date: Wed, 14 Oct 2026 15:22:10 -0400
-Message-ID: <20261014192210.24272-1-artem@trailofbits.com>
+Subject: [PATCH 6.6.y] ALSA: pcm: oss: Fix data race at accessing runtime.oss.trigger
+Date: Wed, 14 Oct 2026 15:23:25 -0400
+Message-ID: <20261014192325.24338-1-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -76,45 +75,40 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: =?utf-8?q?C=C3=A1ssio_Gabriel?= <cassiogabrielcontato@gmail.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 4cc54bdd54b337e77115be5b55577d1c58608eae ]
+[ Upstream commit 901ac0ff15edf9503162e2cf6579bd11a30f1ed4 ]
 
-snd_pcm_oss_proc_write() links a newly allocated setup entry into the
-OSS setup list before duplicating the task name. If the task-name
-allocation fails, the error path frees the already linked entry and
-leaves setup_list pointing at freed memory.
+Currently the runtime.oss.trigger field may be accessed concurrently
+without protection, which may lead to the data race.  And, in this
+case, it may lead to more severe problem because it's a bit field; as
+writing the data, it may overwrite other bit fields as well, which
+confuses the operation completely, as spotted by fuzzing.
 
-A later OSS device open can then walk the stale list entry in
-snd_pcm_oss_look_for_setup() and dereference freed memory.
+Fix it by covering runtime.oss.trigger bit fled also with the existing
+params_lock mutex in both snd_pcm_oss_get_trigger() and
+snd_pcm_oss_poll().
 
-Allocate the task name and initialize the setup entry before publishing
-the entry on setup_list. Also fetch the initial proc read iterator only
-after taking setup_mutex, so all setup_list traversal follows the same
-list lifetime rules.
-
-Reported-by: syzbot+8e498074a794999eb41c@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6a1062b7.170a0220.35b2b7.0003.GAE@google.com
-Closes: https://syzkaller.appspot.com/bug?extid=8e498074a794999eb41c
-Fixes: 060d77b9c04a ("[ALSA] Fix / clean up PCM-OSS setup hooks")
-Signed-off-by: Cássio Gabriel <cassiogabrielcontato@gmail.com>
-Link: https://patch.msgid.link/20260522-alsa-pcm-oss-setup-uaf-v1-1-40bdcc4d17e8@gmail.com
+Reported-and-tested-by: Jaeyoung Chung <jjy600901@snu.ac.kr>
+Closes: https://lore.kernel.org/20260423145330.210035-1-jjy600901@snu.ac.kr
+Cc: <stable@vger.kernel.org>
+Link: https://patch.msgid.link/20260424112205.123703-1-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Assisted-by: LLM
-[ Backport to 6.6.y: Keep the target's explicit setup_mutex unlocks on
-  allocation failure and before continuing; upstream releases that mutex
-  through its scoped guard. ]
+[ Backport to 6.6.y: Replace upstream mutex guards with explicit
+  params_lock operations and matching unlocks; the target has no scoped
+  locking helpers. ]
 Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
 Hi,
 
-Please consider this backport of the fix for CVE-2026-64001 to 6.6.y.
+Please consider this backport of the fix for CVE-2026-46157 to 6.6.y.
 
-The code changes are identical to upstream, except explicit mutex unlocks
-replace upstream scoped cleanup; see the bracketed backport note above.
+The code changes are identical to upstream, except explicit params_lock
+operations replace upstream mutex guards; see the bracketed backport note
+above.
 
 The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
 
@@ -124,53 +118,66 @@ Build-tested only as part of a cumulative 6.6.y series: x86_64 objects
 Thanks,
 Artem Dinaburg
 
- sound/core/oss/pcm_oss.c |   21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
+ sound/core/oss/pcm_oss.c |   32 ++++++++++++++++++++++++++------
+ 1 file changed, 26 insertions(+), 6 deletions(-)
 
 diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
-index 23ecbd70ccf653aa70a2b08aecf781a194afcc66..25f7e585bc7b93db16b024c1f3915b9895e1c82f 100644
+index 23ecbd70ccf653aa70a2b08aecf781a194afcc66..ce63fe4ecf707670a1a4daab307f2258b00697d8 100644
 --- a/sound/core/oss/pcm_oss.c
 +++ b/sound/core/oss/pcm_oss.c
-@@ -2964,8 +2964,10 @@ static void snd_pcm_oss_proc_read(struct snd_info_entry *entry,
- 				  struct snd_info_buffer *buffer)
- {
- 	struct snd_pcm_str *pstr = entry->private_data;
--	struct snd_pcm_oss_setup *setup = pstr->oss.setup_list;
-+	struct snd_pcm_oss_setup *setup;
+@@ -2161,10 +2161,18 @@ static int snd_pcm_oss_get_trigger(struct snd_pcm_oss_file *pcm_oss_file)
+ 
+ 	psubstream = pcm_oss_file->streams[SNDRV_PCM_STREAM_PLAYBACK];
+ 	csubstream = pcm_oss_file->streams[SNDRV_PCM_STREAM_CAPTURE];
+-	if (psubstream && psubstream->runtime && psubstream->runtime->oss.trigger)
+-		result |= PCM_ENABLE_OUTPUT;
+-	if (csubstream && csubstream->runtime && csubstream->runtime->oss.trigger)
+-		result |= PCM_ENABLE_INPUT;
++	if (psubstream && psubstream->runtime) {
++		mutex_lock(&psubstream->runtime->oss.params_lock);
++		if (psubstream->runtime->oss.trigger)
++			result |= PCM_ENABLE_OUTPUT;
++		mutex_unlock(&psubstream->runtime->oss.params_lock);
++	}
++	if (csubstream && csubstream->runtime) {
++		mutex_lock(&csubstream->runtime->oss.params_lock);
++		if (csubstream->runtime->oss.trigger)
++			result |= PCM_ENABLE_INPUT;
++		mutex_unlock(&csubstream->runtime->oss.params_lock);
++	}
+ 	return result;
+ }
+ 
+@@ -2839,6 +2847,18 @@ static int snd_pcm_oss_capture_ready(struct snd_pcm_substream *substream)
+ 						runtime->oss.period_frames;
+ }
+ 
++static bool need_input_retrigger(struct snd_pcm_runtime *runtime)
++{
++	bool ret;
 +
- 	mutex_lock(&pstr->oss.setup_mutex);
-+	setup = pstr->oss.setup_list;
- 	while (setup) {
- 		snd_iprintf(buffer, "%s %u %u%s%s%s%s%s%s\n",
- 			    setup->task_name,
-@@ -3053,6 +3055,14 @@ static void snd_pcm_oss_proc_write(struct snd_info_entry *entry,
- 				mutex_unlock(&pstr->oss.setup_mutex);
- 				return;
- 			}
-+			template.task_name = kstrdup(task_name, GFP_KERNEL);
-+			if (!template.task_name) {
-+				kfree(setup);
-+				buffer->error = -ENOMEM;
-+				mutex_unlock(&pstr->oss.setup_mutex);
-+				return;
-+			}
-+			*setup = template;
- 			if (pstr->oss.setup_list == NULL)
- 				pstr->oss.setup_list = setup;
- 			else {
-@@ -3060,13 +3070,8 @@ static void snd_pcm_oss_proc_write(struct snd_info_entry *entry,
- 				     setup1->next; setup1 = setup1->next);
- 				setup1->next = setup;
- 			}
--			template.task_name = kstrdup(task_name, GFP_KERNEL);
--			if (! template.task_name) {
--				kfree(setup);
--				buffer->error = -ENOMEM;
--				mutex_unlock(&pstr->oss.setup_mutex);
--				return;
--			}
-+			mutex_unlock(&pstr->oss.setup_mutex);
-+			continue;
++	mutex_lock(&runtime->oss.params_lock);
++	ret = runtime->oss.trigger;
++	if (ret)
++		runtime->oss.trigger = 0;
++	mutex_unlock(&runtime->oss.params_lock);
++	return ret;
++}
++
+ static __poll_t snd_pcm_oss_poll(struct file *file, poll_table * wait)
+ {
+ 	struct snd_pcm_oss_file *pcm_oss_file;
+@@ -2871,11 +2891,11 @@ static __poll_t snd_pcm_oss_poll(struct file *file, poll_table * wait)
+ 		    snd_pcm_oss_capture_ready(csubstream))
+ 			mask |= EPOLLIN | EPOLLRDNORM;
+ 		snd_pcm_stream_unlock_irq(csubstream);
+-		if (ostate != SNDRV_PCM_STATE_RUNNING && runtime->oss.trigger) {
++		if (ostate != SNDRV_PCM_STATE_RUNNING &&
++		    need_input_retrigger(runtime)) {
+ 			struct snd_pcm_oss_file ofile;
+ 			memset(&ofile, 0, sizeof(ofile));
+ 			ofile.streams[SNDRV_PCM_STREAM_CAPTURE] = pcm_oss_file->streams[SNDRV_PCM_STREAM_CAPTURE];
+-			runtime->oss.trigger = 0;
+ 			snd_pcm_oss_set_trigger(&ofile, PCM_ENABLE_INPUT);
  		}
- 		*setup = template;
- 		mutex_unlock(&pstr->oss.setup_mutex);
+ 	}
