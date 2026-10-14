@@ -1,155 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C6C84CC269;
-	Wed, 14 Oct 2026 12:03:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F9203BF68D
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 12:11:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791979382; cv=none; b=b9iKIzj6w144zNy+S3tglv++a8f2vvTm1qCpZ4RjmhdaIsDhs4Qf0OCozbgSN7b18MFMexQ6vYNDNl/qZxbcVupDrh8joT3MpQ7E7mEVuAjBYl4VYznOrKkfu9HfEPhVRCNe1N6jJeWJpNpCRKRmo2AzQNdWHM2X14v9R9Aq8T0=
+	t=1791979871; cv=none; b=eusftIvWVV9nfMFEpc8xSTjTR71I0f25TMk7dUKgtdjZo/ydgu48Ijq03XwszSG49SLxQoNOlYCnuUwjokP2oeh14NsgNqVpdSwGEmxJti8HwI+mZj7WZUcyIeXk2ojjzHvHsLd4GRSiFTsmk46Z6HkhIJ2teiSaAYpiMu63cHs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791979382; c=relaxed/simple;
-	bh=VYajclvzOrwjNaQXV7GOh4I3DUluj9rV+N6b3tU5QZ8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=TqaeEMX9RfXAQqzpkLYObcWL6NnSrKM2kr8P+F6Fkmr8kjYlQ0Vj86kvFoBzs/kecxU6s2mir+khQEgP46SOGYoMnNNL2zHntNcc0sYybQLTpaQheE7UKVfIOiT4VWEba/+Go6wy1qBktr1k2QifNw8nmPhLgqhQuUkLn+qkRaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iLiRyBy/; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791979871; c=relaxed/simple;
+	bh=Xp/GFasEgAIJqNsAXJa6SclJ+9x6pB+nQDMQoDogRr8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jjP+LcjODbVrRbyNwCgwdaUeo0YWO2Hm8VOz0BVnwAFt/vWDqqmkMxY28WCpEruY89b5bLDA8yK5JMs3YUOmea+lektPoHNwfvbDue1yJqdrVXqfRiKkoCEKpRONRprd64BWVJq6I7ZDdHxyzNa97h8emLkptGA8s1hgG64yHJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=Q28rOaZL; arc=none smtp.client-ip=185.70.43.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iLiRyBy/"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 33421C2BCC7;
-	Wed, 14 Oct 2026 12:03:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791979382;
-	bh=VYajclvzOrwjNaQXV7GOh4I3DUluj9rV+N6b3tU5QZ8=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=iLiRyBy/gDQz1etnARTXamUCsQvRIwka1WYR0OSlbc9/SMvFJex2VKkZBlOXFBq1K
-	 18PogAKBRzCV438zdWAU50CRHzCXkf5A271Be2U/Pbbab96Gfki9IrgxW+CRJzdjZ1
-	 0NY4P05BrleJd7PAGJFJwt4JtB24INRGeREYfSePQgNkhNXsYcY75dLqrdv9hpOguJ
-	 tULVTP/+ZQgO8PZ3Ht/EiZsWXYTkKkIDXO+hQ9SL7RKY0EJSgLU3mMvPJtpXGp7IWY
-	 8kAZqj8R3VPz8RpsUCkM4F3H8sa6fIQK6mhstPKLR2wt4MPhA68ags5gzajDkNjHeu
-	 DujxM+JRZ5WxQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1DC42CC6B24;
-	Wed, 14 Oct 2026 12:03:02 +0000 (UTC)
-From: Martin Belanger via B4 Relay <devnull+martin.nvme.dev.gmail.com@kernel.org>
-Date: Wed, 14 Oct 2026 08:02:57 -0400
-Subject: [PATCH v2] nvme: make the DH-HMAC-CHAP secret attributes readable
- by root only
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="Q28rOaZL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1791979867; x=1792239067;
+	bh=1+JK5m/+BxZlw9mOjY6pK0jZbTnl/yjFybRroz5wVa8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Q28rOaZLaqwPv6WWyoUAzRSQOPQKse9SplIc551P2v3tz7zYeLnbTYLMTj1UihGoo
+	 SA7soBR7Bc7mmAESSqOSo0cGhQbWhvie/TJC2GfyX3jpoeWTTYTz6ypsjLbGxO+Smv
+	 nzzEug+nlcP9tqRzuEzZeSO2HHqpkPidtNO8txFDTw37Es+Sn5ou1dRIO1cw4u9uFq
+	 7h+s7AB16XI3sVNhEaf6UQ6lLMeYvd8EUWkveq/V4i/0L8Fm6Tmuybcscrb2OpZaMX
+	 4YISC6Pc18FwDHNoRHm92RDEpf7kV/uJo6SMNLzFXIrGZY+H6pjJC954iPpPcvqjVS
+	 WcyF357uP0nXA==
+Date: Wed, 14 Oct 2026 12:11:02 +0000
+To: Thorsten Leemhuis <regressions@leemhuis.info>, Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>, Daniel J Blueman <daniel@quora.org>, Andi Shyti <andi.shyti@kernel.org>, Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+From: Birk Skyum <birk.skyum@pm.me>
+Cc: Sasha Levin <sashal@kernel.org>, Manikanta Mylavarapu <quic_mmanikan@quicinc.com>, Bjorn Andersson <andersson@kernel.org>, linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Linux kernel regressions list <regressions@lists.linux.dev>
+Subject: Re: [PATCH] i2c: qcom-geni: restore tSCL with 32MHz I2C fast-mode
+Message-ID: <179197985641.52689.14222546983549320957@pm.me>
+In-Reply-To: <e8f862fe-f86c-4522-9ef9-70fd754529af@leemhuis.info>
+References: <20260929041444.9837-1-daniel@quora.org> <1ca16602-fb66-4706-8e86-3b35372324b9@oss.qualcomm.com> <CAMVG2svsfP+6cpRq=kBCZFva_r8jXSm+-pp+qC9D372S10z12g@mail.gmail.com> <eaa6f116-7556-4791-857d-cd50c504528d@oss.qualcomm.com> <20261009145800.rc-reply-0004@kernel.org> <b7bfbf6a-e5b5-48be-84ad-8bcd8e22c5de@leemhuis.info> <4acb0eee-f7ae-4817-9848-d72cf486bc06@oss.qualcomm.com> <e8f862fe-f86c-4522-9ef9-70fd754529af@leemhuis.info>
+Feedback-ID: 21326998:user:proton
+X-Pm-Message-ID: 233af268ef3cb190bce00ef5572e1b46943b76f0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-nvme-dhchap-secret-mode-v2-1-00f153e9d8de@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMUQqDMBCE4avIPruQBBXbqxQf0mRat2CUrJWCe
- Pem9vFjmH8nRRYoXaudMjZRmVOBqysKo09PsMRicsZ11tiG0zaB41jGhRUhY+VpjuCLNT36trG
- +81TeS8ZDPmf5Nvyt7/sLYf3l6Di+N1PvwnsAAAA=
-X-Change-ID: 20261014-nvme-dhchap-secret-mode-9108e8541a6a
-To: linux-nvme@lists.infradead.org
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
- Hannes Reinecke <hare@suse.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Daniel Wagner <wagi@kernel.org>, 
- Martin Belanger <martin.nvme.dev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791979381; l=3245;
- i=martin.nvme.dev@gmail.com; s=20261014; h=from:subject:message-id;
- bh=YzbJwanbX41Lark5YtJVe0AVHqjgNwPQp5aKXMjqULc=;
- b=Ib1ZrDnxDTZUZttiA/j38dYPB1shdfmMLlyzRHHYeQXx39wMBm0oCvjyCGsOWT6Pg9LxNjdEe
- BPQOfx/SYBSBcZ9lScWoyTQiBHjNkklIXz+JidH/a/XcYrQTafeCu+O
-X-Developer-Key: i=martin.nvme.dev@gmail.com; a=ed25519;
- pk=4K+XXetGK35w2LzRRddd/bbHawZU222BN+YZRuSpN+k=
-X-Endpoint-Received: by B4 Relay for martin.nvme.dev@gmail.com/20261014
- with auth_id=1176
-X-Original-From: Martin Belanger <martin.nvme.dev@gmail.com>
-Reply-To: martin.nvme.dev@gmail.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Martin Belanger <martin.nvme.dev@gmail.com>
+On 10/14/26 07:08, Thorsten Leemhuis wrote:
+> That's how it is sometimes, but then it's likely best to go back to the
+> know old state by reverting the culprit -- or is that a bad idea for
+> some reason?
 
-The dhchap_secret and dhchap_ctrl_secret sysfs attributes have mode
-0644. Their show functions return the secret, so any local user can
-read the DH-HMAC-CHAP secrets of a connected controller.
+Hi Thorsten,
 
-Define them with DEVICE_ATTR_ADMIN_RW(), which sets mode 0600. The
-macro takes the show and store functions from the attribute name, so
-rename them. Writing the attributes was already limited to root and is
-not changed.
+One correction first. My report was from 7.2.9, and I had not booted
+mainline when I sent it. I have now, on the Yoga Slim 7x with v7.3-rc7
+(a distribution config, no patches), and the keyboard and touchpad are
+dead at the disk passphrase prompt.
 
-Fixes: f50fff73d620 ("nvme: implement In-Band authentication")
-Cc: stable@vger.kernel.org
-Cc: Daniel Wagner <wagi@kernel.org>
-Assisted-by: LLM
-Signed-off-by: Martin Belanger <martin.nvme.dev@gmail.com>
----
-Changes in v2:
-- Use DEVICE_ATTR_ADMIN_RW() instead of DEVICE_ATTR() with 0600 (Greg)
----
- drivers/nvme/host/sysfs.c | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
+  geni_i2c b80000.i2c: Bus proto err, noisy/unexpected start/stop
+  i2c_hid_of 1-003a: failed to fetch HID descriptor: -5
 
-diff --git a/drivers/nvme/host/sysfs.c b/drivers/nvme/host/sysfs.c
-index e1e3dcfd084b..c0ecb5df1a30 100644
---- a/drivers/nvme/host/sysfs.c
-+++ b/drivers/nvme/host/sysfs.c
-@@ -809,7 +809,7 @@ static DEVICE_ATTR(io_timeout, S_IRUGO | S_IWUSR,
- 	nvme_io_timeout_show, nvme_io_timeout_store);
- 
- #ifdef CONFIG_NVME_HOST_AUTH
--static ssize_t nvme_ctrl_dhchap_secret_show(struct device *dev,
-+static ssize_t dhchap_secret_show(struct device *dev,
- 		struct device_attribute *attr, char *buf)
- {
- 	struct nvme_ctrl *ctrl = dev_get_drvdata(dev);
-@@ -820,7 +820,7 @@ static ssize_t nvme_ctrl_dhchap_secret_show(struct device *dev,
- 	return sysfs_emit(buf, "%s\n", opts->dhchap_secret);
- }
- 
--static ssize_t nvme_ctrl_dhchap_secret_store(struct device *dev,
-+static ssize_t dhchap_secret_store(struct device *dev,
- 		struct device_attribute *attr, const char *buf, size_t count)
- {
- 	struct nvme_ctrl *ctrl = dev_get_drvdata(dev);
-@@ -864,10 +864,9 @@ static ssize_t nvme_ctrl_dhchap_secret_store(struct device *dev,
- 	return count;
- }
- 
--static DEVICE_ATTR(dhchap_secret, S_IRUGO | S_IWUSR,
--	nvme_ctrl_dhchap_secret_show, nvme_ctrl_dhchap_secret_store);
-+static DEVICE_ATTR_ADMIN_RW(dhchap_secret);
- 
--static ssize_t nvme_ctrl_dhchap_ctrl_secret_show(struct device *dev,
-+static ssize_t dhchap_ctrl_secret_show(struct device *dev,
- 		struct device_attribute *attr, char *buf)
- {
- 	struct nvme_ctrl *ctrl = dev_get_drvdata(dev);
-@@ -878,7 +877,7 @@ static ssize_t nvme_ctrl_dhchap_ctrl_secret_show(struct device *dev,
- 	return sysfs_emit(buf, "%s\n", opts->dhchap_ctrl_secret);
- }
- 
--static ssize_t nvme_ctrl_dhchap_ctrl_secret_store(struct device *dev,
-+static ssize_t dhchap_ctrl_secret_store(struct device *dev,
- 		struct device_attribute *attr, const char *buf, size_t count)
- {
- 	struct nvme_ctrl *ctrl = dev_get_drvdata(dev);
-@@ -922,8 +921,7 @@ static ssize_t nvme_ctrl_dhchap_ctrl_secret_store(struct device *dev,
- 	return count;
- }
- 
--static DEVICE_ATTR(dhchap_ctrl_secret, S_IRUGO | S_IWUSR,
--	nvme_ctrl_dhchap_ctrl_secret_show, nvme_ctrl_dhchap_ctrl_secret_store);
-+static DEVICE_ATTR_ADMIN_RW(dhchap_ctrl_secret);
- #endif
- 
- static struct attribute *nvme_dev_attrs[] = {
+Same kernel with only i2c-qcom-geni.ko swapped, one boot each.
 
----
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-change-id: 20261014-nvme-dhchap-secret-mode-9108e8541a6a
+  v7.3-rc7                          keyboard dead
+  v7.3-rc7, cb97bf3d4f91 reverted   keyboard works
+  v7.3-rc7 with Daniel's patch      keyboard works
 
-Best regards,
---  
-Martin Belanger <martin.nvme.dev@gmail.com>
+The touchpad binds whenever the keyboard does. The I2C serial engine
+clocks read 32 MHz on plain rc7 and with Daniel's patch, and 19.2 MHz
+with the revert. In all three boots the touchscreen and the three PS8830
+retimers on the other four buses work, and only b80000 fails.
 
+Thanks,
+Birk
 
