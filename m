@@ -1,68 +1,69 @@
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21233568549
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 17:34:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7ECE568554
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 17:34:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791999275; cv=none; b=MWjnOjzAGxX2MFclpO1dbNNFAr7Z2VfdnGnqAAP/3xRYDp2dPBn8w/ZCbCnMuQnTBGKm53aETyIdvaATk9bXH1ZxikJ8TVrGBq/jsETaiXR1FgukVIAURNhNNaruBabx0hLt10yQ2gS11+3WOUXONLVk+JrXzYRSTbRAoXz4Foo=
+	t=1791999275; cv=none; b=uLI+9IdmJNO651DGk9Q3hkBiZzPMtb+P73AkTdaqROd9RHt7yodTzquYmUXHSbc5EHlyV+r6nR6OdJH/DlfaCBdMiPvWwTbCuZmg1R4dd8lQX96OT65FED4iIVQAbHV/VGzFIfmd+bFvwprjOJoZmWeqGaXO6CmrJWIEhEak6Po=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791999275; c=relaxed/simple;
-	bh=KvOj9elpd3Jkkeq08+mMPj08ZLLt/WtGD9D/KXwwPtw=;
+	bh=Ykf+THWd+wwdgtBisDTMGKg7qHYCcw/sjql5oejhnnE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lgn21lvpuRKsSXBvGfbZVgkRUGpGWiMyE9MxAxYc49dMFX+3R7W3ADfD5x3SIP+CwPO3pTx1FOYFod7YOUMJmXKw++IwbybG75PgnNU5Cmt1JLsNwDfbMc+s54BKwI1FDGs+4+BZ1D9srxdmt0DhJ96cFn+YPfxMn851NNr5hzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rzHpeQw7; arc=none smtp.client-ip=209.85.218.47
+	 In-Reply-To:To:Cc; b=CZVR3RthXB1Dq3BmfDqTsJUYa1CVb6zdMgdziLRrg2MH+D4hSlywfnbwbaUrVnZR6BPwNEF6b/wUVrqy1Ih6m6/uIxqZsfXXxvzT7NNSf0ET/ku5c3LXFD60knWWym+bHdqtjHVPGNZN9nkGlDVYMX6xx4vNrFdDteNP7U7OLX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dy+oW7hU; arc=none smtp.client-ip=209.85.218.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rzHpeQw7"
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c3156e7705cso222640166b.1
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 10:34:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dy+oW7hU"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c2e7496f947so722671166b.1
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 10:34:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791999266; x=1792604066; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791999267; x=1792604067; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VIDYdGNKUB1e/3PxpKxX9vkb9H1F2shBQcc4U18udes=;
-        b=rzHpeQw70CqFBH5BcQnWgLlrhk+PFdX9s+OfBP4OoFXBpjRsgGfcoocZzeaBWIej/h
-         xkFTtxg9ZlIporAcKwrgHJ9U3kaDqSjvsgkMs1OHSXKwoFzofgGUcDGMGyI0Dz0ot/jI
-         Gm+iNu/mVyZ/YD0W/i70vGNrLGvz1Mzj3VW+F5CqtaC+SpJb52wRdkdX3C1QoeoDRhri
-         ahSuK/QGAdZMlYYJoYmNjSG3dnjYIfe9B7aX5OL37/AwFeB9pURU0gcYDZw4a2564DgI
-         JtAyRCpxuydiovLOux1fcg40pO2dIYCedFW/esgLmfm8QjM00fBeZSQzEXj6x5NPzZW7
-         Ye9Q==
+        bh=HmwpXY0pkazAyjk8nr8JLuf2WFindAFqPQA6knsCB1s=;
+        b=Dy+oW7hUiHgBkmmHY0E6bAR6VFqDJ6JOveMyBQg3XTZX2fd2rHbknSS1Gl53z+BRCn
+         AXVt7DX9eZ5nC07nO1IyOPlYedkqvsEsAXsFdYtsmA3hjSGZ1iFFIbnTLpw9SD8NRpiw
+         uCKOdlE07drXqKVe3fcDpb8vh/nGS+2YHQjQwq1+EN44FU7iGkVrXYUwv0IjF3dG6n9T
+         Fnhkhu5ttdQ747V6MZZLUJc9joFvSd9agHgONB81p+RFrnrMfjt4kdL3OIbE4eEYNl+t
+         PMykS8+CaYrgMwa5gyaNg2AnJt6jgrdcFe+DUVyhbLAr5pbeq6xI0iTXdjUadDNzEO9P
+         U3kA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791999266; x=1792604066;
+        d=1e100.net; s=20260707; t=1791999267; x=1792604067;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VIDYdGNKUB1e/3PxpKxX9vkb9H1F2shBQcc4U18udes=;
-        b=QPg/vtVOlw9SXx66UmQcxbRriTI4CXTQFa/GftiATXVWQy54TnFLXovedw3K3X2Gwq
-         3Ca34WaF1vG4FZR4tyZikfMiabwpA0kaCO3/RLTtJZKw1+VBEid0m3s09HyO5sHSvC5H
-         wn965aL/HgVQR2F6OlnnOCzFNPBFiw1mPfA/Hcw21oICTc4RXXkXmSvz8oU7Hz/xNJqI
-         FMEjXlCVTQ5BnlUuNrHr3VnU4jxBH6S61LQQJ2GFqf/kCKKF5OTE9sAVa7dYzqHY0ZpY
-         ilQC3HDJKah2rdSrmr4kNzrMlBx39w9wTH+WHd4LkIBeQPBTFSuflExJLOrdvb4eRabq
-         RLvA==
-X-Forwarded-Encrypted: i=1; AKwUvBxvfMPMbrQ0ZGmKL2HUbEx6+SB37FpRnGwqtzC//Z8NYDU0t61IYgvc+F2nqvO7wUMfbHEocTM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIbfHMr1D2Qvledu5mFu/7Dl5nFKCMrFhzKp8aQHiIzv+Y1oMGw
-	0mEUal0kju+nxJ4KEbdqeIEOhsZBLIfJlWPRYtqMTBMXQo16slkpJpwTrzRmBs32
-X-Gm-Gg: AYBFou1xQa9Ax0yiOJdXGSvcvbTKcfTtRICUBa5T+8sz85vumuC2MVVacxDYPZUP9vk
-	f3J0Uv5bjZFJIfxWPME4lpprJ3QNF1RkIThxxWkYkOiJp9SRdeHT1+gvHEy/8oHL2nh2BIR2z8I
-	r1SyW3Bmx72k/VQbTt2uzPKu1nLVJkvEYZwtTrUOkfIb/C2l9mJT2hCGrJcWP8VzGoJxP5lqxqd
-	hDAaPKbC86ecwyEJ6HBiL0ZMn4z3AoAr8NP5gs4E8pyx5ticzHeFrb3MBrJ8a8rWCFP0ng9X2v+
-	MvQVxJ+xerSucl82Mwcj8Tvbyg8ztpqQ6BITHskP44PB3gcb7wJLgfD0givqwcT6YiW6XHtvdVZ
-	ynyUBsuSgt2GKk4OzTkVW/zCbbbjfo6gF3lxcfkCN5nCrg9ojpg0fx2QzLAml3sEv4MejG4Ugiw
-	zdZ8UfbnY7S9ekyIqJ0M+WUjyEKotn6uNn+CqrKeE7+vyjlNJhhjeTVhfsqTG3K3ShT6jr3tk9G
-	Ljtlebx+I1v9TX5
-X-Received: by 2002:a17:907:c613:20b0:c33:dbe8:291c with SMTP id a640c23a62f3a-c33dbe82d08mr732381966b.20.1791999266201;
-        Wed, 14 Oct 2026 10:34:26 -0700 (PDT)
+        bh=HmwpXY0pkazAyjk8nr8JLuf2WFindAFqPQA6knsCB1s=;
+        b=k1pP4VCHwglLBr9KzJq9YLSK4A8UD4Imda97qsDPB+XOytPD/Orq78r9cLo1+S6ZsU
+         MfPJcOi4n8oYoVS+WYrr3gZKYOKe+4CtJ2nnvNPndNeN4KduUzRlpKgcsS19sM6051zN
+         VxkBU6hN4tx9yTDvViQ9IScclzmGWcSvkpVd9BUnQ+wNKWCtIawwyUkdu8P6xPqkfW2H
+         9hfIvWLE2GTcHsxZ0k4k9aCF3QWH1odaiF5HTb0LH/2gNj81rhBFPR2o/m7jdBdtrvg3
+         Qz485awP31k7xJn3nM7kQhY83HgDE4tvzdRMdupUG63tFGolOTB0NceEsguViR4z3xQD
+         GHrw==
+X-Forwarded-Encrypted: i=1; AKwUvBx4mXBq58vdZAyibTPueh207Z0h742mfsIVZbV22CHFeMcF66TRMxYMTWRNXTR5isMxY4gRW9I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ4RJ00jJOuRsTTzRP7MbQOCnjpUiYFvaRbPXKCJp9XKFepnP4q
+	LGDY3v+IAsLXjjUB4NIW/WTpkuYZniSm9Dhy89OdtVlXL5Y7XSHn+rwK
+X-Gm-Gg: AYBFou1gndzBpYjYA1seK1adkyM1cz1L3TyIqGMdmtCeCh6yDfSXaNEkPWOA26JXqoy
+	TeMHvm2BNd+nyRfPfNe4NeBRFYnm+nGApv8WABJcy1PGKZ+FyyHyL9ndI46u5CWPshBVYE0ZmGQ
+	sZvaXzuFRhmw55SwYr6FB/EG/s/iE+dDJbEXbAVbHjDZjATBGI7jBW3Y4UOdOR9M9avHUOCsS2o
+	BDFb7+FNsgv1Q3xYgQmn/f4uckYDMc8z7FQOgI+/IdG2/SkbAdG1MEc0B7+M00tF8ddcou7AUvW
+	zSeUX84RjahW45s9FBLRh5y1O2FYzZnecYPVdUdwDpjKs++f+GNQtQ7SraUIrNp79c2/pkjU7GI
+	6wc3x/ds6TKh6fsw2K/gknE/9jg1v0JyiVsIPD9Hsz3K6y2ebvPdfHXjJwVMvxgRT6WXM9d/H3x
+	oFNl1D4ROZimYVE4qzTk96bW1wzTxc14Rt1jWVxAs4DUwm3aasFZ86yLDdUzIM5+qszUcohycEh
+	oywJzsPuqXc9NJOPwlNG9dhyTc=
+X-Received: by 2002:a17:906:100c:10b0:c33:cc6e:1058 with SMTP id a640c23a62f3a-c33cc7d5811mr649024866b.24.1791999267535;
+        Wed, 14 Oct 2026 10:34:27 -0700 (PDT)
 Received: from [127.0.1.1] ([2001:4bb8:148:f08c:65a8:f8e5:f310:5a71])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed963cecesm9381366b.21.2026.10.14.10.34.24
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed963cecesm9381366b.21.2026.10.14.10.34.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 10:34:25 -0700 (PDT)
+        Wed, 14 Oct 2026 10:34:26 -0700 (PDT)
 From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Date: Wed, 14 Oct 2026 19:34:07 +0200
-Subject: [PATCH v3 08/11] hwmon: chipcap2: balance regulator state
+Date: Wed, 14 Oct 2026 19:34:08 +0200
+Subject: [PATCH v3 09/11] hwmon: chipcap2: do not discard pending alarms on
+ disable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,87 +72,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-chipcap2_locks-v3-8-27ebfc2c5b9e@gmail.com>
+Message-Id: <20261014-chipcap2_locks-v3-9-27ebfc2c5b9e@gmail.com>
 References: <20261014-chipcap2_locks-v3-0-27ebfc2c5b9e@gmail.com>
 In-Reply-To: <20261014-chipcap2_locks-v3-0-27ebfc2c5b9e@gmail.com>
 To: Guenter Roeck <linux@roeck-us.net>
 Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Javier Carrasco <javier.carrasco.cruz@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791999252; l=2089;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791999252; l=1461;
  i=javier.carrasco.cruz@gmail.com; s=20260924; h=from:subject:message-id;
- bh=KvOj9elpd3Jkkeq08+mMPj08ZLLt/WtGD9D/KXwwPtw=;
- b=QBCfaQn7DzynwXDeiqhHQI1r1lSPXZSFg54KCEy1PoEQxlhK7WhZEOc26YvOQVA2c8kZYJxqz
- pNulMyiwcLSBvv2Z/jykYA5tIosoMDoM7BJ1wPJWMZdnNghuaalLfbf
+ bh=Ykf+THWd+wwdgtBisDTMGKg7qHYCcw/sjql5oejhnnE=;
+ b=rPohMS7f4C8gD/qGD/7EKwN795k5pUHWIqrYc1aW14it7pL9S5jKSjA1/029RW2pOCBWJFZH5
+ jqTPS3H0+PgD0hpdiVMFcLt8mmKQaou2RK3O1xMX4E3P5QfMn1R/kJh
 X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
  pk=VV+hcMoOj1Sx6xSiY0W/FZNAskGZe2AagSMVj0PsmAs=
 
-The current implementation does not guarantee that the calls to
-regulator_enable() and regulator_disable() are balanced.
-regulator_is_enabled() might return a negative value, and an always-on
-attribute in the DT might break the symmetry anyway.
+cc2_disable() stops processing interrupts before the device is powered
+down to ignore the alarms caused by voltage toggling. The handler of an
+alarm raised by the last measurement might not have run at that point,
+and the alarm is discarded when it finally does.
 
-Add a regulator_enabled flag to keep balance within this regulator
-consumer.
+The sysfs read that triggered the measurement can then report no alarm
+although the device raised one.
+
+Wait for the alarm handlers that have already been raised before the
+interrupt processing is stopped. This covers the case where the handler
+thread has not been scheduled yet; an alarm that has not reached the
+interrupt core at that point is discarded.
 
 Fixes: 3af350929e75 ("hwmon: Add support for Amphenol ChipCap 2")
 Cc: stable@vger.kernel.org
 Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
 ---
- drivers/hwmon/chipcap2.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+ drivers/hwmon/chipcap2.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/drivers/hwmon/chipcap2.c b/drivers/hwmon/chipcap2.c
-index 837b1830f2e4..952789fdb9db 100644
+index 952789fdb9db..eba6469940ab 100644
 --- a/drivers/hwmon/chipcap2.c
 +++ b/drivers/hwmon/chipcap2.c
-@@ -91,6 +91,7 @@ struct cc2_data {
- 	int irq_low;
- 	int irq_high;
- 	bool process_irqs;
-+	bool regulator_enabled;
- };
+@@ -146,6 +146,13 @@ static void cc2_disable(struct cc2_data *data)
+ {
+ 	int err;
  
- /* %RH as a per cent mille from a register value */
-@@ -120,7 +121,7 @@ static int cc2_enable(struct cc2_data *data)
- 	int ret;
- 
- 	/* exclusive regulator, check in case a disable failed */
--	if (regulator_is_enabled(data->regulator)) {
-+	if (data->regulator_enabled) {
- 		data->process_irqs = true;
- 		return 0;
- 	}
-@@ -132,6 +133,8 @@ static int cc2_enable(struct cc2_data *data)
- 	if (ret < 0)
- 		return ret;
- 
-+	data->regulator_enabled = true;
++	/* let the alarms already raised by the last measurement be processed */
++	if (data->irq_low > 0)
++		synchronize_irq(data->irq_low);
 +
- 	usleep_range(CC2_STARTUP_TIME_US, CC2_STARTUP_TIME_US + 125);
- 
- 	data->process_irqs = true;
-@@ -147,11 +150,16 @@ static void cc2_disable(struct cc2_data *data)
++	if (data->irq_high > 0)
++		synchronize_irq(data->irq_high);
++
+ 	/* ignore alarms triggered by voltage toggling when powering up */
  	data->process_irqs = false;
  
- 	/* exclusive regulator, check in case an enable failed */
--	if (regulator_is_enabled(data->regulator)) {
--		err = regulator_disable(data->regulator);
--		if (err)
--			dev_dbg(&data->client->dev, "Failed to disable device");
-+	if (!data->regulator_enabled)
-+		return;
-+
-+	err = regulator_disable(data->regulator);
-+	if (err) {
-+		dev_dbg(&data->client->dev, "Failed to disable device");
-+		return;
- 	}
-+
-+	data->regulator_enabled = false;
- }
- 
- static void cc2_disable_action(void *data)
 
 -- 
 2.43.0
