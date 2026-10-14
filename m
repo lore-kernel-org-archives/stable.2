@@ -1,219 +1,233 @@
-Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F8422116F4;
-	Wed, 14 Oct 2026 02:18:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39CEA25B09E
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 02:19:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791944291; cv=none; b=QBDzkJXZ9a97mYyphCoC9CDY8XvNNgvXbqieW8A1YKA2dng1ELRHJGssw+lg5UK6pvdbjx3nndKngJ0H1Wtv6s7NWRRz9BadVRhqjFnYIczvPsLxzLCx5MEc3uQh+Q3ngK58tCA231Dz+5cxkB1GiMVDsdRB7MVm3pibSrgHgJ4=
+	t=1791944376; cv=none; b=jjUsoehtLJrqAp/cWC05+Fo8rO/p3y7YKz+hC8uqoMzdxQqbylzxmfbwVu5iM3mOVeKoSG/mtlqu2yFGtmANda4+YiwG3vQFMIQjR4O0bAYJW9LI78+sVkqwzfMMoO/z7WNWw4L3/GPF1lJjwAd1BdPICvrEj8jjXHKsajr9wko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791944291; c=relaxed/simple;
-	bh=8y7kbFSPmEfWBdmvwES7r3eW+SXkBysWlXDi0fzAs9s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=vDcwZYY+mUenxF3a0VTRAs9LFIGV8iGNf2+Go5PG3+j/MCecbef5yhzh3vi3OCotbLX/VRtwZ33SMuTxDrXXZMz7G1fJsFRo1k9X78a1MPstZABzc8MDvPD51Ewl6dn0fcrteLMiStYXriOnvGCIxJVlkjhUqnWDeX3OV4T1lF8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=eF/pr/5L; arc=none smtp.client-ip=115.124.30.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791944376; c=relaxed/simple;
+	bh=pE0hNVeCheMf6mjewOOf2r8fDlXDp/jOCwfj5MLCP6o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z5gqHVK2SUD9nXLBW4hsRwLztCXUatM5QYLS6TRvuTaK5aXdDKbIusKERV68Q3ZCqkiQFjq/yjl/N+PK0yaxuhp8uafXYF8mjj11Jo7oEa73Ti5eCzbrLSKC5QvcUHM7t43CJXz96dThZa46ZRDgLy257xFmZyyA+XlCPlhtS14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=I3mHTTf8; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="eF/pr/5L"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791944279; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=XuQDjmn6Lnuo5HOpYgjYT2P+oYUujNQVUriwXbnoduA=;
-	b=eF/pr/5LIQ++3TUki7kDCfFTESPh7/MT1+ib7UHuN8o2e7UfSkiLNesfI1MFAWMCfX/EiV4h9BEIkG5L2lGK5BFf/z07OaMj42YL3TZTEiVhsskHSwifuTgiYcKa1NWs+iZ74heQVPp1iM6rxv8EoKCmYjjzRarmAiXwIVg71bo=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=12;SR=0;TI=SMTPD_---0XCnclMF_1791944278;
-Received: from 30.221.146.92(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCnclMF_1791944278 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 14 Oct 2026 10:17:58 +0800
-Message-ID: <ff8d866d-f318-4722-a1ab-88db7a3fde63@linux.alibaba.com>
-Date: Wed, 14 Oct 2026 10:17:57 +0800
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="I3mHTTf8"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d6d28aa26cso1997745ad.2
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 19:19:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791944372; x=1792549172; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=q12rhay6Z+E6s3DqDKvyK3mBEkuoBId4jjHQRHFqAps=;
+        b=I3mHTTf8TUjoQinK6MVJyfQh6iqGKBsbtw6Si/t6qypMv4Y8gYlOJVGUbQ7b6mAv0M
+         Zuyb3kyLIovzmwBm61xDSniWmJO89925aT6lJ3LpFmsEfuXRVvHrNOz+p9jY+RUR7FSi
+         dDGMtpIHG76F6jmll9gVJz/hAJ4cNNQDNP1QrTNTdbTZ5irCgrm3vy6DWSNkXSHdQ8dY
+         DXEmJgFpIt+sMHuxOwvHLkFMSDoSMc34LC5TdttboeYbEmLGt7HBfHS1Mo08kq34gqV0
+         kt5QELcHwHYrmOq++IAO9rSFGEhdl2YF7lTn4EFV6iPKbOpdwSslYIWBf8w1PqjVoUPM
+         b9vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791944372; x=1792549172;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=q12rhay6Z+E6s3DqDKvyK3mBEkuoBId4jjHQRHFqAps=;
+        b=bIzg/IPg7fJIgYnCVrkeP7cCeca7nq7XlzpJH6vGoI7MumWl17iCBBd8tXdTUpRsYG
+         sZ0elBywnBVJ1vbxTncQCdpSwP16i0cVkNy+0YEaJvHFuY2TBxh4+uuVeyWAvjgvTGyr
+         Cz1gVALUZV1ECYsZL7IZR6IyXvq+swo9vOoMXcAw/fa+a6K+iQgnoc8S1+8W6/fotIwy
+         RtxTfnAqAuDPmGzq7T4Khqu/vR6bUZTlwinS1bmILcPWnbxBj+t30YVr3Wvu1jWVdARD
+         FOiB4Af2PThMbCQhNLov02mXtTgmGfjY6cYX6OQtMbN3MoAx2cpolEQqlvwkVFQ52qGh
+         7uXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwcUO76NbI7+yHKUJ44ke9Xqoby4Xxs0BmPhFv1+uHavEOb8dCk2d12wZTc9U8bdmBAQmQWNPQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLfF7K2etr0XUmEBFnCj8Fg+Le6dEOSxFR/SpgChMuRpmqEPehv
+	QCgzELn1OfR17EkrU907ERWv/Sgqm38jENZv1duR+0QSrPJ8frvBduF00yq6P9gG9oo=
+X-Gm-Gg: AYBFou2GCR/Xqner+jamtQVEXESZUP+e4qiGl3cDLtk/LUJziNJhHQssmojVKK7PUer
+	naB0zxUeypLfcJMNLHWmq78x95kTuny7V67myU3MHfqaQ/j9IhHGxS5Q1J2hfCM1PbHswv/NULX
+	RizNLzsZBDjvv9CMej0GauV9z5XT3mo4cHOLRXATxz012tHhi+vsESIZjtaETyKIFRlghpcUAT9
+	YzqXxQO9ytOK15cm2e0foh2qr1Gg+cn4RHEIlfqL575T9zszqew3dNLvibkRFV6orZyYzW8eEsn
+	gFnAKW8cc/1COsFcqRsnUGsNQVfKwwxObYGLSMCFKt6KX0kaM4trm1g184mferEQ2G8NmYSxEMn
+	1GaFsQbP4XbkBlQGL13waFCPyLPrq24dm2z4rWGy3slIBE0dQdJnHfv+IsDrZN9agrn5ts/+psI
+	dbex99Ap9CtxC4hhnMTPaoeBopuZeVdWSyI2bHfFADOfuA14h8hmHaOqqWNl8Dt5BZhVckFW30K
+	/WDks+g+aevG2bV8FWi
+X-Received: by 2002:a17:90b:384b:b0:3a0:c276:1ec0 with SMTP id 98e67ed59e1d1-3ab3a9536cfmr11211653a91.28.1791944372055;
+        Tue, 13 Oct 2026 19:19:32 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:c51c:be8a:c517:276])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac61171feesm1975565a91.17.2026.10.13.19.19.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 19:19:31 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v3] scsi: mvumi: reject handshake sizes that overflow the list allocations
+Date: Wed, 14 Oct 2026 11:19:19 +0900
+Message-ID: <20261014021919.3486362-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ocfs2/cluster: unlink socket containers before
- releasing resources
-To: Cen Zhang <zzzccc427@gmail.com>, akpm@linux-foundation.org
-Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
- kees@kernel.org, kuba@kernel.org, ocfs2-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-objects-candidate-0065-v6-3090153fd7cacb810214@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-objects-candidate-0065-v6-3090153fd7cacb810214@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+mvumi_hs_process_page() takes max_io, the two command entry sizes and the
+list depth from the firmware handshake page.  The entry sizes are u8 fields
+used as shift counts, and 1 is an int, so a count of 29 or more makes the
+<< 2 applied to the shift overflow an int; a count of 32 or more is
+undefined outright.  max_io is a u16, and the sizes derived from the shifts
+are multiplied by it in mvumi_init_data() to size three unsigned int
+allocations, so a large entry size wraps the product and the loops that
+follow then walk and write past the short allocation.  The list depth is
+used as a shift count too, but only when the firmware sets
+HS_CAPABILITY_NEW_PAGE_IO_DEPTH_DEF; a count of 32 or more is undefined
+there as well.  The depth also sets how many entries the inbound and
+outbound rings hold, and the per-command slot index wraps on that count
+while the rings are allocated for max_io entries, so a depth yielding more
+entries than max_io -- or none -- walks the index past them.  A host reset
+runs the handshake again, but mvumi_init_data() returns early once
+MVUMI_FW_ALLOC is set, so the buffers keep the sizes they were allocated
+with while the newly reported values drive the indexing.
 
+Reject an entry size above 29, which keeps 1U << n and the shift that
+follows it inside an unsigned int.  Then compute the worst-case allocation
+size in u64 at the top of mvumi_init_data() and reject it if it does not
+fit an unsigned int.  That total bounds all three allocations: the inbound
+list total, the outbound data pool and the tag arrays, whose sizes are the
+same products plus smaller terms.  Reject a list depth of 32 or more on the
+shifted path so the shift stays defined, and reject a resulting entry count
+that is zero or above max_io so the slot index cannot walk past the rings.
+The shifts also use 1U now so that a legal count cannot overflow an int.
+Once MVUMI_FW_ALLOC is set, reject a handshake that reports a size larger
+than the one its buffer was allocated for.
 
-On 10/13/26 11:34 PM, Cen Zhang wrote:
-> A socket container's node and socket must remain alive while the
-> container is on sock_containers. The debugfs formatter reads sc_node
-> and sc_sock under o2net_debug_lock without taking their references, but
-> sc_kref_release() releases both before taking that lock to unlink the
-> container.
-> 
-> With CONFIG_DEBUG_FS enabled, a synchronous sender can retain its last
-> socket-container reference after o2net_disconnect_node() has detached
-> the connection and flushed o2net_wq. The caller runs outside that
-> workqueue. After the sender removes its configfs dependency, node
-> removal can proceed without waiting for the sender's final sc_put():
-> 
->   Sender (final sc_put)    Configfs rmdir        Debugfs reader
->   --------------------    --------------        --------------
->   o2nm_undepend_item()
->                           Drop node item refs
->   o2nm_node_put()
->     [node can be freed]
->                                                sc_seq_show()
->                                                  Lock debug lock
->                                                  Read sc_node->nd_name
->                                                  Unlock debug lock
->   sc_node = NULL
->   o2net_debug_del_sc()
-> 
-> The earlier socket release has a similar window. The container is
-> still selectable while its socket has been released and sc_sock has
-> not yet been cleared:
-> 
->   Sender (final sc_put)                       Debugfs reader
->   --------------------                       --------------
->   sock_release(sc->sc_sock)
->     [socket can be freed]
->                                              sc_seq_show()
->                                                Lock debug lock
->                                                Read sc_sock->sk fields
->                                                Unlock debug lock
->   sc_sock = NULL
->   ...
->   o2net_debug_del_sc()
-> 
-> Move o2net_debug_del_sc() before releasing either resource. Unlinking
-> under the existing debug lock waits for an active formatter to finish
-> and prevents later readers from selecting the container. This covers
-> both socket fields and node fields, including nd_num in the stats
-> formatter. Release the debug lock before the existing resource cleanup.
+No realistic controller is rejected: a controller reporting 4096 commands
+with 64 KiB entries and a depth of 12 needs 513 MiB and passes unchanged.
 
-sc_kref_release() never holds o2net_debug_lock, the lock is taken and
-dropped inside the helper o2net_debug_del_sc().
+Fixes: f0c568a478f0 ("[SCSI] mvumi: Add Marvell UMI driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+v3:
+- reject a reset handshake whose sizes exceed the existing allocation,
+  which is not reallocated on reset (Sashiko).
+v2:
+- compute the allocation total in u64 so the check also holds on 32-bit
+  (Sashiko).
+- reject a handshake list depth whose entry count exceeds max_io, which
+  would walk the per-command ring past its allocation (Sashiko).
+ drivers/scsi/mvumi.c | 62 ++++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 57 insertions(+), 5 deletions(-)
 
-So better to:
+diff --git a/drivers/scsi/mvumi.c b/drivers/scsi/mvumi.c
+index e70d336b4ab39..72a1516a804bb 100644
+--- a/drivers/scsi/mvumi.c
++++ b/drivers/scsi/mvumi.c
+@@ -912,10 +912,23 @@ static int mvumi_init_data(struct mvumi_hba *mhba)
+ 	unsigned int tmp_size, offset, i;
+ 	void *virmem, *v;
+ 	dma_addr_t p;
++	u64 total;
+ 
+ 	if (mhba->fw_flag & MVUMI_FW_ALLOC)
+ 		return 0;
+ 
++	/* These are firmware-supplied and size the allocations below. */
++	total = (u64)mhba->ib_max_size * mhba->max_io +
++		(u64)mhba->ob_max_size * mhba->max_io +
++		sizeof(struct mvumi_dyn_list_entry) * (u64)mhba->max_io +
++		160;
++	if (total > UINT_MAX) {
++		dev_err(&mhba->pdev->dev,
++			"handshake sizes too large: io %u, in %u, out %u\n",
++			mhba->max_io, mhba->ib_max_size, mhba->ob_max_size);
++		return -1;
++	}
++
+ 	tmp_size = mhba->ib_max_size * mhba->max_io;
+ 	if (mhba->hba_capability & HS_CAPABILITY_SUPPORT_DYN_SRC)
+ 		tmp_size += sizeof(struct mvumi_dyn_list_entry) * mhba->max_io;
+@@ -1048,19 +1061,32 @@ static int mvumi_hs_process_page(struct mvumi_hba *mhba,
+ 	}
+ 
+ 	switch (hs_header->page_code) {
+-	case HS_PAGE_FIRM_CAP:
++	case HS_PAGE_FIRM_CAP: {
++		unsigned int old_max_io = mhba->max_io;
++		unsigned int old_ib = mhba->ib_max_size;
++		unsigned int old_ob = mhba->ob_max_size;
++		unsigned int old_list = mhba->list_num_io;
++
+ 		hs_page1 = (struct mvumi_hs_page1 *) hs_header;
+ 
++		/* Firmware-supplied shift counts: (1U << n) << 2 must fit. */
++		if (hs_page1->cl_in_max_entry_size > 29 ||
++		    hs_page1->cl_out_max_entry_size > 29) {
++			dev_err(&mhba->pdev->dev,
++				"invalid handshake entry size\n");
++			return -1;
++		}
++
+ 		mhba->max_io = hs_page1->max_io_support;
+ 		mhba->list_num_io = hs_page1->cl_inout_list_depth;
+ 		mhba->max_transfer_size = hs_page1->max_transfer_size;
+ 		mhba->max_target_id = hs_page1->max_devices_support;
+ 		mhba->hba_capability = hs_page1->capability;
+ 		mhba->ib_max_size_setting = hs_page1->cl_in_max_entry_size;
+-		mhba->ib_max_size = (1 << hs_page1->cl_in_max_entry_size) << 2;
++		mhba->ib_max_size = (1U << hs_page1->cl_in_max_entry_size) << 2;
+ 
+ 		mhba->ob_max_size_setting = hs_page1->cl_out_max_entry_size;
+-		mhba->ob_max_size = (1 << hs_page1->cl_out_max_entry_size) << 2;
++		mhba->ob_max_size = (1U << hs_page1->cl_out_max_entry_size) << 2;
+ 
+ 		dev_dbg(&mhba->pdev->dev, "FW version:%d\n",
+ 						hs_page1->fw_ver.ver_build);
+@@ -1069,9 +1095,35 @@ static int mvumi_hs_process_page(struct mvumi_hba *mhba,
+ 			mhba->eot_flag = 22;
+ 		else
+ 			mhba->eot_flag = 27;
+-		if (mhba->hba_capability & HS_CAPABILITY_NEW_PAGE_IO_DEPTH_DEF)
+-			mhba->list_num_io = 1 << hs_page1->cl_inout_list_depth;
++		if (mhba->hba_capability & HS_CAPABILITY_NEW_PAGE_IO_DEPTH_DEF) {
++			if (hs_page1->cl_inout_list_depth >= 32) {
++				dev_err(&mhba->pdev->dev,
++					"invalid handshake list depth\n");
++				return -1;
++			}
++			mhba->list_num_io = 1U << hs_page1->cl_inout_list_depth;
++		}
++		/* The rings hold max_io entries but the index wraps on list_num_io. */
++		if (mhba->list_num_io == 0 ||
++		    mhba->list_num_io > mhba->max_io) {
++			dev_err(&mhba->pdev->dev,
++				"invalid handshake list depth: %u entries for %u commands\n",
++				mhba->list_num_io, mhba->max_io);
++			return -1;
++		}
++		/* On reset the buffers are not reallocated; reject sizes that
++		 * outgrow them.
++		 */
++		if ((mhba->fw_flag & MVUMI_FW_ALLOC) &&
++		    (mhba->max_io > old_max_io || mhba->ib_max_size > old_ib ||
++		     mhba->ob_max_size > old_ob ||
++		     mhba->list_num_io > old_list)) {
++			dev_err(&mhba->pdev->dev,
++				"handshake sizes grew across reset\n");
++			return -1;
++		}
+ 		break;
++	}
+ 	default:
+ 		dev_err(&mhba->pdev->dev, "handshake: page code error\n");
+ 		return -1;
 
-s/ Release the debug lock before the existing resource cleanup.//
-
-> 
-> KASAN report as below:
-> 
->     BUG: KASAN: slab-use-after-free in string+0x42b/0x470
->     Read of size 1 at addr ffff88810f56fc90 by task python3/506
-> 
->     CPU: 0 UID: 0 PID: 506 Comm: python3 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
->     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
->     Call Trace:
->      <TASK>
->      dump_stack_lvl+0x93/0xd0
->      print_report+0xce/0x630
->      kasan_report+0xe0/0x110
->      string+0x42b/0x470
->      vsnprintf+0x330/0x1110
->      seq_printf+0x1a8/0x260
->      sc_seq_show+0x604/0x9f0
->      seq_read_iter+0x480/0x1110
->      seq_read+0x362/0x5a0
->      full_proxy_read+0x11f/0x180
->      vfs_read+0x1a0/0xc20
->      ksys_read+0x111/0x200
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
-> (User register dump omitted.)
-> 
->      </TASK>
-> 
->     Allocated by task 497:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      __kasan_kmalloc+0xaa/0xb0
->      __kmalloc_cache_noprof+0x28d/0x610
->      o2nm_node_group_make_item+0xea/0x1a0
->      configfs_mkdir+0x762/0xca0
->      vfs_mkdir+0x399/0x7e0
->      filename_mkdirat+0x129/0x450
->      __x64_sys_mkdir+0x70/0xa0
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
->     Freed by task 505:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      kasan_save_free_info+0x3b/0x60
->      __kasan_slab_free+0x5f/0x80
->      kfree+0x308/0x580
->      config_item_cleanup+0x14b/0x230
->      config_item_put+0x79/0x90
->      sc_put+0x454/0x6e0
->      o2net_send_message_vec+0x63d/0x1560
->      o2net_send_message+0xa6/0xe0
->      validation_send_write+0x17f/0x1d0
->      full_proxy_write+0x11f/0x180
->      vfs_write+0x25a/0x1010
->      ksys_write+0x111/0x200
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
->     The buggy address belongs to the object at ffff88810f56fc00
->      which belongs to the cache kmalloc-512 of size 512
->     The buggy address is located 144 bytes inside of
->      freed 512-byte region [ffff88810f56fc00, ffff88810f56fe00)
-> 
-> (Page and shadow-memory dumps omitted.)
-> 
-> Fixes: 2309e9e040fe ("ocfs2/net: Add debug interface to o2net")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-
-The change looks good.
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-
-> Assisted-by: LLM
-> 
-> ---
-> Changes in v2:
-> - Move o2net_debug_del_sc() before socket and node cleanup, as Joseph
->   suggested.
-> - Use the ocfs2/cluster title prefix and describe the races with sequence
->   diagrams.
-> - Add Cc: stable@vger.kernel.org.
-> 
-> Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0065-v4-f45e5cef38dd587b2cfd@gmail.com
-> 
->  fs/ocfs2/cluster/tcp.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/ocfs2/cluster/tcp.c b/fs/ocfs2/cluster/tcp.c
-> index 8b3830b601ba6e5fe964bec970581b8e4ddbb5dd..0eaf2c4a6989ecad00f7a88a66a782b334647f21 100644
-> --- a/fs/ocfs2/cluster/tcp.c
-> +++ b/fs/ocfs2/cluster/tcp.c
-> @@ -393,6 +393,9 @@ static void sc_kref_release(struct kref *kref)
->  
->  	sclog(sc, "releasing\n");
->  
-> +	/* Unlink before freeing anything the debugfs readers dereference. */
-> +	o2net_debug_del_sc(sc);
-> +
->  	if (sc->sc_sock) {
->  		sock_release(sc->sc_sock);
->  		sc->sc_sock = NULL;
-> @@ -402,8 +405,6 @@ static void sc_kref_release(struct kref *kref)
->  	o2nm_node_put(sc->sc_node);
->  	sc->sc_node = NULL;
->  
-> -	o2net_debug_del_sc(sc);
-> -
->  	if (sc->sc_page)
->  		__free_page(sc->sc_page);
->  	kfree(sc);
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+-- 
+2.43.0
 
