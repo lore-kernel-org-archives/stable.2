@@ -1,188 +1,182 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010036.outbound.protection.outlook.com [52.101.85.36])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D2133A9DB2;
-	Wed, 14 Oct 2026 04:53:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.36
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791953629; cv=fail; b=LmzebwCwVjD8awFSyYKvfXEyppJ5c3PeSpPLgwcDhlkSLkzKnLQxqubXVv36cAsG2bPxj/COxU/M0Iplc1kSYhJWRYTiGXPRt/cLNF2mEjo80U/KZ0p8PVOwBVQ7FAkixgAq4uyJIWfRtnsXdv9SbJXyhPu+Rin/hooYLbm/o9I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791953629; c=relaxed/simple;
-	bh=2sVHavMjlXJz/ESN/9IXO6dQNt/z1BPMIt+RwptNEc8=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=me55kSRC6WS5gkxZRMOT6CBLf3ioy3AcmHa9ubJZ4T313S/yY4STBBBmQH/FhO+Xbl7MyCnrWIo6QhkzD5AN8TbNIItNwJZ9KNHoVZhLQs31zs+2UoM3bZVCTk6obOrNX4rEoQPXsTs3Wrvr5vZWKjZA2tVk6cGWOYhvr1JT1Hg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=lNXQ710y; arc=fail smtp.client-ip=52.101.85.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44D4F3BBA05
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 04:56:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791953796; cv=none; b=Y1zIytyvD1MRGIB6CjCx+if9su0eKtoTGHbJdCWnwqvg4MOcQG7vT3Qbi5p8lIbPlfmdz9eJNEsuoJz51bMSnnrdDIQsBWKEG9N+zXjX0VGOCDJtU+d6Ci+fi8QpkdZI+hkaeW6Bv7UUP4Cp2QXhq14rBxnd3UTrAXJql7UVN2s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791953796; c=relaxed/simple;
+	bh=TrQg+o6wa2CcVVkKAsnttl9C+U8MDiRzdNKhFCzLV4M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B3gYAVIRb5mBV1tJ+nd9Ccfv7palwGgJlO70qa7USVXIhAjAjpFNEZR3gWCy46EStfzri2ZyUzQemGN6ES9lLIv5uBuCD/8l7Bo2Z3gjv5Xe8TEtxfmxUKfYot4Rzy6YOnQBtlVQEvS91oxmbGCLa1EcccikSYiTQ15WQRxbgr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V9axJvTo; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="lNXQ710y"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wqYchYNK7bXpGzGIGrljFlqDf7ukVtxEQhYCyqg2q3JwQ4Dm0d9gT0ms3foDqzA7IVWmUsZzmIc39qzEvqUVbZAiDUuI9U/k/v5tWETVIlEWUj2Q2wpIAiX3UACQA/DcEcZM3xlCD87ewIYa3M7w0RsCpGQzTw+lNNfLvxrHS01yGD3C8JwZj8W/7Z/As17u/YCxDKKsZaNI8B8oXFHgcCMq1TxJuuxa1UHoc4SjYIiAk7qJKD6Yh6gPAKfYDRCbHsvvRdSk3rBMI3JlBJ2bxZpOyRcRVSeruhHHfuqmdymP8/xEFJoTTHFleeWmX0UTMC7vnfXTJhkVPev42ytFag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ECTtEfeG6t+RqCD6DpI1ioZJCa/323BEF24WKyyOKFA=;
- b=Vc+NbVBaSvSdJ4UFUtilXDmn4xHKKwu4Zp4cYgZeItZSfMvAWZJoO/4R7qNSzt9+U2+kx0EzRTsUHLzt4rHRRfVku++7dOtKlDBJSTDPnSNgnsjIVAaQrFKwhgcEyTVk9Z67Araa1yUtWvNyS3PtV2Sw21K9XCM+evZZbEEk4fllsqdk88Gz8VNckVfv6Z/xfPPmfdNnrHW6RrwVYnp0WADxY9TH3OIXDiV8z7OyVRABcOKhAqjXTEPa0r6FlDjfvw2+rDB8i00xbsYPjmt1sDdVEYGMHzDSwJVDwZBf52hUDVp8PmMYhb8+15on8AfWjI9Pb1uva3fZEVo+kTzWJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ECTtEfeG6t+RqCD6DpI1ioZJCa/323BEF24WKyyOKFA=;
- b=lNXQ710yoQFsoMZV3Pe0hhxBarKC6nobCczUy3MYAVOD7mA1WmuZj6PtiOd6CspZt0Jg+Fe9ZLxYLFuSDh33ZNxhd47i6u57ochBzulX5OXJAK09mCaAZ5bs3NId47i+0i6jJlgiJpfji+N6Gl2Il0ASam+erKnPpcxqo+XoBe8=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
- by MN2PR12MB4224.namprd12.prod.outlook.com (2603:10b6:208:1dd::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Wed, 14 Oct
- 2026 04:53:45 +0000
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0522.011; Wed, 14 Oct 2026
- 04:53:45 +0000
-Message-ID: <84a84584-404d-4e76-a2fd-65bb4aafab47@amd.com>
-Date: Wed, 14 Oct 2026 10:23:30 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] iommu/amd: Don't allocate kdump device table from
- DMA32
-To: Matt Fleming <matt@readmodwrite.com>, Joerg Roedel <joro@8bytes.org>
-Cc: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Ashish Kalra <ashish.kalra@amd.com>, Sairaj Kodilkar <sarunkod@amd.com>,
- Ankit Soni <Ankit.Soni@amd.com>, Baoquan He <bhe@redhat.com>,
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- kernel-team@cloudflare.com, Matt Fleming <mfleming@cloudflare.com>
-References: <20261013121944.4060097-1-matt@readmodwrite.com>
- <20261013121944.4060097-3-matt@readmodwrite.com>
-Content-Language: en-US
-From: Vasant Hegde <vasant.hegde@amd.com>
-In-Reply-To: <20261013121944.4060097-3-matt@readmodwrite.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0298.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:220::7) To BL4PR12MB9505.namprd12.prod.outlook.com
- (2603:10b6:208:591::16)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V9axJvTo"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2db710396ffso32063985ad.1
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 21:56:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791953794; x=1792558594; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BSW6i2w4Oy60qLb7Zx4Md14I5u5RccmlocFS2yUpAMQ=;
+        b=V9axJvTo/gBL1MAhOqAUEX84TDZbRMlSRBQFb8J/PGpu4XsnJSZUOmcSbnXscjnSEY
+         VSsaXWkjlGfcDXwu9yG44AZ7fUa3URSW9XswLz3+Oq7uD9BqbHevCyYBk6p8BjFAtV7g
+         ngylDqbS8/TR0y7hKPmHrhoi6vW7xymOFg21yu5tLjdpEaPmpIQQJRnRL+Ura8ncI2dh
+         YZuI+74n2zRIxLw16XLKw6uFgYqh8mppzWGIN/Ajlv9m47VW4oedxOGTuSO9g9std+yZ
+         XJoEEOpyDp/8iY2T1CPPDVRV+aLpU1G5oC/xr3y3hj+M0mOwTE4W5amjWWBnVOO39bko
+         ILpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791953794; x=1792558594;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BSW6i2w4Oy60qLb7Zx4Md14I5u5RccmlocFS2yUpAMQ=;
+        b=KK22/A9L0TM0p9BsbHvukiBH860bOSGD8CH4p4YT7qKZPjyTfn7DYLibpaG8TFuIZg
+         6b5PY229k/P/TScZLIPS4JwcrYV7xZa/C/EEKkmS1tJzhbCndnp+6iGmcttWJ8ZhVn6H
+         PfCpWnz8VesjNtJ0Bt17BIx7xa7TDr3Ojv0hSHOU7X1UfhneD/FzBFMDnXbNmLw6zEZu
+         wHWUOfPdCKSzC7o8kazeqia5+3y+1bG14Z9bl7TeShf9zcoc3q5Y4JWEu4wM0cIqf1gd
+         JusC7Y9nnkjjaAPG7thhkjThbNrYkbc//nKs0WvzMyrvcvtxDOhZkv7jc56uVXoJUkFh
+         UQTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw/q5HiWrRmrIkTAouO6SyrwF1yQZZB8n+cHuC5em4r3+ONux+Urp89QXz83bQjqFFXN8L5v38=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLMAQgDse12fGv/YDFoVFYG44JTuv9eZ9PKdfkGJVS6+zWQoOUd
+	qhWau6Y8gvaGnUdHR3V70XdXI2Xqtp8yC30ZeqRs9Lkn9d8ZmYoUD7z4
+X-Gm-Gg: AYBFou2Akn6L3QQw5pD/IEiK88gH4Lxlr7NDvmfa5CPd80LM8IJLx4R7/BX/hwzkXns
+	F17RZ82I+jlcvfRAMipfJUlNWI689F5NGdw67hSzn2S/c4hmoUKmZHgtNWs8C+X5QluOleLzt9L
+	o/VLB37jJKxkUzRUnoT39JUDJr7Gkn64BiGDPdWHSVksHV0h5XWw1H8/rxUk5xqu4MAlwyuEmSx
+	GsFnGaBFjDaps8YdcG2eh8DQ2F2hwXxwYZJnykgh9d9KNJFVCCIJzfkR7zalKGQfpl3WKl8MssA
+	dC7AtDrwdlQgBlzv2GQlex08aZaxo4XpRV4eDQhHv6Wr3euXoRb6D3Vovdon8yfL3Fy2V1o7n2v
+	u+Hu0wAa2rMU8512LGEw5BLUp+S7LCYEXgcPkJl5XmXtsNjraAmsrt27czSPqUc6o05k5g5Kwj4
+	LDg6mA+ahuBKPBiF38N6wDv1UQkX/zAY6F6EbVcPa0c0zfDu1L8nwCXrlbXO4e02N35+6W3+uCJ
+	cLx51W3L0OsxPkurw==
+X-Received: by 2002:a17:903:350d:b0:2e7:4a2f:690a with SMTP id d9443c01a7336-2e8404d4c53mr91842265ad.14.1791953794490;
+        Tue, 13 Oct 2026 21:56:34 -0700 (PDT)
+Received: from rigel (194-223-74-160.tpgi.com.au. [194.223.74.160])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8dd5sm66344525ad.55.2026.10.13.21.56.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 21:56:33 -0700 (PDT)
+Date: Wed, 14 Oct 2026 12:56:24 +0800
+From: Kent Gibson <warthog618@gmail.com>
+To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] gpiolib: cdev: don't record a line direction the driver
+ refused
+Message-ID: <20261014045624.GB13991@rigel>
+References: <20261012-gpiolib-cdev-direction-v1-1-aambrozewicz@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|MN2PR12MB4224:EE_
-X-MS-Office365-Filtering-Correlation-Id: 39355180-0d18-478c-e190-08df29af2030
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|6133799003|18002099003|22082099003|10067099003|4143699003|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	fDkQZosxFI7pLguEIxxNblET+iQsb/kQDz05xzJr0L6w77MqgDjfDbi2Q1oHuXOIOeCTXuP14Az0flBxGi5toHTO3ODlvOCoLKt60pPvl+xvwwK3IJZCfup4QUC9mVcPDCQxHxK332gHS3Ia8E7zkxLUPr8x7TmaOUb3XIT3XtEXWEVv8aTfN1dEsrPj6hnTkBNNt/oj9uArqwoq7gB+tZ5WqDQ/lEQJdfsPpk1CF2mL6U1R0lIveC0J/vmSQ9o3O+XcyvwTJAQrkUwrARrkKKKwemYw9vj3FHFgySxzsYFn7Y3RECSg/2Rjl8sU+e5j/ebixS+uXdyrTPHkgX7JeU2W+IEniIGCN9ng4Q/7WcfZmAbE+wl89lV3nF/mg6GCEpyqgEZEoKYB/x1aLFXt+q7mvCglSsUy0btW+buVPwHrGOz7bX5Ddr9GMbuyJ0WuLJC3vVxBIY2X2SDFypZtH9wDHpL8aCgRBb/OtxJcvY+Y30ksvSA4LVoWdvj87boF3ZxXE+K2aYU4w20xvDzZ5CXS/1f2TmjoCPDDihh72BipOZ7JYK7reAXHTkGanYRKekgLUtRYM4K4jzFYGSROjyf7cy8oSk+zS3/tUnD4FzGpfIB/X5V/eGhw9iPQJy5XcvsvKjla11RWO2rfA4XyXVJDUiKuoXj/olAw+U7bGKk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(6133799003)(18002099003)(22082099003)(10067099003)(4143699003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bDRLMVJNcXE0ZkhRb3MzQW9Ea0dKcVgwVEhxWHp5U2dRN2x4ZEwvK1h2NUxY?=
- =?utf-8?B?SFFITzExSG4zTjRTSUhZTnNXMWZvODdJSWgwK0p3RlFMbVlZaU1ScmhBNXEw?=
- =?utf-8?B?VlBKdXVPTnQ0TllubXltZU41ekw2VkNQZmVROVNHdjdaNVNZd1FRUmZxV0Jw?=
- =?utf-8?B?K1p2K0RXQWlFeGloMGJqcmoxQUdyelBlRlluTGZMWm5zRjB4RnhFTG5iTDMy?=
- =?utf-8?B?WHRKaGh6a2RRSnI2eWFQcUNTeTJSbTBITjh4ZzBack1Hd0pYcHlndk45VzFo?=
- =?utf-8?B?eUxRTk5zU2xlcDd6QkJTV1QzbnBNT1QzNTZEQ3owUHR3Mm1Fc0dVRWhpa3NJ?=
- =?utf-8?B?aEx0ajErb1Y1WjEzUkVBaE50ZGZFZjNZNTBmYkhuZXFIMzZpdE1UWGdLVmQz?=
- =?utf-8?B?Mk5PTTV6SDltZSszdlhLMTlxT1NYbXpuUjByeWtsZFA4TENwdVBMNTRJb1Uv?=
- =?utf-8?B?N2dIUmZoSUxtdzB3eHd0azRPTUpLZVhqcXd5UVk2VmhvSGFNdFZHL2VRSWlQ?=
- =?utf-8?B?UGtpRGNnblZDQkI1VFZNekdLdjBxRnV0UG1hSnFLV0dLdGRGR2NJS1dxRDIv?=
- =?utf-8?B?bWZCVDNhYVdDZDkybDJrQWpybjIvbmFDcXJlMFVDZHFUWlB2TVdRRm9kQld3?=
- =?utf-8?B?bFBHWERGY0hURi9lcUpPZzAzVWdsblA4MHg5VWo3MnBGZnkvdUlPUHYzZUJU?=
- =?utf-8?B?OHNBRnJXWHNqT1BBUTZubzZEUEVXWVRxdUE4YVJKK1lVYXFPeEd0dkhpNzVE?=
- =?utf-8?B?Q3RQRWFHc0pMZFFvTkFhYTZCeGNORGlyZFV0MHJjQ1hVYS9RRzAxSm1LcWNj?=
- =?utf-8?B?VnQ0VGwvdnRMYWN0STRyUE1JVGU4Z2poYkNmMTdCdFNTVHJyTjZGU1BvQVhP?=
- =?utf-8?B?QTFRaHMyM2d0OEFhajFXelVtTlhqRXc3aHNKYUg4Njl5c2hSczIxdjlVcGhW?=
- =?utf-8?B?bG1CeFR4SEVBRTBBNE9KL0NPS0N1ZE9NM2w0UmJTWmIwTE9sVHdySkl6OUJx?=
- =?utf-8?B?bVNLQm5IWE1wYWphTzA4OE8wUkh0YytpQTBON0pGTGRuZXFWNUxYZ2cxVU5k?=
- =?utf-8?B?cEtuR2JzTldocTFOd3R3Z2JYRzZKMi9DOHJWUVVoZUNmaXo4NGNIUVhwcWx1?=
- =?utf-8?B?U2IwZllLeXFLZy9kY3N6M1B1QkNCTXhoOE5FS3ZXNU5uVFNLMTc5Vk9aWXBV?=
- =?utf-8?B?Vk1WK0ZlcE43WVJWbEw2UzNDdHZvSmJBaGoxSUxqL2ZKTUFjaHh3RUdPRnJL?=
- =?utf-8?B?TUQ4ZGdpYzZ1ak9iVWhBQW1YNzZmWCtyb0h4c1FrRitiOXI3SmRhci9HVzFP?=
- =?utf-8?B?TVpyeU1IOEpqOFIxc25kUmRBVm1sdWVIYi9zc1BTcmhkT2VmeFdScjVhVkxv?=
- =?utf-8?B?VnJZZ3Y4ZDEwSTVLWmlYemIzY2JQWG5Cb2dPS1pLL2VIakdNMUc4L0VuWWZI?=
- =?utf-8?B?aldkMjFNVFM1eXVaZXZtQUtTNHd1T2FKdE9ZQ1JVaGozNnE1RTd5V1RnVFg4?=
- =?utf-8?B?b3J1cUFOYTBScGJ4b0NnL1R2TXdRZVNvd0tML3RNZ01XbEZRaUJiaDlrQUEz?=
- =?utf-8?B?L2hwRWhOSVlna3pVK0tZSitUSS9POHBCTEFvaVJVMWhzd1NJZDdmTGVsNndX?=
- =?utf-8?B?QVRyZ3ZCaUlSRDlIcVE2T0xvU3NNOHI4RjNFVlJwMUlSVjIvNUk1TUhDdFVo?=
- =?utf-8?B?YkU4bDNET1pEaDBNeXl4TXRFUm1EdDF6bmE5QVUxaWJDNDlYMWlTSnBwZ0o5?=
- =?utf-8?B?R2VlNWR5aXNvRzBCQVRSbFhlZTgzSmVVY0d0MXo2RU52b1hjdFhqaG1NRUpa?=
- =?utf-8?B?UEU1UlFCUGtYeWJGT0hTamUyVUU4MlJNR0E1amNjVWYxNnBNbndveHp0US9z?=
- =?utf-8?B?SnJtT05LZ0dQU0ZpOEQ5RmFQKzc4YUZxNGxJZGx0ZTNvakZJTGplNGlCekJv?=
- =?utf-8?B?aEc3SEpHVVZ2WVgvVmQ5cUJ2aUFyOWluWU44Wi9iazNjaU1lTkFBbm83VzhC?=
- =?utf-8?B?dTNwank2ZW9lOWpHQzh0WW9CQi9OKzJLUTBPMkc1WnNiRnhKOExBM1MrbnpR?=
- =?utf-8?B?bFh4UnRoY01lMGxXbFZwMVNPczhOWmRwaWNDd2hUTS9FUUFSS3VaM3NyZDRi?=
- =?utf-8?B?cHcrWXhDc3QwblphWklrZnFUT1cvSy9TOFBnaHMrTTd3N0Y0WlU3bmNTejRx?=
- =?utf-8?B?RDhiNkZhL3A1N0N6eW5VZkwvSEZuMUU3SkdjQ2E4dGNLaE5KNS9iU0I1U2JX?=
- =?utf-8?B?MVREYUpoL25wSURUZjBLcThZbE5YVWZEUU1qZkR4Y2ZmSldmcXVNSk9ZblY5?=
- =?utf-8?Q?EaRoyYe7uWvTfdIdeT?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39355180-0d18-478c-e190-08df29af2030
-X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 04:53:44.9812
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SLkaJEYzU5VxnrAX+aKTFwDiVjnaNU7EFy8LRWahB1qmlvOc7sEpaVTC5z0h7T+ZgYmRI83uUErf0DYn7s/+cg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4224
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012-gpiolib-cdev-direction-v1-1-aambrozewicz@nvidia.com>
 
+On Mon, Oct 12, 2026 at 04:49:18PM +0300, Adrian Ambrozewicz wrote:
 
+I would change the subject to "don't set GPIOD_FLAG_IS_OUT" as cdev
+doesn't interact directly with the driver - gpiolib does, and the change
+here is unconditional.
 
-On 10/13/2026 5:49 PM, Matt Fleming wrote:
-> From: Matt Fleming <mfleming@cloudflare.com>
+> When a line is requested or reconfigured through the v2 uAPI,
+> gpio_v2_line_config_flags_to_desc_flags() copies the requested
+> configuration into the descriptor flags, GPIOD_FLAG_IS_OUT included,
+> before gpiod_direction_input_nonotify() or
+> gpiod_direction_output_nonotify() asks the driver for the direction.
+> If the driver refuses, for instance with -EOPNOTSUPP from
+> .direction_input() for a line that can only be an output, the ioctl
+> fails but the flag keeps the refused direction. gpiod_free_commit()
+> does not touch GPIOD_FLAG_IS_OUT, so this outlives the failed request,
+> and GPIO_V2_GET_LINEINFO_IOCTL reports the line as an input while the
+> hardware still drives it, until a request without direction flags
+> makes gpiod_request_commit() read the direction back from the driver:
 > 
-> Booting a kdump kernel with crashkernel=X,high crashkernel=0,low on an
-> AMD system fails the per-segment device table allocation because there
-> is no memory below 4G:
+>   GPIO_V2_GET_LINE_IOCTL, line 0, input:         -EOPNOTSUPP
+>   GPIO_V2_GET_LINEINFO_IOCTL, line 0:            input
+>   GPIO_V2_GET_LINE_IOCTL, line 0, no direction:  ok
+>   GPIO_V2_GET_LINEINFO_IOCTL, line 0:            output
 > 
->   swapper/0: page allocation failure: order:9, mode:0x40104(GFP_DMA32|__GFP_ZERO|__GFP_COMP)
->   iommu_alloc_pages_node_sz+0x7f/0x150
->   alloc_pci_segment+0x4bd/0x650
->   iommu_go_to_state+0x213d/0x34e0
->   amd_iommu_prepare+0x39/0xa0
->   irq_remapping_prepare+0x83/0xd0
->   enable_IR_x2apic+0x61/0x370
+> GPIO_V2_LINE_SET_CONFIG_IOCTL updates the flags in the same order.
+> There the line stays requested, and since commit 92ac7de3175e
+> ("gpiolib: don't allow setting values on input lines")
+> GPIO_V2_LINE_SET_VALUES_IOCTL on it then fails with -EPERM, though the
+> line is still an output. A line whose driver refuses to make it an
+> output is likewise reported as one.
 > 
-> On our E810 systems, the kdump kernel booted but ice MSI-X interrupts
-> never fired and the TX queues timed out.
+> gpiod_direction_input_nonotify() and gpiod_direction_output_nonotify()
+> set or clear GPIOD_FLAG_IS_OUT themselves once the driver has accepted
+> the direction, emulated open drain and open source included, and
+> nothing between the copy and those calls reads the flag. Leave it to
+> them, as the v1 uAPI already does.
 > 
-> Commit b336781b82cc ("iommu/amd: Allocate memory below 4G for dev table
-> if translation pre-enabled") allocated device tables below 4G. At the
-> time, the kdump kernel programmed a copy of the old table into the base
-> register with the IOMMU still enabled. The 64-bit register is updated
-> as two 32-bit halves, so the running IOMMU could see a half-written,
-> invalid table pointer. Keeping both tables below 4G leaves the upper
-> half zero throughout the update, so the pointer stays valid.
+> The other flags that the helper copies stay as they are. Active low,
+> drive and bias are what gpiod_direction_*() applies, drive and bias
+> possibly before the driver refuses the direction; edges and event
+> clock are the character device's own. None of them is read back from
+> the driver, so there is no earlier state that is more accurate to go
+> back to. A failed request releases the line, which clears them, and a
+> failed reconfiguration leaves the line, like the lines before it, with
+> what was applied up to the failure.
 > 
-> Since commit 38e5f33ee359 ("iommu/amd: Reuse device table for kdump")
-> the kdump kernel reuses the previous kernel's table without writing the
-> base register, so its newly allocated table is discarded when reuse
-> succeeds. If reuse fails, the previous patch programs the new table only
-> after disabling the IOMMU. Either way, the kdump kernel's table doesn't
-> need to be below 4G.
+> Reproduced under QEMU with a test GPIO chip whose line 0 refuses input
+> and line 1 refuses output: both refused requests and both refused
+> reconfigurations leave the line info with the refused direction, and
+> setting the value of the reconfigured output fails with -EPERM. With
+> this change the line info shows the direction of the hardware in all
+> four cases and setting the value works. First seen on real hardware
+> with v6.12.
 > 
-> The previous kernel still allocates its table from DMA32, so the kdump
-> kernel's check that the old table is below 4G still works. Drop
-> GFP_DMA32 for kdump kernels only.
+> Fixes: 3c0d9c635ae2 ("gpiolib: cdev: support GPIO_V2_GET_LINE_IOCTL and GPIO_V2_LINE_GET_VALUES_IOCTL")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+> ---
+>  drivers/gpio/gpiolib-cdev.c | 9 ++++-----
+>  1 file changed, 4 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpio/gpiolib-cdev.c b/drivers/gpio/gpiolib-cdev.c
+> index 5d53bfcdf726..9bbee3a1f9c9 100644
+> --- a/drivers/gpio/gpiolib-cdev.c
+> +++ b/drivers/gpio/gpiolib-cdev.c
+> @@ -1226,14 +1226,13 @@ static void gpio_v2_line_config_flags_to_desc_flags(u64 lflags,
+>  {
+>  	unsigned long flags = READ_ONCE(*flagsp);
+>  
+> +	/*
+> +	 * GPIOD_FLAG_IS_OUT is left to gpiod_direction_input/output(), which
+> +	 * only update it once the chip has accepted the direction.
+> +	 */
 
-This one is OK as its regression fix. But with all the changes went in I am
-wondering why we need GFP_DMA32 flag for allocation. There are only two cases
-where transactions may be enabled:
-  - During boot (BIOS enabled DMA) : kernel will disable IOMMU before
-configuring device table base address w/ new value
-  - During kdump : We are reusing previous kernels device table. If it fails
-then kernel will disable IOMMU and re-configures it with new vlaue.
+Not a fan of comments describing why code that should not be here is not
+here.  The equivalent functions linehandle_flags_to_desc_flags() and
+gpiod_configure_flags() don't have any mention of GPIOD_FLAG_IS_OUT, so
+why here?
 
-Anyway, we will look into it in detail and run more experiments. For now this
-fix is fine. With that,
+If this is part of a policy change to "gpiolib should manage GPIOD_FLAG_IS_OUT"
+then gpiolib.h would be a more appropriate location.
+Not that I'm suggesting adding such a comment - just that a comment here is
+wrong for multiple reasons.
 
-Reviewed-by: Vasant Hegde <vasant.hegde@amd.com>
+>  	assign_bit(GPIOD_FLAG_ACTIVE_LOW, &flags,
+>  		   lflags & GPIO_V2_LINE_FLAG_ACTIVE_LOW);
+>  
+> -	if (lflags & GPIO_V2_LINE_FLAG_OUTPUT)
+> -		set_bit(GPIOD_FLAG_IS_OUT, &flags);
+> -	else if (lflags & GPIO_V2_LINE_FLAG_INPUT)
+> -		clear_bit(GPIOD_FLAG_IS_OUT, &flags);
+> -
 
--Vasant
+Having gpiolib manage GPIOD_FLAG_IS_OUT to keep it consistent with the
+driver state makes sense, so no problem with the code change itself.
 
+Cheers,
+Kent.
