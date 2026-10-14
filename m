@@ -1,115 +1,146 @@
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68E72741A0
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 01:40:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3D5313E2C
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 01:44:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791942022; cv=none; b=n0+FPFLkPvwcfZ6MZTCac5qzQv05dWP7AZctszVHRVi1hJ+4AXxAB5J7vbUes7lGaD77IfNfdxjgIamotm+gHYGZ171pr+UCwByWyosegJ3xdS1L7JTqkfnevmcDID/NfGa+HoWHYzIevZMBGDZwyYkpmSl6tIYwQo7DG5YU71M=
+	t=1791942255; cv=none; b=ZwLx99r2Qsp1UQtMqfMQ+UAoZOWVAIoANRS/5slcLPiM1aPzQtoOm6dnu8BQ3TMTRMRdIPGQUL7sKZeugG3VM8bYdkTCDNxIN3ULRITvliwbPaQgjs6X1APhlCq6ypDVCTiZCEKKCi08iHGXcfOwPNQmmfAqDbzSlb1bRWZ9CB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791942022; c=relaxed/simple;
-	bh=YoN78TWBlmpx0A6DZIRcttrESlXSOSTvIOjKF9tTnoE=;
-	h=Mime-Version:Subject:From:To:CC:In-Reply-To:Message-ID:Date:
-	 Content-Type:References; b=h2l2FMsWYv8U2EiYcE/b/RxkUQGs2Q3oOeeIohy3k6pSyjO5nNO0U16X+gr8r7Q7oCB6i5FPDdd/eNi+/a7mwBmbggfg93oJ4E/2RBebTgx/TdLXOaWdF6Mn8MDzYuFf8OemGAe/KGa0PHTZJwcMRaQi2DwKN6xWuCr2gqd9af4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=iBiXfFju; arc=none smtp.client-ip=203.254.224.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1791942255; c=relaxed/simple;
+	bh=pZLuHo5ZWjv39EmAfep7f0DI3I6NdzNmEzWVgKx/rls=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Pt/G4dANXMIs7p88391GmZ57dcH4WK1+gaUw1iYCGuC19Iampurno++Iv0MkRKLfl54g8tHCWQr0H/wMFEHE++4syiuxIli5IuCbJOUyS0SJn7qesCK+6vrHguE7hodsLcEBdH81aykCCymtub4g4hIwlUzuBZEURhCID1X0RPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=voidship.net; spf=pass smtp.mailfrom=voidship.net; dkim=pass (2048-bit key) header.d=voidship-net.20251104.gappssmtp.com header.i=@voidship-net.20251104.gappssmtp.com header.b=qkRM41ms; arc=none smtp.client-ip=209.85.160.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=voidship.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=voidship.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="iBiXfFju"
-Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261014014018epoutp028938abe95f4fecb2f518003e1f191afb~eQcWa9WdF1348213482epoutp02C
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 01:40:18 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261014014018epoutp028938abe95f4fecb2f518003e1f191afb~eQcWa9WdF1348213482epoutp02C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791942018;
-	bh=1d+d0jVHgB0EadQMkTGvrSCW+JV5YjB/dJMefH+YkxU=;
-	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
-	b=iBiXfFjuvp/91UceZp/C0Ow1sIBAEGzLqydF9emm/GvnYF2JeNMEywCjIomPbgqE8
-	 kc3gZ8THLPH17D/01CW1kccTR5PFyF7pGBWSTdk88Uy8DzpxAyrGw7ncCXySaFKLK8
-	 BCKlUdb4DUSqhknqrg5/2+GQ2hLKmHwA8AmiMIGQ=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
-	20261014014017epcas2p24aaeaae47c415e988a530ec528956580~eQcVs79Zi3261832618epcas2p2D;
-	Wed, 14 Oct 2026 01:40:17 +0000 (GMT)
-Received: from epcas2p4.samsung.com (unknown [182.195.38.211]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4j4DRP4mnxz3hhT4; Wed, 14 Oct
-	2026 01:40:17 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=voidship-net.20251104.gappssmtp.com header.i=@voidship-net.20251104.gappssmtp.com header.b="qkRM41ms"
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-53391022dc0so41493091cf.2
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 18:44:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=voidship-net.20251104.gappssmtp.com; s=20251104; t=1791942252; x=1792547052; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Dlj6aFpIYGfY0eqR7kOi/l3Gq5Y654XQkcpULmP78WM=;
+        b=qkRM41msFbZxLdCCQXtPBrNJXZlirtPFWl+68p+vcX4rPpYR60J3jGXOYO3gt2awAk
+         vGwDQek6LAhnthSebka1pgXWfFkR7yqaFvu/VuWe1AOlVs4GKaa9teaEX4pJAZ22lPsd
+         xfv1tdGwUZp2CbMLXnsIHvcBhUzRSQld1LxVHDtQtyaat8+Tt58vgpdGHlOfDnfB16Ei
+         GfjYfhjhFHiuknz9dNcUx+KH+G0F+XXzQPkzVQaEtf5N2QQZAln71owJ/GgTNgFbe6OP
+         5RenyIQOFhdeZwBtv0EJbrogu8HtdgbVR9P2lHunBEYpoG4Q7ingji9NU3YD6Ol7DXG3
+         b4ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791942252; x=1792547052;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Dlj6aFpIYGfY0eqR7kOi/l3Gq5Y654XQkcpULmP78WM=;
+        b=dpSkkcQDYfJ5ggUzJDxzyS7XB40tXJeKFUHNHuWRaYGiix5FwK8PVqlXPKPtXyYezR
+         LNbsERygkzbeUuFpevLtX3+kZY+3KrhGAcW40i2WHne23ffmPx7ddJAuBGnhz4vjYTsi
+         32Jx7ZCkYpLEeXLrkBMUmsXUjJulgvbdnf7+BhT8pSwW+OZqRaVUkcq7IA+18B6t7h6w
+         N+vsSh7SZMEVTEnUyrJiVZfPCLATj897UYPLj5ngKXwVDhUsENdLNddDCV7PULcElZM2
+         qIgaRyiXh62hVs7pecH2N2rmClzEWmJuKNN4CsWbDSGonlGf+P/Y19/yCRYNMGLzvXVi
+         rzNw==
+X-Forwarded-Encrypted: i=1; AKwUvBzoZTqw9YzTrAR7QMV86WNURgmpj1BEJ+PVrKiJ/tODGPjyyVS7n1B1S/LuAQfCmJl/V354wXA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLzp0hKcshpySvrHTIXGAxA8X06RsFAXkGtbPo5m72eKMmYQc0X
+	bFucOZzUkLlMGuX9ywusfVR0P3/0AQmeJKDbjmnMwjuMzF2cfUCLDYCIyNyKaBZQhzI=
+X-Gm-Gg: AYBFou2HV2qTvz9mAMmALxL4iOZob1zI6VDCpiqaON9zQ0xrICifwhbZmy63BB0kRJ+
+	y4iYvBhj8MhUH+jxRJkPnxTYEOyKYIGSlyqs8s4dJR9R/myUq6Ug7E22U3At2lvCXLwdk1RZPcT
+	5A3+hOdx+gfPCyerP86qw+lP7c0rlgEiwXKoM7k9tw3A6x4kht9X5uAXlRtM1XMZ7ZIO09641+L
+	YRg1zUnp+qPwBlo2X6wuTHNfKl2ytoWX7nnLl6xc/Qd0yRtQL8TsAC6nNRq+U/S5LTmqOtF9WMl
+	69apfrWLi5JkINw0dhkGs7ODTWezrYuRhp65IcwTPHOipwtR6fQsxGSZ05tr00U+MTeYryU6Hpa
+	UYUw3qPPoPhbhck6slt3FBi1GjGSgt12ZIAyRKrmqZ5vBDIaIqaGbAZMDn2sUK8UfKOp99Yxgjw
+	xYhKLvbjAQ5RBX+7f5OVAUb3DbriWCC2r2MwspoCH2P8pGX/UoFpOCFehR958grUKHVRI6XcrhY
+	o3ULIXZ3/sYtE9MyERx/fNZH5uXnDD6QEvdI4/m
+X-Received: by 2002:ac8:5743:0:b0:533:90df:fda3 with SMTP id d75a77b69052e-535fc8a0915mr24634181cf.50.1791942252446;
+        Tue, 13 Oct 2026 18:44:12 -0700 (PDT)
+Received: from boomzilla (dynamic-acs-24-101-237-49.zoominternet.net. [24.101.237.49])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97c4a7d9sm40377936d6.47.2026.10.13.18.44.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 18:44:12 -0700 (PDT)
+From: Karlos Abel <kabel@voidship.net>
+To: dmitry.torokhov@gmail.com,
+	mpearson-lenovo@squebb.ca,
+	hmh@hmh.eng.br
+Cc: derekjohn.clark@gmail.com,
+	hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	platform-driver-x86@vger.kernel.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	stable@vger.kernel.org,
+	sashiko-bot@kernel.org
+Subject: [PATCH] platform/x86: thinkpad_acpi: Sync initial switch states
+Date: Tue, 13 Oct 2026 21:44:09 -0400
+Message-ID: <20261014014409.14579-1-kabel@voidship.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <98c68af25f9fc08500eb818a6d77d0d7@gmail.com>
+References: <98c68af25f9fc08500eb818a6d77d0d7@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Subject: RE:(2) [PATCH] xfs: refuse a pNFS LAYOUTCOMMIT of a range without
- blocks
-Reply-To: daejun7.park@samsung.com
-Sender: Daejun Park <daejun7.park@samsung.com>
-From: Daejun Park <daejun7.park@samsung.com>
-To: Christoph Hellwig <hch@lst.de>
-CC: Carlos Maiolino <cem@kernel.org>, "linux-xfs@vger.kernel.org"
-	<linux-xfs@vger.kernel.org>, "Darrick J. Wong" <djwong@kernel.org>, Dave
-	Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton
-	<jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>, Sergey Bashirov
-	<sergeybashirov@gmail.com>, "linux-nfs@vger.kernel.org"
-	<linux-nfs@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>, Daejun Park <daejun7.park@samsung.com>
-X-Priority: 3
-X-Content-Kind-Code: NORMAL
-In-Reply-To: <20261013120359.GB2944@lst.de>
-X-CPGS-Detection: blocking_info_exchange
-X-Drm-Type: N,general
-X-Msg-Generator: Mail
-X-Msg-Type: PERSONAL
-X-Reply-Demand: N
-Message-ID: <20261014014017epcms2p7ab0ff4f1356d695c55514bd7ccaebadf@epcms2p7>
-Date: Wed, 14 Oct 2026 10:40:17 +0900
-X-CMS-MailID: 20261014014017epcms2p7ab0ff4f1356d695c55514bd7ccaebadf
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-223,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261013120408epcas2p19974f8ffd4afa0b0cc5a4f19e9218004
-References: <20261013120359.GB2944@lst.de>
-	<20261013-xfs-pnfs-commit-hole-v1-1-740912db9102@samsung.com>
-	<CGME20261013120408epcas2p19974f8ffd4afa0b0cc5a4f19e9218004@epcms2p7>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 02:03:59PM +0200, Christoph Hellwig wrote:
-> blockgc really should not free them due to the prealloc inode flag.
-> Do you still see that with your prefix flag setting fix?  If so we
-> have a deeper problem.
+hotkey_init() reports the initial switch states before registering the
+input device, but does not terminate the packet with input_sync(). Since
+input event buffers are allocated before registration, these events can
+remain queued until a later SYN_REPORT.
 
-I don't see it with "xfs: mark the inode preallocated for pNFS write
-layouts past EOF" applied: in the same test, blockgc keeps the blocks
-and the LAYOUTCOMMIT succeeds with the client's data in place. The
-sentence was about trees without that patch, so I'll drop it in v2 and
-keep the reclaim case and the range that was never laid out.
+On a ThinkPad, a userspace LED update and SYN_REPORT delivered the initial
+SW_RFKILL_ALL=1 event to the rfkill input handler after registration. This
+undid a software radio block that had already been applied.
 
-> It would be great to get these included in pynfs.
->
-> Also a little doc on your setup to run pynfs in client mode against
-> nfsd with block/scsilayout would probably useful.
+Call input_sync() after reporting the initial switch states to flush the
+packet before input handlers attach. This requires the input-core fix to
+accept EV_SYN events before registration.
 
-Sure, I'll send them to pynfs with a short README section on the setup,
-on top of the block layout test I posted earlier:
-https://lore.kernel.org/r/20261006002622epcms2p38e492aef17fdf79e48b05c9aada2918d@epcms2p3
+Fixes: 0cd587735205 ("Input: preallocate memory to hold event values")
+Cc: stable@vger.kernel.org
+Suggested-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Link: https://lore.kernel.org/r/98c68af25f9fc08500eb818a6d77d0d7@gmail.com
+Assisted-by: LLM
+Signed-off-by: Karlos Abel <kabel@voidship.net>
+---
+This is the companion driver change requested in the linked discussion.
+It depends on Dmitry's "Input: always accept EV_SYN in input_event()":
+https://lore.kernel.org/r/asx50uz6iafsyAd5@google.com
+The prerequisite patch ID is included below.
 
-> As soon as we drop the lock, the result might be stale.  So I suspect
-> we want a CONVERT_ONLY flag to xfs_bmapi_write that makes it refuse
-> to allocate blocks instead in one atomic operation.
+Validation on 3857c2fe5449 plus that core patch:
+- KUnit/UML: all six input tests pass with lockdep enabled. The two
+  regression tests fail with either the core change or the pre-registration
+  sync removed, and with both removed.
+- The tests model the driver's event sequence with a virtual input device;
+  they do not execute hotkey_init() or operate real radios.
+- The actual ThinkPad driver object builds without warnings with W=1,
+  configured both built-in and as a module (x86-64/GCC).
+- No new physical-hardware run of this pair yet.
 
-The IOLOCK held across both keeps truncate, fallocate and blockgc out
-today, but the flag doesn't depend on that, so v2 does it that way:
-xfs_bmapi_write() takes a new XFS_BMAPI_CONVERT_ONLY flag that fails for
-a hole or a delalloc extent instead of allocating, and
-xfs_fs_commit_blocks() passes it through xfs_iomap_write_unwritten().
+AI assistance covered the change, message, and regression validation.
 
-One difference from v1: a LAYOUTCOMMIT with a laid-out range followed by
-a hole now converts the laid-out range before it fails.
-xfs_fs_commit_blocks() already left earlier extents converted when a
-later one failed, and the Linux client resends all of its extents after
-a failed LAYOUTCOMMIT, so I don't think that matters.
+ drivers/platform/x86/lenovo/thinkpad_acpi.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+index 1661f070c..ea8679398 100644
+--- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
++++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+@@ -3497,6 +3497,7 @@ static int __init hotkey_init(struct ibm_init_struct *iibm)
+ 		input_report_switch(tpacpi_inputdev,
+ 				    SW_TABLET_MODE, tabletsw_state);
+ 	}
++	input_sync(tpacpi_inputdev);
+ 
+ 	/* Do not issue duplicate brightness change events to
+ 	 * userspace. tpacpi_detect_brightness_capabilities() must have
+
+base-commit: 3857c2fe5449541e24afc5efdb0f81a8a8f9a3a0
+prerequisite-patch-id: f8539bd5b5201ef9795823552ba68a73b7dd6298
+-- 
+2.56.0
+
