@@ -1,52 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E9554A3F37;
-	Wed, 14 Oct 2026 08:15:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4424F33D6F0;
+	Wed, 14 Oct 2026 08:25:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791965744; cv=none; b=UN3yIn/Qu9UeLbTmAHKLGmTMp7qpVZtT5rxESsdjadHgx/9E3rqrJa1dc3QU3QF3OGHryuU6W6SyMVFeGwp/PhAjwiQPTYRbK8RPwXWwjvQ4wYsxEvesyIDe4b1QEj2Qu6tXXPLQ4bvpEDgGnu3ZVBE3vjx/nrQZaCRkgYrhmRY=
+	t=1791966359; cv=none; b=Hlia471pNx+xFZ1eh88QKbd6LUIOmpR6R/to52EX20ZTA+uN5mlIfv7eVxz8c51rBhWLJY74g+xL+Y3LFkbhXzz25BAA0rw7uhgiILsx2PIkhCKySmAUx7V76jBQdPq2udY+OuFDS78IdevDVoUWqPLo0FbPrkoXcIW9XTr7S8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791965744; c=relaxed/simple;
-	bh=GkU1sRPAtfTEmXL4qSPPLZPsdl96Q4Lac2iBktml0Ic=;
+	s=arc-20240116; t=1791966359; c=relaxed/simple;
+	bh=pRjUQmX5fgxdggDGPVnjqIoX7rvR4GtuVghx7SmOJwU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FKmiswCDAzJidg9ttE0bw8DeZuGdfsGdiSISr95YJZ4wK90KlhSgjPLEOmeVtkvKuMMKLF37S1qqS4/JCQWnB8vJYyek+mELsX/SjnSJQ/6bW9riBk5poqel+Kam505StopIof/TSH/b6PlK1iUvUbTjmID+bjtmfrxaq3Z6FnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CSJl3MeR; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ul59AND9L2mD834guuncZw9igcGTpzQ30PVk47ORf3jVgsSuj0u82I45NrrbuK5bbY8U3Pop5vbosxXDX1P1CVJx1HwlKy+/0weoU1YOEyUy2EA9gxzrMP9taDTG7DdKExmNcKvGP7xb1p530OqCTPrGCbI8AuNoOpVmlG3pQ5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HztVtRGR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CSJl3MeR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C24751F000FF;
-	Wed, 14 Oct 2026 08:15:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HztVtRGR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBC061F000FF;
+	Wed, 14 Oct 2026 08:25:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791965741;
-	bh=Ff39rq+Xpt06s7hBPSrU8RkdhlGjanvDISSNw4ovMXs=;
+	s=k20260515; t=1791966357;
+	bh=09DAzaX4Fuwb3+q7JqnXIJERvX0WipHFdF2tSk1f5PQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CSJl3MeRFF/uoT0lJLFtTDzgeg2prznlo/FAxT/13QRHml9kWrsMyTR1aX6gkryTA
-	 vajvvcXVrjHNW4JLG4XTUnOQEOXtYVFeThmTF3Zh6SFyo7CZUTOWx9f5YlIXTAVvHf
-	 brtYZZzX3AIGT/IUZlqY4TGNhnnH2/TzbdHaRGsdhx1c9kZGW14hquYDgnzvR7ulJz
-	 6TMLtSaAlkfviMDC+pVjfYcQaXT99yPUOESJW9HdhA0h1O7/jNrNA7QntpmRQyQVDq
-	 X7oLyiO3GXtfKNkH3eBdyelbUl1z3etzfByagCYPqD0VMdPz3YFvxkA6U3zo+LvNEM
-	 vWGuYIwdkx4iw==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xGu9D-00000005HL7-1Jsj;
-	Wed, 14 Oct 2026 10:15:39 +0200
-Date: Wed, 14 Oct 2026 10:15:39 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Alan Stern <stern@rowland.harvard.edu>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	driver-core@lists.linux.dev, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mario Peter <mario.peter@leica-geosystems.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] driver core: take parent lock on deferred probe
-Message-ID: <as86K1qm1sHtgTFL@hovoldconsulting.com>
-References: <20261013140615.1226992-1-johan@kernel.org>
- <DM3WA69YX6WE.2Q4DY9MIU7A0L@kernel.org>
- <ba24846a-7403-4bb1-a0cb-869cf1d44e05@rowland.harvard.edu>
- <DM40HVOBKMFI.3W1DK371ZWI80@kernel.org>
+	b=HztVtRGRSkW14xPT57UXWv1t8tHSSvSovydaOYLHlXnyh8KB/GRhlbB9yOzmRHaIM
+	 Y7Nlec/09F/zk7iskEkoPCwUIYQjtGVyCxVmVDhFhoGEJVAvplcLlojv3L6qxLdcH9
+	 FNOmS5A3lWtq8o9WxNBql4DUlKHJLNmTm5d2bFsiMBgLRG3Qa2Un7hFiRtvNpRCKft
+	 b99E0jtabF9MErkfAb6ORDhYdNEz7fMQPUAcb8qfObYVKKibt9KGoeVGz3IfTgc0K2
+	 fjJ94ODnjuirzMHX30X+3zDv6EVpc1+yDrLr9yKcpXehtNiGH68U2ih+TaZNIdo1Y4
+	 fehOy4h2F2LvQ==
+Date: Wed, 14 Oct 2026 10:25:53 +0200
+From: Carlos Maiolino <cem@kernel.org>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 06/12] xfs: only written file data blocks can be shared
+Message-ID: <as83KAiPFgW0ZCSF@nidhogg.toxiclabs.cc>
+References: <179186107061.1898400.3978552773417541744.stgit@frogsfrogsfrogs>
+ <179186107268.1898400.2017479521256451856.stgit@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,93 +42,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <DM40HVOBKMFI.3W1DK371ZWI80@kernel.org>
+In-Reply-To: <179186107268.1898400.2017479521256451856.stgit@frogsfrogsfrogs>
 
-On Tue, Oct 13, 2026 at 11:01:16PM +0200, Danilo Krummrich wrote:
-> On Tue Oct 13, 2026 at 9:11 PM CEST, Alan Stern wrote:
-> > On Tue, Oct 13, 2026 at 07:43:08PM +0200, Danilo Krummrich wrote:
-> >> On Tue Oct 13, 2026 at 4:06 PM CEST, Johan Hovold wrote:
-> >> > +void bus_probe_device_deferred(struct device *dev)
-> >> > +{
-> >> > +	if (dev->parent && dev->bus->need_parent_lock)
-> >> > +		device_lock(dev->parent);
-> >> 
-> >> This looks like it has the same potential UAF as the other patch.  It's quite
-> >> unfortunate we need the whole need_parent_lock thing just for USB.  IIUC the
-> >> main reason USB needs this is because interface devices share resources of USB
-> >> devices and we need to keep the locking order to avoid inversions, right?  Is
-> >> there more to this from the USB side of things?
-> >
-> > That's pretty much it.
-> >
-> >> I think we can probably do something like this
-> >> 
-> >> 	struct device *parent = NULL;
-> >> 
-> >> 	scoped_guard(device, dev) {
-> >> 		if (dev->p->dead)
-> >> 			return;
-> >> 	
-> >> 		if (dev->bus->need_parent_lock)
-> >> 			parent = get_device(dev->parent);
-> >> 	}
-> >> 
-> >> to avoid the problem, but it's still a bit ugly.
-> >> 
-> >> > +	__bus_probe_device(dev);
-> >> > +	if (dev->parent && dev->bus->need_parent_lock)
-> >> > +		device_unlock(dev->parent);
-> >> > +}
-> >
-> > Wouldn't it be simpler just to make each USB interface take a reference 
-> > to its parent device?  And likewise for USB devices, if needed?
+On Mon, Oct 12, 2026 at 11:06:46PM -0700, Darrick J. Wong wrote:
+> From: Darrick J. Wong <djwong@kernel.org>
 > 
-> The driver core already holds a reference count of the parent between
-> device_add() and device_del(), which is where a "parent" is technically defined.
-> But the deferred retry can extend beyond device_del().
-
-Yeah, but we could take a reference also to the parent under the
-deferred_probe_mutex in deferred_probe_work_func().
-
-And similarly, the device should be registered when __device_attach() is
-called so that we can take another parent reference for async probing.
-
-We do however have this bug already today for some other cases.
-For example, bus_add_driver() loops over all devices on the bus, but
-only checks if the device is dead after __driver_attach() has already
-taken the parent lock.
-
-> USB interfaces already take an additional reference to their USB device in
-> usb_set_configuration() and drop it in usb_release_interface(), so they should
-> already be protected against this particular UAF.
-
-Right.
-
-> The issue concerns a USB device and its parent hub's USB device.  (This makes me
-> wonder whether probing a USB device actually requires the parent USB HUB
-> device's lock to be held, or whether this is just a consequence of sharing the
-> same usb_bus_type?)
-
-Indeed. We could consider making this a device type attribute instead
-and move it to usb_if_device_type. May speed up USB enumeration for
-people using async probe too.
-
-> In theory a USB device could also keep a reference count to its parent, but then
-> the driver core code would rely on an implementation detail of its users; I'd
-> prefer not to make driver core's access to dev->parent depend on references
-> maintained by individual subsystems.
+> LOLLM noticed that xchk_refcountbt_rmap_check (and its rt equivalent)
+> will count any rmap owner towards the shared count.  However, the only
+> blocks that can be shared between xfs files are written file data
+> blocks; and the only blocks that can have single-refcount entries are
+> COW staging extents.  Fix the checking code.
 > 
-> I'd even go a step further any say that if subsystems try to keep this pointer
-> valid beyond what's guaranteed by the driver core, they should do this with a
-> separate bus specific pointer.  The reason is that otherwise the lifetime and
-> ownership definition of this pointer does not depend on API contracts, but on
-> individual implementation details, which is a very common source for all kinds
-> of bugs.
+> Cc: <stable@vger.kernel.org> # v4.16
+> Fixes: dbde19da963706 ("xfs: cross-reference the rmapbt data with the refcountbt")
+> Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
+> Assisted-by: LOLLM # finding obvious bugs
 
-But it's driver core that needs the extra reference. It seems
-reasonable to require that any subsystem that sets a new
-type->need_parent_lock also makes sure that any device of that type
-holds a reference to its parent. And importantly, it's already the case
-for the only user of this feature today (i.e. USB interfaces).
+This patch conflicts with Eric's:
 
-Johan
+1d55a102780 xfs: re-use refcount scrub/repair code for rtrefcount
+
+I'm just stripping off the rtrefcountbt part of this, the final result
+is here:
+
+commit 634b63baf05062988456a0bd5df2696c14ea2949
+Author: Darrick J. Wong <djwong@kernel.org>
+Date:   Mon Oct 12 23:06:46 2026 -0700
+
+    xfs: only written file data blocks can be shared
+
+
+
+> ---
+>  fs/xfs/scrub/refcount.c   |   12 ++++++++++++
+>  fs/xfs/scrub/rtrefcount.c |   12 ++++++++++++
+>  2 files changed, 24 insertions(+)
+> 
+> 
+> diff --git a/fs/xfs/scrub/refcount.c b/fs/xfs/scrub/refcount.c
+> index f8c51d8fbb3da5..a900d13c9e27c0 100644
+> --- a/fs/xfs/scrub/refcount.c
+> +++ b/fs/xfs/scrub/refcount.c
+> @@ -129,6 +129,18 @@ xchk_refcountbt_rmap_check(
+>  		return 0;
+>  	}
+>  
+> +	/*
+> +	 * The refcount btree should only have records for written file data
+> +	 * blocks or for COW staging blocks.
+> +	 */
+> +	if ((XFS_RMAP_NON_INODE_OWNER(rec->rm_owner) &&
+> +	     rec->rm_owner != XFS_RMAP_OWN_COW) ||
+> +	    (rec->rm_flags & (XFS_RMAP_ATTR_FORK | XFS_RMAP_BMBT_BLOCK |
+> +			      XFS_RMAP_UNWRITTEN))) {
+> +		xchk_btree_xref_set_corrupt(refchk->sc, cur, 0);
+> +		return 0;
+> +	}
+> +
+>  	if (rec->rm_startblock <= refchk->bno && rm_last >= rc_last) {
+>  		/*
+>  		 * The rmap overlaps the refcount record, so we can confirm
+> diff --git a/fs/xfs/scrub/rtrefcount.c b/fs/xfs/scrub/rtrefcount.c
+> index 3d916d71a135dc..00da8e98506d63 100644
+> --- a/fs/xfs/scrub/rtrefcount.c
+> +++ b/fs/xfs/scrub/rtrefcount.c
+> @@ -144,6 +144,18 @@ xchk_rtrefcountbt_rmap_check(
+>  		return 0;
+>  	}
+>  
+> +	/*
+> +	 * The refcount btree should only have records for written file data
+> +	 * blocks or for COW staging blocks.
+> +	 */
+> +	if ((XFS_RMAP_NON_INODE_OWNER(rec->rm_owner) &&
+> +	     rec->rm_owner != XFS_RMAP_OWN_COW) ||
+> +	    (rec->rm_flags & (XFS_RMAP_ATTR_FORK | XFS_RMAP_BMBT_BLOCK |
+> +			      XFS_RMAP_UNWRITTEN))) {
+> +		xchk_btree_xref_set_corrupt(refchk->sc, cur, 0);
+> +		return 0;
+> +	}
+> +
+>  	if (rec->rm_startblock <= refchk->bno && rm_last >= rc_last) {
+>  		/*
+>  		 * The rmap overlaps the refcount record, so we can confirm
+> 
+> 
