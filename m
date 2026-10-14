@@ -1,293 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010036.outbound.protection.outlook.com [52.101.85.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECCA730DEA3;
-	Wed, 14 Oct 2026 04:50:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791953409; cv=none; b=NaCDLE6sjVbc/AFPMJ8a1LwOph/XhnVeZL8YBa37QE59w0LB9BK1U/Pfzq5ek1mQj70fOjt8k2/b522LyxZQ08krOufhoW7C75kSer7+LKcgk9lBeiWnpgFAAfqnyRRufGiNfvcarbEhhr0nBw29BqlmziuxqXUdbbSoEGa9th0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791953409; c=relaxed/simple;
-	bh=lSs7B+ZA8LBp/9Mh53EedF5/69EojGfW74Qk0Mje+ag=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CnKqEyRlR2WskkEs+alM9fCQ1p1x5gXav+atHcgvO84nJr5Hf3OCxC00xWl3iC8E3sxVIRfXWMWaxg3OyxhRxxKwWRS4miHRvzh+W+wBM96JnyBtZTXb+3I2k7MibCsWSx4CDD7NLwdvG0KLH5Fe/APc/yxnd6ygl1cm9eKuw6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QjI5wdcl; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D2133A9DB2;
+	Wed, 14 Oct 2026 04:53:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.36
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791953629; cv=fail; b=LmzebwCwVjD8awFSyYKvfXEyppJ5c3PeSpPLgwcDhlkSLkzKnLQxqubXVv36cAsG2bPxj/COxU/M0Iplc1kSYhJWRYTiGXPRt/cLNF2mEjo80U/KZ0p8PVOwBVQ7FAkixgAq4uyJIWfRtnsXdv9SbJXyhPu+Rin/hooYLbm/o9I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791953629; c=relaxed/simple;
+	bh=2sVHavMjlXJz/ESN/9IXO6dQNt/z1BPMIt+RwptNEc8=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=me55kSRC6WS5gkxZRMOT6CBLf3ioy3AcmHa9ubJZ4T313S/yY4STBBBmQH/FhO+Xbl7MyCnrWIo6QhkzD5AN8TbNIItNwJZ9KNHoVZhLQs31zs+2UoM3bZVCTk6obOrNX4rEoQPXsTs3Wrvr5vZWKjZA2tVk6cGWOYhvr1JT1Hg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=lNXQ710y; arc=fail smtp.client-ip=52.101.85.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QjI5wdcl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 686D01F000FF;
-	Wed, 14 Oct 2026 04:50:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791953407;
-	bh=cl47tcviVDpqqzgHdWKVjrgzkSuGWKUJT78Tht8dJ3M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QjI5wdcl2w+jbkUo6EGj6OMqbxNrdS9hVOWqJ/BV0wDXujaCSUf2owcBOTvFsiMel
-	 JLoSHYjm8x8WoD4vsM19IATLN2tqqJMmT3ETDZkEgIFVtKs/2CE6E9jvqHpUjBvErg
-	 SjkghPgK6gr8JNxY1RILRJUvHZMVs6jXpIL65/DHwyQ/g/N1QYe9Nz8hYEMxX0J7NM
-	 RuhVYDEUJYyvz7aljgX74uB+Hn73J7hzXJaYAFBIK5lVrcO4yavFE76Wd+ePkwmCSq
-	 m/Rv4UhICmB24epXXWUQYswhfz+/WTmFX9TIOOb6h6WNnXA4uNNQtrevExXUBtAg95
-	 6RMitQSvt6hFg==
-Date: Wed, 14 Oct 2026 12:30:06 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Cc: linux-riscv@lists.infradead.org, pjw@kernel.org, palmer@dabbelt.com,
-	aou@eecs.berkeley.edu, alex@ghiti.fr, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3] riscv: Fix icache flush being skipped for a second mm
- mapping an exec folio
-Message-ID: <as8FTtH7yzeKCpE7@xhacker>
-References: <20261009221957.760606-1-nickolai@csail.mit.edu>
- <20261010155110.764010-1-nickolai@csail.mit.edu>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="lNXQ710y"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wqYchYNK7bXpGzGIGrljFlqDf7ukVtxEQhYCyqg2q3JwQ4Dm0d9gT0ms3foDqzA7IVWmUsZzmIc39qzEvqUVbZAiDUuI9U/k/v5tWETVIlEWUj2Q2wpIAiX3UACQA/DcEcZM3xlCD87ewIYa3M7w0RsCpGQzTw+lNNfLvxrHS01yGD3C8JwZj8W/7Z/As17u/YCxDKKsZaNI8B8oXFHgcCMq1TxJuuxa1UHoc4SjYIiAk7qJKD6Yh6gPAKfYDRCbHsvvRdSk3rBMI3JlBJ2bxZpOyRcRVSeruhHHfuqmdymP8/xEFJoTTHFleeWmX0UTMC7vnfXTJhkVPev42ytFag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ECTtEfeG6t+RqCD6DpI1ioZJCa/323BEF24WKyyOKFA=;
+ b=Vc+NbVBaSvSdJ4UFUtilXDmn4xHKKwu4Zp4cYgZeItZSfMvAWZJoO/4R7qNSzt9+U2+kx0EzRTsUHLzt4rHRRfVku++7dOtKlDBJSTDPnSNgnsjIVAaQrFKwhgcEyTVk9Z67Araa1yUtWvNyS3PtV2Sw21K9XCM+evZZbEEk4fllsqdk88Gz8VNckVfv6Z/xfPPmfdNnrHW6RrwVYnp0WADxY9TH3OIXDiV8z7OyVRABcOKhAqjXTEPa0r6FlDjfvw2+rDB8i00xbsYPjmt1sDdVEYGMHzDSwJVDwZBf52hUDVp8PmMYhb8+15on8AfWjI9Pb1uva3fZEVo+kTzWJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ECTtEfeG6t+RqCD6DpI1ioZJCa/323BEF24WKyyOKFA=;
+ b=lNXQ710yoQFsoMZV3Pe0hhxBarKC6nobCczUy3MYAVOD7mA1WmuZj6PtiOd6CspZt0Jg+Fe9ZLxYLFuSDh33ZNxhd47i6u57ochBzulX5OXJAK09mCaAZ5bs3NId47i+0i6jJlgiJpfji+N6Gl2Il0ASam+erKnPpcxqo+XoBe8=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
+ by MN2PR12MB4224.namprd12.prod.outlook.com (2603:10b6:208:1dd::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Wed, 14 Oct
+ 2026 04:53:45 +0000
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0522.011; Wed, 14 Oct 2026
+ 04:53:45 +0000
+Message-ID: <84a84584-404d-4e76-a2fd-65bb4aafab47@amd.com>
+Date: Wed, 14 Oct 2026 10:23:30 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] iommu/amd: Don't allocate kdump device table from
+ DMA32
+To: Matt Fleming <matt@readmodwrite.com>, Joerg Roedel <joro@8bytes.org>
+Cc: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Ashish Kalra <ashish.kalra@amd.com>, Sairaj Kodilkar <sarunkod@amd.com>,
+ Ankit Soni <Ankit.Soni@amd.com>, Baoquan He <bhe@redhat.com>,
+ iommu@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ kernel-team@cloudflare.com, Matt Fleming <mfleming@cloudflare.com>
+References: <20261013121944.4060097-1-matt@readmodwrite.com>
+ <20261013121944.4060097-3-matt@readmodwrite.com>
+Content-Language: en-US
+From: Vasant Hegde <vasant.hegde@amd.com>
+In-Reply-To: <20261013121944.4060097-3-matt@readmodwrite.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0298.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:220::7) To BL4PR12MB9505.namprd12.prod.outlook.com
+ (2603:10b6:208:591::16)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261010155110.764010-1-nickolai@csail.mit.edu>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|MN2PR12MB4224:EE_
+X-MS-Office365-Filtering-Correlation-Id: 39355180-0d18-478c-e190-08df29af2030
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|6133799003|18002099003|22082099003|10067099003|4143699003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	fDkQZosxFI7pLguEIxxNblET+iQsb/kQDz05xzJr0L6w77MqgDjfDbi2Q1oHuXOIOeCTXuP14Az0flBxGi5toHTO3ODlvOCoLKt60pPvl+xvwwK3IJZCfup4QUC9mVcPDCQxHxK332gHS3Ia8E7zkxLUPr8x7TmaOUb3XIT3XtEXWEVv8aTfN1dEsrPj6hnTkBNNt/oj9uArqwoq7gB+tZ5WqDQ/lEQJdfsPpk1CF2mL6U1R0lIveC0J/vmSQ9o3O+XcyvwTJAQrkUwrARrkKKKwemYw9vj3FHFgySxzsYFn7Y3RECSg/2Rjl8sU+e5j/ebixS+uXdyrTPHkgX7JeU2W+IEniIGCN9ng4Q/7WcfZmAbE+wl89lV3nF/mg6GCEpyqgEZEoKYB/x1aLFXt+q7mvCglSsUy0btW+buVPwHrGOz7bX5Ddr9GMbuyJ0WuLJC3vVxBIY2X2SDFypZtH9wDHpL8aCgRBb/OtxJcvY+Y30ksvSA4LVoWdvj87boF3ZxXE+K2aYU4w20xvDzZ5CXS/1f2TmjoCPDDihh72BipOZ7JYK7reAXHTkGanYRKekgLUtRYM4K4jzFYGSROjyf7cy8oSk+zS3/tUnD4FzGpfIB/X5V/eGhw9iPQJy5XcvsvKjla11RWO2rfA4XyXVJDUiKuoXj/olAw+U7bGKk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(6133799003)(18002099003)(22082099003)(10067099003)(4143699003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bDRLMVJNcXE0ZkhRb3MzQW9Ea0dKcVgwVEhxWHp5U2dRN2x4ZEwvK1h2NUxY?=
+ =?utf-8?B?SFFITzExSG4zTjRTSUhZTnNXMWZvODdJSWgwK0p3RlFMbVlZaU1ScmhBNXEw?=
+ =?utf-8?B?VlBKdXVPTnQ0TllubXltZU41ekw2VkNQZmVROVNHdjdaNVNZd1FRUmZxV0Jw?=
+ =?utf-8?B?K1p2K0RXQWlFeGloMGJqcmoxQUdyelBlRlluTGZMWm5zRjB4RnhFTG5iTDMy?=
+ =?utf-8?B?WHRKaGh6a2RRSnI2eWFQcUNTeTJSbTBITjh4ZzBack1Hd0pYcHlndk45VzFo?=
+ =?utf-8?B?eUxRTk5zU2xlcDd6QkJTV1QzbnBNT1QzNTZEQ3owUHR3Mm1Fc0dVRWhpa3NJ?=
+ =?utf-8?B?aEx0ajErb1Y1WjEzUkVBaE50ZGZFZjNZNTBmYkhuZXFIMzZpdE1UWGdLVmQz?=
+ =?utf-8?B?Mk5PTTV6SDltZSszdlhLMTlxT1NYbXpuUjByeWtsZFA4TENwdVBMNTRJb1Uv?=
+ =?utf-8?B?N2dIUmZoSUxtdzB3eHd0azRPTUpLZVhqcXd5UVk2VmhvSGFNdFZHL2VRSWlQ?=
+ =?utf-8?B?UGtpRGNnblZDQkI1VFZNekdLdjBxRnV0UG1hSnFLV0dLdGRGR2NJS1dxRDIv?=
+ =?utf-8?B?bWZCVDNhYVdDZDkybDJrQWpybjIvbmFDcXJlMFVDZHFUWlB2TVdRRm9kQld3?=
+ =?utf-8?B?bFBHWERGY0hURi9lcUpPZzAzVWdsblA4MHg5VWo3MnBGZnkvdUlPUHYzZUJU?=
+ =?utf-8?B?OHNBRnJXWHNqT1BBUTZubzZEUEVXWVRxdUE4YVJKK1lVYXFPeEd0dkhpNzVE?=
+ =?utf-8?B?Q3RQRWFHc0pMZFFvTkFhYTZCeGNORGlyZFV0MHJjQ1hVYS9RRzAxSm1LcWNj?=
+ =?utf-8?B?VnQ0VGwvdnRMYWN0STRyUE1JVGU4Z2poYkNmMTdCdFNTVHJyTjZGU1BvQVhP?=
+ =?utf-8?B?QTFRaHMyM2d0OEFhajFXelVtTlhqRXc3aHNKYUg4Njl5c2hSczIxdjlVcGhW?=
+ =?utf-8?B?bG1CeFR4SEVBRTBBNE9KL0NPS0N1ZE9NM2w0UmJTWmIwTE9sVHdySkl6OUJx?=
+ =?utf-8?B?bVNLQm5IWE1wYWphTzA4OE8wUkh0YytpQTBON0pGTGRuZXFWNUxYZ2cxVU5k?=
+ =?utf-8?B?cEtuR2JzTldocTFOd3R3Z2JYRzZKMi9DOHJWUVVoZUNmaXo4NGNIUVhwcWx1?=
+ =?utf-8?B?U2IwZllLeXFLZy9kY3N6M1B1QkNCTXhoOE5FS3ZXNU5uVFNLMTc5Vk9aWXBV?=
+ =?utf-8?B?Vk1WK0ZlcE43WVJWbEw2UzNDdHZvSmJBaGoxSUxqL2ZKTUFjaHh3RUdPRnJL?=
+ =?utf-8?B?TUQ4ZGdpYzZ1ak9iVWhBQW1YNzZmWCtyb0h4c1FrRitiOXI3SmRhci9HVzFP?=
+ =?utf-8?B?TVpyeU1IOEpqOFIxc25kUmRBVm1sdWVIYi9zc1BTcmhkT2VmeFdScjVhVkxv?=
+ =?utf-8?B?VnJZZ3Y4ZDEwSTVLWmlYemIzY2JQWG5Cb2dPS1pLL2VIakdNMUc4L0VuWWZI?=
+ =?utf-8?B?aldkMjFNVFM1eXVaZXZtQUtTNHd1T2FKdE9ZQ1JVaGozNnE1RTd5V1RnVFg4?=
+ =?utf-8?B?b3J1cUFOYTBScGJ4b0NnL1R2TXdRZVNvd0tML3RNZ01XbEZRaUJiaDlrQUEz?=
+ =?utf-8?B?L2hwRWhOSVlna3pVK0tZSitUSS9POHBCTEFvaVJVMWhzd1NJZDdmTGVsNndX?=
+ =?utf-8?B?QVRyZ3ZCaUlSRDlIcVE2T0xvU3NNOHI4RjNFVlJwMUlSVjIvNUk1TUhDdFVo?=
+ =?utf-8?B?YkU4bDNET1pEaDBNeXl4TXRFUm1EdDF6bmE5QVUxaWJDNDlYMWlTSnBwZ0o5?=
+ =?utf-8?B?R2VlNWR5aXNvRzBCQVRSbFhlZTgzSmVVY0d0MXo2RU52b1hjdFhqaG1NRUpa?=
+ =?utf-8?B?UEU1UlFCUGtYeWJGT0hTamUyVUU4MlJNR0E1amNjVWYxNnBNbndveHp0US9z?=
+ =?utf-8?B?SnJtT05LZ0dQU0ZpOEQ5RmFQKzc4YUZxNGxJZGx0ZTNvakZJTGplNGlCekJv?=
+ =?utf-8?B?aEc3SEpHVVZ2WVgvVmQ5cUJ2aUFyOWluWU44Wi9iazNjaU1lTkFBbm83VzhC?=
+ =?utf-8?B?dTNwank2ZW9lOWpHQzh0WW9CQi9OKzJLUTBPMkc1WnNiRnhKOExBM1MrbnpR?=
+ =?utf-8?B?bFh4UnRoY01lMGxXbFZwMVNPczhOWmRwaWNDd2hUTS9FUUFSS3VaM3NyZDRi?=
+ =?utf-8?B?cHcrWXhDc3QwblphWklrZnFUT1cvSy9TOFBnaHMrTTd3N0Y0WlU3bmNTejRx?=
+ =?utf-8?B?RDhiNkZhL3A1N0N6eW5VZkwvSEZuMUU3SkdjQ2E4dGNLaE5KNS9iU0I1U2JX?=
+ =?utf-8?B?MVREYUpoL25wSURUZjBLcThZbE5YVWZEUU1qZkR4Y2ZmSldmcXVNSk9ZblY5?=
+ =?utf-8?Q?EaRoyYe7uWvTfdIdeT?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39355180-0d18-478c-e190-08df29af2030
+X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 04:53:44.9812
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SLkaJEYzU5VxnrAX+aKTFwDiVjnaNU7EFy8LRWahB1qmlvOc7sEpaVTC5z0h7T+ZgYmRI83uUErf0DYn7s/+cg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4224
 
-On Sat, Oct 10, 2026 at 11:51:10AM -0400, Nickolai Zeldovich wrote:
-> Since commit 01261e24cfab ("riscv: Only flush the mm icache when
-> setting an exec pte"), flush_icache_pte() flushes only the icache of
-> the harts that run the faulting mm (with a deferred fence.i for the
-> harts it migrates to later), but it still sets the folio-wide
-> PG_dcache_clean bit. The bit is then read as "no hart holds stale
-> instructions for this folio", which a per-mm flush does not establish.
-> 
-> So when a folio that was written through the page cache is mapped
-> executable first by mm A on hart X and then by a different mm B on a
-> hart Y outside A's cpumask, B gets no flush on Y and executes whatever
-> Y's icache still holds for those physical lines, e.g. the page's
-> previous contents. Before that commit, flush_icache_all() covered this
-> case.
-> 
-> Reproducer:
-> 
->   /* Build with the kernel's nolibc (after "make headers_install"):
->    *   clang --target=riscv64-linux-gnu -Os -static -nostdlib -nostdinc \
->    *     -I tools/include/nolibc -I usr/include -include nolibc.h \
->    *     -o icache_repro repro.c
->    * Usage: ./icache_repro <file> <hartA> <hartB> [iterations]
->    */
->   #define N 1000    /* li a0,0; N x addi a0,a0,v; ret: returns N*v */
->   static unsigned int text[N + 2];
->   static int fd;
-> 
->   static void write_text(unsigned int v)
->   {
->       int i;
-> 
->       text[0] = 0x00000513;
->       for (i = 1; i <= N; i++)
->           text[i] = 0x00050513 | (v << 20);
->       text[N + 1] = 0x00008067;
->       lseek(fd, 0, SEEK_SET);
->       write(fd, text, sizeof(text));
->   }
-> 
->   static long run_text(void)
->   {
->       long (*f)(void) = mmap(NULL, 4096, PROT_READ | PROT_EXEC,
->                      MAP_PRIVATE, fd, 0);
->       long r = f();
-> 
->       munmap(f, 4096);
->       return r;
->   }
-> 
->   static void pin(const char *cpu)
->   {
->       unsigned long mask = 1UL << atoi(cpu);
-> 
->       syscall(__NR_sched_setaffinity, 0, sizeof(mask), &mask);
->   }
-> 
->   int main(int argc, char **argv)
->   {
->       int p2c[2], c2p[2], i, stale = 0;
->       int iters = argc > 4 ? atoi(argv[4]) : 50;
->       long got;
->       char c;
-> 
->       fd = open(argv[1], O_RDWR | O_CREAT | O_TRUNC, 0755);
->       pipe(p2c);
->       pipe(c2p);
->       pin(argv[2]);
->       if (!fork()) {            /* child = mm B on hart B */
->           close(p2c[1]);
->           pin(argv[3]);
->           while (read(p2c[0], &c, 1) == 1) {
->               got = run_text();
->               write(c2p[1], &got, sizeof(got));
->           }
->           _exit(0);
->       }
->       for (i = 0; i < iters; i++) {    /* parent = mm A on hart A */
->           write_text(1);
->           write(p2c[1], "", 1);    /* B runs T1: primes hart B */
->           read(c2p[0], &got, sizeof(got));
->           write_text(2);
->           run_text();        /* A runs T2: flushes hart A, sets the bit */
->           write(p2c[1], "", 1);    /* B runs again: no flush on hart B */
->           read(c2p[0], &got, sizeof(got));
->           stale += got != 2 * N;
->       }
->       close(p2c[1]);
->       wait(NULL);
->       printf("%d of %d iterations stale\n", stale, iters);
->       return !!stale;
->   }
-> 
-> The parent (mm A, hart A) and the child (mm B, hart B) share a file.
-> Each iteration: A writes text T1, B maps it executable and runs it
-> (priming hart B's icache with T1) and unmaps it; A writes text T2 and
-> maps and runs it (per-mm flush of hart A only, bit set); B maps and
-> runs it again, with no flush on hart B, and executes T1. On a StarFive
-> JH7110 (VisionFive 2, non-coherent icache) running v7.3-rc6, 148 of
-> 150 iterations over three hart pairs (50 each on harts 0/3, 0/2 and
-> 1/3) execute stale instructions.
-> 
-> Keep the per-mm flush and make the skip decision per mm instead:
-> count the flushes that set the bit in a global generation, and let
-> every mm remember the generation of its own last flush taken in
-> flush_icache_pte(). An mm whose generation lags cannot trust any bit
-> set since, so it flushes its own harts once (local fence.i, IPIs only
-> to the harts currently running it, deferred fence.i for the rest) and
-> catches up. No global flush is issued, nothing happens while no new
-> executable folio is written, and the cost is bounded by one
-> flush_icache_mm() per mm per generation bump.
-> 
-> With the fix the reproducer executes 0 of 150 stale iterations on the
-> same board. The function-call IPI counters stay at a few hundred per
-> hart for the whole boot plus the 150 iterations, i.e. the IPI savings
-> of the per-mm flush are kept.
-> 
-> The generation is kept per mm as an atomic64_t so that the field is
-> read and written atomically on 32-bit as well, and the whole mechanism
-> is compiled only with CONFIG_SMP and CONFIG_MMU: on a single hart
-> flush_icache_mm() is the local flush and the bug cannot occur, and
-> without an MMU there is no flush_icache_pte() and no second mapping of
-> a written page to begin with.
-> 
-> Tested on the JH7110 with v7.3-rc6 and this patch; not tested on
-> 32-bit. The bug does not reproduce under QEMU TCG, which invalidates
-> translated code on page writes.
-> 
-> Fixes: 01261e24cfab ("riscv: Only flush the mm icache when setting an exec pte")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
-> ---
-> 
-> Notes:
->     v3: compile the generation logic only with CONFIG_SMP (on UP the bug cannot
->         occur and flush_icache_mm() is the local flush) and CONFIG_MMU (the only
->         user is flush_icache_pte()); keep the per-mm
->         generation in an atomic64_t so it is read and written atomically on
->         32-bit too; add the reproducer to the commit message (Jisheng Zhang).
->     v2: move icache_gen out of the CONFIG_SMP block of mm_context_t; v1 did
->         not build with CONFIG_SMP=n (kernel test robot).
-> 
->  arch/riscv/include/asm/mmu.h         |  4 +++
->  arch/riscv/include/asm/mmu_context.h |  3 +++
->  arch/riscv/mm/cacheflush.c           | 38 ++++++++++++++++++++++++++++
->  3 files changed, 45 insertions(+)
-> 
-> diff --git a/arch/riscv/include/asm/mmu.h b/arch/riscv/include/asm/mmu.h
-> index cf8e6eac77d5..4eacf06f7d2a 100644
-> --- a/arch/riscv/include/asm/mmu.h
-> +++ b/arch/riscv/include/asm/mmu.h
-> @@ -21,6 +21,10 @@ typedef struct {
->  	cpumask_t icache_stale_mask;
->  	/* Force local icache flush on all migrations. */
->  	bool force_icache_flush;
-> +#ifdef CONFIG_MMU
-> +	/* icache_folio_gen at this mm's last flush in flush_icache_pte(). */
-> +	atomic64_t icache_gen;
-> +#endif
->  #endif
->  #ifdef CONFIG_BINFMT_ELF_FDPIC
->  	unsigned long exec_fdpic_loadmap;
-> diff --git a/arch/riscv/include/asm/mmu_context.h b/arch/riscv/include/asm/mmu_context.h
-> index dbf27a78df6c..909404fb250b 100644
-> --- a/arch/riscv/include/asm/mmu_context.h
-> +++ b/arch/riscv/include/asm/mmu_context.h
-> @@ -32,6 +32,9 @@ static inline int init_new_context(struct task_struct *tsk,
->  {
->  #ifdef CONFIG_MMU
->  	atomic_long_set(&mm->context.id, 0);
-> +#ifdef CONFIG_SMP
-> +	atomic64_set(&mm->context.icache_gen, 0);
-> +#endif
->  #endif
->  	if (IS_ENABLED(CONFIG_RISCV_ISA_SUPM))
->  		clear_bit(MM_CONTEXT_LOCK_PMLEN, &mm->context.flags);
-> diff --git a/arch/riscv/mm/cacheflush.c b/arch/riscv/mm/cacheflush.c
-> index f8ead7cb7c7d..00bfdb7c487c 100644
-> --- a/arch/riscv/mm/cacheflush.c
-> +++ b/arch/riscv/mm/cacheflush.c
-> @@ -97,13 +97,51 @@ void flush_icache_mm(struct mm_struct *mm, bool local)
->  #endif /* CONFIG_SMP */
->  
->  #ifdef CONFIG_MMU
-> +#ifdef CONFIG_SMP
-> +/*
-> + * PG_dcache_clean is folio-wide, but flush_icache_mm() only reaches the
-> + * harts of one mm.  Count the flushes that set the bit; an mm whose
-> + * generation lags cannot trust a bit set since its own last flush, so it
-> + * flushes its harts once before relying on it.
-> + */
-> +static atomic64_t icache_folio_gen = ATOMIC64_INIT(0);
-> +
-> +static u64 icache_gen_bump(void)
-> +{
-> +	return atomic64_inc_return(&icache_folio_gen);
-> +}
-> +
-> +static bool icache_gen_stale(struct mm_struct *mm, u64 *gen)
-> +{
-> +	/* Pairs with the fully ordered atomic64_inc_return() in icache_gen_bump(). */
-> +	smp_rmb();
-> +	*gen = atomic64_read(&icache_folio_gen);
-> +	return atomic64_read(&mm->context.icache_gen) != *gen;
 
-Now the patch looks better. I only have one concern: RV32 doesn't have
-native atomic64, so falls back to generic atomic64 implementation which
-disables local irq, takes spin lock, then does the operation, unlock,
-restore local irq, so I'm not sure whether overhead for RV32 is too
-heavy or not. However, I have no other better solution for RV32.
 
-> +}
-> +
-> +static void icache_gen_set(struct mm_struct *mm, u64 gen)
-> +{
-> +	atomic64_set(&mm->context.icache_gen, gen);
-> +}
-> +#else
-> +static u64 icache_gen_bump(void) { return 0; }
-> +static bool icache_gen_stale(struct mm_struct *mm, u64 *gen) { return false; }
-> +static void icache_gen_set(struct mm_struct *mm, u64 gen) { }
-> +#endif
-> +
->  void flush_icache_pte(struct mm_struct *mm, pte_t pte)
->  {
->  	struct folio *folio = page_folio(pte_page(pte));
-> +	u64 gen;
->  
->  	if (!test_bit(PG_dcache_clean, &folio->flags.f)) {
-> +		gen = icache_gen_bump();
->  		flush_icache_mm(mm, false);
-> +		icache_gen_set(mm, gen);
->  		set_bit(PG_dcache_clean, &folio->flags.f);
-> +	} else if (unlikely(icache_gen_stale(mm, &gen))) {
-> +		flush_icache_mm(mm, false);
-> +		icache_gen_set(mm, gen);
->  	}
->  }
->  #endif /* CONFIG_MMU */
+On 10/13/2026 5:49 PM, Matt Fleming wrote:
+> From: Matt Fleming <mfleming@cloudflare.com>
 > 
-> base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
-> -- 
-> 2.55.0
+> Booting a kdump kernel with crashkernel=X,high crashkernel=0,low on an
+> AMD system fails the per-segment device table allocation because there
+> is no memory below 4G:
 > 
+>   swapper/0: page allocation failure: order:9, mode:0x40104(GFP_DMA32|__GFP_ZERO|__GFP_COMP)
+>   iommu_alloc_pages_node_sz+0x7f/0x150
+>   alloc_pci_segment+0x4bd/0x650
+>   iommu_go_to_state+0x213d/0x34e0
+>   amd_iommu_prepare+0x39/0xa0
+>   irq_remapping_prepare+0x83/0xd0
+>   enable_IR_x2apic+0x61/0x370
+> 
+> On our E810 systems, the kdump kernel booted but ice MSI-X interrupts
+> never fired and the TX queues timed out.
+> 
+> Commit b336781b82cc ("iommu/amd: Allocate memory below 4G for dev table
+> if translation pre-enabled") allocated device tables below 4G. At the
+> time, the kdump kernel programmed a copy of the old table into the base
+> register with the IOMMU still enabled. The 64-bit register is updated
+> as two 32-bit halves, so the running IOMMU could see a half-written,
+> invalid table pointer. Keeping both tables below 4G leaves the upper
+> half zero throughout the update, so the pointer stays valid.
+> 
+> Since commit 38e5f33ee359 ("iommu/amd: Reuse device table for kdump")
+> the kdump kernel reuses the previous kernel's table without writing the
+> base register, so its newly allocated table is discarded when reuse
+> succeeds. If reuse fails, the previous patch programs the new table only
+> after disabling the IOMMU. Either way, the kdump kernel's table doesn't
+> need to be below 4G.
+> 
+> The previous kernel still allocates its table from DMA32, so the kdump
+> kernel's check that the old table is below 4G still works. Drop
+> GFP_DMA32 for kdump kernels only.
+
+This one is OK as its regression fix. But with all the changes went in I am
+wondering why we need GFP_DMA32 flag for allocation. There are only two cases
+where transactions may be enabled:
+  - During boot (BIOS enabled DMA) : kernel will disable IOMMU before
+configuring device table base address w/ new value
+  - During kdump : We are reusing previous kernels device table. If it fails
+then kernel will disable IOMMU and re-configures it with new vlaue.
+
+Anyway, we will look into it in detail and run more experiments. For now this
+fix is fine. With that,
+
+Reviewed-by: Vasant Hegde <vasant.hegde@amd.com>
+
+-Vasant
+
