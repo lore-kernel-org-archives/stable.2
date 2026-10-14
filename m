@@ -1,165 +1,186 @@
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010033.outbound.protection.outlook.com [40.93.198.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A275A52CCED;
-	Wed, 14 Oct 2026 15:54:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791993292; cv=none; b=SC5+oAa7VTR5CvTaTXnFQLUhVjQyanKFyawXdytiZbd0Z9GOhcQYIlaL098XS94Eh10QHzC482gqVkNLvHQhxBbakIUrB4Wi2uLCZXb5eSEglj5+yDx/V//rtYzsdTjUk20ZkmXNGxewwEtQkxOde93jPWaftKXXUN1hquwZ7WI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791993292; c=relaxed/simple;
-	bh=gnxCA0/j6jwt98OXxKE9W3fC7U1N4I7UCE6ZMIwN4Qs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M+GnTnpj2FhNiCxswExZkdwtXINeY1WJ8iJppUq1ffTkEIU+tGVzmYUBqW85Mc2Rqa+wD9XhJhWOnzi9WGflkRi4a8pYqfjaOd4AyaI3zs0kJzf/bwGiwwOUlvAJVO3v8N+leCeMrWFoVLJLMsEM6H1/HuqCMapBqtt+VjjeyBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=iBPkKQ7a; arc=none smtp.client-ip=37.230.196.243
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2589474246;
+	Wed, 14 Oct 2026 15:57:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.33
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791993464; cv=fail; b=n9lp4trXX/VhTo4oZ0+S/q+CDhoGdLMAHIyCtarwcgfecFdShtnawUeHZLPC9WA7Mcz/Or2hp8yyxCSTJTcQ4ysBuMfApiGuUGznXBrkkQ1xUpFaZ9sakKn8kVdTnysasXgHXYPofAW7DjTT+TcPm5L6gwrfpCmkO/0sBTCcUdA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791993464; c=relaxed/simple;
+	bh=zvCBxlO1d4nSrtQAcew+8WH6eiGGo+9U7bnCoaOVAnk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ok9Izw12p0w6soWsRp8CW0mXpfJmtmbFR6MkDilEu8bhtyeoFqJ+3fyMkSVjKynM/CBVnRM5Cpr7mmDNYkCUt3HiTx8xjC0k7b8TqGt8HWajI948zyEL03nE36R2mWbyIy1UezzXMrouvNJbeYacQShaPmW2YbDsmprrBuhKhfc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=fZXYAkcl; arc=fail smtp.client-ip=40.93.198.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="iBPkKQ7a"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1791993276;
-	bh=gnxCA0/j6jwt98OXxKE9W3fC7U1N4I7UCE6ZMIwN4Qs=;
-	h=From:To:Cc:Subject:Date:From;
-	b=iBPkKQ7aNxIGDRDfdIsuKOpTVXYgxh9jX1GhgJ1tD4UgTBZnrrymHQZmtK4Yov8UE
-	 AmB/K0jW2/kOIPriqq3wsrXTu6fFpIJ5JDvDoHT5pD3l+mxELxcHYOUKvehFMrB4H4
-	 jf0hHAh/LlXdxH+50+UNTArYqHvIJgZai84W1163YAqIiSa3tewKOJg9N/ho5gYXBM
-	 c6zdDPYw4M22UpoCJ4Zdo4rrbgoOXcvHMCh7rwfMT4BoEwuKO2ajYlU/YHfH1Re8CO
-	 HJrRSZzFSzhhoylrgA+AX7IxmEkXanYLi1HBj1Svo5fdzqxCLsnTdHX4f+Hl9tvCa5
-	 1tbImo5WOG9JQ==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id D8B8125E1A;
-	Wed, 14 Oct 2026 18:54:36 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Wed, 14 Oct 2026 18:54:34 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.48.143])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j4b3F66lKz1b25;
-	Wed, 14 Oct 2026 18:39:05 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	Xiang Mei <xmei5@asu.edu>,
-	Jan Kara <jack@suse.cz>,
-	"Theodore Ts'o" <tytso@mit.edu>,
-	Andreas Dilger <adilger.kernel@dilger.ca>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Weiming Shi <bestswngs@gmail.com>
-Subject: [PATCH 5.10] ext4: fix out-of-bounds read in ext4_read_inline_dir()
-Date: Wed, 14 Oct 2026 18:38:16 +0300
-Message-ID: <20261014153817.239-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="fZXYAkcl"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nXiPw9jBE3zEgAfQB/MR6HZiKOsDupeq86tyyWeCTrxXh5kghm32RBHTi321CsT14rNYA9xD93iMtPWsuZZVOCX/zsuWENjkd6P3OeVgkd4fXNOBtsuW6//UJ7ZsQJJn0rHKgDoaMUtW3VVPyK7bvWLlYu4ELZA+2kdAVffIdj5ibcl2t9tB5OU5zocGzuXCxGUqMiXpnmVOPyuus+LyUc40DelY7v+nHOzYxeL7O1FP+XQ+N0MuZtiob+VALhqo+Moz7g8kwmeyxEg7k+mfUFQgsoLvUxPSAW54RhcI8imY99dnl62++KyX0Dp/wQDDo90wTGBa/uA5DNUtJfvnjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ak/GRoxtPd9wUY5LzDypLCXKUGLNOsekS0T+T4BkU9o=;
+ b=R49OX1MBZmJ4v/zRj1MR7x5JPljVsrvnPVG6AX1sxcqQYsmIyKsSdbvH51OO9FQ9NgdhncGEX3Lmne1cJS69J7gMc+W/vG449rBNArZrrVfXA9J9sNJ51fnPxdQCsGqBFJSHaZevfDZdFtRb7+WeQbwJ/kuqHTpMubRa9ZTVW0bQt3CBrM+264pzR0M66jOwa6hchvbttmYSJb/veDYI6SOaUUWzXXPtRWAa7T8t5iim4anQJqn6+2SzZsoEgI4TF2GF36qAJjSIA4S6Dfi4tAcaW449KXbMCuembi62rbHVc0JFwfI8U2boIMoco5fW4+O1pcmvA/HhLjLbn938hg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ak/GRoxtPd9wUY5LzDypLCXKUGLNOsekS0T+T4BkU9o=;
+ b=fZXYAkclmIhtCD+rF1m4+6Pb4z5ZkOGs34HqbLy7MyfaM9nUXZr2PCBlHgbpg2XCcaeurLr2/fe7SsDpyGtRJPjd6bmU0pBQauMYj3fIMo6udMe72cIFW++0Vr4P64/X8ZrdNgjWzYsIPXaAIg2zxZbJTTXpseU+Gf844fd6GwepqKtjGId56sOsZwv5hOx3LndX4uswiSYLps114J/9mhp21DYgfA58dSrE8DNt9Ge014LwBlWd7Hkjy2Gb+sJoBP3XkmreqQgP1mTplpSfyOAGUJdm/RYYSCZ0dJ3SXZwH6iuNv4POx9Tf5Yk+gRUOIuiKn7/4Hc5UChJuaPda3A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by DM4PR12MB5916.namprd12.prod.outlook.com (2603:10b6:8:69::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Wed, 14 Oct
+ 2026 15:57:36 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0472.016; Wed, 14 Oct 2026
+ 15:57:33 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: Konstantin Khorenko <khorenko@virtuozzo.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Peter Xu <peterx@redhat.com>, Alex Williamson <alex@shazbot.org>,
+ kvm@vger.kernel.org,
+ =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
+ dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
+ stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v3 0/2] mm/huge_memory: fix the copy of special PMDs at
+ fork
+Date: Wed, 14 Oct 2026 11:57:27 -0400
+X-Mailer: MailMate (3.0r7032)
+Message-ID: <F6337325-E635-43BB-9E5E-DCD25F4FC951@nvidia.com>
+In-Reply-To:
+ <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com>
+References:
+ <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com>
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+X-MS-Reactions: disallow
+X-ClientProxiedBy: PH8P222CA0030.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:2d7::11) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/14 15:21:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, astralinux.ru:7.1.1;new-mail.astralinux.ru:7.1.1;patch.msgid.link:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 206688 [Oct 14 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/14 13:51:00 #28683811
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/10/14 15:21:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DM4PR12MB5916:EE_
+X-MS-Office365-Filtering-Correlation-Id: b3c7d39c-6231-4071-d6ff-08df2a0bdc1a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|366016|1800799024|376014|23010399003|11063799006|56012099006|261009223027099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	lq6C1Or0kBPNiESn5H/vKv+soZ60NqYCUpN/QAu9/9GDcqtvQg6Pu7I1E8+ycrnc0aOcc1wSFGburRsHTPhyuELlsExGuwbPDYiQTj1QnTeGraeAWfqPCj6E0i3wxj+GEVDKKnT4N1uzpdyPXindlelYDee/KK4CJBx6A7Q2LPg7xbOqdjXv+Fmi7vnfFTxNkit8ZsVA6plAtofY9mB2lPabbHHgNM6GivSxN3uv1A0JhoCzxu29/dthOf4Q4UN6Np1cAB2+NtcfC1N+QxB7+1S77O0FfUhH168VN4Jr5GGI7YXg2g28fuFhVAsCRasMfx6ETtiShnZ/j9CpFMHwV2b/C4jTLlDkniambZyNMpHOtydfgZ7R8S0s/fhTfVgYJH1rMObCDwYzci39gIOIfkRla80j2dbqgvluQ3Q3rV64tl6Oc0J1UJZlEO0CGel7qwzVHI6d/Vmvdo8VkaQIf1ADFJVEwfkFoneffAYd8WPaOtUmy0+qVknqKM3/i+s8hQsGcFd7LODB/BiV3fiCdySkJh+999o8IwDxfSe9kJ2ClIkwIGRFBWY3tuGZ9el2bmC3fdGbbiR8cG6ycuIRcQ3J3RJozbppuv7Gtq/qAAoLeC4xeaQJDyHSPY5orABw7zm/zujthe2cAc9hKwQJ3WICNN1t2tsF8l+evfR05sY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(1800799024)(376014)(23010399003)(11063799006)(56012099006)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ArhIWKm4v9YU3mvNhPw0e/dQvVixyWlSsm9+J+Wuvr8MzVg/9sUzl4Rf9NO7?=
+ =?us-ascii?Q?1fB9r0900kVk7O4R7gB9zmAb2PQR8iBPBVN4Ny8j76Uin1slEM/4NEwNRWGc?=
+ =?us-ascii?Q?0vpJ3tIdL0L8xSsmZWBJ+i0iC/pbByR5bqrHBe/8aalud1imjb2LmLnRS+eP?=
+ =?us-ascii?Q?MlIV+GvbjBHRYwHjhGWXmKPfCR6CWr0ai/+HNMxAdi+VyAJFO/kL+Fq7Z30e?=
+ =?us-ascii?Q?KXE0W6WvCq6eogaJpzq6cgyrVjdTq1u33UBiVfw1+//oya82XQxOAsuMSjGy?=
+ =?us-ascii?Q?cD24XMRRCtBcbiyyyTaF/PGqETLil8hoOId2orsE4XIG0dFcBk47swt6vZgF?=
+ =?us-ascii?Q?LtcUyrJ1/Dp3DvJRfD+m2r91QghadMSx/+ZWyKK2Tj/Hm8fxSIt+BVp2Dey6?=
+ =?us-ascii?Q?LtPVqtb/dslZgMGZLX5qRFpv+xlUvuR4dh7xAsXgcuCXIwf6Mirp7dJGDzi2?=
+ =?us-ascii?Q?/A330zrgfyzybAnpOfwjE1spCcN9EWtXi/qIn2TPzG6tb2jLz5GAaKi35Vq+?=
+ =?us-ascii?Q?4Ejk6eI2TFifSuOrK7fixto0N7C96MQalzDWfnffYggTTcs13EdRZtybmxwU?=
+ =?us-ascii?Q?htcQAQTAq2Yfn9qwzeKHG2Ip0+JTuy7Tu4hc9kEJqU4lVoqHCtRcI9DAN/es?=
+ =?us-ascii?Q?oObJj3OpF1kgnKTDDmbvD6CZoXmOZCuQxLQSQ6GmCkVqGdO05bbvBoaKnTaL?=
+ =?us-ascii?Q?I87s2Ja43aY5HiT/ixpt62/MXJsjMxRMXQijqcNb2vfgOG7yhJkXKl319EHa?=
+ =?us-ascii?Q?kgq0vVBtdl5Tt33qYBgfbuo+qc3FTKT4f8udaK7a0K9N5DT1ZKzIJwJBF+XY?=
+ =?us-ascii?Q?SXrbI9Kd4dsmB8MBMwPOUzqOPYTE8620mS82BOh0QWGZD3svMqfud+N1ro4h?=
+ =?us-ascii?Q?DSIOK3o1XiomCu4InGLO4pNhCNMBtVcjKEi1gcTZjyjWeZ51MtSUwVQhMotm?=
+ =?us-ascii?Q?pszjc0E2neoi5zKHIaSxzNT/9gl/CBK5w5e7eCTMSKVc96OGMxUhHOMNGJTU?=
+ =?us-ascii?Q?rFMHkF9T41Zixrri/dy0sxNcz2CAMeNJ+rQ806lTyt0wQDcSeyw0O+FI0/0p?=
+ =?us-ascii?Q?jF/k6yRTC5eU4ksBuOo4RV5DQPE9wn7D6eHaHUqh9D4RGn0uVJ7NMvFdDGj4?=
+ =?us-ascii?Q?7psoHBCbeQfaf83bZ6L8xsi3affCBqEHGkOkO30WmBllF96l5FIrvkzejgNI?=
+ =?us-ascii?Q?eEbghvwaMfxtWVDioVN648TlhmAtoNoqO9ZBpAy89AKIL8idHiW/UbNLU07q?=
+ =?us-ascii?Q?jI5yVJ/w4xplPfcyrYDjuW2dn7wqPb7qF/JkUrpi/gb7Hn9mzrX66DdsFIu3?=
+ =?us-ascii?Q?ouqYFy5+Yq5ls2RVpdP5EQKqFgA90Fjrcy2a4N5G4Si9gL3/SRFSujmHSOmZ?=
+ =?us-ascii?Q?bT0+vtJplfGnmwipmLjMF26oiiyXkBphusJTKTZlwktl9lpkqSDVM1kwhMto?=
+ =?us-ascii?Q?pynNnVBQuCTdFDBGQSIuLVm2Jh6VfivQVvGfWz4WPijzUahd3KLS6Fw5C5RR?=
+ =?us-ascii?Q?6DJUBLK5ZrGPZakukUnXtCyQzYG3ao/OfCGeTvQ1e+vvguj/kxc8zH3TBkH0?=
+ =?us-ascii?Q?b+FGps/cnuRy03oUFzsH6r1NdfcHYj/IoLzj8USvo+OekKw2vO+XBlljk7zM?=
+ =?us-ascii?Q?ZZRdPy3D249bxf4hMYpwEtad77EJW0HE+MfRZ4krSNQnZBYS1rnVGbpMu2Pp?=
+ =?us-ascii?Q?wt4Nixm0awPnwcP9K4+Q8WadS96vhiXc80OMo+T9aWmRE3Xs?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3c7d39c-6231-4071-d6ff-08df2a0bdc1a
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 15:57:33.7661
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rSnTeAga5AM9+8KwznrN15TMxXBZEjEMYYg6oHbQWRzag2FU07Zh/KYohyBlfNBj
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5916
 
-From: Xiang Mei <xmei5@asu.edu>
+On 14 Oct 2026, at 11:46, Konstantin Khorenko wrote:
 
-commit 9333cc809f0a89e001b814155a6cb8903a6274df upstream.
+<snip>
 
-ext4_read_inline_dir() can read a dirent header past the end of its inline
-buffer, triggering a slab-out-of-bounds read during getdents64():
+>
+>
+> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+> ---
+> Changes in v3:
+> - Patch 1: recheck the PMD with pmd_none(), as only a zap can change
+>   it and a zap leaves it none (Lance Yang).
+> - Link to v2: https://patch.msgid.link/20261014-b4-prep-vstor-149847-co=
+py_huge_pmd-recheck-special-pmd-v2-0-e1548488fa68@virtuozzo.com
+>
+> Changes in v2:
+> - Add patch 2, the page table deposit for ppc64 hash, reported by
+>   Sashiko.
+> - Patch 1: name panthor instead of drm_gem_shmem as the driver whose
+>   stale child mapping reaches freed pages: drm_gem_shmem keeps the
+>   pages of a purged object until the last mapping goes away.
+> - Link to v1: https://patch.msgid.link/20261014-b4-prep-vstor-149847-co=
+py_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com
+>
 
-  BUG: KASAN: slab-out-of-bounds in __ext4_check_dir_entry
-  Read of size 2 at addr ffff88800f3dd23c by task exploit/148
-   ...
-   __ext4_check_dir_entry
-   ext4_read_inline_dir
-   iterate_dir
+Please stop sending new versions of a patchset repeatedly.
+Wait at least a day for others to catch up.
 
-The dirent payload lives in a buffer of exactly inline_size bytes:
+Thanks.
 
-	dir_buf = kmalloc(inline_size, GFP_NOFS);
+> ---
+> Konstantin Khorenko (2):
+>       mm/huge_memory: recheck a special PMD under the lock in copy_huge=
+_pmd()
+>       mm/huge_memory: deposit a page table for a special PMD copied by =
+fork
+>
+>  mm/huge_memory.c | 34 +++++++++++++++++++++++++++-------
+>  1 file changed, 27 insertions(+), 7 deletions(-)
+> ---
+> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+> change-id: 20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-=
+pmd-bdf7efb612c2
+>
+> Best regards,
+> --
+> Konstantin Khorenko <khorenko@virtuozzo.com>
 
-but iteration runs in a position space extra_offset bytes larger
-(extra_size = extra_offset + inline_size) so the synthetic "." and ".."
-land at their block-dir offsets. A dirent is formed at "dir_buf + pos -
-extra_offset", yet the ext4_check_dir_entry() length argument uses the
-larger extra_size. A position whose dirent header would extend past
-extra_size is therefore accepted, and the rescan loop's rec_len probe and
-ext4_check_dir_entry() dereference de->rec_len before the entry is rejected.
 
-Reject a position whose minimum-size dirent header would not fit within
-extra_size before forming de, in both the rescan and main loops, and pass
-inline_size rather than extra_size to ext4_check_dir_entry() so the length
-check matches the physical buffer.
-
-Fixes: c4d8b0235aa9 ("ext4: fix readdir error in case inline_data+^dir_index.")
-Reported-by: Weiming Shi <bestswngs@gmail.com>
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20260615190519.946736-1-xmei5@asu.edu
-Signed-off-by: Theodore Ts'o <tytso@mit.edu>
-[ mdmitrichenko: use EXT4_DIR_REC_LEN(1) instead of
-  ext4_dir_rec_len(1, NULL), which does not exist in 5.10; both compute
-  the same minimal dirent length. ]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
-Backport fix for CVE-2026-89786
- fs/ext4/inline.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
-index edaa88202260..ff96caac04de 100644
---- a/fs/ext4/inline.c
-+++ b/fs/ext4/inline.c
-@@ -1563,6 +1563,8 @@ int ext4_read_inline_dir(struct file *file,
- 			/* for other entry, the real offset in
- 			 * the buf has to be tuned accordingly.
- 			 */
-+			if (i + EXT4_DIR_REC_LEN(1) > extra_size)
-+				break;
- 			de = (struct ext4_dir_entry_2 *)
- 				(dir_buf + i - extra_offset);
- 			/* It's too expensive to do a full
-@@ -1597,10 +1599,17 @@ int ext4_read_inline_dir(struct file *file,
- 			continue;
- 		}
- 
-+		/*
-+		 * de lives at dir_buf + ctx->pos - extra_offset, within the
-+		 * kmalloc(inline_size) buffer.  Make sure its header fits before
-+		 * ext4_check_dir_entry() dereferences de->rec_len.
-+		 */
-+		if (ctx->pos + EXT4_DIR_REC_LEN(1) > extra_size)
-+			goto out;
- 		de = (struct ext4_dir_entry_2 *)
- 			(dir_buf + ctx->pos - extra_offset);
- 		if (ext4_check_dir_entry(inode, file, de, iloc.bh, dir_buf,
--					 extra_size, ctx->pos))
-+					 inline_size, ctx->pos))
- 			goto out;
- 		if (le32_to_cpu(de->inode)) {
- 			if (!dir_emit(ctx, de->name, de->name_len,
--- 
-2.43.0
-
+Best Regards,
+Yan, Zi
