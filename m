@@ -1,178 +1,109 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9980B53D0AD
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 14:09:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791986968; cv=pass; b=CFZnXyPJ34K0JnZPx31kq2ITeQV6IIFFCwUGsxydVKl/vz92OdZEyO/gONNZ+edxuIt6aMAN9ciV9Oh0Ujv/l9702m/GG0wSVMaiPSm7Hzwf5Ysx1wTt5X79y+WKTAk8e+BeU33qma4kby7eS3jQcoIgUSW8Why0QDG0xAkfZmg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791986968; c=relaxed/simple;
-	bh=sd73B+0fv4kFWg1/BIpMIx0XVt6pOSOqH8NxgJdLnhs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nAlUKz0dfjBaVWaTxcFnovZH65re4uiuDTXFlzdTIuMx6cWqWHcyYFMScjO3Usj7ZjgtIy3SbgKxxge36kNtUemhBdfQWsHiahdEDflBIQAfmVmjWg9bTVEt29M8mzDkA1ZUH69hKDW7qhMGMniu3rl/mlu/itYZ6R7sdHEr+FY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yv9FP3sb; arc=pass smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F4351DB15
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 14:09:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791986979; cv=none; b=DWOJy0LfnVqjqArae7A0tBpTgy7MOXULjaNFuDjEYv0NHouwNJ0/vDEKE9MtsbKyRk7zeY3Z5kFdanfdTnOd9edpRVC8Aw9HkSiYN077G/J5Q4UVst52z0YY2Z1xR1NpY4r9RQBFhNYEIb+C3auJWWBGT+L2IVNIC1XIDfKBWg0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791986979; c=relaxed/simple;
+	bh=39mqxoQ4FzxldK/jr8JEqlZcLe/X52JSnqR6pmEuz00=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VjI/BjHhNxuBM2sCHp60yAuvd8N4p/H+SxM8Cg92QE+ycSOO9jdeWrb27KcgjwJIRC+ESkIlzaRET1m6xk6EBb4iVia1DAHn6HYR1ilHYPHFpbFBflLNfzZO4Ovi/J5lY6rx7W76hqT9JX2PHtuAOgcBfdKDWk+l4IieZjRaYBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=hHK6r5m+; arc=none smtp.client-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yv9FP3sb"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b1aa377c61so4985851a12.3
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 07:09:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791986965; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YuxWFxcRG1Kwoq8mSrNClj+1uO0nFY9xwBHj4TAV1sio/HUJporyyBiv8A/Po8C4J7
-         blH+fU/IZj6/ZIBNLR7E3gbNzhjMmDii1ATUm/1U2PvDkYecPP7ARgr5k1F2eAzNzZgU
-         DMDALWB6XPmLIHslVTjDPnHEj2gjc0ImJdrchEwnsRvaTJpZvfaKKwzSGDdRSBUqYQpq
-         d+6jJRZ35bTo25Q7VpaCEbp0RSvz6Cs/ZnsQDnHoB2U9js1qJ8zC4L6Q1FxQeenhRkRl
-         YG1uT19a2tgGrEEKTGj9OVpZgzGCoNpV06ewZ+n4alN1QCQIRWXz3PAuwkdDFpGIucXX
-         1EKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3FLZn3X7YL11DIAVkQWpw7vFctgltGOcmiwV6tG+5Ks=;
-        fh=iV0TuMWGkqbVAcXYKdEft8ReZFgFNUDtGfgF90hQytg=;
-        b=YlHncs+W5ttoec3mJLlXTS2TqVCarPE1pxmPqg/pxVRiKAs9Vrrodi3brTTWVOdicu
-         o/BMxp3NZrlmEL2lcBLTG6laHrNmoIvXw78vnosCCTSOMW2jjrR5t4vZgiHfjBFUGGGK
-         rbGrNHu3i5o+Uj6zsVfvRXmxDVhagxeeNC/uhj32SSuMQ2uIZ13TCZyd70Bj+AaAlxyu
-         kLa+BAZF6JhLa+WlHE2TInEk8m367IylXNMW4PZyt9BRh80QzvnJs83BmCo6qiWRhD4R
-         uGW10/6XRkK8TTutjUjqmVVCt8xNJhbY/uFDfpxPKCC45cNmtdgJ0QZ3e5hOAPDm2UBJ
-         y9cQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="hHK6r5m+"
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93e635220b4so414946885a.1
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 07:09:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791986965; x=1792591765; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=toxicpanda.com; s=google; t=1791986977; x=1792591777; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=3FLZn3X7YL11DIAVkQWpw7vFctgltGOcmiwV6tG+5Ks=;
-        b=Yv9FP3sbiIObVAd7cQCkT8vTjPQW2euo9H17lTc683i6p/9tjAZHD3S9ayAId6G0zz
-         dQYUlx/P+mPWnqR8kIwELDxA4rrlK+DZSm+KaUQTAMniHDkNZnPCR++KRwh7RTt9+Agi
-         I9i7NLKsLJS+UmpnuE9zPi0jx6n/+/T5irpT7bVmblmpFszyxhKin/46rGpydo95BcKq
-         IcyN18iUvpnSLYyb+pKCR/J6dInJLThCGAfphxMtfBW1C1+VN+CsTQ2MJ2gii8IBuZTe
-         80PVez7adrbGox9g4t7B1FfYLvu9DSMHEeD0fm38bCBymSXz53Xvaub2gtunyZidBGOu
-         OVQA==
+        bh=3/Rdq16RXcxQlW9vLdkggo7RE79oEveipYzoAMSsoeU=;
+        b=hHK6r5m+YL08aTQqdE500oGvofyolfuOrJ1AHmWONTk3jYoWyqZBS+EniR2mfsCpRa
+         7RYYioCIMIpl1yGTR8ThJqIWdjMpZDvFmmT7rkOz0tcin2xd3RzoS5F14JKq/XDk0J0S
+         qJOI4NwhVy5oIBiU1dWNk5LBKTgzzL9xFo54ZC8K1jlwuS7PPsVbjr1gWa5t0tPl8onX
+         tERlwwyNyYA0KdhGIZNX3yO+fWRVwxBiQ9409adWXo/VHalNbZ/QSsqsefaODBJX6so0
+         /+SRAik1Pl+KjQppsIQYZSeXk1zjQZ83d+3ZCY7IDbKT4TIRKfVX9O0s9Aajklq6z6f3
+         6zxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791986965; x=1792591765;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1791986977; x=1792591777;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3FLZn3X7YL11DIAVkQWpw7vFctgltGOcmiwV6tG+5Ks=;
-        b=JoGVWSAHN2sHuOVNMtyKTPUInKiU4FbOtDXIbZ1QFqPN5OkvmqNR/pjnoH5Ofn0/km
-         Wp1D/2XHJOSb0QQU+8T90v9/mO3RRT/Pi1eXcxg8yV9rcPDl8TnOfMM8FkDxhZqjAlhw
-         CgoIcANY8qdg2s8ID7Bc/gO+YVaU+46MXFaMXtYQkqf44Lxlb4kOVSVLsv2/3WKyK8f8
-         /xOHoTpdR/HODtPNz2X43uKsjQ9a8u4CEqZ9EnvGyBsUmBKmSoyfvCJINzpXrGnXDQOL
-         KAkaaamdlPwf8o4fdQRQaafBcsZcqsVS9TWQD1D4kyUft/cTXGWLPRY/1FArnpQZ4gOc
-         u2nw==
-X-Forwarded-Encrypted: i=1; AKwUvBwKj5/uafwgN//zi/YK9QDwN191n2bSjbCh9m5bmSlbpEx6Ny6NEo0+11Vx6S7V7h2uEL7zOEM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKp1A/ji9pc8EiQrDnpRObB7oAsm7zsDxUFjdRY4U6J+QTdDJpQ
-	oSXvMtRgComfT9Yz7d4T48ChhaLRmZ1VjG1GHpqm4EWyQJoEigDzwhOj22bjx8Qhkn9ufpVPMQp
-	NYl5hb7rhcVJa35iMLgD+BcUMlzYVQPc=
-X-Gm-Gg: AYBFou03d1R4yj18+cyqE9YO5bZ+r0En1VfwNzm+bjJb9QRiEmR7vwHismweSWztoVy
-	Zb9Pv0UuEI1WnMuEM8qK0H+J4vChr2565aHpxjdA06si2ETsNhfvbJnTobCOhARzVfVeMUTNL3Z
-	6i5qnVFmpBEebeg8HJEetPvEGIfP7GfJr02vPMqWBirrfczl6eKC8xYI2nI3q6BtGg27BIrgcTJ
-	FR/nW2a5D3jS+DYYQ/DxiuJDH76Lzt6T0MRtv5E+8bv6uXUo9ho8nvdl6QX0s6mBIG1V2vi1qIM
-	tJJIpAK+dQo+1lX68z7E1D1btcjHXRSlyeWrePThFSObhFlW74xTs9x/GGZZVOTBO8EK
-X-Received: by 2002:a17:906:dc8c:b0:c29:555e:bf2 with SMTP id
- a640c23a62f3a-c31a9fe3cf5mr1382766766b.41.1791986964194; Wed, 14 Oct 2026
- 07:09:24 -0700 (PDT)
+        bh=3/Rdq16RXcxQlW9vLdkggo7RE79oEveipYzoAMSsoeU=;
+        b=yh6CcrroLrq+tYOU2AyruVLLyE/ZoU5S3eV3JMbPDZ7HN0yZzcrCyEFCE9RBRDAR9/
+         mDQnHVMZeeo3JRLZli5lFBBs1Ty7Kz0Kiq6V0Ho8UcXSYC+Gk32kJAqJWvUTF4uj+nJA
+         Ak+OSShdIcoB218M5BbAb5V2zYnZf24gg8zLweZCGY4KOM6e4+f6UZFQ4lonYUqqlcIf
+         /gBVsyl9oaAo6RXWiOTHCH1GQLL9I0vwG0+taMsxQ1sEeC2g7uLoGkAyo9STCmEU6MTD
+         15IQrh2HIQxk5cAVjRX0iHoGDPdOvRQYxf9CcwVbLBEqlXZQ/8joZNlcCYwXNXteTSim
+         M0rg==
+X-Forwarded-Encrypted: i=1; AKwUvBxstG0mgUq5SoPukuB8mYyWWjCUNcQnzEz2cq6LwBF250XhMWFvPOKO2UUSVi0up/Dw15VYV00=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLF7uVzbm4jlc1+6gq+HxY0BiZ7pUJFtB+434Zd4VEv9bT7bGRd
+	TlH6U3n3Cn4AuUecbnuorMCP2XNEoYYapjKEE/8323gh6q5hxhaNlvlO0Dp2HqQ94BU=
+X-Gm-Gg: AYBFou0jesDglymWjRSv1DH0aq5KH6IJn7TN6BgbxNIXgeJbqBFrZBp8wg0l6JruTAG
+	ijtwas0p3V6jA52o3tj0BVZdrDOMHuNF62rbZw4WiN+N/V98HyAmgpQBFYFXCYXa/6+yQ4/5vrz
+	5+Lo8XC9Simaic55Hp7JCJxbhOBUambrDaI0qRTQ5hwUFewtwDkw2ROcxItum9kLGo6GIJQgk18
+	ryWSmfz9d2UARnVneBu8bfCY+PsHiXYlPki1NMdS8qc3pV3SS646HkbAFi4XMIaKdTB1oSf2D1Y
+	YdJKSZkzjFfe45a+EWdINrNAJMfmigSsq0yFVeJaYAQMwngpYu8utrbkp1jR1kJ1hT1BUpPxVb9
+	LQ1g/SCerVn8Stbdel7VZmdt4jkgrPd7kqCIg1BFqHHQezpvk3lC/QcrN+t+k90h7Of4tV/DSl2
+	njIUVH5aMKhDktQvxpsONNu+yHVdQOVELu1G8UKZqMr3jSFiU1ge5dqC25CwVoiMIUWNGrjhKix
+	43s9ZodyFfEKXGp
+X-Received: by 2002:a05:620a:2988:b0:939:f49c:1b30 with SMTP id af79cd13be357-93ebd225501mr2597059885a.13.1791986977046;
+        Wed, 14 Oct 2026 07:09:37 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.251])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef5090050sm498788685a.40.2026.10.14.07.09.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 07:09:36 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+To: netdev-bot+sinfo@kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
+ Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>,
+ Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
+ Mina Almasry <almasrymina@google.com>, Kaiyuan Zhang <kaiyuanz@google.com>,
+ Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH net v2] net: skbuff: make skb_copy_and_csum_bits() report
+ unreadable frags
+Date: Wed, 14 Oct 2026 14:04:45 +0000
+Message-ID: <179198668564045.2.8478350980557034137@toxicpanda.com>
+In-Reply-To: <179191473048.99822.411131589969126386@kernel.org>
+References: <20261013-b4-skb-segment-nosg-unreadable-v2-1-6c28d8ffa51e@toxicpanda.com>
+ <179191473048.99822.411131589969126386@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CANypQFZzxTAH=4QRRDoqH6VAw1daAq88NDWiQKoM7QTOnP40sg@mail.gmail.com>
- <20260916084723.877552-1-r772577952@gmail.com>
-In-Reply-To: <20260916084723.877552-1-r772577952@gmail.com>
-From: Jiaming Zhang <r772577952@gmail.com>
-Date: Wed, 14 Oct 2026 22:08:45 +0800
-X-Gm-Features: AclHuK_KOZRXvkZAlVmDLv2Mmd5CCVB7SGq_bvSi3dxWQZgMQy5Ldx3OdNtwlzo
-Message-ID: <CANypQFZCx7iAhsMzb1-WRAMwi1T_sk34LkUX8-bDquWrez3_eQ@mail.gmail.com>
-Subject: Re: [PATCH] ext4: clear in-inode xattr space before adding the first xattr
-To: linux-ext4@vger.kernel.org, tytso@mit.edu
-Cc: adilger.kernel@dilger.ca, jack@suse.cz, libaokun@linux.alibaba.com, 
-	linux-kernel@vger.kernel.org, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
-	syzkaller@googlegroups.com, yi.zhang@huawei.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-Jiaming Zhang <r772577952@gmail.com> =E4=BA=8E2026=E5=B9=B49=E6=9C=8816=E6=
-=97=A5=E5=91=A8=E4=B8=89 16:47=E5=86=99=E9=81=93=EF=BC=9A
->
-> An inode can hold extended attributes in the space that follows its extra
-> fields, whose size is given by i_extra_isize.  When ext4 loads an inode,
-> ext4_iget_extra_inode() validates that space only if it starts with the
-> xattr magic, and only then sets EXT4_STATE_XATTR.  Without the magic, the
-> space is treated as empty and is not checked.
->
-> ext4_xattr_ibody_set() passes the space to ext4_xattr_set_entry() whether
-> or not EXT4_STATE_XATTR is set.  ext4_xattr_set_entry() walks the entries
-> there to find min_offs, the lowest value offset.  That offset decides
-> whether the new value fits and where the value is copied:
->
->         free =3D min_offs - ((void *)last - s->base) - sizeof(__u32);
->         ...
->         void *val =3D s->base + min_offs - new_size;
->
-> A crafted image can leave non-zero bytes in that space without the magic
-> where ext4 looks for it, for example by shrinking i_extra_isize.  Those
-> bytes are parsed as entries, and an entry that claims an in-inode value a=
-t
-> offset 0 sets min_offs to 0.  Because free is a size_t, the subtraction
-> then wraps around to a huge value, and the free space check passes althou=
-gh
-> the value does not fit.  The value is copied new_size bytes before the
-> start of the space, over the inode's own fields and, for a large value, t=
-he
-> memory in front of the inode.
->
-> On a kernel without KASAN, the copy corrupts memory: it overwrites the
-> inode's own fields and, for a large value, also the memory in front of th=
-e
-> inode.  The bytes and their length are decided by the setxattr() caller.
-> Nothing is freed and reused here, so the use-after-free in the report onl=
-y
-> reflects where the write happened to land.
->
-> Triggering this issue requires mounting a crafted image, which needs
-> CAP_SYS_ADMIN or automounting of removable media; after that, any
-> setxattr() on the file reaches this path.  The issue was found by fuzzing
-> and has not been seen in production; a reproducer is available in the
-> linked report.
->
-> Clear the space in ext4_xattr_ibody_set() before calling
-> ext4_xattr_set_entry() when EXT4_STATE_XATTR is not set, so that the walk
-> starts from the empty entry list.
->
-> Fixes: ac27a0ec112a ("[PATCH] ext4: initial copy of files from ext3")
-> Closes: https://lore.kernel.org/lkml/CANypQFZzxTAH=3D4QRRDoqH6VAw1daAq88N=
-DWiQKoM7QTOnP40sg@mail.gmail.com/
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude Code:claude-opus-5
-> Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
-> ---
->  fs/ext4/xattr.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/fs/ext4/xattr.c b/fs/ext4/xattr.c
-> index 5c310747b965..2e5f39b710bd 100644
-> --- a/fs/ext4/xattr.c
-> +++ b/fs/ext4/xattr.c
-> @@ -2274,6 +2274,10 @@ int ext4_xattr_ibody_set(handle_t *handle, struct =
-inode *inode,
->                 if (IS_ERR(ea_inode))
->                         return PTR_ERR(ea_inode);
->         }
-> +
-> +       if (!ext4_test_inode_state(inode, EXT4_STATE_XATTR))
-> +               memset(s->first, 0, s->end - (void *)s->first);
-> +
->         error =3D ext4_xattr_set_entry(i, s, handle, inode, ea_inode,
->                                      false /* is_block */);
->         if (error) {
-> --
-> 2.43.0
->
+On Tue, Oct 13, 2026 at 06:05:30PM +0000, netdev-bot+sinfo@kernel.org wrote:
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
 
-Friendly ping, please tell me if any further change is needed.
+It was found by the Sashiko review of ab9414ed70bd and then triggered
+with a test module, not on devmem hardware.  The module builds a TCPv4
+GSO skb with 3000 bytes of payload in a page frag marked unreadable and
+calls skb_segment() on it with features == 0.  Without this patch that
+returns 3 segments whose payloads are all zeroes, each with a
+SKB_GSO_CB()->csum of 0, which is the correct checksum for zeroes.
+There's no stack trace or error, the data is just silently replaced.
+With this patch skb_segment() returns -EFAULT.
+
+Thanks,
+Josef
