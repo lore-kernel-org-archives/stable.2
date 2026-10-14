@@ -1,40 +1,44 @@
-Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C56623C3F7B;
-	Wed, 14 Oct 2026 10:26:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.211.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409D54A5EDD;
+	Wed, 14 Oct 2026 10:30:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791973586; cv=none; b=WKyrrR1RjVOLkB5Y2prs3V3ttuB85YIk//V7UpmXEVHcNjQ65rJsAPOq8jv2VgaLFAVcpFOD3ZCQwYLsAesO9HVDCJCenQ4MiCMoPbyHZniJQTQsvqIh3kbc3djeaEHeBM87L2s/BgJjnjs33wzPDEICYxxfEVEU8ZzZywOjO+o=
+	t=1791973819; cv=none; b=dxxUXCQNrq/A1Ve7f8bke9shmT3OPmXJZVMpmRlqp08D7fBagaIMxkeZ+tR/s0A44/Q5dQBkcuHDPr1gy8xq76ZNRcCWg2/mFRt/a83gmQB9mImgoSAJQdH9r1bXaWytZRs31QlejCruhdj2s0vi2M3Q0phPRdoPmjSVbsnen3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791973586; c=relaxed/simple;
-	bh=eEwD/rk+GiCQSggNZcLZ8E08bkpy39mNXadrL1hxNpY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Lclg9vKgaBf0s9fDaUVM5JQhKy2oPlrccrn17Ls/GuwXPEXpEo7Npc0QFWQsGPYZEohlvVKD9q98zQsWx9X9/ghBlcxZEkK0xe5zSbVKO2GLeu7uBBq5uWjlVQi3HAfhK2Yb5qD2PiVxCG6o2Zbc7UGcYuLV4mQJcL0pRTU47kY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru; spf=pass smtp.mailfrom=swemel.ru; dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b=kl5+lJwP; arc=none smtp.client-ip=95.143.211.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swemel.ru
+	s=arc-20240116; t=1791973819; c=relaxed/simple;
+	bh=iWRy+RySwK9hGoK6m2irTykTpFLJKeumaG357x5XVlg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Kw2rz0f0ttYxMZNmmstZbr4wtSYCJRioL05gr7OINmJINtBfFLwS0hp45H4sNIsdjVFIkecZYDzArIpkkTQNLVnK4QQZIR9iTI9mWD5qcW5zscpT9p+ILo0/b3FkbQ6rAlEo4Ly2MPghZggXMfdohSG8Qe4eqEQJRleuupxmVF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SZ1AyUdi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b="kl5+lJwP"
-From: Denis Arefev <arefev@swemel.ru>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
-	t=1791973579;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=eUD8b20Zl7D+KHbQzbiKippwor7cNZzQh1VqHI5iaAc=;
-	b=kl5+lJwPHteYy6k/3BZBpOidZJcjs9Y4DCcfjQtYQ0nfPIlEzWdGxA+slzjuLi9uIYULBH
-	fQL5KqwgRm5tgtta/EyAPiAwAcRDBv+nSsJ4E7pWAaYdvAkXiWYgZjPRUWygTxVQ5mxP6c
-	uH5H6OYjFWGqYkWEigFfU8SkcKAmmhw=
-To: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Kees Cook <kees@kernel.org>,
-	linux-sound@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SZ1AyUdi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C4811F000FF;
+	Wed, 14 Oct 2026 10:30:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791973817;
+	bh=hKEEJuYS6FrXq5BrnjlC2tV9RaL6MFYIN3GFi5M0KyE=;
+	h=From:To:Cc:Subject:Date;
+	b=SZ1AyUdi46NP8OrpYBa5RIN64JM7lCIsyq32OYO68rshiG9tV7eJd+hVPVs3m4MWz
+	 0wBjIrgRkw0XvXKtYGMm+WnInEIAU7nOBrskN/KedBQqkiNLi7LLxczDVe4XEa18k1
+	 jWHp+mGQLhvJXBm+Eclet1GCoJT/h4cwcTIAMcPif00av/sGr+vDeErT5ylJpBrWPs
+	 inUjaQPMRnUQ2eTIxFmgGnbjjiWvTOV/25oPvsXHLG75l5rWTk5ZnJ+M3TXuoBgwr2
+	 5gmPGguOgGQC2GYHv/VqBUyAg9nXxF2TiOoy2Ez1hOqlNXvi2yphJf1Xkcj3Xn8222
+	 4Po13vTvwJVdA==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Tom Zanussi <tom.zanussi@linux.intel.com>,
+	Fengguang Wu <fengguang.wu@intel.com>,
 	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	stable@vger.kernel.org
-Subject: [PATCH] ALSA: cs46xx: fix unit mismatch in DSP code area bounds check
-Date: Wed, 14 Oct 2026 13:26:18 +0300
-Message-ID: <20261014102619.16415-1-arefev@swemel.ru>
+	linux-trace-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] tracing/histograms: Verify event_call identity when updating synth_event refcount
+Date: Wed, 14 Oct 2026 10:30:12 +0000
+Message-ID: <20261014103012.744589-1-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,45 +47,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ins->code.offset and code->size are measured in 32-bit words, while
-DSP_CODE_BYTE_SIZE is the size of the DSP code area in bytes. The
-check ins->code.offset + code->size > DSP_CODE_BYTE_SIZE in
-cs46xx_dsp_load_module() therefore allowed up to four times more code
-than the code area can hold.
+In event_hist_trigger_parse() and hist_unreg_all(), the histogram
+registration and unregistration paths look up find_synth_event() using
+trace_event_name(file->event_call) and adjust se->ref if a match is
+found.
 
-The shadow buffer ins->code.data is allocated with
-kmalloc(DSP_CODE_BYTE_SIZE), i.e. it holds DSP_CODE_BYTE_SIZE/4
-words. A firmware file with a code segment larger than
-DSP_CODE_BYTE_SIZE/4 words (28 KiB) passed the check and caused an
-out-of-bounds write in shadow_and_reallocate_code() and an
-out-of-bounds read in snd_cs46xx_download().
+Because find_synth_event() only compares the event basename, registering
+or removing a histogram on a non-synthetic trace event whose basename
+matches a synthetic event erroneously modifies the synthetic event's
+reference count.  If a histogram is registered on the non-synthetic
+event before the synthetic event is created and removed afterwards,
+se->ref is decremented without a matching increment, allowing the
+synthetic event to be freed while an active histogram action still holds
+a pointer to it.
 
-Compare the sum in words against DSP_CODE_BYTE_SIZE/4 and cast it to
-u64 so that the sum cannot wrap for large code->size values.
+Verify that &se->call matches file->event_call before adjusting se->ref.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 4b147936fa50 ("tracing: Add support for 'synthetic' events")
 Cc: stable@vger.kernel.org
-Signed-off-by: Denis Arefev <arefev@swemel.ru>
+Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- Compile tested only
- sound/pci/cs46xx/dsp_spos.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ kernel/trace/trace_events_hist.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/pci/cs46xx/dsp_spos.c b/sound/pci/cs46xx/dsp_spos.c
-index 6fd4f629d1d5..a77e6f5a14ad 100644
---- a/sound/pci/cs46xx/dsp_spos.c
-+++ b/sound/pci/cs46xx/dsp_spos.c
-@@ -393,7 +393,7 @@ int cs46xx_dsp_load_module (struct snd_cs46xx * chip, struct dsp_module_desc * m
- 		dev_dbg(chip->card->dev,
- 			"dsp_spos: module got no code segment\n");
- 	} else {
--		if (ins->code.offset + code->size > DSP_CODE_BYTE_SIZE) {
-+		if ((u64)ins->code.offset + code->size > DSP_CODE_BYTE_SIZE / 4) {
- 			dev_err(chip->card->dev,
- 				"dsp_spos: no space available in DSP\n");
- 			return -ENOMEM;
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 00a1d8522036..71b240b609ea 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -6807,7 +6807,7 @@ static void hist_unreg_all(struct trace_event_file *file)
+ 
+ 			se_name = trace_event_name(file->event_call);
+ 			se = find_synth_event(se_name);
+-			if (se)
++			if (se && &se->call == file->event_call)
+ 				se->ref--;
+ 
+ 			update_cond_flag(file);
+@@ -6926,7 +6926,7 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
+ 		event_trigger_unregister(cmd_ops, file, glob+1, trigger_data);
+ 		se_name = trace_event_name(file->event_call);
+ 		se = find_synth_event(se_name);
+-		if (se)
++		if (se && &se->call == file->event_call)
+ 			se->ref--;
+ 		ret = 0;
+ 		goto out_free;
+@@ -6962,7 +6962,7 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
+ 
+ 	se_name = trace_event_name(file->event_call);
+ 	se = find_synth_event(se_name);
+-	if (se)
++	if (se && &se->call == file->event_call)
+ 		se->ref++;
+  out:
+ 	if (ret == 0 && glob[0])
 -- 
-2.43.0
+2.56.0.385.gd3acb90ef8-goog
 
