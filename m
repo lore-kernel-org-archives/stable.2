@@ -1,178 +1,180 @@
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011042.outbound.protection.outlook.com [52.101.125.42])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE5BB4EA37B;
-	Wed, 14 Oct 2026 10:00:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791972023; cv=fail; b=CgEn7dFn20k9So95W2D9d19kgAewVN7Rjfy4REqIT9yttMyvF05EF0etnN5l+szNcjKYl3gX6HYYst21Ab0R9p5YfDsKFNsKsCrogee+sdAZ6dvVNpwvCCQFvlCaovZL7Lh25C52p38APHXFtyY8+nOwYHWCXLWgqyt3NxmE994=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791972023; c=relaxed/simple;
-	bh=GXQ2htJtURXoS8PjkK852Une8t/IwircM0OqBexw9WA=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=vDQIHe/1Sx2gjx3o/mEv2dltdAwPHjnesrTCvoRrT4mCoztPzPnAZ5ruadczwaSpEZv4UTh3MlIOXwEW9eL5EUNV9UJxAC6w8spvHkQA1I1qvxUcbXpY1AzLRi2bOSO0IIqCnPdz3oGGjke+cwgRXoEuHHSLDz5D+pL4YIUHHzY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=hRAOIY9W; arc=fail smtp.client-ip=52.101.125.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAEFC4EF151
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 10:01:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791972121; cv=none; b=IjgOU0z6yQjAzBQWFshWMuVM4gEYNqWgy8/fTWIFY9WaKLHJBfvnB96Qftpx45JiZg95W/uChwNK6otlh5WgXxXvV91SEmwjjsyoL9NZpZH+IFaaAzVHXV3OZVRdkA4zxQ6/OP53RsYbuXn05P435fVYP54thUuzgx9h9YK3vxw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791972121; c=relaxed/simple;
+	bh=bxAABMcATBGCVbIdLI2E3IV2T/5FveIz1lB1kdv5BSI=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=hFZ9csuPypKQwjWgpP2Bdg0JoMzmruU86OOoiHSY6Es1EzUirAjNlSOc8iJL+HrnIYsp4kCjmQAu0djCkpy5kBysOvev4QuH4GCnNtBoWkaZ/L5sOujzuDPKaxhi3+Y8cxqgBaS65xIdGvqbobz52yTBWulAKPOVWum4lJUpyUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XtRtTzbr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=W/tnWRY8; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="hRAOIY9W"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nHV+UOBy784IWe9OcUf4RnsXsIrNJYYNb4ZjjkuQzMH0YIk/ETd3dvvQu87N/JFhQIzEj+jtplIm1QHrFgLLuWhM56jn9r7+ElwQoTOx5JqK6C2ej4HYJ9cUTUnnsH02eE5cvmO3DZPc7hP1v2Wp67yLV/CRu1tAHjFFGc9B0W0G03wZRFfvxoe+P80gKYL3Mc/WsNeT6HQJy4bcdlMWVifzNZ9fLOp3mSTZL6gF6wgdHh+PIyXoFkAf9Dow8u16OsXxPGY0Bhrp1ZM3NeGZSJ/TXNt9kBuBTJir1Uq4hRqnEgWeHU90MX2Sjo2F/hV8f/SW1DDXFF8xYLlWhxO/zQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2u2Jiks/CQfHE45H3F6rYMxv3Ba1GrrYj0YyUJ20fuQ=;
- b=IgjRl/Wsed6IA/KTWOF00R1LnHVPl1UB6HdQ6Rhn6BHaIbDvTwEzNONladXTZBe17dW98IML3uoFyADzhBjbn9i9naAeSayY4CW4anqBtFgjzkHfnkggQlJts61KH+jkFP0oYhaUQaPl4xNuYw1uvHx2SEZEhnvK3N6IOnTKx8Wu521kakpKrO0OITXzecyqEyAiNdACLGHMVSwgiNpKgNSt+b8QfbK2ueaxAHhZ/sZn6tLi9BC/WhXxhK3f/OPYNO85flsUL3+6YMWIj8g8aBsQEXlEp6T8WR8umZdMH9zyvchKPUZttAo0e8MR9+rnWiRWwb8tkJVdytLjrU4ldw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2u2Jiks/CQfHE45H3F6rYMxv3Ba1GrrYj0YyUJ20fuQ=;
- b=hRAOIY9WGPrYPP7buyauuQ+BEnif93kXYFm9X5nSWTnHhS6g1s5eL6tPLaaO2z6cuvMzHum1Jw3QKhlwEJH17KsQJs5fy/PxD0DfQtWp7i7F+31Puyhoezl9w9DZWORn65ZEGJZGWmVnY01LYvlWB2HLUM4QFLexsoLubqEZKB8=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
- by OSCPR01MB12951.jpnprd01.prod.outlook.com (2603:1096:604:339::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
- 2026 10:00:17 +0000
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
- 10:00:17 +0000
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: tomm.merciai@gmail.com,
-	prabhakar.mahadev-lad.rj@bp.renesas.com
-Cc: linux-renesas-soc@vger.kernel.org,
-	biju.das.jz@bp.renesas.com,
-	Au Dang <au.dang.jx@renesas.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Subject: [PATCH] irqchip/renesas-rzv2h: Preserve TIEN state in rzv2h_tint_set_type()
-Date: Wed, 14 Oct 2026 11:59:22 +0200
-Message-ID: <20261014095927.635132-1-tommaso.merciai.xr@bp.renesas.com>
-X-Mailer: git-send-email 2.54.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: FR3P281CA0145.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:95::8) To TYRPR01MB13588.jpnprd01.prod.outlook.com
- (2603:1096:405:18d::7)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XtRtTzbr";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W/tnWRY8"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69E91VkF3000868
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 10:01:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	sPkOAvHjGguK+u1bhI+1A6KtcM2Hij2aa37XKD4T2YE=; b=XtRtTzbreLbENmD4
+	w9nXdbO9+ui3nKl9oY0BLYee5c0YjQhis4AHR5mDZjszR844X7av0SCOJ0JiebSN
+	cj2uDa9JoFT4XZEEI3q0mp8Zn6FJw2h4P3o+YIt8BKVj+S/6wlK7GC81Zw9kB17z
+	2D3bc3zpMPhDXdHhWrtJeTX0ma16AzREevUBcPO+7YcnCOPfQkm2w6uMJostm/v/
+	COTWRZbM0mdvs9XtLz/CjPEG6jPQ8IR0arPxTaOxX500uhNoCLm65ItV6aTe93n2
+	Pjj133XIbfbRcX105R1GCek4kOAOCOeJcDGyrudOxjDQ/y+arROsXbpw2wOaBtjO
+	tPxB5g==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9sbeucvu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 10:01:58 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5e199541d01so5902232e0c.1
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 03:01:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791972118; x=1792576918; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sPkOAvHjGguK+u1bhI+1A6KtcM2Hij2aa37XKD4T2YE=;
+        b=W/tnWRY8tdKuwCddu1XtkH6g/Qk1QDwBCYNxI5vLe4RymIg/P4HrGmJf0S9XomwU0g
+         U2PAFMNpvBXR5UTO+0hHLFzpCHDr9yLY8Io6Yb9LAgn4UjCK1k52XW/57T9nA2q/wRie
+         zil8qlCPNXwQImtmCj6P2E2SSvGLHkhsnNrmj/+ViVMHDDY7DuiiYT2zDX/swE0ywzvg
+         dbb5I+4D8C411VMbmmXrmZDBapvOz+YdiqAQyA4pXvM244ypTQpEQfcJClx6nQggq85r
+         BdzCPAovyyQ9oOCYylLEXby1vsY9/CIf3mTG/4ixhrI9RqPfox4lHXcYbRuCex2MsSXJ
+         d/XA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791972118; x=1792576918;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sPkOAvHjGguK+u1bhI+1A6KtcM2Hij2aa37XKD4T2YE=;
+        b=fm5euyYVRImSoI0JoCHwRF6KZFbUIj0ZY4GsU45MJ4dlWN+8KP8YPvFNvRJ3CcLxxP
+         GpClhuWreuElDvjzFHTO5R5J1OsT0vcZ3IwMFHSlS7w1dqUTU+rmdGOze8N44R082LPh
+         wOAdH8d2Q1TVflD77MpJHdJYL4IwLuq+xcSSi7IrzHpIzM0JunMEARGYFiADI7xwm4Uu
+         43RnUDKEM9OVBtyDj55nfV/nrv8yb5h0+g4LlUMmuQ2vpoZK4LFJqf9KtbZ5+KgRXePo
+         ZFVrS7Ej44JaoZq9lbJxPtZE6aG1Ih2WcDL7bj150uGhxpL+0+FlRYQ6rcMkSYkrsgmv
+         6teA==
+X-Forwarded-Encrypted: i=1; AKwUvByvU8AMDulAgINW1zs9xnEN6Lgte4U1epuEWkZ46ppRpjSxKtJS0oPIicXuvZXExXvBdK7+Wz8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKyfqlb+khQzLHS1tU25/+ebM6m9eZPyKuFvU6txF0YcA76/o0m
+	IBi4WKwOCt3UkGdBK/Suo3jy7tobY4ycdGLqio1QF7mYutYZPcu+ylYviYKr72XiSE6hAbI6sZS
+	K+DaXnnylvFx63HKL8lm78t1zQkAftVHT1Ie8b1VRmE/jgY1uJU/FkiU5y5I=
+X-Gm-Gg: AYBFou2JmSWAl05gxBvuVuAOsPF3OMCghF2oMoLA/2TOCzopkvHXXU5PdrFCURcO8gu
+	xgkJ4tfjKplJxOxRnDIeYj3ifAUk9P9yxo+vcqHKimtYar6mgoSoRi7WCEIYDZ7xFbLtqdSnC6k
+	zgykn9Fb0Qr9GLjhURAdxttzFivmfgcwQtGPK2Sfg8aRWKuvhKbb3jgQjFaJPwjR74mZB8HhLxO
+	eRpm+ZmXOi9pYOY4Zs2WCIygPDYYNvY/wA00U9/n06erUgbReoremFlwJf+3Oken0v4l43IOtQW
+	Zt/3uxy1++GJ5rZ1X1inZM97LxImI0lhgP5RmnmbRMqssZ1RIIRNhTuzKD+HAte3eV3ttZqvtZp
+	DRcBWCMvnxa+iMlEeYhZlDVaDfzSiJH9+Zb+XAT2H2U9HxNy1P/Xea6TBi8GtmEyI3OWW9BGSV6
+	4tGAZzbiAp57fHpkB7pQ3b4vWLMaFCdzjPZlUEHde+8bjWdmw3FohI5JcHZFykOTiziA==
+X-Received: by 2002:a05:6122:414e:b0:5c9:a60b:e5a5 with SMTP id 71dfb90a1353d-5e91f4d187amr5598567e0c.16.1791972117856;
+        Wed, 14 Oct 2026 03:01:57 -0700 (PDT)
+X-Received: by 2002:a05:6122:414e:b0:5c9:a60b:e5a5 with SMTP id 71dfb90a1353d-5e91f4d187amr5598522e0c.16.1791972117285;
+        Wed, 14 Oct 2026 03:01:57 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec? (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl. [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ae59f9sm683926066b.80.2026.10.14.03.01.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 03:01:56 -0700 (PDT)
+Message-ID: <ab5c5ae1-1bfd-4fe4-adef-fb64b5b3dfbb@oss.qualcomm.com>
+Date: Wed, 14 Oct 2026 12:01:55 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|OSCPR01MB12951:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef166fc6-3e9a-4c3a-3f57-08df29d9f2fc
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|52116014|1800799024|23010399003|38350700014|56012099006|11063799006|261009223027099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	wnzEMqCYRfGXRd6Auywgr4oFZfk0x4JM8n7yLPq6ZEWW9KReae3Oj/Wda8JB396CzOEnrd8xNnZbX/ZYfSXE0NPl55HxAm0GKJxznTBUK6DFEKRX94zwGIj1H9lRySNNjHcHwAhbsBroF5rz6EANDJlcKdN4bmLGLr/n0KJ/M9CZvBm/k+FQPPpGOxYZRAara6DGwpU5lLbJIHSEi/qvrlJYRX807emHYLlmLblkrcMyE6lGyzGaQA9FNW7IMFFYgcJBJP3VH8rr+uEnmbWA7o/kKJflT0/m5PbDRVoH8TQnhsN8LfUKUIQJryfYdFU5LFGECvidblbI/SLJEeCiuujvfGHgnJ3J6NlSiVmZzq2+hNaULogsMjvPJo3YDY12TKFkaBBqFmZ2szQWm+X1+JsmqJADWjWJMIeDL2lC0cNWRAfVn6Jnv45ooxv9C8e9ZAwW7BxvFwhJo4gu4H3KoHhT//PXis6CE1dYSbeioFtpRf4i7WLXdcqORMrqN05JIxbxrcrmlgMduyfsMg9LPVLD4pV7Hdjif6BUF2bMjFgtYTAb1Nl+OabnXsIEhSjnRdfZ6zZMc2iIL1revzsh+8TpINv6A0p08oIz/fGJidmGJq/5MSuru07LIUpZbifUPecjVNoioQMoc6A57yKvqGBg4qGsGdGGF9nCX6SzMZhkMjuyJyB+ElvuNIv7CbmezKtih2ME7A89PJBIflgTCy6yrVc7/+vvbgOXNXI3lPI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(52116014)(1800799024)(23010399003)(38350700014)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Ze43C2CWNYbBupvQn9Aha9LjG5nUF4dQO5AQcOdLAJey5ITR/TKJyrhlbXp/?=
- =?us-ascii?Q?HNONLXWa2RH/2ppnVRbBv2GZ6tceDkNJEZ9tTNcqjBMp8OrfEDQG9d2SltVY?=
- =?us-ascii?Q?MyxddQHzfpsJ7wqP5Fh5MybKLT5WyhknJmdR5ttUb/hhkJFimugIpq2ZXtXn?=
- =?us-ascii?Q?OrK6NR3z4xbFIMvAGM/13++SR//yJTEVKDerPn0rhE9ocThyqnAKTprqahGZ?=
- =?us-ascii?Q?AI/uYZshBwHLdLFDOPp8PMnNwwGkU1cwM4peIUdXwvrojcld7VeIhD6YOkyQ?=
- =?us-ascii?Q?QDVKRPERk30W2+6HKoPeZyTLb9YJ0f7vAM7vP9WgazVNqdOuzKru0i4AJ6R0?=
- =?us-ascii?Q?vKN99fPUUYINYyoSOkJLRbzULYRtBGRJCvXEBXSbsPdrDyFW19eHdie2F4WK?=
- =?us-ascii?Q?ZLgkKDaSaeRnkeNjf1h4KoGrSx67GHqEh7OiE/PGnWqviwDKMM2QiwlFDcyH?=
- =?us-ascii?Q?EDnZlj5HDjuhALByd+Wgfb1ezqQ9vuzHfZX0RKqilI9s54SrOrWJYmj3zKKZ?=
- =?us-ascii?Q?pYBFIR2Gw1KJ+jXDQo6PBmcnIn+VbLN0S3Yv8vacrczazod4iJ+ykjnlbpZk?=
- =?us-ascii?Q?juw6awh6NffBX1ZlAEDWctbe6AySmSg2omg2EE+ZpWFkSbZkb38cIvmpkL7v?=
- =?us-ascii?Q?NTqtr02iMFk4vdQWd6QUt2icz9MY2uYG83CMJ2Lgnc7ukbtzLkJDjSs5qrEF?=
- =?us-ascii?Q?8Uj/wpwTd9Tngq8KQ6ojGhyUGPa9n4ms5Jtu1pCxFyqrvc533F0R21QMvs5N?=
- =?us-ascii?Q?Nar0Zuc1kpYrSk4IzQx1niNR98ErHgjLPgv5HkfwA8DhLRH+nXxuRcZa6E8F?=
- =?us-ascii?Q?H2I29uczo+0TgHseI6zROzVy4WQNGS2jTbJcsCL12y5zKf10Uw+DkFXsrh5U?=
- =?us-ascii?Q?9mfkTG5w2ZQSdIwD9QN5Gf6BlDbkwmXxk+EjPrcKTQ0OQdLRKdL/8N/5ULaI?=
- =?us-ascii?Q?zgO9TlsQQZcAFzUiur36lFO0O+Ei4GK3BK8S3MTYgenGXq6PXobxHST/jvb/?=
- =?us-ascii?Q?zF/VJzA2ZUrvLD9oaGhAhyPgcNwIMgFPOTiZiKSOVKAflfytm/wi3vvsAJ9O?=
- =?us-ascii?Q?KlwuJEJ6DMkC5n6sVMlIcKdT57JrdOzL60fIkGkRklyq559LBXYT/qRTtQOR?=
- =?us-ascii?Q?bQRxP5jA7vCu46o4Lm/sfgMSC9qJAWBuWokNp3yDQxDJRKHNbuzVOXc4jnyz?=
- =?us-ascii?Q?UrU7/6esTIgIxnSOrytYVNzYVta93e6ou4gqNZL1ztJTmuebcUv8SrzyVg7O?=
- =?us-ascii?Q?VnXTp02F36m0JbDjeJXdt40UzUtksE/QQdt5jqCwmY7AUhz3AOb0eGg9mL1X?=
- =?us-ascii?Q?xuqQxISQ+8nvpA0g1IlHSzH+0kExtWikLu0tk8GGUAEfeY6DJHLY23aOXkeg?=
- =?us-ascii?Q?N/g6FKC8eJLEODlTSKaCcAtqG4JrgvieO2czU9yNIx/43UTiGUiHiJEI8vzO?=
- =?us-ascii?Q?RWdLd1sDj3wSdg4UJ6huwDlc90lea+IM/GmEcEVVaNXCxe3dVCunV0unKLBb?=
- =?us-ascii?Q?SJF6Q0mwr3QXydlDhNbjP2pt8itanNH1KxoFnno7zkKaUp3cb63ufXjhOric?=
- =?us-ascii?Q?so9tJ/BtTuuptxmrjlnd4NNc/Ue1lgFHis125Z0B/bkedn5YuM0IoEeqrjxI?=
- =?us-ascii?Q?tp6avMuMcIAT1rMoRM0X9VewWkP4WxtplpkyXYykclvZFz1jgalA8hfPQiRW?=
- =?us-ascii?Q?QnUWrXpAyhdsaamW+g63LSmoCqSY6Faov72z+cMsIcJ7rtB34Dh4WVcDYDO4?=
- =?us-ascii?Q?2+yxmNogzWeAIXXB5Dep9xJG5V1w3ysU73JGyCt2SJtM6xR3kqYV?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef166fc6-3e9a-4c3a-3f57-08df29d9f2fc
-X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 10:00:17.3123
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /izUfkTMDX/vKBjCH1sdBbEjR6P5LOcP1bxdmt5ucujkJpNe82Ms4BaaQ2iHXd9idSmhxP58nkWyak35poUuGaSOwN7Bu1qHIebt5eFKcNwEvz5JiygI5KsgZIy4yVJo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB12951
+User-Agent: Mozilla Thunderbird
+From: johannes.goede@oss.qualcomm.com
+Subject: Re: [PATCH] ACPI: battery: Re-read battery information in the
+ complete callback
+To: =?UTF-8?Q?Ali_Ahmet_Memi=C5=9F?= <aliamemis@disroot.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Len Brown <lenb@kernel.org>, Armin Wolf <W_Armin@gmx.de>,
+        Charis Stratakis <c.stratakis@proton.me>, linux-acpi@vger.kernel.org,
+        linux-pm@vger.kernel.org, regressions@lists.linux.dev,
+        Mark Pearson <mpearson-lenovo@squebb.ca>, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+References: <37N_jFulf7n-Z55NfKfE71C_wVPxYvZ0xD_iRUg2fXu7TypDiF5PStQ6siSfVBih6fThg5WoPes8U5ZQpfVm_teMFcUGXFxz2DdMbfSWuws=@proton.me>
+ <20261012225141.13683-1-aliamemis@disroot.org>
+ <fb993dd3-ee56-4e3d-aa16-573f011518f1@oss.qualcomm.com>
+ <CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com>
+ <044e9df4-1399-4ceb-80f8-f7cfe031d04f@oss.qualcomm.com>
+ <CAJZ5v0isCM3K3U6HSdDnvXzBX41AgQMFYxqLx3KvMA0W_91-ew@mail.gmail.com>
+ <20261013210609.8117-1-aliamemis@disroot.org>
+Content-Language: en-US, nl
+In-Reply-To: <20261013210609.8117-1-aliamemis@disroot.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: SRZ9B6kV5Hayydmg8luDJGzTdE0xN8y-
+X-Proofpoint-GUID: SRZ9B6kV5Hayydmg8luDJGzTdE0xN8y-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDAzOSBTYWx0ZWRfX0in/3/VOlcv8
+ qE8/frXoE7caYhv3tMYonj9MpwDsv/qnpPLLMNt8NGN7LOsogkh2rtDZyDDK6FLwWatt1E+vMoq
+ wUBu4M9nY10cqZm/20DRHo+We8e1Q5TzYOCYvPpigdsrQnEDXyHJaWV8gJwqz4ei9iNyPcRMzjX
+ 0e0CnmJV5PDwMIRe7rULcZmuxsKuBR1C4v9oclOPYjUVcnkKKtHR/ROqRxVodY+VB7+luvCZwjP
+ 8z5xrKGpiA6H9UfjUU9okTtMmp0C7+xigCeGo6Dq0pmXzfQDToxM7DQSgLrqpescCJNM9MWKlRN
+ pbZWQgg6+WGZxieOhEmYczvnp25+NoywRmGwvZcXt0r+66Y1uAjUP/R+3uIVYdWoEQKu4fi9UcC
+ FjLGP3PZo3p/03Xs0MUWI6emGA2OzEn54ZQvZKFluYXFcjPS0Tl3Fq3W+ARyFie4+stRlaLzMpZ
+ yybNgx/2iimyVbsubHg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDAzOSBTYWx0ZWRfX9zFv1QLhMGIk
+ 5s0Ps7jbw/U9njA/QPVZo3TJZJJL5mlFR6W9BZJuJ9ogsRGMVkRm21rpt1fp/huZyBupR3pdTed
+ AVWV3XdPvO0dBzPGNVHwpv+r4cnHi7A=
+X-Authority-Analysis: v=2.4 cv=U7AHnuru c=1 sm=1 tr=0 ts=6acf5316 cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VKiBM6ZALRNij_qUCYgA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 malwarescore=0 lowpriorityscore=0
+ adultscore=0 impostorscore=0 bulkscore=0 phishscore=0 suspectscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610140039
 
-From: Au Dang <au.dang.jx@renesas.com>
+Hi,
 
-rzv2h_tint_set_type() clears TIEN while switching the TINT source and
-then unconditionally sets it again, enabling the interrupt even if it
-was disabled before the call.
+On 13-Oct-26 23:05, Ali Ahmet Memiş wrote:
+> On Tue, Oct 13, 2026 at 07:20:55PM +0200, Rafael J. Wysocki (Intel) wrote:
+>> Also, we don't actually know how many "bad" cases there are and so far
+>> we have identified a few.
+> 
+> I wrote a script that extracts the ACPI tables from all 208 BIOS
+> packages in Lenovo's ThinkPad catalog (370 models) and flags methods
+> that switch the EC page selector (HIID) without BATM while other methods
+> use it under BATM, and checked the flagged ones by hand.  Two BIOSes do
+> it both with \GTST from _TMP: P1 Gen2 / X1 Extreme Gen2 and P53 / P73.
+> Apart from those, NVPS on T450 / T450s does it from the NVIDIA GPS
+> _DSM, which only the out-of-tree NVIDIA driver evaluates.  This doesn't
+> cover races like the UCSI one in bko221065.
+> 
+> FWIW, the exclusive variant is done.  With it the emulated \GTST breaks
+> neither _BIX after resume nor _BST at run time (0 of 5 and 0 of 1074),
+> and with only the _TMP side converted both still break (5 of 5 and 421
+> of 424).
 
-Restore the previous TIEN state instead of forcing it on.
+As I just agreed in my reply to Rafael, it looks like we want to go
+with the exclusive variant for now.
 
-Cc: stable@vger.kernel.org
-Fixes: 0d7605e75ac2 ("irqchip: Add RZ/V2H(P) Interrupt Control Unit (ICU) driver")
-Signed-off-by: Au Dang <au.dang.jx@renesas.com>
-Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
----
- drivers/irqchip/irq-renesas-rzv2h.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Can you post a patch series for the code you've for this now ?
 
-diff --git a/drivers/irqchip/irq-renesas-rzv2h.c b/drivers/irqchip/irq-renesas-rzv2h.c
-index 1a4703a353e9..485c3eea7632 100644
---- a/drivers/irqchip/irq-renesas-rzv2h.c
-+++ b/drivers/irqchip/irq-renesas-rzv2h.c
-@@ -420,9 +420,9 @@ static void rzv2h_clear_tint_int(struct rzv2h_icu_priv *priv, unsigned int hwirq
- static int rzv2h_tint_set_type(struct irq_data *d, unsigned int type)
- {
- 	u32 titsr, titsr_k, titsel_n, tien;
-+	u32 titsr_cur, tssr_cur, tien_cur;
- 	struct rzv2h_icu_priv *priv;
- 	u32 tssr, tssr_k, tssel_n;
--	u32 titsr_cur, tssr_cur;
- 	unsigned int hwirq;
- 	u32 tint, sense;
- 	int tint_nr;
-@@ -477,6 +477,8 @@ static int rzv2h_tint_set_type(struct irq_data *d, unsigned int type)
- 		if (tssr_cur == tint && titsr_cur == sense)
- 			goto set_parent_type;
- 
-+		tien_cur = tssr & tien;
-+
- 		tssr &= ~(ICU_TSSR_TSSEL_MASK(tssel_n, priv->info->field_width) | tien);
- 		tssr |= ICU_TSSR_TSSEL_PREP(tint, tssel_n, priv->info->field_width);
- 
-@@ -489,7 +491,7 @@ static int rzv2h_tint_set_type(struct irq_data *d, unsigned int type)
- 
- 		rzv2h_clear_tint_int(priv, hwirq);
- 
--		writel_relaxed(tssr | tien, priv->base + priv->info->t_offs + ICU_TSSR(tssr_k));
-+		writel_relaxed(tssr | tien_cur, priv->base + priv->info->t_offs + ICU_TSSR(tssr_k));
- 	}
- set_parent_type:
- 	return irq_chip_set_type_parent(d, IRQ_TYPE_LEVEL_HIGH);
--- 
-2.54.0
+Note I guess you're using LLM to help you with this, that is fine,
+but can you please manually shorten the commit messages of the patches
+a bit if they were written by LLM? OR instruct it to write "short and
+concise" commit messages?
+
+LLM's tend to write overly verbose commit messages. Note a good commit
+message is important, but lets try to keep them compact.
+
+And the same for the cover-letter.
+
+Regards,
+
+Hans
 
