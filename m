@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C51ED545294
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 16:53:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C4B655D86C
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 16:53:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791996808; cv=none; b=pr9JtXgnQafiqHRKZdB4uWf9Pjq5crVb/MgYhoBdpmEBvlUiwWyayh6pa1LbTHwubwYmgzTMYVx0w2d3PYhKyRCZnrsiwmKM+OeC6XqTUHGfmwDUgZfFyuN8gczMwjD+xHWwfhYw19vbCsep4X4xPsK2AyJatqy9w+by2fxsl4U=
+	t=1791996809; cv=none; b=LLkqAuWs3Fu3QRTlSEsdjboDrOE9DpbUS42w9kAQUGHB/ce8BDelYRzrDctUT+XhJnIzAp0lN8TWFBQKMur+qRnjjqNGTWV8p9RhSfg/2cgm+/PIXTMESQ0vg8MQLYuqarc/Mfu3wBTx3sw4fpsl6wTCK0wjybbw5Y43U6rkkes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791996808; c=relaxed/simple;
-	bh=0hDPMp+3FFaLe+0RG7cBhcdCO6TfAwVsBIV0vLJFuow=;
+	s=arc-20240116; t=1791996809; c=relaxed/simple;
+	bh=EJA3TJ+9mR/yWRT2YliOXU9QFSLVDXo2xZ6USsd1Zwk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UrtvQXIPnbegwgGEb4sL2XYQIWlY9hahZbuRuj5z8mqsDG7f8yq1W++qqlZTUsqGZHrzTTi8HDtxo+UqN55VBGuC0c09m8P4hVowjHsQpPVKM/68GyLRNiTkldAgToaJe8fo+goMz8QRnrLqWIZjfGyUDXtrrKQIzjFjbQXs2EI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QmLjYsnX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ATGGisJlVtJPaFRTXOxsCtBYHefzR7IVWi/GYOdQ8Zjt5G6dTaz2Rw66M1O2l5/l2vblOVOB8FvN7MndWi1i0Lg0uW59O3wxJQb7j/PBG6b4wusZ0g2Tvm3MMapmEEOv3waPFVg0mAsmoQi1hync1/mPdYI8KhZGRBwdSMPBeU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jyrf4nVW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QmLjYsnX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00E471F000C4;
-	Wed, 14 Oct 2026 16:53:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jyrf4nVW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBA831F000C8;
+	Wed, 14 Oct 2026 16:53:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791996807;
-	bh=1MkTmDg1xRNZgsmylDqw+2SsXY9f2CaC20wxHQJFG7E=;
+	s=k20260515; t=1791996808;
+	bh=n5uQtNGNE/Ll7H6KDdi1El6FPVTaFyQOgevtgA7Yv78=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QmLjYsnXUr83cLjbiwaMIbEWpJN3EMz0tnburw48umOUrkYfGEK+Bk0SCFe1dPhf5
-	 E1alHJwby5nR1D299zyyTmkCbBV2VG4k2iVebzYiAWiuVHWuY+UdPOuFiVMKkYSiY+
-	 1Epkt5Ib+pb0SlGodHKx7nLo8FeIh6FSxZ4fhUN2ABJ59P899x7kxkWy5SiVxHUAq7
-	 1fCMJWfHeSveGqPur5UfFekPzQ7y7VUBRZpadraUI8PPJrOILjTdWOO8gagjy/bcWV
-	 mPoKPCjGfi5daOZCT+PQNqJPuFC9tZWiV6s+we2W1+DTb5mA46YhTHiTxOvxfdRCgt
-	 18hul+HKFVFTQ==
+	b=Jyrf4nVWENBULcqZioWPP4Ge43rsnDJejTzWZHkAHLIdVByZMguZhqVSpDh1M7BPT
+	 3QJpN367Hl0G5UYmdDTPGupcO6gJKDFkMc3BtflKV8RsTBUDYJDERsUSQQrxQXWdI4
+	 VuNZT7FaercXKptaICEnmnbd0AM4JSbrP5cei7LkTPpq6Kg035kjnonURPalYkDvFq
+	 gtXy/kTdFVwZpK1SKdMWjW+oITtPzeqXhRK6IVAiYqrxE4e/li8HhXLbLXVP2A/nrN
+	 HRJN5Efo2xBC3SbgVmNSpvPRKiyWMt6sApaYxclkkfL4kT53CjOoFz3qNjRDuEX2JQ
+	 h0wDkGHU8uW1w==
 From: Sasha Levin <sashal@kernel.org>
-To: lee@kernel.org
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>
-Subject: Re: [STABLE v5.10] tracing: Set the trace clock before registering the histogram trigger
-Date: Wed, 14 Oct 2026 12:53:09 -0400
-Message-ID: <2026-10-14-1-daily-reply-0006-tracing-hist-trigger-clock-5-10@kernel.org>
+	gregkh@linuxfoundation.org,
+	Franz Schnyder <fra.schnyder@gmail.com>
+Subject: Re: Request backport of 1bcf245c837b and 01d16b8afb7a to 6.18.y
+Date: Wed, 14 Oct 2026 12:53:10 -0400
+Message-ID: <2026-10-14-1-daily-reply-0007-pci-dwc-wait-for-link-6-18@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261014075823.29994-1-lee@kernel.org>
-References: <20261014075823.29994-1-lee@kernel.org>
+In-Reply-To: <2qz7vt2ycstbsqcvy52sgeuhbfceipsugbthq6yqenoxs4sxs3@qtzxcw74cc62>
+References: <2qz7vt2ycstbsqcvy52sgeuhbfceipsugbthq6yqenoxs4sxs3@qtzxcw74cc62>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,10 +45,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> hist_register_trigger() puts the trigger on the global named_triggers
-> list in cmd_ops->init(), and only then sets the trace clock:
+> I also checked 6.12.y, there the same problem exists, but the commits
+> don't apply due to a context conflict.
 
-Queued for 5.10, thanks.
+Queued both for 6.18, thanks.
+
+6.12 is not queued. 01d16b8afb7a ("PCI: dwc: Return -EIO from
+dw_pcie_wait_for_link() if device is not active") uses
+DW_PCIE_LTSSM_POLL_ACTIVE and DW_PCIE_LTSSM_POLL_COMPLIANCE, which come from
+f0f3044d2246 ("PCI: dwc: Add debugfs property to provide LTSSM status of the
+PCIe link") and do not exist in 6.12, so it fails to build there. 1bcf245c837b
+("PCI: dwc: Return -ENODEV from dw_pcie_wait_for_link() if device is not
+found") also conflicts on 6.12, where the macro is still named
+LINK_WAIT_MAX_RETRIES.
+
+Could you or Mani send a [PATCH 6.12.y] backport of the pair?
 
 -- 
 Thanks,
