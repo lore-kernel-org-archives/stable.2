@@ -1,133 +1,198 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C90434F4743;
-	Wed, 14 Oct 2026 11:16:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02DA04F4CE5;
+	Wed, 14 Oct 2026 11:18:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791976597; cv=none; b=sidez+91UiruQsP+OIGXJ5/STIKLGJw4c87pO6OtOpwedU5D3m0HnG3OyW7lsooUqvfSGGY1RpWWnukvcoIu+PaSVZpB5wAsQJXrK+WkMbMbRHrBzIgAL/ELkHvYzbTq5DeJRD89iw7EY4QSnJGq+rwWTn55LiT57d2NrrG7I0I=
+	t=1791976709; cv=none; b=E+tODpeCgk4NKRnv5As+6aarWfzA2VUAjUkwH/t29p4XtqSXVQjfn2ftOGTgNhm+F2Zmss9SGK15n5z9hHvLAszrvHMV6VnT3Y1jzWCzkcfJXnt3BiFfD8dzQKLvBoh4tWb1AOkBBeGh1k2crk2ihbbaTBAf3zIesAoJbXSCYXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791976597; c=relaxed/simple;
-	bh=X0wUMTslYRaZ+6QJ3lB5bFDrVgR1nrY+pVd4qFFwDso=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D9CLWOfnH7qU/a/8myPblQ5xm+WUDbHIJ+sGZ9zn/m35wqnFwDPlMFnR8tIMolhVBYSOqQzMfkwzKs0yg6AfOEAzbv7EYY6BK2J4fJRqRl7tY3mTsPid6256s7vWvIZFkVJRiw8smTQ69j3jFGlF3vNE+in7VM4Uo1nYCqqrd90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2LyVyw8A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791976709; c=relaxed/simple;
+	bh=ewLYliVnd7ZSeqBWV78N1KQN4ewFXoJr8g+sAgKHTSc=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Ye3tuxaWCJ8Y3rdARoAIErtHo/MMXmJmuYYFManbSX72Esv99KFVUZ3puGohAzpIYia1kt/C0WdzCNvFVkr5lysZeBmSbzpmqhXJJis0YRIzhvQ0qhnPPieEQitZZdsFI9WHqs3GErSryodutcCdMnaiPXM5RTbNw7d+CKnYFpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qaks0+1v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2LyVyw8A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7D651F000FF;
-	Wed, 14 Oct 2026 11:16:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791976595;
-	bh=oMVE59ilNM9y/kQGfVIbxIHq8wdIsYTtCtgxqmMIs+w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=2LyVyw8Aw7HGbN1myWLyF9gVtYO24oWK7G1/o4bevcflnOCakjucHWDZJANJ3mrAL
-	 e5I/dXSNTVQyQTDgxNB+x9t1O0t0InRzfdpBr2nvPz7iE1mW+lKVxQKKSEq72V0Yep
-	 c25OSsG63GGsa9rKKsWc9an80LbW0i04OetUe6S4=
-Date: Wed, 14 Oct 2026 13:16:39 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-Cc: linux-usb@vger.kernel.org, stern@rowland.harvard.edu,
-	usb-storage@lists.one-eyed-alien.net, stable@vger.kernel.org
-Subject: Re: [PATCH v2] usb: uas: ignore UAS for ASMT135x bridges (174c:55aa)
-Message-ID: <2026101459-mortuary-curator-63f7@gregkh>
-References: <20261013221944.41598-1-olivier.kaloudoff@gmail.com>
- <20261014105700.19433-1-olivier.kaloudoff@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qaks0+1v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1236D1F000FF;
+	Wed, 14 Oct 2026 11:18:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791976707;
+	bh=x2RmlG7/DNYZUkvwHEdu2BFerSCe0Wm/zWi/nMGE3w8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Qaks0+1vUnFVnAJ6FriPFKUNetLcAC1DPv96J8mSSVYvGzGfnL/2OlwNNU5JDurnw
+	 mJ0LYwDvco1gVb6P4OYkM7lhuyhmIdvN+7hzlflYhhu3zG3t12lAd1WU8s5Ir0MdCL
+	 yiHursUipQ/K0e2d3Bn3CbqHGeM5aUn5/JLpgNAIAvkAGDctGjHMDfYpen6vFilY4M
+	 buVkjRo0BnuMBFz/I603xEyP8qfPHNximqzvF9ZKR5T13uQDpK/fXuAJ17Yr/vVogo
+	 8h7d6Aw8UnkL4PYto/AhYVw0PvvndnBG0r+nBmQ3bZxr28+QNU541e9h1l1imBZC5m
+	 NC7Eu8P7PNTyQ==
+Subject:
+ Re: [PATCH net] net: sunhme: fix infinite loop in unmap_partial_tx_skb()
+From: netdev-bot+sashiko@kernel.org
+To: arefev@swemel.ru
+Cc: seanga2@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ lvc-project@linuxtesting.org, stable@vger.kernel.org
+Date: Wed, 14 Oct 2026 11:18:26 +0000
+Message-ID: <179197670661.434549.16333488251778765478@kernel.org>
+In-Reply-To: <20261013103228.37430-1-arefev@swemel.ru>
+References: <20261013103228.37430-1-arefev@swemel.ru>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261014105700.19433-1-olivier.kaloudoff@gmail.com>
 
-On Wed, Oct 14, 2026 at 12:57:00PM +0200, Olivier Kaloudoff wrote:
-> The ASMedia chip detection in uas_use_uas_driver() assumes that every
-> device with idVendor/idProduct 174c:5106 or 174c:55aa reporting a
-> config.MaxPower of 0 is an ASM1153 with working UAS.
-> 
-> ASMT135x bridges (iProduct "ASMT135x") share the same 174c:55aa id and
-> also report MaxPower == 0, so they take the "ASM1153, do nothing"
-> path — but their UAS implementation is broken:
-> 
-> - The first READ(16) issued by sd probing times out after 30 s;
->   enumeration only completes after a uas_eh_abort_handler plus a full
->   uas_eh_host_reset_handler cycle:
-> 
->     scsi 3:0:0:0: Direct-Access  ASMT  ASMT135x  0  PQ: 0 ANSI: 6
->     sd 3:0:0:0: [sdb] tag#26 uas_eh_abort_handler 0 uas-tag 1 inflight: CMD IN
->     sd 3:0:0:0: [sdb] tag#26 CDB: Read(16) 88 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00
->     scsi host3: uas_eh_host_reset_handler start
->     usb 6-2: reset SuperSpeed USB device number 2 using xhci_hcd
->     scsi host3: uas_eh_host_reset_handler success
-> 
-> - Under concurrent load the bridge stalls: all inflight commands (20+
->   UAS tags in the captured incident, mixed READ(16)/WRITE(16)) hit the
->   30 s UAS timeout in the same event, forcing repeated abort/reset
->   cycles and eventually a USB disconnect.  Writes dropped mid-flight
->   during these resets returned zeros to the filesystem (observed as
->   XFS metadata corruption on the mounted volume).
-> 
-> - Sequential-write throughput is ~45 MiB/s under UAS versus ~136 MiB/s
->   after disabling UAS (usb-storage BOT mode), which is fully stable:
->   several tens of GiB written without a single error.
-> 
-> - Bulk reads of healthy LBA ranges do work under UAS (~190 MiB/s, no
->   errors); the failure pattern is command-timeout at enumeration and
->   under queue depth / write load, not a broken transfer path.
-> 
-> Since 174c:55aa is shared across several ASMedia bridges and enclosure
-> rebrandings, distinguish the ASMT135x by its product string — the same
-> approach used for the HIKSEMI MD202 check a few lines below.  The
-> product strings of working bridges using the same id ("ASM1053E",
-> "ASM1153", "ASM1153E", "ASM1351", vendor rebrands such as "YZWY_TECH")
-> do not contain "ASMT135", so the match is safe.
-> 
-> Verified on an ORICO enclosure (iManufacturer "ASMT", iProduct
-> "ASMT135x", bcdDevice 1.00) attached through an Alpine Ridge TB3 dock:
-> with the equivalent usb-storage quirks parameter (174c:55aa:u) the
-> device is completely stable.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-> ---
-> v2: fix the comment block: added lines were missing the leading
->     tab, breaking the *-alignment with the rest of the block.
->     Apologies — the v1 diff was mangled by my editor before sending.
-> 
->  drivers/usb/storage/uas-detect.h | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/usb/storage/uas-detect.h b/drivers/usb/storage/uas-detect.h
-> index 4d3b49e5b87a..d8dc77015992 100644
-> --- a/drivers/usb/storage/uas-detect.h
-> +++ b/drivers/usb/storage/uas-detect.h
-> @@ -78,6 +78,8 @@ static int uas_use_uas_driver(struct usb_interface *intf,
->  	 * ASM1051 - with broken (*) uas support
->  	 * ASM1053 - with working uas support, but problems with large xfers
->  	 * ASM1153 - with working uas support
-> +	 * ASMT135x - broken uas support, shares the ASM1153 MaxPower == 0
-> +	 *            signature, identify it by its product string
->  	 *
->  	 * Devices with these chips re-use a number of device-ids over the
->  	 * entire line, so the device-id is useless to determine if we're
-> @@ -99,7 +101,10 @@ static int uas_use_uas_driver(struct usb_interface *intf,
->  			(le16_to_cpu(udev->descriptor.idProduct) == 0x5106 ||
->  			 le16_to_cpu(udev->descriptor.idProduct) == 0x55aa)) {
->  		if (udev->actconfig->desc.bMaxPower == 0) {
-> -			/* ASM1153, do nothing */
-> +			if (udev->product && strstr(udev->product, "ASMT135"))
-> +				/* ASMT135x, broken uas */
-> +				flags |= US_FL_IGNORE_UAS;
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-You have a 2 line statement after the if () here without any {}.
+Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
 
-Yes, it will work (or it should), but it's not good form and will
-confuse us over time.  Please fix this up, odd that checkpatch.pl didn't
-catch it.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-thanks,
+- [High] net: sunhme: MAC processes unmapped memory due to stale
+  TXFLAG_OWN
 
-greg k-h
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the patch
+  makes it reachable.
+
+--
+
+net: sunhme: fix infinite loop in unmap_partial_tx_skb()
+
+This commit fixes the loop in unmap_partial_tx_skb(), which never advanced
+first_entry. Before the fix, a DMA mapping failure on any fragment after
+the first one made happy_meal_start_xmit() spin forever with
+hp->happy_lock held. The fix adds NEXT_TX() at the end of the loop body.
+
+> diff --git a/drivers/net/ethernet/sun/sunhme.c b/drivers/net/ethernet/sun/sunhme.c
+> index a70f704eb9f3f..544eb43af1258 100644
+> --- a/drivers/net/ethernet/sun/sunhme.c
+> +++ b/drivers/net/ethernet/sun/sunhme.c
+> @@ -1965,6 +1965,7 @@ static void unmap_partial_tx_skb(struct happy_meal *hp, u32 first_mapping,
+>  		len = hme_read_desc32(hp, &this->tx_flags);
+>  		len &= TXFLAG_SIZE;
+>  		dma_unmap_page(hp->dma_dev, addr, len, DMA_TO_DEVICE);
+> +		first_entry = NEXT_TX(first_entry);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but now that the error path
+no longer locks up, it becomes reachable. It came in with ec1f1276022e
+together with the missing NEXT_TX().
+
+Once the fragment mappings are undone here, are those descriptors still
+owned by the hardware?
+
+happy_meal_start_xmit() sets TXFLAG_OWN in tx_flags and writes each
+fragment descriptor with hme_write_txd() as soon as skb_frag_dma_map()
+succeeds. Only the head descriptor at first_entry is held back. If a
+later fragment fails to map, unmap_partial_tx_skb() calls
+dma_unmap_page() on the fragment entries that were already staged, but
+never rewrites them. Each one keeps TXFLAG_OWN, its length and a
+tx_addr that is no longer mapped.
+
+The out_dma_error path then leaves hp->tx_new at first_entry, sets
+hp->tx_skbs[hp->tx_new] to NULL and frees the skb with
+dev_kfree_skb_any(), which releases the fragment pages or swiotlb
+slots.
+
+If the next transmit is a linear skb such as a TCP ACK, it only writes
+first_entry with OWN|SOP|EOP and kicks the engine with ETX_TP_DMAWAKEUP.
+Could the MAC then move on to first_entry + 1, find OWN still set, and
+DMA from the unmapped bus address? Depending on the platform that would
+be an IOMMU fault, a TX DMA error and chip reset, or freed or reused
+memory sent onto the wire. The stale chain also has no SOP, and no EOP
+on its last descriptor.
+
+After that the chip's ring position would be ahead of hp->tx_new.
+Descriptors the driver later writes into those slots would sit behind
+the hardware, and happy_meal_tx() stops at the first entry that still
+has TXFLAG_OWN set. Would that stall TX completions until the ring
+wraps or the TX watchdog resets the chip?
+
+Should unmap_partial_tx_skb() also clear each descriptor after
+unmapping it, for example with hme_write_txd(hp, this, 0, 0)? That
+could also be a separate follow-up if you prefer to keep this fix
+minimal for stable.
+
+[Severity: High]
+
+This isn't a bug introduced by this patch, but the patch makes it reachable
+now that this error path returns instead of locking up. It came in with
+ec1f1276022e together with the loop bug.
+
+Once the fragment mappings are undone, are these descriptors still owned
+by the hardware?
+
+In happy_meal_start_xmit(), tx_flags always includes TXFLAG_OWN. Each
+fragment is written to the ring as soon as it is mapped, and only the head
+descriptor is held back:
+
+drivers/net/ethernet/sun/sunhme.c:happy_meal_start_xmit() {
+    ...
+	tx_flags = TXFLAG_OWN;
+    ...
+			this_txflags = tx_flags;
+			if (frag == skb_shinfo(skb)->nr_frags - 1)
+				this_txflags |= TXFLAG_EOP;
+			hme_write_txd(hp, &hp->happy_block->happy_meal_txd[entry],
+				      (this_txflags | (len & TXFLAG_SIZE)),
+				      mapping);
+    ...
+}
+
+If fragment k+1 (with k >= 1) fails skb_frag_dma_map(),
+unmap_partial_tx_skb() calls dma_unmap_page() on entries first_entry+1
+through first_entry+k. It never rewrites those descriptors, so each one
+keeps TXFLAG_OWN, its length and its now-unmapped tx_addr.
+
+The error path then leaves hp->tx_new at first_entry and frees the skb,
+which releases the fragment pages or swiotlb slots:
+
+out_dma_error:
+	hp->tx_skbs[hp->tx_new] = NULL;
+	spin_unlock_irq(&hp->happy_lock);
+
+	dev_kfree_skb_any(skb);
+
+Suppose the next transmit is a linear skb, such as a TCP ACK. It writes
+only first_entry with OWN|SOP|EOP and then kicks the DMA engine:
+
+	hme_write32(hp, hp->etxregs + ETX_PENDING, ETX_TP_DMAWAKEUP);
+
+Could the device then move on to first_entry+1, find OWN still set, and
+DMA from the unmapped bus address? Depending on the platform, that would
+mean an IOMMU fault, or freed or reused memory sent onto the wire. The
+stale descriptors also form a chain with no SOP, and no EOP on the last
+staged fragment.
+
+After that, the device's ring position would be ahead of the driver's.
+Descriptors the driver later writes into those slots would sit behind the
+device. happy_meal_tx() stops at the first one with OWN still set:
+
+		flags = hme_read_desc32(hp, &this->tx_flags);
+		if (flags & TXFLAG_OWN)
+			break;
+
+Would that stall TX completions until the ring wraps or the TX watchdog
+resets the chip?
+
+Should unmap_partial_tx_skb() also clear each descriptor after unmapping
+it, for example with hme_write_txd(hp, this, 0, 0)?
+
+>  	}
+>  }
+>
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013103228.37430-1-arefev%40swemel.ru
