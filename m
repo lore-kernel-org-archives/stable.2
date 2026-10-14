@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0D2F47CC9C
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 07:58:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE4803E49D7
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 07:58:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791964704; cv=none; b=EyUTjWKll9U15WgVPRGgMrzp2OcQf8eRqETrWDwNYdy6vs96w5iQhfYYduODv+K6hvQxZP9voJUUiM6idh3bbdfHkmF8Al/ImNuW8E1w2s0tQOh9Ag7eH5fmY7gvu/+wfm/9fiOwJIMJYGUszzS6LljHDUXiPTPa7OogP86UzB4=
+	t=1791964720; cv=none; b=B+w2aAsED1QQ4v6N9+ni/NDg7VEATOG+Jhw+qpnDb++ur6N9VqQZ+dsJhmwVC1xlO6QGaxZmAhY77tMuNNFJ5djQVICcwr4s/BQ9buNfFHlDR1epIKt6lyuOh+KixesUzqW8mW63psVj6rtxcjVrHdZkNr6yW4+kkDoYkJtwoMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791964704; c=relaxed/simple;
-	bh=0Ejw9cMw1ba65hu9XJJWIXeFPPI6aVPWN3ocWzuoAF4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=vDIOKRNqizOq7kkkZMDjeI/nI8HnihY8bPyHrr6AaXD5ZTFVMJJPE8ka/FORjQRlkeLErnTqVIELVxXbGGnc62mVGnqc+ACqb2FgTWN9fwEMy4RhSUmsD1RvynlPQHht4RZuBuiyDQDILdwv//Qugxk0KbV5NQf7H9Dd4UIEZSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CC/OSXiA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791964720; c=relaxed/simple;
+	bh=o0x8hRNZ+MfM9pwiGPibV9yexNxTjyu6ED3iok1NqJ8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VxLHK0WdXZKva6SFuOBKFNA7RwUKsLjBsLjvfEbSCRyGXyue2IMYxMHtDBKpGrSrjzJ15tsilmnLt3stlhdg0g/SZUQeJM+BSxjrO7a3ciZq2J7pGbPaxpsEXICC4Jb7oWibXjhFxDUYdPYWgV/WCXcSBje57zTQ2OXi9HFasBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gJND0YXi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CC/OSXiA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 893E61F000FF;
-	Wed, 14 Oct 2026 07:58:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gJND0YXi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E20DE1F000FF;
+	Wed, 14 Oct 2026 07:58:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791964703;
-	bh=js360uhR3WaFUexNprtTIlKrV36NQjswsy0kaohEJGs=;
+	s=k20260515; t=1791964718;
+	bh=DAQcsWjb5xf/laSor6R4w5+RmUO5Fc4930qF74g5/mg=;
 	h=From:To:Cc:Subject:Date;
-	b=CC/OSXiA9BdXCBbtO68449v2yc0Qk0hXhDAPjSzf4nQ1mt9aCa2nDZ6Tk+6Apdc9Y
-	 w7YKF1E1AREw58UQPUhKa0nPliFp9joLlxN1CRx5MyAMLKnFv7x4+Nv11HOqIMBFkq
-	 IOuxT7ri76fP+t5Dj5JQdO56TwplbX4rAdiK1+5guEuy4yhQrT6tQfVF0hXvQwKJ12
-	 t7t5x9GCUY/fm9lRRI65qnfbpciERgZ19FFbIXO9GKzXzcQo6+qTrytbHRZIPqC2v/
-	 7bb1/rk2rEPa5bu2uf4eHZzrtGfyZYgbe2NBSOhbWcAikwpne9QXlGK5dxZ2hIXbc4
-	 QvGJVW/3ZtoRg==
+	b=gJND0YXiCTUY6wdmfh6LBw6fEuLVrAyITCthQvr8+W8DNGz9j2ZkeFGuYriduR6MG
+	 vi2BhZLy5SZLVGNRa/ogpnYBHw2F8Ec9vfin9mfiUkwMskDNcWKuGOSN4Le7LqQTDT
+	 C2LxuZEVCX9bcubuPV6bSZLkBcO5GC1w1ogluh2eslSYPvAvCj6sZCcMZCfLOwN2uS
+	 SwqoRWD22qjI8TxoL+dtOkCvh19+sKjmF3tThEtF5YKGMVTzuqM6Ul5Zdc3L+8iWM0
+	 4/SUH/LWtWn3zrvi0VZqXiW90McNunWRAUKvubXTs2uuAUCabjb8I30BgQy0SWh0me
+	 b5IojHeZ08YhA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org
 Cc: stable@vger.kernel.org,
 	Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
 	Steven Rostedt <rostedt@goodmis.org>
-Subject: [STABLE v5.15] tracing: Set the trace clock before registering the histogram trigger
-Date: Wed, 14 Oct 2026 07:58:06 +0000
-Message-ID: <20261014075806.28597-1-lee@kernel.org>
+Subject: [STABLE v5.10] tracing: Set the trace clock before registering the histogram trigger
+Date: Wed, 14 Oct 2026 07:58:23 +0000
+Message-ID: <20261014075823.29994-1-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -96,20 +96,22 @@ Fixes: a4072fe85ba3 ("tracing: Add a clock attribute for hist triggers")
 Link: https://patch.msgid.link/20260907091415.554535-1-donggeunyoo.kernel@gmail.com
 Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-[Lee: Call data->ops->init(data->ops, data) as b052d70f7c9c ("tracing:
-      Merge struct event_trigger_ops into struct event_command") and
-      476705419518 ("tracing: Remove redundant trigger_ops params") are
-      not present]
+[Lee: Call data->ops->init(data->ops, data) and
+      tracing_set_time_stamp_abs() as b052d70f7c9c ("tracing: Merge
+      struct event_trigger_ops into struct event_command"), 476705419518
+      ("tracing: Remove redundant trigger_ops params") and b94bc80df648
+      ("tracing: Use a no_filter_buffering_ref to stop using the filter
+      buffer") are not present]
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
  kernel/trace/trace_events_hist.c | 15 +++++++++------
  1 file changed, 9 insertions(+), 6 deletions(-)
 
 diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 69a7e83926a2..3105208e517c 100644
+index a3556edc5904..c439605bb12e 100644
 --- a/kernel/trace/trace_events_hist.c
 +++ b/kernel/trace/trace_events_hist.c
-@@ -5641,12 +5641,6 @@ static int hist_register_trigger(char *glob, struct event_trigger_ops *ops,
+@@ -5510,12 +5510,6 @@ static int hist_register_trigger(char *glob, struct event_trigger_ops *ops,
  		data->ops = &event_hist_trigger_named_ops;
  	}
  
@@ -122,15 +124,15 @@ index 69a7e83926a2..3105208e517c 100644
  	if (hist_data->enable_timestamps) {
  		char *clock = hist_data->attrs->clock;
  
-@@ -5659,6 +5653,15 @@ static int hist_register_trigger(char *glob, struct event_trigger_ops *ops,
- 		tracing_set_filter_buffering(file->tr, true);
+@@ -5528,6 +5522,15 @@ static int hist_register_trigger(char *glob, struct event_trigger_ops *ops,
+ 		tracing_set_time_stamp_abs(file->tr, true);
  	}
  
 +	if (data->ops->init) {
 +		ret = data->ops->init(data->ops, data);
 +		if (ret < 0) {
 +			if (hist_data->enable_timestamps)
-+				tracing_set_filter_buffering(file->tr, false);
++				tracing_set_time_stamp_abs(file->tr, false);
 +			goto out;
 +		}
 +	}
