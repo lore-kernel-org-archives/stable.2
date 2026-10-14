@@ -1,195 +1,294 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEA1052D2C9;
-	Wed, 14 Oct 2026 18:34:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF3B38655A;
+	Wed, 14 Oct 2026 18:52:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792002886; cv=none; b=GgCL4GDUho886Rw7DeYBSMaedLwL0m9wgsLDOYV6LsU/CJLaBCrQ7ry/xrxMgM19VYLjtT2OnzrOVISQMwjW4XQ3zIVhSjeUto1/VXx1O02LW3u+h20KVHnIhIAhpUTDPoxjol+BFTGmjVs6qj0VDR6h4O5qwYJrtrtiD2TRK7I=
+	t=1792003979; cv=none; b=FQowq+V0qvArQKcULXWx7ta1b+jXJncr/rei0Tuj6EDRcT7fhOJ6k7T3syV1N5d3VN3Opz7kUQWiFhumepGSWg3FrUEX0KSmm/Gm7T3IdCwwmWbLfWXDxcfcOHZlgco5Sdd0xtMmijOW63hu0YPg+iQEE2RLr+v0X7StC/xEu3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792002886; c=relaxed/simple;
-	bh=BkD6Y/HalsjYwf57ZhS64XjHmYuqd0mBJqkuOfKzqG0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=G9sz0bm8/MSk8xsEA3kuySqwOR0E58ARW2/x/TWbbXokSxmE7RgYI+jiKhtk4twJRqKbg2CZlX61rH7hy3ejs2so15qJri4ThFb5sp3hEg0X8MCF7CbsS3G+r99F+dRBopC/bjAVheXfLW7wnlLizVJOF5j4oN1l4jjamqZbXuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fHdY2vAd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792003979; c=relaxed/simple;
+	bh=NtXXmUFh4yEcf5lZeCGSfPecnP0mif1ljL2uiN80xfU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ESss654t7Z3T+9j1flw+uhyHaH572TZ4CKxraBuq7sReeC92hKDwOOI5dxvOCO5Hxsg2gBwD0+S08XDJ8cuod5Qv3lECLf9a7NXV6OS9XEm8gp6NiFAJ1FmTik9CluUz8z+9gzPXZWi88T/DI3cvAhJcToNPEYi95fTDXHliqO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=YEaKUVGw; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fHdY2vAd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E49B1F000C4;
-	Wed, 14 Oct 2026 18:34:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792002885;
-	bh=3LdUyDK01DQtoFjrGZ/bknkjNppQ8Sk8UdpqBq/9h0s=;
-	h=From:Date:Subject:To:Cc;
-	b=fHdY2vAdxwRHcOMrmHw0tMpWucDoeb7pkiGpEg1hggSyl9bvxP0hE/UermQFqYHxS
-	 ZuoztCR38h9schyLvMfzp8hCojRB6VhIHKC6Z+A8NaA7y77qlR5i4FmJo/7qBgkYfq
-	 AzQfQL+pcOBBh9bsca9YG0AoARe15urQ42RsBpElKOnAXWvZmBro9FjkoUDgWQBCqP
-	 zVdbwqXFX2SORT1kULtEJkE/dmBJcPiA1Yn2LIhuSTB94aT6smbYRLjlfLl1BLZKJ0
-	 bLPUHetJRvsS+E5mn5CMOwHkKVb/M8VyDaBJ40kiWSrqBF7d8FcTlZ8WMMOiMEy9P+
-	 U73NJQLFGX1Tg==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 14 Oct 2026 20:34:28 +0200
-Subject: [PATCH v2] mm: fix address wraparound when scanning large folio
- PTEs
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="YEaKUVGw"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EEiGuL695126;
+	Wed, 14 Oct 2026 18:52:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=f8KsDhg9pm4bCQDb3ubPaEk/2DRbxsFtwc6KrYfMi
+	3Y=; b=YEaKUVGwcffdWAbPunpGiF7HEz0HVD3TRk7oQVmFvhAWYXX5cvMozD96/
+	MYW0nKcZs0Xsg++/0INRrxsSbP1uNnP9363m6bEPejaf46qm/9W4eEz+IGkkZ4qe
+	gcBpLN8HhiiIy3mUTtWZj5sXMdnpfE4NzYpL23VNGw3Sk9GTVaVynvrP2cP68A98
+	QDJQvqqRIBJ5xw1mDVep5pdVIAIuDCIPh6M8uqL/LRMAnHEn571fqfi5eWzgu54Y
+	u5j+fRgCgPcl7AeJD8u12jYJ8RS95pSGHQaHMF+3OoY/+e8NEqyMemT+KoWSXVHN
+	i+7Wax51N3Q9e1LDn9WNE7BezW7Rw==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwhp79y-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 14 Oct 2026 18:52:34 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69EIl1rE669873;
+	Wed, 14 Oct 2026 18:52:33 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h9ypq3mth-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 14 Oct 2026 18:52:33 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69EIqTqI14615038
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 14 Oct 2026 18:52:29 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1C80320049;
+	Wed, 14 Oct 2026 18:52:29 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F1E5120040;
+	Wed, 14 Oct 2026 18:52:24 +0000 (GMT)
+Received: from localhost.localdomain (unknown [9.39.30.160])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 14 Oct 2026 18:52:24 +0000 (GMT)
+From: Amit Machhiwal <amachhiw@linux.ibm.com>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org
+Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>,
+        Alexander Graf <agraf@suse.de>, Avi Kivity <avi@redhat.com>,
+        kvm-ppc@vger.kernel.org, kvm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Gautam Menghani <gautam@linux.ibm.com>,
+        Harsh Prateek Bora <harshpb@linux.ibm.com>,
+        R Nageswara Sastry <rnsastry@linux.ibm.com>,
+        linux-hardening@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] KVM: PPC: Book3S HV: Disable preemption around host-side HPT lock users
+Date: Thu, 15 Oct 2026 00:22:15 +0530
+Message-ID: <20261014185215.71832-1-amachhiw@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-folio_pte_scan_range-v2-1-00cf9bbaa364@kernel.org>
-X-B4-Tracking: v=1; b=H4sIADPLz2oC/4WNQQ6CMBBFr0JmbU0LkYgr70EIKdMBRklLpkg0h
- LsLeACXL3n//QUiCVOEW7KA0MyRg98gPSWAvfUdKXYbQ6rT3GiTqTYMHOpxojqi9bUcDuZoTYF
- 4pcLBNh2FWn4f2bL6cXw1D8Jpb+1Gz3EK8jl+Z7N7fy5mo4zCi3aY6abNrbs/STwN5yAdVOu6f
- gHIdRFYywAAAA==
-X-Change-ID: 20261013-folio_pte_scan_range-c6ca19cc8e9d
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Ying Huang <huang.ying.caritas@gmail.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <baohua@kernel.org>, 
- Ryan Roberts <ryan.roberts@arm.com>, Chuanhua Han <hanchuanhua@oppo.com>, 
- Mike Rapoport <rppt@kernel.org>, Kiryl Shutsemau <kas@kernel.org>, 
- Kyle Zeng <kylebot@openai.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Lance Yang <lance.yang@linux.dev>, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4955; i=david@kernel.org;
- h=from:subject:message-id; bh=BkD6Y/HalsjYwf57ZhS64XjHmYuqd0mBJqkuOfKzqG0=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLOn7bzuPw7lznL52h1+/dgZqaVHXNO9d05fPf0663L7
- b7aCHf+7ChlYRDjYJAVU2QJCr5v8PLlutpqNz5mmDmsTCBDGLg4BWAiXhMY/gfe7TERiHqrwPL4
- 8YRd9bn8DTdtbY7b7P2jE7zP6FX4us2MDC9OnV915VGwncbp9Vvn3GEqbC3itvPrlXeewH/LNXp
- KMgsA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA3NCBTYWx0ZWRfX/rpnX+F4eBgz
+ z5lT9nz+ksuhkq+gv7WXD/aY8F6rDEs3tC2JlhC50cpDtahxXaHau+6KRBVUy+J7PQMr9H4Et2c
+ iUjtanx5svSKKQYiN1EwPQH4mzVfnvE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA3NCBTYWx0ZWRfX5VGGHo4MHb1W
+ fuXPLSrUIbAtR+aIjkopl2hLro0/nkvlAg9dCNrwH0d3kKO4kZa3UwVBFr66rrV7khFhOjZfn/i
+ pW+3OtrbA1hHs3ugAXRYpGzxcdi/g8uEGGsL76MXsrW4ti88VaDNlu8Jz6mlFi9wfbK5nhUG45O
+ jY2N4+SdIIuQvvfFn1F/9eXE5Z9vVIcWUdAT/r1JnQv4bAkN9Y4B91pjJiCkRbddnq2E8FaSA/c
+ rRhhHJqyW4ox2S5EL1cs/WOfb4/bTG+PnFQMQZ9VvE/HbonjM0GA8/vdBBN7+NZRCoOX7DQbxqw
+ Lt5qAqzhlmej1jJlz4pjgDiVT+vRJTOMZJnSSuQKEMC1zBLA4v2kUpsJohjajEyNfa3OTDfZJP/
+ ImzfWRXl0fFgVcygUmoA79Mws67JNo+DH3KkfD8szQlyWsbYLzNXs9GYCK+MEZM+JmqOQjvgmG9
+ DHDVfsoSrcnFyg6slQg==
+X-Proofpoint-GUID: C7-rivORfCE_a47V-oulqYAVOzzDM0CZ
+X-Authority-Analysis: v=2.4 cv=RoFQvymK c=1 sm=1 tr=0 ts=6acfcf72 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=bIpB81lF2ro1xIxEYW0A:9
+X-Proofpoint-ORIG-GUID: EHiEmg6MJkJBDjBwUsu5bPi_G4yvROIy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 phishscore=0 adultscore=0 bulkscore=0
+ impostorscore=0 suspectscore=0 malwarescore=0 clxscore=1015
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610140074
 
-numa_rebuild_large_mapping() and do_swap_page() can be tricked into
-generating an address wraparound, crashing the kernel. All that's required
-is to map a tail page of a large folio close enough to the start/end of
-the address space to e.g., make
+A previous change ("KVM: PPC: Book3S HV: Add preempt_disable() around
+virtual-mode HPTE bit-lock users") at [1] added preempt_disable() around
+guest vCPU HPT hcalls and page fault handlers executed in virtual mode.
+This ensures vCPU threads cannot be preempted while holding
+HPTE_V_HVLOCK or the reverse-map lock.
 
-	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
+However, several host-side virtual-mode paths in book3s_64_mmu_hv.c also
+acquire HPTE_V_HVLOCK and lock_rmap() in process context with preemption
+enabled.  Specifically, kvm_unmap_rmapp() and kvm_age_rmapp() take both
+locks during MMU notifier callbacks and memslot flushes, while
+resize_hpt_rehash_hpte() acquires HPTE_V_HVLOCK during HPT resizing.  If
+a host thread is preempted while holding either bit-lock, any guest vCPU
+thread scheduled on the same CPU spinning for the same lock with
+preemption disabled will never yield, resulting in a permanent CPU hang.
 
-to wrap around.
+Fix this by disabling preemption across these host-side critical
+sections.
 
-Let's fix it by providing a better helper, folio_scan_range(), that
-takes care of staying within VMA and page table boundaries while
-handling possible wraparounds.
+For kvm_unmap_rmapp() and kvm_age_rmapp(), place preempt_disable()
+before lock_rmap() so that both the rmap chain lock and the subsequent
+HPTE_V_HVLOCK bit-lock are held under a single non-preemptible window.
+To preserve the ABBA lock ordering between the two locks, re-enable
+preemption after dropping the rmap lock on any retry or early-exit path
+before spinning on cpu_relax(), allowing the lock holder to be
+scheduled.
 
-There are some nasty details, like not being able to use pmd_addr_end()
-in this context. Add some helpful comments for these cases.
+For kvm_htab_write(), the HPT migration restore path, replace the direct
+calls to kvmppc_do_h_remove() with kvmppc_virtmode_do_h_remove(), a thin
+wrapper that brackets kvmppc_do_h_remove() with preempt_disable() and
+preempt_enable(), mirroring the existing kvmppc_virtmode_do_h_enter()
+helper.
 
-Reported-by: Kyle Zeng <kylebot@openai.com>
-Fixes: d2136d749d76 ("mm: support multi-size THP numa balancing")
-Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
-Cc: stable@vger.kernel.org
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+For resize_hpt_rehash_hpte(), place preempt_disable() before the
+try_lock_hpte() spin loop and preempt_enable() after unlock_hpte() at
+the function exit.
+
+[1] https://git.kernel.org/powerpc/c/abbbe5ff83e7c9ed3a4d61b73011f1df7bf87907
+
+Fixes: 6165d5dd99db ("KVM: PPC: Book3S HV: add virtual mode handlers for HPT hcalls and page faults")
+Cc: stable@vger.kernel.org # v5.14+
+Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
 ---
-Changes in v2:
-- s/folio_scan_pte_range/folio_pte_range/
-- Add more comments + improve existing ones.
-- Link to v1: https://patch.msgid.link/20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org
----
- mm/memory.c | 50 ++++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 36 insertions(+), 14 deletions(-)
+Changes in this version:
+- Separated host-side fixes in book3s_64_mmu_hv.c into a standalone patch
+  (guest-side paths were merged from v1 resend).
+- Previous discussion: https://lore.kernel.org/all/20261007182116.12479-3-amachhiw@linux.ibm.com/
 
-diff --git a/mm/memory.c b/mm/memory.c
-index 1f5d5f7d39cd2..fa29d7a8d0c20 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -4933,6 +4933,34 @@ static void check_swap_exclusive(struct folio *folio, swp_entry_t entry,
- 	} while (--nr_pages);
+ arch/powerpc/kvm/book3s_64_mmu_hv.c | 33 +++++++++++++++++++++++++++--
+ 1 file changed, 31 insertions(+), 2 deletions(-)
+
+diff --git a/arch/powerpc/kvm/book3s_64_mmu_hv.c b/arch/powerpc/kvm/book3s_64_mmu_hv.c
+index 2ccb3d138f46..8d85ce3440ae 100644
+--- a/arch/powerpc/kvm/book3s_64_mmu_hv.c
++++ b/arch/powerpc/kvm/book3s_64_mmu_hv.c
+@@ -47,6 +47,9 @@
+ static long kvmppc_virtmode_do_h_enter(struct kvm *kvm, unsigned long flags,
+ 				long pte_index, unsigned long pteh,
+ 				unsigned long ptel, unsigned long *pte_idx_ret);
++static void kvmppc_virtmode_do_h_remove(struct kvm *kvm, unsigned long flags,
++				unsigned long pte_index, unsigned long avpn,
++				unsigned long *hpret);
+ 
+ struct kvm_resize_hpt {
+ 	/* These fields read-only after init */
+@@ -308,6 +311,22 @@ static long kvmppc_virtmode_do_h_enter(struct kvm *kvm, unsigned long flags,
+ 
  }
  
 +/*
-+ * Get the address range in which a folio might be mapped, assuming its pages
-+ * are mapped consecutively and the folio page at the given idx is mapped at
-+ * the given address.
++ * Virtual-mode H_REMOVE. kvmppc_do_h_remove() is also called from real mode,
++ * where preempt_disable() is not usable, so the guard stays here. The function
++ * spins on HPTE_V_HVLOCK and then lock_rmap() (via remove_revmap_chain());
++ * preemption must be disabled across both bit-locks so that spinning callers
++ * holding preempt_disable() can make forward progress.
 + */
-+static void folio_pte_range(const struct folio *folio,
-+		const struct vm_area_struct *vma, unsigned long addr,
-+		unsigned long idx, unsigned long *start, unsigned long *end)
++static void kvmppc_virtmode_do_h_remove(struct kvm *kvm, unsigned long flags,
++				unsigned long pte_index, unsigned long avpn,
++				unsigned long *hpret)
 +{
-+	/* Stay within the page table and VMA boundaries. */
-+	const unsigned long pmd_start = addr & PMD_MASK;
-+	const unsigned long pmd_end = pmd_start + PMD_SIZE;
-+	const unsigned long lower = max(pmd_start, vma->vm_start);
-+	/*
-+	 * We cannot use pmd_addr_end(), as it does not clamp reliably. To
-+	 * avoid wraparounds, compute using the inclusive end.
-+	 */
-+	const unsigned long upper = min(pmd_end - 1, vma->vm_end - 1) + 1;
-+	const unsigned long offset = idx << PAGE_SHIFT;
-+
-+	/*
-+	 * Avoid start/end addresses wrapping by not adding/subtracting more
-+	 * than the lower/upper limits would allow.
-+	 */
-+	*start = addr - min(addr - lower, offset);
-+	*end = addr + min(upper - addr, folio_size(folio) - offset);
++	preempt_disable();
++	kvmppc_do_h_remove(kvm, flags, pte_index, avpn, hpret);
++	preempt_enable();
 +}
 +
- /*
-  * We enter with either the VMA lock or the mmap_lock held (see
-  * FAULT_FLAG_VMA_LOCK), and pte mapped but not yet locked.
-@@ -5121,16 +5149,15 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
- 	address = vmf->address;
- 	ptep = vmf->pte;
- 	if (folio_test_large(folio) && folio_test_swapcache(folio)) {
--		int nr = folio_nr_pages(folio);
--		unsigned long idx = folio_page_idx(folio, page);
--		unsigned long folio_start = address - idx * PAGE_SIZE;
--		unsigned long folio_end = folio_start + nr * PAGE_SIZE;
-+		const int nr = folio_nr_pages(folio);
-+		const unsigned long idx = folio_page_idx(folio, page);
-+		unsigned long folio_start, folio_end;
- 		pte_t *folio_ptep;
- 		pte_t folio_pte;
- 
--		if (unlikely(folio_start < max(address & PMD_MASK, vma->vm_start)))
--			goto check_folio;
--		if (unlikely(folio_end > pmd_addr_end(address, vma->vm_end)))
-+		folio_pte_range(folio, vma, address, idx, &folio_start,
-+				&folio_end);
-+		if (unlikely((folio_end - folio_start) >> PAGE_SHIFT != nr))
- 			goto check_folio;
- 
- 		folio_ptep = vmf->pte - idx;
-@@ -6280,16 +6307,11 @@ static void numa_rebuild_large_mapping(struct vm_fault *vmf, struct vm_area_stru
- 				       struct folio *folio, pte_t fault_pte,
- 				       bool ignore_writable, bool pte_write_upgrade)
+ static struct kvmppc_slb *kvmppc_mmu_book3s_hv_find_slbe(struct kvm_vcpu *vcpu,
+ 							 gva_t eaddr)
  {
--	int nr = pte_pfn(fault_pte) - folio_pfn(folio);
-+	const unsigned long idx = pte_pfn(fault_pte) - folio_pfn(folio);
- 	unsigned long start, end, addr = vmf->address;
--	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
--	unsigned long pt_start = ALIGN_DOWN(addr, PMD_SIZE);
- 	pte_t *start_ptep;
+@@ -810,9 +829,11 @@ static void kvm_unmap_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
  
--	/* Stay within the VMA and within the page table. */
--	start = max3(addr_start, pt_start, vma->vm_start);
--	end = min3(addr_start + folio_size(folio), pt_start + PMD_SIZE,
--		   vma->vm_end);
-+	folio_pte_range(folio, vma, addr, idx, &start, &end);
- 	start_ptep = vmf->pte - ((addr - start) >> PAGE_SHIFT);
+ 	rmapp = &memslot->arch.rmap[gfn - memslot->base_gfn];
+ 	for (;;) {
++		preempt_disable();
+ 		lock_rmap(rmapp);
+ 		if (!(*rmapp & KVMPPC_RMAP_PRESENT)) {
+ 			unlock_rmap(rmapp);
++			preempt_enable();
+ 			break;
+ 		}
  
- 	/* Restore all PTEs' mapping of the large folio */
+@@ -826,6 +847,7 @@ static void kvm_unmap_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
+ 		if (!try_lock_hpte(hptep, HPTE_V_HVLOCK)) {
+ 			/* unlock rmap before spinning on the HPTE lock */
+ 			unlock_rmap(rmapp);
++			preempt_enable();
+ 			while (be64_to_cpu(hptep[0]) & HPTE_V_HVLOCK)
+ 				cpu_relax();
+ 			continue;
+@@ -834,6 +856,7 @@ static void kvm_unmap_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
+ 		kvmppc_unmap_hpte(kvm, i, memslot, rmapp, gfn);
+ 		unlock_rmap(rmapp);
+ 		__unlock_hpte(hptep, be64_to_cpu(hptep[0]));
++		preempt_enable();
+ 	}
+ }
+ 
+@@ -890,6 +913,7 @@ static bool kvm_age_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
+ 
+ 	rmapp = &memslot->arch.rmap[gfn - memslot->base_gfn];
+  retry:
++	preempt_disable();
+ 	lock_rmap(rmapp);
+ 	if (*rmapp & KVMPPC_RMAP_REFERENCED) {
+ 		*rmapp &= ~KVMPPC_RMAP_REFERENCED;
+@@ -897,6 +921,7 @@ static bool kvm_age_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
+ 	}
+ 	if (!(*rmapp & KVMPPC_RMAP_PRESENT)) {
+ 		unlock_rmap(rmapp);
++		preempt_enable();
+ 		return ret;
+ 	}
+ 
+@@ -912,6 +937,7 @@ static bool kvm_age_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
+ 		if (!try_lock_hpte(hptep, HPTE_V_HVLOCK)) {
+ 			/* unlock rmap before spinning on the HPTE lock */
+ 			unlock_rmap(rmapp);
++			preempt_enable();
+ 			while (be64_to_cpu(hptep[0]) & HPTE_V_HVLOCK)
+ 				cpu_relax();
+ 			goto retry;
+@@ -931,6 +957,7 @@ static bool kvm_age_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
+ 	} while ((i = j) != head);
+ 
+ 	unlock_rmap(rmapp);
++	preempt_enable();
+ 	return ret;
+ }
+ 
+@@ -1219,6 +1246,7 @@ static unsigned long resize_hpt_rehash_hpte(struct kvm_resize_hpt *resize,
+ 	if (!(vpte & HPTE_V_VALID) && !(vpte & HPTE_V_ABSENT))
+ 		return 0; /* nothing to do */
+ 
++	preempt_disable();
+ 	while (!try_lock_hpte(hptep, HPTE_V_HVLOCK))
+ 		cpu_relax();
+ 
+@@ -1346,6 +1374,7 @@ static unsigned long resize_hpt_rehash_hpte(struct kvm_resize_hpt *resize,
+ 
+ out:
+ 	unlock_hpte(hptep, vpte);
++	preempt_enable();
+ 	return ret;
+ }
+ 
+@@ -1868,7 +1897,7 @@ static ssize_t kvm_htab_write(struct file *file, const char __user *buf,
+ 			nb += HPTE_SIZE;
+ 
+ 			if (be64_to_cpu(hptp[0]) & (HPTE_V_VALID | HPTE_V_ABSENT))
+-				kvmppc_do_h_remove(kvm, 0, i, 0, tmp);
++				kvmppc_virtmode_do_h_remove(kvm, 0, i, 0, tmp);
+ 			err = -EIO;
+ 			ret = kvmppc_virtmode_do_h_enter(kvm, H_EXACT, i, v, r,
+ 							 tmp);
+@@ -1897,7 +1926,7 @@ static ssize_t kvm_htab_write(struct file *file, const char __user *buf,
+ 
+ 		for (j = 0; j < hdr.n_invalid; ++j) {
+ 			if (be64_to_cpu(hptp[0]) & (HPTE_V_VALID | HPTE_V_ABSENT))
+-				kvmppc_do_h_remove(kvm, 0, i, 0, tmp);
++				kvmppc_virtmode_do_h_remove(kvm, 0, i, 0, tmp);
+ 			++i;
+ 			hptp += 2;
+ 		}
 
----
-
-base-commit: 634cbf5b794b734c78631b92e381cfc85f357bbe
-
-change-id: 20261013-folio_pte_scan_range-c6ca19cc8e9d
-
---
-
-Cheers,
-
-David
+base-commit: 129f5d395fd66b6587a5ac156b232cca060d6512
+-- 
+2.54.0 (Apple Git-157)
 
