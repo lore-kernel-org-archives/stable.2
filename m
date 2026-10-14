@@ -1,77 +1,76 @@
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9973417BD9
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:08:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 979A0468C2D
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:12:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792004902; cv=none; b=XnPqBnZiJ84npEXP6Y0NX9WF78GHOtMJnUQMcnw5OQ0NAjT4GcQOnx0AladC7CQzrGRnjjfhnc/Kr2S4hwC7HBpGrmJor7dIrrixbcIJD1ELugPiR21rQT2KUOvv5EGjDBI4XWoWEtu4vRu2+K1i6FxnkzwhEPqXqV6irU7FKxI=
+	t=1792005164; cv=none; b=C3X3yQazPg1aUnR1TinYo5/0vBaw0sbWQpXTXZIvSTmjHpCIX0veXAoENlJen9X24a6TOkTbEZX9DHaWNUIcBegotYGhvrYkg1T9tCdubojrEct2iA2M4BOz3ut60gHM0r3wmDb4yuowt/+vCC4+HwNi7rkaF4qToesdG96r5Hk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792004902; c=relaxed/simple;
-	bh=RUtgd1IDUTb+Lnsw9nLInOzXrLSRgTi7g3GMx/iOGkg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VxnVVdqOVxyOejwTJZS8lzoPLaot72dncYA1WbBiKFlQCF2z30OJC/r0WWZ9AOYDRwwGz/OW3nNP4Vt730hGQStQSL8tc6Yxpt+uFu0mMY1U+qojUgpnUxUjYgnnpS+5qbz8Yncbuj0clpbwG/OxCPQavI+reDynW9iY51/BSTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=kHuXVkcX; arc=none smtp.client-ip=74.125.82.182
+	s=arc-20240116; t=1792005164; c=relaxed/simple;
+	bh=pRta59JtulZeIsykJD35tM5ia0Lq/sCYG19PMeRfN3w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uhkmkp8K6V16gFve0YZSiFDO8RYFMC2E1bsaluA3OoZDIcoyHY94Qc1CL1LDIMc0ElfYNXgd92SY7Eg7esZWBiLDwT8stfVnXZuXnTu6MsjhONRNeZqbzpw4sux+sLTUfk1wwYSHj66+s4UVhM+iIEi0VKwFXG/t/2V86wyDclg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=faJxll+V; arc=none smtp.client-ip=74.125.82.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="kHuXVkcX"
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-35829219da8so1331313eec.0
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 12:08:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="faJxll+V"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3550c917fd3so1857476eec.0
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 12:12:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792004901; x=1792609701; darn=vger.kernel.org;
+        d=trailofbits.com; s=google; t=1792005161; x=1792609961; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OoT00FAkkQX2pY61Nw8OJCiUbTKBvWhFM3ATJilN3vI=;
-        b=kHuXVkcXZqmRLOUbiHxxkv4sKARfN9agAWKpRAQSVDKMmRMT36MUxha0dbTJg06bbR
-         pwtGkzLzdujo3XuHyJDNVomRJ3ZBvCSOKVmZmsogdRp8Mu9LZCAp3NzwXKmSgThQ8FCG
-         1cFJ/VFDmJT9DVcAWKJYXpcCw4dhHeGc001TpnFdsIZVVqGf4YCyJprWNA46fSigFV2q
-         MwWC+SEkrbaYRIxUReCRiA8mCNPctGQR3Rffp6OtYOjPpDEwqKAJM3WActOKTEKcor0O
-         HGhVHri9L0a4Ez7B6a8Ql50ryow9mw6DeJu5prtlo/+2XvVof+NGKpYiHsB2gWALtCmx
-         tR/w==
+        bh=pRta59JtulZeIsykJD35tM5ia0Lq/sCYG19PMeRfN3w=;
+        b=faJxll+VuILK77EN3dLjSVc/kLOpn+vXNlgBT9DMQgMJQ3GJe5pw6V9j4fwMnL6Kpd
+         0uBC0pMI/pCzrZJMTUf31Zn/hX9vcejhP/vK6kwscIoWP62XvnG2NEmvQjMhvxSt360D
+         MKxdsOVTJnn4oxkuOy74WxlZItXYgAvaXZ4FkC36DjvgOM2gA/+X+HS4XuzVm8gn+gpr
+         FXDdv0OGAV/7B6S7UhSch0g78FdkTFoNrEyGt6vGt4EeKajpz2cTNr+1gvljQ7Axy8Tn
+         ibXqlQTvJ3zuhZqUxVv8MKd8fVHNeuNaHpxNEdpcxK+atcI4HHbtbmSIMeNXiggzYkGA
+         wsvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792004901; x=1792609701;
+        d=1e100.net; s=20260707; t=1792005161; x=1792609961;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OoT00FAkkQX2pY61Nw8OJCiUbTKBvWhFM3ATJilN3vI=;
-        b=Ufm3cZuprq6J6bGGv0twhMOr0LeZpitxrrqgfvpBxRgTxaFGeB2br9/nI2863lhs9g
-         EQk7v+Nrwlo18t7SbiDp+uCRl3hYwRTFGiFvb79SlgMlHuPrkiLhGzQ69uVNkuTTsYh2
-         llScrr8Vg+Bq5aD8IM83nXnlky4uGnEUm2Tpe/P83SNu7Z3MbKM9BRShOz+9dEbrOkPN
-         RrbvZCbPqOk3N3GcMNSxC74o+Uq+Bhe0D6zyMLBocwXhafMSdDcA8dekytwyvoumWDJz
-         q9mc2/8ajT/K1vB/6HHrje2li5DWWTy1nq6IdjphNEPD2IWyF8IFMkTy1PEA438tyVvO
-         gZbQ==
-X-Gm-Message-State: AFq9FYJw0GSaJzRpmg88kw+5G1zD2ym1MzFNlrqguwfWfV6xHniBW8CZ
-	pRk++pBApKXKIYHjSrqTOwx7WnLBNjoxTga0TA12FtIIsqSNSGznrvca2l78yce9nKunhDZKlHt
-	90YrSWHzVVA==
-X-Gm-Gg: AYBFou1NAlH8BQmKi6B6v45bb8jCz1lQpSbvQOPs35UceZ8o7T35TSodaRAoePnijfV
-	C+1KTJBSkCexNmZ0ZpmOyA2TQGYbadWYrdhsIDtPCbSrTtvvX361YIKQNrMUIJcVh9/6E8efkP4
-	GNzR32kVWpaLOyfV+iEr1A2f87i/nktrrNZa79cDECUUd0eLk8sjZTliXKD7o3ysVOV/3TBF5wK
-	uvzlCX2LdvVT+Fr5TOL4VXENzSrJe4KPGTPs/JttyEAmthK6MUji6dpiVPHzWPtVUu6FxnEjUDn
-	j2HXSKsdDJoHg5GHP4sF4uYn3Y8cyFemjJjfy2AaoK1NPAXP32/ni2v4Iq8nG0uWPf1uLJ2AYzy
-	zD2oMqTsu4Y3npsHzl8p+M6eGzBTK8lAxqlnscrTVXfMDzw2SQoIMMn60sTZAZKeCejOcYbGF0f
-	YmUTdYCDzSzO9lNMZ2u1UTN2asowD7Hnfzi0PpScj9np3cP7H6E3Jssw9NA8snIPEXn62Fd8MOW
-	OzlFc2o+CAT+k53Gv6tKzKlylw1ZObqLsOVaV8cXBGL2uw04tmspTrhdxsCyEs6MwNcp5U=
-X-Received: by 2002:a05:7023:a4b:20b0:143:3769:c680 with SMTP id a92af1059eb24-16a1555df9dmr21612292c88.25.1792004900520;
-        Wed, 14 Oct 2026 12:08:20 -0700 (PDT)
+        bh=pRta59JtulZeIsykJD35tM5ia0Lq/sCYG19PMeRfN3w=;
+        b=fiAdZ+A8pK4rJMx1k9Rwqa1GrGf8FrPREMeC2WIjADs2nyyhyYBqu/o1DqeKX8U0+A
+         Ek6RcWDaloC2P58o7928p85BpurfgpQcDmixA92bEu4cmB5icVyEow3yNl+g29YwIOu9
+         +idCqJ8V0gEawaC2g3WR2iaaIpNnJy44o2AxCjSbgbep7DRMZX7D9i7Ydwu3Q9j7hOGN
+         zb9E38YvV1QxC26aF8hxJMDP3h2Yb+Yym1s98oJ2Avc5Wx56O2wxU0Glt2XI3hDwY0Zv
+         kYKfVAS/zERYoWksCaKMdX5hNVszcL25yNyNRHcWzsMlMyWcuRPCQlEFFMu9wmO3qWcW
+         6WMQ==
+X-Gm-Message-State: AFq9FYIuO/qRG5GqcJM/CdCJkEbu9Xl0yt2CyDljSTenJlEkO+OKcrKC
+	gvZEeJCUUw5fHLh1IRO6nUsS5XnVv4IzWZlDSnLQnP7weUUovcynA3QBNIpEVB94e4pjhl/9w33
+	BIdCPyHIPCQ==
+X-Gm-Gg: AYBFou0DFgeG5tjynEd6IIX5omHJrRzrulCCvAZM33Me59GZTlSLitp93Dp42HA6cFL
+	fjh9n7uQLKU+4J2M9JwesavcVR9PMyrhImJbtzC6ixFYE1ncAsa3D13g0NJNOWfm6jjXaR0rSHL
+	CBDPNCxJD9eFXJ8nHpXlLjUmsWSXHc7VUP2aJlL2XbAq1AiE8Bj4GRQKoRoQi2Q+xjdUpgDJHAE
+	3N+iTbMLOY20d1q735QASa3MDOS37L0Jrv5liMNEZQQLxt5lPhDnPNqRldBJwN02xguqK+Nx+fP
+	y47OTkraLisB5wfM935DYbgd56BtHGxwcTJo3gYjb9vtOvYCEboY2/KBTLtwStIFdMQOffYFQvP
+	n5PLYd8+rRlAADPQ7Khw7QfNR+FLhgOQIH8BxJ2oA5YIZuLWTvRs0ELl1KucJi+qfgebBH10i1f
+	sr0uWmoJWBLp8gcmolaonpJX6rVkIfXmaInoW/ASD0odzCHfg6bOmm9tm0D7y7tdoQKgz3hcq/6
+	KAjF6cesy28oascXqW08Yy0nkvW7CR8jzZ1lRi/s979qM96mAc9xfkV3Fq2s/LWcZDYZnY=
+X-Received: by 2002:a05:7300:caa:b0:35c:ceb0:8bf9 with SMTP id 5a478bee46e88-35cceb09059mr9595489eec.38.1792005161316;
+        Wed, 14 Oct 2026 12:12:41 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:39d1:d8de:aae7:23dd])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a567bd18sm48064953c88.21.2026.10.14.12.08.19
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb2fd33sm54329888eec.28.2026.10.14.12.12.39
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 14 Oct 2026 12:08:19 -0700 (PDT)
+        Wed, 14 Oct 2026 12:12:40 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
-Cc: dlemoal@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org,
-	kishon@kernel.org,
-	frank.li@kernel.org,
-	bhelgaas@google.com,
-	gregkh@linuxfoundation.org,
-	sashal@kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [6.12.y] Please apply one upstream fix
-Date: Wed, 14 Oct 2026 15:08:15 -0400
-Message-ID: <20261014190815.23455-1-artem@trailofbits.com>
+Cc: axboe@kernel.dk,
+	cel@kernel.org,
+	hare@kernel.org,
+	hch@lst.de,
+	kbusch@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-nvme@lists.infradead.org,
+	neil@brown.name,
+	sagi@grimberg.me
+Subject: [PATCH 6.6.y 0/2] CVE-2025-38264: backport fix series
+Date: Wed, 14 Oct 2026 15:12:34 -0400
+Message-ID: <20261014191236.23696-1-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -83,19 +82,25 @@ Content-Transfer-Encoding: 8bit
 
 Hi,
 
-Please consider applying the following upstream commit to 6.12.y. It
-applies cleanly to 6.12.112 and is already in 6.18.y and 7.2.y.
+Please consider this backport series for CVE-2025-38264 to 6.6.y.
 
-97110d42680e692020154f9aa89298c038196055
-  PCI: endpoint: test: Synchronously cancel command handler work
-  pci_epf_test_epc_deinit() and pci_epf_test_link_down() use the
-  asynchronous cancel_delayed_work(), so the command handler can still
-  run while DMA channels and BARs are released. The fix waits for it.
+Apply the patches in this order:
+1. llist: add interface to check if a node is on a list. (prerequisite)
+2. nvme-tcp: sanitize request list handling (fix)
 
-Build-tested on 6.12.y (CONFIG_PCI_EPF_TEST=m, CONFIG_WERROR=y); no
-runtime testing.
+Patch 1 adds llist helpers to mark an unused node, test its membership,
+and restore the unused state after dequeue.
 
-Prepared with LLM assistance.
+Patch 2 initializes and resets NVMe/TCP request-list membership and
+rejects R2T processing while the request remains queued. The code changes
+in both patches are identical to upstream.
+
+The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
+
+Build-tested only as part of a cumulative 6.6.y series: x86_64 objects
+(allmodconfig, CONFIG_WERROR=y); no runtime testing.
+
+An LLM assisted with preparing these backports.
 
 Thanks,
 Artem Dinaburg
