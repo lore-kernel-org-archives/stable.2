@@ -1,109 +1,188 @@
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFEC640801E
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 20:29:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1907F363C46;
+	Wed, 14 Oct 2026 20:32:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792009782; cv=none; b=J8vRo+hz4r9Qk4SFTMr4YsNORXM5VIfdlqRKT+JN6O3rAPavqWsd2m5k8KcwzGM2MxL+QWyQV36q64nx2KcBJyp0WxG0XjndWYzdf8FYgiRlNbnbwBFKZY+QYxyROnZRk6S5JHcRO8amfxIhNU0OjNk0+G67reWU3WQR8IXtKUs=
+	t=1792009956; cv=none; b=qI5KZAsI7iH+MDZRR6uGBGvnIBPaHItIcUbvqKpeHwjxP52KlTeok/k37vqjxb3IKfMBqxpkkeZ3cKjGVhp4TQK4QXGpFkOYnaCZ2cmaXhfwejk+d9NzaX5r+JwvKcpBf2Gz+5xlJlHyOfFPsWD4OZmQBQKbfrBju8CufRvXSqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792009782; c=relaxed/simple;
-	bh=yW2JRdI+sHVXqRRLn3ro5rxRmw1YQMKkbezj+YasMm0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ENtgd/GfMOa/PT18/KdK6Tbk5PBDCSyvhZ6mFYV5qTM9aCje6h0pECMxgDoRMPdBWQiEKUkLGSC+NNi2j+0PWpXxPzvvcSzzf5bfB/v9H6IWGyVqKPmwejhdHTx3Z9p5tmKTdfEKhHNYeLEUhVUJ7/nEqS68titRWTcxHSnV62I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=rdAxAsMm; arc=none smtp.client-ip=209.85.160.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	s=arc-20240116; t=1792009956; c=relaxed/simple;
+	bh=tWgKXUh22x9OhorVqOWRYmOtA0aoRz/aY9z8oYN3GXU=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=quOWmhq/wP/wLnMURzEOPYDbZddSdnq6HdzATiPJ9GGtG1wojeRXRttM8IRLZdOL6lSmvDafHN6nfWi06fyHflQDKIaGe8wA7dKK3ZUKpRFuNRSJwB4TwmfCtC3PDYibNfM/1iYrj5sfXaCyb3oF/e9c3S7Dhw5sUAY6c9+CDvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=f9RQVOwq; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="rdAxAsMm"
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-5352a876d5aso58442581cf.1
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 13:29:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1792009781; x=1792614581; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8KpIQc9Vyaph3vkgeCaoJ68oVGAH4Ek85s5zfjWhrac=;
-        b=rdAxAsMmZjVc+aFoV7+zMJ2GvAxRjMz/tFtzAatt9ZbyWsHrVKsMcAa+d81t4EGrJy
-         kdJql+zC5+eQ+90faaXFS4Sb4K8hOpZhcCSGW8kvnLn9oCiBV2wDxDjnmMVl2VCmQ7XN
-         Uwg6uggwkp4CA/yv4jlqeKfvCcxqo81sK4jH69lYZ+5N4JHExW62PKKbqis6oA2XRVEt
-         Eunxjf+o0xNL95IWFknf+wI+8v6qCuOnhmKG8gzEzmFU8lQuzHi6xLLK58k7qPSRrX9B
-         o3XJRpEKzSy/9aa2JFaLclIr+ZhFKrjLoy654fdxJNu2b7w/B3M5hhpnJuYZx18si2QI
-         sQsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792009781; x=1792614581;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8KpIQc9Vyaph3vkgeCaoJ68oVGAH4Ek85s5zfjWhrac=;
-        b=bp5+UnS1GDARU+O94tKjMF49xuvcX6YtJ/4bkOReffvsUDMjRD4hjPsiCpclz/b/Tf
-         vcUkmT/sh5WnRIXmEuUdN4Tg93IYybzOmL+0LNel7AC0Zotl9mpL0Tsf+x5OuPQfJQjY
-         PT9cgubui0jYfpPQnr/lCivcM/oe9kmh5Q2ZUuto27P6XqSRBsPZdvmpPeAIydXBV9cg
-         R0u/fyw6n8/iTBrcfjNh+Cjy6uBJEh8K/hauKy5wQeBHCh4B2bBuB0TrocSXr5/KAJn+
-         Eyn/TLr7uTzG5YHe3PP2Z1wgZT077aKSv/BtQnkAx3pbaTFHOvZOOUsdXHCqHmEdJFhe
-         OXoA==
-X-Forwarded-Encrypted: i=1; AKwUvBxV7BbWgdeqsg1lWfEKg5QQSSRvpe3aekm0FxOYYYL6kZYa/PEPtykvpqkWNH/5OH28q178uaQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK1lU/5BvV2MFxfe3rKQ1IJ2P0DfBVDRVZcT3RsCZgrH2TDqmaV
-	o+Cyf5o7EIl606+ybns+VD5Myeikg+XBdw5k/MsGKDHrhjYxsrqW9CPzIT53peBCq5Q=
-X-Gm-Gg: AYBFou0qyaeCW8dK8mKkRUJ8JDbI6SMZiEBLnvsKrG1XkhxzXY3dySdOaQ/jI7UOTTd
-	h7znWdyCl8pVRKI9kIxa/rBe35vVNXym9Q9IUGYWxWqfP/bBeEgEzQgbrmgRAudAvYaFsvs2w5x
-	XQPM6i6dceqqMsGoh+tto8pEE0BnuS+aw0qikRjyxH//zmp0X+iRGGORArmCiH6D6iQc+8QamEj
-	N52SBt2zijlmsree/Q2sr8btCTG1ubg2+sqR1Fm5vgQkoHxCyHSuq929n7Z8PHp7tW7pgttRcXx
-	rtDg2Ig/l4GpZWztJQg4NpB8Au0/VrxkEmc8WF+l+3QuS3yZhV6sjzsH363AIskZldZqUf4ouof
-	dhombj1EtxPtzblqiRTxVirrkwbnWlvND1yfH8VojlgdMIy4vEzEZ/we4GAQEU5gZg/BExFzr6r
-	VVZpJaemFiCZdmc9WcuqDycWQeID/hXxZSK0hN2Zd48NgLxtj6kNVLb4cht2qyrP1Tgl5W
-X-Received: by 2002:a05:622a:22c5:10b0:535:fc2d:b7c2 with SMTP id d75a77b69052e-535fc2dba9emr47727251cf.33.1792009779058;
-        Wed, 14 Oct 2026 13:29:39 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:5081:9526:3c0:45cc:5ac6])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5361281f0f2sm5986961cf.25.2026.10.14.13.29.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 13:29:37 -0700 (PDT)
-Date: Wed, 14 Oct 2026 22:29:36 +0200
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	David Hildenbrand <david@kernel.org>, Harry Yoo <harry@kernel.org>,
-	Usama Arif <usama.arif@linux.dev>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH v3] mm: page_alloc: make defrag_mode retries follow the
- promoted order
-Message-ID: <20261014202936.GC371161@cmpxchg.org>
-References: <20261009125503.126202-1-kas@kernel.org>
- <15a9e03e-c748-4e51-b8cc-583a3610c897@kernel.org>
- <20261012192834.6934ef85444dee4a60d6d876@linux-foundation.org>
- <as5q14OsbK2CmOrh@thinkstation>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="f9RQVOwq"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EEiVeH2562494;
+	Wed, 14 Oct 2026 20:32:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=5ujUXx
+	Oxc2+QY02Jg9WNRsThUM4Ckx/qWWSzFmoQbHU=; b=f9RQVOwqfvT8aTEFGdT+yH
+	C3a6+D9GhKH2ODua3wxattCNxeQKD8V3Z0WPbQpf0p8aqWExeH5MTAceDkzBASTe
+	Krsye0/vuth0hSsZcz4bkF7jjVRn+s8zz0FGf7CRidIbpfqSg/C9vAX4XixAgEL2
+	WMEDUlxFJzflPkzwBx98peh9k/XKPMP/bPhFzqaStOFumjtGlEIn1CYp3Nmm4hyn
+	zv4A1r+dCMl/TUlD9ZgklImmGndmKtXe3pwT5h8dcB43MIvhKhXJaD9krm+AetsP
+	joVY+wpkLnvyDFiMy/c9CgcDxTvsOZ3WxkEJbRR1c7ZeGisIGlvqThwDvCVooqOQ
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dugpmqa-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 14 Oct 2026 20:32:24 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69EIeuFh634438;
+	Wed, 14 Oct 2026 20:32:23 GMT
+Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h9q2ypjyj-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 14 Oct 2026 20:32:23 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
+	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69EKWNtj32572096
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 14 Oct 2026 20:32:23 GMT
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6BF9158054;
+	Wed, 14 Oct 2026 20:32:23 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8970758062;
+	Wed, 14 Oct 2026 20:32:22 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.5.196.140])
+	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 14 Oct 2026 20:32:22 +0000 (GMT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <as5q14OsbK2CmOrh@thinkstation>
+Date: Wed, 14 Oct 2026 15:32:22 -0500
+From: Wen Xiong <wenxiong@linux.ibm.com>
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: mathias.nyman@intel.com, gregkh@linuxfoundation.org,
+        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org, wenxiong@us.ibm.com,
+        Brian King
+ <brking@linux.vnet.ibm.com>,
+        Samuel Mendoza-Jonas <sam@mendozajonas.com>,
+        Joel Stanley <joel@jms.id.au>
+Subject: Re: [PATCH] xhci: Reset controller on xhci shutdown
+In-Reply-To: <20261006125546.10471489.michal.pecio@gmail.com>
+References: <20261001222527.11742-1-wenxiong@linux.ibm.com>
+ <20261002102931.3cb06009.michal.pecio@gmail.com>
+ <561d22493c3d078b26f547dd8f6f6f46@linux.ibm.com>
+ <20261002161828.365ff859.michal.pecio@gmail.com>
+ <55a53022d1c6f671a3ed549d8cf7cd1a@linux.ibm.com>
+ <20261006125546.10471489.michal.pecio@gmail.com>
+Message-ID: <64515dfd9a6cd8c3f5665e72a6bf6b81@linux.ibm.com>
+X-Sender: wenxiong@linux.ibm.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=Cr0q4X4D c=1 sm=1 tr=0 ts=6acfe6d9 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=MWHgFnkp4v5QQt6DU_YA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: -H3wSmxdhVJawbwNyPSzjl3zPifwDwqz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA4MCBTYWx0ZWRfX5kpe1Xh6FRDC
+ 9EtGiMheIepoAYuTFvIRFfKHdBOmXvU5cOO+nAqlTTISZ4Bcj5ugNyhp+xao/Z+xXkQ+BYjFN4+
+ fpkPQDVRjLAUsBBNndCzdc2umjzlRWWAWyz9cPC83rmTbeQOzWH4u8JNyoIYPwT4HDrJ6ploJTx
+ xfqSeuoY207NuK63CmR7ciRkkC6AFrXnntgP2lrlf2LKKuVACNb9cXP/Chza7otlCdXc9hHcA3Y
+ y6HQAxz43t8prn27yZxBQBcnggzVCFWVeQ5H2GWCK6Ke3di8Q07cJXyIxPRNVse8GSANQ+0MYKn
+ JbEtdiH7R1ZcZX3kWDa1lNc/NvadkQ3Axlxku8Pp+VyDlXdQyli38eyp5ji1q0VOk42I3mDo3/T
+ ZnQcs0GQR4fa29D4n25ARpL+lWxNsvuDz1rDHElQzrv+3U3mOACYeksyiLw7YQMYahYP3xFscnB
+ 7cNfWxLCCqi1cxqA25Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA4MCBTYWx0ZWRfX/gyTShc6plTf
+ hUJu+UOIik0rSfesCb3kvdkPS5y93eSzFc43xXUetT+z4qmKPJN6jx7xmduxmMKj/4UfsOtn1Pz
+ XnFW7PmA4RkkJh4CNH+xq3QqWOPNOHY=
+X-Proofpoint-ORIG-GUID: DqAWnHanW6LB_e30Wx5ZMHFYcnXfk7Qy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ malwarescore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140080
 
-On Tue, Oct 13, 2026 at 06:37:20PM +0100, Kiryl Shutsemau wrote:
-> @@ -4127,6 +4127,12 @@ __alloc_pages_may_oom(gfp_t gfp_mask, unsigned int order,
->  	return page;
->  }
->  
-> +static inline bool order_nofrag_promoted(unsigned int order,
-> +					 const struct alloc_context *ac)
-> +{
-> +	return ac->reclaim_compact_order != order;
-> +}
+On 2026-10-06 05:55, Michal Pecio wrote:
+> Are you able to capture the original kernel's dmesg (through serial,
+> netconsole, etc) and see if the same "Host halt failed" is there?
+> 
+Below is xhci messages after executing a kexec kernel. This is dmesg for 
+kexec kernel.
+[root@ltc-boston11 ~]# dmesg|grep xhci
+[    1.085853] xhci_hcd 0005:01:00.0: xHCI Host Controller
+[    1.085992] xhci_hcd 0005:01:00.0: new USB bus registered, assigned 
+bus number 1
+[    1.144472] xhci_hcd 0005:01:00.0: Host halt failed, -110
+[    1.144518] xhci_hcd 0005:01:00.0: can't setup: -110
+[    1.144571] xhci_hcd 0005:01:00.0: USB bus 1 deregistered
+[    1.144778] xhci_hcd 0005:01:00.0: init 0005:01:00.0 fail, -110
+[    1.144842] xhci_hcd 0005:01:00.0: probe with driver xhci_hcd failed 
+with error -110
 
-order_defrag_promoted?
+This is the reason why we can't see usb devices after a kexec kernel.
 
-Otherwise looks good to me!
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+With the patch,
+  #dmesg|grep xhci
+[    0.859562] xhci_hcd 0005:01:00.0: xHCI Host Controller
+[    0.859670] xhci_hcd 0005:01:00.0: new USB bus registered, assigned 
+bus number 1
+[    0.859797] xhci_hcd 0005:01:00.0: iommu: 64-bit OK but direct DMA is 
+limited by 0
+[    0.859858] xhci_hcd 0005:01:00.0: iommu: 64-bit OK but direct DMA is 
+limited by 0
+[    0.859982] xhci_hcd 0005:01:00.0: hcc params 0x0270f06d hci version 
+0x96 quirks 0x0000000004000000
+[    0.860614] xhci_hcd 0005:01:00.0: xHCI Host Controller
+[    0.860719] xhci_hcd 0005:01:00.0: new USB bus registered, assigned 
+bus number 2
+[    0.860770] xhci_hcd 0005:01:00.0: Host supports USB 3.0 SuperSpeed
+[    0.861091] usb usb1: Manufacturer: Linux 7.3.0-rc6-usb-gbatra+ 
+xhci-hcd
+[    0.862130] usb usb2: Manufacturer: Linux 7.3.0-rc6-usb-gbatra+ 
+xhci-hcd
+[    1.127210] usb 1-3: new high-speed USB device number 2 using 
+xhci_hcd
+[    1.407320] usb 2-2: new SuperSpeed USB device number 2 using 
+xhci_hcd
+[    1.556759] usb 1-4: new high-speed USB device number 3 using 
+xhci_hcd
+[    1.806902] usb 1-3.1: new low-speed USB device number 4 using 
+xhci_hcd
 
-And agree 7.4-rc1 with CC stable is fine. Sadly, not sure if anyone
-but Meta is using the feature right now.
+#[root@ltc-boston11 ~]# lsusb
+Bus 002 Device 002: ID 18a5:0252 Verbatim, Ltd
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 001 Device 003: ID 0451:80ff Texas Instruments, Inc.
+Bus 001 Device 004: ID 0557:2419 ATEN International Co., Ltd Virtual 
+mouse/keyboard device
+Bus 001 Device 002: ID 0557:7000 ATEN International Co., Ltd Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+
+
+
+> And if you enable dynamic debug before kexec,
+> 
+>   echo 'module xhci_hcd +p' >/proc/dynamic_debug/control
+> 
+> what's printed by the debug message at the end of xhci_shutdown()?
+> 
+> Do you also get errors from quirk_usb_handoff_xhci() by any chance?
+> 
+After executing a kexec kernel, is the control setting lost?
+I didn't see much useful information in control after a kexec kernel.
+
+Probably we can resubmit the patch with mathias's suggestion.
+
+Thanks,
+Wendy
+
+T
