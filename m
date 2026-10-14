@@ -1,138 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E784078CC
-	for <stable@vger.kernel.org>; Tue, 13 Oct 2026 23:55:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51512E762C;
+	Wed, 14 Oct 2026 00:29:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791935722; cv=none; b=QnzTee1WMymC9Q4qHP09xDCzyIC9o9k1CFaR5YGenOuc9bn8kcatCJjqeOuOju7KLD0rEINdGa5EHNAAvkCe9opD2b9rY4b7z5DfD2jgRsAXeNN9cq2tf/EJSvh0ovd8FhgZ2Jk1pF89el7NHbnCnO9xyY/fc9nZeTKNl12MLT8=
+	t=1791937794; cv=none; b=MrbQA60RympaVX5m6epwvkG1v/8UvpC/4i0eDdKvluejd/UdHV7SB1tBnJXfvhNS69NmGh8t74Gyns88KYI8zbmrKDGSp8e8LRwcZ0lEmENWBHh+N97f6W2XJQgTxtBd2akQbJUeOm7Jri22sG1+GvWFeLM8LYVXdhTZrFfRC6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791935722; c=relaxed/simple;
-	bh=nSx06jX+ZSSMG/sDU9THwQnaYTDmqzViH1OrP8aClZc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YW68viExvwQbMDDSH3PV/KR9ORn+CwuAhB23vzIhsW9Y4XaqipX1KTjVniJPr/6ZKuyaRH5I/JKNd8OxLINEaR6Viixdct65UDBiDi98TSJZLVdvFU21lTVnklxQRHbysKZkW90QrRMPepTlaIM9vjU1/xdaPK0cGCep4pfr5t0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nyum2qzs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791937794; c=relaxed/simple;
+	bh=XKI3tZkCyM4/TeKhUgNUVlBp6mh45GJ+REJfN4UHpEU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UoLvnl85CoLCnqlqU/yHI14o+JzAsPyxvgiPJCrMhNzFEP/P9H1yAfkGOnpJ9bi395gFdQFVduHfRDwIa3KfquixhNieeSXeD+Xg13maImgnl//NRSj75OmoB7IcNWv+zJsvPju42ut5yXAD2VfS0iwy5ItWKQtn/GTX6qKCfkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=uoZVhxuc; arc=none smtp.client-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nyum2qzs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 497CD1F000FF;
-	Tue, 13 Oct 2026 23:55:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791935720;
-	bh=/J3M6Doc23rBQr9ms3YtHoRXpHoa15IWP0b327eDgXk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nyum2qzsJEyWfMFbNl2HaEQiEBDh4brj0QX9FRdvJuLJCIm4CCPJDdpq2W8onsG/f
-	 T15Ocd85WSbaN9SiSoQ+5jqcT3vgUUfKnuik3QF9z0YFtWL02wdt7wuiKUw8od/RTQ
-	 Q4IjO1D2R5Nwd9pY0tKFfex/K2IPRibeQNRwcIFmWDFVDcVjVFd7TfDAQaYOLcFOo1
-	 viruitXEjuWV+5LMk9O12Lct5F3YD/xRIBtQHSyUtLjBYYbSobSMoJWoPYR/ljhFmt
-	 p+JMT3r5ePOgCm907ervO88iLbojnzdMcgxxCjmHXkzT48X2srLOw999HD5bk6HgBL
-	 DXv0kydCT80/Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] namespace: handle mount locking for automounts correctly
-Date: Tue, 13 Oct 2026 19:55:19 -0400
-Message-ID: <20261013235446.1479584-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101252-smog-yin-39f1@gregkh>
-References: <2026101252-smog-yin-39f1@gregkh>
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="uoZVhxuc"
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 90FEE14C2D6;
+	Wed, 14 Oct 2026 02:23:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1791937425;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HFxL9EiG2VnTn+f1tPMCKHSR++5LrOW9CrXmSSjJ3i4=;
+	b=uoZVhxucwFTSoDD2AXoYZ8DfipRk4z43XHJaAHasZcbNVkPjH1Pg2gK9Q3wtn/fc/1Xl8D
+	CX2lMvOPxxaxu/56vq3/QThWXXXw3z7UHRf+3ASattI1VgjSnl+g0Mkj7OBnw9A7oIFG0K
+	ijftoQC7MSrJO3f7x3jsA2QoO/trJD4FqgCtT9Xwa1DnB/0P16laAFTgQJ1k48ZoY43dpK
+	T9f9T2u/yn53Dx1E0Tr5ag+Fvyk7c5AnMoacfBQheRUm3jBi2DwH/qQpyDT62nD6XGFQ3j
+	Qf1cMofTdhk1FGo0/oYkKkmnqdnf70E3HoDatJomuV//MbvKpW5EPFpYnVAX2Q==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id c4e334a7;
+	Wed, 14 Oct 2026 00:23:37 +0000 (UTC)
+Date: Wed, 14 Oct 2026 09:23:22 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 000/497] 6.12.113-rc1 review
+Message-ID: <as7LenFDmnKqmweE@codewreck.org>
+References: <20261013112907.864180619@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261013112907.864180619@linuxfoundation.org>
 
-From: Christian Brauner <brauner@kernel.org>
+Greg Kroah-Hartman wrote on Tue, Oct 13, 2026 at 01:32:47PM +0200:
+> This is the start of the stable review cycle for the 6.12.113 release.
+> There are 497 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Thu, 15 Oct 2026 11:28:22 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.113-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
 
-[ Upstream commit 33aadc7c72055fca93cb5a3691d836ebf8b31c9b ]
 
-If mounts are propagated across user namespaces, attach_recursive_mnt()
-locks every copy of the source mount to protect overmounts from
-vanishing and revealing the underlying files or directories.
+Tested 03c552c46ef0 ("Linux 6.12.113-rc1") on:
+- arm i.MX6ULL (Armadillo 640)
+- arm64 i.MX8MP (Armadillo G4)
+- arm64 i.MX8ULP (Armadillo IoT A9E)
 
-The user namespace is taken from the caller's mount namespaces since
-this is where the mounts end up. Except, that's not always true.
-Automounts may legitimately get popped in by tasks located in a
-different mount and user namespace during path lookup.
-
-Then check doesn't make sense at that point. The copy in the namespace
-of the parent - which may be the host's - is now locked and the host
-cannot change the flags of its own mounts anymore.
-
-Here's the reproducer:
-
-- host has debugfs mounted nosuid,nodev,noexec and shared
-- tracefs automount below it is not yet active
-- hand a child process a directory descriptor on that mount
-- child process enters auser and mount namespace
-- child process' namespace now holds a locked copy of the host's debugfs
-  mount that receives propagation from it
-- child process stats "tracing/." through the descriptor
-- lookup runs on the host's mount so the automount lands below the host's mount
-- propagation puts a copy below the child's copy
-- both try to clear the flags on the mount they got, with a bind remount:
-
-    host, on its own automount:            MS_REMOUNT|MS_BIND = EPERM
-    child, on the copy in its namespace:   MS_REMOUNT|MS_BIND = 0
-
-So the lock landed on the host's mount instead of the child's copy.
-Congrats. So we need to compare with the owner of the namespace the
-mount actually gets mounted on. For all regular cases that is the
-caller's mount namespace and so nothing changes.
-
-Detached trees in anonymous mount namespaces by be handed over via
-SCM_RIGHTS or inherited in other ways on purpose so the attaching task's
-mount namespace is authoritative, not the creator of the detached tree.
-
-Fixes: 132c94e31b8b ("vfs: Carefully propogate mounts across user namespaces")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261002-work-mount-fixes-4-v1-6-dd44b89d44ce@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: Adapted the namespace lookup from dest_mnt->mnt_ns to top_mnt->mnt_ns. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/namespace.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
-
-diff --git a/fs/namespace.c b/fs/namespace.c
-index 3311e4edbc734..6954292409531 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -2313,15 +2313,31 @@ static int attach_recursive_mnt(struct mount *source_mnt,
- 				struct mountpoint *dest_mp,
- 				enum mnt_tree_flags_t flags)
- {
--	struct user_namespace *user_ns = current->nsproxy->mnt_ns->user_ns;
- 	HLIST_HEAD(tree_list);
- 	struct mnt_namespace *ns = top_mnt->mnt_ns;
-+	struct user_namespace *user_ns = ns->user_ns;
- 	struct mountpoint *smp;
- 	struct mount *child, *dest_mnt, *p;
- 	struct hlist_node *n;
- 	int err = 0;
- 	bool moving = flags & MNT_TREE_MOVE, beneath = flags & MNT_TREE_BENEATH;
- 
-+	/*
-+	 * A caller in an unprivileged mount namespaces may trigger an
-+	 * automount and propagate locked mounts into privileged mount
-+	 * namespaces. Take ownership from the target mount namespace.
-+	 * It's equivalent for everything but the automount case.
-+	 *
-+	 * Detached trees in anonymous mount namespaces by be handed
-+	 * over via SCM_RIGHTS or inherited in other ways on purpose
-+	 * the attaching task's mount namespace is authoritative, not
-+	 * the creator of the detached tree.
-+	 */
-+	if (is_anon_ns(ns))
-+		user_ns = current->nsproxy->mnt_ns->user_ns;
-+	else
-+		user_ns = ns->user_ns;
-+
- 	/*
- 	 * Preallocate a mountpoint in case the new mounts need to be
- 	 * mounted beneath mounts on the same mountpoint.
+No obvious regression in dmesg or basic tests:
+Tested-by: Dominique Martinet <dominique.martinet@atmark-techno.com>
 -- 
-2.53.0
-
+Dominique Martinet
