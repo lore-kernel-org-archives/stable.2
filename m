@@ -1,104 +1,161 @@
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A8A9376490;
-	Wed, 14 Oct 2026 13:31:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D515326A6;
+	Wed, 14 Oct 2026 13:31:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791984677; cv=none; b=GCjJ4kkKQN/2BdwVkv1hpLnKRuAOeqHGz2ikFF/rh+5MjLUoLH5blVcFJS0k1MhBn5upahEI2wm5eSwRkIorV1EdLE+xDVKdM8k/UgW7cxMQjw4kpxl/Cg6XevKkgfV8hPGl+7dwajEJveYZ0AEA64W5EWJPFGbUTb3yX9IzDN8=
+	t=1791984696; cv=none; b=jbSXEKCC1j5pAU/Djb9iWoWcnwQothlAB5kav8lZwaFqn3rLYd1ze/IvC90eLYrPCNZFKS6AbLNOzqjGf2BqY76cuJWz6UTPSrn5RHerSiMZA28yBlnZQpv/T6VxBhmA8PVr2AOxEfzKT/ciB9MNku+AE2lBKOycjx1ZrBFekpY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791984677; c=relaxed/simple;
-	bh=HJZ5MJgxunIkRLWvc+jLcJkipmTsNFq8aI446pdfw+4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ozPNp4Mjcrui4mIAn7HxZEoy+x5d3jc+8B5bck12M6N5qHK1zu6thvqxs781wlsvEaWEo0DljryIgnQnJmpgL6YPqT4eQ0UV9PewVEi71H3lc+yvxRu+Lhp9grBTimBg/bJk17eviaVBtgVmslIbw1tMUDZR87KiFYkVd1uNIkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=3ZWGrcJI; arc=none smtp.client-ip=199.89.1.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1791984696; c=relaxed/simple;
+	bh=9L8KOZwL4/4iBVETH5ANqqtSQXUzA7maOFAqrnl0dxM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=moic5rXL7GaHsC11blHuZ5swQtIdgCe39DzCSvE3DvLgggkOAI7pnz6xqlkV21rc4hFvSd9gpkDms+OdtauYHWA2JnPKbdyypKrov+EtD7guWwLCu44YeTjHHdiiGAkaLEKKnf0eH+zmnh9dYpT7MYdAbnxWWIKydvUSo05vIHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aHb0Zxf1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="3ZWGrcJI"
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4j4XCV3nv2z1XM4Tn;
-	Wed, 14 Oct 2026 13:31:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1791984657; x=1794576658; bh=cULsbpL4/ypKr+b68EUXjCd8
-	bXVDfuRvjPXfSXjEzpw=; b=3ZWGrcJInZgri4227+zHAIEdnus5zn0z6LYL4scC
-	gfLrwOfWV8HJGLAOnu3jOl2Sw111b0dGAi0MZePronT8fIuHPrIvVx1MpOdyzFmT
-	KX8GARuMLp/edex9APL7R24aairirPi9QBkKilarynx34y4iC4Nl1++fELWKivo4
-	mjgw4HFN0vwJRYjj0V+ZM0B5dbrLATb9h3bmVIV6Zt+EH13X6+q5OQyVgMLCUBYn
-	1ce90hdU+hvyCLaxtQ3He94XRk4oVHdndO+sr+Kg5rg+8IgFKCe71ur/CxBLYGOo
-	1PWmkJqhos0dQqvjzqxSb8L1B+CdgVLH+2Bfh5C8quC8vQ==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id IJ_-2R3aBdpI; Wed, 14 Oct 2026 13:30:57 +0000 (UTC)
-Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4j4XCN3s84z1XM4Tl;
-	Wed, 14 Oct 2026 13:30:56 +0000 (UTC)
-Message-ID: <e3706904-3b53-41bf-b8c0-48ac4d2e2cf5@acm.org>
-Date: Wed, 14 Oct 2026 06:30:55 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aHb0Zxf1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 059191F0089D;
+	Wed, 14 Oct 2026 13:31:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791984691;
+	bh=f3aboOe4jBL9DhwOlCp/yeX4fMdwzoUKtHuuVi6QUBc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=aHb0Zxf1MXRGv+V9Y852HhHp2U4bp6p1AD1refDWATArClw1GMFu7hsFtcrmEuXpe
+	 3N4HBZwildXlPlsv1hRce5P7lX+1ZA5r/NcyUtbOYMoXXoNUNOzVqotcaCvOsxBFt5
+	 QPfYVMNV37yedZbLEo3Y2Uj473DCXSQCe41Jp7lqHtJ4jH9ogdXP3OBQxLbgoBotoj
+	 8gH5Gr8jMsGqahXyu0QypUmbKswmaAdCfAQJ5JztWPLyojbpeeHfXareAt6Oin4yvE
+	 CzlRseJMfjXV/bFzyQSiOn8d/tT7UzERSTar4eyhyJmxjMfg/qLHK6FBeKBSTxN5K8
+	 W23l6TWmN0pxg==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1xGz4q-00000005qCY-2b3B;
+	Wed, 14 Oct 2026 15:31:28 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Johan Hovold <johan@kernel.org>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Mario Peter <mario.peter@leica-geosystems.com>,
+	driver-core@lists.linux.dev,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 2/3] driver core: take parent lock on deferred probe
+Date: Wed, 14 Oct 2026 15:31:08 +0200
+Message-ID: <20261014133109.1392265-3-johan@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261014133109.1392265-1-johan@kernel.org>
+References: <20261014133109.1392265-1-johan@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] scsi: ufs: bsg: Clear the UIC result byte before
- sending UIC commands
-To: Stanley Jhu <stanleyjhu@google.com>, "Martin K. Petersen"
- <mkp@kernel.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: powenkao@google.com, Alim Akhtar <alim.akhtar@samsung.com>,
- Bean Huo <beanhuo@micron.com>, Peter Wang <peter.wang@mediatek.com>,
- linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261013102913.948718-1-stanleyjhu@google.com>
- <20261013102913.948718-3-stanleyjhu@google.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261013102913.948718-3-stanleyjhu@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/13/26 3:29 AM, Stanley Jhu wrote:
-> ufs_bsg_request() passes the user-supplied UIC argument2 unchanged,
-> including the result byte (bits 7:0) that only the host controller
-> writes. A non-zero value triggers the WARN_ON_ONCE() in
-> ufshcd_dispatch_uic_cmd() and corrupts the reported result. Found by
-> syzkaller.
-> 
-> Clear the result byte before sending the command.
-> 
-> Fixes: e77044c5a842 ("scsi: ufs-bsg: Add support for uic commands in ufs_bsg_request()")
-> Fixes: 9fb4c793223b ("scsi: ufs: core: Complain if UIC argument 2 is invalid")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-> ---
->   drivers/ufs/core/ufs_bsg.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/ufs/core/ufs_bsg.c b/drivers/ufs/core/ufs_bsg.c
-> index dab1f05aff38..331ead0403a1 100644
-> --- a/drivers/ufs/core/ufs_bsg.c
-> +++ b/drivers/ufs/core/ufs_bsg.c
-> @@ -179,6 +179,7 @@ static int ufs_bsg_request(struct bsg_job *job)
->   		break;
->   	case UPIU_TRANSACTION_UIC_CMD:
->   		memcpy(&uc, &bsg_request->upiu_req.uc, UIC_CMD_SIZE);
-> +		uc.argument2 &= ~MASK_UIC_COMMAND_RESULT;
->   		ret = ufshcd_send_bsg_uic_cmd(hba, &uc);
->   		if (ret)
->   			dev_err(hba->dev, "send uic cmd: error code %d\n", ret);
+USB interfaces should be probed with the parent USB device lock held,
+but this is not honoured when probe is deferred.
 
-Shouldn't invalid inputs be rejected rather than trying to correct these?
+Add a new bus_probe_device_deferred() helper to handle deferred probe
+where the parent device lock is not held.
 
-Thanks,
+Fixes: d1c3414c2a9d ("drivercore: Add driver probe deferral mechanism")
+Reported-by: Mario Peter <mario.peter@leica-geosystems.com>
+Link: https://lore.kernel.org/20261007131514.1260696-1-mario.peter@leica-geosystems.com
+Cc: stable@vger.kernel.org	# 3.4
+Signed-off-by: Johan Hovold <johan@kernel.org>
+---
+ drivers/base/base.h |  1 +
+ drivers/base/bus.c  | 28 +++++++++++++++++++++-------
+ drivers/base/dd.c   |  7 ++++---
+ 3 files changed, 26 insertions(+), 10 deletions(-)
 
-Bart.
+diff --git a/drivers/base/base.h b/drivers/base/base.h
+index a5b7abc10ff0..3c36a2128f88 100644
+--- a/drivers/base/base.h
++++ b/drivers/base/base.h
+@@ -154,6 +154,7 @@ struct kobject *virtual_device_parent(void);
+ 
+ int bus_add_device(struct device *dev);
+ void bus_probe_device(struct device *dev);
++void bus_probe_device_deferred(struct device *dev);
+ void bus_remove_device(struct device *dev);
+ void bus_notify(struct device *dev, enum bus_notifier_event value);
+ bool bus_is_registered(const struct bus_type *bus);
+diff --git a/drivers/base/bus.c b/drivers/base/bus.c
+index 598e40d52f37..fd2257f73253 100644
+--- a/drivers/base/bus.c
++++ b/drivers/base/bus.c
+@@ -606,13 +606,7 @@ int bus_add_device(struct device *dev)
+ 	return error;
+ }
+ 
+-/**
+- * bus_probe_device - probe drivers for a new device
+- * @dev: device to probe
+- *
+- * - Automatically probe for a driver if the bus allows it.
+- */
+-void bus_probe_device(struct device *dev)
++static void __bus_probe_device(struct device *dev)
+ {
+ 	struct subsys_private *sp = bus_to_subsys(dev->bus);
+ 	struct subsys_interface *sif;
+@@ -630,6 +624,26 @@ void bus_probe_device(struct device *dev)
+ 	subsys_put(sp);
+ }
+ 
++/**
++ * bus_probe_device - probe drivers for a new device
++ * @dev: device to probe
++ *
++ * - Automatically probe for a driver if the bus allows it.
++ */
++void bus_probe_device(struct device *dev)
++{
++	__bus_probe_device(dev);
++}
++
++void bus_probe_device_deferred(struct device *dev)
++{
++	if (dev->type && dev->type->need_parent_lock)
++		device_lock(dev->parent);
++	__bus_probe_device(dev);
++	if (dev->type && dev->type->need_parent_lock)
++		device_unlock(dev->parent);
++}
++
+ /**
+  * bus_remove_device - remove device from bus
+  * @dev: device to be removed
+diff --git a/drivers/base/dd.c b/drivers/base/dd.c
+index 974e04e79bda..f8f4c32b6c79 100644
+--- a/drivers/base/dd.c
++++ b/drivers/base/dd.c
+@@ -86,8 +86,9 @@ static void deferred_probe_work_func(struct work_struct *work)
+ 	/*
+ 	 * This block processes every device in the deferred 'active' list.
+ 	 * Each device is removed from the active list and passed to
+-	 * bus_probe_device() to re-attempt the probe.  The loop continues
+-	 * until every device in the active list is removed and retried.
++	 * bus_probe_device_deferred() to re-attempt the probe.  The loop
++	 * continues until every device in the active list is removed and
++	 * retried.
+ 	 *
+ 	 * Note: Once the device is removed from the list and the mutex is
+ 	 * released, it is possible for the device get freed by another thread
+@@ -121,7 +122,7 @@ static void deferred_probe_work_func(struct work_struct *work)
+ 		device_pm_move_to_tail(dev);
+ 
+ 		dev_dbg(dev, "Retrying from deferred list\n");
+-		bus_probe_device(dev);
++		bus_probe_device_deferred(dev);
+ 		mutex_lock(&deferred_probe_mutex);
+ 
+ 		put_device(dev);
+-- 
+2.55.0
+
