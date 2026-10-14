@@ -1,175 +1,263 @@
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C8339A06D
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 02:38:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E1E3A0E86;
+	Wed, 14 Oct 2026 02:40:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791945538; cv=none; b=UQksVYIykaGScGqg8TWvAhM0fyTMGhtKFHohAaqdbiV5U5kufL/tG3VHShEkC0ucSO3SUJXszWGRzcgy/aaFP2ySCQiOPLThYk2FTe7KzDmPq4XXPWXALtPB2Pjxu3JkZxffgtcEGVT2ivwh5lKwml17JPhlWFNhVOLlZTtudJE=
+	t=1791945626; cv=none; b=NdsycbOse9x2ZXH/75xhltfPH4C6SsGELNgMIGYn3A4E8od761z1p78uIN0TyELWvi79RDjtNop2eOBU8FnAaqV54wBLgKHg5JrfQPiGF0KgzAr49mREOForfJi3PljM9lw6e8epHc/madb9w9de4javRQ1f2zTdAoSebGawSjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791945538; c=relaxed/simple;
-	bh=ScelcZyE52ZQd8lA4ACXuwYHHmFqpRNhs5nb7pATNtM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O54GEw7xcvHn7Se37RH2XCIys32PmRusSivoZ2BI8LdygPLZd0h9sSmDiLIoYqtA4SXtAEO/O1ff4GMUZ1ldYI5vBkG87RrEaJdcKLaCEwIfC5yHGO191VuWDaQ6+GBWuwpV9p9U31JiahO5Q6gJySf96wMjZj2H7A2/1M7thgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=uGeFObiI; arc=none smtp.client-ip=209.85.160.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1791945626; c=relaxed/simple;
+	bh=PLSqgFbiS0KxG62Axwmjch15uKH2mXN5fwRcRpw6rpQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Hj1tuqx3w/lNwWxa288ckU7hHUlUDofUPFZOPbXHL1hSdzBbwquX3OFWsx2VcsWRA65CS8XEESt2n+b0QBMMPb1YqTaNDDgE72qiQAFF73ybO5hKrqmCgMNdWJleF2Djba28c05Ix9QjDZsOtqNd75fz7FxUc3dubcRws5cHWIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=YxheWnhg; arc=none smtp.client-ip=115.124.30.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="uGeFObiI"
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-533930955a4so33749951cf.3
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 19:38:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1791945536; x=1792550336; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=81rgxI9/Er4yjHtl/CLpwDXbGoyatzgl1W8u9x4gaMM=;
-        b=uGeFObiINLfqftF5nht5CHrSapcKy+LW/RBD6bqkxCPwUkzTjc5EPRw0UcLma52IOy
-         8kqEZDMTPk9O95FuNdA/R2K7NQwUzUR64Wag6M10t/VuG8LBUewCbOOl4IRlnKdnCcIt
-         DjWEhBfmNbXly/g3H5QaPW3Z3k8Bm4914X72W7SqhOpol9xKw/8bdzcFaTCMzboI3tcm
-         qPIYE01tbkU2+DQTMKdY6/RISSETnh09xnGLaocDI5XBoejNd00UuVDU1bG58n2i+rIs
-         MN3H+QOtOHoM3Ly9IcahRtFkOVgbTofgRgDEUDowIDE3isLsivhdrvyPdD7fEiTL7rNz
-         T0/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791945536; x=1792550336;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=81rgxI9/Er4yjHtl/CLpwDXbGoyatzgl1W8u9x4gaMM=;
-        b=V/Jaop6FGOMLAvVvHstQm04/y68R7nGH+kKng3jH0W4tjRSeMxBWq0Sx+XygjeGTTW
-         LGk9uPTgZzik0dYYSLsYpKUwkFjwYJwrLmiw/JgQGrdrKFP5LJ25lMbAPNKNfyNYPeAj
-         OP4szsXxIFFgqM5KYdS6VQLNFsmjzllcfGmFzmMbyK1DOVx4il79uzxcevkiVVQQLwms
-         mZcmUg0JAandWD6OMozWqF3jtsvCfPepHb2zFHPiKS9fqHAm7+absEURyXDl2bzkSy57
-         aBRAEj47bxrwjdLD/1Ya0BptzAnK7n2xHkalmBv/L8MhmoRhBLj/qKuxvIv8pEevqY7s
-         eRQA==
-X-Forwarded-Encrypted: i=1; AKwUvBw+VseP62tbCTQD++bdx3Nloh6kJ6kYvHtb9tnGSjWQVzf6or8Z6AoU5HGlWmKQisXnFvKkLcg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI3SYyAw1GT0RAPSxT/uwxP0nUot2j9QiQEdARv2koE9xcI3pYP
-	RBM2mK8ykeeM3f3cFP9JkIOg5o4vmBXlBuYk2u1NVIa3SfnOgl3AP+YqeOSZnqhkiA==
-X-Gm-Gg: AYBFou1r97Gt1BcC72ruJRPj9wSsPCvVJ/Dw0ExQNs+YC1OZfb6q30N/Wk6Ml7JKiro
-	T/iEhfqr11C3y3CWujXbPgkfe5a9oqq0SK5ssX//a7XnckJ3cH8FPKUDwNoCNXaDPRtIeUyAS27
-	IJ32vECgJHIBiXnQKBqCBfj1WerfBCpur4QDV21HTkm0/X1GbkEOluyIzx1UNgsww7zE6yQTegl
-	hilgTCRIplJvz5NdKUxbQU0b/uohfaMfWE5mD4hEUs0KuYUZqCtpGc31z+mjxDzKdAQk09ZOOj7
-	VrILeaMFubkZmMDqJLLAO5gDINa8GhWnXTmOboZFgszJzWQ8j0vtTPmmijZRYxLa8oP/VEU9Pww
-	LK5kvmZPyYq2JvcaeuqTl+K32FXTRcGV/vp2LG4i2uFqGSuGMA25yAytqijrPD+2/hXTfvhD7BR
-	vE5w/Ss47yyLJx8njogePexPaZ3SsMhL+8Ojfv38StIJs9wc6RmHx7u5NQ0iV7qJip9uvReC0=
-X-Received: by 2002:a05:622a:2483:b0:534:b7b2:6353 with SMTP id d75a77b69052e-5359fdcab5bmr204146021cf.56.1791945536079;
-        Tue, 13 Oct 2026 19:38:56 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::4791])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b7c0214sm116472561cf.25.2026.10.13.19.38.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 19:38:54 -0700 (PDT)
-Date: Tue, 13 Oct 2026 22:38:51 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Johan Hovold <johan@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	driver-core@lists.linux.dev, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mario Peter <mario.peter@leica-geosystems.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] driver core: take parent lock on deferred probe
-Message-ID: <9803935c-11d9-48a0-8d4c-95c478a724a8@rowland.harvard.edu>
-References: <20261013140615.1226992-1-johan@kernel.org>
- <DM3WA69YX6WE.2Q4DY9MIU7A0L@kernel.org>
- <ba24846a-7403-4bb1-a0cb-869cf1d44e05@rowland.harvard.edu>
- <DM40HVOBKMFI.3W1DK371ZWI80@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="YxheWnhg"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791945619; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=dTgvvNsouPKZxKSn2FPoOB4gIlAepfNdG4aqAIdS6o8=;
+	b=YxheWnhgoUsg4fV2EqtSBf7EuO/WuEbWSCqzwi5rsR0WABYe8mo/dP5So+esHbNWO412+nh0j1NW3ud6FKn6PaOjyAOWY09GCSBacVBxYmkthQvFADxgsT5m+dsdHlTwtnUU/La2Hbs19IcLieKLJEby6RrsBW8PV9VsB0RSoGE=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0XCnctDA_1791945618;
+Received: from 30.221.146.92(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCnctDA_1791945618 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 14 Oct 2026 10:40:19 +0800
+Message-ID: <e654cef3-8f90-4c59-98e6-dd7521dfea86@linux.alibaba.com>
+Date: Wed, 14 Oct 2026 10:40:18 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DM40HVOBKMFI.3W1DK371ZWI80@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ocfs2/dlm: hold a lock reference across grant AST
+ enqueue
+To: Cen Zhang <zzzccc427@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
+ kees@kernel.org, ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-objects-candidate-0043-v5-1ad07df761ff49638789@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0043-v5-1ad07df761ff49638789@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 13, 2026 at 11:01:16PM +0200, Danilo Krummrich wrote:
-> On Tue Oct 13, 2026 at 9:11 PM CEST, Alan Stern wrote:
-> > On Tue, Oct 13, 2026 at 07:43:08PM +0200, Danilo Krummrich wrote:
-> >> On Tue Oct 13, 2026 at 4:06 PM CEST, Johan Hovold wrote:
-> >> > +void bus_probe_device_deferred(struct device *dev)
-> >> > +{
-> >> > +	if (dev->parent && dev->bus->need_parent_lock)
-> >> > +		device_lock(dev->parent);
-> >> 
-> >> This looks like it has the same potential UAF as the other patch.  It's quite
-> >> unfortunate we need the whole need_parent_lock thing just for USB.  IIUC the
-> >> main reason USB needs this is because interface devices share resources of USB
-> >> devices and we need to keep the locking order to avoid inversions, right?  Is
-> >> there more to this from the USB side of things?
-> >
-> > That's pretty much it.
-> >
-> >> I think we can probably do something like this
-> >> 
-> >> 	struct device *parent = NULL;
-> >> 
-> >> 	scoped_guard(device, dev) {
-> >> 		if (dev->p->dead)
-> >> 			return;
-> >> 	
-> >> 		if (dev->bus->need_parent_lock)
-> >> 			parent = get_device(dev->parent);
-> >> 	}
-> >> 
-> >> to avoid the problem, but it's still a bit ugly.
-> >> 
-> >> > +	__bus_probe_device(dev);
-> >> > +	if (dev->parent && dev->bus->need_parent_lock)
-> >> > +		device_unlock(dev->parent);
-> >> > +}
-> >
-> > Wouldn't it be simpler just to make each USB interface take a reference 
-> > to its parent device?  And likewise for USB devices, if needed?
+
+
+On 10/13/26 11:39 PM, Cen Zhang wrote:
+> A newly granted remote lock must remain alive until its grant AST is
+> queued. dlmlock_master() publishes the lock on res->granted with its
+> base and queue references, then drops res->spinlock before calling
+> dlm_queue_ast(). The resource's reserved AST count does not retain the
+> lock itself.
 > 
-> The driver core already holds a reference count of the parent between
-> device_add() and device_del(), which is where a "parent" is technically defined.
-> But the deferred retry can extend beyond device_del().
-
-There could be another reference that extends all the way to the child's 
-release.
-
-> USB interfaces already take an additional reference to their USB device in
-> usb_set_configuration() and drop it in usb_release_interface(), so they should
-> already be protected against this particular UAF.
+> This can fail when a peer dies with an immediately grantable CREATE
+> buffered on its socket. O2NET's node-down callback flushes receive work
+> before DLM cleanup, but the flush only waits for work queued on entry.
+> A data-ready callback that already selected the socket container can
+> queue new receive work after the flush advances its work color. Socket
+> shutdown does not discard bytes already queued for TCP receive.
 > 
-> The issue concerns a USB device and its parent hub's USB device.  (This makes me
-> wonder whether probing a USB device actually requires the parent USB HUB
-> device's lock to be held, or whether this is just a consequence of sharing the
-> same usb_bus_type?)
-
-The latter.
-
-> In theory a USB device could also keep a reference count to its parent, but then
-> the driver core code would rely on an implementation detail of its users; I'd
-> prefer not to make driver core's access to dev->parent depend on references
-> maintained by individual subsystems.
+> The late receive work and DLM node-down cleanup can interleave as
+> follows (the lock reference operations shown are before this fix):
 > 
-> I'd even go a step further any say that if subsystems try to keep this pointer
-> valid beyond what's guaranteed by the driver core, they should do this with a
-> separate bus specific pointer.  The reason is that otherwise the lifetime and
-> ownership definition of this pointer does not depend on API contracts, but on
-> individual implementation details, which is a very common source for all kinds
-> of bugs.
+>   Socket data-ready        Node-down thread         Receive worker
+>   -----------------        ----------------         --------------
+>   o2net_data_ready()
+>     select sc under
+>     callback read lock
+>                            o2net_disconnect_node()
+>                              queue shutdown
+>                              begin flush; new color
+>     queue sc_rx_work
+>     in the new color
+>     release callback lock
+>                              shutdown socket
+>                              flush returns
+>                                                     read buffered CREATE
+>                                                     dlmlock_master()
+>                                                       lock res->spinlock
+>                                                       add lock to granted
+>                                                       unlock res->spinlock
+>                            DLM node-down cleanup
+>                              lock res->spinlock
+>                              dlm_free_dead_locks()
+>                                unlink lock
+>                                put queue/base refs
+>                                free lock
+>                              unlock res->spinlock
+>                                                     dlm_queue_ast()
+>                                                       __dlm_queue_ast()
+>                                                       read lock->lockres
+>                                                       (use-after-free)
+> 
+> DLM cleanup holds res->spinlock while dlm_free_dead_locks() drops the
+> queue and base references. The CREATE handler no longer holds that
+> spinlock when __dlm_queue_ast() reads the lock, before taking its AST
+> list reference.
+> 
+> Take a temporary lock reference under res->spinlock when a grant AST
+> will be queued, and drop it after dlm_queue_ast(). This keeps the lock
+> alive across cleanup until the AST path has taken its own reference,
+> without reversing the existing AST/resource lock order.
+> 
+> KASAN report as below:
+> 
+>     BUG: KASAN: slab-use-after-free in __dlm_queue_ast+0x8a4/0xc00
+>     Read of size 8 at addr ffff88810ead5940 by task kworker/u16:3/52
+> 
+>     CPU: 3 UID: 0 PID: 52 Comm: kworker/u16:3 Not tainted 7.3.0-rc4-next-20260921-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
+>     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+>     Workqueue: o2net o2net_rx_until_empty
+>     Call Trace:
+>      <TASK>
+>      dump_stack_lvl+0x93/0xd0
+>      print_report+0xce/0x630
+>      ? __dlm_queue_ast+0x8a4/0xc00
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __virt_addr_valid+0x20e/0x420
+>      ? __dlm_queue_ast+0x8a4/0xc00
+>      kasan_report+0xe0/0x110
+>      ? __dlm_queue_ast+0x8a4/0xc00
+>      __dlm_queue_ast+0x8a4/0xc00
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? do_raw_spin_lock+0x130/0x270
+>      ? __pfx___dlm_queue_ast+0x10/0x10
+>      ? __pfx_do_raw_spin_lock+0x10/0x10
+>      ? _raw_spin_unlock_irqrestore+0x45/0x60
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? lockdep_hardirqs_on_prepare+0xeb/0x1a0
+>      dlm_queue_ast+0x46/0x70
+>      dlmlock_master+0x51f/0xf50
+>      ? __pfx_dlmlock_master+0x10/0x10
+>      ? dlm_create_lock_handler+0x2b2/0x870
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? lock_release+0xc8/0x290
+>      dlm_create_lock_handler+0x35b/0x870
+>      ? __pfx_dlm_create_lock_handler+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? trace_hardirqs_on+0x18/0x160
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? kvm_clock_get_cycles+0x31/0x60
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_dlm_create_lock_handler+0x10/0x10
+>      o2net_rx_until_empty+0x1dae/0x32c0
+>      ? reacquire_held_locks+0xdd/0x200
+>      ? __pfx_o2net_rx_until_empty+0x10/0x10
+>      ? lock_acquire+0x190/0x300
+>      ? process_one_work+0x935/0x1b40
+>      ? process_one_work+0x834/0x1b40
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? lock_release+0xc8/0x290
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      process_one_work+0x9a8/0x1b40
+>      ? __pfx_process_one_work+0x10/0x10
+>      ? lock_acquire+0x190/0x300
+>      ? lock_is_held_type+0x8f/0x100
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      worker_thread+0x65c/0xe40
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __kthread_parkme+0x177/0x220
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_worker_thread+0x10/0x10
+>      kthread+0x351/0x460
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_kthread+0x10/0x10
+>      ret_from_fork+0x659/0x940
+>      ? __pfx_ret_from_fork+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __switch_to+0x74f/0xf70
+>      ? __pfx_kthread+0x10/0x10
+>      ret_from_fork_asm+0x1a/0x30
+>      </TASK>
+> 
+>     Allocated by task 52:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      __kasan_slab_alloc+0x89/0x90
+>      kmem_cache_alloc_noprof+0x20b/0x5c0
+>      dlm_new_lock+0x39/0x5f0
+>      dlm_create_lock_handler+0x16e/0x870
+>      o2net_rx_until_empty+0x1dae/0x32c0
+>      process_one_work+0x9a8/0x1b40
+>      worker_thread+0x65c/0xe40
+>      kthread+0x351/0x460
+>      ret_from_fork+0x659/0x940
+>      ret_from_fork_asm+0x1a/0x30
+> 
+>     Freed by task 603:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      kasan_save_free_info+0x3b/0x60
+>      __kasan_slab_free+0x5f/0x80
+>      kmem_cache_free+0x242/0x580
+>      dlm_lock_release+0x1df/0x2f0
+>      dlm_lock_put+0x51/0x80
+>      __dlm_hb_node_down+0x15be/0x2710
+>      dlm_hb_node_down_cb+0x6c/0xa0
+>      o2hb_run_event_list+0x34a/0x500
+>      o2hb_do_disk_heartbeat+0x1a07/0x2950
+>      o2hb_thread+0x1ed/0xdc0
+>      kthread+0x351/0x460
+>      ret_from_fork+0x659/0x940
+>      ret_from_fork_asm+0x1a/0x30
+> 
+>     The buggy address belongs to the object at ffff88810ead5900
+>      which belongs to the cache o2dlm_lock of size 184
+>     The buggy address is located 64 bytes inside of
+>      freed 184-byte region [ffff88810ead5900, ffff88810ead59b8)
+> 
+>     [Page and shadow memory dumps omitted.]
+> 
+> Fixes: 2c5c54aca9d0 ("ocfs2/dlm: Add missing dlm_lock_put()s")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> Assisted-by: LLM
 
-I was going to suggest that the driver core could acquire and release 
-these extra references automatically for devices on a bus with 
-need_parent_lock set, but it looks like that can't be done because the 
-bus_type might not yet be set when device_initialize() runs.
+Looks fine.
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-However, is there any real reason why the driver core wouldn't want to 
-guarantee that dev->parent will be a valid pointer up until the time 
-when dev is released?  For every device that has a parent, not just USB?
+> 
+> ---
+> Changes in v2:
+> - Illustrate the node-down and grant-AST race with a sequence diagram.
+> - Use the ocfs2/dlm subsystem prefix in the patch title.
+> - Add Cc: stable@vger.kernel.org.
+> 
+> Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0043-v4-24e62761a79be6b84b55@gmail.com
+> 
+> diff --git a/fs/ocfs2/dlm/dlmlock.c b/fs/ocfs2/dlm/dlmlock.c
+> index 46120eb75d90..660237c0d7cd 100644
+> --- a/fs/ocfs2/dlm/dlmlock.c
+> +++ b/fs/ocfs2/dlm/dlmlock.c
+> @@ -138,6 +138,8 @@ static enum dlm_status dlmlock_master(struct dlm_ctxt *dlm,
+>  					  res->lockname.len)) {
+>  			kick_thread = 1;
+>  			call_ast = 1;
+> +			/* Keep the lock alive through AST enqueue. */
+> +			dlm_lock_get(lock);
+>  		} else {
+>  			mlog(0, "%s: returning DLM_NORMAL to "
+>  			     "node %u for reco lock\n", dlm->name,
+> @@ -166,10 +168,12 @@ static enum dlm_status dlmlock_master(struct dlm_ctxt *dlm,
+>  	wake_up(&res->wq);
+>  
+>  	/* either queue the ast or release it */
+> -	if (call_ast)
+> +	if (call_ast) {
+>  		dlm_queue_ast(dlm, lock);
+> -	else
+> +		dlm_lock_put(lock);
+> +	} else {
+>  		dlm_lockres_release_ast(dlm, res);
+> +	}
+>  
+>  	dlm_lockres_calc_usage(dlm, res);
+>  	if (kick_thread)
 
-On the other hand, there's something a bit weird about this whole thing.  
-The problem arises when you want to probe a device whose parent has been 
-deleted.  Isn't there some sort of protection to prevent that from ever 
-happening?  I mean, doesn't deleting a device imply that all its 
-descendants have been (or are in the process of being) deleted?  And of 
-course, deleting and probing are mutually exclusive -- they can't race, 
-right?
-
-Alan Stern
