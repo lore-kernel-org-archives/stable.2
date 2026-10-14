@@ -1,126 +1,118 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68E7E4DA9C6
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 09:20:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 932F2447805
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 09:21:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791969644; cv=none; b=IeUcT3dV7qbKD25Vv6lhns1HPaNd1JNDx2fTd4UYBvfFBT9L2azF19h17v7USHbssvk/h4zRt6rY6coFKWFVV+I4TRSqY6nh8lxg8Qsf0yVS3ixIfVhzB5CUQ5AoY5NkKzkmJmvUGvN/VfG8BqZ8X0PaM7WruJcjfLVT/RuvRmg=
+	t=1791969666; cv=none; b=PC80fp0mdrhbhKRNy+kCfPyfVzvMzJYZT1CfCMQ4yUBqBOBRjUZOVVSt5MdgdrxaxLyF8BFm8USftZ/K7EVF13HEfGXQYu1hcbY9NqpjM4ygtLxH3qpckJQYiyGd1AJYP9L5ZqVXQKSKYdf+qXIO0+vDqjA+xCophRo5OgVKcPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791969644; c=relaxed/simple;
-	bh=t9l4cf/ejDslJkLGB4fjTNcS7dre+IaaCm+V3SX9DNg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Sg5yswhn/2fryg3fC1yUm/Laa79UotTBvZoC52RavMopT1orfFQs59J5HlbpR5+QlNPEx9qSx/TW50kvesQm1qF014fOsa1eUQhWtAAuCvADSJQlSSc4KfNEDLVXC6AC/QsEsQrF5vqAiujrpNDfi4tHa990GViTAmb67NOINXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=FGpaBhX3; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	s=arc-20240116; t=1791969666; c=relaxed/simple;
+	bh=Rpc3GO4+UP1CHtIfgBK47jOXKC7qTbuFu6HBwt4WZ3s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=q7VDw6gWN5FHUowg0yU6M+qlGaGpERJZqkaCLMWMJZVwfdAhxCSiCVsPq49zjpLb7gik9zM1ZgkOFxAijD8Mt31z6nYKXCsnU8CvYuM+k5+L0O/Z7B9fg5wCMb4QsVHIvP27P4BYkLVolQYcoPGMKfegK6RKXtG28lvvUqO3XD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=DT9Zx0IB; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="FGpaBhX3"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a161d9b8c7so27022835e9.3
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 02:20:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="DT9Zx0IB"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1880e1bf1so6447065e9.1
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 02:21:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1791969639; x=1792574439; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=DbipYcdBzgikA0RA56wnTn7ugEMIxXdTA2zCuwUQ6uU=;
-        b=FGpaBhX3QlXA8peWmQG5CavJ4WGoqMukjpJBRR+9oSvET/AgiZTqB20Ptg9vtNGDJt
-         UoWm69CladyDKPJ22Hlhp0+fmNEmY/eBgb/AohufCRojjAp9TJVCyyq9KrQwDB6jKQ9z
-         M26i7iCQCDtgvk92Tvz37zz9IELqnEThd0A555k2sk0lwrjhrdupzq4zsmpseoRG/IJ/
-         4f4oRfnHh7l8X/OttNTu50cpjwzk7zVnaBlVwWv2YwKbeRwkCGdZR31TvMT0lAPafXJD
-         p0eDPsQrsgdGB2xCJFxbm3+AmZ+E26VOcZj9YNyosD/aUQPVr3wbin05wnZKkROm7qpL
-         D1rw==
+        d=suse.com; s=google; t=1791969662; x=1792574462; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EyNMPvZIEMwn3spMNOwO+2v61MNWwL1mBLifJHjtoWY=;
+        b=DT9Zx0IBufXfkL251NXbgBb5YlsSOGQwY+xRoHEFTf4ZEZ9qA9FzkYBXmALqwOzS4P
+         Qy/6snrp/OjE6XmBT2T4A1EsGOmTqS0u75imTIirp7YeJax7EDQmahgKD0SojH5tWAMg
+         vRtgdGL4L1k2o89mTK5GFxPIzZ26CgnxVJX8CteDAo46xZolXHPaMITBE5dnOgWXiOHS
+         3/ClCvktlRsg7Zet15h9f9q+T0BONV4mJdzxkIUJOm/DqPknCV2oNrAQWLw+LUPgG/Ps
+         VmQjTaWyM6aZNcPY67yhsacBgj/p1ouHCasS22c965ZxzxOW3pp6jplsvJbsAbh9RK2Q
+         7Iew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791969639; x=1792574439;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=DbipYcdBzgikA0RA56wnTn7ugEMIxXdTA2zCuwUQ6uU=;
-        b=Ry7CTN8qT64Tpb3NJgk5th2ioUFJZ3Iu+QlapTq5sIqu+cLCnpzPct6Ry0h2JC0bRs
-         1msB+3yq5zl+iR2r+ZjLRdBHS5W9O6dwk3wCvxWooJ1gXUV36Nh4kzXFBt5hwKPKW5P2
-         KIiJ3rpiuxmk2BcB87TnrN9C8h0rrvbXzE2MEFbl/l9pcxQzLff8xAdIk7G531EyNEbf
-         yHnkxZl23FskcA6rNE3dVvi4MBdfyJQ7XRaWPRPwE4kwfB56a6IZBT9/u1SggVPA5QF+
-         rfCmIh5ULK5MxiaZo1ZnbGpbO5BOet+huk9KQMOc0+D2jARGh9owcipT2MTsOeEza3p0
-         SzmA==
-X-Forwarded-Encrypted: i=1; AKwUvBzfe/osH7F7ClOYvIfClpVvZPrUMb6cbrAt/dmxFYe0dixJ8Kb8t+3817paHoaaQRelHrQ9krw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLAdNSZ4Id0Yq+N7XVTvIpRwo8agkzRCMFygzGHTCO/q7EmS2Ou
-	HbpVvllQQ5sJcCNADbw7d2S0cd+NN6gBt4E09S8TPMtGZl+/VKm3uVPxKUe+L0K/k2E=
-X-Gm-Gg: AYBFou3HAW/5BDEYI2uqE2xRY6Zq6g57lxF7xiqVVnhAHpYE8M1ZY0S8u10tXNrQK5e
-	8bisppdqmXAIIOU1/pq3UMMG3UUibivF0FEf60XgC17Sv+UwvqxRgc7BKdzbeT5l256fmmG6hOp
-	5D6AS0yM861Gc2TVtte5ptjX2/0NAY94X/wnHFJ9EHaZ8pajopowMmq3Vz91xAjCDd1E1aBuoWa
-	8rVhh+NEIzanxrp5wLDLpikYTeBYkgqP1nXERGQIx+XZT3YW2eDg4LNS8lOZf7HejYnslsMEDbx
-	OERCV3Qk9OcBgIVim+JewyNwneYJRLtFnkipNVrOSTNVJsfvKzbnbR1qLF0io+CUa1mHtUrEQYg
-	6cvEeKFFlfVL/bDFvGxvRwQfsugGmTeJjUwfOzIb3O/jzkVmQOnGUeVLSaC5UPpLq9c2TDcRRhr
-	J6hGjGCyJW4x9fkboamxXMC/spSISpaHf2T0IGwoPVx99aQIK6KKo8pjksRJAIo1BK6KE/mvW92
-	nG+2CIvgf8lbCdhZY7nsFkP4gt+FMbpE57o5+2iUlSaKdw9tg==
-X-Received: by 2002:a05:600c:c0c6:b0:4a1:96cd:2f6b with SMTP id 5b1f17b1804b1-4a196cd31fbmr189516745e9.2.1791969639499;
-        Wed, 14 Oct 2026 02:20:39 -0700 (PDT)
-Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48de0ab4e8csm9983503f8f.23.2026.10.14.02.20.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 02:20:39 -0700 (PDT)
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Wed, 14 Oct 2026 10:19:54 +0100
-Subject: [PATCH] media: pwm-ir-tx: Correct timer calculation
+        d=1e100.net; s=20260707; t=1791969662; x=1792574462;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EyNMPvZIEMwn3spMNOwO+2v61MNWwL1mBLifJHjtoWY=;
+        b=xE36S5enK9/n5FKNq579gT9TVewlcffuiFSFrZp7Uav8gPE0DI+BBH7bBsqylVxM0M
+         V4O+I6mMiVq97KU0AEvFtYQ0L/s9KWTolKbI7D1bQH6Ienuswr2/Zh4godDSxiwGVQWj
+         SdMtOHP11XpXOk0/41ETME3kNDIFFraPeLLHTK3YZNv55SYsF0BLTFhIrzk40p15TdHh
+         utlkta5hIZCBGE/w1SCjdH9ePq2OT/dkXdCOm5VkFLnDlLts6KkPjUv1VZ3A2L4ZPgjG
+         WlRMC2/VjA5goPXHxuWKOygqf0hh15ZheJ/YBXlBGBhpSLuUR6vJnC3u5i6xhI088G5l
+         oBEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxEgrKDf0pYbnWgpPxZklV1ha3T4QJUjzkVc1robZ0UfdJjBqLjX1mH6zAFqL+7o0uula1YwrM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIyAJRKEgv+xaTizks394ExwBnohMG0Bm19ScnVqSqDwLkx3VPi
+	iAsgcO0DNliFiZIOQpgFJqJMsoULEfFr0Lb3+36CxLq+ZBjKWRuDfevFu0snCKTzlc4=
+X-Gm-Gg: AYBFou02PESxyMfmrX8OXqVvzmwsY14yaEdNbB/0uTnLDIkVtP29N3pjeITVt5JATRI
+	chh8pDSpIGRpgacL0CKrkona+Yd1b6WPuQfUytebRzrx6R+WAdAPA651ZIsSRnoRWiVEudlUuAk
+	V/cdSiTX3a4dPf6HFmiO+voR8OGgYuQp08eCX9G8rviC27+RNu6iCacmcONFswuanqEx9Q09aby
+	pjjQxbD5sOjiwUKhdodElkTXjYFq1Gga+O03zh/k5QHdH+sm3z2WBegBLyEdxZgXnB9omUN05lW
+	zFrrxznfFEtogLVRrLYPrkkVD0/NalJAb2FV9pfscDaL6fkDwS7eCHVM1toSJT7SQf9cQwcRsiT
+	/qinVDiTpcBxDDlNFvVgZpgmBZjUYWcYjBjjS7zyA0erkNMjDo3pmuTE7ZFsUpNKRdRPHrYKApR
+	N+WwTZUYilkKOytCn3i9UXR1g2WpxjrZVKIMqhZwLsqOSyxVkmZcBUdwKhKwig88EVjAP+TaxaA
+	s9TX+FT2Ta4idEoA06GrcHxwwU+edmsnUi1rupqXywm12SkQeqCzJlptrJne1JaJoKJqjvmzkt/
+	ekdtjSHJmt20YslQxXMyDpJetVnpHhzMVduNDlrh
+X-Received: by 2002:a05:600c:3b2a:b0:4a0:2540:b46 with SMTP id 5b1f17b1804b1-4a18e4aca94mr281842445e9.12.1791969661826;
+        Wed, 14 Oct 2026 02:21:01 -0700 (PDT)
+Received: from ?IPV6:2a00:1028:838d:271e:8e3b:4aff:fe4c:a100? (dynamic-2a00-1028-838d-271e-8e3b-4aff-fe4c-a100.ipv6.o2.cz. [2a00:1028:838d:271e:8e3b:4aff:fe4c:a100])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bea0f1csm617261045e9.9.2026.10.14.02.21.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 02:21:01 -0700 (PDT)
+Message-ID: <6ebcb36b-8d0a-43cc-a47a-5b4a8af02833@suse.com>
+Date: Wed, 14 Oct 2026 11:20:59 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] rust: module_param: Fix potentially incorrect access
+ of `SetOnce<T>`
+To: Priya Bala Govindasamy <pgovind2@uci.edu>
+Cc: mcgrof@kernel.org, da.gomez@kernel.org, samitolvanen@google.com,
+ ojeda@kernel.org, atomlin@atomlin.com, boqun@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
+ aliceryhl@google.com, tmgross@umich.edu, dakr@kernel.org,
+ daniel.almeida@collabora.com, tamird@kernel.org, acourbot@nvidia.com,
+ work@onurozkan.dev, linux-modules@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, stable@vger.kernel.org, ardalan@uci.edu,
+ zhiyunq@cs.ucr.edu, dzueck@uci.edu
+References: <cover.1789426258.git.pgovind2@uci.edu>
+ <20260923203145.18714-1-pgovind2@uci.edu>
+Content-Language: en-US
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <20260923203145.18714-1-pgovind2@uci.edu>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-media-rc-pwm-ir-tx-v1-1-1ae862427fd2@raspberrypi.com>
-X-B4-Tracking: v=1; b=H4sIADlJz2oC/x3MPQqAMAxA4atIZgO24u9VxKHUqBlaSyoqSO9uc
- fyG916IJEwRxuIFoYsjHz5DlQXY3fiNkJds0JVuVaVqdLSwQbEYbocseD44dMpqQ71dmxpyGIR
- Wfv7pNKf0AUIQuPpkAAAA
-To: Sean Young <sean@mess.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
- "Peter Zijlstra (Intel)" <peterz@infradead.org>, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
- Thomas Gleixner <tglx@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
-X-Mailer: b4 0.14.1
 
-Commit 44d7fb8acdf8 ("media: pwm-ir-tx: Avoid direct access to
-hrtimer clockbase") converted a loop conditional from
-               now = timer->base->get_time();
-       } while (hrtimer_get_expires_tv64(timer) < now);
-to
-       while (hrtimer_expires_remaining(timer) > 0);
+On 9/23/26 10:31 PM, Priya Bala Govindasamy wrote:
+> The `set_param` function casts `kernel_param.arg` to `*const SetOnce<T>`
+> But the Rust module macro in rust/macros/module.rs initializes `arg` with
+> `#param_name.as_void_ptr()`, and `#param_name` is a `ModuleParamAccess<T>`,
+> not a `SetOnce<T>`.
+> 
+> ModuleParamAccess<T> has default Rust layout but `set_param` accesses its
+> first field SetOnce<T> assuming it to be at offset 0. This is not
+> guaranteed by Rust and could cause type confusion leading to data
+> corruption.
+> 
+> Fix this by casting `kernel_param.arg` to `ModuleParamAccess<T>` and
+> then accessing the `value: SetOnce<T>` field.
+> 
+> Fixes: 0b08fc292842 ("rust: introduce module_param module")
+> Cc: stable@vger.kernel.org
+> Reported-by: Dylan Zueck <dzueck@uci.edu>
+> Assisted-by: LLM
+> Suggested-by: Andreas Hindborg <a.hindborg@kernel.org>
+> Signed-off-by: Priya Bala Govindasamy <pgovind2@uci.edu>
 
-hrtimer_expires_remaining returns (expires - now), so the
-change has inverted the condition.
+I've queued the patch (v2) on modules-next for v7.4-rc1.
 
-Convert back to follow the original pattern, but using the
-proper API call.
-
-Fixes: 44d7fb8acdf8 ("media: pwm-ir-tx: Avoid direct access to hrtimer clockbase")
-Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
----
-Reported via https://github.com/raspberrypi/linux/issues/7678
----
- drivers/media/rc/pwm-ir-tx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/media/rc/pwm-ir-tx.c b/drivers/media/rc/pwm-ir-tx.c
-index 047472dc9244..bffdda489950 100644
---- a/drivers/media/rc/pwm-ir-tx.c
-+++ b/drivers/media/rc/pwm-ir-tx.c
-@@ -138,7 +138,7 @@ static enum hrtimer_restart pwm_ir_timer(struct hrtimer *timer)
- 		hrtimer_add_expires_ns(timer, ns);
- 
- 		pwm_ir->txbuf_index++;
--	} while (hrtimer_expires_remaining(timer) > 0);
-+	} while (hrtimer_get_expires(timer) < hrtimer_cb_get_time(timer));
- 
- 	return HRTIMER_RESTART;
- }
-
----
-base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
-change-id: 20261013-media-rc-pwm-ir-tx-971c2ae8cf53
-
-Best regards,
 -- 
-Dave Stevenson <dave.stevenson@raspberrypi.com>
-
+Thanks,
+Petr
