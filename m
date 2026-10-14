@@ -1,74 +1,83 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D391684B0
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:36:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A564CEE52
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:37:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792006615; cv=none; b=V/ha8DirWRPOG981IrnqGqMXe0JQ8qNGzhHfQqeFkiWmenYFf1nFCGWn46DbPY+J3wokyWjrvdy/FLe0yItCtHq3QuBBshsuD91cJmH1KtOh82IJgmn8lUaNenXHdcUz7mvvEszT3lT5u4rXnmXFf70jl2zOMx13q6dW7KMe8Cw=
+	t=1792006677; cv=none; b=ks7YWoDr3BkZW+AovknIAyxttXsU123Mri9iZgqkiCHHl7H6eb1zuYcwpGc8sL1izZmifGbt4RGL0NiHdUYgoRearsoJ6uK1o+xhKcStYOkToq5gfypipM9IdSNB84nswIJ1aaNBXZ7PptT/4YxAu0zpBiHa7tIcIH77I2fOE9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792006615; c=relaxed/simple;
-	bh=USkmMPn2m09Xmxz+sO494+k/+nUWOFpUeajtnBtALvE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YHCgAIhKxkdPp3Ea60FME/5KpP6daIDSDyXPEvDxEYTC2zGJ7tJmQVnBnZ5a4uHKB31kYelSXZbGur8wNkiGVwT/zmIGKI3/qT4FjZqmHC3/NEhpvhD3qIU69vTMUjtCC95vMSZj+M1ahKzT92PqKHGP8vHPQQI80KiafFu7/90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=BWywT8FZ; arc=none smtp.client-ip=74.125.82.171
+	s=arc-20240116; t=1792006677; c=relaxed/simple;
+	bh=ObMYjck/H6XcNs75oCe1fV8PVDjoFJCKP174W+DH64A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jft76TTmQz4Ut5AuZMGxBUpOIoreijegwY52TCmEu0Q8pKMoVDuQ5NpQk12G8gNpSYNvkvzJd+cZXrENgVYD9hh0JN/6HbDoY9aFJ59JCdMbdA+wPxb/rz3RpeMrPexigDSS5ziGFHddCoM+y0hknvKhOZTn8gL+eKFXf67KfaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=EFTK90m1; arc=none smtp.client-ip=74.125.82.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="BWywT8FZ"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35943f55c06so1249602eec.0
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 12:36:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="EFTK90m1"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-30b6dad2382so10423365eec.0
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 12:37:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792006611; x=1792611411; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mXryqq8En0eicKl9AiPDfP6M0h2TRJ9mlYrQGAexp7U=;
-        b=BWywT8FZesJEgXYXsd6YTzsS5DeysiKSlyRtxbT8vkjrhhYGZvH6rqUynx2nJO+J7c
-         8X30uTdvUS2Vaj+i7JW78f+KUkYfG2Xpb9IsqBdhyb+8SIrmgSAfcCSCMc6JJuhon1z/
-         sqAnFl61jhQpNf8g3odlMb4JsGjRkfzzl5mKaC8+SPskOVt9BGjJcquHmUAoL2PrjrkD
-         QS7XmQKD7WEgPNNOcvvyaPzMd7OhA8BT5vJTF0qd+4dWuHNP1+kFSI55Y8M9lgZyssZE
-         iRLe8eP8wM2ERFQjYMROc7FvOZNj8yZ7DnlisN6ysiaKBMjRpOUH0QQHZuS2QU7LW2yt
-         HX3Q==
+        d=trailofbits.com; s=google; t=1792006675; x=1792611475; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wSKDNnQRNy2/8dHJazcEc+4Vg6sKgqf+FQWePTpfAZ4=;
+        b=EFTK90m1xWk6P7yvztdOccA+zN4Q5O923N0RQv7838NxeBOSTzKl86I8KABtBQ+TkF
+         z7u/x4fFaTEXM4Yhg7gD+pu2zXpKyw1BLkXOPOVtmOgWo1NuXcDj4ETGP4lk0fRsC3Gr
+         ZPRMKdxZesOA32TcFaft8r/JtpPCP7FGFefFoq0EQ7G/GbjGGzbcrr4/WI/G+c284NBe
+         19YwT9Y94lxt6YsY73FupdNdl63zfc9E9BHE4s01D8W1MN/omM0aP8XhgO2HB5YGn0aU
+         3JWCNhD4JodGr6Pf+aezZKaJFrQhYHlq+h9Z/KGNrLsRo1lKY4SBKmSPbujyLf/y0e1b
+         Wu9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792006611; x=1792611411;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mXryqq8En0eicKl9AiPDfP6M0h2TRJ9mlYrQGAexp7U=;
-        b=0ADvF2GkmuyYZ4LDr7FgdbX+S8AuntRyW5NuDdozmKVmIQhdVBFTbeTyO62Whdn4xb
-         BpxsceZudpjFxrYr70xMZqk9h6hN9lo731jjBT9hP6UNmJkivayEdcoequpWDt2d03r4
-         XEhY7S/lrzu4xY1KnWubshWYAp67h1xAXpZuJZ9UGUh/Z+q2qkL6zQJIy/X1xRHtLHN3
-         VPRsBNJcEHDXxXvcsYaTbP4XHJ9Vx/tSoojzuhf3TF91fAXIvkGt+UZQBCtVqBZKEoXJ
-         YGpPq7n3k4H/eaJSUX21/AdMNVbcFvjqmtDG7DIhRfyS5HRpS8gO5eKPml1xXE/L43Q4
-         2B6Q==
-X-Gm-Message-State: AFq9FYI0DDtV0xvzt7DNDPzE4m0t0iS4gYMeOJcYphRzvgdkmPFeZiXs
-	h/fuaVEqjE+3O4kTqVJIadkvyctPfJycIHwkd0PpVBEZ5iy91XrBO0TtwiOUZIG6SdRefmrP5As
-	9ICNZv9OpWQ==
-X-Gm-Gg: AYBFou0/Cb8j+bqR4DtM+vQInUH95YUibjDXl8/pPbzPAK/ippesISbz3dWzRpg+wbe
-	a6n8ClwYIcVhH/QeMQCnLrtgsYDaLkfzxleVinhRsj29DoQYCB1/+uwwaoYDeLDHEaxN0glg+we
-	Z51+ZhSkyVqFMb3Ng4rwfzSGwvUk6a2J+8rafeub0zrQSSo0OYFjaX7m2Og1ac/xXZzcNY8dMtC
-	w49RUNS5srd3E9kAaBGO0xNQYprIoF4pIQDyHcPXBxb3hHPHTC7veMkC6SKe8kiaZkxpHP639zS
-	cf081SbdUYW+v3qaZN4NhXBMH5tT93TzmOPcTN9sEMK0bZqstWIGMDqzHxpHZKsBjnjVeBTOGww
-	RYeA4cKJo0Fm8HAVQYRK1JAizIgVC9SIc8oUc3OwAuFEN/FpuGNYvpqDVYjglu6fYA/xFpr46hx
-	+4ICFryBwJtzVDCFdVMTA/1ULtiPRQ1AnKW1Trzx8p0mBT22PSOVLaECVUTKKiK5I2KQTdnXumB
-	6/sUELBhIEX6T/U3HaoVJObVFnK22FWy8zAB07JVqdO3RtFsBp2X7ehLAj0z5bkDaSDDr8=
-X-Received: by 2002:a05:7300:c87:b0:33e:61ab:8309 with SMTP id 5a478bee46e88-3537b291a93mr31801619eec.23.1792006610878;
-        Wed, 14 Oct 2026 12:36:50 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792006675; x=1792611475;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wSKDNnQRNy2/8dHJazcEc+4Vg6sKgqf+FQWePTpfAZ4=;
+        b=tCCjdN9l7TRjt1UY7JvS677zCnD7nr2p/I83DGGYdIAnYur7yAa+N69JFt9GyEYwUH
+         j60qoQut5SAybLAPWb/Mq2kCkaIrv3xs/CR9mALuEDv4cRorOj9mRR6NINgtB54ya2kz
+         +mYK4eD7CL13tQYKUeG+l4uKmlTdYpcCIAfJigTTMwLRYySfUDtG4yp4vknfkys6wMgN
+         rI38S0KjWiaD+eYmbaUKWqBbIlABfOIq9mWE2w/Yaqxjvvh+oR/He/J7DSoCNI4bfs4j
+         lnD0pcYFAUqoVc8UZjJ2UQGdbi76a1Buf7E6SBTZmczfUy3fbXKLTES/nLF5KiT/CL3s
+         S8ZQ==
+X-Gm-Message-State: AFq9FYJTxZUtGRhl28hzAv1vVjcFD6j70YBswew/y2G+twHQmsjiS/1h
+	/NryGWy9JVQ5KnBgiOFhwbg2JCjFhkXdANro1etRgFtMQv4BKPexEGntxh56cdWyuuAHNFNK+Rf
+	yB82w36jNZQ==
+X-Gm-Gg: AYBFou3IlD1vrq8u+sl1tUFP/eXlS51cMx5vOPEz2zz8aPtcJ7fUnpw2WeMwFi1sD0R
+	3EJsO/t7UhrKQgMiRQFNevhjdk27uhe4rieEiBsLsqQ5P501gvOemgY+9JF4bWJDmRqO+Cj54XG
+	K5hDgtAlEzETEXdCRStWOLzxm4z5BTqIrgqarNxG4dFuBMTymDcEziNHaq6fECZgAF3rLcn4X5X
+	ScWtGrhrSFYi5TnPz244GzTQzCOUrvmO0zlAr9y/UYVrm8U5QVskGB+pWWIVfBqdMOk/AVzCFR3
+	+32j+kcaCi+FKEfFjg+Fm8w+QCTZ1QSV5KlTaj10nljO99kjgXjKQGR6OezCR39R2Ty5Y+2YVZX
+	XbgzY4962VvZopOf6kpcIQ76tUaxvb1X6syqIAdIIc9t7bR4dVnQs/iPZXYlXLpwGJDBFsstY0l
+	FwvJ9RULagDNcGAymBsbV+2DXWQkXj+tQe43LBgZt70O8uk7PXI0eyZEDtpNcYPjEErlyMNv7Wt
+	MQ9dCsYgEd7JYUHDzKSf2Agt7lhCz6RF69olMViQ7LXySFWJUMoa3oWdARnjRdlBQu7bBA=
+X-Received: by 2002:a05:7300:fc0a:b0:351:7ec1:a92c with SMTP id 5a478bee46e88-3537e11c9c5mr23889883eec.28.1792006675265;
+        Wed, 14 Oct 2026 12:37:55 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:39d1:d8de:aae7:23dd])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca1b53dsm50852306eec.6.2026.10.14.12.36.49
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca0e64csm60589703eec.10.2026.10.14.12.37.53
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 14 Oct 2026 12:36:49 -0700 (PDT)
+        Wed, 14 Oct 2026 12:37:54 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
 Cc: broonie@kernel.org,
-	haoxiang_li2024@163.com,
+	daniel.baluta@nxp.com,
+	kai.vehmanen@linux.intel.com,
 	lgirdwood@gmail.com,
+	liam.r.girdwood@intel.com,
 	linux-kernel@vger.kernel.org,
 	linux-sound@vger.kernel.org,
 	perex@perex.cz,
-	tiwai@suse.com
-Subject: [PATCH 6.6.y] ASoC: hdac_hda: Fix hlink refcount leak on component registration failure
-Date: Wed, 14 Oct 2026 15:36:47 -0400
-Message-ID: <20261014193647.25131-1-artem@trailofbits.com>
+	peter.ujfalusi@linux.intel.com,
+	pierre-louis.bossart@linux.dev,
+	ranjani.sridharan@linux.intel.com,
+	sound-open-firmware@alsa-project.org,
+	tiwai@suse.com,
+	vijendar.mukunda@amd.com,
+	yung-chuan.liao@linux.intel.com
+Subject: [PATCH 6.6.y] ASoC: SOF: Intel: hda-dai: Ensure DAI widget is valid during params
+Date: Wed, 14 Oct 2026 15:37:51 -0400
+Message-ID: <20261014193751.25230-1-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -76,32 +85,39 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Haoxiang Li <haoxiang_li2024@163.com>
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-[ Upstream commit 6ad4892c4f5cb437a928a02f5b7d37d496aa9268 ]
+[ Upstream commit 569922b82ca660f8b24e705f6cf674e6b1f99cc7 ]
 
-hdac_hda_dev_probe() gets the HDA link with snd_hdac_ext_bus_link_get()
-before registering the ASoC component. If component registration fails,
-the function returns without dropping the link reference.
+Each cpu DAI should associate with a widget. However, the topology might
+not create the right number of DAI widgets for aggregated amps. And it
+will cause NULL pointer deference.
+Check that the DAI widget associated with the CPU DAI is valid to prevent
+NULL pointer deference due to missing DAI widgets in topologies with
+aggregated amps.
 
-Always call snd_hdac_ext_bus_link_put() after the registration attempt so
-the reference taken during probe is balanced on both success and failure.
-
-Fixes: 6bae5ea94989 ("ASoC: hdac_hda: add asoc extension for legacy HDA codec drivers")
-Cc: stable@vger.kernel.org
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
-Link: https://patch.msgid.link/20260622145645.1184986-1-haoxiang_li2024@163.com
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Liam Girdwood <liam.r.girdwood@intel.com>
+Link: https://patch.msgid.link/20241203104853.56956-1-yung-chuan.liao@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Assisted-by: LLM
+[ Backport to 6.6.y: Keep the NULL-widget checks in
+  sdw_hda_dai_hw_params() and sdw_params_stream(). Omit the extra check
+  in the newer IPC4 CPU-DAI aggregation loop, which this target lacks. ]
 Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
 Hi,
 
-Please consider this backport of the fix for CVE-2026-89944 to 6.6.y.
+Please consider this backport of the fix for CVE-2024-58012 to 6.6.y.
 
-The code changes are identical to upstream.
+The two NULL-widget guards are identical to upstream; the additional IPC4
+CPU-DAI aggregation-loop guard is omitted because 6.6.y has no
+corresponding loop.
 
 The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
 
@@ -111,22 +127,40 @@ Build-tested only as part of a cumulative 6.6.y series: x86_64 objects
 Thanks,
 Artem Dinaburg
 
- sound/soc/codecs/hdac_hda.c |    4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ sound/soc/sof/intel/hda-dai.c |    6 ++++++
+ sound/soc/sof/intel/hda.c     |    5 +++++
+ 2 files changed, 11 insertions(+)
 
-diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
-index d59d38ce5657be698625fb20235decf6f848e712..c497354251cb2bb4e908d36675166a0b5f8a2032 100644
---- a/sound/soc/codecs/hdac_hda.c
-+++ b/sound/soc/codecs/hdac_hda.c
-@@ -612,10 +612,8 @@ static int hdac_hda_dev_probe(struct hdac_device *hdev)
- 						&hdac_hda_codec, hdac_hda_dais,
- 						ARRAY_SIZE(hdac_hda_dais));
+diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
+index a3d0b6d721aaf6fa47d58053b6eead49af4e94d8..f541cd0fe78a40c85e37d90937dae77cf0fa429b 100644
+--- a/sound/soc/sof/intel/hda-dai.c
++++ b/sound/soc/sof/intel/hda-dai.c
+@@ -454,6 +454,12 @@ int sdw_hda_dai_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_sof_dev *sdev;
+ 	int ret;
  
--	if (ret < 0) {
-+	if (ret < 0)
- 		dev_err(&hdev->dev, "failed to register HDA codec %d\n", ret);
--		return ret;
--	}
++	if (!w) {
++		dev_err(cpu_dai->dev, "%s widget not found, check amp link num in the topology\n",
++			cpu_dai->name);
++		return -EINVAL;
++	}
++
+ 	ret = non_hda_dai_hw_params(substream, params, cpu_dai);
+ 	if (ret < 0) {
+ 		dev_err(cpu_dai->dev, "%s: non_hda_dai_hw_params failed %d\n", __func__, ret);
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 15e6779efaa3bcc9e0dc16e6a92271930eba7a0f..aa3f9c961173715507b35e236d996f2751774ea3 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -102,6 +102,11 @@ static int sdw_params_stream(struct device *dev,
+ 	struct snd_soc_dapm_widget *w = snd_soc_dai_get_widget(d, params_data->substream->stream);
+ 	struct snd_sof_dai_config_data data = { 0 };
  
- 	snd_hdac_ext_bus_link_put(hdev->bus, hlink);
++	if (!w) {
++		dev_err(dev, "%s widget not found, check amp link num in the topology\n",
++			d->name);
++		return -EINVAL;
++	}
+ 	data.dai_index = (params_data->link_id << 8) | d->id;
+ 	data.dai_data = params_data->alh_stream_id;
  
