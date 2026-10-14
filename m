@@ -1,246 +1,113 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C85573EC6B3
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 03:39:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCF4837CD45;
+	Wed, 14 Oct 2026 03:42:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791949176; cv=none; b=Nh/CNXrxTp52wPa7rXAF++giUFrDvJ0w41jl3tHONOw0kMVZ5z0PsUyC3AsKVxfPiHnVlYm7lZoiusCXiOkufvWm2FzRfU7DEX4UbvDsazdjJ36/5jxn6Q8hwgzjuu42ViqStuvP9CO25SCNXfJBHBZw5RzitiHfkYtDse/rG5E=
+	t=1791949378; cv=none; b=edQDKAfpVXkaIdj4tFYqnhrutuiRahh0iRARNQnU3z25rapK7X6ih2BuMYF7hvY/Y0e7UKs77WAl7aBxWdZml/10oSyO4D8koXvSx3JDvnhqFhCNM7NE7dvpebxXnkUHDxVe77FbvncpqhmDuE56mWD3r5AMwzc7SeUpTGo8XhU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791949176; c=relaxed/simple;
-	bh=+EbvMu6501+9NLez/3vMiH+VfkpyJJ15wjPGlneDRX0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=pPbpB10JePgF0zJbNBVH884ipEYwc+UkxniR7mwYDBiwqcVOr0xq7DKstTTUiTPubfvbTrGN7MGbFADSsJAkNHBZfdCgkIZotoWosaN0yEYFIMBXTasoF0JAKO5rJP4mVgwFLQ91ktn3nMGXjhyhoF8vlvrxVYb/6fnnlTlJjnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mxPYZD1I; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791949378; c=relaxed/simple;
+	bh=cVp2/NRNZhanr+zLEEEc9y/DdiLBdc1o4KpjxW1Nsc4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=DKPnj/NXehr/3OMezpZLmruriiKQM79BGBU5OyJW2OFBh+opVxmxMMtWadwUgvaBpqhjknJbG5/PBGCEcJY+gJVJ00TAJ6Del1AjEIZY95mJzYOAF6VXljxkBoDeSf/UqdQzokoayRjQur3mfQDNRXXxiqy45P3rt+BAhEXx2W4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fydhNg1d; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mxPYZD1I"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ab8309dcbaso2659952a91.1
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 20:39:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791949173; x=1792553973; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g+VXEY6KytZXc6Fv8IK6cTFRuY+XHNxmJHHc2/60NuM=;
-        b=mxPYZD1I3DUm/XaS3Q++52gPsvEhm2iZbxNP6cnElFJHYEu3BDAa74n283ArLMbBpG
-         b6vvoR9h78ZNYA730hFkICOpiurQTKq++o4dD1qSZyfNIb/T5YdI4WS2xhXlsx8oLrdy
-         Zt63TN9nbTrR8tunyV1TyggvJr0XiwdaYcxqXglR53YkgM7JiMvYbwwtf61XI92ojlvB
-         4XgbzOmuUh8gkRdknzX28T5UVr1yRddpUg10eauZhi0KWP9SZ1iIFaEwhDznxtmoJcAm
-         7/FJReLg23qcpGUXYHsY4ntkVnXQR3i07ivLOBYTffmSBpMpye1d+YYuta8V1VIw0a7Z
-         OWSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791949173; x=1792553973;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=g+VXEY6KytZXc6Fv8IK6cTFRuY+XHNxmJHHc2/60NuM=;
-        b=jij48YDJkWkAEp7e1EoEa7Qa/aaJ1wqHYZDlf7e4dADFdh64PNQQqMIRZRHMnYoQcL
-         LwxCIjHobCCHtxd4Lem+g1Yn0gaPsOSWUZmgxAKQ9Se/gxxStypmimMl7R9AdkrWQJuG
-         Obl9Tx84yrlU93OCPO156heTglMLhPEVkeKYkW/E4scuc5mbr5tCKKIxV7Gj4pZy17dN
-         MFPon9iT6KNZ+tQ1Y7nrY5bSaHYiIrLrqOBsVuSHyaTduxPO9AcP8ScNV5l2ylQx1EWe
-         3ImzCJDMIB4bjLazIiC94wsbhs8TlAMSYSrh/qGIzVHvgWBghL7AzI/+7gZE4Gjzcoqn
-         xiXA==
-X-Forwarded-Encrypted: i=1; AKwUvByFhbf0Rn+flSxalrNw4TTrZoQQ9NDWCIg+Zg+wduTn5/6Y33pTOHSFdI986r5cAN/xTivSLmQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI9T1HNTJtnrg/OmyhFJ/rUjO9lfjH2fpZbitRhP8YJCUhWeEWV
-	LVKjtbUQnmrgMSgGQP+YWEl3mSoc4ZX9o9FqfwiBjK2IeZCczlEnvZ5G
-X-Gm-Gg: AYBFou0fXpN2ObV+cBH5l87OkJ5Ch8Q/rlsJJljYwANDxqqlDXdrtdlPBiW602kM8EB
-	pozf/wYJozFk56nQX2xlVDrueV+QTQsUSE6iEsT3OpY2GnsTLxq2QZYdXeLRWdGrx+fk2YmLv7d
-	U3KRn6LUM2PUOq8p6qo3iBytDinX+b9pLU4sS9qnfDUsmJu5iEpV44Wg0ouhXMyqPlT3foP0AyB
-	UMx+1KINZ2MwSrfiorVZVMhfIa3HqdegaEWuHXvxogxSzjeBMDBFLWxGnjK0CNx7y5qPbd+BagV
-	KeWxDHSZZtzF5ZTMqn9ORr8dmzxhxJK1q9kj3R8LyVW79+hCLr910Td6u+67kLVca7xfAYlkxND
-	Nxv0kHX6/3Gw0fVFxpAC1d991e+wXU3wzl5qDItEm4feUJcHyWZNMosxPW6HweL1E+de0A2Ah/R
-	44bc1eKhMmRh7jb1qR6r06yCHwasXYY96xMajlgZJtkA2/Q3095Jni632FfIKbyc8J8g==
-X-Received: by 2002:a17:90a:1016:b0:3a0:eec6:b065 with SMTP id 98e67ed59e1d1-3ab3a953308mr5803492a91.13.1791949172711;
-        Tue, 13 Oct 2026 20:39:32 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f27d573sm2485731a91.11.2026.10.13.20.39.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 20:39:32 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com,
-	heming.zhao@suse.com,
-	kees@kernel.org,
-	akpm@linux-foundation.org,
-	kuba@kernel.org,
-	zzzccc427@gmail.com,
-	sunil.mushran@oracle.com
-Cc: ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com
-Subject: [PATCH v3] ocfs2/cluster: unlink socket containers before releasing resources
-Date: Wed, 14 Oct 2026 11:39:25 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0065-v10-e831f26814a00e9ef241@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fydhNg1d"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 85FF5C2BCFC;
+	Wed, 14 Oct 2026 03:42:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791949378;
+	bh=cVp2/NRNZhanr+zLEEEc9y/DdiLBdc1o4KpjxW1Nsc4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=fydhNg1dwAaPVjKy1vQgvZY/3pVbv7O4gH+ZeD3QvHKglrLVFZx3MUzdgsBf3QZtB
+	 4EQSxKDi2zFmtZ/PtYM0zkYed5TFH9tscVWyEEA30TyvIZ/14NrqqbXYHpEHt90gsn
+	 NHT9q6sMlm6Jgl0xd6xGkmxKggq4+CohlVx7rDWQCyWsOVUu/N09bBSpNDK3YiAIJW
+	 u+ab2AnrKjuEPM9Vij7dV4L06V5z2ZKco1wfHduqnTtwz+QLqDTvLQVrNhG7FeuL2p
+	 iZQ/F5Q1Kpkjt8UieMN5Dp90ywdM5qibNfeW2mGI/2bCIKCL2SNVUlnIB9rMieEDGC
+	 mOipwE1oG+joQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 65556CC6B19;
+	Wed, 14 Oct 2026 03:42:58 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Date: Wed, 14 Oct 2026 12:42:59 +0900
+Subject: [PATCH v2 2/2] xfs: clamp a pNFS LAYOUTCOMMIT extent before
+ computing its end
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-xfs-pnfs-commit-hole-v2-2-d3a02a79ab6c@samsung.com>
+References: <20261014-xfs-pnfs-commit-hole-v2-0-d3a02a79ab6c@samsung.com>
+In-Reply-To: <20261014-xfs-pnfs-commit-hole-v2-0-d3a02a79ab6c@samsung.com>
+To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
+Cc: Christoph Hellwig <hch@lst.de>, "Darrick J. Wong" <djwong@kernel.org>, 
+ Dave Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>, 
+ Jeff Layton <jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>, 
+ Sergey Bashirov <sergeybashirov@gmail.com>, linux-nfs@vger.kernel.org, 
+ Andrey Albershteyn <aalbersh@kernel.org>, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791949377; l=1616;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=fJwzYVZW1+G2yLF8tU13obG/LBvLEpaUVnDAw9h7wvA=;
+ b=SeU3v3o9rANgHAnMjeGdIaXxNPrX7bqdy2VntgqZ32evza50GTKnhaJ0vW02SDchvukSMSpu/
+ yVn0dDKgiW8DJpD0e2qqnptFkdhE7S5nUQr3JhL+3OQflJXPjTTur+b
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
 
-A socket container's node and socket must remain alive while the
-container is on sock_containers. The debugfs formatter reads sc_node
-and sc_sock under o2net_debug_lock without taking their references, but
-sc_kref_release() releases both before taking that lock to unlink the
-container.
+From: Daejun Park <daejun7.park@samsung.com>
 
-With CONFIG_DEBUG_FS enabled, a synchronous sender can retain its last
-socket-container reference after o2net_disconnect_node() has detached
-the connection and flushed o2net_wq. The caller runs outside that
-workqueue. After the sender removes its configfs dependency, node
-removal can proceed without waiting for the sender's final sc_put():
+xfs_fs_commit_blocks() clamps the end of each committed extent to the
+file size, but computes the end as offset + length first. A length
+from the client can make that sum wrap around, and the loop then
+passes the client's length, unclamped, to xfs_iomap_write_unwritten().
+xfs_bmapi_write() then fails an assertion on XFS_DEBUG kernels, which
+is a BUG with XFS_ASSERT_FATAL, and otherwise returns -ENOSR, which
+nfsd warns about as a non-standard errno.
 
-  Sender (final sc_put)    Configfs rmdir        Debugfs reader
-  --------------------    --------------        --------------
-  o2nm_undepend_item()
-                          Drop node item refs
-  o2nm_node_put()
-    [node can be freed]
-                                               sc_seq_show()
-                                                 Lock debug lock
-                                                 Read sc_node->nd_name
-                                                 Unlock debug lock
-  sc_node = NULL
-  o2net_debug_del_sc()
+With pynfs as the client and an RW layout for the first 64 KiB of a
+2 MiB sparse file, a LAYOUTCOMMIT of 2^64 - 4 KiB at 4 KiB got
+NFS4ERR_IO, "nfsd: non-standard errno: -63" and a WARNING, or the
+assertion on XFS_DEBUG.
 
-The earlier socket release has a similar window. The container is
-still selectable while its socket has been released and sc_sock has
-not yet been cleared:
+Clamp the length to what is left below the size before adding it to
+the offset. With this and "xfs: refuse a pNFS LAYOUTCOMMIT of a range
+without blocks", the extent ends at the size and gets NFS4ERR_IO at the
+hole after the laid-out range, without a warning or an assertion.
 
-  Sender (final sc_put)                       Debugfs reader
-  --------------------                       --------------
-  sock_release(sc->sc_sock)
-    [socket can be freed]
-                                             sc_seq_show()
-                                               Lock debug lock
-                                               Read sc_sock->sk fields
-                                               Unlock debug lock
-  sc_sock = NULL
-  ...
-  o2net_debug_del_sc()
-
-Move o2net_debug_del_sc() before releasing either resource. Unlinking
-under the existing debug lock waits for an active formatter to finish
-and prevents later readers from selecting the container. This covers
-both socket fields and node fields, including nd_num in the stats
-formatter.
-
-KASAN report as below:
-
-    BUG: KASAN: slab-use-after-free in string+0x42b/0x470
-    Read of size 1 at addr ffff88810f56fc90 by task python3/506
-
-    CPU: 0 UID: 0 PID: 506 Comm: python3 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     kasan_report+0xe0/0x110
-     string+0x42b/0x470
-     vsnprintf+0x330/0x1110
-     seq_printf+0x1a8/0x260
-     sc_seq_show+0x604/0x9f0
-     seq_read_iter+0x480/0x1110
-     seq_read+0x362/0x5a0
-     full_proxy_read+0x11f/0x180
-     vfs_read+0x1a0/0xc20
-     ksys_read+0x111/0x200
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-(User register dump omitted.)
-
-     </TASK>
-
-    Allocated by task 497:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x28d/0x610
-     o2nm_node_group_make_item+0xea/0x1a0
-     configfs_mkdir+0x762/0xca0
-     vfs_mkdir+0x399/0x7e0
-     filename_mkdirat+0x129/0x450
-     __x64_sys_mkdir+0x70/0xa0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-    Freed by task 505:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kfree+0x308/0x580
-     config_item_cleanup+0x14b/0x230
-     config_item_put+0x79/0x90
-     sc_put+0x454/0x6e0
-     o2net_send_message_vec+0x63d/0x1560
-     o2net_send_message+0xa6/0xe0
-     validation_send_write+0x17f/0x1d0
-     full_proxy_write+0x11f/0x180
-     vfs_write+0x25a/0x1010
-     ksys_write+0x111/0x200
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-    The buggy address belongs to the object at ffff88810f56fc00
-     which belongs to the cache kmalloc-512 of size 512
-    The buggy address is located 144 bytes inside of
-     freed 512-byte region [ffff88810f56fc00, ffff88810f56fe00)
-
-(Page and shadow-memory dumps omitted.)
-
-Fixes: 2309e9e040fe ("ocfs2/net: Add debug interface to o2net")
-Cc: <stable@vger.kernel.org>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Assisted-by: LLM
-
+Fixes: 527851124d10 ("xfs: implement pNFS export operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 ---
-Changes in v3:
-- Revise commit message as joseph suggested.
+ fs/xfs/xfs_pnfs.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-Changes in v2:
-- Move o2net_debug_del_sc() before socket and node cleanup, as Joseph
-  suggested.
-- Use the ocfs2/cluster title prefix and describe the races with sequence
-  diagrams.
-- Add Cc: stable@vger.kernel.org.
-
-Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0065-v4-f45e5cef38dd587b2cfd@gmail.com
-Link to v2: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0065-v6-3090153fd7cacb810214@gmail.com
-
- fs/ocfs2/cluster/tcp.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/fs/ocfs2/cluster/tcp.c b/fs/ocfs2/cluster/tcp.c
-index 8b3830b601ba6e5fe964bec970581b8e4ddbb5dd..0eaf2c4a6989ecad00f7a88a66a782b334647f21 100644
---- a/fs/ocfs2/cluster/tcp.c
-+++ b/fs/ocfs2/cluster/tcp.c
-@@ -393,6 +393,9 @@ static void sc_kref_release(struct kref *kref)
+diff --git a/fs/xfs/xfs_pnfs.c b/fs/xfs/xfs_pnfs.c
+index 05c9660aea..d76873115c 100644
+--- a/fs/xfs/xfs_pnfs.c
++++ b/fs/xfs/xfs_pnfs.c
+@@ -312,9 +312,7 @@ xfs_fs_commit_blocks(
+ 		if (start > size)
+ 			continue;
  
- 	sclog(sc, "releasing\n");
+-		end = start + maps[i].length;
+-		if (end > size)
+-			end = size;
++		end = start + min_t(u64, maps[i].length, size - start);
  
-+	/* Unlink before freeing anything the debugfs readers dereference. */
-+	o2net_debug_del_sc(sc);
-+
- 	if (sc->sc_sock) {
- 		sock_release(sc->sc_sock);
- 		sc->sc_sock = NULL;
-@@ -402,8 +405,6 @@ static void sc_kref_release(struct kref *kref)
- 	o2nm_node_put(sc->sc_node);
- 	sc->sc_node = NULL;
- 
--	o2net_debug_del_sc(sc);
--
- 	if (sc->sc_page)
- 		__free_page(sc->sc_page);
- 	kfree(sc);
+ 		length = end - start;
+ 		if (!length)
+
+-- 
+2.43.0
+
+
