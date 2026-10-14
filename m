@@ -1,158 +1,115 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-115.mta0.migadu.com [91.218.175.115])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 084A3477E2E
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 06:46:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A32475340
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 06:46:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791960373; cv=none; b=rR9SD3pjp9CAfV/Ov0MLjRdUx33olsNPeZjApXgefjm+FLLMgkrP/Drj/LYCp4aD/1GfTF/tY4T+N5F0nLHxMeMuPLMWA6swGUm50MeOqfA9Rp+oZNWLaSoDes0bTHnskLqKSWdppUKlz6PuWoHr/F6/PmSJ1W/3E5KoiiM+2BA=
+	t=1791960403; cv=none; b=gnxUCqZnH5XAhpEF/WMhwPJ4JV8s0visziysUtyG6lY+/nkJM8C5QfRiOODPkmP8STO0sk1DKc1jCQoRg3yod0eyqeBr8iwwe6nTehRcE06Ggn8yMMsQPJJVyo8ibzPA8i4ulm/bAwpU1Xa01R3fgsvjGDP3i5bxgsEv/goc6ic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791960373; c=relaxed/simple;
-	bh=Rvxc0ctCvKCcwUtqu+Shc59yyoETx391dL9BNPBy2oM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p36oUwXpdEZFoGnXSa/ISqIc+gaHaee9W1dAgZl7pYzlqP+YA5Sfcg42ebvDYytEMLPVyxkOjPAV4UgqX7f6EiivUDlHmrb4UUZvrfAd+gNWgS8o36dYrmTTWHf1fZRJdrdtMpmQ0TZBNnb49F+gxPv1z3XYCC7waweckVu3av8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RKBOCpSh; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791960403; c=relaxed/simple;
+	bh=JLmTAoue8gGf1ERWgAb5UXzBAVBda1/ywkl4q8ms6rw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VWuUUFmnt31RZ5jmqGyMlLUsq4Jk6sUKOfHq4v6A/aBJTXDbho+7hygElzpT3rGtZKTYzluXyBDH73AZIW1YvU2vhFIlocrX5BW+0vl09dxmMlWBzxX51SOYXPk9Uqu6mT8Oz+wyLkoiJHoUecFDQk1J+GhIdqclMOQx6OGb2Kg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=XduXr+NW; arc=none smtp.client-ip=91.218.175.115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RKBOCpSh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791960364;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=JTJK3K2HtRoklixNqbatLqReJpESRo1O6orCv2sRVKY=;
-	b=RKBOCpSh5j4Bz9X/O+Z9+geQw4wYeX4w5mgv4gUl9o9kDcMgJytnPFMf6al+j4BddNefR8
-	6ShkxytFzgcQP1VnqKG5GnENaTi/1EAVH/s2NgmLVp5neqA6KU7htWWgDgEP6kemlSYcMW
-	E7PZXUo9ItqG8m+uX6POkMQanWhwXec=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-244-MxfC6BBbP0ycHaM8okxLuA-1; Wed,
- 14 Oct 2026 06:45:58 +0000
-X-MC-Unique: MxfC6BBbP0ycHaM8okxLuA-1
-X-Mimecast-MFC-AGG-ID: MxfC6BBbP0ycHaM8okxLuA_1791960356
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 07728180034E;
-	Wed, 14 Oct 2026 06:45:55 +0000 (UTC)
-Received: from snishika-thinkpadp16vgen1.tokyo.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DC69C1800345;
-	Wed, 14 Oct 2026 06:45:50 +0000 (UTC)
-From: Seiji Nishikawa <snishika@redhat.com>
-To: Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>
-Cc: Hannes Reinecke <hare@kernel.org>,
-	Chris Leech <cleech@redhat.com>,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Seiji Nishikawa <snishika@redhat.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] nvme-tcp: fix io_work priority inversion when send_mutex is held
-Date: Wed, 14 Oct 2026 15:45:24 +0900
-Message-ID: <20261014064524.4015025-1-snishika@redhat.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="XduXr+NW"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=JLmTAoue8gGf1ERWgAb5UXzBAVBda1/ywkl4q8ms6rw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791960394; v=1; x=1792565194;
+ b=XduXr+NWEQc2k1ced2e4wi+9s8WN76WAicldStKItAcufoJI3wVXZKFuaTRVUBF7ND96HqvN
+ R0eN5dIVH8BZYV8hJprCPN82Jcgo77XC6FmBjysbkspL0JlH5jDAJN1pNq1vsLzkIQt/NFOchYo
+ W3JiTblzWUaZR9iCpLyqRV+0=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b9d4fb5be1186799;
+	Wed, 14 Oct 2026 06:46:34 +0000
+X-Mizu-Trace-ID: b9d4fb5be1186799
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f111bec5-6148-4649-8805-79a250f6e736@linux.dev>
+Date: Wed, 14 Oct 2026 14:46:21 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid
+ PTEs
+Content-Language: en-US
+To: Zhao Gongyi <zhaogongyi@bytedance.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, ryan.roberts@arm.com,
+ dev.jain@arm.com, baolin.wang@linux.alibaba.com, mark.rutland@arm.com,
+ akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261013093600.54995-1-zhaogongyi@bytedance.com>
+ <20261013153953.77575-1-lance.yang@linux.dev>
+ <516828fb-558d-4a20-9532-51f50d6ba042@bytedance.com>
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <516828fb-558d-4a20-9532-51f50d6ba042@bytedance.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Commit f42d4796ee10 ("nvme-tcp: fix I/O stalls on congested sockets")
-added a check in nvme_tcp_io_work() that sets pending to true when the
-queue has pending requests and the socket is writeable. The check is
-placed after the mutex_trylock() block, so it also runs when
-mutex_trylock(&queue->send_mutex) failed and io_work did not send
-anything.
 
-When .queue_rq sends a request directly from its own context, it holds
-send_mutex and can give up the CPU in lock_sock_nested() when another
-task needs the CPU, for example the io_work kworker of the same queue,
-which runs on the same CPU. Then io_work cannot take send_mutex, but
-the requests are still on req_list and the socket is writeable, so
-pending is set to true. io_work loops until the deadline and queues
-itself again on io_cpu, without sleeping.
 
-This is a priority inversion. io_work runs on the high priority
-nvme_tcp_wq and cannot make progress until send_mutex is released, but
-it keeps running. The task holding send_mutex runs at normal priority
-and needs the CPU to release it. The scheduler keeps giving the CPU to
-io_work, so the task holding send_mutex may not run again, and the
-requests on the queue are not sent and time out.
+On 2026/10/14 14:31, Zhao Gongyi wrote:
+> On 10/13/26 11:39 PM, Lance Yang wrote:
+>>>
+>>> +	/*
+>>> +	 * Keep the producer-side invariant documented in pgtable.h true even
+>>> +	 * if a direct caller passes an invalid descriptor with PTE_CONT set.
+>>> +	 */
+>>> +	if (!pte_valid(pte))
+>>> +		return __set_ptes(mm, addr, ptep, pte_mknoncont(pte), nr);
+>>
+>> set_ptes() is the only in-tree caller, and it already clears PTE_CONT
+>> before we get here ... no? Why not fold !pte_valid(pte) into the
+>> !mm_is_user(mm) check below and return __set_ptes() directly?
+>>
+>> 	if (!mm_is_user(mm) || !pte_valid(pte))
+>> 		return __set_ptes(mm, addr, ptep, pte, nr);
+>>
+>> If a direct caller does pass a !pte_valid PTE with PTE_CONT set, I'd
+>> rather add a VM_WARN_ON() to catch that. Silently clearing the bit would
+>> hide a caller bug :)
+>>
+> 
+> Hi Lance,
+> 
+> Thanks for taking a look.
 
-This is the same problem that commit 70f437fb4395 ("nvme-tcp: fix
-io_work priority inversion") fixed. That commit removed
-"pending = !llist_empty(&queue->req_list)" from the path where
-mutex_trylock() fails, and let the task holding send_mutex queue
-io_work again in nvme_tcp_queue_request() after it releases the mutex.
-The new check brings back the same behavior in a different form.
+Cheers!
 
-Two things make this easier to hit. nvme_tcp_queue_request() sends
-directly only when it runs on io_cpu, so the task that takes send_mutex
-is on the same CPU as the io_work kworker of that queue when it takes
-the mutex. Also, when the tasks are in a cgroup with the cpu controller
-enabled, the whole group competes with the nice -20 kworker as one
-entity, so each task in the group gets even less CPU time.
+> Yes, you are right. The public set_ptes() wrapper already strips PTE_CONT
+> before calling contpte_set_ptes(), so the pte_mknoncont() in the invalid
+> path is unnecessary for the current in-tree path.
+> 
+> The issue I was trying to avoid is not that the incoming pte already has
+> PTE_CONT set, but that contpte_set_ptes() rebuilds the pte from pfn/prot
+> and then adds PTE_CONT again based on alignment. For an invalid descriptor,
+> that transparent contiguous encoding should be skipped entirely.
+> 
+> So your suggested shape makes sense to me. I will change this to return
+> through __set_ptes() directly for invalid descriptors, and add a warning
+> for any unexpected direct caller that passes an invalid PTE with PTE_CONT
+> set, e.g.:
+> 
+> 	if (!mm_is_user(mm) || !pte_valid(pte)) {
+> 		VM_WARN_ON_ONCE(!pte_valid(pte) && pte_cont(pte));
+> 		return __set_ptes(mm, addr, ptep, pte, nr);
+> 	}
+> 
+> That keeps the fix focused on not creating new invalid contpte entries,
+> while still catching a bad direct caller instead of silently sanitizing it.
 
-We hit this on a 6 CPU VM running a database on nvme-tcp storage. In
-the vmcore, 2 tasks held send_mutex of 2 queues and were runnable in
-lock_sock_nested() for 103 seconds, while the kworkers for those queues
-kept running io_work on their CPUs. All database tasks were in one
-cgroup, which got only about 0.3% of the CPU against the nice -20
-kworker. Requests timed out, and blk_mq_timeout_work() waited in
-synchronize_srcu() for the tasks still in .queue_rq.
+Thanks for the quick fix! Nothing jumped out at me :)
 
-Only do the pending check if io_work could take send_mutex. If it could
-not, the task holding send_mutex sends what it can in
-nvme_tcp_send_all(), and queues io_work again after it releases the
-mutex if requests are still pending, so no request is left behind.
+With that:
 
-Fixes: f42d4796ee10 ("nvme-tcp: fix I/O stalls on congested sockets")
-Cc: stable@vger.kernel.org # v6.16+
-Signed-off-by: Seiji Nishikawa <snishika@redhat.com>
----
- drivers/nvme/host/tcp.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index 7eec983c0ead..4b775e22d3cc 100644
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -1433,9 +1433,11 @@ static void nvme_tcp_io_work(struct work_struct *w)
- 
- 	do {
- 		bool pending = false;
-+		bool got_send_mutex = false;
- 		int result;
- 
- 		if (mutex_trylock(&queue->send_mutex)) {
-+			got_send_mutex = true;
- 			result = nvme_tcp_try_send(queue);
- 			mutex_unlock(&queue->send_mutex);
- 			if (result > 0)
-@@ -1450,8 +1452,13 @@ static void nvme_tcp_io_work(struct work_struct *w)
- 		else if (unlikely(result < 0))
- 			return;
- 
--		/* did we get some space after spending time in recv? */
--		if (nvme_tcp_queue_has_pending(queue) &&
-+		/*
-+		 * did we get some space after spending time in recv?
-+		 * Only check this if we could take send_mutex. Otherwise
-+		 * the task holding it sends the requests and queues io_work
-+		 * again after it releases the mutex.
-+		 */
-+		if (got_send_mutex && nvme_tcp_queue_has_pending(queue) &&
- 		    sk_stream_is_writeable(queue->sock->sk))
- 			pending = true;
- 
-
-base-commit: 5755f1bd0217ffe3c5cf85467bf6b0680f398265
--- 
-2.55.0
-
+Tested-by: Lance Yang <lance.yang@linux.dev>
