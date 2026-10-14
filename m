@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 303875328B0;
-	Wed, 14 Oct 2026 13:47:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED8752CCFE;
+	Wed, 14 Oct 2026 13:49:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791985663; cv=none; b=fJj6POtzaqK9nTGxAiMuSL1kuPGFBJdaIidH+wjs8DG8sySPuxQZckZW+/6BOSPiSs33Ii2x5RFBRDiFzjWBL2WldEjqIFQL0WrLlcnjzN+1PdXMlhuZqWxPQEal+rsopEn0zRNKL2zBAEU9bi9UjA+0CdrVom1ZzR7Le4O5n20=
+	t=1791985755; cv=none; b=S4Mfq88MXvsOIwqoSLdFAjyfC9JKSsRd1hVXsY1R90aYbDYbs77VG5DL/G66ge0swKQsAxu5yv0tteauN9KGwvMYtHfuSlTQ/0qIeU5v5SpUkc9xPOGu6quhztOR2ur9L9wv3abfhdfJfkDqqmBfJZycotTbIS9hJqk9sRn/Mw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791985663; c=relaxed/simple;
-	bh=scuDkzci4CyFM+rwiTQpHuLZ/TOl2d/t9InBTYjQB4M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XZ3rUK0FGXiVrG3wAzIRfgq64Ff+9kWT3fcf4/EnbxcbS5yTZMbcmbGot/xmeXqlKYdMyrF5AqBMwM5M59aQ5Apz/5OGM5KlttEKfy7ovTjP9CeYNIpU56ycKL3MApyupOrCvF4bclrIG6v7O4jzN5a3m3QnfBhBVsQpft/zJpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WEfRCoC+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791985755; c=relaxed/simple;
+	bh=ATEv/LgDAtufUjFNthhjb/yPJrgbH8CUVruzjsRTs8c=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=G1wqUN+HbnozRwrVg4QBsVfmYQMIKm5w6bYAM+n7EdAVmmg8sa6gVlugWcohRrMUqec2JlSuoEz+e+pUgRbqkke94WIk7lb7BdIVETA4bRzjcESO2wy6TFDG/leWc3+9NO2M4OvLEIU+am8pWUcFKt0WJAwVTImV9xgd0HxdpzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PPzlrtN5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WEfRCoC+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E5C41F00A2F;
-	Wed, 14 Oct 2026 13:47:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PPzlrtN5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6631F00A2F;
+	Wed, 14 Oct 2026 13:49:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791985661;
-	bh=C7rEAmv2Y4mVbuWnXY5QYs9VkJecL6pHhI1EYgfL8BE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=WEfRCoC+R3VRrxONOgWNcznZLQiKqTuza5mYVnkNZuvaQoJ9OUJ9u2bqGA65Ahlwm
-	 HsZ5UrIVN/WL2No64DEttz0LSGxtBqmQgZKB+Z5Oe07i82Iwe7JSIdkrISY/7d83M/
-	 8MkYEPtjHBOxPpkVnSNu6pRBNs84vL5TKqoQlI3RUGDLOWqHuOYGYpvz97Om9ePedo
-	 Ht2EI32ZEgkgx3m5155e5WDtDL3dq2EM0KgRyr6OJuydmjvO7tdyXmT9QU4uGY61XB
-	 jArsOcU/tAqClyseUQkjxH2GgXkM4QaSXMzEpEVH3JWuKR7hk5JuPMeuLGXbk0GMmW
-	 tLwBdlMc7waSg==
-Message-ID: <06930044-4bcb-4478-8a6f-2dd3cf6d290e@kernel.org>
-Date: Wed, 14 Oct 2026 15:45:41 +0200
+	s=k20260515; t=1791985753;
+	bh=VlLY8lFnuENoZRIPsEzQ8Q4quedoDle8h5IdEqEOpQ8=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=PPzlrtN5VSLvNoSdjJv8S6IWz9JcAweG/P0+UvtQ1sFu3nTPMRHLcXiHWN6/+oOnh
+	 b6OtZ7RNPpBkN6oXyFeYTlWLq8AVTzH20JzehD7cT8uw2qqGkQVdsEU2Z2f5T7zxkC
+	 vTf251qwCUxZmP+wHqVHv04VZChr+GLxPVOZltV1asZdwZhTXbPgUqJMB2nd2dAvM+
+	 aI/JIprBTd4sXSeuAB2rchOiIBEH2YxSdtlKkNWOhmY+ePYdJLniCVRNHZRbaaplMG
+	 +PBAufsc9gt/VUYrXHHRlIK1CL1g+vCrrpqELVc8ry9r2hSzKlV6OkbaT3ClmIlA7v
+	 tafO21tHnIPig==
+Message-ID: <807e8d2e-e7c1-4491-a3e1-21d84cc58946@kernel.org>
+Date: Wed, 14 Oct 2026 15:49:05 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -36,6 +36,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] mm: fix address wraparound when scanning large folio PTEs
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
@@ -47,8 +48,7 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 References: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
  <as4kvHe9IFZH5qrC@gremlin> <9add8400-66c1-47e9-b5af-7a4081ebf3c4@kernel.org>
- <as-BZibPscw4cxsD@gremlin>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+ <as-BZibPscw4cxsD@gremlin> <06930044-4bcb-4478-8a6f-2dd3cf6d290e@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
  xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
@@ -94,126 +94,90 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <as-BZibPscw4cxsD@gremlin>
+In-Reply-To: <06930044-4bcb-4478-8a6f-2dd3cf6d290e@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10/14/26 15:27, Lorenzo Stoakes (ARM) wrote:
-> On Wed, Oct 14, 2026 at 10:12:06AM +0200, David Hildenbrand (Arm) wrote:
-> 
-> Since I'm convinced the logic itself is correct:
-> 
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> 
-> This cycle is brutal enough not to hold up fixes :>)
-> 
-> 
->>>
->>> I know it's a static function but kdoc here might be nice given the number of
->>> params, including 2 output parameters.
+On 10/14/26 15:45, David Hildenbrand (Arm) wrote:
+> On 10/14/26 15:27, Lorenzo Stoakes (ARM) wrote:
+>> On Wed, Oct 14, 2026 at 10:12:06AM +0200, David Hildenbrand (Arm) wrote:
 >>
->> I had that, but decided "not worth it for an internal helper".
+>> Since I'm convinced the logic itself is correct:
 >>
->> Is anything here really that confusing to understand in mm/memory.c context? I
->> highly doubt it.
-> 
-> I mean I found it pretty confusing :)
-> 
-> But this is a nice to have it's not a big deal.
-> 
->>>
->>> I don't love the name - to me it implies to me that you're scanning the range.
->>>
->>> Maybe clamp_folio_pte_range()? I guess though clamp implies it limits an input
->>> range.
+>> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 >>
->> Ugly.
-> 
-> Yup, fair enough.
-> 
+>> This cycle is brutal enough not to hold up fixes :>)
+>>
 >>
 >>>
->>> Maybe get_folio_pte_range()?
+>>> I had that, but decided "not worth it for an internal helper".
+>>>
+>>> Is anything here really that confusing to understand in mm/memory.c context? I
+>>> highly doubt it.
 >>
->> I can just call it "folio_pte_range()". Slightly similar (but different) to
->> "folio_pte_batch()"
-> 
-> OK that works.
-
-Ok, let's do that.
-
->>>
->>>
->>> This is trickier :)
->>>
->>> I guess you're doing this in case either bound is right at wraparound
->>> somehow?
->>>
->>> But then couldn't the +1 push you over the edge?
->>>
->>> Oh wait no, because then vma->vm_end would have to equal 0, which would
->>> fail the other-place enforced invariant that vma->vm_start < vma->vm_end.
->>>
->>> So it's pmd_end that could overflow, hence the -1, +1 dance.
->>>
+>> I mean I found it pretty confusing :)
 >>
->> Yes. It's fairly common, though, to handle clamping of exclusive ends that way.
-> 
-> Right, it took me a while to figure this out though.
-> 
-> It involves an implicit assumption in there too, that _one_ of these values is
-> known not to overflow.
-> 
->>> #define pmd_addr_end(addr, end)                                         \
->>> ({      unsigned long __boundary = ((addr) + PMD_SIZE) & PMD_MASK;      \
->>>         (__boundary - 1 < (end) - 1)? __boundary: (end);                \
->>> })
+>> But this is a nice to have it's not a big deal.
 >>
->> As replied elsewhere, I had that, but decided to open-code as pmd_addr_end() has
->> very weird semantics with folded page tables, where we just don't clamp at all.
+>>>
+>>> Ugly.
+>>
+>> Yup, fair enough.
+>>
+>>>
+>>>
+>>> I can just call it "folio_pte_range()". Slightly similar (but different) to
+>>> "folio_pte_batch()"
+>>
+>> OK that works.
 > 
-> Hmm how so?
+> Ok, let's do that.
 > 
-> The logic seems, at a glance, equivalent?
-
-It's the following thing that adds confusion:
-
-include/asm-generic/pgtable-nopmd.h:#define pmd_addr_end(addr, end)
-       (end)
-
-I think we have to assume here that with NOPMD we will never end up in this code
-because large folios will not apply (each PMD table has exactly one entry as of
-today, so we cannot map large folios .... I think).
-
-I can try condensing that in a comment and cross my fingers that that is the
-case. I tried that now. and codex review already tells me:
-
-  • [P1] Folded PMDs can reach this helper — memory.c:4948 (mm/memory.c:4948).
-The comment’s assumption is false: arm64 with 64 KiB pages and 42-bit VA uses
-folded PMDs and supports THP and
-    NUMA balancing. Here, pmd_addr_end() returns vma->vm_end without clamping. A
-large folio remapped across a PTE-table boundary can therefore make
-numa_rebuild_large_mapping() walk beyond
-    the mapped PTE table. The previous code explicitly limited this to pt_start
-+ PMD_SIZE. Cap the forward distance at PMD_SIZE - (addr & ~PMD_MASK) as well as
-the VMA and folio limits.
-
-Let me see if there is any truth to that ...
-
-
-[...]
-
+>>>
+>>> Yes. It's fairly common, though, to handle clamping of exclusive ends that way.
+>>
+>> Right, it took me a while to figure this out though.
+>>
+>> It involves an implicit assumption in there too, that _one_ of these values is
+>> known not to overflow.
+>>
+>>>
+>>> As replied elsewhere, I had that, but decided to open-code as pmd_addr_end() has
+>>> very weird semantics with folded page tables, where we just don't clamp at all.
+>>
+>> Hmm how so?
+>>
+>> The logic seems, at a glance, equivalent?
 > 
-> As above, I tagged it, for the purposes of a fix let's just get this in.
+> It's the following thing that adds confusion:
 > 
-> But no, there's not overthinking IMO, it took me a long time to understand what
-> you were doing here, and there's a lot of implicit understanding in there.
+> include/asm-generic/pgtable-nopmd.h:#define pmd_addr_end(addr, end)
+>        (end)
+> 
+> I think we have to assume here that with NOPMD we will never end up in this code
+> because large folios will not apply (each PMD table has exactly one entry as of
+> today, so we cannot map large folios .... I think).
+> 
+> I can try condensing that in a comment and cross my fingers that that is the
+> case. I tried that now. and codex review already tells me:
+> 
+>   • [P1] Folded PMDs can reach this helper — memory.c:4948 (mm/memory.c:4948).
+> The comment’s assumption is false: arm64 with 64 KiB pages and 42-bit VA uses
+> folded PMDs and supports THP and
+>     NUMA balancing. Here, pmd_addr_end() returns vma->vm_end without clamping. A
+> large folio remapped across a PTE-table boundary can therefore make
+> numa_rebuild_large_mapping() walk beyond
+>     the mapped PTE table. The previous code explicitly limited this to pt_start
+> + PMD_SIZE. Cap the forward distance at PMD_SIZE - (addr & ~PMD_MASK) as well as
+> the VMA and folio limits.
+> 
+> Let me see if there is any truth to that ...
 
-What I am saying is that I don't agree with adding another two const variables
-with names that are less intuitive than just saying the computation. Let me try
-to improve the comment:
+Ok, the PMD table as a single entry, but the PTE table obviously has 2k entries :)
 
-/* Avoid address wraparounds by not adding/subtracting beyond limits. */
+So large folios are possible and pmd_addr_end() would be wrong in this context.
+
+pmd_addr_end() really only works in page table walkers ...
 
 -- 
 Cheers,
