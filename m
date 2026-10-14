@@ -1,143 +1,245 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C4C239FCD7;
-	Wed, 14 Oct 2026 03:02:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791946962; cv=none; b=XCe1cr64KHOixhqxLwnRtihKWkGZE1xaBhCmo/ZH/xk2IKxlifQlKf7VyzsXfMuAGE1UQtbHZqbg0ossTyzBtvc3oWC77zMJf1sQ0pgS1PLbQoK5xLehQnx3WSLzkv7PM2H1hYh4lvTpuTkXFOhPQeMB8rw4mvr/JFDte9eGTB0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791946962; c=relaxed/simple;
-	bh=DC+SCsCa5BuoskMecVFJdSKkQuqvWhxdFd5nTXFv5Yw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=UvVn7C3cZWJd0E3aVd+dOLfHjb2rz18DapS0+B2gM4E3xwmU84N57FlE/0PqLRaTbCguEW1+XFtJLV52am3zmesA9GJa84WzbVXB9TwtGvLnvojWApW4z7hYYWfuUtDZduClVNfhu2IreCWZEeLJIjIaxPz+BVWzXJGUw8t76dI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=3YDBkTJe reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+Received: from mail-lr2-f7.google.com (mail-lr2-f7.google.com [74.125.230.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C61A43AFCFF
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 03:03:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791946982; cv=pass; b=ZU5hccKUFrgJlp/vgWs04n2cmrqzw7hkWJ6eqeDngK2xe+8TVqGiTxm18yaywGq3eYmXdT7lXzsr5odqySxndIygMbNKmlhijbgc9CF+sNcLT1bRt9wQsz+ZpxYsXykORf4KWejTw01hHBvGJP3RDqRx2Gbpb67/p45DSFDaz18=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791946982; c=relaxed/simple;
+	bh=XbnitDCqJmDt4WiuCkkU/XQ2pMAbka+HkyNqYHBdhkQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=E3qQnzn2PBRGEnFlxuGX3y9R5uxv7VRX8UhKooXZdjF22eT1WDCQfcMijVeXxI2Lcr6b8NocgbPilBu/5IKGHiLlleKtYgTuZk13ZJ22n4OooYnyWTvL2XnqulaGpqItX6ODQpKMoA9P1C2TqbSseBzTRgd76frOIHVGtmOwh7E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nr6ny/FC; arc=pass smtp.client-ip=74.125.230.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="3YDBkTJe"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nr6ny/FC"
+Received: by mail-lr2-f7.google.com with SMTP id 38308e7fff4ca-3a9ad752b4dso3318431fa.0
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 20:03:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791946979; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lQ4y+ae1oedvZ+O0QoW2AWgjh0CSOS7+gHZ85f9D8DWNy7RaOWPAV6FoAZAY16d3in
+         6M64z6CjZjxs4fBIdCVXFhMkTyoV3UmrY2vR7UAw8jempEJ2+yhYcojxP0EG0Z84qrHC
+         GeLYqEoAWr0EaO4L6mynyd7QJrmP/4kG2wG0e9rrZxplOpVKmJl8X73MZDAoojBLyV1z
+         5VUuJh0xmt6YG6HU1Iq/qy6K71fOch+WSkoSVLR+JMTk7oP+DnSJGhMxmgk5Qg2V7XB4
+         dOL8eosZYuUoE8Y6/dMnVMItGe8IpbqI1uXybeB06QiGdAk/DO/vtZtQvH+GrvT1n5Pu
+         15bg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=oaE/H0ZV/2aESDvS9Gp3EEHeBvb99SQefPoRqEUxC5k=;
+        fh=cee82V7wgAYLsVV0AEpEmJiB3hTIwbYTnf+9FQ4pks4=;
+        b=XlEKs0lZI+YkRqipn3j42xQE6zKNrb5LYmhlmS3P+/scb1W6Y8kLlAy4bMMHSKbkSy
+         xcRoYcF8VoPNEjly3ldHMN0ZuO+D5y+oKgXw/lTE0dnTkjzJWe54ZtHM2ZLPQMD/qcFi
+         Y1/SJTKLTgJmCpnknPkt5h7Ea/Vr+MMc575/tncL7C+ZbIJvH2Nuasx5JU2amP9Q/bKE
+         LsNI4N9GvIrspZ0YJuyfcaDt9Uipqm9W4AlR9xqtNcsVThRFBMvdz5OFkP9wY/PnarM5
+         gB8boiSAauh8bS56c07HcYCwtDqHPtsF/XrwunRclwGPJOxmkHUMZjDFKi+fsaMbM90v
+         SdhQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=7FyG7Zks92
-	8P51SwWoo17P2fONhXNiKiM0ENlaJTlvs=; b=3YDBkTJeR1mMJ8cO2M4QTiOOdD
-	CR2QrCHPfxE8D4pk0UWH6AJ7dMXXPaqveXF0zl5YTueE5ug+YCN6cqyoAgVgp9Ps
-	p1o/O+76PN5aJg7slvquY8xdbf5PPUUjrcelTsSkRR6jgKH400WDv/MNP3lEw4hu
-	ld8mzn3PTybKln0NQ=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.94])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkDW_gS+8M5qM+OTAA--.40987S2;
-	Wed, 14 Oct 2026 11:02:23 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Jose Alberto Reguero <jareguero@telefonica.net>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Subject: [PATCH] media: dvb-usb-v2: az6007: Release CA interface on frontend detach
-Date: Wed, 14 Oct 2026 11:02:22 +0800
-Message-Id: <20261014030222.9265-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+        d=gmail.com; s=20251104; t=1791946979; x=1792551779; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oaE/H0ZV/2aESDvS9Gp3EEHeBvb99SQefPoRqEUxC5k=;
+        b=Nr6ny/FCNuxO7wKnt7LHbQ2mJTzNobX5EkYz3yTUOp92xNQZyaoCW3+BbiTthhSLoM
+         VFSjIOYuET0+gI7Nbadtn6DyN6gS+s4iXAr2rHGWeNqcKofK0lPjaMDJeWIkTW4emCMY
+         /PkkU6gLOmALKnmmmhOZSENFPzFIbfEn/BIzBgWn8+dnXUkskrvGBrWaBOUYvtQgGqx8
+         Pety6akyXpi/nDQqPE5uKcMc3jaOnyHGyagZqGxjQWF5MlzNV0mmyfJ614RBlO8cnqtz
+         /i32U64HuxW5qgb8p96YkrFEDmVe/g1O1EBP9/z2eYBfut7m81aW/WFSuNPd6Xbo0XDP
+         P26w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791946979; x=1792551779;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oaE/H0ZV/2aESDvS9Gp3EEHeBvb99SQefPoRqEUxC5k=;
+        b=thxjXOA6fpl553JgHmv83uXvBLcMBW6rOvJ7uu65fV5VjcR1XgGFXv0KFXLfloDm7Y
+         jfqCpZlQaokdvPHFOglJkG2QZWLwCMW3WAk/TBrSIz0K9JBxURZdEWOTU5/e4p9JBMVT
+         rRMhiMlL0H6IMxgZiwWfzOT8u3esU3JkRLZtgfhzrL8i/jEFkbv4e18/el5aC1U8USfP
+         yTDDzW0etxB0tiwWl3/VoHXCd1W+b7yZyrKyWf0Eyia6vucztWUxNgUfFsQpW4JqiO4a
+         bgGJOfHf9uGUk8wJ6+QY1oW0/nRanW6Z6WOXz5WLGIX4NPQdLn7q0JcXyo2fMInM/Neh
+         RLLw==
+X-Forwarded-Encrypted: i=1; AKwUvBzcsnVRa3bC7KeEcSSxkQPXgS2FLnWvegjDslcGSUC98arO8tGBenHcy9RpCV3QWjHh8UW30p0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYITnQ/xEAUeiFApWFhvMy4UE1twg4RQiFfiA256ITUguvwUHRH4
+	vX+xF2aH5NIGX5g17/XD2t9HBjY2uWZfgbQoQi60iA7RMsm+GqWOV52qaZXkvP3K6c25omL1u2a
+	aMJr3Py6U3Llh1wMiSvtdN+EmbSrd/BI=
+X-Gm-Gg: AYBFou3isOEjgentLymJ8NQFI29XW5GAowBl10ZBojoT5qHUpqrQRXn11fIfoTwncmX
+	/9KXYMdD71VbHUWxlWk/gqyFIBagj9gAh3YVZGG62OgLJIpuH1RgAnK/wAOuwqZB9TguF0afFCt
+	BvuqCkUSabEfolWDR1kEMIGFe45/IrbTpglfOz+VUJsmdV5jx/jQO+z6P2DhmnvO1RR/2emy9pu
+	ofyqAsHw4ac+0sY8dgFruA03UbxQpK7ov4dN8d/nP72e2EdQWJTSx77+fwxTWK2ZLy9eKYk7gdn
+	1myItU1cFjMZpAfQmyrpPbROmKa6AVpOnGDEuzGxpUKWLztLz+7Cmk2Hzk2Z4LKqxoQ=
+X-Received: by 2002:a05:651c:1542:b0:3a6:692d:b7ed with SMTP id
+ 38308e7fff4ca-3a9c539343dmr38351911fa.20.1791946978412; Tue, 13 Oct 2026
+ 20:02:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkDW_gS+8M5qM+OTAA--.40987S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXw43Zw1UWw4rWr1kZrykAFb_yoW5tr1kpF
-	WvgFWfKFW0qws7Wa1UJwn7Jrn5Xw4xJF93G34xCw4F9Fn0gFyrCryFka40yF1rCr4rAw43
-	t3W8XFy7Ka1jkF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9C14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
-	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr
-	0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
-	x2IErcIFxwCY1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_Gr4l42xK82IYc2Ij64vIr4
-	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
-	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
-	8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
-	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
-	v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x0JU4q2NUUUUU=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUGD2rOS7xmRQAAs+
+References: <9e519955-e63b-469d-8acf-268b9802e0b6@amd.com> <20261010030230.1764682-1-bsdhenrymartin@gmail.com>
+ <4df51e6e-b017-4057-96dc-32d4003f8705@amd.com>
+In-Reply-To: <4df51e6e-b017-4057-96dc-32d4003f8705@amd.com>
+From: henry martin <bsdhenrymartin@gmail.com>
+Date: Wed, 14 Oct 2026 11:02:46 +0800
+X-Gm-Features: AclHuK9wmlZSIF4pzMKiC6asGVwJ7ETTkkdCmGmvxP7lUevo_EYe8yPIyar_-KM
+Message-ID: <CAEnQdOpWJ-73FyQzgov2g9___KWptdK5PZcOkwi1FS4b6mhOFg@mail.gmail.com>
+Subject: Re: [PATCH v2] amdkfd: fix doorbell allocation race creating
+ duplicate allocations
+To: Felix Kuehling <felix.kuehling@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>, 
+	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-During device initialization in dvb_usbv2_probe(), the driver calls
-az6007_frontend_attach() which invokes az6007_ci_init() to initialize
-the EN50221 Conditional Access (CA) interface via dvb_ca_en50221_init().
-This starts a background monitoring kernel thread named "kdvb-ca-%d:%d".
+Hi Felix,
 
-If a subsequent initialization step fails in dvb_usbv2_init(), the probe
-routine branches to err_free_all, calling dvb_usbv2_exit() and then freeing
-d->priv via kfree(d->priv).
+No objection at all - 16f0013157bf ("drm/amdkfd: Allocate doorbells
+only when needed") looks right to me.  Thanks for the archaeology
+and for taking care of the tag before submission.
 
-However, az6007_props and az6007_cablestar_hdci_props do not define a
-.frontend_detach callback. Consequently, dvb_usbv2_adapter_frontend_exit()
-skips tearing down the CA interface. The background CA monitoring thread
-continues running and attempts to dereference ca->pub in
-dvb_ca_en50221_check_camstatus(), accessing the already freed d->priv
-memory, which triggers a slab-use-after-free or a crash due to an invalid
-instruction fetch:
+Regards,
+Henry
 
-  BUG: unable to handle page fault for address: 000001a400000001
-  #PF: supervisor instruction fetch in kernel mode
-  RIP: 0010:0x1a400000001
-  Call Trace:
-   dvb_ca_en50221_check_camstatus+0x107/0x310
-   dvb_ca_en50221_thread_state_machine+0x31/0xb40
-   dvb_ca_en50221_thread+0x12a/0x180
-   kthread+0x106/0x220
-
-Fix this by implementing az6007_frontend_detach() to call
-az6007_ci_uninit(), which stops the kernel thread and releases the
-CA interface before d->priv is freed.
-
-Fixes: 962f8f67e486 ("[media] Add CI support to az6007 driver")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/media/usb/dvb-usb-v2/az6007.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/drivers/media/usb/dvb-usb-v2/az6007.c b/drivers/media/usb/dvb-usb-v2/az6007.c
-index 65ef045b74ca..cff27708da3a 100644
---- a/drivers/media/usb/dvb-usb-v2/az6007.c
-+++ b/drivers/media/usb/dvb-usb-v2/az6007.c
-@@ -609,6 +609,14 @@ static int az6007_ci_init(struct dvb_usb_adapter *adap)
- 	return 0;
- }
- 
-+static int az6007_frontend_detach(struct dvb_usb_adapter *adap)
-+{
-+	struct dvb_usb_device *d = adap_to_d(adap);
-+
-+	az6007_ci_uninit(d);
-+	return 0;
-+}
-+
- static int az6007_read_mac_addr(struct dvb_usb_adapter *adap, u8 mac[6])
- {
- 	struct dvb_usb_device *d = adap_to_d(adap);
-@@ -900,6 +908,7 @@ static struct dvb_usb_device_properties az6007_props = {
- 	.i2c_algo            = &az6007_i2c_algo,
- 	.tuner_attach        = az6007_tuner_attach,
- 	.frontend_attach     = az6007_frontend_attach,
-+	.frontend_detach     = az6007_frontend_detach,
- 	.streaming_ctrl      = az6007_streaming_ctrl,
- 	.get_rc_config       = az6007_get_rc_config,
- 	.read_mac_address    = az6007_read_mac_addr,
-@@ -922,6 +931,7 @@ static struct dvb_usb_device_properties az6007_cablestar_hdci_props = {
- 	.i2c_algo            = &az6007_i2c_algo,
- 	.tuner_attach        = az6007_tuner_attach,
- 	.frontend_attach     = az6007_cablestar_hdci_frontend_attach,
-+	.frontend_detach     = az6007_frontend_detach,
- 	.streaming_ctrl      = az6007_streaming_ctrl,
- /* ditch get_rc_config as it can't work (TS35 remote, I believe it's rc5) */
- 	.get_rc_config       = NULL,
--- 
-2.34.1
-
+Felix Kuehling <felix.kuehling@amd.com> =E4=BA=8E2026=E5=B9=B410=E6=9C=8814=
+=E6=97=A5=E5=91=A8=E4=B8=89 01:40=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On 2026-10-09 23:02, Henry Martin wrote:
+> > The check-and-allocate sequence on pdd->qpd.proc_doorbells is
+> > lockless at every call site of kfd_alloc_process_doorbells():
+> > kfd_get_process_doorbells() (mmap of /dev/kfd),
+> > kfd_ioctl_create_queue() and the CRIU restore path each test the
+> > pointer under different locking (or none), so two racing threads can
+> > both observe NULL and each allocate a doorbell BO and bitmap,
+> > orphaning one allocation and handing the two mappings different
+> > backing pages.
+> >
+> > Move the serialization into kfd_alloc_process_doorbells() itself,
+> > using a new per-process-device mutex so all three call sites are
+> > covered regardless of their own locking.  The device-global
+> > kfd->doorbell_mutex is not suitable here: it is acquired under
+> > dqm->lock on the kernel-doorbell path (start_cpsch() -> pm_init() ->
+> > kq_initialize() -> kfd_get_kernel_doorbell()), so holding it across
+> > the sleeping allocations above would create a lock-ordering
+> > inversion with dqm->lock via TTM eviction, and it would also
+> > serialize doorbell setup of unrelated processes behind a
+> > device-wide lock for per-process state.
+> >
+> > This issue was discovered by Tencent CodeBuddy Security.
+> >
+> > Cc: stable@vger.kernel.org
+> > Fixes: 2105a15a2046 ("drm/amdgpu: use doorbell mgr for kfd process door=
+bells")
+>
+> I don't think the Fixes tag is correct, even though that's what Claude
+> suggested. As far as I can see, the code had the same possible race
+> condition before that change. I believe the problem goes back all the
+> way to 16f0013157bf ("drm/amdkfd: Allocate doorbells only when needed").
+> If you don't mind, I'll update that in the commit description before I
+> submit your patch. With that, the patch is
+>
+> Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+>
+> Thanks,
+>    Felix
+>
+>
+> > Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+> > ---
+> >
+> > v2: Use a per-process-device mutex instead of kfd->doorbell_mutex
+> >      (avoids the dqm->lock ordering inversion and the device-wide
+> >      serialization) and correct the Fixes tag.  Pointed out by Felix
+> >      Kuehling.
+> >
+> >   drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 15 ++++++++++++++-
+> >   drivers/gpu/drm/amd/amdkfd/kfd_priv.h     |  3 +++
+> >   drivers/gpu/drm/amd/amdkfd/kfd_process.c  |  1 +
+> >   3 files changed, 18 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/dr=
+m/amd/amdkfd/kfd_doorbell.c
+> > index fdcf7f2d1b5b4..55acadc986bee 100644
+> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+> > @@ -257,12 +257,21 @@ int kfd_alloc_process_doorbells(struct kfd_dev *k=
+fd, struct kfd_process_device *
+> >       int r;
+> >       struct qcm_process_device *qpd =3D &pdd->qpd;
+> >
+> > +     mutex_lock(&pdd->doorbell_mutex);
+> > +
+> > +     /* Another thread may have won the check-and-allocate race */
+> > +     if (qpd->proc_doorbells) {
+> > +             mutex_unlock(&pdd->doorbell_mutex);
+> > +             return 0;
+> > +     }
+> > +
+> >       /* Allocate bitmap for dynamic doorbell allocation */
+> >       qpd->doorbell_bitmap =3D bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_=
+PROCESS,
+> >                                            GFP_KERNEL);
+> >       if (!qpd->doorbell_bitmap) {
+> >               DRM_ERROR("Failed to allocate process doorbell bitmap\n")=
+;
+> > -             return -ENOMEM;
+> > +             r =3D -ENOMEM;
+> > +             goto unlock;
+> >       }
+> >
+> >       r =3D init_doorbell_bitmap(&pdd->qpd, kfd);
+> > @@ -284,11 +293,15 @@ int kfd_alloc_process_doorbells(struct kfd_dev *k=
+fd, struct kfd_process_device *
+> >               DRM_ERROR("Failed to allocate process doorbells\n");
+> >               goto err;
+> >       }
+> > +
+> > +     mutex_unlock(&pdd->doorbell_mutex);
+> >       return 0;
+> >
+> >   err:
+> >       bitmap_free(qpd->doorbell_bitmap);
+> >       qpd->doorbell_bitmap =3D NULL;
+> > +unlock:
+> > +     mutex_unlock(&pdd->doorbell_mutex);
+> >       return r;
+> >   }
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/am=
+d/amdkfd/kfd_priv.h
+> > index d8631847f0eb9..96e59133fee02 100644
+> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> > @@ -779,6 +779,9 @@ struct kfd_process_device {
+> >       /* per-process-per device QCM data structure */
+> >       struct qcm_process_device qpd;
+> >
+> > +     /* Serializes process doorbell allocation for this device */
+> > +     struct mutex doorbell_mutex;
+> > +
+> >       /*Apertures*/
+> >       uint64_t lds_base;
+> >       uint64_t lds_limit;
+> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm=
+/amd/amdkfd/kfd_process.c
+> > index 0a7c1900da959..4efe4dae79c13 100644
+> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> > @@ -1788,6 +1788,7 @@ struct kfd_process_device *kfd_create_process_dev=
+ice_data(struct kfd_node *dev,
+> >       pdd->dev =3D dev;
+> >       INIT_LIST_HEAD(&pdd->qpd.queues_list);
+> >       INIT_LIST_HEAD(&pdd->qpd.priv_queue_list);
+> > +     mutex_init(&pdd->doorbell_mutex);
+> >       pdd->qpd.dqm =3D dev->dqm;
+> >       pdd->qpd.pqm =3D &p->pqm;
+> >       pdd->qpd.evicted =3D 0;
