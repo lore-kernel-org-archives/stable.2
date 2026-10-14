@@ -1,72 +1,74 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC2647ACC5
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:21:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98C83EEAC1
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:22:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792005684; cv=none; b=LYzNIAdYt63M9Tpaj3ByonZnbQ2hMSKbA3UTguBJCrWffkcKY0StWJ/1S59bFCoGF34k+OWE1aRNqKOgw/9KDqX7dYqKx2bLv0VYVd3u/398D1UxQkvmax7/Kz2V91Ou9c81Ss4p+4GVf0H6LyLcDF6jmBbieARXgguySY9BGC8=
+	t=1792005736; cv=none; b=SrybQUyeRzaPvP/oJCeMixAALXLI5rKfil7FDdNXURSvIOk6GrfpmtAO7ZjXogZY3JcWqCcb+wuwTXXFeFD80cF5jOGplF6/QcLuB7yDWh+rBkgFAURXDXiY+g4hB8DXrFo6ioEpp3EjPAxH4ddFm8XpMl5kgN0Ntid1CSu4zl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792005684; c=relaxed/simple;
-	bh=UrMyo00SNY2ABPsFiD1pr1qfiLMNapahXhN5HWuZbvA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rAbijKibca4eUaywlVZu8Gstn694vHNItcBAg7JWyQa0SnX/wsYDmJfpy3z+8n6sF5JE9D1CgGGURTnRtXKsgenZYmxryRLKClSG9ZLab9lLdGY3NASCDv0fyisnGK6R/8VdWRBDnQGWCZClCKqGGwWuVZ+RXOysUm6bevCtdHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=H1gVrXDD; arc=none smtp.client-ip=74.125.82.180
+	s=arc-20240116; t=1792005736; c=relaxed/simple;
+	bh=tan2hb3670Vm2sGmIPiTgFxKcLfv39XdtlpSAF/OsPc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=DgFyGOJd3kDrRanQYNjupOUjy8xxXAJfRDuXiaOmgvljcJNfsQvClsbklZe9/hGdyCcgK8NlvaSUmd8rWmXqCCiBZ6BLLzfuo8lUM50bfcALaLascUCVPShk/JqQT1KMwEW/gH3OSS4jwMVQJPSsgItM1ZX1DbFIR/1pvEqb/CM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=X7u8WNHz; arc=none smtp.client-ip=74.125.82.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="H1gVrXDD"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-353804b591eso7946937eec.0
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 12:21:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="X7u8WNHz"
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1517bda04a0so3102196c88.0
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 12:22:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792005681; x=1792610481; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FKWPHyXm/RBE3XBdWdQ17S7GMceJugCqc25wfMm20QQ=;
-        b=H1gVrXDDyQ8UIHoIheY/+RwT1BBtBVvr01/IgjHfyZE7qdDB2zt7DWFgONB1MGERH7
-         54ifE5QIzGtLNpgOKoVBC+4nLj4LCAQDu3eSPf/l5DB4JRZN0GNgUMlKinpJaBlJIn9m
-         Jl32acUW65YGx7i80VXQLOc/kSCrsaH2tc0H4DjPk5EJszqKvXF9taA6jt9CWqIEs/7n
-         6jJj4fdU92UuAu3uOThf3UwkkgCd8Dfc8VX8MXdt/oQvnzppu4iejtPSLZ44k7TIfHR3
-         Dv4/vkZeg1JRpumV2kljA9C8WjgCSAG30fzdrZI/DM4f7AtaBSmKKdvBBytwDqC0vkHN
-         iH0w==
+        d=trailofbits.com; s=google; t=1792005734; x=1792610534; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=of2vVv6MKAeILs87Fg9QkgH0OUFv0IlSW4buiHQEMUM=;
+        b=X7u8WNHzj3pd6HvtBu2DfYMcaqkg/bf7Bw50QVFG9XYk1CH6AjD0AhC6NS4RZnvKZ8
+         9OVyj0+gFxeZ0qY/pRi6OvtgEjZuRDWoWbfW7N3yl4UH9jiboDN6DUuBVZEENmy9Adw5
+         mnjkQThPQnHybXh53Qb7f0buDC7XczHB74aCwT6nFETCQeA1KrS2QgBXBJY994mwhnBe
+         sxngvBE2qqp60Kq2BI1HtZMKmdE0O1t8n7czw1bZel9D4GTgUovG2lJwQxhuaCSUVD9B
+         YWfI4Plmns2QXWuLJBKtLTormlmeRYRKVttRxK0IZyxzC5nP9M4VTEAw/L2KmPY9XBBP
+         jpOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792005681; x=1792610481;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FKWPHyXm/RBE3XBdWdQ17S7GMceJugCqc25wfMm20QQ=;
-        b=QynamYc/lucSMa9Pwazwqcw/rTFBuYLr9Z89bVC6pM0CHtULcYtgbP8wo6P10GAG1n
-         D8mt5IEfyRX9R0vWw4JNbSEkCJugEtCatYOc0YWCeKGnFIhv7fGpKwgQlX+ArlAQS19d
-         zkJiUyAS7w7su3vLi66z00QbsjGwZrfmLGnQRaUgTcsjEFDLIE7YxrJSsOs7R+ZMBymZ
-         fx2T/LAvOOW5wy0h/JzyR0OOYuB3/xlC+hcHlV3GMrK2C3fxISS1PenGsl2B6EPjP70E
-         sKnewoG5H7OhfSKriE6rchoBOv5hUgCeAciMKMk2uATP6dD0Vlg8XCBLBsQV3yoszSAi
-         vMNg==
-X-Gm-Message-State: AFq9FYIUUt/P8sOvFaQO+0Gk350ZoRu2fYrAjqtiL1t46RjuvJOp44WV
-	DqGIpQ+XWS3GHAHwtz4dsV8AoYIboYwjZ/FMT9msm5rtdUmZaIQH5Nq3HY2utIxMbHMj5uPqLJl
-	5KJ+CTum/IQ==
-X-Gm-Gg: AYBFou2M0tBBMTIqoBk0d/sMkEQqRJknu8ajkdvRgWzwRfkGoaehl4jsqy3wiQ9AanM
-	Yszq6VxQ+oUpzaR8+g5spcigjcIROqr57OVYVqBv2ZoPUJcwZWs1OmCuCbeSgqDaJV2wPZPy7d8
-	2wQbTY+jt2rDW+dREKOiWLAYNOtTmKdn7G2by5AlK8J1FTj/QRRsqhDuvLmwOZExPBKJLuo1lws
-	C5uaehV1FpefxGW9MMGN2UdiDQoOJj/TipiQmXho8H8lMa5rHPkNPW4xoaijxiey2rxKhFu2LyV
-	Ourp1gQXlLGzXokSahK/P07h4tyjOQ/Y8V105Y6PxttilyxHmTCE2iV77kTv1XxPKnuvJBPoYSW
-	onzZUAIUiTh4ce8/tT+nKY6Hl5q6KxHxHUZqFmpIPFhbUtIB9b2g/rgDwIv31GRxzwdGAJIlmQX
-	8qUHoi2TB7c2ynMuRgRqWtMZ4Q5Z+6aIc+1kqHfL1YveQB8ZC1vK0DvvE8g7LB7wG96F1tEiGMC
-	Q6taNcXsb6x2m+/rp7hJDQ2EFZr0zfMKF7qhrfRin5IxfWaHcQzMilNfKi8UKfTMNBdUOY=
-X-Received: by 2002:a05:7301:53c1:b0:351:5cb5:53f7 with SMTP id 5a478bee46e88-3537dedd531mr23549875eec.3.1792005681162;
-        Wed, 14 Oct 2026 12:21:21 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792005734; x=1792610534;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=of2vVv6MKAeILs87Fg9QkgH0OUFv0IlSW4buiHQEMUM=;
+        b=xKzfw5S6eJ4mVJ1XStyP2wv0QBmJAvFaAXHFBP5/yAOajASkPOlSgHIZ0av2ri2oxQ
+         sHz/e+MjO+VT2Aniha2wbINyeLZmqt2ZqlgTZcFo16BI8CpANotiU+vD7UspF70epsFV
+         tyEtU+9JeqvhQioHWenXACifxwPHoMrkLDgN+SQHJzv6ZAde1BNlPNnWiLPIh/dgTxSK
+         /C6LeqYq72CZQFs0m11EpTrwCE3yVDtWQ0/kzn65QvDH/LRL3D0jT9qiVNfcyBHTJ/+i
+         mIVlpt/Qbt/aYIHryH7PQBbaMJLezQL7X1GAA3uN5SvfZbxaUKkSM4x6UyHgR6qR0q1o
+         vd4w==
+X-Gm-Message-State: AFq9FYKXHE6QZ1RGiEJyJuDVGrgEVVUYJsLVCDq/KXgehqwciMq1yner
+	TLukYEg+MnpSKktoJmF7R8Vk2Wzo5Zmlauynapbr3E4gIfH/STq9WcA9jh8WPc4G0lHY02266wd
+	+g1BLFt1hxg==
+X-Gm-Gg: AYBFou2M/613DmqltIv4g3CCxjicUCqEpNV0UA9Hcah5MQk1uMfqMFZdL412GP5Dp33
+	h03MewVhZhA4IxrBySauqv9SimrQIYKzg/3FdH+FUpzFYp8wTxMirl7UoI2unHFohhgO4/Vv7V9
+	SyursZ8nThzOh5qoPl+OAJH6Y3VMn1/jbraSdU0LYurQ17Kx1GmcU5jJp5VO4CQVWTFSMup9A7h
+	ShDYwTIVjE/h1Kl/17iJQq+LmClQfaStEreAFunv812z/v/sZS4+fDPRTw/IggaM350fZJ9QrpH
+	T/mzv4VxcSycJ6kBzAE4TL+p1s3gRztOJVtAAoxgsJT2nxwcgaSYsxe0HWM8Owi1TkHqCFI0qEI
+	IGKPzk31qo41kkaR1BBjHc/Xnk5C0UT/oZbJ/1qHFktkld/2ISQBLJSgdFkQ3NMccOO8QhqIKZP
+	pRw21t6ja0r0DmTtdVdRkIGqHGSxrnt8T9wD2AJiwTpryYui8kt4VQL2PMox7aNmkldzOX63B6a
+	wkfNkr3WbrohelsmtGngO41m9J5szcjVzJpk2F4ei4g4FgbViQNWUtkSRZk0/61J85brLs=
+X-Received: by 2002:a05:701b:2717:b0:16d:dd5c:4261 with SMTP id a92af1059eb24-16ddd5c42a5mr22557356c88.46.1792005733513;
+        Wed, 14 Oct 2026 12:22:13 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:39d1:d8de:aae7:23dd])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35b29c2f861sm38670979eec.11.2026.10.14.12.21.17
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a31f6f5csm47780318c88.11.2026.10.14.12.22.12
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 14 Oct 2026 12:21:19 -0700 (PDT)
+        Wed, 14 Oct 2026 12:22:12 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
+Cc: cassiogabrielcontato@gmail.com,
+	linux-kernel@vger.kernel.org,
 	linux-sound@vger.kernel.org,
 	perex@perex.cz,
 	tiwai@suse.com,
 	tiwai@suse.de
-Subject: [PATCH 6.6.y] ALSA: control: Don't add invalid kcontrols to LED layer
-Date: Wed, 14 Oct 2026 15:21:15 -0400
-Message-ID: <20261014192115.24210-1-artem@trailofbits.com>
+Subject: [PATCH 6.6.y] ALSA: pcm: oss: Fix setup list UAF on proc write error
+Date: Wed, 14 Oct 2026 15:22:10 -0400
+Message-ID: <20261014192210.24272-1-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -74,41 +76,45 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Takashi Iwai <tiwai@suse.de>
+From: =?utf-8?q?C=C3=A1ssio_Gabriel?= <cassiogabrielcontato@gmail.com>
 
-[ Upstream commit 74e3b979ce8b78a690f8b94ccf2e2c965f7f5c11 ]
+[ Upstream commit 4cc54bdd54b337e77115be5b55577d1c58608eae ]
 
-The kcontrol LED state layer tries to track the all associated
-kcontrol elements with naive assumptions that they are readable.
-But one can create a write-only element that has no get callback (even
-a user element can do it), and this may lead to a NULL dereference at
-the call chain of snd_ctl_led_notify(), as found by syzkaller.
+snd_pcm_oss_proc_write() links a newly allocated setup entry into the
+OSS setup list before duplicating the task name. If the task-name
+allocation fails, the error path frees the already linked entry and
+leaves setup_list pointing at freed memory.
 
-For avoiding the Oops, add a sanity check of the kcontrol's info and
-get callbacks, and just skip the invalid kcontrols before assigning
-the kctl to the LED layer.
+A later OSS device open can then walk the stale list entry in
+snd_pcm_oss_look_for_setup() and dereference freed memory.
 
-Reported-by: syzbot+b7fe2760ea6f1ee44b4d@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/6a9007b3.1d9ded08.62e62.00cd.GAE@google.com
-Fixes: 22d8de62f11b ("ALSA: control - add generic LED trigger module as the new control layer")
-Reviewed-by: Jaroslav Kysela <perex@perex.cz>
+Allocate the task name and initialize the setup entry before publishing
+the entry on setup_list. Also fetch the initial proc read iterator only
+after taking setup_mutex, so all setup_list traversal follows the same
+list lifetime rules.
+
+Reported-by: syzbot+8e498074a794999eb41c@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/all/6a1062b7.170a0220.35b2b7.0003.GAE@google.com
+Closes: https://syzkaller.appspot.com/bug?extid=8e498074a794999eb41c
+Fixes: 060d77b9c04a ("[ALSA] Fix / clean up PCM-OSS setup hooks")
+Signed-off-by: Cássio Gabriel <cassiogabrielcontato@gmail.com>
+Link: https://patch.msgid.link/20260522-alsa-pcm-oss-setup-uaf-v1-1-40bdcc4d17e8@gmail.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/20260827113951.893291-1-tiwai@suse.de
 Assisted-by: LLM
-[ Backport to 6.6.y: After the target's locked control lookup, reject
-  missing info/get callbacks via the existing unlock label so
-  controls_rwsem and the card reference are released. ]
+[ Backport to 6.6.y: Keep the target's explicit setup_mutex unlocks on
+  allocation failure and before continuing; upstream releases that mutex
+  through its scoped guard. ]
 Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
 Hi,
 
-Please consider this backport of the fix for CVE-2026-90060 to 6.6.y.
+Please consider this backport of the fix for CVE-2026-64001 to 6.6.y.
 
-The code changes are identical to upstream, except missing-callback
-failure uses the target unlock label; see the bracketed backport note
-above.
+The code changes are identical to upstream, except explicit mutex unlocks
+replace upstream scoped cleanup; see the bracketed backport note above.
 
 The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
 
@@ -118,21 +124,53 @@ Build-tested only as part of a cumulative 6.6.y series: x86_64 objects
 Thanks,
 Artem Dinaburg
 
- sound/core/control_led.c |    4 ++++
- 1 file changed, 4 insertions(+)
+ sound/core/oss/pcm_oss.c |   21 +++++++++++++--------
+ 1 file changed, 13 insertions(+), 8 deletions(-)
 
-diff --git a/sound/core/control_led.c b/sound/core/control_led.c
-index 15acb07c651502d4dc22f72bcc9e3a47923caf5e..639d86e4dd1623df612ead223a11e049fbf39afb 100644
---- a/sound/core/control_led.c
-+++ b/sound/core/control_led.c
-@@ -253,6 +253,10 @@ static int snd_ctl_led_set_id(int card_number, struct snd_ctl_elem_id *id,
- 		down_write(&card->controls_rwsem);
- 		kctl = snd_ctl_find_id_locked(card, id);
- 		if (kctl) {
-+			if (!kctl->info || !kctl->get) {
-+				err = -EINVAL;
-+				goto unlock;
+diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
+index 23ecbd70ccf653aa70a2b08aecf781a194afcc66..25f7e585bc7b93db16b024c1f3915b9895e1c82f 100644
+--- a/sound/core/oss/pcm_oss.c
++++ b/sound/core/oss/pcm_oss.c
+@@ -2964,8 +2964,10 @@ static void snd_pcm_oss_proc_read(struct snd_info_entry *entry,
+ 				  struct snd_info_buffer *buffer)
+ {
+ 	struct snd_pcm_str *pstr = entry->private_data;
+-	struct snd_pcm_oss_setup *setup = pstr->oss.setup_list;
++	struct snd_pcm_oss_setup *setup;
++
+ 	mutex_lock(&pstr->oss.setup_mutex);
++	setup = pstr->oss.setup_list;
+ 	while (setup) {
+ 		snd_iprintf(buffer, "%s %u %u%s%s%s%s%s%s\n",
+ 			    setup->task_name,
+@@ -3053,6 +3055,14 @@ static void snd_pcm_oss_proc_write(struct snd_info_entry *entry,
+ 				mutex_unlock(&pstr->oss.setup_mutex);
+ 				return;
+ 			}
++			template.task_name = kstrdup(task_name, GFP_KERNEL);
++			if (!template.task_name) {
++				kfree(setup);
++				buffer->error = -ENOMEM;
++				mutex_unlock(&pstr->oss.setup_mutex);
++				return;
 +			}
- 			ioff = snd_ctl_get_ioff(kctl, id);
- 			vd = &kctl->vd[ioff];
- 			access = vd->access & SNDRV_CTL_ELEM_ACCESS_LED_MASK;
++			*setup = template;
+ 			if (pstr->oss.setup_list == NULL)
+ 				pstr->oss.setup_list = setup;
+ 			else {
+@@ -3060,13 +3070,8 @@ static void snd_pcm_oss_proc_write(struct snd_info_entry *entry,
+ 				     setup1->next; setup1 = setup1->next);
+ 				setup1->next = setup;
+ 			}
+-			template.task_name = kstrdup(task_name, GFP_KERNEL);
+-			if (! template.task_name) {
+-				kfree(setup);
+-				buffer->error = -ENOMEM;
+-				mutex_unlock(&pstr->oss.setup_mutex);
+-				return;
+-			}
++			mutex_unlock(&pstr->oss.setup_mutex);
++			continue;
+ 		}
+ 		*setup = template;
+ 		mutex_unlock(&pstr->oss.setup_mutex);
