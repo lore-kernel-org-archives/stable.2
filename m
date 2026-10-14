@@ -1,449 +1,237 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC9411FC0
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 01:21:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1786C1A6803;
+	Wed, 14 Oct 2026 01:27:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791940909; cv=none; b=UQEptHI87hXi7e2n3nyIMZVj4w/Pb76l6hbRDLUZZ5m1AnfZHjHbo/oJRhPJeEUg1fRETxWvx9+EDyhdpEXzaKGWJ7fMSAQkl/0PkaznTP4Mcah1h1Loy4lXozCjwHU80uz33BmZxNddt+7eI3GbMKjQ6MpS1LNboPJ0R6nkmAE=
+	t=1791941241; cv=none; b=iaGAXF0ZjGHqdOOe/0zwrjw/1afepg5hzzM5tMdddxvyn/kRDmVK9L9tUsL/O1NZvnYWg8vc+HsO7TEsy2jui4iORwCKz9wOZgOvBHKaoNs83owhf0A8pP2br62Stnx3bUD4FA1NJN+Kp7dde5PP0iE73N/WrOm9Dqrd9cfbLHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791940909; c=relaxed/simple;
-	bh=hnVlL1fTKKA/Sv2R3t0281hq9pPgTnqXofFgGZvAPVI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kuKAZ7Ujd/ZKLV/zDaukLE4NzZQ2nHaynXtSLZ4xwIeHOyMYuWMTvtPyeJRinFLRM/mJWnOlu4D7jYub2ZU1mnaxHKj7rGeFNb6zyKnZtuN6s+4oQwPiZmQTIaCzalelCI4MTGtEuzgiUmS2sduW37CZnBOqTJhWwz4bQDl46Y0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gOI1EBy6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791941241; c=relaxed/simple;
+	bh=9kyd9TG66jEb5Vsz4TbVGNRzpSj284I6I9Cl7pf+Lg4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qC6tpITVZ4n6Oo07nK2rLVxXn93V7c7Hij0ovQPcu05w2cXzY7eV4tTUPwwZIT++r6WjNWMhjHHybGgAde33LZvy4m+qOsQ5Qtk/CWtmmLHm4YejT3bYfZaCfJ+H+wyiHBkB7gqkZ0uYAbYg2thnNT/iw5yK3Nv3yhV2CPWEOz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZJ2/iOou; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gOI1EBy6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 018F01F000FF;
-	Wed, 14 Oct 2026 01:21:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791940907;
-	bh=r1PsYiBx5pOE6LgpKRNoYyPSzZgl/tsGOFZcSNYE8NQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gOI1EBy62mfX61TD1UD6XsbOxmha1ZmnBCOPuL+zqEU0OlPl/k9E2I3q4BMdseioF
-	 /Yh/ISHyhTq2557fip2AmHJUmrAuDrFHYIZqj/lfxsGP44go2p+gU7b+ypg9xnKCmx
-	 eq8HqQr2uYD/iijvUge8x6GOwSPF39bw/yCzNSekuGDIzXyyq64So8hgGa7Qb4KfVz
-	 mM5AjIDkS6R9H5lQLxmZhHeiBav3lvajw3OUC9SEACFtDsWPKpf5jmaSEB/7bjYlvQ
-	 0oJahAcHn2coLd4FXkssMOpJGZXFEHGJoCViVOsiZp1kHCviREQ10HbldPcP+Y71gT
-	 PiotHEZjH+mtw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] namespace: unhash a dentry before detaching the mounts on it
-Date: Tue, 13 Oct 2026 21:21:45 -0400
-Message-ID: <20261014012115.1613615-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101212-snap-scoop-0999@gregkh>
-References: <2026101212-snap-scoop-0999@gregkh>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZJ2/iOou"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791941240; x=1823477240;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=9kyd9TG66jEb5Vsz4TbVGNRzpSj284I6I9Cl7pf+Lg4=;
+  b=ZJ2/iOouLfYL5gUVU3vOwBJCaqfrYj+APc4qqNVGz0bnW1XaYPR3zRYi
+   +1QmfpfHw/Ajzy2bdaIn/cbQbks2UNz/2xzbFCd/Y72YYONbv8BISpE0c
+   YGJwEJupe6Zq5hi+LVKsl8qJx5dHyiTStK4BzdT1ghduttdUMJOep/xfr
+   tbzMUxA6sCs3xWzopH9ynKKQEw5OxbsGxoVyjhYj1ZdpoBty2rvdXHpPf
+   SpE0anSteM/kQ8/ZOzS4Gs+9zVv6OKa2yDZqKwRnVg8DZmcuKlfH5aIi5
+   tyRYdttGj9qHDxqyCdk7Y6ZAhgm9ozcLt8UebzcDood3jBJCoV6uHW5C1
+   A==;
+X-CSE-ConnectionGUID: m6Co8WyaTViAzs8LpE4WRg==
+X-CSE-MsgGUID: 3imaHwiQTOqMtbCUY00M/A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="685490"
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="685490"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 18:27:19 -0700
+X-CSE-ConnectionGUID: wUjCBKQ0SJ+ra83MoISo5g==
+X-CSE-MsgGUID: KXw7C3VFSDOqhM9Aqt9UgA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
+   d="scan'208";a="1268054"
+Received: from unknown (HELO [10.238.4.83]) ([10.238.4.83])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 18:27:15 -0700
+Message-ID: <56ce8365-0a31-4496-be5d-fc867cbe15da@linux.intel.com>
+Date: Wed, 14 Oct 2026 09:27:13 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] perf/x86/intel/uncore: Add Granite Rapids CMS PMU support
+To: Zide Chen <zide.chen@intel.com>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Andi Kleen <ak@linux.intel.com>, Eranian Stephane <eranian@google.com>
+Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261013194005.96615-1-zide.chen@intel.com>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <20261013194005.96615-1-zide.chen@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Christian Brauner <brauner@kernel.org>
+LGTM. Thanks.
 
-[ Upstream commit 528b383dc35d1e5caf64ddf5d35f983ae543b0d0 ]
+Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-unlink(), rmdir() and rename() remove the entry from the filesystem,
-call detach_mounts() on the entry with the inode locked and then call
-d_delete() once the inode is unlocked.
 
-The thing is that between detach_mounts() and d_delete() the dentry is
-still hashed and positive. But after detach_mounts() nothing covers the
-dentry anymore. A lookup that finds this dentry in the dcache can
-uncover what the mounts hid.
-
-That's a problem when unlinking files or directories that are
-mountpoints in other mount namespaces. Everybody who had the underlying
-entry covered can race the detach_mount() call until d_delete() has run.
-
-The race window isn't all that small. It encompasses namespace_unlock()
-with a full synchronize_rcu_expedited() grace period and the
-inode_unlock() of the entry.
-
-In my experiments three walkers that kept trying read an overmounted
-file in 11938 of the 16140 unlinks that removed its mountpoint from a
-bind mount of the filesystem within a minute.
-
-Fun fact, d_invalidate() has the same ordering problem but gets it
-right. It unhashes the dentry first and detaches the mounts afterwards.
-Let's do the same in __detach_mounts():
-
-- A lookup that hasn't found the dentry yet misses it in the dcache and
-  waits for the directory lock that the caller holds until the name is
-  gone for good.
-
-- A lockless lookup that found it already fails the mount_lock check
-  while the dentry still counts as a mountpoint and the d_seq check once
-  it doesn't, and retries.
-
-This fixes the lockless path. We still need to fix the reference count
-lookup in a follow-up patch.
-
-So d_drop() the dentry. The dentry stays positive and held but can't be
-found anymore. Then proceed with the detach and unlink.
-
-Reproducer:
-
-The reads were counted with the program below, three walkers for 60 s
-in a VM with 4 CPUs. The race window is stretched with the debug patch
-pasted here. fs.detach_race_walk_us sleeps in lookup_fast() once it
-found a mountpoint dentry and before its mounts are crossed.
-fs.detach_race_unlink_us sleeps in vfs_unlink() between detach_mounts()
-and d_delete().
-
-  // SPDX-License-Identifier: GPL-2.0
-  /*
-   * unlink_covered: unlink a file that is a mountpoint in a detached copy of
-   * its mount, against lookups that open it through that copy.
-   *
-   * A is a tmpfs with the file f1 (content SECRET_F) and the plain file
-   * MARK_A. A' is an open_tree(OPEN_TREE_CLONE) copy of A with MARK_A bound
-   * on A'/f1, held through an O_PATH fd on its root once the tree fd is
-   * closed. Walkers open f1 through that fd while the driver unlinks A/f1,
-   * where nothing is mounted on it. A walker may read MARK_A or get ENOENT.
-   * A read of SECRET_F is a hit: the name was found after its mount was
-   * gone. The lockless walks use openat2(RESOLVE_CACHED).
-   *
-   * usage: unlink_covered [-t seconds] [-w walkers]
-   */
-  #ifndef _GNU_SOURCE
-  #define _GNU_SOURCE
-  #endif
-  #include <errno.h>
-  #include <fcntl.h>
-  #include <pthread.h>
-  #include <stdatomic.h>
-  #include <stdio.h>
-  #include <stdlib.h>
-  #include <string.h>
-  #include <unistd.h>
-  #include <sys/mount.h>
-  #include <sys/stat.h>
-  #include <sys/syscall.h>
-  #include <linux/openat2.h>
-
-  #ifndef __NR_open_tree
-  #define __NR_open_tree 428
-  #endif
-  #ifndef __NR_move_mount
-  #define __NR_move_mount 429
-  #endif
-  #ifndef __NR_openat2
-  #define __NR_openat2 437
-  #endif
-  #ifndef OPEN_TREE_CLONE
-  #define OPEN_TREE_CLONE 1
-  #endif
-  #ifndef OPEN_TREE_CLOEXEC
-  #define OPEN_TREE_CLOEXEC O_CLOEXEC
-  #endif
-  #ifndef MOVE_MOUNT_F_EMPTY_PATH
-  #define MOVE_MOUNT_F_EMPTY_PATH 0x00000004
-  #endif
-
-  #define WORK "/tmp/uc"
-  #define ADIR WORK "/A"
-
-  static int duration = 60, nwalkers = 3;
-  static atomic_int stop, writer_waiting;
-  static pthread_rwlock_t cur_lock = PTHREAD_RWLOCK_INITIALIZER;
-  static int cur_fd = -1;		/* the root of A', -1 while there is none */
-  static atomic_long n_unlink, n_walk, n_mark, n_enoent, n_other, n_secret,
-  		   n_secret_cached;
-
-  static void die(const char *what)
-  {
-  	fprintf(stderr, "FATAL %s: %s\n", what, strerror(errno));
-  	exit(2);
-  }
-
-  static void put_file(int dfd, const char *name, const char *content)
-  {
-  	int fd = openat(dfd, name, O_CREAT | O_WRONLY | O_TRUNC | O_CLOEXEC,
-  			0644);
-
-  	if (fd < 0 || write(fd, content, strlen(content)) < 0)
-  		die(name);
-  	close(fd);
-  }
-
-  /* "plain/../" @n times, then f1: a longer walk that checks nothing on its way */
-  static char *longpath(int n)
-  {
-  	char *p = malloc(n * 9 + 3), *q = p;
-
-  	for (int i = 0; i < n; i++, q += 9)
-  		memcpy(q, "plain/../", 9);
-  	strcpy(q, "f1");
-  	return p;
-  }
-
-  static void try_read(int dfd, const char *path, int cached)
-  {
-  	struct open_how how = { .flags = O_RDONLY | O_CLOEXEC,
-  				.resolve = RESOLVE_CACHED };
-  	char buf[32] = "";
-  	long n;
-  	int fd;
-
-  	if (cached)
-  		fd = syscall(__NR_openat2, dfd, path, &how, sizeof(how));
-  	else
-  		fd = openat(dfd, path, O_RDONLY | O_CLOEXEC);
-  	atomic_fetch_add(&n_walk, 1);
-  	if (fd < 0) {
-  		if (errno == ENOENT)
-  			atomic_fetch_add(&n_enoent, 1);
-  		else if (!cached || errno != EAGAIN)
-  			atomic_fetch_add(&n_other, 1);
-  		return;
-  	}
-  	n = read(fd, buf, sizeof(buf) - 1);
-  	close(fd);
-  	if (n >= 6 && !strncmp(buf, "SECRET", 6)) {
-  		if (cached)
-  			atomic_fetch_add(&n_secret_cached, 1);
-  		if (!atomic_fetch_add(&n_secret, 1))
-  			printf("HIT: read \"%s\" through %s (%s walk)\n", buf,
-  			       path, cached ? "lockless" : "any");
-  	} else {
-  		atomic_fetch_add(&n_mark, 1);
-  	}
-  }
-
-  static void *walker(void *arg)
-  {
-  	unsigned int r = (long)arg * 2654435761u;
-
-  	while (!atomic_load(&stop)) {
-  		char *p_long, *p_short;
-  		int dfd;
-
-  		while (atomic_load(&writer_waiting) && !atomic_load(&stop))
-  			usleep(20);
-  		pthread_rwlock_rdlock(&cur_lock);
-  		dfd = cur_fd;
-  		if (dfd < 0) {
-  			pthread_rwlock_unlock(&cur_lock);
-  			usleep(100);
-  			continue;
-  		}
-  		r = r * 1103515245u + 12345u;
-  		p_long = longpath(1 + (r >> 8) % 400);
-  		p_short = longpath(0);
-  		try_read(dfd, p_long, 0);
-  		try_read(dfd, p_short, 0);
-  		try_read(dfd, p_long, 1);
-  		pthread_rwlock_unlock(&cur_lock);
-  		free(p_long);
-  		free(p_short);
-  	}
-  	return NULL;
-  }
-
-  /* hand the walkers a new A' (or none), close the old one */
-  static void publish(int fd)
-  {
-  	int old;
-
-  	atomic_fetch_add(&writer_waiting, 1);
-  	pthread_rwlock_wrlock(&cur_lock);
-  	old = cur_fd;
-  	cur_fd = fd;
-  	pthread_rwlock_unlock(&cur_lock);
-  	atomic_fetch_sub(&writer_waiting, 1);
-  	if (old >= 0)
-  		close(old);
-  }
-
-  static void *driver(void *arg __attribute__((unused)))
-  {
-  	int a;
-
-  	if (mkdir(ADIR, 0755) && errno != EEXIST)
-  		die("mkdir A");
-  	if (mount("A", ADIR, "tmpfs", 0, "size=4M"))
-  		die("mount A");
-  	a = open(ADIR, O_PATH | O_DIRECTORY | O_CLOEXEC);
-  	if (a < 0 || mkdirat(a, "plain", 0755))
-  		die("A/plain");
-  	put_file(a, "MARK_A", "MARK_A");
-  	while (!atomic_load(&stop)) {
-  		int t, m, fd_a;
-
-  		put_file(a, "f1", "SECRET_F");
-  		t = syscall(__NR_open_tree, a, "",
-  			    OPEN_TREE_CLONE | OPEN_TREE_CLOEXEC | AT_EMPTY_PATH);
-  		if (t < 0)
-  			die("open_tree A");
-  		m = syscall(__NR_open_tree, a, "MARK_A",
-  			    OPEN_TREE_CLONE | OPEN_TREE_CLOEXEC);
-  		if (m < 0)
-  			die("open_tree MARK_A");
-  		if (syscall(__NR_move_mount, m, "", t, "f1",
-  			    MOVE_MOUNT_F_EMPTY_PATH))
-  			die("move_mount");
-  		close(m);
-  		fd_a = openat(t, ".", O_PATH | O_DIRECTORY | O_CLOEXEC);
-  		if (fd_a < 0)
-  			die("open A'");
-  		publish(fd_a);
-  		usleep(200 + rand() % 1000);
-  		close(t);			/* A' is unmounted, fd_a holds it */
-  		usleep(200 + rand() % 1000);
-  		if (unlinkat(a, "f1", 0))	/* through A, a plain file there */
-  			die("unlink f1");
-  		atomic_fetch_add(&n_unlink, 1);
-  		usleep(rand() % 300);
-  		publish(-1);
-  	}
-  	close(a);
-  	umount2(ADIR, MNT_DETACH);
-  	return NULL;
-  }
-
-  int main(int argc, char **argv)
-  {
-  	pthread_t d, *w;
-  	int c, i;
-
-  	setvbuf(stdout, NULL, _IOLBF, 0);
-  	while ((c = getopt(argc, argv, "t:w:")) != -1) {
-  		switch (c) {
-  		case 't':
-  			duration = atoi(optarg);
-  			break;
-  		case 'w':
-  			nwalkers = atoi(optarg);
-  			break;
-  		default:
-  			fprintf(stderr, "usage: unlink_covered [-t seconds] [-w walkers]\n");
-  			return 2;
-  		}
-  	}
-  	if (unshare(CLONE_NEWNS) ||
-  	    mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL))
-  		die("unshare");
-  	if (mkdir(WORK, 0755) && errno != EEXIST)
-  		die("mkdir");
-  	w = calloc(nwalkers, sizeof(*w));
-  	for (i = 0; i < nwalkers; i++)
-  		if (pthread_create(&w[i], NULL, walker, (void *)(long)i))
-  			die("pthread_create");
-  	if (pthread_create(&d, NULL, driver, NULL))
-  		die("pthread_create");
-  	sleep(duration);
-  	atomic_store(&stop, 1);
-  	pthread_join(d, NULL);
-  	for (i = 0; i < nwalkers; i++)
-  		pthread_join(w[i], NULL);
-  	printf("unlink_covered: %d s, %d walkers: unlinks %ld walks %ld mark %ld enoent %ld other %ld SECRET %ld (lockless %ld)\n",
-  	       duration, nwalkers, atomic_load(&n_unlink), atomic_load(&n_walk),
-  	       atomic_load(&n_mark), atomic_load(&n_enoent),
-  	       atomic_load(&n_other), atomic_load(&n_secret),
-  	       atomic_load(&n_secret_cached));
-  	return atomic_load(&n_secret) ? 1 : 0;
-  }
-
-  diff --git a/fs/namei.c b/fs/namei.c
-  --- a/fs/namei.c
-  +++ b/fs/namei.c
-  @@ -35,6 +35,7 @@
-   #include <linux/fcntl.h>
-   #include <linux/device_cgroup.h>
-   #include <linux/fs_struct.h>
-  +#include <linux/delay.h>
-   #include <linux/posix_acl.h>
-   #include <linux/hash.h>
-   #include <linux/bitops.h>
-  @@ -1205,9 +1206,26 @@ static int sysctl_protected_symlinks __read_mostly;
-   static int sysctl_protected_hardlinks __read_mostly;
-   static int sysctl_protected_fifos __read_mostly;
-   static int sysctl_protected_regular __read_mostly;
-  +/* debug: widen the two windows of the detach_mounts() race */
-  +static int sysctl_detach_race_walk_us __read_mostly;
-  +static int sysctl_detach_race_unlink_us __read_mostly;
-
-   #ifdef CONFIG_SYSCTL
-   static const struct ctl_table namei_sysctls[] = {
-  +	{
-  +		.procname	= "detach_race_walk_us",
-  +		.data		= &sysctl_detach_race_walk_us,
-  +		.maxlen		= sizeof(int),
-  +		.mode		= 0644,
-  +		.proc_handler	= proc_dointvec,
-  +	},
-  +	{
-  +		.procname	= "detach_race_unlink_us",
-  +		.data		= &sysctl_detach_race_unlink_us,
-  +		.maxlen		= sizeof(int),
-  +		.mode		= 0644,
-  +		.proc_handler	= proc_dointvec,
-  +	},
-   	{
-   		.procname	= "protected_symlinks",
-   		.data		= &sysctl_protected_symlinks,
-  @@ -1878,6 +1896,10 @@ static struct dentry *lookup_fast(struct nameidata *nd)
-   		dentry = __d_lookup(parent, &nd->last);
-   		if (unlikely(!dentry))
-   			return NULL;
-  +		/* debug: between finding a mountpoint and crossing its mounts */
-  +		if (unlikely(sysctl_detach_race_walk_us) && d_mountpoint(dentry))
-  +			usleep_range(sysctl_detach_race_walk_us,
-  +				     sysctl_detach_race_walk_us + 10);
-   		status = d_revalidate(nd->inode, &nd->last, dentry, nd->flags);
-   	}
-   	if (unlikely(status <= 0)) {
-  @@ -5693,6 +5715,10 @@ int vfs_unlink(struct mnt_idmap *idmap, struct inode *dir,
-   			if (!error) {
-   				dont_mount(dentry);
-   				detach_mounts(dentry);
-  +				/* debug: the mounts are gone, d_delete() is still to come */
-  +				if (unlikely(sysctl_detach_race_unlink_us))
-  +					usleep_range(sysctl_detach_race_unlink_us,
-  +						     sysctl_detach_race_unlink_us + 10);
-   			}
-   		}
-   	}
-
-Fixes: 8ed936b5671b ("vfs: Lazily remove mounts on unlinked files and directories.")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261002-work-mount-fixes-4-v1-1-dd44b89d44ce@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: adjusted context for pointer-based mountpoint handling ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/namespace.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/fs/namespace.c b/fs/namespace.c
-index 769f22c0bc66d..42fb75ec6b91f 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -1666,6 +1666,9 @@ static int do_umount(struct mount *mnt, int flags)
-  * detach_mounts allows lazily unmounting those mounts instead of
-  * leaking them.
-  *
-+ * The dentry is unhashed before the mounts go so that no lookup finds
-+ * what they covered. The caller removes it for good afterwards.
-+ *
-  * The caller may hold dentry->d_inode->i_mutex.
-  */
- void __detach_mounts(struct dentry *dentry)
-@@ -1679,6 +1682,8 @@ void __detach_mounts(struct dentry *dentry)
- 	if (!mp)
- 		goto out_unlock;
- 
-+	/* the name goes first, what covered it goes second */
-+	d_drop(dentry);
- 	event++;
- 	while (!hlist_empty(&mp->m_list)) {
- 		mnt = hlist_entry(mp->m_list.first, struct mount, mnt_mp_list);
--- 
-2.53.0
-
+On 10/14/2026 3:40 AM, Zide Chen wrote:
+> Add support for the CMS (Common Mesh Stop) uncore PMON unit, shared by
+> GNR, SRF, GRR, and CWF. One CMS box exists per CHA box, at a fixed MSR
+> address: 0x3400 + 0x10 * unit_no + <reg offset>.
+>
+> CMS is not enumerated in the discovery table, so it is added as an
+> extra MSR uncore type instead of going through the normal gnr_uncores[]
+> array. Since the CMS unit numbering matches the CHA unit numbering,
+> build the CMS box rb-tree by mirroring the discovered CHA (die, id)
+> pairs, ensuring CMS boxes only appear where a corresponding CHA exists.
+>
+> Make generic_uncore_msr_ops global so the CMS type can reuse it.
+> Opportunistically add the intel_ prefix to match the naming convention.
+>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zide Chen <zide.chen@intel.com>
+> ---
+>  arch/x86/events/intel/uncore_discovery.c |  4 +-
+>  arch/x86/events/intel/uncore_discovery.h |  1 +
+>  arch/x86/events/intel/uncore_snbep.c     | 81 +++++++++++++++++++++++-
+>  3 files changed, 82 insertions(+), 4 deletions(-)
+>
+> diff --git a/arch/x86/events/intel/uncore_discovery.c b/arch/x86/events/intel/uncore_discovery.c
+> index 0a22edf4d509..170f299385a0 100644
+> --- a/arch/x86/events/intel/uncore_discovery.c
+> +++ b/arch/x86/events/intel/uncore_discovery.c
+> @@ -532,7 +532,7 @@ static void intel_generic_uncore_msr_disable_event(struct intel_uncore_box *box,
+>  	wrmsrq(hwc->config_base, 0);
+>  }
+>  
+> -static struct intel_uncore_ops generic_uncore_msr_ops = {
+> +struct intel_uncore_ops intel_generic_uncore_msr_ops = {
+>  	.init_box		= intel_generic_uncore_msr_init_box,
+>  	.disable_box		= intel_generic_uncore_msr_disable_box,
+>  	.enable_box		= intel_generic_uncore_msr_enable_box,
+> @@ -743,7 +743,7 @@ static bool uncore_update_uncore_type(enum uncore_access_type type_id,
+>  
+>  	switch (type_id) {
+>  	case UNCORE_ACCESS_MSR:
+> -		uncore->ops = &generic_uncore_msr_ops;
+> +		uncore->ops = &intel_generic_uncore_msr_ops;
+>  		break;
+>  	case UNCORE_ACCESS_PCI:
+>  		uncore->ops = &generic_uncore_pci_ops;
+> diff --git a/arch/x86/events/intel/uncore_discovery.h b/arch/x86/events/intel/uncore_discovery.h
+> index 142e1b56cfc2..cececf6ecdc5 100644
+> --- a/arch/x86/events/intel/uncore_discovery.h
+> +++ b/arch/x86/events/intel/uncore_discovery.h
+> @@ -151,6 +151,7 @@ void intel_uncore_generic_uncore_mmio_init(void);
+>  int intel_generic_uncore_msr_init_box(struct intel_uncore_box *box);
+>  void intel_generic_uncore_msr_disable_box(struct intel_uncore_box *box);
+>  void intel_generic_uncore_msr_enable_box(struct intel_uncore_box *box);
+> +extern struct intel_uncore_ops intel_generic_uncore_msr_ops;
+>  
+>  int intel_generic_uncore_mmio_init_box(struct intel_uncore_box *box);
+>  void intel_generic_uncore_mmio_disable_box(struct intel_uncore_box *box);
+> diff --git a/arch/x86/events/intel/uncore_snbep.c b/arch/x86/events/intel/uncore_snbep.c
+> index a97cd029db36..3abbc1bbf577 100644
+> --- a/arch/x86/events/intel/uncore_snbep.c
+> +++ b/arch/x86/events/intel/uncore_snbep.c
+> @@ -6492,6 +6492,32 @@ int gnr_uncore_units_ignore[] = {
+>  	UNCORE_IGNORE_END
+>  };
+>  
+> +/*
+> + * One CMS box exists per CHA box, at a fixed MSR address:
+> + * 0x3400 + 0x10 * unit_no + <reg offset>.
+> + */
+> +#define GNR_CMS_MSR_PMON_BOX_CTL	0x3400
+> +#define GNR_CMS_MSR_PMON_CTL0		0x02
+> +#define GNR_CMS_MSR_PMON_CTR0		0x08
+> +#define GNR_CMS_MSR_OFFSET		0x10
+> +/* Type ID for CMS */
+> +#define UNCORE_GNR_CMS			50
+> +
+> +static struct intel_uncore_type gnr_uncore_cms = {
+> +	/* Keep the PMU name aligned with the published CHACMS event list. */
+> +	.name			= "chacms",
+> +	.type_id		= UNCORE_GNR_CMS,
+> +	.event_mask		= SNBEP_PMON_RAW_EVENT_MASK,
+> +	.num_counters		= 4,
+> +	.perf_ctr_bits		= 48,
+> +	.event_ctl		= GNR_CMS_MSR_PMON_CTL0,
+> +	.perf_ctr		= GNR_CMS_MSR_PMON_CTR0,
+> +	.ops			= &intel_generic_uncore_msr_ops,
+> +	.format_group		= &snbep_uncore_format_group,
+> +	.attr_update		= uncore_alias_groups,
+> +	.cleanup_extra_boxes	= spr_extra_boxes_cleanup,
+> +};
+> +
+>  static struct intel_uncore_type gnr_uncore_ubox = {
+>  	.name			= "ubox",
+>  	.attr_update		= uncore_alias_groups,
+> @@ -6595,15 +6621,66 @@ static struct freerunning_counters gnr_iio_freerunning[] = {
+>  	[SPR_IIO_MSR_BW_OUT]	= { 0x2e0e, 0x10, 0x80, 8, 48 },
+>  };
+>  
+> +/*
+> + * Neither the free-running IIO counters nor CMS are covered by the
+> + * discovery table, so both are added as "extra" MSR uncore types, in
+> + * addition to the ones enumerated in gnr_uncores[].
+> + */
+> +#define UNCORE_GNR_MSR_EXTRA_UNCORES	2
+> +
+> +static struct intel_uncore_type *gnr_msr_uncores[UNCORE_GNR_MSR_EXTRA_UNCORES] = {
+> +	&spr_uncore_iio_free_running,
+> +	&gnr_uncore_cms,
+> +};
+> +
+> +/* Build the CMS boxes rb-tree by mirroring CHA's discovered boxes. */
+> +static void gnr_uncore_cms_init_boxes(struct intel_uncore_type **uncores)
+> +{
+> +	struct intel_uncore_discovery_unit *cha_unit, *cms_unit;
+> +	struct intel_uncore_type *cha;
+> +	struct rb_root *root;
+> +	struct rb_node *node;
+> +	u16 num_units = 0;
+> +
+> +	cha = uncore_find_type_by_id(uncores, UNCORE_SPR_CHA);
+> +	if (!cha || !cha->boxes)
+> +		return;
+> +
+> +	root = kzalloc_obj(*root);
+> +	if (!root)
+> +		return;
+> +	*root = RB_ROOT;
+> +
+> +	for (node = rb_first(cha->boxes); node; node = rb_next(node)) {
+> +		cha_unit = rb_entry(node, struct intel_uncore_discovery_unit, node);
+> +
+> +		cms_unit = kzalloc_obj(*cms_unit);
+> +		if (!cms_unit)
+> +			break;
+> +
+> +		cms_unit->id   = cha_unit->id;
+> +		cms_unit->die  = cha_unit->die;
+> +		cms_unit->addr = GNR_CMS_MSR_PMON_BOX_CTL +
+> +				 cha_unit->id * GNR_CMS_MSR_OFFSET;
+> +
+> +		uncore_find_add_unit(cms_unit, root, &num_units);
+> +	}
+> +
+> +	gnr_uncore_cms.boxes = root;
+> +	gnr_uncore_cms.num_boxes = num_units;
+> +}
+> +
+>  void gnr_uncore_cpu_init(void)
+>  {
+>  	uncore_msr_uncores = uncore_get_uncores(UNCORE_ACCESS_MSR,
+> -						UNCORE_SPR_MSR_EXTRA_UNCORES,
+> -						spr_msr_uncores,
+> +						UNCORE_GNR_MSR_EXTRA_UNCORES,
+> +						gnr_msr_uncores,
+>  						UNCORE_GNR_NUM_UNCORE_TYPES,
+>  						gnr_uncores);
+>  	spr_uncore_iio_free_running.num_boxes = uncore_type_max_boxes(uncore_msr_uncores, UNCORE_SPR_IIO);
+>  	spr_uncore_iio_free_running.freerunning = gnr_iio_freerunning;
+> +
+> +	gnr_uncore_cms_init_boxes(uncore_msr_uncores);
+>  }
+>  
+>  int gnr_uncore_pci_init(void)
