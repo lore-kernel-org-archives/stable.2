@@ -1,106 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409D54A5EDD;
-	Wed, 14 Oct 2026 10:30:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFB62282F1D
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 10:38:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791973819; cv=none; b=dxxUXCQNrq/A1Ve7f8bke9shmT3OPmXJZVMpmRlqp08D7fBagaIMxkeZ+tR/s0A44/Q5dQBkcuHDPr1gy8xq76ZNRcCWg2/mFRt/a83gmQB9mImgoSAJQdH9r1bXaWytZRs31QlejCruhdj2s0vi2M3Q0phPRdoPmjSVbsnen3o=
+	t=1791974284; cv=none; b=QlqPhlZX50dra04q0gqFgDjWmAn4pj16GrIG1U0y8bwSYhWoVDYv+W3sWmOg2G0VSauIGKxM6j/8tsQiOLSFGpU5ouBBk4UNFy/zKhG+blNWOgUBO7MvkkgT8hFkRrCaPG8glunwfSnJUSqpi73ScL1ctiB36JYs2bVdy5nLADg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791973819; c=relaxed/simple;
-	bh=iWRy+RySwK9hGoK6m2irTykTpFLJKeumaG357x5XVlg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Kw2rz0f0ttYxMZNmmstZbr4wtSYCJRioL05gr7OINmJINtBfFLwS0hp45H4sNIsdjVFIkecZYDzArIpkkTQNLVnK4QQZIR9iTI9mWD5qcW5zscpT9p+ILo0/b3FkbQ6rAlEo4Ly2MPghZggXMfdohSG8Qe4eqEQJRleuupxmVF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SZ1AyUdi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791974284; c=relaxed/simple;
+	bh=Oi1iJJy/wZFo6YtPMtG25HC0jZZG39GT5ePp6+VE8X8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=CJihlvl00jnsF0wMNuJDUacI2+ilaiuu1dfoNvOPiOrgkzHwUPRqntxg/MtBWDs0qKBrldYmDTfP61QoyMSDavLHdGxpYfvhyUyG1xZi97+58WJmD7djI2nvXDHEZ8k/EBvmG4BvOVEpf3nzoVr1lRKNY3HaMIVGfcWda3nxr4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=eH2YmlMy; arc=none smtp.client-ip=203.254.224.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SZ1AyUdi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C4811F000FF;
-	Wed, 14 Oct 2026 10:30:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791973817;
-	bh=hKEEJuYS6FrXq5BrnjlC2tV9RaL6MFYIN3GFi5M0KyE=;
-	h=From:To:Cc:Subject:Date;
-	b=SZ1AyUdi46NP8OrpYBa5RIN64JM7lCIsyq32OYO68rshiG9tV7eJd+hVPVs3m4MWz
-	 0wBjIrgRkw0XvXKtYGMm+WnInEIAU7nOBrskN/KedBQqkiNLi7LLxczDVe4XEa18k1
-	 jWHp+mGQLhvJXBm+Eclet1GCoJT/h4cwcTIAMcPif00av/sGr+vDeErT5ylJpBrWPs
-	 inUjaQPMRnUQ2eTIxFmgGnbjjiWvTOV/25oPvsXHLG75l5rWTk5ZnJ+M3TXuoBgwr2
-	 5gmPGguOgGQC2GYHv/VqBUyAg9nXxF2TiOoy2Ez1hOqlNXvi2yphJf1Xkcj3Xn8222
-	 4Po13vTvwJVdA==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Tom Zanussi <tom.zanussi@linux.intel.com>,
-	Fengguang Wu <fengguang.wu@intel.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] tracing/histograms: Verify event_call identity when updating synth_event refcount
-Date: Wed, 14 Oct 2026 10:30:12 +0000
-Message-ID: <20261014103012.744589-1-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="eH2YmlMy"
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261014103755epoutp014a87efbda0e40708315df2396a58cccf~eXxv0Mn0R3258432584epoutp010
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 10:37:55 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261014103755epoutp014a87efbda0e40708315df2396a58cccf~eXxv0Mn0R3258432584epoutp010
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791974275;
+	bh=Oi1iJJy/wZFo6YtPMtG25HC0jZZG39GT5ePp6+VE8X8=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=eH2YmlMyp8sTioqvvoSDnAA5h6FZ7V41ySvOKzLCI3Yo/5PzPAZbHkPZW+f41WLa4
+	 gnWpKgwTiV7YDq6I9ZD92QkrEYAyow0Hi/uV6OQoiAMjxLd6C83QPiBn4JEhWWI6YW
+	 cpP7vi7pudXwRM41LS5KmqDZHLpndEeD3SuS0y24=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261014103754epcas5p17759f988e65b8fb98c5d3dabe4b36b05~eXxvIxKti0931609316epcas5p1C;
+	Wed, 14 Oct 2026 10:37:54 +0000 (GMT)
+Received: from epcas5p4.samsung.com (unknown [182.195.38.92]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4j4SMj6tSSz3hhT3; Wed, 14 Oct
+	2026 10:37:53 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261014103753epcas5p29ae76c8fbf4f9486878d98f380630b2e~eXxt6CkAq2032420324epcas5p2r;
+	Wed, 14 Oct 2026 10:37:53 +0000 (GMT)
+Received: from [107.122.5.126] (unknown [107.122.5.126]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261014103751epsmtip227ffdc939b21bbb6ff6f8bc054260cea~eXxrv1Pev0552405524epsmtip2N;
+	Wed, 14 Oct 2026 10:37:50 +0000 (GMT)
+Message-ID: <01675986-ace4-4392-a3ed-ff1d7bdac535@samsung.com>
+Date: Wed, 14 Oct 2026 16:07:49 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] usb: dwc3: gadget: Prevent EP resource conflicts
+ during StartTransfer
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"jh0801.jung@samsung.com" <jh0801.jung@samsung.com>, "dh10.jung@samsung.com"
+	<dh10.jung@samsung.com>, "akash.m5@samsung.com" <akash.m5@samsung.com>,
+	"hongpooh.kim@samsung.com" <hongpooh.kim@samsung.com>,
+	"eomji.oh@samsung.com" <eomji.oh@samsung.com>, "h10.kim@samsung.com"
+	<h10.kim@samsung.com>, "shijie.cai@samsung.com" <shijie.cai@samsung.com>,
+	"alim.akhtar@samsung.com" <alim.akhtar@samsung.com>,
+	"muhammed.ali@samsung.com" <muhammed.ali@samsung.com>,
+	"thiagu.r@samsung.com" <thiagu.r@samsung.com>, "pritam.sutar@samsung.com"
+	<pritam.sutar@samsung.com>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Content-Language: en-US
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+In-Reply-To: <as7ZHFpqLz623QQt@vbox>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261014103753epcas5p29ae76c8fbf4f9486878d98f380630b2e
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261007020654epcas5p1d6f8d2d6f5215abcec7d6c6f90b8b8c6
+References: <CGME20261007020654epcas5p1d6f8d2d6f5215abcec7d6c6f90b8b8c6@epcas5p1.samsung.com>
+	<asWmW1jmzedIV5SP@vbox> <ff5d6900-374b-44d8-967f-0af16ae53437@samsung.com>
+	<98f16da0-5e24-4dd1-8f9f-79a1a5e7656c@samsung.com> <asbJfaj5OIhHBunD@vbox>
+	<bc43e3f5-ba0c-4f91-b765-ee35021bf089@samsung.com> <asglyrMYkopr3EOz@vbox>
+	<0a2bc277-3977-46cd-9759-ba273b5c2c4d@samsung.com> <as2N1JlPnpKBYcsb@vbox>
+	<a8021139-a675-4875-b437-7e837d5433b1@samsung.com> <as7ZHFpqLz623QQt@vbox>
 
-In event_hist_trigger_parse() and hist_unreg_all(), the histogram
-registration and unregistration paths look up find_synth_event() using
-trace_event_name(file->event_call) and adjust se->ref if a match is
-found.
 
-Because find_synth_event() only compares the event basename, registering
-or removing a histogram on a non-synthetic trace event whose basename
-matches a synthetic event erroneously modifies the synthetic event's
-reference count.  If a histogram is registered on the non-synthetic
-event before the synthetic event is created and removed afterwards,
-se->ref is decremented without a matching increment, allowing the
-synthetic event to be freed while an active histogram action still holds
-a pointer to it.
+On 10/14/2026 6:57 AM, Thinh Nguyen wrote:
+> On Tue, Oct 13, 2026, Selvarasu Ganesan wrote:
+>> I mean 'not recover here' is the failure to clear the
+>> DWC3_EP_END_TRANSFER_PENDING flag upon cable reconnection, caused by a
+>> missing command completion from the prior connection.
+> Right. Resetting the endpoint flags on controller restart will cover
+> that.
+>
+>> Sure we can use dwc3_schedule_err_recovery(), and thanks for the suggestion.
+>>
+> I can prepare the fix patches based on our discussion. It would be great
+> if you can test them.
 
-Verify that &se->call matches file->event_call before adjusting se->ref.
+Sure, Thanks for your support.
 
-Fixes: 4b147936fa50 ("tracing: Add support for 'synthetic' events")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- kernel/trace/trace_events_hist.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 00a1d8522036..71b240b609ea 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -6807,7 +6807,7 @@ static void hist_unreg_all(struct trace_event_file *file)
- 
- 			se_name = trace_event_name(file->event_call);
- 			se = find_synth_event(se_name);
--			if (se)
-+			if (se && &se->call == file->event_call)
- 				se->ref--;
- 
- 			update_cond_flag(file);
-@@ -6926,7 +6926,7 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
- 		event_trigger_unregister(cmd_ops, file, glob+1, trigger_data);
- 		se_name = trace_event_name(file->event_call);
- 		se = find_synth_event(se_name);
--		if (se)
-+		if (se && &se->call == file->event_call)
- 			se->ref--;
- 		ret = 0;
- 		goto out_free;
-@@ -6962,7 +6962,7 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
- 
- 	se_name = trace_event_name(file->event_call);
- 	se = find_synth_event(se_name);
--	if (se)
-+	if (se && &se->call == file->event_call)
- 		se->ref++;
-  out:
- 	if (ret == 0 && glob[0])
--- 
-2.56.0.385.gd3acb90ef8-goog
-
+Thanks,
+Selva
+>
+> Thanks,
+> Thinh
