@@ -1,72 +1,76 @@
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F4A7440652
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:12:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3085A46DFFC
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:12:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792005167; cv=none; b=SWsZV7fVZggHz/9Alre9/E7a6KCTvOMKB9OSdCnqLima3gMusOoiWP6jiXgLS1qJYWPX/c7JeD5S0QnopgzFXKiMBVQSBSKN87BGhf4Tp9j/9hqoqKRlmAfY2ynprGF2Qn6W/DooNFZ7ei4LvldsdSTroSn4Ztun519uKlQL83E=
+	t=1792005173; cv=none; b=bj9GHoIY3TxPBvIHs2tCq5DYPFcyTcSXeKvfFZPqjoxl5t4/9hWl24vxQ5UmN5r6Q2wxznSD07A/PkLX5D9JFqS+qJX4Xi+xdtUGmrcPDs+bgkQfPNLJSoLP59n7a6hPzpI2cYAI5oI8lRJsi9fEjPR6U5lCaBGqFt5GZZhlBNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792005167; c=relaxed/simple;
-	bh=xIq3t6dChknsEnIOTV74XW7S7ach0NV56IdvrMJxXGU=;
+	s=arc-20240116; t=1792005173; c=relaxed/simple;
+	bh=8pbY2yocUMe4CVY4XHb7arbhkzDzJmAQEtZu7ABBWI8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Vx+su9KJMpdl4WO3vvtNEMzvY7KC6H916LZs2NYXhiaQuE0/E1ZHwe5zUWqZzxc5ArqH1nvWkmWLtD49ACCEBgIFBYcWd6Y+l6QVKzCBwB+EzVTEyvLepY06+fov5YbmZSyztIA4gP5aL4ehPvF2pc7gmf6Zt9ZQ/XpFv+Ed+pg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=YvuStzba; arc=none smtp.client-ip=74.125.82.182
+	 MIME-Version; b=pk5P4lfOn4BCuyQiP1gn9qU5WE3S8RZBtxQSL9rbOXTYFBMp9xyGnNf8U+gawImbmbf9KN2HtO1Zn+wmbQ3rv8K3vouX7XiujIbtEs/wvYivSys/cnxcE4TF8cbB1miTYuTkqI5cpB29oF4t2JYP91569fPiIL3V2ZktraH+sXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=WSiw9eg2; arc=none smtp.client-ip=74.125.82.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="YvuStzba"
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3514b90bb89so2226055eec.1
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 12:12:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="WSiw9eg2"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-35b2c599f43so5790251eec.0
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 12:12:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792005163; x=1792609963; darn=vger.kernel.org;
+        d=trailofbits.com; s=google; t=1792005166; x=1792609966; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CrhnOyCnuFrl0jSp2QdE1/m0irIgtCD+WhnhWodFpc4=;
-        b=YvuStzba+iB0SB8lhAE/rqO16PB8rBnF9dYmh1SZ6IfWmPI8l+9zI+NDhqhOzDsY1V
-         5ZfnOfbPLKNZwn30vgfaAWXGTJDoSRLpBuTVecfFaF2+hyyLxoTdBQysoiATfTNHSdtj
-         Vb74+tD8fBDQ/nhum5+CQFgdHS/JewpPzVO6on9pXxHZQe7XE9PvTjuu7QM3w8h5GrHS
-         yLUCX/U3Ax6mTtUIbezBk7mWg6vys21s28AHU6OlYPkfpoHj100Pmm0Z0/4xHHBVt6Er
-         upYVmkMwKr6u+uJsVgXK8h0Kfg0PI7KKp6Q+4EFStDO346MPFPSRinEVmHhiwc98fV3c
-         KyxQ==
+        bh=ZIwvec8ywWVSJmGxLO9s3tCy/XMVy8O1ZUKsdE77wh8=;
+        b=WSiw9eg2etBwWCWMN00GON7MAHDDfG8EBX9b/WrkoPvCpi3T5qvwfNivKnLvlgAKdd
+         cPCJSwZgM3U7gOJXukcRi0EEc9kakRS7hkmxkDmsqXPSf+xrLMbrQjZRDw2DMtHz3Fhe
+         eWRNFLyPR1D8ParnuFnW5iXQ1j8U9GMZEkxHyDAyc9hG4ekn+EEEankcHCYSmOE9ALhv
+         +6THwxMrawDk/Lms3NOXixemm29BPFyPMwDac0TvM5GxkG4FqxkIhj+gAOjqSsh2PmDs
+         5WYsjDT906AbmpijcKUMHQFOxMysUSJVapIGwmbb6r8FnxWzzOEt6fwN7RT2CvXh+a9Z
+         epXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792005163; x=1792609963;
+        d=1e100.net; s=20260707; t=1792005166; x=1792609966;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CrhnOyCnuFrl0jSp2QdE1/m0irIgtCD+WhnhWodFpc4=;
-        b=BulqV1zhkeIStHoTIfOrBdrv6hWm6uidGcbtkGva0b1t0ytti9kxyQbNxRNGXAg6RB
-         Nj0TFJ8RmVe3UbHPs9yhag4NyCa7+HhUswoWFSAec9IcYT42/hPJFUQkR0d/r6jqAauO
-         6BPSsDd8Cbdb6SDsaVmOCK575Sq4A+NXwTfdRGDa/zpHO3hl2JHPMRqoa+mX5kDA+7fB
-         Y5A1tn10Nn0F8qIGU2hju0VBB4AG1nGeTXIQ3rHu7yIVi7LlpjayYJDp2G+4ONOS4NkO
-         WU5mT39Mv2un3SWNk76+52gTCAQX9DYiU6KroM4ap/ylFNE11VnkXgefwHe+2VbPLW/6
-         qrpg==
-X-Gm-Message-State: AFq9FYJCnQJW3Q0TEiGsGpFDWwViMAKDP8HtlbKMJerHg9KDLkLY+cbs
-	F11jdTbX/EENoXAN4Z047BRcL+AmLJqlI4HHEx4/02eQ1NHV3MZWMSB0SLEkI6G6n5OrKpCKaDN
-	niXF9zVkYfA==
-X-Gm-Gg: AYBFou2OzvQDrjQe6emYmhJrEXQqwCa4Z8hAZ6yNRhwGwA2TXpHkIavxAl6wPg55JR2
-	x1xc979lnt0AVphMiNLZTsMf5RFtv74ZYBCpiOo4uTsn763mMWNEKA0AFXIX8lQN1LpNlCiClPH
-	a+Hun96R97tNHmdjnunnwpeUSjJfS2t/7420OjuCXA/oLKuJFfsbv0lkfqgUKBd+qR707Ag63q3
-	fOFfsTNFS/eL3tYL6/N/cvO/8scEFJX795vgmPt07feNH3sWHHkhI5ovL7q0q9VxurdJP8u2KmT
-	xp6AemndRccQl5L/SjhIvonq0h1khg036R+lTcm8MKvbcv3t+odtKSC3PyeH2mP6G2rhvWBYhRF
-	UtS2Ppegf/GKSdWXOdVZLzzYHbprp4r/eZT245jyv7UE1nC1k0Ht4cnzAlnTBdPjoekcHfy0CQ2
-	5XAh/PMBGUWjxjpiH49u5bH/IILaNtFeyoGr8kZ+rMbmLOrj+1Vth+TFO/5ZX/o4F1ibOKnbT/R
-	kh8zGSFe7poC0a2npeyC3EztPmcY+nl9UWiwPGb0VzPO1Z69v602rQ+vN2gaivZH4eVjPs=
-X-Received: by 2002:a05:7301:182a:b0:34d:7ae5:8d78 with SMTP id 5a478bee46e88-3537e034fecmr22587390eec.31.1792005163180;
-        Wed, 14 Oct 2026 12:12:43 -0700 (PDT)
+        bh=ZIwvec8ywWVSJmGxLO9s3tCy/XMVy8O1ZUKsdE77wh8=;
+        b=PnGRxMMhRBmkfR0bRINKx7v386nEX7ZQ6/8DXZ+K1WfZaQ90OZxmyeyAev6VzkZ91T
+         qwcBlBGgvz1Cb3svsaNGeUfJKvKiB7JLm7UNg9KzD77xGRaCk0Hq3g5Rm/UWyPGkuuso
+         Z5h3e7tDCB2ampmhX47KmPXu55BDgc4foS2n9zo5VKEfoemO9AeYf/tHSVSONsAqRRm8
+         6z3THxJ55NN8Ag5gEkcgJHX8GNOvR0O98r9oBG1Xc5ZHp2tFcHdYYYotTvuA/YqJzay4
+         QaJwMFwfqw4dBy+49z6ZF5Iga3aoWKmyeZc8PUmKiX0gag0Kw1VFNsdU0LD9fMyRPjmf
+         xusQ==
+X-Gm-Message-State: AFq9FYLf1Lcb93um5jpRgTWwfCqJMSTkJ3jqpDsYjv35zbJULo3Et7FK
+	3EmjsGJpVYinK673fPEPWnkEQ1T1PI+UGoFPTlXVdzpTbaKYXhkI33Jumx88ZerXyIkzwFE2btm
+	uC2JXx4edvw==
+X-Gm-Gg: AYBFou28peZrhKf3552tWXaJ9nGUqs1rq42VZlKNmDMPesMuVwUZ+5VXDnIttyAOw4v
+	CcbDwT2GJ+VljKKwltL+cYn19WL9t35wzgH8Sfv9DnRsMGd7APsDYovnSmnNX0+qIepPM+tZKYK
+	y9I7XgYl6FvgwQ/BmR/PTsRJm99O/yLFQennOb66LCUl+w3gO0dKUNKi5WzId9txWvrzqB8NpLX
+	wqvYhKwhDsSwOK9N52FcJD3+DApok+aS7M7zAhnGReFXVHOm5wwT84KE+hFniw58gwgCD17IRxZ
+	vITwuQMNKapD/+HuABeddC8xJjSp5hV2wrB11uVsUi75pFyrgHRBq/Q+6JFum3f3R9U7278rclB
+	7hSyY6F+f+eoC4i5tp+WobComL+HUja3dzIJODXIOx/TCHrdAAvwjXahN0JCsmqhIce2/TdBvsd
+	rifIM6tMcNKl9FmaaGu2LqLUvO/prv/gSnK8fXfOW6NV101W/fLAhFH7KaQdj9dvq4NzWx+tlzs
+	sz4Snm4bJfoREfVTfK5loJE4wT186+Xs+MRDGUy/qG5W0N3gclIfio5UZBaYBnvNg59uOc=
+X-Received: by 2002:a05:693c:8642:20b0:358:d3d6:207e with SMTP id 5a478bee46e88-358d3d625b3mr19902741eec.11.1792005166088;
+        Wed, 14 Oct 2026 12:12:46 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:39d1:d8de:aae7:23dd])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb2fd33sm54329888eec.28.2026.10.14.12.12.41
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb2fd33sm54329888eec.28.2026.10.14.12.12.43
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 14 Oct 2026 12:12:41 -0700 (PDT)
+        Wed, 14 Oct 2026 12:12:44 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
-Cc: cel@kernel.org,
+Cc: axboe@kernel.dk,
+	hare@kernel.org,
+	hch@lst.de,
+	kbusch@kernel.org,
 	linux-kernel@vger.kernel.org,
-	neil@brown.name
-Subject: [PATCH 6.6.y 1/2] llist: add interface to check if a node is on a list.
-Date: Wed, 14 Oct 2026 15:12:35 -0400
-Message-ID: <20261014191236.23696-2-artem@trailofbits.com>
+	linux-nvme@lists.infradead.org,
+	sagi@grimberg.me
+Subject: [PATCH 6.6.y 2/2] nvme-tcp: sanitize request list handling
+Date: Wed, 14 Oct 2026 15:12:36 -0400
+Message-ID: <20261014191236.23696-3-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261014191236.23696-1-artem@trailofbits.com>
 References: <20261014191236.23696-1-artem@trailofbits.com>
@@ -78,32 +82,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: NeilBrown <neilb@suse.de>
+From: Hannes Reinecke <hare@kernel.org>
 
-[ Upstream commit d6b3358a2813bb14791259a2227d9af1e7019ca0 ]
+[ Upstream commit 0bf04c874fcb1ae46a863034296e4b33d8fbd66c ]
 
-With list.h lists, it is easy to test if a node is on a list, providing
-it was initialised and that it is removed with list_del_init().
+Validate the request in nvme_tcp_handle_r2t() to ensure it's not part of
+any list, otherwise a malicious R2T PDU might inject a loop in request
+list processing.
 
-This patch provides similar functionality for llist.h lists.
-
- init_llist_node()
-marks a node as being not-on-any-list be setting the ->next pointer to
-the node itself.
- llist_on_list()
-tests if the node is on any list.
- llist_del_first_init()
-remove the first element from a llist, and marks it as being off-list.
-
-Signed-off-by: NeilBrown <neilb@suse.de>
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Signed-off-by: Hannes Reinecke <hare@kernel.org>
+Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
 Assisted-by: LLM
 Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
 Hi,
 
-Please consider this backport of the prerequisite for CVE-2025-38264 to
-6.6.y.
+Please consider this backport of the fix for CVE-2025-38264 to 6.6.y.
 
 The code changes are identical to upstream.
 
@@ -115,66 +110,53 @@ Build-tested only as part of a cumulative 6.6.y series: x86_64 objects
 Thanks,
 Artem Dinaburg
 
- include/linux/llist.h |   42 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 42 insertions(+)
+ drivers/nvme/host/tcp.c |   15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/llist.h b/include/linux/llist.h
-index 85bda2d02d65be05f9fad9c52f60b49ec483d2a7..dcb91e3bac1ccce7c8327cbeb42462f5eaeb79be 100644
---- a/include/linux/llist.h
-+++ b/include/linux/llist.h
-@@ -73,6 +73,33 @@ static inline void init_llist_head(struct llist_head *list)
- 	list->first = NULL;
+diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+index 88489a787e677b142c3ce89db0ea06603c021bbd..e270024fe549096b8d8588e73b67cc2aed28d910 100644
+--- a/drivers/nvme/host/tcp.c
++++ b/drivers/nvme/host/tcp.c
+@@ -385,7 +385,8 @@ nvme_tcp_fetch_request(struct nvme_tcp_queue *queue)
+ 			return NULL;
+ 	}
+ 
+-	list_del(&req->entry);
++	list_del_init(&req->entry);
++	init_llist_node(&req->lentry);
+ 	return req;
  }
  
-+/**
-+ * init_llist_node - initialize lock-less list node
-+ * @node:	the node to be initialised
-+ *
-+ * In cases where there is a need to test if a node is on
-+ * a list or not, this initialises the node to clearly
-+ * not be on any list.
-+ */
-+static inline void init_llist_node(struct llist_node *node)
-+{
-+	node->next = node;
-+}
-+
-+/**
-+ * llist_on_list - test if a lock-list list node is on a list
-+ * @node:	the node to test
-+ *
-+ * When a node is on a list the ->next pointer will be NULL or
-+ * some other node.  It can never point to itself.  We use that
-+ * in init_llist_node() to record that a node is not on any list,
-+ * and here to test whether it is on any list.
-+ */
-+static inline bool llist_on_list(const struct llist_node *node)
-+{
-+	return node->next != node;
-+}
-+
- /**
-  * llist_entry - get the struct of this entry
-  * @ptr:	the &struct llist_node pointer.
-@@ -249,6 +276,21 @@ static inline struct llist_node *__llist_del_all(struct llist_head *head)
+@@ -493,6 +494,8 @@ static int nvme_tcp_init_request(struct blk_mq_tag_set *set,
+ 	req->queue = queue;
+ 	nvme_req(rq)->ctrl = &ctrl->ctrl;
+ 	nvme_req(rq)->cmd = &pdu->cmd;
++	init_llist_node(&req->lentry);
++	INIT_LIST_HEAD(&req->entry);
  
- extern struct llist_node *llist_del_first(struct llist_head *head);
+ 	return 0;
+ }
+@@ -739,6 +742,14 @@ static int nvme_tcp_handle_r2t(struct nvme_tcp_queue *queue,
+ 		return -EPROTO;
+ 	}
  
-+/**
-+ * llist_del_first_init - delete first entry from lock-list and mark is as being off-list
-+ * @head:	the head of lock-less list to delete from.
-+ *
-+ * This behave the same as llist_del_first() except that llist_init_node() is called
-+ * on the returned node so that llist_on_list() will report false for the node.
-+ */
-+static inline struct llist_node *llist_del_first_init(struct llist_head *head)
-+{
-+	struct llist_node *n = llist_del_first(head);
++	if (llist_on_list(&req->lentry) ||
++	    !list_empty(&req->entry)) {
++		dev_err(queue->ctrl->ctrl.device,
++			"req %d unexpected r2t while processing request\n",
++			rq->tag);
++		return -EPROTO;
++	}
 +
-+	if (n)
-+		init_llist_node(n);
-+	return n;
-+}
- struct llist_node *llist_reverse_order(struct llist_node *head);
+ 	req->pdu_len = 0;
+ 	req->h2cdata_left = r2t_length;
+ 	req->h2cdata_offset = r2t_offset;
+@@ -2374,6 +2385,8 @@ static void nvme_tcp_submit_async_event(struct nvme_ctrl *arg)
+ 	ctrl->async_req.offset = 0;
+ 	ctrl->async_req.curr_bio = NULL;
+ 	ctrl->async_req.data_len = 0;
++	init_llist_node(&ctrl->async_req.lentry);
++	INIT_LIST_HEAD(&ctrl->async_req.entry);
  
- #endif /* LLIST_H */
+ 	nvme_tcp_queue_request(&ctrl->async_req, true, true);
+ }
