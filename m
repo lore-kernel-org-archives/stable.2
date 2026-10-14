@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA233E49D7;
-	Wed, 14 Oct 2026 08:02:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B0563B14AB;
+	Wed, 14 Oct 2026 08:04:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791964967; cv=none; b=Hhosz5kGtOHhkuagT2bmXiHVqvYBTe8ZdcyLbrZjf71ArbSboJL3WV6Xe6S5tmeI3YVTIYKIndyXbCGkOACktSH2oZXbGgP/sPiCULBFEE48xAf12UXbuoMgv3Ey2CxgRxhrjiLHlousYyY9oeGBLX2NzhbAAEndfF+zJTxI0YA=
+	t=1791965045; cv=none; b=b0+JEhpCjNsHJLIg+T0Nzy0/pRAY1Wu+M/Lo24TIeGnudbgsncpijkwG2168Iz0bys+eREamp4sDfzCzTNgMPBvHQAigrx2gAlmDCsaCTP2eWN4WQWtzsMjzgaxf3CaekAr1Uvsx2nJdSRBA5Fkn2g+3ObeTccs19fCvAnoWbww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791964967; c=relaxed/simple;
-	bh=Yr69TYQ1d0AFWM2Gb8YkcUc2SOI95OB7n5BdwoVlArQ=;
+	s=arc-20240116; t=1791965045; c=relaxed/simple;
+	bh=VUvyoQp7IJ7ge8DNUtWhByz1MCFOiIjd3zBAxfxqntY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pwQe009LP5zDgc7qQQ8G7+8HDa5JaiyBUqBOLcL9mJ5ya1hGmgxm88/3Qx8zJE+RPKK+xXyqVN2xz7e/n08/e/l/hHNe6pOk6KNLwBLFRVHBLtPz96iv+huu7Xvn7ih8bCOEzgwo6OM3LIQ+aZWSHk4n/rO1XYUwF1bKotg1A74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HBpdrmSu; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=AiH4wgo1Qkn9JVyOraDPxviusOXUFq2GGfRxEPGgUP9VBnnOE4LAZVVIsm65rHD6C64tDi2FvQK6VPoF76E//G8COtkmAPvNOHi/14Z73+YHlIWT4i5es5pHikuPk7DzsaYQRmee9fv90s9+S3+WtRoG/OLnKIprJecY6d02DnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ai0tDpZ2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HBpdrmSu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A41CD1F000FF;
-	Wed, 14 Oct 2026 08:02:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ai0tDpZ2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 354451F000FF;
+	Wed, 14 Oct 2026 08:03:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791964965;
-	bh=X9ytMwqCWIzw05HboKv/lmzrNih4neXNeq84eInfJtw=;
+	s=k20260515; t=1791965044;
+	bh=deXI1eiZdMA+rkrnahrdm835ND51y4e0N1ut/tP+PjI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HBpdrmSuw1yhtNos3sT9tV91CknmD7XQmyevZJ2kCvLr9wL4Ai7tkicw8qI3xv88b
-	 WcGTwbsyvZjeXWw8Tt1CIgz99OdwOUzSskNkuWPT2J4HuUlOhCu22SH991wQJRkeUB
-	 JmmBAaVOFoQwJNoUzQjbofuUe1Esyw80tPOtyEzj56RMbdFZlPWuoto6Y0uJTaG85l
-	 fBFmF2xPxHBAsI68U9XRMUQuVNyw12y9NCl6CsZvodMpCXbONKufSOU2jOfyQ5dkOL
-	 aytwcAT4mgsn/uGjeMeJG3qvYL24Rbw9tqsfxUR0sezq+tQ7nsYttUzCLc0Rlgx+W/
-	 H2J5w58k0XqOw==
-Message-ID: <e9a6d5e4-31ee-4dea-b2fa-1813e7cf69ed@kernel.org>
-Date: Wed, 14 Oct 2026 10:02:38 +0200
+	b=ai0tDpZ2EZeG/dvtP+1wHIwzOW7ilCIq0udzFFDkI0sYJoRsijgr1TvQleV8oIaA3
+	 +AI4sbxOlu2cs0No/M/Orymgt3KpM7nYldonsRcxk44/NWct60V6MuWz6ND4fAuUnX
+	 sISzo56gQmTUvPta4zKqa+EuKemlpuGcBCG25RAs2jAMRa+n+p2jGXFTk97c7EvyIT
+	 X4av0a3nGHqCNa0X2yKZLUtU05RfHB3YdjPAAXtwOoOYWpFg3zaEH/pmgFDqMTRkTw
+	 9nDmaCaukYhgpG7j6rNBn9ByTlt8hoUYpH72HtL/HUqORiIi/+NQOY7NPFlAIGmU3R
+	 7KqMMan2HLljQ==
+Message-ID: <8d5bbe19-710e-4488-901c-22263ea6797f@kernel.org>
+Date: Wed, 14 Oct 2026 10:03:57 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -36,17 +36,19 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] mm: fix address wraparound when scanning large folio PTEs
-To: Baolin Wang <baolin.wang@linux.alibaba.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Ying Huang <huang.ying.caritas@gmail.com>,
- Barry Song <baohua@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>,
- Chuanhua Han <hanchuanhua@oppo.com>, Kiryl Shutsemau <kas@kernel.org>,
- Kyle Zeng <kylebot@openai.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+To: Barry Song <baohua@kernel.org>, Kiryl Shutsemau <kas@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Ying Huang <huang.ying.caritas@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Chuanhua Han <hanchuanhua@oppo.com>,
+ Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 References: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
- <5848db18-9de3-437b-9967-162ced4f8cb9@linux.alibaba.com>
+ <as4qKLx_XwQ6qY3p@thinkstation>
+ <CAGsJ_4y5j+p0-VdEzpnS-Q31vhvBZRa96VJtA6+HyNj=+r+Ufg@mail.gmail.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -93,67 +95,73 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <5848db18-9de3-437b-9967-162ced4f8cb9@linux.alibaba.com>
+In-Reply-To: <CAGsJ_4y5j+p0-VdEzpnS-Q31vhvBZRa96VJtA6+HyNj=+r+Ufg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10/14/26 08:02, Baolin Wang wrote:
-> 
-> 
-> On 10/13/26 8:30 PM, David Hildenbrand (Arm) wrote:
->> numa_rebuild_large_mapping() and do_swap_page() can be tricked into
->> generating an address wraparound, crashing the kernel. All that's required
->> is to map a tail page of a large folio close enough to the start/end of
->> the address space to e.g., make
+On 10/13/26 15:17, Barry Song wrote:
+> On Tue, Oct 13, 2026 at 8:57 PM Kiryl Shutsemau <kas@kernel.org> wrote:
 >>
->>     unsigned long addr_start = addr - (nr << PAGE_SHIFT);
+>> On Tue, Oct 13, 2026 at 02:30:37PM +0200, David Hildenbrand (Arm) wrote:
+>>> numa_rebuild_large_mapping() and do_swap_page() can be tricked into
+>>> generating an address wraparound, crashing the kernel. All that's required
+>>> is to map a tail page of a large folio close enough to the start/end of
+>>> the address space to e.g., make
+>>>
+>>>       unsigned long addr_start = addr - (nr << PAGE_SHIFT);
+>>>
+>>> to wrap around.
+>>>
+>>> Let's fix it by providing a better helper, folio_pte_scan_range(), that
+>>> takes care of staying within VMA and page table boundaries while
+>>> handling possible wraparounds.
+>>>
+>>> Reported-by: Kyle Zeng <kylebot@openai.com>
+>>> Fixes: d2136d749d76 ("mm: support multi-size THP numa balancing")
+>>> Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>>> ---
+>>>  mm/memory.c | 43 +++++++++++++++++++++++++++++--------------
+>>>  1 file changed, 29 insertions(+), 14 deletions(-)
+>>>
+>>> diff --git a/mm/memory.c b/mm/memory.c
+>>> index 1f5d5f7d39cd2..a3823010aa981 100644
+>>> --- a/mm/memory.c
+>>> +++ b/mm/memory.c
+>>> @@ -4933,6 +4933,27 @@ static void check_swap_exclusive(struct folio *folio, swp_entry_t entry,
+>>>       } while (--nr_pages);
+>>>  }
+>>>
+>>> +/*
+>>> + * Get the address range in which a folio might be mapped, assuming its pages
+>>> + * are mapped consecutively and the folio page at the given idx is mapped at
+>>> + * the given address.
+>>> + */
+>>> +static void folio_pte_scan_range(const struct folio *folio,
+>>> +             const struct vm_area_struct *vma, unsigned long addr,
+>>> +             unsigned long idx, unsigned long *start, unsigned long *end)
+>>> +{
+>>> +     /* Stay within the page table and VMA boundaries. */
+>>> +     const unsigned long pmd_start = addr & PMD_MASK;
+>>> +     const unsigned long pmd_end = pmd_start + PMD_SIZE;
+>>> +     const unsigned long lower = max(pmd_start, vma->vm_start);
+>>> +     const unsigned long upper = min(pmd_end - 1, vma->vm_end - 1) + 1;
 >>
->> to wrap around.
->>
->> Let's fix it by providing a better helper, folio_pte_scan_range(), that
->> takes care of staying within VMA and page table boundaries while
->> handling possible wraparounds.
->>
->> Reported-by: Kyle Zeng <kylebot@openai.com>
->> Fixes: d2136d749d76 ("mm: support multi-size THP numa balancing")
->> Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->> ---
+>> These -1/+1 gave me a pause. I guess it is for pmd_end wrapping to 0 in
+>> the top PMD? A comment would be nice.
 > 
-> Thanks for the fix.
+> Will pmd_addr_end() make it better? I mean
 > 
->>   mm/memory.c | 43 +++++++++++++++++++++++++++++--------------
->>   1 file changed, 29 insertions(+), 14 deletions(-)
->>
->> diff --git a/mm/memory.c b/mm/memory.c
->> index 1f5d5f7d39cd2..a3823010aa981 100644
->> --- a/mm/memory.c
->> +++ b/mm/memory.c
->> @@ -4933,6 +4933,27 @@ static void check_swap_exclusive(struct folio *folio,
->> swp_entry_t entry,
->>       } while (--nr_pages);
->>   }
->>   +/*
->> + * Get the address range in which a folio might be mapped, assuming its pages
->> + * are mapped consecutively and the folio page at the given idx is mapped at
->> + * the given address.
->> + */
->> +static void folio_pte_scan_range(const struct folio *folio,
->> +        const struct vm_area_struct *vma, unsigned long addr,
->> +        unsigned long idx, unsigned long *start, unsigned long *end)
->> +{
->> +    /* Stay within the page table and VMA boundaries. */
->> +    const unsigned long pmd_start = addr & PMD_MASK;
->> +    const unsigned long pmd_end = pmd_start + PMD_SIZE;
->> +    const unsigned long lower = max(pmd_start, vma->vm_start);
->> +    const unsigned long upper = min(pmd_end - 1, vma->vm_end - 1) + 1;
+> upper = pmd_addr_end(address, vma->vm_end);
 > 
-> I also agree with Barry and Lorenzo's suggestion to use the more readable
-> pmd_addr_end() helper. 
+> nop?
+I don't like pmd_addr_end(), given the weird semantics:
 
-I had that, then I found that for folded page tables it does something rather
-odd, which made me assume "this is not better at all".
+include/asm-generic/pgtable-nopmd.h:#define pmd_addr_end(addr, end)                     (end)
+
+Even if that doesn't apply here, I much rather spell out the boundaries clearly.
+
 
 -- 
 Cheers,
