@@ -1,48 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C5535B136;
-	Wed, 14 Oct 2026 01:27:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D528C318B9C
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 01:28:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791941272; cv=none; b=fKYZNRhgFy4y5/8xHD55PeTs2Jwux9dwiG9RHyH90S94XUHeBeU9v1g4ra1Yx6aP6Dks9tDo8Q+Fq9zgisA0H3DOVOyT2r4wq0qTes2orHDS8VVwHUgIhB3sHotkZF2D2FtIHHR68uGvpCp0CWgpc0Asy9DKX3wQ9nNts45ydcw=
+	t=1791941315; cv=none; b=o4LJpll1bVHVFbPh8VHlQEAnk6o0fWf5XFlDQeJj4cT9VIjkZOFq1N4KPBGzTt8UzK5AdJ7BQ1Jcgmbh+t5eGACrjSrq807/V00RjRxWvlXQf7D9KrNO2J0sxnPCm+mJC+8o4uXnzIS4MnvlWwdH5cxOPOKLt3FPkNbu2OigcyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791941272; c=relaxed/simple;
-	bh=eT/FW8zoIdGOUXoHCxa/EBG2MaetA5Sh+CtQ5378w2A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R3NXWNHTv5QlO1AcNkkV/NfaZ35250Q1yLEY/n4GDZ2GFt4g6KC1rt1tAyyTq2mSsl0VDg8kqdnNb7HXVNgqKqE20X4lsiG7v5NrtnDRGPk4Fguy2cpub2b4ybs5hvXf210qm+jnQcsuufSFUwZaLaQpvUCEYaAgSjJfJY/VwJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mgS1Csnw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791941315; c=relaxed/simple;
+	bh=gmVQW4zvgK1RdCMOSrjGY3Z/g11AJJIEJYvUSmj2svQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HGgEI7LYxTGg3Hw4XO7OeORUOy9d0ztNMJXs/f6z7dikbVtyMbLP3pmeJltdEHhyx/RB7DDypE4foGeTEXVWJbgh31MieL0zn+nzo9hpFws6i++keqRvZtmSZ4o0zsFduJf/FRGbRIDliumHJevOage3tjcmSG7cdN1btRja24I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i9BXdVCw; arc=none smtp.client-ip=74.125.227.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mgS1Csnw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 628271F000FF;
-	Wed, 14 Oct 2026 01:27:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791941271;
-	bh=aF2lwkk7Gc2tc2b+mw7WYzN1UygFWytU7E4pDnfLBiY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mgS1Csnw9aWyWEkkzSijQJuUTLzuZN5+ipl+r2eA+lk1okLkGhSXQApkhfp/sA0dO
-	 PoSGA4fRugzBCGZM9VMjvfkh1lA3fPBpUvHtftHtOwyZw9lXZc5ZV9MJElL/C3EDdF
-	 /7qAyWb8xOc3DMjretG/ZM0qfq4+wAErgRlud1jCTZSqy5lANz5VSnVpnFFbcG9JzG
-	 bgpQrIY010WSHbxagQpa/0xlHEEYDMnQuBTt2Zn9zMIzmTAd6v5h0QqvxM9/jEtsAv
-	 +wzI2XnQNzGhGzZFRAadiTIRz8Xqlof2lF1dPPBdFfjJma6XB4Fe528ZU4x6zPLaTN
-	 YrqQGa/860LXA==
-From: Sasha Levin <sashal@kernel.org>
-To: lee@kernel.org,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
-	Vicki Pfau <vi@endrift.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i9BXdVCw"
+Received: by mail-pj2-f2.google.com with SMTP id 98e67ed59e1d1-3a8c118e711so2029133a91.0
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 18:28:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791941313; x=1792546113; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xF4abej4dYzWW64tGMfNwkdoR9vBgU7tCntIFYf9jb8=;
+        b=i9BXdVCwLO48JsGMxuGlDT2FwFtBPBYvvi1r/TGzg49xFY0sd8d+I9ViggJSo1Mm5Y
+         PAPD91QegvXMHAkSgorPhNXqYn94Nxb93FNFUfVJn9W33Z8hEHp7w9adfJzG8HQC5O6s
+         sRexmALj2OUy1z+R1BHiC0AmMK/dwUTe9CTcjydBa6p0SYu0FIhVw6ZAbi9El5P3GyRJ
+         Y9BfCCWLi17kk3imwfT1ECTevIHS4XfN4YYgHvXAbeuaWPOraHhPe1s86OIxr2++KGD1
+         Xw9qtI8AkeUgViJQ5/E82NNPBr1CflUZma364cFgnKMzOv+XbMfV/8tIQ5rs/Jf4qlUR
+         Xqww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791941313; x=1792546113;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xF4abej4dYzWW64tGMfNwkdoR9vBgU7tCntIFYf9jb8=;
+        b=i8jVXX848U/Fz87MPngoI3ibpCe4pIM0eb1L2MXJce9iDUmXivt5o+fBNNnpivkKaC
+         VxQUEUZThX4twZKlvGRMwXKZy1o1Pok1jQcdjKNdRZBYcbkYZgtnw3bOfanPjpsnK0nf
+         a/dnBl9eNEo2ToKE8jIfwzHBQqjhwztscO4VM81Gyd2b4TUtug7JFnZicZt5fmxivi7D
+         vUYmaI9ecjS61rv5umzkK3eP3S/pR5xyZ722BQhCj7lVX+mF/KGheVC63Z/4Tec60uKU
+         2nZQnsvaBTLpFXCpGxZpvr7+PXI93T4JCLKOOJ4z93VF+OJAqRLlvZZ9YVeD/mGoJ1zn
+         iNLg==
+X-Forwarded-Encrypted: i=1; AKwUvBx5Y7q8OoALEta5Aa0BTnWIJ4p/u+NWhmX5/+QVZiLjKZrvYeAH6Dbt3tbfETj05zr3OVHbSi4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKvF8BBgf+wmVxQ+bsMi4jYsYCkYC8gnNVacsKQssJT8sHqXq/
+	3eF+s2l2MWkpacWSvS5GaDy8dNOFAgQNCakloO3YbEIiihxvrQ473Uxg
+X-Gm-Gg: AYBFou2NZ0siHnbdkbd3EAdT5liUXl1rbpx41nEcVJQ2WXdqXVYKHywYj3pe8Qr7xKm
+	KuG8RMjsY9DlmSahQt5YVpGWkP0NeXZUH6Mj6jZ7YH4KiLv7tlPvYLwcvFIYPaPJ+/R6D8wZlle
+	OGjaA07rkpKNb/asr9QxxTZUiHbBK6a7eljVkkXPWNmXjw3jFFer8fbO+yk4Hv0zvsFFCDe17ww
+	p3f3ACLdYJe3NKP3MHN6edm2Lyn3rMGCsfRGPwKBLT9xAa+zI9BsM3lC1wDaTRcaQ0hDgRfpssJ
+	hMOCJtD3F4DFEgAZM8vLNQIT79l8suKo4CThFoal4hSoEXUHxgvTeivtyYuhUk1rhT1ze/wC7sW
+	XgeXURmj5qN4LyBVMuxhwMS547u0lY47nGyAVAbJ4eAMuPkvY2omy9bmcElr93TbJRAsk5lUwU/
+	AbAcgTPozPcqUOExsl/v5bYeHbKZIX9oQJMjGwItb9uJsFMR8qcvk1sLejvTorr7kFPkGUhpLgc
+	LFv6UF5sf3UMtDWS50cBQlNTtC5CA5mUXkt/thYSJBjFk5ETKLBVnyJ+XAwfH2Chzrj2GdHOwrf
+	SSsZVkFQ8J0xRp+C0xxyPKU5bCJoOBM0W/k=
+X-Received: by 2002:a17:90a:1601:b0:3ab:884b:65b7 with SMTP id 98e67ed59e1d1-3ab884b6b8cmr5867485a91.25.1791941313156;
+        Tue, 13 Oct 2026 18:28:33 -0700 (PDT)
+Received: from localhost (ec2-35-77-45-43.ap-northeast-1.compute.amazonaws.com. [35.77.45.43])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f1fb257sm1953670a91.0.2026.10.13.18.28.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 18:28:32 -0700 (PDT)
+From: jianyungao89@gmail.com
+To: linux-kernel@vger.kernel.org
+Cc: Jianyun Gao <jianyungao89@gmail.com>,
 	stable@vger.kernel.org,
-	Dan Carpenter <dan.carpenter@linaro.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Subject: Re: [STABLE v5.15-v5.10 1/6] HID: hid-steam: Fix cleanup in probe()
-Date: Tue, 13 Oct 2026 21:27:20 -0400
-Message-ID: <2026-10-13-1-daily-reply-0030-hid-steam-5-15-5-10-series@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261013091215.529531-1-lee@kernel.org>
-References: <20261013091215.529531-1-lee@kernel.org>
+	Dan Williams <djbw@kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	nvdimm@lists.linux.dev (open list:DEVICE DIRECT ACCESS (DAX)),
+	linux-cxl@vger.kernel.org (open list:DEVICE DIRECT ACCESS (DAX))
+Subject: [PATCH] dax/bus: fix dev_dax->ranges leak on device_add() failure
+Date: Wed, 14 Oct 2026 09:28:23 +0800
+Message-Id: <20261014012824.31468-1-jianyungao89@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,12 +80,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> There are a number of issues in this code.  First of all if
-> steam_create_client_hid() fails then it leads to an error pointer
-> dereference when we call hid_destroy_device(steam->client_hdev).
+From: Jianyun Gao <jianyungao89@gmail.com>
 
-Queued the series for 5.15 and 5.10, thanks.
+In __devm_create_dev_dax(), when device_add() fails, the function calls
+kill_dev_dax() and put_device() but does not free dev_dax->ranges.
+At this point devm_add_action_or_reset() has not been registered yet,
+so unregister_dev_dax() (which calls free_dev_dax_ranges()) will never
+run.  put_device() triggers dev_dax_release() which frees pgmap and
+dev_dax, but not ranges -- leaking the krealloc'd array and also
+leaking the regions reserved via __request_region() in
+alloc_dev_dax_range().
 
+Add free_dev_dax_ranges() to the device_add() failure path, matching
+the cleanup already done in the err_pgmap error path.
+
+Fixes: 9567da0b408a2 ("device-dax: Introduce bus + driver model")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
+---
+ drivers/dax/bus.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/dax/bus.c b/drivers/dax/bus.c
+index b809e1a264af..83442430dc01 100644
+--- a/drivers/dax/bus.c
++++ b/drivers/dax/bus.c
+@@ -1536,6 +1536,7 @@ static struct dev_dax *__devm_create_dev_dax(struct dev_dax_data *data)
+ 	rc = device_add(dev);
+ 	if (rc) {
+ 		kill_dev_dax(dev_dax);
++		free_dev_dax_ranges(dev_dax);
+ 		put_device(dev);
+ 		return ERR_PTR(rc);
+ 	}
 -- 
-Thanks,
-Sasha
+2.34.1
+
