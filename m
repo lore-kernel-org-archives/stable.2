@@ -1,416 +1,383 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 267C44F4D04;
-	Wed, 14 Oct 2026 10:48:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791974928; cv=none; b=hLUQgva80Ko/C3UgFn8NZ4//7Bf6kEtKwLLy8Qsct7BuHhVm+iTHEdogFPKoKdukoLUSbwwi4gKpoG+dP7lWjtPhsq3AHdORvRcQLDeA4ieLeS5+u7Xpcq6OUIFyqH9oQfqV1CRhG8WZd4i6f5g2DTI0qm4tLEKF17GyijFkaKQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791974928; c=relaxed/simple;
-	bh=xPKEu4TmC0MsURJ7Isp6i7rHEJU3I2oS5F5lxSqbNyY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=a5XuPXMf52DwZYAiHK7LCN4TEURW/BnwvlYpB55TapOGeCxK5Sk20V/DRlPqvdbC+TfGzDykiM+lRmaHASYmhZ2obwK0SF2yuKOQRT29op2FWMwNwrp29GfOxL9dquqMHv138GWE+WAyWrFHWTmvKuHgPaWQIauBsQ/A7znAASE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZktkPJKR; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08E3C30BB8A
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 10:53:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791975234; cv=fail; b=CzxoJN6cbFsMxscdoGBSAEsYAmxp64vwWkifTbuw8Ap8dwqjiYl4Z7EIxOXg7FcnD5bKys45qASNRmZqIgCDVZGNc22rBeIn0Ni5I+LkFxi8bs/DAcbWwolDJTd3Mr7C9mI16uRK/Z85H2SJM21C2IISNbawPxl9JKcnAXMZcA0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791975234; c=relaxed/simple;
+	bh=vfxBi0MFWMPHnkd9mmQzXM8OQAJ4Lj+fmwX32VPlbts=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=TjUJcB9P0TXkXsbWmb/invkxQ6t4lIGJvHfyUjxb/N4CGw6VKEfT9VunhLKiB05zeLDx2y7D8cQtFsKiG5JbPfX+I8YpXhIqm1KnMRF21QELDEJZZWBTo3EgVzw3TPBRuX3GrwLP08K04z00uxV7rizXYXUQ6gfQ4x7lt4JYti8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CXy20p+h; arc=fail smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZktkPJKR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DDBD1F00893;
-	Wed, 14 Oct 2026 10:48:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791974926;
-	bh=NB/qLsTfZ3aEmKG51ck6ieOl+XDtU08GyWyG2xFnUoU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ZktkPJKR5FioK2tCP+aWzXkHDtnIPJ7ytb6eZGP9EsqPOHwqHTVazvGt62c9hC0QZ
-	 R2FqYGqFAiSgHqMiP0Fb51FCVYhp+cVy2nk1GhgSh3wUlmB1ZJC19ymZclQ1XTPXkh
-	 NLa79F4xJfA7VeH1Uz0GUhxVlytf+HnYV9W+j8K7M45Hl8xP97cO3wJ/0qykCgTeIc
-	 DUZqE4wDmLoWmvo+7kowFxuz2ob7eGvPDOsZF/HsLIMEpKjo6vYcLC94uwvD7uvZ1s
-	 SwUw0O7JBGhjlIoEB726TUepiHxz94GDP9Hu2BceEbMuapvN4tVFHGQ5cZeusJd5WQ
-	 vt2NQYZVnlgmA==
-Message-ID: <4054d261a8a96c105a45b5b2321086a847f7359e.camel@kernel.org>
-Subject: Re: [PATCH v3] nfsd: prevent a double put of revoked layout stateids
-From: Jeff Layton <jlayton@kernel.org>
-To: Jinpyo Lee <bint4b13@gmail.com>, linux-nfs@vger.kernel.org
-Cc: Chuck Lever <cel@kernel.org>, NeilBrown <neil@brown.name>, Olga
- Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom
- Talpey <tom@talpey.com>, 	linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, bobtobabz@gmail.com
-Date: Wed, 14 Oct 2026 06:48:44 -0400
-In-Reply-To: <20261014061218.102648-1-bint4b13@gmail.com>
-References: <3a6b84453aaa75b654155a699d4f85735df9c48d.camel@kernel.org>
-	 <20261014061218.102648-1-bint4b13@gmail.com>
-Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
- keydata=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
- QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CXy20p+h"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791975233; x=1823511233;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=vfxBi0MFWMPHnkd9mmQzXM8OQAJ4Lj+fmwX32VPlbts=;
+  b=CXy20p+htYLonTFCZ8II34Pzh6fOyfF34LQ0NNZ6xFoubgAXe2Zb09m0
+   EB/giMeYLIt32a/kjgP0O7xKdueYJHzToAPNW2pKry4MObj4mBtEA8VsG
+   3p9NVRItFhAIJxyueDY7MsCBKwVfnHPlgnxf2YMiICawjsGdxdFm54Cd8
+   rHmrjEsH1FNvKRYKwUdvk/beeLXixmxsKix0Ty32mPSMql/a3YaP66O5E
+   P1fSOIbLrS8BsNvBuBoUkMAgguAGR4lX9GM+z4hhDJFdKkbrlyqxtq+Kg
+   f2XEwq07BOdzp2wIhXILDtLel2018rnazhVxTTYjN4x/6OLAPdZ8EQYJB
+   w==;
+X-CSE-ConnectionGUID: JLwOxynZQzOEC/yD4pzcYQ==
+X-CSE-MsgGUID: oHI4DLk1StC8IUzpxny5+w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="596896"
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="596896"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 03:53:43 -0700
+X-CSE-ConnectionGUID: mxji++78R6KkTOX07X47hA==
+X-CSE-MsgGUID: Cn7NphbVQa6440uX/4cuKA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="1417040"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 03:53:42 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 14 Oct 2026 03:53:42 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Wed, 14 Oct 2026 03:53:42 -0700
+Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.44) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 14 Oct 2026 03:53:42 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bDulEYgntYwkOYoPpa40TE2T2hQfypINzFcKXGm4S/q/qsuR1wccthGc1BJMwC0T/cCOZ+byPbuDPnhNNBVTOpckU7VQqIlp18mSnIBD/92UXrOHVrqSLLXIcb6KMwhymqmi6R6ALHnP3mz6WoiKfa3WUfUsBNm2XyG1zHKIMIFyBm0/VRoqJw7U2ukctpVoW4iDxhwAwotyOLCvNjkkCHaVMVUUVWG836fYindH7c7pQDUCT7/0oSVQ0bS/oZM953T/3fKmUV/RFwBLk1HRZbnVl2qzPfFNHc5CwLMbLWcC0Ir2u/O09l6LIoMy6NTNKYuEPJJxUXNSxtBq2oqt+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pLcVi4EHKMfo5DpkoafOYoiwe5ei76hx+8FZ3Y7OYYk=;
+ b=albNro9dOTMCaHyj3giHUauRur2UVfrJbdDBrZ/6alOJjZ9ev+9Hp2HpmO2vGh922IrogXELu4jPkITxTMJZrr3W4+VEQ01/+whlokiMesqLX5L7do4+KEkepiE5qGMVcoojUTNt5B7So0szkEQo2uPJ6hTyG8x+9kYOyNneGussL/hUWdqVAqadt0TS+o9xJbpzixOA707asVkNxIaCKkdzOWg7EBleWHZ5z7a1ygMXXMkiFtft+Hd3YnlO1zUeD1Yw+vPeAI7CrhB/ewW3n2CBsHItu4wnbg9t1+okY5e9NMd1GIIMb0TM916j1nY7zWe3t8vfqyP7lfJnua1J7Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
+ by BL3PR11MB6460.namprd11.prod.outlook.com (2603:10b6:208:3bf::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Wed, 14 Oct
+ 2026 10:53:34 +0000
+Received: from PH0PR11MB7424.namprd11.prod.outlook.com
+ ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
+ ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0522.011; Wed, 14 Oct 2026
+ 10:53:34 +0000
+Date: Wed, 14 Oct 2026 10:53:24 +0000
+From: Krzysztof Karas <krzysztof.karas@intel.com>
+To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+CC: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+	"Andi Shyti" <andi.shyti@linux.intel.com>, =?utf-8?Q?Micha=C5=82?= Grzelak
+	<michal.grzelak@intel.com>, Sebastian Brzezinka
+	<sebastian.brzezinka@intel.com>, Krzysztof Niemiec
+	<krzysztof.niemiec@intel.com>, <stable@vger.kernel.org>
+Subject: Re: [PATCH v7 2/6] drm/i915/gem: Count mapped pages in a folio
+Message-ID: <b5s5bc22hv7j2snqjhl5m57y6ktbf4zp5xunztbxwxxcybc773@uworjjfhhyhd>
+"Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316"
+References: <20261006095845.451212-1-krzysztof.karas@intel.com>
+ <20261006095845.451212-3-krzysztof.karas@intel.com>
+ <2360da488842dcc9dc4fcbf5f3d1d8bc3b57c20e.camel@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <2360da488842dcc9dc4fcbf5f3d1d8bc3b57c20e.camel@linux.intel.com>
+X-ClientProxiedBy: DU2PR04CA0065.eurprd04.prod.outlook.com
+ (2603:10a6:10:232::10) To PH0PR11MB7424.namprd11.prod.outlook.com
+ (2603:10b6:510:287::7)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|BL3PR11MB6460:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5edc460d-db70-4dbc-26ec-08df29e164b0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|6133799003|10067099003|22082099003|18002099003|11063799006|4143699003|261009223027099003|56012099006|27256017;
+X-Microsoft-Antispam-Message-Info: xnUvpwPrEvPFTmrVOckF2nQFSZjefzI2XCxpISwe++abiz06EaAeJA/kmG+u9XTqXYjb0VgrIwPtJOMvWhmm+TqIZid1ABlcEJ4J5iBUytafHueDkhdsyZ7LS15DQo7EYKftXs2zaomGst3k+e8MozMMVq9Qkq2ZxQst+OhDjflvo69gbB1I7weJXaBTIbBkZkDBqNlDoLav7JwFRKmF1rgZzcsWgK63D5e2rFr2tE0OzZWn4JE6nEBTxYvSocRMt/IF+WeGbMMra7zN13/Sp3HvWyD4nlbfNdU1dVR2fefnybt2rjHiT3poFhRaMYqjeS/xqk0BKO53bB84+G6zZNeEFe3tnSS/AjYll9i+kJkNfjfH1X7N8w2zYphop618TvC9/7B5ME9PFnP1zsqfdmR5tcsU2R2N4qK8WD/Yt0S1Xz4oV1x9sKS57WKTMGUwX9glZ9CCH+tawCPAmqtXAgsek2ah+rqtIvD9XjM70Vyi8MqyCMXi7sUE1mIhfTF/Tjdg/FtxBbYchiAUzOdZT22L9dEcOtSZs3wjyTjZifZfhGkgN4PMQJn+H6DaUp/w1ZKcMS+HFrmVWIdZQxjGUvJMM1q3gTLCSMeRV2/+R8IQkQXkIsxxcWpjp+4zLcI2cYpRcl/XE/C12CEU4936Z6Di0PnzZAMGROT9rzueTwk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR11MB7424.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(6133799003)(10067099003)(22082099003)(18002099003)(11063799006)(4143699003)(261009223027099003)(56012099006)(27256017);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RjBKTVFYcVp4WmhwQytTTkkxL2V1K09MV014WmU0VXFyWmVScG5UcGhjdWZ6?=
+ =?utf-8?B?Y0MvZ0lwQWppMTJtNjZ1VGpvOTZNMzZOQW5BeHFZZ2E3WmRxNUtrdXZBblpR?=
+ =?utf-8?B?MDAyaHUvTENoZ2lpcDBXREl0MXV4akJHZ3U5ZDByMmRSRzI2bHZqWXRVVSsw?=
+ =?utf-8?B?eUJUYlZQOVZsbGNSU056a0crV3QxaVhSa0lQck84dG9IbHVsdTRmMVJRVStl?=
+ =?utf-8?B?V3hQdFZTczkzc3dJcDN0YjhobTJxWHozZXB4SWxzeU11aFFhVWNLTnozL1dP?=
+ =?utf-8?B?Y3ptOVErZkVxeUhGZ1Jvc0FEaWc4TGlEQThza2dybFVSQ2RqWnIwSUJwWDN6?=
+ =?utf-8?B?SEJHbWZFN09aYkZIZkJOVGpiY0F6a2JKMm5acjd3TG5WVW1PN0h5N0hkdjg3?=
+ =?utf-8?B?OU5NT1YvMy9OclpINCtOelFJQzB1QWJXWjhJQWMySVRaUi9GYXltVW9rQnlU?=
+ =?utf-8?B?ckRFSlFjS0Z5ZXNEMndmUTJ5a0p6WVRCdGhIaVhoK0I4WUNxZnBteS9GVEhB?=
+ =?utf-8?B?UHNtcEZEZUYweDJxeDUvTWxhbVZkY1dLRTY4a0JWR3dWZzdYTytMMDNJdGRL?=
+ =?utf-8?B?dnRSdS9yZy9FblEybzd6Tkt3Rm5TNWNMQWdjTUZxNFl4aWdteTNGb3RhY2RJ?=
+ =?utf-8?B?Vm9DcS8zbGpNMzlFTlBHR09BbFluL2ppZWt0M0twN3NMd2src1JhT0dMYyt4?=
+ =?utf-8?B?R2gvdzhlRmp4U01YN2JZMEdNVlhYOG5jeUQ0Q0MwNWs4M0JRTk9XaXpuYVFi?=
+ =?utf-8?B?UHdiWUZ6UkNSWXY5MktpQldSVjVYN1lBSmlhdHFoUjNFMmt0Wm1xT1pZNGlS?=
+ =?utf-8?B?dHQwNE4rN3RhY0lsS0tSNzh6cUY1QlgrK0I1ZUlweTBqR3R5Wis1U3VmVHp1?=
+ =?utf-8?B?Z0RLZ3ZJK2p2MWMrN29CeWcyMmN6RXVGejdzYmZSc2JvS01FeG1iRzZRNUNI?=
+ =?utf-8?B?THNsb2N3RlUyMTFGYUVLQkVWTktnYW9QdktrUmxjcEpOTFhKckJWZXVGdnBY?=
+ =?utf-8?B?TllSZ3BsU3IycU9YeXBCOGt1eEN1cWxVYmtERFZyRUlYQ1E1aGphVWFsd1JS?=
+ =?utf-8?B?WFhFbXhDTSszSFQ2SGpRdFBqSTdoRENBYjNqZHArWHNKR1l4SkRaTkREYlJW?=
+ =?utf-8?B?VTRvRzZqQ3VIdXVTb0tTcjE5STlMUkc2K0luM0lITWdYSlFkQ3Mzb2lIUFp6?=
+ =?utf-8?B?aFkwNmNpNDNZWi9HYlkyRkpvaW1hOVdUd3oyS1QvWHcydVVGM2t0ck9BclBE?=
+ =?utf-8?B?dEVBUlg5WWxXV29ETmVnWUlhTTltRXZESDhDN0VrK29OZjcyMWV4QURaeUQz?=
+ =?utf-8?B?cnBQeXhMSW1mUGVXbUdidUtSNk1oNFQwRS9XdFUxSFNpS0JrMDl4bTJnM01G?=
+ =?utf-8?B?OGxzcTUyRktoYjhJbENxdVR4bE5xbElwV01tU3FnczFjYTJlaFM5Z28zYlJ1?=
+ =?utf-8?B?MnNmZmROWVRjSzVuUkI1VkFJWkYxd2NNUS9ubzVrSTJDT3AxWTJCUldjV0R1?=
+ =?utf-8?B?aG5DMEsvK1NqQTJyd3loZEZHUlNVMXp2ZUl2WVZtOStMN2Rod2UrWGUxbXpF?=
+ =?utf-8?B?dWpyQWhPOG00bFFubTdETnZLenpFaE9SaVFIRFdldmhWTUhRSTBtWi9CdHg0?=
+ =?utf-8?B?YWpiMDNQMUtYUDJQWDZZZmQ2eGxkTGNuTGhJZVlQS3lEVHI1N0hTeUxwMFZH?=
+ =?utf-8?B?RnJCR2xadmZyOWxNdVdHV2MzaklUcHljN25JL0pieGE0N3hPZDNwYjAzTmpF?=
+ =?utf-8?B?dzRLcUMwcTB6bHN6OUJ5clJqZm1zVDZCd1FIR3VIREtHV2M4OTFCWFYxckl1?=
+ =?utf-8?B?NWd4K1RiTmhNSXdOcnl5c1dZYWZzMTViM3BzNCtpMWN4QmpaekUrUmQ2U29t?=
+ =?utf-8?B?MVZZZ3VvQXFRa2YvZ01LNnczdVN6YmRtMS9Md08zK2dzZDhuOW91OWNMckFO?=
+ =?utf-8?B?U0lmNkN5OFFVNjNLaTdFYjN3cjFBcmZKTmpUcVpBd3k3a0wvYkJsYkdlUTQz?=
+ =?utf-8?B?TVZQcFd1emNOVDZZU2ttZXBsTW5aRU9XWFlnMjEvd3ZSVmNySjZGV1ZwOVE5?=
+ =?utf-8?B?RHp5MzI2MW42NERLd3dGNU5NdVE0VGl3dGFqWnVVWEdKUm1Ua2YzaElPanBR?=
+ =?utf-8?B?U0g0dnF0NVJpbllLVGsyd1BvaXhhWncxbTVOMm1KQXhPQ2ViaU1nMG5TMDNR?=
+ =?utf-8?B?RzdkRy80YzlocUxrVFp4WlJzRU9QKzJOSXZzeWxtMGc0UjVOd01pc0tCbzVP?=
+ =?utf-8?B?WGdaK0plcUwySDFmV0xieFdzREoyVlFHdHBRVHBKQ08xZ2w5bFowcW5ZbWtw?=
+ =?utf-8?B?dDQ3TW9Bc0RWejNUYXlweHlXSU4xQm1CWHgvUTBoUDZiNlNqM1M4K2xlRGlU?=
+ =?utf-8?Q?+WtDpS4PT9bB99os=3D?=
+X-Exchange-RoutingPolicyChecked: XphnY+oh7TxkBW/wHgVYegWHCS+NODx/RuuOBYRSgz3Cts2QZAVri+o0YS+GD7w4uYS9SpCETwAJVND7PTO3jvAUmDNAdb8/FO1vhkVd+3s/zdIUbyS8x6c4izfd5n0EfDVievX3IgLN3HwAnX3qgPv78eN8kZPgBp6RdDxwdLGKXcCXoyJnF+XoMoud5Pro/EBg/gGWO5qJqb7NO5T/ZGA4e7YtZJ46MrcAVyb2nxQj0OnErrZXOIz8JQufFnzNtAsfKFJOpKzSAWk9Iw8hlkHOJRjM7ROwDvMhnns75eVEmUOW6lSq8zUYOPFBPRhgn9vfwNx6ZJJ6Ytuk4oHt2w==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5edc460d-db70-4dbc-26ec-08df29e164b0
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 10:53:34.5037
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 798vkwlLZoejbTM6sZtaU8Ob8y5BveQ9kHKEfCxdDq8X8HifPFRI5Zb4w4sbwvUkCwRE0XiZCdr6ZKkGc/V7TqmBd7xMNNFUkx7CPwLVKHA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR11MB6460
+X-OriginatorOrg: intel.com
 
-On Wed, 2026-10-14 at 15:12 +0900, Jinpyo Lee wrote:
-> nfsd4_free_stateid() finds an admin-revoked layout stateid with
-> find_stateid_locked(), which does not acquire a reference. The layout
-> case drops cl_lock without marking the stateid closed, then stops fence
-> work and calls nfs4_put_stid() without owning a reference. Concurrent
-> disposal can therefore access a freed layout stateid or drop a reference
-> owned by another holder.
->=20
-> Mark the layout stateid CLOSED under cl_lock. Take a temporary reference
-> before dropping cl_lock and hold it while stopping fence work and
-> draining the remaining layout segments, then release it with the final
-> put. The IDR owns no layout reference.
->=20
-> Use cl_lock for the CLOSED update in LAYOUTRETURN as well, matching the
-> common stateid locking rule. Retain ls_mutex through that update and
-> recheck CLOSED under cl_lock after taking ls_mutex in LAYOUTGET, so a
-> stale LAYOUTGET cannot add a segment after the drain. Also make the newly
-> allocated layout stateid the error-path put target.
->=20
-> Make revoked-stateid disposal idempotent with SC_STATUS_FREED under
-> cl_lock. An in-flight reference can keep an admin-revoked OPEN, LOCK, or
-> DELEG stateid in the IDR after disposal. Restrict
-> nfs40_clean_admin_revoked() to v4.0 clients and skip FREED entries so its
-> retry loop cannot repeatedly select the same stateid or consume reference=
-s
-> owned by other callers. Use FREED rather than CLOSED to guard disposal:
-> delegation recall rejection can set CLOSED before the first disposal call=
-.
->=20
-> Reject FREED stateids in FREE_STATEID and TEST_STATEID as well, so a
-> stateid retained by an in-flight reference returns BAD_STATEID after
-> successful disposal instead of success or ADMIN_REVOKED.
->=20
-> Validation used nfsd-testing at c32fef6c476d. The patched x86_64 kernel
-> and modules were built with GCC 12.2 and booted with Generic KASAN,
-> lockdep, modular NFSD, and pNFS SCSI layout support. Basic NFSv4.2,
-> NFSv4.0, and NFSv3 read/write/unmount smoke tests passed.
->=20
-> Targeted runs forced concurrent two-slot FREE_STATEID, LAYOUTGET and
-> LAYOUTRETURN overlaps around ls_mutex, and an NFSv4.0 cleaner retry while
-> a READ held an OPEN stateid reference. Stateids were reaped once, stale
-> requests returned BAD_STATEID, and the NFSv4.0 cleaner did not process
-> the NFSv4.1 client. No KASAN, lockdep, refcount, list-corruption, Oops, o=
-r
-> kernel BUG report occurred; kernel taint remained zero.
->=20
-> The vulnerability research and validation were conducted by members of
-> the Tobabz team as part of the Best of the Best 15th program.
->=20
-> Fixes: 86b9898920a6 ("NFSD: Handle layout stid in nfsd4_drop_revoked_stid=
-()")
-> Suggested-by: Chuck Lever <cel@kernel.org>
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Jinpyo Lee <bint4b13@gmail.com>
-> ---
-> Changes in v3:
->=20
-> - Address the v4.0 disposal issue reported by Sashiko and forwarded by
->   Jeff Layton: claim disposal with FREED under cl_lock and skip FREED
->   stateids in the admin-revocation scan.
-> - Preserve first-time disposal of delegations already marked CLOSED, and
->   reject FREED stateids in FREE_STATEID and TEST_STATEID.
-> - Rebase onto nfsd-testing c32fef6c476daa5830f600614657baee59c83339
->   and add targeted runtime validation.
->=20
->  fs/nfsd/nfs4layouts.c | 34 ++++++++++++++++++++++++++++++++--
->  fs/nfsd/nfs4state.c   | 29 +++++++++++++++++++++++++----
->  fs/nfsd/pnfs.h        |  6 ++++++
->  fs/nfsd/state.h       |  6 +++---
->  4 files changed, 66 insertions(+), 9 deletions(-)
->=20
-> diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
-> index 898776c9d..749ace97e 100644
-> --- a/fs/nfsd/nfs4layouts.c
-> +++ b/fs/nfsd/nfs4layouts.c
-> @@ -312,6 +312,7 @@ nfsd4_preprocess_layout_stateid(struct svc_rqst *rqst=
-p,
->  		status =3D nfserr_jukebox;
->  		if (!ls)
->  			goto out;
-> +		stid =3D &ls->ls_stid;
->  		mutex_lock(&ls->ls_mutex);
->  	} else {
->  		ls =3D container_of(stid, struct nfs4_layout_stateid, ls_stid);
-> @@ -324,6 +325,15 @@ nfsd4_preprocess_layout_stateid(struct svc_rqst *rqs=
-tp,
->  			goto out_unlock_stid;
->  	}
-> =20
-> +	/* A new or looked-up stateid may have been closed before ls_mutex. */
-> +	spin_lock(&stid->sc_client->cl_lock);
-> +	if (stid->sc_status & SC_STATUS_CLOSED) {
-> +		spin_unlock(&stid->sc_client->cl_lock);
-> +		status =3D nfserr_bad_stateid;
-> +		goto out_unlock_stid;
-> +	}
-> +	spin_unlock(&stid->sc_client->cl_lock);
-> +
->  	*lsp =3D ls;
->  	return 0;
-> =20
-> @@ -537,12 +547,18 @@ nfsd4_return_file_layouts(struct svc_rqst *rqstp,
->  			nfs4_inc_and_copy_stateid(&lrp->lr_sid, &ls->ls_stid);
->  		lrp->lrs_present =3D true;
->  	} else {
-> -		trace_nfsd_layoutstate_unhash(&ls->ls_stid.sc_stateid);
-> -		ls->ls_stid.sc_status |=3D SC_STATUS_CLOSED;
->  		lrp->lrs_present =3D false;
->  	}
->  	spin_unlock(&ls->ls_lock);
-> =20
-> +	if (!lrp->lrs_present) {
-> +		/* ls_mutex prevents a LAYOUTGET from adding another segment. */
-> +		spin_lock(&ls->ls_stid.sc_client->cl_lock);
-> +		ls->ls_stid.sc_status |=3D SC_STATUS_CLOSED;
-> +		spin_unlock(&ls->ls_stid.sc_client->cl_lock);
-> +		trace_nfsd_layoutstate_unhash(&ls->ls_stid.sc_stateid);
-> +	}
-> +
->  	mutex_unlock(&ls->ls_mutex);
->  	nfs4_put_stid(&ls->ls_stid);
->  	nfsd4_free_layouts(&reaplist);
-> @@ -594,6 +610,20 @@ nfsd4_return_all_layouts(struct nfs4_layout_stateid =
-*ls,
->  	spin_unlock(&ls->ls_lock);
->  }
-> =20
-> +void nfsd4_return_revoked_layout(struct nfs4_layout_stateid *ls)
-> +{
-> +	LIST_HEAD(reaplist);
-> +
-> +	/*
-> +	 * The caller holds a stateid reference until segment draining ends.
-> +	 * Wait for any LAYOUTGET that passed the CLOSED check.
-> +	 */
-> +	mutex_lock(&ls->ls_mutex);
-> +	nfsd4_return_all_layouts(ls, &reaplist);
-> +	mutex_unlock(&ls->ls_mutex);
-> +	nfsd4_free_layouts(&reaplist);
-> +}
-> +
->  void
->  nfsd4_return_all_client_layouts(struct nfs4_client *clp)
->  {
-> diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-> index 26d2d56a5..0f1641eab 100644
-> --- a/fs/nfsd/nfs4state.c
-> +++ b/fs/nfsd/nfs4state.c
-> @@ -5849,6 +5849,17 @@ static void nfsd4_drop_revoked_stid(struct nfs4_st=
-id *s)
->  	struct nfs4_delegation *dp;
->  	bool unhashed;
-> =20
-> +	/*
-> +	 * In-flight references can keep a disposed stateid in the IDR.
-> +	 * CLOSED alone is not sufficient: a delegation may be closed
-> +	 * before its first call here.
-> +	 */
-> +	if (s->sc_status & SC_STATUS_FREED) {
-> +		spin_unlock(&cl->cl_lock);
-> +		return;
-> +	}
-> +	s->sc_status |=3D SC_STATUS_FREED;
-> +
->  	switch (s->sc_type) {
->  	case SC_TYPE_OPEN:
->  		stp =3D openlockstateid(s);
-> @@ -5867,15 +5878,22 @@ static void nfsd4_drop_revoked_stid(struct nfs4_s=
-tid *s)
->  	case SC_TYPE_DELEG:
->  		dp =3D delegstateid(s);
->  		list_del_init(&dp->dl_recall_lru);
-> -		s->sc_status |=3D SC_STATUS_FREED;
->  		spin_unlock(&cl->cl_lock);
->  		nfs4_put_stid(s);
->  		break;
->  	case SC_TYPE_LAYOUT:
->  		ls =3D layoutstateid(s);
-> +		s->sc_status |=3D SC_STATUS_CLOSED;
-> +		/*
-> +		 * The IDR does not own a layout stateid reference. Keep ls
-> +		 * alive while draining worker and segment references below;
-> +		 * the final put releases this temporary reference.
-> +		 */
-> +		refcount_inc(&s->sc_count);
->  		list_del_init(&ls->ls_perclnt);
->  		spin_unlock(&cl->cl_lock);
->  		nfsd4_stop_layout_fence(ls);
-> +		nfsd4_return_revoked_layout(ls);
->  		nfs4_put_stid(s);
->  		break;
->  	default:
-> @@ -7901,6 +7919,8 @@ static void nfs40_clean_admin_revoked(struct nfsd_n=
-et *nn,
->  		unsigned long id, tmp;
->  		struct nfs4_stid *stid;
-> =20
-> +		if (clp->cl_minorversion !=3D 0)
-> +			continue;
->  		if (atomic_read(&clp->cl_admin_revoked) =3D=3D 0)
->  			continue;
->  		if (is_client_expired(clp))
-> @@ -7908,7 +7928,8 @@ static void nfs40_clean_admin_revoked(struct nfsd_n=
-et *nn,
-> =20
->  		spin_lock(&clp->cl_lock);
->  		idr_for_each_entry_ul(&clp->cl_stateids, stid, tmp, id)
-> -			if (stid->sc_status & SC_STATUS_ADMIN_REVOKED) {
-> +			if ((stid->sc_status & SC_STATUS_ADMIN_REVOKED) &&
-> +			    !(stid->sc_status & SC_STATUS_FREED)) {
->  				refcount_inc(&stid->sc_count);
->  				atomic_inc(&clp->cl_rpc_users);
->  				spin_unlock(&nn->client_lock);
-> @@ -8340,7 +8361,7 @@ static __be32 nfsd4_validate_stateid(struct nfs4_cl=
-ient *cl, stateid_t *stateid)
->  		return status;
->  	spin_lock(&cl->cl_lock);
->  	s =3D find_stateid_locked(cl, stateid);
-> -	if (!s)
-> +	if (!s || s->sc_status & SC_STATUS_FREED)
->  		goto out_unlock;
->  	status =3D nfsd4_stid_check_stateid_generation(stateid, s, 1);
->  	if (status)
-> @@ -8725,7 +8746,7 @@ nfsd4_free_stateid(struct svc_rqst *rqstp, struct n=
-fsd4_compound_state *cstate,
-> =20
->  	spin_lock(&cl->cl_lock);
->  	s =3D find_stateid_locked(cl, stateid);
-> -	if (!s || s->sc_status & SC_STATUS_CLOSED)
-> +	if (!s || s->sc_status & (SC_STATUS_CLOSED | SC_STATUS_FREED))
->  		goto out_unlock;
->  	if (s->sc_status & SC_STATUS_ADMIN_REVOKED) {
->  		nfsd4_drop_revoked_stid(s);
-> diff --git a/fs/nfsd/pnfs.h b/fs/nfsd/pnfs.h
-> index 559df0e5b..9b0f17a4d 100644
-> --- a/fs/nfsd/pnfs.h
-> +++ b/fs/nfsd/pnfs.h
-> @@ -75,6 +75,7 @@ struct nfsd4_deviceid_map *nfsd4_find_devid_map(int idx=
-);
->  #ifdef CONFIG_NFSD_PNFS
->  void nfsd4_setup_layout_type(struct svc_export *exp);
->  void nfsd4_return_all_client_layouts(struct nfs4_client *);
-> +void nfsd4_return_revoked_layout(struct nfs4_layout_stateid *ls);
->  void nfsd4_return_all_file_layouts(struct nfs4_client *clp,
->  		struct nfs4_file *fp);
->  void nfsd4_close_layout(struct nfs4_layout_stateid *ls);
-> @@ -93,6 +94,11 @@ static inline void nfsd4_setup_layout_type(struct svc_=
-export *exp)
->  static inline void nfsd4_return_all_client_layouts(struct nfs4_client *c=
-lp)
->  {
->  }
-> +
-> +static inline void nfsd4_return_revoked_layout(struct nfs4_layout_statei=
-d *ls)
-> +{
-> +}
-> +
->  static inline void nfsd4_return_all_file_layouts(struct nfs4_client *clp=
-,
->  		struct nfs4_file *fp)
->  {
-> diff --git a/fs/nfsd/state.h b/fs/nfsd/state.h
-> index 79dfa47b8..924a98af7 100644
-> --- a/fs/nfsd/state.h
-> +++ b/fs/nfsd/state.h
-> @@ -148,9 +148,8 @@ struct nfs4_stid {
->   * nn->deleg_lock protects sc_status for hashed delegation stateids.
->   * ->cl_lock protects the bits set as one is disposed of
->   * (SC_STATUS_CLOSED, SC_STATUS_FREEABLE, SC_STATUS_FREED) and
-> - * sc_status for open and lock stateids. ->st_mutex also protects
-> - * sc_status for open stateids. ->ls_lock protects sc_status for
-> - * layout stateids.
-> + * sc_status for open, lock, and layout stateids. ->st_mutex also protec=
-ts
-> + * sc_status for open stateids.
->   */
->  /*
->   * For an open stateid kept around *only* to process close replays.
-> @@ -161,6 +160,7 @@ struct nfs4_stid {
->  #define SC_STATUS_REVOKED	BIT(1)
->  #define SC_STATUS_ADMIN_REVOKED	BIT(2)
->  #define SC_STATUS_FREEABLE	BIT(3)
-> +/* Disposal has been claimed; in-flight references may still exist. */
->  #define SC_STATUS_FREED		BIT(4)
->  	unsigned short		sc_status;
-> =20
->=20
-> base-commit: c32fef6c476daa5830f600614657baee59c83339
+Hi Janusz,
 
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
+On 2026-10-12 at 20:48:10 +0200, Janusz Krzysztofik wrote:
+> Hi Krzysztof,
+> 
+> This version finally looks good to me, however ...
+> 
+> On Tue, 2026-10-06 at 09:58 +0000, Krzysztof Karas wrote:
+> > Before addition of commit 029ae067431a
+> > ("drm/i915: Fix potential overflow of shmem scatterlist length")
+> > and after folios were introduced complete folios were always
+> > allocated, possibly overloading the scatterlist capacity which
+> > was never truly limited to PAGE_SIZE when requested via
+> > max_segment. The above commit addressed scatterlist overloading,
+> > but unintentionally disabled PAGE_SIZE as a valid max_segment
+> > value and failed to take care of remaining pages from folios
+> > above max_segment boundary.
+> > This created a state, where multitude of scatterlists were used
+> > for the same folio, but never counting enough of its pages to
+> > jump to the next folio.
+> > 
+> > Furthermore, current do-while loop goes over the same folio
+> > multiple times, increasing the refcount each time, and breaks
+> > get/put symmetry: many shmem_read_folio_gfp() gets and only one
+> > put in i915_gem_object_put_pages_shmem() per folio.
+> > 
+> > Track how many pages have already been counted in a folio and
+> > use that number as an offset on consecutive allocations from the
+> > same folio to ensure it is fully covered before reading next
+> > folio.
+> > 
+> > Fixes: 029ae067431a ("drm/i915: Fix potential overflow of shmem scatterlist length")
+> > Cc: stable@vger.kernel.org
+> > Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15816
+> > Assisted-by: LLM
+> > Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+> > ---
+> > v7:
+> >  * Derive the page offset within the current folio from
+> >    next_pfn. (Janusz)
+> >  * Update next_pfn using that offset and clarify its role in
+> >    merging contiguous physical pages. (Andi)
+> > 
+> >  drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 108 +++++++++++++---------
+> >  1 file changed, 63 insertions(+), 45 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> > index e35ee4bd456f..645da248e25d 100644
+> > --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> > @@ -70,7 +70,9 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
+> >  	unsigned int page_count; /* restricted by sg_alloc_table */
+> >  	unsigned long i;
+> >  	struct scatterlist *sg;
+> > -	unsigned long next_pfn = 0;	/* suppress gcc warning */
+> > +	/* suppress gcc warnings */
+> > +	unsigned long next_pfn = 0;
+> 
+> Why plural?  Why moved to a separate line?  Do we really need such
+> comments?  I'm not asking for dropping it, only not touching as not
+> related, unless no longer applicable after your changes.
+Nah, this is on me, I had more variables declared there in
+previous versions and forgot to remove this change.
+> 
+> > +	struct folio *folio;
+> 
+> However, if initialization of next_pfn is needed because its lack can still
+> trigger a gcc warning, shouldn't we now also initialize folio before first
+> use?
+I'll check that.
+
+> 
+> Thanks,  
+> Janusz
+> 
+> >  	gfp_t noreclaim;
+> >  	int ret;
+> >  
+> > @@ -104,7 +106,7 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
+> >  	sg = st->sgl;
+> >  	st->nents = 0;
+> >  	for (i = 0; i < page_count; i++) {
+> > -		struct folio *folio;
+> > +		unsigned long folio_page_index;
+> >  		unsigned long nr_pages;
+> >  		const unsigned int shrink[] = {
+> >  			I915_SHRINK_BOUND | I915_SHRINK_UNBOUND,
+> > @@ -112,51 +114,61 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
+> >  		}, *s = shrink;
+> >  		gfp_t gfp = noreclaim;
+> >  
+> > -		do {
+> > -			cond_resched();
+> > -			folio = shmem_read_folio_gfp(mapping, i, gfp);
+> > -			if (!IS_ERR(folio))
+> > -				break;
+> > -
+> > -			if (!*s) {
+> > -				ret = PTR_ERR(folio);
+> > -				goto err_sg;
+> > -			}
+> > -
+> > -			i915_gem_shrink(NULL, i915, 2 * page_count, NULL, *s++);
+> > -
+> > -			/*
+> > -			 * We've tried hard to allocate the memory by reaping
+> > -			 * our own buffer, now let the real VM do its job and
+> > -			 * go down in flames if truly OOM.
+> > -			 *
+> > -			 * However, since graphics tend to be disposable,
+> > -			 * defer the oom here by reporting the ENOMEM back
+> > -			 * to userspace.
+> > -			 */
+> > -			if (!*s) {
+> > -				/* reclaim and warn, but no oom */
+> > -				gfp = mapping_gfp_mask(mapping);
+> > +		if (!i || (next_pfn >= folio_pfn(folio) + folio_nr_pages(folio))) {
+> > +			/* Grab the next folio if we exhausted the current one. */
+> > +			do {
+> > +				cond_resched();
+> > +				folio = shmem_read_folio_gfp(mapping, i, gfp);
+> > +				folio_page_index = 0;
+> > +				if (!IS_ERR(folio))
+> > +					break;
+> > +
+> > +				if (!*s) {
+> > +					ret = PTR_ERR(folio);
+> > +					goto err_sg;
+> > +				}
+> > +
+> > +				i915_gem_shrink(NULL, i915, 2 * page_count, NULL, *s++);
+> >  
+> >  				/*
+> > -				 * Our bo are always dirty and so we require
+> > -				 * kswapd to reclaim our pages (direct reclaim
+> > -				 * does not effectively begin pageout of our
+> > -				 * buffers on its own). However, direct reclaim
+> > -				 * only waits for kswapd when under allocation
+> > -				 * congestion. So as a result __GFP_RECLAIM is
+> > -				 * unreliable and fails to actually reclaim our
+> > -				 * dirty pages -- unless you try over and over
+> > -				 * again with !__GFP_NORETRY. However, we still
+> > -				 * want to fail this allocation rather than
+> > -				 * trigger the out-of-memory killer and for
+> > -				 * this we want __GFP_RETRY_MAYFAIL.
+> > +				 * We've tried hard to allocate the memory by reaping
+> > +				 * our own buffer, now let the real VM do its job and
+> > +				 * go down in flames if truly OOM.
+> > +				 *
+> > +				 * However, since graphics tend to be disposable,
+> > +				 * defer the oom here by reporting the ENOMEM back
+> > +				 * to userspace.
+> >  				 */
+> > -				gfp |= __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
+> > -			}
+> > -		} while (1);
+> > +				if (!*s) {
+> > +					/* reclaim and warn, but no oom */
+> > +					gfp = mapping_gfp_mask(mapping);
+> > +
+> > +					/*
+> > +					 * Our bo are always dirty and so we require
+> > +					 * kswapd to reclaim our pages (direct reclaim
+> > +					 * does not effectively begin pageout of our
+> > +					 * buffers on its own). However, direct reclaim
+> > +					 * only waits for kswapd when under allocation
+> > +					 * congestion. So as a result __GFP_RECLAIM is
+> > +					 * unreliable and fails to actually reclaim our
+> > +					 * dirty pages -- unless you try over and over
+> > +					 * again with !__GFP_NORETRY. However, we still
+> > +					 * want to fail this allocation rather than
+> > +					 * trigger the out-of-memory killer and for
+> > +					 * this we want __GFP_RETRY_MAYFAIL.
+> > +					 */
+> > +					gfp |= __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
+> > +				}
+> > +			} while (1);
+> > +		} else {
+> > +			/*
+> > +			 * Otherwise, we are still inside the same folio,
+> > +			 * so just update its page index.
+> > +			 */
+> > +			folio_page_index = next_pfn - folio_pfn(folio);
+> > +		}
+> >  
+> > -		nr_pages = min3(folio_nr_pages(folio),
+> > +		nr_pages = min3(folio_nr_pages(folio) - folio_page_index,
+> >  				page_count - i, max_segment / PAGE_SIZE);
+> >  
+> >  		if (!i ||
+> > @@ -166,13 +178,19 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
+> >  				sg = sg_next(sg);
+> >  
+> >  			st->nents++;
+> > -			sg_set_folio(sg, folio, nr_pages * PAGE_SIZE, 0);
+> > +			sg_set_page(sg, folio_page(folio, folio_page_index),
+> > +				    nr_pages * PAGE_SIZE, 0);
+> >  		} else {
+> >  			nr_pages = min(nr_pages, (max_segment - sg->length) / PAGE_SIZE);
+> >  
+> >  			sg->length += nr_pages * PAGE_SIZE;
+> >  		}
+> > -		next_pfn = folio_pfn(folio) + nr_pages;
+> > +
+> > +		/*
+> > +		 * Store the next PFN, so contiguous physical pages
+> > +		 * can be merged into the same SG entry.
+> > +		 */
+> > +		next_pfn = folio_pfn(folio) + folio_page_index + nr_pages;
+> >  		i += nr_pages - 1;
+> >  
+> >  		/* Check that the i965g/gm workaround works. */
+
+-- 
+Best Regards,
+Krzysztof
