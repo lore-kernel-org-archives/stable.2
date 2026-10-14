@@ -1,110 +1,179 @@
-Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch [109.224.244.107])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-183.mta0.migadu.com [91.218.175.183])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CACB4A4EFC
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 07:45:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.107
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90019472F8E
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 07:56:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791963917; cv=none; b=BmwiUshuWpYvCfJK1tcEnTjCicJGt9J3mNJMSsXKIoqolAZnUWNrrxf/Xy186qIUSY+Oy3FJUXlFEsrekQPuT6qlTPe66rT0c317I77rdfDqbjCJzWOGJRvRX05Oywa1FPqC1ORj1DmLdxjh4zoKwyc5337rYWkEX8KqTBFcSfg=
+	t=1791964587; cv=none; b=BA8hvUqmQFxWqXq2kTVCdMNc0vPzpZVP4w14Oy3QEajF7AWxtSqGB3vf9tvFFe1ovwhuAHtRyAeCXQJ96pyJ8l8qm121hpBfQU8NZ1AXUAGNcPnXZi6NDVFzVzV2fLIm29X2yQmS0ovgY0SQXAF0xZsIolSId149+Ui3XusQR94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791963917; c=relaxed/simple;
-	bh=t4uJa7B2gn7DVC3zYIMzIN8iYuoKuqYyGjn6xsB/n3c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Rx+gPgMcAbci8HbMZOM4I1ZXnQQWIBuEXK74QeQSgyDetl7XMMhze9qer7xtLbNMrz3pKzdYO1mjTP6U/n+n94S0Kcl1CQfGVUo0J4ZzTI8edb9sXVhLEwBu8zZqWt/OPM7Cq3nMb7rtCwzxmj7S3f4xdYq0pY1yygMEpA2CPB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=c+5sWshy; arc=none smtp.client-ip=109.224.244.107
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1791964587; c=relaxed/simple;
+	bh=3NakkYm+exfqHeo87l+Jy3RJZBZS8mbhTiQS6F5ENvk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ughiNWnpmoYexE9rjEiwqQoU1KkqCb90hJKhReXXaeaxmYr0lzNMdXMWbK5nnODH72F+XljrermZCEeaI9hlgJyDoPIbFlqsZ0ZCJ+DTwfQauLLvdRencIAxKhK3tAXsJq5RQWoHK3RUo1avlYbWA7x1ER+rfRKb2r47ZozhfxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KgfDKtGl; arc=none smtp.client-ip=91.218.175.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="c+5sWshy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1791963900; x=1792223100;
-	bh=0J4sh4csOcn3zKERB6o1fbX9FtthYRH58NuaSeRekLI=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=c+5sWshyMQncl2L3LT6dSL/EKpkMoMTQQMmryuiSSJmH29pskYnQ+2GsnNNj5rwMF
-	 Ug3jWmIOZdmLYJz+zwLWcxm9X1QJVtlJ/jrWYKxYVnu5PZCeS+qvR9IEqWx+2uHmgq
-	 LwTYffGZQQBV7W3h96p/z/yYrGPxo7iL+yyIo6eBvRahrkwAxYT6DuTNCng3Xc0oNN
-	 u7E3Eb+yAPySH9oVPVNkY5rgAqm0j50z3MBka0FUiPMYe8AknjwtIbRWtE+VAtm7ad
-	 8yrwJO16qOX+8jY/HnZx73PR6Ko8NnZxgb6sMTmthJaYbeLw5SOA1Wd0H6wcH/o4HC
-	 p/cxlaQeSNAag==
-X-Pm-Submission-Id: 4j4NXB72pGz1DDLm
-From: Esben Haabendal <esben@geanix.com>
-Date: Wed, 14 Oct 2026 09:44:44 +0200
-Subject: [PATCH RESEND v4 3/4] drm/bridge: nwl-dsi: Correct auto-insert
- EOTP behavior
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KgfDKtGl"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3NakkYm+exfqHeo87l+Jy3RJZBZS8mbhTiQS6F5ENvk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791964582; v=1; x=1792569382;
+ b=KgfDKtGlnya+w0y+13eDfqGYwadeUvStcnSjdRAXRZPy/w4ajj0Yu1rBDQ1hqaulwiQkV10G
+ TBiORH9tEtm52K4jwFva0QEuVVFkuvUSmTzHiLNz9qiE/zk15Gsg+ZFlKVkSI9pJdKeHfueUC/x
+ 68XbzPnENWRiOxSmlLisNpgE=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 38737ea13a66a289;
+	Wed, 14 Oct 2026 07:56:22 +0000
+X-Mizu-Trace-ID: 38737ea13a66a289
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org
+Cc: pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	akpm@linux-foundation.org,
+	zhangchunyan@iscas.ac.cn,
+	rppt@kernel.org,
+	kas@kernel.org,
+	andrew+kernel@donnellan.id.au,
+	rmclure@linux.ibm.com,
+	debug@rivosinc.com,
+	baolin.wang@linux.alibaba.com,
+	usama.arif@linux.dev,
+	wangruikang@iscas.ac.cn,
+	namcao@linutronix.de,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	alexghiti@rivosinc.com,
+	viro@zeniv.linux.org.uk,
+	ajones@ventanamicro.com,
+	arnd@arndb.de,
+	axelrasmussen@google.com,
+	brauner@kernel.org,
+	conor.dooley@microchip.com,
+	conor@kernel.org,
+	jack@suse.cz,
+	liam@infradead.org,
+	ljs@kernel.org,
+	mhocko@suse.com,
+	paul.walmsley@sifive.com,
+	peterx@redhat.com,
+	robh@kernel.org,
+	surenb@google.com,
+	vbabka@kernel.org,
+	yuanchu@google.com,
+	stable@vger.kernel.org,
+	pasha.tatashin@soleen.com,
+	linux-mm@kvack.org,
+	me@ziyao.cc
+Subject: Re: [PATCH 1/1] riscv/mm: fix soft-dirty migration PMDs being treated as present
+Date: Wed, 14 Oct 2026 15:56:16 +0800
+Message-ID: <20261014075616.76429-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261007113345.32755-1-lance.yang@linux.dev>
+References: <20261007113345.32755-1-lance.yang@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-nwl-dsi-fixes-v4-3-b9138ea5e12c@geanix.com>
-References: <20261014-nwl-dsi-fixes-v4-0-b9138ea5e12c@geanix.com>
-In-Reply-To: <20261014-nwl-dsi-fixes-v4-0-b9138ea5e12c@geanix.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
- Fabio Estevam <festevam@gmail.com>, Robert Chiras <robert.chiras@nxp.com>, 
- Sam Ravnborg <sam@ravnborg.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791963890; l=1534;
- i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=ph/ko3JZuF/EGwW8CMFFQ2PCEUquZd0uUQmZBRXKKT0=;
- b=g3xAhBhs1nP3jD7qEDuvgH/Ez0EBlVa15PCrsH+2UhGLeF+v/OTntYTAVfmS2Sq/usCFS/NQG
- irMmo6AkimyAXc16Z2AfYX20B7kN2Dkx2ivw4H0TwT2YBQqKrGLMBkX
-X-Developer-Key: i=esben@geanix.com; a=ed25519;
- pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Robert Chiras <robert.chiras@nxp.com>
 
-In order to respect the DSI protocol, make sure that auto-insert EOTP is
-enabled according to the NO_EOT_PACKET flag instead of the
-CLOCK_NON_CONTINUOUS flag.
+On Wed, Oct 07, 2026 at 07:33:45PM +0800, Lance Yang wrote:
+>
+>On Wed, Oct 07, 2026 at 01:01:14PM +0200, David Hildenbrand (Arm) wrote:
+>>On 10/5/26 15:46, Lance Yang wrote:
+>>> 
+>>> On Mon, Oct 05, 2026 at 12:37:20PM +0200, David Hildenbrand (Arm) wrote:
+>>>> On 10/4/26 05:03, Lance Yang wrote:
+>>>>> RISC-V uses _PAGE_EXEC for swap soft-dirty tracking when
+>>>>> CONFIG_MEM_SOFT_DIRTY is enabled and Svrsw60t59b is available. That's
+>>>>> a problem for PMD migration entries, since pmd_present() also checks
+>>>>> _PAGE_LEAF (R/W/X) to recognize THPs with _PAGE_PRESENT temporarily
+>>>>> cleared during splitting.
+>>>>
+>>>> I'm curious: why do we have to set leaf indications for non-present things? The
+>>>> HW sure will ignore it, right?
+>>> 
+>>> Yeah, that surprised me too :) Still wrapping my head around the details
+>>> ...
+>>> 
+>>>> Is this a sw problem? Who needs that?
+>>> 
+>>> IIUC, it's for software during a PMD split.
+>>> 
+>>> __split_huge_pmd_locked() invalidates the huge PMD and flushes the TLB
+>>> before installing the PTE table. Software still needs pmd_present() and
+>>> pmd_trans_huge() to recognize the THP in between.
+>>> 
+>>> RISC-V clears V but keeps the R/W/X bits for that, so the entry is invalid
+>>> to hardware but still identifiable as a THP by software.
+>>> 
+>>> Hopefully I didn't miss something.
+>>
+>>I thought some change we performed to GUP-fast wouldn't require that anymore.
+>>But my memory is a bit vague ... :)
+>
+>Yeah, I'll have another look at that :)
 
-Fixes: 44cfc6233447 ("drm/bridge: Add NWL MIPI DSI host controller support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Esben Haabendal <esben@geanix.com>
-Cc: Robert Chiras <robert.chiras@nxp.com>
-Cc: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
----
- drivers/gpu/drm/bridge/nwl-dsi.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+Emm ... I'm back. Do you mean 4b471e8898c3, which removed the GUP-fast
+pmd_trans_splitting() check after the THP refcounting rework? That check
+made GUP-fast bail out during the old THP split. The refcounting rework
+made extra GUP references prevent the physical split :)
 
-diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
-index 1aab46e1a168..f3f4334136c0 100644
---- a/drivers/gpu/drm/bridge/nwl-dsi.c
-+++ b/drivers/gpu/drm/bridge/nwl-dsi.c
-@@ -222,13 +222,15 @@ static int nwl_dsi_config_host(struct nwl_dsi *dsi)
- 	DRM_DEV_DEBUG_DRIVER(dsi->dev, "DSI Lanes %d\n", dsi->lanes);
- 	nwl_dsi_write(dsi, NWL_DSI_CFG_NUM_LANES, dsi->lanes - 1);
- 
--	if (dsi->dsi_mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS) {
-+	if (dsi->dsi_mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS)
- 		nwl_dsi_write(dsi, NWL_DSI_CFG_NONCONTINUOUS_CLK, 0x01);
--		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x01);
--	} else {
-+	else
- 		nwl_dsi_write(dsi, NWL_DSI_CFG_NONCONTINUOUS_CLK, 0x00);
-+
-+	if (dsi->dsi_mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET)
- 		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x00);
--	}
-+	else
-+		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x01);
- 
- 	/* values in byte clock cycles */
- 	cycles = ui2bc(cfg->clk_pre);
+RISC-V gained THP support in 2021 (e88b333142e4), after
+pmd_trans_splitting() had been removed. It never implemented that helper.
 
--- 
-2.56.0
+Keeping R/W/X in an invalidated RISC-V PMD preserves its leaf identity for
+software page-table walks. That requirement is separate from the old
+GUP-fast splitting check.
 
+For RISC-V, pmd_mkinvalid() clears V and PROT_NONE but keeps R/W/X, so
+pmd_present() and pmd_trans_huge() still return true:
+
+#define _PAGE_LEAF (_PAGE_READ | _PAGE_WRITE | _PAGE_EXEC)
+
+static inline pmd_t pmd_mkinvalid(pmd_t pmd)
+{
+	return __pmd(pmd_val(pmd) & ~(_PAGE_PRESENT|_PAGE_PROT_NONE));
+}
+
+static inline int pmd_present(pmd_t pmd)
+{
+	/*
+	 * Checking for _PAGE_LEAF is needed too because:
+	 * When splitting a THP, split_huge_page() will temporarily clear
+	 * the present bit, in this situation, pmd_present() and
+	 * pmd_trans_huge() still needs to return true.
+	 */
+	return (pmd_val(pmd) & (_PAGE_PRESENT | _PAGE_PROT_NONE | _PAGE_LEAF));
+}
+
+static inline bool pmd_leaf(pmd_t pmd)
+{
+	return pmd_present(pmd) && (pmd_val(pmd) & _PAGE_LEAF);
+}
+
+static inline int pmd_trans_huge(pmd_t pmd)
+{
+	return pmd_leaf(pmd);
+}
+
+And the rmap walk also needs that leaf indication. page_vma_mapped_walk()
+checks pmd_trans_huge() before taking the PMD lock, then rereads the entry
+under the lock. Keeping R/W/X lets it recognize the invalidated THP and
+wait for the split to finish :)
+
+Anyway, R/W/X still have a job there (RISC-V doesn't have a separate leaf
+bit), and I don't think we can just drop them yet :D
+
+Cheers, Lance
+
+[...]
