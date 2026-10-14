@@ -1,242 +1,115 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FEE3306746
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 01:37:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68E72741A0
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 01:40:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791941880; cv=none; b=nVTsXwEg8yb9Iw0RERQFiImtb3VLWe9XOG0RbyvkVKhmkcMZni4Dn1ozwghUvVtmSnLqrH9Fvr1MGi5gfuOa4FK5NitM7CPz8ALGX403jxOP+tpyePnM+uYRE/91CNe5GU09f6dItKQV0v7VvFBFjuy8awNCk6HHFpAU/pxnMJs=
+	t=1791942022; cv=none; b=n0+FPFLkPvwcfZ6MZTCac5qzQv05dWP7AZctszVHRVi1hJ+4AXxAB5J7vbUes7lGaD77IfNfdxjgIamotm+gHYGZ171pr+UCwByWyosegJ3xdS1L7JTqkfnevmcDID/NfGa+HoWHYzIevZMBGDZwyYkpmSl6tIYwQo7DG5YU71M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791941880; c=relaxed/simple;
-	bh=/OZocwssauKut9omL+lEctVuKNcS9FDNbSCdoNKeBVs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=o/FcWCsJ9EuLrEF8kk+Hx9ZecNwHVDttazx1UZW1lsm4dJJEjW0HC8jXOZZ0wwDrU0ssado0/0fEWbhkD1QIcyZBrQKm5ZTo6/2p28eHUYn+IyGH3tUG9xSBVzuBTcA9F6JzjMU2mD6rX9OULXS5H1UqCktlE++0TcJz3lhAX+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gi2s/sY+; arc=none smtp.client-ip=209.85.215.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791942022; c=relaxed/simple;
+	bh=YoN78TWBlmpx0A6DZIRcttrESlXSOSTvIOjKF9tTnoE=;
+	h=Mime-Version:Subject:From:To:CC:In-Reply-To:Message-ID:Date:
+	 Content-Type:References; b=h2l2FMsWYv8U2EiYcE/b/RxkUQGs2Q3oOeeIohy3k6pSyjO5nNO0U16X+gr8r7Q7oCB6i5FPDdd/eNi+/a7mwBmbggfg93oJ4E/2RBebTgx/TdLXOaWdF6Mn8MDzYuFf8OemGAe/KGa0PHTZJwcMRaQi2DwKN6xWuCr2gqd9af4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=iBiXfFju; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gi2s/sY+"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc4e9e56e9aso1265396a12.2
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 18:37:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791941877; x=1792546677; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kd9+l5QTagk+LtJ2OjYkYrsvBCuyDHb1Y4sh7dmacA8=;
-        b=gi2s/sY+r3Pb+VC5xH+nh7naC/YZ9jPZB7BOPm0URwTJWFFSu5QBjkHWE9/3Uw/SWv
-         eBJbXs7lhvQBRhIo0xIgixh2gYwhlUfPT303TYGfKUH0bZSb1A3FE+JDb+2adQ6nGiCb
-         RGlV3vqnOVp/C9yIU2Hcu3U3vZ4DPV9b/HNe4Ut+Y/D/MJ7EmU3syBF2+nPc7TzgH8FE
-         a7dYyvtOK8Wbj2HKtCbo2Xx//nfBXeFAQCcNjMJ6a107V5CJyf6suerjfCQz1O/mIeDv
-         Lxc086di0K+xUmom5/i/gRjHm3K720r4ZGyEHv80I8J5RzW1c7zcFE+6+ovOhST2nE8I
-         d5xA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791941877; x=1792546677;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kd9+l5QTagk+LtJ2OjYkYrsvBCuyDHb1Y4sh7dmacA8=;
-        b=ZyMet/tcgelllIL/tm4OBQI9JD07eBEw6bfwn8jrm+vZ6ghOBIe41764RtgbK/7jmI
-         cXpFHr7qq1d5CvgphkV2AmaYZCMr1W67mDmWaoEzKlPWfaaFEwZtc2swgz7DQf9dUk9L
-         SEd1DNR5PRBtT0D4qYq0UB8RQ9D523WCs8a+QoU/5oo95Lh4lu1tnPVheweqt6qhWaN1
-         LIugoTmodMYl/VS4cgME/Agkc7HfA5ed0c/1eMypr9lTUK2Tl3kxBMDB0W5E5ADlPs6Y
-         zs8rUGbDdJ8enhqNVdgVaTFaR1+XKUP007iVbCcs6MV0neChXAP3dmD/yUonJkgbwxCY
-         kw4A==
-X-Forwarded-Encrypted: i=1; AKwUvByD4ZPHlHzejxo4UZzKjEazh9XL9ofWMAQP+1eATHJNkjEmfK5T658vxk6lmzDoqikp2kRTdSg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJeeLsQBf27GiMt8JSUURNUZ/M4a1spkaQHKjA6dmYahl6f/p+H
-	/ybgKMplLT7KaROlSC9iUOOTkIT9cpQfW+pMfG32cWwaPatop1nXRkZM
-X-Gm-Gg: AYBFou3xd0ALE1incRVwPBerhAfsK5Rf+yXO5frtPhxL5k+5aIQB+4UsblPP7zy7dHe
-	x4jZAOqkn9afUfTIz/1/jDg1cg9867j3ZiX6QyPjnJCpiM+eH3iCH9qVrnqmz9A0NxhDcQZtRkZ
-	5sZO73MsGo0Tgmcel+bAa7ACnD8QRuYUfvg+976Ijro+8NMKhFqWwWN6WXmYZfHfdr7MOrqHH8D
-	PXn3D8AGSEXHk9PjTIs98JmdwIO4lxLEwA+6IuKEP5qlS3ldJp7yREkMW79K+Qr6OOj2lrnCpeg
-	nP3Odq7OQedLLjInOE9r0HljNWiaVYKUkFTjAYtVOX929dAxcysQB/PLNF73iHYVy4BFfF2fkDT
-	1WUMrExP0ZKb5ZvbJXelju5mFH1wKlVZ4x/tOXzJbhgu1aLP84LMU6epuEi4s178YBVqEgDW7VU
-	e1XJTECJtS7PRL221qdCQL1wad3+uE74bveH2inYfebAMMVqqwE+W48MLy4oG4sedDpn9VZ6zTT
-	x3V9Yx2IkI/WU5NxM21EmNkQqG28umM3FmOJSClXTBbU9JfYzP2KSppF86XkAN6rgLGo2WDhTfz
-	Qpl0AXMqiCmTDAmQHUqVJTwChalfRHZ2O/WyaJBG9cPs+wrf
-X-Received: by 2002:a17:90b:314d:b0:3ac:7556:8eed with SMTP id 98e67ed59e1d1-3ac7556a42cmr112034a91.44.1791941877436;
-        Tue, 13 Oct 2026 18:37:57 -0700 (PDT)
-Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.172])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f203d38sm2062988a91.6.2026.10.13.18.37.52
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 13 Oct 2026 18:37:55 -0700 (PDT)
-From: Yu Zhang <yuz08559@gmail.com>
-To: "Martin K . Petersen" <martin.petersen@oracle.com>
-Cc: linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mike Christie <michael.christie@oracle.com>,
-	Dmitry Bogdanov <d.bogdanov@yadro.com>,
-	stable@vger.kernel.org,
-	Yu Zhang <yuz08559@gmail.com>
-Subject: [PATCH v2] scsi: target: fix demo-mode dynamic ACL dev-entry UAF vs LUN teardown
-Date: Wed, 14 Oct 2026 11:37:46 +1000
-Message-ID: <20261014013746.46705-1-yuz08559@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261013120528.37749-1-yuz08559@gmail.com>
-References: <20261013120528.37749-1-yuz08559@gmail.com>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="iBiXfFju"
+Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261014014018epoutp028938abe95f4fecb2f518003e1f191afb~eQcWa9WdF1348213482epoutp02C
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 01:40:18 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261014014018epoutp028938abe95f4fecb2f518003e1f191afb~eQcWa9WdF1348213482epoutp02C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791942018;
+	bh=1d+d0jVHgB0EadQMkTGvrSCW+JV5YjB/dJMefH+YkxU=;
+	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
+	b=iBiXfFjuvp/91UceZp/C0Ow1sIBAEGzLqydF9emm/GvnYF2JeNMEywCjIomPbgqE8
+	 kc3gZ8THLPH17D/01CW1kccTR5PFyF7pGBWSTdk88Uy8DzpxAyrGw7ncCXySaFKLK8
+	 BCKlUdb4DUSqhknqrg5/2+GQ2hLKmHwA8AmiMIGQ=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
+	20261014014017epcas2p24aaeaae47c415e988a530ec528956580~eQcVs79Zi3261832618epcas2p2D;
+	Wed, 14 Oct 2026 01:40:17 +0000 (GMT)
+Received: from epcas2p4.samsung.com (unknown [182.195.38.211]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4j4DRP4mnxz3hhT4; Wed, 14 Oct
+	2026 01:40:17 +0000 (GMT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Subject: RE:(2) [PATCH] xfs: refuse a pNFS LAYOUTCOMMIT of a range without
+ blocks
+Reply-To: daejun7.park@samsung.com
+Sender: Daejun Park <daejun7.park@samsung.com>
+From: Daejun Park <daejun7.park@samsung.com>
+To: Christoph Hellwig <hch@lst.de>
+CC: Carlos Maiolino <cem@kernel.org>, "linux-xfs@vger.kernel.org"
+	<linux-xfs@vger.kernel.org>, "Darrick J. Wong" <djwong@kernel.org>, Dave
+	Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton
+	<jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>, Sergey Bashirov
+	<sergeybashirov@gmail.com>, "linux-nfs@vger.kernel.org"
+	<linux-nfs@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>, Daejun Park <daejun7.park@samsung.com>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+In-Reply-To: <20261013120359.GB2944@lst.de>
+X-CPGS-Detection: blocking_info_exchange
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <20261014014017epcms2p7ab0ff4f1356d695c55514bd7ccaebadf@epcms2p7>
+Date: Wed, 14 Oct 2026 10:40:17 +0900
+X-CMS-MailID: 20261014014017epcms2p7ab0ff4f1356d695c55514bd7ccaebadf
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-223,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261013120408epcas2p19974f8ffd4afa0b0cc5a4f19e9218004
+References: <20261013120359.GB2944@lst.de>
+	<20261013-xfs-pnfs-commit-hole-v1-1-740912db9102@samsung.com>
+	<CGME20261013120408epcas2p19974f8ffd4afa0b0cc5a4f19e9218004@epcms2p7>
 
-A demo-mode (generate_node_acls=1) login that allocates a dynamic
-NodeACL populates that ACL's per-LUN dev entries in
-core_tpg_add_node_to_devs() *before* the ACL is linked onto
-tpg->acl_node_list by target_add_node_acl():
+On Tue, Oct 13, 2026 at 02:03:59PM +0200, Christoph Hellwig wrote:
+> blockgc really should not free them due to the prealloc inode flag.
+> Do you still see that with your prefix flag setting fix?  If so we
+> have a deeper problem.
 
-	core_tpg_check_initiator_node_acl():
-		...
-		core_tpg_add_node_to_devs(acl, tpg, NULL); /* builds deves */
-		target_add_node_acl(acl);                  /* only now listed */
+I don't see it with "xfs: mark the inode preallocated for pNFS write
+layouts past EOF" applied: in the same test, blockgc keeps the blocks
+and the LAYOUTCOMMIT succeeds with the client's data in place. The
+sentence was about trees without that patch, so I'll drop it in v2 and
+keep the reclaim case and the range that was never laid out.
 
-The LUN teardown sweep, core_clear_lun_from_tpg(), enumerates only
-tpg->acl_node_list, so a dev entry whose ACL is still in the window
-above is invisible to the sweep and is never disabled.  It is left on
-the se_lun->lun_deve_list after core_tpg_remove_lun() frees the se_lun;
-when the same unpacked_lun is later re-added and the se_lun is
-reallocated at the same address, the stale dev entry is rediscovered by
-target_nacl_find_deve() and core_enable_device_list_for_node() corrupts
-lun_deve_list:
+> It would be great to get these included in pynfs.
+>
+> Also a little doc on your setup to run pynfs in client mode against
+> nfsd with block/scsilayout would probably useful.
 
-  BUG: KASAN: slab-use-after-free ...
-   core_enable_device_list_for_node+0x5ce/0x880
-   core_tpg_add_node_to_devs+0x169/0x190
-   core_dev_add_lun+0x146/0x190
-   target_fabric_port_link+0xe9/0x1b0
-   configfs_symlink+0x381/0xae0
-   __x64_sys_symlink+0x55/0x80
+Sure, I'll send them to pynfs with a short README section on the setup,
+on top of the block layout test I posted earlier:
+https://lore.kernel.org/r/20261006002622epcms2p38e492aef17fdf79e48b05c9aada2918d@epcms2p3
 
-The demo-mode login path that drives the ACL/dev-entry creation is
-reachable by an unauthenticated initiator; the colliding LUN add/remove
-is a local configfs operation.
+> As soon as we drop the lock, the result might be stale.  So I suspect
+> we want a CONVERT_ONLY flag to xfs_bmapi_write that makes it refuse
+> to allocate blocks instead in one atomic operation.
 
-Commit 49cb77e297dc ("target: Avoid mappedlun symlink creation during
-lun shutdown") introduced se_lun->lun_shutdown and guarded the
-*explicit* ACL MappedLUN path (target_fabric_mappedlun_link()), but the
-demo-mode automatic path, core_tpg_add_node_to_devs() ->
-core_enable_device_list_for_node(), was never given the equivalent
-guard, and the publish-after-populate ordering in
-core_tpg_check_initiator_node_acl() was left unchanged.
+The IOLOCK held across both keeps truncate, fallocate and blockgc out
+today, but the flag doesn't depend on that, so v2 does it that way:
+xfs_bmapi_write() takes a new XFS_BMAPI_CONVERT_ONLY flag that fails for
+a hole or a delalloc extent instead of allocating, and
+xfs_fs_commit_blocks() passes it through xfs_iomap_write_unwritten().
 
-Fix it in three cooperating parts:
-
- 1) Publish the dynamic NodeACL onto acl_node_list *before* creating its
-    dev entries, so the teardown sweep can observe them.
-
- 2) Refuse to attach a dev entry to an se_lun that is shutting down,
-    checked under nacl->lun_entry_mutex -- the same lock the sweep takes
-    -- so once the sweep has passed an ACL any later enable for that LUN
-    observes lun_shutdown and skips it.
-
- 3) In core_enable_device_list_for_node(), insert the new dev entry onto
-    lun->lun_deve_list while still holding nacl->lun_entry_mutex, in both
-    the replace and the new-entry branch.  Previously the entry was added
-    to nacl->lun_entry_hlist under the mutex but to lun->lun_deve_list
-    only after dropping it; with the ACL now published early, the sweep
-    could take the mutex in that gap, find the entry on the hlist,
-    core_disable_device_list_for_node() it (list_del() on the not-yet-
-    linked lun_link succeeds and the entry is freed), and then the enable
-    would list_add_tail() the freed entry back onto lun_deve_list.
-    Linking both lists under the mutex makes enable and the sweep
-    mutually exclusive, closing that window.
-
-core_tpg_add_node_to_devs() already ignores the return value of
-core_enable_device_list_for_node(), so a shutting-down LUN is simply
-skipped.
-
-Cc: stable@vger.kernel.org
-Fixes: 49cb77e297dc ("target: Avoid mappedlun symlink creation during lun shutdown")
-Signed-off-by: Yu Zhang <yuz08559@gmail.com>
-Tested-by: Yu Zhang <yuz08559@gmail.com>
----
-v2: core_enable_device_list_for_node() now links the new dev entry onto
-    lun->lun_deve_list while still holding nacl->lun_entry_mutex (part 3
-    above), closing a TOCTOU window the v1 reorder opened where the
-    teardown sweep could free a dev entry between its hlist insert and
-    its lun_deve_list insert.  Caught by automated review.  No functional
-    change to the v1 tpg.c reorder or the lun_shutdown guard.
- drivers/target/target_core_device.c | 18 +++++++++++-------
- drivers/target/target_core_tpg.c    | 10 +++++++---
- 2 files changed, 24 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/target/target_core_device.c b/drivers/target/target_core_device.c
-index 1111111..2222222 100644
-@@ -349,6 +349,19 @@
- 	new->attach_count++;
- 
- 	mutex_lock(&nacl->lun_entry_mutex);
-+	/*
-+	 * Do not attach a new dev entry to an se_lun that is being torn down.
-+	 * lun_shutdown is set by core_tpg_remove_lun() before its
-+	 * core_clear_lun_from_tpg() sweep; checking it here under the same
-+	 * nacl->lun_entry_mutex the sweep takes guarantees that once the sweep
-+	 * has passed this ACL no dev entry can be left dangling on the
-+	 * se_lun->lun_deve_list that is about to be freed.
-+	 */
-+	if (lun->lun_shutdown) {
-+		mutex_unlock(&nacl->lun_entry_mutex);
-+		ret = -ENODEV;
-+		goto free_stats;
-+	}
- 	orig = target_nacl_find_deve(nacl, mapped_lun);
- 	if (orig && orig->se_lun) {
- 		struct se_lun *orig_lun = orig->se_lun;
-@@ -375,12 +388,12 @@
- 		new->se_lun_acl = lun_acl;
- 		hlist_del_rcu(&orig->link);
- 		hlist_add_head_rcu(&new->link, &nacl->lun_entry_hlist);
--		mutex_unlock(&nacl->lun_entry_mutex);
- 
- 		spin_lock(&lun->lun_deve_lock);
- 		list_del(&orig->lun_link);
- 		list_add_tail(&new->lun_link, &lun->lun_deve_list);
- 		spin_unlock(&lun->lun_deve_lock);
-+		mutex_unlock(&nacl->lun_entry_mutex);
- 
- 		kref_put(&orig->pr_kref, target_pr_kref_release);
- 		wait_for_completion(&orig->pr_comp);
-@@ -393,11 +406,10 @@
- 	new->se_lun = lun;
- 	new->se_lun_acl = lun_acl;
- 	hlist_add_head_rcu(&new->link, &nacl->lun_entry_hlist);
--	mutex_unlock(&nacl->lun_entry_mutex);
--
- 	spin_lock(&lun->lun_deve_lock);
- 	list_add_tail(&new->lun_link, &lun->lun_deve_list);
- 	spin_unlock(&lun->lun_deve_lock);
-+	mutex_unlock(&nacl->lun_entry_mutex);
- 
- 	target_luns_data_has_changed(nacl, new, true);
- 	return 0;
-diff --git a/drivers/target/target_core_tpg.c b/drivers/target/target_core_tpg.c
-index 3333333..4444444 100644
-@@ -267,6 +267,15 @@
- 	acl->dynamic_node_acl = 1;
- 
- 	/*
-+	 * Publish the dynamic NodeACL on tpg->acl_node_list before creating
-+	 * its demo-mode MappedLUN dev entries below, so that a concurrent LUN
-+	 * teardown sweep (core_clear_lun_from_tpg(), which walks acl_node_list)
-+	 * can observe and disable those dev entries.  Otherwise a dev entry can
-+	 * be left on an se_lun->lun_deve_list that is about to be freed.
-+	 */
-+	target_add_node_acl(acl);
-+
-+	/*
- 	 * Here we only create demo-mode MappedLUNs from the active
- 	 * TPG LUNs if the fabric is not explicitly asking for
- 	 * tpg_check_demo_mode_login_only() == 1.
-@@ -275,7 +284,6 @@
- 	    (tpg->se_tpg_tfo->tpg_check_demo_mode_login_only(tpg) != 1))
- 		core_tpg_add_node_to_devs(acl, tpg, NULL);
- 
--	target_add_node_acl(acl);
- 	return acl;
- }
- EXPORT_SYMBOL(core_tpg_check_initiator_node_acl);
--- 
-2.43.0
+One difference from v1: a LAYOUTCOMMIT with a laid-out range followed by
+a hole now converts the laid-out range before it fails.
+xfs_fs_commit_blocks() already left earlier extents converted when a
+later one failed, and the Linux client resends all of its extents after
+a failed LAYOUTCOMMIT, so I don't think that matters.
