@@ -1,104 +1,130 @@
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
+Received: from arkamax.eu (128-116-240-228.dyn.eolo.it [128.116.240.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E7D6AD4;
-	Wed, 14 Oct 2026 06:22:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43AD53D1CB5;
+	Wed, 14 Oct 2026 06:30:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.116.240.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791958938; cv=none; b=keJE6FPyIm5s8uLX2x9vhcMTq/j1/ga49U74bM7at1N6ZaVXBKs7Zay46bdI5n/lb6cawt6LgwAH2FbfktC4RJq3mzXUWNguAFdv3LwP6IWipQkMbjXd+cWzgJvK+zfxhdKbAQwIDHq13Cgngzm0LQGl47LRHsbwFbwtJvIbW44=
+	t=1791959417; cv=none; b=SNcr9lAv6ZuEVo5rJz/Hf97i+CxCt5bmdhHKbyWkw+DQYFd6EyGePxu5l6uVpZBGtRW/oKsu7o49mclQF+J0CokBW7pGquzrnZyyf1TareOI4E6qHONVs+1WZFXSbxoLcczOUoSCx/fHtIeHoxk4EPfc6sf2XrxYKgyDI9vLTEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791958938; c=relaxed/simple;
-	bh=zVFOwxbB3E4WyNM5PAk+G90lPh5f8tZUn++eTVfJwfI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=co3tHbT3F0mNfMzbVItgKOFJ0/I8YEJx9S6dFDnZ9uMR10ulVEGPYG0CX2iTHyHiR0FdaCvnJh1exDprPlviaXM6myjGOUgmGjSt6v2msRQ4EkSWLL3bWnS93wSOE483rE745Y5UO3JhVJ9LyNWfGjWBEtwUu6Rf+t9ZcSWrD/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=qiTnqKh0; arc=none smtp.client-ip=79.135.106.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1791959417; c=relaxed/simple;
+	bh=EYpybl+sKkbYJxE4ysJBc9JgYugoN7FZg/U8lPSyFx0=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=fwSXaF80F9PhkCdVKtkRXtKiUTVLliZNMQ8bmvwFq452zenW0MHpJ5adkKgOkLeJoamnOtTJ48KXmtLtjIHjDtthzzNpa2SK8elRqPyGI/I7MPHD+6+e+xtepXiyNPfsgb/B5REZ/JUc5IglDlLlx2pjV8rcCQpe610cQ8/8row=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arkamax.eu; spf=pass smtp.mailfrom=arkamax.eu; dkim=pass (2048-bit key) header.d=arkamax.eu header.i=@arkamax.eu header.b=Bq7BZPcb; arc=none smtp.client-ip=128.116.240.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arkamax.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arkamax.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="qiTnqKh0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1791958923; x=1792218123;
-	bh=QoFk0sTVo+1didJCGcFzVD80StcHCyEnGCJt5nv+Nxc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=qiTnqKh08A+3nCtQvFvhuuGPh2MRmLW9VQgSxgOplQqA6qCtdaSOQLSDTl1PZ3N3Q
-	 mZmdhMR0SQbGbfHYMlHjEDU9unGbRigHWgviXLWc7jagtdd5b4Tep0c3F6ztdVeDKu
-	 PCsBYtK697Mj+PKOUuxjeUDkE2jj4vtVciJ46lhArtRuYH/ZruTCgs0/EVWMTJkDsB
-	 2580wIc5WaoWgVeoqqrjaEkXwDt7aanur0uYxfUprprpTFsAUv9ksmoJvwv/EvgPAw
-	 IDmzak27Q02OvXW22CivKpOje1kb3L8NA4ibv0HdqEu2NwcBVA3poKC0KA4yzgVyyE
-	 8k8nc9wL1tk2w==
-X-Pm-Submission-Id: 4j4LhT2NWzz1DDXY
-From: Esben Haabendal <esben@geanix.com>
-To: "Jonathan Cameron" <jic23@kernel.org>
-Cc: "Lars-Peter Clausen" <lars@metafoo.de>,  "Rob Herring"
- <robh@kernel.org>,  "Krzysztof Kozlowski" <krzk+dt@kernel.org>,  "Conor
- Dooley" <conor+dt@kernel.org>,  "Martin Kepplinger" <martink@posteo.de>,
-  "Sean Nyekjaer" <sean@geanix.com>,  "David Lechner"
- <dlechner@baylibre.com>,  Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>,
-  "Andy Shevchenko"
- <andy@kernel.org>,  "Martin Kepplinger"
- <martin.kepplinger@theobroma-systems.com>,  "Christoph Muellner"
- <christoph.muellner@theobroma-systems.com>,  <linux-iio@vger.kernel.org>,
-  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>,
-  <stable@vger.kernel.org>
-Subject: Re: [PATCH v10 03/10] iio: accel: mma8452: Fix runtime PM bugs in
- mma8452_read()
-In-Reply-To: <20261011131946.16bf4ef2@jic23-hlaptop>
-References: <20260928-mma8452-open-drain-v10-0-b906fb408386@geanix.com>
-	<20260928-mma8452-open-drain-v10-3-b906fb408386@geanix.com>
-	<GeX7K7CYF-lXclqwIekwHIBfSYzjYsnqvMmrM3rjseabSeadIpRDZWUszx0kgtCHnqd7h3ivbFEbn5Q7Go1oBQ==@protonmail.internalid>
-	<20261011131946.16bf4ef2@jic23-hlaptop>
-Date: Wed, 14 Oct 2026 08:22:00 +0200
-Message-ID: <87bj8wn6nr.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=arkamax.eu header.i=@arkamax.eu header.b="Bq7BZPcb"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; s=mail1; bh=EYpybl+sKkbYJx
+	E4ysJBc9JgYugoN7FZg/U8lPSyFx0=; h=in-reply-to:references:to:from:
+	subject:cc:date; d=arkamax.eu; b=Bq7BZPcbEPexDPJcPV1QU9ZopvZ5B2T/QPSNY
+	Cbj3o++ZrXJ06RP2EguER3j4ofifK6KX2C3hvefZB99mLMgAiqY7G94KcL/7e2obbpqu0/
+	+v4IPRPzJSjXM0ibax75aOeGtcdzIJqW+HK+nQSWzI2BXFYMFXs5ik/s+adRZb9Ep3VHsq
+	1UtIJZExPOzw9T5Jq8R0xqCzFP60lzdeuyMF3ZXdgRcwDO1b/P96tdBul0e4VZiFLB+Oa3
+	gOxuF7wD/7Zw9a4sPVyWvJrx7rcGhxJ4xXVVvFNs+7qbYLonXWsS7TfzJo//x1E5k/H/9h
+	kPCSCrDW1jeV/IfGHz4jLsXXA==
+Received: from localhost (128-116-240-228.dyn.eolo.it [128.116.240.228])
+	by arkamax.eu (OpenSMTPD) with ESMTPSA id 6f0b8cc8 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
+	Wed, 14 Oct 2026 08:23:30 +0200 (CEST)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 14 Oct 2026 08:23:30 +0200
+Message-Id: <DM4CGCPQCBLX.10XJ0BE8OCYH4@arkamax.eu>
+Cc: <linux-nvme@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>
+Subject: Re: [PATCH] nvmet: take subsys->lock while force-reconnecting in
+ nvmet_subsys_attr_qid_max_store()
+From: "Maurizio Lombardi" <mlombard@arkamax.eu>
+To: "Yu Zhang" <yuz08559@gmail.com>, "Keith Busch" <kbusch@kernel.org>,
+ "Christoph Hellwig" <hch@lst.de>, "Sagi Grimberg" <sagi@grimberg.me>,
+ "Chaitanya Kulkarni" <kch@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <20261014054727.53183-1-yuz08559@gmail.com>
+In-Reply-To: <20261014054727.53183-1-yuz08559@gmail.com>
 
-"Jonathan Cameron" <jic23@kernel.org> writes:
-
-> On Mon, 28 Sep 2026 10:26:19 +0200
-> Esben Haabendal <esben@geanix.com> wrote:
+On Wed Oct 14, 2026 at 7:47 AM CEST, Yu Zhang wrote:
+> nvmet_subsys_attr_qid_max_store() sets subsys->max_qid and then walks
+> subsys->ctrls to force every controller to reconnect, but it holds only
+> nvmet_config_sem (for write).  subsys->ctrls is protected by subsys->lock=
+:
+> nvmet_alloc_ctrl() adds an entry under subsys->lock, and nvmet_ctrl_free(=
+)
+> removes it under subsys->lock with list_del() + kfree() (not kfree_rcu).
+> The free path takes no nvmet_config_sem, so the two locks are independent=
+.
 >
->> When runtime PM support was added [1], the implementation in mma8452_read()
->> was done incorrectly, as it calls mma8452_drdy() before ensuring runtime pm
->> has set the device active, so it can cause read from STATUS register while
->> device is suspended/off. At the same time, the return value from
->> i2c_smbus_read_i2c_block_data() was discarded, and the function would
->> return the value returned from pm_runtime_put_autosuspend() instead.
->>
->> When the latter bug described above was fixed [2], another bug was
->> introduced, as mma8452_read() would now leak the runtime PM reference
->> counter when i2c_smbus_read_i2c_block_data() failed.
->>
->> This commit corrects this mess.
->>
->> [1] commit 96c0cb2bbfe0 ("iio: mma8452: add support for runtime power management")
->> [2] commit 5bdff291d20c ("iio: accel: mma8452: handle I2C read error(s) in mma8452_read()")
->>
->> Fixes: 96c0cb2bbfe0 ("iio: mma8452: add support for runtime power management")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Esben Haabendal <esben@geanix.com>
+> A controller teardown (host disconnect, keep-alive timeout or fatal error
+> -> nvmet_sq_destroy() -> nvmet_ctrl_put() -> nvmet_ctrl_free()) can
+> therefore list_del() an entry while qid_max_store() is iterating the list=
+,
+> corrupting the walk.
 >
-> I suppose not directly relevant to this patch but that
-> set_runtime_pm_state() helper is definitely not helping.
-> I'd follow up with ripping that out and calling the two runtimme
-> pm calls directly.  Then you would be trivially able to use
-> ACQUIRE_RUNTIME_PM() etc to reduce complexity in places like this.
-
-I have this queued up pending the merge of this series.
-
-> In more recent drivers I've always pushed back against that
-> sort of helper precisely because it stops other sensible refactors.
+> KASAN, concurrent "echo 128 > .../subsystems/<nqn>/attr_qid_max" racing
+> nvme-loop controllers connecting and disconnecting, panics in seconds:
 >
-> In general that also follows the common pattern of not checking for
-> errors in the put as that trips up on things like !CONFIG_PM and
-> is generally not that useful!
+>   BUG: KASAN: null-ptr-deref in nvmet_subsys_attr_qid_max_store+0x10d/0x1=
+b0
+>   Read of size 8 at addr 0000000000000090
+>   Call Trace:
+>    nvmet_subsys_attr_qid_max_store+0x10d/0x1b0
+>    configfs_write_iter+0x1a7/0x250
+>    vfs_write+0x5df/0x940
+>    ksys_write+0xfd/0x1e0
 >
-> Jonathan
+> (also seen as a general-protection fault dereferencing a LIST_POISON
+> pointer at the same instruction.)
+>
+> Take subsys->lock around the list_for_each_entry() loop, matching every
+> other subsys->ctrls accessor.  ->delete_ctrl() only queues asynchronous
+> controller teardown, so it does not re-enter subsys->lock under the loop.
+>
+> Fixes: 3e980f5995e0 ("nvmet: expose max queues to configfs")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+> Tested-by: Yu Zhang <yuz08559@gmail.com>
+> ---
+>  drivers/nvme/target/configfs.c | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configf=
+s.c
+> index 1111111..2222222 100644
+> --- a/drivers/nvme/target/configfs.c
+> +++ b/drivers/nvme/target/configfs.c
+> @@ -1683,9 +1683,16 @@ static ssize_t nvmet_subsys_attr_qid_max_store(str=
+uct config_item *item,
+>  	down_write(&nvmet_config_sem);
+>  	subsys->max_qid =3D qid_max;
+>
+> -	/* Force reconnect */
+> +	/*
+> +	 * Force reconnect.  subsys->ctrls is protected by subsys->lock
+> +	 * (nvmet_alloc_ctrl()/nvmet_ctrl_free() add and remove entries under
+> +	 * it); take it here too so a concurrent controller teardown cannot
+> +	 * list_del() an entry while this loop walks the list.
+> +	 */
+> +	mutex_lock(&subsys->lock);
+>  	list_for_each_entry(ctrl, &subsys->ctrls, subsys_entry)
+>  		ctrl->ops->delete_ctrl(ctrl);
+> +	mutex_unlock(&subsys->lock);
+>  	up_write(&nvmet_config_sem);
+>
+>  	return cnt;
+> --
+> 2.43.0
 
-/Esben
+I don't think we need a comment in the source code just to explain that.
+It's an established pattern all over the target driver code that accesses
+to the subsys->ctrls list are protected by subsys->lock, so this is already=
+ implied.
+
+Anyway the fix looks good to me.
+
+Reviewed-by: Maurizio Lombardi <mlombard@redhat.com>
