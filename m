@@ -1,182 +1,136 @@
-Received: from smtp10.goneo.de (smtp10.goneo.de [85.220.189.106])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F5C560ADF;
-	Wed, 14 Oct 2026 17:39:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.220.189.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2700569F3B;
+	Wed, 14 Oct 2026 17:40:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791999591; cv=none; b=Y6oYdBoCS9xgKskYhW0hPeI/PssBhbOz5os+NXsKPqWLCDx1aUsuMpuCleqqgdGquq9yv+tc/ILzlaoF/Mc1yJLeiVVjLyiMt/kOenKl66jL0WyeBFtdZiqSN7Oq7QH1HLkzdVvXrq9dfOrADaP+nx9XYjxd5n38jUh17LcGieo=
+	t=1791999615; cv=none; b=nzwsQlwczHk+1nODzdcAcTdOg8C7vmxT8ZgAzaNr7V2tezfYgR9YckgGF7fR7pJr/wdgFhicaFWg3CpP2uLMlrtJRsniEXMzgi4wopzzoq6N+GLcGWOCPk3K6jdvO6tJoafQn24HqYB9QOVbDRhj+j21eA+vENAmxxqixtl+z/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791999591; c=relaxed/simple;
-	bh=PWNslq6VHLLM9Raaxzt2s9AFImzZnA3PhRA0Eb7CG4U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qTARUr6dRh62UDqVuh8AerC4senSeW+wwAy0IexplTPoaFTQbeAvTAyxY+/PSgM7fID8YELkZRkeFIbIW7dIbM2HRZVI9XUF6bVY+5NS03V2A6Or4hNiDkA8rcSW/SZNQNf0TsbyvQfR0zhvFrb7iOjNQZKXG8eMmwN3ZCvAcW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de; spf=pass smtp.mailfrom=tk154.de; dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b=T/nWsEJg; arc=none smtp.client-ip=85.220.189.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tk154.de
+	s=arc-20240116; t=1791999615; c=relaxed/simple;
+	bh=V1NgZBucpVKmjdcbReDBb0wzYyMz3EML6NvTRCMnGOQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qGxfJ9of9Jx5/4GV/vUibn7lb3LYXkjQZLinuce4KamxZt5FcH93KTtz0czAMmaZGV8riO9wYKIddldQXzhiNn4N/p0RBOTEdjeE1Az5aHIY15Gceif4qopiwLsenU8bQzOp0fRKGR9C9oGkOO+ZjN//0sBqXtw2DVjjSK7KZqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XqK83tFw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b="T/nWsEJg"
-Received: from hub2.goneo.de (hub2.goneo.de [85.220.129.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by smtp10.goneo.de (Postfix) with ESMTPS id A45AA24037A;
-	Wed, 14 Oct 2026 19:31:52 +0200 (CEST)
-Received: from hub2.goneo.de (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by hub2.goneo.de (Postfix) with ESMTPS id 61C342404E3;
-	Wed, 14 Oct 2026 19:31:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tk154.de; s=DKIM001;
-	t=1791999110;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=1HZIxrWp3/KeLWyxpicEoOuGfRyQwXuNYgUtQ/r5qmo=;
-	b=T/nWsEJgyVAgLW1RU/83O6crSqi68iRUW8Zf3em44EB1h+8E/SKzLUbzBMkIrFH4PxanDG
-	JKHWKTZItEgvn3aupY0SIuBgYZk9s630IaiXMIgrr4Em6JET6XksTNwuaStAYzAgppHqdp
-	4FnBDON3Wk+CvzZU+Sv7IjEC3HmxUTxCmOn+WjPlpVQ2t+Pc4bKHyz71zuBYIZVEUm07Z3
-	TO+zJwS/rRcSGdQOgDgyOY92sF43vaxH0qPIRZni3qTx0aPtCKdLJrNS+Dd0arMAuJWtph
-	+wgEKwruYQofeTi0+TJTCJQ9U55QOkn6W3HavtGUqRViqJ64bGBBV+9xuIcl0w==
-Received: from Til-Notebook.meshlab (unknown [195.37.88.189])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hub2.goneo.de (Postfix) with ESMTPSA id 781C024040A;
-	Wed, 14 Oct 2026 19:31:47 +0200 (CEST)
-From: Til Kaiser <mail@tk154.de>
-To: netdev@vger.kernel.org
-Cc: Til Kaiser <mail@tk154.de>,
-	stable@vger.kernel.org,
-	Ido Schimmel <idosch@nvidia.com>,
-	Petr Machata <petrm@nvidia.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Vadim Pasternak <vadimp@mellanox.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] mlxsw: Initialize register query payloads
-Date: Wed, 14 Oct 2026 19:31:17 +0200
-Message-ID: <20261014173117.26305-1-mail@tk154.de>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XqK83tFw"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 11C221F000C4;
+	Wed, 14 Oct 2026 17:40:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791999604;
+	bh=1M9V8qpwDA85gZ0Gd+KoH2lUopyXrJ73ugZU+Dk+X44=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XqK83tFw9hmFrWqfds4xQIUJxHgUrC1KTS0m3cR/nbvUhbAYbXvsKZ9s5+JPrtDJs
+	 VcLTy0bwNi6dXesJcA7mlpY79INtbzScdRQB59w39ZJv9jMLPI/FLOYP99PAF+bhW9
+	 5nwTyhaentFocFwkeDz0cVQY3zN+Z7PHdetQg1MeuBv41pfoNUHLBhYofSR/Be0XWI
+	 X8AFOj2WFoVgbjhyqwP7IqfVj3hQKIBTH1HxgY4DSyUDGk6MM5ELRS79/Br1Op8xFK
+	 TanbMFshhzJNnN6kRxyjEB3qbDBGiT/iOnayl3FkqySzgDMwJTNRSg++3LOVXwDv6s
+	 kfm+oO7d9oCTA==
+Date: Wed, 14 Oct 2026 10:40:03 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Carlos Maiolino <cem@kernel.org>
+Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 06/12] xfs: only written file data blocks can be shared
+Message-ID: <20261014174003.GI2705364@frogsfrogsfrogs>
+References: <179186107061.1898400.3978552773417541744.stgit@frogsfrogsfrogs>
+ <179186107268.1898400.2017479521256451856.stgit@frogsfrogsfrogs>
+ <as83KAiPFgW0ZCSF@nidhogg.toxiclabs.cc>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-UID: 4a72b7
-X-Rspamd-UID: 89885c
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as83KAiPFgW0ZCSF@nidhogg.toxiclabs.cc>
 
-MFGD register queries can exhaust EMAD retries and leave Mellanox
-Spectrum switches stuck during boot or shutdown when running OpenWrt
-built with GCC 15.
+On Wed, Oct 14, 2026 at 10:25:53AM +0200, Carlos Maiolino wrote:
+> On Mon, Oct 12, 2026 at 11:06:46PM -0700, Darrick J. Wong wrote:
+> > From: Darrick J. Wong <djwong@kernel.org>
+> > 
+> > LOLLM noticed that xchk_refcountbt_rmap_check (and its rt equivalent)
+> > will count any rmap owner towards the shared count.  However, the only
+> > blocks that can be shared between xfs files are written file data
+> > blocks; and the only blocks that can have single-refcount entries are
+> > COW staging extents.  Fix the checking code.
+> > 
+> > Cc: <stable@vger.kernel.org> # v4.16
+> > Fixes: dbde19da963706 ("xfs: cross-reference the rmapbt data with the refcountbt")
+> > Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
+> > Assisted-by: LOLLM # finding obvious bugs
+> 
+> This patch conflicts with Eric's:
+> 
+> 1d55a102780 xfs: re-use refcount scrub/repair code for rtrefcount
+> 
+> I'm just stripping off the rtrefcountbt part of this, the final result
+> is here:
+> 
+> commit 634b63baf05062988456a0bd5df2696c14ea2949
+> Author: Darrick J. Wong <djwong@kernel.org>
+> Date:   Mon Oct 12 23:06:46 2026 -0700
+> 
+>     xfs: only written file data blocks can be shared
 
-An example failure is shown below with the second line wrapped:
+Yep, that looks good to me!
 
-  EMAD retries (5/5) (tid=9b544fc100001f35)
-  EMAD reg access failed (tid=9b544fc100001f35,reg_id=90f0(mfgd),
-                          type=query,status=0(operation performed))
+--D
 
-On an SN2100, the failure occurs during driver teardown on reboot.
-On an SN3420, it occurs while probing mlxsw_spectrum during boot.
-
-The register query API transmits the supplied payload to the device
-before replacing it with the response. Both MFGD callers pass an
-uninitialized stack buffer, so the request contains arbitrary register
-field values and reserved bits. This makes the request depend on stack
-contents and compiler code generation.
-
-Initialize both MFGD query buffers in the firmware fatal event
-configuration and reporter test paths. The initialization has been
-confirmed to eliminate the boot and shutdown hangs on both switches.
-The subsequent read-modify-write still preserves the other fields
-returned by the device.
-
-Also initialize the FORE fan fault query and the MOGCR mirroring policer
-base query, which pass entirely uninitialized payloads. Restore the MTMP
-query initialization in the temperature history reset path, where only
-the slot and sensor index fields are set before querying the register.
-
-This follows commit 5b0907407e7f ("mlxsw: core: Zero payload buffers for
-couple of registers"), which initialized other query payloads after a
-firmware field length bug caused firmware to consume uninitialized data.
-
-Fixes: 7d83ee111008 ("mlxsw: core: Introduce fw_fatal health reporter")
-Fixes: 2c6a33cd334b ("mlxsw: core: Extend hwmon interface with fan fault attribute")
-Fixes: 4039504e6a0c ("mlxsw: spectrum_span: Allow setting policer on a SPAN agent")
-Fixes: b890ad418e1f ("mlxsw: core_hwmon: Extend internal structures to support multi hwmon objects")
-Cc: stable@vger.kernel.org
-Signed-off-by: Til Kaiser <mail@tk154.de>
----
- drivers/net/ethernet/mellanox/mlxsw/core.c          | 4 ++--
- drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c    | 4 ++--
- drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c | 2 +-
- 3 files changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/net/ethernet/mellanox/mlxsw/core.c b/drivers/net/ethernet/mellanox/mlxsw/core.c
-index 308d8a94865f..42e9689d7f35 100644
---- a/drivers/net/ethernet/mellanox/mlxsw/core.c
-+++ b/drivers/net/ethernet/mellanox/mlxsw/core.c
-@@ -2001,7 +2001,7 @@ mlxsw_core_health_fw_fatal_test(struct devlink_health_reporter *reporter,
- 				struct netlink_ext_ack *extack)
- {
- 	struct mlxsw_core *mlxsw_core = devlink_health_reporter_priv(reporter);
--	char mfgd_pl[MLXSW_REG_MFGD_LEN];
-+	char mfgd_pl[MLXSW_REG_MFGD_LEN] = {0};
- 	int err;
- 
- 	/* Read the register first to make sure no other bits are changed. */
-@@ -2022,7 +2022,7 @@ mlxsw_core_health_fw_fatal_ops = {
- static int mlxsw_core_health_fw_fatal_config(struct mlxsw_core *mlxsw_core,
- 					     bool enable)
- {
--	char mfgd_pl[MLXSW_REG_MFGD_LEN];
-+	char mfgd_pl[MLXSW_REG_MFGD_LEN] = {0};
- 	int err;
- 
- 	/* Read the register first to make sure no other bits are changed. */
-diff --git a/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c b/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c
-index 30f172ce822c..a5e7aee730d6 100644
---- a/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c
-+++ b/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c
-@@ -120,7 +120,7 @@ static ssize_t mlxsw_hwmon_temp_rst_store(struct device *dev,
- 			container_of(attr, struct mlxsw_hwmon_attr, dev_attr);
- 	struct mlxsw_hwmon_dev *mlxsw_hwmon_dev = mlxsw_hwmon_attr->mlxsw_hwmon_dev;
- 	struct mlxsw_hwmon *mlxsw_hwmon = mlxsw_hwmon_dev->hwmon;
--	char mtmp_pl[MLXSW_REG_MTMP_LEN];
-+	char mtmp_pl[MLXSW_REG_MTMP_LEN] = {0};
- 	unsigned long val;
- 	int index;
- 	int err;
-@@ -177,7 +177,7 @@ static ssize_t mlxsw_hwmon_fan_fault_show(struct device *dev,
- 			container_of(attr, struct mlxsw_hwmon_attr, dev_attr);
- 	struct mlxsw_hwmon_dev *mlxsw_hwmon_dev = mlxsw_hwmon_attr->mlxsw_hwmon_dev;
- 	struct mlxsw_hwmon *mlxsw_hwmon = mlxsw_hwmon_dev->hwmon;
--	char fore_pl[MLXSW_REG_FORE_LEN];
-+	char fore_pl[MLXSW_REG_FORE_LEN] = {0};
- 	bool fault;
- 	int err;
- 
-diff --git a/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c b/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c
-index ae63d549b542..d54fe5e61296 100644
---- a/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c
-+++ b/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c
-@@ -1720,7 +1720,7 @@ static int mlxsw_sp2_span_init(struct mlxsw_sp *mlxsw_sp)
- static int mlxsw_sp2_span_policer_id_base_set(struct mlxsw_sp *mlxsw_sp,
- 					      u16 policer_id_base)
- {
--	char mogcr_pl[MLXSW_REG_MOGCR_LEN];
-+	char mogcr_pl[MLXSW_REG_MOGCR_LEN] = {0};
- 	int err;
- 
- 	err = mlxsw_reg_query(mlxsw_sp->core, MLXSW_REG(mogcr), mogcr_pl);
-
-base-commit: 513444cc62e231a11c9b15ea88de0890da9b2b4f
--- 
-2.55.0
-
+> 
+> 
+> > ---
+> >  fs/xfs/scrub/refcount.c   |   12 ++++++++++++
+> >  fs/xfs/scrub/rtrefcount.c |   12 ++++++++++++
+> >  2 files changed, 24 insertions(+)
+> > 
+> > 
+> > diff --git a/fs/xfs/scrub/refcount.c b/fs/xfs/scrub/refcount.c
+> > index f8c51d8fbb3da5..a900d13c9e27c0 100644
+> > --- a/fs/xfs/scrub/refcount.c
+> > +++ b/fs/xfs/scrub/refcount.c
+> > @@ -129,6 +129,18 @@ xchk_refcountbt_rmap_check(
+> >  		return 0;
+> >  	}
+> >  
+> > +	/*
+> > +	 * The refcount btree should only have records for written file data
+> > +	 * blocks or for COW staging blocks.
+> > +	 */
+> > +	if ((XFS_RMAP_NON_INODE_OWNER(rec->rm_owner) &&
+> > +	     rec->rm_owner != XFS_RMAP_OWN_COW) ||
+> > +	    (rec->rm_flags & (XFS_RMAP_ATTR_FORK | XFS_RMAP_BMBT_BLOCK |
+> > +			      XFS_RMAP_UNWRITTEN))) {
+> > +		xchk_btree_xref_set_corrupt(refchk->sc, cur, 0);
+> > +		return 0;
+> > +	}
+> > +
+> >  	if (rec->rm_startblock <= refchk->bno && rm_last >= rc_last) {
+> >  		/*
+> >  		 * The rmap overlaps the refcount record, so we can confirm
+> > diff --git a/fs/xfs/scrub/rtrefcount.c b/fs/xfs/scrub/rtrefcount.c
+> > index 3d916d71a135dc..00da8e98506d63 100644
+> > --- a/fs/xfs/scrub/rtrefcount.c
+> > +++ b/fs/xfs/scrub/rtrefcount.c
+> > @@ -144,6 +144,18 @@ xchk_rtrefcountbt_rmap_check(
+> >  		return 0;
+> >  	}
+> >  
+> > +	/*
+> > +	 * The refcount btree should only have records for written file data
+> > +	 * blocks or for COW staging blocks.
+> > +	 */
+> > +	if ((XFS_RMAP_NON_INODE_OWNER(rec->rm_owner) &&
+> > +	     rec->rm_owner != XFS_RMAP_OWN_COW) ||
+> > +	    (rec->rm_flags & (XFS_RMAP_ATTR_FORK | XFS_RMAP_BMBT_BLOCK |
+> > +			      XFS_RMAP_UNWRITTEN))) {
+> > +		xchk_btree_xref_set_corrupt(refchk->sc, cur, 0);
+> > +		return 0;
+> > +	}
+> > +
+> >  	if (rec->rm_startblock <= refchk->bno && rm_last >= rc_last) {
+> >  		/*
+> >  		 * The rmap overlaps the refcount record, so we can confirm
+> > 
+> > 
+> 
