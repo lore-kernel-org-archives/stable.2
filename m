@@ -1,137 +1,331 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3DF44F68C4
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 11:05:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E358650B8B1;
+	Wed, 14 Oct 2026 11:07:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791975950; cv=none; b=czsq5lC28rAPHQ95YCrI/iamaueXYHCw//xBAJIjkr3CdI+itPetVTpdiAV9HQmNYbGZINAWf4jQ+GIRM3LQ1gNiRZkF9kPw5Z/Sgbplk5TJHIozHwqO0TlGE8CcsgS5cBSniD+1hYSckT3oEuzofZ/QvRJ74ths2Y6UpS6QH/c=
+	t=1791976038; cv=none; b=gBCuf32nRZmcF+VYnQtH3PjMFVcZ+cQ1IXi4XSNhZp7v8QZr9iHoNbKy0XWSXEJ+DLoZ0JgVaH7sLejUYCyPAg1J/1ohxqQNVvS9sDqzjidsy2tDPcAXFeYte0dPypfgiUFoceijDUQ4zTMaloFyeaNEIL8eDd97B2+DlQ7OiZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791975950; c=relaxed/simple;
-	bh=JuJVEs8LWiqmrHgefh5U6qR/s5WPWjRGvj3v7U5lUEw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZwAz3Vx5SEmlkqUfZBK6QeOSjTvIfbV9lcD6QpDQgoFxFzgQt3wnZfyflXq8glNGqZ+MeFqvfd0J7WciLdixfCfr/bJWUdid58TNa0ZeVvbO9WmQ1/9i74t59Ca6SNy8lRRmz9ADjFTN3X4i3I4iGPsXdOtW4bALfuFGyIoszZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jerMyGaa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791976038; c=relaxed/simple;
+	bh=wenBv40puBEkOY6/oqj5bNDmzUXgWirQCnQD9g0O4yE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=rxcz08TyoSzgBBEcek27rJyGD4mJeoq1o/A+ox6XAh08u72brFC+8ZrZqWtXCgRA0BCmxHzAlAtLYZZ3Ghpxf9lGU+rjkKoJtTvo2cO8Ck3d/h4lgCe7kEH/qHAQhpYIWvYMjnM0io0wTzA2mEZ8IIRmwppLtYU/AmwO1GVBbmg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=T/RqYTdU; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=5Vux5liv; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=T/RqYTdU; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=5Vux5liv; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jerMyGaa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACA481F000FF;
-	Wed, 14 Oct 2026 11:05:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791975944;
-	bh=1lHPJW+Z7Z84PVX8PNt5S2gCVLxV7vM+ZcToYXcKd1U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jerMyGaaIvWKV/c3O0C/zDK4xTl/CexmNzboG4Az525WcTm7iiv2A42OnLAKr5ZbY
-	 4F4bs4cuqfx13N+g8EoP5IofG0WCmqZB3RH7gHfp3dtCLvUmxzA7ZLJ2ZyEDq+47XT
-	 bafvZof1wNz1qm3tITCy1zOvrbtQjB0E/1qrPce4oNf518+rnccifjD3SUHRvpsae3
-	 46DfNkpWLEck0WwWeUGG/3NkcrrrF0lwEledi/5x9EmWUOFJXJIJ9ZR7x5f0WCTbuW
-	 Lff+1Cqn+aH+TQwYZbPrrD+kxxCM6bYtqA2CuDAkTWpLeabY3BQKPF4se+8eJzgmOH
-	 f/U3axTmnYpAQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] namespace: handle mount locking for automounts correctly
-Date: Wed, 14 Oct 2026 07:05:42 -0400
-Message-ID: <20261014110455.1964849-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101254-winter-onshore-2793@gregkh>
-References: <2026101254-winter-onshore-2793@gregkh>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="T/RqYTdU";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="5Vux5liv";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="T/RqYTdU";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="5Vux5liv"
+Received: from tenko.suse.cz (unknown [IPv6:2a07:de40:b2bf:1b::11d2])
+	by smtp-out2.suse.de (Postfix) with ESMTP id 5E4721F7C9;
+	Wed, 14 Oct 2026 11:07:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791976027; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=j5ZzIJC5K8j+7idHsvAQgAUDnKla5hwoBc5YSYp6UQM=;
+	b=T/RqYTdUXRtBjRFSarYR5VcTFNDUj3R49tlT9ThP9UVXNShdtNitXj7/2t4yL/y3caqWlV
+	fKjqP6waUO+6DvxncVq9SqVi4OsqhaV5O0D7+EGTkrKVQ7mqlokiW92FekPoQnQtRgqyUC
+	3OfdBRBmQzSPPROAySbRd6x+NzbPoNw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791976027;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=j5ZzIJC5K8j+7idHsvAQgAUDnKla5hwoBc5YSYp6UQM=;
+	b=5Vux5liv+ETIkuX4cXQ2lGKqilubm7HkaDI2fdl8HQ1I0HJ+8yxLq6LJlSW2hDBEAronmq
+	N0goqmBbqZDVjeBA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="T/RqYTdU";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=5Vux5liv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791976027; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=j5ZzIJC5K8j+7idHsvAQgAUDnKla5hwoBc5YSYp6UQM=;
+	b=T/RqYTdUXRtBjRFSarYR5VcTFNDUj3R49tlT9ThP9UVXNShdtNitXj7/2t4yL/y3caqWlV
+	fKjqP6waUO+6DvxncVq9SqVi4OsqhaV5O0D7+EGTkrKVQ7mqlokiW92FekPoQnQtRgqyUC
+	3OfdBRBmQzSPPROAySbRd6x+NzbPoNw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791976027;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=j5ZzIJC5K8j+7idHsvAQgAUDnKla5hwoBc5YSYp6UQM=;
+	b=5Vux5liv+ETIkuX4cXQ2lGKqilubm7HkaDI2fdl8HQ1I0HJ+8yxLq6LJlSW2hDBEAronmq
+	N0goqmBbqZDVjeBA==
+From: Michal Suchanek <msuchanek@suse.de>
+To: linuxppc-dev@lists.ozlabs.org
+Cc: Michal Suchanek <msuchanek@suse.de>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Kees Cook <kees@kernel.org>,
+	Andy Lutomirski <luto@amacapital.net>,
+	Will Drewry <wad@chromium.org>,
+	"Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>,
+	"Bernhard M. Wiedemann" <bwiedemann@suse.de>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] powerpc: Restore all registers after a traced syscall again
+Date: Wed, 14 Oct 2026 13:06:51 +0200
+Message-ID: <961c058f3f3e03045552186c083a68a0fde3f43f.1791975972.git.msuchanek@suse.de>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	HFILTER_HOSTNAME_UNKNOWN(2.50)[];
+	SUSPICIOUS_RECIPS(1.50)[];
+	ONCE_RECEIVED(1.20)[];
+	HFILTER_HELO_IP_A(1.00)[tenko.suse.cz];
+	RDNS_NONE(1.00)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	HFILTER_HELO_NORES_A_OR_MX(0.30)[tenko.suse.cz];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.18)[-0.886];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DIRECT_TO_MX(0.00)[git-send-email 2.51.0];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[suse.de,linux.ibm.com,ellerman.id.au,gmail.com,kernel.org,amacapital.net,chromium.org,vger.kernel.org];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b2bf:1b::11d2:from];
+	TAGGED_RCPT(0.00)[];
+	RCVD_COUNT_ZERO(0.00)[0];
+	DKIM_TRACE(0.00)[suse.de:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim]
+X-Spam-Score: 4.01
+X-Spam-Level: ****
+X-Spamd-Bar: ++++
+X-Rspamd-Queue-Id: 5E4721F7C9
+X-Spam-Flag: NO
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-From: Christian Brauner <brauner@kernel.org>
+From: Bernhard M. Wiedemann <bwiedemann@suse.de>
 
-[ Upstream commit 33aadc7c72055fca93cb5a3691d836ebf8b31c9b ]
+syscall_exit_prepare() asks the exit assembly to reload all GPRs, CTR
+and XER from pt_regs only if the thread flags contain any of the flags
+in _TIF_SYSCALL_DOTRACE. With the new entry code based GENERIC_ENTRY the
+flags are no longer set.
 
-If mounts are propagated across user namespaces, attach_recursive_mnt()
-locks every copy of the source mount to protect overmounts from
-vanishing and revealing the underlying files or directories.
+This breaks tracers that modify a stopped syscall, for example ones that
+re-execute the syscall instruction by moving the NIP back by 4 at the
+syscall-exit stop with the syscall number put back into r0: the sc then
+runs with r0 = 0, which is __NR_restart_syscall. dettrace fails like
+this with "No filter rule for system call: restart_syscall". A tracer
+that writes r4 at the syscall-exit stop of an sc sees the tracee
+continue with r4 = 0 instead; with a 7.1 kernel both work.
 
-The user namespace is taken from the caller's mount namespaces since
-this is where the mounts end up. Except, that's not always true.
-Automounts may legitimately get popped in by tasks located in a
-different mount and user namespace during path lookup.
+Check the equivalent syscall_work bits instead, and drop the now unused
+_TIF_SYSCALL_DOTRACE.
 
-Then check doesn't make sense at that point. The copy in the namespace
-of the parent - which may be the host's - is now locked and the host
-cannot change the flags of its own mounts anymore.
-
-Here's the reproducer:
-
-- host has debugfs mounted nosuid,nodev,noexec and shared
-- tracefs automount below it is not yet active
-- hand a child process a directory descriptor on that mount
-- child process enters auser and mount namespace
-- child process' namespace now holds a locked copy of the host's debugfs
-  mount that receives propagation from it
-- child process stats "tracing/." through the descriptor
-- lookup runs on the host's mount so the automount lands below the host's mount
-- propagation puts a copy below the child's copy
-- both try to clear the flags on the mount they got, with a bind remount:
-
-    host, on its own automount:            MS_REMOUNT|MS_BIND = EPERM
-    child, on the copy in its namespace:   MS_REMOUNT|MS_BIND = 0
-
-So the lock landed on the host's mount instead of the child's copy.
-Congrats. So we need to compare with the owner of the namespace the
-mount actually gets mounted on. For all regular cases that is the
-caller's mount namespace and so nothing changes.
-
-Detached trees in anonymous mount namespaces by be handed over via
-SCM_RIGHTS or inherited in other ways on purpose so the attaching task's
-mount namespace is authoritative, not the creator of the detached tree.
-
-Fixes: 132c94e31b8b ("vfs: Carefully propogate mounts across user namespaces")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261002-work-mount-fixes-4-v1-6-dd44b89d44ce@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: adjusted context for attach_recursive_mnt() using separate destination arguments instead of a pinned_mountpoint ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
+Cc: stable@vger.kernel.org # 7.2.x: c7585b8e99ad: powerpc: Don't drop _TIF_RESTOREALL on syscall restart
+Cc: stable@vger.kernel.org # 7.2.x
+Assisted-by: LLM
+Signed-off-by: Bernhard M. Wiedemann <bwiedemann@suse.de>
+[ms: reword commit message]
+Signed-off-by: Michal Suchánek <msuchanek@suse.de>
 ---
- fs/namespace.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+A backport also needs commit c7585b8e99ad ("powerpc: Don't drop
+_TIF_RESTOREALL on syscall restart"), without which the flag can still
+be lost.
 
-diff --git a/fs/namespace.c b/fs/namespace.c
-index 769f22c0bc66d..794d099862743 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -2144,14 +2144,30 @@ static int attach_recursive_mnt(struct mount *source_mnt,
- 			struct mountpoint *dest_mp,
- 			bool moving)
- {
--	struct user_namespace *user_ns = current->nsproxy->mnt_ns->user_ns;
- 	HLIST_HEAD(tree_list);
- 	struct mnt_namespace *ns = dest_mnt->mnt_ns;
-+	struct user_namespace *user_ns = ns->user_ns;
- 	struct mountpoint *smp;
- 	struct mount *child, *p;
- 	struct hlist_node *n;
- 	int err;
+v2: rename PPC_SYSCALL_WORK_RESTOREALL to SYSCALL_WORK_RESTOREALL and
+move it from interrupt.c to thread_info.h
+
+v1: https://lore.kernel.org/linuxppc-dev/4c1da7f31a6603455ec452960af529e4d77f5334.1791826411.git.msuchanek@suse.de/
+
+Testing: a small tracer (pokes r4 at the syscall-exit stop of an sc,
+and replays a syscall by moving NIP back with a new r0) shows both
+writes lost on a ppc64le and both working on 7.1.8.
+------------[ cut here ]------------
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Does a register a tracer writes at the syscall-exit stop of an "sc"
+ * reach the tracee? Checks r4, and a replay: NIP moved back onto the sc
+ * with r0 set to another syscall number.
+ * Build: gcc -O2 -o ppc-exitregs ppc-exitregs.c (powerpc64 only)
+ */
+
+/* word offsets in struct pt_regs, arch/powerpc/include/uapi/asm/ptrace.h */
+
+static long do_sc(long nr, long *r4io)
+{
+	register long r0 __asm__("r0") = nr;
+	register long r3 __asm__("r3") = 0;
+	register long r4 __asm__("r4") = *r4io;
+
+	__asm__ volatile("sc"
+			 : "+r"(r0), "+r"(r3), "+r"(r4)
+			 :
+			 : "r5", "r6", "r7", "r8", "r9", "r10", "r11", "r12",
+			   "cr0", "ctr", "xer", "memory");
+	*r4io = r4;
+	return r3;
+}
+
+static long peek(pid_t pid, int w)
+{
+	errno = 0;
+	long v = ptrace(PTRACE_PEEKUSER, pid, (void *)(w * sizeof(long)), 0);
+	if (errno) {
+		perror("PEEKUSER");
+		exit(2);
+	}
+	return v;
+}
+
+static void poke(pid_t pid, int w, long v)
+{
+	if (ptrace(PTRACE_POKEUSER, pid, (void *)(w * sizeof(long)), (void *)v)) {
+		perror("POKEUSER");
+		exit(2);
+	}
+}
+
+/* Resume to the next syscall stop, which must be one. */
+static void next_stop(pid_t pid)
+{
+	int st;
+
+	ptrace(PTRACE_SYSCALL, pid, 0, 0);
+	if (waitpid(pid, &st, 0) != pid || !WIFSTOPPED(st) ||
+	    WSTOPSIG(st) != (SIGTRAP | 0x80)) {
+		fprintf(stderr, "unexpected wait status %#x\n", st);
+		exit(2);
+	}
+}
+
+int main(void)
+{
+	pid_t pid = fork();
+	int st, fail = 0;
+
+	if (pid == 0) {
+		long r4 = 0x1111, r4a, ret;
+
+		ptrace(PTRACE_TRACEME, 0, 0, 0);
+		raise(SIGSTOP);
+		do_sc(__NR_getpid, &r4);
+		r4a = r4;
+		ret = do_sc(__NR_getpid, &r4);
+		/* bit 0: the tracer's r4 was lost; bit 1: the replay of
+		 * the second getpid as getppid returned something else */
+		_exit((r4a != 0x2222) | (ret != getppid()) << 1);
+	}
+
+	waitpid(pid, &st, 0);
+	ptrace(PTRACE_SETOPTIONS, pid, 0, (void *)PTRACE_O_TRACESYSGOOD);
+
+	/* 1: write r4 at the exit stop of getpid */
+	next_stop(pid);				/* entry */
+	next_stop(pid);				/* exit */
+	poke(pid, W_R4, 0x2222);
+	next_stop(pid);				/* entry of the second getpid */
+
+	/* 2: replay the second getpid as getppid */
+	next_stop(pid);				/* exit */
+	poke(pid, W_NIP, peek(pid, W_NIP) - 4);
+	poke(pid, W_R0, __NR_getppid);
+	next_stop(pid);				/* entry of the replay */
+	long nr = peek(pid, W_R0);
+	printf("replayed syscall arrives as nr %ld (%s)\n", nr,
+	       nr == __NR_getppid ? "getppid, OK" :
+	       nr == __NR_restart_syscall ? "restart_syscall, BUG" : "?");
+	if (nr != __NR_getppid) {
+		fail = 1;
+		poke(pid, W_R0, __NR_getppid);	/* entry writes do work */
+	}
+	next_stop(pid);				/* exit */
+	ptrace(PTRACE_CONT, pid, 0, 0);
+	waitpid(pid, &st, 0);
+	if (!WIFEXITED(st)) {
+		printf("child did not exit normally: %#x\n", st);
+		return 2;
+	}
+	printf("r4 written at the exit stop: %s\n",
+	       WEXITSTATUS(st) & 1 ? "lost, BUG" : "kept, OK");
+	printf("replay result: %s\n",
+	       WEXITSTATUS(st) & 2 ? "wrong" : "getppid(), OK");
+	return fail || WEXITSTATUS(st);
+}
+---
+ arch/powerpc/include/asm/thread_info.h | 15 ++++++++++++---
+ arch/powerpc/kernel/interrupt.c        |  3 +--
+ 2 files changed, 13 insertions(+), 5 deletions(-)
+
+diff --git a/arch/powerpc/include/asm/thread_info.h b/arch/powerpc/include/asm/thread_info.h
+index 1e069a2e7ce87..31a7a157bc902 100644
+--- a/arch/powerpc/include/asm/thread_info.h
++++ b/arch/powerpc/include/asm/thread_info.h
+@@ -142,9 +142,6 @@ void arch_setup_new_exec(void);
+ #define _TIF_SYSCALL_TRACEPOINT	(1<<TIF_SYSCALL_TRACEPOINT)
+ #define _TIF_EMULATE_STACK_STORE	(1<<TIF_EMULATE_STACK_STORE)
+ #define _TIF_SYSCALL_EMU	(1<<TIF_SYSCALL_EMU)
+-#define _TIF_SYSCALL_DOTRACE	(_TIF_SYSCALL_TRACE | _TIF_SYSCALL_AUDIT | \
+-				 _TIF_SECCOMP | _TIF_SYSCALL_TRACEPOINT | \
+-				 _TIF_SYSCALL_EMU)
  
-+	/*
-+	 * A caller in an unprivileged mount namespaces may trigger an
-+	 * automount and propagate locked mounts into privileged mount
-+	 * namespaces. Take ownership from the target mount namespace.
-+	 * It's equivalent for everything but the automount case.
-+	 *
-+	 * Detached trees in anonymous mount namespaces by be handed
-+	 * over via SCM_RIGHTS or inherited in other ways on purpose
-+	 * the attaching task's mount namespace is authoritative, not
-+	 * the creator of the detached tree.
-+	 */
-+	if (is_anon_ns(ns))
-+		user_ns = current->nsproxy->mnt_ns->user_ns;
-+	else
-+		user_ns = ns->user_ns;
+ #define _TIF_USER_WORK_MASK	(_TIF_SIGPENDING | _TIF_NEED_RESCHED | \
+ 				 _TIF_NEED_RESCHED_LAZY | _TIF_NOTIFY_RESUME | \
+@@ -153,6 +150,18 @@ void arch_setup_new_exec(void);
+ 
+ #define _TIF_PERSYSCALL_MASK	(_TIF_RESTOREALL|_TIF_NOERROR)
+ 
++/*
++ * Syscall work after which the exit must reload all registers from
++ * pt_regs: a tracer may have changed any of them at a syscall or seccomp
++ * stop, or under PTRACE_SYSEMU. Audit and the tracepoint are included to
++ * keep the pre-GENERIC_ENTRY behaviour.
++ */
++#define SYSCALL_WORK_RESTOREALL (SYSCALL_WORK_SECCOMP |			\
++				 SYSCALL_WORK_SYSCALL_TRACEPOINT |	\
++				 SYSCALL_WORK_SYSCALL_TRACE |		\
++				 SYSCALL_WORK_SYSCALL_EMU |		\
++				 SYSCALL_WORK_SYSCALL_AUDIT)
 +
- 	/* Preallocate a mountpoint in case the new mounts need
- 	 * to be tucked under other mounts.
- 	 */
+ /* Bits in local_flags */
+ /* Don't move TLF_NAPPING without adjusting the code in entry_32.S */
+ #define TLF_NAPPING		0	/* idle thread enabled NAP mode */
+diff --git a/arch/powerpc/kernel/interrupt.c b/arch/powerpc/kernel/interrupt.c
+index 55f9c0c9922ac..d6a7b6d2b4bd2 100644
+--- a/arch/powerpc/kernel/interrupt.c
++++ b/arch/powerpc/kernel/interrupt.c
+@@ -117,9 +117,8 @@ notrace unsigned long syscall_exit_prepare(unsigned long r3,
+ 		regs->gpr[3] = r3;
+ 	}
+ 
+-	if (unlikely(ti_flags & _TIF_SYSCALL_DOTRACE)) {
++	if (unlikely(READ_ONCE(current_thread_info()->syscall_work) & SYSCALL_WORK_RESTOREALL))
+ 		ret |= _TIF_RESTOREALL;
+-	}
+ 
+ 	syscall_exit_to_user_mode(regs);
+ 
 -- 
-2.53.0
+2.51.0
 
