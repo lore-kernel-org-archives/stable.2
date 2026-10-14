@@ -1,132 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CFA53B3880;
-	Wed, 14 Oct 2026 23:40:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC4173F484D;
+	Wed, 14 Oct 2026 23:40:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792021228; cv=none; b=OJ6Hk1FWL/yALsCUb8OSUyAIrH+uAoQEUDSUe1s5HCDY244ZkJDkKPMvpyPSN3fQPiWBH7iLovKdIt/b89ci1pizlo0MpO8iIggo5N4d5RDEu91mVHcQGi0u4Lc8NY1wnO1CIVAOSs8wFuwXRgk4QqlZKIfN02rdcqahni25sSI=
+	t=1792021255; cv=none; b=WQ2nMWb1fk4fUYXZ5u5ofq+DbIWyfUfeFdNpH1wHrnNh+oYJGFUmShRhUGdGj7reRoE99r3uswQ1O3YhrFqIH4CEUDmnCBcbzcyKfvplLM6yt0TPTswWwdgvYscZ4tFfKbrMXUUKviqR54gZ3brxuMicFjXte6liGLtJNOLfMSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792021228; c=relaxed/simple;
-	bh=u3sojKAHxvzWGaPgUzMO8dsO3OnN8046uL4uAvU8+no=;
-	h=Date:To:From:Subject:Message-Id; b=CxDxvOtuxru5oZtSl9o/o+mtFpOKbtRvRK2so0bJjL8uzSDY/YCyI51R3YHou+f430SN2fcFXNBib9pgykvQ/fen39i3DdE9vL1h7HccBG7kfs0TfWCmCm+ocuBw71Vu2+PLq1IIuPqB32j6Yv1DRhf48QFNnF6xHhRN0tFtaz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=dp9b0rM0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792021255; c=relaxed/simple;
+	bh=MmzEic1vGQalXK+eC2lDyxARwtfmb2P9EnE3nl4JYvo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=J3g2F9MBxi3kutrruqaub8nNFauzeOZsg7PdKz1Joue2o3HiuhgKgB53QEkCfSmf42yuVZSWkfmg+8fk+TBFFkmTSWUZs09jkY1pXqjJKpBg2YJpMmF1pE5F0QJ7JwIltpekroS/ZBacKaoHzVmg3Ayf1ApkYeFLMiPV/L//vrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bv5EZTHh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="dp9b0rM0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66C6F1F000C4;
-	Wed, 14 Oct 2026 23:40:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792021226;
-	bh=5seJi3qjjUPtWvivf3+S6iiY50G1AK0BOnD8AmldooI=;
-	h=Date:To:From:Subject;
-	b=dp9b0rM07Iu9JPWpbU+cI2FsG+LXTE+n0egBlIQH/GjzYSmp5SqvsdhTKYdT4GCvr
-	 BZFx8siAHJwdnCBKh+uMHJjC/EJmG6WJdahLroNIEdbp9iCyI4P+dYoExnLnU5AX+a
-	 tqiXEsmUglPhPep5qfEeRcH44zgDExfI6MkADzCY=
-Date: Wed, 14 Oct 2026 16:40:26 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sidhartha.kumar@oracle.com,osalvador@suse.de,muchun.song@linux.dev,ljs@kernel.org,error27@gmail.com,david@kernel.org,baolin.wang@linux.alibaba.com,tongweilin@linux.alibaba.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + ipc-shm-fix-rss-accounting-for-hugetlb-shared-memory.patch added to mm-unstable branch
-Message-Id: <20261014234026.66C6F1F000C4@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bv5EZTHh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD6DF1F000C4;
+	Wed, 14 Oct 2026 23:40:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792021254;
+	bh=fRQ0+2806AA81UAOzmZj275ai5p+lqeuEOsdRUnRN10=;
+	h=From:Date:Subject:To:Cc;
+	b=bv5EZTHhOmPcRh7ejM8hfDL7+iXERHhKRows1r1zBUgoGxm8/uB8aADkwth/ru36E
+	 4PS/W59USSlLIbgXkZthv+5algk8oIVmiXBAFHRh5/nCuqTOUL7/+mX2My4FLKvjbd
+	 1Oq8VU4hhIPw/Pg0aQgfW1sxyMn6jhuzuzZff0EtbBK4NF9frEeZXFSPO8JojNMjKl
+	 sWMs5W+PgTB+ss0g5fp4Pi2va4guPRFoOfETHp6CWFjfHnDFBKxkbiQVdSUqXiQhVN
+	 cK41prePvyxTkYbL4lw1tm1FqviSNMagu5bPrRGzszCIUEHEgHLxvI1x33sQ3s0WKC
+	 DzhMibSpsp7jw==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Wed, 14 Oct 2026 16:40:41 -0700
+Subject: [PATCH] kbuild: AutoFDO: Update split machine function argument
+ for upstream rename
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-update-autofdo-split-machine-function-option-v1-1-5c71b3005e89@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNywqDMBAAf0X23IVEpYX+SukhZjd1S5uEPKQg/
+ nujnoa5zKyQOQlnuHcrJF4kS/BN9KUDOxv/YhRqDr3qr1rpEWskUxhNLcFRwBw/UvBr7Cye0VV
+ vSytgiAdoZJrUQMNNWWjJmNjJ79g9nqfnOr3Zlv0B2/YH14hXF5AAAAA=
+X-Change-ID: 20261014-update-autofdo-split-machine-function-option-d4edb03d370c
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Rong Xu <xur@google.com>, Han Shen <shenhan@google.com>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1653; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=MmzEic1vGQalXK+eC2lDyxARwtfmb2P9EnE3nl4JYvo=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFkXhBn7H/zoO7Hk2raKG3pTGSv1zjkvzXsfobS3dwnj/
+ WfmPB/edZSyMIhxMciKKbJUP1Y9bmg45yzjjVOTYOawMoEMYeDiFICJ3Ohm+F9aezrO6XvZ6qNN
+ 5VPiT3Id4kxInGhwdavp3yK7Ai97x25GhtYt/rLRR/fXLhStyVDqTNO7NPVb7Oeae7eYrTPbUqZ
+ Y8wEA
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
+A recent LLVM commit [1] renamed the internal LLVM plugin option
+'-split-machine-functions' to '-function-splitting=all', breaking the
+AutoFDO + ThinLTO build with:
 
-The patch titled
-     Subject: ipc/shm: fix RSS accounting for hugetlb shared memory
-has been added to the -mm mm-unstable branch.  Its filename is
-     ipc-shm-fix-rss-accounting-for-hugetlb-shared-memory.patch
+  ld.lld: error: -plugin-opt=-: ld.lld: Unknown command line argument '-split-machine-functions'.  Try: 'ld.lld --help'
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ipc-shm-fix-rss-accounting-for-hugetlb-shared-memory.patch
+The plugin option is needed for in-process ThinLTO, so handle the rename
+accordingly using ld-option.
 
-This patch will later appear in the mm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Weilin Tong <tongweilin@linux.alibaba.com>
-Subject: ipc/shm: fix RSS accounting for hugetlb shared memory
-Date: Wed, 14 Oct 2026 16:22:18 +0800
-
-Commit a08c7193e4f1 ("mm/filemap: remove hugetlb special casing in
-filemap.c") changed mapping->nrpages to count base pages for hugetlb
-folios.  However, shm_add_rss_swap() still multiplies it by
-pages_per_huge_page(), overcounting RSS in both SHM_INFO and
-/proc/sysvipc/shm.
-
-Use mapping->nrpages for RSS accounting across all backing types, and
-account swap only for non-hugetlb shmem.  Use READ_ONCE() for both
-counters instead of info->lock, which does not protect nrpages and cannot
-provide a consistent snapshot.
-
-Link: https://lore.kernel.org/20261014082218.2236088-1-tongweilin@linux.alibaba.com
-Fixes: a08c7193e4f1 ("mm/filemap: remove hugetlb special casing in filemap.c")
-Signed-off-by: Weilin Tong <tongweilin@linux.alibaba.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Suggested-by: Muchun Song <muchun.song@linux.dev>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Sidhartha Kumar <sidhartha.kumar@oracle.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Dan Carpenter <error27@gmail.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: <stable@vger.kernel.org>
+Cc: stable@vger.kernel.org
+Closes: https://github.com/ClangBuiltLinux/linux/issues/2186
+Fixes: 2fd65f7afd5a ("AutoFDO: Enable machine function split optimization for AutoFDO")
+Link: https://github.com/llvm/llvm-project/commit/3e6acc87c58843e551d6e8e4bf06c26712b04622 [1]
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 ---
+ scripts/Makefile.autofdo | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- ipc/shm.c |   23 ++++-------------------
- 1 file changed, 4 insertions(+), 19 deletions(-)
-
---- a/ipc/shm.c~ipc-shm-fix-rss-accounting-for-hugetlb-shared-memory
-+++ a/ipc/shm.c
-@@ -936,26 +936,11 @@ static inline unsigned long copy_shminfo
- static void shm_add_rss_swap(struct shmid_kernel *shp,
- 	unsigned long *rss_add, unsigned long *swp_add)
- {
--	struct inode *inode;
-+	struct inode *inode = file_inode(shp->shm_file);
+diff --git a/scripts/Makefile.autofdo b/scripts/Makefile.autofdo
+index 1442043da139..57a3aba6ffc2 100644
+--- a/scripts/Makefile.autofdo
++++ b/scripts/Makefile.autofdo
+@@ -22,7 +22,7 @@ ifdef CONFIG_LTO_CLANG_THIN
+     KBUILD_LDFLAGS += --lto-sample-profile=$(CLANG_AUTOFDO_PROFILE)
+   endif
+   KBUILD_LDFLAGS += --mllvm=-enable-fs-discriminator=true --mllvm=-improved-fs-discriminator=true -plugin-opt=thinlto
+-  KBUILD_LDFLAGS += -plugin-opt=-split-machine-functions
++  KBUILD_LDFLAGS += $(call ld-option,-plugin-opt=-function-splitting=all,-plugin-opt=-split-machine-functions)
+ endif
  
--	inode = file_inode(shp->shm_file);
--
--	if (is_file_hugepages(shp->shm_file)) {
--		struct address_space *mapping = inode->i_mapping;
--		struct hstate *h = hstate_file(shp->shm_file);
--		*rss_add += pages_per_huge_page(h) * mapping->nrpages;
--	} else {
--#ifdef CONFIG_SHMEM
--		struct shmem_inode_info *info = SHMEM_I(inode);
--
--		spin_lock_irq(&info->lock);
--		*rss_add += inode->i_mapping->nrpages;
--		*swp_add += info->swapped;
--		spin_unlock_irq(&info->lock);
--#else
--		*rss_add += inode->i_mapping->nrpages;
--#endif
--	}
-+	*rss_add += READ_ONCE(inode->i_mapping->nrpages);
-+	if (IS_ENABLED(CONFIG_SHMEM) && !is_file_hugepages(shp->shm_file))
-+		*swp_add += READ_ONCE(SHMEM_I(inode)->swapped);
- }
- 
- /*
-_
+ export CFLAGS_AUTOFDO_CLANG RUSTFLAGS_AUTOFDO_CLANG
 
-Patches currently in -mm which might be from tongweilin@linux.alibaba.com are
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+change-id: 20261014-update-autofdo-split-machine-function-option-d4edb03d370c
 
-ipc-shm-fix-rss-accounting-for-hugetlb-shared-memory.patch
+Best regards,
+--  
+Cheers,
+Nathan
 
