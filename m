@@ -1,91 +1,149 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D42DF4334A5;
-	Wed, 14 Oct 2026 07:28:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 758FD4A64E6;
+	Wed, 14 Oct 2026 07:44:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791962944; cv=none; b=R85hCiwXXafL7oyklitz5WSJwvxLQl+XIHz2cbb0PbyVqPTbc1JA7ICzQWsSezr0LMSAsr1ec3kYiu/TgwGxUc3hDUz4uw7Yew0O7M1AGXihWEAZKEEphG15J32PT6+7HRqZCU/19OCyLZ2Riryvayy1IYqc6lgARM93baXL+uI=
+	t=1791963896; cv=none; b=KALwUXwIL7vuWmojQv6CB8N+5qX/eTvN/rFveBhe+UgDJepUo57y5gkqWCi69MBTY1Ome2kFBcewSFHmp6dqLrEtSfBHT0SRG17i0x3VTPbB4C1LJCvhWj7dMjcEBUi3me4aLswN58g5rjGTvnNeSUCCcbYDUTLYawh3k0VyMlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791962944; c=relaxed/simple;
-	bh=yyej2xlBADXECYdNP7xUgE69xFnPcTg7CV+ZJLWTNPs=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=plS8mK42EXR3e9R78gKA4BHtqwS1iUy/RCiZSh/hQkz5S/Ss3qDi8NeZbBr70cogvmdN6xgggNJCkq+WAawhz6AYIqWQaz7ELLJqyE7HYe/JJ11ZAkzUS4usSjQaod8MOPz9KrsPWWboPoD/i9JopkV/3yq7rbzY7fRM7k/5TOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=cURh56RX; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1791963896; c=relaxed/simple;
+	bh=AIOwMD7uWo9mxLB+ZQET8AjnNoEuMIzH5PHXXq9IMjs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TgaQ3D9H2iUNPrvt+xsc4Irl2HcWMnGBRtHmw9BxiwEjtJxFWJaE124tUM/1JDe3MoXyJSIHludRWBP8wYx6gCWcXH/ZztJwtDS+NAGt24lZdJAAVNNKII30RAfb3lqHF+KpRI1JHeD9sX+AdNcfxYcGMNDhEKYH13oGi/Plt0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=Uugl7KvK; arc=none smtp.client-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="cURh56RX"
-X-UUID: e83bd262c7a011f18dc8c9802ae25ab1-20261014
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=yyej2xlBADXECYdNP7xUgE69xFnPcTg7CV+ZJLWTNPs=;
-	b=cURh56RX50xBQgIeETnKrxYqeLCihFKk5ppnIrLY2HLiSqf9BW63z11CDHBZn40KE3gOBn3IT1zKy3sNNlrc9EMI183xpAH/MvgiK2HfOG3WzCaFj7+qYq1w/nqtjf8HMALF6/w3Et+7XBLe7U2K0A1zRPx4EhLXdg/DBv0h8mw=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.20,REQID:51dcb2c8-a6dd-4e17-8dc7-c663ec9263dc,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:291e20b,CLOUDID:22f35120-2f17-48f6-b8a0-2bb5971c52b4,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|836|865|888|898,TC:-5,Content:
-	0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,
-	OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: e83bd262c7a011f18dc8c9802ae25ab1-20261014
-Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by mailgw02.mediatek.com
-	(envelope-from <peter.wang@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 498926688; Wed, 14 Oct 2026 15:28:53 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 14 Oct 2026 15:28:51 +0800
-Received: from [10.233.130.16] (10.233.130.16) by mtkmbs11n1.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Wed, 14 Oct 2026 15:28:51 +0800
-Message-ID: <07b41e9e46d26b4a0e0683404e98cd29d38cced0.camel@mediatek.com>
-Subject: Re: [PATCH 2/3] scsi: ufs: bsg: Clear the UIC result byte before
- sending UIC commands
-From: Peter Wang <peter.wang@mediatek.com>
-To: Stanley Jhu <stanleyjhu@google.com>, "Martin K. Petersen"
-	<mkp@kernel.org>, "James E.J. Bottomley"
-	<James.Bottomley@HansenPartnership.com>
-CC: <powenkao@google.com>, Alim Akhtar <alim.akhtar@samsung.com>, "Bart Van
- Assche" <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>,
-	<linux-scsi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-Date: Wed, 14 Oct 2026 15:28:51 +0800
-In-Reply-To: <20261013102913.948718-3-stanleyjhu@google.com>
-References: <20261013102913.948718-1-stanleyjhu@google.com>
-	 <20261013102913.948718-3-stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="Uugl7KvK"
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id 9AA96410C6;
+	Wed, 14 Oct 2026 18:44:34 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1791963874;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Hjzpk6a3mqBTWStm2Fe0DCvkPNH60JzZVwgIkpu2EGk=;
+	b=Uugl7KvKnFEEP28WYCS2FBbNUw/4eFUTxuNZFtMMPZAsFEo3g6thirOiLSyKDK7yY3BHny
+	J3q+69+CShDAqETb4fGBaN4uNG1AabrqOavnaa8iFtGF0FHJK1elF4XWc+Je2wmeT7+jpe
+	8LNVs0gyTAZ9B/2zbBRMrBr2nG0K6rkyt377ejTKh8KAln8kUI5swIQRTIQrvqfHGmph9q
+	jiwhSWECZLXf4PsDj5f0uU9R12PtHwHYlgvg9oE0MF2NK1EmfFkNyY2L/idgk8YVKX6wRv
+	96pW4TbURI4I0u/Wi85vhanExQSyhzrgp04biWCvHZZFCzK7CnPyaYNCBbKTng==
+X-GPT-Reason: legitimate; the email is a technical software patch
+	for the Linux kernel (rtw88 wifi driver) sent from a known personal
+	domain (d-silva.org) to a mailbox likely intended for such content;
+	the content is purely technical, containing a git diff and specific
+	error handling logic; there are no marketing, phishing, or suspicious
+	links present; and the sender identity (Alastair D'Silva) matches
+	the "From" domain and the "Signed-off-by" field.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: linux-wireless@vger.kernel.org,
+	Ping-Ke Shih <pkshih@realtek.com>,
+	Kalle Valo <kvalo@kernel.org>
+Cc: Luka Gejak <luka.gejak@linux.dev>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Alastair D'Silva <alastair@d-silva.org>,
+	stable@vger.kernel.org
+Subject: [PATCH rtw-next v6 1/4] wifi: rtw88: sdio: Handle allocation and read errors in rtw_sdio_rxfifo_recv
+Date: Wed, 14 Oct 2026 18:44:23 +1100
+Message-ID: <20261014074426.2183095-2-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261014074426.2183095-1-alastair@d-silva.org>
+References: <20261014074426.2183095-1-alastair@d-silva.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MTK: N
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-10-13 at 18:29 +0800, Stanley Jhu wrote:
-> ufs_bsg_request() passes the user-supplied UIC argument2 unchanged,
-> including the result byte (bits 7:0) that only the host controller
-> writes. A non-zero value triggers the WARN_ON_ONCE() in
-> ufshcd_dispatch_uic_cmd() and corrupts the reported result. Found by
-> syzkaller.
->=20
-> Clear the result byte before sending the command.
->=20
-> Fixes: e77044c5a842 ("scsi: ufs-bsg: Add support for uic commands in
-> ufs_bsg_request()")
-> Fixes: 9fb4c793223b ("scsi: ufs: core: Complain if UIC argument 2 is
-> invalid")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-> ---
+When dev_alloc_skb() or rtw_sdio_read_port() fails, rtw_sdio_rxfifo_recv()
+returns without reading data. Because it returned void, the caller still
+counted rx_len against the loop budget while leaving data stranded in the
+FIFO.
 
+Return an error code from rtw_sdio_rxfifo_recv() on failure and break out
+of the receive loop in the caller immediately.
 
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
+---
+ drivers/net/wireless/realtek/rtw88/sdio.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
+index dc2fd0f8f9ff..e39284b71837 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.c
++++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+@@ -1349,7 +1349,7 @@ static void rtw_sdio_rx_skb(struct rtw_dev *rtwdev, struct sk_buff *skb,
+ 	ieee80211_rx_irqsafe(rtwdev->hw, skb);
+ }
+ 
+-static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
++static int rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ {
+ 	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
+ 	const struct rtw_chip_info *chip = rtwdev->chip;
+@@ -1366,12 +1366,12 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 
+ 	skb = dev_alloc_skb(bufsz);
+ 	if (!skb)
+-		return;
++		return -ENOMEM;
+ 
+ 	ret = rtw_sdio_read_port(rtwdev, skb->data, bufsz);
+ 	if (ret) {
+ 		dev_kfree_skb_any(skb);
+-		return;
++		return ret;
+ 	}
+ 
+ 	while (true) {
+@@ -1380,7 +1380,7 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 					   &pkt_stat, &rx_status);
+ 		if (ret) {
+ 			dev_kfree_skb_any(skb);
+-			return;
++			return ret;
+ 		}
+ 
+ 		pkt_offset = pkt_desc_sz + pkt_stat.drv_info_sz +
+@@ -1416,11 +1416,14 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 		skb_reserve(skb, curr_pkt_len);
+ 		rx_len -= curr_pkt_len;
+ 	}
++
++	return 0;
+ }
+ 
+ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
+ {
+ 	u32 rx_len, hisr, total_rx_bytes = 0;
++	int ret;
+ 
+ 	do {
+ 		if (rtw_chip_wcpu_8051(rtwdev))
+@@ -1431,7 +1434,9 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
+ 		if (!rx_len)
+ 			break;
+ 
+-		rtw_sdio_rxfifo_recv(rtwdev, rx_len);
++		ret = rtw_sdio_rxfifo_recv(rtwdev, rx_len);
++		if (ret)
++			break;
+ 
+ 		total_rx_bytes += rx_len;
+ 
+-- 
+2.53.0
+
