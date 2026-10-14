@@ -1,192 +1,145 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011002.outbound.protection.outlook.com [52.101.57.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BB1136C5B2
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 15:19:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991169; cv=fail; b=ek+YJWQP/XfaVKVEsMCJ/WJF/X58uCZlNrtkSgX3Q/8dpUdmE/Bwlw1LaAheYnwH/168lcJr2zXzcZkF39ORxXirylnraUJYZV2OJcfwnpv4wr62JFpk4NnDHWXyCBLkM9w8v5QEsODyiB4bbF+HORaMywZlm408iUZ7CSj2b+8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991169; c=relaxed/simple;
-	bh=3daWdvDyCcb0Iup5k5mestGOhp0epUfslh5XuuugTCs=;
-	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
-	 In-Reply-To:MIME-Version; b=kNrTK1iJu/QHrEIBRR9s8u6FjeADARfRi/D1k+x091ezvnHYewnXJneFJKww0EVH+4xk9tmv1GkCAbaEkX6mNHlhjoDUwVuURPnCn+9eo4WvgeTnGOJU9Y72IokMplxxvKEad2E/v8VYUboaymEK5CGeQFYsdEKghRBmsqpbQo0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=YmsJi9YC; arc=fail smtp.client-ip=52.101.57.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A2D9514769
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 15:19:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791991172; cv=none; b=QKPgRfenICZToF4Dh1qDdQyTpgSKKGqoojTpgFUCFB5+1uXcCbu6IcDcKDfQcURns3xbqmi2P0wbH9uZ0QMSRzgojtw3ZtoqjrX7mldla54A2DaQGB5kapZ9/d/1mpogg6F5RuD3By/ki02p5toD941BoBhO1olRGOiHfUVCAwo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791991172; c=relaxed/simple;
+	bh=IFyaKeG8PqcZmLWzpXkqwho5yu30vxmgLPrGWSAnX+s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oF8QnGCLL8nwYu37wWxHsGEvbxiIi+ba4bccFIi4TTV0dlZXnyRzrpyHPGFr09urIN7CL4KYX6Ju6Rw37EvzNFOrcQBFPSKksWNH/62mfNa4AAWRgQ9bR1gMMsl0ahwZFenoSiPgmpm7Lk5tHm/XBHogLItEM68SVYlcmbGBh6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=QQEf+RdE; arc=none smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="YmsJi9YC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iUEvUnUp2Ac4lCLnzlmAaphzQwlV9lNeBTMrEr+4IcWxY+awuvrK1UDD6CbqSFJBDL9DkmGtcOpBdq980thcAvKT5e243mGjkv9L1mol/UAbsnZnQCyil3sWyFRi8q6h5ALlzI5+iund4YY0xqfHn3m2xFd5ST9Z0o0Syj6XU5NFB5ijdNBp2IkIIlvC7Pa1Sy51bzWjFOrW8JNxibnvf/XgIZeEWbaHpnWbRXP/fS5C2UISn9Yc06wXZcO/Y7aJSuCV/5G96ZLX2KMTAfqc9UYVWPQUeCQiXutJ73pMrSWZPSwhl0HgXqD349epqBcFG0G6mPI9OEOOVvkn9lsHNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aA72n2GJNBMrnu+Sp3peTq+zyhEsFPOIvT+H8n5i3C0=;
- b=qurByE4uvjD3azSCRY4voYpzpU9oglP1vMk5+wN5w3RdZFhvJwpRY4qtNxAinTWKz5ne61A18Y+pd7A97XqRUG5R+xhNz3i2GG4fLRVOz9lv8c/9boTXG+8a0iCQPf+luEGstCKmE3Hu5sbjkw1AccDCpPPfTXL37NObDUc3nCOuS+QmQLVekV62o3TbToxVtXeyJCgVnsw+ZIYCgJonE6LZYBgpkshJZtKDR6fouZwfVGNyjqciR05WNjmy0QrVpQskvlKDB6qlKoK7bBQO8dDrxrhD8uATVq+8kQEVINQLpkex8gN7hT62/zFe8wqi987Ccrk1rCWDZS46z0t3vw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aA72n2GJNBMrnu+Sp3peTq+zyhEsFPOIvT+H8n5i3C0=;
- b=YmsJi9YC74CG3ZKQoRWqSZlCjgruGtHQsnOZuifDT0VCw/qB+DWguJnVljPgDd5B48TlRl3n0yJXVsUl0D9+vwlzosj0lFAFj/qMC7811u/2YmQkjOIK/BILMvnaL52i0liXa6f/pqdW8f5DGEzUh7A7U3HlrO1p0N3JNOXdvDO+iA2qy5YETYQY3SavpNC/h7W96HOXBhZoo9VfYzG3Uh9chpyNi1q49v4ZpgQiPEmdaXaKPHrxrhbC/vMPxpsj6JlMkI1xo16vvGszpIW6Lrhip6gE3OubSp3WQtgcUSW04hzXdvi/8vllBsI0jJCS0k1InntEpyTFq2H6+eaZ0w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by DS4PR12MB999100.namprd12.prod.outlook.com (2603:10b6:8:2f9::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Wed, 14 Oct
- 2026 15:19:22 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0472.016; Wed, 14 Oct 2026
- 15:19:22 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 14 Oct 2026 11:19:19 -0400
-Message-Id: <DM4NUM0FARW1.HEAD2WRLWGI9@nvidia.com>
-Subject: Re: [PATCH] mm/madvise: atomically clear the young bit on THP
- MADV_COLD
-Cc: "Vlastimil Babka" <vbabka@kernel.org>, "Jann Horn" <jannh@google.com>,
- "Minchan Kim" <minchan@kernel.org>, "Michal Hocko" <mhocko@suse.com>,
- "Johannes Weiner" <hannes@cmpxchg.org>, <linux-mm@kvack.org>,
- <stable@vger.kernel.org>, "Samarth Narang" <samarth.colleges@gmail.com>
-To: "Pedro Falcato" <pfalcato@suse.de>, "Andrew Morton"
- <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>,
- "Lorenzo Stoakes" <ljs@kernel.org>, "David Hildenbrand" <david@kernel.org>
-From: "Zi Yan" <ziy@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20261013191719.95502-1-pfalcato@suse.de>
-In-Reply-To: <20261013191719.95502-1-pfalcato@suse.de>
-X-ClientProxiedBy: CH0PR03CA0068.namprd03.prod.outlook.com
- (2603:10b6:610:cc::13) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="QQEf+RdE"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc4ca696de6so2332838a12.2
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 08:19:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791991169; x=1792595969; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=srFWpE+TVCETelKCcIQxO8OekNsEmjBOESyjztjbwL0=;
+        b=QQEf+RdEyeOZ39t8l7ub8jwhe/seu1fPHTnXH7NSaazUSTElQC7ErzsJz9uYchSKeD
+         9o2pctw9prhtviu2ZFUL5pyqKS7Ve//Tt/pfg56pW5mGJTxB6YbYD/58X3ZZCgDCWsgQ
+         99DXuz1APdPiyXjxX665vpdWJOfX+YkGWIWVFH1XqJ23poL21pDb0hHbRM5eEM5Aq6X8
+         635UuRa+exUDQxNG0wtfO0CbIAy2yAy8kr15KyHbomQf6ym5otZlIXHyC15217i72iOq
+         R7nDqMICimvb71VvZJD6X/5TIXd7F4jAOSDswaH75dLQvSkqTEpR6usMj6m0BUZ+quTG
+         Hfaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791991169; x=1792595969;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=srFWpE+TVCETelKCcIQxO8OekNsEmjBOESyjztjbwL0=;
+        b=PcnP4a9rbdGn75HjW+lUvPpX7imeq3T5Et6yAIuGaqqGIWCfPyyh5rU25wnJYdW/4b
+         NzXTTgXFXMOe6R0yKUovBKmQnzvLxGQJz6x8YJ0xx5let7NL39Bx2+qrWFYXDsmLBkM2
+         ePl78mSSBG0eYuqiaJpkHuIUCWH+EuZg6TSXaq+BpUhaHiJ9cvJWzF+VD8VZmgBLVGop
+         H7ZVRqGjdZpDKVJVIJUN4qvFy1MOKcoiG8GCtRsCWufMc3ZVM89+tQQJGsrcu1K6Qv6Q
+         Q6ucV3FayJM6zbhuDbLBOjbEJQp2h6A0XQ6B3mD+H+h5ZeKjx0Wm+j9zmOc8mLGUd+2r
+         2Srw==
+X-Forwarded-Encrypted: i=1; AKwUvBxMyQ9+/cQEFyNWuBnWa0csEsPoFnrNkx1jdESz0/kdWk9vMLM+2pKr7LydUYalp0FvxdVLHmQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJdQjwY+6sVmnwJIfSh0D7/XCAM5C0iRqRvu5bYTS0HdMvt74vA
+	eZhDUwPJftsR/zEUlUEJ1W4Sjo0WJfeMlfXUvbrF+canKaVF09G1z7wmMpsIKgPPMF4=
+X-Gm-Gg: AYBFou33CG9zEQhpRKZ1sBIGIox3KTXHa6+WPWEtAdEfNTFR09SP5yHrufTFqaBDASa
+	k4PO+MYh1A8+8ToZOdrOSu1UCr4UfuRm9Uo8GqeX3cyLds0Prle7aXWzkufcZLEUU0sCEXKXEHT
+	Nvs20NaTcYGO6mjVjmQnCdwgG+BFBd+/j9abR+uigw7qYan1k8oOHFub5CM9U13FKWh1V5/RHuw
+	FU/5q9SNQJgLGvpeDmosxj6xAy3U8hbehdtKEI8+4VgfDhfSJ0d2VGLkWQeXyi5+QTNn+aYHTQ3
+	j4+nqI7LhJqY3i1RjOas6LbsaOFBnAYahrM4tl+d2N3EImSbgz/TWsd7MtbSWLWrvQODlcwmhWG
+	AhV8aKcMu4JEUEm2xP9aFltPDbBhxRIdT2hZsst/LkUmfHtb0Q76FQ6fcx+0TC9Bm6g1N4j1YJ7
+	3l0gYVN++w13SkkxypvRRX1EniDpMSr7AObSGwevSZ6Le5oljBXYLxl05xPVkcLAX4g38/MZogl
+	hRFmOy9UfAb12nNgP+AFTtpCBNSFbw=
+X-Received: by 2002:a17:90b:4b:b0:3ab:1e1c:837f with SMTP id 98e67ed59e1d1-3ab3ac59383mr12662310a91.47.1791991168762;
+        Wed, 14 Oct 2026 08:19:28 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:1c49:61ee:8c8:3f4c])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac8d40e7f3sm622450a91.5.2026.10.14.08.19.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 08:19:28 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v5 0/6] scsi: mvumi: bound the values the firmware supplies
+Date: Thu, 15 Oct 2026 00:19:08 +0900
+Message-ID: <20261014151914.3632701-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DS4PR12MB999100:EE_
-X-MS-Office365-Filtering-Correlation-Id: 44211642-29aa-4951-0c3f-08df2a0685ec
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|261009223027099003|11063799006|56012099006|18002099003|22082099003|10067099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	zzNVHzMDL9uctjcOurr52edyViN3Z6Wtz21s31uPdgMRODGrsn3pyPOM/eYpgfm7xFU0XcnGBm2jgzaUCmld7BQvo0Qz7GBimOVUKuez6vX+Guxn4zRDrdfBff9wzMI6AsrP8B39Odt6WbEdVxJj75by1DHSooLjDzoquZ2p94UfNEcptZ/ThzwyiMxj0uvGB6fOjefY3dzshTKE9YE2IgQrjDwS08DzxaW0JsWnGdN98w4fpLDCAoBhmZkV7wVw7JGWgyVBcQjbWvO79aNJ7OZjH3ldo/3vBGfUbNtt8FMiQDSx1ISWAFqp8tgu3kwOdcjk0T0mrWzLHwfm6vzBpueb4gWd/D3wH1MJLbkrcmxCtXOlriRWuf1lfJLSLbeNvkAf6y3kX+buiIWKHnMoWzc07/RBOFiZDMbkcLmMjd4g3p2BWH5WYmD8sKSIKQiJ2hp7jgq3Ejw+uIEx+G8ni+Efc2tusVFrIIShXkEbbZ9uogJFCjeKuN1Z+KKPw57IMJRnmNpNprlM6pufzt74Y5soM44tnlJGp2BkT0a39Y7wHgdMouRTHr9LU6g7zcgbArhd6+9jK/d5W0OyU2+zuapzinSS98vD2ifZJ6KpxJXyZJnlSn+AHjN+BXaW5SJmWajHHFD3vK67iVZ5gkflp5RFuPOErLNEbsg1NYESWvE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(261009223027099003)(11063799006)(56012099006)(18002099003)(22082099003)(10067099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R0ttMDN4ZFFnckE5U2FqdFJBc0pFdXROZ3EzeTMrN3hXOXhFdWtBZ1Z0UGpC?=
- =?utf-8?B?eTkzam5NOHhnUWdHdkJka0praVZDc00xbUU4ZFVNSVpFbmxpcmQweGROZWIx?=
- =?utf-8?B?UFpuSVdhUHVQYXFuNUxLRUZlRUtoRDAvTmJsYitmV2JITU51eTJPbFNqdkV3?=
- =?utf-8?B?NjhqQnZYZnVvZkxLaTgvQi9nV3VhOHBDNmUyZ3pVMi9keTlZN1poMVJidm85?=
- =?utf-8?B?bTJvZkdmRWFKT2lXaWp3SytCTCtvZ21lR0hrZVJrR3hTZ0VSdTBabXFmSFB2?=
- =?utf-8?B?ZnV4RVVqeVRmakVjVEtkQnJORFlkZW9Lb0FUVUhmUmE4Kys2SStnYzdwSHFJ?=
- =?utf-8?B?OFkvaDhiNkpqZElQakx0bVZzMGhxUUpKTkdoeWpLQU5xelhwbGtRZlJ6SC8w?=
- =?utf-8?B?U2hRS1pNNExPWFJ4eTFaL3BWZUNTdndZekliQis1Y2lPUE5TSERxNzRzYmpO?=
- =?utf-8?B?M1plSTQ2ZzRLa2xwWC9CdFZvUkFBYUR4ekxHK2pEOFY1bHU2Yi9OSkswSTNV?=
- =?utf-8?B?YnhtalJxUHRMbmNZRXRVNXk4N0UvVUUzOVRqNDRyZTF0L09yTng0Z0hGeVJt?=
- =?utf-8?B?WnBpYlhFc0c3d2pLRXdoRXFTaWgzd0J2ZVB4MU8wT1EyS2hmcTBxOTB1UVJY?=
- =?utf-8?B?NmhUWHlYZFBXMzR4SDQ4K0F2Vk5WaGZxL0VDNlhvcVdLazZFTGtKem4rV0tO?=
- =?utf-8?B?SHBCbTVRdFBGT1FmbmFydmlzb3VDN3ppaDFLNU1SNU0zUG5NYkRnR0RDSWIz?=
- =?utf-8?B?bXRlMFZiYzR0TzlwQm1CRlNvM1QwVkZuaHFMN3pPOFlEdENTNUM1alErZEpL?=
- =?utf-8?B?NGh6YS9URGk0Yjc3Q0ppWmNqUmwxTFJ2MU54MktwSDVnYkI3bHdHWURuMjBl?=
- =?utf-8?B?TVpuNFNZQllwSUhnVThFUVVKNDFiS285bmUxL2ZhTHovRVpFc2xCTFhwYTFq?=
- =?utf-8?B?SXBzRHZCR2ZjTEtvenBFOTlDYWlxY2hOd0xES2RNVTZFQStJSFRUamIyTG1l?=
- =?utf-8?B?bmVlUEtrQ2NaRUNxdzd4RnZoUWZQeVVCc1ZYUm9UTlFBYlNLUS93WFY4bFF3?=
- =?utf-8?B?VjF0SHN4RmhMbkZLbEkwSGsvZWxWcUJlWE5IVCthcy82MXZKcWcxUm9YNTI1?=
- =?utf-8?B?TERXVGRGZWpvWFZ6NlMrNTNReG92UU9jazgwRDZkWWQ3RFptbnZiMGtoWldi?=
- =?utf-8?B?bGpRRnY0MnlOd3pjTUdSbmVEcy9XK3lmamtXRFdTdys0b0MrTDJjRDdGaTVL?=
- =?utf-8?B?YVJ0RTlINXJteWF2WTBCV0NXNTg1THpiMTNvS1lqbWJWVnA0OUp5bnZCSU4y?=
- =?utf-8?B?T1k0bmJ1STZGV0dBNXN3TWdhZ1VyUFlLRGRHUmx6UmZmZkpsbERnRVFjNGVy?=
- =?utf-8?B?N1RiMnVCODZuMzlibTQ5M2JSY2h6dzYrL0hEU0FWY3JZK0hnUE5uOXlsTDlX?=
- =?utf-8?B?TkMwV1phaGRJS3RNN1ljNjl0Z2hrVE14WjBoRWRveUt3Z2Q0M0x3ZjlDcFNr?=
- =?utf-8?B?Nk41K3dsZWh4Yy8yd1drcUwvZ25vTUZDWGY1WUtJUG5Cb1RzdWNlMStnVDZx?=
- =?utf-8?B?R3hXQXdkNkJWcU1kWk9KMGEwMVdkRVp0THpZcXcyamx5OCtkdEN3WGRWTVE1?=
- =?utf-8?B?MmV5WGhQTGlRWm90RktBd3hxSVNTUlNRZjB3dkpsSlFvdG5kUXROWkVBQVdD?=
- =?utf-8?B?cjhlSHp5R25ScVdPaXNkdFBMNmFTRm4yS3FLRVlxSGhPMDl4UUgwV1FHMFVJ?=
- =?utf-8?B?M0hkak4yQ01wUFFhZldpTEFPRVV1YTZyV0I4L2cyOXRKYmozS1U0TElVQTIy?=
- =?utf-8?B?cDJoMmJhRWpOOG9WYW5UcHloSXJqVW1EQmRlVjFyWjNFalV4NXpiY1hQSlZK?=
- =?utf-8?B?L1hnVmR0Mi9HTFJjcGNLbS9rVjZmNkdHUnRuRTlZWlNBRHR5WWM5cjRhVGsy?=
- =?utf-8?B?ME1ucElSSDY4NWUvTVBCZURyVm1MTjcyQ2hyYm1IaWlCSnNmcnlDR2JTdExH?=
- =?utf-8?B?NXdFSnp5ZVlLS09pOVplOUZvY0xva2d3TVBqSTRuREZsT01jK1ZTTm5qU2hk?=
- =?utf-8?B?K3NJclF0TFdVdmRHaHpabjdLK3JOaDEzV2h4UkVMVnE2UzAzTGU2WVhzVmNP?=
- =?utf-8?B?RlRzeWdLekhTaVRrakxoMHJ2TXV2NXg3RTduZEZGMUlyWlJJSkVjZzlSY09m?=
- =?utf-8?B?WVVxd1duU0xONC9WdXM5ZS9lYlVwNjZDMjRqS1NZQmFwQkZsSjY3K0Vrb3JJ?=
- =?utf-8?B?TzlmbXBtV3RCa2N0dUpTY2p3OVVRQnBGR2JqaGFiajBnbkVnTHZLV0tHR3Qx?=
- =?utf-8?Q?W/8lYu9UriK75bc6kk?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 44211642-29aa-4951-0c3f-08df2a0685ec
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 15:19:21.9472
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: J2rBdPbi1zhgwQ/85ICF/dc3WlLEYBRn4nJQdIg3CZbR1/uqruAfiP1+d0AmDcPY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB999100
+Content-Transfer-Encoding: 8bit
 
-On Tue Oct 13, 2026 at 3:17 PM EDT, Pedro Falcato wrote:
-> As-is, madvise_cold_or_pageout_pte_range() discards the hardware young
-> bit by invalidating the PMD, doing pmd_mkold() and subsequently writing
-> to the pmd again. However, it does so in a racy manner, looking at a
-> possibly-stale snapshot. It's entirely possible that a write elsewhere
-> set the hardware D bit, which this logic now loses.
->
-> Fix it by using pmdp_test_and_clear_young(). This is an atomic
-> modification of the PMD entry, and thus safe against any possible racing
-> writes. As a (nice) side-effect, this elides one non-required TLB flush
-> in pmdp_invalidate().
->
-> This bug can interact with the swapping system in complicated ways, leadi=
-ng
-> to data loss. For instance, if a folio is marked lazyfree, but was later
-> read from, and then MADV_COLD'd while racing a write to that same THP,
-> dropping the dirty bit may lead to data loss as reclaim/MADV_PAGEOUT drop=
-s
-> the "clean" anon folio:
->
-> T0                                T1
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> MADV_FREE(thp)			|
->   folio marked lazyfree		|
-> read(thp)			|
->   PMD marked young by hardware	|
-> 				| MADV_COLD(thp)
-> write(thp)			|   if (pmd_young(pmd)) {
->   PMD marked dirty by hardware	|     set(pmdp, pmd_mkold(pmd));
-> MADV_PAGEOUT/reclaim		|
->   dirty bit may or may not be   |
->   set				|
->     reclaim/pageout may drop    |
->     the folio			|
->
-> Fixes: 9c276cc65a58 ("mm: introduce MADV_COLD")
-> Cc: stable@vger.kernel.org
-> Reported-by: Samarth Narang <samarth.colleges@gmail.com>
-> Closes: https://lore.kernel.org/linux-mm/20261011132227.413217-1-samarth.=
-colleges@gmail.com/
-> Signed-off-by: Pedro Falcato <pfalcato@suse.de>
-> ---
->  mm/madvise.c | 5 +----
->  1 file changed, 1 insertion(+), 4 deletions(-)
->
+This folds the two mvumi series I have on the list into one and adds what a
+full pass over the driver's firmware-supplied values turned up.  It
+supersedes
 
-LGTM.
+  [PATCH v2 0/2] scsi: mvumi: bound two firmware-supplied lengths
+  20261013173145.3412863-1-yhlee@isslab.korea.ac.kr
 
-Acked-by: Zi Yan <ziy@nvidia.com>
+  [PATCH v4] scsi: mvumi: reject handshake sizes that overflow the list
+  allocations
+  20261014134104.3528958-1-yhlee@isslab.korea.ac.kr
+
+and both of those can be dropped.
+
+Everything the firmware writes reaches the driver either through the
+handshake page, through the event buffer, or through a response frame in
+the outbound list.  The patches follow that split:
+
+ 1  event buffer: param_count and sense_data_length index fixed arrays in
+    mvumi_show_event().
+ 2  handshake page: frame_length drives the checksum walk, whose counter is
+    an unsigned char, so 256 or more never terminates.
+ 3  event buffer: the hotplug bitmap size drives two find_next_zero_bit()
+    scans with nothing holding it inside the 512-byte buffer.
+ 4  handshake page: the entry sizes and max_io size three allocations, the
+    list depth drives the ring index, and a reset reports all of them
+    again without reallocating anything.
+ 5  response frame: the tag indexes tag_cmd[], and the value that is
+    checked and the value that is used are separate fetches of
+    firmware-writable memory.
+ 6  handshake page: max_devices_support is a u16 and the loop counter
+    mvumi_flush_cache() compares it against is an unsigned char.
+
+Patch 6 depends on patch 4 and patch 5 reads better after it, so the order
+matters; 1 to 3 are independent.
+
+I have no mvumi hardware, so none of this is tested on a controller.  Each
+patch's reasoning is from the source, and I modelled the arithmetic and the
+loop bounds of every case in userspace, including the values that should
+still be accepted.
+
+v5:
+- one series instead of two; supersedes the two above.
+- new: bound the hotplug event bitmap (patch 3).
+- new: validate the response frame tag (patch 5).
+- patch 4 also rejects an entry size too small to hold the frames the
+  driver puts in it, which is what made the max_sg subtraction in
+  mvumi_io_attach() wrap.
+- new: widen the flush cache loop counter (patch 6), which answers the
+  review of the v4 posting above.
+
+Yehyeong Lee (6):
+  scsi: mvumi: bound the per-event parameter and sense dumps
+  scsi: mvumi: reject an out-of-range handshake frame length
+  scsi: mvumi: bound the hotplug event bitmap
+  scsi: mvumi: reject handshake sizes that overflow the list allocations
+  scsi: mvumi: validate the response frame tag before using it
+  scsi: mvumi: widen the flush cache loop counter
+
+ drivers/scsi/mvumi.c | 156 +++++++++++++++++++++++++++++++++++--------
+ drivers/scsi/mvumi.h |   3 +
+ 2 files changed, 132 insertions(+), 27 deletions(-)
 
 
-
---=20
-Best Regards,
-Yan, Zi
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+-- 
+2.43.0
 
