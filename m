@@ -1,37 +1,33 @@
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3865250129F;
-	Wed, 14 Oct 2026 13:01:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA6251A15C;
+	Wed, 14 Oct 2026 13:04:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791982915; cv=none; b=mfd4CvvZEG0+uvCTgnFV8XTjK50oNlVmy1XNoE2EyGB7OKjZOY1HMT4TUOnYP4LXjG+UDAGqS6l0Boc8bHVuKSl5ZHDI5y7tf9HH+3BIMxO/+79FoIWYzDroLgCVRp2c33eWZq7HMUVOnv+mTNPu797P7x2bq40oQL7P8kNexlQ=
+	t=1791983082; cv=none; b=Shde1nFasXZjqEileL9jefrTFhEtmTHfbsnT0KBKda4xsSg5znKTCvQ1Q4O4DR63QzyLO+D+jGWmvtQ71MJU1BvAKjBwHRt8yPEACf4vijcctL8BEXpXmjXu3hWiu3Owp//3Xw8p93yZw5rxyJ/aliObbHhNrOycKkcxMEsITo4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791982915; c=relaxed/simple;
-	bh=wBKV/mkN4uP+UHE8cDoW4YyqRHXsJLlDPxPFXlB209k=;
+	s=arc-20240116; t=1791983082; c=relaxed/simple;
+	bh=gBjlekfpMc4N91Ydpew9O0OccHaYqyn10sO1zmjnbMo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GwLpkfx94YbqxbKojjQ+BGZRTYEcxcPBD2UMffjOcP7F2pliSHvCQVpRYnf4pzFf+P6pUVJUdTsghUpgPBaz+bdw938ufiXlN9JgrhnGYsk2fd0iDblmOMAND42r6AGVqdV7aPkEu53tsuRvx1VvaZ2jeOnK7KXI28l/dotjxZQ=
+	 Content-Type:Content-Disposition:In-Reply-To; b=uj+f7Xtx7iMsoWBhtqS4mzvmldFKZSfAU7WUufx3j9WQTNhPJfMLpR825PkT0r4gQMjS18DpU3ZCOUxIDoOMTp00KV7ouIglm2aistyDuoZkEIC5q6/uiP8EHkmtHftQguhMPaeVYsm17pfFQkpRQFfxFUBUdM3g0F40Hwi5djE=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
 Received: by verein.lst.de (Postfix, from userid 2407)
-	id 6903668BFE; Wed, 14 Oct 2026 15:01:48 +0200 (CEST)
-Date: Wed, 14 Oct 2026 15:01:47 +0200
+	id 28EE868C4E; Wed, 14 Oct 2026 15:04:32 +0200 (CEST)
+Date: Wed, 14 Oct 2026 15:04:31 +0200
 From: Christoph Hellwig <hch@lst.de>
-To: Daejun Park <daejun7.park@samsung.com>
-Cc: Christoph Hellwig <hch@lst.de>, Carlos Maiolino <cem@kernel.org>,
-	"linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Dave Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>,
-	Sergey Bashirov <sergeybashirov@gmail.com>,
-	"linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: (2) [PATCH] xfs: refuse a pNFS LAYOUTCOMMIT of a range without
- blocks
-Message-ID: <20261014130147.GB15407@lst.de>
-References: <20261013120359.GB2944@lst.de> <20261013-xfs-pnfs-commit-hole-v1-1-740912db9102@samsung.com> <CGME20261013120408epcas2p19974f8ffd4afa0b0cc5a4f19e9218004@epcms2p7> <20261014014017epcms2p7ab0ff4f1356d695c55514bd7ccaebadf@epcms2p7>
+To: Andrea Parri <parri.andrea@gmail.com>
+Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Keith Busch <kbusch@kernel.org>, linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/5] nvmet: zns: don't leak stale memory in zone
+ management receive
+Message-ID: <20261014130431.GA15622@lst.de>
+References: <20261012141239.156408-1-parri.andrea@gmail.com> <20261012141239.156408-3-parri.andrea@gmail.com> <20261013142554.GC14759@lst.de> <20261014110001.95212-1-parri.andrea@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,20 +36,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261014014017epcms2p7ab0ff4f1356d695c55514bd7ccaebadf@epcms2p7>
+In-Reply-To: <20261014110001.95212-1-parri.andrea@gmail.com>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On Wed, Oct 14, 2026 at 10:40:17AM +0900, Daejun Park wrote:
-> The IOLOCK held across both keeps truncate, fallocate and blockgc out
-> today, but the flag doesn't depend on that, so v2 does it that way:
-> xfs_bmapi_write() takes a new XFS_BMAPI_CONVERT_ONLY flag that fails for
-> a hole or a delalloc extent instead of allocating, and
-> xfs_fs_commit_blocks() passes it through xfs_iomap_write_unwritten().
+On Wed, Oct 14, 2026 at 01:00:00PM +0200, Andrea Parri wrote:
+> On Tue, Oct 13, 2026 at 04:25:54PM +0200, Christoph Hellwig wrote:
+> > On Mon, Oct 12, 2026 at 04:12:29PM +0200, Andrea Parri wrote:
+> > > Tested over the loop, tcp, rdma and fc transports with a zoned
+> > > null_blk namespace: before this patch, zone reports carried stale bytes
+> > > and a data length larger than NUMD was accepted; with it, reports are
+> > > fully initialized and such a length fails with Data SGL Length Invalid.
+> > 
+> > Can you wire up the reproduce in blktests?
 > 
-> One difference from v1: a LAYOUTCOMMIT with a laid-out range followed by
-> a hole now converts the laid-out range before it fails.
-> xfs_fs_commit_blocks() already left earlier extents converted when a
-> later one failed, and the Linux client resends all of its extents after
-> a failed LAYOUTCOMMIT, so I don't think that matters.
+> Sure.  Following Documentation/process/security-bugs.rst I had only
+> offered the reproducers on request; since you'd like them in blktests,
+> I'll post them to linux-block shortly, unless you'd rather have them
+> off-list until the fixes are merged.  One test covers this patch, and
+> two more cover the fc and NUMD patches of this series.
 
-I don't think that's an issue.
+I would not consider anything relating nvme except for userspace API
+a security issue.  The protocols are clearly not designed for and/or
+advertised for untrusted networks.
+
+Just to make it clear, that's not to say we don't want these fixed,
+but they are considered robustness fixes and not security issues.
+
