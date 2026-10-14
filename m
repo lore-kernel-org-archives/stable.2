@@ -1,100 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3BB486420;
-	Wed, 14 Oct 2026 19:46:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 533D5486406;
+	Wed, 14 Oct 2026 19:50:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792007218; cv=none; b=bKSrgs5DI4v9SXJ7xUw/lx+YsrYATyymSHxdhCXJr0Ezc4NaWV+AS6dN9731tvck7zV8/ex7inxwAJx+88cWMSV5s/dd7aoLEe+1ZOD9QQ5YQGxdD6He5P/x7+14bBQ/BIrGV1MG/jdAX/CZuVBIAG0yTJWCapA/1pobTs/iMmg=
+	t=1792007426; cv=none; b=qsqopM0I2KySsW882PHqnyfBKLBMJaI2pRWph5W2/kBuOdX8jIgDWgibXr02Dl1Bcst60LfxeNPFKBlDvsFyF3GD+EYmaGylFcS0WAdjtQesgkBmPVDquOhM7uyQyj22ogxLJlvlRbCxWKz59QsI/cCDuBbh5PTvsi78U5pf3kg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792007218; c=relaxed/simple;
-	bh=F8iUNDa8xve1BSXQ6Tye39xGf3MOB6x7ueXyLnS6mfg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=neAK8zjYM9rADJuCZPEYMe+e1p2cBIKxMT+CCZWHqDqQJPu9etEvumrVOB37tTEhC/OrwF2Tv6+1iTU0zMkoo6BFXogNXRftbA8dG6yCbUcWPm1SpIMc6MFfJsm5zP/yOsV6s0jsoobogxe6MlVv/KuixIqiReo1JRWR6dVtLfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RmQVoIwa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792007426; c=relaxed/simple;
+	bh=canbLA2SOamUFjLIrAaPoD6hNIYt9r51hATImDQ12Rw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IQSTQX0pp3aERxTDnHsEjxZybg/JxrynqCI94BmeNOx7Ahvgd69cW/+pS6ecpujON/zXfb9lgWDGJR5CZApGj1/f/BBuG2MqYS0LoBrA2aq8+ctVbDe2AMzTt5IAU2m+TpPlsImN00oM7dVoZ4REbL9CE7qHyXCEIz2WdJIiD1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=dmh0ZPmP; arc=none smtp.client-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RmQVoIwa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 843F91F000C4;
-	Wed, 14 Oct 2026 19:46:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792007216;
-	bh=VkzoqxTdzmAg593ZpIds3NlLUMIFMc0b1AE/YCVZDWw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RmQVoIwaX4F+m+QOTfBZ/BEap2Ci3CR8vUwT+k50W7Jgus1MTHRpWoDCeRk3szKas
-	 uzosIYzkaiam6ix1S/hWjqoS0TxPoO4a78Ix3OO/QlCm1KxycxhrmJY+w49cFxMjwl
-	 sk3k3ikgGrwEwt4FTM8SfDW2xPJnk3Dx29n1Nde0Q2+khRQ3bZthoThKsbDyY9fCQF
-	 V3HBMdhNdz95Pk/NV2mftbwGl26FI4HxJ+7kXD1zqiIVSFJf7Yhh0vv+10/yJfQq8L
-	 Ba+aRlqD7WHu3E5lC8suYwgKJ6fMw9JkM3+Njs0J4n1Tcuzpnv7F1mM/eacKy4v12z
-	 hrI8yQ7+5y9kg==
-Date: Wed, 14 Oct 2026 20:46:53 +0100
-From: Harry Yoo <harry@kernel.org>
-To: Imre Kaloz <kaloz@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Jann Horn <jannh@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, "Jose A . Perez de Azpillaga" <azpijr@gmail.com>
-Subject: Re: [PATCH v2] mm/slab: sample slab_state once in
- kmem_cache_destroy()
-Message-ID: <as_MPz_gXzkuGqFq@thinkstation>
-References: <20261014150844.8536-1-kaloz@kernel.org>
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="dmh0ZPmP"
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4j4hd54sFvz1XM5kD;
+	Wed, 14 Oct 2026 19:50:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1792007407; x=1794599408; bh=r7wqfoGl36He6xJQoAE153P3
+	E0igpkKOLHPD1TGIFZo=; b=dmh0ZPmPEyCtxcmc1uYgaryLOFeCFrUO23VzjlMZ
+	7ndZQa6UVUc4n63kAwZKMKK32mhNOrMartWIYDCaOgHfme5Qioo59Wb90ywb33yn
+	oqTq5C3tCB/fTlE5N9r+MxIJ5U7FvLBx+nb+5V6YFLTnqfxMU6nxhP3Z0iunFZcw
+	/EmbhQhoSA7tv+rlRFz4GPNur4i5eNbrAVWKRhR5pAWi9ftsfBCfQ8NqR0ApajwC
+	rQY0tnk8d2klgribKiXINRzCxBBxmKJCQy4iL3PMkNk6xdIAdIZosT2tXfGeppy7
+	AsfPyl0MCPjtFCdRjWfSWuFtsK5Aw0sHrzalR8A6L0+MGQ==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id fmm9AwGlRFjq; Wed, 14 Oct 2026 19:50:07 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4j4hct0kxZz1XM4Tl;
+	Wed, 14 Oct 2026 19:50:06 +0000 (UTC)
+Message-ID: <889a01a1-cae0-4038-b0ad-2ad29231152b@acm.org>
+Date: Wed, 14 Oct 2026 12:50:05 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014150844.8536-1-kaloz@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: =?UTF-8?B?UmU6IOetlOWkjTog562U5aSNOiBbUEFUQ0ggdjUgMS8yXSBzY3NpOiBz?=
+ =?UTF-8?Q?d=3A_mark_disk_dead_on_surprise_host_removal_to_avoid_I/O_hang?=
+To: =?UTF-8?B?6IOh6L+e5Yuk?= <hulianqin@vivo.com>,
+ Christoph Hellwig <hch@lst.de>
+Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Alan Stern <stern@rowland.harvard.edu>, Jens Axboe <axboe@kernel.dk>,
+ Hannes Reinecke <hare@suse.de>, Mike Christie <michael.christie@oracle.com>,
+ Damien Le Moal <dlemoal@kernel.org>, John Garry <john.g.garry@oracle.com>,
+ Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
+ "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "usb-storage@lists.one-eyed-alien.net"
+ <usb-storage@lists.one-eyed-alien.net>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <TYUPR06MB6217DD31B1B3CD09E431CC12D2922@TYUPR06MB6217.apcprd06.prod.outlook.com>
+ <20261012144923.GA10852@lst.de>
+ <TYUPR06MB62172FD04314EFE34D8091EAD29E2@TYUPR06MB6217.apcprd06.prod.outlook.com>
+ <9c28fbe7-089f-4d72-86be-5805bfebb213@acm.org>
+ <TYUPR06MB62173975C70E0BBCE434475ED29D2@TYUPR06MB6217.apcprd06.prod.outlook.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <TYUPR06MB62173975C70E0BBCE434475ED29D2@TYUPR06MB6217.apcprd06.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 14, 2026 at 05:08:43PM +0200, Imre Kaloz wrote:
-> kmem_cache_release() tests slab_state >= FULL after kmem_cache_destroy()
-> has dropped slab_mutex and unlinked the cache, and for a
-> SLAB_TYPESAFE_BY_RCU cache after rcu_barrier(). If slab_late_init() runs
-> before that test it sets slab_state to FULL but skips the unlinked cache,
-> which never got a sysfs entry, so sysfs_slab_release() calls kobject_put()
-> on a kobject that was never initialized:
-> 
->   WARNING: lib/kobject.c:734 at kobject_put+0x64/0x2c0, CPU#1: kworker/u8:3/55
->   kobject: '(null)' ((____ptrval____)): is not initialized, yet kobject_put() is being called.
->   refcount_t: underflow; use-after-free.
->   kobject_put+0x64/0x2c0
->   sysfs_slab_release+0xc/0x20
->   kmem_cache_destroy+0x104/0x1e0
->   bioset_exit+0x13c/0x1e0
->   disk_release+0x54/0x140
->   put_disk+0x18/0x40
->   floppy_async_init+0xbec/0xd10
-> 
-> The release-time test has run outside slab_mutex since at least v4.4 for
-> SLAB_TYPESAFE_BY_RCU caches, and since v6.0 for the others. Since v6.12
-> the unlink-time test in kmem_cache_destroy() is a separate read of its
-> own, also after mutex_unlock(), so the two can disagree. Both tests ask
-> whether the cache has a kobject, which cache creation skips while
-> slab_state <= UP. UP is the state just below FULL, so a false sample
-> cannot skip a kobject_put() that was owed.
-> 
-> Seen on sparc64 at boot, where the asynchronous floppy init tears down
-> its bio slab while the late initcalls are running.
-> 
-> Sample slab_state once, under slab_mutex which slab_late_init() holds
-> when it sets FULL, and use the result for both the unlink and the
-> release.
-> 
-> Fixes: d50d82faa0c9 ("slub: fix failure when we delete and create a slab cache")
-> Fixes: 4ec10268ed98 ("mm, slab: unlink slabinfo, sysfs and debugfs immediately")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
-> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-> ---
+On 10/13/26 7:20 PM, =E8=83=A1=E8=BF=9E=E5=8B=A4 wrote:
+> Given these, I went with SHOST_SURPRISE_REMOVAL as a more targeted
+> approach. If you think SDEV_OFFLINE is viable, I'd be happy to explore
+> it further.
 
-Looks good to me,
-Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+Has something like the entirely untested patch below been considered?
+With this approach no new state variables are required.
 
-I guess it's late to queue this to slab/for-next-fixes.
-Let's queue this to slab/for-next for 7.4-rc1.
+Thanks,
 
--- 
-Cheers,
-Harry / Hyeonggon
+Bart.
+
+Subject: [PATCH] scsi: sd: Mark the disk dead if runtime resume fails in=20
+sd_remove()
+
+If a SCSI disk is unplugged while runtime suspended, its request queue
+is still in the pm-only state when sd_remove() is called. The runtime
+resume attempted by scsi_autopm_get_device() fails because the parent
+device, e.g. a USB device in the USB_STATE_NOTATTACHED state, cannot be
+resumed. Hence, sdev_runtime_resume() is not called and the pm-only
+state is not cleared. Next, del_gendisk() calls
+blk_report_disk_dead(disk, false), which calls sync_filesystem(). Any
+bio submitted by the filesystem waits forever in __bio_queue_enter()
+because the queue will never leave the pm-only state and because
+GD_DEAD has not yet been set:
+
+  __bio_queue_enter+0xb8/0x174
+  blk_mq_submit_bio+0x640/0x7e4
+  [ ... ]
+  exfat_sync_fs+0xa4/0xe0
+  sync_filesystem+0xa8/0xdc
+  fs_bdev_mark_dead+0x30/0x88
+  bdev_mark_dead+0x54/0xc4
+  blk_report_disk_dead+0x8c/0xd4
+  del_gendisk+0xa0/0x2f8
+  sd_remove+0x30/0x60
+  [ ... ]
+  scsi_remove_host+0x88/0x18c
+  usb_stor_disconnect+0x68/0xf4
+
+Fix this hang by calling blk_mark_disk_dead() if runtime resume fails.
+This sets GD_DEAD, tells the filesystem that the disk has been removed
+without attempting to sync it, and wakes up any bios that are waiting
+in __bio_queue_enter(). Syncing the filesystem is not possible anyway
+if runtime resume failed, so no data is lost that could otherwise have
+been written. If runtime resume succeeds, behavior is not changed. Make
+this change in sd_remove() instead of in a SCSI LLD such that it works
+for all SCSI transports.
+
+Reported-by: Lianqin Hu <hulianqin@vivo.com>
+Closes:=20
+https://lore.kernel.org/all/TYUPR06MB6217DD31B1B3CD09E431CC12D2922@TYUPR0=
+6MB6217.apcprd06.prod.outlook.com/
+Fixes: 6f8191fdf41d ("block: simplify disk shutdown")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bart Van Assche <bvanassche@acm.org>
+---
+  drivers/scsi/sd.c | 10 +++++++++-
+  1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/scsi/sd.c b/drivers/scsi/sd.c
+index a1b21ea14e54..208b915f25a2 100644
+--- a/drivers/scsi/sd.c
++++ b/drivers/scsi/sd.c
+@@ -4270,7 +4270,15 @@ static void sd_remove(struct scsi_device *sdp)
+  	struct device *dev =3D &sdp->sdev_gendev;
+  	struct scsi_disk *sdkp =3D dev_get_drvdata(dev);
+
+-	scsi_autopm_get_device(sdkp->device);
++	/*
++	 * If runtime resume fails, e.g. because the device was unplugged
++	 * while runtime suspended, the request queue stays in the pm-only
++	 * state and any I/O submitted by del_gendisk(), e.g. from
++	 * sync_filesystem(), would wait forever in __bio_queue_enter().
++	 * Prevent this by marking the disk dead.
++	 */
++	if (scsi_autopm_get_device(sdkp->device) < 0)
++		blk_mark_disk_dead(sdkp->disk);
+
+  	device_del(&sdkp->disk_dev);
+  	del_gendisk(sdkp->disk);
+
