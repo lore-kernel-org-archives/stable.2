@@ -1,113 +1,141 @@
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0288C48EC74
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 20:33:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB69497B79
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 20:36:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792009989; cv=none; b=mFVrOCxhj3WpcoPqDav+qhBYeRwSxtZF6mMj71ydEqMGXubK33ukA9AX/H1+WUTzx8aeCBmVFz74emskoacmaxOBxgCAuJhtTxg9pIlztF6Ji7C9h+AigiBspy6DRVu/C8cL6hmHUx4MYl7DI5i5uoWnTmWeDuTWbBrgAezUM6c=
+	t=1792010201; cv=none; b=SWKcWxVBPgYcj7UL0p9M6u0HJDSEZVPeTrxxSDCOQL/BmRGuFEkfa5f2LWSDOXMHSjwdNeq2DnDfTMoZx2+yv70QiaRnVhkrPYIw8juxS075JuvoIUfORIjOWpCa26x9+0/0TI4fL852ftQULmpWGb9iugn+0CIa4spoMOi3dnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792009989; c=relaxed/simple;
-	bh=7gVQWNdu44u7syl2CpxBqBL3hioj2qZM5WHUTPtetmY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Isy/LB/1nTHIubnOjSYQ/Mfdw98ltOcAyhUIuyLtxk0reCzAglO9FLnUHwUaLQV25DRSJvIBhIE8ehxJSKr20BlPoF9d53bu4IVrvn+yOhfstmHE2pYY55idJ6akoEMj7gYXLTKLRawHMMtad4aEApde8PO5RCMzhrZRXZcQP6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IILAcWaJ; arc=none smtp.client-ip=209.85.219.49
+	s=arc-20240116; t=1792010201; c=relaxed/simple;
+	bh=Yaq2y0T6gfAqVyOLIxfokcNGEF1k7Lgu9sj4v/I0hcY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZDn5tlmOjYAWdm1VrjuMMDUyos8P1VpiaQG1dMd5mf6g9VI7r6IlYbe018z8bndYZIJEgOeFrIvx2aA9YglVb67w0+i5BaQRjI3hCu4eWP8NVcdcCwmMdDXXGuTpGUg7aPmLsglAfGT8pcHMudPaU5+c4qJ6RHbVKaAv8lz9HGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k3rmOTYS; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IILAcWaJ"
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91b8b456dbeso34453626d6.2
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 13:33:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k3rmOTYS"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49ff680331aso15859555e9.3
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 13:36:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792009987; x=1792614787; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pnlTwXurTKZ2zk8thHhM/pDYxwWJL3S5XvgmwZlUXBA=;
-        b=IILAcWaJW09/WrSAXqxs1i8w/bGc3q9RvdzGZ5yGLjKxr1XITcx0tTfyCOe6fLcJnO
-         kZBsvOZAyL0OkJntmqyeOdP70Tqy/0IvGEY+vJm1bkhHwssvwgOK4/Ch1j1yVJK2r5yn
-         ocW585+7mpfLqfSQpmIaqQxk/mweJb+zSFaL9/gbIirnv5cpztmR3Sn31DTQYSAPtYq4
-         YM/1lkmMqMfrGWw3bf46VnabLEuayHbSFn42//WzvbxyQJktzeOp+IBw+cKHOxl2xiy2
-         XT7SuC/Z0zbYdh7jqkJ74HA3L+ZTw04o0FzkodZy3jP7dChStuOKsdEEioIxWW84daPW
-         JA9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792009987; x=1792614787;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792010198; x=1792614998; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pnlTwXurTKZ2zk8thHhM/pDYxwWJL3S5XvgmwZlUXBA=;
-        b=yQrCx+SGN3KIivWn+4kmhKF9fF8p6P5JeGgRRCHpw3fspN0DSV5L4ueO6Y9DlDdHEd
-         wCvhsfvSacG9D9nEoIE8w8xzGOtPcXFUf7kOMLLJbzLHiAFtKBKYR9KO0qCp14Vp+rte
-         rGEOb71gVUZRnqOT494LcrGsiSMvhoZRWwS6xpElspujzIC+++Am+qi8SaZqOQEu4wtk
-         P1KE0kaznT2Q0WOUDZgAWhMSTtajBDX+dAsKXh4h5TJhQh3vv3vpSSe+J8dKjfVmbV96
-         sbd/k4GIT7Pa/VsQT0ims1woRHa+GMyCNJdHDWmuYqmPVdJBSnP0EVFtlvfk3ZJJtVFP
-         7O0w==
-X-Forwarded-Encrypted: i=1; AKwUvBwsbh80fzDQlaPYI9HheGWLKqBNzzkGCFYopq1sXslfnYnVTekkGyCHG4p67ho94Y4s9AC257Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIdEUMOFYz5zVHXhgRYYqQ80J1u4iZN+aOw2qgX5QE2TfR8eQYK
-	4r2+PHXkrb0+NwuEB8+3bImrtXWqgY6aXucyqCnSDaRm+ksqE1lphxMK
-X-Gm-Gg: AYBFou3kuU7/7KALp9noRAbcveb537GMJHBvnDapnBB1I/tublRdtX5e9Wk2OtBOXTh
-	KspPVJEyBxdHU/zZ9g3aUXWzcXctl9cvkfIsrsjkudyJAN0S3JhnOPe1PTxjsOPkXiKJi73HnY9
-	WZ5q8g+eMIi2f2UWTNFJJz0PR/NVrPr6/T86flo4xK8hEYSEn+cn3QQEFnEQG8rwhu6jKFDAnwO
-	fPjrbjs4Zve6BJjW+BcGF4LD24WWpOcq3f20X00XiCdPXH60V0DZsIaA/XRupcXHsI5Spst7qns
-	A12TcHvXblaDeHrz2GWtFdYhhNqmpGi3ZiF60HjACnN006kZ4d/AQdsg8IMLEVlnyHm00qRcCmD
-	riSNvotoCtgA2kiGFeteUuHhq2/fLMuFUVVGoiWas3klJsYp3sQXe/zbpzqE7TG3uNWIwAiZlgX
-	68mqqLH3yuPncaVzZIEW0S+7Jzt0HI7MqzPkuwD4nDIEbMU3nRauRUTmj0eLTIkjm5CXhyMQ0si
-	v9BaX+IfHztHIRpMETic4gz
-X-Received: by 2002:a05:620a:44c8:b0:939:fde0:a71b with SMTP id af79cd13be357-93ebcd2c13amr2744492885a.0.1792009986696;
-        Wed, 14 Oct 2026 13:33:06 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef50095bbsm583476785a.9.2026.10.14.13.33.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 13:33:05 -0700 (PDT)
-Message-ID: <5931df06-6048-41fe-a262-575e2079067b@gmail.com>
-Date: Wed, 14 Oct 2026 13:33:00 -0700
+        bh=/nw57+YtjU/AyH+r0DpwU8s3tfNF2n88Kf/VOxF9MUk=;
+        b=k3rmOTYSNARzoQUGF8jaEHYXAGntZ127ck2ZslUnEubqTPoAkBdT6KqF6JHyXMdwpF
+         9w5390dfB9gLVpO5kjn57peGQ2VQRi1975No6JGwfOI5MIuycif09mcVlwO80iyEQkR1
+         1yb82555utp16R+gwVzfQmw8RyufMZHkXo2xgS1nUPR3UEfydUVrQaGO4rvcWX8jVMXZ
+         s/yNz1R2+RI4ItkHagmnP8JhowbBivVWBRTGqTzxzBwikXQpWDuR45MD0HUKPPbSOLI/
+         ufR5tv1PPM9T29/u/nLHGWy9jmmtpDw1ErSP3r1HLP5MtcGrHRHPAZKDMd8OEK2OI/lh
+         WnBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792010198; x=1792614998;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/nw57+YtjU/AyH+r0DpwU8s3tfNF2n88Kf/VOxF9MUk=;
+        b=VhxrEdnSQGzGGlmjs7fz+ZXSYORAgDxzeGaiGIiqRA5f4T32cNT2upm4XWSe8qOfjR
+         8ew1bLRq7Yf7s5FcD8MyxRfSoQbrP+AN/NGhgo7zOS7mL2mj4jCn10snIPfg0jU24J7p
+         cos0lmhdIxSOZ8EnQhyZkeJpkSdN41wWnmpAKmprSu1Gzg11tBLy0nvE32pTAfhLkeH/
+         RTRZseqtXw9rqiVbOnJ7bbrQh5DrKbH37m5xB/XrTO/GhYLA8cTqTqefH13Ctczf4ro8
+         ujxsvrsFNyIU1vyx1np1teiZjr1AJmVfIpHubeQZ6hDlLfvfZ0yeURZVK58CWakNLFM6
+         fNcA==
+X-Forwarded-Encrypted: i=1; AKwUvBxHXtHau3wadIlLs5KDyvT+Qw5YyeZTT5ZuVorEodJzqd7LPfrO02SXRXm28EkHL9NOsfmZPiQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ2rJfdenZqcR6aoP3tdiqCpKNir6o2XkFsfVkjDCy9qjeV6Y+o
+	keS+Jc978tN3CjllpOqfHIthelJBsjydi4NewdLgNswggkfHzJ5Ua0QT
+X-Gm-Gg: AYBFou0BYC4Xv2IYUOFEe+A8I7BwQwru9iEoXiCJMQKlz9TAQc2vcnN36oTmNXtEtkb
+	JZ3OjQSCo7hg1gK+nu6Jx0EWR/fc3Lk6IF/PYVoe/Z32qJwJs6SoLHgAV/LHIckzczUBfpLxYNe
+	zP0QSk5mWhE6uEIfWHvC0joHx8YO3WzyetY0+xJqtv+LCedBEffxd3Y7tFNu5MqAMwl25vcKVbc
+	yo3t1GWRsYHo6d0IocgZMRmosziKFj57fOqbRC21eE36Kb+Gg19nTmy8/ik1boyw3dpefmRCmJb
+	DO5YMYdklW+OY8c0CkDawFufna7aYoKlzIPTBkhK4zG+I+E89/+5p0ue4VKV6l7HgE6l1doUvLV
+	lLt0d5gLlyK6ge4gWaVl7GNFgWRKbkhaV13J21Glh9lRITlGn2P/GqhaCeHmbbZuWU1l1BAWMh/
+	BFPiQi0tqZajA2c7HKF//nt9+QpUengDEMwBdq5QfsfoVj/hJSDBMvDb3jAbWrFO+ys/VfY9fPu
+	Qpksyf+aphx6paJfwaqUk/O+yJCA9rJeRFjbpLwg5+4MQ==
+X-Received: by 2002:a05:600c:19c8:b0:4a0:1a7f:2abb with SMTP id 5b1f17b1804b1-4a18e47ab20mr346657615e9.11.1792010197775;
+        Wed, 14 Oct 2026 13:36:37 -0700 (PDT)
+Received: from andreayoga.wind3.hub ([31.189.109.133])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de72d2b13sm8940303f8f.55.2026.10.14.13.36.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 13:36:37 -0700 (PDT)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Petr Mladek <pmladek@suse.com>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Miroslav Benes <mbenes@suse.cz>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Jiri Kosina <jikos@kernel.org>,
+	Joe Lawrence <joe.lawrence@redhat.com>,
+	Song Liu <song@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	live-patching@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	petr.pavlu@suse.com
+Subject: Re: [PATCH] livepatch: Fix races between stack check and module load/unload
+Date: Wed, 14 Oct 2026 22:36:25 +0200
+Message-ID: <20261014203626.240985-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <as-R64i6eT-8FpJt@pathway.suse.cz>
+References: <20261012140546.154730-1-parri.andrea@gmail.com> <alpine.LSU.2.21.2610141410370.16733@pobox.suse.cz> <as-R64i6eT-8FpJt@pathway.suse.cz>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 000/505] 6.12.113-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261014123803.944920639@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20261014123803.944920639@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/14/26 05:50, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.113 release.
-> There are 505 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 16 Oct 2026 12:37:19 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.113-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Hi Petr,
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+On Wed, Oct 14, 2026 at 04:30:03PM +0200, Petr Mladek wrote:
+> I wonder if we could use some more strict locking for the two
+> operations, e.g. (raw_)spin_lock. And then use
+>
+> 		if (!raw_spin_trylock(&klp_unpatch_object_lock))
+> 			return -EBUSY;
+>
+> in klp_check_stack(). Plus take the lock in __klp_unpatch_object().
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
+I like this.  With every change the stack check can see made under one
+lock, it sees a consistent state, and the READ_ONCE()s and NULL checks
+in v1 go away.
+
+I don't think the lock can cover all of __klp_unpatch_object() though:
+klp_unpatch_func() calls unregister_ftrace_function() and
+ftrace_set_filter_ip(), which sleep.  So I'd take it in
+klp_unpatch_func() only around the list_del()s, after the ftrace calls,
+and free the ops after dropping it.  obj->patched would be cleared
+under the lock as well, before the funcs are removed, so that the check
+skips the object from then on.
+
+> Hmm, we could not take the spin_lock around klp_patch_object()
+> because it does allocations and might be running for a long time
+> when there are many patches objects. But this might be avoided by the
+> smp_store_release(&obj->patched, true) trick.
+
+The store-release covers the objects of the transition patch, but
+klp_find_ops() walks the global klp_ops list, and klp_patch_func() adds
+to it when a module patched by any patch is loaded.  I'd take the lock
+in klp_patch_func() just around the list_add()s, once the ops is
+allocated and its func_stack set up, and around the list_del()s in the
+error path.  That should be short enough.  obj->patched can then be set
+under the lock too, after all the funcs are added, so the store-release
+is not needed.
+
+klp_find_ops() could then assert that klp_mutex or the new lock is held,
+which also takes care of Peter's comment.
+
+One more detail: klp_try_switch_task() reports -EBUSY as "is running",
+so a failed trylock would want a different error code or message.
+
+The trylock also fails when another CPU is checking a stack at the same
+time, so concurrent checks are serialized and the loser retries the
+task later.  The lock would only be held for the walk, not while saving
+the stack trace, so I expect this to be fine, but it might slow down a
+transition on a large machine.  Would that be acceptable?
+
+If this matches what you had in mind, I'll send v2 along these lines.
+
+Thanks,
+  Andrea
