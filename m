@@ -1,115 +1,167 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C040330328
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 17:59:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E4E47F3BD;
+	Wed, 14 Oct 2026 18:02:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792000748; cv=none; b=p/VtPGvLG1xYnYB+0dfqxMMYbE6J3JzTrUBHk5bQNqh52tpCvMzRZVKrDhMQvRaU8wWpMxUlRg3oOZmCI8DatJzkkUm/Wq9IpH05tYor+eVl7F0rB51URtDOloqCZIQsRLaN7vZ2lO29qWdi4tnRzjVYQFBaamYwgRhRi4Yl7BI=
+	t=1792000932; cv=none; b=qzehvV06+2BMaWKr+Mvuc7W3irMRkXV1eVK25+nddPXo/2gRkUc8Cgm0ctqdgzJMD0ZJnN6rwpYyTo3EQytJuhqPlkNJzry2EyKFN2FAAoDYgPBr1/CFrcswCAPYeT0djzCdSnWyCEqkcaIOqTwGL1HP0nytesY5X1zRZIC13NM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792000748; c=relaxed/simple;
-	bh=dDN8jp3qMLellO3g51VodaauD87XnJilLrJ9LJSfGRk=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=lEnMVPuZ+H7Ho9vqBqgV3cHO6pqzFNWT/Ijc8WWrm6AVlM07VgL0gvmntwwO6ej3ZwLT/5eNmL2fOjMqSmlMBr0PuP0iaTJu6BuvcUzjX+7qew2WXIecV9MvnPhZrDwXxF7j7IYZmF93WnAlUZhGMXCkqIV4MCElso1ujxBQgnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=b2OU3nxm; arc=none smtp.client-ip=74.125.82.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	s=arc-20240116; t=1792000932; c=relaxed/simple;
+	bh=hzGcmhJT2FmFRf6nc5h0MmQUOOKA6QuPs0v0S6naB3c=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=Ez2WnOP7PHtCwbEbpPh4jLrYKO+ZSQyiUeJxbbl2RthmxLKhRU5sbKAMyfuhC6bFqCNIImTzYTnShjXlfs+bGQ0/rvBfOp2fKFDUdbeiwk7mbJVcgU+lex9DObgpoqYHxuJShpuVIUJIXbvZi4rCBYE2+wuK4T6f/J9TjGynKaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=IhRaNRTX; arc=none smtp.client-ip=185.70.43.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="b2OU3nxm"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-353804b591eso7797942eec.0
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 10:59:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1792000745; x=1792605545; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=FZ1+52q+4pExk64UV5D2sSw64rfU+B+tKWJ5oqmR5lI=;
-        b=b2OU3nxmT6n5izGWD0/AFddPIlmTlWsVZgcizMjFJX7/6tNvEcfr+WFTu2mxIHfKbp
-         kCvYV6EHKq3iYtrSLgz7A09XHt8e0FFEBMbBaEaY3fLNjRErnwCQG1SlyI2agJMj4PkU
-         32xNvgkOVeGbUhvD59eIxxVTwOcBbGwMm+TdbkPdcxwGqHPttIYEEahxmKBintP4FqMg
-         M3lFKKMbiw+cOfM9tKit8STazY5n3++NzgkHrOmY0sffLsvxDNb83M7ZQrzSwWp/5O1Z
-         1sekWzzGaPk3dYlCfAlAEVGNnUzRD+SqKFZYjVQd5dw/S8W4PPeIIL5aVRagoVWv3ehj
-         olWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792000745; x=1792605545;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FZ1+52q+4pExk64UV5D2sSw64rfU+B+tKWJ5oqmR5lI=;
-        b=ubp+BrVCaE0rcBYRfXsBUcuosD6bGSR7jEfwY8ktWfUWFLJe0iDiB6Wc3wMRd/rz1j
-         jbr7di3VYEgeqER+TJ//ZyL2nT4pqqTUuWdju2SUHr34AONzcCvWq9QDL5Lf6N0PHdy8
-         kdZRhsxiACX+Y4tHpD3r5Qp4mX8siSSbwDQRhBo8a6d1Ewbrlcr+DZw0TkxHbIT/Bpul
-         f01xOoNRbbN59QdwyoHiCbtr4KCMptOhyOEn7QlCJQfxSs1Wwvd8uziT1J+/TKEt9QWZ
-         EiAYB5YY1qDCQ+rIn/Rh2nKmM253SGq+IxMCPgJzxhSkVZWEk56gk+3FeO7Wt5XBWXJb
-         EpnA==
-X-Gm-Message-State: AFq9FYI4rWNFfsK09+FnZY/eaoxHLkzJa9ERQ7hqsVppMPvNkm2f6iIB
-	zskTPb3TQw+6MxIN7YIABgAcKdzi+NWw5Vkh1/BZhgp5rzDXOtM/71HmyQTYyAhNx7BeFiQCQfo
-	WTlsM
-X-Gm-Gg: AYBFou3ibEIpJbN4wliAPNL15J7cuhy1SfcCkYIWwbCkVg6XKEWu+wscPb32wuOH0zz
-	X/vRa3B+hPZopqTyx1aQrUFbdA08EnAl9d17EverDM3j9ped6XVA5ZtSEXjp0KtHMCZGieHWq6h
-	rVoxmj/ir5ANQaSE60XCj3uzsmzZZKMYLzKHSL/b6RiMObyvmiGxv4DCpgfJ0J8r3lCJQmGqy/2
-	VRGI63SRZEA9GnDPak0s6aq2bE9BHQYQ8J1KQ2IKL3Cx8KAd44j74poZU5s8b8cEbMSpcE+L/+z
-	VDlCsVmJGV/qi6XaGsBYM0muVLRjtGsU8oXZYTjg+OJ+1EjyeP7QrtIoayCaxGEnAW4xgIXNXU1
-	ibHcoFrh9UYppxFoswct6I9u9PJ/FCTKMLNDFXTKZdqCX3gbEvR6UThogeQ1i0rufSP1mb9sS2+
-	P53to4RjshT3dsQKrxbieJFbvpVlNGygYlVe73xcYuFxWyRA9lATjHktsejkS+pGk=
-X-Received: by 2002:a05:693c:638e:20b0:351:7bdb:6eb1 with SMTP id 5a478bee46e88-3537e03ce72mr22149842eec.11.1792000744775;
-        Wed, 14 Oct 2026 10:59:04 -0700 (PDT)
-Received: from 244668f92ec4 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca0e64csm60033954eec.10.2026.10.14.10.59.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 10:59:04 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="IhRaNRTX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1792000928; x=1792260128;
+	bh=9nICx+kZ4aCEOVUwXTEwaKCXjblsqbjRgDzmtXcnD+g=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=IhRaNRTX2H6v4pXF+KLx7MFJbgZjxY88QoB0p3bFobdsf9gD9i2plm8QoI6DvTZIh
+	 g12MP9danb97u6EdbQGiViD0xs36jeU4BRrX8y+JMUuUJJ3yX2IaGJowGj7e0t+swF
+	 nDaV297chJqpUI1kgpETKuVRHUHVyJZzeEAC2d/ZUW+yz9Qb4emM3HX3uRA3Kt6XvJ
+	 meJVa+pA2+e4ehtMuSq9f0BOm5q9UKQH4t1Tiha4+K3MldzRkbwUVbCapY9MlnZ/C4
+	 I9cAptm+F54WUoWLiSdQ2eN1Nx0TyLuScLUjf1QtzU4ZbWFIpUPYjkNSx9UQOr6yFZ
+	 2fATumkbjIdeA==
+Date: Wed, 14 Oct 2026 18:02:03 +0000
+To: Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+From: Birk Skyum <birk.skyum@pm.me>
+Cc: Vladyslav Tymoshchuk <tvlad744@gmail.com>, linux-bluetooth@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH v2] Bluetooth: hci_qca: Reset the in-band sleep state on power off
+Message-ID: <20261014180201.57109-1-birk.skyum@pm.me>
+Feedback-ID: 21326998:user:proton
+X-Pm-Message-ID: ff478eacab4415be8db0232201d760eeecb80e9f
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-7.2.y: (build) in
- /tmp/kci/kernel_build/kselftest/drivers/net/psp_responder (../....
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+qca_power_off() cuts the power of the controller but leaves the host
+side of the in-band sleep (IBS) protocol as it was. tx_ibs_state and
+rx_ibs_state are initialised in qca_open() only, so a controller that
+qca_setup() powers on again meets whatever state the last session ended
+in.
+
+If that state is HCI_IBS_TX_AWAKE, the host sends the frames after the
+next setup without a wake indication. qca_hci_shutdown() stops both IBS
+timers, but the pre-shutdown command it sends afterwards goes through
+qca_enqueue() and arms tx_idle_timer again for 2 s, so a power on within
+those 2 s finds the state at AWAKE. On a OnePlus Pad 3 (WCN7880) this
+happens with a power off and on within 2 s, and at every boot of a board
+without local-bd-address when user space sets the address right after
+the controller registers. The controller comes back asleep, and the
+first command after it has gone to sleep breaks the link:
+
+  Bluetooth: hci0: Frame reassembly failed (-84)
+  Bluetooth: hci0: Opcode 0x0c56 failed: -110
+  Bluetooth: hci0: crash the soc to collect controller dump
+
+The timer left armed can also send HCI_IBS_SLEEP_IND in the middle of
+the next setup.
+
+If the state is HCI_IBS_TX_WAKING, the host is waiting for a wake
+acknowledgment, and qca_hci_shutdown() has deleted the timer that
+sends the wake indication again. The setup still works, because frames
+bypass IBS while QCA_IBS_DISABLED is set. Once the flag is cleared,
+qca_enqueue() puts every frame on tx_wait_q and nothing takes it off:
+
+  Bluetooth: hci0: QCA setup on UART is completed
+  Bluetooth: hci0: Opcode 0x0c03 failed: -110
+
+A restore from hibernation gets there on a Lenovo Yoga Slim 7x
+(WCN7850). The controller has been through a power cycle, while the
+restored kernel holds the state from before the image was taken. Its
+wake indications go unanswered, the commands behind them time out, and
+the core closes the device and sets it up again. From then on
+tx_ibs_state reads 1 in debugfs and Bluetooth stays dead until hci_uart
+is reloaded.
+
+When the controller loses power, cancel the IBS work, wait for the IBS
+timers, drop what was queued and put both sides back to asleep, which
+is where qca_open() starts. The timer callbacks take hci_ibs_lock, so
+the timers are deleted outside of it. All callers of qca_power_off()
+can sleep, and the work items do not call it.
+
+Fixes: 3e4be65eb82c ("Bluetooth: hci_qca: Add poweroff support during hci d=
+own for wcn3990")
 Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Wed, 14 Oct 2026 17:59:04 -0000
-Message-ID: <179200074367.321461.11017636013861682093@kernelci.org>
-
-New build issue found on stable-rc/linux-7.2.y:
-
+Assisted-by: Claude:claude-opus-5-5
+Co-developed-by: Vladyslav Tymoshchuk <tvlad744@gmail.com>
+Signed-off-by: Vladyslav Tymoshchuk <tvlad744@gmail.com>
+Signed-off-by: Birk Skyum <birk.skyum@pm.me>
 ---
- in /tmp/kci/kernel_build/kselftest/drivers/net/psp_responder (../../lib.mk:225) [logspec:kbuild,kbuild.other]
----
+Changes since v1
+- Cancel both IBS work items and wait for both timers before the reset,
+  with the timers deleted outside hci_ibs_lock, and flush after that, as
+  the Sashiko review of v1 pointed out (Vladyslav)
+- Describe the AWAKE trigger next to the WAKING one
+- Add Fixes: and Cc: stable
+- v1 is at https://lore.kernel.org/r/179163212446.46972.2306254853726299632=
+@pm.me
 
-Log excerpt:
-=====================================================
-make[1]: *** [../../lib.mk:225: /tmp/kci/kernel_build/kselftest/drivers/net/psp_responder] Error 1
+Vladyslav tested this version on a OnePlus Pad 3 (SM8750, WCN7880). In
+five quick power cycles four fail without it and none with it [1].
 
-=====================================================
+On a Lenovo Yoga Slim 7x with v7.3-rc7 and hci_uart rebuilt, ten quick
+power cycles (power on 1 s after the power off, then a scan) pass with
+the stock module, with v1 and with v2, so this board does not show the
+AWAKE failure. Right after the power off, debugfs reads tx_ibs_state=3D2
+and rx_ibs_state=3D1 with the stock module and 0 and 0 with v1 and v2.
 
-When fixing this issue, please attribute this report according to the
-patch submission rules:
+The hibernation runs were done with v1 (stock dead after four restores
+out of four, back by itself after two out of two) and are not repeated
+with v2. Those kernels also carried the hibernation changes in [2], [3]
+and [4]. v2 is based on bluetooth-next, where it builds without
+warnings (W=3D1).
 
-Reported-by: kernelci.org bot <bot@kernelci.org>
+[1] https://lore.kernel.org/r/20261014162025.3733-1-tvlad744@gmail.com
+[2] https://lore.kernel.org/r/179157746908.73485.2343672865542690797@pm.me
+[3] https://lore.kernel.org/r/179158127177.70185.5691100900886332545@pm.me
+[4] https://lore.kernel.org/r/179163141354.18006.80461347454353634@pm.me
 
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
+ drivers/bluetooth/hci_qca.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
-- dashboard: https://d.kernelci.org/i/maestro:7494089614164d42baca67817d864ba187c52b33
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  62eb344d00f7d30ea338b4a426f7c23a124befc0
+diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
+index 7089e9b63..0d3b5f198 100644
+--- a/drivers/bluetooth/hci_qca.c
++++ b/drivers/bluetooth/hci_qca.c
+@@ -2229,12 +2229,25 @@ static void qca_power_off(struct hci_uart *hu)
+ =09struct qca_power *power;
+=20
+ =09/* From this point we go into power off state. But serial port may
+-=09 * still be open, stop queueing the IBS data and flush all the buffered
+-=09 * data in skb's.
++=09 * still be open, stop queueing the IBS data.
+ =09 */
+ =09spin_lock_irqsave(&qca->hci_ibs_lock, flags);
+ =09set_bit(QCA_IBS_DISABLED, &qca->flags);
++=09spin_unlock_irqrestore(&qca->hci_ibs_lock, flags);
++
++=09/* The controller loses the IBS state with its power and comes back
++=09 * with both sides asleep, as qca_open() assumes. Stop the IBS work and
++=09 * timers, drop what they queued and start over from there.
++=09 */
++=09cancel_work_sync(&qca->ws_awake_device);
++=09cancel_work_sync(&qca->ws_awake_rx);
++=09timer_delete_sync(&qca->wake_retrans_timer);
++=09timer_delete_sync(&qca->tx_idle_timer);
++
++=09spin_lock_irqsave(&qca->hci_ibs_lock, flags);
+ =09qca_flush(hu);
++=09qca->tx_ibs_state =3D HCI_IBS_TX_ASLEEP;
++=09qca->rx_ibs_state =3D HCI_IBS_RX_ASLEEP;
+ =09spin_unlock_irqrestore(&qca->hci_ibs_lock, flags);
+=20
+ =09/* Non-serdev device usually is powered by external power
+--=20
+2.55.0
 
-# Builds where the incident occurred:
 
-## defconfig+aws-ec2 on (arm64):
-- compiler: gcc-15
-- config: https://files.kernelci.org/kbuild-gcc-15-arm64-aws-ec2-6acf87dda3f195e1aa7fc694/.config
-- dashboard: https://d.kernelci.org/build/maestro:6acf87dda3f195e1aa7fc694
-
-#kernelci issue maestro:7494089614164d42baca67817d864ba187c52b33
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
