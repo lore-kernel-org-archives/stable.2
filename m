@@ -1,130 +1,103 @@
-Received: from arkamax.eu (128-116-240-228.dyn.eolo.it [128.116.240.228])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43AD53D1CB5;
-	Wed, 14 Oct 2026 06:30:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.116.240.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06BF93EFFA6
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 06:32:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791959417; cv=none; b=SNcr9lAv6ZuEVo5rJz/Hf97i+CxCt5bmdhHKbyWkw+DQYFd6EyGePxu5l6uVpZBGtRW/oKsu7o49mclQF+J0CokBW7pGquzrnZyyf1TareOI4E6qHONVs+1WZFXSbxoLcczOUoSCx/fHtIeHoxk4EPfc6sf2XrxYKgyDI9vLTEY=
+	t=1791959571; cv=none; b=l8H2bcGs1gy+FtKxWRz0pjN2S3tnO80SioWkPhROxmBSIMMF60VFAiDl30gsN1KfRUUENn4PjbKFZ+7mdrlc21I6KfBbYnkgs00k5VMUlQwn5Z9mqieTGxO0erKzNPsttim4oS9p2feI+CR+yzoZQP11jtD1ihXbsllqOD2Kbwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791959417; c=relaxed/simple;
-	bh=EYpybl+sKkbYJxE4ysJBc9JgYugoN7FZg/U8lPSyFx0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=fwSXaF80F9PhkCdVKtkRXtKiUTVLliZNMQ8bmvwFq452zenW0MHpJ5adkKgOkLeJoamnOtTJ48KXmtLtjIHjDtthzzNpa2SK8elRqPyGI/I7MPHD+6+e+xtepXiyNPfsgb/B5REZ/JUc5IglDlLlx2pjV8rcCQpe610cQ8/8row=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arkamax.eu; spf=pass smtp.mailfrom=arkamax.eu; dkim=pass (2048-bit key) header.d=arkamax.eu header.i=@arkamax.eu header.b=Bq7BZPcb; arc=none smtp.client-ip=128.116.240.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arkamax.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arkamax.eu
+	s=arc-20240116; t=1791959571; c=relaxed/simple;
+	bh=2TV1f3bnq5f4ScvT6q6LW4A6jRa5qaEODzuqdxj1bLU=;
+	h=Cc:Subject:Date:Mime-Version:Message-Id:From:In-Reply-To:To:
+	 Content-Type:References; b=JRlOb8GlvlQE8pP8YBb2EgfOb6Aa4I5Gyt9ksJ0qIeWEjEoRA1+NpyKfYDSxg/uScPAeJEclENzfQGhlYf9SAxNDtkvIGIIw7w+D/oii9JfyeYxlhmy2CRofCxTv8s+s4H5LFj8v1oFLwJszg+YqloaxMqbG9j5Rb2y1FCOlH3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=iTcsN+by; arc=none smtp.client-ip=209.127.230.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arkamax.eu header.i=@arkamax.eu header.b="Bq7BZPcb"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; s=mail1; bh=EYpybl+sKkbYJx
-	E4ysJBc9JgYugoN7FZg/U8lPSyFx0=; h=in-reply-to:references:to:from:
-	subject:cc:date; d=arkamax.eu; b=Bq7BZPcbEPexDPJcPV1QU9ZopvZ5B2T/QPSNY
-	Cbj3o++ZrXJ06RP2EguER3j4ofifK6KX2C3hvefZB99mLMgAiqY7G94KcL/7e2obbpqu0/
-	+v4IPRPzJSjXM0ibax75aOeGtcdzIJqW+HK+nQSWzI2BXFYMFXs5ik/s+adRZb9Ep3VHsq
-	1UtIJZExPOzw9T5Jq8R0xqCzFP60lzdeuyMF3ZXdgRcwDO1b/P96tdBul0e4VZiFLB+Oa3
-	gOxuF7wD/7Zw9a4sPVyWvJrx7rcGhxJ4xXVVvFNs+7qbYLonXWsS7TfzJo//x1E5k/H/9h
-	kPCSCrDW1jeV/IfGHz4jLsXXA==
-Received: from localhost (128-116-240-228.dyn.eolo.it [128.116.240.228])
-	by arkamax.eu (OpenSMTPD) with ESMTPSA id 6f0b8cc8 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Wed, 14 Oct 2026 08:23:30 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="iTcsN+by"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1791959549; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=1JmrvG8Wxu6YtXiksiU23e1HswNsSn5IxgMS7VCL0AQ=;
+ b=iTcsN+byvXNYl6hTEYFqWX8+lbU4twF9xpYtGiOH6InWYmZLRqwfNMRVz2t9bQimc7k9wT
+ TjkrOpTjyMYV0WQRL/7JsX086c7rmWh8yDTyg1tRrw0GVt6pd9X069YGiieE/+AVvmY96/
+ 4YNt0N5ny7Cc8RSMUwpZOnIruFiZmL+/w6ugOS785/hv32r11tWTr5tmln3UEk0x9vY/el
+ cBbhbF99VxUyecqIeirKDMSNlEH8Cm/L/vWN6pOg3KjscQLrt0n9yj3NWAl0GpC7H1jDrc
+ +QeZlz//gprlBGa91xMSxHvpPReT7tsIW/XlcFZSW18OJhIHtFWsnCQr/jTOtA==
+Cc: <catalin.marinas@arm.com>, <will@kernel.org>, <ryan.roberts@arm.com>, 
+	<dev.jain@arm.com>, <baolin.wang@linux.alibaba.com>, 
+	<mark.rutland@arm.com>, <akpm@linux-foundation.org>, <david@kernel.org>, 
+	<ljs@kernel.org>, <liam@infradead.org>, <vbabka@kernel.org>, 
+	<rppt@kernel.org>, <surenb@google.com>, <mhocko@suse.com>, 
+	<linux-arm-kernel@lists.infradead.org>, <linux-mm@kvack.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid PTEs
+Date: Wed, 14 Oct 2026 14:31:59 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+X-Lms-Return-Path: <lba+26acf21fb+be267d+vger.kernel.org+zhaogongyi@bytedance.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <516828fb-558d-4a20-9532-51f50d6ba042@bytedance.com>
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+User-Agent: Mozilla Thunderbird
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+In-Reply-To: <20261013153953.77575-1-lance.yang@linux.dev>
+To: "Lance Yang" <lance.yang@linux.dev>
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 14 Oct 2026 08:23:30 +0200
-Message-Id: <DM4CGCPQCBLX.10XJ0BE8OCYH4@arkamax.eu>
-Cc: <linux-nvme@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <stable@vger.kernel.org>
-Subject: Re: [PATCH] nvmet: take subsys->lock while force-reconnecting in
- nvmet_subsys_attr_qid_max_store()
-From: "Maurizio Lombardi" <mlombard@arkamax.eu>
-To: "Yu Zhang" <yuz08559@gmail.com>, "Keith Busch" <kbusch@kernel.org>,
- "Christoph Hellwig" <hch@lst.de>, "Sagi Grimberg" <sagi@grimberg.me>,
- "Chaitanya Kulkarni" <kch@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20261014054727.53183-1-yuz08559@gmail.com>
-In-Reply-To: <20261014054727.53183-1-yuz08559@gmail.com>
+References: <20261013093600.54995-1-zhaogongyi@bytedance.com> <20261013153953.77575-1-lance.yang@linux.dev>
 
-On Wed Oct 14, 2026 at 7:47 AM CEST, Yu Zhang wrote:
-> nvmet_subsys_attr_qid_max_store() sets subsys->max_qid and then walks
-> subsys->ctrls to force every controller to reconnect, but it holds only
-> nvmet_config_sem (for write).  subsys->ctrls is protected by subsys->lock=
-:
-> nvmet_alloc_ctrl() adds an entry under subsys->lock, and nvmet_ctrl_free(=
-)
-> removes it under subsys->lock with list_del() + kfree() (not kfree_rcu).
-> The free path takes no nvmet_config_sem, so the two locks are independent=
-.
->
-> A controller teardown (host disconnect, keep-alive timeout or fatal error
-> -> nvmet_sq_destroy() -> nvmet_ctrl_put() -> nvmet_ctrl_free()) can
-> therefore list_del() an entry while qid_max_store() is iterating the list=
-,
-> corrupting the walk.
->
-> KASAN, concurrent "echo 128 > .../subsystems/<nqn>/attr_qid_max" racing
-> nvme-loop controllers connecting and disconnecting, panics in seconds:
->
->   BUG: KASAN: null-ptr-deref in nvmet_subsys_attr_qid_max_store+0x10d/0x1=
-b0
->   Read of size 8 at addr 0000000000000090
->   Call Trace:
->    nvmet_subsys_attr_qid_max_store+0x10d/0x1b0
->    configfs_write_iter+0x1a7/0x250
->    vfs_write+0x5df/0x940
->    ksys_write+0xfd/0x1e0
->
-> (also seen as a general-protection fault dereferencing a LIST_POISON
-> pointer at the same instruction.)
->
-> Take subsys->lock around the list_for_each_entry() loop, matching every
-> other subsys->ctrls accessor.  ->delete_ctrl() only queues asynchronous
-> controller teardown, so it does not re-enter subsys->lock under the loop.
->
-> Fixes: 3e980f5995e0 ("nvmet: expose max queues to configfs")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yu Zhang <yuz08559@gmail.com>
-> Tested-by: Yu Zhang <yuz08559@gmail.com>
-> ---
->  drivers/nvme/target/configfs.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configf=
-s.c
-> index 1111111..2222222 100644
-> --- a/drivers/nvme/target/configfs.c
-> +++ b/drivers/nvme/target/configfs.c
-> @@ -1683,9 +1683,16 @@ static ssize_t nvmet_subsys_attr_qid_max_store(str=
-uct config_item *item,
->  	down_write(&nvmet_config_sem);
->  	subsys->max_qid =3D qid_max;
->
-> -	/* Force reconnect */
-> +	/*
-> +	 * Force reconnect.  subsys->ctrls is protected by subsys->lock
-> +	 * (nvmet_alloc_ctrl()/nvmet_ctrl_free() add and remove entries under
-> +	 * it); take it here too so a concurrent controller teardown cannot
-> +	 * list_del() an entry while this loop walks the list.
-> +	 */
-> +	mutex_lock(&subsys->lock);
->  	list_for_each_entry(ctrl, &subsys->ctrls, subsys_entry)
->  		ctrl->ops->delete_ctrl(ctrl);
-> +	mutex_unlock(&subsys->lock);
->  	up_write(&nvmet_config_sem);
->
->  	return cnt;
-> --
-> 2.43.0
+On 10/13/26 11:39 PM, Lance Yang wrote:
+>>
+>> +	/*
+>> +	 * Keep the producer-side invariant documented in pgtable.h true even
+>> +	 * if a direct caller passes an invalid descriptor with PTE_CONT set.
+>> +	 */
+>> +	if (!pte_valid(pte))
+>> +		return __set_ptes(mm, addr, ptep, pte_mknoncont(pte), nr);
+> 
+> set_ptes() is the only in-tree caller, and it already clears PTE_CONT
+> before we get here ... no? Why not fold !pte_valid(pte) into the
+> !mm_is_user(mm) check below and return __set_ptes() directly?
+> 
+> 	if (!mm_is_user(mm) || !pte_valid(pte))
+> 		return __set_ptes(mm, addr, ptep, pte, nr);
+> 
+> If a direct caller does pass a !pte_valid PTE with PTE_CONT set, I'd
+> rather add a VM_WARN_ON() to catch that. Silently clearing the bit would
+> hide a caller bug :)
+> 
 
-I don't think we need a comment in the source code just to explain that.
-It's an established pattern all over the target driver code that accesses
-to the subsys->ctrls list are protected by subsys->lock, so this is already=
- implied.
+Hi Lance,
 
-Anyway the fix looks good to me.
+Thanks for taking a look.
 
-Reviewed-by: Maurizio Lombardi <mlombard@redhat.com>
+Yes, you are right. The public set_ptes() wrapper already strips PTE_CONT
+before calling contpte_set_ptes(), so the pte_mknoncont() in the invalid
+path is unnecessary for the current in-tree path.
+
+The issue I was trying to avoid is not that the incoming pte already has
+PTE_CONT set, but that contpte_set_ptes() rebuilds the pte from pfn/prot
+and then adds PTE_CONT again based on alignment. For an invalid descriptor,
+that transparent contiguous encoding should be skipped entirely.
+
+So your suggested shape makes sense to me. I will change this to return
+through __set_ptes() directly for invalid descriptors, and add a warning
+for any unexpected direct caller that passes an invalid PTE with PTE_CONT
+set, e.g.:
+
+	if (!mm_is_user(mm) || !pte_valid(pte)) {
+		VM_WARN_ON_ONCE(!pte_valid(pte) && pte_cont(pte));
+		return __set_ptes(mm, addr, ptep, pte, nr);
+	}
+
+That keeps the fix focused on not creating new invalid contpte entries,
+while still catching a bad direct caller instead of silently sanitizing it.
+
+Thanks,
+Zhao
