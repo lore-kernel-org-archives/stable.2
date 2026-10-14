@@ -1,135 +1,255 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 521B7414410;
-	Wed, 14 Oct 2026 04:18:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EAA533B966;
+	Wed, 14 Oct 2026 04:32:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791951486; cv=none; b=AqbQVpxgJYiTvRKye1dzymC789kr/qaH4fD8gHDscauQEUTJWWKj1IzYzaH2gD+/SLfORk7aHDQnOT9sGINtmaJ4xGBbhOgr8XJ+/zY1KqQgaym5hPj6XK+ycYnv3uthTBCNZKHdTGTmpKV/DEKg8uS5sjBKSIPg0x16g4a1msI=
+	t=1791952334; cv=none; b=QmCwsiGU0xukyJasMSEU1h8EshHRXwkBJmD5oQE7NVViQIXuqzM0LZMI2B9qcqVD4HhDi7J31l6k91ekcoDkQyEW2rk0omYdiXOg02kn6KyCROUx1+RzxVQdZvOgNQLIbKxhgKJPOp7QKcsHHOpYyPRMeo4uBn+sbYWahdTz7wM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791951486; c=relaxed/simple;
-	bh=57PmCYmLxLvDz9SI9ANqRzbtEm8aJkNkAN3UuTBiU20=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KMmLF1Ff8620eKPxCmb0sfrLjHS/B0kX4GzsmkBoFTOAgl+eOuprtgi/dAxCYmkMJIO+MSRk9wtKckRnob0U6ur5VvjWqSBGL2BSeQt0DBMnp0QJgM6COQWjNlL4ybFzETbg9n9alKCP/XCzDfGQ0gg3Y1wzYL8wFPcx7MYTkxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UC4RrXxt; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791952334; c=relaxed/simple;
+	bh=ur7+FHtQRlJi/lD/zSd9JpoAMj+T59oSQksHdn4+HwY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=g2bJ9vJC6fTHd/w9wJ8LPStWMyw7B43crOLpHlDw/nh/w6OI6ktbMQwvW1QACI/SI+J2lxI4GL1aY8VufCwowQD0fcYFzguXvFQOKvBg+44Dh+M5Ojjh6Uom/t5kMN8Minc8s6Vx+HswAW51czeRTrUavnzwfkaZC2nMkw0Q6/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cLOFQvTX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UC4RrXxt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791951484; x=1823487484;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=57PmCYmLxLvDz9SI9ANqRzbtEm8aJkNkAN3UuTBiU20=;
-  b=UC4RrXxtv0Lh5jskRjckQSbu9x8kB5NYqoFd6fhgTnEqzvoHz9XqOp3I
-   F0VPC7K63HwLk8OJ9UsvTOSa4/ozITTe000oX4T23DXyhr6RKx5U2vKln
-   D2McJE1h4cMNAownuyy1SZ3yPw0zWF67p9DhqfU8LcUlPOmUdFQ3qkfOi
-   GdMjZiFglwJ7CD8JECCjVozWDimLblyBNYxeyhSuvLcrxSpq6A4Qdg4XG
-   gVSsCMGOVFMn1DhrcpfBuVq/SKtg8pLzdWjqKR9Cp/AfPMUkLvN8YAVbd
-   55GZerNQGI4Y4g2ISE6ygurjK4bpMU0OYhlkFdv/O2YIIvQDcYW6tPanD
-   Q==;
-X-CSE-ConnectionGUID: rXD3vtjCRpmopV1qHNX6dg==
-X-CSE-MsgGUID: f4Rhf+D7QC6IWDwlWckqrA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="696250"
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="696250"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 21:18:03 -0700
-X-CSE-ConnectionGUID: SyvM+5fKTgKql17cI9A5kQ==
-X-CSE-MsgGUID: rVGfMfgnRh+CDtPGewk6qQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="1783581"
-Received: from aschofie-mobl2.amr.corp.intel.com (HELO localhost) ([10.124.222.192])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 21:18:03 -0700
-From: Alison Schofield <alison.schofield@intel.com>
-To: Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Ira Weiny <iweiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>,
-	Richard Cheng <icheng@nvidia.com>
-Cc: linux-cxl@vger.kernel.org,
-	Gaobin Huang <huanggaobin23@semi.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH 3/4] cxl/mbox: Treat unknown device return codes as errors
-Date: Tue, 13 Oct 2026 21:17:54 -0700
-Message-ID: <3ed8f5db3f21c937d8783f31ee6faca3703ba72a.1791949910.git.alison.schofield@intel.com>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <cover.1791949910.git.alison.schofield@intel.com>
-References: <cover.1791949910.git.alison.schofield@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cLOFQvTX"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 859B8C2BCC7;
+	Wed, 14 Oct 2026 04:32:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791952333;
+	bh=ur7+FHtQRlJi/lD/zSd9JpoAMj+T59oSQksHdn4+HwY=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=cLOFQvTXHvf8J4WmVyb8wn9wuD7GrFtLZs+lXYdjIy7jgJ3I4bbHHabkb1nGXlQhT
+	 jfqQxCG4UNa+CUXW3Ybin4+R1oaBw/o3uHAhq2kJZf8bIqREXHgmgW73UpW9yOfgZ+
+	 2bcFa7LOM1JGGAbVNW5AbHkjqjF/yqkntiGEs7jsQhvVLJqMjk175Qc7+7Aa2OAi7w
+	 LUe9zbkak4hSIpGompMhQBxjHid8naJgNoKDaa+/Mz0ljC9SBZ8ghT8DfrB5chQICp
+	 FewY0zM0YSM3cTW+RSTAsCccl/X+n2dhcdik6IgUVaCw90Vbm8fk9FwKu4wcq9idmd
+	 EBrS2/qBSCALw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A4B2CC6B19;
+	Wed, 14 Oct 2026 04:32:13 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Date: Wed, 14 Oct 2026 13:32:13 +0900
+Subject: [PATCH v2] xfs: mark the inode preallocated for pNFS write layouts
+ past EOF
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-xfs-pnfs-eof-prealloc-v2-1-f303fd5e9dfb@samsung.com>
+X-B4-Tracking: v=1; b=H4sIAMwFz2oC/3WNQQqDMBBFryKz7pRMEK1d9R7FRYijBjSRjBWL5
+ O5NpdtuBt7//DcHCEfHAvfigMibExd8Bn0pwI7GD4yuywxa6YqUanDvBRefD4cel8hmmoLFsua
+ GrCVdE0He5qJ3++l9tplHJ2uI7/PNRt/0ZyT9x7gREnJ5q8quodoo9RAzy8sPVxtmaFNKH0snH
+ QK8AAAA
+To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
+Cc: Christoph Hellwig <hch@lst.de>, "Darrick J. Wong" <djwong@kernel.org>, 
+ Dave Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>, 
+ Jeff Layton <jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>, 
+ Sergey Bashirov <sergeybashirov@gmail.com>, linux-nfs@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791952332; l=8033;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=bEReiYttB04ZTw2Z9VcNZ7acbQRp6SzbI6ILhHZiYoQ=;
+ b=XOvAOBRrjjf0HyNi+fXmNnga99W+wZ7il+21cOBEHZbVHPzc4yBqkcgUPAgh8FX1alLXfaCjF
+ gn4WsV73lOJBJZnVfJ9Ev5VWxP5wUhHvFr2mFkm86bvmEY1J1hjics7
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
 
-From: Gaobin Huang <huanggaobin23@semi.ac.cn>
+From: Daejun Park <daejun7.park@samsung.com>
 
-cxl_mbox_cmd_rc2errno() and cxl_mbox_cmd_rc2str() use the device's 16-bit
-return code to index cxl_mbox_cmd_rctable[]. A return code outside the
-table's range causes an out-of-bounds read, potentially allowing a failed
-command to be reported as successful.
+xfs_fs_map_blocks() marks the inode XFS_DIFLAG_PREALLOC after it
+allocates blocks for a write layout, so that xfs_free_eofblocks() does
+not free blocks past EOF that a client may write to. But a write layout
+for a range past EOF where blocks are already allocated, such as the
+speculative preallocation of buffered writes, gets those blocks without
+an allocation, and the inode is not marked. blockgc, or the release of
+the file, then frees them without breaking the layout. The client still
+writes to them, and they may belong to another file by then.
 
-Check the return code against the table size. Report unknown codes as
--ENXIO, the errno used for most device-reported errors, and describe them
-as "unknown return code".
+With pynfs as the client, a file grown to 1 MiB by two buffered writes
+on the server had 960 KiB preallocated past EOF, and an RW LAYOUTGET for
+that range got it as one INVALID_DATA extent, without the inode being
+marked. About 300 seconds later, with the default
+speculative_prealloc_lifetime, blockgc freed those blocks while the
+layout was still held. When the client then wrote through the layout and
+sent LAYOUTCOMMIT, xfs_fs_commit_blocks() found a hole where the
+unwritten extent had been, and xfs_iomap_write_unwritten() allocated for
+it with no blocks reserved:
 
-Found with a QEMU Type-3 device returning codes 001Fh and 0020h, which are defined in CXL 4.0 but not yet recognized by Linux [1].
+  XFS (nvme0n1): Corruption of in-memory data (0x8) detected at
+    xfs_trans_mod_sb+0x817/0x960 (fs/xfs/xfs_trans.c:351).
+    Shutting down filesystem.
+  ...
+   xfs_trans_mod_sb+0x817/0x960
+   xfs_alloc_vextent_finish+0x2e7/0x990
+   xfs_alloc_vextent_start_ag+0x25d/0x720
+   xfs_bmap_btalloc+0xdd2/0x1720
+   xfs_bmapi_allocate+0x197/0xf90
+   xfs_bmapi_write+0x4d0/0xb60
+   xfs_iomap_write_unwritten+0x307/0x7e0
+   xfs_fs_commit_blocks+0x1d9/0x630
+   nfsd4_block_proc_layoutcommit+0x5c2/0x7d0
+   nfsd4_layoutcommit+0x4b5/0xa20
 
-[1] https://lore.kernel.org/linux-cxl/20260929060747.3550005-1-huanggaobin23@semi.ac.cn/
+The client got NFS4ERR_IO, in six runs out of six. When small files were
+written on the server after blockgc, with a sync first so that the freed
+extents were no longer busy, they got those blocks, and the client's
+write through the layout replaced 978944 bytes of their data before the
+LAYOUTCOMMIT. A LAYOUTGET and LAYOUTCOMMIT 30 seconds apart, before
+blockgc runs, leave the client's data in place.
 
-Fixes: 92fcc1abab09 ("cxl/mbox: Improve handling of mbox_cmd hw return codes")
+Mark the inode also when a write mapping ends past EOF and nothing was
+allocated, the same way as for an allocation, before the blocks are
+handed out. With this, the same test keeps the blocks past blockgc, and
+the LAYOUTCOMMIT after 360 seconds succeeds with the data in place.
+
+To share the update with the allocation case, set a local update_inode
+flag in both cases, call xfs_fs_map_update_inode() in one place below
+them, and move the log force into xfs_fs_map_update_inode().
+
+Fixes: 527851124d10 ("xfs: implement pNFS export operations")
 Cc: stable@vger.kernel.org
-Signed-off-by: Gaobin Huang <huanggaobin23@semi.ac.cn>
-Co-developed-by: Alison Schofield <alison.schofield@intel.com>
-Signed-off-by: Alison Schofield <alison.schofield@intel.com>
+Reported-by: Chuck Lever <cel@kernel.org>
+Link: https://lore.kernel.org/r/4de5356f-bc4d-4f1a-9c81-fce09b1b46fd@slotpi15m67
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 ---
+Changes in v2:
+- Set a local update_inode flag in both cases and update the inode in
+  one place, and move xfs_log_force_inode() into
+  xfs_fs_map_update_inode(), as Christoph suggested:
+  https://lore.kernel.org/r/20261012124118.GB32488@lst.de
+- Link to v1: https://lore.kernel.org/r/20261012-xfs-pnfs-eof-prealloc-v1-1-e4864d917a00@samsung.com
 
-This patch is independently applicable and backportable. It is
-intentionally introduced here as a lead in to the kunit patch
-that backstops this fix.
+Tested on nfsd-testing d918c664efd5 with the same change on top, all in
+QEMU guests with KASAN and lockdep, XFS on an NVMe/TCP namespace shared
+by the server and the client. In fs/xfs/xfs_pnfs.c, XFS for-next
+differs from that tree only by commit e3c682dd1130 ("xfs: map pNFS
+layouts to the end of the extent again"), which does not change the
+outcome of the new check.
 
+- the reproducer above (local pynfs tests, not posted), with the layout
+  held for 360 seconds, and with small files written on the server after
+  blockgc, with and without a sync first: with the patch the inode is
+  marked preallocated at LAYOUTGET, blockgc keeps the 960 KiB, and the
+  LAYOUTCOMMIT succeeds with the client's data in place and the small
+  files untouched. Without it, on the same base, both small-file
+  variants had blockgc free the blocks and the LAYOUTCOMMIT shut XFS
+  down;
+- pynfs block, with BLOCK5 from patch 1/3 of the pynfs series at
+  https://lore.kernel.org/r/20261014-pynfs-block-commit-v1-0-1723979f495f@samsung.com
+  (its BLOCK6 to BLOCK10 need the LAYOUTCOMMIT series below) and four
+  local layout extent tests, with and without XFS_DEBUG:
+  13 pass, BLOCK3 fails with NFS4ERR_BADXDR for its empty layoutupdate,
+  as without this patch;
+- fstests generic/075, 091 and 263 with the Linux client over the block
+  layout: only 075 fails, with an fsx size error, as without this patch,
+  and xfs_fs_commit_blocks() returned 0 for all 10324 LAYOUTCOMMITs;
+- W=1 builds of fs/xfs/xfs_pnfs.o on XFS for-next 0be6da616ab5 and on
+  nfsd-testing d918c664efd5: no warnings.
 
- drivers/cxl/cxlmem.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+This patch and v2 of "xfs: refuse pNFS LAYOUTCOMMITs of ranges without
+blocks" and of "xfs: make pNFS LAYOUTCOMMIT stable the way fdatasync
+does", sent earlier today, all change fs/xfs/xfs_pnfs.c. They apply to
+XFS for-next in any order, with the same result:
+https://lore.kernel.org/r/20261014-xfs-pnfs-commit-hole-v2-0-d3a02a79ab6c@samsung.com
+https://lore.kernel.org/r/20261014-xfs-pnfs-commit-datasync-v2-0-c11341a189b5@samsung.com
 
-diff --git a/drivers/cxl/cxlmem.h b/drivers/cxl/cxlmem.h
-index c401e3a1af06..357d0d873e87 100644
---- a/drivers/cxl/cxlmem.h
-+++ b/drivers/cxl/cxlmem.h
-@@ -6,6 +6,7 @@
- #include <linux/pci.h>
- #include <linux/cdev.h>
- #include <linux/uuid.h>
-+#include <linux/array_size.h>
- #include <linux/node.h>
- #include <cxl/event.h>
- #include <cxl/mailbox.h>
-@@ -205,13 +206,18 @@ static const
- struct cxl_mbox_cmd_rc cxl_mbox_cmd_rctable[] ={ CMD_CMD_RC_TABLE };
- #undef C
+Dave's "XFS: Atomic multi-extent operations via rolling transactions"
+V2 rewrites this code in 37/38: the inode update moves into the
+allocation transaction, and the path that allocates nothing returns
+early. A write mapping that ends past EOF without an allocation would
+still need the flag set there:
+https://lore.kernel.org/r/20260819001442.1451892-38-dgc@kernel.org
+
+Chuck pointed this out in the review of the ->map_blocks series, whose
+patch 7 will carry the same check for all mappings of a call:
+https://lore.kernel.org/r/4de5356f-bc4d-4f1a-9c81-fce09b1b46fd@slotpi15m67
+---
+ fs/xfs/xfs_pnfs.c | 34 +++++++++++++++++++++++++---------
+ 1 file changed, 25 insertions(+), 9 deletions(-)
+
+diff --git a/fs/xfs/xfs_pnfs.c b/fs/xfs/xfs_pnfs.c
+index ab38561700..a9f0b472f3 100644
+--- a/fs/xfs/xfs_pnfs.c
++++ b/fs/xfs/xfs_pnfs.c
+@@ -110,7 +110,15 @@ xfs_fs_map_update_inode(
+ 	ip->i_diflags |= XFS_DIFLAG_PREALLOC;
  
-+/* The return code comes from the device and may be one this table lacks */
- static inline const char *cxl_mbox_cmd_rc2str(struct cxl_mbox_cmd *mbox_cmd)
- {
-+	if (mbox_cmd->return_code >= ARRAY_SIZE(cxl_mbox_cmd_rctable))
-+		return "unknown return code";
- 	return cxl_mbox_cmd_rctable[mbox_cmd->return_code].desc;
+ 	xfs_trans_log_inode(tp, ip, XFS_ILOG_CORE);
+-	return xfs_trans_commit(tp);
++	error = xfs_trans_commit(tp);
++	if (error)
++		return error;
++
++	/*
++	 * Force the log so that the blocks handed out to the client are
++	 * guaranteed to be present even after a server crash.
++	 */
++	return xfs_log_force_inode(ip);
  }
  
- static inline int cxl_mbox_cmd_rc2errno(struct cxl_mbox_cmd *mbox_cmd)
- {
-+	if (mbox_cmd->return_code >= ARRAY_SIZE(cxl_mbox_cmd_rctable))
-+		return -ENXIO;
- 	return cxl_mbox_cmd_rctable[mbox_cmd->return_code].err;
- }
+ /*
+@@ -134,6 +142,7 @@ xfs_fs_map_blocks(
+ 	uint			lock_flags;
+ 	int			error = 0;
+ 	u64			seq;
++	bool			update_inode = false;
  
+ 	if (xfs_is_shutdown(mp))
+ 		return -EIO;
+@@ -221,20 +230,27 @@ xfs_fs_map_blocks(
+ 				end_fsb - offset_fsb, 0, &imap, &seq);
+ 		if (error)
+ 			goto out_unlock;
++		update_inode = true;
++	} else {
++		xfs_iunlock(ip, lock_flags);
+ 
+ 		/*
+-		 * Ensure the next transaction is committed synchronously so
+-		 * that the blocks allocated and handed out to the client are
+-		 * guaranteed to be present even after a server crash.
++		 * Blocks past EOF that were allocated for buffered writes, such
++		 * as speculative preallocation, can be freed by
++		 * xfs_free_eofblocks() without breaking the layout unless the
++		 * inode is marked as preallocated. Mark it before handing them
++		 * out for writing, as for blocks allocated above.
+ 		 */
++		if (write && !(ip->i_diflags & XFS_DIFLAG_PREALLOC) &&
++		    imap.br_startoff + imap.br_blockcount >
++		    XFS_B_TO_FSB(mp, XFS_ISIZE(ip)))
++			update_inode = true;
++	}
++
++	if (update_inode) {
+ 		error = xfs_fs_map_update_inode(ip);
+-		if (!error)
+-			error = xfs_log_force_inode(ip);
+ 		if (error)
+ 			goto out_unlock;
+-
+-	} else {
+-		xfs_iunlock(ip, lock_flags);
+ 	}
+ 	xfs_iunlock(ip, XFS_IOLOCK_EXCL);
+ 
+
+---
+base-commit: 0be6da616ab5031ea6419dc4fe0bf0e378fb6757
+change-id: 20261009-xfs-pnfs-eof-prealloc-47e91cc12711
+
+Best regards,
 -- 
-2.37.3
+Daejun Park <daejun7.park@samsung.com>
+
 
