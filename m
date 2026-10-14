@@ -1,36 +1,37 @@
-Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch [109.224.244.106])
+Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch [109.224.244.107])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB934A49A4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CACB4A4EFC
 	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 07:45:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.106
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.107
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791963915; cv=none; b=DRL7eFCG28BYOY4Rjcco7TTr3giuuzTsr5dyR1w/tW5azO0biCqNpSo8C3/mx9BxZu0svck89BtcIAIybZ5SLfVPMFXKO6UwI/lTRXmz0FhgVhQFRZQO35yS0KaCnWBNv9d117fj98bym1lK0helQ1VGIBu6et92Xp51XwuKQy8=
+	t=1791963917; cv=none; b=BmwiUshuWpYvCfJK1tcEnTjCicJGt9J3mNJMSsXKIoqolAZnUWNrrxf/Xy186qIUSY+Oy3FJUXlFEsrekQPuT6qlTPe66rT0c317I77rdfDqbjCJzWOGJRvRX05Oywa1FPqC1ORj1DmLdxjh4zoKwyc5337rYWkEX8KqTBFcSfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791963915; c=relaxed/simple;
-	bh=lN4gt994dMU+9pXGu4BdLiI3WSHh2QDc0hxsmnEGd9U=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=i9eXvAH5uxT1t1x6kXoOADXql4Rx4iZvJSZR0DC9196+Fkk8cZzzuUFy3vi5JgZ8RcHIn5hRvdzSy7kgtbUThNOnuSXaD8J4+mujyjpLOJDR+p+CGa0p/yi5UGcP3mQcjmdBer3Rh5V1jXFxSMCYJ4EdmEpHkNZl98/fOEpcLLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=i4lb6jw+; arc=none smtp.client-ip=109.224.244.106
+	s=arc-20240116; t=1791963917; c=relaxed/simple;
+	bh=t4uJa7B2gn7DVC3zYIMzIN8iYuoKuqYyGjn6xsB/n3c=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Rx+gPgMcAbci8HbMZOM4I1ZXnQQWIBuEXK74QeQSgyDetl7XMMhze9qer7xtLbNMrz3pKzdYO1mjTP6U/n+n94S0Kcl1CQfGVUo0J4ZzTI8edb9sXVhLEwBu8zZqWt/OPM7Cq3nMb7rtCwzxmj7S3f4xdYq0pY1yygMEpA2CPB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=c+5sWshy; arc=none smtp.client-ip=109.224.244.107
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="i4lb6jw+"
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="c+5sWshy"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1791963895; x=1792223095;
-	bh=5Df0dMO9HwYZXFBrE5nGiFbcDfJGyHNy9fLyUNmHBDE=;
-	h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=i4lb6jw+xl5hsuEIxwyhJY7v8RNkvuca1IKt8FXE8L0xvQZYgQM9mFT/x3WkV29gf
-	 GnZJykUXzd0lLNMmmlDifJuAGJytveslKP0mmBrjq/H1V9P7E5xEo/fDDExgGD8lnK
-	 0ii+0bniVzVAc5WMZFDUPNodyjYTHuM90GFCtOnAirEmadcHkQ93CcqLAcQKJdwOW2
-	 6iR+zWZ06tQ/YyVzUynFrSb233jjomX82jd3XMnkq7dLmMT/oERn+tdjl6wxmTcmsz
-	 6o/fAxPIATmlW4uwq07ipfWvxLMaOfnnBCIQHbgD2NgU0lKYGt2lsZBal6n5Y/LlBd
-	 5FuMYiw5b0avw==
-X-Pm-Submission-Id: 4j4NX320gdz1DDL8
+	s=protonmail; t=1791963900; x=1792223100;
+	bh=0J4sh4csOcn3zKERB6o1fbX9FtthYRH58NuaSeRekLI=;
+	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=c+5sWshyMQncl2L3LT6dSL/EKpkMoMTQQMmryuiSSJmH29pskYnQ+2GsnNNj5rwMF
+	 Ug3jWmIOZdmLYJz+zwLWcxm9X1QJVtlJ/jrWYKxYVnu5PZCeS+qvR9IEqWx+2uHmgq
+	 LwTYffGZQQBV7W3h96p/z/yYrGPxo7iL+yyIo6eBvRahrkwAxYT6DuTNCng3Xc0oNN
+	 u7E3Eb+yAPySH9oVPVNkY5rgAqm0j50z3MBka0FUiPMYe8AknjwtIbRWtE+VAtm7ad
+	 8yrwJO16qOX+8jY/HnZx73PR6Ko8NnZxgb6sMTmthJaYbeLw5SOA1Wd0H6wcH/o4HC
+	 p/cxlaQeSNAag==
+X-Pm-Submission-Id: 4j4NXB72pGz1DDLm
 From: Esben Haabendal <esben@geanix.com>
-Subject: [PATCH RESEND v4 0/4] drm/bridge: nwl-dsi: Various fixes
-Date: Wed, 14 Oct 2026 09:44:41 +0200
-Message-Id: <20261014-nwl-dsi-fixes-v4-0-b9138ea5e12c@geanix.com>
+Date: Wed, 14 Oct 2026 09:44:44 +0200
+Subject: [PATCH RESEND v4 3/4] drm/bridge: nwl-dsi: Correct auto-insert
+ EOTP behavior
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,7 +39,10 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-nwl-dsi-fixes-v4-3-b9138ea5e12c@geanix.com>
+References: <20261014-nwl-dsi-fixes-v4-0-b9138ea5e12c@geanix.com>
+In-Reply-To: <20261014-nwl-dsi-fixes-v4-0-b9138ea5e12c@geanix.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
@@ -51,85 +55,56 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Fabio Estevam <festevam@gmail.com>, Robert Chiras <robert.chiras@nxp.com>, 
  Sam Ravnborg <sam@ravnborg.org>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- "Oliver F. Brown" <oliver.brown@oss.nxp.com>
+ stable@vger.kernel.org, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791963890; l=2905;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791963890; l=1534;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=lN4gt994dMU+9pXGu4BdLiI3WSHh2QDc0hxsmnEGd9U=;
- b=lPf5SeirCM3z/ZBkaASTw2xHweaRzRcEz/jX2WzUEdSNNpB/4ZMQKeyNG9ec22ura2Jn6xwze
- A0pF7sG382qA6GGAXcnaf/pTiDd7z4EWgeVN1xqFKRo0qePNfy0QU44
+ bh=ph/ko3JZuF/EGwW8CMFFQ2PCEUquZd0uUQmZBRXKKT0=;
+ b=g3xAhBhs1nP3jD7qEDuvgH/Ez0EBlVa15PCrsH+2UhGLeF+v/OTntYTAVfmS2Sq/usCFS/NQG
+ irMmo6AkimyAXc16Z2AfYX20B7kN2Dkx2ivw4H0TwT2YBQqKrGLMBkX
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-This series brings a few patches fixing horizontal sync timing, EOTP packet
-behavior and hsync/vsync polarity selection when using DCSS endpoint, as
-well as a small fix to properly handle if/when nwl_dsi_mode_set() fails.
+From: Robert Chiras <robert.chiras@nxp.com>
 
-The 3rd commit ("Correct auto-insert EOTP behavior") is taken directly from
-NXP vendor tree, so I have kept Author unchanged, although I have modified
-the commit message. Let me know if I should change Author for that.
+In order to respect the DSI protocol, make sure that auto-insert EOTP is
+enabled according to the NO_EOT_PACKET flag instead of the
+CLOCK_NON_CONTINUOUS flag.
 
+Fixes: 44cfc6233447 ("drm/bridge: Add NWL MIPI DSI host controller support")
+Cc: stable@vger.kernel.org
 Signed-off-by: Esben Haabendal <esben@geanix.com>
+Cc: Robert Chiras <robert.chiras@nxp.com>
+Cc: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 ---
-Changes in v4:
-- Change calculation of hfp/hbp/hsa to use the raw clock rates directly to
-  eliminate intermediate rounding errors.
-- Drop patch 4 (will be included in follow-up patch series, together with
-  a patch addressing the unblanced resource teardown and PM runtime
-  underflow problems in the error path).
-- Link to v3: https://patch.msgid.link/20260810-nwl-dsi-fixes-v3-0-256da9d672e1@geanix.com
+ drivers/gpu/drm/bridge/nwl-dsi.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-Changes in v3:
-- Added Fixes and Cc: stable tags.
-- Split patch 1 into two, with change of endpoint mux control in a separate
-  patch.
-- Fixed mux_control_try_select() state argument.
-- Link to v2: https://patch.msgid.link/20260803-nwl-dsi-fixes-v2-0-1809a0ac453f@geanix.com
+diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
+index 1aab46e1a168..f3f4334136c0 100644
+--- a/drivers/gpu/drm/bridge/nwl-dsi.c
++++ b/drivers/gpu/drm/bridge/nwl-dsi.c
+@@ -222,13 +222,15 @@ static int nwl_dsi_config_host(struct nwl_dsi *dsi)
+ 	DRM_DEV_DEBUG_DRIVER(dsi->dev, "DSI Lanes %d\n", dsi->lanes);
+ 	nwl_dsi_write(dsi, NWL_DSI_CFG_NUM_LANES, dsi->lanes - 1);
+ 
+-	if (dsi->dsi_mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS) {
++	if (dsi->dsi_mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS)
+ 		nwl_dsi_write(dsi, NWL_DSI_CFG_NONCONTINUOUS_CLK, 0x01);
+-		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x01);
+-	} else {
++	else
+ 		nwl_dsi_write(dsi, NWL_DSI_CFG_NONCONTINUOUS_CLK, 0x00);
++
++	if (dsi->dsi_mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET)
+ 		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x00);
+-	}
++	else
++		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x01);
+ 
+ 	/* values in byte clock cycles */
+ 	cycles = ui2bc(cfg->clk_pre);
 
-Changes in v2:
-- Added safeguard against small horizontal sync timings, protecting against
-  division by zero and integer underflow.
-- Added error handling of nwl_dsi_mode_set() call.
-- Link to v1: https://patch.msgid.link/20260710-nwl-dsi-fixes-v1-0-927d918a86ad@geanix.com
-
-To: Andrzej Hajda <andrzej.hajda@intel.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Robert Foss <rfoss@kernel.org>
-To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-To: Jonas Karlman <jonas@kwiboo.se>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Guido Günther <agx@sigxcpu.org>
-To: Fabio Estevam <festevam@gmail.com>
-To: Robert Chiras <robert.chiras@nxp.com>
-To: Sam Ravnborg <sam@ravnborg.org>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-
----
-Esben Haabendal (3):
-      drm/bridge: nwl-dsi: Cleanup endpoint mux control selection
-      drm/bridge: nwl-dsi: Limit LCDIF specific sync override
-      drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing
-
-Robert Chiras (1):
-      drm/bridge: nwl-dsi: Correct auto-insert EOTP behavior
-
- drivers/gpu/drm/bridge/nwl-dsi.c | 87 ++++++++++++++++++++++++++++++++++------
- 1 file changed, 74 insertions(+), 13 deletions(-)
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260710-nwl-dsi-fixes-c148b0adb685
-
-Best regards,
---
-Esben Haabendal <esben@geanix.com>
 -- 
-Esben Haabendal <esben@geanix.com>
+2.56.0
 
