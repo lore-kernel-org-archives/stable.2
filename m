@@ -1,42 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C67732E7F25
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 00:44:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89151B4F09
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 01:00:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791938682; cv=none; b=kwYgUa5mcuiwESNUDIJRk6rOWd3fV0AVUP9CNGK+9dVuK9fxZ6jjhMyexI1Jw5IAkSppwJV2nA78LpjKeoD3joGMB0wL2YiG92yZ8fPRbXjK0r5wnH1sR4UYxmJ2xQzjPdYNCOtTZ4Ll5me1dHFO6zJotT7/o5U//IhOQK5knZ4=
+	t=1791939658; cv=none; b=QsEDz7bWl2EB3bqGMS1aghghZ7wdQ4ZP6i8HITXUFt2LH5GVCdms7WRs70dlWcDf3Z8iqZJpy4RDo36bisAjPMNV58ZBWLVBKQ8AbbVDhlU5HsvYK/Jt0QrtHb1Vfu87onDceSj5ByiNGHxJ2AuE2iBvSuLlJdL7SvDqWR4pJgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791938682; c=relaxed/simple;
-	bh=F0rJGptZS9wkoD0qQ282BystLHkDX/e5BdO7XFA63qY=;
+	s=arc-20240116; t=1791939658; c=relaxed/simple;
+	bh=YxvnBeXs0vjZ5XLc4jgBN+uuZxOa8EvYYcX8GGVxTb8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MKZgqJ7q36lOld/QzSRpShAhHRsq/0jO+ii1oycNfCrbOEeGodVG9AvAcB1FU5YI3Q7Jq773i1YJG4sWOroeDb6tgm325/RQROKhjc90XAB6fMO+v+r2BydBsUe2zJvC8iT+QhcOUqPz73QTPJ35SMQZM/wgsv0JNh8495e2NSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mv2x5JG0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=dXg2Fix0u76CtMC5XEa+6XiQCSQcm0LHU42H6NAbetDNcdQ9weXkQQQ44Vl/aNoX8d8WDLqhYj9bp+5A1jSTvQs/95MmFzcqv7w8p8awnT4EmH7lTHYyNfXBs/StTB9gCR0JMu1boSBIeSVUlZAgqtWKw0t7UisJDkwtbsY0M3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BBVA5Szf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mv2x5JG0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 312851F00893;
-	Wed, 14 Oct 2026 00:44:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BBVA5Szf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06C131F000FF;
+	Wed, 14 Oct 2026 01:00:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791938681;
-	bh=AL+S0FCxaXNdlCoiAX/1LXThwI6k41QXYAfGGqFNUSI=;
+	s=k20260515; t=1791939657;
+	bh=OHqMcR/Vl4zkK+uYfuHayyqvM5xWC1zrVKo6h+xTCTk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mv2x5JG0fZCTm0rc9dbBHKKh9s4UOIhkwmrRtRjOWnEZ5XE3QKa/D0D+AMkITgiir
-	 pr6GpMS/08J4/ZPd/Ob5yQxrpDEULw1ZCePOAFhkKF5xT+9P4nbTmRHl00N3ntIUz2
-	 WK/TK6kOBVoHbPJklWApzHlrAVEWNeFxx3CghPrUwjWlSHJtScX+yDWiWzrM1NDbpZ
-	 PklKbWAJGnepqgVdR/IncwXFLhsUaLk5lP2HlZVO7f0CZfC3UTt2Wn1RkOlCWPIAVm
-	 I8FbEZ7qvMAhXv8w1Ggkv5WJXl05+pMMLLEC4/itcUkJ3GDNHzXMjF5GuTxUd0uSTU
-	 r2YwDcz1KyKGA==
+	b=BBVA5SzfPSSlyT0kQK7sWWD4bWOKKesSkIEpaeJ59FTUcQHE55F3Y3H7SjndTS0QQ
+	 BxbKKl+/TCREjNyo6ckX8r8uQZRLYer0qjS4gqedDYAnrmeXhgjGSsfOe20WcNtxWw
+	 rp4NlCUiOUxYCXZtPO/zFJyzo6eJOGTuB2teEZBlXGQOEk4VhdRDJTGiFMm2xmcIKZ
+	 AiurVDBg7HUPein3YFyDwGDd+NmCkK1fX155/bM9L5UFal/XpmboDe1nIx17nl3wF4
+	 Wkgsqzr+/JcXXswK5KWeuzaMndHgrDUGK22MpsXX2FvJp9VQH/pJ1fgPyfl4Hu8jaV
+	 yvAyd5gdrVSGA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] fcntl: refuse F_SET_RW_HINT on an immutable inode
-Date: Tue, 13 Oct 2026 20:44:37 -0400
-Message-ID: <20261014004346.1478485-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y] namespace: handle mount locking for automounts correctly
+Date: Tue, 13 Oct 2026 21:00:55 -0400
+Message-ID: <20261014010021.1583239-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261014004346.1478485-1-sashal@kernel.org>
-References: <2026101223-sprinkled-coming-7d84@gregkh>
- <20261014004346.1478485-1-sashal@kernel.org>
+In-Reply-To: <2026101253-annually-delivery-a359@gregkh>
+References: <2026101253-annually-delivery-a359@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,35 +46,92 @@ Content-Transfer-Encoding: 8bit
 
 From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit b0d1022b9bdb1e98aa7fb3244fdd50a58c61766c ]
+[ Upstream commit 33aadc7c72055fca93cb5a3691d836ebf8b31c9b ]
 
-An immutable inode is never written to so write hints are pointless.
-Refuse the hint on an immutable inode the way setattr(), fallocate() and
-etxattr() refuse their changes.
+If mounts are propagated across user namespaces, attach_recursive_mnt()
+locks every copy of the source mount to protect overmounts from
+vanishing and revealing the underlying files or directories.
 
-Fixes: c75b1d9421f8 ("fs: add fcntl() interface for setting/getting write life time hints")
+The user namespace is taken from the caller's mount namespaces since
+this is where the mounts end up. Except, that's not always true.
+Automounts may legitimately get popped in by tasks located in a
+different mount and user namespace during path lookup.
+
+Then check doesn't make sense at that point. The copy in the namespace
+of the parent - which may be the host's - is now locked and the host
+cannot change the flags of its own mounts anymore.
+
+Here's the reproducer:
+
+- host has debugfs mounted nosuid,nodev,noexec and shared
+- tracefs automount below it is not yet active
+- hand a child process a directory descriptor on that mount
+- child process enters auser and mount namespace
+- child process' namespace now holds a locked copy of the host's debugfs
+  mount that receives propagation from it
+- child process stats "tracing/." through the descriptor
+- lookup runs on the host's mount so the automount lands below the host's mount
+- propagation puts a copy below the child's copy
+- both try to clear the flags on the mount they got, with a bind remount:
+
+    host, on its own automount:            MS_REMOUNT|MS_BIND = EPERM
+    child, on the copy in its namespace:   MS_REMOUNT|MS_BIND = 0
+
+So the lock landed on the host's mount instead of the child's copy.
+Congrats. So we need to compare with the owner of the namespace the
+mount actually gets mounted on. For all regular cases that is the
+caller's mount namespace and so nothing changes.
+
+Detached trees in anonymous mount namespaces by be handed over via
+SCM_RIGHTS or inherited in other ways on purpose so the attaching task's
+mount namespace is authoritative, not the creator of the detached tree.
+
+Fixes: 132c94e31b8b ("vfs: Carefully propogate mounts across user namespaces")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261002-work-mount-fixes-4-v1-3-dd44b89d44ce@kernel.org
+Link: https://patch.msgid.link/20261002-work-mount-fixes-4-v1-6-dd44b89d44ce@kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: Adjusted attach_recursive_mnt() context for direct dest_mnt and dest_mp arguments instead of the pinned_mountpoint interface. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/fcntl.c | 3 +++
- 1 file changed, 3 insertions(+)
+ fs/namespace.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-diff --git a/fs/fcntl.c b/fs/fcntl.c
-index 8e5389151804f..d2f2b27ecaa70 100644
---- a/fs/fcntl.c
-+++ b/fs/fcntl.c
-@@ -296,6 +296,9 @@ static long fcntl_set_rw_hint(struct file *file, unsigned int cmd,
- 	u64 __user *argp = (u64 __user *)arg;
- 	u64 hint;
+diff --git a/fs/namespace.c b/fs/namespace.c
+index 42ecf070b6f76..c476cd7c42a8c 100644
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@ -2212,14 +2212,30 @@ static int attach_recursive_mnt(struct mount *source_mnt,
+ 			struct mountpoint *dest_mp,
+ 			bool moving)
+ {
+-	struct user_namespace *user_ns = current->nsproxy->mnt_ns->user_ns;
+ 	HLIST_HEAD(tree_list);
+ 	struct mnt_namespace *ns = dest_mnt->mnt_ns;
++	struct user_namespace *user_ns = ns->user_ns;
+ 	struct mountpoint *smp;
+ 	struct mount *child, *p;
+ 	struct hlist_node *n;
+ 	int err;
  
-+	/* nothing is ever written to it */
-+	if (IS_IMMUTABLE(inode))
-+		return -EPERM;
- 	if (!inode_owner_or_capable(file_mnt_idmap(file), inode))
- 		return -EPERM;
- 
++	/*
++	 * A caller in an unprivileged mount namespaces may trigger an
++	 * automount and propagate locked mounts into privileged mount
++	 * namespaces. Take ownership from the target mount namespace.
++	 * It's equivalent for everything but the automount case.
++	 *
++	 * Detached trees in anonymous mount namespaces by be handed
++	 * over via SCM_RIGHTS or inherited in other ways on purpose
++	 * the attaching task's mount namespace is authoritative, not
++	 * the creator of the detached tree.
++	 */
++	if (is_anon_ns(ns))
++		user_ns = current->nsproxy->mnt_ns->user_ns;
++	else
++		user_ns = ns->user_ns;
++
+ 	/* Preallocate a mountpoint in case the new mounts need
+ 	 * to be tucked under other mounts.
+ 	 */
 -- 
 2.53.0
 
