@@ -1,109 +1,126 @@
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.80])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-76.mta0.migadu.com [91.218.175.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D92D4A3F3B;
-	Wed, 14 Oct 2026 10:43:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.80
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791974623; cv=pass; b=eByTsGb1/33Fz0LtBD8TEaYHHfPg890uL0gDHbpK8DMvAdonWK0ttdlVB/Zbj/Ne6/i4aVq+osc6qWnmeRZwVVaf4i2pUFVKA4c0KiclPyLuKvdj0N52re6cPCzaroKWL2fYozQynNrcWqhhDBIRcl15L9oSSchjqu7RfNQum1k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791974623; c=relaxed/simple;
-	bh=5x3u6FiR8qckv8HF7OAp0XN3GDedSEoUChbL0yqk9NI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=nhr0XUf9ctuyNRQDP/oRI+qoiEB3FOjTfCrJtn+gRpQzBSNQ4u23wBhoakG3cx66mlW1+py5k1GLiXCvhp70eoHesxdd98NkqXeKTCnizNn0sk0b2SbCWF/QO9IIFYVSaOjnrqcdkYTz7UKdxcLcVdJ3NzfxEyVPWT76LOnXgI8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=hUS+ocX+; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=l6rdbnAn; arc=pass smtp.client-ip=85.215.255.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 636DD432E79
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 10:45:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791974739; cv=none; b=hMRhQei/rcgLf0rpLpZRWNuUCl521VpttIygMaP5b1cxQduI4gIp17c094/ZiuBKM4Ccl6UBeS8oT/Afgl2fBnef7gm2Yi3HBQrPCdFdjrZb7ljTRrEQJb1wt7Mlxrkg/9vF2LwCQUSSfX/gBcYiNVt1qrZxwvOjmNskwLs3aGM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791974739; c=relaxed/simple;
+	bh=4j71whs7pU+NnCMQt6l/U/Btk6pFemJHjPQ5tC3+JVI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iEEuIR9uojzyEPweWfaagn8+X36ICTINSP/NT5gWBRIatjTzd5tGlBr0+el6KjSUY9vwnzGp8KCVf/bOVv6UCSeF7AU/eho3mCUovWaMKVobwe0SgK3I7hj9+l+XaAIiRpNoDvuqenTYNSII6Q5iY04G43o2273PHWP79stCOiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FYzHg0Xn; arc=none smtp.client-ip=91.218.175.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="hUS+ocX+";
-	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="l6rdbnAn"
-ARC-Seal: i=1; a=rsa-sha256; t=1791974612; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=rozXirl2H8Nl9/n7e0eazNK/Qscin6anq4zwtddIecm2bbE2jJ/Dh4AbszU0x8uMnC
-    1y7xRVgB0ELBGDVpJTzoJ15334vjLcZU01xfrsoXJxllz4I0lQo+M8HkJvtQqCu+F/Ha
-    C85CfBfZdFbzUM7dWDcX3YAeqLrhYWjhbjFwRs1DeOIQ7XbgjgLI/caS5p1GsBn1+Cx/
-    3HPfLGYOH++x2hgkl31poanxcWeCMyogA2GCw9IDV/EcZVXePRrFWtVb/h6J4eJgIl8b
-    YcILrfqyktE8HkxtcNkLFns27cXtzmfMGlF1X2c1oATrzIuDguIwJd0C1/y1GiAKlb18
-    Po0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1791974612;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=5x3u6FiR8qckv8HF7OAp0XN3GDedSEoUChbL0yqk9NI=;
-    b=E4cYyf9x0geOUmdAbksbptRmbGfWIrMouyc7WmY+ISjkhaboLc/ypSOYn5/nBI6RX6
-    qlArPdiiADJb6EyvFng63sXv0961p4Mn1ZRTaJU1eMjeVLM1Ba9Vrg+o8YDmHGspILlQ
-    Ar181JahhFxZ3Bum9dbFoCgCOKLZNanjh7LVFIF121mocPcyka1oq19gQWuAMRJXhK5S
-    ZCZPVI+XmaI8yT3v1S/NQHMIM8c/YxMDfPE3GDBVH1jYDIJae8JuPdtGLVAmSIIvGNZT
-    Gj9mzxcVj5OPZuK1NqZQB3AJeoMgnDZXWQZU5cpnndVF5OqDGLFbHznXuDgtcs1CmsF8
-    bHww==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1791974612;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=5x3u6FiR8qckv8HF7OAp0XN3GDedSEoUChbL0yqk9NI=;
-    b=hUS+ocX+kAntLxaHRsDwgJt4us0Wp3rmOksQFOnvP6Vfu2r1y1oVO0g1EJ2oMpQApM
-    Ol3SWLy3IHr1Mb7yO56CDa/uHIwa7gWAfT3cn1fOqXY52KRmE8JB5/i5SuGBU2g85JBX
-    wbNVaX/1Z8yvbMCvRO84u7sonY0sXLO2pEgTHcE6NY9nC4X5TdLi2QNmKvIY6YeQlrph
-    P1hzZYKytaSfUZ24RZfHxc8mujhoG99W39PdR960CqLutcIzCAYhF89UaGXLCedAVVtP
-    YdnZPkEhE69mL6jLyENQdg0oqWEmUbk0RPwNnB7WLrekgPr0AedHux2ppFi1JIu+6lD8
-    MUNQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1791974612;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=5x3u6FiR8qckv8HF7OAp0XN3GDedSEoUChbL0yqk9NI=;
-    b=l6rdbnAnBnxiqzUh2jm3/q78XdqMTW74v1E+AcdAfOjwQLBtLIqW2I7WLTRnVi9oqQ
-    qio2UyYsVPBFObNVChDQ==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0DBslXBtZUxPOub3IZuk"
-Received: from [10.176.237.108]
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id z831ad29EAhV3el
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Wed, 14 Oct 2026 12:43:31 +0200 (CEST)
-Message-ID: <c39f4af2716cdc1c71170a9eabdbe29abb8c4bb2.camel@iokpp.de>
-Subject: Re: [PATCH 2/3] scsi: ufs: bsg: Clear the UIC result byte before
- sending UIC commands
-From: Bean Huo <beanhuo@iokpp.de>
-To: Stanley Jhu <stanleyjhu@google.com>, "Martin K. Petersen"
- <mkp@kernel.org>,  "James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>
-Cc: powenkao@google.com, Alim Akhtar <alim.akhtar@samsung.com>, Bart Van
- Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>, Peter Wang
- <peter.wang@mediatek.com>, linux-scsi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 14 Oct 2026 12:43:30 +0200
-In-Reply-To: <20261013102913.948718-3-stanleyjhu@google.com>
-References: <20261013102913.948718-1-stanleyjhu@google.com>
-	 <20261013102913.948718-3-stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FYzHg0Xn"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=4j71whs7pU+NnCMQt6l/U/Btk6pFemJHjPQ5tC3+JVI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791974733; v=1; x=1792579533;
+ b=FYzHg0XnYGEUQq4gQZ5cIbHAgUUe4PpGS1L3xemdo1QSXQzcIC76202IsBVcUhpf6mVVskX/
+ XK4ZbrCHKtKxf26lrd1wGSJh0rbd9KbjJDTAkElHSfV7oM+6YU8/nTeRR4QAv4kDQFKqJpC0wiE
+ r0uD1vFxp4NgP+ne0cKlS/C8=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 767be9f59756f718;
+	Wed, 14 Oct 2026 10:45:21 +0000
+X-Mizu-Trace-ID: 767be9f59756f718
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <44aba42f-0355-4643-826f-0c7abec4499c@linux.dev>
+Date: Wed, 14 Oct 2026 18:45:11 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid
+ PTEs
+To: Dev Jain <dev.jain@arm.com>, Zhao Gongyi <zhaogongyi@bytedance.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, ryan.roberts@arm.com,
+ baolin.wang@linux.alibaba.com, mark.rutland@arm.com,
+ akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261013093600.54995-1-zhaogongyi@bytedance.com>
+ <20261013153953.77575-1-lance.yang@linux.dev>
+ <516828fb-558d-4a20-9532-51f50d6ba042@bytedance.com>
+ <0bbbe312-47a4-4eeb-8299-1f20daf4e949@arm.com>
+Content-Language: en-US
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <0bbbe312-47a4-4eeb-8299-1f20daf4e949@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, 2026-10-13 at 18:29 +0800, Stanley Jhu wrote:
-> ufs_bsg_request() passes the user-supplied UIC argument2 unchanged,
-> including the result byte (bits 7:0) that only the host controller
-> writes. A non-zero value triggers the WARN_ON_ONCE() in
-> ufshcd_dispatch_uic_cmd() and corrupts the reported result. Found by
-> syzkaller.
->=20
-> Clear the result byte before sending the command.
->=20
-> Fixes: e77044c5a842 ("scsi: ufs-bsg: Add support for uic commands in
-> ufs_bsg_request()")
-> Fixes: 9fb4c793223b ("scsi: ufs: core: Complain if UIC argument 2 is inva=
-lid")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 
-Reviewed-by: Bean Huo <beanhuo@micron.com>
+
+On 2026/10/14 18:03, Dev Jain wrote:
+> 
+> 
+> On 14/10/26 12:01 pm, Zhao Gongyi wrote:
+>> On 10/13/26 11:39 PM, Lance Yang wrote:
+>>>>
+>>>> +	/*
+>>>> +	 * Keep the producer-side invariant documented in pgtable.h true even
+>>>> +	 * if a direct caller passes an invalid descriptor with PTE_CONT set.
+>>>> +	 */
+>>>> +	if (!pte_valid(pte))
+>>>> +		return __set_ptes(mm, addr, ptep, pte_mknoncont(pte), nr);
+>>>
+>>> set_ptes() is the only in-tree caller, and it already clears PTE_CONT
+>>> before we get here ... no? Why not fold !pte_valid(pte) into the
+>>> !mm_is_user(mm) check below and return __set_ptes() directly?
+>>>
+>>> 	if (!mm_is_user(mm) || !pte_valid(pte))
+>>> 		return __set_ptes(mm, addr, ptep, pte, nr);
+>>>
+>>> If a direct caller does pass a !pte_valid PTE with PTE_CONT set, I'd
+>>> rather add a VM_WARN_ON() to catch that. Silently clearing the bit would
+>>> hide a caller bug :)
+>>>
+>>
+>> Hi Lance,
+>>
+>> Thanks for taking a look.
+>>
+>> Yes, you are right. The public set_ptes() wrapper already strips PTE_CONT
+>> before calling contpte_set_ptes(), so the pte_mknoncont() in the invalid
+>> path is unnecessary for the current in-tree path.
+>>
+>> The issue I was trying to avoid is not that the incoming pte already has
+>> PTE_CONT set, but that contpte_set_ptes() rebuilds the pte from pfn/prot
+>> and then adds PTE_CONT again based on alignment. For an invalid descriptor,
+>> that transparent contiguous encoding should be skipped entirely.
+>>
+>> So your suggested shape makes sense to me. I will change this to return
+>> through __set_ptes() directly for invalid descriptors, and add a warning
+>> for any unexpected direct caller that passes an invalid PTE with PTE_CONT
+>> set, e.g.:
+>>
+>> 	if (!mm_is_user(mm) || !pte_valid(pte)) {
+>> 		VM_WARN_ON_ONCE(!pte_valid(pte) && pte_cont(pte));
+> 
+> set_ptes does pte_mknoncont(), so the warning will *never* fire I think?
+
+YES. Just a sanity check to catch a future direct caller passing
+a !pte_valid PTE with PTE_CONT set, rather than silently clearing
+the bit :)
+
+Cheers, Lance
+
+> 
+>> 		return __set_ptes(mm, addr, ptep, pte, nr);
+>> 	}
+>>
+>> That keeps the fix focused on not creating new invalid contpte entries,
+>> while still catching a bad direct caller instead of silently sanitizing it.
+>>
+>> Thanks,
+>> Zhao
+> 
+
