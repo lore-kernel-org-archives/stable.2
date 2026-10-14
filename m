@@ -1,111 +1,208 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF29367B6D
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 08:29:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96BE47533F;
+	Wed, 14 Oct 2026 08:31:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791966547; cv=none; b=phABlIH2uwktKYYW0mP5V5TP8tj9PJADLgEzBER7OE330ObJRHlxYXlU93g48ccETyMHkaDZNTvETYR6C0ARsgPuUEYybmz8eXMfFIzqTf/MoVGWONd1hNI0dA9JhHhAk2lRnnWQpjYnN4KlvhDMR/ehTiSL9bQEKlhKbmE/d1Y=
+	t=1791966704; cv=none; b=b4VTCHN707zq54EEXi0m7aNPG6xh+/s6770xNEAI6XDILi3hQ1hQhXlStqSF17tHIYMxoJhggcWRtRa7n58ATWU3f0df9p/lzTutNV6x7Sw7zOM3TaBJUvJRKjg5ZUOlGLngQDJYOTSrK9o88CTc1uYpiguOeedcuj2vZAbEEfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791966547; c=relaxed/simple;
-	bh=K1xTFF0dZvielDw7CPdKjT3Dos7Fsn3aW1yWLZaKQb0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s3yVbz62v1BUXywJnBKbZORWzk1wSTfEut7/Lmz2KGzKYxLhNcDEiMHaRFGxWL7s2zpnerOlmE8VERr02eNqVl9cYy8XW6+YnQUkkh4K/NvZl0p6SB9vpf4pmO2CL+2u6dSLgL2hizngAhrV1A+i78/qb4OvYpx04R3DIINllD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EgFed68e; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791966704; c=relaxed/simple;
+	bh=C8W9JgVIYssovpPEU0zGJaK4UFyFY6BOZNGPv8+7rHA=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=eEHxMGCq4zRKDL59W2je1b4HdvaLJlzByV1Cs3K+E5Eib16NX7DnYu8ktqMP64n9SaoZp515KPespKgxscSuDGqNSJTfAxfixuZ/EPgj1rU08e6Qz1FQPrGahwo+cKH6/bxMVE7wFdxovAsLfYp8gEGi/uihJIR32u5i37d2tGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h0gcTCzY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EgFed68e"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48af27fe287so236023f8f.0
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 01:29:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791966544; x=1792571344; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ONOYFUsExbiTAqauGcHDMWUDVRV1mSLiP5XphPmFoUU=;
-        b=EgFed68eXGL3coPtaEb352qXlKG2T+5+8wH2QxfE0ZOieJEb46OYWjWxsO/ulYoO+n
-         JsOKRntrefw1bBTbd67DdSJuGQQAxEs8ZwMhsEOdh2+0kSWvcAGd+3GHGunWJ3FQbQEl
-         oXmLskyPmoGg75x2/8Rl93C+kuv8xDSGvVv3tddKMtDByA20m608mw5fRYanSYfLmEeV
-         KX/s/0d3m77q69uOAx10yClZvPgh8lTKmkqJT9y68ncxw2aRm987J6e2w5k9v7SZDjtP
-         f0gyO3WyIfFW3nrYbc71jxZL3sf5ltlr+JgmRoHMXRGiX0cn937IPMQrRGkciLorn3Pa
-         o9qQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791966544; x=1792571344;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ONOYFUsExbiTAqauGcHDMWUDVRV1mSLiP5XphPmFoUU=;
-        b=Kj0scuC5CCMWaffR6zPrG/1RJMIwaymB7L0A1r5EFv+suS0HaCg/ygkPDgLTTpW8up
-         70w0IyPiTxTbiUn2Uo/57C1BQXZzxJzNNmhJ4Kyy+ECCCNYIYYlR6FVuzwSGnUvsSVPy
-         kDrB1Jsbet+Cw80D6dzeBN9SV276T9lxZp9VO3Kp++VFKLQblOfIR/fOTQ8YxIs/3X3q
-         Ajua2iLZFNEG7iiLFgGW/43QJx+Wq5SkjJIS3+lK8mOD6sVDdhFd6azgKrwnV3+i6/xq
-         tNxevWYlDxAaoj3/mflK7qXGvuK633gZZ1gdFdG7/774SVTdArqT8ehWy9T5faYPN/3q
-         c4mg==
-X-Forwarded-Encrypted: i=1; AKwUvBynlk99ShGn6fvedp10DG1/qm3OlW4s2dMMx2yesZ7jDUHQYYLZuN65z6+djlXgSNa9muxg5JY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIboCqG8Vq6oxhud4lGlABJzQHrUzGSq/kJ41sbvrsEVo2XhQoB
-	3WMMcPjTBgGZojz0BcD302gQrPBGSmLcrgGGMO5iUnA5lhM5CrhCWSjz
-X-Gm-Gg: AYBFou1bzEIFBmwp4CY2uQzJpVs+U86Yo2SgYpc0wWBn8SssQvNGOBLNoXIJYhzptIW
-	qpuUMv9XwrrAGAspxpr+dKd8uFx7HekB1sL/Sondd3tO0TpqnX4/9zT/bzWDOeN1+5zcz7IuqOS
-	pl7+SECDoO+5xXM9pg3JJO+GAWZ5O7agMRPJ1iYM0TgfFMAwB6GgTRD3OhNE67rTRjv8zl//c0Z
-	KqINlUbYvQychO8D2pVwG+XemGXxEfM2NYZFiKWggsVRTngXOr8iicTZrx74hsgrDI2aGIKj5yw
-	56/nmZejf45xDY6thSFPwo93+cAfqLg4Bqw+32KkuYfXtK6M1TdTXoZTAXbIeAGfVZY8zKp/wsa
-	MqCdNEqAttyE2wNd39JP8nhIyLd0G+zTlF3xfuKmkGONGvf/fK1B6aJym3KKUM43VPYWnJ30ldj
-	1c7rQYnhEi3hWAxuQQp1DIkWua23qkUhVV8u2cAFDylzIUHQw/47tF5E97szBsZ/baUto=
-X-Received: by 2002:a5d:6443:0:b0:48b:536:c93 with SMTP id ffacd0b85a97d-48dbaae36f4mr21674351f8f.30.1791966544421;
-        Wed, 14 Oct 2026 01:29:04 -0700 (PDT)
-Received: from localhost ([2a02:8308:b092:fd00:20a4:7be9:4762:f55])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48ded185de7sm1899715f8f.31.2026.10.14.01.29.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 01:29:04 -0700 (PDT)
-Date: Wed, 14 Oct 2026 10:29:03 +0200
-From: Jan Remes <ciakval@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Joe Sandom <joe.g.sandom@gmail.com>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Jan Remes <jan.remes@mycroftmind.com>,
-	stable@vger.kernel.org,
-	Martin Triska <martin.triska@mycroftmind.com>
-Subject: Re: [PATCH 1/4] iio: light: tsl2591: don't divide by zero
-Message-ID: <as89TxIwfpw7x40g@mm-ntb-00805>
-Mail-Followup-To: Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Joe Sandom <joe.g.sandom@gmail.com>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Jan Remes <jan.remes@mycroftmind.com>,
-	stable@vger.kernel.org,
-	Martin Triska <martin.triska@mycroftmind.com>
-References: <20261013143943.436816-1-ciakval@gmail.com>
- <20261013143943.436816-2-ciakval@gmail.com>
- <as5zy1LRyE5hr6vn@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h0gcTCzY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF3221F000FF;
+	Wed, 14 Oct 2026 08:31:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791966702;
+	bh=nP5271TdDq5mtSWPhA6h1o7lRTe2O9XyNw7JqWW1dGA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=h0gcTCzYZ/zfuU0RH/BpssNUvTwHnnutT7XZrodgJOy7CRSU5ddaaoVdO8mM+SD2k
+	 E0qmta3BF8qawVSOlwa3U3la4tLXkZStoifLpi8B5dZwdB9rxFBvVn2yEled+knD5z
+	 Didc8MU7tygKYAm38Y1xnOdpJ4UjkpoO9FVO7sw3DBGpa2BlEdr1G9H+5XgQcYa9Dr
+	 SC5Tbl5jjeMYh7IJFaWDxTQXKCkpNqY8VnKJsbKgbR4oHZTx+wyo1/aO+IU+VBYdXI
+	 xqdC1XuKQ/dhp3QU0JhAuqkffZ5YtH7h1mOmvRWdk9v8FlXFOI5qyq08N39HqINLvm
+	 EtOAFb9cGYf1A==
+Subject:
+ Re: [PATCH net v5] net: pin protocol module before inet socket allocation
+From: netdev-bot+sashiko@kernel.org
+To: nicoyip.dev@gmail.com
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, kuniyu@google.com, horms@kernel.org, fmancera@suse.de,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Wed, 14 Oct 2026 08:31:41 +0000
+Message-ID: <179196670122.434549.312785395247126647@kernel.org>
+In-Reply-To: <20261013075604.868273-1-nicoyip.dev@gmail.com>
+References: <20261013075604.868273-1-nicoyip.dev@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <as5zy1LRyE5hr6vn@ashevche-desk.local>
 
-On Tue, 13 Oct 2026 21:09:15 +0300, Andy Shevchenko wrote:
-> On Tue, Oct 13, 2026 at 04:39:40PM +0200, Jan Remes wrote:
-> >
-> > Fixes: 2335f0d7c790 ("iio: light: Added AMS tsl2591 driver implementation")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Martin Triska <martin.triska@mycroftmind.com>
->
-> How was it reported? Offline? Off the list?
-> Otherwise we have Closes tag to point to the report
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Yes, this was reported off-the-list in an internal report at $DAYJOB.
+Critical: 0 · High: 1 · Medium: 1 · Low: 0
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The patch closes the failed-module-init lifetime race only for
+  userspace sockets.
+- [Medium] A userspace socket() call can now fail with -EPROTONOSUPPORT
+  even though the protocol module is loading successfully.
 
 --
-Kind regards,
-  Jan Remes
+
+net: pin protocol module before inet socket allocation
+
+This patch takes a temporary module reference on the protocol owner in
+inet_create() and inet6_create() before dropping RCU, so a concurrent
+module unload cannot destroy the proto slab before sk_alloc() uses it. It
+also rejects userspace socket creation while the owner module is still
+MODULE_STATE_COMING, and exempts kernel sockets from that check.
+
+> diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
+> index 14ce01092fda6..5c02022c6c182 100644
+> --- a/net/ipv4/af_inet.c
+> +++ b/net/ipv4/af_inet.c
+
+[ ... ]
+
+> @@ -322,9 +323,15 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
+>  	    !ns_capable(net->user_ns, CAP_NET_RAW))
+>  		goto out_rcu_unlock;
+>  
+> -	sock->ops = answer->ops;
+>  	answer_prot = answer->prot;
+> +	answer_owner = answer_prot->owner;
+>  	answer_flags = answer->flags;
+> +	if ((!kern && answer_owner && module_is_coming(answer_owner)) ||
+> +	    !try_module_get(answer_owner)) {
+> +		err = -EPROTONOSUPPORT;
+> +		goto out_rcu_unlock;
+> +	}
+
+[Severity: Medium]
+Can a userspace socket() call now fail with -EPROTONOSUPPORT while the
+protocol module is loading and will finish successfully?
+
+do_init_module() sets MODULE_STATE_LIVE only after mod->init() returns.
+Anything published from inside init is therefore seen as COMING until
+then.
+
+Before this patch, the only check was try_module_get(prot->owner) in
+sk_prot_alloc(). module_is_live() only rejects MODULE_STATE_GOING, so that
+check succeeds for COMING modules and the socket was created.
+
+For SCTP, sctp_init() publishes the protosw early and does more work after
+that:
+
+net/sctp/protocol.c:sctp_init() {
+    ...
+	status = sctp_v4_protosw_init();
+    ...
+	status = sctp_v6_protosw_init();
+    ...
+	status = register_pernet_subsys(&sctp_ctrlsock_ops);
+    ...
+}
+
+register_pernet_subsys() creates a control socket in every netns.
+sctp_v4_add_protocol(), sctp_v6_add_protocol() and sctp_offload_init()
+come after it. So the window gets longer as the number of network
+namespaces grows.
+
+Suppose a daemon calls socket(AF_INET, SOCK_STREAM, IPPROTO_SCTP) while
+modules-load.d, or another socket() autoload, is loading sctp. It would
+now get EPROTONOSUPPORT, and applications usually read that as "protocol
+not supported" and do not retry.
+
+A second concurrent autoloader can hit this too. If its request_module()
+returns while the module is still COMING, the retried lookup finds the
+protosw and this check then fails the call.
+
+Would it work to drop RCU, wait on module_wq until the owner leaves
+MODULE_STATE_COMING, and then retry the lookup, instead of returning an
+error straight away? inet6_create() in net/ipv6/af_inet6.c has the same
+check.
+
+[Severity: High]
+Does the !kern short-circuit leave the failed-init case open for kernel
+sockets created by other subsystems?
+
+The commit message justifies the exemption with SCTP's own per-netns
+control sockets. Those are destroyed by sctp_init()'s unwind through
+unregister_pernet_subsys(&sctp_ctrlsock_ops). However, every kern caller
+skips the COMING check, and try_module_get() succeeds on a COMING module.
+
+DLM, for example, creates SCTP sockets with kern set:
+
+fs/dlm/lowcomms.c:dlm_connect() {
+    ...
+	result = sock_create_kern(&init_net, dlm_local_addr[0].ss_family,
+				  SOCK_STREAM, dlm_proto_ops->proto, &sock);
+    ...
+}
+
+The DLM listen path does the same.
+
+Consider this sequence:
+
+1. sctp is COMING, and sctp_v4_protosw_init() has already published
+   sctp_stream_protosw.
+
+2. DLM's sock_create_kern() reaches inet_create() with kern=1 and skips
+   the COMING check. try_module_get() succeeds, and sk_alloc() allocates
+   from sctp_prot.slab.
+
+3. A later step in sctp_init() fails, for example ENOMEM in
+   register_pernet_subsys(&sctp_ctrlsock_ops), or a failure in
+   sctp_v4_add_protocol() or sctp_v6_add_protocol(). The unwind runs:
+
+	err_register_ctrlsock:
+		sctp_v6_protosw_exit();
+	err_v6_protosw_init:
+		sctp_v4_protosw_exit();
+
+   This reaches proto_unregister(&sctp_prot), which calls
+   kmem_cache_destroy(prot->slab) while the DLM socket is still allocated
+   in that cache.
+
+4. The failure path in do_init_module() sets MODULE_STATE_GOING and calls
+   synchronize_rcu() and module_put(). It then calls free_module()
+   regardless of the remaining refcount.
+
+After that, does the DLM socket's sk->sk_prot point into freed module
+memory? If so, the next sendmsg, close or release on it would be a
+use-after-free.
+
+Neither the temporary reference added here nor the one taken in
+sk_prot_alloc() stops free_module() on that failure path.
+
+The underlying race is older than this patch. But the commit message
+lists failed module initialization as a case this patch handles, and the
+kern exemption keeps it reachable. Should the COMING rejection also apply
+to kern sockets that the owning module did not create itself? The same
+question applies to inet6_create().
+
+> +	sock->ops = answer->ops;
+>  	rcu_read_unlock();
+>  
+>  	WARN_ON(!answer_prot->slab);
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013075604.868273-1-nicoyip.dev%40gmail.com
