@@ -1,181 +1,166 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012002.outbound.protection.outlook.com [52.101.43.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D2641F5D7;
-	Wed, 14 Oct 2026 20:58:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4354B4A4EEA
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 21:03:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.182
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792011486; cv=fail; b=PzHdzmSJjQvTsToqPAW8Juj828QabDIbaAmhvNWdicHBsExiyTz8c9c+/YH0H21NUWO9dT4w1TgsoAhqiYjiOCKXlV647t2MKe2AQD8Wa51sQW7o2qjo1UGDzwxTWZixsyy5BSIFc4wjSX48qKHWApWATGfLqJ6ABJ/ay8dLMI4=
+	t=1792011799; cv=pass; b=OKEtPthdpn3PCSQkdWR+lZ3eY3veAtPeIEJFOTl7p0008jg1k89W9dcvK6+WBgTKjl2U6A9rMnnkge1zjSUI/Jt9wI37jEtz/AQBLWAd2ngXeG9moR2U1uiJXZaH+cEWemPkCsH5cEd/DRZUKmZjSeYuJtoVb/cEKdfGyKEqNWY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792011486; c=relaxed/simple;
-	bh=yl9svijwAXKna/pqlF6wMQIkq+NfnMPfBZb0x9La/b0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=RCj+DpdNB2mHqlMMGr15In5woj59nw6yXZFfzZD8rlTs83b7m5SjfaeuWVZzBqbLiBXgTYg2Chm4kU/9ri9yTpeOix40WNP8dje7SHnwfF9p7EBZ7FCLmv+mJD2WICO0VUMfa/XhbI4dmUpHaLPnveeMWfASNw4l/zdV+G8dXtc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=lhXqVhdg; arc=fail smtp.client-ip=52.101.43.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1792011799; c=relaxed/simple;
+	bh=T4Qy6GFRO1ST1QLZrYR/490K2fdT74b4dRkAKQGKFgg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ugunzmiP71wc7Ot/ziYGsIPpwThk8R+Wjgdl5dMVRmjsS0tIPI5y4qOXToZT/Ii8gfRJEV0bGBCTXJBWu6INbL9+Qr9g6EPPo38Y4r00hBrsU2X1n08ZYIqFeZkIfZh1wWG2i6YLQcpP4aQ4UiyeoWl0ZgjY/do1NOAuo556tEE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p6rmrFuo; arc=pass smtp.client-ip=209.85.208.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="lhXqVhdg"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=B25HPaoeUNKgWx5UXJ7flPX6aTrKMm7MYBmeWXykMiFX9CVwRHsTVMHMVqfZc9kfcPZpQ2FHY8i0aSfIeRc4fnDSiWx0728XZ7B4WeHsmon2ZSZPGwCRoh1EHVnTUsTvItuQimluxzpS3u8x2oZU1lbZSzDr2wCDxTAXBpsvrP+C3xsEhegUThg3V94lX8D/BSOlgoohA8n965ATIwPxHIZDdNUppR3J2jPpykPnBVHCWFPXik+7nEqDhCE5krG8w2s2ydjkWqA0+3GisXVlPxfnANgON0b4teThGfBOxrn5SeH9ulN7txyLF1WTbime+eAD+pjiHwpk/iOW7HjnlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a0y/fKU2Ifrp4Fac4Ji+NMyyN41o2L8MsOiUCwLE9Nw=;
- b=jR7dYoBrF1N1jb2m/DK3k8eNF0pKrTM5rEhGuWCaKvjWyxG/y9GmjFfZarRngtFF8m2exhpCtColrJA2g1pviVQEpDEMhEpNV8oLUMP+PXRDOvC0hDPaChzMLDBfNtprAGYxMl0fryFusTY56Lst1WnyktnuvNL8eiyVajkQVtrSGug1K3BOYG5umyFoQAz9o7EXkvIv8jY2Ejd7DxdyrJ9ENfV8eXkAkeDWYNqlzW0iW72Xl23n6nN1Mbz8zeUSCicdiweKVFgiBbaNODDXw0/B6OZR+geO77sgKiI7uEeX496btgTgeMBrJ5f7NO8UTEJdXMOIhgacNadWGdWdAw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a0y/fKU2Ifrp4Fac4Ji+NMyyN41o2L8MsOiUCwLE9Nw=;
- b=lhXqVhdg98abOiPtuXDjPmzBIc6xG6RPBdfiFxWRgWYVx+90KcSY4NEUx6YryAFQwSTDgTQx5FXl/HErmrJiBUKbL1x71XZbsOdePmHdL+N7xPK8xQEkfSbRgIkRwyWAcs/7V0S8YgUlHgRnV2eLZTrbQmgccQqrQxYE2CZoCRde4sB9jTsZLoPNzlUyEruFlkjzODyQvzAU+RFS33kNldvbmVLZVeCgpUxZyESXiiQXLbg77PHSVLifS75Bt1Ad5NZ51B4NqZwZ4lTkBndd2M2jPO86tcadQK1Q1JD4Hc29N+zPe/+fDqpFT56D/M1stq1LfqKltUftDEWmMd6tpQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by DS0PR12MB7607.namprd12.prod.outlook.com (2603:10b6:8:13f::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 14 Oct
- 2026 20:57:55 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0472.016; Wed, 14 Oct 2026
- 20:57:54 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: Rik van Riel <riel@surriel.com>
-Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <kasong@tencent.com>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
- linux-mm@kvack.org, stable@vger.kernel.org
-Subject: Re: [RFC PATCH 1/5] mm/page_alloc: count guard pages as free again
- when their buddy merges
-Date: Wed, 14 Oct 2026 16:57:45 -0400
-X-Mailer: MailMate (3.0r7032)
-Message-ID: <AD43E3BA-72CF-4066-83C3-9CF554AACEEF@nvidia.com>
-In-Reply-To: <20261007021250.1665929-2-riel@surriel.com>
-References: <20261007021250.1665929-1-riel@surriel.com>
- <20261007021250.1665929-2-riel@surriel.com>
-Content-Type: text/plain
-X-MS-Reactions: disallow
-X-ClientProxiedBy: BY3PR04CA0006.namprd04.prod.outlook.com
- (2603:10b6:a03:217::11) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p6rmrFuo"
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3a75f960be3so16735811fa.2
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 14:03:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792011795; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mUgFGYh1nrlfIr8WF6N/jZ2tEcD7yS3t+nZQWmbh19VtGuWWV+LgCQbzwaPFH9BsoT
+         B/KOYA+OjY9uNMXKP2j6yFhhaTYl1lbovjOTRX9n63Mm5jo53Zr6Q6BTbSdBlyJE9a91
+         lA9MBcUFnOXjyhXjPwuLPTMwx0kjabd1GLhpVxumuPOc5PWrgb/3TSrO1+1BZ6yo91t5
+         i5J46u9CnaelURGTodeu/dcMeXFTEw4NaoUZFHpVc4PhxVieYWWtSNIt/EEqCBKHukS0
+         14rb5jbItaN4ai2u10tD04t2rKaKTW3UGC9JCHwyCM0fWUQOcZ/DrJcWoVqhuD6AJhlh
+         TlDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rlL07No56m0cxdKc4fCRf+IU8nDpAMVPkbecBDh9W4s=;
+        fh=3UZLG8EW479o9nnAT9xpGYcqpqv2UpgVwIGh83V5eTE=;
+        b=R1hkn7fQks0/Ald/hD22n1XuSuLGi4Dqz0g828eO5ft8sNQ25rmtKoh710DlazgLbY
+         4u/owZ6/bi8YMl2rK40bbtSR4huhCHEOMziBHSiZ2QWCzAPmE3LEDPfEdYhuSeVZi6rL
+         7zY2DqL5NrhFYN3GOSqEoCjy74MNH8X/0Wa2JyO4i34E941+aogpqzhFkAZhuzUiVGQp
+         rpmwohOviMvt2woVXQLEe8J/6HRkJpiw4EeIRf7vCu93Nd48MZ3sYanRb2yDSWJ8Hif9
+         jLC4JdtiHG57qG2U8u+7S6MpXqBbhQ68y86p0+Pu7Nm7xGvRE5YNiLWUQZOhTPkPg6VX
+         phyg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792011795; x=1792616595; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rlL07No56m0cxdKc4fCRf+IU8nDpAMVPkbecBDh9W4s=;
+        b=p6rmrFuook6XBkT1FyUVaG7PnGlClKjiGTvXYwuumOMSAiH4jafl3vEOJ61HeR1fxN
+         SNELFMoFThTXB4mZdndM/Odu1KsgcBNjYjW8AUVxaqbbWHA9Mpz8szL0F7H16JoGnF4o
+         iuVwBA3AOXhkJlLoWFfsslfengH2mXuBDVfVxeUyPVR7HxTQmQ+yLCoopXM6dqxXPEzq
+         oN+HmDJ729Bci836/K5EvPBtcohFR4lpV5pRuiTdHPomhqH25ohiDX1p6dzHREEfTv3E
+         YKJN+8QLk3WRe2tZtrmDoW3qXjXMinZDf2R+OzSsu/zrnG4tqG77ZUpxedV84JusdC1q
+         2hkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792011795; x=1792616595;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rlL07No56m0cxdKc4fCRf+IU8nDpAMVPkbecBDh9W4s=;
+        b=iT/BetoYmdc1BnB9YPYloeIHG4DH+y0urslhTU0w2h56f4CCH6uJldGe3yEchnr+Eg
+         lcuQtONH1WR+9oiD6yNz7eUlKF0ywlVWzsxrHDq7v3BIgSEmYR8JFmqYpvOPR719rtfp
+         vkpRP8a2WAXKjRGBhTvWZkK95KPvFwvwSmktLKqRKUbW4FFkIcyyYhgOTKSIl8SVgev/
+         oHVlyrVlELJuvi6061Mo59iPodAoJbqoDS9U6QaKaOHRbqfi65WFSJtdkjSyTTnB0xRc
+         71o/B5WK7WAXAhQPoe780jWGrcYa4nZp8BMI8XzLmD7w43Gg5X8HTpDNU5WeYkCf1aPE
+         srEg==
+X-Forwarded-Encrypted: i=1; AKwUvBzc0I7vW7ypUWS70oPT1qypQJIeUNeuyXNxYEItEJTm/6OvQ8HnVx1MuXP+wWbl/wsfvZ2nlR8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5ldbO+oWrbQyePClQ6M29BZnOuMFS+tE804S1CbuPP1Z1G4ME
+	zuso1oBIr1i2ZCp8fIL+uR5IrZah63M1ia9ShCGBM/Z4qzVk8FHDPekQ5m5D7eJQDgD01XHsasa
+	zxWp1p3rLuuShS9Rxb+1Ck/ko/kmRTdQ=
+X-Gm-Gg: AYBFou2+gFqeQw2LULGnmg4lNSwusargHk9UR8fvRLh4UimwJt5W/30xM+q5BlEMUvQ
+	xdy03wkkM0BR7gr74UxiU1PMF7peoFGXYIP+a//BGsxQrK2FSi/8sMQtimm50KbEkVPkcvVSEww
+	rS5NQwqOfoTSJS8HIvvUsH+hJ4NYiCT1YPIXUiiC1zAYIxhgK00hfdeAos7vCpr82BAT8CJRScy
+	YGUswO4s321uznlr1iBRwr45MzVQzvvWZLHrF+bDToZKtMZuTnoDmEEHYcc0XnVnW30tQ1VqbmR
+	g/4MMvNtqV2h2m+YBusaHEaHSZH/YwOEuKl+6smdvICXqFLKwNNI2iRiP4TV7Fkzww5moa0UbDM
+	wnH7CkPL9xKcbPBrogYayzQUsCBZ/hpg/ShNY1DLRrDpc
+X-Received: by 2002:a05:651c:2221:b0:3a6:58f7:da9a with SMTP id
+ 38308e7fff4ca-3a9c54acd7bmr39702171fa.27.1792011793698; Wed, 14 Oct 2026
+ 14:03:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DS0PR12MB7607:EE_
-X-MS-Office365-Filtering-Correlation-Id: fb8de088-0032-4609-abd4-08df2a35d064
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|18002099003|22082099003|261009223027099003|10067099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	fRazT/53yoREXeNzCQi59EVG+tCoGWmuvJo5RXL/V4T8fPnHRN6I5ZiKMxJPwdm8Op94xkxoNBxLHfdJvmrJJv8K85NKptU6bbpgEo67urCehG2i7BBEsdMtGahUVKjW8FZH1jexojhd1DL6eamEI4uLsyfXDmRIXd2kzPZdJqx/LqnM9YuHeMjABYXLM/GK/U3s05d2aCR+vjETGTm93Hlr3EBmmtiVzWvfkGLm+Z7Yrr9rHi3USvsjK8wU7WSY4HNHXqNqsInh/xX7Llp5tF1dEpcGXngx+BkDafqfAWsItPsEbV6ChWzxuhU52o9Eit/sfPvzSW4meXMSeQ4Yts4rbstG+1+G42RcUkaiAjxwAHC3hixkKb0vFYo0jfcHIe4+i0cr0KTs94TEJS3FAKI3vg7UQS8/5J9N6rESww7p3cbkkZyiC8vE17Y/FA5JIqpP5QBP4KJApeY0w97SkuIkUgJNh2BcqCdESqRFOUuYfjA6rF5PhbmZFmGeNWT6fPH+f/LK9CS4VPI0riWMgmZWn4GwNQeu+m41O3Xn+CQtQPFf7cANnLMl7UUMUs9CcKNMpsarr5NpN6sblKoLFMSSfYUL+GBKI6CAS6yzWD5/YLFHYT7TquyLTVFLUvVMmRYrj5PpPQx4N1o1QZaP7W1yssH8e85/VSdYX8TPTPY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(18002099003)(22082099003)(261009223027099003)(10067099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?NyosQfoIcR8EfmULEnEuNGI5euzHCcO9W6qEAECwNd83P66SuFqVof6xXpWR?=
- =?us-ascii?Q?Tt8eWnAcK14tXBDUMUmfbzxqokkTPLUIauvoISg3pG0+UxbNouSdBpqq0hW4?=
- =?us-ascii?Q?AFTM8VBIgBHbPFVTEEgHoiMzeHpnsXaRpn111DjWfm+f+xWpKadzePRrg1B5?=
- =?us-ascii?Q?KvlCtdTRBPwLFJU7+sbnxUpfDhMcomsjABYUhePjvwHhPrNU3h0dTpYiRD9M?=
- =?us-ascii?Q?xpTdeT/TkHiKLWEIyOwqB+DTS1Aw8iRKmPrERj5kuWkERTMVzxFPNx9S1lNX?=
- =?us-ascii?Q?1PZdX50QrLBXIGJBRPKRVkVzm1me8iMAw3uk3U7mVXVqhhSDb4ewAgQqB6oQ?=
- =?us-ascii?Q?x0OnLtSIataUvbu0o3ZiUvA9WmFXeNh6tcBGChnX9BAkApm5bX4ZRQLf8O7j?=
- =?us-ascii?Q?saOOlvLL0HICXOT7xCI6dyPdmhwhA9fWgDyEh8gBIucuayFClkdxeMjYXuJa?=
- =?us-ascii?Q?z6cYGziAmfEsZf6Ueo7lDQDGbdbL+RRoomA4xXv3E7Zh8toubizJplmYU86l?=
- =?us-ascii?Q?ctb+f9u4peOk6LM0B3EdXhKG5Fg75MpkWbghYiqAi21O6yXFYK3r/dgW3vbQ?=
- =?us-ascii?Q?fNNBsx3k3APfjxrYthAqzsCqdbI+59SIsecsa3RmJxPGtaCy/q0JsHj7Np8O?=
- =?us-ascii?Q?nq4LW9MbXuJ5pmpssz1+2rXJas9DopFZC0PRBXKD0Jf8kkqfUm1eEMY5+D0C?=
- =?us-ascii?Q?5u2Eh4EvfpnS3MgEipD9G4RRT1iPCBBwCR2iHwNmzNVlRc+bjwSWXfQsL4sK?=
- =?us-ascii?Q?4SGGM8/2QPxqNrvc8W1UsCzCvcfau6mNw/pNnIlwmrlYHlsPi3JahtX5rFAM?=
- =?us-ascii?Q?O/q8tk3ZAo+Bbh0/IL70jiPpUibFh3zdRnz/OT+A64NkyF6PYfNJR+gebOlt?=
- =?us-ascii?Q?nwu60obAAYGROntWj/KkPJ9B/2/0oejAJoEGlkrIsOc9/mHUHJd7EIpSqtW3?=
- =?us-ascii?Q?rFF6hjz18ggMkiCAZ4gdGn/vfOBb+t2NYpPONAo+z7mQNGUtlJ5N1uuI+15/?=
- =?us-ascii?Q?AjFkgS3MoP3N4o/0HSiUJb6Vya2Yxhsgjekk+G0aT/1IekoDRKjUFYs2VIOs?=
- =?us-ascii?Q?/7UKQNpewrB9niUIO/WVo9b1bBG5MIbBaiUkl/7ntX+EOdZ0lR1zYICQPizk?=
- =?us-ascii?Q?/EXs09lIBaOMVLZlXGTExSdUmozZfPToBV6ZBdUbIKrrUzA0RhGfdxYQLJ35?=
- =?us-ascii?Q?T4flZc4IEuvM1y7b6aWnJCLr7Lx7loO7eOmbzYdEYxjVkyNdcnUFk9rCDTOJ?=
- =?us-ascii?Q?sydBQm2E/QDFfzgGLeodJ/wXKR5gpfPE3Tle1gsoptEaZQg//ZoNGbvzZ99C?=
- =?us-ascii?Q?JqSovFMQVZLESlrobaRwDJBs5vxm6li8kX3n/2r7L4NWWoFKEDNma58As4ap?=
- =?us-ascii?Q?NLb/VhcHhvel2pJvXmUdTJ8UsK5j29tRDVmsvpNRWQ9osGygmpIX91PoYtRA?=
- =?us-ascii?Q?82XwvKaNY2X55/mi0qTSrtPbNOkLzwQKkI52+T/hu6dJycbJns7+mn2/hZIo?=
- =?us-ascii?Q?ube6jZXivx+jTxh7hvXdGJZS0SZYKxxjPbMUIBurCtxMzG3RSYJt08NMo5U3?=
- =?us-ascii?Q?/S8rN1SS9izv3WFL7qGIU7FT/JGfPls9ONMA47n+a0Td78Zou6fNr53j0+bt?=
- =?us-ascii?Q?LA4Whh3putd/MRgGG0rzuOsffbYQb2NV4i2tIB+4kAXsKnp3GA+7vkL2lzZd?=
- =?us-ascii?Q?keBqK3FNb8H9RHCnnpsDnzauTqE57f+RFMtUZJaHNq+KugzD?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb8de088-0032-4609-abd4-08df2a35d064
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 20:57:53.0550
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UdRfAHv88kMoDpDiAnBpovJRHucKyWAFyrHF2NE8css3sp917R1g+T3VxIQxJtMb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7607
+References: <20261014152138.138281-1-daeho43@gmail.com>
+In-Reply-To: <20261014152138.138281-1-daeho43@gmail.com>
+From: Daeho Jeong <daeho43@gmail.com>
+Date: Wed, 14 Oct 2026 14:03:01 -0700
+X-Gm-Features: AclHuK9ssELmbfFeOdtC11wQQOkFMUhWUeAu0fXdFEVJnCmum3r_7J3AOUUwHzg
+Message-ID: <CACOAw_yLf9MDqBdkvhY9rwe=pLjkrGkcrHtAmdsvhcOdU4Zt3Q@mail.gmail.com>
+Subject: Re: [PATCH] f2fs: expose resizable_tail feature via sysfs
+To: linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
+	kernel-team@android.com
+Cc: Daeho Jeong <daehojeong@google.com>, stable@vger.kernel.org, 
+	Daniel Zheng <zhengdaniel@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 6 Oct 2026, at 22:12, Rik van Riel wrote:
++ cc: zhengdaniel@google.com
 
-> With debug_guardpage_minorder set, expand() turns the unused halves of a
-> split into guard pages, which page_del_and_expand() leaves out of the free
-> counts. Freeing the allocated half credits only that half, and
-> __free_one_page() then merges the guard buddy with clear_page_guard(),
-> which no longer touches the counters.
+On Wed, Oct 14, 2026 at 8:21=E2=80=AFAM Daeho Jeong <daeho43@gmail.com> wro=
+te:
 >
-> The merged block goes on a free list with the guard pages never counted,
-> so NR_FREE_PAGES falls behind the free lists by every guard that merges.
-> Before commit e0932b6c1f94 ("mm: page_alloc: consolidate free page
-> accounting"), __set_page_guard() and __clear_page_guard() adjusted the
-> counts themselves; that commit dropped both adjustments but kept the
-> subtraction implicit in expand().
+> From: Daeho Jeong <daehojeong@google.com>
 >
-> Count the guard pages under the merged block's migratetype when the
-> buddy is cleared. account_freepages() skips an isolated block as it does
-> for every other free page, and moving the block off the isolated list
-> counts it then.
+> Userspace has no way to know whether the kernel supports the
+> resizable_tail_secno mount option before mounting. Passing it to a
+> kernel without the support fails the mount with -EINVAL, and checking
+> /sys/fs/f2fs/<disk>/pinned_area_max_secno requires an f2fs instance
+> to be mounted already.
 >
-> Booting a 16GB VM with debug_pagealloc=on debug_guardpage_minorder=1,
-> check the difference in free pages reported between /proc/vmstat
-> and /proc/buddyinfo.
+> Export /sys/fs/f2fs/features/resizable_tail so that userspace can check
+> the support before formatting or mounting a filesystem that relies on
+> resizable_tail_secno, e.g. a filesystem whose tail is going to be shrunk
+> online later.
 >
-> At three points (idle, after a read and file-creation load, after
-> a second load), check the difference between nr_free_pages and the
-> buddyinfo numbers in the normal zone, as a number of pages:
->
->                 idle   after load   after second load
->     unpatched   -130        79205               99121
->     patched      -16           45                   0
->
-> The small remaining difference seems to be due to the numbers
-> not being read at exactly the same time, and is also seen
-> without guard pages.
->
-> Fixes: e0932b6c1f94 ("mm: page_alloc: consolidate free page accounting")
+> Fixes: c966d29e01bb ("f2fs: support resizable tail section and unify pinn=
+ed allocation")
 > Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Rik van Riel <riel@surriel.com>
+> Signed-off-by: Daeho Jeong <daehojeong@google.com>
 > ---
->  mm/page_alloc.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
+>  Documentation/ABI/testing/sysfs-fs-f2fs | 2 +-
+>  fs/f2fs/sysfs.c                         | 2 ++
+>  2 files changed, 3 insertions(+), 1 deletion(-)
 >
-Good catch.
-
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-
-Best Regards,
-Yan, Zi
+> diff --git a/Documentation/ABI/testing/sysfs-fs-f2fs b/Documentation/ABI/=
+testing/sysfs-fs-f2fs
+> index c4746c416ac..8df18b5d479 100644
+> --- a/Documentation/ABI/testing/sysfs-fs-f2fs
+> +++ b/Documentation/ABI/testing/sysfs-fs-f2fs
+> @@ -271,7 +271,7 @@ Description:        Shows all enabled kernel features=
+.
+>                 inode_crtime, lost_found, verity, sb_checksum,
+>                 casefold, readonly, compression, test_dummy_encryption_v2=
+,
+>                 atomic_write, pin_file, encrypted_casefold, linear_lookup=
+,
+> -               fserror.
+> +               fserror, resizable_tail.
+>
+>  What:          /sys/fs/f2fs/<disk>/inject_rate
+>  Date:          May 2016
+> diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
+> index 9749da70089..8b844a8b0bf 100644
+> --- a/fs/f2fs/sysfs.c
+> +++ b/fs/f2fs/sysfs.c
+> @@ -1421,6 +1421,7 @@ F2FS_FEATURE_RO_ATTR(linear_lookup);
+>  #endif
+>  F2FS_FEATURE_RO_ATTR(packed_ssa);
+>  F2FS_FEATURE_RO_ATTR(fserror);
+> +F2FS_FEATURE_RO_ATTR(resizable_tail);
+>
+>  #define ATTR_LIST(name) (&f2fs_attr_##name.attr)
+>  static struct attribute *f2fs_attrs[] =3D {
+> @@ -1592,6 +1593,7 @@ static struct attribute *f2fs_feat_attrs[] =3D {
+>  #endif
+>         BASE_ATTR_LIST(packed_ssa),
+>         BASE_ATTR_LIST(fserror),
+> +       BASE_ATTR_LIST(resizable_tail),
+>         NULL,
+>  };
+>  ATTRIBUTE_GROUPS(f2fs_feat);
+> --
+> 2.56.0.385.gd3acb90ef8-goog
+>
