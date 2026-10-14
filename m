@@ -1,95 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-00256a01.pphosted.com (mx0a-00256a01.pphosted.com [148.163.150.240])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3579329E79
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:56:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F1B8486410
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:57:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.150.240
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792007779; cv=none; b=lnVT6/3EzHUa+0xlEaT4n3TV2EMd4MqmI30pTKumFsQs5CryiQ71KUFEF1IKaULka1aijcMVyOVc1xhVGkK+4vUPuc3Ssjlm79NnqnTISGbuFzXeO+Mk5UyfWwJrEzbQGLEnrW1MNoDURfQZ14XrqUhUB32a/vcMF/GdbOBA9PA=
+	t=1792007822; cv=none; b=pPcxq9w/6cbsfmXt8imW5g2/6hwdvaH8osYDXM6twruSTojnynHeG0nf+TSlr/EzI3R34jgfSV06+gTfMHFg+fTGojWCyRFxjf0X7EEwQQJ90uXFB+aDdHAAHkyEaJZ/kjv53CNeYXwqBjstlI+FbwpuquQH/lJkpB2mJfA5q2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792007779; c=relaxed/simple;
-	bh=5Ar0vHYezptJPwslRv/GvPNEVe7PUIqQxl7J0bC+V70=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hA0ErfiluzkNa871Gpa8f7r2Now4SzmsWEEGgTW4FZPnCA6Ff54Njojq9Vv3bjqc0JrjRkd0zOfmlVZAxb7f/MXaD9CSsm78yRB3pBhjmra+1GdR6ouoSb4B5D148WE8txpTDNdmdx46RWOvFxQ7gsNyQSpORKGK/4yPnFphuvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j+TzbS7T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792007822; c=relaxed/simple;
+	bh=VxmCR6RZG34puMftg8s03NryxNCg7LImLRc/GRgXE2Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QBP9u0+rpvTNBiPGtqwG2yeaxqbDt+iqSAZxMgI1GWJsNiP9Vl09K7uuBydx/cvruU7LkWix0K0YHwdbHfNCmlrdXCKy/a9ZfZU6H0RbacjMugE8DXcbblnQbPF7gjXbSVzM/O5UuIpqXXgaAyVoabgtbHFmXI4aLgcHRVKZzEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nyu.edu; spf=pass smtp.mailfrom=nyu.edu; dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b=y4AE6z9P; dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b=K8Gin2S8; arc=none smtp.client-ip=148.163.150.240
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nyu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nyu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j+TzbS7T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D7D01F000CA
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:56:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792007778;
-	bh=JW6T2NVrNiSYii9ZuXsvqcqsrQBmXx3CI/QXZh1Cb9c=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=j+TzbS7TpAFLQtfLh1lkHLvzP2ycFzBbTshh8XeQkiC0R1GGqa0kq70T3nMbVFMzz
-	 oILQB6aIFUxczmdVLzPpj7turEsh1dfJMI0A3PgBTWCItPfWpYyQ9FeOv4H8Tj1nKF
-	 qpPWqBmC3rG0WssOv0ncVsP8lIjSc8dSqQQ+45h9wEI2P+kCcrre0MsxEMbeD/CkmM
-	 OnAFweOqTkmPylhDqjEE/AcaGeFGo/G3kzj20d9egHMLjDshpq5Wj27Yma4O1eaxWl
-	 rr8EQuCuH747XSEGyO58H09Uz1Vut1iKzrVvi+DUKb0Zh6XzKavCGBD0HY/3HUBWpu
-	 AAjADlI9hKP6g==
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-93e706a6ba9so581299585a.2
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 12:56:18 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwFTg294j4MtfnMuf46i87FuMGUzf7zDTj6qtINos+SdCZRdXtxnlDI1KJYryGdbxcYKRvcyTg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsVi6H3WmSnBlCBiYJvfK6fcjwAC4HkCdEUY0SZXlFuqlTS32c
-	OMoMkME/BefvvOvGVaj7bePBKmo79bunnCuHr6xsrLUwMhn3Vvc6ft6SwYgl/jypvfdN7cBPx+F
-	Ee1l5Sv1syqxow7Hnb1SJJAI8W94bdIw=
-X-Received: by 2002:a05:620a:6405:b0:93d:e031:5ad with SMTP id
- af79cd13be357-93ebd224911mr2634160785a.17.1792007777727; Wed, 14 Oct 2026
- 12:56:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b="y4AE6z9P";
+	dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b="K8Gin2S8"
+Received: from pps.filterd (m0380321.ppops.net [127.0.0.1])
+	by mx0b-00256a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EGZMSG3784360
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 15:56:54 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nyu.edu; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=20180315; bh=dm3JPEpVSI8PQ0BF6xKoWaANpbsmtysnXtnv
+	IY1XHD4=; b=y4AE6z9PwZWkpayV0uaZbMNPd9zqnbW9JVpKQns6vJ3YIzKTM2KG
+	epvzum/sRrsdfGAZMWz5gW3/sVjMqH80QYHX3Ugcs91XwchwvwhOAH/FJc4pOfpy
+	uHXIlbwY1/xHhqt7keateQ2qfrTRMQu21o0e2WoerRBj65T7DYEDyv+3dsal+pvG
+	hUoDdtlbx2+H0lIq6rRZvtxBXhSHoRjcb+Oywisobmg86MwheqbRpfKiNjlpWpj5
+	lejiby1ldqwA6mifaSdmYkFcy/KlEX89t7bvZa8e24qMOGuUE/CbL+XKtN0YMWs0
+	gpLYxsmqgs5/xqikcDSQyhbGX84OJeC5tw==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0b-00256a01.pphosted.com (PPS) with ESMTPS id 4hadd1bbkt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 15:56:54 -0400 (EDT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-9179743a76eso99054046d6.1
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 12:56:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nyu.edu; s=nyu-googleapps1; t=1792007813; x=1792612613; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dm3JPEpVSI8PQ0BF6xKoWaANpbsmtysnXtnvIY1XHD4=;
+        b=K8Gin2S8QCf9CyY68CWBvqJXFZRrplB04gemjmwcl9qiMSxybuOZPr28cKsuQP14qM
+         8AU0cp6Y8wvpIUy4hQk/ccZNRN8ij6yA/4EA0GrG77sNNTYyS1cgZfn2E6fWKTCZAYOG
+         Jhu9zsHMnNr1XBg8iSQmZZFD7OPyuiFJR9zja7+p7EFY5Hlkkl2pf5J63cl3/yA9PaYV
+         eqnAIs/o6VuQEHLeRSbt6ngboTDQAtHbDA/iCc5+BX6M7g6bJahcGEEiobqtTDCE96Z9
+         jY6T76k7Rg0OQvx5m4R6pqCOwNod5GS1MT27nW1hWGByWiRgMerLj2HeQyOASkrkZjxC
+         QC9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792007813; x=1792612613;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dm3JPEpVSI8PQ0BF6xKoWaANpbsmtysnXtnvIY1XHD4=;
+        b=l3cccxqYZ8jQH/dQ5sbUIpR68LfiGwJhOd/HTUpavdSSuJXdlcPel5vELUo2Qg8AXY
+         6u1+GqlV0MwcP3+DJs9WraZcN5FkhmnpAZOxeOzkijIIKuYeA8z6zrt88Hg9XKvMr9YT
+         Doh6WktCC3zwXzGH35/tmhzuqLZX1/yPzlScER5s4E89bImrSWBuwWq8e9L6Z6i1IywJ
+         +JZm15BXlXNMQbtVZJr1HH8h85uEfQeGRtwSM4beVLALto+i4QrDutHBMS9RYzbe3+cg
+         i8ZmOFx8V+hB8+olscwVe04m+swTgmJg96qD2YJoD1T+XvjsdauI4GK0WQT+XUcCPmI5
+         lLog==
+X-Forwarded-Encrypted: i=1; AKwUvBwGfQQ+aCrjWElJJl76MInJxC8ptyM+SUaGFFXEgoJRL+qT5QE+q/B5oeHXpCk24gf0waSznDE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKlNWTQlNKHFQMztfpPSJ8HGgRKfLujjGc+CNx5ZfYnkoK/USLo
+	VKLftLdTkL1mA0sY+Oyg9WCOSFN2XE1LhEGLAc54e5BnU++tfTp/k+25JupgNmkkz4ykhUG19Jx
+	B3NWyjSA78qqJ2cgevmhSgAJ22ILiADf+JIv0+gGheHFPYtbGJfuoaSQ=
+X-Gm-Gg: AYBFou2mMqKemcGNs45cfyZ8Pn56NzKKo1UoI8OJr3v0jstU4BkutrfU6qLcmf4nWe8
+	kLcML7H5y7goiYk9CiamFFN+JgT4ImiQb+o9xdiqlS97heauW3+VzTNakIT52ynrVLCfYMT5AJA
+	cc1nkj5ArNpikiHe04Vv8kOG11rxvgsodoyyZ8gMY4dv/wB9FXId35LmqsNeJh8BEhDVRiQqwmh
+	2K2+/xaicVekMbBdIovQowl5JKGlg3a/hUsT56bAUeMy9ZVr7eI0UtjIWtXe8FLhZWgFN3FWOkW
+	toLLQO8/8CX2cyO+poXDAY1ZOwY6/T78eHp40jWRVV2zgCa2zkhHLv2jkFRyEE1mXVqC6O/J+sW
+	1/CN5cLw7H2mMxxusuH3UX6al2982nkjUpKlX
+X-Received: by 2002:a05:6214:4586:b0:917:7cc7:8768 with SMTP id 6a1803df08f44-91b53a5192emr265642716d6.11.1792007813417;
+        Wed, 14 Oct 2026 12:56:53 -0700 (PDT)
+X-Received: by 2002:a05:6214:4586:b0:917:7cc7:8768 with SMTP id 6a1803df08f44-91b53a5192emr265642296d6.11.1792007812796;
+        Wed, 14 Oct 2026 12:56:52 -0700 (PDT)
+Received: from jerrythepro.nyu.edu (216-165-95-143.natpool.nyu.edu. [216.165.95.143])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b383dasm61171016d6.8.2026.10.14.12.56.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 12:56:52 -0700 (PDT)
+From: Kaho Jiang <kj2864@nyu.edu>
+To: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net,
+        kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+        edumazet@google.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        co+71b6509cb791e531@bugs.sh, Kaho Jiang <kj2864@nyu.edu>,
+        stable@vger.kernel.org
+Subject: [PATCH net v2] net: ipv4: add zero check for snd_cwnd_clamp
+Date: Wed, 14 Oct 2026 15:56:41 -0400
+Message-ID: <20261014195640.430824-2-kj2864@nyu.edu>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261014-folio_pte_scan_range-v2-1-00cf9bbaa364@kernel.org>
-In-Reply-To: <20261014-folio_pte_scan_range-v2-1-00cf9bbaa364@kernel.org>
-From: Barry Song <baohua@kernel.org>
-Date: Thu, 15 Oct 2026 03:56:05 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4xMhtUWwZ1qCRkY=WjxwKGBTD-CSdQcp5jxcLW0WcMvFQ@mail.gmail.com>
-X-Gm-Features: AclHuK95frzik0jnDRCFT7tNgkatocH5THJ5EMTKIH-IiD6HCFI8xOfwA0yawbE
-Message-ID: <CAGsJ_4xMhtUWwZ1qCRkY=WjxwKGBTD-CSdQcp5jxcLW0WcMvFQ@mail.gmail.com>
-Subject: Re: [PATCH v2] mm: fix address wraparound when scanning large folio PTEs
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Ying Huang <huang.ying.caritas@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Chuanhua Han <hanchuanhua@oppo.com>, 
-	Kiryl Shutsemau <kas@kernel.org>, Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Lance Yang <lance.yang@linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA3OSBTYWx0ZWRfXxqbY9UCXkE8C
+ 2NMOcvrZ8fmgNuGjqZBjNKBwuwCufTD3cfzVX7lIqO/k342hSbB/pJoloIkYN45XRLtgnp2rPPJ
+ EzA7bIQmAk/+h3OKtD51L3cW8OMSIGs=
+X-Proofpoint-ORIG-GUID: hakpeylfSGVTc7Nn3AYobaL7QjUaPOId
+X-Proofpoint-GUID: hakpeylfSGVTc7Nn3AYobaL7QjUaPOId
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA3OSBTYWx0ZWRfX33cbeK4qeoYE
+ pruyH93VVRkbnnWgP/fOR6TjJdm0aG+9lbqfJnrc6QWmVVEsiMUvk5kk6wFXA54mbA1CSGn8AtT
+ rI6naLbsSR2f3gaplC47kKnEq9Adi2i4fBD/ONXC3nIu3Isf/njYzT73Q8ic33NcUq68gEXwzpa
+ Uh08DIbXzYzuOihlQpk3Bha6qNo5dwXQ9f34OlbnprgZDaBTi2GArvkBycUWQwAfNE8vCMDBYT+
+ z29gU0Uq4APdkuNq6qgVoUFh+GN5ljyfulALLixHp/xLr3zgBYqsqikVYQtl+PX8eX53KuSCYjZ
+ gO9n+ByYT2quzbZZAtzuTw2aZj6b/KRAKNI7E3387UFmR+VsvrrL89huizwmFMnprqjbZ3HW879
+ inHlv/FgAgq8GkC8t6J6SnjxBAEaDlTwCHDUJTcH+9A6T9DIoERV+ZRM3cm70raGb4h3QYdc0ol
+ hQU1X1msJhHrGGaVPFA==
+X-Authority-Analysis: v=2.4 cv=IaESymqa c=1 sm=1 tr=0 ts=6acfde86 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=iAeFBqZmEazvcMjDlvn68Q==:17
+ a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=S0S_EcBMpFAA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Se5WoFf3ZZRiLcel0nel:22 a=Vu6uP2Wp0I46Sktgawq-:22
+ a=VwQbUJbxAAAA:8 a=qtVHbROC6xTCA7o1MbIA:9 a=OIgjcC2v60KrkQgK7BGD:22
+X-Orig-IP: 209.85.219.69
+X-Proofpoint-Spam-Details: rule=outbound_bp_notspam policy=outbound_bp score=0
+ bulkscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0 phishscore=0
+ spamscore=0 malwarescore=0 priorityscore=1501 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140079
 
-On Thu, Oct 15, 2026 at 2:34=E2=80=AFAM David Hildenbrand (Arm)
-<david@kernel.org> wrote:
->
-> numa_rebuild_large_mapping() and do_swap_page() can be tricked into
-> generating an address wraparound, crashing the kernel. All that's require=
-d
-> is to map a tail page of a large folio close enough to the start/end of
-> the address space to e.g., make
->
->         unsigned long addr_start =3D addr - (nr << PAGE_SHIFT);
->
-> to wrap around.
->
-> Let's fix it by providing a better helper, folio_scan_range(), that
-> takes care of staying within VMA and page table boundaries while
-> handling possible wraparounds.
->
-> There are some nasty details, like not being able to use pmd_addr_end()
-> in this context. Add some helpful comments for these cases.
->
-> Reported-by: Kyle Zeng <kylebot@openai.com>
-> Fixes: d2136d749d76 ("mm: support multi-size THP numa balancing")
-> Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapca=
-che")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Reviewed-by: Lance Yang <lance.yang@linux.dev>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+User can pass zero to snd_cwnd_clamp via RTAX_CWND type.
+This could lead to division of zero error if not checked properly.
 
-Reviewed-by: Barry Song <baohua@kernel.org>
+Oops: divide error: 0000 [#1] SMP KASAN NOPTI
+Call Trace:
+ <IRQ>
+ tcp_reno_cong_avoid (net/ipv4/tcp_cong.c:510 (discriminator 1))
+ tcp_ack (net/ipv4/tcp_input.c:3517 net/ipv4/tcp_input.c:3873 net/ipv4/tcp_input.c:4440)
+ tcp_rcv_established (net/ipv4/tcp_input.c:6685)
+ tcp_v4_do_rcv (net/ipv4/tcp_ipv4.c:1854)
+ tcp_v4_rcv (net/ipv4/tcp_ipv4.c:2248)
+ ip_protocol_deliver_rcu (net/ipv4/ip_input.c:207 (discriminator 1))
+ ip_local_deliver_finish (net/ipv4/ip_input.c:241 (discriminator 1))
+ ip_local_deliver (./include/linux/netfilter.h:325 ./include/linux/netfilter.h:319 net/ipv4/ip_input.c:262)
+ ip_rcv (./include/net/dst.h:481 (discriminator 6) net/ipv4/ip_input.c:492 (discriminator 6) ./include/linux/netfilter.h:325 (discriminator 6) ./include/li)
+ __netif_receive_skb_one_core (net/core/dev.c:6297 (discriminator 4))
+ __netif_receive_skb (net/core/dev.c:6410)
+ process_backlog (net/core/dev.c:6761)
+ __napi_poll.constprop.0 (net/core/dev.c:7830)
+ net_rx_action (net/core/dev.c:7893 net/core/dev.c:8050)
+ handle_softirqs (kernel/softirq.c:645)
+ __irq_exit_rcu (kernel/softirq.c:679 kernel/softirq.c:519 kernel/softirq.c:758)
+ irq_exit_rcu (kernel/softirq.c:775)
+ sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.c:1062 (discriminator 35) arch/x86/kernel/apic/apic.c:1062 (discriminator 35))
+RIP: 0010:tcp_cong_avoid_ai (net/ipv4/tcp_cong.c:482)
+
+Fix by checking if user pass in zero as parameter,
+if so reject the value zero.
+
+Fixes: 51c5d0c4b169 ("tcp: Maintain dynamic metrics in local cache.")
+Cc: stable@vger.kernel.org
+Reported-by: co+71b6509cb791e531@bugs.sh
+Assisted-by: LLM
+Signed-off-by: Kaho Jiang <kj2864@nyu.edu>
+---
+ net/ipv4/metrics.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/net/ipv4/metrics.c b/net/ipv4/metrics.c
+index ad40762a8b38..e83a129a25b6 100644
+--- a/net/ipv4/metrics.c
++++ b/net/ipv4/metrics.c
+@@ -54,6 +54,10 @@ static int ip_metrics_convert(struct nlattr *fc_mx,
+ 			NL_SET_ERR_MSG(extack, "Unknown flag set in feature mask in metrics attribute");
+ 			return -EINVAL;
+ 		}
++		if (type == RTAX_CWND && val == 0) {
++			NL_SET_ERR_MSG(extack, "RTAX_CWND must be greater than zero");
++			return -EINVAL;
++		}
+ 		metrics[type - 1] = val;
+ 	}
+ 
+-- 
+2.43.0
+
