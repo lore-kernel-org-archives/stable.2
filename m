@@ -1,44 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4051A6803
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 01:27:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218C02EEE75;
+	Wed, 14 Oct 2026 01:27:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791941263; cv=none; b=QC9BlNQ9UfFiP5s3xhffQd88PxGquhtBexFwNCmrsQFa786z+wbt1V41cXJctT0C7PD01gJJF3sAzGRlLjs1eVIJpFCRY5lMRipCsW02oUeYkfqw8a2Pak7HOJpWMty6FAR9I3hcExmlTbtHwn20qE/yVCZ/zum6uCO1/x1lX1w=
+	t=1791941265; cv=none; b=fVjdkwYHXBdWpYeN0n6KsfOALFFO3Rhh7ZBkm8kUwD/9fVWAQcnmmecdueMl+gtI+EL2ZluMiufDC69BosXtO78IE/7yZyHDJTj6yfnsVzNDPPDcHNSKheyJWPnhCiaSwiz/8VrjJb+f/RBIhdVTxGlVkRDBx0vOELanC7HGakg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791941263; c=relaxed/simple;
-	bh=3qzdkMsLey3IIctODTuv5S2hqMY8zcCq74nfbJyyGYs=;
+	s=arc-20240116; t=1791941265; c=relaxed/simple;
+	bh=DDODb8L9vExy+gESUK9lMiTfPlQfxXisU4hAA4oT2S4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GwAIEIvAcrjUCK1QqIR199bKgmqXbbNjLPJPalz5zvMI0uXzogBC+EjKlG4/Mjmm3FiY6eSs8T0ek6Ph/8buNzCfVx0/Z1PIvTLVLbAsT5+wwzUgKLZNVTo+jd8kvi5gfYrbPz2QR1UofQYWm560YYbVmJFpmB++J34k3HYypeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bD17/s+Y; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AJHdIghEenYKqKn2oBs2MgbHBlm+/ECAkANpeiCLT4XErTI9UPQzxfGT03BronJzXX4VSoZ6p6Rs6xZkAz3ULn8gorPJZm0Mey9WkBFlXZe0iADQsUc2FWihYOCFjZ11m+xmxN/g2631dItJiM8oAs91CRoeE9SUeGx4Z5+zfRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OEidWyfG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bD17/s+Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9594B1F000FF;
-	Wed, 14 Oct 2026 01:27:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OEidWyfG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87B291F00893;
+	Wed, 14 Oct 2026 01:27:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791941262;
-	bh=0+Bqez/f7HNr3lX4fAiYOB0hZk4CX1dvOibK84poVqE=;
+	s=k20260515; t=1791941263;
+	bh=CnvCQKb/Fl89d0FC9NpXpZbzIMX73JQDMnMO+GLMxxE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bD17/s+YpfSwex+I7mWS5rsjlBymiZjekV3qRdHjNsVd8JYtZsop5qlcUqx55ChxJ
-	 8H0aL4Tm5414bdlP5EFdulWo4i+aQhTCCldCat6kaNxHFG5awa3JPoO7X+40yVHxic
-	 GhrjDTFSvRTciRz29klIFH+N96R6qvLtUWsEimGWFdUh0L4oXaH4wQXIbHU/Zl/qT8
-	 ifAvYx5fTeQCh3r0V0U/Lqe0MzGYkScwoc70VYmO6DCX7tved92MGPYTmZFPRGm8Sp
-	 pkFQedqX3/IzVv1NIf0Q4mF3uQJgr3RGPHX6CRjU+RSMF89T5MaqARddrUcn/y3df7
-	 IBRL++XF1KHvA==
+	b=OEidWyfGo3yio8aoR7s1A/hPv3O5CjxScN7ahHERWZZw6yQm+dvsUsxc3mRvcDojA
+	 rkKFQk8U8HVKVZH4LICRNBS4zLvReip2Lh9lZLW7cGzzBTB4wFq7dkAiaQdTjV1l1x
+	 hAJzf6Jd9gnenpSuskBZcFk/xmx9whVZz6dSa3gsJUgX4lQG2Ct0NjGEtu6I/sOxY/
+	 Yrndu9hBvxVO3EYinxh6d8Fm831Gy01t/Of3ntv2ckW/NKZK9599V2k4sLo3iqeLMJ
+	 uSQVttM3U8cFOy/ikcp2egtvn4hGJqR9ikeFp/1RIRL8y0AVYxdTNvrRyYy/hhYdUT
+	 EhoOoCArib8vw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Dan Wheeler <daniel.wheeler@amd.com>,
-	Roman Li <roman.li@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Adrian Betschart <adrian.betschart@cinemaone.ch>
-Subject: Re: [PATCH 5.10.y] drm/amd/display: Don't replace a sink mode that shares the native totals
-Date: Tue, 13 Oct 2026 21:27:12 -0400
-Message-ID: <2026-10-13-1-daily-reply-0022-amdgpu-sink-mode-native-totals-5-10@kernel.org>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	Jeff Johnson <jjohnson@kernel.org>,
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
+	ath12k@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Artem Dinaburg <artem@trailofbits.com>
+Subject: Re: [PATCH 6.6.y 2/2] wifi: ath12k: copy M3 firmware when reusing the buffer
+Date: Tue, 13 Oct 2026 21:27:13 -0400
+Message-ID: <2026-10-13-1-daily-reply-0023-ath12k-m3-reuse-2of2-hold@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261012160529.8505-1-adrian.betschart@cinemaone.ch>
-References: <20261012160529.8505-1-adrian.betschart@cinemaone.ch>
+In-Reply-To: <20261012165925.32575-3-artem@trailofbits.com>
+References: <20261012165925.32575-3-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,11 +53,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Inserted modes keep the native sync positions; a real mode with its
-> own active width does not. Compare those too, so only inserted modes
-> are patched.
+> This fixes my 6.6.y backport of upstream commit 05090ae82f44 ("wifi:
+> ath12k: check M3 buffer size as well whey trying to reuse it"). There is
+> no corresponding upstream commit, because upstream never had this bug.
 
-Queued for 5.10, thanks.
+Holding this series until we have an Acked-by or Reviewed-by on 2/2 from
+Baochen Qiang or Jeff Johnson. It is a stable-only fix with no upstream
+equivalent, so I'd like an ath12k maintainer to look at it first.
 
 -- 
 Thanks,
