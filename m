@@ -1,86 +1,48 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AABC94EB84D;
-	Wed, 14 Oct 2026 12:47:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF1A4F4758;
+	Wed, 14 Oct 2026 12:47:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791982065; cv=none; b=CcywmluvE5LwiyoptcR7xiz0cMkE/6Q4kJk2gyax6sYx61RWJBV9rZBXz/1C66XYOflO8Ff+8hrdG8jcH4qPQYH6JvtLLVYq706gf2vWL1Qc1c15mibNxvXwp9bNyjB/H5GqGm5URfVlPZRCMgmzjUz3ur1wVRCJDBqsZmnI6D0=
+	t=1791982068; cv=none; b=i4njcv0NXB+0X9W8gB4MwdAtrTdeoMuorgIDWGmvj9pAxdrM4SYXxR2tHC1vRmcPrZkfY5f4UjNhCCFtjUV/M2R+cO22YsRKnltVkQJe+hhbWZ8espDo0n6G8WxUW3YdkzQxbPKZDvbaUI7T2EE6EySwAs8vF7n4BlkczyaR4yI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791982065; c=relaxed/simple;
-	bh=vJ+y95NY3zFzS7ay4qYhbYAYNljlO01sOEpzfkw68Mw=;
+	s=arc-20240116; t=1791982068; c=relaxed/simple;
+	bh=l4f8jXXvxpyuMzMQBueD2Ovin05FrHLyIXfZ+jgFwJk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bPOtqGkatoY2COIyM7pdTI3ooOkvktCyseygWAjj67tdyHub9OruEFadpoReUt9WUQEl7t4/8q+leRoLBNS7gm5T12OBCpVZCaIndcQP8x/t8kyKkHDq6ajxY8/1oQJbyubogkMnbwyAXhaBSpd9YUcjjfIA3WZSV7OAZT1dOo4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=FCkPvbmx; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=SLFXcVyT; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=pEPtb0KI; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Zk6opYEU; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=eJOVu93tPzSUBEcJ1bsGPjKnDK91b3Y2zfFklefvK6iNnCE8NLNgJ1u4bWIRfCsAf71GEo3zTEBBXCm6AO2CGTay2mXJGIgGTMfp7vv1Zx34beIgEmoVcoS9cohRxxYGrNu7S5Pyhdr9Rsd0g7NFxqoxq7Yf+q4dJ4tJUkVoIo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lfZgzP1Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FCkPvbmx";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="SLFXcVyT";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="pEPtb0KI";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Zk6opYEU"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E3A4A22157;
-	Wed, 14 Oct 2026 12:47:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791982031; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vJ5FuPZQSLLcddc8F4+UNpgQoDesEeQ4ARu/7Faqk30=;
-	b=FCkPvbmxrnCXVLHKAEe9d0LZkPAk5oh+SYPUSAbIwGlaYSGZ06mz2hC8dKhxX/3xfYTrvi
-	NM0BHQNrQ9D8Z3GUE9RK768AphO1Dt2johxqaMZhAA2LWtS3MVYpHAl/HO6Yf1I+ioduUz
-	epA9wUUZIYrpr5Bx7v86QUDzJ2DMFBU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791982031;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vJ5FuPZQSLLcddc8F4+UNpgQoDesEeQ4ARu/7Faqk30=;
-	b=SLFXcVyT1/X9fJQiW0xfRSwbsp2SQ4hKzKYmkuBun4OVOIc4yxyPCsUQCNz4KzHZ50rCUd
-	AIRjVpSV4/IyvdBQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=pEPtb0KI;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Zk6opYEU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791982030; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vJ5FuPZQSLLcddc8F4+UNpgQoDesEeQ4ARu/7Faqk30=;
-	b=pEPtb0KIQ55LFhdLlCWDsXexv44Wn3RwwfbqaLDlFGHI5NpW5GSAuk9Jt3qJjSWBNoZKVs
-	c14dR6xJ5M+LnHfyYxLjWWezKxfmsvqOOAfaTTG32MCKxhxMMV3+j7NLR6cPohjcZNKSQD
-	lIxgeU8cIVHIEDHMyCa/NMLijiCJp5A=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791982030;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vJ5FuPZQSLLcddc8F4+UNpgQoDesEeQ4ARu/7Faqk30=;
-	b=Zk6opYEUHCAAlEHOM+ihvqNS5ERLsh/ZdZmd6OUgv+XZ4gIIW+mQKObazh0YQVCCSuUHvA
-	XYGkKhiL+mYItnAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AC6541368E;
-	Wed, 14 Oct 2026 12:47:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id vi5DIc55z2r9DQAAD6G6ig
-	(envelope-from <dwagner@suse.de>); Wed, 14 Oct 2026 12:47:10 +0000
-Date: Wed, 14 Oct 2026 14:47:05 +0200
-From: Daniel Wagner <dwagner@suse.de>
-To: martin.nvme.dev@gmail.com
-Cc: linux-nvme@lists.infradead.org, Keith Busch <kbusch@kernel.org>, 
-	Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
-	Hannes Reinecke <hare@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Daniel Wagner <wagi@kernel.org>
-Subject: Re: [PATCH v2] nvme: make the DH-HMAC-CHAP secret attributes
- readable by root only
-Message-ID: <c26a89df-4d19-43bb-8bb5-631a132ef6e7@flourine.local>
-References: <20261014-nvme-dhchap-secret-mode-v2-1-00f153e9d8de@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lfZgzP1Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A89A61F00893;
+	Wed, 14 Oct 2026 12:47:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791982035;
+	bh=Mj8eaYaIpXG5aOowSDKXmEZblE5fqC4gitnzcNXoRwI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lfZgzP1ZzwxxvqLRWp7aN+tlYKAO9q0U8aeBmnO5DFPSx5AbKmtFTooWNWZopjIpr
+	 +UmAYGtVVqhUl7sQ1/VMHa6QUlPju6VVK8mkCm0XME/iaNCvnS7kQmfqEJjupm7xcT
+	 XbXY89okp9BUPg/GLIOG2lMBO2FedX01FlkOnbahnEfxfVQmUfVriQcS7rkwcCF1id
+	 Zkl6pzOr07ZX0JiV4sOweiiG7u7ISm+bjTNw1v9uDINDYAfyqFdEm98fKvTggBOTEm
+	 LrMCrtO8CDOHq/dSVMvegJ4LKzn+IiBUFUOMUEkwRzA+932qnLxaj5pSpGipH0huTZ
+	 AcIiiiboXFNhg==
+Date: Wed, 14 Oct 2026 14:47:11 +0200
+From: Niklas Cassel <cassel@kernel.org>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Andrea Parri <parri.andrea@gmail.com>, Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Keith Busch <kbusch@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 5/5] nvmet: pci-epf: require SGLs to match the command
+ data length
+Message-ID: <as95z6cPBLnPRgbv@ryzen>
+References: <20261012141239.156408-1-parri.andrea@gmail.com>
+ <20261012141239.156408-6-parri.andrea@gmail.com>
+ <20261013142830.GF14759@lst.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,58 +51,35 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261014-nvme-dhchap-secret-mode-v2-1-00f153e9d8de@gmail.com>
-X-Rspamd-Action: no action
-X-Spam-Score: -3.01
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_TRACE(0.00)[suse.de:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	TAGGED_RCPT(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email,suse.de:dkim]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: E3A4A22157
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+In-Reply-To: <20261013142830.GF14759@lst.de>
 
-On Wed, Oct 14, 2026 at 08:02:57AM -0400, Martin Belanger via B4 Relay wrote:
-> From: Martin Belanger <martin.nvme.dev@gmail.com>
+On Tue, Oct 13, 2026 at 04:28:30PM +0200, Christoph Hellwig wrote:
+> On Mon, Oct 12, 2026 at 04:12:32PM +0200, Andrea Parri wrote:
+> > The PCI endpoint target sends the host every byte a read command's SGL
+> > describes, even when the SGL describes more than the command transfers.
+> > The excess is kmalloc() memory the command never wrote, so the host
+> > receives stale target memory. Any successful read can do this,
+> > including Identify.
+> > 
+> > nvmet_pci_epf_alloc_iod_data_buf() allocates each segment at the length
+> > of its SGL data descriptor, but sets req->transfer_len from
+> > iod->data_len, the length the command implies. Once the command
+> > completes, nvmet_pci_epf_transfer_iod_data() sends every segment in
+> > full. Nothing compares the descriptor lengths with iod->data_len, and
+> > the MDTS check only bounds iod->data_len.
+> > 
+> > Fail the command with Data SGL Length Invalid when the data descriptors
+> > do not add up to iod->data_len, before any segment is allocated. The
+> > tcp and rdma transports take the data length from the SGL itself, so
+> > there most commands already reject a mismatch in
+> > nvmet_check_transfer_len(). PRP lists are built from iod->data_len and
+> > are unaffected.
+> > 
+> > Found by code inspection. Build-tested only (x86_64, W=1): no PCI
+> > endpoint hardware was available to run it.
 > 
-> The dhchap_secret and dhchap_ctrl_secret sysfs attributes have mode
-> 0644. Their show functions return the secret, so any local user can
-> read the DH-HMAC-CHAP secrets of a connected controller.
+> Looks good, although again having this validated on hardware would
+> be really useful.
 > 
-> Define them with DEVICE_ATTR_ADMIN_RW(), which sets mode 0600. The
-> macro takes the show and store functions from the attribute name, so
-> rename them. Writing the attributes was already limited to root and is
-> not changed.
-> 
-> Fixes: f50fff73d620 ("nvme: implement In-Band authentication")
-> Cc: stable@vger.kernel.org
-> Cc: Daniel Wagner <wagi@kernel.org>
-> Assisted-by: LLM
-> Signed-off-by: Martin Belanger <martin.nvme.dev@gmail.com>
 
-Reviewed-by: Daniel Wagner <dwagner@suse.de>
-
+Tested-by: Niklas Cassel <cassel@kernel.org>
