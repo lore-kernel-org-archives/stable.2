@@ -1,107 +1,161 @@
-Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 331BE1D9A66;
-	Wed, 14 Oct 2026 06:02:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD592FD696
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 06:05:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791957771; cv=none; b=SxNSqAowursnQH+gZNLRRlEB0HSso/PwqKl6ubAbOWTdoZG9lkYmFP7Hk1Npwj8jmO3cMqZf7xz6+fxvS4CFg2BJkxNU7aPU2zM4+e+t4g29SDZ1EIbasdz5hhmst1p1nfcZAKYeIJ8QE6gKEHR0V6AP0HbwU1RD9XhKhGhs+C0=
+	t=1791957934; cv=none; b=pSiW/XcUCAp8hFTCdeNQRqxK0llX407TBVCG1eoULpwNf+XW/aAz3Yxq3prEBgkqqzdcVBp4OL6DwDCkjzMQxRjNKyR+/peT3gIBHCrn8gaP1wGJfIWYEAqHHKCW6/h/XyeLlhT4tGw4MloqFbAYzpJNrAawHvWEpe1j1nhX/8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791957771; c=relaxed/simple;
-	bh=apB+CCNmmj5PykOfXdfLni7NehzQcXSALn7GneS2rG8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UdEMIvChlAeqd0iqF9MYQtJRWNybLyyV/gujOI36VU788Q1JlGQuMGn6uMBDgL2nrC0wMnNCFrmBGlvY+NbtfKNt2EVtZHdP1+nbJ+IDkIpBj16KjiRBOun4gTrzeLeBUoAwR1OReSNPWFFjGB4LJrepUI8EwQo0MMbO6H331w8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=reh3EPjm; arc=none smtp.client-ip=115.124.30.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791957934; c=relaxed/simple;
+	bh=0bjJWtnXgkO1xqsj7xvqXgreSl4mdvXzA0YjIJYftOU=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=uZIi8TOPYzHyQ/NnhwQfU9QAXcTI/OlGKae57Yans6q+ZO95KvilOccLKCoA2K2DbCYjbUNfursLChvIEgwidZzxxx4A6fXdBUXLhj2VC6J8MwvDsL3oqdUcL+/YukWAM3H6aGqEIdQ40jBlHkCt5VbxOGe1xCTdRO1QzfWV3zA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1gQ/J4fp; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=QhUNmB61; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1gQ/J4fp; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=QhUNmB61; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="reh3EPjm"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791957765; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=9BIscm2cTTBNlc9P4KV7eUnjnf4F0Y6UQu2TU1+hhSQ=;
-	b=reh3EPjmmP0ATGMx3tdU85PVBPkJA2d9P5dQXJuumoYd0q/MPh+0P7KwswuD3Ik6yrCPdw2zs8sxRDjwrcE7zPbJ7jDZlpb27EWsOSyTxI66EZwrd3P+3sUu4/0D98r8TWy/dreT17pawSvrgaLbMOpYWuIyvHe+8RDo9wS7HKw=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0XCo3AyK_1791957763;
-Received: from 30.74.144.153(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XCo3AyK_1791957763 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 14 Oct 2026 14:02:44 +0800
-Message-ID: <5848db18-9de3-437b-9967-162ced4f8cb9@linux.alibaba.com>
-Date: Wed, 14 Oct 2026 14:02:43 +0800
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1gQ/J4fp";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QhUNmB61";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1gQ/J4fp";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QhUNmB61"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 18A5A21EB1;
+	Wed, 14 Oct 2026 06:05:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791957922; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Pl0reobp6/wGE/7iwNDlh/N7ukMCE6Hco1HZqmAUMfM=;
+	b=1gQ/J4fpQXTPmPP3Nlqq6b9y5s/pReZQE4p+rcTlCnPicboiTFegGBb1vvN/MykNdwtSYF
+	3pAW/gm8FfJ17aDPnO7dSH9EMyWAdQUNqcAqeay12GMNhE9L5CsQ4wzz9gb3/4h0y+6Iaz
+	uiQsXMzV4WUmIHvqOvYcUb6TmgOwmf4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791957922;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Pl0reobp6/wGE/7iwNDlh/N7ukMCE6Hco1HZqmAUMfM=;
+	b=QhUNmB61AkvUIZa24k4bUKM23FFNn/VYEjHTSVik4wQikAaaosSbFsVQvg2SJ/m8RgieaZ
+	DDXiJ8PYyXX68lDw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="1gQ/J4fp";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=QhUNmB61
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791957922; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Pl0reobp6/wGE/7iwNDlh/N7ukMCE6Hco1HZqmAUMfM=;
+	b=1gQ/J4fpQXTPmPP3Nlqq6b9y5s/pReZQE4p+rcTlCnPicboiTFegGBb1vvN/MykNdwtSYF
+	3pAW/gm8FfJ17aDPnO7dSH9EMyWAdQUNqcAqeay12GMNhE9L5CsQ4wzz9gb3/4h0y+6Iaz
+	uiQsXMzV4WUmIHvqOvYcUb6TmgOwmf4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791957922;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Pl0reobp6/wGE/7iwNDlh/N7ukMCE6Hco1HZqmAUMfM=;
+	b=QhUNmB61AkvUIZa24k4bUKM23FFNn/VYEjHTSVik4wQikAaaosSbFsVQvg2SJ/m8RgieaZ
+	DDXiJ8PYyXX68lDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4C5641368E;
+	Wed, 14 Oct 2026 06:05:21 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id KDETJaAbz2pjHQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 14 Oct 2026 06:05:21 +0000
+Date: Wed, 14 Oct 2026 08:05:20 +0200
+Message-ID: <87h5iog6lb.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: =?ISO-8859-1?Q?Iv=E1n?= Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	Kailang Yang <kailang@realtek.com>,
+	Naser Al-Asbahi <nasserqahtan0@gmail.com>,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/realtek: keep headset mic on Acer SSID 0x1640
+In-Reply-To: <20261013204219.9649-1-ivanrwcm25@gmail.com>
+References: <20261013204219.9649-1-ivanrwcm25@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: fix address wraparound when scanning large folio PTEs
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Ying Huang <huang.ying.caritas@gmail.com>,
- Barry Song <baohua@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>,
- Chuanhua Han <hanchuanhua@oppo.com>, Kiryl Shutsemau <kas@kernel.org>,
- Kyle Zeng <kylebot@openai.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 18A5A21EB1
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[suse.com,perex.cz,vger.kernel.org,realtek.com,gmail.com];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim]
+X-Spam-Flag: NO
+X-Spam-Score: -3.51
 
-
-
-On 10/13/26 8:30 PM, David Hildenbrand (Arm) wrote:
-> numa_rebuild_large_mapping() and do_swap_page() can be tricked into
-> generating an address wraparound, crashing the kernel. All that's required
-> is to map a tail page of a large folio close enough to the start/end of
-> the address space to e.g., make
+On Tue, 13 Oct 2026 22:42:19 +0200,
+Iván Ezequiel Rodriguez wrote:
 > 
-> 	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
+> The micmute-LED quirk for the Aspire A315-44P matches PCI SSID
+> 1025:1640 before the Acer ALC256 pin fallback. The Aspire Go 15
+> AG15-42P shares that SSID and leaves nid 0x19 as 0x411111f0, so
+> selecting the LED-only fixup drops the headset-mic pin remap that
+> the fallback would have applied.
 > 
-> to wrap around.
+> Chain ALC2XX_FIXUP_HEADSET_MIC before the GPIO3 micmute LED on that
+> SSID. Leave the Swift SFG16 entry (0x169a) unchanged.
 > 
-> Let's fix it by providing a better helper, folio_pte_scan_range(), that
-> takes care of staying within VMA and page table boundaries while
-> handling possible wraparounds.
+> Tested on Acer Aspire AG15-42P (Callisto_BCU): PCI pick 1025:1640,
+> Headset Mic=0x19, GPIO3 enabled with no physical micmute LED, speaker
+> and capture paths functional.
 > 
-> Reported-by: Kyle Zeng <kylebot@openai.com>
-> Fixes: d2136d749d76 ("mm: support multi-size THP numa balancing")
-> Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
+> Fixes: d830631a128b ("ALSA: hda/realtek: Add micmute LED quirk for Acer Aspire A315-44P")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
+> Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
 
-Thanks for the fix.
+Applied now to for-next branch (with a correction of
+ALC256_FIXUP_ACER_HEADSET_MICMUTE_LED enum position, so that it can be
+cleanly applied to stable trees).
 
->   mm/memory.c | 43 +++++++++++++++++++++++++++++--------------
->   1 file changed, 29 insertions(+), 14 deletions(-)
-> 
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 1f5d5f7d39cd2..a3823010aa981 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -4933,6 +4933,27 @@ static void check_swap_exclusive(struct folio *folio, swp_entry_t entry,
->   	} while (--nr_pages);
->   }
->   
-> +/*
-> + * Get the address range in which a folio might be mapped, assuming its pages
-> + * are mapped consecutively and the folio page at the given idx is mapped at
-> + * the given address.
-> + */
-> +static void folio_pte_scan_range(const struct folio *folio,
-> +		const struct vm_area_struct *vma, unsigned long addr,
-> +		unsigned long idx, unsigned long *start, unsigned long *end)
-> +{
-> +	/* Stay within the page table and VMA boundaries. */
-> +	const unsigned long pmd_start = addr & PMD_MASK;
-> +	const unsigned long pmd_end = pmd_start + PMD_SIZE;
-> +	const unsigned long lower = max(pmd_start, vma->vm_start);
-> +	const unsigned long upper = min(pmd_end - 1, vma->vm_end - 1) + 1;
 
-I also agree with Barry and Lorenzo's suggestion to use the more 
-readable pmd_addr_end() helper. With Lorenzo's comments addressed, feel 
-free to add:
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+thanks,
+
+Takashi
