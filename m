@@ -1,185 +1,181 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED8752CCFE;
-	Wed, 14 Oct 2026 13:49:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7D04B827E;
+	Wed, 14 Oct 2026 13:50:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791985755; cv=none; b=S4Mfq88MXvsOIwqoSLdFAjyfC9JKSsRd1hVXsY1R90aYbDYbs77VG5DL/G66ge0swKQsAxu5yv0tteauN9KGwvMYtHfuSlTQ/0qIeU5v5SpUkc9xPOGu6quhztOR2ur9L9wv3abfhdfJfkDqqmBfJZycotTbIS9hJqk9sRn/Mw8=
+	t=1791985846; cv=none; b=i2Didl0d9cUY1jEa6KufjHvmuwizDuoRwxZDFoQzWDKTuycKgnA+QB0Y6ndya5YtU9pHY8HGEA4grBWDLLVkyHJO+heaH+79jUzRZYezc5qY5/uUeluqhbEbMuF14wNkvZpfyDWmZzIF2k4PAapEzBa2o4gplbVWED5Su3/WWbg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791985755; c=relaxed/simple;
-	bh=ATEv/LgDAtufUjFNthhjb/yPJrgbH8CUVruzjsRTs8c=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=G1wqUN+HbnozRwrVg4QBsVfmYQMIKm5w6bYAM+n7EdAVmmg8sa6gVlugWcohRrMUqec2JlSuoEz+e+pUgRbqkke94WIk7lb7BdIVETA4bRzjcESO2wy6TFDG/leWc3+9NO2M4OvLEIU+am8pWUcFKt0WJAwVTImV9xgd0HxdpzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PPzlrtN5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791985846; c=relaxed/simple;
+	bh=UCorDRWwokv2HcjQWlgOOSNQnyvzlvNQqkL1cdIrasI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=J1upIQdOQO8bTyfUNx/rjqG3cD378rg9+QdrqCgy0+5zlRWdMgoZlJJO7qkMFHts5rN50hpHqR1mQik/U44KCdYPAJ3hVU7ahxVnUsc9YYtSspcHiJNdjcgvsRFVlizA+MpZPn6nqUfjnPSp0YtUryL9rh+7fGIsB8RUnlh+haY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X/omEvn8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PPzlrtN5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6631F00A2F;
-	Wed, 14 Oct 2026 13:49:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X/omEvn8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 299851F00A2F;
+	Wed, 14 Oct 2026 13:50:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791985753;
-	bh=VlLY8lFnuENoZRIPsEzQ8Q4quedoDle8h5IdEqEOpQ8=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=PPzlrtN5VSLvNoSdjJv8S6IWz9JcAweG/P0+UvtQ1sFu3nTPMRHLcXiHWN6/+oOnh
-	 b6OtZ7RNPpBkN6oXyFeYTlWLq8AVTzH20JzehD7cT8uw2qqGkQVdsEU2Z2f5T7zxkC
-	 vTf251qwCUxZmP+wHqVHv04VZChr+GLxPVOZltV1asZdwZhTXbPgUqJMB2nd2dAvM+
-	 aI/JIprBTd4sXSeuAB2rchOiIBEH2YxSdtlKkNWOhmY+ePYdJLniCVRNHZRbaaplMG
-	 +PBAufsc9gt/VUYrXHHRlIK1CL1g+vCrrpqELVc8ry9r2hSzKlV6OkbaT3ClmIlA7v
-	 tafO21tHnIPig==
-Message-ID: <807e8d2e-e7c1-4491-a3e1-21d84cc58946@kernel.org>
-Date: Wed, 14 Oct 2026 15:49:05 +0200
+	s=k20260515; t=1791985844;
+	bh=5lqMThNI2zKyq2SiOS+nnZVc3EiP5RsR12/J79nF/hc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=X/omEvn8pz198htHBnAj2d9i0riIPi8gHqfPCUWadZdumS3uBO+DTxjQ3aTAHnzmQ
+	 2s2vgxQSJWL9V5GiNEXFgsLcIiW1gATEhKZeJezQXnuyF0hKzKrqGvuJzbToM/hp66
+	 UCltM9kDt3VZGQ4YMKFSlp/sxcicEpB8qsF59HyNBCAiBJzPZucfixpEaItpXLhKIb
+	 vdL1kPAuWhL7VFhlmGFm8jOAWvHp/Sr8sQhsYjkkaYf+Biq9n8BZjT5jWooSG9CIAb
+	 Q1SxQDyaOfCZyGpS6U+16DElVXBmaCpLCipdCb9RyCUa4YXvOOoTshzsZr+XauBF7D
+	 0iAT+dKEIczWQ==
+Date: Wed, 14 Oct 2026 15:50:40 +0200
+From: Benjamin Tissoires <bentiss@kernel.org>
+To: Jinmo Yang <jinmo44.yang@gmail.com>
+Cc: Jiri Kosina <jikos@kernel.org>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, David Barksdale <dbarksdale@uplogix.com>, 
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] HID: cp2112: don't dereference hdev->hidraw
+ unconditionally
+Message-ID: <as-G9Lh5xFwp_oYn@beelink>
+References: <20261014051326.3784498-4-dmitry.torokhov@gmail.com>
+ <20261014103849.1837692-1-jinmo44.yang@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: fix address wraparound when scanning large folio PTEs
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Ying Huang <huang.ying.caritas@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <baohua@kernel.org>,
- Ryan Roberts <ryan.roberts@arm.com>, Chuanhua Han <hanchuanhua@oppo.com>,
- Kiryl Shutsemau <kas@kernel.org>, Kyle Zeng <kylebot@openai.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
- <as4kvHe9IFZH5qrC@gremlin> <9add8400-66c1-47e9-b5af-7a4081ebf3c4@kernel.org>
- <as-BZibPscw4cxsD@gremlin> <06930044-4bcb-4478-8a6f-2dd3cf6d290e@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <06930044-4bcb-4478-8a6f-2dd3cf6d290e@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014103849.1837692-1-jinmo44.yang@gmail.com>
 
-On 10/14/26 15:45, David Hildenbrand (Arm) wrote:
-> On 10/14/26 15:27, Lorenzo Stoakes (ARM) wrote:
->> On Wed, Oct 14, 2026 at 10:12:06AM +0200, David Hildenbrand (Arm) wrote:
->>
->> Since I'm convinced the logic itself is correct:
->>
->> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->>
->> This cycle is brutal enough not to hold up fixes :>)
->>
->>
->>>
->>> I had that, but decided "not worth it for an internal helper".
->>>
->>> Is anything here really that confusing to understand in mm/memory.c context? I
->>> highly doubt it.
->>
->> I mean I found it pretty confusing :)
->>
->> But this is a nice to have it's not a big deal.
->>
->>>
->>> Ugly.
->>
->> Yup, fair enough.
->>
->>>
->>>
->>> I can just call it "folio_pte_range()". Slightly similar (but different) to
->>> "folio_pte_batch()"
->>
->> OK that works.
-> 
-> Ok, let's do that.
-> 
->>>
->>> Yes. It's fairly common, though, to handle clamping of exclusive ends that way.
->>
->> Right, it took me a while to figure this out though.
->>
->> It involves an implicit assumption in there too, that _one_ of these values is
->> known not to overflow.
->>
->>>
->>> As replied elsewhere, I had that, but decided to open-code as pmd_addr_end() has
->>> very weird semantics with folded page tables, where we just don't clamp at all.
->>
->> Hmm how so?
->>
->> The logic seems, at a glance, equivalent?
-> 
-> It's the following thing that adds confusion:
-> 
-> include/asm-generic/pgtable-nopmd.h:#define pmd_addr_end(addr, end)
->        (end)
-> 
-> I think we have to assume here that with NOPMD we will never end up in this code
-> because large folios will not apply (each PMD table has exactly one entry as of
-> today, so we cannot map large folios .... I think).
-> 
-> I can try condensing that in a comment and cross my fingers that that is the
-> case. I tried that now. and codex review already tells me:
-> 
->   • [P1] Folded PMDs can reach this helper — memory.c:4948 (mm/memory.c:4948).
-> The comment’s assumption is false: arm64 with 64 KiB pages and 42-bit VA uses
-> folded PMDs and supports THP and
->     NUMA balancing. Here, pmd_addr_end() returns vma->vm_end without clamping. A
-> large folio remapped across a PTE-table boundary can therefore make
-> numa_rebuild_large_mapping() walk beyond
->     the mapped PTE table. The previous code explicitly limited this to pt_start
-> + PMD_SIZE. Cap the forward distance at PMD_SIZE - (addr & ~PMD_MASK) as well as
-> the VMA and folio limits.
-> 
-> Let me see if there is any truth to that ...
 
-Ok, the PMD table as a single entry, but the PTE table obviously has 2k entries :)
+Hi Jinmo,
 
-So large folios are possible and pmd_addr_end() would be wrong in this context.
+On Oct 14 2026, Jinmo Yang wrote:
+> cp2112_probe() builds the I2C adapter name from the hidraw minor:
+> 
+> 	snprintf(dev->adap.name, sizeof(dev->adap.name),
+> 		 "CP2112 SMBus Bridge on hidraw%d",
+> 		 ((struct hidraw *)hdev->hidraw)->minor);
+> 
+> hdev->hidraw is set only when hidraw_connect() succeeds; on failure it
+> stays NULL and reading ->minor faults.  hidraw_connect() fails when all
+> HIDRAW_MAX_DEVICES minors are in use, or on allocation failure.
+> 
+> hid_hw_start() does not report that.  hid_connect() has
+> 
+> 	if ((connect_mask & HID_CONNECT_HIDRAW) && !hidraw_connect(hdev))
+> 		hdev->claimed |= HID_CLAIMED_HIDRAW;
+> 	...
+> 	if (!hdev->claimed && !hdev->driver->raw_event) {
+> 		hid_err(hdev, "device has no listeners, quitting\n");
+> 		return -ENODEV;
+> 	}
+> 
+> When hidraw_connect() fails, claimed stays 0 -- but that bail-out also
+> requires the driver to have no ->raw_event.  cp2112 sets
+> .raw_event = cp2112_raw_event, so the -ENODEV path is skipped,
+> hid_connect() returns 0, cp2112_probe() passes its "if (ret)" check, and
+> the dereference faults.
+> 
+> The minor is only used for the adapter name, so fall back to the device
+> name instead of failing the probe.
+> 
+> Found by coverage-guided fuzzing of the HID subsystem through /dev/uhid
+> (syzkaller with extended descriptions), arm64 with KASAN:
+> 
+> Unable to handle kernel paging request at virtual address dfff800000000000
+> KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+> pc : cp2112_probe+0x794/0xef0 drivers/hid/hid-cp2112.c:1333
+> Call trace:
+>  cp2112_probe
+>  __hid_device_probe
+>  hid_device_probe
+>  really_probe
+>  device_add
+>  hid_add_device
+>  uhid_device_add_worker
+>  process_one_work
+> 
+> hid-led.c and hid-u2fzero.c read hdev->hidraw the same way, but neither
+> sets ->raw_event, so for them hid_connect() does return -ENODEV and their
+> error checks catch it.  cp2112 is the only one of the three where the
+> bail-out is defeated.
+> 
+> Fixes: 42cb6b35b9e6 ("HID: cp2112: use proper hidraw name with minor number")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jinmo Yang <jinmo44.yang@gmail.com>
+> ---
+> This is the minimal, backportable fix.  Dmitry's series
+> 
+>   [PATCH 0/5] HID: hidraw: Encapsulate struct hidraw and make hidraw.h private
+>   https://lore.kernel.org/linux-input/20261014051326.3784498-1-dmitry.torokhov@gmail.com/
+> 
+> solves the same thing more thoroughly in mainline: 2/5 adds
+> hidraw_instance(), which performs this check in one place, 3/5 converts
+> cp2112 (and hid-led and hid-u2fzero) to it, and 5/5 makes the raw cast
+> impossible by moving hidraw.h out of include/linux.  That is the better
+> end state and I am not proposing an alternative to it.
 
-pmd_addr_end() really only works in page table walkers ...
+Well, you are kind of.
 
--- 
+> 
+> I am sending this separately only because that series moves headers and
+> touches include/linux/hid.h, so it is not a stable candidate, while the
+> dereference itself has been reachable since v4.12.  If you would rather
+> tag 2/5 and 3/5 for stable instead, please drop this patch -- that works
+> equally well for me and I will not resend it.
+
+Rule of thumbs: upstream shouldn't care about backports to LTS. And
+especially in that case: this patch extracts one element from Dmitry's
+series, and creates a half backed patch. What about the 3 other drivers
+Dmitry fixed?
+
+So yes, there is a bug, it dates back to 4.12 if you say so, but stable
+is not my problem FWIW. Given the amount of autoselected patches stable
+takes, that's their problem to backport the series, not mine.
+
+As a contributor, you are free to send a [STABLE] series if you care,
+but we won't take a lesser quality patch because it's easier to backport.
+
+> 
+> Either way the oops is real and unprivileged; the trace above is from
+> /dev/uhid with no special capabilities.  I can test whichever way you go.
+
+Well, unprivileged is wrong here: /dev/uhid should only be root readable
+and writeable. If you have a distribution that does make it user
+accessible, it's a security hole, and that's their issue. I know some
+third party packages are changing the permissions behind the back of the
+user, and that's their problem, not our.
+
 Cheers,
+Benjamin
 
-David
+> 
+>  drivers/hid/hid-cp2112.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/hid/hid-cp2112.c b/drivers/hid/hid-cp2112.c
+> index 04379db93571..8883023d432d 100644
+> --- a/drivers/hid/hid-cp2112.c
+> +++ b/drivers/hid/hid-cp2112.c
+> @@ -1330,9 +1330,13 @@ static int cp2112_probe(struct hid_device *hdev, const struct hid_device_id *id)
+>  	dev->adap.algo		= &smbus_algorithm;
+>  	dev->adap.algo_data	= dev;
+>  	dev->adap.dev.parent	= &hdev->dev;
+> -	snprintf(dev->adap.name, sizeof(dev->adap.name),
+> -		 "CP2112 SMBus Bridge on hidraw%d",
+> -		 ((struct hidraw *)hdev->hidraw)->minor);
+> +	if (hdev->claimed & HID_CLAIMED_HIDRAW)
+> +		snprintf(dev->adap.name, sizeof(dev->adap.name),
+> +			 "CP2112 SMBus Bridge on hidraw%d",
+> +			 ((struct hidraw *)hdev->hidraw)->minor);
+> +	else
+> +		snprintf(dev->adap.name, sizeof(dev->adap.name),
+> +			 "CP2112 SMBus Bridge on %s", dev_name(&hdev->dev));
+>  	dev->hwversion = buf[2];
+>  	init_waitqueue_head(&dev->wait);
+>  
+> -- 
+> 2.43.0
+> 
+> 
