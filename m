@@ -1,272 +1,605 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7453251C32C
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 13:41:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD99D4E36D4;
+	Wed, 14 Oct 2026 13:42:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791985286; cv=none; b=Ht0iA3Nu2tOE7f/35FPIYbW76cpgOAtbmZVaIWiAzaH6HJIZDTjUuW3RMKUMcF+JzUuAMv3FUkpHKfwZE8nzL3K+ya8Rnjem6xAP14AISusJyYsgxa1d6prT7EfCa5ZPFuj8mcKjW9hf2Ag30mrJ859B2rikRFDDayww0Vj2MdU=
+	t=1791985324; cv=none; b=DZbAAZI1hMwRKFvkpSgZ6QpOuPH4DZ8co0FR8q3m7izP/b4TYrPqotpPcb5qfmQ7pwkwt/jf0IdcTsQlq2Hc3EDkGtYWTbjQQtQ+qbX8xztevutmixxoSBL6wLtkeZ6AvXFVnu0WOrRnP5wjipE4R0DX8+CA98qM9PlUNb5/IVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791985286; c=relaxed/simple;
-	bh=I3g5eh8yikhMU1X7LWPg0jgB07gV60z9xSPYrA25Hn4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SFkkQWpKHkJQbr4SRZKSyKdUQ13hiURn2A9zIjUqC7TGru5JGnphXj3eRUzOUt0nDmkDWosYqZFsIl3Xdy/pQewi0/4ArVJ61hCCB2CuyMHLiXwojtPrrNN/4VB7cGKbJaM3d9afhsThwMkpfxgXv5C0ZNHOCOzBLhn1qFKV8BY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=rJDTm/m1; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791985324; c=relaxed/simple;
+	bh=bGE3m2Vk4ssAbH2dDglQRQtFIKk9iZ+4bQVahhhHqrc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GOosU3C2eY4LgiZi81Jd7j4fh+6k9nKSzY6hWjEvr8dYhhfulGZOlbpuzpAH77O5FPo8Lo4aIuzElLsoBPcSdEse2dDCc8Lgo/KYxx6PZfBGVZjW3g0OCKLHkZqBZp73zSqk2N8LNenPCjs34vrritRyX39HnPhCtXEFjU68B1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=PjuHRlI9; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Y3TBkuhA; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=PjuHRlI9; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Y3TBkuhA; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="rJDTm/m1"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ac397836fbso1516285a91.1
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 06:41:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791985281; x=1792590081; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LYBOQP1TdKSQDWr6VBNXaizNTJy6YFMyo0MXiGEf2A0=;
-        b=rJDTm/m1AzjGVuWl992L3FBzSH2qEUtgI0EZC1XoEM+6ZfZWFy//5adWFUS56ELT2s
-         j13mLRqkaYLRKCV/7yrmBF0Z0D3iqw3kD3fpXMbx4ix5Z8+XyUeceTU450yB+h/vsKk/
-         jUezAEZtzVEYdXa/TsACUrpxB2yw0yb/+S3wLM6RmOolxTjy8eNAse4Ikemtxjf9TTJo
-         RSINJd66CK86EtGh9hQ0kjH8i4sRVtZKt6+Ai5VD39Ymo7Lp6KiCi9pl5LuxOMQowxke
-         9eVNFujd+CVEUYLUkbOc6k6tUfdRMBlirq6+aeJlLLz/WIbIUxMleOuJWuAYl6PodlWC
-         PzYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791985281; x=1792590081;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LYBOQP1TdKSQDWr6VBNXaizNTJy6YFMyo0MXiGEf2A0=;
-        b=IZ7F8LpnvzaOzuhQ9nvrsuvxrwRJTNAfzsPXjrhTglye6hWW/U3XNMtSAa1TFilx2m
-         5lgXYNsRSsXgUPtWIRXtwFFt2MhEQCIA9rtWDSHWMb0kRSWVsXP9E2Ul5iZqT80JrBKp
-         zhtMf3nInkD/fIl4MD12mJFoK7soKa+BsAWzYhd9ccU/dMZaxVJ/+Xx3sVL8mG0RiWqP
-         xMlcGLPt3dRtdwrUCtqOX7vO8Af9CtJD3nQnGb/dYyNV2yD7/E42hPftMaE69BZbMQPA
-         s9tK/iEoRVkxd4p+9K/J0J5Hh8Bqa2QN/fmtqH3ncCIq5/RMsja4l5g2UVrDFr2hsYQN
-         cUyg==
-X-Forwarded-Encrypted: i=1; AKwUvBwY5Flrnu1Q6fe0tdbHU7zk8GvVEku1tVw7zICC9nJk7M1OoVubg6oq071fglpaP/6A27Btb1w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJxqwmaW7S0515QtLnPcivV/rgO53Rl9NBXLS2ZoZNb/qsleRQ+
-	fmlf2CrNLXrHZrXUE/ARJPk9+63Cq7JtmKvietuispja5cFre0+hjsDadSM1PO+fpko=
-X-Gm-Gg: AYBFou0pFmLNoZqR2hQzc/vV/TEv2Wkjcu3TWB/xWq3aNW5FML422kfcSdoYiR52zgp
-	po9P/guiGEYy8JIWv97qW3bZlTXOp+yOjvgEZSFXVaXyoXs0QyIowJWd6H6ebOdAowbv5GFtz+G
-	VJ5MwMKwOsejXXhTORtmyOzGe1VDY758zGL8ZaBb06iua3QsZzw+PyT7ir5+vYglQlb2Svmrku2
-	6enwlO+V6j1Q0bnJ8gFuu79f0HsSMbNgGW5FbB91VX/MTgOXS8TjsRinJc9OTu8vbmiM8oJBLY6
-	Qa0IUuO2KLaE4O2TcvXlkFnDHHLTfliYjh6txZ9IJMLfFWOhWZWPLwEwKycSjctYl3AeTdwRwCF
-	L89Gsn6CuV+xSs/B7pYfO9h7iM4ROvO9ErQZlaH9gKB2OlmqwWSJGcUN2E14VGCGXbGvWNjJnjL
-	oX/FBtvzQfsXeC7EJtcd14ImvcNHieBjsSqtNy5l/dz9FROa3hHmLfvhHjwvYorL6Y42fyqPc1v
-	qiWLz/iPB0tOCaVIXAU
-X-Received: by 2002:a17:90b:5444:b0:3a4:b74a:795c with SMTP id 98e67ed59e1d1-3ab3a60cec9mr12995839a91.16.1791985281374;
-        Wed, 14 Oct 2026 06:41:21 -0700 (PDT)
-Received: from localhost.localdomain ([2406:5900:1044:110c:1c49:61ee:8c8:3f4c])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f27d573sm4952571a91.11.2026.10.14.06.41.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 06:41:21 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: "Martin K . Petersen" <mkp@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v4] scsi: mvumi: reject handshake sizes that overflow the list allocations
-Date: Wed, 14 Oct 2026 22:41:04 +0900
-Message-ID: <20261014134104.3528958-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="PjuHRlI9";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Y3TBkuhA";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="PjuHRlI9";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Y3TBkuhA"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id BE9C91F7D0;
+	Wed, 14 Oct 2026 13:41:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791985318; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=f19/QIY9j/MqIl5EnsNW1d2MiP1n9Lf+IObDaDAeoKQ=;
+	b=PjuHRlI9F0AJm72pskskb41wJWSPYCEy7gWDuTwW3J7X8wO3xkl4NVMID2ebQf3hAZ4Vk8
+	X7t8yba4tdWBFTvAZQF00kQ38QQSQ+LdJS4XnMK05SvAFCyGZ2j0hoIaVoBn3FWQJnYuWM
+	vie9APGBEv3mnEal2eITC/ELWhlH17o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791985318;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=f19/QIY9j/MqIl5EnsNW1d2MiP1n9Lf+IObDaDAeoKQ=;
+	b=Y3TBkuhAy97wGLcIuOX6CLGs5KytaeuYwMUwzFb32xk3t/cHA5r8RyE1ukAl9jZGSK2b/h
+	E1Wm2/NBNJCxYwBQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1791985318; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=f19/QIY9j/MqIl5EnsNW1d2MiP1n9Lf+IObDaDAeoKQ=;
+	b=PjuHRlI9F0AJm72pskskb41wJWSPYCEy7gWDuTwW3J7X8wO3xkl4NVMID2ebQf3hAZ4Vk8
+	X7t8yba4tdWBFTvAZQF00kQ38QQSQ+LdJS4XnMK05SvAFCyGZ2j0hoIaVoBn3FWQJnYuWM
+	vie9APGBEv3mnEal2eITC/ELWhlH17o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1791985318;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=f19/QIY9j/MqIl5EnsNW1d2MiP1n9Lf+IObDaDAeoKQ=;
+	b=Y3TBkuhAy97wGLcIuOX6CLGs5KytaeuYwMUwzFb32xk3t/cHA5r8RyE1ukAl9jZGSK2b/h
+	E1Wm2/NBNJCxYwBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 85A4B133F1;
+	Wed, 14 Oct 2026 13:41:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id l0N+E6aGz2pkSwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 14 Oct 2026 13:41:58 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 3E43AA140F; Wed, 14 Oct 2026 15:41:57 +0200 (CEST)
+Date: Wed, 14 Oct 2026 15:41:57 +0200
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+	Al Viro <viro@zeniv.linux.org.uk>, ecryptfs@vger.kernel.org, linux-ext4@vger.kernel.org, 
+	jfs-discussion@lists.sourceforge.net, linux-nilfs@vger.kernel.org, exfat@lists.linux.dev, 
+	linux-fsdevel@vger.kernel.org, ntfs@lists.linux.dev, ocfs2-devel@lists.linux.dev, 
+	linux-btrfs@vger.kernel.org, gfs2@lists.linux.dev, linux-efi@vger.kernel.org, 
+	linux-mtd@lists.infradead.org, linux-xfs@vger.kernel.org, stable@vger.kernel.org, 
+	Karl Mehltretter <kmehltretter@gmail.com>
+Subject: Re: [PATCH RFC 00/28] fs: don't set SB_RDONLY after filesystem errors
+Message-ID: <5hhsm5lltulo3u33gvaouhnmnjbzk3relgqv5ke52bmf76hchj@qbaok3ecv37c>
+References: <20261012-work-fs-sb_rdonly-v1-0-60743a3dc326@kernel.org>
+ <my2k7257m265fp5ad77n5hfndl23i56gsog3jwnsyocp3yxbnj@aphfqdiej2hs>
+ <20261013-forsten-ammoniak-geknackt-fefec366cc97@brauner>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013-forsten-ammoniak-geknackt-fefec366cc97@brauner>
+X-Spam-Flag: NO
+X-Spam-Score: -3.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[19];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_CC(0.00)[suse.cz,suse.com,zeniv.linux.org.uk,vger.kernel.org,lists.sourceforge.net,lists.linux.dev,lists.infradead.org,gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.com:email]
 
-mvumi_hs_process_page() takes max_io, the two command entry sizes and the
-list depth from the firmware handshake page.  The entry sizes are u8 fields
-used as shift counts, and 1 is an int, so a count of 29 or more makes the
-<< 2 applied to the shift overflow an int; a count of 32 or more is
-undefined outright.  max_io is a u16, and the sizes derived from the shifts
-are multiplied by it in mvumi_init_data() to size three unsigned int
-allocations, so a large entry size wraps the product and the loops that
-follow then walk and write past the short allocation.  The list depth is
-used as a shift count too, but only when the firmware sets
-HS_CAPABILITY_NEW_PAGE_IO_DEPTH_DEF; a count of 32 or more is undefined
-there as well.  The depth also sets how many entries the inbound and
-outbound rings hold, and the per-command slot index wraps on that count
-while the rings are allocated for max_io entries, so a depth yielding more
-entries than max_io -- or none -- walks the index past them.
-max_devices_support sizes the target_map bitmap in the same allocation.  A
-host reset runs the handshake again, but mvumi_init_data() returns early
-once MVUMI_FW_ALLOC is set, so the buffers keep the sizes they were
-allocated with while the newly reported values drive the indexing:
-mvumi_flush_cache() then reads target_map past its end and
-mvumi_sdev_configure() sets a bit past it.  The handshake is retried as
-well, because mvumi_handshake_event() discards the error, so a page that
-was already rejected can be presented again.
+On Tue 13-10-26 21:39:05, Christian Brauner wrote:
+> > I'm in favor of this. Just after checking couple of filesystem changes -
+> > won't we be better off by using a generic flag in super_block for this so
+> > that VFS can check for it? Then each filesystem won't have to implement
+> > its own wrapper for simple_fsync(), quota operations, and whatever other
+> > generic operations that need to bail on shutdown filesystem...
+> 
+> Do you mean something like?:
+> 
+> From 28c97f2142e255eb835d26deb97b00afccfb7c4a Mon Sep 17 00:00:00 2001
+> From: Christian Brauner <brauner@kernel.org>
+> Date: Tue, 13 Oct 2026 21:15:36 +0200
+> Subject: [PATCH] fs: add a generic emergency read-only state
+> 
+> The filesystems that stopped setting SB_RDONLY after an error refuse
+> modifications themselves now. Each of them grew the same checks in
+> ->open, ->setattr, ->fsync, ->write_inode, the directory operations, the
+> quota operations and ->reconfigure. Jan suggested a generic flag so the
+> VFS can do that once (cf. [1]).
+> 
+> So add SB_STATE_EMERGENCY_RO in a new sb->s_state word. It is only ever
+> set with set_bit() and never cleared so it can be tested anywhere
+> without any ordering against the setter. A filesystem calls
+> sb_set_emergency_ro() where it used to set SB_RDONLY. SB_RDONLY itself
+> stays untouched so freeze_super() and thaw_super() keep seeing a
+> consistent superblock.
+> 
+> The VFS then checks it wherever sb_rdonly() gates a write:
+> 
+> - __mnt_is_readonly() so mnt_want_write(), opening files for writing,
+>   access(W_OK), nfsd and overlayfs see a read-only superblock
+> - sb_permission() for vfs_create(), vfs_unlink() and friends
+> - notify_change(), rw_verify_area(), vfs_fallocate(), vfs_fsync_range()
+>   and do_page_mkwrite() for files that were opened before the error
+> - reconfigure_super() refuses going read-write
+> - sync_filesystem(), sync(2) and write_inode() don't write anymore
+> - the dquot code doesn't write the quota files anymore and quotactl(2)
+>   refuses to change anything
+> - "emergency_ro" is shown in the mount options, /proc/mounts shows the
+>   superblock as "ro" and statfs() reports ST_RDONLY like they did when
+>   SB_RDONLY was set
+> 
+> What reaches the filesystem without passing through the VFS it still has
+> to refuse itself. That's its allocators, its journal, its own writeback
+> and the deletion of unlinked inodes.
+> 
+> [1]: https://lore.kernel.org/r/my2k7257m265fp5ad77n5hfndl23i56gsog3jwnsyocp3yxbnj@aphfqdiej2hs
+> 
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Reject an entry size above 29, which keeps 1U << n and the shift that
-follows it inside an unsigned int.  Then compute the worst-case allocation
-size in u64 at the top of mvumi_init_data() and reject it if it does not
-fit an unsigned int.  That total bounds all three allocations: the inbound
-list total, the outbound data pool and the tag arrays, whose sizes are the
-same products plus smaller terms.  Reject a list depth of 32 or more on the
-shifted path so the shift stays defined, and reject a resulting entry count
-that is zero or above max_io so the slot index cannot walk past the rings.
-The shifts also use 1U now so that a legal count cannot overflow an int.
-Take the page's values into locals and run every check on those.  Once
-MVUMI_FW_ALLOC is set the buffers already exist, so only check that no
-reported size, max_devices_support included, is larger than the one its
-buffer was allocated for, and leave the size fields alone: they already
-hold the sizes those buffers have.  Only the first handshake, whose values
-size the allocations, assigns them.
+Yes, this looks like what I wanted! Thanks! Feel free to add:
 
-No realistic controller is rejected: a controller reporting 4096 commands
-with 64 KiB entries and a depth of 12 needs 513 MiB and passes unchanged.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Fixes: f0c568a478f0 ("[SCSI] mvumi: Add Marvell UMI driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
-v4:
-- a reset does not reallocate, so validate the reported sizes against the
-  current ones and leave the size fields unchanged; only the first handshake
-  assigns them.  This also means a page the driver has already rejected
-  cannot be presented again to get past the check, which the retry in
-  mvumi_handshake_event() allows (Sashiko).
-- include max_devices_support in that check; it sizes target_map, which
-  mvumi_flush_cache() reads and mvumi_sdev_configure() writes (Sashiko).
+								Honza
 
-v3:
-- reject a reset handshake whose sizes exceed the existing allocation,
-  which is not reallocated on reset (Sashiko).
-
-v2:
-- compute the allocation total in u64 so the check also holds on 32-bit
-  (Sashiko).
-- reject a handshake list depth whose entry count exceeds max_io, which
-  would walk the per-command ring past its allocation (Sashiko).
-
- drivers/scsi/mvumi.c | 87 ++++++++++++++++++++++++++++++++++++++------
- 1 file changed, 75 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/scsi/mvumi.c b/drivers/scsi/mvumi.c
-index e70d336b4ab39..4fc0cf819c271 100644
---- a/drivers/scsi/mvumi.c
-+++ b/drivers/scsi/mvumi.c
-@@ -912,10 +912,23 @@ static int mvumi_init_data(struct mvumi_hba *mhba)
- 	unsigned int tmp_size, offset, i;
- 	void *virmem, *v;
- 	dma_addr_t p;
-+	u64 total;
- 
- 	if (mhba->fw_flag & MVUMI_FW_ALLOC)
- 		return 0;
- 
-+	/* These are firmware-supplied and size the allocations below. */
-+	total = (u64)mhba->ib_max_size * mhba->max_io +
-+		(u64)mhba->ob_max_size * mhba->max_io +
-+		sizeof(struct mvumi_dyn_list_entry) * (u64)mhba->max_io +
-+		160;
-+	if (total > UINT_MAX) {
-+		dev_err(&mhba->pdev->dev,
-+			"handshake sizes too large: io %u, in %u, out %u\n",
-+			mhba->max_io, mhba->ib_max_size, mhba->ob_max_size);
-+		return -1;
-+	}
-+
- 	tmp_size = mhba->ib_max_size * mhba->max_io;
- 	if (mhba->hba_capability & HS_CAPABILITY_SUPPORT_DYN_SRC)
- 		tmp_size += sizeof(struct mvumi_dyn_list_entry) * mhba->max_io;
-@@ -1048,30 +1061,80 @@ static int mvumi_hs_process_page(struct mvumi_hba *mhba,
- 	}
- 
- 	switch (hs_header->page_code) {
--	case HS_PAGE_FIRM_CAP:
-+	case HS_PAGE_FIRM_CAP: {
-+		unsigned int new_max_io, new_ib_max_size, new_ob_max_size;
-+		unsigned int new_list_num_io;
-+		unsigned short new_max_target_id, new_capability;
-+
- 		hs_page1 = (struct mvumi_hs_page1 *) hs_header;
- 
--		mhba->max_io = hs_page1->max_io_support;
--		mhba->list_num_io = hs_page1->cl_inout_list_depth;
--		mhba->max_transfer_size = hs_page1->max_transfer_size;
--		mhba->max_target_id = hs_page1->max_devices_support;
--		mhba->hba_capability = hs_page1->capability;
--		mhba->ib_max_size_setting = hs_page1->cl_in_max_entry_size;
--		mhba->ib_max_size = (1 << hs_page1->cl_in_max_entry_size) << 2;
-+		/* Firmware-supplied shift counts: (1U << n) << 2 must fit. */
-+		if (hs_page1->cl_in_max_entry_size > 29 ||
-+		    hs_page1->cl_out_max_entry_size > 29) {
-+			dev_err(&mhba->pdev->dev,
-+				"invalid handshake entry size\n");
-+			return -1;
-+		}
- 
--		mhba->ob_max_size_setting = hs_page1->cl_out_max_entry_size;
--		mhba->ob_max_size = (1 << hs_page1->cl_out_max_entry_size) << 2;
-+		new_max_io = hs_page1->max_io_support;
-+		new_ib_max_size = (1U << hs_page1->cl_in_max_entry_size) << 2;
-+		new_ob_max_size = (1U << hs_page1->cl_out_max_entry_size) << 2;
-+		new_max_target_id = hs_page1->max_devices_support;
-+		new_capability = hs_page1->capability;
-+
-+		new_list_num_io = hs_page1->cl_inout_list_depth;
-+		if (new_capability & HS_CAPABILITY_NEW_PAGE_IO_DEPTH_DEF) {
-+			if (hs_page1->cl_inout_list_depth >= 32) {
-+				dev_err(&mhba->pdev->dev,
-+					"invalid handshake list depth\n");
-+				return -1;
-+			}
-+			new_list_num_io = 1U << hs_page1->cl_inout_list_depth;
-+		}
-+		/* The rings hold max_io entries but the index wraps on list_num_io. */
-+		if (new_list_num_io == 0 || new_list_num_io > new_max_io) {
-+			dev_err(&mhba->pdev->dev,
-+				"invalid handshake list depth: %u entries for %u commands\n",
-+				new_list_num_io, new_max_io);
-+			return -1;
-+		}
- 
- 		dev_dbg(&mhba->pdev->dev, "FW version:%d\n",
- 						hs_page1->fw_ver.ver_build);
- 
-+		/* A host reset does not reallocate, so the sizes have to stay
-+		 * the ones the buffers were allocated with.  Only check that
-+		 * the firmware is not asking for more than they hold.
-+		 */
-+		if (mhba->fw_flag & MVUMI_FW_ALLOC) {
-+			if (new_max_io > mhba->max_io ||
-+			    new_ib_max_size > mhba->ib_max_size ||
-+			    new_ob_max_size > mhba->ob_max_size ||
-+			    new_list_num_io > mhba->list_num_io ||
-+			    new_max_target_id > mhba->max_target_id) {
-+				dev_err(&mhba->pdev->dev,
-+					"handshake sizes grew across reset\n");
-+				return -1;
-+			}
-+			break;
-+		}
-+
-+		mhba->max_io = new_max_io;
-+		mhba->list_num_io = new_list_num_io;
-+		mhba->max_transfer_size = hs_page1->max_transfer_size;
-+		mhba->max_target_id = new_max_target_id;
-+		mhba->hba_capability = new_capability;
-+		mhba->ib_max_size_setting = hs_page1->cl_in_max_entry_size;
-+		mhba->ib_max_size = new_ib_max_size;
-+		mhba->ob_max_size_setting = hs_page1->cl_out_max_entry_size;
-+		mhba->ob_max_size = new_ob_max_size;
-+
- 		if (mhba->hba_capability & HS_CAPABILITY_SUPPORT_COMPACT_SG)
- 			mhba->eot_flag = 22;
- 		else
- 			mhba->eot_flag = 27;
--		if (mhba->hba_capability & HS_CAPABILITY_NEW_PAGE_IO_DEPTH_DEF)
--			mhba->list_num_io = 1 << hs_page1->cl_inout_list_depth;
- 		break;
-+	}
- 	default:
- 		dev_err(&mhba->pdev->dev, "handshake: page code error\n");
- 		return -1;
-
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+> ---
+>  Documentation/filesystems/porting.rst | 16 ++++++++++++++++
+>  fs/attr.c                             |  4 ++++
+>  fs/fs-writeback.c                     |  3 +++
+>  fs/namei.c                            |  3 ++-
+>  fs/namespace.c                        |  3 ++-
+>  fs/open.c                             |  4 ++++
+>  fs/proc_namespace.c                   |  4 +++-
+>  fs/quota/dquot.c                      | 23 +++++++++++++++++------
+>  fs/quota/quota.c                      | 13 +++++++++++++
+>  fs/read_write.c                       |  5 +++++
+>  fs/statfs.c                           |  9 +++++++--
+>  fs/super.c                            |  4 ++++
+>  fs/sync.c                             | 18 +++++++++++++-----
+>  include/linux/fs/super.h              | 18 ++++++++++++++++++
+>  include/linux/fs/super_types.h        | 21 +++++++++++++++++++++
+>  mm/memory.c                           |  6 ++++++
+>  16 files changed, 138 insertions(+), 16 deletions(-)
+> 
+> diff --git a/Documentation/filesystems/porting.rst b/Documentation/filesystems/porting.rst
+> index 60880eb0c49d..c60f74a99568 100644
+> --- a/Documentation/filesystems/porting.rst
+> +++ b/Documentation/filesystems/porting.rst
+> @@ -1409,3 +1409,19 @@ use only if you have no alternative.
+>  The .create inode_operation no longer receives the 'excl' arg.  It must
+>  always assume the file does not already exist.  If the filesystem needs
+>  to be involved in non-exclusive create, it should provide atomic_open.
+> +
+> +---
+> +
+> +**recommended**
+> +
+> +Filesystems that set SB_RDONLY on the superblock after an error
+> +(errors=remount-ro) must not do that anymore. SB_RDONLY only changes under
+> +sb->s_umount through reconfigure_super() and freeze_super() and thaw_super()
+> +rely on that. Call sb_set_emergency_ro() instead. The VFS then refuses
+> +modifications with EROFS, refuses a remount to read-write, shows
+> +"emergency_ro" in the mount options and stops syncing the filesystem and
+> +writing back its inodes. The filesystem still has to refuse what reaches it
+> +without passing through the VFS: its own allocation, journal and writeback
+> +paths and the deletion of unlinked inodes in ->evict_inode(). Test
+> +sb_emergency_ro() for that. A remount to read-only must not write anything
+> +in that state either, in particular it must not mark the filesystem clean.
+> diff --git a/fs/attr.c b/fs/attr.c
+> index 71888ac903c2..e4973f68b6c6 100644
+> --- a/fs/attr.c
+> +++ b/fs/attr.c
+> @@ -435,6 +435,10 @@ int notify_change(struct mnt_idmap *idmap, struct dentry *dentry,
+>  
+>  	WARN_ON_ONCE(!inode_is_locked(inode));
+>  
+> +	/* Nothing can be changed after an error made the filesystem read-only. */
+> +	if (sb_emergency_ro(inode->i_sb))
+> +		return -EROFS;
+> +
+>  	error = may_setattr(idmap, inode, ia_valid);
+>  	if (error)
+>  		return error;
+> diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
+> index ea3eb40bf828..bd095a911620 100644
+> --- a/fs/fs-writeback.c
+> +++ b/fs/fs-writeback.c
+> @@ -1618,6 +1618,9 @@ static int write_inode(struct inode *inode, struct writeback_control *wbc)
+>  {
+>  	int ret;
+>  
+> +	/* Nothing may be written after an error made the filesystem read-only. */
+> +	if (sb_emergency_ro(inode->i_sb))
+> +		return -EROFS;
+>  	if (inode->i_sb->s_op->write_inode && !is_bad_inode(inode)) {
+>  		trace_writeback_write_inode_start(inode, wbc);
+>  		ret = inode->i_sb->s_op->write_inode(inode, wbc);
+> diff --git a/fs/namei.c b/fs/namei.c
+> index c87c14ee1a25..902a2e998ed4 100644
+> --- a/fs/namei.c
+> +++ b/fs/namei.c
+> @@ -607,7 +607,8 @@ static int sb_permission(struct super_block *sb, struct inode *inode, int mask)
+>  		umode_t mode = inode->i_mode;
+>  
+>  		/* Nobody gets write access to a read-only fs. */
+> -		if (sb_rdonly(sb) && (S_ISREG(mode) || S_ISDIR(mode) || S_ISLNK(mode)))
+> +		if ((sb_rdonly(sb) || sb_emergency_ro(sb)) &&
+> +		    (S_ISREG(mode) || S_ISDIR(mode) || S_ISLNK(mode)))
+>  			return -EROFS;
+>  	}
+>  	return 0;
+> diff --git a/fs/namespace.c b/fs/namespace.c
+> index 3ed3766f3a18..5e172cf70e71 100644
+> --- a/fs/namespace.c
+> +++ b/fs/namespace.c
+> @@ -392,7 +392,8 @@ static struct mount *alloc_vfsmnt(const char *name)
+>   */
+>  bool __mnt_is_readonly(const struct vfsmount *mnt)
+>  {
+> -	return (mnt->mnt_flags & MNT_READONLY) || sb_rdonly(mnt->mnt_sb);
+> +	return (mnt->mnt_flags & MNT_READONLY) || sb_rdonly(mnt->mnt_sb) ||
+> +	       sb_emergency_ro(mnt->mnt_sb);
+>  }
+>  EXPORT_SYMBOL_GPL(__mnt_is_readonly);
+>  
+> diff --git a/fs/open.c b/fs/open.c
+> index 6b1c14e684a9..d7698c4bc8d5 100644
+> --- a/fs/open.c
+> +++ b/fs/open.c
+> @@ -324,6 +324,10 @@ int vfs_fallocate(struct file *file, int mode, loff_t offset, loff_t len)
+>  	if (!S_ISREG(inode->i_mode) && !S_ISBLK(inode->i_mode))
+>  		return -ENODEV;
+>  
+> +	/* Files can't be written after an error made the filesystem read-only. */
+> +	if (S_ISREG(inode->i_mode) && sb_emergency_ro(inode->i_sb))
+> +		return -EROFS;
+> +
+>  	/* Check for wraparound */
+>  	if (check_add_overflow(offset, len, &sum))
+>  		return -EFBIG;
+> diff --git a/fs/proc_namespace.c b/fs/proc_namespace.c
+> index 036356c0a55b..85da3f6865c7 100644
+> --- a/fs/proc_namespace.c
+> +++ b/fs/proc_namespace.c
+> @@ -57,6 +57,8 @@ static int show_sb_opts(struct seq_file *m, struct super_block *sb)
+>  		if (sb->s_flags & fs_infop->flag)
+>  			seq_puts(m, fs_infop->str);
+>  	}
+> +	if (sb_emergency_ro(sb))
+> +		seq_puts(m, ",emergency_ro");
+>  
+>  	return security_sb_show_options(m, sb);
+>  }
+> @@ -179,7 +181,7 @@ static int show_mountinfo(struct seq_file *m, struct vfsmount *mnt)
+>  	} else {
+>  		mangle(m, r->mnt_devname);
+>  	}
+> -	seq_puts(m, sb_rdonly(sb) ? " ro" : " rw");
+> +	seq_puts(m, sb_rdonly(sb) || sb_emergency_ro(sb) ? " ro" : " rw");
+>  	err = show_sb_opts(m, sb);
+>  	if (err)
+>  		goto out;
+> diff --git a/fs/quota/dquot.c b/fs/quota/dquot.c
+> index 1c78c695d0dd..56c54d437c38 100644
+> --- a/fs/quota/dquot.c
+> +++ b/fs/quota/dquot.c
+> @@ -495,6 +495,11 @@ int dquot_acquire(struct dquot *dquot)
+>  	set_bit(DQ_READ_B, &dquot->dq_flags);
+>  	/* Instantiate dquot if needed */
+>  	if (!dquot_active(dquot) && !dquot->dq_off) {
+> +		/* Nothing may be written after an error made the fs read-only. */
+> +		if (sb_emergency_ro(dquot->dq_sb)) {
+> +			ret = -EROFS;
+> +			goto out_iolock;
+> +		}
+>  		ret = dqopt->ops[dquot->dq_id.type]->commit_dqblk(dquot);
+>  		/* Write the info if needed */
+>  		if (info_dirty(&dqopt->info[dquot->dq_id.type])) {
+> @@ -536,10 +541,12 @@ int dquot_commit(struct dquot *dquot)
+>  		goto out_lock;
+>  	/* Inactive dquot can be only if there was error during read/init
+>  	 * => we have better not writing it */
+> -	if (dquot_active(dquot))
+> -		ret = dqopt->ops[dquot->dq_id.type]->commit_dqblk(dquot);
+> -	else
+> +	if (!dquot_active(dquot))
+>  		ret = -EIO;
+> +	else if (sb_emergency_ro(dquot->dq_sb))
+> +		ret = -EROFS;
+> +	else
+> +		ret = dqopt->ops[dquot->dq_id.type]->commit_dqblk(dquot);
+>  out_lock:
+>  	memalloc_nofs_restore(memalloc);
+>  	mutex_unlock(&dquot->dq_lock);
+> @@ -561,7 +568,8 @@ int dquot_release(struct dquot *dquot)
+>  	/* Check whether we are not racing with some other dqget() */
+>  	if (dquot_is_busy(dquot))
+>  		goto out_dqlock;
+> -	if (dqopt->ops[dquot->dq_id.type]->release_dqblk) {
+> +	if (dqopt->ops[dquot->dq_id.type]->release_dqblk &&
+> +	    !sb_emergency_ro(dquot->dq_sb)) {
+>  		ret = dqopt->ops[dquot->dq_id.type]->release_dqblk(dquot);
+>  		/* Write the info */
+>  		if (info_dirty(&dqopt->info[dquot->dq_id.type])) {
+> @@ -2132,6 +2140,9 @@ int dquot_commit_info(struct super_block *sb, int type)
+>  {
+>  	struct quota_info *dqopt = sb_dqopt(sb);
+>  
+> +	/* Nothing may be written after an error made the fs read-only. */
+> +	if (sb_emergency_ro(sb))
+> +		return -EROFS;
+>  	return dqopt->ops[type]->write_file_info(sb, type);
+>  }
+>  EXPORT_SYMBOL(dquot_commit_info);
+> @@ -2255,7 +2266,7 @@ int dquot_disable(struct super_block *sb, int type, unsigned int flags)
+>  		 * Now all dquots should be invalidated, all writes done so we
+>  		 * should be only users of the info. No locks needed.
+>  		 */
+> -		if (info_dirty(&dqopt->info[cnt]))
+> +		if (info_dirty(&dqopt->info[cnt]) && !sb_emergency_ro(sb))
+>  			sb->dq_op->write_info(sb, cnt);
+>  		if (dqopt->ops[cnt]->free_file_info)
+>  			dqopt->ops[cnt]->free_file_info(sb, cnt);
+> @@ -2272,7 +2283,7 @@ int dquot_disable(struct super_block *sb, int type, unsigned int flags)
+>  
+>  	/* Sync the superblock so that buffers with quota data are written to
+>  	 * disk (and so userspace sees correct data afterwards). */
+> -	if (sb->s_op->sync_fs)
+> +	if (sb->s_op->sync_fs && !sb_emergency_ro(sb))
+>  		sb->s_op->sync_fs(sb, 1);
+>  	sync_blockdev(sb->s_bdev);
+>  	/* Now the quota files are just ordinary files and we can set the
+> diff --git a/fs/quota/quota.c b/fs/quota/quota.c
+> index 33bacd707580..7612c96493d1 100644
+> --- a/fs/quota/quota.c
+> +++ b/fs/quota/quota.c
+> @@ -783,6 +783,19 @@ static int do_quotactl(struct super_block *sb, int type, int cmd, qid_t id,
+>  	if (ret < 0)
+>  		return ret;
+>  
+> +	/* Nothing can be changed after an error made the filesystem read-only. */
+> +	if (sb_emergency_ro(sb)) {
+> +		switch (cmd) {
+> +		case Q_QUOTAON:
+> +		case Q_SETINFO:
+> +		case Q_SETQUOTA:
+> +		case Q_XQUOTAON:
+> +		case Q_XQUOTARM:
+> +		case Q_XSETQLIM:
+> +			return -EROFS;
+> +		}
+> +	}
+> +
+>  	switch (cmd) {
+>  	case Q_QUOTAON:
+>  		return quota_quotaon(sb, type, id, path);
+> diff --git a/fs/read_write.c b/fs/read_write.c
+> index e8c14e2760b2..4b587ba084bf 100644
+> --- a/fs/read_write.c
+> +++ b/fs/read_write.c
+> @@ -472,6 +472,11 @@ int rw_verify_area(int read_write, struct file *file, const loff_t *ppos, size_t
+>  		}
+>  	}
+>  
+> +	/* Files can't be written after an error made the filesystem read-only. */
+> +	if (read_write == WRITE && S_ISREG(file_inode(file)->i_mode) &&
+> +	    sb_emergency_ro(file_inode(file)->i_sb))
+> +		return -EROFS;
+> +
+>  	ret = security_file_permission(file, mask);
+>  	if (ret)
+>  		return ret;
+> diff --git a/fs/statfs.c b/fs/statfs.c
+> index 377bcef7a561..05a90d5a3310 100644
+> --- a/fs/statfs.c
+> +++ b/fs/statfs.c
+> @@ -48,8 +48,13 @@ static int flags_by_sb(int s_flags)
+>  
+>  static int calculate_f_flags(struct vfsmount *mnt)
+>  {
+> -	return ST_VALID | flags_by_mnt(mnt->mnt_flags) |
+> -		flags_by_sb(mnt->mnt_sb->s_flags);
+> +	int flags = ST_VALID | flags_by_mnt(mnt->mnt_flags) |
+> +		    flags_by_sb(mnt->mnt_sb->s_flags);
+> +
+> +	/* An error made the filesystem read-only, SB_RDONLY stays clear. */
+> +	if (sb_emergency_ro(mnt->mnt_sb))
+> +		flags |= ST_RDONLY;
+> +	return flags;
+>  }
+>  
+>  static int statfs_by_dentry(struct dentry *dentry, struct kstatfs *buf)
+> diff --git a/fs/super.c b/fs/super.c
+> index 1d5ccf540a9b..74cde61e8d71 100644
+> --- a/fs/super.c
+> +++ b/fs/super.c
+> @@ -1091,6 +1091,10 @@ int reconfigure_super(struct fs_context *fc)
+>  		remount_ro = (fc->sb_flags & SB_RDONLY) && !sb_rdonly(sb);
+>  	}
+>  
+> +	/* An error made the filesystem read-only until it is unmounted. */
+> +	if (remount_rw && sb_emergency_ro(sb))
+> +		return -EROFS;
+> +
+>  	if (remount_ro) {
+>  		if (!hlist_empty(&sb->s_pins)) {
+>  			super_unlock_excl(sb);
+> diff --git a/fs/sync.c b/fs/sync.c
+> index 4a84dd837b86..f183c364815c 100644
+> --- a/fs/sync.c
+> +++ b/fs/sync.c
+> @@ -38,9 +38,10 @@ int sync_filesystem(struct super_block *sb)
+>  	WARN_ON(!rwsem_is_locked(&sb->s_umount));
+>  
+>  	/*
+> -	 * No point in syncing out anything if the filesystem is read-only.
+> +	 * No point in syncing out anything if the filesystem is read-only, and
+> +	 * nothing may be written after an error made it read-only.
+>  	 */
+> -	if (sb_rdonly(sb))
+> +	if (sb_rdonly(sb) || sb_emergency_ro(sb))
+>  		return 0;
+>  
+>  	/*
+> @@ -73,14 +74,14 @@ EXPORT_SYMBOL(sync_filesystem);
+>  
+>  static void sync_inodes_one_sb(struct super_block *sb, void *arg)
+>  {
+> -	if (!sb_rdonly(sb))
+> +	if (!sb_rdonly(sb) && !sb_emergency_ro(sb))
+>  		sync_inodes_sb(sb);
+>  }
+>  
+>  static void sync_fs_one_sb(struct super_block *sb, void *arg)
+>  {
+> -	if (!sb_rdonly(sb) && !(sb->s_iflags & SB_I_SKIP_SYNC) &&
+> -	    sb->s_op->sync_fs)
+> +	if (!sb_rdonly(sb) && !sb_emergency_ro(sb) &&
+> +	    !(sb->s_iflags & SB_I_SKIP_SYNC) && sb->s_op->sync_fs)
+>  		sb->s_op->sync_fs(sb, *(int *)arg);
+>  }
+>  
+> @@ -181,6 +182,13 @@ int vfs_fsync_range(struct file *file, loff_t start, loff_t end, int datasync)
+>  
+>  	if (!file->f_op->fsync)
+>  		return -EINVAL;
+> +	/*
+> +	 * Inodes aren't written back after an error made the filesystem
+> +	 * read-only, don't claim they're on disk.
+> +	 */
+> +	if (!special_file(file_inode(file)->i_mode) &&
+> +	    sb_emergency_ro(file_inode(file)->i_sb))
+> +		return -EROFS;
+>  	if (!datasync)
+>  		sync_lazytime(inode);
+>  	return file->f_op->fsync(file, start, end, datasync);
+> diff --git a/include/linux/fs/super.h b/include/linux/fs/super.h
+> index 733d439f01ed..346f52047999 100644
+> --- a/include/linux/fs/super.h
+> +++ b/include/linux/fs/super.h
+> @@ -2,6 +2,7 @@
+>  #ifndef _LINUX_FS_SUPER_H
+>  #define _LINUX_FS_SUPER_H
+>  
+> +#include <linux/bitops.h>
+>  #include <linux/fs/super_types.h>
+>  #include <linux/unicode.h>
+>  
+> @@ -187,6 +188,23 @@ static inline bool sb_rdonly(const struct super_block *sb)
+>  	return sb->s_flags & SB_RDONLY;
+>  }
+>  
+> +/*
+> + * True once an error made the filesystem read-only. SB_RDONLY stays clear, so
+> + * this is checked wherever sb_rdonly() gates a write. It must not be checked
+> + * where sb_rdonly() describes the mount, i.e. by freeze_super() and
+> + * thaw_super(), because it can be set while the superblock is frozen.
+> + */
+> +static inline bool sb_emergency_ro(const struct super_block *sb)
+> +{
+> +	return test_bit(SB_STATE_EMERGENCY_RO, &sb->s_state);
+> +}
+> +
+> +/* Returns true for the caller that made the filesystem read-only. */
+> +static inline bool sb_set_emergency_ro(struct super_block *sb)
+> +{
+> +	return !test_and_set_bit(SB_STATE_EMERGENCY_RO, &sb->s_state);
+> +}
+> +
+>  static inline bool sb_is_blkdev_sb(struct super_block *sb)
+>  {
+>  	return IS_ENABLED(CONFIG_BLOCK) && sb == blockdev_superblock;
+> diff --git a/include/linux/fs/super_types.h b/include/linux/fs/super_types.h
+> index ecd96aeb1cee..efd924474062 100644
+> --- a/include/linux/fs/super_types.h
+> +++ b/include/linux/fs/super_types.h
+> @@ -238,6 +238,9 @@ struct super_block {
+>  	/* Read-only state of the superblock is being changed */
+>  	int					s_readonly_remount;
+>  
+> +	/* Runtime state bits, see SB_STATE_*. Set with set_bit(), never cleared. */
+> +	unsigned long				s_state;
+> +
+>  	/* per-sb errseq_t for reporting writeback errors via syncfs */
+>  	errseq_t s_wb_err;
+>  
+> @@ -353,4 +356,22 @@ struct super_block {
+>  #define SB_I_ALLOW_HSM	0x00004000	/* Allow HSM events on this superblock */
+>  #define SB_I_NO_DATA_INTEGRITY	0x00008000 /* fs cannot guarantee data persistence on sync */
+>  
+> +/*
+> + * sb->s_state. These are set with set_bit() from whatever context found the
+> + * condition, without s_umount, and are never cleared. So they can be tested
+> + * anywhere without any ordering against the setter. That's deliberately not
+> + * true for SB_RDONLY: freeze_super() and thaw_super() key off it and it must
+> + * only change under s_umount through reconfigure_super().
+> + */
+> +enum {
+> +	/*
+> +	 * An error made the filesystem read-only, errors=remount-ro style. The
+> +	 * VFS refuses modifications with EROFS, refuses a remount to read-write
+> +	 * and stops syncing the filesystem and writing back its inodes. Lasts
+> +	 * until umount. The filesystem still has to refuse whatever reaches it
+> +	 * without going through the VFS, see sb_emergency_ro().
+> +	 */
+> +	SB_STATE_EMERGENCY_RO,
+> +};
+> +
+>  #endif /* _LINUX_FS_SUPER_TYPES_H */
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 8b0c2c735d3d..f4030571d972 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -3813,6 +3813,12 @@ static vm_fault_t do_page_mkwrite(struct vm_fault *vmf, struct folio *folio)
+>  	    IS_SWAPFILE(vmf->vma->vm_file->f_mapping->host))
+>  		return VM_FAULT_SIGBUS;
+>  
+> +	/* Files can't be written after an error made the filesystem read-only. */
+> +	if (vmf->vma->vm_file &&
+> +	    S_ISREG(file_inode(vmf->vma->vm_file)->i_mode) &&
+> +	    sb_emergency_ro(file_inode(vmf->vma->vm_file)->i_sb))
+> +		return VM_FAULT_SIGBUS;
+> +
+>  	ret = vmf->vma->vm_ops->page_mkwrite(vmf);
+>  	/* Restore original flags so that caller is not surprised */
+>  	vmf->flags = old_flags;
+> -- 
+> 2.53.0
+> 
 -- 
-2.43.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
