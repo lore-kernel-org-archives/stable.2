@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3CA560ADF
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 16:53:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE63563FA9
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 16:53:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791996812; cv=none; b=Vci+VSaiV1hcYc5s+UlEJ6xEniseQtzX5C6JZhVomKb6aIW5pEiUsTcgtgBPTpxetSBTPdFqHF2k6L0yiArFgs5cOxXNpr0YW7TR18HkT0aq3vF/drmjibCUdHuOXB4S7cEE4wnZnKG6cS98p8qjZMTuO+Kh0X5/y1PKIN8PbL0=
+	t=1791996813; cv=none; b=e34mynJ9K+tUz6kyo9fHv+bGbPRSKKWkZe4CG0hbBJQdNM1ahtSQil25C+fkicDCyAAdm2R8dmEg8M/o5666UBolmOftvZVmkapuTTNGYeWRUHpgnB+DMvX7TnQC5RvSRovneN4HRYl+6iNmaKbZmx7B4OlF/7dJrEgFhm7LALQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791996812; c=relaxed/simple;
-	bh=1YzNU20o0kBiUEgd2gsMyK1rw0/RTh/v1XFFTEq/Bf0=;
+	s=arc-20240116; t=1791996813; c=relaxed/simple;
+	bh=90ULz6Jc+6CPxNa1+sqnAuOPZC4Ld8RyStb9nXcghKA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HzEPr5aE1o6VZ8Is4ibIJcgesqQdu9rK0dHjIGlgqfd60LFViKNttSJdNxxUhyEI/SLxZzX0ijDMng3OBhzP/XI/ITDDBtRoTSMxDoCgZCTEAL4vuM1AGnwgRq1TAJyd5hx9r/QS26UfuDzl2dncy05fsrpEmQjUaThjW7KGcA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l9HJQeqj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=CZ7jCSRQafig4obvxwWHwW1zcMibpOLJn11GfOkFMmB2Lu7OZQmcLx/EU5jH7XEiJjpKw1ocrlAYv31uw6vi3vvJTFV3SUD7QpOVl+sxHYJRusmBPg38cgp7szqTP7FL3qru6EX+nF5EVA8enR/L3kmlsyP1tT70aw8UghqEvFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ofUq72C6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l9HJQeqj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34B711F000C8;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ofUq72C6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE1511F000C6;
 	Wed, 14 Oct 2026 16:53:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791996811;
-	bh=+CWNQJpHQCJUSgMGRmMe5GH5iX2sc/PN0ZRPGva5dgc=;
+	s=k20260515; t=1791996812;
+	bh=Ui/dXR7XKbCgEMM2uXOOSrt52uWIYip9y6DHtenDK4E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l9HJQeqjGNoGmkT2EqDzUmioriFt+HAchBcXbok4jM+QTc2koxsO9udVMKhYwOulR
-	 iTvB+0/OsmH1RfQ9Zdz7owee5d1O3yi90Z0B5hvs2c59gif6RYZO8pAAXcTO1nOyA9
-	 b7uDFKoRZV6TneJHwzH0RUBKHZf+f7sIPFZuF9Ulq1vWXBDjSWIbSxxWj8wNxVefbf
-	 WYK7ytWRXeE41e55pgWZ/eOhpwK5Op478A5nat0rUMm1skZz5WyGXcyfGtwdMTqkE6
-	 N2AYNG2lC5pwa/bS9IUogLSXjL+KVS5cij/54Ae9UHbqQaJxnzvokwNYj1vcK1lpnh
-	 /TqjsKJrpbdxg==
+	b=ofUq72C65xozNWYM3S+9LUCFVUFtOJ2CfP1PiG2X8evnaEQD4XVZ/GV7CTu53UwtJ
+	 95kwL40qK/tndbM0xt8WmuE7Wy8IIoxPlRwBt0LPx7uOW7OdjrDZdVX/fOcjllSSTJ
+	 DGc0Ywgk9KLjqO80Z/GmJi5iGI5yd8R8WNWhHKZ4QemhKavwnJfEjzKo4si65FRnpr
+	 sJWEotI0e+yJhOqRinlR4Aj7eSWWE0BPffAf8O+f58aIKIdrxYcAfxR83lQAJVzDU/
+	 C/sZn+6mJIqC7hI4/fFqiQ3OOLKqP3LIRbrCqXrSgtAsdaGwgKa/oED8ULwX+QAK5a
+	 G4q6q2YTHkTGQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Lorenz Bauer <lorenz.bauer@antithesis.com>
-Subject: Re: Request for backport: "drm/amd: Create a device link between APU display and XHCI devices" to 6.18.y
-Date: Wed, 14 Oct 2026 12:53:13 -0400
-Message-ID: <2026-10-14-1-daily-reply-0010-amdgpu-xhci-device-link-6-18@kernel.org>
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: Re: [PATCH 6.6.y] mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP self-merge
+Date: Wed, 14 Oct 2026 12:53:14 -0400
+Message-ID: <2026-10-14-1-daily-reply-0011-mremap-dontunmap-self-merge-6-6@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CANo-qm0u0NegPA7x_ymsLeC7f+v-nR8w9BEQTndvVbetYtUmUw@mail.gmail.com>
-References: <CANo-qm0u0NegPA7x_ymsLeC7f+v-nR8w9BEQTndvVbetYtUmUw@mail.gmail.com>
+In-Reply-To: <20261013164837.2509912-1-ljs@kernel.org>
+References: <20261013164837.2509912-1-ljs@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,14 +44,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Please backport
->
->    07c93d7eeb0d990bc1b8e3b1eafa464bc9feee97 ("drm/amd: Create a device
-> link between APU display and XHCI devices")
->
-> to 6.18.y.
+> Fix another of these - self-merge.
 
-Queued for 6.18 and 6.12, thanks.
+Queued for 6.6, thanks.
 
 -- 
 Thanks,
