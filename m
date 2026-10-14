@@ -1,304 +1,269 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6188A53CA78;
-	Wed, 14 Oct 2026 14:14:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D1C7542EFD;
+	Wed, 14 Oct 2026 14:16:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791987259; cv=none; b=GRA2UiUDBV+ugEgWFsov0orcS3EsMozUUSbbADDhZZvHofcDD5FsqN4aTZdnJt7Liuo5R1Yv/VQaWZ8gYjoSB3GFWtr/c4Dte/tWidTeVraI9NuhF3MrXV57Up8kmjgg8d27HQeUUAS4YDKZNzl265oJeLe3txVBx10pfmmC2Gw=
+	t=1791987403; cv=none; b=c00uPZU65HxwqX/mJU0yD9VSh8kUfh7PufZaFdVH5ihWZwjI9ZV3UY9LrZDedkQ93I5iC0IImby5hzpM++mfQ5muKIYwstLUWI5H20fp0G0443HApAINgnHOorqFo5bSL7Bqh5cIiO3EulVp+zXBvggPrKBtDabvmfm6hha7zjw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791987259; c=relaxed/simple;
-	bh=AoJAQZYSo41iEMK+7sT0aKFtUq3U6b6oKPWCZTFKUCQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fezCJ7ZPQ7VgbIIbkY4zWaaXPS+Oxm45Gy1Qe/2H34qQuojhE0akl2DN5myHA09QVdyb5OJsWXo0P4xOlz7OmM4lFH/PLPI+E0tU8rOJ3zMWbc9eeZYLV6mkgmTEeb+7Cx2vT7E0nbOncF/2QTeBd174KGBTq7+E2HlwL54fffo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=H5TC5xdj; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=XtQdN2eG; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=H5TC5xdj; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=XtQdN2eG; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1791987403; c=relaxed/simple;
+	bh=gwZwIDXWH6+oX/jdGf1vh+hw9D/uky5YsV+364tExaI=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=qiFqhkksOX1a6FdQY9pwymvmtcKE7ERhWhtp1AlguYqUL5TPqtJtFHM3RLclZIK9r363ToPoKx8eVa6aZODF43IY5BGU6r8QxA4Znw/x6nbkeC+Gs4Dveq9WqT0MhxDmLsYVO/phR2YHZsf7ETP+T6qGWCqd4yEfRjypviNslaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iZeEocH4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="H5TC5xdj";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="XtQdN2eG";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="H5TC5xdj";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="XtQdN2eG"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 4DF921FB66;
-	Wed, 14 Oct 2026 14:14:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791987255; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xZK2tXtr1EEATnsZ9uDLRVkZR5uAVy89NFi5xbcUArY=;
-	b=H5TC5xdjtF+s56Ornz1q3EZJPZVQd2kQoBUWJet3X7K5+IjcmAqq8LmgiMgOcE+PuGdEgp
-	JcMdIU3wziQf+k96ZOUEiHC1BD52qFVksQmc/tDXeaQxviL6Z4DwOsuzyCOxXrHV7uEe11
-	N8AHpqw/C07h/z5MsfZc9N+/YdLDgYA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791987255;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xZK2tXtr1EEATnsZ9uDLRVkZR5uAVy89NFi5xbcUArY=;
-	b=XtQdN2eGN/WUUOmlsktWy4B3egqUkfgufP/NysZ9qI0817ZiNHRk9rge3IHqK98Q++wQzy
-	mRHbGrF5G8Fi1YBg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=H5TC5xdj;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=XtQdN2eG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791987255; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xZK2tXtr1EEATnsZ9uDLRVkZR5uAVy89NFi5xbcUArY=;
-	b=H5TC5xdjtF+s56Ornz1q3EZJPZVQd2kQoBUWJet3X7K5+IjcmAqq8LmgiMgOcE+PuGdEgp
-	JcMdIU3wziQf+k96ZOUEiHC1BD52qFVksQmc/tDXeaQxviL6Z4DwOsuzyCOxXrHV7uEe11
-	N8AHpqw/C07h/z5MsfZc9N+/YdLDgYA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791987255;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xZK2tXtr1EEATnsZ9uDLRVkZR5uAVy89NFi5xbcUArY=;
-	b=XtQdN2eGN/WUUOmlsktWy4B3egqUkfgufP/NysZ9qI0817ZiNHRk9rge3IHqK98Q++wQzy
-	mRHbGrF5G8Fi1YBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 17A70133F1;
-	Wed, 14 Oct 2026 14:14:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Xve5NjaOz2qBbgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 14 Oct 2026 14:14:15 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 4EE53A140F; Wed, 14 Oct 2026 16:14:10 +0200 (CEST)
-Date: Wed, 14 Oct 2026 16:14:10 +0200
-From: Jan Kara <jack@suse.cz>
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: mark@fasheh.com, jlbec@evilplan.org, joseph.qi@linux.alibaba.com, 
-	heming.zhao@suse.com, chao@kernel.org, jack@suse.cz, ocfs2-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, baijiaju1990@gmail.com, 
-	jjzuming@gmail.com
-Subject: Re: [PATCH] ocfs2: Cancel quota sync work before freeing quota info
-Message-ID: <sjyz6ukoaxczc7vwjdbobzjihdep5wqid4bkgcpxqbbbpbme5w@6taeo52a4wwd>
-References: <pm-ocfs2-objects-candidate-0052-v3-b4904bd6c85daf033adf@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iZeEocH4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389FE1F000D4;
+	Wed, 14 Oct 2026 14:16:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791987400;
+	bh=K7vsT8RC9p9fOYHpYIE8xbjNZ8+LExI8FP2yP+i0sqk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=iZeEocH4uZ82CarWi/H3zlsVTfh9SLIyBxISWf/oJAfSzIFitloOejriv3kVPpv/W
+	 Rin2xi2RavGiefLkeIiiTeJzmYC1dw4UeeIE40+Ndw53O2+6ym71Eack60QmUtXlXk
+	 /nW2VVcChMqzipvocV1WJo9kGUAs/o/EK/Ldx4JBrJYbEyoex2gEVl+hoHgvnGSiIr
+	 qPlo5L+YOtBiZffmASK/Sv1RtAkAAeZnKf/y8slsI3FO2QFzDf51YO9SEzf5nznK8V
+	 kweC7DXWyfl0+4qpoIKzBI/hx1OE4WqTbQ5FGRhQ8/NFN1vk/IYHE0oRay5hQlkrER
+	 Ud23X4Vj3vplA==
+Subject: Re: [PATCH net v10] net/smc: fix lgr/lnk lifetime vs diag reader race
+From: netdev-bot+sashiko@kernel.org
+To: mjambigi@linux.ibm.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, alibuda@linux.alibaba.com,
+ dust.li@linux.alibaba.com, sidraya@linux.ibm.com, hidayath@linux.ibm.com,
+ pasic@linux.ibm.com, horms@kernel.org, tonylu@linux.alibaba.com,
+ guwen@linux.alibaba.com, stable@vger.kernel.org, netdev@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
+Date: Wed, 14 Oct 2026 14:16:38 +0000
+Message-ID: <179198739873.434549.14480502288349527609@kernel.org>
+In-Reply-To: <20261013141510.2621698-1-mjambigi@linux.ibm.com>
+References: <20261013141510.2621698-1-mjambigi@linux.ibm.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <pm-ocfs2-objects-candidate-0052-v3-b4904bd6c85daf033adf@gmail.com>
-X-Rspamd-Action: no action
-X-Spam-Score: -4.01
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_CC(0.00)[fasheh.com,evilplan.org,linux.alibaba.com,suse.com,kernel.org,suse.cz,lists.linux.dev,vger.kernel.org,gmail.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 4DF921FB66
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-On Wed 14-10-26 11:43:40, Cen Zhang wrote:
-> OCFS2 quota info owns dqi_sync_work and must outlive both its timer
-> and qsync_work_fn(). ocfs2_local_free_info() frees that owner without
-> cancelling the work, relying on the quota suspend/disable wrappers.
-> 
-> Loading quotas on a read-only to read-write remount can successfully
-> queue the work in ocfs2_global_read_info() and then fail while attaching
-> a dquot to an existing inode in add_dquot_ref(). The quota core unwinds
-> that failure directly through dquot_disable(), bypassing the OCFS2
-> wrapper:
-> 
->   Remount task (s_umount write)        Timer/workqueue
->   ocfs2_global_read_info()
->     schedules dqi_sync_work
->   add_dquot_ref() returns an error
->   dquot_disable()
->     ocfs2_local_free_info()
->       frees oinfo
->                                      delayed-work timer expires
->                                      qsync_work_fn() reads oinfo
-> 
-> The timer core can then write to the freed embedded timer, or
-> qsync_work_fn() can read oinfo->dqi_gqinode before its s_umount trylock.
-> The outer ocfs2_disable_quotas() cleanup skips the failed type because
-> dquot_disable() has already cleared its loaded state.
-> 
-> Cancel dqi_sync_work synchronously at the start of
-> ocfs2_local_free_info(), before dropping the global inode or freeing any
-> owner state. The work is initialized whenever read_file_info() succeeds.
-> dquot_disable() holds s_umount for write, so the callback skips its quota
-> scan via down_read_trylock() and can finish without waiting for teardown.
-> The synchronous cancel also handles its self-rearm.
-> 
-> KASAN report as below:
-> 
->     BUG: KASAN: slab-use-after-free in __run_timers+0x9e9/0xa10
->     Write of size 8 at addr ffff888111b0aad0 by task swapper/3/0
-> 
->     Call Trace:
->      <IRQ>
->      dump_stack_lvl+0x93/0xd0
->      print_report+0xce/0x630
->      ? __run_timers+0x9e9/0xa10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __virt_addr_valid+0x20e/0x420
->      ? __run_timers+0x9e9/0xa10
->      kasan_report+0xe0/0x110
->      ? __run_timers+0x9e9/0xa10
->      __run_timers+0x9e9/0xa10
->      ? __pfx___run_timers+0x10/0x10
->      ? __lock_acquire+0x5a3/0x2140
->      ? __pfx_do_raw_spin_lock+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      timer_expire_remote+0xfa/0x160
->      ? __pfx_timer_expire_remote+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? trace_hardirqs_on+0x18/0x160
->      tmigr_handle_remote_up+0x4ba/0x9d0
->      ? __pfx_tmigr_handle_remote_up+0x10/0x10
->      ? tmigr_handle_remote+0x21a/0x340
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? lock_release+0xc8/0x290
->      ? __pfx_tmigr_handle_remote_up+0x10/0x10
->      __walk_groups_from+0x5a/0x160
->      tmigr_handle_remote+0x24f/0x340
->      ? __pfx_tmigr_handle_remote+0x10/0x10
->      ? lock_acquire+0x190/0x300
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? lock_release+0xc8/0x290
->      run_timer_softirq+0x222/0x270
->      ? __pfx_run_timer_softirq+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? lockdep_hardirqs_on_prepare+0xb8/0x1a0
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      handle_softirqs+0x1fa/0x8d0
->      ? __pfx_handle_softirqs+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? _raw_spin_unlock+0x23/0x40
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __hrtimer_rearm_deferred+0x1fb/0x5d0
->      __irq_exit_rcu+0x113/0x1e0
->      irq_exit_rcu+0xe/0x20
->      sysvec_apic_timer_interrupt+0x6c/0x80
->      </IRQ>
->      <TASK>
->      asm_sysvec_apic_timer_interrupt+0x1a/0x20
->      ? ct_kernel_exit.constprop.0+0xc5/0xf0
->      ? do_idle+0x3ae/0x650
->      default_idle+0x9/0x10
->      default_idle_call+0x6c/0xb0
->      do_idle+0x3ae/0x650
->      ? cpuhp_online_idle+0x9c/0xb0
->      ? __pfx_do_idle+0x10/0x10
->      ? __entry_text_end+0x1020f6/0x1020f9
->      ? lockdep_hardirqs_on_prepare+0xeb/0x1a0
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? trace_hardirqs_on+0x18/0x160
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      cpu_startup_entry+0x54/0x60
->      start_secondary+0x223/0x2d0
->      ? __pfx_start_secondary+0x10/0x10
->      common_startup_64+0x13e/0x158
->      </TASK>
-> 
->     Allocated by task 523:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      __kasan_kmalloc+0xaa/0xb0
->      __kmalloc_cache_noprof+0x28d/0x610
->      ocfs2_local_read_info+0x181/0x1580
->      dquot_load_quota_sb+0x69e/0x11c0
->      dquot_load_quota_inode+0x227/0x3e0
->      ocfs2_enable_quotas+0x27c/0x520
->      ocfs2_reconfigure+0x964/0xd00
->      reconfigure_super+0x3ca/0xa70
->      path_mount+0x141e/0x1e80
->      __x64_sys_mount+0x24b/0x2d0
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
->     Freed by task 523:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      kasan_save_free_info+0x3b/0x60
->      __kasan_slab_free+0x5f/0x80
->      kfree+0x308/0x580
->      ocfs2_local_free_info+0x47b/0x800
->      dquot_disable+0x5d9/0x17a0
->      dquot_load_quota_sb+0xd3c/0x11c0
->      dquot_load_quota_inode+0x227/0x3e0
->      ocfs2_enable_quotas+0x27c/0x520
->      ocfs2_reconfigure+0x964/0xd00
->      reconfigure_super+0x3ca/0xa70
->      path_mount+0x141e/0x1e80
->      __x64_sys_mount+0x24b/0x2d0
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
->     The buggy address belongs to the object at ffff888111b0a800
->      which belongs to the cache kmalloc-1k of size 1024
->     The buggy address is located 720 bytes inside of
->      freed 1024-byte region [ffff888111b0a800, ffff888111b0ac00)
-> 
-> Host details, register and page dumps omitted.
-> 
-> Fixes: 1a6152d36dee ("quota: propagate error from __dquot_initialize")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> Assisted-by: LLM
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Looks good. Feel free to add:
+Critical: 0 · High: 1 (1) · Medium: 1 · Low: 1
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-								Honza
+- [High] The fix still leaves a use-after-free between the diag reader
+  and the lgr.
+- [Medium] Switching to link->ibname removes the NULL dereference through
+  link->smcibdev->ibdev.
+- [Low] SMC_DIAG_LGRINFO now reports link->ibname, which
+  smcr_copy_dev_info_to_link() (smc_core.c:783-784) caches at link…
 
-> 
-> ---
-> diff --git a/fs/ocfs2/quota_local.c b/fs/ocfs2/quota_local.c
-> index 76e7dd5aecc8..a2ce25a33607 100644
-> --- a/fs/ocfs2/quota_local.c
-> +++ b/fs/ocfs2/quota_local.c
-> @@ -840,6 +840,9 @@ static int ocfs2_local_free_info(struct super_block *sb, int type)
->  	int mark_clean = 1, len;
->  	int status = 0;
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the teardown
+  sites it touches have a deadlock.
+
+--
+
+net/smc: fix lgr/lnk lifetime vs diag reader race
+
+This patch tries to close races between the SMC sock_diag dump and the
+teardown of conn/lgr/lnk state. It skips the extension attributes for
+sockets in SMC_INIT or SMC_CLOSED and orders sk_state with acquire/release.
+It also unhashes the socket before several smc_conn_free() and
+smcd_buf_detach() calls, and uses the cached link->ibname in the LGRINFO
+dump.
+
+[ ... ]
+
+> diff --git a/net/smc/smc_close.c b/net/smc/smc_close.c
+> index bb0313ef5f7c1..aa6363abdd747 100644
+> --- a/net/smc/smc_close.c
+> +++ b/net/smc/smc_close.c
+
+[ ... ]
+
+> @@ -433,6 +435,7 @@ static void smc_close_passive_work(struct work_struct *work)
+>  		sk->sk_state_change(sk);
+>  		if ((sk->sk_state == SMC_CLOSED) &&
+>  		    (sock_flag(sk, SOCK_DEAD) || !sk->sk_socket)) {
+> +			sk->sk_prot->unhash(sk);
+>  			smc_conn_free(conn);
+
+[Severity: High]
+This is a pre-existing issue and was not introduced by this patch. Can this
+smc_conn_free() call deadlock against abort_work?
+
+smc_close_passive_work() holds lock_sock(sk) here. For SMC-R,
+smc_conn_free() then does:
+
+		if (current_work() != &conn->abort_work)
+			cancel_work_sync(&conn->abort_work);
+
+The connection is still registered at this point. A CDC message with
+failover_validation and a seqno ahead can make smc_cdc_msg_validate()
+queue abort_work on smc_close_wq, and it does this without the socket lock.
+smc_close_wq can run that work alongside close_work, and
+smc_conn_abort_work() starts with:
+
+	lock_sock(&smc->sk);
+	smc_conn_kill(conn, true);
+
+If abort_work is already running and blocked in lock_sock(), would this
+thread wait forever in cancel_work_sync() while it holds that same socket
+lock? The current_work() check only stops abort_work from cancelling
+itself.
+
+smc_close_active_abort() also reaches smc_conn_free() with the socket lock
+held.
+
+>  			if (smc->clcsock)
+>  				release_clcsock = true;
+
+[ ... ]
+
+> diff --git a/net/smc/smc_diag.c b/net/smc/smc_diag.c
+> index bf0beaa23bdb6..36a3b8f31f28d 100644
+> --- a/net/smc/smc_diag.c
+> +++ b/net/smc/smc_diag.c
+
+[ ... ]
+
+> @@ -103,6 +104,9 @@ static int __smc_diag_dump(struct sock *sk, struct sk_buff *skb,
+>  	if (nla_put(skb, SMC_DIAG_FALLBACK, sizeof(fallback), &fallback) < 0)
+>  		goto errout;
 >  
-> +	/* Quota-core error paths can bypass ocfs2_disable_quotas(). */
-> +	cancel_delayed_work_sync(&oinfo->dqi_sync_work);
+> +	if (r->diag_state == SMC_INIT || r->diag_state == SMC_CLOSED)
+> +		goto out;
 > +
->  	iput(oinfo->dqi_gqinode);
->  	ocfs2_simple_drop_lockres(OCFS2_SB(sb), &oinfo->dqi_gqlock);
->  	ocfs2_lock_res_free(&oinfo->dqi_gqlock);
+>  	if ((req->diag_ext & (1 << (SMC_DIAG_CONNINFO - 1))) &&
+>  	    smc->conn.alert_token_local) {
+>  		struct smc_connection *conn = &smc->conn;
+
+[Severity: High]
+Does this guard miss a fallback socket in SMC_ACTIVE that still has a stale
+alert_token_local after its lgr reference was dropped?
+
+On the server side, the peer can answer with a CLC DECLINE that has the
+first contact bit set instead of a CONFIRM. smc_clc_wait_msg() then does:
+
+net/smc/smc_clc.c:smc_clc_wait_msg() {
+    ...
+		if ((dclc->hdr.typev2 & SMC_FIRST_CONTACT_MASK) &&
+		    smc->conn.lgr) {
+			smc->conn.lgr->sync_err = 1;
+			smc_lgr_terminate_sched(smc->conn.lgr);
+		}
+    ...
+}
+
+smc_lgr_terminate_sched() calls list_del_init(&lgr->list).
+
+The handshake then aborts through
+smc_listen_decline()->smc_conn_abort()->smc_conn_free(). At that point
+lgr->list is empty:
+
+	if (!list_empty(&lgr->list)) {
+		smc_buf_unuse(conn, lgr); /* allow buffer reuse */
+		smc_lgr_unregister_conn(conn);
+	}
+
+So the connection is not unregistered and alert_token_local stays
+non-zero, but smc_lgr_put() still drops the lgr reference. The socket then
+falls back, smc_listen_out_connected() stores SMC_ACTIVE, and the socket
+stays hashed.
+
+Later, terminate_work runs __smc_lgr_terminate():
+
+		lock_sock(&smc->sk);
+		smc_conn_kill(conn, soft);
+		release_sock(&smc->sk);
+	...
+	smc_lgr_cleanup(lgr);
+	smc_lgr_free(lgr);
+
+For SMC-R and non-nocopy SMC-D, smc_conn_kill() does not unhash the
+socket. Nothing on this path takes the smc hash write_lock either.
+
+A diag reader that already saw a non-zero alert_token_local holds only
+read_lock(&smc_hash->lock). Can it then read conn->sndbuf_desc->len and
+conn->rmb_desc->len after smc_lgr_free() has freed them? The same question
+applies to conn->lgr->is_smcd and lgr->list in the LGRINFO/DMBINFO
+conditions.
+
+On non-RT kernels the window is small, but on PREEMPT_RT the read_lock is
+preemptible.
+
+Would it work to unregister the connection, or clear alert_token_local, in
+smc_conn_free() even when lgr->list is empty? Another option is to skip
+the CONNINFO/LGRINFO/DMBINFO blocks when conn->freed is set.
+
+[ ... ]
+
+> @@ -154,8 +158,7 @@ static int __smc_diag_dump(struct sock *sk, struct sk_buff *skb,
+>  			.lnk[0].link_id = link->link_id,
+>  		};
+>  
+> -		memcpy(linfo.lnk[0].ibname, link->smcibdev->ibdev->name,
+> -		       sizeof(link->smcibdev->ibdev->name));
+> +		memcpy(linfo.lnk[0].ibname, link->ibname, sizeof(link->ibname));
+
+[Severity: Medium]
+The commit message says this change is meant "to avoid racing with link
+clearing during SMC-R link failover". It removes the NULL dereference
+through link->smcibdev->ibdev, but is the race itself still there?
+
+This block loads link = smc->conn.lnk with a plain load. It then copies
+ibport, link_id, ibname, gid and peer_gid while holding only
+read_lock(&smc_hash->lock).
+
+At the same time, smcr_link_down()->smc_switch_conns()->
+smc_switch_link_and_count() can run:
+
+	atomic_dec(&conn->lnk->conn_cnt);
+	smcr_link_put(conn->lnk);
+	conn->lnk = to_lnk;
+
+This runs under lgr->conns_lock and conn->send_lock, and the diag reader
+takes neither. smcr_link_clear() then does the final
+smcr_link_put()->__smcr_link_clear():
+
+	memset(lnk, 0, sizeof(struct smc_link));
+	lnk->state = SMC_LNK_UNUSED;
+
+smcr_link_init() can later reuse the slot. smc_cdc_msg_validate() also
+rewrites conn->lnk under send_lock.
+
+The link is embedded in lgr->lnk[], so this is not a use-after-free.
+However, could user space get an SMC_DIAG_LGRINFO record with an empty
+ibname, ibport 0, link_id 0 and all-zero GIDs, or a mix of two links?
+
+Would taking conn->send_lock around the conn->lnk load and the copy, or
+holding a link reference, give a consistent snapshot? If not, could the
+commit message say that only the NULL dereference is avoided?
+
+[Severity: Low]
+This isn't a bug, but link->ibname is only written by
+smcr_copy_dev_info_to_link() when the link is created. SMC_NLA_DEV_IB_NAME
+in smc_nl_handle_smcr_dev() and the pnet table still use the live
+smcibdev->ibdev->name.
+
+After an ib_device_rename(), the name in SMC_DIAG_LGRINFO will not match
+the SMC device dump or the pnet configuration. The commit message
+documents this, and it matches the existing SMC_NLA_LINK_IB_DEV link dump.
+
+>  		smc_gid_be16_convert(linfo.lnk[0].gid, link->gid);
+>  		smc_gid_be16_convert(linfo.lnk[0].peer_gid, link->peer_gid);
+
+[ ... ]
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013141510.2621698-1-mjambigi%40linux.ibm.com
