@@ -1,188 +1,113 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1907F363C46;
-	Wed, 14 Oct 2026 20:32:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0288C48EC74
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 20:33:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792009956; cv=none; b=qI5KZAsI7iH+MDZRR6uGBGvnIBPaHItIcUbvqKpeHwjxP52KlTeok/k37vqjxb3IKfMBqxpkkeZ3cKjGVhp4TQK4QXGpFkOYnaCZ2cmaXhfwejk+d9NzaX5r+JwvKcpBf2Gz+5xlJlHyOfFPsWD4OZmQBQKbfrBju8CufRvXSqM=
+	t=1792009989; cv=none; b=mFVrOCxhj3WpcoPqDav+qhBYeRwSxtZF6mMj71ydEqMGXubK33ukA9AX/H1+WUTzx8aeCBmVFz74emskoacmaxOBxgCAuJhtTxg9pIlztF6Ji7C9h+AigiBspy6DRVu/C8cL6hmHUx4MYl7DI5i5uoWnTmWeDuTWbBrgAezUM6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792009956; c=relaxed/simple;
-	bh=tWgKXUh22x9OhorVqOWRYmOtA0aoRz/aY9z8oYN3GXU=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=quOWmhq/wP/wLnMURzEOPYDbZddSdnq6HdzATiPJ9GGtG1wojeRXRttM8IRLZdOL6lSmvDafHN6nfWi06fyHflQDKIaGe8wA7dKK3ZUKpRFuNRSJwB4TwmfCtC3PDYibNfM/1iYrj5sfXaCyb3oF/e9c3S7Dhw5sUAY6c9+CDvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=f9RQVOwq; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1792009989; c=relaxed/simple;
+	bh=7gVQWNdu44u7syl2CpxBqBL3hioj2qZM5WHUTPtetmY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Isy/LB/1nTHIubnOjSYQ/Mfdw98ltOcAyhUIuyLtxk0reCzAglO9FLnUHwUaLQV25DRSJvIBhIE8ehxJSKr20BlPoF9d53bu4IVrvn+yOhfstmHE2pYY55idJ6akoEMj7gYXLTKLRawHMMtad4aEApde8PO5RCMzhrZRXZcQP6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IILAcWaJ; arc=none smtp.client-ip=209.85.219.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="f9RQVOwq"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69EEiVeH2562494;
-	Wed, 14 Oct 2026 20:32:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=5ujUXx
-	Oxc2+QY02Jg9WNRsThUM4Ckx/qWWSzFmoQbHU=; b=f9RQVOwqfvT8aTEFGdT+yH
-	C3a6+D9GhKH2ODua3wxattCNxeQKD8V3Z0WPbQpf0p8aqWExeH5MTAceDkzBASTe
-	Krsye0/vuth0hSsZcz4bkF7jjVRn+s8zz0FGf7CRidIbpfqSg/C9vAX4XixAgEL2
-	WMEDUlxFJzflPkzwBx98peh9k/XKPMP/bPhFzqaStOFumjtGlEIn1CYp3Nmm4hyn
-	zv4A1r+dCMl/TUlD9ZgklImmGndmKtXe3pwT5h8dcB43MIvhKhXJaD9krm+AetsP
-	joVY+wpkLnvyDFiMy/c9CgcDxTvsOZ3WxkEJbRR1c7ZeGisIGlvqThwDvCVooqOQ
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dugpmqa-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 14 Oct 2026 20:32:24 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69EIeuFh634438;
-	Wed, 14 Oct 2026 20:32:23 GMT
-Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h9q2ypjyj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 14 Oct 2026 20:32:23 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
-	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69EKWNtj32572096
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 14 Oct 2026 20:32:23 GMT
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6BF9158054;
-	Wed, 14 Oct 2026 20:32:23 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8970758062;
-	Wed, 14 Oct 2026 20:32:22 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.5.196.140])
-	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 14 Oct 2026 20:32:22 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IILAcWaJ"
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91b8b456dbeso34453626d6.2
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 13:33:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792009987; x=1792614787; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pnlTwXurTKZ2zk8thHhM/pDYxwWJL3S5XvgmwZlUXBA=;
+        b=IILAcWaJW09/WrSAXqxs1i8w/bGc3q9RvdzGZ5yGLjKxr1XITcx0tTfyCOe6fLcJnO
+         kZBsvOZAyL0OkJntmqyeOdP70Tqy/0IvGEY+vJm1bkhHwssvwgOK4/Ch1j1yVJK2r5yn
+         ocW585+7mpfLqfSQpmIaqQxk/mweJb+zSFaL9/gbIirnv5cpztmR3Sn31DTQYSAPtYq4
+         YM/1lkmMqMfrGWw3bf46VnabLEuayHbSFn42//WzvbxyQJktzeOp+IBw+cKHOxl2xiy2
+         XT7SuC/Z0zbYdh7jqkJ74HA3L+ZTw04o0FzkodZy3jP7dChStuOKsdEEioIxWW84daPW
+         JA9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792009987; x=1792614787;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pnlTwXurTKZ2zk8thHhM/pDYxwWJL3S5XvgmwZlUXBA=;
+        b=yQrCx+SGN3KIivWn+4kmhKF9fF8p6P5JeGgRRCHpw3fspN0DSV5L4ueO6Y9DlDdHEd
+         wCvhsfvSacG9D9nEoIE8w8xzGOtPcXFUf7kOMLLJbzLHiAFtKBKYR9KO0qCp14Vp+rte
+         rGEOb71gVUZRnqOT494LcrGsiSMvhoZRWwS6xpElspujzIC+++Am+qi8SaZqOQEu4wtk
+         P1KE0kaznT2Q0WOUDZgAWhMSTtajBDX+dAsKXh4h5TJhQh3vv3vpSSe+J8dKjfVmbV96
+         sbd/k4GIT7Pa/VsQT0ims1woRHa+GMyCNJdHDWmuYqmPVdJBSnP0EVFtlvfk3ZJJtVFP
+         7O0w==
+X-Forwarded-Encrypted: i=1; AKwUvBwsbh80fzDQlaPYI9HheGWLKqBNzzkGCFYopq1sXslfnYnVTekkGyCHG4p67ho94Y4s9AC257Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIdEUMOFYz5zVHXhgRYYqQ80J1u4iZN+aOw2qgX5QE2TfR8eQYK
+	4r2+PHXkrb0+NwuEB8+3bImrtXWqgY6aXucyqCnSDaRm+ksqE1lphxMK
+X-Gm-Gg: AYBFou3kuU7/7KALp9noRAbcveb537GMJHBvnDapnBB1I/tublRdtX5e9Wk2OtBOXTh
+	KspPVJEyBxdHU/zZ9g3aUXWzcXctl9cvkfIsrsjkudyJAN0S3JhnOPe1PTxjsOPkXiKJi73HnY9
+	WZ5q8g+eMIi2f2UWTNFJJz0PR/NVrPr6/T86flo4xK8hEYSEn+cn3QQEFnEQG8rwhu6jKFDAnwO
+	fPjrbjs4Zve6BJjW+BcGF4LD24WWpOcq3f20X00XiCdPXH60V0DZsIaA/XRupcXHsI5Spst7qns
+	A12TcHvXblaDeHrz2GWtFdYhhNqmpGi3ZiF60HjACnN006kZ4d/AQdsg8IMLEVlnyHm00qRcCmD
+	riSNvotoCtgA2kiGFeteUuHhq2/fLMuFUVVGoiWas3klJsYp3sQXe/zbpzqE7TG3uNWIwAiZlgX
+	68mqqLH3yuPncaVzZIEW0S+7Jzt0HI7MqzPkuwD4nDIEbMU3nRauRUTmj0eLTIkjm5CXhyMQ0si
+	v9BaX+IfHztHIRpMETic4gz
+X-Received: by 2002:a05:620a:44c8:b0:939:fde0:a71b with SMTP id af79cd13be357-93ebcd2c13amr2744492885a.0.1792009986696;
+        Wed, 14 Oct 2026 13:33:06 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef50095bbsm583476785a.9.2026.10.14.13.33.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 13:33:05 -0700 (PDT)
+Message-ID: <5931df06-6048-41fe-a262-575e2079067b@gmail.com>
+Date: Wed, 14 Oct 2026 13:33:00 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 14 Oct 2026 15:32:22 -0500
-From: Wen Xiong <wenxiong@linux.ibm.com>
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: mathias.nyman@intel.com, gregkh@linuxfoundation.org,
-        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org, wenxiong@us.ibm.com,
-        Brian King
- <brking@linux.vnet.ibm.com>,
-        Samuel Mendoza-Jonas <sam@mendozajonas.com>,
-        Joel Stanley <joel@jms.id.au>
-Subject: Re: [PATCH] xhci: Reset controller on xhci shutdown
-In-Reply-To: <20261006125546.10471489.michal.pecio@gmail.com>
-References: <20261001222527.11742-1-wenxiong@linux.ibm.com>
- <20261002102931.3cb06009.michal.pecio@gmail.com>
- <561d22493c3d078b26f547dd8f6f6f46@linux.ibm.com>
- <20261002161828.365ff859.michal.pecio@gmail.com>
- <55a53022d1c6f671a3ed549d8cf7cd1a@linux.ibm.com>
- <20261006125546.10471489.michal.pecio@gmail.com>
-Message-ID: <64515dfd9a6cd8c3f5665e72a6bf6b81@linux.ibm.com>
-X-Sender: wenxiong@linux.ibm.com
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 000/505] 6.12.113-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261014123803.944920639@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20261014123803.944920639@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=Cr0q4X4D c=1 sm=1 tr=0 ts=6acfe6d9 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=MWHgFnkp4v5QQt6DU_YA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-GUID: -H3wSmxdhVJawbwNyPSzjl3zPifwDwqz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE0MDA4MCBTYWx0ZWRfX5kpe1Xh6FRDC
- 9EtGiMheIepoAYuTFvIRFfKHdBOmXvU5cOO+nAqlTTISZ4Bcj5ugNyhp+xao/Z+xXkQ+BYjFN4+
- fpkPQDVRjLAUsBBNndCzdc2umjzlRWWAWyz9cPC83rmTbeQOzWH4u8JNyoIYPwT4HDrJ6ploJTx
- xfqSeuoY207NuK63CmR7ciRkkC6AFrXnntgP2lrlf2LKKuVACNb9cXP/Chza7otlCdXc9hHcA3Y
- y6HQAxz43t8prn27yZxBQBcnggzVCFWVeQ5H2GWCK6Ke3di8Q07cJXyIxPRNVse8GSANQ+0MYKn
- JbEtdiH7R1ZcZX3kWDa1lNc/NvadkQ3Axlxku8Pp+VyDlXdQyli38eyp5ji1q0VOk42I3mDo3/T
- ZnQcs0GQR4fa29D4n25ARpL+lWxNsvuDz1rDHElQzrv+3U3mOACYeksyiLw7YQMYahYP3xFscnB
- 7cNfWxLCCqi1cxqA25Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE0MDA4MCBTYWx0ZWRfX/gyTShc6plTf
- hUJu+UOIik0rSfesCb3kvdkPS5y93eSzFc43xXUetT+z4qmKPJN6jx7xmduxmMKj/4UfsOtn1Pz
- XnFW7PmA4RkkJh4CNH+xq3QqWOPNOHY=
-X-Proofpoint-ORIG-GUID: DqAWnHanW6LB_e30Wx5ZMHFYcnXfk7Qy
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0
- malwarescore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610140080
 
-On 2026-10-06 05:55, Michal Pecio wrote:
-> Are you able to capture the original kernel's dmesg (through serial,
-> netconsole, etc) and see if the same "Host halt failed" is there?
+On 10/14/26 05:50, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.113 release.
+> There are 505 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-Below is xhci messages after executing a kexec kernel. This is dmesg for 
-kexec kernel.
-[root@ltc-boston11 ~]# dmesg|grep xhci
-[    1.085853] xhci_hcd 0005:01:00.0: xHCI Host Controller
-[    1.085992] xhci_hcd 0005:01:00.0: new USB bus registered, assigned 
-bus number 1
-[    1.144472] xhci_hcd 0005:01:00.0: Host halt failed, -110
-[    1.144518] xhci_hcd 0005:01:00.0: can't setup: -110
-[    1.144571] xhci_hcd 0005:01:00.0: USB bus 1 deregistered
-[    1.144778] xhci_hcd 0005:01:00.0: init 0005:01:00.0 fail, -110
-[    1.144842] xhci_hcd 0005:01:00.0: probe with driver xhci_hcd failed 
-with error -110
-
-This is the reason why we can't see usb devices after a kexec kernel.
-
-With the patch,
-  #dmesg|grep xhci
-[    0.859562] xhci_hcd 0005:01:00.0: xHCI Host Controller
-[    0.859670] xhci_hcd 0005:01:00.0: new USB bus registered, assigned 
-bus number 1
-[    0.859797] xhci_hcd 0005:01:00.0: iommu: 64-bit OK but direct DMA is 
-limited by 0
-[    0.859858] xhci_hcd 0005:01:00.0: iommu: 64-bit OK but direct DMA is 
-limited by 0
-[    0.859982] xhci_hcd 0005:01:00.0: hcc params 0x0270f06d hci version 
-0x96 quirks 0x0000000004000000
-[    0.860614] xhci_hcd 0005:01:00.0: xHCI Host Controller
-[    0.860719] xhci_hcd 0005:01:00.0: new USB bus registered, assigned 
-bus number 2
-[    0.860770] xhci_hcd 0005:01:00.0: Host supports USB 3.0 SuperSpeed
-[    0.861091] usb usb1: Manufacturer: Linux 7.3.0-rc6-usb-gbatra+ 
-xhci-hcd
-[    0.862130] usb usb2: Manufacturer: Linux 7.3.0-rc6-usb-gbatra+ 
-xhci-hcd
-[    1.127210] usb 1-3: new high-speed USB device number 2 using 
-xhci_hcd
-[    1.407320] usb 2-2: new SuperSpeed USB device number 2 using 
-xhci_hcd
-[    1.556759] usb 1-4: new high-speed USB device number 3 using 
-xhci_hcd
-[    1.806902] usb 1-3.1: new low-speed USB device number 4 using 
-xhci_hcd
-
-#[root@ltc-boston11 ~]# lsusb
-Bus 002 Device 002: ID 18a5:0252 Verbatim, Ltd
-Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
-Bus 001 Device 003: ID 0451:80ff Texas Instruments, Inc.
-Bus 001 Device 004: ID 0557:2419 ATEN International Co., Ltd Virtual 
-mouse/keyboard device
-Bus 001 Device 002: ID 0557:7000 ATEN International Co., Ltd Hub
-Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
-
-
-
-> And if you enable dynamic debug before kexec,
+> Responses should be made by Fri, 16 Oct 2026 12:37:19 +0000.
+> Anything received after that time might be too late.
 > 
->   echo 'module xhci_hcd +p' >/proc/dynamic_debug/control
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.113-rc2.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
 > 
-> what's printed by the debug message at the end of xhci_shutdown()?
+> thanks,
 > 
-> Do you also get errors from quirk_usb_handoff_xhci() by any chance?
-> 
-After executing a kexec kernel, is the control setting lost?
-I didn't see much useful information in control after a kexec kernel.
+> greg k-h
 
-Probably we can resubmit the patch with mathias's suggestion.
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-Thanks,
-Wendy
-
-T
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+-- 
+Florian
