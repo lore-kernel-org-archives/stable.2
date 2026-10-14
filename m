@@ -1,152 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-244116.protonmail.ch (mail-244116.protonmail.ch [109.224.244.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0F44BD375;
-	Wed, 14 Oct 2026 13:07:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88042427F85;
+	Wed, 14 Oct 2026 13:08:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791983242; cv=none; b=KH2xpOetJH1mXTe9XeXvld+tN39dKzTaK642x5pyX3qXId0wbL25afvfsVIQ8AbyvAWyOHObicwB7T60f7uofX5qioCpo353+K6QuQft+zyvVrEZUaV4XcA6l0NrRYupWSzCaBnpachb296eNrpYlfgI1V1hPywHQ3PFROGQxcU=
+	t=1791983297; cv=none; b=eDfrOiQZp3NtsuRyI/RpXw1e3sI/0J5WSipJKhvNekNCkQcdRpR5X3PvQOqlU0L5wfgkith+QJaM0TB6C+FreaZT5gBkCmbENCBbllj9RBSI/78ob/tZt6/2RfC58gdUHT/waP65DXjfmAElrSwWx4KDuAOlcOhDZZ5SLxIOXk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791983242; c=relaxed/simple;
-	bh=tgeyzmFEqjRy/ewes1KGFcQbVOxQv8aq24/1Dxe5iq8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B0hI2X0dVsnVI7r3g3jYgTQjTSbV99HjX/Zz23xq3LQCHX3lHr2vNFmTlpFlC7kY8IBalU1V3riJmbkp0tWxN3mNh0H7X5zqL/1tRHFuXMzCG8WRtLW2boKWwbAB+gCBTAPWovLFO1g0Q8HhgBXHfVQcv+aQVyTRsP70GxVrUU8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gJXvNhle; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791983297; c=relaxed/simple;
+	bh=LDyTaQRpiNCLGifw3ysSkRAP6gDTaE4urTYu/9BPkSg=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=Aom1GO/s4qDIh3+ThlXJ4w+3pN9EIGHyo1h/YWgKP6upd837gCyecYAtoZ2n8dkjFnRtiTeVuTK2BN/SDpZnND+rGTLNuXcoGXm/1WbFhlR7peWvztwNhJxr3J5glYGPV26q985SGeRK4aydu5zYIs3LeGAcOKz9Pe0MZfH7AUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=WwvsDZf+; arc=none smtp.client-ip=109.224.244.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gJXvNhle"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A5C31F000FF;
-	Wed, 14 Oct 2026 13:07:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791983240;
-	bh=wVcsAY5wGMlDOwmq1UZhDfW0sTXv6nSmjcnxiZJCQSs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gJXvNhlenmvFPChjIvsCVcupdI2lvpG74I76/6onSupzyO0JjNjLRd8nqJ5I0mzJr
-	 iqy0aBl7eU/sNq1UeTHQcq9kHlgTtxYiZmwV87gGeg9gF/6S/nInXVBK1+WAheoZrq
-	 IsAggvZ85Uz2egR5kLg2PBngfG6QygA/b7Y+0giJQQfNvt3ErLXI7YHtm4srzKTxyU
-	 1D0sdzRuOzsf8lXOhV1QyPsJ40wzLX+by66/gY8/om4e4E12NwZy01kmORNiJoZIQd
-	 S0lEEw9xFXQeZEwJWzPJWpyO035uhqDkm6XDfP7Nsmvhg6Z2TZgUulV6X8W6/QR/yZ
-	 dT6m3qgj6lUew==
-Date: Wed, 14 Oct 2026 14:07:18 +0100
-From: Harry Yoo <harry@kernel.org>
-To: Imre Kaloz <kaloz@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Jann Horn <jannh@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/slab: sample slab_state once in kmem_cache_destroy()
-Message-ID: <as96u-sh8BbjXW24@thinkstation>
-References: <20260930195110.13296-1-kaloz@kernel.org>
- <ar5pESlkEMqNsgxv@thinkstation>
- <aef97b97-0bd7-d720-7f59-8c0078747370@kernel.org>
- <as4QhUscRVtBzYpm@thinkstation>
- <481e9a16-cd30-d463-14ee-b5602bcd5a21@kernel.org>
- <as4q2WlR7mLhMBpG@thinkstation>
- <e4184209-75ee-929d-0103-ca15d5886000@kernel.org>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="WwvsDZf+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1791983292; x=1792242492;
+	bh=BqTh6n19golqx7qGe+8OlPh2PcFhJmLhCol8IvkKblk=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=WwvsDZf+plyKGVPEtOr/ntTl/1wnRRNjTmQhXR6/STMP5nd4dWrmrF/IWiVCEOrd2
+	 uqLTzHcKh8ZJBMUW8VHfsiTwNWpWDbTOMTgR7K1NW2P/E8Zuz+COCrLyBkQ5D1rfBo
+	 GUxACnInCDUkjhgUtrTy4k7gGpXK9ibaay4VliDQbIN/QtorcI/X4TLbC8CgfCLxvl
+	 S7V4LsKxMyTmkUH1yiER8Np3hYuezkSXGr8TsM6zCt5gV464hVsz06Fcl0dtPN2ljp
+	 82nktkD13JReeR+G8j62/Xrhn+PW86YnHU/KU5ujSU3jHVgCdhNevSis6aTeXs0sPi
+	 Tv2LueLC3zVpg==
+Date: Wed, 14 Oct 2026 13:08:08 +0000
+To: Andi Shyti <andi.shyti@kernel.org>, Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>, Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+From: Birk Skyum <birk.skyum@pm.me>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Thorsten Leemhuis <regressions@leemhuis.info>, Daniel J Blueman <daniel@quora.org>, Sasha Levin <sashal@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Manikanta Mylavarapu <quic_mmanikan@quicinc.com>, linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, regressions@lists.linux.dev
+Subject: [PATCH] Revert "i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_CLK_SEL"
+Message-ID: <20261014130805.48840-1-birk.skyum@pm.me>
+Feedback-ID: 21326998:user:proton
+X-Pm-Message-ID: 3fdfce3c61c9a6a7f540e0c76ae0eecadf5d47a2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e4184209-75ee-929d-0103-ca15d5886000@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 06:32:26PM +0200, Imre Kaloz wrote:
-> Hi Harry,
-> 
-> On Tue, 13 Oct 2026, Harry Yoo wrote:
-> 
-> <snip>
-> 
-> > > > > There is a related older window: after list_del() and before that
-> > > > > single read, slab_sysfs_init() could set FULL, skip this cache, and
-> > > > > the single read would then call both unlink and release on an
-> > > > > uninitialized kobject.
-> > > > 
-> > > > No, with this patch slab_sysfs_init() cannot set the state to FULL
-> > > > because the slab_caches list and slab_state are protected by slab_mutex.
-> > > > 
-> > > > > I have not hit that, and this patch does not close it.
-> > > > 
-> > > > I think the patch does close two bugs.
-> > > > 
-> > > > One introduced by 4ec10268ed98 (reading slab_state twice),
-> > > > another (reading slab_state outside slab_mutex) introduced by, hmm,
-> > > > not sure which commit introduced it :) should be very old.
-> > > 
-> > > You're right, I got that one wrong. Sampling under slab_mutex in the
-> > > same section as the list_del() means slab_late_init() either sees the
-> > > cache on the list or we see slab_state < FULL, so the older window is
-> > > closed too.
-> > > 
-> > > As for where the outside-mutex read came from, as far as I can tell it's
-> > > 0495e337b703 ("mm/slab_common: Deleting kobject in kmem_cache_destroy()
-> > > without holding slab_mutex/cpu_hotplug_lock"). Before that, the unlink
-> > > and release and their slab_state checks ran in shutdown_cache() under
-> > > slab_mutex.
-> > 
-> > 0495e337b703 Probably yes. Not 100% sure.
-> > 
-> > It's quite messy, reading slab_state has been done inside, switched
-> > to outside, and back to inside, and so on.
-> > 
-> > But should be fine as long as we can find the first commit that
-> > affects -stable kernels (>= 5.10.y)
-> > 
-> > > SLAB_TYPESAFE_BY_RCU caches were already released from the
-> > > workfn outside the mutex since 657dc2f97220.
-> > > 
-> > > Want me to send a v2 with a second Fixes: for 0495e337b703, or is it
-> > > fine to add it when applying?
-> > 
-> > Could you please verify fixing which bugs resolves the issue on sparc64
-> > described in the changelog? Reading it twice, or outside slab_mutex, or
-> > both?
-> 
-> I tested it. I built five variants of rc7 with a small test that
-> destroys a SLAB_TYPESAFE_BY_RCU cache while slab_late_init() runs
-> (same path the floppy bio slab takes), and booted each 10 times on
-> x86 and 8 times on sparc64. Boots that hit the WARN:
-> 
->                                              x86     sparc64
->   mainline                                   9/10    8/8
->   one read, in kmem_cache_release()          9/10    8/8
->   unlink check under slab_mutex,
->     release still re-reads                   10/10   8/8
->   one read under slab_mutex (this patch)     0/10    0/8
->   one read right after mutex_unlock()        0/10    0/8
-> 
-> So it takes both. The read that hurts is the one at release time,
-> after rcu_barrier(); fixing only the double read keeps it, and so
-> does moving only the unlink check under the mutex. Reading once
-> right after the unlock didn't trigger it, but that is still racy,
-> just a much smaller window.
+This reverts commit cb97bf3d4f91453b881acaf8e9f0cc47bb40b604.
 
-Thanks for verifying that.
+With that commit the keyboard and touchpad of the Lenovo Yoga Slim 7x
+(x1e80100) are dead, also at the disk passphrase prompt, on 7.2.9 and on
+v7.3-rc7. The first transfer on their bus fails.
 
-> For stable, as far as I can tell the release-side read has been
-> outside slab_mutex since d50d82faa0c9 ("slub: fix failure when we
-> delete and create a slab cache") in v4.18
+  geni_i2c b80000.i2c: Bus proto err, noisy/unexpected start/stop
+  i2c_hid_of 1-003a: failed to fetch HID descriptor: -5
 
-For SLAB_TYPESAFE_BY_RCU caches, yes.
-and others since 0495e337b703.
+With the commit the I2C serial engine clocks read 32 MHz, without it
+19.2 MHz. A fix for the 32 MHz fast-mode timing is still being
+discussed, so go back to the previous behaviour for 7.3. This brings
+back the hardcoded index 0 in SE_GENI_CLK_SEL.
 
-I think Fixes: d50d82faa0c9 should be fine.
+On v7.3-rc7 with only i2c-qcom-geni.ko swapped, the keyboard is dead
+without this revert and works with it.
 
-> , so that would cover
-> 5.10.y. The patch doesn't apply before 6.12, so the older branches
-> need their own backports.
+Fixes: cb97bf3d4f91 ("i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_=
+CLK_SEL")
+Reported-by: Birk Skyum <birk.skyum@pm.me>
+Closes: https://lore.kernel.org/r/179173732257.29426.7905170638383807320@pm=
+.me
+Link: https://lore.kernel.org/r/ae03e7a3-75f1-42df-b0e6-0e64358be647@oss.qu=
+alcomm.com
+Cc: stable@vger.kernel.org
+Signed-off-by: Birk Skyum <birk.skyum@pm.me>
+---
+ drivers/i2c/busses/i2c-qcom-geni.c | 38 ++++--------------------------
+ 1 file changed, 5 insertions(+), 33 deletions(-)
 
-Ack.
-Are you willing to backport it to -stable kernels as well?
+diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qc=
+om-geni.c
+index ed6495e..3a3c871 100644
+--- a/drivers/i2c/busses/i2c-qcom-geni.c
++++ b/drivers/i2c/busses/i2c-qcom-geni.c
+@@ -82,9 +82,6 @@ enum geni_i2c_err_code {
+ #define XFER_TIMEOUT=09=09HZ
+ #define RST_TIMEOUT=09=09HZ
+=20
+-#define GENI_SE_CLK_32MHZ=09(32 * HZ_PER_MHZ)
+-#define GENI_SE_CLK_19P2MHZ=0919200000UL
+-
+ struct geni_i2c_desc {
+ =09bool no_dma_support;
+ =09unsigned int tx_fifo_depth;
+@@ -130,7 +127,6 @@ struct geni_i2c_dev {
+ =09spinlock_t lock;
+ =09u32 clk_freq_out;
+ =09const struct geni_i2c_clk_fld *clk_fld;
+-=09u32 clk_idx;
+ =09void *dma_buf;
+ =09size_t xfer_len;
+ =09dma_addr_t dma_addr;
+@@ -201,44 +197,19 @@ static const struct geni_i2c_clk_fld geni_i2c_clk_map=
+_32mhz[] =3D {
+ static int geni_i2c_clk_map_idx(struct geni_i2c_dev *gi2c)
+ {
+ =09const struct geni_i2c_clk_fld *itr;
+-=09unsigned long res_freq;
+=20
+-=09/*
+-=09 * Frequency counter tables are calibrated for a specific source
+-=09 * clock frequency and are not valid for any multiple of it
+-=09 * (e.g. 64 MHz, 128 MHz).
+-=09 * Use exact=3Dtrue and verify res_freq matches req_freq literally
+-=09 * to reject harmonics: a 64 MHz clock that divides evenly to
+-=09 * 32 MHz would pass exact matching but produce double the intended
+-=09 * I2C frequency with these counter values.
+-=09 */
+-=09if (!geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_32MHZ,
+-=09=09=09=09    &gi2c->clk_idx, &res_freq, true) &&
+-=09    res_freq =3D=3D GENI_SE_CLK_32MHZ) {
++=09if (clk_get_rate(gi2c->se.clk) =3D=3D 32 * HZ_PER_MHZ)
+ =09=09itr =3D geni_i2c_clk_map_32mhz;
+-=09} else if (!geni_se_clk_freq_match(&gi2c->se, GENI_SE_CLK_19P2MHZ,
+-=09=09=09=09=09   &gi2c->clk_idx, &res_freq, true) &&
+-=09=09   res_freq =3D=3D GENI_SE_CLK_19P2MHZ) {
++=09else
+ =09=09itr =3D geni_i2c_clk_map_19p2mhz;
+-=09} else {
+-=09=09dev_err(gi2c->se.dev,
+-=09=09=09"Unsupported SE source clock: must be exactly 32 MHz or 19.2 MHz\=
+n");
+-=09=09return -EINVAL;
+-=09}
+=20
+ =09while (itr->clk_freq_out !=3D 0) {
+ =09=09if (itr->clk_freq_out =3D=3D gi2c->clk_freq_out) {
+ =09=09=09gi2c->clk_fld =3D itr;
+-=09=09=09dev_dbg(gi2c->se.dev,
+-=09=09=09=09"I2C clk selected: freq: %u Hz, clk_idx: %u\n",
+-=09=09=09=09gi2c->clk_freq_out, gi2c->clk_idx);
+ =09=09=09return 0;
+ =09=09}
+ =09=09itr++;
+ =09}
+-
+-=09dev_err(gi2c->se.dev, "Unsupported I2C output frequency %u Hz\n", gi2c-=
+>clk_freq_out);
+-
+ =09return -EINVAL;
+ }
+=20
+@@ -248,7 +219,7 @@ static int qcom_geni_i2c_conf(struct geni_se *se, unsig=
+ned long freq)
+ =09const struct geni_i2c_clk_fld *itr =3D gi2c->clk_fld;
+ =09u32 val;
+=20
+-=09writel_relaxed(gi2c->clk_idx, gi2c->se.base + SE_GENI_CLK_SEL);
++=09writel_relaxed(0, gi2c->se.base + SE_GENI_CLK_SEL);
+=20
+ =09val =3D (itr->clk_div << CLK_DIV_SHFT) | SER_CLK_EN;
+ =09writel_relaxed(val, gi2c->se.base + GENI_SER_M_CLK_CFG);
+@@ -1141,7 +1112,8 @@ static int geni_i2c_resources_init(struct geni_se *se=
+)
+=20
+ =09ret =3D geni_i2c_clk_map_idx(gi2c);
+ =09if (ret)
+-=09=09return ret;
++=09=09return dev_err_probe(gi2c->se.dev, ret, "Invalid clk frequency %d Hz=
+\n",
++=09=09=09=09     gi2c->clk_freq_out);
+=20
+ =09return geni_icc_set_bw_ab(&gi2c->se, GENI_DEFAULT_BW, GENI_DEFAULT_BW,
+ =09=09=09=09  Bps_to_icc(gi2c->clk_freq_out));
 
-And could you please post v2 with updated Fixes: and the
-commit message ;)
-
-Thanks for fixing this!
-
--- 
-Cheers,
-Harry / Hyeonggon
