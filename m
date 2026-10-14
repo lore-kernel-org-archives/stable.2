@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33AD4552955
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 15:38:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 930ED55C314;
+	Wed, 14 Oct 2026 15:40:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791992286; cv=none; b=TiuS4GrEwS9v84cIQak6BjvmNT0rtLeqzlKrwr2ct01L+Gkkk/pznVm3o7lF2G9vOCxDohr8tAtSf6axMXgcKKhtKP5jJX222s6vgFxCgR9dUpXus/lV5G5rm/8kfxITLp8F6A+wnMxtCkSQk3+X7S6ZfE16LUmX59xsHPN4UQo=
+	t=1791992448; cv=none; b=BMTGE6tOdczSKSoTHTxUNR6XPm+Z1VW/wta+aZo6I5zQC0Sgc0XZkOUhOGL7ObJm//sM4ShFD3pGEAenG0qRDx4amNV/TOGYi8DBvhXenaUyk0BKDHGe4YZAgIy2kNCZYZIsTqpYmwQiTKZAVsNJqxAYIS5V5I77nEiRRj9b/Jo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791992286; c=relaxed/simple;
-	bh=lz8D8RC8N3bVt0E+KvIJN169I0g9bBLpdu3waw6TBSI=;
+	s=arc-20240116; t=1791992448; c=relaxed/simple;
+	bh=VGR1U2Q2yccirOzCq9j3N28WgaHfxLVicd4wih2+iuU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cv17Zt647pQ0b5g2PbJvAYuSDqE1hqsCcv76X8v9JEVId0SqbNl9PSZrX2s/dc+7waCNTX0iEwkZs2gcyX+5Agw7Txnabph5XkGyBvHVBpBaBP557791iSv1wnKec2foARFE5ymZlyfSid4otQ5JJUu7RIzwF+DNBtu1pVST8Y8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XIwfbI0t; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=LDDFSe2buwSQ9uKQJFn5f2TXec8SpjE5VVPid/i0RvNgciBN+5nHNhwhzVdoBHqOrxGHr1HRj0ZNobEuj+I+yNXTBQCLboSYgpom2vqXa7Gj8DXPtkEeQCJAFolK6RwHiFF2g28U9ddh9Js4X9/9TyqZ5/LCIEf5nSvB1esdJUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=B4W8y2qm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XIwfbI0t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC1E61F000C4;
-	Wed, 14 Oct 2026 15:38:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791992285;
-	bh=ovHBYbcBVfimIe8eIAVC5wulfBTP62i70vORa5b5ogA=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="B4W8y2qm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 583E41F000C4;
+	Wed, 14 Oct 2026 15:40:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791992444;
+	bh=TFFzJPKCak8bHUbu3iKW1Dv5/m+pJOET/smJpVdcZ+U=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XIwfbI0tm0ACdckGwvsEBkJRpeZAVoo0Z32DQrUoOFZcHwSY8TWZaYye3wWEgpO5B
-	 OU7t2Uy6e3aD3Xh6jukKRqrVockHpcBY269mio57JdUrm5mBevYtlvollmaNu7RbK5
-	 IGZ7ejU75rAcRvm1p6BAZ12Lv+wE9v26HpP24KDEkvUvCMy08CojuMyogVxNb6ey5r
-	 hr9L3b14eST3c1C4g+DXO1WjIiFbZJlZP+ZTVaarlkLJRB2WFqLd9l89qVud7yj2vz
-	 lEt6OuXSM4M8jaNP7lAh9kbZGObS8nI4P1InddjPqH/HmJioyXFSQWUzz2pD2oqjW5
-	 PWz/Y7F/CPPNg==
-Date: Wed, 14 Oct 2026 16:37:59 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, David Hildenbrand <david@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Minchan Kim <minchan@kernel.org>, 
-	Michal Hocko <mhocko@suse.com>, Johannes Weiner <hannes@cmpxchg.org>, linux-mm@kvack.org, 
-	stable@vger.kernel.org, Samarth Narang <samarth.colleges@gmail.com>, 
-	Gregory Price <gourry@gourry.net>
-Subject: Re: [PATCH] mm/madvise: atomically clear the young bit on THP
- MADV_COLD
-Message-ID: <as-dr-S6c3FALwQb@gremlin>
-References: <20261013191719.95502-1-pfalcato@suse.de>
+	b=B4W8y2qmOuRfnq0tsJTTXypfj3XI403SWtfCpe+a4YPuetyEBeqaTsAsJtnvw0IGT
+	 zV9yGgGaH6a+ffY29XjThxzA4i4lptCsWNqTAf7i31JNge8pmfdxmTGFwOzUoQ2i0L
+	 wgL3oDV0WCrdsUKTapHCLDD/HzLgdz1cl7bzdSxg=
+Date: Wed, 14 Oct 2026 17:40:49 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Phil Rosenthal <phil@phil.gs>
+Cc: Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Johan Hovold <johan@kernel.org>,
+	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH v2] serial: core: Shut down a running console port before
+ removing it
+Message-ID: <2026101433-refuse-unbiased-4b63@gregkh>
+References: <20261013-serial-console-remove-v2-1-2eca1a92c10d@phil.gs>
+ <2026101326-outmatch-regular-f8ae@gregkh>
+ <61E0B380-1646-4770-BF37-E1E4329FEE86@phil.gs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,91 +46,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261013191719.95502-1-pfalcato@suse.de>
+In-Reply-To: <61E0B380-1646-4770-BF37-E1E4329FEE86@phil.gs>
 
-+cc Gregory
+On Tue, Oct 13, 2026 at 04:42:47PM +0000, Phil Rosenthal wrote:
+> On Tue, Oct 13, 2026 at 06:12:52PM +0200, Greg Kroah-Hartman wrote:
+> > Is this the same as:
+> > 	https://patch.msgid.link/20261003163337.45577-1-igorpetindev@gmail.com
+> > ?
+> 
+> Yes, it's the same bug and the same fix. I hadn't seen Igor's patch when I
+> sent mine, sorry for the noise. His is in tty-testing already, so
+> please drop mine.
+> 
+> > Why does that commit set a field and this change does not?  Which is
+> > correct?
+> 
+> Both work. Clearing port->console isn't needed for the fix, and it does
+> no harm. uart_shutdown() doesn't look at that flag. It is only read in
+> tty_port_shutdown_locked() and tty_port_close(), on the last close of a
+> tty, and by this point any open tty has been hung up, so
+> tty_port_close_start() returns before either is reached.
+> serial_core_add_one_port() sets the flag again when the line is reused.
+> 
+> The other difference is that Igor's patch calls uart_shutdown() only if
+> tty_port_initialized(), as my v1 did. Sashiko's review of my v1 pointed
+> out that a console port removed while suspended is not initialized but
+> still has its suspended flag set and its transmit buffer allocated, and
+> uart_shutdown() would clear both. That needs the device to go away
+> between system suspend and resume, and I haven't found a way to test
+> it. If you want it covered I can send a patch on top of Igor's commit
+> that drops the tty_port_initialized() check.
 
-On Tue, Oct 13, 2026 at 08:17:19PM +0100, Pedro Falcato wrote:
-> As-is, madvise_cold_or_pageout_pte_range() discards the hardware young
+That would be nice, thank you.
 
-The function from hell... Gregory - PLEASE FIX THIS SOON :))
-
-> bit by invalidating the PMD, doing pmd_mkold() and subsequently writing
-> to the pmd again. However, it does so in a racy manner, looking at a
-> possibly-stale snapshot. It's entirely possible that a write elsewhere
-> set the hardware D bit, which this logic now loses.
->
-> Fix it by using pmdp_test_and_clear_young(). This is an atomic
-> modification of the PMD entry, and thus safe against any possible racing
-> writes. As a (nice) side-effect, this elides one non-required TLB flush
-> in pmdp_invalidate().
-
-Nice, I'm guessing the tlb_remove_pmd_tlb_entry() does what we need already? (as
-discussed off-list :)
-
->
-> This bug can interact with the swapping system in complicated ways, leading
-> to data loss. For instance, if a folio is marked lazyfree, but was later
-> read from, and then MADV_COLD'd while racing a write to that same THP,
-> dropping the dirty bit may lead to data loss as reclaim/MADV_PAGEOUT drops
-> the "clean" anon folio:
->
-> T0                                T1
-> ================================================================
-> MADV_FREE(thp)                  |
->   folio marked lazyfree         |
-> read(thp)                       |
->   PMD marked young by hardware  |
->                                 | MADV_COLD(thp)
-> write(thp)                      |   if (pmd_young(pmd)) {
->   PMD marked dirty by hardware  |     set(pmdp, pmd_mkold(pmd));
-> MADV_PAGEOUT/reclaim            |
->   dirty bit may or may not be   |
->   set                           |
->     reclaim/pageout may drop    |
->     the folio                   |
->
-
-Thanks, nice explanation (even if the >quoting ruins the indentation on my editor
-:P) [untabbed for my benefit]
-
->
-> Fixes: 9c276cc65a58 ("mm: introduce MADV_COLD")
-> Cc: stable@vger.kernel.org
-> Reported-by: Samarth Narang <samarth.colleges@gmail.com>
-> Closes: https://lore.kernel.org/linux-mm/20261011132227.413217-1-samarth.colleges@gmail.com/
-> Signed-off-by: Pedro Falcato <pfalcato@suse.de>
-
-LGTM so:
-
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-> ---
->  mm/madvise.c | 5 +----
->  1 file changed, 1 insertion(+), 4 deletions(-)
->
-> diff --git a/mm/madvise.c b/mm/madvise.c
-> index 85ab9bc76e06..19cd3bb4d1b9 100644
-> --- a/mm/madvise.c
-> +++ b/mm/madvise.c
-> @@ -431,10 +431,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
->  		}
->
->  		if (!pageout && pmd_young(orig_pmd)) {
-> -			pmdp_invalidate(vma, addr, pmd);
-> -			orig_pmd = pmd_mkold(orig_pmd);
-> -
-> -			set_pmd_at(mm, addr, pmd, orig_pmd);
-> +			pmdp_test_and_clear_young(vma, addr, pmd);
-
-Lovely diffstat :)
-
->  			tlb_remove_pmd_tlb_entry(tlb, pmd, addr);
->  		}
->
-> --
-> 2.55.0
->
-
---
-Cheers, Lorenzo
+greg k-h
