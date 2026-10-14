@@ -1,88 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C55DB4A5EC6;
-	Wed, 14 Oct 2026 08:28:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF29367B6D
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 08:29:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791966514; cv=none; b=kNDvLum5efpMzyF01rvVWSpXv4VPZG5tQPQiMKY1zo34Guk/DuPAfXIZ1L/2gpNrRpeJ6NEiCKT4BLgZtXN8NH8fWJoZ56f7dcmeRJ/3VofXIeYhypl8luIihYgQ4dnJB6t8XYf9Id0dYd7gkuQyIdctWGfmIVRMLYAxf7JiWAo=
+	t=1791966547; cv=none; b=phABlIH2uwktKYYW0mP5V5TP8tj9PJADLgEzBER7OE330ObJRHlxYXlU93g48ccETyMHkaDZNTvETYR6C0ARsgPuUEYybmz8eXMfFIzqTf/MoVGWONd1hNI0dA9JhHhAk2lRnnWQpjYnN4KlvhDMR/ehTiSL9bQEKlhKbmE/d1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791966514; c=relaxed/simple;
-	bh=5B+s5XAtpLrp7aNBPuebaYjuzZX+7wRPOvmNro33yDg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=stoZ6sWY0ov4ray4M2aN+UEjVSYhHhRi6faY3ijiCeeEROy52WEDge7WLDe98VqXg0aWvAjEO1+moozcVGIA9c8UDIdcUV3YzZ3LFnglle8gzkriLLHUKFed3VLOIZFtmHP5jQ50lBaoCmd93XBg9efT+qs/slIiMfDDxXt1M/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eaOsd4oW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791966547; c=relaxed/simple;
+	bh=K1xTFF0dZvielDw7CPdKjT3Dos7Fsn3aW1yWLZaKQb0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s3yVbz62v1BUXywJnBKbZORWzk1wSTfEut7/Lmz2KGzKYxLhNcDEiMHaRFGxWL7s2zpnerOlmE8VERr02eNqVl9cYy8XW6+YnQUkkh4K/NvZl0p6SB9vpf4pmO2CL+2u6dSLgL2hizngAhrV1A+i78/qb4OvYpx04R3DIINllD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EgFed68e; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eaOsd4oW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9129E1F000FF;
-	Wed, 14 Oct 2026 08:28:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791966513;
-	bh=0tgLJL4LD7zCdRELlMuMmXIhlo6JFZcu3GAiv5XGnAY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=eaOsd4oW1RANCyUPUEy13GaFMiQ+zrn6BKrUqAJTHZjiuoM3t8pPugaenzjj9U4QR
-	 Y+CDh5+vNOdkqgyPqPegoPMkMAUaSHnY7Pl4cFuN5T/G8OSFxJIYp8DOLS/yNMHFWs
-	 y+Npqc0sVRj5P5s+AZii49MbWQj3rF8um08etY49z6zKCG7AcPWK/Uh+G26CyVNpIQ
-	 PtiLCF6EKY9zNVyhnXiTubKFG9GdpCzPt1P/fO40To7rvoG2gzBU/6Ozzs7tM4RNiU
-	 gTEiPPXtIExIcyT+CGAPQvOsWsOkWv0PLwSWmBoiIHgcQWj70qygGH6nJDOnVT24vy
-	 LfiZwLJRcFcWw==
-From: Carlos Maiolino <cem@kernel.org>
-To: "Darrick J. Wong" <djwong@kernel.org>
-Cc: stable@vger.kernel.org, hch@lst.de, linux-xfs@vger.kernel.org
-In-Reply-To: <179186107760.1898896.12318125940367230627.stgit@frogsfrogsfrogs>
-References: <179186107760.1898896.12318125940367230627.stgit@frogsfrogsfrogs>
-Subject: Re: [PATCHSET v2 2/2] xfs: LLM-inspired bug fixes, part 23
-Message-Id: <179196651229.20513.10034700131514474421.b4-ty@kernel.org>
-Date: Wed, 14 Oct 2026 10:28:32 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EgFed68e"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48af27fe287so236023f8f.0
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 01:29:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791966544; x=1792571344; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ONOYFUsExbiTAqauGcHDMWUDVRV1mSLiP5XphPmFoUU=;
+        b=EgFed68eXGL3coPtaEb352qXlKG2T+5+8wH2QxfE0ZOieJEb46OYWjWxsO/ulYoO+n
+         JsOKRntrefw1bBTbd67DdSJuGQQAxEs8ZwMhsEOdh2+0kSWvcAGd+3GHGunWJ3FQbQEl
+         oXmLskyPmoGg75x2/8Rl93C+kuv8xDSGvVv3tddKMtDByA20m608mw5fRYanSYfLmEeV
+         KX/s/0d3m77q69uOAx10yClZvPgh8lTKmkqJT9y68ncxw2aRm987J6e2w5k9v7SZDjtP
+         f0gyO3WyIfFW3nrYbc71jxZL3sf5ltlr+JgmRoHMXRGiX0cn937IPMQrRGkciLorn3Pa
+         o9qQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791966544; x=1792571344;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ONOYFUsExbiTAqauGcHDMWUDVRV1mSLiP5XphPmFoUU=;
+        b=Kj0scuC5CCMWaffR6zPrG/1RJMIwaymB7L0A1r5EFv+suS0HaCg/ygkPDgLTTpW8up
+         70w0IyPiTxTbiUn2Uo/57C1BQXZzxJzNNmhJ4Kyy+ECCCNYIYYlR6FVuzwSGnUvsSVPy
+         kDrB1Jsbet+Cw80D6dzeBN9SV276T9lxZp9VO3Kp++VFKLQblOfIR/fOTQ8YxIs/3X3q
+         Ajua2iLZFNEG7iiLFgGW/43QJx+Wq5SkjJIS3+lK8mOD6sVDdhFd6azgKrwnV3+i6/xq
+         tNxevWYlDxAaoj3/mflK7qXGvuK633gZZ1gdFdG7/774SVTdArqT8ehWy9T5faYPN/3q
+         c4mg==
+X-Forwarded-Encrypted: i=1; AKwUvBynlk99ShGn6fvedp10DG1/qm3OlW4s2dMMx2yesZ7jDUHQYYLZuN65z6+djlXgSNa9muxg5JY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIboCqG8Vq6oxhud4lGlABJzQHrUzGSq/kJ41sbvrsEVo2XhQoB
+	3WMMcPjTBgGZojz0BcD302gQrPBGSmLcrgGGMO5iUnA5lhM5CrhCWSjz
+X-Gm-Gg: AYBFou1bzEIFBmwp4CY2uQzJpVs+U86Yo2SgYpc0wWBn8SssQvNGOBLNoXIJYhzptIW
+	qpuUMv9XwrrAGAspxpr+dKd8uFx7HekB1sL/Sondd3tO0TpqnX4/9zT/bzWDOeN1+5zcz7IuqOS
+	pl7+SECDoO+5xXM9pg3JJO+GAWZ5O7agMRPJ1iYM0TgfFMAwB6GgTRD3OhNE67rTRjv8zl//c0Z
+	KqINlUbYvQychO8D2pVwG+XemGXxEfM2NYZFiKWggsVRTngXOr8iicTZrx74hsgrDI2aGIKj5yw
+	56/nmZejf45xDY6thSFPwo93+cAfqLg4Bqw+32KkuYfXtK6M1TdTXoZTAXbIeAGfVZY8zKp/wsa
+	MqCdNEqAttyE2wNd39JP8nhIyLd0G+zTlF3xfuKmkGONGvf/fK1B6aJym3KKUM43VPYWnJ30ldj
+	1c7rQYnhEi3hWAxuQQp1DIkWua23qkUhVV8u2cAFDylzIUHQw/47tF5E97szBsZ/baUto=
+X-Received: by 2002:a5d:6443:0:b0:48b:536:c93 with SMTP id ffacd0b85a97d-48dbaae36f4mr21674351f8f.30.1791966544421;
+        Wed, 14 Oct 2026 01:29:04 -0700 (PDT)
+Received: from localhost ([2a02:8308:b092:fd00:20a4:7be9:4762:f55])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48ded185de7sm1899715f8f.31.2026.10.14.01.29.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 01:29:04 -0700 (PDT)
+Date: Wed, 14 Oct 2026 10:29:03 +0200
+From: Jan Remes <ciakval@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Joe Sandom <joe.g.sandom@gmail.com>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Jan Remes <jan.remes@mycroftmind.com>,
+	stable@vger.kernel.org,
+	Martin Triska <martin.triska@mycroftmind.com>
+Subject: Re: [PATCH 1/4] iio: light: tsl2591: don't divide by zero
+Message-ID: <as89TxIwfpw7x40g@mm-ntb-00805>
+Mail-Followup-To: Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Joe Sandom <joe.g.sandom@gmail.com>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Jan Remes <jan.remes@mycroftmind.com>,
+	stable@vger.kernel.org,
+	Martin Triska <martin.triska@mycroftmind.com>
+References: <20261013143943.436816-1-ciakval@gmail.com>
+ <20261013143943.436816-2-ciakval@gmail.com>
+ <as5zy1LRyE5hr6vn@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as5zy1LRyE5hr6vn@ashevche-desk.local>
 
-On Mon, 12 Oct 2026 23:05:22 -0700, Darrick J. Wong wrote:
-> Here's a twenty-third batch of xfs fixes resulting from a LLaMma.  Mwa
-> mwa mwa... this is the final batch of fixes from me.
-> 
-> v2: fix issues pointed out by reviewers.
-> 
-> If you're going to start using this code, I strongly recommend pulling
-> from my git trees, which are linked below.
-> 
-> [...]
+On Tue, 13 Oct 2026 21:09:15 +0300, Andy Shevchenko wrote:
+> On Tue, Oct 13, 2026 at 04:39:40PM +0200, Jan Remes wrote:
+> >
+> > Fixes: 2335f0d7c790 ("iio: light: Added AMS tsl2591 driver implementation")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Martin Triska <martin.triska@mycroftmind.com>
+>
+> How was it reported? Offline? Off the list?
+> Otherwise we have Closes tag to point to the report
 
-Applied to for-next, thanks!
+Yes, this was reported off-the-list in an internal report at $DAYJOB.
 
-[01/12] xfs: don't set a metadata directory's parent to sb_rootino
-        commit: c9f98b0f4f70c8cfd617dc2886bf2fc0a36ab9da
-[02/12] xfs: don't rescan ifree and icount when frozen
-        commit: 18028768415e3c05ab7edb22d740e2f4dc52836a
-[03/12] xfs: rescan the AGs if incore delalloc counter is negative
-        commit: 47b1e941bb55f735d82ba2649412260da78b98f8
-[04/12] xfs: don't try to repair rtsummary if the summary file isn't computed
-        commit: 6e82b7641889ad0198f3bf17a5e4c6fe7aab0850
-[05/12] xfs: update quota flags on secondary supers when metadir enabled
-        commit: 9d9ea6e6cbc4cb1a36fb79f873d97e1ac2fe1a64
-[06/12] xfs: refactor directory data block walking loops in scrub
-        commit: 19b5653cc870788df71e7fcf2dd7b6131d8868dc
-[07/12] xfs: improve dirent bounds checking in scrub and repair
-        commit: 5d470234d04dae6fe2ca2cf4b9ef277b78c7e05a
-[08/12] xfs: drop unnecessary sa parameter from the xrep_ag init functions
-        commit: a55686b2f50500d0a453b43d45677c9824fb4437
-[09/12] xfs: drop unnecessary sr parameter from xrep_rtgroup init functions
-        commit: ec72fccbc852fdc30bebb31146374fc99ae0b87d
-[10/12] xfs: drop unnecessary sa parameter from xchk_ag init functions
-        commit: 49869d5d0356c9468621de24d49bac43b7893782
-[11/12] xfs: drop unnecessary sr parameter from xchk_rtgroup init functions
-        commit: 02c8e8d78792164df615a8c54411501e91fc7b64
-[12/12] xfs: refactor inode forkoff to byte conversions
-        commit: ce58cff1077dfb9ec3d0e6f5da1b06a85be035bb
-
-Best regards,
--- 
-Carlos Maiolino <cem@kernel.org>
-
+--
+Kind regards,
+  Jan Remes
