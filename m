@@ -1,155 +1,102 @@
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.84])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0484F4733;
-	Wed, 14 Oct 2026 10:58:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.84
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791975535; cv=pass; b=X0zHsJL0Lu2QinrukosL7nNJS8i99c2unlkKKKHtE46N+x06HKcmHRJ8JuPvUMcGfkms8mIHymjl5PFWZGLT+TnUPK4P7/i6HzPB/2pxvw3ZYY9P5y34HBFygPADcFLPIn20HazJ4Mysk04XlDIv6368PYKJALDJmXow8aphIq0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791975535; c=relaxed/simple;
-	bh=i77e+wBiWi8FqvuuJeUW9AWeITiuJSztxl7rR9SlHBk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=c6WXE8mHW6x8HiLShEts6qWW1aWcLxJWBj9OAp1C+2DW/AJH3c33E7A3YfMb8vk5Xt6BLOtGuwL81wnuJMQIiDVmBVZKbsD3MQc3/x3iafopXpmccLtbb5iLWntFTC946nDFS0nftrtzAl2RxGRIu5G2bHTNQKLyJbXLn46R8BA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=mDWjPhU5; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=mza393iE; arc=pass smtp.client-ip=85.215.255.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1EB493D36
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 11:00:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791975614; cv=none; b=DXscCme7RbMWZ1kc33/sQlsIpBjBfRS39jielOm9c17m6cGBacQMIojIRWOqnByI3sAgQ7UMSUxPmelIYoF6W49gbvjupRJ/4ZcNg/4/nJq47MM9Ay782a51P0YcaJJxDv0BOJHEHPEpBOUD5BRBLhaefJuhd7HVXs+ijf+oWus=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791975614; c=relaxed/simple;
+	bh=BADH0jT0PzhvlqoDO1uOHMvxOGhAfrHuyiLn5aLPv5o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=N1O+SDy02+Xh4/HkVgSsbm9c29z2xKHqzHXaFfiDQiUPqB//bZBKD8lcw5LzA/4AMut76x15ui8mFLWXiPJ4eUgM7SWQhCN2jBDgRobxyGAHcBDdAitIl9Z2zHbyAK6sKSdhhpD29XQeyX8Ja4PUF28Qt7013Ce2Vh11R6HqXL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LTQT8irM; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="mDWjPhU5";
-	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="mza393iE"
-ARC-Seal: i=1; a=rsa-sha256; t=1791975523; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=OA1ZxccYceiWPQRn4RfeedxzDtdGhYXZ98aj3Rp5ixpOOmQmYnLeATWtLR65N18c1s
-    +MdS4TNx+K9mWxOYAl6/TKzxNxfGPkniQCt3KKBJzG9nc1xluBNyc8unqdwoJtJpYeKF
-    muJsQAtk1vH3jrZhQZfieXUz8vJ+mUBMkspIECloQltnLTpXE0jbN2tbbzvQj2Z3oWOQ
-    XpycyiakhYgsKu5cp3+JqWZiH0PeJqRhf9M6dIlLVZ9jcN0Yuq+e2KqzFzkkcNcIuGB+
-    FkQ/smYV5NV8zOyMh+Xty6dJoevo4Wp0O70C9hUmRNCUQj5XqAs2QuG+v366EOuxVGB7
-    b6ig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1791975523;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=i77e+wBiWi8FqvuuJeUW9AWeITiuJSztxl7rR9SlHBk=;
-    b=mEuxMPAlzyIm632nodxxENzRGrfDBIXf7AJdVn/EvMYdoXqEGcHohS7h2pqFRapXMD
-    FpRearoEexw8wRmGlTCgenw2wlGuCRz3XwD4PLM0mO2DR7fW5lv9x7KdJPnYZdiEuX3P
-    gPprvQrFkQDpDeoXxI4kKIG2nxLHvelCMDYnoMOtWgqE3DapYC51nJP8MHJ1vPpLUr8z
-    e4dmOWfTdORF5B06ovDkJczeqLgagMLTPyv1HxxwYj6bPDELcyD1Hmprkf7hgR7AiuHu
-    LMFxou9uhUlzZ+knd0XgZWPbxpuuDrSHSkVi1adYF2N3Wm649oOhXgx46TizGTz/B5P9
-    O5Og==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1791975523;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=i77e+wBiWi8FqvuuJeUW9AWeITiuJSztxl7rR9SlHBk=;
-    b=mDWjPhU5+ZfHnvBR3UBil4JsiC0OwcXULLsrd9/XFQlXkiiyrjxa2mI9VZEhABWgiC
-    O0kBJIQgazWJ21kitiD+9t+/m9DXICGCLyBVYBM5fY9B50FQMC+DWLoY7xdLQFGHhaIr
-    0Gd6dlS0ZWESMabl+U4Zp0w9Mjqs3RfNvchW8giAhdUaOQEOZiXpVGmRF+SLSaIIMWbZ
-    aiMWW3p1xBsmER+IFCEVwciy6mZba9l6nF/Xcm1dXdMiaqK7h8WD8t8l7TEwMbpA4PAJ
-    xVCbU5+Qb72LCIMM9QPVKJxSh86DAw2H23HAjT8b/5R0eckI2MiIZqYuvsj3bZ2ci1A0
-    YhiQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1791975523;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=i77e+wBiWi8FqvuuJeUW9AWeITiuJSztxl7rR9SlHBk=;
-    b=mza393iEpO8uOfC+eFAI+vNsxnbP1+Q/iyTSTKjs4CboahGLWZl/bOPVIk0agqUEwS
-    ZsjCgbZ2/zs1PBSTzdCQ==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0DBslXBtZUxPOub3IZuk"
-Received: from [10.176.237.108]
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id z831ad29EAwg3jF
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Wed, 14 Oct 2026 12:58:42 +0200 (CEST)
-Message-ID: <1502975d00e9344bf33b5d1ed23501699895998e.camel@iokpp.de>
-Subject: Re: [PATCH 3/3] scsi: ufs: core: Clear stale UIC result byte before
- peer DME retries
-From: Bean Huo <beanhuo@iokpp.de>
-To: Stanley Jhu <stanleyjhu@google.com>, "Martin K. Petersen"
- <mkp@kernel.org>,  "James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>
-Cc: powenkao@google.com, Alim Akhtar <alim.akhtar@samsung.com>, Bart Van
- Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>, Peter Wang
- <peter.wang@mediatek.com>, linux-scsi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 14 Oct 2026 12:58:41 +0200
-In-Reply-To: <20261013102913.948718-4-stanleyjhu@google.com>
-References: <20261013102913.948718-1-stanleyjhu@google.com>
-	 <20261013102913.948718-4-stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LTQT8irM"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so34148825e9.2
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 04:00:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791975611; x=1792580411; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mfU5sQaIGa+Ipl8RzCjqbbGQxUibRyyrfdkFZLGRo10=;
+        b=LTQT8irMn8QgeWt2t8OE2Pg15yTMfeyvoUesZBVMR1bYMBZmU0DrUYNnLxcoBUaplO
+         20Z8rkvtRaz6FZHA52dVyy0LGx8qLr2dQczmSvPHsilPPp9VmsgCTC/UpWQdX7DW/D7E
+         gj4+auB7jljRR3JYrIdEGiUcxGH5qIg5YOfeVLC8NywNb4eyZxr7W2WGndYyD/9RXVrb
+         ltTbnFmCfCFf37fgXmFkgT+pUyZ4h8GC8oVHD4CjLZch8RWNvL0LR1XWlGBOoYLHjh2O
+         7r/9xrsu0lbYvuOhNpkmePZQIyhUjAHJOEKxFHBf55zLdcbIiQQm4U9eAK7ESC8lBxOD
+         WF2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791975611; x=1792580411;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mfU5sQaIGa+Ipl8RzCjqbbGQxUibRyyrfdkFZLGRo10=;
+        b=usi10Pn1rD+lChw7E5OcveCaUHwH9CEjBw3zrH2iWvfdA+GV4daejxgJPIgcwpE24H
+         alTYD68RbX91D+jQQUK0iJzvwMToeRZKDMwaFCGGYx9OP5FDGvam+otmXKz7abKmj3y9
+         JkvHXteZzDkuqqACqbMqvKOx/h9XoL9N1vbqj5sX4aziy+JuGb0rLDXUhiqqBfiIuidB
+         yXFg/b5oNcvgdABc+xkFIDaA4/Pex87NPHfM0T3U5osjK1endYb22R+/s1/G8MdDctVn
+         BZ1LOOqIxJY1WtRJVjGs5BLaqVidOVt5+7CJ0DA2iIka0kLl5+9eEbiAPzKlhehlPOb1
+         h5RA==
+X-Forwarded-Encrypted: i=1; AKwUvBxGAgjCS866DzsX95wVG/a5FvNUHFoxgMJro2yLmNdGgjbTvIxDjBL5HhyZnUH5KhaLfFCgrT0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLqQiLyFuwUDjbq+lGOIwIJ6z/ep96adq6aG8X9di84Fek+06Pa
+	TY3K5T724pIJ90RcRBnSqAmjCb+/RvtI+5sQ66IJMcu5eD0Ysa+9azLV
+X-Gm-Gg: AYBFou05zS3LlW78uUDt3QqY9cflqFP0ByvktYJ1tIer/nYRRU9Svo8DwDpVBMjx3vg
+	vjCfiB+CTYF7Yto2aiyUN5iQunK4oneHdOHfKPi+VNN38bv1Rc9CvE5pGVdmn1DuWflvCZ/2DEn
+	mrQAIAXmUsxdM1Cx8HXUW6v6UsVjcuYXJf3Jya4LSscGWXeJGKZNUQJw8sjWLNxfHGzEEi0BIfw
+	qXD+5a0dZzcM3J7u9qzLu/HT0iiIt1cf6uXY7oi+tkVF5/gFbKW+B17Gw//HqAYnabJYavKWYml
+	XrpwzAUsZfjVi/hChEZVUyb+vxGqYkIIysYuEjA7A4BJn5BoZ7AsVR3Ud2CUpCULWPADBoa/T4x
+	ERIqTHTzSTrEqGOxMxZn5UB4e9RD3vd2qP69BCnSU5iycTBDLf3Wx4D+QqB0FUQjRYihiqR1DPJ
+	8J5M3BUNsKFLBTSbw10lTRzQXs0jNshlXIWnm/dfVHzXD7dSqpx8d2IylUO0VhHMJn/YHRRGGnW
+	NQ8zphzH1z2n8kqFj7bffTcAzw6wz2oQjIH55/8DwYYlWT0yrmrW7fl
+X-Received: by 2002:a05:600c:8718:b0:4a1:7259:349e with SMTP id 5b1f17b1804b1-4a18e4e0a33mr298140065e9.27.1791975609638;
+        Wed, 14 Oct 2026 04:00:09 -0700 (PDT)
+Received: from andreayoga.wind3.hub ([31.189.109.133])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18f3b43efsm518169825e9.1.2026.10.14.04.00.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 04:00:08 -0700 (PDT)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Keith Busch <kbusch@kernel.org>,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/5] nvmet: zns: don't leak stale memory in zone management receive
+Date: Wed, 14 Oct 2026 13:00:00 +0200
+Message-ID: <20261014110001.95212-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261013142554.GC14759@lst.de>
+References: <20261012141239.156408-1-parri.andrea@gmail.com> <20261012141239.156408-3-parri.andrea@gmail.com> <20261013142554.GC14759@lst.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-10-13 at 18:29 +0800, Stanley Jhu wrote:
-> Peer DME get and set retry a failed attempt with the same struct
-> uic_command. UIC completion ORs the ConfigResultCode into
-> argument2[7:0], and nothing clears it before the next attempt. Once an
-> attempt fails, every retry keeps reporting that error code, even when
-> the device returns success, so a transient failure becomes a hard
-> failure after three retries. Each such retry also triggers the
-> WARN_ON_ONCE() in ufshcd_dispatch_uic_cmd().
->=20
-> Clear the result byte before each attempt.
->=20
-> Fixes: 64238fbd15ea ("scsi: ufs: add retries to dme_peer get and set
-> attribute")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-> ---
-> =C2=A0drivers/ufs/core/ufshcd.c | 2 ++
-> =C2=A01 file changed, 2 insertions(+)
->=20
-> diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-> index bcc2512bf34b..9adb3b576e28 100644
-> --- a/drivers/ufs/core/ufshcd.c
-> +++ b/drivers/ufs/core/ufshcd.c
-> @@ -4398,6 +4398,7 @@ int ufshcd_dme_set_attr(struct ufs_hba *hba, u32
-> attr_sel,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0int retries =3D UFS_UIC_C=
-OMMAND_RETRIES;
-> =C2=A0
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0do {
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0uic_cmd.argument2 &=3D ~MASK_UIC_COMMAND_RESULT;
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0/* for peer attributes we retry upon failure */
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0ret =3D ufshcd_send_uic_cmd(hba, &uic_cmd);
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0if (ret)
-> @@ -4465,6 +4466,7 @@ int ufshcd_dme_get_attr(struct ufs_hba *hba, u32
-> attr_sel,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0}
-> =C2=A0
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0do {
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0uic_cmd.argument2 &=3D ~MASK_UIC_COMMAND_RESULT;
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0/* for peer attributes we retry upon failure */
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0ret =3D ufshcd_send_uic_cmd(hba, &uic_cmd);
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0if (ret)
+On Tue, Oct 13, 2026 at 04:25:54PM +0200, Christoph Hellwig wrote:
+> On Mon, Oct 12, 2026 at 04:12:29PM +0200, Andrea Parri wrote:
+> > Tested over the loop, tcp, rdma and fc transports with a zoned
+> > null_blk namespace: before this patch, zone reports carried stale bytes
+> > and a data length larger than NUMD was accepted; with it, reports are
+> > fully initialized and such a length fails with Data SGL Length Invalid.
+> 
+> Can you wire up the reproduce in blktests?
 
-Stanley,
+Sure.  Following Documentation/process/security-bugs.rst I had only
+offered the reproducers on request; since you'd like them in blktests,
+I'll post them to linux-block shortly, unless you'd rather have them
+off-list until the fixes are merged.  One test covers this patch, and
+two more cover the fc and NUMD patches of this series.
 
-AI Sashiko comment on arg3 should not happen on a spec compliant ufshci
-controller, since arg3 is an input for dme_set, arg2 indeed has an output b=
-yte
-for every command, but restoring arg3 in the set loop would be cheap safety
-enhancement, but up to you:
-
-for me this patch is ok:
-
-Reviewed-by: Bean Huo <beanhuo@micron.com>
-
+Thanks for the review,
+Andrea
