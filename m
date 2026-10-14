@@ -1,61 +1,49 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F58D4E01F1
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 12:45:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 421444D4871;
+	Wed, 14 Oct 2026 12:46:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791981962; cv=none; b=FKYjDPp4yb+KwSf7oiv1aaOWRGLQewyEpM2MpPlTlP6XOwW56xgBnk4qCM0UfQGqRW4eXg4YLV9Lo2sB5hPC5o0+zqHDLhgNFbHBLI6WWc+q1BUHO3OsdlJ4vYWzaUKNzPZIqzNBHiQ3ZYdjww8IDPHfbs6vycdkUWBIIfbSUCI=
+	t=1791982034; cv=none; b=jyj34BfTrUKkmlhLenPCNFKJj46WSDKneoEi6xLor0Y9t0dTmadiqFjwaKZtC6sNzwZdEJrVYzrzEmuQ8RMnnT/KMTmbV9wMlscpJxK/RbVD5APqxaLYePcwD/W0ZWIIPVx9gavO8lPiixufAeM/g6zyN7cig4yW1sDv6DByd0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791981962; c=relaxed/simple;
-	bh=j9MUTwqFk696YLuYmKyKYHrHXmQBfhqUQLDsULixeQY=;
+	s=arc-20240116; t=1791982034; c=relaxed/simple;
+	bh=Y9Kqv/GK1rtOH2gez/IUojgkpMEFSNZBA2ey+EdjYI0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qYthvj2GoPhnqdpbpjPRVIa9HCQUq/dtEtxCTyf3RqKBJSoii0F8YQg2N6ZUJFk0dqcX73tO64k5bnwNUhf9fB04fUiM3w6hHMYVdkfQ6UZZNlLJDGv7sMaX3IY0YTZH5MvbCzQ8O93UlIwX5PoUXRgB/4PK9Qti9QxwdQJDTI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OxADcsFx; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=F2bMKiJONHS4FFJgo4OfROPX8b38ImkTUZTG1bZqX+/SIvxZujZTyblfYcS5u4cKxTfZywEqNUQXlDT8dz3z0UXVs2FHyK8M0+yPomZe6jI2v/a/iSpBlW+fbL+962RGh6Ogm4CYy2F2voaJhVIf7vrITmfTri/DGb43VhtaEug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uj5vA4CV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OxADcsFx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791981945;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yl2rD0Yy4BRKtnCRp+987lNfML7qiSxkvQz9gYi0hCQ=;
-	b=OxADcsFxz4sRrwmV1l3a0N/nb/LTpApXWAUcQJXCRP9KIC8j0cmHBojT8mdQKpkIY5zbZi
-	4/s2LxbIhI8OJ/2h7OVTG1cbVZJ9mTM3iPnNGbrhUC2LGT//0T3AezBgexsNzVxzh36oII
-	OAJ00W5byNbo3n6HwoFedsT2HRKO7aY=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-426-P4L6LNQbMS2xXUcim6x-xg-1; Wed,
- 14 Oct 2026 12:45:41 +0000
-X-MC-Unique: P4L6LNQbMS2xXUcim6x-xg-1
-X-Mimecast-MFC-AGG-ID: P4L6LNQbMS2xXUcim6x-xg_1791981940
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1C2D0195604B;
-	Wed, 14 Oct 2026 12:45:39 +0000 (UTC)
-Received: from bfoster (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0645630000E7;
-	Wed, 14 Oct 2026 12:45:35 +0000 (UTC)
-Date: Wed, 14 Oct 2026 08:45:33 -0400
-From: Brian Foster <bfoster@redhat.com>
-To: jianyungao89@gmail.com
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Jan Kara <jack@suse.cz>, Dan Williams <djbw@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	"open list:FILESYSTEM DIRECT ACCESS (DAX)" <linux-fsdevel@vger.kernel.org>,
-	"open list:FILESYSTEM DIRECT ACCESS (DAX)" <nvdimm@lists.linux.dev>
-Subject: Re: [PATCH v2] dax: fix wrong error code returned from
- dax_dedupe_file_range_compare()
-Message-ID: <as95bXy1IfqNUCFo@bfoster>
-References: <20261012144925.6728-1-jianyungao89@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uj5vA4CV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C06D1F000FF;
+	Wed, 14 Oct 2026 12:46:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791982011;
+	bh=bDYHMGj+PaSnSyhBuqn5AX0+H5oOf9EczweODc02XDQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Uj5vA4CVAZCFVjhPvai73fMsJBgr1g35Tc2TWmhmOYfF7nGBrx9UWZkPMEl/RHhdm
+	 /7yH9eTxrd9c/Nm3ZIWEkBDN4Nkr9BcErMahu2kx0K7e/dHc/7YOtBAG24HfikriRn
+	 sTogNN3bcn76jqLpYBRbZzldTald+6A4U0BufbH8BBN7pwMUj3IEtbQ9VPt02yehMX
+	 DeEwkne3tHClVYMYJ49Ox5KzF0acBP9u7q2LW5RrcaXkJaykF4y6I3uKyPSahTiWNU
+	 +/5BfxJVLPgN8/Pv2/6Renqeb3r3B3i4JmTMg+BvOrCv+UJ+f2Md4IvkzfXwyIx/Ma
+	 pEstE7fSBthOA==
+Date: Wed, 14 Oct 2026 14:46:46 +0200
+From: Niklas Cassel <cassel@kernel.org>
+To: Damien Le Moal <dlemoal@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, Andrea Parri <parri.andrea@gmail.com>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Keith Busch <kbusch@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 4/5] nvmet: pci-epf: report transport errors in command
+ completions
+Message-ID: <as95tp8CF2lX4Gs0@ryzen>
+References: <20261012141239.156408-1-parri.andrea@gmail.com>
+ <20261012141239.156408-5-parri.andrea@gmail.com>
+ <20261013142736.GE14759@lst.de>
+ <1b4ee842-844e-4b6a-9ce8-0c4e7229825f@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -64,63 +52,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261012144925.6728-1-jianyungao89@gmail.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+In-Reply-To: <1b4ee842-844e-4b6a-9ce8-0c4e7229825f@kernel.org>
 
-On Mon, Oct 12, 2026 at 10:49:24PM +0800, jianyungao89@gmail.com wrote:
-> From: Jianyun Gao <jianyungao89@gmail.com>
+On Tue, Oct 13, 2026 at 05:12:16PM +0200, Damien Le Moal wrote:
+> On 2026/10/13 16:27, Christoph Hellwig wrote:
+> > I think this looks good.  Damien/Niklas, can you test this on hardware?
 > 
-> When dax_range_compare_iter() returns a negative error code (e.g. -EIO),
-> dax_dedupe_file_range_compare() incorrectly returns 'ret' which holds the
-> positive return value from iomap_iter() indicating more iterations remain.
-> This positive value leaks to the caller, where vfs_dedupe_file_range()
-> interprets it as success (bytes_deduped = len), causing userspace to
-> incorrectly believe deduplication completed.
-> 
-> Return 'status' instead to propagate the actual error code.
-> 
-> Fixes: 39eb05112987 ("dax: advance the iomap_iter on dedupe range")
+> I do not have the hardware available right now. Niklas ? Can you test this?
 
-Hmm.. the patch looks fine to me, but the above commit basically just
-renamed compared to status in this function. I.e. before that commit we
-did:
+I understand that these changes are not supposed to affect performance,
+but posting it for completeness:
 
-	if (compared < 0)
-		return ret;
 
-... which seems to me has the same problem. So I'm a little curious if
-either the Fixes: is wrong, or I'm just missing something..?
+Before patches:
 
-Brian
+# ./fio-test.sh /dev/nvme0n1
+Running on /dev/nvme0n1...
+  Rnd read,    4KB,  QD=1, 1 job :  IOPS=3088, BW=12.1MiB/s (12.7MB/s)
+  Rnd read,    4KB, QD=32, 1 job :  IOPS=45.4k, BW=177MiB/s (186MB/s)
+  Rnd read,    4KB, QD=32, 4 jobs:  IOPS=47.8k, BW=187MiB/s (196MB/s)
+  Rnd read,  128KB,  QD=1, 1 job :  IOPS=1803, BW=225MiB/s (236MB/s)
+  Rnd read,  128KB, QD=32, 1 job :  IOPS=9078, BW=1135MiB/s (1190MB/s)
+  Rnd read,  128KB, QD=32, 4 jobs:  IOPS=10.0k, BW=1253MiB/s (1314MB/s)
+  Rnd read,  512KB,  QD=1, 1 job :  IOPS=1447, BW=724MiB/s (759MB/s)
+  Rnd read,  512KB, QD=32, 1 job :  IOPS=2415, BW=1208MiB/s (1267MB/s)
+  Rnd read,  512KB, QD=32, 4 jobs:  IOPS=2686, BW=1343MiB/s (1409MB/s)
+  Rnd write,   4KB,  QD=1, 1 job :  IOPS=3046, BW=11.9MiB/s (12.5MB/s)
+  Rnd write,   4KB, QD=32, 1 job :  IOPS=22.9k, BW=89.3MiB/s (93.6MB/s)
+  Rnd write,   4KB, QD=32, 4 jobs:  IOPS=22.9k, BW=89.6MiB/s (94.0MB/s)
+  Rnd write, 128KB,  QD=1, 1 job :  IOPS=1555, BW=194MiB/s (204MB/s)
+  Rnd write, 128KB, QD=32, 1 job :  IOPS=6183, BW=773MiB/s (810MB/s)
+  Rnd write, 128KB, QD=32, 4 jobs:  IOPS=6903, BW=863MiB/s (905MB/s)
+  Seq read,  128KB,  QD=1, 1 job :  IOPS=1672, BW=209MiB/s (219MB/s)
+  Seq read,  128KB, QD=32, 1 job :  IOPS=9033, BW=1129MiB/s (1184MB/s)
+  Seq read,  512KB,  QD=1, 1 job :  IOPS=1580, BW=790MiB/s (829MB/s)
+  Seq read,  512KB, QD=32, 1 job :  IOPS=2536, BW=1268MiB/s (1330MB/s)
+  Seq read,    1MB, QD=32, 1 job :  IOPS=1297, BW=1297MiB/s (1360MB/s)
+  Seq write, 128KB,  QD=1, 1 job :  IOPS=1547, BW=193MiB/s (203MB/s)
+  Seq write, 128KB, QD=32, 1 job :  IOPS=6563, BW=820MiB/s (860MB/s)
+  Seq write, 512KB,  QD=1, 1 job :  IOPS=893, BW=447MiB/s (469MB/s)
+  Seq write, 512KB, QD=32, 1 job :  IOPS=1667, BW=834MiB/s (874MB/s)
+  Seq write,   1MB, QD=32, 1 job :  IOPS=762, BW=763MiB/s (800MB/s)
+  Rnd rdwr, 4K..1MB, QD=8, 4 jobs:  IOPS=788, BW=396MiB/s (415MB/s)
+ IOPS=811, BW=408MiB/s (427MB/s)
 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
-> Reviewed-by: Jan Kara <jack@suse.cz>
-> ---
-> 
-> Changes in v2:
-> - Add Fixes tag and Cc stable
-> - Add Reviewed-by tag from Jan Kara
-> 
-> v1: Link: https://lore.kernel.org/lkml/20261010021010.19575-1-jianyungao89@gmail.com/
-> 
->  fs/dax.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/dax.c b/fs/dax.c
-> index 6ba50142eeb2..1f6a4fbb97bd 100644
-> --- a/fs/dax.c
-> +++ b/fs/dax.c
-> @@ -2261,7 +2261,7 @@ int dax_dedupe_file_range_compare(struct inode *src, loff_t srcoff,
->  		status = dax_range_compare_iter(&src_iter, &dst_iter,
->  				min(src_iter.len, dst_iter.len), same);
->  		if (status < 0)
-> -			return ret;
-> +			return status;
->  		src_iter.status = dst_iter.status = status;
->  	}
->  	return ret;
-> -- 
-> 2.34.1
-> 
 
+After patches:
+
+# ./fio-test.sh /dev/nvme0n1
+Running on /dev/nvme0n1...
+  Rnd read,    4KB,  QD=1, 1 job :  IOPS=2958, BW=11.6MiB/s (12.1MB/s)
+  Rnd read,    4KB, QD=32, 1 job :  IOPS=44.5k, BW=174MiB/s (182MB/s)
+  Rnd read,    4KB, QD=32, 4 jobs:  IOPS=47.4k, BW=185MiB/s (194MB/s)
+  Rnd read,  128KB,  QD=1, 1 job :  IOPS=1741, BW=218MiB/s (228MB/s)
+  Rnd read,  128KB, QD=32, 1 job :  IOPS=9327, BW=1166MiB/s (1223MB/s)
+  Rnd read,  128KB, QD=32, 4 jobs:  IOPS=10.2k, BW=1280MiB/s (1342MB/s)
+  Rnd read,  512KB,  QD=1, 1 job :  IOPS=1444, BW=722MiB/s (758MB/s)
+  Rnd read,  512KB, QD=32, 1 job :  IOPS=2505, BW=1253MiB/s (1313MB/s)
+  Rnd read,  512KB, QD=32, 4 jobs:  IOPS=2516, BW=1258MiB/s (1319MB/s)
+  Rnd write,   4KB,  QD=1, 1 job :  IOPS=3322, BW=13.0MiB/s (13.6MB/s)
+  Rnd write,   4KB, QD=32, 1 job :  IOPS=22.8k, BW=89.1MiB/s (93.5MB/s)
+  Rnd write,   4KB, QD=32, 4 jobs:  IOPS=22.9k, BW=89.4MiB/s (93.7MB/s)
+  Rnd write, 128KB,  QD=1, 1 job :  IOPS=1529, BW=191MiB/s (201MB/s)
+  Rnd write, 128KB, QD=32, 1 job :  IOPS=6369, BW=796MiB/s (835MB/s)
+  Rnd write, 128KB, QD=32, 4 jobs:  IOPS=6449, BW=806MiB/s (845MB/s)
+  Seq read,  128KB,  QD=1, 1 job :  IOPS=1690, BW=211MiB/s (222MB/s)
+  Seq read,  128KB, QD=32, 1 job :  IOPS=9262, BW=1158MiB/s (1214MB/s)
+  Seq read,  512KB,  QD=1, 1 job :  IOPS=1428, BW=714MiB/s (749MB/s)
+  Seq read,  512KB, QD=32, 1 job :  IOPS=2652, BW=1326MiB/s (1391MB/s)
+  Seq read,    1MB, QD=32, 1 job :  IOPS=1301, BW=1302MiB/s (1365MB/s)
+  Seq write, 128KB,  QD=1, 1 job :  IOPS=1531, BW=191MiB/s (201MB/s)
+  Seq write, 128KB, QD=32, 1 job :  IOPS=6144, BW=768MiB/s (805MB/s)
+  Seq write, 512KB,  QD=1, 1 job :  IOPS=924, BW=462MiB/s (485MB/s)
+  Seq write, 512KB, QD=32, 1 job :  IOPS=1468, BW=734MiB/s (770MB/s)
+  Seq write,   1MB, QD=32, 1 job :  IOPS=749, BW=749MiB/s (786MB/s)
+  Rnd rdwr, 4K..1MB, QD=8, 4 jobs:  IOPS=786, BW=394MiB/s (414MB/s)
+ IOPS=809, BW=407MiB/s (426MB/s)
+
+
+
+Also used ftrace on the EP side to see that SGLs were actually being used:
+   kworker/u32:2-75      [005] .....   300.152187: nvmet_pci_epf_iod_parse_sgls <-nvmet_pci_epf_exec_iod_work
+   kworker/u32:2-75      [005] .....   300.152560: nvmet_pci_epf_iod_parse_sgls <-nvmet_pci_epf_exec_iod_work
+   kworker/u32:2-75      [005] .....   300.153126: nvmet_pci_epf_iod_parse_sgls <-nvmet_pci_epf_exec_iod_work
+   kworker/u32:2-75      [005] .....   300.153702: nvmet_pci_epf_iod_parse_sgls <-nvmet_pci_epf_exec_iod_work
+   kworker/u32:2-75      [005] .....   300.154273: nvmet_pci_epf_iod_parse_sgls <-nvmet_pci_epf_exec_iod_work
+   kworker/u32:2-75      [005] .....   300.154807: nvmet_pci_epf_iod_parse_sgls <-nvmet_pci_epf_exec_iod_work
+   kworker/u32:2-75      [005] .....   300.155445: nvmet_pci_epf_iod_parse_sgls <-nvmet_pci_epf_exec_iod_work
+   kworker/u32:2-75      [005] .....   300.156263: nvmet_pci_epf_iod_parse_sgls <-nvmet_pci_epf_exec_iod_work
+   kworker/u32:2-75      [005] .....   300.156676: nvmet_pci_epf_iod_parse_sgls <-nvmet_pci_epf_exec_iod_work
+   kworker/u32:2-75      [005] .....   300.157340: nvmet_pci_epf_iod_parse_sgls <-nvmet_pci_epf_exec_iod_work
+   kworker/u32:2-75      [005] .....   300.158096: nvmet_pci_epf_iod_parse_sgls <-nvmet_pci_epf_exec_iod_work
+
+
+I can not see anything wrong, thus:
+
+Tested-by: Niklas Cassel <cassel@kernel.org>
