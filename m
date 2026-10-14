@@ -1,166 +1,211 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8ED254488E;
-	Wed, 14 Oct 2026 15:07:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1278154488E
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 15:08:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791990455; cv=none; b=BfiKu5dx9dNA/AqZcT72SaxQX1n92s9i8e/otZqPQBFF9A/2X5b2O2DiA2HuBWUPpFCbceD629lCnsoQie2RQ7gY4eMoOP+XFnDDKx/cWwLWZjinWvekrZoT3Mn5NaechFJNds4kEicyToYF91nyi7X7myeA+WfwbmbFgBgLxgk=
+	t=1791990501; cv=none; b=Y/ZgfwQ95fjectloGKVC+nsIIk9mR+FeNf/8kXPhPHjYWqkWPNp3M6nvKg/PQUPky0yNyQnBFPzOPnt58HCiezseJSriM3zYVdBgv9u9Jw1QmeTtWWIbzqQG75Q+CsXWbZF/TtrnKR3dkOBjwPI8wkxjt2fUPpZohf/a+vfVp30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791990455; c=relaxed/simple;
-	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Z5zrhYN1l4S4kIUIxzmT31LmAHtt+xvryRXrjSM/tTmYZC4fwh8A1KxdYJXT0NaWz3Z56eJYRM+4tPXSVpb5ZAlEs7KidteLe3Emjq3w7rY865o5TpFXcnr/XLSz1U38fBOBFtCb3BD7zD1X4cQPIWifUaLWSafGLeH0zkKwj6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b=HpxTxCR5; arc=none smtp.client-ip=212.227.15.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	s=arc-20240116; t=1791990501; c=relaxed/simple;
+	bh=OrVR4ICDaqIMRFPXX7OWuZx/GX2al5sZl9xwPRxED5Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YCvCRx1be178CzzP2zQYm/uaZTfI2fKK7GDrYt5yHja/3RrYoayOywVLfwOarHuy6Cc7CWvb87rk2Vc4zJdXgvvNQME6Z0YygJqbIjuwk8mzeIVEEym2g4A7MyuGwl0lT6aZmnIXok9WlzF50L/ZGTexbIaScBVRtIiKjzDr2Xk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XD2nmMtP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b="HpxTxCR5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1791990415; x=1792595215; i=rwarsow@gmx.de;
-	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=HpxTxCR5iUs0/mZLdS7sfio/2/iBAr10CcvsyM8Oq+8wQl478oZrbBRj5FwYC/Vt
-	 Q+4BoolI4ntvC4q5RDVFYTiAgsDvej/wWFt4q/KwTbDVKoHPYKgCAIP6FgvuVY8Or
-	 HBmt2nLOgg4gHii8PitI1fMNwBOwmDraXGM0XXo1tiDFJOww17TEWFPRGG/DTl8iX
-	 VYgc6lnLY20i7ZIssO9Qo5hL7uWgPgXtxT4SVW40iEhucjB2dp1ye0TV4OhBj66z1
-	 y1JaJz8i86zKQIfaIeu+WZei/EE6Tf3uWVSISk9bELEVyE15j3L/bt1e1WmmRN0Kj
-	 XqfdF6B+VhefmJP6qg==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MPGW7-1x0Hb93LLB-00YcoA; Wed, 14
- Oct 2026 17:06:54 +0200
-Message-ID: <5357fbc0-5452-4561-9169-d0d67b034113@gmx.de>
-Date: Wed, 14 Oct 2026 17:06:52 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XD2nmMtP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F3EC1F000C4
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 15:08:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791990497;
+	bh=ljk9MNy1mrOZMOuTAp5WT6L4E5edUdTWjdqXrdRQBe4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=XD2nmMtPGm6s8KO2i0KDKogYIhqcbBzXqw3iBp5uSmdKK7S2k6V+CArmJIEl1/KyI
+	 gYcNtC2LPq/H3zjOiGOg23l6GMybqupTm/+iYCYkOBZue6Gedwk/5c/anI1E/6nxcR
+	 kmg6bdrog0KfyUAGjMk7L8b7/iJbGGTvQab9KLkAizjPF8g5mUpB7DcjNVjqlSAzsb
+	 dS89Oe/1CCLTXApGBES6GU0K42kWL3rSVTKqKq/CWDgDWl4ENi637yKc1dB4BP8sp3
+	 OPbbzYq3fb/CeYEBZWfuOV9nWW27R9vQFf22bhge9/NEhy4A/9DhYlCG0TvcBOiARc
+	 XWzzUQZSMQovA==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bcb6faf862so474539e87.2
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 08:08:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzJUOBRONLzahdBdqfFTq2+nQcPnEJkcn+gIxohVASLS0KR8Kq9vAiCjWtWnfUuxsLV/OdYfVo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDXVhHlX+mTcyPS2ZUEjYYz3Eh74XLLqEbyQurSP3LixK9qj7V
+	ISQymLl7kpvYwosCL+5CTiZFN2h6HLG0063tWrcL+ujpGrOhWPmnacNKKhjPJU+muQdcmzzb3e0
+	TnB86EK4+X9ya13xp0NPvPCAncf/helE=
+X-Received: by 2002:a05:6512:3f0f:b0:5bb:7c7c:c4e with SMTP id
+ 2adb3069b0e04-5bcde8e65f9mr6142561e87.63.1791990495980; Wed, 14 Oct 2026
+ 08:08:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 000/284] 7.2.11-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261014123758.782265692@linuxfoundation.org>
-From: Ronald Warsow <rwarsow@gmx.de>
-Content-Language: de-DE, en-US
-In-Reply-To: <20261014123758.782265692@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:lMEzoQ+XrTgoT2QRSEYrc15g1wSmBsyPWlzLJ17zuKSkAfbW7Yx
- nsIA0ufT+snrP0n9puyjRrQVer8u3LYXywgkl8BrotCFkWOF2OHDghgnpjV3wvYJfzJzX4h
- +DvlN9rjCin0kbzTrqW03KFRzKEyC8Ut8dAk93yZx2VWLjtn8+vu0unyQYoz6VLQYbjwepR
- yeQGRB//crRCG5N8aTh1A==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:NGw7yHzcltg=;+zx26ycoHh5di+tqveTXdhsaC7e
- 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
+References: <37N_jFulf7n-Z55NfKfE71C_wVPxYvZ0xD_iRUg2fXu7TypDiF5PStQ6siSfVBih6fThg5WoPes8U5ZQpfVm_teMFcUGXFxz2DdMbfSWuws=@proton.me>
+ <20261012225141.13683-1-aliamemis@disroot.org> <fb993dd3-ee56-4e3d-aa16-573f011518f1@oss.qualcomm.com>
+ <CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com>
+ <044e9df4-1399-4ceb-80f8-f7cfe031d04f@oss.qualcomm.com> <CAJZ5v0isCM3K3U6HSdDnvXzBX41AgQMFYxqLx3KvMA0W_91-ew@mail.gmail.com>
+ <b64b8092-93d7-4873-a55f-422b8e70cc04@oss.qualcomm.com>
+In-Reply-To: <b64b8092-93d7-4873-a55f-422b8e70cc04@oss.qualcomm.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 14 Oct 2026 17:06:08 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0j4xiDYBGA0LsUq4esJCzYBXjsmmXb1ZJvLcUZqDp+yuQ@mail.gmail.com>
+X-Gm-Features: AclHuK9xOO3fl-25LwE2ScVkTnZoEmEEqpNoPfQjqZjGkNfKWcVggqNMlzc8seE
+Message-ID: <CAJZ5v0j4xiDYBGA0LsUq4esJCzYBXjsmmXb1ZJvLcUZqDp+yuQ@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: battery: Re-read battery information in the
+ complete callback
+To: johannes.goede@oss.qualcomm.com
+Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, =?UTF-8?Q?Ali_Ahmet_Memi=C5=9F?= <aliamemis@disroot.org>, 
+	Len Brown <lenb@kernel.org>, Armin Wolf <W_Armin@gmx.de>, 
+	Charis Stratakis <c.stratakis@proton.me>, linux-acpi@vger.kernel.org, 
+	linux-pm@vger.kernel.org, regressions@lists.linux.dev, 
+	Mark Pearson <mpearson-lenovo@squebb.ca>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi
+Hi Hans,
 
-kernel build / boot test on x86_64 (Intel).
+On Wed, Oct 14, 2026 at 11:58=E2=80=AFAM <johannes.goede@oss.qualcomm.com> =
+wrote:
+>
+> Hi Rafael,
+>
+> On 13-Oct-26 19:20, Rafael J. Wysocki (Intel) wrote:
+> > Hi Hans,
+> >
+> > On Tue, Oct 13, 2026 at 3:36=E2=80=AFPM <johannes.goede@oss.qualcomm.co=
+m> wrote:
+> >>
+> >> Hi Rafael,
+> >>
+> >> On 13-Oct-26 13:58, Rafael J. Wysocki (Intel) wrote:
+> >>> On Tue, Oct 13, 2026 at 11:33=E2=80=AFAM <johannes.goede@oss.qualcomm=
+.com> wrote:
+> >>>>
+> >>>> Hi,
+> >>>>
+> >>>> On 13-Oct-26 00:46, Ali Ahmet Memi=C5=9F wrote:
+> >>>>> Since commit d33e89d12295 ("thermal: core: Suspend thermal zones la=
+ter
+> >>>>> and resume them earlier"), thermal zones are resumed from dpm_compl=
+ete(),
+> >>>>> before the PM_POST_SUSPEND notifier that re-reads _BIX and _BST. On
+> >>>>> ThinkPad P1 Gen2 and P53, INT3403 _TMP calls \GTST which switches t=
+he EC
+> >>>>> page selector (HIID) without taking the BATM mutex used by the batt=
+ery
+> >>>>> methods. ACPICA releases the interpreter lock around EC accesses
+> >>>>
+> >>>> I'm wondering if this "ACPICA releases the interpreter lock around E=
+C
+> >>>> accesses" is not the real problem here.
+> >>>
+> >>> Yes, it most likely is.
+> >>>
+> >>> What actually happens is that ACPICA drops the interpreter lock and
+> >>> the namespace lock in several cases listed in the
+> >>> acpi_ex_exit_interpreter() documentation comment, the majority of
+> >>> which involve having to wait.
+> >>>
+> >>> The bottom line though is that the interpreter and namespace locks
+> >>> cannot be expected to be held throughout AML evaluation because it is
+> >>> not known in advance if any of the cases in question will appear.
+> >>>
+> >>>> Recently I've learned / heard
+> >>>> from a trusted source that Windows ACPI subsystem is very much singl=
+e
+> >>>> threaded. So it is nice that ACPI has these mutexes and other stuff
+> >>>> to support multi-threading but as long as Windows ACPI interpreter i=
+s
+> >>>> not multi-threaded I think we may need to consider to copy Windows
+> >>>> behavior.
+> >>>
+> >>> This is also my conclusion, at least to some extent.
+> >>>
+> >>> The problem with it though is that in some cases parallel evaluation
+> >>> of AML is actually useful.  For example, say two PCI devices are
+> >>> powered up at the same time and AML waits for each of them.  The asyn=
+c
+> >>> suspend/resume aligns those waits to take place simultaneously instea=
+d
+> >>> of serializing them which allows some time to be saved.
+> >>>
+> >>>> So maybe the EC accesses should keep the interpreter lock locked dur=
+ing
+> >>>> EC accesses.
+> >>>
+> >>> The problem here is that it is hard to say in advance whether or not
+> >>> _BIX or _BST will access the EC and whether or not that will clash
+> >>> with _TMP evaluation for a seemingly unrelated thermal zone.
+> >>>
+> >>>> And even go further and maybe we need to introduce a big-acpi-lock,
+> >>>> which I guess the interpreter lock more or less is? And just seriali=
+ze
+> >>>> all ACPI accesses since most ACPI tables clearly do not handle
+> >>>> multi-threaded access to ACPI methods well ?
+> >>>
+> >>> I would be inclined to do so except for device power management
+> >>> methods, that is _ON, _OFF, and _PSx, that are not the problematic
+> >>> ones, at least as far as I know.
+> >>
+> >> That sounds like a reasonable compromise which should fix both
+> >> this case as well as help with bko221065 .
+> >>
+> >>>> Another example of multi-threaded ACPI calls causing problems is:
+> >>>>
+> >>>> https://bugzilla.kernel.org/show_bug.cgi?id=3D221065
+> >>>
+> >>> Right.
+> >>>
+> >>> So I guess the idea would be to add locking to acpi_evaluate_object()=
+?
+> >>
+> >> Yes that seems like a nice single point of entry to do this where
+> >> all the various helpers eventually end up.
+> >
+> > That, of course, would require updating ACPICA code and I'm not sure
+> > if doing it upstream is useful.  For example, if some hosts already
+> > use locking around acpi_evaluate_object(), this modification won't
+> > help them and it will certainly be a change in behavior.
+> >
+> > This means that we'll likely end up with a Linux-specific divergence
+> > from the upstream which can be lived with, but it won't be nice.
+>
+> Ah, I see.
+>
+> >>> An alternative might be to introduce an "exclusive" variant of
+> >>> acpi_evaluate_object() with built-in locking and use it in the cases
+> >>> that are known-problematic.
+> >>
+> >> So here we have _TMP and _BIX / _BST and in bko221065 we have
+> >> a bunch of again batteyr methods + UCSI racing. I'm afraid if
+> >> we add something like acpi_evaluate_object_exclusive() we'll end
+> >> up eventually using that almost everywhere.
+> >
+> > While I think that your concern is valid, this can be done without
+> > touching the ACPICA code at all.
+>
+> Not needing to touch ACPICA is a valid concern. So I agree lets go
+> with a wrapper for paths which we know need to be serialized for now.
+>
+> And then add that around the battery methods + _TMP + UCSI methods
+> for starters I guess ?
 
-No regressions here.
+Yes.
 
-Thanks
+> ###
+>
+> Should we also stop releasing the interpreter lock in the EC code?
 
-Tested-by: Ronald Warsow <rwarsow@gmx.de>
+Which EC code do you mean in particular?
+
+> All these things (battery, _TMP, UCSI) seem to have in common that
+> they might talk to the EC in some cases?
+
+Yes, they are EC-based in many cases.
+
+> Where as e.g. your powering-up of PCI slots example is unlikely to
+> talk to the EC ?
+
+Yup.
