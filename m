@@ -1,166 +1,261 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E427336A017;
-	Wed, 14 Oct 2026 15:09:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA3853A89D;
+	Wed, 14 Oct 2026 15:14:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791990599; cv=none; b=qk9nX1Xn7JlxOCSMfkm6QP1bnO3/CnNxYpmWBnL95QD4WhGivHdimDU+k04kfQCIBXHKQSCtnPW3tTOt7vdB/1ATN1vNJkk7oyf0lhzhDssKDY1N6fwMHXSGQkD/nMSm3zHh7WRFIV9Rp1YIGjPKDmEi+yVVyMfeUqI5MllKwZs=
+	t=1791990845; cv=none; b=mW84aG+2MGoSzRMrlT0uP2xEQC4Mad6urcvXdbN1kNG00EyJjd61DnYBnXMNwkIoR9KcUZ7klUzctgtkqDZbgeHM+AjOZhH1BwHack0bhQcDVrnhsMpkUg7Vzr/U49G/jrqJ66J2oGSMLM5+qaFsMFj2KLL2RKY0JHiEZL89Lq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791990599; c=relaxed/simple;
-	bh=bRSl6QCUOlMwTnQp0Nc2ghUbsfhKxW9lVhgrHK5DE5Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pF47JPpyXumb+vFMx9u826O3OUiQL+1X7WRgn42/QIExMbnLM50/KmkFU76fpJDGCxbac8yR8kWVa5luu8qDQTzLslIbsR8ky1Bs721aJWhx+cYhbTbrN5DBCGEu2VfH9bk/XpVgil7pmuXwmBP1RkXIaSWkpftkvj30yZviLkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lROYBOm5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791990845; c=relaxed/simple;
+	bh=mdC+AI4xc6v7qVKDVekmAbHa8khtyfjg/Ml/cCNxURY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DBjjx4ozNc998fr1gXOSfLYRiozN73AcnSi3mHS5/ItWoZDDpJyevu7OsgUwm4/EurEYrXECbSXvsXEjYDHETFsVh88WuhkiONxNt4FeAlNJZvQWCHzGYBCiP+/BeMaaWwa844cMM37VQrqD/RQ7Yu/vYGr+5KXP81blAdjMM/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nmFGk/Pd; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lROYBOm5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EA111F000C4;
-	Wed, 14 Oct 2026 15:09:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791990591;
-	bh=nPHLR9bYg/QZflrtwH8ufJo1Nfz90UGK6o7IybcntJo=;
-	h=From:To:Cc:Subject:Date;
-	b=lROYBOm5BZAj+QLmXazpo/oVVQ0JUIoyqxflq4V00f1yZWLjcQtuRfOnug+NohuHe
-	 kmK3BDbqB7VH4LOQiZXRZrt+s/5g6OlqD0ezNLDZrz2CSDonBPaW4t06tK375GvDC8
-	 3X4Z+ajqmhREtHjDjyR6PwGbPUw7iFKxnGMeI58SYGFTMR72k4WBcuow3OnWDPFwjp
-	 1rN7w0XzCmcpTxRMfODsIy7lqLFcG3muqNOBU2Tk/S+1v837KrgK/VBsLlo3eH0XKs
-	 GIy8SjnQQMZIcQslNKqY53L7gmNtTkWrNMji9xoA42eKPmAUQqdzvJxYC3dPOp+1qe
-	 WpX6Pnhq9dOVA==
-From: Imre Kaloz <kaloz@kernel.org>
-To: Vlastimil Babka <vbabka@kernel.org>,
-	Harry Yoo <harry@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Hao Li <hao.li@linux.dev>,
-	Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Jann Horn <jannh@google.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	"Jose A . Perez de Azpillaga" <azpijr@gmail.com>
-Subject: [PATCH v2] mm/slab: sample slab_state once in kmem_cache_destroy()
-Date: Wed, 14 Oct 2026 17:08:43 +0200
-Message-ID: <20261014150844.8536-1-kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nmFGk/Pd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791990844; x=1823526844;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=mdC+AI4xc6v7qVKDVekmAbHa8khtyfjg/Ml/cCNxURY=;
+  b=nmFGk/PdtwBXMIOCJusDEYxl2tTK6x9qk/VEMBni9WdO0EZhSp1uI0z4
+   9e4zgkCxUrSKt7LBv/y/lZjIk9P61M22LDh2q6bx4YO7LYESDe6n2q64L
+   r7+R32j956RydD56JT36TYdMK+of7ug+jcHTEO40yIN4kSsooKJ4r4k0V
+   5BfGV1oUSbQ8LTF7gnaAlE7bY3hGz9ZkpOfecwbmsIAj0EpYs1/ZXjRpr
+   KSE0g7jkAwblUUnQnB+xsVYmVXfDWY9djsPIqfOZQYvgxph8D6GC7UgCK
+   4i/kF+QJRBu9WBizYz/toj0ye84fIjIQRWoAHV4cGBNtYoZU3lCIl87g5
+   g==;
+X-CSE-ConnectionGUID: vSNWBxAeS+meY/p5H9N6Ag==
+X-CSE-MsgGUID: CFGKMGitTFy2exmojLSHiA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="627911"
+X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
+   d="scan'208";a="627911"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 08:14:01 -0700
+X-CSE-ConnectionGUID: waKF2GCKSE2ePofjgszMSQ==
+X-CSE-MsgGUID: jGGt3m76S9KrwmaUKFzbaw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
+   d="scan'208";a="1896868"
+Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 08:13:59 -0700
+Message-ID: <1d730421-e94f-43b0-8de5-1f875d11b8b8@intel.com>
+Date: Wed, 14 Oct 2026 10:13:58 -0500
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] perf/x86/intel/uncore: Add Granite Rapids CMS PMU support
+To: Stephane Eranian <eranian@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Andi Kleen <ak@linux.intel.com>, linux-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, stable@vger.kernel.org,
+ Dapeng Mi <dapeng1.mi@linux.intel.com>
+References: <20261013194005.96615-1-zide.chen@intel.com>
+ <CABPqkBSn57PLhdZj1syvMTF_LG7NgitKC3xbLMF7vqyK-vyA4w@mail.gmail.com>
+Content-Language: en-US
+From: "Chen, Zide" <zide.chen@intel.com>
+In-Reply-To: <CABPqkBSn57PLhdZj1syvMTF_LG7NgitKC3xbLMF7vqyK-vyA4w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-kmem_cache_release() tests slab_state >= FULL after kmem_cache_destroy()
-has dropped slab_mutex and unlinked the cache, and for a
-SLAB_TYPESAFE_BY_RCU cache after rcu_barrier(). If slab_late_init() runs
-before that test it sets slab_state to FULL but skips the unlinked cache,
-which never got a sysfs entry, so sysfs_slab_release() calls kobject_put()
-on a kobject that was never initialized:
 
-  WARNING: lib/kobject.c:734 at kobject_put+0x64/0x2c0, CPU#1: kworker/u8:3/55
-  kobject: '(null)' ((____ptrval____)): is not initialized, yet kobject_put() is being called.
-  refcount_t: underflow; use-after-free.
-  kobject_put+0x64/0x2c0
-  sysfs_slab_release+0xc/0x20
-  kmem_cache_destroy+0x104/0x1e0
-  bioset_exit+0x13c/0x1e0
-  disk_release+0x54/0x140
-  put_disk+0x18/0x40
-  floppy_async_init+0xbec/0xd10
 
-The release-time test has run outside slab_mutex since at least v4.4 for
-SLAB_TYPESAFE_BY_RCU caches, and since v6.0 for the others. Since v6.12
-the unlink-time test in kmem_cache_destroy() is a separate read of its
-own, also after mutex_unlock(), so the two can disagree. Both tests ask
-whether the cache has a kobject, which cache creation skips while
-slab_state <= UP. UP is the state just below FULL, so a false sample
-cannot skip a kobject_put() that was owed.
+On 10/13/2026 6:47 PM, Stephane Eranian wrote:
+> On Tue, Oct 13, 2026 at 12:50 PM Zide Chen <zide.chen@intel.com> wrote:
+>>
+>> Add support for the CMS (Common Mesh Stop) uncore PMON unit, shared by
+>> GNR, SRF, GRR, and CWF. One CMS box exists per CHA box, at a fixed MSR
+>> address: 0x3400 + 0x10 * unit_no + <reg offset>.
+>>
+>> CMS is not enumerated in the discovery table, so it is added as an
+>> extra MSR uncore type instead of going through the normal gnr_uncores[]
+>> array. Since the CMS unit numbering matches the CHA unit numbering,
+>> build the CMS box rb-tree by mirroring the discovered CHA (die, id)
+>> pairs, ensuring CMS boxes only appear where a corresponding CHA exists.
+>>
+>> Make generic_uncore_msr_ops global so the CMS type can reuse it.
+>> Opportunistically add the intel_ prefix to match the naming convention.
+>>
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Zide Chen <zide.chen@intel.com>
+>> ---
+>>  arch/x86/events/intel/uncore_discovery.c |  4 +-
+>>  arch/x86/events/intel/uncore_discovery.h |  1 +
+>>  arch/x86/events/intel/uncore_snbep.c     | 81 +++++++++++++++++++++++-
+>>  3 files changed, 82 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/arch/x86/events/intel/uncore_discovery.c b/arch/x86/events/intel/uncore_discovery.c
+>> index 0a22edf4d509..170f299385a0 100644
+>> --- a/arch/x86/events/intel/uncore_discovery.c
+>> +++ b/arch/x86/events/intel/uncore_discovery.c
+>> @@ -532,7 +532,7 @@ static void intel_generic_uncore_msr_disable_event(struct intel_uncore_box *box,
+>>         wrmsrq(hwc->config_base, 0);
+>>  }
+>>
+>> -static struct intel_uncore_ops generic_uncore_msr_ops = {
+>> +struct intel_uncore_ops intel_generic_uncore_msr_ops = {
+>>         .init_box               = intel_generic_uncore_msr_init_box,
+>>         .disable_box            = intel_generic_uncore_msr_disable_box,
+>>         .enable_box             = intel_generic_uncore_msr_enable_box,
+>> @@ -743,7 +743,7 @@ static bool uncore_update_uncore_type(enum uncore_access_type type_id,
+>>
+>>         switch (type_id) {
+>>         case UNCORE_ACCESS_MSR:
+>> -               uncore->ops = &generic_uncore_msr_ops;
+>> +               uncore->ops = &intel_generic_uncore_msr_ops;
+>>                 break;
+>>         case UNCORE_ACCESS_PCI:
+>>                 uncore->ops = &generic_uncore_pci_ops;
+>> diff --git a/arch/x86/events/intel/uncore_discovery.h b/arch/x86/events/intel/uncore_discovery.h
+>> index 142e1b56cfc2..cececf6ecdc5 100644
+>> --- a/arch/x86/events/intel/uncore_discovery.h
+>> +++ b/arch/x86/events/intel/uncore_discovery.h
+>> @@ -151,6 +151,7 @@ void intel_uncore_generic_uncore_mmio_init(void);
+>>  int intel_generic_uncore_msr_init_box(struct intel_uncore_box *box);
+>>  void intel_generic_uncore_msr_disable_box(struct intel_uncore_box *box);
+>>  void intel_generic_uncore_msr_enable_box(struct intel_uncore_box *box);
+>> +extern struct intel_uncore_ops intel_generic_uncore_msr_ops;
+>>
+>>  int intel_generic_uncore_mmio_init_box(struct intel_uncore_box *box);
+>>  void intel_generic_uncore_mmio_disable_box(struct intel_uncore_box *box);
+>> diff --git a/arch/x86/events/intel/uncore_snbep.c b/arch/x86/events/intel/uncore_snbep.c
+>> index a97cd029db36..3abbc1bbf577 100644
+>> --- a/arch/x86/events/intel/uncore_snbep.c
+>> +++ b/arch/x86/events/intel/uncore_snbep.c
+>> @@ -6492,6 +6492,32 @@ int gnr_uncore_units_ignore[] = {
+>>         UNCORE_IGNORE_END
+>>  };
+>>
+>> +/*
+>> + * One CMS box exists per CHA box, at a fixed MSR address:
+>> + * 0x3400 + 0x10 * unit_no + <reg offset>.
+>> + */
+>> +#define GNR_CMS_MSR_PMON_BOX_CTL       0x3400
+>> +#define GNR_CMS_MSR_PMON_CTL0          0x02
+>> +#define GNR_CMS_MSR_PMON_CTR0          0x08
+>> +#define GNR_CMS_MSR_OFFSET             0x10
+>> +/* Type ID for CMS */
+>> +#define UNCORE_GNR_CMS                 50
+>> +
+>> +static struct intel_uncore_type gnr_uncore_cms = {
+>> +       /* Keep the PMU name aligned with the published CHACMS event list. */
+>> +       .name                   = "chacms",
+>> +       .type_id                = UNCORE_GNR_CMS,
+>> +       .event_mask             = SNBEP_PMON_RAW_EVENT_MASK,
+>> +       .num_counters           = 4,
+>> +       .perf_ctr_bits          = 48,
+>> +       .event_ctl              = GNR_CMS_MSR_PMON_CTL0,
+>> +       .perf_ctr               = GNR_CMS_MSR_PMON_CTR0,
+>> +       .ops                    = &intel_generic_uncore_msr_ops,
+>> +       .format_group           = &snbep_uncore_format_group,
+>> +       .attr_update            = uncore_alias_groups,
+>> +       .cleanup_extra_boxes    = spr_extra_boxes_cleanup,
+>> +};
+>> +
+>>  static struct intel_uncore_type gnr_uncore_ubox = {
+>>         .name                   = "ubox",
+>>         .attr_update            = uncore_alias_groups,
+>> @@ -6595,15 +6621,66 @@ static struct freerunning_counters gnr_iio_freerunning[] = {
+>>         [SPR_IIO_MSR_BW_OUT]    = { 0x2e0e, 0x10, 0x80, 8, 48 },
+>>  };
+>>
+>> +/*
+>> + * Neither the free-running IIO counters nor CMS are covered by the
+>> + * discovery table, so both are added as "extra" MSR uncore types, in
+>> + * addition to the ones enumerated in gnr_uncores[].
+>> + */
+>> +#define UNCORE_GNR_MSR_EXTRA_UNCORES   2
+>> +
+>> +static struct intel_uncore_type *gnr_msr_uncores[UNCORE_GNR_MSR_EXTRA_UNCORES] = {
+>> +       &spr_uncore_iio_free_running,
+> 
+> I think this SPR uncore IIO is not relvalent to the patch here. It
+> should be split.
+> Thanks.
 
-Seen on sparc64 at boot, where the asynchronous floppy init tears down
-its bio slab while the late initcalls are running.
+spr_msr_uncores[] currently contains only one PMON unit,
+spr_uncore_iio_free_running, which is not enumerated by the discovery
+tables and is shared by SPR, GNR, etc.
 
-Sample slab_state once, under slab_mutex which slab_late_init() holds
-when it sets FULL, and use the result for both the unlink and the
-release.
+This patch adds a new non-discovery MSR uncore PMON unit, CMS, for
+GNR/SRF/CWF/GRR. As a result, both non-discovery MSR types need to be
+grouped in the new gnr_msr_uncores[] array to ensure they are registered
+properly.
 
-Fixes: d50d82faa0c9 ("slub: fix failure when we delete and create a slab cache")
-Fixes: 4ec10268ed98 ("mm, slab: unlink slabinfo, sysfs and debugfs immediately")
-Cc: stable@vger.kernel.org
-Signed-off-by: Imre Kaloz <kaloz@kernel.org>
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
----
-v2:
- - Changelog reworked around the release-time read outside slab_mutex,
-   with the separate unlink-time test as the second read; Fixes:
-   d50d82faa0c9 added, as discussed with Harry.
- - Correction to what I wrote in the v1 thread: the release-time read is
-   older than d50d82faa0c9 (the RCU work function had it from v4.11
-   until v6.12); d50d82faa0c9 added the unlink-time test under
-   slab_mutex.
- - Added the explanation Jose asked for; his Reviewed-by from v1 is
-   kept. The code is unchanged.
+This does not change any existing SPR uncore behavior, and I don't see a
+practical way to split out spr_uncore_iio_free_running from this patch.
 
-v1: https://lore.kernel.org/r/20260930195110.13296-1-kaloz@kernel.org
-
- mm/slab_common.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
-
-diff --git a/mm/slab_common.c b/mm/slab_common.c
-index 7223a7596dab..de11edfd1a0b 100644
---- a/mm/slab_common.c
-+++ b/mm/slab_common.c
-@@ -515,10 +515,10 @@ EXPORT_SYMBOL(kmem_buckets_create);
-  * and release of the kobject does not need slab_mutex or cpu_hotplug_lock
-  * protection. So they are now done without holding those locks.
-  */
--static void kmem_cache_release(struct kmem_cache *s)
-+static void kmem_cache_release(struct kmem_cache *s, bool sysfs_ready)
- {
- 	kfence_shutdown_cache(s);
--	if (__is_defined(SLAB_SUPPORTS_SYSFS) && slab_state >= FULL)
-+	if (__is_defined(SLAB_SUPPORTS_SYSFS) && sysfs_ready)
- 		sysfs_slab_release(s);
- 	else
- 		slab_kmem_cache_release(s);
-@@ -533,6 +533,7 @@ void slab_kmem_cache_release(struct kmem_cache *s)
- 
- void kmem_cache_destroy(struct kmem_cache *s)
- {
-+	bool sysfs_ready;
- 	int err;
- 
- 	if (unlikely(!s) || !kasan_check_byte(s))
-@@ -580,10 +581,18 @@ void kmem_cache_destroy(struct kmem_cache *s)
- 
- 	list_del(&s->list);
- 
-+	/*
-+	 * slab_late_init() sets slab_state to FULL under slab_mutex and adds
-+	 * sysfs entries only for caches still on the list. Sample the state
-+	 * here, so that a cache unlinked before that point is not handed to
-+	 * sysfs_slab_release() with an uninitialized kobject.
-+	 */
-+	sysfs_ready = slab_state >= FULL;
-+
- 	mutex_unlock(&slab_mutex);
- 	cpus_read_unlock();
- 
--	if (slab_state >= FULL)
-+	if (sysfs_ready)
- 		sysfs_slab_unlink(s);
- 	debugfs_slab_release(s);
- 
-@@ -593,7 +602,7 @@ void kmem_cache_destroy(struct kmem_cache *s)
- 	if (s->flags & SLAB_TYPESAFE_BY_RCU)
- 		rcu_barrier();
- 
--	kmem_cache_release(s);
-+	kmem_cache_release(s, sysfs_ready);
- }
- EXPORT_SYMBOL(kmem_cache_destroy);
- 
-
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
--- 
-2.47.3
+> 
+>>
+>> +       &gnr_uncore_cms,
+>> +};
+>> +
+>> +/* Build the CMS boxes rb-tree by mirroring CHA's discovered boxes. */
+>> +static void gnr_uncore_cms_init_boxes(struct intel_uncore_type **uncores)
+>> +{
+>> +       struct intel_uncore_discovery_unit *cha_unit, *cms_unit;
+>> +       struct intel_uncore_type *cha;
+>> +       struct rb_root *root;
+>> +       struct rb_node *node;
+>> +       u16 num_units = 0;
+>> +
+>> +       cha = uncore_find_type_by_id(uncores, UNCORE_SPR_CHA);
+>> +       if (!cha || !cha->boxes)
+>> +               return;
+>> +
+>> +       root = kzalloc_obj(*root);
+>> +       if (!root)
+>> +               return;
+>> +       *root = RB_ROOT;
+>> +
+>> +       for (node = rb_first(cha->boxes); node; node = rb_next(node)) {
+>> +               cha_unit = rb_entry(node, struct intel_uncore_discovery_unit, node);
+>> +
+>> +               cms_unit = kzalloc_obj(*cms_unit);
+>> +               if (!cms_unit)
+>> +                       break;
+>> +
+>> +               cms_unit->id   = cha_unit->id;
+>> +               cms_unit->die  = cha_unit->die;
+>> +               cms_unit->addr = GNR_CMS_MSR_PMON_BOX_CTL +
+>> +                                cha_unit->id * GNR_CMS_MSR_OFFSET;
+>> +
+>> +               uncore_find_add_unit(cms_unit, root, &num_units);
+>> +       }
+>> +
+>> +       gnr_uncore_cms.boxes = root;
+>> +       gnr_uncore_cms.num_boxes = num_units;
+>> +}
+>> +
+>>  void gnr_uncore_cpu_init(void)
+>>  {
+>>         uncore_msr_uncores = uncore_get_uncores(UNCORE_ACCESS_MSR,
+>> -                                               UNCORE_SPR_MSR_EXTRA_UNCORES,
+>> -                                               spr_msr_uncores,
+>> +                                               UNCORE_GNR_MSR_EXTRA_UNCORES,
+>> +                                               gnr_msr_uncores,
+>>                                                 UNCORE_GNR_NUM_UNCORE_TYPES,
+>>                                                 gnr_uncores);
+>>         spr_uncore_iio_free_running.num_boxes = uncore_type_max_boxes(uncore_msr_uncores, UNCORE_SPR_IIO);
+>>         spr_uncore_iio_free_running.freerunning = gnr_iio_freerunning;
+>> +
+>> +       gnr_uncore_cms_init_boxes(uncore_msr_uncores);
+>>  }
+>>
+>>  int gnr_uncore_pci_init(void)
+>> --
+>> 2.55.0
+>>
 
