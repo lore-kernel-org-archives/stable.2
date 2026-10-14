@@ -1,232 +1,208 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011064.outbound.protection.outlook.com [52.101.57.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F5565226AE
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 15:52:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.64
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791993127; cv=fail; b=SZWbz5SNs9l6fTz/Hivb2U2G1WW8e2y4mDFM3mdY7aekxA+2LMYoIzlkvfEPKKhQDZfhbuRXJQTKmCMnkpryXXlaaW7cRejNUnXKUKnSqVZ7F2SqlXS8NKkiU6MnEzgOU6spAyf4IHCSo8vH9odqsU7VerPiJlKpxQNJJIqTmUM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791993127; c=relaxed/simple;
-	bh=BC2O91FaqzX30eytKxODLJd1veiAf59tuNpQYQf9nnQ=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=rGU98BEXTwED+3qV2PuZVY7jGmsluv8j8mW0avFX+R2a3mUYJrsCv5pUJ3xjq8i+2e+1Ye+SEPGp4cWbUhT3yftcfzBYOUbjDlc7bG3I+tvyEMxbmeuEEILywE9W+shzJ3DxB0MdzXncVmC3rptkSb8bi4SedOoLxs+CxyMe85M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=q+ioGayk; arc=fail smtp.client-ip=52.101.57.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1673152F26D
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 15:53:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791993186; cv=none; b=NjY1c1+f1e69YH0TmAX7ckLWIkakZQBxc4ol2zfI0tlCtGCW9Q00pL0Ry32bNMVtQA65wC+0p5ZnHyxK4zASr06h+N2/Fr4AqI8dqVuqJkhllFihj32cwtUbRZ96Ep3/IpBxk50NYi7hj4ZK7usGUFRxAhZS9Q6pfjlJ7ZNFG2k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791993186; c=relaxed/simple;
+	bh=qUNCs/h/PnBunQxzlEw5HkMze8K6J1Agoe6ODkY1bv4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lafYUCTYHbfckuNusTMVjd+6EcqcemvVFroklBxQuDYuIyy5CeICPuwc8KDt+4T0gNz2zXYJCnfedU++TNF+kY5asaAxkcNfG1kMxXm0/7kenFThYFu4/JCkIWf1JO/q8MuzzhDUfIJtg45fTTCQdWL0XH1piHMm1TrH0OlpORU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=oog3dITA; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=A8yYzH3w; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=oog3dITA; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=A8yYzH3w; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="q+ioGayk"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e6S4HcqzccbiI314qvz3r3/fN8PAglcyb8FkYvu6pE//f8lGf4Ap0ks5AlU3KiuNvgQZjX9xQG1C4U0Ng3jeX6SxPgKzhw5QovxYAokdhb2v8vuyS8mGsrZAxEBzwJuozECXXXvhaO9UPFomqZCssXm/XTeDjzC1awrvYDvG8axa2VNsOePdv8qdiMl6FmAWsAuVXA/5Uml9cvFgipcjgutuXRiEZdx1+jEm2YPK3uOSAZ6T5uIr1ZmBbb2hRE+ianMEKVm+TKgiofRsM0CVYeq5N0p4jb+oEGoNAeabN5jRaqFSFNzu2TnN7tsl/QWgejnil3hL/dUfq5wn9Y79MA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nHCm+kCDdnjWEylUt4n26mgS6oVykkEuWlKFX2/ROqk=;
- b=sD9W9TwViW070fL87BnIYJVY4OZ5YtACrmNeigLJimPZnfESo5zjIEkAoN6YviFK8yWy4rUVA2hFba6z6+fMiMCHEONHHzgG1TZSQomto/H8TgVSNT6QFODzAIi1GUfo3/GfpK7U/UZASDgVKlAqhCAQhQS1M323xLbNY1eP3evNHLN40m1nu4ETPN04rtEPxAdu/O0irrGNqIpXti8pmO/kQ5np7gsh08h+sUAtqN1mm0HqmYrE2MaZQSRb+HZzXK9pTC5h0+PZJccS2Neh5l5Dk2KEBo/EFn+BKyxcLM9X7w1IcV9KyVlyudyJSK9M248CuSr1nL4n/DQIPRCZRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nHCm+kCDdnjWEylUt4n26mgS6oVykkEuWlKFX2/ROqk=;
- b=q+ioGaykYP+mWhPcm6Hwb6uZSGuKwTtKDAVH40T9u58nTMYRdi2Zr72cMng/+cQumNOefpV49WHy6J3y7hT87R7uNK+yOypymqU2auEE/Kd0VQK47CoHz/dxoo3UgYwQpp48bGMX4oE+CNJlJL5vUAJzE90IhiajIqs4okbCY70=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by CH1PPF0B4A257F6.namprd12.prod.outlook.com (2603:10b6:61f:fc00::605) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Wed, 14 Oct
- 2026 15:51:53 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0522.012; Wed, 14 Oct 2026
- 15:51:53 +0000
-Message-ID: <064d84ca-26c9-479c-8380-18c133c339ab@amd.com>
-Date: Wed, 14 Oct 2026 10:51:50 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2.y v2] drm/amd/display: keep HDMI 4:2:0-only modes and
- automatic 4:4:4
-Content-Language: en-US
-To: Miguel Mesa <miguel@miguelmesa.com>, stable@vger.kernel.org
-Cc: gregkh@linuxfoundation.org, amd-gfx@lists.freedesktop.org,
- alexander.deucher@amd.com, Jerry.Zuo@amd.com, harry.wentland@amd.com,
- mgorny@gentoo.org
-References: <20261003131523.1502250-1-miguel@miguelmesa.com>
- <20261014153914.275253-1-miguel@miguelmesa.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20261014153914.275253-1-miguel@miguelmesa.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA0PR11CA0139.namprd11.prod.outlook.com
- (2603:10b6:806:131::24) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="oog3dITA";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="A8yYzH3w";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="oog3dITA";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="A8yYzH3w"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 175431F7D5;
+	Wed, 14 Oct 2026 15:53:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791993183; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=czptinR0+qpHm2+DqArj4j7rjTfE20PU59BUkqAFUyU=;
+	b=oog3dITA1Q+xNqbWg6Licu5XuXBfbEV9jBYYlduikYAlz/3YwpRJm0AdXNmo5TWcR9TtTl
+	EBYSSF4wftcr3IvmezzufjRO3+Ws+xFaNdIFXpaptNPDEtw3H6xUYDS7k37Wf+x3Mt0rZI
+	eW6s0wifWj1OF0088usYpwmgGrXs5Wk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791993183;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=czptinR0+qpHm2+DqArj4j7rjTfE20PU59BUkqAFUyU=;
+	b=A8yYzH3wD2CzI4bOHdW5SVLIaZGK8rO/4jxjjbRA2FBGXn6kCXS95OtKkAC22mrWpPBgbQ
+	cFj7EfUk1kehiXCw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=oog3dITA;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=A8yYzH3w
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791993183; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=czptinR0+qpHm2+DqArj4j7rjTfE20PU59BUkqAFUyU=;
+	b=oog3dITA1Q+xNqbWg6Licu5XuXBfbEV9jBYYlduikYAlz/3YwpRJm0AdXNmo5TWcR9TtTl
+	EBYSSF4wftcr3IvmezzufjRO3+Ws+xFaNdIFXpaptNPDEtw3H6xUYDS7k37Wf+x3Mt0rZI
+	eW6s0wifWj1OF0088usYpwmgGrXs5Wk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791993183;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=czptinR0+qpHm2+DqArj4j7rjTfE20PU59BUkqAFUyU=;
+	b=A8yYzH3wD2CzI4bOHdW5SVLIaZGK8rO/4jxjjbRA2FBGXn6kCXS95OtKkAC22mrWpPBgbQ
+	cFj7EfUk1kehiXCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D4371133F1;
+	Wed, 14 Oct 2026 15:53:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id M/ADJ12lz2pgYQAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Wed, 14 Oct 2026 15:53:01 +0000
+Date: Wed, 14 Oct 2026 16:52:59 +0100
+From: Pedro Falcato <pfalcato@suse.de>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, David Hildenbrand <david@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Minchan Kim <minchan@kernel.org>, 
+	Michal Hocko <mhocko@suse.com>, Johannes Weiner <hannes@cmpxchg.org>, linux-mm@kvack.org, 
+	stable@vger.kernel.org, Samarth Narang <samarth.colleges@gmail.com>, 
+	Gregory Price <gourry@gourry.net>
+Subject: Re: [PATCH] mm/madvise: atomically clear the young bit on THP
+ MADV_COLD
+Message-ID: <as-iHm9Y4wxRTG5d@pedro-suse.tail5790ac.ts.net>
+References: <20261013191719.95502-1-pfalcato@suse.de>
+ <as-dr-S6c3FALwQb@gremlin>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|CH1PPF0B4A257F6:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc16b355-9054-4061-cb97-08df2a0b10f6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|6133799003|10067099003|18002099003|22082099003|3023799007|11063799006|4143699003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	X6mOYSNnzx9EMZ54z5rRyIOiOSgWwQ6Cb6A1Y9KtGTOIBNKV/y3jCuhV+iyO7jSkC0ECjv+zncZfEDivttAH/u/LhTA6/FpDBFiYyQ95dd2koFHE9MW3pAqDqyc3PPruvMOtJQ767HYReWBlRumG274CmbOcWfMugUdvJmhY+yYQM/zLtpYab2QWvDW8kK3h+vPU0rJ+0F0QwCw32g6p11FHnww2ettxNMR5BtdNQWHp0nWidImPB35pMBfYUmGiv116iWRBnmgyKPT42bFa2TB6WUn8bOI7GrU0HjKAcEFb91RHAe4n+f7ewBeTgjwDfQJCF0nTJT5RrxXgG+5L3n4/Jo6bIMqVOX/nqgmv34mZLHKAVN20cfBKMIT+n3LHu/gQiHGA7aXmapz8b7qLmfUszRSYM+BqIDpoAhskYgqsJcG9nd7ILBSg3mZpIcEyE3SnAdSm4sNZb+HEbIcJnjHhIsM7T7EozPs3heQLFVxKTkeJunuUfXFMmNtSMp6NdXGZHljGU5voCRKSSKBYRaKXlKkHhI4nr2hys6M27Hk4xDTam1+rahySLOnqJfTD+LAwcf+WhRyRwsowtGSwA+AWraarDGf+3L9Xi1elX4EXDWoKMwTFUv1PIpoS1DLj
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(6133799003)(10067099003)(18002099003)(22082099003)(3023799007)(11063799006)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TVExbTI3M2QycHdjbDQ3KzNia2djSzhhMDFuM2VPYlhnWGJPTytkakp4bm9a?=
- =?utf-8?B?U3B0dE9MOTRWWTMzekJwZDNVcVoyMTNpTnJoSERmRFBNWXBIQk80UzhxUTJo?=
- =?utf-8?B?ZU43VTErbml1NnB2aHVHcmwwNFZKTmtIOUVuLzRUTmdFNU9qN09WSG9HQ3Jz?=
- =?utf-8?B?R3hOMHhSRkxiMG5abzllN3lEbVAvMnVnRnBEOGlOZkNxcFNjL1Bka2c5bWg0?=
- =?utf-8?B?S2RsZW5VaGtqZ3pIaTkyU1ZrbDFianV6S1BYVXZFQ0RBbGtoNzlRazZ1aTBU?=
- =?utf-8?B?UlRDNENFTWoyQzR6ZGlIWlNMRlVFeFNEZWo5Zks2M3RRUmpicTJucUU2eVdU?=
- =?utf-8?B?d2NZd2RZRGNqN3hXSmZ4YjFtSHFXVlVtYk9OSmJWc1pyRXZ2WlI2R0lKOWpp?=
- =?utf-8?B?QzFhTDFWSE9vZ0J2SGtnOXlTeTAzT3ZBczVBa3pMMHk0OXBjTExLcGFscW13?=
- =?utf-8?B?OE5vdThaMVpKYWxVWk93Y3dDazhLQjJXek9laWZYdm9PNk5mSUVYWGxSZFZs?=
- =?utf-8?B?dWhyUXBXSDdsWjVwMGh1V25PVjRFR256VVQ0SllMcFIvTm1kc3NSTWdUR1k4?=
- =?utf-8?B?QXVlUVRIb1lVdDlRUCtXVEZ4VmRvait1QzViK1VPVURITHkwWmovR1dkdDVN?=
- =?utf-8?B?M25zNzB4b2o3eWxUbTRmV3dzVndDeWx0WmhIYVVDa1JjRjl5NFhRY2JPYmFQ?=
- =?utf-8?B?eTIzTUdlbklxTlNVSzdUczBFMWFKR2FEWnhJaDI0dTJBQWlneEtLbzJWU3o2?=
- =?utf-8?B?QVdVZUtzZlFGRTE5VDBzOXBPTXQzNzRqY3pDcjhSUERabitZTlhrdVFhKyt0?=
- =?utf-8?B?SE9nL1VnakM5YStkSlVTRTJQeE9ValgzUHhsRGZ0Vk53N0Y5eWVrbUl0Umky?=
- =?utf-8?B?YUVhVDNOY05mT1JFbVg5dWZLN3VsNTZ5YjdZOXIrZGdHN21uSmNiRVkrbndp?=
- =?utf-8?B?d3g1cXBIRldGZmdMVEJBaGRLdElvQzRWTDVzbXpka3BhUzF2aWhobUk5Y0tE?=
- =?utf-8?B?bzg3aCt5SWYwbDBya2lSVm8zSjFXR3hQNWphVE8rNlpXWTloU3F3Umh5NzZP?=
- =?utf-8?B?ZUFySm5SUmk5NEFCam1YQ3kwUnI5dUtFVm40L2ZaUU5mOUp6MFFvYnBjeWtG?=
- =?utf-8?B?Z2xUTGFVRlJYazluMWVlOHlMM1gxVVhNbEJ2eXdVT1RNdXlyQnJqeUhpWC84?=
- =?utf-8?B?U2JmK1hETGVsNFJqUXJIcHdaanZ1TFQ1Szd0Vmx0YnZpcEp2cDU4d3lUcGJ1?=
- =?utf-8?B?bDA3Z2FkdDhwM1FVbWpkS08yclNDSnVOQUNEVHN5ZDEyTVFJdU1lSUhKTW1v?=
- =?utf-8?B?c0Q0L21MemFtWnFrTmdnRDYyUk1hWW5kb0dWMWNDbWE4ankwZXJaN0RvQkND?=
- =?utf-8?B?aVBUMlFPQ1g3MlJsam9TUXR0cE5wK3lBOHFGbFp6aHNvWElNYWFDcjlBQzhL?=
- =?utf-8?B?RkdMRTJTWkdhdTZhcFM0ME81Qy9ZQiszNjFFb2RwWVBhRVV0ZW9kUEZHMGk2?=
- =?utf-8?B?dUtDZTUxdU9sNU1pTGxoYkUzMXBjS3lEVXFuZXpMd1BLSERrQ0RPaXZpdUtQ?=
- =?utf-8?B?RzNvVGFSNXVEbGhWamlNNHM5ejBjbjFLemNuY0I0aXlXdHhrV3hVVGlVR1g3?=
- =?utf-8?B?S0pNNTNmNWtJWCtqL1YrZm55VmdSWFMwcXY1WTZremFtT0FDcG5jMFQrZzRa?=
- =?utf-8?B?b1M3NXZVSmlVcVVHZXM0dWRqYlpIWm9xMWdxaWZsNDBST1NjVG9SUU1veWN6?=
- =?utf-8?B?ck9aV04vdUxtK082cDd5elVFdmdObkRNL0hDWHdYZy9ndGVjUEJhaGVEVU8y?=
- =?utf-8?B?SW1sT0sxS0IzWjRPYi95Q0tVYnZjVnVzSUJXYjNyVVNnWXdva1gvTy92Mzgy?=
- =?utf-8?B?S3Vmb3R4SkVXbGNzbWg1azJXbFNFeFZhRU40MFdNSHpKd0o3dDFRa2VHWnRL?=
- =?utf-8?B?YmpSNDRmWDZRNEFWVmpmSjRZZmptNjk2Q2UxYURqeWQ0K1B1Q3k4RHJ3SkYw?=
- =?utf-8?B?cjl5VDFmbTdqQW96MVE0alZCaXZyRnBLL3pjaWxobDlkYlN4SG51Nzd4N3J2?=
- =?utf-8?B?ZnU1bGlqd2gyajZHdW5iYkdPODBGaXRBdWpPK0JhTnBZNlNmNlplR2pldXRX?=
- =?utf-8?B?SDEwaDNtQkZrVDFxbUE1ZmtnWHJOKzJzYWQ3ZjlyVWtUZHhPYnBYRlVweTNa?=
- =?utf-8?B?bjAzTm41aHA3RStFb3I3WHpNTlB0SUtJb1VKZEFGeEl1QnZDeXpRdW1aR1lQ?=
- =?utf-8?B?RWpqczl3Vk1tOW9NK1p1Z1FFL0tKUDU5YUo3aFpHWjdDRjdUV2hNMHB4ZmNR?=
- =?utf-8?B?Wm5KTFNidFdGMG1CV1hDMmxOKzlNdXdlMDk3YU1ON2JtelNyYS80UT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc16b355-9054-4061-cb97-08df2a0b10f6
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 15:51:52.9050
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nSIbHc+0fXNMGhj/87REBCTZRZ9LlTueCfwFJwEVoJkad+STENyHpyf1wewXh3U8UDjgvkfO1O3XU3yj+OTHRw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF0B4A257F6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as-dr-S6c3FALwQb@gremlin>
+X-Rspamd-Action: no action
+X-Spam-Score: -3.01
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux-foundation.org,infradead.org,kernel.org,google.com,suse.com,cmpxchg.org,kvack.org,vger.kernel.org,gmail.com,gourry.net];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 175431F7D5
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
+On Wed, Oct 14, 2026 at 04:37:59PM +0100, Lorenzo Stoakes (ARM) wrote:
+> +cc Gregory
+> 
+> On Tue, Oct 13, 2026 at 08:17:19PM +0100, Pedro Falcato wrote:
+> > As-is, madvise_cold_or_pageout_pte_range() discards the hardware young
+> 
+> The function from hell... Gregory - PLEASE FIX THIS SOON :))
 
+:))
 
-On 10/14/26 10:39, Miguel Mesa wrote:
-> commit 7e5760f084d0 ("drm/amd/display: add HDMI 2.1 Compliance Support")
-> selects YCbCr 4:2:0 for a 4:2:0-only mode only when the IGT override asks
-> for it, and YCbCr 4:4:4 only when that override is YCbCr 4:4:4. On a
-> normal boot the override is unset.
 > 
-> A 3840x2160@60 mode that the sink lists only in the YCbCr 4:2:0 block
-> then falls through to 4:4:4 or RGB, and the Wayland session cannot build
-> the output layer: kwin_wayland_drm: Failed to create framebuffer (EINVAL)
-> right after login. v7.3-rc5 selects 4:2:0 again for those modes when the
-> color format is automatic. Do the same here, including HDMI FRL.
+> > bit by invalidating the PMD, doing pmd_mkold() and subsequently writing
+> > to the pmd again. However, it does so in a racy manner, looking at a
+> > possibly-stale snapshot. It's entirely possible that a write elsewhere
+> > set the hardware D bit, which this logic now loses.
+> >
+> > Fix it by using pmdp_test_and_clear_young(). This is an atomic
+> > modification of the PMD entry, and thus safe against any possible racing
+> > writes. As a (nice) side-effect, this elides one non-required TLB flush
+> > in pmdp_invalidate().
 > 
-> Keep automatic YCbCr 4:4:4 for the other HDMI modes, as 7.1 did. The TMDS
-> depth fallback also runs for HDMI FRL, so a mode that does not fit at
-> 4:4:4 can still drop to 4:2:0.
-> 
-> This is not a backport of a mainline commit. The 7.3 fix is the rewrite
-> in 0b0ff65d3c ("drm/amd/display: Refactor stream validation"), which
-> cannot be cherry-picked to 7.2; Jerry Zuo confirmed the pre-7.3 logic is
-> gone there. This patch restores the pre-regression selection on the 7.2
-> code, following the v7.3-rc5 rule. Mario Limonciello asked for it to be
-> sent to stable in drm/amd#5760.
-> 
-> Regression: black screen after login on HDMI sinks whose modes fall
-> through to RGB, e.g. Strix Halo (gfx1151) + TCL 4K TV whose 3840x2160@60
-> is YCbCr 4:2:0-only (VIC 97). 7e5760f084d0 shipped in 7.2; still unfixed
-> in 7.2.9.
-> 
-> Tested on CachyOS linux-cachyos-bore 7.2.7-3 (znver4) on that Strix Halo
-> box: Plasma runs at 3840x2160@60 with the same userspace and firmware
-> that stayed black on every stock 7.2.x kernel.
-> 
-> Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5760
-> Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5893
-> Reported-by: Michał Górny <mgorny@gentoo.org>
-> Reported-by: Miguel Mesa <miguel@miguelmesa.com>
-> Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
-> Tested-by: Miguel Mesa <miguel@miguelmesa.com>
-> Assisted-by: LLM
-> Signed-off-by: Miguel Mesa <miguel@miguelmesa.com>
-> ---
-> v2: Replace the Co-authored-by trailer with Assisted-by: LLM; a bot
-> cannot be an author (Greg KH). No code changes.
-> 
-> Tool-origin note (Documentation/process/generated-content.html): the
-> patch and commit message were drafted with the help of an LLM coding
-> assistant (Cursor) during a bisect session on this box. The bisect
-> harness, the boot tests (v7.1 good, v7.2 bad, first-bad 7e5760f084d0)
-> and the final verification on CachyOS linux-cachyos-bore 7.2.7-3 at
-> 3840x2160@60 were run and reviewed by the human submitter, who reviewed
-> the diff and takes full responsibility for this change.
+> Nice, I'm guessing the tlb_remove_pmd_tlb_entry() does what we need already? (as
+> discussed off-list :)
 
-FWIW, I did evaluate backporting a clean set of cherry picks instead for 
-7.2.y and couldn't come up with anything clean.  So I agree with this 
-direction too.
+Right, so the whole gist of it is that indeed for 99% of cases you don't
+need to flush TLBs when clearing young. Out of all the ptep_clear_flush_young()
+implementations out there:
+ - arm64 does a light tlbi to help make sure the A bit will be cleared whenever.
+(I remember reading about this, and it was due to some really weird hardware
+that kinda wanted this)
+ - ppc64 just clears it
+ - parisc does a non-atomic get+clear with a tlb flush in #if CONFIG_FLUSH_PAGE_ACCESSED.
+CONFIG_FLUSH_PAGE_ACCESSED is hardcoded 0.
+ - riscv is just a clear
+ - s390 is just a clear
+ - x86 is just a clear
+ - pgtable-generic does a TLB flush. Unclear if most/all users using it actually
+require it, or if it's just nonsense.
 
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++++------
->   1 file changed, 6 insertions(+), 6 deletions(-)
+For now, the tlb_remove_pmd_tlb_entry() (and corresponding tlb flush in the PTE code)
+does the job.
+
+Anyway, the point being that I kinda want to avoid these flushes, but it's
+not particularly trivial ATM, with the tlb_gather API. I'll try to remember
+and send some (hopefully tasteful) patches next cycle, on top of Gregory's
+make-madvise-cold-not-hurt-my-eyes patches that will have surely landed
+by then.
+
 > 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index e594548..8f60df9 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -7017,9 +7017,7 @@ static void fill_stream_properties_from_drm_display_mode(
->   	/* TODO: un-hardcode */
->   	if (drm_mode_is_420_only(info, mode_in)
->   			&& (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
-> -			    stream->signal == SIGNAL_TYPE_HDMI_FRL)
-> -			&& aconnector
-> -			&& aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR420)
-> +			    stream->signal == SIGNAL_TYPE_HDMI_FRL))
->   		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
->   	else if (drm_mode_is_420_also(info, mode_in)
->   			&& aconnector
-> @@ -7034,8 +7032,9 @@ static void fill_stream_properties_from_drm_display_mode(
->   	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444))
->   			&& (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
->   			    stream->signal == SIGNAL_TYPE_HDMI_FRL)
-> -			&& aconnector
-> -			&& aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR444)
-> +			&& (!aconnector
-> +			    || aconnector->force_yuv_pixel_format == PIXEL_ENCODING_UNDEFINED
-> +			    || aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR444))
->   		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR444;
->   	else
->   		timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
-> @@ -7104,7 +7103,8 @@ static void fill_stream_properties_from_drm_display_mode(
->   
->   	stream->out_transfer_func.type = TF_TYPE_PREDEFINED;
->   	stream->out_transfer_func.tf = TRANSFER_FUNCTION_SRGB;
-> -	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A) {
-> +	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
-> +	    stream->signal == SIGNAL_TYPE_HDMI_FRL) {
->   		if (!adjust_colour_depth_from_display_info(timing_out, info) &&
->   		    drm_mode_is_420_also(info, mode_in) &&
->   		    timing_out->pixel_encoding != PIXEL_ENCODING_YCBCR420) {
+> >
+> > This bug can interact with the swapping system in complicated ways, leading
+> > to data loss. For instance, if a folio is marked lazyfree, but was later
+> > read from, and then MADV_COLD'd while racing a write to that same THP,
+> > dropping the dirty bit may lead to data loss as reclaim/MADV_PAGEOUT drops
+> > the "clean" anon folio:
+> >
+> > T0                                T1
+> > ================================================================
+> > MADV_FREE(thp)                  |
+> >   folio marked lazyfree         |
+> > read(thp)                       |
+> >   PMD marked young by hardware  |
+> >                                 | MADV_COLD(thp)
+> > write(thp)                      |   if (pmd_young(pmd)) {
+> >   PMD marked dirty by hardware  |     set(pmdp, pmd_mkold(pmd));
+> > MADV_PAGEOUT/reclaim            |
+> >   dirty bit may or may not be   |
+> >   set                           |
+> >     reclaim/pageout may drop    |
+> >     the folio                   |
+> >
+> 
+> Thanks, nice explanation (even if the >quoting ruins the indentation on my editor
+> :P) [untabbed for my benefit]
 
+Thanks for the review :) indeed the tabbing looks ugly when quoted.
+
+-- 
+Pedro
