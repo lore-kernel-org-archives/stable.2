@@ -1,48 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5541556328E;
-	Wed, 14 Oct 2026 16:53:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3CA560ADF
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 16:53:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791996812; cv=none; b=O+O6eZCszIvy2T2rwCEMbTYcsNFoHvri91yI8Qfzx6LHBUI74sKjaicfKIH3mW3HWfSG1jjOZPFeq12Nrw0Iuf8w83pLHK0vyawl1iEIyL7ozghcfGicTM+pYNxlE2ZMClL3ZH7l6AzIu4/8TCrjfvYDSSEysg6C3UQlFqhhPiE=
+	t=1791996812; cv=none; b=Vci+VSaiV1hcYc5s+UlEJ6xEniseQtzX5C6JZhVomKb6aIW5pEiUsTcgtgBPTpxetSBTPdFqHF2k6L0yiArFgs5cOxXNpr0YW7TR18HkT0aq3vF/drmjibCUdHuOXB4S7cEE4wnZnKG6cS98p8qjZMTuO+Kh0X5/y1PKIN8PbL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791996812; c=relaxed/simple;
-	bh=JArbZIUt+5W3TtG2LggovZ4S5nrrS3IgZgVIrAxlo2w=;
+	bh=1YzNU20o0kBiUEgd2gsMyK1rw0/RTh/v1XFFTEq/Bf0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fOkGMyaDN2vBZr+2MDLKzXCOBWmcm+v4Z4US1BDn/HoaxCLVkz+kl+FlQglizJ3h1f/SGHyh7WBCbUY+khxJr5z6ZPBLUh28ZuTf0UHrlNDcfPyCCsbReZlo3qBNfc/+WKR4Pwti/NjekDfsltvjeqMKHtUdGc3XGjqz7HYVNCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hSlvsQK3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HzEPr5aE1o6VZ8Is4ibIJcgesqQdu9rK0dHjIGlgqfd60LFViKNttSJdNxxUhyEI/SLxZzX0ijDMng3OBhzP/XI/ITDDBtRoTSMxDoCgZCTEAL4vuM1AGnwgRq1TAJyd5hx9r/QS26UfuDzl2dncy05fsrpEmQjUaThjW7KGcA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l9HJQeqj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hSlvsQK3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D72811F000C5;
-	Wed, 14 Oct 2026 16:53:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l9HJQeqj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34B711F000C8;
+	Wed, 14 Oct 2026 16:53:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791996810;
-	bh=mUKzizrrqro16HGBBmPwlsBws7QxBEKqP+cXVmCU4iE=;
+	s=k20260515; t=1791996811;
+	bh=+CWNQJpHQCJUSgMGRmMe5GH5iX2sc/PN0ZRPGva5dgc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hSlvsQK3jCpdjMtGqEoGDezcOddRvFlVa93TSl08npUOHUSl7w754vNNOobkMUvPd
-	 lNsAbOlw5xAT0O9+tmjg2rgkHTpGInY0eFUX8btVpT5IJclFgyK688Tgi/8uQytjTe
-	 QtMYhGOW4ar/VLvOSaxRWLIScfdb/2CjHgC/LHNFAWvZey3aLYrb9efFedMhFnwPyo
-	 YdvkGW+SyR14q21surCbfvZKjU9ErVLf9hQslJhBhEKqbMcIpm+ILwyMTmnFW8shjh
-	 x/jK0hIQmz6nzJXUi2rDXqiBMoV166mA9j/uDHJQuOgGKCZgGrfpD0xCIRSLyk91H1
-	 S1McNLHuQrRKw==
+	b=l9HJQeqjGNoGmkT2EqDzUmioriFt+HAchBcXbok4jM+QTc2koxsO9udVMKhYwOulR
+	 iTvB+0/OsmH1RfQ9Zdz7owee5d1O3yi90Z0B5hvs2c59gif6RYZO8pAAXcTO1nOyA9
+	 b7uDFKoRZV6TneJHwzH0RUBKHZf+f7sIPFZuF9Ulq1vWXBDjSWIbSxxWj8wNxVefbf
+	 WYK7ytWRXeE41e55pgWZ/eOhpwK5Op478A5nat0rUMm1skZz5WyGXcyfGtwdMTqkE6
+	 N2AYNG2lC5pwa/bS9IUogLSXjL+KVS5cij/54Ae9UHbqQaJxnzvokwNYj1vcK1lpnh
+	 /TqjsKJrpbdxg==
 From: Sasha Levin <sashal@kernel.org>
-To: "Darrick J . Wong" <djwong@kernel.org>,
-	linux-xfs@vger.kernel.org,
-	stable@vger.kernel.org
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Dave Chinner <dchinner@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	Mark Tinguely <mark.tinguely@oracle.com>,
-	Siddh Raman Pant <siddh.raman.pant@oracle.com>,
-	Catherine Hoang <catherine.hoang@oracle.com>,
-	Chandan Babu R <chandan.babu@oracle.com>
-Subject: Re: [PATCH RESEND 6.6 v2 0/5] Backport of XFS umount hang fixes
-Date: Wed, 14 Oct 2026 12:53:12 -0400
-Message-ID: <2026-10-14-1-daily-reply-0009-xfs-umount-hang-6-6-needs-ack@kernel.org>
+	Lorenz Bauer <lorenz.bauer@antithesis.com>
+Subject: Re: Request for backport: "drm/amd: Create a device link between APU display and XHCI devices" to 6.18.y
+Date: Wed, 14 Oct 2026 12:53:13 -0400
+Message-ID: <2026-10-14-1-daily-reply-0010-amdgpu-xhci-device-link-6-18@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1791883285.git.siddh.raman.pant@oracle.com>
-References: <cover.1791883285.git.siddh.raman.pant@oracle.com>
+In-Reply-To: <CANo-qm0u0NegPA7x_ymsLeC7f+v-nR8w9BEQTndvVbetYtUmUw@mail.gmail.com>
+References: <CANo-qm0u0NegPA7x_ymsLeC7f+v-nR8w9BEQTndvVbetYtUmUw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,10 +44,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Backport of this series:
-> https://lore.kernel.org/all/20250625224957.1436116-1-david@fromorbit.com/
+> Please backport
+>
+>    07c93d7eeb0d990bc1b8e3b1eafa464bc9feee97 ("drm/amd: Create a device
+> link between APU display and XHCI devices")
+>
+> to 6.18.y.
 
-I saw Darrick's ack on the 6.12 series. Still waiting for one on this.
+Queued for 6.18 and 6.12, thanks.
 
 -- 
 Thanks,
