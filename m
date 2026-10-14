@@ -1,146 +1,216 @@
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11020087.outbound.protection.outlook.com [52.101.69.87])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7442C51EE12
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 15:25:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991522; cv=none; b=EUXH3yYowqPd3IMkm3nx3OiPN9RKQBqKcUKhTR4xRrm95lz7rXj0gqryayGKtg+88NBfMs+Y+t4fLnVObq/C2LD+3g6Mc7WZRMZRgdilsBPG774GlxCkAicroFZwByPIuwAcL/vvVi9YWBHDPF+sfueb5MRgnV6FdJBLhvFz2q8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991522; c=relaxed/simple;
-	bh=4xtlwMXyWzq87oKXlTSUTSJUcCXtxizVzZJcF/3R7OM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SfKEBL8Sai1ld1NIMopiOXJfn7n1KqRVp8OZT4lNSmwRclquGtJymtwbeEM7VWuVlOxKuzKaNObV9Ufh3jgYPOFezm8R+rqn/PyLb2WmninYPr2tPAPiwejGhQQJChGggo2p+XIGUOCFlPF9o0FaCCXEu7MdrZgzjaXKmzt4UGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OvV3QGR4; arc=none smtp.client-ip=209.85.217.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DBE5519B6;
+	Wed, 14 Oct 2026 15:27:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.87
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791991652; cv=fail; b=NsWRWE3uPMGK1zZBVFONsjfcIHJ0/PDkwLNubgpbOFwb2zU7eGOcDYNccWKDaPfTmEeIApKDoCxlnGrCK3TD37Tf2TDs1d2KnqV33H5phHSFApqZM4SEST4G3vTuCHGLXzJgYbvp48n1bQrUb30qHL4vyACjXPzAlgxQ6I1yZhU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791991652; c=relaxed/simple;
+	bh=IqrjI1lUXUed0UGKWpxRXt0dLWYxaSiiVlnECzacSHo=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=BtFAKnyMXxhpz0u58eme9mqL2pfez8+WKl7xSO5CNNiuZ5RDsNmxzU5vpgCN3hCjEd+6gcu8gYgkrCNqq87Gar6evoREVlhwUT3BMB0MNLD55NxghPuRTIRZx6EAREE6pEAJQESO1uSg7sMMINEjmeECzY1SOtcTUCiDJXrzLnY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=mRoYI2yw; arc=fail smtp.client-ip=52.101.69.87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OvV3QGR4"
-Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-7c0466d653fso183129137.3
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 08:25:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791991520; x=1792596320; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xZlacUVzzy4HBA3NrxiUhpJFwP6Wb2PV4OZMdQ09R7I=;
-        b=OvV3QGR4FZThAftPriNMh0Z49gdzBDi90bON/J2qGK4x6casf1MCH7iu0i1QXdMSA8
-         BFyJfzLwcxt3JPev9LG1y+5VFqIIjSghbVMKzuB5xyqs4/68DP4kv6fVzv83zMymDsRX
-         1qrn+koBA5ex4K3dDF0QYhHc56uAqHiRM6OIDLgzhtp1jpswVE9dKA5VU43IH4PR4PxM
-         G3t9zI2cftnG/bVhkAMewxJOTecsfyxbw+/gLlhrTs/IEh+CI69jHmYi+lNLiJtZg/+m
-         4J3ogY8xF8roffMtybaOz/QyRuHixaK1iSrl7cPnIt/uMsOcnuoy/Z+UdshEdh0pdDjY
-         Z9HQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791991520; x=1792596320;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xZlacUVzzy4HBA3NrxiUhpJFwP6Wb2PV4OZMdQ09R7I=;
-        b=ciYHG7Z0B1j2sls2TID4CLpWN8+T7jE4wR+GJy3wW75HcP9IWg022C7DQLTdiCYZY2
-         8bT7BwtqP/nqejO5ufpuCbZexwG2ps8cKo7NjFg5dmoQMjbFAAtpqovgOsl0froyzHNL
-         8W5FhwmvGAp5JzpjLtfMU2IB3fXxIwi/pZieHUWGp6S6teNKULgkLMEu//RrW3VfJ8li
-         NmvQK4Db78VggNDDAgTGZijw5kKobVZHJEa+JAWDp+MdQ0JrNDEnVHCDNl6A/w8i9k/K
-         HSgSbx0aYgdwT4913fs/ZAiYniwN0Qq2dHNIpMBUrTkjrj98sssGXI6ZFMBsmg0tz4F6
-         51gg==
-X-Forwarded-Encrypted: i=1; AKwUvBzNCL6MsM6xnWjuwGDJm9yQPi856NUM75Zrexmw1236N0ymbU7p2zuJWpW28h6/SrFLPlwxEW0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJr+WyjlejAeDU5K0ctj39XYEOdtVwRt1fVq2r+BORACrOGyntP
-	nfvAqitMOW6lhbb4eI/lQYdJH06XGro7g6KnE1XzIXBfcmjQKYr6CMTD
-X-Gm-Gg: AYBFou0T1jvZ7QWKjgcnxoO5QJ6MqMft9U43fxI/LDlFa1z4xHVOkw1ijemUZSbWFJM
-	CxEdqeECVvOd3EKmtaqXvboKzJO5rUGNfNGefkugZ+RjpgRn/smZF4i+8FLiOiG+4pz6S9YqrEb
-	qMHBK5ywV5i3Vglb2Fk5usiEdN4gI8cv0YVDSMSW/uCWQSfEu6acQbV9mi+EGg07ln9GocGo/Aa
-	VpuJEk9p3x4HKGAuKHrBv0GXo3GYvGBlM1x4hk5mh9MArX5PHkTi02KgIDM4XvDA9KFguxXPYW2
-	OT2ENRSbn0aNWW0ElOPXnAe56IREYybecW9czdzTgKzKXKFfFn5MLVVyOiY4PCOXZzDuxnmwEpg
-	xr+dqd42Fv5hhSNb7m2oKMxYbYTGqmp+8QOfRJziMFsRw/UAtFzgNM5ljO0XzsT5uePekzkzbPv
-	6F9FkOWmQ2dZmwdNvU7PTMnMJrM9Bh2csobTo6lli2dWC1kWjYr74/hO1/LcZvnf2DZOMr0nfEF
-	yXw8jsK7L33EmiqN38gxg7qVBoY8gPrPga0MG8biiJarmOo/yeTuK3ZAlCyVVbGnHEneCnzyAcj
-	G+pxdxWDowof3cI2Ar0QDPhp9IDvZCY9GWnBpM76SUS6jhk9
-X-Received: by 2002:a05:6102:4193:b0:7a7:12b0:fd03 with SMTP id ada2fe7eead31-7cb50ad7b90mr3825371137.0.1791991519989;
-        Wed, 14 Oct 2026 08:25:19 -0700 (PDT)
-Received: from debian-t14-gen1-fuhrysteve.ts.fuhry.app (235.sub-75-230-129.myvzw.com. [75.230.129.235])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b5e5b1sm54887516d6.18.2026.10.14.08.25.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 08:25:19 -0700 (PDT)
-From: "Stephen J. Fuhry" <fuhrysteve@gmail.com>
-To: linux-input@vger.kernel.org
-Cc: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	"Stephen J. Fuhry" <fuhrysteve@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] HID: input: ignore the battery of Keychron keyboards over Bluetooth
-Date: Wed, 14 Oct 2026 11:25:05 -0400
-Message-ID: <20261014152505.2523337-1-fuhrysteve@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="mRoYI2yw"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JURZXy6lnpmHF3hUVCKGCIQU83ad3ZOsc1Tf0x3131TOAYafDh7ql+F6WDHF9lVJCU83W531RUbQP3mr9et/nwQ0bCJNYG2jkur0rhYzyhAa7wy9o3mupKHCQ3UGJMwbCOoqPERfsUMOudnOCBG3X2Dwyzh9NEMgoga6VW/6cYnkTW2/0dcKpukvTPiSdug80r28wd0cRSQ0mWVOP+qdl8w3H6Sn87ktV4Xyqm2u/2FNmqXSIGzynPEU/0Ib80uyeb6dtSJrTw+ukEeeblkMXyXdN+F98T1btEnsDL0fvu7NXYYmOKPg9qopi5DwzLsgvCt3xFUhVN0JHXcYo63APQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DfBpEQ2ryeYVrByhGL6wYfH0Kqc9ZBts4hFI2NsVd/I=;
+ b=q0ZY9shYsK5F59HZPOppzVhAO2x17w3HfUyEVK6JCuChC91Z5U8q0BxkbxF0oyk92+AO/+UWOyJwqkBjUPy1Lri+lFX3al8EF5mqf4RAfKhwKr3MfrH//kZWLRJSwY/9/xXsQ16UIVDQUnm6kV5/XOBYwJPK38blDUTKXdRQrJnRdI/SZHaIaxD2eWPs1+BF+fm9X9R+4LiQPN9mOxz1PEHmw3h7h921sFpqtgTa7q3BpRAIvmV2kscw/iDgkXwB0/b9NwjY1F5Th8J8smSwwPUIEGOTuCc+RX+9jZUIF10AelXzoSk4kqWTXV9v11WCTzShEYA0HGqrbz4iEwMufw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=virtuozzo.com; dmarc=pass action=none
+ header.from=virtuozzo.com; dkim=pass header.d=virtuozzo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DfBpEQ2ryeYVrByhGL6wYfH0Kqc9ZBts4hFI2NsVd/I=;
+ b=mRoYI2yw/ObSH3UHLw0IH/1OBwqpZPE4ackwrRo8wWTsMCEaCcu3lsYYBQAu4zbLNzlNtUt4DqNrNEBy4Gc+3uU5orX8sbJYnLgPJzCNA5aKmZp8r1+tXn3v2epDa3RN2wly+5IPsIrZ1YDTepWyttf+EnmBnD0JVKs2AFahYTyJimZIcK0OdRESh7TFp07NkNjQuAB8Uam3yNhepthgxKCt2cy/US4k6WwNVGRgzmH+8fGVOrYPdOwMh3yBUf5z6mnuLfIK01sQE0NC2GVd6WeyzwcundGDYPEyane9ocMflW3bdDgCSj9Z/FrGK4HN1FNsL9AmdgCvQ5UJ92Ua+w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=virtuozzo.com;
+Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
+ (2603:10a6:102:3c7::20) by DU2PR08MB7375.eurprd08.prod.outlook.com
+ (2603:10a6:10:2f3::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
+ 2026 15:27:27 +0000
+Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
+ ([fe80::1999:c6db:dc55:494a]) by PA6PR08MB10708.eurprd08.prod.outlook.com
+ ([fe80::1999:c6db:dc55:494a%5]) with mapi id 15.21.0522.011; Wed, 14 Oct 2026
+ 15:27:27 +0000
+Message-ID: <85b319d2-ba91-45cf-9f68-4182df93c848@virtuozzo.com>
+Date: Wed, 14 Oct 2026 17:27:24 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/huge_memory: recheck a special PMD under the lock in
+ copy_huge_pmd()
+To: Lance Yang <lance.yang@linux.dev>
+Cc: Alex Williamson <alex@shazbot.org>, David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Ryan Roberts <ryan.roberts@arm.com>, kvm@vger.kernel.org,
+ =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
+ Nico Pache <nico.pache@linux.dev>, Zi Yan <ziy@nvidia.com>,
+ "Liam R. Howlett" <liam@infradead.org>, dri-devel@lists.freedesktop.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Usama Arif <usama.arif@linux.dev>, Barry Song <baohua@kernel.org>,
+ Dev Jain <dev.jain@arm.com>, linux-mm@kvack.org, Peter Xu
+ <peterx@redhat.com>, linux-kernel@vger.kernel.org,
+ Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org,
+ Kiryl Shutsemau <kas@kernel.org>
+References: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com>
+ <58e8d79b-f7c3-4ded-9272-07c309917055@linux.dev>
+Content-Language: en-US, ru, sr
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+In-Reply-To: <58e8d79b-f7c3-4ded-9272-07c309917055@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS4PR09CA0007.eurprd09.prod.outlook.com
+ (2603:10a6:20b:5e0::8) To PA6PR08MB10708.eurprd08.prod.outlook.com
+ (2603:10a6:102:3c7::20)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA6PR08MB10708:EE_|DU2PR08MB7375:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7ff5d98-58b4-4c11-cb67-08df2a07a753
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|7416014|366016|18002099003|22082099003|10067099003|261009223027099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	dvk+WfitNgf+sRbaaf4bunN5f9fmD8rb2mEeOrtJHQQMIf+leMJuWATYnLALrEIuuV1Nm9bHRGzvwkCiRXQ1RNdz8ErgE6JMmSF4uFP0RoW7joq5GtWojhX6BIbH9jRPUe9vV6TIVi/QonBij9F3obAxVlEVKJ9SLHw8yVLkx3KxSnQ/sFzzXdF2689ujOGSC5oYAD9Bo+7Rka7IfAqnRJOPmPyj8S2Wf6Cx/RHWkJBGVyIvpXUWZFzUTQ7iAk3RcTgzWxhPw4Pt6167mAb1ieP7kNf4ZOi1EsbefX7prTnNcVjfaH/KHF+LA8G5vKig49ChgkZzJE/SkKU0O1mLw0+peloxgO/vxjNyhNUmUDvxcrpYHeC0WJmPCop4R8Jrwd97nxn5xiWVwJdw9eCGzjLsWuPRjhQhIBprDAxsl3CU3KoQUxj8nPdpvnAzOUZVWmfMjtMIYppozdq+k3ME7/c2beMsT2S5e1/Sn2Yod17ht4+wCvfaDlnSPC6qSQ/QAxNrgABrnnzYK6JTwGnjP7ILk6Gyih7zmcyWvwbX+yru1TY8m/U1w5qd3GPr+GgOTwWkDxBgjppZAnzMgUX6V5h9cuHeJYDZ8bUflqs++ss=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA6PR08MB10708.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(366016)(18002099003)(22082099003)(10067099003)(261009223027099003)(4143699003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aWJxaUorOTJKZFZ2MmhPUEYrY0IyTXF6VnAzYTVnMDJWbUNxQ2VCQ0R1UDBn?=
+ =?utf-8?B?MFRaY3A4WTlhbmxaU1NYd24rV3dkTzVsSys0MGFlVTZGUDhmNlNYam9wdW52?=
+ =?utf-8?B?UElEYjFEQkR5VmVCL0FXMXlQNytrV0x4dzVTNmY2SWVlTk1tVDR3d1cySUVs?=
+ =?utf-8?B?anQvS3JkWU5pTEpOWXRiRTVpQ1o2NEkxckZleDVNcGVtSy9CZi96OXRsSTdu?=
+ =?utf-8?B?RG1HUFF0WE5NRFZ0T2RQWi9aVXNOSitCM25aWGxNYXBadm03NHhIWlpibUdI?=
+ =?utf-8?B?VkVSSi8xOXdaemVEL2FibHg2WEZkT1kwZElpS3pISmZhQ2lBYzVVWnYrdXpj?=
+ =?utf-8?B?eDdDSmhBeDNNZkh2WUlZRkRBTmk1UlR6QVhET2FWR0xNWEw1UlVJdFlKV2ww?=
+ =?utf-8?B?QmQ5NWs2UnpSelBpVllBNjc5dUZHSktyajJtdzNzeUFpLzdzVmg2cjdMblZD?=
+ =?utf-8?B?NERPNDR0US96ZVRIWTc2T1JFeWoxTHNpMXFHK25QRXNqNHhVdjcwSnhZN0NT?=
+ =?utf-8?B?Q2NmMHlSNUdiQ1ZSMVVKVzZmNm0wUlpvWWV1V1E5b1E1SzF5ZG5MUG5HVEQw?=
+ =?utf-8?B?TjBhdS82TVkrTkNPMDJBdWk2SlF6WGJlb3JXL09MRUtDWXp6bkp4WlpUL2pt?=
+ =?utf-8?B?SkJLWGdyOHA3TXF5bDZqcTVITEZ2b1Q2WE40TUdSZ0xsSjQrZEZFSzJ6ZThq?=
+ =?utf-8?B?L1NDUXpVVDQ2aXRSUy9vRk4zTjNKaElBTWxjV0tPczVWU2dJNFlSU2dFSDl3?=
+ =?utf-8?B?OEI5eWxGcmlKL0tSSUNvREQwOFY1Nm4vMkpha1ZsQ05nNE5yaFhzLzhtdmNV?=
+ =?utf-8?B?blpxSEtPUTVCMDhPbGpoY3U2MGRlaUhHN3NBUTJkMERxUUFXbGtYOEE1dXNU?=
+ =?utf-8?B?QmR4dTNOUHZVU1RHS0hoWDFRNlpwcGRxVXdZQ3Z1OUxZWW5NWkdlempOUGs1?=
+ =?utf-8?B?Slp1cHBDRU81UCtPUUdFRzhFb0x0ekhuTGd0MEVibVE2T2x3THU4eDRwNVZr?=
+ =?utf-8?B?TkVTSzNBZG45NTl4OTQwa2VOMk5iYUo4aGZtSHcwTHJJNHB0SE1CSzVQRmp2?=
+ =?utf-8?B?bXlPOXV0QWlIVVl2YWJodE9pWXh1YkJrbnFYMjkrQ2ZFYzZBQ2JoaUFKd1Ay?=
+ =?utf-8?B?YjJScy9hOGtoSWxlWjJtYzdGYVRDUXZMUW81OUVwdnJOSWNJOC9GVVc0M29l?=
+ =?utf-8?B?V2xUWHlRRE90aCtBMENFNlExZXhpZmxzTmZXRkVpSUJhVlRmZVJjM1RSYTdB?=
+ =?utf-8?B?NmNrbkdGUHYva0FHdWNTWEM1S0NtV1NYMGtsRVpCYTNRZFZycWlTMVV0Yk80?=
+ =?utf-8?B?SWNPMmoxUTVnNk10Nmw0QXFBS3l2Q1lCWC9kWEsxUVBvZGdwUU16dEtKZWpo?=
+ =?utf-8?B?K2dnSnN5ejJxeWFVdGpRVWM2dE0yRHpZa1dhUzVCdTJPTGM1R29PMGtXa3A0?=
+ =?utf-8?B?RTNPSU1IQkRRTEdKUzlDMjhUYVVGUWV5YjNZd3liNFJlcnY4aGZaQXdnRlI5?=
+ =?utf-8?B?K0Q2NmNCaDIwbG1mdS9RelJQbitDeTA5aXZtdkVuVURNWDU2NmwzTzNabzd4?=
+ =?utf-8?B?OGVpUlRzTGdXdTM0SmF4bU1DK1VkZUFpelZwZWtrcTY1Smh6Q0lGdHNYRDMy?=
+ =?utf-8?B?V3ZjdHJnQjVuUEU4UmF2WHdGZGs0SWxWbnVrVEtkZnN3MXNxMnpmK25lNnhO?=
+ =?utf-8?B?L0xRSlgvUWQya1ZESVZobllKSkhqdUhjRHhuTGI4Mkd2V1RYd05US3l6T1JL?=
+ =?utf-8?B?b1JMbkxJaUlnc2JKYXo2NEp5ZmxhM044SWFHRzl2eDJWT1J6d0VEMU4rakdx?=
+ =?utf-8?B?ZDlQZTk1OG1xdElOb0RpNUZVSXlVM3lKbVZDNWRBcnY1ZVpXaDJzRGpLUjQ0?=
+ =?utf-8?B?MFRKVkZLb1VpMGMvaWdMYVhQNkMxYVVIemhycm9KN1FvSHNDZE9ZTnBKMlBY?=
+ =?utf-8?B?TXdkVmN4R0tGSnkrU2dGVkN1NEF0dVI0RjR1aDRjcEQxdFVuQytsQVdCb0Q4?=
+ =?utf-8?B?UUZBOGNWZlhTeVNVTFIyM0ltNVhuYzliTHFLSEpyQ3A1ci9rSHJteHNyTVFz?=
+ =?utf-8?B?cFgzK1U2MUVmM3dXbnVVMXlPRUlTRUVMSklOSzJsMFZUR3JKWXpyUXFWdDl4?=
+ =?utf-8?B?N3dnOFZzZ25oMFNLVnFsS0dzT2pxR0RPak1iMThJMlFjNmhUSWViMU1YRFNL?=
+ =?utf-8?B?aEVMRkJBdzBocDF5YWU3ZkFOeXZTWklNY05NTFRuMHYyeWkxdXREQ0RscUZF?=
+ =?utf-8?B?STB0K0h1OGlGWnVkanVJZ2xxTmJabUl2NHZiKzZkeDdRbUFzaGRtQzlxalc4?=
+ =?utf-8?B?bWM3c1R2b2xLeUhXQmFiUENRSHZabjdDOTcxRFArZHJMK2pickFGdz09?=
+X-OriginatorOrg: virtuozzo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7ff5d98-58b4-4c11-cb67-08df2a07a753
+X-MS-Exchange-CrossTenant-AuthSource: PA6PR08MB10708.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 15:27:27.1905
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HtNzeo1XuLBPzG0VX4RDD+Dg0PVZRdJkvsOl8nPcF/dK+fDfnur8S3cOklkz1tERAETPpVg14sjbCkjt5oJJgg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR08MB7375
 
-Keychron keyboards identify as Apple's wired aluminium keyboard, rev B
-ANSI (05ac:024f), when connected over Bluetooth. hid-apple has bound
-that ID over Bluetooth since commit ebe0b42a4252 ("HID: apple: Add
-support for Keychron K1 wireless keyboard"). The Keychron K8 tested
-here does the same, whichever position its Mac/Windows switch is in.
+On 10/14/26 15:19, Lance Yang wrote:
+> 
+> 
+> On 2026/10/14 19:57, Konstantin Khorenko wrote:
+> [...]
+>> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+>> index 1e5d68acf62a5..fcea98f0d8865 100644
+>> --- a/mm/huge_memory.c
+>> +++ b/mm/huge_memory.c
+>> @@ -1965,13 +1965,22 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>>   		src_ptl = pmd_lockptr(src_mm, src_pmd);
+>>   		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+>>   		/*
+>> -		 * No need to recheck the pmd, it can't change with write
+>> -		 * mmap lock held here.
+>> -		 *
+>> -		 * Meanwhile, making sure it's not a CoW VMA with writable
+>> -		 * mapping, otherwise it means either the anon page wrongly
+>> -		 * applied special bit, or we made the PRIVATE mapping be
+>> -		 * able to wrongly write to the backend MMIO.
+>> +		 * The mmap and VMA write locks of the source keep faults
+>> +		 * out, but unmap_mapping_range() does not take the mmap
+>> +		 * lock and may have cleared the pmd since the lockless
+>> +		 * read. Let copy_pmd_range() skip it then.
+>> +		 */
+>> +		pmd = pmdp_get(src_pmd);
+>> +		if (unlikely(!pmd_present(pmd) || !pmd_special(pmd))) {
+> 
+> Why not just check pmd_none(pmd) here? We're holding the source mmap/VMA
+> write locks, so the PMD either stays special or gets cleared, right?
 
-The report descriptor declares a battery, so hid-input creates a
-power_supply node for it. The keyboard never answers the battery
-feature report. Every read of the node blocks for the full 5 second
-uhid timeout and then returns -ENODATA:
+Right: with the source mmap and VMA write locks held, only a zap can
+change it, and both ways a zap takes leave the PMD none:
+zap_huge_pmd() clears it, and a partial zap splits it in
+__split_huge_pmd_locked(), which for a special VMA only clears it and
+returns.
 
-  $ time cat .../power_supply/hid-<addr>-battery/capacity
-  cat: ...: No data available
-  real    0m5.10s
+I tested the same condition as the lockless check that chose this
+branch, so that the branch never copies anything it did not select,
+but taking into account the above paragraph we can easily use pmd_none()
+here, it even better matches the comment :), so I will switch to it in v3.
 
-Anything that enumerates devices pays this on every pass. With the
-keyboard connected, "udevadm info --export-db" took 10 to 26 seconds;
-with it disconnected, 0.11 seconds. KDE's Solid library enumerates
-devices on the GUI thread, so Dolphin and the Plasma panel froze for the
-same 10 to 26 seconds. upower already gives up on the device and does
-not list it.
+v2 is already out, with a second patch for the missing page table
+deposit on ppc64 hash:
+https://lore.kernel.org/r/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v2-0-e1548488fa68@virtuozzo.com
 
-0x024f is a wired-only Apple product, so a Bluetooth device using it is
-not a genuine Apple keyboard. Ignore its battery so the node is never
-created. AVOID_QUERY would stop the blocking read, but the K8 does not
-send the battery in its input reports either. The node would then stay
-at its initial capacity of 0 with status Unknown, which looks like an
-empty battery.
+The pmd_none() change will go into v3.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Stephen J. Fuhry <fuhrysteve@gmail.com>
----
-Tested on 7.2.6 (Debian trixie-backports base) on a ThinkPad T14
-Gen 3 with a Keychron K8 paired over Bluetooth: no battery node is
-created and "udevadm info --export-db" takes 0.12 s with the keyboard
-connected. The keyboard types normally and hid-apple still binds it.
+Cheers, Konstantin
 
-I have only the K8 to test. If another Keychron model on this ID does
-answer the battery report, this hides its battery level. I do not know
-whether any does.
 
- drivers/hid/hid-input.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/drivers/hid/hid-input.c b/drivers/hid/hid-input.c
-index edd6bbf..380ff8a 100644
---- a/drivers/hid/hid-input.c
-+++ b/drivers/hid/hid-input.c
-@@ -381,6 +381,15 @@ static const struct hid_device_id hid_battery_quirks[] = {
- 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_ELECOM,
- 		USB_DEVICE_ID_ELECOM_BM084),
- 	  HID_BATTERY_QUIRK_IGNORE },
-+	/*
-+	 * Keychron keyboards in Bluetooth mode reuse the product ID of
-+	 * Apple's wired aluminium keyboard. They declare a battery but never
-+	 * answer the battery feature report, so each read blocks for the full
-+	 * uhid timeout and then fails with -ENODATA.
-+	 */
-+	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_APPLE,
-+		USB_DEVICE_ID_APPLE_ALU_REVB_ANSI),
-+	  HID_BATTERY_QUIRK_IGNORE },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_SYMBOL,
- 		USB_DEVICE_ID_SYMBOL_SCANNER_3),
- 	  HID_BATTERY_QUIRK_IGNORE },
--- 
-2.47.3
+>> +			spin_unlock(src_ptl);
+>> +			spin_unlock(dst_ptl);
+>> +			return -EAGAIN;
+>> +		}
+>> +		/*
+>> +		 * Make sure it's not a CoW VMA with writable mapping,
+>> +		 * otherwise it means either the anon page wrongly applied
+>> +		 * special bit, or we made the PRIVATE mapping be able to
+>> +		 * wrongly write to the backend MMIO.
+>>   		 */
+>>   		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
+>>   		goto set_pmd;
+>>
+>> ---
+>> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+>> change-id: 20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-bdf7efb612c2
+>>
+>> Best regards,
+>> --
+>> Konstantin Khorenko <khorenko@virtuozzo.com>
+>>
+> 
 
