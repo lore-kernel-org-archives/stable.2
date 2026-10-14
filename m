@@ -1,149 +1,195 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F72563FCB;
-	Wed, 14 Oct 2026 18:30:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEA1052D2C9;
+	Wed, 14 Oct 2026 18:34:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792002603; cv=none; b=oOreQRkVlN4s9dMgVHTR2HI+3TMuJHDHJC0O96EsXGCVnzVzTFt7GhGDJ7lL+oJprfzS2qX+v8f5RoyJeLB2BPDJr5cHkmXJSsEjEyFkxWFXdQqWTeW7U+hWeRJ8H8JJlBMUmtViXHiZmY7kbUKhMHMMF6y4VWOYosH9jIUu1Eo=
+	t=1792002886; cv=none; b=GgCL4GDUho886Rw7DeYBSMaedLwL0m9wgsLDOYV6LsU/CJLaBCrQ7ry/xrxMgM19VYLjtT2OnzrOVISQMwjW4XQ3zIVhSjeUto1/VXx1O02LW3u+h20KVHnIhIAhpUTDPoxjol+BFTGmjVs6qj0VDR6h4O5qwYJrtrtiD2TRK7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792002603; c=relaxed/simple;
-	bh=CvDZexJzjI7RxCUbV640at39KGkOo5+6t5uM91VSujc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HRujGbQBHinX4eJVYOZmKQz3hb8s3/w4xf4X+yMxBQrx5VEdisPwMJcp3j/HeCKv55iBLrLSmPdRjs8su9kZFCNwjY/OWpYws25D8lnlDjBKawf7pAVYPAnAB5ZPKdZZnB9FJsZO+NBTEbnGBqwYfz0dq/CTl/Bp60B0J3WHcO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h9/hPajC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792002886; c=relaxed/simple;
+	bh=BkD6Y/HalsjYwf57ZhS64XjHmYuqd0mBJqkuOfKzqG0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=G9sz0bm8/MSk8xsEA3kuySqwOR0E58ARW2/x/TWbbXokSxmE7RgYI+jiKhtk4twJRqKbg2CZlX61rH7hy3ejs2so15qJri4ThFb5sp3hEg0X8MCF7CbsS3G+r99F+dRBopC/bjAVheXfLW7wnlLizVJOF5j4oN1l4jjamqZbXuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fHdY2vAd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h9/hPajC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CEAD1F000C4;
-	Wed, 14 Oct 2026 18:29:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fHdY2vAd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E49B1F000C4;
+	Wed, 14 Oct 2026 18:34:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792002601;
-	bh=goPUvnwsBIJ7nqx5a1aYL/GrCgKsovn5VsOtQmOka0M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=h9/hPajC0Azg9CvJ98mqMqpfTxxP3tEL0tJENRXOXOdPpN21/xwJANzF0XJT20uEB
-	 8ELin1BYHvgD0N0NTjGV2SS7QTiVClPuKdy9qndWJLXyLmgxGK4y3mG8CdYKUqT/vF
-	 DyqP9JEHo7TMKboBIPuoQ8M7v9UQGhKIP4Qk9LOX6lTw5aMFzensHD/vWJS7osZ14+
-	 lg0plopzf6p8DARJDysGNTpNSR8qvtJEcL9eMu+tb67MVL2m81S5bCWOth8AInlMpO
-	 10+niaPkGe77yTgorT+xOIyc+8m6DbJOK17DYw3/z2S4+GG8xN36u7lttN4Evx/Yox
-	 khSNkfCi3qmtA==
-Message-ID: <c3b95083-f014-432a-8b21-b555f0ab71f5@kernel.org>
-Date: Wed, 14 Oct 2026 20:29:55 +0200
+	s=k20260515; t=1792002885;
+	bh=3LdUyDK01DQtoFjrGZ/bknkjNppQ8Sk8UdpqBq/9h0s=;
+	h=From:Date:Subject:To:Cc;
+	b=fHdY2vAdxwRHcOMrmHw0tMpWucDoeb7pkiGpEg1hggSyl9bvxP0hE/UermQFqYHxS
+	 ZuoztCR38h9schyLvMfzp8hCojRB6VhIHKC6Z+A8NaA7y77qlR5i4FmJo/7qBgkYfq
+	 AzQfQL+pcOBBh9bsca9YG0AoARe15urQ42RsBpElKOnAXWvZmBro9FjkoUDgWQBCqP
+	 zVdbwqXFX2SORT1kULtEJkE/dmBJcPiA1Yn2LIhuSTB94aT6smbYRLjlfLl1BLZKJ0
+	 bLPUHetJRvsS+E5mn5CMOwHkKVb/M8VyDaBJ40kiWSrqBF7d8FcTlZ8WMMOiMEy9P+
+	 U73NJQLFGX1Tg==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Wed, 14 Oct 2026 20:34:28 +0200
+Subject: [PATCH v2] mm: fix address wraparound when scanning large folio
+ PTEs
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/userfaultfd: only allocate anon_vma in CoW mappings
-To: Kyle Zeng <kylebot@openai.com>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
- Peter Xu <peterx@redhat.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Lokesh Gidra <lokeshgidra@google.com>, "Liam R. Howlett"
- <liam@infradead.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261014-copy_hugetlb_page_range-v1-1-5b68e03fe7fe@kernel.org>
- <as99gyi-NUprRK6e@gremlin> <as_EIRMinCdl1zOx@com-75606>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <as_EIRMinCdl1zOx@com-75606>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-folio_pte_scan_range-v2-1-00cf9bbaa364@kernel.org>
+X-B4-Tracking: v=1; b=H4sIADPLz2oC/4WNQQ6CMBBFr0JmbU0LkYgr70EIKdMBRklLpkg0h
+ LsLeACXL3n//QUiCVOEW7KA0MyRg98gPSWAvfUdKXYbQ6rT3GiTqTYMHOpxojqi9bUcDuZoTYF
+ 4pcLBNh2FWn4f2bL6cXw1D8Jpb+1Gz3EK8jl+Z7N7fy5mo4zCi3aY6abNrbs/STwN5yAdVOu6f
+ gHIdRFYywAAAA==
+X-Change-ID: 20261013-folio_pte_scan_range-c6ca19cc8e9d
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Ying Huang <huang.ying.caritas@gmail.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <baohua@kernel.org>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Chuanhua Han <hanchuanhua@oppo.com>, 
+ Mike Rapoport <rppt@kernel.org>, Kiryl Shutsemau <kas@kernel.org>, 
+ Kyle Zeng <kylebot@openai.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Lance Yang <lance.yang@linux.dev>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4955; i=david@kernel.org;
+ h=from:subject:message-id; bh=BkD6Y/HalsjYwf57ZhS64XjHmYuqd0mBJqkuOfKzqG0=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLOn7bzuPw7lznL52h1+/dgZqaVHXNO9d05fPf0663L7
+ b7aCHf+7ChlYRDjYJAVU2QJCr5v8PLlutpqNz5mmDmsTCBDGLg4BWAiXhMY/gfe7TERiHqrwPL4
+ 8YRd9bn8DTdtbY7b7P2jE7zP6FX4us2MDC9OnV915VGwncbp9Vvn3GEqbC3itvPrlXeewH/LNXp
+ KMgsA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-On 10/14/26 20:04, Kyle Zeng wrote:
-> On Wed, Oct 14, 2026 at 03:51:22PM +0100, Lorenzo Stoakes (ARM) wrote:
->> On Wed, Oct 14, 2026 at 01:53:11PM +0200, David Hildenbrand (Arm) wrote:
->>> As uffd_lock_vma() is part of the same lookup machinery and
->>> also contains a misleading VM_SHARED check, change that one as well
->>> directly for consistency.
->>
->> OK, I think that one isn't _strictly necessary_, but while we're there,
->> worth doing too, clearly.
->>
->> We should also go through and convert the remaining !VM_SHARED checks ->
->> vma_is_cow_mapping() too if possible, but that's a follow up, obviously!
->>
->>>
->>> A follow-up cleanup will stop taking the hugetlb_vma_lock_read(src_vma)
->>> lock in copy_hugetlb_page_range() entirely. Further, the usage of
->>
->> Hmm really? Is it possible to do that without the hugetlb lock?
->>
->> It'd be good in general if we could get rid of that lock as a whole :) but maybe
->> dreaming.
->>
->>> VM_SHARED in userfaultfd code should be cleaned up later to focus on
->>> CoW vs. non-CoW mappings.
->>
->> I think also anywhere else in the kernel where this is done. An audit on that in
->> general would be useful!
->>
->>>
->>> Reported-by: Kyle Zeng <kylebot@openai.com>
->>> Fixes: 867a43a34ff8a ("userfaultfd: use per-vma locks in userfaultfd operations")
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->>
->> This LGTM, thanks for handling this!
->>
->> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->>
->> --
->> Cheers, Lorenzo
-> 
-> I ran the patch through my system and did not find any issues with this
-> patch. Thanks for addressing this!
-> 
-> Reviewed-by: Kyle Zeng <kylebot@openai.com>
+numa_rebuild_large_mapping() and do_swap_page() can be tricked into
+generating an address wraparound, crashing the kernel. All that's required
+is to map a tail page of a large folio close enough to the start/end of
+the address space to e.g., make
 
-Thanks a bunch, and thanks for reporting all these issues!
+	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
 
--- 
+to wrap around.
+
+Let's fix it by providing a better helper, folio_scan_range(), that
+takes care of staying within VMA and page table boundaries while
+handling possible wraparounds.
+
+There are some nasty details, like not being able to use pmd_addr_end()
+in this context. Add some helpful comments for these cases.
+
+Reported-by: Kyle Zeng <kylebot@openai.com>
+Fixes: d2136d749d76 ("mm: support multi-size THP numa balancing")
+Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
+Cc: stable@vger.kernel.org
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+Changes in v2:
+- s/folio_scan_pte_range/folio_pte_range/
+- Add more comments + improve existing ones.
+- Link to v1: https://patch.msgid.link/20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org
+---
+ mm/memory.c | 50 ++++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 36 insertions(+), 14 deletions(-)
+
+diff --git a/mm/memory.c b/mm/memory.c
+index 1f5d5f7d39cd2..fa29d7a8d0c20 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -4933,6 +4933,34 @@ static void check_swap_exclusive(struct folio *folio, swp_entry_t entry,
+ 	} while (--nr_pages);
+ }
+ 
++/*
++ * Get the address range in which a folio might be mapped, assuming its pages
++ * are mapped consecutively and the folio page at the given idx is mapped at
++ * the given address.
++ */
++static void folio_pte_range(const struct folio *folio,
++		const struct vm_area_struct *vma, unsigned long addr,
++		unsigned long idx, unsigned long *start, unsigned long *end)
++{
++	/* Stay within the page table and VMA boundaries. */
++	const unsigned long pmd_start = addr & PMD_MASK;
++	const unsigned long pmd_end = pmd_start + PMD_SIZE;
++	const unsigned long lower = max(pmd_start, vma->vm_start);
++	/*
++	 * We cannot use pmd_addr_end(), as it does not clamp reliably. To
++	 * avoid wraparounds, compute using the inclusive end.
++	 */
++	const unsigned long upper = min(pmd_end - 1, vma->vm_end - 1) + 1;
++	const unsigned long offset = idx << PAGE_SHIFT;
++
++	/*
++	 * Avoid start/end addresses wrapping by not adding/subtracting more
++	 * than the lower/upper limits would allow.
++	 */
++	*start = addr - min(addr - lower, offset);
++	*end = addr + min(upper - addr, folio_size(folio) - offset);
++}
++
+ /*
+  * We enter with either the VMA lock or the mmap_lock held (see
+  * FAULT_FLAG_VMA_LOCK), and pte mapped but not yet locked.
+@@ -5121,16 +5149,15 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+ 	address = vmf->address;
+ 	ptep = vmf->pte;
+ 	if (folio_test_large(folio) && folio_test_swapcache(folio)) {
+-		int nr = folio_nr_pages(folio);
+-		unsigned long idx = folio_page_idx(folio, page);
+-		unsigned long folio_start = address - idx * PAGE_SIZE;
+-		unsigned long folio_end = folio_start + nr * PAGE_SIZE;
++		const int nr = folio_nr_pages(folio);
++		const unsigned long idx = folio_page_idx(folio, page);
++		unsigned long folio_start, folio_end;
+ 		pte_t *folio_ptep;
+ 		pte_t folio_pte;
+ 
+-		if (unlikely(folio_start < max(address & PMD_MASK, vma->vm_start)))
+-			goto check_folio;
+-		if (unlikely(folio_end > pmd_addr_end(address, vma->vm_end)))
++		folio_pte_range(folio, vma, address, idx, &folio_start,
++				&folio_end);
++		if (unlikely((folio_end - folio_start) >> PAGE_SHIFT != nr))
+ 			goto check_folio;
+ 
+ 		folio_ptep = vmf->pte - idx;
+@@ -6280,16 +6307,11 @@ static void numa_rebuild_large_mapping(struct vm_fault *vmf, struct vm_area_stru
+ 				       struct folio *folio, pte_t fault_pte,
+ 				       bool ignore_writable, bool pte_write_upgrade)
+ {
+-	int nr = pte_pfn(fault_pte) - folio_pfn(folio);
++	const unsigned long idx = pte_pfn(fault_pte) - folio_pfn(folio);
+ 	unsigned long start, end, addr = vmf->address;
+-	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
+-	unsigned long pt_start = ALIGN_DOWN(addr, PMD_SIZE);
+ 	pte_t *start_ptep;
+ 
+-	/* Stay within the VMA and within the page table. */
+-	start = max3(addr_start, pt_start, vma->vm_start);
+-	end = min3(addr_start + folio_size(folio), pt_start + PMD_SIZE,
+-		   vma->vm_end);
++	folio_pte_range(folio, vma, addr, idx, &start, &end);
+ 	start_ptep = vmf->pte - ((addr - start) >> PAGE_SHIFT);
+ 
+ 	/* Restore all PTEs' mapping of the large folio */
+
+---
+
+base-commit: 634cbf5b794b734c78631b92e381cfc85f357bbe
+
+change-id: 20261013-folio_pte_scan_range-c6ca19cc8e9d
+
+--
+
 Cheers,
 
 David
+
