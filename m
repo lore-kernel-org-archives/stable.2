@@ -1,77 +1,84 @@
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C81560AB2
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 16:24:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83A5351C05E
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 16:27:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791995084; cv=none; b=FdKNXiM2rvSBDc0+Uhpm9dwMpxMHQZ3eqsUuz607kAkmujkMQ65MDbbDHK35qtvkz+aL8fBCA5BTGrnrLaeQAOOm7HUtyuhNZZbI7scd1RowTyz6Yhsfo3hn6XZ10f/oNtqIzRAmn3wNlDY4Lzm/37XE5kjlIuAfOUxHVbLSumw=
+	t=1791995239; cv=none; b=pB1JQcBq9FpUZCfU3aIHqqTNCRndplzPKWweYxh07CUoqcqNudneufvdvbPvIqIzCFip+fYrrRgVSesef0kL/ao+QZrAexAf1XgFUIagw4LmrVxJlWcHBD4YGPg7bktzK+UTeibOrz+lzdvX8BPUZVH3BjCPevEdg0ksWNWIF8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791995084; c=relaxed/simple;
-	bh=dHXBGbpNg+e+e9FaFMYv6bHvO+DnOZmKgMeiXLMgrNg=;
+	s=arc-20240116; t=1791995239; c=relaxed/simple;
+	bh=w0UxMJpxTIbUUoxkjgdBbOWY9aaStFWuKEVF+5GN4UQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cF03RHy+hfdxlsDYS/yjdG2DuL0DBoT7o+RP0cqNJHac9tQecIUyHObQMHYVx5HxTL9NgYoVQmymJmmqA4JYjeALYyFfWtuPw61HUs5ZiQc/iM93m/IwlKKqMiFHuOSlXQ6uA8YfG4jZq8rqwycaNCineZo7WOkd0CiIsrwaLK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=pUL+nA85; arc=none smtp.client-ip=74.125.82.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	 MIME-Version; b=WOOsiptCOWJ8SMRBP40TMGQQLpr22NHcbQ4u7VJPqb/XRXG50k5sRWp26m+QLGcWxgg8fZw9oYdFkKE+3x7TktYaBMbOxSWle6ki1xkN3eZw2IKX04n/cxSPqCz5RuPpdWdInTXkAKPW7f3jHc8Z9Z9JUHUdVDFRqCiEKJh1aZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r95+R2JZ; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="pUL+nA85"
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1419d3416ceso2002049c88.0
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 09:24:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r95+R2JZ"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48c4d870d54so2758125f8f.2
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 09:27:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791995083; x=1792599883; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791995236; x=1792600036; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9WbeT+q61Zz+Q53d2ugaJoCi43RLay4hpDLxrJKaFHQ=;
-        b=pUL+nA8596yPEN3a4CwTknDBtfmnWnZlss8Cy4kiept+mX5mFZC8i6D8x9BDRNuLon
-         hBd4E9ZWbTrhVtvKTGQYFhkRLWAhjlj28IivMB5co6BpWBb+tRXSgvfJadx4vU7A4uIZ
-         CAGNGhkRtiiFVZVQQ2yk/er45X5ueCeC3GQ4DLxqW0G7Jrv2qQcEdR5xcxpZTK3EsMjC
-         GIvFA9T6ClJxzgZ2v71BTAFfvuirw8XJK4/NrCfHsdHagaAONoBZF2v4AAhDm0uxsO87
-         5xkXn80GeWBMIrVzmbrb1VKcg7Sp6vPDAVs1KDTI5Fm/u0FKbjXSAZOZpCm5+MD6SdX0
-         zGTw==
+        bh=fMXZF8oI/JAcZ89EGF/inoVVxrty6tqZd5ZRgOp/8l8=;
+        b=r95+R2JZp/2G8PexSfdsPuEbRHz4i2Xb2MmGIWh1bh4uKdpf32m7izvJRW2nZnG/gy
+         bFwhhzV4oOfO72KLGq/zk6WQPEyrmlkdFJIiJ+K+sqKefIsLmLVW/OeVFc6k6/mjzcR9
+         wIsPB3hCGIt9dpiIubtsXYeIzhh9eo3MGUGBfH2B5900kTZouGdqvw/4MyKucB49LjuR
+         dNAx5aZqOrjonIikXXDTz/rUgEhcPLHFZxekPtsYa2G3XGRIj9Ij8HpiJoaA6TteKG2i
+         j0TtB6fgVntEl3w4glEpl167tO3TcbI1zktv9CKiXYDSeFl5oGLKZJl/rgUPaU1h5PFG
+         qQ0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791995083; x=1792599883;
+        d=1e100.net; s=20260707; t=1791995236; x=1792600036;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9WbeT+q61Zz+Q53d2ugaJoCi43RLay4hpDLxrJKaFHQ=;
-        b=WR/mg1tfX8VFLfOj5t6tv4rPYOoFjIhpa6xqDsCTD81rUDndpEW9Y7okMYZ+9MgssK
-         obHaQxf5cl+T0Ltd8iuRVr5VSSz2Cw+Lw655KXJwpENUIf05DaU8Ha5fYcXfWuVbStvI
-         Gix8sqKvHFjkRdOQmtKttYay5SZSbPuWcnc9HyTOgt/tZTMTJKeawDnSsFbuvqV+EFlu
-         Jmf/LwL+0RSk7xLafcGzCdQOiHRQA+iZLeat6NlSx1ZL1xAW5b9GepL2Wg8mDvDaV01x
-         rPAzAMk8IQuSYChxm8HAjfVhVIgu5I2XVQ/eyohKR8feKV2S2y2nnnIcNdmOfQp2fdgl
-         mcHw==
-X-Forwarded-Encrypted: i=1; AKwUvBy9jsJzJ1u4fbcQuRf570SBTR+ERR9YvCZWZNgJNlQ3Py6dyAs2Fxprp2mk5IvBVd+BCO+VR4Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIWuELmWILb+UQl49uf1764ugTghJeC7jh24o5C5CUzdTEMFTBW
-	vmmP9dcALU30m+Ls7WCoT4mGDYwqLFiXt4RlduW4YL57xf0/rwlRRfJut2e2Yr3fjno=
-X-Gm-Gg: AYBFou26tjMBLeqTQrY7tRmcpZL/YhOAIWf144G6kUxrgVavmOsfkLq4zcc95Ww0/Pi
-	j/VsgcwRVULbFUNrEWKnfIHcmd+WbxVe55YBlqLLVTSwqjrCwoYy8lvNvEJXHnsGc0Lbp1i2bT8
-	xslGZCm2+Lq5aTYTSfQP4IjzgyRQILgTwWXheow2DC2a8Mpf5/4IFTJvD8W0htVlBFjJaMRqBy+
-	jCYgaMQgp7dbz/i22P5tWzeQIPDwJEEyZRSYTVF0dhN66YrOnT7HHVpXZCTiuauFZIeR1BOm30o
-	U2iAnGDDLtJLhnghurT76TsHCcYggYCfxwn/lfKCaDmaE5QeJhGGCcJ1EXpdlyPRU+CloEBrdIi
-	zGq+6VEpnraEVimz4U+leVysDMGow+1nS+mydI2w88HIqMi0CC32MN2vvRS/6FDHtFxqrQ1nbop
-	UcT5a6TpLQOFqq/wbVMgyBdZUk95AsstciYbKgqJKYBLoW0rwI4p6PEycOMvNhhT2xKnr5UpqfH
-	GogVrSR6DkjIVFA6kC+
-X-Received: by 2002:a05:701b:454b:10b0:14d:baf5:c40e with SMTP id a92af1059eb24-16a5faa76admr20281854c88.8.1791995079735;
-        Wed, 14 Oct 2026 09:24:39 -0700 (PDT)
-Received: from localhost.localdomain ([2406:5900:1044:110c:1c49:61ee:8c8:3f4c])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1dd57d0sm48816685c88.8.2026.10.14.09.24.37
+        bh=fMXZF8oI/JAcZ89EGF/inoVVxrty6tqZd5ZRgOp/8l8=;
+        b=EOODQEHfZu/Ze+9iU6TzFEoyEAa5yQqusmM3EUSNgErbw0tmhFINEJM9qLpSUZ2NV6
+         dU05lH9EPXGP1QEkHccq5Zx9MRPMt+JufwwlimxjjCeyoCTyFh+my3i2MZXMebCS0UcH
+         ZTy9AhwZ1Zb11qYpvOY7KST0a+vZorFu6rwEsBP8NH/efAHGzcV+xVE0Bjqjr1/PicQv
+         Hoq5s8Xqey6kPd+OKsSodoobaKoHHH2tmMqiGD+EE9K6VuegFHc/6rn7uzOk04u6trzT
+         JelCwhKB/cenXeBdk0QfZ+JMSuejiFvKRrNPP6Wf3wBgpxa31Yc7h6Y+aXznwlzhGKow
+         rYFw==
+X-Forwarded-Encrypted: i=1; AKwUvBxsdrIioXKjeJ+y5LqBGWoLX3r/Ww6oy+7PRSY8lUHANJYYx+lIMdP9V2fEsPOfL/COeNAWznk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIb4oJJeziIuwWYaRzFSvEblZGNBJwCVkIVxIm4pl8J7gZOLvTQ
+	odtth9SRdF+ZLyEaP4yu28k1k2Bm7knDqlkhBrkdaAkEsZX0Z4zLB7PA
+X-Gm-Gg: AYBFou2037of9rUUcs8kFWYbciN/PREh7R9PcaORCbuVdoyVP5NZLVdjTadMmBER/FY
+	4u2kMyxHFCe4vaEZhnLUHXXT3ePTtnkSo+eGo81HK/VPD/kluuh9TCshVlTqKnk9ocaM8slGk5U
+	w5u5xHRu3oZWhov3qV1C+t4854dYJ518j7xmeZNttzxiEEF6pUwt3fwpSnonAHu04I1sT+LHx8g
+	YynglYQnI8QjY/JK3wy+Lh5NGH9krZbub15f63gz/F7A82TuvDcfVS/R2I8PTXd/1XD/TBI6LsX
+	HTvaUzMizjc1UgHKkgmXrFf9LqV6kF/XWn3ujIaHShowFQkzHD20g6wEw1ZGKFCSh3Zbn/Ozqhy
+	zaw/crihVjKFG8eslr45g9TUHumbUk4o+rarvo4l9/9+Bc1co3f21ywfFgd1ctTa4SlWayzy3xb
+	KIZL2xRIxIB4joPgAM3gD7Unnv+VK1XyiImzKrfTRduyK7HVm571UjP/bfPj7X85Et12kHogXyh
+	LWQca0HMwfm1rWnddgCm9nEsg==
+X-Received: by 2002:a05:6000:471d:b0:48d:f068:6742 with SMTP id ffacd0b85a97d-48df0686929mr2512960f8f.3.1791995235501;
+        Wed, 14 Oct 2026 09:27:15 -0700 (PDT)
+Received: from localhost.localdomain ([188.190.249.216])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0aaabc3sm13076890f8f.16.2026.10.14.09.27.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 09:24:39 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: "Martin K . Petersen" <mkp@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: linux-scsi@vger.kernel.org,
+        Wed, 14 Oct 2026 09:27:15 -0700 (PDT)
+From: Vladyslav Tymoshchuk <tvlad744@gmail.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+	Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Zhang Jiaxi <Z1529105815@outlook.com>,
+	Johan Hovold <johan@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v6 5/5] scsi: mvumi: validate the response frame tag before using it
-Date: Thu, 15 Oct 2026 01:24:13 +0900
-Message-ID: <20261014162413.3649841-6-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261014162413.3649841-1-yhlee@isslab.korea.ac.kr>
-References: <20261014162413.3649841-1-yhlee@isslab.korea.ac.kr>
+	Vladyslav Tymoshchuk <tvlad744@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/3] ASoC: qcom: q6apm-dai: wrap the position of a full ring to 0
+Date: Wed, 14 Oct 2026 19:27:00 +0300
+Message-ID: <20261014162703.10172-2-tvlad744@gmail.com>
+X-Mailer: git-send-email 2.45.1.windows.1
+In-Reply-To: <20261014162703.10172-1-tvlad744@gmail.com>
+References: <20261014162703.10172-1-tvlad744@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,117 +87,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mvumi_handle_clob() indexes mhba->tag_cmd[] with the tag of a response
-frame the firmware DMAs into the outbound list.  The array holds
-tag_pool.size entries, and the only check on that tag runs earlier, in
-mvumi_receive_ob_list_entry() and mvumi_check_ob_frame(), against the frame
-still sitting in the outbound list.  mvumi_receive_ob_list_entry() then
-copies the frame into an ob_data buffer and mvumi_handle_clob() reads the
-tag out of that copy, so the value that is checked and the value that is
-used are two separate fetches of firmware-writable memory.  A firmware that
-changes the tag after the check reaches tag_cmd[] with any u16, reads a
-pointer past the array and dereferences it, writes NULL past the array and
-pushes the tag onto the free stack for a later command to pick up.  The
-check is also off by one: tag_cmd[] and tag_pool.stack[] both hold
-tag_pool.size entries, so a tag equal to tag_pool.size passes a > test and
-lands one entry past both.
+q6apm_dai_pointer() turns the number of period buffers the DSP has
+returned in the current lap, 1..periods, into a position and reports
+one frame less than that. Commit a93dad6f4e6a ("ASoC: q6apm-dai: make
+use of q6apm_get_hw_pointer") added the "- 1" so that the end of the
+ring is not reported as a position equal to the buffer size.
 
-Check the tag that mvumi_handle_clob() actually uses, against the size of
-the array it indexes, and check the command it finds for NULL before
-dereferencing it: with two fetches the earlier NULL check no longer says
-anything about this one.  Make the two existing bounds checks >= so a tag
-equal to the entry count is rejected there too, and read the tag into a
-local in mvumi_receive_ob_list_entry() as well, so the check there and the
-accesses beside it see one value instead of three fetches.  Use READ_ONCE()
-for the tag and request_id both functions take out of the outbound list, so
-the single fetch is guaranteed rather than left to the compiler.
+One frame short has a cost once the application stops feeding the
+stream. The DSP returns the last queued buffer and the position stops
+at appl_ptr - 1, so avail stays at buffer_size - 1, below the default
+stop_threshold. The DSP sends nothing more as its queue is empty, so
+no period interrupt comes either: ALSA never detects the underrun and
+the stream stays RUNNING. A poll-driven application that missed its
+last wakeup waits forever, and drain only ends on its timeout, with
+-EIO. On capture, the last frame of each period is held back until
+the next one.
 
-Fixes: f0c568a478f0 ("[SCSI] mvumi: Add Marvell UMI driver")
+Before that commit the position wrapped to 0 at the end of the ring.
+Do that again. A full lap is the start of the ring, and
+snd_pcm_update_hw_ptr0() accounts for the wrap: the position cannot
+move by more than one lap between two updates, as each returned buffer
+calls snd_pcm_period_elapsed() and the DSP holds at most periods
+buffers.
+
+Seen on a OnePlus Pad 3 (SM8750) with PipeWire in interrupt-driven
+scheduling: after a stall the PCM sat at hw_ptr 78239, appl_ptr 78240
+(avail 3839 of 3840) for two hours.
+
+Fixes: a93dad6f4e6a ("ASoC: q6apm-dai: make use of q6apm_get_hw_pointer")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Vladyslav Tymoshchuk <tvlad744@gmail.com>
 ---
- drivers/scsi/mvumi.c | 38 ++++++++++++++++++++++++++++----------
- 1 file changed, 28 insertions(+), 10 deletions(-)
+Tested on a OnePlus Pad 3 (SM8750, AudioReach, queue mode) together
+with patch 2, with a small ALSA test program and no sound server,
+buffer 3840 frames, period 480:
+ - write 4 periods and stop feeding: before, the PCM stays RUNNING at
+   hw_ptr 1919, appl_ptr 1920; after, it goes to XRUN and the next
+   write gets -EPIPE;
+ - drain after 8 periods: before, -EIO after 182 ms; after, done in
+   78 ms (twice), and 18 ms for 2 periods;
+ - 60 s of tone through PipeWire without an xrun.
 
-diff --git a/drivers/scsi/mvumi.c b/drivers/scsi/mvumi.c
-index 2871b4c96f1c8..85624efcc1725 100644
---- a/drivers/scsi/mvumi.c
-+++ b/drivers/scsi/mvumi.c
-@@ -466,9 +466,9 @@ static char mvumi_check_ob_frame(struct mvumi_hba *mhba,
- 
- 	udelay(1);
- 	p_outb_frame = mhba->ob_list + cur_obf * mhba->ob_max_size;
--	request_id = p_outb_frame->request_id;
--	tag = p_outb_frame->tag;
--	if (tag > mhba->tag_pool.size) {
-+	request_id = READ_ONCE(p_outb_frame->request_id);
-+	tag = READ_ONCE(p_outb_frame->tag);
-+	if (tag >= mhba->tag_pool.size) {
- 		dev_err(&mhba->pdev->dev, "ob frame data error\n");
- 		return -1;
+ sound/soc/qcom/qdsp6/q6apm-dai.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
+index b0b10ba51c99..58beaf906b9f 100644
+--- a/sound/soc/qcom/qdsp6/q6apm-dai.c
++++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
+@@ -613,11 +613,15 @@ static snd_pcm_uframes_t q6apm_dai_pointer(struct snd_soc_component *component,
+ 		ptr = bytes_to_frames(runtime, index);
+ 		return ptr;
  	}
-@@ -530,6 +530,7 @@ static void mvumi_receive_ob_list_entry(struct mvumi_hba *mhba)
- 	struct mvumi_ob_data *ob_data;
- 	struct mvumi_rsp_frame *p_outb_frame;
- 	struct mvumi_hw_regs *regs = mhba->regs;
-+	unsigned short tag;
+-	ptr = q6apm_get_hw_pointer(prtd->graph, substream->stream) * runtime->period_size;
+-	if (ptr)
+-		return ptr - 1;
++	/*
++	 * The hw pointer counts the period buffers the DSP has returned in
++	 * this lap, 1..periods. A full lap is the start of the ring again:
++	 * report 0 rather than one frame less, so that the position of a
++	 * drained buffer reaches appl_ptr and ALSA sees the underrun.
++	 */
++	ptr = q6apm_get_hw_pointer(prtd->graph, substream->stream) % runtime->periods;
  
- 	if (mhba->instancet->check_ob_list(mhba, &cur_obf, &assign_obf_end))
- 		return;
-@@ -546,10 +547,11 @@ static void mvumi_receive_ob_list_entry(struct mvumi_hba *mhba)
- 		/* Copy pointer may point to entry in outbound list
- 		*  before entry has valid data
- 		*/
--		if (unlikely(p_outb_frame->tag > mhba->tag_pool.size ||
--			mhba->tag_cmd[p_outb_frame->tag] == NULL ||
--			p_outb_frame->request_id !=
--				mhba->tag_cmd[p_outb_frame->tag]->request_id))
-+		tag = READ_ONCE(p_outb_frame->tag);
-+		if (unlikely(tag >= mhba->tag_pool.size ||
-+			     !mhba->tag_cmd[tag] ||
-+			     mhba->tag_cmd[tag]->request_id !=
-+			     READ_ONCE(p_outb_frame->request_id)))
- 			if (mvumi_check_ob_frame(mhba, cur_obf, p_outb_frame))
- 				continue;
+-	return 0;
++	return ptr * runtime->period_size;
+ }
  
-@@ -1878,6 +1880,7 @@ static void mvumi_handle_clob(struct mvumi_hba *mhba)
- 	struct mvumi_rsp_frame *ob_frame;
- 	struct mvumi_cmd *cmd;
- 	struct mvumi_ob_data *pool;
-+	unsigned short tag;
- 
- 	while (!list_empty(&mhba->free_ob_list)) {
- 		pool = list_first_entry(&mhba->free_ob_list,
-@@ -1886,11 +1889,26 @@ static void mvumi_handle_clob(struct mvumi_hba *mhba)
- 		list_add_tail(&pool->list, &mhba->ob_data_list);
- 
- 		ob_frame = (struct mvumi_rsp_frame *) &pool->data[0];
--		cmd = mhba->tag_cmd[ob_frame->tag];
-+		/*
-+		 * The tag was checked against the frame in the outbound list.
-+		 * This is the copy, so check the value that is used.
-+		 */
-+		tag = ob_frame->tag;
-+		if (tag >= mhba->tag_pool.size) {
-+			dev_err(&mhba->pdev->dev,
-+				"ob frame tag[0x%x] out of range\n", tag);
-+			continue;
-+		}
-+		cmd = mhba->tag_cmd[tag];
-+		if (!cmd) {
-+			dev_err(&mhba->pdev->dev,
-+				"ob frame tag[0x%x] with no command\n", tag);
-+			continue;
-+		}
- 
- 		atomic_dec(&mhba->fw_outstanding);
--		mhba->tag_cmd[ob_frame->tag] = NULL;
--		tag_release_one(mhba, &mhba->tag_pool, ob_frame->tag);
-+		mhba->tag_cmd[tag] = NULL;
-+		tag_release_one(mhba, &mhba->tag_pool, tag);
- 		if (cmd->scmd)
- 			mvumi_complete_cmd(mhba, cmd, ob_frame);
- 		else
+ static int q6apm_dai_hw_params(struct snd_soc_component *component,
 -- 
 2.43.0
 
