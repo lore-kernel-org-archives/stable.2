@@ -1,208 +1,71 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4BF531AEB;
-	Wed, 14 Oct 2026 13:31:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99D95328DB;
+	Wed, 14 Oct 2026 13:32:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791984704; cv=none; b=llML/vuUNlgG5GVYMUZgXDnRXAOtjEl4lHtxrUKwnmAFo0YmZDYGM4675HceNfKpnmH4sp03W2a4GHDKitSEppi/viNZO7qytaEu4ox531zA0rlGLOaoSG3U2cilQw+pizdaw2G00ldsKRJzzsRgEfXBFcObMx9hPUo0lzqiUNc=
+	t=1791984759; cv=none; b=RhSyaLdnXS6jJlkc72ZuHHQDfpixOGGNJaiqx84+Bp6OcecJaJUMivbBF0gn7/phUAKJH30aradBiy12tHFhBYisyXxudWgOqxejoAncSPvhsZpHbm7UbM+JSzpLe4VdOfAwi9m9jNWXT+1OzhYxlDcg4b7o1ZqaCJ0pVqfIW2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791984704; c=relaxed/simple;
-	bh=OjCM+aL9NZUeGZVNuVtPkbyTIn5lcSxEPiIJVm01e90=;
+	s=arc-20240116; t=1791984759; c=relaxed/simple;
+	bh=zH455MKZRTlj6L4mNnWaOW11k6KUIJMJWLD+NkJjmSw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ecd0X2gX1TqpAHYSMYZTKcCFjGXJR84KfZZOl/BCErapnSUJouOXRF6hmRZbNOULuaKd0ZMSLsQmNXOq3ukej/evVkKnVLQhRJVsaePvX3SM/nXWTSwiYYUfh+PhVPVM5l2jqsDCb4FpGf5Z2JsUfTD2NoP+ETeuSg5HqosTB+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jGGoGk/a; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=LnN+E2lOwO3LMBvwSfWhcO6RKtvi3BVuDtkNIMwfvDYHFe2JFBzGpNfU7Jd8nam769nTjYMSHQF2N1VsJGg61Hi6Oy/QaAXubgv0aCiSTLNzQtTuawizjVq5SGmcxGOd2pXKFEKx+GdpGRF8UQLGUXO+0BTVWEMsXUV00tLX2sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=Wp1LnsJX; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jGGoGk/a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D58BC1F00893;
-	Wed, 14 Oct 2026 13:31:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791984690;
-	bh=3ViBSbVmV6dB80ua1NOeQ0IVvjHoc00INBinToPWHRo=;
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="Wp1LnsJX"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id D6EBC80B77;
+	Wed, 14 Oct 2026 15:32:29 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id CCztpOJC4oGS; Wed, 14 Oct 2026 15:32:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1791984748; bh=zH455MKZRTlj6L4mNnWaOW11k6KUIJMJWLD+NkJjmSw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jGGoGk/aze+38sWpNo3PfXZMZMFhdUvKwbsjOOxOo5iNEdFdsDJx3CCr+s3EB4w9+
-	 Ywv1Wk++INELahUoaj59cbdY5zgOsua4D1i6X+q0F5aTc3/aFHHpiIdB83RzMa89Yx
-	 BpsUYRQP465XOICdVJlth1U2gzE700FjLcVuxeuYT69l8EmuMsOV2Wq7D+V3gxM9KI
-	 B9boh7yAPoynphlKwjg4QE7DdyvA09Fe5EK+phFSFl3hkeUYElTyiafJAS9cUm/SsO
-	 VPbibRgT64vYnIg4ZtvS+uW0jPBE5caSDeG+pg1Ia0xOVVvzO2ljiZlFb9JXlEA8I8
-	 0KYIm0y0MwyuQ==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xGz4q-00000005qCW-2YWd;
-	Wed, 14 Oct 2026 15:31:28 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Johan Hovold <johan@kernel.org>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Mario Peter <mario.peter@leica-geosystems.com>,
-	driver-core@lists.linux.dev,
-	linux-usb@vger.kernel.org,
+	b=Wp1LnsJXSO+JMaZNJe6O2e1pHn9/9N2v+Q472A/okQq7cFF6wOVuucX2TRZtfWptl
+	 kpFz/tawIqilxLOU3rct2xzP/0E1JigEJ9QKdf2p0FfM48Jyq2kF1pMB/qRv7QQNhX
+	 4y9fJM6jDEuCDuSdpZHbCO+OpqX/p/MwpYE+YyCKse7FsrHdlTlLujdMFon8bzb7rc
+	 uMn3FcRWPHW52RGOHeiMhxo3u/dnjR9YbK/EiM03lwVXf73Jf99N7B2DH7nZLwTpcj
+	 edk6q/JLXk7olsx3zL7mAWD82nY20ydkSFZVInMlNcioA7+us+gGmnKu7ydAwIebwV
+	 k8c3zmGeRkIdw==
+From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
+To: johannes.goede@oss.qualcomm.com
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Armin Wolf <W_Armin@gmx.de>,
+	Charis Stratakis <c.stratakis@proton.me>,
+	linux-acpi@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	regressions@lists.linux.dev,
+	Mark Pearson <mpearson-lenovo@squebb.ca>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2 1/3] driver core: fix parent lock use-after-free on USB disconnect
-Date: Wed, 14 Oct 2026 15:31:07 +0200
-Message-ID: <20261014133109.1392265-2-johan@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261014133109.1392265-1-johan@kernel.org>
-References: <20261014133109.1392265-1-johan@kernel.org>
+Subject: Re: [PATCH] ACPI: battery: Re-read battery information in the complete callback
+Date: Wed, 14 Oct 2026 16:32:14 +0300
+Message-ID: <20261014133218.94357-1-aliamemis@disroot.org>
+In-Reply-To: <ab5c5ae1-1bfd-4fe4-adef-fb64b5b3dfbb@oss.qualcomm.com>
+References: <37N_jFulf7n-Z55NfKfE71C_wVPxYvZ0xD_iRUg2fXu7TypDiF5PStQ6siSfVBih6fThg5WoPes8U5ZQpfVm_teMFcUGXFxz2DdMbfSWuws=@proton.me> <20261012225141.13683-1-aliamemis@disroot.org> <fb993dd3-ee56-4e3d-aa16-573f011518f1@oss.qualcomm.com> <CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com> <044e9df4-1399-4ceb-80f8-f7cfe031d04f@oss.qualcomm.com> <CAJZ5v0isCM3K3U6HSdDnvXzBX41AgQMFYxqLx3KvMA0W_91-ew@mail.gmail.com> <20261013210609.8117-1-aliamemis@disroot.org> <ab5c5ae1-1bfd-4fe4-adef-fb64b5b3dfbb@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-USB interfaces should be probed with their parent USB device lock held
-and the USB bus therefore sets the need_parent_lock bus flag so that
-driver core takes the parent lock when needed.
+On Wed, Oct 14, 2026 at 12:01:55PM +0200, johannes.goede@oss.qualcomm.com wrote:
+> Can you post a patch series for the code you've for this now ?
 
-Driver core is only guaranteed to hold a reference to the parent device
-during initial probe however and nothing prevents the device and its
-parent from being deregistered and the parent potentially freed, for
-example, while iterating over devices in driver_attach() or
-bus_rescan_devices_helper().
+Posted: https://lore.kernel.org/all/20261014132703.93355-1-aliamemis@disroot.org/
 
-Since commit 524134d42231 ("USB: don't cancel queued resets when
-unbinding drivers") USB interfaces hold a reference to their parent USB
-device, but a parent hub may still go away while probing a USB device
-(e.g. via the drivers_probe sysfs interface). This can lead to a
-use-after-free when taking the parent device lock before checking the
-device->p->dead flag of the device being probed.
+> Note I guess you're using LLM to help you with this, that is fine,
+> but can you please manually shorten the commit messages of the patches
+> a bit if they were written by LLM?
 
-As only USB interfaces actually need the parent lock, make the
-need_parent_lock feature even more fine grained by making it a device
-type rather than bus feature. By requiring that any users also make sure
-that their devices hold a reference to their parents (like USB does),
-driver core can lock a device and its parent without first checking if
-the device has been deregistered.
-
-Note that this will also increase parallelism when using asynchronous
-probe as USB devices connected to the same hub can now be probed in
-parallel.
-
-Fixes: bf74ad5bc417 ("[PATCH] Hold the device's parent's lock during probe and remove")
-Cc: stable@vger.kernel.org	# 2.6.16: 524134d42231: USB: don't cancel queued resets when unbinding drivers
-Cc: stable@vger.kernel.org	# 2.6.16
-Cc: Alan Stern <stern@rowland.harvard.edu>
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
- drivers/base/bus.c         | 4 ++--
- drivers/base/dd.c          | 4 ++--
- drivers/usb/core/driver.c  | 1 -
- drivers/usb/core/message.c | 1 +
- include/linux/device.h     | 5 +++++
- include/linux/device/bus.h | 3 ---
- 6 files changed, 10 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/base/bus.c b/drivers/base/bus.c
-index c51ad96d4de4..598e40d52f37 100644
---- a/drivers/base/bus.c
-+++ b/drivers/base/bus.c
-@@ -852,10 +852,10 @@ static int __must_check bus_rescan_devices_helper(struct device *dev,
- 	int ret = 0;
- 
- 	if (!dev->driver) {
--		if (dev->parent && dev->bus->need_parent_lock)
-+		if (dev->type && dev->type->need_parent_lock)
- 			device_lock(dev->parent);
- 		ret = device_attach(dev);
--		if (dev->parent && dev->bus->need_parent_lock)
-+		if (dev->type && dev->type->need_parent_lock)
- 			device_unlock(dev->parent);
- 	}
- 	return ret < 0 ? ret : 0;
-diff --git a/drivers/base/dd.c b/drivers/base/dd.c
-index f6525a7ee8c5..974e04e79bda 100644
---- a/drivers/base/dd.c
-+++ b/drivers/base/dd.c
-@@ -1166,7 +1166,7 @@ void device_initial_probe(struct device *dev)
-  */
- static void __device_driver_lock(struct device *dev, struct device *parent)
- {
--	if (parent && dev->bus->need_parent_lock)
-+	if (dev->type && dev->type->need_parent_lock && parent)
- 		device_lock(parent);
- 	device_lock(dev);
- }
-@@ -1183,7 +1183,7 @@ static void __device_driver_lock(struct device *dev, struct device *parent)
- static void __device_driver_unlock(struct device *dev, struct device *parent)
- {
- 	device_unlock(dev);
--	if (parent && dev->bus->need_parent_lock)
-+	if (dev->type && dev->type->need_parent_lock && parent)
- 		device_unlock(parent);
- }
- 
-diff --git a/drivers/usb/core/driver.c b/drivers/usb/core/driver.c
-index 7f33fe5ba03b..bf660b15a0f6 100644
---- a/drivers/usb/core/driver.c
-+++ b/drivers/usb/core/driver.c
-@@ -2081,5 +2081,4 @@ const struct bus_type usb_bus_type = {
- 	.name =		"usb",
- 	.match =	usb_device_match,
- 	.uevent =	usb_uevent,
--	.need_parent_lock =	true,
- };
-diff --git a/drivers/usb/core/message.c b/drivers/usb/core/message.c
-index 0cd6dd2b6334..276768f47558 100644
---- a/drivers/usb/core/message.c
-+++ b/drivers/usb/core/message.c
-@@ -1922,6 +1922,7 @@ const struct device_type usb_if_device_type = {
- 	.name =		"usb_interface",
- 	.release =	usb_release_interface,
- 	.uevent =	usb_if_uevent,
-+	.need_parent_lock =	true,
- };
- 
- static struct usb_interface_assoc_descriptor *find_iad(struct usb_device *dev,
-diff --git a/include/linux/device.h b/include/linux/device.h
-index aee79fd6b32b..ae05205742c0 100644
---- a/include/linux/device.h
-+++ b/include/linux/device.h
-@@ -83,6 +83,10 @@ int subsys_virtual_register(const struct bus_type *subsys,
-  * information, equivalent to the kobj_type of a kobject.
-  * If "name" is specified, the uevent will contain it in
-  * the DEVTYPE variable.
-+ *
-+ * @need_parent_lock:	When probing or removing a device of this type,
-+ *			driver core should lock the device's parent. Note that
-+ *			the device must hold a reference to its parent.
-  */
- struct device_type {
- 	const char *name;
-@@ -93,6 +97,7 @@ struct device_type {
- 	void (*release)(struct device *dev);
- 
- 	const struct dev_pm_ops *pm;
-+	bool need_parent_lock;
- };
- 
- /**
-diff --git a/include/linux/device/bus.h b/include/linux/device/bus.h
-index a38f7229b8f4..526407a371e2 100644
---- a/include/linux/device/bus.h
-+++ b/include/linux/device/bus.h
-@@ -68,8 +68,6 @@ struct fwnode_handle;
-  * @driver_override:	Set to true if this bus supports the driver_override
-  *			mechanism, which allows userspace to force a specific
-  *			driver to bind to a device via a sysfs attribute.
-- * @need_parent_lock:	When probing or removing a device on this bus, the
-- *			device core should lock the device's parent.
-  *
-  * A bus is a channel between the processor and one or more devices. For the
-  * purposes of the device model, all devices are connected via a bus, even if
-@@ -110,7 +108,6 @@ struct bus_type {
- 	const struct dev_pm_ops *pm;
- 
- 	bool driver_override;
--	bool need_parent_lock;
- };
- 
- int __must_check bus_register(const struct bus_type *bus);
--- 
-2.55.0
-
+No LLM used here, I just thought the race needed some explanation.  I
+kept the series short.
