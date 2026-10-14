@@ -1,216 +1,234 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11020087.outbound.protection.outlook.com [52.101.69.87])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DBE5519B6;
-	Wed, 14 Oct 2026 15:27:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.87
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991652; cv=fail; b=NsWRWE3uPMGK1zZBVFONsjfcIHJ0/PDkwLNubgpbOFwb2zU7eGOcDYNccWKDaPfTmEeIApKDoCxlnGrCK3TD37Tf2TDs1d2KnqV33H5phHSFApqZM4SEST4G3vTuCHGLXzJgYbvp48n1bQrUb30qHL4vyACjXPzAlgxQ6I1yZhU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991652; c=relaxed/simple;
-	bh=IqrjI1lUXUed0UGKWpxRXt0dLWYxaSiiVlnECzacSHo=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=BtFAKnyMXxhpz0u58eme9mqL2pfez8+WKl7xSO5CNNiuZ5RDsNmxzU5vpgCN3hCjEd+6gcu8gYgkrCNqq87Gar6evoREVlhwUT3BMB0MNLD55NxghPuRTIRZx6EAREE6pEAJQESO1uSg7sMMINEjmeECzY1SOtcTUCiDJXrzLnY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=mRoYI2yw; arc=fail smtp.client-ip=52.101.69.87
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D1E5581FD;
+	Wed, 14 Oct 2026 15:29:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791991741; cv=none; b=XlssoLjSERcR1rVeDHR1dULEps+8+PEYtbXAYjQrdMMDYh3lVbstO/2Drem05YIJJf0HMfCUA9H7yiLLD/6w/eWC/RZ1B5WKQDpJCLKKb8bnMgnCgQhrjkf0+0mw+3ULuOGqQrwac3xhQpfQwaXdrgz1tQw4yDuMfzafNPVUYfU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791991741; c=relaxed/simple;
+	bh=vpipXgID1hgJQwv0h+XWqavZq+CvRfkn+mxM2FNjym4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Slkp+nPHA5yUrWY/fSG12Nh8z8bPU/+FSvSZTbaROtVnj07BKAw9lCAyJgYS5Qj7bwDzp9tGvuMXXppeZrFWDcXHXZJThAiqV/QBJL9IQqA37Wd9eozc1B1XWCQeGXMQwbkrrMSMeccBsdhWqwV0OSKWN1nTMy0O03RfQKYfKII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IeVjX2lA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="mRoYI2yw"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JURZXy6lnpmHF3hUVCKGCIQU83ad3ZOsc1Tf0x3131TOAYafDh7ql+F6WDHF9lVJCU83W531RUbQP3mr9et/nwQ0bCJNYG2jkur0rhYzyhAa7wy9o3mupKHCQ3UGJMwbCOoqPERfsUMOudnOCBG3X2Dwyzh9NEMgoga6VW/6cYnkTW2/0dcKpukvTPiSdug80r28wd0cRSQ0mWVOP+qdl8w3H6Sn87ktV4Xyqm2u/2FNmqXSIGzynPEU/0Ib80uyeb6dtSJrTw+ukEeeblkMXyXdN+F98T1btEnsDL0fvu7NXYYmOKPg9qopi5DwzLsgvCt3xFUhVN0JHXcYo63APQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DfBpEQ2ryeYVrByhGL6wYfH0Kqc9ZBts4hFI2NsVd/I=;
- b=q0ZY9shYsK5F59HZPOppzVhAO2x17w3HfUyEVK6JCuChC91Z5U8q0BxkbxF0oyk92+AO/+UWOyJwqkBjUPy1Lri+lFX3al8EF5mqf4RAfKhwKr3MfrH//kZWLRJSwY/9/xXsQ16UIVDQUnm6kV5/XOBYwJPK38blDUTKXdRQrJnRdI/SZHaIaxD2eWPs1+BF+fm9X9R+4LiQPN9mOxz1PEHmw3h7h921sFpqtgTa7q3BpRAIvmV2kscw/iDgkXwB0/b9NwjY1F5Th8J8smSwwPUIEGOTuCc+RX+9jZUIF10AelXzoSk4kqWTXV9v11WCTzShEYA0HGqrbz4iEwMufw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=virtuozzo.com; dmarc=pass action=none
- header.from=virtuozzo.com; dkim=pass header.d=virtuozzo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DfBpEQ2ryeYVrByhGL6wYfH0Kqc9ZBts4hFI2NsVd/I=;
- b=mRoYI2yw/ObSH3UHLw0IH/1OBwqpZPE4ackwrRo8wWTsMCEaCcu3lsYYBQAu4zbLNzlNtUt4DqNrNEBy4Gc+3uU5orX8sbJYnLgPJzCNA5aKmZp8r1+tXn3v2epDa3RN2wly+5IPsIrZ1YDTepWyttf+EnmBnD0JVKs2AFahYTyJimZIcK0OdRESh7TFp07NkNjQuAB8Uam3yNhepthgxKCt2cy/US4k6WwNVGRgzmH+8fGVOrYPdOwMh3yBUf5z6mnuLfIK01sQE0NC2GVd6WeyzwcundGDYPEyane9ocMflW3bdDgCSj9Z/FrGK4HN1FNsL9AmdgCvQ5UJ92Ua+w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=virtuozzo.com;
-Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
- (2603:10a6:102:3c7::20) by DU2PR08MB7375.eurprd08.prod.outlook.com
- (2603:10a6:10:2f3::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Wed, 14 Oct
- 2026 15:27:27 +0000
-Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
- ([fe80::1999:c6db:dc55:494a]) by PA6PR08MB10708.eurprd08.prod.outlook.com
- ([fe80::1999:c6db:dc55:494a%5]) with mapi id 15.21.0522.011; Wed, 14 Oct 2026
- 15:27:27 +0000
-Message-ID: <85b319d2-ba91-45cf-9f68-4182df93c848@virtuozzo.com>
-Date: Wed, 14 Oct 2026 17:27:24 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/huge_memory: recheck a special PMD under the lock in
- copy_huge_pmd()
-To: Lance Yang <lance.yang@linux.dev>
-Cc: Alex Williamson <alex@shazbot.org>, David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Ryan Roberts <ryan.roberts@arm.com>, kvm@vger.kernel.org,
- =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
- Nico Pache <nico.pache@linux.dev>, Zi Yan <ziy@nvidia.com>,
- "Liam R. Howlett" <liam@infradead.org>, dri-devel@lists.freedesktop.org,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Usama Arif <usama.arif@linux.dev>, Barry Song <baohua@kernel.org>,
- Dev Jain <dev.jain@arm.com>, linux-mm@kvack.org, Peter Xu
- <peterx@redhat.com>, linux-kernel@vger.kernel.org,
- Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org,
- Kiryl Shutsemau <kas@kernel.org>
-References: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com>
- <58e8d79b-f7c3-4ded-9272-07c309917055@linux.dev>
-Content-Language: en-US, ru, sr
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-In-Reply-To: <58e8d79b-f7c3-4ded-9272-07c309917055@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS4PR09CA0007.eurprd09.prod.outlook.com
- (2603:10a6:20b:5e0::8) To PA6PR08MB10708.eurprd08.prod.outlook.com
- (2603:10a6:102:3c7::20)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IeVjX2lA"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 91D84C2BCF7;
+	Wed, 14 Oct 2026 15:29:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791991740;
+	bh=vpipXgID1hgJQwv0h+XWqavZq+CvRfkn+mxM2FNjym4=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=IeVjX2lAPX+EFhk/hDG/QYNAEwTIptOKeE0YPHMiFetMq3ZyQ16bzHVvV2uvS8/DS
+	 avbceYCfwRUOQYs6Omf5g6+i8hKeLPYGVSoX4APGuEbf9F9zEF+ezSvQlblc/pJ0F8
+	 Zb2SG6ZkWe/SB6nD0CupcVYI70q+ExBqKpRmcuBEvvH+wSSS1/cmoc/X5u7uEjop8G
+	 uTwlxXIPMbZT7rRjhkvJ5ev+Q6QswzTSZJPIZ0RQrQ1LCfzQ/aU/3IZbQUNvARIY6m
+	 5h0/bpntIw5doDChuDOi5s+ZE6YUHHV/mPr2tCkCeB9YvbAqPLnWccQ1y2yTQQM5+W
+	 IOqefVWVEhzcQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 77F03CC6B24;
+	Wed, 14 Oct 2026 15:29:00 +0000 (UTC)
+From: Johannes Schrimpf via B4 Relay <devnull+johannes.schrimpf.blueye.no@kernel.org>
+Date: Wed, 14 Oct 2026 17:28:24 +0200
+Subject: [PATCH] media: uvcvideo: Release streaming interfaces at
+ disconnect, not last close
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA6PR08MB10708:EE_|DU2PR08MB7375:EE_
-X-MS-Office365-Filtering-Correlation-Id: b7ff5d98-58b4-4c11-cb67-08df2a07a753
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|7416014|366016|18002099003|22082099003|10067099003|261009223027099003|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	dvk+WfitNgf+sRbaaf4bunN5f9fmD8rb2mEeOrtJHQQMIf+leMJuWATYnLALrEIuuV1Nm9bHRGzvwkCiRXQ1RNdz8ErgE6JMmSF4uFP0RoW7joq5GtWojhX6BIbH9jRPUe9vV6TIVi/QonBij9F3obAxVlEVKJ9SLHw8yVLkx3KxSnQ/sFzzXdF2689ujOGSC5oYAD9Bo+7Rka7IfAqnRJOPmPyj8S2Wf6Cx/RHWkJBGVyIvpXUWZFzUTQ7iAk3RcTgzWxhPw4Pt6167mAb1ieP7kNf4ZOi1EsbefX7prTnNcVjfaH/KHF+LA8G5vKig49ChgkZzJE/SkKU0O1mLw0+peloxgO/vxjNyhNUmUDvxcrpYHeC0WJmPCop4R8Jrwd97nxn5xiWVwJdw9eCGzjLsWuPRjhQhIBprDAxsl3CU3KoQUxj8nPdpvnAzOUZVWmfMjtMIYppozdq+k3ME7/c2beMsT2S5e1/Sn2Yod17ht4+wCvfaDlnSPC6qSQ/QAxNrgABrnnzYK6JTwGnjP7ILk6Gyih7zmcyWvwbX+yru1TY8m/U1w5qd3GPr+GgOTwWkDxBgjppZAnzMgUX6V5h9cuHeJYDZ8bUflqs++ss=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA6PR08MB10708.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(366016)(18002099003)(22082099003)(10067099003)(261009223027099003)(4143699003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aWJxaUorOTJKZFZ2MmhPUEYrY0IyTXF6VnAzYTVnMDJWbUNxQ2VCQ0R1UDBn?=
- =?utf-8?B?MFRaY3A4WTlhbmxaU1NYd24rV3dkTzVsSys0MGFlVTZGUDhmNlNYam9wdW52?=
- =?utf-8?B?UElEYjFEQkR5VmVCL0FXMXlQNytrV0x4dzVTNmY2SWVlTk1tVDR3d1cySUVs?=
- =?utf-8?B?anQvS3JkWU5pTEpOWXRiRTVpQ1o2NEkxckZleDVNcGVtSy9CZi96OXRsSTdu?=
- =?utf-8?B?RG1HUFF0WE5NRFZ0T2RQWi9aVXNOSitCM25aWGxNYXBadm03NHhIWlpibUdI?=
- =?utf-8?B?VkVSSi8xOXdaemVEL2FibHg2WEZkT1kwZElpS3pISmZhQ2lBYzVVWnYrdXpj?=
- =?utf-8?B?eDdDSmhBeDNNZkh2WUlZRkRBTmk1UlR6QVhET2FWR0xNWEw1UlVJdFlKV2ww?=
- =?utf-8?B?QmQ5NWs2UnpSelBpVllBNjc5dUZHSktyajJtdzNzeUFpLzdzVmg2cjdMblZD?=
- =?utf-8?B?NERPNDR0US96ZVRIWTc2T1JFeWoxTHNpMXFHK25QRXNqNHhVdjcwSnhZN0NT?=
- =?utf-8?B?Q2NmMHlSNUdiQ1ZSMVVKVzZmNm0wUlpvWWV1V1E5b1E1SzF5ZG5MUG5HVEQw?=
- =?utf-8?B?TjBhdS82TVkrTkNPMDJBdWk2SlF6WGJlb3JXL09MRUtDWXp6bkp4WlpUL2pt?=
- =?utf-8?B?SkJLWGdyOHA3TXF5bDZqcTVITEZ2b1Q2WE40TUdSZ0xsSjQrZEZFSzJ6ZThq?=
- =?utf-8?B?L1NDUXpVVDQ2aXRSUy9vRk4zTjNKaElBTWxjV0tPczVWU2dJNFlSU2dFSDl3?=
- =?utf-8?B?OEI5eWxGcmlKL0tSSUNvREQwOFY1Nm4vMkpha1ZsQ05nNE5yaFhzLzhtdmNV?=
- =?utf-8?B?blpxSEtPUTVCMDhPbGpoY3U2MGRlaUhHN3NBUTJkMERxUUFXbGtYOEE1dXNU?=
- =?utf-8?B?QmR4dTNOUHZVU1RHS0hoWDFRNlpwcGRxVXdZQ3Z1OUxZWW5NWkdlempOUGs1?=
- =?utf-8?B?Slp1cHBDRU81UCtPUUdFRzhFb0x0ekhuTGd0MEVibVE2T2x3THU4eDRwNVZr?=
- =?utf-8?B?TkVTSzNBZG45NTl4OTQwa2VOMk5iYUo4aGZtSHcwTHJJNHB0SE1CSzVQRmp2?=
- =?utf-8?B?bXlPOXV0QWlIVVl2YWJodE9pWXh1YkJrbnFYMjkrQ2ZFYzZBQ2JoaUFKd1Ay?=
- =?utf-8?B?YjJScy9hOGtoSWxlWjJtYzdGYVRDUXZMUW81OUVwdnJOSWNJOC9GVVc0M29l?=
- =?utf-8?B?V2xUWHlRRE90aCtBMENFNlExZXhpZmxzTmZXRkVpSUJhVlRmZVJjM1RSYTdB?=
- =?utf-8?B?NmNrbkdGUHYva0FHdWNTWEM1S0NtV1NYMGtsRVpCYTNRZFZycWlTMVV0Yk80?=
- =?utf-8?B?SWNPMmoxUTVnNk10Nmw0QXFBS3l2Q1lCWC9kWEsxUVBvZGdwUU16dEtKZWpo?=
- =?utf-8?B?K2dnSnN5ejJxeWFVdGpRVWM2dE0yRHpZa1dhUzVCdTJPTGM1R29PMGtXa3A0?=
- =?utf-8?B?RTNPSU1IQkRRTEdKUzlDMjhUYVVGUWV5YjNZd3liNFJlcnY4aGZaQXdnRlI5?=
- =?utf-8?B?K0Q2NmNCaDIwbG1mdS9RelJQbitDeTA5aXZtdkVuVURNWDU2NmwzTzNabzd4?=
- =?utf-8?B?OGVpUlRzTGdXdTM0SmF4bU1DK1VkZUFpelZwZWtrcTY1Smh6Q0lGdHNYRDMy?=
- =?utf-8?B?V3ZjdHJnQjVuUEU4UmF2WHdGZGs0SWxWbnVrVEtkZnN3MXNxMnpmK25lNnhO?=
- =?utf-8?B?L0xRSlgvUWQya1ZESVZobllKSkhqdUhjRHhuTGI4Mkd2V1RYd05US3l6T1JL?=
- =?utf-8?B?b1JMbkxJaUlnc2JKYXo2NEp5ZmxhM044SWFHRzl2eDJWT1J6d0VEMU4rakdx?=
- =?utf-8?B?ZDlQZTk1OG1xdElOb0RpNUZVSXlVM3lKbVZDNWRBcnY1ZVpXaDJzRGpLUjQ0?=
- =?utf-8?B?MFRKVkZLb1VpMGMvaWdMYVhQNkMxYVVIemhycm9KN1FvSHNDZE9ZTnBKMlBY?=
- =?utf-8?B?TXdkVmN4R0tGSnkrU2dGVkN1NEF0dVI0RjR1aDRjcEQxdFVuQytsQVdCb0Q4?=
- =?utf-8?B?UUZBOGNWZlhTeVNVTFIyM0ltNVhuYzliTHFLSEpyQ3A1ci9rSHJteHNyTVFz?=
- =?utf-8?B?cFgzK1U2MUVmM3dXbnVVMXlPRUlTRUVMSklOSzJsMFZUR3JKWXpyUXFWdDl4?=
- =?utf-8?B?N3dnOFZzZ25oMFNLVnFsS0dzT2pxR0RPak1iMThJMlFjNmhUSWViMU1YRFNL?=
- =?utf-8?B?aEVMRkJBdzBocDF5YWU3ZkFOeXZTWklNY05NTFRuMHYyeWkxdXREQ0RscUZF?=
- =?utf-8?B?STB0K0h1OGlGWnVkanVJZ2xxTmJabUl2NHZiKzZkeDdRbUFzaGRtQzlxalc4?=
- =?utf-8?B?bWM3c1R2b2xLeUhXQmFiUENRSHZabjdDOTcxRFArZHJMK2pickFGdz09?=
-X-OriginatorOrg: virtuozzo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7ff5d98-58b4-4c11-cb67-08df2a07a753
-X-MS-Exchange-CrossTenant-AuthSource: PA6PR08MB10708.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 15:27:27.1905
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HtNzeo1XuLBPzG0VX4RDD+Dg0PVZRdJkvsOl8nPcF/dK+fDfnur8S3cOklkz1tERAETPpVg14sjbCkjt5oJJgg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR08MB7375
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-uvc-release-intfs-v1-1-18d6e8dfaad8@blueye.no>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMUQqDMBCE4avIPjdgtEb0KsUHTSe6IqlkVQTx7
+ qb6+DHMf5AgMITq5KCAjYV/PkK/ErJD63so/kZTlmZGp/qt1s2qgAmtxMkvTpRzVYG8NKbTBcX
+ fHOB4v5uf5rGs3Qi7/EN0nheVwvsjdQAAAA==
+X-Change-ID: 20261014-uvc-release-intfs-ff95e3766b15
+To: laurent.pinchart@ideasonboard.com, hansg@kernel.org
+Cc: linux-media@vger.kernel.org, hverkuil@kernel.org, mchehab@kernel.org, 
+ ribalda@chromium.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Johannes Schrimpf <johannes.schrimpf@blueye.no>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791991739; l=7663;
+ i=johannes.schrimpf@blueye.no; s=20261014; h=from:subject:message-id;
+ bh=vP7V2E0qAI4aNNnmf2u3d9XezDINZxpJYxAsVgid9s4=;
+ b=dOkr7T7NsbBPHvdN0gPdn9whWbWpbp3z4PVEEOBydKxgmDhqBJBM59zTHH1QzN9laslaT4cyA
+ +2isZG+nSQODmvWF6gijIYeK6wUtkHz9etQQqlb9yHHr2ehUY7TVWpq
+X-Developer-Key: i=johannes.schrimpf@blueye.no; a=ed25519;
+ pk=900KgDI7vLhnD9R982XOT47UCm3e4vWxQWBC4jDCUPo=
+X-Endpoint-Received: by B4 Relay for johannes.schrimpf@blueye.no/20261014
+ with auth_id=1178
+X-Original-From: Johannes Schrimpf <johannes.schrimpf@blueye.no>
+Reply-To: johannes.schrimpf@blueye.no
 
-On 10/14/26 15:19, Lance Yang wrote:
-> 
-> 
-> On 2026/10/14 19:57, Konstantin Khorenko wrote:
-> [...]
->> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
->> index 1e5d68acf62a5..fcea98f0d8865 100644
->> --- a/mm/huge_memory.c
->> +++ b/mm/huge_memory.c
->> @@ -1965,13 +1965,22 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
->>   		src_ptl = pmd_lockptr(src_mm, src_pmd);
->>   		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
->>   		/*
->> -		 * No need to recheck the pmd, it can't change with write
->> -		 * mmap lock held here.
->> -		 *
->> -		 * Meanwhile, making sure it's not a CoW VMA with writable
->> -		 * mapping, otherwise it means either the anon page wrongly
->> -		 * applied special bit, or we made the PRIVATE mapping be
->> -		 * able to wrongly write to the backend MMIO.
->> +		 * The mmap and VMA write locks of the source keep faults
->> +		 * out, but unmap_mapping_range() does not take the mmap
->> +		 * lock and may have cleared the pmd since the lockless
->> +		 * read. Let copy_pmd_range() skip it then.
->> +		 */
->> +		pmd = pmdp_get(src_pmd);
->> +		if (unlikely(!pmd_present(pmd) || !pmd_special(pmd))) {
-> 
-> Why not just check pmd_none(pmd) here? We're holding the source mmap/VMA
-> write locks, so the PMD either stays special or gets cleared, right?
+From: Johannes Schrimpf <johannes.schrimpf@blueye.no>
 
-Right: with the source mmap and VMA write locks held, only a zap can
-change it, and both ways a zap takes leave the PMD none:
-zap_huge_pmd() clears it, and a partial zap splits it in
-__split_huge_pmd_locked(), which for a special VMA only clears it and
-returns.
+uvc_probe() claims the VideoStreaming interfaces with
+usb_driver_claim_interface(), but they are released by uvc_delete(),
+the kref release of the uvc_device. uvc_delete() runs when the last
+reference to the disconnected device is released, potentially on a
+later file close, long after uvc_disconnect().
 
-I tested the same condition as the lockless check that chose this
-branch, so that the branch never copies anything it did not select,
-but taking into account the above paragraph we can easily use pmd_none()
-here, it even better matches the comment :), so I will switch to it in v3.
+A USB reset turns this into a bug. uvcvideo has no pre_reset() and
+post_reset() handlers, so usb_reset_device() unbinds it from all the
+interfaces it is bound to and probes it again on the same struct
+usb_interface objects. A process that holds a file handle from before
+the reset keeps the old uvc_device alive. When it closes the handle,
+the old uvc_delete() calls usb_driver_release_interface() on
+interfaces that the new uvc_device has claimed meanwhile.
+usb_driver_release_interface() only checks that the interface is bound
+to the uvcvideo driver, not to which instance, so it unbinds them from
+the new device. usb_unbind_interface() disables the endpoints, the
+URBs of a running stream complete with -ESHUTDOWN, uvc_video_complete()
+marks the queue as disconnected, and every following VIDIOC_QBUF fails
+with -ENODEV. Nothing is logged, and the stream stays dead until the
+device is reset or plugged in again. The release from uvc_delete() also
+runs without the USB device lock that usb_driver_release_interface()
+requires.
 
-v2 is already out, with a second patch for the missing page table
-deposit on ppc64 hash:
-https://lore.kernel.org/r/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v2-0-e1548488fa68@virtuozzo.com
+This was found with a Sonix camera (0c45:6366) on an i.MX6Q board,
+where a camera-control process kept a file handle open across a USB
+reset issued by the streaming process. The failure was traced and
+reproduced with the help of an LLM coding assistant. Reproduced on
+Linux 6.18.24 (linux-fslc-imx) as follows:
 
-The pmd_none() change will go into v3.
+  1. open() a video node of the camera and keep the file handle
+  2. reset the camera with USBDEVFS_RESET
+  3. stream from a video node of the re-probed device
+  4. close() the file handle from step 1
 
-Cheers, Konstantin
+The stream fails within a few milliseconds of the close(), in 4 of 4
+runs. The kernel emits one KOBJ_UNBIND uevent for each VideoStreaming
+interface; the VideoControl interface stays bound. Holding a node of
+the other streaming interface has the same effect. Without step 1 the
+stream survives.
 
+Release the streaming interfaces where the binding is still ours: in
+uvc_disconnect() for the VideoControl interface, which runs with the
+USB device lock held, and in the probe error path, in the same context
+as the claims in uvc_parse_streaming(). uvc_delete() then no longer
+releases any interface. This is the split usb-serial uses:
+usb_serial_disconnect() releases the sibling interface, and the kref
+release, destroy_serial(), releases no interface; it drops its
+interface reference with usb_put_intf(). With no file handle open,
+uvc_disconnect() already drops the last reference, and uvc_delete()
+runs synchronously from it, so on that path the interfaces are still
+released from within uvc_disconnect(), as before.
 
->> +			spin_unlock(src_ptl);
->> +			spin_unlock(dst_ptl);
->> +			return -EAGAIN;
->> +		}
->> +		/*
->> +		 * Make sure it's not a CoW VMA with writable mapping,
->> +		 * otherwise it means either the anon page wrongly applied
->> +		 * special bit, or we made the PRIVATE mapping be able to
->> +		 * wrongly write to the backend MMIO.
->>   		 */
->>   		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
->>   		goto set_pmd;
->>
->> ---
->> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
->> change-id: 20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-bdf7efb612c2
->>
->> Best regards,
->> --
->> Konstantin Khorenko <khorenko@virtuozzo.com>
->>
-> 
+Tested with this patch on the same i.MX6Q and kernel: the reproduction
+above with the file handle opened on either streaming interface or
+closed before the stream starts, a USB reset without a held file
+handle, sysfs unbind/bind of the VideoControl interface with and
+without a held file handle, and a second UVC camera (MJPEG and H.264
+at 1080p).
+
+The running stream survives in all four streaming runs, and none of
+the five stale-handle closes unbinds an interface; the close() takes
+0.13-0.23 ms instead of 38-42 ms (86 ms when no stream was running).
+USB-reset recovery and streaming from the second camera pass. Sysfs
+unbind/bind correctly releases and reclaims the streaming interfaces.
+
+Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+Cc: stable@vger.kernel.org # needs adjustments for <= 6.14: &uvc_driver.driver
+Assisted-by: LLM
+Signed-off-by: Johannes Schrimpf <johannes.schrimpf@blueye.no>
+---
+Hi Laurent, Hans,
+
+Ricardo's "media: uvcvideo: Remove refcounted cleanup" (Nov 2024) would
+have moved all device cleanup, including this release, into
+uvc_disconnect(), and was NACKed because it fixed no concrete bug. This
+patch keeps the refcounted cleanup and moves only the release of the
+streaming interfaces, to fix the failure described in the commit
+message, which we hit repeatedly in integration testing.
+
+Tool use: this was developed with an LLM coding assistant, Claude Code
+running Claude Opus 5.5, as well as reviewed by GPT-6 Astra. Starting
+from stream failures in our bench logs, the assistant traced the code
+path, wrote the reproduction scripts, ran them and the tests above on
+the device, surveyed the upstream history and other drivers, built and
+checked the patch on media-committers next, and drafted the patch, the
+changelog and these notes. I reviewed the analysis and the patch.
+
+Test kernel: linux-fslc-imx 6.18.24 with three local uvcvideo patches
+(keep MJPEG frames recovered by MJPEG_NO_EOF, nodrop=0 by default, and a
+coherent_urbs parameter). None of them touches probe, uvc_disconnect(),
+uvc_delete(), the interface claim/release or uvc_video_complete().
+
+Not tested:
+- an unmodified uvcvideo, or any kernel other than linux-fslc-imx
+  6.18.24; on media-committers next this patch is build-tested only
+  (gcc and clang, arm, arm64 and x86_64, W=1, sparse, smatch)
+- a debug kernel: the test kernel is the board's production config
+  (SMP, PREEMPT; no lockdep, DEBUG_ATOMIC_SLEEP, DEBUG_MUTEXES,
+  SLUB_DEBUG, DEBUG_PAGEALLOC or KASAN)
+- unplug and replug, sysfs unbind of a VideoStreaming interface, and
+  the probe error path
+- frame delivery after a sysfs rebind: the Sonix camera delivers no
+  frames after any re-probe that does not follow a USB reset, with and
+  without this patch, so those runs check only the binding; the
+  second camera was not rebound
+- v4l2-compliance
+- any camera other than the two on this board
+---
+ drivers/media/usb/uvc/uvc_driver.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+index cbc1456..f71dfce 100644
+--- a/drivers/media/usb/uvc/uvc_driver.c
++++ b/drivers/media/usb/uvc/uvc_driver.c
+@@ -1976,7 +1976,6 @@ static void uvc_delete(struct kref *kref)
+ 		struct uvc_streaming *streaming;
+ 
+ 		streaming = list_entry(p, struct uvc_streaming, list);
+-		usb_driver_release_interface(&uvc_driver, streaming->intf);
+ 		uvc_stream_delete(streaming);
+ 	}
+ 
+@@ -2026,6 +2025,18 @@ static void uvc_unregister_video(struct uvc_device *dev)
+ #endif
+ }
+ 
++/*
++ * Release the streaming interfaces here, not in uvc_delete(): after a USB
++ * reset, a new uvc_device may already have claimed the same interfaces.
++ */
++static void uvc_release_streaming_intfs(struct uvc_device *dev)
++{
++	struct uvc_streaming *stream;
++
++	list_for_each_entry(stream, &dev->streams, list)
++		usb_driver_release_interface(&uvc_driver, stream->intf);
++}
++
+ int uvc_register_video_device(struct uvc_device *dev,
+ 			      struct uvc_streaming *stream,
+ 			      struct uvc_video_queue *queue,
+@@ -2356,6 +2367,7 @@ static int uvc_probe(struct usb_interface *intf,
+ 
+ error:
+ 	uvc_unregister_video(dev);
++	uvc_release_streaming_intfs(dev);
+ 	kref_put(&dev->ref, uvc_delete);
+ 	return ret;
+ }
+@@ -2375,6 +2387,7 @@ static void uvc_disconnect(struct usb_interface *intf)
+ 		return;
+ 
+ 	uvc_unregister_video(dev);
++	uvc_release_streaming_intfs(dev);
+ 	kref_put(&dev->ref, uvc_delete);
+ }
+ 
+
+---
+base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+change-id: 20261014-uvc-release-intfs-ff95e3766b15
+
+Best regards,
+--  
+Johannes Schrimpf <johannes.schrimpf@blueye.no>
+
 
