@@ -1,198 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02DA04F4CE5;
-	Wed, 14 Oct 2026 11:18:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03B974E73BE;
+	Wed, 14 Oct 2026 11:19:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791976709; cv=none; b=E+tODpeCgk4NKRnv5As+6aarWfzA2VUAjUkwH/t29p4XtqSXVQjfn2ftOGTgNhm+F2Zmss9SGK15n5z9hHvLAszrvHMV6VnT3Y1jzWCzkcfJXnt3BiFfD8dzQKLvBoh4tWb1AOkBBeGh1k2crk2ihbbaTBAf3zIesAoJbXSCYXE=
+	t=1791976758; cv=none; b=EMXdOJdpTxtwiPzQvOw6p6R1DMlwv5gq35pdfpyi0dQ8w0lBdVlMjLCilMj/lL6uIVsPDW9W2HXRJMVvn8NT1F6epshbD9hBGgQ+9ZG2lzOvJzMDsv4Lvcy245SOsli3oT2NFA91S5mU5rC/AZruJ9KTNPGgCLeLzbu2OfaWlNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791976709; c=relaxed/simple;
-	bh=ewLYliVnd7ZSeqBWV78N1KQN4ewFXoJr8g+sAgKHTSc=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Ye3tuxaWCJ8Y3rdARoAIErtHo/MMXmJmuYYFManbSX72Esv99KFVUZ3puGohAzpIYia1kt/C0WdzCNvFVkr5lysZeBmSbzpmqhXJJis0YRIzhvQ0qhnPPieEQitZZdsFI9WHqs3GErSryodutcCdMnaiPXM5RTbNw7d+CKnYFpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qaks0+1v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791976758; c=relaxed/simple;
+	bh=mILDQ0beEHugYrDGAp7RHecafUChyKoMmsDB5orFUMU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iVkYrnmNKqFK09514KCpI3g3kKPZuRp1Z9uR0k7mNo1/IF4zzjR+g013JyHuPh3rqfydAd8z9tP+naT8x8wCGA2xmmCcxZka0wFh8yXCpE7cQ/Mr890UbZAYugyhKHlJqIo6xElH8C9cfvMx5mx2bOSamsfa8GQZW6uuXfnqqy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DwSntr5L; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qaks0+1v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1236D1F000FF;
-	Wed, 14 Oct 2026 11:18:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791976707;
-	bh=x2RmlG7/DNYZUkvwHEdu2BFerSCe0Wm/zWi/nMGE3w8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Qaks0+1vUnFVnAJ6FriPFKUNetLcAC1DPv96J8mSSVYvGzGfnL/2OlwNNU5JDurnw
-	 mJ0LYwDvco1gVb6P4OYkM7lhuyhmIdvN+7hzlflYhhu3zG3t12lAd1WU8s5Ir0MdCL
-	 yiHursUipQ/K0e2d3Bn3CbqHGeM5aUn5/JLpgNAIAvkAGDctGjHMDfYpen6vFilY4M
-	 buVkjRo0BnuMBFz/I603xEyP8qfPHNximqzvF9ZKR5T13uQDpK/fXuAJ17Yr/vVogo
-	 8h7d6Aw8UnkL4PYto/AhYVw0PvvndnBG0r+nBmQ3bZxr28+QNU541e9h1l1imBZC5m
-	 NC7Eu8P7PNTyQ==
-Subject:
- Re: [PATCH net] net: sunhme: fix infinite loop in unmap_partial_tx_skb()
-From: netdev-bot+sashiko@kernel.org
-To: arefev@swemel.ru
-Cc: seanga2@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org, stable@vger.kernel.org
-Date: Wed, 14 Oct 2026 11:18:26 +0000
-Message-ID: <179197670661.434549.16333488251778765478@kernel.org>
-In-Reply-To: <20261013103228.37430-1-arefev@swemel.ru>
-References: <20261013103228.37430-1-arefev@swemel.ru>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DwSntr5L"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791976757; x=1823512757;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=mILDQ0beEHugYrDGAp7RHecafUChyKoMmsDB5orFUMU=;
+  b=DwSntr5LpLTsTFOCVWxoa3MtwIB51N0QQdqer4CzkmI8X/e9qdlTShv1
+   yKXGdT7rWIXFDcITPK/WKu3M+YtZfK9uDAoZNw42BE5BkijEPpoW2yU0y
+   XPX9rl3umSHfEKo7NX2djpP1pmSwpv/HXCAxMc46K3co6BckFWV7GlIxu
+   8lJoFYwamXHSF7lAdr/gT8o/RM/ZeyETYi35ERwRe++EgVr1ygcxi0Q9n
+   GNgrT3wqsSrbPUrqQXF2m/7f9M+JRsbbruE0IF5Mr+gYZZHzqbFy006LY
+   JoRj7PyOwHjJQPyJopOXkkC2+gXLvFgVMehnhe+YMGfZh+ZLpuLzQyUBn
+   A==;
+X-CSE-ConnectionGUID: Nw3I40fjT6yHL0AqWhm9eA==
+X-CSE-MsgGUID: IpOJOs9zSMCzwB2epY/VoQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="622478"
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="622478"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 04:19:16 -0700
+X-CSE-ConnectionGUID: zXUXL0ZSTwu5nDmhUHEoog==
+X-CSE-MsgGUID: AfkKKCLKQMqOSDGxji1TyQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
+   d="scan'208";a="1372069"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.13])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 04:19:11 -0700
+Date: Wed, 14 Oct 2026 14:19:09 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: hex@aleph0.ai
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	intel-gfx@lists.freedesktop.org,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Jouni =?iso-8859-1?Q?H=F6gander?= <jouni.hogander@intel.com>,
+	Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+	intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/i915/psr: Send a frame change notification for async
+ flips
+Message-ID: <as9lLU0VnFW6JLKf@intel.com>
+References: <20261013-fix-psr-async-trans-push-v1-1-ee79bf31b66f@aleph0.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261013-fix-psr-async-trans-push-v1-1-ee79bf31b66f@aleph0.ai>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Tue, Oct 13, 2026 at 05:16:07PM +0200, Vladyslav Yamkovyi via B4 Relay wrote:
+> From: Vladyslav Yamkovyi <hex@aleph0.ai>
+> 
+> On platforms using TRANS_PUSH for PSR frame-change notifications,
+> intel_pipe_update_end() exits early for asynchronous flips, before sending
+> the push. The register-based notification is disabled on these platforms,
+> and an ORIGIN_FLIP frontbuffer flush does not force PSR to exit.
+> 
+> This can leave an accepted async flip without a completion event after
+> PSR2 enters DEEP_SLEEP. On Panther Lake, scanout freezes and the kernel
+> reports "[CRTC:152:pipe A] flip_done timed out". Intel IGT kms_async_flips
+> reproduces the failure with the compositor inactive when a 200 ms idle
+> interval is inserted before an asynchronous atomic flip.
+> 
+> Send the PSR frame-change notification after plane programming and before
+> releasing the existing PSR lock. Restrict the push to CRTC states that use
+> TRANS_PUSH for PSR, leaving other async flips and the synchronous and DSB
+> paths unchanged.
+> 
+> Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9582
+> Fixes: 129a4da11707 ("drm/i915/psr: Use TRANS_PUSH to trigger frame change event")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM sparse smatch
+> Signed-off-by: Vladyslav Yamkovyi <hex@aleph0.ai>
+> ---
+> Based on drm-tip (2026-10-13); also applies to v7.3-rc7.
+> 
+> Runtime-tested on Panther Lake (xe, eDP-1, 2880x1800) with Ubuntu-based
+> 7.3.0-rc6 kernels, before and after this fix. IGT kms_async_flips,
+> async-flip-with-page-flip-events-tiled-atomic, dynamic subtest
+> pipe-A-eDP-1-4-rc-ccs, fails with Flip Timeout before the fix and passes
+> afterwards. An LD_PRELOAD interposer inserts one 200 ms idle interval
+> before the eighth async atomic commit without changing its request or
+> flags. Both runs enter PSR2 Early Transport DEEP_SLEEP with selective
+> fetch enabled before that commit.
+> 
+> Clang 23.1.2, W=1 builds and Sparse/Smatch checks of the CRTC, PSR and VRR
+> translation units for i915 and Xe produced no new diagnostics.
+> 
+> OpenAI Codex (GPT-6-Astra) assisted diagnosis, reproducer and fix
+> development, validation and patch preparation, following requests to
+> reproduce the freeze independently, trace its driver cause and prepare a
+> tested upstream fix. I take direct responsibility for this contribution,
+> have carefully reviewed the change and ensured rigorous local testing.
+> ---
+>  drivers/gpu/drm/i915/display/intel_crtc.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
+> index 10ed9bdfee76..8ef24cddbaa6 100644
+> --- a/drivers/gpu/drm/i915/display/intel_crtc.c
+> +++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+> @@ -736,8 +736,16 @@ void intel_pipe_update_end(struct intel_atomic_state *state,
+>  
+>  	drm_WARN_ON(display->drm, new_crtc_state->use_dsb);
+>  
+> -	if (new_crtc_state->do_async_flip)
+> +	if (new_crtc_state->do_async_flip) {
+> +		/*
+> +		 * LNL+ uses TRANS_PUSH for PSR frame-change notifications.
+> +		 * Async flips skip the vblank path below, but still need to
+> +		 * notify PSR after programming the new surface address.
+> +		 */
+> +		if (intel_psr_use_trans_push(new_crtc_state))
+> +			intel_vrr_send_push(NULL, new_crtc_state);
 
-Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
+This will make the behaviour of async flips + VRR inconsistent
+between platforms where trans push is used for PSR vs. platforms
+where it's not used. We don't want that.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+So either we want to start doing trans pushes for all async
+flips+VRR cases, or we want to disable the PSR trans push usage
+when async flips are happening. The latter would be the safer
+option since the mailboxy trans push usage this would cause
+hasn't been done before. The vblank evasion code does try to
+handle it, but it's not actually tested.
 
-- [High] net: sunhme: MAC processes unmapped memory due to stale
-  TXFLAG_OWN
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the patch
-  makes it reachable.
-
---
-
-net: sunhme: fix infinite loop in unmap_partial_tx_skb()
-
-This commit fixes the loop in unmap_partial_tx_skb(), which never advanced
-first_entry. Before the fix, a DMA mapping failure on any fragment after
-the first one made happy_meal_start_xmit() spin forever with
-hp->happy_lock held. The fix adds NEXT_TX() at the end of the loop body.
-
-> diff --git a/drivers/net/ethernet/sun/sunhme.c b/drivers/net/ethernet/sun/sunhme.c
-> index a70f704eb9f3f..544eb43af1258 100644
-> --- a/drivers/net/ethernet/sun/sunhme.c
-> +++ b/drivers/net/ethernet/sun/sunhme.c
-> @@ -1965,6 +1965,7 @@ static void unmap_partial_tx_skb(struct happy_meal *hp, u32 first_mapping,
->  		len = hme_read_desc32(hp, &this->tx_flags);
->  		len &= TXFLAG_SIZE;
->  		dma_unmap_page(hp->dma_dev, addr, len, DMA_TO_DEVICE);
-> +		first_entry = NEXT_TX(first_entry);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but now that the error path
-no longer locks up, it becomes reachable. It came in with ec1f1276022e
-together with the missing NEXT_TX().
-
-Once the fragment mappings are undone here, are those descriptors still
-owned by the hardware?
-
-happy_meal_start_xmit() sets TXFLAG_OWN in tx_flags and writes each
-fragment descriptor with hme_write_txd() as soon as skb_frag_dma_map()
-succeeds. Only the head descriptor at first_entry is held back. If a
-later fragment fails to map, unmap_partial_tx_skb() calls
-dma_unmap_page() on the fragment entries that were already staged, but
-never rewrites them. Each one keeps TXFLAG_OWN, its length and a
-tx_addr that is no longer mapped.
-
-The out_dma_error path then leaves hp->tx_new at first_entry, sets
-hp->tx_skbs[hp->tx_new] to NULL and frees the skb with
-dev_kfree_skb_any(), which releases the fragment pages or swiotlb
-slots.
-
-If the next transmit is a linear skb such as a TCP ACK, it only writes
-first_entry with OWN|SOP|EOP and kicks the engine with ETX_TP_DMAWAKEUP.
-Could the MAC then move on to first_entry + 1, find OWN still set, and
-DMA from the unmapped bus address? Depending on the platform that would
-be an IOMMU fault, a TX DMA error and chip reset, or freed or reused
-memory sent onto the wire. The stale chain also has no SOP, and no EOP
-on its last descriptor.
-
-After that the chip's ring position would be ahead of hp->tx_new.
-Descriptors the driver later writes into those slots would sit behind
-the hardware, and happy_meal_tx() stops at the first entry that still
-has TXFLAG_OWN set. Would that stall TX completions until the ring
-wraps or the TX watchdog resets the chip?
-
-Should unmap_partial_tx_skb() also clear each descriptor after
-unmapping it, for example with hme_write_txd(hp, this, 0, 0)? That
-could also be a separate follow-up if you prefer to keep this fix
-minimal for stable.
-
-[Severity: High]
-
-This isn't a bug introduced by this patch, but the patch makes it reachable
-now that this error path returns instead of locking up. It came in with
-ec1f1276022e together with the loop bug.
-
-Once the fragment mappings are undone, are these descriptors still owned
-by the hardware?
-
-In happy_meal_start_xmit(), tx_flags always includes TXFLAG_OWN. Each
-fragment is written to the ring as soon as it is mapped, and only the head
-descriptor is held back:
-
-drivers/net/ethernet/sun/sunhme.c:happy_meal_start_xmit() {
-    ...
-	tx_flags = TXFLAG_OWN;
-    ...
-			this_txflags = tx_flags;
-			if (frag == skb_shinfo(skb)->nr_frags - 1)
-				this_txflags |= TXFLAG_EOP;
-			hme_write_txd(hp, &hp->happy_block->happy_meal_txd[entry],
-				      (this_txflags | (len & TXFLAG_SIZE)),
-				      mapping);
-    ...
-}
-
-If fragment k+1 (with k >= 1) fails skb_frag_dma_map(),
-unmap_partial_tx_skb() calls dma_unmap_page() on entries first_entry+1
-through first_entry+k. It never rewrites those descriptors, so each one
-keeps TXFLAG_OWN, its length and its now-unmapped tx_addr.
-
-The error path then leaves hp->tx_new at first_entry and frees the skb,
-which releases the fragment pages or swiotlb slots:
-
-out_dma_error:
-	hp->tx_skbs[hp->tx_new] = NULL;
-	spin_unlock_irq(&hp->happy_lock);
-
-	dev_kfree_skb_any(skb);
-
-Suppose the next transmit is a linear skb, such as a TCP ACK. It writes
-only first_entry with OWN|SOP|EOP and then kicks the DMA engine:
-
-	hme_write32(hp, hp->etxregs + ETX_PENDING, ETX_TP_DMAWAKEUP);
-
-Could the device then move on to first_entry+1, find OWN still set, and
-DMA from the unmapped bus address? Depending on the platform, that would
-mean an IOMMU fault, or freed or reused memory sent onto the wire. The
-stale descriptors also form a chain with no SOP, and no EOP on the last
-staged fragment.
-
-After that, the device's ring position would be ahead of the driver's.
-Descriptors the driver later writes into those slots would sit behind the
-device. happy_meal_tx() stops at the first one with OWN still set:
-
-		flags = hme_read_desc32(hp, &this->tx_flags);
-		if (flags & TXFLAG_OWN)
-			break;
-
-Would that stall TX completions until the ring wraps or the TX watchdog
-resets the chip?
-
-Should unmap_partial_tx_skb() also clear each descriptor after unmapping
-it, for example with hme_write_txd(hp, this, 0, 0)?
-
->  	}
->  }
->
+>  		goto out;
+> +	}
+>  
+>  	trace_intel_pipe_update_end(crtc, end_vbl_count, scanline_end);
+>  
+> 
+> ---
+> base-commit: eb1bf4700d3b25a1a1e670ef31cc06969fa08019
+> change-id: 20261013-fix-psr-async-trans-push-bfa6550270c7
+> 
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013103228.37430-1-arefev%40swemel.ru
+Ville Syrj�l�
+Intel
