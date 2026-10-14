@@ -1,91 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A9FA44A409;
-	Wed, 14 Oct 2026 07:28:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D42DF4334A5;
+	Wed, 14 Oct 2026 07:28:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791962882; cv=none; b=mlLdxW1wTe0pbg4iErzXwa9fWMI+57ABWXlY+mAO36Hvb/bbjHf6ZN163U0XNK35DqNb27LubYxQlM3akls6Bl3whrhYK800pdule0S8JNkd9i6WFUmHDxrFnqubOslSDkg3XeWS5aMAbZGoqLyF/D1OQRd8kRUEmPyuTTdnE94=
+	t=1791962944; cv=none; b=R85hCiwXXafL7oyklitz5WSJwvxLQl+XIHz2cbb0PbyVqPTbc1JA7ICzQWsSezr0LMSAsr1ec3kYiu/TgwGxUc3hDUz4uw7Yew0O7M1AGXihWEAZKEEphG15J32PT6+7HRqZCU/19OCyLZ2Riryvayy1IYqc6lgARM93baXL+uI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791962882; c=relaxed/simple;
-	bh=n3FTo4mK9R/lIGl5C3jeelRqRYzuENdY8tuLlXHAZOc=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=vB1QUnbUz+uO1ZfC5JjNmqGHv+KyNqqf03s4gSdYZICfEx0VBBdmv6YsQJIv2+Ek3R+2k9J69KA3FapiX8kjG4xtQ654n4KBq1WhxUuyqnREsPdtSz1w8TJ9KJgVKzR4u3McqS8iZbIe1V3Libqn4j8dW3nyR93G+aFWv299zx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD0AA1F000FF;
-	Wed, 14 Oct 2026 07:27:55 +0000 (UTC)
+	s=arc-20240116; t=1791962944; c=relaxed/simple;
+	bh=yyej2xlBADXECYdNP7xUgE69xFnPcTg7CV+ZJLWTNPs=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=plS8mK42EXR3e9R78gKA4BHtqwS1iUy/RCiZSh/hQkz5S/Ss3qDi8NeZbBr70cogvmdN6xgggNJCkq+WAawhz6AYIqWQaz7ELLJqyE7HYe/JJ11ZAkzUS4usSjQaod8MOPz9KrsPWWboPoD/i9JopkV/3yq7rbzY7fRM7k/5TOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=cURh56RX; arc=none smtp.client-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="cURh56RX"
+X-UUID: e83bd262c7a011f18dc8c9802ae25ab1-20261014
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=yyej2xlBADXECYdNP7xUgE69xFnPcTg7CV+ZJLWTNPs=;
+	b=cURh56RX50xBQgIeETnKrxYqeLCihFKk5ppnIrLY2HLiSqf9BW63z11CDHBZn40KE3gOBn3IT1zKy3sNNlrc9EMI183xpAH/MvgiK2HfOG3WzCaFj7+qYq1w/nqtjf8HMALF6/w3Et+7XBLe7U2K0A1zRPx4EhLXdg/DBv0h8mw=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.20,REQID:51dcb2c8-a6dd-4e17-8dc7-c663ec9263dc,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:291e20b,CLOUDID:22f35120-2f17-48f6-b8a0-2bb5971c52b4,B
+	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|836|865|888|898,TC:-5,Content:
+	0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,
+	OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: e83bd262c7a011f18dc8c9802ae25ab1-20261014
+Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by mailgw02.mediatek.com
+	(envelope-from <peter.wang@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 498926688; Wed, 14 Oct 2026 15:28:53 +0800
+Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
+ mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Wed, 14 Oct 2026 15:28:51 +0800
+Received: from [10.233.130.16] (10.233.130.16) by mtkmbs11n1.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
+ Transport; Wed, 14 Oct 2026 15:28:51 +0800
+Message-ID: <07b41e9e46d26b4a0e0683404e98cd29d38cced0.camel@mediatek.com>
+Subject: Re: [PATCH 2/3] scsi: ufs: bsg: Clear the UIC result byte before
+ sending UIC commands
+From: Peter Wang <peter.wang@mediatek.com>
+To: Stanley Jhu <stanleyjhu@google.com>, "Martin K. Petersen"
+	<mkp@kernel.org>, "James E.J. Bottomley"
+	<James.Bottomley@HansenPartnership.com>
+CC: <powenkao@google.com>, Alim Akhtar <alim.akhtar@samsung.com>, "Bart Van
+ Assche" <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>,
+	<linux-scsi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+Date: Wed, 14 Oct 2026 15:28:51 +0800
+In-Reply-To: <20261013102913.948718-3-stanleyjhu@google.com>
+References: <20261013102913.948718-1-stanleyjhu@google.com>
+	 <20261013102913.948718-3-stanleyjhu@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2] PCI: rockchip: Skip the Tpvperl wait when power is
- already valid
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-To: =?utf-8?q?Enrique_Hern=C3=A1ndez_Bello?= <ehbello@gmail.com>
-Cc: shawn.lin@rock-chips.com, lpieralisi@kernel.org, kwilczynski@kernel.org, 
- mani@kernel.org, bhelgaas@google.com, robh@kernel.org, heiko@sntech.de, 
- dlemoal@kernel.org, linux-pci@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20260911211559.207990-1-ehbello@gmail.com>
-References: <20260911211559.207990-1-ehbello@gmail.com>
-Date: Wed, 14 Oct 2026 12:57:47 +0530
-Message-Id: <179196286749.38040.5597453767131590054.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2102;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=n3FTo4mK9R/lIGl5C3jeelRqRYzuENdY8tuLlXHAZOc=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqzy72A6EYqXUa8oem4GQlieL7BdAjqrbq/LHus
- 95HXXNGgXqJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCas8u9gAKCRBVnxHm/pHO
- 9VzpB/9GLv7F5DEMWwQ3WZjJLu4Q7SDngruevsqLwGdrOGO7UOVSUAgVdr7yQ57EUHYIaeZF5jp
- Pl/kg+HBvpSxkjLex1X5MQSkf2u1VGWSk0SZT/0DsNYYQzNE/9oBlSZLEzdCZJeu/+/OyRl6Xyk
- LCuLsMqwOy+cVpFLHNsNLqxRjcnKBlDyVo+76vBGsF/woWmS9WeFOWS/I9RYFhJ5M2Qjrx0zJEu
- 4UGxgjsyHy9OhBypKbC/c+0i59rAqfwMZn4NxjTHpwQEkQW1zgafnsKHcXnSdc2zrYqzVA3jBv5
- CkBZWRKvHxzrhppg5Wu6eG3LH4WUTlgxkkBZoiHvsH+0v0CG
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+X-MTK: N
 
-On 2026-09-11 22:15 +0100, Enrique Hernández Bello wrote:
-> Since commit c47f90be4c89 ("PCI: rockchip-host: Fix
-> rockchip_pcie_host_init_port() PERST# handling"), a JMicron JMB585
-> behind an rk3399 root port almost never becomes usable: the link trains
-> normally, but the endpoint's configuration space never answers, so the
-> device is not enumerated. On this controller a configuration read that
-> gets no usable completion is reported as an external abort rather than
-> as an all-ones response, which on arm64 brings the machine down.
-> 
-> The change added an unconditional 100 ms sleep so that PERST# stays
-> asserted for at least Tpvperl after power becomes valid. The wait is
-> performed while PERST# is asserted, so it also extends the reset by
-> 100 ms, and this endpoint does not tolerate the longer assertion.
-> 
+On Tue, 2026-10-13 at 18:29 +0800, Stanley Jhu wrote:
+> ufs_bsg_request() passes the user-supplied UIC argument2 unchanged,
+> including the result byte (bits 7:0) that only the host controller
+> writes. A non-zero value triggers the WARN_ON_ONCE() in
+> ufshcd_dispatch_uic_cmd() and corrupts the reported result. Found by
+> syzkaller.
+>=20
+> Clear the result byte before sending the command.
+>=20
+> Fixes: e77044c5a842 ("scsi: ufs-bsg: Add support for uic commands in
+> ufs_bsg_request()")
+> Fixes: 9fb4c793223b ("scsi: ufs: core: Complain if UIC argument 2 is
+> invalid")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+> ---
 
-This is hard to believe. First of all, Tpvperl is the min time specified by the
-CEM spec to allow the power to be stable, not the max. Even if the bootloader
-has already enabled the power supply during boot, it would've taken several
-seconds for the kernel driver to probe and execute this delay of 100ms. But
-claiming that the Endpoint doesn't tolerate this 100ms delay, but still several
-seconds of the boot delay is quite hard to believe.
 
-Maybe the issue is with the delay between PERST# assert and deassert? Is the
-PERST# signal polarity on the board DTS correct? We used to see Endpoint
-firmware crashes when the polarity was incorrect and the Endpoint got confused
-with incorrect PERST# sequence.
-
-> Tpvperl is counted from the supplies becoming valid (PCIe CEM r5.1,
-> sec 2.9.2). On boards whose PCIe supplies are always-on -- vcc3v3_pcie
-> on ROCK Pi 4 is regulator-always-on and regulator-boot-on -- power has
-> been valid since boot, seconds before the driver probes, so the
-> requirement is already met and the sleep only lengthens the reset.
-> 
-
-I do agree that the Tpvperl delay is *redundant* if the supplies are already
-enabled by the bootloader. But I do not agree that it causes the Endpoint to not
-respond.
-
-- Mani
-
+Reviewed-by: Peter Wang <peter.wang@mediatek.com>
