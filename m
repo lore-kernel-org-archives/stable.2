@@ -1,187 +1,219 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B47E01F3B85;
-	Wed, 14 Oct 2026 01:59:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F8422116F4;
+	Wed, 14 Oct 2026 02:18:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791943161; cv=none; b=PRdz8Glvd5HmRBQvhT2QiHTzL7ueEaCczPahiX41vHmmCgV2UN+U8QEpqCgb7Cu+tQ4FoiRTQzUMCTiY3yDoJtseINu3XKIbhlGDbPiInnZpxI7UmW7LWy4LJ/TT7IQNNM6/BWRUepDAjTQHOEkwDe96tIrTGBktW8GQhY7SDog=
+	t=1791944291; cv=none; b=QBDzkJXZ9a97mYyphCoC9CDY8XvNNgvXbqieW8A1YKA2dng1ELRHJGssw+lg5UK6pvdbjx3nndKngJ0H1Wtv6s7NWRRz9BadVRhqjFnYIczvPsLxzLCx5MEc3uQh+Q3ngK58tCA231Dz+5cxkB1GiMVDsdRB7MVm3pibSrgHgJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791943161; c=relaxed/simple;
-	bh=yp44U3CTZ5DsK3GUM+LruQNdIDVedDrXoM0mpjSozXs=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ezpA7Wuy/mfeITgTBgX/5FSUYtshENBixB3VHH9NRIJ4fPhMViMO+L9PngXF/S/fft8SVeUbWVyh58Ykk1vTGIKU8kxN6QdUb7VhgdiJF1Rlm2vfA5TJLI7lkdNq37QZBLhqe87Qcw19iuNOsx47N20m5BzSBsWZMmKevLxhDt0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y6UcFYmd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791944291; c=relaxed/simple;
+	bh=8y7kbFSPmEfWBdmvwES7r3eW+SXkBysWlXDi0fzAs9s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=vDcwZYY+mUenxF3a0VTRAs9LFIGV8iGNf2+Go5PG3+j/MCecbef5yhzh3vi3OCotbLX/VRtwZ33SMuTxDrXXZMz7G1fJsFRo1k9X78a1MPstZABzc8MDvPD51Ewl6dn0fcrteLMiStYXriOnvGCIxJVlkjhUqnWDeX3OV4T1lF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=eF/pr/5L; arc=none smtp.client-ip=115.124.30.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y6UcFYmd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 722F21F000FF;
-	Wed, 14 Oct 2026 01:59:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791943160;
-	bh=kawrkzhFyj9yV3XlykGBmt/LBNk1s9fbUDf5Qjez1pY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Y6UcFYmdpqYwYSSRtNG+xfeScFwh/UDGZROvC8G28l/WPGdqjFiwXsxfDSg/arcoI
-	 hcUEYYKZydK8C6oTiPZXkto919qEYKD0r0ZJFFjc+zOXWUZm62qilB7NpzR6MyQ/sc
-	 TZ6njX0HhJDmZK3g2VkRxSAEzmSfWgOoXAP08hfCbw/jssJA6Q5PVyBBtG4jyl7fNo
-	 MXnAGGtWGmw/tcxVcxKhophhooiXfzqoEv95/cds52r90k7Py/fBl7sXIsHSacLW0Z
-	 3bxCBGqvW5ua3UuLXERYgbRT84FOTmetQed133DiXCz42ufgOM87FrdB7W+tlxBkqj
-	 J3zqljMP8C6XQ==
-Subject:
- Re: [PATCH net v2] igc: only strip RX timestamp header from first buffer
-From: netdev-bot+sashiko@kernel.org
-To: p@1g4.org
-Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
- intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, aleksandr.loktionov@intel.com,
- maciej.fijalkowski@intel.com, avigailx.dahan@intel.com,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Wed, 14 Oct 2026 01:59:18 +0000
-Message-ID: <179194315897.434549.3743742848544230715@kernel.org>
-In-Reply-To: <20261013010854.4068874-1-p@1g4.org>
-References: <20261013010854.4068874-1-p@1g4.org>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="eF/pr/5L"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791944279; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=XuQDjmn6Lnuo5HOpYgjYT2P+oYUujNQVUriwXbnoduA=;
+	b=eF/pr/5LIQ++3TUki7kDCfFTESPh7/MT1+ib7UHuN8o2e7UfSkiLNesfI1MFAWMCfX/EiV4h9BEIkG5L2lGK5BFf/z07OaMj42YL3TZTEiVhsskHSwifuTgiYcKa1NWs+iZ74heQVPp1iM6rxv8EoKCmYjjzRarmAiXwIVg71bo=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=12;SR=0;TI=SMTPD_---0XCnclMF_1791944278;
+Received: from 30.221.146.92(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCnclMF_1791944278 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 14 Oct 2026 10:17:58 +0800
+Message-ID: <ff8d866d-f318-4722-a1ab-88db7a3fde63@linux.alibaba.com>
+Date: Wed, 14 Oct 2026 10:17:57 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ocfs2/cluster: unlink socket containers before
+ releasing resources
+To: Cen Zhang <zzzccc427@gmail.com>, akpm@linux-foundation.org
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
+ kees@kernel.org, kuba@kernel.org, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-objects-candidate-0065-v6-3090153fd7cacb810214@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0065-v6-3090153fd7cacb810214@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
 
-Critical: 0 · High: 2 · Medium: 0 · Low: 0
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On 10/13/26 11:34 PM, Cen Zhang wrote:
+> A socket container's node and socket must remain alive while the
+> container is on sock_containers. The debugfs formatter reads sc_node
+> and sc_sock under o2net_debug_lock without taking their references, but
+> sc_kref_release() releases both before taking that lock to unlink the
+> container.
+> 
+> With CONFIG_DEBUG_FS enabled, a synchronous sender can retain its last
+> socket-container reference after o2net_disconnect_node() has detached
+> the connection and flushed o2net_wq. The caller runs outside that
+> workqueue. After the sender removes its configfs dependency, node
+> removal can proceed without waiting for the sender's final sc_put():
+> 
+>   Sender (final sc_put)    Configfs rmdir        Debugfs reader
+>   --------------------    --------------        --------------
+>   o2nm_undepend_item()
+>                           Drop node item refs
+>   o2nm_node_put()
+>     [node can be freed]
+>                                                sc_seq_show()
+>                                                  Lock debug lock
+>                                                  Read sc_node->nd_name
+>                                                  Unlock debug lock
+>   sc_node = NULL
+>   o2net_debug_del_sc()
+> 
+> The earlier socket release has a similar window. The container is
+> still selectable while its socket has been released and sc_sock has
+> not yet been cleared:
+> 
+>   Sender (final sc_put)                       Debugfs reader
+>   --------------------                       --------------
+>   sock_release(sc->sc_sock)
+>     [socket can be freed]
+>                                              sc_seq_show()
+>                                                Lock debug lock
+>                                                Read sc_sock->sk fields
+>                                                Unlock debug lock
+>   sc_sock = NULL
+>   ...
+>   o2net_debug_del_sc()
+> 
+> Move o2net_debug_del_sc() before releasing either resource. Unlinking
+> under the existing debug lock waits for an active formatter to finish
+> and prevents later readers from selecting the container. This covers
+> both socket fields and node fields, including nd_num in the stats
+> formatter. Release the debug lock before the existing resource cleanup.
 
-- [High] The patch fixes the TSIP length underflow only in
-  igc_clean_rx_irq().
-- [High] In igc_clean_rx_irq(), the new condition `if (!skb &&
-  igc_test_staterr(rx_desc, IGC_RXDADV_STAT_TSIP))` uses `!skb` to mean…
+sc_kref_release() never holds o2net_debug_lock, the lock is taken and
+dropped inside the helper o2net_debug_del_sc().
 
---
+So better to:
 
-igc: only strip RX timestamp header from first buffer
+s/ Release the debug lock before the existing resource cleanup.//
 
-This patch changes igc_clean_rx_irq() so the 16-byte inline RX timestamp
-header is only stripped when no skb is in progress. Before, a continuation
-buffer shorter than 16 bytes could underflow the unsigned length and
-produce a skb fragment of almost 4 GiB.
+> 
+> KASAN report as below:
+> 
+>     BUG: KASAN: slab-use-after-free in string+0x42b/0x470
+>     Read of size 1 at addr ffff88810f56fc90 by task python3/506
+> 
+>     CPU: 0 UID: 0 PID: 506 Comm: python3 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
+>     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+>     Call Trace:
+>      <TASK>
+>      dump_stack_lvl+0x93/0xd0
+>      print_report+0xce/0x630
+>      kasan_report+0xe0/0x110
+>      string+0x42b/0x470
+>      vsnprintf+0x330/0x1110
+>      seq_printf+0x1a8/0x260
+>      sc_seq_show+0x604/0x9f0
+>      seq_read_iter+0x480/0x1110
+>      seq_read+0x362/0x5a0
+>      full_proxy_read+0x11f/0x180
+>      vfs_read+0x1a0/0xc20
+>      ksys_read+0x111/0x200
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+> (User register dump omitted.)
+> 
+>      </TASK>
+> 
+>     Allocated by task 497:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      __kasan_kmalloc+0xaa/0xb0
+>      __kmalloc_cache_noprof+0x28d/0x610
+>      o2nm_node_group_make_item+0xea/0x1a0
+>      configfs_mkdir+0x762/0xca0
+>      vfs_mkdir+0x399/0x7e0
+>      filename_mkdirat+0x129/0x450
+>      __x64_sys_mkdir+0x70/0xa0
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+>     Freed by task 505:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      kasan_save_free_info+0x3b/0x60
+>      __kasan_slab_free+0x5f/0x80
+>      kfree+0x308/0x580
+>      config_item_cleanup+0x14b/0x230
+>      config_item_put+0x79/0x90
+>      sc_put+0x454/0x6e0
+>      o2net_send_message_vec+0x63d/0x1560
+>      o2net_send_message+0xa6/0xe0
+>      validation_send_write+0x17f/0x1d0
+>      full_proxy_write+0x11f/0x180
+>      vfs_write+0x25a/0x1010
+>      ksys_write+0x111/0x200
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+>     The buggy address belongs to the object at ffff88810f56fc00
+>      which belongs to the cache kmalloc-512 of size 512
+>     The buggy address is located 144 bytes inside of
+>      freed 512-byte region [ffff88810f56fc00, ffff88810f56fe00)
+> 
+> (Page and shadow-memory dumps omitted.)
+> 
+> Fixes: 2309e9e040fe ("ocfs2/net: Add debug interface to o2net")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 
-> diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/ethernet/intel/igc/igc_main.c
-> index 1fb5f3cbe93c5..41b293dc10c3a 100644
-> --- a/drivers/net/ethernet/intel/igc/igc_main.c
-> +++ b/drivers/net/ethernet/intel/igc/igc_main.c
-> @@ -2639,7 +2639,8 @@ static int igc_clean_rx_irq(struct igc_q_vector *q_vector, const int budget)
+The change looks good.
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+
+> Assisted-by: LLM
+> 
+> ---
+> Changes in v2:
+> - Move o2net_debug_del_sc() before socket and node cleanup, as Joseph
+>   suggested.
+> - Use the ocfs2/cluster title prefix and describe the races with sequence
+>   diagrams.
+> - Add Cc: stable@vger.kernel.org.
+> 
+> Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0065-v4-f45e5cef38dd587b2cfd@gmail.com
+> 
+>  fs/ocfs2/cluster/tcp.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/ocfs2/cluster/tcp.c b/fs/ocfs2/cluster/tcp.c
+> index 8b3830b601ba6e5fe964bec970581b8e4ddbb5dd..0eaf2c4a6989ecad00f7a88a66a782b334647f21 100644
+> --- a/fs/ocfs2/cluster/tcp.c
+> +++ b/fs/ocfs2/cluster/tcp.c
+> @@ -393,6 +393,9 @@ static void sc_kref_release(struct kref *kref)
 >  
->  		pktbuf = page_address(rx_buffer->page) + rx_buffer->page_offset;
+>  	sclog(sc, "releasing\n");
 >  
-> -		if (igc_test_staterr(rx_desc, IGC_RXDADV_STAT_TSIP)) {
-> +		if (!skb &&
-> +		    igc_test_staterr(rx_desc, IGC_RXDADV_STAT_TSIP)) {
+> +	/* Unlink before freeing anything the debugfs readers dereference. */
+> +	o2net_debug_del_sc(sc);
+> +
+>  	if (sc->sc_sock) {
+>  		sock_release(sc->sc_sock);
+>  		sc->sc_sock = NULL;
+> @@ -402,8 +405,6 @@ static void sc_kref_release(struct kref *kref)
+>  	o2nm_node_put(sc->sc_node);
+>  	sc->sc_node = NULL;
+>  
+> -	o2net_debug_del_sc(sc);
+> -
+>  	if (sc->sc_page)
+>  		__free_page(sc->sc_page);
+>  	kfree(sc);
 
-[Severity: High]
-Is !skb a reliable first-buffer test when an XDP program is attached?
-
-Suppose the XDP program returns a non-PASS verdict (CONSUMED, TX or
-REDIRECT) for the first, non-EOP buffer of a multi-descriptor frame. No skb
-gets built, and the loop moves on with skb still NULL:
-
-		/* fetch next buffer in frame if non-eop */
-		if (igc_is_non_eop(rx_ring, rx_desc))
-			continue;
-
-On the next continuation descriptor, !skb is still true, so the TSIP branch
-subtracts IGC_TS_HDR_LEN again. If that continuation holds fewer than 16
-bytes, size wraps.
-
-The wrapped size then goes to xdp_prepare_buff(), and the continuation is
-run through XDP as a new frame with data_end before data. On XDP_PASS, both
-igc_build_skb() and igc_construct_skb() compute:
-
-	unsigned int size = xdp->data_end - xdp->data;
-
-That comes out to about 4 GiB:
-
-- igc_build_skb() passes it to __skb_put(). On PAGE_SIZE >= 8192,
-  igc_get_rx_frame_truesize() also wraps to a tiny truesize, so
-  napi_build_skb() would place skb_shared_info inside the packet data.
-- igc_construct_skb() turns it into a fragment of almost 4 GiB. That looks
-  like the same corrupted skb the commit message describes.
-
-Can this be reached from the wire? On PAGE_SIZE >= 8192, igc_set_rx_mode()
-never clamps RLPML:
-
-#if (PAGE_SIZE < 8192)
-	if (adapter->max_frame_size <= IGC_MAX_FRAME_BUILD_SKB)
-		rlpml = IGC_MAX_FRAME_BUILD_SKB;
-#endif
-	wr32(IGC_RLPML, rlpml);
-
-So the hardware still accepts jumbo frames even though XDP limits the MTU to
-1500, and with XDP the ring uses 3072-byte buffers. A remote frame that
-leaves 1 to 15 bytes in the second descriptor would hit this.
-
-Would it be safer to track start-of-frame explicitly, or to drop the rest of
-the frame's descriptors after a non-PASS verdict? Another option is to
-reject size < IGC_TS_HDR_LEN before the subtraction.
-
->  			ctx.rx_ts = pktbuf;
->  			pkt_offset = IGC_TS_HDR_LEN;
->  			size -= IGC_TS_HDR_LEN;
-
-[Severity: High]
-The same unchecked subtraction is still present in the AF_XDP zero-copy
-path. igc_clean_rx_irq_zc() strips the header from every descriptor with
-TSIP set. There is no first-buffer gate and no size check:
-
-		if (igc_test_staterr(desc, IGC_RXDADV_STAT_TSIP)) {
-			ctx->rx_ts = bi->xdp->data;
-
-			bi->xdp->data += IGC_TS_HDR_LEN;
-			...
-			size -= IGC_TS_HDR_LEN;
-		} else {
-			ctx->rx_ts = NULL;
-		}
-
-		bi->xdp->data_end = bi->xdp->data + size;
-
-Can zero-copy frames span descriptors at MTU 1500?
-igc_configure_rx_ring() programs the XSK frame size through
-IGC_SRRCTL_BSIZEPKT(), which is (x) / 1024. With 2048-byte chunks the frame
-size is 1792, so the hardware buffer becomes 1 KB.
-
-igc_xdp_enable_pool() only checks:
-
-	if (frame_size < ETH_FRAME_LEN + VLAN_HLEN * 2) {
-
-That accepts 1792 without allowing for the 1 KB rounding or the 16-byte
-inline timestamp, even though the comment there says frames should not
-span multiple buffers.
-
-On 4K pages RLPML is IGC_MAX_FRAME_BUILD_SKB. A received frame of about
-1009 to 1023 bytes, plus the timestamp header, would leave 1 to 15 bytes in
-a second descriptor.
-
-The reproduction in the commit message suggests TSIP is set on such
-continuation descriptors. If so, size wraps here and data_end ends up about
-4 GiB past the XSK chunk.
-
-Wouldn't that let the XDP program's packet bounds checks pass for offsets
-past the chunk? On XDP_REDIRECT, it would also report a bogus length to the
-XSK socket.
-
-Should igc_clean_rx_irq_zc() get a similar fix? Should
-igc_xdp_enable_pool() also account for the 1 KB SRRCTL granularity and the
-inline timestamp?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013010854.4068874-1-p%401g4.org
