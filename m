@@ -1,87 +1,356 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E873ABD90
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25DC335028C
 	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 06:12:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791958352; cv=none; b=BdVkaVtlmQ8HVDYTvWsU4ABUpq1yBegZST03+ItC7zzmhomXZ/wvS6U+U7YBpSngP+T9b7EI86/pIyqQ0hgUhs3T2k4nn9T/4J4XGkU6L45t0gdGyTeqaQeBD2MZbvNPT1xmKJxWzZlAPDsn9kHQmeP/tuKwGCS+eIJibv3KzZk=
+	t=1791958353; cv=none; b=NLScgDlsBeL4BsVxoBjc0wFwms9bzxv9MX6GOL4D05GkIV4ClCemMqoPN6dvjHZHf1wqq6NTbN3CPpia/h2RN5Wqs55ceMHR4yGJWni1bnuPExxbzMGZbmNxBDoeI2lkn98GrmlCDW8wEEdPGbFO5cTa+LfVqSwvpzIhNFQrR2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791958352; c=relaxed/simple;
-	bh=ZZ8YhT4vttbyAReWLwDYCcZjAsPCyQJ43qms/rc9dOc=;
+	s=arc-20240116; t=1791958353; c=relaxed/simple;
+	bh=i3dgU2b+aUuuCJEajR/vwhAVTF5qBQLno5WkrLeCgsM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jx96kazU7W3kOYTWXYsN/6QmIqBBWGyaPu3hYDIw22VTrhtth3TrFjGdlukOLRjBTPRiqRZ3muzXF7MSsutSMrlBHm/xJcfasSlDtG4HkvOjeheapa2emKGBR+IrJRKV4X+tQKpAddnmrkULQYpfzNicocmCfx+Z9tXooQxCPjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iIoTe7H6; arc=none smtp.client-ip=209.85.215.170
+	 MIME-Version; b=rhyr0/Uq8XweTDLqudDD6vAL4ZlP81fFSxublBhw/radbCFl8GYFGj4LOLpN+1mAx+JHbkaUQ25uCS0G4v1+PcFVyaYOEgNN+fyleXV5Q53lqOrvvXkxoNIXNS2UtEpwsQhAxHdzufmzf8Tiyxj+J04wuptY+ZrnUPdhi0ArYAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tv5KA3MB; arc=none smtp.client-ip=209.85.216.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iIoTe7H6"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc50ad2d650so2789319a12.1
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 23:12:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tv5KA3MB"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ac451e128cso866655a91.1
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 23:12:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791958351; x=1792563151; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZZ8YhT4vttbyAReWLwDYCcZjAsPCyQJ43qms/rc9dOc=;
-        b=iIoTe7H6VgKDcV2LZdG9OjmajV6SAJRxiL7dJG5U5TxMocbvVjrhJR5fn9JMHUTB0H
-         8namQtdnWK/sIHrfpaSJHw9nCHeAucd6RHYBXcVuxh2Mg87OXAEMcFPIdjPcjF+CA2+2
-         xbMO9K33WqQz+2skTzrlpNIL4MYIvZnzM8Q4I3qM7bzU5OTiU+c8+OEzJUr9BcknOxS0
-         lodKTX+mBpDan2FoS3LWR9xMqxKxwtd3i+zkhYFrqDf1NkIeTYkILD3pxxZJzUtGRgiV
-         G2JF3zFnjl46mhxJeVJtxVoY4n2Ud6z/1GgiR/l5ecL2t+1siAlwEGJ/imvRfvU49lwT
-         EVHQ==
+        d=gmail.com; s=20251104; t=1791958350; x=1792563150; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z00McG2/XHo1Y/v09p/B0SZ9bgqX+Fj9s0hH8a70oC4=;
+        b=Tv5KA3MBoaf4WElDWqpffL2D8NBnnXO2AUMAbTlunaemHOs3VCLQdY/m+2vJLSmzUr
+         eopj7eY3C+HMALYRc/sI06TICGyucpoXemfn0bkPd68O50q1pkF/yO3elLKNWRZj3z5o
+         IqEd4db/mGUv2sVjXx6V9HT+WY27nWGktuq6gY+0jzXMrB0eqnZIvY/VPGiUhWRITQMQ
+         7uX31E+80uLnMsymuuvM9sgkT7m180OPEcd/yJ8J3xdLVF4BeymTEeEDNbvQBkLHqy/B
+         2hf6ugJc9OtLSQTFVaQNY2hGySB3NZPhDJ369G0Te5rF9BshoVkBiQw8mGrwXf92SXdl
+         fgeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791958351; x=1792563151;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZZ8YhT4vttbyAReWLwDYCcZjAsPCyQJ43qms/rc9dOc=;
-        b=a24y8soZB/YCLM10bI1m+lA9PKV52hdtVjQBnCa28/yJVJwrOQOpqPUAvAcj/ZQVlX
-         JtATmaplRq6ZaI4epr/cufUhqvD86HtUdKH4eB+fNw+dEl5VWVAXmJeHhJHJfvqbVUQB
-         BtNheVVNAO4JgUmwjSdE+k50eSJGS/KyLER6XsoCTPi/lLxrh0JKcHOK6sHtWWwBnw9s
-         kZ2h18z+0FSYFOjQzxN09UD3rsinVJ2mqRsSNngL1PC/+9X7sfTMgRPw78CDe9l8fuh4
-         nb8P8GBxtZZA44YTMANiN1k41+scJovsJxxQfQBSIybnS8hvyFVIUgue4j5a0ddV/TCH
-         8P+A==
-X-Forwarded-Encrypted: i=1; AKwUvBx7QzcmsrOlareMTPruQ4fd0A9EUInpAXvIpyHEaQbj2sudeNJHetMdUAnptD333efSjwnIhHI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIYZttgGI5X+MtN2HAJdDbHN1BRSzq5NaRu5o39b7xu/x6d+5TF
-	ejewMEQD2wffgPUiCyRx34GqyUYWqdI/Yf1J7DR1hknNGsUMvoaT/8AKBCTEkQ==
-X-Gm-Gg: AYBFou0BcyYFKr/vmSRlcu4/PLAQrAIL2IUN4x9tx8fxmdxd42MBXjyGpYOguWjBrFT
-	6UiT7KvlklG0pImrQOeZLh+oD325JNtyjGJMjIDbEbxdWGEE8baOzSzxEQNcSwR9eHDoDAMwNvk
-	i0q0GnbhzqPa6nM9iL16fBPhw8zIUysHnFloXIqwdKk54vT+OyupYThTxrsg7SlmrEMCtRYPkqt
-	XurHkDLxgXB7TOTs/Pog8+/4BuQNXWMFAIBtwOlxrOB4U8ccLuDrXvJVqn2eOj266hdxQGHVGa9
-	B1bVhodSgbppz1gTZiItWfaX+QiimOzl5uT8qt7IjCPmGdSK2YnwyJ/lrqBqX8OE9zin/P9xYDC
-	KeiAySbM5hHSSCnNRCEmLZNNDhjx2jOGAqTMZ+YzJqZSxY2hCESffaM+YSeA0JyH6MSkxWQQWpU
-	8aM2a6e5rF/hB+wX447rtqVZ5+tuYFqDjN7scrdKq32dP+G/Qj0zRvBKtRMz6vmDzgpZGVuUjam
-	uFQOC2lhAEgAtbRzxtCLjD8U9FNgDwpqArbclP43CY=
-X-Received: by 2002:a17:90b:1e41:b0:3a8:9b79:e6ea with SMTP id 98e67ed59e1d1-3ab3a96ffd7mr13125588a91.59.1791958350750;
+        d=1e100.net; s=20260707; t=1791958350; x=1792563150;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z00McG2/XHo1Y/v09p/B0SZ9bgqX+Fj9s0hH8a70oC4=;
+        b=qiCub/CaIc76IXJxjIWXpJTCKkbUgtUpd8OnUrbg2hUrgQz0SAQseaBKgd+5msu8oq
+         rt9X2ZMFlf0IQi0+O9vtQ7EUhanpRHnZb4ZPVxHW/gK4l1QP7PkXnauyFyIkeRM7Serx
+         dEaxIviOOeh4JgW06ZBl8P25lqAv+/COP1P59Tp6SrJpEEsQafqpUFj2BhueS2X9jvVF
+         7mZnJAWtg+cNvunK7L9Y1o/PuLvt6doGx2yaD4OJYHkvBlbFKI0zHDdi5QTFObS4+82f
+         IUoPoW3zBaA5r8rDnLXgHbdLl92VfMepsc9h5qTaYGHjhRq3wjAWkw5nGON58d2bkYVy
+         2phg==
+X-Forwarded-Encrypted: i=1; AKwUvBwKl9T5fXQzwMnk/p6yDSDkkYunQgJPe4TMXT9fF0nmMF935oCmyu311TlCdnQDbTY96aJwhwM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKU8iWhjKQ+oyAbewvT29/0Frb4en/A/Yp+Bksa+MVdaHffDCwl
+	kEeXOXY/oUjc7dy6e1Cqjo67wQilryI2KcaS5fPOLfUtMZoeafrAoOEb
+X-Gm-Gg: AYBFou3HoARwk4nDHLLdEZbPdy0UK9uBNyhHSeef+9o0C+qUZgRprlLOWf2xgl42Q5i
+	FfxcEz6KapwBt6sFTrBqfBSkpeoHN4uTeRCW7QvoFnMXaVEgLJ4h1WBQMHQ2yFFrp0BwDP511rU
+	2c9m11gaG5GjKV2ecBn4beFKm3y9U8Io42eX3Mcdt/PB5rAiKdBNIJ5ierSiAPRhulJfNt8E9CS
+	7hcpXQqF1taMEVbLLS1oY0UzYVPO+0dobNsxDyncNGtaMMviQUnbgK6RTJxC5K/RX2jKw+/15qg
+	T/FYhj9QWAFOwLwn3mtLzL3d96BKF9NecrWEOV46KbL/bGe6uK9dHPI07KeYYraVtRZ84L6d8Nw
+	tNn5+hsDv2Zih2ub7ynQnY5ZmWHgOZG4rFIBH+nVlrgUPzpZsSd93UzvnSeA19vmXRWYOh7+eaP
+	aEHtV5yRvAMlcPyN9zouitnVbwyA47cZthaurum/9EcsKo5n/z8gfBAYTeOEhMRCLOaaUW1SdWp
+	phEC4dptwr6gqs=
+X-Received: by 2002:a17:90a:4ca2:b0:3ab:7031:d962 with SMTP id 98e67ed59e1d1-3ab70412990mr7653511a91.41.1791958350288;
         Tue, 13 Oct 2026 23:12:30 -0700 (PDT)
-Received: from DESKTOP-0UATUKF.mioffice.cn ([43.224.245.249])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f04e324sm3094613a91.2.2026.10.13.23.12.27
+Received: from bintable.tail83b815.ts.net ([123.215.20.10])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac7321cc5bsm2086827a91.14.2026.10.13.23.12.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 23:12:30 -0700 (PDT)
-From: Dongliang Qin <cccccccccccc777777@gmail.com>
-To: Zhu Yanjun <zyjzyj2000@gmail.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: Dongliang Qin <cccccccccccc777777@gmail.com>,
-	linux-rdma@vger.kernel.org,
+        Tue, 13 Oct 2026 23:12:29 -0700 (PDT)
+From: Jinpyo Lee <bint4b13@gmail.com>
+To: linux-nfs@vger.kernel.org
+Cc: Chuck Lever <cel@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
 	linux-kernel@vger.kernel.org,
-	Bob Pearson <rpearsonhpe@gmail.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/4] RDMA/rxe: Fix MW/MR lifetime races
-Date: Wed, 14 Oct 2026 14:12:23 +0800
-Message-ID: <20261014061223.1547823-1-cccccccccccc777777@gmail.com>
+	stable@vger.kernel.org,
+	bobtobabz@gmail.com
+Subject: [PATCH v3] nfsd: prevent a double put of revoked layout stateids
+Date: Wed, 14 Oct 2026 15:12:18 +0900
+Message-ID: <20261014061218.102648-1-bint4b13@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260928171756.3254016-1-cccccccccccc777777@gmail.com>
-References: <20260928171756.3254016-1-cccccccccccc777777@gmail.com>
+In-Reply-To: <3a6b84453aaa75b654155a699d4f85735df9c48d.camel@kernel.org>
+References: <3a6b84453aaa75b654155a699d4f85735df9c48d.camel@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Any comments on this patch ?
+nfsd4_free_stateid() finds an admin-revoked layout stateid with
+find_stateid_locked(), which does not acquire a reference. The layout
+case drops cl_lock without marking the stateid closed, then stops fence
+work and calls nfs4_put_stid() without owning a reference. Concurrent
+disposal can therefore access a freed layout stateid or drop a reference
+owned by another holder.
+
+Mark the layout stateid CLOSED under cl_lock. Take a temporary reference
+before dropping cl_lock and hold it while stopping fence work and
+draining the remaining layout segments, then release it with the final
+put. The IDR owns no layout reference.
+
+Use cl_lock for the CLOSED update in LAYOUTRETURN as well, matching the
+common stateid locking rule. Retain ls_mutex through that update and
+recheck CLOSED under cl_lock after taking ls_mutex in LAYOUTGET, so a
+stale LAYOUTGET cannot add a segment after the drain. Also make the newly
+allocated layout stateid the error-path put target.
+
+Make revoked-stateid disposal idempotent with SC_STATUS_FREED under
+cl_lock. An in-flight reference can keep an admin-revoked OPEN, LOCK, or
+DELEG stateid in the IDR after disposal. Restrict
+nfs40_clean_admin_revoked() to v4.0 clients and skip FREED entries so its
+retry loop cannot repeatedly select the same stateid or consume references
+owned by other callers. Use FREED rather than CLOSED to guard disposal:
+delegation recall rejection can set CLOSED before the first disposal call.
+
+Reject FREED stateids in FREE_STATEID and TEST_STATEID as well, so a
+stateid retained by an in-flight reference returns BAD_STATEID after
+successful disposal instead of success or ADMIN_REVOKED.
+
+Validation used nfsd-testing at c32fef6c476d. The patched x86_64 kernel
+and modules were built with GCC 12.2 and booted with Generic KASAN,
+lockdep, modular NFSD, and pNFS SCSI layout support. Basic NFSv4.2,
+NFSv4.0, and NFSv3 read/write/unmount smoke tests passed.
+
+Targeted runs forced concurrent two-slot FREE_STATEID, LAYOUTGET and
+LAYOUTRETURN overlaps around ls_mutex, and an NFSv4.0 cleaner retry while
+a READ held an OPEN stateid reference. Stateids were reaped once, stale
+requests returned BAD_STATEID, and the NFSv4.0 cleaner did not process
+the NFSv4.1 client. No KASAN, lockdep, refcount, list-corruption, Oops, or
+kernel BUG report occurred; kernel taint remained zero.
+
+The vulnerability research and validation were conducted by members of
+the Tobabz team as part of the Best of the Best 15th program.
+
+Fixes: 86b9898920a6 ("NFSD: Handle layout stid in nfsd4_drop_revoked_stid()")
+Suggested-by: Chuck Lever <cel@kernel.org>
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Jinpyo Lee <bint4b13@gmail.com>
+---
+Changes in v3:
+
+- Address the v4.0 disposal issue reported by Sashiko and forwarded by
+  Jeff Layton: claim disposal with FREED under cl_lock and skip FREED
+  stateids in the admin-revocation scan.
+- Preserve first-time disposal of delegations already marked CLOSED, and
+  reject FREED stateids in FREE_STATEID and TEST_STATEID.
+- Rebase onto nfsd-testing c32fef6c476daa5830f600614657baee59c83339
+  and add targeted runtime validation.
+
+ fs/nfsd/nfs4layouts.c | 34 ++++++++++++++++++++++++++++++++--
+ fs/nfsd/nfs4state.c   | 29 +++++++++++++++++++++++++----
+ fs/nfsd/pnfs.h        |  6 ++++++
+ fs/nfsd/state.h       |  6 +++---
+ 4 files changed, 66 insertions(+), 9 deletions(-)
+
+diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
+index 898776c9d..749ace97e 100644
+--- a/fs/nfsd/nfs4layouts.c
++++ b/fs/nfsd/nfs4layouts.c
+@@ -312,6 +312,7 @@ nfsd4_preprocess_layout_stateid(struct svc_rqst *rqstp,
+ 		status = nfserr_jukebox;
+ 		if (!ls)
+ 			goto out;
++		stid = &ls->ls_stid;
+ 		mutex_lock(&ls->ls_mutex);
+ 	} else {
+ 		ls = container_of(stid, struct nfs4_layout_stateid, ls_stid);
+@@ -324,6 +325,15 @@ nfsd4_preprocess_layout_stateid(struct svc_rqst *rqstp,
+ 			goto out_unlock_stid;
+ 	}
+ 
++	/* A new or looked-up stateid may have been closed before ls_mutex. */
++	spin_lock(&stid->sc_client->cl_lock);
++	if (stid->sc_status & SC_STATUS_CLOSED) {
++		spin_unlock(&stid->sc_client->cl_lock);
++		status = nfserr_bad_stateid;
++		goto out_unlock_stid;
++	}
++	spin_unlock(&stid->sc_client->cl_lock);
++
+ 	*lsp = ls;
+ 	return 0;
+ 
+@@ -537,12 +547,18 @@ nfsd4_return_file_layouts(struct svc_rqst *rqstp,
+ 			nfs4_inc_and_copy_stateid(&lrp->lr_sid, &ls->ls_stid);
+ 		lrp->lrs_present = true;
+ 	} else {
+-		trace_nfsd_layoutstate_unhash(&ls->ls_stid.sc_stateid);
+-		ls->ls_stid.sc_status |= SC_STATUS_CLOSED;
+ 		lrp->lrs_present = false;
+ 	}
+ 	spin_unlock(&ls->ls_lock);
+ 
++	if (!lrp->lrs_present) {
++		/* ls_mutex prevents a LAYOUTGET from adding another segment. */
++		spin_lock(&ls->ls_stid.sc_client->cl_lock);
++		ls->ls_stid.sc_status |= SC_STATUS_CLOSED;
++		spin_unlock(&ls->ls_stid.sc_client->cl_lock);
++		trace_nfsd_layoutstate_unhash(&ls->ls_stid.sc_stateid);
++	}
++
+ 	mutex_unlock(&ls->ls_mutex);
+ 	nfs4_put_stid(&ls->ls_stid);
+ 	nfsd4_free_layouts(&reaplist);
+@@ -594,6 +610,20 @@ nfsd4_return_all_layouts(struct nfs4_layout_stateid *ls,
+ 	spin_unlock(&ls->ls_lock);
+ }
+ 
++void nfsd4_return_revoked_layout(struct nfs4_layout_stateid *ls)
++{
++	LIST_HEAD(reaplist);
++
++	/*
++	 * The caller holds a stateid reference until segment draining ends.
++	 * Wait for any LAYOUTGET that passed the CLOSED check.
++	 */
++	mutex_lock(&ls->ls_mutex);
++	nfsd4_return_all_layouts(ls, &reaplist);
++	mutex_unlock(&ls->ls_mutex);
++	nfsd4_free_layouts(&reaplist);
++}
++
+ void
+ nfsd4_return_all_client_layouts(struct nfs4_client *clp)
+ {
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index 26d2d56a5..0f1641eab 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -5849,6 +5849,17 @@ static void nfsd4_drop_revoked_stid(struct nfs4_stid *s)
+ 	struct nfs4_delegation *dp;
+ 	bool unhashed;
+ 
++	/*
++	 * In-flight references can keep a disposed stateid in the IDR.
++	 * CLOSED alone is not sufficient: a delegation may be closed
++	 * before its first call here.
++	 */
++	if (s->sc_status & SC_STATUS_FREED) {
++		spin_unlock(&cl->cl_lock);
++		return;
++	}
++	s->sc_status |= SC_STATUS_FREED;
++
+ 	switch (s->sc_type) {
+ 	case SC_TYPE_OPEN:
+ 		stp = openlockstateid(s);
+@@ -5867,15 +5878,22 @@ static void nfsd4_drop_revoked_stid(struct nfs4_stid *s)
+ 	case SC_TYPE_DELEG:
+ 		dp = delegstateid(s);
+ 		list_del_init(&dp->dl_recall_lru);
+-		s->sc_status |= SC_STATUS_FREED;
+ 		spin_unlock(&cl->cl_lock);
+ 		nfs4_put_stid(s);
+ 		break;
+ 	case SC_TYPE_LAYOUT:
+ 		ls = layoutstateid(s);
++		s->sc_status |= SC_STATUS_CLOSED;
++		/*
++		 * The IDR does not own a layout stateid reference. Keep ls
++		 * alive while draining worker and segment references below;
++		 * the final put releases this temporary reference.
++		 */
++		refcount_inc(&s->sc_count);
+ 		list_del_init(&ls->ls_perclnt);
+ 		spin_unlock(&cl->cl_lock);
+ 		nfsd4_stop_layout_fence(ls);
++		nfsd4_return_revoked_layout(ls);
+ 		nfs4_put_stid(s);
+ 		break;
+ 	default:
+@@ -7901,6 +7919,8 @@ static void nfs40_clean_admin_revoked(struct nfsd_net *nn,
+ 		unsigned long id, tmp;
+ 		struct nfs4_stid *stid;
+ 
++		if (clp->cl_minorversion != 0)
++			continue;
+ 		if (atomic_read(&clp->cl_admin_revoked) == 0)
+ 			continue;
+ 		if (is_client_expired(clp))
+@@ -7908,7 +7928,8 @@ static void nfs40_clean_admin_revoked(struct nfsd_net *nn,
+ 
+ 		spin_lock(&clp->cl_lock);
+ 		idr_for_each_entry_ul(&clp->cl_stateids, stid, tmp, id)
+-			if (stid->sc_status & SC_STATUS_ADMIN_REVOKED) {
++			if ((stid->sc_status & SC_STATUS_ADMIN_REVOKED) &&
++			    !(stid->sc_status & SC_STATUS_FREED)) {
+ 				refcount_inc(&stid->sc_count);
+ 				atomic_inc(&clp->cl_rpc_users);
+ 				spin_unlock(&nn->client_lock);
+@@ -8340,7 +8361,7 @@ static __be32 nfsd4_validate_stateid(struct nfs4_client *cl, stateid_t *stateid)
+ 		return status;
+ 	spin_lock(&cl->cl_lock);
+ 	s = find_stateid_locked(cl, stateid);
+-	if (!s)
++	if (!s || s->sc_status & SC_STATUS_FREED)
+ 		goto out_unlock;
+ 	status = nfsd4_stid_check_stateid_generation(stateid, s, 1);
+ 	if (status)
+@@ -8725,7 +8746,7 @@ nfsd4_free_stateid(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
+ 
+ 	spin_lock(&cl->cl_lock);
+ 	s = find_stateid_locked(cl, stateid);
+-	if (!s || s->sc_status & SC_STATUS_CLOSED)
++	if (!s || s->sc_status & (SC_STATUS_CLOSED | SC_STATUS_FREED))
+ 		goto out_unlock;
+ 	if (s->sc_status & SC_STATUS_ADMIN_REVOKED) {
+ 		nfsd4_drop_revoked_stid(s);
+diff --git a/fs/nfsd/pnfs.h b/fs/nfsd/pnfs.h
+index 559df0e5b..9b0f17a4d 100644
+--- a/fs/nfsd/pnfs.h
++++ b/fs/nfsd/pnfs.h
+@@ -75,6 +75,7 @@ struct nfsd4_deviceid_map *nfsd4_find_devid_map(int idx);
+ #ifdef CONFIG_NFSD_PNFS
+ void nfsd4_setup_layout_type(struct svc_export *exp);
+ void nfsd4_return_all_client_layouts(struct nfs4_client *);
++void nfsd4_return_revoked_layout(struct nfs4_layout_stateid *ls);
+ void nfsd4_return_all_file_layouts(struct nfs4_client *clp,
+ 		struct nfs4_file *fp);
+ void nfsd4_close_layout(struct nfs4_layout_stateid *ls);
+@@ -93,6 +94,11 @@ static inline void nfsd4_setup_layout_type(struct svc_export *exp)
+ static inline void nfsd4_return_all_client_layouts(struct nfs4_client *clp)
+ {
+ }
++
++static inline void nfsd4_return_revoked_layout(struct nfs4_layout_stateid *ls)
++{
++}
++
+ static inline void nfsd4_return_all_file_layouts(struct nfs4_client *clp,
+ 		struct nfs4_file *fp)
+ {
+diff --git a/fs/nfsd/state.h b/fs/nfsd/state.h
+index 79dfa47b8..924a98af7 100644
+--- a/fs/nfsd/state.h
++++ b/fs/nfsd/state.h
+@@ -148,9 +148,8 @@ struct nfs4_stid {
+  * nn->deleg_lock protects sc_status for hashed delegation stateids.
+  * ->cl_lock protects the bits set as one is disposed of
+  * (SC_STATUS_CLOSED, SC_STATUS_FREEABLE, SC_STATUS_FREED) and
+- * sc_status for open and lock stateids. ->st_mutex also protects
+- * sc_status for open stateids. ->ls_lock protects sc_status for
+- * layout stateids.
++ * sc_status for open, lock, and layout stateids. ->st_mutex also protects
++ * sc_status for open stateids.
+  */
+ /*
+  * For an open stateid kept around *only* to process close replays.
+@@ -161,6 +160,7 @@ struct nfs4_stid {
+ #define SC_STATUS_REVOKED	BIT(1)
+ #define SC_STATUS_ADMIN_REVOKED	BIT(2)
+ #define SC_STATUS_FREEABLE	BIT(3)
++/* Disposal has been claimed; in-flight references may still exist. */
+ #define SC_STATUS_FREED		BIT(4)
+ 	unsigned short		sc_status;
+ 
+
+base-commit: c32fef6c476daa5830f600614657baee59c83339
