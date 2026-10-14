@@ -1,135 +1,124 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8F897485CD8;
-	Wed, 14 Oct 2026 21:25:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BC2A47D464
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 21:28:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792013158; cv=none; b=HmnxN7Ovap6I/TpKmN/0ySC/xFeffv/KEW+7x80w0ZkgJfCFvzqUms9xRUIAkXk9S7/11D9UXShVjvRwO2uXuTkO6vvd4Qw+kzDaFBfdn8NRJBJwOIAMI3mz9wQVtt8U/tvtSTOZ0uXQT6jQvWGNXI1Tla6a+NJAYbSFOhCo2RQ=
+	t=1792013329; cv=none; b=s0oEJ+HPjEU11oomR4CAOKg6mvSnRuO6N5vsEgGwID5IYM7aHHp9OYESJWs9BiiGEmNFMdhuUK6Y76CLymxcTKU+cuVZTSNwmEysx1cP7ICZaZRZcm6J0j+BL4jipTHuwfJ4Im4yXymtIp0SkON6afSBoP22WNh3jQPlVGMCW+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792013158; c=relaxed/simple;
-	bh=Nvuk9EjMLe5/SNvSmLnt66/rQZrM0GPcXSYJQyOxEDA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TEuuKDUPc6nxkDgEvIcmW0U6BMojHCaokM+126NRC6pTvUzCgHOMEulsjrQd6LqBPAsHYlNPprbNCZ/7lhGnC3YTq3EmfsNl5PhE7LkTJbGzmxMFABHp2efUl5Nx6mVVwBV7OF9DPOriUoYlrETRgUKvdRiqNycbbzdX1Pux0MM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=KSJ1YVXA; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1792013329; c=relaxed/simple;
+	bh=KvbIjug+XBjJ8+q6eUmAaqLmbq7NeEQbmpeTsgRct8A=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Content-Type; b=NTtYJ0FA9wBABjQVLvTewHvKPIDaLWxk277IYUiVgPq3wyLcoqTbn4aMlcGm6aziXoTtuoiQ7VwymaiurKH12qRsNPCE222qnKaLBk5zEslEl2I2I5hYBPBBdLoVo1iFJEAbrZ3ee7u7cKTADDbTAJsd9FAdSgVrgkZU0c92sAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aaltinay.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ATqRhiMl; arc=none smtp.client-ip=74.125.82.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aaltinay.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="KSJ1YVXA"
-Received: from vm-dev.d0aziqou4eyuzblxqhi51nu2sc.xx.internal.cloudapp.net (unknown [4.246.87.102])
-	by linux.microsoft.com (Postfix) with ESMTPSA id F307620B7166;
-	Wed, 14 Oct 2026 14:25:52 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com F307620B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1792013153;
-	bh=OjykXisj4W9F6eAYp7KDPTuL1E2khyA+Exd/P94ZDhg=;
-	h=From:To:Cc:Subject:Date:From;
-	b=KSJ1YVXAIEEmw1Rhlw/qaqFIdfPaR2+vZLkTE+3f9c+5Gv1kIyW8uffPWiDiAxZCI
-	 h5/duSBZBGNhSGbcx3yusxPxThT+IABXrP8Y3ob7pqWtM2CVM/2ljCCv3HtD6C5xnb
-	 DcfayFv3FUSpyCX1rSK08kQVzUBnUgPdEhLfPHWQ=
-From: Tahera Fahimi <taherafahimi@linux.microsoft.com>
-To: stable@vger.kernel.org
-Cc: steffen.klassert@secunet.com,
-	herbert@gondor.apana.org.au,
-	raminwo0202@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	apais@linux.microsoft.com
-Subject: [PATCH 6.1.y] xfrm: prevent policy_hthresh.work from racing with netns teardown
-Date: Wed, 14 Oct 2026 14:25:40 -0700
-Message-ID: <20261014212540.1437936-1-taherafahimi@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ATqRhiMl"
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-357e2bc3b1bso7366661eec.0
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 14:28:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792013327; x=1792618127; darn=vger.kernel.org;
+        h=content-type:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FrP53zkylH5jmJtpHdY3kkUPtRKe9lF58R5x6xGvDVo=;
+        b=ATqRhiMlNVuXL/yPvY9dId4aprBvcU/swE4rsgXz24cr0VI/XzzfioFnhEXI/wsMJz
+         nZ9/wJM/w3+J2EC7KvgiSvlRY6kdO2R1UrO3GMGa440u4+KPSuvJcS8aT7UuT9An3ASR
+         Uu+XBs/6StRMVxbwLU/+h4zKlcRj5IwYg7+4apDt2e8mUD4U/BlZQZXgWNvpw1PRP1mO
+         X1f4lbuoYmhmRnhtUGJ3HsHYDB5F2ChTbuJw0eziLjv5J/6PmR0Jws1/d0Vl3ZsbxMQ4
+         JFgDSUaBxWa1QZ6JESppyOtsTyI8TIDjsVG8wTrRg1+ufv08/5SpylCSDSG33egQBy6V
+         l2lA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792013327; x=1792618127;
+        h=content-type:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FrP53zkylH5jmJtpHdY3kkUPtRKe9lF58R5x6xGvDVo=;
+        b=KB0gChjt5AM3Cy7tMMzeXpcJ7o0cR54d6LjXognLhOrQ/Osdc97ax7Xb4f2A6HUhnS
+         1qwmsEql+5lvOJQY0TP7axtg1bq6uzFzwdnUoNYF3UKjBLwjA4CBuFH6v/wma0DpUvtZ
+         rHVVlc2fBNeYGq+9/N7xyXH8SbcqupGVvGhhSix+yvpPhJJzPYux2NbJT9bfbCgyw6iN
+         37AYKnHzj6k+/JUQuPFCF8F1DrXQ5GSavEtWu1OhjaTyLniJuYv3PiTQtDblPiaFw51I
+         pdCgPHqH71HJFAcwTEfzFtGHjhTGZAMEH6Q0plcTUjDYw6w6n9qY7Oeb2YgCQTTVI9I9
+         ElpA==
+X-Forwarded-Encrypted: i=1; AKwUvBxxkz0nGwjNz8wSrN1DmkH/IMfxsWix03mXy/j9MJGCuJKBF5gOzbpwN4BkkQIWjh8MxFFgVq0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhaImv7xkaU/PT9+EpGGOWqJoia/0kHvbIp62AlqSL1bLUUnra
+	3AHWxCjPdYZYSVnhjySvBEoMhHoWoCH2Q1CBpo/ELmGLNP9vzjGnxZBd30YSQ4txkofv0JcS0KJ
+	fgoQAM0DudsjM2Q==
+X-Received: from dycmo5.prod.google.com ([2002:a05:693c:26c5:b0:35a:9fe1:dbbc])
+ (user=aaltinay job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7301:71a4:b0:35a:4ad6:d215 with SMTP id 5a478bee46e88-35a4ae61ed4mr14575792eec.22.1792013326375;
+ Wed, 14 Oct 2026 14:28:46 -0700 (PDT)
+Date: Wed, 14 Oct 2026 21:28:39 +0000
+In-Reply-To: <20261014212844.11997-1-aaltinay@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261014212844.11997-1-aaltinay@google.com>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261014212844.11997-2-aaltinay@google.com>
+Subject: [PATCH 6.18.y 1/6] KVM: x86: Ignore cpuid faulting in SMM
+From: Anil Altinay <aaltinay@google.com>
+To: aaltinay@google.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-An XFRM_MSG_NEWSPDINFO request can queue the per-net work item
-policy_hthresh.work onto the system workqueue. xfrm_hash_rebuild()
-retrieves the enclosing struct net from the work item, so the callback
-can dereference freed memory if it runs after net namespace teardown.
+From: Jim Mattson <jmattson@google.com>
 
-Mainline commit 29fe3a61bcdc ("xfrm: prevent policy_hthresh.work
-from racing with netns teardown") fixes this issue using
-disable_work_sync(). That API is not available in Linux 6.1, so the
-mainline change cannot be directly backported.
+commit 690dc03859e7907bc995f389618c748619559477 upstream.
 
-Provide the same guarantee with an XFRM-local work_disabled flag. Protect
-the flag and schedule_work() with the existing policy_hthresh seqlock so
-teardown can atomically stop new queueing attempts. Then use
-cancel_work_sync() to synchronize work that was queued before the flag was
-set. This ensures policy_hthresh.work cannot outlive its struct net.
+The Intel Virtualization Technology FlexMigration Application Note says,
+"When CPUID faulting is enabled, all executions of the CPUID instruction
+outside system-management mode (SMM) cause a general-protection exception
+(#GP(0)) if the current privilege level (CPL) is greater than 0."
 
-Fixes: 880a6fab8f6b ("xfrm: configure policy hash table thresholds by netlink")
-Assisted-by: GitHub-Copilot:GPT-5.6 Sol
-Signed-off-by: Tahera Fahimi <taherafahimi@linux.microsoft.com>
-Reviewed-by: Allen Pais <apais@linux.microsoft.com>
+Always allow the execution of CPUID in SMM.
+
+Fixes: db2336a80489 ("KVM: x86: virtualize cpuid faulting")
+Signed-off-by: Jim Mattson <jmattson@google.com>
+Link: https://patch.msgid.link/20260210234613.1383279-1-jmattson@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Anil Altinay <aaltinay@google.com>
 ---
+ arch/x86/kvm/cpuid.c   | 3 ++-
+ arch/x86/kvm/emulate.c | 6 +++---
+ 2 files changed, 5 insertions(+), 4 deletions(-)
 
- include/net/netns/xfrm.h |  1 +
- net/xfrm/xfrm_policy.c   | 19 ++++++++++++++++++-
- 2 files changed, 19 insertions(+), 1 deletion(-)
-
-diff --git a/include/net/netns/xfrm.h b/include/net/netns/xfrm.h
-index 423b52eca908d..99eb5c2ff888b 100644
---- a/include/net/netns/xfrm.h
-+++ b/include/net/netns/xfrm.h
-@@ -23,6 +23,7 @@ struct xfrm_policy_hash {
- struct xfrm_policy_hthresh {
- 	struct work_struct	work;
- 	seqlock_t		lock;
-+	bool			work_disabled;
- 	u8			lbits4;
- 	u8			rbits4;
- 	u8			lbits6;
-diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
-index 00d9693c13ae7..cc8f4d4b70875 100644
---- a/net/xfrm/xfrm_policy.c
-+++ b/net/xfrm/xfrm_policy.c
-@@ -1384,7 +1384,10 @@ static void xfrm_hash_rebuild(struct work_struct *work)
- 
- void xfrm_policy_hash_rebuild(struct net *net)
+diff --git a/arch/x86/kvm/cpuid.c b/arch/x86/kvm/cpuid.c
+index 913ffb995279..bfa89fbe826b 100644
+--- a/arch/x86/kvm/cpuid.c
++++ b/arch/x86/kvm/cpuid.c
+@@ -2098,7 +2098,8 @@ int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
  {
--	schedule_work(&net->xfrm.policy_hthresh.work);
-+	write_seqlock(&net->xfrm.policy_hthresh.lock);
-+	if (!net->xfrm.policy_hthresh.work_disabled)
-+		schedule_work(&net->xfrm.policy_hthresh.work);
-+	write_sequnlock(&net->xfrm.policy_hthresh.lock);
- }
- EXPORT_SYMBOL(xfrm_policy_hash_rebuild);
+ 	u32 eax, ebx, ecx, edx;
  
-@@ -4181,6 +4184,7 @@ static int __net_init xfrm_policy_init(struct net *net)
- 	net->xfrm.policy_hthresh.rbits6 = 128;
+-	if (cpuid_fault_enabled(vcpu) && !kvm_require_cpl(vcpu, 0))
++	if (!is_smm(vcpu) && cpuid_fault_enabled(vcpu) &&
++	    !kvm_require_cpl(vcpu, 0))
+ 		return 1;
  
- 	seqlock_init(&net->xfrm.policy_hthresh.lock);
-+	net->xfrm.policy_hthresh.work_disabled = false;
+ 	eax = kvm_rax_read(vcpu);
+diff --git a/arch/x86/kvm/emulate.c b/arch/x86/kvm/emulate.c
+index 9dbf3623e79e..8aa10d0e9894 100644
+--- a/arch/x86/kvm/emulate.c
++++ b/arch/x86/kvm/emulate.c
+@@ -3560,10 +3560,10 @@ static int em_cpuid(struct x86_emulate_ctxt *ctxt)
+ 	u64 msr = 0;
  
- 	INIT_LIST_HEAD(&net->xfrm.policy_all);
- 	INIT_LIST_HEAD(&net->xfrm.inexact_bins);
-@@ -4206,6 +4210,19 @@ static void xfrm_policy_fini(struct net *net)
- 	unsigned int sz;
- 	int dir;
+ 	ctxt->ops->get_msr(ctxt, MSR_MISC_FEATURES_ENABLES, &msr);
+-	if (msr & MSR_MISC_FEATURES_ENABLES_CPUID_FAULT &&
+-	    ctxt->ops->cpl(ctxt)) {
++	if (!ctxt->ops->is_smm(ctxt) &&
++	    (msr & MSR_MISC_FEATURES_ENABLES_CPUID_FAULT) &&
++	    ctxt->ops->cpl(ctxt))
+ 		return emulate_gp(ctxt, 0);
+-	}
  
-+	/* Prevent new policy hash rebuilds before draining the work item.
-+	 *
-+	 * The upstream fix uses disable_work_sync(), which is unavailable
-+	 * in v6.6. Protecting work_disabled and schedule_work() with the
-+	 * same seqlock closes the check-to-queue race, while the subsequent
-+	 * cancel_work_sync() drains work that was queued or running before
-+	 * teardown disabled it.
-+	 */
-+	write_seqlock(&net->xfrm.policy_hthresh.lock);
-+	net->xfrm.policy_hthresh.work_disabled = true;
-+	write_sequnlock(&net->xfrm.policy_hthresh.lock);
-+	cancel_work_sync(&net->xfrm.policy_hthresh.work);
-+
- 	flush_work(&net->xfrm.policy_hash_work);
- #ifdef CONFIG_XFRM_SUB_POLICY
- 	xfrm_policy_flush(net, XFRM_POLICY_TYPE_SUB, false);
+ 	eax = reg_read(ctxt, VCPU_REGS_RAX);
+ 	ecx = reg_read(ctxt, VCPU_REGS_RCX);
 -- 
-2.43.0
+2.56.0.385.gd3acb90ef8-goog
 
