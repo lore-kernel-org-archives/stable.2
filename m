@@ -1,166 +1,110 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A564CEE52
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:37:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D92483BCD;
+	Wed, 14 Oct 2026 19:45:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792006677; cv=none; b=ks7YWoDr3BkZW+AovknIAyxttXsU123Mri9iZgqkiCHHl7H6eb1zuYcwpGc8sL1izZmifGbt4RGL0NiHdUYgoRearsoJ6uK1o+xhKcStYOkToq5gfypipM9IdSNB84nswIJ1aaNBXZ7PptT/4YxAu0zpBiHa7tIcIH77I2fOE9Q=
+	t=1792007127; cv=none; b=fEo//vDnnOhNJ4SeKnok8hlaEnLIoAqzePxrQ1Q2BQ+6L6OhvYEbT33q18WpVmzev48epaqBhmdbk9i+gYUydROsCripBA49WZmAuLeHG5dLBmokho7BosszKAapjhUoZkdWlNehmfh2RgvACqerwcYrrUWAYW6Iy/sBlKysW5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792006677; c=relaxed/simple;
-	bh=ObMYjck/H6XcNs75oCe1fV8PVDjoFJCKP174W+DH64A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jft76TTmQz4Ut5AuZMGxBUpOIoreijegwY52TCmEu0Q8pKMoVDuQ5NpQk12G8gNpSYNvkvzJd+cZXrENgVYD9hh0JN/6HbDoY9aFJ59JCdMbdA+wPxb/rz3RpeMrPexigDSS5ziGFHddCoM+y0hknvKhOZTn8gL+eKFXf67KfaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=EFTK90m1; arc=none smtp.client-ip=74.125.82.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1792007127; c=relaxed/simple;
+	bh=fB80VoyJ5Km8aDO7VVGaC6up1GHaBbJic0k2rSAP1pA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=VCPJZAXj1AZNFUExT3as+TE3q/4ekHLFCxmpkzyxS+t48e3Md8J1l+0N47dStkj2P8e2zD0LQMaAQd0nA/UfgJP9XKWM+wzQrLwfh1GbrHK3PcbDrwCr1I07Xzunia9f5fx6G7l34H1whzIwE0WTuSCAkLJuxWalhgQEn5htU6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c9ZcMxDi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="EFTK90m1"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-30b6dad2382so10423365eec.0
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 12:37:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792006675; x=1792611475; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wSKDNnQRNy2/8dHJazcEc+4Vg6sKgqf+FQWePTpfAZ4=;
-        b=EFTK90m1xWk6P7yvztdOccA+zN4Q5O923N0RQv7838NxeBOSTzKl86I8KABtBQ+TkF
-         z7u/x4fFaTEXM4Yhg7gD+pu2zXpKyw1BLkXOPOVtmOgWo1NuXcDj4ETGP4lk0fRsC3Gr
-         ZPRMKdxZesOA32TcFaft8r/JtpPCP7FGFefFoq0EQ7G/GbjGGzbcrr4/WI/G+c284NBe
-         19YwT9Y94lxt6YsY73FupdNdl63zfc9E9BHE4s01D8W1MN/omM0aP8XhgO2HB5YGn0aU
-         3JWCNhD4JodGr6Pf+aezZKaJFrQhYHlq+h9Z/KGNrLsRo1lKY4SBKmSPbujyLf/y0e1b
-         Wu9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792006675; x=1792611475;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wSKDNnQRNy2/8dHJazcEc+4Vg6sKgqf+FQWePTpfAZ4=;
-        b=tCCjdN9l7TRjt1UY7JvS677zCnD7nr2p/I83DGGYdIAnYur7yAa+N69JFt9GyEYwUH
-         j60qoQut5SAybLAPWb/Mq2kCkaIrv3xs/CR9mALuEDv4cRorOj9mRR6NINgtB54ya2kz
-         +mYK4eD7CL13tQYKUeG+l4uKmlTdYpcCIAfJigTTMwLRYySfUDtG4yp4vknfkys6wMgN
-         rI38S0KjWiaD+eYmbaUKWqBbIlABfOIq9mWE2w/Yaqxjvvh+oR/He/J7DSoCNI4bfs4j
-         lnD0pcYFAUqoVc8UZjJ2UQGdbi76a1Buf7E6SBTZmczfUy3fbXKLTES/nLF5KiT/CL3s
-         S8ZQ==
-X-Gm-Message-State: AFq9FYJTxZUtGRhl28hzAv1vVjcFD6j70YBswew/y2G+twHQmsjiS/1h
-	/NryGWy9JVQ5KnBgiOFhwbg2JCjFhkXdANro1etRgFtMQv4BKPexEGntxh56cdWyuuAHNFNK+Rf
-	yB82w36jNZQ==
-X-Gm-Gg: AYBFou3IlD1vrq8u+sl1tUFP/eXlS51cMx5vOPEz2zz8aPtcJ7fUnpw2WeMwFi1sD0R
-	3EJsO/t7UhrKQgMiRQFNevhjdk27uhe4rieEiBsLsqQ5P501gvOemgY+9JF4bWJDmRqO+Cj54XG
-	K5hDgtAlEzETEXdCRStWOLzxm4z5BTqIrgqarNxG4dFuBMTymDcEziNHaq6fECZgAF3rLcn4X5X
-	ScWtGrhrSFYi5TnPz244GzTQzCOUrvmO0zlAr9y/UYVrm8U5QVskGB+pWWIVfBqdMOk/AVzCFR3
-	+32j+kcaCi+FKEfFjg+Fm8w+QCTZ1QSV5KlTaj10nljO99kjgXjKQGR6OezCR39R2Ty5Y+2YVZX
-	XbgzY4962VvZopOf6kpcIQ76tUaxvb1X6syqIAdIIc9t7bR4dVnQs/iPZXYlXLpwGJDBFsstY0l
-	FwvJ9RULagDNcGAymBsbV+2DXWQkXj+tQe43LBgZt70O8uk7PXI0eyZEDtpNcYPjEErlyMNv7Wt
-	MQ9dCsYgEd7JYUHDzKSf2Agt7lhCz6RF69olMViQ7LXySFWJUMoa3oWdARnjRdlBQu7bBA=
-X-Received: by 2002:a05:7300:fc0a:b0:351:7ec1:a92c with SMTP id 5a478bee46e88-3537e11c9c5mr23889883eec.28.1792006675265;
-        Wed, 14 Oct 2026 12:37:55 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:39d1:d8de:aae7:23dd])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca0e64csm60589703eec.10.2026.10.14.12.37.53
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 14 Oct 2026 12:37:54 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: broonie@kernel.org,
-	daniel.baluta@nxp.com,
-	kai.vehmanen@linux.intel.com,
-	lgirdwood@gmail.com,
-	liam.r.girdwood@intel.com,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	peter.ujfalusi@linux.intel.com,
-	pierre-louis.bossart@linux.dev,
-	ranjani.sridharan@linux.intel.com,
-	sound-open-firmware@alsa-project.org,
-	tiwai@suse.com,
-	vijendar.mukunda@amd.com,
-	yung-chuan.liao@linux.intel.com
-Subject: [PATCH 6.6.y] ASoC: SOF: Intel: hda-dai: Ensure DAI widget is valid during params
-Date: Wed, 14 Oct 2026 15:37:51 -0400
-Message-ID: <20261014193751.25230-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c9ZcMxDi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39F211F000C4;
+	Wed, 14 Oct 2026 19:45:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792007125;
+	bh=1A2hGUazCur6Y+hdoVY3V2GDYsLGpZiUcMU5T8N8Ohg=;
+	h=From:Subject:Date:To:Cc;
+	b=c9ZcMxDi6x3e6YWGSYu9hcrZ0dq1xhHOnaOvL52Hl7JiTuuOxd1sBqlr8N53vGDCp
+	 8963Fog2OIVGa2KGNuGaxQF4hAFtve8dwIF1ZjAhQbSuKKDM95lCJfx7IoZh2I6CX3
+	 yZGgdyimfMT76uIEZgjgmrzs/fpCrFpYEUH72KIC1fgoYU1+VhEJBAi+YPpb7GBhDR
+	 eqWa4oCLiaMllvFp3t5XU9g03znBGuDMV91Xrt+GOWP+RmMBTE3rhR2AElY55xcLI/
+	 R/GNg3TyTe/KYh/eSWaUKVOFIHYSs68KrErzkLLViznpLI5QaTjIjp79bY4bRkP6+w
+	 RxQH4HarBh5iA==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH 0/2] namespace: a mount that copy_tree() leaves out can't
+ take over a lock
+Date: Wed, 14 Oct 2026 21:45:12 +0200
+Message-Id: <20261014-work-namei-locked-mnt_ns_file-v1-0-24035bd5d8e9@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMUQ6CMBAFr0L67ZqWVBK8ijGkLVtZgdZ0EU0Id
+ 7eVz3l5M5tgTIQsrtUmEq7EFEMGdaqEG0x4IFCfWdSybpRUGj4xjRDMjARTdCP2MIelC9x5mhD
+ kBbVqtXdto0VuvBJ6+v77t/vB/LZPdEuJloc1jGCTCW4o0+r5fBj7/gN1wr7hnQAAAA==
+X-Change-ID: 20261014-work-namei-locked-mnt_ns_file-05e4194fc964
+To: linux-fsdevel@vger.kernel.org
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ Jeff Layton <jlayton@kernel.org>, Neil Brown <neil@brown.name>, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-3d1b8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2628; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=fB80VoyJ5Km8aDO7VVGaC6up1GHaBbJic0k2rSAP1pA=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSdv32h2kBi5g9RteVTpkdNZKu+cE0twTHO2mPR9r2+2
+ 5cuf/L+QEcpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBEao8z/DPV526tNFR/xZ9i
+ +eTam9LkJ7ecpHRqZgrIFu65nRjQIMrIsLZh252ACRt375iid0/vb8+WzvWhkndv7S1NmS6vwr2
+ 2nh0A
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
+Since commit c62a4766937e ("move_mount: transfer MNT_LOCKED") a mount
+can be moved beneath a locked mount. The lock moves from the old cover
+to the new mount which takes over the job of hiding what's under it and
+the old cover can be unmounted. That works as long as the new mount
+stays. But the caller picks the new mount and copy_tree() leaves a
+mount of a mount namespace file out of every copy made without
+CL_COPY_MNT_NS_FILE, together with everything mounted on it, and never
+looks at MNT_LOCKED. unshare(CLONE_NEWNS) and mount propagation make
+such copies.
 
-[ Upstream commit 569922b82ca660f8b24e705f6cf674e6b1f99cc7 ]
+So a task that is root in its own user namespace gets rid of a locked
+cover on a file without a race and without touching the filesystem
+below it. It makes a child with a mount namespace of its own, binds the
+child's /proc/<pid>/ns/mnt beneath the cover with MOVE_MOUNT_BENEATH,
+which hands the lock to that bind, and calls unshare(CLONE_NEWNS). The
+new mount namespace has nothing on the file. That's the usual way to
+mask a single file, a bind of /dev/null or of an empty file. With a
+bind of an ordinary file the file stays covered.
 
-Each cpu DAI should associate with a widget. However, the topology might
-not create the right number of DAI widgets for aggregated amps. And it
-will cause NULL pointer deference.
-Check that the DAI widget associated with the CPU DAI is valid to prevent
-NULL pointer deference due to missing DAI widgets in topologies with
-aggregated amps.
+copy_tree() already refuses to leave out a locked unbindable mount with
+-EPERM since commit df7342b24018 ("mount: Don't allow copying
+MNT_UNBINDABLE|MNT_LOCKED mounts"). Do the same for a locked mount of a
+mount namespace file. That also covers a tree copied with
+CL_COPY_MNT_NS_FILE and attached into a mount namespace of another user
+namespace where lock_mnt_tree() locks it. Note that unshare(CLONE_NEWNS)
+and clone(CLONE_NEWNS) fail with EPERM from such a mount namespace from
+then on. The mount can't be left out and it can't be unmounted.
 
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Liam Girdwood <liam.r.girdwood@intel.com>
-Link: https://patch.msgid.link/20241203104853.56956-1-yung-chuan.liao@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Assisted-by: LLM
-[ Backport to 6.6.y: Keep the NULL-widget checks in
-  sdw_hda_dai_hw_params() and sdw_params_stream(). Omit the extra check
-  in the newer IPC4 CPU-DAI aggregation loop, which this target lacks. ]
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+And refuse to move a mount of a mount namespace file beneath a locked
+mount in the first place. Otherwise the task ends up with a mount it
+can't unmount and an unshare() that fails for good.
+
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Jan Kara <jack@suse.cz>
+Cc: Jeff Layton <jlayton@kernel.org>
+Cc: Neil Brown <neil@brown.name>
+To: linux-fsdevel@vger.kernel.org
+
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
-Hi,
+Christian Brauner (2):
+      namespace: a mount that copy_tree() leaves out can't take over a lock
+      selftests/filesystems: test that a mntns file can't take over a lock
 
-Please consider this backport of the fix for CVE-2024-58012 to 6.6.y.
+ fs/namespace.c                                     |  19 +++-
+ .../umount_propagation/locked_mount_test.c         | 122 +++++++++++++++++++++
+ 2 files changed, 139 insertions(+), 2 deletions(-)
+---
+base-commit: 6e1ed4690110a546ea699792ff1307decce7611c
+change-id: 20261014-work-namei-locked-mnt_ns_file-05e4194fc964
 
-The two NULL-widget guards are identical to upstream; the additional IPC4
-CPU-DAI aggregation-loop guard is omitted because 6.6.y has no
-corresponding loop.
-
-The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
-
-Build-tested only as part of a cumulative 6.6.y series: x86_64 objects
-(allmodconfig, CONFIG_WERROR=y); no runtime testing.
-
-Thanks,
-Artem Dinaburg
-
- sound/soc/sof/intel/hda-dai.c |    6 ++++++
- sound/soc/sof/intel/hda.c     |    5 +++++
- 2 files changed, 11 insertions(+)
-
-diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
-index a3d0b6d721aaf6fa47d58053b6eead49af4e94d8..f541cd0fe78a40c85e37d90937dae77cf0fa429b 100644
---- a/sound/soc/sof/intel/hda-dai.c
-+++ b/sound/soc/sof/intel/hda-dai.c
-@@ -454,6 +454,12 @@ int sdw_hda_dai_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_sof_dev *sdev;
- 	int ret;
- 
-+	if (!w) {
-+		dev_err(cpu_dai->dev, "%s widget not found, check amp link num in the topology\n",
-+			cpu_dai->name);
-+		return -EINVAL;
-+	}
-+
- 	ret = non_hda_dai_hw_params(substream, params, cpu_dai);
- 	if (ret < 0) {
- 		dev_err(cpu_dai->dev, "%s: non_hda_dai_hw_params failed %d\n", __func__, ret);
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 15e6779efaa3bcc9e0dc16e6a92271930eba7a0f..aa3f9c961173715507b35e236d996f2751774ea3 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -102,6 +102,11 @@ static int sdw_params_stream(struct device *dev,
- 	struct snd_soc_dapm_widget *w = snd_soc_dai_get_widget(d, params_data->substream->stream);
- 	struct snd_sof_dai_config_data data = { 0 };
- 
-+	if (!w) {
-+		dev_err(dev, "%s widget not found, check amp link num in the topology\n",
-+			d->name);
-+		return -EINVAL;
-+	}
- 	data.dai_index = (params_data->link_id << 8) | d->id;
- 	data.dai_data = params_data->alh_stream_id;
- 
