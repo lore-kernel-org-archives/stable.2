@@ -1,137 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89151B4F09
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 01:00:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5949C271450
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 01:14:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791939658; cv=none; b=QsEDz7bWl2EB3bqGMS1aghghZ7wdQ4ZP6i8HITXUFt2LH5GVCdms7WRs70dlWcDf3Z8iqZJpy4RDo36bisAjPMNV58ZBWLVBKQ8AbbVDhlU5HsvYK/Jt0QrtHb1Vfu87onDceSj5ByiNGHxJ2AuE2iBvSuLlJdL7SvDqWR4pJgw=
+	t=1791940461; cv=none; b=YjVqj8X1+xXbyyjHZ4NucxLPn31R+5DWlmMbT/HQHLrtoISmbAU/cNaeLn/Vh21cOws5+5ZDf9RZvOVtx+s3h2PI/pNewSir2j/84BuTjTyG7N8Jy9VmOiRQkvQ7bXr+ochtf1ZIoh1H+VwN9ez3GBCC1WPvQQgv+eYUj1qEpLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791939658; c=relaxed/simple;
-	bh=YxvnBeXs0vjZ5XLc4jgBN+uuZxOa8EvYYcX8GGVxTb8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dXg2Fix0u76CtMC5XEa+6XiQCSQcm0LHU42H6NAbetDNcdQ9weXkQQQ44Vl/aNoX8d8WDLqhYj9bp+5A1jSTvQs/95MmFzcqv7w8p8awnT4EmH7lTHYyNfXBs/StTB9gCR0JMu1boSBIeSVUlZAgqtWKw0t7UisJDkwtbsY0M3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BBVA5Szf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791940461; c=relaxed/simple;
+	bh=73ZSkgvDAc/tEb38F0TL0h/qQE1nmehsX+W+85TKIlA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VW4DdOO3/UCAXHEReZtSHvMs44+f92debkQT83C7kFoBCh81wYqfv67tz2/HDlOvewRrd2PZRfcWWTkI8hXxrODFN3xFdSYnm9sRWr604pEUyG3E5DqL/nyq+EkGilmZf6JFWp290qoA3ao4CoM4f7eWEyiERbPGrNRCZ0fWSiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CO6NDMK4; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BBVA5Szf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06C131F000FF;
-	Wed, 14 Oct 2026 01:00:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791939657;
-	bh=OHqMcR/Vl4zkK+uYfuHayyqvM5xWC1zrVKo6h+xTCTk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BBVA5SzfPSSlyT0kQK7sWWD4bWOKKesSkIEpaeJ59FTUcQHE55F3Y3H7SjndTS0QQ
-	 BxbKKl+/TCREjNyo6ckX8r8uQZRLYer0qjS4gqedDYAnrmeXhgjGSsfOe20WcNtxWw
-	 rp4NlCUiOUxYCXZtPO/zFJyzo6eJOGTuB2teEZBlXGQOEk4VhdRDJTGiFMm2xmcIKZ
-	 AiurVDBg7HUPein3YFyDwGDd+NmCkK1fX155/bM9L5UFal/XpmboDe1nIx17nl3wF4
-	 Wkgsqzr+/JcXXswK5KWeuzaMndHgrDUGK22MpsXX2FvJp9VQH/pJ1fgPyfl4Hu8jaV
-	 yvAyd5gdrVSGA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] namespace: handle mount locking for automounts correctly
-Date: Tue, 13 Oct 2026 21:00:55 -0400
-Message-ID: <20261014010021.1583239-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101253-annually-delivery-a359@gregkh>
-References: <2026101253-annually-delivery-a359@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CO6NDMK4"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a018dc1f98so28288745e9.3
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 18:14:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791940458; x=1792545258; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+IRGY42o0foxKofOSIE21b7k7cypUKnC6DpjmgjMdLE=;
+        b=CO6NDMK43wiKPojMSSW1HF3u0mstSOPLyi8tY2H6Nlsljlo52qgIGTdCQYd2TL7+b9
+         0nakKlqYTz44tcHOFJpxhjHfMVl+4m3Jl/UYlZoBjPZtDeulxXD+VE5ySnVdsfl56Ofp
+         XhJK0xsaB5+DAFWrKMAMs/7OlBTinUNtsf2WZONpIWqvpMUP7q0PzAcidAEIKgbEnqVS
+         EfIn2Y64MePjoMFqN41bru7prUO2rfNHlCmoW4STOySXfFl5McK/pJO06QSCUM1T9aC6
+         7+wfEPHVoCS77Tvrt62ToQMUweDdvEDpkDcvMZvBpWJUn9JPERbPkiT0IjiFPbDCZ46P
+         DEdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791940458; x=1792545258;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+IRGY42o0foxKofOSIE21b7k7cypUKnC6DpjmgjMdLE=;
+        b=jEFqCwo3J52xYLVFAGWmenrSChjcTC2YncFzLInJz1B21Xrv4Epa7npivr57Qob6eY
+         Xy+S2xVnFGbYBUWNW1fmrv56KlwVVo8IPbJe6IS2UeViN97fDlUkJJfYZEuS4t53wHvQ
+         bMg97k8dI922XnikVlZciJPDEfcqeO35cEW7VIOSNrMs3Qf4ChNqD/iKAEvcTPOnsdmB
+         rTz5axmzvTHx2IlJ6fApiWSrlyIY0ACn+KwasdLjI8J0dr4hRJKX+Ru3s4jiHcqswUO+
+         XSr4Z1lFSFt9WAWGk2i4996JHetpx2QnAY5B0f9H5TDaeFRnrrxja+TXc2DLtt0QjB7s
+         9whg==
+X-Forwarded-Encrypted: i=1; AKwUvByYGkGxPevhVK+DTxuYBZBuV6mUKCw7SozbDTyCM4c0hyOplkIDvhrpE+100vosTx46dQ6bOzk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJ+kW6gJpYF/iEJOvebX3bKTkg8CXbQ+XE3eVPV8DSYClN55HQ
+	epj6mY8pJXntAyF4fNvq+J5jaYRBQbly3ETNe0/XG03ZS2/EP2wqYlsw
+X-Gm-Gg: AYBFou1QM9zOkPx5p/n1cyYmfsUuf7RrXY7Th8pm2VmteMJmd6rSLOjg18tUuSk6AJZ
+	Xkpv4EHRaDNZs01RxPjArabaEzNAEXPC1atNvYEupN8wbCAlT1wdE6vb6BcWcCQZqtiTq1YFbUR
+	/COT00K4fEETFPProcQ3b12VtNVyGRPu3Y8rBLdtQvyTtDUvzLf6ZZkcZvcMrw9Ypbyr0sSQTk8
+	BrWDzFw5E4zlZNH2VZzHuLhmTUdEoPup7JSzMT5LTzAa2PwS6CBdJDbVnIH7gZ3xtbF1G+4vxLT
+	gGUrUlvYAt+FqNUplxmvsHZtZZCWfWm8a+GDsH22qpuWt0Z5P/bAeEx4VmQdceabO9PChYZOF0J
+	v87MUZ1fwRKLzFmacCtXsP7RndXULZowSf9Jp9uOBw7JxZfSTm56VoNxUeO6CmdQsbf8L34A7Kx
+	VMspSMCKfn2J3A0urlRvsj2DHw51sBZ5sR1BwUh3Cp+xWUw1VGUNr0L8AuGL09Xrxskm+OHLGwf
+	ipFdTLxTArdC7LGtc+9VV199gdFDzBC52vnwjPH68I3Ua+TPvYMSoNIxU9wq0tDDiSwSgdSqI8n
+	/IV5zXUrIMd53KaBkMWyPEePy+ShHBhq0PacYkC1ftxX83ow
+X-Received: by 2002:a05:600c:3111:b0:4a1:811c:8069 with SMTP id 5b1f17b1804b1-4a18e49d640mr279688285e9.8.1791940458506;
+        Tue, 13 Oct 2026 18:14:18 -0700 (PDT)
+Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1b748cbfdsm4389935e9.0.2026.10.13.18.14.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 18:14:17 -0700 (PDT)
+Message-ID: <86ae9136-3413-45b2-99b0-fbe404ef1b39@gmail.com>
+Date: Wed, 14 Oct 2026 02:14:16 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] io_uring/cmd_net: prevent infinite retry loop on
+ unextractable timestamp skb
+To: Bui Viet Dung <dungvn2345@gmail.com>, Jens Axboe <axboe@kernel.dk>
+Cc: Willem de Bruijn <willemb@google.com>, lollipopkit <a@lolli.tech>,
+ io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20b406ac-94ec-4b0f-a307-08082092ae08@gmail.com>
+ <6ac7afc4.cf15ae49.1a8a2a.2a55@mx.google.com>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <6ac7afc4.cf15ae49.1a8a2a.2a55@mx.google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Christian Brauner <brauner@kernel.org>
+n 10/8/26 15:59, Bui Viet Dung wrote:
+> On Thu, Oct 8, 2026 at 3:43 PM Pavel Begunkov <asml.silence@gmail.com> wrote:
+>> Sounds fine since there are only timestamp skbs in this list, do
+>> you have a test case?
+> 
+> Hi Pavel,
+> 
+> Thanks for the review.
+> 
+> The issue was spotted during code inspection of the error handling path
+> in io_uring_cmd_timestamp(): specifically when skb_get_tx_timestamp() returns
+> a negative error (e.g. -ENOENT due to missing PHC bindings with
+> SOF_TIMESTAMPING_BIND_PHC or unavailable timestamp data). Since the
+> multishot apoll remains armed on EPOLLERR and the unhandled skb is spliced
+> back onto the head of sk_error_queue, it immediately re-triggers the command
+> in a tight busy-loop.
+> 
+> Below is a standalone test program demonstrating the TX_TIMESTAMP command
+> setup and execution with CQE32:
 
-[ Upstream commit 33aadc7c72055fca93cb5a3691d836ebf8b31c9b ]
+Did you actually reproduce it? This program doesn't for me, nor does
+fault injection. Taking a look at the code, io_uring_cmd_timestamp()
+returns -EAGAIN, and the request will wait for the next wake up in the
+polling code. There are bits to improve, but that's not an infinite loop.
 
-If mounts are propagated across user namespaces, attach_recursive_mnt()
-locks every copy of the source mount to protect overmounts from
-vanishing and revealing the underlying files or directories.
-
-The user namespace is taken from the caller's mount namespaces since
-this is where the mounts end up. Except, that's not always true.
-Automounts may legitimately get popped in by tasks located in a
-different mount and user namespace during path lookup.
-
-Then check doesn't make sense at that point. The copy in the namespace
-of the parent - which may be the host's - is now locked and the host
-cannot change the flags of its own mounts anymore.
-
-Here's the reproducer:
-
-- host has debugfs mounted nosuid,nodev,noexec and shared
-- tracefs automount below it is not yet active
-- hand a child process a directory descriptor on that mount
-- child process enters auser and mount namespace
-- child process' namespace now holds a locked copy of the host's debugfs
-  mount that receives propagation from it
-- child process stats "tracing/." through the descriptor
-- lookup runs on the host's mount so the automount lands below the host's mount
-- propagation puts a copy below the child's copy
-- both try to clear the flags on the mount they got, with a bind remount:
-
-    host, on its own automount:            MS_REMOUNT|MS_BIND = EPERM
-    child, on the copy in its namespace:   MS_REMOUNT|MS_BIND = 0
-
-So the lock landed on the host's mount instead of the child's copy.
-Congrats. So we need to compare with the owner of the namespace the
-mount actually gets mounted on. For all regular cases that is the
-caller's mount namespace and so nothing changes.
-
-Detached trees in anonymous mount namespaces by be handed over via
-SCM_RIGHTS or inherited in other ways on purpose so the attaching task's
-mount namespace is authoritative, not the creator of the detached tree.
-
-Fixes: 132c94e31b8b ("vfs: Carefully propogate mounts across user namespaces")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261002-work-mount-fixes-4-v1-6-dd44b89d44ce@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: Adjusted attach_recursive_mnt() context for direct dest_mnt and dest_mp arguments instead of the pinned_mountpoint interface. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/namespace.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
-
-diff --git a/fs/namespace.c b/fs/namespace.c
-index 42ecf070b6f76..c476cd7c42a8c 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -2212,14 +2212,30 @@ static int attach_recursive_mnt(struct mount *source_mnt,
- 			struct mountpoint *dest_mp,
- 			bool moving)
- {
--	struct user_namespace *user_ns = current->nsproxy->mnt_ns->user_ns;
- 	HLIST_HEAD(tree_list);
- 	struct mnt_namespace *ns = dest_mnt->mnt_ns;
-+	struct user_namespace *user_ns = ns->user_ns;
- 	struct mountpoint *smp;
- 	struct mount *child, *p;
- 	struct hlist_node *n;
- 	int err;
- 
-+	/*
-+	 * A caller in an unprivileged mount namespaces may trigger an
-+	 * automount and propagate locked mounts into privileged mount
-+	 * namespaces. Take ownership from the target mount namespace.
-+	 * It's equivalent for everything but the automount case.
-+	 *
-+	 * Detached trees in anonymous mount namespaces by be handed
-+	 * over via SCM_RIGHTS or inherited in other ways on purpose
-+	 * the attaching task's mount namespace is authoritative, not
-+	 * the creator of the detached tree.
-+	 */
-+	if (is_anon_ns(ns))
-+		user_ns = current->nsproxy->mnt_ns->user_ns;
-+	else
-+		user_ns = ns->user_ns;
-+
- 	/* Preallocate a mountpoint in case the new mounts need
- 	 * to be tucked under other mounts.
- 	 */
 -- 
-2.53.0
+Pavel Begunkov
 
