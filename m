@@ -1,40 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470912E2665
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C67732E7F25
 	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 00:44:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791938682; cv=none; b=MwLTdCSK+468nxyI+g9pY04bpOPeCA4pLw6/DNA3X7Or3tKdem6Ky7SUsMGMKI9U/k4da6yiqureGbMhGIOlbCgXPBrM9Az8kTSbS8GuhJtTAge2YlM3PdVvK93DMUjfSgTWx9zM3TBiCXjBdw8Sy5y5RRQr3W9EE0iHqqzc9YI=
+	t=1791938682; cv=none; b=kwYgUa5mcuiwESNUDIJRk6rOWd3fV0AVUP9CNGK+9dVuK9fxZ6jjhMyexI1Jw5IAkSppwJV2nA78LpjKeoD3joGMB0wL2YiG92yZ8fPRbXjK0r5wnH1sR4UYxmJ2xQzjPdYNCOtTZ4Ll5me1dHFO6zJotT7/o5U//IhOQK5knZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791938682; c=relaxed/simple;
-	bh=p5QG9WeqzQsmbI3lPTlCax+/O1UuT8BHhYe/e1TLa3w=;
+	bh=F0rJGptZS9wkoD0qQ282BystLHkDX/e5BdO7XFA63qY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kcGF1al3h7Kgd1p48g679HBxJG9rZJbeXlzr1+0fRLHOaLfMJgwFukXVT4b3QcOKFoXVMj5LBXGm+wWpre7BguwhQd6mtQcltMcNb3SjCGPZ7qzLgMgwIBiUJoKKnb3uTi5p5Z+lqYkOeanwkOrpRP24l4HIpfBf3C5lVawibnM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ei0a5e3P; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MKZgqJ7q36lOld/QzSRpShAhHRsq/0jO+ii1oycNfCrbOEeGodVG9AvAcB1FU5YI3Q7Jq773i1YJG4sWOroeDb6tgm325/RQROKhjc90XAB6fMO+v+r2BydBsUe2zJvC8iT+QhcOUqPz73QTPJ35SMQZM/wgsv0JNh8495e2NSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mv2x5JG0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ei0a5e3P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C2D41F0089A;
-	Wed, 14 Oct 2026 00:44:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mv2x5JG0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 312851F00893;
+	Wed, 14 Oct 2026 00:44:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791938680;
-	bh=HdymHuEocNhVJdlmaFoaUX3tM1rUVByCu4b39Uu6adc=;
+	s=k20260515; t=1791938681;
+	bh=AL+S0FCxaXNdlCoiAX/1LXThwI6k41QXYAfGGqFNUSI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ei0a5e3PL8AVzIGOQc4M4Igso7dIHieeU4JQ202CjQlln/Oc2GB6FdiIdgOxgFug9
-	 G5Um5/m+mcpiRG5laoyIBp/EYzzMNvWNq/cGS4IPcRAIIljS4nS/nZgFMst80b80sj
-	 4E33QI26N3JlEU+EMQBxJ/2Utd3aZWnb0eOVBO1vfVkoBNV9w57b+5FviozLAcoSXd
-	 w3Z1ZsZQY1XJyy/m+TI86sNYBLiuUXxVdSiGBdnEPlgfuxhwwd57SWmqdtmroPfeln
-	 Bd3wHZNwumSUTwZaNj4I4TWpgsczIADOIAmLU+gBXcqotvQGC8lO69bUutZIaO2oIH
-	 bBZvl3iTvx9Wg==
+	b=mv2x5JG0fZCTm0rc9dbBHKKh9s4UOIhkwmrRtRjOWnEZ5XE3QKa/D0D+AMkITgiir
+	 pr6GpMS/08J4/ZPd/Ob5yQxrpDEULw1ZCePOAFhkKF5xT+9P4nbTmRHl00N3ntIUz2
+	 WK/TK6kOBVoHbPJklWApzHlrAVEWNeFxx3CghPrUwjWlSHJtScX+yDWiWzrM1NDbpZ
+	 PklKbWAJGnepqgVdR/IncwXFLhsUaLk5lP2HlZVO7f0CZfC3UTt2Wn1RkOlCWPIAVm
+	 I8FbEZ7qvMAhXv8w1Ggkv5WJXl05+pMMLLEC4/itcUkJ3GDNHzXMjF5GuTxUd0uSTU
+	 r2YwDcz1KyKGA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christoph Hellwig <hch@lst.de>,
-	Jan Kara <jack@suse.cz>,
-	Christian Brauner <brauner@kernel.org>,
+Cc: Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/3] fs: require inode_owner_or_capable for F_SET_RW_HINT
-Date: Tue, 13 Oct 2026 20:44:36 -0400
-Message-ID: <20261014004346.1478485-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/3] fcntl: refuse F_SET_RW_HINT on an immutable inode
+Date: Tue, 13 Oct 2026 20:44:37 -0400
+Message-ID: <20261014004346.1478485-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261014004346.1478485-1-sashal@kernel.org>
 References: <2026101223-sprinkled-coming-7d84@gregkh>
@@ -47,37 +45,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christoph Hellwig <hch@lst.de>
+From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit b6512519496e29270bca6b2df9baa3cc2d9d5356 ]
+[ Upstream commit b0d1022b9bdb1e98aa7fb3244fdd50a58c61766c ]
 
-F_SET_RW_HINT controls data placement in the file system and / or
-device and should not be available to everyone who can read a given file.
+An immutable inode is never written to so write hints are pointless.
+Refuse the hint on an immutable inode the way setattr(), fallocate() and
+etxattr() refuse their changes.
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Link: https://lore.kernel.org/r/20241122122931.90408-2-hch@lst.de
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Christian Brauner <brauner@kernel.org>
-Stable-dep-of: b0d1022b9bdb ("fcntl: refuse F_SET_RW_HINT on an immutable inode")
+Fixes: c75b1d9421f8 ("fs: add fcntl() interface for setting/getting write life time hints")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261002-work-mount-fixes-4-v1-3-dd44b89d44ce@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  fs/fcntl.c | 3 +++
  1 file changed, 3 insertions(+)
 
 diff --git a/fs/fcntl.c b/fs/fcntl.c
-index 8e1408e8a5853..8e5389151804f 100644
+index 8e5389151804f..d2f2b27ecaa70 100644
 --- a/fs/fcntl.c
 +++ b/fs/fcntl.c
 @@ -296,6 +296,9 @@ static long fcntl_set_rw_hint(struct file *file, unsigned int cmd,
  	u64 __user *argp = (u64 __user *)arg;
  	u64 hint;
  
-+	if (!inode_owner_or_capable(file_mnt_idmap(file), inode))
++	/* nothing is ever written to it */
++	if (IS_IMMUTABLE(inode))
 +		return -EPERM;
-+
- 	if (copy_from_user(&hint, argp, sizeof(hint)))
- 		return -EFAULT;
- 	if (!rw_hint_valid(hint))
+ 	if (!inode_owner_or_capable(file_mnt_idmap(file), inode))
+ 		return -EPERM;
+ 
 -- 
 2.53.0
 
