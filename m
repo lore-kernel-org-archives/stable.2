@@ -1,47 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F142035AC24;
-	Wed, 14 Oct 2026 07:08:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893033EEAE9;
+	Wed, 14 Oct 2026 07:08:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791961704; cv=none; b=hJXoON86GMmO/KZCzHoIUQhRhrWvWAE8d9PShsNdSWRvZm6o5s952V5uwxsYCPqOJ7zxwLWcVFg/m9aQ/AtFd+D4CNCUPiYu8X0QlloU7PaAReJ3SpwxoEWgpBAf+h8Oa+48mngbiSRvyK37RkAMIlvCb7MdGdyfFQqAwMNLdhk=
+	t=1791961728; cv=none; b=n+/XppboqFl70j8nTS5g8kj5Nb6+VgqZ4bwrKchoRUt/kJFwem7QtfnVXyQy0sPAJCg3gvcFP66m/emcZQ5GbMhMnwZk0PQWYlKiosqNVRCwabeM9COdM6DkZEBnVmXLCRmSuO79q2ioownmk0gxziYGsuPXQED+u2b1ruOzMLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791961704; c=relaxed/simple;
-	bh=5ZI4q7YqrcLop7qUIktraHZ4M/3McRYAKjNohgjhHak=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qMjxB4qTY5AP54+a0uGCB4Mdc2fCrKgN17y+iLC3MpVIRbWR9avInMzgut1IBSPqCgZt5Gbfgpr1O1+Hf1UOYozFO584dGHa1FpFeOdDPqHzpacY88lA3XiXlYogCDt9GYN0KHspW0LM4FBOxbdUo1hQGD2oFBDGudtTVxcGxvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HVmnYn7e; arc=none smtp.client-ip=198.175.65.15
+	s=arc-20240116; t=1791961728; c=relaxed/simple;
+	bh=0KiPvwzZ4rk9bFV+u4knORXTUlNjb6zd0fznNmTbNvs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=liv4KDs9BBNKMZtkdPJjgcvyht3QKyyrfCF35vLrEFyEjJyB3mSr91CabDVeTJ2nvFwFUl7SZGH7OithYOXstDRbqATQ8V8RRVdRgDJz+9AGBIXlV1zOvnejPwn6kD8BriABBe9dC7dWsSMQtI3C6Ke6YQqrHH3ii1mYo0WmF3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VzOXQlUa; arc=none smtp.client-ip=198.175.65.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HVmnYn7e"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VzOXQlUa"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791961701; x=1823497701;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=5ZI4q7YqrcLop7qUIktraHZ4M/3McRYAKjNohgjhHak=;
-  b=HVmnYn7e3um0E/LFUjAJGBPuv2rTIoYl2ido303nshaecJ0PGrdQjrVh
-   HZPT66GGl2IAohcjOyqDJS6XPPAA5PYtUVOXTVrCkSNuKHO5IHgTrbCL6
-   Mbqp/oLPVjZt4bYpSS9R5Ft5SM6oRc2p1hoPybJ/YVMBf+9JLogggbmek
-   M3eQkEVsMHAvwOBLkQ8B35S8SOdwNaGBTGHyz7H8+wxvZXxW/tK3FbynY
-   h7iBfwOhQbublqwrBGx5LaklKct+hjOhkXW+gHkPqvLl/H+CNsfwmYMnf
-   5JquWcCDWNdA1XoEqEPQtigl5CiaaODB2rtXccIejng24mEcY687t7FnI
-   Q==;
-X-CSE-ConnectionGUID: srlAGC3WTv6rzjlExlL2Hw==
-X-CSE-MsgGUID: 5d5d9XpJQTabkTXgVFGkPw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="690501"
+  t=1791961721; x=1823497721;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=0KiPvwzZ4rk9bFV+u4knORXTUlNjb6zd0fznNmTbNvs=;
+  b=VzOXQlUaSsTqYByK9SzV/LtYwDaPX43BTPEXR0YWk7Bbx/Wepr1NZkEM
+   kbW1WCijvAptGPmrkDbcULdKQSAtr+tfVdcE7WCxtQjniDNlsXwE5BQch
+   5e98+uaAtK+zSuOgOXylmQWi6+LAj5qSa/x7deEpcZ/B87g2TCrHgURRJ
+   vF6P+2NkmdayU3+Y1ITPzX1jif9fe8DjSm4SgmCOaRjZ/SnbiixTyP7aH
+   IRvlm/oCMPwlxz4u8Lfdx/3Awr/3mws3LAPPkdq6EsiJ9l4RLlr1+w27k
+   KSHlR0kYJDuFyvouaSCBBdeOGgEe6fGkXVqRDq4R2irzoL2u8TyS3busK
+   w==;
+X-CSE-ConnectionGUID: 8EwXrTZkRiS7QNvxinKsuQ==
+X-CSE-MsgGUID: VlpTDIg2QxWkNC7IDy+eMA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="690519"
 X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="690501"
+   d="scan'208";a="690519"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 00:08:19 -0700
-X-CSE-ConnectionGUID: 3+rfUkoFSeiGhSeT1Y57Bw==
-X-CSE-MsgGUID: /Vbm5cpmSua3dS6Smz0khA==
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 00:08:26 -0700
+X-CSE-ConnectionGUID: Nx0xw10aQlOC0G1EIbGarg==
+X-CSE-MsgGUID: lYogrNVBQY+0JyweoMgogA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="1709246"
+   d="scan'208";a="1709262"
 Received: from unknown (HELO WEBAPTLH032.iind.intel.com) ([10.66.250.231])
-  by fmviesa009.fm.intel.com with ESMTP; 14 Oct 2026 00:08:15 -0700
+  by fmviesa009.fm.intel.com with ESMTP; 14 Oct 2026 00:08:22 -0700
 From: Ajay KV <ajay.k.v@intel.com>
 To: linux-bluetooth@vger.kernel.org
 Cc: chandrashekar.devegowda@intel.com,
@@ -53,10 +54,12 @@ Cc: chandrashekar.devegowda@intel.com,
 	chethan.tumkur.narayan@intel.com,
 	lakshmipathi.k@intel.com,
 	Ajaykv <ajay.k.v@intel.com>
-Subject: [PATCH v3 1/3] Bluetooth: btintel_pcie: Add initial YoYo debug support
-Date: Wed, 14 Oct 2026 10:08:11 +0300
-Message-ID: <20261014070813.96796-1-ajay.k.v@intel.com>
+Subject: [PATCH v3 3/3] Bluetooth: btintel_pcie: Configure YoYo DBGC buffer allocations
+Date: Wed, 14 Oct 2026 10:08:13 +0300
+Message-ID: <20261014070813.96796-3-ajay.k.v@intel.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261014070813.96796-1-ajay.k.v@intel.com>
+References: <20261014070813.96796-1-ajay.k.v@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,476 +70,712 @@ Content-Transfer-Encoding: 8bit
 
 From: Ajaykv <ajay.k.v@intel.com>
 
-Add an optional YoYo firmware configuration path to the Intel PCIe
-Bluetooth driver. Read DBG_PATH and ENABLE_INI from
-ibt_bt_dbg_cfg.ini, and load intel/ibt_debug_yoyo.bin only when YoYo
-is enabled and host DRAM routing is selected.
+Parse DBGC buffer allocation TLVs for DBGC1 through DBGC3. Validate the
+allocation ID, DRAM location, fragment count, requested size, and
+minimum fragment size before storing each allocation.
 
-Introduce a runtime context and bounded TLV-stream validation helper.
-Initialize and clean up the context with PCI probe and removal, while
-falling back to legacy debug behavior if optional YoYo data is missing
-or invalid.
-
-Runtime validation of the complete P1-P3 series produced:
-[    3.286504] Bluetooth: Core ver 2.22
-[    3.297359] Bluetooth: HCI device and connection manager initialized
-[    3.297373] Bluetooth: HCI socket layer initialized
-[    3.297376] Bluetooth: L2CAP socket layer initialized
-[    3.297384] Bluetooth: SCO socket layer initialized
-[    3.332848] Bluetooth: YoYo: configuration loaded and validated
-[3.360857-3.361712] Bluetooth: DBGC1-3: each 16 x 256 KiB (4 MiB)
-[3.361715] Bluetooth: MDBGC DBGC1-3: each 16 x 256 KiB
-[    3.397439] Bluetooth: hci0: Device revision is 0
-[    3.397442] Bluetooth: hci0: Secure boot is enabled
-[    3.397443] Bluetooth: hci0: OTP lock is disabled
-[    3.397444] Bluetooth: hci0: API lock is enabled
-[    3.397444] Bluetooth: hci0: Debug lock is disabled
+Use configured fragment counts and sizes for DMA buffers, firmware
+context descriptors, and coredump collection. On MDBGC devices, omit
+unconfigured buffer IDs when YoYo is enabled; retain legacy allocations
+when YoYo configuration is absent or invalid. Single-DBGC devices use
+DBGC1.
 
 Signed-off-by: Ajaykv <ajay.k.v@intel.com>
 
-diff --git a/drivers/bluetooth/Makefile b/drivers/bluetooth/Makefile
-index d5eb2568af2e..7d933755b291 100644
---- a/drivers/bluetooth/Makefile
-+++ b/drivers/bluetooth/Makefile
-@@ -14,7 +14,7 @@ obj-$(CONFIG_BT_HCIBTUSB)	+= btusb.o
- obj-$(CONFIG_BT_HCIBTSDIO)	+= btsdio.o
- 
- obj-$(CONFIG_BT_INTEL)		+= btintel.o
--obj-$(CONFIG_BT_INTEL_PCIE)	+= btintel_pcie.o btintel.o
-+obj-$(CONFIG_BT_INTEL_PCIE)	+= btintel_pcie.o btintel.o btintel_pcie_debug.o
- obj-$(CONFIG_BT_ATH3K)		+= ath3k.o
- obj-$(CONFIG_BT_MRVL)		+= btmrvl.o
- obj-$(CONFIG_BT_MRVL_SDIO)	+= btmrvl_sdio.o
 diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
-index 3a555aa50c87..aae8c0c83391 100644
+index e28f527d6d29..14ddaff77adc 100644
 --- a/drivers/bluetooth/btintel_pcie.c
 +++ b/drivers/bluetooth/btintel_pcie.c
-@@ -203,6 +203,103 @@ static inline bool btintel_pcie_dbg_to_wifi(struct btintel_pcie_data *data)
- 	return data->dbg_path_cache != BTINTEL_PCIE_DRAM;
+@@ -315,7 +315,8 @@ static int btintel_pcie_alloc_dbgc_buf(struct btintel_pcie_data *data,
+ 				       void **v_addr,
+ 				       struct btintel_pcie_dbgc_ctxt_buf *frag,
+ 				       u32 buf_index,
+-				       u32 buf_count)
++				       u32 buf_count,
++				       u32 per_buf_size)
+ {
+ 	struct data_buf *b;
+ 	int i;
+@@ -328,8 +329,7 @@ static int btintel_pcie_alloc_dbgc_buf(struct btintel_pcie_data *data,
+ 	}
+ 
+ 	*v_addr = dmam_alloc_coherent(&data->pdev->dev,
+-				      buf_count *
+-					BTINTEL_PCIE_DBGC_BUFFER_SIZE,
++				      buf_count * per_buf_size,
+ 					p_addr,
+ 					GFP_KERNEL | __GFP_NOWARN);
+ 	if (!*v_addr) {
+@@ -339,16 +339,40 @@ static int btintel_pcie_alloc_dbgc_buf(struct btintel_pcie_data *data,
+ 
+ 	for (i = 0; i < buf_count; i++) {
+ 		b = &(*buf)[i];
+-		b->data_p_addr = *p_addr + i * BTINTEL_PCIE_DBGC_BUFFER_SIZE;
+-		b->data = *v_addr + i * BTINTEL_PCIE_DBGC_BUFFER_SIZE;
++		b->data_p_addr = *p_addr + i * per_buf_size;
++		b->data = *v_addr + i * per_buf_size;
+ 		frag[i].buf_addr_lsb = lower_32_bits(b->data_p_addr);
+ 		frag[i].buf_addr_msb = upper_32_bits(b->data_p_addr);
+-		frag[i].buf_size = BTINTEL_PCIE_DBGC_BUFFER_SIZE;
++		frag[i].buf_size = per_buf_size;
+ 	}
+ 
++	BT_INFO("dbgc buf %u allocated: frag_num=%u per_buf_size=%u total_size=%u",
++		buf_index + 1, buf_count, per_buf_size, buf_count * per_buf_size);
++
+ 	return 0;
  }
  
-+/* Name of the optional INI file used to override the default dbg_path
-+ * (data->dbg_path_cache) and yoyo ini settings.
-+ */
-+#define BTINTEL_PCIE_DBG_INI_FILE "ibt_bt_dbg_cfg.ini"
-+
-+/* Loads optional "DBG_PATH=<value>" and ENABLE_INI=<value>
-+ * overrides from BTINTEL_PCIE_DBG_INI_FILE
-+ * and applies them to data->dbg_path_cache and data->enable_ini.
-+ *
-+ * DBG_PATH accepts BTINTEL_PCIE_WIFI_DBGC (0x06, default) and
-+ * BTINTEL_PCIE_DRAM (0x01, legacy); an invalid or missing entry leaves
-+ * the cached value set by the caller unchanged.
-+ *
-+ * ENABLE_INI accepts 1 (enabled) or 0 (disabled); an invalid or missing
-+ * entry leaves data->enable_ini unchanged.
-+ */
-+static void btintel_pcie_load_dbg_path_from_ini(struct btintel_pcie_data *data)
++/* Returns false if YoYo is enabled and @alloc_id is not configured */
++static bool btintel_pcie_get_mdbgc_cfg(struct btintel_pcie_data *data,
++				       u32 alloc_id, u32 *count, u32 *size)
 +{
-+	const struct firmware *fw;
-+	const char *ini_file = BTINTEL_PCIE_DBG_INI_FILE;
-+	char *buf, *cursor, *line;
-+	bool dbg_path_applied = false;
-+	int err;
++	const struct btintel_pcie_buf_alloc *ba;
 +
-+	err = request_firmware_direct(&fw, ini_file, &data->pdev->dev);
-+	if (err < 0) {
-+		BT_DBG("%s not found (%d), using dbg_path=0x%02x",
-+		       ini_file, err, data->dbg_path_cache);
-+		return;
++	ba = btintel_pcie_yoyo_get_buf_alloc(&data->yoyo, alloc_id);
++	if (ba) {
++		*count = ba->max_num_frags;
++		*size = ba->req_buf_size / ba->max_num_frags;
++		return true;
 +	}
 +
-+	buf = kmemdup_nul(fw->data, fw->size, GFP_KERNEL);
-+	release_firmware(fw);
-+	if (!buf)
-+		return;
++	if (data->yoyo.enabled)
++		return false;
 +
-+	cursor = buf;
-+	while ((line = strsep(&cursor, "\n"))) {
-+		char *eq;
-+		char *val;
-+		uint parsed;
-+
-+		line = strim(line);
-+		if (!line[0] || line[0] == '#' || line[0] == ';')
-+			continue;
-+
-+		eq = strchr(line, '=');
-+		if (!eq)
-+			continue;
-+
-+		*eq = '\0';
-+		line = strim(line);
-+		val = strim(eq + 1);
-+
-+		/* Accept "DBG_PATH"/"dbg_path"
-+		 * case-insensitively as the key.
-+		 */
-+		if (!strcasecmp(line, "DBG_PATH")) {
-+			BT_INFO("Read DBG_PATH from %s: '%s'", ini_file, val);
-+
-+			/* base 0 lets kstrtouint accept "0x06", "6", etc. */
-+			if (kstrtouint(val, 0, &parsed) == 0 &&
-+			    (parsed == BTINTEL_PCIE_DRAM ||
-+			     parsed == BTINTEL_PCIE_WIFI_DBGC)) {
-+				data->dbg_path_cache = parsed;
-+				dbg_path_applied = true;
-+				BT_INFO("WRT dbg_path accepted: 0x%02x",
-+					data->dbg_path_cache);
-+			} else {
-+				BT_WARN("Invalid DBG_PATH='%s' in %s, using dbg_path=0x%02x",
-+					val, ini_file, data->dbg_path_cache);
-+			}
-+		} else if (!strcasecmp(line, "ENABLE_INI")) {
-+			BT_INFO("Read ENABLE_INI from %s: '%s'", ini_file, val);
-+
-+			if (kstrtouint(val, 0, &parsed) == 0 &&
-+			    (parsed == 0 || parsed == 1)) {
-+				data->enable_ini = !!parsed;
-+				BT_INFO("WRT enable_ini accepted: %u",
-+					data->enable_ini);
-+			} else {
-+				BT_WARN("Invalid ENABLE_INI='%s' in %s, using enable_ini=%u",
-+					val, ini_file, data->enable_ini);
-+			}
-+		}
-+	}
-+
-+	if (dbg_path_applied)
-+		BT_DBG("Loaded dbg_path=0x%02x from %s", data->dbg_path_cache, ini_file);
-+	else
-+		BT_WARN("No valid DBG_PATH in %s, dbg_path=0x%02x", ini_file, data->dbg_path_cache);
-+
-+	BT_DBG("ENABLE_INI effective state: %u", data->enable_ini);
-+
-+	kfree(buf);
++	*count = BTINTEL_PCIE_DBGC_BUFFER_COUNT;
++	*size = BTINTEL_PCIE_DBGC_BUFFER_SIZE;
++	return true;
 +}
 +
- /* Helper function to allocate and setup a debug buffer group
-  * @data: driver data structure
-  * @buf: pointer to data_buf array pointer
-@@ -4097,10 +4194,25 @@ static int btintel_pcie_probe(struct pci_dev *pdev,
- 	data->boot_stage_cache = 0x00;
- 	data->img_resp_cache = 0x00;
- 	data->dbg_path_cache = BTINTEL_PCIE_WIFI_DBGC;
-+	data->enable_ini = false;
-+	btintel_pcie_yoyo_init(&data->yoyo);
- 	/* FLR can be invoked by echoing to debugfs path, so explicitly
- 	 * initialized
- 	 */
- 	data->reset_type = BTINTEL_PCIE_IOSF_PRR_FLR;
-+
-+	btintel_pcie_load_dbg_path_from_ini(data);
-+	if (data->dbg_path_cache != BTINTEL_PCIE_DRAM)
-+		data->enable_ini = false;
-+
-+	if (data->enable_ini) {
-+		err = btintel_pcie_yoyo_load_and_parse(&data->yoyo, &pdev->dev);
-+		if (err) {
-+			BT_WARN("YoYo is not configured (%d)", err);
-+			btintel_pcie_yoyo_cleanup(&data->yoyo);
-+		}
-+	}
-+
- 	err = btintel_pcie_config_pcie(pdev, data);
- 	if (err)
- 		goto exit_error;
-@@ -4128,11 +4240,14 @@ static int btintel_pcie_probe(struct pci_dev *pdev,
- 	if (err)
- 		goto exit_error;
+ /* This function initializes the memory for MDBGC buffers and formats the
+  * DBGC fragment which consists header info and DBGC buffer's LSB, MSB and
+  * size as the payload
+@@ -358,10 +382,9 @@ static int btintel_pcie_setup_mdbgc(struct btintel_pcie_data *data)
+ 	struct btintel_pcie_mdbgc_ctxt db_frag;
+ 	u32 frag_size = sizeof(db_frag);
+ 	void *frag_v_addr;
++	u32 buf_count, buf_size;
+ 	int err;
  
-+	data->yoyo.hdev = data->hdev;
- 	bt_dev_dbg(data->hdev, "cnvi: 0x%8.8x cnvr: 0x%8.8x", data->cnvi,
- 		   data->cnvr);
+-	data->mdbgc.count = BTINTEL_PCIE_DBGC_BUFFER_COUNT;
+-
+ 	/* Allocate fragment context structure */
+ 	frag_v_addr = dmam_alloc_coherent(&data->pdev->dev, frag_size,
+ 					  &data->mdbgc.frag_p_addr,
+@@ -380,46 +403,71 @@ static int btintel_pcie_setup_mdbgc(struct btintel_pcie_data *data)
+ 	db_frag.ver = BTINTEL_PCIE_MDBGC_FRAG_VERSION;
+ 
+ 	/* Allocate DBGC buffer 1 */
+-	db_frag.buf1_index = BTINTEL_PCIE_MDBGC_ALLOCATIONID_1;
+-	db_frag.buf1_count = data->mdbgc.count;
+-	err = btintel_pcie_alloc_dbgc_buf(data,
+-					  &data->mdbgc.buf1,
+-					  &data->mdbgc.buf1_p_addr,
+-					  &data->mdbgc.buf1_v_addr,
+-					  db_frag.buf1,
+-					  0,
+-					  data->mdbgc.count);
+-	if (err)
+-		return err;
++	if (btintel_pcie_get_mdbgc_cfg(data, BTINTEL_PCIE_ALLOC_ID_DBGC1,
++				       &buf_count, &buf_size)) {
++		db_frag.buf1_index = BTINTEL_PCIE_MDBGC_ALLOCATIONID_1;
++		data->mdbgc.buf1_count = buf_count;
++		data->mdbgc.buf1_size = buf_size;
++		db_frag.buf1_count = buf_count;
++
++		err = btintel_pcie_alloc_dbgc_buf(data,
++						  &data->mdbgc.buf1,
++						  &data->mdbgc.buf1_p_addr,
++						  &data->mdbgc.buf1_v_addr,
++						  db_frag.buf1,
++						  0,
++						  buf_count,
++						  buf_size);
++		if (err)
++			return err;
++	}
+ 
+ 	/* Allocate DBGC buffer 2 */
+-	db_frag.buf2_index = BTINTEL_PCIE_MDBGC_ALLOCATIONID_2;
+-	db_frag.buf2_count = data->mdbgc.count;
+-	err = btintel_pcie_alloc_dbgc_buf(data,
+-					  &data->mdbgc.buf2,
+-					  &data->mdbgc.buf2_p_addr,
+-					  &data->mdbgc.buf2_v_addr,
+-					  db_frag.buf2,
+-					  1,
+-					  data->mdbgc.count);
+-	if (err)
+-		return err;
++	if (btintel_pcie_get_mdbgc_cfg(data, BTINTEL_PCIE_ALLOC_ID_DBGC2,
++				       &buf_count, &buf_size)) {
++		db_frag.buf2_index = BTINTEL_PCIE_MDBGC_ALLOCATIONID_2;
++		data->mdbgc.buf2_count = buf_count;
++		data->mdbgc.buf2_size = buf_size;
++		db_frag.buf2_count = buf_count;
++
++		err = btintel_pcie_alloc_dbgc_buf(data,
++						  &data->mdbgc.buf2,
++						  &data->mdbgc.buf2_p_addr,
++						  &data->mdbgc.buf2_v_addr,
++						  db_frag.buf2,
++						  1,
++						  buf_count,
++						  buf_size);
++		if (err)
++			return err;
++	}
+ 
+ 	/* Allocate DBGC buffer 3 */
+-	db_frag.buf3_index = BTINTEL_PCIE_MDBGC_ALLOCATIONID_3;
+-	db_frag.buf3_count = data->mdbgc.count;
+-	err = btintel_pcie_alloc_dbgc_buf(data,
+-					  &data->mdbgc.buf3,
+-					  &data->mdbgc.buf3_p_addr,
+-					  &data->mdbgc.buf3_v_addr,
+-					  db_frag.buf3,
+-					  2,
+-					  data->mdbgc.count);
+-	if (err)
+-		return err;
++	if (btintel_pcie_get_mdbgc_cfg(data, BTINTEL_PCIE_ALLOC_ID_DBGC3,
++				       &buf_count, &buf_size)) {
++		db_frag.buf3_index = BTINTEL_PCIE_MDBGC_ALLOCATIONID_3;
++		data->mdbgc.buf3_count = buf_count;
++		data->mdbgc.buf3_size = buf_size;
++		db_frag.buf3_count = buf_count;
++
++		err = btintel_pcie_alloc_dbgc_buf(data,
++						  &data->mdbgc.buf3,
++						  &data->mdbgc.buf3_p_addr,
++						  &data->mdbgc.buf3_v_addr,
++						  db_frag.buf3,
++						  2,
++						  buf_count,
++						  buf_size);
++		if (err)
++			return err;
++	}
+ 
+ 	/* Copy fragment to DMA coherent memory */
+ 	memcpy(data->mdbgc.frag_v_addr, &db_frag, sizeof(db_frag));
++	BT_INFO("MDBGC: buf1 frag=%u size=%u; buf2 frag=%u size=%u; buf3 frag=%u size=%u",
++		db_frag.buf1_count, db_frag.buf1_count * db_frag.buf1[0].buf_size,
++		db_frag.buf2_count, db_frag.buf2_count * db_frag.buf2[0].buf_size,
++		db_frag.buf3_count, db_frag.buf3_count * db_frag.buf3[0].buf_size);
+ 	return 0;
+ }
+ 
+@@ -431,9 +479,21 @@ static int btintel_pcie_setup_dbgc(struct btintel_pcie_data *data)
+ {
+ 	struct btintel_pcie_dbgc_ctxt db_frag;
+ 	u32 frag_size = sizeof(db_frag);
++	const struct btintel_pcie_buf_alloc *ba;
++	u32 buf_count, buf_size;
+ 	int err;
+ 
+-	data->dbgc.count = BTINTEL_PCIE_DBGC_BUFFER_COUNT;
++	ba = btintel_pcie_yoyo_get_buf_alloc(&data->yoyo,
++					     BTINTEL_PCIE_ALLOC_ID_DBGC1);
++	buf_count = ba ? ba->max_num_frags : BTINTEL_PCIE_DBGC_BUFFER_COUNT;
++	buf_size = ba ? ba->req_buf_size / ba->max_num_frags :
++		BTINTEL_PCIE_DBGC_BUFFER_SIZE;
++
++	BT_INFO("dbgc setup: frag_num=%u per_buf_size=%u total_size=%u",
++		buf_count, buf_size, buf_count * buf_size);
++
++	data->dbgc.count = buf_count;
++	data->dbgc.buf_size = buf_size;
+ 
+ 	/* Allocate fragment context structure */
+ 	data->dbgc.frag_v_addr = dmam_alloc_coherent(&data->pdev->dev,
+@@ -451,8 +511,9 @@ static int btintel_pcie_setup_dbgc(struct btintel_pcie_data *data)
+ 	memset(&db_frag, 0, sizeof(db_frag));
+ 	db_frag.magic_num = BTINTEL_PCIE_MAGIC_NUM;
+ 	db_frag.ver = BTINTEL_PCIE_DBGC_FRAG_VERSION;
+-	db_frag.total_size = BTINTEL_PCIE_DBGC_FRAG_PAYLOAD_SIZE;
+-	db_frag.num_buf = BTINTEL_PCIE_DBGC_FRAG_BUFFER_COUNT;
++	db_frag.total_size = sizeof(db_frag.num_buf) +
++			     buf_count * sizeof(db_frag.bufs[0]);
++	db_frag.num_buf = buf_count;
+ 
+ 	/* Allocate DBGC buffers */
+ 	err = btintel_pcie_alloc_dbgc_buf(data,
+@@ -461,7 +522,8 @@ static int btintel_pcie_setup_dbgc(struct btintel_pcie_data *data)
+ 					  &data->dbgc.buf_v_addr,
+ 					  db_frag.bufs,
+ 					  0,
+-					  data->dbgc.count);
++					  buf_count,
++					  buf_size);
+ 	if (err)
+ 		return err;
+ 
+@@ -954,7 +1016,8 @@ static u32 btintel_pcie_dump_list_total_size(struct list_head *list)
+ }
+ 
+ static int btintel_pcie_dump_dram(struct list_head *list,
+-				  u8 count, struct data_buf *bufs,
++				  u8 count, u32 buf_size,
++				  struct data_buf *bufs,
+ 				  u32 write_ptr, u32 wrap_ctr, u32 cur_frag,
+ 				  u32 region_id, const char *name)
+ {
+@@ -966,7 +1029,7 @@ static int btintel_pcie_dump_dram(struct list_head *list,
+ 	int i;
+ 
+ 	mon_hdr_size = sizeof(*mon_dump);
+-	ranges_size = count * (sizeof(*range) + BTINTEL_PCIE_DBGC_BUFFER_SIZE);
++	ranges_size = count * (sizeof(*range) + buf_size);
+ 	payload_size = mon_hdr_size + ranges_size;
+ 	total_size = sizeof(*dump_data) + payload_size;
+ 
+@@ -995,12 +1058,10 @@ static int btintel_pcie_dump_dram(struct list_head *list,
+ 
+ 	range = (void *)mon_dump->data;
+ 	for (i = 0; i < count; i++) {
+-		range->range_data_size =
+-			cpu_to_le32(BTINTEL_PCIE_DBGC_BUFFER_SIZE);
++		range->range_data_size = cpu_to_le32(buf_size);
+ 		range->dram_base_addr = cpu_to_le64(bufs[i].data_p_addr);
+-		memcpy(range->data, bufs[i].data,
+-		       BTINTEL_PCIE_DBGC_BUFFER_SIZE);
+-		range = (void *)range->data + BTINTEL_PCIE_DBGC_BUFFER_SIZE;
++		memcpy(range->data, bufs[i].data, buf_size);
++		range = (void *)range->data + buf_size;
+ 	}
+ 
+ 	list_add_tail(&entry->list, list);
+@@ -1009,7 +1070,8 @@ static int btintel_pcie_dump_dram(struct list_head *list,
+ 
+ static int
+ btintel_pcie_dump_dram_monitor(struct btintel_pcie_data *data,
+-			       struct list_head *list, u8 count,
++				       struct list_head *list, u8 count,
++				       u32 buf_size,
+ 			       struct data_buf *bufs, u32 status_reg,
+ 			       u32 wrap_reg, u8 allocation_id, u32 region_id,
+ 			       const char *name)
+@@ -1017,6 +1079,9 @@ btintel_pcie_dump_dram_monitor(struct btintel_pcie_data *data,
+ 	u32 allocation_offset, write_ptr, wrap_ctr, wr_ptr_status;
+ 	u8 cur_frag;
+ 
++	if (!count)
++		return -ENOENT;
++
+ 	allocation_offset = allocation_id *
+ 			    BTINTEL_PCIE_DBGC_ALLOCATION_OFFSET;
+ 	wr_ptr_status = btintel_pcie_rd_dev_mem(data, status_reg +
+@@ -1038,8 +1103,8 @@ btintel_pcie_dump_dram_monitor(struct btintel_pcie_data *data,
+ 		   "allocation=%u wr_ptr_status=0x%08x write_ptr=0x%06x cur_frag=%u wrap_ctr=0x%08x",
+ 		   allocation_id, wr_ptr_status, write_ptr, cur_frag, wrap_ctr);
+ 
+-	return btintel_pcie_dump_dram(list, count, bufs, write_ptr, wrap_ctr,
+-				      cur_frag, region_id, name);
++	return btintel_pcie_dump_dram(list, count, buf_size, bufs, write_ptr,
++				      wrap_ctr, cur_frag, region_id, name);
+ }
+ 
+ static int btintel_pcie_dump_target_region(struct btintel_pcie_data *data,
+@@ -1320,6 +1385,7 @@ static int btintel_pcie_read_debug_regions(struct btintel_pcie_data *data)
+ 	u8 hw_variant;
+ 	u32 file_len;
+ 	u8 count;
++	u32 buf_size;
+ 	int ret;
+ 	LIST_HEAD(dump_list);
+ 
+@@ -1328,10 +1394,12 @@ static int btintel_pcie_read_debug_regions(struct btintel_pcie_data *data)
+ 
+ 	if (btintel_pcie_is_mdbgc_supported(data)) {
+ 		mdbgc = &data->mdbgc;
+-		count = mdbgc->count;
++		count = mdbgc->buf1_count;
++		buf_size = mdbgc->buf1_size;
+ 	} else {
+ 		dbgc = &data->dbgc;
+ 		count = dbgc->count;
++		buf_size = dbgc->buf_size;
+ 	}
+ 
+ 	hw_variant = INTEL_HW_VARIANT(data->cnvi);
+@@ -1351,7 +1419,9 @@ static int btintel_pcie_read_debug_regions(struct btintel_pcie_data *data)
+ 	}
+ 
+ 	if (btintel_pcie_is_mdbgc_supported(data)) {
+-		ret = btintel_pcie_dump_dram_monitor(data, &dump_list, count,
++		ret = btintel_pcie_dump_dram_monitor(data, &dump_list,
++						     mdbgc->buf1_count,
++						     mdbgc->buf1_size,
+ 						     mdbgc->buf1, status_reg,
+ 						     wrap_reg,
+ 						     BTINTEL_PCIE_MDBGC_ALLOCATIONID_1,
+@@ -1360,10 +1430,12 @@ static int btintel_pcie_read_debug_regions(struct btintel_pcie_data *data)
+ 		if (!ret)
+ 			regions_mask |=
+ 				BIT_ULL(BTINTEL_PCIE_INI_ID_DRAM_MONITOR1);
+-		else
++		else if (ret != -ENOENT)
+ 			bt_dev_warn(hdev, "Failed to dump DRAM buf1: %d", ret);
+ 
+-		ret = btintel_pcie_dump_dram_monitor(data, &dump_list, count,
++		ret = btintel_pcie_dump_dram_monitor(data, &dump_list,
++						     mdbgc->buf2_count,
++						     mdbgc->buf2_size,
+ 						     mdbgc->buf2, status_reg,
+ 						     wrap_reg,
+ 						     BTINTEL_PCIE_MDBGC_ALLOCATIONID_2,
+@@ -1372,10 +1444,12 @@ static int btintel_pcie_read_debug_regions(struct btintel_pcie_data *data)
+ 		if (!ret)
+ 			regions_mask |=
+ 				BIT_ULL(BTINTEL_PCIE_INI_ID_DRAM_MONITOR2);
+-		else
++		else if (ret != -ENOENT)
+ 			bt_dev_warn(hdev, "Failed to dump DRAM buf2: %d", ret);
+ 
+-		ret = btintel_pcie_dump_dram_monitor(data, &dump_list, count,
++		ret = btintel_pcie_dump_dram_monitor(data, &dump_list,
++						     mdbgc->buf3_count,
++						     mdbgc->buf3_size,
+ 						     mdbgc->buf3, status_reg,
+ 						     wrap_reg,
+ 						     BTINTEL_PCIE_MDBGC_ALLOCATIONID_3,
+@@ -1384,11 +1458,12 @@ static int btintel_pcie_read_debug_regions(struct btintel_pcie_data *data)
+ 		if (!ret)
+ 			regions_mask |=
+ 				BIT_ULL(BTINTEL_PCIE_INI_ID_DRAM_MONITOR3);
+-		else
++		else if (ret != -ENOENT)
+ 			bt_dev_warn(hdev, "Failed to dump DRAM buf3: %d", ret);
+ 	} else {
+ 		ret = btintel_pcie_dump_dram_monitor(data, &dump_list, count,
+-						     dbgc->bufs, status_reg,
++						     buf_size, dbgc->bufs,
++						     status_reg,
+ 						     wrap_reg,
+ 						     BTINTEL_PCIE_MDBGC_ALLOCATIONID_1,
+ 						     BTINTEL_PCIE_INI_ID_DRAM_MONITOR1,
+@@ -3280,7 +3355,7 @@ static int btintel_pcie_alloc(struct btintel_pcie_data *data)
+ 		err = btintel_pcie_setup_dbgc(data);
+ 	}
+ 	if (err)
+-		goto exit_error_txq;
++		goto exit_error_rxq;
+ 
+ 	/* Setup Context Information */
+ 	data->ci = v_addr;
+@@ -3291,6 +3366,9 @@ static int btintel_pcie_alloc(struct btintel_pcie_data *data)
+ 
  	return 0;
  
- exit_error:
-+	btintel_pcie_yoyo_cleanup(&data->yoyo);
-+
- 	/* reset device before exit */
- 	btintel_pcie_reset_bt(data);
- 
-@@ -4173,6 +4288,8 @@ static void btintel_pcie_remove(struct pci_dev *pdev)
- 	if (current_work() != &data->reset_work)
- 		disable_work_sync(&data->reset_work);
- 
-+	btintel_pcie_yoyo_cleanup(&data->yoyo);
-+
- 	btintel_pcie_disable_interrupts(data);
- 
- 	btintel_pcie_synchronize_irqs(data);
++exit_error_rxq:
++	/* RX setup succeeded, so release its buffers before the shared unwind. */
++	btintel_pcie_free_rxq_bufs(data, &data->rxq);
+ exit_error_txq:
+ 	btintel_pcie_free_txq_bufs(data, &data->txq);
+ exit_error_pool:
 diff --git a/drivers/bluetooth/btintel_pcie.h b/drivers/bluetooth/btintel_pcie.h
-index 3030b4e8b750..0a4e508d0beb 100644
+index 0a4e508d0beb..d68f83a62922 100644
 --- a/drivers/bluetooth/btintel_pcie.h
 +++ b/drivers/bluetooth/btintel_pcie.h
-@@ -6,6 +6,8 @@
-  *  Copyright (C) 2024  Intel Corporation
+@@ -468,6 +468,7 @@ struct rxq {
   */
+ struct btintel_pcie_dbgc {
+ 	u16		count;
++	u32		buf_size;
  
-+#include "btintel_pcie_debug.h"
-+
- /* Control and Status Register(BTINTEL_PCIE_CSR) */
- #define BTINTEL_PCIE_CSR_BASE			(0x000)
- #define BTINTEL_PCIE_CSR_FUNC_CTRL_REG		(BTINTEL_PCIE_CSR_BASE + 0x024)
-@@ -737,6 +739,8 @@ struct btintel_pcie_data {
- 	u32	boot_stage_cache;
- 	u32	img_resp_cache;
- 	u32	dbg_path_cache;
-+	bool	enable_ini;
-+	struct btintel_pcie_yoyo_ctx yoyo;
+ 	void		*frag_v_addr;
+ 	dma_addr_t	frag_p_addr;
+@@ -479,7 +480,12 @@ struct btintel_pcie_dbgc {
+ };
  
- 	u32	cnvi;
- 	u32	cnvr;
+ struct btintel_pcie_mdbgc {
+-	u32		count;
++	u32		buf1_count;
++	u32		buf1_size;
++	u32		buf2_count;
++	u32		buf2_size;
++	u32		buf3_count;
++	u32		buf3_size;
+ 
+ 	void		*frag_v_addr;
+ 	dma_addr_t	frag_p_addr;
 diff --git a/drivers/bluetooth/btintel_pcie_debug.c b/drivers/bluetooth/btintel_pcie_debug.c
-new file mode 100644
-index 000000000000..0e933f4ec376
---- /dev/null
+index 615996232cdf..5af00784bf96 100644
+--- a/drivers/bluetooth/btintel_pcie_debug.c
 +++ b/drivers/bluetooth/btintel_pcie_debug.c
-@@ -0,0 +1,161 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Intel Bluetooth YoYo Debug Framework
-+ *
-+ * Copyright (C) 2026 Intel Corporation
-+ *
-+ * Runtime-configurable TLV-based debug collection framework for loading and
-+ * parsing the optional YoYo firmware configuration used to enable debug
-+ * regions, triggers, HCI commands, and configuration sets.
-+ */
-+
-+#include <linux/errno.h>
-+#include <linux/module.h>
-+#include <linux/string.h>
-+#include <linux/unaligned.h>
-+#include <net/bluetooth/bluetooth.h>
-+#include "btintel_pcie_debug.h"
-+
-+/*
-+ * Parse the optional YoYo firmware TLV stream and validate each record.
-+ * This is the entry point for the runtime debug configuration payload.
-+ */
-+static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
-+					      const u8 *buf, size_t buf_len)
+@@ -64,6 +64,76 @@ static int btintel_pcie_yoyo_parse_dbg_info(struct btintel_pcie_yoyo_ctx *ctx,
+ 	return 0;
+ }
+ 
++static int btintel_pcie_yoyo_parse_buf_alloc(struct btintel_pcie_yoyo_ctx *ctx,
++					     const struct btintel_pcie_tlv_buf_alloc *tlv,
++					     u32 len)
 +{
-+	const struct btintel_pcie_tlv_hdr *tlv;
-+	const u8 *ptr = buf;
-+	size_t remaining = buf_len;
-+	u32 count = 0;
++	u32 alloc_id, buf_location, domain, idx, max_num_frags, min_buf_size;
++	u32 req_buf_size, version;
 +
-+	while (remaining >= sizeof(*tlv)) {
-+		size_t tlv_size;
-+		u32 type, len;
++	if (len != sizeof(*tlv) - sizeof(struct btintel_pcie_tlv_hdr)) {
++		BT_WARN("YoYo: unexpected buf alloc TLV length %u", len);
++		return -EBADMSG;
++	}
 +
-+		tlv = (const struct btintel_pcie_tlv_hdr *)ptr;
-+		type = get_unaligned_le32(&tlv->type);
-+		len = get_unaligned_le32(&tlv->length);
++	domain = get_unaligned_le32(&tlv->dbg_hdr.domain);
++	version = get_unaligned_le32(&tlv->dbg_hdr.tlv_data_version);
++	if (domain != BTINTEL_PCIE_DOMAIN_BT ||
++	    version != BTINTEL_PCIE_BUF_ALLOC_TLV_VERSION) {
++		BT_WARN("YoYo: unsupported buf allocation domain/version (%u/%u)",
++			domain, version);
++		return -EINVAL;
++	}
 +
-+		if (len > remaining - sizeof(*tlv)) {
-+			BT_ERR("YoYo: tlv %u truncated (len=%u rem=%zu)", count,
-+			       len, remaining);
-+			return -EBADMSG;
-+		}
-+		tlv_size = sizeof(*tlv) + len;
++	alloc_id = get_unaligned_le32(&tlv->alloc_id);
++	if (alloc_id < BTINTEL_PCIE_ALLOC_ID_DBGC1 ||
++	    alloc_id > BTINTEL_PCIE_ALLOC_ID_DBGC3) {
++		BT_WARN("YoYo: invalid buf allocation id %u", alloc_id);
++		return -EINVAL;
++	}
 +
-+		switch (type) {
-+		case BTINTEL_PCIE_TLV_TYPE_DBG_INFO:
-+		case BTINTEL_PCIE_TLV_TYPE_DBG_REGION:
-+		case BTINTEL_PCIE_TLV_TYPE_DBG_TRIGGER:
-+		case BTINTEL_PCIE_TLV_TYPE_DBG_HCMD:
-+		case BTINTEL_PCIE_TLV_TYPE_DBG_CONFIG_SET:
++	idx = alloc_id - BTINTEL_PCIE_ALLOC_ID_DBGC1;
++	buf_location = get_unaligned_le32(&tlv->buf_location);
++	max_num_frags = get_unaligned_le32(&tlv->max_num_frags);
++	min_buf_size = get_unaligned_le32(&tlv->min_buf_size);
++	req_buf_size = get_unaligned_le32(&tlv->req_buf_size);
++
++	if (buf_location != BTINTEL_PCIE_BUF_LOC_DRAM) {
++		BT_WARN("YoYo: buf allocation id=%u unsupported buffer location %u",
++			alloc_id, buf_location);
++		return -EINVAL;
++	}
++
++	if (!max_num_frags || max_num_frags > BTINTEL_PCIE_MAX_BUF_FRAGS ||
++	    min_buf_size < BTINTEL_PCIE_MIN_BUF_SIZE ||
++	    min_buf_size > BTINTEL_PCIE_MAX_BUF_SIZE ||
++	    req_buf_size > BTINTEL_PCIE_MAX_BUF_SIZE ||
++	    req_buf_size % max_num_frags ||
++	    req_buf_size / max_num_frags < min_buf_size) {
++		BT_WARN("YoYo: buf allocation id=%u req size=%u max frags=%u min size=%u",
++			alloc_id, req_buf_size, max_num_frags, min_buf_size);
++		return -EINVAL;
++	}
++
++	ctx->buf_alloc[idx].alloc_id = alloc_id;
++	ctx->buf_alloc[idx].buf_location = buf_location;
++	ctx->buf_alloc[idx].req_buf_size = req_buf_size;
++	ctx->buf_alloc[idx].max_num_frags = max_num_frags;
++	ctx->buf_alloc[idx].min_buf_size = min_buf_size;
++	ctx->buf_alloc[idx].present = true;
++
++	if (idx + 1 > ctx->num_buf_allocs)
++		ctx->num_buf_allocs = idx + 1;
++
++	BT_DBG("YoYo: buf allocation id=%u loc=%u req size=%u max frags=%u min size=%u",
++	       alloc_id, ctx->buf_alloc[idx].buf_location,
++	       ctx->buf_alloc[idx].req_buf_size,
++	       ctx->buf_alloc[idx].max_num_frags,
++	       ctx->buf_alloc[idx].min_buf_size);
++
++	return 0;
++}
++
+ /*
+  * Parse the optional YoYo firmware TLV stream and validate each record.
+  * This is the entry point for the runtime debug configuration payload.
+@@ -98,14 +168,16 @@ static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
+ 							       (const void *)tlv, len);
+ 			if (ret) {
+ 				ctx->dbg_info_present = false;
+-				return ret;
+ 			}
+ 			break;
 +		case BTINTEL_PCIE_TLV_TYPE_DBG_BUF_ALLOC:
-+		case BTINTEL_PCIE_TLV_TYPE_DBG_PRESET_OVERRIDE:
-+			BT_DBG("YoYo: valid tlv type 0x%x len=%u", type, len);
++			ret = btintel_pcie_yoyo_parse_buf_alloc(ctx,
++								(const void *)tlv, len);
 +			break;
-+		default: /* Log and continue, do not fail*/
-+			BT_DBG("YoYo: unknown tlv type 0x%x len=%u", type, len);
-+			break;
+ 		case BTINTEL_PCIE_TLV_TYPE_DBG_REGION:
+ 		case BTINTEL_PCIE_TLV_TYPE_DBG_TRIGGER:
+ 		case BTINTEL_PCIE_TLV_TYPE_DBG_HCMD:
+ 		case BTINTEL_PCIE_TLV_TYPE_DBG_CONFIG_SET:
+-		case BTINTEL_PCIE_TLV_TYPE_DBG_BUF_ALLOC:
+ 		case BTINTEL_PCIE_TLV_TYPE_DBG_PRESET_OVERRIDE:
+ 			BT_DBG("YoYo: valid tlv type 0x%x len=%u", type, len);
+ 			break;
+@@ -116,6 +188,12 @@ static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
+ 
+ 		ptr += tlv_size;
+ 		remaining -= tlv_size;
++
++		if (ret) {
++			BT_ERR("YoYo: error parsing tlv type 0x%x (ret=%d)", type, ret);
++			return ret;
 +		}
 +
-+		ptr += tlv_size;
-+		remaining -= tlv_size;
-+		count++;
-+	}
-+
-+	/* If no TLVs were parsed, the YoYo binary is considered invalid */
-+	if (remaining || count == 0) {
-+		BT_ERR("YoYo: trailing %zu bytes after tlv stream", remaining);
+ 		count++;
+ 	}
+ 
+@@ -124,6 +202,10 @@ static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
+ 		BT_ERR("YoYo: trailing %zu bytes after tlv stream", remaining);
+ 		return -EBADMSG;
+ 	}
++	if (!ctx->num_buf_allocs) {
++		BT_ERR("YoYo: mandatory buffer allocation TLV missing");
 +		return -EBADMSG;
 +	}
-+
-+	BT_DBG("YoYo: parsed %u tlv's", count);
-+	return 0;
-+}
-+
+ 
+ 	BT_DBG("YoYo: parsed %u tlv's", count);
+ 	return 0;
+@@ -162,6 +244,8 @@ void btintel_pcie_yoyo_cleanup(struct btintel_pcie_yoyo_ctx *ctx)
+ 
+ 	ctx->enabled = false;
+ 	ctx->dbg_info_present = false;
++	ctx->num_buf_allocs = 0;
++	memset(ctx->buf_alloc, 0, sizeof(ctx->buf_alloc));
+ }
+ EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_cleanup);
+ 
+@@ -218,5 +302,30 @@ int btintel_pcie_yoyo_load_and_parse(struct btintel_pcie_yoyo_ctx *ctx,
+ }
+ EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_load_and_parse);
+ 
 +/**
-+ * btintel_yoyo_init - Initialize the YoYo context
-+ * @ctx:   Pre-allocated context (typically embedded in driver data)
-+ */
-+int btintel_pcie_yoyo_init(struct btintel_pcie_yoyo_ctx *ctx)
-+{
-+	if (!ctx)
-+		return -EINVAL;
-+
-+	memset(ctx, 0, sizeof(*ctx));
-+	INIT_LIST_HEAD(&ctx->region_list);
-+	INIT_LIST_HEAD(&ctx->trigger_list);
-+	INIT_LIST_HEAD(&ctx->hcmd_list);
-+	INIT_LIST_HEAD(&ctx->config_set_list);
-+
-+	/* set it to true after successful TLV parsing */
-+	ctx->enabled = false;
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_init);
-+
-+/**
-+ * btintel_yoyo_cleanup - Clean up the YoYo context
-+ * @ctx:  YoYo context to clean up
-+ */
-+void btintel_pcie_yoyo_cleanup(struct btintel_pcie_yoyo_ctx *ctx)
-+{
-+	if (!ctx)
-+		return;
-+
-+	ctx->enabled = false;
-+}
-+EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_cleanup);
-+
-+/**
-+ * btintel_yoyo_load_and_parse - Load ibt_debug_yoyo.bin and parse TLVs
-+ * @ctx:  Initialized YoYo context
-+ * @dev:  Device for firmware loading (typically &pdev->dev)
++ * btintel_pcie_yoyo_get_buf_alloc - Query buffer allocation config for a DBGC
++ * @ctx: YoYo context
++ * @alloc_id: Allocation ID (1=DBGC1, 2=DBGC2, 3=DBGC3)
 + *
-+ * Uses request_firmware_direct, since the YoYo binary
-+ * is optional. On success, sets ctx->enabled.
++ * Return the parsed configuration, or NULL if no matching TLV was present.
 + */
-+int btintel_pcie_yoyo_load_and_parse(struct btintel_pcie_yoyo_ctx *ctx,
-+				     struct device *dev)
++const struct btintel_pcie_buf_alloc *
++btintel_pcie_yoyo_get_buf_alloc(struct btintel_pcie_yoyo_ctx *ctx, u32 alloc_id)
 +{
-+	const struct firmware *fw;
-+	int ret;
++	u32 idx;
 +
-+	if (!ctx)
-+		return -EINVAL;
++	if (!ctx || !ctx->enabled ||
++	    alloc_id < BTINTEL_PCIE_ALLOC_ID_DBGC1 ||
++	    alloc_id > BTINTEL_PCIE_ALLOC_ID_DBGC3)
++		return NULL;
 +
-+	ret = request_firmware_direct(&fw, BTINTEL_PCIE_YOYO_FW_NAME, dev);
-+	if (ret) {
-+		BT_WARN("YoYo: failed to load %s (%d)",
-+			BTINTEL_PCIE_YOYO_FW_NAME, ret);
-+		return ret;
-+	}
++	idx = alloc_id - BTINTEL_PCIE_ALLOC_ID_DBGC1;
++	if (!ctx->buf_alloc[idx].present)
++		return NULL;
 +
-+	/* Sanity check firmware size */
-+	if (fw->size < sizeof(struct btintel_pcie_tlv_hdr)) {
-+		release_firmware(fw);
-+		return -EBADMSG;
-+	}
-+
-+	BT_DBG("YoYo: loaded %s (%zu bytes)", BTINTEL_PCIE_YOYO_FW_NAME,
-+	       fw->size);
-+
-+	ret = btintel_pcie_yoyo_parse_tlv_buffer(ctx, fw->data, fw->size);
-+	release_firmware(fw);
-+
-+	/* File Corruption / TLV validation failed */
-+	if (ret) {
-+		BT_ERR("YoYo: tlv parsing failed (%d)", ret);
-+		return ret;
-+	}
-+
-+	ctx->enabled = true;
-+
-+	BT_INFO("YoYo: feature enabled and configured");
-+	return 0;
++	return &ctx->buf_alloc[idx];
 +}
-+EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_load_and_parse);
++EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_get_buf_alloc);
 +
-+MODULE_DESCRIPTION("Intel Bluetooth yoyo debug framework");
-+MODULE_LICENSE("GPL");
+ MODULE_DESCRIPTION("Intel Bluetooth yoyo debug framework");
+ MODULE_LICENSE("GPL");
 diff --git a/drivers/bluetooth/btintel_pcie_debug.h b/drivers/bluetooth/btintel_pcie_debug.h
-new file mode 100644
-index 000000000000..b0b94c2a169d
---- /dev/null
+index 717e8838c4d5..5ed368fb13d1 100644
+--- a/drivers/bluetooth/btintel_pcie_debug.h
 +++ b/drivers/bluetooth/btintel_pcie_debug.h
-@@ -0,0 +1,77 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Intel Bluetooth YoYo Debug Framework
-+ *
-+ * Copyright (C) 2026 Intel Corporation
-+ *
-+ */
-+
-+#ifndef __BTINTEL_PCIE_DEBUG_H__
-+#define __BTINTEL_PCIE_DEBUG_H__
-+
-+#include <linux/list.h>
-+#include <linux/types.h>
-+#include <linux/device.h>
-+#include <linux/firmware.h>
-+
-+/* External YoYo binary file */
-+#define BTINTEL_PCIE_YOYO_FW_NAME	"intel/ibt_debug_yoyo.bin"
-+
-+/* TLV type codes */
-+#define BTINTEL_PCIE_TLV_TYPE_DBG_INFO		0x1000005
-+#define BTINTEL_PCIE_TLV_TYPE_DBG_BUF_ALLOC		0x1000006
-+#define BTINTEL_PCIE_TLV_TYPE_DBG_HCMD		0x1000007
-+#define BTINTEL_PCIE_TLV_TYPE_DBG_REGION		0x1000008
-+#define BTINTEL_PCIE_TLV_TYPE_DBG_TRIGGER		0x1000009
-+#define BTINTEL_PCIE_TLV_TYPE_DBG_CONFIG_SET		0x100000A
-+#define BTINTEL_PCIE_TLV_TYPE_DBG_PRESET_OVERRIDE	0x100000B
-+
-+/* TLV header */
-+struct btintel_pcie_tlv_hdr {
-+	__le32 type;
-+	__le32 length;
-+} __packed;
-+
-+/* Debug header common to all debug TLVs */
-+struct btintel_pcie_dbg_hdr {
-+	__le32 tlv_data_version;
-+	__le32 domain;
-+} __packed;
-+
-+/* Address/value pair */
-+struct btintel_pcie_addr_value {
-+	__le32 address;
-+	__le32 value;
-+} __packed;
-+
-+/*
-+ * struct btintel_pcie_yoyo_ctx- Runtime state for YoYo debug configuration
-+ * @enabled: Whether the loaded YoYo configuration passed validation
-+ * @region_list: Parsed debug-region entries
-+ * @trigger_list: Parsed debug-trigger entries
-+ * @hcmd_list: Parsed HCI command entries
-+ * @config_set_list: Parsed configuration-set entries
-+ * @hdev: Associated HCI device; NULL until successful HCI registration
-+ *
-+ * Stores the validation state and parsed TLV data for the optional YoYo
-+ * firmware configuration.
-+ */
-+struct btintel_pcie_yoyo_ctx {
-+	bool			 enabled;
-+
-+	struct list_head	 region_list;
-+	struct list_head	 trigger_list;
-+	struct list_head	 hcmd_list;
-+	struct list_head	 config_set_list;
-+
-+	struct hci_dev		 *hdev;
+@@ -28,10 +28,16 @@
+ 
+ /* Supported TLV type versions */
+ #define BTINTEL_PCIE_DBG_INFO_TLV_VERSION	2
++#define BTINTEL_PCIE_BUF_ALLOC_TLV_VERSION	1
+ /* Debug Info TLV */
+ #define BTINTEL_PCIE_CONFIG_NAME_LEN		64
+ #define BTINTEL_PCIE_DOMAIN_BT			0
+ #define BTINTEL_PCIE_CORE_TYPE_BT		1
++/* Buffer allocation TLV */
++#define BTINTEL_PCIE_MAX_BUF_ALLOC		3
++#define BTINTEL_PCIE_MAX_BUF_FRAGS		16
++#define BTINTEL_PCIE_MIN_BUF_SIZE		(32 * 1024)
++#define BTINTEL_PCIE_MAX_BUF_SIZE		(4 * 1024 * 1024)
+ 
+ enum btintel_pcie_image_tlv_type {
+ 	BTINTEL_PCIE_IMAGE_TLV_TYPE_EXTERNAL	= 0x1,
+@@ -39,6 +45,24 @@ enum btintel_pcie_image_tlv_type {
+ 	BTINTEL_PCIE_IMAGE_TLV_TYPE_UNKNOWN	= 0xff,
+ };
+ 
++/* Allocation IDs */
++enum btintel_dbg_alloc_id {
++	BTINTEL_PCIE_ALLOC_ID_INVALID	= 0,
++	BTINTEL_PCIE_ALLOC_ID_DBGC1		= 1,
++	BTINTEL_PCIE_ALLOC_ID_DBGC2		= 2,
++	BTINTEL_PCIE_ALLOC_ID_DBGC3		= 3,
++	BTINTEL_PCIE_ALLOC_ID_MAX,
 +};
 +
-+int  btintel_pcie_yoyo_init(struct btintel_pcie_yoyo_ctx *ctx);
-+void btintel_pcie_yoyo_cleanup(struct btintel_pcie_yoyo_ctx *ctx);
++/* Buffer locations */
++enum btintel_dbg_buf_location {
++	BTINTEL_PCIE_BUF_LOC_INVALID		= 0,
++	BTINTEL_PCIE_BUF_LOC_SRAM		= 1,
++	BTINTEL_PCIE_BUF_LOC_DRAM		= 2,
++	BTINTEL_PCIE_BUF_LOC_NPK		= 3,
++	BTINTEL_PCIE_BUF_LOC_MAX,
++};
 +
-+/* Load and parse the external .bin file */
-+int  btintel_pcie_yoyo_load_and_parse(struct btintel_pcie_yoyo_ctx *ctx,
-+				      struct device *dev);
+ /* TLV header */
+ struct btintel_pcie_tlv_hdr {
+ 	__le32 type;
+@@ -76,6 +100,38 @@ struct btintel_pcie_tlv_dbg_info {
+ 	u8 config_name[BTINTEL_PCIE_CONFIG_NAME_LEN];
+ } __packed;
+ 
++/*
++ * struct btintel_pcie_tlv_buf_alloc - YoYo buffer allocation TLV
++ * @hdr: Common TLV header
++ * @dbg_hdr: Debug TLV version and domain
++ * @alloc_id: DBGC allocation identifier (DBGC1..DBGC3)
++ * @buf_location: Requested buffer location (SRAM / DRAM / NPK)
++ * @req_buf_size: Total requested allocation size in bytes
++ * @max_num_frags: Maximum number of buffer fragments (1..16)
++ * @min_buf_size: Minimum buffer size in bytes
++ *
++ * Describes the buffer sizing override for one DBGC allocation.
++ */
++struct btintel_pcie_tlv_buf_alloc {
++	struct btintel_pcie_tlv_hdr hdr;
++	struct btintel_pcie_dbg_hdr dbg_hdr;
++	__le32 alloc_id;
++	__le32 buf_location;
++	__le32 req_buf_size;
++	__le32 max_num_frags;
++	__le32 min_buf_size;
++} __packed;
 +
-+#endif /* __BTINTEL_PCIE_DEBUG_H__ */
++/* Parsed buffer allocation entry in the YoYo context */
++struct btintel_pcie_buf_alloc {
++	u32	alloc_id;
++	u32	buf_location;
++	u32	req_buf_size;
++	u32	max_num_frags;
++	u32	min_buf_size;
++	bool	present;
++};
++
+ /*
+  * struct btintel_pcie_yoyo_ctx- Runtime state for YoYo debug configuration
+  * @enabled: Whether the loaded YoYo configuration passed validation
+@@ -83,6 +139,8 @@ struct btintel_pcie_tlv_dbg_info {
+  * @trigger_list: Parsed debug-trigger entries
+  * @hcmd_list: Parsed HCI command entries
+  * @config_set_list: Parsed configuration-set entries
++ * @buf_alloc: Parsed buffer allocation entries
++ * @num_buf_allocs: Number of parsed buffer allocation entries
+  * @hdev: Associated HCI device; NULL until successful HCI registration
+  *
+  * Stores the validation state and parsed TLV data for the optional YoYo
+@@ -95,6 +153,8 @@ struct btintel_pcie_yoyo_ctx {
+ 	struct list_head	 trigger_list;
+ 	struct list_head	 hcmd_list;
+ 	struct list_head	 config_set_list;
++	struct btintel_pcie_buf_alloc buf_alloc[BTINTEL_PCIE_MAX_BUF_ALLOC];
++	int			 num_buf_allocs;
+ 	struct hci_dev		 *hdev;
+ };
+ 
+@@ -105,4 +165,7 @@ void btintel_pcie_yoyo_cleanup(struct btintel_pcie_yoyo_ctx *ctx);
+ int  btintel_pcie_yoyo_load_and_parse(struct btintel_pcie_yoyo_ctx *ctx,
+ 				      struct device *dev);
+ 
++const struct btintel_pcie_buf_alloc *
++btintel_pcie_yoyo_get_buf_alloc(struct btintel_pcie_yoyo_ctx *ctx, u32 alloc_id);
++
+ #endif /* __BTINTEL_PCIE_DEBUG_H__ */
 -- 
 2.53.0
 
