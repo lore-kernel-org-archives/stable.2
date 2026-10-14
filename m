@@ -1,99 +1,133 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E65B4F30E3
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 11:01:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 232164F55D7;
+	Wed, 14 Oct 2026 11:02:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791975715; cv=none; b=SNiLdS6WeTwuZzMBFpt6GBEOcTCXzwGyhrLmCAbmlQOFplov0pr9Sg/4mlzsUMmVtm1p5ZmvBv+t9dwhqnE7X1XFrsW/4i+EpHwBiUnOQtyBIdTj6oczsN+8zLkpePo+xe2Vd+S9yVcbDs5QnEUNHv0hn/6jDHZHiWE/efyep+k=
+	t=1791975743; cv=none; b=kU9m0SvzgDTlGkuyrunE5x6Nq5kMdAo7bKVK9L11gu/FfMKJZkefPEY6f5NTeJIOW+7f6Wivu1FW4VAp0LpKsiTbnaCYpYUsECpCM2ZWo696bDMMajEnQPPxSR9EcGBVBe+SQpQBh+n6I4cJfuWCOvgRlUWVHlliI6eeSNvuSJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791975715; c=relaxed/simple;
-	bh=4r3y68PXpRnW4+xDS6oYVYJ/itlRjzMaQakZZwvt080=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r4hxClcJhbQUgCNmMq1SQa9HZkjyo1AUYuEB1Lh5XBfqNloGYGKaf4yMAOZX30dxayqKObj4SZJ0Fdw0CYO+Qql/aqf/8S/xe/sVKF/2RjnpGuPkySu0YQ48J7SHlx02jLFwlgnMuVDCEz6raSHUlgwi1jjZOuMWIqmolTRFYCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eS71hX7o; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791975743; c=relaxed/simple;
+	bh=oVNV5iMCm9Xg6NFTetIT77HNSLPF87+/20UvMr4ytKk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gZ/eTS0cJQri1h1DcjPD+9rIPUjmwDSUFudYv3HkSdqYH8RIuESCTmrqxXGKv7F1oGBlSgDebbTAH5CR+Nw79WlDvFtMYTzzIY76qTwvhKkOVDKW/2v1M+ilSIM12jR9GL3+du/ICFrqBHh/nzo21DeWG22uuMKcLKwYzsbdHOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=vvDFoElS; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eS71hX7o"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4956869750eso27892205e9.2
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 04:01:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791975711; x=1792580511; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FHiNAL91Xid+WHCxhOo2pAad/m3iCzr2YePKwS0EFY8=;
-        b=eS71hX7ovAnQUXbj3x0Lw7L2KUqcCJuQXaWeReKd2MMrvCvADlEduUerkbCzVzYeYl
-         ID/+bTrIi/ZSlkp8G629QQFn31wj0Y9oaqRfrIXD3WR1r8dJduIGVyWe3Mgb9SlXg9/z
-         kM2p9BVDpTPjiJneI7NjlN1oTM0xWyEnh/Wdd9OE3DWa6tKS1HBt2gUrAymFUpkh0+eQ
-         tNYVNTOunGDPwhzHqapYUafveXEPEkHeu3SPtnA1aeU2SwMqRnfBQvkKTQZAUEcyCxMs
-         lVGHs/e7gTsK5/vwB9X+nt+ZM1CIN9kmzO0f6bwqntnwPUBIFHQ7xqlwGxJwpTTQDvjM
-         P7Ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791975711; x=1792580511;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FHiNAL91Xid+WHCxhOo2pAad/m3iCzr2YePKwS0EFY8=;
-        b=qlx6p1lzwS3T+9As4B33sziWti7AEFjbEa43o7CiSFuWk0V1A1hAR2OQs9CmhR5mJt
-         fsE0yP9nGANKto/7Cn2YJEhIGUWnM+aXdWy+RH4H3OVM/cuf1Jyiq+tBb2WzodNmnIKK
-         f3u8pbcSz6Mm4WW2KFUW7yUkVH9RJfhOmbiID4NG8GNd4FQIYYhQzjWcqBcAD5QjIepj
-         36Q8VjXwb8axeeVFNxOMQjsSbPn/DSZnVdpr+MInx1VsgRtUT26tZTlEe2Gcm+NKLL7B
-         L4igtA7rKIsSaRIZuHWBTmLaLW0qtm3H2STRgXZM/tgB+/BFLU8UUMTa12uvgwn4zDEQ
-         eq3g==
-X-Forwarded-Encrypted: i=1; AKwUvBzCHkP+INVNunT4XShzoq2ICPw3pKgu8rZzJPmDrXDxSdIbflPwLbCMso6S333GEc9eCXsFXok=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ4bX/SfDUGhal0gFR3+TETPbm/kEuWR2eWfzgn5xTtUDiXOTpR
-	irff3Ln2gru9k8adpXeInnj1QAVWTmADCdw4Qy2sbs3krOtBKNBcC/I2
-X-Gm-Gg: AYBFou1qEJnR04zE15oQZXVNtMHKHQCsYRdvYEJx/l7VaXpZEh7u2hml/GIS2n4D6Ak
-	ghBJ+xbwMv01vGqu01XH6zrON6qwetek7NP3+XXOJg7ucM2+DBrvu8FcZKTAtOzDUWDgICqtXbo
-	nUNXolNw4AY5cg/9PyKyzvu34HxYLpswRC+gV8pvU+Pra1SvOQTRbgraPvL7hECC24Hrv3HCwtK
-	gEjEvNh5tiiEvfNWeGHyiIEAOMMdlFTZ3+f/78rsrRjPsflV4pnauwATURtqpCh3chHHV2ido2o
-	f9JHpGX3tUSNY93V8FQOP9wTctgfnkj8N231h0ByVI0uMIr1WTUoqQWRpQ7K+TkJ93168nESjCs
-	Spunl+Oz6v1SwK4Rj1mXh2R3JgKCLebQ1YQX15gdYCT9bTetKly9o+dovC5bBzPXZohGEG3Uf1M
-	iS32wdpiraenzY8YXVG56tXZcCLpTansAw14cnTYjzwUUTgeGFSSKqxzTSPUD2KZt5+EYU6H6w6
-	Zi36fyQGpiEMGMt+5lzqp2EakHdVegaXkeOXMCg9sLLhQ==
-X-Received: by 2002:a05:600c:3e0a:b0:4a0:1c10:1419 with SMTP id 5b1f17b1804b1-4a18e4cd667mr303811435e9.26.1791975710181;
-        Wed, 14 Oct 2026 04:01:50 -0700 (PDT)
-Received: from andreayoga.wind3.hub ([31.189.109.133])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de2e2ef2fsm9396807f8f.59.2026.10.14.04.01.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 04:01:49 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Damien Le Moal <dlemoal@kernel.org>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Keith Busch <kbusch@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 4/5] nvmet: pci-epf: report transport errors in command completions
-Date: Wed, 14 Oct 2026 13:01:45 +0200
-Message-ID: <20261014110146.95291-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <1b4ee842-844e-4b6a-9ce8-0c4e7229825f@kernel.org>
-References: <20261012141239.156408-1-parri.andrea@gmail.com> <20261012141239.156408-5-parri.andrea@gmail.com> <20261013142736.GE14759@lst.de> <1b4ee842-844e-4b6a-9ce8-0c4e7229825f@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="vvDFoElS"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BFC671595;
+	Wed, 14 Oct 2026 04:02:14 -0700 (PDT)
+Received: from [10.164.19.62] (unknown [10.164.19.62])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 414993F673;
+	Wed, 14 Oct 2026 04:02:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791975738; bh=oVNV5iMCm9Xg6NFTetIT77HNSLPF87+/20UvMr4ytKk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=vvDFoElSzHAL7njvysTrWnNvK1GtCywEfeK9mwdUkPdlWjR25Zq/BQyZmqDvwvbw0
+	 oeBbCutseoX+rcvFkBPEzdhk+v6NZrmCyMCI0/P+IW3Q2JPebR+H9x8kouSJavsQt2
+	 hjGpBZtDcC3NjE+ByOKTUqA0EcsIv1XDwSL+o5lw=
+Message-ID: <dd2cc3df-f8be-4263-9c33-cbf0f3343dbf@arm.com>
+Date: Wed, 14 Oct 2026 16:32:10 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64/mm: restrict transparent contpte mappings to valid
+ PTEs
+To: Lance Yang <lance.yang@linux.dev>, Zhao Gongyi <zhaogongyi@bytedance.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, ryan.roberts@arm.com,
+ baolin.wang@linux.alibaba.com, mark.rutland@arm.com,
+ akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261013093600.54995-1-zhaogongyi@bytedance.com>
+ <20261013153953.77575-1-lance.yang@linux.dev>
+ <516828fb-558d-4a20-9532-51f50d6ba042@bytedance.com>
+ <0bbbe312-47a4-4eeb-8299-1f20daf4e949@arm.com>
+ <44aba42f-0355-4643-826f-0c7abec4499c@linux.dev>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <44aba42f-0355-4643-826f-0c7abec4499c@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 05:12:16PM +0200, Damien Le Moal wrote:
-> On 2026/10/13 16:27, Christoph Hellwig wrote:
-> > I think this looks good.  Damien/Niklas, can you test this on hardware?
+
+
+On 14/10/26 4:15 pm, Lance Yang wrote:
 > 
-> I do not have the hardware available right now. Niklas ? Can you test this?
+> 
+> On 2026/10/14 18:03, Dev Jain wrote:
+>>
+>>
+>> On 14/10/26 12:01 pm, Zhao Gongyi wrote:
+>>> On 10/13/26 11:39 PM, Lance Yang wrote:
+>>>>>
+>>>>> +    /*
+>>>>> +     * Keep the producer-side invariant documented in pgtable.h true even
+>>>>> +     * if a direct caller passes an invalid descriptor with PTE_CONT set.
+>>>>> +     */
+>>>>> +    if (!pte_valid(pte))
+>>>>> +        return __set_ptes(mm, addr, ptep, pte_mknoncont(pte), nr);
+>>>>
+>>>> set_ptes() is the only in-tree caller, and it already clears PTE_CONT
+>>>> before we get here ... no? Why not fold !pte_valid(pte) into the
+>>>> !mm_is_user(mm) check below and return __set_ptes() directly?
+>>>>
+>>>>     if (!mm_is_user(mm) || !pte_valid(pte))
+>>>>         return __set_ptes(mm, addr, ptep, pte, nr);
+>>>>
+>>>> If a direct caller does pass a !pte_valid PTE with PTE_CONT set, I'd
+>>>> rather add a VM_WARN_ON() to catch that. Silently clearing the bit would
+>>>> hide a caller bug :)
+>>>>
+>>>
+>>> Hi Lance,
+>>>
+>>> Thanks for taking a look.
+>>>
+>>> Yes, you are right. The public set_ptes() wrapper already strips PTE_CONT
+>>> before calling contpte_set_ptes(), so the pte_mknoncont() in the invalid
+>>> path is unnecessary for the current in-tree path.
+>>>
+>>> The issue I was trying to avoid is not that the incoming pte already has
+>>> PTE_CONT set, but that contpte_set_ptes() rebuilds the pte from pfn/prot
+>>> and then adds PTE_CONT again based on alignment. For an invalid descriptor,
+>>> that transparent contiguous encoding should be skipped entirely.
+>>>
+>>> So your suggested shape makes sense to me. I will change this to return
+>>> through __set_ptes() directly for invalid descriptors, and add a warning
+>>> for any unexpected direct caller that passes an invalid PTE with PTE_CONT
+>>> set, e.g.:
+>>>
+>>>     if (!mm_is_user(mm) || !pte_valid(pte)) {
+>>>         VM_WARN_ON_ONCE(!pte_valid(pte) && pte_cont(pte));
+>>
+>> set_ptes does pte_mknoncont(), so the warning will *never* fire I think?
+> 
+> YES. Just a sanity check to catch a future direct caller passing
+> a !pte_valid PTE with PTE_CONT set, rather than silently clearing
+> the bit :)
 
-Thanks, Damien.  I don't have PCI endpoint hardware either, so this and
-the SGL patch are build-tested only.  I'll keep Niklas on Cc: for v2.
+Ah okay you said "future direct caller". I got confused since if the only
+caller is set_ptes() then the warning is useless by construction.
 
-Thanks,
-Andrea
+
+> 
+> Cheers, Lance
+> 
+>>
+>>>         return __set_ptes(mm, addr, ptep, pte, nr);
+>>>     }
+>>>
+>>> That keeps the fix focused on not creating new invalid contpte entries,
+>>> while still catching a bad direct caller instead of silently sanitizing it.
+>>>
+>>> Thanks,
+>>> Zhao
+>>
+> 
+
