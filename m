@@ -1,331 +1,217 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E358650B8B1;
-	Wed, 14 Oct 2026 11:07:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E35C24F5DE1;
+	Wed, 14 Oct 2026 11:15:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791976038; cv=none; b=gBCuf32nRZmcF+VYnQtH3PjMFVcZ+cQ1IXi4XSNhZp7v8QZr9iHoNbKy0XWSXEJ+DLoZ0JgVaH7sLejUYCyPAg1J/1ohxqQNVvS9sDqzjidsy2tDPcAXFeYte0dPypfgiUFoceijDUQ4zTMaloFyeaNEIL8eDd97B2+DlQ7OiZY=
+	t=1791976538; cv=none; b=SWQdp0/PZ3m1ZiElmUKionpQtDIM4NJRsVeF252V76Zg/TQJimXqnytPe9SLVaLOW7nYVPBgpDzPhc1Hg8aFBeR+0hzO/fIdz0eItIVRrgBMIIwAiGtvPPgyeSAqUgj3MHw/WwhSJ0+PKD6dSreADz4FxNJ6tUDCm/AvyksjWPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791976038; c=relaxed/simple;
-	bh=wenBv40puBEkOY6/oqj5bNDmzUXgWirQCnQD9g0O4yE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=rxcz08TyoSzgBBEcek27rJyGD4mJeoq1o/A+ox6XAh08u72brFC+8ZrZqWtXCgRA0BCmxHzAlAtLYZZ3Ghpxf9lGU+rjkKoJtTvo2cO8Ck3d/h4lgCe7kEH/qHAQhpYIWvYMjnM0io0wTzA2mEZ8IIRmwppLtYU/AmwO1GVBbmg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=T/RqYTdU; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=5Vux5liv; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=T/RqYTdU; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=5Vux5liv; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791976538; c=relaxed/simple;
+	bh=A0w4gnO9XjQELHK0MuumjXMoerd2CLHnfS//LRVLpuM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ff5WxhBOy8lgFbbxOJqQgpvLrCxXtxYZaaIQAFm57Bwr6AA4sUFoIKrDzgRYoDD4BgzfaJTjZ/KjuuvmmYNPCnryTjDL8CER7r6F8cKiG14rGdwIbOe3rGHTFrbMwiBVWnFxpcVugGF4IGCXxae9ph8RmqOvBpT0EcOjzW7/45c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i6uArUkV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="T/RqYTdU";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="5Vux5liv";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="T/RqYTdU";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="5Vux5liv"
-Received: from tenko.suse.cz (unknown [IPv6:2a07:de40:b2bf:1b::11d2])
-	by smtp-out2.suse.de (Postfix) with ESMTP id 5E4721F7C9;
-	Wed, 14 Oct 2026 11:07:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791976027; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=j5ZzIJC5K8j+7idHsvAQgAUDnKla5hwoBc5YSYp6UQM=;
-	b=T/RqYTdUXRtBjRFSarYR5VcTFNDUj3R49tlT9ThP9UVXNShdtNitXj7/2t4yL/y3caqWlV
-	fKjqP6waUO+6DvxncVq9SqVi4OsqhaV5O0D7+EGTkrKVQ7mqlokiW92FekPoQnQtRgqyUC
-	3OfdBRBmQzSPPROAySbRd6x+NzbPoNw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791976027;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=j5ZzIJC5K8j+7idHsvAQgAUDnKla5hwoBc5YSYp6UQM=;
-	b=5Vux5liv+ETIkuX4cXQ2lGKqilubm7HkaDI2fdl8HQ1I0HJ+8yxLq6LJlSW2hDBEAronmq
-	N0goqmBbqZDVjeBA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="T/RqYTdU";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=5Vux5liv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791976027; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=j5ZzIJC5K8j+7idHsvAQgAUDnKla5hwoBc5YSYp6UQM=;
-	b=T/RqYTdUXRtBjRFSarYR5VcTFNDUj3R49tlT9ThP9UVXNShdtNitXj7/2t4yL/y3caqWlV
-	fKjqP6waUO+6DvxncVq9SqVi4OsqhaV5O0D7+EGTkrKVQ7mqlokiW92FekPoQnQtRgqyUC
-	3OfdBRBmQzSPPROAySbRd6x+NzbPoNw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791976027;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=j5ZzIJC5K8j+7idHsvAQgAUDnKla5hwoBc5YSYp6UQM=;
-	b=5Vux5liv+ETIkuX4cXQ2lGKqilubm7HkaDI2fdl8HQ1I0HJ+8yxLq6LJlSW2hDBEAronmq
-	N0goqmBbqZDVjeBA==
-From: Michal Suchanek <msuchanek@suse.de>
-To: linuxppc-dev@lists.ozlabs.org
-Cc: Michal Suchanek <msuchanek@suse.de>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Kees Cook <kees@kernel.org>,
-	Andy Lutomirski <luto@amacapital.net>,
-	Will Drewry <wad@chromium.org>,
-	"Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>,
-	"Bernhard M. Wiedemann" <bwiedemann@suse.de>,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i6uArUkV"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 189C61F000FF;
+	Wed, 14 Oct 2026 11:15:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791976536;
+	bh=3bI+npLSmq91kE0GswaCStOMbhNMpTKWxrQIgVLzGcU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=i6uArUkVybCBqHaSwQMhxIZvD/dgRdJmSX5qLv/tyx2oCzPYtvuiD9yQ73SF/qDgZ
+	 bfvqVMwHvP/G3ZXe5ZVpCDnzy1Z+x+AgW+9RkCREpfO3s7Qa1Yu8aK6xnbWp9+LR4L
+	 LQnHBwYpuUg6ChZZoIxMb+km2M3elL6ecOS307JAusK+JmI81A25sSS49iC504XJ1x
+	 YuFXcvvrf0l+8Z8Wf7rH4UP3jlkMtcYQ09BjD2SP22RBTgM/6i8/9j99VEFz4fPba9
+	 y3aN68PN0ZndvzxCokHenq9WJJbJP6USvwvSc7px9wWWbY4kKTnmS0jRDa7v19McC9
+	 84UoT5H4NBizw==
+Date: Wed, 14 Oct 2026 14:15:32 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Chengfeng Ye <nicoyip.dev@gmail.com>
+Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E . Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] powerpc: Restore all registers after a traced syscall again
-Date: Wed, 14 Oct 2026 13:06:51 +0200
-Message-ID: <961c058f3f3e03045552186c083a68a0fde3f43f.1791975972.git.msuchanek@suse.de>
-X-Mailer: git-send-email 2.51.0
+Subject: Re: [PATCH v4 1/2] keys: Protect quota-owner reads in namespace
+ filters
+Message-ID: <as9kVDN2w53QvKml@kernel.org>
+References: <20261013084056.1070923-1-nicoyip.dev@gmail.com>
+ <20261013090358.1178367-1-nicoyip.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	HFILTER_HOSTNAME_UNKNOWN(2.50)[];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ONCE_RECEIVED(1.20)[];
-	HFILTER_HELO_IP_A(1.00)[tenko.suse.cz];
-	RDNS_NONE(1.00)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	HFILTER_HELO_NORES_A_OR_MX(0.30)[tenko.suse.cz];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.18)[-0.886];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DIRECT_TO_MX(0.00)[git-send-email 2.51.0];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[suse.de,linux.ibm.com,ellerman.id.au,gmail.com,kernel.org,amacapital.net,chromium.org,vger.kernel.org];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b2bf:1b::11d2:from];
-	TAGGED_RCPT(0.00)[];
-	RCVD_COUNT_ZERO(0.00)[0];
-	DKIM_TRACE(0.00)[suse.de:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim]
-X-Spam-Score: 4.01
-X-Spam-Level: ****
-X-Spamd-Bar: ++++
-X-Rspamd-Queue-Id: 5E4721F7C9
-X-Spam-Flag: NO
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013090358.1178367-1-nicoyip.dev@gmail.com>
 
-From: Bernhard M. Wiedemann <bwiedemann@suse.de>
+Just checking couple of details before ack/nak just in case, thus the
+delay I'll give feedback as soon as I'm done.
 
-syscall_exit_prepare() asks the exit assembly to reload all GPRs, CTR
-and XER from pt_regs only if the thread flags contain any of the flags
-in _TIF_SYSCALL_DOTRACE. With the new entry code based GENERIC_ENTRY the
-flags are no longer set.
+Br, Jarkko
 
-This breaks tracers that modify a stopped syscall, for example ones that
-re-execute the syscall instruction by moving the NIP back by 4 at the
-syscall-exit stop with the syscall number put back into r0: the sc then
-runs with r0 = 0, which is __NR_restart_syscall. dettrace fails like
-this with "No filter rule for system call: restart_syscall". A tracer
-that writes r4 at the syscall-exit stop of an sc sees the tracee
-continue with r4 = 0 instead; with a 7.1 kernel both work.
-
-Check the equivalent syscall_work bits instead, and drop the now unused
-_TIF_SYSCALL_DOTRACE.
-
-Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
-Cc: stable@vger.kernel.org # 7.2.x: c7585b8e99ad: powerpc: Don't drop _TIF_RESTOREALL on syscall restart
-Cc: stable@vger.kernel.org # 7.2.x
-Assisted-by: LLM
-Signed-off-by: Bernhard M. Wiedemann <bwiedemann@suse.de>
-[ms: reword commit message]
-Signed-off-by: Michal Suchánek <msuchanek@suse.de>
----
-A backport also needs commit c7585b8e99ad ("powerpc: Don't drop
-_TIF_RESTOREALL on syscall restart"), without which the flag can still
-be lost.
-
-v2: rename PPC_SYSCALL_WORK_RESTOREALL to SYSCALL_WORK_RESTOREALL and
-move it from interrupt.c to thread_info.h
-
-v1: https://lore.kernel.org/linuxppc-dev/4c1da7f31a6603455ec452960af529e4d77f5334.1791826411.git.msuchanek@suse.de/
-
-Testing: a small tracer (pokes r4 at the syscall-exit stop of an sc,
-and replays a syscall by moving NIP back with a new r0) shows both
-writes lost on a ppc64le and both working on 7.1.8.
-------------[ cut here ]------------
-// SPDX-License-Identifier: GPL-2.0
-/*
- * Does a register a tracer writes at the syscall-exit stop of an "sc"
- * reach the tracee? Checks r4, and a replay: NIP moved back onto the sc
- * with r0 set to another syscall number.
- * Build: gcc -O2 -o ppc-exitregs ppc-exitregs.c (powerpc64 only)
- */
-
-/* word offsets in struct pt_regs, arch/powerpc/include/uapi/asm/ptrace.h */
-
-static long do_sc(long nr, long *r4io)
-{
-	register long r0 __asm__("r0") = nr;
-	register long r3 __asm__("r3") = 0;
-	register long r4 __asm__("r4") = *r4io;
-
-	__asm__ volatile("sc"
-			 : "+r"(r0), "+r"(r3), "+r"(r4)
-			 :
-			 : "r5", "r6", "r7", "r8", "r9", "r10", "r11", "r12",
-			   "cr0", "ctr", "xer", "memory");
-	*r4io = r4;
-	return r3;
-}
-
-static long peek(pid_t pid, int w)
-{
-	errno = 0;
-	long v = ptrace(PTRACE_PEEKUSER, pid, (void *)(w * sizeof(long)), 0);
-	if (errno) {
-		perror("PEEKUSER");
-		exit(2);
-	}
-	return v;
-}
-
-static void poke(pid_t pid, int w, long v)
-{
-	if (ptrace(PTRACE_POKEUSER, pid, (void *)(w * sizeof(long)), (void *)v)) {
-		perror("POKEUSER");
-		exit(2);
-	}
-}
-
-/* Resume to the next syscall stop, which must be one. */
-static void next_stop(pid_t pid)
-{
-	int st;
-
-	ptrace(PTRACE_SYSCALL, pid, 0, 0);
-	if (waitpid(pid, &st, 0) != pid || !WIFSTOPPED(st) ||
-	    WSTOPSIG(st) != (SIGTRAP | 0x80)) {
-		fprintf(stderr, "unexpected wait status %#x\n", st);
-		exit(2);
-	}
-}
-
-int main(void)
-{
-	pid_t pid = fork();
-	int st, fail = 0;
-
-	if (pid == 0) {
-		long r4 = 0x1111, r4a, ret;
-
-		ptrace(PTRACE_TRACEME, 0, 0, 0);
-		raise(SIGSTOP);
-		do_sc(__NR_getpid, &r4);
-		r4a = r4;
-		ret = do_sc(__NR_getpid, &r4);
-		/* bit 0: the tracer's r4 was lost; bit 1: the replay of
-		 * the second getpid as getppid returned something else */
-		_exit((r4a != 0x2222) | (ret != getppid()) << 1);
-	}
-
-	waitpid(pid, &st, 0);
-	ptrace(PTRACE_SETOPTIONS, pid, 0, (void *)PTRACE_O_TRACESYSGOOD);
-
-	/* 1: write r4 at the exit stop of getpid */
-	next_stop(pid);				/* entry */
-	next_stop(pid);				/* exit */
-	poke(pid, W_R4, 0x2222);
-	next_stop(pid);				/* entry of the second getpid */
-
-	/* 2: replay the second getpid as getppid */
-	next_stop(pid);				/* exit */
-	poke(pid, W_NIP, peek(pid, W_NIP) - 4);
-	poke(pid, W_R0, __NR_getppid);
-	next_stop(pid);				/* entry of the replay */
-	long nr = peek(pid, W_R0);
-	printf("replayed syscall arrives as nr %ld (%s)\n", nr,
-	       nr == __NR_getppid ? "getppid, OK" :
-	       nr == __NR_restart_syscall ? "restart_syscall, BUG" : "?");
-	if (nr != __NR_getppid) {
-		fail = 1;
-		poke(pid, W_R0, __NR_getppid);	/* entry writes do work */
-	}
-	next_stop(pid);				/* exit */
-	ptrace(PTRACE_CONT, pid, 0, 0);
-	waitpid(pid, &st, 0);
-	if (!WIFEXITED(st)) {
-		printf("child did not exit normally: %#x\n", st);
-		return 2;
-	}
-	printf("r4 written at the exit stop: %s\n",
-	       WEXITSTATUS(st) & 1 ? "lost, BUG" : "kept, OK");
-	printf("replay result: %s\n",
-	       WEXITSTATUS(st) & 2 ? "wrong" : "getppid(), OK");
-	return fail || WEXITSTATUS(st);
-}
----
- arch/powerpc/include/asm/thread_info.h | 15 ++++++++++++---
- arch/powerpc/kernel/interrupt.c        |  3 +--
- 2 files changed, 13 insertions(+), 5 deletions(-)
-
-diff --git a/arch/powerpc/include/asm/thread_info.h b/arch/powerpc/include/asm/thread_info.h
-index 1e069a2e7ce87..31a7a157bc902 100644
---- a/arch/powerpc/include/asm/thread_info.h
-+++ b/arch/powerpc/include/asm/thread_info.h
-@@ -142,9 +142,6 @@ void arch_setup_new_exec(void);
- #define _TIF_SYSCALL_TRACEPOINT	(1<<TIF_SYSCALL_TRACEPOINT)
- #define _TIF_EMULATE_STACK_STORE	(1<<TIF_EMULATE_STACK_STORE)
- #define _TIF_SYSCALL_EMU	(1<<TIF_SYSCALL_EMU)
--#define _TIF_SYSCALL_DOTRACE	(_TIF_SYSCALL_TRACE | _TIF_SYSCALL_AUDIT | \
--				 _TIF_SECCOMP | _TIF_SYSCALL_TRACEPOINT | \
--				 _TIF_SYSCALL_EMU)
- 
- #define _TIF_USER_WORK_MASK	(_TIF_SIGPENDING | _TIF_NEED_RESCHED | \
- 				 _TIF_NEED_RESCHED_LAZY | _TIF_NOTIFY_RESUME | \
-@@ -153,6 +150,18 @@ void arch_setup_new_exec(void);
- 
- #define _TIF_PERSYSCALL_MASK	(_TIF_RESTOREALL|_TIF_NOERROR)
- 
-+/*
-+ * Syscall work after which the exit must reload all registers from
-+ * pt_regs: a tracer may have changed any of them at a syscall or seccomp
-+ * stop, or under PTRACE_SYSEMU. Audit and the tracepoint are included to
-+ * keep the pre-GENERIC_ENTRY behaviour.
-+ */
-+#define SYSCALL_WORK_RESTOREALL (SYSCALL_WORK_SECCOMP |			\
-+				 SYSCALL_WORK_SYSCALL_TRACEPOINT |	\
-+				 SYSCALL_WORK_SYSCALL_TRACE |		\
-+				 SYSCALL_WORK_SYSCALL_EMU |		\
-+				 SYSCALL_WORK_SYSCALL_AUDIT)
-+
- /* Bits in local_flags */
- /* Don't move TLF_NAPPING without adjusting the code in entry_32.S */
- #define TLF_NAPPING		0	/* idle thread enabled NAP mode */
-diff --git a/arch/powerpc/kernel/interrupt.c b/arch/powerpc/kernel/interrupt.c
-index 55f9c0c9922ac..d6a7b6d2b4bd2 100644
---- a/arch/powerpc/kernel/interrupt.c
-+++ b/arch/powerpc/kernel/interrupt.c
-@@ -117,9 +117,8 @@ notrace unsigned long syscall_exit_prepare(unsigned long r3,
- 		regs->gpr[3] = r3;
- 	}
- 
--	if (unlikely(ti_flags & _TIF_SYSCALL_DOTRACE)) {
-+	if (unlikely(READ_ONCE(current_thread_info()->syscall_work) & SYSCALL_WORK_RESTOREALL))
- 		ret |= _TIF_RESTOREALL;
--	}
- 
- 	syscall_exit_to_user_mode(regs);
- 
--- 
-2.51.0
-
+On Tue, Oct 13, 2026 at 05:03:57PM +0800, Chengfeng Ye wrote:
+> keyctl_chown_key() replaces key->user under key->sem and drops the
+> reference to the previous owner after releasing the semaphore. Readers
+> which do not hold that semaphore can still be using the previous owner
+> when key_user_put() frees it.
+> 
+> For example, namespace filtering in /proc/keys can race with chown:
+> 
+>   /proc/keys reader                 keyctl_chown_key()
+>   user = key->user
+>                                     key->user = newowner
+>                                     key_user_put(old)
+>                                       kfree(old)
+>   read user->uid
+> 
+> An earlier instrumented run reported:
+> 
+>   BUG: KASAN: slab-use-after-free in proc_keys_start+0x353/0x440
+>   Read of size 4 at addr ffff8881128abbc0 by task poc/88
+>   Call Trace:
+>    proc_keys_start+0x353/0x440
+>    seq_read_iter+0x25d/0x1190
+>    proc_reg_read_iter+0x19e/0x260
+>   Allocated by task 86:
+>    key_user_lookup+0x1b4/0x540
+>    keyctl_chown_key+0x3cc/0xbf0
+>   Freed by task 87:
+>    kfree+0x149/0x330
+>    keyctl_chown_key+0x7b0/0xbf0
+> 
+> Take key_user_lock explicitly while /proc/keys and find_keyring_by_name()
+> copy the owner's UID. find_ge_key() is the initial/seek lookup reached
+> by the reported proc_keys_start() fault; key_serial_next() applies the
+> same UID filter to subsequent entries. find_keyring_by_name() reads the
+> same replaceable owner when looking up named keyrings.
+> 
+> key_serial_lock and keyring_name_lock protect these traversals but do
+> not exclude chown. Taking key->sem would sleep under those spinlocks.
+> The embedded key->user->lock cannot protect the dereference needed to
+> acquire it.
+> 
+> key_user_put() already holds key_user_lock for the final reference
+> decrement and tree removal. A reader selecting an owner before removal
+> blocks its final release until the UID copy finishes. After removal,
+> the lock and reference-count ordering make the preceding owner
+> replacement visible, including when another task drops the final
+> reference. Mark the pointer loads with READ_ONCE() and the chown store
+> with WRITE_ONCE(); the existing lifetime locking provides the protection.
+> 
+> Retain the quota-owner UID rather than substituting key->uid, since they
+> may differ for thread keyrings.
+> 
+> Other owner accesses already have lifetime protection. key_alloc() uses
+> a referenced owner before publishing the key. Final key_put() cannot
+> overlap chown, which holds a key reference. key_gc_unused_keys() handles
+> unreferenced keys: serial-tree removal excludes /proc/keys readers, and
+> keyring_destroy() removes named keyrings under keyring_name_lock before
+> the owner reference is dropped. /proc/key-users already holds
+> key_user_lock during traversal. Quota reservation and instantiation need
+> the separate accounting serialization.
+> 
+> Fixes: 454804ab0302 ("keys: make procfiles per-user-namespace")
+> Fixes: 2ea190d0a006 ("keys: skip keys from another user namespace")
+> Cc: stable@vger.kernel.org
+> Assisted-by: GPT-6-Astra
+> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+> ---
+> Changes in v4:
+> - Move the quota-reservation and instantiation scopes from v3 1/2 to
+>   the complete accounting fix in 2/2; retain the combined lock coverage.
+> - Isolate the namespace-reader lifetime fix and make it independent of the
+>   accounting patch by relying on existing lookup/final-release locking.
+> - Pair READ_ONCE() pointer snapshots with WRITE_ONCE() in chown; explain
+>   lifetime ordering and preserve the quota-owner UID filtering semantics.
+> - Include analysis of of the other owner access sites in the changelog
+> 
+> v3: https://lore.kernel.org/r/20260927162528.943886-2-nicoyip.dev@gmail.com/
+> v2: https://lore.kernel.org/r/20260904080940.575882-1-nicoyip.dev@gmail.com/
+> 
+>  security/keys/keyctl.c  |  2 +-
+>  security/keys/keyring.c |  7 ++++++-
+>  security/keys/proc.c    | 15 +++++++++++++--
+>  3 files changed, 20 insertions(+), 4 deletions(-)
+> 
+> diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
+> index d14ace88e529c..c89a4d6efed40 100644
+> --- a/security/keys/keyctl.c
+> +++ b/security/keys/keyctl.c
+> @@ -1039,3 +1039,3 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
+>  		zapowner = key->user;
+> -		key->user = newowner;
+> +		WRITE_ONCE(key->user, newowner);
+>  		key->uid = uid;
+> diff --git a/security/keys/keyring.c b/security/keys/keyring.c
+> index 15bf4af8f2821..4a13749bc54cd 100644
+> --- a/security/keys/keyring.c
+> +++ b/security/keys/keyring.c
+> @@ -1148,6 +1148,7 @@ struct key *find_keyring_by_name(const char *name, bool uid_keyring)
+>  {
+>  	struct user_namespace *ns = current_user_ns();
+>  	struct key *keyring;
+> +	kuid_t uid;
+>  
+>  	if (!name)
+>  		return ERR_PTR(-EINVAL);
+> @@ -1158,7 +1159,11 @@ struct key *find_keyring_by_name(const char *name, bool uid_keyring)
+>  	 * grants Search permission and that hasn't been revoked
+>  	 */
+>  	list_for_each_entry(keyring, &ns->keyring_name_list, name_link) {
+> -		if (!kuid_has_mapping(ns, keyring->user->uid))
+> +		spin_lock(&key_user_lock);
+> +		uid = READ_ONCE(keyring->user)->uid;
+> +		spin_unlock(&key_user_lock);
+> +
+> +		if (!kuid_has_mapping(ns, uid))
+>  			continue;
+>  
+>  		if (test_bit(KEY_FLAG_REVOKED, &keyring->flags))
+> diff --git a/security/keys/proc.c b/security/keys/proc.c
+> index 4f4e2c1824f18..aa42ea4becec7 100644
+> --- a/security/keys/proc.c
+> +++ b/security/keys/proc.c
+> @@ -68,7 +68,13 @@ static struct rb_node *key_serial_next(struct seq_file *p, struct rb_node *n)
+>  	n = rb_next(n);
+>  	while (n) {
+>  		struct key *key = rb_entry(n, struct key, serial_node);
+> -		if (kuid_has_mapping(user_ns, key->user->uid))
+> +		kuid_t uid;
+> +
+> +		spin_lock(&key_user_lock);
+> +		uid = READ_ONCE(key->user)->uid;
+> +		spin_unlock(&key_user_lock);
+> +
+> +		if (kuid_has_mapping(user_ns, uid))
+>  			break;
+>  		n = rb_next(n);
+>  	}
+> @@ -80,6 +86,7 @@ static struct key *find_ge_key(struct seq_file *p, key_serial_t id)
+>  	struct user_namespace *user_ns = seq_user_ns(p);
+>  	struct rb_node *n = key_serial_tree.rb_node;
+>  	struct key *minkey = NULL;
+> +	kuid_t uid;
+>  
+>  	while (n) {
+>  		struct key *key = rb_entry(n, struct key, serial_node);
+> @@ -100,7 +107,11 @@ static struct key *find_ge_key(struct seq_file *p, key_serial_t id)
+>  		return NULL;
+>  
+>  	for (;;) {
+> -		if (kuid_has_mapping(user_ns, minkey->user->uid))
+> +		spin_lock(&key_user_lock);
+> +		uid = READ_ONCE(minkey->user)->uid;
+> +		spin_unlock(&key_user_lock);
+> +
+> +		if (kuid_has_mapping(user_ns, uid))
+>  			return minkey;
+>  		n = rb_next(&minkey->serial_node);
+>  		if (!n)
+> -- 
+> 2.43.0
+> 
