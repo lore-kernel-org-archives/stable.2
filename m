@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 104A02EC0A2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC02A2D949F
 	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 01:27:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791941251; cv=none; b=AzcgXwHu1Gn5ftRO11LoO1GpaK7tkEvMDKW684/PaCysdv+hvk9QL+EVFOBFbSIdAqCnlq6IJXyIbyWUBPAWUM/dfcJjfnEcEf40MNwrGMbTGjmItmDA20yHbWrkqbO9fee2AoSKrLS1b+WpaXR8RnB9a71XblzINmUZRL6DwRI=
+	t=1791941252; cv=none; b=pznM4dx791Bjr5j9iTAC7EZKUru2oQlplaoLXdZqJYqxW0afrBdP/GuEsMC1NRVHkWhKqQYgZ7GFLyzkM4oxQyW/rmM6gm50ALTb9b7B5I1aCDBFqrpr+3JjH0A11AoSI0WaKIbWGNso+SfWmU92obVRtSesVT0kbnz4mZp/1G0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791941251; c=relaxed/simple;
-	bh=rqyVgETzkmgFPBWVCOuQ2KGf7jOl5gkg6sRWxqEK9BI=;
+	s=arc-20240116; t=1791941252; c=relaxed/simple;
+	bh=vQ8InXrIWF32Ho/bBYgaRi38pGJuzqzq9RmtF5ZoNY8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e4kjWLT680sBTxs6enkyMCnveSHzQf9wcJd7xc+lcZcjc4cCNULFr1j5hPi42Zkl+b/NiLlpmweJt0HgeLQCdzTw/BU8WbejTvqib2MavDMPqUaFD+sLZyHFAwD7DiuGVPW/jdAP0q2JVZrcPilQyuIDwfGMqKISqWdw4bVIaN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hOF8Kl0R; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=e2sCq17zG60N4OguEku+lK9hjOXuZZKxVRRx0XF1xpGGFLMjI/zEZVMMxczHo2nFBN3+AS21l8mTzMzRVV9s0UplhazYxdm+yFOV0hptJgf4WeGBVGa32UbOqPDCrVY0dSc3j6V1lJ0VoDVGTKHsPoEhU6CpVbcCvtZOLGeUw5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZACdzrn7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hOF8Kl0R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E2251F000FF;
-	Wed, 14 Oct 2026 01:27:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZACdzrn7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37C3A1F00893;
+	Wed, 14 Oct 2026 01:27:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1791941251;
-	bh=9DeAZP1wmn9STeJnW1qg+ivCSUq46Mh/aNmiBTmiszA=;
+	bh=TVJgQVi9qSBEENU4mipicA+2LaunEuuhj+VjMtPE7FI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hOF8Kl0RPcKESPFUfdEQDaJRC4mThDv2imjOPiFwH0YqqBR1CVfkVIYyLAOJ0mab7
-	 2UIienEbFVQ6PhT+/pVbNu4p7xaLYTE07o51QM/bJ/RHnDu0hVxyje/0j6uE7BTw0G
-	 b88tfEa9Gmf2ZTe/zr8McCKx8oYkzoIog2fQ4LsdnHtOLyofHcB+rfXnOrfLVtnBkF
-	 6dC9TyfFPpEIyRNm1l48gGDyB8hKV/Ml99pspwxcFJcNosKoPfsT06l3Ej9S1IDOKl
-	 u2CBRmA855rqj90n1iWZp0XmC434ITF8EFflJ7pY6P/mnzX0mCrYDfS34DKO9M1ubx
-	 zNDGeeOAQveQw==
+	b=ZACdzrn71r9+iR19V7/ZeSuDBs5MbdOdKcd4ThrtIirbxHps2VWq99DqItMyl+Ne6
+	 0t1Meh65Sx/DctlQWhWAEjidQOwWz9WYKJ1v5Bk29MKNaiGzcn+9iXIsUiLdjsAxJZ
+	 V+8NKGQlqitw8JQ2pilZywAe8ZmnvnU0FtEsxBal40tNRUYXk4YTFI8bbv4rGKwVzr
+	 i1VcqnVF/k0geATdTlIIRvpSLfXJVv5IiCV57Xd9/M/Ed7yk1IWqI/WSxgj+kW29eM
+	 K0TnnVeeVVCjwaGe/Jia8gRtyInN9KCyoE3gckY8shvbU8N/V3TxdjeYWSAPTtO3tK
+	 HSD1gH5FQmb9w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	Marc Kleine-Budde <mkl@pengutronix.de>,
 	Oliver Hartkopp <socketcan@hartkopp.net>,
 	Joerg Willmann <joe@clnt.de>
-Subject: Re: [PATCH 6.1.y] can: fix unique skb identifier regression under RPS
-Date: Tue, 13 Oct 2026 21:27:01 -0400
-Message-ID: <2026-10-13-1-daily-reply-0010-can-skb-uid-rps-6-1@kernel.org>
+Subject: Re: [PATCH 5.15.y] can: fix unique skb identifier regression under RPS
+Date: Tue, 13 Oct 2026 21:27:02 -0400
+Message-ID: <2026-10-13-1-daily-reply-0011-can-skb-uid-rps-5-15@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261013074222.288326-1-socketcan@hartkopp.net>
-References: <20261013074222.288326-1-socketcan@hartkopp.net>
+In-Reply-To: <20261013074152.288306-1-socketcan@hartkopp.net>
+References: <20261013074152.288306-1-socketcan@hartkopp.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,7 +50,7 @@ Content-Transfer-Encoding: 8bit
 > headroom") moved the per-skb unique identifier used for raw_rcv()
 > duplicate detection into skb->hash.
 
-Queued for 6.1, thanks.
+Queued for 5.15, thanks.
 
 -- 
 Thanks,
