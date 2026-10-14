@@ -1,125 +1,109 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F964AD4AA;
-	Wed, 14 Oct 2026 20:20:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFEC640801E
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 20:29:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792009253; cv=none; b=Ain+ocRm6xO9p4M5YJHTXi/54lkSgqYB94xZXD0punlzvuepz8H/Iq5aHnl+iQqhdsF5pPS5MVN/+QkEOqiohINQIC4QuUuNm5dFLZ98fmwF5IHBRi3CWdo3sE0AU2MXoqJc3D9Qejj9p56ZU2ZDRuAgtuqoL0eo/fsjWgINt3M=
+	t=1792009782; cv=none; b=J8vRo+hz4r9Qk4SFTMr4YsNORXM5VIfdlqRKT+JN6O3rAPavqWsd2m5k8KcwzGM2MxL+QWyQV36q64nx2KcBJyp0WxG0XjndWYzdf8FYgiRlNbnbwBFKZY+QYxyROnZRk6S5JHcRO8amfxIhNU0OjNk0+G67reWU3WQR8IXtKUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792009253; c=relaxed/simple;
-	bh=Sf0lWg/ZDgYVsD+qqHr+05bfinmhw+qJfx5qIlKJqnE=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=k/SdESjSWHcCfWgl1mp4vMly8DfCsbf7o8bUp0i8/3POeWa+6f2K0I5/axU0oubKqU1WWHlN9u/ytiNrI/uUbli+lW6VcGta1DgzZ8NtvP6URI4Y3qBps505YnmiwXPm4XXt299mOg+5o68NEe0elGsa3AL1fnR7sSQoED218YE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=DJ2Gsj8p; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Ax++YXKN; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1792009782; c=relaxed/simple;
+	bh=yW2JRdI+sHVXqRRLn3ro5rxRmw1YQMKkbezj+YasMm0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ENtgd/GfMOa/PT18/KdK6Tbk5PBDCSyvhZ6mFYV5qTM9aCje6h0pECMxgDoRMPdBWQiEKUkLGSC+NNi2j+0PWpXxPzvvcSzzf5bfB/v9H6IWGyVqKPmwejhdHTx3Z9p5tmKTdfEKhHNYeLEUhVUJ7/nEqS68titRWTcxHSnV62I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=rdAxAsMm; arc=none smtp.client-ip=209.85.160.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="DJ2Gsj8p";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Ax++YXKN"
-Date: Wed, 14 Oct 2026 20:20:49 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792009250;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OVa0ieKg6mJbweUhQ39c1wP7se/Auojbv30ijTdRFf4=;
-	b=DJ2Gsj8pd8OBBf16vETCTQPcVBFGMiO4eSOOKQ86XtAENWo+nktam42C31f1TImX2yd7Wj
-	HV42iSH3WelTKYOik8JRlyc8kW96GKxPDT7/HBYC96EV2iPnqzRrdKp37YXb7H4s8c33QY
-	Ffh8AU5H2IPpEWtV79sN621JCcNexgu7eT1SH/V0TDkvDx5Dm5szESmmDK+DP9o73K6A/2
-	AmeCATZcA+85cqXk132Kz+9A7n0hl0ZFpqUTY2YRcWyCxpPxuTt05Y1oj6wXFz4rTpm+aQ
-	851NHg2L54Wf1vNLM1YGEvg7gBveQxMEXTRWovVrzgg4CRhg4RECpS7xp47jZg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792009250;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OVa0ieKg6mJbweUhQ39c1wP7se/Auojbv30ijTdRFf4=;
-	b=Ax++YXKNP9hH2bPh0l6+yhcfWuD59KDs61C2V0f8BWGfVEGeTBkLwpz4oU3UmR2T58Drrb
-	a2QlyBkmQT81aMBQ==
-From: "clocksource-bot for Wentao Liang" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-kernel@vger.kernel.org
-Subject: [clocksource: timers/drivers/next] clocksource/drivers/fttmr010: Fix
- clk reference leak in error paths
-Cc: stable@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Linus Walleij <linusw@kernel.org>,
- daniel.lezcano@oss.qualcomm.com
-In-Reply-To: <20260915045426.1726805-1-vulab@iscas.ac.cn>
-References: <20260915045426.1726805-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="rdAxAsMm"
+Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-5352a876d5aso58442581cf.1
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 13:29:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1792009781; x=1792614581; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8KpIQc9Vyaph3vkgeCaoJ68oVGAH4Ek85s5zfjWhrac=;
+        b=rdAxAsMmZjVc+aFoV7+zMJ2GvAxRjMz/tFtzAatt9ZbyWsHrVKsMcAa+d81t4EGrJy
+         kdJql+zC5+eQ+90faaXFS4Sb4K8hOpZhcCSGW8kvnLn9oCiBV2wDxDjnmMVl2VCmQ7XN
+         Uwg6uggwkp4CA/yv4jlqeKfvCcxqo81sK4jH69lYZ+5N4JHExW62PKKbqis6oA2XRVEt
+         Eunxjf+o0xNL95IWFknf+wI+8v6qCuOnhmKG8gzEzmFU8lQuzHi6xLLK58k7qPSRrX9B
+         o3XJRpEKzSy/9aa2JFaLclIr+ZhFKrjLoy654fdxJNu2b7w/B3M5hhpnJuYZx18si2QI
+         sQsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792009781; x=1792614581;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8KpIQc9Vyaph3vkgeCaoJ68oVGAH4Ek85s5zfjWhrac=;
+        b=bp5+UnS1GDARU+O94tKjMF49xuvcX6YtJ/4bkOReffvsUDMjRD4hjPsiCpclz/b/Tf
+         vcUkmT/sh5WnRIXmEuUdN4Tg93IYybzOmL+0LNel7AC0Zotl9mpL0Tsf+x5OuPQfJQjY
+         PT9cgubui0jYfpPQnr/lCivcM/oe9kmh5Q2ZUuto27P6XqSRBsPZdvmpPeAIydXBV9cg
+         R0u/fyw6n8/iTBrcfjNh+Cjy6uBJEh8K/hauKy5wQeBHCh4B2bBuB0TrocSXr5/KAJn+
+         Eyn/TLr7uTzG5YHe3PP2Z1wgZT077aKSv/BtQnkAx3pbaTFHOvZOOUsdXHCqHmEdJFhe
+         OXoA==
+X-Forwarded-Encrypted: i=1; AKwUvBxV7BbWgdeqsg1lWfEKg5QQSSRvpe3aekm0FxOYYYL6kZYa/PEPtykvpqkWNH/5OH28q178uaQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK1lU/5BvV2MFxfe3rKQ1IJ2P0DfBVDRVZcT3RsCZgrH2TDqmaV
+	o+Cyf5o7EIl606+ybns+VD5Myeikg+XBdw5k/MsGKDHrhjYxsrqW9CPzIT53peBCq5Q=
+X-Gm-Gg: AYBFou0qyaeCW8dK8mKkRUJ8JDbI6SMZiEBLnvsKrG1XkhxzXY3dySdOaQ/jI7UOTTd
+	h7znWdyCl8pVRKI9kIxa/rBe35vVNXym9Q9IUGYWxWqfP/bBeEgEzQgbrmgRAudAvYaFsvs2w5x
+	XQPM6i6dceqqMsGoh+tto8pEE0BnuS+aw0qikRjyxH//zmp0X+iRGGORArmCiH6D6iQc+8QamEj
+	N52SBt2zijlmsree/Q2sr8btCTG1ubg2+sqR1Fm5vgQkoHxCyHSuq929n7Z8PHp7tW7pgttRcXx
+	rtDg2Ig/l4GpZWztJQg4NpB8Au0/VrxkEmc8WF+l+3QuS3yZhV6sjzsH363AIskZldZqUf4ouof
+	dhombj1EtxPtzblqiRTxVirrkwbnWlvND1yfH8VojlgdMIy4vEzEZ/we4GAQEU5gZg/BExFzr6r
+	VVZpJaemFiCZdmc9WcuqDycWQeID/hXxZSK0hN2Zd48NgLxtj6kNVLb4cht2qyrP1Tgl5W
+X-Received: by 2002:a05:622a:22c5:10b0:535:fc2d:b7c2 with SMTP id d75a77b69052e-535fc2dba9emr47727251cf.33.1792009779058;
+        Wed, 14 Oct 2026 13:29:39 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:5081:9526:3c0:45cc:5ac6])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5361281f0f2sm5986961cf.25.2026.10.14.13.29.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 13:29:37 -0700 (PDT)
+Date: Wed, 14 Oct 2026 22:29:36 +0200
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	David Hildenbrand <david@kernel.org>, Harry Yoo <harry@kernel.org>,
+	Usama Arif <usama.arif@linux.dev>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH v3] mm: page_alloc: make defrag_mode retries follow the
+ promoted order
+Message-ID: <20261014202936.GC371161@cmpxchg.org>
+References: <20261009125503.126202-1-kas@kernel.org>
+ <15a9e03e-c748-4e51-b8cc-583a3610c897@kernel.org>
+ <20261012192834.6934ef85444dee4a60d6d876@linux-foundation.org>
+ <as5q14OsbK2CmOrh@thinkstation>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179200924901.2666337.6613074103224330022.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as5q14OsbK2CmOrh@thinkstation>
 
-The following commit has been merged into the timers/drivers/next branch of c=
-locksource:
+On Tue, Oct 13, 2026 at 06:37:20PM +0100, Kiryl Shutsemau wrote:
+> @@ -4127,6 +4127,12 @@ __alloc_pages_may_oom(gfp_t gfp_mask, unsigned int order,
+>  	return page;
+>  }
+>  
+> +static inline bool order_nofrag_promoted(unsigned int order,
+> +					 const struct alloc_context *ac)
+> +{
+> +	return ac->reclaim_compact_order != order;
+> +}
 
-Commit-ID:     277e5657237a92e279ee28da2f5c07902cc6aa0b
-Gitweb:        https://git.kernel.org/pub/scm/linux/kernel/git/daniel.lezcano=
-/linux.git//277e5657237a92e279ee28da2f5c07902cc6aa0b
-Author:        Wentao Liang <vulab@iscas.ac.cn>
-AuthorDate:    Tue, 15 Sep 2026 04:54:26=20
-Committer:     Daniel Lezcano <daniel.lezcano@kernel.org>
-CommitterDate: Wed, 07 Oct 2026 15:44:05 +02:00
+order_defrag_promoted?
 
-clocksource/drivers/fttmr010: Fix clk reference leak in error paths
+Otherwise looks good to me!
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
 
-fttmr010_common_init() obtains the PCLK reference with
-of_clk_get_by_name() but never calls clk_put(). If clk_prepare_enable()
-fails the reference is leaked directly, and every error path that jumps
-to out_disable_clock only calls clk_disable_unprepare(), which releases
-the prepare/enable state but not the reference obtained from
-of_clk_get_by_name().
-
-Add clk_put() to the clk_prepare_enable() failure path and to the
-out_disable_clock label so the clock reference is no longer leaked. The
-success path keeps PCLK enabled for the lifetime of the timer and is
-left untouched.
-
-Fixes: dd98442e17a6 ("clocksource/drivers/fttmr010: Drop Gemini specifics")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Signed-off-by: Daniel Lezcano <daniel.lezcano@kernel.org>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Link: https://patch.msgid.link/20260915045426.1726805-1-vulab@iscas.ac.cn
----
- drivers/clocksource/timer-fttmr010.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/clocksource/timer-fttmr010.c b/drivers/clocksource/timer=
--fttmr010.c
-index 308f94b..c255385 100644
---- a/drivers/clocksource/timer-fttmr010.c
-+++ b/drivers/clocksource/timer-fttmr010.c
-@@ -292,6 +292,7 @@ static int __init fttmr010_common_init(struct device_node=
- *np,
- 	ret =3D clk_prepare_enable(clk);
- 	if (ret) {
- 		pr_err("failed to enable PCLK\n");
-+		clk_put(clk);
- 		return ret;
- 	}
-=20
-@@ -432,6 +433,7 @@ out_free:
- 	kfree(fttmr010);
- out_disable_clock:
- 	clk_disable_unprepare(clk);
-+	clk_put(clk);
-=20
- 	return ret;
- }
+And agree 7.4-rc1 with CC stable is fine. Sadly, not sure if anyone
+but Meta is using the feature right now.
