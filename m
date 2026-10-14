@@ -1,137 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-39.mta1.migadu.com [95.215.58.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A73DB1DE4EF
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 02:45:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE79A361DBF
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 02:48:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791945908; cv=none; b=DMGAKENiBFBuJgazRCCsfQNtlRcODBNt0yf9dmgZ/CCCzD3eIlKzW4Sv3LCUx0mmKpl0A60WoCk+eZX6J5pRhsMWwv6mODV/ymXHJ5DOHRTTWavGulqjVDLUJvqnHc23kRE1HRFbvhXYp8mEdIQcStTieVcXvjaD0YqzQAgJ028=
+	t=1791946114; cv=none; b=e/aUZ8XkFbuTaFlA7TbPvhf5D5o500aCQfxIYuQFxWCGm/vmvCZ5CG9ByL4GA29L/05l5BtnxVIgHiwa7x5AJyHsXqvZk5A1yU9vFkdpZ8cUHR37ENwjrM++H9LM2/pVve+3dhz9U2qiUvGrplTAjJwLDoEEnDJJsdwxAnhQRKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791945908; c=relaxed/simple;
-	bh=JWZ7acxifdPKQqKXijY7peRPxh7wrfs51HSrNjjySyU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BHvtBQ4KgzGMj1oK0Vom0yhB8gRVYhozV37WNa/4EbcXZ/8dG5Wwckr4Z4zfRP3kwg2Hehp/hgqdIBOTNTeLj5LP09QdBhunaYebwFR3b4EnKe+dENFJMZe62m5x5EJY3Onez5lRdaOBZjrUbNoERGPbuThPp9hyRH6GZLJ3V9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UDlneAs8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791946114; c=relaxed/simple;
+	bh=2kHoms2QSSahMaMVeqUufPLoRe85ZbbkTBqAyiaowT8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Xv6/FPTZ4FkhbSAAoDanHcOyt1n70ayuq6m99rSzky6/otOoRLEJp5CAG3noGyMtoq1prkueajqmywqAd+nZLhzIPTdl1uSbqmVxNM9TkdoiIojEhSMYNVZUKyQIZtHC7xg37hTr3xu/TZ7Rg0C6Iu8ppMqIiox149LeDF1dSts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Kk02qkMV; arc=none smtp.client-ip=95.215.58.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UDlneAs8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB7801F000FF;
-	Wed, 14 Oct 2026 02:45:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791945907;
-	bh=+Sx79Rpmcs8VYH+nLVa20oLW+IJvnZaQjQJbX91vFgU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UDlneAs8Dup/7MrM6T38zkvn+IE/mGJY0DjwsWaFboAq7Ix5e6yfP2urBiZ9WinUA
-	 IUcy9ZuhKBlIOMWRj1V8HJan/zo/iZVrhlOS7IPQ8Eh2EdbENxR458y8k0pEGIYwu0
-	 XGgehyCqeFY3CEKoyyIURSm14asv3b/NfK7mpzJomVx1PMZs7beXnQqpHfOmv1bUCc
-	 ikuJZ86IyKIWZ3FXurHmNR3/X0mCzxTJqrok18B0NLmhigwjHR9iq3nxfyAdkLwUHp
-	 4sgrY6tJGXmlBEnVNrvWYeS9TpUKTmU7xDKQh5YhG6AX1r27qNfg7D9Qwf33Tjrfg3
-	 pVU115a8xKkNQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] namespace: handle mount locking for automounts correctly
-Date: Tue, 13 Oct 2026 22:45:05 -0400
-Message-ID: <20261014024428.1659609-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026101253-pelvis-snuff-c746@gregkh>
-References: <2026101253-pelvis-snuff-c746@gregkh>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Kk02qkMV"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2kHoms2QSSahMaMVeqUufPLoRe85ZbbkTBqAyiaowT8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791946109; v=1; x=1792550909;
+ b=Kk02qkMV1wnrYkoj8hoDrlMuw8WCNtXDUrHdEpkGmbHIkqWbFf4lOt7+YT2Z2U/xiEFZxaco
+ Szv5SlUvGoU/TgfbXb77JE9WqN1LAWpUwpm01sGDtvHp4qmbOyQhrmIkFcP32mgL1VDBypSK8rF
+ IXSbv//6P6ONuIu0/0/IqgtA=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e25af03395e5a192;
+	Wed, 14 Oct 2026 02:48:29 +0000
+X-Mizu-Trace-ID: e25af03395e5a192
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c9799efb-a002-4925-959f-c9a2b883d85b@linux.dev>
+Date: Wed, 14 Oct 2026 10:48:19 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm: vmscan: don't count per-node proactive reclaim as
+ memory pressure
+To: Vernon Yang <vernon2gm@gmail.com>, akpm@linux-foundation.org,
+ david@kernel.org, kasong@tencent.com, qi.zheng@linux.dev,
+ shakeel.butt@linux.dev, baohua@kernel.org, axelrasmussen@google.com,
+ yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev,
+ hannes@cmpxchg.org, mhocko@kernel.org, ljs@kernel.org,
+ roman.gushchin@linux.dev, dave@stgolabs.net
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Vernon Yang <yanglincheng@kylinos.cn>, stable@vger.kernel.org
+References: <20261012022917.1102467-1-vernon2gm@gmail.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <20261012022917.1102467-1-vernon2gm@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit 33aadc7c72055fca93cb5a3691d836ebf8b31c9b ]
 
-If mounts are propagated across user namespaces, attach_recursive_mnt()
-locks every copy of the source mount to protect overmounts from
-vanishing and revealing the underlying files or directories.
+On 10/12/2026 10:29 AM, Vernon Yang wrote:
+> From: Vernon Yang <yanglincheng@kylinos.cn>
+> 
+> When the cgroup has no memory pressure at all, writing to
+> /sys/devices/system/nodeX/reclaim triggers proactive reclaim on
+> NUMA node, causing increase in the writer cgroup's memory PSI.
+> 
+> Due to this reclaim is performed in the context of the write(),
+> accounted as memory pressure on the writer, like
+> commit e22c6ed90aa9 ("mm: memcontrol: don't count limit-setting reclaim
+> as memory pressure"). This is unexpected, the similar scenarios (e.g.
+> senpai) will continue to occur, only this time it is for the
+> /sys/devices/system/nodeX/reclaim knob.
+> 
+> The Documentation/ABI/stable/sysfs-devices-node documentation also
+> notes that "This interface is equivalent to the memcg variant."
+> 
+> This patch unifies the semantics of the memcg and node interfaces:
+> per-node proactive reclaim is no longer counted as memory pressure,
+> and the per-node proactive reclaim interface no longer produces
+> phantom pressure.
+> 
+> I ran demo[1] that performs per-node proactive reclaim 10000 times
+> in qemu, writer cgroup memory.pressure as follows:
+> 
+> without patch:
+> 
+> some avg10=31.53 avg60=13.42 avg300=3.31 total=10602985
+> full avg10=31.53 avg60=13.42 avg300=3.31 total=10602985
+> 
+> with patch:
+> 
+> some avg10=9.59 avg60=3.41 avg300=0.81 total=2686221
+> full avg10=9.59 avg60=3.41 avg300=0.81 total=2686221
+> 
+> [1] https://github.com/vernon2gh/app_and_module/tree/main/reclaim_node_psi
+> 
+> Fixes: b980077899ea ("mm: introduce per-node proactive reclaim interface")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+> ---
+> V1 -> V2:
+> - Check `sc->proactive` to differentiate between proactive reclaim or
+>    page allocation. (Thanks Barry)
+> 
+> V1 : https://lore.kernel.org/linux-mm/20261005062236.564210-1-vernon2gm@gmail.com/
+> ---
+>   mm/vmscan.c | 6 ++++--
+>   1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 91295070ca33..2e9ca5e4c741 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -7994,7 +7994,8 @@ static unsigned long __node_reclaim(struct pglist_data *pgdat,
+>   					   sc->gfp_mask);
+>   
+>   	cond_resched();
+> -	psi_memstall_enter(&pflags);
+> +	if (!sc->proactive)
+> +		psi_memstall_enter(&pflags);
+>   	delayacct_freepages_start();
+>   	fs_reclaim_acquire(sc->gfp_mask);
+>   	/*
+> @@ -8011,7 +8012,8 @@ static unsigned long __node_reclaim(struct pglist_data *pgdat,
+>   	memalloc_noreclaim_restore(noreclaim_flag);
+>   	fs_reclaim_release(sc->gfp_mask);
+>   	delayacct_freepages_end();
+> -	psi_memstall_leave(&pflags);
+> +	if (!sc->proactive)
+> +		psi_memstall_leave(&pflags);
+>   
+>   	trace_mm_vmscan_node_reclaim_end(sc->nr_reclaimed, NULL);
+>   
 
-The user namespace is taken from the caller's mount namespaces since
-this is where the mounts end up. Except, that's not always true.
-Automounts may legitimately get popped in by tasks located in a
-different mount and user namespace during path lookup.
+LGTM.
 
-Then check doesn't make sense at that point. The copy in the namespace
-of the parent - which may be the host's - is now locked and the host
-cannot change the flags of its own mounts anymore.
+Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
+Thanks.
 
-Here's the reproducer:
-
-- host has debugfs mounted nosuid,nodev,noexec and shared
-- tracefs automount below it is not yet active
-- hand a child process a directory descriptor on that mount
-- child process enters auser and mount namespace
-- child process' namespace now holds a locked copy of the host's debugfs
-  mount that receives propagation from it
-- child process stats "tracing/." through the descriptor
-- lookup runs on the host's mount so the automount lands below the host's mount
-- propagation puts a copy below the child's copy
-- both try to clear the flags on the mount they got, with a bind remount:
-
-    host, on its own automount:            MS_REMOUNT|MS_BIND = EPERM
-    child, on the copy in its namespace:   MS_REMOUNT|MS_BIND = 0
-
-So the lock landed on the host's mount instead of the child's copy.
-Congrats. So we need to compare with the owner of the namespace the
-mount actually gets mounted on. For all regular cases that is the
-caller's mount namespace and so nothing changes.
-
-Detached trees in anonymous mount namespaces by be handed over via
-SCM_RIGHTS or inherited in other ways on purpose so the attaching task's
-mount namespace is authoritative, not the creator of the detached tree.
-
-Fixes: 132c94e31b8b ("vfs: Carefully propogate mounts across user namespaces")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261002-work-mount-fixes-4-v1-6-dd44b89d44ce@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: adjusted context for attach_recursive_mnt() using separate mount and mountpoint arguments instead of pinned_mountpoint ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/namespace.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
-
-diff --git a/fs/namespace.c b/fs/namespace.c
-index ff8d16a3eeb2d..9eda86de1efca 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -2168,14 +2168,30 @@ static int attach_recursive_mnt(struct mount *source_mnt,
- 			struct mountpoint *dest_mp,
- 			bool moving)
- {
--	struct user_namespace *user_ns = current->nsproxy->mnt_ns->user_ns;
- 	HLIST_HEAD(tree_list);
- 	struct mnt_namespace *ns = dest_mnt->mnt_ns;
-+	struct user_namespace *user_ns = ns->user_ns;
- 	struct mountpoint *smp;
- 	struct mount *child, *p;
- 	struct hlist_node *n;
- 	int err;
- 
-+	/*
-+	 * A caller in an unprivileged mount namespaces may trigger an
-+	 * automount and propagate locked mounts into privileged mount
-+	 * namespaces. Take ownership from the target mount namespace.
-+	 * It's equivalent for everything but the automount case.
-+	 *
-+	 * Detached trees in anonymous mount namespaces by be handed
-+	 * over via SCM_RIGHTS or inherited in other ways on purpose
-+	 * the attaching task's mount namespace is authoritative, not
-+	 * the creator of the detached tree.
-+	 */
-+	if (is_anon_ns(ns))
-+		user_ns = current->nsproxy->mnt_ns->user_ns;
-+	else
-+		user_ns = ns->user_ns;
-+
- 	/* Preallocate a mountpoint in case the new mounts need
- 	 * to be tucked under other mounts.
- 	 */
 -- 
-2.53.0
+Best regards
+Ridong
 
