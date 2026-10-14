@@ -1,182 +1,151 @@
-Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com [209.85.160.44])
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7976352CCD5
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 16:43:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791996233; cv=none; b=TcJ/KfMkbHAb2zJ52RNMV/wE4CxpfIzgMZtHKeUw2+vkwKJJPWSmzbY4moo1jnWwT5ysv/5KBelN5+jNkeZe8pMVFUGH1ct5QwOfujzrJr21yaNprULIP5UCk5o4xsldvmtW3tHptTnhNLEvDT3NKksTrPcC9xlLhWD/hA8ICsE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791996233; c=relaxed/simple;
-	bh=PTWK2O3Q7LSGSTcECoF3nygtNDxXEAmygRPcMvAnDIg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DU7vSaaDYqjzwKd56RWtiwbYEwT5gqK5+zYW1JbDruGImhTKRtUnNpvsYKk6k33Zg0dvNAstqA59L9Y8P01yVhyU5ikDB4p28LRKno4XOnD4iGehIgQXFhxeLFxnQoL8ROdhk16/zdrH6mse+U3dfAPf8lPI4P8MTovKVWN/pCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ToIrwu4G; arc=none smtp.client-ip=209.85.160.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C7456260D
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 16:52:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791996753; cv=pass; b=lXK0LVrPU8/tHg/znMEMQ0at9ildwbJF/prTGhItVdjIaw8vLzS104U8oZ2rngUezu56Q3SKAKKl7cmaC01ABoGAKvJszMzPjOFk88fIf8+6ODh+bUzBPD7cYl7Nc6WhqvE4sd2x2biAHBhCP7RMWyToEslHmo/WL/iDfx5wABU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791996753; c=relaxed/simple;
+	bh=fQ50eGlFnjMQI2C3GaRdlcFw09nmY23Q11yUL7SlD5I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NWBODn+1EBTZrltpe7TQqAaipi7u1sndgwc8CzLFCVGH3HPfqbuxosC5W4FhVpZH8HSC3Bu1/dq3fNzmhIzTL1bdv9xgn6wCB/BLzPV1SOI1TbtBCDJ+s+gippqOs8nLqNn4IoE1dffvxpN4Altnk0CAquZ8ga4UcLm4nBezS6U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=cIqhkAJt; arc=pass smtp.client-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ToIrwu4G"
-Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-46556b9e02cso3199551fac.1
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 09:43:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="cIqhkAJt"
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso1290918eec.0
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 09:52:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791996749; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Th6SfFozNKIYWoTx8ZiItqIJTq2mhdTWkBWmyMHRYczb00Ff1EVtoT114Et86kH4Sy
+         k/10CWm0dMWWVNVbP+QWEd4ItUX6wVFjTVKjtSWzkuuIYN67ploNM446cn9K1a5ehRTq
+         TLinzrcY+V/J6Ud49AkV2MZQR1vxI/wXtUJbv4PBIGT7hb+MgmnCHyqVsH8is8Wuu6gc
+         fqJY/7TQxLaw7VtozrLH1zuu6YJZQCdAUJ+bEVklyASU6O2YKsj6D4QQWTYln/s6z1PG
+         hblnA4NQ3Y500Oyr3S3DPHbazfkEPJ1A5yof2GEpVneF6PHOi6lqZdBqHGyXi5SyzQXR
+         uKrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=SWLwZ/p70zDk5tHBhgiTHN/1ZMG5p4KgHwoBBSKxoBM=;
+        fh=tV/cPIpt2IbZBWSSGYS+ZuW/j4Ysi+Srntbe2ErzcLs=;
+        b=a9nuoBW8Hgr2AWJ7osbBW6cYB25b3dRgoV53Hq+MQKS7aIrCOshb6Fd8toiDXRK9MN
+         xdZ0E+KfTRJDDRw2kn7pC5exrEIYzCgnNV/eb/YYLGkxU6zNxnfG63Uv7jhDkZVuFsom
+         aZoFS/95cb836Ihr+qpd0h6Hd3WN57x6BNlKrP8T2HpiWDWM2lm0yuSYqAu8HCnnp6rS
+         QEJed8JF8wQCLCx+x/bq/dojVqSvqUke0rEt2T4ZzP0xq1y52YhkpuQ/Yvix/uwFdlyX
+         TguaZZn/dQcQ+EPicUTkZGWgTnvofp5dlNP5gWiAk2pG4GQnCLckqjoD6QtypYhWExDt
+         6N7A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791996231; x=1792601031; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tMpqIpjk0oH8Hp+oTEjeUG/Kp3ExxsukdF4YXrCzIVQ=;
-        b=ToIrwu4GZXH57VU9mglLBedQP4woYN+tPxHBdw5XYlUBiDNQY4jcZcIODdbZSjTjEx
-         VuHIrRetwHk0qmIr1Db1akb1u1bQlIsZmBjb1srGSrxmrCrrFdOvEmgRe2T5pIi0zFgj
-         R6Cetims8oIxBRwtBBWmI5uMt46benylZY4S4gUt+lkgPQ7ZAMJUctgfRFJjrM05AIBF
-         OKo2W0wPNsuou8cO+aC3vjQ2gP0Un76QDaLIS3aB6KiOoWoIgSZojXzXkY2WWvimZg3L
-         GA3JOdwNFScdgwuvX0rrs2eBynUB1AgpCAXbZZtI9YdsNLQzWS0LwUa8cIpsDDENq1oS
-         pWzg==
+        d=toxicpanda.com; s=google; t=1791996749; x=1792601549; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SWLwZ/p70zDk5tHBhgiTHN/1ZMG5p4KgHwoBBSKxoBM=;
+        b=cIqhkAJtHmT03n2ZEgG8w4wzPyqXgS0tO+5FPE0Ijiuk5wj2XwI84XFWd0i4Vc7TXg
+         kFDiRMoW3XYsxxKDS5EjN84s4sc1+2cceZ1KakpWldZFyeRMMfzl/gV6uTka0p/ks7gI
+         H2hGLpArpHVzQrPUuBnAPvsjQJOHIS2HgT8d/fqOLKEnaKfYQb6yaQsCEnAERJSdIDqB
+         3uTklSzvtA0WwbMzDPeMUTbDt8c7NVVUqdch7WFB+AhRJP0/3pEKvK4dpT/lDM+0bEPA
+         zQ6a5NS2siQjSjLHvhxtR1xI24TbhiHMwCI5s05O8LFtnksRrNU7sRcMgCwksiRPLoMV
+         KoQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791996231; x=1792601031;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tMpqIpjk0oH8Hp+oTEjeUG/Kp3ExxsukdF4YXrCzIVQ=;
-        b=z0suMCuf1Peyn9jl0JzDnPzDuXDAJVzyGlUnRY8BKkSyQHHrrsPEaCNm0QbFFNl+NC
-         wR4CoxFfajz6tz71r39JqAU6R1fOpbPpzuTLEXrxhRHWYpAJaqZykw+OXHiN9lfq2Hg8
-         UnuK7Og28WxJZo13wkKQFTdIvKKbjrErWDr5oVv37j/cpXogrWMfN/9zSQsWB2zd2NOb
-         oKawK5BsjqZ+MeIwTFssYiDWdx7jgAZz82ePIgUSJiJWgD+XZgkGcHZSG2kkM5RQpBS9
-         Lp3KnIgW+lcW2RTJT7xPT3oFDMUNnDxu40osTY/4Yu9+9CpRhRK/gPcB0CHu6bAL0ZMO
-         VE0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxnISIoyRmoirXkula78D9JmSx4CokN4vsPnq5NKfLtMuIwnZFZVEmM4ihbbrDJqqi64T11RwU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSPZNxIo6ZvYnNp18zMxyr5hXx1d6FOYzOhEVwOdqom9Liz08p
-	LE8PZ/xGDjBU2Gr1k1VjwJvVpR+OId8glmtiFGcNo/jyqdLANw8jmFTptsssgg==
-X-Gm-Gg: AYBFou2JgiY97CdM+e7j/rt3yVCXmYv5xltJULLjQpJ/bSNjmSv80L2sN151Ij3RuPU
-	6yr//ErThqEPBEa4byZz4aONi9gSo0LNqZCowziJxrx0skr/4W60UoMUa3okmR2sg5wg7Ie2rVw
-	uu/o7QJESi/2u7gnLQ7Csp/EVdNyBKsTPXooOHEoqx8kBuz+JlmxhqehqM9FgZ1IxsqmozMiQqG
-	PCv4kVSZvkZCtmMwh7dhRzaxkWGQ28nQwiyKPBSuMV/UFEHcfYwnM/NQS7kQwJgb2z6GNSSGFCY
-	6vmFPXrxVc7zVS7uTJlcFWqkklgc+iO9mll/Dlyqxv8vMFi39zeNHQ2ORoEuK3yxwZgsZY+FRne
-	EcqIz+6LTWGoyu6/tZMDItddt42ue7WsM5EcdEbRYXLWrjqXRkKVMdj9x9m9T3tszTxcAKWzDNA
-	JjL3U8+ozmbmVGP043aXnG1LgssC7fndeuRZPr/QdkRCPz9RK4AaxwN3fWmzEWyHJnTUyaZPsbQ
-	h6y5wpRaxjAB1FMcQRgiyPIbNo5
-X-Received: by 2002:a05:6870:d14f:b0:48f:e0f6:bfef with SMTP id 586e51a60fabf-4a2a8b0ce81mr11201261fac.27.1791996231164;
-        Wed, 14 Oct 2026 09:43:51 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:6::])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a6dfcabc34sm2256325fac.15.2026.10.14.09.43.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 09:43:50 -0700 (PDT)
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-To: "Harry Yoo (Meta)" <harry@kernel.org>
-Cc: Dennis Zhou <dennis@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Hao Ge <hao.ge@linux.dev>,
-	kernel-team@meta.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/percpu: account full object size for percpu memory allocations
-Date: Wed, 14 Oct 2026 09:43:48 -0700
-Message-ID: <20261014164349.2332145-1-joshua.hahnjy@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261013-fix-alloc-percpu-accounting-v1-1-03e788a1e41f@kernel.org>
-References: 
+        d=1e100.net; s=20260707; t=1791996749; x=1792601549;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SWLwZ/p70zDk5tHBhgiTHN/1ZMG5p4KgHwoBBSKxoBM=;
+        b=Cp+LzUHSeoCIl91dyKUuuOOtwBZHWfbFAH7COByammhzZ1bWOfvi9II/tddngSMi3F
+         +duI2cM8GVBKnkO/B0Rjs3yMUevPONX0kXtcaXtgHJvn4AAZJ2bNyqeZKJO1LOUt+WIA
+         W5jzJH701d02DD/X1XDfPGHlcBb+l7DnDUJH5TBo3LDYVHcCzdvjcoWyBn9/NfPPtslD
+         7xVz8qH/FiNPir+JIdzIpHllesUV49LGJ+6SyA21lLcZRaJEx1mHmfq+NwAN+x9sL1U9
+         kY3ILY2kBsBjm5ba/qxl9+6vF36UVcl8Y56MXS9i/m9W3vIW0XHEsXURbZzfyr1zKvOw
+         Qrjg==
+X-Forwarded-Encrypted: i=1; AKwUvBwxEovxHzO3x/zZtH8LIwmO9umfmZ+Xwhe+/dNbYSL0M9oYAIVU7bEgVkKhbzihWg58wI2C1Wo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKOyivBxt/LZL7ZsbKFYNAJi5tRA3WLuaRI+kx9EZ0NC2QkoYeQ
+	wh7vXltI4CK1C1mmeBcVzS74QkAW3JzjJAa3vwkYwWcYcOwgZpY4zWFYh5CiZlrj+PP7UbGPTDH
+	E0K0TsnFqqjIQbsq8hc+fBSiiaLKxEjdZN6MczeKCTw==
+X-Gm-Gg: AYBFou3vk9StHfKOwmJE6Ppfg0iyg9oAURTDgH+A7jEBMcJNjdFoZAYhVS3LUrRcmso
+	GpmUP+x8sC5+N1ZHNmVDt5+SVcdmdOrJCXzTGnFwsnSpoT81OSq5+TdQet6ZqsmNk9KeAmXet2p
+	uEAbggJEXY3a1VS97ZyEtCRQf5gdrywXGvl62MIpMzGslyFxI9Tbm1DnPv1NpcgA5Ht3Kvbro/j
+	JmFmihtaf7+QlggRmOZ/2pmJsrZZ9/cfMPYKDyidTycffSZC4QJSt8JCRCUFmjsfmT8KcGfOSs0
+	3Njcwxnq+xebch4zxdQwL5wkTT7JCuOAQ3iFE9Dt4fQRWGFC61AlFfLUvaa+gncWC65duPemhVV
+	yggu/8s/0Lva7hA==
+X-Received: by 2002:a05:693c:87c7:20b0:351:516f:7576 with SMTP id
+ 5a478bee46e88-3537e01e8a0mr23272919eec.10.1791996749365; Wed, 14 Oct 2026
+ 09:52:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261013-b4-skb-segment-nosg-unreadable-v2-1-6c28d8ffa51e@toxicpanda.com>
+ <20261014135154.05de968e@pumpkin> <179198668564919.2.10323410751655182155@toxicpanda.com>
+ <20261014173042.0a74a25d@pumpkin>
+In-Reply-To: <20261014173042.0a74a25d@pumpkin>
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Wed, 14 Oct 2026 12:52:17 -0400
+X-Gm-Features: AclHuK-GYay-AQwoTupL5qC9wZ92QZPzmV0dk65w2lPnhQBw10ayUmM8aY0IhLk
+Message-ID: <CAEzrpqd9Pna32K8i5Ug3tP+ZiRa7-0GmyX+sn=OwbZ_3osEAsQ@mail.gmail.com>
+Subject: Re: [PATCH net v2] net: skbuff: make skb_copy_and_csum_bits() report
+ unreadable frags
+To: David Laight <david.laight.linux@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, David Ahern <dsahern@kernel.org>, 
+	Ido Schimmel <idosch@nvidia.com>, Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
+	Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
+	Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, 
+	Mina Almasry <almasrymina@google.com>, Kaiyuan Zhang <kaiyuanz@google.com>, 
+	Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-nfs@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 13 Oct 2026 20:34:39 +0100 "Harry Yoo (Meta)" <harry@kernel.org> wrote:
+On Wed, Oct 14, 2026 at 12:30=E2=80=AFPM David Laight
+<david.laight.linux@gmail.com> wrote:
+>
+> On Wed, 14 Oct 2026 14:04:45 +0000
+> Josef Bacik <josef@toxicpanda.com> wrote:
+>
+> > On Wed, Oct 14, 2026 at 01:51:54PM +0100, David Laight wrote:
+> > > Can't you use that fact that the csum function should only return
+> > > either 0 or ~0 and use the other value to indicate an error.
+> > >
+> > > ISTR this coming up before with the 'copy_to/from_user_and_csum' code=
+.
+> >
+> > skb_copy_and_csum_bits() returns an unfolded __wsum starting from 0, so
+> > 0 is a valid result today.  It would work if it started from ~0 the way
+> > csum_and_copy_from_user() does, since that doesn't change the folded
+> > result and the sum can never come out as 0.
+>
+> The result can only be 0 if either the length is zero or all the bytes
+> are zero.
+> You can probably prove that is never required.
+> It is likely better to initialise the csum to either 0xffff or ~0.
+>
+> IIRC both IPv4 and IPv6 complement the checksum before sending it.
+> For IPv6 a zero is invalid (it means checksum not calculated for IPv4),
+> I think the best was to achieve that is to initialise the csum to 1
+> and then add 1 after inverting it.
+>
+> > But this is one of those "you have to know the behavior of the function
+> > to use it properly." Explicit errors are always better, it removes
+> > ambiguity and creates cleaner and less error prone code. I'm happy to
+> > change it to start with ~0 as well to add the extra protection, but
+> > explicit errors are always best. Thanks,
+>
+> Look at all the places ERR_PTR() gets used.
+> An in-band error indication gives better code and is probably less buggy!
+>
 
-> When memory allocation profiling is enabled, the pages backing percpu
-> memory chunks are attributed to func:pcpu_alloc_pages. However, the
-> accounting of individual percpu memory allocations via alloc_percpu()
-> and friends record only the size of a single object rather than its
-> full size across all CPUs.
-> 
-> As a result, it is often not straightforward to identify which kernel
-> code is actually responsible for percpu memory, because the size is
-> under-accounted by a factor of num_possible_cpus().
-> 
-> Account full object size with pcpu_obj_full_size(size) instead, which
-> multiplies the object size by num_possible_cpus() and adds the objcg
-> pointer overhead. This is consistent with what memcg already does for
-> charging percpu allocations.
+...ERR_PTR would be fine too? I'm arguing for explicit return values,
+not "0 means failure". But I don't care enough to argue, I'm
+respinning. Thanks,
 
-Hi Harry,
-
-This looks quite good to me. Thanks for finding this!
-Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-
-Some comments below that shouldn't be blocking:
-
-> Verified with 64-CPU VM by spawning 400 processes in a memory cgroup and
-> measuring mm_init()'s rss_stat counters.
-> 
-> Delta of kernel/fork.c:1142 func:mm_init in /proc/allocinfo:
-> 
->                   bytes   calls   per allocation
->     unpatched      6320     395         16
->     patched      418176     396       1056
-> 
-> 'percpu' field in memory.stat: 422400 (1056 bytes per process)
-> 
-> Memory allocation profiling now accounts the same amount of memory as
-> what memcg charges.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 60fa4a9e2323 ("mm: percpu: add codetag reference into pcpuobj_ext")
-> Assisted-by: LLM # Verification
-> Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
-> ---
->  mm/percpu.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/percpu.c b/mm/percpu.c
-> index 3eff382e565a..d7883507dc15 100644
-> --- a/mm/percpu.c
-> +++ b/mm/percpu.c
-> @@ -1696,14 +1696,15 @@ static void pcpu_alloc_tag_alloc_hook(struct pcpu_chunk *chunk, int off,
->  {
->  	if (mem_alloc_profiling_enabled() && likely(chunk->obj_exts)) {
->  		alloc_tag_add(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag,
-> -			      current->alloc_tag, size);
-> +			      current->alloc_tag, pcpu_obj_full_size(size));
->  	}
->  }
-
-So @size by itself isn't used, so I was looking to see if we could just
-pass pcpu_obj_full_size(size) to the function instead. Looking at the
-call site, pcpu_memcg_post_alloc_hook() also has the same oddity where
-pcpu_obj_full_size(size) is used for all calcualtions.
-
-So I'm wondering if we can send a follow up to just unify all of these
-and pass pcpu_obj_full_size(size) where the caller never uses @size
-by itself, I think it would also help in demonstrating the intent to
-account the full size. Same idea for the free hook below as well,
-paired with pcpu_memcg_free_hook().
-
-Happy to follow up on that myself too : -)
-
-Anyways, the change looks good. Just wanted to bring this up as a
-follow-up cleanup patch.
-
-Have a great day Harry!
-
->  static void pcpu_alloc_tag_free_hook(struct pcpu_chunk *chunk, int off, size_t size)
->  {
->  	if (mem_alloc_profiling_enabled() && likely(chunk->obj_exts))
-> -		alloc_tag_sub(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag, size);
-> +		alloc_tag_sub(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag,
-> +			      pcpu_obj_full_size(size));
->  }
->  #else
->  static void pcpu_alloc_tag_alloc_hook(struct pcpu_chunk *chunk, int off,
-> 
-> ---
-> base-commit: 0e199ae6e803e76ebf128e009d336e5917221e63
-> change-id: 20261013-fix-alloc-percpu-accounting-48bf24919caf
-> 
-> Best regards,
-> --  
-> Cheers,
-> Harry / Hyeonggon
+Josef
