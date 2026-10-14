@@ -1,253 +1,226 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3890417D7A;
-	Wed, 14 Oct 2026 07:08:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0C12FE05C;
+	Wed, 14 Oct 2026 07:19:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791961733; cv=none; b=qs/HTuECpBskGg+jEtPIaTvGu+5xh9q7GRv0yEEQrRaQFdAkHr7ASMmJJM77n99nV9ODF2xQzLDHJLrtPF1SN2u96BI7jAf0/T8sRFOWLD/8nkWfCNZZ3rCXs8ca8IX0G8LZQovRLAXvq5MhRkVc1ZGoecdupC3jIGYwoWztwlU=
+	t=1791962367; cv=none; b=nmUqDA8a3c94XzNIkQrFupBDjipnMtJUUXmN5mZHe5ewZ3KPUXPH87GWHTMvjLXtV+Ee7EheSmmX1Vrw2r/8csWmbDdYrPs0WudD1nEEqgveqxbeUo8ZX6Er+iiXEamsgpACj8CM2DzFrBJgt7ToIjN4hZTpSTi0z4YT1D2dhzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791961733; c=relaxed/simple;
-	bh=yC1WRCeiq7ucioYsTgktt/uQi9fB/dzQmGzBnhikiQE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iF1WC78TzQFehxS+xnqVBP4by1uvkHDh2tKacHEzh/xx3KFLGJjkI7+F1/ybzZid/hasquFKfrT3xoAgrmhmYFVxlBf3L8n0+EpejSgtK0KGIK6m59goEqOLwF3SHAMbTs5EDWRnW/RpwhP2ksTyTiYsOxRgHR04YvKb1DMBf5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=g5Ki6d8+; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791962367; c=relaxed/simple;
+	bh=cxuv37kw4+dGUCCYicymFCUgoZwkVNkYPqDBSXdjM+c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=lt+awflM/+Zt+A63ACvM2FqcU2g0ezLIuSkgSt4jDhKDvnP+FSKdnw9FfL+TZgm8NiF3G1XHKmxY+x+wZIiJTOMaEUitdcBJJL59FKiA4QJITYY05x+mG0JhbDXKs70JPSpfl77FzE0AaVsBxE6ehLeA6GvKb7llz8n1M2BlhAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=inHz6b3z; arc=none smtp.client-ip=115.124.30.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="g5Ki6d8+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791961719; x=1823497719;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=yC1WRCeiq7ucioYsTgktt/uQi9fB/dzQmGzBnhikiQE=;
-  b=g5Ki6d8+MnXuHjsQymWHJDAxPoMQgGAAXhyvDO00IE7jWuaTLM8s3/J/
-   QKbwYbUmE2jMqszSKI6uC12BxhEufqkrtWVGHE97pFESSSJlrR690vPC9
-   gy+xo0LNEACVOkUDyCHcudBycJsuOVG42PPbgc+skrjfXET254EwZ9WBQ
-   1Eupe44FGmaCILkK+XLl+xOdRWmwj6Xdj/0YXvdvAomCoFeYoXkMBChZC
-   wurQfwkZt0iVo44oN4oAj/oXLk7v4ju6ve+fsmdKWnf5jvSIpZXqekRGx
-   3noYZH6hIDwWgzD0JWRd2vH4jUmR1f0pRFW06DZH1VVgaSihJse+uI3bC
-   w==;
-X-CSE-ConnectionGUID: R4jfG+OkRP2reamOBW4OsA==
-X-CSE-MsgGUID: SJycUMyjQMuc4BJNE7jQIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="690511"
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="690511"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 00:08:22 -0700
-X-CSE-ConnectionGUID: OcRWZg+jQ4uBTAEi88U+ww==
-X-CSE-MsgGUID: ddpI7zTWSQy6XoOxogqf5Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="1709254"
-Received: from unknown (HELO WEBAPTLH032.iind.intel.com) ([10.66.250.231])
-  by fmviesa009.fm.intel.com with ESMTP; 14 Oct 2026 00:08:19 -0700
-From: Ajay KV <ajay.k.v@intel.com>
-To: linux-bluetooth@vger.kernel.org
-Cc: chandrashekar.devegowda@intel.com,
-	kiran.k@intel.com,
-	linux-kernel@vger.kernel.org,
-	luiz.dentz@gmail.com,
-	marcel@holtmann.org,
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="inHz6b3z"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791962355; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=bEp3jXGj9Rn+RoKUGxCbUMyDYG5oy4+r82DsEtexLig=;
+	b=inHz6b3zMOBGfhNbE9AkeHFCKZ9XgkgixlQvlDnBGFwqHM7jz4NgB4w9ATsFuRzj7I+xl0osfNeAbAwiorw+mWwN8nIyKdl7/XPcrz4zfBwJaupVNsg0+RBZhqM0GL/uBH7ZpdeEtBMDF6gV/8PZ6Z/vRyyVVMC2mTpjLtwiUBw=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R881e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XCoKYKA_1791962326;
+Received: from x31h02109.sqa.na131.tbsite.net(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XCoKYKA_1791962326 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 14 Oct 2026 15:19:15 +0800
+From: Baokun Li <libaokun@linux.alibaba.com>
+To: axboe@kernel.dk,
+	linux-block@vger.kernel.org
+Cc: ebiggers@kernel.org,
+	linux-fscrypt@vger.kernel.org,
+	hch@lst.de,
+	dm-devel@lists.linux.dev,
+	mpatocka@redhat.com,
+	sweettea-kernel@dorminy.me,
+	satyat@google.com,
+	libaokun@linux.alibaba.com,
 	stable@vger.kernel.org,
-	chethan.tumkur.narayan@intel.com,
-	lakshmipathi.k@intel.com,
-	Ajaykv <ajay.k.v@intel.com>
-Subject: [PATCH v3 2/3] Bluetooth: btintel_pcie: Validate the YoYo DEBUG_INFO TLV
-Date: Wed, 14 Oct 2026 10:08:12 +0300
-Message-ID: <20261014070813.96796-2-ajay.k.v@intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261014070813.96796-1-ajay.k.v@intel.com>
-References: <20261014070813.96796-1-ajay.k.v@intel.com>
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v2 1/2] blk-crypto: fix NULL deref and UAF in __blk_crypto_evict_key()
+Date: Wed, 14 Oct 2026 15:18:45 +0800
+Message-ID: <20261014071846.3666398-1-libaokun@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Ajaykv <ajay.k.v@intel.com>
+Sashiko reported a possible NULL pointer dereference, triggered by the
+following flow:
 
-Require a DEBUG_INFO TLV in the YoYo firmware configuration. Validate
-its payload length, TLV version, Bluetooth domain, external image type,
-and Bluetooth core type before accepting the configuration.
+  dm-inlinecrypt ctor            # first use of the fallback
+   ├─ blk_crypto_init_key()      # succeeds, ctx->key.size != 0
+   ├─ blk_crypto_start_using_key()
+   │   ├─ hw-wrapped key: -EOPNOTSUPP
+   │   │    # profile never allocated (NULL)
+   │   └─ raw key: fallback_start_using_mode()
+   │      └─ blk_crypto_fallback_init() fails
+   │         └─ kfree(profile)   # not NULLed
+   ├─ goto bad
+   └─ inlinecrypt_dtr()          # evicts whenever key.size is set
+      └─ blk_crypto_evict_key()
+         └─ blk_crypto_config_supported_natively() = false
+            └─ blk_crypto_fallback_evict_key()
+               └─ __blk_crypto_evict_key(blk_crypto_fallback_profile)
+                  └─ profile->num_slots # BOOM!!!
 
-Reject missing or invalid metadata so the driver keeps legacy DBGC
-defaults instead of enabling an incompatible configuration.
+This issue can be reproduced using the following commands:
 
-Signed-off-by: Ajaykv <ajay.k.v@intel.com>
+  dd if=/dev/zero of=/tmp/backing bs=1M count=64
+  LOOP=$(losetup -f --show /tmp/backing)
+  SZ=$(blockdev --getsz $LOOP)
+  KEY=$(head -c 64 /dev/urandom | od -An -tx1 | tr -d ' \n')
+  dmsetup create ic --table "0 $SZ inlinecrypt aes-xts-plain64 \
+    $KEY 0 $LOOP 0 1 keytype:hw-wrapped"
 
-diff --git a/drivers/bluetooth/btintel_pcie_debug.c b/drivers/bluetooth/btintel_pcie_debug.c
-index 0e933f4ec376..615996232cdf 100644
---- a/drivers/bluetooth/btintel_pcie_debug.c
-+++ b/drivers/bluetooth/btintel_pcie_debug.c
-@@ -11,11 +11,59 @@
+And the following oops is triggered:
+
+  ==================================================================
+  blk-crypto: loop0: no support for wrapped keys
+  Oops: general protection fault, probably for non-canonical address
+        0xdffffc000000000b: 0000 [#1] SMP KASAN PTI
+  KASAN: null-ptr-deref in range [0x0000000000000058-0x000000000000005f]
+  CPU: 5 UID: 0 PID: 901 Comm: dmsetup 7.3.0-rc3 #1 PREEMPT(lazy)
+  RIP: 0010:__blk_crypto_evict_key+0x2e/0x3b0
+  Call Trace:
+   blk_crypto_evict_key+0x24c/0x320
+   inlinecrypt_dtr+0xf6/0x160
+   inlinecrypt_ctr+0x2d3/0xbd0
+   dm_table_add_target+0x661/0xf40
+   table_load+0x1c4/0x490
+   ctl_ioctl+0x32f/0x5f0
+   dm_ctl_ioctl+0xe/0x20
+  ==================================================================
+
+dm-inlinecrypt is the only caller that can evict a key that was never
+started, as fscrypt frees such a key without evicting it.
+
+Fix this by publishing blk_crypto_fallback_profile only after
+blk_crypto_fallback_init() succeeds, and by returning early from
+__blk_crypto_evict_key() when the profile is NULL.  The eviction path
+can then only observe either a NULL profile or a fully initialized
+profile that is never freed.  A key whose start failed cannot be in a
+keyslot, so there is nothing to evict.
+
+The profile pointer is published and read locklessly, so use
+smp_store_release()/smp_load_acquire() to guarantee that a reader in
+the eviction path that observes the pointer also observes the
+initialized profile.
+
+The bug has been latent since commit c984ff1423ae ("blk-crypto:
+dynamically allocate fallback profile") was merged in v6.5, and only
+became actually triggerable when commit e7f57d2c47e2 ("dm-inlinecrypt:
+add target for inline block device encryption") was merged in v7.2.
+
+Fixes: c984ff1423ae ("blk-crypto: dynamically allocate fallback profile")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://patch.msgid.link/sashiko-outbox-167341@kernel.org
+Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
+---
+ block/blk-crypto-fallback.c | 31 +++++++++++++++++++------------
+ block/blk-crypto-profile.c  |  3 +++
+ 2 files changed, 22 insertions(+), 12 deletions(-)
+
+diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
+index 2a8f40a65158..b5dbb092caea 100644
+--- a/block/blk-crypto-fallback.c
++++ b/block/blk-crypto-fallback.c
+@@ -524,12 +524,18 @@ bool blk_crypto_fallback_bio_prep(struct bio *bio)
  
- #include <linux/errno.h>
- #include <linux/module.h>
-+#include <linux/stddef.h>
- #include <linux/string.h>
- #include <linux/unaligned.h>
- #include <net/bluetooth/bluetooth.h>
- #include "btintel_pcie_debug.h"
- 
-+/* TLV-specific parser DEBUG_INFO TLV type */
-+static int btintel_pcie_yoyo_parse_dbg_info(struct btintel_pcie_yoyo_ctx *ctx,
-+					    const struct btintel_pcie_tlv_dbg_info *info,
-+					    u32 len)
-+{
-+	const u8 *data = (const u8 *)info;
-+	u32 domain, image_type, core_type, version;
+ int blk_crypto_fallback_evict_key(const struct blk_crypto_key *key)
+ {
+-	return __blk_crypto_evict_key(blk_crypto_fallback_profile, key);
++	struct blk_crypto_profile *profile;
 +
-+	if (len != sizeof(*info) - sizeof(struct btintel_pcie_tlv_hdr))
-+		return -EBADMSG;
++	/* Pairs with smp_store_release() in blk_crypto_fallback_init(). */
++	profile = smp_load_acquire(&blk_crypto_fallback_profile);
 +
-+	image_type = get_unaligned_le32(data +
-+				       offsetof(struct btintel_pcie_tlv_dbg_info,
-+						image_type));
-+	core_type = get_unaligned_le32(data +
-+				      offsetof(struct btintel_pcie_tlv_dbg_info,
-+					       core_type));
-+	domain = get_unaligned_le32(data +
-+				   offsetof(struct btintel_pcie_tlv_dbg_info,
-+					    dbg_hdr.domain));
-+	version = get_unaligned_le32(data +
-+				     offsetof(struct btintel_pcie_tlv_dbg_info,
-+					      dbg_hdr.tlv_data_version));
-+
-+	if (domain != BTINTEL_PCIE_DOMAIN_BT ||
-+	    version != BTINTEL_PCIE_DBG_INFO_TLV_VERSION) {
-+		BT_WARN("YoYo: unsupported domain/version (%u/%u), disabling",
-+			domain, version);
-+		return -EINVAL;
-+	}
-+
-+	if (image_type != BTINTEL_PCIE_IMAGE_TLV_TYPE_EXTERNAL) {
-+		BT_WARN("YoYo: unsupported image_type 0x%x, disabling", image_type);
-+		return -EINVAL;
-+	}
-+
-+	if (core_type != BTINTEL_PCIE_CORE_TYPE_BT) {
-+		BT_WARN("YoYo: non BT core_type %u, disabling", core_type);
-+		return -EINVAL;
-+	}
-+
-+	ctx->dbg_info_present = true;
-+	BT_DBG("YoYo: config='%.64s' image=%u core=%u",
-+	       info->config_name, image_type, core_type);
-+	return 0;
-+}
-+
- /*
-  * Parse the optional YoYo firmware TLV stream and validate each record.
-  * This is the entry point for the runtime debug configuration payload.
-@@ -27,6 +75,7 @@ static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
- 	const u8 *ptr = buf;
- 	size_t remaining = buf_len;
- 	u32 count = 0;
-+	int ret = 0;
- 
- 	while (remaining >= sizeof(*tlv)) {
- 		size_t tlv_size;
-@@ -45,6 +94,13 @@ static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
- 
- 		switch (type) {
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_INFO:
-+			ret = btintel_pcie_yoyo_parse_dbg_info(ctx,
-+							       (const void *)tlv, len);
-+			if (ret) {
-+				ctx->dbg_info_present = false;
-+				return ret;
-+			}
-+			break;
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_REGION:
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_TRIGGER:
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_HCMD:
-@@ -105,6 +161,7 @@ void btintel_pcie_yoyo_cleanup(struct btintel_pcie_yoyo_ctx *ctx)
- 		return;
- 
- 	ctx->enabled = false;
-+	ctx->dbg_info_present = false;
++	return __blk_crypto_evict_key(profile, key);
  }
- EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_cleanup);
  
-@@ -149,6 +206,10 @@ int btintel_pcie_yoyo_load_and_parse(struct btintel_pcie_yoyo_ctx *ctx,
- 		BT_ERR("YoYo: tlv parsing failed (%d)", ret);
- 		return ret;
+ static bool blk_crypto_fallback_inited;
+ static int blk_crypto_fallback_init(void)
+ {
++	struct blk_crypto_profile *profile;
+ 	int i;
+ 	int err;
+ 
+@@ -543,26 +549,25 @@ static int blk_crypto_fallback_init(void)
+ 		goto out;
+ 
+ 	/* Dynamic allocation is needed because of lockdep_register_key(). */
+-	blk_crypto_fallback_profile = kzalloc_obj(*blk_crypto_fallback_profile);
+-	if (!blk_crypto_fallback_profile) {
++	profile = kzalloc_obj(*profile);
++	if (!profile) {
+ 		err = -ENOMEM;
+ 		goto fail_free_bioset;
  	}
-+	if (!ctx->dbg_info_present) {
-+		BT_ERR("YoYo: Invalid BT debug Info tlv, using legacy DBGC defaults");
-+		return -EBADMSG;
-+	}
  
- 	ctx->enabled = true;
+-	err = blk_crypto_profile_init(blk_crypto_fallback_profile,
+-				      blk_crypto_num_keyslots);
++	err = blk_crypto_profile_init(profile, blk_crypto_num_keyslots);
+ 	if (err)
+ 		goto fail_free_profile;
+ 	err = -ENOMEM;
  
-diff --git a/drivers/bluetooth/btintel_pcie_debug.h b/drivers/bluetooth/btintel_pcie_debug.h
-index b0b94c2a169d..717e8838c4d5 100644
---- a/drivers/bluetooth/btintel_pcie_debug.h
-+++ b/drivers/bluetooth/btintel_pcie_debug.h
-@@ -26,6 +26,19 @@
- #define BTINTEL_PCIE_TLV_TYPE_DBG_CONFIG_SET		0x100000A
- #define BTINTEL_PCIE_TLV_TYPE_DBG_PRESET_OVERRIDE	0x100000B
+-	blk_crypto_fallback_profile->ll_ops = blk_crypto_fallback_ll_ops;
+-	blk_crypto_fallback_profile->max_dun_bytes_supported = BLK_CRYPTO_MAX_IV_SIZE;
+-	blk_crypto_fallback_profile->key_types_supported = BLK_CRYPTO_KEY_TYPE_RAW;
++	profile->ll_ops = blk_crypto_fallback_ll_ops;
++	profile->max_dun_bytes_supported = BLK_CRYPTO_MAX_IV_SIZE;
++	profile->key_types_supported = BLK_CRYPTO_KEY_TYPE_RAW;
  
-+/* Supported TLV type versions */
-+#define BTINTEL_PCIE_DBG_INFO_TLV_VERSION	2
-+/* Debug Info TLV */
-+#define BTINTEL_PCIE_CONFIG_NAME_LEN		64
-+#define BTINTEL_PCIE_DOMAIN_BT			0
-+#define BTINTEL_PCIE_CORE_TYPE_BT		1
+ 	/* All blk-crypto modes have a crypto API fallback. */
+ 	for (i = 0; i < BLK_ENCRYPTION_MODE_MAX; i++)
+-		blk_crypto_fallback_profile->modes_supported[i] = 0xFFFFFFFF;
+-	blk_crypto_fallback_profile->modes_supported[BLK_ENCRYPTION_MODE_INVALID] = 0;
++		profile->modes_supported[i] = 0xFFFFFFFF;
++	profile->modes_supported[BLK_ENCRYPTION_MODE_INVALID] = 0;
+ 
+ 	blk_crypto_wq = alloc_workqueue("blk_crypto_wq",
+ 					WQ_UNBOUND | WQ_HIGHPRI |
+@@ -590,6 +595,8 @@ static int blk_crypto_fallback_init(void)
+ 	if (!bio_fallback_crypt_ctx_pool)
+ 		goto fail_free_crypt_ctx_cache;
+ 
++	/* Pairs with smp_load_acquire() in blk_crypto_fallback_evict_key(). */
++	smp_store_release(&blk_crypto_fallback_profile, profile);
+ 	blk_crypto_fallback_inited = true;
+ 
+ 	return 0;
+@@ -602,9 +609,9 @@ static int blk_crypto_fallback_init(void)
+ fail_free_wq:
+ 	destroy_workqueue(blk_crypto_wq);
+ fail_destroy_profile:
+-	blk_crypto_profile_destroy(blk_crypto_fallback_profile);
++	blk_crypto_profile_destroy(profile);
+ fail_free_profile:
+-	kfree(blk_crypto_fallback_profile);
++	kfree(profile);
+ fail_free_bioset:
+ 	bioset_exit(&enc_bio_set);
+ out:
+diff --git a/block/blk-crypto-profile.c b/block/blk-crypto-profile.c
+index 53126c091b0b..1c5feca3b856 100644
+--- a/block/blk-crypto-profile.c
++++ b/block/blk-crypto-profile.c
+@@ -346,6 +346,9 @@ int __blk_crypto_evict_key(struct blk_crypto_profile *profile,
+ 	struct blk_crypto_keyslot *slot;
+ 	int err;
+ 
++	if (!profile)
++		return 0;
 +
-+enum btintel_pcie_image_tlv_type {
-+	BTINTEL_PCIE_IMAGE_TLV_TYPE_EXTERNAL	= 0x1,
-+	BTINTEL_PCIE_IMAGE_TLV_TYPE_INTERNAL	= 0x2,
-+	BTINTEL_PCIE_IMAGE_TLV_TYPE_UNKNOWN	= 0xff,
-+};
-+
- /* TLV header */
- struct btintel_pcie_tlv_hdr {
- 	__le32 type;
-@@ -44,6 +57,25 @@ struct btintel_pcie_addr_value {
- 	__le32 value;
- } __packed;
- 
-+/*
-+ * struct btintel_pcie_tlv_dbg_info - YoYo DEBUG_INFO TLV
-+ * @hdr: TLV type and payload length
-+ * @dbg_hdr: Debug TLV version and domain
-+ * @image_type: Firmware image type
-+ * @core_type: Firmware core type
-+ * @config_name: Fixed-size name of the firmware configuration
-+ *
-+ * Describes the firmware image targeted by the YoYo configuration. Fields
-+ * are stored in little-endian format in the packed firmware TLV.
-+ */
-+struct btintel_pcie_tlv_dbg_info {
-+	struct btintel_pcie_tlv_hdr hdr;
-+	struct btintel_pcie_dbg_hdr dbg_hdr;
-+	__le32 image_type;
-+	__le32 core_type;
-+	u8 config_name[BTINTEL_PCIE_CONFIG_NAME_LEN];
-+} __packed;
-+
- /*
-  * struct btintel_pcie_yoyo_ctx- Runtime state for YoYo debug configuration
-  * @enabled: Whether the loaded YoYo configuration passed validation
-@@ -58,12 +90,11 @@ struct btintel_pcie_addr_value {
-  */
- struct btintel_pcie_yoyo_ctx {
- 	bool			 enabled;
--
-+	bool			 dbg_info_present;
- 	struct list_head	 region_list;
- 	struct list_head	 trigger_list;
- 	struct list_head	 hcmd_list;
- 	struct list_head	 config_set_list;
--
- 	struct hci_dev		 *hdev;
- };
- 
+ 	if (profile->num_slots == 0) {
+ 		if (profile->ll_ops.keyslot_evict) {
+ 			blk_crypto_hw_enter(profile);
 -- 
-2.53.0
+2.43.7
 
