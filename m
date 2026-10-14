@@ -1,139 +1,132 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C597C5592E7
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 16:27:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA74355D87B
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 16:30:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791995241; cv=none; b=U59HdXxNZ6CU06PZzJUw3x9NqydSESaZpSNhR5egfTHO1dcU21KWOjeCl/KDpltoHGoygpBp6KJuaxRhDBkN66ap0iKmZ9fy1aoFYbx497wNqYG6+o/XP/FYvR9DOElQP9BVk600IrWyA5mjnlSuZBBU3PEfe4jFwUZu2zorKMk=
+	t=1791995450; cv=none; b=XA4rpq9cWaLHP9PaT+MyLwRfhnlO42mPOhwuh/PNdDtDb7dSXT06zEtL9ckzqLnMC05a4YXwcUa+X1Yc/7uwBwVlbczU1fU5hDUryN7gM2GqyjybL6ii93D8FKIhr/+ZJ9LFriRnuysbuAC+Ek1P8H4FjGZ954l35Le47FcJD9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791995241; c=relaxed/simple;
-	bh=sBCaTY8ARBNUaW4lgyS60NrEr1RpU3oh4aQ5QCBZ51o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XoxIBJOQ/n/MfWFjM0g5FNU+9Otx60zNW5P86gWBK7xqx9L/Xb5jUi/AFTzOM3FZkCS/vTcxkQvFZbKS6PM7EQeCXwg1NPuu7ZgEYVmIqQpQJsoWMTFYVwH64ZUO1XVTxY49KDFgacQQNboU9w+ZChrdp9vugtbjfZqEYltBSl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YB7bwpYH; arc=none smtp.client-ip=209.85.221.53
+	s=arc-20240116; t=1791995450; c=relaxed/simple;
+	bh=BrjkRWhyANEzvU2G8fYFBH01XWMhW7Vpygjf58bbTgA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=f+lQ/TdexS3qSGkklSt4KI8F0itQ68t1Vp8Gp6eoMSOedav1dwQLbrDdUPkg/FzepB4JUonKU5nT1FJdEzcxjwJlBcXwFyHtqfB1JWGcJZvyOU3KOYnY24i22eWQO8lFPEYPkiIxdtm9lQE1H55UYOYqvLMHn7dGvzrUjYBJ/w0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I86KcNay; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YB7bwpYH"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48b042c0759so3263180f8f.2
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 09:27:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I86KcNay"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso10485515e9.3
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 09:30:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791995238; x=1792600038; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Bm2vsVus2jrRRF0UKZkM8VLcFn0B4q9e6VlpkqoMQi4=;
-        b=YB7bwpYHddw4imUY5XgbW7eeGNA/zweZ2qmTaR2gPxm2uE3WiLGNJmrvZHYS8Qo55f
-         vw8j/WIlUyWElSg6Cx/UcyogvpuJacGf38HQ2ok8SqR7Q1T0kJKw488PDz2dWMOMnIqt
-         QoSXfP4HuRuSB5ttWO1ZmuphjmBj8Sz1fk8OyvbEOEGonnhehqCfYsv8DaT+KDP5XnyM
-         6rJKRvSD6AcC47FfVAqKnck6MzR8v8sMHvNIlff0maBNB940Hw5O/vqc45LxBm0foRZa
-         KtJCWtBKazc05FrL8acIgfSzXSz7/IF39B/6nC4u/Ia1snoDJoYjz9CdK7kWQN9CNs7r
-         Hemg==
+        d=gmail.com; s=20251104; t=1791995446; x=1792600246; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jlhZ2D8PVaX0+/HQ1rv8ogSvRZujgAeRl9LWjz1EazE=;
+        b=I86KcNayWRCZftozOOWWxK91poIAkB5vFmgIEJV7louwmGtzLv2/UGs6AaJ//tcT2+
+         nKCEe/p2aWiFkRTRK6r+W4ppgLnG2mv2LdkDIDnkt1zqUBxiYNtmJl9xzzz3jDkdF5eC
+         Esl5dunQWf1ZWJfrOkCG3U35nS7NtZ3IIif5JqK5yhn4/QBmJC6puAsbqJWnnJsOMu77
+         Q3Cmo66B4stsYqUmw+GSm6Alc6JjbB6g9Os9db56nlsTu1avF3A87TN5E6SU6ycjX9UY
+         rmvHw2YEDL+T4lvUX81U0Sd1sN6XsXpcIMmQWO1aDQq8EbyjcBXabohOqNS82/ZlMdzS
+         iHpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791995238; x=1792600038;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Bm2vsVus2jrRRF0UKZkM8VLcFn0B4q9e6VlpkqoMQi4=;
-        b=mQpvGjmtPbQbMC8PqFiUaNh9oKAwK0MlU+L/guNtEPlgj+uBg/g8bK3QkCAXddmDP6
-         DlCNo+M6jwTHWbvJvFqFjcth3vy7j98bawL28YuR1luPo8hRTQqvu/Vjk60LabdAInMF
-         kaj3Qy1LRKyA3qyue0jFLCBei0KMbfr1GGtYHLYD7ik/57bUUHKlQ07o4X91iYZU+o2D
-         BvgwzsB1detRQ6EAO+j+aGRX3St8UfzkMM0t3hWoz5oRZS1eEy6OC3DK4zSUVQqm1HgG
-         1Ex/XsqO8i8HXHDt0J6Km8pFj63afMvhEqMvEBzMDqcufMdk2zaURIHcU/jCnnOzpi/4
-         lwDw==
-X-Forwarded-Encrypted: i=1; AKwUvBxID5Bq9rcc7H4fNhWyTSmNu3dYalb4Ok2oFbAz/XBJd9CGc8RhbESL+fepARUU9C1L6hzcsJA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKeIQe3sPe7qNAfcTLgvsCyJg9oF5b2wlZdJ1ZT+VM1uK/Gat+3
-	VKTVIukTabWcNcYs3QMZ93TsfxmLtT87T91iXLxdWSX9oG5PS8HGNTNk
-X-Gm-Gg: AYBFou3pSxtKnw3N413y9DBsN/FG53QZVsaNdMrRhJqEQWR1UB3r3Bjuo1g3LyQaOBx
-	OlYiBxvT6I+nlhKMmQefPfYe78PTZpaspbqJCcK0DxehGcLxW5sPe4sYyFOZqXkgVpxnm4Xc7tX
-	r054bA8BJYYobrR5VKp3IH/cg6Gj+TOdopUmLMEZUMpRAs6dS3NkMdldfZeoYqvVVSRRXgUDkdS
-	+7F4knPu8ad/ueawJ4twbbQIL5IVnTLJH4KjElk28tkIR5UbBXy6lsKkhpdc6zEy3Nq1BZGDzl2
-	tFvlwxpbUBallqhpm43uvdSiHQ6v3iXVTWBo6aFlWR1L37M+GYtyZU6AXnMJuv+YW7qibEGZPVR
-	Y14hJ2e3NTCo9Lv9Xq4wwooVGo75Kii+7oOb9KMrDt75kO9XRnol1e0+iHyflOl/LHAutF5x1SI
-	M68q81h1LKmqFU0sI8NxX9Q5QqPL7QaT45Fecdf3RaTvgIgzTFk4TvZl/fjy8GZE8KK9y1TNf5m
-	ZI1yQVL53PUnpZqsYpJRKgS1A==
-X-Received: by 2002:adf:f94e:0:b0:487:1256:ab80 with SMTP id ffacd0b85a97d-48dbad0d4fcmr24273401f8f.57.1791995237877;
-        Wed, 14 Oct 2026 09:27:17 -0700 (PDT)
-Received: from localhost.localdomain ([188.190.249.216])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0aaabc3sm13076890f8f.16.2026.10.14.09.27.17
+        d=1e100.net; s=20260707; t=1791995446; x=1792600246;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jlhZ2D8PVaX0+/HQ1rv8ogSvRZujgAeRl9LWjz1EazE=;
+        b=C7It8HIKz4xTp78Z+FfN80OWWGfhM+mu+HGFxftrhSoEKYzYxHDNfGN17GdbZ9ZcsW
+         TCd9I01ygVJFIead7Kjw1knx+1K+N9YJLH9XmMhTsWGvx+Q1qbwjVEXLflHVXkcsZZLC
+         C2yxYAkJalAPRscD8pDkozWQWgT1eEjmR/mmzxHohv19FBwhRwJ0aNWBoxxzrrZDis7Y
+         eIAq1hsJLxqYyNlugyGbiwvRZRvSOX94wjBHBlcTozsn04RcX5h17ZNdH8umLABAhctJ
+         mLFw1DV7zmzclIxPzh18Hlzinf2qh03+ofMHd8D3awtlrZMxvXn0IK8AZQYq+mmDeDsk
+         yUiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy4zs5ESzNLcilOwpwjb1t66kp8AOQxZN0ls3rgfLqtq0ykvDYQgmfX9yrQgh0Ril4TwSysOk4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQhAd0WtHo6epjMS6n/8Vq4I5krLsJcNZxHxzNdJBcjmM+QLMf
+	zT90z42DUW4IMHDtnLKIO+8vsyWv0hCyoO+M8s/MBleNf27hSjTEpyNL
+X-Gm-Gg: AYBFou0PNbWKF058ssJngHPO5HND0HdnEoML45qTL0Wo4Zc6z7w8l40SxkdWD1SParV
+	arzCa93m7MvKOCxqTrGqSami5GfivhrwHliinAH3vrLVwAW0cc7D4N981XRGZB2hUqluncQM/wo
+	ioAo8WlGf8qlOpsjxT0UGn82Togel2wJ2zBeB+6XB0aZfkc2guvwq0nBMTpVPFNbTstigu2qS0Q
+	znJ57ESgJ9ZWpIbwpuHjMVd96rWpY6P9noyl1oRuZnU4dgaQiFtOFBG4Cp193SRV9daH3bf73Fa
+	PqZafvfhy/+B+pbimG9MzhUMIiBojSTHuK7E+SX7lkbY+tueCPF0i5wnVCylNYKwYBm+3fY6j0W
+	xAwxpJSNUCEQuuYCcpFaXebKAqngkGBw00ghSCnJHXcSA7rYbLmJ9T7KFG6IHjrlYVE5EW0h6Hi
+	gn2NBHoboOl9js2Y1QfV6CtXxw33LZLYYPGWhfSp5Iq9I4Xwye8kjaW9dHKAU6bePXCSJ/+lcEQ
+	09nCtKD2vTAPzUR2GfkIAPHn8+CNDDBhxs=
+X-Received: by 2002:a05:600c:a00c:b0:49f:fe90:de63 with SMTP id 5b1f17b1804b1-4a18e4e0a3emr341491645e9.28.1791995445684;
+        Wed, 14 Oct 2026 09:30:45 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0967affsm11644556f8f.1.2026.10.14.09.30.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 09:27:17 -0700 (PDT)
-From: Vladyslav Tymoshchuk <tvlad744@gmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-	Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Zhang Jiaxi <Z1529105815@outlook.com>,
-	Johan Hovold <johan@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vladyslav Tymoshchuk <tvlad744@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 3/3] ASoC: qcom: q6asm-dai: wrap the position of a full ring to 0
-Date: Wed, 14 Oct 2026 19:27:02 +0300
-Message-ID: <20261014162703.10172-4-tvlad744@gmail.com>
-X-Mailer: git-send-email 2.45.1.windows.1
-In-Reply-To: <20261014162703.10172-1-tvlad744@gmail.com>
-References: <20261014162703.10172-1-tvlad744@gmail.com>
+        Wed, 14 Oct 2026 09:30:44 -0700 (PDT)
+Date: Wed, 14 Oct 2026 17:30:42 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, David Ahern <dsahern@kernel.org>, Ido Schimmel
+ <idosch@nvidia.com>, Trond Myklebust <trondmy@kernel.org>, Anna Schumaker
+ <anna@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton
+ <jlayton@kernel.org>, NeilBrown <neil@brown.name>, Olga Kornievskaia
+ <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey
+ <tom@talpey.com>, Mina Almasry <almasrymina@google.com>, Kaiyuan Zhang
+ <kaiyuanz@google.com>, Willem de Bruijn <willemb@google.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-nfs@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] net: skbuff: make skb_copy_and_csum_bits()
+ report unreadable frags
+Message-ID: <20261014173042.0a74a25d@pumpkin>
+In-Reply-To: <179198668564919.2.10323410751655182155@toxicpanda.com>
+References: <20261013-b4-skb-segment-nosg-unreadable-v2-1-6c28d8ffa51e@toxicpanda.com>
+	<20261014135154.05de968e@pumpkin>
+	<179198668564919.2.10323410751655182155@toxicpanda.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Commit 44432315444c ("ASoC: qcom: q6asm-dai: use q6asm_get_hw_pointer")
-took the position from the number of period buffers the DSP has
-returned in the current lap, 1..periods, and reports one frame less
-than that, as q6apm-dai does.
+On Wed, 14 Oct 2026 14:04:45 +0000
+Josef Bacik <josef@toxicpanda.com> wrote:
 
-One frame short, a playback stream whose application stops feeding it
-never reaches the stop threshold: the DSP returns the last queued
-buffer, the position stops at appl_ptr - 1 and no period interrupt
-comes any more, so ALSA never detects the underrun, the stream stays
-RUNNING and drain only ends on its timeout. On capture, the last frame
-of each period is held back until the next one.
+> On Wed, Oct 14, 2026 at 01:51:54PM +0100, David Laight wrote:
+> > Can't you use that fact that the csum function should only return
+> > either 0 or ~0 and use the other value to indicate an error.
+> >
+> > ISTR this coming up before with the 'copy_to/from_user_and_csum' code.  
+> 
+> skb_copy_and_csum_bits() returns an unfolded __wsum starting from 0, so
+> 0 is a valid result today.  It would work if it started from ~0 the way
+> csum_and_copy_from_user() does, since that doesn't change the folded
+> result and the sum can never come out as 0.
 
-Before that commit the position wrapped to 0 at the end of the ring.
-Do that again, as for q6apm-dai.
+The result can only be 0 if either the length is zero or all the bytes
+are zero.
+You can probably prove that is never required.
+It is likely better to initialise the csum to either 0xffff or ~0.
 
-Fixes: 44432315444c ("ASoC: qcom: q6asm-dai: use q6asm_get_hw_pointer")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Vladyslav Tymoshchuk <tvlad744@gmail.com>
----
-Compile-tested only: I have no Q6ASM hardware (sdm845, sm8250 RB5...).
-A test on such a board would be welcome. The hw pointer of q6asm is not
-reset on a new prepare either (the same as patch 2 for q6apm); I left
-that alone as I cannot test the q6asm prepare paths.
+IIRC both IPv4 and IPv6 complement the checksum before sending it.
+For IPv6 a zero is invalid (it means checksum not calculated for IPv4),
+I think the best was to achieve that is to initialise the csum to 1
+and then add 1 after inverting it.
 
- sound/soc/qcom/qdsp6/q6asm-dai.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+> But this is one of those "you have to know the behavior of the function
+> to use it properly." Explicit errors are always better, it removes
+> ambiguity and creates cleaner and less error prone code. I'm happy to
+> change it to start with ~0 as well to add the extra protection, but
+> explicit errors are always best. Thanks,
 
-diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
-index cd4f82bb8cc7..4261c3048c36 100644
---- a/sound/soc/qcom/qdsp6/q6asm-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
-@@ -485,11 +485,10 @@ static snd_pcm_uframes_t q6asm_dai_pointer(struct snd_soc_component *component,
- 	struct q6asm_dai_rtd *prtd = runtime->private_data;
- 	snd_pcm_uframes_t ptr;
- 
--	ptr = q6asm_get_hw_pointer(prtd->audio_client, substream->stream) * runtime->period_size;
--	if (ptr)
--		return ptr - 1;
-+	/* a full lap of period buffers is the start of the ring again */
-+	ptr = q6asm_get_hw_pointer(prtd->audio_client, substream->stream) % runtime->periods;
- 
--	return 0;
-+	return ptr * runtime->period_size;
- }
- 
- static int q6asm_dai_hw_params(struct snd_soc_component *component,
--- 
-2.43.0
+Look at all the places ERR_PTR() gets used.
+An in-band error indication gives better code and is probably less buggy!
+
+David
+
+> 
+> Josef
 
