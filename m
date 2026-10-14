@@ -1,55 +1,80 @@
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8DA512F6918;
-	Wed, 14 Oct 2026 01:37:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.22.67.139
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FEE3306746
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 01:37:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791941858; cv=none; b=kDF0ZdNpSGB6BIlHClXaBJe7GhRbYvQufSe9kFB2CFPL6dUI/xxwetJN7sOeIihxH0wD4VF92AB1VwlynKv026JwygF1aD/Rh5w/w2YKhWU+5mlyd+GLQuKOGEGvsH8R8dz6wgU085tl9HvCe42qaKZtmij5GM9bstxm7D6yz1Y=
+	t=1791941880; cv=none; b=nVTsXwEg8yb9Iw0RERQFiImtb3VLWe9XOG0RbyvkVKhmkcMZni4Dn1ozwghUvVtmSnLqrH9Fvr1MGi5gfuOa4FK5NitM7CPz8ALGX403jxOP+tpyePnM+uYRE/91CNe5GU09f6dItKQV0v7VvFBFjuy8awNCk6HHFpAU/pxnMJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791941858; c=relaxed/simple;
-	bh=Z9CtFutt3i5y9QcAljwbrTddCnkQNqW5WvaWJhg8yD8=;
+	s=arc-20240116; t=1791941880; c=relaxed/simple;
+	bh=/OZocwssauKut9omL+lEctVuKNcS9FDNbSCdoNKeBVs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FN4N1dACiaSGrWCZq8UoYkM3228c3ZsKFNS+GMO+xogAcD3f3IznINHCs96Daei+tssI7mYj8pXC+7FhSJBXgcgmq16v3t79Iz+torFULfgSDB/+bYM338VpkslcRYziHRF8nYuABXnLzEIBhGBbZ77d18021AMFEG34ogeszD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com; spf=pass smtp.mailfrom=cmss.chinamobile.com; dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b=KApWyCvu; arc=none smtp.client-ip=111.22.67.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	 MIME-Version; b=o/FcWCsJ9EuLrEF8kk+Hx9ZecNwHVDttazx1UZW1lsm4dJJEjW0HC8jXOZZ0wwDrU0ssado0/0fEWbhkD1QIcyZBrQKm5ZTo6/2p28eHUYn+IyGH3tUG9xSBVzuBTcA9F6JzjMU2mD6rX9OULXS5H1UqCktlE++0TcJz3lhAX+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gi2s/sY+; arc=none smtp.client-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b="KApWyCvu"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gi2s/sY+"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc4e9e56e9aso1265396a12.2
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 18:37:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=KApWyCvutzsByHycrs9Lso5nUm+ttLKjiYtiwSf82Z0gDgwjsGUmclbbADzZYu282mPvt4gA3bOtX
-	 zr4hyRvG8ESvnhwHQmL9PqFkKKN3PZjsRPwx+fEhZw40PsZwAs3+bfii2LtgNraJ7zZrjwyADzdDHf
-	 EFkCA7+dCS2ixXuA=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56acedcd0163-e42f5;
-	Wed, 14 Oct 2026 09:37:20 +0800 (CST)
-X-RM-TRANSID:2ee56acedcd0163-e42f5
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[223.108.79.99])
-	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86acedcce873-3aa20;
-	Wed, 14 Oct 2026 09:37:20 +0800 (CST)
-X-RM-TRANSID:2ee86acedcce873-3aa20
-From: lvjunyu <lvjunyu@cmss.chinamobile.com>
-To: netdev@vger.kernel.org,
-	netdev-bot+sashiko@kernel.org
-Cc: pablo@netfilter.org,
-	fw@strlen.de,
-	phil@nwl.cc,
-	netfilter-devel@vger.kernel.org,
+        d=gmail.com; s=20251104; t=1791941877; x=1792546677; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kd9+l5QTagk+LtJ2OjYkYrsvBCuyDHb1Y4sh7dmacA8=;
+        b=gi2s/sY+r3Pb+VC5xH+nh7naC/YZ9jPZB7BOPm0URwTJWFFSu5QBjkHWE9/3Uw/SWv
+         eBJbXs7lhvQBRhIo0xIgixh2gYwhlUfPT303TYGfKUH0bZSb1A3FE+JDb+2adQ6nGiCb
+         RGlV3vqnOVp/C9yIU2Hcu3U3vZ4DPV9b/HNe4Ut+Y/D/MJ7EmU3syBF2+nPc7TzgH8FE
+         a7dYyvtOK8Wbj2HKtCbo2Xx//nfBXeFAQCcNjMJ6a107V5CJyf6suerjfCQz1O/mIeDv
+         Lxc086di0K+xUmom5/i/gRjHm3K720r4ZGyEHv80I8J5RzW1c7zcFE+6+ovOhST2nE8I
+         d5xA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791941877; x=1792546677;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kd9+l5QTagk+LtJ2OjYkYrsvBCuyDHb1Y4sh7dmacA8=;
+        b=ZyMet/tcgelllIL/tm4OBQI9JD07eBEw6bfwn8jrm+vZ6ghOBIe41764RtgbK/7jmI
+         cXpFHr7qq1d5CvgphkV2AmaYZCMr1W67mDmWaoEzKlPWfaaFEwZtc2swgz7DQf9dUk9L
+         SEd1DNR5PRBtT0D4qYq0UB8RQ9D523WCs8a+QoU/5oo95Lh4lu1tnPVheweqt6qhWaN1
+         LIugoTmodMYl/VS4cgME/Agkc7HfA5ed0c/1eMypr9lTUK2Tl3kxBMDB0W5E5ADlPs6Y
+         zs8rUGbDdJ8enhqNVdgVaTFaR1+XKUP007iVbCcs6MV0neChXAP3dmD/yUonJkgbwxCY
+         kw4A==
+X-Forwarded-Encrypted: i=1; AKwUvByD4ZPHlHzejxo4UZzKjEazh9XL9ofWMAQP+1eATHJNkjEmfK5T658vxk6lmzDoqikp2kRTdSg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJeeLsQBf27GiMt8JSUURNUZ/M4a1spkaQHKjA6dmYahl6f/p+H
+	/ybgKMplLT7KaROlSC9iUOOTkIT9cpQfW+pMfG32cWwaPatop1nXRkZM
+X-Gm-Gg: AYBFou3xd0ALE1incRVwPBerhAfsK5Rf+yXO5frtPhxL5k+5aIQB+4UsblPP7zy7dHe
+	x4jZAOqkn9afUfTIz/1/jDg1cg9867j3ZiX6QyPjnJCpiM+eH3iCH9qVrnqmz9A0NxhDcQZtRkZ
+	5sZO73MsGo0Tgmcel+bAa7ACnD8QRuYUfvg+976Ijro+8NMKhFqWwWN6WXmYZfHfdr7MOrqHH8D
+	PXn3D8AGSEXHk9PjTIs98JmdwIO4lxLEwA+6IuKEP5qlS3ldJp7yREkMW79K+Qr6OOj2lrnCpeg
+	nP3Odq7OQedLLjInOE9r0HljNWiaVYKUkFTjAYtVOX929dAxcysQB/PLNF73iHYVy4BFfF2fkDT
+	1WUMrExP0ZKb5ZvbJXelju5mFH1wKlVZ4x/tOXzJbhgu1aLP84LMU6epuEi4s178YBVqEgDW7VU
+	e1XJTECJtS7PRL221qdCQL1wad3+uE74bveH2inYfebAMMVqqwE+W48MLy4oG4sedDpn9VZ6zTT
+	x3V9Yx2IkI/WU5NxM21EmNkQqG28umM3FmOJSClXTBbU9JfYzP2KSppF86XkAN6rgLGo2WDhTfz
+	Qpl0AXMqiCmTDAmQHUqVJTwChalfRHZ2O/WyaJBG9cPs+wrf
+X-Received: by 2002:a17:90b:314d:b0:3ac:7556:8eed with SMTP id 98e67ed59e1d1-3ac7556a42cmr112034a91.44.1791941877436;
+        Tue, 13 Oct 2026 18:37:57 -0700 (PDT)
+Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.172])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac5f203d38sm2062988a91.6.2026.10.13.18.37.52
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 13 Oct 2026 18:37:55 -0700 (PDT)
+From: Yu Zhang <yuz08559@gmail.com>
+To: "Martin K . Petersen" <martin.petersen@oracle.com>
+Cc: linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	Mike Christie <michael.christie@oracle.com>,
+	Dmitry Bogdanov <d.bogdanov@yadro.com>,
 	stable@vger.kernel.org,
-	kuba@kernel.org,
-	lvjunyu <lvjunyu@cmss.chinamobile.com>
-Subject: Re: [PATCH v3] netfilter: nf_nat: Fix stale outer UDP checksum on VXLAN encapsulated packets
-Date: Tue, 13 Oct 2026 17:00:59 +0800
-Message-ID: <20261013090059.2590-1-lvjunyu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261008054228.752274-1-lvjunyu@cmss.chinamobile.com>
-References: <20261008054228.752274-1-lvjunyu@cmss.chinamobile.com>
+	Yu Zhang <yuz08559@gmail.com>
+Subject: [PATCH v2] scsi: target: fix demo-mode dynamic ACL dev-entry UAF vs LUN teardown
+Date: Wed, 14 Oct 2026 11:37:46 +1000
+Message-ID: <20261014013746.46705-1-yuz08559@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261013120528.37749-1-yuz08559@gmail.com>
+References: <20261013120528.37749-1-yuz08559@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -58,54 +83,160 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Thank you for the review.
+A demo-mode (generate_node_acls=1) login that allocates a dynamic
+NodeACL populates that ACL's per-LUN dev entries in
+core_tpg_add_node_to_devs() *before* the ACL is linked onto
+tpg->acl_node_list by target_add_node_acl():
 
-> [High] The fix covers only one caller, __udp_manip_pkt() in
-> net/netfilter/nf_nat_proto.c.
+	core_tpg_check_initiator_node_acl():
+		...
+		core_tpg_add_node_to_devs(acl, tpg, NULL); /* builds deves */
+		target_add_node_acl(acl);                  /* only now listed */
 
-The scope is intentional.  The LCO state this patch fixes is specific
-to the UDP encapsulation path: udp_set_csum() writes a complete
-(folded, complemented) checksum into uh->check while leaving
-csum_start pointing at the inner transport header.  This split state
-arises only for locally generated VXLAN/Geneve outer headers that
-traverse the conntrack NAT OUTPUT path.
+The LUN teardown sweep, core_clear_lun_from_tpg(), enumerates only
+tpg->acl_node_list, so a dev entry whose ACL is still in the window
+above is invisible to the sweep and is never disabled.  It is left on
+the se_lun->lun_deve_list after core_tpg_remove_lun() frees the se_lun;
+when the same unpacked_lun is later re-added and the se_lun is
+reallocated at the same address, the stale dev entry is rediscovered by
+target_nacl_find_deve() and core_enable_device_list_for_node() corrupts
+lun_deve_list:
 
-The flowtable software fast path (nf_flow_nat_ip_udp and friends) is
-not reached by these packets.  VXLAN outer headers are locally
-generated via vxlan_xmit() -> udp_set_csum() and enter the OUTPUT
-chain.  The flowtable hook (nf_flow_offload_ip_hook) is registered
-at NF_INET_FORWARD, which locally generated packets do not traverse.
-Even after the conntrack entry is established, subsequent outer
-packets still follow OUTPUT -> POSTROUTING -> __udp_manip_pkt(),
-because flowtable offload applies to forwarded flows, not locally
-generated ones.
+  BUG: KASAN: slab-use-after-free ...
+   core_enable_device_list_for_node+0x5ce/0x880
+   core_tpg_add_node_to_devs+0x169/0x190
+   core_dev_add_lun+0x146/0x190
+   target_fabric_port_link+0xe9/0x1b0
+   configfs_symlink+0x381/0xae0
+   __x64_sys_symlink+0x55/0x80
 
-For the sibling call sites:
+The demo-mode login path that drives the ACL/dev-entry creation is
+reachable by an unauthenticated initiator; the colliding LUN add/remove
+is a local configfs operation.
 
-- tcp_manip_pkt() and icmpv6_manip_pkt(): the offload target is the
-  TCP/ICMPv6 header itself (csum_start + csum_offset == &hdr->check),
-  so the LCO condition does not arise.  The seed path is correct for
-  these protocols.
+Commit 49cb77e297dc ("target: Avoid mappedlun symlink creation during
+lun shutdown") introduced se_lun->lun_shutdown and guarded the
+*explicit* ACL MappedLUN path (target_fabric_mappedlun_link()), but the
+demo-mode automatic path, core_tpg_add_node_to_devs() ->
+core_enable_device_list_for_node(), was never given the equivalent
+guard, and the publish-after-populate ordering in
+core_tpg_check_initiator_node_acl() was left unchanged.
 
-- Headers embedded in ICMP errors
-  (nf_nat_icmp_reply_translation): byte copies in the ICMP payload,
-  not live checksum-offloaded data; ip_summed is typically NONE or
-  COMPLETE.
+Fix it in three cooperating parts:
 
-- tcf_nat_act() and IPVS: these paths handle LCO-state encapsulated
-  UDP packets in theory, but the practical deployment scenario
-  (locally generated VXLAN + MASQUERADE --random-fully) is specific
-  to the conntrack NAT OUTPUT path.
+ 1) Publish the dynamic NodeACL onto acl_node_list *before* creating its
+    dev entries, so the teardown sweep can observe them.
 
-A helper-level fix in inet_proto_csum_replace4/16/_by_diff() would
-cover all ~45 call sites at once and is architecturally preferable.
-However, modifying core checksum helpers that are shared by TCP, UDP,
-ICMPv6, eBPF, OVS, GSO offload, and ILA requires a separate, more
-thorough analysis and test cycle.  This patch is scoped to the UDP
-path where the bug is observed and verified; the helper-level
-approach is planned as a follow-up.
+ 2) Refuse to attach a dev entry to an se_lun that is shutting down,
+    checked under nacl->lun_entry_mutex -- the same lock the sweep takes
+    -- so once the sweep has passed an ACL any later enable for that LUN
+    observes lun_shutdown and skips it.
 
---
-lvjunyu
+ 3) In core_enable_device_list_for_node(), insert the new dev entry onto
+    lun->lun_deve_list while still holding nacl->lun_entry_mutex, in both
+    the replace and the new-entry branch.  Previously the entry was added
+    to nacl->lun_entry_hlist under the mutex but to lun->lun_deve_list
+    only after dropping it; with the ACL now published early, the sweep
+    could take the mutex in that gap, find the entry on the hlist,
+    core_disable_device_list_for_node() it (list_del() on the not-yet-
+    linked lun_link succeeds and the entry is freed), and then the enable
+    would list_add_tail() the freed entry back onto lun_deve_list.
+    Linking both lists under the mutex makes enable and the sweep
+    mutually exclusive, closing that window.
 
+core_tpg_add_node_to_devs() already ignores the return value of
+core_enable_device_list_for_node(), so a shutting-down LUN is simply
+skipped.
 
+Cc: stable@vger.kernel.org
+Fixes: 49cb77e297dc ("target: Avoid mappedlun symlink creation during lun shutdown")
+Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+Tested-by: Yu Zhang <yuz08559@gmail.com>
+---
+v2: core_enable_device_list_for_node() now links the new dev entry onto
+    lun->lun_deve_list while still holding nacl->lun_entry_mutex (part 3
+    above), closing a TOCTOU window the v1 reorder opened where the
+    teardown sweep could free a dev entry between its hlist insert and
+    its lun_deve_list insert.  Caught by automated review.  No functional
+    change to the v1 tpg.c reorder or the lun_shutdown guard.
+ drivers/target/target_core_device.c | 18 +++++++++++-------
+ drivers/target/target_core_tpg.c    | 10 +++++++---
+ 2 files changed, 24 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/target/target_core_device.c b/drivers/target/target_core_device.c
+index 1111111..2222222 100644
+@@ -349,6 +349,19 @@
+ 	new->attach_count++;
+ 
+ 	mutex_lock(&nacl->lun_entry_mutex);
++	/*
++	 * Do not attach a new dev entry to an se_lun that is being torn down.
++	 * lun_shutdown is set by core_tpg_remove_lun() before its
++	 * core_clear_lun_from_tpg() sweep; checking it here under the same
++	 * nacl->lun_entry_mutex the sweep takes guarantees that once the sweep
++	 * has passed this ACL no dev entry can be left dangling on the
++	 * se_lun->lun_deve_list that is about to be freed.
++	 */
++	if (lun->lun_shutdown) {
++		mutex_unlock(&nacl->lun_entry_mutex);
++		ret = -ENODEV;
++		goto free_stats;
++	}
+ 	orig = target_nacl_find_deve(nacl, mapped_lun);
+ 	if (orig && orig->se_lun) {
+ 		struct se_lun *orig_lun = orig->se_lun;
+@@ -375,12 +388,12 @@
+ 		new->se_lun_acl = lun_acl;
+ 		hlist_del_rcu(&orig->link);
+ 		hlist_add_head_rcu(&new->link, &nacl->lun_entry_hlist);
+-		mutex_unlock(&nacl->lun_entry_mutex);
+ 
+ 		spin_lock(&lun->lun_deve_lock);
+ 		list_del(&orig->lun_link);
+ 		list_add_tail(&new->lun_link, &lun->lun_deve_list);
+ 		spin_unlock(&lun->lun_deve_lock);
++		mutex_unlock(&nacl->lun_entry_mutex);
+ 
+ 		kref_put(&orig->pr_kref, target_pr_kref_release);
+ 		wait_for_completion(&orig->pr_comp);
+@@ -393,11 +406,10 @@
+ 	new->se_lun = lun;
+ 	new->se_lun_acl = lun_acl;
+ 	hlist_add_head_rcu(&new->link, &nacl->lun_entry_hlist);
+-	mutex_unlock(&nacl->lun_entry_mutex);
+-
+ 	spin_lock(&lun->lun_deve_lock);
+ 	list_add_tail(&new->lun_link, &lun->lun_deve_list);
+ 	spin_unlock(&lun->lun_deve_lock);
++	mutex_unlock(&nacl->lun_entry_mutex);
+ 
+ 	target_luns_data_has_changed(nacl, new, true);
+ 	return 0;
+diff --git a/drivers/target/target_core_tpg.c b/drivers/target/target_core_tpg.c
+index 3333333..4444444 100644
+@@ -267,6 +267,15 @@
+ 	acl->dynamic_node_acl = 1;
+ 
+ 	/*
++	 * Publish the dynamic NodeACL on tpg->acl_node_list before creating
++	 * its demo-mode MappedLUN dev entries below, so that a concurrent LUN
++	 * teardown sweep (core_clear_lun_from_tpg(), which walks acl_node_list)
++	 * can observe and disable those dev entries.  Otherwise a dev entry can
++	 * be left on an se_lun->lun_deve_list that is about to be freed.
++	 */
++	target_add_node_acl(acl);
++
++	/*
+ 	 * Here we only create demo-mode MappedLUNs from the active
+ 	 * TPG LUNs if the fabric is not explicitly asking for
+ 	 * tpg_check_demo_mode_login_only() == 1.
+@@ -275,7 +284,6 @@
+ 	    (tpg->se_tpg_tfo->tpg_check_demo_mode_login_only(tpg) != 1))
+ 		core_tpg_add_node_to_devs(acl, tpg, NULL);
+ 
+-	target_add_node_acl(acl);
+ 	return acl;
+ }
+ EXPORT_SYMBOL(core_tpg_check_initiator_node_acl);
+-- 
+2.43.0
