@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B02E7388E72;
-	Wed, 14 Oct 2026 14:56:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D93DF3955EC;
+	Wed, 14 Oct 2026 14:57:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791989773; cv=none; b=li3BfCDU6UInjYPv9VrGHSpjaw+l+Dp//uN8MC+htH0e22FafeEKqUughavZELYe8sidnYghSekrBqoTX+65yEBsBmPP8kVl8DdlE8kDmnvhu8WF6vx171Bb9ID/fZGOy9Gp61kSWQAcz44+crENpJLJVgjTqMwJGCtKrOf543A=
+	t=1791989830; cv=none; b=E+kOHWD7UAg3bL/DdkTi9PcfFjkUGbB+BuZ0887masjrC3ljXEQdaLElW60J1I7xqU8gKKi9gahuiskwlrzHCXFegvWiNYIUfGPCtwflMBcHmMBnI65U55LYWDBy/KrCPEO/v+BWYwH8hzpXzkomu8NDSLhPmoiHXOAWB3x9eFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791989773; c=relaxed/simple;
-	bh=aeLLoyDZF4JqsvnXzhijNTeIEEUuhP4CFFXzZyfM+rI=;
+	s=arc-20240116; t=1791989830; c=relaxed/simple;
+	bh=Z+vD7VXNgNFJo6weu2uJN9q2+WKofWwfJto6olB75os=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o7MLyeV0+M/BuSPpCd1hPfqOgkHOV8hzkdCWryU10xWW5zifG9sCAzdlfmCZ+iNaGAej1HviryNXalErj0KPpQFQutief80c1WF6h1Ynbt56aFFiHzIqpdY2u0Mm837NNZYpfR3OlN3UACZ0EOWtJeIkud6xbRFBs/fohpB2faw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=okqV2nzQ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=JEkZREIA/1WdVJi75rezUE1ShXCax2PgOBbYSkBdJdjUd85IovyESUWabmgju5IabAI4JmxQw7w5AG+AdrFSfJ0CHwD0RKBdCfXoGgvTVYdxjVWiv89mBnNZQEb+VvcX/da1MUANxB83+gyVFaUlbPxxeYsViVOWJ3cvj4DIkHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EbMvOooE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="okqV2nzQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D12291F000C4;
-	Wed, 14 Oct 2026 14:56:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EbMvOooE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B79231F000C4;
+	Wed, 14 Oct 2026 14:57:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791989768;
-	bh=Re8GJbdhl5QjVvoUI2rtJjUCyF0iWbGuReuk1JeK0as=;
+	s=k20260515; t=1791989827;
+	bh=dMSlHyjUU02bSE6X5r7bmxpu4G21C9qfseYw6MgAPQg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=okqV2nzQ+YeNHZZ4PAdi+2zs9E6BjLN0y3+24X96ykEz4tM8JTnoxD9cqhN0+FQLC
-	 wqnCwx+ZncTNSm03hEGxeujWLAcq4wMBvJVboK+94QqAgNjgko+DuXV5YDpFnAsVp4
-	 Pd/2v/4/ultfuC9mru+g8VW4vlz9VkgA8Wj6WoENEUCKPCL1QyWv96+GU3rkyDx+4Z
-	 +uqmmCqp6hS6zim6u4hISNm52CxsGNis7O9RFq7UvNx+1X9dTKa0f/NySGeGaP08Rv
-	 luYLtxDrLyV2CcZgmmEmjXl+cSNyzELMpio5BPuMjF1ZyaHsNKOa5Fy4f1HVXsNmm7
-	 GJu7ysP+uLPWA==
-Date: Wed, 14 Oct 2026 15:56:02 +0100
+	b=EbMvOooECTvm/Ipx8SAwgZIMtCfZihKqt+i5jpyRsbYq1Tke2SaGkP6ka1W3LCa2x
+	 hudVD7+nufM2VAtPfxpv3a4CR1d4yQjgpm7+r/lPFOkCOfT3W1CZgESrLlWQTqq4S4
+	 DipzIM9r/24kdNAjhUEK7p3omVzWLrhAaKn3jbiSuM2cqeuBqwEam/Tm1R4I252ORA
+	 rioZLKupo3RlFRG0WwWB1yCYhTq9en5eeHDETNKdXBnOgPCkUl556Iiergz0QHWHlR
+	 eSr3MRBI4uI2VDMFk95c/T0BOPwwG6JRSsaQWoE07NSvw4TPE+5Tfp6WI6vD+bln6B
+	 TA9Ib1VaXhiiw==
+Date: Wed, 14 Oct 2026 15:57:00 +0100
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 To: "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>, 
@@ -38,44 +38,55 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
 	Kiryl Shutsemau <kas@kernel.org>, Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org, 
 	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Subject: Re: [PATCH] mm: fix address wraparound when scanning large folio PTEs
-Message-ID: <as-XYuUJdeHD3W9p@gremlin>
+Message-ID: <as-YFIBeupNnW8Pf@gremlin>
 References: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
  <as4kvHe9IFZH5qrC@gremlin>
  <9add8400-66c1-47e9-b5af-7a4081ebf3c4@kernel.org>
  <as-BZibPscw4cxsD@gremlin>
  <06930044-4bcb-4478-8a6f-2dd3cf6d290e@kernel.org>
+ <807e8d2e-e7c1-4491-a3e1-21d84cc58946@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <06930044-4bcb-4478-8a6f-2dd3cf6d290e@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <807e8d2e-e7c1-4491-a3e1-21d84cc58946@kernel.org>
 
-On Wed, Oct 14, 2026 at 03:45:41PM +0200, David Hildenbrand (Arm) wrote:
-> It's the following thing that adds confusion:
+On Wed, Oct 14, 2026 at 03:49:05PM +0200, David Hildenbrand (Arm) wrote:
+> > I think we have to assume here that with NOPMD we will never end up in this code
+> > because large folios will not apply (each PMD table has exactly one entry as of
+> > today, so we cannot map large folios .... I think).
+> >
+> > I can try condensing that in a comment and cross my fingers that that is the
+> > case. I tried that now. and codex review already tells me:
+> >
+> >   • [P1] Folded PMDs can reach this helper — memory.c:4948 (mm/memory.c:4948).
+> > The comment’s assumption is false: arm64 with 64 KiB pages and 42-bit VA uses
+> > folded PMDs and supports THP and
+> >     NUMA balancing. Here, pmd_addr_end() returns vma->vm_end without clamping. A
+> > large folio remapped across a PTE-table boundary can therefore make
+> > numa_rebuild_large_mapping() walk beyond
+> >     the mapped PTE table. The previous code explicitly limited this to pt_start
+> > + PMD_SIZE. Cap the forward distance at PMD_SIZE - (addr & ~PMD_MASK) as well as
+> > the VMA and folio limits.
+> >
+> > Let me see if there is any truth to that ...
 >
-> include/asm-generic/pgtable-nopmd.h:#define pmd_addr_end(addr, end)
->        (end)
-
-Ah ugh :) of course.
-
-> What I am saying is that I don't agree with adding another two const variables
-> with names that are less intuitive than just saying the computation. Let me try
-> to improve the comment:
+> Ok, the PMD table as a single entry, but the PTE table obviously has 2k entries :)
 >
-> /* Avoid address wraparounds by not adding/subtracting beyond limits. */
+> So large folios are possible and pmd_addr_end() would be wrong in this context.
+>
+> pmd_addr_end() really only works in page table walkers ...
 
-The variables are a (possibly) neat way of self-documenting that, but then
-possibly adds complexity by having yet another variable :)
+Ack!
 
-A comment works for me, though the confusing bit I guess is knowing which bit
-exactly might overflow.
+OK yeah, I missed that it gets redefined when wrapped, so forget about that.
 
-So maybe saying 'avoid wraparounds of <variable that can wraparound>' and a
-brief bit about how would help?
+A quick comment should do the job re: understanding.
 
 --
 Cheers, Lorenzo
