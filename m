@@ -1,110 +1,113 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E8B501F37
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 12:51:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791982415; cv=none; b=jZV1RrkDL1rHVfiG7tAfM+5g1xbDwdDs3PXLALozVpmZOEWNl/TlvkS8M5o+0qxJ7llBouG49EhZ9LVse9yvLy70IxoDpEyKVJSxIoMiIiEMzmhiY2+1zH1SjSkqMsg9epFkQxOu348JPoucN4Myz6DbxLqvdWC9MqA4NAA/j9k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791982415; c=relaxed/simple;
-	bh=JHVx4PXMqJYlp8lW2UAdemmaCWI7bWUZI1+Vxrjerj0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ivYcoPjUWIB7wSIFVzBT4ZNcnCrMKBooi3M6AYLEHuMtj9DdeACAcledlp71JxPTIYb1gVvC5NWOgI6e5eKsfGsXYmWvuWhmVVU0G4Ll3ti0MHkDb0Ble4dVpC6socruaqezB+rgJyYXxyTmg+u5bnveu1doT+WT/Jejn5maURg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sRcyrkL1; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 091724C6EEE
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 12:54:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791982480; cv=pass; b=tHow+ssZcf2pqr4C5GunmFx4iA5p0x6Bhpczqjm2vTrMbXgjcICW5num9ifo1EbM5WBoaKgsOxrnqPKAPuA6KWQpCTj5UGtEXBiSqsVRmL6xlXLlqOpI1am/bqDlZ5QbGXKVNb0oq5xjRBEdzVBFLShi9D1iOr7iM+WytPb/RH4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791982480; c=relaxed/simple;
+	bh=KYS/c54vQeVbWBTD+IBBHhIs4+bHOZYRw7A3ClKDlRY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qT/j1cEz66fTTkLHGrUv4Ee+wVPlrQTXr8nNWLbltcRc5ArR+bORK425hM7y3H7Oy/NzRG9yx3NyA4GsYuCdYWYbTckJXX7A+Nkb63Yixp3vJHI5KwH1XC6uvYViWPavCf/F6Y8IC0Tw2FUNJBlne+BMSycN9J2a4Did7xuU/MQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GhGkwpJT; arc=pass smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sRcyrkL1"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a02667ccebso29638775e9.0
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 05:51:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GhGkwpJT"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso38186a12.0
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 05:54:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791982470; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Ql3QiP6TMyMHNwLFkS9LH3vy07cV8yPzIDQsafLB5GWIbMiuPqLhroXbTT2Mimn9dR
+         rBMHZjaNEF7K2Me4CyyzvRN/zuO8rT6ue/7IY9q7LE5krzXUG1x4VNswRmvKOLhQXoJ2
+         TYS4Lle4w7gvKlW3ez9hfOCxYx9veAbTkHwvDU0pxKbu7BGsZzbV0lmPZE1tI9Jm4gZa
+         a5UmCDAMEWTJfEr+L1tHy1f00/0cvsZI3rIX1w3H2NoTcxieiMZNtKYv0paqLFAhpBkV
+         /p9uXTSe7ynB7fPxAgndPCcc1C3wBUruaEMnpIg18fNIh+U50JIVEAlGpZvTOSJ9/FQW
+         NPig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=KYS/c54vQeVbWBTD+IBBHhIs4+bHOZYRw7A3ClKDlRY=;
+        fh=kyob89wWSiKIyLpM8pPOm2Fdu7ilchJv7ITcG8+YbM0=;
+        b=Q/rdHV01xE1PwPn/PEfN+Wn8fe9q3+k/BLgAX84/Gmm22xSq3+hep56taN9czXM1UP
+         67kMpF6NWcEbrIqsDYd6rxK5+qL1SQoyYz5QclM1MeYbA4RqAVwyQ8WuUpdm0sNz5PH6
+         ujDOWd3LtaiYo6ZsULFi2R2KhqRxqm/AK59F3xLVWbjuKjFQRpINC7NBGdOSCJoFqBzm
+         C+3iJRHQbo7W60RBsXfOBUUERI3ZolhbmUvTCEup9RvRXDAR/apzDG4+0gDQ3QKt1Mwl
+         Aayet2OE+uGZk1alJtrwEJU5l8jIBBurOOXUlaUd3Yj+kL/RazBYyKA06QunOTHGq3ct
+         sFNw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791982317; x=1792587117; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20251104; t=1791982470; x=1792587270; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=h2lXGRufG/CkzlVDEuwvfDVQ2gYthCpgB+y1GvWyU9A=;
-        b=sRcyrkL1QvMCxpmrkoJxmjZrfWjWnmwTp/swz4YF5AxP1FZmlxobb1aVwq2ipFaAAe
-         kVbje50RcdNSBXfUzbLDdtMaadvFz/G7KjFSZIOH3jkJR7VLX2aieA56FdJm2yQwGMhF
-         5sl04lHWb4Nsh0LTHBmfjklx3grdRew1CVwv8RcsSs9ySYiDzBShO7j+FgMKAPXw6IbD
-         oYSXHKv+KNAGpuszTYmtKIID7xdeZ/m6jNhLr5iiSuTU0h6Lc9yes7YgN3cYDMuwZ8xE
-         6Q2+O5AER1C+S7NHEADtk5dCySAf1NWqPFsAPCCVQ0g/NjJkd/BvghIEmH92JOHhwHAZ
-         +Y+g==
+        bh=KYS/c54vQeVbWBTD+IBBHhIs4+bHOZYRw7A3ClKDlRY=;
+        b=GhGkwpJTT6fXiF9yrbpcPpLZFt8cagCklO27tAT0GOlKOZd10Pt5nn2X1ARx/ukQ/0
+         5MGj8JFAUPzR/X6RJDy0A7B9xmrxOP7FNsGVL950MyNWwmqTQKvmH2bilzrC4KPSFWQh
+         +/8p25SEMCixJ9FCt3tfk50NMJPhfsf2m5ezWVA39gXJPC9GgHm3Vs0U+ZLVX5ZB+IJ7
+         aUrmRaRnNhG41Dq8PlivhI0WZ0WR4Szgy9m5XpYbsKeetYowEMLxy/JkCC65WublRiTm
+         LQXjmw+pZIuW64Onl2Zos796QocP86vo7CFhe5oCbBXxaE46ksmfhod6kC5xzBKUPqYu
+         HuJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791982317; x=1792587117;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1791982470; x=1792587270;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=h2lXGRufG/CkzlVDEuwvfDVQ2gYthCpgB+y1GvWyU9A=;
-        b=yUv1nhqvouV8dvv0Yibo85a5mGa8RPCehypqooRWaW9djvX0FhN0X6u9VbWxn58SsU
-         ZLJFnfmSttoR2frREdG+pJM/rluwcZohS13o9Fn0nK5bwA1MsdKooBh1QziwPrUlZAMD
-         OJ4tQ2Hkkn4WEvbwE4AfbGK+I0JDPSnWNf7oP3+Ib1B6qmN5KYWhQyoD9XJjQvQetOAu
-         TVXC/5qbje7h2R2AUmvhWWiinFgB8VzGC1xN1mPmroPqjkDuxt7sbvv3EJTjiI4alDsb
-         VDt0z7Iwrs+GHk/hdJHuAxaSyIidRkdKTeCEv7PJ3Ga+YsaNAyTe9g317V/0XSwdjbYw
-         Npgw==
-X-Forwarded-Encrypted: i=1; AKwUvBz+9RIp2ua7PKPgEw/FkGIVkkN6v8VpEjwleXQL7+uxkPgxll4uUP9E+rheF8n+K/rq+xMkFSs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJaJyYWBETu1EvNGU/sutwDuOP7aDKFXiKH+hB9CoaczDtVhlI
-	eD7YAEg5mmX9jt3EIu3Vov+AdPQWZ6myaAYb3h/U2pfHY4OZjDu3s6BF
-X-Gm-Gg: AYBFou0pa4hcmeiY834uIr2QPcYLjHVxEwS/gdrVY1y9k36UKECkCfyHuTiy7FH5zL0
-	qOvwmzZpOaZR8FXpV1mVjSDR/UZMTHn8FWuiK2+keGPplN8PI+XShPzMoxC+aTg8KUtiam075dm
-	hJEiEd5inqhzaDb+js13vTE41dKRHV98d5YI7VtwLxbuqXv554Itu55AZq1idbYVIw60dmg5/nE
-	D8SR+oAxYua7Lc6yNtYmmf1J804WDCtxg43UsOdIYGI9sKEPYjThXu498lwVB/LHwkDEqxypgPw
-	YlhlRU65I1zNuK2k8t8o5gvm89iSz/DxXGiCs6SuN4gbZH1ZgqEq6sNpWeWCNbLMqpQIrqghZ+t
-	lMdwg5cSzx6P10xsEj798V5BWDVoFLG+6Lb/EaIfeKNUwlHCWRQpuvlpsTVuuckX4rA74S5+7Hs
-	MiUdSEljAK2JcxacI+hFYxV9ioGVjJcpzz4vXAtoR3x8Ugp5ZTQGng1KqdqoBvZAXIqZnx5G2iJ
-	y5qDL8NjT+W94ARkZJ8+YkqObedPC/ZxuY=
-X-Received: by 2002:a05:600c:3e16:b0:4a1:992f:d0e7 with SMTP id 5b1f17b1804b1-4a1992fd259mr236072475e9.16.1791982316612;
-        Wed, 14 Oct 2026 05:51:56 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf35930sm435944885e9.13.2026.10.14.05.51.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 05:51:56 -0700 (PDT)
-Date: Wed, 14 Oct 2026 13:51:54 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
- <horms@kernel.org>, David Ahern <dsahern@kernel.org>, Ido Schimmel
- <idosch@nvidia.com>, Trond Myklebust <trondmy@kernel.org>, Anna Schumaker
- <anna@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton
- <jlayton@kernel.org>, NeilBrown <neil@brown.name>, Olga Kornievskaia
- <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey
- <tom@talpey.com>, Mina Almasry <almasrymina@google.com>, Kaiyuan Zhang
- <kaiyuanz@google.com>, Willem de Bruijn <willemb@google.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-nfs@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v2] net: skbuff: make skb_copy_and_csum_bits()
- report unreadable frags
-Message-ID: <20261014135154.05de968e@pumpkin>
-In-Reply-To: <20261013-b4-skb-segment-nosg-unreadable-v2-1-6c28d8ffa51e@toxicpanda.com>
-References: <20261013-b4-skb-segment-nosg-unreadable-v2-1-6c28d8ffa51e@toxicpanda.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        bh=KYS/c54vQeVbWBTD+IBBHhIs4+bHOZYRw7A3ClKDlRY=;
+        b=mTUTi+O8wljtsta/mgqTz9PrqlS51jqfbvnpBFiM8doCn264DggLOmpHmHEKUFGfx8
+         ELwBAJ2KJSOljWfvqhTfE7MP7LvzlRZjPdpkpAMVeCk+7nzzR7mXXUktdHAH4/GYTzB7
+         4x9o27EXUzFcAGpTyD415pk0i0P770FWqv9QjTb4nAR49FIhKNPHZUNEf9n0b4NGHZjr
+         ua474R6eh2HXQLs7hfxocGkWHN5WFji0bPNTbZ+fPVyCl+MskucTj2Rktkfk5RI8E2RM
+         twLDJXlpFp1Mcy/R3IfJeQxoe/4EI46JrA0V40rzInsxjEUFbca5ws2QL/q7MJ4rssic
+         ed+A==
+X-Forwarded-Encrypted: i=1; AKwUvBwpWKsHhEep7Rdz2nlNZeEOuerw+DsqcMQsRr+JtqmyP3jVnNB2b5Hyb3ZzwkGSV2AseRkCMp8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJz4NcXaTPle/MCf2YSZcYjetPD6bBVCHMnsGZxyxkmAIIfRGjv
+	ckyMQsqe9diEuaAtCq7ymF0fYyZXnrohEqhTswHvC+ChJsqwmXPcf3ZHDMbC9L89WCm8vwWdNq2
+	HDrzdKxLdlCfJPsKyimHbTUuMnU1sgb3tkpsIT2eC
+X-Gm-Gg: AYBFou0CfTlaCygXGILTHZUGyibOjDjl1Hzvo8LLu3qJAZDf3loxPDez1ICuo/nKU/t
+	3anh50SNmOhRIuWEBK4jvWNmPHaPcxFWlQ5N6jz7/7ptKuLETPQrcAuNJ2s7zaCOgB8naOj2Ahc
+	Va6PMNyfXvHw2dJVJn074kqvfwc+anIht7ompEA4i7WfcKUHt6GF65LCirYmDqBrRoc3tdKZDAt
+	1FaIKIQC6d9cYRJTsgeILvkogzrbvj2mcnNTKczwwrzXApbIuqgq6uKI0b7XU3LHBz/YZZrcbRz
+	iHLgRd4FsiGcyLkmXPseNf+S0jrZTyLS+YT72JCoqanB5jgXWfLbxgM=
+X-Received: by 2002:a05:6402:c548:20b0:6ae:1503:5a27 with SMTP id
+ 4fb4d7f45d1cf-6b20aae063bmr28860a12.8.1791982469402; Wed, 14 Oct 2026
+ 05:54:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20261013231728.883001-1-yosry@kernel.org> <20261013231728.883001-3-yosry@kernel.org>
+In-Reply-To: <20261013231728.883001-3-yosry@kernel.org>
+From: Jim Mattson <jmattson@google.com>
+Date: Wed, 14 Oct 2026 05:54:17 -0700
+X-Gm-Features: AclHuK9rxlY9ryi2n9m2aAdyaSNARNmcvyrOyG0s9ziCGiHhPOebsZRxyO6FDgo
+Message-ID: <CALMp9eR-CPo2n_7uN7paJQZvmPXA6=7Fpo0xJePeadXwuD600A@mail.gmail.com>
+Subject: Re: [PATCH 2/4] KVM: x86/mmu: Drop for_each_shadow_entry_using_root()
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 13 Oct 2026 18:02:44 +0000
-Josef Bacik <josef@toxicpanda.com> wrote:
-
-> Subject: [PATCH net v2] net: skbuff: make skb_copy_and_csum_bits() report  unreadable frags
-> Date: Tue, 13 Oct 2026 18:02:44 +0000
-> 
-> skb_copy_and_csum_bits() has no way to fail.  When it reaches
-> unreadable frags it zero-fills the rest of the buffer and returns 0,
-> and since commit ab9414ed70bd ("net: skbuff: don't leave stale bytes in
-> skb_copy_and_csum_bits()") that 0 is the correct checksum for what's in
-> the buffer.  Its callers can't tell the copy didn't happen.
-
-Can't you use that fact that the csum function should only return
-either 0 or ~0 and use the other value to indicate an error.
-
-ISTR this coming up before with the 'copy_to/from_user_and_csum' code.
-
-David
+On Tue, Oct 13, 2026 at 4:17=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
+>
+> Drop for_each_shadow_entry_using_root() and open code the walk in
+> __kvm_mmu_invalidate_addr(), the macro's only user, in preparation for
+> handling failure to initialize the walk, e.g. if a cached root was create=
+d
+> for a different MMU context and so can't be walked.
+>
+> No functional change intended.
+>
+> Suggested-by: Sean Christopherson <seanjc@google.com>
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+Reviewed-by: Jim Mattson <jmattson@google.com>
