@@ -1,229 +1,222 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 600273438BE;
-	Wed, 14 Oct 2026 11:34:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45D194F4733;
+	Wed, 14 Oct 2026 11:35:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791977662; cv=none; b=bw7JTwki2RcseTfcysc/vr8iAeSUKKqfoLqKQCV2D0sd7mxK4jvR45QS0/HqaVLJe+gMzzXjV0qp6t9M7QhaUcXV0ruXOhBUJgCND13eEszUXpAuUW7NJC5iKE6Z9lZ+fOwJosLT4k9UER34ZtWyhpE1dxS1MTd9Gjdgs5K0DBQ=
+	t=1791977740; cv=none; b=Ov4qNAO1Sb7t5Lbh5/8KKekU/0jdztLfnPCWIs0IAoDmgeAfSw3kOWiFl4sb+moeD5L4zwbcjZvby5Ppc896SyNlfJ0ZRkhI/sfUmEczrRCei6Uz6Jo/eEofByxKVvVSToeN1yogR+TMIUlc83c2ZQCuMl4oyM2bx2xNUZUyZMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791977662; c=relaxed/simple;
-	bh=pgBcEKmkG9yAvAmi8qqEB7pPavUOWQhsahKt8f4vYO0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=roHz8490mZPRapPDcTKzTmKxa6ydlYhjf0+9jDxN3R9+bomNtl0/kiGQWKeSkNjOpydvpZYR+vUvaoc7cRHx5iBr7LSmLeZO6UYcuH/qZSuoXxHC0nKv3p+A8yfV+Ilbm43JFw3/ULoLWzp5IRvhb+hQc+e61BR77qSRsAYqQjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mlDu4ow4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791977740; c=relaxed/simple;
+	bh=YzQrws3cLlLYUgtkhpXZIVzl9mn420mmIaC3N+ZTMYg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RiQsIEytvgQYlGOW05MB8MZWajOgvv4hks6rK7DzXDGhp4Yxuyl72OdR1f6VcY1AcQFGiHGgmpS212W3yvRPHUNzE2rcWYAwHeDDhRc9RHdK0k3GAtWL++i8ZSJAP7TI9FtdXPVjQXg1oLYw6pR/6XtwSL/sWQA0akq3tiW4w+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=Kfh5GH9n; arc=none smtp.client-ip=115.124.30.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mlDu4ow4"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 578D31F000FF;
-	Wed, 14 Oct 2026 11:34:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791977659;
-	bh=jxrFaoqkYIedRaaeR6zxDyjEquhjlwc+5JkmGCJ+eMU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mlDu4ow4he/1o8eJ5INjeDUjYrvQB7OR5kY1bzt4b6nQURke6Jaa36NsFUm+aodWg
-	 TxQ/3semYNqMMKBNGMiUWcW1xLJOe8EMi1jXXkJXOclZdFq4LCsvb+OHCw7aw/dmRu
-	 7fPH3fD5O6g6WERcC6gmMbtj4rKJppGOdOkdiL2HyPGV29vTFnpKRT0/lY69XXY9Rk
-	 xWO+xvXWHtXhoHHKtPgPtOfcZFLZ5uQea/PC8vhImOyHiSEzfx9M0apde6vMYbjiD6
-	 OWVd+Q5bnPhcGDzXQb0Uucl+vsDMyQcGwrq8b4/HXtTAEhl7iA4ArFdmGis5Hfkc8C
-	 F1w9VH3K5bfVw==
-Date: Wed, 14 Oct 2026 14:34:15 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E . Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] keys: Protect quota-owner reads in namespace
- filters
-Message-ID: <as9otxVeOLbhkIMy@kernel.org>
-References: <20261013084056.1070923-1-nicoyip.dev@gmail.com>
- <20261013090358.1178367-1-nicoyip.dev@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Kfh5GH9n"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791977721; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=LaXLkq4nvqGUZBye+MscSQKhm486xblmTZx4IvgRIsE=;
+	b=Kfh5GH9notgzS8Wl9CHIMg3ScWp/jnhj8Yh+FW/eTOjhN6UK3P43cywmiN8v7AQ2Z6uQHMoqzMsygvuINPfvzQbyD+n+/jkrP4xm8AM2FP6/4UJ9Td7EEHbTFUVwO762+TxqzP6r9JErvq4eQRaRnfoMev15yUBCWD4ZBzD9MZg=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=12;SR=0;TI=SMTPD_---0XCoyVFu_1791977720;
+Received: from 30.221.146.92(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCoyVFu_1791977720 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 14 Oct 2026 19:35:21 +0800
+Message-ID: <0da71b58-170b-4bb9-b103-6450bbb9fd61@linux.alibaba.com>
+Date: Wed, 14 Oct 2026 19:35:19 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013090358.1178367-1-nicoyip.dev@gmail.com>
-
-On Tue, Oct 13, 2026 at 05:03:57PM +0800, Chengfeng Ye wrote:
-> keyctl_chown_key() replaces key->user under key->sem and drops the
-> reference to the previous owner after releasing the semaphore. Readers
-> which do not hold that semaphore can still be using the previous owner
-> when key_user_put() frees it.
-> 
-> For example, namespace filtering in /proc/keys can race with chown:
-> 
->   /proc/keys reader                 keyctl_chown_key()
->   user = key->user
->                                     key->user = newowner
->                                     key_user_put(old)
->                                       kfree(old)
->   read user->uid
-> 
-> An earlier instrumented run reported:
-> 
->   BUG: KASAN: slab-use-after-free in proc_keys_start+0x353/0x440
->   Read of size 4 at addr ffff8881128abbc0 by task poc/88
->   Call Trace:
->    proc_keys_start+0x353/0x440
->    seq_read_iter+0x25d/0x1190
->    proc_reg_read_iter+0x19e/0x260
->   Allocated by task 86:
->    key_user_lookup+0x1b4/0x540
->    keyctl_chown_key+0x3cc/0xbf0
->   Freed by task 87:
->    kfree+0x149/0x330
->    keyctl_chown_key+0x7b0/0xbf0
-
-Last night I missed the text below.
-
-It is somewhat messy to the point that frankly I could not read it, or
-at least I did not understand it. Have you read it yourself?
-
-There is a whole eassay and I can only see that key->user can change
-unless key_user_lock is taken, and READ_ONCE() is required to pair with
-the writers.
-
-I don't understand what is going on down there, and what's your goal
-with it?
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ocfs2: Cancel quota sync work before freeing quota info
+To: Cen Zhang <zzzccc427@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
+ chao@kernel.org, jack@suse.cz, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-objects-candidate-0052-v3-b4904bd6c85daf033adf@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0052-v3-b4904bd6c85daf033adf@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
 
+On 10/14/26 11:43 AM, Cen Zhang wrote:
+> OCFS2 quota info owns dqi_sync_work and must outlive both its timer
+> and qsync_work_fn(). ocfs2_local_free_info() frees that owner without
+> cancelling the work, relying on the quota suspend/disable wrappers.
 > 
-> Take key_user_lock explicitly while /proc/keys and find_keyring_by_name()
-> copy the owner's UID. find_ge_key() is the initial/seek lookup reached
-> by the reported proc_keys_start() fault; key_serial_next() applies the
-> same UID filter to subsequent entries. find_keyring_by_name() reads the
-> same replaceable owner when looking up named keyrings.
+> Loading quotas on a read-only to read-write remount can successfully
+> queue the work in ocfs2_global_read_info() and then fail while attaching
+> a dquot to an existing inode in add_dquot_ref(). The quota core unwinds
+> that failure directly through dquot_disable(), bypassing the OCFS2
+> wrapper:
 > 
-> key_serial_lock and keyring_name_lock protect these traversals but do
-> not exclude chown. Taking key->sem would sleep under those spinlocks.
-> The embedded key->user->lock cannot protect the dereference needed to
-> acquire it.
+>   Remount task (s_umount write)        Timer/workqueue
+>   ocfs2_global_read_info()
+>     schedules dqi_sync_work
+>   add_dquot_ref() returns an error
+>   dquot_disable()
+>     ocfs2_local_free_info()
+>       frees oinfo
+>                                      delayed-work timer expires
+>                                      qsync_work_fn() reads oinfo
 > 
-> key_user_put() already holds key_user_lock for the final reference
-> decrement and tree removal. A reader selecting an owner before removal
-> blocks its final release until the UID copy finishes. After removal,
-> the lock and reference-count ordering make the preceding owner
-> replacement visible, including when another task drops the final
-> reference. Mark the pointer loads with READ_ONCE() and the chown store
-> with WRITE_ONCE(); the existing lifetime locking provides the protection.
+> The timer core can then write to the freed embedded timer, or
+> qsync_work_fn() can read oinfo->dqi_gqinode before its s_umount trylock.
+> The outer ocfs2_disable_quotas() cleanup skips the failed type because
+> dquot_disable() has already cleared its loaded state.
 > 
-> Retain the quota-owner UID rather than substituting key->uid, since they
-> may differ for thread keyrings.
+> Cancel dqi_sync_work synchronously at the start of
+> ocfs2_local_free_info(), before dropping the global inode or freeing any
+> owner state. The work is initialized whenever read_file_info() succeeds.
+> dquot_disable() holds s_umount for write, so the callback skips its quota
+> scan via down_read_trylock() and can finish without waiting for teardown.
+> The synchronous cancel also handles its self-rearm.
 > 
-> Other owner accesses already have lifetime protection. key_alloc() uses
-> a referenced owner before publishing the key. Final key_put() cannot
-> overlap chown, which holds a key reference. key_gc_unused_keys() handles
-> unreferenced keys: serial-tree removal excludes /proc/keys readers, and
-> keyring_destroy() removes named keyrings under keyring_name_lock before
-> the owner reference is dropped. /proc/key-users already holds
-> key_user_lock during traversal. Quota reservation and instantiation need
-> the separate accounting serialization.
+> KASAN report as below:
 > 
-> Fixes: 454804ab0302 ("keys: make procfiles per-user-namespace")
-> Fixes: 2ea190d0a006 ("keys: skip keys from another user namespace")
-> Cc: stable@vger.kernel.org
-> Assisted-by: GPT-6-Astra
-> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+>     BUG: KASAN: slab-use-after-free in __run_timers+0x9e9/0xa10
+>     Write of size 8 at addr ffff888111b0aad0 by task swapper/3/0
+> 
+>     Call Trace:
+>      <IRQ>
+>      dump_stack_lvl+0x93/0xd0
+>      print_report+0xce/0x630
+>      ? __run_timers+0x9e9/0xa10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __virt_addr_valid+0x20e/0x420
+>      ? __run_timers+0x9e9/0xa10
+>      kasan_report+0xe0/0x110
+>      ? __run_timers+0x9e9/0xa10
+>      __run_timers+0x9e9/0xa10
+>      ? __pfx___run_timers+0x10/0x10
+>      ? __lock_acquire+0x5a3/0x2140
+>      ? __pfx_do_raw_spin_lock+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      timer_expire_remote+0xfa/0x160
+>      ? __pfx_timer_expire_remote+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? trace_hardirqs_on+0x18/0x160
+>      tmigr_handle_remote_up+0x4ba/0x9d0
+>      ? __pfx_tmigr_handle_remote_up+0x10/0x10
+>      ? tmigr_handle_remote+0x21a/0x340
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? lock_release+0xc8/0x290
+>      ? __pfx_tmigr_handle_remote_up+0x10/0x10
+>      __walk_groups_from+0x5a/0x160
+>      tmigr_handle_remote+0x24f/0x340
+>      ? __pfx_tmigr_handle_remote+0x10/0x10
+>      ? lock_acquire+0x190/0x300
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? lock_release+0xc8/0x290
+>      run_timer_softirq+0x222/0x270
+>      ? __pfx_run_timer_softirq+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? lockdep_hardirqs_on_prepare+0xb8/0x1a0
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      handle_softirqs+0x1fa/0x8d0
+>      ? __pfx_handle_softirqs+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? _raw_spin_unlock+0x23/0x40
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __hrtimer_rearm_deferred+0x1fb/0x5d0
+>      __irq_exit_rcu+0x113/0x1e0
+>      irq_exit_rcu+0xe/0x20
+>      sysvec_apic_timer_interrupt+0x6c/0x80
+>      </IRQ>
+>      <TASK>
+>      asm_sysvec_apic_timer_interrupt+0x1a/0x20
+>      ? ct_kernel_exit.constprop.0+0xc5/0xf0
+>      ? do_idle+0x3ae/0x650
+>      default_idle+0x9/0x10
+>      default_idle_call+0x6c/0xb0
+>      do_idle+0x3ae/0x650
+>      ? cpuhp_online_idle+0x9c/0xb0
+>      ? __pfx_do_idle+0x10/0x10
+>      ? __entry_text_end+0x1020f6/0x1020f9
+>      ? lockdep_hardirqs_on_prepare+0xeb/0x1a0
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? trace_hardirqs_on+0x18/0x160
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      cpu_startup_entry+0x54/0x60
+>      start_secondary+0x223/0x2d0
+>      ? __pfx_start_secondary+0x10/0x10
+>      common_startup_64+0x13e/0x158
+>      </TASK>
+> 
+>     Allocated by task 523:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      __kasan_kmalloc+0xaa/0xb0
+>      __kmalloc_cache_noprof+0x28d/0x610
+>      ocfs2_local_read_info+0x181/0x1580
+>      dquot_load_quota_sb+0x69e/0x11c0
+>      dquot_load_quota_inode+0x227/0x3e0
+>      ocfs2_enable_quotas+0x27c/0x520
+>      ocfs2_reconfigure+0x964/0xd00
+>      reconfigure_super+0x3ca/0xa70
+>      path_mount+0x141e/0x1e80
+>      __x64_sys_mount+0x24b/0x2d0
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+>     Freed by task 523:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      kasan_save_free_info+0x3b/0x60
+>      __kasan_slab_free+0x5f/0x80
+>      kfree+0x308/0x580
+>      ocfs2_local_free_info+0x47b/0x800
+>      dquot_disable+0x5d9/0x17a0
+>      dquot_load_quota_sb+0xd3c/0x11c0
+>      dquot_load_quota_inode+0x227/0x3e0
+>      ocfs2_enable_quotas+0x27c/0x520
+>      ocfs2_reconfigure+0x964/0xd00
+>      reconfigure_super+0x3ca/0xa70
+>      path_mount+0x141e/0x1e80
+>      __x64_sys_mount+0x24b/0x2d0
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+>     The buggy address belongs to the object at ffff888111b0a800
+>      which belongs to the cache kmalloc-1k of size 1024
+>     The buggy address is located 720 bytes inside of
+>      freed 1024-byte region [ffff888111b0a800, ffff888111b0ac00)
+> 
+> Host details, register and page dumps omitted.
+> 
+> Fixes: 1a6152d36dee ("quota: propagate error from __dquot_initialize")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+
+Looks fine.
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+
+> Assisted-by: LLM
+> 
 > ---
-> Changes in v4:
-> - Move the quota-reservation and instantiation scopes from v3 1/2 to
->   the complete accounting fix in 2/2; retain the combined lock coverage.
-> - Isolate the namespace-reader lifetime fix and make it independent of the
->   accounting patch by relying on existing lookup/final-release locking.
-> - Pair READ_ONCE() pointer snapshots with WRITE_ONCE() in chown; explain
->   lifetime ordering and preserve the quota-owner UID filtering semantics.
-> - Include analysis of of the other owner access sites in the changelog
-> 
-> v3: https://lore.kernel.org/r/20260927162528.943886-2-nicoyip.dev@gmail.com/
-> v2: https://lore.kernel.org/r/20260904080940.575882-1-nicoyip.dev@gmail.com/
-> 
->  security/keys/keyctl.c  |  2 +-
->  security/keys/keyring.c |  7 ++++++-
->  security/keys/proc.c    | 15 +++++++++++++--
->  3 files changed, 20 insertions(+), 4 deletions(-)
-> 
-> diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
-> index d14ace88e529c..c89a4d6efed40 100644
-> --- a/security/keys/keyctl.c
-> +++ b/security/keys/keyctl.c
-> @@ -1039,3 +1039,3 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
->  		zapowner = key->user;
-> -		key->user = newowner;
-> +		WRITE_ONCE(key->user, newowner);
->  		key->uid = uid;
-> diff --git a/security/keys/keyring.c b/security/keys/keyring.c
-> index 15bf4af8f2821..4a13749bc54cd 100644
-> --- a/security/keys/keyring.c
-> +++ b/security/keys/keyring.c
-> @@ -1148,6 +1148,7 @@ struct key *find_keyring_by_name(const char *name, bool uid_keyring)
->  {
->  	struct user_namespace *ns = current_user_ns();
->  	struct key *keyring;
-> +	kuid_t uid;
+> diff --git a/fs/ocfs2/quota_local.c b/fs/ocfs2/quota_local.c
+> index 76e7dd5aecc8..a2ce25a33607 100644
+> --- a/fs/ocfs2/quota_local.c
+> +++ b/fs/ocfs2/quota_local.c
+> @@ -840,6 +840,9 @@ static int ocfs2_local_free_info(struct super_block *sb, int type)
+>  	int mark_clean = 1, len;
+>  	int status = 0;
 >  
->  	if (!name)
->  		return ERR_PTR(-EINVAL);
-> @@ -1158,7 +1159,11 @@ struct key *find_keyring_by_name(const char *name, bool uid_keyring)
->  	 * grants Search permission and that hasn't been revoked
->  	 */
->  	list_for_each_entry(keyring, &ns->keyring_name_list, name_link) {
-> -		if (!kuid_has_mapping(ns, keyring->user->uid))
-> +		spin_lock(&key_user_lock);
-> +		uid = READ_ONCE(keyring->user)->uid;
-> +		spin_unlock(&key_user_lock);
+> +	/* Quota-core error paths can bypass ocfs2_disable_quotas(). */
+> +	cancel_delayed_work_sync(&oinfo->dqi_sync_work);
 > +
-> +		if (!kuid_has_mapping(ns, uid))
->  			continue;
->  
->  		if (test_bit(KEY_FLAG_REVOKED, &keyring->flags))
-> diff --git a/security/keys/proc.c b/security/keys/proc.c
-> index 4f4e2c1824f18..aa42ea4becec7 100644
-> --- a/security/keys/proc.c
-> +++ b/security/keys/proc.c
-> @@ -68,7 +68,13 @@ static struct rb_node *key_serial_next(struct seq_file *p, struct rb_node *n)
->  	n = rb_next(n);
->  	while (n) {
->  		struct key *key = rb_entry(n, struct key, serial_node);
-> -		if (kuid_has_mapping(user_ns, key->user->uid))
-> +		kuid_t uid;
-> +
-> +		spin_lock(&key_user_lock);
-> +		uid = READ_ONCE(key->user)->uid;
-> +		spin_unlock(&key_user_lock);
-> +
-> +		if (kuid_has_mapping(user_ns, uid))
->  			break;
->  		n = rb_next(n);
->  	}
-> @@ -80,6 +86,7 @@ static struct key *find_ge_key(struct seq_file *p, key_serial_t id)
->  	struct user_namespace *user_ns = seq_user_ns(p);
->  	struct rb_node *n = key_serial_tree.rb_node;
->  	struct key *minkey = NULL;
-> +	kuid_t uid;
->  
->  	while (n) {
->  		struct key *key = rb_entry(n, struct key, serial_node);
-> @@ -100,7 +107,11 @@ static struct key *find_ge_key(struct seq_file *p, key_serial_t id)
->  		return NULL;
->  
->  	for (;;) {
-> -		if (kuid_has_mapping(user_ns, minkey->user->uid))
-> +		spin_lock(&key_user_lock);
-> +		uid = READ_ONCE(minkey->user)->uid;
-> +		spin_unlock(&key_user_lock);
-> +
-> +		if (kuid_has_mapping(user_ns, uid))
->  			return minkey;
->  		n = rb_next(&minkey->serial_node);
->  		if (!n)
-> -- 
-> 2.43.0
-> 
+>  	iput(oinfo->dqi_gqinode);
+>  	ocfs2_simple_drop_lockres(OCFS2_SB(sb), &oinfo->dqi_gqlock);
+>  	ocfs2_lock_res_free(&oinfo->dqi_gqlock);
 
-Br, Jarkko
