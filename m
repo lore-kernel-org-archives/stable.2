@@ -1,132 +1,172 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mta1.migadu.com (out-121.mta1.migadu.com [95.215.58.121])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA74355D87B
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 16:30:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D0655D872
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 16:30:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.121
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791995450; cv=none; b=XA4rpq9cWaLHP9PaT+MyLwRfhnlO42mPOhwuh/PNdDtDb7dSXT06zEtL9ckzqLnMC05a4YXwcUa+X1Yc/7uwBwVlbczU1fU5hDUryN7gM2GqyjybL6ii93D8FKIhr/+ZJ9LFriRnuysbuAC+Ek1P8H4FjGZ954l35Le47FcJD9A=
+	t=1791995454; cv=none; b=DWbBmzztD75Fkfh7gBw3NbNTY5zT5pw/0Qn6yngK4nVMKubyaOh6nVohE61CR+l41inF53A57PPZXuOWoGmgef//lIJ5JI1g5aGac42igVWHKOwzuBld/+HPKGHwC0s/n+zQGodgoF3BHNA3uf5b3ftsRkbx28D6p5w1QexBrLc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791995450; c=relaxed/simple;
-	bh=BrjkRWhyANEzvU2G8fYFBH01XWMhW7Vpygjf58bbTgA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=f+lQ/TdexS3qSGkklSt4KI8F0itQ68t1Vp8Gp6eoMSOedav1dwQLbrDdUPkg/FzepB4JUonKU5nT1FJdEzcxjwJlBcXwFyHtqfB1JWGcJZvyOU3KOYnY24i22eWQO8lFPEYPkiIxdtm9lQE1H55UYOYqvLMHn7dGvzrUjYBJ/w0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I86KcNay; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791995454; c=relaxed/simple;
+	bh=dw453SjKRb4006gix6zhYjhyw8h2zLucTTilf+CwNnE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hcgzPOJtY1vfEN6KbLTT6U/mnDpH7mLTY60iHkdyjlsaYhVcjiXkuhWUsK1v90goifbE1bHBq+ysk+/NGQSmikMS7LUEUnLjU4rZ63+lTFbKTSIsE8QmhDCkQCphW4eTkLwYQT4vjZ3eKviAxD9AEZhd4d7663eUl91eNUDsG2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=r3yIi4uE; arc=none smtp.client-ip=95.215.58.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I86KcNay"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso10485515e9.3
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 09:30:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791995446; x=1792600246; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jlhZ2D8PVaX0+/HQ1rv8ogSvRZujgAeRl9LWjz1EazE=;
-        b=I86KcNayWRCZftozOOWWxK91poIAkB5vFmgIEJV7louwmGtzLv2/UGs6AaJ//tcT2+
-         nKCEe/p2aWiFkRTRK6r+W4ppgLnG2mv2LdkDIDnkt1zqUBxiYNtmJl9xzzz3jDkdF5eC
-         Esl5dunQWf1ZWJfrOkCG3U35nS7NtZ3IIif5JqK5yhn4/QBmJC6puAsbqJWnnJsOMu77
-         Q3Cmo66B4stsYqUmw+GSm6Alc6JjbB6g9Os9db56nlsTu1avF3A87TN5E6SU6ycjX9UY
-         rmvHw2YEDL+T4lvUX81U0Sd1sN6XsXpcIMmQWO1aDQq8EbyjcBXabohOqNS82/ZlMdzS
-         iHpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791995446; x=1792600246;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jlhZ2D8PVaX0+/HQ1rv8ogSvRZujgAeRl9LWjz1EazE=;
-        b=C7It8HIKz4xTp78Z+FfN80OWWGfhM+mu+HGFxftrhSoEKYzYxHDNfGN17GdbZ9ZcsW
-         TCd9I01ygVJFIead7Kjw1knx+1K+N9YJLH9XmMhTsWGvx+Q1qbwjVEXLflHVXkcsZZLC
-         C2yxYAkJalAPRscD8pDkozWQWgT1eEjmR/mmzxHohv19FBwhRwJ0aNWBoxxzrrZDis7Y
-         eIAq1hsJLxqYyNlugyGbiwvRZRvSOX94wjBHBlcTozsn04RcX5h17ZNdH8umLABAhctJ
-         mLFw1DV7zmzclIxPzh18Hlzinf2qh03+ofMHd8D3awtlrZMxvXn0IK8AZQYq+mmDeDsk
-         yUiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy4zs5ESzNLcilOwpwjb1t66kp8AOQxZN0ls3rgfLqtq0ykvDYQgmfX9yrQgh0Ril4TwSysOk4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQhAd0WtHo6epjMS6n/8Vq4I5krLsJcNZxHxzNdJBcjmM+QLMf
-	zT90z42DUW4IMHDtnLKIO+8vsyWv0hCyoO+M8s/MBleNf27hSjTEpyNL
-X-Gm-Gg: AYBFou0PNbWKF058ssJngHPO5HND0HdnEoML45qTL0Wo4Zc6z7w8l40SxkdWD1SParV
-	arzCa93m7MvKOCxqTrGqSami5GfivhrwHliinAH3vrLVwAW0cc7D4N981XRGZB2hUqluncQM/wo
-	ioAo8WlGf8qlOpsjxT0UGn82Togel2wJ2zBeB+6XB0aZfkc2guvwq0nBMTpVPFNbTstigu2qS0Q
-	znJ57ESgJ9ZWpIbwpuHjMVd96rWpY6P9noyl1oRuZnU4dgaQiFtOFBG4Cp193SRV9daH3bf73Fa
-	PqZafvfhy/+B+pbimG9MzhUMIiBojSTHuK7E+SX7lkbY+tueCPF0i5wnVCylNYKwYBm+3fY6j0W
-	xAwxpJSNUCEQuuYCcpFaXebKAqngkGBw00ghSCnJHXcSA7rYbLmJ9T7KFG6IHjrlYVE5EW0h6Hi
-	gn2NBHoboOl9js2Y1QfV6CtXxw33LZLYYPGWhfSp5Iq9I4Xwye8kjaW9dHKAU6bePXCSJ/+lcEQ
-	09nCtKD2vTAPzUR2GfkIAPHn8+CNDDBhxs=
-X-Received: by 2002:a05:600c:a00c:b0:49f:fe90:de63 with SMTP id 5b1f17b1804b1-4a18e4e0a3emr341491645e9.28.1791995445684;
-        Wed, 14 Oct 2026 09:30:45 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0967affsm11644556f8f.1.2026.10.14.09.30.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 09:30:44 -0700 (PDT)
-Date: Wed, 14 Oct 2026 17:30:42 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Andrew Lunn
- <andrew+netdev@lunn.ch>, David Ahern <dsahern@kernel.org>, Ido Schimmel
- <idosch@nvidia.com>, Trond Myklebust <trondmy@kernel.org>, Anna Schumaker
- <anna@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton
- <jlayton@kernel.org>, NeilBrown <neil@brown.name>, Olga Kornievskaia
- <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey
- <tom@talpey.com>, Mina Almasry <almasrymina@google.com>, Kaiyuan Zhang
- <kaiyuanz@google.com>, Willem de Bruijn <willemb@google.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-nfs@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v2] net: skbuff: make skb_copy_and_csum_bits()
- report unreadable frags
-Message-ID: <20261014173042.0a74a25d@pumpkin>
-In-Reply-To: <179198668564919.2.10323410751655182155@toxicpanda.com>
-References: <20261013-b4-skb-segment-nosg-unreadable-v2-1-6c28d8ffa51e@toxicpanda.com>
-	<20261014135154.05de968e@pumpkin>
-	<179198668564919.2.10323410751655182155@toxicpanda.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="r3yIi4uE"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=dw453SjKRb4006gix6zhYjhyw8h2zLucTTilf+CwNnE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791995450; v=1; x=1792600250;
+ b=r3yIi4uErvQk3aLwnT7PwDpTB4yWB+1CYIXSUqIJm9A3Jffi86vuBrOQcxcmPc7uLrs6eqXc
+ vbcxYE6ma5IXv9mISCBjIvfJluES68Y+VI2tXLF0Or5x6DAz2SZGJzkWMIyGuSqqFe0UgSM4b/c
+ r0IauxsTNyMo2Li7PxRJolCI=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b89656d6ed486c36;
+	Wed, 14 Oct 2026 16:30:50 +0000
+X-Mizu-Trace-ID: b89656d6ed486c36
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org
+Cc: akpm@linux-foundation.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	huang.ying.caritas@gmail.com,
+	baolin.wang@linux.alibaba.com,
+	baohua@kernel.org,
+	ryan.roberts@arm.com,
+	hanchuanhua@oppo.com,
+	kas@kernel.org,
+	kylebot@openai.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm: fix address wraparound when scanning large folio PTEs
+Date: Thu, 15 Oct 2026 00:30:43 +0800
+Message-ID: <20261014163043.39233-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
+References: <20261013-folio_pte_scan_range-v1-1-c50dc30bf6ad@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 14 Oct 2026 14:04:45 +0000
-Josef Bacik <josef@toxicpanda.com> wrote:
 
-> On Wed, Oct 14, 2026 at 01:51:54PM +0100, David Laight wrote:
-> > Can't you use that fact that the csum function should only return
-> > either 0 or ~0 and use the other value to indicate an error.
-> >
-> > ISTR this coming up before with the 'copy_to/from_user_and_csum' code.  
+On Tue, Oct 13, 2026 at 02:30:37PM +0200, David Hildenbrand (Arm) wrote:
+>numa_rebuild_large_mapping() and do_swap_page() can be tricked into
+>generating an address wraparound, crashing the kernel. All that's required
+>is to map a tail page of a large folio close enough to the start/end of
+>the address space to e.g., make
+>
+>	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
+>
+>to wrap around.
+>
+>Let's fix it by providing a better helper, folio_pte_scan_range(), that
+>takes care of staying within VMA and page table boundaries while
+>handling possible wraparounds.
+>
+>Reported-by: Kyle Zeng <kylebot@openai.com>
+>Fixes: d2136d749d76 ("mm: support multi-size THP numa balancing")
+>Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
+>Cc: stable@vger.kernel.org
+>Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>---
+> mm/memory.c | 43 +++++++++++++++++++++++++++++--------------
+> 1 file changed, 29 insertions(+), 14 deletions(-)
+>
+>diff --git a/mm/memory.c b/mm/memory.c
+>index 1f5d5f7d39cd2..a3823010aa981 100644
+>--- a/mm/memory.c
+>+++ b/mm/memory.c
+>@@ -4933,6 +4933,27 @@ static void check_swap_exclusive(struct folio *folio, swp_entry_t entry,
+> 	} while (--nr_pages);
+> }
 > 
-> skb_copy_and_csum_bits() returns an unfolded __wsum starting from 0, so
-> 0 is a valid result today.  It would work if it started from ~0 the way
-> csum_and_copy_from_user() does, since that doesn't change the folded
-> result and the sum can never come out as 0.
+>+/*
+>+ * Get the address range in which a folio might be mapped, assuming its pages
+>+ * are mapped consecutively and the folio page at the given idx is mapped at
+>+ * the given address.
+>+ */
+>+static void folio_pte_scan_range(const struct folio *folio,
+>+		const struct vm_area_struct *vma, unsigned long addr,
+>+		unsigned long idx, unsigned long *start, unsigned long *end)
+>+{
+>+	/* Stay within the page table and VMA boundaries. */
+>+	const unsigned long pmd_start = addr & PMD_MASK;
+>+	const unsigned long pmd_end = pmd_start + PMD_SIZE;
+>+	const unsigned long lower = max(pmd_start, vma->vm_start);
+>+	const unsigned long upper = min(pmd_end - 1, vma->vm_end - 1) + 1;
 
-The result can only be 0 if either the length is zero or all the bytes
-are zero.
-You can probably prove that is never required.
-It is likely better to initialise the csum to either 0xffff or ~0.
+That -1/+1 threw me for a sec ... Neat little trick!
 
-IIRC both IPv4 and IPv6 complement the checksum before sending it.
-For IPv6 a zero is invalid (it means checksum not calculated for IPv4),
-I think the best was to achieve that is to initialise the csum to 1
-and then add 1 after inverting it.
-
-> But this is one of those "you have to know the behavior of the function
-> to use it properly." Explicit errors are always better, it removes
-> ambiguity and creates cleaner and less error prone code. I'm happy to
-> change it to start with ~0 as well to add the extra protection, but
-> explicit errors are always best. Thanks,
-
-Look at all the places ERR_PTR() gets used.
-An in-band error indication gives better code and is probably less buggy!
-
-David
-
+>+	const unsigned long offset = idx << PAGE_SHIFT;
+>+
+>+	/* Avoid any address wraparounds. */
+>+	*start = addr - min(addr - lower, offset);
+>+	*end = addr + min(upper - addr, folio_size(folio) - offset);
+>+}
+>+
+> /*
+>  * We enter with either the VMA lock or the mmap_lock held (see
+>  * FAULT_FLAG_VMA_LOCK), and pte mapped but not yet locked.
+>@@ -5121,16 +5142,15 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+> 	address = vmf->address;
+> 	ptep = vmf->pte;
+> 	if (folio_test_large(folio) && folio_test_swapcache(folio)) {
+>-		int nr = folio_nr_pages(folio);
+>-		unsigned long idx = folio_page_idx(folio, page);
+>-		unsigned long folio_start = address - idx * PAGE_SIZE;
+>-		unsigned long folio_end = folio_start + nr * PAGE_SIZE;
+>+		const int nr = folio_nr_pages(folio);
+>+		const unsigned long idx = folio_page_idx(folio, page);
+>+		unsigned long folio_start, folio_end;
+> 		pte_t *folio_ptep;
+> 		pte_t folio_pte;
 > 
-> Josef
+>-		if (unlikely(folio_start < max(address & PMD_MASK, vma->vm_start)))
+>-			goto check_folio;
+>-		if (unlikely(folio_end > pmd_addr_end(address, vma->vm_end)))
+>+		folio_pte_scan_range(folio, vma, address, idx, &folio_start,
+>+				     &folio_end);
+>+		if (unlikely((folio_end - folio_start) >> PAGE_SHIFT != nr))
+> 			goto check_folio;
+> 
+> 		folio_ptep = vmf->pte - idx;
+>@@ -6280,16 +6300,11 @@ static void numa_rebuild_large_mapping(struct vm_fault *vmf, struct vm_area_stru
+> 				       struct folio *folio, pte_t fault_pte,
+> 				       bool ignore_writable, bool pte_write_upgrade)
+> {
+>-	int nr = pte_pfn(fault_pte) - folio_pfn(folio);
+>+	const unsigned long idx = pte_pfn(fault_pte) - folio_pfn(folio);
+> 	unsigned long start, end, addr = vmf->address;
+>-	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
+>-	unsigned long pt_start = ALIGN_DOWN(addr, PMD_SIZE);
+> 	pte_t *start_ptep;
+> 
+>-	/* Stay within the VMA and within the page table. */
+>-	start = max3(addr_start, pt_start, vma->vm_start);
+>-	end = min3(addr_start + folio_size(folio), pt_start + PMD_SIZE,
+>-		   vma->vm_end);
+>+	folio_pte_scan_range(folio, vma, addr, idx, &start, &end);
+> 	start_ptep = vmf->pte - ((addr - start) >> PAGE_SHIFT);
+> 
+> 	/* Restore all PTEs' mapping of the large folio */
+>
+>---
 
+Nothing jumped out at me, feel free to add:
+
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
