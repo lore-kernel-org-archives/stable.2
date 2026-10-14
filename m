@@ -1,85 +1,75 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C724347F79F
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:17:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7CD423E325
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:19:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792005469; cv=none; b=P98asHTsR6Cbg0lxrg2pq6K/hQae73BfAYIOwGOvKOFIIBsZ/uY8/LE3offS6ZdI2WmygpG6nOr6NXo3rGgLzCw1caIaxmy3wIjlovsrLUKDNm9lIGH2DZ5AwxzFdnjuQtBpSXs3RohmivxV0kNZOySD125KPJJCwcBNxTKfAlU=
+	t=1792005580; cv=none; b=UMBuZKEiOO77vuj0C9Xl0dmxgGw+kyCmd+cRXFpIVXkf9Wr/ioUATivDxnTfU8pVdJJHGoQ3pqszaXLyBy/dn+ZMJnUfQDXjWAkop/G5Bimpbyqi1OrIblio2JUb2iqagl3wRl0Kg7u0yEFBI28nfz114BID/NbprXTjhDfW/hY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792005469; c=relaxed/simple;
-	bh=8ch9zPHrRhoJf/XXXqGGMB796PWAdgWE+lKNbAT8TaI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xr/UaSTrkznHZMTrCCwtD9CaopZ2pbj4ST7zKypiIazIMiR6GEGj1WIWKxZL6I+1sZz6BsHy3Klcmu0m7RDDZCKbav4dVZ9VOVJeqODrSAw6ZCTsbvJrAJ4zXyZ6s0u2fnrifRWtqbPaMiQb31+moK+UQdENC0kT6qQYmz1eNnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=EmRoe4N9; arc=none smtp.client-ip=74.125.82.172
+	s=arc-20240116; t=1792005580; c=relaxed/simple;
+	bh=QLHD71bG8sWEFx+QTSTbN2i3igcwCws5mkcWYxMIzWQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WMNKl50e3Tj1G/3JXeHxIBUZioYlLsYlkk7pC0UaasPJGTXuKPjI76DtYrh8TV2hs13ucGXj71F5XNrmOmbZdhkYiM71+XPdwQRnB0Mu0tUE1DIlVEg4S38xoO1H72fQ9XMaefLZeatoTkyL0j5DPKejO0pnkgjwNgFumVdaz08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=YSqAXqtc; arc=none smtp.client-ip=74.125.82.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="EmRoe4N9"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-30b6dad2382so10377850eec.0
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 12:17:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="YSqAXqtc"
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-15354aa70e8so3743736c88.1
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 12:19:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792005467; x=1792610267; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cySd0bAdXDIqYUaxbcOqN6XcQ5s/toN0byY3dnGYBUg=;
-        b=EmRoe4N9jThwm9vfwHOSSEdj+JkwFYNZbhMHqYgMssxHgmsqtGrmFhdVXGPYtTQQo+
-         l86Cs5EMogZR1JYMH5mdrixdvSOApfVtzc55HQmQv5ydnehRkKuDaEMBLpRr0GqTynCo
-         36RUWRZ8lzFOTaoghRUfiK4NvA7zDW3UKwzbU9bLJ2PbCtDx9ZQrgIWkk/iUEztae+6R
-         ITEn589MyUn+qJhTTc0p/pXKzX6b5S1lHv820+glJ8LmNVFog/IcSzHYr1ZRwBuE7quj
-         euUu8WO+E61f9ci/QWyTQ2Jp7l5BtEZUZRis3CUvOI7fTkK5TPdkQ0MqDMZR7nR6SD8n
-         BgVQ==
+        d=trailofbits.com; s=google; t=1792005578; x=1792610378; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EolNk2P8cfuJX7YBRRAXbmqx1FX42TwFCmuMkfr/YQE=;
+        b=YSqAXqtcgt/BwzJe67UkG96OZH2R0ugMLGLyzn6UztMv9K9JCUSFErK+yEeNG0OaAW
+         RvKUnmgZFpvsxsQz54VuczBDaLs0Nkcyz3e9XdQX/QJcbrXaF7Pelk4sL1v8vMWLeDPl
+         867OxJwFrGEIyLO1BzaePuS/oz61rwXCp66XM7jkP4XHEIbv+f7z7vRJ6z4qX1uSxOrV
+         Rq9OmfYDCwbsGGB1015wz6CJAeuWQNGgi4xEUkT1FkprWNTs3Xs4+O8VJ+4JZ3bSDzTs
+         j/sUDPURMHf8hDBuFf0Ks/Jj68vxDg25DMxSf58mrnAyRzLlgE8VnT3VJOvHUXUI6Qib
+         jRnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792005467; x=1792610267;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cySd0bAdXDIqYUaxbcOqN6XcQ5s/toN0byY3dnGYBUg=;
-        b=MJ5EBqfEa8pMW6mwS9D5F4THUpRonRAmVi+M0i3as0ha2cAJ1QBmQdE0RokMaoEbaw
-         BnJUzR2DD74veTM0QjVYDWC5JVTNcNEgM/Am0XTuD1GuFkMRZf5qewNCMdDhV5WfYlpC
-         XUcfN/MAqO9iXEvqJY+46hejAaA4LM4W5peDJkKx6zSPGiaX/vBE5jj/30fRa/+Acfx7
-         Si/hmaucBJzSHXEH7PEpaDeDcYU+wnDyVHEOBwPwlsC6aPxTqJVkTUkB8GkwOD5IFU3Y
-         YASc64eL4EdCpTS7CjaWcXc20wD4dyq2vRb1uDVLykflascrKIu0s03QiHBhYKSEJE9s
-         C+ew==
-X-Gm-Message-State: AFq9FYLAh7PPORDzobjI212PysA72Ka37066u6MFLwgKBraJs1KmMksm
-	rE6jc2+Ph7gViBqRo9yEWLWUtUcdr1ea6dY3Aij/RE6/Iz61nTj2wVqgXWnj1r4DRPih9qVmwib
-	VpcZKX58K4w==
-X-Gm-Gg: AYBFou1ydCN03wvKmKLDSsiadypkkef4Xu2o7s8qI9wM19Ck8iPgoA3mSHd+aL7/vXA
-	wbwv/7mf+Dm7LRmr4c5/RKA3QBBRMX98GH0lE1aM2rjI2ffMnIh1AgVwdR6HVQKHpNVsovMwBFT
-	zeADCGzJWHiicph42GGr6A7WZwW9f+tYBEJIRzsvbGclLuxr1MoX8L6kkiwV0r/N1KG0IToSahV
-	eAjtri9/ImexOF+Zc7gKIla3wrBgWSwGeYMXw2XYaleAsVy8F1S6dxzYSQR15yNk25eAw4PBZ/e
-	K6O0+XVQblp+4ytgR60eg3t+k7QHwhQCqUU2HeEJg4hITfPXCfzhq+rYl0vMhG8KNumthawA0GN
-	+dqQvzMkoTRpgppkSgCt4lP6GdrCP1wPbVaeBwB322Y3OHD+bQMGbD8rn5nXh86Y0TpI2lzFbIj
-	P+5jdNFj6CBukhx0cdbMNCyzTku59krf5cLcRNjDD1YBO0QBl5tX5Of7hZ/boxA7vL55YqcqRRh
-	PW9CvOs1LHTSSC7zWHpCsiSMjjEJ33Nb9LdeXDpv60KCO96skFRYlxVSltW5kM2V5vR1NY=
-X-Received: by 2002:a05:701b:2810:b0:143:2701:9198 with SMTP id a92af1059eb24-16a610c9c0fmr21861153c88.36.1792005466629;
-        Wed, 14 Oct 2026 12:17:46 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792005578; x=1792610378;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EolNk2P8cfuJX7YBRRAXbmqx1FX42TwFCmuMkfr/YQE=;
+        b=2iEhmAnHtQW2eGdHU/xyNxq1dsidzr01TN2QVTYPznD8B5/QpIlmzpfjNMoHXoi8zC
+         g7ptrb2Z1238XzplRhO3ib6rajRppWtGSyGN7d/KaLePoG9hJxLrzaaLkQ0CSTXY/6oe
+         so7ErmPlcA8q8EO8RUEniRYEF8A15f6htIq7vVg/slIZscudShhMiaw3O/G0L9tPwtT2
+         MBC2COW6Y+0t2Zo8MNAAV0QzZlGd0cJUjTCcDkvoiBgO0CUVpmkNMHAy4RmLc7R3upBu
+         Ojc+0ozUjaEkIFl3M9182T3it3ccFZtN6LamvHN1i4+blBBdxtbfrErcIM/TNpRXixnn
+         GRUw==
+X-Gm-Message-State: AFq9FYJl9DAKuJbSKV+JJVYRwViOKeRix9P12C6DVLHa9rF9RosLhF+9
+	pCF5rU0crFXk8k8iEevZ1FeFOmLRwP5aG1dOG+B5qdXsEUVJedtvi1x/YBqVY5mbJvLUkA8rBPI
+	kabrYi2Rung==
+X-Gm-Gg: AYBFou3dU7WSaarhJIhkHknpibQClahGt/gefdRuLWuoKiO30INA5fq2b3C+ZhNfbJw
+	3fn7wc9U/gR8diMwzhshhoaUyEk0CMQXJN0264hn9Ad5yh0NPYy4uyvfaQWN/mGej2Ra0vFc3PW
+	ekJ8SW1m+1q6Hthd4SZTkT1TJcBkNJDhBUhh0DVsZkpD2++H2YpwUonsuYkfgZ/iV296HzdNV2O
+	AvD/4zLiALj3wDz9b5VKOqxPrYgNuumS7iNPCR8GjiEwfpICML9eO5U3vErnlK/jVSE5SaXYgLa
+	DOEINo7u+q84/kTkKiQVV1Ti2iPUbRGZz2DyjmBedgNMiFHuMXAGS50H4YR3o8kYW4SOjM/b6Rj
+	w8s9N6wIGtIefO5NGhUU4R9FOyE7E1XZq/kZ9SyJAV1eIqBMJlPj66UDggGjMlyGfi18fjQCL6Y
+	neAWiqws2iZrsd235XHnndHN/MHo7k58jEEngWIeScOJmfo4obgqZWA+IcBFiZYrKs9xVbEvl9I
+	45CRgp8BqtqSrgxsmhrVY1saZK21pkfVkjNyTmWSQCTP4SHVPL159GSa1R2/f5BlVMnBnPs
+X-Received: by 2002:a05:7022:7f05:b0:149:49c:22b with SMTP id a92af1059eb24-16a57733270mr21122525c88.1.1792005575832;
+        Wed, 14 Oct 2026 12:19:35 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:39d1:d8de:aae7:23dd])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1746482c978sm28966433c88.13.2026.10.14.12.17.44
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a620bdafsm65121744c88.23.2026.10.14.12.19.34
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 14 Oct 2026 12:17:45 -0700 (PDT)
+        Wed, 14 Oct 2026 12:19:34 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	leon@kernel.org,
+Cc: lenb@kernel.org,
+	lihuisong@huawei.com,
+	linux-acpi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	mbloch@nvidia.com,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	saeedm@nvidia.com,
-	shayd@nvidia.com,
-	tariqt@nvidia.com
-Subject: [PATCH 6.6.y 2/2] net/mlx5e: Pass netdev to mlx5e_destroy_netdev instead of priv
-Date: Wed, 14 Oct 2026 15:17:37 -0400
-Message-ID: <20261014191738.24034-3-artem@trailofbits.com>
+	lirongqing@baidu.com,
+	rafael.j.wysocki@intel.com,
+	rafael@kernel.org
+Subject: [PATCH 6.6.y] ACPI: processor_idle: Mark LPI enter functions as __cpuidle
+Date: Wed, 14 Oct 2026 15:19:31 -0400
+Message-ID: <20261014191932.24129-1-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261014191738.24034-1-artem@trailofbits.com>
-References: <20261014191738.24034-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -88,172 +78,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Saeed Mahameed <saeedm@nvidia.com>
+From: Li RongQing <lirongqing@baidu.com>
 
-[ Upstream commit 4ef8512e1427111f7ba92b4a847d181ff0aeec42 ]
+[ Upstream commit 956ca5d72c76504824c8eb601879da9476973e15 ]
 
-mlx5e_priv is an unstable structure that can be memset(0) if profile
-attaching fails.
+When function tracing or Kprobes is enabled, entering an ACPI Low
+Power Idle (LPI) state triggers the following RCU splat:
 
-Pass netdev to mlx5e_destroy_netdev() to guarantee it will work on a
-valid netdev.
+  RCU not on for: acpi_idle_lpi_enter+0x4/0xd8
+  WARNING: CPU: 8 PID: 0 at include/linux/trace_recursion.h:162 function_trace_call+0x1e8/0x228
 
-On mlx5e_remove: Check validity of priv->profile, before attempting
-to cleanup any resources that might be not there.
+The acpi_idle_lpi_enter() function is invoked within the cpuidle
+path after RCU has already been disabled for the current local CPU.
+Consequently, ftrace's function_trace_call() expects RCU to be
+actively watching before recording trace data, emitting a warning
+if it is not.
 
-This fixes a kernel oops in mlx5e_remove when switchdev mode fails due
-to change profile failure.
+Fix this by annotating acpi_idle_lpi_enter(), the generic __weak
+stub, and the RISC-V implementation of acpi_processor_ffh_lpi_enter()
+with __cpuidle. This moves these functions into the '.cpuidle.text'
+section, implicitly disabling ftrace instrumentation (notrace) along
+this sensitive path and preventing trace-induced RCU warnings during
+idle entry.
 
-$ devlink dev eswitch set pci/0000:00:03.0 mode switchdev
-Error: mlx5_core: Failed setting eswitch to offloads.
-dmesg:
-workqueue: Failed to create a rescuer kthread for wq "mlx5e": -EINTR
-mlx5_core 0012:03:00.1: mlx5e_netdev_init_profile:6214:(pid 37199): mlx5e_priv_init failed, err=-12
-mlx5_core 0012:03:00.1 gpu3rdma1: mlx5e_netdev_change_profile: new profile init failed, -12
-workqueue: Failed to create a rescuer kthread for wq "mlx5e": -EINTR
-mlx5_core 0012:03:00.1: mlx5e_netdev_init_profile:6214:(pid 37199): mlx5e_priv_init failed, err=-12
-mlx5_core 0012:03:00.1 gpu3rdma1: mlx5e_netdev_change_profile: failed to rollback to orig profile, -12
-
-$ devlink dev reload pci/0000:00:03.0 ==> oops
-
-BUG: kernel NULL pointer dereference, address: 0000000000000370
-PGD 0 P4D 0
-Oops: Oops: 0000 [#1] SMP NOPTI
-CPU: 15 UID: 0 PID: 520 Comm: devlink Not tainted 6.18.0-rc5+ #115 PREEMPT(voluntary)
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-2.fc40 04/01/2014
-RIP: 0010:mlx5e_dcbnl_dscp_app+0x23/0x100
-RSP: 0018:ffffc9000083f8b8 EFLAGS: 00010286
-RAX: ffff8881126fc380 RBX: ffff8881015ac400 RCX: ffffffff826ffc45
-RDX: 0000000000000000 RSI: 0000000000000001 RDI: ffff8881035109c0
-RBP: ffff8881035109c0 R08: ffff888101e3e838 R09: ffff888100264e10
-R10: ffffc9000083f898 R11: ffffc9000083f8a0 R12: ffff888101b921a0
-R13: ffff888101b921a0 R14: ffff8881015ac9a0 R15: ffff8881015ac400
-FS:  00007f789a3c8740(0000) GS:ffff88856aa59000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000000000370 CR3: 000000010b6c0001 CR4: 0000000000370ef0
-Call Trace:
- <TASK>
- mlx5e_remove+0x57/0x110
- device_release_driver_internal+0x19c/0x200
- bus_remove_device+0xc6/0x130
- device_del+0x160/0x3d0
- ? devl_param_driverinit_value_get+0x2d/0x90
- mlx5_detach_device+0x89/0xe0
- mlx5_unload_one_devl_locked+0x3a/0x70
- mlx5_devlink_reload_down+0xc8/0x220
- devlink_reload+0x7d/0x260
- devlink_nl_reload_doit+0x45b/0x5a0
- genl_family_rcv_msg_doit+0xe8/0x140
-
-Fixes: c4d7eb57687f ("net/mxl5e: Add change profile method")
-Signed-off-by: Saeed Mahameed <saeedm@nvidia.com>
-Reviewed-by: Shay Drori <shayd@nvidia.com>
-Reviewed-by: Tariq Toukan <tariqt@nvidia.com>
-Link: https://patch.msgid.link/20260108212657.25090-4-saeed@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Fixes: a36a7fecfe60 ("ACPI / processor_idle: Add support for Low Power Idle(LPI) states")
+Signed-off-by: Li RongQing <lirongqing@baidu.com>
+Acked-by: lihuisong@huawei.com
+Link: https://patch.msgid.link/20260616072617.2272-1-lirongqing@baidu.com
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 Assisted-by: LLM
+[ Backport to 6.6.y: Omit the RISC-V hunk because this target has no
+  RISC-V ACPI LPI implementation. ]
 Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
 Hi,
 
-Please consider this backport of the fix for CVE-2026-23035 to 6.6.y.
+Please consider this backport of the fix for CVE-2026-80611 to 6.6.y.
 
-The code changes are identical to upstream. Apply this series after the
-pending 6.6.y backport of 3d5918477f94 (net/mlx5e: Fix netif state
-handling), which fixes registration-failure cleanup.
+The code changes are identical to upstream, except the absent RISC-V LPI
+hunk is omitted. See the bracketed backport note above.
 
 The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
 
-Build-tested only as part of a cumulative 6.6.y series on x86_64
-(allmodconfig, CONFIG_WERROR=y), changed objects only; no runtime testing.
+Build-tested only as part of a cumulative 6.6.y series: the x86_64 ACPI
+processor-idle object (allmodconfig, CONFIG_WERROR=y); no runtime testing.
 
 Thanks,
 Artem Dinaburg
 
- drivers/net/ethernet/mellanox/mlx5/core/en.h      |    2 +-
- drivers/net/ethernet/mellanox/mlx5/core/en_main.c |   15 +++++++++------
- drivers/net/ethernet/mellanox/mlx5/core/en_rep.c  |    4 ++--
- 3 files changed, 12 insertions(+), 9 deletions(-)
+ drivers/acpi/processor_idle.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en.h b/drivers/net/ethernet/mellanox/mlx5/core/en.h
-index ee671e16f344cd160a65d2a84dc82d210af339da..0b10e86b508cab9091177dec46051e3e8593ed2a 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en.h
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en.h
-@@ -1202,7 +1202,7 @@ struct net_device *
- mlx5e_create_netdev(struct mlx5_core_dev *mdev, const struct mlx5e_profile *profile);
- int mlx5e_attach_netdev(struct mlx5e_priv *priv);
- void mlx5e_detach_netdev(struct mlx5e_priv *priv);
--void mlx5e_destroy_netdev(struct mlx5e_priv *priv);
-+void mlx5e_destroy_netdev(struct net_device *netdev);
- int mlx5e_netdev_change_profile(struct mlx5e_priv *priv,
- 				const struct mlx5e_profile *new_profile, void *new_ppriv);
- void mlx5e_netdev_attach_nic_profile(struct mlx5e_priv *priv);
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-index a296a73771c07fa00427ea072d9f9e26379ff8d7..191a152d62b6c1f67961e37dc4ee84cd4c26f1be 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-@@ -5984,11 +5984,12 @@ void mlx5e_netdev_attach_nic_profile(struct mlx5e_priv *priv)
- 	mlx5e_netdev_change_profile(priv, &mlx5e_nic_profile, NULL);
+diff --git a/drivers/acpi/processor_idle.c b/drivers/acpi/processor_idle.c
+index d755c266e3586750968ad7c4e01c5538ceb631e3..5db34356328c7e4e62b30fb53fca375e9e7d972f 100644
+--- a/drivers/acpi/processor_idle.c
++++ b/drivers/acpi/processor_idle.c
+@@ -1175,7 +1175,7 @@ static int acpi_processor_get_lpi_info(struct acpi_processor *pr)
+ 	return 0;
  }
  
--void mlx5e_destroy_netdev(struct mlx5e_priv *priv)
-+void mlx5e_destroy_netdev(struct net_device *netdev)
+-int __weak acpi_processor_ffh_lpi_enter(struct acpi_lpi_state *lpi)
++int __weak __cpuidle acpi_processor_ffh_lpi_enter(struct acpi_lpi_state *lpi)
  {
--	struct net_device *netdev = priv->netdev;
-+	struct mlx5e_priv *priv = netdev_priv(netdev);
- 
--	mlx5e_priv_cleanup(priv);
-+	if (priv->profile)
-+		mlx5e_priv_cleanup(priv);
- 	free_netdev(netdev);
+ 	return -ENODEV;
  }
- 
-@@ -6116,7 +6117,7 @@ err_resume:
- err_profile_cleanup:
- 	profile->cleanup(priv);
- err_destroy_netdev:
--	mlx5e_destroy_netdev(priv);
-+	mlx5e_destroy_netdev(netdev);
- err_devlink_port_unregister:
- 	mlx5e_devlink_port_unregister(mlx5e_dev);
- err_devlink_unregister:
-@@ -6134,13 +6135,15 @@ static void mlx5e_remove(struct auxiliary_device *adev)
- 	pm_message_t state = {};
- 
- 	mlx5_core_uplink_netdev_set(mdev, NULL);
--	mlx5e_dcbnl_delete_app(priv);
-+
-+	if (priv->profile)
-+		mlx5e_dcbnl_delete_app(priv);
- 	unregister_netdev(netdev);
- 	mlx5e_suspend(adev, state);
- 	/* Avoid cleanup if profile rollback failed. */
- 	if (priv->profile)
- 		priv->profile->cleanup(priv);
--	mlx5e_destroy_netdev(priv);
-+	mlx5e_destroy_netdev(netdev);
- 	mlx5e_devlink_port_unregister(mlx5e_dev);
- 	mlx5e_destroy_devlink(mlx5e_dev);
- }
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_rep.c b/drivers/net/ethernet/mellanox/mlx5/core/en_rep.c
-index 656a7b65f4c7bb906979a4fa9f018d5567a8dfd8..380898125224e05661ebae3540c890b4248a87af 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_rep.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_rep.c
-@@ -1539,7 +1539,7 @@ err_cleanup_profile:
- 	priv->profile->cleanup(priv);
- 
- err_destroy_netdev:
--	mlx5e_destroy_netdev(netdev_priv(netdev));
-+	mlx5e_destroy_netdev(netdev);
- 	return err;
- }
- 
-@@ -1594,7 +1594,7 @@ mlx5e_vport_rep_unload(struct mlx5_eswitch_rep *rep)
- 	mlx5e_rep_vnic_reporter_destroy(priv);
- 	mlx5e_detach_netdev(priv);
- 	priv->profile->cleanup(priv);
--	mlx5e_destroy_netdev(priv);
-+	mlx5e_destroy_netdev(netdev);
- free_ppriv:
- 	kvfree(ppriv); /* mlx5e_rep_priv */
- }
+@@ -1188,7 +1188,7 @@ int __weak acpi_processor_ffh_lpi_enter(struct acpi_lpi_state *lpi)
+  *
+  * Return: 0 for success or negative value for error
+  */
+-static int acpi_idle_lpi_enter(struct cpuidle_device *dev,
++static int __cpuidle acpi_idle_lpi_enter(struct cpuidle_device *dev,
+ 			       struct cpuidle_driver *drv, int index)
+ {
+ 	struct acpi_processor *pr;
