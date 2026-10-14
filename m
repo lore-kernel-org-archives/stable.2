@@ -1,245 +1,121 @@
-Received: from mail-lr2-f7.google.com (mail-lr2-f7.google.com [74.125.230.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C61A43AFCFF
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 03:03:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.71
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791946982; cv=pass; b=ZU5hccKUFrgJlp/vgWs04n2cmrqzw7hkWJ6eqeDngK2xe+8TVqGiTxm18yaywGq3eYmXdT7lXzsr5odqySxndIygMbNKmlhijbgc9CF+sNcLT1bRt9wQsz+ZpxYsXykORf4KWejTw01hHBvGJP3RDqRx2Gbpb67/p45DSFDaz18=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791946982; c=relaxed/simple;
-	bh=XbnitDCqJmDt4WiuCkkU/XQ2pMAbka+HkyNqYHBdhkQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=E3qQnzn2PBRGEnFlxuGX3y9R5uxv7VRX8UhKooXZdjF22eT1WDCQfcMijVeXxI2Lcr6b8NocgbPilBu/5IKGHiLlleKtYgTuZk13ZJ22n4OooYnyWTvL2XnqulaGpqItX6ODQpKMoA9P1C2TqbSseBzTRgd76frOIHVGtmOwh7E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nr6ny/FC; arc=pass smtp.client-ip=74.125.230.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37661A238F;
+	Wed, 14 Oct 2026 03:06:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791947215; cv=none; b=gxwpTzyiZLVk3BD0vRFMKJ99wOV/DUcFouuiCPlOo6TKcX5Rv4AcMQ5PmSh3RiqngCSNngPm0B18gQhwAqBSh2DgkjXHcf/Wc0cfQ/CX8KUsiqEl/RbAVYlV2pQFDIwxbOZ0WKKXd2OMpBZkJqv5p+Y2a7iYNkJ1ATPwFaXU0Zo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791947215; c=relaxed/simple;
+	bh=iAdtGGroBDrnH01XaivvazF6E44G+ubkAKJ1JSqjwXc=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=LzzVxlsD6SM3m3XgjSw4Cci6MOPzSHTgYUlbEcY7/M+Yx11dYCJHa4eOjbuq57qvOB2xmTUxKdMrsfNP8n7GP0WJb79kWhydcTYhdXJZOtzlD3Y0YJ4s1N6XB8RGjX7z2FDdNTD3k2/v1uffnXA+JSw0KSPRqAoiR4CIxn0cn7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dCz/PBOO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nr6ny/FC"
-Received: by mail-lr2-f7.google.com with SMTP id 38308e7fff4ca-3a9ad752b4dso3318431fa.0
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 20:03:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791946979; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lQ4y+ae1oedvZ+O0QoW2AWgjh0CSOS7+gHZ85f9D8DWNy7RaOWPAV6FoAZAY16d3in
-         6M64z6CjZjxs4fBIdCVXFhMkTyoV3UmrY2vR7UAw8jempEJ2+yhYcojxP0EG0Z84qrHC
-         GeLYqEoAWr0EaO4L6mynyd7QJrmP/4kG2wG0e9rrZxplOpVKmJl8X73MZDAoojBLyV1z
-         5VUuJh0xmt6YG6HU1Iq/qy6K71fOch+WSkoSVLR+JMTk7oP+DnSJGhMxmgk5Qg2V7XB4
-         dOL8eosZYuUoE8Y6/dMnVMItGe8IpbqI1uXybeB06QiGdAk/DO/vtZtQvH+GrvT1n5Pu
-         15bg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=oaE/H0ZV/2aESDvS9Gp3EEHeBvb99SQefPoRqEUxC5k=;
-        fh=cee82V7wgAYLsVV0AEpEmJiB3hTIwbYTnf+9FQ4pks4=;
-        b=XlEKs0lZI+YkRqipn3j42xQE6zKNrb5LYmhlmS3P+/scb1W6Y8kLlAy4bMMHSKbkSy
-         xcRoYcF8VoPNEjly3ldHMN0ZuO+D5y+oKgXw/lTE0dnTkjzJWe54ZtHM2ZLPQMD/qcFi
-         Y1/SJTKLTgJmCpnknPkt5h7Ea/Vr+MMc575/tncL7C+ZbIJvH2Nuasx5JU2amP9Q/bKE
-         LsNI4N9GvIrspZ0YJuyfcaDt9Uipqm9W4AlR9xqtNcsVThRFBMvdz5OFkP9wY/PnarM5
-         gB8boiSAauh8bS56c07HcYCwtDqHPtsF/XrwunRclwGPJOxmkHUMZjDFKi+fsaMbM90v
-         SdhQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791946979; x=1792551779; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oaE/H0ZV/2aESDvS9Gp3EEHeBvb99SQefPoRqEUxC5k=;
-        b=Nr6ny/FCNuxO7wKnt7LHbQ2mJTzNobX5EkYz3yTUOp92xNQZyaoCW3+BbiTthhSLoM
-         VFSjIOYuET0+gI7Nbadtn6DyN6gS+s4iXAr2rHGWeNqcKofK0lPjaMDJeWIkTW4emCMY
-         /PkkU6gLOmALKnmmmhOZSENFPzFIbfEn/BIzBgWn8+dnXUkskrvGBrWaBOUYvtQgGqx8
-         Pety6akyXpi/nDQqPE5uKcMc3jaOnyHGyagZqGxjQWF5MlzNV0mmyfJ614RBlO8cnqtz
-         /i32U64HuxW5qgb8p96YkrFEDmVe/g1O1EBP9/z2eYBfut7m81aW/WFSuNPd6Xbo0XDP
-         P26w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791946979; x=1792551779;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oaE/H0ZV/2aESDvS9Gp3EEHeBvb99SQefPoRqEUxC5k=;
-        b=thxjXOA6fpl553JgHmv83uXvBLcMBW6rOvJ7uu65fV5VjcR1XgGFXv0KFXLfloDm7Y
-         jfqCpZlQaokdvPHFOglJkG2QZWLwCMW3WAk/TBrSIz0K9JBxURZdEWOTU5/e4p9JBMVT
-         rRMhiMlL0H6IMxgZiwWfzOT8u3esU3JkRLZtgfhzrL8i/jEFkbv4e18/el5aC1U8USfP
-         yTDDzW0etxB0tiwWl3/VoHXCd1W+b7yZyrKyWf0Eyia6vucztWUxNgUfFsQpW4JqiO4a
-         bgGJOfHf9uGUk8wJ6+QY1oW0/nRanW6Z6WOXz5WLGIX4NPQdLn7q0JcXyo2fMInM/Neh
-         RLLw==
-X-Forwarded-Encrypted: i=1; AKwUvBzcsnVRa3bC7KeEcSSxkQPXgS2FLnWvegjDslcGSUC98arO8tGBenHcy9RpCV3QWjHh8UW30p0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYITnQ/xEAUeiFApWFhvMy4UE1twg4RQiFfiA256ITUguvwUHRH4
-	vX+xF2aH5NIGX5g17/XD2t9HBjY2uWZfgbQoQi60iA7RMsm+GqWOV52qaZXkvP3K6c25omL1u2a
-	aMJr3Py6U3Llh1wMiSvtdN+EmbSrd/BI=
-X-Gm-Gg: AYBFou3isOEjgentLymJ8NQFI29XW5GAowBl10ZBojoT5qHUpqrQRXn11fIfoTwncmX
-	/9KXYMdD71VbHUWxlWk/gqyFIBagj9gAh3YVZGG62OgLJIpuH1RgAnK/wAOuwqZB9TguF0afFCt
-	BvuqCkUSabEfolWDR1kEMIGFe45/IrbTpglfOz+VUJsmdV5jx/jQO+z6P2DhmnvO1RR/2emy9pu
-	ofyqAsHw4ac+0sY8dgFruA03UbxQpK7ov4dN8d/nP72e2EdQWJTSx77+fwxTWK2ZLy9eKYk7gdn
-	1myItU1cFjMZpAfQmyrpPbROmKa6AVpOnGDEuzGxpUKWLztLz+7Cmk2Hzk2Z4LKqxoQ=
-X-Received: by 2002:a05:651c:1542:b0:3a6:692d:b7ed with SMTP id
- 38308e7fff4ca-3a9c539343dmr38351911fa.20.1791946978412; Tue, 13 Oct 2026
- 20:02:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dCz/PBOO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6D251F000FF;
+	Wed, 14 Oct 2026 03:06:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791947213;
+	bh=cvcIIENUcGj0kcDKv2wmnPJXR3e/hKvV0fryXSGNyHE=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=dCz/PBOOdDSwPo8ILpNDTPs4g5UXsv/xPqXBP5Ov/2OZeatVU1g6XxkH2SnQQWjxf
+	 m8iz5wLKScuM0LkBZU+bxz7ffjkbhKcUQE356SRlbFGf5u9rvSD0rLDqMAg2rHeJTT
+	 +1DhxxiHGbW+HiQtJx0wZTi7MnVIH3v6dSzdi7ird07+LYpV0FANDjtUi7sy8mzW08
+	 CoTfK/BpQbxgYHZozmXIBkKDFTpzjfAWIbhYAqpE5mYg3PkyPBX/zOEcFn0QSzaBzj
+	 EMak0b0Pgliwt8hKAMkvyr3AQrG78wC+QZOz+grBd5aVimdSKuhHFy4kBpR+3ICTIa
+	 aCZnmUruKcKXw==
+Message-ID: <520e921e-1bfd-4c45-b134-f0677a3c656a@kernel.org>
+Date: Wed, 14 Oct 2026 11:06:51 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <9e519955-e63b-469d-8acf-268b9802e0b6@amd.com> <20261010030230.1764682-1-bsdhenrymartin@gmail.com>
- <4df51e6e-b017-4057-96dc-32d4003f8705@amd.com>
-In-Reply-To: <4df51e6e-b017-4057-96dc-32d4003f8705@amd.com>
-From: henry martin <bsdhenrymartin@gmail.com>
-Date: Wed, 14 Oct 2026 11:02:46 +0800
-X-Gm-Features: AclHuK9wmlZSIF4pzMKiC6asGVwJ7ETTkkdCmGmvxP7lUevo_EYe8yPIyar_-KM
-Message-ID: <CAEnQdOpWJ-73FyQzgov2g9___KWptdK5PZcOkwi1FS4b6mhOFg@mail.gmail.com>
-Subject: Re: [PATCH v2] amdkfd: fix doorbell allocation race creating
- duplicate allocations
-To: Felix Kuehling <felix.kuehling@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>, 
-	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>,
+ stable@vger.kernel.org
+Subject: Re: [f2fs-dev] [PATCH] f2fs: release a removed xattr node in
+ roll-forward recovery
+To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
+References: <20261013020941.4025355-1-daeho43@gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261013020941.4025355-1-daeho43@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Felix,
+On 10/13/26 10:09, Daeho Jeong wrote:
+> From: Daeho Jeong <daehojeong@google.com>
+> 
+> When xattrs shrink enough to fit in the inline xattr area,
+> write_all_xattrs() truncates the xattr node and clears i_xattr_nid. If
+> the file is then fsynced without a checkpoint, only the inode block is
+> written, with i_xattr_nid of 0.
+> 
+> Roll-forward recovery starts from the checkpointed inode, whose
+> i_xattr_nid still points to the old xattr node.
+> f2fs_recover_inline_xattr() copies only the inline xattr area, and
+> f2fs_update_inode() writes the old i_xattr_nid back. So the inode keeps
+> the stale xattr node:
+> 
+>  - The node block is never released, and fsck reports "nonzero bytes in
+>    xattr space after end of list".
+>  - If the inline xattr list ends exactly at the end of the inline area,
+>    its terminator is read from the stale node, and the removed xattrs
+>    come back after recovery.
+> 
+> When the fsynced inode has no xattr node but the checkpointed one has,
+> release the old xattr node in the same way as f2fs_recover_xattr_data().
+> 
+> Fixes: 28cdce0459cc ("f2fs: recover inline xattr data in roll-forward process")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Daeho Jeong <daehojeong@google.com>
+> ---
+>  fs/f2fs/node.c | 23 +++++++++++++++++++++++
+>  1 file changed, 23 insertions(+)
+> 
+> diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+> index 55008f18afd..590fdedf9c2 100644
+> --- a/fs/f2fs/node.c
+> +++ b/fs/f2fs/node.c
+> @@ -2831,6 +2831,29 @@ int f2fs_recover_inline_xattr(struct inode *inode, struct f2fs_cached_block *ent
+>  	f2fs_cache_wait_writeback(ientry);
+>  	memcpy(dst_addr, src_addr, inline_size);
+>  update_inode:
+> +	/*
+> +	 * The xattr node of the checkpoint was removed before fsync, e.g. the
+> +	 * xattrs became small enough to fit inline. Release it as well, or
+> +	 * the inode keeps pointing to the stale xattrs.
+> +	 */
+> +	if (!ri->i_xattr_nid && F2FS_I(inode)->i_xattr_nid) {
+> +		struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+> +		struct node_info ni;
+> +		int err;
+> +
+> +		err = f2fs_get_node_info(sbi, F2FS_I(inode)->i_xattr_nid,
+> +								&ni, false);
+> +		if (err) {
+> +			f2fs_put_cache(ientry, true);
+> +			return err;
+> +		}
+> +
+> +		f2fs_invalidate_blocks(sbi, ni.blk_addr, 1);
+> +		dec_valid_node_count(sbi, inode, false);
+> +		set_node_addr(sbi, &ni, NULL_ADDR, false);
+> +		f2fs_i_xnid_write(inode, 0);
 
-No objection at all - 16f0013157bf ("drm/amdkfd: Allocate doorbells
-only when needed") looks right to me.  Thanks for the archaeology
-and for taking care of the tag before submission.
+I think we need to clear dirty on xnode as well, refer to truncate_node(), otherwise
+f2fs_writeback will write a dirty xnode w/ blkaddr = NULL_ADDR.
 
-Regards,
-Henry
+Thanks,
 
-Felix Kuehling <felix.kuehling@amd.com> =E4=BA=8E2026=E5=B9=B410=E6=9C=8814=
-=E6=97=A5=E5=91=A8=E4=B8=89 01:40=E5=86=99=E9=81=93=EF=BC=9A
->
-> On 2026-10-09 23:02, Henry Martin wrote:
-> > The check-and-allocate sequence on pdd->qpd.proc_doorbells is
-> > lockless at every call site of kfd_alloc_process_doorbells():
-> > kfd_get_process_doorbells() (mmap of /dev/kfd),
-> > kfd_ioctl_create_queue() and the CRIU restore path each test the
-> > pointer under different locking (or none), so two racing threads can
-> > both observe NULL and each allocate a doorbell BO and bitmap,
-> > orphaning one allocation and handing the two mappings different
-> > backing pages.
-> >
-> > Move the serialization into kfd_alloc_process_doorbells() itself,
-> > using a new per-process-device mutex so all three call sites are
-> > covered regardless of their own locking.  The device-global
-> > kfd->doorbell_mutex is not suitable here: it is acquired under
-> > dqm->lock on the kernel-doorbell path (start_cpsch() -> pm_init() ->
-> > kq_initialize() -> kfd_get_kernel_doorbell()), so holding it across
-> > the sleeping allocations above would create a lock-ordering
-> > inversion with dqm->lock via TTM eviction, and it would also
-> > serialize doorbell setup of unrelated processes behind a
-> > device-wide lock for per-process state.
-> >
-> > This issue was discovered by Tencent CodeBuddy Security.
-> >
-> > Cc: stable@vger.kernel.org
-> > Fixes: 2105a15a2046 ("drm/amdgpu: use doorbell mgr for kfd process door=
-bells")
->
-> I don't think the Fixes tag is correct, even though that's what Claude
-> suggested. As far as I can see, the code had the same possible race
-> condition before that change. I believe the problem goes back all the
-> way to 16f0013157bf ("drm/amdkfd: Allocate doorbells only when needed").
-> If you don't mind, I'll update that in the commit description before I
-> submit your patch. With that, the patch is
->
-> Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
->
-> Thanks,
->    Felix
->
->
-> > Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-> > ---
-> >
-> > v2: Use a per-process-device mutex instead of kfd->doorbell_mutex
-> >      (avoids the dqm->lock ordering inversion and the device-wide
-> >      serialization) and correct the Fixes tag.  Pointed out by Felix
-> >      Kuehling.
-> >
-> >   drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 15 ++++++++++++++-
-> >   drivers/gpu/drm/amd/amdkfd/kfd_priv.h     |  3 +++
-> >   drivers/gpu/drm/amd/amdkfd/kfd_process.c  |  1 +
-> >   3 files changed, 18 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/dr=
-m/amd/amdkfd/kfd_doorbell.c
-> > index fdcf7f2d1b5b4..55acadc986bee 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> > @@ -257,12 +257,21 @@ int kfd_alloc_process_doorbells(struct kfd_dev *k=
-fd, struct kfd_process_device *
-> >       int r;
-> >       struct qcm_process_device *qpd =3D &pdd->qpd;
-> >
-> > +     mutex_lock(&pdd->doorbell_mutex);
-> > +
-> > +     /* Another thread may have won the check-and-allocate race */
-> > +     if (qpd->proc_doorbells) {
-> > +             mutex_unlock(&pdd->doorbell_mutex);
-> > +             return 0;
-> > +     }
-> > +
-> >       /* Allocate bitmap for dynamic doorbell allocation */
-> >       qpd->doorbell_bitmap =3D bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_=
-PROCESS,
-> >                                            GFP_KERNEL);
-> >       if (!qpd->doorbell_bitmap) {
-> >               DRM_ERROR("Failed to allocate process doorbell bitmap\n")=
-;
-> > -             return -ENOMEM;
-> > +             r =3D -ENOMEM;
-> > +             goto unlock;
-> >       }
-> >
-> >       r =3D init_doorbell_bitmap(&pdd->qpd, kfd);
-> > @@ -284,11 +293,15 @@ int kfd_alloc_process_doorbells(struct kfd_dev *k=
-fd, struct kfd_process_device *
-> >               DRM_ERROR("Failed to allocate process doorbells\n");
-> >               goto err;
-> >       }
-> > +
-> > +     mutex_unlock(&pdd->doorbell_mutex);
-> >       return 0;
-> >
-> >   err:
-> >       bitmap_free(qpd->doorbell_bitmap);
-> >       qpd->doorbell_bitmap =3D NULL;
-> > +unlock:
-> > +     mutex_unlock(&pdd->doorbell_mutex);
-> >       return r;
-> >   }
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/am=
-d/amdkfd/kfd_priv.h
-> > index d8631847f0eb9..96e59133fee02 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> > @@ -779,6 +779,9 @@ struct kfd_process_device {
-> >       /* per-process-per device QCM data structure */
-> >       struct qcm_process_device qpd;
-> >
-> > +     /* Serializes process doorbell allocation for this device */
-> > +     struct mutex doorbell_mutex;
-> > +
-> >       /*Apertures*/
-> >       uint64_t lds_base;
-> >       uint64_t lds_limit;
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm=
-/amd/amdkfd/kfd_process.c
-> > index 0a7c1900da959..4efe4dae79c13 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> > @@ -1788,6 +1788,7 @@ struct kfd_process_device *kfd_create_process_dev=
-ice_data(struct kfd_node *dev,
-> >       pdd->dev =3D dev;
-> >       INIT_LIST_HEAD(&pdd->qpd.queues_list);
-> >       INIT_LIST_HEAD(&pdd->qpd.priv_queue_list);
-> > +     mutex_init(&pdd->doorbell_mutex);
-> >       pdd->qpd.dqm =3D dev->dqm;
-> >       pdd->qpd.pqm =3D &p->pqm;
-> >       pdd->qpd.evicted =3D 0;
+> +	}
+> +
+>  	f2fs_update_inode(inode, ientry);
+>  	f2fs_put_cache(ientry, true);
+>  	return 0;
+
