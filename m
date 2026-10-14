@@ -1,155 +1,145 @@
-Received: from server3.evolutia.digital (server3.evolutia.digital [95.216.176.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D8E55D87B
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 15:45:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.216.176.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D414A4EE6;
+	Wed, 14 Oct 2026 15:46:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.117.225.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791992746; cv=none; b=HXTBKhsmPXPl9950ijZgzVhQ8L53Hf02brtQ3ahT3QcFeiJvApxbawh9qZQCnBU1QItFjldQENrovbS9J5HiuvJLxgIi2Sei9UCIIYfz5XAsKHQ5OhGiJvqCkdnjhZxH0VwwCivGos9tzErOAVkiYfqst3shXdhhGUBGtR345JU=
+	t=1791992793; cv=none; b=I6YXjDJOu/SMMbkf1MGiQ+PyN89rryJ/bcG7A+FMsm2NV91FWJXToMJK6HxOVNRYN6i0meTDq1onyhfcr15BjWjHzXbKp/ojbuEulPaCA+XE2FRx57bQLyvgbw+Kk4jb1GEphUK9Vg3fhsGzqMLvdWJYf3oTCyEDjhKsfqhNzR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791992746; c=relaxed/simple;
-	bh=EEdj1gzQB2u2tfhxtq0hQwPGQ1y8VN1/0mWGHcYmylg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FaC8uZIdfAkdNe/2JckdpRah6gCAW67hue0ZMkXNeawus+wJ8h1jlkpD8jOKXwLmx/RY6p1CGBDUISgc7z+djsbZTeIzxbal95bXxxRFz0hdLL1U9azNRcO5bj1pZ4gnh4/widHTS4vFCQulSnZ8TJbvRJnrSc8vcf97WFHIJAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=miguelmesa.com; spf=pass smtp.mailfrom=miguelmesa.com; dkim=pass (2048-bit key) header.d=miguelmesa.com header.i=@miguelmesa.com header.b=BI4euVUV; arc=none smtp.client-ip=95.216.176.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=miguelmesa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=miguelmesa.com
+	s=arc-20240116; t=1791992793; c=relaxed/simple;
+	bh=ccKR6pewzp3zZMmycW2Bk4rHSSS9C7rwMGxwqRO0ZTE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=X65U7sAbLkzQ/AaB7pakSXyVcjy920qIvLZjlnEqXKF3VuxjaMxcBQjbJDghpqYpzcRWGefInHeaFIlXOdjFniXS0i9ttXGB9w/pNKHjMG/1S0XwQ7l6OnGslhmat+VouGCvOB520SckQNOCdhH6RRA0V+1n1SE5WDKBHLAeItQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=pyMcdMZQ; arc=none smtp.client-ip=130.117.225.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=miguelmesa.com header.i=@miguelmesa.com header.b="BI4euVUV"
-Received: from B5-Miguel-CachyOS (unknown [IPv6:2a0c:5a82:6802:2000:3e7b:70b2:9267:6bd9])
-	by server3.evolutia.digital (Postfix) with ESMTPSA id 60FDA5DE92;
-	Wed, 14 Oct 2026 17:39:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=miguelmesa.com;
-	s=default; t=1791992381;
-	bh=X3rCDuYZqJNTQUGvfoz+Q2iEI5RvkLkUD7Fv9EV/OBA=; h=From:To:Subject;
-	b=BI4euVUVIn4nPJEcFa4QDOldALTLhlRindx/9/X+pc8YjnLBK+NtsYJVrDzOgIT3G
-	 M3sj+jycAu8i6L5frgiJXJMUda1hWkeb2+FEk7pRXQEJwebM0uvmV+iJ0I/86UkNwQ
-	 VQslyEeSHuNJrJFzJ+7tLrYzZtG7gH1ZVC+RKN2D/BC8zTMAAeLfDl/MYYV3YMogAz
-	 f765Wkt5szd8vzxD2284k2aQlzIOQQqgRKVMj6CLQpwQyd9Wide8qWEnuI0aA9LioK
-	 9Hju72EzqCm0E9ijB7dDrye9YxXkk32cPzj7UtCL50piJr3Q0IY1szFLMftGW3wr8h
-	 QpGAyoEtsED8A==
-Authentication-Results: server3.evolutia.digital;
-	spf=pass (sender IP is 2a0c:5a82:6802:2000:3e7b:70b2:9267:6bd9) smtp.mailfrom=miguel@miguelmesa.com smtp.helo=B5-Miguel-CachyOS
-Received-SPF: pass (server3.evolutia.digital: connection is authenticated)
-From: Miguel Mesa <miguel@miguelmesa.com>
-To: stable@vger.kernel.org
-Cc: gregkh@linuxfoundation.org,
-	amd-gfx@lists.freedesktop.org,
-	alexander.deucher@amd.com,
-	Jerry.Zuo@amd.com,
-	harry.wentland@amd.com,
-	mario.limonciello@amd.com,
-	mgorny@gentoo.org
-Subject: [PATCH 7.2.y v2] drm/amd/display: keep HDMI 4:2:0-only modes and
- automatic 4:4:4
-Date: Wed, 14 Oct 2026 17:39:14 +0200
-Message-ID: <20261014153914.275253-1-miguel@miguelmesa.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261003131523.1502250-1-miguel@miguelmesa.com>
-References: <20261003131523.1502250-1-miguel@miguelmesa.com>
+	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="pyMcdMZQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
+	:From; bh=7vC0C3sp4wt6zauR/zTBNv+UfY1Rq7XzZhYx35u+Pg0=; b=pyMcdMZQB5ZqvVLfY1c
+	7rwJCGcTAyuR7AiTeZGd0MdA2aYDFZJzn58phDbodFcBKdGH7IN2YcOx3wdqcl5v26RPIOQRJk+9W
+	wdmRJF/vyDaBrq3xJRM0EjzN0coRIHYANvzMBDssbnclJzBt4qh4LA9B8GdUKXYM6PFonfPMLYXdd
+	wZZu00DxSxjZ9mCUYfoW3kg7GiCkivih1R3rIox90CkrPBOdH7kkAFvASow/eK1Jd0T76aGIHteb5
+	XSnMa3S42jsDsfOC4EyCiu1su0r/rdLS4S/NgC22IbUqLTpbtr/ZPXCK5sTWpIdaEyU1lhmwn/6nK
+	ETmdNvppmvsaPeQ==;
+Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
+	by relay.virtuozzo.com with esmtp (Exim 4.96)
+	(envelope-from <khorenko@virtuozzo.com>)
+	id 1xH17r-006OFq-1f;
+	Wed, 14 Oct 2026 17:46:15 +0200
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+Date: Wed, 14 Oct 2026 17:46:10 +0200
+Subject: [PATCH v3 2/2] mm/huge_memory: deposit a page table for a special
+ PMD copied by fork
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: 
- <179199238121.3575658.3846878747342221603@server3.evolutia.digital>
-X-PPP-Vhost: miguelmesa.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-2-85eaec8417f6@virtuozzo.com>
+References: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com>
+In-Reply-To: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, 
+ =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>, 
+ dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Sashiko <sashiko-bot@kernel.org>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2295;
+ i=khorenko@virtuozzo.com; h=from:subject:message-id;
+ bh=ccKR6pewzp3zZMmycW2Bk4rHSSS9C7rwMGxwqRO0ZTE=;
+ b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBqz6PFClTyKPLrnnz2A76nCcPaPtA7BJ8STorQS
+ 2LGmEvfjtGJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCas+jxQAKCRBRlgpH+WFc
+ KiGVEACF48BxKLRtenct26B7UErEMP4cCXXKBBh2OQTdVQG/gTnTUQmsq/rRFofn4M3McyTNw82
+ ySfEk1gWQrQAKYowENQdUkKwKyDbgkCZOtL5nnOp40ZO6LPu35KF7+CNCkxOzXX0ZK4KnCz1ZTl
+ x8DcoUMCJPp2pneC9getMw4C6zGaSomDz7heiaT1Rjzl69SToQWP/YEjdBfkVqbepbWKDUkFdSf
+ P3FiHQ+K9+uVwKO0rUM+RpUW4x6PoDxfAC9pYTYVGENU76vAHXbbQWjLLQ496MoINpTBeQ+icLy
+ FodLaYFVmgD0y597BAwMwDAp/8OTUeMF46epEQ4Qg05XHsn1mWEm7qZEYY4u/vdLRdmwt6PiHRj
+ TGZJnxg9ywOfkLjRQtnfTh7AQtXhed6tvMcaZ3dZqXIe9kWA3sy2puP1B/Gy8lmWRiXmYAVYY74
+ 9cmCRDVPu9RcTZZrkdjaDI6kLpuntZeN0JyPiFsJNTxVpkLjCj02cZLuQTGrFJMwQhF8DNCfL3H
+ gxbA1Ha344ZOgRPMoKvyFErRvSqB59yIGmamAXa8eIVTo93ZTzYGEnj5fJs6FFsO/EdoTML9NuM
+ hZSVV8SY3dYfeBR/monHq2Hq0CZszYYxdozeXI6Zr8RcwERZH/RGXyPJdHgD+df7ZHvxIcRlnD3
+ 9o96Qx7HyTFbI3g==
+X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
+ fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
 
-commit 7e5760f084d0 ("drm/amd/display: add HDMI 2.1 Compliance Support")
-selects YCbCr 4:2:0 for a 4:2:0-only mode only when the IGT override asks
-for it, and YCbCr 4:4:4 only when that override is YCbCr 4:4:4. On a
-normal boot the override is unset.
+Where arch_needs_pgtable_deposit() is true, every huge PMD needs a
+deposited page table. ppc64 in hash mode keeps the hash slot array of
+the huge page in it, so vmf_insert_pfn_pmd() deposits one for each
+special PMD it maps.
 
-A 3840x2160@60 mode that the sink lists only in the YCbCr 4:2:0 block
-then falls through to 4:4:4 or RGB, and the Wayland session cannot build
-the output layer: kwin_wayland_drm: Failed to create framebuffer (EINVAL)
-right after login. v7.3-rc5 selects 4:2:0 again for those modes when the
-color format is automatic. Do the same here, including HDMI FRL.
+copy_huge_pmd() copies a special PMD into the child without a table.
+The child then dereferences a NULL table:
 
-Keep automatic YCbCr 4:4:4 for the other HDMI modes, as 7.1 did. The TMDS
-depth fallback also runs for HDMI FRL, so a mode that does not fit at
-4:4:4 can still drop to 4:2:0.
+- on the first hash fault on the PMD, in __hash_page_thp();
+- on the zap at munmap() or exit, in hash__pmdp_huge_get_and_clear().
 
-This is not a backport of a mainline commit. The 7.3 fix is the rewrite
-in 0b0ff65d3c ("drm/amd/display: Refactor stream validation"), which
-cannot be cherry-picked to 7.2; Jerry Zuo confirmed the pre-7.3 logic is
-gone there. This patch restores the pre-regression selection on the 7.2
-code, following the v7.3-rc5 rule. Mario Limonciello asked for it to be
-sent to stable in drm/amd#5760.
+Allocate a table before taking the page table locks and deposit it
+with the copy, as insert_pmd() does.
 
-Regression: black screen after login on HDMI sinks whose modes fall
-through to RGB, e.g. Strix Halo (gfx1151) + TCL 4K TV whose 3840x2160@60
-is YCbCr 4:2:0-only (VIC 97). 7e5760f084d0 shipped in 7.2; still unfixed
-in 7.2.9.
-
-Tested on CachyOS linux-cachyos-bore 7.2.7-3 (znver4) on that Strix Halo
-box: Plasma runs at 3840x2160@60 with the same userspace and firmware
-that stayed black on every stock 7.2.x kernel.
-
-Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5760
-Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5893
-Reported-by: Michał Górny <mgorny@gentoo.org>
-Reported-by: Miguel Mesa <miguel@miguelmesa.com>
-Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
-Tested-by: Miguel Mesa <miguel@miguelmesa.com>
+Fixes: d1503aa9ab805 ("powerpc/64s: Add support for huge pfnmaps")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com?part=1
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Miguel Mesa <miguel@miguelmesa.com>
+Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
 ---
-v2: Replace the Co-authored-by trailer with Assisted-by: LLM; a bot
-cannot be an author (Greg KH). No code changes.
+ mm/huge_memory.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-Tool-origin note (Documentation/process/generated-content.html): the
-patch and commit message were drafted with the help of an LLM coding
-assistant (Cursor) during a bisect session on this box. The bisect
-harness, the boot tests (v7.1 good, v7.2 bad, first-bad 7e5760f084d0)
-and the final verification on CachyOS linux-cachyos-bore 7.2.7-3 at
-3840x2160@60 were run and reviewed by the human submitter, who reviewed
-the diff and takes full responsibility for this change.
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index e594548..8f60df9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7017,9 +7017,7 @@ static void fill_stream_properties_from_drm_display_mode(
- 	/* TODO: un-hardcode */
- 	if (drm_mode_is_420_only(info, mode_in)
- 			&& (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
--			    stream->signal == SIGNAL_TYPE_HDMI_FRL)
--			&& aconnector
--			&& aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR420)
-+			    stream->signal == SIGNAL_TYPE_HDMI_FRL))
- 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
- 	else if (drm_mode_is_420_also(info, mode_in)
- 			&& aconnector
-@@ -7034,8 +7032,9 @@ static void fill_stream_properties_from_drm_display_mode(
- 	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444))
- 			&& (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
- 			    stream->signal == SIGNAL_TYPE_HDMI_FRL)
--			&& aconnector
--			&& aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR444)
-+			&& (!aconnector
-+			    || aconnector->force_yuv_pixel_format == PIXEL_ENCODING_UNDEFINED
-+			    || aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR444))
- 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR444;
- 	else
- 		timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
-@@ -7104,7 +7103,8 @@ static void fill_stream_properties_from_drm_display_mode(
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index bf788bb231691..2380e4e877f82 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -1961,6 +1961,11 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 	pmd = pmdp_get_lockless(src_pmd);
+ 	if (unlikely(pmd_present(pmd) && pmd_special(pmd) &&
+ 		     !is_huge_zero_pmd(pmd))) {
++		if (arch_needs_pgtable_deposit()) {
++			pgtable = pte_alloc_one(dst_mm);
++			if (unlikely(!pgtable))
++				goto out;
++		}
+ 		dst_ptl = pmd_lock(dst_mm, dst_pmd);
+ 		src_ptl = pmd_lockptr(src_mm, src_pmd);
+ 		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+@@ -1974,6 +1979,8 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 		if (unlikely(pmd_none(pmd))) {
+ 			spin_unlock(src_ptl);
+ 			spin_unlock(dst_ptl);
++			if (pgtable)
++				pte_free(dst_mm, pgtable);
+ 			return -EAGAIN;
+ 		}
+ 		/*
+@@ -1983,6 +1990,10 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 		 * wrongly write to the backend MMIO.
+ 		 */
+ 		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
++		if (pgtable) {
++			mm_inc_nr_ptes(dst_mm);
++			pgtable_trans_huge_deposit(dst_mm, dst_pmd, pgtable);
++		}
+ 		goto set_pmd;
+ 	}
  
- 	stream->out_transfer_func.type = TF_TYPE_PREDEFINED;
- 	stream->out_transfer_func.tf = TRANSFER_FUNCTION_SRGB;
--	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A) {
-+	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
-+	    stream->signal == SIGNAL_TYPE_HDMI_FRL) {
- 		if (!adjust_colour_depth_from_display_info(timing_out, info) &&
- 		    drm_mode_is_420_also(info, mode_in) &&
- 		    timing_out->pixel_encoding != PIXEL_ENCODING_YCBCR420) {
+
 -- 
-2.56.0
+2.43.0
 
