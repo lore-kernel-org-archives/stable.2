@@ -1,73 +1,72 @@
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0D73D1702
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:23:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D22B4FE2E8
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:24:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792005818; cv=none; b=cW+t9pqOuhHrW8KNk6uf5S50lzBT29SyOsMH9mS5TtmfD4oSvSLqLVVPiTsc3MdNY57r4C2sM6Y5L5lq52tAGsptWyAIsrbxFpdc08UWQHbMcO5SQb9rv4iJV5F7unUj5fovqwfvqMduTc1I+9JxmowofghMaFVzmh4QM/rDKPI=
+	t=1792005868; cv=none; b=TbZLbNSEaDMignKYo4tS1Zf5AqV7pb97ogRhvOWrXM10q8r2qjH9SvBu/mN5nWEfOA/oCPxSms4z5sKFi88/J/w3Ztwf5wyHzEjHQ1kdALtzQ3YuDO0L6jzi5BTjEpS3Ba0Nzwv+GqEkK8FulkiZ8m2xlEyFJG69BJ6y/u6Rk4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792005818; c=relaxed/simple;
-	bh=JrkCeigUQ9nhxy4Iz8HWwsNNfRdowuDyaN/d6zvOutI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kD0UoL4jXdecHx44kM4PqBSFp8DipBftjW6ZKw1UqPACEkM7/3vuVyaGZBzKt2eFqRDXECTcQkEFt4mowA8kMoDOIAlqP6H05Dntqgtpxt1zDgQzZWb1ZpZyqRFmzfujwYe4k+NwY4pvFlfyKoLTN2aFkNkq+IT+9KLLS32HRUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=Be1SUkZ9; arc=none smtp.client-ip=74.125.82.43
+	s=arc-20240116; t=1792005868; c=relaxed/simple;
+	bh=2E42lORvf/FB6Zjh67A7LA5R+siHl55Im0ft0ES1CO8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l63BXNrkgXpiO8Q/fZSybLvZrNvG/slTld4mibbM2pahFRw7mV71dHH63DPuAw/WjF/kFddh1PQwaAY7PVfG5XgeaSuGBR0URQK9FEfsSveoTFrH6OsZsecsWVHsfqu4cICNC98Zdsvs1WPKm+FEedQp2bhduJqrdhfmuLeYMpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=RE8JSakS; arc=none smtp.client-ip=74.125.82.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="Be1SUkZ9"
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-157fe9d771bso2102435c88.0
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 12:23:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="RE8JSakS"
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-170135e43c7so2025382c88.0
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 12:24:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792005809; x=1792610609; darn=vger.kernel.org;
+        d=trailofbits.com; s=google; t=1792005865; x=1792610665; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nGbwhr15/hqX12VrEIuqyIcS9ohxldPnTFrEtZ54fV0=;
-        b=Be1SUkZ9MGOSYqsQLjcRR06YcoeXptXtNv2WieZiTiPMlJsaHuThHCrD4/Y2ZFTH5/
-         RJUOWPFW9CUcVl8L41tzOiMi18b/oWmbNoryXI09K4icSffJ6qXP5w0Cr5kS36Bb4h2d
-         ekqZRXf90TD2ErZPnGAgiMfl3EcymFEtogSrv7jLmpeiXRuAQnj/FHS11hoVvVv2pf2O
-         dILFp+rTqyBA15cytmjOdqzQzNSquAayMnDR8Wz9xBs8STkXRmKT0zPtNypuHemdxi20
-         i2Gap2lvVanWTTJsxAmJCUbIrbxMm/G0k9+ejAvw/7FqChc4j+eDluMCfPKhadmOEHhO
-         fFXg==
+        bh=4f9x3r8Zsz/31U4yCLSrw73yUxuAtfeQ9cTPu3hqEsA=;
+        b=RE8JSakSETXkv6gYqHRl5W4C+xfp814OFUba4ETKHls6fps0j/jiVw4xfP0+jOjgUp
+         GWzmLA7ietB9SAiIgAQ6KHCRa3SoRRBiI3wfSjTC5uY6jxFP7q7T9FjnttX73CTTd86x
+         QHPZAniKrqsPKUQ6avFujRGGs+LCOVf+5oJrZACRiiC7d1luqs4A9i9zA64EERVHGLFx
+         ljivIIIpffgjcJsS+vUv8skbQzrg+X5Fmb6TZo7y76rJZ8BPDfJa8HbuNBfrUxzj64QH
+         H3RbjHMXvXx4N0oLezqj06pXGPksDzBwjiDJZQpB+0GsZMbOmRLQL/Jn8uDIwTQwUdEg
+         wpVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792005809; x=1792610609;
+        d=1e100.net; s=20260707; t=1792005865; x=1792610665;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nGbwhr15/hqX12VrEIuqyIcS9ohxldPnTFrEtZ54fV0=;
-        b=zIg7EJB2o9yx1+Xq29aEF6Ta7HDljZxJY2WoDCNJM/S4s0ykueybdLHCVDkKh4Urh8
-         KPPLn1LK2JPzPJtzq5k2ZqUm8GKVR0ed1kQMyrqRNHvVo4HNY9Z4+kpwjWPO6oVn1N7E
-         FuYYbNZx7FE8Wg8dreyMf9tGZFjANQOf4ySQYgtZ4DUrNn+CohxgM/i0uIWzv4Sr8R8h
-         MEtVHybwTHXqZWuzkDbN00v5Pe8wEig3vqLncomJU6whFAD3+BoAGB2WmPsQIUP0xjqu
-         EzFfhk/Q+z1aceSw1EQnWzswFuaL4E5v81aPHYstous+j7S800gOvKCIzPlp3fTxiN2T
-         BuGg==
-X-Gm-Message-State: AFq9FYL4Iq7OAd+nhAR9pcPJcwPXrXL95bGG4A1vHvyVzOqMFh7DwWLf
-	jcc8ShmqNQ+CQSXqADDrK++pykUfZIRw36ey4f9u7BqpLra2xJzSnUF7gkZT3E0gvrqeWT0Tb+W
-	Wg3LOGTwl5Q==
-X-Gm-Gg: AYBFou3f9hPMbuRRytET/SIf+xUrCY1P0PFYF4dYN2aveQnVe/LPp7oy1KhDh6Tg1EF
-	bZraoRYMJjuIeakP/+GIELS7E75Ko2WMBbV+ci7tGQeadsoIPCvqQ1FCyj7cBdZ+TL/33ttWtdc
-	dIUqu7Y78Iw/UuYYH0hXx545TZ2D0TnIIN+mHyM8GV3SR5mGl42VdXkWCp8fYiC2i/lQmPLm1B5
-	VtcVfvuRXjqDUEv2gAVmI+CTyAsW4USTfpWgR7yEXKMtyiNqn5kyJy5z07gZx8GwfulBuFpIS/m
-	hctLpbU+pwQWnib5TuU9y3xVas6gynMwg6GZOKgnJpsIw7BOuJ+jsuvqoQUmnd0pzMhHd8RuCpi
-	XcTdvuYF6YCESxCWm6PnGag+aEYVvuBhSgNqRBKs6HxiW/VcMeSAV8QjYZOT8NkQoJve09BnHoJ
-	M1eOKVyqI1D4I2mEpEKPnI6AddNImk9gQeKxyfQIYvsInNJ5TIXsy7Ri7C8wrqGJN2/2qcLALOT
-	ihxKviHxs+3gKvO52/KJk7yqRV4lWoFxym4GabEswOwfbay1OoRtWBbR/u3blrFc4wPfEI=
-X-Received: by 2002:a05:7022:7f14:b0:14b:992f:c168 with SMTP id a92af1059eb24-16a56c9d73emr24145402c88.4.1792005809104;
-        Wed, 14 Oct 2026 12:23:29 -0700 (PDT)
+        bh=4f9x3r8Zsz/31U4yCLSrw73yUxuAtfeQ9cTPu3hqEsA=;
+        b=mw4igHlACrbO4hcvoYacl6t9fR3ddtJaLnJAd+Vsd0/MRoJcaDz/GhNzbmlUcKYkie
+         Gi8pIH2a8L5GEDuvFZd+5cnzG0pcRQQn1HwQs+LeleyW1I6a57WvJCrLQYmk6+ZgcRII
+         ehz+QDJr+SSPBD23puxyVgQ+eQ9IGvQ/bbDg+xqJujDWBWteheZK2qXxvFsUxgaFRotP
+         VED1nSQj2KDXtYimRmnFVeTfdN2fYFF1ouOlA+oSRVgBCxPlO0xeBWuuPao8UXUPZo9x
+         zsttSmhBr3l6tiPJOIq6bO9bEgu2iLg6hcWcojb1cuZe6pHEAj85iad93RFsFAIVYcgt
+         ZCkw==
+X-Gm-Message-State: AFq9FYJchzN/jASpeXcK848CL1xfPDgdbfr5SmDqjk1M+1Sc6yLVY3mi
+	sce+awepecL5kJox4iUaEM8ZCN9LXL3RLJKhbGR13rDCWYuh2g7BLp3xL3wxdKKQIc4THBeYu4g
+	UCCZW6l2vbQ==
+X-Gm-Gg: AYBFou0ofjz6lm3LCJXbfyESIFTbFUmV3q0sFgO9UhBEE3JJibh7Y4IUxsxYTaEP87R
+	mSbVt5Pw9Zdw/0oQcRLpfzuOlduHYbdb42Kei7UWQcyykMT0/hF871M7ig1WY1hcQELq59bnuji
+	sg8DI+Tol2s18ZK+2UPdWEmJUQ8PVvLrqUlg5IS0S4JbtM1Rihip9CZ7TPXMSGZs600PU2ujAs8
+	WdyznrcgBx7gk6SYq3WkM+kmWT/2H8R2bOWdknT3AJdfQwN5n88Kt8LJVbrqEx9xPAUS6GY9b5o
+	3iMY4yEqXqv2/9M3QK+Lj6mSBmOR+nT5qAihPFtJs7AkFe4xBSK94/K7ZSKzfs7m42qw3rqUx/g
+	7PU1x8f8swI36f0stMbhn7SeKVRoD/RzvW9KTSkg+La90q9H7hMTJ0i2UMhroZPaeHH6pAuiCEr
+	LxfsMtO3Sp3uHGfBJqduqAgIjuVLBM9eMRDy5xBdD+yQ75PQ4rurC8SQHpLfbVVVHaUN0nqpLKj
+	edHpXwImm3yYEC607gMlFVSyHe5mDXkMtPOEVfqu7m0JcvNnjbRh8upjR1bEypeHm5uKXM=
+X-Received: by 2002:a05:701b:2059:10b0:180:2b3d:57b4 with SMTP id a92af1059eb24-1802b3d5801mr256680c88.33.1792005864807;
+        Wed, 14 Oct 2026 12:24:24 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:39d1:d8de:aae7:23dd])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-17dc865cbffsm12341237c88.6.2026.10.14.12.23.27
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-17dc865cbffsm12350251c88.6.2026.10.14.12.24.23
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 14 Oct 2026 12:23:28 -0700 (PDT)
+        Wed, 14 Oct 2026 12:24:24 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
-Cc: jjy600901@snu.ac.kr,
-	linux-kernel@vger.kernel.org,
+Cc: linux-kernel@vger.kernel.org,
 	linux-sound@vger.kernel.org,
 	perex@perex.cz,
 	tiwai@suse.com,
 	tiwai@suse.de
-Subject: [PATCH 6.6.y] ALSA: pcm: oss: Fix data race at accessing runtime.oss.trigger
-Date: Wed, 14 Oct 2026 15:23:25 -0400
-Message-ID: <20261014192325.24338-1-artem@trailofbits.com>
+Subject: [PATCH 6.6.y] ALSA: mixer: oss: Add card disconnect checkpoints
+Date: Wed, 14 Oct 2026 15:24:20 -0400
+Message-ID: <20261014192420.24397-1-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -79,35 +78,30 @@ Content-Transfer-Encoding: 8bit
 
 From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 901ac0ff15edf9503162e2cf6579bd11a30f1ed4 ]
+[ Upstream commit 084d5d44418148662365eced3e126ad1a81ee3e2 ]
 
-Currently the runtime.oss.trigger field may be accessed concurrently
-without protection, which may lead to the data race.  And, in this
-case, it may lead to more severe problem because it's a bit field; as
-writing the data, it may overwrite other bit fields as well, which
-confuses the operation completely, as spotted by fuzzing.
+ALSA OSS mixer layer calls the kcontrol ops rather individually, and
+pending calls might be not always caught at disconnecting the device.
 
-Fix it by covering runtime.oss.trigger bit fled also with the existing
-params_lock mutex in both snd_pcm_oss_get_trigger() and
-snd_pcm_oss_poll().
+For avoiding the potential UAF scenarios, add sanity checks of the
+card disconnection at each entry point of OSS mixer accesses.  The
+rwsem is taken just before that check, hence the rest context should
+be covered by that properly.
 
-Reported-and-tested-by: Jaeyoung Chung <jjy600901@snu.ac.kr>
-Closes: https://lore.kernel.org/20260423145330.210035-1-jjy600901@snu.ac.kr
-Cc: <stable@vger.kernel.org>
-Link: https://patch.msgid.link/20260424112205.123703-1-tiwai@suse.de
+Link: https://patch.msgid.link/20260209121212.171430-1-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Assisted-by: LLM
-[ Backport to 6.6.y: Replace upstream mutex guards with explicit
-  params_lock operations and matching unlocks; the target has no scoped
-  locking helpers. ]
+[ Backport to 6.6.y: Replace upstream scoped controls_rwsem release with
+  explicit unlocks or existing unlock labels on the added shutdown exits.
+  ]
 Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
 Hi,
 
-Please consider this backport of the fix for CVE-2026-46157 to 6.6.y.
+Please consider this backport of the fix for CVE-2026-43126 to 6.6.y.
 
-The code changes are identical to upstream, except explicit params_lock
-operations replace upstream mutex guards; see the bracketed backport note
+The code changes are identical to upstream, except explicit controls_rwsem
+unlocks replace upstream scoped cleanup; see the bracketed backport note
 above.
 
 The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
@@ -118,66 +112,98 @@ Build-tested only as part of a cumulative 6.6.y series: x86_64 objects
 Thanks,
 Artem Dinaburg
 
- sound/core/oss/pcm_oss.c |   32 ++++++++++++++++++++++++++------
- 1 file changed, 26 insertions(+), 6 deletions(-)
+ sound/core/oss/mixer_oss.c |   32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
-index 23ecbd70ccf653aa70a2b08aecf781a194afcc66..ce63fe4ecf707670a1a4daab307f2258b00697d8 100644
---- a/sound/core/oss/pcm_oss.c
-+++ b/sound/core/oss/pcm_oss.c
-@@ -2161,10 +2161,18 @@ static int snd_pcm_oss_get_trigger(struct snd_pcm_oss_file *pcm_oss_file)
- 
- 	psubstream = pcm_oss_file->streams[SNDRV_PCM_STREAM_PLAYBACK];
- 	csubstream = pcm_oss_file->streams[SNDRV_PCM_STREAM_CAPTURE];
--	if (psubstream && psubstream->runtime && psubstream->runtime->oss.trigger)
--		result |= PCM_ENABLE_OUTPUT;
--	if (csubstream && csubstream->runtime && csubstream->runtime->oss.trigger)
--		result |= PCM_ENABLE_INPUT;
-+	if (psubstream && psubstream->runtime) {
-+		mutex_lock(&psubstream->runtime->oss.params_lock);
-+		if (psubstream->runtime->oss.trigger)
-+			result |= PCM_ENABLE_OUTPUT;
-+		mutex_unlock(&psubstream->runtime->oss.params_lock);
+diff --git a/sound/core/oss/mixer_oss.c b/sound/core/oss/mixer_oss.c
+index abc99ae3332824183298ce329916b1787841dd35..ecb4af6709598c92dde791570a9b9703c8b81d48 100644
+--- a/sound/core/oss/mixer_oss.c
++++ b/sound/core/oss/mixer_oss.c
+@@ -540,6 +540,10 @@ static void snd_mixer_oss_get_volume1_vol(struct snd_mixer_oss_file *fmixer,
+ 	if (numid == ID_UNKNOWN)
+ 		return;
+ 	down_read(&card->controls_rwsem);
++	if (card->shutdown) {
++		up_read(&card->controls_rwsem);
++		return;
 +	}
-+	if (csubstream && csubstream->runtime) {
-+		mutex_lock(&csubstream->runtime->oss.params_lock);
-+		if (csubstream->runtime->oss.trigger)
-+			result |= PCM_ENABLE_INPUT;
-+		mutex_unlock(&csubstream->runtime->oss.params_lock);
+ 	kctl = snd_ctl_find_numid_locked(card, numid);
+ 	if (!kctl) {
+ 		up_read(&card->controls_rwsem);
+@@ -579,6 +583,10 @@ static void snd_mixer_oss_get_volume1_sw(struct snd_mixer_oss_file *fmixer,
+ 	if (numid == ID_UNKNOWN)
+ 		return;
+ 	down_read(&card->controls_rwsem);
++	if (card->shutdown) {
++		up_read(&card->controls_rwsem);
++		return;
 +	}
- 	return result;
- }
- 
-@@ -2839,6 +2847,18 @@ static int snd_pcm_oss_capture_ready(struct snd_pcm_substream *substream)
- 						runtime->oss.period_frames;
- }
- 
-+static bool need_input_retrigger(struct snd_pcm_runtime *runtime)
-+{
-+	bool ret;
-+
-+	mutex_lock(&runtime->oss.params_lock);
-+	ret = runtime->oss.trigger;
-+	if (ret)
-+		runtime->oss.trigger = 0;
-+	mutex_unlock(&runtime->oss.params_lock);
-+	return ret;
-+}
-+
- static __poll_t snd_pcm_oss_poll(struct file *file, poll_table * wait)
- {
- 	struct snd_pcm_oss_file *pcm_oss_file;
-@@ -2871,11 +2891,11 @@ static __poll_t snd_pcm_oss_poll(struct file *file, poll_table * wait)
- 		    snd_pcm_oss_capture_ready(csubstream))
- 			mask |= EPOLLIN | EPOLLRDNORM;
- 		snd_pcm_stream_unlock_irq(csubstream);
--		if (ostate != SNDRV_PCM_STATE_RUNNING && runtime->oss.trigger) {
-+		if (ostate != SNDRV_PCM_STATE_RUNNING &&
-+		    need_input_retrigger(runtime)) {
- 			struct snd_pcm_oss_file ofile;
- 			memset(&ofile, 0, sizeof(ofile));
- 			ofile.streams[SNDRV_PCM_STREAM_CAPTURE] = pcm_oss_file->streams[SNDRV_PCM_STREAM_CAPTURE];
--			runtime->oss.trigger = 0;
- 			snd_pcm_oss_set_trigger(&ofile, PCM_ENABLE_INPUT);
- 		}
+ 	kctl = snd_ctl_find_numid_locked(card, numid);
+ 	if (!kctl) {
+ 		up_read(&card->controls_rwsem);
+@@ -645,6 +653,10 @@ static void snd_mixer_oss_put_volume1_vol(struct snd_mixer_oss_file *fmixer,
+ 	if (numid == ID_UNKNOWN)
+ 		return;
+ 	down_read(&card->controls_rwsem);
++	if (card->shutdown) {
++		up_read(&card->controls_rwsem);
++		return;
++	}
+ 	kctl = snd_ctl_find_numid_locked(card, numid);
+ 	if (!kctl) {
+ 		up_read(&card->controls_rwsem);
+@@ -688,6 +700,10 @@ static void snd_mixer_oss_put_volume1_sw(struct snd_mixer_oss_file *fmixer,
+ 	if (numid == ID_UNKNOWN)
+ 		return;
+ 	down_read(&card->controls_rwsem);
++	if (card->shutdown) {
++		up_read(&card->controls_rwsem);
++		return;
++	}
+ 	kctl = snd_ctl_find_numid_locked(card, numid);
+ 	if (!kctl) {
+ 		up_read(&card->controls_rwsem);
+@@ -833,6 +849,10 @@ static int snd_mixer_oss_get_recsrc2(struct snd_mixer_oss_file *fmixer, unsigned
+ 		goto __free_only;
  	}
+ 	down_read(&card->controls_rwsem);
++	if (card->shutdown) {
++		err = -ENODEV;
++		goto __unlock;
++	}
+ 	kctl = snd_mixer_oss_test_id(mixer, "Capture Source", 0);
+ 	if (! kctl) {
+ 		err = -ENOENT;
+@@ -886,6 +906,10 @@ static int snd_mixer_oss_put_recsrc2(struct snd_mixer_oss_file *fmixer, unsigned
+ 		goto __free_only;
+ 	}
+ 	down_read(&card->controls_rwsem);
++	if (card->shutdown) {
++		err = -ENODEV;
++		goto __unlock;
++	}
+ 	kctl = snd_mixer_oss_test_id(mixer, "Capture Source", 0);
+ 	if (! kctl) {
+ 		err = -ENOENT;
+@@ -937,6 +961,10 @@ static int snd_mixer_oss_build_test(struct snd_mixer_oss *mixer, struct slot *sl
+ 	int err;
+ 
+ 	down_read(&card->controls_rwsem);
++	if (card->shutdown) {
++		up_read(&card->controls_rwsem);
++		return -ENODEV;
++	}
+ 	kcontrol = snd_mixer_oss_test_id(mixer, name, index);
+ 	if (kcontrol == NULL) {
+ 		up_read(&card->controls_rwsem);
+@@ -1069,6 +1097,10 @@ static int snd_mixer_oss_build_input(struct snd_mixer_oss *mixer,
+ 	if (snd_mixer_oss_build_test_all(mixer, ptr, &slot))
+ 		return 0;
+ 	down_read(&mixer->card->controls_rwsem);
++	if (mixer->card->shutdown) {
++		up_read(&mixer->card->controls_rwsem);
++		return -ENODEV;
++	}
+ 	kctl = NULL;
+ 	if (!ptr->index)
+ 		kctl = snd_mixer_oss_test_id(mixer, "Capture Source", 0);
