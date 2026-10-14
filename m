@@ -1,179 +1,141 @@
-Received: from mta0.migadu.com (out-183.mta0.migadu.com [91.218.175.183])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90019472F8E
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 07:56:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.183
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B343515F1
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 07:58:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791964587; cv=none; b=BA8hvUqmQFxWqXq2kTVCdMNc0vPzpZVP4w14Oy3QEajF7AWxtSqGB3vf9tvFFe1ovwhuAHtRyAeCXQJ96pyJ8l8qm121hpBfQU8NZ1AXUAGNcPnXZi6NDVFzVzV2fLIm29X2yQmS0ovgY0SQXAF0xZsIolSId149+Ui3XusQR94=
+	t=1791964687; cv=none; b=gOxoBTtgfGjGa1QUUCwRFJWDs1+ZB0wiqlQ3uoIJzJYa/mmUVRveTYKFrO+mEpNuvCzClQr5laOYrkMoSmtHNlemV6C3Fw+00sR/0IrUQv9shi9oWW63ebgiTseHmq7NaLSvvskuEkAmjO1ZIrXVtZMYSjvvNWs8ikXhWLlDWhI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791964587; c=relaxed/simple;
-	bh=3NakkYm+exfqHeo87l+Jy3RJZBZS8mbhTiQS6F5ENvk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ughiNWnpmoYexE9rjEiwqQoU1KkqCb90hJKhReXXaeaxmYr0lzNMdXMWbK5nnODH72F+XljrermZCEeaI9hlgJyDoPIbFlqsZ0ZCJ+DTwfQauLLvdRencIAxKhK3tAXsJq5RQWoHK3RUo1avlYbWA7x1ER+rfRKb2r47ZozhfxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KgfDKtGl; arc=none smtp.client-ip=91.218.175.183
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791964687; c=relaxed/simple;
+	bh=jUm0m8EgnS6itBHM8a0BbrV6BM5DlTOQUU/3rDyLGWI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s2tye6ds/Loj33Pb10x+o4r5+6nrtLm0pb10DzjBphm/i0O7b3bgoMl8N/NWjptDMwLL4vIOtw8vthd7k2cRA5u9pq9JpjdSGqiUzcc2oPANSiVh0bK4ugS2niuBPBSqiauFwmwhKKXIuRyqTYJOnAtW5gV9CjAjfS9I01KDuiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z8zLkUju; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KgfDKtGl"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=3NakkYm+exfqHeo87l+Jy3RJZBZS8mbhTiQS6F5ENvk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791964582; v=1; x=1792569382;
- b=KgfDKtGlnya+w0y+13eDfqGYwadeUvStcnSjdRAXRZPy/w4ajj0Yu1rBDQ1hqaulwiQkV10G
- TBiORH9tEtm52K4jwFva0QEuVVFkuvUSmTzHiLNz9qiE/zk15Gsg+ZFlKVkSI9pJdKeHfueUC/x
- 68XbzPnENWRiOxSmlLisNpgE=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 38737ea13a66a289;
-	Wed, 14 Oct 2026 07:56:22 +0000
-X-Mizu-Trace-ID: 38737ea13a66a289
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	akpm@linux-foundation.org,
-	zhangchunyan@iscas.ac.cn,
-	rppt@kernel.org,
-	kas@kernel.org,
-	andrew+kernel@donnellan.id.au,
-	rmclure@linux.ibm.com,
-	debug@rivosinc.com,
-	baolin.wang@linux.alibaba.com,
-	usama.arif@linux.dev,
-	wangruikang@iscas.ac.cn,
-	namcao@linutronix.de,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	alexghiti@rivosinc.com,
-	viro@zeniv.linux.org.uk,
-	ajones@ventanamicro.com,
-	arnd@arndb.de,
-	axelrasmussen@google.com,
-	brauner@kernel.org,
-	conor.dooley@microchip.com,
-	conor@kernel.org,
-	jack@suse.cz,
-	liam@infradead.org,
-	ljs@kernel.org,
-	mhocko@suse.com,
-	paul.walmsley@sifive.com,
-	peterx@redhat.com,
-	robh@kernel.org,
-	surenb@google.com,
-	vbabka@kernel.org,
-	yuanchu@google.com,
-	stable@vger.kernel.org,
-	pasha.tatashin@soleen.com,
-	linux-mm@kvack.org,
-	me@ziyao.cc
-Subject: Re: [PATCH 1/1] riscv/mm: fix soft-dirty migration PMDs being treated as present
-Date: Wed, 14 Oct 2026 15:56:16 +0800
-Message-ID: <20261014075616.76429-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261007113345.32755-1-lance.yang@linux.dev>
-References: <20261007113345.32755-1-lance.yang@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z8zLkUju"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF8A61F000FF;
+	Wed, 14 Oct 2026 07:58:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791964685;
+	bh=xDY/H2f+wkxmACOdLDejpcV92oDBXKSy4oGVvY4trL4=;
+	h=From:To:Cc:Subject:Date;
+	b=Z8zLkUju0pjX5ZgNJSo1sKdXOvsSa6ea86vLU89EIKZnT6XN5rXw6YdawCJg9qIAM
+	 tEMQncn2XVEHxh+uxRqMWU+mRfeaWhn8F4RGFm9asG8f4miIY9V41mBak7WKZFiDhW
+	 Qli9MzUwCEJAIut4+Wi9ehZpe0SWFIQzgqv7gJOPVOPz5gGrSb4DwlFQruRyTX/J0A
+	 RerWRl8ceR0ddNyTjoQBA1nchnL+OJTwGsYtkJSYtYMewbmQEOzskbqbK0DKwDpzsU
+	 AUfYcjXoP5waCQ9z6sjWtNO7iQNOrjL0Z7AHFBu2I8XyPpGbZ0oMMCAWvMuoh81aKd
+	 VQrrwmd37lRnw==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org
+Cc: stable@vger.kernel.org,
+	Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>
+Subject: [STABLE v6.6-v6.1] tracing: Set the trace clock before registering the histogram trigger
+Date: Wed, 14 Oct 2026 07:57:35 +0000
+Message-ID: <20261014075735.27678-1-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-On Wed, Oct 07, 2026 at 07:33:45PM +0800, Lance Yang wrote:
->
->On Wed, Oct 07, 2026 at 01:01:14PM +0200, David Hildenbrand (Arm) wrote:
->>On 10/5/26 15:46, Lance Yang wrote:
->>> 
->>> On Mon, Oct 05, 2026 at 12:37:20PM +0200, David Hildenbrand (Arm) wrote:
->>>> On 10/4/26 05:03, Lance Yang wrote:
->>>>> RISC-V uses _PAGE_EXEC for swap soft-dirty tracking when
->>>>> CONFIG_MEM_SOFT_DIRTY is enabled and Svrsw60t59b is available. That's
->>>>> a problem for PMD migration entries, since pmd_present() also checks
->>>>> _PAGE_LEAF (R/W/X) to recognize THPs with _PAGE_PRESENT temporarily
->>>>> cleared during splitting.
->>>>
->>>> I'm curious: why do we have to set leaf indications for non-present things? The
->>>> HW sure will ignore it, right?
->>> 
->>> Yeah, that surprised me too :) Still wrapping my head around the details
->>> ...
->>> 
->>>> Is this a sw problem? Who needs that?
->>> 
->>> IIUC, it's for software during a PMD split.
->>> 
->>> __split_huge_pmd_locked() invalidates the huge PMD and flushes the TLB
->>> before installing the PTE table. Software still needs pmd_present() and
->>> pmd_trans_huge() to recognize the THP in between.
->>> 
->>> RISC-V clears V but keeps the R/W/X bits for that, so the entry is invalid
->>> to hardware but still identifiable as a THP by software.
->>> 
->>> Hopefully I didn't miss something.
->>
->>I thought some change we performed to GUP-fast wouldn't require that anymore.
->>But my memory is a bit vague ... :)
->
->Yeah, I'll have another look at that :)
+[ Upstream commit 6ede78d0563a2a3ae3e46f9c07cedb5d79645429 ]
 
-Emm ... I'm back. Do you mean 4b471e8898c3, which removed the GUP-fast
-pmd_trans_splitting() check after the THP refcounting rework? That check
-made GUP-fast bail out during the old THP split. The refcounting rework
-made extra GUP references prevent the physical split :)
+hist_register_trigger() puts the trigger on the global named_triggers
+list in cmd_ops->init(), and only then sets the trace clock:
 
-RISC-V gained THP support in 2021 (e88b333142e4), after
-pmd_trans_splitting() had been removed. It never implemented that helper.
+	if (data->cmd_ops->init) {
+		ret = data->cmd_ops->init(data);
+		if (ret < 0)
+			goto out;
+	}
 
-Keeping R/W/X in an invalidated RISC-V PMD preserves its leaf identity for
-software page-table walks. That requirement is separate from the old
-GUP-fast splitting check.
+	if (hist_data->enable_timestamps) {
+		ret = tracing_set_clock(file->tr, hist_data->attrs->clock);
+		if (ret) {
+			hist_err(tr, HIST_ERR_SET_CLOCK_FAIL, errpos(clock));
+			goto out;
+		}
 
-For RISC-V, pmd_mkinvalid() clears V and PROT_NONE but keeps R/W/X, so
-pmd_present() and pmd_trans_huge() still return true:
+The clock string is not checked anywhere before that call, so a named
+trigger using common_timestamp with an unknown clock fails after it has
+already become findable. event_hist_trigger_parse() then frees it
+without taking it off the list, and the next lookup by name reads the
+freed object:
 
-#define _PAGE_LEAF (_PAGE_READ | _PAGE_WRITE | _PAGE_EXEC)
+ ~# cd /sys/kernel/tracing/events/sched/sched_switch
+ ~# echo 'hist:name=foo:keys=common_pid:ts=common_timestamp:clock=bogus' > trigger
+ bash: echo: write error: Invalid argument
+ ~# echo 'hist:name=foo:keys=common_pid' > trigger
 
-static inline pmd_t pmd_mkinvalid(pmd_t pmd)
-{
-	return __pmd(pmd_val(pmd) & ~(_PAGE_PRESENT|_PAGE_PROT_NONE));
-}
+  BUG: KASAN: slab-use-after-free in find_named_trigger+0xac/0xc0
+  Read of size 8 at addr ffff88800915d760 by task init/1
+   find_named_trigger+0xac/0xc0
+   hist_register_trigger+0xc1/0x900
+   event_hist_trigger_parse+0x3146/0x6af0
+   event_trigger_write+0xce/0x160
+  Freed by task 63:
+   kfree+0x154/0x420
+   trigger_kthread_fn+0xfd/0x160
 
-static inline int pmd_present(pmd_t pmd)
-{
-	/*
-	 * Checking for _PAGE_LEAF is needed too because:
-	 * When splitting a THP, split_huge_page() will temporarily clear
-	 * the present bit, in this situation, pmd_present() and
-	 * pmd_trans_huge() still needs to return true.
-	 */
-	return (pmd_val(pmd) & (_PAGE_PRESENT | _PAGE_PROT_NONE | _PAGE_LEAF));
-}
+Set the clock before the trigger is registered, so that nothing which
+can fail runs after it is published, the way commit 6f86bdeab633
+("tracing: Fix bad hist from corrupting named_triggers list") moved the
+registration below the rest of the setup.
 
-static inline bool pmd_leaf(pmd_t pmd)
-{
-	return pmd_present(pmd) && (pmd_val(pmd) & _PAGE_LEAF);
-}
+tracing_set_filter_buffering() is reference counted, so the init failure
+path has to drop the reference that the clock block now takes first.
 
-static inline int pmd_trans_huge(pmd_t pmd)
-{
-	return pmd_leaf(pmd);
-}
+Cc: stable@vger.kernel.org
+Fixes: a4072fe85ba3 ("tracing: Add a clock attribute for hist triggers")
+Link: https://patch.msgid.link/20260907091415.554535-1-donggeunyoo.kernel@gmail.com
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+[Lee: Call data->ops->init(data) as b052d70f7c9c ("tracing: Merge struct
+      event_trigger_ops into struct event_command") is not present]
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+ kernel/trace/trace_events_hist.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-And the rmap walk also needs that leaf indication. page_vma_mapped_walk()
-checks pmd_trans_huge() before taking the PMD lock, then rereads the entry
-under the lock. Keeping R/W/X lets it recognize the invalidated THP and
-wait for the split to finish :)
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 3ea423c62448..3e2304b641b5 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -6564,12 +6564,6 @@ static int hist_register_trigger(char *glob,
+ 		data->ops = &event_hist_trigger_named_ops;
+ 	}
+ 
+-	if (data->ops->init) {
+-		ret = data->ops->init(data);
+-		if (ret < 0)
+-			goto out;
+-	}
+-
+ 	if (hist_data->enable_timestamps) {
+ 		char *clock = hist_data->attrs->clock;
+ 
+@@ -6582,6 +6576,15 @@ static int hist_register_trigger(char *glob,
+ 		tracing_set_filter_buffering(file->tr, true);
+ 	}
+ 
++	if (data->ops->init) {
++		ret = data->ops->init(data);
++		if (ret < 0) {
++			if (hist_data->enable_timestamps)
++				tracing_set_filter_buffering(file->tr, false);
++			goto out;
++		}
++	}
++
+ 	if (named_data) {
+ 		remove_hist_vars(hist_data);
+ 		destroy_hist_data(hist_data);
+-- 
+2.56.0.385.gd3acb90ef8-goog
 
-Anyway, R/W/X still have a job there (RISC-V doesn't have a separate leaf
-bit), and I don't think we can just drop them yet :D
-
-Cheers, Lance
-
-[...]
