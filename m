@@ -1,121 +1,146 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D799954EEB2
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 15:24:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7442C51EE12
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 15:25:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991485; cv=none; b=MxvovDwmzFXPpTctFz+FCU0oSMdBQgjR0PmGfq6EEfHAbqwBxTDw3ldon61kOIGva7GIhlhz8Pf2jUF5UXik61Y2VneD0TWahpusRd9lbVeUCoyaI+b7ObVeAkalIHS+B17RfZNGya2ERvodeMGUlJYC8nKW62DKa8frK0CKE5o=
+	t=1791991522; cv=none; b=EUXH3yYowqPd3IMkm3nx3OiPN9RKQBqKcUKhTR4xRrm95lz7rXj0gqryayGKtg+88NBfMs+Y+t4fLnVObq/C2LD+3g6Mc7WZRMZRgdilsBPG774GlxCkAicroFZwByPIuwAcL/vvVi9YWBHDPF+sfueb5MRgnV6FdJBLhvFz2q8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991485; c=relaxed/simple;
-	bh=CJI50wcXJ2BCcOVcasSmzvaz+gwwPUSdoPRdsX17WOc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BGSyhS9pSiuMCgLZNGDXVdxy1hPmLw/hN9EBhmfHevZlP2ljXmZctO8PiYkn/mJqMgEcJed+sJc0f9MsknstKiciDkFlgJQ2YyMCW+/SAlojR55yfaKtKfplUnb42VOBbamf63Bst9FmewDKlgSDwTzyijKHfrFIZTnt/0PYKLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=HczcyIm3; arc=none smtp.client-ip=209.85.210.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1791991522; c=relaxed/simple;
+	bh=4xtlwMXyWzq87oKXlTSUTSJUcCXtxizVzZJcF/3R7OM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SfKEBL8Sai1ld1NIMopiOXJfn7n1KqRVp8OZT4lNSmwRclquGtJymtwbeEM7VWuVlOxKuzKaNObV9Ufh3jgYPOFezm8R+rqn/PyLb2WmninYPr2tPAPiwejGhQQJChGggo2p+XIGUOCFlPF9o0FaCCXEu7MdrZgzjaXKmzt4UGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OvV3QGR4; arc=none smtp.client-ip=209.85.217.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="HczcyIm3"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-88b8f0a1bcdso3319743b3a.3
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 08:24:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OvV3QGR4"
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-7c0466d653fso183129137.3
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 08:25:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791991483; x=1792596283; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5OkvFTt8xurlOqdzsXBI0/VdI7mHWZJ52WKipIc8xDM=;
-        b=HczcyIm3MWVmySNs2AZGzSS+u13XAxcWoXoaeoFo4Tt2jdwuDZVe3RIA41dDcHeQS8
-         oBG90vvTV47G2g0T2TpkRr8nqyDhcQui5uQiFuZ6Z/9umigpLRDlB3bOZM2DZ//+FTN6
-         5am15r1T8b+0dUADURcoe+bWU9J0CMtLeE1+uxIh3D8k6HjX/s1urS+rNluRYbs5kS58
-         v0S/kGfTHENI89s2B1ZY2hR/P8QoDVoA/NmhFKJK3f+NPych5RrAq2UwhgADJjGSGf35
-         vbHk3DzqrvQ2tt/GDfYyD4XE7feo/chohJSz8Q/IENgBzrXWAPkV1s/x2ZXz2Ho7m9aw
-         3jAQ==
+        d=gmail.com; s=20251104; t=1791991520; x=1792596320; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xZlacUVzzy4HBA3NrxiUhpJFwP6Wb2PV4OZMdQ09R7I=;
+        b=OvV3QGR4FZThAftPriNMh0Z49gdzBDi90bON/J2qGK4x6casf1MCH7iu0i1QXdMSA8
+         BFyJfzLwcxt3JPev9LG1y+5VFqIIjSghbVMKzuB5xyqs4/68DP4kv6fVzv83zMymDsRX
+         1qrn+koBA5ex4K3dDF0QYhHc56uAqHiRM6OIDLgzhtp1jpswVE9dKA5VU43IH4PR4PxM
+         G3t9zI2cftnG/bVhkAMewxJOTecsfyxbw+/gLlhrTs/IEh+CI69jHmYi+lNLiJtZg/+m
+         4J3ogY8xF8roffMtybaOz/QyRuHixaK1iSrl7cPnIt/uMsOcnuoy/Z+UdshEdh0pdDjY
+         Z9HQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791991483; x=1792596283;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5OkvFTt8xurlOqdzsXBI0/VdI7mHWZJ52WKipIc8xDM=;
-        b=MxobqryzVF5cHv9rNwsPKI1r6fkky/p+k+/x1NP04ujtwpBSg3rK58QEgNIQWgaqTn
-         cZ+5LYQdvPMinZ4uVofnLGlp7pxSy8QSiM6Ml3R+wUr1QS3OXBc/Kgk3PmSC4D6hwhQU
-         PR5R9RdK0K67eUf1n8QJ7QO5r0fFFHTesRxMStEmSmR7W2XDS9RI4sjWOsPQhQbNaDAs
-         Yej9t0XKYxVSvEDqx/I33kXrev+mokxkCXZ1akGp1ANN9bQZ1m7DzeYljwAovgwFmLyn
-         iy5sPu7v5b2hKEfDn6K0qECKSraUyodf+5Uxno1ulmXFwfEgbkLmRlD5pYN16n13PD+q
-         Dukg==
-X-Forwarded-Encrypted: i=1; AKwUvBzp4D1PMbDQZvAZ9pmdxEsN0amFPmaIESc1yVUG2E0Zy8wwIVrhecxgiiOJgZyjN/XY9Pj52vg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsmQFD6h1AnBE+z/u414zAcK39tTV3StF5trAL7Nw0yFHqIBWM
-	DepN6rVXwEOmLjUUzxdpvEdOuzNhQk/e0cxTELiGmlzgxBlwD66DLEtTismQA/l6hvE=
-X-Gm-Gg: AYBFou2NqfUOZNZ5sjnxqi8q5qDuSD+rIxMk14EVZfV+6NvZLDEiP3fwSIF81Jph/ay
-	aUs+lrBChD3xb3iUD4j2sGBDa34fvYYTOi4eHH2o1jlxlP2ueatBuT2fvMwmcJb0Xt9ZIxWyXS/
-	XjUIaQaiXLucMbcwaLVCLSeNcxYfBYRy8REbvqOplvLpwBigIcyuiie5ppapAEHFWBOZU6m5Lxx
-	26qbDBD6pBT7ySkttV1U2goISzvKL2PS8ruoOMPzG5NkzvBNEUgHMvTkEDuxiXYh99Z2m0CkD5D
-	1DIQ7LkBJVOLaDR0oQIQBzNmVojKzYzXFnRp9fwz+MS3FVFIv/RZLvc1y6xWxQnpPI8wZ+8IFsl
-	wAxznp4BnfDAKXJ9cv06bajuuGttkaKsQWysCosedHPUeszmdeVwVmaFHaxbbzlG3YwpIi5VoVw
-	2zsqqEZzBRZOKiZlTjB7lnXI2gKJNPLT8xsSOaVW9OEdTvVm+fmkuwng2iSyq/Qhv2LKBqzCekJ
-	UqmIowiXY/JQWygxXga
-X-Received: by 2002:a05:6a00:c488:b0:899:915:792b with SMTP id d2e1a72fcca58-89909158069mr7435498b3a.54.1791991482981;
-        Wed, 14 Oct 2026 08:24:42 -0700 (PDT)
-Received: from localhost.localdomain ([2406:5900:1044:110c:1c49:61ee:8c8:3f4c])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d802a42f8sm1299291b3a.10.2026.10.14.08.24.40
+        d=1e100.net; s=20260707; t=1791991520; x=1792596320;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xZlacUVzzy4HBA3NrxiUhpJFwP6Wb2PV4OZMdQ09R7I=;
+        b=ciYHG7Z0B1j2sls2TID4CLpWN8+T7jE4wR+GJy3wW75HcP9IWg022C7DQLTdiCYZY2
+         8bT7BwtqP/nqejO5ufpuCbZexwG2ps8cKo7NjFg5dmoQMjbFAAtpqovgOsl0froyzHNL
+         8W5FhwmvGAp5JzpjLtfMU2IB3fXxIwi/pZieHUWGp6S6teNKULgkLMEu//RrW3VfJ8li
+         NmvQK4Db78VggNDDAgTGZijw5kKobVZHJEa+JAWDp+MdQ0JrNDEnVHCDNl6A/w8i9k/K
+         HSgSbx0aYgdwT4913fs/ZAiYniwN0Qq2dHNIpMBUrTkjrj98sssGXI6ZFMBsmg0tz4F6
+         51gg==
+X-Forwarded-Encrypted: i=1; AKwUvBzNCL6MsM6xnWjuwGDJm9yQPi856NUM75Zrexmw1236N0ymbU7p2zuJWpW28h6/SrFLPlwxEW0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJr+WyjlejAeDU5K0ctj39XYEOdtVwRt1fVq2r+BORACrOGyntP
+	nfvAqitMOW6lhbb4eI/lQYdJH06XGro7g6KnE1XzIXBfcmjQKYr6CMTD
+X-Gm-Gg: AYBFou0T1jvZ7QWKjgcnxoO5QJ6MqMft9U43fxI/LDlFa1z4xHVOkw1ijemUZSbWFJM
+	CxEdqeECVvOd3EKmtaqXvboKzJO5rUGNfNGefkugZ+RjpgRn/smZF4i+8FLiOiG+4pz6S9YqrEb
+	qMHBK5ywV5i3Vglb2Fk5usiEdN4gI8cv0YVDSMSW/uCWQSfEu6acQbV9mi+EGg07ln9GocGo/Aa
+	VpuJEk9p3x4HKGAuKHrBv0GXo3GYvGBlM1x4hk5mh9MArX5PHkTi02KgIDM4XvDA9KFguxXPYW2
+	OT2ENRSbn0aNWW0ElOPXnAe56IREYybecW9czdzTgKzKXKFfFn5MLVVyOiY4PCOXZzDuxnmwEpg
+	xr+dqd42Fv5hhSNb7m2oKMxYbYTGqmp+8QOfRJziMFsRw/UAtFzgNM5ljO0XzsT5uePekzkzbPv
+	6F9FkOWmQ2dZmwdNvU7PTMnMJrM9Bh2csobTo6lli2dWC1kWjYr74/hO1/LcZvnf2DZOMr0nfEF
+	yXw8jsK7L33EmiqN38gxg7qVBoY8gPrPga0MG8biiJarmOo/yeTuK3ZAlCyVVbGnHEneCnzyAcj
+	G+pxdxWDowof3cI2Ar0QDPhp9IDvZCY9GWnBpM76SUS6jhk9
+X-Received: by 2002:a05:6102:4193:b0:7a7:12b0:fd03 with SMTP id ada2fe7eead31-7cb50ad7b90mr3825371137.0.1791991519989;
+        Wed, 14 Oct 2026 08:25:19 -0700 (PDT)
+Received: from debian-t14-gen1-fuhrysteve.ts.fuhry.app (235.sub-75-230-129.myvzw.com. [75.230.129.235])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b5e5b1sm54887516d6.18.2026.10.14.08.25.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 08:24:42 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: sashiko-bot@kernel.org,
-	"Martin K . Petersen" <mkp@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: linux-scsi@vger.kernel.org,
+        Wed, 14 Oct 2026 08:25:19 -0700 (PDT)
+From: "Stephen J. Fuhry" <fuhrysteve@gmail.com>
+To: linux-input@vger.kernel.org
+Cc: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: Re: [PATCH v4] scsi: mvumi: reject handshake sizes that overflow the list allocations
-Date: Thu, 15 Oct 2026 00:24:35 +0900
-Message-ID: <20261014152435.3637416-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <sashiko-outbox-171387@kernel.org>
-References: <20261014134104.3528958-1-yhlee@isslab.korea.ac.kr> <sashiko-outbox-171387@kernel.org>
+	"Stephen J. Fuhry" <fuhrysteve@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] HID: input: ignore the battery of Keychron keyboards over Bluetooth
+Date: Wed, 14 Oct 2026 11:25:05 -0400
+Message-ID: <20261014152505.2523337-1-fuhrysteve@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Both are real.  Neither is fixed in this version; both are fixed in the
-series that replaces it:
+Keychron keyboards identify as Apple's wired aluminium keyboard, rev B
+ANSI (05ac:024f), when connected over Bluetooth. hid-apple has bound
+that ID over Bluetooth since commit ebe0b42a4252 ("HID: apple: Add
+support for Keychron K1 wireless keyboard"). The Keychron K8 tested
+here does the same, whichever position its Mac/Windows switch is in.
 
-  [PATCH v5 0/6] scsi: mvumi: bound the values the firmware supplies
-  <20261014151914.3632701-1-yhlee@isslab.korea.ac.kr>
-  https://lore.kernel.org/linux-scsi/20261014151914.3632701-1-yhlee@isslab.korea.ac.kr/
+The report descriptor declares a battery, so hid-input creates a
+power_supply node for it. The keyboard never answers the battery
+feature report. Every read of the node blocks for the full 5 second
+uhid timeout and then returns -ENODATA:
 
-- mvumi_flush_cache(): confirmed.  device_id is an unsigned char and the
-  bound, mhba->max_target_id, comes from the u16 max_devices_support, so a
-  reported count of 256 or more never terminates the loop, and that loop
-  runs from shutdown, suspend and remove.  Fixed by 6/6 of the series,
-  "scsi: mvumi: widen the flush cache loop counter"
-  <20261014151914.3632701-7-yhlee@isslab.korea.ac.kr>, which gives the
-  counter the type of its bound rather than rejecting the value: the rest
-  of the driver already handles counts above 255 -- mvumi_probe_devices()
-  walks it with an int and host->max_id is wider too -- so rejecting would
-  turn away a working configuration.  frame->device_id is a u16 and
-  target_map holds round_up(max_target_id, 8) / 8 bytes, so nothing
-  truncates or overruns after the widening, given the reset check 4/6 adds.
-  6/6 depends on 4/6 for that reason and its commit message says so.
-- mvumi_calculate_checksum(): confirmed.  Fixed by 2/6,
-  "scsi: mvumi: reject an out-of-range handshake frame length"
-  <20261014151914.3632701-3-yhlee@isslab.korea.ac.kr>, which rejects a
-  frame_length that does not fit the handshake page before the checksum
-  walks it.  HSP_MAX_SIZE is 48 and the header is 4 bytes, so a
-  frame_length above 44 is turned away, well below the 256 that makes the
-  counter wrap, and the same patch reads the field once with READ_ONCE() so
-  the checked value is the one used.  The counter width is left alone
-  there, since the input can no longer reach it.
+  $ time cat .../power_supply/hid-<addr>-battery/capacity
+  cat: ...: No data available
+  real    0m5.10s
 
-Looking for the rest of this shape turned up three more, all in the series:
-a hotplug event bitmap size that is not held inside the 512-byte event
-buffer (3/6), a response frame tag that is checked on the outbound-list
-frame but used from the copy made afterwards, with a > instead of >= bound
-(5/6), and an inbound or outbound entry size too small to hold the frames
-the driver puts in it (folded into 4/6).
+Anything that enumerates devices pays this on every pass. With the
+keyboard connected, "udevadm info --export-db" took 10 to 26 seconds;
+with it disconnected, 0.11 seconds. KDE's Solid library enumerates
+devices on the GUI thread, so Dolphin and the Plasma panel froze for the
+same 10 to 26 seconds. upower already gives up on the device and does
+not list it.
+
+0x024f is a wired-only Apple product, so a Bluetooth device using it is
+not a genuine Apple keyboard. Ignore its battery so the node is never
+created. AVOID_QUERY would stop the blocking read, but the K8 does not
+send the battery in its input reports either. The node would then stay
+at its initial capacity of 0 with status Unknown, which looks like an
+empty battery.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Stephen J. Fuhry <fuhrysteve@gmail.com>
+---
+Tested on 7.2.6 (Debian trixie-backports base) on a ThinkPad T14
+Gen 3 with a Keychron K8 paired over Bluetooth: no battery node is
+created and "udevadm info --export-db" takes 0.12 s with the keyboard
+connected. The keyboard types normally and hid-apple still binds it.
+
+I have only the K8 to test. If another Keychron model on this ID does
+answer the battery report, this hides its battery level. I do not know
+whether any does.
+
+ drivers/hid/hid-input.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/hid/hid-input.c b/drivers/hid/hid-input.c
+index edd6bbf..380ff8a 100644
+--- a/drivers/hid/hid-input.c
++++ b/drivers/hid/hid-input.c
+@@ -381,6 +381,15 @@ static const struct hid_device_id hid_battery_quirks[] = {
+ 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_ELECOM,
+ 		USB_DEVICE_ID_ELECOM_BM084),
+ 	  HID_BATTERY_QUIRK_IGNORE },
++	/*
++	 * Keychron keyboards in Bluetooth mode reuse the product ID of
++	 * Apple's wired aluminium keyboard. They declare a battery but never
++	 * answer the battery feature report, so each read blocks for the full
++	 * uhid timeout and then fails with -ENODATA.
++	 */
++	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_APPLE,
++		USB_DEVICE_ID_APPLE_ALU_REVB_ANSI),
++	  HID_BATTERY_QUIRK_IGNORE },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_SYMBOL,
+ 		USB_DEVICE_ID_SYMBOL_SCANNER_3),
+ 	  HID_BATTERY_QUIRK_IGNORE },
+-- 
+2.47.3
+
