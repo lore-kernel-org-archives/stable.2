@@ -1,211 +1,166 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1278154488E
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 15:08:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E427336A017;
+	Wed, 14 Oct 2026 15:09:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791990501; cv=none; b=Y/ZgfwQ95fjectloGKVC+nsIIk9mR+FeNf/8kXPhPHjYWqkWPNp3M6nvKg/PQUPky0yNyQnBFPzOPnt58HCiezseJSriM3zYVdBgv9u9Jw1QmeTtWWIbzqQG75Q+CsXWbZF/TtrnKR3dkOBjwPI8wkxjt2fUPpZohf/a+vfVp30=
+	t=1791990599; cv=none; b=qk9nX1Xn7JlxOCSMfkm6QP1bnO3/CnNxYpmWBnL95QD4WhGivHdimDU+k04kfQCIBXHKQSCtnPW3tTOt7vdB/1ATN1vNJkk7oyf0lhzhDssKDY1N6fwMHXSGQkD/nMSm3zHh7WRFIV9Rp1YIGjPKDmEi+yVVyMfeUqI5MllKwZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791990501; c=relaxed/simple;
-	bh=OrVR4ICDaqIMRFPXX7OWuZx/GX2al5sZl9xwPRxED5Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YCvCRx1be178CzzP2zQYm/uaZTfI2fKK7GDrYt5yHja/3RrYoayOywVLfwOarHuy6Cc7CWvb87rk2Vc4zJdXgvvNQME6Z0YygJqbIjuwk8mzeIVEEym2g4A7MyuGwl0lT6aZmnIXok9WlzF50L/ZGTexbIaScBVRtIiKjzDr2Xk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XD2nmMtP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791990599; c=relaxed/simple;
+	bh=bRSl6QCUOlMwTnQp0Nc2ghUbsfhKxW9lVhgrHK5DE5Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pF47JPpyXumb+vFMx9u826O3OUiQL+1X7WRgn42/QIExMbnLM50/KmkFU76fpJDGCxbac8yR8kWVa5luu8qDQTzLslIbsR8ky1Bs721aJWhx+cYhbTbrN5DBCGEu2VfH9bk/XpVgil7pmuXwmBP1RkXIaSWkpftkvj30yZviLkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lROYBOm5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XD2nmMtP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F3EC1F000C4
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 15:08:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lROYBOm5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EA111F000C4;
+	Wed, 14 Oct 2026 15:09:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791990497;
-	bh=ljk9MNy1mrOZMOuTAp5WT6L4E5edUdTWjdqXrdRQBe4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=XD2nmMtPGm6s8KO2i0KDKogYIhqcbBzXqw3iBp5uSmdKK7S2k6V+CArmJIEl1/KyI
-	 gYcNtC2LPq/H3zjOiGOg23l6GMybqupTm/+iYCYkOBZue6Gedwk/5c/anI1E/6nxcR
-	 kmg6bdrog0KfyUAGjMk7L8b7/iJbGGTvQab9KLkAizjPF8g5mUpB7DcjNVjqlSAzsb
-	 dS89Oe/1CCLTXApGBES6GU0K42kWL3rSVTKqKq/CWDgDWl4ENi637yKc1dB4BP8sp3
-	 OPbbzYq3fb/CeYEBZWfuOV9nWW27R9vQFf22bhge9/NEhy4A/9DhYlCG0TvcBOiARc
-	 XWzzUQZSMQovA==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bcb6faf862so474539e87.2
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 08:08:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzJUOBRONLzahdBdqfFTq2+nQcPnEJkcn+gIxohVASLS0KR8Kq9vAiCjWtWnfUuxsLV/OdYfVo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIDXVhHlX+mTcyPS2ZUEjYYz3Eh74XLLqEbyQurSP3LixK9qj7V
-	ISQymLl7kpvYwosCL+5CTiZFN2h6HLG0063tWrcL+ujpGrOhWPmnacNKKhjPJU+muQdcmzzb3e0
-	TnB86EK4+X9ya13xp0NPvPCAncf/helE=
-X-Received: by 2002:a05:6512:3f0f:b0:5bb:7c7c:c4e with SMTP id
- 2adb3069b0e04-5bcde8e65f9mr6142561e87.63.1791990495980; Wed, 14 Oct 2026
- 08:08:15 -0700 (PDT)
+	s=k20260515; t=1791990591;
+	bh=nPHLR9bYg/QZflrtwH8ufJo1Nfz90UGK6o7IybcntJo=;
+	h=From:To:Cc:Subject:Date;
+	b=lROYBOm5BZAj+QLmXazpo/oVVQ0JUIoyqxflq4V00f1yZWLjcQtuRfOnug+NohuHe
+	 kmK3BDbqB7VH4LOQiZXRZrt+s/5g6OlqD0ezNLDZrz2CSDonBPaW4t06tK375GvDC8
+	 3X4Z+ajqmhREtHjDjyR6PwGbPUw7iFKxnGMeI58SYGFTMR72k4WBcuow3OnWDPFwjp
+	 1rN7w0XzCmcpTxRMfODsIy7lqLFcG3muqNOBU2Tk/S+1v837KrgK/VBsLlo3eH0XKs
+	 GIy8SjnQQMZIcQslNKqY53L7gmNtTkWrNMji9xoA42eKPmAUQqdzvJxYC3dPOp+1qe
+	 WpX6Pnhq9dOVA==
+From: Imre Kaloz <kaloz@kernel.org>
+To: Vlastimil Babka <vbabka@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Hao Li <hao.li@linux.dev>,
+	Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Jann Horn <jannh@google.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	"Jose A . Perez de Azpillaga" <azpijr@gmail.com>
+Subject: [PATCH v2] mm/slab: sample slab_state once in kmem_cache_destroy()
+Date: Wed, 14 Oct 2026 17:08:43 +0200
+Message-ID: <20261014150844.8536-1-kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <37N_jFulf7n-Z55NfKfE71C_wVPxYvZ0xD_iRUg2fXu7TypDiF5PStQ6siSfVBih6fThg5WoPes8U5ZQpfVm_teMFcUGXFxz2DdMbfSWuws=@proton.me>
- <20261012225141.13683-1-aliamemis@disroot.org> <fb993dd3-ee56-4e3d-aa16-573f011518f1@oss.qualcomm.com>
- <CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com>
- <044e9df4-1399-4ceb-80f8-f7cfe031d04f@oss.qualcomm.com> <CAJZ5v0isCM3K3U6HSdDnvXzBX41AgQMFYxqLx3KvMA0W_91-ew@mail.gmail.com>
- <b64b8092-93d7-4873-a55f-422b8e70cc04@oss.qualcomm.com>
-In-Reply-To: <b64b8092-93d7-4873-a55f-422b8e70cc04@oss.qualcomm.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 14 Oct 2026 17:06:08 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0j4xiDYBGA0LsUq4esJCzYBXjsmmXb1ZJvLcUZqDp+yuQ@mail.gmail.com>
-X-Gm-Features: AclHuK9xOO3fl-25LwE2ScVkTnZoEmEEqpNoPfQjqZjGkNfKWcVggqNMlzc8seE
-Message-ID: <CAJZ5v0j4xiDYBGA0LsUq4esJCzYBXjsmmXb1ZJvLcUZqDp+yuQ@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: battery: Re-read battery information in the
- complete callback
-To: johannes.goede@oss.qualcomm.com
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, =?UTF-8?Q?Ali_Ahmet_Memi=C5=9F?= <aliamemis@disroot.org>, 
-	Len Brown <lenb@kernel.org>, Armin Wolf <W_Armin@gmx.de>, 
-	Charis Stratakis <c.stratakis@proton.me>, linux-acpi@vger.kernel.org, 
-	linux-pm@vger.kernel.org, regressions@lists.linux.dev, 
-	Mark Pearson <mpearson-lenovo@squebb.ca>, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Hans,
+kmem_cache_release() tests slab_state >= FULL after kmem_cache_destroy()
+has dropped slab_mutex and unlinked the cache, and for a
+SLAB_TYPESAFE_BY_RCU cache after rcu_barrier(). If slab_late_init() runs
+before that test it sets slab_state to FULL but skips the unlinked cache,
+which never got a sysfs entry, so sysfs_slab_release() calls kobject_put()
+on a kobject that was never initialized:
 
-On Wed, Oct 14, 2026 at 11:58=E2=80=AFAM <johannes.goede@oss.qualcomm.com> =
-wrote:
->
-> Hi Rafael,
->
-> On 13-Oct-26 19:20, Rafael J. Wysocki (Intel) wrote:
-> > Hi Hans,
-> >
-> > On Tue, Oct 13, 2026 at 3:36=E2=80=AFPM <johannes.goede@oss.qualcomm.co=
-m> wrote:
-> >>
-> >> Hi Rafael,
-> >>
-> >> On 13-Oct-26 13:58, Rafael J. Wysocki (Intel) wrote:
-> >>> On Tue, Oct 13, 2026 at 11:33=E2=80=AFAM <johannes.goede@oss.qualcomm=
-.com> wrote:
-> >>>>
-> >>>> Hi,
-> >>>>
-> >>>> On 13-Oct-26 00:46, Ali Ahmet Memi=C5=9F wrote:
-> >>>>> Since commit d33e89d12295 ("thermal: core: Suspend thermal zones la=
-ter
-> >>>>> and resume them earlier"), thermal zones are resumed from dpm_compl=
-ete(),
-> >>>>> before the PM_POST_SUSPEND notifier that re-reads _BIX and _BST. On
-> >>>>> ThinkPad P1 Gen2 and P53, INT3403 _TMP calls \GTST which switches t=
-he EC
-> >>>>> page selector (HIID) without taking the BATM mutex used by the batt=
-ery
-> >>>>> methods. ACPICA releases the interpreter lock around EC accesses
-> >>>>
-> >>>> I'm wondering if this "ACPICA releases the interpreter lock around E=
-C
-> >>>> accesses" is not the real problem here.
-> >>>
-> >>> Yes, it most likely is.
-> >>>
-> >>> What actually happens is that ACPICA drops the interpreter lock and
-> >>> the namespace lock in several cases listed in the
-> >>> acpi_ex_exit_interpreter() documentation comment, the majority of
-> >>> which involve having to wait.
-> >>>
-> >>> The bottom line though is that the interpreter and namespace locks
-> >>> cannot be expected to be held throughout AML evaluation because it is
-> >>> not known in advance if any of the cases in question will appear.
-> >>>
-> >>>> Recently I've learned / heard
-> >>>> from a trusted source that Windows ACPI subsystem is very much singl=
-e
-> >>>> threaded. So it is nice that ACPI has these mutexes and other stuff
-> >>>> to support multi-threading but as long as Windows ACPI interpreter i=
-s
-> >>>> not multi-threaded I think we may need to consider to copy Windows
-> >>>> behavior.
-> >>>
-> >>> This is also my conclusion, at least to some extent.
-> >>>
-> >>> The problem with it though is that in some cases parallel evaluation
-> >>> of AML is actually useful.  For example, say two PCI devices are
-> >>> powered up at the same time and AML waits for each of them.  The asyn=
-c
-> >>> suspend/resume aligns those waits to take place simultaneously instea=
-d
-> >>> of serializing them which allows some time to be saved.
-> >>>
-> >>>> So maybe the EC accesses should keep the interpreter lock locked dur=
-ing
-> >>>> EC accesses.
-> >>>
-> >>> The problem here is that it is hard to say in advance whether or not
-> >>> _BIX or _BST will access the EC and whether or not that will clash
-> >>> with _TMP evaluation for a seemingly unrelated thermal zone.
-> >>>
-> >>>> And even go further and maybe we need to introduce a big-acpi-lock,
-> >>>> which I guess the interpreter lock more or less is? And just seriali=
-ze
-> >>>> all ACPI accesses since most ACPI tables clearly do not handle
-> >>>> multi-threaded access to ACPI methods well ?
-> >>>
-> >>> I would be inclined to do so except for device power management
-> >>> methods, that is _ON, _OFF, and _PSx, that are not the problematic
-> >>> ones, at least as far as I know.
-> >>
-> >> That sounds like a reasonable compromise which should fix both
-> >> this case as well as help with bko221065 .
-> >>
-> >>>> Another example of multi-threaded ACPI calls causing problems is:
-> >>>>
-> >>>> https://bugzilla.kernel.org/show_bug.cgi?id=3D221065
-> >>>
-> >>> Right.
-> >>>
-> >>> So I guess the idea would be to add locking to acpi_evaluate_object()=
-?
-> >>
-> >> Yes that seems like a nice single point of entry to do this where
-> >> all the various helpers eventually end up.
-> >
-> > That, of course, would require updating ACPICA code and I'm not sure
-> > if doing it upstream is useful.  For example, if some hosts already
-> > use locking around acpi_evaluate_object(), this modification won't
-> > help them and it will certainly be a change in behavior.
-> >
-> > This means that we'll likely end up with a Linux-specific divergence
-> > from the upstream which can be lived with, but it won't be nice.
->
-> Ah, I see.
->
-> >>> An alternative might be to introduce an "exclusive" variant of
-> >>> acpi_evaluate_object() with built-in locking and use it in the cases
-> >>> that are known-problematic.
-> >>
-> >> So here we have _TMP and _BIX / _BST and in bko221065 we have
-> >> a bunch of again batteyr methods + UCSI racing. I'm afraid if
-> >> we add something like acpi_evaluate_object_exclusive() we'll end
-> >> up eventually using that almost everywhere.
-> >
-> > While I think that your concern is valid, this can be done without
-> > touching the ACPICA code at all.
->
-> Not needing to touch ACPICA is a valid concern. So I agree lets go
-> with a wrapper for paths which we know need to be serialized for now.
->
-> And then add that around the battery methods + _TMP + UCSI methods
-> for starters I guess ?
+  WARNING: lib/kobject.c:734 at kobject_put+0x64/0x2c0, CPU#1: kworker/u8:3/55
+  kobject: '(null)' ((____ptrval____)): is not initialized, yet kobject_put() is being called.
+  refcount_t: underflow; use-after-free.
+  kobject_put+0x64/0x2c0
+  sysfs_slab_release+0xc/0x20
+  kmem_cache_destroy+0x104/0x1e0
+  bioset_exit+0x13c/0x1e0
+  disk_release+0x54/0x140
+  put_disk+0x18/0x40
+  floppy_async_init+0xbec/0xd10
 
-Yes.
+The release-time test has run outside slab_mutex since at least v4.4 for
+SLAB_TYPESAFE_BY_RCU caches, and since v6.0 for the others. Since v6.12
+the unlink-time test in kmem_cache_destroy() is a separate read of its
+own, also after mutex_unlock(), so the two can disagree. Both tests ask
+whether the cache has a kobject, which cache creation skips while
+slab_state <= UP. UP is the state just below FULL, so a false sample
+cannot skip a kobject_put() that was owed.
 
-> ###
->
-> Should we also stop releasing the interpreter lock in the EC code?
+Seen on sparc64 at boot, where the asynchronous floppy init tears down
+its bio slab while the late initcalls are running.
 
-Which EC code do you mean in particular?
+Sample slab_state once, under slab_mutex which slab_late_init() holds
+when it sets FULL, and use the result for both the unlink and the
+release.
 
-> All these things (battery, _TMP, UCSI) seem to have in common that
-> they might talk to the EC in some cases?
+Fixes: d50d82faa0c9 ("slub: fix failure when we delete and create a slab cache")
+Fixes: 4ec10268ed98 ("mm, slab: unlink slabinfo, sysfs and debugfs immediately")
+Cc: stable@vger.kernel.org
+Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+---
+v2:
+ - Changelog reworked around the release-time read outside slab_mutex,
+   with the separate unlink-time test as the second read; Fixes:
+   d50d82faa0c9 added, as discussed with Harry.
+ - Correction to what I wrote in the v1 thread: the release-time read is
+   older than d50d82faa0c9 (the RCU work function had it from v4.11
+   until v6.12); d50d82faa0c9 added the unlink-time test under
+   slab_mutex.
+ - Added the explanation Jose asked for; his Reviewed-by from v1 is
+   kept. The code is unchanged.
 
-Yes, they are EC-based in many cases.
+v1: https://lore.kernel.org/r/20260930195110.13296-1-kaloz@kernel.org
 
-> Where as e.g. your powering-up of PCI slots example is unlikely to
-> talk to the EC ?
+ mm/slab_common.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-Yup.
+diff --git a/mm/slab_common.c b/mm/slab_common.c
+index 7223a7596dab..de11edfd1a0b 100644
+--- a/mm/slab_common.c
++++ b/mm/slab_common.c
+@@ -515,10 +515,10 @@ EXPORT_SYMBOL(kmem_buckets_create);
+  * and release of the kobject does not need slab_mutex or cpu_hotplug_lock
+  * protection. So they are now done without holding those locks.
+  */
+-static void kmem_cache_release(struct kmem_cache *s)
++static void kmem_cache_release(struct kmem_cache *s, bool sysfs_ready)
+ {
+ 	kfence_shutdown_cache(s);
+-	if (__is_defined(SLAB_SUPPORTS_SYSFS) && slab_state >= FULL)
++	if (__is_defined(SLAB_SUPPORTS_SYSFS) && sysfs_ready)
+ 		sysfs_slab_release(s);
+ 	else
+ 		slab_kmem_cache_release(s);
+@@ -533,6 +533,7 @@ void slab_kmem_cache_release(struct kmem_cache *s)
+ 
+ void kmem_cache_destroy(struct kmem_cache *s)
+ {
++	bool sysfs_ready;
+ 	int err;
+ 
+ 	if (unlikely(!s) || !kasan_check_byte(s))
+@@ -580,10 +581,18 @@ void kmem_cache_destroy(struct kmem_cache *s)
+ 
+ 	list_del(&s->list);
+ 
++	/*
++	 * slab_late_init() sets slab_state to FULL under slab_mutex and adds
++	 * sysfs entries only for caches still on the list. Sample the state
++	 * here, so that a cache unlinked before that point is not handed to
++	 * sysfs_slab_release() with an uninitialized kobject.
++	 */
++	sysfs_ready = slab_state >= FULL;
++
+ 	mutex_unlock(&slab_mutex);
+ 	cpus_read_unlock();
+ 
+-	if (slab_state >= FULL)
++	if (sysfs_ready)
+ 		sysfs_slab_unlink(s);
+ 	debugfs_slab_release(s);
+ 
+@@ -593,7 +602,7 @@ void kmem_cache_destroy(struct kmem_cache *s)
+ 	if (s->flags & SLAB_TYPESAFE_BY_RCU)
+ 		rcu_barrier();
+ 
+-	kmem_cache_release(s);
++	kmem_cache_release(s, sysfs_ready);
+ }
+ EXPORT_SYMBOL(kmem_cache_destroy);
+ 
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+-- 
+2.47.3
+
