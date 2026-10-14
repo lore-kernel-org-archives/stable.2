@@ -1,90 +1,62 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21A5C30F803;
-	Wed, 14 Oct 2026 04:59:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A5C37416F;
+	Wed, 14 Oct 2026 05:00:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791953966; cv=none; b=rduMHYdB3kumvXLGfOZJVZmQk75H+8kMEFiDlBU0Ks5hkb6s0lh1imlbQ+CI1XMHfq3RQL9Fk0DeaXgOsvFG+ivTlS/ag1GKJKpte2w690VXA8waiwYBKvrMg2PDPWRAlXIwCXWA7H4sm7tstb6V3h5Jg6Dg0r50ozC8/9tiPpU=
+	t=1791954005; cv=none; b=sjq6pI4Zceo2mTrdd0Df+KVIGy0YGUrqGo/UgYD8qKNEYXhOx8kfcwlrPpdI2VimIc8/M5RhHv/rqPMQSdgHjOGJrzyg2ALXYyz0lPT0sGxa29JFaIE+xz74gdQKYEOHv8LOZ5ZPHL06QDpY7fuRRaMNatHcbgjuy4DpG0X+I/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791953966; c=relaxed/simple;
-	bh=k2G1gGW7lhO5m5s8SoUEHosvhmLHajlLPnUGO/LbcQ4=;
+	s=arc-20240116; t=1791954005; c=relaxed/simple;
+	bh=KU+EoPX+Yq88Up8AkRMKYmhG8QzaJM6I9m0xF3TnhFE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DmKiG+paPtTJ3pTF+5zV8pVRlLEd0x4GRrQRxNFAc9LA3+un6Q8Bycnhktxyr5Mlhi2XLh8SfjSRELn9pVARu869FsjGHYNDjEPN6CVIWy1R2noZbBwSjDP+UgIiZYiEu2JKkedDR1nnoFiOOC3o/XGxyFt9b232BDfJw4Qcjys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Rt6mJKKh; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=HOL/fJqv1xeuPRWnO9rWQNvEJmgir9ocSL4RWn4oBsDMlAXQ1SCuWvUa4eLqoBJ/COUD5h5Jn4Bod6XlLcZq+6gzk5aooteyL9VmCVGwUKMUjCNCED0n3ZKdxHV8Sya9CoC9TLVJ6bLI3al4R+/MVtz+XFRJbOnyGz/4CS6TfFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Bh7NTVYC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Rt6mJKKh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 049511F000FF;
-	Wed, 14 Oct 2026 04:59:23 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Bh7NTVYC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B0DD1F000FF;
+	Wed, 14 Oct 2026 05:00:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791953964;
-	bh=lz89EZ5EYVxYJOKYY6jYn9HslcKbAALQidGCQ+zsu+M=;
+	s=korg; t=1791954004;
+	bh=fXIs9ekj66ZBix1q9Z5865T/YtxWnwsc1T6fGlLjdAU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Rt6mJKKhFKaBTu3FLOge+9WtxpYekrxNKcx/wN1DDPvpB113c09qBxE6AVVoOz7m9
-	 /S9ihVJQzRW/yxqyjWdR3hM8Jo8VrsihCItVH2d9cEPt1bgoUOC/L1V+HML4tehYlf
-	 9IpBGQdPM5pEO9Ua/HFn+63YGHdbWyTxe98YPt6U=
-Date: Wed, 14 Oct 2026 06:59:28 +0200
+	b=Bh7NTVYCZWWamxV4NFgqwYbcstOplbNhbTswoLkfXrPg0GGMCOiSjqnGIhJagdTXG
+	 Xbk/DeHIk8kUqT17fvi1Z+l5KyN9l5nEUg1JTV+ZsuM16GQ0jaHuuVQXB53Nx5KpHs
+	 qcQ14cKrWLrHTmWXjUN+o4N5GH0W8E/hnBx1IcIY=
+Date: Wed, 14 Oct 2026 07:00:09 +0200
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-Cc: linux-usb@vger.kernel.org, oneukum@suse.com, stern@rowland.harvard.edu,
-	linux-scsi@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] usb: uas: validate status URB length before parsing the
- IU
-Message-ID: <2026101453-worry-arose-6024@gregkh>
-References: <20261013221937.41490-1-olivier.kaloudoff@gmail.com>
+Cc: linux-usb@vger.kernel.org, stern@rowland.harvard.edu,
+	usb-storage@lists.one-eyed-alien.net, stable@vger.kernel.org
+Subject: Re: [PATCH] usb: uas: ignore UAS for ASMT135x bridges (174c:55aa)
+Message-ID: <2026101442-slacker-hypocrite-33b5@gregkh>
+References: <20261013221944.41598-1-olivier.kaloudoff@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261013221937.41490-1-olivier.kaloudoff@gmail.com>
+In-Reply-To: <20261013221944.41598-1-olivier.kaloudoff@gmail.com>
 
-On Wed, Oct 14, 2026 at 12:19:37AM +0200, Olivier Kaloudoff wrote:
-> uas_stat_cmplt() dereferences iu->tag without verifying that the
-> status URB actually carried a full IU header.  The transfer buffer is
-> a freshly-zeroed sense_iu, so a status URB that completes
-> successfully but with a short or empty actual_length — observed in
-> the wild during link-level upsets (Thunderbolt-chain xhci blips) and
-> on a wedging bridge — reads back as iu_id=0/tag=0 and produces the
-> misleading
-> 
->   stat urb: no pending cmd for uas-tag 0
-> 
-> log spam seen e.g. on an ASMT135x enclosure and a Samsung T7, right
-> before the affected commands time out into the error handler.
-> 
-> Beyond the noise, a short packet that happens to carry a
-> plausible-looking header could be matched to an inflight command and
-> drive the state machine off garbage.  Bail out on anything shorter
-> than a full struct iu.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-> ---
->  drivers/usb/storage/uas.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/usb/storage/uas.c b/drivers/usb/storage/uas.c
-> index 265162981269..88fed50c262b 100644
-> --- a/drivers/usb/storage/uas.c
-> +++ b/drivers/usb/storage/uas.c
-> @@ -315,6 +315,13 @@ static void uas_stat_cmplt(struct urb *urb)
->  		goto bail;
->  	}
->  
-> +	if (urb->actual_length < sizeof(struct iu)) {
-> +		dev_err(&urb->dev->dev,
-> +			"stat urb: short transfer (%u bytes)\n",
-> +			urb->actual_length);
+On Wed, Oct 14, 2026 at 12:19:44AM +0200, Olivier Kaloudoff wrote:
+> diff --git a/drivers/usb/storage/uas-detect.h b/drivers/usb/storage/uas-detect.h
+> index 4d3b49e5b87a..f0d9748b0194 100644
+> --- a/drivers/usb/storage/uas-detect.h
+> +++ b/drivers/usb/storage/uas-detect.h
+> @@ -78,6 +78,8 @@ static int uas_use_uas_driver(struct usb_interface *intf,
+>  	 * ASM1051 - with broken (*) uas support
+>  	 * ASM1053 - with working uas support, but problems with large xfers
+>  	 * ASM1153 - with working uas support
+> + * ASMT135x - broken uas support, shares the ASM1153 MaxPower == 0
+> + *            signature, identify it by its product string
+>  	 *
+>  	 * Devices with these chips re-use a number of device-ids over the
+>  	 * entire line, so the device-id is useless to determine if we're
 
-Do not allow broken / malicious devices to spam the kernel log.
-
-And how was this tested?
+Please always check your patches before sending them out :(
 
 thanks,
 
