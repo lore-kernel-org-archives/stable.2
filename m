@@ -1,65 +1,80 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC6E37AA7E
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 02:48:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C99B3AFB19
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 02:53:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791946138; cv=none; b=PrPylHIQTmssT/QALQ1RZAAiGMzymkm55UgE8ieWSuQz1MH5gS5JQ6+cqeeEVUzYqc5bgxDHb4/63aA+FRohuYIHrtZn6przfAM7zfUz0s6lGOrerXJAZR0H0RAfjn5eWdBVGmFStxzKKDoGTDT9u5tfUIOoTwPmFxWSa9+Fpvg=
+	t=1791946412; cv=none; b=MKf1Lh7bAaslZq+f+o9PyLGSpNPSzeMj0nOj2aV0y1c2nEoti0HAkNvEan+3MJetG06Vck6qk8mhof4tcOFAvLs8AnnQZNSE+8guYps5h7FWu8+SjjjM4wMC08Igiu8LQF6tTKOy2RNsHXJBt7P0VBIiUoeT4FtWiCkwlOFeVLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791946138; c=relaxed/simple;
-	bh=OXDYFE9XRN8PNuvWXQ3gqGFHj1YcGhHHSnQnQQ+Z/0E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iIwoeMlH+5tli8yzSfobtngrzpmb4PLyNMgXPJpsXb1a4FlslC6xJPWaGvWAVdc4jI/F8zfl1F8L44PaG8YlMotK3+AzaBme27a03tzg4aIgLV/o+9am0B/3gOif3gGreR3I87MoQpFUl5QBxEOJ8qdnjOHZka/L1kA5AfSsces=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg; spf=pass smtp.mailfrom=gt.tech.gov.sg; dkim=pass (1024-bit key) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.b=lSsFPJ1S; arc=none smtp.client-ip=74.125.82.179
+	s=arc-20240116; t=1791946412; c=relaxed/simple;
+	bh=iewhjjnaDn8n3LvHPYGwnXZMaUGK9eNKhxffGIffUbM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XaIX/qgAuj845nKdlIofnCTTqfi2bhTqQkfkrSPEdSIThRNnBnl4x8AgSp5Kce9vDRuxio8h77plv5ZSS9u1gYHiyXN5vFmHA85iNZgrC7dB7N4ttWdP9IqR/JYtksCqEpHqbhhphmWFaX9tdWoGvc33WYrjcrRi3yPxdIoid68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg; spf=pass smtp.mailfrom=gt.tech.gov.sg; dkim=pass (1024-bit key) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.b=AyK/qaFZ; arc=none smtp.client-ip=74.125.82.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gt.tech.gov.sg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.b="lSsFPJ1S"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-35829219da8so554591eec.0
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 19:48:57 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.b="AyK/qaFZ"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-33fb4680717so1353969eec.1
+        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 19:53:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gt.tech.gov.sg; s=google; t=1791946136; x=1792550936; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9C2DQMC0mb4l0SVDeDQHg67THaPbHfyurH3VMACn8VI=;
-        b=lSsFPJ1StvqwzIxGYe2R+92V0xQeFgtvzhzl0FoXqYsmOKuDzD8HJupJbjmIG8ZZHG
-         a4Ds5OFz4KwB72Bn3DPya5nzWNi71shMOPDjheNSObVVb5Vuo6kt+ZJt9D6uNV0hvvJU
-         j+nXP3p+Tsot1AgHBy9Ou91WGsGSVBKxgsUmg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791946136; x=1792550936;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gt.tech.gov.sg; s=google; t=1791946407; x=1792551207; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9C2DQMC0mb4l0SVDeDQHg67THaPbHfyurH3VMACn8VI=;
-        b=VDp2MNFN+egK14Nt5z6nPA04bvNwDXLdpTJ3jVzXMkit8V2joxPySLRhzSZmUg+TVI
-         PKQi/E8Bac4krq29SmBR+4Xrorat6xvzOuZ/zb9h5JjpSxru9bEIgFVW9yhPUHYZyY4p
-         vSMN29SqcIKppGouB9KCu+4XS0LsFXhPb6JW/lEpV+COZDffEwGsKdkWBXNSXk9eX2KD
-         xd82zgPvmqtOtV8MXtV6U93f9BWgI3ZVCOdzE9Ou6YLBFyXOM1PtqwUBMZ1+79M4+zo5
-         yjCTDdbA50zTD3797ZKJhu848rNE6u5tATEqwN8aFKEJtSC/01wYV5wOXIMAcjfxmpSE
-         BR6w==
-X-Gm-Message-State: AFq9FYLKTadVrJoKWyL1lwS3VWRuZH4Tx6jdCMVYjLdOp+DjBnfOjLjJ
-	UQLDcaGXUHnxvpXDsEaK1xkbRMk3fq7185hgLZnMw39Ynasz289laF58NNgk+LI7ixM=
-X-Gm-Gg: AYBFou2JljqVQFeO+wdObhvAPewbwIK+hoZKyqULdMc0f5ejLNGus0FkCf+AsKxjFgU
-	dzlwY/D68jcQEKROLVWv/FK7Dy4/8309nWMBecv6KjgnJa1kIZpqabCHXRdIl0+ZKBvKQcVqUR4
-	m5OCzkPuatsGLgy3PfSwzGzUAWkEJADzXH/514+iLA7eObwp6fvwMYJTFW41fRHzuS85PdNqAwG
-	bbx7dxefQnY9WhNkev+afUYPS88N+KiznhZABMVih3hflUZfj/KT8iewzCfPeNjsT6qpozYVqWV
-	mzu/65Gnd68X5Tj3vQnACcG48uhlecbjqweP0u+56MUekSdWO/YO8ODy3/9s6PUDjQ88Bp9hscO
-	ZOwOnwJCHlRROkoDoyZskMfGya+hx7N0poPXIAp6NohOMXp8+cL+QpoFlXPgrgmvqNYcaA8fHcM
-	ml2kljcBC3B8Ai99VN0Sy24yYLo/nRhgCVCBO+gIFF81gLK+U2dF6/6t08uBij02wE/VV8xaBHQ
-	hmssyH51MRAfDoajzuKJnvqBYWhsDfdn8wfCpk=
-X-Received: by 2002:a05:7300:ea85:b0:359:fb64:11d7 with SMTP id 5a478bee46e88-359fb64144dmr11982172eec.11.1791946136334;
-        Tue, 13 Oct 2026 19:48:56 -0700 (PDT)
+        bh=leSND+5gisN5Md9k6LWpzUNyWGXK/I4NhOs2RkfudTI=;
+        b=AyK/qaFZWuk4UuU0mChSgvJR8y0lomGws/Lpqlry9lSFEFzeZMTCX1INQo4us1hWPM
+         EbjkdFOpvNtVs5Pb4feP43ruuQKRoyjWM0SiwdHNXK90tRuvEMr/wAFMpaIBuDWD0EYb
+         +tGK9TcskTMUlc8dDUFxrO6Krnw/0lPSd1NA0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791946407; x=1792551207;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=leSND+5gisN5Md9k6LWpzUNyWGXK/I4NhOs2RkfudTI=;
+        b=zVuj/vKYTqpyVKpr03vFpk3n6Fd6rxItAu0Sj+Wv/JfwfvwML0fGlataVjphyt755A
+         GmiJa12nB2HiTvsOYAvvp2w7iGf4j+F3PPBbpBQ08aapzfhYN3VHjEK1/6cyNMux6LB/
+         m8czdDyONoBu7UWnAb2Hp7qHLMM7nGYnr+487qPGIroxCKu9hn6ctCMYPGdtb0A62kfS
+         zwq0sWcjTx00ZGhyqcfeEXFGe5uZDN+FN0pHIZMH6oeHNEkHbu51wsZEEE5o9Dyo1O+9
+         +ddZg8Ra1s5pGFNru5sjLligARTzrCrJBh8/tF4uIl2PIOWv4tHEJEK0mHjYw9EySL53
+         NgCA==
+X-Forwarded-Encrypted: i=1; AKwUvBy0P+hkrGARBUQ3YA1hTImaOSXiBWSKs+eiY7DHoz4ZfRgUsIdbB4xMGwHvg5gbF9JrxilJVY0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEiIZ6MglJhIedIpKczZvx2Dt3dFhPlPki5PS367rcey8sp4Ju
+	MUg2PrGmE68NLCdqJEjpCH3blV7Eb8k88U7R8yrXkcTldhd85P6zrkp6fE3U+kMpPNJ0jKXo3x2
+	3Lv93rLE=
+X-Gm-Gg: AYBFou2jTqdTn6EvORNrmjJGWUKka6luYMipBs0ZRgWl/fmNgKM/Vi0FKYWEpoezpXi
+	ukWuPsZTnPBoxp2ySpgcc4Ospmka4zC8IfQB1KfMlnsw8RE/sMrj75+Yy861vhxBpqnRh6bExOt
+	vgOqmvjN212Sfn0Tewgw3qkTqOmBwAFLzH3ZxD1zpN9wwQIwQtXMeEUSpgk8I8NhsjkLBrwK7wm
+	ndix9OKDNPLmlrOciQvenFEnNLYq1LF5dfXm/EEsGsyny5TXxvQ5xUdJc3h148/wSHXaWrnF43g
+	xqjc+i3T+t2i2Tnd+Y6mZXwNhrSR5bNit5YqMDFleuzbTz0Zp4gDdIdD35tfd4GfRGw4Dnm18vv
+	58vgH/Gc3WTXNKA5jDm3I8FiUjxBz/aVQs9LsPB4cUyitkf+Jm5MYaGlOVQbFcerTBbqJRvLHMs
+	lMQozDlGsV3wOAOw0e0qdf8cK2wXrfY9lP8kaUlOi+4TYR8KEmxV6idbrL52SkJaUyW+lfXAGIH
+	si+EOF7pLsQ/nwzbT4mvMwyYOs=
+X-Received: by 2002:a05:693c:2a16:b0:35c:6fbd:a1c2 with SMTP id 5a478bee46e88-35c6fbdd020mr4737812eec.4.1791946407006;
+        Tue, 13 Oct 2026 19:53:27 -0700 (PDT)
 Received: from LAPTOP-UUUVNN1I.localdomain ([129.126.57.197])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb6a279sm46855529eec.30.2026.10.13.19.48.55
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb2fd33sm46522557eec.28.2026.10.13.19.53.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 19:48:55 -0700 (PDT)
+        Tue, 13 Oct 2026 19:53:26 -0700 (PDT)
 From: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
-To: Wei Jie Law <98lawweijie@gmail.com>
-Cc: stable@vger.kernel.org
+To: Petko Manolov <petkan@nucleusys.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wei Jie Law <98lawweijie@gmail.com>,
+	stable@vger.kernel.org
 Subject: [PATCH net 1/2] net: usb: pegasus: do not advance rx_skb->data on dropped frames
-Date: Wed, 14 Oct 2026 10:48:51 +0800
-Message-ID: <20261014024851.23629-1-law.wei.jie@gt.tech.gov.sg>
+Date: Wed, 14 Oct 2026 10:53:06 +0800
+Message-ID: <20261014025307.25233-2-law.wei.jie@gt.tech.gov.sg>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261014025307.25233-1-law.wei.jie@gt.tech.gov.sg>
+References: <20261014025307.25233-1-law.wei.jie@gt.tech.gov.sg>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -102,6 +117,7 @@ emulated USB device (raw-gadget + dummy_hcd).
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
+Signed-off-by: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
 ---
  drivers/net/usb/pegasus.c | 6 ++++--
  1 file changed, 4 insertions(+), 2 deletions(-)
