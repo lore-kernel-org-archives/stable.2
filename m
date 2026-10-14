@@ -1,86 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 161343F44CD;
-	Wed, 14 Oct 2026 16:12:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC9E51AFF0
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 16:24:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791994347; cv=none; b=PD4Y6WDfVVwnoa5iO798EXhNbBqxfGz6quaeJYODb80Ao9oIJMcPFoO6iabPDs6evG7p2fdL3ZaTwEH/rk3Z7/WS17OmhRAhK3rms2bozu1ql4UB7HTBmPjKyor2w4KIar2Se13Hbwxsgx9cZ7G8x6RcSUPzzKmUfyTeWqf6LII=
+	t=1791995070; cv=none; b=naGHqXbQY/ou1JgoDOLLUPO8UB+hHdexOQQN7yRnbSCTJ51JcVYwMZ2OmZTxSQWR4RE1S/PgCljsc70/c5xGIv0mlfHBiaUwJCOvWt7FmBBRXhBzvYsSHWJQPZcDFwLm1mtj0aWloYeAadH8TPM5xZOilt8h2Miuy1lZq2exptI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791994347; c=relaxed/simple;
-	bh=GyTPyss8tgeWbxcBuiqgsQXXRwq9GQZBW+1hIGvc41E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mSmDY8/SWYyrOTUb2BwYWeVQT7x9tsK7a30LEcKK/5GMYXb2B4lmFsR1TX+mmRuOlMXIRQhYseis/+kKOfMAWHMGa+S1jhLGXCJ8elsYetPdqk+7pCBniiNl5rFagSapp7UJPGqewcsyILluvyDDy/5wSk01jzKrTQxlZDEWFvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UdQpueJX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791995070; c=relaxed/simple;
+	bh=8n4C8mBosLA48FlF6AMIfimvRE0ynBaCkwx0/o7tJAE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F3q2PVd8FT7AEPP6QUy6BfrjhvCiHnR3YKjJ+oZeveQiSLXN1MnzK/rJUsvswD4uGshG18Czqhi7KCM+4EQZVRhNLBY+9bLqZzR90MzfTEk9hR6+OZChPNpsUSLYb4N4t42Wve7ERZ0XbMp09+RJt1076H2dsBdHQF76YqIlRq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=Im0Z+n0a; arc=none smtp.client-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UdQpueJX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 690BE1F000C4;
-	Wed, 14 Oct 2026 16:12:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791994334;
-	bh=x5WE3Q/70UvLQSpXvFgVPVd4kF4JaF8U/PXOcBtopZk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UdQpueJXlNKxtoSFIT83WW49n6u19pifjoG9ubz9UM0hwy1A6pBQGQPvNGMaCIqqf
-	 EgC0PjoXGz3k5TJh/nKXTrri+PedfGo38PGzOn/B7jQtJZcwrjKSzkOB7pNPhMJpgd
-	 wRYFe68WBpClCE7+u+sWTF36kY9TsT23Ac6lyLcD1uTVFpOFRlx024WzYL0US/4Kl6
-	 5dmQARHWiDFXJlih0nNSJDcSj2eD+taB1oDbnP2ib6YQtjzGkUrKZb1nVoVy4Z8gWi
-	 QmIy8N+FLTGbn3n/AnZf4tL/RPFp4VWOLnk+lvyfGPdH492nnYM1aZN+aDaVeNAqFG
-	 Pb8t8RitiAWng==
-Date: Wed, 14 Oct 2026 18:11:53 +0200
-From: Eric Biggers <ebiggers@kernel.org>
-To: Baokun Li <libaokun@linux.alibaba.com>
-Cc: axboe@kernel.dk, linux-block@vger.kernel.org,
-	linux-fscrypt@vger.kernel.org, hch@lst.de, dm-devel@lists.linux.dev,
-	mpatocka@redhat.com, sweettea-kernel@dorminy.me, satyat@google.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] blk-crypto: fix missing smp_load_acquire() for
- tfms_inited[]
-Message-ID: <20261014161153.GC322435@quark>
-References: <20261014071846.3666398-1-libaokun@linux.alibaba.com>
- <20261014071846.3666398-2-libaokun@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="Im0Z+n0a"
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1419d3416ceso2001245c88.0
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 09:24:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791995066; x=1792599866; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7fArNqMcPnfGqJ3AJ98+N2PF0HJ2l/WUFDVFpep1nyk=;
+        b=Im0Z+n0ak4tnR3BZtPFUowZT13dL1VkVYpxHrRYVKFugh34SKhLtBf8NJVB3mAt8UE
+         4Hz10fmTIwXnznM0Tv9wCpaDvV5dR8TAcizQtCFhygc++eq22J0pEwcPBxc3LmtMSV5w
+         pP9JAg0SIDW35nvilHzjcbDMxcImhgj2fR2ws8yZrScxbLE5n8oVV5j5WzhuXbO2qLUj
+         T+HJ2E+OfWbucF+bJrzif2LhS4l8UQFm6Fa8CU+VN7SFJBFfz65dVjPMS9hPwpKmenlp
+         axlF+NX8f13UV/qOQtyVrqtzbW/svdMi+EVOyonJKZNBbNKMf102/jh7jQgzPLuz9sd6
+         /9Gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791995066; x=1792599866;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7fArNqMcPnfGqJ3AJ98+N2PF0HJ2l/WUFDVFpep1nyk=;
+        b=E5L7YgzUmVwg2aaGmjwBw85P4GZCdTJ0vARWBRlm7yk08jko3lexSyIyW2D/FZKI5v
+         PQPianxJjjziBmUdXoLBkNvRpgzC0TQm/AEYoRIoebM4xmc1T8GqJwp9Qgmb6pUo0uHS
+         UtmIhHk7pzfOFEN5S0Ygw8dqMr4OiLNqMx0uz4+q73oR7FS00zJmfBjJIr6RqYDQI96v
+         VOJzGvHwxHyk/pF2RnBOKbP9/W1B63qos3zkeww3vD7OAInyTirRJ6sHZxHRJaycRLwN
+         c200T1FLtkTjioUvPjj3C+s2Vn29aKG5AOIMV8SRKSrvJK2MC4xWZlwG025rlBjDWSgD
+         9GxA==
+X-Forwarded-Encrypted: i=1; AKwUvBxX9kPMOUzwG2MluXzmnSLDupchIdZGNUcLQmvuVDxRNR1NDsCfBWCKm2HcR84j890mJ/57k7M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKdkIqihpij+F5YHbxM7AgfpdRhVBn/xVkE29qeA759WfFmtqxm
+	i/ntfoC/w8ON6FJDPbXUsjk2WU0t7zWJoG51nt/jmEY4As4c+eCYocI4VweVRNF7yf8=
+X-Gm-Gg: AYBFou1uHsDy7wJHYlHs5JkZ4DLRg1euTmm3BoC4hmMY8chKkOWL2TZQm1P7LiNAZf9
+	SyjHhR9KWjkhxrK3XRUMitjWnxZzvLkLkl0VVPOtKnS9u19Kx7a0gBLwFJwGFv9KCNLieM3LuP6
+	yivPEvY/YT87sPBAfnGdQ2CILhu0v8E9xnqXCZS/AOG1Kr9ZKD50oS6dG4uAx/n5KMYJd9a3AQe
+	DuXmd68N1w69cOdVhsjIQEZM0MPnbEqLbHpIdkYZnRrqT18EQ5MrtkJNaYAmgbrDfsZ+5TH+0s8
+	xFerAxFPbjnbnCsEKPLmwLJfsyvgsVXO8uJS/PsjsOpZpAguI68zITzrcrndIOpfxqsqgZdYUGK
+	ZVPDbfdAkBA6qX7r3IvX4ewF2Mtiv2+HLgfLiV5OOkxTqQxp8D/cEKUCiQt8d42XoEAu0g+WyGq
+	I93E5Nl61ropsnrw2WEYja9i9WwbpKGYJJ9yNJxMW5URMc43Gyevr9b2ne4RZa+0nmGMrTjZgEO
+	fI1yDa0niy5e3Tctf03
+X-Received: by 2002:a05:701b:2914:b0:174:7d98:fe9b with SMTP id a92af1059eb24-1747d99019bmr11401780c88.22.1791995065997;
+        Wed, 14 Oct 2026 09:24:25 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:1c49:61ee:8c8:3f4c])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1dd57d0sm48816685c88.8.2026.10.14.09.24.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 09:24:25 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v6 0/5] scsi: mvumi: bound the values the firmware supplies
+Date: Thu, 15 Oct 2026 01:24:08 +0900
+Message-ID: <20261014162413.3649841-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014071846.3666398-2-libaokun@linux.alibaba.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 03:18:46PM +0800, Baokun Li wrote:
->
-[trim LLM-generated text]
+This supersedes
 
-> diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
-> index b5dbb092caea..31f76d117593 100644
-> --- a/block/blk-crypto-fallback.c
-> +++ b/block/blk-crypto-fallback.c
-> @@ -488,15 +488,17 @@ static void blk_crypto_fallback_decrypt_endio(struct bio *bio)
->  bool blk_crypto_fallback_bio_prep(struct bio *bio)
->  {
->  	struct bio_crypt_ctx *bc = bio->bi_crypt_context;
-> +	const struct blk_crypto_config *cfg = &bc->bc_key->crypto_cfg;
->  	struct bio_fallback_crypt_ctx *f_ctx;
->  
-> -	if (WARN_ON_ONCE(!tfms_inited[bc->bc_key->crypto_cfg.crypto_mode])) {
-> +	/* Pairs with the release in blk_crypto_fallback_start_using_mode(). */
-> +	if (WARN_ON_ONCE(!smp_load_acquire(&tfms_inited[cfg->crypto_mode]))) {
->  		/* User didn't call blk_crypto_start_using_key() first */
->  		bio_io_error(bio);
->  		return false;
->  	}
+  [PATCH v5 0/6] scsi: mvumi: bound the values the firmware supplies
+  <20261014151914.3632701-1-yhlee@isslab.korea.ac.kr>
 
-No, anyone submitting encrypted I/O is required to ensure that
-blk_crypto_start_using_key() was called first, in which case the
-additional barrier here during I/O submission isn't needed.  If the
-caller didn't ensure that, then it's a bug, and we WARN.  This patch is
-inconsistent with that.
+which can be dropped, and with it the two threads v5 already replaced:
 
-I think this can be considered a bug report that the ordering of
-fscrypt_find_mode_key() is too weak now, as it just uses
-list_for_each_entry_rcu().  It looks like it should do
-smp_acquire__after_ctrl_dep() after it finds the right entry in the
-list.
+  [PATCH v2 0/2] scsi: mvumi: bound two firmware-supplied lengths
+  <20261013173145.3412863-1-yhlee@isslab.korea.ac.kr>
 
-- Eric
+  [PATCH v4] scsi: mvumi: reject handshake sizes that overflow the list
+  allocations
+  <20261014134104.3528958-1-yhlee@isslab.korea.ac.kr>
+
+Five patches instead of six: the widening of the mvumi_flush_cache() loop
+counter is gone, replaced by a bound on the device count in the handshake
+patch, and I owe a correction on v5 4/6 (below).
+
+Everything the firmware writes reaches the driver either through the
+handshake page, through the event buffer, or through a response frame in
+the outbound list.  The patches follow that split:
+
+ 1  event buffer: param_count and sense_data_length index fixed arrays in
+    mvumi_show_event().
+ 2  handshake page: frame_length drives the checksum walk, whose counter is
+    an unsigned char, so 256 or more never terminates.
+ 3  event buffer: the hotplug bitmap size drives two find_next_zero_bit()
+    scans with nothing holding it inside what the firmware was asked for.
+ 4  handshake page: the entry sizes and max_io size three allocations, the
+    list depth drives the ring index, the device count has to fit the byte
+    mvumi_build_frame() gives it, and a reset reports all of them again
+    without reallocating anything.
+ 5  response frame: the tag indexes tag_cmd[], and the value that is
+    checked and the value that is used are separate fetches of
+    firmware-writable memory.
+
+I have no mvumi hardware, so none of this is tested on a controller.  Each
+patch's reasoning is from the source, and I modelled the arithmetic, the
+loop bounds and the index ranges of every case in userspace, including the
+values that should still be accepted.
+
+A correction on v5 4/6: its commit message said it rejected an entry size
+too small to hold the frames the driver puts in the entry.  The code did
+not -- I lost that hunk before posting and did not catch it.  Patch 4 here
+carries both the check and that wording.
+
+v6:
+- 4/6 "widen the flush cache loop counter" is dropped.  Patch 4 instead
+  rejects a device count above 255, which is what mvumi_build_frame() can
+  address: it packs the target id into the low byte of device_id and the
+  LUN into the high byte, so a target of 256 or more aliases another
+  device's LUN.  The same bound is what keeps the unsigned char counter in
+  mvumi_flush_cache() terminating, so that loop needs no change.  This
+  replaces what I wrote in reply to the v4 review, that rejecting such a
+  count would turn away a working configuration -- it would not, the frame
+  layout cannot address those targets at all.
+- patch 4 regains the entry-size minimum described above.
+- patch 3 bounds the bitmap by sizeof(struct mvumi_event_req), the length
+  the driver puts in data_transfer_length, instead of by the 512-byte
+  buffer.  dma_alloc_coherent() returns zeroed memory and a zero bit means
+  a device is present, so the bytes past what the firmware wrote would be
+  read as devices that do not exist.
+- patch 5 uses READ_ONCE() for the tag and request_id it takes out of the
+  outbound list, and patch 4 does the same for the three shift counts it
+  takes out of the handshake page, matching patches 2 and 3.  Checking one
+  fetch of a shift count and shifting by another is how a device gets past
+  the bound those checks exist for.
+- patches 1 and 2 are unchanged.
+
+Yehyeong Lee (5):
+  scsi: mvumi: bound the per-event parameter and sense dumps
+  scsi: mvumi: reject an out-of-range handshake frame length
+  scsi: mvumi: bound the hotplug event bitmap
+  scsi: mvumi: reject handshake sizes that overflow the list allocations
+  scsi: mvumi: validate the response frame tag before using it
+
+ drivers/scsi/mvumi.c | 187 ++++++++++++++++++++++++++++++++++++-------
+ drivers/scsi/mvumi.h |   9 +++
+ 2 files changed, 168 insertions(+), 28 deletions(-)
+
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+-- 
+2.43.0
+
