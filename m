@@ -1,316 +1,117 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A329153D0D8
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 17:52:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792000339; cv=pass; b=m6TsZe6Jjc9x9JJzWaSabvb7VCvJysiuJ4WOY3JYC3+UGeIwLa8OyzlgpkJ81sxH6v/EujBU6x+dRWTOF92sBbozrOWBVGSRYBQgVP1eJkBPy8M24vxQhsCVnh9mTM3svgQWO4SmsmceJUoAPtrlYoGlebjjoXheb89oeGpKPmA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792000339; c=relaxed/simple;
-	bh=hbHSPhq87+/pwYwNvx5gX2zfxPRsJyJzwGcwpxxTEbM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nJWYcTRhQhOaRJhxQ2CQiht3P+QGyxBt3d9Z0P1N7IADU8PJNpc43xPSI+nscGZkh99J3eBJZuvyejKNPs/VarhxIqnCRdTchFj69TR6wt+zezHn3JaV3SHZwKiPY3+bzN6N+A3sasSlJxbmKXmF4BwlZAxr3nMB3oCPBGBAfIk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R6Qu1L4A; arc=pass smtp.client-ip=209.85.208.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26455616A4
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 17:53:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792000384; cv=none; b=OBcR30nT9YfoVpSCAz0lcSxkfB9tcK9YBuDqjQvSB58AUwFMVvYduV3uSiCOgpWDYadPiMmY+Rf4Yw3E4FH52UghZdxCKtWmrRkR8ro9aZqmigSxk1gwohp5xSer+UiqkCdITimyXprg+2zenOpMoaZ4RCuh1Tt6VAIvdFiVCZo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792000384; c=relaxed/simple;
+	bh=+xRfdEstPEoB/0nLtXWtVVOiZOJPtIXTR+WV6k2Yt1g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XJUwoqTLhZIsRhp111JyIcNPER4ArM7IeXA5LZyF9VSMoRVGMV+LH05O6GOXUdS2Ew26v3d+ez1XIpZPmjGoh9d6Yz7NBP8aGfBBIEvuMly3KF0bYJhzDd+EmP4bt26niz3qjwW//IGD2dUsDjfLilB2o3J4o/2BfqEDuWI4rcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=IHdhk+8T; arc=none smtp.client-ip=209.85.219.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R6Qu1L4A"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6acbe0e4090so758729a12.1
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 10:52:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792000336; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EtF/3CyLIAx8OfFUpBhoOEbuMH4evtH2PVqqYpl0b5bhhsrCd22j0mTJ68uaj2Zu1a
-         XzG4H3q8m5Yu+iHYUmXIOMgpI7OUv8kv4bn4Nf1yzc4xJ58Shp7VDvrUqBCNhtQWOe28
-         ByB6Fm3EaVbN8QFXL0tnHymk9+GXulUEDhpq7fSQy+oEfEET7E6VYlYegNSKvjH4aVe7
-         LWBtUXwnFZiGAGqEFU9pAc3JT0bWE6D3rBSIHspy3NOaeFfe7rygyDFGX8BKAZJ1lqlw
-         zARLkzhozimURTRxBD7xa1TA3BVi9B/e9KML1hZVWCDK1rrcmlxG7rlOZH6SX4sy6Rs2
-         hA7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Ug622xXr9QyPlP/Ov7DfPJB4MLhUVndJohGbmWVpREY=;
-        fh=szhwl9Bag7PPXWgCs9dVfqeBbjKFL30aHSGtq9UaOO8=;
-        b=Y+BMujTfKgk4oTrsbloW2foFb1/inFI5bBINGIGOiTXGlL0IoI5fYWZ7ICahlrIrNS
-         hyykuOySMlZf/PSA6sF7hC8ej832yn8LEdqJ7bv+xY+ZIq36O+3enQjJkGwu1VR1Oomz
-         XSRUu0X7bRfmdFNnCouEz5Cr0nbosC7LTZE207o3aHQ5d3jANRSpzE9Gjahth8mOcxXY
-         s1ElZbEPiaDZTndj71u/cJZ4x5eauf599aXZ9wpL1hzJ2kPfK1g228LPRSOJcMKvlO4j
-         hNXNcRGjbTk1rK/cM4VJOeBra3pSTqdlPXCF14+6E1Ys5HdMquo8TjcHtatlJ2pcJqGM
-         ddvQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="IHdhk+8T"
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-918f75a68f0so71116076d6.1
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 10:53:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792000336; x=1792605136; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=toxicpanda.com; s=google; t=1792000381; x=1792605181; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Ug622xXr9QyPlP/Ov7DfPJB4MLhUVndJohGbmWVpREY=;
-        b=R6Qu1L4AHJBuDACn4coyHjQUcnDafj/0vdancQ/EnPgGCGymLwW5yN7BGIb8tu4op9
-         GM6DhSbKUn1RKLznNwv8otDYFe/HrSkHBsxMnC0dx3xlyM6pemKy5Lvyzn/Siy1OZn7Y
-         9NlHfkHnFWqAW9bSdePJC56aeKpMsIe5LZJZQAjENpYq1V8KepoSzZcpUoUYwoeZOSwy
-         JMSs4/jvpiIne23lCw6AkLphAae6zCfINStfEv3WeubyjoFELyK2UM7/c7BJz2eohVUh
-         vDzturfzThHADm8teuq4PkDxmWb/sBVfHK5Z/ABbT5Tzi6qo5JSiAr7aujYldY4/6Mx4
-         SHRQ==
+        bh=zsq92fxVdxK45zQgeZwO9L+7uNriDQM/IAKXxnDi/WI=;
+        b=IHdhk+8TbZ9+MHOja1L3hCQI5WRVs8ODzT+XBsVN9WxfTbjQjv6YviNSZuKqOunIGh
+         b8550FvIYq2uokyw0bE+b7UM2gbjiwN3Zu9N4Em4VUZVwIBOYsr7+NKj4ja5KJTd/aZW
+         gajfntqizqiRuWOw4AB56z7IlQg6IXBIHUplTjUu4NiGXuxmm4cOIpKmdHS0ZIJBqTYz
+         a0iYz22yw3JmaP2GXxtveI46YtDHYsK/VNZWDLd6Pz9VSj6rH8kCuS+aM8ywi4CeDs0C
+         Z1uqImcdTHDtAr/vLEqE64o0Y74XQlHATveWFoecArb+zLr9KVIezzhleSXxEff7iSf8
+         nwaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792000336; x=1792605136;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792000381; x=1792605181;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ug622xXr9QyPlP/Ov7DfPJB4MLhUVndJohGbmWVpREY=;
-        b=qHLoMmREwV+KZmoisH8na//UAxv9Mil1V1vKg9eAQvGqUGhcKQJ8aP66mCL22koDiO
-         62WdgR8jVERsfDBewgq7pSPEf78ICBDEBEBxZ2Pj+RuHGMMJlimSnik9WgucqFFnuoGD
-         evIYn6uEppKw+mvWFizeO76b5HwYpvppotB0EInWrVMvtr9gwN/P3AmlG0NtLhC/fJr4
-         b1mx0/Iitl8VikgpfpupNgRklgVdTrP72lx7iHQqhWOefVdj+UmRhyNKLUj16WUu5GB3
-         xdAOQ3I2UMEeYfuOBXdMsEiGnXoTSqL+L7ucPfj2pJdmOB/H/safY9DbvxKa9Mt6tueq
-         9NCg==
-X-Forwarded-Encrypted: i=1; AKwUvByagSTj1x/Wvn65+gjtNVcvXkaFqzrP4b7YHwA++Qf7hCvQvKviZ6Fz6VVWFGJCZeUZ3F2ctPo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8ww9Rtuli8WY5Gst5Gd9fPWx1zAPRaf2EXv83JDcHpRdvz5BG
-	JnqOzqd14oygmM7UCXQHb2u7MvcQz9TayFKAZ1JviZE5ocaaR8EWjxXXccOxiXvpRIWqwoBQWx6
-	1ZpsvigS2SaewSqNtpt1i/y1Ht4u73Io=
-X-Gm-Gg: AYBFou0rfBt3tfvckSlNyU3uVkT19AvRPkb5sb1tVN9sIynuUfcaGv2nGKjsvsk05qb
-	l3fXKr2AIQgLbo+8VYMeS6KmigIMXp5WFHsRQ/0vLDmUa7DoSt6lJ6jKoI6yW1iw7TITal4ducS
-	S8Rb35daBlWguI+Feclg+F2Re/ZNI4QhPcCXuP32yeoJg8PovLlBPu4Adz+y2gybubDW0s0p2gU
-	/rRWeY7P4kYIK7sQSWu9vju+BmHnHXs3+4QOAIFCZM/SLx/cqjZxJ/20V/WUAfbuuU7uzfJNr55
-	uOmih3sCJ34XrHZPKtjFNM+5liMr7whcZNFG93Vl2DQsr6LYBCBVcToIX8ySzcZJCXjxSsz3QY6
-	jJHpcAED+
-X-Received: by 2002:aa7:d496:0:b0:6b1:a51d:2091 with SMTP id
- 4fb4d7f45d1cf-6b1a51d2173mr7110113a12.3.1792000335396; Wed, 14 Oct 2026
- 10:52:15 -0700 (PDT)
+        bh=zsq92fxVdxK45zQgeZwO9L+7uNriDQM/IAKXxnDi/WI=;
+        b=RT1VL/PAoAbBDyeXpGO5t2/DPqGhaOsWUu/g8gaam8xZO1O67HQCCxC+tYdvVT3SAM
+         bwFLwFf66pTXZRk2CARta95N+cBuHewGl+3yrA8d9q90pwWq86f67AIbKf60/dMKPMCn
+         vHvZ0QiLdQgjDBfZj4HF9pYo+VU7a2HqpIHuWGZW7sWw9uulCJjdP8Zksp4/nYN1AU6t
+         mKXE0H4SqifB5L62K7npmo3Ett0hcOaSXgptE87pdWC9hkkQ3aXOjJXFXebb429KGOmS
+         VRp0E5EdAfi7XyCiU/qRXaebBYuWJrNNhPGA6zXdzWLALi51DVJijiU5t6Cu8LHsLPlb
+         VZ0g==
+X-Forwarded-Encrypted: i=1; AKwUvByo4x6oGssy2q1s3pb5IiJ4wW4+qgjAwFGS/e+X9F5UtSmeQ6TGcbU9DLE6tv3eldyopXZ45oE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYojUZh8lC0Y3zjEfL5D9TJcNg8FqMYxGKUS9rQJuZmzCaDHsJ
+	cTdjx8ta3HqzKIUpxVG/NTktSkJCfRWVWAd2yxF1O2vqPYV5ZcnUW+LlsQkri3j4X/8=
+X-Gm-Gg: AYBFou1ZcYXNkgKXgpwjcdy69TjvsG2jJiILWabA4gbt0JKxixyM17yeELEQ9nvnqJh
+	IGO5L12o6mGHFKXu/FkWjyUQdcIaGE/mXzDhzfaYaSyFAHmWAaN5gTpFR9PSADnYzyMK1r/fcs4
+	LvQoVGncnDDinfdvGuYGOJWVKS6VCyzmehXxLAOSYEZyheNA2WZxzRJ6vS4Kqq91X18L/yFyuIJ
+	odHqjQlAnb0veVRB+qiPeLTRlqeF0flvetAY57Mm1nRmwx9MfwFZNGPfZMBXkCggUHa0wWbEoTv
+	n97VIFi00DE1mKZqTdikexdQDDu1COZ5SUsEaf7xJcrV2RX4ZxiW5E8IWPBxN86gSV5D804tYGO
+	k/XRL7dbkXud9Oul7glo5Qwsl/tPn8jYZQel7BBg7ymO2vn5zm7es+1aGAV7zyIbVW0+A9nchtK
+	rwtQkThxBU6yZUOmvL1y0N5YRHRq11KV5T0cC5MlPbU9oC8uHbRxOMU4M1wDkVlgoMTge5KZaBn
+	9KGdShcu1oCyh8i
+X-Received: by 2002:a05:620a:17a0:b0:93e:c12c:f13b with SMTP id af79cd13be357-93ec12d085amr2683326985a.69.1792000381143;
+        Wed, 14 Oct 2026 10:53:01 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.254])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b387e0sm58301296d6.12.2026.10.14.10.53.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 10:53:00 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
+ Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>,
+ Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
+ Mina Almasry <almasrymina@google.com>, Kaiyuan Zhang <kaiyuanz@google.com>,
+ Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH net v2] net: skbuff: make skb_copy_and_csum_bits() report
+ unreadable frags
+Date: Wed, 14 Oct 2026 17:27:18 +0000
+Message-ID: <179199883858343.2.17884063473154560573@toxicpanda.com>
+In-Reply-To: <CAEzrpqd9Pna32K8i5Ug3tP+ZiRa7-0GmyX+sn=OwbZ_3osEAsQ@mail.gmail.com>
+References: <20261013-b4-skb-segment-nosg-unreadable-v2-1-6c28d8ffa51e@toxicpanda.com>
+ <20261014135154.05de968e@pumpkin>
+ <179198668564919.2.10323410751655182155@toxicpanda.com>
+ <20261014173042.0a74a25d@pumpkin>
+ <CAEzrpqd9Pna32K8i5Ug3tP+ZiRa7-0GmyX+sn=OwbZ_3osEAsQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013084056.1070923-1-nicoyip.dev@gmail.com>
- <20261013090358.1178367-1-nicoyip.dev@gmail.com> <as9otxVeOLbhkIMy@kernel.org>
-In-Reply-To: <as9otxVeOLbhkIMy@kernel.org>
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Thu, 15 Oct 2026 01:52:04 +0800
-X-Gm-Features: AclHuK-mF7f2-ToQFw5yb6eWZea95LJSk6oMoOQo82NHSzDQBf9ruJ97DzyUm-E
-Message-ID: <CAAo+4rXGputXtxgkLLAtFSS=utgr=S=ajbqDFZV=jySZ1yz+sw@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] keys: Protect quota-owner reads in namespace filters
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>, 
-	James Morris <jmorris@namei.org>, "Serge E . Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-Dear Jarkko,
+On Wed, Oct 14, 2026 at 12:52 PM Josef Bacik <josef@toxicpanda.com> wrote:
+> ...ERR_PTR would be fine too? I'm arguing for explicit return values,
+> not "0 means failure". But I don't care enough to argue, I'm
+> respinning. Thanks,
 
-On Wed, Oct 14, 2026 at 7:34=E2=80=AFPM Jarkko Sakkinen <jarkko@kernel.org>=
- wrote:
->
-> On Tue, Oct 13, 2026 at 05:03:57PM +0800, Chengfeng Ye wrote:
-> > keyctl_chown_key() replaces key->user under key->sem and drops the
-> > reference to the previous owner after releasing the semaphore. Readers
-> > which do not hold that semaphore can still be using the previous owner
-> > when key_user_put() frees it.
-> >
-> > For example, namespace filtering in /proc/keys can race with chown:
-> >
-> >   /proc/keys reader                 keyctl_chown_key()
-> >   user =3D key->user
-> >                                     key->user =3D newowner
-> >                                     key_user_put(old)
-> >                                       kfree(old)
-> >   read user->uid
-> >
-> > An earlier instrumented run reported:
-> >
-> >   BUG: KASAN: slab-use-after-free in proc_keys_start+0x353/0x440
-> >   Read of size 4 at addr ffff8881128abbc0 by task poc/88
-> >   Call Trace:
-> >    proc_keys_start+0x353/0x440
-> >    seq_read_iter+0x25d/0x1190
-> >    proc_reg_read_iter+0x19e/0x260
-> >   Allocated by task 86:
-> >    key_user_lookup+0x1b4/0x540
-> >    keyctl_chown_key+0x3cc/0xbf0
-> >   Freed by task 87:
-> >    kfree+0x149/0x330
-> >    keyctl_chown_key+0x7b0/0xbf0
->
-> Last night I missed the text below.
->
-> It is somewhat messy to the point that frankly I could not read it, or
-> at least I did not understand it. Have you read it yourself?
->
-> There is a whole eassay and I can only see that key->user can change
-> unless key_user_lock is taken, and READ_ONCE() is required to pair with
-> the writers.
+I respun it with the sum starting from ~0, and it changes what goes on
+the wire, so I was wrong above about ~0 not changing the folded result.
 
-That READ_ONCE() should be unnecessary, since key_user_lock now
-serializes both readers and writers. I will double-check whether to
-drop it.
+csum_add(~0, 0) stays ~0, and csum_fold(~0) is 0x0000 where
+csum_fold(0) is 0xffff.  No other 32 bit value folds to 0xffff, so
+there's no non-zero value that can stand in for a zero sum.  ICMPv4
+folds the raw sum with no pseudo-header, so an echo request with id 0,
+seq 0 and an all-zero payload gets a reply with a checksum of 0x0000
+instead of 0xffff, and the sender drops it.  I checked that on
+loopback: the reply has 0xffff with v2 and 0x0000 with the ~0 seed.
 
-> I don't understand what is going on down there, and what's your goal
-> with it?
+So 0 can't mean failure here without changing checksums, and v3 will
+keep the explicit error return from v2.
 
-Yes, the messy commit message should be cleaned up before sending...
-Sorry for that. Basically, it describes why the three `key->user` use
-sites should be protected by the lock (because there's no
-synchronization) and why the remaining access at other sites doesn't
-need it (because other caller sites are synchronized). I will rephrase
-the commit message to make it human-readable.
-
-
->
->
-> >
-> > Take key_user_lock explicitly while /proc/keys and find_keyring_by_name=
-()
-> > copy the owner's UID. find_ge_key() is the initial/seek lookup reached
-> > by the reported proc_keys_start() fault; key_serial_next() applies the
-> > same UID filter to subsequent entries. find_keyring_by_name() reads the
-> > same replaceable owner when looking up named keyrings.
-> >
-> > key_serial_lock and keyring_name_lock protect these traversals but do
-> > not exclude chown. Taking key->sem would sleep under those spinlocks.
-> > The embedded key->user->lock cannot protect the dereference needed to
-> > acquire it.
-> >
-> > key_user_put() already holds key_user_lock for the final reference
-> > decrement and tree removal. A reader selecting an owner before removal
-> > blocks its final release until the UID copy finishes. After removal,
-> > the lock and reference-count ordering make the preceding owner
-> > replacement visible, including when another task drops the final
-> > reference. Mark the pointer loads with READ_ONCE() and the chown store
-> > with WRITE_ONCE(); the existing lifetime locking provides the protectio=
-n.
-> >
-> > Retain the quota-owner UID rather than substituting key->uid, since the=
-y
-> > may differ for thread keyrings.
-> >
-> > Other owner accesses already have lifetime protection. key_alloc() uses
-> > a referenced owner before publishing the key. Final key_put() cannot
-> > overlap chown, which holds a key reference. key_gc_unused_keys() handle=
-s
-> > unreferenced keys: serial-tree removal excludes /proc/keys readers, and
-> > keyring_destroy() removes named keyrings under keyring_name_lock before
-> > the owner reference is dropped. /proc/key-users already holds
-> > key_user_lock during traversal. Quota reservation and instantiation nee=
-d
-> > the separate accounting serialization.
-> >
-> > Fixes: 454804ab0302 ("keys: make procfiles per-user-namespace")
-> > Fixes: 2ea190d0a006 ("keys: skip keys from another user namespace")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: GPT-6-Astra
-> > Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-> > ---
-> > Changes in v4:
-> > - Move the quota-reservation and instantiation scopes from v3 1/2 to
-> >   the complete accounting fix in 2/2; retain the combined lock coverage=
-.
-> > - Isolate the namespace-reader lifetime fix and make it independent of =
-the
-> >   accounting patch by relying on existing lookup/final-release locking.
-> > - Pair READ_ONCE() pointer snapshots with WRITE_ONCE() in chown; explai=
-n
-> >   lifetime ordering and preserve the quota-owner UID filtering semantic=
-s.
-> > - Include analysis of of the other owner access sites in the changelog
-> >
-> > v3: https://lore.kernel.org/r/20260927162528.943886-2-nicoyip.dev@gmail=
-.com/
-> > v2: https://lore.kernel.org/r/20260904080940.575882-1-nicoyip.dev@gmail=
-.com/
-> >
-> >  security/keys/keyctl.c  |  2 +-
-> >  security/keys/keyring.c |  7 ++++++-
-> >  security/keys/proc.c    | 15 +++++++++++++--
-> >  3 files changed, 20 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
-> > index d14ace88e529c..c89a4d6efed40 100644
-> > --- a/security/keys/keyctl.c
-> > +++ b/security/keys/keyctl.c
-> > @@ -1039,3 +1039,3 @@ long keyctl_chown_key(key_serial_t id, uid_t user=
-, gid_t group)
-> >               zapowner =3D key->user;
-> > -             key->user =3D newowner;
-> > +             WRITE_ONCE(key->user, newowner);
-> >               key->uid =3D uid;
-> > diff --git a/security/keys/keyring.c b/security/keys/keyring.c
-> > index 15bf4af8f2821..4a13749bc54cd 100644
-> > --- a/security/keys/keyring.c
-> > +++ b/security/keys/keyring.c
-> > @@ -1148,6 +1148,7 @@ struct key *find_keyring_by_name(const char *name=
-, bool uid_keyring)
-> >  {
-> >       struct user_namespace *ns =3D current_user_ns();
-> >       struct key *keyring;
-> > +     kuid_t uid;
-> >
-> >       if (!name)
-> >               return ERR_PTR(-EINVAL);
-> > @@ -1158,7 +1159,11 @@ struct key *find_keyring_by_name(const char *nam=
-e, bool uid_keyring)
-> >        * grants Search permission and that hasn't been revoked
-> >        */
-> >       list_for_each_entry(keyring, &ns->keyring_name_list, name_link) {
-> > -             if (!kuid_has_mapping(ns, keyring->user->uid))
-> > +             spin_lock(&key_user_lock);
-> > +             uid =3D READ_ONCE(keyring->user)->uid;
-> > +             spin_unlock(&key_user_lock);
-> > +
-> > +             if (!kuid_has_mapping(ns, uid))
-> >                       continue;
-> >
-> >               if (test_bit(KEY_FLAG_REVOKED, &keyring->flags))
-> > diff --git a/security/keys/proc.c b/security/keys/proc.c
-> > index 4f4e2c1824f18..aa42ea4becec7 100644
-> > --- a/security/keys/proc.c
-> > +++ b/security/keys/proc.c
-> > @@ -68,7 +68,13 @@ static struct rb_node *key_serial_next(struct seq_fi=
-le *p, struct rb_node *n)
-> >       n =3D rb_next(n);
-> >       while (n) {
-> >               struct key *key =3D rb_entry(n, struct key, serial_node);
-> > -             if (kuid_has_mapping(user_ns, key->user->uid))
-> > +             kuid_t uid;
-> > +
-> > +             spin_lock(&key_user_lock);
-> > +             uid =3D READ_ONCE(key->user)->uid;
-> > +             spin_unlock(&key_user_lock);
-> > +
-> > +             if (kuid_has_mapping(user_ns, uid))
-> >                       break;
-> >               n =3D rb_next(n);
-> >       }
-> > @@ -80,6 +86,7 @@ static struct key *find_ge_key(struct seq_file *p, ke=
-y_serial_t id)
-> >       struct user_namespace *user_ns =3D seq_user_ns(p);
-> >       struct rb_node *n =3D key_serial_tree.rb_node;
-> >       struct key *minkey =3D NULL;
-> > +     kuid_t uid;
-> >
-> >       while (n) {
-> >               struct key *key =3D rb_entry(n, struct key, serial_node);
-> > @@ -100,7 +107,11 @@ static struct key *find_ge_key(struct seq_file *p,=
- key_serial_t id)
-> >               return NULL;
-> >
-> >       for (;;) {
-> > -             if (kuid_has_mapping(user_ns, minkey->user->uid))
-> > +             spin_lock(&key_user_lock);
-> > +             uid =3D READ_ONCE(minkey->user)->uid;
-> > +             spin_unlock(&key_user_lock);
-> > +
-> > +             if (kuid_has_mapping(user_ns, uid))
-> >                       return minkey;
-> >               n =3D rb_next(&minkey->serial_node);
-> >               if (!n)
-> > --
-> > 2.43.0
-> >
->
-> Br, Jarkko
-
-Best regards,
-Chengfeng
+Thanks,
+Josef
