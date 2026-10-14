@@ -1,248 +1,270 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F2B3ACA4E
-	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 02:57:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC2C33C3F54;
+	Wed, 14 Oct 2026 02:59:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791946658; cv=none; b=GEVaYTkvvHk6lxhGBGVEH4ctb8KyqGl3L/2Uv73rr1hPCFB+gUVo8sBz1s04rQr9K0BidzlwzlOVnZAVluADux2h6f/XLQM9rLM3tv5fYnaDD7vWgyDV+6kb3Ap+JaU2xeFZ7gD9ZD/9pJWluvzYjFgM22BogGqvpEWwqdJCwMU=
+	t=1791946761; cv=none; b=NMq7RoCuQniASR2OEUymactio6Zh+2TvwpUrEBDd20+ODW6v04HkLRXOCs1dy96SzlIxGEE+RfIcTMP5oQAnicWNA+Yqg+DDI5fi0del5Q5ujbXVOquk2eSP31RVTWR7N0GxDa71uNS7n53fVUH2sPhCzTp8VC2udLHVSvsT/SY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791946658; c=relaxed/simple;
-	bh=k4i6/6E6mfIk5NrCq+HVEpuhDDYq34LcZfQdvlEZ+Tc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rfrxDJGk/Ek0lr8lJD/Fnb4K9g5Gt3xXZvIVpKu4crwdY2QiwhC76h0VEkbol8i76/1c3ko6gNVUQLOVCOAJjaZcWNzu6rHJT/pc0RtcCMtMlJjvvTHb4n9j7OB+9tAnktoPLg32H5dQ/COHvbQ7Iknr98OnE/FQ1Om8S7X7hJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=miHWr/5z; arc=none smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791946761; c=relaxed/simple;
+	bh=QP0kAHnZYMZm9q2NDEtKpKFBAvMXOHavv4R3aBlA060=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=KlrlCcizxbeoFj8yt2KQOtPIZL6BjbJaI+AdWlMMwE6vkq+IHFF69Myv9qAaPlEko4jg9GSvGwN2mnPx8kCXfrKE0C35IRLlg9dSCMfFmlFahWx63pV0S94Rum0efcm0yt5pCO1FtgCMe7OZLddZE4P1LfknOaYK0ZnJAcDsVdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EkouZ8N3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="miHWr/5z"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cbedd5aece4so2718828a12.0
-        for <stable@vger.kernel.org>; Tue, 13 Oct 2026 19:57:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791946656; x=1792551456; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Aflk477R2mLIuCy3ibHQIJkx29Vy5FeRyPLK1blRAzU=;
-        b=miHWr/5zvdC5Ac2bFTQpTyyVo+SIaatV0NszyyM619YDMdvROCOaTLXh3cdcGJrMEs
-         546Pz/yaNLy0gNWgZQp1aqwWFos7LTwKvPuQ28HiuR+B06ztNn7VGNM2PAE5tUuHlluk
-         Qp1JWKsFFzUGilC/2LTw1ZYoh6VEr9fE/38e8hor9I+QqpWPxlm6xTP/a2utoTb0hL7t
-         OSvcOrjNzLKlS/VRsCYm3MO9J0QBDO+vM9+Eyuod6SxUymgg2xJ2aY7/YiklzBtiB21G
-         Ljv346eHIqFj+AJ3M3LYXLcdOuMP7AISvmgfdFs1gPwl4r6jTNv3Tge+8SeiXHbVT5oU
-         gQrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791946656; x=1792551456;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Aflk477R2mLIuCy3ibHQIJkx29Vy5FeRyPLK1blRAzU=;
-        b=TPBvOCWan6Gl8OHU1Epfnx+CMclwd45PKkAaaFZARmOo27v9O8fMEtg5BlGbZyaPNl
-         Wxezy2LaNXDZKO3s4/92g8ADreTTzmtbK7eXE/Ff2xJ4d2F5XHPtQ6yeqyAiKIjdj90O
-         ZTfdq89dK0e/GCyNFv7tkhKNBRtr0riJWqv0z/NFPIquw3397zwiJ3YT9ORu4IbCfJKW
-         /Fd0E4ob1M5fW7H5QNone0kvEzEWFZmEZnja+vpS804BpDhsZ8znayrF11+jYFijKVEl
-         NNFmfTn+T+//wNRm0kHMBuVcEUyRag+EPb2fiJPj1ly0bchMr3e9grba3C/sJmzPsq+M
-         d/DQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwAINcdJl1P3593z1Tnq/at3coLV9li4be/pAfXdavt290rZwTtJlYMvuiloub8d8+VGnpS4EU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLCoRbG06dU9dekEaiXIB6ZXz5XCEM7kSIyvN7TxWHS5/B+To2C
-	8pE/42FiKsNpOOacHQP/v7IW98oU0szOoGlbVFVJcrJHtXrzdhwcowkzDkjAFw==
-X-Gm-Gg: AYBFou2TNHSz28TeubxtNWbgwlYD6rpMNyuN8km1xqgdfL6hLRMyiYmJHbamfeRBWW9
-	U5vIp6sso8hvHIAzwKm+89Tz/eWfaTzU0zuLM2iSsv0QeQL3aFpoSxv1gAO/YabJMa/2eS9Q/VA
-	uK+zkTvJeTyLxOGzvgywGTFqsPwzPsPs7q2VRJ0YDjSG9I2JFjpbRNt85Y26Z28Ps4W3BR5+r6f
-	PY7Tj50+Z3P4QVcWgRhTWsJ4FUIEmuQReVWVftKxa2ktaDi/oQ0J0DHHLsY4aZozuKivUFVcpLx
-	UZ9n2r+qKaIfk59ouJK9fhBhTlY8tqyA7VO1hcmwHVeSSU4+hP1nR66VrJyy605Ce+uz1Hvxcnk
-	LOe2Cf6omcg6X3zOJDZEk0sTzRdVN5LX+fxBXK3MAp/QZ3kNLjVF1JvMukv8d3/bP9IwopC0jN7
-	oj/PBHA9/IAL0I00XJ2rHgiP23jRB/F4LB9JfWbiM/5ltpwa6vUnnEFd9fk0+q/0aJxI47bPcnI
-	W+ONUnStgqrOmxxjqSzvUUEzak7xkoc4oUIqLA=
-X-Received: by 2002:a17:90b:1a82:b0:3a0:d82b:237b with SMTP id 98e67ed59e1d1-3ab3ab209f3mr7397389a91.25.1791946655855;
-        Tue, 13 Oct 2026 19:57:35 -0700 (PDT)
-Received: from noir.tail7e608.ts.net (97-113-82-198.tukw.qwest.net. [97.113.82.198])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac604b2f7csm2060724a91.10.2026.10.13.19.57.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 19:57:35 -0700 (PDT)
-From: Evan Severson <eseverson@gmail.com>
-To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] wifi: ath9k: track PS-Poll responses in the BlockAck window
-Date: Tue, 13 Oct 2026 19:57:34 -0700
-Message-ID: <20261014025734.2288693-1-eseverson@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EkouZ8N3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C926F1F000FF;
+	Wed, 14 Oct 2026 02:59:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791946759;
+	bh=o5J3qMfu6cuSt5R4zTOTwHH6387Pn2psBV2ewz3WMas=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=EkouZ8N3VC4dn2Df7E0ztWOB9Q6LaUO6IOjze4cjts1QCOFwQ16W79SgtE4Xi0Va9
+	 6K3UdF/GTSljAli0Xu/TLCpNFMCntqUh1j63QQ1HVOXUDsSaOo55odk8GopA7Ibslu
+	 yzDzFy8Ga1R7aVjRzBVxVu6seQWrtCJzoG5JhlqVbXAYZi9HH/eZKFQdSEM+K9R5Gw
+	 HF84tcr12YGPZ+49BNAcOjb4/nvzLl26K9qR+OrK/pTMiGS2zcrPTSQLCbPdGa8Nw6
+	 +Z37r3r1wgvcCPTjFHn6ZBZzLeprJ93M6EOneLvi8ExmkkM51p64bpx2LVN+DfWU+T
+	 qlpq3WEVhqYSw==
+Subject:
+ Re: [PATCH net v5 1/2] nfc: nfcmrvl: publish UART state before registration
+From: netdev-bot+sashiko@kernel.org
+To: shubham@octane.security
+Cc: netdev@vger.kernel.org, david@ixit.cz, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ cuissard@marvell.com, sameo@linux.intel.com, oe-linux-nfc@lists.linux.dev,
+ linux-kernel@vger.kernel.org, gio@octane.security, stable@vger.kernel.org
+Date: Wed, 14 Oct 2026 02:59:18 +0000
+Message-ID: <179194675840.434549.3384038215557625758@kernel.org>
+In-Reply-To: <20261013025746.41292-2-shubham@octane.security>
+References: <20261013025746.41292-2-shubham@octane.security>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-ath_tx_setup_buffer() takes a sequence number from the TID for every
-QoS data frame, but a frame only enters the BlockAck window when it
-carries IEEE80211_TX_CTL_AMPDU. Since commit 592234e941f1 ("wifi:
-mac80211: Fix iTXQ AMPDU fragmentation handling"), mac80211 sets that
-flag only when dequeuing from a TXQ. Frames that reach ath_tx_start()
-directly while a session is running, such as PS-Poll responses for a
-dozing station, now use up session sequence numbers without being
-tracked.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Once seq_next is more than baw_size ahead of seq_start, every frame
-the TXQ hands out is outside the window. ath_tx_get_tid_subframe()
-puts it back on the retry queue and returns -EINPROGRESS on every
-attempt, nothing ever moves the window, and the AP stops sending
-unicast data to the station until the session is torn down or the
-station reassociates.
+Critical: 0 · High: 0 (3) · Medium: 1 · Low: 0
 
-Seen on a QCA9563 AP (OpenWrt) with a station that stayed in power
-save for several seconds under downlink load: the window was empty
-and seq_next was about 2170 ahead of seq_start. With this change, a
-90 minute run saw a run of more than 3800 such frames and no stall.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Flag unfragmented QoS data frames of an active session as A-MPDU where
-the sequence number is assigned, so they are tracked like any other
-session frame. Fragments stay unflagged, as mac80211 intends. A frame
-from ath_tx_start() cannot wait for the window, so if it is already
-outside it, send it untracked as before rather than set a bit beyond
-the window.
+- [Medium] The patch sets the TX-side UART state (nu->drv_data, nu->ndev)
+  before nci_register_device(), but the RX side is still attached late.
 
-A PS-Poll response is sent on the UAPSD queue, and ath_tx_start() held
-that queue's lock while it took the TID's sequence number. The sequence
-counter and the window belong to the lock of the TID's own queue, which
-the TXQ path holds when it adds to or advances the window, so take that
-lock for the TID work and the UAPSD queue's lock only to hand the frame
-to the hardware, as ath9k_release_buffered_frames() already does.
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the patch
+  leaves it in place: the SPI transport has the same publish-after-…
+- [High] Concern: on the normal teardown paths, nu->drv_data and nu->ndev
+  are never withdrawn.
+- [High] This problem wasn't introduced by this patch, but the USB
+  transport has the same publish-after-registration bug, and it crashes…
 
-Fixes: 592234e941f1 ("wifi: mac80211: Fix iTXQ AMPDU fragmentation handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Evan Severson <eseverson@gmail.com>
----
+--
 
-Notes:
-    An alternative would be to restore IEEE80211_TX_CTL_AMPDU on
-    non-fragmented PS-Poll responses in mac80211, which would also cover
-    other drivers that track the BA window in software. Happy to rework it
-    that way if that's preferred.
+nfc: nfcmrvl: publish UART state before registration
 
- drivers/net/wireless/ath/ath9k/xmit.c | 59 +++++++++++++++++++--------
- 1 file changed, 41 insertions(+), 18 deletions(-)
+This commit adds nci_ready() and nci_unready() callbacks to
+nfcmrvl_if_ops. nfcmrvl_nci_register_dev() calls nci_ready() before
+nci_register_device(), so the UART transport now sets nu->drv_data,
+nu->ndev and priv->support_fw_dnld before the NCI device is exposed. The
+same function calls nci_unready() if registration fails, and it now calls
+nfcmrvl_chip_halt() before registration.
 
-diff --git a/drivers/net/wireless/ath/ath9k/xmit.c b/drivers/net/wireless/ath/ath9k/xmit.c
-index 3413bb4906d..7af9fa7f97c 100644
---- a/drivers/net/wireless/ath/ath9k/xmit.c
-+++ b/drivers/net/wireless/ath/ath9k/xmit.c
-@@ -54,7 +54,7 @@ static u16 bits_per_symbol[][2] = {
- };
- 
- static void ath_tx_send_normal(struct ath_softc *sc, struct ath_txq *txq,
--			       struct ath_atx_tid *tid, struct sk_buff *skb);
-+			       struct sk_buff *skb);
- static void ath_tx_complete(struct ath_softc *sc, struct sk_buff *skb,
- 			    int tx_flags, struct ath_txq *txq,
- 			    struct ieee80211_sta *sta);
-@@ -2104,20 +2104,14 @@ static void ath_tx_txqaddbuf(struct ath_softc *sc, struct ath_txq *txq,
- }
- 
- static void ath_tx_send_normal(struct ath_softc *sc, struct ath_txq *txq,
--			       struct ath_atx_tid *tid, struct sk_buff *skb)
-+			       struct sk_buff *skb)
- {
--	struct ieee80211_tx_info *tx_info = IEEE80211_SKB_CB(skb);
- 	struct ath_frame_info *fi = get_frame_info(skb);
- 	struct list_head bf_head;
- 	struct ath_buf *bf = fi->bf;
- 
- 	INIT_LIST_HEAD(&bf_head);
- 	list_add_tail(&bf->list, &bf_head);
--	bf->bf_state.bf_type = 0;
--	if (tid && (tx_info->flags & IEEE80211_TX_CTL_AMPDU)) {
--		bf->bf_state.bf_type = BUF_AMPDU;
--		ath_tx_addto_baw(tid, bf);
--	}
- 
- 	bf->bf_next = NULL;
- 	bf->bf_lastbf = bf;
-@@ -2240,6 +2234,15 @@ static struct ath_buf *ath_tx_setup_buffer(struct ath_softc *sc,
- 			INCR(tid->seq_next, IEEE80211_SEQ_MAX);
- 
- 		bf->bf_state.seqno = seqno;
-+
-+		/* Frames that bypass the TXQs (e.g. PS-Poll responses) lack
-+		 * IEEE80211_TX_CTL_AMPDU but still use a session sequence
-+		 * number; track them in the BA window too.
-+		 */
-+		if (tid->active && !fragno &&
-+		    !ieee80211_has_morefrags(hdr->frame_control) &&
-+		    ieee80211_is_data_qos(hdr->frame_control))
-+			IEEE80211_SKB_CB(skb)->flags |= IEEE80211_TX_CTL_AMPDU;
- 	}
- 
- 	bf->bf_mpdu = skb;
-@@ -2356,20 +2359,36 @@ int ath_tx_start(struct ieee80211_hw *hw, struct sk_buff *skb,
- 		tid = ath_get_skb_tid(an, skb);
- 	}
- 
--	ath_txq_lock(sc, txq);
--	if (txq == sc->tx.txq_map[q]) {
--		fi->txq = q;
--		++txq->pending_frames;
--	}
-+	/*
-+	 * The TID's sequence counter and BlockAck window are protected by
-+	 * the lock of the TID's own queue, which is not txq for a PS-Poll
-+	 * response. As in ath9k_release_buffered_frames(), do the TID work
-+	 * under that lock first and queue to the hardware under txq's lock.
-+	 */
-+	if (tid)
-+		ath_txq_lock(sc, tid->txq);
- 
- 	bf = ath_tx_setup_buffer(sc, txq, tid, skb);
-+	if (bf && tid && (info->flags & IEEE80211_TX_CTL_AMPDU)) {
-+		if (BAW_WITHIN(tid->seq_start, tid->baw_size,
-+			       bf->bf_state.seqno)) {
-+			bf->bf_state.bf_type = BUF_AMPDU;
-+			ath_tx_addto_baw(tid, bf);
-+		} else {
-+			/* Can't wait for the window; send it untracked */
-+			info->flags &= ~IEEE80211_TX_CTL_AMPDU;
-+		}
-+	}
-+
-+	if (tid)
-+		ath_txq_unlock(sc, tid->txq);
-+
- 	if (!bf) {
--		ath_txq_skb_done(sc, skb);
- 		if (txctl->paprd)
- 			dev_kfree_skb_any(skb);
- 		else
- 			ieee80211_free_txskb(sc->hw, skb);
--		goto out;
-+		return 0;
- 	}
- 
- 	bf->bf_state.bfs_paprd = txctl->paprd;
-@@ -2378,9 +2397,13 @@ int ath_tx_start(struct ieee80211_hw *hw, struct sk_buff *skb,
- 		bf->bf_state.bfs_paprd_timestamp = jiffies;
- 
- 	ath_set_rates(vif, sta, bf);
--	ath_tx_send_normal(sc, txq, tid, skb);
- 
--out:
-+	ath_txq_lock(sc, txq);
-+	if (txq == sc->tx.txq_map[q]) {
-+		fi->txq = q;
-+		++txq->pending_frames;
-+	}
-+	ath_tx_send_normal(sc, txq, skb);
- 	ath_txq_unlock(sc, txq);
- 
- 	return 0;
-@@ -2949,7 +2972,7 @@ int ath9k_tx99_send(struct ath_softc *sc, struct sk_buff *skb,
- 	ath9k_hw_set_desc_link(sc->sc_ah, bf->bf_desc, bf->bf_daddr);
- 	ath9k_hw_tx99_start(sc->sc_ah, txctl->txq->axq_qnum);
- 
--	ath_tx_send_normal(sc, txctl->txq, NULL, skb);
-+	ath_tx_send_normal(sc, txctl->txq, skb);
- 
- 	return 0;
- }
+> diff --git a/drivers/nfc/nfcmrvl/main.c b/drivers/nfc/nfcmrvl/main.c
+> index 6efa832191172..3d26a54ef51b4 100644
+> --- a/drivers/nfc/nfcmrvl/main.c
+> +++ b/drivers/nfc/nfcmrvl/main.c
+> @@ -154,20 +154,25 @@ struct nfcmrvl_private *nfcmrvl_nci_register_dev(enum nfcmrvl_phy phy,
+>  
+>  	nci_set_drvdata(priv->ndev, priv);
+>  
+> +	/* Ensure that controller is powered off before exposing the device. */
+> +	nfcmrvl_chip_halt(priv);
+> +
+> +	if (priv->if_ops->nci_ready)
+> +		priv->if_ops->nci_ready(priv);
+> +
+>  	rc = nci_register_device(priv->ndev);
+
+[Severity: High]
+This is a pre-existing issue and this patch didn't introduce it. The SPI
+transport seems to have the same publish-after-registration problem. spi_ops
+in drivers/nfc/nfcmrvl/spi.c has no .nci_ready, and nfcmrvl_spi_probe()
+still sets its state only after registration returns:
+
+drivers/nfc/nfcmrvl/spi.c:nfcmrvl_spi_probe() {
+    ...
+	drv_data->priv = nfcmrvl_nci_register_dev(NFCMRVL_PHY_SPI,
+						  drv_data, &spi_ops,
+						  &drv_data->spi->dev,
+						  pdata);
+    ...
+	drv_data->priv->support_fw_dnld = true;
+
+	drv_data->nci_spi = nci_spi_allocate_spi(drv_data->spi, 0, 10,
+						 drv_data->priv->ndev);
+    ...
+	init_completion(&drv_data->handshake_completion);
+}
+
+nfc_register_device() calls device_add() before it takes device_lock(). If
+an NFC_CMD_DEV_UP arrives in that window, can this path reach
+nci_spi_send() with drv_data->nci_spi still NULL?
+
+nfc_dev_up()->nci_dev_up()->nci_open_device()->CORE_RESET->nci_cmd_work()
+  ->nfcmrvl_nci_send()->nfcmrvl_spi_nci_send()
+    ->nci_spi_send(drv_data->nci_spi == NULL, ...)
+      hdr[1] = nspi->acknowledge_mode;
+
+The SPI IRQ is also requested before registration. If SPI_INT falls before
+probe finishes, nfcmrvl_spi_int_irq_thread_fn() would call
+nci_spi_read(drv_data->nci_spi) and nfcmrvl_nci_recv_frame(drv_data->priv,
+skb) while both pointers are still NULL.
+
+The I2C transport also sets support_fw_dnld only after registration, in
+nfcmrvl_i2c_probe().
+
+Should SPI implement the new nci_ready hook as well?
+
+[Severity: High]
+This is also a pre-existing issue, not one introduced by this patch. The
+USB transport looks like it has the same window, and there the crash would
+happen in URB completion context. usb_ops has no .nci_ready, and
+nfcmrvl_probe() in drivers/nfc/nfcmrvl/usb.c sets drv_data->priv only after
+registration:
+
+	priv = nfcmrvl_nci_register_dev(NFCMRVL_PHY_USB, drv_data, &usb_ops,
+					&intf->dev, &config);
+	if (IS_ERR(priv))
+		return PTR_ERR(priv);
+
+	drv_data->priv = priv;
+
+An early DEV_UP goes through nfcmrvl_usb_nci_open(), which submits the
+bulk-IN URBs and sets NFCMRVL_USB_BULK_RUNNING. nfcmrvl_bulk_complete()
+guards only on this check:
+
+	if (!test_bit(NFCMRVL_NCI_RUNNING, &drv_data->flags))
+		return;
+
+NFCMRVL_NCI_RUNNING and NFCMRVL_USB_BULK_RUNNING are both bit 1, so the
+guard passes. The handler then does:
+
+		skb = nci_skb_alloc(drv_data->priv->ndev, urb->actual_length,
+				    GFP_ATOMIC);
+
+When the controller answers the CORE_RESET in that window, does this
+dereference a NULL drv_data->priv?
+
+>  	if (rc) {
+>  		nfc_err(dev, "nci_register_device failed %d\n", rc);
+>  		goto error_fw_dnld_deinit;
+>  	}
+
+[ ... ]
+
+> diff --git a/drivers/nfc/nfcmrvl/uart.c b/drivers/nfc/nfcmrvl/uart.c
+> index 9aedd168759c7..d688071f4b26d 100644
+> --- a/drivers/nfc/nfcmrvl/uart.c
+> +++ b/drivers/nfc/nfcmrvl/uart.c
+> @@ -44,6 +44,23 @@ static int nfcmrvl_uart_nci_send(struct nfcmrvl_private *priv,
+>  	return nu->ops.send(nu, skb);
+>  }
+>  
+> +static void nfcmrvl_uart_nci_ready(struct nfcmrvl_private *priv)
+> +{
+> +	struct nci_uart *nu = priv->drv_data;
+> +
+> +	priv->support_fw_dnld = true;
+> +	nu->drv_data = priv;
+> +	nu->ndev = priv->ndev;
+> +}
+
+[Severity: Medium]
+This sets the TX-side state before registration. Is the RX side still
+attached too late?
+
+nci_uart_set_driver() in net/nfc/nci/uart.c sets tty->disc_data only after
+nu->ops.open() returns, and open() is the call that exposes the NCI device:
+
+	ret = nu->ops.open(nu);
+	...
+	tty->disc_data = nu;
+
+Until then, nci_uart_tty_receive() drops all incoming data:
+
+	if (!nu || tty != nu->tty)
+		return;
+
+nci_uart_tty_wakeup() also returns early in that window.
+
+nfc_dev_up() holds device_lock() across the whole nci_dev_up() reset
+request. Meanwhile, the registering task waits on device_lock() in
+nfc_register_device(), after device_add(). In the early DEV_UP case this
+patch targets, the CORE_RESET goes out, but the response seems to be lost.
+open() cannot return and set disc_data until the reset request times out.
+
+Would the early DEV_UP then fail with a timeout instead of crashing, with
+the NCIUARTSETDRIVER ioctl stalled for that time? Does tty->disc_data also
+need to be set before the device is exposed?
+
+> +
+> +static void nfcmrvl_uart_nci_unready(struct nfcmrvl_private *priv)
+> +{
+> +	struct nci_uart *nu = priv->drv_data;
+> +
+> +	nu->drv_data = NULL;
+> +	nu->ndev = NULL;
+> +}
+
+[Severity: High]
+This is a pre-existing issue, not one this patch introduced, and the next
+patch in this series ("nfc: nci: uart: quiesce write_work during teardown")
+appears to fix it. The issue: nu->drv_data and nu->ndev are cleared only on
+the registration failure path, never on normal teardown.
+
+In nci_uart_tty_close(), nu->ops.close() runs before write_work is
+cancelled:
+
+	nu->ops.close(nu);
+	nu->tty = NULL;
+	module_put(nu->owner);
+
+	cancel_work_sync(&nu->write_work);
+
+nu->ops.close() reaches nfcmrvl_nci_unregister_dev(), which frees the
+nci_dev and priv without quiescing UART TX. The try_module_get() failure
+path in nci_uart_set_driver() calls nu->ops.close() and kfree(nu) without
+cancelling write_work at all.
+
+Say write_work is pending or running, for example because
+nci_unregister_device()->nci_close_device() sent a CORE_RESET. Could
+nfcmrvl_nci_uart_tx_start() or nfcmrvl_nci_uart_tx_done() then use the
+freed priv, ndev or nu?
+
+The later patch addresses this. It adds an nci_quiesce hook that calls
+nci_uart_tx_stop() and nci_unready() in nfcmrvl_nci_unregister_dev() before
+kfree(priv). It also adds a CLOSING check in nci_uart_tx_wakeup(). Finally,
+it moves nci_uart_tx_stop() earlier in nci_uart_tty_close() and adds it to
+the open error path in nci_uart_set_driver().
+
+> +
+>  static void nfcmrvl_uart_nci_update_config(struct nfcmrvl_private *priv,
+>  					   const void *param)
+>  {
+
+[ ... ]
+
 -- 
-2.54.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013025746.41292-1-shubham%40octane.security
