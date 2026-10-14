@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF22E3DB641;
-	Wed, 14 Oct 2026 18:29:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F72563FCB;
+	Wed, 14 Oct 2026 18:30:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792002585; cv=none; b=AiJuqMBFgzN9mMV28FM1A6hHG4ywOF6Ty2WJrcEhzNsngSqjmSTvOk187pXxWyLkfx8d+vD1IepbDOhLTK0s/tZrgCdNYtYi+RfjX4jPZbu2Bk1iqdJyB9UC9i8zYHuus/AgVG1JnTLzDB7ocekNiatoL8vIWZUXdQZUS5DCw/8=
+	t=1792002603; cv=none; b=oOreQRkVlN4s9dMgVHTR2HI+3TMuJHDHJC0O96EsXGCVnzVzTFt7GhGDJ7lL+oJprfzS2qX+v8f5RoyJeLB2BPDJr5cHkmXJSsEjEyFkxWFXdQqWTeW7U+hWeRJ8H8JJlBMUmtViXHiZmY7kbUKhMHMMF6y4VWOYosH9jIUu1Eo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792002585; c=relaxed/simple;
-	bh=IEpek5EVQJlUi70tJL7kLqJX+LTvl3pbxUeeMBzLQ7s=;
+	s=arc-20240116; t=1792002603; c=relaxed/simple;
+	bh=CvDZexJzjI7RxCUbV640at39KGkOo5+6t5uM91VSujc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BjNffRDAgP4cMTqL1or4E1drN5A/tTS1rSeVIi/1Zc8uyMLW84Or5zCKOk8k+KCKlIHfis+YR5tahYVSfkj0hiBE7RNeFi6ThIGWoFUEmASxdtHAQ3N7CQldkyc8asRnlgY4TkMfZvSQvO6buD5Xc02oNfOwvQrKmHZw1V1KMMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lUh51J//; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=HRujGbQBHinX4eJVYOZmKQz3hb8s3/w4xf4X+yMxBQrx5VEdisPwMJcp3j/HeCKv55iBLrLSmPdRjs8su9kZFCNwjY/OWpYws25D8lnlDjBKawf7pAVYPAnAB5ZPKdZZnB9FJsZO+NBTEbnGBqwYfz0dq/CTl/Bp60B0J3WHcO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h9/hPajC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lUh51J//"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B4BB1F000C4;
-	Wed, 14 Oct 2026 18:29:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h9/hPajC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CEAD1F000C4;
+	Wed, 14 Oct 2026 18:29:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792002583;
-	bh=OTQB0TUAXUD3vxID5BdQah95iIYmmihnkyQRPpRL68Q=;
+	s=k20260515; t=1792002601;
+	bh=goPUvnwsBIJ7nqx5a1aYL/GrCgKsovn5VsOtQmOka0M=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lUh51J//ZpG1LvBeZMWXi9C2zDPmftO2Z9kWvh+UGMBT0fEhZz8eLiUf6Fj4NXtSk
-	 /zCbkpzo1Edcb+oUVOKw+ZcVasSMAADZ7N6FMj8MIMcK5j2YWXAPdTmgOuaZoOLH3q
-	 CCkoio3TrMQuGevPK0CN6yUnk2fMdZw4myNBFpZdZf3H1Eq4eUL6em0pn8vH8Ktt/G
-	 MAI9aU4JrPDAwXnJv4JLohBdnPzdUPcpNurDlVmXPCdUR+UJ2TuGRzYungwqomF5oU
-	 JlFVawmL65Sb6ivYBQCWZ5F76JGcz7jbmZ0kQuPI+SLNkkA0aiCxkAsQh/dlRPfNUg
-	 tlyGqGkPKN3xg==
-Message-ID: <a5c6edb4-9e8d-47f1-a316-6627e518fa7a@kernel.org>
-Date: Wed, 14 Oct 2026 20:29:35 +0200
+	b=h9/hPajC0Azg9CvJ98mqMqpfTxxP3tEL0tJENRXOXOdPpN21/xwJANzF0XJT20uEB
+	 8ELin1BYHvgD0N0NTjGV2SS7QTiVClPuKdy9qndWJLXyLmgxGK4y3mG8CdYKUqT/vF
+	 DyqP9JEHo7TMKboBIPuoQ8M7v9UQGhKIP4Qk9LOX6lTw5aMFzensHD/vWJS7osZ14+
+	 lg0plopzf6p8DARJDysGNTpNSR8qvtJEcL9eMu+tb67MVL2m81S5bCWOth8AInlMpO
+	 10+niaPkGe77yTgorT+xOIyc+8m6DbJOK17DYw3/z2S4+GG8xN36u7lttN4Evx/Yox
+	 khSNkfCi3qmtA==
+Message-ID: <c3b95083-f014-432a-8b21-b555f0ab71f5@kernel.org>
+Date: Wed, 14 Oct 2026 20:29:55 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -36,15 +36,15 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] mm/userfaultfd: only allocate anon_vma in CoW mappings
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Kyle Zeng <kylebot@openai.com>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
  Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
  Peter Xu <peterx@redhat.com>, Miaohe Lin <linmiaohe@huawei.com>,
  Lokesh Gidra <lokeshgidra@google.com>, "Liam R. Howlett"
- <liam@infradead.org>, Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+ <liam@infradead.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
 References: <20261014-copy_hugetlb_page_range-v1-1-5b68e03fe7fe@kernel.org>
- <as99gyi-NUprRK6e@gremlin>
+ <as99gyi-NUprRK6e@gremlin> <as_EIRMinCdl1zOx@com-75606>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -91,157 +91,57 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <as99gyi-NUprRK6e@gremlin>
+In-Reply-To: <as_EIRMinCdl1zOx@com-75606>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/14/26 16:51, Lorenzo Stoakes (ARM) wrote:
-> On Wed, Oct 14, 2026 at 01:53:11PM +0200, David Hildenbrand (Arm) wrote:
->> As uffd_lock_vma() is part of the same lookup machinery and
->> also contains a misleading VM_SHARED check, change that one as well
->> directly for consistency.
-> 
-> OK, I think that one isn't _strictly necessary_, but while we're there,
-> worth doing too, clearly.
-> 
-> We should also go through and convert the remaining !VM_SHARED checks ->
-> vma_is_cow_mapping() too if possible, but that's a follow up, obviously!
-> 
+On 10/14/26 20:04, Kyle Zeng wrote:
+> On Wed, Oct 14, 2026 at 03:51:22PM +0100, Lorenzo Stoakes (ARM) wrote:
+>> On Wed, Oct 14, 2026 at 01:53:11PM +0200, David Hildenbrand (Arm) wrote:
+>>> As uffd_lock_vma() is part of the same lookup machinery and
+>>> also contains a misleading VM_SHARED check, change that one as well
+>>> directly for consistency.
 >>
->> A follow-up cleanup will stop taking the hugetlb_vma_lock_read(src_vma)
->> lock in copy_hugetlb_page_range() entirely. Further, the usage of
+>> OK, I think that one isn't _strictly necessary_, but while we're there,
+>> worth doing too, clearly.
+>>
+>> We should also go through and convert the remaining !VM_SHARED checks ->
+>> vma_is_cow_mapping() too if possible, but that's a follow up, obviously!
+>>
+>>>
+>>> A follow-up cleanup will stop taking the hugetlb_vma_lock_read(src_vma)
+>>> lock in copy_hugetlb_page_range() entirely. Further, the usage of
+>>
+>> Hmm really? Is it possible to do that without the hugetlb lock?
+>>
+>> It'd be good in general if we could get rid of that lock as a whole :) but maybe
+>> dreaming.
+>>
+>>> VM_SHARED in userfaultfd code should be cleaned up later to focus on
+>>> CoW vs. non-CoW mappings.
+>>
+>> I think also anywhere else in the kernel where this is done. An audit on that in
+>> general would be useful!
+>>
+>>>
+>>> Reported-by: Kyle Zeng <kylebot@openai.com>
+>>> Fixes: 867a43a34ff8a ("userfaultfd: use per-vma locks in userfaultfd operations")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>>
+>> This LGTM, thanks for handling this!
+>>
+>> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>>
+>> --
+>> Cheers, Lorenzo
 > 
-> Hmm really? Is it possible to do that without the hugetlb lock?
+> I ran the patch through my system and did not find any issues with this
+> patch. Thanks for addressing this!
 > 
+> Reviewed-by: Kyle Zeng <kylebot@openai.com>
 
-Yes, we don't have to sync against PMD sharing if PMD sharing is impossible.
-This is what I have laying around:
-
-commit ad6a5c65bd5fa31d93a2de2d2e5e473b26ad6a3d
-Author: David Hildenbrand (Arm) <david@kernel.org>
-Date:   Sat Oct 10 13:00:13 2026 +0200
-
-    mm/hugetlb: stop syncing against PMD table sharing in copy_hugetlb_page_range()
-    
-    We must never end up in copy_hugetlb_page_range() when PMD sharing
-    applies, yet we still have to perform the hugetlb_vma_lock_read() so
-    hugetlb_walk() is happy.
-    
-    Let's introduce a new vma_supports_pmd_sharing() and use that instead
-    in hugetlb_walk(). Also convert want_pmd_share(), which now looks a lot
-    cleaner, and document why the uffd checks cannot go into
-    __vma_shareable_lock().
-    
-    We can now relocate our safety checks in copy_hugetlb_page_range() to
-    the beginning of the function.
-    
-    No functional change intended.
-    
-    Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 5029c72418631..b2da5d5816944 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -1389,6 +1389,20 @@ static inline bool __vma_shareable_lock(struct vm_area_struct *vma)
- 
- bool __vma_private_lock(struct vm_area_struct *vma);
- 
-+static inline bool vma_supports_pmd_sharing(struct vm_area_struct *vma)
-+{
-+#ifdef CONFIG_USERFAULTFD
-+	/*
-+	 * Keep the UFFD checks out of __vma_shareable_lock(): UFFD flags can
-+	 * change at runtime while the hugetlb VMA lock is held. They must not
-+	 * cause unlocking or freeing an existing lock to be skipped.
-+	 */
-+	if (uffd_disable_huge_pmd_share(vma))
-+		return false;
-+#endif
-+	return __vma_shareable_lock(vma);
-+}
-+
- /*
-  * Safe version of huge_pte_offset() to check the locks.  See comments
-  * above huge_pte_offset().
-@@ -1406,7 +1420,7 @@ hugetlb_walk(struct vm_area_struct *vma, unsigned long addr, unsigned long sz)
- 	 *
- 	 * NOTE: lockdep_is_held() is only defined with CONFIG_LOCKDEP.
- 	 */
--	if (__vma_shareable_lock(vma))
-+	if (vma_supports_pmd_sharing(vma))
- 		WARN_ON_ONCE(!lockdep_is_held(&vma_lock->rw_sema) &&
- 			     !lockdep_is_held(
- 				 &vma->vm_file->f_mapping->i_mmap_rwsem));
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 60f9b209c8db1..606e93e32eefb 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -4987,22 +4987,16 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
- 		 * Shared mappings only need copying when we could have
- 		 * information stored in page tables (e.g., userfaultfd PTE
- 		 * bits or markers), which is incompatible with PMD sharing.
--		 * Still take the hugetlb VMA lock for now to satisfy
--		 * hugetlb_walk()'s locking requirements.
- 		 */
--		hugetlb_vma_lock_read(src_vma);
-+		if (WARN_ON_ONCE(vma_supports_pmd_sharing(src_vma) ||
-+				 vma_supports_pmd_sharing(dst_vma)))
-+			return -EINVAL;
- 	}
- 
- 	last_addr_mask = hugetlb_mask_last_page(h);
- 	for (addr = src_vma->vm_start; addr < src_vma->vm_end; addr += sz) {
- 		spinlock_t *src_ptl, *dst_ptl;
- 
--		if (WARN_ON_ONCE(want_pmd_share(src_vma, addr) ||
--				 want_pmd_share(dst_vma, addr))) {
--			ret = -EINVAL;
--			break;
--		}
--
- 		src_pte = hugetlb_walk(src_vma, addr, sz);
- 		if (!src_pte) {
- 			addr |= last_addr_mask;
-@@ -5147,8 +5141,6 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
- 	if (cow) {
- 		raw_write_seqcount_end(&src->write_protect_seq);
- 		mmu_notifier_invalidate_range_end(&range);
--	} else {
--		hugetlb_vma_unlock_read(src_vma);
- 	}
- 
- 	return ret;
-@@ -7005,17 +6997,9 @@ bool want_pmd_share(struct vm_area_struct *vma, unsigned long addr)
- 	unsigned long start = addr & PUD_MASK;
- 	unsigned long end = start + PUD_SIZE;
- 
--#ifdef CONFIG_USERFAULTFD
--	if (uffd_disable_huge_pmd_share(vma))
--		return false;
--#endif
--	/*
--	 * check on proper vm_flags and page table alignment
--	 */
--	if (!(vma->vm_flags & VM_MAYSHARE))
--		return false;
--	if (!vma->vm_private_data)	/* vma lock required for sharing */
-+	if (!vma_supports_pmd_sharing(vma))
- 		return false;
-+
- 	if (!range_in_vma(vma, start, end))
- 		return false;
- 	return true;
-
-
-Will send that out for the next cycle.
-
-> It'd be good in general if we could get rid of that lock as a whole :) but maybe
-> dreaming.
-
-Yeah :)
-
-Thanks!
+Thanks a bunch, and thanks for reporting all these issues!
 
 -- 
 Cheers,
