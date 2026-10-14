@@ -1,67 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF13499F06;
-	Wed, 14 Oct 2026 09:01:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19593254B8
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 09:02:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791968510; cv=none; b=UL5KpH0uRKpSls8Cir3pY9QbOSLAKE4ZmscBqRMttwNSt0Ztmv9pXhbX+iKHj1xHTkgT49HqxmB946+FHSwusYJ1tS5v2HgEPlbkHy5ROEzDJYx5yw0E59nYNuYPEZ2TKuk/SSrbBbX0l7/BzQwE8teAVlr/RMlBfYOFew9xgGI=
+	t=1791968569; cv=none; b=X3H2ylKlqhQqcW4Fxxm6pVThF/ZZqGr3AEf2EksC91NbE08EVPfljhFYqcNSckwMa7PW1KMZey59GSI7h6MgY7e8M8EIGUVAPj1ib23Bhohc2Ud3QOxz22DKvhXlA6CZi3B2PsfZKCx3PaAtiWK+/ZQJlXMsNn6Ooqm3wn6wBHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791968510; c=relaxed/simple;
-	bh=fK4EBgbsh8y/ygyHTRLW2d0pik1a4U3geawr9D0Cotw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XJ3D8LaCSV/okzl6y2eilwKUMtfjizkNW6Rv3ekEJ6SidQqkxcZRFHgelv7R3ikKvuUhdoCcJMxwuQ8YOY8FB68XPJwxpc/xjiDGsM0uDN9N6+RUqKTzrH6VebmIdIf0r2rGPyQBQNw0Lw+4/lCEIoRVT8B5iNxS8rdK7ZVYCQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Y1f7c/Z1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791968569; c=relaxed/simple;
+	bh=lHYdUy+fPjbDIamKXXSZVXQStz7GcmUwURwRKXS+W7Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sojanjwPd1WwyOLwMx+zZ0cBMwNfEFo4G5V7dmdpsAJB424jRZ5ZVA3UjTp5s3lwcHThm+5keaZwvUP/vsf0s6KFuOv+C5hhfbxupAifn8JQH/5YVrHM5TmfVO2UjwKr+e1OGuaQHOq+U1G8plvctOOHa9qnqSViPzczdZF9suk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tC+fjkXX; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Y1f7c/Z1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A81EB1F000FF;
-	Wed, 14 Oct 2026 09:01:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791968508;
-	bh=d+7qA8mWix34k0BGyINGvUZ3WOquU0CkExvHwCQqckA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y1f7c/Z1xVNfz7w+aWA4/TrYcE5cspE0wpsRMWXzOqMHpzWtkcqC5hyx2xJbrURxs
-	 owCy6n/murUxKR4gmnmz/8eGz9Myh/MKV+NWrtY24aGMwDykiiF2/jAGfCuePR6oDi
-	 zVu2WqCjnhX3PXW8OibGWSC2JYoTFQYyXmfpfrXQ=
-Date: Wed, 14 Oct 2026 11:01:52 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Brett A C Sheffield <bacs@librecast.net>
-Cc: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
-	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org, akpm@linux-foundation.org,
-	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
-	lkft-triage@lists.linaro.org, pavel@nabladev.com,
-	jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.18 000/621] 6.18.57-rc1 review
-Message-ID: <2026101445-announcer-unreached-bd03@gregkh>
-References: <as4kGIjqjrKzu0O0@auntie.librecast.net>
- <2026-10-13-1-daily-reply-0014-6-18-rc1-krb5-link-failure@kernel.org>
- <as8_EiojooHC5H-v@karahi.librecast.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tC+fjkXX"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ab60ff4273so3188903a91.0
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 02:02:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791968563; x=1792573363; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mvGRNBwDPobPO7nwXeOj3RUpnQAXQpmRmyxD4LJ1RXU=;
+        b=tC+fjkXXbvq5eJSFTnotBr7+xWNHh3NFqqKKDMkgnpYtgtjeuN20fCst7enm4nyhQD
+         zTgbcdEmj2LvoyWiArFQMnWrIR0EL9xM4AMcSiufKSrHgRLXKyAsg7V4nOpspgNGnztt
+         gtlYLhScbq+gtrbpNJHVZC2E7V/F73u+REiWxs74rJCRmVDZ7X85cuUD2GVh61diw4aT
+         xUJ+xmdFIsfg0zPZYPknJKxY5/sY6R1hgY77XvViR59AsYddICBRsrTzRXFFOU96nndO
+         QtCvaRJ/XOCXlEUqdJ7Y/5fNk0nGCgKkMGph11c1RVnF3gxCUeqgVLkJ3fYdtI/z7gn8
+         xzvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791968563; x=1792573363;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mvGRNBwDPobPO7nwXeOj3RUpnQAXQpmRmyxD4LJ1RXU=;
+        b=xgSzTVWj+NKCdpbJP636Cn1ydEyC63Op/2wIETUJADKh4NsVC+ZU+czAuLhTg8uqSJ
+         H15HAyC4Fjqa0eqnEMN8Q+/5asKmX14iPj3ahCeMTJHbYmxa8iVmTckfYhzpTOXaP74D
+         HegYlk3zfmf5FWIUo9ifRDn+w/rn9oOP11QTe2VRV3zVHnXdvnKqpeT3vPrpzbfy2Uoi
+         eHFeYZw27cXSpwVxeb+3UFG61sja8sK/vlcakLgsn9Bm16bbDSNB175Ux0921ZOFkBKu
+         ipJcSGrBWn3bE2Lng61eQ/5uxp77axiyaJmrk0LqBULeLsJO46WBQPyGHiZWKJbzT46C
+         syJw==
+X-Forwarded-Encrypted: i=1; AKwUvByVmrXY0Epc3WtlzMCU3xYUzeHSBbeptXEcJzLc5RuHnCKrzVub94Pe2vf2id8uvG7MxAz22fo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJVSJmT6o41ilTbRMQe8/daXL9YL645haq1rZAesNFrabaDHShH
+	fyG4PNXz2buse4LeDUTMufSpoyPrH4uxTfXCDgZRrSRVURQvGx4cqzIs
+X-Gm-Gg: AYBFou1y5EULhYb+Rf7hvfbv4zh3iIH7gR+wS1NcaYQdmn98hN8iV2z0eL/n/xT+vay
+	5AU7GSGOKo+dD+ssqD8YL6MYQ1GzFg5DthJm405fIw526hqr+yh8M+2+WBrcUeiqMnyepRzAYru
+	s1+vl2BG9dMMXlMnS4Nx0C7Q+OJGikuB9GjDcYWkyQQISTgxArNMeBxIlMa/J47hERDDYnP+vez
+	27OLftzKhpNmGhVWZxDUNqsnmyxsjKU73lQNWduu/5yRcSJu1tBxNRyuaaCSUA2tq3huVgbCSMp
+	kKQgN6q+KuVXQXeIiLbb/tPDbghMP1Ce/0Cj5+A1KgeI4YQJXP+IkjZDPZ3YfxpW+NxX/gdywLU
+	kYB/ItWFADsS8cMHiAEQ6tlAXdG//09LvC0MVgjfLvUhTEHRsNEsCUMOEvHzElVmpwrsLh514qU
+	A2FUSgI7VTU5padLUkI33JVv8NXpzKMqEivZBh0mb/gB3LLRj5IWxu+9e9i0K5Pw92bXz6FDVHD
+	atl/i0RQTRgY+SBRAInILOwKgk7Xptk/g==
+X-Received: by 2002:a17:90b:4b:b0:3ab:1e1c:837f with SMTP id 98e67ed59e1d1-3ab3ac59383mr11813233a91.47.1791968562735;
+        Wed, 14 Oct 2026 02:02:42 -0700 (PDT)
+Received: from DESKTOP-UCPRL76.localdomain ([113.200.174.120])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac84150036sm440921a91.17.2026.10.14.02.02.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 02:02:42 -0700 (PDT)
+From: vienna-0FFH <viennaoffh@gmail.com>
+To: Alexander Aring <aahringo@redhat.com>,
+	David Teigland <teigland@redhat.com>
+Cc: gfs2@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	viennaoffh@gmail.com,
+	syzbot+04dfbd15d442517e713a@syzkaller.appspotmail.com
+Subject: [PATCH] dlm: don't warn when closing a node without a connection
+Date: Wed, 14 Oct 2026 17:02:37 +0800
+Message-ID: <20261014090237.395-1-viennaoffh@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <as8_EiojooHC5H-v@karahi.librecast.net>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 10:36:34AM +0200, Brett A C Sheffield wrote:
-> On 2026-10-13 21:27, Sasha Levin wrote:
-> > > Build failing on amd64:
-> > >
-> > > /usr/x86_64-pc-linux-gnu/binutils-bin/2.47/ld: vmlinux.o: in function `gss_krb5_get_mic_v2':
-> > > (.text+0xfc2762): undefined reference to `crypto_krb5_get_mic'
-> > 
-> > Thanks for the report. The krb5 patches in the queue need a select of
-> > CRYPTO_KRB5 that was missing. Queued for 6.18.
-> 
-> Thanks.
-> 
-> Will there be an RC2?
+Opening and closing a configfs comm entry without ever configuring an
+address for it triggers the following warning:
 
-Yes, let me work on that today...
+  mkdir /sys/kernel/config/dlm/cluster
+  mkdir /sys/kernel/config/dlm/cluster/comms/1
+  rmdir /sys/kernel/config/dlm/cluster/comms/1
+
+  dlm: closing connection to node 1
+  ------------[ cut here ]------------
+  !con
+  WARNING: fs/dlm/lowcomms.c:1455 at dlm_lowcomms_close+0x12d/0x470, CPU#1
+
+Since commit 6f0b0b5d7ae7 ("fs: dlm: remove dlm_node_addrs lookup list")
+the lowcomms connection has the same lifetime as the configfs comm
+entry, but a connection is only created when an address is configured
+via the addr attribute. Removing a comm entry for which no address was
+ever set up is valid and the resulting close call has simply nothing
+to do, so it must not warn.
+
+Reported-by: syzbot+04dfbd15d442517e713a@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=04dfbd15d442517e713a
+Fixes: 6f0b0b5d7ae7 ("fs: dlm: remove dlm_node_addrs lookup list")
+Cc: stable@vger.kernel.org
+Signed-off-by: vienna-0FFH <viennaoffh@gmail.com>
+---
+ fs/dlm/lowcomms.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
+index 2aff1c7..86c7af9 100644
+--- a/fs/dlm/lowcomms.c
++++ b/fs/dlm/lowcomms.c
+@@ -1452,7 +1452,11 @@ int dlm_lowcomms_close(int nodeid)
+ 
+ 	idx = srcu_read_lock(&connections_srcu);
+ 	con = nodeid2con(nodeid, 0);
+-	if (WARN_ON_ONCE(!con)) {
++	/* case of dlm_midcomms_close() for a node which never had an
++	 * address configured, so no connection was ever created and
++	 * there is nothing to close
++	 */
++	if (!con) {
+ 		srcu_read_unlock(&connections_srcu, idx);
+ 		return -ENOENT;
+ 	}
+-- 
+2.43.0
+
