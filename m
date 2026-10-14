@@ -1,65 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D72C836167F;
-	Wed, 14 Oct 2026 14:49:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37DDF36A376;
+	Wed, 14 Oct 2026 14:51:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791989377; cv=none; b=KAlJ+Tp98BMnQJmR+Br85/NW+RmnPCikJf/xqRZqjjMl1uW2+CQ7qOmti1LDnfuC3+WsNRPVkNaUyZ49YF5mlQutTrmRkBedDMBTHYlPVr8x2lEF08Ce/e+OgajujTXgvsIX8+aC91nxbwLW0isMkfDv5uEhfqNYbmVu+6ECaIs=
+	t=1791989490; cv=none; b=HJgPcZxNSo+ZYfy05IU3NBYD0+kz9JvtGuOe9vrl+OTQyscE3muImx25FdiEnFaWSkd3MvwKVeRFLktb0GQMGwh1cmttrmuHCY6+62wu4OE5Zw70qQcybheXUD03a2DqlF7rUHCp7FscScyJ9CFlh6Rmwn0WFwhGK4LKhvE+e7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791989377; c=relaxed/simple;
-	bh=hPLpi6Ywz/Zi35eBcOCtNrznDFL590clNlJ0uAarxJI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=t9I8cR0Gj77aVtrnXCxIykIMMdwaeyFKS5X5vXmQbNebh5+sU2HsuDYN/asisUYL7h89vUy55ZZOzzl6sZ9iehD+jDcYXFNZGebVOc0lygBn5csVbUjkBIyBz5Zkic0C2wQDAP2P/rH3P9cLnFPLyAsBHGgLxNtLs4pJs+Ft1GI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JyCTxP3Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791989490; c=relaxed/simple;
+	bh=Sbwm0kYIICcSUmwlborhldmup0bfDzLGUcDOPU7O94I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=r5KYBohvD4tEcjw1/fT0mTlnYtw8vRQHNJDhhH6+X85efJdxBkHzy6LjvomlZf/zvtL7hjOvrvgJq/TBuLuTm6z80xFoCTYles/e4p7XgmWRvchxgk3uw3M34IHRaC4vYntGVYfXzY3VOpuUNVZavDZzsbfsY3ZVQeY41M3dyaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SXhY6GQm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JyCTxP3Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5510D1F000C4;
-	Wed, 14 Oct 2026 14:49:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SXhY6GQm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B66B1F000C4;
+	Wed, 14 Oct 2026 14:51:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791989375;
-	bh=VkGQywlxdW2HyQHqD30g0LqoOskVB091xOSb05TMLLQ=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=JyCTxP3ZSbOviMEedo7hhb+khoq8e+WoR94HfK6EShZJ99ecsU04ojxCqpb3ieZOP
-	 aHR1DCtVyQJeFtJSNok4h/hoT4EbmxTh3BU1wFNYdkFqtwH8NByu9JugznnCoQKYH8
-	 hT/ru1N5W4vC82sF9YIXDuiGy7Jzt6yM8sPeUKUQXv/wOFtmGNDu3iHGuzpkSjMV3r
-	 avl+uflpiLE3DZceQEosdbJqOBQm2MXDh1B4DWHZXsNSScUuEGFriyPJ6J8yC/iDY0
-	 6U1lwDWIWuLUXmiuRvGApIaWJiB55OibS9cq0A1F6oO0H/E5LzYAMVPj0b8rT93YMw
-	 GytLbLihXGlGg==
+	s=k20260515; t=1791989488;
+	bh=Sbwm0kYIICcSUmwlborhldmup0bfDzLGUcDOPU7O94I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SXhY6GQmLweh7DjlvPMxA2dTktV5lkYnXiUk3tMnz8oSC987FLw4a0aDlv8ibbI+O
+	 LmKs/zZJ0VLMz5v2QwPJZ6nsrtDLkcaa1VRnPLCw9VqY8XwbPAe419chlY6LwJzV+w
+	 X8VkiclUEYqMiUKu/9gvrUuYqnhzKQzy1Bxf7cyL1I0PzA4CPooT1Lc3T7RRLnPJah
+	 VnnOYE8uQwe7shBI2ztZRizfWah0o8mz2o999ScqgnkciSfyjlLEe06WZJ23v8WmjD
+	 EPvpL/ik+KgpdOZ3uPm7GFOnsej2jA7xLYtCx29gDZNlfO0RzoO//6ruH2jdbyyaPK
+	 kxoeAqOLA7pYQ==
+Date: Wed, 14 Oct 2026 15:51:22 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>, 
+	Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Lokesh Gidra <lokeshgidra@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/userfaultfd: only allocate anon_vma in CoW mappings
+Message-ID: <as99gyi-NUprRK6e@gremlin>
+References: <20261014-copy_hugetlb_page_range-v1-1-5b68e03fe7fe@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 14 Oct 2026 16:49:31 +0200
-Message-Id: <DM4N7SKUMF98.32GW04E2EVM8I@kernel.org>
-Subject: Re: [PATCH v2 1/3] driver core: fix parent lock use-after-free on
- USB disconnect
-Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, "Dmitry Torokhov" <dmitry.torokhov@gmail.com>, "Alan
- Stern" <stern@rowland.harvard.edu>, "Mario Peter"
- <mario.peter@leica-geosystems.com>, <driver-core@lists.linux.dev>,
- <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <stable@vger.kernel.org>
-To: "Johan Hovold" <johan@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20261014133109.1392265-1-johan@kernel.org>
- <20261014133109.1392265-2-johan@kernel.org>
-In-Reply-To: <20261014133109.1392265-2-johan@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014-copy_hugetlb_page_range-v1-1-5b68e03fe7fe@kernel.org>
 
-On Wed Oct 14, 2026 at 3:31 PM CEST, Johan Hovold wrote:
-> + * @need_parent_lock:	When probing or removing a device of this type,
-> + *			driver core should lock the device's parent. Note that
-> + *			the device must hold a reference to its parent.
+On Wed, Oct 14, 2026 at 01:53:11PM +0200, David Hildenbrand (Arm) wrote:
+> As uffd_lock_vma() is part of the same lookup machinery and
+> also contains a misleading VM_SHARED check, change that one as well
+> directly for consistency.
 
-For the reasons described in [1], I object to making subsystems responsible=
- for
-the parent reference needed by driver core's delayed accesses.  The driver =
-core
-should acquire and release that reference internally.
+OK, I think that one isn't _strictly necessary_, but while we're there,
+worth doing too, clearly.
 
-[1] https://lore.kernel.org/driver-core/DM4N25JXKTQM.3K7TP9HM68KQ2@kernel.o=
-rg/
+We should also go through and convert the remaining !VM_SHARED checks ->
+vma_is_cow_mapping() too if possible, but that's a follow up, obviously!
+
+>
+> A follow-up cleanup will stop taking the hugetlb_vma_lock_read(src_vma)
+> lock in copy_hugetlb_page_range() entirely. Further, the usage of
+
+Hmm really? Is it possible to do that without the hugetlb lock?
+
+It'd be good in general if we could get rid of that lock as a whole :) but maybe
+dreaming.
+
+> VM_SHARED in userfaultfd code should be cleaned up later to focus on
+> CoW vs. non-CoW mappings.
+
+I think also anywhere else in the kernel where this is done. An audit on that in
+general would be useful!
+
+>
+> Reported-by: Kyle Zeng <kylebot@openai.com>
+> Fixes: 867a43a34ff8a ("userfaultfd: use per-vma locks in userfaultfd operations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+This LGTM, thanks for handling this!
+
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+--
+Cheers, Lorenzo
