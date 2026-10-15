@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E23431714A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF53152BE59;
 	Thu, 15 Oct 2026 13:34:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792071247; cv=none; b=YkjMb2uY2jLTvIv6fBO1U5wsx/GlSogRq9zrq+2gxqAIxgW4sh3uye5ptUUaisVKu6f23zVe/DNKY7OjqUFLYLZbx6F+niniJKAsMuEco9pRceaBg2rmMcwAoLNU5vbtKjRMVqntXPXgk2hrblmaD8jtr3qZBlcvkh36yaAlO74=
+	t=1792071247; cv=none; b=fA/i/hhEiUIHFB0Mi3YBQql/3Izx9qGoHVDyusjzikpX0MpFWRo7iGu1VIHtxrmgaXk6EHp5kyec7qhLTXAxswwdBlJeD3fasHWV+ufO0nS2rXFQc7llGwc+qT34lRjfS3fijxhWbvEbLUY3J92/mCcDrC5ga68c1x9gKilmfSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792071247; c=relaxed/simple;
-	bh=Z2n3vR/zVQrBftE6yUZHISCj5KfiuNeU/YTQfNBDXks=;
+	bh=NzjgoKSqPSjbYwgEQR0ht6nUFl9E/8V5nNxLCRxQd00=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=ojCYBq1HAuv5EaJn1LT4zM0TbNSEvJu2cP8UO4QHa5vcAxirRhzpOzFXueb5JljDxfDT5+zxXZDg4ANdWveJg0QKSKVXFhAokEpOGxXua7ahs3VPUyRmdHDUHo94Sfz50cPgDLxDtift9TN8Lnfsr8AE/9oI5S8TzlKAE+4X67M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F/yFDorG; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=X7wMk3u5CqMkeQ1RYGwcLnz1taymsw0ypR9EnBihUGealrm2QhYaSUZTRs1WIULo1cFhvvua08ylO1vo14hCYKah3nsllHmo7+9Xea+p4cgU09qaYLDYXTc1+xb7QqN3f3sgdc+j5hGZXajeuv4bYagVT55n0R1TrFqnNmPb0O8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BdWcrNOS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F/yFDorG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07A011F000C4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BdWcrNOS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92EDC1F000C7;
 	Thu, 15 Oct 2026 13:34:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792071245;
-	bh=OxKnwAhkfgtLZ2vkrQPUgMp2uW3yD76d0N5giMxcywQ=;
+	bh=ohxQMm4+6T4AWLsYoE6Ve+xI6U19JmMjTGTIn0TAFO8=;
 	h=Date:From:To:Cc:Subject:References;
-	b=F/yFDorGTCYsLPcYPrzU9S0Gr2NGUNV6dasXFOkbwUSKL5mWsCDfRQxz9cbvISffv
-	 oZFZx18rGwbfEPBVSHIphoHjN5CDH0jjtH1V+sP1sF39TQRvCYIFQUcB7gunkShPWa
-	 crKFdS7IE/WRX0Jy02536PrTj5rsMdTHxAlDQ0rh9BAWbTbTHklSM+N7bhBUzPBQ26
-	 9jvntqpxKUnmmtVvAMro1teNUxgcxVKgQeGwtpFeyMmmt+Fqlkl2ZoRxenuf68QIty
-	 Jv0Nzh3ZN0WgAV0EvE+pXIOYI4q4ZLXHrOKCtNFx0b7rFVA8GtSKYjGhdSfmFOONZQ
-	 sr5n6N0gRl7zw==
+	b=BdWcrNOSHi10EM+ZDfEpAF/liaYBkCSW8DM3oTBUM8Pvjt1Y5LBlZ/u9c227soT9w
+	 Bzd6RoeuNzNNu05W/ZvzlI6RWRmdMLVLAUI1SXW6AeMWsukiq/8DJgLtpPov8wjPoU
+	 PeThTfJ68I6qKPTbyvg6eeeUB2WSBlE2Uq3rboCZgxtof51owJqZwx0+iwRG6MQZrd
+	 v60CZPAMc0XB/fEMWiih1dWmO1CQqXsd6p4wpn8AUwGk0RZorhnn+Vp6c4TSoFEbOX
+	 gHyunyvJRMzUP2sAmU8r1OmXK88C4m/KG/SZc934yZ8E6XpSgi/zklCNE6fMz02QPc
+	 v5khSunVh54jQ==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
 	(envelope-from <rostedt@kernel.org>)
-	id 1xHLau-00000000MfY-1OH0;
+	id 1xHLau-00000000Mgg-34HL;
 	Thu, 15 Oct 2026 09:34:04 -0400
-Message-ID: <20261015133404.170463200@kernel.org>
+Message-ID: <20261015133404.546835597@kernel.org>
 User-Agent: quilt/0.69
-Date: Thu, 15 Oct 2026 09:33:21 -0400
+Date: Thu, 15 Oct 2026 09:33:23 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -40,8 +40,8 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
- Tengda Wu <wutengda@huaweicloud.com>
-Subject: [for-linus][PATCH 11/16] tracing: Fix hist trigger timestamps for buffered events
+ "Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: [for-linus][PATCH 13/16] eventfs: Free the eventfs_inode after an rcu grace period too
 References: <20261015133310.731003448@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -51,92 +51,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Tengda Wu <wutengda@huaweicloud.com>
+From: Christian Brauner <brauner@kernel.org>
 
-Syzkaller triggered a WARN_ON_ONCE(!nest) warning:
+tracefs_d_revalidate() reads ->is_freed of the eventfs_inode that
+dentry->d_fsdata points to, and ->d_revalidate() is called in rcu
+pathwalk mode with nothing but rcu_read_lock() held. The dentry itself
+stays around for such a walker, but tracefs_d_release() drops its
+reference to the eventfs_inode when the dentry is killed, and
+release_ei() then frees it after a grace period of eventfs_srcu. An
+SRCU grace period doesn't wait for rcu_read_lock() sections, so the
+walker can read an eventfs_inode that is already gone.
 
-  WARNING: kernel/trace/ring_buffer.c:821 at ring_buffer_event_time_stamp
-  Call trace:
-    ring_buffer_event_time_stamp
-    hist_field_timestamp
-    hist_fn_call
-    event_hist_trigger
-    event_triggers_call
-    __event_trigger_test_discard
-    trace_event_buffer_commit
-    do_trace_event_raw_event_sched_switch
-    trace_event_raw_event_sched_switch
+With a pathwalk held up in tracefs_d_revalidate() while the dentry goes
+away:
 
-The warning is probabilistically reproducible and is related to syzkaller
-executing the following commands:
+  BUG: KASAN: slab-use-after-free in tracefs_d_revalidate+0x76/0x90
+  Read of size 1 at addr ff1100010152d8d0 by task walker/97
+  Call Trace:
+   <TASK>
+   tracefs_d_revalidate+0x76/0x90
+   lookup_fast+0x320/0x640
+   path_lookupat+0x160/0xb00
+   filename_lookup+0x1f1/0x5b0
+   vfs_statx+0xd7/0x3b0
+   vfs_fstatat+0x4d/0x90
+   __do_sys_newfstatat+0xa0/0x100
+   do_syscall_64+0x10e/0x5e0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  [...]
+  Allocated by task 1:
+   __kmalloc_cache_noprof+0x249/0x560
+   eventfs_create_dir+0x7a/0x590
+   event_create_dir+0x2fb/0xcf0
+   trace_add_event_call+0xbf/0x150
+  [...]
+  Freed by task 11:
+   kfree+0x1db/0x5b0
+   srcu_invoke_callbacks+0x3a3/0x620
+   process_one_work+0x937/0x1810
+   worker_thread+0x4f1/0xd60
 
-  echo 'prev_pid == 999999' > events/sched/sched_switch/filter
-  echo 'hist:keys=common_timestamp' > events/sched/sched_switch/trigger
-
-The specific triggering process is as follows:
-
-CPU 0                                           CPU 1
-(context switching)                             (echo 'hist:keys=common_timestamp' > \
-                                                        events/sched/sched_switch/trigger)
-do_trace_event_raw_event_##call
-  trace_event_buffer_lock_reserve
-    if (!tr->no_filter_buffering_ref &&
-        trace_file->flags & EVENT_FILE_FL_FILTERED)
-        return entry;  // return directly
-                                                event_hist_trigger_parse
-                                                  hist_register_trigger
-                                                    tracing_set_filter_buffering(file->tr, true);
-                                                      tr->no_filter_buffering_ref++;
-    __trace_buffer_lock_reserve
-      rb_start_commit
-        local_inc(&cpu_buffer->committing);  // skipped and not executed
-  trace_event_buffer_commit
-    __event_trigger_test_discard
-      event_triggers_call
-        event_hist_trigger
-          hist_fn_call
-            hist_field_timestamp
-              ring_buffer_event_time_stamp
-                nest = local_read(&cpu_buffer->committing);
-                WARN_ON_ONCE(!nest)  // trigger warning
-
-The root cause is that when an event file has a filter attached and the
-hist trigger has not yet been attached, trace_event_buffer_lock_reserve()
-writes the event into the per-CPU trace_buffered_event temp buffer instead
-of reserving it in the ring buffer, so cpu_buffer->committing is not
-incremented. When the event is later processed at commit time by a hist
-trigger, hist_field_timestamp() -> ring_buffer_event_time_stamp() sees a
-zero committing count, triggering WARN_ON_ONCE(!nest).
-
-tracing_event_time_stamp() was added by commit d8279bfc5e959 ("tracing:
-Add tracing_event_time_stamp() API") for exactly this case: if the event
-is the per-CPU trace_buffered_event, it returns the current ring buffer
-timestamp. But it never gained a caller. Use it in hist_field_timestamp(),
-so that a hist trigger that races onto a buffered event records the
-current time, which is only marginally later than when the event was
-recorded, instead of warning and recording a bogus timestamp.
+Before commit 8e556432477e ("eventfs: Use SRCU for freeing
+eventfs_inodes") release_ei() used call_rcu(), which covered the walker,
+while eventfs_iterate() needs the SRCU grace period. Wait for both and
+chain call_rcu() from the SRCU callback.
 
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260929104015.1689921-1-wutengda@huaweicloud.com
-Fixes: b94bc80df648 ("tracing: Use a no_filter_buffering_ref to stop using the filter buffer")
-Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
+Fixes: 8e556432477e ("eventfs: Use SRCU for freeing eventfs_inodes")
+Link: https://patch.msgid.link/20261009-work-fixes-rcu-v1-4-7446d2d335e6@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_events_hist.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/tracefs/event_inode.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 71d7f43a7964..571a57e0f369 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -873,7 +873,7 @@ static u64 hist_field_timestamp(struct hist_field *hist_field,
- 	struct hist_trigger_data *hist_data = hist_field->hist_data;
- 	struct trace_array *tr = hist_data->event_file->tr;
+diff --git a/fs/tracefs/event_inode.c b/fs/tracefs/event_inode.c
+index 6e3513b13cfa..090aca946717 100644
+--- a/fs/tracefs/event_inode.c
++++ b/fs/tracefs/event_inode.c
+@@ -91,6 +91,14 @@ static void free_ei_rcu(struct rcu_head *rcu)
+ 	}
+ }
  
--	u64 ts = ring_buffer_event_time_stamp(buffer, rbe);
-+	u64 ts = tracing_event_time_stamp(buffer, rbe);
++/* read under eventfs_srcu and, by tracefs_d_revalidate(), in rcu pathwalk */
++static void free_ei_srcu(struct rcu_head *rcu)
++{
++	struct eventfs_inode *ei = container_of(rcu, struct eventfs_inode, rcu);
++
++	call_rcu(&ei->rcu, free_ei_rcu);
++}
++
+ /*
+  * eventfs_inode reference count management.
+  *
+@@ -112,7 +120,7 @@ static void release_ei(struct kref *ref)
+ 			entry->release(entry->name, ei->data);
+ 	}
  
- 	if (hist_data->attrs->ts_in_usecs && trace_clock_in_ns(tr))
- 		ts = ns2usecs(ts);
+-	call_srcu(&eventfs_srcu, &ei->rcu, free_ei_rcu);
++	call_srcu(&eventfs_srcu, &ei->rcu, free_ei_srcu);
+ }
+ 
+ static inline void put_ei(struct eventfs_inode *ei)
 -- 
 2.53.0
