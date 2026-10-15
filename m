@@ -1,138 +1,189 @@
-Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com [209.85.217.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E6B3DDB04
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 02:45:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792032332; cv=none; b=YY7W9DuZlGCIFucTIJ5icCQXJ6tY8+KOCvQvo64X0I6vhmoEKBzHHtTDZLrJtPd2Wv7wthKCE16UYL5FWHXTH8GnPrp+fVzkTk9yRCPahESoqznsUm98oHm5wsjhEkER+CofDVmJSdu0snYpIvALyCEOXesX/SW2LfKii/ewvdA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792032332; c=relaxed/simple;
-	bh=CEllbMAyUh67mx9yvzDI34nz5d1ihwHNqICRZK7Ly8s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Wt3JOHyTByW82GsUch14gvE3p5bYFqezumaOH7mmM2nXRB0JKABrWQmRdjfDI79Y6GJ8pGD+vug95EhFxX98EIeTKmMLGFcO/8Tkj7Zm9lyglRhN+7g76ggW66lvn8QU1BhSFjZmx2QVoPaL1TOvmixctmpvHN0lW4AIS7WjS9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AgWOz76J; arc=none smtp.client-ip=74.125.227.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA0324E4A1
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 02:47:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792032435; cv=pass; b=D2EXdHHtx75fYMS94WuS9N7u9kMPrgIq+EY327A0BReGYWIspMzuqV1HW7et4Sx72CLZvDn9AsDSs1hIu490DfgUWLAOorq8VSV5cSUaqS+KmpuCABPKewlmz+xUpiHoqFktRAmBLk2nx/BbI+rPzfu5YhdlBRIUytC7iq46oVc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792032435; c=relaxed/simple;
+	bh=16GbWlEqbR86iNc8/Kds0QNYGdsCxKka1B+rvUYPHwU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=D5WuIPjmW23IOGnzBlWtVhWAbn0b1Pa8OqMQQiZZB0HMSSwLMfEuEQsL/3d4FvsFlY9k4mW05JO1Rcy5WNhYsWd/UjDV0EXNRAaoQOgwwgTJmGyLdOxuJFjBJysc3IvLIba3F+gzjmjAuhYa7AlllN+zJWuNclJU8MBIbUbSN90=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b9zBFT4g; arc=pass smtp.client-ip=209.85.217.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AgWOz76J"
-Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2e89f7bb9bcso9473685ad.0
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:45:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b9zBFT4g"
+Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-7c03a445cb8so712647137.0
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:47:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792032432; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RDC3tTAjZ7y2Wm12/AGrSJ+GVXVmRR9J8Wd8uRUNGNrraui4vLm/nSVq2BC1+7hcF0
+         W5Br9ifLn8n1vTFgEbzvzzBBUT0l9AjtCiHMn8DAku3jxPA3QN5lMxeKQIuarCjnCHoF
+         sXuSGgFzZu2vnZB4fePB8D+0nz04SS5O6Y0yt5pz9fotcEj7aHIyStpCwCKZm2advgS/
+         iGNznSECeoylrOWo0IbkgO+lwzgpNrLiiOJ4Xtn4+kb5Fix77zG2+FzUyUV4/4gPg+TJ
+         6euDqVFVRtNjjC486GxJ+1XnkPuja38oQJFrP7ef7dABdVgdAlm4qQT+G/AgIIwB1cTG
+         sd+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=16GbWlEqbR86iNc8/Kds0QNYGdsCxKka1B+rvUYPHwU=;
+        fh=erCfbJKlcAdmUQdrPta3NI/Nxc1uASgeRAGf0nTI2C0=;
+        b=XDQyDGgyQVRx+whV3xweZjmF0W8GZ2BMY6m3MeQo+NlLKpG403aMrhbL3JkypfEKGQ
+         lsLdoOyW9bXtI6kFoY8LY3tQWTjvn4rbZ1/iL2T+VdIl38l1suRGK7vv2zMmmDm7XAUE
+         s79jOiQZWDzdhTtUrk1dF85XBMLz1Nd4dzNDJTFZmeZBlWn30/j+oLVF1Cv8q0JfanNQ
+         jHaNP28zI06zG1HHE/KRW+IoSmJRC0dqSvX+ROuAWmI6rXxMSx1MrtX9hk/nG4XqW9JG
+         690cU4D+wQHX6+kKMX9Vr641L7RtdyNWGbeawyktv89is09A3c96AvKNb8v8nEh3Et4s
+         wC1w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792032327; x=1792637127; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6NL3C3h3ouQDJm0DgBtu/xXmXeKbd5Qh0OWlBa3GyWA=;
-        b=AgWOz76JfXNoem8IXymToN5bRRODBRerZuNHgTFZli+WRkwceFWc1Wn7RXvbBT64ef
-         40VB0k/+0WHdelFNPFFP7K4Aj7Zu2Cks0azcuJ4NH4oicavYHUIPF6HuX6F4XKxsVaXA
-         7v5skfJRQdti3nRImj6vti/K6R17Ce9V6AeoHXT08xA0kgDhqaDj29ojyUI7rrLvMwON
-         aP43Xl3zbxxAr7IsrFp3FVeMecbjwwd9hqmFvOcgaUHlbRML4qQT9fpZGRKFtKRwjsKx
-         wmdOrjU+bT1vPaHvmnM2w7RJwLeh5ijoEybXpLk1s3FfeIsNqQUIv9KeMQY20OKlN+51
-         G/RQ==
+        d=gmail.com; s=20251104; t=1792032432; x=1792637232; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=16GbWlEqbR86iNc8/Kds0QNYGdsCxKka1B+rvUYPHwU=;
+        b=b9zBFT4gV60ABLnctWyzzCBBtfC0buozh2D43daZBmRKfRwgGXt6IOFI5Ept0ZVKAg
+         BVjCk73hML56dFXbOMWeC0839/alJYTdEc8BiEaEzZryvW0u7UFhIp5bumMaBMeAhJL7
+         ulqNk/Ikzp65yx01NJ/4jHv/YS87Zha6YpTiR9sCNrpR63XZhwq+irLetuIRMYJsr6hx
+         xyfpx8JjjmMg416JP9Jr15rfYGbWhnCeS1gZeuvZsOLSmq6hNiwRDzbKYIMOn1J7EIF7
+         4WRuiuq5c7WmWKGHQIQFlp7tKjolB6HIs1a8zQGC9hcLAHjCDjwKc1HyjlTn+iwkMaVe
+         FZVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792032327; x=1792637127;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6NL3C3h3ouQDJm0DgBtu/xXmXeKbd5Qh0OWlBa3GyWA=;
-        b=cwkRroVF6JiBaysFUHvsBOkJREJuIRTuQtCQ1SRag9V72rb4LlaW6VPICZqbR04gt6
-         OdgIKRRuUCDYBVHkl4SXuxrv8rG5XqIfqDrIbg5KoOMe1M38Eo08HheIQZAtk2t847Zj
-         TxNgTyj6xHMw26VJsK2AtmXRRYrKFFTWtp8VSUEkBt+DWn0tOL+HOMwfK4+qg860c/D5
-         2WriutzalOmkOEOheRyJoGxapevON71oIB8a3hfRVcb0eRmjWIW2oW900dQ4Amni+XQQ
-         cJtWPFervlp+E6ZImsLJaj/cw6lNWehwW1+wOWrWzcNIuf8IH8OsT/ww3YTNVpsWhIr5
-         pG3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzA3PzYhXiqTzBZ1qqAVaMDmoUQy0+LJPCI6ib+Zi2cW6U9b6AoJgYJp0idx7NKEJ8FaTlkXVk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLCsLHVpL5hHDop9QDEtaEIDyxmq587o1rb3v0Zy9w2xfAQgDzJ
-	pipTLLQAT2rBrrAywMlSsm0JoklAGCxmIsl4d2Q79itrP48T0C51TJXx/9hay3UaYJVjzA==
-X-Gm-Gg: AYBFou2taA2jsLscy86xwYaMfG39K9P4d/94pBXS78WtBdSieWfYgU4XoL2WgpxQRZX
-	FjeGdYDsjkHBKGAUYUT+u8RFNwbHIcRKk4AOK0p02knk6Aak4coi1JjErya1nRez5rGq44THeHi
-	TvZsyQUiAvMB7SAuhdpnCKSl/iuaH8SK8I6THflVZxjIWV8giuAZU2Fxb4LQQhIrWec+IXtee+1
-	PV6mJs57kN8cjHzkJOjmkkSgMSHDazHBZHN8m5l0HAaLD4aB15Xoc+LEctU/qHeu0Iajs2VNSAy
-	yzjtglwe04DRtUZeG+r6dItiDsSiO3XlRfF5DR+U983D+X3TUfkTAhelp/N5nfvCgP6Zm4r7c0h
-	mjzTD4VI9tINNdernRIDq4nqR8p905j7DEH8hi1uX8MAniKltHwp0x26YOkua+D9oxji9yhKi3e
-	jN74fHN9DPWBrVBUw2/GH2NY2X5MMpC08dz3asZtLWq3TQm8yyw9OlpgaADIW0cUtLJGRiQU5Oa
-	KEi/8mIrEnbTTBfM4A=
-X-Received: by 2002:a05:6a20:a10a:b0:3e0:d032:31c5 with SMTP id adf61e73a8af0-3e16bdf0d43mr14039255637.25.1792032326841;
-        Wed, 14 Oct 2026 19:45:26 -0700 (PDT)
-Received: from LAPTOP-QJLDGQ2L.localdomain ([112.224.221.179])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d802a459asm1710303b3a.14.2026.10.14.19.45.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 19:45:26 -0700 (PDT)
-From: Boyan Liu <yymhvert@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	co+02480a85e1a0d4f5@bugs.sh,
-	Boyan Liu <yymhvert@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: gadget: f_ncm: Fix use-after-free in ncm_wrap_ntb()
-Date: Thu, 15 Oct 2026 10:45:08 +0800
-Message-ID: <20261015024508.3179-1-yymhvert@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1792032432; x=1792637232;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=16GbWlEqbR86iNc8/Kds0QNYGdsCxKka1B+rvUYPHwU=;
+        b=alYrNMbTGAn4h6GjCnfjZAc5bN4yK4FKVA3i/dv1gd3/EQ//gpDdqgo3DlPbaDarBG
+         QA3jyaKMYgshFeCUFId8U7gJ/2AwwwPbUWpERF4pVmT/UiV38oUeZLoiJtOU9hsuXR1k
+         xjwQW6/pb93JzmM6AyaTq9oLqkxKe/8BJCw3ebBp7f+RdzW6qCXD+TLy/+Ch3VjPQRKh
+         HxjcCGwXr31ieyY9oqyU8O7l/GX1i57EkdcnRUbWG5vf0mARAp4KufsHnkKAY6tGP7Ug
+         Lu2lI3um6AvSoV67C/pUyvrrDfXOUd5hjf8/R1UBDVHBO2P9OnBF+sYhM0Gmvy4YP+VP
+         70Kw==
+X-Forwarded-Encrypted: i=1; AKwUvBznWmZX65lrPYN5ixq01gqrrH2yvp487BNSTdn71dOKejlWlks+6ydQpIeqZAAtzxkXENkEGQ4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIkO3Tx4WvFIzx6+g0JidLsl4OSwEYmQmRvV7/gwnVIBpM0NPTD
+	8EE7Zo6bst0YY/ZRvmwuq8zkGy4+TJGszz4lmPamzO4QQ/7h0095JQOqIPC8S8lG+O1DPjxe9Aw
+	Wq9UzcAr2obp6DoVxpr/lPHS17oWkgNI=
+X-Gm-Gg: AYBFou2uj8W9/Bedv+cokMS47ZvBqJjugcMIwBM+fg+gMDEFbZJxq4eymGS6vk3Y3H6
+	T9/2IKMylQHoP9ZUj2+vvYLtAtwchsXPZxJwrAV819Wc4A41DTJOKhdiocxFmZigr49VC23o3JE
+	G5PzuVCAgc6cfxSMBb5nHdWykgHmwUOToyUi8ObgsjAjlmKbR2I6UTaZzMTpgH9VfwJLpp3LP4G
+	C/V5axcd94YgpQR6/ad5W8Rd3LH1kHDl2Q5vWwbrN+StiNrleFLp9vBr9+GJ9EgUhWFW5Rrpwjy
+	aIYAwS5VViGOVPO0IujrhdFBRbDza8ru9e2J4QIhMPXvD1yTUObx38nroBbVq6vKmIuBYU8ul4f
+	3H95CyPRQ8/ryQvLaX9Y7ngL00cKFvk+Epx1Enau8kme3n+JojcvLAAtnh4kM8u3fVsWuWmnQUu
+	ZQ5oG+358xHwy5SA76agS61gTfLIlFwj1DYcXJIBsfaxDL
+X-Received: by 2002:a05:6102:418b:b0:7c3:2f13:d905 with SMTP id
+ ada2fe7eead31-7cb3668b831mr6416805137.3.1792032432146; Wed, 14 Oct 2026
+ 19:47:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-0-2fb084fe0751@gmail.com>
+ <871p9v4a1x.fsf@bootlin.com>
+In-Reply-To: <871p9v4a1x.fsf@bootlin.com>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Wed, 14 Oct 2026 20:47:00 -0600
+X-Gm-Features: AclHuK8WjfPBl-snALh8yjK0sT9hEMdsL68lGw63Y8O6sDBZaP8Ds_BfAoAdcJg
+Message-ID: <CADvTj4oCVOBiY-55OJt3xFaOiBrFVixmK=AmTRt40iEisDSO2g@mail.gmail.com>
+Subject: Re: [PATCH v6 00/18] mtd: rawnand: sunxi: support the Allwinner
+ randomized OOB format
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Maxime Ripard <mripard@kernel.org>, Richard Genoud <richard.genoud@bootlin.com>, 
+	Masahiro Yamada <yamada.masahiro@socionext.com>, Boris Brezillon <bbrezillon@kernel.org>, 
+	Brian Norris <computersforpeace@gmail.com>, linux-mtd@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The err: path of ncm_wrap_ntb() frees ncm->skb_tx_data and
-ncm->skb_tx_ndp but never clears the pointers. The rest of the
-file treats NULL as "no aggregation in progress", and the other
-release site, package_for_tx(), clears them after freeing.
+On Mon, Oct 12, 2026 at 2:06=E2=80=AFAM Miquel Raynal <miquel.raynal@bootli=
+n.com> wrote:
+>
+> Hi James,
+>
+> On 14/09/2026 at 15:09:46 -06, James Hilliard <james.hilliard1@gmail.com>=
+ wrote:
+>
+> > Allwinner NAND firmware leaves the bad-block marker in the randomizer
+> > data stream. On H6/H616 it also places all protected user data before t=
+he
+> > first ECC step. These choices differ from the mainline format, which
+> > keeps the physical marker plain and maximizes the H6/H616 user-data are=
+a.
+>
+> [...]
+>
+> > Assisted-by: Codex:gpt-6-astra
+> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> > ---
+>
+> I am sorry but I do not want to proceed further with this series.
+>
+> Even though I am not capable of finger pointing what is wrong in the
+> diffs nor in the commit logs, I do not understand most of it. I cannot
+> clearly explain why, but I have had a hard time trying to understand
+> what the commits were doing.
 
-When the NTH skb allocation succeeds but the NDP skb allocation
-fails -- both GFP_ATOMIC, so this happens under memory pressure
--- the err: path frees both skbs and leaves stale pointers.
-The next transmit passes the guard on the freed skb_tx_data,
-reads ->len from the freed skb, and package_for_tx() may then
-write the NTB header through the freed skb's ->data:
+I think I may have identified a substantial part of what made v6
+difficult to follow. Format-specific handling was interspersed with the
+PIO and DMA transfer paths, which also implemented similar ECC-result,
+OOB retrieval and erased-chunk handling separately. Reviewing a change
+required following those interactions across several functions.
 
-    BUG: KASAN: slab-use-after-free in ncm_wrap_ntb (drivers/usb/gadget/function/f_ncm.c:1044)
-    Read of size 4 at addr ffff888108582930 by task kworker/1:2/1623
-    Call Trace:
-     ncm_wrap_ntb (drivers/usb/gadget/function/f_ncm.c:1044)
-     eth_start_xmit (drivers/usb/gadget/function/u_ether.c:543)
-     __dev_queue_xmit (net/core/dev.c:4884)
-    Freed by task 4999:
-     napi_skb_cache_put (net/core/skbuff.c:1471)	/* deferred dev_kfree_skb_any() from err: */
-     net_tx_action (net/core/dev.c:5854)
-    The buggy address belongs to the object at ffff8881085828c0
-     which belongs to the cache skbuff_head_cache of size 240
+v7 01/16, "mtd: rawnand: sunxi: centralize OOB handling" [0], separates
+those responsibilities without changing behavior. The transfer functions
+retain command sequencing, DMA ownership and randomizer control.
+Per-chip OOB operations handle layout setup, marker transformation and
+interpretation of completed reads. The existing formats share their
+read-interpretation logic.
 
-Clear both pointers after freeing so the next transmit
-re-enters the allocation branch on a clean state instead of
-dereferencing freed skbs.
+The Allwinner addition in v7 16/16, "mtd: rawnand: sunxi: support the
+Allwinner randomized OOB format" [1], now has a clear boundary: its
+layout and page-classification rules live in dedicated callbacks,
+selected through the opt-in attach path. Its erased-page and bad-page
+policy is separate from the existing formats' interpretation.
 
-Fixes: 6d3865f9d41f ("usb: gadget: NCM: Add transmit multi-frame.")
-Cc: stable@vger.kernel.org
-Reported-by: co+02480a85e1a0d4f5@bugs.sh
-Signed-off-by: Boyan Liu <yymhvert@gmail.com>
----
- drivers/usb/gadget/function/f_ncm.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+Common hardware helpers remain shared, but adding this format no longer
+requires scattering format-specific branches through the PIO and DMA
+sequencing. That should make both its behavior and the preservation of
+existing behavior easier to review.
 
-diff --git a/drivers/usb/gadget/function/f_ncm.c b/drivers/usb/gadget/function/f_ncm.c
-index 500c9c19c78b..be1c2fa36350 100644
---- a/drivers/usb/gadget/function/f_ncm.c
-+++ b/drivers/usb/gadget/function/f_ncm.c
-@@ -1132,10 +1132,14 @@ static struct sk_buff *ncm_wrap_ntb(struct gether *port,
- 
- 	if (skb)
- 		dev_kfree_skb_any(skb);
--	if (ncm->skb_tx_data)
-+	if (ncm->skb_tx_data) {
- 		dev_kfree_skb_any(ncm->skb_tx_data);
--	if (ncm->skb_tx_ndp)
-+		ncm->skb_tx_data = NULL;
-+	}
-+	if (ncm->skb_tx_ndp) {
- 		dev_kfree_skb_any(ncm->skb_tx_ndp);
-+		ncm->skb_tx_ndp = NULL;
-+	}
- 
- 	return NULL;
- }
--- 
-2.43.0
+[0] https://lore.kernel.org/r/20261014-submit-sunxi-nand-vendor-oob-layout-=
+v1-v7-1-5d3fc6ad2da1@gmail.com/
+[1] https://lore.kernel.org/r/20261014-submit-sunxi-nand-vendor-oob-layout-=
+v1-v7-16-5d3fc6ad2da1@gmail.com/
 
+> The risk is that nobody would then be able
+> to further maintain this driver and I am not willing to take that
+> option. The kernel policy so far has been to ensure readability and
+> maintainability, and my gut feeling is that this series is going
+> sideways wrt this major constraint.
+>
+> Also, from a Linux kernel point of view, we generally just do not
+> support vendor specific layouts. I already told so Richard Genoud back
+> when he was working on H616.
+>
+> With this added to the pile, I prefer not to merge the entire series. I
+> can still take some of the fixes if you feel like they would be relevant
+> anyway. In which case I invite you to send a v7 with just the few fixes
+> you think are actually relevant outside of the randomized layout
+> support.
+
+In v7 the behavior-preserving refactor comes first, followed by separate fi=
+xes
+and optimizations. Patches 1-14 do not depend on the binding and Allwinner
+format in patches 15-16, so they can be considered independently.
+
+>
+> Thank you for your understanding,
+> Miqu=C3=A8l
