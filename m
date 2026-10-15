@@ -1,52 +1,53 @@
-Received: from pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.13.214.179])
+Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD4A39150A
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 14:45:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.13.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 972532D5932
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 14:45:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.218.115.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075547; cv=none; b=JG1AOStdNh3HU5BdgCIdZ1xXi/LeyMEn/aIw5DkkI1xdpJti26RV2nS55qBJSjiglKIY2dYbxHhMvksI8Ap2EvjF072KXAsqyQv3vD9lw+NlkUzfzU+zljoVS47JHYvtPkL5qGyaiHT2t9MDQhyC4KuvHiuvYpOhutlc1m3FBOI=
+	t=1792075550; cv=none; b=eLN/W/d5nIgBxzuYj5xNAIv5T2c5XRt4uy/yK05+L/UM4z7xAk/POb5YQEXQ7SjH/xUYNkUur8QF4Y7XorIzHAsJHeWi0vE9ULDayLkYi7JXVb6dmFOjv8vPoi049FdiUAoa0kPQE9peQh0mvQ428Z/bI5dOdemMhu8cHP+DZc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075547; c=relaxed/simple;
-	bh=KqaFdb/wIMrXU4NJPIxv7mUtFJvHfRoARGXB/EwsKBA=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OFc1SkwyB+aU4kkAS2kqmxD95AFAMGx/zhu5MlXCtz9kD8f936PS1VI1/7qFQP3pMewToh3zooUb08H10Wxa9Zuf1agbJexIAAng/IPVeq6QoYpl9SNNsL53cDK926j8PP4oLvjuET0FOch6c12pu1CaS+wGHxEFSkR4unRxA3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=eKHkaJsb; arc=none smtp.client-ip=52.13.214.179
+	s=arc-20240116; t=1792075550; c=relaxed/simple;
+	bh=WXZiTwlIziC1omOj7jdwQE8zzogbpJNb1lBXEDWv9Gw=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qqcAV9ZS/bpyZ1xoHf7H9berFFfiqv8hKscT1Nw54BXlbvFFsYKaC82Tc/VzU5rSTOzRr1WTwPWysUhYxHKlI2RBYHHfnDzVK+MurbyryeYEF9ktbEHHiXr4rC8a6+J+VZ96jeTJJWVOuBIToDBptdh02iZxZxhoVO46eEZfd5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=RK2JeQd2; arc=none smtp.client-ip=34.218.115.239
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="eKHkaJsb"
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="RK2JeQd2"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1792075546; x=1823611546;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=mno5u7ZzRZU/+mTenUA2QzGfL90+kMbsdzEVFvrdQKc=;
-  b=eKHkaJsbmurS9NLwM2jqv+pq5YGenNBVicwbiFPc0NsHtdMTK9vYRm5d
-   I58P+g2/QIP1w1LfkOaL2cdEO8dncD9XYfpTP/6hc60EDb+q6ARbpr6Pf
-   FKUhvIU0ADnXskOe2sPGNftMxy0JN3COsd+8ZLuHiWcqDLkqf/yIaEjgf
-   PCPZns7ClGL/+D9Hiu8a3NuPHh+HnQAcvVfkm6pCqIs7PPiej5wpPr+lF
-   I7wrwR8tLRGNSe7hqs8mRLJ4zSrJ7CLHA7Sz0LW4SZx86BgartB8pyLZB
-   yOvjZBQbg2rf8hOX/qshUpLmS4Wjvr6KvB9TMTxFSRgn7ra3aYO0QuMUy
+  t=1792075549; x=1823611549;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=T8axlsfso4k7syKxUcvyIg6Ym9y5kFkDYTWkZAR8ayk=;
+  b=RK2JeQd2nuB4wdxVOmlM+97DdrbbtYq1OQMWJlVu3QeUTfWoFRwSehi6
+   yEFSCPGMA+Td+INfJ5pSH1GU9xBPurXslmMJ6ZrKAV4rkcVGKsZIu8T0Q
+   6tjMAqYCt7z5hhU3xCLEC2yKcs2brwyra6s/XUhTjmFj7J+DAvFC6fTPX
+   3mju1XIkFqyD+eQFWRoQMT5zi/olJcHr/SYX6zfKozFm1lkJ3BGz6hffD
+   TAZec3eV7ZOCWEl1AySDDT3M8+9+rZBkgvQD3jeM21VtnHrZno5XzQIpq
+   2RWHqJFxdRzp5+hUMNi9KbpnVZ5Qj0GHFxlh/ChjgJ50eIJkNr78+0sPn
    Q==;
-X-CSE-ConnectionGUID: TQuNEdILSB+qoRk8DsfdOg==
-X-CSE-MsgGUID: AMc/D2JPQk2nJkK7XniR7A==
+X-CSE-ConnectionGUID: opeVRcGqQHGuOktxkplgOg==
+X-CSE-MsgGUID: aF+8dlOhT5+24Ki2k86dnw==
 X-IronPort-AV: E=Sophos;i="6.27,160,1787011200"; 
-   d="scan'208";a="31325232"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 14:45:43 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:25214]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.54.1:2525] with esmtp (Farcaster)
- id 42897119-f455-4005-98a6-06b7136192d6; Thu, 15 Oct 2026 14:45:43 +0000 (UTC)
-X-Farcaster-Flow-ID: 42897119-f455-4005-98a6-06b7136192d6
+   d="scan'208";a="31124997"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 14:45:46 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:18197]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.19.38:2525] with esmtp (Farcaster)
+ id f94577a4-6cf0-4788-b26f-4e1b3530fd63; Thu, 15 Oct 2026 14:45:46 +0000 (UTC)
+X-Farcaster-Flow-ID: f94577a4-6cf0-4788-b26f-4e1b3530fd63
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 15 Oct 2026 14:45:43 +0000
+ Thu, 15 Oct 2026 14:45:44 +0000
 Received: from dev-dsk-fparola-1b-85ea2014.eu-west-1.amazon.com
  (10.13.236.104) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Thu, 15 Oct 2026
- 14:45:41 +0000
+ 14:45:43 +0000
 From: Federico Parola <fparola@amazon.de>
 To: <stable@vger.kernel.org>
 CC: Mike Rapoport <rppt@kernel.org>, Pasha Tatashin
@@ -54,10 +55,12 @@ CC: Mike Rapoport <rppt@kernel.org>, Pasha Tatashin
  Graf" <graf@amazon.com>, Andrew Morton <akpm@linux-foundation.org>,
 	<kexec@lists.infradead.org>, <linux-mm@kvack.org>,
 	<nh-open-source@amazon.com>
-Subject: [PATCH 6.18.y 0/2] kho: free buddy-allocated metadata with free_page()
-Date: Thu, 15 Oct 2026 14:45:27 +0000
-Message-ID: <20261015144529.76911-1-fparola@amazon.de>
+Subject: [PATCH 6.18.y 1/2] kho: free chunks using free_page() instead of kfree()
+Date: Thu, 15 Oct 2026 14:45:28 +0000
+Message-ID: <20261015144529.76911-2-fparola@amazon.de>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261015144529.76911-1-fparola@amazon.de>
+References: <20261015144529.76911-1-fparola@amazon.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,34 +72,43 @@ Content-Type: text/plain
 X-ClientProxiedBy: EX19D031UWA002.ant.amazon.com (10.13.139.96) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Commit fa759cd75bce ("kho: allocate metadata directly from the buddy
-allocator"), merged in 6.18, moved the KHO serialization chunks and the
-preserved memory bitmaps from kzalloc() to get_zeroed_page(). Two places
-still release them with kfree(): kho_mem_ser_free() for the chunks and
-__kho_abort() for the bitmaps. kfree() on such a page hits the
-WARN_ON_ONCE() in free_large_kmalloc() and returns without freeing it,
-so each aborted or failed KHO finalization leaks the metadata pages.
+From: Pratyush Yadav <pratyush@kernel.org>
 
-Patch 1 is a clean backport of the upstream fix for the chunks.
+[ Upstream commit b15515155af735a86e5bcd67ed739162f0de27f5 ]
 
-Patch 2 fixes the bitmaps and has no upstream counterpart. Upstream
-removed the tracking teardown from __kho_abort() in commit 99cd2ffac697
-("kho: don't unpreserve memory during abort"), which relies on the
-unpreserve interfaces and the notifier removal that came with 6.19. In
-6.18.y, KHO users still preserve memory from the KEXEC_KHO_FINALIZE
-notifier, and the teardown on abort is the only thing that drops those
-preservations. I kept it and changed only the free; patch 2 has the
-details.
+Before commit fa759cd75bce5 ("kho: allocate metadata directly from the
+buddy allocator"), the chunks were allocated from the slab allocator using
+kzalloc().  Those were rightly freed using kfree().
 
-Federico Parola (1):
-  kho: free phys_bits bitmaps using free_page() in __kho_abort()
+When the commit switched to using the buddy allocator directly, it missed
+updating kho_mem_ser_free() to use free_page() instead of kfree().
 
-Pratyush Yadav (1):
-  kho: free chunks using free_page() instead of kfree()
+Link: https://lkml.kernel.org/r/20251118182218.63044-1-pratyush@kernel.org
+Fixes: fa759cd75bce5 ("kho: allocate metadata directly from the buddy allocator")
+Signed-off-by: Pratyush Yadav <pratyush@kernel.org>
+Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Cc: Alexander Graf <graf@amazon.com>
+Cc: David Matlack <dmatlack@google.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Federico Parola <fparola@amazon.de>
+---
+ kernel/kexec_handover.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- kernel/kexec_handover.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
+diff --git a/kernel/kexec_handover.c b/kernel/kexec_handover.c
+index ac9fa7727b5ff..9fe5d14f1ec54 100644
+--- a/kernel/kexec_handover.c
++++ b/kernel/kexec_handover.c
+@@ -365,7 +365,7 @@ static void kho_mem_ser_free(struct khoser_mem_chunk *first_chunk)
+ 		struct khoser_mem_chunk *tmp = chunk;
+ 
+ 		chunk = KHOSER_LOAD_PTR(chunk->hdr.next);
+-		kfree(tmp);
++		free_page((unsigned long)tmp);
+ 	}
+ }
+ 
 -- 
 2.47.3
 
