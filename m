@@ -1,51 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF7457268A;
-	Thu, 15 Oct 2026 19:36:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A9E57ED9F;
+	Thu, 15 Oct 2026 19:36:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792092993; cv=none; b=ltIpQ0P0oCzppzN2QZiVnFJnJBi9M5vkPOedeG1UXP6FfGxQgnKDFPEtaDTPQ5aeL7uipc+Fyk8HeR7ppgO+COpUN4dKairV2JNX2nZ3h4/jJ/xXB9/+FT0a7q6E+0dMQUtrSZLT6Thfq+TXwkevFd8wrbD3/kzQXSuYmQIyDtk=
+	t=1792092995; cv=none; b=OHrBVpVMEJwkrhK5/VHxXWvbOujue/KlALvPDbr2Ubn13VkKOZ1cBkpfNWdP+WRmTEH7NZEJ9MP2VaoEXpzohAETMM+3orGPlQgXYpMgQJV1mluAExPS63nyIlvhvtfHN0wmdCCDBxA+aNZIBbG7c6ZhA/CVMrYHOJQp1tkkKJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792092993; c=relaxed/simple;
-	bh=xQkZ6wL5DX7K36xURIvtokpviq0OfwPjz4UDjX8Y+e8=;
+	s=arc-20240116; t=1792092995; c=relaxed/simple;
+	bh=XkvxgVoEVGYFMWh+hbP84m/M1nGF5fNrFzLWVizBzWs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TH2LP98sbN3Z3XtqVYKakIRvffWm8aEyBIPhhAbthXLoElmc8jxz3wZ/rPLZwwrGrEjUYT13wLq8gegdNpaYeiGBnrULLtxXcCZPWAAgP6cf/DxNKnKbx59/HLGW3lWRg0T5u1xhwLfndmzpU6iTKOHqzkCfzGUT2kUEIGXAYlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RX4B8ZRf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=R2lKNR7iJSk6k23Dg6bMGBY4I4SSNBWMkGRAOVNCfTMeL6zjTsB2jWAdE/vw6QnH74YS+zPeCmEwf4Ulo9cuMr9QRNojoye7gsKpiqcfH2FURNkryzEtKEmBVmEFno1RtOJKjDg5NYmh+SXBK1JuwLTlnJqfJpH1b+pJ75lEBzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iVs9iVFE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RX4B8ZRf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F42061F000C6;
-	Thu, 15 Oct 2026 19:36:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iVs9iVFE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8319B1F000C5;
+	Thu, 15 Oct 2026 19:36:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792092992;
-	bh=by0e8225MtbYPCIfUN2aK7pgEEw3Huf7EZzUdrjurvI=;
+	s=k20260515; t=1792092993;
+	bh=wSKMutwZ6UIgbi6zHFxoHrLkQZ3IHqj0Nrnh6JlgOJs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RX4B8ZRfwypPtbyz49a9EvZErLzpTu5qz6sPTO5BBUgooAZqRmnHwFqwJh+empOg2
-	 cSfMJtaV/F/qnBXo3p5D1ehiPPNbz61V1KUE4NBiJuLKkJvCf1Waa8dLqDnCwtriPd
-	 kNJw/f0h+SV2PkRNFB1St+JGACOcjEUZCzG5BM6y0/HTZ+dF21W6HXFn02e2VGpC4J
-	 2FuykPc6dm1BEE6RgE0IfP/t1nMRdu3Nq4tfLdE0g4fe1oPrGT4Zh3P19XYpGBXzgV
-	 3IAvp9nKy2rROm3vWd+NEGB4ubI2m0lXcIP4NzFmVJwNW4igjsMpAGBqPJElk7Pa5J
-	 uTfd1I9C8P1ew==
+	b=iVs9iVFEEcIAsZJN1YUtF5jjW9kn8pJWWWEJKcXYozLDkV5zU+3BSubcMu2L3jXWY
+	 Zuqpvj0c/wJcf2o1M53ocHy3DiMHjlZ1hIPn4Oi9/G3ixVbpHcuptBsMAowH+kOpDC
+	 +TIf1wlflV7YMfV2wg7m/nqZe3j6jHhB5+wT81dypJSlITNHTfQyBPZ+2AmsDq492a
+	 FpNRw4Qa3ghp6WdmtZKZ2gufOghh5z4jEznDEZT08DnkSTErYMdqwFrkqHYTQogll5
+	 9+FijvDhfIXaLDd9T/z1tVyMkX8sO0hPxCknNnYubW8TY+NrOFJAf3XlEljGi68W5Z
+	 x5GJc25bVqZTw==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	steffen.klassert@secunet.com,
-	herbert@gondor.apana.org.au,
-	raminwo0202@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	apais@linux.microsoft.com,
-	Tahera Fahimi <taherafahimi@linux.microsoft.com>
-Subject: Re: [PATCH 6.1.y] xfrm: prevent policy_hthresh.work from racing with netns teardown
-Date: Thu, 15 Oct 2026 15:35:52 -0400
-Message-ID: <2026-10-15-1-daily-reply-0009-xfrm-policy-hthresh-6-1@kernel.org>
+	patches@lists.linux.dev,
+	Aaron Ma <aaron.ma@canonical.com>,
+	Felix Fietkau <nbd@nbd.name>,
+	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Subject: Re: [PATCH 6.12 465/497] wifi: mt76: mt7925: restore the legacy BSS after MLO teardown
+Date: Thu, 15 Oct 2026 15:35:53 -0400
+Message-ID: <2026-10-15-1-daily-reply-0010-mt76-connac-inactive-bss-prereq@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261014212540.1437936-1-taherafahimi@linux.microsoft.com>
-References: <20261014212540.1437936-1-taherafahimi@linux.microsoft.com>
+In-Reply-To: <cb60573d-858e-4a86-ab7e-05bbce6227d2@oracle.com>
+References: <cb60573d-858e-4a86-ab7e-05bbce6227d2@oracle.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,11 +48,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> An XFRM_MSG_NEWSPDINFO request can queue the per-net work item
-> policy_hthresh.work onto the system workqueue. xfrm_hash_rebuild()
-> retrieves the enclosing struct net from the work item, so the callback
+> recreation proceed.  04222f980301 ("wifi: mt76: connac: tolerate
+> inactive BSS deactivation") supplies the required tolerance.
+>
+> I think we need to queue this prereq first before this patch. Thoughts ?
 
-Queued for 6.1, thanks.
+Queued the prereq for 6.18 and 6.12, thanks.
 
 -- 
 Thanks,
