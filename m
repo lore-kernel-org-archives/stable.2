@@ -1,173 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9617735893;
-	Thu, 15 Oct 2026 00:53:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F64C25B0A4;
+	Thu, 15 Oct 2026 00:54:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.136.29.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792025588; cv=none; b=NfQ32YBHUa6C2x73ntoj3w0n/eolFxKudf9NyIExgZlKZ0XtmUybBQ7xYF90MVLg3/Z8TEkikoCRl3odei7Wr5L7s7Mj9VZYA7MxTMEsfkG0KjEJfeBd1SwDu+gzdIaS/HAgVVrXZjB5l8F0aUelB7QRmfyP7T/xeHUWj48vIxw=
+	t=1792025698; cv=none; b=PdI4Sg/2803/nrjP5jfb6U7ItU5GNgG2ncq4ykuVAmNRrFNR3yor2jyO2g9TktvUQtuDXdquzVmfzq3HGhSLazNjTvJ3NZZjtL3c439XHjyzkCHbye73APZMeuXVHPM+oWrpZFeX5mIX9kat0Wk734p6Cbt7o1DtvWmMvwowfmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792025588; c=relaxed/simple;
-	bh=E7EnskHoVFJDOq/yZ4g/tAQFukU7Ur9O93djCRFzwt4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=DJHmfZVMzlJ67XP5QwGm+cXXEzmFvpRSczBCKPKfQOVkoi0TeGZjrJ6Q2JOG+C3O3yo7Jta1M2B3K2LpUYkweg9RJHbapw8tgHbTWitZ5IMmxl0vbnCDgWw2NfW9UNGFZ9wf28jg1q3IuCrjcwwFXSJ6OHErrdXqWo4p198/lTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D0UwTULL; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D0UwTULL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7CE51F000C4;
-	Thu, 15 Oct 2026 00:53:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792025587;
-	bh=wYLBV9IqiMtITWWs+chk8oe2e6Yj6QQSCVIwnTRXAV4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=D0UwTULLDS3drUhFqgOshuPnlolG6aVkOAqJaMJw+wPoFaZTtv/yFxTFEXirtjuso
-	 mdQ/PISfPq//P+Ac6IyVmJZPY3TOkyDGM2ia75dWOJok+5Cny2qalmONX7b1cZqzEy
-	 nZ16v3MN6CErXFeUWlYpQdnYBQSG7Am4L/q4rf9fQLkV8e2t00yL7FEMQVtKyUONoY
-	 AxPpuV+yfoLbllcIaYzhoX9e1/FJrlDjVQUZ+ANRneZoSLv8uFJ37JXFHK9zDLugEf
-	 epozhewQhuuOWXYzRp6nUWc1oZhxLv0LofKm58kUO1JN9Mjis5XrBb7hsFXyjy9Pkw
-	 t3H9uOg9QpaoQ==
-Subject: Re: [PATCH] can: bcm: fix filter removal race between release and
- netns change
-From: netdev-bot+sashiko@kernel.org
-To: socketcan@hartkopp.net
-Cc: linux-can@vger.kernel.org, norbert@doyensec.com, stable@vger.kernel.org,
- kuba@kernel.org
-Date: Thu, 15 Oct 2026 00:53:06 +0000
-Message-ID: <179202558650.1406898.13261480758347943519@kernel.org>
-In-Reply-To: <20261013113628.104020-1-socketcan@hartkopp.net>
-References: <20261013113628.104020-1-socketcan@hartkopp.net>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=arc-20240116; t=1792025698; c=relaxed/simple;
+	bh=UcXfq2s8RBg/mdMLs5Sze1N6LCsFPoK+hasLw7OL0Iw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gUGDqdMpOuJh+e+0XrlVMRSiPA+IOqxmL54a9OWZjm8f4mGpclPPoCxe8zMF8h4OsqEriqPNkGh3YGXmSGboW0Mk6aVFsg9iOOdxSqk9gDFZoHpwOCzt7v+qzkLlqYy1SBKKaAUhTtTYr0hk0n9oUgkfZHg3H9nJNp9ELNWBOUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com; spf=pass smtp.mailfrom=proxmox.com; arc=none smtp.client-ip=94.136.29.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
+Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
+	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id 5958242301;
+	Thu, 15 Oct 2026 02:54:48 +0200 (CEST)
+From: Lubos Rendek <l.rendek@proxmox.com>
+To: stable@vger.kernel.org
+Cc: Jeff Layton <jlayton@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
+	linux-nfs@vger.kernel.org,
+	regressions@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Fabian=20Gr=C3=BCnbichler?= <f.gruenbichler@proxmox.com>
+Subject: [PATCH 7.2.y] nfsd: fix all-zero stateid in CB_OFFLOAD for async COPY
+Date: Thu, 15 Oct 2026 11:53:40 +1100
+Message-ID: <20261015005340.550134-1-l.rendek@proxmox.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <bb39cba3-c4a3-4fc4-b078-c92752cf483a@proxmox.com>
+References: <bb39cba3-c4a3-4fc4-b078-c92752cf483a@proxmox.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
+X-Bm-Transport-Timestamp: 1792025687393
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+[ There is no upstream commit: this fixes the 7.2.y backport of
+  d0beaee498e1. Mainline fixed the problem as part of the async COPY
+  rework in commit f307b4f7ed17 ("nfsd: split nfsd4_copy into transient
+  and durable async copy objects"), which is too risky to backport. ]
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+Since commit 14b978e8d05c ("nfsd: fix stale s2s_cp_stateids IDR entry
+for async COPY"), nfsd4_copy() calls dup_copy_fields() before the copy
+stateid is created and then writes the new stateid only into the COPY
+result. The async copy's own cp_res.cb_stateid stays zero, so
+nfsd4_send_cb_offload() sends CB_OFFLOAD with an all-zero stateid. The
+client cannot match it to its pending COPY and waits forever in
+nfs42_proc_copy().
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Also copy the new stateid into async_copy->cp_res.cb_stateid. Calling
+dup_copy_fields() after nfs4_init_copy_state() instead is not an
+option, because dup_copy_fields() also copies cp_stateid and would
+overwrite the stateid that the backport moved to the async copy.
 
-- [High] bcm_release() now holds RTNL across remove_proc_entry() for the
-  per-socket /proc/net/can-bcm/<ino> file and across the whole tx_ops…
+Tested on 7.2.10 with an NFSv4.2 server-side COPY between two
+exports: with this change the copy completes and CB_OFFLOAD carries
+the same stateid as the COPY reply. Without it, cp(1) hangs on 7.2.4
+and 7.2.9; the affected code in nfsd4_copy() is the same in 7.2.10.
 
---
+Fixes: 14b978e8d05c ("nfsd: fix stale s2s_cp_stateids IDR entry for async COPY")
+Closes: https://lore.kernel.org/stable/7cc824c4-632d-49df-ae5e-cfcbb5bf76ad@proxmox.com/
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Lubos Rendek <l.rendek@proxmox.com>
+---
+ fs/nfsd/nfs4proc.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-can: bcm: fix filter removal race between release and netns change
-
-This patch takes rtnl_lock() in bcm_release() before the socket is removed
-from bcm_notifier_list. That way bcm_release() and bcm_notify() can't both
-skip removing the CAN filters while the bound device changes namespace.
-RTNL is dropped before synchronize_rcu(), and the busy-wait loop on
-bcm_busy_notifier is replaced with a WARN_ON_ONCE().
-
-Link: https://lore.kernel.org/linux-can/CEA6A38A-2646-4ADA-95B4-CBAE2F301A8E@doyensec.com/
-
-> diff --git a/net/can/bcm.c b/net/can/bcm.c
-> index 3d637a1e0ac1a..4765c14947fc3 100644
-> --- a/net/can/bcm.c
-> +++ b/net/can/bcm.c
-> @@ -1926,12 +1926,14 @@ static int bcm_release(struct socket *sock)
->  
->  	/* remove bcm_ops, timer, rx_unregister(), etc. */
->  
-> +	rtnl_lock();
-> +
-
-[Severity: High]
-Once rtnl_lock() is taken here, RTNL stays held across lock_sock(), the
-procfs removal and the tx_ops teardown. It is only released by
-rtnl_unlock() after the rx_ops unregistration loop:
-
-net/can/bcm.c:bcm_release() {
-    ...
-	lock_sock(sk);
-
-#if IS_ENABLED(CONFIG_PROC_FS)
-	/* remove procfs entry */
-	if (net->can.bcmproc_dir && bo->bcm_proc_read)
-		remove_proc_entry(bo->procname, net->can.bcmproc_dir);
-#endif /* CONFIG_PROC_FS */
-
-	list_for_each_entry_safe(op, next, &bo->tx_ops, list) {
-		list_del_rcu(&op->list);
-		bcm_remove_op(op);
-	}
-    ...
-}
-
-Can remove_proc_entry() block forever here while RTNL is held?
-
-remove_proc_entry() calls proc_entry_rundown(), which waits for every
-in-flight user of the entry:
-
-fs/proc/inode.c:proc_entry_rundown() {
-    ...
-	if (atomic_add_return(BIAS, &de->in_use) != BIAS)
-		wait_for_completion(&c);
-    ...
-}
-
-bcm_connect() creates the per-socket entry with proc_create_net_single()
-and mode 0644, so any local user can open it. The entry is not permanent,
-so proc_reg_read() holds use_pde() across seq_read(), and that includes
-the copy to the user buffer:
-
-fs/proc/inode.c:proc_reg_read() {
-    ...
-	} else if (use_pde(pde)) {
-		rv = pde_read(pde, file, buf, count, ppos);
-		unuse_pde(pde);
-	}
-    ...
-}
-
-A user can stall that copy, for example by reading into a FUSE-backed
-mmap buffer. The sequence would then be:
-
-socket(PF_CAN, SOCK_DGRAM, CAN_BCM)
-connect()     /* ifindex 0 is accepted, proc entry is created */
-read() of /proc/net/can-bcm/<ino> into the stalled buffer
-close()
-  bcm_release()
-    rtnl_lock()
-    remove_proc_entry()
-      proc_entry_rundown()
-        wait_for_completion()   /* RTNL still held */
-
-Would every other rtnl_lock() user on the system then hang behind this
-close()? That includes ip link, netns creation and teardown, and device
-registration.
-
-Before this patch, the same wait ran under lock_sock() only and affected
-just this socket. bcm_notify() already calls remove_proc_entry() under
-RTNL, but only on NETDEV_UNREGISTER of the bound device. This path can be
-reached from a plain close().
-
-Even with no stalled reader, the tx_ops loop runs bcm_remove_op() under
-RTNL, with two hrtimer_cancel() calls per op. The RTNL hold time therefore
-grows with the number of tx ops.
-
-RTNL only seems to be needed for the bcm_notifier_list removal and the
-rx_ops can_rx_unregister()/bcm_rx_unreg() loop. Could the procfs removal
-and the tx_ops teardown be moved out of the RTNL section, either before
-rtnl_lock() or after rtnl_unlock()?
-
-> +	/* The netdev notifier chain runs under RTNL, so bcm_notifier() can't
-> +	 * be walking bcm_notifier_list and point to this socket. The spinlock
-> +	 * is still needed as bcm_init() adds sockets without holding RTNL.
-> +	 */
-
-[ ... ]
-
+diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
+index 939749709..7c2955796 100644
+--- a/fs/nfsd/nfs4proc.c
++++ b/fs/nfsd/nfs4proc.c
+@@ -2243,6 +2243,8 @@ nfsd4_copy(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
+ 			goto out_dec_async_copy_err;
+ 		memcpy(&result->cb_stateid, &async_copy->cp_stateid.cs_stid,
+ 			sizeof(result->cb_stateid));
++		memcpy(&async_copy->cp_res.cb_stateid, &async_copy->cp_stateid.cs_stid,
++		       sizeof(async_copy->cp_res.cb_stateid));
+ 		if ((READ_ONCE(copy->nf_dst->nf_file->f_mode) &
+ 			       FMODE_NOCMTIME) != 0)
+ 			async_copy->attr_update = true;
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013113628.104020-1-socketcan%40hartkopp.net
+2.47.3
+
+
