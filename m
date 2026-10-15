@@ -1,106 +1,182 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mta1.migadu.com (out-226.mta1.migadu.com [95.215.58.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4CD33E9584
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 05:57:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C6B231283E
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 06:02:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792043851; cv=none; b=rE2Lbj0DWK3EQD1aswnZXD+EZvf4UidMllEZMQgsHf7GtZva2xl84E7khZ7Fgp8L7lfxpf0vs8HgI2B93LNRhyTd+QrRu9sYo0IIPxX9f/etlg5KtTSiSAhJ9x8Oui34l6sLKJaWcqtLVdVPWHp1+I2ikTBdMa8AcQkWqyC8c6w=
+	t=1792044160; cv=none; b=bW6fuFwSHGUAboWWAyPxPP7SA/kmnjrlODAZb4ikkQpdCOfVSoPOrs7a76A1MD55aPWwxMcYq8zjKQSX25ZFyT37VnU9Om8QgUj5YdbCyyB8SL+HDsjsESosx+PjkERYypf+K5Zlp7gMQE/jtA4KnQutpohiVmJiDhWr00PQbLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792043851; c=relaxed/simple;
-	bh=Gu9fyWinAvgvqlFRdUdXuUAiYzPurMc/0XfPUDWQ9n8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=p1IY7TUg8QXCPTkY0xVrd8zLX0Y7wnL25UvyC8cQjHR/kpn4AsLlOLtwzNpi1EuAilKw529kENGJk0uKzmPQ3famPB8pRArsTy5o8mGzbuf5z087n/472pkaXJspm8Ku4h1qnGHKCLFtQtMULH/0pm3zVOl6l4UN8MO0CESj50A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=fCx9vPQf; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1792044160; c=relaxed/simple;
+	bh=Z+vXKxDzBrmxnBu2A6xZkJcgxDOcSpa5WVuPCAlPPxk=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=Rlmfzp+yU0sTYsdTDv9w2m5xz7llKy6B4vfejuk791ypxcpVGTmwoJlFMBHRhDWBaqu8CINAW54vgXtaIIevJjkV7xFAWN9d5VFQa4BtxIilocg6Z86NZ44P5op72iafb04ASkN+zcyQNpqVKcBK/vyqop9NG64bf+2ilBy21vI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xlHjgl+D; arc=none smtp.client-ip=95.215.58.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="fCx9vPQf"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e915887d9dso17388755ad.1
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 22:57:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792043848; x=1792648648; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Gu9fyWinAvgvqlFRdUdXuUAiYzPurMc/0XfPUDWQ9n8=;
-        b=fCx9vPQfVa2v/tHm0I3dRtjRxrpWeT3IHrXPRPQV1pbdhRuEeWYUJr5WY7DXTVRmgB
-         +vt8UArJcyWQq7oepRF2ZI63pHEtvCnMBl3OEZAnSpSWmoyHkzMGzKWIBTi8o5oE1LTB
-         20a/tj7x44soiNkFLtK9idgOZn+sFHNEBRtMjJOwqzS/4XbO1n2nfoxWPd15JjIqXNvc
-         JltIZcrBrDCBNk8MqoOcCAe4iS4O9vU5BpZDxnfOTfs0vGrCqEHiLt+CF6TvnkCdkMF4
-         QvLeXDfH0s8CPVh/s0yhRriuZQ0ThF+taSgXQrYGbUVwvWNqi8mqZ5vhP2czL58Q3WwM
-         9LCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792043848; x=1792648648;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Gu9fyWinAvgvqlFRdUdXuUAiYzPurMc/0XfPUDWQ9n8=;
-        b=CZSxdsV6mIVvIYSiokqtt2E4K/kcibD12VYKYsKxgSBavMRRcgtfh/EwiZyiTuXZ8p
-         JEWwayHhFPNLxG0AE99wjR9jOxiXitFH+LdJJ++S/JRQqMiMP4dQs/jydp1DO6UCTgWb
-         FiACCEY1cEKQAVwpQLh4WTmlK19KBXdiPR3LyyUpZJJsWewLG8Io5Ov3zlO8WgSuc+WY
-         j+d2TMgg3msDLV8oOi1OdVxzyQEXTZEnKwM8yDGG7mZHDBvSKGNfFmsEf7RRCC0gyWtT
-         t9O1g2a22abSMfYDbsvV+sJx3GLBw67gbq5G7D19baw9gG3isRHdM7ltTXyP7uwQUXP5
-         Fp0g==
-X-Forwarded-Encrypted: i=1; AKwUvBxy/ckPwqebb6uZDFp9FyLll197ImYQZGDKSd4N89Ulcl0mo/NrlZYRFjAuPAIFcU32gN/u7XM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYISib7NwNAvLy9rSynH5MP9Dad1VKWgW+V40oMwFllvfSwTORw8
-	R9JtW1q6djnaMHr08/TP7VthjOX32/PC0MbE/WDCH9B5w5HP7vH30HiOXkBXuVZnG0xir8nt27A
-	ytHL0
-X-Gm-Gg: AYBFou3Crw6CVG/okHNj1zwHN708zH1TVan/mDJQBJhxKa1SxvksFTUZdHB6eVn2Aj8
-	OxojXr66wrMcPGHWFhyxskXm3dtTCOoGZbWSrt3FXMNGanT+stNaUGOnMW8dlCBYe5scRCBZLrh
-	Vubs2nhksSLv3h1YV6qFB7bDb3kfYOlt4tcwrU+x6efNAPn7dv+ge30h7nHyE7aUwbdGVK2uAzK
-	MBz7/6EL3UiDL7SJeImfnswZEMDd4ux/JcgQW+OxjaDo5CDFeupJsbOp9v91l2MnZhrs88MW/S1
-	Ua5pbRSObmcVFX4xr+YoKBP7L/DjxydQWiTnAt/ZlPnwpQL49rCfYFd/+Vqh8VExTK6dVVnAxfs
-	HPEiTwGWVdWH+7UQqZs98QUYTBF1LIzoZLuI3wvjTBdk7fzU3rGSvyy/jKfEt9lv/UDINck61uE
-	Z/1vGOoUBV7V5uPYJeoNg3b2ZjNzaEOcXyL1tM4OcqGMUzxu6lVyinxH9J8avZJFXqRn79Sem+e
-	BSRvg==
-X-Received: by 2002:a17:903:2f87:b0:2e2:dc54:3148 with SMTP id d9443c01a7336-2e842f18260mr133884255ad.66.1792043847931;
-        Wed, 14 Oct 2026 22:57:27 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b78ecsm80232425ad.48.2026.10.14.22.57.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 22:57:27 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: linux-scsi@vger.kernel.org
-Cc: "Martin K . Petersen" <mkp@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: Re: [PATCH v9 7/9] scsi: mvumi: free the internal command buffer by what was allocated
-Date: Thu, 15 Oct 2026 14:57:19 +0900
-Message-ID: <20261015055719.3992456-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <sashiko-outbox-172292@kernel.org>
-References: <sashiko-outbox-172292@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xlHjgl+D"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Z+vXKxDzBrmxnBu2A6xZkJcgxDOcSpa5WVuPCAlPPxk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792044155; v=1; x=1792648955;
+ b=xlHjgl+DlIl8qLRsohk0NBKmtH0u+JAW9dyU+S17mIOajs/WtnbSgBHkzMf4JIG/t2fZHgj+
+ ZYXdvAf5uGHM9pCuPk4119D4Itf1PnT+UlbFZKxMYRkMcJOCRTn6IvonkjWuysWgkTYX0RaZ6kz
+ LCm5FMInwoNrstz7VGksPZ5U=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 88c1f1ec9516249f;
+	Thu, 15 Oct 2026 06:02:35 +0000
+X-Mizu-Trace-ID: 88c1f1ec9516249f
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Thu, 15 Oct 2026 06:02:34 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: dongsheng.yang@linux.dev
+Message-ID: <50deaf80941588ef5f29441fb006189017d4ede8@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH] dm-pcache: do not advance dirty_tail after backing flush
+ failure
+To: "guolingxing" <guolingxing@tju.edu.cn>, "Zheng Gu" <cengku@gmail.com>,
+ dm-devel@lists.linux.dev
+Cc: "Mikulas Patocka" <mpatocka@redhat.com>, linux-kernel@vger.kernel.org,
+ "guolingxing" <guolingxing@tju.edu.cn>, stable@vger.kernel.org
+In-Reply-To: <20261014031150.3913245-1-guolingxing@tju.edu.cn>
+References: <20261014031150.3913245-1-guolingxing@tju.edu.cn>
 
-Thanks. Two points across the v9 reviews.
+Hi lingxing,
+Thanks for the fix. Keeping dirty_tail unchanged when the backing-device
+flush fails looks correct to me.
 
-7/9, the DMA use-after-free on an internal command timeout: this is real,
-but it is pre-existing and this series neither introduces nor widens it.
-Patch 7 only changes where mvumi_delete_internal_cmd() gets the address and
-length it frees -- from the command frame, to fields kept in struct
-mvumi_cmd; mvumi_issue_blocked_cmd() and the point at which the buffers are
-freed are byte-for-byte what they were before the series. The window is
-real: an internal command (scmd is NULL, so SCSI EH is not involved) that
-the controller completes after the 45s timeout would have its frame and
-data buffer already freed. Closing it needs either an abort of the
-outstanding command, or freeing the timed-out buffer only once the
-controller is no longer bus-mastering, which today happens only at
-pci_disable_device() -- after the buffer is already freed. That is a
-teardown-ordering change beyond this series, and I will follow up on it
-separately.
+One related question: jbd2_cleanup_journal_tail() also ignores the return
+value of blkdev_issue_flush() before calling __jbd2_update_log_tail().
+Do you know whether JBD2 has another mechanism that makes this safe, or
+whether it has a similar error-handling gap?
 
-3/9, the endianness of param->size: as in the cover letter, the driver does
-no device-to-host endian conversion anywhere and uses these fields natively
-throughout, so the check follows the existing convention; making the driver
-big-endian-correct is the driver-wide __le series noted there.
+This does not invalidate the dm-pcache fix, but understanding the
+difference would be useful.
+
+2026=E5=B9=B410=E6=9C=8814=E6=97=A5 11:11, "guolingxing" <guolingxing@tju=
+.edu.cn mailto:guolingxing@tju.edu.cn?to=3D%22guolingxing%22%20%3Cguoling=
+xing%40tju.edu.cn%3E > =E5=86=99=E5=88=B0:
+
+
+>=20
+>=20After all writeback bios for a kset complete, writeback_ctx_end()
+> flushes the backing device and then advances the persistent dirty_tail.
+> However, backing_dev_flush() discards the error returned by
+> blkdev_issue_flush(), so dirty_tail is advanced even when the written
+> data is not known to be durable.
+>=20
+>=20dirty_tail points to the first kset that still requires writeback.
+> Advancing it causes recovery to treat the preceding kset as clean and
+> allows its cache copy to eventually be reclaimed by garbage collection.
+> If the backing device flush failed, a subsequent power failure may
+> therefore result in data loss.
+>=20
+>=20Make backing_dev_flush() return the flush status and handle a flush
+> failure like a writeback I/O failure. Leave dirty_tail unchanged so
+> that the same kset will be retried.
+>=20
+>=20Fixes: 1d57628ff95b ("dm-pcache: add persistent cache target in devic=
+e-mapper")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+> ---
+>  drivers/md/dm-pcache/backing_dev.c | 4 ++--
+>  drivers/md/dm-pcache/backing_dev.h | 2 +-
+>  drivers/md/dm-pcache/cache_writeback.c | 28 +++++++++++++++++++-------
+>  3 files changed, 24 insertions(+), 10 deletions(-)
+>=20
+>=20diff --git a/drivers/md/dm-pcache/backing_dev.c b/drivers/md/dm-pcach=
+e/backing_dev.c
+> index 7165fc0364bb..0c15bb01068e 100644
+> --- a/drivers/md/dm-pcache/backing_dev.c
+> +++ b/drivers/md/dm-pcache/backing_dev.c
+> @@ -336,9 +336,9 @@ struct pcache_backing_dev_req *backing_dev_req_crea=
+te(struct pcache_backing_dev
+>  return backing_req;
+>  }
+>=20=20
+>=20-void backing_dev_flush(struct pcache_backing_dev *backing_dev)
+> +int backing_dev_flush(struct pcache_backing_dev *backing_dev)
+>  {
+> - blkdev_issue_flush(backing_dev->dm_dev->bdev);
+> + return blkdev_issue_flush(backing_dev->dm_dev->bdev);
+>  }
+>=20=20
+>=20 int pcache_backing_init(void)
+> diff --git a/drivers/md/dm-pcache/backing_dev.h b/drivers/md/dm-pcache/=
+backing_dev.h
+> index b371cba483b9..8422e5e76e29 100644
+> --- a/drivers/md/dm-pcache/backing_dev.h
+> +++ b/drivers/md/dm-pcache/backing_dev.h
+> @@ -120,7 +120,7 @@ struct pcache_backing_dev_req *backing_dev_req_allo=
+c(struct pcache_backing_dev *
+>  struct pcache_backing_dev_req_opts *opts);
+>  void backing_dev_req_init(struct pcache_backing_dev_req *backing_req,
+>  struct pcache_backing_dev_req_opts *opts);
+> -void backing_dev_flush(struct pcache_backing_dev *backing_dev);
+> +int backing_dev_flush(struct pcache_backing_dev *backing_dev);
+>=20=20
+>=20 int pcache_backing_init(void);
+>  void pcache_backing_exit(void);
+> diff --git a/drivers/md/dm-pcache/cache_writeback.c b/drivers/md/dm-pca=
+che/cache_writeback.c
+> index c8a4c8110a58..e09560f172dd 100644
+> --- a/drivers/md/dm-pcache/cache_writeback.c
+> +++ b/drivers/md/dm-pcache/cache_writeback.c
+> @@ -18,12 +18,18 @@ static void writeback_ctx_end(struct pcache_cache *=
+cache, int ret)
+>  return;
+>=20=20
+>=20 if (!cache->writeback_ctx.ret) {
+> - backing_dev_flush(cache->backing_dev);
+> -
+> - mutex_lock(&cache->dirty_tail_lock);
+> - cache_pos_advance(&cache->dirty_tail, cache->writeback_ctx.advance);
+> - cache_encode_dirty_tail(cache);
+> - mutex_unlock(&cache->dirty_tail_lock);
+> + ret =3D backing_dev_flush(cache->backing_dev);
+> + if (ret) {
+> + pcache_dev_err(CACHE_TO_PCACHE(cache),
+> + "failed to flush backing device: %d", ret);
+> + cache->writeback_ctx.ret =3D ret;
+> + } else {
+> + mutex_lock(&cache->dirty_tail_lock);
+> + cache_pos_advance(&cache->dirty_tail,
+> + cache->writeback_ctx.advance);
+> + cache_encode_dirty_tail(cache);
+> + mutex_unlock(&cache->dirty_tail_lock);
+> + }
+>  }
+>  queue_delayed_work(cache_get_wq(cache), &cache->writeback_work, 0);
+>  }
+> @@ -76,8 +82,16 @@ static inline bool is_cache_clean(struct pcache_cach=
+e *cache, struct pcache_cach
+>=20=20
+>=20 void cache_writeback_exit(struct pcache_cache *cache)
+>  {
+> + int ret;
+> +
+>  cancel_delayed_work_sync(&cache->writeback_work);
+> - backing_dev_flush(cache->backing_dev);
+> +
+> + ret =3D backing_dev_flush(cache->backing_dev);
+> + if (ret)
+> + pcache_dev_err(CACHE_TO_PCACHE(cache),
+> + "failed to flush backing device during exit: %d",
+> + ret);
+> +
+>  cache_tree_exit(&cache->writeback_key_tree);
+>  }
+>=20=20
+>=20--=20
+>=202.34.1
+>
