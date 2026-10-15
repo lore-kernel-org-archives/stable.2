@@ -1,152 +1,142 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 114344FECFB
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 10:15:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792059360; cv=none; b=Q9T3q/uW0ctwdDr+xX3wPEZ7PKMil/1DAawcwXX/fWs+alQ078nhRTkuQSdn8WeEFO1GuLxdQ59IJz6MlHAADA72YzHQcpUJXDg+OiJ5alc6BLU1l3l7wMiEIUJ9I7JfIRilDuwZ7pPeON/r07r48di1bCj1xDW2Yobb0rUm2TE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792059360; c=relaxed/simple;
-	bh=shdhjPkvDR57kNHeQ4WOOkF93PcSzZ6NOlgi8C/r/gQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SzrfhhpDTGC2kPs06FlWaPYowgFibisXRpQX8KBgTTSa6SOfFa5rAVIcsYvlk0QtjJRqb9KULjagDGeO5EWqaDtyZmQ90O/8vabXJYNVL3dC8tkxgPExUBZK0RLFaFnMz1jIcNH4CD5//53tF0d1pbzdkzjfeR4tYmU/OzyPRXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iSJ3TO7c; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=J8c6ZUBd; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F90D50E5B3
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 10:19:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792059591; cv=pass; b=SMgoS0trBKeScEFHKu7HUoX13ElWPy2y0cs4LMJWeGgfGNL9dxoRWlED4a4sb8ADfFra4UGj3U1zQ1wPqlNrn8+/2FuHw3oM+9V6sDs6ON8ALzvd3fHfbVPqsVSMZQmRP/XTqD1IqUwDqrOV11HDlc+qxtEHh0G7RHe7585UEM4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792059591; c=relaxed/simple;
+	bh=aLnGdcn8SVT+l8zY1DVp9E1OXpgrWCKYi41UBV9MLZ8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OoSVYOuCwbm2KiBlZdlniIbNrpBEt6gonq2nrv1gLwSgcpUKFqrknAMoh5zBsJq32S/UShVU0lZA5ix36xTXaF9ZpuFJzPoN4zSYjUoQnkUIfAOwzhgAEaJlTYZkQuIY9zVP9LSkU1lRAqPjxLo3yhVD/L+mZB2c3KifQPTz04s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=oNXVPavk; arc=pass smtp.client-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iSJ3TO7c";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J8c6ZUBd"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jGDG4077443
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 10:15:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	shdhjPkvDR57kNHeQ4WOOkF93PcSzZ6NOlgi8C/r/gQ=; b=iSJ3TO7ckDsZiDha
-	vTyozSoJSqmBjxWVultHkFGd8ojNNXSzxnN+tY6pEBDnWMWwiJ1A0YP2CgA4hcpo
-	xeT1kAQU4wwKk3dyOvNN8I2U/VqYyY0ooEdJJ0oGstvIcruijG3B+r/HuciccY9v
-	OLKDFocGjHXAderIRhlalYRIRJkxWCZ+wxekt4FhoTc/6+8aCXw4w3hPE1Izps0B
-	fVdWILymgBZTuH9Up9dHLobMN1L1ja4ak1WKAY/dLSDPWSwzmnabCU6gZIuzeh0u
-	MB18l7+H7ZTABqnXAl71uO4FFZQe/mC/3cijRwlhTsSjsS/TQff8A8hH0MugTNM4
-	AiKJSA==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4havbc0657-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 10:15:57 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-917a04d1cb2so13287416d6.0
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 03:15:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="oNXVPavk"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c2e8e738ae0so902849366b.1
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 03:19:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792059588; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZjcuS2jiM1SxLUvdFeiiLIKgNoXfSmT3zUeDT4qmiRJCgNm/8B6m2DUWnvfNmWbJ7M
+         xPDDMMY7unQGgDn/pjJjH9f5oQ6kfRiCjB61gC/yWXc72t5tSUwBV1G0TGFS4/s7xHi2
+         BOz719ZzeoV3HR/XopzCK3KSLq6xcoLfvQkc9uxwuzKiP7uwYIcngmMuvygjymuX/rNJ
+         aVr8VKR6TcwhjMd3Ed922t8Qt/9yFMIJ75Tzl4J5EKOf8B2aa0rHNzKQh/zxNR+0ougs
+         QMdIlMZBzWhS/cH7sE0KBlZOxOEQS8KjLXrv+oV5snmZeag0Rx2ub69stFnGofCI0Squ
+         rbLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6G9qdhvcH8NEbAp7bRobDvF91lk/yeFcW7ZExqFVdy8=;
+        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
+        b=PSehLD3RAFyupWV9qBO7srAI0g9n/dB8SXpKmrcnH7PkEfEngM2KEXmiUlRxgfve69
+         9G4sxOzXOD7LoBTwSSP7nFd977zsKnZ5HXSeCdkZnOiLdC1u9bRnwLZAGwBPJZcDE4GR
+         mq8JweUMHqD4t0KrDXSW/Z35gJDBzbBakuz14yKJrFS2ViXBTpFGYhEdm4Pe3RUUrI3U
+         yCPE6Tdnodvd8dNDYNrzOEUPvbVsBFCgTspHUCdTT6wIs67rRTWnRLpEtJz7eHk1aXwX
+         TvF5bzaf/2a855Ofhi+k0HW27tO+xXvGzzSji+mmFk649CM/RPbUG9AdXvw2IMDfsvFi
+         uH/g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792059356; x=1792664156; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=shdhjPkvDR57kNHeQ4WOOkF93PcSzZ6NOlgi8C/r/gQ=;
-        b=J8c6ZUBd/N2XEsv8lya2PICzxrNVoImFYNqerGKiIlYugQbVpq2KOZk8pvRCxjskjp
-         lKpTJwZkz0ZMS3ge3Og0Tb0X+QULs3bxrAlvWOApvvwY2PBl6rK/Yhz/NVqes6rslY70
-         PxMA29ZpGs5eFTq7Fa4nxKMTCEjxTBp2nrcsmMDh6GgixInQxYziz39R6Bag4UJqHLJ6
-         qfh2nk2fu0jOvxjDR66Uuos6Hw4OFFJotQ30Y0sJabHlJ12ugQRpVDMpI+1O556al2R1
-         PJrN/wjNlLdapHi8fDJcRKGhGD8HdNmBeVTiYqbBpIrq1QVe+UduJyi3T2Tj2IVF2AxN
-         4rSQ==
+        d=futuring-girl.com; s=google; t=1792059588; x=1792664388; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6G9qdhvcH8NEbAp7bRobDvF91lk/yeFcW7ZExqFVdy8=;
+        b=oNXVPavkUKdhK9dNFHpW3f3xGAMaLawKG0w5W21No41wwr1MIUfqVnyHETF+uBO36/
+         sQ1sze9wfKKxfpMKOxEJRtOMrQs0upGSNiDnv026BUfP5dML89eQ9Ql74DQbVf3tvAy9
+         Zl64to6Uof/SOfQ2eXT+/o+nwbbIGAwOSVfcQYs7ik+GweMMVVW8QbXGizUQVhdoacAZ
+         hRepJ69Po3QVF5+OL6FHc6Q2MZU5VR7gErcF/2oDNzlj/zBXidailhjXNrrjUIaYCSOY
+         vaVILKwdtScrVeHfH9wEJSiSK9XVkVvb5ECm73rg5kjCPgdtgINNGLPzdppz0m2bUapH
+         MszA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792059356; x=1792664156;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=shdhjPkvDR57kNHeQ4WOOkF93PcSzZ6NOlgi8C/r/gQ=;
-        b=v/ifS5Yp3ZCAlZTmJCaGHfWjxdxuyM8l3Qu83JbaM2bZ2dXs3J2etZ0i7yvR1JB/yz
-         FWIooB2WYhICZ46VnP3EEc2q8QBVw8xkdtIBmDlFEn90QsC1GfVwf7mejX09s07fLENb
-         c3SlL2iDBNSrnVHPEfnQVX0BWiQvNTEQwhi5LDUVUzMCiFRKeHzweSI3tL0jFCQa+hpc
-         CG5B90HKpUV0PA3pH7IMAzyHAr1EqX2awpjqq+SH3ocNsecwqtxPOUmQBQoa42SQNxGa
-         BbdqHUDVpJaG4GI9wPgSu93LmyG54AL0AHbL06ZM1IuqjdIzCDEnlRWttSx6NhhZvCzH
-         KjKw==
-X-Forwarded-Encrypted: i=1; AKwUvBwy8/lkR/hJpYutjbSnjZAvYbavHJPoMyS/eeEr5AXwx4mUVYkDQqGGdgCcSSp278ALsbE5rUY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKG+LaNxHhHUy/bOl4VOP8ifrZGYP0liJn7Y/OHzPkJS2bVwDR
-	NJBrOUxBpxRhcov+uxY2HtTs9pP5trMFS6qlv14FC0yiNA3yAeYK9PhbpQuHarOuFSwkMnj2Kir
-	nGV3e2eQErykkzViOlA2oIlVI61waFDfItF9Tl65/EYaN41ASs4qQ0tIFWnU=
-X-Gm-Gg: AYBFou3tDXs8PZ9937A2iA+UNoKJmKEmwMjYsjBf9ABQD97jUZSUXg1onXaYBL1TdUf
-	pKoZlFw5vvw5ZwhZgW/S0Jglwx1ITWFiMCcchyXMjrJaaJ9TSQBSfGICh57zEimx7Vw8gyCE2iM
-	lRrA7avNSMMt4g77MJyRK2FMnI4OxMOpW/7KWe/JYVDURDhsesd5YcWFexufdHhp7YUZUJ7A4Gz
-	iI6HJt14jALPRDlcO+zTjuDQ8xkVFyvawuMG/UbjYWYE0aL5lMVNTbFIIL/WtIZuxcgQAfulM+y
-	TsPh29R4qF6hxfE4z+1F8zZ7IdzdZR9TRIxMKzoK+T2H+7HL7YnbQzKP0ersv4OkFHzKwVKWh/I
-	7ID6vcirRGad5JertYcPPQQ==
-X-Received: by 2002:a05:620a:27d6:b0:92e:6485:f640 with SMTP id af79cd13be357-93ebd224118mr3300567185a.4.1792059355970;
-        Thu, 15 Oct 2026 03:15:55 -0700 (PDT)
-X-Received: by 2002:a05:620a:27d6:b0:92e:6485:f640 with SMTP id af79cd13be357-93ebd224118mr3300565185a.4.1792059355485;
-        Thu, 15 Oct 2026 03:15:55 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3ed6beaf65sm106831266b.3.2026.10.15.03.15.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 03:15:54 -0700 (PDT)
-Message-ID: <e147f162-a52f-461e-9c70-4947019ca4ab@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 12:15:51 +0200
+        d=1e100.net; s=20260707; t=1792059588; x=1792664388;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6G9qdhvcH8NEbAp7bRobDvF91lk/yeFcW7ZExqFVdy8=;
+        b=APpqoLYVMWRrNLELDD36AZOIfeBmrj71xagqLky12dKbEP0e70DbyHyMbAqcXkdoue
+         omOnro4NZEVvnd6oyeOh/cdMaDNvSHghrxMwIWNvn2kAsdAYE3NW6g09OLMhqjaddH9/
+         pZJ/V6owIa7/OOyL7Hq9rVbb0g7kmW8j9I6MnW2LJPmwUIH1MbzZdXUvJc6jluhL6f+C
+         6ATpJBe1ea3FOL+rymVpz+C3W2awFRga9gMK/zAvvCWOr2MaVQGsA5D1BW9hZcAViWk5
+         bMR/KtkM8zaRxs+9cwyzAq/j5t3Efw1W99Sth6vO0q2Bq16+6C7CTQ3TQD0nA7j/ntqx
+         PIfw==
+X-Gm-Message-State: AFq9FYJjCglysXhRWq3z09IMiFLCcQuquagnqEZqud72mFirJpczcnlp
+	2IkXfKASrPLgbDE5Od7Pv64WaMA7Yi1XTPeRiqMgEtMUw5WrLg+Agdqveuvna4U1e3PxFBYCymh
+	/iY93ByQKuOLG/m0d8FFO1j33bJmh/00J4MknPRIz0A==
+X-Gm-Gg: AYBFou0oGx2LuC5AG6C1JEzPESjYcZa69koinG1xzZCb2xV4cA7sNZgNzUv9clQbVyM
+	PkpgPYsdOfH4UaFJhXEwy0jRADF3/9nADgNBKlme1wHjoXOQCJO8yplMmYXFuaRfzYXik+fGErn
+	ePeurX6CaTDG1BlfDXSCuVCyaga8zsxLbrd2DS426N6h8GLKI7KYYdO3zGLrLS6K6xCtuICr2Ii
+	UyhyxFWJv1Kqe6vJQPlqpKUtgMjMYwvQVkHWnEkXk9C+KrbOkx7ZwApaji7ZSSxkkgeyhB5dfGd
+	4ehptGE1Q3+YxwBCE0IjetcmXGHMQRJ01DMiR/8gdr/h1XqKUTjtnsLwnwov1qmdeA==
+X-Received: by 2002:a17:907:7fa0:b0:c29:4490:50d6 with SMTP id
+ a640c23a62f3a-c31aa022de1mr1644018966b.47.1792059587420; Thu, 15 Oct 2026
+ 03:19:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] remoteproc: qcom: pas: Don't fail attach if the
- remote has crashed
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-References: <20261015013827.716465-1-shengchao.guo@oss.qualcomm.com>
- <20261015013827.716465-3-shengchao.guo@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261015013827.716465-3-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=QbvzLcbv c=1 sm=1 tr=0 ts=6ad0a7dd cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=FBzCk_X8rep-KjbTXLsA:9 a=QEXdDO2ut3YA:10
- a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA0MCBTYWx0ZWRfX/MfSh9qLgGLE
- 62p7tqaDPMfgmmjp/rmEsaPC8ONr14QduRTDSXjzW8YStGsv5+vVUh+DYgrXGJorT1H1917Ypof
- qH4WfnoA8yixJ3qutPlwFbnyI74+bJU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA0MCBTYWx0ZWRfX8QaVBa9lerO8
- xYJKjslO27QVkMklhJdx3wvdeUm0OSZyKtE+TEN+vmFAAzcLhVxf1vtnDZsYfWO8pvcSqMT88Tz
- g9f8EOVcB/ipenpaGWZiaiOvsszopl7xGWwEVgqPqVBI7X6bZIFHsiHjJzSAuRFahONelsk7iXm
- 63J8k3QF3qybupETlrsMEgkFBuzKwjhPGR30xnJRR/JzlbWJgFfG8kJZwle4CPoEdZs1l3W5zMs
- Or0OZrMzIhrpTa2iz/mcUFTQrgGzCFXOsmoxa0UgLO7TiLIQDi+HlKWNpyk+gUc3feyuEXCVHOK
- zxge2YgHfrXljzjop6zvZlAQbVWjO/pcsOOLS+iRCpm0RgYYpBotz3Cyp1qZ70zTPa3qLsW+YU+
- Ooi7R9oXHAqO77JQBnkS09uGaL4c85iPmwWfCkTXz0FWckLYLBicdXyJcXb4Z2iZiT3F/gnNGL4
- YpVcJdNfTYnBFriiazQ==
-X-Proofpoint-ORIG-GUID: Qu6dBLnhFIjCNyby9Agb4L-puhTmoxY9
-X-Proofpoint-GUID: Qu6dBLnhFIjCNyby9Agb4L-puhTmoxY9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0
- priorityscore=1501 spamscore=0 bulkscore=0 phishscore=0 suspectscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610150040
+References: <20261014123758.782265692@linuxfoundation.org>
+In-Reply-To: <20261014123758.782265692@linuxfoundation.org>
+From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+Date: Thu, 15 Oct 2026 19:19:29 +0900
+X-Gm-Features: AclHuK_fNn4KLGlruklVpvCw979MIpATa3NA0dr2zzs2gEVM47exlU8CVc0L7T4
+Message-ID: <CAKL4bV4yy39e_UswA068F9favpRSmVbEUMqe0cQrFNPJ8EB2=A@mail.gmail.com>
+Subject: Re: [PATCH 7.2 000/284] 7.2.11-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/15/26 3:38 AM, Shawn Guo wrote:
-> When qcom_pas_attach() finds the fatal SMP2P bit already set, it reports
-> a crash and then fails the attach. The core unwinds the attach while the
-> crash work is queued: rproc_boot() drops the power refcount back to 0,
-> and __rproc_attach()/rproc_attach() unprepare the subdevices, clean up
-> the resource table and disable the IOMMU. Once rproc_boot() releases
-> rproc->lock, the crash handler finds the rproc still RPROC_DETACHED,
-> marks it RPROC_CRASHED and runs rproc_boot_recovery() on top of that
-> torn-down state:
+Hi Greg
 
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Wed, Oct 14, 2026 at 9:58=E2=80=AFPM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.2.11 release.
+> There are 284 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Fri, 16 Oct 2026 12:37:26 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+>         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
+7.2.11-rc2.gz
+> or in the git tree and branch at:
+>         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
+-rc.git linux-7.2.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
+>
 
-Konrad
+Linux version 7.2.11-rc2 tested.
+
+Build successfully completed.
+Boot successfully completed.
+No dmesg regressions.
+Video output normal.
+Sound output normal.
+
+Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
+
+[    0.000000] Linux version 7.2.11-rc2rv-g62eb344d00f7
+(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.2.1 20260810, GNU ld (GNU
+Binutils) 2.47) #1 SMP PREEMPT_DYNAMIC Thu Oct 15 18:54:27 JST 2026
+
+Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
