@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A857A53ED04;
-	Thu, 15 Oct 2026 16:07:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 946F8549397;
+	Thu, 15 Oct 2026 16:07:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792080459; cv=none; b=UP8VhURG3VbHBXk3sKkx5fA0ZzfhcBN18K4sUl8LiKUSuihhUEwoVGwh+PZ1cf7Wt/034apZnVtZUxJ5WSw+xHqEUAKhVLmMiOmFSkc7owaIUWd2aah2C7QvSvrOSaQ73jMo3sOysXPKVZHUP2B9FShGliAPdaAJb4Wg6+XhZpE=
+	t=1792080461; cv=none; b=X8vruSDeAefkdHLkhPSAF6i/YDtivDrp0DPA8QKLdeQiUZC1BHmP3jFak9eSk5s8fy8fpKs0g8w7U2OA6Op4eaqG3yIVIBlaCsw3uhbRRPt7fBNadAyo04Hm34s0Bc4saMGy63QikOV6lcM2o6tIbq2SHNPgAgYg8onzuRFAVDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792080459; c=relaxed/simple;
-	bh=bhdP739rykh9+cxbAvZcyJkbfwJi6RgLgraAvwylzjI=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZmAxtQ/fsDXv8gmrPwa33E9oqz09bO/ASlWyqD32yG10/lwuP2243h/JP0l0/Di3pmyCClKe4zUIpWTm8eC69EVtmQBso6R4iJA75S/3iP8aZE8fdF87w/0L7WZssZgvXEQslDKTsAtR099+xbm7lOpMiYLMpkr+uhoLjb73cko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q9KrD+0Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792080461; c=relaxed/simple;
+	bh=ulrZ2V7SJXfVeJxQpvnSpDWRVwaaNecXzCNDtz03vwE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=TPksk7GdqiFigk5e3IQQPZr/9I+cEUm8zb+bpceh9uj5p3BRh0nbh6runBkaGlOXkvV278KQ2HICpcSb8lc9LOvJKrWNQ+1B/qAioDEE4xIZYwht0VxQ+D6pmde5n1m0sLhsj+iWQgBcMUOYl0Bdh6outba9Fam8r59XGnbP+5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oClVWSoc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q9KrD+0Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A82751F000C4;
-	Thu, 15 Oct 2026 16:07:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oClVWSoc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B38E1F000C5;
+	Thu, 15 Oct 2026 16:07:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792080443;
-	bh=CWGMfzP4w3Zs0Y7JyHkmxA4Ab0jJqfsVdlDpuxARv00=;
-	h=From:Subject:Date:To:Cc;
-	b=Q9KrD+0QatR2fO6wXqm1uuSgDXYAHIcUEZ1gLROc6UsF07iyL4xlAvO8d7IKEBeqo
-	 L0U8huXAcNPaswmMqa/GsAqk/R0RP85ebMSNdU53+QgGfw6qR5cfS+5z5hCW5EBIoI
-	 je8vP4WhScOHpnCpssgJLAST+x1VvNuRoc9l4Hr8dD2o+DfAZXOAhhovfRypbfCixh
-	 oTTwiLcBxLNcyelXdvHdbeYwv1Mb+ryUXOm0qjmUB0oUucxCjQj3eSETvLEysMy/xx
-	 L4pJHMi5C/w+B47GFhmhaZQev3xvsg6Ev8ta8OoH3f7UIdAQkSI6wcQosYKiyCr2lR
-	 2xpaPIp8tIs0A==
+	s=k20260515; t=1792080448;
+	bh=CciFSgIFbCKdkyGPR3RAGdYw4f/ibGwxPnazJEcANEE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=oClVWSocfqvduPR2ALfzIteEFks2esswxs0F5Y2oZ/OA+HLCsAV/fLlib5j95qPEq
+	 +3kZatFC0ANxS/DB0lRArKWAxUA+V/mKeyDOldSMMcAwzYJrl7fu+w2qeL+9QEAvW9
+	 wuui8iSP/G/wc3mZPtq8nFawHp2pPEOzw51/wgIO95YwNYlx/8OW3tO/V1wUyYm4tT
+	 upGx+ji2prBVevtIwEgY38MI2o90fU5H4R7Z4KqZgUtrXG6Ju8afkoBoaF1ddxngwY
+	 Po9NzE5sqCS6nyjwxUxNtqLm3ObuglI8ZrMX9ToVMbhjAcpB0CN5NbdfdbsNMob9kS
+	 2W5jC2QjzjP8Q==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Subject: [PATCH 00/10] mm: various (urgent?) fixes
-Date: Thu, 15 Oct 2026 18:07:06 +0200
-Message-Id: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
+Date: Thu, 15 Oct 2026 18:07:07 +0200
+Subject: [PATCH 01/10] mm/vma: don't leak the commit charge on mmap failure
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,10 +37,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACr60GoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDA0NT3dKi9NS8kvi0zIrUYl1zQ0MjMyNLYxOz1CQloJaColSwBFBHdCy
- EX1yalJWaXAIyQ6m2FgC8oPgdcAAAAA==
-X-Change-ID: 20261015-urgent_fixes-7112629346eb
+Message-Id: <20261015-urgent_fixes-v1-1-42796911043b@kernel.org>
+References: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
+In-Reply-To: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
  "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
  Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
@@ -52,75 +51,93 @@ To: Andrew Morton <akpm@linux-foundation.org>,
  "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
  "Liam R. Howlett" <liam@infradead.org>, Josef Bacik <josef@toxicpanda.com>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>, stable@vger.kernel.org, 
- Chris Mason <mason@kernel.org>
+ "David Hildenbrand (Arm)" <david@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2238; i=david@kernel.org;
- h=from:subject:message-id; bh=bhdP739rykh9+cxbAvZcyJkbfwJi6RgLgraAvwylzjI=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIu/DKUPn5d4HXm1P47+z4f2JMwW3+pwclIvoeCrPYHd
- aqnsc3731HKwiDGwSArpsgSFHzf4OXLdbXVbnzMMHNYmUCGMHBxCsBEkjwY/qlb6KbN95oowTDp
- k3uS6kVTO4H13evfCZiZ33u6yilI4ggjw2NDyYNK4kfD7jnXxL79onjyrfschgRBO/ZI6bsrp6W
- tYQUA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3090; i=david@kernel.org;
+ h=from:subject:message-id; bh=PrdvM6UwTy8T7DRmlAnUC/i1CY7asN3v2e9tohKJ6aM=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIu/DL+dvLjnYVC5XPumHP1rnrR8tnh5Ik9fX+myYXLh
+ yzxUueQ7yhlYRDjYJAVU2QJCr5v8PLlutpqNz5mmDmsTCBDGLg4BWAimlEM/9OLcg34K3TmMjy/
+ kizyN7FEZ63Q0ohiPqWsv16H3Lcl3GJkeHSnM3SLOv/CjvtnxW7K8s5Zt2/jtcrvfBc3rCpTutd
+ iwAkA
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-Hi,
+From: Josef Bacik <josef@toxicpanda.com>
 
-here are various MM fixes. The majority was reported by Josef at
-Anthrophic, the remainder was found while reviewing/overhauling them.
+When an accountable mapping replaces existing mappings (MAP_FIXED),
+__mmap_setup() only charges the difference between the size of the new
+mapping and the VM_ACCOUNT pages it replaces. It then zeroes
+vms->nr_accounted so that unmapping the old VMAs does not return their
+charge, which now backs the new mapping.
 
-Two issues/fixes reported are not included, as we are discussing
-(better) alternatives on the list already.
+If the operation fails after that point, the error path returns
+map->charged, i.e. only the difference. By then vms_clean_up_area() has
+zapped the page tables and closed the old VMAs, so
+vms_abort_munmap_vmas() cannot reattach them. It leaves a gap and
+finishes the unmap with vms_complete_munmap_vmas(), which uncharges
+vms->nr_accounted == 0 pages. The old VMAs are gone, the new one was
+never created, and the charge of the old ones is never returned, not
+even when the process exits.
 
-I left most of the original commit messages as schloppy as they are: I
-don't particularly care as long as the code is in good shape and as long as
-they are not actively wrong. But I (and Mike) could not be stopped from
-overhauling at least some of them.
+No privilege is needed to hit this, only a file whose mmap hook fails,
+for example a socket (sock_no_mmap() returns -ENODEV):
 
-While I don't think there is anything too critical in here, I think this
-is a good opportunity to see how fast we can get pre-screened/pre-reviewed
-fixes upstream that might be security-related.
+	p = mmap(NULL, len, PROT_READ | PROT_WRITE,
+		 MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+	mmap(p, len, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_FIXED,
+	     socket_fd, 0);
 
-The majority are hugetlb + uffd issues, that are not actually that
-relevant for most installations. But all things that should just get
-fixed. Some uffd fixes need proper follow ups to fix some more of the
-root causes of leftover UFFD PTE bits (or proof that there are none
-remaining).
+Every iteration adds len to Committed_AS for good. With
+vm.overcommit_memory=2 this lets any user make all further accountable
+allocations in the system fail with -ENOMEM.
 
-I ran some MM selftests and nothing popped up.
+Once the new mapping has taken over the charge of the mappings it
+replaces, it owns the charge for all of its pages. Record that in
+map->charged, so that the error path returns all of it.
 
-So let's try to get these upstream in a timely fashion.
+A failure in __mmap_setup() itself is not affected: it happens before
+the charge is taken over and the old VMAs are reattached with their
+charge intact.
 
+Original fix generated by an LLM and sent in private by Josef.
+
+Fixes: 4f87153e82c4 ("mm: change failure of MAP_FIXED to restoring the gap on failure")
+Cc: stable@vger.kernel.org
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+[ david: call variable "uncharged" and make it const, adjust/simplify comments ]
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
-David Hildenbrand (Arm) (4):
-      mm/hugetlb: fix use-after-free in hugetlb_mfill_atomic_pte()
-      mm/hugetlb: tolerate uffd bits set without uffd for PROT_NONE PTEs
-      mm/hugetlb: tolerate UFFD_WP markers outside uffd-wp VMAs
-      mm/mremap: fix calling fixup_hugetlb_reservations() on the wrong VMA
+ mm/vma.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-Josef Bacik (6):
-      mm/vma: don't leak the commit charge on mmap failure
-      mm/hugetlb: fix use-after-free of a new anon folio
-      mm/hugetlb: unmap the page where the other VMA maps it
-      mm/hugetlb: don't clear the resv_map of a VMA whose lock is held
-      mm/hugetlb: fix endless write fault on a leftover uffd bit
-      mm/hugetlb: don't leave a uffd-wp marker when zapping an RWP entry
+diff --git a/mm/vma.c b/mm/vma.c
+index 6c35f0d775ab6..81e2c93a1cc52 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -2577,14 +2577,17 @@ static int __mmap_setup(struct mmap_state *map, struct vm_area_desc *desc,
+ 
+ 	/* Private writable mapping: check memory availability. */
+ 	if (accountable_mapping(map)) {
+-		map->charged = map->pglen;
+-		map->charged -= vms->nr_accounted;
+-		if (map->charged) {
+-			error = security_vm_enough_memory_mm(map->mm, map->charged);
++		const unsigned long uncharged = map->pglen - vms->nr_accounted;
++
++		/* Charge only what's not already charged by mappings we replace. */
++		if (uncharged) {
++			error = security_vm_enough_memory_mm(map->mm, uncharged);
+ 			if (error)
+ 				return error;
+ 		}
+ 
++		/* Our new mapping owns the entire charge now. */
++		map->charged = map->pglen;
+ 		vms->nr_accounted = 0;
+ 		vma_flags_set(&map->vma_flags, VMA_ACCOUNT_BIT);
+ 	}
 
- mm/hugetlb.c | 70 ++++++++++++++++++++++++++++++++++++++++++++++--------------
- mm/mremap.c  |  2 +-
- mm/vma.c     | 11 ++++++----
- 3 files changed, 62 insertions(+), 21 deletions(-)
-
----
-
-base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
-
-change-id: 20261015-urgent_fixes-7112629346eb
-
---
-
-Cheers,
-
-David
+-- 
+2.43.0
 
