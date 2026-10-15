@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384181684B0;
-	Thu, 15 Oct 2026 16:37:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90EE9379C22;
+	Thu, 15 Oct 2026 16:37:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792082286; cv=none; b=N170yXyMUl9QQQZQXfO0o2E9t+rYQJvgSFFw+KjMs8/bFdQh5qYf4wowBgB8Qy/IF20ALMBBBPN8fykpP9fGyo400s8unzefTXqrHhrCFXTnZAeOEB7zcwsbkKDYfkFb1q1wYs04jGZ+9qUECTkPURnm0El/uJon9raVdtIwbMo=
+	t=1792082287; cv=none; b=fEhA5pfyhikyPfNmbEteeeWOHFKeD0Ej9Yrg5kUQ8/QPLVdLRenQLz+3ij9tHjX+Q4Aglq41NWrqh96PQ+QZP1KzuygOvzhaG/S+wM4FSrg974EoaUH2coxrZmx4DYyGM8LP1tt7zryiJc+s9mZ1NG9AeLa5LWS139neYuCT1BI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792082286; c=relaxed/simple;
-	bh=Tl7HxDIjipe6m0Tk68nbEwxwsLEDgSoQIfiIh2CtkBU=;
+	s=arc-20240116; t=1792082287; c=relaxed/simple;
+	bh=n1uCdm3xlNN/fHbWdmlEXcDFHevyUx13hYn8Ant3lcQ=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ToyZ/bm88Yozm9B7pgGy+ENrGyvc1Vmy1A6laHPMe7uEoNDwpTnc6GhbeABFzPkcLUqmKqsvdCvuLcp5hSHdJFExCT+rHEVcoWyc7iHjIbyuR4MNeHR9zlvllTc5JVGseNsiGtWjwVNOalcqddURi0yQH+Yuve27ubqZZIrypXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nBoGsk0e; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=DpG/xNb6f4OCzqeusHXxd3ORkcOYJWqdL6AIP63pCxZZM18/d37VlaxcUQPYNcA9xZqyOprlcA8/Oo7tw+fxt/D3htj+fbZ5JNU+tlVGOS9pSn5ePExkyAJiWR7734660KrYtfoce9+cHZLZhwnqwJvL43hoDaRThpW+a80P+iI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XQSQ4lYd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nBoGsk0e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D651C1F000C5;
-	Thu, 15 Oct 2026 16:37:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XQSQ4lYd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4019C1F000C6;
+	Thu, 15 Oct 2026 16:37:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792082273;
-	bh=J8Ghc916VwV8YIfUc/Uxibbm6amSUje62iHNzWirMC8=;
+	s=k20260515; t=1792082274;
+	bh=dyB/6NmFZRGdrRTP5KsJ3jOecvhsS5ZTpQOfRco2vuc=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=nBoGsk0e/eI4m/vubZcic2PC5Ky37MpdXmuDv6mijgTCJAPULtRp67iFNzqAmqZ5J
-	 4kaqXLdAxERaH/H1U5jEj5ukSV+2DFA5mNx/vvrWUFrDNXHOp/cUX34rqgKQInbf5a
-	 SjX01y94O+QZYmamUqKZJpjG+1t7LVYWIFXO14BbdZbyZlzx/QaemnXOdtHMe1/of4
-	 ysWgMcis2jblNUDGjoVuT3wI25zoqb0Qhy/be2Ap071SvChzrlX++quul3ChtmGWnn
-	 aXEAxtIXzc7jiaoXQgaB0RU9EIRsoqbCBvtw10Xs86enXMcotEmnrednGh3O1tI/5/
-	 CwIWOmakaJ5/g==
-Subject: Re: [PATCH net v2 1/3] can: dev: prevent bus-off recovery when the
- interface is not running
+	b=XQSQ4lYdZyh71183NKR1fUb/KSjbuLiil4dINwYsiQOs3lIRiHgMXCptxbpKkmhDz
+	 a/X3K2lWp+bDJoGHX6feWzthtGNOn0UZr5PYiSbz0XEV7zXsEvOSAGSMrSGQnAjiZ0
+	 NqxKCpMsQArqjosMi5CwsqglRY77PCl/6W5JHHLpnAUgKDObX5hNVxrrGbRB76Y/LU
+	 tI/khRPWUlc5yTzg+aTzNO+NrAhaM0VJuIdPTrzcr4umpYenn9ji5jQadmSZPeLajf
+	 6EMgL2rbtc/5zrpyCLAfs3MZ5HAbxdgYTmwk4sW0Q+4w2Wd4/61SV6bB4gJ0yFsWE0
+	 Ol29ynRUCrpuQ==
+Subject: Re: [PATCH net v2 3/3] can: rockchip_canfd: cancel bus-off restart
+ before closing the device
 From: netdev-bot+sashiko@kernel.org
 To: 1579567540@qq.com
 Cc: mkl@pengutronix.de, mailhol@kernel.org, heiko@sntech.de,
@@ -35,10 +35,10 @@ Cc: mkl@pengutronix.de, mailhol@kernel.org, heiko@sntech.de,
  kernel@pengutronix.de, linux-can@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-rockchip@lists.infradead.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Thu, 15 Oct 2026 16:37:52 +0000
-Message-ID: <179208227237.1406898.11528789185033827404@kernel.org>
-In-Reply-To: <tencent_196A2433801631CD2FA42998465E26316105@qq.com>
-References: <tencent_196A2433801631CD2FA42998465E26316105@qq.com>
+Date: Thu, 15 Oct 2026 16:37:53 +0000
+Message-ID: <179208227384.1406898.15110321342582191229@kernel.org>
+In-Reply-To: <tencent_B15E13184DA04C4382F48848C006A2B51F06@qq.com>
+References: <tencent_B15E13184DA04C4382F48848C006A2B51F06@qq.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -52,7 +52,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 (1) · Medium: 1 (1) · Low: 0
+Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -60,187 +60,126 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] Split-frame drop accounting in stmmac_rx_zc() is inconsistent
-  per frame and per core.
+- [Medium] can: rockchip_canfd: disable_irq() called on shared IRQ
 
 Pre-existing issues:
-- [High] stmmac_dispatch_skb_zc() (stmmac_main.c:5533) sets
-  `skb->ip_summed = CHECKSUM_UNNECESSARY` for every IP frame when RX COE…
-- [Medium] priv->xstats.rx_dropped and priv->xstats.rx_errors are device-
-  wide unsigned longs.
+- [High] This problem wasn't introduced by this patch, but the restart
+  callback the patch modifies re-initializes a delayed_work that may…
 
 --
 
-net: stmmac: drop split frames on AF_XDP zero-copy RX
+can: rockchip_canfd: cancel bus-off restart before closing the device
 
-This patch fixes stmmac_rx_zc() so that split frames are drained as
-errored, and the last fragment is no longer handed to XDP as a fresh
-frame. It also changes the legacy normal and enhanced descriptor
-callbacks to report rx_not_ls together with discard_frame for non-last
-descriptors.
+This commit calls close_candev_cancel_restart_sync() at the start of
+rkcanfd_stop(), so a running bus-off restart finishes while the IRQ and
+other resources are still available. It also brackets the hardware
+reinitialization in rkcanfd_set_mode() with disable_irq()/enable_irq().
+That keeps the IRQ handler out while the controller is restarted.
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
-> index 0512536012251..297e2428a8f9b 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
-> @@ -184,7 +184,7 @@ static int enh_desc_get_rx_status(struct stmmac_extra_stats *x,
+> diff --git a/drivers/net/can/rockchip/rockchip_canfd-core.c b/drivers/net/can/rockchip/rockchip_canfd-core.c
+> index 37c1c22c40c9f..fb8f6b0675022 100644
+> --- a/drivers/net/can/rockchip/rockchip_canfd-core.c
+> +++ b/drivers/net/can/rockchip/rockchip_canfd-core.c
+> @@ -356,8 +356,10 @@ static int rkcanfd_set_mode(struct net_device *ndev,
 >  
->  	if (unlikely(!(rdes0 & RDES0_LAST_DESCRIPTOR))) {
->  		x->rx_length++;
-> -		return discard_frame;
-> +		return discard_frame | rx_not_ls;
->  	}
->  
->  	if (unlikely(rdes0 & RDES0_ERROR_SUMMARY)) {
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/norm_desc.c b/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
-> index c4b613564f87c..d19bf7ca4db38 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
-> @@ -70,7 +70,7 @@ static int ndesc_get_rx_status(struct stmmac_extra_stats *x,
->  
->  	if (unlikely(!(rdes0 & RDES0_LAST_DESCRIPTOR))) {
->  		x->rx_length++;
-> -		return discard_frame;
-> +		return discard_frame | rx_not_ls;
->  	}
->  
->  	if (unlikely(rdes0 & RDES0_ERROR_SUMMARY)) {
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index f0835be2f65a7..10ea72cbf889a 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -5695,18 +5695,21 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
->  		if (priv->extend_desc)
->  			stmmac_rx_extended_status(priv, &priv->xstats,
->  						  rx_q->dma_erx + entry);
-> -		if (unlikely(status == discard_frame)) {
-> -			xsk_buff_free(buf->xdp);
-> -			buf->xdp = NULL;
-> -			dirty++;
-> +
-> +		if (unlikely(status & discard_frame)) {
->  			error = 1;
->  			if (!priv->hwts_rx_en)
->  				rx_errors++;
->  		}
->  
-> -		if (unlikely(error && (status & rx_not_ls)))
-> -			goto read_again;
->  		if (unlikely(error)) {
-> +			xsk_buff_free(buf->xdp);
-> +			buf->xdp = NULL;
-> +			dirty++;
-> +
-> +			if (status & rx_not_ls)
-> +				goto read_again;
-> +
->  			count++;
->  			continue;
->  		}
-> @@ -5715,8 +5718,9 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
->  		if (likely(status & rx_not_ls)) {
->  			xsk_buff_free(buf->xdp);
->  			buf->xdp = NULL;
-> +			rx_dropped++;
-> +			error = 1;
+>  	switch (mode) {
+>  	case CAN_MODE_START:
+> +		disable_irq(ndev->irq);
+>  		rkcanfd_chip_start(priv);
 
 [Severity: Medium]
+rkcanfd_open() requests ndev->irq with IRQF_SHARED, and the commit
+message itself relies on the line being shared. disable_irq() masks
+the whole line at the irqchip, not only this controller's source.
+It also waits in synchronize_irq() for the handlers of every other
+device on that line.
 
-Is the split-frame drop accounting here consistent across descriptor
-formats?
+Every device sharing the line therefore loses interrupt delivery for
+as long as rkcanfd_chip_start() and rkcanfd_chip_interrupts_enable()
+run. That window covers:
 
-The legacy callbacks now return discard_frame | rx_not_ls for every
-non-last descriptor. So the discard branch above runs first for each of
-those descriptors, and there is no !error guard:
+- the reset and work mode transitions
+- FIFO setup
+- bittiming programming
+- timestamp init and start
 
-    if (unlikely(status & discard_frame)) {
-        error = 1;
-        if (!priv->hwts_rx_en)
-            rx_errors++;
-    }
+The window can be opened from outside the box. Another node on the
+CAN bus can drive this controller into bus-off. With restart-ms
+configured, restart_work then runs rkcanfd_set_mode(), and a manual
+can_restart_now() takes the same path. Each restart stalls the
+unrelated devices sharing the IRQ.
 
-On dwmac100/dwmac1000, a frame spanning N descriptors would then add N-1
-to rx_errors. It adds 0 to rx_dropped, while count / rx_pkt_n goes up
-only once for the frame. The new rx_dropped++ in this 1:1 block can never
-be reached on those cores.
+Drivers on a shared IRQ are generally expected not to use
+disable_irq() for their own exclusion, for exactly this reason.
 
-On dwmac4 (and similarly xgmac), dwmac4_wrback_get_rx_status() returns a
-bare rx_not_ls for non-last descriptors:
+Would it be possible to exclude rkcanfd_irq() with a real lock
+instead? For example, the handler could take a spinlock, and
+spin_lock_irqsave() could be held around the chip_start and
+interrupts_enable sequence here.
 
-	if (likely(!(rdes3 & RDES3_LAST_DESCRIPTOR)))
-		return rx_not_ls;
+That only works if everything reached from rkcanfd_chip_start() is
+safe in atomic context. Can you confirm that? Or is there a reason
+the restart path has to be able to sleep while the handler is held
+off?
 
-That means this block does rx_dropped++ and sets error = 1. If the last
-descriptor has RDES3_ERROR_SUMMARY set, the discard branch also does
-rx_errors++. The same dropped frame then shows up in both rx_dropped and
-rx_errors.
-
-Later in the series, stmmac_rx() is changed to count only once, using
-(!error && (status & discard_frame)). Should stmmac_rx_zc() get the same
-treatment, so each dropped frame is counted once in either rx_errors or
-rx_dropped?
-
->  			dirty++;
-> -			count++;
->  			goto read_again;
->  		}
->  
-
-[Severity: Medium]
-
-This is a pre-existing issue and was not introduced by this patch. The
-new rx_dropped++ feeds into an unsynchronized accumulation at the end of
-stmmac_rx_zc():
-
-	priv->xstats.rx_dropped += rx_dropped;
-	priv->xstats.rx_errors += rx_errors;
-
-These are device-wide unsigned longs. They are updated with a plain +=
-from per-queue NAPI contexts that can run at the same time on different
-CPUs. stmmac_rx() does the same thing, and stmmac_get_stats64() reads
-them without any locking.
-
-Can concurrent NAPI polls on different queues lose increments to these
-counters?
+I would rather not see a software flag checked in the handler for
+this. Without a lock it does not actually exclude a handler that
+has already passed the check.
 
 [Severity: High]
+This issue was not introduced by this patch. It sits in the restart path
+the patch modifies, though. Can rkcanfd_chip_start() here re-initialize
+priv->timestamp while its timer is still queued?
 
-This isn't a bug introduced by this patch, but it is in the same receive
-path. On XDP_PASS, stmmac_rx_zc() calls stmmac_dispatch_skb_zc() without
-passing status. That function marks every IP frame as verified when RX
-COE is enabled:
+On bus-off, the IRQ path stops the timestamp work without waiting for it:
 
-stmmac_dispatch_skb_zc() {
+rkcanfd_irq()
+  rkcanfd_handle_state_error_int()
+    rkcanfd_chip_stop(priv, CAN_STATE_BUS_OFF)
+      rkcanfd_timestamp_stop()
+        cancel_delayed_work(&priv->timestamp);
+
+The work callback always re-arms itself:
+
+drivers/net/can/rockchip/rockchip_canfd-timestamp.c:rkcanfd_timestamp_work() {
     ...
-	if (unlikely(!coe) || !stmmac_has_ip_ethertype(skb))
-		skb_checksum_none_assert(skb);
-	else
-		skb->ip_summed = CHECKSUM_UNNECESSARY;
-    ...
+	timecounter_read(&priv->tc);
+
+	schedule_delayed_work(&priv->timestamp, priv->work_delay_jiffies);
 }
 
-On dwmac4, dwmac4_wrback_get_rx_status() reports L4 payload checksum
-failures only as csum_none, without discard_frame:
+Bus-off may be handled while rkcanfd_timestamp_work() is running, either on
+another CPU or because the IRQ preempted it on the same CPU. In that case
+cancel_delayed_work() finds nothing pending, and the callback then re-queues
+itself. From then on the work keeps re-arming.
 
-	if (rdes1 & RDES1_IP_PAYLOAD_ERROR) {
-		x->ip_payload_err++;
-		ret |= csum_none;
-	}
+When the restart runs (restart_work or can_restart_now()), it goes through:
 
-Also, dwmac4_dma_rx_chan_op_mode() sets MTL_OP_MODE_DIS_TCP_EF, so the
-hardware forwards these frames instead of dropping them.
+rkcanfd_set_mode()
+  rkcanfd_chip_start()
+    rkcanfd_timestamp_init()
+      INIT_DELAYED_WORK(&priv->timestamp, rkcanfd_timestamp_work);
+    rkcanfd_timestamp_start()
+      timecounter_init(&priv->tc, ...);
+      schedule_delayed_work(&priv->timestamp, ...);
 
-Suppose a frame with a bad TCP/UDP checksum arrives on a ZC queue and
-the XDP program passes it. Could it reach the stack as
-CHECKSUM_UNNECESSARY and hand corrupted payload to applications?
+INIT_DELAYED_WORK() clears the PENDING bit and the timer's linkage while the
+timer_list is still in a timer-wheel bucket. The following
+schedule_delayed_work() then sees the work as idle and enqueues the same
+timer_list a second time. Can that corrupt the timer wheel hlist?
+timecounter_init() also writes priv->tc while the old work may still be
+using it.
 
-The non-ZC stmmac_rx() handles this case:
+The new disable_irq()/enable_irq() pair keeps the IRQ handler out. It does
+not stop the timestamp work. One option is to cancel priv->timestamp
+synchronously in this sleepable restart path before re-initializing it.
+Another is to call INIT_DELAYED_WORK() once at probe or open time rather
+than on every rkcanfd_chip_start().
 
-	if (unlikely(!coe) || !stmmac_has_ip_ethertype(skb) ||
-	    (status & csum_none))
-		skb_checksum_none_assert(skb);
-
-This still seems to be the case at the end of the series.
+>  		rkcanfd_chip_interrupts_enable(priv);
+> +		enable_irq(ndev->irq);
+>  		netif_wake_queue(ndev);
+>  		break;
 
 [ ... ]
 
