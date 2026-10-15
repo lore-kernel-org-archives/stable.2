@@ -1,131 +1,96 @@
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C665519904
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 10:40:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792060861; cv=pass; b=YmJxba3Ako6M9t1ICzTYGGUw1N34LnU6TU6znvpQLufjqaZb4zO+wVMY3KthgWD+j32hFtgYaZgsQBjZUl5L2vXdh3nnWoB7FP/Kr0avuROFgkFzMH78+aANUxrjHAsh21RT8pbPhiNBF1Cdw3Gt2Xw2u2FJ3oqdHA/8+58fR2s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792060861; c=relaxed/simple;
-	bh=GK7c7qoHtQuqEPaLuDtj2LTHMuxiL75fJf9jcPF0ouQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oxuAkvQqJIErLad6g8GueCXma8IhvriAShqgAdP8RlnuVlKmh9ldb1GHfAU8AMDgIhxOC4lEla8A++VIQDzalyg24yPJmbT8YNJQKohK3YfxIU7y2VZ6vjRtyqMlEGHZKNkvzt8IBzM5emV14LPYmqt3/MARP/0EWaeQWZLjqyw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eqfpUHkR; arc=pass smtp.client-ip=209.85.222.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82578513564;
+	Thu, 15 Oct 2026 10:40:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792060864; cv=none; b=Pbdrh+41R2AP4dtZbaPZqry/cee7J98TnJe4Yve/pN20zqDpvLQDrLwlR8arWhIrYgNRNkFroUiXdTjDSSIAlGsTAGCw2pIwsjbJFvdKOi4XDH1aCd9PO6IaubZeogsQ+FludYewKddna7+8Ut3Poo+HGfxBp+yYG9+QAYx8NZI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792060864; c=relaxed/simple;
+	bh=ScXbcgoSotmOrGMQXkrBDfhNkZYnKfm02o8V/VmFAlY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nriFmED36d08HdthtSZZONLGIU3pAxeyVWaMoGNS2x/vQGOquNKcAp7wd1mdsQ8sh0sAqQR5HXHzeLlUD19cBt8USDg75Sev88LZm7StPDmVfQh7PwaQ1wRkdoXv0ULdLO0qG2dc48hgF602sUPLrN7zhuZwoGt9w6e7NFVqJ5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=VTyvizd0; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eqfpUHkR"
-Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-93e6f83f0bbso466937685a.2
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 03:40:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792060856; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pYv02g37BZv+ADCOtogM9XYYuODQmO0HMJ7suFUYnG5Ivnnu6F+z9oMoSGbvk085Lu
-         hd9Hp8PTZOm4cv0fE0+uMyiwaHUJtC1ZigXkJCC+IE3lgTN7NemFvwu8NsfojFVLbDfk
-         N6q/TzL9DnJNBFx909SJfZUBK+PZkouegEdDKX8ZG5UXbxbJVLwgj+Bc2uRq3nEpkaVf
-         rNDzw1kEA/KKnoEqhyNBaBy+3QIuLIu85Pvm+aa9j/qXi2b33IFjWQqkdjO9gHiieYGg
-         2kkMaZysXeRX8DUmlBUJxFIghCWi3XJzwtUz37/GQVMWN+2HhkwYuSwZdcQuvB8X+Lya
-         n77w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=GK7c7qoHtQuqEPaLuDtj2LTHMuxiL75fJf9jcPF0ouQ=;
-        fh=/FR81YOsIcXf/yUqoXrcGrK8Nt2lXnWJ+UX09ZXwj/E=;
-        b=NIexhX1gy3X9r/GY6GKUqNKNjjehkZk0U21T6QruWFpqSsPf/fcXtHVk3HTTyWISEf
-         VNUKkiTWn7KdOY/6GdCn2D8g5nHFwiAs1PnehXKobGbbGHdYVY7ztZTUHgn2H1qxhQUI
-         q6dA9U6L4+tVBZ69NXxn9s8a+lbofI0ku3FKMSy7kL/RgMO4AhyyymXnmi+yfLsWd9Br
-         /12uC1mrSytO6WvcBmfdhePhVixHORum+79SaOZzeInDrsq8zLJ/j+OZ6GoG+IVFf/Cm
-         wEerdIyhLZiaY0Wf1yGDnu91t+7VfCNOIidoQY40FlFC45UfhXo8SRI3OzdjjYhrBz/G
-         e76Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792060856; x=1792665656; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GK7c7qoHtQuqEPaLuDtj2LTHMuxiL75fJf9jcPF0ouQ=;
-        b=eqfpUHkRQ7qRwTNh95n+xJ6X85PnYm8jyjqce+i/61u7J2eh4mE7IcwgCnkRkWRa0i
-         ty/z3VliTAfOX7kOev3zWEmrCNTCIEGDLO2bSMksmnUOgoyQ9dBwikiBfjLLUm79k7at
-         Y2ALdycVhCAMOGzSbzgPDwubOaHzcC1k8ovoqPvkkVlBErLjh0K6DxITkd7FH9ok6Uyo
-         YOk3EVOdWTKTWd635wGaT3APppl/lMkJsEnV+0SQXQlm3tweeJS/S2FW0i2nDsg9PeY0
-         V3h/SQAf4neA966SgByqTmC7x6MT1m13Bd+855HKw3XgbC9Ur50BKusXi0MGYwVZBMbu
-         85eQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792060856; x=1792665656;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GK7c7qoHtQuqEPaLuDtj2LTHMuxiL75fJf9jcPF0ouQ=;
-        b=OGw3rf8nI4hqx/mHVvf91LIBK6+boniFtbNiPvZ/Iqw1+LDgBG8N380L0h/k6NnwDC
-         di1ni8WLtY2Hy6mm+b70HP48hA6Xyk04I4D9mydhpFJ+reEgSZJnHh90iJf+SFLDQfWo
-         x04lLt+CU+Sk8vukfUREecAPZN5LeGEJBEl0Q87NHoI76QUgpApvNkBZvb81CKiOdcOb
-         uQP1red4/RyuGZSAVOxY6eWDBpHSoV1o2/Dzwv/jqmCAILtPiwbVyTg7muvLO8srPyxl
-         pajse/DT4piw6pBTZ0DK3NkIH4V69e4xfHaO7f6T002Wea/cHon7naxRrsKN7MnfaUt+
-         XrUA==
-X-Forwarded-Encrypted: i=1; AKwUvBw19r0HyoaqE2wnnEWeA+qzCTeHbwSazdBBW2cR7NptBUs9UrHUcWNxGylCskoIANJm00ddPxI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL5zh4IlGOGy8Ic1FsFe2kBorGygJtfuK4XVFI+fDWDh7bHAjoo
-	gjLxd7y10aPCWEKoDX+aB+YtnWhQWPmiyMPXBNSdthjJOkaqlTP7On+r+SPeVygSEQNEoZhfnSR
-	PJ3yQXLbCuZ89rpoQfU+YIZ2g36Ig+Kbyi8z/ul8=
-X-Gm-Gg: AYBFou0R0AitqgnU44Sw/oNrcv3uO3Boc8AXsaymremWISduyJhGP6fF51vebVJsmO6
-	l1/MpoXVh1vM5Tq0+oDuddBD2HuBqnVB7LKpyb4IZ9lWjCGBciGI9yuKOAYVdDLxzyFUZ3ShF1D
-	KKkn4GI4LoS8ZKIVNWFPXZwnVs81BCFFyMgrCfIdsCBh+chTpMgBIixJSdDlJkfmd/trAbmFECW
-	TQVPSbvn4GkLWBK9x49vy+amCtNvCwwhTIAkyqFRR9u9y1oNDMhAYMpmDXGsyItj0ZPudpRg5vs
-	bhKZKdfsVLVY+iiv3zLbpdrnD6Qtb1Jc37hnO9utiB44E9Fx7bDCt5pb3JDzZFG+PReMfIVqY1G
-	UuKXvzenqd4d1WO3qKwwPqUKdH85Kr8Zxhe1qgXu7u6Capg==
-X-Received: by 2002:a05:620a:44c1:b0:93e:6e59:ad16 with SMTP id
- af79cd13be357-93ebd1dfd74mr3037179085a.29.1792060856144; Thu, 15 Oct 2026
- 03:40:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="VTyvizd0"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=k519mSkHitpZvxCm5lMKw2mYcRI2vBvy+ZCjclepCjo=; b=VTyvizd0GEhvWz7vbKVFob2vzH
+	3Xgyho9kYMZCKqfNGeXmWNijxbLvFmq61YLoWNWYX1PolPFKCHtVS3TUBmYYTgIPyUxXR3+w4rOC5
+	aFa7aorubIevwlqkFix7KhlPwFhuZv5xkwS8xJT+gW6fOuZsNJ1jpK9iNi/xm565Yjyqv32DrA1Kf
+	XfiMbjo7x0hAY5K25za/aL4UEjeWKN0dWTQoHn73iauEj24M0t4IZGZ1k7gmYh3AUeOiXdfBFt+4W
+	hZ/dpdRBhKMuOZte96F3U+ayuHb6EV133XciqNvsKMzluONdCQnHLqaatfN0Ku2ZeoYs6TVQnfGzr
+	Cc2KBLlg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.5 #2 (Red Hat Linux))
+	id 1xHIt7-00000000G8V-1oLD;
+	Thu, 15 Oct 2026 10:40:41 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 84CC63006DD; Thu, 15 Oct 2026 12:40:39 +0200 (CEST)
+Date: Thu, 15 Oct 2026 12:40:39 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+	bpf@vger.kernel.org, regressions@lists.linux.dev,
+	Sasha Levin <sashal@kernel.org>,
+	Alexander Motin <alexander.motin@truenas.com>,
+	Ameer Hamza <ameer.hamza@truenas.com>,
+	"Caleb St. John" <caleb.stjohn@truenas.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] perf/core: track the perf mlock gift separately
+Message-ID: <20261015104039.GP2009045@noisy.programming.kicks-ass.net>
+References: <20261003-perf-locked-vm-fix-v1-1-d214dcaf0d76@kernel.org>
+ <20261015075817.GO2009045@noisy.programming.kicks-ass.net>
+ <atCYFpm63elRyuw7@gremlin>
+ <e51025a5-8106-41b3-90fc-53e51891ea9c@leemhuis.info>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928081450.19340-1-dilddream31@gmail.com> <CAGC3ukQ7gX97E7pG0Oy8H0cnmQzoA1038io+VhrBogPB3y9dDQ@mail.gmail.com>
-In-Reply-To: <CAGC3ukQ7gX97E7pG0Oy8H0cnmQzoA1038io+VhrBogPB3y9dDQ@mail.gmail.com>
-From: =?UTF-8?B?6rmA67KU7ISd?= <dilddream31@gmail.com>
-Date: Thu, 15 Oct 2026 19:40:44 +0900
-X-Gm-Features: AclHuK9ftaX0YjG2NCtLvWvZyiH7eh52x9bAW5dRWFx1APAiB6cYmVIL6REePPY
-Message-ID: <CAGC3ukSVk=N4ttd3hwnXXXppHchwroJmySPAFP65Vt+uP0COOw@mail.gmail.com>
-Subject: Re: [PATCH] drm/nouveau: Clear fence channel in no-signaling path
-To: nouveau@lists.freedesktop.org
-Cc: lyude@redhat.com, dakr@kernel.org, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e51025a5-8106-41b3-90fc-53e51891ea9c@leemhuis.info>
 
-Gentle Ping.
+On Thu, Oct 15, 2026 at 11:27:59AM +0200, Thorsten Leemhuis wrote:
+> On 10/15/26 11:09, Lorenzo Stoakes (ARM) wrote:
+> > On Thu, Oct 15, 2026 at 09:58:17AM +0200, Peter Zijlstra wrote:
+> >> On Sat, Oct 03, 2026 at 05:29:07PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > 
+> >>> Resolve the issue by simply giving perf its own field separate from the
+> >>> rest.
+> >> So I'm a little confused by all this -- perf introduced this field,
+> >> others jumped on and shit broke, so we fix perf instead of the others?
+> > Yeah I think the blame really lies with the later users, and that send a trend
+> > that led to further confusion (including myself, mea culpa!)
+> > 
+> >> Anyway, patch seems straight forward enough; and you added comment to
+> >> the fields, which I suppose does clarify things some.
+> >> I'll take it. Thanks!
+> > Thanks, much appreciated! :)
+> Just wondering: how urgent is this fix? Is this something we should try
+> to get into 7.3 given that this was noticed in a regression report that
+> blamed it on an 7.3-rc commit[1]? That commit also made it to many
+> stable series now, which might be another reason to get in mainlined
+> rather sooner than later.
 
-There has been some related discussion here:
-https://lore.kernel.org/r/1690ea65-a1e0-4a34-bde1-bdd26e31c6c4@u-bordeaux.f=
-r
+I have it lined up for tip/perf/urgent. I'll try and push it out later
+today. For now it lives in queue.git/perf/urgent.
 
-The patch has also been independently tested, with no reproduction of
-the issue reported so far.
-
-Apologies if you received this twice. My previous message was rejected
-by the mailing list due to HTML formatting.
-
-
-Thanks.
-
-
-2026=EB=85=84 10=EC=9B=94 15=EC=9D=BC (=EB=AA=A9) =EC=98=A4=ED=9B=84 6:10, =
-=EA=B9=80=EB=B2=94=EC=84=9D <dilddream31@gmail.com>=EB=8B=98=EC=9D=B4 =EC=
-=9E=91=EC=84=B1:
->
-> Gentle Ping.
->
-> There has been some related discussion here:
-> https://lore.kernel.org/r/1690ea65-a1e0-4a34-bde1-bdd26e31c6c4@u-bordeaux=
-.fr
->
-> The patch has also been independently tested, with no reproduction of the=
- issue reported so far.
->
->
-> Thanks.
