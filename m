@@ -1,84 +1,139 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FDE04FD79B;
-	Thu, 15 Oct 2026 09:33:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32856509F10;
+	Thu, 15 Oct 2026 09:46:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792056786; cv=none; b=U1QNVXQ9oaNR13as27sv2XIXAHmI9yssqSp3K/q5fd+zGOwmg2RiOYLqOIeVqRLhjoDHBTWu5jUwtu7ebkBt0aIb5a5mF2jP3ikcgGXA4Fqs8vhlcXeKaDczZGRli7bfNmbY/yul2oT9kbxEqUitkXispXy4KdT9ThWNDnkJRUs=
+	t=1792057564; cv=none; b=bHJqWJsu5Ro5neJFPC216SFFva8b06tUZDiyBUkdjqWEsrCKwztOyCONmsAxM65GHI2taCoy9SjR10h0wGjg5KT/v/3dYDHirnqgCQp1P8OvH9X+fuXS3YVIt7Hs1T8k4GUeT1FE95m93TD5U/VvMThTG9rQXZxOM/OxDgPT7rs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792056786; c=relaxed/simple;
-	bh=LpNClCQP5Is+elo/pq8lLIDHPbjUVBpwERR2/acZ+h8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AfFkWvzc/bMVOSKda5julfi9hKmnpY4/j4SM8zU10m9D5uvAwwb2BifPetgsHSHIXuYooYFcCCT6A+sqC41kDzQkdnCaexXDZ1ZY4Euha9UOx0KTgARmjFtIXQ4BOMQbwpJOYlQ37sgLB22OXH4aJDQaafVm/4u69mlABogRPoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=Td4Bk9E2; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1792057564; c=relaxed/simple;
+	bh=7Y7PdKz6EY5ExxJR8yaSiHxXzEELTODbKg1w2cGzL2I=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=crY4NE0oWY2uVdBTI8F6Pp1StBwRFxibNP/uHObTuOHRPrYFT0aXssHwaSny7aItqeWOI9/JvFOOzp+QwIozXkXotgaB4x414gymfaGgdHnDNro9j5oPOsa37kv+IPFNLTzCdgPtIjtVUa66R0x+sptd3SN+hbxxsNvEnl5IutA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=p3H1rSky; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="Td4Bk9E2"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=gqXL7E3N1x1LB8og9YdmknDi+YHVB1OXC5g35twuSCs=; 
-	b=Td4Bk9E29YBqTwLpaSyL0uIyAgwH02M2fYxO7/X8OGffbsCHsvS8iSS7ct97aWJGrzaJ5PQyXJN
-	Sttoq04OQLcRd8d8zV/VfBbv3RQ8Nszlc4RzYTeAFYVXltKZSzI4sOzjpHPLFdGqCFBKsjTsy+3td
-	LCvDeuCyk6TRikkn4XiDOQeHzmbeut56ydMyIxMNRMreUqgbGDNucUb/NrJ7+xNdX3TxKr29JjbVg
-	yorq1gQkKB3fml/e/rRZS0YJMrVUyCjVvTwhBukyGC5P2UC9XknakmfC28JZPa1dtCkN0LJe4BeKp
-	z/PqUycrslgimsUQMNdi4sILZP9fnGSVYDKw==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xHHpa-000000047NJ-2kY4;
-	Thu, 15 Oct 2026 17:32:59 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Thu, 15 Oct 2026 20:32:58 +1100
-Date: Thu, 15 Oct 2026 20:32:58 +1100
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Christian Marangi <ansuelsmth@gmail.com>,
-	Antoine Tenart <atenart@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH v2] crypto: inside-secure: initialize EIP93 state before
- requesting IRQ
-Message-ID: <atCdyvlEqqhgK-Fz@gondor.apana.org.au>
-References: <asXl69ABi0_1ZKIJ@gondor.apana.org.au>
- <20261009033149.1127441-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="p3H1rSky"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D602BC2BCFD;
+	Thu, 15 Oct 2026 09:46:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792057563;
+	bh=7Y7PdKz6EY5ExxJR8yaSiHxXzEELTODbKg1w2cGzL2I=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=p3H1rSkyMK4ZqHV2wMR9dEKMPBhYP/74slBInCQEGuy8WzjF3Se4GREpDshnMTWks
+	 b855TVDhiVSrQM181hi1uZaYCBs6eFi87L0vhWhOPdRHlwHnjenf0O/NBFInglnu/w
+	 YktbxX3VE0WGmqtXd7YJZEHlcUgj6Kc2qWLcTJsg3+v+9r1cawTaaZRl7wDxiV5Q0I
+	 Oh1ndkdgAlX6XXDjyLqRGIJRDHO7+UffKbH7pxNAsrVUDanz1Ud5xCq9nHOE/KKpzQ
+	 nkUdegS7y1UULhpkVVkFYChH9yayWZtgDSLGoH+x+pLLJNcvLo4TkUz4l3fIawFH9U
+	 pzqs/USZPzvSg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B604CCC6B3A;
+	Thu, 15 Oct 2026 09:46:03 +0000 (UTC)
+From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
+Date: Thu, 15 Oct 2026 17:45:03 +0800
+Subject: [PATCH net v5 2/6] can: dev: add
+ close_candev_cancel_restart_sync()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009033149.1127441-1-runyu.xiao@seu.edu.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-rockchip-canfd-restart-close-v5-2-ae77327037c9@qq.com>
+References: <20261015-rockchip-canfd-restart-close-v5-0-ae77327037c9@qq.com>
+In-Reply-To: <20261015-rockchip-canfd-restart-close-v5-0-ae77327037c9@qq.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Wolfgang Grandegger <wg@grandegger.com>, 
+ Oliver Hartkopp <socketcan@hartkopp.net>, kernel@pengutronix.de
+Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ stable@vger.kernel.org, Cunhao Lu <1579567540@qq.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792057562; l=2413;
+ i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
+ bh=aG489DexWJ6o7nts419PazjO7IPQM9laJ1xaNGAvKlc=;
+ b=5GSHwouDZzX6Aia3S9sDtlvjFg5i7nNxjBGXKg+KBsdwIhrJb+hzQ9l8S0KI57Fq53+o+dSMN
+ ZxqCB/jSd7GDYX0ZlLwSFsKDpEJJHf1cyS4Eyx9OLd0MpoPd5LZcF0M
+X-Developer-Key: i=1579567540@qq.com; a=ed25519;
+ pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
+X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
+ auth_id=1177
+X-Original-From: Cunhao Lu <1579567540@qq.com>
+Reply-To: 1579567540@qq.com
 
-On Fri, Oct 09, 2026 at 11:31:49AM +0800, Runyu Xiao wrote:
-> devm_request_threaded_irq() can invoke the handler as soon as registration
-> starts. Initialize EIP93 state before requesting it and leave device
-> interrupts disabled until registration succeeds.
-> 
-> If IRQ registration fails after the hardware and rings are initialized,
-> call eip93_cleanup() before returning. This shuts down the engine and
-> clears the ring registers before devres releases the DMA rings.
-> 
-> Fixes: 9739f5f93b78 ("crypto: eip93 - Add Inside Secure SafeXcel EIP-93 crypto engine support")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
-> Changes in v2:
-> - Call eip93_cleanup() if IRQ registration fails after device initialization.
-> 
->  drivers/crypto/inside-secure/eip93/eip93-main.c | 14 ++++++++------
->  1 file changed, 8 insertions(+), 6 deletions(-)
+From: Cunhao Lu <1579567540@qq.com>
 
-Please check the Sashiko comments:
+Drivers may need to wait for bus-off recovery before tearing down the
+IRQ and hardware resources used by their restart callback. Calling
+close_candev() at that point also flushes echo skbs, which belongs after
+the driver has quiesced the users of those buffers.
 
-https://sashiko.dev/#/patchset/20261009033149.1127441-1-runyu.xiao%40seu.edu.cn
+Add close_candev_cancel_restart_sync() in linux/can/dev.h so drivers can
+cancel the core restart work separately, without accessing can_priv's
+work item directly. The helper only cancels restart work; callers must
+still stop its producers and call close_candev() for the final cleanup.
 
-Thanks,
+Use the helper in close_candev(), preserving its existing cancellation
+and echo cleanup order.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
+---
+ drivers/net/can/dev/dev.c |  4 +---
+ include/linux/can/dev.h   | 12 ++++++++++++
+ 2 files changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/can/dev/dev.c b/drivers/net/can/dev/dev.c
+index 92492c503446e..52e8c4854ae0d 100644
+--- a/drivers/net/can/dev/dev.c
++++ b/drivers/net/can/dev/dev.c
+@@ -534,9 +534,7 @@ EXPORT_SYMBOL_GPL(of_can_transceiver);
+  */
+ void close_candev(struct net_device *dev)
+ {
+-	struct can_priv *priv = netdev_priv(dev);
+-
+-	cancel_delayed_work_sync(&priv->restart_work);
++	close_candev_cancel_restart_sync(dev);
+ 	can_flush_echo_skb(dev);
+ }
+ EXPORT_SYMBOL_GPL(close_candev);
+diff --git a/include/linux/can/dev.h b/include/linux/can/dev.h
+index 6d0710d6f571d..a277d12332f15 100644
+--- a/include/linux/can/dev.h
++++ b/include/linux/can/dev.h
+@@ -22,6 +22,7 @@
+ #include <linux/can/skb.h>
+ #include <linux/ethtool.h>
+ #include <linux/netdevice.h>
++#include <linux/workqueue.h>
+ 
+ /*
+  * CAN mode
+@@ -115,6 +116,17 @@ struct can_priv *safe_candev_priv(struct net_device *dev);
+ 
+ int open_candev(struct net_device *dev);
+ void close_candev(struct net_device *dev);
++
++/* Cancel bus-off restart before tearing down resources used by the restart
++ * callback. The driver must still call close_candev() for the final cleanup.
++ */
++static inline void close_candev_cancel_restart_sync(struct net_device *dev)
++{
++	struct can_priv *priv = netdev_priv(dev);
++
++	cancel_delayed_work_sync(&priv->restart_work);
++}
++
+ void can_set_default_mtu(struct net_device *dev);
+ void can_set_cap_info(struct net_device *dev);
+ int __must_check can_set_static_ctrlmode(struct net_device *dev,
+
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.34.1
+
+
