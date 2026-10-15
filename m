@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF53152BE59;
-	Thu, 15 Oct 2026 13:34:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3222352CCED;
+	Thu, 15 Oct 2026 13:34:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792071247; cv=none; b=fA/i/hhEiUIHFB0Mi3YBQql/3Izx9qGoHVDyusjzikpX0MpFWRo7iGu1VIHtxrmgaXk6EHp5kyec7qhLTXAxswwdBlJeD3fasHWV+ufO0nS2rXFQc7llGwc+qT34lRjfS3fijxhWbvEbLUY3J92/mCcDrC5ga68c1x9gKilmfSE=
+	t=1792071248; cv=none; b=LZ5/+SKdVcvurqpTtPN9+vQlnG9iAHZ/IYQhQq4Ci2pElNqT3FMP94pN/WAu6rCRqS6QnNxlQPJHZi9SZyJlMDbDTZ8FhPJoj0uSu9ZjCStUY10D7OkMc3J+TkPy3feEyBaNCdvpsyr1AW2PC/Hb0NVd3/QprXXHS4SjPSbp3xs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792071247; c=relaxed/simple;
-	bh=NzjgoKSqPSjbYwgEQR0ht6nUFl9E/8V5nNxLCRxQd00=;
+	s=arc-20240116; t=1792071248; c=relaxed/simple;
+	bh=kRA7wR0Lu2ILqY7s+P4GH6XQ2xOocIz2J3AnBq61uso=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=X7wMk3u5CqMkeQ1RYGwcLnz1taymsw0ypR9EnBihUGealrm2QhYaSUZTRs1WIULo1cFhvvua08ylO1vo14hCYKah3nsllHmo7+9Xea+p4cgU09qaYLDYXTc1+xb7QqN3f3sgdc+j5hGZXajeuv4bYagVT55n0R1TrFqnNmPb0O8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BdWcrNOS; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=OVHB9Ot63fOx+VzyYyKpDJX7iUvAKHRpED1ARCVHQDi1PQgmJBT+rd4Ph/QkmB1V+cj4x5tcKYAEi5iCeS506/zkToYrzMvBenOnASY4XMyKq/gK5lTSrVpJLPHHYqmP4jTY3oPej4BTl2sgcUw46UF9RNYOHEn8EfcmcfjUTzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k9izgXze; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BdWcrNOS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92EDC1F000C7;
-	Thu, 15 Oct 2026 13:34:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k9izgXze"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C3A71F000CA;
+	Thu, 15 Oct 2026 13:34:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792071245;
-	bh=ohxQMm4+6T4AWLsYoE6Ve+xI6U19JmMjTGTIn0TAFO8=;
+	s=k20260515; t=1792071246;
+	bh=NmjlTVpki8ZFzqxPcRkdL0IDLG9OBVvlQVOnJ2jaiKU=;
 	h=Date:From:To:Cc:Subject:References;
-	b=BdWcrNOSHi10EM+ZDfEpAF/liaYBkCSW8DM3oTBUM8Pvjt1Y5LBlZ/u9c227soT9w
-	 Bzd6RoeuNzNNu05W/ZvzlI6RWRmdMLVLAUI1SXW6AeMWsukiq/8DJgLtpPov8wjPoU
-	 PeThTfJ68I6qKPTbyvg6eeeUB2WSBlE2Uq3rboCZgxtof51owJqZwx0+iwRG6MQZrd
-	 v60CZPAMc0XB/fEMWiih1dWmO1CQqXsd6p4wpn8AUwGk0RZorhnn+Vp6c4TSoFEbOX
-	 gHyunyvJRMzUP2sAmU8r1OmXK88C4m/KG/SZc934yZ8E6XpSgi/zklCNE6fMz02QPc
-	 v5khSunVh54jQ==
+	b=k9izgXze0WODA2AWq0ZOiTjAk40aoWkEstHUAHjr4UE46+qiCy6pxcwgJrAZfhvft
+	 cecmm2nkofIPYXlrnp35FsY7PLsCL+pw9Ixtz6Swcz1bV54gaTUjlbvOJvCD1zIMxk
+	 j6U5uR55LLz2HILJP1mjitFZPx2Z2v9hAhBoNnyXETJ4Xcrb5vF5TKegO4USEPlaL5
+	 qPpJ0K5WLMLxGUSq424X015I0/McSiRUfLz1UjtLzvtH4+rF1/CLh2AScKh0YaIl1r
+	 0G62Li0zQdaW0Ios/D8KDz+dAcTDK4DJs0UR0WjHB0nLI4entm9d2S0JlJcOjFr6qm
+	 zXfJR1E9dLyhg==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
 	(envelope-from <rostedt@kernel.org>)
-	id 1xHLau-00000000Mgg-34HL;
-	Thu, 15 Oct 2026 09:34:04 -0400
-Message-ID: <20261015133404.546835597@kernel.org>
+	id 1xHLav-00000000MiN-1Lnh;
+	Thu, 15 Oct 2026 09:34:05 -0400
+Message-ID: <20261015133405.152631018@kernel.org>
 User-Agent: quilt/0.69
-Date: Thu, 15 Oct 2026 09:33:23 -0400
+Date: Thu, 15 Oct 2026 09:33:26 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -40,8 +40,9 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
- "Christian Brauner (Amutable)" <brauner@kernel.org>
-Subject: [for-linus][PATCH 13/16] eventfs: Free the eventfs_inode after an rcu grace period too
+ Lee Jones <lee@kernel.org>
+Subject: [for-linus][PATCH 16/16] tracing/histograms: Reject non-stacktrace fields for synthetic
+ stacktrace fields
 References: <20261015133310.731003448@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -51,87 +52,94 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Christian Brauner <brauner@kernel.org>
+From: Lee Jones <lee@kernel.org>
 
-tracefs_d_revalidate() reads ->is_freed of the eventfs_inode that
-dentry->d_fsdata points to, and ->d_revalidate() is called in rcu
-pathwalk mode with nothing but rcu_read_lock() held. The dentry itself
-stays around for such a walker, but tracefs_d_release() drops its
-reference to the eventfs_inode when the dentry is killed, and
-release_ei() then frees it after a grace period of eventfs_srcu. An
-SRCU grace period doesn't wait for rcu_read_lock() sections, so the
-walker can read an eventfs_inode that is already gone.
+In check_synth_field(), when a synthetic event field is a stacktrace
+(field->is_stack) and the histogram field is not a "long[" stacktrace
+array, validation falls through to the generic size and signedness
+comparison.
 
-With a pathwalk held up in tracefs_d_revalidate() while the dentry goes
-away:
+Because parse_synth_field() sets a stacktrace field's type to
+"__data_loc unsigned long[]", its size is sizeof(u64) and
+synth_field_signed() marks it as signed.  Consequently, any 8-byte
+signed scalar histogram field passes the fallback check, and its scalar
+value is subsequently dereferenced as a kernel stacktrace pointer in
+get_field_size() and trace_stack().
 
-  BUG: KASAN: slab-use-after-free in tracefs_d_revalidate+0x76/0x90
-  Read of size 1 at addr ff1100010152d8d0 by task walker/97
-  Call Trace:
-   <TASK>
-   tracefs_d_revalidate+0x76/0x90
-   lookup_fast+0x320/0x640
-   path_lookupat+0x160/0xb00
-   filename_lookup+0x1f1/0x5b0
-   vfs_statx+0xd7/0x3b0
-   vfs_fstatat+0x4d/0x90
-   __do_sys_newfstatat+0xa0/0x100
-   do_syscall_64+0x10e/0x5e0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-  [...]
-  Allocated by task 1:
-   __kmalloc_cache_noprof+0x249/0x560
-   eventfs_create_dir+0x7a/0x590
-   event_create_dir+0x2fb/0xcf0
-   trace_add_event_call+0xbf/0x150
-  [...]
-  Freed by task 11:
-   kfree+0x1db/0x5b0
-   srcu_invoke_callbacks+0x3a3/0x620
-   process_one_work+0x937/0x1810
-   worker_thread+0x4f1/0xd60
+Furthermore, checking strstr(hist_field->type, "long[") is insufficient
+because tracepoint fields defined with __bitmask() or __rel_bitmask()
+also have type "__data_loc unsigned long[]" or "__rel_loc unsigned
+long[]", whilst create_hist_field() treats them as 4-byte scalar values
+without HIST_FIELD_FL_STACKTRACE.
 
-Before commit 8e556432477e ("eventfs: Use SRCU for freeing
-eventfs_inodes") release_ei() used call_rcu(), which covered the walker,
-while eventfs_iterate() needs the SRCU grace period. Wait for both and
-chain call_rcu() from the SRCU callback.
+Propagate HIST_FIELD_FL_STACKTRACE to variable references and field
+variables (whilst excluding variable aliases from per-element
+stacktrace capture), and reject any mismatch between
+HIST_FIELD_FL_STACKTRACE and field->is_stack in check_synth_field().
 
 Cc: stable@vger.kernel.org
-Fixes: 8e556432477e ("eventfs: Use SRCU for freeing eventfs_inodes")
-Link: https://patch.msgid.link/20261009-work-fixes-rcu-v1-4-7446d2d335e6@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Fixes: 00cf3d672a9d ("tracing: Allow synthetic events to pass around stacktraces")
+Link: https://patch.msgid.link/20261013112449.1006088-1-lee@kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
+Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- fs/tracefs/event_inode.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ kernel/trace/trace_events_hist.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/fs/tracefs/event_inode.c b/fs/tracefs/event_inode.c
-index 6e3513b13cfa..090aca946717 100644
---- a/fs/tracefs/event_inode.c
-+++ b/fs/tracefs/event_inode.c
-@@ -91,6 +91,14 @@ static void free_ei_rcu(struct rcu_head *rcu)
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 571a57e0f369..dcb5d7321095 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -2121,7 +2121,8 @@ static int init_var_ref(struct hist_field *ref_field,
+ 	ref_field->size = var_field->size;
+ 	ref_field->is_signed = var_field->is_signed;
+ 	ref_field->flags |= var_field->flags &
+-		(HIST_FIELD_FL_TIMESTAMP | HIST_FIELD_FL_TIMESTAMP_USECS);
++		(HIST_FIELD_FL_TIMESTAMP | HIST_FIELD_FL_TIMESTAMP_USECS |
++		 HIST_FIELD_FL_STACKTRACE);
+ 
+ 	if (system) {
+ 		ref_field->system = kstrdup(system, GFP_KERNEL);
+@@ -3318,6 +3319,7 @@ static struct field_var *create_field_var(struct hist_trigger_data *hist_data,
+ 		ret = PTR_ERR(var);
+ 		goto err;
  	}
- }
++	var->flags |= val->flags & HIST_FIELD_FL_STACKTRACE;
  
-+/* read under eventfs_srcu and, by tracefs_d_revalidate(), in rcu pathwalk */
-+static void free_ei_srcu(struct rcu_head *rcu)
-+{
-+	struct eventfs_inode *ei = container_of(rcu, struct eventfs_inode, rcu);
+ 	field_var = kzalloc_obj(struct field_var);
+ 	if (!field_var) {
+@@ -3946,7 +3948,10 @@ static int check_synth_field(struct synth_event *event,
+ 	    && field->is_dynamic)
+ 		return 0;
+ 
+-	if (strstr(hist_field->type, "long[") && field->is_stack)
++	if (!!(hist_field->flags & HIST_FIELD_FL_STACKTRACE) != field->is_stack)
++		return -EINVAL;
 +
-+	call_rcu(&ei->rcu, free_ei_rcu);
-+}
-+
- /*
-  * eventfs_inode reference count management.
-  *
-@@ -112,7 +120,7 @@ static void release_ei(struct kref *ref)
- 			entry->release(entry->name, ei->data);
- 	}
++	if (field->is_stack)
+ 		return 0;
  
--	call_srcu(&eventfs_srcu, &ei->rcu, free_ei_rcu);
-+	call_srcu(&eventfs_srcu, &ei->rcu, free_ei_srcu);
- }
+ 	if (strcmp(field->type, hist_field->type) != 0) {
+@@ -4487,7 +4492,8 @@ static int create_var_field(struct hist_trigger_data *hist_data,
+ 	if (!ret && hist_data->fields[val_idx]->flags & HIST_FIELD_FL_EXECNAME)
+ 		update_var_execname(hist_data->fields[val_idx]);
  
- static inline void put_ei(struct eventfs_inode *ei)
+-	if (!ret && hist_data->fields[val_idx]->flags &
++	if (!ret && !(hist_data->fields[val_idx]->flags & HIST_FIELD_FL_ALIAS) &&
++	    hist_data->fields[val_idx]->flags &
+ 	    (HIST_FIELD_FL_STRING | HIST_FIELD_FL_STACKTRACE))
+ 		hist_data->fields[val_idx]->var_str_idx = hist_data->n_var_str++;
+ 
+@@ -5228,7 +5234,8 @@ static void hist_trigger_elt_update(struct hist_trigger_data *hist_data,
+ 		if (hist_field->flags & HIST_FIELD_FL_VAR) {
+ 			var_idx = hist_field->var.idx;
+ 
+-			if (hist_field->flags &
++			if (!(hist_field->flags & HIST_FIELD_FL_ALIAS) &&
++			    hist_field->flags &
+ 			    (HIST_FIELD_FL_STRING | HIST_FIELD_FL_STACKTRACE)) {
+ 				unsigned int str_start, var_str_idx, idx;
+ 				char *str, *val_str;
 -- 
 2.53.0
