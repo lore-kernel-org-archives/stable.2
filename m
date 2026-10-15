@@ -1,254 +1,191 @@
-Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0047855C336
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 18:55:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.157
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792090524; cv=none; b=buOfp4ee6nGYPiEs2xVuNDnCiLL3860VRcfBk1YxeExdf91QrvxdHkE5tlpLkSuj4xvS6Tgib4eDRikBqki1X72vLEyB1qwuDuLvqtNHulSa9dhpJlNh7UzfZs9X9vugLvFDe8CfOuXwIr09Mnu/sT5ELugY5aBM0FFKO5oI+Bw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792090524; c=relaxed/simple;
-	bh=VRKe1XVOWIZ80XXfpgmNp6PGDZIi+vf8u3E/lMWMQSg=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=FQZNDmAX62oTxwmXVQTdajV8mIPU4OJmssCpPWLub5K7uCBQgVeDxSJzmkfn5rmZUyqaUzf0m4fEgSXFhz7gwy7VkUagk5csAeHQFVZnJDu2Yrssh4z8l1Wygc3VFNoPxDH94KHchLadIy7+1LHDEJdANlIxJphtH2LGuInBbgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=T2NFGF4n; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=aQQX226/; arc=none smtp.client-ip=202.12.124.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15257472079
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 19:01:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792090906; cv=pass; b=SiBhyP0PY1fImtv2WSknUI2fOCrxDARwLX+jus1FisVbfa/39RJBrXtgBjZlNYMyQtuR4jMLBAQ8ypF+SXG3ZU8HlvixlbFYIzsdxjCQPTGcMeKZqVj3rnY6ZHaZE4eTSKZn7oSq0qv3jhuP5zqDbZ/jeFb1BCoAc2z6nhbkobk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792090906; c=relaxed/simple;
+	bh=RwXiSruwpDmT+a5Nq2nfPJV/bpg4QjcH0Roun986rXQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=owrFJVAGsFDduVTdpca3qYtXqbMN/NE3bx433FssSWb5zf2kb7Dc0rJMvnrTRzDkxcI48969LWy97x/PF1v9AqL2xCQNgVn0OSB44lXJA+FlS4mr+MLzWrZMacCCTlAIUIMN+8NaPjWJFU4qux4maNWENdMJoGwhGlDaZdM3k0Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UXthwZz7; arc=pass smtp.client-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="T2NFGF4n";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="aQQX226/"
-Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 0F8947A013E
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 14:55:16 -0400 (EDT)
-Received: from stl-imap-02 ([10.204.2.93])
-  by stl-compute-04.internal (MEProxy); Thu, 15 Oct 2026 14:55:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1792090516;
-	 x=1792176916; bh=OEdjkOEW5c4cRoaBZmL7FvMiAbrODiA1B2MoWuVmFC4=; b=
-	T2NFGF4nUSggg4YF8r6ze+uzVymylRxNLVeJ6aSnYDBTqjBQO1nqnwVmPDlJAOrA
-	YFMS3eVy8ikfsjtp3yrN2tEfFSLtVPEFqAU/Jf3bZaroIr2daKVFY11V4Ak4f23f
-	6krZlasTN0YAnlmVJGeRDi/RKlXlQhSc7SHdIl4l3JiBc7qXOmuk4SUiNPSodpSB
-	xmo54cror+gWIR/iN12DiDHhxicc8av9kwUzme4bj0nmoUj2tSn5kAv6QrUy+c6O
-	EE93NAWKBJbVaLigLloKgOuoS00UE7v0o/XQwZU9AvahqI06D35EqqffhUA9xum1
-	AT2+Xg1oi2Gab2VSHaenRA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792090516; x=
-	1792176916; bh=OEdjkOEW5c4cRoaBZmL7FvMiAbrODiA1B2MoWuVmFC4=; b=a
-	QQX226/l0Hbc7GEDkjxm1kkvUaJNGiBmHf45exHity78cYn68+tf0knFjZFiUy7Z
-	u56KoYqqPaaS+8TXi08lIaA0gZXVfm53FzN7ygwgtSZS0BgAD//gTdR37U0wgV4P
-	yBz7u2zUGYdz6PvILTjrQb8xkX2exoFulE6QstN11SUTBaAxDfJYLKcOuWTUeYze
-	MQapPBfiodPXKgTjQb5wPpdqgG90YrD/VmxU+ZX+6qroRduX6m8v3B+zgxgxDEKn
-	x3TT6b0V15N5TYi0pdzo/Vzzap4ZIOZMuLsJjou8f1OHv8G9ZOLvhMigTQ3Gl2wa
-	0T7revDWCIn7Uu1uEHgNw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=squebb.ca a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792090516; d=squebb.ca;
-	mf=PG1wZWFyc29uLWxlbm92b0BzcXVlYmIuY2E+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:IvA6N/UNjA7hWZiE+5XHHESfSzcEdt1m+M5knKjgO7gcU4A
-	Z7SOLiKqEXMkBvjpr5Kb6OYbTNdfaYOd3gBTjmevcpNZ8WKdJsAkibJ4IbLQ/x43
-	/lv8yUd2L6jrWv4/C4IoE6O3N3us4k/uqqe4feXIQMJCiJFe3bcigqPTZlomSFyK
-	kUYTpgAjG1vS3pNaDloQ85EFOD/hsTKfunSDUB8dGnY3I21TIvHu95OZDf3U/HZw
-	ImUfDhul5znc5FfzPBThXxG61kUi5B5kj7ryd2VJ+q72CC1PBRIVZwfX5XUqSbZo
-	vy/vs+M7t+LUPAvmIrsGhCIEFKY+Q/vfdu1uJTA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:gHj3MxgQ3hE6nalsir8l1mYSCiLB6CSFM9xo/7+RYPg=:VRKe1XVOWIZ80XXfpgmNp6PGDZIi+vf8u3E/lMWMQSg=;
-X-ME-Sender: <xms:kyHRanfqHLWLh-CmI2wROvttXMcC2KI5ZfHjjRDyhvsL5AYFqM1ucA>
-    <xme:kyHRaoCSOUv3_B7wXAOdOKn-NarnDT-TrdEsrDiwlk9rbm0uVThoOEVEZaaOvVyNe
-    k_EVFwx9oSiFoPNOa-JNbOCBs0y5BZs1iSwnAFvhbHfJosS94T6mNsP>
-X-ME-Proxy-Cause: dmFkZTFMR1FFOVl6Uwi+s+KsJt8XrSUsnWfyBxRDchOefKeEW2SPpVbIae9VP9dpRFWKfH
-    KrUrmk2huJ+n0kkNbfWFl5zmFv/8zr+iPXgS1LZpHK3tEN68cJ9a5LmZY3t4z0KdwMXJ/I
-    NU5WHQRLVwZkz0C8GbZpvvqg8p2/5OFGd7zbrnKTJcWCZDPAJ6OZWs+hjJ2V2togTLqOT3
-    h/+9zWxt+fA25zXSRoOHXdnAhtT28PoVzdpi00fwBmq04hXh5KbS7Agp1laVq0U5g7ObCS
-    9phG2uj5l9/34ltfJSQ9oU7oppcMZocxztl1GuV6OgxY/voQNfje5baiJynknvG4aycbW1
-    3yjbChiZEHXFYNAOl/ynx3+Kfh0C1or3Sc92cM1i9hQdzD7lNwQt7rsGlu6YmINVb9p9i+
-    d0r7Ywyy2c+I5+fR/1iIuVq3HfdqLVPsc7R12UN8gkAKsyohxhueIvc+YbBOKs3S8kKj0D
-    AhXeoySMJK9dA4xZkxwWzQ+MIRWNqw5C1+otEZJqN1kgQQK1O38/xKcMyfuvBtzHHHZnD1
-    vFbAw3dVXyYj7XAbMvmci2Y534lt81f/W0iClN2Vk+CLenrD7gxWH4wR7f758rKJ9Ybg7c
-    zCMDAoZ1V0ldU6xgTkC9rUgHLcUjUqsw+kKAXuzpe770ihiQUD+NI2afQX8g
-X-ME-Proxy: <xmx:kyHRahKUj0jq3qwn3_B3Rd0yI5-1LCe28xdaAf1xkO146NrAKua5kQ>
-    <xmx:kyHRara9OmMlM4oU0d3WAmQR3n5NxFy0q4kTfhEmSdys1fAORbTH_A>
-    <xmx:kyHRajCOirXRyxxzYNaqiv9qS6IsshkYVIw-GkckUkpRktEjv29oTg>
-    <xmx:kyHRalZ94nKvi7Pd3LBP7ZPPi_XyLgzOmvQw_N-tbOZkN26OQW1sWw>
-    <xmx:lCHRar0gNskaxEVAf_fKEB5BexKxOm4nbjWRQUE29WiWBv-uBWy8ca9M>
-Feedback-ID: ibe194615:Fastmail
-Received: by mailuser.stl.internal (Postfix, from userid 501)
-	id 9C7972C0007C; Thu, 15 Oct 2026 14:55:15 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UXthwZz7"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-33c10faf6easo604302eec.0
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 12:01:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792090904; cv=none;
+        d=google.com; s=arc-20260327;
+        b=p+0lSdkb5da7zq9a580unISRyj9IYJPPqXgxxn/KuzqwWwP0qtxASx8sIZ9erkYiNl
+         e37M2XzAN4npbS7fKK+fYp419oeNBYdTBYi3em5OlmzxjFWXHclQXb5Q0FrQ1Cjm5HjR
+         b2pN9kvzG804fxo6qVPVTDOehqIw7bDeKgHB8m+F4lsJXtPd5YPc2KiNl3FJQ2TxEyu5
+         0MAquA1EMzxncq05in7RSQJeFfn+be0vmV8Hpd1UdloJWNLwQkrpwEyGSX50Tbte+xrF
+         xWoT7Fq/TvEuPoAUqaDbWum8+mXn7o4UsYHZY7NnX9gbdA/S5KfiinKeteh718/tJQlG
+         6l/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GSqlEIsMMPdLgM90yMu9rfnGiqltcVn6qKzNnPCW0EY=;
+        fh=s6z+yiw+N3Az32JR8Vk9ses8vbRiA10GFhXg+qAcXus=;
+        b=E/UWl+XCbr+NDFw6Kyw0RF6HccrWvm84YxCCEgWiRKV4E7oCoUBaryBNtkauDlrxkY
+         YW3oOxC9JURUwiPp0+3flpNzkutKb7KUxxVOmtRdnPJMu67l3LaZVTk8Ne2RYCx+AM5G
+         VGn07plhe1fdMCvVCmvONW0sYD9scD/i8Jdt2DPROmPVHo76g2e+y4U2/grEvaohCuW/
+         SMYfF5Xj2hmd3LuBFZfel6PH4m5mzLOhbIS4eVSDcld+b3AoqQ/IK2lV3EY6JsekLcMC
+         rLFmshIPMQawqj6LKgPydJY/yCEQXWrXazwSyrGzCtvhc0epN56wRJOaVY8U/8gHP0s8
+         vc2g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792090904; x=1792695704; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GSqlEIsMMPdLgM90yMu9rfnGiqltcVn6qKzNnPCW0EY=;
+        b=UXthwZz7cLqaKfLBuoMhsRXkQ4GefBC40jc9+ww9F8QHY1GY3mTLOX/gZ96UZuEAEo
+         bvN7vScR1K+vTEb61Pej0BRZ3YLEZW0BOi2B5zBjmyIXdyRpyIcnm9NfNZRIfaGOdm7U
+         3TIexg2zxTk/uB6weULLLCBYVAI+DDLHVooQdzepc1V508RgemufPoNUpLC+jlMcEuIy
+         Wz7x8ObPi8y9aJneqZU4X8oAioxLmFK6LfDdpw4QqYj0gU2rHNPU1zZWpdnKqeLmiMxb
+         cP1nv/rzau7vDBvPjnmcgedaMJ+Ma/Yc8gtiTx8BZAsGj2WI/Z/FMdw8Gy5lR4vW/6eb
+         1IQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792090904; x=1792695704;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GSqlEIsMMPdLgM90yMu9rfnGiqltcVn6qKzNnPCW0EY=;
+        b=yN598fpOVdewAKROPS/bgKrCSuHnK2ECPBP0MpHWQTHtXtXTYsapsnAORiixv/GCBt
+         ZwTvYgv1JKlWhKqAYaqqQJdifUFcfjgfutJijIBRMuTvv0upIGchEsPVUcoFGMoJpE5Q
+         wB4HVAqP3S9yut2UR0ucRMHvm+qynV8EMlKtorpHUCmWgOj6cqr8RlAvB/T50xdvDFd4
+         RyYmFL6MbcDvSKxhg2s4l2Pj+GHTfDUetijj6iooF8PxzLKsfLPT+k5d0nR+YmNdU2s8
+         AM1bPSPWTw73waC8EgWqkjUATpz21snZnqlLNwqOO+JGUaITYLnHkY5VVa48UNWe2aMS
+         Oyew==
+X-Forwarded-Encrypted: i=1; AKwUvBxf08zLrUF5bEBaNjHsFJGTcCyKZiHa9a+NfRcci9m+UZJn7CXJrempfmPSlPJ+cQJsLVExfGU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEuusI+SCkDIBiVCetOgSXt4S7RgkxHUw/+24fPae/JvreLFxp
+	f91JpQUE13XaAwYlKmaBSJDXmj8/jXfEuY3Rs1ZHLIJChhzJ7DNQw7G6AQXGGBqHoKV/oRiH+Rs
+	CBk7QZDAC/F2Cgyxx9SModbm6JvufAas=
+X-Gm-Gg: AYBFou0w/oDRIT4PfKtGqqiQpprer3M/B/q0mjzuHwSNIUZ9SFpJ4zxc1fAZjChWYOp
+	UGZ68et52E+Dhpdar62BlCKr0TMdIwjsqc8ePuQ0Da7UN/KeGjU+97dzoJuP2SOXZoE6TDSpXGn
+	GCr0M9JDcy4rV4wLSA9PiiAzxAAYFN38OzLpAdgv0/iVBBfnxvi3+09G4DAkAdHeOUQst0gsBQC
+	cF1zrjBLAYmhPMmEKQbFPlMr2k36z3V3zCh47kxQcXnuNLBbbKl8+BHTwH6p5hMbIKZp8YClixL
+	hDuP0ieS55C9sqVNHtHfvGvLWUHbXzuQQ4KngD8zgc0v8SB8GBXFoMI5/Jtr13omUPtAW05Kx33
+	uOYX0goOYcCMW/rwYbIFqJbVm3eDB4Hqh5e/HuaGO3w==
+X-Received: by 2002:a05:7022:b043:10b0:127:def:dd72 with SMTP id
+ a92af1059eb24-16a5ce9584bmr43025431c88.2.1792090903859; Thu, 15 Oct 2026
+ 12:01:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AkRdy0Ls-WhR
-Date: Thu, 15 Oct 2026 14:54:31 -0400
-From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
-To: "Rong Zhang" <i@rong.moe>, "Derek J . Clark" <derekjohn.clark@gmail.com>,
- "Hans de Goede" <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- "Armin Wolf" <W_Armin@gmx.de>
-Cc: Charles <hanker007@gmail.com>,
- "Navon John Lukose" <navonjohnlukose@gmail.com>,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Message-Id: <ebb90b11-34d4-4e69-b8d3-5f62acd6468a@app.fastmail.com>
-In-Reply-To: <20261014-lwmi-wmi-new-api-v3-0-e1032bed1c81@rong.moe>
-References: <20261014-lwmi-wmi-new-api-v3-0-e1032bed1c81@rong.moe>
-Subject: Re: [PATCH v3 00/12] platform/x86: lenovo-wmi-{other,capdata,helpers}: Improve
- robustness on faulty firmware
-Content-Type: text/plain; charset=utf-8
+References: <BN9PR12MB514681E5EDA768CB4497EACFF79D2@BN9PR12MB5146.namprd12.prod.outlook.com>
+ <20261015095713.20560-1-qchcio@gmail.com> <20261015095713.20560-4-qchcio@gmail.com>
+ <CADnq5_NXGqXy7_Ntcv0aGSQt8Ax48-SgWpSv4rTzNjDL-H_8_Q@mail.gmail.com>
+In-Reply-To: <CADnq5_NXGqXy7_Ntcv0aGSQt8Ax48-SgWpSv4rTzNjDL-H_8_Q@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 15 Oct 2026 15:01:32 -0400
+X-Gm-Features: AclHuK9bE7jG8TbUbXHQL5KZs85YwSupOtLmmAUNi-mrYhsRs_NLi9NrkI6ruto
+Message-ID: <CADnq5_Po1jXiuj7KWW3dWYEGQJmMx68ZMRzyBK7QFZcaL0Y_BA@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] drm/amdgpu: reset VI ASIC on Apple boards with
+ VRAM at 0
+To: Maciej Kucharek <qchcio@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
+	christian.koenig@amd.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
+On Thu, Oct 15, 2026 at 9:26=E2=80=AFAM Alex Deucher <alexdeucher@gmail.com=
+> wrote:
+>
+> On Thu, Oct 15, 2026 at 9:06=E2=80=AFAM Maciej Kucharek <qchcio@gmail.com=
+> wrote:
+> >
+> > On MacBookPros with switchable graphics, the firmware puts VRAM at MC
+> > address 0 when the iGPU is enabled.  A later post (S3 resume, GPU
+> > reset) moves VRAM back to the VBIOS default.  gmc_v8_0 reads
+> > MC_VM_FB_LOCATION once at init and reprograms it only on SR-IOV.  On
+> > bare metal, the driver then keeps using the old layout.
+> >
+> > vi_reset_quirks[] handles this for the MacBookPro14,3 by PCI ID:
+> >
+> >   commit a22e5e4f2ebb ("drm/amdgpu: reset VI ASIC on MacBookPro14,3")
+> >
+> > Add the test that SI and CIK use: an Apple subsystem vendor and VRAM at
+> > 0.  Other Polaris MacBookPros then get the same reset at load, for
+> > example the MacBookPro13,3 if its firmware leaves VRAM at 0.  These
+> > boards are not tested.
+> >
+> > Keep vi_reset_quirks[].  Its MacBookPro15,1 entries fix a different
+> > failure, a module reload after S3:
+> >
+> >   commit a5be7ad8f5f0 ("drm/amdgpu: reset VI ASIC on MacBookPro15,1")
+> >
+> > VRAM is not at 0 at that point, so the new test may not cover it.
+> >
+> > After the reset, FB_BASE is not 0, so the new test does not fire again
+> > on a module reload.
+> >
+> > Only compile-tested.
+> >
+> > Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: Claude:claude-opus-5-5
+> > Signed-off-by: Maciej Kucharek <qchcio@gmail.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/vi.c | 10 ++++++++++
+> >  1 file changed, 10 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdg=
+pu/vi.c
+> > index a0435fd55..cad6bbfce 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+> > @@ -1405,6 +1405,16 @@ static bool vi_need_reset_on_init(struct amdgpu_=
+device *adev)
+> >         unsigned int i;
+> >         u32 clock_cntl, pc;
+> >
+> > +       /*
+> > +        * MacBookPros with switchable graphics put VRAM at 0 when the =
+iGPU
+> > +        * is enabled.  Any later post (S3 resume, GPU reset) moves it =
+back to
+> > +        * the vbios default, so reset and post on load to start with t=
+he
+> > +        * vbios layout.
+> > +        */
+> > +       if (adev->pdev->subsystem_vendor =3D=3D PCI_VENDOR_ID_APPLE &&
+> > +           !(RREG32(mmMC_VM_FB_LOCATION) & MC_VM_FB_LOCATION__FB_BASE_=
+MASK))
+> > +               return true;
+> > +
+> >         for (i =3D 0; i < ARRAY_SIZE(vi_reset_quirks); i++)
+> >                 if (adev->pdev->device =3D=3D vi_reset_quirks[i].device=
+ &&
+> >                     adev->pdev->subsystem_vendor =3D=3D vi_reset_quirks=
+[i].subsystem_vendor &&
+>
+> Please drop the now duplicate quirk handling here.
 
-On Tue, Oct 13, 2026, at 3:21 PM, Rong Zhang wrote:
-> Some devices do not support LENOVO_CAPABILITY_DATA_01 and define the
-> query method as a stub that returns zero buffer. Unfortunately, some
-> devices do not implement the stub properly, causing WMI errors
-> (including ACPI errors). This was reported by Charles.
->
-> The current lenovo-wmi-* implementation enforces the binding between
-> LENOVO_CAPABILITY_DATA_00+01 and LENOVO_OTHER_MODE because of a
-> limitation of the device component framework. When the capdata device
-> bailing out due to a WMI error, lenovo-wmi-other becomes unbound and
-> unable to provide firmware-attributes or hwmon/power_supply_ext devices
-> for the other functional capdata device.
->
-> Therefore, errors must be non-fatal in order not to break the
-> assumptions made by the device component framework.
->
-> Poison the capdata device by releasing the capability data list in this
-> case. After that, NULL list will be passed to lenovo-wmi-other on bind.
-> The latter will provide whatever is available, or unbind the components
-> if nothing is available.
->
-> A poisoned capdata device releases or skips allocating most resources,
-> e.g., the capability data list and the debugfs directory. The device
-> itself is only used to satisfy the component dependency of lenovo-wmi-
-> other and coordinate with the latter about the absence of the capabili=
-ty
-> data.
->
-> Meanwhile, for devices that properly stubs the WMI query method (but
-> still declares >0 instances), keeping the capability data list with
-> empty data is meaningless and causes lenovo-wmi-other to call
-> lwmi_cd*_get_data() to retrieve nonexistent capdata in vain. These
-> capdata devices are poisoned as well to save resources.
->
-> In order to release or skip allocating most resources for poisoned
-> devices, some preparatory work is done in prior. With the preparatory
-> work, it also skips allocating most resources for the WMI devices that
-> declare 0 instance.
->
-> Also identify missing components using the new wmidev_exists() interfa=
-ce
-> (introduced at the very beginning of the series), and skip adding them
-> to the match list, so that all components in the list must present,
-> fulfilling the binding requirement. Some devices need this because they
-> either do not have the WMI GUID of LENOVO_CAPABILITY_DATA_01, or do not
-> implement the query method, causing the WMI core not to create the
-> corresponding WMI device. This was reported by Navon.
->
-> The new WMI API is also adopted to conform to the behavior of the
-> Windows WMI-ACPI driver and improve robustness on various WMI ACPI
-> method implementation.
->
-> Finally, add myself as a LENOVO drivers maintainer as previously
-> suggested by Derek.
->
-> Reported-by: Charles <hanker007@gmail.com>
-> Closes:=20
-> https://msgid.link/CAKtz0s8UYRQYW_0bh=3D0TMx47Axm-W-muEay-r3rqUBS1NHMP=
-Vw@mail.gmail.com/
-> Reported-by: Navon John Lukose <navonjohnlukose@gmail.com>
-> Closes:=20
-> https://msgid.link/20260928190901.1369497-1-navonjohnlukose@gmail.com
-> Suggested-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-> Link:=20
-> https://msgid.link/9789f452-d7eb-4f1e-8a13-7335332193a7@app.fastmail.c=
-om
-> Suggested-by: Derek J. Clark <derekjohn.clark@gmail.com>
-> Link: https://msgid.link/782FE636-A06A-4E12-9563-786374805947@gmail.com
-> Signed-off-by: Rong Zhang <i@rong.moe>
-> ---
-> Changes in v3:
-> - Shorten the comments of struct lwmi_cd_priv's members (thanks Derek
->   J. Clark)
-> - Leave struct cd_fan_block's __packed attribute as is (thanks Armin
->   Wolf)
-> - Link to v2:=20
-> https://patch.msgid.link/20261009-lwmi-wmi-new-api-v2-0-402828382679@r=
-ong.moe
->
-> Changes in v2:
-> - Add PATCH 1 ("platform/wmi: Introduce wmidev_exists()") to the series
->   as discussed at=20
-> https://msgid.link/83776200-4A60-4756-A99F-D5A3BB4D834A@rong.moe
-> - Add PATCH 2 ("lenovo-wmi-capdata: Do not stop the AC notifier chain =
-on
->   error") to the series, as adopting the new WMI API will intentionally
->   catch more faulty firmware and propagate more errors
-> - Synchronize mutex initialization with release-acquire barriers (than=
-ks
->   Ilpo J=C3=A4rvinen)
-> - Refine line wrap (ditto)
-> - Replace the term "poison" with "stub" (ditto)
-> - Add PATCH 10 ("platform/x86: lenovo-wmi-capdata: Do not match missing
->   components") to the series to solve the report made by Navon
-> - Update outdated comments, function documentations and commit messages
-> - Link to v1:=20
-> https://patch.msgid.link/20260914-lwmi-wmi-new-api-v1-0-7a400f2f69f8@r=
-ong.moe
->
-> ---
-> Armin Wolf (1):
->       platform/wmi: Introduce wmidev_exists()
->
-> Rong Zhang (11):
->       platform/x86: lenovo-wmi-capdata: Do not stop the AC notifier=20
-> chain on error
->       platform/x86: lenovo-wmi-capdata: Only allocate sub-master info=20
-> when necessary
->       platform/x86: lenovo-wmi-capdata: Store a pointer to component=20
-> info
->       platform/x86: lenovo-wmi-capdata: Defer mutex initialization
->       platform/x86: lenovo-wmi-{capdata,other}: Only allocate capdata=20
-> list when necessary
->       platform/x86: lenovo-wmi-capdata: Adopt new WMI API
->       platform/x86: lenovo-wmi-capdata: Register component even on WMI=20
-> error
->       platform/x86: lenovo-wmi-capdata: Detect stubbed capdata device
->       platform/x86: lenovo-wmi-capdata: Do not match missing components
->       platform/x86: lenovo-wmi-helpers: Adopt new WMI API
->       MAINTAINERS: Add myself as a LENOVO drivers co-maintainer
->
->  MAINTAINERS                               |   1 +
->  drivers/platform/wmi/core.c               |  33 ++-
->  drivers/platform/x86/lenovo/wmi-capdata.c | 447 +++++++++++++++++++++=
-+--------
->  drivers/platform/x86/lenovo/wmi-helpers.c |  61 ++--
->  drivers/platform/x86/lenovo/wmi-other.c   |  24 +-
->  include/linux/wmi.h                       |   3 +
->  6 files changed, 397 insertions(+), 172 deletions(-)
-> ---
-> base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
-> change-id: a504a929-lwmi-wmi-new-api-f5344d48a86a
+After re-reading your commit message and thinking about it more, I've
+decided to take v1.  Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+and applied.
+
+Thanks!
+
+Alex
+
 >
 > Thanks,
-> Rong
-
-For the series (with the minor typo noted in #7) - looks good to me.
-
-Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-Mark
+>
+> Alex
+>
+> > --
+> > 2.55.0
+> >
