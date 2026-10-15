@@ -1,97 +1,138 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1DB3DBD51
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 02:35:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E6B3DDB04
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 02:45:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792031733; cv=none; b=mM0wT7AoDmc6gmceBhUcsnFEE+Qe+CZ42i6tStHdpjWhdiW84rDTKLpa7/diqcal8qxfkKlFXLFBVROITDTqldzGWpZiIwuQoK3M5kEWJoNe2aPWkFsoaBVZUGc8fEd5F8uxc5TWBIwnRDq0lx9A2MnpcYX/UDlwmrE+8eT+6qY=
+	t=1792032332; cv=none; b=YY7W9DuZlGCIFucTIJ5icCQXJ6tY8+KOCvQvo64X0I6vhmoEKBzHHtTDZLrJtPd2Wv7wthKCE16UYL5FWHXTH8GnPrp+fVzkTk9yRCPahESoqznsUm98oHm5wsjhEkER+CofDVmJSdu0snYpIvALyCEOXesX/SW2LfKii/ewvdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792031733; c=relaxed/simple;
-	bh=HuGeJoAQEA7iwbIiLxJv53njPzZ3n0LkR9Yw7d+krrI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Hl0KNcDrPUJbWpQGKSAfJiF1n/GKo+3mRnBygDboxL6JuHr1/pEHyMr9oMXR170aqidN6P+3VG9PwNLAwkKnMX2yl3CsaywORpaPKGMkcCOTc26WwUmH61tC3fCWm32b0UjhH2+JVYsvjAZrU50g/z8p2vdDV3TtWPLq7pr6ijU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DFO3X0IK; arc=none smtp.client-ip=209.85.215.174
+	s=arc-20240116; t=1792032332; c=relaxed/simple;
+	bh=CEllbMAyUh67mx9yvzDI34nz5d1ihwHNqICRZK7Ly8s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Wt3JOHyTByW82GsUch14gvE3p5bYFqezumaOH7mmM2nXRB0JKABrWQmRdjfDI79Y6GJ8pGD+vug95EhFxX98EIeTKmMLGFcO/8Tkj7Zm9lyglRhN+7g76ggW66lvn8QU1BhSFjZmx2QVoPaL1TOvmixctmpvHN0lW4AIS7WjS9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AgWOz76J; arc=none smtp.client-ip=74.125.227.133
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DFO3X0IK"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cd3310348d2so3199055a12.1
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:35:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AgWOz76J"
+Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2e89f7bb9bcso9473685ad.0
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:45:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792031730; x=1792636530; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HuGeJoAQEA7iwbIiLxJv53njPzZ3n0LkR9Yw7d+krrI=;
-        b=DFO3X0IKNgTSyoBkih4W9uj9sRv8v+MhgvfHjvQzJNayEqXQy4gKrHyjOjIPusKzgA
-         hYrvLT7TZY2Rbl8m+sT6+8Svhqwi+ZS/dqeuW0GhThqGjYkVvEb74eZWh0gYYhXdUnQK
-         /ba3qCIHaNPEN6VcsAnVTxbIp77nCAFe06twS+E8HqVJsIrHmcQS872h/D7qroffARqx
-         dTI3tTFvB8D+XqMR0dilPvvF+MPlzQ1LSaGChNMlxzDciW752vL47JU60UdhAeM/CC9u
-         Npas3LQ5C/UDFawFjH+pZMdA7LP+EOp7vGTZ0JunPtOhF7N4W0rVhkl8Q+Nd54sXvzNa
-         o2qw==
+        d=gmail.com; s=20251104; t=1792032327; x=1792637127; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6NL3C3h3ouQDJm0DgBtu/xXmXeKbd5Qh0OWlBa3GyWA=;
+        b=AgWOz76JfXNoem8IXymToN5bRRODBRerZuNHgTFZli+WRkwceFWc1Wn7RXvbBT64ef
+         40VB0k/+0WHdelFNPFFP7K4Aj7Zu2Cks0azcuJ4NH4oicavYHUIPF6HuX6F4XKxsVaXA
+         7v5skfJRQdti3nRImj6vti/K6R17Ce9V6AeoHXT08xA0kgDhqaDj29ojyUI7rrLvMwON
+         aP43Xl3zbxxAr7IsrFp3FVeMecbjwwd9hqmFvOcgaUHlbRML4qQT9fpZGRKFtKRwjsKx
+         wmdOrjU+bT1vPaHvmnM2w7RJwLeh5ijoEybXpLk1s3FfeIsNqQUIv9KeMQY20OKlN+51
+         G/RQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792031730; x=1792636530;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HuGeJoAQEA7iwbIiLxJv53njPzZ3n0LkR9Yw7d+krrI=;
-        b=mPzifx09RW5rcegWk5xKqukTa+cEX3yCsFZXMSu+8/pAf5Z/YW+qmOIcSy+UUhVKyG
-         V04LtnAtXbwEhMAa5fYDR1TGG0zITDNMBGswbgrNG7hdDc8QnhZYQBeM4HPUjYlxsuvE
-         WdPt9rMl/Z39BIGonl+8zHE48ggE2WULAmh16wKYcCc4p901Ew5GRaIXAlPkV5NlYs38
-         yPNLGh3X5r7GVVwuhUrdlFy/ZUc3BEp83uZa1bX6JOl3eLzJuEkoba8vbekZ8aazDAZh
-         pxna6ltzvIGMbhjoZLf5of8dSDlwqcyL06H7up3q/vOh0+Qi5OSNgvIaAaibp/AtaKNj
-         MYRw==
-X-Forwarded-Encrypted: i=1; AKwUvBzT7SUIIhLoNM1us19sH5Z5A/KQHnpNsn4dXVUjYyB6MnTm8w7FBKyTlIfA5DiICjlv6cjc4lk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKurXHEQVqOABSSeQp6yDRBJExB7vgjGCEV/dASjLjVsUvSyDU3
-	OO3rTvwoWaagdVH9+RxV8ouhWg3n2wBWtBF1ZH0xCYsUTcPu6AOk01IA
-X-Gm-Gg: AYBFou3/HRGF3fjWy8ohkCzQElkGTwCFpaKfa4RbjlO3cBQ10ZH1B/cveaIrRegg8bh
-	b/RgPKmWgbnCkLAeNu90sqKQ2NfRLj2PTmRZ0vRrcssFbn1EoDWLQJS97jgD/iAg4HlYGYOs/7U
-	oi7H6xIm+zreg8c0Ybe5xbd9AOVvbbB2e2o8iethPhqmXuY7bz4YQyi4Sj8Ip6xq0lVoJr3YoZi
-	eHZQWton+LGVBwzMjq+vuVO6iE5RwZPu3GjadHAA4fhAyKj1lPzjw01Xg/zsi6JEAXHx7tM1iwB
-	XisYjCowJ5QHB+eQprsW5g5Tkn013T1doR+w5c1bA7KThd2/KBwXIfZ3Xp9qIAR5S2mu2Efg5iB
-	wJmLZvN1DpFGi1xQhmMH6cDN3Wh1QNeqHhP3gC8Y9vC5av2ExXsEXI6gdUAtUFEGmwMYbaSLkrX
-	IKtHUGm1w7VcMqNI+ZlQAgVoH2ADjgrc2b8c/CyX/3c733sVwNtM2X3GyFQsvaeO0=
-X-Received: by 2002:a17:90b:1844:b0:3a6:d2ac:74ce with SMTP id 98e67ed59e1d1-3ab3a9a8da3mr10311790a91.19.1792031730350;
-        Wed, 14 Oct 2026 19:35:30 -0700 (PDT)
-Received: from ubuntu.. ([138.199.21.232])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac943e821csm1940875a91.8.2026.10.14.19.35.27
+        d=1e100.net; s=20260707; t=1792032327; x=1792637127;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6NL3C3h3ouQDJm0DgBtu/xXmXeKbd5Qh0OWlBa3GyWA=;
+        b=cwkRroVF6JiBaysFUHvsBOkJREJuIRTuQtCQ1SRag9V72rb4LlaW6VPICZqbR04gt6
+         OdgIKRRuUCDYBVHkl4SXuxrv8rG5XqIfqDrIbg5KoOMe1M38Eo08HheIQZAtk2t847Zj
+         TxNgTyj6xHMw26VJsK2AtmXRRYrKFFTWtp8VSUEkBt+DWn0tOL+HOMwfK4+qg860c/D5
+         2WriutzalOmkOEOheRyJoGxapevON71oIB8a3hfRVcb0eRmjWIW2oW900dQ4Amni+XQQ
+         cJtWPFervlp+E6ZImsLJaj/cw6lNWehwW1+wOWrWzcNIuf8IH8OsT/ww3YTNVpsWhIr5
+         pG3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzA3PzYhXiqTzBZ1qqAVaMDmoUQy0+LJPCI6ib+Zi2cW6U9b6AoJgYJp0idx7NKEJ8FaTlkXVk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLCsLHVpL5hHDop9QDEtaEIDyxmq587o1rb3v0Zy9w2xfAQgDzJ
+	pipTLLQAT2rBrrAywMlSsm0JoklAGCxmIsl4d2Q79itrP48T0C51TJXx/9hay3UaYJVjzA==
+X-Gm-Gg: AYBFou2taA2jsLscy86xwYaMfG39K9P4d/94pBXS78WtBdSieWfYgU4XoL2WgpxQRZX
+	FjeGdYDsjkHBKGAUYUT+u8RFNwbHIcRKk4AOK0p02knk6Aak4coi1JjErya1nRez5rGq44THeHi
+	TvZsyQUiAvMB7SAuhdpnCKSl/iuaH8SK8I6THflVZxjIWV8giuAZU2Fxb4LQQhIrWec+IXtee+1
+	PV6mJs57kN8cjHzkJOjmkkSgMSHDazHBZHN8m5l0HAaLD4aB15Xoc+LEctU/qHeu0Iajs2VNSAy
+	yzjtglwe04DRtUZeG+r6dItiDsSiO3XlRfF5DR+U983D+X3TUfkTAhelp/N5nfvCgP6Zm4r7c0h
+	mjzTD4VI9tINNdernRIDq4nqR8p905j7DEH8hi1uX8MAniKltHwp0x26YOkua+D9oxji9yhKi3e
+	jN74fHN9DPWBrVBUw2/GH2NY2X5MMpC08dz3asZtLWq3TQm8yyw9OlpgaADIW0cUtLJGRiQU5Oa
+	KEi/8mIrEnbTTBfM4A=
+X-Received: by 2002:a05:6a20:a10a:b0:3e0:d032:31c5 with SMTP id adf61e73a8af0-3e16bdf0d43mr14039255637.25.1792032326841;
+        Wed, 14 Oct 2026 19:45:26 -0700 (PDT)
+Received: from LAPTOP-QJLDGQ2L.localdomain ([112.224.221.179])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d802a459asm1710303b3a.14.2026.10.14.19.45.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 19:35:29 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-To: Theodore Ts'o <tytso@mit.edu>,
-	Jan Kara <jack@suse.com>
-Cc: Qiliang Yuan <odys.yuan@gmail.com>,
-	linux-ext4@vger.kernel.org,
+        Wed, 14 Oct 2026 19:45:26 -0700 (PDT)
+From: Boyan Liu <yymhvert@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Jan Kara <jack@suse.cz>
-Subject: Re: [PATCH v5] jbd2: fix shrinker scan budget accounting in jbd2_journal_shrink_scan()
-Date: Thu, 15 Oct 2026 10:35:23 +0800
-Message-ID: <20261015023342.ping-jbd2-v5@gmail.com>
+	co+02480a85e1a0d4f5@bugs.sh,
+	Boyan Liu <yymhvert@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] usb: gadget: f_ncm: Fix use-after-free in ncm_wrap_ntb()
+Date: Thu, 15 Oct 2026 10:45:08 +0800
+Message-ID: <20261015024508.3179-1-yymhvert@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261001-fix-jbd2-shrink-scan-nr-scanned-v5-1-5348b51efce2@gmail.com>
-References: <20261001-fix-jbd2-shrink-scan-nr-scanned-v5-1-5348b51efce2@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-Hi Ted, Jan,
+The err: path of ncm_wrap_ntb() frees ncm->skb_tx_data and
+ncm->skb_tx_ndp but never clears the pointers. The rest of the
+file treats NULL as "no aggregation in progress", and the other
+release site, package_for_tx(), clears them after freeing.
 
-Friendly ping on this -- it's been about two weeks since v5 with no
-review feedback yet. This reverts jbd2_journal_shrink_scan() to the
-sc->nr_scanned-based SHRINK_STOP check from v1, which Jan had
-reviewed, after v3/v4's nr_shrunk-based attempt turned out to
-conflate "this batch was unproductive" with "nothing left to
-reclaim."
+When the NTH skb allocation succeeds but the NDP skb allocation
+fails -- both GFP_ATOMIC, so this happens under memory pressure
+-- the err: path frees both skbs and leaves stale pointers.
+The next transmit passes the guard on the freed skb_tx_data,
+reads ->len from the freed skb, and package_for_tx() may then
+write the NTB header through the freed skb's ->data:
 
-Let me know if anything's still needed on my end.
+    BUG: KASAN: slab-use-after-free in ncm_wrap_ntb (drivers/usb/gadget/function/f_ncm.c:1044)
+    Read of size 4 at addr ffff888108582930 by task kworker/1:2/1623
+    Call Trace:
+     ncm_wrap_ntb (drivers/usb/gadget/function/f_ncm.c:1044)
+     eth_start_xmit (drivers/usb/gadget/function/u_ether.c:543)
+     __dev_queue_xmit (net/core/dev.c:4884)
+    Freed by task 4999:
+     napi_skb_cache_put (net/core/skbuff.c:1471)	/* deferred dev_kfree_skb_any() from err: */
+     net_tx_action (net/core/dev.c:5854)
+    The buggy address belongs to the object at ffff8881085828c0
+     which belongs to the cache skbuff_head_cache of size 240
 
-Thanks,
-Qiliang
+Clear both pointers after freeing so the next transmit
+re-enters the allocation branch on a clean state instead of
+dereferencing freed skbs.
+
+Fixes: 6d3865f9d41f ("usb: gadget: NCM: Add transmit multi-frame.")
+Cc: stable@vger.kernel.org
+Reported-by: co+02480a85e1a0d4f5@bugs.sh
+Signed-off-by: Boyan Liu <yymhvert@gmail.com>
+---
+ drivers/usb/gadget/function/f_ncm.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/usb/gadget/function/f_ncm.c b/drivers/usb/gadget/function/f_ncm.c
+index 500c9c19c78b..be1c2fa36350 100644
+--- a/drivers/usb/gadget/function/f_ncm.c
++++ b/drivers/usb/gadget/function/f_ncm.c
+@@ -1132,10 +1132,14 @@ static struct sk_buff *ncm_wrap_ntb(struct gether *port,
+ 
+ 	if (skb)
+ 		dev_kfree_skb_any(skb);
+-	if (ncm->skb_tx_data)
++	if (ncm->skb_tx_data) {
+ 		dev_kfree_skb_any(ncm->skb_tx_data);
+-	if (ncm->skb_tx_ndp)
++		ncm->skb_tx_data = NULL;
++	}
++	if (ncm->skb_tx_ndp) {
+ 		dev_kfree_skb_any(ncm->skb_tx_ndp);
++		ncm->skb_tx_ndp = NULL;
++	}
+ 
+ 	return NULL;
+ }
+-- 
+2.43.0
+
