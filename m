@@ -1,24 +1,24 @@
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D391E388E7A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D97693890F3;
 	Thu, 15 Oct 2026 01:53:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792029233; cv=pass; b=oHTxUanHS8MWGEV4IaIdHto6A5BRa8FGyq52j8RtxjceJpNJry5Vm98iCVcDTAq1X6zVQFG6p2kvOFdo4zDpzq0RkSXg6KmrEY7o4rsfoe23J4Ru8Ef405+BcSRVubmhOA89jJgx9svTduEEJNsxSSN7aNy24WrfzTVuscU5X68=
+	t=1792029233; cv=pass; b=qX8eVp3PIL0jq+OdYS4SJn56Ic4HUxnBLGGSXWzQnIzdq0/u+kFWafQt16S2iSGGDo9m39swgHrWj7eMjOi6uf+WGrKKF6OPiUgW6vi0LeUP3JnFDVnRRPngTJSacmPsBOji6lOahfRobrGpUC/EiekBrPsq1IoH32fUT5nx8AQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792029233; c=relaxed/simple;
-	bh=BESL33sk3k1xclMOoMRpgLNVC45Kv63CRKha9knGykw=;
+	bh=aa7ORPG2FTcKXIj480bGCHqZvoyF71A/B1LcC6U0fmU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AzvcWbdYza7bRFJptZ6sWe5EBc+LHuAQGrDWIN/SNbGe7FMPS79fYfu8KyW2BV9mTshmuT+UwiwNV9ydEctj01ASyESCSqA/LgOJEE50ApHRF0NwIl4GRGzoTXK7NEfzmiMeYAdIOfu+Nmp7b/jjdcyiNUe0123isqseTOS3zHk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=d4rz1260; arc=pass smtp.client-ip=185.203.200.13
+	 MIME-Version; b=TGfQOndmPkEahhKWDLO9vPZbHEt0ALfbbzBXtoVCcZfumlM4Z9HhzrAxOBP5ganyXpMaeerw5bU30hEjYl+l0rMT9T5BqUFv/6rhEDGGcSIwueIEfY4GFyRD7FgJHylmTxyWjWD5pShzZetg/myvheqIrLIWNT0+qcNsNwIUMj8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=B9tmTrtr; arc=pass smtp.client-ip=185.203.200.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="d4rz1260"
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="B9tmTrtr"
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 526A82027E7;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 8AF102027EA;
 	Thu, 15 Oct 2026 03:53:42 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1792029222;
@@ -26,19 +26,19 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=6G+/AuoMi7sn+vQXqcaOUcrwvr1jRSmQH82PqRnpUv0=;
-	b=d4rz12605r0GqE/0GQf+qXdTB3X6ARWtU5z0iDmTd0tyCYbSC1g1Z20mXmkst3lZ8g0NqY
-	cnY5Fs+efNkot3tSYzwZMDuwrNwxAS3U3M4KHinwUJ8lfYNBfF5ZRrfzKQJn/mvlqVbSXf
-	XA15n0shXB+CkixGVegkUlFWbP4bBb+eJedkqXpRsPcvzcL4DMaIOBtT9L6r1025JLJGTG
-	gUYC/LD7wP8j2qvdQ6HQBvhjCjCpDiuNeguoYQYH9R3mr8h/DS9AeovA4QJzWGYwNzicAW
-	uZO4RY4GenI4g4HeiULv783hTCTTpESAt4UwxaLftqt4xjh2hPhkKp6m1E0Qbw==
+	bh=dvx/B2xN6wzmD71ZzUwoOkPXukSRn6M+9pHyiHpp/2o=;
+	b=B9tmTrtrHW8/rtrGBIqk+n2YO35bTM4Kh/mZ/oSlNs9bHZIy9u5iuwhJ1jQT+6RDtunutD
+	cynntbX8ENpYmslM9E/Lrg0rJ5FCS/6sv88LSDyBYNtVYKRMgR37528n3xXpAOk+Nb+VBs
+	lQGJ20W+mZH8zK6OAlDZKCb7GhhbDwZgWN/8NARiPxfCqpHVeBmKpQPBjcP6R7a4I52QB2
+	Pe4MJ8uAyKRwEngDIUbkC1p55OEx1gaYezeH5r/fADvtyAFKtkDVlUmDOz8GmGuMNlGsTL
+	USGJ1xgl25KjBDfS4Gx654HyZ2LYswhDJP8VOFE/OpwoXEsPMMCu/pYVG17XUQ==
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792029222; a=rsa-sha256;
 	cv=none;
-	b=MyRXi8IgT24TJjzRyJtL+1wZX3m/sfpCV5CB5VrmoCFzYqrAKn6+3W8WpCp79onmsX+sHP
-	n+78c1dQ0CNFLl5dnsqmKBHsTB3i/dudGaWUryoVYYRL/Lei+Uzs+NkE+hqSplJBWadQzR
-	yN1TNzYGT/dKNXKJ6yGblTzUHj2bYbYKLolb4MCFJiBEOkl2tpVOPWveG7+xcR96dOj+bH
-	jQj5UjlQ+0iKhmZSK40wCaqQEiwhL3QyrQRL77NO2iiPMwV6lIftVZmgoGlwUnZGoiNxjJ
-	q2Tz3J3eSbEDjq0gX9Ney5Jh5FSqwYi06P3k06bHlaD4RRJ700n7uifbke3ICg==
+	b=Y9jc2wndikmg4B+QVBQX4TXJbIiE9UsS7j0rLZzKfbz0UZrnO4AiB0wneee7sTCY07Yz3M
+	pIcoGsAzLQ3EmlxKvPLdPS/XTv5eOS/qsNNy7Q5OAzpK5ZkXVJzMLP622j3wH5/GA+qznt
+	3luO1ywiDqiaLv1w0QrJl/xL/5otjNwwXGybgj3eXoxuABlPJJEr2Xb9KmuUo7VGiI6c9W
+	SZTkIKS/jhWGYtx6dtGlq15CBaYZ0ZGSMN7W6Et+3H0y0c0CABUBksGGEk3c1NSEyIi56b
+	cbFP1AWoUmlLX9v/bU/ycDtEsSzfurvzdoKngoZQ6i1vKwMnHcFNqdhhSFmiEg==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
@@ -48,36 +48,39 @@ ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=6G+/AuoMi7sn+vQXqcaOUcrwvr1jRSmQH82PqRnpUv0=;
-	b=aU1nYQd64mYp/EXcG2048ci/6lvVxfsq1ZnRQMAzXP097KzarXhFO9U7xOa6yywGm+trZl
-	ScTpIKNlWCWRcEljo19gQIyrbVQuhlPtadaOXXGgFR74JKW9CQqrV9oMItIjU6GEEOVU8C
-	8jmx7hArQ2V8rvfN6uSGoKS8ONwh0c3GKe/k1lyN5tiJurt+lNTSsXuVC1zhsnGZfhQ+RN
-	juc+9ATs1hBi+T6AGhpURlW1Cy3ZyzexpkJjhwCFRvqIAhwg63m388f6QUxD5cgncIy6rJ
-	7C4qb0N6s6E9jrwc3nWrmBk59DwS6XxcapQ8qq3gGzLQWtO6u0kgmzzLoQps6Q==
+	bh=dvx/B2xN6wzmD71ZzUwoOkPXukSRn6M+9pHyiHpp/2o=;
+	b=V+rpj79LXefd8W403wn8aSUogMSvRsiBi5JM7UJYEXF/EOgq0nZsOZOWAInbSVX9AViMNQ
+	lGIFVe0Qcb+iOlS7wsgM8LdxC2Sfq0QPlOPTgrVEZZfRQJc6/IWkBCtWKPy8h+CIuZ2IzJ
+	IlG2Hw4nZxDJ34WqdmDyhRL7ki2BFaIha6EyuRj52kW/iyr+hYwj1AoNzDsQSYwCh3FGzT
+	pkThXG8Lsrc35kEy5LBI4+OOjDoiFVDTVFcxDvh2tY0P4ms7MNujh4ynja1ChkECzWI8VR
+	ah8/O9wwD4KTwq2vNklhnnh2VSvOckwGS75YmK3Fe1Sk1g82ZNr/vgkWJWCvPg==
 Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
 	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <mkl@pengutronix.de>)
-	id 1xHAf8-005wrW-0j;
+	id 1xHAf8-005wrd-1U;
 	Thu, 15 Oct 2026 03:53:42 +0200
 Received: from blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(Client did not present a certificate)
 	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id EAAFF5C47AB;
-	Thu, 15 Oct 2026 01:53:41 +0000 (UTC)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 39D105C47B6;
+	Thu, 15 Oct 2026 01:53:42 +0000 (UTC)
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 To: netdev@vger.kernel.org
 Cc: davem@davemloft.net,
 	kuba@kernel.org,
 	linux-can@vger.kernel.org,
 	kernel@pengutronix.de,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	stable@vger.kernel.org
-Subject: [PATCH net-next 29/37] can: esd: acc_start_xmit(): avoid use-after-free of skb after can_put_echo_skb()
-Date: Thu, 15 Oct 2026 03:40:27 +0200
-Message-ID: <20261015015336.816543-30-mkl@pengutronix.de>
+	"Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>,
+	AutonomousCodeSecurity@microsoft.com,
+	"Xiang Mei (Microsoft)" <xmei5@asu.edu>,
+	stable@vger.kernel.org,
+	Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: [PATCH net-next 32/37] can: kvaser_usb: validate command format before parsing in hydra receive path
+Date: Thu, 15 Oct 2026 03:40:30 +0200
+Message-ID: <20261015015336.816543-33-mkl@pengutronix.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261015015336.816543-1-mkl@pengutronix.de>
 References: <20261015015336.816543-1-mkl@pengutronix.de>
@@ -89,65 +92,252 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-After the call to can_put_echo_skb() in acc_start_xmit() the skb is invalid
-and not accessed anymore, but acc_txq_put() will access the skb's data.
+From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
 
-So far acc_txq_put() first loads the CAN data into the controller then
-starts the TX. Move the start-TX functionality into the acc_txq_start()
-function.
+The receive-path command parsers (kvaser_usb_hydra_wait_cmd and
+kvaser_usb_hydra_read_bulk_callback) call kvaser_usb_hydra_cmd_size()
+without verifying that enough buffer remains. For CMD_EXTENDED,
+kvaser_usb_hydra_cmd_size() unconditionally reads a 2-byte len field
+at offset 4. A malicious USB device can place a CMD_EXTENDED header at
+the end of a 3072-byte bulk transfer such that only 4 bytes remain,
+causing a 2-byte slab-out-of-bounds read.
 
-In acc_start_xmit(), first load the data into the controller using
-acc_txq_put(), then can_put_echo_skb() and finally start the TX with
-acc_txq_start().
+  BUG: KASAN: slab-out-of-bounds in kvaser_usb_hydra_wait_cmd+0x3f1/0x480
+    [kvaser_usb_hydra.c:678]
+  Read of size 2 at addr ffff888013f7ec00 by task kworker/0:0/9
+   kvaser_usb_hydra_wait_cmd+0x3f1/0x480
+   kvaser_usb_hydra_get_software_details+0x1c7/0x5d0
+   kvaser_usb_probe+0x36a/0x1240
 
-Link: https://patch.msgid.link/20260929-esd-fix-skb-deref-v2-1-542e3e19fb25@pengutronix.de
-Fixes: 9721866f07e1 ("can: esd: add support for esd GmbH PCIe/402 CAN interface family")
+Additionally, if the device sends CMD_EXTENDED with len=0,
+kvaser_usb_hydra_cmd_size() returns 0 and the parser loops forever
+(pos += 0), permanently burning one CPU core.
+
+A positive but undersized extended length can also pass the buffer extent
+check and reach a handler. For example, an 8-byte CMD_RX_MESSAGE_FD at
+the end of an RX URB causes kvaser_usb_hydra_rx_msg_ext() to read fixed
+fields and payload past the buffer.
+
+Add receive-side length validation which preserves incomplete headers for
+reassembly, rejects extended lengths outside 8..128 bytes, and checks each
+known extended command against the minimum length its handler consumes.
+For CMD_RX_MESSAGE_FD, derive the required length from its flags and DLC
+so valid variable-length commands remain accepted. Apply the checks to
+both receive paths and clear malformed leftover state before returning.
+
+Fixes: aec5fb2268b7 ("can: kvaser_usb: Add support for Kvaser USB hydra family")
+Reported-by: AutonomousCodeSecurity@microsoft.com
+Closes: https://lore.kernel.org/all/20260819145658.29872-1-blbllhy@gmail.com
+Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
+Closes: https://lore.kernel.org/all/20260819145658.29872-1-blbllhy@gmail.com
+Suggested-by: Jakub Kicinski <kuba@kernel.org>
 Cc: stable@vger.kernel.org
-[mkl: update subject + commit message]
+Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@linux.microsoft.com>
+Link: https://patch.msgid.link/20260910135000.34796-1-cenzhang@linux.microsoft.com
+[mkl: reduce scope of err in kvaser_usb_hydra_read_bulk_callback()]
+[mkl: increase readability, reformat to make use of ~100 columns]
+[mkl: move Closes trailer to fix checkpatch warning]
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- drivers/net/can/esd/esdacc.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ .../net/can/usb/kvaser_usb/kvaser_usb_hydra.c | 136 +++++++++++++++++-
+ 1 file changed, 129 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/net/can/esd/esdacc.c b/drivers/net/can/esd/esdacc.c
-index 73e66f9a3781..05d41ed34a02 100644
---- a/drivers/net/can/esd/esdacc.c
-+++ b/drivers/net/can/esd/esdacc.c
-@@ -62,14 +62,17 @@ static void acc_resetmode_leave(struct acc_core *core)
- 	acc_resetmode_entered(core);
+diff --git a/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c b/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
+index ad168cad1d78..2220d197abb5 100644
+--- a/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
++++ b/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
+@@ -533,6 +533,82 @@ static size_t kvaser_usb_hydra_cmd_size(struct kvaser_cmd *cmd)
+ 	return ret;
  }
  
--static void acc_txq_put(struct acc_core *core, u32 acc_id, u32 acc_dlc,
--			const void *data)
-+static void acc_txq_put(struct acc_core *core, u32 acc_dlc, const void *data)
- {
- 	acc_write32_noswap(core, ACC_CORE_OF_TXFIFO_DATA_1,
- 			   *((const u32 *)(data + 4)));
- 	acc_write32_noswap(core, ACC_CORE_OF_TXFIFO_DATA_0,
- 			   *((const u32 *)data));
- 	acc_write32(core, ACC_CORE_OF_TXFIFO_DLC, acc_dlc);
++/* -EAGAIN means incomplete; -EINVAL rejects an invalid command length. */
++static int kvaser_usb_hydra_cmd_size_rx(struct kvaser_cmd *cmd,
++					size_t remaining, size_t *cmd_len)
++{
++	if (remaining < sizeof(cmd->header.cmd_no))
++		return -EAGAIN;
++
++	if (cmd->header.cmd_no == CMD_EXTENDED &&
++	    remaining < offsetof(struct kvaser_cmd_ext, cmd_no_ext))
++		return -EAGAIN;
++
++	*cmd_len = kvaser_usb_hydra_cmd_size(cmd);
++	if (cmd->header.cmd_no != CMD_EXTENDED)
++		return 0;
++
++	if (*cmd_len < offsetof(struct kvaser_cmd_ext, rx_can) ||
++	    *cmd_len > KVASER_USB_HYDRA_MAX_CMD_LEN)
++		return -EINVAL;
++
++	return 0;
 +}
 +
-+static void acc_txq_start(struct acc_core *core, u32 acc_id)
++static int kvaser_usb_hydra_verify_cmd_size(const struct kvaser_cmd *cmd,
++					    size_t cmd_len)
 +{
- 	/* CAN id must be written at last. This write starts TX. */
- 	acc_write32(core, ACC_CORE_OF_TXFIFO_ID, acc_id);
- }
-@@ -287,11 +290,12 @@ netdev_tx_t acc_start_xmit(struct sk_buff *skb, struct net_device *netdev)
- 		acc_id = cf->can_id & CAN_SFF_MASK;
++	const struct kvaser_cmd_ext *cmd_ext;
++	size_t min_len;
++
++	if (cmd->header.cmd_no != CMD_EXTENDED)
++		return 0;
++
++	cmd_ext = (const struct kvaser_cmd_ext *)cmd;
++
++	/* Keep this switch in sync with kvaser_usb_hydra_handle_cmd_ext(). */
++	switch (cmd_ext->cmd_no_ext) {
++	case CMD_TX_ACKNOWLEDGE_FD:
++		min_len = offsetof(struct kvaser_cmd_ext, tx_ack.timestamp) +
++			  sizeof(cmd_ext->tx_ack.timestamp);
++		break;
++
++	case CMD_RX_MESSAGE_FD: {
++		u32 flags;
++
++		min_len = offsetof(struct kvaser_cmd_ext, rx_can.kcan_payload);
++		if (cmd_len < min_len)
++			return -EINVAL;
++
++		flags = le32_to_cpu(cmd_ext->rx_can.flags);
++		if (flags & KVASER_USB_HYDRA_CF_FLAG_ERROR_FRAME) {
++			min_len += sizeof(cmd_ext->rx_can.err_frame_data);
++		} else if (!(flags & KVASER_USB_HYDRA_CF_FLAG_REMOTE_FRAME)) {
++			u32 kcan_header;
++			u8 dlc;
++
++			kcan_header = le32_to_cpu(cmd_ext->rx_can.kcan_header);
++			dlc = (kcan_header & KVASER_USB_KCAN_DATA_DLC_MASK) >>
++				KVASER_USB_KCAN_DATA_DLC_SHIFT;
++
++			if (flags & KVASER_USB_HYDRA_CF_FLAG_FDF)
++				min_len += can_fd_dlc2len(dlc);
++			else
++				min_len += can_cc_dlc2len(dlc);
++		}
++		break;
++	}
++
++	default:
++		return 0;
++	}
++
++	if (cmd_len < min_len)
++		return -EINVAL;
++
++	return 0;
++}
++
+ static struct kvaser_usb_net_priv *
+ kvaser_usb_hydra_net_priv_from_cmd(const struct kvaser_usb *dev,
+ 				   const struct kvaser_cmd *cmd)
+@@ -672,8 +748,9 @@ static int kvaser_usb_hydra_wait_cmd(const struct kvaser_usb *dev, u8 cmd_no,
+ 			size_t cmd_len;
+ 
+ 			tmp_cmd = buf + pos;
+-			cmd_len = kvaser_usb_hydra_cmd_size(tmp_cmd);
+-			if (pos + cmd_len > actual_len) {
++			err = kvaser_usb_hydra_cmd_size_rx(tmp_cmd, actual_len - pos, &cmd_len);
++			if (err || pos + cmd_len > actual_len ||
++			    kvaser_usb_hydra_verify_cmd_size(tmp_cmd, cmd_len)) {
+ 				dev_err_ratelimited(&dev->intf->dev,
+ 						    "Format error\n");
+ 				break;
+@@ -2091,27 +2168,61 @@ static void kvaser_usb_hydra_read_bulk_callback(struct kvaser_usb *dev,
+ 	spin_lock_irqsave(usb_rx_leftover_lock, irq_flags);
+ 	usb_rx_leftover_len = card_data->usb_rx_leftover_len;
+ 	if (usb_rx_leftover_len) {
++		const size_t cmd_size_field_end = offsetof(struct kvaser_cmd_ext, cmd_no_ext);
+ 		int remaining_bytes;
++		int err;
+ 
+ 		cmd = (struct kvaser_cmd *)card_data->usb_rx_leftover;
+ 
+-		cmd_len = kvaser_usb_hydra_cmd_size(cmd);
++		if (cmd->header.cmd_no == CMD_EXTENDED &&
++		    usb_rx_leftover_len < cmd_size_field_end) {
++			remaining_bytes = min_t(int, len, cmd_size_field_end - usb_rx_leftover_len);
+ 
+-		remaining_bytes = min_t(unsigned int, len,
++			memcpy(card_data->usb_rx_leftover + usb_rx_leftover_len, buf,
++			       remaining_bytes);
++			usb_rx_leftover_len += remaining_bytes;
++			card_data->usb_rx_leftover_len = usb_rx_leftover_len;
++			pos += remaining_bytes;
++
++			if (usb_rx_leftover_len < cmd_size_field_end) {
++				spin_unlock_irqrestore(usb_rx_leftover_lock,
++						       irq_flags);
++				return;
++			}
++		}
++
++		err = kvaser_usb_hydra_cmd_size_rx(cmd, usb_rx_leftover_len,
++						   &cmd_len);
++		if (err || cmd_len < usb_rx_leftover_len) {
++			dev_err(&dev->intf->dev, "Format error\n");
++			card_data->usb_rx_leftover_len = 0;
++			spin_unlock_irqrestore(usb_rx_leftover_lock, irq_flags);
++			return;
++		}
++
++		remaining_bytes = min_t(unsigned int, len - pos,
+ 					cmd_len - usb_rx_leftover_len);
+ 		/* Make sure we do not overflow usb_rx_leftover */
+ 		if (remaining_bytes + usb_rx_leftover_len >
+ 						KVASER_USB_HYDRA_MAX_CMD_LEN) {
+ 			dev_err(&dev->intf->dev, "Format error\n");
++			card_data->usb_rx_leftover_len = 0;
+ 			spin_unlock_irqrestore(usb_rx_leftover_lock, irq_flags);
+ 			return;
+ 		}
+ 
+-		memcpy(card_data->usb_rx_leftover + usb_rx_leftover_len, buf,
++		memcpy(card_data->usb_rx_leftover + usb_rx_leftover_len, buf + pos,
+ 		       remaining_bytes);
+ 		pos += remaining_bytes;
+ 
+ 		if (remaining_bytes + usb_rx_leftover_len == cmd_len) {
++			if (kvaser_usb_hydra_verify_cmd_size(cmd, cmd_len)) {
++				dev_err(&dev->intf->dev, "Format error\n");
++				card_data->usb_rx_leftover_len = 0;
++				spin_unlock_irqrestore(usb_rx_leftover_lock, irq_flags);
++				return;
++			}
++
+ 			kvaser_usb_hydra_handle_cmd(dev, cmd);
+ 			usb_rx_leftover_len = 0;
+ 		} else {
+@@ -2123,11 +2234,17 @@ static void kvaser_usb_hydra_read_bulk_callback(struct kvaser_usb *dev,
+ 	spin_unlock_irqrestore(usb_rx_leftover_lock, irq_flags);
+ 
+ 	while (pos < len) {
++		int err;
++
+ 		cmd = buf + pos;
+ 
+-		cmd_len = kvaser_usb_hydra_cmd_size(cmd);
++		err = kvaser_usb_hydra_cmd_size_rx(cmd, len - pos, &cmd_len);
++		if (err && err != -EAGAIN) {
++			dev_err(&dev->intf->dev, "Format error\n");
++			return;
++		}
+ 
+-		if (pos + cmd_len > len) {
++		if (err == -EAGAIN || pos + cmd_len > len) {
+ 			/* We got first part of a command */
+ 			int leftover_bytes;
+ 
+@@ -2145,6 +2262,11 @@ static void kvaser_usb_hydra_read_bulk_callback(struct kvaser_usb *dev,
+ 			break;
+ 		}
+ 
++		if (kvaser_usb_hydra_verify_cmd_size(cmd, cmd_len)) {
++			dev_err(&dev->intf->dev, "Format error\n");
++			return;
++		}
++
+ 		kvaser_usb_hydra_handle_cmd(dev, cmd);
+ 		pos += cmd_len;
  	}
- 
--	can_put_echo_skb(skb, netdev, core->tx_fifo_head, 0);
-+	acc_txq_put(core, acc_dlc, cf->data);
- 
-+	can_put_echo_skb(skb, netdev, core->tx_fifo_head, 0);
- 	core->tx_fifo_head = acc_tx_fifo_next(core, tx_fifo_head);
- 
--	acc_txq_put(core, acc_id, acc_dlc, cf->data);
-+	acc_txq_start(core, acc_id);
- 
- 	return NETDEV_TX_OK;
- }
 -- 
 2.53.0
 
