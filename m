@@ -1,198 +1,381 @@
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com [209.85.167.180])
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFA93541444
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 15:20:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 801FF3E2AD6
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 15:32:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792077624; cv=none; b=Be2CWB2X1rQlPDXQnOyuOTpUJ0qnfMQygrDaQ6Cq4v+Nbbijgbgy+7mBvjZ/Uh9cZs7nsj6IuTDe4wZ72lncZ9YOXpnk66SesgIpuQDpy6wUjnPffzBFS31s5ayuAE3EQeBDetDRcgOfJBxMOsIvkcpSZpUxjpgz6DyFzHXLtXA=
+	t=1792078348; cv=none; b=UNjsT8HH0itXTsW7/bWP+aGUTtkbhJbNtOVKQTF+IB2MeOhe/TY2AIuEMtnsKmnJZU/cnyVXV/zhPHvEwFD8uWGkuCN4swPcuFu7QNTWtyivcUboi6RnS88i7xBbBHH8gt/WLmr42mNX9gZGvqU6GYuGOfxqOZ9E6fHqYEgHyy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792077624; c=relaxed/simple;
-	bh=OjX1ssYSRgIYegjZbrTmi9PNdcpPB0TQFrmlThWg5lI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AxeOrR1GghdhLY3TMnHyjdlwmWZdDQbnYOFian1TaZg8DBFyFELpi5RqlygzXzMTbqKgsX+Fcf1ufY0TajWTtWt6opTjm2i7tntCLIJBq89/Bv/2eh001ixZh2nrYuOdkH0fgCAO35sPE6E81UzdcSrfGkXCim1PIlYC3ysJCzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nb9Byiin; arc=none smtp.client-ip=209.85.167.180
+	s=arc-20240116; t=1792078348; c=relaxed/simple;
+	bh=dRQxOY6M1ZTR87IcuIO6396JUP83HtzoNMA4wDPwxjY=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=UkcwlN5A72pHhyICueqff6dn2jbH7AirzHeHiPk/dutbaDZOoputU31WMIOhFOYMcV3ooKwwzrjwGBFiTdeJNFqGuQyMxD5CQ9ul4AUQur1r+ncr45P0bE8ppboloio6Naq5+Y8YzTbNUnb+Y/LUJ/HlKPy90L7vNeLNyTYQuAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kf/Z7BZF; arc=none smtp.client-ip=209.85.210.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nb9Byiin"
-Received: by mail-oi1-f180.google.com with SMTP id 5614622812f47-4a4cb36ae00so3093279b6e.0
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 08:20:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kf/Z7BZF"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-88c72646f03so1013038b3a.2
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 08:32:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792077617; x=1792682417; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mha7gBqe+FHTzNhXa015mlIzphM9boxhmgV8ZQMkPHE=;
-        b=nb9ByiincjtpQVbIh/uv1EeMty5ujEoaChNT0evUyWx2pshiKDjXrOQM1PDxv92NUu
-         YwQk0GKyREgAHVyAFLRvk8MJJNx8GIB62Jx+9iji+iSTBLFS2aq/pHglzf2BbxQWg1qL
-         bmoFg3O5ccfcggYSSRln4Vg4Fakv1VEH/N0nFT5n4+Z4SAxGQIzOSr9z/7fBzFcZOTDp
-         fnN5OT7H/bAqrH9c1013hob/lhJ3Xr8zG+S9Fj6XPTcpwGJM6fI331GcqMMZigIdB9Nh
-         ZgrHLHo0OSVhgnzD3keu2BZziwvCx2IGbD5rMjZvzYgWTsaoBAOcIs62/KPRve1l+dOy
-         is6w==
+        d=gmail.com; s=20251104; t=1792078340; x=1792683140; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=crx1YR/SfB41hfDYmI9jxzk8Ryxa8Ve/h/yCnmWkATw=;
+        b=Kf/Z7BZFPZYcwHTR4ASY1TzCIV6BjPEoiHAjoKKBdBG0sCya9g+pUYnGFJL4q5P+4d
+         G1gNFgokjjIu2AHxHexHsNpbCOXJ85y6GXlXIxoJP7SRzAr1WOxj5Gxj47VgUqQyWnUp
+         iWxyo25lGZiH+R00KbMapbXpiiiG3pEwrTaH/4TEjzCo5YryJONnM6iqFGrV6pyeFQV/
+         h6vDBzMTVCy4Ww1SAR23WPcKHG6MxIzea7C70GgXVBgP34YxYfZi+o9lqjiz2C3GJcKM
+         +/R4ON/HbgirZ6FYkZu4mIAHtaxqLTeL5+LQlZX2TP5773rZg8i8E347bMQigl+1nuE3
+         ReIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792077617; x=1792682417;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mha7gBqe+FHTzNhXa015mlIzphM9boxhmgV8ZQMkPHE=;
-        b=0dJO6XyTxYbvNu7BQETBEKJ3gHwVZnFUQJiwt3SHJYAeBYlSM1R+JUHONrKAdyixwa
-         9sDti8IxFdDBGnitN6Wk2TG8K3D4LioAK2COmVLr4bVIoWvAZljGSzhnyXqyn+rN3vle
-         2KK3nkX3/L64bca3WrowuSQBw/kcFX1Fd0nePrv06CjlT6aFUzDFxfsmiYPQjGArwUry
-         tmKktrszritQEbHJIGfCr1LTKCKa0W3Jxr9CA+l0Jr4ttzunbRl7HGmUiQujB0sYfKt/
-         np1BRAPyOdRVbovdwSvZAVknrhw5mEkMq8OMM1lqF+p7dASao4TTlOh0N2ppI7vN/eqT
-         TOdw==
-X-Forwarded-Encrypted: i=1; AKwUvByYq9/eRMDXpGHtX6TwmM8cAOmC85AOES7VQkFoJ0dT82TFpfMTQVz4xoxmfPVMyajB7SxJ8hI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7+itevwUMWFSnpzRCEnGfutpIdvqaUzREGBXRt4Sam7B6nl3c
-	Hz7w/bQuGCjRwfbFL4aWPguAFHX5iywoyfSEzaGGGfUqC+23KicAAxFq51NVGg==
-X-Gm-Gg: AYBFou1NsHvb1VCjhJVHCroLx4nYNdWOjzr8twEMcLfWDy6Mk5OjxdRR/xsK/Fv3yFR
-	lesxoma7ntnLvz0O5ip9zChcP2jlQJwfF/UwXhEZqXt/ltPJ4+/Kt+/jKJcB08xTCOSeKj0bEwU
-	yFkjD/A8o0QsVonTHs7lZF+LNZHKDGX91vxrE6H5NGysNPJnaNHOO90o5gtq5xY1s9znOg/JlWb
-	6X8jpp1JWHOqHH5wHd59ql9zJhzyHaleRyjpeK3DlR17DPp/vM+5bNhwyMyIkWiOAApV5LtsvU6
-	W2Xymu1NW0Tme9Ti+7ypHLGKqB+8M846QHpnFcFu2UUTU6KlFynohgnPNjVS3UHiTqFbDT68FOd
-	Y4C8ET9aYcmKeRUMsw7hDSEjak7IgAgcGW3RJC5looSg2CQiajYbR4kK9rnpBO/a6IfHdw9oHfq
-	43A0MoBy8n8HiDy+wZUezMeclTg6ERhBRtHgxjHoZzMM3uYO9MluASQ9KdXpdDr9k75aiC6Werc
-	G+Wng5aWli6WpO7jc9j2tR7+M+JZbZZEld+vU4AzebE9GE8BB8=
-X-Received: by 2002:a05:6808:4f28:b0:4b3:7b31:8df7 with SMTP id 5614622812f47-50c524711f0mr21604940b6e.14.1792077616511;
-        Thu, 15 Oct 2026 08:20:16 -0700 (PDT)
-Received: from archlinux.lan ([136.34.156.120])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-50c0c5fe916sm20246124b6e.1.2026.10.15.08.20.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 08:20:14 -0700 (PDT)
-From: Danish Khateeb <danishkhateeb03@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Marco Elver <elver@google.com>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Luo Gengkun <luogengkun2@huawei.com>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Danish Khateeb <danishkhateeb03@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] perf/core: Don't send SIGTRAP after exec removed the event
-Date: Thu, 15 Oct 2026 10:20:13 -0500
-Message-ID: <20261015152013.106040-1-danishkhateeb03@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1792078340; x=1792683140;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=crx1YR/SfB41hfDYmI9jxzk8Ryxa8Ve/h/yCnmWkATw=;
+        b=bP9oDx4uKOIkZ4JQyMDPf3CtQAAZMCXOwZjxwGO9SWXC8N21MdXYS7COF+MSWGwNAo
+         0O03ATcl6DQht9lQDrTFh75woO2ARcboROFOuBUreQSlFmN/hLifBrQ3TatrGuZfxtpn
+         iToTxpYBlH90M6JUZKyJP83+EJ3XUE5K2sU7g8T1ghRP8yjCs9Y1rheF9AB+t8jIfOxn
+         Ug4zRpY2cOFFeQoqgDtVApySjo6a2K78F00e+kvNdPDDzsueL1uMzGHTuNlq+YX4KQeu
+         6U6TBtyknXOXyLzLZmSuxmFAkEksYkPKKW0fOQcaebk6AtQ04r3cL7itz8owJm1C62gN
+         V8zA==
+X-Forwarded-Encrypted: i=1; AKwUvBwJGtq5vsAuqs9Qu+5jM7c2QnYuaF7NK3aBW2Kun8mlDtpLB1c9hiq+qLXlx03tZ1QCSFagCFE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI2LDADeAZ03aLve2d/MbOM2yKK+r0wZxGy8A0Bri1crDYsxEAW
+	9iteZPRfOiTUg1V/zyoH4mWfE0FrSruIj0qORfsJBolwG1vPQwt8qEzBMhPxRA/GwAY=
+X-Gm-Gg: AYBFou2nRXkopRYx74dHwpixw/q9d6vP0N/+oM0w+ZwJBAa+Mp/01I+Z2nEdtAbqBx3
+	/NjO0RS3RuzJhSNfJQ/xCAkgpTMxi5Z9ROk3l/oC7iJlHIAi0t25ALMI0Z4Aqtq3lH0y5MBOZQR
+	Ffo3U0cQnReYqxqbe5qhVxDpr/sEYwK9N4i+F1OkAntVvcCSWAOtzy04tMSDxmOtXU6N6oA1wYD
+	R71dm/qys+y+PdIjmb9FPGR1lIEjsM7PnM00VKYJlSMtXE25px0WPC08XEBfqd9ohg+/rjDOWel
+	Aek/vZjkCaPOfics+HuwSLXndxXTeA9lTjlngAFndS7OG7kuPQyXaFkdOhg/HbxH1dR0BAj9iGE
+	pWzvzrB0iZbd1RboDVz4gmX+g62FMrZ3rXBQsJa3EE72ZfnF6DF3ioEpeBgIEWzAFbHgHMeAy+B
+	nvCg/rdYmlf08jn4ytEVDEeFKNVGfrrpj2WXY7CQqVWLNZcznF0ugjURGufbUE9MjLy4/neN109
+	bffYSKYxmDbOzCMlZcM79hQxpsVq/GdPjwn
+X-Received: by 2002:a05:6a00:983:b0:89e:8423:6863 with SMTP id d2e1a72fcca58-89e84236d2emr2125283b3a.37.1792078339508;
+        Thu, 15 Oct 2026 08:32:19 -0700 (PDT)
+Received: from smtpclient.apple (v133-18-180-162.vir.kagoya.net. [133.18.180.162])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89e45dcb382sm1273564b3a.15.2026.10.15.08.32.04
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 15 Oct 2026 08:32:18 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [REGRESSION] 6.12.111: "net: advertise TCP MSS from the
+ configured MTU, not the learned PMTU" breaks TCP through relays when the
+ peer's network drops ICMP
+From: Echoo Wall <echoowall@gmail.com>
+In-Reply-To: <9776e821-f95e-4ee4-8595-4bbf4b48ad36@leemhuis.info>
+Date: Thu, 15 Oct 2026 23:31:51 +0800
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+ Eric Dumazet <edumazet@google.com>,
+ netdev@vger.kernel.org,
+ regressions@lists.linux.dev,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <171BADBE-5209-4AA9-A144-50ABBA2D366E@gmail.com>
+References: <4F0FAEB6-A13B-47F3-BFF1-C706686C6F64@gmail.com>
+ <9776e821-f95e-4ee4-8595-4bbf4b48ad36@leemhuis.info>
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-A sigtrap event must also set remove_on_exec, so that its SIGTRAP never
-reaches a program after exec. But the signal is sent from task work,
-which only runs on the way back to user space. If the event overflows
-shortly before execve(), the task work can still be pending when the
-task enters execve(), and then runs when execve() returns. By then
-perf_event_exec() has removed the event and the new program has default
-signal handlers, so the SIGTRAP kills it.
+On 10/15/26, Thorsten Leemhuis wrote:
+> Thx for the report. That is a mainline commit, but this might be a
+> stable specific thing due to a broken backport. These cases in the end
+> might be handled by different people, so somebody needs to check which
+> if the two it is. Could you thus check if 7.3-rc7 or later is still
+> affected? If it is, please try to check if reverting the commit fixes
+> things; if it is not, please check a revert with the stable series you =
+use.
 
-The exec_stress test in the remove_on_exec selftest catches this and
-fails about half the time in a VM. A process that opens a sigtrap event
-on itself and then calls execve() is killed by SIGTRAP in 15% to 50% of
-runs, both on an AMD machine running v7.2 and in a VM, with or without
-close-on-exec on the event fd.
+7.3-rc7 is affected, and reverting =
+2640e64195948a601430d230c9864f5426574cde
+on top of 7.3-rc7 fixes it. So this is not a broken backport; mainline
+behaves the same as 6.12.111.
 
-Commit ffb684f2aa14 ("perf: Fix race between perf_event_exit_task() and
-perf_pending_task()") made perf_sigtrap() return once
-perf_event_exit_task() has set ctx->task to TASK_TOMBSTONE. Exec only
-calls perf_event_exit_task() when the new program is not dumpable, such
-as a setuid one. An ordinary exec keeps the context and only removes the
-remove_on_exec events, so the SIGTRAP is still sent.
+To make this reproducible without our production setup, I wrote a small
+reproducer that runs on a single host with network namespaces (script
+below):
 
-perf_event_exit_event() sets PERF_EVENT_STATE_EXIT when exec removes the
-event. If the event fd is close-on-exec and was the last reference to
-the file, exec also queues the file release as task work. Task work runs
-newest first, so perf_release() runs before the SIGTRAP work and moves
-the event on to PERF_EVENT_STATE_DEAD. So don't send the signal when the
-event state is PERF_EVENT_STATE_EXIT or lower, which means the event has
-been removed. That also covers PERF_EVENT_STATE_REVOKED, where the PMU
-is gone.
+  cli --(1500)-- r1 --(1456)-- r2 --(1500)-- srv
 
-Fixes: 97ba62b27867 ("perf: Add support for SIGTRAP on perf events")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
----
+srv first learns PMTU 1456 towards cli (r2 sends it ICMP frag-needed),
+then cli connects to srv and uploads 1 MB. r1 drops the ICMP
+frag-needed that would go back to cli, like a firewall in front of the
+client. All kernels run in the same KVM guest (Debian 13 userspace).
 
-Notes:
-    Changes in v3:
-    - Rebased onto v7.3-rc7, which has ffb684f2aa14. That commit replaced
-      the PF_EXITING check that v2 was placed after, so the new check now
-      follows its TASK_TOMBSTONE check.
-    - Peter asked on v2 if this is the same problem as Luo Gengkun's patch:
-      it isn't. ffb684f2aa14 covers an exec that calls
-      perf_event_exit_task(), which only happens when the new program isn't
-      dumpable. With it applied, an ordinary exec still kills the new
-      program, see the numbers below. The changelog now says this.
-    - Read event->state with READ_ONCE(), since it is read without locks.
-      Suggested by Sashiko.
-    - v2: https://lore.kernel.org/all/20260930144248.59858-1-danishkhateeb03@gmail.com/
-    
-    Changes in v2:
-    - Skip the signal for every state at or below PERF_EVENT_STATE_EXIT, not
-      only EXIT. With a close-on-exec event fd the file release runs first
-      and moves the event to PERF_EVENT_STATE_DEAD, so v1 still killed 360
-      of 2000 children. Reported by Sashiko.
-    - v1: https://lore.kernel.org/all/20260929182935.355892-1-danishkhateeb03@gmail.com/
-    
-    Tested on v7.3-rc7 x86_64 under virtme-ng (KASAN, lockdep, 8 vCPUs on an
-    AMD Zen 3 host):
-    
-    - selftests/perf_events/remove_on_exec: exec_stress failed in 11 of 20
-      runs before, all 20 pass after.
-    - The exec_stress pattern in a loop (50 rounds of 30 inheriting
-      children): 24 children in 19 rounds were killed by SIGTRAP before,
-      none after.
-    - Each child opens its own sigtrap + remove_on_exec event and execs:
-      342 of 2000 children were killed before, none after. With
-      PERF_FLAG_FD_CLOEXEC: 1004 of 2000 before, none after.
-      On the bare-metal host running v7.2.6 the same program kills 297 to
-      1033 of 2000 children across runs, and 1012 of 2000 with
-      PERF_FLAG_FD_CLOEXEC.
-    - The same program as an execute-only binary run as nobody, so that
-      exec calls perf_event_exit_task() (the ffb684f2aa14 case): no child
-      killed and no warning, before or after.
-    - sigtrap_threads, watermark_signal and mmap pass before and after. No
-      new kernel warnings.
-    
-    v7.2 fails the same way in the VM. I did not test kernels older than
-    v7.2. gcc W=1 and sparse show no new warnings.
+Results (3 runs each, identical every time):
 
- kernel/events/core.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+  kernel                        srv PMTU   SYN-ACK MSS   1 MB upload
+  6.12.107 (Debian)             1456       1416          OK (0.03s)
+  6.12.111 (Debian)             1456       1460          stalls, 10s =
+timeout
+  7.3-rc7                       1456       1460          stalls, 10s =
+timeout
+  7.3-rc7 + revert of 2640e641  1456       1416          OK (0.03s)
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 7846d70be57f..61e9a88adca8 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -7633,6 +7633,15 @@ static void perf_sigtrap(struct perf_event *event)
- 	if (event->ctx->task == TASK_TOMBSTONE)
- 		return;
- 
-+	/*
-+	 * The event was removed after this signal was queued, e.g. by exec()
-+	 * (remove_on_exec), which may also have closed its fd (close-on-exec).
-+	 * The new program has default signal handlers, so a SIGTRAP would
-+	 * kill it.
-+	 */
-+	if (READ_ONCE(event->state) <= PERF_EVENT_STATE_EXIT)
-+		return;
-+
- 	/*
- 	 * We'd expect this to only occur if the irq_work is delayed and either
- 	 * ctx->task or current has changed in the meantime. This can be the
+The two 7.3-rc7 kernels were built from the same tree and the same
+.config (Debian's 6.12 config + localmodconfig); the only difference is
+the revert, which applies cleanly (4 files changed, 3 insertions(+),
+65 deletions(-)).
 
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
--- 
-2.56.0
+Controls:
+
+- Forcing srv to advertise 1460 (ip route ... advmss 1460) stalls on
+  every kernel, including 6.12.107 and the revert, and r1 counts 8
+  dropped frag-needed per run. So the black hole is real and is
+  triggered exactly by the advertised MSS.
+- Clamping MSS to 1416 on r1 (nft: tcp option maxseg size set 1416)
+  makes 6.12.111 work again (3/3). That is the workaround we have
+  deployed on our relays.
+
+This also confirms the two points I had marked as not yet verified in
+my original report.
+
+Reproducer (run as root; needs iproute2, nft, tcpdump, python3, bc;
+optional argument "force1460" or "clamp" for the controls above):
+
+---8<---
+#!/bin/bash
+# cli --(1500)-- r1 --(1456)-- r2 --(1500)-- srv
+set -u
+MODE=3D"${1:-}"
+NS=3D"cli r1 r2 srv"
+cleanup(){ for n in $NS; do ip netns del $n 2>/dev/null; done; }
+cleanup
+for n in $NS; do ip netns add $n; ip -n $n link set lo up; done
+ip link add c0 netns cli type veth peer name r1a netns r1
+ip link add r1b netns r1 type veth peer name r2a netns r2
+ip link add r2b netns r2 type veth peer name s0 netns srv
+ip -n cli addr add 10.0.1.2/24 dev c0;  ip -n r1 addr add 10.0.1.1/24 =
+dev r1a
+ip -n r1 addr add 10.0.2.1/24 dev r1b;  ip -n r2 addr add 10.0.2.2/24 =
+dev r2a
+ip -n r2 addr add 10.0.3.1/24 dev r2b;  ip -n srv addr add 10.0.3.2/24 =
+dev s0
+ip -n r1 link set r1b mtu 1456; ip -n r2 link set r2a mtu 1456
+for d in "cli c0" "r1 r1a" "r1 r1b" "r2 r2a" "r2 r2b" "srv s0"; do set =
+-- $d; ip -n $1 link set $2 up; done
+ip -n cli route add default via 10.0.1.1
+ip -n srv route add default via 10.0.3.1
+ip -n r1 route add 10.0.3.0/24 via 10.0.2.2
+ip -n r2 route add 10.0.1.0/24 via 10.0.2.1
+for n in r1 r2; do ip netns exec $n sysctl -qw net.ipv4.ip_forward=3D1; =
+done
+for n in cli srv; do ip netns exec $n sysctl -qw =
+net.ipv4.tcp_mtu_probing=3D0; done
+ip netns exec r1 nft -f - <<NFT
+table inet fw {
+  chain f1 {
+    type filter hook forward priority 0;
+    ip daddr 10.0.1.0/24 icmp type destination-unreachable icmp code =
+frag-needed counter drop
+  }
+  chain o1 {
+    type filter hook output priority 0;
+    ip daddr 10.0.1.0/24 icmp type destination-unreachable icmp code =
+frag-needed counter drop
+  }
+}
+NFT
+[ "$MODE" =3D "force1460" ] && ip -n srv route add 10.0.1.0/24 via =
+10.0.3.1 advmss 1460
+[ "$MODE" =3D "clamp" ] && ip netns exec r1 nft add rule inet fw f1 tcp =
+flags syn tcp option maxseg size gt 1416 tcp option maxseg size set 1416
+ip netns exec srv ping -c 2 -W 1 -M do -s 1472 10.0.1.2 >/dev/null 2>&1
+ip netns exec srv ping -c 1 -W 1 -M do -s 1472 10.0.1.2 >/dev/null 2>&1
+PMTU=3D$(ip netns exec srv ip route get 10.0.1.2 | grep -o 'mtu [0-9]*' =
+|| echo "none")
+ip netns exec srv python3 -c '
+import socket
+s=3Dsocket.socket(); =
+s.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1); =
+s.bind(("0.0.0.0",9000)); s.listen()
+c,_=3Ds.accept(); n=3D0
+while True:
+    b=3Dc.recv(65536)
+    if not b: break
+    n+=3Dlen(b)
+c.sendall(str(n).encode()); c.close()' &
+SP=3D$!
+rm -f /tmp/synack.pcap
+ip netns exec srv tcpdump --immediate-mode -nni any -U -w =
+/tmp/synack.pcap 'tcp src port 9000 and tcp[13] & 18 =3D=3D 18' =
+2>/dev/null &
+TP=3D$!
+sleep 3
+START=3D$(date +%s.%N)
+RES=3D$(ip netns exec cli timeout 10 python3 -c '
+import socket
+s=3Dsocket.create_connection(("10.0.3.2",9000),timeout=3D10)
+s.sendall(b"x"*1048576); s.shutdown(socket.SHUT_WR); =
+print(s.recv(100).decode())' 2>&1 | tail -1)
+END=3D$(date +%s.%N)
+sleep 2; kill $TP $SP 2>/dev/null; wait 2>/dev/null
+MSS=3D$(tcpdump -nr /tmp/synack.pcap -v 2>/dev/null | grep -o 'mss =
+[0-9]*' | head -1)
+DROPS=3D$(ip netns exec r1 nft list ruleset | grep -o "packets [0-9]*" | =
+awk "{s+=3D\$2} END{print s}")
+echo "kernel=3D$(uname -r)${MODE:+ [$MODE]} | srv PMTU: ${PMTU} | =
+SYN-ACK: ${MSS:-none} | 1MB upload: $( [ "$RES" =3D "1048576" ] && =
+printf 'OK in %.2fs' $(echo "$END - $START" | bc) || echo "FAILED =
+(${RES:-timeout})") | frag-needed dropped by r1: ${DROPS:-0}"
+cleanup
+---8<---
+
+Note that in "clamp" mode the capture on srv still shows 1460, since the
+rewrite happens on r1; the client sees 1416.
+
+Thanks.
+Esko Mobius
+
+
+> 2026=E5=B9=B410=E6=9C=8815=E6=97=A5 17:04=EF=BC=8CThorsten Leemhuis =
+<regressions@leemhuis.info> =E5=86=99=E9=81=93=EF=BC=9A
+>=20
+> On 10/9/26 18:27, Echoo Wall wrote:
+>>=20
+>> After a routine stable update from 6.12.107 to 6.12.111 (Debian =
+trixie-security,
+>> 6.12.111-1), TCP connections to our servers started timing out for a =
+subset of
+>> clients. Booting back to 6.12.107 / 6.12.101 fixed it immediately. I =
+believe the
+>> cause is:
+>>=20
+>>  2640e64195948a601430d230c9864f5426574cde
+>>  net: advertise TCP MSS from the configured MTU, not the learned PMTU
+>>  (in stable 6.12.111 and 6.18.51)
+>>=20
+>> #regzbot introduced: 2640e64195948a601430d230c9864f5426574cde
+>=20
+> Thx for the report. That is a mainline commit, but this might be a
+> stable specific thing due to a broken backport. These cases in the end
+> might be handled by different people, so somebody needs to check which
+> if the two it is. Could you thus check if 7.3-rc7 or later is still
+> affected? If it is, please try to check if reverting the commit fixes
+> things; if it is not, please check a revert with the stable series you =
+use.
+>=20
+> Ciao, Thorsten
+>> Topology
+>> --------
+>>=20
+>>  client ---(internet)---> relay (Linux, nftables DNAT + masquerade) =
+---> server
+>>                                                               ^
+>>                                                 path MTU 1456 on this =
+hop
+>>=20
+>> - Servers have a 1500-byte interface MTU, but the path between the =
+relay and the
+>>  server has a PMTU of 1456 (encapsulation upstream). The server =
+learns this
+>>  correctly: `ip route get <relay>` shows `cache mtu 1456`.
+>> - Clients reach the server only through the relay (port-based DNAT, =
+SNAT to the
+>>  relay address).
+>> - Some client networks (typical corporate firewalls) drop ICMP
+>>  "fragmentation needed".
+>>=20
+>> Behaviour
+>> ---------
+>>=20
+>> Before (<=3D 6.12.110): the server's SYN-ACK advertised MSS 1416, =
+derived from the
+>> learned PMTU. Clients never sent segments that were too large. =
+Everything worked,
+>> including from networks that filter ICMP.
+>>=20
+>> After (6.12.111): the SYN-ACK advertises MSS 1460 from the configured =
+MTU. The
+>> client sends 1500-byte packets. They are dropped at the 1456 hop, and =
+the ICMP
+>> error never reaches the client because its network filters it. The =
+handshake
+>> completes, then the connection stalls: a classic PMTU black hole.
+>>=20
+>> Direct connections to the same servers, without the relay hop, keep =
+working, and
+>> so do servers still on <=3D 6.12.110 behind the same relays. That =
+made the problem
+>> very hard to attribute: it only appears from certain client networks, =
+only on
+>> relayed paths, and only after a kernel update that nothing points to.
+>>=20
+>> What I verified
+>> ---------------
+>>=20
+>> - Reproducible per host by switching only the kernel. Rebooting =
+without changing
+>>  the kernel does not help. Same sysctls on both kernels (309 TCP =
+parameters
+>>  compared), same userspace.
+>> - On 6.12.107 the server has `cache mtu 1456` towards the relay, so =
+the
+>>  SYN-ACK MSS is derived from it (1416). With this commit the =
+advertised
+>>  MSS comes from the 1500-byte device MTU (1460) instead. That matches =
+the
+>>  symptom exactly, but I have not yet captured a 6.12.111 SYN-ACK on =
+the
+>>  affected path.
+>> - As a workaround we now clamp MSS on the relay
+>>  (`tcp flags syn tcp option maxseg size > 1416 tcp option maxseg size =
+set 1416`
+>>  in the forward chain). I have not yet re-tested 6.12.111 behind it.
+>>=20
+>> Why I think this matters
+>> ------------------------
+>>=20
+>> The commit message argues that on symmetric paths nothing is lost =
+because "the
+>> peer usually already knows the real path MTU". That assumption does =
+not hold when:
+>>=20
+>>  1. the peer sits behind a firewall that drops ICMP =
+fragmentation-needed, which
+>>     is common in enterprise networks; and/or
+>>  2. the narrow hop is only on the server side (relay, tunnel or =
+overlay egress),
+>>     so the peer has no way to learn it other than via ICMP.
+>>=20
+>> In both cases the receiver-side PMTU knowledge was the only thing =
+that kept the
+>> connection working. The old behaviour was effectively a built-in =
+safeguard for
+>> these black holes, and it has been in place for a very long time.
+>>=20
+>> This is now shipping as a security update in LTS/stable kernels and
+>> distributions. It silently breaks previously working deployments, and =
+only for
+>> some users, so most operators will not connect the symptom to the =
+kernel. The
+>> 6.6 / 6.1 / 5.15 backports appear to be still pending, so there may =
+still be
+>> time to reconsider before it spreads further.
+>>=20
+>> Possible ways forward (just suggestions):
+>>=20
+>>  - revert from stable and keep it in mainline until there is a safer =
+variant;
+>>  - make it opt-in (sysctl or per-route flag) for the asymmetric / DSR =
+case it
+>>    targets;
+>>  - or only ignore the learned PMTU when there is evidence of =
+asymmetry, instead
+>>    of unconditionally.
+>>=20
+>> I am happy to test patches on the affected setup.
+>>=20
+>> Thanks.
+>> Esko Mobius
+>=20
 
