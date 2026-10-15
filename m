@@ -1,115 +1,126 @@
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4EA338F64D
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 16:03:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A857A53ED04;
+	Thu, 15 Oct 2026 16:07:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792080253; cv=none; b=Qu4zy85ku4Ogn0glYV7PwqjV5eTDaLU4yd3s6kLPQA37ae+RkBRv0ESonV0Qtab2dLewc6ITsU4ZvNuFQjxxf01J1heOZnOPbbcM8V+fw4bizYy3E9H+NzKzvIJYGHiHEwBgUICB64a36ssVBwsXU9pa14GEwqxnbQGab1xq7xg=
+	t=1792080459; cv=none; b=UP8VhURG3VbHBXk3sKkx5fA0ZzfhcBN18K4sUl8LiKUSuihhUEwoVGwh+PZ1cf7Wt/034apZnVtZUxJ5WSw+xHqEUAKhVLmMiOmFSkc7owaIUWd2aah2C7QvSvrOSaQ73jMo3sOysXPKVZHUP2B9FShGliAPdaAJb4Wg6+XhZpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792080253; c=relaxed/simple;
-	bh=R6wl2fGwWtmLnbg8EOaRzIO28mHOcCe3Uhvi8eqzJ6g=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=G3Bvnx8EBCzbh5TF4ElqUhdx5VJTr814bdY4AJTLgM28hBXzIkAvweX931LXH1fmD6UAvXds5NfDVxf+uDQul06STnUQACzNIT9UTL8Re471Gx3vTDZb/RQdICHcBmMWbut3fVuJRZoRWBC2QhbwvYF5mddzQBxcjI7jvH/Dau8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aaltinay.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=b3W8dUiM; arc=none smtp.client-ip=74.125.82.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aaltinay.bounces.google.com
+	s=arc-20240116; t=1792080459; c=relaxed/simple;
+	bh=bhdP739rykh9+cxbAvZcyJkbfwJi6RgLgraAvwylzjI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZmAxtQ/fsDXv8gmrPwa33E9oqz09bO/ASlWyqD32yG10/lwuP2243h/JP0l0/Di3pmyCClKe4zUIpWTm8eC69EVtmQBso6R4iJA75S/3iP8aZE8fdF87w/0L7WZssZgvXEQslDKTsAtR099+xbm7lOpMiYLMpkr+uhoLjb73cko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q9KrD+0Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="b3W8dUiM"
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1665200f4c2so7573244c88.0
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 09:03:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792080231; x=1792685031; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oj9WfSZX7dlye3OaXiQK3oUYVdZamLk2hD/MZUTO6Zo=;
-        b=b3W8dUiMj4wgWG04nTkt7SxeUZzn9AljdG+bKJ+7S5DtZASr19UfFuP/hcXCiQKjtZ
-         b0HLABLA+qCB7UojPpWMg78tsFEi7D3B9xfpyEylhjSVQ6kTIL2oS7sSPzhYcyAN3fVV
-         Y2oyNf75dkzAlQS6yaqwQSVZeBF8G1E0moR3XIenz6p66KeQvb5pucdBNMmabsxWulEk
-         SBUmE2KIdeG10LaNbeebvjFcLuuF7HWO62hNf/9GeY0At39h49xxK6ai9BMtKZS7Rwf4
-         YWv1TwVum0WsL6AxnE4l4fQsrpkRGuYxGgsF8CIN/rBMiPYJQaZAt5dojSxBcFptrkgj
-         UumA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792080231; x=1792685031;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oj9WfSZX7dlye3OaXiQK3oUYVdZamLk2hD/MZUTO6Zo=;
-        b=acUWx5qTIT9J7X4cjHVO/v/VkSTv/pr7FauG2Txpg7t/zEzMKeCqLIPH/cfX0xYBoI
-         +a5oYa5ozs7WXWbJEhEMv4T9pMI0Ys5r2/SgCNOAGWR/1rORIeGwp09z3/hlVD1v9+mD
-         MJLIoWKRsezYV1qp8MOCnGrabN3ftIo8eIqPeTDShuFj70cFJgV5EMwMzBBhkFt+f1xU
-         AuiVjO37/JTRi2q+oAlLbw82Z0VJW7dQMZf6OrEtfjSQAO/rqTbwWmey8AR49nXOM6Ha
-         avGXELrIedPYteuYeQ0DL2YzXXkpchih/kwmQgbupsx599tsyg+CVMZxF49+BTr4xmGa
-         81iQ==
-X-Gm-Message-State: AFq9FYIrcvBmT8Z/Z6CbWTTVYpybfaAA9h9NXvTrclhs5BW6YllwtU/i
-	kaWqyoD859g4ssN7C6/QIDkGGGz/jvBAGVngNuSFY65JN4a2E9FLEkFs1PMmJ7jT0BmFTN6TnxE
-	N28jIA8t3KwceGDcRnrqx4EQJwoK9Spmyb8/wy9BOmMT7Q2egLgaMAG8IPFBrUqjsNAj/tOVday
-	IyShwSG95v5FDvZ3rpIPqXUlc2CcHGh0DqqkBMvBj+B5IbZAs=
-X-Received: from dlah4.prod.google.com ([2002:a05:701b:2604:b0:17e:b14:46c])
- (user=aaltinay job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:2605:b0:14a:5284:1bf5 with SMTP id a92af1059eb24-16a5adfbe99mr28872690c88.13.1792080231021;
- Thu, 15 Oct 2026 09:03:51 -0700 (PDT)
-Date: Thu, 15 Oct 2026 16:03:43 +0000
-In-Reply-To: <20261015160346.181835-1-aaltinay@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q9KrD+0Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A82751F000C4;
+	Thu, 15 Oct 2026 16:07:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792080443;
+	bh=CWGMfzP4w3Zs0Y7JyHkmxA4Ab0jJqfsVdlDpuxARv00=;
+	h=From:Subject:Date:To:Cc;
+	b=Q9KrD+0QatR2fO6wXqm1uuSgDXYAHIcUEZ1gLROc6UsF07iyL4xlAvO8d7IKEBeqo
+	 L0U8huXAcNPaswmMqa/GsAqk/R0RP85ebMSNdU53+QgGfw6qR5cfS+5z5hCW5EBIoI
+	 je8vP4WhScOHpnCpssgJLAST+x1VvNuRoc9l4Hr8dD2o+DfAZXOAhhovfRypbfCixh
+	 oTTwiLcBxLNcyelXdvHdbeYwv1Mb+ryUXOm0qjmUB0oUucxCjQj3eSETvLEysMy/xx
+	 L4pJHMi5C/w+B47GFhmhaZQev3xvsg6Ev8ta8OoH3f7UIdAQkSI6wcQosYKiyCr2lR
+	 2xpaPIp8tIs0A==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: [PATCH 00/10] mm: various (urgent?) fixes
+Date: Thu, 15 Oct 2026 18:07:06 +0200
+Message-Id: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261015160346.181835-1-aaltinay@google.com>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261015160346.181835-4-aaltinay@google.com>
-Subject: [PATCH 6.18.y v2 3/6] KVM: x86: Prioritize CPUID faulting over CPUID
- VM-exits in nested VMX
-From: Anil Altinay <aaltinay@google.com>
-To: stable@vger.kernel.org
-Cc: Jim Mattson <jmattson@google.com>, Sean Christopherson <seanjc@google.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	Anil Altinay <aaltinay@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACr60GoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDA0NT3dKi9NS8kvi0zIrUYl1zQ0MjMyNLYxOz1CQloJaColSwBFBHdCy
+ EX1yalJWaXAIyQ6m2FgC8oPgdcAAAAA==
+X-Change-ID: 20261015-urgent_fixes-7112629346eb
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Adam Litke <agl@us.ibm.com>, 
+ Mel Gorman <mel@csn.ul.ie>, Rik van Riel <riel@surriel.com>, 
+ Peter Xu <peterx@redhat.com>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
+ "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Josef Bacik <josef@toxicpanda.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, stable@vger.kernel.org, 
+ Chris Mason <mason@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2238; i=david@kernel.org;
+ h=from:subject:message-id; bh=bhdP739rykh9+cxbAvZcyJkbfwJi6RgLgraAvwylzjI=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIu/DKUPn5d4HXm1P47+z4f2JMwW3+pwclIvoeCrPYHd
+ aqnsc3731HKwiDGwSArpsgSFHzf4OXLdbXVbnzMMHNYmUCGMHBxCsBEkjwY/qlb6KbN95oowTDp
+ k3uS6kVTO4H13evfCZiZ33u6yilI4ggjw2NDyYNK4kfD7jnXxL79onjyrfschgRBO/ZI6bsrp6W
+ tYQUA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Jim Mattson <jmattson@google.com>
+Hi,
 
-commit be7fd7c3e8bcfd3a1804567ce5cf9ca3b254c1ba upstream.
+here are various MM fixes. The majority was reported by Josef at
+Anthrophic, the remainder was found while reviewing/overhauling them.
 
-Per the Intel SDM, "Certain exceptions have priority over VM exits.  These
-include invalid-opcode exceptions, faults based on privilege level, and
-general-protection exceptions that are based on checking I/O permission
-bits in the task-state segment (TSS)."
+Two issues/fixes reported are not included, as we are discussing
+(better) alternatives on the list already.
 
-Ensure that when L2 executes CPUID at CPL > 0 while L1 has enabled CPUID
-faulting, KVM intercepts the exit in L0 and queues #GP rather than
-forwarding the CPUID VM-exit to L1.
+I left most of the original commit messages as schloppy as they are: I
+don't particularly care as long as the code is in good shape and as long as
+they are not actively wrong. But I (and Mike) could not be stopped from
+overhauling at least some of them.
 
-Empirical testing confirms that this #GP has higher precedence than a CPUID
-VM-exit on Granite Rapids (F/M/S 6/0xad/1).
+While I don't think there is anything too critical in here, I think this
+is a good opportunity to see how fast we can get pre-screened/pre-reviewed
+fixes upstream that might be security-related.
 
-Fixes: db2336a80489 ("KVM: x86: virtualize cpuid faulting")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260513224608.1859737-1-jmattson%40google.com?part=3
-Signed-off-by: Jim Mattson <jmattson@google.com>
-Link: https://patch.msgid.link/20260527174347.2356165-3-jmattson@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Anil Altinay <aaltinay@google.com>
+The majority are hugetlb + uffd issues, that are not actually that
+relevant for most installations. But all things that should just get
+fixed. Some uffd fixes need proper follow ups to fix some more of the
+root causes of leftover UFFD PTE bits (or proof that there are none
+remaining).
+
+I ran some MM selftests and nothing popped up.
+
+So let's try to get these upstream in a timely fashion.
+
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- arch/x86/kvm/vmx/nested.c | 2 ++
- 1 file changed, 2 insertions(+)
+David Hildenbrand (Arm) (4):
+      mm/hugetlb: fix use-after-free in hugetlb_mfill_atomic_pte()
+      mm/hugetlb: tolerate uffd bits set without uffd for PROT_NONE PTEs
+      mm/hugetlb: tolerate UFFD_WP markers outside uffd-wp VMAs
+      mm/mremap: fix calling fixup_hugetlb_reservations() on the wrong VMA
 
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index 97ef2ebc2477..3fb9a8205083 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -6637,6 +6637,8 @@ static bool nested_vmx_l0_wants_exit(struct kvm_vcpu *vcpu,
- 			nested_evmcs_l2_tlb_flush_enabled(vcpu) &&
- 			kvm_hv_is_tlb_flush_hcall(vcpu);
- #endif
-+	case EXIT_REASON_CPUID:
-+		return !kvm_is_cpuid_allowed(vcpu);
- 	default:
- 		break;
- 	}
--- 
-2.56.0.385.gd3acb90ef8-goog
+Josef Bacik (6):
+      mm/vma: don't leak the commit charge on mmap failure
+      mm/hugetlb: fix use-after-free of a new anon folio
+      mm/hugetlb: unmap the page where the other VMA maps it
+      mm/hugetlb: don't clear the resv_map of a VMA whose lock is held
+      mm/hugetlb: fix endless write fault on a leftover uffd bit
+      mm/hugetlb: don't leave a uffd-wp marker when zapping an RWP entry
+
+ mm/hugetlb.c | 70 ++++++++++++++++++++++++++++++++++++++++++++++--------------
+ mm/mremap.c  |  2 +-
+ mm/vma.c     | 11 ++++++----
+ 3 files changed, 62 insertions(+), 21 deletions(-)
+
+---
+
+base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+
+change-id: 20261015-urgent_fixes-7112629346eb
+
+--
+
+Cheers,
+
+David
 
