@@ -1,95 +1,180 @@
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D7EB471412
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 07:23:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EBF7647ACCB;
+	Thu, 15 Oct 2026 07:24:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792049000; cv=none; b=ekIy4Gw2gWG0ZzWP6LY/Rdzf8vGcCpa8PKsfSE2cmMEhpEL5TxM2q75sZ1LQuOCmVqmVcEir6Jf8+4e+HAQVEjlR/f+G8sJ5axPczJNxyuOvgOxpxoe+7vL+xYhBdIzl3I6l1YW46OqRDaVzozow1Wag64oOHR8j2CnNBxQGyG0=
+	t=1792049066; cv=none; b=kvhbpYsJ5TgNaStQxG9wEaAN3IorrNzdChsvUm39EC4T2IhnnKPa4e2rVw6zrwAsG2j4mSVwLbuZT68nA09YXo/6U1CNAtRvrh8YtdQHI5GjJRc7JwjAce0bicFFa5wEEl8QRf6467Ubq5fiIErzql6nLNced+zpkzHzUw5Ew/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792049000; c=relaxed/simple;
-	bh=PtXIDX13fP+iqj3+gIFVKLJBnzkOyRNgQGSwKBXgoZY=;
-	h=Mime-Version:Subject:From:To:CC:In-Reply-To:Message-ID:Date:
-	 Content-Type:References; b=lMChUKMZN7m0Ai5W8N2f+LFYJfWk3fTJ+76RzXs5PKpiWLuwwzI6ojHrLjwHPVtNSx5Ayca4b2nfOr4VQ02cUxpCMr7VeBmm8rTWJbhFDkl8iy7JuRsh37wIlLURLHAm7nXFWQP+0iU/SAxdb0zlx8O7jJLuCL/yHTSr/7tsQfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=tG9SLedw; arc=none smtp.client-ip=203.254.224.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1792049066; c=relaxed/simple;
+	bh=JkHHNgajNIi21dLKcEUnhbwqeP1oYRSfSI+q1Lv0snE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WN13+1QVruvm3JshFvYZbAqdstNx6cWzrYTmq9A017Ix05UBxUS+KFqL+854N7LP5V1f42T+tgT+E1bC/SWxDI2cZUO7ip3W0BN0vEHDDBhEj3Kjau4XQfCgPDy9pBIsHY+dJX+6tat5JHAB41aAyYBa2x80iMdjCvUScf8RbmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=VTF7R2QP reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="tG9SLedw"
-Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261015072308epoutp03bd7a6e56b2509866240881f5fb915101~eow_OSQ6r0852908529epoutp03h
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 07:23:08 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261015072308epoutp03bd7a6e56b2509866240881f5fb915101~eow_OSQ6r0852908529epoutp03h
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1792048988;
-	bh=mzgpWt5GGty/dFKO10uL2LGjZTMzcw//rSUxcOQYofI=;
-	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
-	b=tG9SLedwVr0vpK5hrhsLcjRFy4vU7d3uzWRTnosQ7qElVSsEd8rSezGJL7NZuqQCQ
-	 x0AEqEKXa7X+j3divkqDityEP4FfysxXihy8Zb49665FO5XdEvA2y4WC/JDVcpwVrY
-	 yY/S+B/dNJEko2hJ+W/3enow5tZk5auugztj3gZw=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261015072308epcas2p1a5fd64d6aad5cfe556346c3fc133828b~eow9zGyFZ0873508735epcas2p1B;
-	Thu, 15 Oct 2026 07:23:08 +0000 (GMT)
-Received: from epcas2p1.samsung.com (unknown [182.195.38.209]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4j500X1cZ8z3hhT9; Thu, 15 Oct
-	2026 07:23:08 +0000 (GMT)
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="VTF7R2QP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=PCKRTBESFf
+	T+/ncAMlToa5Ok9BfMsEykK8bbFWXICZU=; b=VTF7R2QPfE5L2GXX6hn3TwebYv
+	/lgsDlgL1k9c38Wy6SB6Ly1+BDxsc0XQKqO8aCdyOS4D2zCNttrUhmAtBTJNPNrC
+	z6AoBkj0X/zerPg+b0T0JvRWSXahsl+GDAYHHD6LEOXlMd6dNEhXNo0/Ke4h7QTc
+	ZHRYmxOSm0rUTYzqo=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.94])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkDGDwWCf9BqbMmgAA--.38329S2;
+	Thu, 15 Oct 2026 15:23:47 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Subject: [PATCH] media: dvb-core: prevent frontend thread resurrection after unregister
+Date: Thu, 15 Oct 2026 15:23:45 +0800
+Message-Id: <20261015072345.11129-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Subject: RE:(2) [PATCH v3 5/9] xfs: refuse a direct allocation whose block
- reservation would wrap
-Reply-To: daejun7.park@samsung.com
-Sender: Daejun Park <daejun7.park@samsung.com>
-From: Daejun Park <daejun7.park@samsung.com>
-To: Christoph Hellwig <hch@lst.de>
-CC: Carlos Maiolino <cem@kernel.org>, "linux-xfs@vger.kernel.org"
-	<linux-xfs@vger.kernel.org>, "Darrick J. Wong" <djwong@kernel.org>, Dave
-	Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton
-	<jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>, Sergey Bashirov
-	<sergeybashirov@gmail.com>, Andrey Albershteyn <aalbersh@kernel.org>,
-	"linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>, Daejun Park
-	<daejun7.park@samsung.com>
-X-Priority: 3
-X-Content-Kind-Code: NORMAL
-In-Reply-To: <20261015060932.GD14035@lst.de>
-X-CPGS-Detection: blocking_info_exchange
-X-Drm-Type: N,general
-X-Msg-Generator: Mail
-X-Msg-Type: PERSONAL
-X-Reply-Demand: N
-Message-ID: <20261015072307epcms2p858823bf9dcc139b102794d87e2efe5e2@epcms2p8>
-Date: Thu, 15 Oct 2026 16:23:07 +0900
-X-CMS-MailID: 20261015072307epcms2p858823bf9dcc139b102794d87e2efe5e2
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-223,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261015060942epcas2p4bcb321d2f040673f793404daa724e83c
-References: <20261015060932.GD14035@lst.de>
-	<20261015-xfs-pnfs-batch-v3-0-54fc7b2e467d@samsung.com>
-	<20261015-xfs-pnfs-batch-v3-5-54fc7b2e467d@samsung.com>
-	<CGME20261015060942epcas2p4bcb321d2f040673f793404daa724e83c@epcms2p8>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkDGDwWCf9BqbMmgAA--.38329S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxKrW3AF4kJrykCw1fAF4Utwb_yoW7XFW8pF
+	WkJry5KF4Utw12qr4qy3Zrur90vw1xGFWUG347Ga13Ar4fGFWIgry8ta4DXrnxAr4fAr4q
+	qwnxWFW8u3y7AaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9C14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
+	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr
+	0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
+	x2IErcIFxwCY1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_GF4l42xK82IYc2Ij64vIr4
+	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
+	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
+	8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
+	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
+	v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x0JUQID7UUUUU=
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUHD2rPmtGsgwAAsN
 
-On Thu, Oct 15, 2026 at 08:09:32AM +0200, Christoph Hellwig wrote:
-> I think the limit needs to be lower, as xfs_bmapi_write can't hand
-> out such large limits.  We'll also need to make sure pnfs can
-> request multiple maps.
+A use-after-free read in dvb_frontend_thread() was observed when a DVB USB
+device was disconnected concurrently with userspace opening and closing the
+frontend device node:
 
-Thanks, I'll limit the count to XFS_MAX_BMBT_EXTLEN in v4. nfsd asks
-again for the rest of the range since commit cc6c40e09d7b
-("NFSD/blocklayout: Support multiple extents per LAYOUTGET"), and
-letting a single ->map_blocks call return several mappings is what
-patches 4, 5, 7 and 8 of the ->map_blocks series did [1]; I'll resend
-those for the next cycle.
+  BUG: KASAN: slab-use-after-free in dvb_frontend_thread+0x1380/0x1620
+  Read of size 8 at addr ffff888008dd4320
+  Comm: kdvb-ad-0-fe-0 Not tainted 7.1.2-dirty #81
+  dvb_frontend_should_wakeup drivers/media/dvb-core/dvb_frontend.c:641
+  dvb_frontend_thread drivers/media/dvb-core/dvb_frontend.c:682
 
-[1] https://lore.kernel.org/r/20261008-xfs-nfsd-map-blocks-v1-0-560026cdccb6@samsung.com
+  Allocated by the frontend attach path:
+   cinergyt2_fe_attach+0x... (drivers/media/usb/dvb-usb/cinergyT2-fe.c:271)
+
+  Freed by the final frontend release:
+   dvb_frontend_put+0x... (drivers/media/dvb-core/dvb_frontend.c)
+   dvb_frontend_release+0x... (drivers/media/dvb-core/dvb_frontend.c:2934)
+
+On disconnect, dvb_unregister_frontend() stops the frontend kthread through
+dvb_frontend_stop() and unregisters the dvb device, but it never marked the
+frontend itself as removed: fe->exit was left at DVB_FE_NORMAL_EXIT, or at
+DVB_FE_NO_EXIT when no thread was running.  dvb_frontend_open() does not
+hold frontend_mutex, and dvb_frontend_start() did not check the removal
+state at all, so an open racing with dvb_unregister_frontend() passed the
+DVB_FE_DEVICE_REMOVED check in dvb_frontend_open(), unconditionally reset
+fe->exit to DVB_FE_NO_EXIT and spawned a new kthread on a frontend that
+was being removed.
+
+dvb_unregister_frontend() and dvb_frontend_detach() then dropped both
+registration references.  The resurrected kthread itself never holds a
+reference on the frontend object, so once the last file descriptor was
+closed, dvb_frontend_release() dropped the final reference and freed the
+frontend state while the kthread was still running, resulting in the
+use-after-free reported above.
+
+Fix the lifetime break by making removal a permanent state:
+
+- set fe->exit to DVB_FE_DEVICE_REMOVED in dvb_unregister_frontend()
+  under frontend_mutex before stopping the thread; dvb_frontend_stop()
+  already preserves this value and dvb_frontend_is_exiting() then makes
+  a running thread exit immediately;
+- check DVB_FE_DEVICE_REMOVED in dvb_frontend_start() after taking
+  fepriv->sem and fail with -ENODEV; the thread's exit path writes
+  fe->exit under the same semaphore and dvb_frontend_stop() returns only
+  after kthread_stop() observed that write, so the check cannot miss a
+  concurrent removal and the unconditional fe->exit = DVB_FE_NO_EXIT
+  reset can no longer undo it;
+- do not clear DVB_FE_DEVICE_REMOVED in dvb_frontend_thread() when the
+  thread exits on its own, so the removal marker survives;
+- initialize fe->exit to DVB_FE_NO_EXIT in dvb_register_frontend(), so
+  a frontend object that is registered again after unregister remains
+  usable.
+
+em28xx already sets DVB_FE_DEVICE_REMOVED manually before unregistering
+its frontends; the core now provides this protection for every dvb-core
+user.
+
+Fixes: 1f862a68df24 ("[media] dvb_frontend: move kref to struct dvb_frontend")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/media/dvb-core/dvb_frontend.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
+index d082b6c57c76..d06f16b2ab84 100644
+--- a/drivers/media/dvb-core/dvb_frontend.c
++++ b/drivers/media/dvb-core/dvb_frontend.c
+@@ -796,7 +796,7 @@ static int dvb_frontend_thread(void *data)
+ 	fepriv->thread = NULL;
+ 	if (kthread_should_stop())
+ 		fe->exit = DVB_FE_DEVICE_REMOVED;
+-	else
++	else if (fe->exit != DVB_FE_DEVICE_REMOVED)
+ 		fe->exit = DVB_FE_NO_EXIT;
+ 	mb();
+ 
+@@ -873,6 +873,11 @@ static int dvb_frontend_start(struct dvb_frontend *fe)
+ 	if (down_interruptible(&fepriv->sem))
+ 		return -EINTR;
+ 
++	if (fe->exit == DVB_FE_DEVICE_REMOVED) {
++		up(&fepriv->sem);
++		return -ENODEV;
++	}
++
+ 	fepriv->state = FESTATE_IDLE;
+ 	fe->exit = DVB_FE_NO_EXIT;
+ 	fepriv->thread = NULL;
+@@ -3042,6 +3047,7 @@ int dvb_register_frontend(struct dvb_adapter *dvb,
+ 	init_waitqueue_head(&fepriv->events.wait_queue);
+ 	mutex_init(&fepriv->events.mtx);
+ 	fe->dvb = dvb;
++	fe->exit = DVB_FE_NO_EXIT;
+ 	fepriv->inversion = INVERSION_OFF;
+ 
+ 	dev_info(fe->dvb->device,
+@@ -3076,6 +3082,13 @@ int dvb_unregister_frontend(struct dvb_frontend *fe)
+ 	dev_dbg(fe->dvb->device, "%s:\n", __func__);
+ 
+ 	mutex_lock(&frontend_mutex);
++	/*
++	 * Mark the frontend as removed before stopping the thread, so that
++	 * a racing dvb_frontend_open() cannot restart the kthread via
++	 * dvb_frontend_start() and leave it running after the last
++	 * reference on the frontend object is dropped.
++	 */
++	fe->exit = DVB_FE_DEVICE_REMOVED;
+ 	dvb_frontend_stop(fe);
+ 	dvb_remove_device(fepriv->dvbdev);
+ 
+-- 
+2.34.1
+
