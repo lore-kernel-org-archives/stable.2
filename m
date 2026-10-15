@@ -1,67 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A65D4A68A7;
-	Thu, 15 Oct 2026 09:03:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E012B4E1414;
+	Thu, 15 Oct 2026 09:05:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792055036; cv=none; b=FntiuQKuaZJriynXH/RySnal1Qi/wgO+joTFnWnhKBwzROgEMCDqDUhKLo8hTGQLerj54fm3MgZNI3aKZgnBtl/eUwRpT0+ypLA/KbxjsbKHxI532T3JiuCV+rn98O0+iPKQtskukywdfsORFJd+XrFpnzg/VupQNEVnnKT2Y7I=
+	t=1792055132; cv=none; b=RpaM0Cdxoyy1CsSZVJa6qo3eZk9AISlyrm9iL5SM4znP9JVnXUgs3R08ZfotEBC+ty3cMofui8mvUIw0UxOwd6RF9opuOQDymv64lDhPBeXYphUKcvIrokfoYOoQG8np/nQgewnl3FS711eQpcoBEt6yX8meVu2J+3Jcyz64EG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792055036; c=relaxed/simple;
-	bh=x8GQ9TqAFu5driuvo38kqzYt3n324pebOlaNmEELI+s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iM2CAoG3ggHM0K4yPtAUU+xouFGzqcLVntPr6SMI+YIhYWWMAQYexfE1tad9duBFfNwqiugOTDzj2wKdmhquFDTY6leDKwHImAvUncATslW8xmpw3MiXbLSTKI4RrYzYxEiMl4ZzNwQ8cPIJNeQwsQpocZHxztS/gAcQ7LDb13E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dSRxo6US; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792055132; c=relaxed/simple;
+	bh=i3Iy2xLXR2x993pIXgHnMySyaQglTta+do5lmMI7ybk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dJRTjHZkBVOUsq4CMXMI0nwtgxvfUTJC0bv0rdm9WuDCpFVs5V+Lh+NCNVl6HC4HiaXrrHNWORfdcbHev7eRobinEv6LfkPAtT+psLAkZbgxhq55YlDj0lHElMThPENERf9ItkM+3diejnqRrSmFsKLtFljaxJ+UVsJQmjJCaJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BjxGIpPy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dSRxo6US"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C435D1F000C4;
-	Thu, 15 Oct 2026 09:03:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BjxGIpPy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B99B41F000C5;
+	Thu, 15 Oct 2026 09:05:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792055035;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dSRxo6USK3mc/4RQGRenUGQ8U2727f+oI3Ftl0yKjPBN568MCXCgNwmZSoGzysnUy
-	 JIRe4/X+X2uCl3WWgKXYzQtSUZWrDYBxZebGjtE75Purw0BPPWvfH5tGvd1dQcuRc8
-	 Aa/DUUlmxLDBYgCQjPqxujc4t27+Lm3+HfRtD+6stCuut7mDBTAJczCJuA6dhdbd7w
-	 fJp/w0/hHaV7WPfPn9yqWBCXIzH3Zv1p5kejHg77+cJ6DtdiT07hujc8eIronx+gQE
-	 Dk50bYDtnGMmr8S8FeRuc04w8mj+WciTZAlEIkkaQ6KnP/2N9/uIFITb7oFOtXwQG3
-	 zh3kwzX48f18g==
-From: netdev-bot+sinfo@kernel.org
-To: Xia Yan <yana06070@163.com>
-Cc: netdev@vger.kernel.org, stable@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 1/2] veth: keep carrier off when resizing channels
- with a down peer
-Date: Thu, 15 Oct 2026 09:03:54 +0000
-Message-ID: <179205503431.408196.3787158263559792614@kernel.org>
-In-Reply-To: <20261015085821.12725-1-yana06070@163.com>
-References: <20261015085821.12725-1-yana06070@163.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1792055131;
+	bh=i3Iy2xLXR2x993pIXgHnMySyaQglTta+do5lmMI7ybk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BjxGIpPytUDCjf3oHieq1z2xj+WqtcBnVttFrOgOeGtnR4dXibxnqiymN9qUS4FVQ
+	 UZcwaO9d5rTLZcjDX8/WxaJ0OPnfXjEwQbP4YTJaQISyEupwW2HCHUydxT2PUolM3T
+	 E91G+9KoXO+i+UtEff3VNmqcGtiqf5oiA59PYznQqEJGTo45KIvOBSUpd59/jgc60N
+	 cpudvdzDyKTz3G0wt6wK2dboL19osEtYvZbZMPQ2aLGuRfeyxxOft7bF+wspbZO6Zl
+	 BasBxay/SBgmeCqOzjjzapcDi7ghmQlto+QvjvuIEvoKzBxtuCCsxhZZJjeG+SKwJT
+	 8D2smjU76jMdQ==
+Date: Thu, 15 Oct 2026 10:05:24 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>, 
+	Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Lokesh Gidra <lokeshgidra@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/userfaultfd: only allocate anon_vma in CoW mappings
+Message-ID: <atCUhtQ2v1WtNKwf@gremlin>
+References: <20261014-copy_hugetlb_page_range-v1-1-5b68e03fe7fe@kernel.org>
+ <as99gyi-NUprRK6e@gremlin>
+ <a5c6edb4-9e8d-47f1-a316-6627e518fa7a@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a5c6edb4-9e8d-47f1-a316-6627e518fa7a@kernel.org>
 
-Hi!
+On Wed, Oct 14, 2026 at 08:29:35PM +0200, David Hildenbrand (Arm) wrote:
+> > Hmm really? Is it possible to do that without the hugetlb lock?
+>
+> Yes, we don't have to sync against PMD sharing if PMD sharing is impossible.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Ahhh I see.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+> Will send that out for the next cycle.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Looks sane!
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+>
+> > It'd be good in general if we could get rid of that lock as a whole :) but maybe
+> > dreaming.
+>
+> Yeah :)
+
+I will probably have to go and look at that more deeply for
+mmap_prepare/scalable CoW reasons. I will wear goggles... :)
+
+--
+Cheers, Lorenzo
