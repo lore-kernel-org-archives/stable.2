@@ -1,147 +1,122 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [194.59.206.189])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD0C3F327D
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 08:47:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D46AA49B21E;
+	Thu, 15 Oct 2026 08:49:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.59.206.189
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792054028; cv=none; b=Mw/oSdC6buq67qM2BULD45m9XboeMWxGAoZXZUi2kQqh+B7LlXlQVQ6jQiqzGR1y8+2TZK6kMvdaaa4pISGZ9OdAVkt3ofTe6u9G4Li4RWuHToEuW2eK6ASE6Ri2pPo/0Q6ywpjqYXqsYXepYYROjLXkxODa7oAf9jHRIeSX9Kc=
+	t=1792054168; cv=none; b=unu9SX+OI8UqtxINJ3m3T3qP+K/4xoDE97bn5rVKtUv/x26gnKAeNULtlWQa6uLK98sOadZB2perKejuV3wS7bIMpPN5zQkiVsrTV2W48Rh+mTUooput2yvJvhxifVKQWubZjHq/FCTJ3MGzl8ZFj3jrYrEWy6T6BEis0o4SNgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792054028; c=relaxed/simple;
-	bh=HOcRnjQ/78+UziIir9oKy8ANLOoA8o6bAT5N5PtLkpU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JXcs5jYo3Pm3HQ+8n94Qv42OfFi5lJwK/00uJxOCheE05VyolMuTU58mU98V6ZJsfDNowCBRQqUdFX9rU1et6ZH82eQKZOvV31RC87D1CsCT9BS2THSsZWZpXS3rSotlHgDIowINfLV4BCRmzVa9QlDWdOqa6hS9uLkPbJT5uns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XXfj5Hb2; arc=none smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792054168; c=relaxed/simple;
+	bh=lBuHq37hzdxaeJOyGRjkqIxcxRhXWPGNB72dentm3TA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AP7edquTAD3AqvjWjHILElX9jaUoQtJHKmmFQo9NDVZ00rsmUQNAgrvqGbv0O7/Kpk8nOqGV+9SUUNyCImVjNJuJuv+A1pi3CY4LQedKCBcDCw/YLs/iDgpSL1Cu0h1QK7Et1TI7EUVydBAno5ZiZyKDef1hkbKle7dtEzomMyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=Q8S6FMFU; arc=none smtp.client-ip=194.59.206.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XXfj5Hb2"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc4dbcf2b85so940536a12.3
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 01:47:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792054026; x=1792658826; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IYttvjru9fKHemUV/qFF+L5++eupMPrrcmnwQVMAKQQ=;
-        b=XXfj5Hb2/vHfMhAXzMo+GL7tEdt8m0i0jRrMwVGm/uZW3CXMZ1tkR7fu6O702RKbqi
-         gMdkjMgOshedqjlYDUd2Gr3HCJ48G9pPFbui0mvE9CxVqraMqFRPRtRh6R3zxyu6iGTK
-         IoNA9eCW+d7AXren7o61t30JJraJRIBBpLaGspOePTzWKYkCW8HCb7RWmG83yGjEHNGX
-         Wb21weEyBin4oRkd/3Vxd8yjDHvv3HGRtEKv3alfBjGIiqXXYh4Uq8wZ7uSg3K4B52vn
-         IarERUf5N+8vNo+oZBwkgC1KmiGwNq1oz98toBbg8FbS8ourPLbqlY1eZB7a7E2VnKyD
-         9nZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792054026; x=1792658826;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IYttvjru9fKHemUV/qFF+L5++eupMPrrcmnwQVMAKQQ=;
-        b=Wc9RU4FMVr9OjQh7Das3c3Gcbzw+TWbPbNj3DjyGO5iWzn1vja2vvQjOIDMLZ29xYH
-         qe+fA9Zei7au/693/TMIBAJPwmC/cNmfLVaJk3dBcnCaGxl/NvpB1iH3L49LtyJ/zObU
-         ig2Nb1uJaYoQ8SB4eKlmFjV/mpBXMgFGhaHwccAgaVxjDU5cQmqj1Oh6hOubZHC81q57
-         3uNyjjM+pxjTO/01YW+OT7U5xEhGEikNR5JhMGrnBuVACcEcEXAJ9eSXS4XsF7lN+Qvl
-         zQAjLNBcem0Nnh/tINC7ZDWREKDej/2ldKgl0YsB19QcpqofdrzeRTZaT89zYdBTun59
-         w6pQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxHqkEQcV9/xoXiVetCMymMI+MP57vtPf4ZcMcGbCLXuTs4jX7UYtn5ezO1+yxB7aGv8SFSKXE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJhq4iifeUqlBG5KrEBLyJZqBeu//KCVqvDubpM8vCdvJmfcrOJ
-	Z+3/6Oz3oS7hwwyg0xD+bFd9kKmK+5vh92WAgdH5774MzZHQday0H2/K
-X-Gm-Gg: AYBFou1tyMU7A7zFIMAAbZJYGA0lJH3k5LLpi1QnwO9q1NioxBXbtAzEvCp/w+/rtUV
-	qamgjWtiuFz47Z8VlpN7lZETctbFBRPcUHFkMmft0ZTaB0KrUMAfiXBd0BR4RWfNfKjvreC6aYZ
-	tgu+nsXBE2XsxPNlYEEI16GGFjXni8lE7GyziDsiqbwyXdF22JqTXrswaUaQ8YrINxoCcUBpuSS
-	bwLtzYfBEdC4Iky/U6kzvt7E4FEchyOxyta22FrB1pAGZmm51YjSBxEEMKUokfSXECFqOaf3rwD
-	q18Rmd0I4Xajvpncm5o3/LHNP0l6CXqHRPDvlIKZQJD0bJjR6KOvyRY+eo3KwGkADKscxzAz42H
-	h8YeSJgPbjxduHMcRTVx2NU+arw9zCATeobF+zqArSyTgLZla52RTcQ0hfrRatu+xnPeRikfzsf
-	ibMNHoGUReuhZgeqW+PNm9Hs61lbcyDnrE1ON5+qk8NSOuKkRawEtUNdNNiixZAtIF4kukKGZfk
-	oe8NuaUHGpAt4jcYyCHAb28tfz7kikdjWwgpmm+tpS8g/F/0yTxg/5mocXIpUiY1hyI08qaFbYT
-	/F5/bAFszPXOZke2lqMEFzTBT0UhaKVn/yyJFQvL1HTGteUM
-X-Received: by 2002:a05:6a21:490d:b0:3cd:7ba2:e669 with SMTP id adf61e73a8af0-3e16bb71b3amr16357663637.10.1792054025821;
-        Thu, 15 Oct 2026 01:47:05 -0700 (PDT)
-Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.249])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd635c57517sm900574a12.13.2026.10.15.01.47.03
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 15 Oct 2026 01:47:05 -0700 (PDT)
-From: Yu Zhang <yuz08559@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Yu Zhang <yuz08559@gmail.com>
-Subject: [PATCH] usb: gadget: f_printer: fix pnp_string use-after-free on reconfigure
-Date: Thu, 15 Oct 2026 18:46:58 +1000
-Message-ID: <20261015084658.70918-1-yuz08559@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="Q8S6FMFU"
+Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
+	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4j51vn6j4Qz4Qj3;
+	Thu, 15 Oct 2026 10:49:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1792054149;
+	bh=lBuHq37hzdxaeJOyGRjkqIxcxRhXWPGNB72dentm3TA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Q8S6FMFUnftWwFf9EDGHOA7CNo3L76rLbTJzQd2VGO4+HAiLSOxjFY5/m5eIJHKrh
+	 AK/Jt0ulIG6rNTG/WE53bufMrqqsSFFoUKl25vWrSFg93ACtUqoxYpgmWa6/M2zSFi
+	 rrTBBiskqY5780UHeO7IrfI5kF4Bi2DmhFd4H/nCuCJy+ZEXRsEuhPEdxG/l/lRvAD
+	 uK1aa6Aun5c6AIFRb1aJcb3r2jeOjHir/3b4eOMFYWAu/xjjDUhG/OlGYMgi4WfBvN
+	 +YpYGgo80jBwQTRoIx/eM7g+ov1BErLfGmy5t5EgOV7rQmxX+7M+nK5dd+vc7y518g
+	 0V/oFvTTAmf/A==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4j51vn5ztJz7xmm;
+	Thu, 15 Oct 2026 10:49:09 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4j51vn2MDMz8tHp;
+	Thu, 15 Oct 2026 10:49:09 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 31FB45FB40;
+	Thu, 15 Oct 2026 10:49:04 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <25d12ba4-11a1-4f39-bca5-b3a53c479178@leemhuis.info>
+Date: Thu, 15 Oct 2026 10:49:02 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Revert "i2c: qcom-geni: Fix hardcoded clock index in
+ SE_GENI_CLK_SEL"
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Birk Skyum <birk.skyum@pm.me>, Andi Shyti <andi.shyti@kernel.org>,
+ Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+ Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Cc: Daniel J Blueman <daniel@quora.org>, Sasha Levin <sashal@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Manikanta Mylavarapu <quic_mmanikan@quicinc.com>, linux-i2c@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, regressions@lists.linux.dev
+References: <20261014130805.48840-1-birk.skyum@pm.me>
+ <230a39d3-6957-4203-a54b-88c871092e08@oss.qualcomm.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <230a39d3-6957-4203-a54b-88c871092e08@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: 
+ <179205414479.3417080.12348267559968309700@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 31FB45FB40
+X-NC-CID: E9wWJ5opTNcNsnu8ZcGkvKd91gC7Oen5jzscIarBKYcxfog7po8=
 
-f_printer_opts_pnp_string_store() replaces opts->pnp_string with
-kfree(old) + kstrndup(new) under opts->lock only, with no opts->refcnt
-guard, so the IEEE-1284 ID string can be changed while the function is
-bound and the gadget is enumerated.
+On 10/14/26 15:17, Konrad Dybcio wrote:
+> On 10/14/26 3:08 PM, Birk Skyum wrote:
+>> This reverts commit cb97bf3d4f91453b881acaf8e9f0cc47bb40b604.
 
-printer_func_setup() answers the host GET_DEVICE_ID class request from
-(soft)irq context and reads the string with no lock:
+Andi Shyti: do you plan to pick this up and send this to Linus for 7.3?
+Or should be ask him to pull this straight from here? In the latter case
+it would be good to have an ACK from you.
 
-	value = strlen(*dev->pnp_string);
-	...
-	memcpy(buf + 2, *dev->pnp_string, value);
+>> With that commit the keyboard and touchpad of the Lenovo Yoga Slim 7x
+>> (x1e80100) are dead, also at the disk passphrase prompt, on 7.2.9 and on
+>> v7.3-rc7. The first transfer on their bus fails.
+>>
+>>   geni_i2c b80000.i2c: Bus proto err, noisy/unexpected start/stop
+>>   i2c_hid_of 1-003a: failed to fetch HID descriptor: -5
+>>
+>> With the commit the I2C serial engine clocks read 32 MHz, without it
+>> 19.2 MHz. A fix for the 32 MHz fast-mode timing is still being
+>> discussed, so go back to the previous behaviour for 7.3. This brings
+>> back the hardcoded index 0 in SE_GENI_CLK_SEL.
+>>
+>> On v7.3-rc7 with only i2c-qcom-geni.ko swapped, the keyboard is dead
+>> without this revert and works with it.
+>>
+>> Fixes: cb97bf3d4f91 ("i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_CLK_SEL")
+>> Reported-by: Birk Skyum <birk.skyum@pm.me>
+> 
+> (this looks funny because you're the author of the revert but
+> it's fine I suppose)
 
-dev->pnp_string points at &opts->pnp_string, so a concurrent configfs
-write that frees the old string races the setup read -> use-after-free.
+FWIW, some subsystem maintainers don't like it. And YMMV, but I think
+it's a good thing to have the extra Reported-by, as that allows to make
+a distinction between "a developer found and fixed some random problem
+that might or not cause issues for users" and "someone ran into a
+regression and helped themselves and everybody else by directly
+providing a patch"
 
-KASAN, a configfs writer racing a host GET_DEVICE_ID (reproduced over
-dummy_hcd):
+Ciao, Thorsten
 
-  BUG: KASAN: slab-use-after-free in strlen+0xe/0x40
-  Read of size 1 at addr ffff888005036000 by task swapper/1/0
-  Call Trace:
-   <IRQ>
-   strlen+0xe/0x40
-   printer_func_setup+0x410/0x890
-   composite_setup+0x67e/0x4690
-   configfs_composite_setup+0xbb/0xd0
-   dummy_timer+0x1934/0x1e40
-   __hrtimer_run_queues+0x1b6/0x410
-   hrtimer_run_softirq+0x13a/0x260
-  Allocated by task 3486:
-   kstrndup+0xb2/0x130
-   f_printer_opts_pnp_string_store+0x3f/0xf0
-   configfs_write_iter+0x1a7/0x250
-   vfs_write+0x5df/0x940
-   ksys_write+0xfd/0x1e0
-
-The setup path runs in atomic context and cannot take opts->lock, so
-serialize by refusing to change pnp_string while the function is
-instantiated, exactly as the sibling f_printer_opts_q_len_store() already
-does for q_len.  While the function is bound the string is then stable
-for the lifetime of the live reader; it can still be changed when the
-function is not linked into a gadget.
-
-Fixes: 24b7ba2f88e0 ("usb: gadget: function: fix dangling pnp_string in f_printer.c")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yu Zhang <yuz08559@gmail.com>
-Tested-by: Yu Zhang <yuz08559@gmail.com>
----
- drivers/usb/gadget/function/f_printer.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/usb/gadget/function/f_printer.c b/drivers/usb/gadget/function/f_printer.c
-index 1111111..2222222 100644
---- a/drivers/usb/gadget/function/f_printer.c
-+++ b/drivers/usb/gadget/function/f_printer.c
-@@ -1269,6 +1269,11 @@ static ssize_t f_printer_opts_pnp_string_store(struct config_item *item,
-
- 	mutex_lock(&opts->lock);
-
-+	if (opts->refcnt) {
-+		result = -EBUSY;
-+		goto unlock;
-+	}
-+
- 	new_pnp = kstrndup(page, len, GFP_KERNEL);
- 	if (!new_pnp) {
- 		result = -ENOMEM;
---
-2.43.0
+>> Closes: https://lore.kernel.org/r/179173732257.29426.7905170638383807320@pm.me
+>> Link: https://lore.kernel.org/r/ae03e7a3-75f1-42df-b0e6-0e64358be647@oss.qualcomm.com
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Birk Skyum <birk.skyum@pm.me>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
