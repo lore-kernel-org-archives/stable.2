@@ -1,174 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 174DB3F926F;
-	Thu, 15 Oct 2026 15:48:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA4553CA8F
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 15:52:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792079317; cv=none; b=fshUkshs3ZLAjbPzuyebgSh0Vl0Zn2JMvkazy9u5TV8au0e15L5dNXECI33r5EXk3posJjOvB/DGYJ+1UXoxiH3OyCszMBhDN6n1kyCFA/GyktIv0nFRdTmqSXOE6M5iUop6unXeT3LjFlb5pMvbFxzPDKua45OadhVRjXjrY4M=
+	t=1792079554; cv=none; b=MMA1DLC23v6OQggRnS80WUtZ10wGaeZXFc3oNrzlRFq99Kr/r8BLPaKxnKdKq4ooteSeq/iHDCYQOp09Z2CcoWKvzBzhnIHDTVNmEKhqI3aKXowrVX5l986ZGnqWh2IBhhp+3ALW+qCmafCuw+SFDluduI4wpxZygOwE9bO0RXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792079317; c=relaxed/simple;
-	bh=bnse//IfN9AFrQ0nl1qQiqrWgFN4uFypsLZ/htuIvqA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=q0qsclu6SrOkqXMjzCPoiNvuahDW+wBqLvJAMvFekV2HF6lRKeexlBCEUEvI+slMstd/+Wo8BGJZ5FHRaanFOOT8RTksalc0/8vHAAGcEWe4v0RSAQFff6GAw274tt/KmAl/kVlUZNH3fp/o2R7b1B6kfZtD3gbcOOc39E0eSLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NbmIPg3M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792079554; c=relaxed/simple;
+	bh=8+TCZ/zrpvva3iiL9OUxATXfSB4Da998tMTbnuEx5QY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jMzYapAc3zmLKWuppzHITVbdDrV25OEeuzCCwJP9RGZYeNYWPO+kSc+s8aaEQ6REsTZQU6WjDA+K5vcACmH8T2vAmtFq5oK/COU+Xj6IXAoqyh60IiXAEU+B19+LaiAxMZpoi5lNnSgMr1JpU10Wv3KXsU4rE0BegitRKHdVGig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SmtnTtFm; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NbmIPg3M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ACC11F000C4;
-	Thu, 15 Oct 2026 15:48:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792079304;
-	bh=KKYxbZUwVotNEVMIbNl0nivjJJ0OoZD4nTbemWC4y4M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NbmIPg3M1nE3t0SveamnjAch6hz4YUVyRo3Lmxk6mjby6t9kleTRe7gTyNUZe12ha
-	 BjmbVMW7+w4ZZvddeg1U7zVqRhplVFB9wY/dJAqnr+R2ILmqliDeTcA3Ybs2idt/lV
-	 OE89VnTiuroc9R8SkifPKah08UeOe2N0P2KB0Fn8gGFDdK5HfbExVOqzUwRgogXy6E
-	 8QyG2sd+NB4s/CQZ6vfBb58ay703XtCQikPZg26WCfpxVlz3HYRClHZMYZhpiZkjOR
-	 vPDpyuTg1N1+kr0dBXwFTuGczz3D1mza4v6BO2/XjwW7RkDNe2ii8ejQsMC3Dg0xHo
-	 XshQYVliATdCw==
-Message-ID: <79b299ac-a588-43e1-af46-e69d8b3e7aca@kernel.org>
-Date: Thu, 15 Oct 2026 16:15:33 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SmtnTtFm"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso21414805e9.2
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 08:52:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792079541; x=1792684341; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AHZqp2tUL+jR2ac8WD4oADqX9Z4sM0KD+dcaF1HV3NU=;
+        b=SmtnTtFm8vO9k+tlGe/PFyR4FCyq5uyshYnCTbSN/ImvLGEHZtL4P/o9Xvomrd8AG1
+         5gv1495Eqv23P1iwbFaACmegZztRjo/9RxFA7Z1xfkSWQ3NZV5kUTGFOaCkwsuXcBvvt
+         FghwSjz4Vj8ohvWqFIUYy/NACCxx0P4ymZktYH9hRQE8UYig05Zzuw7gsrHCBL9t0ep5
+         zfOKB7zNuFHLAs/Zx3/EVInZN/THVGma+1YBU9aHEYolT5BQsT/cP4ZfDqs0xirKbYHH
+         pEe4coy9EFZJHT7PwCtUTzv7Jg/t7w3iwZZTwTMBaomIPwkeV68vww/sAT7G52Ufy+42
+         iOeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792079541; x=1792684341;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AHZqp2tUL+jR2ac8WD4oADqX9Z4sM0KD+dcaF1HV3NU=;
+        b=c3TdtzSp/xfoMDuP4fK/rIhXLQZBSrZzxdcQy3p7FeoNSntdsKe/49czNthsX4D2z9
+         bW6WDvNVHNmRTKFrrMFkPNjWwlHUW8YEmLUD2q12wLE0ClgXbBVNuhhDiAgkP1GhwMUM
+         W2joSfLPs2A2NkaZl4vmdk9ZORtjglb6aEPv2QR0V8lfS9y5iK3kD6W+3I5gXQQMAQX7
+         7z8iH5RqkAv8XEQY/9iFnVBZHx7goxB79STXDBT0mWdyID1D1asm9/y5UXVFRZgM54v/
+         Fhqfg+YeJi6kXomLf199PnuU6+N1NaP8f57MpbOeKeEsIqMAajy3t5+FLyCqLv9kAEII
+         gzjA==
+X-Forwarded-Encrypted: i=1; AKwUvBw9nkCp/59zsdP6Hgq48kHT7i/vOIYoQMm1W4sczEYRgtbVymi0ZKHL63igBUelCnNsaVkCq3M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLG2FlqjF/6NxDHyg7Btzu3g3UtcysvI+3ogjo/NxnolBuDbFNE
+	qiPM2eNF+22khFBLL+kAJ3xrN9A7zRTPibxMLduB9YLPXTyHONzhAM4Z
+X-Gm-Gg: AYBFou0hI39Z87hdcF6yQWCftmmtEVJhIKR8WUGT1mmneUMCCLqI76O0DTkbqJf72Tx
+	zZ3/hsGK0shYlT8RG3D6uyC2gI3XL0N0Yxq8bKY+0ikCD9oFyFzLeKXODBfP8Q6I5ogOlJd4UJm
+	NLwoISeSEm2PA7sGGBiG+YA5znserBvI1qpjkIvOczX+rWZWu5H/BBJeGYR7jBlhCc8Dxp+SBtB
+	0B/hsc0Pf9uwLiawcIxmaiv1VvY/aCglff+MfqBsXv6Zm5Av5K0itBdff0IVKrlPzf0FLS0Ffv3
+	3/GPGJJM3NSSVH47vI6oUfmYoTLhmcqjAWTBa5syMHDJUmHQDclDeuzl1x50NR7+xQ8ulgY2XEs
+	7WEFzueLC76If0Va1XDNO/KrBKL6PxFA8Z1vRsbDdaG4llJIsQ73GuN82u28C6iemvuHRpJxpUU
+	hgQzF3/q6G1ZFPhdPK/gdFk79B4UhtRg6J+a1U1kDi37mpKZEwZg/Cn7vN1g8VKGvjzdN5JZjVn
+	/rz/QiFZGHn+ycZbbWPHOeWD5o8IdxEstNQrL7ELV5p6g==
+X-Received: by 2002:a05:600c:620b:b0:49c:fc6c:be19 with SMTP id 5b1f17b1804b1-4a18e4d12e7mr366480965e9.31.1792079540501;
+        Thu, 15 Oct 2026 08:52:20 -0700 (PDT)
+Received: from andreayoga.wind3.hub ([31.189.109.133])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd993caesm157053315e9.12.2026.10.15.08.52.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 08:52:20 -0700 (PDT)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Samarth Narang <samarth.colleges@gmail.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Joao Martins <joao.m.martins@oracle.com>,
+	Alex Williamson <alex@shazbot.org>,
+	Yishai Hadas <yishaih@nvidia.com>,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/4] iommufd/iova_bitmap: Clip recorded ranges to the bitmap
+Date: Thu, 15 Oct 2026 17:52:13 +0200
+Message-ID: <20261015155214.472218-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261015002647.GA3575173@nvidia.com>
+References: <20260925161142.189813-1-parri.andrea@gmail.com> <20260925161142.189813-2-parri.andrea@gmail.com> <20261015002647.GA3575173@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] mm/huge_memory: deposit a page table for a special
- PMD copied by fork
-To: Konstantin Khorenko <khorenko@virtuozzo.com>,
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Peter Xu <peterx@redhat.com>
-Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
- =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
- dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com>
- <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-2-85eaec8417f6@virtuozzo.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-2-85eaec8417f6@virtuozzo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/14/26 17:46, Konstantin Khorenko wrote:
-> Where arch_needs_pgtable_deposit() is true, every huge PMD needs a
-> deposited page table. ppc64 in hash mode keeps the hash slot array of
-> the huge page in it, so vmf_insert_pfn_pmd() deposits one for each
-> special PMD it maps.
-> 
-> copy_huge_pmd() copies a special PMD into the child without a table.
-> The child then dereferences a NULL table:
-> 
-> - on the first hash fault on the PMD, in __hash_page_thp();
-> - on the zap at munmap() or exit, in hash__pmdp_huge_get_and_clear().
-> 
-> Allocate a table before taking the page table locks and deposit it
-> with the copy, as insert_pmd() does.
-> 
-> Fixes: d1503aa9ab805 ("powerpc/64s: Add support for huge pfnmaps")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com?part=1
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
-> ---
->  mm/huge_memory.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index bf788bb231691..2380e4e877f82 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -1961,6 +1961,11 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
->  	pmd = pmdp_get_lockless(src_pmd);
->  	if (unlikely(pmd_present(pmd) && pmd_special(pmd) &&
->  		     !is_huge_zero_pmd(pmd))) {
-> +		if (arch_needs_pgtable_deposit()) {
-> +			pgtable = pte_alloc_one(dst_mm);
-> +			if (unlikely(!pgtable))
-> +				goto out;
-> +		}
->  		dst_ptl = pmd_lock(dst_mm, dst_pmd);
->  		src_ptl = pmd_lockptr(src_mm, src_pmd);
->  		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
-> @@ -1974,6 +1979,8 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
->  		if (unlikely(pmd_none(pmd))) {
->  			spin_unlock(src_ptl);
->  			spin_unlock(dst_ptl);
-> +			if (pgtable)
-> +				pte_free(dst_mm, pgtable);
->  			return -EAGAIN;
->  		}
->  		/*
-> @@ -1983,6 +1990,10 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
->  		 * wrongly write to the backend MMIO.
->  		 */
->  		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
-> +		if (pgtable) {
-> +			mm_inc_nr_ptes(dst_mm);
-> +			pgtable_trans_huge_deposit(dst_mm, dst_pmd, pgtable);
-> +		}
->  		goto set_pmd;
+On Wed, Oct 14, 2026 at 09:26:47PM -0300, Jason Gunthorpe wrote:
+> If we silently truncate that to the range of the bitmap, like this
+> does, then we also are silently lossing dirty marks. The userspace
+> will call again with an iova range stepped ahead and instead of seeing
+> the early blocks being dirty they will be marked as clean.
 
-It's another sign that the pmd_special() is just entirely misplaced.
+Right, the clip turns an overrun into silent dirty loss; failing the
+call is better.
 
-Let's get that sorted and it will just naturally fix the other case.
+I also saw your reply to Samarth's record_dirty() patch [1]: with both
+changes, a dirty entry that is not wholly inside the bitmap fails the
+call.  Samarth offered to send a v2 of both patches; I'm happy to leave
+1/4 to whichever of you prefers and rebase my tests on top.
 
--- 
-Cheers,
+A few things I'd like to check before I rework the rest:
 
-David
+1) The dirty bit is still cleared when the record fails.  In the
+   record_dirty() you proposed, as in visit_dirty() in io-pgtable-arm,
+   the entry is made clean unless IOMMU_DIRTY_NO_CLEAR, whatever
+   iova_bitmap_set() did.  With start_va rounded down to the entry, a
+   query that starts or ends inside a dirty huge IOPTE now fails this
+   way too, and a retry with an aligned range sees the entry clean.  Is
+   -EPROTO meant to be fatal for userspace (e.g. abort the migration),
+   or should the clear be skipped once bitmap->err is set?
+
+2) Could you point me at the patch that adds bitmap->err?  On mainline
+   iommu_read_and_clear_dirty() ignores the return of
+   iova_bitmap_for_each() and returns 0, so I assume that patch also
+   changes this.  Does it cover the VFIO DMA logging path as well
+   (vfio_device_log_read_and_clear(), with mlx5 and pds calling
+   iova_bitmap_set())?
+
+3) Patch 2 tests the clip, so with your change it fails: the 1M IOPTE
+   at MOCK_APERTURE_START is rejected whole against the 128K query, and
+   bitmap[0] stays clear.  I can respin it to expect EPROTO, keep the
+   guard check past the bitmap, and add a query that starts inside the
+   IOPTE, on top of the bitmap->err patch.
+
+Patches 3 and 4 still apply, I think: iova = 0 with length = 0 passes
+iommufd_check_iova_range(), and __iommu_read_and_clear_dirty() then
+walks [0, ULONG_MAX].  With your check nothing gets recorded, but the
+dirty bits it walks over are still cleared.
+
+[1] https://lore.kernel.org/all/20261015003412.GA13920@nvidia.com/
+
+Thanks,
+  Andrea
