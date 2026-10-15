@@ -1,203 +1,68 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695F231A7E2
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 13:58:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D083F459AE4;
+	Thu, 15 Oct 2026 13:59:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792072721; cv=none; b=ri2eNzIS/8jAqiD/8YQxpG+PyZ62MRSzGodx1d+BteBYC+ACZ/zbLtdxmNuesKLNPh3r6iM27JbPtE2fs+g8qsiUwIEnD+Fw2rhYfZKEce+opcNKmkp5TK6Wxs63gOI5A4vYTiBJATkmCAm0wfZkW7/GMAXqLLbROtX4k9iwyk0=
+	t=1792072785; cv=none; b=dzfvMfyNaQM1M1/Hm0lERs4pDxnV8SYxKT3LPUwt4hRCrbUOqYpX+xB6VT7yvV1nuLGJlHBDme4wXapVo/OeUd3/YaBA2hCEL0SlFvkdIuIFic+o1Jk4U4fSCznKD7cQTVJ/vHVp82EMko52InA1cuqKE062FjQCc7UIUc3PY/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792072721; c=relaxed/simple;
-	bh=GkuhSG1E3xOY9+vYRNXA1NQsKM+K3EJmy2CQjqLyy7o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DaJ3bgcMbmEh8ZsaRu5af9IIBwKi+FF4LGiHhlZvFryIAK7Fu/CI7pEcB2Wfn/xbSGDLPKYPt7QxebsN3eUS9/tVqMySxs7CBUlQkEVF+oAMrEfzuPAywdTJrmovvQymfe50Y3OS9EZdHxGCKnSU7TJ2kIHaY3iRuMNJUR6y4qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U6UC1bfW; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792072785; c=relaxed/simple;
+	bh=+9HdNSHfLiiJzdYlgSQJsrh0WvfKNdhu1oCprw1Mq18=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=W9w4DKFHoPXMb0i328Ka005BYGt6fu8uM3HgJpNH5gBGtzhVLlgo2BGjvmI8AWQ+SiGLpX0OPaPGeZWpjJlCaNTjdJuuX64N4xsxxN5bmXEzWVJMqdVeGRE28dEcmoW4eRq2mwcrfPeTbEiXRmbnU+358d3JqL97Q/OSUTKB6BA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QFOQdrK6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U6UC1bfW"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38d489b6b71so2844725a91.0
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 06:58:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792072720; x=1792677520; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BW2z9Do1WJP4c/sF51AWRY6qGjtatAvHscnTpp551sI=;
-        b=U6UC1bfWuN2XIx6irIBe2LDP4a4MgF+m7/RzfHgEJzU7d2y/HQP+QeqvwZ9rWHo1tk
-         wsG8rmF09Rhs6u0Ajby22pT3pfUzX0+8lctDfRQvQsnDTZXS0pCfIR8vMRnUZ2QV5d5J
-         sdjfmjY2KtaZYuIOLBfUQ78KjzMpaX8qRhjlY6t/NAlMIqgO26oefJqhEOaj5v0xGNF+
-         +o7h7xiCeoDsUf6tK6jpwoMhalmLIqwhzEYJ0L9CHKMDHKaSkqersLA5X6QK5zyAz2er
-         3Jpd28+q89/0gLJeyXgQ8GHOdFKHeDI0WmUvjEgGiPT8TkqR2QVwSfbWMbRpnMrISE1n
-         aMDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792072720; x=1792677520;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BW2z9Do1WJP4c/sF51AWRY6qGjtatAvHscnTpp551sI=;
-        b=GXLFpVgrR458XNFbH/9Mpp6WO+MkLwhauRG0BQxcQcFSwmUCh7/RJy+QRroWz42lse
-         W6rwplhzyPv4N04K8Lvx3Y42SuaDDXRkqduLuun5ZbTIVFkDvQ85+AuJXCaqyyJYAQ/6
-         nTddsmB5jTj1fXtNjUUOTlpseH6BtEI6kNsAwkc6cZEvm9BJ4yNHf3tnyoYQ/q1O7BSQ
-         ohH0moMHHVMo2gGd2s2AFh5DLLVn133OqGEgkqrGYMs3nJzlzkSY7jjEV6xP3h7zkZr/
-         SlJl2f0YL/ZkeUIK0CkOuy99aqNh8k36DF2HcJY7fP+KJ+Ysslv1owLSTYtI8J9rcN7x
-         FkuA==
-X-Forwarded-Encrypted: i=1; AKwUvBw/u+XI898dbLppr/04tjCm7VkveNx18kori5KKCGMKOgZRFJu1UyrXOKw/RPQlLbNp5ZFQKgI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKHFroMPquqUkYg3HFp24aMIkxbJgfSke488nMbC51kP4yeuk70
-	JReKuM814ZFDK1HeXcvTqjrMGA+uYV0ckACPGORzO+vExytrKphLMh1x
-X-Gm-Gg: AYBFou1vq0lIqEoO5NM6u3gieEB6ThTciMJ5f1VKM4nraXOSL/b02ajr9VBW2sc1Kmw
-	y6RigA3qW/UkPPCRJv2SA8hpGTWTD4GRGfYNQWjbTf7fZYzr4nzFOpqEHXX/kgK8v7wazjwcVmD
-	2hQpPtg5fTsAjqhS5LY0Iqrt4b3912YhF2jzfPMCheYudZuZXR8CX/TvRUf8fHew8DooNnLrobv
-	dYS0Q5C1rs2D+ZcC/SHmbnRRNeHf4O0jzcC6Fj6ynlWQ9iW8K6YFp4aF1nwrLVBmVc0p6YR+oAN
-	EyNDFgt0GGg5cJaxKvGnZ0FU1b35RV5eAGaUwO9KJPI09QuXO+A74ljZRCGZGxa2SXE4qG7U+wu
-	DvApHXwFyZ1imcuA4/IWqtCknOaIIUqnQ4Qenxd9r/Ip2v60EbsLR8EnJvgxbq171Gu7kzTRfPY
-	FzZOwvRdVbh9KOyFSH7uG2bk5pupBuy78HtCb+Te7QEjJ8O+mjhae39d9v56a7RD0oMCuDlr7Ry
-	j+jdHe3uScEav1CiAZcGhk=
-X-Received: by 2002:a17:90b:54d0:b0:3ab:4e4:e979 with SMTP id 98e67ed59e1d1-3ab3ac90725mr14115192a91.36.1792072719701;
-        Thu, 15 Oct 2026 06:58:39 -0700 (PDT)
-Received: from localhost.localdomain ([123.215.20.10])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac944a9365sm4848219a91.14.2026.10.15.06.58.36
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 15 Oct 2026 06:58:39 -0700 (PDT)
-From: Jiwoong Wi <dwdnlzj@gmail.com>
-To: Chuck Lever <cel@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>,
-	Tom Talpey <tom@talpey.com>
-Cc: linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	bobtobabz@gmail.com
-Subject: [PATCH] svcrdma: account for inline bytes in Read chunk page budget
-Date: Thu, 15 Oct 2026 22:58:32 +0900
-Message-ID: <20261015135832.67889-1-dwdnlzj@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QFOQdrK6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7C511F000C4;
+	Thu, 15 Oct 2026 13:59:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792072784;
+	bh=JtZBjs+ch+LJKm1LnlvbsXMkOqdWgFdx8fGComAtFqA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=QFOQdrK6cFuMZEBcrYntPLQAWGBRSS/rRC4ENbCJgT7GTJfOypy9I+paHIzeblhiS
+	 U1m9vc/CwbkfaoS/NvO6o7qeIuWq5Wxi8OkTOLLCbF3Y37XRgT9vZ0edErcfgkVyXj
+	 GOKJLZzhUHh/Bz2gN8qYQ98w//YByd+UaXYxe72WFly8zjbEW6Cp4kvv7WQzUryDJz
+	 RfmFD8oAX9xuodP7wSepVkV4EB+GQ3YwPLG8ol/n9JPdKrHBhfQTi6H39jE89CHEn+
+	 wVTtfgJCME4wT2pXUNILtta4D0pq6SDfRFvpHy9OsuP9FnQd0sCNCEu18jj44ROBk2
+	 dnnhsWHC+d0MA==
+From: Leon Romanovsky <leon@kernel.org>
+To: Zhu Yanjun <yanjun.zhu@linux.dev>, Youngsung Ahn <ays511.kr@gmail.com>
+Cc: linux-rdma@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20261001152426.3259522-1-ays511.kr@gmail.com>
+References: <20261001152426.3259522-1-ays511.kr@gmail.com>
+Subject: Re: [PATCH v2] RDMA/rxe: reject IB_WR_REG_MR from user QPs in
+ rxe_reg_fast_mr()
+Message-Id: <179207278185.164616.15512589953168258959.b4-ty@kernel.org>
+Date: Thu, 15 Oct 2026 09:59:41 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-18f8f
 
-The Read-list check limits Read bytes to the request page budget. With
-multiple data item Read chunks, svc_rdma_read_multiple_chunks() copies
-the inline RPC body into those same pages. The reconstructed message
-can overflow the budget even when its Read bytes alone fit.
 
-A short final Read segment escapes the existing page-overrun check
-because that check runs only if len remains nonzero. The inflated
-rc_page_count then makes svc_rdma_clear_rqst_pages() write past
-rc_pages, followed by an out-of-bounds read during cleanup.
+On Fri, 02 Oct 2026 00:24:26 +0900, Youngsung Ahn wrote:
+> IB_WR_REG_MR is documented as kernel-only ("can not be issued by
+> userspace"), but nothing enforces it.
+> rxe_wr_opcode_info[IB_WR_REG_MR] sets WR_LOCAL_OP_MASK for IB_QPT_RC,
+> a QP type userspace can create, so a user QP that writes
+> opcode = IB_WR_REG_MR into its mmap'd SQ ring reaches
+> rxe_do_local_ops() -> rxe_reg_fast_mr(). That function then trusts
+> the ring-supplied fields:
+> 
+> [...]
 
-Include inline bytes in the budget only when multiple data item Read
-chunks share the page array. Count the final Read chunk, and replace
-the late, len-conditional page check with checks of both page-array
-capacities before using each destination page. Single Read chunks and
-Position Zero Call chunks use different reconstruction paths.
+Applied, thanks!
 
-Validation used nfsd-testing 78c334bc5ae61d23ca1cc2e43079c620f1d40866.
-The unmodified Generic KASAN kernel reproduced an out-of-bounds write
-in svc_rdma_process_read_list(), followed by an oops during cleanup.
+[1/1] RDMA/rxe: reject IB_WR_REG_MR from user QPs in rxe_reg_fast_mr()
+      https://git.kernel.org/rdma/rdma/c/33afe9909f213d
 
-With this patch, the full kernel and modules built and booted. In an
-isolated run, all 61 instances of the same frame were rejected during
-RPC/RDMA header parsing. A two-Read-chunk NFSv4 NULL request completed:
-the server issued two RDMA Reads and returned a successful RPC reply
-with the matching XID. Concurrent NFSv4.2/RDMA direct I/O completed 20
-repeated 8 MiB write/read transfers; the final readback matched the source
-SHA-256. No KASAN report or oops occurred in the direct I/O run, and
-kernel taint remained zero. The reproducer and baseline KASAN log are
-available privately on request.
-
-The vulnerability research and validation were conducted by members of
-the Tobabz team as part of the Best of the Best 15th program.
-
-Fixes: d7cc73972661 ("svcrdma: support multiple Read chunks per RPC")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jiwoong Wi <dwdnlzj@gmail.com>
----
- net/sunrpc/xprtrdma/svc_rdma_pcl.c | 12 ++++++++----
- net/sunrpc/xprtrdma/svc_rdma_rw.c  | 10 ++++++----
- 2 files changed, 14 insertions(+), 8 deletions(-)
-
-diff --git a/net/sunrpc/xprtrdma/svc_rdma_pcl.c b/net/sunrpc/xprtrdma/svc_rdma_pcl.c
-index 862372279..8da0f0dc7 100644
---- a/net/sunrpc/xprtrdma/svc_rdma_pcl.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma_pcl.c
-@@ -238,8 +238,8 @@ bool pcl_alloc_write(struct svc_rdma_recv_ctxt *rctxt,
-  * before comparing against @inline_len or the Call chunk length.
-  *
-  * Rejects frames where a Read chunk's inline-body offset exceeds
-- * the bound, where adjacent Read chunks overlap, or where any
-- * single chunk length exceeds the page budget.
-+ * the bound, where adjacent Read chunks overlap, or where Read bytes,
-+ * plus inline bytes when they share the page array, exceed its budget.
-  *
-  * Return values:
-  *       %true: Read chunk positions and lengths are valid
-@@ -269,8 +269,9 @@ bool pcl_check_read_chunk_positions(struct svc_rdma_recv_ctxt *rctxt,
- 	pcl_for_each_chunk(chunk, &rctxt->rc_read_pcl) {
- 		if (chunk->ch_position - total_read > bound)
- 			return false;
--		if (chunk->ch_length > max_len)
-+		if (chunk->ch_length > max_len - total_read)
- 			return false;
-+		total_read += chunk->ch_length;
- 
- 		next = pcl_next_chunk(&rctxt->rc_read_pcl, chunk);
- 		if (!next)
-@@ -278,8 +279,11 @@ bool pcl_check_read_chunk_positions(struct svc_rdma_recv_ctxt *rctxt,
- 
- 		if (chunk->ch_position + chunk->ch_length > next->ch_position)
- 			return false;
--		total_read += chunk->ch_length;
- 	}
-+	if (pcl_is_empty(&rctxt->rc_call_pcl) &&
-+	    rctxt->rc_read_pcl.cl_count > 1 &&
-+	    inline_len > max_len - total_read)
-+		return false;
- 
- 	return true;
- }
-diff --git a/net/sunrpc/xprtrdma/svc_rdma_rw.c b/net/sunrpc/xprtrdma/svc_rdma_rw.c
-index 63d00f0cc..1f1ccf80a 100644
---- a/net/sunrpc/xprtrdma/svc_rdma_rw.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma_rw.c
-@@ -794,6 +794,10 @@ static int svc_rdma_build_read_segment(struct svc_rqst *rqstp,
- 	ctxt->rw_nents = nr_bvec;
- 
- 	for (bvec_idx = 0; bvec_idx < ctxt->rw_nents; bvec_idx++) {
-+		if (head->rc_curpage >= head->rc_maxpages ||
-+		    head->rc_curpage >= rqstp->rq_maxpages)
-+			goto out_put;
-+
- 		seg_len = min_t(unsigned int, len,
- 				PAGE_SIZE - head->rc_pageoff);
- 
-@@ -810,9 +814,6 @@ static int svc_rdma_build_read_segment(struct svc_rqst *rqstp,
- 			head->rc_pageoff = 0;
- 		}
- 		len -= seg_len;
--
--		if (len && ((head->rc_curpage + 1) > rqstp->rq_maxpages))
--			goto out_put;
- 	}
- 
- 	ret = svc_rdma_rw_ctx_init(rdma, ctxt, segment->rs_offset,
-@@ -893,7 +894,8 @@ static int svc_rdma_copy_inline_range(struct svc_rqst *rqstp,
- 	for (page_no = 0; page_no < numpages; page_no++) {
- 		unsigned int page_len;
- 
--		if (head->rc_curpage >= rqstp->rq_maxpages)
-+		if (head->rc_curpage >= head->rc_maxpages ||
-+		    head->rc_curpage >= rqstp->rq_maxpages)
- 			return -EINVAL;
- 
- 		page_len = min_t(unsigned int, remaining,
-
-base-commit: 78c334bc5ae61d23ca1cc2e43079c620f1d40866
+Best regards,
 -- 
-2.39.5
+Leon Romanovsky <leon@kernel.org>
 
