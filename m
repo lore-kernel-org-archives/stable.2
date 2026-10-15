@@ -1,127 +1,98 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D1D3F3273
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 14:34:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B2130274D;
+	Thu, 15 Oct 2026 14:38:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792074882; cv=none; b=dOAPQ9CuaWX9DeG9H+BNB4b95HcE4S7MCdUXhOJ4/frBouGUklZgqNhMEX71IFflwNrZwKZKJ0THlc9cMKS2dg+GSkyhH8Eijup0Dwp8Jo3dHeKwHGnhYv+vYwuPb5/8SJp2NGWYdX3rtlNpBeafDhk4w6QKFee86603FoOAIbY=
+	t=1792075089; cv=none; b=M4GGDgrP6XvZxSG8ekre+1NJmYMvKddTMLk6QD+RyRVHopyQlvb6OckDoP+4Gy6nVlY290mZeWHdhGWrOlkA7U+UdKbN3TiNvMgvW/9dpvF80+7iRN6ZCbuFL0skTRLQzgDFNWxddDZqD7uJWpaE6ZC1xZj/57HCIn9EZv8o5VQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792074882; c=relaxed/simple;
-	bh=MeLprhUAZMvvtaG2SQyYdpCUNDDVZn+Gy7G5TywqqHA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=He54KAFgD4mJKoUNwfJ4dXgxBOb8XdHbtAXu6J8m0Xq75dZmGdNl/cSeEitzJc3mI3LRDWG3JUy0uCjy1qPvx+UFha6eL3QKdg8Q9hQphSBtcezqCiTAu+d+IODv8CzYlx+frSNb5Li2IgimBZ//83XsCuWvgtX6vZ/hZDCMLDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RT7/VOLd; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792075089; c=relaxed/simple;
+	bh=RHMdOPbRXNN/vnIf1OyuOt1EVeisCNeiyQ97BSqvj1I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PY/B6xCbDpRDQd74hTfjKkXFv0ldE1BQ9lekCk4h+n6Fk95awoySr9c1kipZ/ZBFKJm8sxymzKwvwu8NhRPc7rS/s9uQk8NlsyTF2q/1JdGs0ViNjItdDWvq4/AOaq9uRRQxuKEHh06mO5sFsPu+LZL+ylJ9ihu8+HVudYMggnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RJ8aEj8Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RT7/VOLd"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e934449bb0so16177675ad.0
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 07:34:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792074880; x=1792679680; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DwKCN+cdZZKyFrwaQPyGpZEBhl46V22LLAfT1wOQ0EY=;
-        b=RT7/VOLdqOmwHsYpvntbPzjo3dvLOKd5UFsrxmpF3KHg+1/EjLmXaeD+m7sDwKBcgm
-         vObubCQzA1iVDSIjIFSei4MPS0fjs0c990YLy5r7Gb30TYDXHmh2dQt9sFoLSRC1l5RW
-         pRwOtVi7D24b5hUwatqXLybb9TzVLUYV2FhKn2/5JQGPMPlrTErtYbZt5gbJ01AwevkH
-         QoLIkxxYwophsP0fr1xNHHv3iR6WwB1FvfWAv8YS5TxLkt85fs3n2LVSDeM5CNNy/XFj
-         2riJwx7Z2ZpD8lZggYCYTnZb0p8/7ytrMRUbXItEINVAfYJghOFFBmJA88kdOG2kBoEh
-         vWgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792074880; x=1792679680;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DwKCN+cdZZKyFrwaQPyGpZEBhl46V22LLAfT1wOQ0EY=;
-        b=jF1C8FDefaPnUi1WeMvVTJGI6AERT0o+7xUg/oWjMnnNPahp7PHY7IeMfVZ7xdM/zE
-         HhBXpPHwOd1GQNXEBk8NANH0mpOZYMb1qxf7W8aPzbM/aT4BSPCMmV0D/3plhbUSH08w
-         GOAXCt6qaYBnhi+lASyJCm0deIadv4xPqkgPkAthRP4QqQ90mPuyLh9+3z5eaIvITtyA
-         X3R6qKlalzPxP9bjC5/4k0zr0GREwKhuXIDj3Pku/03/HGfvWr2haKhVYWq8kMh519DE
-         FR+RuPR27ianeM0GRaQPVFnp1mXMcdvJnOegkfiN16eye2hi1ihtBvAnEMDu2H3qqIKb
-         Nm5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxDqD6XZa03vjJ7ffzPTMP75KPXiTZnPCfOEb7r6sUkwtU9xRBtGOVA4h/8ExL1Eouc/bOIUFc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJOepAztFQAjfhDeWmN3RyMFdOW8HyDHYxrqsfaaVlzCLGYf4eL
-	huK/DDNRc8+Dji5Q+NDcz+4TSPXdrqUn4WqpRvOLbERLTy228MctU4a6Xj1RfCdJ
-X-Gm-Gg: AYBFou3RDgU7fD5eDv67RBTLadxKOsF/rZGx8F2+4RUp1dqE7sHPzh8bDqVRvLVwPTU
-	isC0ArxuvyjCh//c0/5HNZXDLQylAYUvO+ov3pceYq4kd34aBYnIYs2+JXuActEtUDdFEihOfsf
-	gIp56Rwtwp7iQFPYckghhWebvUGDA1xY/qeBsSVDC4XR+FqINODfQ36ql1/k8Ka8ErqcZxNihFN
-	3tdrIUY2hdvkpCvm4gHxAeF2hTX5LYsIB7d4a77nc0CjCpTw3u6zSUONTxKviB5OSgwTTst5lGC
-	g/cE7mE7GQl8r9u8EpgdtUpzIfo1qg8253hFDZEK5AZWVyS/1dkcNDGrVgSpHdCfilq3A6UtMGJ
-	0Kcv4zEDOavk8TO/wqgRJ4jo93J56HMYvUMpMItosZ7/exttSCXloiiIOEZCHQQ9x2JFOT6q35o
-	BFm33pXF8CEDHFbtWiRDmWJkVME60hstx4B7u+Ds0qze5MzVVcpz1OAvCUZOAm9qBSnepaz58l
-X-Received: by 2002:a17:902:ec8d:b0:2e8:3cab:3af1 with SMTP id d9443c01a7336-2e842cfbc69mr174591995ad.23.1792074879630;
-        Thu, 15 Oct 2026 07:34:39 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac5:d45b:16c8::245:c9])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8484c1641sm79933765ad.15.2026.10.15.07.34.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 07:34:38 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Harald Brinkmann <hbrinkmann@braincalibration.de>,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	syzbot+eba2b3201bd25a97cddf@syzkaller.appspotmail.com,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RJ8aEj8Y"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 850281F000C4;
+	Thu, 15 Oct 2026 14:38:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792075087;
+	bh=tNDJWGJTpeF7yeDPvV10PQ4IQPwZQsBesVCOPEnYuxU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RJ8aEj8Yejha5/g5/reSgJ1SmNWZSTQsYcGlcn9e2sZGFvlpowmk56YbvjiCgNb9k
+	 W9a3OJtNOgNv6ppz9P/lF0fUteicwmaX36CSQZ9TKcGEyQmUvjpJXgaBjV7VVdW11f
+	 75JwUBCsnC7/31JLmHAYk3tEp8rHuq/J1V4Hvf7F6oDt/cFJYcWwQ4v/64PpqgsxF7
+	 586SoDfuXRA8E0VaYLHeSM+BpLOs0h+T8ncls5bFs7y6hQgGvoFeQ7MSwZEYTTzjXQ
+	 vvnW9HFK/HtuCHMZX0H2uljRFchsBnxjHzyr3OFPeUrUZG7dDhnT1b5+m7JkHWZeKU
+	 pOv+5X5AJajDg==
+Date: Thu, 15 Oct 2026 07:38:07 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Binbin Deng <18983559317@163.com>
+Cc: cem@kernel.org, linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] HID: saitek: don't dereference a NULL hidinput in saitek_event()
-Date: Thu, 15 Oct 2026 21:34:33 +0700
-Message-ID: <20261015143433.129525-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: Re: [PATCH v1] xfs: set healthmon mount cookie before publishing it
+Message-ID: <20261015143807.GN2705364@frogsfrogsfrogs>
+References: <20261015080225.45215-1-18983559317@163.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015080225.45215-1-18983559317@163.com>
 
-hid_process_event() calls the driver's ->event() for every usage of a
-report, including fields that hidinput did not map to any input device,
-e.g. a constant input item. For those fields field->hidinput is NULL,
-and saitek_event() loads field->hidinput->input unconditionally:
+On Thu, Oct 15, 2026 at 04:02:25PM +0800, Binbin Deng wrote:
+> xfs_ioc_health_monitor() allocates the healthmon object with kzalloc(), so
+> mount_cookie starts as zero.  zero is also DETACHED_MOUNT_COOKIE, but
+> xfs_healthmon_attach() publishes hm through mp->m_healthmon before storing
+> the mount cookie.  A concurrent reporter can therefore acquire hm from
+> xfs_healthmon_get(), see the detached cookie in xfs_healthmon_push(), and
+> drop the event even though the monitor is being attached.
+> 
+> This is reachable by racing XFS_IOC_HEALTH_MONITOR with an operation
+> that reports a health event, such as a filesystem shutdown.  Initialize
+> the mount cookie before making hm visible through the RCU pointer so
+> reporters always observe an attached monitor.
+> 
+> Found during a static-analysis-assisted audit: candidate sites were
+> surfaced by a Coccinelle rule, and the reader/writer paths were
+> confirmed by LLM-assisted (GLM-5.3) code inspection.  The issue was
+> not observed at runtime; it is identified by code inspection only.
+> 
+> Fixes: a48373e7d35a ("xfs: start creating infrastructure for health monitoring")
+> Cc: stable@vger.kernel.org
 
-  KASAN: null-ptr-deref in range [0x0000000000000018-0x000000000000001f]
-  RIP: 0010:saitek_event+0x51/0x2b0 drivers/hid/hid-saitek.c:154
-   hid_process_event drivers/hid/hid-core.c:1572
-   hid_report_raw_event drivers/hid/hid-core.c:2109
-   hid_input_report drivers/hid/hid-core.c:2180
-   hid_irq_in drivers/hid/usbhid/hid-core.c
+Cc: <stable@vger.kernel.org> # v7.0
 
-A device that claims to be a Saitek MMO7 and uses such a descriptor
-triggers it with a single input report.
+> Signed-off-by: Binbin Deng <18983559317@163.com>
 
-Bail out early when the field has no input device, as the other HID
-drivers implementing ->event() already do.
+Yes, we should set the mount cookie before exposing hm to the world.
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
 
-Fixes: 37c492c8f6a9 ("HID: quirk for Saitek RAT7 and MMO7 mices' mode button")
-Reported-by: syzbot+eba2b3201bd25a97cddf@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=eba2b3201bd25a97cddf
-Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
- drivers/hid/hid-saitek.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+--D
 
-diff --git a/drivers/hid/hid-saitek.c b/drivers/hid/hid-saitek.c
-index 6fe7c087c594..2a9e07a4fc77 100644
---- a/drivers/hid/hid-saitek.c
-+++ b/drivers/hid/hid-saitek.c
-@@ -151,7 +151,12 @@ static int saitek_event(struct hid_device *hdev, struct hid_field *field,
- 		struct hid_usage *usage, __s32 value)
- {
- 	struct saitek_sc *ssc = hid_get_drvdata(hdev);
--	struct input_dev *input = field->hidinput->input;
-+	struct input_dev *input;
-+
-+	if (!field->hidinput)
-+		return 0;
-+
-+	input = field->hidinput->input;
- 
- 	if (usage->type == EV_KEY && value &&
- 			(((ssc->quirks & SAITEK_RELEASE_MODE_RAT7) &&
--- 
-2.43.0
-
+> ---
+>  fs/xfs/xfs_healthmon.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/fs/xfs/xfs_healthmon.c b/fs/xfs/xfs_healthmon.c
+> index 2bdd747f1ead..05d6f0494139 100644
+> --- a/fs/xfs/xfs_healthmon.c
+> +++ b/fs/xfs/xfs_healthmon.c
+> @@ -114,8 +114,8 @@ xfs_healthmon_attach(
+>  	}
+>  
+>  	refcount_inc(&hm->ref);
+> -	rcu_assign_pointer(mp->m_healthmon, hm);
+>  	hm->mount_cookie = (uintptr_t)mp->m_super;
+> +	rcu_assign_pointer(mp->m_healthmon, hm);
+>  	spin_unlock(&xfs_healthmon_lock);
+>  
+>  	return 0;
+> -- 
+> 2.43.0
+> 
+> 
