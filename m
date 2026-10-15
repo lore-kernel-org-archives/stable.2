@@ -1,69 +1,64 @@
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B4E3A4513;
-	Thu, 15 Oct 2026 06:09:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F0A45FFDE;
+	Thu, 15 Oct 2026 06:14:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792044582; cv=none; b=C9uQI3wjuJuzAUOxq9Cqu3mpV6UmPDuluSsPtAmROyOhZCmcBi0POIa6chZXKn0WBKZIA7KWh+egjxtZLzMbRlFqZrc3xc3Ki/hMBzGl+L7oe6ocWPxqFN54Jrio+eP0XNgesybsKkZLsLCfth6IOi71SYwylIzq641eKKH+eE4=
+	t=1792044857; cv=none; b=ks482SV7BKRanbgQv0EQiSPGvhPWFEXJlCltGq3mFvTk1lBZKoONhzKrfSfwtQRWvk3D+6WX0GcmTIK3xx6t5n+XdXttbJNrHHeFO7/MbEDxpUR1DR5TS1/Csukhyn4wRREWeDBq1QY8rn8pNh6MXeBoPcgIi5JevMs9dlBZavg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792044582; c=relaxed/simple;
-	bh=iFxYOsXvW77pqyUzak4MnsQ2iHvnUsk9OX1dWkg+TNs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eJIb34H4wVHdYw7AyxQZPLLqYPo6YhaJLm6dhfKccU8RtLnGXtNKc+QrvGeBnEnfQo3gKvMAi5gAQFRKyDaweDZPfyrwGBlksii9tVD7WT5TV6H6ryOUD/gSIavb13WOZM5p1LUB8gBZFzk6Hk+v6ma0XJqjEqz6lpMy2ZJyjK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id A5D8768B05; Thu, 15 Oct 2026 08:09:33 +0200 (CEST)
-Date: Thu, 15 Oct 2026 08:09:32 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: daejun7.park@samsung.com
-Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
-	Christoph Hellwig <hch@lst.de>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Dave Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>,
-	Sergey Bashirov <sergeybashirov@gmail.com>,
-	Andrey Albershteyn <aalbersh@kernel.org>, linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3 5/9] xfs: refuse a direct allocation whose block
- reservation would wrap
-Message-ID: <20261015060932.GD14035@lst.de>
-References: <20261015-xfs-pnfs-batch-v3-0-54fc7b2e467d@samsung.com> <20261015-xfs-pnfs-batch-v3-5-54fc7b2e467d@samsung.com>
+	s=arc-20240116; t=1792044857; c=relaxed/simple;
+	bh=6V/JH4EjwjFNA8zCuQZglVJOjbpFOu3Vte0F7eOMntM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YFEpASSdfAmEdG89E4788UC4k33RycZCFfXeOV/HnKB0w9bEC5EKAEHWekn0fYjwESl6vHJJO6l0nnHDUrdlnrqHpdeEfH8nRid3dGBxefDKdBWVJbcuw2Xkf0yeDxL/ntJv8If08E0fk6HGVTaKda6F5X8oWwVuuEfEcnw24xk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m6lR9SPW; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m6lR9SPW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10B751F000C4;
+	Thu, 15 Oct 2026 06:14:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792044848;
+	bh=GEDdrdVUV/OJaskTzqK9AQWt30vPW3VmzpddhYXsn6I=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=m6lR9SPW2wKn1SABmheD+J+CqPSqmct32VffukMgJnZhxJe3queI6Z3vnkQ6Vbif7
+	 PGikugjIPN5bNAopfF1NmLq91vSwn0DnJyHq7FQ+qZgcO+pnvLjtaWdCVvleNph8pw
+	 LkYgZqacTXXO1LkUCr6pgQjTq3PsrhszKTFRLmh5GDUB+M4p2qoFawvTz7w1Xz7nUN
+	 AIUfy6QW6oQmNxY78GjtlWNAi0n6D3Ex2HQgxbubKYpJntIm6BBkhY+9lwvLh916bu
+	 cKIYMpBo1oE4IgFFqsqYviJlN85bX4eiK4scVgQbugsimMo6PCAhjaCZegXeUzNZg9
+	 YAa+yX0sHWcsg==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: sashal@kernel.org
+Cc: boqun@kernel.org,
+	gregkh@linuxfoundation.org,
+	joelagnelf@nvidia.com,
+	patches@lists.linux.dev,
+	paulmck@kernel.org,
+	sj@kernel.org,
+	stable@vger.kernel.org
+Subject: Re: Re: [PATCH 6.18 177/621] srcu: Use irq_work to start GP in tiny SRCU
+Date: Thu, 15 Oct 2026 08:14:00 +0200
+Message-ID: <20261015061400.35195-1-ojeda@kernel.org>
+In-Reply-To: <2026-10-14-1-daily-reply-0002-srcu-tiny-irq-work-types-6-18@kernel.org>
+References: <2026-10-14-1-daily-reply-0002-srcu-tiny-irq-work-types-6-18@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015-xfs-pnfs-batch-v3-5-54fc7b2e467d@samsung.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 15, 2026 at 01:08:04PM +0900, Daejun Park via B4 Relay wrote:
-> From: Daejun Park <daejun7.park@samsung.com>
-> 
-> xfs_iomap_write_direct() maps one extent, but it reserves blocks for the
-> whole count it is given, in an unsigned int. A count of about 2^32
-> blocks or more wraps the reservation. If it wraps to a few blocks, the
-> allocation uses more blocks than the transaction reserved, and
-> xfs_trans_mod_sb() shuts the filesystem down. If it wraps to nearly 2^32
-> blocks, the allocation fails with -ENOSPC.
-> 
-> Direct I/O, DAX and buffered writes with an extent size hint never ask
-> for that much, as xfs_direct_write_iomap_begin() limits them to
-> 1024 pages to keep the count below 32 bits. xfs_fs_map_blocks() has no
-> such limit: it asks for everything from the start of a hole to the end
-> of the range of a pNFS layout, which a client chooses, and an RW
-> LAYOUTGET at offset 0 of an empty file for 16 TiB does it.
-> 
-> Fail such a count with -ENOSPC before anything is reserved, also on a
-> filesystem with that much free space, as the transaction cannot take it.
-> A count that fits is reserved in full, as before, so a request for more
-> blocks than are free still fails before anything is allocated.
+On Wed, 14 Oct 2026 12:53:05 -0400 Sasha Levin <sashal@kernel.org> wrote:
+>
+> Thanks for the report. I queued c809f081fe40 ("irqwork: Move data struct to a
+> types header") for 6.18, ahead of this patch.
 
-I think the limit needs to be lower, as xfs_bmapi_write can't hand
-out such large limits.  We'll also need to make sure pnfs can
-request multiple maps.
+Hmm... it see it in the queue, but not in -rc2.
+
+By the way, for completeness: the same backported patch happened to trigger
+this same issue months ago in 6.18.y and 6.12.y (back then Greg dropped it):
+
+  https://lore.kernel.org/all/20260421095549.47476-1-ojeda@kernel.org/
+
+Cheers,
+Miguel
