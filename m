@@ -1,155 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out28-147.mail.aliyun.com (out28-147.mail.aliyun.com [115.124.28.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2DD03B995E;
-	Thu, 15 Oct 2026 02:15:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D3F3D6493;
+	Thu, 15 Oct 2026 02:16:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792030513; cv=none; b=uLiBcrQNYcFF3SVwva0Gu1HATBhfMg3AyG2p0RFEo2axRFEF81Fwmu5Yt7WQzMhaO3n+jY5aDaSD49qA07ULIzeuC2kaVyUREcfBTGdCQj7EAZW+JTJ77IBniRBsWSmbj4aGfdrrzuJI3mzQtDMOpWB4+q/eZ+ppRqCmi5bQD/I=
+	t=1792030578; cv=none; b=PKSeW/5GCZ1BkcyJrN2eOw0Zetu4R1AzquCVGCkH7TwONNAvd+a0EtYwyV6AYauhqjbTeUuZirNYnKKViJeu8LnRpZIIhEKJW/bbzvJA1ta9aKbbPbuJPk2qUtAGcE4qZOB4vaJf7FP5P+Tb47NJXExHLY/A1OgX+BOxLkrOKgk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792030513; c=relaxed/simple;
-	bh=nC+Ea8VuZ9s/+ylbktqMK3Faszr0wVmFAFNiGBbdnGQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=K3+oJcZklJ4zljCYJcCWUFYO8Qoh4KPFHFvEbBOil9JZOIbA9H7Sok1503eA4YC6QzV0c5wsX9VAyhKPRb1YONHa0dPvbz6XKmhwKdjqtJuul/GSL7/rB9BSSTZWo7xqZENiWCdgmSmB/vZVVFqhmS+s432srDmWaHOUI25BCNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NLKTo0dF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792030578; c=relaxed/simple;
+	bh=S9RXAbD1fxV+7Phdfo8s75tVyogVk4lHoqpw7lldOLk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=BZuMkyTv4Vs1MT1Mxe9OxxrmBMF8NBzhGdQUUshxoii7rLeJSaqaEwR5i1OTy/gqS+abYPokaD+Hj04thQv1Mx13eYZInooemgWHN1vJUtjIIDqasPGzNK+1XTP8LvhjLFxZWKWhMwMGMxmEGWx2h9134ywhd8ye6rMCkaT5s7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=dpjtKx96; arc=none smtp.client-ip=115.124.28.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NLKTo0dF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA6031F000C4;
-	Thu, 15 Oct 2026 02:15:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792030511;
-	bh=+rXf/xKMRpoP2YDqUubFyOYnj4r2y2GwZMRV5dIrDGg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=NLKTo0dFxGsWNzHpSl2OQ2luouswLzOdwtk9AnHnvstPmwFTCX3ieaNOKmKkMWC4q
-	 C5t5S1IdQADX1K+gZm3sPg0WV7Pyfw1N+Nkx88jmTyMAnCNVtdSxTTehSh+A6CNirR
-	 6EmaA19yWRott3XaK8MoVwjZMvy5RgFkd2ScUyzYBeUzoLbJ12WYvukBG4vPkfFRnH
-	 I/HCjCwDrFVtnSRbHs7KaJmkjmuoiaQQgELsfDWOHdLDDZEuFEYokvOTK/2gXKD9dR
-	 ElnWpyLwsAlnRefG2rOe+4kj6Tj0UA2Llv+YnhFU2Fxs6kTwEvURuO5iokFXJq5jXf
-	 /bhU3j/tfZxiw==
-Message-ID: <b5d28ed79b3d7039aadeb445b62882cf3e970c7a.camel@kernel.org>
-Subject: Re: [PATCH net v4] RDS/IB: validate receive fragment completions
-From: Allison Henderson <achender@kernel.org>
-To: Shubham Antil <shubham@octane.security>, netdev@vger.kernel.org
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com,  horms@kernel.org, andy.grover@oracle.com,
- linux-rdma@vger.kernel.org,  rds-devel@oss.oracle.com,
- linux-kernel@vger.kernel.org, gio@octane.security,  sungbyeongchan
- <tjdqudcks0424@naver.com>, Robert van Eijk <robert@octane.security>, Paolo
- Gentry <paolo@octane.security>, stable@vger.kernel.org
-Date: Wed, 14 Oct 2026 19:15:09 -0700
-In-Reply-To: <20261013025729.40815-1-shubham@octane.security>
-References: <20261013025729.40815-1-shubham@octane.security>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="dpjtKx96"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1792030573; h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To;
+	bh=PTQkozKG32/AbWZq2CRTfF+dUEjqexBrAzBB3XdgWek=;
+	b=dpjtKx96kZVnkYjAHIaejsQYSp9b8vW1LDT8MTxH9VuqYHW6P1TIIrS2IUT2VjvVczz2uqAG+Kse8bP2jABaM3lADO9xBX94W/D+ZXYwHHOnV7/Eg4hJVTdbiEr53eKxr4eZghwGSMoiPmV5egGzlCTWTXu3Kj6yanhH6dFOJJg=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07703851|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00137365-7.81913e-05-0.998548;FP=16420817573073407434|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037006180;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.je6x72n_1792030572;
+Received: from 127.0.0.1(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.je6x72n_1792030572 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 15 Oct 2026 10:16:13 +0800
+From: Weibin Liu <liuwb@xiaopeng.com>
+Date: Thu, 15 Oct 2026 10:16:12 +0800
+Subject: [PATCH] spi: bcm-qspi: reject oversized dummy bytes in mspi
+ exec_mem_op
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-bcm-qspi-dummy-bytes-v1-1-c319da3c2497@xiaopeng.com>
+X-B4-Tracking: v=1; b=H4sIAGs30GoC/x2Myw5AMBAAf0X2bBMtmvAr4oAu9lCPLqIR/65xn
+ ExmHhDyTAJ18oCni4XXJYJKExjmbpkI2UYGnWmjMlViPzjcZWO0p3MB+3CQIEVrRl3ZIjcQ083
+ TyPe/bdr3/QBwYXX1ZgAAAA==
+X-Change-ID: 20261015-bcm-qspi-dummy-bytes-e0266f29d436
+To: linux-spi@vger.kernel.org, kamal.dasu@broadcom.com, broonie@kernel.org
+Cc: bbrezillon@kernel.org, bcm-kernel-feedback-list@broadcom.com, 
+ linux-kernel@vger.kernel.org, Guanglei Zhu <zhugl3@xiaopeng.com>, 
+ stable@vger.kernel.org, Weibin Liu <liuwb@xiaopeng.com>
+X-Mailer: b4 0.14.3
 
-On Tue, 2026-10-13 at 08:27 +0530, Shubham Antil wrote:
-> rds_ib_process_recv() accounts every receive fragment as contributing
-> min(i_recv_data_rem, RDS_FRAG_SIZE) bytes, regardless of the completion
-> length. When a completion is shorter than the header-declared amount,
-> receive accounting can advance beyond the payload supplied by the
-> completion.
->=20
-> Only an IB_WC_RECV completion has the buffer layout expected by this
-> receive path. Other successful completion opcodes must not be interpreted
-> as ordinary receive completions.
->=20
-> Reject successful completions with any other opcode before processing
-> their length. For ordinary receive completions, require enough payload
-> to cover the amount accounted to the fragment before linking its page
-> into the incoming message.
->=20
-> This is compatible with the current transmit paths. MSG_ZEROCOPY is
-> restricted to RDS/TCP, while RDS/IB copied and page-vector messages use
-> full-sized non-final scatterlist entries.
->=20
-> Found during an LLM-assisted source audit and validated under KMSAN with
-> a malformed short receive completion.
->=20
-> Reported-by: sungbyeongchan <tjdqudcks0424@naver.com>
-> Closes: https://lore.kernel.org/netdev/20261006205204.1322102-1-tjdqudcks=
-0424@naver.com/
-> Reported-by: Giovanni Vignone <gio@octane.security>
-> Link: https://lore.kernel.org/netdev/8a6ee1d5336ae65b8ffdc8c40a1135657207=
-e204.camel@kernel.org/
-> Reported-by: Robert van Eijk <robert@octane.security>
-> Link: https://lore.kernel.org/netdev/8a6ee1d5336ae65b8ffdc8c40a1135657207=
-e204.camel@kernel.org/
-> Reported-by: Paolo Gentry <paolo@octane.security>
-> Link: https://lore.kernel.org/netdev/8a6ee1d5336ae65b8ffdc8c40a1135657207=
-e204.camel@kernel.org/
-> Fixes: 1e23b3ee0e94 ("RDS/IB: Receive datagrams via IB")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM (OpenAI Codex, gpt-5.6-sol)
-> Signed-off-by: Shubham Antil <shubham@octane.security>
-Thanks Shubham,=C2=A0
+bcm_qspi_mspi_exec_mem_op() builds a local command buffer cmd[6]
+holding one opcode byte, up to four address bytes and one spare
+byte, and sets t[0].len = op->addr.nbytes + op->dummy.nbytes + 1.
+bcm_qspi_exec_mem_op() only validates op->addr.nbytes <= 4 and never
+bounds op->dummy.nbytes, which spi_mem_check_op() also leaves
+unrestricted. With addr.nbytes = 4 and dummy.nbytes >= 2 the length
+becomes 7 or more, so write_to_hw() reads past cmd[] on the kernel
+stack and pushes the leaked bytes into the hardware TXRAM.
 
-This version looks good to me. I also tested it and found no regressions.=
-=20
-Reviewed-by: Allison Henderson <achender@kernel.org>
-Tested-by: Allison Henderson <achender@kernel.org>
+Reject operations whose dummy phase does not fit the remaining byte
+of cmd[] by requiring op->dummy.nbytes <= 1, so such transfers fall
+back to the generic SPI path instead of overrunning the buffer.
 
-Thank you!
-Allison
+Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Fixes: 5f195ee7d830c ("spi: bcm-qspi: Implement the spi_mem interface")
+Cc: stable@vger.kernel.org # 4.18+
+Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
+---
+ drivers/spi/spi-bcm-qspi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-> ---
-> Changes in v4:
-> - Reject malformed short fragments instead of normalizing their length.
-> - Reject successful non-IB_WC_RECV completions before trusting byte_len.
-> - Explain why MSG_ZEROCOPY cannot reach the RDS/IB transmit path.
-> - Add the source-audit and KMSAN discovery details.
-> - Remove the author's self-Reported-by while retaining linked reporters.
-> - Leave maximum h_len validation to a separate investigation.
->=20
-> v3: https://lore.kernel.org/netdev/20261008124940.13371-1-shubham@octane.=
-security/
-> v2: https://lore.kernel.org/netdev/20261007062135.49946-1-shubham@octane.=
-security/
->=20
->  net/rds/ib_recv.c | 13 ++++++++++++-
->  1 file changed, 12 insertions(+), 1 deletion(-)
->=20
-> diff --git a/net/rds/ib_recv.c b/net/rds/ib_recv.c
-> index bd6cb3ffaa..aa50b85b0f 100644
-> --- a/net/rds/ib_recv.c
-> +++ b/net/rds/ib_recv.c
-> @@ -949,6 +949,12 @@ static void rds_ib_process_recv(struct rds_connectio=
-n *conn,
->  		}
->  	}
-> =20
-> +	if (data_len < min_t(u32, ic->i_recv_data_rem, RDS_FRAG_SIZE)) {
-> +		rds_ib_conn_error(conn,
-> +				  "fragment shorter than header-declared length; forcing reconnect\n=
-");
-> +		goto done;
-> +	}
-> +
->  	list_add_tail(&recv->r_frag->f_item, &ibinc->ii_frags);
->  	recv->r_frag =3D NULL;
-> =20
-> @@ -1004,7 +1010,12 @@ void rds_ib_recv_cqe_handler(struct rds_ib_connect=
-ion *ic,
->  	 * event is processed.
->  	 */
->  	if (wc->status =3D=3D IB_WC_SUCCESS) {
-> -		rds_ib_process_recv(conn, recv, wc->byte_len, state);
-> +		if (wc->opcode !=3D IB_WC_RECV)
-> +			rds_ib_conn_error(conn,
-> +					  "recv completion had unexpected opcode %u, disconnecting and reco=
-nnecting\n",
-> +					  wc->opcode);
-> +		else
-> +			rds_ib_process_recv(conn, recv, wc->byte_len, state);
->  	} else {
->  		/* We expect errors as the qp is drained during shutdown */
->  		if (rds_conn_up(conn) || rds_conn_connecting(conn))
->=20
-> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+diff --git a/drivers/spi/spi-bcm-qspi.c b/drivers/spi/spi-bcm-qspi.c
+index 0f96ac59da11..5031b2142479 100644
+--- a/drivers/spi/spi-bcm-qspi.c
++++ b/drivers/spi/spi-bcm-qspi.c
+@@ -1197,8 +1197,9 @@ static int bcm_qspi_exec_mem_op(struct spi_mem *mem,
+ 	u32 addr = 0, len;
+ 	u_char *buf;
+ 
++	/* cmd[] holds 1 opcode + 4 address + 1 dummy byte at most */
+ 	if (!op->data.nbytes || !op->addr.nbytes || op->addr.nbytes > 4 ||
+-	    op->data.dir != SPI_MEM_DATA_IN)
++	    op->dummy.nbytes > 1 || op->data.dir != SPI_MEM_DATA_IN)
+ 		return -EOPNOTSUPP;
+ 
+ 	buf = op->data.buf.in;
+
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+change-id: 20261015-bcm-qspi-dummy-bytes-e0266f29d436
+
+Best regards,
+-- 
+Weibin Liu <liuwb@xiaopeng.com>
 
