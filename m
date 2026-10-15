@@ -1,137 +1,139 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013007.outbound.protection.outlook.com [40.107.201.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA4553CA8F
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 15:52:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792079554; cv=none; b=MMA1DLC23v6OQggRnS80WUtZ10wGaeZXFc3oNrzlRFq99Kr/r8BLPaKxnKdKq4ooteSeq/iHDCYQOp09Z2CcoWKvzBzhnIHDTVNmEKhqI3aKXowrVX5l986ZGnqWh2IBhhp+3ALW+qCmafCuw+SFDluduI4wpxZygOwE9bO0RXs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792079554; c=relaxed/simple;
-	bh=8+TCZ/zrpvva3iiL9OUxATXfSB4Da998tMTbnuEx5QY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jMzYapAc3zmLKWuppzHITVbdDrV25OEeuzCCwJP9RGZYeNYWPO+kSc+s8aaEQ6REsTZQU6WjDA+K5vcACmH8T2vAmtFq5oK/COU+Xj6IXAoqyh60IiXAEU+B19+LaiAxMZpoi5lNnSgMr1JpU10Wv3KXsU4rE0BegitRKHdVGig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SmtnTtFm; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEE1F4248A9;
+	Thu, 15 Oct 2026 15:59:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792080012; cv=fail; b=kkXtDG0+InnBrZhePdWEa6WO/EXPlUTnxfAebeXuJ/lZ+WX0qmZz9XaSvUycx7avVNQjPEIUIXMEXhq+XVbAGOuna65/DCTbCJ3XKapSMlCnqh+pCCCnlVqmZoCVGq7Ps9F/ij5+Z2nPF3QUYkYJtPnUKEwuBzSzeEmVBNW5OT4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792080012; c=relaxed/simple;
+	bh=iBIw6FMndJEay/80zoXLXq1sXSg+vnXe/pHhstpklO0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Y/ydV2thnin/ojnrEMqMPsJBzUpiZguU6JT/AbrhZEDX16WRt4SfGf8VTR6VR1VM7TybnN9e93anO2v543pI1EitoQ/wK1J+khoT3oYaTn+VQg9KJa48ERulKbJrZ0Yxux3GyRPuXu8XjScgoXmolDOqBVlsT3BlcTiSIyoXp4w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=fail (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=MkW5atwF reason="signature verification failed"; arc=fail smtp.client-ip=40.107.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SmtnTtFm"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso21414805e9.2
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 08:52:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792079541; x=1792684341; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AHZqp2tUL+jR2ac8WD4oADqX9Z4sM0KD+dcaF1HV3NU=;
-        b=SmtnTtFm8vO9k+tlGe/PFyR4FCyq5uyshYnCTbSN/ImvLGEHZtL4P/o9Xvomrd8AG1
-         5gv1495Eqv23P1iwbFaACmegZztRjo/9RxFA7Z1xfkSWQ3NZV5kUTGFOaCkwsuXcBvvt
-         FghwSjz4Vj8ohvWqFIUYy/NACCxx0P4ymZktYH9hRQE8UYig05Zzuw7gsrHCBL9t0ep5
-         zfOKB7zNuFHLAs/Zx3/EVInZN/THVGma+1YBU9aHEYolT5BQsT/cP4ZfDqs0xirKbYHH
-         pEe4coy9EFZJHT7PwCtUTzv7Jg/t7w3iwZZTwTMBaomIPwkeV68vww/sAT7G52Ufy+42
-         iOeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792079541; x=1792684341;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AHZqp2tUL+jR2ac8WD4oADqX9Z4sM0KD+dcaF1HV3NU=;
-        b=c3TdtzSp/xfoMDuP4fK/rIhXLQZBSrZzxdcQy3p7FeoNSntdsKe/49czNthsX4D2z9
-         bW6WDvNVHNmRTKFrrMFkPNjWwlHUW8YEmLUD2q12wLE0ClgXbBVNuhhDiAgkP1GhwMUM
-         W2joSfLPs2A2NkaZl4vmdk9ZORtjglb6aEPv2QR0V8lfS9y5iK3kD6W+3I5gXQQMAQX7
-         7z8iH5RqkAv8XEQY/9iFnVBZHx7goxB79STXDBT0mWdyID1D1asm9/y5UXVFRZgM54v/
-         Fhqfg+YeJi6kXomLf199PnuU6+N1NaP8f57MpbOeKeEsIqMAajy3t5+FLyCqLv9kAEII
-         gzjA==
-X-Forwarded-Encrypted: i=1; AKwUvBw9nkCp/59zsdP6Hgq48kHT7i/vOIYoQMm1W4sczEYRgtbVymi0ZKHL63igBUelCnNsaVkCq3M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLG2FlqjF/6NxDHyg7Btzu3g3UtcysvI+3ogjo/NxnolBuDbFNE
-	qiPM2eNF+22khFBLL+kAJ3xrN9A7zRTPibxMLduB9YLPXTyHONzhAM4Z
-X-Gm-Gg: AYBFou0hI39Z87hdcF6yQWCftmmtEVJhIKR8WUGT1mmneUMCCLqI76O0DTkbqJf72Tx
-	zZ3/hsGK0shYlT8RG3D6uyC2gI3XL0N0Yxq8bKY+0ikCD9oFyFzLeKXODBfP8Q6I5ogOlJd4UJm
-	NLwoISeSEm2PA7sGGBiG+YA5znserBvI1qpjkIvOczX+rWZWu5H/BBJeGYR7jBlhCc8Dxp+SBtB
-	0B/hsc0Pf9uwLiawcIxmaiv1VvY/aCglff+MfqBsXv6Zm5Av5K0itBdff0IVKrlPzf0FLS0Ffv3
-	3/GPGJJM3NSSVH47vI6oUfmYoTLhmcqjAWTBa5syMHDJUmHQDclDeuzl1x50NR7+xQ8ulgY2XEs
-	7WEFzueLC76If0Va1XDNO/KrBKL6PxFA8Z1vRsbDdaG4llJIsQ73GuN82u28C6iemvuHRpJxpUU
-	hgQzF3/q6G1ZFPhdPK/gdFk79B4UhtRg6J+a1U1kDi37mpKZEwZg/Cn7vN1g8VKGvjzdN5JZjVn
-	/rz/QiFZGHn+ycZbbWPHOeWD5o8IdxEstNQrL7ELV5p6g==
-X-Received: by 2002:a05:600c:620b:b0:49c:fc6c:be19 with SMTP id 5b1f17b1804b1-4a18e4d12e7mr366480965e9.31.1792079540501;
-        Thu, 15 Oct 2026 08:52:20 -0700 (PDT)
-Received: from andreayoga.wind3.hub ([31.189.109.133])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd993caesm157053315e9.12.2026.10.15.08.52.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 08:52:20 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Samarth Narang <samarth.colleges@gmail.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Joao Martins <joao.m.martins@oracle.com>,
-	Alex Williamson <alex@shazbot.org>,
-	Yishai Hadas <yishaih@nvidia.com>,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/4] iommufd/iova_bitmap: Clip recorded ranges to the bitmap
-Date: Thu, 15 Oct 2026 17:52:13 +0200
-Message-ID: <20261015155214.472218-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261015002647.GA3575173@nvidia.com>
-References: <20260925161142.189813-1-parri.andrea@gmail.com> <20260925161142.189813-2-parri.andrea@gmail.com> <20261015002647.GA3575173@nvidia.com>
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="MkW5atwF"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oSsFSXQL0KFMtoXwY5WLSlpJAANa0t0BCd3BAlCjjb1yTWicjTj1NvVbFlayw62pkhzV9thTOyUoNaCaH+Clk5DIdfsduizfAEh63gKD8aM2rdF64Ss1jhYiLG3gzOyowPB1SNLnRf9Or0p+CTAUGUmWdKmm9G4cjFxyxW9c27vf40PV9tfHynDrWqBSF4kvQanczR/WEz9D0g5OiRKz4IrmJ93SuW/bnnsdjBKhy8txQQuecHUXXzH5cOAwXDr+lpYLe5STsMcX11FMw0UQOWj+b9261JbAAhC5XJfn8QVXffGse1q1wHkOqQKJwx/BtkyaPBYIoa1Ya5UC0afNSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nWmNvx5dXXswABTO0onAPXjtcBo8uUo9wz6rMwtXMRM=;
+ b=lLPbXuNOgOZaU4ZEaJRyI/m8jsd1ZHrezZYd+YV28CIg24am8jgQgdcP9S7kVzGSZYi2qkdZRNFsh95iD5hCpm+drFHQj3dvEzlrsc51y41REa08i/WFfbFVF5S4FDemzXRIFxAD6u27ccjG6+f0JrWa0Q+P2qJMIRXo4kF3pfFIr6QBz8a604/0BdMpRkCRGNj8DRG4ZQAtSnTuuTSTlRlIFa3hj9fwHfW3vPCkmCnJwzbrsXWKoTZVJkYGuCe2DsUiBvW/gL5kQTM8wupyhz8oKctVUdQ8L+mkiP96j6GnPJgIPy12d0XVRBco0FDCzXTC+gYDrJjAJRYUq27gtA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nWmNvx5dXXswABTO0onAPXjtcBo8uUo9wz6rMwtXMRM=;
+ b=MkW5atwF1xRlFWQWPmzLKCpA3PyWf54ZCcto8gZBfgXg4UvsRdYHxZMXUw0eHrY9PIpJS5V02eE6r062Y3JWe6WUgs0XBUI1K24o7jKfBwjmEx60XVWs2KRmGNKZDmtBChgLBY9KgnMMQE7GFP+/t2qLdUb11Ayx+6X6Hw1IjI18NH8vp0L3Kg6e85tEI/Ejv/XeQpZJqVWDMCc1rRvUG33xUgC/RSV6TOU3a79aSXzaUJPhpmAS9HT8sW9VcwrVeFfkhpE9guwRxEsbY37dR18b+VQkaT7LgFb5gjqmwnV6SXwup7md7MW8sQS5wgul7iJe2/kQ8U+GWZomvlsmOg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
+ by PH0PR12MB8799.namprd12.prod.outlook.com (2603:10b6:510:28e::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Thu, 15 Oct
+ 2026 15:59:54 +0000
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0496.021; Thu, 15 Oct 2026
+ 15:59:54 +0000
+Date: Thu, 15 Oct 2026 18:59:44 +0300
+From: Ido Schimmel <idosch@nvidia.com>
+To: =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>
+Cc: Til Kaiser <mail@tk154.de>, netdev@vger.kernel.org,
+	stable@vger.kernel.org, Petr Machata <petrm@nvidia.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Vadim Pasternak <vadimp@mellanox.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] mlxsw: Initialize register query payloads
+Message-ID: <20261015155944.GA1836432@shredder>
+References: <20261014173117.26305-1-mail@tk154.de>
+ <87a4of8kw1.fsf@all.your.base.are.belong.to.us>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <87a4of8kw1.fsf@all.your.base.are.belong.to.us>
+X-ClientProxiedBy: TL2P290CA0017.ISRP290.PROD.OUTLOOK.COM (2603:1096:950:3::7)
+ To PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|PH0PR12MB8799:EE_
+X-MS-Office365-Filtering-Correlation-Id: 90550843-618f-42f7-5037-08df2ad559e8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|10067099003|18002099003|22082099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	U2w1ggVvqs+jUUNN+XPiDOkoC/wFgYlY2WDFm+vF3GcOV9KquiIfu8nYQDzE2Ilch36piBIS/7dX2iYM3mlDLTG1RinyCqE83MEsFQxujCDcAUHnCK1JV4mV7Lvz0SQagpxRqU97JLPO6Z2gXF8bB19VNzcrMnGrpa+NtvdZiHdNZ/bytWrJnckxxjSx/kSRk4VajKvdmfshgrZFI/w24J1uPXNc8FZ+/yyKbcx8lBbnR4CBRGssAOas0nIdRxcV+EwbCwr+aw06h7PGiCU9X5EflXYJM6elhHj68cvbIYdhGvYKGYt55jpYS1YZMEIlRDexq6KL5/N7pGQWyc45JUo6UghWW4LIq9wGiegsj7XujPO7xybZhABYQt9bp7NFKr1zRTgcPZQmkz7let3zCWpCwLvGbwwJ6F8CsL6+mv+oy58W2WhbwiHnqYSzFZzVq3PHTftVMOUDQaDGgx9m4+fZKoEwcdo6nEKGNtBySCCSnZxojBqz4mJ9kaWagYWjf1biU7HuotsmaLa7yVz2yjqcrvH07bZg7iPoWZrJSkDtDyDBiICep6bbLVYVdvjcHb0fnV/XXdb8z+gi1HDjnAo+bfYtYQVT98l6E2aacFu4YdMQg9rIfC8NDN9ThYj67oQXdGFBD8umLZ/bmcBfVr2ohljek678NMYYaSjZCeQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(10067099003)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?n2t+KABilDuA+H+lrjxM+FgAZC+C7wNsBlvy5fXYwXf8tFJQJpk3NoTt/I?=
+ =?iso-8859-1?Q?kniVYxNlGg8SJbvcVTTmWW9rFjWQnBiBRPBQUOy1b6mjZIhsR//TtH/SRe?=
+ =?iso-8859-1?Q?2oBl3vhTBQ4qcy15aVaQFh2lPXbTcLbMvFKTiyuhSOchbYhb1D3O5KzxxY?=
+ =?iso-8859-1?Q?0idwbyK82T70l1jojTBMr8Et5uvSGtAhs/gtwy4mgc4Ig/weexzlpDU8vT?=
+ =?iso-8859-1?Q?V2uPqOBJDNPeDXk14Rl3wXL/m9qivGdzo+XuBUyG0qzFsxqmWbeQPvAhVS?=
+ =?iso-8859-1?Q?4y4aS1T82f+NkEhRYrNdhgEsGVxfoyxo2rdbufCOKLUHopgbsrT8YGoPO9?=
+ =?iso-8859-1?Q?ltlW6bNlTWcCmEy+fQV3fzRU1DYEDD2tQHwXrdBD3d4jm+NikLScv9CQ+X?=
+ =?iso-8859-1?Q?02eURf22bnjYVrY7Wacz+Dq7W/29m9toSXcU7FFhQrad5En26ZhRwnpyJ+?=
+ =?iso-8859-1?Q?nJDZ+bMBI/N7IONn/Mrti7LwjcERFyUN17ibSVuuaAtazUlS3XM3ylkpvT?=
+ =?iso-8859-1?Q?ZeNKeq2nGjGJCdJ/Yd0SM9VCHAjucl/3HMfgxb3OytSzR/xGB/Gp0llKfX?=
+ =?iso-8859-1?Q?2djw4GWnBW8oarFF4qekNWQzJEGvk2X/o2TRBHL0gwQEa6yHNPFfx9nz+M?=
+ =?iso-8859-1?Q?0pDz5utU8i5WpgV22Zj652vqNVUG1JP6GkTwKWURqDXkUcGQSJpB5N6wih?=
+ =?iso-8859-1?Q?e1jD2VWOwFL/n3Mck79KvnARBXPOukeLR59+T18KeSdi4i+41dm2+Hox6s?=
+ =?iso-8859-1?Q?e7Og1/HBWeWacARzG2XUSu4Xq2v5Qf7rZpWrNHOd2aRapqzjnsJcGsB+br?=
+ =?iso-8859-1?Q?A27IaE5a9gUwRmjYjC2aSykNXmOCpDI7Omc6LYPHZOoFpb3in1uJeWxusA?=
+ =?iso-8859-1?Q?q5ikb8YdW1v6IzkeH17XvDuM8Lk8xZzuMX3Rni46uD1D3uVD45VWf8oVOJ?=
+ =?iso-8859-1?Q?+HUMb1I/y62/L0cYAt0yKX3D2v/w4EHu5JLUF3EEYqmcCj58E56SB68m0r?=
+ =?iso-8859-1?Q?s48a3AisiVmy3RCPCyhhKSBgnSYs/EoYAqbF8t3x10NhBxjeVtCJqz1a+B?=
+ =?iso-8859-1?Q?njjZqrTgrsswryN6u52DNJlHoR/K+M56mIenH9DSc3WyBRKIKTES++v+SI?=
+ =?iso-8859-1?Q?6gxDPW0/CiA1RY9iiDO1nfRepwA/WkOzuk61P97hEHKIsRncE+CJH8FxFh?=
+ =?iso-8859-1?Q?/st5JjfggSacUS1X0jBquccxT8ET+u3pSKZFgrl4whVNiJEF55q9U0Fd/O?=
+ =?iso-8859-1?Q?mxBlOXpIsNiE92aM4vI2JqzrElpXOakyKLQ7AIBJZGgTf/Q/YVsMF8DJtv?=
+ =?iso-8859-1?Q?t+NuWKw2ovVK1Y2K8d6LHDujah98lFd79JWuCa2EVmUN/GFw9PY50/p2mm?=
+ =?iso-8859-1?Q?Z4ahfFmnph7P6t0aUchI0IkVCB3LvOLpK5V99Qxp4vbGXk6mGhgcnYOBwE?=
+ =?iso-8859-1?Q?8JSCm/ZNWYzjFXOPjtNZEEsISKG4/9u/AhtUIvU3qg7Rr9kB6AoaAEOvpJ?=
+ =?iso-8859-1?Q?IW7Qrq32a5oAvVM696L8tpLYtG/prqLR7LjXrQS5XZn4inp6OOeZXrKW5/?=
+ =?iso-8859-1?Q?auqiurdS0GSGqr94MI0pczYW/RSHM+pQn6R+iU9OJm0Ii3yCVMyIHrhusy?=
+ =?iso-8859-1?Q?ej+WCFUntnClklH54GYGGAK36fFJcrshQX1/dAj4m2SxDmPvKYTqDYnFcn?=
+ =?iso-8859-1?Q?T2U5tneBQtRYDL3MatmtZEydwJVIwTsp3uOC/vp2zH7kcOFfmF35WHlhEe?=
+ =?iso-8859-1?Q?Spfv8CkbfjUGGC/blk41fCBjmB2EwxCXM1Qk6/SxgJvaubbkBGSyRtTBA0?=
+ =?iso-8859-1?Q?vqTKszymhA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 90550843-618f-42f7-5037-08df2ad559e8
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 15:59:53.8172
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6G0bfDDhrFnzYFyJy7JTZvTFGaddMsUuDB8e1fhvbpr9J9AxT5LKtM0w6cAEXnTXJUQb3Cy9aUb3M/8Ahnx68A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8799
 
-On Wed, Oct 14, 2026 at 09:26:47PM -0300, Jason Gunthorpe wrote:
-> If we silently truncate that to the range of the bitmap, like this
-> does, then we also are silently lossing dirty marks. The userspace
-> will call again with an iova range stepped ahead and instead of seeing
-> the early blocks being dirty they will be marked as clean.
+On Thu, Oct 15, 2026 at 09:48:14AM +0200, Björn Töpel wrote:
+> Hmm, isn't this pointing to that the query should be more robust,
+> instead of relying on zeroing receive buffers pre-call? Maybe just fixup
+> query instead?
 
-Right, the clip turns an overrun into silent dirty loss; failing the
-call is better.
+Most registers require an index, so the common pattern is:
 
-I also saw your reply to Samarth's record_dirty() patch [1]: with both
-changes, a dirty entry that is not wholly inside the bitmap fails the
-call.  Samarth offered to send a v2 of both patches; I'm happy to leave
-1/4 to whichever of you prefers and rebase my tests on top.
+mlxsw_reg_*_pack(...);
+mlxsw_reg_query(...);
 
-A few things I'd like to check before I rework the rest:
-
-1) The dirty bit is still cleared when the record fails.  In the
-   record_dirty() you proposed, as in visit_dirty() in io-pgtable-arm,
-   the entry is made clean unless IOMMU_DIRTY_NO_CLEAR, whatever
-   iova_bitmap_set() did.  With start_va rounded down to the entry, a
-   query that starts or ends inside a dirty huge IOPTE now fails this
-   way too, and a retry with an aligned range sees the entry clean.  Is
-   -EPROTO meant to be fatal for userspace (e.g. abort the migration),
-   or should the clear be skipped once bitmap->err is set?
-
-2) Could you point me at the patch that adds bitmap->err?  On mainline
-   iommu_read_and_clear_dirty() ignores the return of
-   iova_bitmap_for_each() and returns 0, so I assume that patch also
-   changes this.  Does it cover the VFIO DMA logging path as well
-   (vfio_device_log_read_and_clear(), with mlx5 and pds calling
-   iova_bitmap_set())?
-
-3) Patch 2 tests the clip, so with your change it fails: the 1M IOPTE
-   at MOCK_APERTURE_START is rejected whole against the 128K query, and
-   bitmap[0] stays clear.  I can respin it to expect EPROTO, keep the
-   guard check past the bitmap, and add a query that starts inside the
-   IOPTE, on top of the bitmap->err patch.
-
-Patches 3 and 4 still apply, I think: iova = 0 with length = 0 passes
-iommufd_check_iova_range(), and __iommu_read_and_clear_dirty() then
-walks [0, ULONG_MAX].  With your check nothing gets recorded, but the
-dirty bits it walks over are still cleared.
-
-[1] https://lore.kernel.org/all/20261015003412.GA13920@nvidia.com/
-
-Thanks,
-  Andrea
+Where the pack function zeroes the payload. We can't zero in the core
+because then we would overwrite the indexes.
