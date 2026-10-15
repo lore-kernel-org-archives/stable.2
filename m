@@ -1,147 +1,115 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36CDF59C96A
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 20:43:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792096998; cv=none; b=ZyYaHFKQUy1QFjfRkYoe6mlYmVkZ7TzEKmHwDYHkWeL6JS5qNWs8Rs4TUttQdckNE0v8rAGnz3vxEJIEpy+kyQtLjpQ7/Pl8hpkx14Ss1wIPN3ElFzJ/4af9o2uDYElm8vbkHj/I3ZsEyYCNYC9A6O+5FpdtLY634xxy8qSvHr8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792096998; c=relaxed/simple;
-	bh=8Di9qigXUDyNOrzACu/IjvQS8CZV98qXR9LZAd4EhC0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ulos4oK9bZiQ9k9y6BNQ5Je3KOMWyn93EcerpFtZiq3BCyhsBAE7hhnOnvhGkiaogRPqRzPnVzBR4ffWDhjufAU+d1UyWn6MqZ2H0qNxCf1jGbDC2lhhycxjFzJt/5KGOvYsOdcAxB+T8C0y/2C4L9J4toPjECjjKiCLsTRW8YM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c7lXfCoM; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2343D953B;
+	Thu, 15 Oct 2026 20:47:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792097278; cv=pass; b=WMxpQvcSYia3y7OrYSspiSnN7pYgSjaj11S3rodkde/cISs8oTsnxT7MjwrCx8mq4QmJHNF4yyRXRqKdRe3OR12oNB4YwThSdkFrjCQmgBxBT6y+Pe+SCQeT9b/um4O0YiCH27FlHY2zgnHacTKb3QDl0Mgh+D8KXicaoxpfZVw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792097278; c=relaxed/simple;
+	bh=ecJoEQ2+FupJYflks/ysR3zIDwMo3io84sW4btFfNOM=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=fw0yOEFC1fL3EvPnBgpKnaSf56C3+GiKgO0MjMWWVIEq4d+wG1ocJaaRlauRcq5DhzJd5gipMFZZNCpFozNt0GQW5aTmkbYqKEBtdTtXaZbYO2q9T2nEpWIp5iXWTF+5/pXxjNaVKs1mD9RQyekW92WXkfwUZMyN/FmmCQC0QPA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=Dog3p+cd; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c7lXfCoM"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ac78f4c10bso962583a91.1
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 13:43:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792096995; x=1792701795; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F0wSQN4j3y/wqDxcmHCHdz0iAfBFTqdwL5Kj3XHoYIQ=;
-        b=c7lXfCoMbeGIm8bs0ntYN3bJjxrp9NvMgJvnmfCsNcc8NuJhbOq1U6EHJr2yqZ3Dac
-         G3B/1rxm9Vkf6Nm1Nd4wxVURCwbYpDR3c5u60Z9l7o4a0ci5WLmJZsKizR8yzGqMlStf
-         WquHN2Yf8T+06XHkLnzsipjQTMUNv4MAH5ujOLN/sBsFYz+d+2NnUfnaWct1C69mYQct
-         rD4sSxlFj4Z9jgbS37zotZlLvU9CCls0n2slET5s4UR/co4P+DDGNMw98uCKoFOAI9o9
-         oHgqs8aEa+nzjPhxy2CRhptyiXQ55ca5K6DqGFhXngTHCRBD1MK40Wo0ABfmxcCKgbEe
-         1mRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792096995; x=1792701795;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F0wSQN4j3y/wqDxcmHCHdz0iAfBFTqdwL5Kj3XHoYIQ=;
-        b=aGAGA9bWagz1yZRCTaX9XMC14mkt3ZFdNHIjVGhlFIfm5baGvMT/ue+mA0slPZKM5a
-         tsTzwIjYi6TgaR7La8ECR0aNyBr7rxDlOez9BcP7frx+U3UER0XJwGy1iCBHZXrUM3/Z
-         k2eAeZcxeQU7ZkLAW+64uOSWAeW8nQLTSiXRIkML+++YsnYT+2/qnoKkkS9mKOn4yGMP
-         npUWB8zMrr3e5VrvbTSz5fzd1T/axRYeHqvgiqKBq91cjZiiMdjpkRTh6lbTBgfsJ4Bj
-         F4IGL7h74u2MXTwFwVMZRuJO+mAc/DETCo7ifPapRL1WTpJFi3/0e4T9gL5xOGL7WJ5n
-         OJfw==
-X-Forwarded-Encrypted: i=1; AKwUvByk3OnUNBgNqXdhtbmSauhJQKnNNe6bNj39GUN4hQs9uP94//S/ooLSidb/iqVppMCPRd9QJT0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKQKyynK9Cby1FOYLEzBEo+derNFNbHYujG01DXg/9+lgGDPLa5
-	1zp+6R90kTJ/AWQY16umDJZmRwvXLyzKkG6QZkX5ddpSUf6LDDd9KhMi
-X-Gm-Gg: AYBFou20rfQuo7XY05wHqIuh0YJBY92DUUex9GnQKCcZsCIrGQOx4GWEN+8XAyqDDYu
-	xtp6XNr0918y70lPZIMg4YzAbAroddY+2lkI1ph+Psg94aHsjWtqUiZmO4wQsT7ni9l9JW5lkDJ
-	KYZlVoXxtS7JMIZiHc/d+rRhLWXAleSQc27T39dh1LE04FM7G+quzMMfP5QbVyT0lHJIHBbcqUl
-	+Xbpk2bN+lysVUHQcHZXdXLHS/W0ZWMJLn30AbPKJ3+yp46VnrYTs+tqMOxuagKpNodB0ZyLCLO
-	chcPt+lXPV7KUmtF1QHl43tyfRybQyrnlb1leajYvdSHwYPq6CIbbHmV8qK4yJlDK4LZaOncH61
-	7gAq36E1z9Iso6WIGvmGIGvflcXMucNbE0Dlae7xC3cagRgFBvjRrhikTzSc132WU3icd7LSmYe
-	6IJcNXPinV4PvaA5UEy0SK95ZwyrP0pXdSPP/8FX4GD/mgaJ1VYELH/YOd/FbLvsPFi0v0Scjwh
-	GPQsyRhPqjkYvfP0r9isSMsvLo8DiXIDap3qHvcmEFvpXQbLWN11A==
-X-Received: by 2002:a17:90b:2681:b0:3a7:250:333e with SMTP id 98e67ed59e1d1-3ab3ac578ddmr16320662a91.11.1792096995407;
-        Thu, 15 Oct 2026 13:43:15 -0700 (PDT)
-Received: from bloom.localdomain ([2604:3d09:178e:e100::a891])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc9d266d6sm106429a91.1.2026.10.15.13.43.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 13:43:13 -0700 (PDT)
-From: Ivy Lopez <skunkolee@gmail.com>
-To: akpm@linux-foundation.org
-Cc: david@kernel.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	fvdl@google.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Ivy Lopez <skunkolee@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/2] mm/cma: do not count skipped ranges in cma_declare_contiguous_multi()
-Date: Thu, 15 Oct 2026 14:43:09 -0600
-Message-ID: <20261015204309.42630-1-skunkolee@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <cover.1792032699.git.skunkolee@gmail.com>
-References: <cover.1792032699.git.skunkolee@gmail.com>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="Dog3p+cd"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 7E4C6201B55;
+	Thu, 15 Oct 2026 22:47:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792097267;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UsmsjLeIGGW8wdudB66o8qfd5ct6fpMCIxYaGDCQzGE=;
+	b=Dog3p+cdgalbv/mRMBK9rkBurZZWP0IG39lt6j/8AXIcnsYGNvbu7tj+H0Waw96czGqhFG
+	upKZeS/k5Uq92HHESmHYDRjF8+Se2YhnDB/DKIH/MTosmqcxhAPx+kaopzVIqGIgDxpy1M
+	4zBFjFOTDJy+0vp79TmealwTgfyNW6J9iuUOg0nTraCOVIrApNgfBUKdOKq2ruT5XZpXAD
+	NExDg3BnLsbny3JC/gN2Hu/f/WjHp7yR3pxuFuxshMMhJ3T2r+/trNe7iBeWXVkgZopwnM
+	BKaHsNPfm0Eh3/IPoHzRdol3Nuxje33VfZQeM7Q9+tNM3G0BlPlRhymOzl+xGg==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792097267; a=rsa-sha256;
+	cv=none;
+	b=QesDLyjJD+YRtKyyW1Fo6Rysnlx5twydI4KJxxCyqIzm0udxGz5k8lPglvGBprjvGMLmKr
+	NtIcCFcpK4wkSSSsA/G5IK7qTEV4Rd0GVlmSRgkHwJmKhOfxgusZCu8b50P/huVP3SpWMc
+	vzA6PFS61/xvqMS+AzXaTzZu6rN+5r4udEGnL4ltM65vZYiejoRGU4WZRso2ZJikKJAWcb
+	H0Edt49Mz0JxoigcJGOEB3AHgKxAc4mT0kTCSC/lRzvkD1XhwSNNlxI/adXxWcZvyexzHe
+	WJ3oy5hEbfDB5KKklwioOlTZ3XyT1UQKQqomRmONGx7jyit5Mtbu0pwTV5ZzXA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792097267;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UsmsjLeIGGW8wdudB66o8qfd5ct6fpMCIxYaGDCQzGE=;
+	b=EMmp5gY3SWGJS/BekbWl6PMuHAOHvNbYyVuZ23emLjmLcJ+tgpS1J6Z8CjNlPikjhMF/GS
+	Iy+f+T17t3K3ih/n3SkqV4TMcB+YKdtTqJMAQldEgGjlYNVDL9ttqAEL4Kkfv56xCMOnbv
+	+iDDTNtrClTOV7rMLZFgAUE20gkIluYawrxcgdU06kK8goFBxcF/rJjWLtKGfmCbM2tXaw
+	vaV7Bph0fkC2eUkdRWctr+T6I98L6P0GIPwPHJY9MrfnIqK44Lz5HextHrvnJhYfC9Iiqg
+	KOIt6WfIrHv61NvmLhGri5y8GNUPMFkPH4JHgZ4Uv6qaw/p/LI5fVAKFosWs7g==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xHSMd-0064wv-1G;
+	Thu, 15 Oct 2026 22:47:47 +0200
+Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 1C5425C572E;
+	Thu, 15 Oct 2026 20:47:47 +0000 (UTC)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] can: flexcan: fix runtime PM reference imbalance on
+ probe failure
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>, 
+ Joakim Zhang <qiangqing.zhang@nxp.com>, linux-can@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20260915170327.2503156-1-lgs201920130244@gmail.com>
+References: <20260915170327.2503156-1-lgs201920130244@gmail.com>
+Date: Thu, 15 Oct 2026 22:47:40 +0200
+Message-Id: <179209726047.1181445.10810284189835060011.b4-review@b4>
+X-Mailer: b4 0.17-dev-6be7c
+X-Developer-Signature: v=1; a=openpgp-sha256; l=641; i=mkl@pengutronix.de;
+ h=from:subject:message-id; bh=ecJoEQ2+FupJYflks/ysR3zIDwMo3io84sW4btFfNOM=;
+ b=owGbwMvMwCV2xirl17qZay8xnlZLYsi6aP3hw7yCvshv/JZHVnP/j75r1nbW+NlV5fimew++v
+ rjs09Qxs6OUhUGMi0FWTJFl6Y8TigKBDqW9LxMmwcxhZQIZwsDFKQATeRXC8L+qe1f0cfvDARyO
+ vv1fjKs/GvbambzfHL+YK7kmxv/pu0cM/zN+pbCskjijcPHX6qc8dx/9+qguIVl83j6tZfvX2/Z
+ pHYwA
+X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
+ fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
-cma_declare_contiguous_multi() adds the size of every candidate range
-to sizesum before deciding whether to record it. Once CMA_MAX_RANGES
-ranges are recorded, a candidate smaller than the last recorded one is
-skipped, but its size stays in sizesum. The replacement path already
-subtracts the evicted range, so sizesum is meant to track recorded
-ranges only.
+On Wed, 16 Sep 2026 01:03:27 +0800, Guangshuo Li <lgs201920130244@gmail.com> wrote:
+> flexcan_probe() increments the runtime PM usage counter with
+> pm_runtime_get_noresume() before registering the CAN device.
+> 
+> On successful registration, register_flexcandev() drops this reference
+> with pm_runtime_put(). However, if flexcan_setup_stop_mode() subsequently
+> fails, the error path unregisters the CAN device and falls through to
+> failed_register, where pm_runtime_put_noidle() drops the same reference
+> again.
+> 
+> [...]
 
-When more than CMA_MAX_RANGES ranges exist and one is skipped, sizesum
-can reach total_size while the recorded ranges cannot. The sizesum <
-total_size check then passes, the reserve loop ends with sizeleft
-nonzero, and the function returns 0 with fewer pages reserved than
-requested. cma->count, available_count and totalcma_pages still
-reflect the full size, and the final message reports it as reserved.
+Reviewed-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
-For example, 8 free ranges of 1G followed by one of 512M with a
-request of 8G + 256M reserves 8G and returns 0.
-
-Only count a range once it is recorded.
-
-Found by code inspection with the help of an LLM. No kernel-level
-reproducer was produced and this was not tested on hardware or in a
-booted kernel. The example above comes from a userspace copy of the
-selection loop, written from the source.
-
-Fixes: c009da4258f9 ("mm, cma: support multiple contiguous ranges, if requested")
-Cc: <stable@vger.kernel.org> # 6.15+
-Assisted-by: LLM
-Signed-off-by: Ivy Lopez <skunkolee@gmail.com>
----
-Resend: the first attempt of this patch was blocked by Gmail and was
-not delivered to any recipient.
-
- mm/cma.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/mm/cma.c b/mm/cma.c
-index 527b2d894f3e..c2cdef953ee9 100644
---- a/mm/cma.c
-+++ b/mm/cma.c
-@@ -594,7 +594,6 @@ int __init cma_declare_contiguous_multi(phys_addr_t total_size,
- 		size = ALIGN_DOWN(size, (PAGE_SIZE << order_per_bit));
- 		if (!size)
- 			continue;
--		sizesum += size;
- 
- 		pr_debug("consider %016llx - %016llx\n", (u64)start, (u64)end);
- 
-@@ -620,6 +619,7 @@ int __init cma_declare_contiguous_multi(phys_addr_t total_size,
- 		}
- 		mrp->base = start;
- 		mrp->size = size;
-+		sizesum += size;
- 
- 		/*
- 		 * Now do a sorted insert.
 -- 
-2.56.0
-
+Marc Kleine-Budde <mkl@pengutronix.de>
