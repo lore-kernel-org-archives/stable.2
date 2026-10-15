@@ -1,41 +1,42 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67AF655C304
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 16:02:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36C5955D88F;
+	Thu, 15 Oct 2026 16:02:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792080159; cv=none; b=SJYVklPDwekJFPcr9VPtr5Bupg98PB4Z4jEHccdyh7hUFe4CyMrb0XctM1gvaVmh6WshTU40NYIkJbFfNFgYxSmZhVpUsZUzkwqr52qATJBnaFttBuiMHQTUrO49rEAnBWImuaWmshJs7AU98Uj6/OVBzlkhYMiAP1laAvedJvg=
+	t=1792080179; cv=none; b=bGn8xz33oSiz+BNGWvCcrupa4e0ePHl3g6K0boDz/lL3GFhQQ0DuyOtvwYM1Z1XhwYQsL1Tl6KdWxPt9IiaaqW+GK7XZ/G3Lcyy9Elk0F8lAg1xvm556bCO+Hqhw0R+Kddddg07LPe8a2RGqHZDi3iVkQH+s/+4yW+Kd2yqFL04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792080159; c=relaxed/simple;
-	bh=vA4vE28281TukD4/DEYRuRGjqnt9rULXgEy+Q3NxSbk=;
+	s=arc-20240116; t=1792080179; c=relaxed/simple;
+	bh=wUIP60ReUng2toh7xrANlc05gxl0Ni0XDP3WkJdt+dk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BMeKmOQm2fapX7CRCMTMZAe6h3S/zZOrXwyYHCQeyKzRj36stut7fwedUy79r+TxIwDS+wcA2r02artKE5SXzcKAH6jeXt7jDZkLRxUpGywq+RAzDK3aG7Lp4PIZhc95hew/TjCWB8iJdXVx7jiIwcvb3tP5hHX5O4i0LmR2Zzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=rGmCtVyl; arc=none smtp.client-ip=185.171.202.116
+	 In-Reply-To:To:Cc; b=trkjMKs73XUZZEPNE6CpamcWStx61fVbjQ6TInj6Hv8rcHqXv1oxoKP+oQGtLZKO45V2denR7MrQVSPI/IFE4ZRdq4YYtiNo4TqtxaRXhx4sKdTO5u7hB32SpYbF1CCC7mkAlGWEGfvgV7ObsVaGk3xOtX2wXwMMJD5G5ZsATy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=oS25sV93; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="rGmCtVyl"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="oS25sV93"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 57F4FC62206;
-	Thu, 15 Oct 2026 16:03:22 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 94C7B4E41255;
+	Thu, 15 Oct 2026 16:02:46 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E1DD26075C;
-	Thu, 15 Oct 2026 16:02:25 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0481010328CF4;
-	Thu, 15 Oct 2026 18:02:16 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 674526075C;
+	Thu, 15 Oct 2026 16:02:46 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 160EA10328CF5;
+	Thu, 15 Oct 2026 18:02:39 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792080140; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1792080163; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=4axd8RvbmAiH7g9oCEuJCNbjk0G7L7I4ZKsUL9l2L0c=;
-	b=rGmCtVylxsZOartwAYi8B7J9JTXEaFc6Vun5fCMwmF0lKMLAkkMETHFhNtgPMHftIbj3ag
-	Ph7rzgNksTo3qTmheOfdlwceZICGaOeH1/yjhcAfUF3iX/HO13pKYtYKOPbd7Ej2cR60Es
-	atpjO4t//znD0CB4DnBlMLg+utmVkZkcDFA2VWNOQdlvvjZYyzkUKDlHY/htCzxBLvoWaU
-	OSx+gqAh5Ukz/gem4u9fVWvbCc+QP9j8abR/LmTp3Su/hE83VneI4D0lMc0L70g+HkJ2sF
-	kx3muAUf6F5Dg1xBwaEU3tcDKFG0gkzED2FG2D44VgnDkxvXwy8eIXHjUYkMKw==
+	bh=AbpkMZVsBdBOWRwxjTkLihKxr/UR5S6eo3rRMVyn4ks=;
+	b=oS25sV93XSD557wIB4lBXK1AG3ECjXQ3/Xlt8i7iz5CqRstbNl9cYZbGW70uIC1wRn5iNg
+	ExzMWfb8ZDgKP7VxkURJiqTz4/JC91q9DmmWR2rdv7Hml3dQ9b8NKfvLAvZEMCBE6dFCBd
+	MjlEZIyMoearzV0TbcgmMTd6JWLu+HpzAOjM8wrqNUEmCaB5LuWctAB84QR8v77Fw2n1dA
+	Hc42OYjblLicTn3fhzlEAuAB1WbhnHsACYUtXAsPpBIg4lss4dthUKiIGCGP5+Iw1mcQaZ
+	xizj3KcIO3aEn9DMnW2WfwJR3kSm18N0uw10Q1vIsTZc302ETniRGUF2mLn68g==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Thu, 15 Oct 2026 18:01:20 +0200
-Subject: [PATCH v10 07/10] clk: nuvoton: ma35d1: Reparent SYSPLL correctly
+Date: Thu, 15 Oct 2026 18:01:23 +0200
+Subject: [PATCH v10 10/10] arm64: dts: nuvoton: ma35d1: Add LXT crystal and
+ clock-names
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,7 +45,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-perso-ma35d1-upstream-clk-v10-7-47c97b54a809@bootlin.com>
+Message-Id: <20261015-perso-ma35d1-upstream-clk-v10-10-47c97b54a809@bootlin.com>
 References: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
 In-Reply-To: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
 To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
@@ -67,61 +68,70 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-The clock tree is still incorrect. SYSPLL is derived from HXT_GATE, very
-much like CAPLL, DDRPLL, VPLL, APLL and EPLL. SYSPLL has a fixed
-frequency, but if HXT gets gated, SYSPLL stops running.
-
-Reparent SYSPLL under HXT_GATE to properly define the clock tree
-topology. After this change, the frequencies are identical, but the
-clock tree looks (again) much closer to the reality.
-
-Since the TRM does not explicitly shows that HIRC and LIRC are
-internally sourced from HXT and LXT, respectively, I haven't reparented
-them (even though that was tempting). This can be done later anyway.
+The clock controller takes its two crystal oscillator inputs from the
+board: HXT and LXT. The LXT crystal is not described at all: add the
+fixed clock node for it and reference both inputs from the clock
+controller node, with their respective clock-names.
 
 Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
+Fixes: b69af0984732 ("arm64: dts: nuvoton: Add initial ma35d1 device tree")
 Cc: stable@vger.kernel.org
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/clk/nuvoton/clk-ma35d1.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+---
+ arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts | 6 ++++++
+ arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts | 6 ++++++
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi         | 3 ++-
+ 3 files changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
-index 8fab3c563316..3015c49ee852 100644
---- a/drivers/clk/nuvoton/clk-ma35d1.c
-+++ b/drivers/clk/nuvoton/clk-ma35d1.c
-@@ -139,6 +139,12 @@ static const struct clk_div_table eadc_div_table[] = {
- 	{13, 28}, {14, 30}, {15, 32}, {0, 0},
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+index d7670afb0a63..7752e85734ac 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+@@ -36,6 +36,12 @@ clk_hxt: clock-hxt {
+ 		#clock-cells = <0>;
+ 		clock-frequency = <24000000>;
+ 	};
++
++	clk_lxt: clock-lxt {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <32768>;
++	};
  };
  
-+static struct clk_hw *ma35d1_clk_fixed_parent_hw(struct device *dev, const char *name, int rate,
-+						 const struct clk_hw *parent_hw)
-+{
-+	return devm_clk_hw_register_fixed_rate_parent_hw(dev, name, parent_hw, 0, rate);
-+}
+ &clk {
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+index 8f3cb18d39b6..5c65f1fe5da9 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+@@ -36,6 +36,12 @@ clk_hxt: clock-hxt {
+ 		#clock-cells = <0>;
+ 		clock-frequency = <24000000>;
+ 	};
 +
- static struct clk_hw *ma35d1_clk_fixed(struct device *dev, const char *name, int rate)
- {
- 	return devm_clk_hw_register_fixed_rate(dev, name, NULL, 0, rate);
-@@ -286,6 +292,9 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
++	clk_lxt: clock-lxt {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <32768>;
++	};
+ };
  
- 	hws[HXT_GATE] = ma35d1_clk_gate_parent_data(dev, "hxt_gate", hxtg_parent_data,
- 						    clk_base + REG_CLK_PWRCTL, 0);
-+	if (IS_ERR(hws[HXT_GATE]))
-+		return PTR_ERR(hws[HXT_GATE]);
-+
- 	hws[LXT_GATE] = ma35d1_clk_gate_parent_data(dev, "lxt_gate", lxtg_parent_data,
- 						    clk_base + REG_CLK_PWRCTL, 1);
- 	hws[HIRC] = ma35d1_clk_fixed(dev, "hirc", 12000000);
-@@ -297,7 +306,7 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+ &clk {
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+index 7228ad4735b5..9a341c2b1397 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+@@ -92,7 +92,8 @@ clk: clock-controller@40460200 {
+ 			compatible = "nuvoton,ma35d1-clk";
+ 			reg = <0x00000000 0x40460200 0x0 0x100>;
+ 			#clock-cells = <1>;
+-			clocks = <&clk_hxt>;
++			clocks = <&clk_hxt>, <&clk_lxt>;
++			clock-names = "hxt", "lxt";
+ 		};
  
- 	hws[CAPLL] = ma35d1_reg_clk_pll(dev, CAPLL, pllmode[0], "capll",
- 					hws[HXT_GATE], clk_base + REG_CLK_PLL0CTL0);
--	hws[SYSPLL] = ma35d1_clk_fixed(dev, "syspll", 180000000);
-+	hws[SYSPLL] = ma35d1_clk_fixed_parent_hw(dev, "syspll", 180000000, hws[HXT_GATE]);
- 	hws[DDRPLL] = ma35d1_reg_clk_pll(dev, DDRPLL, pllmode[1], "ddrpll",
- 					hws[HXT_GATE], clk_base + REG_CLK_PLL2CTL0);
- 	hws[APLL] = ma35d1_reg_clk_pll(dev, APLL, pllmode[2], "apll",
+ 		pinctrl: pinctrl@40040000 {
 
 -- 
 2.55.0
