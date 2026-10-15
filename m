@@ -1,243 +1,126 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1624645C6FD
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 16:03:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 405135581FB
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 16:03:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792080222; cv=none; b=WzCF9GIsR3hJc6/aO+MADWs/lcOotR6+vyxrzBfHdhwAQhyCChDDFsbNp5IQR45aaOjjjXWm/wvqf/ksv1HcNtM5ptiMnnYTNoxiuGZSVFu3W9VMsQs4jq+87zwgt8vm8sOZ5ccqYd0y4Xk/+6sMVbuGy0eY2MDhiHeN5RqRVCY=
+	t=1792080238; cv=none; b=r+tX9fx334Pd46D2znkDFIkyRmqE/hd329vFZH9VzvF5ZHdRl0BzHAyivh7o5UQ892wHS44sHw/Oe7LZER1+W/VUF0sviML2sR/EElI5xTc5uJHFjzGkvRNy4AO9cggHC6wCZUN4rEnDnT/kHm7u+wtwyAWP/THXyBUmnVkRHNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792080222; c=relaxed/simple;
-	bh=go7u6IBJLBRk40wJNkJnyMxkUOKsGfKDNJNyCKClnZU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=YT1rR6z7m0VIRcBBrjKq7630oOcVed6PvK0QA3EN8p7Ut0a8ISUbwWZj54MYKYtsJildyHio5yAfhdFrUbJeoufPAlWKI1QFhIvaYdKGXsVeVRe5tyr3h3a0tKIP1VU3qjylDw4CRZB7To3QQfwsCrWYE0MfSB2IZeCM/pUeZe0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XOZCvqZ/; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792080238; c=relaxed/simple;
+	bh=mAd1kLcSwnxVrxeygRYauPj5HV6MXJmqjlEl29oC1w8=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=e3Lq+3KbfsKe+/f+N34xOT5b0ybMKJvSvTp6SVYAfuCdSi1ylrKdWgwqhGnMPbT5xfxHu6wzB58cnYmRUJPN1rsLREK1QShp9Xm5ujuF4P9MwuhmfA6z0qAlVCaw26XCdyvvAzHLKG8qQB1y7g87r73S/3jRrjGOnBBWbCNMS6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aaltinay.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BsVvl21j; arc=none smtp.client-ip=74.125.82.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aaltinay.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XOZCvqZ/"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e7e742a2c7so1701215ad.0
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 09:03:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BsVvl21j"
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-139b62317d0so20184555c88.0
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 09:03:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792080210; x=1792685010; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PsDHGrwyCQ98HtyGLf4J6qUbdlCfaJF9N0Ol2bbzSUY=;
-        b=XOZCvqZ/EVsgDsbEa/RfTYshAxAaK7qsvTaCgT3m6OPDbywiXHdnuVWh5e+X+gg4IX
-         EhU+gV2U7RvyUxILRqYdtCIPt+z5oSmP6cVa1g9pwa7LsWRPQfGuw6P8BEpZApKVTzs7
-         +0+ySn8kzc8gFJMnaPNqo7BHPYwQWBundHiwoyDOcsczMu01QLnbMc45xxNkYucqqko3
-         A6c6yg55GtaJxMdaG5k9mGMdZvKHsFAFkfm1PX+IIedsOwKIIhqQOLYlmsZ8qY3E6PJQ
-         2ZsfpB8OmlKFq0n9td97GkOsO6k57Re2YWI2wrFeVSUgOSVoJMDr+/OmMGmUlsOfD/gz
-         30sA==
+        d=google.com; s=20251104; t=1792080228; x=1792685028; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GVHgaIROVIh1dbKZNGZDp4okzaZe1g6+U8n1ziBMJQE=;
+        b=BsVvl21jiC5EThQlnIM1aGqiHHgREW9A9DesK0JHIsp9nFhc7hCXmJnr21QFFDQDwL
+         zf1B6PXw2Fk9l8wDU7gJzfLLIyB6mW67V0l2d0N7d+WqonPrD6bw4cBbkpJLWn0CUHIj
+         coCOPSm9SoQe40ck3oc9vqAVqnoMaZfaFHmZ2Q1dRprstRQh6hxP/Ghv27W+i6OiXX0p
+         CEx0VLCA/Z5Fh6yYXz6tyHfuTfiVy9pPpXqONTV9CQ9HMVQoXvC1VmxjHynM9WHWousb
+         VEElcuRW7gytHvFt0V4am+0AJLv5YE4jSe+wNcp7H5fK5FyYFZBuDk+ONeCoIetj7JBa
+         3uWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792080210; x=1792685010;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PsDHGrwyCQ98HtyGLf4J6qUbdlCfaJF9N0Ol2bbzSUY=;
-        b=DXJ2QJK+GGd+LG6/GFVpfvBgftC2YDLvr0ZVar0xioIs5V0zkxAr3sOjjKDSxPbx20
-         aJLfBd+jtBxytq41YwH7Z9qy6XOWlV6pLvMfLix3EmL7RXq+IRgYnpZUY2Qdmg5gL+iD
-         Pda4pAoZJZZv4ZdHzSfyDYWYqoWfx/Yufkt9uysf9hHpFufIfYaXzZFcBrc9DBcc/J6s
-         tx5LnByY8ZVM1UWqwxQi0EFTWytyQBd8/90ku8z4Gwpxtw/kJ5syMaK/5TOkB0OaxzX2
-         7MbIpWP8XmS86TgMY22rcoOkbvhji0EAPzyiASEO/n6xA301Qqz8BVbqpfys5/+u3s1m
-         1O8w==
-X-Forwarded-Encrypted: i=1; AKwUvBy0sEoXxfiAaSG/ZXcsSF3Dbo590IEoXkmBWWI4fJ2ZcBglWeynqINOIJ2LX2oK+STRGNuOP08=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKe7/OM4U/fSi93Avn9D01mUSJLe4GeUrrUPjo7R4tjQlPnXj+9
-	WbsNYW257X+ch7hy0QKeo9SmDNfb9tZqKEJo/tRKN7lkQzcdsZF8BYrl
-X-Gm-Gg: AYBFou14fFxr2/CsFRJUnk/XPTSzmrLq4ElFilehl+LZU1tyEy7v8BhPJgchqk2cV0x
-	niEj6z4D1QCZZKSP/bov9+QwsYOkQFXXsf1DzyR/jcFVpGQqw3X6QVJb67OmRNIzJ6eTjLfXZ2z
-	lTVsvDdTEiKct/A9LR/H3vP+0MNgkZu+1PZA2KmvfX2+yTStuaTBKqSBPqDsE49CKsTfuP20Sdz
-	7vBTMUtGJilyAoYeE/hGEcfLMiMiT+jATEvFVyDXITBrxcdFOWtY41Y6G3w+yG6hwhxCXGM3EKr
-	25OVcs8IFhLvcam75SVyCENKNDBemJ8EBy22EF263o9jcrGA5UckNwJOvsxde1D0lbMB0uWSLgS
-	lg5QQa2VkfC1FT3OIxDbpKvoaRZ2Dy9zY2L5p7MgEIajlGNsQUR/use289icKXMIJ36oVflKWE+
-	POtXHrxx9GJDobzmVLJpQBCGqtux5rEADI2hnRVnQcA83f+Wjzb52zxyaQD4U4cWhtoA==
-X-Received: by 2002:a17:903:234e:b0:2e9:4ecb:24a5 with SMTP id d9443c01a7336-2e977140ea9mr3372775ad.2.1792080210118;
-        Thu, 15 Oct 2026 09:03:30 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8419fe0a2sm83631725ad.6.2026.10.15.09.03.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 09:03:27 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com,
-	heming.zhao@suse.com,
-	jack@suse.cz,
-	akpm@linux-foundation.org,
-	srinivas.eeda@oracle.com,
-	rgoldwyn@suse.de
-Cc: ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] ocfs2: Keep the dentry lock inode alive until callbacks drain
-Date: Fri, 16 Oct 2026 00:03:20 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0012-v5-a0413a339b72c02fc885@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20260707; t=1792080228; x=1792685028;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GVHgaIROVIh1dbKZNGZDp4okzaZe1g6+U8n1ziBMJQE=;
+        b=DLJwkQNWjRNnxLALi+ZWxK99zvkgREP466lb5xQ/bt6ACm+EIXzLoQ7zAYCW8IuLKY
+         ephQgOlEOvL1/p9E56gBPgyQ4xVzXOiOSKQGpETy069SQPzXS3iUZFCsH0GD+MZvB4XM
+         SIkSZfWOkcSa76rZmsFbLMT34+Fvx4bEzt8Cjj8F+4v3aPMUH+nwozmQXEAL2ic8NF94
+         Xi9CxvvVsM55H+oNre102cvsJPlVU5sHV2dcki5vkTht+quL8cerkntq9rjWk9pu2B4R
+         9Yh2l3MEm5OtxYpIhK80o9bJjV6V2PoTOJRX2Y/sGroGDve8tf74tmv4ySfHwj2LOYd4
+         pHNg==
+X-Gm-Message-State: AFq9FYJQsaNDOUL+GrCM5r0zj462tC20BXf5RMz6thEtJ1kQ0+Nc4qnI
+	s9yqCTSN2WYvoBVGQ9mgp+1F/cccgQh2r2r6HsF3Bb0uNCj8S3PhJXDC00vcy2Ce49P0PsC9kCf
+	59gw8eTIameJMEp+OzbMl7RXnc5yp2ziUqRQtXbaCDzMTbLEHSkhKTMV0e6lQr9b0t9nNVIjAkJ
+	+HmR5lpeXOWqO3XODKQKd4j+eedCeq+Du0Z9e/8bzNq9tRppQ=
+X-Received: from dli1-n2.prod.google.com ([2002:a05:7022:281:20b0:168:b4b9:d783])
+ (user=aaltinay job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7022:f681:b0:143:26eb:18ea with SMTP id a92af1059eb24-16a638513f3mr33314626c88.29.1792080227484;
+ Thu, 15 Oct 2026 09:03:47 -0700 (PDT)
+Date: Thu, 15 Oct 2026 16:03:40 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261015160346.181835-1-aaltinay@google.com>
+Subject: [PATCH 6.18.y v2 0/6] KVM: x86: CPUID faulting fixes and AMD CPUID
+ faulting virtualization
+From: Anil Altinay <aaltinay@google.com>
+To: stable@vger.kernel.org
+Cc: Jim Mattson <jmattson@google.com>, Sean Christopherson <seanjc@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	Anil Altinay <aaltinay@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-The inode reference held by a DENTRY lock must outlive callbacks on
-that lock. ocfs2_drop_dentry_lock() drops dl_inode before marking the
-lock freeing and waiting for DLM unlock completion, although the BAST
-path still reads dl_inode->i_sb in ocfs2_get_dentry_osb().
+Please backport the following 6 upstream commits to the 6.18.y stable tree:
 
-An EX request, such as a remote unlink or rename, can make the
-downconvert worker delete all matching aliases. If no other inode
-reference remains, its post_unlock callback performs the final iput().
-The O2CB DLM can deliver another BAST while the request is still
-blocked, for example when another holder releases the same resource:
+1. 690dc03859e7 ("KVM: x86: Ignore cpuid faulting in SMM") [v7.1-rc1]
+2. cf7d65d1d6f5 ("KVM: x86: Consolidate CPUID fault handling for emulator and interception logic") [v7.2-rc1]
+3. be7fd7c3e8bc ("KVM: x86: Prioritize CPUID faulting over CPUID VM-exits in nested VMX") [v7.2-rc1]
+4. d1bc99885a59 ("KVM: x86: Remove supports_cpuid_fault() helper") [v7.2-rc1]
+5. e93a93f11490 ("KVM: x86: Virtualize AMD CPUID faulting") [v7.2-rc1]
+6. b16c2aca369d ("KVM: selftests: Update hwcr_msr_test for CPUID faulting bit") [v7.2-rc1]
 
-  Downconvert worker                 DLM callback
-  ------------------                 ------------
-  Remove dentry aliases
-  Clear QUEUED; post_unlock()
-  ocfs2_drop_dentry_lock()
-    iput(dl->dl_inode)
-    [inode reclaimed after RCU]
-                                     Duplicate BAST
-                                     ocfs2_blocking_ast()
-                                       ocfs2_get_dentry_osb()
-                                         Read freed dl_inode->i_sb
-  ocfs2_simple_drop_lockres()
+Patches 1 and 3 fix bugs in KVM's CPUID faulting virtualization (Fixes:
+db2336a80489 ("KVM: x86: virtualize cpuid faulting")), ensuring that
+CPUID does not fault in SMM and that CPUID faulting takes precedence
+over CPUID VM-exits in nested VMX. Patch 2 is a non-functional refactoring
+prerequisite for patch 3.
 
-Call ocfs2_simple_drop_lockres() before iput() so the existing inode
-reference remains held while queued work and DLM callbacks are drained.
-The inode can only be evicted after the DENTRY lock has been unlocked.
+Patches 4-6 extend KVM's CPUID faulting virtualization (already supported
+by KVM on Intel CPUs and by 6.18 host kernels on AMD CPUs via 65f55a301766
+("x86/CPU/AMD: Add CPUID faulting support")) to AMD guests via
+CPUID.80000021H:EAX.CpuidUserDis[bit 17] and HWCR.CpuidUserDis[bit 35],
+allowing guests and container runtimes that rely on arch_prctl(ARCH_SET_CPUID)
+to work uniformly across Intel and AMD KVM hosts, along with the
+corresponding KVM selftest update.
 
-KASAN report as below:
+All patches cherry-pick cleanly to 6.18.y except for a minor context
+conflict in patch 2 (arch/x86/include/asm/kvm_host.h) and a u64 vs.
+uint64_t type adjustment in patch 6 (tools/testing/selftests/kvm/x86/hwcr_msr_test.c).
 
-    BUG: KASAN: slab-use-after-free in ocfs2_get_dentry_osb+0x155/0x170
-    Read of size 8 at addr ffff8881100ff888 by task dlm-5B530197BEF/575
+Changes in v2:
+- Include KVM maintainers and kvm@vger.kernel.org on Cc across the series
+  (omitted in v1 due to --suppress-cc=all).
+- Link to v1: https://lore.kernel.org/stable/20261014212844.11997-1-aaltinay@google.com/
 
-    CPU: 0 UID: 0 PID: 575 Comm: dlm-5B530197BEF Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? ocfs2_get_dentry_osb+0x155/0x170
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20e/0x420
-     ? ocfs2_get_dentry_osb+0x155/0x170
-     kasan_report+0xe0/0x110
-     ? ocfs2_get_dentry_osb+0x155/0x170
-     ? __pfx_ocfs2_get_dentry_osb+0x10/0x10
-     ? __pfx_o2dlm_blocking_ast_wrapper+0x10/0x10
-     ocfs2_get_dentry_osb+0x155/0x170
-     ocfs2_blocking_ast+0xd3/0x6d0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __lock_acquire+0x5a3/0x2140
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __mlog_printk+0x212/0x2a0
-     ? __pfx_ocfs2_blocking_ast+0x10/0x10
-     ? __pfx_o2dlm_blocking_ast_wrapper+0x10/0x10
-     dlm_do_local_bast+0x20c/0x300
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_dlm_do_local_bast+0x10/0x10
-     ? dlm_thread+0x2e36/0x4480
-     dlm_thread+0x32b8/0x4480
-     ? __pfx_dlm_thread+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __kthread_parkme+0xc1/0x220
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x290
-     ? __pfx_autoremove_wake_function+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __kthread_parkme+0x177/0x220
-     ? __pfx_dlm_thread+0x10/0x10
-     kthread+0x351/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf70
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
+Jim Mattson (5):
+  KVM: x86: Ignore cpuid faulting in SMM
+  KVM: x86: Prioritize CPUID faulting over CPUID VM-exits in nested VMX
+  KVM: x86: Remove supports_cpuid_fault() helper
+  KVM: x86: Virtualize AMD CPUID faulting
+  KVM: selftests: Update hwcr_msr_test for CPUID faulting bit
 
-    Allocated by task 584:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_slab_alloc+0x89/0x90
-     kmem_cache_alloc_lru_noprof+0x205/0x5c0
-     ocfs2_alloc_inode+0x2b/0x100
-     alloc_inode+0x69/0x230
-     new_inode+0x23/0x1a0
-     ocfs2_get_init_inode+0x84/0x190
-     ocfs2_mknod+0x8a3/0x2150
-     ocfs2_create+0x14f/0x3c0
-     lookup_open+0x88f/0x13e0
-     path_openat+0x95e/0x2020
-     do_file_open+0x21e/0x470
-     do_sys_openat2+0xf4/0x1b0
-     __x64_sys_openat+0x136/0x1e0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Sean Christopherson (1):
+  KVM: x86: Consolidate CPUID fault handling for emulator and
+    interception logic
 
-    Freed by task 0:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kmem_cache_free+0x242/0x580
-     i_callback+0x4b/0x80
-     rcu_core+0x6be/0x1ed0
-     handle_softirqs+0x1fa/0x8d0
-     __irq_exit_rcu+0x113/0x1e0
-     irq_exit_rcu+0xe/0x20
-     sysvec_apic_timer_interrupt+0x6c/0x80
-     asm_sysvec_apic_timer_interrupt+0x1a/0x20
+ arch/x86/include/asm/kvm_host.h               |  1 -
+ arch/x86/include/asm/msr-index.h              |  1 +
+ arch/x86/kvm/cpuid.c                          |  6 ++-
+ arch/x86/kvm/cpuid.h                          | 14 ++++---
+ arch/x86/kvm/emulate.c                        |  6 +--
+ arch/x86/kvm/kvm_emulate.h                    |  1 +
+ arch/x86/kvm/vmx/nested.c                     |  2 +
+ arch/x86/kvm/x86.c                            | 39 ++++++++++---------
+ .../selftests/kvm/include/x86/processor.h     |  1 +
+ .../testing/selftests/kvm/x86/hwcr_msr_test.c |  9 ++++-
+ 10 files changed, 46 insertions(+), 34 deletions(-)
 
-    Last potentially related work creation:
-     kasan_save_stack+0x33/0x60
-     kasan_record_aux_stack+0xa7/0xc0
-     __call_rcu_common.constprop.0+0x80/0x280
-     destroy_inode+0x131/0x1b0
-     evict+0x543/0x9f0
-     iput+0x680/0xb80
-     ocfs2_dentry_lock_put+0xca/0x230
-     ocfs2_process_blocked_lock+0x1fb/0x420
-     ocfs2_downconvert_thread+0x327/0x730
-     kthread+0x351/0x460
-     ret_from_fork+0x659/0x940
-     ret_from_fork_asm+0x1a/0x30
+-- 
+2.56.0.385.gd3acb90ef8-goog
 
-    The buggy address belongs to the object at ffff8881100ff000
-     which belongs to the cache ocfs2_inode_cache of size 3400
-    The buggy address is located 2184 bytes inside of
-     freed 3400-byte region [ffff8881100ff000, ffff8881100ffd48)
-
-    [page and shadow-memory details omitted]
-
-Fixes: 8ed6b23709b3 ("ocfs2: revert iput deferring code in ocfs2_drop_dentry_lock")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Assisted-by: LLM
-
----
-diff --git a/fs/ocfs2/dcache.c b/fs/ocfs2/dcache.c
-index e06774fd89d8..e2b560797f17 100644
---- a/fs/ocfs2/dcache.c
-+++ b/fs/ocfs2/dcache.c
-@@ -354,8 +354,9 @@ out_attach:
- static void ocfs2_drop_dentry_lock(struct ocfs2_super *osb,
- 				   struct ocfs2_dentry_lock *dl)
- {
--	iput(dl->dl_inode);
-+	/* Keep the inode alive until DENTRY callbacks have completed. */
- 	ocfs2_simple_drop_lockres(osb, &dl->dl_lockres);
-+	iput(dl->dl_inode);
- 	ocfs2_lock_res_free(&dl->dl_lockres);
- 	kfree(dl);
- }
