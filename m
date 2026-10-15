@@ -1,214 +1,142 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E2974AA3ED;
-	Thu, 15 Oct 2026 08:43:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4CF148F008;
+	Thu, 15 Oct 2026 08:44:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792053845; cv=none; b=FXt/BueedcY7JuI986zFiLxNWGvh6ZZPn8lZRx/ZOrrEOrPIEp/aRtHqcDX2UUH8YeNRW0RATh900TKjU0Zl4PUg5yHr/NjKas/isTjwwv4nglZAC+Yr+e7pRdpveJrhzXZ7ZUbv1LMqpzSBgxaKjQcfko5OBtNrvlRsp282CSM=
+	t=1792053894; cv=none; b=G9JN49Ccb9n9VFT0HGGDl8owq4n/KR6Fr5HvuqIlKeX/GQQbZ8TWUAj+muZF003lWlb2ekoRcyLcD7dcM+GnOkOoljLvjUbzcfwosjFK/MbVZENB6tx31cdjyJrZLNPjvLV7FIpVlNwdd+pDrXTpwYPUmjrOD2f+fdEEVkUa/Ok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792053845; c=relaxed/simple;
-	bh=WPymwV48CNE0XbNCkIdQF4sYHFBHkFUXQuJplgqg3m0=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=IPteP/mLz5EAqGO5WFLOLr4KDGMpiW3nFhS1IQ3kKX+tkwNHrBgmQjZq5DdUEQg1D5WmlwznqwBhvnk3x6xh7aRx7lalSOSDfyn2cR8k6EA42KgM2mv9fKFj5GLYurMRMgvFGlYSmOJQGdtqk2uQCzw9hM7ByPnk3iM5qAYlOg4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=N5VCMGDW; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=bhMi+pDh; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1792053894; c=relaxed/simple;
+	bh=OZhBrowA6cT0dx95d5pQzpiY4q0ZQDXXjiy2MBvSQwo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LevSVgIEkaCn33FDqP+6k1Kvv/ZC3SFKu0YPWWeIOtO8QuDM06ONQ93OWm1dr14mo/yWv4Vu9oyoj5rzoBxG41o857dWPrxqkDbRd168UFv1NLj0k76uGgDQ7zBN/w2ihCypYYhnSiTXd8GYyoQkXgMCoWHB5gFWO67mj18P/EY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=OMrky5FW; arc=none smtp.client-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="N5VCMGDW";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="bhMi+pDh"
-Date: Thu, 15 Oct 2026 08:43:52 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792053834;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+hD/joEpppufLDVKhdccfeos+WhILrdJ4oa82IBwIsQ=;
-	b=N5VCMGDWSMxflnSmPkt6nGsnDqIlDg76DlcN8JqvvUCcTcUoGnXWUPimUv//duoXnlradG
-	P4VBr3x+e6m6mGvJObqpWF0t847mvBoELNdpOnEe1q9P+wii/54GRd6ssF1c1iYVJ9bqi2
-	guXgkSENqfRIJZgnpf/MrXu70sEkM6Shvl2+53rAqy/VDwKPowfDP9N1WJIOCVM/r78bwb
-	3Egi4WhTrupeTcaNDv02hJ9025OwUs2aZmun8V/u5C45Zh93sxmId2c+uS85ejDZh6KC37
-	VSx9nOKTj2Wsi9AglQlRS8uAPEhAfYrp9JA+NwmOEtseD8VdGHuyU4AoSWVC8g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792053834;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+hD/joEpppufLDVKhdccfeos+WhILrdJ4oa82IBwIsQ=;
-	b=bhMi+pDhT098tZNmYioK9CSsRhw/c1+qUMHCkPMPQYYPRx6OzT12hV5CFekJEehlt3/Sn3
-	jspyMDTfK8ROORBw==
-From: "tip-bot2 for Richard Patel" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/core] genirq: Defer kfree(irqaction) until
- irq_thread_dtor() finishes
-Cc: Richard Patel <ripatel@wii.dev>, Thomas Gleixner <tglx@kernel.org>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
- maz@kernel.org
-In-Reply-To: <20261009145842.1616117-2-ripatel@wii.dev>
-References: <20261009145842.1616117-2-ripatel@wii.dev>
+	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="OMrky5FW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1792053884;
+	bh=OZhBrowA6cT0dx95d5pQzpiY4q0ZQDXXjiy2MBvSQwo=;
+	h=From:To:Cc:Subject:Date:From;
+	b=OMrky5FWQQHXgmi4cgffL54R3WqnKQ6v/r7KvjlAtvSfeUsKhNau3CPQK7r21MQ54
+	 4jyHDrbXF2JrllgdUJnrHzK04tRLWnVBl9vAjQqYICEsez4c7shGhvNJJAgQov6JZJ
+	 wOPVGX/D6UZSNBEqMRJ4WI62GXh/IhSVeHkYyehi4D3mc9DSvXSuVhx4VcncWqCQex
+	 TQESHpjjsrW/+p2UYquT8J1tmV6Hf5hv4tqqrjWLVaaOS6bHK5NkeoqPXNtgZ/MM22
+	 wqHR1aPvAMCyvjMOLdWce4OAJ60Rz8Gsm0XpCFdAwJ9SATbna7dRiR1FBaTs6s7kX+
+	 QMkyNbIRY9jog==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 69F4F260A1;
+	Thu, 15 Oct 2026 11:44:44 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Thu, 15 Oct 2026 11:44:43 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.48.108])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j51pf3K7mzL91;
+	Thu, 15 Oct 2026 11:44:42 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Sasha Levin <sashal@kernel.org>,
+	Eric Dumazet <edumazet@google.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH 5.10/5.15] vxlan: use pskb_network_may_pull() for transmit path header pulls
+Date: Thu, 15 Oct 2026 11:32:57 +0300
+Message-ID: <20261015083259.1684-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179205383286.2666988.11679524965760153827.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/15 07:23:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, 127.0.0.199:7.1.2;astralinux.ru:7.1.1;new-mail.astralinux.ru:7.1.1;patch.msgid.link:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 206699 [Oct 15 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/15 06:31:00 #28687005
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/10/15 08:01:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-The following commit has been merged into the irq/core branch of tip:
+From: Eric Dumazet <edumazet@google.com>
 
-Commit-ID:     313fa9ffa302f81b437e1ebbb1e6abae06be0cad
-Gitweb:        https://git.kernel.org/tip/313fa9ffa302f81b437e1ebbb1e6abae06b=
-e0cad
-Author:        Richard Patel <ripatel@wii.dev>
-AuthorDate:    Fri, 09 Oct 2026 14:58:41=20
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Thu, 15 Oct 2026 10:38:13 +02:00
+commit b9553558b48db54ac9273e6b98d7263ef5c1a329 upstream.
 
-genirq: Defer kfree(irqaction) until irq_thread_dtor() finishes
+In vxlan_xmit(), arp_reduce(), and vxlan_mdb_entry_skb_get(), pskb_may_pull() was
+being called to verify the availability of network layer headers (ARP, IPv6/ND,
+IP/IPv6 MDB keys).
 
-When an interrupt thread exits abnormally via do_exit() (e.g. the interrupt
-handler oopses) without returning from irq_thread(), a concurrent call to
-free_irq() could free the irqaction before the irq_thread_dtor() exit task
-work runs.
+However, during transmit skb->data points to the MAC header, so skb_network_offset(skb)
+is ETH_HLEN (14 bytes). Using pskb_may_pull(skb, len) only checks len bytes from skb->data
+rather than skb_network_offset(skb) + len, which can leave part of the network header
+in non-linear frags.
 
-  irq thread (oopsed)                 free_irq()
-  -------------------                 ----------
-  do_exit()
-    exit_mm()
-      complete_vfork_done()  -------> kthread_stop() returns
-    exit_files() ...                  kfree(action)
-    exit_task_work()
-      irq_thread_dtor()
-        action->...                   <- use-after-free
+Replace these remaining pskb_may_pull() calls with pskb_network_may_pull() to properly
+account for the MAC header offset.
 
-Track the pending exit work with the IRQTF_EXIT_WORK thread flag, and have
-__free_irq() wait for the bit to clear before kfree().
-
-irq_thread_dtor() only runs on irq_thread abnormal exit. If that dtor also
-faults, free_irq() will hang indefinitely, but double IRQ thread faults
-require a reboot anyways.
-
-Fixes: ed3e694d78cc ("move exit_task_work() past exit_files() et.al.")
-Signed-off-by: Richard Patel <ripatel@wii.dev>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Fixes: e4f67addf158 ("add DOVE extensions for VXLAN")
+Fixes: f564f45c4518 ("vxlan: add ipv6 proxy support")
+Fixes: 0f83e69f44bf ("vxlan: Add MDB data path support")
+Signed-off-by: Eric Dumazet <edumazet@google.com>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261009145842.1616117-2-ripatel@wii.dev
+Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/20260723144249.759100-6-edumazet@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ mdmitrichenko: drop the vxlan_mdb.c hunk, 5.10 and 5.15 have no VXLAN
+  MDB support (added in v6.4); arp_reduce() context differs only in the
+  tx_dropped accounting. ]
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
 ---
- kernel/irq/internals.h |  2 ++
- kernel/irq/manage.c    | 25 +++++++++++++++++++------
- 2 files changed, 21 insertions(+), 6 deletions(-)
+Backport fix for CVE-2026-74474
+ drivers/net/vxlan/vxlan_core.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/irq/internals.h b/kernel/irq/internals.h
-index 0ce21dd..2c30e75 100644
---- a/kernel/irq/internals.h
-+++ b/kernel/irq/internals.h
-@@ -36,6 +36,7 @@ extern struct irqaction chained_action;
-  * IRQTF_AFFINITY  - irq thread is requested to adjust affinity
-  * IRQTF_FORCED_THREAD  - irq action is force threaded
-  * IRQTF_READY     - signals that irq thread is ready
-+ * IRQTF_EXIT_WORK - irq thread exit task_work is pending
-  */
- enum {
- 	IRQTF_RUNTHREAD,
-@@ -43,6 +44,7 @@ enum {
- 	IRQTF_AFFINITY,
- 	IRQTF_FORCED_THREAD,
- 	IRQTF_READY,
-+	IRQTF_EXIT_WORK,
- };
-=20
- /*
-diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
-index 57eff26..e882a06 100644
---- a/kernel/irq/manage.c
-+++ b/kernel/irq/manage.c
-@@ -1176,17 +1176,14 @@ void wake_threads_waitq(struct irq_desc *desc)
- 		wake_up(&desc->wait_for_threads);
- }
-=20
--static void irq_thread_dtor(struct callback_head *unused)
-+static void __irq_thread_dtor(struct irqaction *action)
- {
- 	struct task_struct *tsk =3D current;
- 	struct irq_desc *desc;
--	struct irqaction *action;
-=20
- 	if (WARN_ON_ONCE(!(current->flags & PF_EXITING)))
- 		return;
-=20
--	action =3D kthread_data(tsk);
--
- 	pr_err("exiting task \"%s\" (%d) is an active IRQ thread (irq %d)\n",
- 	       tsk->comm, tsk->pid, action->irq);
-=20
-@@ -1203,6 +1200,14 @@ static void irq_thread_dtor(struct callback_head *unus=
-ed)
- 	irq_finalize_oneshot(desc, action);
- }
-=20
-+static void irq_thread_dtor(struct callback_head *unused)
-+{
-+	struct irqaction *action =3D kthread_data(current);
-+
-+	__irq_thread_dtor(action);
-+	clear_and_wake_up_bit(IRQTF_EXIT_WORK, &action->thread_flags);
-+}
-+
- static void irq_wake_secondary(struct irq_desc *desc, struct irqaction *acti=
-on)
- {
- 	struct irqaction *secondary =3D action->secondary;
-@@ -1263,6 +1268,7 @@ static int irq_thread(void *data)
- 	else
- 		handler_fn =3D irq_thread_fn;
-=20
-+	set_bit(IRQTF_EXIT_WORK, &action->thread_flags);
- 	init_task_work(&on_exit_work, irq_thread_dtor);
- 	task_work_add(current, &on_exit_work, TWA_NONE);
-=20
-@@ -1283,6 +1289,7 @@ static int irq_thread(void *data)
- 	 * oneshot mask bit can be set.
- 	 */
- 	task_work_cancel_func(current, irq_thread_dtor);
-+	clear_and_wake_up_bit(IRQTF_EXIT_WORK, &action->thread_flags);
- 	return 0;
- }
-=20
-@@ -1853,6 +1860,12 @@ out_mput:
- 	return ret;
- }
-=20
-+static void irq_stop_thread(struct irqaction *action)
-+{
-+	kthread_stop_put(action->thread);
-+	wait_on_bit(&action->thread_flags, IRQTF_EXIT_WORK, TASK_UNINTERRUPTIBLE);
-+}
-+
- /*
-  * Internal function to unregister an irqaction - used to free
-  * regular and special interrupts that are part of the architecture.
-@@ -1958,9 +1971,9 @@ static struct irqaction *__free_irq(struct irq_desc *de=
-sc, void *dev_id)
- 	 * the same bit to a newly requested action.
- 	 */
- 	if (action->thread) {
--		kthread_stop_put(action->thread);
-+		irq_stop_thread(action);
- 		if (action->secondary && action->secondary->thread)
--			kthread_stop_put(action->secondary->thread);
-+			irq_stop_thread(action->secondary);
+diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
+index a2955729998c..edd5976509d4 100644
+--- a/drivers/net/vxlan/vxlan_core.c
++++ b/drivers/net/vxlan/vxlan_core.c
+@@ -2004,7 +2004,7 @@ static int arp_reduce(struct net_device *dev, struct sk_buff *skb, __be32 vni)
+ 	if (dev->flags & IFF_NOARP)
+ 		goto out;
+ 
+-	if (!pskb_may_pull(skb, arp_hdr_len(dev))) {
++	if (!pskb_network_may_pull(skb, arp_hdr_len(dev))) {
+ 		dev->stats.tx_dropped++;
+ 		goto out;
  	}
-=20
- 	/* Last action releases resources */
+@@ -2937,8 +2937,8 @@ static netdev_tx_t vxlan_xmit(struct sk_buff *skb, struct net_device *dev)
+ 			return arp_reduce(dev, skb, vni);
+ #if IS_ENABLED(CONFIG_IPV6)
+ 		else if (ntohs(eth->h_proto) == ETH_P_IPV6 &&
+-			 pskb_may_pull(skb, sizeof(struct ipv6hdr) +
+-					    sizeof(struct nd_msg)) &&
++			 pskb_network_may_pull(skb, sizeof(struct ipv6hdr) +
++						    sizeof(struct nd_msg)) &&
+ 			 ipv6_hdr(skb)->nexthdr == IPPROTO_ICMPV6) {
+ 			struct nd_msg *m = (struct nd_msg *)(ipv6_hdr(skb) + 1);
+ 
+-- 
+2.43.0
+
