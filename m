@@ -1,87 +1,87 @@
-Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18D0386426
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 16:43:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA5853FD21
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 16:46:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792082601; cv=none; b=kpAZv1yMIeNtcxrvsicTVw+ZMP9QiZPuY+1RyhL1IbwN+IlZA2OimCIZCjb1Ts8llf7wc9FdFK75Qudl30C6muA6vpwuFhScn9WoWpJmscTp+JyRguSqM/bxi0zMwvfwkuWsMCqteoDh0ppZKy92C8AvB5ncJ8m1TDyGd8u/xtI=
+	t=1792082772; cv=none; b=C4ky02wDDP6/lUrZzP1kqVls+8Fv6RzrP6D4LnnGxUNwudLxz+ztS121STYAVRs303Bg8xhCXG5qxPDHVZ+qRT2l80O5/MxWV2ccotiJlSmZxIg5iJch75v+GofLt/lid33kscP4F6fkaZv8vPq6j8AZlrFDsqFFZPpaMSoJnnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792082601; c=relaxed/simple;
-	bh=4DDQRyYGkgnBGoCsxqWFpAn7l7ImXg8ruT5iHXAW6c4=;
+	s=arc-20240116; t=1792082772; c=relaxed/simple;
+	bh=5GwnoUTEvbdzFE7IbprEwb0I68ky+rVNwWoDiIYbLp4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=R2pkDll9y0tnFvp4YRt37uyJnIk0ii5SV1RvqSdBj9x0NLiSwDiVMtNpPQUmYgHfVRillmRE2l38vxk1vtX9mJ/ikRhHTcCMVPD5mR2dptNUv6GR1LU4LcYjrWmMXt+RYPJ01C89aUGZSdUDT47QnVsSKGxc4MXsWF9+hdKa2T4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=M7O4k47/; arc=none smtp.client-ip=209.85.216.100
+	 To:Cc:Content-Type; b=kOGKb8A0oy45iGl/mOFj0rfzGzOY1sS6U4icw+6o0W6o8uKw8IaIatA9K92fwu5PmepQMn/PY0TWo2o7z4aqe+RnM/4oDPVrOR6m0MMBnqUXe0mhvz1EWSKnRGMPdHrwW5vPlvjjTCMSzIXO5K6NKwswnRHxwfhov/AQVZdV7yc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=E/NBTi35; arc=none smtp.client-ip=209.85.216.98
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="M7O4k47/"
-Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-398a5aad413so1296280a91.3
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 09:43:07 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="E/NBTi35"
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3ab868eb9cfso850969a91.0
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 09:46:02 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792082587; x=1792687387;
+        d=1e100.net; s=20260707; t=1792082762; x=1792687562;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=caZA1e38buXRS2NBD5pSfGkz4UPCMF7jYcB1RuBkGGU=;
-        b=J/RSblrDfibQSPWfwBnw96PfujP/YQ7/svxWik1X4NAmPTelQBmT0dURYEtNFD7L9b
-         WqYOpfcqV8LeAKooVKLURyp1qlMw0ETzY56vDaQskbjsVtJtuWgyCBAwah6OWU1GWfR4
-         bk7vOb2GCcKyzDX1rCjkVUQfL1CUCVhic3usGe5eHLJQ4741QRXWjJZeJAN1Jx/LmHto
-         d237XjUm8h49Lw6bTi/9sFiEoKNJUHDXTSMYi/pKLeDmwlaw2WqgGvNodtD8X3k2yGO8
-         3BCRLalGdgWOuO7CM7LGpw1CWty57jh3ExaZMn6q/b2dgwl8mnzYckvS+k9wXDBs4x+v
-         0odw==
-X-Forwarded-Encrypted: i=1; AKwUvBw8DoXE8R6JIvbq9h/DsJAnMNfppl/zy4a9ppXmEYLVY0HQg3E9+1d7xnlh9eSJUQGaN7q9SG4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLxN5Vkw+xot0pKM/C+evndAcTYvCQbPCyrmZXDoDWBaDOKXgdN
-	Lwvzr2XgAl3H7SkfgyymWZWoBpFJCNGAdzPt7fMYOmmtwEqHOvH8+tlhiSHvagG0ndjTNdwhyRt
-	8Vak/uoFi5ps/KbgNDVLBfSdvp6AfKx06NQvlk4IWIllHu2DqX9QE1OoXhGXIZaI2Xo1ULfwc6R
-	88Ybo1LnqVu7R1ZZ8Uj6zW8GfHyKzQZTecz5mLcSLW7nA5+PTfrl2DYq8q34+Ww7B6ATYqrL/iJ
-	Ncctwd/
-X-Gm-Gg: AYBFou2KXsSoG6o65e7fWdtTqzmozOOs0RmrgICzqP1r5xJT1/lNScbuBj2GQ2ixybI
-	gihYSKfxie+RI4XGWSQ4uisv0cBFXRb+XuzDapAVprTwd5tgRDb7HxtdrC/Kd1xOman8MGwBkIC
-	GE9VKh7647CGiuHpoIDqJl2G/o+blK0Yvbk4LaAWCTKZ0El0zdVIgD30fpGE4B6TccLDjJyE9BJ
-	fPqSN6drHkzSqh9eFq90VOuy7l/YiqZEzZ0MtvrZnIm703H67CFHiqEfawr2+4CRAKQoRIc7Qi4
-	mxFf6I1oMaNVgBNeI5WpjpRwXXNrPVbc/NPnNrrTXMVuCsSnS8RoF6uhOkJ7xvf+qpQq46Uo7OS
-	OvotsAsiDsrkyTgk/RZOx678Q2qEgnxazmrY9o48bXP7ynlOL2Yse98I+ntbN5/XzG8SC2tTOqY
-	+3AjG0mhoJnYB3nRaohQBGA/wLLdhNu+ku
-X-Received: by 2002:a17:90b:390a:b0:3ac:929e:691 with SMTP id 98e67ed59e1d1-3ac929e06a8mr3470333a91.17.1792082586692;
-        Thu, 15 Oct 2026 09:43:06 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-20.dlp.protect.broadcom.com. [144.49.247.20])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ac9b6913b4sm1653779a91.3.2026.10.15.09.43.06
+        bh=vKZAL7GCaxNUB//luY04416Ubt5iQBwrEKKIgVKRXfE=;
+        b=eiC95wRTvt2iVI3cfqy+tV9fdpbPxeihfJy2u1JoSSiVz4vrj8qH+rDwJ4eKZNCgkO
+         bSDX5IVCp+X/1RD9ZYAa0MB0tjCYwRawl+zqkmVoEml6++V1UZad+JEPYQ8sDikAwpMo
+         baKXJ2DUtv6KldFAn6Y7NQoXs6YRk7B4LjVQOic/jZQGk2L8P+7bVNEZY7yi+WR2c4lB
+         hf3xXfnZVVWuUPNEJU6LkUvTm+skePsXFaMix+AApuA5HXjrp2D1jpiLZRz3vznQkVUJ
+         GMaEDqH0F16A9hLFcM1n5j1wQ1YlF+KPtbNZwp+E/ByXnvYiuLv1oeIAmSMevRIJ6sem
+         jdAA==
+X-Forwarded-Encrypted: i=1; AKwUvBzQqezCsRzfk+CJK/LjNrIaj/oIpC3SrkJdGZwAD61rEF1TPPsOa0HTyUFJzxK6Lx0vmuLS70w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLoSkAKwnVwEEPTv1j2fB/T/S0ZHf5lrQ7ymzrR/DEfpvsCnU9j
+	ZDsiOmWf3hB4T3fMKkfaaw9SstwTcVLjvMTExRsZ3fr6MkS62aqlLoMYPkwrBQD3efE1YJGizJH
+	DaRg3wTO7DTdM+IzbdPQMFQMMkmB6g+qiP7NCGLQQQJUQnZRkoANEOdFXfcLiG2o+EagGDYhvNt
+	ApWqDbwpe0vliN61VR4QCJ5yD9+AVBsjUV4lUEHHNZM6aV0/I33WQtzhSAVReRPcUaf5YfTFUxt
+	e2YHI9F
+X-Gm-Gg: AYBFou1tsZMqeg/7BFHWuZqWmjkQJoqmwoqcVLNtss7OHDIyoyWRud5jWWcIIh+EV9U
+	KI7RfT33s/M/YoSWId5476qQYc4K+PyPLR/Vvs/mkKih21rBe0OMxaZAZBLJ8FiutIBmvyo6bIH
+	NG49MOGxP4zq5L9G/HRtxAjm+45NksNXDfL8kfwbC+SC4Y0VV1YrkSMJ2QuEWLWf2rTT9Pa2w9v
+	peqUKXh8Jn5YmntW+DUgfGP4vUSVg0NXIw/XX0I5Fr21nXTDAKA/C1A8OXeGEb3wHSWyTvgxfOV
+	feqamz/ezbh3IUwtD+MEA/jp4Z6AdxFOedAEKUvcLd08g3oaKpZKfl+lEjAWbTyYIGfjfpPVrwB
+	7WsCfY7SqR/nk5bXtcQTbfZWGcv0I8AP3Gn3dvw80mS9nByY2OT1ahd91Gi+B41QKuQ8OQUaH8b
+	K7xJrdT+uiJD954q3cgvrvBqffGQ9IOifZD2I=
+X-Received: by 2002:a17:90b:518d:b0:3ac:9c37:9429 with SMTP id 98e67ed59e1d1-3ac9c379aa3mr2846806a91.52.1792082762078;
+        Thu, 15 Oct 2026 09:46:02 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ac947badeasm1953028a91.8.2026.10.15.09.46.00
         for <stable@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 15 Oct 2026 09:43:06 -0700 (PDT)
+        Thu, 15 Oct 2026 09:46:02 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-359b81ad4e8so3309165eec.0
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 09:43:05 -0700 (PDT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-359b81ad4e8so3311468eec.0
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 09:45:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1792082585; x=1792687385; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1792082759; x=1792687559; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=caZA1e38buXRS2NBD5pSfGkz4UPCMF7jYcB1RuBkGGU=;
-        b=M7O4k47/JTVlGwfkTtjMo20VIxLf/XJBfPIuBwOoQaUv0IVc5LdLta70645Qu1MwVe
-         D8w/vd4GrvkKSixfWjT36Byb546cEYPQJsQF6UMBwObS2XTHfNvKb31ZmHCgNQ/+sYRe
-         ZIZCuBZTvKY9FBxKWzn58eumWTUsozFQzNFF4=
-X-Forwarded-Encrypted: i=1; AKwUvByKwucL1/43qdO0gr3WnNbCfED6zzvJeDwuczNIN6ve3wThkjM0RK1a5megubucfNPFYmEGjs8=@vger.kernel.org
-X-Received: by 2002:a05:7301:70b:b0:356:23dd:3c72 with SMTP id 5a478bee46e88-35623dd574fmr22162818eec.4.1792082584999;
-        Thu, 15 Oct 2026 09:43:04 -0700 (PDT)
-X-Received: by 2002:a05:7301:70b:b0:356:23dd:3c72 with SMTP id
- 5a478bee46e88-35623dd574fmr22162783eec.4.1792082584198; Thu, 15 Oct 2026
- 09:43:04 -0700 (PDT)
+        bh=vKZAL7GCaxNUB//luY04416Ubt5iQBwrEKKIgVKRXfE=;
+        b=E/NBTi352xcB3a3XwlYxOETRjW9TvQ5+QNsSpw3fnsDV2LVlh5v4pYXvWmzcypPruq
+         qOM0+Cw7r8MtmFqrCD57Szq2L8SVShbUP22ukpESpZPvOCMKqkay5yiyB/ImanCUwE2V
+         OOiaSgUA/uPkzSMP0b/uIlpWhdZgwRL4shhMM=
+X-Forwarded-Encrypted: i=1; AKwUvBxIbwT6dhtfq3hj33KUa4XmvR2s7TjmVW9qW7OnbNdfQNwrrIcqb6OpPDy/HgN6lq4+Fz+P7Q0=@vger.kernel.org
+X-Received: by 2002:a05:7301:78cd:b0:353:5908:36fc with SMTP id 5a478bee46e88-3537dfa8c6cmr25184466eec.17.1792082758899;
+        Thu, 15 Oct 2026 09:45:58 -0700 (PDT)
+X-Received: by 2002:a05:7301:78cd:b0:353:5908:36fc with SMTP id
+ 5a478bee46e88-3537dfa8c6cmr25184392eec.17.1792082757800; Thu, 15 Oct 2026
+ 09:45:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013120211.135807-1-matt@ozlabs.org> <20261013120211.135807-2-matt@ozlabs.org>
-In-Reply-To: <20261013120211.135807-2-matt@ozlabs.org>
+References: <20261013120211.135807-1-matt@ozlabs.org> <20261013120211.135807-4-matt@ozlabs.org>
+In-Reply-To: <20261013120211.135807-4-matt@ozlabs.org>
 From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Thu, 15 Oct 2026 09:42:44 -0700
-X-Gm-Features: AclHuK8uvZ2yCOXgWUEd0EcP0DV4PFr55gQDJjWOVezQ6ac0lSksAZFJroIxQa0
-Message-ID: <CABQX2QP16Aid7tUk2kyPU9mUzB4XHcJKYtO3xsbDOQ3rgGYX6A@mail.gmail.com>
-Subject: Re: [PATCH v3 1/3] drm/vmwgfx: Use get_file_active() for dmabuf->file
+Date: Thu, 15 Oct 2026 09:45:41 -0700
+X-Gm-Features: AclHuK8gEHzRL7o1P7PbsprYTPQIJqIPg_1G1oX-C1t78VeDlarF5hWwxG694Uw
+Message-ID: <CABQX2QOis8GJK4Mm8FEuH8UtrXF1NbeMoN8vQD5j4Hwcdk8JoA@mail.gmail.com>
+Subject: Re: [PATCH v3 3/3] dma-buf: Annul dmabuf->file on file release
 To: Matt Evans <matt@ozlabs.org>
 Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
 	Sumit Semwal <sumit.semwal@linaro.org>, Zhenyu Wang <zhenyuw.linux@gmail.com>, 
@@ -95,59 +95,115 @@ Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
 	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, stable@vger.kernel.org
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="000000000000eab8ff065de3bdf7"
+	boundary="000000000000490629065de3c8ac"
 
---000000000000eab8ff065de3bdf7
+--000000000000490629065de3c8ac
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Tue, Oct 13, 2026 at 5:02=E2=80=AFAM Matt Evans <matt@ozlabs.org> wrote:
 >
-> 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
-> dentry_ops") moved the dmabuf .release, and broke the vmwgfx driver's
-> assumption that dmabuf->file would remain valid until release.
-> Currently, dmabuf->file can be stale after the file closes even if
-> .release has not yet been called, and a future commit makes
-> dmabuf->file become NULL instead of stale.
+> The dmabuf release path is split between file and dentry release:
+> dma_buf_file_release() is called shortly before the file is freed, and
+> dma_buf_release() calls an exporter's dmabuf->ops->release when the
+> dentry is freed.  However, the dentry can outlive the file (for
+> example, if opened with O_PATH), meaning .release might be called some
+> time after the file is freed.
 >
-> In preparation for that future commit, convert
-> get_dma_buf_unless_doomed() to use get_file_active(&dmabuf->file)
-> which is the safe method to access and get a reference, even when
-> dmabuf->file could be NULL.
+> This presents a window, when closing a DMABUF file, in which
+> dmabuf->file points to freed memory yet .release op has not yet been
+> called.
+>
+> For VFIO, if a buffer's .release has not been called it's considered
+> still active and subject to move/cleanup.  If so, it attempts to
+> get_file_active() on dmabuf->file: a file close with dentry held open
+> will call this function with a stale pointer, a UAF.
+>
+> To make this pattern safe, set dmabuf->file to NULL in
+> dma_buf_file_release() to reflect that the associated file is now dead
+> even if the DMABUF is not yet gone.  A get_file_active() ... fput()
+> sequence concurrent with a file close then only executes as one of:
+>
+>  - Gets the file before file_ref_put() (dmabuf->file valid)
+>  - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
+>  - Observes dmabuf->file =3D NULL (no file)
+>
+> Originally, drivers could assume dmabuf->file was valid until .release
+> was called from fops->release.  This assumption was no longer valid
+> after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
+> dentry_ops"), which moved the callback to the dentry release (by which
+> point the file might have been freed).  With this commit, drivers must
+> still consider that dmabuf->file could be NULL before .release.
 >
 > Cc: stable@vger.kernel.org
 > Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentr=
 y_ops")
 > Signed-off-by: Matt Evans <matt@ozlabs.org>
 > ---
->  drivers/gpu/drm/vmwgfx/ttm_object.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/dma-buf/dma-buf.c | 21 ++++++++++++++++++---
+>  include/linux/dma-buf.h   |  5 ++++-
+>  2 files changed, 22 insertions(+), 4 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/vmwgfx/ttm_object.c b/drivers/gpu/drm/vmwgfx=
-/ttm_object.c
-> index f9042bafdc93..9137a31eaa1a 100644
-> --- a/drivers/gpu/drm/vmwgfx/ttm_object.c
-> +++ b/drivers/gpu/drm/vmwgfx/ttm_object.c
-> @@ -471,7 +471,7 @@ void ttm_object_device_release(struct ttm_object_devi=
-ce **p_tdev)
->   */
->  static bool __must_check get_dma_buf_unless_doomed(struct dma_buf *dmabu=
-f)
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index 4c9add51f9ef..61485fc28b8b 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
+> @@ -193,11 +193,26 @@ static void dma_buf_release(struct dentry *dentry)
+>
+>  static int dma_buf_file_release(struct inode *inode, struct file *file)
 >  {
-> -       return file_ref_get(&dmabuf->file->f_ref);
-> +       return get_file_active(&dmabuf->file) !=3D NULL;
+> -       if (!is_dma_buf_file(file))
+> -               return -EINVAL;
+> +       struct dma_buf *dmabuf =3D file->private_data;
+> +
+> +       if (!dmabuf)
+> +               return 0;
+>
+> -       __dma_buf_list_del(file->private_data);
+> +       __dma_buf_list_del(dmabuf);
+>
+> +       /*
+> +        * As the file is being closed, dmabuf->file is no longer
+> +        * valid and NULL replaces an otherwise stale pointer.  If a
+> +        * reference to the file isn't already held, the file can be
+> +        * closed at any time, including before dmabuf->ops->release()
+> +        * happens: dmabuf->file _must not_ be accessed directly.  An
+> +        * exporter should use get_file_active(&dmabuf->file) which
+> +        * atomically tests and acquires a reference to the file (or
+> +        * returns NULL if the file has closed).  The barrier ensures
+> +        * get_file_active() observes the store before file_free()
+> +        * frees the memory.
+> +        */
+> +       smp_store_mb(dmabuf->file, NULL);
+>         return 0;
 >  }
 >
->  /**
+> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+> index d15b2b31d3c9..a31eb0ab9ecf 100644
+> --- a/include/linux/dma-buf.h
+> +++ b/include/linux/dma-buf.h
+> @@ -303,7 +303,10 @@ struct dma_buf {
+>          * @file:
+>          *
+>          * File pointer used for sharing buffers across, and for refcount=
+ing.
+> -        * See dma_buf_get() and dma_buf_put().
+> +        * See dma_buf_get() and dma_buf_put().  When an exporter holds a
+> +        * common lock with the ->release() callback, it can use
+> +        * get_file_active(&dma_buf->file) to safely acquire a reference;
+> +        * the file could otherwise be closed at any time.
+>          */
+>         struct file *file;
+>
 > --
 > 2.47.3
+>
 
-Looks good. Thanks! Feel free to use either Suggested-by or
 Reviewed-by: Zack Rusin <zack.rusin@broadcom.com>
 
 z
 
---000000000000eab8ff065de3bdf7
+--000000000000490629065de3c8ac
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -239,13 +295,13 @@ iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
 b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
 VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
 VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIGNz
-VXkGGumopBKIn/qVTd6ehDVfWD1CXUSQEC9JhfzNMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MTAxNTE2NDMwNVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIBCL
+84tfrxmEydRsa1w33yx6kN2PzfUL8NyJllPrxqdvMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MTAxNTE2NDU1OVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
 ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBACWwSo1VrUwePCkDwJ6WZMBpRtNDlQM2QN9vcZIO
-9VxSmU7FqtizmjvJg3sOF4Nw/bhAWBqoleBylD7Bjacx7w/zGUYcherjG5Sm1oY4A2H0V8zI9cOF
-NLrJ7TiPr5R2r6nNfxl7mKgpkhYEXJlr1q/GiXVaWA5tgw/oq4VUkovjez2D3JBrYEq7h3xcgt7O
-CtrVX+y8j1nRAsPDf9WFtK+JqjwmA038MpO8mNvCJ6RhjsbEp1/4DjJdEYvG1gAtwbkIA+GAfYYG
-mOcaxxZS6Mhu2xTVd+FhWNhRSBoPQtwSTBhPPQrJQ8Dr2mwzZTo1Ml76Rovn/XXAG2Mo1KTg7v4=
---000000000000eab8ff065de3bdf7--
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAGzG9yKhRrbn4VGJFWDcPw20WJoiE/6KD+Cg1KqC
+h6BS1xXVufGiY5gvfwlaKaa0uX1BMOOXBkCA2l+qN82gilIQSEhXBk0XzvoiE1up8Ps0m3ncoAKn
+F8e87A551Eyx/OFtw+fVvLeaVYj2kkn3b+8AY/mVE7puKUU67aQ4nz3A80sIR2S5KfvnuxkXndSA
++inJYcHuzXJG2OlbN1wvw38nsQCiVR+XbeSCih3eal0TAIO/c2oIUGF9TH5rjMn0ieVUtp1Mcn4J
+3/gCN7TwPt6dfmultyHXyj6LJ/ImFSvZarTc+BRxJziqjHIqJmdez6sAKsbQU4XBT0G8XV42JZE=
+--000000000000490629065de3c8ac--
