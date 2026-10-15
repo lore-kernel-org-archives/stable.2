@@ -1,116 +1,233 @@
-Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CC442D5932
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 14:45:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.34.181.151
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075552; cv=none; b=AOCK2F4B0Z7/hSNvfOponxf/Qc4G6K8sXk+MSqsLjQ8B9J3QWadZhOBSMKWEL96nYGTgDOqSnFugravC7VPY7exxkuFzbM1N9E7ClcWZ3yy+pe/Keqn9ij3Wc3DHMCWThAdI79QEjsY1WaVirsGqweAOGUhGuY3ehSby+gxHJH4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075552; c=relaxed/simple;
-	bh=6IO/flmMg+yIG4kX9B1eWs1LzYGyN7v2mHbD0zCImig=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uuUQtfneq/B79pysHOvUzsD5jJTwVmZpANNJI8ivP13hPYeipEOGKt5QUyzJrHeDslWHa/qZ8Roo3lJ+dP7txDrlSK9T8paMGlTH18qNjKWjvM3c+VzcRRtTVX8PZedq1RoNzrjVE7GXiySEh3odaSNryS15OhSRi7oUqOOthfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=H8h4KCz+; arc=none smtp.client-ip=52.34.181.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E38F43C553A
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 14:45:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792075561; cv=pass; b=TDg0hB+JKMXMFo8eWPOzO94VAqA18Q7qMZ+lEph3Y7nMx+Y2X4kRIfos/GMYCX3B8NwnxJBLNc5nR7mvEx1bf1/MX520qHL6i3B+HNLkNx93Tkc1ff1+RML+A8Jd+zhLTopuSQ/5TykOOsirTwAMPWKaBzix/fy76OqZ40KzyOk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792075561; c=relaxed/simple;
+	bh=7kTPqpLAh+L97oFkxfh+4rZx6U3XxL8GE5687Tp1CcA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tUO79LIPKgapES0qMkRy5sZM8oNcUcWRrwN+/wds1+BwxAif9SOzSongv2dJhDDiQ1o11zWT8lyhLrzFNvzCU8Zltk7tirZwH7eGNDeGZuvb3676/QkWe7w5sbi+3eZpwcZZCW+PBE1GDrDAmW20Yxg9jLSUH2qDmyTEvaP+NTg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gi1KgUkO; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=S8V8/SC1; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="H8h4KCz+"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gi1KgUkO";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="S8V8/SC1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792075557;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kJMrs0BTYtg7WetIITx1Ab2b5lfsKukYxYHcdWEU7D8=;
+	b=gi1KgUkOmHyjx4JuOptS9/41oc5AAtETdurVD2DBvNy72Dt2ijpF6kyG9Wslo/hN+VruOJ
+	r2j6fN9x9lOwJoytwnLSBpJESYblbBhGnkyfAkqBAf+83jiubGwrsBddcnQu8JNbelHi6E
+	3F2umo3KtG4ALprRVvK7EXga/V26cjM=
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
+ [209.85.167.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-365-5BKU3-7yMVirqVKiZuQcXA-1; Thu, 15 Oct 2026 14:45:56 +0000
+X-MC-Unique: 5BKU3-7yMVirqVKiZuQcXA-1
+X-Mimecast-MFC-AGG-ID: 5BKU3-7yMVirqVKiZuQcXA_1792075556
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4ab260600easo57659b6e.1
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 07:45:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792075556; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dOxVkjJdUKfZg3LVnTgGbEHhdiaMps4Sf5H6dmakjP9KaCqAsgtIHO6geQhHjNQ0Xg
+         9un4mC75WArKF+8TxTv2lfjgcYIX+g7XpoF2Tlmgl5IxupWFkKNWUNoqHbVIYvzQFrmu
+         VD1Mca/vt0bt3QRkuf5ciJDJFeYxe4jfbhx8siEg4dvCKlDgeXOmhvFJl65ZuQiyH5L1
+         WBDhwXOeVfJ63rizb3qOJjmc+KE86OfnVBhYzFFCQghVJGS7eeb/nWfwuJ+EKHYuB8Tk
+         inHmntxTF01x41UqmxS22UHH6ATOe3i4gCFMS2ykcF7i17vDbI/QPK2rdrCOTYuqxoje
+         WY0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kJMrs0BTYtg7WetIITx1Ab2b5lfsKukYxYHcdWEU7D8=;
+        fh=DZBPzUdq31biE5WAE5p97WAHE+rBOi1g/J5gu7xuF4M=;
+        b=cjuVzxTja3+p/LVbxMSeNz6Ao0J9GkBrhOwP5pHc+fb5BBxeuoIXVcssfTBAcCJJaM
+         8fh+K9SpO+Vz8O4KORRZYC70eDuAfAaQX+3U2jR4HfZqfWT4qLCDKKx0rWGXTvPbCFqV
+         5mGP/GpzjL46hqw83I721cU5DFVG9P/QLIkAux87CzZMl3uwBWZbcgeO29sgLXQXyWU6
+         DEwFpJMTRPlQiEPpBpAAfLGbvpSD4M1nZeGnO9eY3hofy/QwdHOPTWcgIHc8V2mTLxUn
+         46wuSkYboAbXjmlK9YdJCAorNhobGs1+33QKe+PmAdfMBwKZvFtXRIGJ8H0t6anUJodX
+         nTkA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1792075551; x=1823611551;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=cKx/t/+TAF4YjXU23LNleHFcUmfPDixkfS6sn57a3s0=;
-  b=H8h4KCz+++dodxhM2V0ZEMNWR+aCC4El10pxihp+JBkQFLJiBiaVLRae
-   KFWA/UFccaOG07XP6O3Rsnfjfsyb5BHhU8AXpHS/Y47goNc5R7CPPLyAk
-   +fcuZ5Jm1UCptA0XqQhMbTEGCBPQqKPPQalXkSD25S3FxDxJHtaWyw9Vt
-   uMUXhmFEZWVPYah02CUnqaZo2/u4/bEU9elJY61RbhioYneh6vExawigJ
-   gBg3kbkJiyQKDRBckyeg8WWDp3YIoEtyobjPYp1AzmleCclDvX8M+twR8
-   aQ0O0ZwyrB18RlvAWkJuXNoHm/pyLml1oGovVwcR3IUsRyagSsyQOWLRq
-   Q==;
-X-CSE-ConnectionGUID: Q2rGLVgxSuutHEjcu3mgnA==
-X-CSE-MsgGUID: neHvo1RPTZ6dKD9HRCQEIw==
-X-IronPort-AV: E=Sophos;i="6.27,160,1787011200"; 
-   d="scan'208";a="31336690"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 14:45:47 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:1486]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.63.90:2525] with esmtp (Farcaster)
- id d05f5ffc-4038-4a23-9a53-19cce5f690fb; Thu, 15 Oct 2026 14:45:46 +0000 (UTC)
-X-Farcaster-Flow-ID: d05f5ffc-4038-4a23-9a53-19cce5f690fb
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 15 Oct 2026 14:45:46 +0000
-Received: from dev-dsk-fparola-1b-85ea2014.eu-west-1.amazon.com
- (10.13.236.104) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Thu, 15 Oct 2026
- 14:45:44 +0000
-From: Federico Parola <fparola@amazon.de>
-To: <stable@vger.kernel.org>
-CC: Mike Rapoport <rppt@kernel.org>, Pasha Tatashin
-	<pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, "Alexander
- Graf" <graf@amazon.com>, Andrew Morton <akpm@linux-foundation.org>,
-	<kexec@lists.infradead.org>, <linux-mm@kvack.org>,
-	<nh-open-source@amazon.com>
-Subject: [PATCH 6.18.y 2/2] kho: free phys_bits bitmaps using free_page() in __kho_abort()
-Date: Thu, 15 Oct 2026 14:45:29 +0000
-Message-ID: <20261015144529.76911-3-fparola@amazon.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261015144529.76911-1-fparola@amazon.de>
-References: <20261015144529.76911-1-fparola@amazon.de>
+        d=redhat.com; s=google; t=1792075556; x=1792680356; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kJMrs0BTYtg7WetIITx1Ab2b5lfsKukYxYHcdWEU7D8=;
+        b=S8V8/SC1KORhzrxzC7R+m/vG29QzYYZGH9wev7JsB2jQEGBYDxeR/NQCRS20SZLAoD
+         dDIFtVK0Ah7Ce34gAQA0RYZnLMKrSkFoGjPLhjxC3yaYAbmDiWPqs4E3wL8og8JhoBds
+         sHGnu67q8AC7ZRJy56IpPpOq6FAfD40Oh+OVQrYwsqBJv/qO/TEdP9nqobURCjGF4Dyx
+         EZyHxBlGg8yfy5SolW/5BeLMxIGcEYLEGXYxY86zD7XbWT8kyywvG6rw7S6w5Rt0ZzPT
+         HsWBC4S1nYHj06DMyI6Gf5/YuRXF0LEgbYL/KRf8FdUzEt05w+tZHiD6tqVizfMejZRp
+         6tqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792075556; x=1792680356;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kJMrs0BTYtg7WetIITx1Ab2b5lfsKukYxYHcdWEU7D8=;
+        b=UbzyEC6TSDv9rdGtugZ+wTivR9VAlXPLmg1ybQX2952uPEOUX0d17mVy6HBEEiALpN
+         VtG2jUV5wpLQHE8QUHCjs+9JsTR2yfIZvxnL3A7Pq6Qo0+9Nx4EqmBMhs9vKBuaI0J78
+         qNTD4c2OTSHrbMTkvt4DDJg+MaFrHkVo3kKeuJkMO/HZjUHhT/sbXSfqFVe9TSA8u6OS
+         TDBbldtRHKXIaLzwghYHdPeQh8EGJ4J+DTG7+Cy6RshdjUvi3Cf9AaVxLrxZVNqZTcuX
+         6hHtlHdvosRpdfAs2VUZqPy0HT5OE79FG7xNJM+s/CaFZIvOKRTtcTCDwWdqpF6WS1MX
+         2pJA==
+X-Forwarded-Encrypted: i=1; AKwUvBz4XFHpbWow+n1hc9KQOiOAAJCe+K2tQh7l5yWK3BSOpon8jhRurWKe2TDUh8eVdOwkg6WHkx8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBeARLtkYH8gg9CTkHetfGzam6tgOsTDb3znbjSlvaay8S7wml
+	YIgzcElj/edi4dxFNn7lxW79IZcp/PZajpAjvT5sp8QOsuBGHKSJL+Cy0xvDSVEIwvEdnRZ8zIq
+	hhR+lBAGrcur1DYmIkb701SC+vDimOQtioh55eB3XkDFu0f4ltW+EO3XCXgc1vOi33tLstm4YH4
+	w40VuKi4CzdIOWkkYVJ3+ze5youLhhxeU7
+X-Gm-Gg: AYBFou0IXxZhxyelrkyVv3o+OmtHD5kW4R2VvQIg2O1upHQcPbZYYFVzMv18aPqjYjg
+	/C8KnewdHrpFiJZ1HrwHd+bAzlBKKA8wgmHfDwFUIRqO8iTg1YcivvqXtGVvNEElG9T/gNEticU
+	ntmyxM06xaZ+H3w0DWKdv2DiG1/g+qlkte/dVRIcAPKp6GgPPI0uFe2Fhn1fLNHTTlzyVfpuxt7
+	Ey1cfqeKsfDlAHD4w==
+X-Received: by 2002:a05:6808:c227:b0:4ca:9850:4dd8 with SMTP id 5614622812f47-536fafdd8ccmr207185b6e.10.1792075555635;
+        Thu, 15 Oct 2026 07:45:55 -0700 (PDT)
+X-Received: by 2002:a05:6808:c227:b0:4ca:9850:4dd8 with SMTP id
+ 5614622812f47-536fafdd8ccmr207137b6e.10.1792075555012; Thu, 15 Oct 2026
+ 07:45:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA002.ant.amazon.com (10.13.139.96) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+References: <20261015020811.1132314-1-keng-yu.lin@hpe.com> <CAJZ5v0iYieKPAQTDcr+g6o+JHz+kMRqYYmakeBsyn-BxtxQcvw@mail.gmail.com>
+In-Reply-To: <CAJZ5v0iYieKPAQTDcr+g6o+JHz+kMRqYYmakeBsyn-BxtxQcvw@mail.gmail.com>
+From: Desnes Nunes <desnesn@redhat.com>
+Date: Thu, 15 Oct 2026 11:45:43 -0300
+X-Gm-Features: AclHuK_vz2mggd0RcuByATED0GopB3zO_jGEVLBVHom48STilEFyTjbRWniIMTY
+Message-ID: <CACaw+ey8pZb=Vg+FDaK+K=iyho634sgs=G7nm60mooCD=PuVFg@mail.gmail.com>
+Subject: Re: [PATCH v3] PCI/PM: Restore BARs after powering up during enumeration
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Keng-Yu Lin <keng-yu.lin@hpe.com>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Mario Limonciello <mario.limonciello@amd.com>, Matthew Ruffell <matthew.ruffell@canonical.com>, 
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, andy.liang@hpe.com, david.chang@hpe.com, 
+	s.collins@hpe.com, jenifer.golmitz@hpe.com, pravallika.kamma@hpe.com, 
+	zhen-dong.lai@hpe.com, zachary.pabor-ext@hpe.com, acelan.kao@canonical.com, 
+	michael.reed@canonical.com, dlee@hpe.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Commit fa759cd75bce ("kho: allocate metadata directly from the buddy
-allocator") switched the allocation of preserved memory bitmaps to
-get_zeroed_page(), but __kho_abort() still releases them with kfree().
-kfree() on a buddy page that is not a large kmalloc allocation hits the
-WARN_ON_ONCE() in free_large_kmalloc() and returns without freeing it,
-so every aborted finalization leaks all bitmap pages.
+Reviewed-by: Desnes Nunes <desnesn@redhat.com>
 
-Free the bitmaps with free_page() instead.
 
-This is a stable-only patch. Upstream fixed it as a side effect of
-commit 99cd2ffac697 ("kho: don't unpreserve memory during abort"), which
-removes the tracking teardown from __kho_abort() altogether. That change
-builds on commit 36f8f7ef7fd2 ("kho: add interfaces to unpreserve
-folios, page ranges, and vmalloc") and commit 70f9133096c8 ("kho: drop
-notifiers"). In 6.18.y, KHO users still preserve memory from the
-KEXEC_KHO_FINALIZE notifier and have no interface to unpreserve it, so
-the teardown on abort is the only way their preservations get dropped.
-Backporting that commit would make preservations outlive every abort,
-so keep the teardown and fix only the mismatched free.
+Desnes Nunes
 
-Fixes: fa759cd75bce ("kho: allocate metadata directly from the buddy allocator")
-Signed-off-by: Federico Parola <fparola@amazon.de>
----
- kernel/kexec_handover.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/kexec_handover.c b/kernel/kexec_handover.c
-index 9fe5d14f1ec54..9691f6bc2fba7 100644
---- a/kernel/kexec_handover.c
-+++ b/kernel/kexec_handover.c
-@@ -1054,7 +1054,7 @@ static int __kho_abort(void)
- 		unsigned long phys;
- 
- 		xa_for_each(&physxa->phys_bits, phys, bits)
--			kfree(bits);
-+			free_page((unsigned long)bits);
- 
- 		xa_destroy(&physxa->phys_bits);
- 		kfree(physxa);
--- 
-2.47.3
+On Thu, Oct 15, 2026 at 11:15=E2=80=AFAM Rafael J. Wysocki (Intel)
+<rafael@kernel.org> wrote:
+>
+> On Thu, Oct 15, 2026 at 4:08=E2=80=AFAM Keng-Yu Lin <keng-yu.lin@hpe.com>=
+ wrote:
+> >
+> > Commit 4d4c10f763d7 ("PCI: Explicitly put devices into D0 when
+> > initializing") added pci_pm_power_up_and_verify_state() to pci_pm_init(=
+).
+> > The helper ignores pci_power_up()'s return value indicating that BARs
+> > need restoring. Its resume callers restore saved configuration
+> > afterwards; pci_pm_init() does not.
+> >
+> > D3hot-to-D0 may reset a device and lose its BARs (PCI PM 1.2, sec 5.4.1=
+).
+> > After enumeration powers it up, pci_enable_device() reads D0 and skips
+> > the full power-up path. Previously, a device still in D3hot at enable
+> > time took that path, including BAR restoration.
+> >
+> > On AMD Venice SP7, two AMD xHCI controllers [1022:17d2] are in runtime
+> > D3hot with No_Soft_Reset clear before kdump. Diagnostic reads on
+> > v7.3-rc6-37 show the following for 0000:01:00.4 in the crash kernel:
+> >
+> >                                    PMCSR      BAR0
+> >   before the platform power call   0003       f4100004
+> >   after the platform power call    0003       f4100004
+> >   after native D0 power-up         0000       00000004
+> >
+> > The upper BAR DWORD stays zero. pci_power_up() returns 1, but the BAR
+> > address remains zero while dev->resource[0] still contains 0xf4100000.
+> > Without BAR restoration, the crash kernel hangs during boot. The
+> > last console output includes:
+> >
+> >   pci 0000:01:00.4: enabling device (0000 -> 0002)
+> >
+> > Restoring both controllers' BARs gives matching readbacks and allows
+> > kdump to save a vmcore and reboot. An AMD Turin xHCI [1022:1557] shows
+> > the same BAR loss; restoring its BAR also allows kdump to complete.
+> >
+> > Read the initial power state first. Otherwise, pci_power_up() may
+> > request a BAR restore based on a cached PCI_UNKNOWN state, even
+> > when the device is already in D0.
+> >
+> > For devices already in D0, only synchronize the platform state so
+> > that ACPI calls such as _REG still run. For other states, use
+> > pci_set_full_power_state() to power up the device and restore BARs
+> > when needed.
+> >
+> > Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
+> > Suggested-by: Rafael J. Wysocki <rafael@kernel.org>
+> > Fixes: 4d4c10f763d7 ("PCI: Explicitly put devices into D0 when initiali=
+zing")
+> > Link: https://lore.kernel.org/r/CAJZ5v0ie2AvCbdv8-zkpYzHLcTwUPUj+=3DWWO=
+QjDAPmSepSAQPg@mail.gmail.com/
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Keng-Yu Lin <keng-yu.lin@hpe.com>
+>
+> Reviewed-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+>
+> > ---
+> >
+> > Changes in v3:
+> > - Use Rafael's sequence: sync only the platform state for devices
+> >   already in D0, and use pci_set_full_power_state() otherwise.
+> > - The D0 path no longer runs the full helper's ASPM update.
+> >
+> > Tested with diagnostic prints on AMD Venice SP7 and Turin. Normal
+> > boots made no BAR writes from this path. The crash kernels restored
+> > only the cleared xHCI BARs (two on Venice, one on Turin), with matching
+> > readbacks. Both systems saved a vmcore and rebooted.
+> >
+> > v2: https://lore.kernel.org/r/20261012104645.975190-1-keng-yu.lin@hpe.c=
+om/
+> >
+> >  drivers/pci/pci.c | 10 +++++++++-
+> >  1 file changed, 9 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> > index 8cc6a89130b5..895969fe4520 100644
+> > --- a/drivers/pci/pci.c
+> > +++ b/drivers/pci/pci.c
+> > @@ -3255,7 +3255,15 @@ void pci_pm_init(struct pci_dev *dev)
+> >         }
+> >
+> >  poweron:
+> > -       pci_pm_power_up_and_verify_state(dev);
+> > +       pci_update_current_state(dev, PCI_UNKNOWN);
+> > +       if (dev->current_state =3D=3D PCI_D0) {
+> > +               /* No need to do a full power-up, just sync-up the plat=
+form state. */
+> > +               platform_pci_set_power_state(dev, PCI_D0);
+> > +       } else {
+> > +               /* Power up the device and restore BARs if necessary. *=
+/
+> > +               pci_set_full_power_state(dev, false);
+> > +       }
+> > +       pci_update_current_state(dev, PCI_D0);
+> >         pm_runtime_forbid(&dev->dev);
+> >
+> >         /*
+> >
+> > base-commit: 7b63ef2d55f24519e7e9e5f4d15dbea03f126e40
+> > --
+> > 2.43.0
+>
 
