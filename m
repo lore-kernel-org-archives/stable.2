@@ -1,35 +1,62 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.155.198.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A741381B0A;
-	Thu, 15 Oct 2026 11:10:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0416A4CDA28;
+	Thu, 15 Oct 2026 11:25:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.155.198.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792062611; cv=none; b=dz0v0a0jzRjErggF3TLp52spO56Gfd5HOgUWPR4PLBMQRYRcGXdlvc187F+QxbDRo1ppUzFNu+z03YWlJcmQX1NLt4W2Ibw5/NZxsVKQPHq9K42RtEkHfV9C4QbVjwb4vhhc6dTVXuI1dqKiBD5Z0WJy24k1e3uW9/F6roLR8LI=
+	t=1792063564; cv=none; b=Yo3m6p8rIDYgwaeRGpsq17hieR/vF8ARekXu58WG8wpvcXWaiodMXPNa20pAu93yDUfuzfXbsi6fN9UQFQk36Qp4xH88apFE7fWciIMw83g032O9ttYs8cO2YzFZrJdr1AM7VcLM8HDfExydPYxnYDVPMyA/wpdKoQcJzsTaNuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792062611; c=relaxed/simple;
-	bh=p4eCl/qVCpYrVybyyT0uU/nCVkitGvxxHKDt+VlOgp4=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=gB2j88oz6LwaTeIihilVtuezx7CJsBGItj9F0ji2J4flKE7fmO0yIa97XhtOXTHkYKaFfl6MFTiES9f9v6h/fMe/OWBGQwBQcRR8sjl02lTX3Kvqq0hGN3weMBnXvT6Jaz6WpHZPQm7nAWNj2B4/IONWEw78PJzlCGkNjOjvzWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AyvHCH+6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792063564; c=relaxed/simple;
+	bh=7PXNMn2C4p9pMnktnZoNhlpR49ZVLPwGee0gzKDKqjw=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=F0FpM6Xn3QFKZY7Ghyd3gyOLPXtpID7ZPfhqenBDZ13m2SBaadHssBKDjFjzJf1iOiGQoZKYQgCzrErWPULmDcZtj2qpK/7vbqjZkUV0RBKESM9Z1/c2q6fD/85Oa1hYPU2WtGdu3usPvFqZyG1OD58WfqqWmXzN4SaZFgRTNuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=ngMZTFqy; arc=none smtp.client-ip=35.155.198.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AyvHCH+6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07EFB1F000C4;
-	Thu, 15 Oct 2026 11:10:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792062610;
-	bh=4fZ0T/FRKNZKlaSurLx8IyMRUVHSqBKk1vrCoi5/09I=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=AyvHCH+6FbMvBYDM3JUSF8yFZrDLEa51vw8iiWHE4LJhIFl3DSv14kM78IMUb1+kG
-	 0o08ezFhIYmpA1F7UaFzG7aDE80JKP209bxOeLQkrYWbd5nFQd7fNaOHCtNF/K/1tx
-	 k2bT5zvoy8IoRBYI0LAIL+cddXmB0E9KJjk+f52pgT296OrQMNf9H3+Vkj62NPdauL
-	 cageqmqYrEiUKaHBWhBpquz+fggZWxWh4fd7x6oYRWN7Ms+IttoZKrvk2rMe8P7hI6
-	 sp5Ixspq69/Vm7JQkYBnwC40cRWKgOjhFp4koe+5eIsqSzQOin1eEtDftkAuBU9zOm
-	 QQEH/tmIuHBZQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F1538392EA65;
-	Thu, 15 Oct 2026 11:10:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="ngMZTFqy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1792063556; x=1823599556;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=dWPeIBe4ZvwIBWLGCPJyt8oAMWcJJcBbPHtJ5cfA8lQ=;
+  b=ngMZTFqy9+dRecl4kaERR58GPcHbK5Qg2L+L64MytDphDXmtICqJSij8
+   HVnZ97H1EnB8lRdFMv5T+MJFpVqsT59/nx3YTwT3wYmtTgC9YtpaHa3wC
+   5cq3YY9Mu/hGN4FtqR+knBVSG91Y/F2B+IY8229zOUwHBlfkRZo5wJPgU
+   baMQXu8f5TI5CQOsdYiyUT88SxD2cz+/SnQ9Obe/GiHmxZk8a+fZO5gzK
+   vgpL/a6MPG4Kco057qUouwYLXE5P5bGOoJ0vdb++/jjYjvzOOOdKESVJQ
+   J2fqyf20LEHJOJyfpaopA90Wa7fDPvU8OWRPowwbwg7dOSxWA4MxyaoqI
+   g==;
+X-CSE-ConnectionGUID: WMdNMVpIT7ycY4BQnd/AtQ==
+X-CSE-MsgGUID: SxGpi8BsSXycBzD2MamsUA==
+X-IronPort-AV: E=Sophos;i="6.27,159,1787011200"; 
+   d="scan'208";a="31231660"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 11:25:52 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:4508]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.54.1:2525] with esmtp (Farcaster)
+ id 22a6e85e-4171-4fa5-abe1-d6a11a02de47; Thu, 15 Oct 2026 11:25:52 +0000 (UTC)
+X-Farcaster-Flow-ID: 22a6e85e-4171-4fa5-abe1-d6a11a02de47
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Thu, 15 Oct 2026 11:25:52 +0000
+Received: from dev-dsk-gyokhan-1a-87ab81cc.eu-west-1.amazon.com
+ (10.253.85.128) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Thu, 15 Oct 2026
+ 11:25:50 +0000
+From: Gyokhan Kochmarla <gyokhan@amazon.de>
+To: <stable@vger.kernel.org>, <gregkh@linuxfoundation.org>
+CC: Felix Fietkau <nbd@nbd.name>, Pablo Neira Ayuso <pablo@netfilter.org>,
+	Vlad Buslov <vladbu@nvidia.com>, Daniel Golle <daniel@makrotopia.org>, "Sasha
+ Levin" <sashal@kernel.org>, <netfilter-devel@vger.kernel.org>, "Gyokhan
+ Kochmarla" <gyokhan@amazon.de>
+Subject: [PATCH 5.10] netfilter: nf_tables: fix bidirectional offload regression
+Date: Thu, 15 Oct 2026 11:25:33 +0000
+Message-ID: <20261015112533.648137-1-gyokhan@amazon.de>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,41 +64,50 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] net/sched: fix use-after-free in
- __tcf_action_put()
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179206260877.3362884.12272330509635303725.git-patchwork-notify@kernel.org>
-Date: Thu, 15 Oct 2026 11:10:08 +0000
-References: <20261008181348.527035-2-Jeremy.Jean@oss.cyber.gouv.fr>
-In-Reply-To: <20261008181348.527035-2-Jeremy.Jean@oss.cyber.gouv.fr>
-To: =?utf-8?b?SsOpcsOpbXkgSmVhbiA8SmVyZW15LkplYW5Ab3NzLmN5YmVyLmdvdXYuZnI+?=@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org
-Cc: jhs@mojatatu.com, jiri@resnulli.us, kuba@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC003.ant.amazon.com (10.13.139.252) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Hello:
+From: Felix Fietkau <nbd@nbd.name>
 
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+commit 84443741faab9045d53f022a9ac6a6633067a481 upstream.
 
-On Thu,  8 Oct 2026 18:13:49 +0000 you wrote:
-> __tcf_action_put() decrements the reference count before decrementing the
-> binding count. Another thread can free the action between these operations,
-> causing the binding-count update to access freed memory. KASAN reports it
-> as:
-> 
->   BUG: KASAN: slab-use-after-free in __tcf_action_put+0x327/0x340
->   Write of size 4 at addr ff11000000d46420 by task tc-put-pause/64
-> 
-> [...]
+Commit 8f84780b84d6 ("netfilter: flowtable: allow unidirectional rules")
+made unidirectional flow offload possible, while completely ignoring (and
+breaking) bidirectional flow offload for nftables.
+Add the missing flag that was left out as an exercise for the reader :)
 
-Here is the summary with links:
-  - [net,v2] net/sched: fix use-after-free in __tcf_action_put()
-    https://git.kernel.org/netdev/net/c/7b16eb911091
+Cc: Vlad Buslov <vladbu@nvidia.com>
+Fixes: 8f84780b84d6 ("netfilter: flowtable: allow unidirectional rules")
+Reported-by: Daniel Golle <daniel@makrotopia.org>
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Signed-off-by: Gyokhan Kochmarla <gyokhan@amazon.de>
+---
 
-You are awesome, thank you!
+8f84780b84d6 came into 5.10.y in 5.10.271 (238c7e7e0808) as a
+Stable-dep-of d644b23afe1e ("netfilter: flowtable: publish HW_DEAD after
+worker is done"), but this follow-up fix did not. Since then
+flow_offload_rule_add(), flow_offload_work_del() and
+flow_offload_work_stats() only handle the reply direction when
+NF_FLOW_HW_BIDIRECTIONAL is set, and nft_flow_offload never sets it, so
+nftables hardware offload only installs the original direction.
+
+ net/netfilter/nft_flow_offload.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/net/netfilter/nft_flow_offload.c b/net/netfilter/nft_flow_offload.c
+index c2a5d05f501f..98c60e4263f7 100644
+--- a/net/netfilter/nft_flow_offload.c
++++ b/net/netfilter/nft_flow_offload.c
+@@ -127,6 +127,7 @@ static void nft_flow_offload_eval(const struct nft_expr *expr,
+ 		ct->proto.tcp.seen[1].flags |= IP_CT_TCP_FLAG_BE_LIBERAL;
+ 	}
+ 
++	__set_bit(NF_FLOW_HW_BIDIRECTIONAL, &flow->flags);
+ 	ret = flow_offload_add(flowtable, flow);
+ 	if (ret < 0)
+ 		goto err_flow_add;
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.50.1
 
