@@ -1,257 +1,176 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0276028B7C8
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 02:22:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B992B28FFF6
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 02:27:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792030964; cv=none; b=uAp5sUGMIpiNoZZPhzupIGqmapxiD7Kvp9qLUq6T70Gr8NwObp5IYyxv20Ac+U9Dg2AJSl/uiLpa8gZVjD68n4t2LFkUQ0Ec3Ay97xwvHzdY5h4v4JrRqr72EqBxZVabsqEdH6sZ/58AeFqSPAHL6Jbs/e018By6jHj/8XQILao=
+	t=1792031264; cv=none; b=oHTJzDieXcALsJajvjTJmFeHW+pVHmp70FbofitVxbtVjBizwfCBVAKZjJZ0tgEuiU3weDrNSX6Ft02zjTtmcvcRz/PH49T64VoOGstx4TdnADG5bS8QTviOb1VeqkDEodcsazRTv248fBBkf5ur87Ffitxcs5/JsexDvDZQyjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792030964; c=relaxed/simple;
-	bh=nKxf5sNbd1xCyLn2CFlTWenwxkEH9kgFLk8OoHjfWR0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=XE5flLdrZV+6a71n0Ujre9t97SMLaEns1zebm6ptEefMLTbxcDnM51COo89vIizhVorpofR+EsnENnWUynnkvpuUXNOX4rMSccYJjWOUtT2y9ihQbLe9qLlONGotlbh3cnuYMna5OPsu8e8AVkpH3ioTK91cqTP09IxJA7yyR2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MFJhzagz; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792031264; c=relaxed/simple;
+	bh=nYxGoAzwf5nT6TeGpoE+Q9Un5MQml7BuZqbPMzMIAPw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T1GI1RHEDFLz1VE87sw6HQLGWyB3kP0R0jstLiJjhD0ph27ogaK3/4MT9Wq20xN7HX7w4zVntyVHkO6UsvQnr+4MOw9+L+vxhvUQb26DlR1TNRQ5QSoHgKH2wgLaenCQiFJ/yejtCKN0qWIFvbwVM7T35SqUm6mWsbf9DYFW360=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=PEMq8JiA; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MFJhzagz"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso576742a91.1
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:22:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="PEMq8JiA"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cd5e2d696e0so1203325a12.1
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:27:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792030962; x=1792635762; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2jLsAFvGouKNswLfy6C0ZCOuNuWMWwLBVKQhNgoltfw=;
-        b=MFJhzagzhhhhX72J+r9nnybiTamikMQnJsYgsajU47x+YGjT0jcPdktA463eA0M4ZG
-         mOnhv4QBKv0pxs/97Sfb4tjCx890fqrXwjEsPnjOXoQzLihjH/QbJ02zR0tZtMuiy1w3
-         5H0GdLHzrBPhJFA0exiS5aproNKRgzQfC8j1M+GIhrP17uxj4mgPWojF7uvNifEcfNfF
-         5RUCssxSgoeEiT4G+VzNb3ZB66KHNbyOXu1V9vj0iNH0y+EIq/4C6NYZg87w6ERcrpES
-         mO0o0+peJ1xBlH806YOcyqxb0M4Su1sndAaGUtk/f+lBTAZarh8bS1+Rdh0z4AbjE/a/
-         KmkA==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792031261; x=1792636061; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NINcKwru8oEwnBpCOfnCTBGzpeAiP00C28R/M43CONo=;
+        b=PEMq8JiA+qqNdiVqeb3hI4q9XUu/8ZFd6imOsv2IhvIDL6qynVOmsSlJeclWYA4HiZ
+         1H9cf3HQtwDDhOYcwxPpqBiyYEJHnM0ieSqGEn6NUoJ3FBtcD/05a2mCmuCd8Mva2P0Z
+         VBV4GId5VbzPGYikK49bLCmdGnWDQvaPZ1zvidvZvjoitoW8mGwTNVT21kK+j2ZQ9Fy7
+         lFQxJ9KW85lr3ydT69E5GmAMfyJY/nsCnHbE0P07YWWhW/j036EmBFCFwO8MlTaaNczo
+         ogWVo5gOVg8rEbzt4lDdrSW0yXpxCkiVwDbXmGp1zn89czACx04MBqEkVDFuWY0SrLMC
+         E/Tg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792030962; x=1792635762;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2jLsAFvGouKNswLfy6C0ZCOuNuWMWwLBVKQhNgoltfw=;
-        b=DtSSSQ+ubMWcBLXhVov4sCgcnld/Y9/h5lXSC/++2bcAqraRRE9zdMpF5av4StRNTz
-         9lU3eDUMTew0EXKjL/0gvDZg61YZK3vU4WcfWKOldF43vPYPj5mXJIt2hG+gLPxYCZ0G
-         7fEjmwIixfk9QlD6yGSuJ1h3LhVNEb7zVtyPi7SeYvMHS906IF6jtblOw4s4W0CPtJmY
-         9xaA5gA3AyEXxPlMGBajkRcNezPUvaa9WBMoQiK6V7GyONyOMH+kb5kiAyg/Hzye3lJe
-         UPKlFQe9LNEmOH6Tn7eceWJANliHKM/4czkP2587fcVUIbqtsk/wCoauTR9xpibGmMaB
-         o6AA==
-X-Forwarded-Encrypted: i=1; AKwUvBztqm8jtRp7jYu3DOMvHWWmvJQXDE1/nDCpuEs9MP3YER40xGZ8IKTosDhK6HWNNeGhAB7a7bo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJFMZ453OZf0D/TxZ3kG03tlmgjEmoBD7YvDn/cXvsJaJVytM2n
-	YCMN2RKCY4/aXIOUfvqhgOnlS3LB5pdrvQyDivOVJVlqW4acBAOdXnn0
-X-Gm-Gg: AYBFou2wmjarMRZ8VPliU0xUKOhGih3DDC1eB2tBHbciwDWO2Viouqk0pJeDNy5xVhf
-	X63wfkccpuabMeQlR7IJM3qqs90jGiHPueBK5Bt00c/QY5j9d1Cu1kQplG3grL3ZQrTydojqFgP
-	FMcWSRVGhI//+FlZSE7eD+L1hyad5o+JYkXGR954cNOA1NGtrp2maTTwm3l5uTJBWVmbYhe9f9j
-	kTlV9PaGVjlODKFrnlJ/gc4nlJZ8JTJXvQ9dmdyObbKL3xZgCrLnVxx2uhTMnIUWk+udgbBuxgJ
-	32sSbjAG3R13ozIzS9x/wL/RinqUDedQgG1eHKm7JNWPbnXGCS2b0RxMkrX78Vg/ccRgr/ewlTS
-	8LgQnHkaPB9SoBLBO4khpiFtvvJWXeYnvZKJ+kUeo2sLL5xApQOd+J3GFIrmWT1oWF/NWA1Qh1s
-	LshHYAS3Z9c47lH231n4yi2uv+mdOn5jhyVvIlzPXCfCrMh5QIofjysJyl7p+Mb8m+uQ==
-X-Received: by 2002:a17:90b:3c8e:b0:3a0:abc3:afb5 with SMTP id 98e67ed59e1d1-3ab3a7a2437mr14922014a91.34.1792030962242;
-        Wed, 14 Oct 2026 19:22:42 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9437a82esm2092296a91.1.2026.10.14.19.22.38
+        d=1e100.net; s=20260707; t=1792031261; x=1792636061;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NINcKwru8oEwnBpCOfnCTBGzpeAiP00C28R/M43CONo=;
+        b=lM4Qag/fYWAZjEzBbleyMUYxle7vG2PCoXZlgXSPPzBJuYg3p17sgyyJFTiOWnwFKI
+         UpOXmVXXtnAcu9qwJKU9rUMpJkN9I8AnSulgmH+8V1GosneStDlTihsMsUl6T3DYAyjZ
+         i9ZN9b66DCOc86UF0wN6zwNHBVsUCIvo3xAZ6lNFHcMyXizauFSjvcTR25t4Li/r2B1F
+         WcDJ1VsPkJufVoLuoDe1yQbEmKktcafgHGvILZmQ+BcWzSaORuAsRt/WG0q/iXntfxno
+         0DWH+33XXfEcQ8D7Nd/p2w52bbDlRzrqRHB6TU0kSbP3x6JuLsIdtcvcLKfoLOHlLElI
+         Im1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxI0g71pan0WMP2XHeZjm/EzaEAdyw6wmHqgUX88MGxUKmvD4NP08+wjVv4KfydlIJCQsUsaEM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKzJ5JC48Q8MM2/cReIMqq2MCv3N9u9b8pcwMu0/JtmZt4U1dCX
+	OlQcvNogf6ifR1dnViKLuYz81FMIu1h2XNHuU+81Lt4D4itF9NumF+zXPfRiml3y8ss=
+X-Gm-Gg: AYBFou3enoKrUfLrqYIWyt9eV8dYU44XsHxwczA3kUJLR8Uud3wVLlNqzo8t3dbKrP+
+	BzECquOUUYZE3wJC1Z5LOj2JMHddrkWixTq7jesBqxJzRWsjQjdodGyls4x/CtR12q/ibgTfkeT
+	HIyWL8xklw4CuPkFmnUFcg5YRS0OHDZr2Ecb8xm6kVUsOaccJRoQmApOKRRQ8AH+udSQkFQgo0Y
+	+D5EsMiWXpXu0mhpZg0c1OQbEf5lMxMltU+qPwTIV1iL/Jv0p5K7Sm18EqygoBlIyVLctgaGB/d
+	o6AzMBuRCv+Qokm1aEKakwxcST5Qo+qv7yd82BFMMDXyFypuHJmxM8Hf+TBuSfEOpICtuNNzGUw
+	pBRCcNNIgyRUMg+twQT3c9ZRXB8B2Seprn+rjSHKvIbiKOai3EL1B7GRPWxPrUQFJmwsALkVyaa
+	Ys4GdaCAr4UUfhxYz7da3tcMRvpI/8UxXn6C/gYLcLw5jgq+zZGj48RGQzd2sRv9sUQ169/j//T
+	xTJ838=
+X-Received: by 2002:a17:90b:2792:b0:3a8:2c7e:8978 with SMTP id 98e67ed59e1d1-3ab3a9606b2mr17710288a91.16.1792031260871;
+        Wed, 14 Oct 2026 19:27:40 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac94375f3fsm1997383a91.4.2026.10.14.19.27.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 19:22:41 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com,
-	heming.zhao@suse.com,
-	kurt.hackel@oracle.com
-Cc: ocfs2-devel@lists.linux.dev,
+        Wed, 14 Oct 2026 19:27:40 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH v2] ocfs2: dlmfs: Hold l_lock through the unlock wakeup
-Date: Thu, 15 Oct 2026 10:22:35 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0055-v5-5a07cf78ed1c5bd13e50@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v8 0/8] scsi: mvumi: bound the values the firmware supplies
+Date: Thu, 15 Oct 2026 11:27:20 +0900
+Message-ID: <20261015022728.3936714-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The user_lock_res embedded in a DLMFS inode must remain alive until the
-final unlock AST finishes accessing it. user_unlock_ast() clears
-USER_LOCK_BUSY under l_lock, but releases that lock before calling
-wake_up() on the embedded l_event. user_dlm_destroy_lock() waits only
-for BUSY to clear, so it can return before the callback's last access.
+This supersedes
 
-With the native userspace stack, fs/dlm dispatches the unlock AST
-asynchronously. Unlinking an attached lock with no remaining local
-holders can therefore reach the following order while the parent domain
-stays mounted:
+  [PATCH v7 0/7] scsi: mvumi: bound the values the firmware supplies
+  <20261015005717.3719956-1-yhlee@isslab.korea.ac.kr>
 
-  Unlink and inode release          Native unlock AST
-  ------------------------          -----------------
-  submit final unlock
-  prepare_to_wait_event(): enqueue
-                                    clear BUSY under l_lock
-                                    release l_lock
-                                    delay before wake_up()
-  test BUSY: already clear
-  finish_wait(): remove waiter
-  return from the destroy wait
-  unlink and evict the child
-  RCU callback frees the inode
-                                    wake_up(&lockres->l_event)
+which can be dropped.
 
-The queued waiter can observe BUSY already cleared, leave the wait loop
-and run finish_wait() without waiting for the AST's wake_up(). The
-callback holds no inode reference, and keeping the parent domain alive
-avoids disconnect draining the callback workqueue. The delayed wakeup
-then accesses freed inode storage, causing a use-after-free in
-waitqueue locking.
+Patches 1-7 are unchanged from v7; patch 8 is new.
 
-Keep l_lock held through wake_up(), as ocfs2_unlock_ast() already does.
-user_check_wait_flag() takes the same lock, so teardown cannot observe
-the cleared BUSY flag until the wakeup has finished. The callback and
-its wrappers do not access the lock resource after this final unlock.
-The waitqueue lock is released before wait_event() tests BUSY, so
-extending the critical section does not invert their lock order.
+Everything the firmware writes reaches the driver either through the
+handshake page, through the event buffer, or through a response frame in
+the outbound list.  The patches follow that split, with one at the end that
+is unrelated:
 
-KASAN report as below:
+ 1  event buffer: param_count and sense_data_length index fixed arrays in
+    mvumi_show_event().
+ 2  handshake page: frame_length drives the checksum walk, whose counter is
+    an unsigned char, so 256 or more never terminates.
+ 3  event buffer: the hotplug bitmap size drives two walks with nothing
+    holding it inside what the firmware was asked for.
+ 4  event buffer: those walks cast a four-byte-aligned bitmap to
+    unsigned long *.
+ 5  handshake page: the entry sizes and max_io size three allocations, the
+    list depth drives the ring index, the device count has to fit the byte
+    mvumi_build_frame() gives it, a reset reports all of them again without
+    reallocating anything, and every field is read once.
+ 6  response frame: the tag indexes tag_cmd[], and the value that is
+    checked has to be the value that is used.
+ 7  DMA teardown: the address mvumi_delete_internal_cmd() rebuilds from the
+    SGL loses its upper 32 bits.
+ 8  outbound list: the 0xff the driver stamps over the tag of an entry it
+    has consumed is a tag in range once the firmware asks for more than 255
+    commands, so a stale entry is no longer turned away.  Stamp 0xffff,
+    which is outside the u16 tag range whatever the firmware asks for.
 
-    BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0x3d/0x60
-    Read of size 1 at addr ffff888117dc93c0 by task kworker/u17:0/871
+Patch 8 is what the review of v7 6/7 pointed at.  I answered that review
+saying I would send it as a follow-up once the series landed; it is small
+and self-contained, so it is here instead.
 
-    CPU: 2 UID: 0 PID: 871 Comm: kworker/u17:0 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    Workqueue: dlm_callback dlm_callback_work
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? _raw_spin_lock_irqsave+0x3d/0x60
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20e/0x420
-     ? _raw_spin_lock_irqsave+0x3d/0x60
-     kasan_report+0xe0/0x110
-     ? _raw_spin_lock_irqsave+0x3d/0x60
-     ? _raw_spin_lock_irqsave+0x3d/0x60
-     __kasan_check_byte+0x36/0x50
-     lock_acquire+0x113/0x300
-     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
-     ? pmbd_probe_hit_cookie+0xee/0x1c0
-     _raw_spin_lock_irqsave+0x3d/0x60
-     ? __wake_up_common_lock+0x27/0xb0
-     __wake_up_common_lock+0x27/0xb0
-     user_unlock_ast+0x21a/0x490
-     ? __pfx_user_unlock_ast+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? process_one_work+0x7c8/0x1b40
-     fsdlm_lock_ast_wrapper+0xf2/0x130
-     dlm_do_callback+0x2e9/0x6c0
-     ? __pfx_fsdlm_lock_ast_wrapper+0x10/0x10
-     process_one_work+0x9a8/0x1b40
-     ? __pfx_process_one_work+0x10/0x10
-     ? lock_acquire+0x190/0x300
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     worker_thread+0x65c/0xe40
-     ? __pfx_worker_thread+0x10/0x10
-     kthread+0x351/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf70
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
+Three other points from that review I am not changing, and why.
 
-    Allocated by task 492:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_slab_alloc+0x89/0x90
-     kmem_cache_alloc_lru_noprof+0x205/0x5c0
-     dlmfs_alloc_inode+0x2a/0x50
-     alloc_inode+0x69/0x230
-     new_inode+0x23/0x1a0
-     dlmfs_get_inode+0x47/0x2d0
-     dlmfs_create+0x18f/0x2f0
-     lookup_open+0x88f/0x13e0
-     path_openat+0x95e/0x2020
-     do_file_open+0x21e/0x470
-     do_sys_openat2+0xf4/0x1b0
-     __x64_sys_openat+0x136/0x1e0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Endianness: the driver does no device-to-host endian conversion anywhere,
+and these fields are plain u16 used natively throughout (host->max_id =
+mhba->max_target_id, tag_pool.size = mhba->max_io).  The new checks read
+the same values the driver already consumes, so they follow the existing
+convention rather than change it.  Making the driver big-endian-correct
+would be a driver-wide __le conversion, which is a separate change.  On a
+big-endian build the base driver silently accepts a byte-swapped device
+count and scans phantom targets; patch 5 turns that into an explicit probe
+failure, so the behaviour there does change.
 
-    Freed by task 0:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kmem_cache_free+0x242/0x580
-     dlmfs_free_inode+0x25/0x60
-     i_callback+0x4b/0x80
-     rcu_core+0x6be/0x1ed0
-     handle_softirqs+0x1fa/0x8d0
-     __irq_exit_rcu+0x113/0x1e0
-     irq_exit_rcu+0xe/0x20
-     sysvec_apic_timer_interrupt+0x6c/0x80
-     asm_sysvec_apic_timer_interrupt+0x1a/0x20
+MV9580 and the per-completion udelay: the unconditional request_id
+comparison in mvumi_receive_ob_list_entry() is pre-existing.  Patch 6 wraps
+the reads in READ_ONCE(), corrects the > to >=, and localizes the tag; the
+comparison itself is unchanged.  The re-check patch 6 adds in the
+completion handler is gated by request_id_enabled, matching the gate
+already in mvumi_check_ob_frame(), so a controller that leaves the flag
+clear is unaffected.
 
-    Last potentially related work creation:
-     kasan_save_stack+0x33/0x60
-     kasan_record_aux_stack+0xa7/0xc0
-     __call_rcu_common.constprop.0+0x80/0x280
-     destroy_inode+0x131/0x1b0
-     evict+0x543/0x9f0
-     iput+0x680/0xb80
-     filename_unlinkat+0x36d/0x660
-     __x64_sys_unlinkat+0xb0/0x110
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+dma_rmb(): the validate-then-memcpy ordering is unchanged from the base.
+The ownership handshake is the MMIO copy pointer read with ioread32() in
+mvumi_check_ob_list_9143()/_9580(), which already carries the
+architecture's read barrier, not the tag.  The driver's own comment says an
+entry can be visible "before entry has valid data", so the tag can itself
+be stale; ordering the tag read ahead of the payload read would not help,
+and a barrier cannot make a payload that has not been written yet arrive.
 
-    The buggy address belongs to the object at ffff888117dc92c0
-     which belongs to the cache dlmfs_inode_cache of size 1464
-    The buggy address is located 256 bytes inside of
-     freed 1464-byte region [ffff888117dc92c0, ffff888117dc9878)
+One more thing I left alone: the second hotplug bitmap starts at
+bitmap[size >> 3], which is only self-consistent when size is a multiple of
+eight, and nothing in the tree says whether the firmware packs the two
+bitmaps bit by bit or aligns the second to a byte.  Either reading makes
+the index wrong for a size that is not a multiple of eight, but correcting
+it one way breaks the other, so patch 4 keeps the existing numbering
+exactly.
 
-[Physical-page and shadow-memory dumps omitted.]
+I don't have mvumi hardware; these are reasoned from the code, not
+reproduced on a controller.
 
-Fixes: 8df08c89c668 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Cc: <stable@vger.kernel.org>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Assisted-by: LLM
+Yehyeong Lee (8):
+  scsi: mvumi: bound the per-event parameter and sense dumps
+  scsi: mvumi: reject an out-of-range handshake frame length
+  scsi: mvumi: bound the hotplug event bitmap
+  scsi: mvumi: walk the hotplug event bitmap a byte at a time
+  scsi: mvumi: reject handshake sizes that overflow the list allocations
+  scsi: mvumi: validate the response frame tag before using it
+  scsi: mvumi: fix the DMA address rebuilt in
+    mvumi_delete_internal_cmd()
+  scsi: mvumi: stamp a consumed outbound list entry out of range
 
----
-Changes in v2:
-- Clarify the queued-waiter interleaving through finish_wait() before the
-  unlock AST wakeup.
-- Correct Fixes to the original dlmfs introduction.
-- Add Joseph Qi's Reviewed-by; keep the code change unchanged.
+ drivers/scsi/mvumi.c | 240 ++++++++++++++++++++++++++++++++++---------
+ drivers/scsi/mvumi.h |  15 +++
+ 2 files changed, 204 insertions(+), 51 deletions(-)
 
-Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0055-v4-c1574edc9949e3a22edf@gmail.com
 
-diff --git a/fs/ocfs2/dlmfs/userdlm.c b/fs/ocfs2/dlmfs/userdlm.c
-index 617c92e7b925..60653db7b411 100644
---- a/fs/ocfs2/dlmfs/userdlm.c
-+++ b/fs/ocfs2/dlmfs/userdlm.c
-@@ -253,9 +253,9 @@ static void user_unlock_ast(struct ocfs2_dlm_lksb *lksb, int status)
- 
- 	lockres->l_flags &= ~USER_LOCK_BUSY;
- out_noclear:
--	spin_unlock(&lockres->l_lock);
--
-+	/* Complete the wakeup before a BUSY waiter can free lockres. */
- 	wake_up(&lockres->l_event);
-+	spin_unlock(&lockres->l_lock);
- }
- 
- /*
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+-- 
+2.43.0
+
