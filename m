@@ -1,182 +1,48 @@
-Received: from mta1.migadu.com (out-226.mta1.migadu.com [95.215.58.226])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C6B231283E
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 06:02:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1238831283E;
+	Thu, 15 Oct 2026 06:02:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792044160; cv=none; b=bW6fuFwSHGUAboWWAyPxPP7SA/kmnjrlODAZb4ikkQpdCOfVSoPOrs7a76A1MD55aPWwxMcYq8zjKQSX25ZFyT37VnU9Om8QgUj5YdbCyyB8SL+HDsjsESosx+PjkERYypf+K5Zlp7gMQE/jtA4KnQutpohiVmJiDhWr00PQbLY=
+	t=1792044163; cv=none; b=K11oUVdc0z/FRq4/D4l+U3/oNWXJsiNH3sAXt1WgOHw2e5fs9ed8r1ZO/EIKAp5DFW6I7zXOtuIjBNL7BzbiCdLz8Fc1QUi812gf1LBdSNE2ytkxdyru07p0af6XCkNLf0oNEXCr67Wn/xtqW4yqJzU0y9EPGKCTmlSlStKRwjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792044160; c=relaxed/simple;
-	bh=Z+vXKxDzBrmxnBu2A6xZkJcgxDOcSpa5WVuPCAlPPxk=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=Rlmfzp+yU0sTYsdTDv9w2m5xz7llKy6B4vfejuk791ypxcpVGTmwoJlFMBHRhDWBaqu8CINAW54vgXtaIIevJjkV7xFAWN9d5VFQa4BtxIilocg6Z86NZ44P5op72iafb04ASkN+zcyQNpqVKcBK/vyqop9NG64bf+2ilBy21vI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xlHjgl+D; arc=none smtp.client-ip=95.215.58.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xlHjgl+D"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Z+vXKxDzBrmxnBu2A6xZkJcgxDOcSpa5WVuPCAlPPxk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792044155; v=1; x=1792648955;
- b=xlHjgl+DlIl8qLRsohk0NBKmtH0u+JAW9dyU+S17mIOajs/WtnbSgBHkzMf4JIG/t2fZHgj+
- ZYXdvAf5uGHM9pCuPk4119D4Itf1PnT+UlbFZKxMYRkMcJOCRTn6IvonkjWuysWgkTYX0RaZ6kz
- LCm5FMInwoNrstz7VGksPZ5U=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 88c1f1ec9516249f;
-	Thu, 15 Oct 2026 06:02:35 +0000
-X-Mizu-Trace-ID: 88c1f1ec9516249f
-X-Migadu-Flow: FLOW_OUT
+	s=arc-20240116; t=1792044163; c=relaxed/simple;
+	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=awOqcwV25DjOAyZN7xPJD942nuKMT8wFzpt8wjnGWMxs5HldkdFCY5FnjfAuDHv3gtc01w8KaLUhZnos8MlQq6OPFsN+2tW2hlvc+Rn/sBhYPdDTO/MZ/IsgW+rZAqDNg2Yq6tTIAifXCXwLLvhrq349xGbj0MqeNuxeEl4tx+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id A57D8227A8E; Thu, 15 Oct 2026 08:02:33 +0200 (CEST)
+Date: Thu, 15 Oct 2026 08:02:32 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: daejun7.park@samsung.com
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Dave Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>,
+	Sergey Bashirov <sergeybashirov@gmail.com>,
+	Andrey Albershteyn <aalbersh@kernel.org>, linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/9] xfs: mark the inode preallocated for pNFS write
+ layouts past EOF
+Message-ID: <20261015060232.GA14035@lst.de>
+References: <20261015-xfs-pnfs-batch-v3-0-54fc7b2e467d@samsung.com> <20261015-xfs-pnfs-batch-v3-1-54fc7b2e467d@samsung.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 15 Oct 2026 06:02:34 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: dongsheng.yang@linux.dev
-Message-ID: <50deaf80941588ef5f29441fb006189017d4ede8@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH] dm-pcache: do not advance dirty_tail after backing flush
- failure
-To: "guolingxing" <guolingxing@tju.edu.cn>, "Zheng Gu" <cengku@gmail.com>,
- dm-devel@lists.linux.dev
-Cc: "Mikulas Patocka" <mpatocka@redhat.com>, linux-kernel@vger.kernel.org,
- "guolingxing" <guolingxing@tju.edu.cn>, stable@vger.kernel.org
-In-Reply-To: <20261014031150.3913245-1-guolingxing@tju.edu.cn>
-References: <20261014031150.3913245-1-guolingxing@tju.edu.cn>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015-xfs-pnfs-batch-v3-1-54fc7b2e467d@samsung.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-Hi lingxing,
-Thanks for the fix. Keeping dirty_tail unchanged when the backing-device
-flush fails looks correct to me.
+Looks good:
 
-One related question: jbd2_cleanup_journal_tail() also ignores the return
-value of blkdev_issue_flush() before calling __jbd2_update_log_tail().
-Do you know whether JBD2 has another mechanism that makes this safe, or
-whether it has a similar error-handling gap?
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 
-This does not invalidate the dm-pcache fix, but understanding the
-difference would be useful.
-
-2026=E5=B9=B410=E6=9C=8814=E6=97=A5 11:11, "guolingxing" <guolingxing@tju=
-.edu.cn mailto:guolingxing@tju.edu.cn?to=3D%22guolingxing%22%20%3Cguoling=
-xing%40tju.edu.cn%3E > =E5=86=99=E5=88=B0:
-
-
->=20
->=20After all writeback bios for a kset complete, writeback_ctx_end()
-> flushes the backing device and then advances the persistent dirty_tail.
-> However, backing_dev_flush() discards the error returned by
-> blkdev_issue_flush(), so dirty_tail is advanced even when the written
-> data is not known to be durable.
->=20
->=20dirty_tail points to the first kset that still requires writeback.
-> Advancing it causes recovery to treat the preceding kset as clean and
-> allows its cache copy to eventually be reclaimed by garbage collection.
-> If the backing device flush failed, a subsequent power failure may
-> therefore result in data loss.
->=20
->=20Make backing_dev_flush() return the flush status and handle a flush
-> failure like a writeback I/O failure. Leave dirty_tail unchanged so
-> that the same kset will be retried.
->=20
->=20Fixes: 1d57628ff95b ("dm-pcache: add persistent cache target in devic=
-e-mapper")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
-> ---
->  drivers/md/dm-pcache/backing_dev.c | 4 ++--
->  drivers/md/dm-pcache/backing_dev.h | 2 +-
->  drivers/md/dm-pcache/cache_writeback.c | 28 +++++++++++++++++++-------
->  3 files changed, 24 insertions(+), 10 deletions(-)
->=20
->=20diff --git a/drivers/md/dm-pcache/backing_dev.c b/drivers/md/dm-pcach=
-e/backing_dev.c
-> index 7165fc0364bb..0c15bb01068e 100644
-> --- a/drivers/md/dm-pcache/backing_dev.c
-> +++ b/drivers/md/dm-pcache/backing_dev.c
-> @@ -336,9 +336,9 @@ struct pcache_backing_dev_req *backing_dev_req_crea=
-te(struct pcache_backing_dev
->  return backing_req;
->  }
->=20=20
->=20-void backing_dev_flush(struct pcache_backing_dev *backing_dev)
-> +int backing_dev_flush(struct pcache_backing_dev *backing_dev)
->  {
-> - blkdev_issue_flush(backing_dev->dm_dev->bdev);
-> + return blkdev_issue_flush(backing_dev->dm_dev->bdev);
->  }
->=20=20
->=20 int pcache_backing_init(void)
-> diff --git a/drivers/md/dm-pcache/backing_dev.h b/drivers/md/dm-pcache/=
-backing_dev.h
-> index b371cba483b9..8422e5e76e29 100644
-> --- a/drivers/md/dm-pcache/backing_dev.h
-> +++ b/drivers/md/dm-pcache/backing_dev.h
-> @@ -120,7 +120,7 @@ struct pcache_backing_dev_req *backing_dev_req_allo=
-c(struct pcache_backing_dev *
->  struct pcache_backing_dev_req_opts *opts);
->  void backing_dev_req_init(struct pcache_backing_dev_req *backing_req,
->  struct pcache_backing_dev_req_opts *opts);
-> -void backing_dev_flush(struct pcache_backing_dev *backing_dev);
-> +int backing_dev_flush(struct pcache_backing_dev *backing_dev);
->=20=20
->=20 int pcache_backing_init(void);
->  void pcache_backing_exit(void);
-> diff --git a/drivers/md/dm-pcache/cache_writeback.c b/drivers/md/dm-pca=
-che/cache_writeback.c
-> index c8a4c8110a58..e09560f172dd 100644
-> --- a/drivers/md/dm-pcache/cache_writeback.c
-> +++ b/drivers/md/dm-pcache/cache_writeback.c
-> @@ -18,12 +18,18 @@ static void writeback_ctx_end(struct pcache_cache *=
-cache, int ret)
->  return;
->=20=20
->=20 if (!cache->writeback_ctx.ret) {
-> - backing_dev_flush(cache->backing_dev);
-> -
-> - mutex_lock(&cache->dirty_tail_lock);
-> - cache_pos_advance(&cache->dirty_tail, cache->writeback_ctx.advance);
-> - cache_encode_dirty_tail(cache);
-> - mutex_unlock(&cache->dirty_tail_lock);
-> + ret =3D backing_dev_flush(cache->backing_dev);
-> + if (ret) {
-> + pcache_dev_err(CACHE_TO_PCACHE(cache),
-> + "failed to flush backing device: %d", ret);
-> + cache->writeback_ctx.ret =3D ret;
-> + } else {
-> + mutex_lock(&cache->dirty_tail_lock);
-> + cache_pos_advance(&cache->dirty_tail,
-> + cache->writeback_ctx.advance);
-> + cache_encode_dirty_tail(cache);
-> + mutex_unlock(&cache->dirty_tail_lock);
-> + }
->  }
->  queue_delayed_work(cache_get_wq(cache), &cache->writeback_work, 0);
->  }
-> @@ -76,8 +82,16 @@ static inline bool is_cache_clean(struct pcache_cach=
-e *cache, struct pcache_cach
->=20=20
->=20 void cache_writeback_exit(struct pcache_cache *cache)
->  {
-> + int ret;
-> +
->  cancel_delayed_work_sync(&cache->writeback_work);
-> - backing_dev_flush(cache->backing_dev);
-> +
-> + ret =3D backing_dev_flush(cache->backing_dev);
-> + if (ret)
-> + pcache_dev_err(CACHE_TO_PCACHE(cache),
-> + "failed to flush backing device during exit: %d",
-> + ret);
-> +
->  cache_tree_exit(&cache->writeback_key_tree);
->  }
->=20=20
->=20--=20
->=202.34.1
->
