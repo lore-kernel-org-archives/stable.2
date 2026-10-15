@@ -1,164 +1,125 @@
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2106A3C4542
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 14:49:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83DF223336;
+	Thu, 15 Oct 2026 14:52:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075785; cv=none; b=c6T5W/sscrMNBfhC8+jsB8YjXMYlV4F/P9B0QL0TAvJBeXGf7XKrSlHWXO73b0IiU8l7tec/LIL/BmGAxjlqU+/zjAGvMMQ7AQvAbaC1uLJr0cue3z6dLOE4bDJpUY6GBaF6kL7ezf0p6Ve0TyuDxf/HvIcFoDxM73Y6FZQwHt0=
+	t=1792075969; cv=none; b=c1+ez2WRL+iwhjkbBZOadcBIKTIQIprTKxjlYu7y9+D5JAI2csuteuzERiXkeR+J3/Uh80YbFxw/hOkwcCi1Y6mdaw4wqRFzx5AkmU71yWclStzGqHqP1iXGor30vuMrYc4aYzU4SWXhNEATst2Q0BoonDpuIc1OExmN6Jnrxzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075785; c=relaxed/simple;
-	bh=kAMB98C2TO+dg0RpAZ18Gg4F2DJAMfSCQrSzGZazOmA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bJnFYieY1CMLAl+uUu3lLyVD98Ih2JZPEuwQTiha+dr3XnRUm+62qTh7As+pEjwOL+JA+ku3sU0X9cwpvfLcWrmvcPJtJBTHVRYT6/B1RcS+/7n2s2AAidWJqeMj3e7MI8O79TjFrWyndxjv6SbWgkOhfvt6oWF80tm02/Z7xB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=KuukSs23; arc=none smtp.client-ip=209.85.219.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	s=arc-20240116; t=1792075969; c=relaxed/simple;
+	bh=WUD7ZmFpEH5pp45xghtynRttTm+KE9DanMZl0k9Dhzg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YPPm6xAJRzcePAISBScYhHhx/npjVE9NLlXqATaZQi6pXX2848tGyXJB8j3b7LjBg8Jciv9KC9qKa9SvFe9cZIa+BtYhwZWe92DTMiDcw33yM4QULAAidt+chLmNFoIZbCf3yopRPXxaNl/3cFhpUH6O99duCTDbGFs+Qo2TCl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iCSKPFoj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="KuukSs23"
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-917866225aaso74162326d6.1
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 07:49:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1792075782; x=1792680582; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WAcdpcTpnQbvHYYEUHq7bhjUU7mNPvOKc1GObp15GFQ=;
-        b=KuukSs23oDQ/EusgapzJfiECQBPqhI0oep/R1++k391hryAAHDJChRLm6GZkjjaYyF
-         QFvVoz4CHgZ8JGs/E9w/Z+ouvcKZFOlYtLT+CNeggxPSgvzWEWbd7Fls7lunj9zLtt87
-         I9QI4U5/Cjy52G1MPHU68RgC4NjHTUMvTMN7Kt3CMNnK8s2u7y5gAbkL93cBZsUR3N8p
-         cGlTItcAuxvPqZSQ/knmGq5ALnD5wxpCimprkf3oFF4hwPIx0drdRPq44CRtanf4c68z
-         baSrmoRBhmtOUDrhDL7qqV8984mhUzuweEz0Mchxi05mkkXPzXvXh8/lRiQe1btCgkq4
-         XeQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792075782; x=1792680582;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WAcdpcTpnQbvHYYEUHq7bhjUU7mNPvOKc1GObp15GFQ=;
-        b=WHFl+g3mtulqMbquEWislzcCXGy9nFGM00ga+srt4pMN4pYc9WkIgFIkMJ5E+1OwTm
-         5sHO08XXmfet3pkbS8j9aw40sS2WQbugw0WyP35VLTeiRlVkjIS/iD6DZUHPex9RTXyO
-         Loc3oNwGcANLwyCWGhGHZE6oOZsk8TsbBbfo3fO/vaAU9IO0HzUuwemihhLst+GZ6ZY6
-         cV7gs7kX8ejdhM00d7hADyO16XC85OTLqXYzsFhxf+N2vo5Z+9LSMSq8/Vo60xZZKKjZ
-         mpmGyfWGjGAU0jYmyIGCHwDoNWqMzhaNW948SGL+qfuplpNfBE015RktxqwOXLcM40Ic
-         c/VA==
-X-Forwarded-Encrypted: i=1; AKwUvByZ9fE3yh6UEvVtTVTzmmYMVG/l3gZJW6KoNOrn+4jYRUL8SQotNMdoJUtb0g2Jn+5JljAIA1o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLtSesyvPig8nkdINzQD0QlyY95pvxukga8MCuBDR/uZf/BByG2
-	IOwX98BFLHVN/6oRoF6Wt3/c1flS7hfTHZjAb/KekJYIBBo2kdoqhmyzLpXzGkJNpA==
-X-Gm-Gg: AYBFou2477Z7qMtniHnbC5C/QyM4h5tDRz5WQWcjtby/KBqC0LzOQGVIixBY297zWaF
-	dDzscst1YH9ro73JnJxt7P1W9wYF9EuTFnTU7EJdXVaxsoQhV5Qxx6MBp6SYTu7UsRxiJGP7Zu7
-	Nxx997Czm/vVFqm5OyrXZUaWW1jXQHmEPDvBDctR4FSZnsxHx85fxwC25/zRV707NXCGf6RsQqJ
-	GK2qZlG5KipukCepyTNOzwXYgrg+pvYugdsbyUHKseyGX4/8J4i1Gt7Q2VZVkZUI3cMOkSKn4Is
-	QPJXWA6JjqBmjC6+SrdmpDIlDsTwEMSntMy5dmbCuFvuZ07AOREz8gnpTtvXNaWwFjVIwAdrYKD
-	B5A62yuh/yccE1rxCa/svykL6pdqmFeL2XBIqeHJi8qN2EAPZBgh5wjelkRa9PrFi7t+1yrkjjf
-	mLSXh3cHHA4noFSs45ms5+inBKfDltMcpXil5QWnq41ktNirEbf4MUjme7YowBqhIMKXE42A7if
-	5/Dds1bAQnMU3wH9MLu
-X-Received: by 2002:a05:620a:4454:b0:939:6dea:374d with SMTP id af79cd13be357-93ebd22f201mr3559144585a.49.1792075781768;
-        Thu, 15 Oct 2026 07:49:41 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef50295edsm790347085a.22.2026.10.15.07.49.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 07:49:41 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: linkinjeon@kernel.org,
-	sj1557.seo@samsung.com
-Cc: yuezhang.mo@sony.com,
-	chizhiling@kylinos.cn,
-	exfat@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] exfat: fix reading a directory whose FAT chain is longer than its size
-Date: Thu, 15 Oct 2026 10:49:34 -0400
-Message-ID: <20261015144934.1800240-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iCSKPFoj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF5D11F000C4;
+	Thu, 15 Oct 2026 14:52:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792075968;
+	bh=Ei46+KxB+IHBh4EjqfXrbgGpc7y+UFCPlOwCEn9c6qk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iCSKPFoj/AukWTunBsDJA/3NTgkG89Hs1yjswr5NFYg/KmdSkBAgchB4Lto1NE7X/
+	 Y0/JfDkPDbLHV/ReJEI029Q6/SV6FVKAcEycLHrZgyUDDIOOlvVDk9ezg/SuKlBurM
+	 /xY992S/kuAMx/O5zs04x3hSnfb4UouGSsObcNF7QhzXvc7KqVgITf6m+kcWMsC4KO
+	 8N3uBNosC1wVtI1QNNJJwFzKLJgQnScmBzWz3O8t+W9mD9qpXhOq8k2c277fPxT3Y3
+	 fSZ+88QWZB+ylrhesoXuAaQCYdP+ZJoOSdLsngVegYEGX+xf5Sds0e/PMzOzBQ6GHu
+	 DDqlPfzKzKHvA==
+Date: Thu, 15 Oct 2026 15:52:43 +0100
+From: Lee Jones <lee@kernel.org>
+To: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+Cc: linux-leds@vger.kernel.org, Pavel Machek <pavel@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Mike Marciniszyn <mike.marciniszyn@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>, Kees Cook <kees@kernel.org>,
+	Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v4 1/4] leds: trigger: netdev: Put netdev on activate
+ error path
+Message-ID: <179198456306.839288.14631216021466477145@kernel.org>
+References: <20261001131206.2513248-1-alexander.sverdlin@siemens.com>
+ <20261001131206.2513248-2-alexander.sverdlin@siemens.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001131206.2513248-2-alexander.sverdlin@siemens.com>
+X-AI-Review-Draft: <20261001131206.2513248-2-alexander.sverdlin@siemens.com>
 
-Commit 08cf4a8181b4 ("exfat: use exfat_chain_advance helper") made the
-directory code walk the clusters of a directory with
-exfat_chain_advance().
+On Thu, 01 Oct 2026, A. Sverdlin wrote:
 
-However, exfat_chain_advance() returns -EIO once it has walked as many
-clusters as the size of the directory says. The FAT chain of a directory
-can be longer than that, because some cameras stop updating the size,
-see commit 1e5654de0f51 ("exfat: handle wrong stream entry size in
-exfat_readdir()"). As of now, opening such a directory fails with EIO as
-soon as the chain is two clusters longer than the size. Reading a
-directory that has a FAT chain after a seek past its end fails with EIO
-too.
+> From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+>
+> When hw control is active, set_device_name() takes a reference on the
+> netdev via dev_get_by_name(). The register_netdevice_notifier() failure
+> path frees trigger_data without dropping it, leaking the netdev.
+>
+> Cc: stable@vger.kernel.org
+> Closes: https://lore.kernel.org/all/20260914140045.B8F4C1F000FF@smtp.kernel.org/
+> Fixes: 0316cc5629d1 ("leds: trigger: netdev: init mode if hw control already active")
+> Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+> ---
+> Changelog:
+> v3:
+> - introduced unset_device_name() as a counterpart of set_device_name()
+>
+>  drivers/leds/trigger/ledtrig-netdev.c | 13 +++++++++++--
+>  1 file changed, 11 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/leds/trigger/ledtrig-netdev.c b/drivers/leds/trigger/ledtrig-netdev.c
+> index 5b0132484594c..e2a6c95a0dc97 100644
+> --- a/drivers/leds/trigger/ledtrig-netdev.c
+> +++ b/drivers/leds/trigger/ledtrig-netdev.c
+> @@ -324,6 +324,13 @@ static int set_device_name(struct led_netdev_data *trigger_data,
+>  	return 0;
+>  }
+>
+> +static void unset_device_name(struct led_netdev_data *trigger_data)
+> +{
+> +	dev_put(trigger_data->net_dev);
+> +	trigger_data->net_dev = NULL;
+> +	trigger_data->device_name[0] = 0;
+> +}
 
-The issue can be reproduced with an image in which the size of a
-directory with 200 files and 7 clusters is lowered to 2 clusters:
+Given that both callers immediately 'kfree(trigger_data)' after calling
+this, why bother clearing these at all?  Wouldn't calling 'dev_put()'
+directly in 'netdev_trig_activate()' be simpler than introducing a
+helper here?
 
-    mount -o loop exfat.img /mnt
-    ls /mnt/d | wc -l
+> +
+>  static ssize_t device_name_store(struct device *dev,
+>  				 struct device_attribute *attr, const char *buf,
+>  				 size_t size)
+> @@ -776,8 +783,10 @@ static int netdev_trig_activate(struct led_classdev *led_cdev)
+>  	led_set_trigger_data(led_cdev, trigger_data);
+>
+>  	rc = register_netdevice_notifier(&trigger_data->notifier);
+> -	if (rc)
+> +	if (rc) {
+> +		unset_device_name(trigger_data);
+>  		kfree(trigger_data);
+> +	}
+>
+>  	return rc;
+>  }
+> @@ -790,7 +799,7 @@ static void netdev_trig_deactivate(struct led_classdev *led_cdev)
+>
+>  	cancel_delayed_work_sync(&trigger_data->work);
+>
+> -	dev_put(trigger_data->net_dev);
+> +	unset_device_name(trigger_data);
+>
+>  	kfree(trigger_data);
+>  }
+> -- 
+> 2.55.0
+>
 
-Before commit 08cf4a8181b4 ("exfat: use exfat_chain_advance helper"),
-the result is:
-
-    200
-
-After that commit, ls fails with "Input/output error" and the result is:
-
-    0
-
-This patch will make exfat_chain_advance() follow the FAT to its end
-when the directory has a FAT chain, as the code did before, and keep the
-size check for a directory without one.
-
-Fixes: 08cf4a8181b4 ("exfat: use exfat_chain_advance helper")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
----
- fs/exfat/exfat_fs.h | 28 +++++++++++++++++++---------
- 1 file changed, 19 insertions(+), 9 deletions(-)
-
-diff --git a/fs/exfat/exfat_fs.h b/fs/exfat/exfat_fs.h
-index a9131fe03302..f324c4cba26a 100644
---- a/fs/exfat/exfat_fs.h
-+++ b/fs/exfat/exfat_fs.h
-@@ -623,19 +623,29 @@ static inline int exfat_chain_advance(struct super_block *sb,
- 		struct exfat_chain *chain, unsigned int step)
- {
- 	unsigned int clu = chain->dir;
-+	unsigned int i;
- 
--	if (unlikely(chain->size < step))
--		return -EIO;
-+	if (chain->flags == ALLOC_NO_FAT_CHAIN) {
-+		if (unlikely(chain->size < step))
-+			return -EIO;
- 
--	if (exfat_cluster_walk(sb, &clu, step, chain->flags))
--		return -EIO;
-+		chain->size -= step;
-+		chain->dir = chain->size ? clu + step : EXFAT_EOF_CLUSTER;
-+		return 0;
-+	}
- 
--	chain->size -= step;
-+	/*
-+	 * Only the FAT tells where a chain of this kind ends. The size can be
-+	 * smaller than the chain, see commit 1e5654de0f51 ("exfat: handle
-+	 * wrong stream entry size in exfat_readdir()").
-+	 */
-+	for (i = 0; i < step && clu != EXFAT_EOF_CLUSTER; i++) {
-+		if (exfat_get_next_cluster(sb, &clu))
-+			return -EIO;
-+	}
- 
--	if (chain->size == 0 && chain->flags == ALLOC_NO_FAT_CHAIN)
--		chain->dir = EXFAT_EOF_CLUSTER;
--	else
--		chain->dir = clu;
-+	chain->size -= min(chain->size, step);
-+	chain->dir = clu;
- 
- 	return 0;
- }
 -- 
-2.53.0
-
+Lee Jones
