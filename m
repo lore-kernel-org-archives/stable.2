@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD2D3525A62;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96DC522F1A;
 	Thu, 15 Oct 2026 13:34:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792071246; cv=none; b=b6s4XyZ9JXEKrsaME/su6wYK6NaEoHCxDtIWg2QcvHtmAhgjplR9GWMW4B7dFQ6HevmizhXQzpL2Cpn8s/AA36ovOF1EltWaNguDeZB4dz5vPjE5AjmCRIm1cOpD34640+QrtLQFKsuvfaJGJiwt+aLw+N3A12r7x1S6LyhoJeQ=
+	t=1792071246; cv=none; b=bQ7e10uaLCQAX+P/yekOI/0fxOdOYyLgCtfwJ2dI9lPSga3HMiGV364U63Vvm2KNtLDCttgu7xqUa+D2X3LouC5YOju/30PWbgcoVTZO0DZxpFm5EbHQK/BtDG0RY9AVkkrHKTISp42YF2vNIRgkMpEDG58Vtop3BpvU5VS8AlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792071246; c=relaxed/simple;
-	bh=4KaXui/No84bu8n3kwTTNWJ7pLnVQ5J55bC8Iu5juvI=;
+	bh=bPLL8TPErcbM5Bj5i4pKw+WqSiS9eCP4lZKMQrveDMI=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=jZfJeUusLLaWzbDbqH/Wfk6e3yDHXqe9TCz1wV7ZdQY1eCV8MyUJBFKi7KbVTtQ17ofn382mOXXdgOHir6GHYksTS5/i8i6XXciGawOmg0Qs292UxQCVAWvPrMDkhfSFGMLqV5av4ETYfHVn0CQKnyS5Xf9qmV0W0le59KwUTKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MKEPATSt; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=KXAwBB4Qel11rc7G2B5NE8lsyioacENxyzYVGuCA2LvdE3Em9Z8LIifxQXuJaKzZo5miuFUalbAe/86IiDmnJVIr8WmlkjthPKA+l1rrjK60w78LJY7zBy9G1VK9XgHCd2cQa3xLKJgMKvDH8XWl6EPeFgKZYpQQcLNfRfv73yM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WuQi7FH4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MKEPATSt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C29E71F000C6;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WuQi7FH4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F04B1F000C5;
 	Thu, 15 Oct 2026 13:34:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792071244;
-	bh=7XA04YtwYueNkG2JHf7YpgvFxwo7uCAtD6OaTeZNXII=;
+	bh=r7BXtOpv2uyoOOi5rjC+5uSD/dS7kT4PcmP95BYIThQ=;
 	h=Date:From:To:Cc:Subject:References;
-	b=MKEPATSt7iTXX1H4/isYwVQIXalX6fX7UKmHTypzLsEVhUrVqgHUGFYZHYJ+y9g2K
-	 7ubalcF+KmajlNC3lT74XE0xKn+02/L5m1nOsHQSKquKK4Uv36mT/WVd87c2DRjqGS
-	 sGDzEqPBcwmmwUStump+aLANMP0yO0XK84WHHgVtwHeMzSJLDcPEmWxi6Zc04J3vS8
-	 zlr0/aVh9BCefBJ6gsIkr5dX13JkezTVWSYiMjXEEAxxAlDKcMrKt3dJ+rfA8Z+4hd
-	 f865iPa54L7YA9bDA7MMEFLLUouMVyV9u3LszXsN+ETC3ekCPi5lnvjkrhFUuHO00f
-	 njCNfGOb2S18A==
+	b=WuQi7FH4fAxqLAdDYCiXPb9+zas3QUCIxbnMQEQNrdpNGGp5x9IvA5/56KUp8th7G
+	 Uy3mGTpyEPK+2lYpALy/0Boo85YvFxV5kvv5SUXbM5QlQMMYpBm3z0mCxPLeIlI5ky
+	 pVpddHJ1CClQUkmZ2OH9flE+MBPQzUYBiIEw1KakWz2+vVkjBFn1A1KtFnROPE+eAi
+	 FemU/xvnzWmSkRmUDFjxqZcIKGLr9KYDA2k9qb71U0T2ZDNZUJLrHEZ4M1mmowRebU
+	 CF+5bs8tOFQPeZ8ccYysd5rNElR93F9bkB8oj7KdLf5p8wiDDlE1C7PHEuqxSOQvew
+	 Uy6SNgdvs3i4A==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
 	(envelope-from <rostedt@kernel.org>)
-	id 1xHLau-00000000Mez-0d0v;
-	Thu, 15 Oct 2026 09:34:04 -0400
-Message-ID: <20261015133403.976802464@kernel.org>
+	id 1xHLat-00000000MeQ-40qP;
+	Thu, 15 Oct 2026 09:34:03 -0400
+Message-ID: <20261015133403.783087207@kernel.org>
 User-Agent: quilt/0.69
-Date: Thu, 15 Oct 2026 09:33:20 -0400
+Date: Thu, 15 Oct 2026 09:33:19 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -40,8 +40,10 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
- Dmitry Kandybka <d.kandybka@gmail.com>
-Subject: [for-linus][PATCH 10/16] tracing: Fix ignored return value of resize_buffer_duplicate_size()
+ syzbot+de3d7f9bcc9212f3fae1@syzkaller.appspotmail.com,
+ Krystian Kaniewski <krystianmkaniewski@gmail.com>,
+ Vincent Donnefort <vdonnefort@google.com>
+Subject: [for-linus][PATCH 09/16] ring-buffer: Fix false warning in ring_buffer_map_get_reader()
 References: <20261015133310.731003448@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -51,46 +53,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Dmitry Kandybka <d.kandybka@gmail.com>
+From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
 
-When tr->allocated_snapshot is true, resize_buffer_duplicate_size() is
-called to update the snapshot buffer size. However, its return value was
-not checked. In case of a failed resize this could lead next snapshot
-being incomplete.
+The mmap reader can warn when it catches up with a writer that is still
+committing events. rb_get_reader_page() returns NULL in this case, but
+ring_buffer_map_get_reader() treats that result as an error.
 
-Add resize_buffer_duplicate_size() result check and return error if
-resize fails.
+The initial rb_per_cpu_empty() check filters out an empty buffer, but it
+does not guarantee that the next reader page has committed data. Writers
+do not take reader_lock and can advance commit_page before publishing the
+committed length on the new page. rb_get_reader_page() can swap to that
+page, catch up with the writer and return NULL.
 
-Compile tested only.
-
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+Handle NULL through the existing no-data exit without warning. Remove the
+caller's reader_page == commit_page check as well, since the reader-page
+helper already handles that case. The existing metadata update and return
+path remain in place.
 
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260928152634.4354-1-d.kandybka@gmail.com
-Fixes: 180e4e390978 ("tracing: Add snapshot refcount")
-Signed-off-by: Dmitry Kandybka <d.kandybka@gmail.com>
+Link: https://patch.msgid.link/20260924084946.20104-1-krystianmkaniewski@gmail.com
+Fixes: 117c39200d9d ("ring-buffer: Introducing ring-buffer mapping functions")
+Assisted-by: Gemini:gemini-3.8-flash syzbot
+Reported-by: syzbot+de3d7f9bcc9212f3fae1@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=de3d7f9bcc9212f3fae1
+Link: https://syzkaller.appspot.com/ai_job?id=488adc18-a10e-42d2-a205-25327c38837f
+Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_snapshot.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ kernel/trace/ring_buffer.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/kernel/trace/trace_snapshot.c b/kernel/trace/trace_snapshot.c
-index 07b43c9863a2..4731ef7325a5 100644
---- a/kernel/trace/trace_snapshot.c
-+++ b/kernel/trace/trace_snapshot.c
-@@ -675,9 +675,12 @@ tracing_snapshot_write(struct file *filp, const char __user *ubuf, size_t cnt,
- 		if (iter->cpu_file != RING_BUFFER_ALL_CPUS)
- 			return -EINVAL;
- #endif
--		if (tr->allocated_snapshot)
-+		if (tr->allocated_snapshot) {
- 			ret = resize_buffer_duplicate_size(&tr->snapshot_buffer,
- 					&tr->array_buffer, iter->cpu_file);
-+			if (ret < 0)
-+				return ret;
-+		}
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index ad3bc48e2670..e2b721d0707f 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -7998,12 +7998,8 @@ int ring_buffer_map_get_reader(struct trace_buffer *buffer, int cpu)
+ 		goto out;
+ 	}
  
- 		ret = tracing_arm_snapshot_locked(tr);
- 		if (ret)
+-	/* Did the reader catch up with the writer? */
+-	if (cpu_buffer->reader_page == cpu_buffer->commit_page)
+-		goto out;
+-
+ 	reader = rb_get_reader_page(cpu_buffer);
+-	if (WARN_ON(!reader))
++	if (!reader)
+ 		goto out;
+ 
+ 	/* Check if any events were dropped */
 -- 
 2.53.0
