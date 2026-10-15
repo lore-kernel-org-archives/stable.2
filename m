@@ -1,27 +1,28 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4544C52759B;
-	Thu, 15 Oct 2026 12:21:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4915D527589;
+	Thu, 15 Oct 2026 12:21:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792066902; cv=none; b=RtSVFcrOLvXCqXDKxlFA0LUUuIDzccF/JYenxwhcn/35HxP/r8fDQ+o+jbMD/qakBasgj9eJEmb18ck+o0jf7sddTaLwRcEUN8cRFzeJaKzZVSKwqpjzC9zhxuvw/yO1YL2B+Cjj6FqkM0/VqnKmwncpeG4XWyAHYgFgLnxiKiY=
+	t=1792066908; cv=none; b=uUDmex0V7u77zRmnJbY3isC87tfWHNp5VvuZQDQLzJ7kxjKomHcpc+6m7Y9xQ2jh5bjP+u+s+uDfgLhfyG5utJopu18Y2ZmHuUuIq3Ff6zmvEOuI1K2gZh81ShryQDJES7+fRQ8ATe+GQnvx5dtCM1Sw/12jZqOw4xeJdAHpJKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792066902; c=relaxed/simple;
-	bh=a66mFgywPF+n0GZdgFeU8H+qH7pjNFUbAN45tBh5WGc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fyJvCy39WHyPSVzCpQbbZqh6unoRnKgmqeS9WCMYxhWCx0SjsIbYqXC+oN+JIeOkJfhbyQsGrMBEyhKyAFc7OF2+8SuBUFGcxtaUAM/cZ+UtcfPAuzfauEDpLwCMZXsOPBFhwUV22n8/s/pdrp9n9PU7kU9j1PHtG+U+latJGQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YRQylqu0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792066908; c=relaxed/simple;
+	bh=OKZzV+jzLkLL4eGvdOYRnV/ZDMA8dqhIPe6G3zjVDcM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YlLsnZLtCS3OuCqGTncwUdI2KcwCAtuKbGNviTngOPSyzM04vdGfvNuhxHQzVyEiupGYn930cVKhBnx/LnANKHFmlA3xdreJqM2fW3v8ZNVPOps8eIKzmQzycI2rYBAfcZwXixmVndmgqKn2fvR3wULLweFvAGPVMlJpodTqd0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1BfT0rZZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YRQylqu0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0E271F000C4;
-	Thu, 15 Oct 2026 12:21:39 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1BfT0rZZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 548971F000C4;
+	Thu, 15 Oct 2026 12:21:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792066900;
-	bh=s2DFh3opkhL5I9SNChhX3Tj4sbd7U6t4Jdpoxk881EM=;
-	h=From:To:Cc:Subject:Date;
-	b=YRQylqu0VrJA2omQ6+ineBjwykuTBGREd79ghFjvgeaZnN/Am26AnZwr6IX/Y7q/V
-	 6SP6H7iOh7vq98ss4L530c8dkinIuf2who/y/cod3K7WkuqCUanOLscBdnfh3ihtLO
-	 o7/mc2PGYsftSoSEcTCflbtXa+76/dlYI5rsQ/Y4=
+	s=korg; t=1792066906;
+	bh=WD29J9Xu5UycCnNI+rkzN61pTO3o6PQE+hLcKn3mnlE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=1BfT0rZZJwaUi/IpiUfeJSUt4uI6CLAhvx0sl0DEAOOoHQYhw7DOVR78+EZOqU+bC
+	 pF4qEazl3BzYYf2XbiDFUtpcxgsZ9rRg9VgIR6CvIENaDZ/EdquyyX/xLjqXdJ71A8
+	 pYs0+96IEaCW/NostrvdddtYPV9uxr8c6H1W9Xmg=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org,
 	akpm@linux-foundation.org,
@@ -30,10 +31,12 @@ To: linux-kernel@vger.kernel.org,
 Cc: lwn@lwn.net,
 	jslaby@suse.cz,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Linux 5.10.272
-Date: Thu, 15 Oct 2026 14:21:43 +0200
-Message-ID: <2026101543-chariot-disinfect-8cd6@gregkh>
+Subject: Re: Linux 5.10.272
+Date: Thu, 15 Oct 2026 14:21:44 +0200
+Message-ID: <2026101543-fiftieth-apprehend-5ad4@gregkh>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <2026101543-chariot-disinfect-8cd6@gregkh>
+References: <2026101543-chariot-disinfect-8cd6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -42,33 +45,17 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-I'm announcing the release of the 5.10.272 kernel.
-
-All users of the 5.10 kernel series must upgrade.
-
-The updated 5.10.y git tree can be found at:
-	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git linux-5.10.y
-and can be browsed at the normal kernel.org git web browser:
-	https://git.kernel.org/?p=linux/kernel/git/stable/linux-stable.git;a=summary
-
-thanks,
-
-greg k-h
-
-------------
-
- Makefile |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-Antonio Ojea (1):
-      netfilter: nfnetlink_queue: unbreak SCTP traffic
-
-Eric Dumazet (1):
-      ipv4: free inet_opt and ireq_opt after an RCU grace period
-
-Greg Kroah-Hartman (1):
-      Linux 5.10.272
-
-Michael S. Tsirkin (1):
-      ipv4: validate checksum_start before completing checksum
-
+587461ddf5d522bfcb50ebd55078c0dac37be496
+diff --git a/Makefile b/Makefile
+index ec9b4e32fdb9..be27886239d5 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,7 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0
+ VERSION = 5
+ PATCHLEVEL = 10
+-SUBLEVEL = 270
++SUBLEVEL = 271
+ EXTRAVERSION =
+ NAME = Dare mighty things
+ 
