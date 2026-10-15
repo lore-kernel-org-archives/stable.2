@@ -1,146 +1,276 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 661CC3F1040;
-	Thu, 15 Oct 2026 19:27:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44574CEE67;
+	Thu, 15 Oct 2026 19:30:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792092474; cv=none; b=YkWg2ppH2OBEnQkzpfYVNZ9/8ZGOFD0PUlCW/Oce6Ffsgue3W2S3P9SQ5IlsQ9Ie8GyhcFqYr+K48BrCQGSarUUFBPBM2pcVLZ99TlCgh/N/u1oW6NCCezZRioiVJeNJGfM8t43UWRSd8hhyWLEd6ZfkeFWwRHtXUeuCjzx9Q58=
+	t=1792092639; cv=none; b=coKd/dM1S5Ehp5uW/lU8Zqh7lunpeShQXHxEfHATWQ3O1gAjw1NJ/6EIAC+iI2vHQsFKi4AHJHOtxtQBfADx5jU+/C+yOCH4vw92Fs8vloFq0lCsoLemBnzKbejTS2JcCV9qqorhbJ7S7XBtv+Lzh99byV9sdLBX9MOdFQtqpS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792092474; c=relaxed/simple;
-	bh=fEt9kplQoHHfBOmTkh0HVcUg07x1c3SExSsbV/kPLXc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=AmxfLiEHgBEKtINgGFCsJx7RudE66u3SJ0SSPp0Lgd9CBcj+K6sXRDzY7KsMEhHr4GQUJUAKCuPh/woCrsHq3LfebuYqr7x17x8/Z7/JN9M+7m3Gc/dPwwaAdgdWe982I+RwhwKR7gej5MYtktUFFyk0piRMB13he0Y+xOPtEQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BfWMtmm2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792092639; c=relaxed/simple;
+	bh=pKk/wXorJdH86zpht2s/ZUaqa4iwaQQoHEvFkj1kMuE=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=IacMChXoHZMbQxeAbjkRsZWAwSgADT5YbxpE6jm5mwkOiwS7qwlc+WTOtKYP2Te5EC9Vs9Rw97Fb4i37//ylcwzEytzi+pSCXAtvO/56NeQu2eQ8/CP7EtL0JXDl2iOAPnzslQt9SNY1qkfcxmg/MbyKQ1FK5Jb6y3BX5ixfeYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jeNwwBnU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BfWMtmm2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C38471F000C4;
-	Thu, 15 Oct 2026 19:27:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jeNwwBnU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9653A1F000C4;
+	Thu, 15 Oct 2026 19:30:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792092473;
-	bh=aTUQn3LMk0w+yeTdUpwCQsIY+GVhDkIh+sgZRNspeMg=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=BfWMtmm20yej46/YB4w/DGRwaPN+XM7OPRbg/ih4WLX+Z6SmQltw9AhB4OqcPLlZN
-	 liXQTmMzMK3HxH6cKn/tFWlknlXMgiPBzmnrb2ezp3exxyTiRd75vEY2YHnxfklsIN
-	 fmfrPR7vTBWgQ9ppLGILa+ve3rn+wyEktN+GeAMEfq88BzKlhXiCN8+tfcmIAAMEe7
-	 6fiq0GjALPpZ/5+sgSczSsDnxxLtysNGK/DJoI9uK4IH+V/NWeJVWFOn4DcMzghNKV
-	 6a6rLV8miiOyX1WfwNP6IDt9AgmXfCaMYiUjo6sOvczpv1T5JrGpON8Wxeg2LMZ87a
-	 xmkaOEKa4ME0A==
-Date: Thu, 15 Oct 2026 21:26:47 +0200 (CEST)
-From: Imre Kaloz <kaloz@kernel.org>
-To: Andreas Larsson <andreas@gaisler.com>
-cc: "David S. Miller" <davem@davemloft.net>, 
-    "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-    "Mike Rapoport (IBM)" <rppt@kernel.org>, 
-    Andrew Morton <akpm@linux-foundation.org>, sparclinux@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, stable@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH v2 1/2] sparc64: flush only the aliased page, not its
- whole folio
-In-Reply-To: <61ab29d3-929f-49de-bb64-5a49318ede00@gaisler.com>
-Message-ID: <c74a2d45-2267-b380-c7fe-b6a2d3f8251b@kernel.org>
-References: <20260928132102.1707-1-kaloz@kernel.org> <20260928132102.1707-2-kaloz@kernel.org> <61ab29d3-929f-49de-bb64-5a49318ede00@gaisler.com>
+	s=k20260515; t=1792092636;
+	bh=kgI9ggIKqdumJSL9nrA13PauMuxnRdXRZbi4QKVS5ZA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=jeNwwBnUAJxNZBJFTUuoD5N58037qydPZXXpPXc10kzbuohzoldTQsWNUrDRlyGmp
+	 UO8DkzL1C8LdUi2VObotPykQBxFe3flecYlRNHjlmZGxqT2e2fgIlRwPBUkPFtSlt1
+	 7hTaVOMe4FfQouIryB+AwkJB8vdZ3y76YQ86emlGElVkB7kcLXvbGCfipM97TZGPAv
+	 1QQcoRB8DsjYFE72abPdfK/NgX1mnJPMwlimOchkWEkyR5z8myhUtHwdN4rhes/y7P
+	 ZxAaCiweE7T9KUrJ3SzBj/Wnwl85ZnR0IgK96rqPxLv7qIeVpSPo6De72M+sf6mnDq
+	 Kear0lRI4WG/g==
+Subject: Re: [PATCH net] net/sched: cls_api: unlink indr cb on a failed bind
+From: netdev-bot+sashiko@kernel.org
+To: q.h.hack.winter@gmail.com
+Cc: netdev@vger.kernel.org, jhs@mojatatu.com, jiri@resnulli.us,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, pablo@netfilter.org, stable@vger.kernel.org
+Date: Thu, 15 Oct 2026 19:30:35 +0000
+Message-ID: <179209263510.434549.8724854871414759928@kernel.org>
+In-Reply-To: <20261013162949.25622-1-q.h.hack.winter@gmail.com>
+References: <20261013162949.25622-1-q.h.hack.winter@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-2075810683-1792092412=:25347"
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
---8323329-2075810683-1792092412=:25347
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8BIT
+Critical: 0 · High: 2 (2) · Medium: 0 · Low: 0
 
-Hi Andreas,
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-On Thu, 15 Oct 2026, Andreas Larsson wrote:
+- [High] The fix does not cover the other way an indirect bind fails.
+- [High] The new `if (!list_empty(&block_cb->indr.list))
+  list_del_init(&block_cb->indr.list);` in tcf_block_bind()'s err_unroll…
 
-> On 2026-09-28 15:21, Imre Kaloz wrote:
->> Since the conversion to folios, move_pte() and tlb_batch_add() flush the
->> D-cache of every page in the folio a single PTE maps.  Both run once per
->> PTE, so moving or unmapping a range backed by a large folio flushes each
->> of its pages once for every PTE of that folio, and each page flush is a
->> cross-call to all other online CPUs.
->
-> It would be good if the description of what the patch does uses present
-> tense, but past tense for what was wrong before the patch, or was
-> otherwise reworded to make it clear.
+Pre-existing issues:
+- [High] On every FLOW_BLOCK_BIND, flow_indr_dev_setup_offload() calls
+  indir_dev_add(data, dev, sch, ...) unconditionally…
+- [High] This problem wasn't introduced by this patch, but
+  tcf_block_bind()'s err_unroll (the loop the patch edits)…
 
-Will do.
+--
 
-> The cross-call overhead is not true for all sparc64 machines and only
-> for SMP configurations.
+net/sched: cls_api: unlink indr cb on a failed bind
 
-Right, it's only on SMP and only on sun4u CPUs whose D-cache can alias;
-on sun4v flush_dcache_folio_all() returns right away. I'll say so.
+This patch changes the err_unroll path in tcf_block_bind() so that it
+removes a block_cb from the global flow_block_indr_list before freeing
+it. The goal is that a failed indirect bind no longer leaves a freed node
+on that list. It also initializes indr.list in flow_block_cb_alloc(), so
+that list_empty() can tell indirect callbacks apart from direct ones.
 
->> Only the page the PTE maps can hold lines at the old colour, so flush
->> just that page, as before the conversion.  flush_dcache_folio_all() has
->> no other users and becomes flush_dcache_page_all() again.
->
-> This could perhaps be a bit misleading, as multiple PTEs in the range
-> handled by the caller can hold the old colour, could it not? Rather it
-> is the traversing of the whole range one by one in the caller that does
-> the trick. What do you aim to add to the previous description with this
-> paragraph?
+> diff --git a/net/sched/cls_api.c b/net/sched/cls_api.c
+> index a9f54988561f2..ffbb8353251b0 100644
+> --- a/net/sched/cls_api.c
+> +++ b/net/sched/cls_api.c
+> @@ -1665,6 +1665,9 @@ static int tcf_block_bind(struct tcf_block *block,
+>  err_unroll:
+>  	list_for_each_entry_safe(block_cb, next, &bo->cb_list, list) {
+>  		list_del(&block_cb->driver_list);
 
-You're right. What I wanted to say is that flushing the page each PTE
-maps is enough because the caller walks the range one PTE at a time, so
-every page gets its own flush. I'll reword it that way.
+[Severity: High]
+This isn't a bug introduced by this patch, but can this list_del() oops
+for callbacks that come from the sfc driver?
 
->> On SMP QEMU guests, apt rebuilding its caches through mremap() triggers
->> RCU stalls and soft lockups in move_pte().
->
-> Past tense or rewording here as well as this patch fixes this.
+In drivers/net/ethernet/sfc/tc_bindings.c, efx_tc_setup_block() and
+efx_tc_indr_setup_cb() allocate the callback with
+flow_block_cb_alloc()/flow_indr_block_cb_alloc() and add it with
+flow_block_cb_add(). Neither one links block_cb->driver_list anywhere.
 
-Will do.
+flow_block_cb_alloc() uses a zeroed allocation, and this patch only
+initializes indr.list. So driver_list.next and driver_list.prev are still
+NULL when they reach this list_del().
 
-<snip>
+A user can make playback fail on purpose. If a shared block has
+offloaded filters and also a classifier without ->reoffload (basic, fw,
+route, flow, cgroup), tcf_block_playback_offloads() returns -EOPNOTSUPP:
 
->> diff --git a/arch/sparc/include/asm/pgtable_64.h b/arch/sparc/include/asm/pgtable_64.h
->> index 0837ebbc5dce..6712eac4baf1 100644
->> --- a/arch/sparc/include/asm/pgtable_64.h
->> +++ b/arch/sparc/include/asm/pgtable_64.h
->> @@ -946,6 +946,9 @@ static inline void set_ptes(struct mm_struct *mm, unsigned long addr,
->>  	set_pte_at((mm), (addr), (ptep), __pte(0UL))
->>
->>  #ifdef DCACHE_ALIASING_POSSIBLE
->> +/* Without pte_batch_hint(), move_ptes() calls this once per PTE, so
->> + * only the page this PTE maps can have lines at the old colour.
->> + */
->
-> I'm not ecstatic about implementing a function that in the general API
-> can be called for multiple ptes, even though this never happens on
-> sparc64 as things stands right now. The code paths that saves us, from
-> commit 0b5be138ce00 ("mm/mremap: avoid expensive folio lookup on mremap
-> folio pte batch"), was "only" added as a performance regression fix.
->
-> Perhaps the best logical solution would be if move_pte() got an added nr
-> argument just as get_and_clear_ptes() has.
->
-> Barring that, the comment should not describe why the change is ok, but
-> rather descrive the code as it stands after this patch, that it depends
-> on only being called for single pte's, and that this is accomplished by
-> using the default pte_batch_hint().
->
-> I would prefer the nr argument though, but that would go outside
-> arch/sparc. Comments from mm people on this would be great.
->
+	} else if (add && offload_in_use) {
+		err = -EOPNOTSUPP;
+		...
+		goto err_playback_remove;
 
-I'll rewrite the comment that way.
+With sfc TC offload up, the sfc callback is on bo->cb_list both for a
+direct bind of an sfc port and for an indirect bind of a vxlan or dummy
+device.
 
-I like the nr idea. Since sparc64 is the only user of move_pte(), it
-would be a small change: move_ptes() would pass nr_ptes, the generic
-version would ignore it, and sparc64 would flush every aliased page in
-the batch. I’d still keep it as a separate patch on top of this one,
-though, so the fix can go to stable as a plain sparc64 backport.
+Would err_unroll then dereference NULL in
+list_del(&block_cb->driver_list)?
 
-Matthew, Mike, Andrew, would you be fine with move_pte() taking nr?
+The unconditional list_del() of driver_list was added by commit
+da94a7781fc3 ("net/sched: cls_api: remove block_cb from driver_list
+before freeing").
 
+> +		/* linked only for an indirect bind */
+> +		if (!list_empty(&block_cb->indr.list))
+> +			list_del_init(&block_cb->indr.list);
 
-Thanks,
-Imre
---8323329-2075810683-1792092412=:25347--
+[Severity: High]
+Is it safe to change the global flow_block_indr_list here without holding
+flow_indr_block_lock?
+
+That mutex is static to net/core/flow_offload.c.
+flow_indr_dev_setup_offload() has already dropped it by the time
+tcf_block_setup()->tcf_block_bind() runs. Every other writer of
+flow_block_indr_list holds it:
+
+  flow_indr_block_cb_alloc():
+	list_add(&block_cb->indr.list, &flow_block_indr_list);
+
+  __flow_block_indr_cleanup():
+	list_move(&this->indr.list, cleanup_list);
+
+This path holds only RTNL and block->cb_lock. Neither lock excludes
+nft_indr_block_offload_cmd() or the nf_flow_table indirect setup, which
+both call flow_indr_dev_setup_offload() without RTNL.
+flow_indr_dev_unregister() can't hold RTNL either, because
+tc_block_indr_cleanup() takes rtnl_lock() itself.
+
+Here is one possible interleaving with flow_indr_dev_unregister():
+
+CPU1 (flow_indr_dev_unregister)
+  __flow_block_indr_cleanup()   [ under mutex, moves the tc block_cb to
+                                  its private cleanup_list ]
+  mutex_unlock()
+  flow_block_indr_notify()
+    list_del(&this->indr.list)  [ leaves LIST_POISON ]
+    tc_block_indr_cleanup()
+      rtnl_lock()               [ blocks, CPU0 holds RTNL ]
+
+CPU0 (tcf_block_bind() err_unroll, holding RTNL)
+  !list_empty(&block_cb->indr.list)   [ true, next is LIST_POISON1 or
+                                        points into CPU1's cleanup_list ]
+  list_del_init(&block_cb->indr.list)
+  flow_block_cb_free(block_cb)
+
+Without CONFIG_DEBUG_LIST, wouldn't list_del_init() dereference the
+poison pointer?
+
+Once CPU0 drops RTNL, tc_block_indr_cleanup() goes on to run:
+
+	list_del(&block_cb->driver_list);
+	list_move(&block_cb->list, &bo.cb_list);
+	tcf_block_unbind(block, &bo);
+
+on the block_cb that CPU0 just freed.
+
+A race with list_add() in flow_indr_block_cb_alloc() from an nftables
+commit also looks like it could lose updates. The list could then keep a
+pointer to the freed block_cb.
+
+Would it be better to unwind with a FLOW_BLOCK_UNBIND through
+flow_indr_dev_setup_offload()? Another option is a helper in
+flow_offload.c that takes the lock and leaves exactly one owner
+responsible for the free.
+
+[Severity: High]
+Does this cover the other way an indirect bind can fail in
+tcf_block_get_ext()?
+
+Suppose a device without ndo_setup_tc (vxlan, dummy, ...) binds to a
+shared block that already has offloaded filters. tcf_block_bind() can
+succeed and list_splice() the indirect block_cb onto
+block->flow_block.cb_list.
+
+On the indirect path, tcf_block_offload_cmd() then ignores the result:
+
+	flow_indr_dev_setup_offload(dev, sch, TC_SETUP_BLOCK, block, &bo,
+				    tc_block_indr_cleanup);
+	tcf_block_setup(block, &bo);
+
+	return -EOPNOTSUPP;
+
+After that, tcf_block_offload_bind() fails because offload is in use:
+
+no_offload_dev_inc:
+	if (tcf_block_offload_in_use(block))
+		goto err_unlock;
+
+tcf_block_get_ext() then jumps to err_block_offload_bind, which skips
+tcf_block_offload_unbind(). No FLOW_BLOCK_UNBIND reaches the driver, so
+flow_indr_block_cb_remove() never runs. ingress_destroy() and
+clsact_destroy() see a NULL block and return early.
+
+The block_cb stays on both block->flow_block.cb_list and
+flow_block_indr_list. Its indr.sch points at the qdisc that was freed,
+and its indr.data points at the block.
+
+Later, when the remaining direct owner unbinds, only its own cb is
+removed, and tcf_block_destroy() kfree_rcu()s the block. A later
+flow_indr_dev_unregister() of the indirect driver would then reach:
+
+  flow_block_indr_notify()
+    tc_block_indr_cleanup()
+      down_write(&block->cb_lock);
+      list_del(&block_cb->driver_list);
+      list_move(&block_cb->list, &bo.cb_list);
+      tcf_block_unbind(block, &bo);
+
+on the freed block. Isn't this the failed-bind case the commit message
+describes?
+
+  -> err_block_offload_bind            [ no tcf_block_offload_unbind() ]
+
+Would sending an UNBIND to unwind the indirect bind from the
+tcf_block_offload_bind()/tcf_block_get_ext() failure path cover both
+cases?
+
+[Severity: High]
+This is a pre-existing issue, but the new unlink only handles indr.list.
+What happens to the flow_indir_dev_info entry created for the same bind?
+
+flow_indr_dev_setup_offload() adds one on every FLOW_BLOCK_BIND, before
+it is known whether the bind will succeed:
+
+	if (bo) {
+		if (bo->command == FLOW_BLOCK_BIND)
+			indir_dev_add(data, dev, sch, type, cleanup, bo);
+
+indir_dev_add() stores the qdisc, the net_device, the block and
+&block->flow_block.cb_list without taking any references.
+
+The only removal is indir_dev_remove() on FLOW_BLOCK_UNBIND. A failed
+bind in tcf_block_get_ext() never sends one, either on the err_unroll
+path or on the offload_in_use path.
+
+For example, take a block whose existing owner is a direct ndo_setup_tc
+device, so it has no info entry yet. A qdisc on a vxlan or dummy device
+then fails to bind to it. The entry stays behind after that qdisc is
+freed, and again after the block is freed. A later
+flow_indr_dev_register() calls existing_qdiscs_register():
+
+		cb(cur->dev, cur->sch, cb_priv, cur->type, &bo, cur->data, cur->cleanup);
+		list_splice(&bo.cb_list, cur->cb_list);
+
+Can this pass a freed dev/sch to the driver callback? For example,
+efx_tc_indr_setup_cb() calls netif_is_ovs_master() on the net_device.
+Can it also splice new block_cbs into a list head inside the freed
+tcf_block?
+
+find_indir_dev() matches only on the block. So a stale entry would also
+make indir_dev_add() return -EEXIST for a later valid indirect bind to
+the same block, and the real dev/sch of that bind would never be
+recorded.
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261013162949.25622-1-q.h.hack.winter%40gmail.com
