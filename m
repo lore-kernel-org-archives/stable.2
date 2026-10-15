@@ -1,236 +1,172 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010016.outbound.protection.outlook.com [52.101.85.16])
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26CD282F34;
-	Thu, 15 Oct 2026 00:26:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792024015; cv=fail; b=TDlUyX1QCAPl7ZT6q5idJOV0ENvF4Ix+8cWpscB5VC2cHeartVyJkK7XBnrH/s1lCIaWf4jXA55nnhv3x6vOMV6Fa4Lt3P1FvooAcKaY/rTnIyQBtkkde/NvaTVaisQm6gjXFu57eon/gbGBjirVZYDDloS4VdGkrrahN7KHGWo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792024015; c=relaxed/simple;
-	bh=H0WPja/2rgaW7oaDJIr5ZCklQyMqscq6hTCktTYOmTc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=ejKM6xiReKDxv1YLVcxT7YZrfq9PSxulXH6rUgSxw/EZBzzANr94gjIwhGZSbaipHzjlb2N3VeGPffV3OJCWikNO2OyjedZEpS2P73RGhRCd3VeGiaYW0mAXZ0rYtlfhI35e3+xJedOpHmfpljZCmMtpQvLpd7F6rTPayQUWiSQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=L7WxGzlZ; arc=fail smtp.client-ip=52.101.85.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B54EB248880
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 00:36:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792024619; cv=none; b=OOdl5rvMVJ6Y7D3B9aGwHn7jqGVvQaj7fkw47ZoALSAQVp7gK22vAMHeGHxBJUBgEGLOrWbuUArAKXstz70M+xg82b3MKY+X7VbN/NkpMc1ZgUHVfst9jc7phX2IydPhilj3GotmFY1wme6N15hAISXOQHjeW4ByQ2IE73lrsWw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792024619; c=relaxed/simple;
+	bh=E0+VeT9tm+vZYltOxt+1BIvDMbhjzaTt6pQ1L2g5Hac=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ELmdHUzmfOvKMAogn+oW17jW8o+l5TdgFTQsOkUXLuuSFlOTYV6hP/zjHKkHn2Ti5fLmAcUbmsn8gAXGq6rueX11Iek6nbqg6t9WlK7Qa224ajqBxeVpkMeVQn3G/imriyn9A2b0cz15h/vu6buCO2B9dmTtDnYdsrkXQmmOtNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=aod3LhyS; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=OJJznXqA; arc=none smtp.client-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="L7WxGzlZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=otUM77ZB/UNEhbHJyuvnULm9QOtmjn+CECuK05Dfyj1CkQDtMpZNKdLYeBIXBNkphcsC7W/ztIwq5Zila3MRGbNO7z/OWfNNbQEbjp0zSk2/t2bB4r4k0ce2Q94AD2OFKHgClIZNxhSnQqeeS9vIUkQMTYLv0lhMaWAyjD4m1Gj3NDUJUu4JdyUtR01n1i2S77cV9M3nh1kRgrBLrIM85lRmlz4fEnkQSIEzyjLmE/ELZlIlJfMFMgefE0x/Y5c9sXqKkXZOIQOm8unJhj6a4a0J9NSgHLvBw83o9Xh4mXaSKqj5a7waXEjd4yYzhD/u+dg1AqHv727pZ6xygLSlmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V2J/TjmsoBh1rg2XJlhwq/8kDA6PVWOx+Xx9uQA7s/g=;
- b=xe7piSyM0DuPRwU7x0/j2uCKxPOgiTPDnlnRmOrakNdyvB3Jl53o5bzIvFBqmQjT/m8XwIGXm8b1x3H7dTzUHXqcgRcwx0vAiMYPf3WHu07IS9dV3bMNHqiiNDxYQsIX+nyFhxGQf0BMGlcjYoq1DDWwJg0zk+RURqNcV4woLGgi0EJ53E3HRjd+sEgqeEItqr+6EWIkSOqt9G3L/U41wHwXvQmC6+ubrJ2B5qEXYo9xtWpwKBlCfvbob84SF6VUje+wjBl5fZNojK7CbPr61KcIyhXIj2H/YcoOmXe1PXGuz8Pz4nWYDj79TzKs3ErtcU/qD/2srM6pzr5PZgPWkw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V2J/TjmsoBh1rg2XJlhwq/8kDA6PVWOx+Xx9uQA7s/g=;
- b=L7WxGzlZWmZPjayXiyYdocH4VVti861za0zaYM1g9/PjbXzLaBbePgE21KuHwh5xsL7d1eUH6UVdMWEBlKQqH+LPs8UHnCUcCgsCUcdbF1l+irGRay8Z9c8Kg7atmAbMvG6RYnoQpT2gXcx0iijDGl3mrRkfThSb4TrabATauMH1PeX+nCs9L3fVMROszDqMkP2ReXBZ4nXN3/qthYCebLgriYS0gZn49usQxY13zipTJ+c/zjSq1FpncxuWdAhLf+YpbqLMVGkFILHpr2dYrPLqlx6J6oINTn8V4NQc0QZxPQVlGv0+e+p/hgSiLkow+1D/m/rIWvJ9KkczHwYbxQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by DS7PR12MB9044.namprd12.prod.outlook.com
- (2603:10b6:8:e3::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Thu, 15 Oct
- 2026 00:26:48 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
- 00:26:48 +0000
-Date: Wed, 14 Oct 2026 21:26:47 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Joao Martins <joao.m.martins@oracle.com>,
-	Alex Williamson <alex@shazbot.org>,
-	Yishai Hadas <yishaih@nvidia.com>, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/4] iommufd/iova_bitmap: Clip recorded ranges to the
- bitmap
-Message-ID: <20261015002647.GA3575173@nvidia.com>
-References: <20260925161142.189813-1-parri.andrea@gmail.com>
- <20260925161142.189813-2-parri.andrea@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925161142.189813-2-parri.andrea@gmail.com>
-X-ClientProxiedBy: BN9PR03CA0426.namprd03.prod.outlook.com
- (2603:10b6:408:113::11) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="aod3LhyS";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="OJJznXqA"
+Received: from pps.filterd (m0167070.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F0Y1Ra4134700
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 20:36:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps01; bh=MBFZjRkNZaLoShz4icw9A3S4SC
+	eyo+a2ZXrJLss9QNk=; b=aod3LhySZ+NXWVh2m0H2+yut1FEa1vAOQroJDPUint
+	FEj6ttWUf5Lu+8EZmo7pedsBrNjplnHEt9zmNz0GPV9r9oryUjV5PoiJZM2TyQR4
+	04p5vX6Xb7eGMkwHSACIQ99xhlAkfb3Dyp2kHE0TYw9gJGu9i61yArUvYd6bwpIH
+	i5GKozMp0A8UThOEp1RCtoE3DlTbB2lT8PQEWQD5YU6+bNsZep4zzDTmB5EizRev
+	0kI5O/luy9jNowfCc6PvlJppgR43ShHX8Dd3MtQFDvFFCMg64kR8Gh/hlsnRquOs
+	SQ83EM1ecsQoEY3vj/SNoCOi5A+KhmD71lOvmT8BlPtA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hae50b3fq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Wed, 14 Oct 2026 20:36:55 -0400 (EDT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93caf7856ffso970492785a.3
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 17:36:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1792024615; x=1792629415; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=MBFZjRkNZaLoShz4icw9A3S4SCeyo+a2ZXrJLss9QNk=;
+        b=OJJznXqAey9rYCbcDSJtx3LhhObrnzlOPAHbczZPWU5WXUk5U8V/00w3Cc3f5W/zev
+         VPVZVRvTdMVgh5oV5NK07AXZyWqB0xw4mvxbJ2gGNNj7TMWsrGAz2t6aMAFBHjcmVIHD
+         lHPBEaK1qtHwmMOSM0nolzENp+Oy15y9OjYMZubuluJ0tJA5EjFhMK6VXcKDLnmhNFuQ
+         nvyaHsTWUd9ysyAeZyZ7vRuWxP7zMUIpLFJ9kxKOVJmS8J3kpfssO1MEUxzsbXqfemqk
+         c+uIKOiHevxW2O+zdo8SRQYFEwTgPuWRIhTXQKO+5OsajAQvM+KG4eXUOkMYEBJDd0Ox
+         /MMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792024615; x=1792629415;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=MBFZjRkNZaLoShz4icw9A3S4SCeyo+a2ZXrJLss9QNk=;
+        b=LkMmkRohvOc80ZImNTMLDz2wFpSI3+bYMspB7U+prvo8xlM9UeWCBeCUR/ECBZnkRG
+         C1M84CcgkuwPeY1vwU+MGl97pDA3D5emRm6g140ho9HKcNG3Nm/4O8EIaDmhXu5II+Tt
+         tSYOEJy+rtjR8YJPmYioZ60xC03IZcsxH7uV3A1WCiZBKJ1FbYk0l1xwKx9I1Gm8gz7W
+         PHknZZ+fDTOk7+ij5+O3mQhcTARMmoa4niIw/P2Fc+dLml8LcSJCXRVUNPR3rnt95aXg
+         3KkC07NNYKYXLerTkvebJnIjzXCsgqSNgv9dPnSvu4MtaxZsOw9i2478KyAY/SyPo2MV
+         r3Wg==
+X-Forwarded-Encrypted: i=1; AKwUvBxzbVK/T6NfZlgp/lOwcZOrbi9OuSbFbI7ED1T3qeJJ6RJlbrwhPLWQVE4h++dV4Nh9qd141iA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKbn3RvRPQuR0ic3b2SJ6O86BSsiT5tLiE3kEE0uQ2wzNPHy5Zl
+	i1hsoK/W1yh6PvFlZvoa75c/4UH9MJJQF1u00ybK17Agz/wu4KSy1ARlIpaXBCh5M42YP2nx0t7
+	uGgh1qpGsrrZw0gpoAzUoeGQjr110HKcUD2ae//WhfEBhv9h+Uobb8OkkIGPkNA==
+X-Gm-Gg: AYBFou0kLi4fm8q4B31ksk2ct9rMlKJ39L+7l3oNbVhIbN/BHjmMcQGleXAssj/LOx7
+	XjC61nkxjeUItX+dlbavAFdKxWd3SNQLgQ80QeYwULz4kHJc4Xx1WKfDxgiIXy5rdxPHH3JzVda
+	MawkGSHTFTrRiSTpbpT+O5ZkN9Ogk2bnIPjF9pvgDsNDROYSzHO4XreHT9CqLLewRYR2rKv9Jsx
+	0F5yG/Wch5pDktyNR/lvfAdc3n6jjl1AAI5cv1uj0H2KcHXkDhH5TPihnsXcbO9d5OCQnDfpF0F
+	M5YO0MwTiT9rJCQgTs61ZVaTQP0jtFJ1scrob02+iLY1dNfU50mW9DyOsjBh87db4IwELY7RjVX
+	BPDY3W16i12k882LtMSThBxoQu2e/UOqtCdPxIfyvhfCi
+X-Received: by 2002:a05:620a:3713:b0:93e:6ee0:c074 with SMTP id af79cd13be357-93ebd260beamr2867280485a.38.1792024614752;
+        Wed, 14 Oct 2026 17:36:54 -0700 (PDT)
+X-Received: by 2002:a05:620a:3713:b0:93e:6ee0:c074 with SMTP id af79cd13be357-93ebd260beamr2867278785a.38.1792024614259;
+        Wed, 14 Oct 2026 17:36:54 -0700 (PDT)
+Received: from [127.0.1.1] (dyn-160-39-33-242.dyn.columbia.edu. [160.39.33.242])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef50095a5sm630842885a.12.2026.10.14.17.36.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 17:36:53 -0700 (PDT)
+From: Tal Zussman <tz2294@columbia.edu>
+Date: Wed, 14 Oct 2026 20:36:43 -0400
+Subject: [PATCH] gfs2: fix the escaped block copy in gfs2_before_commit()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|DS7PR12MB9044:EE_
-X-MS-Office365-Filtering-Correlation-Id: 587fd53f-d062-4d05-555a-08df2a530041
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|7416014|366016|23010399003|4143699003|261009223027099003|56012099006|11063799006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	vj8FChuLSC463jCx1upvx6UXpL4unU3Hm0SWksG//D+A8t39H6WxyFGnYLQvo3b/gekwNSr09s2Catiw8bCEn2u5qLbUTId/3AfULK5ZxBZybLOdctnP3mwsRFT7eqKwCcgX9cJcKXmziLlxUjb+fMxB6nkUN8Km7y8FuwgsW6lz7yZ6v6eklS1wRpz5u51977UW76W1gURHFs7BLmzpI2bSaGKTiboWqStyOPfKVjxFQieDa8b4eZvNi12joT6UgI7gP+yyKgOZXmiNi3vjIGP9orkaa/McmFgg3NcdCxlHL679MgsPVfECmPsCkd+VYuln6l8fG3cRxkeMsjkvBpsAy2eg4tl/caeaS3s0Q4gdF6ff4q4FaDtmFVG09JLLDEK7y8ajSkmmD5H8lbMhERR0Je5UCwLSBsNy8uxIW0yTYDbRDwU5OG/lyUa67y3yx2GybpgPtScgtckYR9BRg4QZxYfruhXOxo8e3/6JFY8waD+EtxssagEcMZIYPOYCkJqIs0E7jp6hr9PXMRRp1zwkVe630Q/EGuD6oD7yPW3hYro0iEppF5O1TWgl0lG+vJ/xAZxaHQesroUvfUUrl67W8LG1SBkJDMsZ90SnDeRRpObeuhx1Eg88uAQEagsLqFtxah4fV147jtY3RYhQBeywKfFDxTlQW8Tpxu4VUdY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(366016)(23010399003)(4143699003)(261009223027099003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?LlA+roZzetJtdPowSxT+TOEHtgkby6ISIAPV1KP4jLbCiFV/aTTi1n2ScbMs?=
- =?us-ascii?Q?QSBaollNyB9Iul/Emi4OrwVwkKPBXHj2KeK1K+NCaXFYwY9ighRblWuh2Kg8?=
- =?us-ascii?Q?P1WjdV546vW2De5FnCQjkg/gk+0O6qO/++DRdcgQnsGU78L8Gpl4lU8VV5lw?=
- =?us-ascii?Q?YeZlTDHLdDyDSNCOFISiV71UVfEyFDiYV9ryiUq1b7Nf5Xg2NPxcDzS0ImE4?=
- =?us-ascii?Q?j1JZ+EKwpaQkNWgcSwf0Rrpy3qEL1tK9bPNdAzfgVH6qjIZ+4OKACaQKRmQi?=
- =?us-ascii?Q?DRrfYv4rdgTbXcwUWjnUDEAOTn8mHF4UA5LIpEB2q4La+Q5uBD14foULgjTE?=
- =?us-ascii?Q?E1UDeDNnSyoC0vNxxzcpWtNCDmm15H5+4+uqxR3mgwUqZJQQNhxQAV4wAAO4?=
- =?us-ascii?Q?4qa1iu9D/rZThJMpwJSuRddwB+zdAGAUMaz0sTCXjr7DLVfu5EGOejfHgKmE?=
- =?us-ascii?Q?RNLXzN+d4HfjzTUiAUpq2OTQMDD6Y+yloA3s2JUBLOVrTh6Tn4UU2eqE+jkk?=
- =?us-ascii?Q?xqEwzgL1xIXCdvwXJBUSDL9z7fDFjhF6iAtVpIHCWxgn6i4PxivOzb0h9+GS?=
- =?us-ascii?Q?fjFEteN7RwlleDfsxytzZpu/+VgFm0jVpxnlUhHslasptH0JXpvOxMhSpl5i?=
- =?us-ascii?Q?OzrnIXxfa+cBxbvCXDTyztUdx4XWXTqOFlZ8+KxOyNVajCfRBn+3Yy+ewJbL?=
- =?us-ascii?Q?0SC5Ej9K67XboAGxizeOovs9yUPIkjBy6QyCbnOIGUTu4Hcp7N8foaC0rgxx?=
- =?us-ascii?Q?Cm9mBLmafpFOGwKvr26A/k/ih5bAom4TY+IbMfl+kJTBhe1jU7KZWOctuKyl?=
- =?us-ascii?Q?npSfG85RA9imZqJOiubKihnIdnKzQvtL2P9eORYpGBK1PFzni/8wVrM23tk+?=
- =?us-ascii?Q?mOrhx75NGyyUhnXU7kucyC6YgOCIz917LBblP4kKgJ8r7IAKhpqhHKqYEwhU?=
- =?us-ascii?Q?jdHy8uiw4czjk2aMfC0/E4ytyfBUeWtYMeko4APSnAw6VlssQz0wiMEd4gDL?=
- =?us-ascii?Q?ejAEYDj9kZdwA71lXQ5szHVyp+lMedY2RkHFelgjvT2hkf1U+3TizoG8yfsk?=
- =?us-ascii?Q?gsS/Jq+DjNdGPGqTF0tklxyOtETXpK6hcXNupv5m3Z/Beucv6m0ewsqF/CqN?=
- =?us-ascii?Q?DbMOANlE17F7VevIevH34ZOihXnfberniCKHV01o1EqPqXE9mlLeHvZN4Rbl?=
- =?us-ascii?Q?zdXRmm+u03Ub43G0XOByHvV9ZnP69SVTKzmRVZ4Ms//803XqZksXEZdObvgg?=
- =?us-ascii?Q?NvoxBVN1VHNawdoYKE0Kf+P5QUTpB5lLpV8YKPiNOU0/cazYjh2U7rFd5WBd?=
- =?us-ascii?Q?mwFjDQ7bGHXQgLqZ3JsIGjPSRxM0NNopQJFmpxh8mX0yifn9UJaj3LMeRiA2?=
- =?us-ascii?Q?WvijNAEeIOhkYrvN3+PPy8OduCsmQaqMzEksfK3BLQ+Dycv2P5sdC+3qKNub?=
- =?us-ascii?Q?TdRlOcEfiNlvepWe5e90QknevDL+Curbko6HDOPUYeCt6WpqzPMCIf94LCqi?=
- =?us-ascii?Q?IqokoGMLR0oGugnRtb83krLa3rfPZxIiayxvxhsVpGTeRc85aoK1CIeTlfPB?=
- =?us-ascii?Q?7rYXK/O1yn4f2I7R+9U0VGTBOpP9V1KGzKkzsVlMJsYUNP2lexKqIFf7qask?=
- =?us-ascii?Q?yzwPLhfhKaxZqIFyKjnwEhJ83JSyBAMNT+jDe1YK4LxowpcU+weQ3xIhEHPw?=
- =?us-ascii?Q?aCHnutqpR1OhLaaA96ccsP9uqlfYMVV2O8fO2yeCc8ZsJvsM?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 587fd53f-d062-4d05-555a-08df2a530041
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 00:26:48.6061
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cytGrli+PXa3P06ZCa+C+yKKqF6vvolsXJpVDesAAf032lQgVVeGGF0FSFZv6tY7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9044
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-gfs2-escaped-copy-fix-v1-1-ff917ec48fcf@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIABog0GoC/yXMwQ6CMBCE4Vche3aTtgomvgrxULsDrAdoumg0h
+ He36vGbZP6NDEVhdGk2Kniq6TJX+ENDaYrzCFappuBC550/8ThYYFiKGcJpyW8e9MXeta1Ajuc
+ oQvWbC+r86/bXv+1xuyOt3xjt+wc6WjoQeQAAAA==
+X-Change-ID: 20261014-gfs2-escaped-copy-fix-1055ded37add
+To: Andreas Gruenbacher <agruenba@redhat.com>
+Cc: gfs2@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Tal Zussman <tz2294@columbia.edu>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792024613; l=1502;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=E0+VeT9tm+vZYltOxt+1BIvDMbhjzaTt6pQ1L2g5Hac=;
+ b=cptjR8Wi5QYajBKi+2dNzereqKLFdldPrIPDRcekAy3LT29s8G+h9DpIpWr8+FkL8erFn7Qus
+ 8HR7V17pv46DIQK7gtNc52U7+DONYjsDgZQ5QkgdzlGHmHSnwIYVIKH
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Proofpoint-ORIG-GUID: 3KJoToq-DYMhRMWGl2ZtuittWn1tSM1Q
+X-Proofpoint-GUID: 3KJoToq-DYMhRMWGl2ZtuittWn1tSM1Q
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAwMSBTYWx0ZWRfXxlyIz7Wh74g8
+ 9y4WwdPEfVC5yEXVhnNBahTkKLIr9I/+AorwaC5pncvS3yYb4B/H7WObBGEHyWz1e5mLiHxB8v3
+ 496ZKu3PChdxlFHLzY8/CARkXCWPpi7lO5aWv5ZbwMXaDAQmFMcj4wHk9d8n9/TiQySB18Auq2h
+ 7dpr5bo1CRHmCXjUygBHYHq+fKc0rJlgutGnwWrj+0faAMErTXcz8DT8Gd/JXcezHmDMIXwVNLo
+ lqEi2Tl4hWO9ARBMhjx0SsfjlmDRsfH61DtnblN5c1Ai/VpIgwsVvKICJlWYBmUIKir+TJ7afdF
+ uFQLuvFDYe+1veXpXk1UDT16FNn8TzZ2VDE9tB3jGNYWx9ZlceELD7JPCmq4mlJL0iVv6BfsP/6
+ 3kR3ZKhlfirC58B4h6roluI5MSFdnxbfOlPtBl/PdzkdujiQUaOVSLQHFLLOwcT5I/8CMf4cr1v
+ WMBS7fwCJIWU3SBNDhw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAwMSBTYWx0ZWRfX8v+CmC/T+898
+ LDYGGYGbnfhsfigXfP7Qe+hDmZhhsL0SeS69FDfGeMfWUzfXw71GoqfH4E5Vj/Aj74CJ7B536hd
+ RMQ+26j98LTx/F9OHqhxvgcIJrPRQCxdp0QmnIQB3/WKyledi4OM
+X-Authority-Analysis: v=2.4 cv=fKqsTpae c=1 sm=1 tr=0 ts=6ad02028 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=GaPK54s0Se3oFqK5NkZy0g==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=svvvyxlR1OQQkelhaPoB:22
+ a=VwQbUJbxAAAA:8 a=bvDx6QY01viD3ml5MkMA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11935
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 priorityscore=1501 suspectscore=0 adultscore=0
+ lowpriorityscore=10 phishscore=0 malwarescore=0 bulkscore=10 impostorscore=10
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150001
 
-On Fri, Sep 25, 2026 at 06:11:37PM +0200, Andrea Parri wrote:
-> IOMMU_HWPT_GET_DIRTY_BITMAP can set bits in the caller's memory past the
-> end of the bitmap.  When the queried range ends inside a dirty huge
-> IOPTE, the generic page-table dirty code records the whole entry, and
-> iova_bitmap_set() then sets every bit up to the end of the pinned page.
-> 
-> iova_bitmap_mapped_range() checks a range only against the pages
-> currently pinned, and iova_bitmap_mapped_length() caps only the pinning
-> window, so neither limits the write.  A range that starts inside the
-> bitmap but ends past it passes iova_bitmap_advance_to() on its start,
-> and the write loop runs to the end of the last pinned page.
-> 
-> Clip the range to [bitmap->iova, bitmap->iova + bitmap->length - 1]
-> before computing cur_bit and last_bit.  A range that starts before the
-> bitmap now has its in-range part recorded; the unsigned underflow in
-> iova_bitmap_advance_to() previously rejected it whole.
-> 
-> The clip runs before any pinning or indexing, so for a validated query
-> range cur_bit and last_bit can no longer address outside the bitmap.  It
-> only narrows the requested range; the bitmap bounds are fixed at
-> allocation.
-> 
-> Fixes: 58ccf0190d19 ("vfio: Add an IOVA bitmap support")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-> ---
->  drivers/iommu/iommufd/iova_bitmap.c | 27 +++++++++++++++++++++++++++
->  1 file changed, 27 insertions(+)
-> 
-> diff --git a/drivers/iommu/iommufd/iova_bitmap.c b/drivers/iommu/iommufd/iova_bitmap.c
-> index dac3e657d498d..44826ae330c4b 100644
-> --- a/drivers/iommu/iommufd/iova_bitmap.c
-> +++ b/drivers/iommu/iommufd/iova_bitmap.c
-> @@ -388,6 +388,30 @@ int iova_bitmap_for_each(struct iova_bitmap *bitmap, void *opaque,
->  }
->  EXPORT_SYMBOL_NS_GPL(iova_bitmap_for_each, "IOMMUFD");
->  
-> +/*
-> + * Trim [@iova..@iova+@length-1] to the IOVA range covered by @bitmap.
-> + * Dirty trackers may report more than was asked for, for instance a whole
-> + * huge IOPTE of which only a part was queried.
-> + */
-> +static bool iova_bitmap_clip(struct iova_bitmap *bitmap, unsigned long *iova,
-> +			     size_t *length)
-> +{
-> +	unsigned long first = max(*iova, bitmap->iova);
-> +	unsigned long last = bitmap->iova + bitmap->length - 1;
-> +	unsigned long end;
-> +
-> +	if (!*length)
-> +		return false;
-> +	if (!check_add_overflow(*iova, *length - 1, &end))
-> +		last = min(last, end);
-> +	if (first > last)
-> +		return false;
-> +
-> +	*iova = first;
-> +	*length = last - first + 1;
-> +	return true;
-> +}
-> +
->  /**
->   * iova_bitmap_set() - Records an IOVA range in bitmap
->   * @bitmap: IOVA bitmap
-> @@ -404,6 +428,9 @@ void iova_bitmap_set(struct iova_bitmap *bitmap,
->  	struct iova_bitmap_map *mapped = &bitmap->mapped;
->  	unsigned long cur_bit, last_bit, last_page_idx;
->  
-> +	if (!iova_bitmap_clip(bitmap, &iova, &length))
-> +		return;
+Commit d68d0c6c3fc7 ("gfs2: Use memcpy_{from,to}_page where
+appropriate") made the escaped buffer copy read from the mempool page
+it had just allocated instead of from the buffer, so the block written
+to the log is whatever the pool page last held. If the journal is
+replayed after a crash, the block is restored from that and the file's
+data is corrupted. Only escaped buffers are affected: jdata blocks
+whose first four bytes match GFS2_MAGIC. Copy from the buffer's folio
+instead.
 
-There have been several patches about the dirty stuff all together and
-comprehensively this is not quite the right solution.
+Fixes: d68d0c6c3fc7 ("gfs2: Use memcpy_{from,to}_page where appropriate")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+---
+ fs/gfs2/lops.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-If the caller is providing a dirty range that exceeds the bitmap then
-this is coming from something like a large PTE being dirty.
-
-If we silently truncate that to the range of the bitmap, like this
-does, then we also are silently lossing dirty marks. The userspace
-will call again with an iova range stepped ahead and instead of seeing
-the early blocks being dirty they will be marked as clean.
-
-There are several bugs along these lines here as generic_pt is also
-incorrectly clamping the ranges of the PTE.
-
-So.. The right answer is for this to propogate an error when it
-fails. There is another patch that provides the mechanism for this
-already.
-
-I will change this to just be:
-
-@@ -409,6 +409,18 @@ void iova_bitmap_set(struct iova_bitmap *bitmap,
-        struct iova_bitmap_map *mapped = &bitmap->mapped;
-        unsigned long cur_bit, last_bit, last_page_idx;
+diff --git a/fs/gfs2/lops.c b/fs/gfs2/lops.c
+index 77ef22eab368..16fba2108a4f 100644
+--- a/fs/gfs2/lops.c
++++ b/fs/gfs2/lops.c
+@@ -689,7 +689,9 @@ static void gfs2_before_commit(struct gfs2_sbd *sdp, unsigned int limit,
  
-+       /*
-+        * If the range cannot be recorded then the system call returns failure.
-+        * This is to prevent loosing dirties if userspace is expecting to step
-+        * the bitmap through the IOVA space.
-+        */
-+       if (!length || length > bitmap->length || iova < bitmap->iova ||
-+           iova - bitmap->iova > bitmap->length - length) {
-+               if (!bitmap->err)
-+                       bitmap->err = -EPROTO;
-+               return;
-+       }
-+
+ 				page = mempool_alloc(gfs2_page_pool, GFP_NOIO);
+ 				p = page_address(page);
+-				memcpy_from_page(p, page, bh_offset(bd2->bd_bh), bd2->bd_bh->b_size);
++				memcpy_from_folio(p, bd2->bd_bh->b_folio,
++						  bh_offset(bd2->bd_bh),
++						  bd2->bd_bh->b_size);
+ 				*(__be32 *)p = 0;
+ 				clear_buffer_escaped(bd2->bd_bh);
+ 				unlock_buffer(bd2->bd_bh);
 
-Jason
+---
+base-commit: d0c4bce31a579216780b990a09250f15e00f38ff
+change-id: 20261014-gfs2-escaped-copy-fix-1055ded37add
+
+Best regards,
+--  
+Tal Zussman <tz2294@columbia.edu>
+
