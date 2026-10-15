@@ -1,62 +1,126 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E1C56C63B;
-	Thu, 15 Oct 2026 19:36:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19EF535DA78;
+	Thu, 15 Oct 2026 19:45:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792093011; cv=none; b=vBsaUycaGwqOkRz66ZEOBOzALjrnzlrE/hpRnqv2RvIEXNWIb1r17XLUQRSd0gOzEDtnuqBKXQfv7O6c9zsIrdWIv6XVyTmPKj2rfTHrvaK/To7PPLlhOjSgd4ydUzvIJ+VfR7ryURuH+id8OvXSdtD+H49/+Rfr5t0Q5+NC+po=
+	t=1792093555; cv=none; b=WiMHdi9fZSInMDi+xt0n3uGbuvB79Gu3ADWtObJoDrbPuGDHEH2MpCcAHgOjtzCl88kPNcodjmYp8l9xcMb4D80j0uvDGMwBOxcWfPUUHzYIvFQ1N2nWGk3ryiJNiKuWr7VyYrqu/3CdlNDkDVdnHgGkTDPYLomY39Q/s6e02Ok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792093011; c=relaxed/simple;
-	bh=4ENjj2bYjHj7sFuyE9//jVMeZKc0UUmrYtdZ+5RVlEs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lpDg7R3nvoKKHmLN4qsCMP2DPw8WPDHEvCkqU06Z62daXtfYrT0YKbV7L1PV2RRewlB3gL20XuWSrzbqIbG8pJg3pE/VzGWNzmr97Y8aL163ZlP9LrwZJYQrrLwFf2CatXeqwn33K7CuM6Z8qXhADFmRoOwm7z2tjD1i/wIbwdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VouZ6BoK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792093555; c=relaxed/simple;
+	bh=aVl4fWIyCLg2R4ibK0RmkIrVXCYhIvuzQtwD9SP/mYA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fOkcpSn+xqh5ZYdwFv6LVOoFQQCW712PP78TDvQWMd5QS/h/0jAgoU6BU3QD0xAEkt81HbTSH7gnuxHJ96HuMHPxtiwj/OO+R2qkFbDwzmTAT5je+8SRQRDGi1HYWjUwVZaXAxqiHydptBIUKb5per6UkfZ3nHv2aJRNnBM2myo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bcqd+HH2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VouZ6BoK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69D221F000CD;
-	Thu, 15 Oct 2026 19:36:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bcqd+HH2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C10FC1F000C4;
+	Thu, 15 Oct 2026 19:45:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792093010;
-	bh=W1Y2degSRNAyhIkkt7NeJKf9SNBwC9k9gvH+7XOqk5Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VouZ6BoKYA2CNoL8QFA7VYi/Rr+nDsk0DC6T/W4RqkkP7/ZRfqrpGiYQ7Fd5aMIVA
-	 mQHJkFB5xT8coQLY85jqlESCoC0OFoTf3yN25Yqh/zYOSnCCshbpPdLm3oLphdjOpB
-	 acv8ZTd31A+42ueH2FAJ/NLRwsPsRP0sE7NJBoPKy3YeVGkwba5MqdCSjwbu0J34gc
-	 2zjQzlQlIXmhP5/iP9WwCh3ZgGLDIlSdWQK0a4paQRXio0O8aw5DjbtppQ0X8aJtiA
-	 Y/TQA+TPg8U2+3EfpEUVVkZDmVZw6wSskw8881xpbv1Yy1zd7uLaCpQTWQKKAe1ptm
-	 vSHv+PE212kzA==
-From: Sasha Levin <sashal@kernel.org>
-To: Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-	Artem Dinaburg <artem@trailofbits.com>,
-	stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kalle Valo <kvalo@kernel.org>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
-	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
-	ath12k@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6.6.y 2/2] wifi: ath12k: copy M3 firmware when reusing the buffer
-Date: Thu, 15 Oct 2026 15:36:04 -0400
-Message-ID: <2026-10-15-1-daily-reply-0021-ath12k-m3-copy-6-6@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <bc760367-4896-4626-8f5b-1bc3ef6cba22@oss.qualcomm.com>
-References: <20261012165925.32575-1-artem@trailofbits.com> <20261012165925.32575-3-artem@trailofbits.com> <bc760367-4896-4626-8f5b-1bc3ef6cba22@oss.qualcomm.com>
+	s=k20260515; t=1792093553;
+	bh=kTFEZ49kr33oEAdO5drlS9BF04qwOVSn+b6FDU6toc8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Bcqd+HH2iwmj6Pwil0HmsygLrhCeYDX7C6OFeH/xUu7GGXjOwTO62tiPu/T2BjKw0
+	 7zPETfQ3FjJHaJwk5s5MWu1XcAo82trouQ8l9I9ysLxWyEMHYb7id1ROAoCL4ChnBH
+	 7NR9iyk5XjbQNPG4SRgGuEcRkY428k4lbCfWTmb4Xbgvs+nzR3D4B9nr6mBkLQpaXt
+	 EN1UIA5AuSL4WeeuREVvhml+oJLHggN50OtTAcwF3nxYJnGx+L/RSZCIN0pVqQSXfP
+	 l65/hfj7vA5XaZMeDO92UtYe7lXgWgnDaBKzS5xWQ/LXabdaW3TUp+hp1cSse8L0Ai
+	 Xs2k320TrAhOA==
+Date: Thu, 15 Oct 2026 20:45:46 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+	Adam Litke <agl@us.ibm.com>, Mel Gorman <mel@csn.ul.ie>, Rik van Riel <riel@surriel.com>, 
+	Peter Xu <peterx@redhat.com>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Josef Bacik <josef@toxicpanda.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Chris Mason <mason@kernel.org>
+Subject: Re: [PATCH 09/10] mm/hugetlb: don't leave a uffd-wp marker when
+ zapping an RWP entry
+Message-ID: <atEtMwg6_2KERFTr@gremlin>
+References: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
+ <20261015-urgent_fixes-v1-9-42796911043b@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015-urgent_fixes-v1-9-42796911043b@kernel.org>
 
-> Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+On Thu, Oct 15, 2026 at 06:07:15PM +0200, David Hildenbrand (Arm) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+>
+> An entry that is protected with UFFDIO_RWPROTECT is PAGE_NONE with the
+> uffd bit set, the bit that userfaultfd write protection uses too.  When
+> __unmap_hugepage_range() zaps an entry with that bit it leaves a
+> PTE_MARKER_UFFD_WP behind, whatever the VMA is registered for.
+>
+> In a VMA registered with UFFDIO_REGISTER_MODE_RWP that marker means
+> nothing.  The next fault has hugetlb_no_page() turn it into a present,
+> read-only entry with the uffd bit.  That is not an RWP entry, since it is
+> not PAGE_NONE, and the VMA has no VM_UFFD_WP (the two modes can not be
+> registered together).  An earlier fix solved some side effects, now just
+> stop the zap from wrongly installing a marker.
+>
+> Leave a marker only if the VMA is registered for write protection, both
+> for present and for non-present entries.  The zap of ordinary page
+> tables has the same test, in cond_install_uffd_wp_ptes(), and
+> hugetlb_change_protection() says that "uffd_rwp does not install markers".
+>
+> After a zap the range of an RWP VMA is simply empty, as it is for
+> anonymous memory and shmem.  Nothing changes for VMAs with VM_UFFD_WP.  In
+> a VMA that is not registered at all a leftover uffd bit or marker is now
+> dropped by the zap and no longer kept alive.
+>
+> Original fix generated by an LLM and sent in private by Josef.
+>
+> Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
+> Cc: stable@vger.kernel.org
+> Reported-by: Chris Mason <mason@kernel.org>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> [ david: a bit of description overhaul+simplification ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Queued the series for 6.6, thanks.
+Seems sensible to me so:
 
--- 
-Thanks,
-Sasha
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+> ---
+>  mm/hugetlb.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> index 1548a6156206b..fb51f7d02cebf 100644
+> --- a/mm/hugetlb.c
+> +++ b/mm/hugetlb.c
+> @@ -5267,7 +5267,7 @@ void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
+>  			 * drop the uffd-wp bit in this zap, then replace the
+>  			 * pte with a marker.
+>  			 */
+> -			if (pte_swp_uffd_any(pte) &&
+> +			if (userfaultfd_wp(vma) && pte_swp_uffd_any(pte) &&
+>  			    !(zap_flags & ZAP_FLAG_DROP_MARKER))
+>  				set_huge_pte_at(mm, address, ptep,
+>  						make_pte_marker(PTE_MARKER_UFFD_WP),
+> @@ -5303,7 +5303,7 @@ void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
+>  		if (huge_pte_dirty(pte))
+>  			folio_mark_dirty(folio);
+>  		/* Leave a uffd-wp pte marker if needed */
+> -		if (huge_pte_uffd(pte) &&
+> +		if (userfaultfd_wp(vma) && huge_pte_uffd(pte) &&
+>  		    !(zap_flags & ZAP_FLAG_DROP_MARKER))
+>  			set_huge_pte_at(mm, address, ptep,
+>  					make_pte_marker(PTE_MARKER_UFFD_WP),
+>
+> --
+> 2.43.0
+>
+
+--
+Cheers, Lorenzo
