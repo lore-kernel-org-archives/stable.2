@@ -1,181 +1,115 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4A93E9584
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 04:52:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F7526C3BD
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 04:59:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792039964; cv=none; b=K6reWjXSp9wC43v3M22ECv8NkamfD8UjJqdvxjydtOQWPOJzeAH/eW0BqU9lalMRGSHO+yeK5S0QqXx8Thz2X7LVtl9c8z5dMR8WZpZjUs/Iwb/uwseUFNIGlsSAK6ic5YuZi7/ul99t0TwuN4Vz+taOpRBEKtt/kBXWJmm8IFE=
+	t=1792040358; cv=none; b=fmIMr5qTS7ynGUen7cOP9przxsOHBaNrDStUkqCExRvVGFk6pqGMiohVldS67YzzJaDrAwF6R2AuoXfSQhMAfV1r7M8DfZSlwbex62eF7FSXQs5P8Y9iHD53DREuAEj+P7YGuVMrJVnHzPJdtrfgd3YAxk27WZlx8fjKXxTyGxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792039964; c=relaxed/simple;
-	bh=rYJvJvnkgZtKchfVvlvx9ACL3kl2ex3CJVfJAmwIQMk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GthsTOZr1bdmDT8x1qKP30qTiMUtO24DqBIWJ8DXGAONLuRUDv3eBrRC1t4IAxvHI8IuLZuh7jhNQUBkPGcnTSUycbZMXsvGTET1otSkDf2e/m2Zuy1x1CY3Ry6FWhaq6WEpnWNlxNepy7yHHd45EPAzeUpBcpKFZLT9zYlvLG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=Px0ZeuYX; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1792040358; c=relaxed/simple;
+	bh=FtOtHetixsPWQ3Z+zGmjEH31xi/VxCFdFoLvi+3Jif8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TKes5TIjHyj1zhYLPApAdoRBUgHpC4rfzTwz2Juzj+RzipC+bX3jNR1PEuTFH6pv4JaI4E87UGSTthWrJIXZgbVg4YeR3WFD8KR7ho8ET5H+bdTv+iM7KaHhwsJXJu8xg84SNi/jZWAWZHYxetD53Q8GMa98GHGHb8NCDljRXn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=ozUpM48U; arc=none smtp.client-ip=44.202.169.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="Px0ZeuYX"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d71d1cc8b2so26003125ad.1
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 21:52:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792039963; x=1792644763; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y1CW4E17PsqOiHZDTp/GHdRDHH51grlO5+TKs27nZFQ=;
-        b=Px0ZeuYXmH/JvRJMh907f6JqeolLx31GjA4u/2OtO7OcDMGiXIaaHLISZgDjRICpyX
-         77FxkEPoHgKMGqKe76ArLqsxBsiEv+4YmpDYblS4rFpysIGFWGZaZ20UVIa+E9GLxrEq
-         mT2/On0Am0kfDknsmA3OUNZzwqDqTzZ67Bbdn/FauSt+J/B0Ht63VkOSOdgFMYZqNMP7
-         nDnwHhVF66ZM4bJFPR95q1+jygZZ/2n/cU/ws23Krp8V8fCRviFye35BnT6YeglNqcwD
-         sSiTTxabyw9XXFX260p7pxM8WQHc9FIjuLLbOS5JjTumxkQ/AgGcpsKYNKXNcQrZE37R
-         ZrJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792039963; x=1792644763;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y1CW4E17PsqOiHZDTp/GHdRDHH51grlO5+TKs27nZFQ=;
-        b=NjPTb7TZVdaUFln70xSPesgm55BEQptZ4lo+kQoAkSzCaIWDJb/o5Jt1KktiC58vTV
-         dMcLewX5O63LdSebmlmoky3fRjA4ae8sU5lxrSQTEgdHWZdE4TpUpgRkPGwJ5KRUU0cE
-         fB6bMEYkBqcZxWxzv1ydgKXTfb18rBdi78YoL4gHSUylL9MTdSxrUrxlJBOyw0tz72Fb
-         E3h5hd3S9hU1EEXzcceDqycBt5q1Eqo0pjNK4AdGibSabKHFA/U4MQ6TiL2NlpRZM/qL
-         vGQUApSbnwwsOSW1jClmwGmhVQbkIXfGJabCYXu8oAr8Ralc4ACNykTkTjFEp4ojF+ez
-         Bnjg==
-X-Forwarded-Encrypted: i=1; AKwUvByFEcmVQHZI9rk83UMqLxzSwNLyCNpdX0Js1u+NiioEAaQVxG34aekFkAXSCzQI1hnrFtm6doM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLcfuBx/loscO14gOCeApmdpoI5pk2HPZ+n6RahL9qtbNebcLbO
-	02uiYuD3bz22KO3ZUFspd95GNKZ3DIhdnnoHrPb4692uAlFaLfTX9UP5CBahUvH7ZIU=
-X-Gm-Gg: AYBFou1+Iao6X4OsinKv5DnaGUcCRGZlCKFmzGGJZpmcaCUQ8CFTbz205Yi9tQcQKhJ
-	OLQqlk1qmu9EcBvTP6CDsamDhOOQB1Qy077cuO+W/EJvYdjr+2LXtZX5zgBRcczbF5o9daEH0rd
-	Rn/z6CqlO1YxaK6gQfrdfJMfthlaJDHXmaQS+KhqA0Ow5fu4nAY9QFHZ/auY5zOuoVmeIeoQNJn
-	gQKRwwAnSjS6jJfhflCkAs9T/9LnTKdM7RkpZCxiSMe38k8tVY6O2cJcyFHYez8e/tTpOnnR4+P
-	p1ZnS2CzhhK1YH+LxQlc7KKT/iPnORRiWOPMsExtPUPY9HbkpFr1soDR1UrxXYleSTtvR7yS2Pz
-	ORIVKLr5lnB34OPvH2L8RSlPtQDQEhWzIYBxjdnwJp12iMJwTqft+ghiqmfbxMrelKwla25R3Qf
-	qyGXqkzae6Hxq8ekO/2Iij3vo/rh1oMC/OKpp2iX2HOX5OQ28AOHJQytpO/erV2KpdzlnK10aQm
-	K7r8w==
-X-Received: by 2002:a17:903:32c2:b0:2e8:30dd:523d with SMTP id d9443c01a7336-2e8429a739emr170899815ad.13.1792039962771;
-        Wed, 14 Oct 2026 21:52:42 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e962a4dfbbsm1615915ad.58.2026.10.14.21.52.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 21:52:42 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: "Martin K . Petersen" <mkp@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v9 9/9] scsi: mvumi: bound the firmware handshake retry loop
-Date: Thu, 15 Oct 2026 13:52:13 +0900
-Message-ID: <20261015045213.3975845-10-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261015045213.3975845-1-yhlee@isslab.korea.ac.kr>
-References: <20261015045213.3975845-1-yhlee@isslab.korea.ac.kr>
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="ozUpM48U"
+Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
+	by cmsmtp with ESMTPS
+	id H714xIrUGLvgbHDX8xI16i; Thu, 15 Oct 2026 04:57:38 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id HDX7xTYLJFNcnHDX7xfX3M; Thu, 15 Oct 2026 04:57:37 +0000
+X-Authority-Analysis: v=2.4 cv=K+UiHzWI c=1 sm=1 tr=0 ts=6ad05d41
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=_kS_R5bZiuQTXeyLJeIA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=vsBsGNikXw5pstylM6RA9bsmHSV3hOgxfeTPA6wB2/k=; b=ozUpM48UgP14YWcJ8/x3Hg6Fnf
+	O929cmcYtEqJm/ABfdD1OQTNwgfyP5lKW6VC4pfJouhLAnUsaCFdglQHfQcsR124HF0hRFex+sFTm
+	A0b0kzB8g41Mm0lxDBrK3KeLmN8lQwLJv8T58g9StqWgxDC6UtUJs3EQ518PQ1lBUT0ItZYhea6dY
+	4jdWmcKcc7WCrtYVvtkjFRlrf5iEka77bsBJu01GkPEJ1vSnDiJRRkCjKZbfmpuAcJSW35B1r3kph
+	kfNxg8gRYEZoRmBjCtl4X5eNNeg7PouVCEd0gzKl7hUwdbhfIUYkxmlgEFMsci/EiJ2PZleW2a6JQ
+	/QdyUEdg==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:41226 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <re@w6rz.net>)
+	id 1xHDX6-00000000xbc-3Ma7;
+	Wed, 14 Oct 2026 22:57:36 -0600
+Message-ID: <72cf3085-4d87-4ff5-abfe-dbc4b32f77ee@w6rz.net>
+Date: Wed, 14 Oct 2026 21:57:34 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/284] 7.2.11-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261014123758.782265692@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20261014123758.782265692@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1xHDX6-00000000xbc-3Ma7
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:41226
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 19
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfMMXD+z/UNfVLPwnmg6BRPo1V+UUrZcNpqW+EHWBNPkTc7DwikWVuGbATD/VD7CmNXsAcSBnONLA7BHT0EsJTOB+uusLGFkDrft+kSM9SjTBtZAQtIEa
+ wn4/snqqxhZjS70ltU6V1Za69JNstBiJV6mmy0mHW0hl2XTSAw9rtRBNo/Q4ByzLL8FCzl6XD3K3Qw==
 
-mvumi_check_handshake() drives the handshake by calling
-mvumi_handshake_event() until mhba->fw_state reaches FW_STATE_STARTED,
-with nothing bounding how many times that can happen:
+On 10/14/26 05:50, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.11 release.
+> There are 284 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Fri, 16 Oct 2026 12:37:26 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.11-rc2.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-	do {
-		if (mvumi_handshake_event(mhba)) {
-			...
-			return -1;
-		}
-	} while (mhba->fw_state != FW_STATE_STARTED);
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-Each call advances the state machine by one step and has its own
-FW_MAX_DELAY timeout, but that timeout is sampled on entry to
-mvumi_handshake_event(), so it only bounds one step.  A firmware that
-keeps asserting DRBL_HANDSHAKE_ISR, or that reports the same handshake
-state every round, is answered every round and the loop does not end.
-
-The firmware does not have to be hostile to keep the loop going.  The
-page walk advances hs_header->page_code, which lives in the coherent DMA
-handshake page, so a controller that writes that field back can keep the
-walk at the same page.  The restart that mvumi_handshake() takes when the
-firmware reports a status other than HS_STATUS_OK also returns to
-HS_S_START without ending the loop.
-
-Count the steps and give up after MVUMI_HS_MAX_STEPS.  A handshake that
-completes needs four fixed steps plus one per page the firmware asks for
-in the u8 total_pages, so 259 at most, and a restart adds two; 1024
-leaves room for both and still terminates.
-
-This does not change what the driver writes to the firmware.  In
-particular, the HS_S_ABORT that mvumi_handshake() stores into its local
-hs_fun before returning -1 is still never written to the doorbell, so the
-FW_STATE_STARTING restart continues to work as before.
-
-Fixes: f0c568a478f0 ("[SCSI] mvumi: Add Marvell UMI driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/scsi/mvumi.c | 9 ++++++++-
- drivers/scsi/mvumi.h | 9 +++++++++
- 2 files changed, 17 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/scsi/mvumi.c b/drivers/scsi/mvumi.c
-index 994c04902fa12..a2759dbeedf75 100644
---- a/drivers/scsi/mvumi.c
-+++ b/drivers/scsi/mvumi.c
-@@ -1334,7 +1334,7 @@ static unsigned char mvumi_handshake_event(struct mvumi_hba *mhba)
- 
- static unsigned char mvumi_check_handshake(struct mvumi_hba *mhba)
- {
--	unsigned int tmp;
-+	unsigned int tmp, steps;
- 	unsigned long before;
- 
- 	before = jiffies;
-@@ -1355,6 +1355,7 @@ static unsigned char mvumi_check_handshake(struct mvumi_hba *mhba)
- 
- 	mhba->fw_state = FW_STATE_STARTING;
- 	dev_dbg(&mhba->pdev->dev, "start firmware handshake...\n");
-+	steps = 0;
- 	do {
- 		if (mvumi_handshake_event(mhba)) {
- 			dev_err(&mhba->pdev->dev,
-@@ -1362,6 +1363,12 @@ static unsigned char mvumi_check_handshake(struct mvumi_hba *mhba)
- 						mhba->fw_state);
- 			return -1;
- 		}
-+		if (++steps > MVUMI_HS_MAX_STEPS) {
-+			dev_err(&mhba->pdev->dev,
-+				"handshake did not finish in %u steps, state 0x%x.\n",
-+				MVUMI_HS_MAX_STEPS, mhba->fw_state);
-+			return -1;
-+		}
- 	} while (mhba->fw_state != FW_STATE_STARTED);
- 
- 	dev_dbg(&mhba->pdev->dev, "firmware handshake done\n");
-diff --git a/drivers/scsi/mvumi.h b/drivers/scsi/mvumi.h
-index d998c65c26472..9597e87a08167 100644
---- a/drivers/scsi/mvumi.h
-+++ b/drivers/scsi/mvumi.h
-@@ -399,6 +399,15 @@ struct mvumi_hs_header {
- #define HS_PAGE_CL_INFO		0x4
- #define HS_PAGE_TOTAL		0x5
- 
-+/*
-+ * Each mvumi_handshake() call advances the state machine by one step: four
-+ * fixed steps, plus one per page the firmware asks for in the u8 total_pages,
-+ * plus a restart if it ever reports a status other than HS_STATUS_OK.  This
-+ * caps how many steps the driver will take before giving up, so that a
-+ * firmware that keeps the handshake going cannot keep it going forever.
-+ */
-+#define MVUMI_HS_MAX_STEPS	1024
-+
- #define HSP_SIZE(i)	sizeof(struct mvumi_hs_page##i)
- 
- #define HSP_MAX_SIZE ({					\
--- 
-2.43.0
+Tested-by: Ron Economos <re@w6rz.net>
 
