@@ -1,135 +1,62 @@
-Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D0C5505EF;
-	Thu, 15 Oct 2026 15:34:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.120.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B773E317F;
+	Thu, 15 Oct 2026 15:39:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792078488; cv=none; b=p1yKErWM3jMvL+eI2RjKFbR0Bo5h5LNnjgE2BysAgGFNBZnMq3xFi14y99wrqLPiYpKLsme74Wqd6Sf5/3A3vnGNAw+vuclobdVgz3+oIS9UaztOKX5DPJW8LQGbxncb7gHVbRTB9V3CfLL3xB2UrCId5+OS8ESbqZauYWwjILk=
+	t=1792078768; cv=none; b=Q6KqSnxOgRMXYVWFFqEYaLkR3kJjTcbY+0cqba2XeJ2gTpOA+mwj3d1IVHUFXB0O5tlYmiJLTHPI3UQw7DPrfAPJcY8TNM8xd88JnF7Pe3ODX9NL5n9X8rj8hls/ijD3Zh//9zVy9ofOZZ3HOG/n1aeNTEWNxB2X6bhQymJoi3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792078488; c=relaxed/simple;
-	bh=QaKRgkR0woy1vA5kmFEGr+R5MHpjVLEeKSVoWkJFbyo=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=NUzsqEGqsMo4/8vcZPuuqFLn51owh9+ch3YGeQaA7DSksb1SFAWvtz9CP9cMP1IlFlhHFABxYa9Crvt9IuYzIbspy4kaEAnqR+L1nQMeNEQRvU4lLQ/+cb+YP6xx6CTfN3fpqVcB2RiDOvMnwc5BDYEKeYuMBCgsT559YZD55/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com; spf=pass smtp.mailfrom=hugovil.com; dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b=xbq8JDhw; arc=none smtp.client-ip=162.243.120.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
+	s=arc-20240116; t=1792078768; c=relaxed/simple;
+	bh=+dHgy3N/7gLS1Qh9qig6x46n+yZUjDiqsiVq+rHySdo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fpsEuQXuZWrRAerj4bclDKogZQKLm7158BGkgmZiBRFoW0r8X9Z2q7VImWHXjznitcvHcVIdBxkHl+PL97RciPFe8uRvxjtBnfRvLAYIEZMHhABWcpRxZSz1OJU1bT6gFOCs4WyFl3eNLh3ml3sgYtZanwNVH/xXZ1t3Oq2Pg+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jN7ROiVe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b="xbq8JDhw"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
-	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
-	To:From:Date:subject:date:message-id:reply-to;
-	bh=FXysBoh7T/b5vIIQVT7Cjj+2PwX+ORp+Pnle7zngK5E=; b=xbq8JDhwVaZ+FeyTtxc90afsX7
-	rQ2I5IaR/QqG0fQGZAiA6EKlH/ap/qkzC5wqxbRBSy+MFQcG+2E8MCbSxxhGeQlBOmW0Rj4GjYdfI
-	xw5wugsNGDOjAF6iWA1tb2wGQVIBzZSR+jqdMi19gvfWcY3+Zc6itfNEaPSM0o/ybOrU=;
-Received: from [70.80.174.168] (helo=pettiford.lan)
-	by mail.hugovil.com with esmtpa (Exim 4.98.2)
-	(envelope-from <hugo@hugovil.com>)
-	id 1xHNTN-000000005Ee-2F2h;
-	Thu, 15 Oct 2026 11:34:23 -0400
-Date: Thu, 15 Oct 2026 11:34:22 -0400
-From: Hugo Villeneuve <hugo@hugovil.com>
-To: Hui Peng <benquike@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jirislaby@kernel.org>, John Ogness <john.ogness@linutronix.de>, Ilpo
- =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, Andy
- Shevchenko <andriy.shevchenko@linux.intel.com>,
- linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v8 2/2] serial: core: reject baud_base values that
- overflow port->uartclk in uart_set_info()
-Message-Id: <20261015113422.007d26d4c5135aa6a3add4a4@hugovil.com>
-In-Reply-To: <20261007094719.1362769-3-benquike@gmail.com>
-References: <20261007094719.1362769-1-benquike@gmail.com>
-	<20261007094719.1362769-3-benquike@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jN7ROiVe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEC171F000C4;
+	Thu, 15 Oct 2026 15:39:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792078757;
+	bh=clDnXgxlukUJgyNafFQbgSdwRfqCNaCIb5WhZlQOEAU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jN7ROiVeST/l6I5kKRVzvkIdwzfTWzii7v7nxX40LXf/KzJWS2QfO4aYf/3oSlSqz
+	 UakhmzpNopiedNKGrII9giQlTHjQXtIPpg4WV6C6Hr8E7WmNRy35QXaCfv0I/2jPcm
+	 oUYfSc8waj3mLvs7E3TKmNwN6hWW8Gn2qbfh3+jXOxRw2Rm7nUvfU0032NRtg6mWlV
+	 OAQDEr0ctPRZHzLfHLvQmOm0f3lArZvjyHlB63LmnAlHDmgDqoE26v44QHgdKhWe4T
+	 t+PxfDFHNMHoP7aIDVE5alttoEuCiO6PyOFP6wKKeTYibFiQbZGqy+VLzBQJ3CeGoD
+	 Tl38NVCuzkQPA==
+Date: Thu, 15 Oct 2026 18:39:13 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Dongliang Qin <cccccccccccc777777@gmail.com>
+Cc: Zhu Yanjun <zyjzyj2000@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Bob Pearson <rpearsonhpe@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 0/4] RDMA/rxe: Fix MW/MR lifetime races
+Message-ID: <20261015153913.GA219304@unreal>
+References: <20260928171756.3254016-1-cccccccccccc777777@gmail.com>
+ <20261014061223.1547823-1-cccccccccccc777777@gmail.com>
+ <20261015085034.GY219304@unreal>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Spam_score: -2.0
-X-Spam_bar: --
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015085034.GY219304@unreal>
 
-Hi Hui,
+On Thu, Oct 15, 2026 at 11:50:34AM +0300, Leon Romanovsky wrote:
+> On Wed, Oct 14, 2026 at 02:12:23PM +0800, Dongliang Qin wrote:
+> > Any comments on this patch ?
+> 
+> It is hard to say anything meaningful for AI-generated RXE patches.
 
-On Wed,  7 Oct 2026 09:47:18 +0000
-Hui Peng <benquike@gmail.com> wrote:
+And it doesn't apply.
 
-> In uart_set_info(), new_info->baud_base is multiplied by 16 and stored in
-> uport->uartclk (an unsigned int):
-> 
->   uport->uartclk = new_info->baud_base * 16;
-> 
-> While uart_set_info() checks if (uartclk == 0) and
-> if (new_info->baud_base < 9600), when new_info->baud_base exceeds
-> UINT_MAX / 16 with low bits set (for example, 0x10000001), multiplying
-> by 16 wraps around in 32-bit unsigned arithmetic to a small non-zero value
-> (16), bypassing both uartclk == 0 and new_info->baud_base < 9600 and
-> setting uport->uartclk = 16 (baud_base = 1, well below the required
-> minimum of 9600 * 16).
-> 
-> Use check_mul_overflow(new_info->baud_base, 16, &uartclk) in
-> uart_set_info() to reject overflowing baud_base values with -EINVAL.
-> 
-> Tested in QEMU against Linux 7.3.0-rc3 by calling ioctl(fd, TIOCSSERIAL,
-> &ss) with ss.baud_base = 0x10000001 on /dev/ttyS1: on the unfixed kernel
-> TIOCSSERIAL succeeds (ret = 0) and wraps uport->uartclk to 16
-> (TIOCGSERIAL reports baud_base = 1), whereas with the fix applied
-> TIOCSSERIAL returns -EINVAL and preserves the existing uport->uartclk.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> Changes in v8:
-> - Dropped secondary Fixes: 6eabce6608d6 tag per Hugo Villeneuve feedback.
-> 
-> Changes in v7:
-> - Use check_mul_overflow() instead of raw UINT_MAX / 16 comparison as
->   suggested by Jiri Slaby.
-> 
->  drivers/tty/serial/serial_core.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-> index 6ed0195e6912..9a8f4c2e1180 100644
-> --- a/drivers/tty/serial/serial_core.c
-> +++ b/drivers/tty/serial/serial_core.c
-> @@ -14,6 +14,7 @@
->  #include <linux/tty_flip.h>
->  #include <linux/serial_core.h>
->  #include <linux/console.h>
-> +#include <linux/overflow.h>
->  #include <linux/gpio/consumer.h>
->  #include <linux/kernel.h>
->  #include <linux/of.h>
-> @@ -931,9 +932,11 @@ static int uart_set_info(struct tty_struct *tty, struct tty_port *port,
->  	old_custom_divisor = uport->custom_divisor;
-> 
->  	if (!(uport->flags & UPF_FIXED_PORT)) {
-> -		unsigned int uartclk = new_info->baud_base * 16;
-> 
->  		/* check needs to be done here before other settings made */
-> -		if (uartclk == 0)
-> +		unsigned int uartclk;
+Thanks
 
-If you leave uartclk declaration before the comments, the diff will be
-simpler.
-
-> +
-> +		if (check_mul_overflow(new_info->baud_base, 16, &uartclk) ||
-> +		    uartclk == 0)
->  			return -EINVAL;
->  	}
-> -- 
-> 2.47.3
 > 
-
-
--- 
-Hugo Villeneuve
+> Thanks
+> 
