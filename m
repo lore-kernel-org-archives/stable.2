@@ -1,234 +1,278 @@
-Received: from mx0b-00256a01.pphosted.com (mx0b-00256a01.pphosted.com [67.231.153.242])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C42286D5D
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 20:52:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=67.231.153.242
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5E23E1CFD
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 20:52:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.170
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792097556; cv=pass; b=D4uVGu8OODmAJooggFXnpQSbQeJCG3UE0qlmqFj5nloYMKJaf0puCDg9eiqCjwhLaOoTTjh2McaawLKID1jvZurZJBAhMWR3jUU6bAMFzI3AAh5MjPuY7yQbAwZx7nNf8aTC1cuFaTHiuQXrILmJ3K8tcuh0uVb6ClTGGj/9Qv8=
+	t=1792097580; cv=pass; b=F//Ebng50mOQNH4Zx6nzeKVVJRxc/UHp4deoG5Y5oNVFojvEHvkY6TiVx3Dqbfm/gVvM4pSuBq0cKGZvooolwrh0guKyv64KMJFRJxbFKu0k6FxTjA9cz/QHCESVsbO7FN0+1zxpzh7I0RC5YlRHdpRT37qWEEEdSf0eTsSQlB4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792097556; c=relaxed/simple;
-	bh=2Dt4ze1PRtPcKMOQhYhXAM2HdUXW7CpVLr79L/hKjIQ=;
+	s=arc-20240116; t=1792097580; c=relaxed/simple;
+	bh=hxk1QMVCnerU7l4ILDOHxLnF1/4FmNo059jIytcT46c=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LmHbxKX9q1RzZ0a0jx6PDJMvwRqYWyaFlgOriTUBAX0a40NXgqIeNNgFGqO7Q6Jx3gdPrFNjfPe5GLq8JS6ff+eT2UQFxGouTv7eOtro2DL0ZK1CAgcR4S4bFaRpoTMcY9SF+XavaOPIq68/wqlB8LLeJ/HJZ+4TkS9zXr8bsHI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nyu.edu; spf=pass smtp.mailfrom=nyu.edu; dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b=Z7o6TgYO; dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b=K8WY3vQ6; arc=pass smtp.client-ip=67.231.153.242
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nyu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nyu.edu
+	 To:Cc:Content-Type; b=E9Sc4DsBcmGe5qS3RPhSn1Y3eskp8rbWgtXVo17Yjzgh/dySBg1qsCeRxzVaFmT+Pu6CTD302GXH0MM/4Jg9y9W18gdbi029NkjYRScei8stqqWVNu5hWtR7rd8m25g4F7eDlpQ8ZKoy3Ek3ZcWKzTuiFgAcU4aFH8vsdaehTSc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=zDwmN2aI; arc=pass smtp.client-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b="Z7o6TgYO";
-	dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b="K8WY3vQ6"
-Received: from pps.filterd (m0355791.ppops.net [127.0.0.1])
-	by mx0b-00256a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69FIHOqt663417
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 16:18:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nyu.edu; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=20180315; bh=E
-	jTzUdIh1JiWqCTQbTHIx2EY+cLBJ9IwG0EzO3Un/kw=; b=Z7o6TgYOAwaocZQLO
-	RxsZ08glAUbeb+v7CAkOpuPO0q/dOErfoxhuK5uQke00iop+ZU/GfPu9/yjc4K7L
-	tg3+W6ARyztVBI6V08Ii3DkMT5A6Eb56P5IS2NyAbGqtR7efsZhcvJyvHpH4pG30
-	ixz0BxOkWAF58vdWCzRQsx8gA75itOI7ES74KCkTI5DXmrNfHGS+CN1F62pKlFkT
-	xwGVC7QXh2YhkDR6v1Pbm/ZVqvSJcorLcbuVCkculNPfW1Zk5tt7lJXnGFvsXIp1
-	rA1OoWfGDpbU739KHDyOJEWLfXUI6oMz7ikerdPq0xZY0r5EDCBd33PU1Nd0L93u
-	dz6ZA==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0b-00256a01.pphosted.com (PPS) with ESMTPS id 4hb190p0w1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 16:18:35 -0400 (EDT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3580c07911eso14740267eec.0
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 13:18:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792095514; cv=none;
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="zDwmN2aI"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8520161fdb9so1306626b3a.3
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 13:52:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792097577; cv=none;
         d=google.com; s=arc-20260327;
-        b=QbxzukKt+eQStBzTOf2EAOF9rzaqi4BKYtARD4y16QJTtuzPesC39pFfTQpULeQqLt
-         +1LMHCjtyXqn55wz6ByWbMtjGIs8QZU97rVhID5cPODtw629/sd35hBJSfVkhEyb6uXZ
-         geJTtHfT1+A4OZwSRD7MQnmlPrKv7/DINM9VN6nXL9tSNCi28B0mTBMRSIiG0b7+svh8
-         g6CnBTZmEnj9YshHsx00daBRs0gFn1RidLokqksH8Zfw3VtRLaHBdJFpl7pGh9xQGEb8
-         HSg9fbhoyx0NN6nH6q8fd1Cvj24IIfQ/oJHfO0V6zP2ePHQA1LobbRg9KBOwg0BHmmv/
-         nkYA==
+        b=nEb4CDiEW+DY/j1NbHHDmyow1zjeKI2Cj9yiKcxVADMgwG20J+wWFCUYt8JSrMwTQ4
+         znaeZVhxcljsmEeaH+7jDnLHIQHrbGRcAsFx8cXDNgrrv34+vLxmtL0SqONPux9+kI1k
+         Oc+6vFG+1e+dUKKR7oQfPcLtogUp9sh6uUIwS9Wt7fXTlAetXlYv9C4rSc1qgT5ECzMe
+         gvDeUt4UBaCUXLLheDpAGtZxHRKIpgwshqOw2+rWcKl8ZIaTTrkP3zRSM3bvCbxqsAsz
+         Q9j+bRXRw9JB54N54vaDTuD2F5ZOAlGa8IuKmeaef7gbj9T+q5sf85Wjp7HkfiMq1w0g
+         nD/Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=EjTzUdIh1JiWqCTQbTHIx2EY+cLBJ9IwG0EzO3Un/kw=;
-        fh=VxRRVch0FOTAXn0mZ9Y9SawSKbf46f4ut3Bhuje/hDw=;
-        b=rFtIB5GsBtnj3m9nFtR9cyoKkbIjdw2Y3f1m/lU93sitEYBTd/B0O7pewGwMMmcTRo
-         wkZtsW360oyRWYBAaWIb7WYFoo3UZdrbdPoT1NOUc+XdsymfnRFhyDEa9h3Mks1rSXEd
-         h0JumRNbDjeEGFqxH6P0k5alafXmndrnN05NApKCkSBYHvYBKMdWXN0XPnV2jjirWJqb
-         IKTmWASdNa4YDmP/tno5j6598WynToHF88Fx7/NFr7qfNdaVm1x+YVC0Yu3bDV9YzEw1
-         gVwV5KbahNBZ8R6NDvRpqJiohvKmp/yfKujTnijJrmwYeT+VK8tIMDMTfsxLtdro1nIY
-         ID4Q==;
+        bh=jkbHSewuQzHgrEOAh/Je4EyN3spZzIcJcFtwymdbPB8=;
+        fh=RxWEtJKAgsMDJXr4Nq9Cafd/fZXFjWHTX1tW/H98jJc=;
+        b=dbB9GEshAa8rS7TBtQtf4ukV7+DHY067I5ec5FAsH6M7hY1/7/VgSECPeoIanyM7qx
+         ocGq71804DpUdgQlhqj+qPZ8rU6FZsSIV1hChokFwS7wyvuEzV9qm5mlFPR8K9TxI2+q
+         0yufgw0sjaGkuIyyyJfJ3r9eTVZ+5YH7sPbGu/Pf5T3UAaj4CvurNh7zO03X2d2hwBUs
+         nhxvdU74odOk0d9fFqTlYjCdW0jy4GliVABTmU8QS7R+cqmf8OFGCH8PTcfN0ei9NTQ3
+         vEDioMLd9xpi7m+btT6PZ4IaVOyL9dB830jAwg57uuv8mYwsDoha90Cp8rEJBE8Lyw7u
+         uErA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nyu.edu; s=nyu-googleapps1; t=1792095514; x=1792700314; darn=vger.kernel.org;
+        d=mojatatu.com; s=google; t=1792097577; x=1792702377; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=EjTzUdIh1JiWqCTQbTHIx2EY+cLBJ9IwG0EzO3Un/kw=;
-        b=K8WY3vQ6UZoCX9/UXiHzZ1vOREfRJRlDPOY0vkrjGHoYIt8x+MPtath/6jW9mP7hZ+
-         f3gzP71OopiwjZNi/RDL5f0ob0VZw3texzFEIvyo3ls1RsBdU+eW7rN+16VvP4WeEXEM
-         Z1pL4bF2PqgUgb9HdKKZssvVSpIncBajOHNmGkH1iHWIa+5aM913PDdEBxarzMkpg1u5
-         1rzXfjIAnUFeBU/T9N6vNMHbnXEOdojAKA8GMJSS8z3E3CL5Jxin9cU5BZ9vmtgHJ54s
-         gjzptCPihKnIKSjXx43JV+V1mPFXUUz53HIl+ZgjK/YJ4xqbRPxzJscXiJJgui5Pc0Nd
-         6hyg==
+        bh=jkbHSewuQzHgrEOAh/Je4EyN3spZzIcJcFtwymdbPB8=;
+        b=zDwmN2aI33byk49i0k+0Tbs+be4tyoIiwisrHCykGmnNzN5Vlz+L1o+lsOUXwHBgtz
+         fMPl8Nt9yew6NbZVwBQocwHDfkcliGfGf8HVxWLx4snSRU5Rf7C5KZa9fXF87dApVkPj
+         IwK9Clflold6Bjf8bhg8y1ic6aEDGqcN/Fodw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792095514; x=1792700314;
+        d=1e100.net; s=20260707; t=1792097577; x=1792702377;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EjTzUdIh1JiWqCTQbTHIx2EY+cLBJ9IwG0EzO3Un/kw=;
-        b=cv4B3DNVJ9WgpIFzPcRg4OiHMwQsFhZLNwc60KpsY+CvcJ9KGSZJ2ExNjkNUDIcXMl
-         wqWMmeb1yT29gKPxsDKMoC0FrrY5v3J1e3L8Xl5uKwfxw6H3jHEP5vbsuia/QNIyrvfF
-         IvB/+siIEQJj9xi/yxL+p9tVBsxfIQ2o2cURhMLZ/rpK9Gnxu6PMq+dZgl5CmcON0rat
-         VL0BSGnLV6W/Ch970Mjdcq/s/0TL+2q97GaZgThS8AEkyKgDfYjbWeYX8qQOvebUJ2ov
-         YoumtwkptVJjMtvhX0BW0W+0NTNEjw3MeXEHLfxvj1cSQ4R4GqxiB0dQwh67F97QGOgX
-         ZHsA==
-X-Forwarded-Encrypted: i=1; AKwUvBxaspIyC2WyXOGFYAMhqhcloHKd4b+djhVSMJzMeNfCZjPipc7P1FHk0E51Yt3zYZ72C7Xcw78=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLJ4BqzX1Ofbaq3H5abRT/prfHoyLSbFynFfR4sfOgKqBfXJi+P
-	3VuMFuMHuvVopttOD+6VuLjmiWdvzelO6xRlJ0pQo20jgmKgvnY7wJSmFUV0nIxust1wtz9SdJh
-	V2xqEYi7VRXyttYX8sdIMFz8FWDnl75tumG5CtsieVXi2/6CS5E062FLGeMW9bzQAAxdSttRikR
-	WVtGtMq8tvGqDSMQhKFtn+jXy0xfJ9wg==
-X-Gm-Gg: AYBFou1dhxAke6kAPBX+lqoC0ShU9H5+RMa9nso6DyAR7aSTfakPxVKrp67otwQ3T6t
-	yjBR8EsxFPDs6JqaN5xWqQFM1/S/A+MMaR0V7aAGXlJdTJdM1GV4j8zbsYU/JSAvZVNjZ7FeA+H
-	z7qJurKz6qGi3AfK91aYD34sMYiMbTgWEeTwJXaoQVIs9C7VqOkoL1s5wF1g==
-X-Received: by 2002:a05:693c:8381:10b0:360:444f:a56b with SMTP id 5a478bee46e88-360444fa971mr1156933eec.12.1792095514023;
-        Thu, 15 Oct 2026 13:18:34 -0700 (PDT)
-X-Received: by 2002:a05:693c:8381:10b0:360:444f:a56b with SMTP id
- 5a478bee46e88-360444fa971mr1156906eec.12.1792095513407; Thu, 15 Oct 2026
- 13:18:33 -0700 (PDT)
+        bh=jkbHSewuQzHgrEOAh/Je4EyN3spZzIcJcFtwymdbPB8=;
+        b=gAKg/1r3wqf50BoWCQQArO3E1A8U+FSYdmlNO4UM0EYMch/V3XXuEns+te/MMps6V0
+         LQ+sdOsZWhlsuYmZIe5ZfEYHUqvnt+0ThC9o+pqu2Gol25RhJfVZM9wcQQe5dcfn74Ri
+         5eNUGkg/cd0UmT8FlNgdI26JOstsiq407PxF3ImonUdJwSqdy+4q2SwcRKx/ZtJweEWd
+         VIYVbL3hy4BA2wFrHojRPUYJYhmp0Mu/RIhso5AblrHyLPWlaE7xjiuUbwa/8QNNMJk8
+         m+FECkffIjkFOhBxAY1n2NdGVOycHBgc76zmXhdPGVQNyZpMm5E1xZzXa1nPuxRHH01x
+         7U/Q==
+X-Forwarded-Encrypted: i=1; AKwUvByUDzYsxK/lHYPgLiVlOW7Ae6dkFT+6m1bmeAN0f+wQXmuo7JnSgcUFnILI3Ts3dZIS9m69Y1Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI1G4X0h+R8GcOeulzwOz2s2We7wAfgm4xtDvni1Fd6mCUFefsX
+	cG6dXlPXARRYpyt0lOMRWpvC6xLeI4Gq/331NTAOE/M+kED+y57OkCcOj/3po3Hs06pMhHAtoAq
+	vvbEPgxbMPLAKIsXfb7ef0/GmfUK2SLYsfBl6pgFn
+X-Gm-Gg: AYBFou3S3O2PZHvtHZxAvfVKx4iy2Axe31vIDcCw/uRDTDhf0Cm1M7uKrDOlIj8MuA8
+	N9uabdmv0fUbeCdscf0cMDaw0WvCId+nARh6Ghq9ZjQLkVGQ8TLDIaIy4HNwRsu/a5B4qtSCssI
+	wJ86bOMCbtRMyAEyzxdpKcsgp9N+UKp2v220KVBJuEEovuaWT2W85NH34PBAs6NSkKg7BONsvI5
+	S2JOfUvTJcQ8PZBX7PUDdY6OJGzQ7jn22TjH2C7wSwJXtEx7EUMzK6K+ihhAhcZsJM26VSUg6zB
+	J7XEPTyx5qGII6GZUmg7wD8bsJNXyS+hXncJbDyjzzeTpoIAOyjX8LhU/EB3yVrAZHkk3oV10Cp
+	wqSOicepOwjeyuzNlbH2ExtH9Fc358vjQyLGwdZKISNfn
+X-Received: by 2002:a05:6a20:6f89:b0:3e1:c08e:38f1 with SMTP id
+ adf61e73a8af0-3e1c08e7cedmr10140367637.14.1792097576957; Thu, 15 Oct 2026
+ 13:52:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261014195640.430824-2-kj2864@nyu.edu> <atCf_85Ei_J9CDtd@kwain> <CAPqbLS2sM9JZ8VbrzWviV-6XNRniKib_L+seaKtnCfR3pwMMig@mail.gmail.com>
-In-Reply-To: <CAPqbLS2sM9JZ8VbrzWviV-6XNRniKib_L+seaKtnCfR3pwMMig@mail.gmail.com>
-From: Jerry Jiang <kj2864@nyu.edu>
-Date: Thu, 15 Oct 2026 16:18:21 -0400
-X-Gm-Features: AclHuK_Gij50KpJSzBvvPkxLcAi-zGcFI58uFnfwogGtPPy3-y0tsgfoZbC6PZ0
-Message-ID: <CAPqbLS1dK9wqSCtDGJx=cYTJnO8PE5YONj3bykomOFuGDyYmRw@mail.gmail.com>
-Subject: Re: [PATCH net v2] net: ipv4: add zero check for snd_cwnd_clamp
-To: Antoine Tenart <atenart@kernel.org>
-Cc: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net,
-        kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-        edumazet@google.com, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org, co+71b6509cb791e531@bugs.sh,
-        stable@vger.kernel.org
+References: <QDISC-MD1X.v2.20261009135842@mojatatu.com> <20261015125822.GH83879@horms.kernel.org>
+In-Reply-To: <20261015125822.GH83879@horms.kernel.org>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Thu, 15 Oct 2026 16:52:44 -0400
+X-Gm-Features: AclHuK-3WqmxRH2VJ4NQkGPyh93QYe2dksXJg7Bq6GKxJGeNOPh9iFVtk_DYmvc
+Message-ID: <CAM0EoMnhmww2koBL+V0fgKg4qp=3E2Bf23iUSyxtoBPYbYi0Wg@mail.gmail.com>
+Subject: Re: [PATCH net v2] net/sched: clamp skb->queue_mapping before
+ indexing the tx queue
+To: Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, Victor Nogueira <victor@mojatatu.com>, 
+	Jiri Pirko <jiri@resnulli.us>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Jesper Dangaard Brouer <hawk@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Sashiko <sashiko-bot@kernel.org>, 
+	bpf@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=Uvz2pOwB c=1 sm=1 tr=0 ts=6ad1351b cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=x7bEGLp0ZPQA:10 a=S0S_EcBMpFAA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Se5WoFf3ZZRiLcel0nel:22 a=R6YzIN_bpWbBo3jmtC1i:22 a=VwQbUJbxAAAA:8
- a=GMUWeUELocx5WyZuTCQA:9 a=QEXdDO2ut3YA:10 a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA4MCBTYWx0ZWRfXzPAVNQt/UYTD
- rPOHRcH/8Xur0Hda9O4zeUgaw3VjCowgY9x0gkrtjMIcYBZF9AXgsbd9DU7pR9O8EwnGx90EDBe
- XOmqylXPcFOSXgWpFEzbtTZC24kd3R7MKk/aliN38L+Tp/X3ltvRcQrBvQhEuWGyszOidEyM4a6
- QqINKVzbEMLej7OY7ai+GifxgoP9nC0DOg3JSZmlY6IgxdeOessp/glyN5NTNIj06D5igl/BXo9
- Oi257KSZAGMGMohtL51AUDlVHTZxuWt962W4oZ1n0bUrtl1my77z5ZT+VfOAXsDUf/OpNHjgETR
- T4t+lbXc0h/Gnj3VrfvPlaEilVeQ3ep0/qwCqRkK79vkqez4Y5FerHGup9CqTCVJnLHiWnNjO+/
- bY7HyKJweDMa/aBy7qo+UxlpCBnS6mH+9Ixk6btbjENs5BpgpWJvRuyRUEgVR2vl9F3sFj5fW7d
- 2GhSJd3AyIUfwk/HhsA==
-X-Proofpoint-GUID: AxPH0iQ4cX_GgjwJQxUzB23Q8J_IpScD
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA4MCBTYWx0ZWRfX07Lo9SQ+hXM9
- UceGkkRC6fr0PvLcuKyHkxDaBLGKtfPDKaxTZ0knL9HdzpG95GHSzIsjmjo5udESQEMXTJV0soa
- ajW+WxTBAdKSYWQHBpFiCHOqMYKN0Sg=
-X-Proofpoint-ORIG-GUID: AxPH0iQ4cX_GgjwJQxUzB23Q8J_IpScD
-X-Orig-IP: 74.125.82.197
-X-Proofpoint-Spam-Details: rule=outbound_bp_notspam policy=outbound_bp score=0
- suspectscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- malwarescore=0 adultscore=0 clxscore=1015 phishscore=0 spamscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610150080
 
-You are right to point out the refactoring commit, 814d488c6126 would
-be more suitable for this.
+On Thu, Oct 15, 2026 at 8:58=E2=80=AFAM Simon Horman <horms@kernel.org> wro=
+te:
+>
+> On Fri, Oct 09, 2026 at 02:09:03PM -0400, Jamal Hadi Salim wrote:
+> > This issue was caught by Sashiko (nipa). A producer-side path cap is
+> > already merged (ea4d4b5dddb5); this patch adds the matching consumer-si=
+de
+> > cap.
+> >
+> > The issue:
+> > The tx queue is picked and capped in netdev_core_pick_tx(), before the
+> > __dev_xmit_skb() qdisc enqueue path. A tc BPF program running inside
+> > egress qdisc (not clsact) can then change __sk_buff->queue_mapping;
+> > that store is never re-checked. bpf_convert_ctx_access() bounds it only
+> > by NO_QUEUE_MAPPING, not by the device's queue count.
+> >
+> > On dequeue, qdisc_restart() calls netdev_get_tx_queue(), which
+> > indexes dev->_tx[] with that value. netdev_get_tx_queue() guards it wit=
+h
+> > just a DEBUG_NET_WARN_ON_ONCE, so sch_direct_xmit() takes the out-of-bo=
+unds
+> > txq->_xmit_lock and writes txq->xmit_lock_owner past the end of the
+> > allocation on non-lltx devices such as ifb. Drivers that index their ri=
+ngs
+> > from skb_get_queue_mapping() (ex: ifb) go out of range the same way.
+> >
+> > The Fix:
+> > Cap the mapping at the consumer and write the capped value back, so bot=
+h
+> > the qdisc's _tx[] lookup and any later driver read stay in range. The c=
+ap
+> > folds into the dequeue path instead of a separate walk over the returne=
+d
+> > list: dequeue_skb() caps the head, and each bulk helper caps the elemen=
+t it
+> > appends. netdev_cap_txqueue() already logs a ratelimited notice and sel=
+ects
+> > queue 0. The single-packet case pays one extra compare against
+> > real_num_tx_queues.
+> >
+> > A bulk-dequeued list is transmitted under the single tx queue lock of t=
+he
+> > head skb, so every element must belong to that same queue. The fast bul=
+k
+> > helper (TCQ_F_ONETXQUEUE, taken on BQL devices by the per-queue childre=
+n
+> > of mq, mqprio, taprio and htb, and by any qdisc on a single-queue devic=
+e
+> > such as the prio root in the reproducer) must therefore compare each
+> > capped follower against the head and requeue a mismatch, exactly as the
+> > slow helper already does; appending a follower that caps to a different
+> > queue would send it under the wrong _xmit_lock.
+> >
+> > Conditions to recreate the bug:
+> > Load a SCHED_CLS or SCHED_ACT program that stores __sk_buff->queue_mapp=
+ing
+> > (a tc BPF action is enough), attach it to a transmit qdisc (for example=
+ a
+> > matchall filter on a prio root), and send a packet. With a 1-queue devi=
+ce a
+> > store of 1 indexes one past dev->_tx[]. Under KASAN with panic_on_warn=
+=3D1
+> > the unfixed kernel faults with "BUG: KASAN: slab-out-of-bounds in
+> > sch_direct_xmit". Loading the program needs CAP_BPF/CAP_SYS_ADMIN, so t=
+he
+> > trigger is root.
+> >
+> > Fixes: 74e31ca850c1 ("bpf: add skb->queue_mapping write access from tc =
+clsact")
+> > Reported-by: Sashiko (nipa) <sashiko-bot@kernel.org>
+> > Closes: https://lore.kernel.org/netdev/179033713973.2160803.49145706939=
+94398206@kernel.org/
+> > Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-9R8V.v2=
+.20260924072708%40mojatatu.com
+> > Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-MD1X.v1=
+.20261005193231%40mojatatu.com
+> > Cc: stable@vger.kernel.org
+> > Reviewed-by: Victor Nogueira <victor@mojatatu.com>
+> > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+> > ---
+> > v1 -> v2:
+> > - try_bulk_dequeue_skb(): the fast bulk helper (TCQ_F_ONETXQUEUE) cappe=
+d
+> >   each follower but appended it without comparing it against the head, =
+so
+> >   a mismatched follower was still sent under the head's txq lock. Compa=
+re
+> >   the capped follower with the head and requeue a mismatch to skb_bad_t=
+xq,
+> >   matching try_bulk_dequeue_skb_slow(). Reported by Sashiko (nipa).
+> > ---
+> >  net/sched/sch_generic.c | 53 +++++++++++++++++++++++++++++++++++++++++=
++++-----
+> >  1 file changed, 48 insertions(+), 5 deletions(-)
+>
+> Hi Jamal,
+>
+> Weirdly, this patch is mangled and does not apply.
+>
 
-v3 has been proposed:
-https://lore.kernel.org/all/20261015201549.4023-2-kj2864@nyu.edu/
+Weird indeed. I dont hand edit patches for shipping, so not sure what
+happened here.
+Brokenness checks out with my local version. I will fix and send v3.
 
-On Thu, Oct 15, 2026 at 12:57=E2=80=AFPM Jerry Jiang <kj2864@nyu.edu> wrote=
-:
->
-> I have considered rejecting 0 in tcp_snd_cwnd_set but afaik patching
-> tcp_snd_cwnd only would just ignore the problem. My current patch
-> should completely reject the user from creating a socket if 0 is
-> passed for RTAX_CWND.
->
->
-> On Thu, Oct 15, 2026 at 5:57=E2=80=AFAM Antoine Tenart <atenart@kernel.or=
-g> wrote:
+cheers,
+jamal
 > >
-> > On Wed, Oct 14, 2026 at 03:56:41PM -0400, Kaho Jiang wrote:
-> > > User can pass zero to snd_cwnd_clamp via RTAX_CWND type.
-> > > This could lead to division of zero error if not checked properly.
-> > >
-> > > Oops: divide error: 0000 [#1] SMP KASAN NOPTI
-> > > Call Trace:
-> > >  <IRQ>
-> > >  tcp_reno_cong_avoid (net/ipv4/tcp_cong.c:510 (discriminator 1))
-> > >  tcp_ack (net/ipv4/tcp_input.c:3517 net/ipv4/tcp_input.c:3873 net/ipv=
-4/tcp_input.c:4440)
-> > >  tcp_rcv_established (net/ipv4/tcp_input.c:6685)
-> > >  tcp_v4_do_rcv (net/ipv4/tcp_ipv4.c:1854)
-> > >  tcp_v4_rcv (net/ipv4/tcp_ipv4.c:2248)
-> > >  ip_protocol_deliver_rcu (net/ipv4/ip_input.c:207 (discriminator 1))
-> > >  ip_local_deliver_finish (net/ipv4/ip_input.c:241 (discriminator 1))
-> > >  ip_local_deliver (./include/linux/netfilter.h:325 ./include/linux/ne=
-tfilter.h:319 net/ipv4/ip_input.c:262)
-> > >  ip_rcv (./include/net/dst.h:481 (discriminator 6) net/ipv4/ip_input.=
-c:492 (discriminator 6) ./include/linux/netfilter.h:325 (discriminator 6) .=
-/include/li)
-> > >  __netif_receive_skb_one_core (net/core/dev.c:6297 (discriminator 4))
-> > >  __netif_receive_skb (net/core/dev.c:6410)
-> > >  process_backlog (net/core/dev.c:6761)
-> > >  __napi_poll.constprop.0 (net/core/dev.c:7830)
-> > >  net_rx_action (net/core/dev.c:7893 net/core/dev.c:8050)
-> > >  handle_softirqs (kernel/softirq.c:645)
-> > >  __irq_exit_rcu (kernel/softirq.c:679 kernel/softirq.c:519 kernel/sof=
-tirq.c:758)
-> > >  irq_exit_rcu (kernel/softirq.c:775)
-> > >  sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.c:1062 (discr=
-iminator 35) arch/x86/kernel/apic/apic.c:1062 (discriminator 35))
-> > > RIP: 0010:tcp_cong_avoid_ai (net/ipv4/tcp_cong.c:482)
-> > >
-> > > Fix by checking if user pass in zero as parameter,
-> > > if so reject the value zero.
-> > >
-> > > Fixes: 51c5d0c4b169 ("tcp: Maintain dynamic metrics in local cache.")
-> >
-> > This looks like a refactoring commit only, 814d488c6126 might be more
-> > appropriate but please check.
-> >
-> > > Cc: stable@vger.kernel.org
-> > > Reported-by: co+71b6509cb791e531@bugs.sh
-> > > Assisted-by: LLM
-> > > Signed-off-by: Kaho Jiang <kj2864@nyu.edu>
-> > > ---
-> > >  net/ipv4/metrics.c | 4 ++++
-> > >  1 file changed, 4 insertions(+)
-> > >
-> > > diff --git a/net/ipv4/metrics.c b/net/ipv4/metrics.c
-> > > index ad40762a8b38..e83a129a25b6 100644
-> > > --- a/net/ipv4/metrics.c
-> > > +++ b/net/ipv4/metrics.c
-> > > @@ -54,6 +54,10 @@ static int ip_metrics_convert(struct nlattr *fc_mx=
+> > diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
+> > index 6f6a6f0d5eb0..b65bec7e2643 100644
+> > --- a/net/sched/sch_generic.c
+> > +++ b/net/sched/sch_generic.c
+> > @@ -96,9 +96,33 @@ static void qdisc_maybe_clear_missed(struct Qdisc *q=
 ,
-> > >                       NL_SET_ERR_MSG(extack, "Unknown flag set in fea=
-ture mask in metrics attribute");
-> > >                       return -EINVAL;
-> > >               }
-> > > +             if (type =3D=3D RTAX_CWND && val =3D=3D 0) {
-> > > +                     NL_SET_ERR_MSG(extack, "RTAX_CWND must be great=
-er than zero");
-> > > +                     return -EINVAL;
-> > > +             }
-> > >               metrics[type - 1] =3D val;
-> > >       }
+>
+> This hunk results in 31 lines, not 33.
+>
 > >
-> > My understanding is tcp_snd_cwnd(tp) can return 0 and then the divide b=
-y
-> > 0 occurs in tcp_cong_avoid_ai. Have you also considered updating
-> > tcp_snd_cwnd_set to not only warn about invalid values but also reject
-> > them, preventing similar oops?
+> >  #define SKB_XOFF_MAGIC ((struct sk_buff *)1UL)
+> >
+> > +/* A tc BPF program on a transmit qdisc can change __sk_buff->queue_ma=
+pping
+> > + * after the tx queue was picked. Re-cap it against the device and wri=
+te it
+> > + * back, so a driver that re-reads skb_get_queue_mapping() stays in ra=
+nge.
+> > + */
+> > +static u16 qdisc_cap_skb_tx_queue(struct net_device *dev, struct sk_bu=
+ff *skb)
+> > +{
+> > +     u16 queue =3D skb_get_queue_mapping(skb);
+> > +     u16 capped;
+> > +
+> > +     capped =3D netdev_cap_txqueue(dev, queue);
+> > +     if (unlikely(capped !=3D queue))
+> > +             skb_set_queue_mapping(skb, capped);
+> > +
+> > +     return capped;
+> > +}
+> > +
+> > +static struct netdev_queue *skb_cap_tx_queue(struct net_device *dev,
+> > +                                          struct sk_buff *skb)
+> > +{
+> > +     return netdev_get_tx_queue(dev, qdisc_cap_skb_tx_queue(dev, skb))=
+;
+> > +}
+> > +
+> >  static inline struct sk_buff *__skb_dequeue_bad_txq(struct Qdisc *q)
+> >  {
+> > -     const struct netdev_queue *txq =3D q->dev_queue;
+> > +     const struct netdev_queue *txq;
+> >       spinlock_t *lock =3D NULL;
+> >       struct sk_buff *skb;
+> >
+>
+> ...
+>
+> > @@ -216,6 +242,17 @@ static void try_bulk_dequeue_skb(struct Qdisc *q,
+>
+> And this hunk results in 15 lines, not 17.
+>
+> >               if (!nskb)
+> >                       break;
+> >
+> > +             /* Re-cap a mapping changed after pick; requeue a
+> > +              * follower that no longer matches the head, which owns
+> > +              * the _xmit_lock for the whole list.
+> > +              */
+> > +             if (unlikely(qdisc_cap_skb_tx_queue(dev, nskb) !=3D
+> > +                          skb_get_queue_mapping(skb))) {
+> > +                     qdisc_enqueue_skb_bad_txq(q, nskb);
+> > +                     break;
+> > +             }
+> >               bytelimit -=3D nskb->len; /* covers GSO len */
+> >               skb->next =3D nskb;
+> >               skb =3D nskb;
+>
+> ...
+>
+> pw-bot: changes-requested
