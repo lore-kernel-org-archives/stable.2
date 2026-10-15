@@ -1,180 +1,157 @@
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D5235DA47
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 02:49:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 935B92AE76
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 02:53:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792032557; cv=none; b=FEpMiuGPRn5IHEVQ/HWhNqHWTLxCk/ipootqcORQ7cv0tEw8rCDknIUFy6ifaZHybn5+8sAUg28n3HQuD8A2xfvv2Gi2ex9JQ36sO1kwZKUbqpgjTL3GKuwCiluxIsrfEbKOz3YG5RPgdI3/jPczHHhrZeEYfXCzd5Sh9oh83aA=
+	t=1792032829; cv=none; b=XZoMDVKU0EVBV+JCgnScfhWnRT8wmsKRvKWd2gGtIF2bz3A94je3amnWngOtMdBNZwQKDKvJcemPOMvizD++2/+9h7J8h054yjRu8Ad4+lTtxpmw3kAm9L3ieLqMm5bOUtg9zzjAyKCmwIa9DzUP9Dd2y6wyFD/ZDAfqCNE8FOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792032557; c=relaxed/simple;
-	bh=8V8yPSbMw8apmNIJjJAl4vBZi2BIixdWgWO4jufkzQQ=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=Y030kjc+cPA1MBvKa2o3Xoxfr06SksT8SMBH4V2+CjxcrIYBq8ISpVpK0lBh/Bf/RhYkXdZMovixsQp9O12e1iYh9nwVdwMPeWlsx6pgl0aOd4fA+dH8smQvV/ZkSJkdBN2SDllwbPOCKzTjqcXZzW+FrcJAWNtAi+vWvxoX06s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=glJ5AhqG; arc=none smtp.client-ip=209.85.221.179
+	s=arc-20240116; t=1792032829; c=relaxed/simple;
+	bh=iU9ZRLyySo74AB9A1zhSn36j6jhUhvpNTo1u5XM2BtM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Lt72iKUXYsdrbu92vAJ7lY4sEKdtEv0yzZ7ig/ylLJS0ARRe7M/Jz4EraVtpBOEF8Qrp5LiybPrV5b5Ou9VRAt/9IN2oz+w7hm/4o1PGcrqPla13IqQXxkpkwawQemn9baQ+sqmYRutxHPt+yCiXYC0QfHEAUBbovj0JU001hho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=byssasUj; arc=none smtp.client-ip=209.85.210.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="glJ5AhqG"
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5e95b036302so1839885e0c.0
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:49:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="byssasUj"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8897e83332fso3074729b3a.1
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:53:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792032555; x=1792637355; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=TnNQqUDr8SKFHy59cY2mWfkC4N5kb7edfWV3cIhUTxs=;
-        b=glJ5AhqGh96jVbRrQWgQeClc7pRzE23jGbJRnF4Bwl+ewd1CKnnyh7VCnwGEdFlhXS
-         CEK6PyRNRmGEEZ987M7cGLhD30NjpOVHR+6a9i2UCWlzhspbTi3HsCVo75CI6C5reIFB
-         QFKLQYbEbeKXkcvHFQAdvgbAuTsdDFWmjt24lQ+LHDxHFvUDR2ITdBK8cmEPU6VlO9SG
-         LHD+gWDySBsc+nCQwcOxrpuk0tKKXZMAgU3C6VHstg8aZx4V0kBrHJEWdgizT5+t4tSZ
-         J65DA0tG4seShv88H++0UPD0NphG6j1YWfkBplb1VQuJiO271PfYf21a6YMmd0hZ01DQ
-         LtHQ==
+        d=gmail.com; s=20251104; t=1792032828; x=1792637628; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=X0jwQSa7/KFwBhQ0eU8j/tY9IdNhu+VSiabnKKJdx54=;
+        b=byssasUjKSFFgorwMItuhyRSj4MWXnZagWcWw4Zkxw6NeWeXwRvloX7VKhv0VX193V
+         IJO2SxuHz62FA9EtfPXp7qQGEaqZ79gOxrklNx9r0DRVyXbySQ0BbnbiOJh+03vaUgx9
+         bbEOHIvgAuFi4vXhUu+/oVBLiK0OMkJJhoGmy6ZVIwbQt5z56jiX6rrRE7yRCJVHSlgF
+         vPSNbIMC+YvDGuMO/++OyR/zJ2bLQxy+kJv6jBZdgv1HiEzd2ATQcUngAwTQOt/CKpeX
+         ej9Q6rAdTSuZ29s6Gg5dP5pQz8lwoOQasHVLXC1CqkTSWHTOzjv1CPeY1Lmo9WKLFMU8
+         +3dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792032555; x=1792637355;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TnNQqUDr8SKFHy59cY2mWfkC4N5kb7edfWV3cIhUTxs=;
-        b=rzzkbXsULmKecF+pmWkZ5IdmdZG0KxVQ0ak1DrDzAtv9Owc59S1MSxksPvIT5UzhGG
-         TUu3e9R/4rTJeRSkdTnaGWU3uP6cZ7RhVOSvUgHxXXgK4Dxd0bgRDMR1+GZteeVVYx5s
-         hFryXzjRWRGOYbmWnJJ+MCjSDEqkKvZwU6/0Xd8SHpqfIE9OQvba6StQtNVC3O9KQ6uF
-         ZS9r/SxRn2uzpmxBRTDopqU84RJyR1ICv8s/z53uWEM9x34IepXfeeXAJD0qNZl656NL
-         0DKHMk0vVCKuw2z2kcRcj+bgI8nk6Z9d1i8Rk98WpHRV111pVs+6laf/MI8Iku2VAOm/
-         afHA==
-X-Forwarded-Encrypted: i=1; AKwUvBwsIl6hixQUZXBAMHdQcANpFC7EkEeMXEzZaZAKefdM7eftMoc/GGjqGIaOd7xpZRDnwMTmLqs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJIqTgySbUZUE9GuklZbkosMjfyCqWEnLr/pW6pdbibsBq/+xJF
-	DqFRFdFIK0Iz68LhaEpBnVd74pGhhK/FbvXM0hrb/VuyBtFxFuknDY5n
-X-Gm-Gg: AYBFou1kyeNGYowRsWMadGoC7O2dpzuAtlM1FlBC/qgS/ahRLzs6WmABxGLXuFhu91C
-	qRiEdMAxeOW4f4zV7aXprt/4twIjugc3hR1X0x5LqOJ30wzUkGZb8HVw2B/WB/2Wfs9xElHHwWe
-	vHAgTmGtd711y98eLwqWML/fueBB6dhJZxRgq9yw20flRpNPq/cBCNWgnRk5MVwjAdemt3VesWb
-	wILkestemY43NQe3RYsr8Y+ZhYenxaPfJZFPa2j3qECPgHcoXcpWj0ebE67Jxduc7hGqQ95twiy
-	3hSKgeBoqszegkW+Oo+T1sdHj+bb/fc7PWDz7BiIEkPmhoOHKusaOkYsalLSJIkfgMZqhFWQux1
-	9+U04HuaTOIlUihbZYpnJJMi5FZBU6GLWOR5rfYW1jfExxTXnHZBHiYc9ESMG8uT2N8bp7wSxkd
-	PLP5cD/GmQt3GsO/dH+KUIhI+gDdTb8pveOpcLqxQ1Kn0Hc0n4+kxqZ7FVnW+LgDOJqPXsw2wKP
-	N3YYGL7019jmxHqzBKO92XctAMqSiSzjI6+FsXSytKbgi/s8Q+L5s6zIoe/YT7SYr2UNIiPukkq
-	SgiI0T39S/3euVFQOpCz9vxGBYNlwJJwgOYJOT4=
-X-Received: by 2002:a05:6122:d0b:b0:5d3:9cb7:f723 with SMTP id 71dfb90a1353d-5e91f45eeb1mr4583576e0c.5.1792032554895;
-        Wed, 14 Oct 2026 19:49:14 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5e91cab4a97sm12928147e0c.6.2026.10.14.19.49.14
+        d=1e100.net; s=20260707; t=1792032828; x=1792637628;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=X0jwQSa7/KFwBhQ0eU8j/tY9IdNhu+VSiabnKKJdx54=;
+        b=zr0oev4n+Lju3xU3yyPXq2HwQKKnHFhKQ+vX8uwin5ReQmnOH8BDQqXNX+FmV2nP40
+         UN4OpgS6uWjV1nGAQdhXFyWWuzYIZ4QJTHJ3XNn57TJD7bonYTXTbLS/T9DNKktOTcjI
+         8w2mbYn6me3lwi/qR34sY6ZOvKhBp52M8kLmxI2hpCCvEBv+itz1Q3VxyM/LkU9fVia0
+         tVhYSiHtY5cRnujFRPFNxEU2hQTtN7T0TJQYJDUHufJlT6uEmNzDiRJ/sTUIq/3Tqddm
+         83SY/7umKAhrRv6auY1+1vNJS3FTj++whdbvUyv8a81S7+D3lnlNqVT5THherobmPl+/
+         pi9g==
+X-Forwarded-Encrypted: i=1; AKwUvBxUBBHeLJkyiakuhOA87PCVPztAa0O3T3oYQn81Zmc4YdMWQ6Q6emxf62uKI2jq0dQm3vx43Iw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIvxhUHGSAIbllnJPtIrFMY1ZJmqbhQFQkSTcmJJku5UlFXsioq
+	5r+zKAtBznfUVNYL4RgnBZgJZ3k+SjkRcFrLVF905e+UCQu79QBLcjJS
+X-Gm-Gg: AYBFou2a1vZiFGbrQ553bPXSzD4FEt7xrP/heBzb5Mnmc1nhnv+D2zMLculgNivCAiZ
+	cdwckORclpAQea+myg7ZuwIAsmUulygNJKbLbf0najYEs8gIkd0ZZGvPi4bTvqhgUvDth+dUZho
+	+/epV/vQEN4liegRKRcs/wdOSJRxntQayivBKrjxWpphoCZooB7AMQs5f8PPD1qv2+h4zpTLwtt
+	0EksroCGf3/mUvTS+Fu7VtCVKhPEa98isBSYcyPxylozPrcWiFPswZOVjoXVSVOPnchl8CALdxA
+	SGET/Yvkl/9qILRBuhBS5b4Ok3itsEjOcOROBciU7fyFc4vUUMC3IOZpZa02UK1iIlcUkXZ7CQO
+	5beYdn/RHixvtcmcxT30aPgwG3K+8tFnZy5EK5luoBj4Gcm0q9ccupC6RhOjUtD9pB/S4Q6hlmP
+	I37z2wf6da/zy9b2jWfLZ3Z1aWkQKSA+/3RvlMwhzBxCY3GP7AdtGqSFw8llT2mqykYmvHTXYNY
+	P2YYYARpqXiu1GluNx81fxkINGOh1iqqdKWA1a/1viW1tteudahKy6NyrpHqkb2
+X-Received: by 2002:a05:6a00:c4c6:b0:88b:7e32:d91 with SMTP id d2e1a72fcca58-897d316cdbfmr7112036b3a.6.1792032827798;
+        Wed, 14 Oct 2026 19:53:47 -0700 (PDT)
+Received: from bloom.localdomain ([2604:3d09:178e:e100::a891])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d802d10besm1706735b3a.28.2026.10.14.19.53.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 19:49:14 -0700 (PDT)
-Date: Wed, 14 Oct 2026 22:49:13 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Boyan Liu <yymhvert@gmail.com>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- "David S . Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- co+98d7de09cd94fec5@bugs.sh, 
- Boyan Liu <yymhvert@gmail.com>, 
- stable@vger.kernel.org
-Message-ID: <willemdebruijn.kernel.2a345d6bd54c5@gmail.com>
-In-Reply-To: <20261010073015.7665-1-yymhvert@gmail.com>
-References: <20261010073015.7665-1-yymhvert@gmail.com>
-Subject: Re: [PATCH net] udp: Fix out-of-bounds read with unset mac header in
- unexpected GSO path
+        Wed, 14 Oct 2026 19:53:47 -0700 (PDT)
+From: Ivy Lopez <skunkolee@gmail.com>
+To: akpm@linux-foundation.org
+Cc: david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	fvdl@google.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Ivy Lopez <skunkolee@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] mm/cma: fix list_insert_sorted() ordering
+Date: Wed, 14 Oct 2026 20:53:40 -0600
+Message-ID: <55118c45ec8251d7be2eaab87d9c0af4b8513161.1792032699.git.skunkolee@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <cover.1792032699.git.skunkolee@gmail.com>
+References: <cover.1792032699.git.skunkolee@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Boyan Liu wrote:
-> udp_queue_rcv_skb() and udpv6_queue_rcv_skb() re-segment an
-> unexpected GSO packet after restoring skb->data to the mac
-> header with __skb_push(skb, -skb_mac_offset(skb)), assuming
-> the mac header is valid.
-> 
-> SRv6 End.DT4/End.DT6 VRF decapsulation calls
-> skb_unset_mac_header(). iptunnel_pull_offloads() can leave an
-> inner UDP GSO type (SKB_GSO_UDP_L4 or SKB_GSO_FRAGLIST)
-> behind, so a socket that does not accept that GRO type runs
-> the unexpected GSO path with mac_header == 0xffff.
-> skb_mac_offset() then returns a large positive value, which
-> the unsigned __skb_push() argument turns into a huge length:
-> skb->data moves far outside the buffer and skb->len is
-> corrupted, so segmentation reads out of bounds:
-> 
->     BUG: KASAN: slab-out-of-bounds in inet_gso_segment (net/ipv4/af_inet.c:1383)
->     Read of size 1 at addr ffff88800da7ffff by task exploit/149
->     Call Trace:
->      inet_gso_segment (net/ipv4/af_inet.c:1383)
->      skb_mac_gso_segment (net/core/gso.c:53)
->      __skb_gso_segment (net/core/gso.c:124)
->      udp_queue_rcv_skb (net/ipv4/udp.c:2476 net/ipv4/udp.c:2466)
->      udp_unicast_rcv_skb (net/ipv4/udp.c:2620)
->      ip_local_deliver (net/ipv4/ip_input.c:262)
->      seg6_local_input_core (net/ipv6/seg6_local.c:1640)
->      lwtunnel_input (net/core/lwtunnel.c:465)
->      ipv6_rcv (net/ipv6/ip6_input.c:351)
-> 
-> __skb_gso_segment() resets the mac header to wherever
-> skb->data points, so the push target only needs to be a valid
-> header start. Fall back to the network header when the mac
-> header was never set.
+cma_declare_contiguous_multi() uses list_insert_sorted() to keep its
+candidate ranges sorted by size, largest first (revsizecmp()), and by
+base address, lowest first (basecmp()). Both comparators return true
+when the first argument sorts before the second.
 
-I wonder if the right fix here is to not call skb_unset_mac_header in
-the first place.
+The helper stops at the first existing entry for which cmp(entry, new)
+is true and inserts the new range before it, which is the reverse of
+what is needed. If no entry matches, mlp is left pointing at the last
+entry and the new range is inserted before it instead of being
+appended. With revsizecmp(), inserting sizes 1 2 3 4 yields 2 3 4 1
+and inserting 4 3 2 1 yields 1 2 3 4. The first range inserted stays
+at the tail until it is evicted.
 
-There are plenty of L3 device type with no L2 header. They still have
-a valid skb_mac_header.
+The caller relies on list_last_entry() being the smallest recorded
+range when deciding whether to skip or replace a candidate, and on
+walking the list largest first when picking the final ranges. With the
+list misordered, a candidate larger than some recorded ranges can be
+skipped because it is smaller than the first range found, so the
+function can fail or reserve less than requested where a valid layout
+exists. For example, free ranges of 4G, 7 x 1G and 2G, in address
+order, with a request of 12G: the 2G range is dropped instead of
+replacing a 1G one.
 
-This fix may be papering over a tunnel doing something non-standard.
+Insert before the first entry the new range sorts before, and append
+when there is none.
 
-> Fixes: cf329aa42b66 ("udp: cope with UDP GRO packet misdirection")
-> Cc: stable@vger.kernel.org
-> Reported-by: co+98d7de09cd94fec5@bugs.sh
-> Signed-off-by: Boyan Liu <yymhvert@gmail.com>
-> ---
->  net/ipv4/udp.c | 5 ++++-
->  net/ipv6/udp.c | 5 ++++-
->  2 files changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/net/ipv4/udp.c b/net/ipv4/udp.c
-> index bb8cfc62c..fe5a23f1c 100644
-> --- a/net/ipv4/udp.c
-> +++ b/net/ipv4/udp.c
-> @@ -2441,7 +2441,10 @@ static int udp_queue_rcv_skb(struct sock *sk, struct sk_buff *skb)
->  		return udp_queue_rcv_one_skb(sk, skb);
->  
->  	BUILD_BUG_ON(sizeof(struct udp_skb_cb) > SKB_GSO_CB_OFFSET);
-> -	__skb_push(skb, -skb_mac_offset(skb));
-> +	if (skb_mac_header_was_set(skb))
-> +		__skb_push(skb, -skb_mac_offset(skb));
-> +	else
-> +		__skb_push(skb, -skb_network_offset(skb));
->  	segs = udp_rcv_segment(sk, skb, true);
->  	skb_list_walk_safe(segs, skb, next) {
->  		__skb_pull(skb, skb_transport_offset(skb));
-> diff --git a/net/ipv6/udp.c b/net/ipv6/udp.c
-> index 93478d1ad..8db4e2869 100644
-> --- a/net/ipv6/udp.c
-> +++ b/net/ipv6/udp.c
-> @@ -895,7 +895,10 @@ static int udpv6_queue_rcv_skb(struct sock *sk, struct sk_buff *skb)
->  	if (likely(!udp_unexpected_gso(sk, skb)))
->  		return udpv6_queue_rcv_one_skb(sk, skb);
->  
-> -	__skb_push(skb, -skb_mac_offset(skb));
-> +	if (skb_mac_header_was_set(skb))
-> +		__skb_push(skb, -skb_mac_offset(skb));
-> +	else
-> +		__skb_push(skb, -skb_network_offset(skb));
->  	segs = udp_rcv_segment(sk, skb, false);
->  	skb_list_walk_safe(segs, skb, next) {
->  		__skb_pull(skb, skb_transport_offset(skb));
-> -- 
-> 2.43.0
-> 
+Found by code inspection with the help of an LLM. No kernel-level
+reproducer was produced and this was not tested on hardware or in a
+booted kernel. The example above comes from a userspace copy of the
+helper and the selection loop, written from the source.
 
+Fixes: c009da4258f9 ("mm, cma: support multiple contiguous ranges, if requested")
+Cc: <stable@vger.kernel.org> # 6.15+
+Assisted-by: LLM
+Signed-off-by: Ivy Lopez <skunkolee@gmail.com>
+---
+ mm/cma.c | 14 +++++---------
+ 1 file changed, 5 insertions(+), 9 deletions(-)
+
+diff --git a/mm/cma.c b/mm/cma.c
+index a10ea37a261d..527b2d894f3e 100644
+--- a/mm/cma.c
++++ b/mm/cma.c
+@@ -348,16 +348,12 @@ static void __init list_insert_sorted(
+ 	struct list_head *mp;
+ 	struct cma_init_memrange *mlp;
+ 
+-	if (list_empty(ranges))
+-		list_add(&mrp->list, ranges);
+-	else {
+-		list_for_each(mp, ranges) {
+-			mlp = list_entry(mp, struct cma_init_memrange, list);
+-			if (cmp(mlp, mrp))
+-				break;
+-		}
+-		__list_add(&mrp->list, mlp->list.prev, &mlp->list);
++	list_for_each(mp, ranges) {
++		mlp = list_entry(mp, struct cma_init_memrange, list);
++		if (cmp(mrp, mlp))
++			break;
+ 	}
++	list_add_tail(&mrp->list, mp);
+ }
+ 
+ static int __init cma_fixed_reserve(phys_addr_t base, phys_addr_t size)
+-- 
+2.56.0
 
