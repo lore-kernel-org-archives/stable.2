@@ -1,199 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F9A46D2D3;
-	Thu, 15 Oct 2026 08:34:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E06548875D
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 08:36:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792053248; cv=none; b=rVbyenrdGd1ndvmsTAlSGkdL8tKrwacNf5eWblCMDgH5irpGrQYJ73Req86WHhW4oiSKMcI8lk5CsXmPK53LB/VeAxQE/+tkrvC/Cg4mdIinvVqYxw3HlgpZsMrNJw72CkrqTt/zOkuaBLwoBjc4nC4Dtb68phFctByOlVU/XY4=
+	t=1792053403; cv=none; b=YUqjOu6cBxHtHSWPEKok5wfylGQfAelqHukLn/Akd5BU4c89tx4orKTtRl392f7rU88ljvCF7+3oglRQaQkplKWxpSURQ1fC0B2384cXJUnf62eIihOyuXvmXSTOEvaND2IHVDfH8xI7fuOs76VqQkR7m0m2wLTKImnF8szXBxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792053248; c=relaxed/simple;
-	bh=1lje05dHeTbxWp3eklRDl2JzKlfVPd+4rryEkd4m0DI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hfxk1mQ/OR/yA5w0/Sk47CF7IefX0PKFslMeDiUSHz4LnyyjbQG5/3u/aWIzXWIDG94tx0FoWzLWS6M0OsypxPoZs0pX+XdsNI24rkcvTzrSD+pPLH53LTJeEqGg5WUtTxsDWaslfYVhgn57DQDrnQ8UAm37Uju+tkI6VkMa31M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aaZgNvMA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792053403; c=relaxed/simple;
+	bh=pzrGaXr2vc7AK2dHic6Dxs3t4dtTkJgIvsCv45uqoO4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e9mdngB2Vk5Zq2CVNN7rtKPyDu+z+DyIfh+vZniYMRcjlA5MR+g5VYtQuo0FzhgmzqKtt5hRd1B1cCCUMPbtHwFjWyKEpK1dPDFsDYpYKq8xLIXoFaIS9Z40BjbvC5Zw5uch+T8m2wP1u0pTq3DxfsCfdHdeA8SNaeYl6I5d9rk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lOJY+fIX; arc=none smtp.client-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aaZgNvMA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D8351F000C4;
-	Thu, 15 Oct 2026 08:34:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792053246;
-	bh=1y2O0PSZS5Bzt/8EZ2Y7b6A1XzbAJe0MR4Va/N0YUuU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aaZgNvMANpmUBSrs1hVX5dOBdZ5ubITsPMpzYC6ohqDfmcGNBK0HFP5IIu9enoq6P
-	 M90gmP2DGfFq7fJBhjZXldmj7fCOobTX9AHeFQzYBu4OsHOqAPJJq89m5d2JBMLE6d
-	 IX1ZzHm67oSWuDWCK9DW06xW9l7a/FAvXx9Q0KKpdbq+YUXOZRCJUzJGIofXanWSnG
-	 iZqjvsZlDyceUmFP40JWDI0N5xbgR0TDu1XDbh4oGorzXB8pv2C4VsUYL7MtPYDwtv
-	 9k/hkPAULu7KSk8UF8gOha7el2Ie8z8fXbCfvm6aqqNh3aAxRqU6ts/NigbqVxw8SM
-	 fCAorPY+owbwQ==
-Date: Thu, 15 Oct 2026 11:33:58 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Peter Xu <peterx@redhat.com>, Miaohe Lin <linmiaohe@huawei.com>,
-	Lokesh Gidra <lokeshgidra@google.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Kyle Zeng <kylebot@openai.com>, Lorenzo Stoakes <ljs@kernel.org>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lOJY+fIX"
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93cbc3ab2fdso65516485a.3
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 01:36:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792053400; x=1792658200; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aHz/bzikXk8pek8hRSIu9eCONXczI/isD7IKkwfqttA=;
+        b=lOJY+fIX7fKTPd5JoHrz///6LH8QPt7T+9J2luCNr8/+KfEmBcpIVYWIyq05ANTSio
+         GhthWLK93vM2BFCfb2XEeMTiFc3xYnWbuSfQ6AqNOYPXB0PbY72jM2bL1nrMOiSWDnv8
+         +HhVDF9uabAePRl15s8iO1zlH0UFZpT25DoS3qeOjWQBIJoiUESbK4pKXXxMBzBBeZc0
+         Fz9b3QPYmXz6ewoHTiX7zzcAeAa90o5RW60lDa5FxpP0U8L+E/01ZdHRR5MIfsqvCWvP
+         25fk3q6Fgb5E1Xy+CT4QOcFuY55qQSI+NMsONEfk4mAMaoU5ha0JL5/2oQHLMkxggo8h
+         Hlcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792053400; x=1792658200;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aHz/bzikXk8pek8hRSIu9eCONXczI/isD7IKkwfqttA=;
+        b=KlGD5bwpp0Rz6jtnmZV4zVThuD2ew+ur0plYKyTeit6kTZbfYuSr2y54wzFlGcgUft
+         tPK/szOJKogAUEwE4e7nKxPl1uorQubciGWUl+J33XBPES4bE4ZSOwvLuCpwOwUklRiJ
+         DRGa2GChRFrRs4LqZu43jrgMaPpNczWZnZHtSjKifWnUv4MI7msz437OWe9nD76sifIA
+         ERXxdvB/Mpt3RpVRl6C5VXR/fFWYLT+eGPrp/wXEWa41WdBfx1SB8/UWpnSWYEdwQqor
+         wIU+CesVQMn1cpNjQ+w1SmuMwOE/ITasJrTvtVoXaFtUDO8D9vpDjHc/axwFKWwjj2L/
+         tA9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx07YVprwIijNLENd6w2xv2PIc/cZSEtGqE4QecjabAY3ze6nDk4BpYMEqeDtJKTewiEJjZyZw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8aAallHMp3gxUOGoj2T18S1uluZdcg30T79flUiV5rouYhsSO
+	l96KqJeQlvJGFeouNx8sYRWj3KhwXwn4VHqaX4Ih2DT6jjIWBIazZvHY
+X-Gm-Gg: AYBFou3suAEqpocp/NpQjY9AFTJsO3NvZYtM0uiMW+DQamY+YmZaVRJeODJM4w5NlEU
+	1c25y62u/C5LfE+S2ipj0WORlDngbTzqG+R+pM/QFS0Z2huS516cyCgVCRwpYf9tZFIf1er6b/j
+	SlGz0CiFBjeKyyVRd1GbHhnD7eC2yO/H59Pja/xNJqN1I7LFnczI3agmRiaaiyP3UXvkA8WvL5M
+	+2vZz6qUYAXv1RrlOrNb+x24gfgnXlwm9rDvu2T1BZFZ9TPy23cdKB8WjIWpDqW2aPm2vTj50fG
+	e1uAi3MLO6vccefw5Y+crmgcn1SxG3DJbDCVfsrh+AOBWa3jLNEHd1omI1RB4pi2KQLQdB1rL8n
+	PPgtXCVDii9fL3tOcZxFRoJQpE0Jt3yqXjFms1vj46G3GxNHeFbM8TwcYUlBnl01wb+M3ADJ0Bq
+	BHtdRhV7raUfCppkVERRdz4pwhIrzZPQTs3xj5c4YcNkrhLRp4W6nPIvkDmG/pAarMvqDj/tJ23
+	b4bvaP/BmfcyFEehVmb/Yi8sctfYYgwTc/WlGQAdno9CspqunDLGza/ruvaJrv/hKDmUOIC1vOL
+	hYST4jWZErnIUd8r470S/J4=
+X-Received: by 2002:a05:620a:6081:b0:93a:1fa7:1afb with SMTP id af79cd13be357-93ebd24d180mr2908976185a.42.1792053400267;
+        Thu, 15 Oct 2026 01:36:40 -0700 (PDT)
+Received: from ip-172-31-15-253.ec2.internal (ec2-44-200-54-59.compute-1.amazonaws.com. [44.200.54.59])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef5090050sm711843985a.40.2026.10.15.01.36.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 01:36:39 -0700 (PDT)
+From: Deep Shah <deepshah146@gmail.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org,
+	Yishai Hadas <yishaih@nvidia.com>,
+	Edward Srouji <edwards@nvidia.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	Deep Shah <deepshah146@gmail.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/userfaultfd: only allocate anon_vma in CoW mappings
-Message-ID: <atCP9hqNdqsdE-y4@kernel.org>
-References: <20261014-copy_hugetlb_page_range-v1-1-5b68e03fe7fe@kernel.org>
+Subject: [PATCH rdma-rc 1/2] RDMA/uverbs: Fix uobject leak in DMABUF release
+Date: Thu, 15 Oct 2026 08:36:36 +0000
+Message-ID: <20261015083637.200958-2-deepshah146@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261015083637.200958-1-deepshah146@gmail.com>
+References: <20261015083637.200958-1-deepshah146@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014-copy_hugetlb_page_range-v1-1-5b68e03fe7fe@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 01:53:11PM +0200, David Hildenbrand (Arm) wrote:
-> find_vma_and_prepare_anon() can end up allocating an anon_vma in VMAs that
-> are not CoW mappings, which is wrong.
-> 
-> If we have a MAP_SHARED R/O file mapped, we lack VM_SHARED (but do have
-> VM_MAYSHARE) and lack VM_MAYWRITE.
-> 
-> While uffd later rejects such mappings (uffd registration requires
-> VM_MAYWRITE, see comment in validate_dst_vma) find_vma_and_prepare_anon()
-> still wrongly allocates an anon vma before it validates the vma.
-> 
-> This in turn later confuses copy_page_range()->vma_needs_copy() such
-> that we end up calling copy_hugetlb_page_range() with ranges that
-> actually do not contain *any* per-pagetable information that would
-> require copying, which is the basis for PMD-table sharing in the first
-> place.
-> 
-> copy_hugetlb_page_range() should not have to worry about shared
-> PMD tables at all: it doesn't make any sense to copy page tables that are
-> shared, as they can be fully recreated later. Ending up in the function
-> with shareable page tables is the real issue.
-> 
-> If a destination PMD table is shared in copy_hugetlb_page_range(), it
-> might get concurrently unshared as we are not holding relevant
-> locks, resulting in us using a page table that is no longer mapped and
-> possibly freed after calling:
-> 
-> 	dst_pte = huge_pte_alloc(dst, dst_vma, addr, sz);
-> 
-> To fix it, do not allocate an anon_vma in non-CoW mappings and add a
-> safety guard to copy_hugetlb_page_range(), making sure that we never
-> end up messing with shared PMD tables in there.
-> 
-> Before commit 867a43a34ff8a ("userfaultfd: use per-vma locks in userfaultfd
-> operations") we would always validate the VMA before allocating an
-> anon_vma, and consequently never wrongly allocate an anon_vma.
-> 
-> As uffd_lock_vma() is part of the same lookup machinery and
-> also contains a misleading VM_SHARED check, change that one as well
-> directly for consistency.
-> 
-> A follow-up cleanup will stop taking the hugetlb_vma_lock_read(src_vma)
-> lock in copy_hugetlb_page_range() entirely. Further, the usage of
-> VM_SHARED in userfaultfd code should be cleaned up later to focus on
-> CoW vs. non-CoW mappings.
-> 
-> Reported-by: Kyle Zeng <kylebot@openai.com>
-> Fixes: 867a43a34ff8a ("userfaultfd: use per-vma locks in userfaultfd operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+uverbs_dmabuf_release() treats a NULL uobj->context as an aborted
+allocation, but normal ufile cleanup also clears it. Closing the uverbs
+FD before the dma-buf FD therefore skips uverbs_uobject_release() and
+leaks the uobject and ufile references.
 
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Clear dmabuf->priv before dma_buf_put() on allocation failure and use
+that NULL pointer to identify an abort. Otherwise, always call
+uverbs_uobject_release(). This also avoids reading a freed uobject if
+release is deferred until after the allocation has been aborted.
 
-> ---
->  mm/hugetlb.c     | 24 ++++++++++++------------
->  mm/userfaultfd.c |  5 ++---
->  2 files changed, 14 insertions(+), 15 deletions(-)
-> 
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index 63dc836061c99..60f9b209c8db1 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -4984,10 +4984,11 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
->  		raw_write_seqcount_begin(&src->write_protect_seq);
->  	} else {
->  		/*
-> -		 * For shared mappings the vma lock must be held before
-> -		 * calling hugetlb_walk() in the src vma. Otherwise, the
-> -		 * returned ptep could go away if part of a shared pmd and
-> -		 * another thread calls huge_pmd_unshare.
-> +		 * Shared mappings only need copying when we could have
-> +		 * information stored in page tables (e.g., userfaultfd PTE
-> +		 * bits or markers), which is incompatible with PMD sharing.
-> +		 * Still take the hugetlb VMA lock for now to satisfy
-> +		 * hugetlb_walk()'s locking requirements.
->  		 */
->  		hugetlb_vma_lock_read(src_vma);
->  	}
-> @@ -4995,6 +4996,13 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
->  	last_addr_mask = hugetlb_mask_last_page(h);
->  	for (addr = src_vma->vm_start; addr < src_vma->vm_end; addr += sz) {
->  		spinlock_t *src_ptl, *dst_ptl;
-> +
-> +		if (WARN_ON_ONCE(want_pmd_share(src_vma, addr) ||
-> +				 want_pmd_share(dst_vma, addr))) {
-> +			ret = -EINVAL;
-> +			break;
-> +		}
-> +
->  		src_pte = hugetlb_walk(src_vma, addr, sz);
->  		if (!src_pte) {
->  			addr |= last_addr_mask;
-> @@ -5006,14 +5014,6 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
->  			break;
->  		}
->  
-> -#ifdef CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING
-> -		/* If the pagetables are shared, there is nothing to do */
-> -		if (ptdesc_pmd_is_shared(virt_to_ptdesc(dst_pte))) {
-> -			addr |= last_addr_mask;
-> -			continue;
-> -		}
-> -#endif
-> -
->  		dst_ptl = huge_pte_lock(h, dst, dst_pte);
->  		src_ptl = huge_pte_lockptr(h, src, src_pte);
->  		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
-> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-> index 0e0fe9bfef239..82b56a58fc40d 100644
-> --- a/mm/userfaultfd.c
-> +++ b/mm/userfaultfd.c
-> @@ -115,8 +115,7 @@ struct vm_area_struct *find_vma_and_prepare_anon(struct mm_struct *mm,
->  	vma = vma_lookup(mm, addr);
->  	if (!vma)
->  		vma = ERR_PTR(-ENOENT);
-> -	else if (!(vma->vm_flags & VM_SHARED) &&
-> -		 unlikely(anon_vma_prepare(vma)))
-> +	else if (vma_is_cow_mapping(vma) && unlikely(anon_vma_prepare(vma)))
->  		vma = ERR_PTR(-ENOMEM);
->  
->  	return vma;
-> @@ -145,7 +144,7 @@ static struct vm_area_struct *uffd_lock_vma(struct mm_struct *mm,
->  		 * We know we're going to need an anon rmap, so check that
->  		 * early.
->  		 */
-> -		if (!(vma->vm_flags & VM_SHARED) && unlikely(!vma_has_anon_rmap(vma)))
-> +		if (vma_is_cow_mapping(vma) && unlikely(!vma_has_anon_rmap(vma)))
->  			vma_end_read(vma);
->  		else
->  			return vma;
-> 
-> ---
-> 
-> base-commit: 1d0b04a60516de48250b04227dcf483c6c09aab1
-> 
-> change-id: 20261014-copy_hugetlb_page_range-743d71a2980e
-> 
-> --
-> 
-> Cheers,
-> 
-> David
-> 
+Fixes: 0ac6f4056c4a ("RDMA/uverbs: Add DMABUF object type and operations")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Deep Shah <deepshah146@gmail.com>
+---
+ drivers/infiniband/core/uverbs_std_types_dmabuf.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
--- 
-Sincerely yours,
-Mike.
+diff --git a/drivers/infiniband/core/uverbs_std_types_dmabuf.c b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
+index 2411ebee69e2..d88d30f1e42f 100644
+--- a/drivers/infiniband/core/uverbs_std_types_dmabuf.c
++++ b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
+@@ -68,9 +68,10 @@ static void uverbs_dmabuf_release(struct dma_buf *dmabuf)
+ 	struct ib_uverbs_dmabuf_file *priv = dmabuf->priv;
+ 
+ 	/*
+-	 * This can only happen if the fput came from alloc_abort_fd_uobject()
++	 * This can only happen if the fput came from the error unwind of
++	 * UVERBS_METHOD_DMABUF_ALLOC. The abort cleans up the uobject.
+ 	 */
+-	if (!priv->uobj.context)
++	if (!priv)
+ 		return;
+ 
+ 	uverbs_uobject_release(&priv->uobj);
+@@ -141,6 +142,8 @@ static int UVERBS_HANDLER(UVERBS_METHOD_DMABUF_ALLOC)(
+ 	return 0;
+ 
+ err_revoked:
++	/* Tell uverbs_dmabuf_release() that the uobject is being aborted */
++	uverbs_dmabuf->dmabuf->priv = NULL;
+ 	dma_buf_put(uverbs_dmabuf->dmabuf);
+ err:
+ 	rdma_user_mmap_entry_put(mmap_entry);
