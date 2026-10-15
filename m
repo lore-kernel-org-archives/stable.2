@@ -1,177 +1,244 @@
-Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020075.outbound.protection.outlook.com [52.101.195.75])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005A9221DAE;
-	Thu, 15 Oct 2026 01:26:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.195.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC79D1DF248;
+	Thu, 15 Oct 2026 01:29:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792027578; cv=fail; b=WnuN6T9fXvf2oDh1ZvaUqj5O83dTIRdjpTmXRRMfLj1uaQK5aFwDn32pOSM5qkBP9Aw2ADCJJ0ImQEClk1bX6HflPBmeCn+zmSKzgi0rhMkcCXsfC/3UcO4ib0rDTAV2cRLbygTF+yX+9PLfDss6BLFAWKyioXIjyjCLHn0L8U0=
+	t=1792027776; cv=pass; b=IhIxFQwKrmHqxCC5OU+cFdsR96FFik+c3dShVB141BO32DcatV3VoMClbpA7F6VpdyVoR+CjEADzkg42k0fH3u/03VRyRqn/lu2X521AUsj8I5nx60pvHiNrpiruO3U9IjA6EKfrH2MTKEFGGhw+hX8LkTi7fd0PuqvlXXtSXrI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792027578; c=relaxed/simple;
-	bh=XxB3/jMuKFfA8d6XdaOek7hZRyOyBiVhBmRdDLqYx0Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=VrJ/nkezFWlLdXgeKQOHG+0H1P4vOqPyh3m4pPR7TymEVcDd6GK45tY9UwgH9iOXBZqndEzrF9gFYJ7tF64eiIFQcLH9B9qswu9OpG1Pi/JuRyrWgpTlDjeoXyybgelJw+CPjHSgkwiFx0x/bzxaHlvPv9LWB9PZyyr+uSEmh9w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.195.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fdWeTqDzZaQ9EpMlQvx/TNjqy7qVUHvxraOekrhaASiuQAkDxZFwAyZ2SmqwKLkWewTNhIDN91yC/4ONMLCJ/QU4fj/p9cM4B+irAe7IKlEblJtDW2PWjeV4XZ7zZBeh1Eg/KpZIsJimkPUoz0m9lddOnV30oASWH7vLbvVo6lo6VNm0yQ9ERpwYqSisC1qKk41xXn3DYZ5w8k0cYyDx2Qg456QeooxsAKEFEp/pMsXtTXldTYLGkmLxT4lb8btO2y+8GNkawRupA/Ff8eipMKeNdM+VC0qTPy68bsba7RnCrv5EaNb/RTDu3VBvLBqFOqljSbw6aOY1+CLgukzh8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=ryfidRekTnhdPEcJqiZLf4z/B3LspQMgh8kXHDy21HI=;
- b=ZLCbpO3/YLEyQuTyvYvNnESBTTWvmo5RKauF3bPaqnBUshzJpvKTyEXQdvAbGgTXI7sSCtefJQsjqmXePC4IJqM/rhEIi/FbqX/m6sDSNV7w0ewlm27gj5TL4Yle9b79cd/KnYIEvzNcLA4brsas6wORwFlY7iobN0hgp0ZzgAssS6j/NBKKUSoO7me+o7mQKCF3svxPi/wTPjiCU+Io9iT/W7PYOFWw0EXaPwP4K6/xpBvAn14oqh0bUY+cb5nTg8sULP/C1HmpUg9QngdVACa9hav9Qy5TCb0VKeBcvY9y6yK229LrS+GUR8tz0+Cr3uX12K/mwsb9EyFnDEc0hg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by LOYP123MB2862.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:f2::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Thu, 15 Oct
- 2026 01:26:13 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
- 01:26:13 +0000
-Date: Wed, 14 Oct 2026 21:26:09 -0400
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: Tejun Heo <tj@kernel.org>
-Cc: Ming Lei <tom.leiming@gmail.com>, axboe@kernel.dk, hare@suse.de, 
-	sean@ashe.io, neelx@suse.com, linux-block@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] blk-mq: dispatch kworker to housekeeping CPU when hctx
- cpumask is empty
-Message-ID: <nid24ukygf5d76hbz7zt336fftcuiqixgnr5k4m4ubbmnnkepv@e32ydy6h7ker>
-References: <20261012012905.267920-1-atomlin@atomlin.com>
- <CACVXFVMTr8mORGSVM4JWHrLYgk+9O0J20bjaL_08uYmRCbzC3A@mail.gmail.com>
- <o2hxbjxbkg3wv25lyj3nluwv4e6cb6q5qaukrhjzwg2hodwk5c@wgpc25peito7>
- <asxLLWOQQzolER0a@fedora-laptop>
- <pvnvyzf3cbebpxmobjntvovrruxgnygm7pwgx3tl2jczc7ji5z@ygmd6z4cfxh4>
- <adebd7c36fe4c6e349aca65bd7820079@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <adebd7c36fe4c6e349aca65bd7820079@kernel.org>
-X-ClientProxiedBy: BN9PR03CA0734.namprd03.prod.outlook.com
- (2603:10b6:408:110::19) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+	s=arc-20240116; t=1792027776; c=relaxed/simple;
+	bh=AznHk9NO/TWdj2HDEpjcm/Ra2Io3M7fEQvNFSHJRAoU=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=DOItbdJRW6HT/3/mPFZ11SXPsQSa/OcXcyL20TWJfp4kMNKOFh8uqJQpdYYOheNzf7fR2OdQfYZF6vBwpoRVT86CuvJYCI7mKYOZVFoykI/Lh9I9hIk3l+ecoBIvFMf19cMW+z1PppVTzaOw/Gu70FPgAEj5djXRd94fSrqsLWk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=Lno3Y3c/; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="Lno3Y3c/"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id CEE8C201B55;
+	Thu, 15 Oct 2026 03:29:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792027770;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VRDZ9XrVPNAFrk+//bZJV2l1FMzvd4V7UG7api333FU=;
+	b=Lno3Y3c/1Ivp6H/nX9HlrMQzxK4EKGyJpbAQ7dk2EabpZu9Shakv0ndWL+QEuZ8rqgUI89
+	k7LeZYM2JdEik2yWmknZcM//yP4fx4h1x6LPl1xNuwZijdKCXuG3y+g60bgs860R3FTj+a
+	ANHrgHPItYH1hqZwrckuSX2T6stanPmYsNQWUgmLQcRNST5LQMGXs1TRwGlbTYLaLIQlmm
+	ZVGFd0n+r0twF/XWGis/yPCQWPTrpMUivs3RzTYciA0EuX1an71dfDU0QbpLV2xmfUeSR6
+	4CKZ8BNzo4wzXq2FkPedjqYp+/+XIpuDR8sKipScHuL+CCSEg/vRqB9mJB/1OA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792027770; a=rsa-sha256;
+	cv=none;
+	b=bCwN6CdqQUboLW0ucYmIIiO5C1bbYp3mUa7AcIdmblREWY6sGlpI9pHb4lgqO+Fmp1hARY
+	Mx3W2F28mQJuVIypP5u2LfMzp2QZJMJidFmvpZYFcdnKedtJhqaxoZ3xk5udKwKOa5ix2i
+	5H97fAXfxCNVXLsibCe1/UOaJUQ4wDZX/cxJWbiz3wJ4FufHTC6YqjIkHA3wDvgHWuMNIl
+	rmNVynkc3EUQ3ZBxcrWsZhO8xZkdOrIS6zGVql7PW5hwT8rcrzKKgY2Th0Fop/IMQtWirU
+	N7NawvBWfmilt3638AluNDXwLY9giGeL4ix1lB9A5xZpqOfgPYAvw9e/l4I+mw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792027770;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VRDZ9XrVPNAFrk+//bZJV2l1FMzvd4V7UG7api333FU=;
+	b=OAy9BJoY5807CGWmtlzrRngP60EIGZ6rCRWcV19aGGFEnxZTjMoxT7yTnt2RUWp13GSfV9
+	JvN7Dr+TjSjyuFXHXKLyGZheQP/S/K/ZXvhLqKaos9HqA26vg1SpE43fFrEPYejYnqSV2k
+	0AeQW2OZBVQTiRp+/DatheSPRlL79BqbntkmY5HtIJhxuizweG/EhRct/JYxIU5u/IbF5E
+	/YwRIwMRZCqYWCv9lMP4QjNoQfFc7cRNqtlb2tQnsxJAILJMMILBX2P6+SBCdUk3yHcr6o
+	TfzKG2Sa0zs4sGKHeRawHwPwnPKCvo5uc4hd+mpfybtjFcCQSLUKs6IoT4hB1g==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xHAHi-005wje-2O;
+	Thu, 15 Oct 2026 03:29:30 +0200
+Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 752545C4705;
+	Thu, 15 Oct 2026 01:29:30 +0000 (UTC)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LOYP123MB2862:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8efde74f-14c4-4181-4d0b-08df2a5b4ce8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|56012099006|4143699003|261009223027099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	pLqXC4fJOkvNGTcylWRJTMpsr/4KUlRirxxApBGT3fndBN2/vkrWp6Xe3ITWJa4XO3kB94b3IOuM0y70C2mDaLdkhRwjabckSIMSZsWoaPavtr09azwlAIi5UgT3UuoyDbX6B6OggsyKZFIcaV2DY61RupnDgp56kDPN7sIn0WdNTrAGJ6Jvh70vGWnp5DL5amCT2P1HP4iojqjK4CkINRhO8KsjWijHTAu6wkCZNrObNHyDmUDVPfl5NE7Q6Nm0xwIdv9cHbMiK5ub29rQji39F7dOocg0t9WpwW2f9KUHeP1AK8zgBY9wKODq0kH0u8rP6p5v8LLOBeXtazQ3A1JHfW+3tDVtmTdfuq7LgWgPng1CbSuMEgnbbiIuCijePpbJKcMxXuyUQFOrHb9FF3EVfftR9eE5TNW8dMd+8ULdXGhS/VlSraXIqMLeKRtKG8sMoVsi8AKw8zIbmENJ28BStpJ6ETVqHaT+Wjh5Tvuaym/707efrYJOzIQqxT7vV3fS8xw0KHl4eu01T3zvaKCmu4yh9tIka3OERJi+RmMFpVRuidqjf/jQLIvl3ckravo0Fb7AjHlRpJA1xBtLcVIlgwq0n5uvwtSbrNZgJgbyRYeHDVau1m+axRlKymUAADZALmdD0dpnQCSpKXDHOLTsA506lWF3KJTxPEDpQo6k=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(56012099006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cWN4aFd6NkQxRFRFaEdhUXErRTMyZTVUZDBLT3RZR0o3MDFDTHhRVk9hYlYr?=
- =?utf-8?B?SWFrREdnRXRXMzhkcEt2a0RlUWUxd2hBK05GWVE0TzJQNi9QM2N6ajY3TWdw?=
- =?utf-8?B?MkJiNmJERjIxbTBQaTRDVmhSWFhkWmYxWGJmRjBtRXpvRDdKVG5Sa1NuNDJj?=
- =?utf-8?B?d0lhcHp1SllYNFhYdldVaTVya3NHZUlWbVZ0QlA0ZFNoSGNZakswd1d2bDIr?=
- =?utf-8?B?V09lYVpVdlpXZDZWRENwdFRBYjd4MFNBQmJJcVVWUVlsb1MxYU5NYk5BQXlL?=
- =?utf-8?B?VmJ6WGE2SW5LSlZyam1FbkFaS0pFbVZLT2Q3RVJWYXpFdnhrMllpVDV5UDY2?=
- =?utf-8?B?cWVNWW1CTWdJY2hqM0VtT1NGRTVFY1UxVm11ekVJN3pLeG1xWGdpWEczOWZH?=
- =?utf-8?B?ZUVpVUk0Zjgvb3oveXAzOWliQUhLTytjU0dPYXYrVzdPYUlHcW5haUJqQlZL?=
- =?utf-8?B?anV5WGhKRC9rSzFPbTBEdkpFQ2FkUGFJOGZ4MmR1Vkd3WWlkcnU2aUoxdFlF?=
- =?utf-8?B?UnhJYTlsZXJOdndidXlKVmxxckpFK00zK1lSTFBiZlVKOUE1Rm1VcHFvVEdQ?=
- =?utf-8?B?bFV5UWtvZDA1ZVdxSXRyVlhlRkFkOG93ZFcrQ1BnKzdrWHRCdkZTQnJVN2ZE?=
- =?utf-8?B?NlA0YUJPWS9MZitJOC9wV1g2MEl3VHNyekRneURFbDFBTXdNZGwyaC82TndQ?=
- =?utf-8?B?czhJT2sxRUVscVBocDZyOGFrdmY5ZUxHelhyZ1lrdFBweGJlaTVtKzd2eCtj?=
- =?utf-8?B?QTlsTTVQb3E5ZW1nWm1oS2pEUWtPNnFoK1J0VjRjT2VIVFN0SThIS1dWMkVu?=
- =?utf-8?B?ck15WU5TOTBYNXRDNHpWMWZoMVFqaWxIMm1CLzI1Yzc4U29zUDY4R0xhN3hr?=
- =?utf-8?B?L1VFZU9BM2ZEZ1c4YUk3OC9uWXc2VU5IZjBaM0pTMUE0UDl6SXV2cERLV2pQ?=
- =?utf-8?B?cSttTWpTOXhhd3pNbE50M2IzczhNaVhUemRJZXBvbXlyMHcrbGNxTS9XaWNx?=
- =?utf-8?B?VDlFSU8yV3NDZG5McGczSXE5UjdGV0JsU1BLaGNzcHJHcmhydGllbU1iaW12?=
- =?utf-8?B?MTJ2MXRsQ2VuZU9IbEhzV1EwRHl2akJKanRqZkxaS3VvM2FxL2UvRDRMa3FJ?=
- =?utf-8?B?MnpxSzdxTTVta0F2NG9DcXFCZHhNcHB1UGhiS3dodmFLMFlhTVFLU3RBSDBk?=
- =?utf-8?B?dC8rdW1SbHVJOVhyWmlBK1pvKzZtbzdUWnFXYWNydEU2V1ZzbmxiakpaUHBn?=
- =?utf-8?B?VUczdWc4MFZFazBYS3F3N3N1MmFsb0QzSFZKOXpMSVFBbkMrMWYzeUl3NUVL?=
- =?utf-8?B?RDVwUnIvdXpPeUk0WHBsbHhoSk1xdDduekRTaURyZ0p1SnJueDRRSFNKeTZh?=
- =?utf-8?B?Y0ppV1A0dzNmaW9Jc0xzQmFrZER4ZG54cXhCSUw0TXUrUUNzeU83K2pqUVZk?=
- =?utf-8?B?bWFLRkZxNTBOZE5xb2pHNUZ2bC9oRW9uWmorZlMvN2s3ZHI4aHJIK2c0aUhR?=
- =?utf-8?B?WERFb2V3c3N0WWxKeHM1ZFFOdzRHUVlzeFNCZkZNQTM5NGxHUGZReXI5RWpw?=
- =?utf-8?B?RHZvc1A1Qm1HTVRTQXVLajZXZzFRMEZmRllhbXNZTWk4ZVhDeWt6ZGxJbmNi?=
- =?utf-8?B?YlJXNEd3bFJTSUZzWGgzLzBVZnNPUVgwQ3QvbXAvTk9ZMnZsd2orM2dKby9L?=
- =?utf-8?B?bXAyQmtZTFc3a1ZFVmR4bXJMWjBYRXFxUkcwb2tyZ0NHVmFNTkdsdzJEWXBp?=
- =?utf-8?B?TktCbHlUdHg3REk5aDhjS0FEeS9pUEJ3WTY4M3VRWVV5OXl6ZytweUZKYldm?=
- =?utf-8?B?SzZrZmo0ZWkweHFWeG9qQjM1VHAyTkRCbnV3Z3picmpiL3pLUm1PN2kwZzNP?=
- =?utf-8?B?cFE5RU15MmlGR1V5Y2hzMmNuT0FOeWNKWm40b3hEVzJoQThlZEh1ZVVlekVz?=
- =?utf-8?B?Zk55ZVBCSElaajZpbHUralB5SjI0S3FIVkhFRnZibmJSUHpBUUVRYTZoYmZl?=
- =?utf-8?B?b1JyZTVMaW9qRThQV3NDNkRzNWlmSlZTWXVWT3o4V3pyMW5kQzhNS3RTOU1E?=
- =?utf-8?B?Ymd1VVh3WVRudWdZTmUrOHc3ZGRZYTE2bEViaEhvNFI4SmV5aHdLWE5vSVhJ?=
- =?utf-8?B?RTRkSnVGZFd6bVdxVjB2ZVViYmFjblV2cDZXMm5ZNlgxZi8xbDk5Y1lKYmYz?=
- =?utf-8?B?bVJpaFFNdVgyVlkzQzgxNk1jOGV4WGFBM1ZYcDV5UEhJRVFneXlHV2N4K1ZJ?=
- =?utf-8?B?Y2ZxQzRXcG9BOEtQcUQvaHBzdDBMOExWQkMwWFFwaTVVU0V2RTNHbnJGVDBi?=
- =?utf-8?B?ZllTN05yT0xTMHdTeW1uN3dBWGlNL3FXUFpsL3ZXeDNzTCs4aEJhQT09?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8efde74f-14c4-4181-4d0b-08df2a5b4ce8
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 01:26:13.1595
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LrV7aF5P+aHmyU1gKXydIrWXKmZm7KkskFm8BvB/7KX5FxlA8B1Buv7in0hsexrXUPC49h0cDGCRp4l0aIIEjg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOYP123MB2862
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] can: hi311x: drop hi3110_lock before free_irq() on
+ open failure
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>, linux-can@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Jianhao Xu <jianhao.xu@seu.edu.cn>
+In-Reply-To: <20260820020631.316418-1-runyu.xiao@seu.edu.cn>
+References: <20260820020631.316418-1-runyu.xiao@seu.edu.cn>
+Date: Thu, 15 Oct 2026 03:29:23 +0200
+Message-Id: <179202776309.806124.17660228547499507194.b4-review@b4>
+X-Mailer: b4 0.17-dev-6be7c
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5908; i=mkl@pengutronix.de;
+ h=from:subject:message-id; bh=AznHk9NO/TWdj2HDEpjcm/Ra2Io3M7fEQvNFSHJRAoU=;
+ b=owGbwMvMwCV2xirl17qZay8xnlZLYsi6oFMuFsoRXS5Tp/lS9d+eBkPbj0wKEjffMnpKJt6IV
+ 5RX6rnaUcrCIMbFICumyLL0xwlFgUCH0t6XCZNg5rAygQxh4OIUgInEbGT4p/+IaUfy9e7Zamc/
+ 9Fvt7+S2U687/upH0w/mycH7ZM+dSmBkOPL0jsRkZwPFs5w+TG/Vot/eXBsyiTubI3D64Yj+Tz/
+ 28AIA
+X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
+ fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
-On Wed, Oct 14, 2026 at 09:34:04AM -1000, Tejun Heo wrote:
-> Hello, Aaron.
-> 
-> On Mon, Oct 12, 2026 at 12:06:25PM -0400, Aaron Tomlin wrote:
-> > kblockd_workqueue is unique in that it is allocated as WQ_PERCPU to
-> > preserve per-CPU locality for multi-queue devices.
-> 
-> I haven't followed the earlier discussion, but if CPU locality is important
-> without requiring hard per-CPU affinity, an unbound workqueue with
-> non-strict "cpu" (or "smt" for core) affinity scope can provide both:
-> locality by default with flexibility to migrate when needed.
+> hi3110_open() requests a threaded IRQ and then performs hardware
+> setup while holding priv->hi3110_lock. If reset, setup, or
+> normal-mode entry fails, the error path calls free_irq() while still
+> holding that mutex.
+>
+> The threaded handler takes priv->hi3110_lock before checking
+> force_quit, while free_irq() waits for the threaded handler to finish.
+> That can deadlock the open() rollback path against a pending IRQ
+> thread.
+>
+> Set force_quit, drop hi3110_lock before free_irq(), and take the
+> mutex again for the remaining hardware cleanup.
+>
+> Fixes: 57e83fb9b746 ("can: hi311x: Add Holt HI-311x CAN driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-Hi Tejun,
+The netdev LLM bot has found some new issues with this patch, can you
+take care of them?
 
-Thank you for your response.
+regards,
+Marc
 
-That is an elegant solution. Moving kblockd_workqueue to an unbound
-workqueue with a non-strict "cpu" affinity scope (WQ_AFFN_CPU) would
-preserve the per-CPU/per-queue locality essential for multi-queue devices
-by default, while delegating CPU isolation natively to workqueue core via
-wq_unbound_cpumask. It would ultimately eliminate the need for blk-mq to
-maintain ad-hoc cpumask filtering or manual housekeeping redirection.
+--- Patch [30]: [PATCH net-next 30/37] can: hi311x: drop hi3110_lock before free_irq() on open failure ---
+commit 67dd4c372c8d870201d8692df57226dc8aab950d
+Author: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-The rationale behind the current patch is strictly as a targeted, low-risk
-bugfix. Commit a46c27026da1 ("blk-mq: don't schedule block kworker on
-isolated CPUs") attempted to offload queue dispatch when all mapped CPUs
-are isolated by falling back to WORK_CPU_UNBOUND:
+can: hi311x: drop hi3110_lock before free_irq() on open failure
 
-        /* Switch to unbound if no allowable CPUs in this hctx */
-        if (hctx->queue->nr_hw_queues == 1 || blk_mq_hctx_empty_cpumask(hctx))
-            return WORK_CPU_UNBOUND;
+This patch changes the hi3110_open() error path. It now sets force_quit
+and drops hi3110_lock before calling free_irq(), then takes the mutex
+again for the remaining hardware cleanup. This avoids a deadlock against
+the threaded IRQ handler, which takes hi3110_lock before it checks
+force_quit.
 
-However, because kblockd_workqueue is presently WQ_PERCPU, WORK_CPU_UNBOUND
-resolves straight to raw_smp_processor_id(). When deferred dispatch is
-triggered from an isolated core, the kworker is scheduled locally, where it
-faces severe priority inversion and starvation against SCHED_FIFO
-workloads.
+Link: https://patch.msgid.link/20260820020631.316418-1-runyu.xiao@seu.edu.cn
 
-Given that commit a46c27026da1 was backported to stable kernels, this
-minimal change serves as an immediate fix suitable for stable trees without
-altering the concurrency and execution semantics of kblockd across the rest
-of the block layer.
+> diff --git a/drivers/net/can/spi/hi311x.c b/drivers/net/can/spi/hi311x.c
+> index 076a3efa1bfff..927555b5d581e 100644
+> --- a/drivers/net/can/spi/hi311x.c
+> +++ b/drivers/net/can/spi/hi311x.c
+> @@ -787,7 +787,10 @@ static int hi3110_open(struct net_device *net)
+>  	return 0;
+>
+>   out_free_irq:
+> +	priv->force_quit = 1;
+> +	mutex_unlock(&priv->hi3110_lock);
+>  	free_irq(spi->irq, priv);
 
-That said, I would be very keen to explore transitioning kblockd_workqueue
-to an unbound workqueue with non-strict CPU affinity as a follow-up series.
+Discovered by: gpt-6-astra · Missed by: opus-5-5, sashiko-gemini · Confirmed by: opus-5-5 · Ranked High by: gpt-6-astra
+Can this rollback turn the old deadlock into an IRQ storm when
+hi3110_set_normal_mode() fails?
 
+The IRQ is requested with IRQF_ONESHOT | IRQF_TRIGGER_HIGH. Before
+hi3110_set_normal_mode() returns -EBUSY, it has already armed the chip:
 
-Kind regards,
+drivers/net/can/spi/hi311x.c:hi3110_set_normal_mode() {
+    hi3110_write(spi, HI3110_WRITE_INTE, HI3110_INT_BUSERR |
+                 HI3110_INT_RXFIFO | HI3110_INT_TXCPLT);
+    hi3110_write(spi, HI3110_WRITE_CTRL1, HI3110_CTRL1_TXEN);
+    ...
+    hi3110_write(spi, HI3110_WRITE_CTRL0, reg);
+    mdelay(HI3110_OST_DELAY_MS);
+    reg = hi3110_read(spi, HI3110_READ_CTRL0);
+    if ((reg & HI3110_CTRL0_MODE_MASK) != reg)
+        return -EBUSY;
+    ...
+}
+
+A received frame or a bus error during the mdelay() window can assert
+INT. Once force_quit is set, hi3110_can_ist() skips the whole
+while (!priv->force_quit) loop. It never reads STATF, the FIFO or INTF,
+but it still returns IRQ_HANDLED.
+
+irq_finalize_oneshot() then unmasks the line, which is still asserted.
+The interrupt fires again right away, so the SCHED_FIFO IRQ thread spins
+until free_irq() finally shuts the line down.
+
+If the IRQ thread was blocked on hi3110_lock, the new mutex_unlock()
+wakes it. On the same CPU (always the case on UP), it can preempt the
+opener, which holds RTNL, before the opener reaches free_irq().
+
+The opener then only runs again through RT throttling or the fair
+dl_server. That bounds the stall to about one RT period by default, but
+the stall can be indefinite if those safeguards are disabled.
+
+Would it be better to quiet the chip while still holding the mutex,
+before force_quit is set and the lock is dropped? That could mirror
+what hi3110_stop() does:
+
+    hi3110_write(spi, HI3110_WRITE_CTRL1, 0x0);
+    hi3110_write(spi, HI3110_WRITE_INTE, 0x0);
+    hi3110_read(spi, HI3110_READ_INTF);
+
+Another option is calling disable_irq_nosync() before mutex_unlock().
+
+hi3110_stop() already uses the same force_quit then free_irq() ordering
+while INTE is still enabled, so the same hazard exists there. In the
+open() rollback path, though, it is new with this patch.
+
+> +	mutex_lock(&priv->hi3110_lock);
+>  	hi3110_hw_sleep(spi);
+>   out_close:
+>  	hi3110_power_enable(priv->transceiver, 0);
+
+Discovered by: gpt-6-astra · Missed by: opus-5-5, sashiko-gemini · Confirmed by: opus-5-5 · Called a false positive by: gpt-6-astra
+This is a pre-existing issue that this patch did not introduce, but is
+priv->restart_work ever cancelled or flushed on shutdown?
+
+hi3110_do_set_mode() queues it for CAN_MODE_START:
+
+drivers/net/can/spi/hi311x.c:hi3110_do_set_mode() {
+    ...
+    priv->restart_tx = 1;
+    if (priv->can.restart_ms == 0)
+        priv->after_suspend = HI3110_AFTER_SUSPEND_RESTART;
+    queue_work(priv->wq, &priv->restart_work);
+    ...
+}
+
+hi3110_stop() calls close_candev(), which only cancels the CAN core's
+delayed restart_work. It never calls
+cancel_work_sync(&priv->restart_work), and neither does the hi3110_open()
+rollback.
+
+If the work is still pending at ifdown or during a failed open(),
+hi3110_restart_work_handler() can run after cleanup. It takes
+hi3110_lock and calls hi3110_hw_reset(), hi3110_setup() and
+hi3110_set_normal_mode(), which re-arms INTE, TXEN and normal mode. It
+then clears force_quit and calls netif_wake_queue() on the downed
+interface.
+
+The controller would then be back on the bus while the interface is
+administratively down.
+
+The new unlocked window around free_irq() in hi3110_open() gives the
+worker one more place to run. It does not seem to make things worse than
+the existing post-stop case, because free_irq() still completes and the
+rollback then calls hi3110_hw_sleep().
+
+There is no use-after-free here, because hi3110_can_remove() runs
+destroy_workqueue() before free_candev().
+
 -- 
-Aaron Tomlin
+Marc Kleine-Budde <mkl@pengutronix.de>
