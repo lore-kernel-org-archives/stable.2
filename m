@@ -1,189 +1,136 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010023.outbound.protection.outlook.com [52.101.201.23])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-246.mta0.migadu.com [91.218.175.246])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7CE45226A1;
-	Thu, 15 Oct 2026 13:17:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.23
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792070227; cv=fail; b=b1b06nxFyssMfRvsSdCVnyoqNi26XPPK5yupVXrPvaH+JTWdgDJfU+lkvFFuYglh8glYtxVZ29Vkwga/vuKYGTdWKp2R49Xk4CQZu7jLOJzAULYs042DuXBRj9xOukQY38rzOQfFQzuRg1ETRT1hnhdRAVkWkfYcSUP/nmqKhb4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792070227; c=relaxed/simple;
-	bh=1YekbLDcKMiOZvviEyiCeKKxdCvzxiSSzMRqIOTyZxs=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=jWiWoGzwsJTpJV6NDKXtJRZF1WLlGHSYBigqk9WHjoNmpdYzfn7ngh824MlHUnEd8UPO7tEgCbAZwc84Ml4QodMr/1tzag5ekxZatQljTQLz0OE2sziELSC/C06yWtihlwLC6Xk/MIN9wvLZLPr4Y0DnHFrfe78ooLZDnb4IRms=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=fKBtm4lO; arc=fail smtp.client-ip=52.101.201.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B61742125A
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 13:17:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.246
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792070247; cv=none; b=iVVmH0yVnznzVYwnIHYSA1R1goP45hMR988j5wq/Z4IeF91AnsNcr/TiXb5YI6RQl7lbejLkiAe0jVVk1TQ2QXIroRgfBB7Cl2lghvmKqNf7PXytstAZGiFTwKhelGjrV+IfGTz0FT+qJ8f7zsF9a6jzkFtdNOjqypIe04hIO60=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792070247; c=relaxed/simple;
+	bh=hqinzRPIxuUU4bOrqaFfByb0krG+U3rhEL4mgvlQiR4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=f4FiJHJVGDSUE0mHTsSO/DbIybTK+qbk50QkYhgMWLjJD1jZRuCw/b4fIFlVzEu0/rjCvgYFIvnZu5ic6A1qcakGsUW8tizGLEoa2Q17IjycsoUWLkSq+FpEXet8ZAdO8rkpJBJn3Rlsa7IbMC24mJy6tQ5f2BQwlVssLZJqSLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NmKIkLDn; arc=none smtp.client-ip=91.218.175.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="fKBtm4lO"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uKL7dVhfhh2bOJ9bRTj/A80w36LAjnWiaYIE5n1L4XzIE7gLmkWMnvf7viOewthH4ZOiULkDBvHhd9qsrUCNzds5XOu0ZbWiHIwbkQooLXU+tnQ4Af+ZmU+kBlZ9PJVtNJQyXbaN+hviMs07genJDUfnFGkNXhzA2rZwO5QRK7RK0Jli6EkVPUURfytxE24VkzUP2uXTIj90ANPkMA3G23YclIl+dWz20uA7dgZnJJi3/F7SdvYd4okYQpyDXpebRJENgjiUmM35yJVOH8BnBiikGkw2fEq3PwPmDlVhfVqwCe8kinSCo5ilpeq3tqQxHXo0fjqGbLr2sbAoP65Uqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BcMwRtZH1blQTrFk38+4CniTCFrMHlcc7yPE73KbSZc=;
- b=wwZ62uj8YzcHcZOkTq0EqvzmoIzw3euqaMm2Rc6RljDXTBfUbiY3195xQaGQPS8cZsWbhwEhOYjZcG6rXl12ajrFh7cKYN5gz3CvPv2HuQSL0i8qwcvOi6HJcyDo7jPk25FXiT+YSbnQFaG+Jz2dQhHrYzsJtCUw77bx+SBVS82BjpV5WHIahRke3ZD7lYx75ygvBfFperykrUCvzFtzNIOv2o+W2FpdlWgsWGfTRRH3KUm8r42L6cr8BIgwbyu8gPhEJwHUnqYEMdN0AhzJrmcH98L2YJNdN1XIv5vRySdWBkjwcYb1r2r/AhMc64oDnCeBtJ/VSr+J8Cn/SGFwnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BcMwRtZH1blQTrFk38+4CniTCFrMHlcc7yPE73KbSZc=;
- b=fKBtm4lOVN3b3wbeZxus8R5GS8wA0Fy0T3VeuEpyoZ3zdZE+eoASEn3P4hs5X6/NU/0iC86e8D4XehyCT1g8IVJx0zrAZSvj2R2hw6IhdVh8YeLRVoiQsp+UCbV/opKoh+MlldexOYM3N3lJy0SWm3ntL5MhtUZf4XWMxXHxNYosXvA61C9VgtGvRxs4omPTU7//ZVSv9r812qUP5d7QRuO6IXhepDU6lSFZUOWbgEtXu/57ZtjZPY7M+GVZaEip9w9+DEfINg8HTgkxppvirWsqL9+vtWfCZJt9MhdlZNygWcGzmZLOZaa0yK5Kwo9rUmEOf77XOyY5R7LdYoM7dw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH8PR12MB7110.namprd12.prod.outlook.com (2603:10b6:510:22e::11)
- by PH7PR12MB6954.namprd12.prod.outlook.com (2603:10b6:510:1b7::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Thu, 15 Oct
- 2026 13:16:53 +0000
-Received: from PH8PR12MB7110.namprd12.prod.outlook.com
- ([fe80::736a:e1be:ec64:5740]) by PH8PR12MB7110.namprd12.prod.outlook.com
- ([fe80::736a:e1be:ec64:5740%6]) with mapi id 15.21.0496.021; Thu, 15 Oct 2026
- 13:16:52 +0000
-Message-ID: <2a5adbe8-ed67-476b-bffd-169c8c50f686@nvidia.com>
-Date: Thu, 15 Oct 2026 14:16:45 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/632] 6.18.57-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, f.fainelli@gmail.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com, linux-tegra@vger.kernel.org, stable@vger.kernel.org
-References: <20261014123820.008483134@linuxfoundation.org>
- <6d8a0529-033b-4d81-a2e8-cf735e9a4b7b@rnnvmail204.nvidia.com>
-From: Jon Hunter <jonathanh@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <6d8a0529-033b-4d81-a2e8-cf735e9a4b7b@rnnvmail204.nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PH7P223CA0005.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:510:338::7) To PH8PR12MB7110.namprd12.prod.outlook.com
- (2603:10b6:510:22e::11)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NmKIkLDn"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=hqinzRPIxuUU4bOrqaFfByb0krG+U3rhEL4mgvlQiR4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792070243; v=1; x=1792675043;
+ b=NmKIkLDnZDG2y73ti8vR3cwK5ietiaVKNZrQ9S4T2DlcrrhmpqONXF4JHNPiCWBVEev94Xyd
+ CQDgP4w/0Qb8ueVlt+VqJeszL7cXupOShs5XJ5f1C54peQlYjKf6XD0+9LjJ8GGbcp5lA9gqMRo
+ HqHhlwYf7Rr6oNhM09S47f6c=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f603c4a714d74cfa;
+	Thu, 15 Oct 2026 13:17:23 +0000
+X-Mizu-Trace-ID: f603c4a714d74cfa
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a36e9e99-f7c8-4aac-bc05-8a042cd9f438@linux.dev>
+Date: Thu, 15 Oct 2026 21:17:10 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7110:EE_|PH7PR12MB6954:EE_
-X-MS-Office365-Filtering-Correlation-Id: 71590b08-b3a5-4db4-d38d-08df2abe9421
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|56012099006|4143699003|11063799006|22082099003|18002099003|10067099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	th6/KDxHDvaUd7kg/9OJe2OSf18DStVOE/f6wnLk/NpksgXN696gpdss2kA1l7pWECNZAp4I7UBx7nOiRL1UloHpuXhakPWn6jWv6CtqXaqzYBddhwZVNQ2DroaV/DDi04a3Cgm3fGZcexIsCmaZI7jJVX8Z3b8DYQ3OT21gxd8vqiC0P13U4xHBLvuPqzQbfDzmlrwybz07VZQYJt0Gim4I+lchCypHLX2JmV9V1nndybby6WEBovKE40/lBLFMNJS5YT439HWk178NErDJ687y7p05r5GHSVsOQ7e9qhyjfL5aCbKdXfhXJLBG5/Wf06IT2C8K7Roh2cRrCE+H4nXPnb/Z2jx+QYusc0Bus2LauWH3xcZFn1Vqy0jX25yrw4vFn8TLZZsPegqyEewQfGwUk+urqKAh3vQ0U0uEP9NlYuIaI4il5FdNaVdQ0y7zLrq0Qne3eTkPRlH44I2BVQbnu5Fh4CJMSVLqMh5R0GhRcLvXRt23Hmal84iD/N9qHizAsp0LnwoGw1iVt/hTGIuwQ72UC3lWdAbtnXnEY9XBdHXqPR3mnj0Zf2YVwOCFLfZstSTKtd2H/06L5KB7ItuYKFbGS0y65ZD7HeluYqy6WTtCTJoBXoVefITgjTd8q+C1Wpx6u+aJl58+8Lc1XPsQNhilToDMXRNEW1y57nI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7110.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003)(10067099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q0l2d0ZFRUhtWHNaWC9IK1lhT25sbnVzNFpQeEFyZlhjMzFValJDT212dGEz?=
- =?utf-8?B?MStIOW1sVnQ3dDhTN3Bwb29LSWNTNWMraEozWUJKUmoyQndvMGYxSGh2Ry9E?=
- =?utf-8?B?YUVJOWdPU3N1d2xTdDJ5Yml1YmtHa2xia1d1aWw3aUFEYkpUTkxVN3dibTZS?=
- =?utf-8?B?MHRDOEg2cTNMUmk2Q241ZHR2NVdIUE43VE9sc0JBeEZyY01WcHppNGFRUUt5?=
- =?utf-8?B?dHg0OUt6NHQzK2puWFI1Z1daWEFUdjI4K2RoR3AyNFBwTGo2SmlyZnA1ZHp2?=
- =?utf-8?B?N3JLc25GTGFQQW50TVBicXpUL2l1aExNbkxKSGxCdHE0SGNUR3pGT2tPWFpB?=
- =?utf-8?B?SWxJZ2hGeHp3Kzg4ZllTYVAwNkJLd2NtYm9YNHNPWSsrd2piVTVwMDhrOElV?=
- =?utf-8?B?dUQvVStHc3hyd0R1TStFUElMbEtyTnVycW1vWFh3dXNJZGNJS3hyL0EyWURs?=
- =?utf-8?B?dForSEllN0FsSmI0UGpXeFd0RllRVkxINWRPUldZTEw0VUMxbnNmZ0VQdkRw?=
- =?utf-8?B?ekQrOGRzL3RxUTJ6ZER1S2Y4RG5uTVlwYk9XaHJnekxsQ24vdnVRbTRkeE0v?=
- =?utf-8?B?UTU5aDFydUxadGU4cG4xMVAraWpOQnc2cGUzalBUU1FYbUJlMkFWckVWNHNo?=
- =?utf-8?B?QnJreEQ1eHdocFhpNVJYZVVXWXl4a3BuZFo0eXlXZUpRbFV0azdpSUVoa0FV?=
- =?utf-8?B?SWdlbFhkUk1WTEE4cnZsT3lEMkVsa05PcDhya3c3V2EzeW1JaWcySTVBUytB?=
- =?utf-8?B?TjZCWEZ4WVJNeHlVWmJjZ2hiRVpnNUIrcGtPZ2tudnE0NUYycUxlSTNkcmlI?=
- =?utf-8?B?N293bFRSMDBRNWtLNC9HbWxzNFROU0VtUlJaTDNBRXg1MXVTZ00yZDN1NFk0?=
- =?utf-8?B?UzUxWG5HMm40U1ZFakNleDhlb0FtczJKMVlyeERqMmpTZVRZMERSNVNLMlEr?=
- =?utf-8?B?TTB4R2lRTEFHNXdSSjVkSm1sZlUzbk5PZzhBay85bGYzUnZES0RzNTA5d2xw?=
- =?utf-8?B?VXNRb0hNT3kvci9CaDNsa1BUTW9ISzJ2MGpZRUN4alFwSXJkZ0tKVFYrNVVQ?=
- =?utf-8?B?NVFNeU9ubkYvRkFEcEJOS1N1cTFUUHJ4U0Y4VHJnVWdNQ0E2YStVZU52SnJ3?=
- =?utf-8?B?VlU5Unp4QjNEYWRQRXpZWnhhalFFTWVZTlltdzE1Tmk2V1JEZjNlNStoNE9t?=
- =?utf-8?B?Qy8rdzB4TVJwdmtQZXU4ZWtyTUQ4c3k4NDZzOU9LL0FmRlNDNEZVOWxUQzlO?=
- =?utf-8?B?UmR2WXdxazJ1NFJvc2hyQXdtVVJzUFF1c2twSUI0ZW1lMlBieVJCT3lzMzFP?=
- =?utf-8?B?MnArM3FkUHB0MXAxSm5QUk1nekttMlYwTjczcVZNZldoOHNXK3lBdkxNSWtp?=
- =?utf-8?B?WE5VYUpYTDEweG5KL0ZMekVPMEg2V2Zqand4WEkyc2VDZlk5alp3a29OQXhQ?=
- =?utf-8?B?aHdxK0tPYlJDaktHak1GUkxGaCt1Q0JoQlBxSzBiRDJuN1FxTVRSeC9IZWc1?=
- =?utf-8?B?QVVUcUtJVVpQODhyOWVrZlNNUzdEVVU3a2VLbFNsandIMnBLQkJqUkwrdjRj?=
- =?utf-8?B?Y2pSd1lzZnR1TkdyZlZFYnJ4OXlna3pIdGc3ZnVBcEdBL0VCYjlWeTB1RUhL?=
- =?utf-8?B?N3lQOE9yQzdGT3BXajJTakxIeWF1NHFESzRoMXdEcFR1VXRTZVl5MEc2TGMv?=
- =?utf-8?B?eDdrMXRWc1I2d2srQ21HNFVQUFBDbGZ4azlxc2dNWlFEWngrZ0hxNWpDeE5t?=
- =?utf-8?B?a0dQSzhJY0JkOGF5b1N4TkVGZlFwN1p6Zmkwb1UvRkd1bmo4UGRDVGdlaWVw?=
- =?utf-8?B?Vjk5UllrQ2k4aS91d0dybnpZNy82TFdjWmJoSjNPa1Z2cFQxMlFtNkxBZzVq?=
- =?utf-8?B?OFhSaE5UdEtYc2s0ZnJvaGxZUVR2RUJwMHIzOS9zQ3N1a1FqZDVYTGRYLy93?=
- =?utf-8?B?U1VOT21mSGxCbkcrMFZFMVpEK0lDQXlkallwaUNCZ3NnTndoc1dVbTgyL2Uz?=
- =?utf-8?B?N3l1ZUd1NW1YNmZQeWxpRGI4ekNybEhHSm5vTXR2RFNVcXppWWFYRWRtSWww?=
- =?utf-8?B?Z0xhek1yRU9ZR2pqc3hldWJQZTg5eEtNNlRYZXdaeFBmL0d5clg3TUNsU2pD?=
- =?utf-8?B?TWYrRjF3OHZkUHljZWR1L3hQTGl2eXBSVXJYTXZiSzJqTFNEVHRwNC92UGw1?=
- =?utf-8?B?TE9nS0Q2ZVY2aVBzNzVQeXRnemdlajdVcUlJK0RDUFFMQ2NaNENjZkF1VUx0?=
- =?utf-8?B?cXhhSlVmeU9TSHVxa2RzVXBIQktMcjJ4c1cxTTFaOE9rVnVRV200VXdiWnpz?=
- =?utf-8?B?cGR6NDFET0xYZHpvMERzMnd6Tk1WT3VaVTQvanNUMDI5Y0prbHREUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 71590b08-b3a5-4db4-d38d-08df2abe9421
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7110.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 13:16:52.8366
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pVkKR7gys9WCp9/6qXSGd6Vp+htx2TaDUWwMXJx9zZ8toZ6vkWMKP/d1Gzt8ZrvxP+nPrL+f6A1fdMmU1upENw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6954
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] khugepaged: hold invalidate_lock across
+ collapse_file() readahead
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>, Zi Yan
+ <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Usama Arif <usama.arif@linux.dev>,
+ Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, Jan Kara
+ <jack@suse.cz>, Hugh Dickins <hughd@google.com>
+References: <DLEBZ0GIGNQ8.17U563YYJ37AA@nvidia.com>
+ <20260913163644.122133-1-ngocthang2710.1999@gmail.com>
+ <20260913111700.6de78b5834842f7dd3f12d07@linux-foundation.org>
+ <aqbvFtlXd3Jdnfbm@gremlin> <1fe4027a-6ad8-42a1-9943-cb3b8aad3fb6@kernel.org>
+Content-Language: en-US
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <1fe4027a-6ad8-42a1-9943-cb3b8aad3fb6@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-On 15/10/2026 14:13, Jon Hunter wrote:
-> On Wed, 14 Oct 2026 14:50:40 +0200, Greg Kroah-Hartman wrote:
->> This is the start of the stable review cycle for the 6.18.57 release.
->> There are 632 patches in this series, all will be posted as a response
->> to this one.  If anyone has any issues with these being applied, please
->> let me know.
+
+On 2026/10/15 20:26, David Hildenbrand (Arm) wrote:
+> On 9/13/26 20:48, Lorenzo Stoakes (ARM) wrote:
+>> (Nguyen - do not send v2 in reply to v1, look across mm and see how things are
+>> done here).
 >>
->> Responses should be made by Fri, 16 Oct 2026 12:37:22 +0000.
->> Anything received after that time might be too late.
+>> somebody who has a
 >>
->> The whole patch series can be found in one patch at:
->> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.57-rc2.gz
->> or in the git tree and branch at:
->> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
->> and the diffstat can be found below.
+>> On Sun, Sep 13, 2026 at 11:17:00AM -0700, Andrew Morton wrote:
+>>> On Sun, 13 Sep 2026 23:36:44 +0700 Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com> wrote:
+>>>
+>>>> collapse_file() calls page_cache_sync_readahead() to fault in missing
+>>>> pages before collapsing them into a THP. That helper takes
+>>>> mapping->invalidate_lock itself for the duration of the call, then
+>>>> drops it -- but truncate (e.g. ext4_setattr() -> truncate_pagecache())
+>>>> takes invalidate_lock and then waits on each page's folio lock while
+>>>> holding it. If collapse_file() has already locked one of those folios
+>>>> by the time truncate reaches it, and then tries to acquire
+>>>> invalidate_lock again (e.g. on the first readahead call, since
+>>>> invalidate_lock is not yet held at that point), the two paths can
+>>>> deadlock/hang on each other's lock: truncate blocked on the folio lock
+>>>> collapse holds, and collapse blocked waiting for invalidate_lock that
+>>>> truncate holds.
+>>>>
+>>>> Reproducing this over ~150,000 collapse iterations with truncate
+>>>> racing concurrently reliably hits hung_task: blocked tasks within
+>>>> about 20 seconds on an unpatched kernel.
+>>>>
+>>>> Fix it by taking invalidate_lock_shared once for the whole scan, after
+>>>> alloc_charge_folio() succeeds and before locking any folio, and using
+>>>> page_cache_ra_unbounded() directly in the readahead call site instead
+>>>> of page_cache_sync_readahead(), since the latter would try to retake
+>>>> the lock we already hold. page_cache_ra_unbounded() does not clamp to
+>>>> EOF like the helper it replaces, so clamp the requested range
+>>>> explicitly.
+>>>>
+>>>> 730633f0b7f9 added invalidate_lock acquisition around readahead but
+>>>> missed collapse_file(), which already locks pages while calling
+>>>> readahead; later filesystem conversions made the deadlock reachable by
+>>>> taking invalidate_lock before waiting on page locks during truncate.
+>>>>
+>>>> Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
+>>>> Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
+>>>> Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
+>>>
+>>> (You forgot to cc the original author)
 >>
->> thanks,
+>> Also a change log, and that mm doesn't like sending a respin in-reply-to a
+>> previous version. Which is all consistent with somebody using e.g. openclaw to
+>> pepper generated patches across the kernel...
 >>
->> greg k-h
+>>>
+>>> Five years.
+>>>
+>>> I wonder why this hasn't been discovered by lockdep, AI, syzbot or any
+>>> other of the tools we've been using for so long.
+>>>
+>>> Thanks for doing all this.
+>>
+>> See https://lore.kernel.org/linux-mm/aqbtfms0_2ULBIT7@gremlin/
+>>
+>> I am not really entirely happy with somebody who has sent a flurry of patches
+>> across disparate subsystems with no previous track record being in charge of a
+>> potentially backported fix.
+>>
+>> It's David's decision but I think this fix should be taken over by somebody
+>> else.
 > 
-> Failures detected for Tegra ...
-> 
-> Test results for stable-v6.18:
->     builds:	11 pass, 0 fail
->     boots:	28 pass, 0 fail
->     tests:	163 pass, 1 fail
-> 
-> Linux version:	6.18.57-rc2-gfea86ab6861e
-> Boards tested:	tegra20-ventana
->                 tegra30-cardhu-a04
->                 tegra124-jetson-tk1
->                 tegra210-p2371-2180
->                 tegra210-p3450-0000
->                 tegra186-p2771-0000
->                 tegra186-p3509-0000+p3636-0001
->                 tegra194-p2972-0000
->                 tegra194-p3509-0000+p3668-0000
->                 tegra234-p3737-0000+p3701-0000
->                 tegra234-p3768-0000+p3767-0005
-> 
-> Test failures:	tegra194-p2972-0000: boot.py
+> So what's the status of this? Any volunteers? Otherwise I'll polish this up.
 
-
-This is the same kernel warning reported by Peter Schneider.
-
- WARNING KERN Driver 'ufs_device_wlun' needs updating - please use bus_type methods
-
-Jon
-
--- 
-nvpublic
+I can take this over if no one else volunteers :D
 
