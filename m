@@ -1,103 +1,88 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1059151A726
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 13:10:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D8751C322
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 13:13:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792069860; cv=none; b=j7BR5nYfig7TY9BQfk4YKGUn/8LhFICLBzD1Yh2QDsKL1fF4cHSqzlYRG7P7GAG2OUqdtA5UHrHh1RNDmhwrkvbXZIvQFG8QeW9KQre9kbYj18rpTN1/x0jhtH+61eErEtYHWVzh8xYQEYrzlWCIyEtJdN0sTrA7z4fdenhcSyg=
+	t=1792070020; cv=none; b=bXPpI3BkqdeQ4XJBDtnLNtr3ZG6U305GfsGT8905PY4cRLckLsekyiRIP041EGgiJLnnaU9SOeaEY90k5s+vjkI7kwmrZaa8+S9Prprjf2iTbRALGk7EoRu9U+Kf6P+24kxK+reSEr4Apdf6PRYmLG+5eNsxZS+F7lFDGowYLzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792069860; c=relaxed/simple;
-	bh=vMOw2LnSptLx2inZHDauA7QAHN1ePZ6m86XtVnrNXWc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CQAiSlX0Vg3KpeERrUyqEJ0GXnhD7KSb+1hoSYW5K9l58XZa3dGzAflRYq5+zSSltyjt7DTsJsmaWBhdou4TCH4OJ4ghYGORVnecqWT/Dys7yPR7kGMTs65c8J9pyDAJ78wCZBuMWxc/pEFasIlgM8XdEKBvnEz1b/jC/kVYAqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=EUWgwLAG; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1792070020; c=relaxed/simple;
+	bh=ucFZ8Mq7ewmyXcDTFKP7UULK5m7ZGXARwwBrJyVQ/qA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cI+TvMo9TC34nS3SqUy02BeiqOYnilqWLoNtJNtnCz3X8Mb7dIgTfur7xGHbCuPoqT4w4Zb3LMm4XQkxJvIGtJDv7hg7CFEOxROcfL/4KxFoQnC2s3/t347+BNZONZ2DbkEbseOdWoxWH2G69zjnZS2+u00hM5/ldQjblTvFk2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dFozGoY5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="EUWgwLAG"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so21112135e9.2
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 06:10:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792069857; x=1792674657; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y1H+C/SntNFC1iY1JZXwhhR2BGSETQJL2ytojY5GJ3U=;
-        b=EUWgwLAGFmMJsZkYtydLu/CHXyvnmoKfUkRIEU5V1Udz45MVgy4jqXeixgbKcoWEjr
-         jRnQuhYBi0OcFCauVI5CdndT26uTqZtuJs/dvWTFa9c2GULJX4JE0wNH3LCI1MwJjG3Z
-         GT2QtGd+lTA2AYKQJ4JZLf3IisUvPgXEqr2vqIzNqcU4e1MEFwFtvm9l0a2sS9vr1lD/
-         pbGsbs9ImfeUqCCdtQ5m2mTf0p0bMXRgAAo2ocL39fs9ev23HZSFRWbLSqM35SmXsa2Q
-         spDiL9CcJTH8Xhs5r7qAgqSMraH1OQrVfeN1DDIW6NdublJS/hHLtxdsszqSAVKgFsgW
-         bdJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792069857; x=1792674657;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=y1H+C/SntNFC1iY1JZXwhhR2BGSETQJL2ytojY5GJ3U=;
-        b=w4AguTdwb9NKXv6OpJRfHWB/Sx1qJSz2vSNI+J3+ChY3PmWciXCcYpBFZTUQWfPkDQ
-         5b6qgO9uu2yZgYT01Xl3fQuHPTSkXrLKNCmGvsSMnL2MYwCWK0Af5FZKIDwulQOHVR7A
-         2/fe0IcVshTw7a9rd5HlwbkQzrAcx1Hf0YNcPaISk3F1AQiuoNcVQUW8zAXbJUQJfs/b
-         SHWpnN1DhBW96KiYVS6AuVhLAFnn01VvLSFX6Tcf+RBV/VACIogzKckkNq1dQt+EMG91
-         LQ1A3eKsER3olxMdxksTYNqp6rVcva52Y/Lv8sFiHsOgAPKJuxHvXbO5iZ+E53lvyUX/
-         Qpnw==
-X-Forwarded-Encrypted: i=1; AKwUvBypTw6xAz1M+6WqMwlzQxAvFHUvhYf1LujkWwuDOJqJIion/s9VLIKnJFUbA5udToM140HB7e8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKum7S+qBbgeoVPX3irXWaySB8NT7lJwIk9SouDochKtNy8Fs7e
-	QyE7WjfIYkO5Pi5w68HWQXER0EWnpSUX2J3d1JfV0XVv2SMVsr4D9ucpVe15p3Q8Qc97rsI9X7G
-	dfkg1BUM=
-X-Gm-Gg: AYBFou32XXEPOiDt6KoCRKhUrI4QL85HrVm5ZTZI+ortuQr5sERZS79SnMzqSsk7qaH
-	QzI1Kbyi293dBgFp3CgcYYR1PnzUz8F1fFYibXGWUcRz8O1GVm8dR20HJeZH+Hdnc7y6jTwkpbp
-	Uo1YNEGq2MvxyQwk7ruTid1zAqLviX84sNHIxCLcNS3B1FxNkPgxjX7DzVAM1ic1wu6Nv+xtvz2
-	2C+7jOcOtGYPpsX4Fm/bXckMdWP4LqzBm87p+AmYOBCCUHrqP0EcehOq1LeBbGfKDAGkRM9e5PQ
-	Syeicc6ubht5C+lllPQWnfamhuAIPv0GX997ghmnz5hYDN7gWa/tvQGa/0A552+Jn2hiC1mXaaN
-	LfrbppiuqoRBosd7H31Vnkgj8F9WjyMrPPCpdXg08aY46uYeSYLoeMX0WRwqqggENeBz4CzBJ/N
-	WqSb9LjVw1sfP3AFA18+qqGP0/pRQ9X3WsDKv30fwJziUwRmIV9O8tQb2UzvHeTSDm04dijG0xK
-	4u82yzJmYGnxCp59kyw9Fks0Ozl28HdvmuoKGGOxxA=
-X-Received: by 2002:a05:600c:524a:b0:49b:9202:6f80 with SMTP id 5b1f17b1804b1-4a18e4a4f2amr384803075e9.6.1792069857275;
-        Thu, 15 Oct 2026 06:10:57 -0700 (PDT)
-Received: from ?IPV6:2001:a61:130c:b201:1a24:6e5c:9182:4c01? ([2001:a61:130c:b201:1a24:6e5c:9182:4c01])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd6834dasm65234445e9.4.2026.10.15.06.10.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 06:10:56 -0700 (PDT)
-Message-ID: <aed1c8c9-1603-4d35-9b2d-e164d559f497@suse.com>
-Date: Thu, 15 Oct 2026 15:10:56 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dFozGoY5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75FE11F000C8
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 13:13:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792070017;
+	bh=GnEkXDjMJm1exlC5tTiLHa25Mrd5Uvr2qX3xMMnipRs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=dFozGoY5ns8VBK7wD15lqifaPgZ5oRl7bS5qGyXzFGtf5JYcKUo6Ckh7lOZqaxhYR
+	 DLj85OQ8ASr5MYvmCcys2yYLuwqteJELC5+5SapxUbX2EF0Aj29yUJ1ershJvccHnE
+	 /ikMhITy18YX96OzVX0ctoBTREeIA/+3VP5iRNivJmPFWMuMNUB6uc31iZDqmJrZFr
+	 2VlFH7SPEOnWnKG67yaPjJ9U6R41FT39i2Q4+fcE+cVdSj7ykYBqN2QcjOres0wxs+
+	 +0lILV9W7gl6pS29jIS8ocoN6fi45+sp/j1KY4/Q6TVxAZqBa08jQR6wmutci5dyVD
+	 1AkNb9jUGmzbA==
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c2afa22e1dcso765975666b.1
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 06:13:37 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxF1Fea6pNgvJ72qjQL2G3dFSMnOAYVSISnU+xb0S318TmgUGuEonNL+gh5kGxAmiohnSCAeqc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJBPv+CHMCYX0QaKTmp7jae41mGiMHcdLQcaKv9SEDkHOTqiKiY
+	Z0rOcILZW9R4tiPLQxAONTLZezSkhDrtELMlPOcCwhxthwBBnEeeVbz+fXNGeUtHc7f8zOpbQfJ
+	O2Es7vc1MS/8QveH/iibdZB8Yx5jnqaY=
+X-Received: by 2002:a17:906:dc8c:b0:c2d:ba08:9092 with SMTP id
+ a640c23a62f3a-c31a9fe730dmr1694771866b.16.1792070016069; Thu, 15 Oct 2026
+ 06:13:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: storage: bound timeout=0 URB waits to 30s
-To: Hongyu Xie <xiehongyu1@kylinos.cn>, stern@rowland.harvard.edu,
- gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261014093856.415812-1-xiehongyu1@kylinos.cn>
-Content-Language: en-US
-From: Oliver Neukum <oneukum@suse.com>
-In-Reply-To: <20261014093856.415812-1-xiehongyu1@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261013015652.19724-1-zenghongling@kylinos.cn>
+In-Reply-To: <20261013015652.19724-1-zenghongling@kylinos.cn>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Thu, 15 Oct 2026 22:13:23 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_O0Xf3pUcPdwKVVMf_jn0WD-J4i0xmQ3v6a=y1kOmoRA@mail.gmail.com>
+X-Gm-Features: AclHuK_62zyJ9s2LrW-rF8gXePKSnnjHw0Oo6L11_y8j6ZkpLN8J9SMhVA2HM00
+Message-ID: <CAKYAXd_O0Xf3pUcPdwKVVMf_jn0WD-J4i0xmQ3v6a=y1kOmoRA@mail.gmail.com>
+Subject: Re: [PATCH v5] ntfs: roll back the ACL xattr commit when the WSL mode
+ update fails
+To: Hongling Zeng <zenghongling@kylinos.cn>
+Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	zhongling0719@126.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-
-On 14.10.26 11:38, Hongyu Xie wrote:
-
-> A blanket bound for this helper was suggested before [1] but dropped over
-> concern that legitimate SCSI commands (format, tape rewind) can exceed
-> 60 seconds.  Those commands are issued to tape LUs whose SCSI timeouts
-> are much longer than 30s; usb-storage-attached tapes holding back a CSW
-> for more than 30 seconds remain the residual false-positive window of
-> this change (modern tape bridges use UAS, which is unaffected).
-
-And these concerns are entirely justified.
-I am sorry, but there is no uniform timeout suitable for SCSI commands.
-If anything hangs based on wrong timeouts, that is the bug to fix.
-
-	Regards
-		Oliver
-
+On Tue, Oct 13, 2026 at 10:57=E2=80=AFAM Hongling Zeng <zenghongling@kylino=
+s.cn> wrote:
+>
+> ntfs_set_acl_ex() commits the ACL xattr before it rewrites the WSL
+> mode EA, and removes it again when the rewrite fails.  That only
+> undoes a set that created the xattr: when the update replaced or
+> removed an existing one, the old ACL is discarded along with the
+> failed update.  No error is recorded when the undo fails, so the
+> new, typically more permissive, ACL is left on disk while i_mode,
+> the mode EA and the cached ACL keep the old values.  After a
+> remount, a chmod 0640 -> 0777 that reported failure leaves the file
+> accessible to the relaxed ACL while stat() still reports 0640.
+>
+> Save the previous xattr before committing the update, and restore it
+> when the mode EA rewrite fails.  A removed xattr is created again,
+> since XATTR_REPLACE fails with -ENODATA once the removal dropped the
+> entry.  Remove the new xattr only when there was no previous one, and
+> skip the undo when the commit changed nothing.  A failed rollback is
+> recorded: NVolSetErrors(), which the next persistence point persists
+> as VOLUME_IS_DIRTY, and a log message the errors=3D policy acts on.
+> The flag cannot be written to disk here directly: the target inode's
+> mrec_lock is held and the $Volume mrec_lock cannot be nested under
+> it.
+>
+> Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Hyunchul Lee <hyc.lee@gmail.com>
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Applied it to #ntfs-next.
+Thanks!
