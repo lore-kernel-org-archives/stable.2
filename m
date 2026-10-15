@@ -1,111 +1,155 @@
-Received: from out28-219.mail.aliyun.com (out28-219.mail.aliyun.com [115.124.28.219])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D803537E5EB;
-	Thu, 15 Oct 2026 02:10:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.219
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2DD03B995E;
+	Thu, 15 Oct 2026 02:15:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792030225; cv=none; b=iw9j1eLNAYe+qnRgl1kDsbJbXBnxSaFcARsikOjDM43UmDjC+SlA+cn3WQeOSCryan26QltKHR90gtgmeJ84DF47WUcwv1Ih+vKokfcnEPtUw/W3cUxpCY4CQ3xBZKprgVOreGw6RFPMz2iBaQsEpFy5Pa/lclbkAK7AyNY2rDA=
+	t=1792030513; cv=none; b=uLiBcrQNYcFF3SVwva0Gu1HATBhfMg3AyG2p0RFEo2axRFEF81Fwmu5Yt7WQzMhaO3n+jY5aDaSD49qA07ULIzeuC2kaVyUREcfBTGdCQj7EAZW+JTJ77IBniRBsWSmbj4aGfdrrzuJI3mzQtDMOpWB4+q/eZ+ppRqCmi5bQD/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792030225; c=relaxed/simple;
-	bh=UciLElILb4MREYhywIGPFVAqEkpc2MfPy8vmCW9C5xY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sxwdWBJ6abSpWqBgTBzCqo+Y3Z6RIFYE00zNK9fqVf4ZmBiUPYZ4XzlgCsEA+Tw9F6+7mEuz3Kon/t/avOG2leYpfjJBFj/efjq8dL8TUPBE8ei5K1llwgXCkyKuqJ/zB+E/ZWDQ+Txc4fEuIxzFJH3a073NLJH8FTTyQLtSr18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=YEMbG3jv; arc=none smtp.client-ip=115.124.28.219
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1792030513; c=relaxed/simple;
+	bh=nC+Ea8VuZ9s/+ylbktqMK3Faszr0wVmFAFNiGBbdnGQ=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=K3+oJcZklJ4zljCYJcCWUFYO8Qoh4KPFHFvEbBOil9JZOIbA9H7Sok1503eA4YC6QzV0c5wsX9VAyhKPRb1YONHa0dPvbz6XKmhwKdjqtJuul/GSL7/rB9BSSTZWo7xqZENiWCdgmSmB/vZVVFqhmS+s432srDmWaHOUI25BCNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NLKTo0dF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="YEMbG3jv"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1792030214; h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To;
-	bh=wHwAcuqNgX1w8cGpzkrIWY0kOgSy8n/NTCpBn8jlIEg=;
-	b=YEMbG3jv2lnJ1S90yl08yUFEzWZFpaxC9B6k1XmQ7m9Or+bsIw6R+g45NpyJ4tPlN7ySQSttVK9lOL1dK+6MkzsoXFHKqxjv1LE9kleaoan2lPvE6G5UeigMMhNCcfarv1YpnuA9SniBz8kr9TPsDBe0nd5yua5abtMErHrwT0Y=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07574709|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00277256-0.000464609-0.996763;FP=9667071803597065642|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037025160;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.jdzWobX_1792030212;
-Received: from 127.0.0.1(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jdzWobX_1792030212 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 15 Oct 2026 10:10:13 +0800
-From: Weibin Liu <liuwb@xiaopeng.com>
-Date: Thu, 15 Oct 2026 10:10:12 +0800
-Subject: [PATCH] spi: npcm-fiu: limit UMA data_size to the 16-byte staging
- buffer
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NLKTo0dF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA6031F000C4;
+	Thu, 15 Oct 2026 02:15:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792030511;
+	bh=+rXf/xKMRpoP2YDqUubFyOYnj4r2y2GwZMRV5dIrDGg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=NLKTo0dFxGsWNzHpSl2OQ2luouswLzOdwtk9AnHnvstPmwFTCX3ieaNOKmKkMWC4q
+	 C5t5S1IdQADX1K+gZm3sPg0WV7Pyfw1N+Nkx88jmTyMAnCNVtdSxTTehSh+A6CNirR
+	 6EmaA19yWRott3XaK8MoVwjZMvy5RgFkd2ScUyzYBeUzoLbJ12WYvukBG4vPkfFRnH
+	 I/HCjCwDrFVtnSRbHs7KaJmkjmuoiaQQgELsfDWOHdLDDZEuFEYokvOTK/2gXKD9dR
+	 ElnWpyLwsAlnRefG2rOe+4kj6Tj0UA2Llv+YnhFU2Fxs6kTwEvURuO5iokFXJq5jXf
+	 /bhU3j/tfZxiw==
+Message-ID: <b5d28ed79b3d7039aadeb445b62882cf3e970c7a.camel@kernel.org>
+Subject: Re: [PATCH net v4] RDS/IB: validate receive fragment completions
+From: Allison Henderson <achender@kernel.org>
+To: Shubham Antil <shubham@octane.security>, netdev@vger.kernel.org
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com,  horms@kernel.org, andy.grover@oracle.com,
+ linux-rdma@vger.kernel.org,  rds-devel@oss.oracle.com,
+ linux-kernel@vger.kernel.org, gio@octane.security,  sungbyeongchan
+ <tjdqudcks0424@naver.com>, Robert van Eijk <robert@octane.security>, Paolo
+ Gentry <paolo@octane.security>, stable@vger.kernel.org
+Date: Wed, 14 Oct 2026 19:15:09 -0700
+In-Reply-To: <20261013025729.40815-1-shubham@octane.security>
+References: <20261013025729.40815-1-shubham@octane.security>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-npcm-fiu-uma-datasize-v1-1-7dee91cadee6@xiaopeng.com>
-X-B4-Tracking: v=1; b=H4sIAAQ20GoC/x3MQQ5AMBBA0avIrE3SimriKmIxajALJS0ipHfXW
- L7F/y9EDsIR2uKFwJdE2XyGLgtwC/mZUcZsqFTVaKUN+t2tOMmJ50o40kFRHsZhYEPGOGtrC7n
- dA09y/9+uT+kD723namcAAAA=
-X-Change-ID: 20261015-npcm-fiu-uma-datasize-bbe5a55c7747
-To: linux-spi@vger.kernel.org, tmaimon77@gmail.com, broonie@kernel.org
-Cc: venture@google.com, andrew@codeconstruct.com.au, yuenn@google.com, 
- tali.perry1@gmail.com, benjaminfair@google.com, avifishman70@gmail.com, 
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, 
- stable@vger.kernel.org, Guanglei Zhu <zhugl3@xiaopeng.com>, 
- Weibin Liu <liuwb@xiaopeng.com>
-X-Mailer: b4 0.14.3
 
-npcm_fiu_uma_read() and npcm_fiu_uma_write() use a 16-byte on-stack
-staging buffer (u32 data_reg[4]) and move data_size bytes to or from
-it. data_size comes straight from op->data.nbytes, which is supplied
-by the SPI MEM operation and is not bounded by the driver:
-npcm_fiu_exec_op() only validates op->addr.nbytes, and no
-adjust_op_size callback truncates the transfer to the controller FIFO
-size.
+On Tue, 2026-10-13 at 08:27 +0530, Shubham Antil wrote:
+> rds_ib_process_recv() accounts every receive fragment as contributing
+> min(i_recv_data_rem, RDS_FRAG_SIZE) bytes, regardless of the completion
+> length. When a completion is shorter than the header-declared amount,
+> receive accounting can advance beyond the payload supplied by the
+> completion.
+>=20
+> Only an IB_WC_RECV completion has the buffer layout expected by this
+> receive path. Other successful completion opcodes must not be interpreted
+> as ordinary receive completions.
+>=20
+> Reject successful completions with any other opcode before processing
+> their length. For ordinary receive completions, require enough payload
+> to cover the amount accounted to the fragment before linking its page
+> into the incoming message.
+>=20
+> This is compatible with the current transmit paths. MSG_ZEROCOPY is
+> restricted to RDS/TCP, while RDS/IB copied and page-vector messages use
+> full-sized non-final scatterlist entries.
+>=20
+> Found during an LLM-assisted source audit and validated under KMSAN with
+> a malformed short receive completion.
+>=20
+> Reported-by: sungbyeongchan <tjdqudcks0424@naver.com>
+> Closes: https://lore.kernel.org/netdev/20261006205204.1322102-1-tjdqudcks=
+0424@naver.com/
+> Reported-by: Giovanni Vignone <gio@octane.security>
+> Link: https://lore.kernel.org/netdev/8a6ee1d5336ae65b8ffdc8c40a1135657207=
+e204.camel@kernel.org/
+> Reported-by: Robert van Eijk <robert@octane.security>
+> Link: https://lore.kernel.org/netdev/8a6ee1d5336ae65b8ffdc8c40a1135657207=
+e204.camel@kernel.org/
+> Reported-by: Paolo Gentry <paolo@octane.security>
+> Link: https://lore.kernel.org/netdev/8a6ee1d5336ae65b8ffdc8c40a1135657207=
+e204.camel@kernel.org/
+> Fixes: 1e23b3ee0e94 ("RDS/IB: Receive datagrams via IB")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM (OpenAI Codex, gpt-5.6-sol)
+> Signed-off-by: Shubham Antil <shubham@octane.security>
+Thanks Shubham,=C2=A0
 
-A SPI MEM operation with addr.nbytes == 0 and data.nbytes > 16
-therefore overflows data_reg[] on the kernel stack (write path) or
-reads past it (read path), corrupting the stack.
+This version looks good to me. I also tested it and found no regressions.=
+=20
+Reviewed-by: Allison Henderson <achender@kernel.org>
+Tested-by: Allison Henderson <achender@kernel.org>
 
-Reject data_size larger than the staging buffer in both UMA helpers
-by returning -EOPNOTSUPP, so spi_mem falls back to the generic SPI
-message path. The chunked path in npcm_fiu_manualwrite() always passes
-at most CHUNK_SIZE bytes, so it is unaffected.
+Thank you!
+Allison
 
-Fixes: ace55c411b11 ("spi: npcm-fiu: add NPCM FIU controller driver")
-Cc: stable@vger.kernel.org # 5.4+
-Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
----
- drivers/spi/spi-npcm-fiu.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/spi/spi-npcm-fiu.c b/drivers/spi/spi-npcm-fiu.c
-index 96dfef4d9067..9c0a655a54b3 100644
---- a/drivers/spi/spi-npcm-fiu.c
-+++ b/drivers/spi/spi-npcm-fiu.c
-@@ -343,6 +343,10 @@ static int npcm_fiu_uma_read(struct spi_mem *mem,
- 	u32 val;
- 	u32 i;
- 
-+	/* data_reg holds at most 16 bytes */
-+	if (data_size > sizeof(data_reg))
-+		return -EOPNOTSUPP;
-+
- 	regmap_update_bits(fiu->regmap, NPCM_FIU_UMA_CTS,
- 			   NPCM_FIU_UMA_CTS_DEV_NUM,
- 			   (spi_get_chipselect(mem->spi, 0) <<
-@@ -398,6 +402,10 @@ static int npcm_fiu_uma_write(struct spi_mem *mem,
- 	u32 val;
- 	u32 i;
- 
-+	/* data_reg holds at most 16 bytes */
-+	if (data_size > sizeof(data_reg))
-+		return -EOPNOTSUPP;
-+
- 	regmap_update_bits(fiu->regmap, NPCM_FIU_UMA_CTS,
- 			   NPCM_FIU_UMA_CTS_DEV_NUM,
- 			   (spi_get_chipselect(mem->spi, 0) <<
-
----
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-change-id: 20261015-npcm-fiu-uma-datasize-bbe5a55c7747
-
-Best regards,
--- 
-Weibin Liu <liuwb@xiaopeng.com>
+> ---
+> Changes in v4:
+> - Reject malformed short fragments instead of normalizing their length.
+> - Reject successful non-IB_WC_RECV completions before trusting byte_len.
+> - Explain why MSG_ZEROCOPY cannot reach the RDS/IB transmit path.
+> - Add the source-audit and KMSAN discovery details.
+> - Remove the author's self-Reported-by while retaining linked reporters.
+> - Leave maximum h_len validation to a separate investigation.
+>=20
+> v3: https://lore.kernel.org/netdev/20261008124940.13371-1-shubham@octane.=
+security/
+> v2: https://lore.kernel.org/netdev/20261007062135.49946-1-shubham@octane.=
+security/
+>=20
+>  net/rds/ib_recv.c | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/net/rds/ib_recv.c b/net/rds/ib_recv.c
+> index bd6cb3ffaa..aa50b85b0f 100644
+> --- a/net/rds/ib_recv.c
+> +++ b/net/rds/ib_recv.c
+> @@ -949,6 +949,12 @@ static void rds_ib_process_recv(struct rds_connectio=
+n *conn,
+>  		}
+>  	}
+> =20
+> +	if (data_len < min_t(u32, ic->i_recv_data_rem, RDS_FRAG_SIZE)) {
+> +		rds_ib_conn_error(conn,
+> +				  "fragment shorter than header-declared length; forcing reconnect\n=
+");
+> +		goto done;
+> +	}
+> +
+>  	list_add_tail(&recv->r_frag->f_item, &ibinc->ii_frags);
+>  	recv->r_frag =3D NULL;
+> =20
+> @@ -1004,7 +1010,12 @@ void rds_ib_recv_cqe_handler(struct rds_ib_connect=
+ion *ic,
+>  	 * event is processed.
+>  	 */
+>  	if (wc->status =3D=3D IB_WC_SUCCESS) {
+> -		rds_ib_process_recv(conn, recv, wc->byte_len, state);
+> +		if (wc->opcode !=3D IB_WC_RECV)
+> +			rds_ib_conn_error(conn,
+> +					  "recv completion had unexpected opcode %u, disconnecting and reco=
+nnecting\n",
+> +					  wc->opcode);
+> +		else
+> +			rds_ib_process_recv(conn, recv, wc->byte_len, state);
+>  	} else {
+>  		/* We expect errors as the qp is drained during shutdown */
+>  		if (rds_conn_up(conn) || rds_conn_connecting(conn))
+>=20
+> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
 
