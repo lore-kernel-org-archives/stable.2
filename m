@@ -1,139 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C5144F93C3;
-	Thu, 15 Oct 2026 22:58:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7467B261B8D;
+	Thu, 15 Oct 2026 23:06:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792105114; cv=none; b=XzHK0lbcBlpOKtgZrHQBYkzkY7h9J41hVmNKZTaU15jRvkHO6TA/KxO6JzPTuJIsdiZ+Tq9TmMtSvF7bs0PdzQcPTJ9JVTwDu7j7j3kEyLPQZEG9H1j2SO1QCHdjRUZlNs+1s88Gmaeoc26gYhBgZSVTH4lADVdO/wvHIAjF0oI=
+	t=1792105605; cv=none; b=GD0cXJISNmf78HgFmX/btvt13X9V5cObTYL3DRDz5xf7c+uCJgeFZEAGE/xyOyAWrm7ACBBsycJ8s32d3mUNMTYS68EjUKJSNmgS6K6ywmBnfwGB+wEmL4JVI1JmMw2fUtjunCjZRCJ9XxEev+jsAdtvMoaV9mm6G9YFnV9EdEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792105114; c=relaxed/simple;
-	bh=XYO1gm8DJbkIduUJMNyzFYYPta3HQVGGWNNAtbnGE08=;
-	h=Date:To:From:Subject:Message-Id; b=DHEvThWxwN3lsfQd7gJLbZnqU9cYc/mQ3qrIOjQF7BLKGodjdMFDMGiLm+QIic0QOyM+Wu4cA12FPvF7RdhYh4FMNppZRTF9bgkAsOIzawZjOAUqBFMnltJYSqUueEXLoTbwAVf2ytwpCtO6CSYr8jtKlnZVkeYP4tzJBS7Y97w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=mHBSvRg/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792105605; c=relaxed/simple;
+	bh=fhiJ0rg+A/cnPRaFz88V9kFoHVcptEqpB77OA5hTkP8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YZBquoQHMSukvJH58BDcU0txM6V/uMqTTER75MY0z3LSs0kdcYDAIPNYPYYjM12p+nfddJt1LX0ndTZulMdlJBX1KUpchDJQxK8J9VfQhuaO4drkdUnEeqNSzx6DG3wcyhhoAwC131/GpjCLFV0A0pjW+Zku0fbYD+7Wk1Sd0cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=rczsvbwV; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="mHBSvRg/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D1C31F000C4;
-	Thu, 15 Oct 2026 22:58:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792105113;
-	bh=wwThAY94RUtKWkRfFjZ6fc0bs+OsWOrfC37KzK9xd2w=;
-	h=Date:To:From:Subject;
-	b=mHBSvRg/haEgJvJB+Ak9SOdKtmxxACUlVpMiV48Nz/BElDVHWvKAPvrVzLVGhGcwk
-	 3d9RA6CN+XAA6VfZNFJaDKACTbWSFYPSDdVhyRWonf4TlBd/xV74B39yYSq/UxjHza
-	 h5dq7y+ePtMFkt7y85xmYeNGUsq6sic8Ruqn3Z8s=
-Date: Thu, 15 Oct 2026 15:58:32 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,rppt@kernel.org,riel@surriel.com,pfalcato@suse.de,peterx@redhat.com,osalvador@suse.de,nao.horiguchi@gmail.com,muchun.song@linux.dev,mel@csn.ul.ie,ljs@kernel.org,linmiaohe@huawei.com,liam@infradead.org,kas@kernel.org,josef@toxicpanda.com,jannh@google.com,agl@us.ibm.com,david@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-mremap-fix-calling-fixup_hugetlb_reservations-on-the-wrong-vma.patch added to mm-hotfixes-unstable branch
-Message-Id: <20261015225833.3D1C31F000C4@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="rczsvbwV"
+Received: from vm-dev.d0aziqou4eyuzblxqhi51nu2sc.xx.internal.cloudapp.net (unknown [4.246.87.102])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 561C620B7167;
+	Thu, 15 Oct 2026 16:06:39 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 561C620B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1792105599;
+	bh=Pzs3NBpcOk5ot9pXk28NWkBWsinkGHdDqizIJZj5RAE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=rczsvbwVXh0yEK1F7eo+CspMM66P6MlHR0deTr/LYwLIfUNOCm8DUCoLuTcBqJFDv
+	 9RJbEuinox5tExJsG2i2oqSk33JzTsY0xl8g1RNrB9eWSvsdWEDXqDb5zA2wqoZUyS
+	 AiPY53KCVSL0xCW5JxgWvPEkMQIJbvp4xgpdV1ro=
+From: Tahera Fahimi <taherafahimi@linux.microsoft.com>
+To: stable@vger.kernel.org
+Cc: davem@davemloft.net,
+	steffen.klassert@secunet.com,
+	herbert@gondor.apana.org.au,
+	kuba@kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	apais@linux.microsoft.com,
+	edumazet@google.com,
+	pabeni@redhat.com
+Subject: [PATCH 5.15.y] xfrm: prevent policy_hthresh.work from racing with netns teardown
+Date: Thu, 15 Oct 2026 16:06:34 -0700
+Message-ID: <20261015230634.2364063-1-taherafahimi@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+An XFRM_MSG_NEWSPDINFO request can queue the per-net work item
+policy_hthresh.work onto the system workqueue. xfrm_hash_rebuild()
+retrieves the enclosing struct net from the work item, so the callback
+can dereference freed memory if it runs after net namespace teardown.
 
-The patch titled
-     Subject: mm/mremap: fix calling fixup_hugetlb_reservations() on the wrong VMA
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-mremap-fix-calling-fixup_hugetlb_reservations-on-the-wrong-vma.patch
+Mainline commit 29fe3a61bcdc ("xfrm: prevent policy_hthresh.work
+from racing with netns teardown") fixes this issue using
+disable_work_sync(). That API is not available in Linux 5.15, so the
+mainline change cannot be directly backported.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-mremap-fix-calling-fixup_hugetlb_reservations-on-the-wrong-vma.patch
+Provide the same guarantee with an XFRM-local work_disabled flag. Protect
+the flag and schedule_work() with the existing policy_hthresh seqlock so
+teardown can atomically stop new queueing attempts. Then use
+cancel_work_sync() to synchronize work that was queued before the flag was
+set. This ensures policy_hthresh.work cannot outlive its struct net.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Subject: mm/mremap: fix calling fixup_hugetlb_reservations() on the wrong VMA
-Date: Thu, 15 Oct 2026 18:07:16 +0200
-
-In case we fail to move the page tables, for example, because we fail
-to allocate a page table, we actually keep the old VMA.
-
-Calling fixup_hugetlb_reservations() on the old VMA is wrong. Fix it
-by just calling it on the VMA that will be removed.
-
-The user-visible impact is that the VMA loses its reservations, meaning
-that the existing reservations get stranded (leaked) and new hugetlb folios
-that are getting allocated in the VMA cannot make use of the
-reservations, failing these allocations.
-
-Link: https://lore.kernel.org/20261015-urgent_fixes-v1-10-42796911043b@kernel.org
-Fixes: b714ccb02a76 ("mm/mremap: complete refactor of move_vma()")
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Adam Litke <agl@us.ibm.com>
-Cc: Mel Gorman <mel@csn.ul.ie>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Josef Bacik <josef@toxicpanda.com>
-Cc: <stable@vger.kernel.org>
+Fixes: 880a6fab8f6b ("xfrm: configure policy hash table thresholds by netlink")
+Assisted-by: GitHub-Copilot:GPT-5.6 Sol
+Signed-off-by: Tahera Fahimi <taherafahimi@linux.microsoft.com>
+Reviewed-by: Allen Pais <apais@linux.microsoft.com>
 ---
+ include/net/netns/xfrm.h |  1 +
+ net/xfrm/xfrm_policy.c   | 19 ++++++++++++++++++-
+ 2 files changed, 19 insertions(+), 1 deletion(-)
 
- mm/mremap.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/mm/mremap.c~mm-mremap-fix-calling-fixup_hugetlb_reservations-on-the-wrong-vma
-+++ a/mm/mremap.c
-@@ -1345,7 +1345,7 @@ static int copy_vma_and_data(struct vma_
- 		mremap_userfaultfd_prep(new_vma, vrm->uf);
- 	}
+diff --git a/include/net/netns/xfrm.h b/include/net/netns/xfrm.h
+index 7922ec72eaa68..eb9edddd73092 100644
+--- a/include/net/netns/xfrm.h
++++ b/include/net/netns/xfrm.h
+@@ -23,6 +23,7 @@ struct xfrm_policy_hash {
+ struct xfrm_policy_hthresh {
+ 	struct work_struct	work;
+ 	seqlock_t		lock;
++	bool			work_disabled;
+ 	u8			lbits4;
+ 	u8			rbits4;
+ 	u8			lbits6;
+diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
+index 536b945e1eeb6..15d50b5a22ef1 100644
+--- a/net/xfrm/xfrm_policy.c
++++ b/net/xfrm/xfrm_policy.c
+@@ -1378,7 +1378,10 @@ static void xfrm_hash_rebuild(struct work_struct *work)
  
--	fixup_hugetlb_reservations(vma);
-+	fixup_hugetlb_reservations(vrm->vma);
+ void xfrm_policy_hash_rebuild(struct net *net)
+ {
+-	schedule_work(&net->xfrm.policy_hthresh.work);
++	write_seqlock(&net->xfrm.policy_hthresh.lock);
++	if (!net->xfrm.policy_hthresh.work_disabled)
++		schedule_work(&net->xfrm.policy_hthresh.work);
++	write_sequnlock(&net->xfrm.policy_hthresh.lock);
+ }
+ EXPORT_SYMBOL(xfrm_policy_hash_rebuild);
  
- 	*new_vma_ptr = new_vma;
- 	return err;
-_
-
-Patches currently in -mm which might be from david@kernel.org are
-
-mm-fix-address-wraparound-when-scanning-large-folio-ptes.patch
-mm-hugetlb-fix-use-after-free-in-hugetlb_mfill_atomic_pte.patch
-mm-hugetlb-tolerate-uffd-bits-set-without-uffd-for-prot_none-ptes.patch
-mm-hugetlb-tolerate-uffd_wp-markers-outside-uffd-wp-vmas.patch
-mm-mremap-fix-calling-fixup_hugetlb_reservations-on-the-wrong-vma.patch
-arm64-mm-move-__check_safe_pte_update-fix.patch
-mm-sparse-move-mem_section-init-to-sparse_extreme_init.patch
-mm-sparse-refactor-sparse_sections_init.patch
-mm-sparse-move-initialization-of-section-metadata-to-sparse_metadata_init.patch
-mm-sparse-rename-and-cleanup-sparse_init_nid.patch
-mm-sparse-cleanup-sparse_init_one_section.patch
-mm-sparse-rename-__highest_present_section_nr-to-__highest_used_section_nr.patch
-mm-sparse-remove-pfn_in_present_section.patch
-mm-sparse-move-__highest_used_section_nr-handling.patch
-scripts-gdb-mmpy-remove-fallbacks-for-section_has_mem_map-and-section_is_early.patch
-mm-sparse-remove-section_marked_present.patch
-mm-sparse-remove-flags-parameter-from-sparse_init_one_section.patch
-fs-proc-page-clarify-comment-in-get_max_dump_pfn.patch
-mm-memory_hotplug-drop-config_have_arch_pfn_valid-handling-from-pfn_to_online_page.patch
-vmcoreinfo-export-section_has_mem_map.patch
-mm-disallow-ioremaping-ordinary-ram-in-generic_access_phys.patch
-mm-userfaultfd-only-allocate-anon_vma-in-cow-mappings.patch
+@@ -4088,6 +4091,7 @@ static int __net_init xfrm_policy_init(struct net *net)
+ 	net->xfrm.policy_hthresh.rbits6 = 128;
+ 
+ 	seqlock_init(&net->xfrm.policy_hthresh.lock);
++	net->xfrm.policy_hthresh.work_disabled = false;
+ 
+ 	INIT_LIST_HEAD(&net->xfrm.policy_all);
+ 	INIT_LIST_HEAD(&net->xfrm.inexact_bins);
+@@ -4113,6 +4117,19 @@ static void xfrm_policy_fini(struct net *net)
+ 	unsigned int sz;
+ 	int dir;
+ 
++	/* Prevent new policy hash rebuilds before draining the work item.
++	 *
++	 * The upstream fix uses disable_work_sync(), which is unavailable
++	 * in v5.15. Protecting work_disabled and schedule_work() with the
++	 * same seqlock closes the check-to-queue race, while the subsequent
++	 * cancel_work_sync() drains work that was queued or running before
++	 * teardown disabled it.
++	 */
++	write_seqlock(&net->xfrm.policy_hthresh.lock);
++	net->xfrm.policy_hthresh.work_disabled = true;
++	write_sequnlock(&net->xfrm.policy_hthresh.lock);
++	cancel_work_sync(&net->xfrm.policy_hthresh.work);
++
+ 	flush_work(&net->xfrm.policy_hash_work);
+ #ifdef CONFIG_XFRM_SUB_POLICY
+ 	xfrm_policy_flush(net, XFRM_POLICY_TYPE_SUB, false);
+-- 
+2.43.0
 
