@@ -1,125 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83DF223336;
-	Thu, 15 Oct 2026 14:52:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B5A540801E;
+	Thu, 15 Oct 2026 14:53:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075969; cv=none; b=c1+ez2WRL+iwhjkbBZOadcBIKTIQIprTKxjlYu7y9+D5JAI2csuteuzERiXkeR+J3/Uh80YbFxw/hOkwcCi1Y6mdaw4wqRFzx5AkmU71yWclStzGqHqP1iXGor30vuMrYc4aYzU4SWXhNEATst2Q0BoonDpuIc1OExmN6Jnrxzo=
+	t=1792075991; cv=none; b=smhaK1r7Cpgh6xoCLGc3ticF36N8YQR1bgwr9QjwOuY0dlo3qtIxTNB9bc0xroXt81KGQ9BSf+PPeSnsWwFI9pme821o5aGHPqeuzaQ4UoVc1iS+9aJWh0kTDWo0LsGWXXnJZywxkkWBpc1fN5+dNXqGwrVkgaTjxnzpsZ0e29g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075969; c=relaxed/simple;
-	bh=WUD7ZmFpEH5pp45xghtynRttTm+KE9DanMZl0k9Dhzg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YPPm6xAJRzcePAISBScYhHhx/npjVE9NLlXqATaZQi6pXX2848tGyXJB8j3b7LjBg8Jciv9KC9qKa9SvFe9cZIa+BtYhwZWe92DTMiDcw33yM4QULAAidt+chLmNFoIZbCf3yopRPXxaNl/3cFhpUH6O99duCTDbGFs+Qo2TCl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iCSKPFoj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792075991; c=relaxed/simple;
+	bh=IqQ9+kgXaUtGdf8nln1xZMLytbAnajS3J99M2j/WtgA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=CW++BNGBqoCnewj5UlH4RJaUz39/LqazZKvWsvfMjKi7Doug0v+38SJXwUM2NfFA4gjba8D4geLPX6uXC0QJMHn+y5eOU6cnHthe/Ihm9AyeI+xMZkiNSOBG3Igz7lLLxsP1y8fe1kJvGjpF+NDzefn6ZpLI0l239t0NI49vdAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M1LqZiGG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iCSKPFoj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF5D11F000C4;
-	Thu, 15 Oct 2026 14:52:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M1LqZiGG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9BB01F000C4;
+	Thu, 15 Oct 2026 14:53:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792075968;
-	bh=Ei46+KxB+IHBh4EjqfXrbgGpc7y+UFCPlOwCEn9c6qk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iCSKPFoj/AukWTunBsDJA/3NTgkG89Hs1yjswr5NFYg/KmdSkBAgchB4Lto1NE7X/
-	 Y0/JfDkPDbLHV/ReJEI029Q6/SV6FVKAcEycLHrZgyUDDIOOlvVDk9ezg/SuKlBurM
-	 /xY992S/kuAMx/O5zs04x3hSnfb4UouGSsObcNF7QhzXvc7KqVgITf6m+kcWMsC4KO
-	 8N3uBNosC1wVtI1QNNJJwFzKLJgQnScmBzWz3O8t+W9mD9qpXhOq8k2c277fPxT3Y3
-	 fSZ+88QWZB+ylrhesoXuAaQCYdP+ZJoOSdLsngVegYEGX+xf5Sds0e/PMzOzBQ6GHu
-	 DDqlPfzKzKHvA==
-Date: Thu, 15 Oct 2026 15:52:43 +0100
-From: Lee Jones <lee@kernel.org>
-To: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-Cc: linux-leds@vger.kernel.org, Pavel Machek <pavel@kernel.org>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Mike Marciniszyn <mike.marciniszyn@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>, Kees Cook <kees@kernel.org>,
-	Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v4 1/4] leds: trigger: netdev: Put netdev on activate
- error path
-Message-ID: <179198456306.839288.14631216021466477145@kernel.org>
-References: <20261001131206.2513248-1-alexander.sverdlin@siemens.com>
- <20261001131206.2513248-2-alexander.sverdlin@siemens.com>
+	s=k20260515; t=1792075990;
+	bh=ATDchpZ6CABJXoAoNwHtXO+Ejk1lTxaXtd8ebczUrT4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=M1LqZiGG8uMbvGVhkRbwm6P2cNwdGI+ayIp/4XESZAcV/x/FLEeWnwiofVbf7drDZ
+	 k9ITIecFA3mJQWVxcZf6YlhXU4IlHcn++4Hq7Keo5qh90zvuBS8Q93/oAqHsxGgulE
+	 4eXjfCLHK7lw7KITXO4Wrpspo8vw2U5+pYy/IfFVmxi086mB9fM0P0fCB1xWIZDm1k
+	 DTcVSln/JNJk79R6JYWkyVfNKgrBiSNWjiqgveQu+hYtUPVG7oWJGGLwcMqlSU1rJ9
+	 y5o2vRj2XvPduhtPAvKlETjAML7ZL9r0iyp8tARx45P9MbfwjC7DrwP1FJNIQ07duo
+	 nD0u9Ia61cyXg==
+From: Mark Brown <broonie@kernel.org>
+To: linux-spi@vger.kernel.org, Weibin Liu <liuwb@xiaopeng.com>
+Cc: linux-kernel@vger.kernel.org, dalias@libc.org, 
+ Guanglei Zhu <zhugl3@xiaopeng.com>, stable@vger.kernel.org
+In-Reply-To: <20261014-spi-jcore-divzero-v1-1-a8205d30f2d1@xiaopeng.com>
+References: <20261014-spi-jcore-divzero-v1-1-a8205d30f2d1@xiaopeng.com>
+Subject: Re: [PATCH] spi: jcore: fix divide-by-zero when speed_hz is zero
+Message-Id: <179206361067.134795.2646575690539439799.b4-ty@b4>
+Date: Thu, 15 Oct 2026 12:26:50 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001131206.2513248-2-alexander.sverdlin@siemens.com>
-X-AI-Review-Draft: <20261001131206.2513248-2-alexander.sverdlin@siemens.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1116; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=IqQ9+kgXaUtGdf8nln1xZMLytbAnajS3J99M2j/WtgA=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIuvLjMkLfPbVmLIleWnGGO6at1v16ybBDMjz0rere1m
+ ydp79a9HaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE9gQLk4BmMii1Qz/o3+6nIha17owbsO9
+ TrHcDU1ss0/2zi+1F0i571XVlOIVxsjQLpv0reKiVcbSQJOddXY+Kyyf+5su7FkQ9nqbblLn+gQ
+ OAA==
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, 01 Oct 2026, A. Sverdlin wrote:
+On Wed, 14 Oct 2026 22:18:50 +0800, Weibin Liu wrote:
+> spi: jcore: fix divide-by-zero when speed_hz is zero
 
-> From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
->
-> When hw control is active, set_device_name() takes a reference on the
-> netdev via dev_get_by_name(). The register_netdevice_notifier() failure
-> path frees trigger_data without dropping it, leaking the netdev.
->
-> Cc: stable@vger.kernel.org
-> Closes: https://lore.kernel.org/all/20260914140045.B8F4C1F000FF@smtp.kernel.org/
-> Fixes: 0316cc5629d1 ("leds: trigger: netdev: init mode if hw control already active")
-> Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
-> ---
-> Changelog:
-> v3:
-> - introduced unset_device_name() as a counterpart of set_device_name()
->
->  drivers/leds/trigger/ledtrig-netdev.c | 13 +++++++++++--
->  1 file changed, 11 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/leds/trigger/ledtrig-netdev.c b/drivers/leds/trigger/ledtrig-netdev.c
-> index 5b0132484594c..e2a6c95a0dc97 100644
-> --- a/drivers/leds/trigger/ledtrig-netdev.c
-> +++ b/drivers/leds/trigger/ledtrig-netdev.c
-> @@ -324,6 +324,13 @@ static int set_device_name(struct led_netdev_data *trigger_data,
->  	return 0;
->  }
->
-> +static void unset_device_name(struct led_netdev_data *trigger_data)
-> +{
-> +	dev_put(trigger_data->net_dev);
-> +	trigger_data->net_dev = NULL;
-> +	trigger_data->device_name[0] = 0;
-> +}
+Applied to
 
-Given that both callers immediately 'kfree(trigger_data)' after calling
-this, why bother clearing these at all?  Wouldn't calling 'dev_put()'
-directly in 'netdev_trig_activate()' be simpler than introducing a
-helper here?
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
 
-> +
->  static ssize_t device_name_store(struct device *dev,
->  				 struct device_attribute *attr, const char *buf,
->  				 size_t size)
-> @@ -776,8 +783,10 @@ static int netdev_trig_activate(struct led_classdev *led_cdev)
->  	led_set_trigger_data(led_cdev, trigger_data);
->
->  	rc = register_netdevice_notifier(&trigger_data->notifier);
-> -	if (rc)
-> +	if (rc) {
-> +		unset_device_name(trigger_data);
->  		kfree(trigger_data);
-> +	}
->
->  	return rc;
->  }
-> @@ -790,7 +799,7 @@ static void netdev_trig_deactivate(struct led_classdev *led_cdev)
->
->  	cancel_delayed_work_sync(&trigger_data->work);
->
-> -	dev_put(trigger_data->net_dev);
-> +	unset_device_name(trigger_data);
->
->  	kfree(trigger_data);
->  }
-> -- 
-> 2.55.0
->
+Thanks!
 
--- 
-Lee Jones
+[1/1] spi: jcore: fix divide-by-zero when speed_hz is zero
+      https://git.kernel.org/broonie/spi/c/7db773075501
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
