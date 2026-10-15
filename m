@@ -1,343 +1,185 @@
-Received: from GVZP280CU018.outbound.protection.outlook.com (mail-swedencentralazon11022088.outbound.protection.outlook.com [52.101.82.88])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC1A3CA4B9;
-	Thu, 15 Oct 2026 14:46:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.82.88
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075581; cv=fail; b=bjjF+aHC9Q06xMNk/LoXPk+5K2O9ixrRjRkVe2gu085lgaO5YlIGLB7BcQdet3NMBedJ4DU2Ne17OMkx9FRDFVHgnwJtw+u1umG5rhUe+5umcODv7CRHT1KpJ84zg3uz3CMy+pb09c49cypbqVn42uzZeU2J+LpDDkgCbD9286g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075581; c=relaxed/simple;
-	bh=VhzkggN50sEY60Q77XzZ+yoLP7iBt4pmpRCB4Xim/iQ=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=rPjfI4AYtx09fxW47ieqnX+Njfojx24tQ1JK+KDWKYpaAL/LQAS0wpCeSW7LnbXXr7xhUzNOzKZpdwuM9EtQj5fzEA+UHxwv69NvbGZ74S87oiAY+CD1nHveclzvErGDJm/lbPkfC47KE6yXOlWBj8oa8FZM8xsSyC7X0x27Fuw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=permerror header.from=gaisler.com; spf=pass smtp.mailfrom=gaisler.com; dkim=pass (2048-bit key) header.d=gaisler.com header.i=@gaisler.com header.b=T4iGG9F2; arc=fail smtp.client-ip=52.101.82.88
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=gaisler.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gaisler.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672043D5660
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 14:46:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792075607; cv=none; b=McCsnGekNtYzYrWRoKmRRKd/dHYgikAkWDjyTGC2l6fHS2kOUJOxcVrTReaMGIcs12Zlz/YfxupqoBCs8NUt0NLqYnmZu5xR2ca8jr8hPrgv9C50p8x0RE/xB8j7wFnY+dWCfqhjEb/0xrrAOj8GoKnoDWqMSrtYobzhupuE1g8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792075607; c=relaxed/simple;
+	bh=NHgIRIYeSxxBM4Z2O/FYMoXHETZQ8rwvjZE3GOfWUQc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=OlbjhPc1Fczb4haYgoOjUFSCCoY5prKN3VmqeHyQ9Lf2ySIuO8JfAFnTDQysxK0C2f80Stw7jCnINVYuLQaR7z4HTbifB4vpxKE8rwjSjAFnn43WMg5bOXKWnhgrFzrie8KOxCkyysFWl52Ee265TN+oTu2HGA1CNng8FiLU5iM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EqmVQKLG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FfzU72e1; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gaisler.com header.i=@gaisler.com header.b="T4iGG9F2"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kSlHpM+0mNs2Ab5Ldy2s7B0Eu/GuF+85Eu3yeZJw/Hv6Z4pfEL27aTNs+9repQ+MFbwXab0PhYkYdCj0NwVOqUhif2EYxH3sL4PA1e50bmn69vX3bjDJNwMF6kdv90fbfWHhY4vw5WiB12cqpirirdslo+FUlciWkBb8mhZRyi15M37ifY2jmwhzMLxEiWwF+aQeg7txKQlJNxmPTfgza8jdtXKpOkNFD3qNPEls1RHq+kP3CsLHw1+m5YQAWqxcUroIxp+dS8Van1ljr/KNBedzUst3cI1lfxg80cAy07wZ4RAvRgvblid+gERsptByx3/pz2pRlmVxEDvxCR/Qbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oHPCH9con3JlISppVqJT2qapW7Am0X8wW4Im+ECd1cs=;
- b=DsVfYcKiv7X1ioBhZU2gTu6AB5HaY+NGBXmLT0F5dUfiKbEF54mA0SKZ3dEHk6r+z4fFUMlG32LkTqK9pOKmXsWFSaAu/KSzYkUJZx+lnHRr9JRDb8JrpzY5hEQArdV1Wk70NpHvL8/ihMsEyH9eH8z2JzOHdiw3lWi+JO+LeFxR1GwHdaUYBGHatBNnnnYU87EJwm5Do5p7ilIg2oD06B7+aD4lDWRUiZQ02tm16x183RvC5V/18uSh7Qjg13MH95MlcqNJVna5QB4PLE8pD6eAGAJ6hlfcQxv7njJyVLMPADc9CpN+T8F0b7H+YJDdxBvFJ8BlOMRzqSTKv2zJmw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=gaisler.com; dmarc=pass action=none header.from=gaisler.com;
- dkim=pass header.d=gaisler.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gaisler.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oHPCH9con3JlISppVqJT2qapW7Am0X8wW4Im+ECd1cs=;
- b=T4iGG9F2GWdG9LqyUM839lR59d7X1kLqOVS50GSPFpUWP01PNB1P2bZLH/CJCv0YYBQ49oplWJVkNUVd8aU8A3l9rC+8HHdypC6HcNjaEnCWdWRoY4RxWfTBrTqjkwbIkTk86An4D/Z4xE+6XzLFKlq85Faz70tPbjPhKO2buEU23Gvb2c3vk3XcX673iWrRCBLyt+tf8sqfSAmlPPPDvz6TjZwHzhdD8G3PYKVCnIK8V5BShoymYek4WpYAsDiBMVOZk1TkJ86VLNxnKwktkrMZhAOzMmF7kfPGFeIeQLOAxikaiYOVo/fs5DVY8wXe8kvCKCGQ2Xi8iK9zfa86eg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=gaisler.com;
-Received: from MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM (2603:10a6:190:2f::5)
- by GV3P280MB0402.SWEP280.PROD.OUTLOOK.COM (2603:10a6:150:11::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
- 2026 14:46:13 +0000
-Received: from MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
- ([fe80::1f13:f10:e16b:7939]) by MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
- ([fe80::1f13:f10:e16b:7939%4]) with mapi id 15.21.0472.016; Thu, 15 Oct 2026
- 14:46:13 +0000
-Message-ID: <61ab29d3-929f-49de-bb64-5a49318ede00@gaisler.com>
-Date: Thu, 15 Oct 2026 16:46:11 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] sparc64: flush only the aliased page, not its
- whole folio
-To: Imre Kaloz <kaloz@kernel.org>, "David S. Miller" <davem@davemloft.net>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- "Mike Rapoport (IBM)" <rppt@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, sparclinux@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, linux-mm@kvack.org
-References: <20260928132102.1707-1-kaloz@kernel.org>
- <20260928132102.1707-2-kaloz@kernel.org>
-Content-Language: en-US
-From: Andreas Larsson <andreas@gaisler.com>
-In-Reply-To: <20260928132102.1707-2-kaloz@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: OS6P279CA0008.NORP279.PROD.OUTLOOK.COM
- (2603:10a6:e10:30::9) To MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:190:2f::5)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EqmVQKLG";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FfzU72e1"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jRek2662625
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 14:46:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=u/nlLAyrIY971jI97tgUiI
+	dOKUIdrmUXPoG94AIgOqI=; b=EqmVQKLG6kmBa3f0f+xOOJQCVN3EpYtnoes67G
+	oiup/ZJJhnXDxfxd4OqlkzX0k79nVGrC1Fr7F7VvtfBbyhbS5HtKHq/7xgMnDejk
+	P2k9Ya9ao0hl+z8xOwR+panrEL5/tMh6D5GgczradBvJAJPD8Q8Z7AOBkI9sd2sR
+	XOcDFj54Mi0WTI4PU0MDRqpJZ6wwvJeej5itid90GhT0njk3qEp+sJJD/JPncXQH
+	5saLnS22rO7/WbrtyHSwFVXqNeoFENL1dJSyA59/4fPzzYkJ5ceAwo28FQqcM3OA
+	jv2O+8ut3eORaJWLFAzhgS6KPX88+ani+Me7Z+mlR3P++J3Q==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haqda2km1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 14:46:45 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5e94989d97aso1463169e0c.2
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 07:46:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792075605; x=1792680405; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=u/nlLAyrIY971jI97tgUiIdOKUIdrmUXPoG94AIgOqI=;
+        b=FfzU72e1K+60r9rkq9PYarah3lDNB7z1ymuxU5DQzsaWsr7/pgncPQ5Gv0s+rmk1n1
+         DtxuHHi5NvBFQcrRTSmdavN3Mi5rQ0+29DDE+OYIVigeyglUXXOt+yk/oHWClsbpzgMF
+         I52ft4U06TOC4nDZ1A53BKb4rtmZv2d2VpchhBZfTjx5yz0gTkASpXEzowwrrNFV31BU
+         o/LpbAE28w4wnwX/uJWZ+kfz9Y1VoaEVXmjhB17VnqUboJjY7f/895tSr3VuVyutyTOi
+         6gdi7pX03yLqW7SwKo6LUKyuJid4TMN+lf+9yl1aH8xgtlQWVRxYGMpLBQtW0sdlLNiV
+         Lrfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792075605; x=1792680405;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=u/nlLAyrIY971jI97tgUiIdOKUIdrmUXPoG94AIgOqI=;
+        b=Gnbhh2SrMXJJiLoSovcZxnHMwiHZddhR/1M5RxW/Y+xXImWpyHnAoMa76IaPyNsl4R
+         c2kfyXK9/1EZUpfrMPZqX9TSB8siLGnUoD3ZDahxiYrUdiin+hFM6v1fL4l0RRBsjfrs
+         yAwGE3G2cKUjl6fKShQHVVvtskiLADd1wlla7U7kgbkcCuztCTrLXGW4IVVGLWeHB3Ck
+         UdPDbgry8KW2khHasryxqWciea7NKfFoMyyJixlCYx1o+K72vvemgQr0YlgDSc6YzfGr
+         aZhgOy2FjbpW4gNTPe7Ro1g1jl4IKaWRhGtEpkAp5MKuWMcXVpr9ApVvxcEWAjiolZND
+         RWLA==
+X-Forwarded-Encrypted: i=1; AKwUvBwWaoi4N5wUuB4sfVnqS+ljimtECZzGmMNTDH6gekghPLyQlniVcHcEVxnCs5uuK6zJIkQ90Ig=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIkkiS8RgLTSDIHkfy+XYtAqoEsUHMsYdSVXf8+HMuAov/aw/yl
+	ibPu4XfdOpLEf2u+FasWEQ6ZHJpe4QOk+LYH5VwZUr6/MtWLTFXxJtED4dktFq7y4k7qIDiOpnk
+	rinX8fNdQ1eKvsHULwQ4LSGsKvJpotqqfsWuQt/OYFc2PpT2BzWJ4woSBWIY=
+X-Gm-Gg: AYBFou3e2EnD24zqfY/VVI6sqZrRM224mSwQWlMdgY9TIou2alXS2ZZIw/lbfxfRALs
+	3SkeGKSz4kthCT23JVJQCffZw6WiKEUUlR/Uy5vhEdkRW5DcVf11p5Dl8uRIpP8jo9v8ITpidNi
+	SYOFs20wNqRMlIAGIYGrzlowTk6lhdPINB4/cwJ+KoH0kyLEeuB/Y2APwJfaN55w2qGXOWnIA+P
+	JMGRhXye33aZd9cilgCDfk08Hz7POWUDIJ1eKzPFy9kEtW0qUT5HY7U4JoxuDTGC9DRP2A7LOqu
+	RBEE6fiZjcWcMT9hV+ewBkvy/Dp/lsyaVV1ttP3B9bOOuqad96A6RI+Ba0QsXRwtbogZbo9rBiv
+	8YG3jbamU0iaTUKVoR9gyDgLjLsA5
+X-Received: by 2002:a05:6122:1828:b0:5c7:a9ee:dcfb with SMTP id 71dfb90a1353d-5e91f46ca9amr6094214e0c.5.1792075604412;
+        Thu, 15 Oct 2026 07:46:44 -0700 (PDT)
+X-Received: by 2002:a05:6122:1828:b0:5c7:a9ee:dcfb with SMTP id 71dfb90a1353d-5e91f46ca9amr6094164e0c.5.1792075603775;
+        Thu, 15 Oct 2026 07:46:43 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b8ebdsm86840625e9.10.2026.10.15.07.46.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 07:46:41 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH 0/3] driver core: fix unbalanced reference counting for
+ software nodes
+Date: Thu, 15 Oct 2026 16:46:21 +0200
+Message-Id: <20261015-swnode-dev-notify-balance-v1-0-9e7537bd2869@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MM0P280MB495062:EE_|GV3P280MB0402:EE_
-X-MS-Office365-Filtering-Correlation-Id: 42bd6355-af38-4de0-579e-08df2acb0f27
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|6133799003|18002099003|22082099003|10067099003|4143699003|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	uhxPIUbkyur4DIly43A+A3rvNVarG7wvB5BDACB9+UzhUqwtgIs9hkEVShAsKwK5nSgPeesErdvzF+/7h6vOVqY9lmp06ajWQqNJm67hUPYK145wDJPYpdx7+PLRGTCtvoW7tRgwCg8/cLOPtBe7rvW5AaNMiS0FCilQGBwMOj/pMDqHA7v2c4qW6Ibeo758jPZ1lEqOVFLY6M0DANYilaOKP+/R9MNirkHvLSjRaLnXmgliy2rSJ7Au5OZH/19TkliD/+Z85Ov9R9gAxB10xbOf7HaL/oDyFbxX3MmUnoOcJfEz8cd5v0rIjG7cBJqSWOqXkNh2gOGOmh+rF3JSWJN3/vCqpIuYR2q1edX5YIIfUQP7JBN1JG1wRcbP3F5CeOYDs/dUZX1ybBcsmbFtjFVOGzMWJsf8Rn1dqEmpCrGmD01h+833YzOvIrQiMxtAAL6fra1GpTHm7MzI8XzL+ebKA7IJdlFnBsYaCgvSwoTte0+bvPcdxzyBca4Vp764d36y6NLg/Jn59Od+x+oSrvuokdtykppyhyGCyBoUAEbvHZd0cK9yR3xLInwrimMgxybvZdIYNVTjcK+q/8lX2Q3rlCrEgnTriWa0SoSXM6C8VrmlslQD9rBbSxs1M+LJ8Kn1dNiomvF01yz23L27v46X1P7/aGtkGy+oe2eVZBE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(6133799003)(18002099003)(22082099003)(10067099003)(4143699003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?L2g2T0dBY2xSaDRZb0NQUEtkbGNSblFBUzB4UUU4azdweUZkcE9jbWROUE5s?=
- =?utf-8?B?RG1RZEJsK2tGQUU3eEJ3REc0SGQyczAvVWlDS0xsT3F4djVCaFZld0lsVVcx?=
- =?utf-8?B?YmtObUdVbGtrbWIwcEV0aTdzVC9QMkRDSjFzWk9Wc1pYdkQxa2JmcUFTVmJq?=
- =?utf-8?B?QTJidVRNbG1FaEVQNVI2eldMTlhaNitSUGhiODNtZjhHUE8rZ0xRUzVnZytw?=
- =?utf-8?B?azhhRmd2N0I1N3hxdjRaYmE3cnE3bkVGTk00TWk0cUwwbm1tby9GSlJJcTI4?=
- =?utf-8?B?TTM0WGpwckRKdklUWVI0SXk4MEI5bGpxZmJ0UWtNdzZRRnlVbkxnUnBBTE4z?=
- =?utf-8?B?czBzSjF6YlFoVFdFRlZaZkx1ZmdiM0R1NnE5a0RJRXJib0NRWGlPNE5ic244?=
- =?utf-8?B?ZGg3QXhjcWdSKzUweXFqVjNRMEYvWkZvYlRocXBkNy9GbmpRZlZFelBpZnJW?=
- =?utf-8?B?UGpCYU5CcGtnKyswNjdvMkFXamFSZ04rNVFNNzdRb1FMMVFjYzV5TWRTN2R6?=
- =?utf-8?B?ekdSdlBDQXdiTkRiWHRHekhvTWFCMDhlTGl0NWkzUDl3ZlN1TnRLenJteXJy?=
- =?utf-8?B?SW9pTW8zUVhlYU5uVTg2dEI0Y08wc3JjMDlha3lwbTY4ays1WHJPRStlZGNH?=
- =?utf-8?B?YzdDaTQrWFVNRVlOQmhqK1FPM2JpTmlTdnlITDBtMkxUTE54TFdiTEd6OEdh?=
- =?utf-8?B?ZThJcENLalRBMHFoRVJJMXdjc3NJYVBTUmNhSUU3cndHOUd3ODB3VTc3ZlhP?=
- =?utf-8?B?QTJZOUZZNW9HSkhIaHduSUpLRW9QT3pMWUV3WDIrMU00VitXZFRvaVozWGdw?=
- =?utf-8?B?cXA2TjJpbFVTUUE4VzNuNitMekQyQUc0cVpST0MwdTY1R0dmMTdhVEowK2Yz?=
- =?utf-8?B?RktGODJENzFtNEwyY21aOE9tK0lCa2RZMGJHd1RHa2VnSXVwNlBhRkZ1Yy9W?=
- =?utf-8?B?YzdVaGMzNkVwLzkzMk9MNytxRng1aEZ3THgvOG82WUY0MGQ5MTJYOUt5SHdE?=
- =?utf-8?B?U2xsdjVFNzdnU0E4N1NwaUx1eUNsemFnbWc2OUUzOFFtMW81QkVpM3d5bjhr?=
- =?utf-8?B?U0xIVjZRcG84UHJQVmdSYUt5bG9VTnFHTkVqZk43K3FRZldqRmpjcjhHemx6?=
- =?utf-8?B?amI3RDBEUWpNZVdsMkVob2RRNVJhYk93WTZyQXcrczVJN3huU0JjRitpS2pl?=
- =?utf-8?B?aVJESlhTaGJhN1NlOHBRaDIwNUIwdFdlYWtEeVlYUkVNbGpuMFl2ek5jR2di?=
- =?utf-8?B?S0R1SHhVUFp1dHRNZ3FWZkFwRmsreEpJYlZIUFh5YWxwS3YwL3o5S2QxSDN4?=
- =?utf-8?B?ZFltRTFzdU1TUUpFNlJNZkJHdmhSSCtxWlJVV0Z1UmdpV2hHYlA3QkptUkMr?=
- =?utf-8?B?Ykt1TnNUSlBtNktlNDFvck9kNEcvVUFRZGhwbFVwd3F5UmtXeDQycWpDNldk?=
- =?utf-8?B?MzBnWjVCemFmSTFUMTRmdVZBTGhTWldPWk1YaDhBbitKYTFFMkc1cERwU1BW?=
- =?utf-8?B?QmoySFdLdms2clI2YThxdkVsb3JRTnpLNmtoVmx6Qi91QUxkc2Uxb1c3WXNi?=
- =?utf-8?B?d3lJYitEdTZXYU45TEx2RUx4ckh2Y3pFVWpGUnNUQW5FclJzZXhPbFF1RStC?=
- =?utf-8?B?MXo4QVlUUUtmTDZrdURUdEllQy9wVmEzc3RXeGFWc2o1dVFFUWVBUHFSODdP?=
- =?utf-8?B?TDlYZkhzaHJMNFltRVhDeVREUzVNd1VCdXdYVzhFbkVPV2Fyall5SXlvdEt4?=
- =?utf-8?B?Z29zbWZOdERJazJKMjdaUHhodnF1cFZDNStkV203Z0sxNTN5cE1GRHRVQWN3?=
- =?utf-8?B?YklmNFdob1FFWTJGSi92cUZmOXVDNVlFVXZwRjN3anpraUVTMXhVVzFyYkZO?=
- =?utf-8?B?L2ZJZ3YwaWhzZi9UMWRMRHlEM3pzUnd5REgzR3dOaWtERC9xS2xoV3hnQjlJ?=
- =?utf-8?B?TkVDWTVKN1hVTm5vT3RudFRXaFk3WElCdkVZL2tMenJOL0luZ2E1TlcwTUNx?=
- =?utf-8?B?b09yOWRUWjhZRmVMQ3A1VjQyT0hDdW9OQ0EyUHcxemRDOWM5bUtGN3Z2TDJS?=
- =?utf-8?B?YzZ3NGpPYzVuQjNkMzR4ZExMUnNsZEZKZXRmMkdHSFg0a0RSYnNMTmV2WXp1?=
- =?utf-8?B?dkgzY0hrNk1yb0pGTDVlSDdFREJZdjlSRjNXb2IyUWdJcXoxSCtlQjUxWHEr?=
- =?utf-8?B?Mjd4K1NJQ2VSaFdrVVBwVFJqSEd4RmMvdnB4WlVYSHNzcWd5eXlzWkRIUTh6?=
- =?utf-8?B?eWcwWjkwTkdFaldyMWpQbEQzOWo1QjlIb3JGUjBFcjNKd3ltb3QraHhyS3BQ?=
- =?utf-8?B?RHlvelJTUm1HNWRIMWd2UkMwanlJblBuYStwcUczZ1FQVHZBM1doZDRZeXJx?=
- =?utf-8?Q?2hhoU4j1FepiA5wI=3D?=
-X-OriginatorOrg: gaisler.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42bd6355-af38-4de0-579e-08df2acb0f27
-X-MS-Exchange-CrossTenant-AuthSource: MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 14:46:13.1756
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 91fa4a59-2167-458a-8318-e45d80469d7e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VInNPNVLr/bESJiP7U7al2EGl019UHrAtNoymfae+UhrHd7WurBIRdbK4XyrcR4rj0DGBQhjhnEpA+Gzo/OK2MlD34/033nXxtsg7d96pH4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV3P280MB0402
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAD3n0GoC/x3MQQqDMBBG4avIrB0wogF7ldJFNH90QCYlEW0R7
+ 25w+S3eOykjCTK9qpMSdskStcDUFU2L0xksvpjaprWmMT3nQ6MHe+yscZPw59GtTicwbOhtGAf
+ X2YFK/00I8nve78913cqYpxFrAAAA
+X-Change-ID: 20261015-swnode-dev-notify-balance-e6f56fb9a469
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+        Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+        Daniel Scally <djrscally@gmail.com>,
+        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Eduardo Ruiz Duarte <toorandom@gmail.com>,
+        Bartosz Golaszewski <brgl@kernel.org>
+Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+        "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+        linux-acpi@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        stable@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1334;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=NHgIRIYeSxxBM4Z2O/FYMoXHETZQ8rwvjZE3GOfWUQc=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq0OdGNQea/ZaQSE8NoGK5ssTDV3i6Yf8dWQp6K
+ pyopKVXJwiJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCatDnRgAKCRAFnS7L/zaE
+ w6x3D/4uzSSogfkEUqLZ2YYdjMOaAL7tIC5eATXPw7a/Wemsnjuwdv5Su5A9tLJXIKi5WY74Xeg
+ 95BMcLZR8h0F3aLL31c103khzaSKRvRqUo5EZHjjxVNiOwwu32B0khfs4gnD+ikiV3Tw5m0k2KW
+ pzktdOuPz00z8akz6CAhuU5DwkFPIZXFeGEekgGZ2jJaF2oTnTUWQ7kod3JMbDCCsWScirMNWx8
+ a9mCXPuZlgqAPvYZxS1rrBPkbjiXW5qbxbwz0k3JfmSIMi9dtunW4Aye5RDFDeXMVOAiCN4BQzT
+ ciTcVp8j33yP6bT7XQpNvheuBYSiXtK2TDepKwXktsZxGa5e6rVNUnanFRogVpG1e1p7TqWle3P
+ KhA6YfLPiLqRDSBnpAJeMeYMf8QjyBXSpLCawPbyHXBxxKgu55IEy7dlgGLqhtmCrb2DIDH9DhO
+ vYyBtg1sHWDFvDxR+5nNYCFf2g3WepcqVybJAyl3mXwBlV3zmIyMjF6yAeYC8Uc0x9yXBK+XbAu
+ /qf6NDR40SfsL4mJY51ylo1f7g6s+RHpGHY/CMa9ssAxYFeDKsv4rIZTw72LLXeRsICx/65Durt
+ /pX6f/rfQxFr7614teLoIrqaSRA6FcCgjpAP3OAkBgAHsEL2hb+luTtDxCwItitOzMpZeTKC65Y
+ zxwsOX1iKlAMNNw==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1OCBTYWx0ZWRfXyYD7mGhALxlB
+ lc6bHq6kWXhgTdR/N6nCcvOCnPGSN94aEIt8gtxVWoQw59FSTUH5qFWV1eFIqvflbCK+TCrV4Hq
+ bRtWR4wmWvv1nXYOVBhTjm/U2EnyuQ4=
+X-Authority-Analysis: v=2.4 cv=K9u3jCWI c=1 sm=1 tr=0 ts=6ad0e755 cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
+ a=kTkK-H-Q3wn9DOHkRvoA:9 a=QEXdDO2ut3YA:10 a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-GUID: au5EOh7TISLoswXV3CSPi6uNafl-PMkN
+X-Proofpoint-ORIG-GUID: au5EOh7TISLoswXV3CSPi6uNafl-PMkN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1OCBTYWx0ZWRfX7iFtOjs9HazI
+ tUsd3KLcnPpizBxdqvX+QkJshq4bzmfhli+dL5IJ6e/PAJZcEJmqYuVeQYsM1AnnGOEzjVhIn42
+ +X7mIk7VolNt1HaoBjdjRQlrV0Oh522YnyqyOEgFnW26pOUsQwTHD84F4qcoGmDO/tgwveXkyf9
+ 5aUD7aqqASFZCeJNa80JxRI00Wt+4WqxJMKhTCbAphWbnSSfaTUw/xj5sTAPrkKUBSSy4JLUbNT
+ 2fZ9l0XCdqI5LgdPdIxRoOvJTiggeEFhXClrDVqtFOXwJ/RB/QCJq7j+u+mpTgLC06czm6NsiWL
+ BZPuUptrn8qRrXsWKw55H+pXKNnewnNHu5jJMzFI52jJ8LHIteGxa+FA39QdnCRi+ghztnhZSP9
+ yWH90Rkr1Y4MqiM5oEgSpR01tVW7JWu5z7E6txYvvz3HEjssbj4RTRnihUGvYhoflv4T/rb1vUW
+ AkmwV1kRMCM3Z37w/tg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 clxscore=1015 spamscore=0 priorityscore=1501
+ phishscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150058
 
-Hi Imre,
+Eduardo reported an issue with reference underflow when setting a
+software node with set_secondary_fwnode() and then repeatedly destroying
+and re-creating a device. This is caused by the fact that
+software_node_notify() takes a reference to the software node which is
+unconditionally dropped in software_node_notify_remove(). However the
+software node can be assigned after device_add() so the latter should
+only do it if it was bumped by the former.
 
-On 2026-09-28 15:21, Imre Kaloz wrote:
-> Since the conversion to folios, move_pte() and tlb_batch_add() flush the
-> D-cache of every page in the folio a single PTE maps.  Both run once per
-> PTE, so moving or unmapping a range backed by a large folio flushes each
-> of its pages once for every PTE of that folio, and each page flush is a
-> cross-call to all other online CPUs.
+This series proposes a fix in driver core. The first two patches extend
+the device flag API with a new accessor and value. The third is the
+actual fix in swnode.c and should be backported to stable (along the
+first two as dependencies).
 
-It would be good if the description of what the patch does uses present
-tense, but past tense for what was wrong before the patch, or was
-otherwise reworded to make it clear.
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+---
+Bartosz Golaszewski (3):
+      driver core: provide a test-and-clear device flag accessor
+      driver core: provide new device flag - DEV_FLAG_SWNODE_NOTIFIER
+      software node: fix unbalanced reference counting
 
-The cross-call overhead is not true for all sparc64 machines and only
-for SMP configurations.
+ drivers/base/swnode.c  |  5 ++++-
+ include/linux/device.h | 10 ++++++++++
+ 2 files changed, 14 insertions(+), 1 deletion(-)
+---
+base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
+change-id: 20261015-swnode-dev-notify-balance-e6f56fb9a469
 
-
-> Only the page the PTE maps can hold lines at the old colour, so flush
-> just that page, as before the conversion.  flush_dcache_folio_all() has
-> no other users and becomes flush_dcache_page_all() again.
-
-This could perhaps be a bit misleading, as multiple PTEs in the range
-handled by the caller can hold the old colour, could it not? Rather it
-is the traversing of the whole range one by one in the caller that does
-the trick. What do you aim to add to the previous description with this
-paragraph?
-
-
-> On SMP QEMU guests, apt rebuilding its caches through mremap() triggers
-> RCU stalls and soft lockups in move_pte().
-
-Past tense or rewording here as well as this patch fixes this.
-
-> 
-> Fixes: 1a10a44dfc1d ("sparc64: implement the new page table range API")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
-> ---
->  arch/sparc/include/asm/cacheflush_64.h |  3 +--
->  arch/sparc/include/asm/pgtable_64.h    |  7 +++++--
->  arch/sparc/kernel/smp_64.c             | 24 +++++++++++++-----------
->  arch/sparc/mm/init_64.c                | 22 ++++++++++++++++++++++
->  arch/sparc/mm/tlb.c                    |  2 +-
->  5 files changed, 42 insertions(+), 16 deletions(-)
-> 
-> diff --git a/arch/sparc/include/asm/cacheflush_64.h b/arch/sparc/include/asm/cacheflush_64.h
-> index 06092572c045..02c969417e7b 100644
-> --- a/arch/sparc/include/asm/cacheflush_64.h
-> +++ b/arch/sparc/include/asm/cacheflush_64.h
-> @@ -38,11 +38,10 @@ void __flush_dcache_page(void *addr, int flush_icache);
->  void flush_dcache_folio_impl(struct folio *folio);
->  #ifdef CONFIG_SMP
->  void smp_flush_dcache_folio_impl(struct folio *folio, int cpu);
-> -void flush_dcache_folio_all(struct mm_struct *mm, struct folio *folio);
->  #else
->  #define smp_flush_dcache_folio_impl(folio, cpu) flush_dcache_folio_impl(folio)
-> -#define flush_dcache_folio_all(mm, folio) flush_dcache_folio_impl(folio)
->  #endif
-> +void flush_dcache_page_all(struct mm_struct *mm, struct page *page);
->  
->  void __flush_dcache_range(unsigned long start, unsigned long end);
->  #define ARCH_IMPLEMENTS_FLUSH_DCACHE_PAGE 1
-> diff --git a/arch/sparc/include/asm/pgtable_64.h b/arch/sparc/include/asm/pgtable_64.h
-> index 0837ebbc5dce..6712eac4baf1 100644
-> --- a/arch/sparc/include/asm/pgtable_64.h
-> +++ b/arch/sparc/include/asm/pgtable_64.h
-> @@ -946,6 +946,9 @@ static inline void set_ptes(struct mm_struct *mm, unsigned long addr,
->  	set_pte_at((mm), (addr), (ptep), __pte(0UL))
->  
->  #ifdef DCACHE_ALIASING_POSSIBLE
-> +/* Without pte_batch_hint(), move_ptes() calls this once per PTE, so
-> + * only the page this PTE maps can have lines at the old colour.
-> + */
-
-I'm not ecstatic about implementing a function that in the general API
-can be called for multiple ptes, even though this never happens on
-sparc64 as things stands right now. The code paths that saves us, from
-commit 0b5be138ce00 ("mm/mremap: avoid expensive folio lookup on mremap
-folio pte batch"), was "only" added as a performance regression fix.
-
-Perhaps the best logical solution would be if move_pte() got an added nr
-argument just as get_and_clear_ptes() has.
-
-Barring that, the comment should not describe why the change is ok, but
-rather descrive the code as it stands after this patch, that it depends
-on only being called for single pte's, and that this is accomplished by
-using the default pte_batch_hint().
-
-I would prefer the nr argument though, but that would go outside
-arch/sparc. Comments from mm people on this would be great.
-
->  #define __HAVE_ARCH_MOVE_PTE
->  #define move_pte(pte, old_addr, new_addr)				\
->  ({									\
-> @@ -955,8 +958,8 @@ static inline void set_ptes(struct mm_struct *mm, unsigned long addr,
->  									\
->  		if (pfn_valid(this_pfn) &&				\
->  		    (((old_addr) ^ (new_addr)) & (1 << 13)))		\
-> -			flush_dcache_folio_all(current->mm,		\
-> -				page_folio(pfn_to_page(this_pfn)));	\
-> +			flush_dcache_page_all(current->mm,		\
-> +					      pfn_to_page(this_pfn));	\
->  	}								\
->  	newpte;								\
->  })
-> diff --git a/arch/sparc/kernel/smp_64.c b/arch/sparc/kernel/smp_64.c
-> index 371460e34484..18b6145da591 100644
-> --- a/arch/sparc/kernel/smp_64.c
-> +++ b/arch/sparc/kernel/smp_64.c
-> @@ -982,8 +982,9 @@ void smp_flush_dcache_folio_impl(struct folio *folio, int cpu)
->  	put_cpu();
->  }
->  
-> -void flush_dcache_folio_all(struct mm_struct *mm, struct folio *folio)
-> +void flush_dcache_page_all(struct mm_struct *mm, struct page *page)
->  {
-> +	struct folio *folio = page_folio(page);
->  	void *pg_addr;
->  	u64 data0;
->  
-> @@ -996,7 +997,7 @@ void flush_dcache_folio_all(struct mm_struct *mm, struct folio *folio)
->  	atomic_inc(&dcpage_flushes);
->  #endif
->  	data0 = 0;
-> -	pg_addr = folio_address(folio);
-> +	pg_addr = page_address(page);
->  	if (tlb_type == spitfire) {
->  		data0 = ((u64)&xcall_flush_dcache_page_spitfire);
->  		if (folio_flush_mapping(folio) != NULL)
-> @@ -1007,18 +1008,19 @@ void flush_dcache_folio_all(struct mm_struct *mm, struct folio *folio)
->  #endif
->  	}
->  	if (data0) {
-> -		unsigned int i, nr = folio_nr_pages(folio);
-> -
-> -		for (i = 0; i < nr; i++) {
-> -			xcall_deliver(data0, __pa(pg_addr),
-> -				      (u64) pg_addr, cpu_online_mask);
-> +		xcall_deliver(data0, __pa(pg_addr),
-> +			      (u64)pg_addr, cpu_online_mask);
->  #ifdef CONFIG_DEBUG_DCFLUSH
-> -			atomic_inc(&dcpage_flushes_xcall);
-> +		atomic_inc(&dcpage_flushes_xcall);
->  #endif
-> -			pg_addr += PAGE_SIZE;
-> -		}
->  	}
-> -	__local_flush_dcache_folio(folio);
-> +#ifdef DCACHE_ALIASING_POSSIBLE
-> +	__flush_dcache_page(pg_addr,
-> +			    tlb_type == spitfire && folio_flush_mapping(folio));
-> +#else
-> +	if (tlb_type == spitfire && folio_flush_mapping(folio))
-> +		__flush_icache_page(__pa(pg_addr));
-> +#endif
->  
->  	preempt_enable();
->  }
-> diff --git a/arch/sparc/mm/init_64.c b/arch/sparc/mm/init_64.c
-> index 103db4683b16..8792e5d92517 100644
-> --- a/arch/sparc/mm/init_64.c
-> +++ b/arch/sparc/mm/init_64.c
-> @@ -214,6 +214,28 @@ inline void flush_dcache_folio_impl(struct folio *folio)
->  #endif
->  }
->  
-> +#ifndef CONFIG_SMP
-> +void flush_dcache_page_all(struct mm_struct *mm, struct page *page)
-> +{
-> +	struct folio *folio = page_folio(page);
-> +
-> +	if (tlb_type == hypervisor)
-> +		return;
-> +
-> +#ifdef CONFIG_DEBUG_DCFLUSH
-> +	atomic_inc(&dcpage_flushes);
-> +#endif
-> +
-> +#ifdef DCACHE_ALIASING_POSSIBLE
-> +	__flush_dcache_page(page_address(page),
-> +			    tlb_type == spitfire && folio_flush_mapping(folio));
-> +#else
-> +	if (tlb_type == spitfire && folio_flush_mapping(folio))
-> +		__flush_icache_page(page_to_phys(page));
-> +#endif
-> +}
-> +#endif
-> +
->  #define PG_dcache_dirty		PG_arch_1
->  #define PG_dcache_cpu_shift	32UL
->  #define PG_dcache_cpu_mask	\
-> diff --git a/arch/sparc/mm/tlb.c b/arch/sparc/mm/tlb.c
-> index 6d9dd5eb1328..1221814ca0e1 100644
-> --- a/arch/sparc/mm/tlb.c
-> +++ b/arch/sparc/mm/tlb.c
-> @@ -144,7 +144,7 @@ void tlb_batch_add(struct mm_struct *mm, unsigned long vaddr,
->  
->  		paddr = (unsigned long) page_address(page);
->  		if ((paddr ^ vaddr) & (1 << 13))
-> -			flush_dcache_folio_all(mm, folio);
-> +			flush_dcache_page_all(mm, page);
->  	}
->  
->  no_cache_flush:
-
-Thanks,
-Andreas
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
