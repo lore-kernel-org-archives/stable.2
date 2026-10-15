@@ -1,50 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB4EC55D888;
-	Thu, 15 Oct 2026 19:36:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF7457268A;
+	Thu, 15 Oct 2026 19:36:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792092992; cv=none; b=u8cto/xY+aoNAtCIwq7g6TlmOVY/z7z+P+0vcQ9dCkd76PnycJm1DbwSYXxLV/kq96u8OKacM41ZIEq1vEhJ1z2ML5ueF2CcsQftx+6iin8q7H/MoiVUs7yvC8TRt31vFiVEjvPtSYX6BNFdXv5buiArNAG2w16x/IRX1wlbAKg=
+	t=1792092993; cv=none; b=ltIpQ0P0oCzppzN2QZiVnFJnJBi9M5vkPOedeG1UXP6FfGxQgnKDFPEtaDTPQ5aeL7uipc+Fyk8HeR7ppgO+COpUN4dKairV2JNX2nZ3h4/jJ/xXB9/+FT0a7q6E+0dMQUtrSZLT6Thfq+TXwkevFd8wrbD3/kzQXSuYmQIyDtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792092992; c=relaxed/simple;
-	bh=X0IzxHW4W8rMNFnzhgP+RlaK9tEFVGYUKOAJJJO0Ig0=;
+	s=arc-20240116; t=1792092993; c=relaxed/simple;
+	bh=xQkZ6wL5DX7K36xURIvtokpviq0OfwPjz4UDjX8Y+e8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=A8+LuZ1Lr7ClxfUTDGQwazKYCUCWXpKfJ+vfeUp9IY8tZjKYzmnFeO3rwcm4PvLs72sDIbcpgy/nqy7PNGgBCbjyftZkNXIwjIMB9XQgo0rAUKewCvJmK4viNpoD9s+2UIyONALP2pLZ8dST0rCauMlcY3hkpzbFZMvBWs8V56Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jegBLvRD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TH2LP98sbN3Z3XtqVYKakIRvffWm8aEyBIPhhAbthXLoElmc8jxz3wZ/rPLZwwrGrEjUYT13wLq8gegdNpaYeiGBnrULLtxXcCZPWAAgP6cf/DxNKnKbx59/HLGW3lWRg0T5u1xhwLfndmzpU6iTKOHqzkCfzGUT2kUEIGXAYlQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RX4B8ZRf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jegBLvRD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8543D1F000C4;
-	Thu, 15 Oct 2026 19:36:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RX4B8ZRf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F42061F000C6;
+	Thu, 15 Oct 2026 19:36:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792092990;
-	bh=3+RvMKP78FVJiQAUwt830Tckq+2HbuWwJ+cMP/sPHMA=;
+	s=k20260515; t=1792092992;
+	bh=by0e8225MtbYPCIfUN2aK7pgEEw3Huf7EZzUdrjurvI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jegBLvRDUi88G+ewB6Mna/dDZUGMXtDO0FLbmcJ/dSEg/6kf+tRBIPnHZggAchzAT
-	 raVoHnWtrP1dJHqTB2DMs3SqB5n2SHv53riRC9/WNgNYdFWpboEnGwxH33ITfnvsLv
-	 CrZksHIGICsJOG80GM6DmdMDbEGUprRNdxc2BehNznNEeFSlpPrbbhYvq51roStAEh
-	 CVv/Kh4f3xUXjQbkY7oRMYdWyTEtRTQ0iT2Wnab1Oj4U4qUe6skOZLx8iCUXJV5IKE
-	 QTAHmdJdENIQKLmiYlwiljPcv9zoBgkII1tzgkY1y3SpzjpKp8FHlh1SYKrQyr2oRg
-	 JpyS6igXZq+nA==
+	b=RX4B8ZRfwypPtbyz49a9EvZErLzpTu5qz6sPTO5BBUgooAZqRmnHwFqwJh+empOg2
+	 cSfMJtaV/F/qnBXo3p5D1ehiPPNbz61V1KUE4NBiJuLKkJvCf1Waa8dLqDnCwtriPd
+	 kNJw/f0h+SV2PkRNFB1St+JGACOcjEUZCzG5BM6y0/HTZ+dF21W6HXFn02e2VGpC4J
+	 2FuykPc6dm1BEE6RgE0IfP/t1nMRdu3Nq4tfLdE0g4fe1oPrGT4Zh3P19XYpGBXzgV
+	 3IAvp9nKy2rROm3vWd+NEGB4ubI2m0lXcIP4NzFmVJwNW4igjsMpAGBqPJElk7Pa5J
+	 uTfd1I9C8P1ew==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	apparmor@lists.ubuntu.com,
-	georgia.garcia@canonical.com,
-	jannh@google.com,
-	jmorris@namei.org,
-	john.johansen@canonical.com,
+	steffen.klassert@secunet.com,
+	herbert@gondor.apana.org.au,
+	raminwo0202@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	paul@paul-moore.com,
-	serge@hallyn.com,
-	Artem Dinaburg <artem@trailofbits.com>
-Subject: Re: [PATCH 6.6.y] apparmor: fix cred UAF caused by begin_current_label_crit_section()
-Date: Thu, 15 Oct 2026 15:35:51 -0400
-Message-ID: <2026-10-15-1-daily-reply-0008-apparmor-cred-uaf-6-6@kernel.org>
+	apais@linux.microsoft.com,
+	Tahera Fahimi <taherafahimi@linux.microsoft.com>
+Subject: Re: [PATCH 6.1.y] xfrm: prevent policy_hthresh.work from racing with netns teardown
+Date: Thu, 15 Oct 2026 15:35:52 -0400
+Message-ID: <2026-10-15-1-daily-reply-0009-xfrm-policy-hthresh-6-1@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261014193517.24940-1-artem@trailofbits.com>
-References: <20261014193517.24940-1-artem@trailofbits.com>
+In-Reply-To: <20261014212540.1437936-1-taherafahimi@linux.microsoft.com>
+References: <20261014212540.1437936-1-taherafahimi@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,11 +54,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> AppArmor's begin_current_label_crit_section() is a scary function called
-> from lots of LSM hooks (in particular VFS/socket-related ones) that checks
-> if the label referenced by the current creds is marked FLAG_STALE, and if
+> An XFRM_MSG_NEWSPDINFO request can queue the per-net work item
+> policy_hthresh.work onto the system workqueue. xfrm_hash_rebuild()
+> retrieves the enclosing struct net from the work item, so the callback
 
-Queued for 6.6, thanks.
+Queued for 6.1, thanks.
 
 -- 
 Thanks,
