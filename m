@@ -1,245 +1,203 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27FE424A078;
-	Thu, 15 Oct 2026 13:54:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695F231A7E2
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 13:58:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792072501; cv=none; b=HPXrCmBhNJrSLSmFOPwbdrC5+0mpTM2Xo/oc1kmDmYU4Gj7jat2BiyQ/tqUz5JFzEY88H+Mc5EUzKJVqVZmT/w5wetUOI1ZtaI27BagUG5JWpt0nV7YsRzGf1rJvhhiMe8P0TAnGZyFNSloQbbEZtKXkeQ5BM0z0ch3hEVs2GhM=
+	t=1792072721; cv=none; b=ri2eNzIS/8jAqiD/8YQxpG+PyZ62MRSzGodx1d+BteBYC+ACZ/zbLtdxmNuesKLNPh3r6iM27JbPtE2fs+g8qsiUwIEnD+Fw2rhYfZKEce+opcNKmkp5TK6Wxs63gOI5A4vYTiBJATkmCAm0wfZkW7/GMAXqLLbROtX4k9iwyk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792072501; c=relaxed/simple;
-	bh=0PRBjTr5TypY1b893wkFMEDgcWkORlJqXUbeNeHQLNk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NeXlvjCS5LfiT/vvaCRpK7rUAJw0WfqPBf9GX2xrR3bJg8+TlN7Q0ZSWvi0bt2+xlleuQYUVrzU73MD94eS65cwmdNHmVh7k7fw4b0Cw3y12LF3802bsnFWMaV2pP2kcxqE0UeEK5T3sjH7CYqdpeScasibaJiRq300nnGp9Iro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a+s5HZxi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792072721; c=relaxed/simple;
+	bh=GkuhSG1E3xOY9+vYRNXA1NQsKM+K3EJmy2CQjqLyy7o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DaJ3bgcMbmEh8ZsaRu5af9IIBwKi+FF4LGiHhlZvFryIAK7Fu/CI7pEcB2Wfn/xbSGDLPKYPt7QxebsN3eUS9/tVqMySxs7CBUlQkEVF+oAMrEfzuPAywdTJrmovvQymfe50Y3OS9EZdHxGCKnSU7TJ2kIHaY3iRuMNJUR6y4qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U6UC1bfW; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a+s5HZxi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2937E1F000C4;
-	Thu, 15 Oct 2026 13:54:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792072499;
-	bh=gcI24nl2IlPA5Bb0Wh99zUo3x/8i2k9HfoyGQVQIpDg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=a+s5HZxibXWhqhURTstsw12T/IevWt4HrHhRpZgbNCdg/hWmVdbb2gZ4YzOpVs1X+
-	 8UfkgDVdL/JQAzMUaI5YDFrAThRBXJWI1XxrX3c8sxnoiFNlLNxenVhMo5uaqgf1Jk
-	 1ArLyKrMO3Va5Cp1nw0RYV7K6u4jfA1r3FV25QV30265brksQ1nNGVNQKQ7LN3ocvk
-	 KQ5tovhGpFCrhA+ZiE6bubRtCD7KTbLkfNRiIvDEMvlAhU8pxBBcIhMrklmhmfG5Xj
-	 etdkC5AzhFEyn05iJZSi7gtIF8BSb5ZCFXSzYebOO6kdwH7HEkAA832hhPo+ujro6q
-	 b3umGmKUykOmA==
-Message-ID: <6747ddd1-3eb4-45ff-be2d-f858dc71ab35@kernel.org>
-Date: Thu, 15 Oct 2026 15:54:50 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U6UC1bfW"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38d489b6b71so2844725a91.0
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 06:58:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792072720; x=1792677520; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BW2z9Do1WJP4c/sF51AWRY6qGjtatAvHscnTpp551sI=;
+        b=U6UC1bfWuN2XIx6irIBe2LDP4a4MgF+m7/RzfHgEJzU7d2y/HQP+QeqvwZ9rWHo1tk
+         wsG8rmF09Rhs6u0Ajby22pT3pfUzX0+8lctDfRQvQsnDTZXS0pCfIR8vMRnUZ2QV5d5J
+         sdjfmjY2KtaZYuIOLBfUQ78KjzMpaX8qRhjlY6t/NAlMIqgO26oefJqhEOaj5v0xGNF+
+         +o7h7xiCeoDsUf6tK6jpwoMhalmLIqwhzEYJ0L9CHKMDHKaSkqersLA5X6QK5zyAz2er
+         3Jpd28+q89/0gLJeyXgQ8GHOdFKHeDI0WmUvjEgGiPT8TkqR2QVwSfbWMbRpnMrISE1n
+         aMDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792072720; x=1792677520;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BW2z9Do1WJP4c/sF51AWRY6qGjtatAvHscnTpp551sI=;
+        b=GXLFpVgrR458XNFbH/9Mpp6WO+MkLwhauRG0BQxcQcFSwmUCh7/RJy+QRroWz42lse
+         W6rwplhzyPv4N04K8Lvx3Y42SuaDDXRkqduLuun5ZbTIVFkDvQ85+AuJXCaqyyJYAQ/6
+         nTddsmB5jTj1fXtNjUUOTlpseH6BtEI6kNsAwkc6cZEvm9BJ4yNHf3tnyoYQ/q1O7BSQ
+         ohH0moMHHVMo2gGd2s2AFh5DLLVn133OqGEgkqrGYMs3nJzlzkSY7jjEV6xP3h7zkZr/
+         SlJl2f0YL/ZkeUIK0CkOuy99aqNh8k36DF2HcJY7fP+KJ+Ysslv1owLSTYtI8J9rcN7x
+         FkuA==
+X-Forwarded-Encrypted: i=1; AKwUvBw/u+XI898dbLppr/04tjCm7VkveNx18kori5KKCGMKOgZRFJu1UyrXOKw/RPQlLbNp5ZFQKgI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKHFroMPquqUkYg3HFp24aMIkxbJgfSke488nMbC51kP4yeuk70
+	JReKuM814ZFDK1HeXcvTqjrMGA+uYV0ckACPGORzO+vExytrKphLMh1x
+X-Gm-Gg: AYBFou1vq0lIqEoO5NM6u3gieEB6ThTciMJ5f1VKM4nraXOSL/b02ajr9VBW2sc1Kmw
+	y6RigA3qW/UkPPCRJv2SA8hpGTWTD4GRGfYNQWjbTf7fZYzr4nzFOpqEHXX/kgK8v7wazjwcVmD
+	2hQpPtg5fTsAjqhS5LY0Iqrt4b3912YhF2jzfPMCheYudZuZXR8CX/TvRUf8fHew8DooNnLrobv
+	dYS0Q5C1rs2D+ZcC/SHmbnRRNeHf4O0jzcC6Fj6ynlWQ9iW8K6YFp4aF1nwrLVBmVc0p6YR+oAN
+	EyNDFgt0GGg5cJaxKvGnZ0FU1b35RV5eAGaUwO9KJPI09QuXO+A74ljZRCGZGxa2SXE4qG7U+wu
+	DvApHXwFyZ1imcuA4/IWqtCknOaIIUqnQ4Qenxd9r/Ip2v60EbsLR8EnJvgxbq171Gu7kzTRfPY
+	FzZOwvRdVbh9KOyFSH7uG2bk5pupBuy78HtCb+Te7QEjJ8O+mjhae39d9v56a7RD0oMCuDlr7Ry
+	j+jdHe3uScEav1CiAZcGhk=
+X-Received: by 2002:a17:90b:54d0:b0:3ab:4e4:e979 with SMTP id 98e67ed59e1d1-3ab3ac90725mr14115192a91.36.1792072719701;
+        Thu, 15 Oct 2026 06:58:39 -0700 (PDT)
+Received: from localhost.localdomain ([123.215.20.10])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac944a9365sm4848219a91.14.2026.10.15.06.58.36
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 15 Oct 2026 06:58:39 -0700 (PDT)
+From: Jiwoong Wi <dwdnlzj@gmail.com>
+To: Chuck Lever <cel@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>
+Cc: linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	bobtobabz@gmail.com
+Subject: [PATCH] svcrdma: account for inline bytes in Read chunk page budget
+Date: Thu, 15 Oct 2026 22:58:32 +0900
+Message-ID: <20261015135832.67889-1-dwdnlzj@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net 1/4] mptcp: reset msk state on early connect failure
-Content-Language: fr
-To: netdev-bot+sashiko@kernel.org
-Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
- caoruide123@gmail.com, stable@vger.kernel.org, vega@nebusec.ai,
- sashiko-bot@kernel.org, weir@nebusec.ai, kuniyu@google.com,
- daniel@iogearbox.net, kafai@fb.com, Quanye Yang <quanyeyang@proton.me>
-References: <20261013-net-mptcp-misc-fixes-7-3-rc8-v1-1-932c9b182fc7@kernel.org>
- <179198834484.434549.4616694240552704738@kernel.org>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <179198834484.434549.4616694240552704738@kernel.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hello,
+The Read-list check limits Read bytes to the request page budget. With
+multiple data item Read chunks, svc_rdma_read_multiple_chunks() copies
+the inline RPC body into those same pages. The reconstructed message
+can overflow the budget even when its Read bytes alone fit.
 
-On 14/10/2026 16:32, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 0
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] The new error path in mptcp_connect()
->   (net/mptcp/protocol.c:4224) calls…
+A short final Read segment escapes the existing page-overrun check
+because that check runs only if len remains nonzero. The inflated
+rc_page_count then makes svc_rdma_clear_rqst_pages() write past
+rc_pages, followed by an out-of-bounds read during cleanup.
 
-TL;DR: this is a pre-existing issue.
+Include inline bytes in the budget only when multiple data item Read
+chunks share the page array. Count the final Read chunk, and replace
+the late, len-conditional page check with checks of both page-array
+capacities before using each destination page. Single Read chunks and
+Position Zero Call chunks use different reconstruction paths.
 
-> mptcp: reset msk state on early connect failure
-> 
-> This commit changes the mptcp_connect() error path. It now clears the
-> fallback state (MPTCP_FALLBACK_DONE, allow_subflows,
-> allow_infinite_fallback) and resets the first subflow context. The goal
-> is that a later connect() on the same fd can use MPTCP again after an
-> early fallback followed by an immediate connect failure.
-> 
-> Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/633
-> 
->> diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
->> index e89a69ab927c9..e6f73a5ee630a 100644
->> --- a/net/mptcp/protocol.c
->> +++ b/net/mptcp/protocol.c
->> @@ -4212,9 +4212,16 @@ static int mptcp_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
->>  	 * subflow_finish_connect()
->>  	 */
->>  	if (unlikely(err)) {
->> -		/* avoid leaving a dangling token in an unconnected socket */
->>  		mptcp_token_destroy(msk);
->>  		mptcp_set_state(sk, TCP_CLOSE);
->> +
->> +		spin_lock_bh(&msk->fallback_lock);
->> +		msk->allow_subflows = true;
->> +		msk->allow_infinite_fallback = true;
->> +		clear_bit(MPTCP_FALLBACK_DONE, &msk->flags);
->> +		spin_unlock_bh(&msk->fallback_lock);
->> +
->> +		mptcp_subflow_ctx_reset(mptcp_subflow_ctx(ssk));
-> 
-> [Severity: Medium]
-> Is mptcp_subflow_ctx_reset() resetting more than this path needs? It
-> clears the whole reset group and then sets local_id to -1:
-> 
-> net/mptcp/protocol.h:mptcp_subflow_ctx_reset() {
-> 	memset(&subflow->reset, 0, sizeof(subflow->reset));
-> 	subflow->request_mptcp = 1;
-> 	WRITE_ONCE(subflow->local_id, -1);
-> }
-> 
-> This also wipes two values that are set only once, when msk->first is
-> created:
-> 
-> net/mptcp/protocol.c:__mptcp_socket_create() {
->     ...
-> 	subflow->subflow_id = msk->subflow_id++;
-> 
-> 	/* This is the first subflow, always with id 0 */
-> 	WRITE_ONCE(subflow->local_id, 0);
->     ...
-> }
-> 
-> A second connect() gets the same msk->first back from __mptcp_nmpc_sk(),
-> so this setup does not run again. The reset also runs on every immediate
-> failure (ENETUNREACH, EAFNOSUPPORT, BPF pre_connect, ...), not only after
-> an early fallback.
-> 
-> On the retry, local_id is -1, so the connect goes through:
-> 
-> tcp_connect()
->   subflow_rebuild_header()
->     subflow_chk_local_id()
->       mptcp_pm_get_local_id()
-> 
-> mptcp_pm_get_local_id() returns 0 only when the msk local address matches
-> the subflow's address:
-> 
-> 	mptcp_local_address((struct sock_common *)msk, &msk_local);
-> 	mptcp_local_address((struct sock_common *)skc, &skc_local.addr);
-> 	if (mptcp_addresses_equal(&msk_local, &skc_local.addr, false))
-> 		return 0;
-> 
-> mptcp_copy_inaddrs() runs only after a successful connect. For an unbound
-> msk, the msk address is therefore still zero at this point.
-> 
-> Wouldn't the kernel PM then give the MPC subflow a non-zero ID, either
-> from a matching endpoint or by adding an IMPLICIT endpoint to the netns
-> endp_list?
-> 
-> If the endpoint table is full, mptcp_pm_nl_get_local_id() returns -ERANGE.
-> tcp_connect() would then fail the retry with -EHOSTUNREACH, even though a
-> valid route exists.
-> 
-> A non-zero local_id on the initial subflow also seems to break endpoint
-> removal. When that endpoint is deleted,
-> mptcp_nl_remove_subflow_and_signal_addr() gets the ID from
-> mptcp_endp_get_local_id(), which returns rm_id 0 for the MPC endpoint.
-> mptcp_pm_rm_addr_or_subflow() then skips the initial subflow because
-> id != rm_id, so the initial subflow is never closed.
-> 
-> The reset also zeroes subflow_id, while msk->subflow_id has already
-> advanced to 2. After a successful retry, mptcp_get_full_info() would
-> report the first subflow with id 0:
-> 
-> 	sfinfo.id = subflow->subflow_id;
-> 
-> But tools/testing/selftests/net/mptcp/mptcp_sockopt.c expects:
-> 
-> 	assert(sfinfo[0].id == 1);
-> 
-> mptcp_disconnect() already behaves this way for subflow_id. The local_id
-> part looks new, though: on the disconnect path, the msk still holds the
-> addresses from the earlier successful connect.
+Validation used nfsd-testing 78c334bc5ae61d23ca1cc2e43079c620f1d40866.
+The unmodified Generic KASAN kernel reproduced an out-of-bounds write
+in svc_rdma_process_read_list(), followed by an oops during cleanup.
 
-The code here is doing a "disconnect" of the first subflow: similar to
-what is done in __mptcp_subflow_disconnect(), mptcp_subflow_ctx_reset()
-is called. It will indeed set subflow->local_id to -1 and causing the
-(minor) issue reported here where the PM could assign the wrong ID when
-reconnecting (yeah, another reconnect after a "disconnect" case...). So
-I don't think this issue is new, and the fix here is doing the right
-thing of calling mptcp_subflow_ctx_reset().
+With this patch, the full kernel and modules built and booted. In an
+isolated run, all 61 instances of the same frame were rejected during
+RPC/RDMA header parsing. A two-Read-chunk NFSv4 NULL request completed:
+the server issued two RDMA Reads and returned a successful RPC reply
+with the matching XID. Concurrent NFSv4.2/RDMA direct I/O completed 20
+repeated 8 MiB write/read transfers; the final readback matched the source
+SHA-256. No KASAN report or oops occurred in the direct I/O run, and
+kernel taint remained zero. The reproducer and baseline KASAN log are
+available privately on request.
 
-> The commit message mentions only MPTCP_FALLBACK_DONE, allow_subflows and
-> request_mptcp. Would it work to reset only request_mptcp here (plus the
-> token and key fields if needed)? Another option would be to restore
-> local_id to 0 and keep the original subflow_id for msk->first after
-> mptcp_subflow_ctx_reset().
+The vulnerability research and validation were conducted by members of
+the Tobabz team as part of the Best of the Best 15th program.
 
-I don't think we should set the local_id to 0 in mptcp_subflow_ctx_reset
-because it will cause issues in mptcp_close_ssk(). Maybe we should set
-local_id to 0 for the first subflow in mptcp_disconnect()? Anyway, that
-should be part of a follow-up patch (I can look at that), not as a new
-version of this one.
+Fixes: d7cc73972661 ("svcrdma: support multiple Read chunks per RPC")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Jiwoong Wi <dwdnlzj@gmail.com>
+---
+ net/sunrpc/xprtrdma/svc_rdma_pcl.c | 12 ++++++++----
+ net/sunrpc/xprtrdma/svc_rdma_rw.c  | 10 ++++++----
+ 2 files changed, 14 insertions(+), 8 deletions(-)
 
-Cheers,
-Matt
+diff --git a/net/sunrpc/xprtrdma/svc_rdma_pcl.c b/net/sunrpc/xprtrdma/svc_rdma_pcl.c
+index 862372279..8da0f0dc7 100644
+--- a/net/sunrpc/xprtrdma/svc_rdma_pcl.c
++++ b/net/sunrpc/xprtrdma/svc_rdma_pcl.c
+@@ -238,8 +238,8 @@ bool pcl_alloc_write(struct svc_rdma_recv_ctxt *rctxt,
+  * before comparing against @inline_len or the Call chunk length.
+  *
+  * Rejects frames where a Read chunk's inline-body offset exceeds
+- * the bound, where adjacent Read chunks overlap, or where any
+- * single chunk length exceeds the page budget.
++ * the bound, where adjacent Read chunks overlap, or where Read bytes,
++ * plus inline bytes when they share the page array, exceed its budget.
+  *
+  * Return values:
+  *       %true: Read chunk positions and lengths are valid
+@@ -269,8 +269,9 @@ bool pcl_check_read_chunk_positions(struct svc_rdma_recv_ctxt *rctxt,
+ 	pcl_for_each_chunk(chunk, &rctxt->rc_read_pcl) {
+ 		if (chunk->ch_position - total_read > bound)
+ 			return false;
+-		if (chunk->ch_length > max_len)
++		if (chunk->ch_length > max_len - total_read)
+ 			return false;
++		total_read += chunk->ch_length;
+ 
+ 		next = pcl_next_chunk(&rctxt->rc_read_pcl, chunk);
+ 		if (!next)
+@@ -278,8 +279,11 @@ bool pcl_check_read_chunk_positions(struct svc_rdma_recv_ctxt *rctxt,
+ 
+ 		if (chunk->ch_position + chunk->ch_length > next->ch_position)
+ 			return false;
+-		total_read += chunk->ch_length;
+ 	}
++	if (pcl_is_empty(&rctxt->rc_call_pcl) &&
++	    rctxt->rc_read_pcl.cl_count > 1 &&
++	    inline_len > max_len - total_read)
++		return false;
+ 
+ 	return true;
+ }
+diff --git a/net/sunrpc/xprtrdma/svc_rdma_rw.c b/net/sunrpc/xprtrdma/svc_rdma_rw.c
+index 63d00f0cc..1f1ccf80a 100644
+--- a/net/sunrpc/xprtrdma/svc_rdma_rw.c
++++ b/net/sunrpc/xprtrdma/svc_rdma_rw.c
+@@ -794,6 +794,10 @@ static int svc_rdma_build_read_segment(struct svc_rqst *rqstp,
+ 	ctxt->rw_nents = nr_bvec;
+ 
+ 	for (bvec_idx = 0; bvec_idx < ctxt->rw_nents; bvec_idx++) {
++		if (head->rc_curpage >= head->rc_maxpages ||
++		    head->rc_curpage >= rqstp->rq_maxpages)
++			goto out_put;
++
+ 		seg_len = min_t(unsigned int, len,
+ 				PAGE_SIZE - head->rc_pageoff);
+ 
+@@ -810,9 +814,6 @@ static int svc_rdma_build_read_segment(struct svc_rqst *rqstp,
+ 			head->rc_pageoff = 0;
+ 		}
+ 		len -= seg_len;
+-
+-		if (len && ((head->rc_curpage + 1) > rqstp->rq_maxpages))
+-			goto out_put;
+ 	}
+ 
+ 	ret = svc_rdma_rw_ctx_init(rdma, ctxt, segment->rs_offset,
+@@ -893,7 +894,8 @@ static int svc_rdma_copy_inline_range(struct svc_rqst *rqstp,
+ 	for (page_no = 0; page_no < numpages; page_no++) {
+ 		unsigned int page_len;
+ 
+-		if (head->rc_curpage >= rqstp->rq_maxpages)
++		if (head->rc_curpage >= head->rc_maxpages ||
++		    head->rc_curpage >= rqstp->rq_maxpages)
+ 			return -EINVAL;
+ 
+ 		page_len = min_t(unsigned int, remaining,
+
+base-commit: 78c334bc5ae61d23ca1cc2e43079c620f1d40866
 -- 
-Sponsored by the NGI0 Core fund.
+2.39.5
 
