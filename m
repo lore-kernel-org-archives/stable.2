@@ -1,139 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA5D525A8C;
-	Thu, 15 Oct 2026 12:57:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B8E5293E9;
+	Thu, 15 Oct 2026 12:58:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792069041; cv=none; b=Vd24iM7iW0Bycin+rrwb5Fm7f/LY5CjrwFkskFJVQ0+Nxfcq4c+tl0wxPUA0svYoQi8xZ2AaStaOywHTUDBK61JK7aFCDVAa1JqEztGBPhVAI38pXjpgWivRa4D0ejQlL807HTY+gS4Fg3ha2dUjAYtROZ5z1Vwgjjxr7rkpoLY=
+	t=1792069109; cv=none; b=m3BXZcz364DHgoAr41LuDbVqJ3N28uHw7LvalM9YXFKgWTiHV1JDDg3++/vLnqkPme93J3+FYM7X1TwnIy04jUFBQDFY3Du/qiZM2fttUjJwu5rwKh8hjH86SZfhDad1MQsfUg5GiDzTKQB6XdOIOIRMUSB14HOl5Hi5Bap9px4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792069041; c=relaxed/simple;
-	bh=PYavcK+gsq7+YAxDoKDWjVjhuq08uhJphyzFb3h/fYg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=u7W6A9VlFDnTdCsIGEU4LrG0jIx0hD8zvnYmEpLXpg+BPXEKApWtVTnNPnZZzwpO1O6BuV8qZ7iCEApXOt4HmBhjOMMuKeWjkXFiWbfeveC1u4bUxKK5wVEgKKVL5c5G0fI39MQbnro75mkrngaIHgAGl9d+B2o1V66ZZyt139Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ff87CtYh; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792069109; c=relaxed/simple;
+	bh=O2+1GwEE0AsDmP5QqMiPLXgMPBGGavsO6FmACr+IRVI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IbFaTdrpOBzAJbu4Sjr7sL2EGo+z0Zdv+OsHZvYYqvIZvrjcgq6mDWvdk8cyv2v+k3Hg48wwciTpCelCsrh12kT+yxcWhBknFlcqI8TeYVpbn59slpHQnn6wMt/vNBmkSKHlSvQK4bwCPntNlMS5I2COpEbYtnd0f9hnA/nGEdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BnQPqeck; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ff87CtYh"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 282D0C2BCF5;
-	Thu, 15 Oct 2026 12:57:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792069041;
-	bh=PYavcK+gsq7+YAxDoKDWjVjhuq08uhJphyzFb3h/fYg=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=ff87CtYhFn83k13USH8ETFbFCR0sauWg0dsf0Lb2yNUmJygaM+ypY0aaISO7Tfzy2
-	 0BROSbUFoICpjiuG5V8M8shl6fJZLXqRmr/gaxX40yMZoaFM7P3jEBROwQmJ3Bj6gl
-	 8obj77VqQLwgBEFgW8BeAW3PttjmxiP+uKfO5XOUQrDlnrBYMp1dDzzyKkfK0xINI1
-	 yj+SgEA8kQquEyJHp6yQCsLGArlSuMu1Fq9MLpTgnj3wXpwefpZqtK9Goq+v2Lfh03
-	 5gc0X2duEcHDh2QlUEl33zC1GyhtN3JUfOESEm4LtrrM0iIiLHO7UrbSABmFEAeZWl
-	 l6wLj0Hr4UNiA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 026F7CC6B3A;
-	Thu, 15 Oct 2026 12:57:21 +0000 (UTC)
-From: Antoine Huret via B4 Relay <devnull+antoine.huret.bull.com@kernel.org>
-Date: Thu, 15 Oct 2026 14:55:56 +0200
-Subject: [PATCH] perf/core: Update cgroup time when rotating multiplexed
- events
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BnQPqeck"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 506601F000C4;
+	Thu, 15 Oct 2026 12:58:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792069106;
+	bh=c+hYfQRfw/vcaP+SdQuPcP8r55bXq9Rsby8ykddfBB8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BnQPqeckA/+14E1ejZnXfCGBkUgNzXeDijJXXHFi7106QQUDRv0FDiHRMrKMsriL3
+	 3rQCNWIC/fmJbV+/+MJWLofyiiktBd+2/CDkUeLfg7OKWtqj2t+EqiiOWUCnsDsf2B
+	 Z7xRLseQa/bfv9u/etIaR1Me2HjqAGSO2xtOezJNkrQHhnu6hVXEOSQllqoiNSGuLh
+	 /0XS4KxcQ6F0Qn5ZsVqQ/aCsfEZwFW4O5pLv2FkXtlEelC2DZnkE8DrV5QxKHPTNCJ
+	 BzNvRKd2TWCrboJCDc6I0SGHT1uj/IcwZYLuCX5bxdkYW7UL5lZH43uCqH2zwaV365
+	 2PMz3ZybAy+bQ==
+Date: Thu, 15 Oct 2026 13:58:22 +0100
+From: Simon Horman <horms@kernel.org>
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org, Victor Nogueira <victor@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Sashiko <sashiko-bot@kernel.org>, bpf@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v2] net/sched: clamp skb->queue_mapping before
+ indexing the tx queue
+Message-ID: <20261015125822.GH83879@horms.kernel.org>
+References: <QDISC-MD1X.v2.20261009135842@mojatatu.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-perf-cgroup-rotation-time-v1-1-93e177dfee5d@bull.com>
-X-B4-Tracking: v=1; b=H4sIAFvN0GoC/x3MQQqEMAxA0atI1gasThW8iriINWoW2pJWEcS7W
- 2b5F+8/EFmFI/TFA8qXRPFHDlMW4DY6VkaZc0Nd1a2pjMXAuqBb1Z8B1SdKGWCSndFOrpksdb+
- ZCLIPyovc//cwvu8H7YmOAGsAAAA=
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, Ravi Bangoria <ravi.bangoria@amd.com>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Antoine Huret <antoine.huret@bull.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2339;
- i=antoine.huret@bull.com; h=from:subject:message-id;
- bh=X7lpvPKxkCTOPsqZeaF8a05zl2DLcvYi9kNi4gotLAU=;
- b=owEBbQKS/ZANAwAKAWMOnjplmIryAcsmYgBq0M2vTy8KMWluHcORRg4tu0qi8yEiNAtJORZf5
- UHeKGrI93KJAjMEAAEKAB0WIQSxtbJhhOISBbCx2QNjDp46ZZiK8gUCatDNrwAKCRBjDp46ZZiK
- 8kjfD/98IihVBZxoHPjnYVh20iml/h60ZNgA8PlrLO66uTy4xUtpl5uyFYxgtCv6t/+vu2l93oR
- wYPO90o6rZfmkawFtrkM+lxx3yVEh4twOQGW/6O/57L+9A93RA2FjNlGRDWa+O8//0gifYstakI
- Opkj+K17hhJLyCcqc9ma5Ojqp/IMoUJ0dBLXIc7Mp8EcAwXCmpz8ewpvXjW6wdNH/LC6c3RKDP/
- 4f2feS7nVOiduVysTkc514NV4XRmDzJQyj6ZKMT2XIA6mIsw3cNLInsKQ8x/NF1dejoaV1a8X5d
- 3giuk/+bsVPfiD+lzhxWaCPZRR4wO6a/A7WPMlPTtT1+TyFK/ovy5Z2ExxFInSWKjnk/jr1OOc/
- EhXNUsj88bxr3qPgQX5cpe1PTjntM72+YeLi5nAFNSpy7VuaSGWDKPtvTG/bYP1BHPllZa0RrBs
- sg2RvvNUiDxGKoIEe3MM9s3M1gjuz2OSgfSLIqLXv81QvxXk29pfQhP+jK9pqRw2xJ+vV+toMqO
- xfjvVYW6z7GzRcoaMXz6AVXXMMbZtSZR3ZPB8b32a8/j15W6efHF5fD+xnvYSDM48mG50AFtiG9
- rrl9wx+DYJmDD/6UXqsLg5GDLIsBr2zyHIB96NnRU6YUe06lhpc1cMZv+7r3hlQr9HqpS6qvq+d
- JXWZc2VGuLd5B/w==
-X-Developer-Key: i=antoine.huret@bull.com; a=openpgp;
- fpr=B1B5B26184E21205B0B1D903630E9E3A65988AF2
-X-Endpoint-Received: by B4 Relay for antoine.huret@bull.com/default with
- auth_id=1191
-X-Original-From: Antoine Huret <antoine.huret@bull.com>
-Reply-To: antoine.huret@bull.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <QDISC-MD1X.v2.20261009135842@mojatatu.com>
 
-From: Antoine Huret <antoine.huret@bull.com>
+On Fri, Oct 09, 2026 at 02:09:03PM -0400, Jamal Hadi Salim wrote:
+> This issue was caught by Sashiko (nipa). A producer-side path cap is
+> already merged (ea4d4b5dddb5); this patch adds the matching consumer-side
+> cap.
+> 
+> The issue:
+> The tx queue is picked and capped in netdev_core_pick_tx(), before the
+> __dev_xmit_skb() qdisc enqueue path. A tc BPF program running inside
+> egress qdisc (not clsact) can then change __sk_buff->queue_mapping;
+> that store is never re-checked. bpf_convert_ctx_access() bounds it only
+> by NO_QUEUE_MAPPING, not by the device's queue count.
+> 
+> On dequeue, qdisc_restart() calls netdev_get_tx_queue(), which
+> indexes dev->_tx[] with that value. netdev_get_tx_queue() guards it with
+> just a DEBUG_NET_WARN_ON_ONCE, so sch_direct_xmit() takes the out-of-bounds
+> txq->_xmit_lock and writes txq->xmit_lock_owner past the end of the
+> allocation on non-lltx devices such as ifb. Drivers that index their rings
+> from skb_get_queue_mapping() (ex: ifb) go out of range the same way.
+> 
+> The Fix:
+> Cap the mapping at the consumer and write the capped value back, so both
+> the qdisc's _tx[] lookup and any later driver read stay in range. The cap
+> folds into the dequeue path instead of a separate walk over the returned
+> list: dequeue_skb() caps the head, and each bulk helper caps the element it
+> appends. netdev_cap_txqueue() already logs a ratelimited notice and selects
+> queue 0. The single-packet case pays one extra compare against
+> real_num_tx_queues.
+> 
+> A bulk-dequeued list is transmitted under the single tx queue lock of the
+> head skb, so every element must belong to that same queue. The fast bulk
+> helper (TCQ_F_ONETXQUEUE, taken on BQL devices by the per-queue children
+> of mq, mqprio, taprio and htb, and by any qdisc on a single-queue device
+> such as the prio root in the reproducer) must therefore compare each
+> capped follower against the head and requeue a mismatch, exactly as the
+> slow helper already does; appending a follower that caps to a different
+> queue would send it under the wrong _xmit_lock.
+> 
+> Conditions to recreate the bug:
+> Load a SCHED_CLS or SCHED_ACT program that stores __sk_buff->queue_mapping
+> (a tc BPF action is enough), attach it to a transmit qdisc (for example a
+> matchall filter on a prio root), and send a packet. With a 1-queue device a
+> store of 1 indexes one past dev->_tx[]. Under KASAN with panic_on_warn=1
+> the unfixed kernel faults with "BUG: KASAN: slab-out-of-bounds in
+> sch_direct_xmit". Loading the program needs CAP_BPF/CAP_SYS_ADMIN, so the
+> trigger is root.
+> 
+> Fixes: 74e31ca850c1 ("bpf: add skb->queue_mapping write access from tc clsact")
+> Reported-by: Sashiko (nipa) <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/netdev/179033713973.2160803.4914570693994398206@kernel.org/
+> Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-9R8V.v2.20260924072708%40mojatatu.com
+> Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-MD1X.v1.20261005193231%40mojatatu.com
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Victor Nogueira <victor@mojatatu.com>
+> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+> ---
+> v1 -> v2:
+> - try_bulk_dequeue_skb(): the fast bulk helper (TCQ_F_ONETXQUEUE) capped
+>   each follower but appended it without comparing it against the head, so
+>   a mismatched follower was still sent under the head's txq lock. Compare
+>   the capped follower with the head and requeue a mismatch to skb_bad_txq,
+>   matching try_bulk_dequeue_skb_slow(). Reported by Sashiko (nipa).
+> ---
+>  net/sched/sch_generic.c | 53 ++++++++++++++++++++++++++++++++++++++++++++-----
+>  1 file changed, 48 insertions(+), 5 deletions(-)
 
-Since commit bd2756811766 ("perf: Rewrite core context handling"),
-perf_rotate_context() only updates the context time before scheduling
-out the flexible events. It no longer updates the cgroup time, which
-ctx_sched_out() used to do.
+Hi Jamal,
 
-Cgroup events take their times from the per-cpu cgroup clock, so
-between two cgroup switches the rotations see a frozen clock. The
-events rotated out lose the running time they accumulated, and the next
-update, usually a read, credits the whole interval to the events that
-happen to be on the PMU at that moment.
+Weirdly, this patch is mangled and does not apply.
 
-As a result, the time_running of multiplexed cgroup events is wrong,
-and so are their scaled counts, as long as no other cgroup runs on the
-CPU, e.g. a busy job alone on its CPUs. Counting cycles over one second
-of a busy loop in a cgroup gives from half to several times the max
-frequency of the CPU.
+> 
+> diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
+> index 6f6a6f0d5eb0..b65bec7e2643 100644
+> --- a/net/sched/sch_generic.c
+> +++ b/net/sched/sch_generic.c
+> @@ -96,9 +96,33 @@ static void qdisc_maybe_clear_missed(struct Qdisc *q,
 
-Update the cgroup time before rotating the CPU context, as was done
-before the rewrite.
+This hunk results in 31 lines, not 33.
 
-Fixes: bd2756811766 ("perf: Rewrite core context handling")
-Closes: https://lore.kernel.org/r/PR3PR07MB69223331EED5BEBE150375B7849C2@PR3PR07MB6922.eurprd07.prod.outlook.com/
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Antoine Huret <antoine.huret@bull.com>
----
-The reproducer and the results are in the report linked by the Closes:
-tag. Tested on v7.3-rc7: multiplexed cgroup events read correct values
-again. The culprit was confirmed by testing bd2756811766 and its parent
-(v6.1-rc2).
+>  
+>  #define SKB_XOFF_MAGIC ((struct sk_buff *)1UL)
+>  
+> +/* A tc BPF program on a transmit qdisc can change __sk_buff->queue_mapping
+> + * after the tx queue was picked. Re-cap it against the device and write it
+> + * back, so a driver that re-reads skb_get_queue_mapping() stays in range.
+> + */
+> +static u16 qdisc_cap_skb_tx_queue(struct net_device *dev, struct sk_buff *skb)
+> +{
+> +	u16 queue = skb_get_queue_mapping(skb);
+> +	u16 capped;
+> +
+> +	capped = netdev_cap_txqueue(dev, queue);
+> +	if (unlikely(capped != queue))
+> +		skb_set_queue_mapping(skb, capped);
+> +
+> +	return capped;
+> +}
+> +
+> +static struct netdev_queue *skb_cap_tx_queue(struct net_device *dev,
+> +					     struct sk_buff *skb)
+> +{
+> +	return netdev_get_tx_queue(dev, qdisc_cap_skb_tx_queue(dev, skb));
+> +}
+> +
+>  static inline struct sk_buff *__skb_dequeue_bad_txq(struct Qdisc *q)
+>  {
+> -	const struct netdev_queue *txq = q->dev_queue;
+> +	const struct netdev_queue *txq;
+>  	spinlock_t *lock = NULL;
+>  	struct sk_buff *skb;
+>  
 
-Peter suggested a cleanup using ctx_time_update() in the rotation, to
-go on top of this minimal fix.
----
- kernel/events/core.c | 1 +
- 1 file changed, 1 insertion(+)
+...
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 7846d70be..971cd4b49 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -4639,6 +4639,7 @@ static bool perf_rotate_context(struct perf_cpu_pmu_context *cpc)
- 
- 	if (cpu_event) {
- 		update_context_time(&cpuctx->ctx);
-+		update_cgrp_time_from_cpuctx(cpuctx, false);
- 		__pmu_ctx_sched_out(cpu_epc, EVENT_FLEXIBLE);
- 		rotate_ctx(&cpuctx->ctx, cpu_event);
- 		__pmu_ctx_sched_in(cpu_epc, EVENT_FLEXIBLE);
+> @@ -216,6 +242,17 @@ static void try_bulk_dequeue_skb(struct Qdisc *q,
 
----
-base-commit: 357e8a77a501d96c9517f01f4a211eed5e9c9184
-change-id: 20261015-perf-cgroup-rotation-time-5bc3b5a74daa
+And this hunk results in 15 lines, not 17.
 
-Best regards,
--- 
-Antoine Huret <antoine.huret@bull.com>
+>  		if (!nskb)
+>  			break;
+>  
+> +		/* Re-cap a mapping changed after pick; requeue a
+> +		 * follower that no longer matches the head, which owns
+> +		 * the _xmit_lock for the whole list.
+> +		 */
+> +		if (unlikely(qdisc_cap_skb_tx_queue(dev, nskb) !=
+> +			     skb_get_queue_mapping(skb))) {
+> +			qdisc_enqueue_skb_bad_txq(q, nskb);
+> +			break;
+> +		}
+>  		bytelimit -= nskb->len; /* covers GSO len */
+>  		skb->next = nskb;
+>  		skb = nskb;
 
+...
 
+pw-bot: changes-requested
