@@ -1,84 +1,244 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8894C18A6DB;
-	Thu, 15 Oct 2026 11:52:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792065170; cv=none; b=Z/WL3+bSq4h6n2vriFn9FD7x6vHJhN1N7NdpNjU+dT/E2+OXjSKIMbq7nxrRwepIYHoLplvnkdlB/4XH9b/BgGkuqG12ZVLaqQNNlDXwNYBFejpckVzbb98TAJ0ueBRMrhImfBiSTk903JaXowSCzjJuMfemOR2Wwp6PL1RUpW8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792065170; c=relaxed/simple;
-	bh=2sQJXFyArpysCD9tVrNpkqhP5VFkJtWpl4LxV8vfjiI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V6RZSttjLJ3nbAowD+cYuiQIX4fhkkb3GQVjuHWQUSRieW8UojTjLppKueuPMRa6bK9F3aJoGIExkSOqztu1Qgh0KAMz5Te/lAEk741wyvvEGbWgOw24SMAJj0/HuYK0WoJTcYxEE/GL/hiU+0wFMoYdV83lYDXZjO1GNTMOXH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kJ/rBYLc; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5EB51DAF0;
+	Thu, 15 Oct 2026 11:53:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792065215; cv=pass; b=Y+j7Ktc953lu8x5WHwVSitm3c+hpdAEYRG87ETbt/kUewrTeG4Xw8gXA+U5O7vAHHhz+gcZVtn3iX7Va24CIhW/OEZtfSci4vpgctUH6RD/6l8hXfr5D81uqCoAZSZ9FYVd4lmiU9pPAfp4pWLfshpH+G/efU5aFVDFWwDbdKLs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792065215; c=relaxed/simple;
+	bh=NQvQ/6e+uslrnVXOH+XijZaZFiXfuMx8/pgP42Eq9Tg=;
+	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=KhXKvI6EAzFv+Yd+dPe13FGFVBet/y1tbAC9TyjLmnGqd+K4wyLMQERQrQX3j5wFC72r5ZnRBh1zt71z1rFpaTQ+e/vnZMuPeFzLJCjn/D3RTnG813z2ZwqOHqC0yQVjcJZV8IJ9FMUnlmHqaRVMoDulxAN3pLEfht1Cu6QOuc4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=q5serVoS; arc=pass smtp.client-ip=165.173.180.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kJ/rBYLc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27D1D1F000C4;
-	Thu, 15 Oct 2026 11:52:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792065169;
-	bh=sC72EAmoifBVTLDVj0wP5wmbgewZfK5wW+3tvU4ypAc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kJ/rBYLcU9+AT5KZS7DdXNoxHHiA7p/tBxuSj9SdeuDX3SwkNYCOK6rMElDbIKpSd
-	 slYAbvxbr/99RMRAV0C9R4Do//LZaggIJHnktZ7NXJDUbKRR6ouEBYamAsLMt1Fijr
-	 mrIXPtbmJiLOIOqZezaZbz7QnyPttA0gu/jJRFP88nx6OLUvxKQ+7c0YM2oRJ1vyC2
-	 xBLTj7LUp3A2MXcLTc6z2NzJHgx5EYzYal6DSef40zEdO/3lc8z+ifMX7XTpoYA6Te
-	 BEoHcyKghzTdPdOYtGENPO5WG/IqVhk8Wy44SVXrC/uOBBL8wMGotd6aeUHN8ftG/Y
-	 05IFduzs89D5g==
-Date: Thu, 15 Oct 2026 13:52:45 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Birk Skyum <birk.skyum@pm.me>
-Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>, 
-	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Thorsten Leemhuis <regressions@leemhuis.info>, Daniel J Blueman <daniel@quora.org>, 
-	Sasha Levin <sashal@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Manikanta Mylavarapu <quic_mmanikan@quicinc.com>, linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, regressions@lists.linux.dev
-Subject: Re: [PATCH] Revert "i2c: qcom-geni: Fix hardcoded clock index in
- SE_GENI_CLK_SEL"
-Message-ID: <atC-ZZLkXs3yM6l4@zenone.zhora.eu>
-References: <20261014130805.48840-1-birk.skyum@pm.me>
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="q5serVoS"
+ARC-Seal: i=1; a=rsa-sha256; t=1792065190; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=a621UlN+ky+70D2tfJEubY3d9ftrtveDYAOOf/CKLwNqV9hnVp+2jT8vIbxhfNFKDuk2uKHUpRJGHxw1s42h8OYEI4HFLGH+c/mJHBiZf4IjP55QFv0labn6jnb8P9YtyGSE1YcBYraKaQfus1Y7x3Pja9U/dB0UQdky18pGkws=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792065190; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=d1DBlPPqgYWDBNyBKh78Dl7fk7EpiM062VvlN5DcAho=; 
+	b=dK8yCBpZishrA7QP5xCeN1Vaw7b1XBWIWt5ZV8nAMn7htWnEw0xslcqXKcv9JP1FZrQ9S/7YrUJIcehSncfBVzM2MGXAIlU8ardOz88VBkFe+TfS/5m4/7P+0TTO7DoH7dYZyT0z8jI5WPlBJT590bMH26IQCBmpp8R5zKiEwXk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792065190;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
+	bh=d1DBlPPqgYWDBNyBKh78Dl7fk7EpiM062VvlN5DcAho=;
+	b=q5serVoSwNHJsedHFd5bumkyOCUD6/u1bZIYalZXmCPMMgALFEKxmoak5OzKR4GU
+	Es3ElIHiXHgYfr8AvE4pO97D7uUqUDaxXhl/oZ8/UT9aR33Bp44jRU2PIltGNEoXTBM
+	5Y0Bfc4LsJiUgPdSLIjw/7491GEUsQEwFWlOU8xaAv/+l6INaxc6FvSF9iTqYPOOg54
+	jLMWu4yij0ug84EU/puCMJ7M2LezgdqfD/M5hILdIRW+KHhnpYl+JxlOs3meKbTkbrp
+	8nPHks9TH4uNk7/Mf6tsNQNyPOL3UwNW0HckbhPLnvSkS2fkHPVoE0cVFaKc3tx4G0D
+	HWJSt0pH5Q==
+Received: by smtp.zohomail.com with SMTPS id 1792065189744241.5369712250548;
+	Thu, 15 Oct 2026 04:53:09 -0700 (PDT)
+Message-ID: <6ede627fc8b3745aebfc4ff08079541b7196edb2.camel@rong.moe>
+Subject: Re: [PATCH 1/3] ACPI: utils: Add exclusive AML evaluation helpers
+From: Rong Zhang <i@rong.moe>
+To: Ali Ahmet =?gb2312?Q?Memi=810=946?= <aliamemis@disroot.org>, "Rafael J
+ . Wysocki" <rafael@kernel.org>
+Cc: Len Brown <lenb@kernel.org>, Daniel Lezcano
+ <daniel.lezcano@kernel.org>,  Zhang Rui <rui.zhang@intel.com>, Lukasz Luba
+ <lukasz.luba@arm.com>, Armin Wolf <W_Armin@gmx.de>,  Hans de Goede
+ <johannes.goede@oss.qualcomm.com>, Charis Stratakis
+ <c.stratakis@proton.me>, 	linux-acpi@vger.kernel.org,
+ linux-pm@vger.kernel.org, 	acpica-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org, 	stable@vger.kernel.org
+In-Reply-To: <20261014133013.94097-1-aliamemis@disroot.org>
+References: <20261014132703.93355-1-aliamemis@disroot.org>
+	 <20261014133013.94097-1-aliamemis@disroot.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 Oct 2026 19:47:57 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014130805.48840-1-birk.skyum@pm.me>
+User-Agent: Evolution 3.56.2-10+b1 
+X-ZohoMailClient: External
 
-Hi Birk,
+Hi Ali,
 
-On Wed, Oct 14, 2026 at 01:08:08PM +0000, Birk Skyum wrote:
-> This reverts commit cb97bf3d4f91453b881acaf8e9f0cc47bb40b604.
-> 
-> With that commit the keyboard and touchpad of the Lenovo Yoga Slim 7x
-> (x1e80100) are dead, also at the disk passphrase prompt, on 7.2.9 and on
-> v7.3-rc7. The first transfer on their bus fails.
-> 
->   geni_i2c b80000.i2c: Bus proto err, noisy/unexpected start/stop
->   i2c_hid_of 1-003a: failed to fetch HID descriptor: -5
-> 
-> With the commit the I2C serial engine clocks read 32 MHz, without it
-> 19.2 MHz. A fix for the 32 MHz fast-mode timing is still being
-> discussed, so go back to the previous behaviour for 7.3. This brings
-> back the hardcoded index 0 in SE_GENI_CLK_SEL.
-> 
-> On v7.3-rc7 with only i2c-qcom-geni.ko swapped, the keyboard is dead
-> without this revert and works with it.
-> 
-> Fixes: cb97bf3d4f91 ("i2c: qcom-geni: Fix hardcoded clock index in SE_GENI_CLK_SEL")
-> Reported-by: Birk Skyum <birk.skyum@pm.me>
-> Closes: https://lore.kernel.org/r/179173732257.29426.7905170638383807320@pm.me
-> Link: https://lore.kernel.org/r/ae03e7a3-75f1-42df-b0e6-0e64358be647@oss.qualcomm.com
+On Wed, 2026-10-14 at 16:30 +0300, Ali Ahmet Memi=C5=9F wrote:
+> ACPICA drops the interpreter lock while AML waits, for example around EC
+> accesses, so two methods can run interleaved. Some firmware relies on
+> methods not interleaving, for instance by switching an EC page selector
+> without taking the AML mutex that the other users of that page hold.
+>=20
+> Add acpi_evaluate_object_exclusive() and acpi_evaluate_integer_exclusive(=
+)
+> which serialize the evaluation under a global mutex, for callers that are
+> known to be affected.
+>=20
+> Suggested-by: Rafael J. Wysocki <rafael@kernel.org>
+
+There should a Link: following the Suggested-by: tag to provide some
+context:
+
+Link: https://lore.kernel.org/all/CAJZ5v0gS4agVUkCO6M=3DVW4Wi2y1-s+k23bpzmX=
+9aAZ0Rsv4z9Q@mail.gmail.com/
+
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Birk Skyum <birk.skyum@pm.me>
+> Signed-off-by: Ali Ahmet Memi=C5=9F <aliamemis@disroot.org>
+> ---
+>  drivers/acpi/utils.c    | 56 +++++++++++++++++++++++++++++++++++++----
+>  include/acpi/acpi_bus.h |  8 ++++++
+>  2 files changed, 59 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/acpi/utils.c b/drivers/acpi/utils.c
+> index d499b72574ab..f28680424f14 100644
+> --- a/drivers/acpi/utils.c
+> +++ b/drivers/acpi/utils.c
+> @@ -10,6 +10,7 @@
+> =20
+>  #include <linux/kernel.h>
+>  #include <linux/module.h>
+> +#include <linux/mutex.h>
+>  #include <linux/slab.h>
+>  #include <linux/init.h>
+>  #include <linux/types.h>
+> @@ -243,10 +244,34 @@ acpi_extract_package(union acpi_object *package,
+> =20
+>  EXPORT_SYMBOL(acpi_extract_package);
+> =20
+> -acpi_status
+> -acpi_evaluate_integer(acpi_handle handle,
+> -		      acpi_string pathname,
+> -		      struct acpi_object_list *arguments, unsigned long long *data)
+> +static DEFINE_MUTEX(acpi_exclusive_eval_lock);
+> +
+> +/**
+> + * acpi_evaluate_object_exclusive - Evaluate an object without interleav=
+ing
+> + * @handle: ACPI handle of the object or its scope.
+> + * @pathname: Path of the object relative to @handle.
+> + * @arguments: Arguments to pass, or NULL.
+> + * @buffer: Buffer for the return value, or NULL.
+> + *
+> + * Same as acpi_evaluate_object(), but serialized with other exclusive
+> + * evaluations.  Use it only for methods known to break when interleaved=
+.
+> + */
+> +acpi_status acpi_evaluate_object_exclusive(acpi_handle handle,
+> +					   acpi_string pathname,
+> +					   struct acpi_object_list *arguments,
+> +					   struct acpi_buffer *buffer)
 
-there is a fix taken here:
+A single line can go up to 100 columns when it improves readability.
+Reducing line breaks caused by alignment to open parenthesis falls into
+the category IMO.
 
-8cb5c17be3a2 ("i2c: qcom-geni: Restore the source-clock selection policy")
+> +{
+> +	guard(mutex)(&acpi_exclusive_eval_lock);
+> +
+> +	return acpi_evaluate_object(handle, pathname, arguments, buffer);
+> +}
+> +EXPORT_SYMBOL_GPL(acpi_evaluate_object_exclusive);
+> +
+> +static acpi_status __acpi_evaluate_integer(acpi_handle handle,
+> +					   acpi_string pathname,
+> +					   struct acpi_object_list *arguments,
+> +					   unsigned long long *data,
+> +					   bool exclusive)
+
+Ditto.
+
+>  {
+>  	acpi_status status =3D AE_OK;
+>  	union acpi_object element;
+> @@ -257,7 +282,12 @@ acpi_evaluate_integer(acpi_handle handle,
+> =20
+>  	buffer.length =3D sizeof(union acpi_object);
+>  	buffer.pointer =3D &element;
+> -	status =3D acpi_evaluate_object(handle, pathname, arguments, &buffer);
+> +	if (exclusive)
+> +		status =3D acpi_evaluate_object_exclusive(handle, pathname,
+> +							arguments, &buffer);
+
+Ditto.
+
+> +	else
+> +		status =3D acpi_evaluate_object(handle, pathname, arguments,
+> +					      &buffer);
+
+Ditto.
+
+>  	if (ACPI_FAILURE(status)) {
+>  		acpi_util_eval_error(handle, pathname, status);
+>  		return status;
+> @@ -275,8 +305,24 @@ acpi_evaluate_integer(acpi_handle handle,
+>  	return AE_OK;
+>  }
+> =20
+> +acpi_status
+> +acpi_evaluate_integer(acpi_handle handle,
+> +		      acpi_string pathname,
+> +		      struct acpi_object_list *arguments, unsigned long long *data)
+
+Ditto.
+
+Since you are anyway moving the existing function, it'd be better to
+improve its coding style as well instead of preserving it as is.
+
+> +{
+> +	return __acpi_evaluate_integer(handle, pathname, arguments, data, false=
+);
+> +}
+>  EXPORT_SYMBOL(acpi_evaluate_integer);
+> =20
+> +acpi_status acpi_evaluate_integer_exclusive(acpi_handle handle,
+> +					    acpi_string pathname,
+> +					    struct acpi_object_list *arguments,
+> +					    unsigned long long *data)
+
+Ditto.
+
+> +{
+> +	return __acpi_evaluate_integer(handle, pathname, arguments, data, true)=
+;
+> +}
+> +EXPORT_SYMBOL_GPL(acpi_evaluate_integer_exclusive);
+> +
+>  int acpi_get_local_u64_address(acpi_handle handle, u64 *addr)
+>  {
+>  	acpi_status status;
+> diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
+> index a10a591c18b2..e7a671dba624 100644
+> --- a/include/acpi/acpi_bus.h
+> +++ b/include/acpi/acpi_bus.h
+> @@ -32,6 +32,14 @@ acpi_status
+>  acpi_evaluate_integer(acpi_handle handle,
+>  		      acpi_string pathname,
+>  		      struct acpi_object_list *arguments, unsigned long long *data);
+> +acpi_status acpi_evaluate_object_exclusive(acpi_handle handle,
+> +					   acpi_string pathname,
+> +					   struct acpi_object_list *arguments,
+> +					   struct acpi_buffer *buffer);
+> +acpi_status acpi_evaluate_integer_exclusive(acpi_handle handle,
+> +					    acpi_string pathname,
+> +					    struct acpi_object_list *arguments,
+> +					    unsigned long long *data);
+
+Ditto.
+
+With these comments resolved:
+
+   Reviewed-by: Rong Zhang <i@rong.moe>
 
 Thanks,
-Andi
+Rong
+
+>  bool acpi_evaluate_reference(acpi_handle handle, acpi_string pathname,
+>  			     struct acpi_object_list *arguments,
+>  			     struct acpi_handle_list *list);
+>=20
+> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
