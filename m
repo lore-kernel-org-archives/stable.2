@@ -1,106 +1,146 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 692784F4CF4;
-	Thu, 15 Oct 2026 08:59:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2268E49F129
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 08:59:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792054754; cv=none; b=amw/kDEmEYv7Ac2zJWmSkJTOFwIOa6uxNli6FNNqzT89lYFvKSGk1m2lzEfZ8BeMTweLzZtLLg8xqGmM077oBOm39saebktggmF+H/jeEK+Z3XNWhXBf5XO6xQ2SiQGhEnueZ9igBC0mu/EzuuPUOGUlgF1W6t+tPMojEJCIXSg=
+	t=1792054803; cv=none; b=H+6DzEBEQRMfz/GpyeU7lmTRU6i7MZWLV0UWALKaLl4QPMQEnTKX+yfObKxvGGFY/K5/zIr5bmYQUstM9ouwsko8x2tLr+Q6XQqcw9MKBIL43RiVDGiBq0fPK4cyhHgnac45OQbFAO13T3JpqdQfK+3AhadUBlBzdfiU0pZoEtM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792054754; c=relaxed/simple;
-	bh=QktqaRHtQl/Fe9A/hBhQSQa8Ld2ifsl4rpxnRpMGVc8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=SpCyRLELLiM4M3X338IJR33emIamAQ29ARW7RiZ/AvieQAmTeo7W7xBLKWVRRULxrsqFZaHSxf099ZENHU9oJpp7O5Wjoe4hXi7wcrEQ97ZCT8/sYT2rwqdFUf1j7hp4xV3dtpKSmTYNahfCaoToiG/uumrJUGVUfyNvaIYSHiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=hN1iXeoe; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792054803; c=relaxed/simple;
+	bh=9UTqpDTW5ReUcetLLz4Ymo2mNIr3sUQ8fp9IGf329Ng=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=pWqOfGS73+EB13Ai3jvgsybl6xUdSmXHPLw4TDI7P1gnSYZ4KEDtPxXsrlN4TLWX7nDtYazhj5tXpK5xkrdK76MwDjb8Csel5SERcjrdLxuMPq+fLhZ5/BMFzIHeADImx8oQQEOMbw+2nrYQWdsiabhvSJNnGGlaT0ZijSX1LY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=uWMhpcGT; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="hN1iXeoe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=HM
-	55kMGXP6tJWkUCl0Hzup4EMIaaf+vYx+pw74b7sw0=; b=hN1iXeoegB+z2IY2Yq
-	eiY3bMc+nokyNXwbSWA4MzRm4uHzALsHoeJhjYwWpOm3op+0Lv56GBFtUWWJzS3k
-	5h6wXxWyxL6JyauwkGNW71z6rq6RQkbm8NPV7r8l0gZfZYyrEjuVyBSVKwgjcV3e
-	YtEBU+uUnRPI+mrs0Mw4yczvI=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3n4O5ldBq3yzkAA--.32772S2;
-	Thu, 15 Oct 2026 16:58:33 +0800 (CST)
-From: Xia Yan <yana06070@163.com>
-To: netdev@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net 1/2] veth: keep carrier off when resizing channels with a down peer
-Date: Thu, 15 Oct 2026 16:58:20 +0800
-Message-Id: <20261015085821.12725-1-yana06070@163.com>
-X-Mailer: git-send-email 2.33.0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="uWMhpcGT"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 136D41A1230;
+	Thu, 15 Oct 2026 08:59:58 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D0A1360360;
+	Thu, 15 Oct 2026 08:59:57 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id ACEA710328B02;
+	Thu, 15 Oct 2026 10:59:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792054796; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=R3D3zrodfnAja/dl0ygdUFT7h9waEojVMa7L3/zFbmM=;
+	b=uWMhpcGTN5JowFQjWpLSbGpJDvx4A8udLV/wKsPvs2PsSiI6B1LbXD04lX9ILI5jAm9aIt
+	pLZPFoHl89d9EYiavK9vd2TSaABhsW8mNjCT9S5w0zii85fzj0qgUTF79h+ReV4Bw4onaf
+	Z2//KxBhS+KcZCnWogpg81yzJjIlV+mLQ2vQS6hL8POJZ23liasp8hnwC4n5ormYfS6Zm+
+	F0OOtNBq4A9xs4rBv2wcpUbgZMg04usYwAbA1Mqhgf3jI7sWDNZTcO2KZnFH7Kp8XTQtK6
+	pVGQNi6uNLs/8+fG6NOmD2XbpRBu+QDVpOJVtUWTXhVzzxCBtsP/U7gQMKF+Zw==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3n4O5ldBq3yzkAA--.32772S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uF4rZF1rAFWxJr47WFy3urg_yoW8WF43pa
-	1fJFWYkryvqF4Uta1vq3yUAF1Yqa1xX34agF9Yk3yruwn8tF95Xr4Fy34jvF1UKFWrXF42
-	9rW09rnFva4DCaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jYksgUUUUU=
-X-CM-SenderInfo: p1dqtiawqxiqqrwthudrp/xtbC-Bli6GrQlblH0QAA3v
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 15 Oct 2026 10:59:47 +0200
+Message-Id: <DM5AEKBARGER.2N6UFBKLU5AIH@bootlin.com>
+Subject: Re: [PATCH] drm/bridge: ite-it66121: fix silent probe regression
+ due to reset timing
+Cc: "Paul Cercueil" <paul.cercueil@bootlin.com>, "Nishanth Menon"
+ <nm@ti.com>, "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>
+To: "Javier Martinez Canillas" <javierm@redhat.com>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>, "Phong LE" <ple@baylibre.com>, "Neil
+ Armstrong" <neil.armstrong@linaro.org>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Julien
+ Chauveau" <chauveau.julien@gmail.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20261015-drm-ite-it66121-fix-reset-v1-1-473038e06abc@bootlin.com> <xlv14iengyes.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+In-Reply-To: <xlv14iengyes.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+X-Last-TLS-Session-Version: TLSv1.3
 
-veth_set_channels() temporarily turns carrier off while reconfiguring a
-running interface. It then turns carrier on for both ends without
-checking whether the peer is administratively up. If only one end is up,
-changing its channel counts therefore reports LOWER_UP even though the
-peer remains down.
+Hello Javier,
 
-For example, after creating a pair with two RX and TX queues per end:
+On Thu Oct 15, 2026 at 10:28 AM CEST, Javier Martinez Canillas wrote:
+> Luca Ceresoli <luca.ceresoli@bootlin.com> writes:
+>
+> Hello Luca,
+>
+>> Commit e02b5262fd28 ("drm/bridge: it66121: acquire reset GPIO in probe")
+>> rightfully added code to make the reset pin really work instead of being=
+ a
+>> no-op, but that change introduced a regression making probe fail most of
+>> the times, at least on some hardware.
+>>
+>> On a BeagleBone Black rev.D the IT66122 silently fails probing >90% of t=
+he
+>> times. This is because:
+>>
+>>  1. the regmap_read() calls just after it66121_hw_reset() to read the ID
+>>     registers fail
+>>  2. there is no error checking for these regmap_read(), execution
+>>     continues silently
+>>  3. this results in not matching any of the IDs from it66xx_chip_info
+>>  4. and this results in silently returning -ENODEV
+>>
+>> Empirical tests showed a small delay after de-asserting reset fixes
+>> probing. Likely the device needs some ramp-up time after reset. No such
+>> requirement is mentioned in the docs I could find, so the amount of dela=
+y
+>> was chosen by testing: 10 ms worked in 100% of 25 test runs, so setting =
+a
+>> 20 ms delay should provide a safe margin.
+>>
+>> Fixes: e02b5262fd28 ("drm/bridge: it66121: acquire reset GPIO in probe")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>> ---
+>> FYI For items 2 and 4 above, I'm sending separate patches to make those
+>> errors not silent. Those aren't fixes, so they would be for drm-misc-nex=
+t,
+>> while this patch is for drm-misc-fixes.
+>> ---
+>>  drivers/gpu/drm/bridge/ite-it66121.c | 1 +
+>>  1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/brid=
+ge/ite-it66121.c
+>> index 51fc68ffdf8f..692a85e1e2e8 100644
+>> --- a/drivers/gpu/drm/bridge/ite-it66121.c
+>> +++ b/drivers/gpu/drm/bridge/ite-it66121.c
+>> @@ -356,6 +356,7 @@ static void it66121_hw_reset(struct it66121_ctx *ctx=
+)
+>>  	gpiod_set_value(ctx->gpio_reset, 1);
+>>  	msleep(20);
+>>  	gpiod_set_value(ctx->gpio_reset, 0);
+>> +	msleep(20);
+>
+> Maybe adding a comment here mentioning that this value was found by
+> testing and is not mentioned in the IT66122 documentation ?
 
-  ip link set vca up
-  ethtool -L vca rx 1 tx 1
+Sure, I'll add in v2:
 
-vca incorrectly reports LOWER_UP while vcb is still down.
+  /* Post-reset delay not specified, value found by testing */
 
-Only restore carrier when the peer has IFF_UP, matching veth_open().
-The local interface is already known to be running at this point.
+> In any case, the patch makes sense to me:
+>
+> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 
-Fixes: 4752eeb3d891 ("veth: implement support for set_channel ethtool op")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
+Thanks for reviewing!
 
-Signed-off-by: Xia Yan <yana06070@163.com>
----
+I assume I can keep your R-by with the above comment, let me know if that's
+not the case.
 
-Notes (validation):
-    Testing: Built and booted UML kernels with W=1 before and after
-    the fix. The regression test reproduces the bug before the fix;
-    all eight cases pass after the fix.
+Kind regards,
+Luca
 
- drivers/net/veth.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-index 643b97d..4e75830 100644
---- a/drivers/net/veth.c
-+++ b/drivers/net/veth.c
-@@ -1372,9 +1372,10 @@ static int veth_set_channels(struct net_device *dev,
- 		 * to identify the range we have to disable
- 		 */
- 		veth_disable_range_safe(dev, new_rx_count, old_rx_count);
--		netif_carrier_on(dev);
--		if (peer)
-+		if (peer && (peer->flags & IFF_UP)) {
-+			netif_carrier_on(dev);
- 			netif_carrier_on(peer);
-+		}
- 	}
- 
- 	/* update XDP supported features */
-
-base-commit: 513444cc62e231a11c9b15ea88de0890da9b2b4f
--- 
-2.33.0
-
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
