@@ -1,198 +1,349 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D29E4BAA17
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 08:20:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81CD24CE672;
+	Thu, 15 Oct 2026 08:20:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792052419; cv=none; b=pEt/CKSW3ml3BFoFOUFu42kgzfBZSi8DXsUE/hn/Vsk6+0Vor9KhA0EbQOOk4RT4A78zNs2Ma7BnOAdOnBIhW6icfY5M2lv0TpaBzmUpkXGpF6CPwAWW4fWve8cOnP8ZBLMjxPfvVK36Bv1yL7munMb7Cn1PYngEhlmOlSgoncA=
+	t=1792052430; cv=none; b=PofK3EhEeTBm0ss2ZUUuzIJFFdAWDdNsFQRp2M4nGATSa0DFiJBirX2XK4NG7eOPOXgGLU5Q+zl59THDJWcwNTW6fVbn3Kf86yfTPaqr+XnKcxicZ7zZBAHN42vEdg1X6JJfVHNltHbEEJHdICmSda+cOOSw1nPWegOkw0VfgXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792052419; c=relaxed/simple;
-	bh=qDKOJFD5O0yGfj6OQWmcK5ZqqsZPXy8lBN3o3xrmKik=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cb3xjRVlJr/EmV/e3XHaenE54kB8FdOZ1FP4IN4wrQkQcQcN8Rx+tfd5e3+NQE/rwxbkfH+IQUGMos7DJQA2DhUoxBu7+zpBeXqP7LOU3NUVku1LAi04CpXgJWtLXqdDvoSxr0IUCouE79RRbR4bf9xRStacYlxxVLXBH+HJzuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OHNVcfLa; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792052430; c=relaxed/simple;
+	bh=uXlFsfNLwGdbvGXybclKNSQdbosMmmVjh9AjcIt2rzE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=p/OQG36uK3n5rVeXSxbZ7bon1RmVdRAb7zn2L1vT+71f3OJ2dQsqxhoRaciTOgwRVvSx89L2DaFntUuX7aiKTWrYvtf2uOOcJgv4W/zcoKyggy9E+YzdyzR00/HVN0AQ4gMGc5tboOTd6/dLtWkW0PaKPZXJARKBEDowTsARDGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=gXYK/i6/; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OHNVcfLa"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49d05d51553so11607925e9.2
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 01:20:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792052416; x=1792657216; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aVeDY3+0BdViKhSzi1t1ljxDn9zxHbrg3FVtH9WKAx8=;
-        b=OHNVcfLaAVjhBuAKxImvGRz7bXzRjbBTEZmit33wcYkt1Y84wv3HSljjlSGXvaQ30d
-         VyVkMryOKZ8sFumKqs0P+7d+7+A8ijLGekWQ4ck+TDN5pPeD5duDcPvYFAH+cs8VcpO4
-         oMWz7ahdNQon9Tn7N6Fjt/BjvLlZ6KDFJilNRjlIfE435lnOuCBrwjDrfkT1qN/5mfNN
-         j/Uesg/f4xzFVfmo3UHAR34gzlKEWI1sYnlH7a0myeYn3jpEVkL9t4yf7OePgX8kDQwL
-         dVBu19z4taI/jVQLaKdXNeuc1kAsRrFMz4Ns0gDC1JQbr4lMInq+WPDnMkEY70StB7S6
-         gZ1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792052416; x=1792657216;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aVeDY3+0BdViKhSzi1t1ljxDn9zxHbrg3FVtH9WKAx8=;
-        b=we5u0CBMCV3X03S4ZJMEv7rjaG3/0m7lJ1jrVstblcOHdG4lsjHGpLZ+dM7lkyVTrd
-         b2xffZaXrozO9r9G1T+F3QKKA940ZJfYs0t/UwCGFvvToeq8mDZkonLTlYkMoQh3ydwm
-         5l3VxDHnu26eXjkYnn+Taw6BPRqUoXDY/X+rnTIooRi4AYswR5bwsSpZjN6+ymDFXiUn
-         w6zoFlCCWq/EKtmeEywmcSx89iO0nEUWJVo8zpVd8GXEIfAQ6IvfyFXnPDngFmjvvhwI
-         C5C0O2F09Uxab9M/LU8b/nh+ynZElC0xsd1Dn0KDCHatZXssWy0QkG0qqR1lQLIbgm+/
-         THVg==
-X-Forwarded-Encrypted: i=1; AKwUvByOO70u7hTW7CGmQo5TNNRumZwMosjWn+doEToXbGTdX17mJbfGd3ZWfmqXvMbzFPREYjKpUJw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYITYtrhGES4DBBHCCQ8/oQ2Vr1unzOqP+pU3Xo2N05d8JM7aGPl
-	Wv9WEm8K8TRNe/1Xnu8KJyD/BIHl5O6jeC7+Zw5a57MzrVBLZ83UhQ6B
-X-Gm-Gg: AYBFou2EzClX7R9scV78g5FWhA77uLE9MRxIcCOi8w7fU+uumBiDrQM5+PIRZsE9BSR
-	whF4eEuSSoDlPbj+gz8gV8HbPFUWZKsihk1d0nvDD8XpIFuQwSxT6JyjVRVXChftW1zx6xzEuhF
-	QRi97N6KbpFXNkALdq/28VyhFpGM+/DDQCf6D+uX8rh/AwbI13zEtwiLPUgEerO3lMTpOiedJl6
-	ePvtiGYb/mAXXx0G40E1mHWy416/ZXW1OMrVEYvmNn+TWkn1gjcyxuASMp6zOaJVTAPD730SotL
-	w5fMKUkN/Y2X7RIgjWsprs/+093ylicM4eVb9ZNzTbfIFebqQL6vimOmOC1pogkP70O00Mgwx4f
-	8FaY4LKv+U+sgZXdzcxq2jkY5/wsPURo9JFnzb7v2Ei1rQ1JdH4hYC4bQ3BUSvSydv8Ibz6Ql08
-	WK8A18WKO+TzNaqeLAid26N3ewkko5kB2ACBp+wkLWYIjEO8BnItz66I8MGf+gmNL0o/2U9Eszw
-	r/tTmJ/OeruV5vOV+hhgdFE4YzWKaRjOcOdR0NhGzDucQ==
-X-Received: by 2002:a05:600c:3f0c:b0:4a1:6517:ccf1 with SMTP id 5b1f17b1804b1-4a18e47a844mr384308475e9.9.1792052415154;
-        Thu, 15 Oct 2026 01:20:15 -0700 (PDT)
-Received: from andreayoga.wind3.hub ([31.189.109.133])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b35a6sm49003545e9.6.2026.10.15.01.20.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 01:20:14 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Yishai Hadas <yishaih@nvidia.com>,
-	Shameer Kolothum <skolothumtho@nvidia.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Jiaqi Yan <jiaqiyan@google.com>,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] vfio/nvgrace-gpu: Use a core-only open_device in fallback mode
-Date: Thu, 15 Oct 2026 10:19:34 +0200
-Message-ID: <20261015081937.405320-2-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261015081937.405320-1-parri.andrea@gmail.com>
-References: <20261015081937.405320-1-parri.andrea@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="gXYK/i6/"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F3iSaY695159;
+	Thu, 15 Oct 2026 08:20:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=+mBS6m
+	voR4Dd817pb3KFl204cwegs+NsduzLMgbPsjc=; b=gXYK/i6/Y4+vHgpPBTKHi8
+	Wv7YSRs8PfPM+HnMWtZzMby8pYkPAoGucDyouZLQU0+2qxY1gmp9td/iIyZpqfgG
+	ylknM+MXKuzTC/+eTJXcenFSCElyGMVW7z+T07jRw6z8ENmnk5OjD5DGtzks+WBD
+	f372aa2DyNaX/0xMM0Dp6BP8vtX2M6QhhFVPmvWxv9TCu/LXphZhKWCbWcYyg4uu
+	VjJ5XhfULFXr7jh6JLIFnPaG5IMaY404c50tcdcxeIcIfXpF9n1D9i7XpynUQQbu
+	MQ3b5QaH5rvfDvADNbQOboO/GKZB6W6RNfMd7ANlKbnl9m50PYI4ytpfaMJ94ZTw
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwhrwj0-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 15 Oct 2026 08:20:18 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69F5Ftnx669905;
+	Thu, 15 Oct 2026 08:20:16 GMT
+Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h9ypq6100-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 15 Oct 2026 08:20:16 +0000 (GMT)
+Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com [10.39.53.233])
+	by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69F8KFFb29491910
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 15 Oct 2026 08:20:15 GMT
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 312F858054;
+	Thu, 15 Oct 2026 08:20:15 +0000 (GMT)
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 266985803F;
+	Thu, 15 Oct 2026 08:20:09 +0000 (GMT)
+Received: from [9.123.14.182] (unknown [9.123.14.182])
+	by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 15 Oct 2026 08:20:08 +0000 (GMT)
+Message-ID: <94382105-bba7-431d-bf0b-9c1673f946ff@linux.ibm.com>
+Date: Thu, 15 Oct 2026 13:50:07 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v10] net/smc: fix lgr/lnk lifetime vs diag reader race
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+        kuba@kernel.org, pabeni@redhat.com, alibuda@linux.alibaba.com,
+        dust.li@linux.alibaba.com, sidraya@linux.ibm.com,
+        hidayath@linux.ibm.com, pasic@linux.ibm.com, horms@kernel.org,
+        tonylu@linux.alibaba.com, guwen@linux.alibaba.com,
+        stable@vger.kernel.org, netdev@vger.kernel.org,
+        linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
+References: <20261013141510.2621698-1-mjambigi@linux.ibm.com>
+ <179198739873.434549.14480502288349527609@kernel.org>
+Content-Language: en-US
+From: Mahanta Jambigi <mjambigi@linux.ibm.com>
+In-Reply-To: <179198739873.434549.14480502288349527609@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzMiBTYWx0ZWRfX5UHqTAdR9ZGF
+ pLgAhF/jSsdc1gKn5B44kMdwy35KP83l2mNXY6COq8VIHRXtEQtsZDkgK40UXa9yvBkP/0dSwNb
+ +JroIyIsQvZl4iL6lLkgn+hMvhGktbw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzMiBTYWx0ZWRfX7sL7OXN8oUM2
+ e4UnfhY1Heu/NgOXIcEW3vLZV33L/rXl/oXr/9qzhEFy/3wteQs2TsXq4QcV+PqQ57/N7r4S1Tl
+ G4Hic+OhGi+22tta8aT73LIHcDwYoDr5e0PIBisd3tHTklD7wad2ZhlhCJJ4CX3P70uybMbDXsM
+ 9PHk3wj3XTZz4cIjVy0p0co3jyYwNCCJh1odoy06yy1ZHXaT207lf6/1hmAw6l2ic181apUN5rz
+ cDQSa6fFzeNuLTZZEVHEuA39qcp0tiJAHNTITVnrCHPOTPJ01Ah0O+9jOfAwnunaFaVL3IF+E8X
+ zeEY+P7IfqUsFeQgPv0lFTlB7aR14QoCiZsGaJ1Sfy+gOv4mj9ujj4AJrx5rUJRJAmHHvxQlc8P
+ T6TkNeQ6lnil4yQFEB/uLmFP4PWpYqzgONDX7M8J3vbVnJl4DoSFCre1ToDm5u+RM3XO1WHvmc1
+ W7DaQNyZlu0M9rxpQVg==
+X-Proofpoint-GUID: 3BWusatf8QXlhui44fy9HSEXCYFBPniv
+X-Authority-Analysis: v=2.4 cv=RoFQvymK c=1 sm=1 tr=0 ts=6ad08cc4 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=K5ce6bKmJZ4Fwuhyun0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: u04HDrRi4Tl8-4vBP4vhtE2vjA_Lw1_v
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 phishscore=0 adultscore=0 bulkscore=0
+ impostorscore=0 suspectscore=0 malwarescore=0 clxscore=1015
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610150032
 
-When the ACPI memory properties are missing or the C2C link is down, the
-device is exposed through nvgrace_gpu_pci_core_ops.  That table opens
-through nvgrace_gpu_open_device() but closes through
-vfio_pci_core_close_device(), so open and close are not symmetric.
 
-nvgrace_gpu_open_device() registers nvdev->usemem for poison handling
-unconditionally.  In fallback mode usemem.memlength is zero, and
-register_pfn_address_space() inserts a node covering [0, ULONG_MAX].
-Nothing removes it: a second open fails with -EBUSY, and once the device
-is unbound the node outlives the nvdev that contains it.  The next open
-after a rebind reports:
 
-  BUG: KASAN: slab-use-after-free in interval_tree_iter_first+0x209/0x310
-  Read of size 8 at addr ffff88800894aa30 by task nvgrace_repro/203
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x5d/0x80
-   print_report+0x153/0x4c6
-   kasan_report+0xe4/0x1a0
-   interval_tree_iter_first+0x209/0x310
-   register_pfn_address_space+0x97/0x100
-   nvgrace_gpu_open_device+0x21c/0x730
-   vfio_df_open+0x213/0x520
-   vfio_df_ioctl_bind_iommufd+0x3e8/0x6e0
-   vfio_device_fops_unl_ioctl+0x782/0x1570
-   __x64_sys_ioctl+0x13c/0x1c0
-   do_syscall_64+0x106/0x630
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
+On 14/10/26 7:46 pm, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 1 (1) · Medium: 1 · Low: 1
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [High] The fix still leaves a use-after-free between the diag reader
+>   and the lgr.
+> - [Medium] Switching to link->ibname removes the NULL dereference through
+>   link->smcibdev->ibdev.
+> - [Low] SMC_DIAG_LGRINFO now reports link->ibname, which
+>   smcr_copy_dev_info_to_link() (smc_core.c:783-784) caches at link…
+> 
+> Pre-existing issues:
+> - [High] This problem wasn't introduced by this patch, but the teardown
+>   sites it touches have a deadlock.
+> 
+> --
+> 
+> net/smc: fix lgr/lnk lifetime vs diag reader race
+> 
+> This patch tries to close races between the SMC sock_diag dump and the
+> teardown of conn/lgr/lnk state. It skips the extension attributes for
+> sockets in SMC_INIT or SMC_CLOSED and orders sk_state with acquire/release.
+> It also unhashes the socket before several smc_conn_free() and
+> smcd_buf_detach() calls, and uses the cached link->ibname in the LGRINFO
+> dump.
+> 
+> [ ... ]
+> 
+>> diff --git a/net/smc/smc_close.c b/net/smc/smc_close.c
+>> index bb0313ef5f7c1..aa6363abdd747 100644
+>> --- a/net/smc/smc_close.c
+>> +++ b/net/smc/smc_close.c
+> 
+> [ ... ]
+> 
+>> @@ -433,6 +435,7 @@ static void smc_close_passive_work(struct work_struct *work)
+>>  		sk->sk_state_change(sk);
+>>  		if ((sk->sk_state == SMC_CLOSED) &&
+>>  		    (sock_flag(sk, SOCK_DEAD) || !sk->sk_socket)) {
+>> +			sk->sk_prot->unhash(sk);
+>>  			smc_conn_free(conn);
+> 
+> [Severity: High]
+> This is a pre-existing issue and was not introduced by this patch. Can this
+> smc_conn_free() call deadlock against abort_work?
 
-  Allocated by task 188:
-   ...
-   _vfio_alloc_device+0x3a/0x500
-   nvgrace_gpu_probe+0xcb/0x660
-   local_pci_probe+0xcf/0x170
-   ...
+I agree with your analysis regarding the lock inversion between
+lock_sock(&smc->sk) and cancel_work_sync(&conn->abort_work). As this is
+a pre-existing issue in the SMC core connection teardown flow, I will
+submit a separate, dedicated patch to fix this deadlock so as to keep
+this diag race series focused.
 
-  Freed by task 188:
-   ...
-   kfree+0x20d/0x600
-   device_release+0xcf/0x250
-   kobject_put+0x152/0x2f0
-   pci_device_remove+0xb0/0x1c0
-   device_release_driver_internal+0x38d/0x540
-   unbind_store+0xde/0x100
-   ...
+> 
+> smc_close_passive_work() holds lock_sock(sk) here. For SMC-R,
+> smc_conn_free() then does:
+> 
+> 		if (current_work() != &conn->abort_work)
+> 			cancel_work_sync(&conn->abort_work);
+> 
+> The connection is still registered at this point. A CDC message with
+> failover_validation and a seqno ahead can make smc_cdc_msg_validate()
+> queue abort_work on smc_close_wq, and it does this without the socket lock.
+> smc_close_wq can run that work alongside close_work, and
+> smc_conn_abort_work() starts with:
+> 
+> 	lock_sock(&smc->sk);
+> 	smc_conn_kill(conn, true);
+> 
+> If abort_work is already running and blocked in lock_sock(), would this
+> thread wait forever in cancel_work_sync() while it holds that same socket
+> lock? The current_work() check only stops abort_work from cancelling
+> itself.
+> 
+> smc_close_active_abort() also reaches smc_conn_free() with the socket lock
+> held.
+> 
+>>  			if (smc->clcsock)
+>>  				release_clcsock = true;
+> 
+> [ ... ]
+> 
+>> diff --git a/net/smc/smc_diag.c b/net/smc/smc_diag.c
+>> index bf0beaa23bdb6..36a3b8f31f28d 100644
+>> --- a/net/smc/smc_diag.c
+>> +++ b/net/smc/smc_diag.c
+> 
+> [ ... ]
+> 
+>> @@ -103,6 +104,9 @@ static int __smc_diag_dump(struct sock *sk, struct sk_buff *skb,
+>>  	if (nla_put(skb, SMC_DIAG_FALLBACK, sizeof(fallback), &fallback) < 0)
+>>  		goto errout;
+>>  
+>> +	if (r->diag_state == SMC_INIT || r->diag_state == SMC_CLOSED)
+>> +		goto out;
+>> +
+>>  	if ((req->diag_ext & (1 << (SMC_DIAG_CONNINFO - 1))) &&
+>>  	    smc->conn.alert_token_local) {
+>>  		struct smc_connection *conn = &smc->conn;
+> 
+> [Severity: High]
+> Does this guard miss a fallback socket in SMC_ACTIVE that still has a stale
+> alert_token_local after its lgr reference was dropped?
 
-Give the fallback table its own open_device that only calls
-vfio_pci_core_enable() and vfio_pci_core_finish_enable(), the
-counterpart of vfio_pci_core_close_device().  Fallback mode then never
-touches the nvgrace memory regions, as Alex suggested.
+Fixed in v11. I updated smc_conn_free() in smc_core.c to call
+smc_lgr_unregister_conn(conn) unconditionally rather than gating it on
+!list_empty(&lgr->list). This ensures alert_token_local is always
+cleared to 0 when the connection is freed, preventing the diag reader
+from entering CONNINFO/LGRINFO/DMBINFO blocks on fallback sockets in
+SMC_ACTIVE. Added Fixes: 2a0674fffb6b.
 
-This should be safe because the fallback table uses the vfio-pci core
-read, write and mmap handlers, so nothing there uses the state
-nvgrace_gpu_open_device() sets up.  The one visible difference is that a
-fallback open no longer fails when BAR0 cannot be mapped, which matches
-vfio-pci.
+> 
+> On the server side, the peer can answer with a CLC DECLINE that has the
+> first contact bit set instead of a CONFIRM. smc_clc_wait_msg() then does:
+> 
+> net/smc/smc_clc.c:smc_clc_wait_msg() {
+>     ...
+> 		if ((dclc->hdr.typev2 & SMC_FIRST_CONTACT_MASK) &&
+> 		    smc->conn.lgr) {
+> 			smc->conn.lgr->sync_err = 1;
+> 			smc_lgr_terminate_sched(smc->conn.lgr);
+> 		}
+>     ...
+> }
+> 
+> smc_lgr_terminate_sched() calls list_del_init(&lgr->list).
+> 
+> The handshake then aborts through
+> smc_listen_decline()->smc_conn_abort()->smc_conn_free(). At that point
+> lgr->list is empty:
+> 
+> 	if (!list_empty(&lgr->list)) {
+> 		smc_buf_unuse(conn, lgr); /* allow buffer reuse */
+> 		smc_lgr_unregister_conn(conn);
+> 	}
+> 
+> So the connection is not unregistered and alert_token_local stays
+> non-zero, but smc_lgr_put() still drops the lgr reference. The socket then
+> falls back, smc_listen_out_connected() stores SMC_ACTIVE, and the socket
+> stays hashed.
+> 
+> Later, terminate_work runs __smc_lgr_terminate():
+> 
+> 		lock_sock(&smc->sk);
+> 		smc_conn_kill(conn, soft);
+> 		release_sock(&smc->sk);
+> 	...
+> 	smc_lgr_cleanup(lgr);
+> 	smc_lgr_free(lgr);
+> 
+> For SMC-R and non-nocopy SMC-D, smc_conn_kill() does not unhash the
+> socket. Nothing on this path takes the smc hash write_lock either.
+> 
+> A diag reader that already saw a non-zero alert_token_local holds only
+> read_lock(&smc_hash->lock). Can it then read conn->sndbuf_desc->len and
+> conn->rmb_desc->len after smc_lgr_free() has freed them? The same question
+> applies to conn->lgr->is_smcd and lgr->list in the LGRINFO/DMBINFO
+> conditions.
+> 
+> On non-RT kernels the window is small, but on PREEMPT_RT the read_lock is
+> preemptible.
+> 
+> Would it work to unregister the connection, or clear alert_token_local, in
+> smc_conn_free() even when lgr->list is empty? Another option is to skip
+> the CONNINFO/LGRINFO/DMBINFO blocks when conn->freed is set.
+> 
+> [ ... ]
+> 
+>> @@ -154,8 +158,7 @@ static int __smc_diag_dump(struct sock *sk, struct sk_buff *skb,
+>>  			.lnk[0].link_id = link->link_id,
+>>  		};
+>>  
+>> -		memcpy(linfo.lnk[0].ibname, link->smcibdev->ibdev->name,
+>> -		       sizeof(link->smcibdev->ibdev->name));
+>> +		memcpy(linfo.lnk[0].ibname, link->ibname, sizeof(link->ibname));
+> 
+> [Severity: Medium]
+> The commit message says this change is meant "to avoid racing with link
+> clearing during SMC-R link failover". It removes the NULL dereference
+> through link->smcibdev->ibdev, but is the race itself still there?
 
-Fixes: e5f19b619fa0 ("vfio/nvgrace-gpu: register device memory for poison handling")
-Cc: stable@vger.kernel.org
-Suggested-by: Alex Williamson <alex@shazbot.org>
-Assisted-by: LLM
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
----
-v2: Replace the usemem.memlength guards with a core-only open_device
-    for the fallback table (Alex)
-    Ankit confirmed fallback mode does not need the BAR0 check:
-    https://lore.kernel.org/r/SAWPR12MB99926787B53C4FF469A6F3BE7AB09D2@SAWPR12MB999267.namprd12.prod.outlook.com/
-v1: https://lore.kernel.org/r/20260925161024.189771-1-parri.andrea@gmail.com/
+Updated the commit message description to clarify that copying cached
+link->ibname specifically eliminates the NULL pointer dereference / UAF
+of link->smcibdev->ibdev during concurrent link clearing.
 
- drivers/vfio/pci/nvgrace-gpu/main.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+> 
+> This block loads link = smc->conn.lnk with a plain load. It then copies
+> ibport, link_id, ibname, gid and peer_gid while holding only
+> read_lock(&smc_hash->lock).
+> 
+> At the same time, smcr_link_down()->smc_switch_conns()->
+> smc_switch_link_and_count() can run:
+> 
+> 	atomic_dec(&conn->lnk->conn_cnt);
+> 	smcr_link_put(conn->lnk);
+> 	conn->lnk = to_lnk;
+> 
+> This runs under lgr->conns_lock and conn->send_lock, and the diag reader
+> takes neither. smcr_link_clear() then does the final
+> smcr_link_put()->__smcr_link_clear():
+> 
+> 	memset(lnk, 0, sizeof(struct smc_link));
+> 	lnk->state = SMC_LNK_UNUSED;
+> 
+> smcr_link_init() can later reuse the slot. smc_cdc_msg_validate() also
+> rewrites conn->lnk under send_lock.
+> 
+> The link is embedded in lgr->lnk[], so this is not a use-after-free.
+> However, could user space get an SMC_DIAG_LGRINFO record with an empty
+> ibname, ibport 0, link_id 0 and all-zero GIDs, or a mix of two links?
+> 
+> Would taking conn->send_lock around the conn->lnk load and the copy, or
+> holding a link reference, give a consistent snapshot? If not, could the
+> commit message say that only the NULL dereference is avoided?
+> 
+> [Severity: Low]
+> This isn't a bug, but link->ibname is only written by
+> smcr_copy_dev_info_to_link() when the link is created. SMC_NLA_DEV_IB_NAME
+> in smc_nl_handle_smcr_dev() and the pnet table still use the live
+> smcibdev->ibdev->name.
+> 
+> After an ib_device_rename(), the name in SMC_DIAG_LGRINFO will not match
+> the SMC device dump or the pnet configuration. The commit message
+> documents this, and it matches the existing SMC_NLA_LINK_IB_DEV link dump.
 
-diff --git a/drivers/vfio/pci/nvgrace-gpu/main.c b/drivers/vfio/pci/nvgrace-gpu/main.c
-index 963fd8ded20d1..208463c218088 100644
---- a/drivers/vfio/pci/nvgrace-gpu/main.c
-+++ b/drivers/vfio/pci/nvgrace-gpu/main.c
-@@ -1083,6 +1083,21 @@ static const struct vfio_device_ops nvgrace_gpu_pci_ops = {
- 	.detach_ioas	= vfio_iommufd_physical_detach_ioas,
- };
- 
-+static int nvgrace_gpu_core_open_device(struct vfio_device *core_vdev)
-+{
-+	struct vfio_pci_core_device *vdev =
-+		container_of(core_vdev, struct vfio_pci_core_device, vdev);
-+	int ret;
-+
-+	ret = vfio_pci_core_enable(vdev);
-+	if (ret)
-+		return ret;
-+
-+	vfio_pci_core_finish_enable(vdev);
-+
-+	return 0;
-+}
-+
- static const struct vfio_pci_device_ops nvgrace_gpu_pci_dev_core_ops = {
- 	.get_dmabuf_phys = vfio_pci_core_get_dmabuf_phys,
- };
-@@ -1091,7 +1106,7 @@ static const struct vfio_device_ops nvgrace_gpu_pci_core_ops = {
- 	.name		= "nvgrace-gpu-vfio-pci-core",
- 	.init		= vfio_pci_core_init_dev,
- 	.release	= vfio_pci_core_release_dev,
--	.open_device	= nvgrace_gpu_open_device,
-+	.open_device	= nvgrace_gpu_core_open_device,
- 	.close_device	= vfio_pci_core_close_device,
- 	.ioctl		= vfio_pci_core_ioctl,
- 	.get_region_info_caps = vfio_pci_ioctl_get_region_info,
--- 
-2.53.0
+Acknowledged. As noted, this matches the existing SMC_NLA_LINK_IB_DEV
+netlink dump behavior.
+
+pw-bot: cr
 
