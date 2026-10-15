@@ -1,163 +1,152 @@
-Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3693F56260A;
-	Thu, 15 Oct 2026 17:36:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D41EB556BA7
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 17:42:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792085798; cv=none; b=Eh84g0OK4bdkESAAfeQWGi6++AVGIchRrPe+r32fsev+c/nFMFmzaITNOtXmwcDspBC6QGfs9sSllAflwg9Wt8GjupDzmdKDNtYljNTCZZDbcsHA/eDLRFOF6ifn8Mf01xHYDXWyz8bTM8UbDsviTKtExkQcH1t0q/6Eyp2Eh0o=
+	t=1792086173; cv=none; b=CaKTYh4K5vrlzmLF4GFo+0qnxqksGnH6H3Irp83LArjEptdGw2XOxlfTBKIZp9gtwno9I8Ncd9ya6nCj5TMj7F11XmsVw48e7IPT3nCsu8O+obm+JezbAWCyoPtvZ6Tnwx6OYGMjMyvcSnyYFmMBAWyE1ZLEJRDxLECqNprcDHs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792085798; c=relaxed/simple;
-	bh=SsAX70hkztxr3lXUejP7fw9k5bXsDS+j8dp7p+FMWsM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ab83CNGN5v5Rkh69aQlsNzUGrAe5qXlfZ/8Q5FuFoMXcJXBDY+7GX5sTlv5U9ZimhyP7Yu7SOq3KduzwFlht3U3vCMyzH9N7gJUa+HIGda65QOVwfeH3N6oFbQQBKMbEDCqcaz+O1mas67cXa61soLy4d3IpDfj0CZq4Y5JF5ek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=N54WOdun; arc=none smtp.client-ip=115.124.30.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1792086173; c=relaxed/simple;
+	bh=NbD8A+LTa8evpXL6/fu3DIrID9xBqKnToFLhfhv7WUA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tnefWrj/jY4sgIC1fLgS0ycRuIJ545glUkg2hm37qF5vhcqiUbANC/EWyoKKw9DjGgPRzMm5RFiTyoK+h+BuphiNdmbdX1vxQtcFW82T3xoFTyon6BXhjDFMqRodgGR7qkglej8ttvUwpmpp5B0VOMOq8g+P2J7zU5nddwm85ow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=kMfUd8JL; arc=none smtp.client-ip=209.85.160.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="N54WOdun"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792085780; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=9YnrwI+/iPNmoh1SsSb82TY/9geUY5RwvCpBUzwgTd8=;
-	b=N54WOdunucmUbKqHgXyVo928Msf3sEV8E3iu1tvmwsRzEKUmrXGVBe/y0jTOsXZ/6PMFOQQbGR1UjYqcYZ8VlCbCkcVrvI4OQih4i8i5RBY7tfsjjVqRFFZ9yzDb4+bcECS5R2arpyDOoSzcGTcoVaxGuteLKtbLMzxDEsqub+E=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R531e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XCsJh-j_1792085778;
-Received: from 30.170.203.187(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XCsJh-j_1792085778 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 16 Oct 2026 01:36:19 +0800
-Message-ID: <006e3804-7e5e-4b8d-a299-3a47b8b643b3@linux.alibaba.com>
-Date: Fri, 16 Oct 2026 01:36:17 +0800
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="kMfUd8JL"
+Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-533972e0cccso62825511cf.0
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 10:42:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1792086162; x=1792690962; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PfHGUiq8UZY3e8RsVecaVzk97ckbUa7d3/EsB9oFqL4=;
+        b=kMfUd8JLS+aSLkvjG0Y4ZbDYnQQWqiZTZdUQUCpEc60+885nmpDQykgXoe/gJmmYUx
+         dh6pMSkEbWX4E6y0MXzUyFEv/jsFrekR/Y1pyRthMuyyxRkdwrDTloFomaE+NnsPBS5V
+         HgPlUs+kbPH1VRFMGMLGxjVoGeCr/cjHZDWXm75mE+84SgW/N9gW09FkZGCYGOJdLM7m
+         wVsOSEKYxiLa06SO44XlJ+Ooni1B1CIutfJN5x2Qe1gOk2VivWJ4ZVl2UFXlfH6czj9q
+         uP/Q2/gPQ+S6EkLP4z1+9XRGPZcUtCNyEL7teG+fq/cLTOLTOGW7+qr0rz//agxQ1s8x
+         R0cA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792086162; x=1792690962;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PfHGUiq8UZY3e8RsVecaVzk97ckbUa7d3/EsB9oFqL4=;
+        b=BJDTZ7xxcYMgv4/3dMErRfRWT8zh2sR64b5UBgxJpKgKoxzBGMq8Y9DReh1alcfB8Q
+         wf1kXmg6LIWcrwXD6wE8WN941QAGITzur94dDbUyaFWpLpy21EoSNDzHSJgJsjB3uL+S
+         JO2Kp0xtcNzZToHSS8bfbMmtTkOwTlX7B8X5EH+N8MO4Vkcm+5GJw3bYPgAcOs0HwE3h
+         sqiz3DX78wWAfNyBou8jFrEsFrKRymyoJlWn9Ehb75urGCH9Ym2ghVhgjUMmd4ARirue
+         kTPBphH0LSTGI2ebhfSXOAEKZxjiy55O8phytQNUCYxZwX5i5rIGrFcWC/2v3HEdczMe
+         WIYA==
+X-Forwarded-Encrypted: i=1; AKwUvBxEoTcNDyrlz/ZGFiHPAC9I9G3G+/fHLhjm6PEair6ebq5YDYDtdp1ojMy6K4g86vxdiiyKaxo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJFywldZ3FchowEHFpShG9jSB657FVM9nFahcabMtZH49WSfsmm
+	Jiz4gYIyLDeYFAcXiiv9ArLlXQMGv1fo7DzsCwtan8Xh1534cOm4Dd0/NoZK56n2YvM=
+X-Gm-Gg: AYBFou1skwSlEpif+Qfx0GuKUU3hiI6T3zAvZ8lh68o7f7BUK/l3iUiWq2Mb9OClFOq
+	x0juR8NcuzLgWN0TrC2URpp2RY+V7wRsh4F05v5VyGA58gUu5COXDVTpCjseZBr7IXwpKR3nPQN
+	ge/Q/UQcmac/fjqVH8v0LVRs5HOn+iDJqVqMiXsCKZ78+EgY9tGovWfHFuOh4pfyFhXSjDOjk2W
+	ESxGXZggKOa3djhtOAJWX4ISKLH/fFb5B0eFaaTfYbkBMG0C91LfT3XzJjL14TZlHYddAPLnuli
+	KMRYLgBnTNnMfzGyCH+KtPv8Pabp91m3lV9TQRS3t4Oj4KQGDOKkUM1RCbK5aG27QYMxIjf23fL
+	4W3Hfedv6OKWMfLpdqkKral1dDcwLWyNko8qYijrCcFWlTfzJJExFFZOZSILruY6NS/W1EOu275
+	FjwaF6Imbcm0uSBtfihysAIwQUusznsgbEMwzb2+p4mjFCmuQg6i1GMwtBnakPk5GvCcBsNKMKV
+	hOK14dk93QeHPOTBtJf677zXVTKO5540dJlcblYmTA2epEW+Hbx/aVj
+X-Received: by 2002:a05:622a:144a:b0:533:3bf7:49e5 with SMTP id d75a77b69052e-5359facf0e9mr295381921cf.23.1792086162563;
+        Thu, 15 Oct 2026 10:42:42 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcba45dffsm1165226d6.12.2026.10.15.10.42.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 10:42:41 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xHPTV-0000000H6tQ-0dMP;
+	Thu, 15 Oct 2026 14:42:41 -0300
+Date: Thu, 15 Oct 2026 14:42:41 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Kevin Mitchell <kevmitch@arista.com>
+Cc: Vasant Hegde <vasant.hegde@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
+	stable@vger.kernel.org, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Joerg Roedel <joerg.roedel@amd.com>,
+	"open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] iommu/amd: remove obsolete domain pointer warning on
+ release
+Message-ID: <20261015174241.GW14213@ziepe.ca>
+References: <20261013222402.673852-2-kevmitch@arista.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] blk-crypto: fix missing smp_load_acquire() for
- tfms_inited[]
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: axboe@kernel.dk, linux-block@vger.kernel.org,
- linux-fscrypt@vger.kernel.org, hch@lst.de, dm-devel@lists.linux.dev,
- mpatocka@redhat.com, sweettea-kernel@dorminy.me, satyat@google.com,
- stable@vger.kernel.org
-References: <20261014071846.3666398-1-libaokun@linux.alibaba.com>
- <20261014071846.3666398-2-libaokun@linux.alibaba.com>
- <20261014161153.GC322435@quark>
-Content-Language: en-US
-From: Baokun Li <libaokun@linux.alibaba.com>
-In-Reply-To: <20261014161153.GC322435@quark>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013222402.673852-2-kevmitch@arista.com>
 
-Hi Eric,
+On Tue, Oct 13, 2026 at 03:23:56PM -0700, Kevin Mitchell wrote:
+> A warning is triggered in amd_iommu_release_device() on removal of a
+> device with an IOMMU_RESV_DIRECT region. The warning is based on the
+> false assumption that correct attachment to the release_domain will
+> always result in a NULL dev_data->domain pointer. For devices with
+> IOMMU_RESV_DIRECT (and consequently dev->iommu->require_direct), the
+> release domain is the permanent identity_domain which sets
+> itself to dev_data->domain on attach.
+> 
+> This behaviour was added in commit e94160488e65 ("iommu: Generic support
+> for RMRs during device release"). Commit c21b34762e2f ("iommu/amd: Set
+> release_domain to blocked_domain") caused it to take effect for AMD
+> IOMMU.
+> 
+> Remove the warning as it is no longer strictly an error to have a non-NULL
+> domain pointer. As this leaves amd_iommu_release_device() empty, remove it.
+> 
+> The warning was observed for a device with direct mapped region:
+> 
+> /sys/bus/pci/devices/0000:04:00.0/iommu_group/reserved_regions:
+> 
+>   0x00000000fee00000 0x00000000feefffff msi
+>   0x000000fd00000000 0x000000ffffffffff reserved
+>   0x0000fffd00000000 0x0000ffffffffffff direct
+> 
+> Upon hotunplug:
+> 
+> [   28.715475] pcieport 0000:00:03.1: pciehp: Slot(0-3): Link Down
+> [   28.715482] pcieport 0000:00:03.1: pciehp: Slot(0-3): Card not present
+> [   28.715601] ------------[ cut here ]------------
+> [   28.715603] WARNING: drivers/iommu/amd/iommu.c:2521 at amd_iommu_release_device+0x5d/0x70, CPU#4: irq/29-pciehp/99
+> [   28.715657] RIP: 0010:amd_iommu_release_device+0x5d/0x70
+> [   28.715687] Call Trace:
+> [   28.715689]  <TASK>
+> [   28.715694]  iommu_deinit_device+0x84/0x110
+> [   28.715699]  __iommu_group_remove_device+0xa8/0xd0
+> [   28.715703]  iommu_bus_notifier+0x48/0x70
+> [   28.715707]  notifier_call_chain+0x48/0xe0
+> [   28.715712]  blocking_notifier_call_chain+0x45/0x60
+> [   28.715716]  bus_notify+0x3b/0x60
+> [   28.715720]  device_del+0x259/0x3b0
+> [   28.715730]  pci_remove_bus_device+0x85/0x100
+> [   28.715735]  pciehp_unconfigure_device+0x9d/0x180
+> [   28.715743]  __pciehp_disable_slot+0x47/0xe0
+> [   28.715747]  pciehp_handle_presence_or_link_change+0x80/0x5e0
+> [   28.715753]  pciehp_ist+0x162/0x290
+> 
+> Fixes: c21b34762e2f ("iommu/amd: Set release_domain to blocked_domain")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Kevin Mitchell <kevmitch@arista.com>
+> ---
+> Changes in v2:
+> - Remove the warning alltogether as well as the now-empty
+>   amd_iommu_release_device()
+> - Link to v1: https://lore.kernel.org/r/20261008202530.14501-2-kevmitch@arista.com
+> 
+>  drivers/iommu/amd/iommu.c | 17 ++++-------------
+>  1 file changed, 4 insertions(+), 13 deletions(-)
 
-Thank you for your feedback!
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 
-On 2026/10/15 00:11, Eric Biggers wrote:
-> On Wed, Oct 14, 2026 at 03:18:46PM +0800, Baokun Li wrote:
-> [trim LLM-generated text]
->
->> diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
->> index b5dbb092caea..31f76d117593 100644
->> --- a/block/blk-crypto-fallback.c
->> +++ b/block/blk-crypto-fallback.c
->> @@ -488,15 +488,17 @@ static void blk_crypto_fallback_decrypt_endio(struct bio *bio)
->>  bool blk_crypto_fallback_bio_prep(struct bio *bio)
->>  {
->>  	struct bio_crypt_ctx *bc = bio->bi_crypt_context;
->> +	const struct blk_crypto_config *cfg = &bc->bc_key->crypto_cfg;
->>  	struct bio_fallback_crypt_ctx *f_ctx;
->>  
->> -	if (WARN_ON_ONCE(!tfms_inited[bc->bc_key->crypto_cfg.crypto_mode])) {
->> +	/* Pairs with the release in blk_crypto_fallback_start_using_mode(). */
->> +	if (WARN_ON_ONCE(!smp_load_acquire(&tfms_inited[cfg->crypto_mode]))) {
->>  		/* User didn't call blk_crypto_start_using_key() first */
->>  		bio_io_error(bio);
->>  		return false;
->>  	}
-> No, anyone submitting encrypted I/O is required to ensure that
-> blk_crypto_start_using_key() was called first, in which case the
-> additional barrier here during I/O submission isn't needed.  If the
-> caller didn't ensure that, then it's a bug, and we WARN.  This patch is
-> inconsistent with that.
-
-You're right that the flag can't be observed as false here: the index
-comes from bc->bc_key, so that load is address-dependent on the key
-pointer, and a submitter that reached the key through a published
-structure will in practice only ever see 'true'.  The WARN is fine.
-
-The barrier wasn't meant to make the flag read reliable, though -- it
-was for the loads *after* the if:
-
-  if (!tfms_inited[mode])          <- addr-dep on bc->bc_key, ordered
-          ...
-  blk_crypto_fallback_profile      <- no dependency on anything
-  blk_crypto_keyslots              <- no dependency on anything
-  slotp->tfms[mode]                <- no dependency on anything
-
-i.e. to make observing 'true' imply that those are initialized.  My
-subject and commit message claimed the opposite, which is what made the
-patch look inconsistent with the WARN next to it.  Sorry about that.
-
-> I think this can be considered a bug report that the ordering of
-> fscrypt_find_mode_key() is too weak now, as it just uses
-> list_for_each_entry_rcu().  It looks like it should do
-> smp_acquire__after_ctrl_dep() after it finds the right entry in the
-> list.
-
-That's what I was about to do for v3, but while looking for other
-callers that inherit a key without calling start_using_key()
-themselves, I found that dm-inlinecrypt has the same shape, so fixing
-fscrypt alone wouldn't cover it -- only the constructor calls
-start_using_key(), and the task submitting I/O reaches the key through
-md->map:
-
-  dmsetup (ctr)                      I/O task
-  ---------------------------------- -------------------------------
-  blk_crypto_start_using_key()
-   fallback_start_using_mode()
-    init profile, keyslots, tfms[]
-    smp_store_release(tfms_inited[m])
-  rcu_assign_pointer(md->map, t)
-                                     srcu_dereference(md->map)
-                                      -> ti->private -> &ctx->key
-                                     inlinecrypt_map() -> bio_prep()
-                                       tfms_inited[m]  addr-dep, ok
-                                       profile/keyslots/tfms[]  not
-
-dm's own grace periods would cover this, but all three are conditional:
-
-  drivers/md/dm.c:2533       if (old_map) dm_sync_table(md);
-  drivers/md/dm.c:3015,3039  if (map) synchronize_srcu(&md->io_barrier);
-  drivers/md/dm-ioctl.c:1651 add_disk() only when type == DM_TYPE_NONE
-
-so e.g. this sequence has no happens-before:
-
-  DM_DEV_CREATE
-  DM_TABLE_LOAD (linear)       add_disk(), md->type set, not resumed
-                                 -> a task opens the device here
-  DM_TABLE_CLEAR
-  DM_TABLE_LOAD (inlinecrypt)  ctr sets tfms_inited[]; no add_disk()
-  DM_DEV_SUSPEND (resume)      old_map == NULL, all three skipped
-                                 -> the already-open task does I/O
-
-This needs a weakly ordered machine and a deliberate ioctl order, so
-it's not urgent.  Which would you prefer?
-
-  1. Leave it for now and fix only fscrypt_find_mode_key().
-
-  2. A separate smp_rmb() in inlinecrypt_map(), paired with the
-     rcu_assign_pointer(md->map) in __bind().  Keeps the cost on
-     dm-inlinecrypt only, but means a second site to get right.
-
-  3. Keep the barrier in blk_crypto_fallback_bio_prep() after all,
-     documented as ordering the loads after the check rather than the
-     flag itself.  One site covers both callers and any future one,
-     at the cost of blk-crypto no longer relying on the caller for
-     this part.
-
-
-Thanks,
-Baokun
-
+Jason
