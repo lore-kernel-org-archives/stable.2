@@ -1,82 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 018201FA272;
-	Thu, 15 Oct 2026 13:40:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D35463B62;
+	Thu, 15 Oct 2026 13:44:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792071609; cv=none; b=OfTrHDgdTNZyBk8iyrsA4AhlH6rAF5dtdtoCodzp1vZMcJuUVaIUlgRkZFB6zo1LB5D2tlGftw9Z4Nlj2muS/r8BIJM/I8J6uR62ZjEA7MELjxY8XQZ3Gnp6o849hkmHbmkbgpVd0LwKTW4L4FqWo/W+osETcDVXF0xcffk/3tY=
+	t=1792071850; cv=none; b=PppR1bnXyKku1+JyUItcnmcdQL31efX7qvd7tS2ahsC1owQxDv+CyPxex1FxJgN7NNVO+11py963CYBAMKwq8WTJUBdtXpGeX7pVr6usXTDdNLDIri/VpsRv7jOUNOOo0tHyyq/9SOMXKgxdmT2BHNGKChIzKMDybw4MCKSen+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792071609; c=relaxed/simple;
-	bh=k4mM2IDQkXDme11YcBwJHpfnj2VVZBVHkpp151CHt+U=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=JrLgpr2A3Pa2wZAfqEihz2xmpuf2r7KcjUo1kw8DjZvfw/f0rWoVds5UJGCtuCtCRJ9e+zQRZPl+4YfhSqzwoXzqIBefrNQoZSrsyjHaGmwZVF2XfklmxwSW7/yYbPWq7cGk4aXqSQZcArDWx/WuIm7jAolmYJCDEjrY5NrCsCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gFxxw6Rt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792071850; c=relaxed/simple;
+	bh=ETJGAvWnltGitm2lM5nL3RKAnFgrqvp8jhO3TAH+esQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WakFSuzRD1APCH/FChNb9V7XbMbNokK8mcKWIwjp8rEb1kb6t7gl6tX4VwharYbeuPNo5D6uNECo941jId/RVhuWnqgN7NDkEveK3AR6n6N+8Sf7g9ki07YX/aKBXFoO0jOBP7ZMHlAvE2K/M+hJNoQkHItn84jh+EvBKufu0+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=qHWsu5yC; arc=none smtp.client-ip=115.124.30.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gFxxw6Rt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FF831F000C4;
-	Thu, 15 Oct 2026 13:40:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792071607;
-	bh=jjDER0mNzeDQlHOZq2YsXBJeSiABiPoqbl4QA16CmQQ=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=gFxxw6Rte22sXL9wdlxA7gjXLqnpMBLvncS8P/fNkE7IM51rr6O1VzjVHGBzFI2Cs
-	 jiIiiUakpo/D7r7GgeJ191n/3iO/BjqIuUy367qNioVy+OhkBtYBObM7TewPQ4HpmW
-	 vG6qPMYlmh/Pov9jO75HM9DOzOqGOh0leeLu761+7gqUh1nn3Oab0YyQxAaOfQPJHy
-	 miWoaTyyTHbUe9+sKf77HT3wWyDdE9Jbz2gO3r7+2/lTlEVAoakIw5P7x4R2Tfz3OJ
-	 FgaIbKo+6lvNHSRl5UmxkHEws2E+FDILH1iWNMmvkveUixnLVgfZz4aPLLVu1yl5P+
-	 6747IaAPR/F3g==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7756B392EB04;
-	Thu, 15 Oct 2026 13:40:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="qHWsu5yC"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792071843; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=Pwn9AuCkqzzHOOqAR23rfLFfWN42vOaZNb6N6HOsOnA=;
+	b=qHWsu5yCQldk5mCze/MA+ivpTk0YFiZLqAyeAZ4xeOr3mRoB9mLE063CfHJQIC/zyDQeix4mTN64vB8AE2JnhtNJoqHrcmWhZUqvxLxqY6EmHO/DaeDbKz3xBL4X4F4o1G/9XljjUdO0CunMV5spyfGxFgkdXSivzQjfhRV5auY=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0XCrz3SJ_1792071841;
+Received: from 30.170.203.187(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XCrz3SJ_1792071841 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 15 Oct 2026 21:44:02 +0800
+Message-ID: <00486052-b981-4b7a-8e82-03a63fb03fc3@linux.alibaba.com>
+Date: Thu, 15 Oct 2026 21:44:01 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] blk-crypto: fix NULL deref and UAF in
+ __blk_crypto_evict_key()
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: axboe@kernel.dk, linux-block@vger.kernel.org,
+ linux-fscrypt@vger.kernel.org, hch@lst.de, dm-devel@lists.linux.dev,
+ mpatocka@redhat.com, sweettea-kernel@dorminy.me, satyat@google.com,
+ stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+References: <20261014071846.3666398-1-libaokun@linux.alibaba.com>
+ <20261014155131.GB322435@quark>
+Content-Language: en-US
+From: Baokun Li <libaokun@linux.alibaba.com>
+In-Reply-To: <20261014155131.GB322435@quark>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v4 1/3] Bluetooth: btintel_pcie: Add initial YoYo debug
- support
-From: patchwork-bot+bluetooth@kernel.org
-Message-Id: 
- <179207160627.3441573.10441193801394049903.git-patchwork-notify@kernel.org>
-Date: Thu, 15 Oct 2026 13:40:06 +0000
-References: <20261015115431.27456-1-ajay.k.v@intel.com>
-In-Reply-To: <20261015115431.27456-1-ajay.k.v@intel.com>
-To: Ajay KV <ajay.k.v@intel.com>
-Cc: linux-bluetooth@vger.kernel.org, chandrashekar.devegowda@intel.com,
- kiran.k@intel.com, linux-kernel@vger.kernel.org, luiz.dentz@gmail.com,
- marcel@holtmann.org, stable@vger.kernel.org,
- chethan.tumkur.narayan@intel.com, lakshmipathi.k@intel.com
 
-Hello:
+On 2026/10/14 23:51, Eric Biggers wrote:
+> On Wed, Oct 14, 2026 at 03:18:45PM +0800, Baokun Li wrote:
+>> Sashiko reported a possible NULL pointer dereference, triggered by the
+>> following flow:
+>>
+>>   dm-inlinecrypt ctor            # first use of the fallback
+>>    ├─ blk_crypto_init_key()      # succeeds, ctx->key.size != 0
+>>    ├─ blk_crypto_start_using_key()
+>>    │   ├─ hw-wrapped key: -EOPNOTSUPP
+>>    │   │    # profile never allocated (NULL)
+>>    │   └─ raw key: fallback_start_using_mode()
+>>    │      └─ blk_crypto_fallback_init() fails
+>>    │         └─ kfree(profile)   # not NULLed
+>>    ├─ goto bad
+>>    └─ inlinecrypt_dtr()          # evicts whenever key.size is set
+>>       └─ blk_crypto_evict_key()
+>>          └─ blk_crypto_config_supported_natively() = false
+>>             └─ blk_crypto_fallback_evict_key()
+>>                └─ __blk_crypto_evict_key(blk_crypto_fallback_profile)
+>>                   └─ profile->num_slots # BOOM!!!
+>>
+>> This issue can be reproduced using the following commands:
+>>
+>>   dd if=/dev/zero of=/tmp/backing bs=1M count=64
+>>   LOOP=$(losetup -f --show /tmp/backing)
+>>   SZ=$(blockdev --getsz $LOOP)
+>>   KEY=$(head -c 64 /dev/urandom | od -An -tx1 | tr -d ' \n')
+>>   dmsetup create ic --table "0 $SZ inlinecrypt aes-xts-plain64 \
+>>     $KEY 0 $LOOP 0 1 keytype:hw-wrapped"
+>>
+>> And the following oops is triggered:
+>>
+>>   ==================================================================
+>>   blk-crypto: loop0: no support for wrapped keys
+>>   Oops: general protection fault, probably for non-canonical address
+>>         0xdffffc000000000b: 0000 [#1] SMP KASAN PTI
+>>   KASAN: null-ptr-deref in range [0x0000000000000058-0x000000000000005f]
+>>   CPU: 5 UID: 0 PID: 901 Comm: dmsetup 7.3.0-rc3 #1 PREEMPT(lazy)
+>>   RIP: 0010:__blk_crypto_evict_key+0x2e/0x3b0
+>>   Call Trace:
+>>    blk_crypto_evict_key+0x24c/0x320
+>>    inlinecrypt_dtr+0xf6/0x160
+>>    inlinecrypt_ctr+0x2d3/0xbd0
+>>    dm_table_add_target+0x661/0xf40
+>>    table_load+0x1c4/0x490
+>>    ctl_ioctl+0x32f/0x5f0
+>>    dm_ctl_ioctl+0xe/0x20
+>>   ==================================================================
+>>
+>> dm-inlinecrypt is the only caller that can evict a key that was never
+>> started, as fscrypt frees such a key without evicting it.
+>>
+>> Fix this by publishing blk_crypto_fallback_profile only after
+>> blk_crypto_fallback_init() succeeds, and by returning early from
+>> __blk_crypto_evict_key() when the profile is NULL.  The eviction path
+>> can then only observe either a NULL profile or a fully initialized
+>> profile that is never freed.  A key whose start failed cannot be in a
+>> keyslot, so there is nothing to evict.
+>>
+>> The profile pointer is published and read locklessly, so use
+>> smp_store_release()/smp_load_acquire() to guarantee that a reader in
+>> the eviction path that observes the pointer also observes the
+>> initialized profile.
+>>
+>> The bug has been latent since commit c984ff1423ae ("blk-crypto:
+>> dynamically allocate fallback profile") was merged in v6.5, and only
+>> became actually triggerable when commit e7f57d2c47e2 ("dm-inlinecrypt:
+>> add target for inline block device encryption") was merged in v7.2.
+>>
+>> Fixes: c984ff1423ae ("blk-crypto: dynamically allocate fallback profile")
+>> Cc: stable@vger.kernel.org
+>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>> Closes: https://patch.msgid.link/sashiko-outbox-167341@kernel.org
+>> Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
+>> ---
+>>  block/blk-crypto-fallback.c | 31 +++++++++++++++++++------------
+>>  block/blk-crypto-profile.c  |  3 +++
+>>  2 files changed, 22 insertions(+), 12 deletions(-)
+> Wouldn't it be a lot simpler to just make
+> blk_crypto_fallback_evict_key() check the existing tfms_inited flag?
+>
+> 	/*
+> 	 * Pairs with smp_store_release() in
+> 	 * blk_crypto_fallback_start_using_mode()
+> 	 */
+> 	if (!smp_load_acquire(&tfms_inited[key->crypto_cfg.crypto_mode]))
+> 		return 0;
 
-This series was applied to bluetooth/bluetooth-next.git (master)
-by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+Indeed, this is a simpler and more straightforward approach.
+I will use it in the next iteration.
 
-On Thu, 15 Oct 2026 14:54:29 +0300 you wrote:
-> From: Ajaykv <ajay.k.v@intel.com>
-> 
-> Add an optional YoYo firmware configuration path to the Intel PCIe
-> Bluetooth driver. Read DBG_PATH and ENABLE_INI from
-> ibt_bt_dbg_cfg.ini, and load intel/ibt_debug_yoyo.bin only when YoYo
-> is enabled and host DRAM routing is selected.
-> 
-> [...]
+Thank you for your suggestion!
 
-Here is the summary with links:
-  - [v4,1/3] Bluetooth: btintel_pcie: Add initial YoYo debug support
-    (no matching commit)
-  - [v4,2/3] Bluetooth: btintel_pcie: Validate the YoYo DEBUG_INFO TLV
-    https://git.kernel.org/bluetooth/bluetooth-next/c/d52ecdd482cf
-  - [v4,3/3] Bluetooth: btintel_pcie: Configure YoYo DBGC buffer allocations
-    https://git.kernel.org/bluetooth/bluetooth-next/c/ff8b09806b7b
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+Regards,
+Baokun
 
