@@ -1,117 +1,133 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC024BFE6F
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 20:18:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E05B44C8C7B;
+	Thu, 15 Oct 2026 20:22:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792095510; cv=none; b=np+YiiIqHQgZ/wloAA4tmXQPEV7NM8aEFiXoaNKORWNmEVg1lTnKROSxLsjfJoDbnzRt9MRLEGzj6tonG+vvM7CjErsTI7I0g+PGOuwjamGCRYH7IHy5Jwvi4tUwe86Nl8C7N/7P9TTXG4vzMznFu/qYANYLWxQ7HDgPcubEMiI=
+	t=1792095775; cv=none; b=gvrAj1RMlWh/g1+n50BONDiMMyAB0nzxPqGJ+ju0IIMds++R3NsmJJmfD6REyGM3xUobnoqtCTHZgQgrUNbrnfrYZJYhGHi29koUbg0b7buh5qLBKPvKcNJQtEZAI9lRd/MlRUerBI1SnleIWes5iS4F/+9Cf6Uw51u0gBoCtus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792095510; c=relaxed/simple;
-	bh=jrnECgNo7r0SpTQ7QJjUmrWEuJOPvNiFAXIlOfU9hrY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QIDywhPfy1dA2aawwSNOrJYjmyxwwkxV1Egr4u2KfR3DcfZG3ZJluGaRNz3rUz6+fGz5AwSkLrtDM10lFzlWgal4oUkRO7vMtMEDz1FuqB1czVRVwgw+g7RrX2p30e4o5wMVNGUrRcdIIfQlmewZahR0afXMwX2g0EVGJksRd3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hgv7fokC; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792095775; c=relaxed/simple;
+	bh=UcyxboG3y4L8zSlqROYakKPtWdAkd5ZJG3Xq1yyxLPo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iQ1t2mqX5Hut0aiT/KxrIl/spE5inUc6IaDxHHglDVr1J6cAtRO0s4DRIBPUl6dXRJ2/g0FkNmsSYosIP7iVDtdT0k9SmeckY2GWhDCmYf4ZZV3WysNnzsQGlOMeK820hOBLHqmjNt1wdEDJMd2Whge8Gns59z75EXP89IkTqfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=hTdr02zf; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hgv7fokC"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a018dc1f98so46019545e9.3
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 13:18:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792095507; x=1792700307; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vQXuJ4chOqvfAgFEMLoAZXCDN0M97boWDwL0KicWGeY=;
-        b=hgv7fokCP8byTSMm8RTIcRQEklTOndaeMv3f1zj7PC83ewt2Ldz538gCFUmYVXAmNs
-         ns6tzccZFEK4BTw0WWx6zGZyY/yHOnK92Dd6Rfup6dcF+lrk6gPmjAcg4tJJBSjPALOe
-         aus114ACbjJmMWHr+GAuaaooWD8q+ugSue4cfaz7UjFqrQhJgsxogTQa1JV2h2h870Td
-         3+weRcaLcgjV1u/FUswo6AjFU54HgGUtaM0I2da76AbzHW5QbjhSj9PsVmeHVH2fhOao
-         uoDOMDRk8iH18ij5TwayNHDKZjPk8jbTfAErTwPZgiXi8yRqXHA70+2WX5JiuAhADYun
-         0HZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792095507; x=1792700307;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vQXuJ4chOqvfAgFEMLoAZXCDN0M97boWDwL0KicWGeY=;
-        b=ajbEVH9fVBQyiqNrwq297BGa00o0HqP2G87UlrOkMdtAzSyg0fqfbcMvJ8c8DVDdL5
-         6vHlnOxtAJ/+cAeJ6y1VL3pSAYNJCHM2dS5X4oZ/dYrnMagVP2sWIaR4utQK0rUkSZmp
-         3b1udodSoyb1R4Nc1zOrhQ66hb1hmWHh1FahFULCxF0/4wVgmu/acGSkYOAbRFc/iTar
-         I03xuCKlzXlSadOoO+C74w2LNsEk0yejqg8oKKhxbEjunh6N9TxlA+hfqkuqgEtMlt2j
-         TC6d9Gs7MdcoM0ziKHIWShxj10Ny3iFt5o4oq1Hla7v3ia7ZV4GgoiGHFm0RPJ15fUjk
-         Ou7g==
-X-Forwarded-Encrypted: i=1; AKwUvBzn7gtXCZMSBFmVtaYn69wVIpv2QS6twXcTo9ybFPf7pCav7rpBAGi6vHjwKJ0fJWEQj8p2UvM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKfwv3aHHKKiFB7+1Q9uOtoghr8CUtctLfhaz8APiv1K+Zk+Py9
-	gIvAsrjWMlV3oCFw2kJEoNtisgqNqOHnkXZ1GLPOVWPOnka7sBUpM3S3ZRt6BQ==
-X-Gm-Gg: AYBFou0epIcFT37ouG54yDHmV2VSSnhiI4+POtRf0mtXHrIX7ZvPMSeK45JWQY+wBLS
-	oEcoiXY5NXe9drT18JJ5jR5Rqe1emzvNRw60e2THqUc+BwJ+CYQlql+9uXinaH0WlNpsoUWaPTA
-	EYc01rbn07jzUbAIzxJyeyJW7BlO6xlABNixXHQHiJ6d0V2f2pC2Tv/b/W9td6NWPoiIKli71RZ
-	HaCdgLOoNaJuH7185rquVKp7QS4DlVARDHGvGp4jcSkWxYTtiEYcP7wVFjzT5yp9IGkF4dsNTdo
-	+swi9Ek/LYHRCUjIktVtu98W+y4JQHj53t/WE7cHtsiQJvLY0zn3TutepFyNQGYiXkVTlfezk1H
-	ZffD05PrLebJro+ctptA2XsBfKpSQN8KvayYEeOETOaFKORwJapB6EVXOMAQpIdT9WmP6PpxtNY
-	x71aXIPxZmHWQq5aDr8yZg42R89i/syA0JoGLckMm4gn76h5RlNGgcsm9wvgHks89L6QymrgjxH
-	8NYm8N9P7/UzkyECGT127v9/2lW+Ls77+2rxmXclLn2Lv0lm01D9rJKeZjxVqS4ackseCnAeJ6A
-	437kV/xvR4dbmesJtqu1rqstv7uKmiTfe/yQcgPpQ1dpJ7P1pW5wgbw1KKLYbPH1cY/+Ll/6h2g
-	pdqKcUcMf1+Ah5yGZ3sW2NmqHhZ0stD4=
-X-Received: by 2002:a05:600c:4fcb:b0:4a0:1fe2:d4f1 with SMTP id 5b1f17b1804b1-4a18e4d1686mr398035745e9.28.1792095507004;
-        Thu, 15 Oct 2026 13:18:27 -0700 (PDT)
-Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8ab8bb2sm2616625e9.1.2026.10.15.13.18.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 13:18:26 -0700 (PDT)
-Date: Thu, 15 Oct 2026 22:18:18 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Dingisoul <dingiso.kernel@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2] iio: gyro: mpu3050: add missing trigger cleanup on
- remove
-Message-ID: <20261015221818.09527ff6@systembl0wer>
-In-Reply-To: <20261015-mpu3050-fix-v2-1-53f73581e62c@gmail.com>
-References: <20261015-mpu3050-fix-v2-1-53f73581e62c@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="hTdr02zf"
+Received: from vm-dev.d0aziqou4eyuzblxqhi51nu2sc.xx.internal.cloudapp.net (unknown [4.246.87.102])
+	by linux.microsoft.com (Postfix) with ESMTPSA id CA98920B7167;
+	Thu, 15 Oct 2026 13:22:48 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com CA98920B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1792095768;
+	bh=gRg/cH7UL6lx4NNK1/RDk8bJXtB2dqMDham2GHNVmaI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=hTdr02zfbgCwM8o2he4X9xFV7rXqOGXCT4LHJiY3euSae/TehobTBbIhG55Rtrqpc
+	 ve5wyp/RupVIxRoAS3qeZgdZ/OKm75hzsLeoK1c6pVKQelLRZKNBZqJPmUCSuD90EC
+	 A+aGaGFcwDADXylebCgxKIKZxsxW9r/wp2NRsVs4=
+From: Tahera Fahimi <taherafahimi@linux.microsoft.com>
+To: stable@vger.kernel.org
+Cc: davem@davemloft.net,
+	steffen.klassert@secunet.com,
+	herbert@gondor.apana.org.au,
+	kuba@kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	apais@linux.microsoft.com,
+	edumazet@google.com,
+	pabeni@redhat.com
+Subject: [PATCH 5.10.y] xfrm: prevent policy_hthresh.work from racing with netns teardown
+Date: Thu, 15 Oct 2026 13:22:39 -0700
+Message-ID: <20261015202239.1936469-1-taherafahimi@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 15 Oct 2026 21:58:35 +0200
-Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+An XFRM_MSG_NEWSPDINFO request can queue the per-net work item
+policy_hthresh.work onto the system workqueue. xfrm_hash_rebuild()
+retrieves the enclosing struct net from the work item, so the callback
+can dereference freed memory if it runs after net namespace teardown.
 
-> The mpu3050_trigger_probe() function registers a trigger but
-> mpu3050_common_remove() and error paths in mpu3050_common_probe() forget
-> to clean it up, causing a use-after-free bug.
-> 
-> Add the missing iio_trigger_unregister() function. Additionally, change
-> the mpu3050_trigger_probe() function to assign trig only after it is
-> registered successfully to prevent a null pointer dereference using a
-> local struct iio_trigger.
-> 
-> Reported-by: Dingisoul <dingiso.kernel@gmail.com>
-> Closes: https://lore.kernel.org/all/20261010203601.1686148-1-dingiso.kernel@gmail.com/
-> Fixes: 3904b28efb2c ("iio: gyro: Add driver for the MPU-3050 gyroscope")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> ---
+Mainline commit 29fe3a61bcdc ("xfrm: prevent policy_hthresh.work
+from racing with netns teardown") fixes this issue using
+disable_work_sync(). That API is not available in Linux 5.10, so the
+mainline change cannot be directly backported.
 
-Dingisoul, any chance you can test this?
+Provide the same guarantee with an XFRM-local work_disabled flag. Protect
+the flag and schedule_work() with the existing policy_hthresh seqlock so
+teardown can atomically stop new queueing attempts. Then use
+cancel_work_sync() to synchronize work that was queued before the flag was
+set. This ensures policy_hthresh.work cannot outlive its struct net.
 
-Q to others: better to leave the driver running in this weird
-polling mode as it is now or return on trigger register failure
-as Nuno suggests?
+Fixes: 880a6fab8f6b ("xfrm: configure policy hash table thresholds by netlink")
+Assisted-by: GitHub-Copilot:GPT-5.6 Sol
+Signed-off-by: Tahera Fahimi <taherafahimi@linux.microsoft.com>
+Reviewed-by: Allen Pais <apais@linux.microsoft.com>
+---
+ include/net/netns/xfrm.h |  1 +
+ net/xfrm/xfrm_policy.c   | 19 ++++++++++++++++++-
+ 2 files changed, 19 insertions(+), 1 deletion(-)
 
-Thanks.
-
+diff --git a/include/net/netns/xfrm.h b/include/net/netns/xfrm.h
+index 47bc0ec051eb5..bafdfdccbd954 100644
+--- a/include/net/netns/xfrm.h
++++ b/include/net/netns/xfrm.h
+@@ -23,6 +23,7 @@ struct xfrm_policy_hash {
+ struct xfrm_policy_hthresh {
+ 	struct work_struct	work;
+ 	seqlock_t		lock;
++	bool			work_disabled;
+ 	u8			lbits4;
+ 	u8			rbits4;
+ 	u8			lbits6;
+diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
+index 26bc082139550..c14f495f62b80 100644
+--- a/net/xfrm/xfrm_policy.c
++++ b/net/xfrm/xfrm_policy.c
+@@ -1378,7 +1378,10 @@ static void xfrm_hash_rebuild(struct work_struct *work)
+ 
+ void xfrm_policy_hash_rebuild(struct net *net)
+ {
+-	schedule_work(&net->xfrm.policy_hthresh.work);
++	write_seqlock(&net->xfrm.policy_hthresh.lock);
++	if (!net->xfrm.policy_hthresh.work_disabled)
++		schedule_work(&net->xfrm.policy_hthresh.work);
++	write_sequnlock(&net->xfrm.policy_hthresh.lock);
+ }
+ EXPORT_SYMBOL(xfrm_policy_hash_rebuild);
+ 
+@@ -4129,6 +4132,7 @@ static int __net_init xfrm_policy_init(struct net *net)
+ 	net->xfrm.policy_hthresh.rbits6 = 128;
+ 
+ 	seqlock_init(&net->xfrm.policy_hthresh.lock);
++	net->xfrm.policy_hthresh.work_disabled = false;
+ 
+ 	INIT_LIST_HEAD(&net->xfrm.policy_all);
+ 	INIT_LIST_HEAD(&net->xfrm.inexact_bins);
+@@ -4154,6 +4158,19 @@ static void xfrm_policy_fini(struct net *net)
+ 	unsigned int sz;
+ 	int dir;
+ 
++	/* Prevent new policy hash rebuilds before draining the work item.
++	 *
++	 * The upstream fix uses disable_work_sync(), which is unavailable
++	 * in v6.6. Protecting work_disabled and schedule_work() with the
++	 * same seqlock closes the check-to-queue race, while the subsequent
++	 * cancel_work_sync() drains work that was queued or running before
++	 * teardown disabled it.
++	 */
++	write_seqlock(&net->xfrm.policy_hthresh.lock);
++	net->xfrm.policy_hthresh.work_disabled = true;
++	write_sequnlock(&net->xfrm.policy_hthresh.lock);
++	cancel_work_sync(&net->xfrm.policy_hthresh.work);
++
+ 	flush_work(&net->xfrm.policy_hash_work);
+ #ifdef CONFIG_XFRM_SUB_POLICY
+ 	xfrm_policy_flush(net, XFRM_POLICY_TYPE_SUB, false);
 -- 
-Kind regards,
-Joshua Crofts
+2.43.0
+
