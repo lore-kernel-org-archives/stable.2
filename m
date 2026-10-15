@@ -1,198 +1,198 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11021083.outbound.protection.outlook.com [40.107.74.83])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D2D73EEAC1;
-	Thu, 15 Oct 2026 03:50:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.83
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792036240; cv=fail; b=t6b0drRWwBDM9TsqtYUVuOOpBTkknLRpYPXoQtoc7By9BTfDvbZgn9ofF1LcgugABTYQ8PYgMZP/k1eQSa5TUXjyeRBuM2jErOvACDcVdM5DPy1ppE+W5h4EEXzFtr4QOtc63Ns8pU2MdDAT5rh+8HbWOICG3DfxgJnkrlIZ7tE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792036240; c=relaxed/simple;
-	bh=EC+slqOBoTp2OAW8ReoOCjbRM8d34Qno6BF8/yxM+xc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=usVOUj55mn23TfvwDyRyGx7r8r1ll+s/TF0dwD75AfCo30g7qzSMNZI8MVCPeFxitpI7juwgWZEEYlC1KX4YR1I1lIiCiRZ4uyTB5p5grAppT+Ws6rJ4R1YptHTyAtFK6N/ndoIt6nRfH5w7x1uAUx5r8TwZrwetAu4PTqSy76c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=K+XHvg8m; arc=fail smtp.client-ip=40.107.74.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA00432E79;
+	Thu, 15 Oct 2026 04:08:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792037282; cv=none; b=aqQPRnY1olgSXtjwh+mqkLI2qcxXn/47PCz4sGq/H2svt4VqaZFRC2UWtiRWSeAXq3NtLSglFx+1y7RXXy3fOS7wfZ4bUtTrIjPIFqRlTz61hGZUajWSFNXRv1FLzCmRMHXJhE5aabNfXBX/ssi2WUgYAiTlqW9okRGJGQotnpw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792037282; c=relaxed/simple;
+	bh=NgCaTkqAS2OLuHhTXwCgTA38+FOHqDIm0YdYwggkKkw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=hkbusMKhSsqW5fsMIPCTfJEudJg2PayrToi3BYdM01XD3RXfgMbNjNtS/xtU8OW+8Or52EOPHHq0r3ShVK5j5nr+zqbyZKDAIJoSCMhcniGyyvJMQ3Uz4LqH+1le5bhm8av0HFVmBrod7fODwWdMmvPFrcr7gS4e8wkhRVUuWkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RgzwHyj2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="K+XHvg8m"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YjM4y/4DFoT21M7zgbkC1dEBdrFlF5SIj/sKoz8Hsk4dGPB+3WGwdt8tdTgIuliHO0aO/K0xeDlqaAHRNpx8M1rvGF4ko7lYjZ/sXinucLxK7MCfe0tuMapnFwTUZ6PrvDVTZCINAKG1uCFAI31eoTqG1QKrBl0ZCBn8dlm4rXMXPcLJPYSIyNsZ15n/VVaKVHnTAYtHNDVVAu+8HnnSMGP3WPAQ15IUPjmnWBqzcuIFkg2745WXIk4Hvv6xNY2kpzVPzg5oTrEkDCwIrbqZySecYoMkzu5fdGVkGZravE40KH2RJOG55GtWSx1EBKzh7pcXsgvCUj5M2I/rRAMLOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EXJ9uXtwFkirb/88zvAl7Thi0BW4JyB+iRWH79wjbTQ=;
- b=UNr745mpJYgRgOkTfAlYaorp5B9q98Dwtdke2zQoawAO3FkaHuPKfuAb+pnvsJiGLD/zDyXGtr1BpJX0FU42YiLLE6XnR0qoJwoUERUNa7nHHotojE4CWVULTFPbxo0ZM11MtdXhn49o2Al+Z83loRAmMgnHdeI9SW4EwsxwCAr18g0we0ZavDXWYORL8qejKCulUD7lPmdZTXM4meYeKzKbxAEAACBolKa4kr7XyoBXPbVo6MXn+FtYeuiBLZW8mJtLkdQz+WxwK8cpwd71JSHKRMCtn3NJ2iLqJcPjFjUDRBYceOCYHbWmeQaTb6aTk5Heoyoq169eTanXbxRu/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EXJ9uXtwFkirb/88zvAl7Thi0BW4JyB+iRWH79wjbTQ=;
- b=K+XHvg8mZwZ5E/OPM+C+g5F3QvAqIaLQ2X8Wn2ak883muoTX+rsd1VQrpI9r8arqJbjj/bp+LPhKW24dcN7+3L8yThNygcD9WSyWc07+Nkd7SmGIiqFQ3Lotu4rMPIheGZx3Q+ZBgEV2UW//ung6x/dz0/IpNwXAwJv3SG+RmYE=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
- by TY7P286MB7895.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:3a0::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
- 2026 03:50:29 +0000
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
- 03:50:29 +0000
-Date: Thu, 15 Oct 2026 12:50:28 +0900
-From: Koichiro Den <den@valinux.co.jp>
-To: Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>
-Cc: Allen Hubbe <allenbh@gmail.com>, Frank Li <Frank.Li@kernel.org>, 
-	Logan Gunthorpe <logang@deltatee.com>, fuyuanli <fuyuanli0722@gmail.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Nicholas Bellinger <nab@linux-iscsi.org>, 
-	Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 06/15] NTB: ntb_transport: Avoid losing QP link-up
- requests
-Message-ID: <c6zrmhs3d77424lgxbeul4237ovdrkskoapqutuaokjvuve4zz@6gh75sbdtt3b>
-References: <20260928152550.3354675-1-den@valinux.co.jp>
- <20260928152550.3354675-7-den@valinux.co.jp>
- <cf51aeee-d951-472a-acd1-183028da966e@intel.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cf51aeee-d951-472a-acd1-183028da966e@intel.com>
-X-ClientProxiedBy: TY4P301CA0114.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:37e::12) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:325::11)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RgzwHyj2"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B350BC2BCFB;
+	Thu, 15 Oct 2026 04:08:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792037281;
+	bh=NgCaTkqAS2OLuHhTXwCgTA38+FOHqDIm0YdYwggkKkw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=RgzwHyj2WmS4d8ONTx88AnTn6dc19t145Vo2+H/uhu+qqHSuSyeVQgJ/rze1OE+ha
+	 k5ItflRRnICAyh3R2A6D7ISZJl3qyu3fzrCe3nqaazdzTvNV7FZnpj+M+gvO0clTYa
+	 i+qyLxkyy+CLgROa+bAci7Frc4mY63WKYzVcKRHO3K5c+gp0jfPcq9dd01iuZKZ9ty
+	 BlfK80+XE1vHFDTQvFS4yGRalpEmreIzu1IjjJK5/c458EDGasZyuPsvzRdYcrcQOK
+	 9VTEmj7+KFWjKkuPfgv5e6BgqOxxMEpD1JzxHU+4rbskkDC2BxYYmUmt2KGIgCKJ+X
+	 3fwy36RseQKjg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8DC08CC6B1C;
+	Thu, 15 Oct 2026 04:08:01 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Date: Thu, 15 Oct 2026 13:08:00 +0900
+Subject: [PATCH v3 1/9] xfs: mark the inode preallocated for pNFS write
+ layouts past EOF
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|TY7P286MB7895:EE_
-X-MS-Office365-Filtering-Correlation-Id: d6f249f8-1f5a-4e86-9f20-08df2a6f7441
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|1800799024|376014|10070799003|366016|6133799003|10067099003|22082099003|18002099003|4143699003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	SsEOyS1MXixe3OfJeES8OqR82Tx5ljGwQEPpzR2UnwxUENFG6ZMj2XssK44aiSdVjbRtga3Ygz1zqhdWQJGGtm4IIkVeQ/j28549YMWmTLUn5VETfdNOx844d9SYyn3S7jLMAB1bCrR6PsT/xYgrTS6FXoBUp9W6OYTPcqEz2PlJGvyorkB713rJchqSQq1JWY1jlI7wcFcHSPmOMe0dvOSdSXXUfkuQ9PBXrV+P0ck3LorHUpwv0cVxoiRx0TT4NkNvCWaoXtiwpjHmA1fyIQdc6nLRAiTSDElukJxxbvnyJWdR8mxMP0aA81uGZgeoGdwFsO0UHnFqdEU5FRpiPuCvLdpS+TOsk24s5M45KYUjNf8um/HThDLRIZY4cXTeCcg0wQ2mKEi3JRbpSRbJ046Pt60W17/r2dYziKZ43l4oDKSizrNLgNfPBtbM+/J6VzAeBbGJXHmREmv6ghxN2w9cxoAENNs8/WtnkF7KgkQi7Xc5nUi3pcPsj7+SNWcsc1PPKZnwXi4b/WerINlSjGjpS98KKKhjb2na4lT31kFNY1yt72T8m4q3kqSWSUQnxaDDxDqFHWDpZ7g9qsYDlwxwwj/A05bJ0zme2+4L9nR69L3RsUZedhey5l4ZFOKb
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(1800799024)(376014)(10070799003)(366016)(6133799003)(10067099003)(22082099003)(18002099003)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?72Ni8ae0x9XOuOwREer9hLHY5xTUKBV46gZvDT33bLLgpl5Ce4D2jZcEh8/h?=
- =?us-ascii?Q?TsJvCxZXwAbVRd2uVZ88AoMuDZaI+4YgyD/X857tog95b1EIF9G5DvXCn6Ji?=
- =?us-ascii?Q?4jKcKiY+2gzq7e5j66Gc4mX22VIWuudCkZGTJ1JJZr1OgpJrOsyRpzLcwyjk?=
- =?us-ascii?Q?H+SPGhnh5nSvflQgZjg790LLeFwg5Ysm/FFLH3RcKZcdNekN2RoC0rwcMGdW?=
- =?us-ascii?Q?4+5+Uj26z7XK9OuAyV39bWVM+UfH7cfDZRgaV/pRMuJnOgZZbr/yqYrKqpOP?=
- =?us-ascii?Q?lEqITeMlqJAtffvosyo4RvZHj3sXf6ogO7pVwafCaoPJR0ra4mRBO0j1g68a?=
- =?us-ascii?Q?JgmNRrApt/+xGSzg+EQHexuQ2KXmS22iA+e/CnSupHZ/pCAnjZ58vRytaXLy?=
- =?us-ascii?Q?+dcMtHw6hafiLYH99u2HhlFWuvgmSnMsxaIm7FTs16LTUy9/wCZUcb91eZy+?=
- =?us-ascii?Q?hVVifzQPsqblBSiKClzhYAoL2UrQVerjzjRuDmt0vusbM7n4NAAGsFtJMFaP?=
- =?us-ascii?Q?7TVpx2tFQR9couZFwOptTr16Myk2BhE+2ZxVOr1tqBxMImpnD4R3JyLB6iH9?=
- =?us-ascii?Q?Y5wsuQqzlYL0/pLEfDeTLzT5GdjGzRu3LmI85YjhQxmxonGQaqLB9AfXSg/b?=
- =?us-ascii?Q?c5QzMI90AI2K48gxc3kLAQZcTZAtBkJLNOl8lABaksTutHsvgdI1csejQZOu?=
- =?us-ascii?Q?mrOVSVrJsM4FRaPbP/pRgBOOODfF1o2vXiFUPP5qH6sjhhSkhgQq0+RNXD0C?=
- =?us-ascii?Q?26BH0tRehU/kFEBrPRTfX3eSImKGIFk8n3ATHFvIId3+Kdvuvm0ZAk29IYQK?=
- =?us-ascii?Q?dKdUJjv4s0tsYYX5Uf9mXfsQk4Dk1NB9jRiJu2uWG96TTCpc06xkfBDaN4/z?=
- =?us-ascii?Q?dN1YcltVC3fYW7dcMy97Sor+ehpQtryuYzYo76Wx7D7TaRsb1uLONFA0QrST?=
- =?us-ascii?Q?QOydxMSfOcnSm/QkNdxyLAuK7tr4abdXi054WOzRwf+43i1G6uR81ntMHalZ?=
- =?us-ascii?Q?SU4eXi/ppi+fBF4LdrX2Or+SUNr6I3tYiPFndjrI0RzRDyUMRgPqI+WDk95W?=
- =?us-ascii?Q?zVyPvJkGrPJSv/BMCNY7tMYdu8ze8nDr5Z0VTMUo1m8Z00fuyQcf51ZOtc+c?=
- =?us-ascii?Q?SdIEDoOPnRLAMw7plyPh4vxlyDIXJggZqomtbN6aN4V4JJYyrZuRdrPy5sPC?=
- =?us-ascii?Q?7Jn4Pke0qAUJPXqErFzJuJblc07HHZvJx1r7i7LFwf5UgBRewQTJHWe7iKyB?=
- =?us-ascii?Q?7+s+JVCneIxd8w/pK1P2GoRKJCsRFjgR4PWpVwW6Wabjg3afkpUMbF1mhMo8?=
- =?us-ascii?Q?HaOFaaF7M/i/qqkeqsoFd9OGmcc/tU58uuzxqCxaUi/H/kfQ885EQ0LkdaNU?=
- =?us-ascii?Q?iJGAIsWRKmKaOp1YOrKefLGOmsAJ8PtYB0VpRWFVXqOOXYqOSWVmp53//rom?=
- =?us-ascii?Q?SQdonksJ8NuvmWAnjWkGvStdOuEuVw9nv99kv7S6zNFIOBuyMsAw/a1L2rnT?=
- =?us-ascii?Q?zb7L7yPQ+pNvwLn5bNcy001vqTonSyDalBAloM3i0DlgTxGWyX7YgfwO0Pht?=
- =?us-ascii?Q?3oYoBLcawg2/sA+8OyXxMCMMNUUZayQjn3B9hibiUevkWcBVaKGObAnP1/QR?=
- =?us-ascii?Q?K4GTQ58KTthnqxTJmOuZVfwyNx+lWWfx0VDN4fndiccHja3kBqjRQhBtd5fR?=
- =?us-ascii?Q?l4DXQsb4mXXYc41PxHUYox9dEn6L5WDhY75gOshR0QNTBvg4QYM2wL04B5fk?=
- =?us-ascii?Q?nn2pdmUXfSbQDFTQ8P7JAgmAf7nQmvyXyXGWnt5ZwO84SfYqOXgd?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6f249f8-1f5a-4e86-9f20-08df2a6f7441
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 03:50:29.0972
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AA1HgqGnQjvHFRlwIonaGzyiOiznFJPoBO6MIV8vUD/YBuk4AXHJAB7X2QkekrILcqo8tnQHJ6k5XKsZR1JmUA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY7P286MB7895
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-xfs-pnfs-batch-v3-1-54fc7b2e467d@samsung.com>
+References: <20261015-xfs-pnfs-batch-v3-0-54fc7b2e467d@samsung.com>
+In-Reply-To: <20261015-xfs-pnfs-batch-v3-0-54fc7b2e467d@samsung.com>
+To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
+Cc: Christoph Hellwig <hch@lst.de>, "Darrick J. Wong" <djwong@kernel.org>, 
+ Dave Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>, 
+ Jeff Layton <jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>, 
+ Sergey Bashirov <sergeybashirov@gmail.com>, 
+ Andrey Albershteyn <aalbersh@kernel.org>, linux-nfs@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792037279; l=4878;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=IX8mBRXgg/O734lGpmGH7yenX2zWrO6fKWs9gRJtuHA=;
+ b=92YkxHl5/+iTOiq9gxojFGZs+P1frmXWzOHnUrxV7ZaS4Ah74Ps2FSj7Q29gF/apK9DldvkTr
+ XfMBiLqhpRDCSlNsXrVAlMKulkdlMP1cJnrwPVRwHKM9RtPVJvA60vg
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
 
-On Fri, Oct 09, 2026 at 04:11:14PM -0700, Dave Jiang wrote:
-> 
-> 
-> On 9/28/26 8:25 AM, Koichiro Den wrote:
-> > ntb_netdev_open() can call ntb_transport_link_up() while the transport
-> > worker is completing setup on another CPU. Concurrent transport setup
-> > and a client link-up request can both read the other's flag as false and
-> > leave QP link work unqueued. The QP then stays down until another link
-> > event or client link-up request.
-> > 
-> > This is the store-buffering pattern described in
-> > tools/memory-model/Documentation/recipes.txt ("Store buffering").
-> > 
-> > Add a full barrier between the store and load on each side.
-> > 
-> > Fixes: fce8a7bb5b4b ("PCI-Express Non-Transparent Bridge Support")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Sashiko <sashiko-bot@kernel.org>
-> > Link: https://lore.kernel.org/r/20260907144701.702E41F00A3A@smtp.kernel.org/
-> > Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> 
-> With Logan's comment addressed,
-> Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-> 
-> Maybe Jon can amend it on apply.
+From: Daejun Park <daejun7.park@samsung.com>
 
-Dave, thank you as always for your review.
+xfs_fs_map_blocks() marks the inode XFS_DIFLAG_PREALLOC after it
+allocates blocks for a write layout, so that xfs_free_eofblocks() does
+not free blocks past EOF that a client may write to. But a write layout
+for a range past EOF where blocks are already allocated, such as the
+speculative preallocation of buffered writes, gets those blocks without
+an allocation, and the inode is not marked. blockgc, or the release of
+the file, then frees them without breaking the layout. The client still
+writes to them, and they may belong to another file by then.
 
-Jon, please let me know if you'd prefer me to resend the series with that
-amendment.
+With pynfs as the client, a file grown to 1 MiB by two buffered writes
+on the server had 960 KiB preallocated past EOF, and an RW LAYOUTGET for
+that range got it as one INVALID_DATA extent, without the inode being
+marked. About 300 seconds later, with the default
+speculative_prealloc_lifetime, blockgc freed those blocks while the
+layout was still held. When the client then wrote through the layout and
+sent LAYOUTCOMMIT, xfs_fs_commit_blocks() found a hole where the
+unwritten extent had been, and xfs_iomap_write_unwritten() allocated for
+it with no blocks reserved:
 
-Best regards,
-Koichiro Den
+  XFS (nvme0n1): Corruption of in-memory data (0x8) detected at
+    xfs_trans_mod_sb+0x817/0x960 (fs/xfs/xfs_trans.c:351).
+    Shutting down filesystem.
+  ...
+   xfs_trans_mod_sb+0x817/0x960
+   xfs_alloc_vextent_finish+0x2e7/0x990
+   xfs_alloc_vextent_start_ag+0x25d/0x720
+   xfs_bmap_btalloc+0xdd2/0x1720
+   xfs_bmapi_allocate+0x197/0xf90
+   xfs_bmapi_write+0x4d0/0xb60
+   xfs_iomap_write_unwritten+0x307/0x7e0
+   xfs_fs_commit_blocks+0x1d9/0x630
+   nfsd4_block_proc_layoutcommit+0x5c2/0x7d0
+   nfsd4_layoutcommit+0x4b5/0xa20
 
-> 
-> 
-> > ---
-> > Changes in v3:
-> >   - Drop the *_ONCE changes. client_ready is now atomic_t.
-> > 
-> > v2: https://lore.kernel.org/r/20260910040836.3792333-6-den@valinux.co.jp/
-> > 
-> >  drivers/ntb/ntb_transport.c | 9 +++++++++
-> >  1 file changed, 9 insertions(+)
-> > 
-> > diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
-> > index 51d9e9969065..d290e5869c21 100644
-> > --- a/drivers/ntb/ntb_transport.c
-> > +++ b/drivers/ntb/ntb_transport.c
-> > @@ -1101,6 +1101,12 @@ static void ntb_transport_link_work(struct work_struct *work)
-> >  	/* Publish the link only after every QP has been set up. */
-> >  	atomic_set_release(&nt->link_is_up, true);
-> >  
-> > +	/*
-> > +	 * Prevent both sides from missing each other's flag. Pairs with
-> > +	 * the barrier in ntb_transport_link_up().
-> > +	 */
-> > +	smp_mb();
-> > +
-> >  	for (i = 0; i < nt->qp_count; i++) {
-> >  		struct ntb_transport_qp *qp = &nt->qp_vec[i];
-> >  
-> > @@ -2400,6 +2406,9 @@ void ntb_transport_link_up(struct ntb_transport_qp *qp)
-> >  
-> >  	atomic_set(&qp->client_ready, true);
-> >  
-> > +	/* Pairs with the barrier in ntb_transport_link_work(). */
-> > +	smp_mb();
-> > +
-> >  	ntb_transport_schedule_qp_link(qp, 0);
-> >  }
-> >  EXPORT_SYMBOL_GPL(ntb_transport_link_up);
-> 
+The client got NFS4ERR_IO, in six runs out of six. When small files were
+written on the server after blockgc, with a sync first so that the freed
+extents were no longer busy, they got those blocks, and the client's
+write through the layout replaced 978944 bytes of their data before the
+LAYOUTCOMMIT. A LAYOUTGET and LAYOUTCOMMIT 30 seconds apart, before
+blockgc runs, leave the client's data in place.
+
+Mark the inode also when a write mapping ends past EOF and nothing was
+allocated, the same way as for an allocation, before the blocks are
+handed out. With this, the same test keeps the blocks past blockgc, and
+the LAYOUTCOMMIT after 360 seconds succeeds with the data in place.
+
+To share the update with the allocation case, set a local update_inode
+flag in both cases, call xfs_fs_map_update_inode() in one place below
+them, and move the log force into xfs_fs_map_update_inode().
+
+Fixes: 527851124d10 ("xfs: implement pNFS export operations")
+Cc: stable@vger.kernel.org
+Reported-by: Chuck Lever <cel@kernel.org>
+Link: https://lore.kernel.org/r/4de5356f-bc4d-4f1a-9c81-fce09b1b46fd@slotpi15m67
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+---
+ fs/xfs/xfs_pnfs.c | 34 +++++++++++++++++++++++++---------
+ 1 file changed, 25 insertions(+), 9 deletions(-)
+
+diff --git a/fs/xfs/xfs_pnfs.c b/fs/xfs/xfs_pnfs.c
+index ab38561700..a9f0b472f3 100644
+--- a/fs/xfs/xfs_pnfs.c
++++ b/fs/xfs/xfs_pnfs.c
+@@ -110,7 +110,15 @@ xfs_fs_map_update_inode(
+ 	ip->i_diflags |= XFS_DIFLAG_PREALLOC;
+ 
+ 	xfs_trans_log_inode(tp, ip, XFS_ILOG_CORE);
+-	return xfs_trans_commit(tp);
++	error = xfs_trans_commit(tp);
++	if (error)
++		return error;
++
++	/*
++	 * Force the log so that the blocks handed out to the client are
++	 * guaranteed to be present even after a server crash.
++	 */
++	return xfs_log_force_inode(ip);
+ }
+ 
+ /*
+@@ -134,6 +142,7 @@ xfs_fs_map_blocks(
+ 	uint			lock_flags;
+ 	int			error = 0;
+ 	u64			seq;
++	bool			update_inode = false;
+ 
+ 	if (xfs_is_shutdown(mp))
+ 		return -EIO;
+@@ -221,20 +230,27 @@ xfs_fs_map_blocks(
+ 				end_fsb - offset_fsb, 0, &imap, &seq);
+ 		if (error)
+ 			goto out_unlock;
++		update_inode = true;
++	} else {
++		xfs_iunlock(ip, lock_flags);
+ 
+ 		/*
+-		 * Ensure the next transaction is committed synchronously so
+-		 * that the blocks allocated and handed out to the client are
+-		 * guaranteed to be present even after a server crash.
++		 * Blocks past EOF that were allocated for buffered writes, such
++		 * as speculative preallocation, can be freed by
++		 * xfs_free_eofblocks() without breaking the layout unless the
++		 * inode is marked as preallocated. Mark it before handing them
++		 * out for writing, as for blocks allocated above.
+ 		 */
++		if (write && !(ip->i_diflags & XFS_DIFLAG_PREALLOC) &&
++		    imap.br_startoff + imap.br_blockcount >
++		    XFS_B_TO_FSB(mp, XFS_ISIZE(ip)))
++			update_inode = true;
++	}
++
++	if (update_inode) {
+ 		error = xfs_fs_map_update_inode(ip);
+-		if (!error)
+-			error = xfs_log_force_inode(ip);
+ 		if (error)
+ 			goto out_unlock;
+-
+-	} else {
+-		xfs_iunlock(ip, lock_flags);
+ 	}
+ 	xfs_iunlock(ip, XFS_IOLOCK_EXCL);
+ 
+
+-- 
+2.43.0
+
+
