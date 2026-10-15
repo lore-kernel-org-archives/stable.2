@@ -1,77 +1,82 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD08377A8F
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 08:20:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D29E4BAA17
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 08:20:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792052402; cv=none; b=hxgZC32SoGhLSYbhgAjMR9EqH6p0Su/2CfBEzm612oMRzXCWjal/q+jHwd2j3ayc0xtbz0CEdnLR3kyi5ScOIT8z3nOASQFQ8BOZSVINTECjq+zTtnyQV0v7cdYXAkGmKDHGtf7qKeuSbO4LRsAWtb+kIQmMSmhTwn8w4M4dkxI=
+	t=1792052419; cv=none; b=pEt/CKSW3ml3BFoFOUFu42kgzfBZSi8DXsUE/hn/Vsk6+0Vor9KhA0EbQOOk4RT4A78zNs2Ma7BnOAdOnBIhW6icfY5M2lv0TpaBzmUpkXGpF6CPwAWW4fWve8cOnP8ZBLMjxPfvVK36Bv1yL7munMb7Cn1PYngEhlmOlSgoncA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792052402; c=relaxed/simple;
-	bh=6oCmofZdhVK/JtuHeC7Ybfj4Gu03s9WOGhjx0BuI9MA=;
+	s=arc-20240116; t=1792052419; c=relaxed/simple;
+	bh=qDKOJFD5O0yGfj6OQWmcK5ZqqsZPXy8lBN3o3xrmKik=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ssq6D2ru3fmeeJW2/XemVU270UN4MXzPZpA7ppLbBEDh3JWsDQ/qTN5AUqVPuQILzHXzhRr8YmMOoJhJeEyERubDlWf2aCCQGvx35NRnyi0L6FrVsc7tpmMiLXvYRCuAQTvlyUJWL/Gr+MecU83l1SFS1mJxHeBG3czzYBA17bI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=Us+CwUsT; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	 MIME-Version; b=cb3xjRVlJr/EmV/e3XHaenE54kB8FdOZ1FP4IN4wrQkQcQcN8Rx+tfd5e3+NQE/rwxbkfH+IQUGMos7DJQA2DhUoxBu7+zpBeXqP7LOU3NUVku1LAi04CpXgJWtLXqdDvoSxr0IUCouE79RRbR4bf9xRStacYlxxVLXBH+HJzuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OHNVcfLa; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="Us+CwUsT"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ab450c0873so4299962a91.3
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 01:20:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OHNVcfLa"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49d05d51553so11607925e9.2
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 01:20:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792052400; x=1792657200; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792052416; x=1792657216; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iAUL1kaMNkehBeLQFdV7k+ayEvBauEx20W/t7X6WlN4=;
-        b=Us+CwUsTxxH2UmVAbfR+da0aG2Zkafz14OCgJafZVwRM3K028dBR+2Vt54LsIWAmkc
-         Ur/cMyyI0eYeu9hFxPA+Q0TLKxVofMpVt+eZFFJ9EWEK91Xmul22L774uOGntRDwp4e3
-         vhRYROKmb0GjkZjQWwQFn54lQ5g0L6dalwA5aSypraVtzOKjoMbSYJnwc/epDNgv9jRZ
-         Bfi04hkkeWcO0IM4fe+/FAp5VoVia9H45Tp6XYhK2Weu6C7pt7MwC17PSMDMva3I9uS0
-         47RcHFcniQpRcmb5JI+Bvh/SHbZFG65hSQQWDeUt6XAtD6Vx6jVF4rL9L1BBlthgUKVg
-         f+Lw==
+        bh=aVeDY3+0BdViKhSzi1t1ljxDn9zxHbrg3FVtH9WKAx8=;
+        b=OHNVcfLaAVjhBuAKxImvGRz7bXzRjbBTEZmit33wcYkt1Y84wv3HSljjlSGXvaQ30d
+         VyVkMryOKZ8sFumKqs0P+7d+7+A8ijLGekWQ4ck+TDN5pPeD5duDcPvYFAH+cs8VcpO4
+         oMWz7ahdNQon9Tn7N6Fjt/BjvLlZ6KDFJilNRjlIfE435lnOuCBrwjDrfkT1qN/5mfNN
+         j/Uesg/f4xzFVfmo3UHAR34gzlKEWI1sYnlH7a0myeYn3jpEVkL9t4yf7OePgX8kDQwL
+         dVBu19z4taI/jVQLaKdXNeuc1kAsRrFMz4Ns0gDC1JQbr4lMInq+WPDnMkEY70StB7S6
+         gZ1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792052400; x=1792657200;
+        d=1e100.net; s=20260707; t=1792052416; x=1792657216;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iAUL1kaMNkehBeLQFdV7k+ayEvBauEx20W/t7X6WlN4=;
-        b=ySEADSfBmpJJ4NYz1yqBJAQ9t2Uw21G5cj4jGnLoVjth6oIo8YDMaNYfa8UlznuEmN
-         67+2BFHJQocurDgRiv8Hl1SZGzyu0stsPcc8zhAWJBEy3kWSfmACHM0nH8KQrFl5YwPM
-         kYd3uZHU/2SIx9tSIjfqH2hcuaExxU7zTGc8qFf441szEBHMdRL5gFHX0uHYcdHP9K8o
-         oV2pH91A6blcKDGFXTfKqSuLQ3G9QP3+itSSb1jmzAmQBkK9uB4d5nol7Gb7eGSr2I87
-         kG/O1bcTgslOPLeXUJ/V5I92zrx+WAy+/rEXvBEYB29MObt7Q6XfmAJ5fuCa4YGWQ1E/
-         Wv8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxHpQUnDRAljDGPUYhlbIF25epGy1OzWaC9fXly+PrpEqX76u3nJfbnOQjjtkG67mVWiJJGKB8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKE4edt8Jx3Z9hMEwBoh6flHlvoBGkkuOrVkIQ1Oc9Dlp/lR+ZL
-	2DutTOn+4Vx4w89L6otdTn/YAyB+K6dd5RVF63TWXwLzLdN3zlMP4/GPmiLPr3nRv4o=
-X-Gm-Gg: AYBFou2c6d+6uLlcTD8gvxek8JDB4bKozUcruQc4I0Mws99V8Idlq44XQ4013x+7WMR
-	pQH/+KnWbnvqE2IZeqJx73CBCcykM+6vSPXNQ4b7RC4Pf+QTrAEYHn+dHJzN54uHXGX+3gder/t
-	3w8Umt6eR02RriwaHVB2ektA3CiM+23pw4am7Cow/1uYB49Gx8veGta8f4NKO+7GACF+V5DZFd9
-	DphQ09VXgJDZ/AuWmYsbVzMytxWM0H/rzO2Y44sQN6Ipz5HSKEKrnsNKyVDUR8wtxkdJ7Ff7ZxA
-	DqjVhqJMLNiKVVSB1nY0mfp1PJtxILORzQ6B8Ke/M0eLIoptf7cpTMvbEJXV0E8JTdmsnCsDvwW
-	f1H3iBfSf9KoHedt5UeAFkq4uPKiruWIk3iWvyMa53l3QCZmyjbqknalph+Kn/C1dtfTH+HMPo2
-	875W7bAs2XdNFBTYe6cAI80DCFggyfQm6SghLK0IRphNI+0KXSVvigU5EJFmpaDVqXD2XVb+vbx
-	8g4wA==
-X-Received: by 2002:a17:90a:1582:b0:3ab:9c73:130 with SMTP id 98e67ed59e1d1-3ab9c730935mr7506006a91.33.1792052399950;
-        Thu, 15 Oct 2026 01:19:59 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac943e755bsm3319784a91.2.2026.10.15.01.19.58
+        bh=aVeDY3+0BdViKhSzi1t1ljxDn9zxHbrg3FVtH9WKAx8=;
+        b=we5u0CBMCV3X03S4ZJMEv7rjaG3/0m7lJ1jrVstblcOHdG4lsjHGpLZ+dM7lkyVTrd
+         b2xffZaXrozO9r9G1T+F3QKKA940ZJfYs0t/UwCGFvvToeq8mDZkonLTlYkMoQh3ydwm
+         5l3VxDHnu26eXjkYnn+Taw6BPRqUoXDY/X+rnTIooRi4AYswR5bwsSpZjN6+ymDFXiUn
+         w6zoFlCCWq/EKtmeEywmcSx89iO0nEUWJVo8zpVd8GXEIfAQ6IvfyFXnPDngFmjvvhwI
+         C5C0O2F09Uxab9M/LU8b/nh+ynZElC0xsd1Dn0KDCHatZXssWy0QkG0qqR1lQLIbgm+/
+         THVg==
+X-Forwarded-Encrypted: i=1; AKwUvByOO70u7hTW7CGmQo5TNNRumZwMosjWn+doEToXbGTdX17mJbfGd3ZWfmqXvMbzFPREYjKpUJw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYITYtrhGES4DBBHCCQ8/oQ2Vr1unzOqP+pU3Xo2N05d8JM7aGPl
+	Wv9WEm8K8TRNe/1Xnu8KJyD/BIHl5O6jeC7+Zw5a57MzrVBLZ83UhQ6B
+X-Gm-Gg: AYBFou2EzClX7R9scV78g5FWhA77uLE9MRxIcCOi8w7fU+uumBiDrQM5+PIRZsE9BSR
+	whF4eEuSSoDlPbj+gz8gV8HbPFUWZKsihk1d0nvDD8XpIFuQwSxT6JyjVRVXChftW1zx6xzEuhF
+	QRi97N6KbpFXNkALdq/28VyhFpGM+/DDQCf6D+uX8rh/AwbI13zEtwiLPUgEerO3lMTpOiedJl6
+	ePvtiGYb/mAXXx0G40E1mHWy416/ZXW1OMrVEYvmNn+TWkn1gjcyxuASMp6zOaJVTAPD730SotL
+	w5fMKUkN/Y2X7RIgjWsprs/+093ylicM4eVb9ZNzTbfIFebqQL6vimOmOC1pogkP70O00Mgwx4f
+	8FaY4LKv+U+sgZXdzcxq2jkY5/wsPURo9JFnzb7v2Ei1rQ1JdH4hYC4bQ3BUSvSydv8Ibz6Ql08
+	WK8A18WKO+TzNaqeLAid26N3ewkko5kB2ACBp+wkLWYIjEO8BnItz66I8MGf+gmNL0o/2U9Eszw
+	r/tTmJ/OeruV5vOV+hhgdFE4YzWKaRjOcOdR0NhGzDucQ==
+X-Received: by 2002:a05:600c:3f0c:b0:4a1:6517:ccf1 with SMTP id 5b1f17b1804b1-4a18e47a844mr384308475e9.9.1792052415154;
+        Thu, 15 Oct 2026 01:20:15 -0700 (PDT)
+Received: from andreayoga.wind3.hub ([31.189.109.133])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b35a6sm49003545e9.6.2026.10.15.01.20.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 01:19:59 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: "Martin K . Petersen" <mkp@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: linux-scsi@vger.kernel.org,
+        Thu, 15 Oct 2026 01:20:14 -0700 (PDT)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Yishai Hadas <yishaih@nvidia.com>,
+	Shameer Kolothum <skolothumtho@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Jiaqi Yan <jiaqiyan@google.com>,
+	kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v2 5/5] scsi: aic94xx: check that an ESCB lookup returned an ESCB
-Date: Thu, 15 Oct 2026 17:19:34 +0900
-Message-ID: <20261015081935.4168771-6-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261015081935.4168771-1-yhlee@isslab.korea.ac.kr>
-References: <20261015081935.4168771-1-yhlee@isslab.korea.ac.kr>
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] vfio/nvgrace-gpu: Use a core-only open_device in fallback mode
+Date: Thu, 15 Oct 2026 10:19:34 +0200
+Message-ID: <20261015081937.405320-2-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261015081937.405320-1-parri.andrea@gmail.com>
+References: <20261015081937.405320-1-parri.andrea@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,95 +85,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-asd_get_response_tasklet() and asd_get_tmf_resp_tasklet() look an Empty
-SCB up by the index_escb field of the done list status block and then use
-it as one:
+When the ACPI memory properties are missing or the C2C link is down, the
+device is exposed through nvgrace_gpu_pci_core_ops.  That table opens
+through nvgrace_gpu_open_device() but closes through
+vfio_pci_core_close_device(), so open and close are not symmetric.
 
-	escb = asd_tc_index_find(&asd_ha->seq,
-				 (int)le16_to_cpu(resp_sb->index_escb));
-	...
-	edb = asd_ha->seq.edb_arr[edb_id + escb->edb_index];
-	...
-	asd_invalidate_edb(escb, edb_id);
+nvgrace_gpu_open_device() registers nvdev->usemem for poison handling
+unconditionally.  In fallback mode usemem.memlength is zero, and
+register_pfn_address_space() inserts a node covering [0, ULONG_MAX].
+Nothing removes it: a second open fails with -EBUSY, and once the device
+is unbound the node outlives the nvdev that contains it.  The next open
+after a rebind reports:
 
-Nothing checks that what came back is an Empty SCB. There is one index
-space for every aSCB the driver allocates -- asd_ascb_alloc() is the only
-caller of asd_tc_index_get() -- so an in-range index can just as well
-name a live task, a control phy SCB or an internal command.
+  BUG: KASAN: slab-use-after-free in interval_tree_iter_first+0x209/0x310
+  Read of size 8 at addr ffff88800894aa30 by task nvgrace_repro/203
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x5d/0x80
+   print_report+0x153/0x4c6
+   kasan_report+0xe4/0x1a0
+   interval_tree_iter_first+0x209/0x310
+   register_pfn_address_space+0x97/0x100
+   nvgrace_gpu_open_device+0x21c/0x730
+   vfio_df_open+0x213/0x520
+   vfio_df_ioctl_bind_iommufd+0x3e8/0x6e0
+   vfio_device_fops_unl_ioctl+0x782/0x1570
+   __x64_sys_ioctl+0x13c/0x1c0
+   do_syscall_64+0x106/0x630
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
 
-That matters because struct scb is a union, and asd_invalidate_edb()
-reads its escb member without looking at the opcode:
+  Allocated by task 188:
+   ...
+   _vfio_alloc_device+0x3a/0x500
+   nvgrace_gpu_probe+0xcb/0x660
+   local_pci_probe+0xcf/0x170
+   ...
 
-	struct empty_scb *escb = &ascb->scb->escb;
-	struct sg_el     *eb   = &escb->eb[edb_id];
-	...
-	eb->flags |= ELEMENT_NOT_VALID;
-	escb->num_valid--;
+  Freed by task 188:
+   ...
+   kfree+0x20d/0x600
+   device_release+0xcf/0x250
+   kobject_put+0x152/0x2f0
+   pci_device_remove+0xb0/0x1c0
+   device_release_driver_internal+0x38d/0x540
+   unbind_store+0xde/0x100
+   ...
 
-On an SCB that is not an Empty SCB those two stores land in whichever
-union member it really is -- for an initiate_ssp_task that region holds
-the SSP frame header and the scatter-gather elements of a command that is
-still in flight.
+Give the fallback table its own open_device that only calls
+vfio_pci_core_enable() and vfio_pci_core_finish_enable(), the
+counterpart of vfio_pci_core_close_device().  Fallback mode then never
+touches the nvgrace memory regions, as Alex suggested.
 
-Check the opcode, the way asd_dl_tasklet_handler() already does when it
-decides whether a done list entry belongs to an Empty SCB:
+This should be safe because the fallback table uses the vfio-pci core
+read, write and mmap handlers, so nothing there uses the state
+nvgrace_gpu_open_device() sets up.  The one visible difference is that a
+fallback open no longer fails when BAR0 cannot be mapped, which matches
+vfio-pci.
 
-	} else if (ascb->scb->header.opcode == EMPTY_SCB) {
-
-asd_get_response_tasklet() reports SAS_INTERRUPTED, as it does for the
-other two ways it can fail; asd_get_tmf_resp_tasklet() returns
-TMF_RESP_FUNC_FAILED, which is what res already holds.
-
-This is not a claim of a reachable type confusion. The index originates
-with the driver and the sequencer echoes it back, and whether it can echo
-a different one is not something the tree answers. The check is cheap and
-the idiom is already in the driver.
-
-Fixes: 2908d778ab3e ("[SCSI] aic94xx: new driver")
+Fixes: e5f19b619fa0 ("vfio/nvgrace-gpu: register device memory for poison handling")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Suggested-by: Alex Williamson <alex@shazbot.org>
+Assisted-by: LLM
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 ---
- drivers/scsi/aic94xx/aic94xx_task.c | 8 ++++++++
- drivers/scsi/aic94xx/aic94xx_tmf.c  | 7 +++++++
- 2 files changed, 15 insertions(+)
+v2: Replace the usemem.memlength guards with a core-only open_device
+    for the fallback table (Alex)
+    Ankit confirmed fallback mode does not need the BAR0 check:
+    https://lore.kernel.org/r/SAWPR12MB99926787B53C4FF469A6F3BE7AB09D2@SAWPR12MB999267.namprd12.prod.outlook.com/
+v1: https://lore.kernel.org/r/20260925161024.189771-1-parri.andrea@gmail.com/
 
-diff --git a/drivers/scsi/aic94xx/aic94xx_task.c b/drivers/scsi/aic94xx/aic94xx_task.c
-index bb5094ca5de15..a8131407b2d08 100644
---- a/drivers/scsi/aic94xx/aic94xx_task.c
-+++ b/drivers/scsi/aic94xx/aic94xx_task.c
-@@ -170,6 +170,14 @@ static void asd_get_response_tasklet(struct asd_ascb *ascb,
- 		return;
- 	}
+ drivers/vfio/pci/nvgrace-gpu/main.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/vfio/pci/nvgrace-gpu/main.c b/drivers/vfio/pci/nvgrace-gpu/main.c
+index 963fd8ded20d1..208463c218088 100644
+--- a/drivers/vfio/pci/nvgrace-gpu/main.c
++++ b/drivers/vfio/pci/nvgrace-gpu/main.c
+@@ -1083,6 +1083,21 @@ static const struct vfio_device_ops nvgrace_gpu_pci_ops = {
+ 	.detach_ioas	= vfio_iommufd_physical_detach_ioas,
+ };
  
-+	if (escb->scb->header.opcode != EMPTY_SCB) {
-+		ASD_DPRINTK("index_escb %d is not an ESCB, opcode is 0x%x!\n",
-+			    le16_to_cpu(resp_sb->index_escb),
-+			    escb->scb->header.opcode);
-+		ts->stat = SAS_INTERRUPTED;
-+		return;
-+	}
++static int nvgrace_gpu_core_open_device(struct vfio_device *core_vdev)
++{
++	struct vfio_pci_core_device *vdev =
++		container_of(core_vdev, struct vfio_pci_core_device, vdev);
++	int ret;
 +
- 	if (edb_id < 0 || edb_id >= ASD_EDBS_PER_SCB) {
- 		ASD_DPRINTK("edb_id is %d! resp_sb->flags is 0x%x\n",
- 			    edb_id, resp_sb->flags);
-diff --git a/drivers/scsi/aic94xx/aic94xx_tmf.c b/drivers/scsi/aic94xx/aic94xx_tmf.c
-index 1ee6009d83051..e8205e64b870f 100644
---- a/drivers/scsi/aic94xx/aic94xx_tmf.c
-+++ b/drivers/scsi/aic94xx/aic94xx_tmf.c
-@@ -282,6 +282,13 @@ static int asd_get_tmf_resp_tasklet(struct asd_ascb *ascb,
- 		return res;
- 	}
- 
-+	if (escb->scb->header.opcode != EMPTY_SCB) {
-+		ASD_DPRINTK("index_escb %d is not an ESCB, opcode is 0x%x!\n",
-+			    le16_to_cpu(resp_sb->index_escb),
-+			    escb->scb->header.opcode);
-+		return res;
-+	}
++	ret = vfio_pci_core_enable(vdev);
++	if (ret)
++		return ret;
 +
- 	if (edb_id < 0 || edb_id >= ASD_EDBS_PER_SCB) {
- 		ASD_DPRINTK("edb_id is %d! resp_sb->flags is 0x%x\n",
- 			    edb_id, resp_sb->flags);
++	vfio_pci_core_finish_enable(vdev);
++
++	return 0;
++}
++
+ static const struct vfio_pci_device_ops nvgrace_gpu_pci_dev_core_ops = {
+ 	.get_dmabuf_phys = vfio_pci_core_get_dmabuf_phys,
+ };
+@@ -1091,7 +1106,7 @@ static const struct vfio_device_ops nvgrace_gpu_pci_core_ops = {
+ 	.name		= "nvgrace-gpu-vfio-pci-core",
+ 	.init		= vfio_pci_core_init_dev,
+ 	.release	= vfio_pci_core_release_dev,
+-	.open_device	= nvgrace_gpu_open_device,
++	.open_device	= nvgrace_gpu_core_open_device,
+ 	.close_device	= vfio_pci_core_close_device,
+ 	.ioctl		= vfio_pci_core_ioctl,
+ 	.get_region_info_caps = vfio_pci_ioctl_get_region_info,
 -- 
-2.43.0
+2.53.0
 
