@@ -1,113 +1,87 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.61.107])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 253D64A3D4C;
-	Thu, 15 Oct 2026 09:28:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.61.107
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C96F4F4CF8;
+	Thu, 15 Oct 2026 09:28:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792056489; cv=none; b=P7B2mWE2rBybe5bTpDvbyz54KOLl6dr434ZxiiB/lRKepLztT2O4mcTMDfndlxADvpPY7vxnMNJJgwd+yRihRxPKVfpuxHmG76eh/wJvNz6ANTGNvSwBlbfVugMe9pSY3+4fuNh9h7JEZAIawZFhOm5G1HAcf0ksW58+j0Zj1B4=
+	t=1792056541; cv=none; b=fuTIFtXD86U6+q2i3PYRjXnSjBOFxpw/XSA6xdCqjLO4d73Hu6Vta19jvREjV4HsU9gfMy4fN05HSV1ZfPyl8wY3XEIbxtLAYjczzne7X4pMA/JUx/xgvFPTuZ2XJ00/BQUOEskTaYZSvAfjrICdxa2Q5RGwwHtIDQOQe27heFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792056489; c=relaxed/simple;
-	bh=JrB6BaUJjw5NITp5DDMkWpNKvqBppRg+vr4TEGuH+5A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X40E+KqLlzo2T+aBZ8i3NIF2UxWoDJywksrzivTZ0GGpiTbFSnWMAaGN5bunO5LwtpBs/WT9ekO1mqUptMCmNIsmcVwRFe6b61ic4ZMdUFXkxnLkYDLerl03YXDVxe9M92P2DI68bq9KimYcP6UlGJQqlK6Owca4zTiNKetxAGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=gseBVCMq; arc=none smtp.client-ip=188.68.61.107
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1792056541; c=relaxed/simple;
+	bh=Nl8VkwGaBcP/N8FspndVAhEflLmE5wqIknTXtjCmsWY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FLrbGijTQmWwe4dL75VB6zm7CJUEhrRUJ5rXlF9OZGTH17rQNJCk0VSxVrGe40wiFQ2lnQMNpOPogZ+HYnqVleYCuOLCxHpe2bQYVRIA+9tl2ZrJ+SD2RiwxFsG/WjQ3MbvscTCg9l3IZd96ozXOPVFA88mwU1nxnOWHRtLSlyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=Dw4qs80Q; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="gseBVCMq"
-Received: from mors-relay-8405.netcup.net (localhost [127.0.0.1])
-	by mors-relay-8405.netcup.net (Postfix) with ESMTPS id 4j52mj1Bgxz76Xf;
-	Thu, 15 Oct 2026 11:28:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1792056485;
-	bh=JrB6BaUJjw5NITp5DDMkWpNKvqBppRg+vr4TEGuH+5A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=gseBVCMqoKYVz5ylGfE/cnqQag4SoKFOIaWbu1F9Xbpvz7AD8wGSPQUjnlr3iwS7g
-	 vZXyGFBHUevgehe/sl254CkjY4JJdFuxok5D4H8YRAujnpRf9wo/q8iFKattz8lndB
-	 FzcZ81iZz4wak3WKoCTZPJHw86D4HITwb+Bbcqwzw3NBnFvzsVJQA0+M/12OuKI9Qn
-	 EVEENRtIKCAp5oi8YanERXRPmc5h1i6XzjKmoK/f1yeeBpbcR0APaITvka/dHeslmO
-	 ZvmNQBFBkfsL+okPTOpgfJZIELpp7HTij4ePrC8nAu0RaqjR6ApjUK2I2cc2w5hNbe
-	 Oe5Y2iCiJcD8Q==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-8405.netcup.net (Postfix) with ESMTPS id 4j52mj0RZnz76XY;
-	Thu, 15 Oct 2026 11:28:05 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-X-Spam-Flag: NO
-X-Spam-Score: -2.901
-X-Spam-Level: 
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4j52mf2xdYz8tf5;
-	Thu, 15 Oct 2026 11:28:02 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 90FF15F9A7;
-	Thu, 15 Oct 2026 11:28:00 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <e51025a5-8106-41b3-90fc-53e51891ea9c@leemhuis.info>
-Date: Thu, 15 Oct 2026 11:27:59 +0200
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="Dw4qs80Q"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=Fxg1YO8+1v3pgTZaMH0CQqYIAiEVWkzSl5zghob1uo4=; 
+	b=Dw4qs80QjEjfRqNgfYVRBjrN3bGbUW5KCArqu3/UP7/OpUhw6mLY/jkB/NfzbAKj8HJuyJN0TQU
+	1jvjqafIT72sK829tKvsoKVL4PsaMDAj88ufYXr7JJOzSvIYPFetuaXRkMYzCHN5rzFRpEryI6R7T
+	iXNN06q3N4cl5G+MhTb5gouUY7gRMkOzRHVMwyQVLwKalNAg3a/0qwTyKPPLQpWqtSvNQkYm68fUG
+	mHTCdbCigffKV4rvGtw45ocF2Ujxx/ChNLqewsQiMj++xoQ1qpsFOhqOGFssdE4d69orVr6znFW4S
+	D4dARR1ffGYvHYvVnSl2JxTUS3Rr/eDZNChQ==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xHHla-000000047Ip-1hPX;
+	Thu, 15 Oct 2026 17:28:51 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Thu, 15 Oct 2026 20:28:50 +1100
+Date: Thu, 15 Oct 2026 20:28:50 +1100
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: =?iso-8859-1?B?Suly6W15?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Horia =?utf-8?Q?Geant=C4=83?= <horia.geanta@nxp.com>,
+	Pankaj Gupta <pankaj.gupta@nxp.com>,
+	Sahil Malhotra <sahil.malhotra@nxp.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [REPOST PATCH] crypto: caam - reject overlong RSA CRT parameters
+Message-ID: <atCc0iL0RrDLwHHX@gondor.apana.org.au>
+References: <20261008093553.384608-2-Jeremy.Jean@oss.cyber.gouv.fr>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] perf/core: track the perf mlock gift separately
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo
- <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Andrew Morton <akpm@linux-foundation.org>,
- "David Hildenbrand (Arm)" <david@kernel.org>,
- "Mike Rapoport (Microsoft)" <rppt@kernel.org>, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, bpf@vger.kernel.org,
- regressions@lists.linux.dev, Sasha Levin <sashal@kernel.org>,
- Alexander Motin <alexander.motin@truenas.com>,
- Ameer Hamza <ameer.hamza@truenas.com>,
- "Caleb St. John" <caleb.stjohn@truenas.com>, stable@vger.kernel.org,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20261003-perf-locked-vm-fix-v1-1-d214dcaf0d76@kernel.org>
- <20261015075817.GO2009045@noisy.programming.kicks-ass.net>
- <atCYFpm63elRyuw7@gremlin>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <atCYFpm63elRyuw7@gremlin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: 
- <179205648162.3507777.14501017423963775184@mxe9fb.netcup.net>
-X-NC-CID: C05WCq3tRTscu+zR3z0ATbzEno476my1YXpBYGDUjkpMVOchz8c=
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261008093553.384608-2-Jeremy.Jean@oss.cyber.gouv.fr>
 
-On 10/15/26 11:09, Lorenzo Stoakes (ARM) wrote:
-> On Thu, Oct 15, 2026 at 09:58:17AM +0200, Peter Zijlstra wrote:
->> On Sat, Oct 03, 2026 at 05:29:07PM +0100, Lorenzo Stoakes (ARM) wrote:
+On Thu, Oct 08, 2026 at 09:35:53AM +0000, Jérémy Jean wrote:
+> caam_read_rsa_crt() right-aligns dP, dQ, and qInv in buffers sized
+> from the corresponding prime. rsa_parse_priv_key() only bounds these
+> integers against n, so a malformed key can provide, for example, a
+> two-byte dP with a one-byte p. dstlen - nbytes then underflows and
+> memcpy() writes outside the allocation during set_priv_key(). KASAN
+> reports a slab-out-of-bounds write in caam_read_rsa_crt().
 > 
->>> Resolve the issue by simply giving perf its own field separate from the
->>> rest.
->> So I'm a little confused by all this -- perf introduced this field,
->> others jumped on and shit broke, so we fix perf instead of the others?
-> Yeah I think the blame really lies with the later users, and that send a trend
-> that led to further confusion (including myself, mea culpa!)
+> Reject empty or overlong CRT parameters after stripping leading zeros.
+> qInv is consumed by CAAM as a p-sized value, so size it from p rather
+> than q to match the DMA mapping in set_rsa_priv_f3_pdb(). Let the
+> top-level key cleanup handle partial form-3 allocations and return the
+> specific error to the caller.
 > 
->> Anyway, patch seems straight forward enough; and you added comment to
->> the fields, which I suppose does clarify things some.
->> I'll take it. Thanks!
-> Thanks, much appreciated! :)
-Just wondering: how urgent is this fix? Is this something we should try
-to get into 7.3 given that this was noticed in a regression report that
-blamed it on an 7.3-rc commit[1]? That commit also made it to many
-stable series now, which might be another reason to get in mainlined
-rather sooner than later.
+> Also test nbytes before dereferencing it while stripping zeros, so an
+> all-zero integer does not read one byte beyond its input.
+> 
+> Fixes: 4a651b122adb ("crypto: caam - add support for RSA key form 3")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> ---
+>  drivers/crypto/caam/caampkc.c | 69 +++++++++++++++--------------------
+>  1 file changed, 30 insertions(+), 39 deletions(-)
 
-Ciao, Thorsten
+Sahil, could you please review this patch?
 
-[1] https://lore.kernel.org/all/asEllR7if-J3wteg@gremlin/
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
