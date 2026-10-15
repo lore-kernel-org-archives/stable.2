@@ -1,40 +1,45 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-168.mta0.migadu.com [91.218.175.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17064AD7FB;
-	Thu, 15 Oct 2026 08:02:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 635D5481226
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 08:02:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792051369; cv=none; b=j4y8iw2e8EsgALcaBNh25GaLmUz2U6gWLPFJK6NJCJBzY+trdfWQsy4gsQW6V8OmRH2F0/dMl6ubC9mmHx1PcYsPRphwXsD3PKtzZkX5y+c28/BLIOGPYsG08iIZIC8dCUvjaJARFvEb92/b9f1rZFiq7wblE1vQEwUDNEofspE=
+	t=1792051377; cv=none; b=nCtvRpC9mo8DNSqInV4Qp67KKVm7pC0q0ny4fhkRO2bFGfcQMEGLIJqQsoXF4+xPmmOE4mYmgDO0gK0vz493klIVl1tA6DGCEmpic5/UyXLQYBIiEsn8MAdHvQ24I4LJHWAMFfT1QJPfiohAv4FCO8S8VzDptaNgrpFFf+bUXKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792051369; c=relaxed/simple;
-	bh=TbYg1VTiD1UEEO/d4dClCaNPHQwEu329pFow9Nnf4Uw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sVfXEnpoGEcTXqVbc5OBor9ExbohlqavYqe3Ug0Fr1v4CngsCjcIUu9vNSdPEFaXTn8fGQVCjooyDXZtNRxOIYWOFfIcC4fFTIYHU0F6iIfXMEB0o8y3I6kdu0H86EFA4MIXQDU1w+KVJYnnLWhonJRboXV5oKRC8k1yCB/lb9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=XoBL5jbx; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792051377; c=relaxed/simple;
+	bh=bd2dyGvu6eqSl5noAvuLcU4EENcETPUCuEO/37wxsPE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FHXVTroxWGsPza7KdZHzE0bqp0WtW9pY6AboNEXdqrtMKdQQiBEAUfHqNof68myGfnOSwK7moz9q/ka7Iqsc7l705yYIZUo7ZDJpVf85v/7lD5JpCMGBxXy5hnZbToeyDHLPvoqvLjI+om8Bs2a1WELIfck6i8ZLZWEAHwzLOH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=s4TQKPIa; arc=none smtp.client-ip=91.218.175.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="XoBL5jbx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=cq
-	/MdyqyAlLfkajn/GEbXJjDzR7rtOrjoZXmiCtnRaQ=; b=XoBL5jbxC2BXbzCUkG
-	Hj/BQr70JEe7QRYZvbttGMBMNc90iLawCeXIExFFzDvr/nK/hNpogRMs8HkI/Swb
-	hlVWwK6EXCj18RRGTHoIp5lTKL5h8j3yKm0msxnRcTYTuNWzzynRT4v7R6C+sQrd
-	hHTVSAR7y4Z8C0LX2bePFPZdM=
-Received: from colol4bi5.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3VxqSiNBqbM7YAA--.26764S2;
-	Thu, 15 Oct 2026 16:02:27 +0800 (CST)
-From: Binbin Deng <18983559317@163.com>
-To: cem@kernel.org,
-	djwong@kernel.org
-Cc: linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Binbin Deng <18983559317@163.com>
-Subject: [PATCH v1] xfs: set healthmon mount cookie before publishing it
-Date: Thu, 15 Oct 2026 16:02:25 +0800
-Message-ID: <20261015080225.45215-1-18983559317@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="s4TQKPIa"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=bd2dyGvu6eqSl5noAvuLcU4EENcETPUCuEO/37wxsPE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792051373; v=1; x=1792656173;
+ b=s4TQKPIaX6o7Og5RhXIatda8f0FON9GOxqxvg8Y2XCnxXkNOOrzAlAxUvzrylsFkvxl8lhbh
+ 78VhE0mrCFesU1XNQiGF1zVAULDkLJeKXZQVjh7bwKgd/PE17sstcDmTwxIVTgdpBzjampvRu71
+ 4YJ+3Q2f1SGfKS7xMolTHKpc=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1c4fe5bd21f346df;
+	Thu, 15 Oct 2026 08:02:53 +0000
+X-Mizu-Trace-ID: 1c4fe5bd21f346df
+X-Migadu-Flow: FLOW_OUT
+From: Hao Ge <hao.ge@linux.dev>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	Hao Ge <hao.ge@linux.dev>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] tracing: Fix crash in print_graph_function_event()
+Date: Thu, 15 Oct 2026 16:03:51 +0800
+Message-Id: <20261015080351.121316-1-hao.ge@linux.dev>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -42,51 +47,99 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3VxqSiNBqbM7YAA--.26764S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CF47urW5Zr1fZr45JFWDJwb_yoW8Ar18pF
-	ZxZ3s0kryvyry0vFsrJ3Wvyay7Jw4rCr1UKrn8Ww1fZw45JwnYvF9rKw4ag3W5ArZ2gF18
-	ZrWaqwn2qa98AaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UwF4iUUUUU=
-X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC4BMV+GrQiJP7bQAA3p
 
-xfs_ioc_health_monitor() allocates the healthmon object with kzalloc(), so
-mount_cookie starts as zero.  zero is also DETACHED_MOUNT_COOKIE, but
-xfs_healthmon_attach() publishes hm through mp->m_healthmon before storing
-the mount cookie.  A concurrent reporter can therefore acquire hm from
-xfs_healthmon_get(), see the detached cookie in xfs_healthmon_push(), and
-drop the event even though the monitor is being attached.
+tracing_set_tracer() assigns the flags of the newly selected tracer
+with:
 
-This is reachable by racing XFS_IOC_HEALTH_MONITOR with an operation
-that reports a health event, such as a filesystem shutdown.  Initialize
-the mount cookie before making hm visible through the RCU pointer so
-reporters always observe an attached monitor.
+	tr->current_trace_flags = t->flags ? : t->tracer->flags;
 
-Found during a static-analysis-assisted audit: candidate sites were
-surfaced by a Coccinelle rule, and the reader/writer paths were
-confirmed by LLM-assisted (GLM-5.3) code inspection.  The issue was
-not observed at runtime; it is identified by code inspection only.
+If the new tracer defines neither static flags nor default flags, like
+hwlat, irqsoff or wakeup, add_tracer() has no per instance flags copy
+for it, and both operands are NULL, so tr->current_trace_flags ends up
+being NULL as well.
 
-Fixes: a48373e7d35a ("xfs: start creating infrastructure for health monitoring")
+The ring buffer is not cleared when switching tracers: it is reset
+inside tracer_init(), after current_trace_flags was already assigned.
+If the buffer still holds function_graph entries of the previous
+tracer, printing one of them dereferences the NULL pointer. This was
+hit by cat trace during an ftrace stress test:
+
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  #PF: supervisor read access in kernel mode
+  RIP: 0010:print_graph_function_event+0xe/0x20
+  Call Trace:
+   s_show+0x4d/0x110
+   seq_read_iter+0x2d4/0x490
+   seq_read+0x130/0x170
+   vfs_read+0xb5/0x370
+   ksys_read+0x6d/0xe0
+   do_syscall_64+0xbc/0x450
+
+The snapshot buffer is not reset at all, so this can be reproduced
+without a race:
+
+  echo function_graph > /sys/kernel/tracing/current_tracer
+  echo 1 > /sys/kernel/tracing/snapshot
+  echo hwlat > /sys/kernel/tracing/current_tracer
+  cat /sys/kernel/tracing/snapshot
+
+Rather than teaching every user of tr->current_trace_flags about this
+corner case, make sure it is never NULL: when the newly selected
+tracer has no flags at all, tracing_set_tracer() falls back to a
+static empty no_tracer_flags. run_tracer_selftest() can hit the same
+case, so the same fallback is added there too. The existing users
+already handle opts == NULL, so these tracers keep behaving as before.
+
+Fixes: e29aa918a928 ("tracing: Have function graph tracer define options per instance")
 Cc: stable@vger.kernel.org
-Signed-off-by: Binbin Deng <18983559317@163.com>
+Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: Hao Ge <hao.ge@linux.dev>
 ---
- fs/xfs/xfs_healthmon.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v2:
+- Rework per Steve's suggestion. v1 could trip the WARN_ON_ONCE() in
+  add_tracer() at boot, when an instance was created before the tracer
+  registers.
 
-diff --git a/fs/xfs/xfs_healthmon.c b/fs/xfs/xfs_healthmon.c
-index 2bdd747f1ead..05d6f0494139 100644
---- a/fs/xfs/xfs_healthmon.c
-+++ b/fs/xfs/xfs_healthmon.c
-@@ -114,8 +114,8 @@ xfs_healthmon_attach(
+v1 Link: https://lore.kernel.org/all/20260920042139.70736-1-hao.ge@linux.dev/
+---
+ kernel/trace/trace.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index e4a490d3d08c..fba9521d2511 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -99,6 +99,12 @@ struct tracers {
+ 	struct tracer_flags	*flags;
+ };
+ 
++/*
++ * Tracers that do not define their own flags use these empty flags,
++ * as tr->current_trace_flags must never be NULL.
++ */
++static struct tracer_flags no_tracer_flags;
++
+ /*
+  * To prevent the comm cache from being overwritten when no
+  * tracing is active, only save the comm when a trace event
+@@ -1319,6 +1325,8 @@ static int run_tracer_selftest(struct tracer *type)
+ 
+ 	tr->current_trace = type;
+ 	tr->current_trace_flags = type->flags ? : type->default_flags;
++	if (!tr->current_trace_flags)
++		tr->current_trace_flags = &no_tracer_flags;
+ 
+ #ifdef CONFIG_TRACER_MAX_TRACE
+ 	if (tracer_uses_snapshot(type)) {
+@@ -5090,6 +5098,8 @@ int tracing_set_tracer(struct trace_array *tr, const char *buf)
  	}
  
- 	refcount_inc(&hm->ref);
--	rcu_assign_pointer(mp->m_healthmon, hm);
- 	hm->mount_cookie = (uintptr_t)mp->m_super;
-+	rcu_assign_pointer(mp->m_healthmon, hm);
- 	spin_unlock(&xfs_healthmon_lock);
+ 	tr->current_trace_flags = t->flags ? : t->tracer->flags;
++	if (!tr->current_trace_flags)
++		tr->current_trace_flags = &no_tracer_flags;
  
- 	return 0;
+ 	if (trace->init) {
+ 		ret = tracer_init(trace, tr);
 -- 
-2.43.0
+2.25.1
 
