@@ -1,166 +1,168 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F1849C4CD
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 08:29:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A42489FAD
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 08:31:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792052958; cv=none; b=aiaBwmDZF1bGgArTeIIn2VbPihAkNxXbJUZiwVhwT1injZt83LGlLhJcEIV5Lq8cVkV6hGghMnrcmMMRbR9f7q/qZ+UOHypQ34h8vYUqGxKyg4w6F8upuwgnGkKp+5FSddbrCSaRdYfdHzX9U1FG9Zl9J/DnnTJz62FlCsg32cs=
+	t=1792053105; cv=none; b=f/6sMKMlD93iSvj5sfZdSdbcU/+oW+lxhlkUAINlN+F9XwXpyfGhpRr3I0+TWFrq6hkU+2GOVHLjoO8+RSTl52ldm8w/VfCO862/Eowccu6chgGDDy2iHfF8yEASV6qwNQhRU0tawyvBKRNRqcufflgv/hfEzoDN9+6OS8i5fCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792052958; c=relaxed/simple;
-	bh=4yHo0jxkxzwvqa4dyNy+s98uCpIdE0kge3qev5EKwt4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=pA/Lwg3liYVBsMtfnEg1nkx606vXZY6VelQjN/m2P19HbpziGV0WSf1zjlSbUF/6adb4l8hsrjn3RZKY+uU0jDu/+vlYDBgF7v38C/t9/ClgVhUsyv2XlrNV02x5S8cibO1JdRQIfQ7LwTOF2SaEbptxtFbfouDPoXwTDI2jzZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AtSS4y/S; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=jnqHHhpp; arc=none smtp.client-ip=170.10.133.124
+	s=arc-20240116; t=1792053105; c=relaxed/simple;
+	bh=+5OhdJLKSbRNoRiwvXpio5W1d+tZemFWqHA9zhT9EN8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qL01moyS2Jn4Jt4GmiDzGVI4ZPsIF98u1okbEXjfB7ELhcSmt0oryZ6hyu92CNnqsJ/DHSvHzyrjdMWq2J99gOmqdXXiA9pS4HaWWWAd7HMbSXjXJUV066+knAOfTGgbkhBqCnHgSZDKbaea2JU9DMhb5yF0c3RIryTm3lBAWzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MbaerYxH; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=MXPXI53l; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AtSS4y/S";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="jnqHHhpp"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MbaerYxH";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="MXPXI53l"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792052956;
+	s=mimecast20190719; t=1792053102;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=6fmAA4pRjLkz/PBqarAT5jgfTfqNf/gcx018ODCtjo4=;
-	b=AtSS4y/SgMTHKA/tWwdagOPDmdI4Ppm5MGLKu6vW+pusQ4OHW6WskhjLgytRiDgsv9QpfN
-	pliQTZw+ESOKPNvsnkRJr3TMkswcAXTHm7aRibGAZHwHHssv0Ard5W068LZL7PoU4iJQqL
-	NbQpIkS0G/SWElZ/yFCjUfjIlygZOcU=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=m0fSuS85qjgfYBkcBtEXHUunAA4roYAXdy4Psad89UE=;
+	b=MbaerYxHs0RNYRC8FQ3GxWuw/lrcbH34gSJeYjyuhoRus3HeoJxd2RaJwmJrmN3oomo423
+	e6AmrXVWF0CR+pdRi3K9SsK+0ZviZUuiPEic98aIA7ck3U5aYhosS6BMX5U6Lx+yC7N3dV
+	7uKwypfp17vONWGjFby6ZzCbLQyd+yo=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-322-VTit_RCqMDGmI73pVDOrBw-1; Thu, 15 Oct 2026 08:29:13 +0000
-X-MC-Unique: VTit_RCqMDGmI73pVDOrBw-1
-X-Mimecast-MFC-AGG-ID: VTit_RCqMDGmI73pVDOrBw_1792052952
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48b09f01f56so3203394f8f.1
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 01:29:13 -0700 (PDT)
+ us-mta-623-RN8rtaQxO0iRhZct4CWe-g-1; Thu, 15 Oct 2026 08:31:35 +0000
+X-MC-Unique: RN8rtaQxO0iRhZct4CWe-g-1
+X-Mimecast-MFC-AGG-ID: RN8rtaQxO0iRhZct4CWe-g_1792053094
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-495689bfcc8so43460655e9.1
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 01:31:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792052952; x=1792657752; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6fmAA4pRjLkz/PBqarAT5jgfTfqNf/gcx018ODCtjo4=;
-        b=jnqHHhpp0kWEtfvsStNIYVWwd8sH9gG8SNMrYDKPNG0rXsvK0ejsdszDE6u0J3NX1a
-         w8TRaYKCTDhOfCmg7f+bYNX2GunXe1uaVKSi+8ATkmo5wo/d86mfWY7uqQQhygV+QZvE
-         DBYDft/DKoiMvfAEwNdl/3z120iWYXmOktA+bwccGhNj4qvCnQ0x+2kUJIqZg+/LGMn2
-         9q2G9FpsCr7ikxXG4BxG2zkHP6NmDWGVLe4+22ynoikRLGeQaUlp7XVOEePI6cXuSiuT
-         i21UzCUES1q0Y0k7awGnIavtJN4pSi1MTXCs5WHNiUpTg9cSk6VSdeG/GvCPzMpq8b7l
-         cwrA==
+        d=redhat.com; s=google; t=1792053094; x=1792657894; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m0fSuS85qjgfYBkcBtEXHUunAA4roYAXdy4Psad89UE=;
+        b=MXPXI53l53KydYPIdNVRtFNFQW9G8lE6k18M7qoEjROur+1bui03f7Iez/lExQeJsM
+         z3cGbyhObnSnSToqn6WZ1Ht+8h0uL0ctwIUnlca/Yyz/1gJFhNnA8+N5Yrzcdmo1WPu5
+         qkDdbyPc+9jdNAjW8044lRYt30wRIdikRhf+EAO2akDMs9b5/68CgUwsfinr4PPl8q4X
+         LeDHEREy6ddyneDTKVe0xxw7sh8DFdv58nKrYVF6F/ll2VDfJ93D468FCUpL6pkLZlX6
+         uHMtbELuvm+SuLug892p/9O9U4y50+CfbzQATpbzHeM8V1M0neq7Sjls1yKOpqXRUPkz
+         wZ0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792052952; x=1792657752;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6fmAA4pRjLkz/PBqarAT5jgfTfqNf/gcx018ODCtjo4=;
-        b=itbHvYgmWkIHzKmEkqrRXff6hDilygwDRQYEqAnY2+1SqlwSZOb2x58SDZ2xhmQHUH
-         +L6E+4Otuyyg2MS0unCVRP375NO554Apc9LL9/f13d8+vBq1QQE+qxFV/BgYfNQik0hc
-         17/p+llQ9qJzTjp3nbPdt+WfTHJ5/sSO6UejXSr/O62qvAtw27EjsOWP6038z2K4TFlC
-         OqB67cyVOt5rcFeJXZKq11cJL38ytYUBWdnS2Cqk6SFNxSbTI0czn2TBONEYx/Hq4p+5
-         vetaJw0A9y6B2mJxALPNkRAdhwRgM+2A8Tm82Z9DxnNmHxQx0PiejgzOh1pQFcCYR2aF
-         R6jg==
-X-Forwarded-Encrypted: i=1; AKwUvBw5XzWWMlHAqe+Gc58iMYsjGcgfGiJbxuU8SYRRh7oMKQ3pvdmWoqqigKWy3bCBwsw2Hqa87RU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJZQVESc+HbLGS0rux2M2nSPY6sSK25ArQS6N4ZqbMtMqFbUt6M
-	1Q2BC8Z4pipKuJZqdyfC2fN+jGamTUdHZFiO9ASHtwwBwpvIM2Ew8ZV0sBAnZ3y6giLKwxvgjF1
-	8+4MGNRbBTbI91MD7NNA8N7EPIMudSuN8bAkQT/9EU8dJA8Ye/xsXW4h+rw==
-X-Gm-Gg: AYBFou3L1lxpHHv96gvvWL6uUDisi/JUTpW9ei8gLbXT1bzzvxJWjHj2n/2IEjLzLEo
-	ibq+6AInVFYlkuQIAMWjhLaX6SbXgtNBH7HaDX1OoXNC7XSGsX+Pb0M3HliBhxc1eMDtuRy363U
-	7ZWObIjaKwd5wRMGYAfRF1XaGB1iUY6bhpb+YCHCvCRsJxuB197/lpCNU/uiK5IaDA3VEavyOBv
-	xptWG05FGWu1KxLP6urHKeNIORNGjzdBUvpNMGQqb/B3h6OhDRIGxvL0aWPm08t0cmhwrHouxXg
-	p4fzuSEdSLOkcMVM09wXRFTIN6h0UiPKmGTizu+9iI7KtEVthM6S3BZ9N8Bw3oq8vQtcEsu7BRE
-	l+BtobMH+02Z5MrAxklm5kI0snW7LTGUGy+I=
-X-Received: by 2002:a05:6000:2085:b0:488:7496:15b5 with SMTP id ffacd0b85a97d-48dbacf126amr34728395f8f.47.1792052952396;
-        Thu, 15 Oct 2026 01:29:12 -0700 (PDT)
-X-Received: by 2002:a05:6000:2085:b0:488:7496:15b5 with SMTP id ffacd0b85a97d-48dbacf126amr34728336f8f.47.1792052951831;
-        Thu, 15 Oct 2026 01:29:11 -0700 (PDT)
-Received: from localhost ([62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48df758258fsm1459412f8f.17.2026.10.15.01.29.11
+        d=1e100.net; s=20260707; t=1792053094; x=1792657894;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=m0fSuS85qjgfYBkcBtEXHUunAA4roYAXdy4Psad89UE=;
+        b=rcnqrq/P7gl8P9QCWHjoY+6OddCPSmxNnr5rd9IEcqvzfI2PkLukwX9ZiUDBKs4kmM
+         jv9BWyNoD7pAG/xXfNZG0yHjdrrdKVWdKLbex+1BGfQgfjxJ/bvmXv3vdllaGEVFE3vJ
+         yUPEEt6m8+mLj+vLa2/JgDVGTLcpxy8EKbNY2TLudWMyKlQwx0RNZd5jbld97FxW8DIv
+         73xVM5r+gHmomsCQI0FywDQF+GjlyBp68ME+IwKqovQyjzRzecYJ3VlKy66PW3wwUeZj
+         R0N6aj5gGXQI48HPhpU68xqqejEyM7odn6+LVfGMigksXBKqSAONXURaQCq7CtffU/Ia
+         FS3w==
+X-Forwarded-Encrypted: i=1; AKwUvByY19uxY51d4r6aI7fSuDHURAeWJgG9N+7q00eOKP1NCVXYeAvt7WUkP29wWvdnVpAMbLjFMmA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKL6K51MgwlUsXnnHt9RrAf+uiRX6olQtqbxEo80Dnvk0uSMIfC
+	WwnPgYvG3OPHeRYMFx+m+VLqAbSr6IHcnjYOA5+DytFAROMYLAQ587wpf6BminMIIni/Iqq1Sqr
+	CFCZ+2JMLCaLgxBx+3VwKLkjY5Z9C5KyzvTkeBgL0G/qA8ff/BBObNBjQRA==
+X-Gm-Gg: AYBFou30ul29kLEfRAmU/meVOL2uhJbLEFGs+xk29BmM3zOUygKK8LKQl8L4KyKrMp3
+	+tFq92c9Jl6zRw5HWoYd3c/MxKtUUqpKRMPrnqJ+O28ES6YmBsfzf7BF0bIYabY6yfp44LAT2j7
+	fQUQByFW0ZqCekLj9jW/oaD8sgg6Vlol8ZfmVkAg5sQ/eevfI5Wj1FT42XSi8MW8EAbV+Bk9FA7
+	FlnEiuvK04yf1m1gxY3/YQuV9S4Wd9MUdC1DQX3GKL1weCVLAUCA605RynJdXJxP9gOVjLToO8p
+	sEXPykHRm2ZBnz+FxUEFmflNWdLVzphvMKfBoQQzy7nDZkm/Y0GcBgpyRLfufrnB1a5O+q3cwJa
+	j21FnpKA8Acc6UWrTnSBRnWPgnNjtEOGOoj9z1GTPUo2OmaO6rSsj2SuCetZSq5LA2NjyHce1Ll
+	pJeyEi
+X-Received: by 2002:a05:600c:5391:b0:49e:7a10:1b71 with SMTP id 5b1f17b1804b1-4a18e4a003cmr365070755e9.11.1792053094358;
+        Thu, 15 Oct 2026 01:31:34 -0700 (PDT)
+X-Received: by 2002:a05:600c:5391:b0:49e:7a10:1b71 with SMTP id 5b1f17b1804b1-4a18e4a003cmr365070425e9.11.1792053093920;
+        Thu, 15 Oct 2026 01:31:33 -0700 (PDT)
+Received: from [192.168.10.48] ([176.206.82.153])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd972affsm51496405e9.2.2026.10.15.01.31.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 01:29:11 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Phong LE <ple@baylibre.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Julien
- Chauveau <chauveau.julien@gmail.com>
-Cc: Paul Cercueil <paul.cercueil@bootlin.com>, Nishanth Menon <nm@ti.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Luca Ceresoli <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH] drm/bridge: ite-it66121: fix silent probe regression
- due to reset timing
-In-Reply-To: <20261015-drm-ite-it66121-fix-reset-v1-1-473038e06abc@bootlin.com>
-References: <20261015-drm-ite-it66121-fix-reset-v1-1-473038e06abc@bootlin.com>
-Date: Thu, 15 Oct 2026 10:28:59 +0200
-Message-ID: <xlv14iengyes.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+        Thu, 15 Oct 2026 01:31:32 -0700 (PDT)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Cc: Amirmohammad Eftekhar <amirmohammadeftekhar@gmail.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	stable@vger.kernel.org,
+	Sean Christopherson <seanjc@google.com>
+Subject: [PATCH 1/2] KVM: nVMX: Reset MMU back to the root MMU if loading L2 state fails for !VM-Entry
+Date: Thu, 15 Oct 2026 10:31:22 +0200
+Message-ID: <20261015083123.790030-2-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261015083123.790030-1-pbonzini@redhat.com>
+References: <20261015083123.790030-1-pbonzini@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Luca Ceresoli <luca.ceresoli@bootlin.com> writes:
+From: Amirmohammad Eftekhar <amirmohammadeftekhar@gmail.com>
 
-Hello Luca,
+Reset the vCPU's MMU pointer back to the root MMU if loading L2 state fails
+in the "not from VM-Entry" case, i.e. when emulating RSM or handling
+KVM_SET_NESTED_STATE.  Failure to unwind the MMU pointer results in KVM
+trying to run L1 with a nested MMU, and is especially problematic if the
+vCPU manages to free its nested state before the VM crashes.  Constructing
+the root for a nested EPT MMU goes through vmcs12, which is dynamically
+allocated/freed when nVMX is enabled/disabled.  And so if the nested state
+is freed with the MMU still pointing at the nested MMU, KVM will hit a NULL
+pointer deref when attempting to get L1=>L2 EPTP.
 
-> Commit e02b5262fd28 ("drm/bridge: it66121: acquire reset GPIO in probe")
-> rightfully added code to make the reset pin really work instead of being a
-> no-op, but that change introduced a regression making probe fail most of
-> the times, at least on some hardware.
->
-> On a BeagleBone Black rev.D the IT66122 silently fails probing >90% of the
-> times. This is because:
->
->  1. the regmap_read() calls just after it66121_hw_reset() to read the ID
->     registers fail
->  2. there is no error checking for these regmap_read(), execution
->     continues silently
->  3. this results in not matching any of the IDs from it66xx_chip_info
->  4. and this results in silently returning -ENODEV
->
-> Empirical tests showed a small delay after de-asserting reset fixes
-> probing. Likely the device needs some ramp-up time after reset. No such
-> requirement is mentioned in the docs I could find, so the amount of delay
-> was chosen by testing: 10 ms worked in 100% of 25 test runs, so setting a
-> 20 ms delay should provide a safe margin.
->
-> Fixes: e02b5262fd28 ("drm/bridge: it66121: acquire reset GPIO in probe")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> ---
-> FYI For items 2 and 4 above, I'm sending separate patches to make those
-> errors not silent. Those aren't fixes, so they would be for drm-misc-next,
-> while this patch is for drm-misc-fixes.
-> ---
->  drivers/gpu/drm/bridge/ite-it66121.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridge/ite-it66121.c
-> index 51fc68ffdf8f..692a85e1e2e8 100644
-> --- a/drivers/gpu/drm/bridge/ite-it66121.c
-> +++ b/drivers/gpu/drm/bridge/ite-it66121.c
-> @@ -356,6 +356,7 @@ static void it66121_hw_reset(struct it66121_ctx *ctx)
->  	gpiod_set_value(ctx->gpio_reset, 1);
->  	msleep(20);
->  	gpiod_set_value(ctx->gpio_reset, 0);
-> +	msleep(20);
+  BUG: kernel NULL pointer dereference, address: 0000000000000078
+  #PF: supervisor read access in kernel mode
+  #PF: error_code(0x0000) - not-present page
+  PGD 114a2d067 P4D 111743067 PUD 11141f067 PMD 0
+  Oops: Oops: 0000 [#1] SMP
+  CPU: 20 UID: 1000 PID: 1272 Comm: nested_tdp_faul Not tainted 7.3.0-rc4-8c89f11d1a99b-sink-vm #1914 PREEMPTLAZY
+  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 0.0.0 02/06/2015
+  RIP: 0010:nested_ept_get_eptp+0xb/0x10 [kvm_intel]
+  Call Trace:
+   <TASK>
+   kvm_mmu_load+0xcd/0x870 [kvm]
+   kvm_arch_vcpu_ioctl_run+0x18f5/0x1f80 [kvm]
+   kvm_vcpu_ioctl+0x2c7/0x970 [kvm]
+   __x64_sys_ioctl+0x90/0xd0
+   do_syscall_64+0x9c/0x4d0
+   entry_SYSCALL_64_after_hwframe+0x4b/0x53
+  RIP: 0033:0x47491b
+   </TASK>
+  Modules linked in: kvm_intel kvm irqbypass
+  CR2: 0000000000000078
+  ---[ end trace 0000000000000000 ]---
+  RIP: 0010:nested_ept_get_eptp+0xb/0x10 [kvm_intel]
 
-Maybe adding a comment here mentioning that this value was found by
-testing and is not mentioned in the IT66122 documentation ?
+Cc: David Woodhouse <dwmw2@infradead.org>
+Fixes: 72e9cbdb4338 ("KVM: nVMX: fix SMI injection in guest mode")
+Fixes: 8fcc4b5923af ("kvm: nVMX: Introduce KVM_CAP_NESTED_STATE")
+Cc: stable@vger.kernel.org
+Signed-off-by: Amirmohammad Eftekhar <amirmohammadeftekhar@gmail.com>
+[sean: write changelog]
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Link: https://patch.msgid.link/20261001214356.3825100-2-seanjc@google.com
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ arch/x86/kvm/vmx/nested.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-In any case, the patch makes sense to me:
-
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-
+diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+index b25216862740..5165275128fc 100644
+--- a/arch/x86/kvm/vmx/nested.c
++++ b/arch/x86/kvm/vmx/nested.c
+@@ -3770,8 +3770,10 @@ enum nvmx_vmentry_status nested_vmx_enter_non_root_mode(struct kvm_vcpu *vcpu,
+ vmentry_fail_vmexit:
+ 	vmx_switch_vmcs(vcpu, &vmx->vmcs01);
+ 
+-	if (!from_vmentry)
++	if (!from_vmentry) {
++		nested_ept_uninit_mmu_context(vcpu);
+ 		return NVMX_VMENTRY_VMEXIT;
++	}
+ 
+ 	nested_put_vmcs12_pages(vcpu);
+ 
 -- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+2.56.0
 
