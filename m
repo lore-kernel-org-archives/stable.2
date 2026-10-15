@@ -1,217 +1,174 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 991A3313E31
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 19:58:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792094320; cv=none; b=pl17eZppXyFmoAXmkSRmeeYA9H9rv2dtEdV/CAusa9ZWAY3JDCDUIMbMFiN9tdpmpZ/XgCoHqiA7qNqiuWv9X/N9ejHfRwXqxilZGh8dc0ltU6jdOMKAIiggM2FrGiP9rF9rMDV+EJqfLqFMrD4k/8fLVttq6lmtnpU/PDIRztQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792094320; c=relaxed/simple;
-	bh=oi0NFD2sxeVLggbxOBd/VjtlvLSmQTyJFOiBqgC2sGw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sEEXfT+0/OfjCyylonLGyZj1y4C35bFFa88QP4Qxc/aL15pQ2sWo/94Qp3F98L57LFT2nOF/GpQEFy/xEPullX5e8qR6NtwULXpTz54jURk2m4/AaBcaDNFkPCuasGdCFg4PNADxoqNq9trM6toMQgcV/PCOZmGUc3/JbaMKkhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qaJRLXO/; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C64D542E42C
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 20:02:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792094541; cv=pass; b=ofHmCKAcJ9KD3a/jQ7/cC+uAsnVVVt0HjdA/YceBW+HblNXzj/6wIXXLnv2ufIM3ZT6ubNDFojlIeKKXfvnQxB8oSS5uBvOw+QWY3OQvTwweK4Y2rg6GEjuXcPV4XVxmEwO0Q88F1MlkQJ9nuSzel3cqKoxQBnzfJ1ZeGjv01Rg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792094541; c=relaxed/simple;
+	bh=mTPvvAdIxgOtHuBEpEFyNQt8LStAshIksTq74xqzhRE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kd6ZC9sW7Dek6MaGOxrsWwxjBQhOtFx7roHCiSkYzuPX0bBIv3/2Po+4p5F648pmjR1ROTiHn4Du5+dA0OfAoEP6O+IQJ8v5Q81WHshZK3G0ZY0xnkpVxQySAensohBgfJgJ2Dr8u1neS1F12yfdeUYPdlPwF7poAALytYGujCI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=J6tqORvj; arc=pass smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qaJRLXO/"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso20566425e9.3
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 12:58:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="J6tqORvj"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48df4f540ebso685808f8f.3
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 13:02:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792094538; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZH6op+TxZSmDylmS9L9TU1od54wjKTcZCgOACO/AnVCO2Bfi+QKrGzPc3OtSMk/dfr
+         R4POj1gZBPoKuyEQSeBTpdh+NsjYnTAXrOb1ee3Ho3xmvkr5Uprkg0fcsskfGwn0PAKs
+         XtxydS3yRM/ICBCsGVqwWtCo+G8nf0fy7YdgsC0jypDqzgakn49IRipRmBfSRc2E1mtz
+         5te48a6xA7SJ1Bh9X4E0F3qoH4LjaccoFoWGezw/S+gzakdeHzmmkMLCvLSGYQzkAWsZ
+         T8lOe3Igvg8sNV05njYoWUhkTPYE58NgBA+GB8D71JVLwdYph5s8vI4TqAfp7duTL6Ki
+         rhbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=adFghwGxsnRj3hxYZf8a4TwNZCzfV6GnTk1GcsiUceg=;
+        fh=GrkZZFt2CX0BK77mKgU3nMVv41+J4ZTobC0kSpmAH0w=;
+        b=RZbrtLltgdY9bUOMo0iSXz9pwDG1CX7xQd0L4/yVKzRowJjqamCppTlYKtlr7ugLqS
+         8rcVNNwsQ5SmcEIm8QMRf6XFGJJb0gyWX0J+TJf9SaQiVbBtEYsvy/G/yGBdZvAn8CLX
+         9M/z1CRlza6CasXbHGgAnYgWQNLTX+FK/GrN37a36wQ4yHXIbMaLEliTAp3keEiXX78X
+         gZsLVFCpzfeStaeuQ/Wbw6NR2xNrPNSVNV80d2lU/t8uAHDH+WnnOgDCayOqvhVMKqwa
+         K3F9Qbu4I88rdmYTwNz2udZKun9I4eUa4/cE5tXsnXFriX01v77qG4+/KUciGhMVLBXS
+         VIKA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792094317; x=1792699117; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=krDwWoIc/Tok4StKGZ30+wtmqm7bSRyzfVvLkgkAXg4=;
-        b=qaJRLXO/UvLfXNY/+XrQWSpbG7sdbbliL3y4T7f3rYf9kITvBJalo3up79Tvz4ITyW
-         J8frvaU+gyVduwI2UHwF/DhjXZzbtQ7YtXp1dUadUhKF/qmspQWWvgJHxXCufyhzCpCa
-         BoyhJkscne/Bge7xgcizF5Rmi97Y3x6O7MeoF08DivLKF+5NUkP4zRPruRqm3lFhgYTO
-         b+RJd0v1Q/vz6w0VE0ZKSPsZfFCv9URB+6gq4Te7kU4bTa+lXr38FQ7TGwtqsQXjTEBi
-         at+42C14v/m8VvasMUo7J6zSmCTaG/1s14P/FapaVfbIIk7tQ7qKYohIpDCBw8QBos6M
-         ePRw==
+        d=trailofbits.com; s=google; t=1792094538; x=1792699338; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=adFghwGxsnRj3hxYZf8a4TwNZCzfV6GnTk1GcsiUceg=;
+        b=J6tqORvjRuFkEkkGRW/2LhUoSr3JqMvg9Fg+4R6PXROwZ/ey/9K3hnFRKuH6BlyuaO
+         6ndrOb40SHg0/bR7Hhl8I4CB9UHTvSh6t1GZT7oTU7j6bJkmb4nsg2m6Ydgghckt350w
+         EGiyldwcAVUCimvFv7FHdpzwBV8EafymP4TSA+8Y9NHPPxdPk9dpujAsgDRWgJcR79zQ
+         I6/xF9PK0B54QpcY2W7ZMuFuk8o04TQjeZ8rNfgdI5w60T/5gujFXfpfY0txIejuAhpU
+         OM73573QKnsIxRbYpE5hzvvEFpIpqODEIuHQgoAC3LpBEEekPcdkrdWsCAz8QzasjRdV
+         FkBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792094317; x=1792699117;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=krDwWoIc/Tok4StKGZ30+wtmqm7bSRyzfVvLkgkAXg4=;
-        b=mgBQABhB/pwXFA/4lqXu2St3sUCcMGkcUvVs7oRbeVE363jCVm5wZEpy0bmQYjsE3c
-         +o5uAgbgPr3XhAMfV0iTvqAr+ENlGF8577A4dq+bk+BTqmoropnCklQs2nduR3V8RP16
-         ExkySDS45wXrbLwk3qk2KJypx1yMdONuH9kKIHFcv6r6HvhS47LJ3YKwUajjQISLf4dU
-         9lJdBTVEqkgRJmnt5TU+Mxpm7KN/kzin/68zQetnynkahgoaXz4IbNxtg1XBXGlSe/gI
-         5SnFhEwNZoDMCuguiKyS2lsNv6ee8Atsiu4EiMD1S0FPAIEOdxy5QX1JdUHZ8a6W4pdl
-         wD8g==
-X-Forwarded-Encrypted: i=1; AKwUvBxO3XDoxr4dO7mTUlQw7/umly2Dywq1F8Nf1sAqu0uacdGlsL+XYRAgOIF3abiWigXCesau0Ak=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIcM0QjtmPwGHATDV6zTrPCDUNQoaT+8cPG4/6lMZpUjiFkqSvu
-	A2gKeOqJxTA+3PVp31tfhU7FYznxp9ExnEuwPt71DDu9IJrKrrNKW820LNorWQ==
-X-Gm-Gg: AYBFou1kiQcXxzTiv3RbNu3kT2J8pt2nbMGVJeB14ZYIZpQIomxo1IE4XISRdgIikRI
-	BqcZgSRGjcUaevy3aPdR84KYS7bMuyQPJc0tw+PwD2gK8TMUY6fEI4F0Bk9RyBAEEfLT0XHCfoy
-	ynU74+cdlemNKnUhNhuhv46H8BZFunJUOL8xOo1U+q3g2xPxJkUMOMhkBZxk+gkkyZ0eJjyW/fL
-	+1ZYkrFd7dzFq259TQAldfgrqmLl/ry0LcaWCDWs9x3eDTIoAyNJC1sSQUFCtNGjkaG0L+Bikyx
-	5j7/Qc23rJ523/9Q/uZXwbaFXRI8HdxwX18ODdS6bpfV3pTczED0ik49dFBOjwV9HYyfTyWVg1e
-	1e4Z2BC2RptCGXsOmCM0WWltbntudwCV+pB3D6D7Ix4VdOEHMWUaGmvYjZLVeqjiHQWDoMmlWWz
-	PtZADiKcwGz1adSeQgp3BjWzGQMGsB3QbIyjYxpOTMJBkI3F0dfBcKLUJxpx0/jf7ESZUW3kPxy
-	pHVpnLH1Vu4IWGFL3DQ1g59iHYgnN8EaxWHGPhpuadSYGc3cG1LlfKNMkliswyuIdPrnZkT0Jsu
-	MW5RuInR3ww1vsbcoNyMPPdldYEVMpBG3h6IIMJjY+UPH8WVRSEoo2izUtPXICBcD1Jon4a8a/r
-	Djydp1PV+yQw5k02Kj5U3eWRy83KdYi1skqk=
-X-Received: by 2002:a05:600c:4e4a:b0:4a1:ac66:6ac8 with SMTP id 5b1f17b1804b1-4a1c7fa065fmr11679165e9.4.1792094316874;
-        Thu, 15 Oct 2026 12:58:36 -0700 (PDT)
-Received: from [192.168.1.187] ([2a02:8308:4092:11f0::f9f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd503862sm166375f8f.46.2026.10.15.12.58.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 12:58:36 -0700 (PDT)
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-Date: Thu, 15 Oct 2026 21:58:35 +0200
-Subject: [PATCH v2] iio: gyro: mpu3050: add missing trigger cleanup on
- remove
+        d=1e100.net; s=20260707; t=1792094538; x=1792699338;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=adFghwGxsnRj3hxYZf8a4TwNZCzfV6GnTk1GcsiUceg=;
+        b=E2PsmAERlzVCGW0Xu3LRCFhOwYem83XVEmZM7y4SHmk9NPPMfiMLYQTLzcE6AmI9g5
+         DZ5W9egdZkLJU2ewF+yh+ia9mF5t34Ac6pTRio7ofeAwcUYjKYPt/RgY7TDu7OiWLFt9
+         pTAbj2+LRpSzcLyOQPvQpbMkGvKaUUpdwc0QzIzmihsUNByaNf5/ESeaNAi3rjtWzFQU
+         PvMHOypt52J65hsFyTH7u9I0bOl6NYzjJnClePVAJPr3lkpUlaHSNt+cHxiuPUJr2OOP
+         R8oBoo8fEvf+DQplh2xKgRet+B7InpXIaTc0lSAL/4KBzO+SRkoXxRRlBws3uexl557K
+         NNKg==
+X-Gm-Message-State: AFq9FYJUKolP/nzcYGH5fJhfW3ZmrO1vXio/ZixelTEuOUUfBJqnRgIr
+	cK2xEHDx57WICj1BKjNTuj5B/QF+58BIBFvy6hpaL4o8VK2kFh8Ut+7ewsr0yPHHPOB0HxNzTmT
+	bru4blhxDUbKLreWqgwlRZy44jIUjoFuPkYBm9hJrDw==
+X-Gm-Gg: AYBFou0ni9MXcwqqjX1Bzxx+gs1IlRJscSz70m4UFOfX20N0Umk3iW3QpgsZJA7KqBq
+	bbQ9OoM9FpP9J3bigp73J+JU6orI3VMhh+8nXKEevZ4dGFG5R0gJorM2v/3AnbmucCV0iHhGcAO
+	bNYqhZiHQr83DUo4Zq8HaCJ5mugfmgpK5KeG2MWc3iPDawv2ViC2pXIco1MxPU3Hk9K9Ez7xzHK
+	8f/mDj/E1/s7LaJBtQA/uDA7EVHx+WVxoz3EYU2/+47hNKDyvEyWe7OTZVBy38kMbnvaFdpK9x2
+	GaSICU2QAJc5tzQbWGmpYlwRMaDfd15zRz6y0o1XUz23r9Au/MhgSbnW0SpSlK7roJPcqcmhFCo
+	4pEsueRa+dfP1nu6Cllx/YKuSGxloKRHhiBjr0ccL0v/14A==
+X-Received: by 2002:a05:6000:987:b0:488:7787:469d with SMTP id
+ ffacd0b85a97d-48df14ed887mr9923470f8f.25.1792094538039; Thu, 15 Oct 2026
+ 13:02:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-mpu3050-fix-v2-1-53f73581e62c@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22MQQ6CMBAAv0L27JpuoaKe/Ifh0NICm1ggrTYa0
- r9bOXucSWY2iC6wi3CtNgguceRlLiAPFfSTnkeHbAuDFPJEggj9+qqFEjjwG6lRum2tkvJioBR
- rcEXvt3tXeOL4XMJnnyf62f+fREg4KGWEpfpsXHMbvebHsV88dDnnL0Ln0/2mAAAA
-X-Change-ID: 20261011-mpu3050-fix-145a77d5229b
-To: Linus Walleij <linusw@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Dingisoul <dingiso.kernel@gmail.com>, stable@vger.kernel.org, 
- Joshua Crofts <joshua.crofts1@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792094316; l=3915;
- i=joshua.crofts1@gmail.com; s=20261015; h=from:subject:message-id;
- bh=oi0NFD2sxeVLggbxOBd/VjtlvLSmQTyJFOiBqgC2sGw=;
- b=Z4KruJHYUtO7JqxO7hB8a8rCHcUK7BTCPb2J4xJNlIyIT0R3zvqV2nMdEqKRoBJjEsykJ9esK
- JPo7XAOv3n+B401Hv8tDAQGRL8HVvUBtEC3nRDywsoN/1QuM6dgWbNx
-X-Developer-Key: i=joshua.crofts1@gmail.com; a=ed25519;
- pk=RTDOoVwgeL4oFdASj9U+cxJuIjXuXk73zkjnGOJKbEo=
+References: <20261008192048.98833-1-artem@trailofbits.com> <askqkXhBORyXr-v9@mit.edu>
+ <CAP3zxaC92rwQNCpuK_tXR9THQOecVoZwxg8ZUgYt=0iKiMsuxg@mail.gmail.com> <asrNX2qBf5qBrFLu@mit.edu>
+In-Reply-To: <asrNX2qBf5qBrFLu@mit.edu>
+From: Artem Dinaburg <artem@trailofbits.com>
+Date: Thu, 15 Oct 2026 16:01:42 -0400
+X-Gm-Features: AclHuK9tJDFa3d3xJEx_0hqszb3wpW9Z8si-SJpf2vKpIgukHzjFNUgs2VdIVxA
+Message-ID: <CAP3zxaD3-QYqe588XGxzTrgAnK4OQC4aRfbea1Ln452mM45KBQ@mail.gmail.com>
+Subject: Re: [PATCH 6.6.y 0/2] jbd2: backport CVE-2026-89566, CVE-2026-89567
+To: Theodore Tso <tytso@mit.edu>
+Cc: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Sasha Levin <sashal@kernel.org>, Max Kellermann <max.kellermann@ionos.com>, 
+	Zhang Yi <yi.zhang@huawei.com>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The mpu3050_trigger_probe() function registers a trigger but
-mpu3050_common_remove() and error paths in mpu3050_common_probe() forget
-to clean it up, causing a use-after-free bug.
+Hi Ted,
 
-Add the missing iio_trigger_unregister() function. Additionally, change
-the mpu3050_trigger_probe() function to assign trig only after it is
-registered successfully to prevent a null pointer dereference using a
-local struct iio_trigger.
+> Note that some tests can be flaky. So when you see a test failure, it
+> can be useful to run a test multiple times
 
-Reported-by: Dingisoul <dingiso.kernel@gmail.com>
-Closes: https://lore.kernel.org/all/20261010203601.1686148-1-dingiso.kernel@gmail.com/
-Fixes: 3904b28efb2c ("iio: gyro: Add driver for the MPU-3050 gyroscope")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
----
-Changes in v2:
-- Add a local struct iio_trigger and assign it to the data struct only
-  after a successful IRQ request to prevent a null pointer deref as
-  pointed out by Sashiko
-- Link to v1: https://lore.kernel.org/r/20261011-mpu3050-fix-v1-1-f55b0d138be4@gmail.com
----
- drivers/iio/gyro/mpu3050-core.c | 45 ++++++++++++++++++++++-------------------
- 1 file changed, 24 insertions(+), 21 deletions(-)
+Thanks for the advice. We are still working through the testing and
+wanted to send you a progress update.
 
-diff --git a/drivers/iio/gyro/mpu3050-core.c b/drivers/iio/gyro/mpu3050-core.c
-index 07c0f9011c63..a887b65c0d18 100644
---- a/drivers/iio/gyro/mpu3050-core.c
-+++ b/drivers/iio/gyro/mpu3050-core.c
-@@ -1051,14 +1051,14 @@ static int mpu3050_trigger_probe(struct iio_dev *indio_dev, int irq)
- {
- 	struct mpu3050 *mpu3050 = iio_priv(indio_dev);
- 	struct device *dev = mpu3050->dev;
-+	struct iio_trigger *trig;
- 	unsigned long irq_trig;
- 	int ret;
- 
--	mpu3050->trig = devm_iio_trigger_alloc(&indio_dev->dev,
--					       "%s-dev%d",
--					       indio_dev->name,
--					       iio_device_id(indio_dev));
--	if (!mpu3050->trig)
-+	trig = devm_iio_trigger_alloc(&indio_dev->dev, "%s-dev%d",
-+				      indio_dev->name,
-+				      iio_device_id(indio_dev));
-+	if (!trig)
- 		return -ENOMEM;
- 
- 	/* Check if IRQ is open drain */
-@@ -1115,30 +1115,29 @@ static int mpu3050_trigger_probe(struct iio_dev *indio_dev, int irq)
- 				   mpu3050_irq_handler,
- 				   mpu3050_irq_thread,
- 				   irq_trig,
--				   mpu3050->trig->name,
--				   mpu3050->trig);
-+				   trig->name,
-+				   trig);
- 	if (ret) {
- 		dev_err(dev, "can't get IRQ %d, error %d\n", irq, ret);
- 		return ret;
- 	}
- 
-+	trig->dev.parent = dev;
-+	trig->ops = &mpu3050_trigger_ops;
-+	iio_trigger_set_drvdata(trig, indio_dev);
-+
-+	ret = iio_trigger_register(trig);
-+	if (ret) {
-+		free_irq(irq, trig);
-+		return ret;
-+	}
-+
-+	mpu3050->trig = trig;
- 	mpu3050->irq = irq;
--	mpu3050->trig->dev.parent = dev;
--	mpu3050->trig->ops = &mpu3050_trigger_ops;
--	iio_trigger_set_drvdata(mpu3050->trig, indio_dev);
- 
--	ret = iio_trigger_register(mpu3050->trig);
--	if (ret)
--		goto err_iio_trigger;
--
--	indio_dev->trig = iio_trigger_get(mpu3050->trig);
-+	indio_dev->trig = iio_trigger_get(trig);
- 
- 	return 0;
--
--err_iio_trigger:
--	free_irq(mpu3050->irq, mpu3050->trig);
--
--	return ret;
- }
- 
- int mpu3050_common_probe(struct device *dev,
-@@ -1260,7 +1259,9 @@ int mpu3050_common_probe(struct device *dev,
- 	pm_runtime_get_sync(dev);
- 	pm_runtime_put_noidle(dev);
- 	pm_runtime_disable(dev);
--	if (irq)
-+	if (mpu3050->trig)
-+		iio_trigger_unregister(mpu3050->trig);
-+	if (mpu3050->irq)
- 		free_irq(mpu3050->irq, mpu3050->trig);
- 	iio_triggered_buffer_cleanup(indio_dev);
- err_power_down:
-@@ -1278,6 +1279,8 @@ void mpu3050_common_remove(struct device *dev)
- 	pm_runtime_get_sync(dev);
- 	pm_runtime_put_noidle(dev);
- 	pm_runtime_disable(dev);
-+	if (mpu3050->trig)
-+		iio_trigger_unregister(mpu3050->trig);
- 	if (mpu3050->irq)
- 		free_irq(mpu3050->irq, mpu3050->trig);
- 	iio_triggered_buffer_cleanup(indio_dev);
+We have completed three full iterations of
+ext4/all,xfs/4k,btrfs/4k -g auto on the same unpatched 6.6.159-rc1
+baseline (72bada21be7b), followed by one full iteration with the
+submitted two-patch jbd2 series.
 
----
-base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
-change-id: 20261011-mpu3050-fix-145a77d5229b
+We used QEMU/KVM with fresh guest and test disks for each
+configuration.
 
-Best regards,
--- 
-Joshua Crofts
+Following your suggestion, we also completed ten focused trials on
+each kernel for 21 suspect configuration/test pairs: 420 trials in
+total. Each trial used a separately booted guest and fresh disks.
 
+In those ten runs on each kernel, we observed the following flaky
+tests. Counts below are failures out of ten, unpatched / patched:
+
+Flaky on both kernels:
+
+  btrfs/4k btrfs/028: 3 / 3
+  btrfs/4k btrfs/192: 7 / 6
+  btrfs/4k generic/449: 4 / 7
+  ext4/1k generic/051: 3 / 5
+  ext4/1k generic/388: 2 / 3
+  ext4/1k generic/475: 5 / 3
+  ext4/adv generic/455: 5 / 5
+  ext4/adv generic/482: 4 / 2
+  ext4/ext3 generic/388: 8 / 9
+
+Flaky on the unpatched kernel only:
+
+  ext4/bigalloc_4k generic/320: 2 / 0
+
+Flaky on the patched kernel only:
+
+  ext4/4k generic/045: 0 / 1
+
+We are now running 200 additional iterations of generic/045 on each
+kernel in each of ext4/4k and ext4/1k. Ten runs leave wide confidence
+intervals: a rare failure could easily have been missed on the
+unpatched kernel. The additional runs will let us estimate failure
+rates and their 95% confidence intervals to assess whether the test
+fails more often on the patched kernel. We will finish all planned
+runs before comparing the results.
+
+
+Thanks,
+Artem Dinaburg
+
+On Sat, Oct 10, 2026 at 7:54=E2=80=AFPM Theodore Tso <tytso@mit.edu> wrote:
+>
+> On Sat, Oct 10, 2026 at 06:12:10PM -0500, Artem Dinaburg wrote:
+> >
+> > Our initial unpatched/patched runs showed some differences in both
+> > directions. We cannot yet attribute those to the series, so we have
+> > paused the patched comparison and are running three complete
+> > iterations on the same unpatched baseline to assess repeatability.
+>
+> Note that some tests can be flaky.  So when you see a test failure, it
+> can be useful to run a test multiple times, so you can see if the test
+> is a reliable hard failure, or one that only fails, say, 30% of the
+> time.  So to run generic/363 10 times in the ext4/1k configuration,
+> you might do soemthing like this:
+>
+>    kvm-xfstests -c ext4/1k generic/363 -C 10
+>
+>                                                 - Ted
+>
