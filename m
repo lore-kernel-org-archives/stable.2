@@ -1,47 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B4557F723;
-	Thu, 15 Oct 2026 19:36:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECFA157F737;
+	Thu, 15 Oct 2026 19:36:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792092995; cv=none; b=aMepm4jwlN7SioHp/YOMpGLnugEtyi6vN9sDMGCzCjMIXgOZZ3DHzQT74UuvAkK6MBeObhZ5Ob9UimFpM61aRZmVn5attaWvhAhwujJy2hSIw4NxwQNXy0GtwqAZ/1dX9V7I4MuqBZ/G2tbjObLiqY7a2OX6fNvmiLExaA/P6l0=
+	t=1792092996; cv=none; b=bkjSwr09ywBz+gKM0H7Z3X3sTd6Qkvl52PRJECrsIpg2dgm+kmnMuzsz4pkOmN6RItN0eqMLO5KCh7AYdTLwNi9QvWKtBRSQDF/1PnOLdsFOWQE+Zl/ICjyII72NVfL21tnJ7V4ILy993IiHZPJcW05hPdtv1JlOIKOIXvdNHbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792092995; c=relaxed/simple;
-	bh=m53enD+fhYXRe7YAGr6/pnaG5LsPB/DpuQJwbu/DVSI=;
+	s=arc-20240116; t=1792092996; c=relaxed/simple;
+	bh=SeBcNgkQBK7Za5iXV5fOqlOL1js507ZqRU1i8o/lEic=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dpmqO34HC/kVNWN5z3YAd7zEta9bbSTAhoaqQgbjFxjI9uk+o0xgUfe8tlBwXxPsa88OoUsMF7CK27xBJQa03M+GOqL3CXoEyCRCNqsIfCEQGFK8HEWh6jvdDdVDHTKjE88M8lJn42xfHx0pUq6DjmjSvqntWcDhKXev2vo5rxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PWzlnFg/; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=f7ysn3aOzaapQ662Kggg+IB06Ax4g513vehJgo2+R/gJWfqbtBpYTNbRuVaaIzkdRfu+QlAJmCqgrw/4xYaLrbf9rLVQqnC2FM6SkWgVi2dKyS3Ir1pfqVpfJyZTqHfrLE7NtQQQgQljDKtw4Z7jHyOayJ+CyQvf9vqNaONBIWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b9cHzVS8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PWzlnFg/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 889471F000C6;
-	Thu, 15 Oct 2026 19:36:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b9cHzVS8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7D941F000C7;
+	Thu, 15 Oct 2026 19:36:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792092994;
-	bh=C4C5BfXpN++eRrWMlSA6UJCJBD9o9A0XwfvhUhTIWpA=;
+	s=k20260515; t=1792092995;
+	bh=fXzqqh5CAD5Z8eSp9wfrHb02UN3CQ3CFqYCkLDdQpps=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PWzlnFg/h8LEag42V6R2E+TE04dtVfdX7Ez2GAsf0FKNhuwf8jQyHzfIItMUKlqAT
-	 g7rhc8/Qq+EzqljaXbifgUp3w83mvLsR+mrEiUUQRZY17QoZ32pFj17M8Se4oi6ZBD
-	 rQJ0iOo/X7FyFtXp9a4lDq+WO/E+RjJyG8GMlAGaTokH8lKPNEHqFMXhIuCeaDKUhB
-	 rV9JzVtBnuhrvbWsrO9NTZduQz85ABk8nD6mGxuYT83MUaARbn3p2eJYEzp72uiqCH
-	 dhndon6qPuFwm5LJlnjM7OEFJsJocQrDDlRFkg8zVOFDtaJbAnBPHDtyxuXqXbvEnv
-	 3s98uFRPVO/Tw==
+	b=b9cHzVS8HzmhWLNsUTGfk/BiSl5UQWVTIgMBU27QoVvldi4T1Ge9Qq9keTswbQ7jq
+	 /Fzz3NW4vNHfryrTuDf/QFyy3wprsSKLyaJ3PQo7NJP5K6cCOIh1fNEAIkRp/loQYe
+	 BT09bgwIlULnuz9BTongGk9LIw2q/19tIN033b+bXayob4XfS758iuIwAlZs3/MG6J
+	 K1ckNj9kOVWaHw2/QU0pBT3DDaxDHFIQYiB/1G7Aj5LSCtxhQSouDUabDKzRdnQbYZ
+	 mSi6kXm1woKE+HBxylio9CiTzUC2AP9up3GOadldLxNlwM9wt4mlyMXEmt8MqsDE8R
+	 CQaxDgJn1D/ig==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	gregkh@linuxfoundation.org
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Felix Fietkau <nbd@nbd.name>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Vlad Buslov <vladbu@nvidia.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	netfilter-devel@vger.kernel.org,
-	Gyokhan Kochmarla <gyokhan@amazon.de>
-Subject: Re: [PATCH 5.10] netfilter: nf_tables: fix bidirectional offload regression
-Date: Thu, 15 Oct 2026 15:35:54 -0400
-Message-ID: <2026-10-15-1-daily-reply-0011-nf-tables-bidirectional-offload@kernel.org>
+	abdun.nihaal@gmail.com,
+	christian.gromm@microchip.com,
+	error27@gmail.com,
+	gregkh@linuxfoundation.org,
+	johan@kernel.org,
+	knavaneeth786@gmail.com,
+	linux-kernel@vger.kernel.org,
+	parthiban.veerasooran@microchip.com,
+	Artem Dinaburg <artem@trailofbits.com>
+Subject: Re: [PATCH 6.6.y 0/2] CVE-2025-71272, CVE-2026-43317: backport fix series
+Date: Thu, 15 Oct 2026 15:35:55 -0400
+Message-ID: <2026-10-15-1-daily-reply-0012-cve-2025-71272-most-6-6@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261015112533.648137-1-gyokhan@amazon.de>
-References: <20261015112533.648137-1-gyokhan@amazon.de>
+In-Reply-To: <20261014191452.23814-1-artem@trailofbits.com>
+References: <20261014191452.23814-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,12 +52,10 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Commit 8f84780b84d6 ("netfilter: flowtable: allow unidirectional rules")
-> made unidirectional flow offload possible, while completely ignoring (and
-> breaking) bidirectional flow offload for nftables.
-> Add the missing flag that was left out as an exercise for the reader :)
+> Please consider this backport series for CVE-2025-71272, CVE-2026-43317 to
+> 6.6.y.
 
-Queued for 6.6, 6.1, 5.15 and 5.10, thanks.
+Queued the series for 6.6, thanks.
 
 -- 
 Thanks,
