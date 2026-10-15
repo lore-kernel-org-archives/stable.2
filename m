@@ -1,161 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from lamorak.hansenpartnership.com (lamorak.hansenpartnership.com [198.37.111.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3471E522EFB;
-	Thu, 15 Oct 2026 13:01:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D0D3EFFA6;
+	Thu, 15 Oct 2026 13:05:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.37.111.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792069274; cv=none; b=uJfWpSsGRgzHRSaa4Huf60ALRLnBYB52ABFoBWVwQ89yGZW55SD2hOGGEh02FuJdQaGySL/PAGw/lJcGrL2IjQRA14i+4vRNHmj3+XowApPJVM1WtiunKxxG7EMEFfhc76eLstbDQRyrjpt0LvQNoN33sSkb8pQImhCG6a7GLZg=
+	t=1792069534; cv=none; b=ZZ9H9bqB5wBtfFabNky/E2l/GGIsM3OLNEHThA2ias0uWlqHzXLEy9tAJLZ40sJU4zU40qe2VoknOKlXeVpoJ4SYL5k8aSefkqvrc8f2HP4DQDUjUGNTbE8MNYVH16AOAnRyMlxF2h6/BcJ7RBl0qPL74UQdgAAYIo9uRizx7Og=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792069274; c=relaxed/simple;
-	bh=KNSXJi+NNEtUDlRfnbNAIaRITk+Ou1thMrl7TK66NH0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hL8orCGZWos0xVuQG9iACpeKi8rZykIuVyH44GkmzGCFEqBZVDW59+CfLCJVygLtxxyY+PE2pvZcwKIy90QvF8uixT8wvZ5HQNzEUbojq2kvIwnXT5XjOqm6vJByA8f1peebjt7X5iVVFAR+djgdm4WFcP0ULoeXidwxi24dr6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AOVSy6gN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792069534; c=relaxed/simple;
+	bh=2fvPEbrksXUYBX4/5rBDlqNIqOnAiK7F/60abEAhyJ4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=R+Gx2xu2jZsdA0CoCbpz1dqlaknY2qsXCeM0dIuosK2v7ulB7ltjIf2svlBigA1Vh+GFTJS5tv2Sgv1gwKTPRB0xewSv79HbPxM/sglO1fgKrFaetCOXcybRXY9moCbbVvPhJQOJHqqj7P9i3AgPGxRbf3I7+i0L1dLlo0Z721E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com; spf=pass smtp.mailfrom=HansenPartnership.com; dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b=rJFNl0Z0; arc=none smtp.client-ip=198.37.111.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=HansenPartnership.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AOVSy6gN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B63B71F000C4;
-	Thu, 15 Oct 2026 13:01:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792069272;
-	bh=eqIgsGYukq6PGetqnMXH2t9oTCKq1pYgymkhGCe9J7k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AOVSy6gNTvD89UTGpdp2X+qSgZFiPSiP5w8Cb9tznZHPoBJmQvy+SJWl/ti+GiFX1
-	 dxYKD16CA0pz5rjxCLJlD3+1PwNWm5R8Vwh7f8mlQ4EGI+/DR8mGPisswQpobwCdiB
-	 97S5pEBfTrgj1TqZlYG4Xd6TO5qRoWNrXH1fV3kr0AMuQqoqmYVG+Lds8xpjZigCmE
-	 tvJ3nro//2ImXfoN+QaLHXB7XbmJE2mcsyeqZwUQ8Z/dsIkEZFrQt0m18lrN7NTz10
-	 iJaaVRU8/fnLVKeJZMGPVQPYgLzxfgJPfRiVJs9DusncbdqcTc2X0c04Xv/XLX4i6d
-	 tTNPYhpJoZKig==
-Message-ID: <33c0c48e-91aa-461f-80bd-ac1d0860a125@kernel.org>
-Date: Thu, 15 Oct 2026 08:01:11 -0500
+	dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="rJFNl0Z0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+	d=hansenpartnership.com; s=20151216; t=1792069531;
+	bh=2fvPEbrksXUYBX4/5rBDlqNIqOnAiK7F/60abEAhyJ4=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
+	b=rJFNl0Z0lYR/zOH3BlCoKDQD4dzZt7OdD5lj3OddME8xbByRTNIEgcFX5y6Qxc8lK
+	 TbF6MgtePv3SO/G5fXkUhOQPPXaSQAwrlBPhHd7qZf0yVPlCU1/TZ3XmFH9ji5BqS/
+	 aQyeST2vFYWiyKCIu2jydxF5p+n3P5c8ihOaQWNg=
+Received: from lingrow.int.hansenpartnership.com (unknown [IPv6:2601:5c4:4300:d341::8309])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by lamorak.hansenpartnership.com (Postfix) with ESMTPSA id 3AEFC1C046A;
+	Thu, 15 Oct 2026 09:05:31 -0400 (EDT)
+Message-ID: <06bbaf40d9188e478c4b58eaaffb58139839d217.camel@HansenPartnership.com>
+Subject: Re: [PATCH v3 2/5] scsi: aic94xx: validate the EDB index in
+ asd_get_response_tasklet()
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>, "Martin K . Petersen"
+	 <mkp@kernel.org>
+Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Thu, 15 Oct 2026 09:05:30 -0400
+In-Reply-To: <20261015091747.4184349-3-yhlee@isslab.korea.ac.kr>
+References: <20261015091747.4184349-1-yhlee@isslab.korea.ac.kr>
+	 <20261015091747.4184349-3-yhlee@isslab.korea.ac.kr>
+Autocrypt: addr=James.Bottomley@HansenPartnership.com;
+ keydata=mQENBE58FlABCADPM714lRLxGmba4JFjkocqpj1/6/Cx+IXezcS22azZetzCXDpm2MfNE
+ lecY3qkFjfnoffQiw5rrOO0/oRSATOh8+2fmJ6el7naRbDuh+i8lVESfdlkoqX57H5R8h/UTIp6gn
+ 1mpNlxjQv6QSZbl551zQ1nmkSVRbA5TbEp4br5GZeJ58esmYDCBwxuFTsSsdzbOBNthLcudWpJZHU
+ RfMc0ew24By1nldL9F37AktNcCipKpC2U0NtGlJjYPNSVXrCd1izxKmO7te7BLP+7B4DNj1VRnaf8
+ X9+VIApCi/l4Kdx+ZR3aLTqSuNsIMmXUJ3T8JRl+ag7kby/KBp+0OpotABEBAAG0N0phbWVzIEJvd
+ HRvbWxleSA8SmFtZXMuQm90dG9tbGV5QEhhbnNlblBhcnRuZXJzaGlwLmNvbT6JAVgEEwEIAEICGw
+ MGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAhkBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAml2ZBI
+ FCS3GUMIACgkQgUrkfCFIVNZKjQf/deRzlXZClKxTC/Ee2yEPqqS7mm/INUA49KdQQ5oIhSxkUBy0
+ 9J4qjMIo5F8ZFkFTqikBqeL35LKu7O7rn8WETfX8Bxvos3HUsl3jHo34DES4MUFIpoQPgtiLRGwLb
+ K0cVCAArR2u2qj4ABmTRrs1I1kvdjEw6gatOuXtEe/j5O2fvfzTq9GBr0Q3n2IAsFXi4hLlx6VPE8
+ tyWUZ8BWJKtih3JAeUiXFvASL3McV0rV9RnU0VbjEQEhSE7PMYhWpnDC9AyBb0lXJllQRvC3NSkUB
+ 8KVQgNNxRPss0WE/nBoZ4dFA42jTyzTz8lNylxZoAWV7WJb3QxVg4oCodRVrxxrQhSmFtZXMgQm90
+ dG9tbGV5IDxqZWpiQGtlcm5lbC5vcmc+iQFVBBMBCAA/AhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeA
+ QIXgBYhBNVgbnPItGJxvq2a34FK5HwhSFTWBQJgS5mYBQkbNYS9AAoJEIFK5HwhSFTWBpwIAL5Bk3
+ 5FB34U6iHmDzzgdCbxLTs43T/YQyJpcGIvopBvnI/fDY8oSG6Df64/O6B+1R+A8TDp6ZG5ysUWnCC
+ 6GuIaEHemBYkitMPglR6+sGCMQY7O0mlsPvdssvKK1KI9Bno4VU6ogaF2qVzefSqg1Djmf/DcsxWP
+ rI/jdJ8FB5AYR2rjIdDFc+zRdAJuavo1/anyY2wgpFh/3R8IOYAEfWV9nGgYkf9+tA4EIn1sxE0I3
+ L5oW2N3mbyRrkzuBwO8ztMCwqEPk7moWzhokcZqMXiAIahaZdkashJC+s2X2RZSGCy+g+pvY5NN4B
+ BVG5XwLgVBqbHMTcxE0fbmPqz+q6O0LEphbWVzIEJvdHRvbWxleSA8amVqYkBoYW5zZW5wYXJ0bmV
+ yc2hpcC5jb20+iQFXBBMBCABBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAmODZ5ACGwMFCRs1hL0F
+ CwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQgUrkfCFIVNZu0Af/TzvL2/NdgAcw9uN3x60H8
+ jc4QUq14VpxcFEFEMpcj1morkX/G93V+56HBBaXZj+yK8PhxIA/SIz+sU7C/0YvKuvzakP8ZX/7WJ
+ e32SOUtjfr/VTaqjIBzNj6OxLvZpmNbBw7s6DwhhNpHOWqJ/1ml+PtDRDV71IB58yVqQjp1xlNKVl
+ ZppcJ5908EJzsFnRIVjiQiDSKoppqB2BCibBbrWcln7CiWMyOC/cco6SIn6twH+f7+aivJ3xGcOE2
+ a9gBKF5rNi9TBoX9oyPmshv/TDmnohsVrH7AYXlGYfZTk15SWEiROh1QX8/uD9wl/gcIv5EDUpT/F
+ L2jzOsA5663bw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] usb: pci-quirks: always assert xHCI OS ownership
-Content-Language: en-US
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: Rishabh Jain <rishabh.jain1198@gmail.com>,
- Mathias Nyman <mathias.nyman@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260902052631.75c6068b.michal.pecio@gmail.com>
- <178832755831.50581.1058201741431375556@gmail.com>
- <7d64e267-8ca6-4130-bd4a-d80fb4224f72@kernel.org>
- <20261015111733.5ead367c.michal.pecio@gmail.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20261015111733.5ead367c.michal.pecio@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 10/15/26 04:17, Michal Pecio wrote:
-> On Mon, 12 Oct 2026 15:14:14 -0500, Mario Limonciello wrote:
->> On 9/2/26 00:39, Rishabh Jain wrote:
->>> The xHCI ownership protocol requires the OS driver to assert the HC OS
->>> Owned semaphore before using the host controller, then wait for HC BIOS
->>> Owned to clear if firmware owns it.
->>>
->>> quirk_usb_handoff_xhci() currently asserts OS Owned only when BIOS Owned
->>> is already set. If firmware leaves BIOS Owned clear, Linux uses the xHC
->>> while both ownership semaphores remain clear.
->>>
->>> The timeout fallback also clears BIOS Owned using the original register
->>> value, which can clear OS Owned at the same time.
->>>
->>> On an AMD PROM21 xHCI controller (1022:43fc), this caused every S3
->>> resume to terminate Controller Restore State with USBSTS 0x401. Linux
->>> then reset the host controller, both root hubs and the USB Bluetooth
->>> adapter.
->>>
->>> The controller entered resume ready and halted with USBSTS 0x1.
->>> Endpoint state, 100 ms save/restore delays, scratchpads, the DCBAA,
->>> device contexts and command, event and transfer rings were verified not
->>> to cause the restore error.
->>>
->>> Across four S3 cycles, asserting only HC OS Owned changed USBLEGSUP from
->>> 0x00000801 to 0x01000801 and eliminated the restore failure. Testing
->>> included the unmodified 7.1.8-ogc1.1.fc44.x86_64 distribution kernel
->>> using a test module that set the HC OS Owned semaphore. The same test
->>> was repeated after review with the same result. Clearing USBLEGCTLSTS
->>> was independently verified to be unnecessary.
->>>
->>> Always assert OS Owned for controllers using the standard xHCI handoff,
->>> and leave the existing TI/Renesas forced handoff unchanged. Keep OS
->>> Owned asserted after the standard handoff, including when forcing BIOS
->>> Owned clear after a timeout, to prevent firmware from reclaiming the
->>> controller during subsequent suspends.
->>>
->>> Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
->>> Cc: stable@vger.kernel.org
->>> Assisted-by: LLM
->>> Signed-off-by: Rishabh Jain <rishabh.jain1198@gmail.com>
->>> ---
->>
->> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> 
-> Yes, this fixes a legit issue and would be worth getting in mainline.
-> Two users confirmed the patch works for them, though no one could be
-> bothered to post proper Tested-by here :(
-> 
-> https://lore.kernel.org/linux-usb/P1FsfbW--F-9@tuta.io/
-> https://lore.kernel.org/linux-usb/CY8PR14MB59803EC0F6C7FD39A6D3C42FA0BF2@CY8PR14MB5980.namprd14.prod.outlook.com/
+First a meta question: the aic94xx is about 20 years old today ... have
+you actually tested this on real hardware?
 
-They're public assertions, let's just put T-b tags for them so b4 can 
-pick them up from this thread.
+On Thu, 2026-10-15 at 18:17 +0900, Yehyeong Lee wrote:
+> asd_get_response_tasklet() takes the empty data buffer index out of
+> the done list status block the sequencer wrote, with the same
+> arithmetic
+> escb_tasklet_complete() uses on its own copy:
+>=20
+> 	int=C2=A0 edb_id =3D ((resp_sb->flags & 0x70) >> 4)-1;
+>=20
+> The extracted field is three bits, so the subtraction yields -1
+> through 6, and the function indexes seq->edb_arr[] with it without
+> looking:
 
-Tested-by: McKenna Fan <blue_sun@tuta.io>
-Tested-by: Quinn Schive <quinnschive@hotmail.com>
-> 
->>
->>> I kept val unchanged for the error log, restored the original handshake
->>> formatting, and explicitly preserve OS Owned when forcing BIOS Owned
->>> clear after a timeout. Documented timeout issue in commit message.
->>>
->>> I repeated the same S3 test on the unmodified
->>> 7.1.8-ogc1.1.fc44.x86_64 distribution kernel using the test module, with
->>> the same successful result.
->>>
->>> Changes in v5:
->>> - Preserve the original ownership value for error logging.
->>> - Restore the original handshake formatting.
->>> - Explicitly retain OS Owned in the timeout fallback.
->>>
->>>    drivers/usb/host/pci-quirks.c | 13 ++++++++-----
->>>    1 file changed, 8 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
->>> index 0404489c2f6a..2b12a35e6f10 100644
->>> --- a/drivers/usb/host/pci-quirks.c
->>> +++ b/drivers/usb/host/pci-quirks.c
->>> @@ -1193,10 +1193,11 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
->>>    			 && pdev->device == 0x0014)) {
->>>    		val = (val | XHCI_HC_OS_OWNED) & ~XHCI_HC_BIOS_OWNED;
->>>    		writel(val, base + ext_cap_offset);
->>> -	}
->>> -
->>> -	/* If the BIOS owns the HC, signal that the OS wants it, and wait */
->>> -	if (val & XHCI_HC_BIOS_OWNED) {
->>> +	} else {
->>> +		/*
->>> +		 * Perform the standard handoff and leave OS ownership set to
->>> +		 * keep the BIOS at bay during subsequent suspends.
->>> +		 */
->>>    		writel(val | XHCI_HC_OS_OWNED, base + ext_cap_offset);
->>>    
->>>    		/* Wait for 1 second with 10 microsecond polling interval */
->>> @@ -1208,7 +1209,9 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
->>>    			dev_warn(&pdev->dev,
->>>    				 "xHCI BIOS handoff failed (BIOS bug ?) %08x\n",
->>>    				 val);
->>> -			writel(val & ~XHCI_HC_BIOS_OWNED, base + ext_cap_offset);
->>> +			writel((val | XHCI_HC_OS_OWNED) &
->>> +			       ~XHCI_HC_BIOS_OWNED,
->>> +			       base + ext_cap_offset);
->>>    		}
->>>    	}
->>>      
->>
+These are the sequencer response flags ... is there any evidence of the
+sequencer ever setting these three bits to a zero value?
 
+[...]
+> +	if (edb_id < 0 || edb_id >=3D ASD_EDBS_PER_SCB) {
+
+Why the second comparison?  As you say the value could only be -1..6
+and ASD_EDBS_PER_SCB is defined to 7.
+
+Regards,
+
+James
