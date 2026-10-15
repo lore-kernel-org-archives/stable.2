@@ -1,138 +1,126 @@
-Received: from sender5-pp-o94.zoho.com (sender5-pp-o94.zoho.com [165.173.182.94])
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B337437846;
-	Thu, 15 Oct 2026 09:22:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.94
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792056147; cv=pass; b=OnluUsCQ7aSw4RlHsR9dWnQVqyTMHi57xZa2P6hmoXIBQOvaKnz5lKGIA7bAFFMij10K66lr7LwLqlE/VQagGi3Sr8WuHhKqAhm95KyjraXq1yrtwAC/BBKXyFIY9ZSH8O58WEORcb5ToC0601nWD1BTkVsQFJUAi2ySqWek0so=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792056147; c=relaxed/simple;
-	bh=wlrDeNhi0vFeVdi12dOfbDBV3U/VLtJEdpcbdhrtHok=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a1EQ3vDkFx3Oc5fV9fG76gG5/t1TQtbwqRalW5IGDxYBd6idXRnFg0EgQTn9fLtLZCQdAcEkVggB8JEPPSN3WhIKKA9PJRIzt2qUBQa3Hkyegvru1nTl0bWccFTk1Q+SvNIyUnN8EvCvSgQ8UUU/mQtxNAEh1D7BhTV33igXiso=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=ming.li@zohomail.com header.b=CpQbEtVQ; arc=pass smtp.client-ip=165.173.182.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CFAB4A5C57;
+	Thu, 15 Oct 2026 09:25:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792056324; cv=none; b=mEgiekFdiAGiUKgitZXiWenx/3X/Jp8uOyRzNsVxxlZiJdOXH0J5AjLdoFi7koY2+NuMUYlY4tp/iTjRJFLhtzIUx06w7YY+JsbaeeBu1u2w4E2KSSMiq3ZJ0miDd7K4M+7HSCeh5C+WrbwYWnAXN5V21x0lgqYsXhwW9RkoJ9k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792056324; c=relaxed/simple;
+	bh=ZEmv9E/ZtcdpCplmU6e0iX8yxCpo6t8QDQ0J31PZxiU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tKLEh1/FuDYvvC1eKX2aenZfPINR6/7j5WFO9CbniHhl7f28rRFiaX5H5pY3Kg3MXvDO+VVxgkX0q/XuwuvvI8KLTV7n+GqVyQAjAbRoSDyece2+sa5QA9nvXDxHUuUUlV2j2u3stKXnBld0efZNoKtdThYhemxuG6pqS8myDJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=EF/lL6Ua; arc=none smtp.client-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zohomail.com header.i=ming.li@zohomail.com header.b="CpQbEtVQ"
-ARC-Seal: i=1; a=rsa-sha256; t=1792056127; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Q4QqAew0Ha8ZShCyQ6qFSzW9ii1fTNHTCIVot7qJCOt3HsxvyeZMwn+2Hi/2NiPipUa5kQy/NeC0Io7DBzpM6T0dG6cVWApp1lFxuz0Q36lqJQOEJUYE21JGumfAcN+9WyB3CWlW0GR0ie6ndcBMssirHkpRJGxWNlh6c0IlvGs=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1792056127; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=srCgxUWM4ERZ6oj9k8OUkkkSuMRRknqnY4k2BCw2XII=; 
-	b=g7fCtlTA9da9TvT5PtHymaoG4WldP7oiHzJ5xuFpng62ByLNccDCRmMKxGkvkZsxj+aRrET7nvGMcuBdMV50S5wZryOvkj3f8bGuC4Q34ES/4g5xIXPj3dTNXFNsefKZmC5S7fil0GTYxsdpf6pZuVvBtcht/0o6HesMYBHdSBE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=zohomail.com;
-	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
-	dmarc=pass header.from=<ming.li@zohomail.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792056127;
-	s=zm2022; d=zohomail.com; i=ming.li@zohomail.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
-	bh=srCgxUWM4ERZ6oj9k8OUkkkSuMRRknqnY4k2BCw2XII=;
-	b=CpQbEtVQ1HLKZSb5Sy2xjxT0QCcatCypUc2LbYjVeBygjsd1oRLuL4LipwS1X50p
-	sY8m1rGIYxfnfuhkuVawirNhny5UvpT9/D2YPmPCcO+A1vVET+WZVOHHbbgAOb0wCij
-	Q34DZPGPLN/7VvKA9Mh/nL0bqb555fvKGu6Z8xf4=
-Received: by smtp.zohomail.com with SMTPS id 1792056125698218.4650697356194;
-	Thu, 15 Oct 2026 02:22:05 -0700 (PDT)
-Message-ID: <4bcc00ea-1586-471e-a51e-01a0d3f762df@zohomail.com>
-Date: Thu, 15 Oct 2026 17:22:02 +0800
+	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="EF/lL6Ua"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1792056316;
+	bh=ZEmv9E/ZtcdpCplmU6e0iX8yxCpo6t8QDQ0J31PZxiU=;
+	h=From:To:Cc:Subject:Date:From;
+	b=EF/lL6UaKpVkXjjWpONjA5upObeZFlG6FJP11dxjmMDtbw3+6Oo9GOQ4f2ZILg0QY
+	 XXOsXQFnlF51GROWaWw6UhOje6+U/mMwWJgvkt/fiuLCKNcZCWUbIs8NaiSKfo1VHv
+	 npW26ba/V6xs9D0ew5QeaPUZXd6fNaUmmKYeMy45EJbc/pnKbzgw4kObjcRSbflnDm
+	 nX14Ix9unl+1AlEvyL+ttTK16bGAYbkpPrx1FepA+y6WXYaGU+XKxcNwPxbeqHdHQ9
+	 phvjUqHRCdu0ualvf2DIeFbglPi73OzuSvqtoXC3NCkXfK/KTEBvTxPtci7wtgDath
+	 PJ7OB/+cZzVPg==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 9A8B724FAC;
+	Thu, 15 Oct 2026 12:25:16 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.6])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Thu, 15 Oct 2026 12:25:14 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.48.108])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j52jQ1RJRz2JmW;
+	Thu, 15 Oct 2026 12:25:14 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Sasha Levin <sashal@kernel.org>,
+	Hongbo Li <lihongbo22@huawei.com>,
+	Qu Wenruo <wqu@suse.com>,
+	Filipe Manana <fdmanana@suse.com>,
+	David Sterba <dsterba@suse.com>,
+	Chris Mason <clm@fb.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH 6.6] btrfs: free path if inline extents in range_is_hole_in_parent()
+Date: Thu, 15 Oct 2026 12:23:37 +0300
+Message-ID: <20261015092339.1935-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] cxl/mbox: Treat unknown device return codes as errors
-To: Alison Schofield <alison.schofield@intel.com>,
- Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>,
- Dave Jiang <dave.jiang@intel.com>, Vishal Verma <vishal.l.verma@intel.com>,
- Ira Weiny <iweiny@kernel.org>, Richard Cheng <icheng@nvidia.com>
-Cc: linux-cxl@vger.kernel.org, Gaobin Huang <huanggaobin23@semi.ac.cn>,
- stable@vger.kernel.org
-References: <cover.1791949910.git.alison.schofield@intel.com>
- <3ed8f5db3f21c937d8783f31ee6faca3703ba72a.1791949910.git.alison.schofield@intel.com>
-From: Li Ming <ming.li@zohomail.com>
-In-Reply-To: <3ed8f5db3f21c937d8783f31ee6faca3703ba72a.1791949910.git.alison.schofield@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Feedback-ID: zu080112277fa1f040bc7048f62a6685ee00005c080c57e3ef53ccd94f241959d571533ecdfb5ab53ddbe6de:ZohoMail
-X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
-X-ZohoMailClient: External
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/15 07:23:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {diag_burst_silent}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, 127.0.0.199:7.1.2;astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;lore.kernel.org:7.1.1;new-mail.astralinux.ru:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 206699 [Oct 15 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/15 06:31:00 #28687005
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/10/15 08:01:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
+From: Hongbo Li <lihongbo22@huawei.com>
 
-在 2026/10/14 12:17, Alison Schofield 写道:
-> From: Gaobin Huang <huanggaobin23@semi.ac.cn>
->
-> cxl_mbox_cmd_rc2errno() and cxl_mbox_cmd_rc2str() use the device's 16-bit
-> return code to index cxl_mbox_cmd_rctable[]. A return code outside the
-> table's range causes an out-of-bounds read, potentially allowing a failed
-> command to be reported as successful.
->
-> Check the return code against the table size. Report unknown codes as
-> -ENXIO, the errno used for most device-reported errors, and describe them
-> as "unknown return code".
->
-> Found with a QEMU Type-3 device returning codes 001Fh and 0020h, which are defined in CXL 4.0 but not yet recognized by Linux [1].
->
-> [1] https://lore.kernel.org/linux-cxl/20260929060747.3550005-1-huanggaobin23@semi.ac.cn/
->
-> Fixes: 92fcc1abab09 ("cxl/mbox: Improve handling of mbox_cmd hw return codes")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gaobin Huang <huanggaobin23@semi.ac.cn>
-> Co-developed-by: Alison Schofield <alison.schofield@intel.com>
-> Signed-off-by: Alison Schofield <alison.schofield@intel.com>
-Reviewed-by: Li Ming <ming.li@zohomail.com>
+Commit f2dc6ab3a14c ("btrfs: send: check for inline extents in
+range_is_hole_in_parent()") is a patch backported directly from
+mainline to 6.6, it does not free the path in the inline extents case.
 
+The original patch in mainline does not have this problem because
+the former commit 4ca6f24a52c4 ("btrfs: more trivial BTRFS_PATH_AUTO_FREE
+conversions") in 6.18-rc1 introduced scope-based auto-cleanup which
+avoids this issue. Since some dependencies are missing and cannot
+be directly backported, we choose to use a goto statement to avoid
+the memory leak in inline extents case.
 
-The issue is not related this patch, but I found it during reviewing 
-this patchset.
+Fixes: f2dc6ab3a14c ("btrfs: send: check for inline extents in range_is_hole_in_parent()")
+Signed-off-by: Hongbo Li <lihongbo22@huawei.com>
+Reviewed-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+---
+This is a follow-up fix for the 6.6.y backport of the CVE-2026-23141 fix.
+It was posted and reviewed in February, but was not sent to stable@, so
+6.6.y still has the leak:
+https://lore.kernel.org/all/20260227075219.2594937-1-lihongbo22@huawei.com/
 
-I noticed that the default errno of CXL_MBOX_CMD_RC_BACKGROUND is 
--ENXIO, but description is "background cmd started successfully", I 
-checked no any driver code checks/uses this CXL_MBOX_CMD_RC_BACKGROUND's 
-errno, maybe we should set to 0 like CXL_MBOX_CMD_RC_SUCCESS?
+ fs/btrfs/send.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-> ---
->
-> This patch is independently applicable and backportable. It is
-> intentionally introduced here as a lead in to the kunit patch
-> that backstops this fix.
->
->
->   drivers/cxl/cxlmem.h | 6 ++++++
->   1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/cxl/cxlmem.h b/drivers/cxl/cxlmem.h
-> index c401e3a1af06..357d0d873e87 100644
-> --- a/drivers/cxl/cxlmem.h
-> +++ b/drivers/cxl/cxlmem.h
-> @@ -6,6 +6,7 @@
->   #include <linux/pci.h>
->   #include <linux/cdev.h>
->   #include <linux/uuid.h>
-> +#include <linux/array_size.h>
->   #include <linux/node.h>
->   #include <cxl/event.h>
->   #include <cxl/mailbox.h>
-> @@ -205,13 +206,18 @@ static const
->   struct cxl_mbox_cmd_rc cxl_mbox_cmd_rctable[] ={ CMD_CMD_RC_TABLE };
->   #undef C
->   
-> +/* The return code comes from the device and may be one this table lacks */
->   static inline const char *cxl_mbox_cmd_rc2str(struct cxl_mbox_cmd *mbox_cmd)
->   {
-> +	if (mbox_cmd->return_code >= ARRAY_SIZE(cxl_mbox_cmd_rctable))
-> +		return "unknown return code";
->   	return cxl_mbox_cmd_rctable[mbox_cmd->return_code].desc;
->   }
->   
->   static inline int cxl_mbox_cmd_rc2errno(struct cxl_mbox_cmd *mbox_cmd)
->   {
-> +	if (mbox_cmd->return_code >= ARRAY_SIZE(cxl_mbox_cmd_rctable))
-> +		return -ENXIO;
->   	return cxl_mbox_cmd_rctable[mbox_cmd->return_code].err;
->   }
->   
+diff --git a/fs/btrfs/send.c b/fs/btrfs/send.c
+index 099b5a2e1156..7b19b1ea29fd 100644
+--- a/fs/btrfs/send.c
++++ b/fs/btrfs/send.c
+@@ -6545,8 +6545,10 @@ static int range_is_hole_in_parent(struct send_ctx *sctx,
+ 		extent_end = btrfs_file_extent_end(path);
+ 		if (extent_end <= start)
+ 			goto next;
+-		if (btrfs_file_extent_type(leaf, fi) == BTRFS_FILE_EXTENT_INLINE)
+-			return 0;
++		if (btrfs_file_extent_type(leaf, fi) == BTRFS_FILE_EXTENT_INLINE) {
++			ret = 0;
++			goto out;
++		}
+ 		if (btrfs_file_extent_disk_bytenr(leaf, fi) == 0) {
+ 			search_start = extent_end;
+ 			goto next;
+-- 
+2.43.0
+
