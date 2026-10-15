@@ -1,61 +1,73 @@
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4CF148F008;
-	Thu, 15 Oct 2026 08:44:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD0C3F327D
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 08:47:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792053894; cv=none; b=G9JN49Ccb9n9VFT0HGGDl8owq4n/KR6Fr5HvuqIlKeX/GQQbZ8TWUAj+muZF003lWlb2ekoRcyLcD7dcM+GnOkOoljLvjUbzcfwosjFK/MbVZENB6tx31cdjyJrZLNPjvLV7FIpVlNwdd+pDrXTpwYPUmjrOD2f+fdEEVkUa/Ok=
+	t=1792054028; cv=none; b=Mw/oSdC6buq67qM2BULD45m9XboeMWxGAoZXZUi2kQqh+B7LlXlQVQ6jQiqzGR1y8+2TZK6kMvdaaa4pISGZ9OdAVkt3ofTe6u9G4Li4RWuHToEuW2eK6ASE6Ri2pPo/0Q6ywpjqYXqsYXepYYROjLXkxODa7oAf9jHRIeSX9Kc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792053894; c=relaxed/simple;
-	bh=OZhBrowA6cT0dx95d5pQzpiY4q0ZQDXXjiy2MBvSQwo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LevSVgIEkaCn33FDqP+6k1Kvv/ZC3SFKu0YPWWeIOtO8QuDM06ONQ93OWm1dr14mo/yWv4Vu9oyoj5rzoBxG41o857dWPrxqkDbRd168UFv1NLj0k76uGgDQ7zBN/w2ihCypYYhnSiTXd8GYyoQkXgMCoWHB5gFWO67mj18P/EY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=OMrky5FW; arc=none smtp.client-ip=37.230.196.243
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	s=arc-20240116; t=1792054028; c=relaxed/simple;
+	bh=HOcRnjQ/78+UziIir9oKy8ANLOoA8o6bAT5N5PtLkpU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JXcs5jYo3Pm3HQ+8n94Qv42OfFi5lJwK/00uJxOCheE05VyolMuTU58mU98V6ZJsfDNowCBRQqUdFX9rU1et6ZH82eQKZOvV31RC87D1CsCT9BS2THSsZWZpXS3rSotlHgDIowINfLV4BCRmzVa9QlDWdOqa6hS9uLkPbJT5uns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XXfj5Hb2; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="OMrky5FW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1792053884;
-	bh=OZhBrowA6cT0dx95d5pQzpiY4q0ZQDXXjiy2MBvSQwo=;
-	h=From:To:Cc:Subject:Date:From;
-	b=OMrky5FWQQHXgmi4cgffL54R3WqnKQ6v/r7KvjlAtvSfeUsKhNau3CPQK7r21MQ54
-	 4jyHDrbXF2JrllgdUJnrHzK04tRLWnVBl9vAjQqYICEsez4c7shGhvNJJAgQov6JZJ
-	 wOPVGX/D6UZSNBEqMRJ4WI62GXh/IhSVeHkYyehi4D3mc9DSvXSuVhx4VcncWqCQex
-	 TQESHpjjsrW/+p2UYquT8J1tmV6Hf5hv4tqqrjWLVaaOS6bHK5NkeoqPXNtgZ/MM22
-	 wqHR1aPvAMCyvjMOLdWce4OAJ60Rz8Gsm0XpCFdAwJ9SATbna7dRiR1FBaTs6s7kX+
-	 QMkyNbIRY9jog==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 69F4F260A1;
-	Thu, 15 Oct 2026 11:44:44 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.8])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Thu, 15 Oct 2026 11:44:43 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.48.108])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j51pf3K7mzL91;
-	Thu, 15 Oct 2026 11:44:42 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	Eric Dumazet <edumazet@google.com>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XXfj5Hb2"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc4dbcf2b85so940536a12.3
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 01:47:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792054026; x=1792658826; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IYttvjru9fKHemUV/qFF+L5++eupMPrrcmnwQVMAKQQ=;
+        b=XXfj5Hb2/vHfMhAXzMo+GL7tEdt8m0i0jRrMwVGm/uZW3CXMZ1tkR7fu6O702RKbqi
+         gMdkjMgOshedqjlYDUd2Gr3HCJ48G9pPFbui0mvE9CxVqraMqFRPRtRh6R3zxyu6iGTK
+         IoNA9eCW+d7AXren7o61t30JJraJRIBBpLaGspOePTzWKYkCW8HCb7RWmG83yGjEHNGX
+         Wb21weEyBin4oRkd/3Vxd8yjDHvv3HGRtEKv3alfBjGIiqXXYh4Uq8wZ7uSg3K4B52vn
+         IarERUf5N+8vNo+oZBwkgC1KmiGwNq1oz98toBbg8FbS8ourPLbqlY1eZB7a7E2VnKyD
+         9nZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792054026; x=1792658826;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IYttvjru9fKHemUV/qFF+L5++eupMPrrcmnwQVMAKQQ=;
+        b=Wc9RU4FMVr9OjQh7Das3c3Gcbzw+TWbPbNj3DjyGO5iWzn1vja2vvQjOIDMLZ29xYH
+         qe+fA9Zei7au/693/TMIBAJPwmC/cNmfLVaJk3dBcnCaGxl/NvpB1iH3L49LtyJ/zObU
+         ig2Nb1uJaYoQ8SB4eKlmFjV/mpBXMgFGhaHwccAgaVxjDU5cQmqj1Oh6hOubZHC81q57
+         3uNyjjM+pxjTO/01YW+OT7U5xEhGEikNR5JhMGrnBuVACcEcEXAJ9eSXS4XsF7lN+Qvl
+         zQAjLNBcem0Nnh/tINC7ZDWREKDej/2ldKgl0YsB19QcpqofdrzeRTZaT89zYdBTun59
+         w6pQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxHqkEQcV9/xoXiVetCMymMI+MP57vtPf4ZcMcGbCLXuTs4jX7UYtn5ezO1+yxB7aGv8SFSKXE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhq4iifeUqlBG5KrEBLyJZqBeu//KCVqvDubpM8vCdvJmfcrOJ
+	Z+3/6Oz3oS7hwwyg0xD+bFd9kKmK+5vh92WAgdH5774MzZHQday0H2/K
+X-Gm-Gg: AYBFou1tyMU7A7zFIMAAbZJYGA0lJH3k5LLpi1QnwO9q1NioxBXbtAzEvCp/w+/rtUV
+	qamgjWtiuFz47Z8VlpN7lZETctbFBRPcUHFkMmft0ZTaB0KrUMAfiXBd0BR4RWfNfKjvreC6aYZ
+	tgu+nsXBE2XsxPNlYEEI16GGFjXni8lE7GyziDsiqbwyXdF22JqTXrswaUaQ8YrINxoCcUBpuSS
+	bwLtzYfBEdC4Iky/U6kzvt7E4FEchyOxyta22FrB1pAGZmm51YjSBxEEMKUokfSXECFqOaf3rwD
+	q18Rmd0I4Xajvpncm5o3/LHNP0l6CXqHRPDvlIKZQJD0bJjR6KOvyRY+eo3KwGkADKscxzAz42H
+	h8YeSJgPbjxduHMcRTVx2NU+arw9zCATeobF+zqArSyTgLZla52RTcQ0hfrRatu+xnPeRikfzsf
+	ibMNHoGUReuhZgeqW+PNm9Hs61lbcyDnrE1ON5+qk8NSOuKkRawEtUNdNNiixZAtIF4kukKGZfk
+	oe8NuaUHGpAt4jcYyCHAb28tfz7kikdjWwgpmm+tpS8g/F/0yTxg/5mocXIpUiY1hyI08qaFbYT
+	/F5/bAFszPXOZke2lqMEFzTBT0UhaKVn/yyJFQvL1HTGteUM
+X-Received: by 2002:a05:6a21:490d:b0:3cd:7ba2:e669 with SMTP id adf61e73a8af0-3e16bb71b3amr16357663637.10.1792054025821;
+        Thu, 15 Oct 2026 01:47:05 -0700 (PDT)
+Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.249])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd635c57517sm900574a12.13.2026.10.15.01.47.03
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 15 Oct 2026 01:47:05 -0700 (PDT)
+From: Yu Zhang <yuz08559@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10/5.15] vxlan: use pskb_network_may_pull() for transmit path header pulls
-Date: Thu, 15 Oct 2026 11:32:57 +0300
-Message-ID: <20261015083259.1684-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	stable@vger.kernel.org,
+	Yu Zhang <yuz08559@gmail.com>
+Subject: [PATCH] usb: gadget: f_printer: fix pnp_string use-after-free on reconfigure
+Date: Thu, 15 Oct 2026 18:46:58 +1000
+Message-ID: <20261015084658.70918-1-yuz08559@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -63,80 +75,73 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/15 07:23:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, 127.0.0.199:7.1.2;astralinux.ru:7.1.1;new-mail.astralinux.ru:7.1.1;patch.msgid.link:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 206699 [Oct 15 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/15 06:31:00 #28687005
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/10/15 08:01:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
 
-From: Eric Dumazet <edumazet@google.com>
+f_printer_opts_pnp_string_store() replaces opts->pnp_string with
+kfree(old) + kstrndup(new) under opts->lock only, with no opts->refcnt
+guard, so the IEEE-1284 ID string can be changed while the function is
+bound and the gadget is enumerated.
 
-commit b9553558b48db54ac9273e6b98d7263ef5c1a329 upstream.
+printer_func_setup() answers the host GET_DEVICE_ID class request from
+(soft)irq context and reads the string with no lock:
 
-In vxlan_xmit(), arp_reduce(), and vxlan_mdb_entry_skb_get(), pskb_may_pull() was
-being called to verify the availability of network layer headers (ARP, IPv6/ND,
-IP/IPv6 MDB keys).
+	value = strlen(*dev->pnp_string);
+	...
+	memcpy(buf + 2, *dev->pnp_string, value);
 
-However, during transmit skb->data points to the MAC header, so skb_network_offset(skb)
-is ETH_HLEN (14 bytes). Using pskb_may_pull(skb, len) only checks len bytes from skb->data
-rather than skb_network_offset(skb) + len, which can leave part of the network header
-in non-linear frags.
+dev->pnp_string points at &opts->pnp_string, so a concurrent configfs
+write that frees the old string races the setup read -> use-after-free.
 
-Replace these remaining pskb_may_pull() calls with pskb_network_may_pull() to properly
-account for the MAC header offset.
+KASAN, a configfs writer racing a host GET_DEVICE_ID (reproduced over
+dummy_hcd):
 
-Fixes: e4f67addf158 ("add DOVE extensions for VXLAN")
-Fixes: f564f45c4518 ("vxlan: add ipv6 proxy support")
-Fixes: 0f83e69f44bf ("vxlan: Add MDB data path support")
-Signed-off-by: Eric Dumazet <edumazet@google.com>
+  BUG: KASAN: slab-use-after-free in strlen+0xe/0x40
+  Read of size 1 at addr ffff888005036000 by task swapper/1/0
+  Call Trace:
+   <IRQ>
+   strlen+0xe/0x40
+   printer_func_setup+0x410/0x890
+   composite_setup+0x67e/0x4690
+   configfs_composite_setup+0xbb/0xd0
+   dummy_timer+0x1934/0x1e40
+   __hrtimer_run_queues+0x1b6/0x410
+   hrtimer_run_softirq+0x13a/0x260
+  Allocated by task 3486:
+   kstrndup+0xb2/0x130
+   f_printer_opts_pnp_string_store+0x3f/0xf0
+   configfs_write_iter+0x1a7/0x250
+   vfs_write+0x5df/0x940
+   ksys_write+0xfd/0x1e0
+
+The setup path runs in atomic context and cannot take opts->lock, so
+serialize by refusing to change pnp_string while the function is
+instantiated, exactly as the sibling f_printer_opts_q_len_store() already
+does for q_len.  While the function is bound the string is then stable
+for the lifetime of the live reader; it can still be changed when the
+function is not linked into a gadget.
+
+Fixes: 24b7ba2f88e0 ("usb: gadget: function: fix dangling pnp_string in f_printer.c")
 Cc: stable@vger.kernel.org
-Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/20260723144249.759100-6-edumazet@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ mdmitrichenko: drop the vxlan_mdb.c hunk, 5.10 and 5.15 have no VXLAN
-  MDB support (added in v6.4); arp_reduce() context differs only in the
-  tx_dropped accounting. ]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+Tested-by: Yu Zhang <yuz08559@gmail.com>
 ---
-Backport fix for CVE-2026-74474
- drivers/net/vxlan/vxlan_core.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/usb/gadget/function/f_printer.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
-index a2955729998c..edd5976509d4 100644
---- a/drivers/net/vxlan/vxlan_core.c
-+++ b/drivers/net/vxlan/vxlan_core.c
-@@ -2004,7 +2004,7 @@ static int arp_reduce(struct net_device *dev, struct sk_buff *skb, __be32 vni)
- 	if (dev->flags & IFF_NOARP)
- 		goto out;
- 
--	if (!pskb_may_pull(skb, arp_hdr_len(dev))) {
-+	if (!pskb_network_may_pull(skb, arp_hdr_len(dev))) {
- 		dev->stats.tx_dropped++;
- 		goto out;
- 	}
-@@ -2937,8 +2937,8 @@ static netdev_tx_t vxlan_xmit(struct sk_buff *skb, struct net_device *dev)
- 			return arp_reduce(dev, skb, vni);
- #if IS_ENABLED(CONFIG_IPV6)
- 		else if (ntohs(eth->h_proto) == ETH_P_IPV6 &&
--			 pskb_may_pull(skb, sizeof(struct ipv6hdr) +
--					    sizeof(struct nd_msg)) &&
-+			 pskb_network_may_pull(skb, sizeof(struct ipv6hdr) +
-+						    sizeof(struct nd_msg)) &&
- 			 ipv6_hdr(skb)->nexthdr == IPPROTO_ICMPV6) {
- 			struct nd_msg *m = (struct nd_msg *)(ipv6_hdr(skb) + 1);
- 
--- 
+diff --git a/drivers/usb/gadget/function/f_printer.c b/drivers/usb/gadget/function/f_printer.c
+index 1111111..2222222 100644
+--- a/drivers/usb/gadget/function/f_printer.c
++++ b/drivers/usb/gadget/function/f_printer.c
+@@ -1269,6 +1269,11 @@ static ssize_t f_printer_opts_pnp_string_store(struct config_item *item,
+
+ 	mutex_lock(&opts->lock);
+
++	if (opts->refcnt) {
++		result = -EBUSY;
++		goto unlock;
++	}
++
+ 	new_pnp = kstrndup(page, len, GFP_KERNEL);
+ 	if (!new_pnp) {
+ 		result = -ENOMEM;
+--
 2.43.0
-
