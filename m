@@ -1,339 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B3F1632E7;
-	Thu, 15 Oct 2026 06:26:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0639B457E75;
+	Thu, 15 Oct 2026 06:31:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792045617; cv=none; b=KVt13bNpOe56cyUjVcg9IBlNqb4LE6mT+DqGAUQdLz9CqrAjbP0pZmwQRqHZVczzYlLpGNM6MG/MIo8jjdAYWbYd795sQxBgwJcRaHFMaIeZstHO17xFx/u+2wpFzOnTvRE5xZiXxxAU+pBaIuVaeF/MSaeLZmzzaOdPdRsdYek=
+	t=1792045914; cv=none; b=PSGSpV4P+on6faSIZaoQuxF4NSBVA957rqkaxHxSAkEEclEWmzpNkeKmor5Hz3lO7kbEj2S21XMtUwJCj9GPbVCMWPl4lK1SAvEqIX/WOADmt62m44LS9HmPWT8bzU4ytvDR/8E/aJG58HCDpOI50K5ZQKjkgZwaJ0T7waMYrn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792045617; c=relaxed/simple;
-	bh=zZwQ3/SDjjcxJkwiESIZvGfW2lNW2QHYJFWC2VcwGSU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jR7xw3l97pCa08WDMf5iZc93chsmH2lPG4n13XBs5LRIRAXyILb4OP7FZviTfXYMC5Fsvt2Mc6oBkKmzrl2fX/IB+Mcw97jR3CGJySJJzfI6scEbKbfMvY/k8JGL+ruarYhvzIesq4ise1tFV6VNXMJgIePk2F3vBDLFzbqdknY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c/Jt1Cdc; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792045914; c=relaxed/simple;
+	bh=AMNe4pAQnuFm1VbGb7njHfZH8CUQZVRe0MygYY3fnnc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=r5SpkhvP5DtAg//ZhcmNpX5BwkPslc/44L3rhguShHyrFuN5iOPRXCFWnfyqHAAsMhBgQlso8pPKCsN9Q0AtXNIxHh5N2+IiJT3mxMVdHJI01LHu8+7ArymtIjarKetjq7nZaPtmHUSBpscHybXB7DO2h6gx9hLNMzPYoUYY6Qc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=V/c2G73d; arc=none smtp.client-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c/Jt1Cdc"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9ED8AC2BCC7;
-	Thu, 15 Oct 2026 06:26:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792045616;
-	bh=zZwQ3/SDjjcxJkwiESIZvGfW2lNW2QHYJFWC2VcwGSU=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=c/Jt1CdcLYStxr30xFlFqUJjqKGEGMLOI9MvivzShOC2dCIUybKW51AgA2BX+4iYq
-	 5IdsJAG374xEJHE0ZSU6w2BExN1NqYlgcQlz24miHVfbq3PVjnwyL0Un24IeatUNvf
-	 irVsjTsQbBKEAjw7q0sIkJf0vcAAoxzIWZ1qr8Eclo2BhptW5MivgjBjZPS+efjLM4
-	 AGVGrZ6GPpNblkdiMh4WBSYR3af6MrUYjqjmhIrWPP9FhLfexFgqFxh+YFLKR5c0J8
-	 yYjTcxtsYD+JIIYwHjM/YJDAtARSh2Jcw/0BpYuIkEQGFQrkaV4/RHCIaC6gDMRyKr
-	 mTP1YwTq6j8BQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A076CC6B2F;
-	Thu, 15 Oct 2026 06:26:56 +0000 (UTC)
-From: Patrick Dahlke via B4 Relay <devnull+me.patrickdahlke.com@kernel.org>
-Date: Thu, 15 Oct 2026 06:26:45 +0000
-Subject: [PATCH can] can: j1939: don't drop the last ECU reference without
- priv->lock
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="V/c2G73d"
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 4DE9B14C2D6;
+	Thu, 15 Oct 2026 08:31:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1792045901;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gMM1hyvQ7IECorDJyxaoZ1ePg+umKGhAYhAXl/7UtB8=;
+	b=V/c2G73dJiqXzAtEgo5wOgnnLQ0024HCa63fQl5kh6ExGSnmI5BT6ff5fNC806S11tr7A0
+	EYg+XvkghIR5y5XL9PieW5DRbJnaktheW1whHgitD8cBrXmSrbTOio8HZtWT1JCQmqVRWh
+	nBJsZClxckHU/Yz5+ZzWyy+Xn7BU55cGK9sqscZWcuAAVh8PX5TsgoWKcaCOQIpTJtR8Rp
+	vcP4c8wm5P5tF0fJxh0B9Ib7cYCwd30BlgkE+dxT0DFcYuCgqV2b5akFcWGixF08HKav8l
+	1yexDBwZdUP2O74peIwcdjjLljdpqaGUckpC0An1M7IQLdZDsne9X9llhlG6Pw==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 532a53bb;
+	Thu, 15 Oct 2026 06:31:34 +0000 (UTC)
+Date: Thu, 15 Oct 2026 15:31:19 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 000/505] 6.12.113-rc2 review
+Message-ID: <atBzN6pabpCTiCnb@codewreck.org>
+References: <20261014123803.944920639@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-j1939-ecu-release-lock-v1-1-39dcb8a0f2f9@patrickdahlke.com>
-X-B4-Tracking: v=1; b=H4sIACRy0GoC/22MywrCMBBFf6XM2oEmPjD+iriYjLc2WlKZoBRK/
- 72pa5fncs+ZqcASCl2amQzfVNKYK7hdQ9pLfoDTvTL51p9c6478dGEfGPphwwAp4GHUF3cHD3c
- OGiGeqvw2dGn6ha+kkulWx7jdo0nWfmv+T9GyrD3vCKKWAAAA
-X-Change-ID: 20261015-j1939-ecu-release-lock-f42e189cbea2
-To: Robin van der Gracht <robin@protonic.nl>, 
- Oleksij Rempel <o.rempel@pengutronix.de>, kernel@pengutronix.de, 
- Oliver Hartkopp <socketcan@hartkopp.net>, 
- Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
- Patrick Dahlke <me@patrickdahlke.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792045615; l=10600;
- i=me@patrickdahlke.com; s=20261015; h=from:subject:message-id;
- bh=rIm4qsiF6lwK/DC0sVTHNeX/QSG5Yicgzko5BW1kjmM=;
- b=hH3VYirwmkeS8eyOai2s/5tB2ALcykf0ASSpDFq2KqJlwBzXsjqELL+BHq5FVSY/NtZUeOqtQ
- aSvw4w0jttJAEgmjxP5ilvPMqmjAB2c7MwONZ8JhzYYnm+enVmhuYSo
-X-Developer-Key: i=me@patrickdahlke.com; a=ed25519;
- pk=x8W424q5IZ8w2J9xyeOSiBmEMGsxLCt5IRXLXt/V/Gc=
-X-Endpoint-Received: by B4 Relay for me@patrickdahlke.com/20261015 with
- auth_id=1190
-X-Original-From: Patrick Dahlke <me@patrickdahlke.com>
-Reply-To: me@patrickdahlke.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261014123803.944920639@linuxfoundation.org>
 
-From: Patrick Dahlke <me@patrickdahlke.com>
+Greg Kroah-Hartman wrote on Wed, Oct 14, 2026 at 02:50:30PM +0200:
+> This is the start of the stable review cycle for the 6.12.113 release.
+> There are 505 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 16 Oct 2026 12:37:19 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.113-rc2.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
 
-struct j1939_ecu objects are linked into priv->ecus, which is protected
-by priv->lock. __j1939_ecu_release() unlinks the ECU with list_del(), so
-the final j1939_ecu_put() must happen with priv->lock held for writing.
+Tested 4a8beb0f1e36 ("Linux 6.12.113-rc2") on:
+- arm i.MX6ULL (Armadillo 640)
+- arm64 i.MX8MP (Armadillo G4)
+- arm64 i.MX8ULP (Armadillo IoT A9E)
 
-j1939_ac_recv() and j1939_ac_fixup() violate this. They look up an ECU
-with j1939_ecu_get_by_addr() or j1939_ecu_get_by_name(), which take a
-reference under the read lock and return with the lock released, and
-then drop that reference with j1939_ecu_put() without holding the lock.
-If the ECU is unmapped concurrently, e.g. by an address claim processed
-on another CPU, the transient reference becomes the last one and the
-ECU is unlinked from priv->ecus while other CPUs may be walking or
-modifying the list under priv->lock, which can corrupt the list.
-
-This can be shown on vcan with two threads on different CPUs: one sends
-frames from SA 0x20, so that j1939_ac_recv() resolves the source name
-for each of them, while the other repeatedly claims SA 0x20 and then
-releases it with an idle address claim (SA 0xfe) for the same NAME.
-With an mdelay() between the lookup and j1939_ecu_put() in
-j1939_ac_recv() to widen the window, a lockdep_assert_held_write() in
-__j1939_ecu_release() fires on every release cycle:
-
-  WARNING: net/can/j1939/bus.c:22 at __j1939_ecu_release+0x254/0x2e8
-  Call trace:
-   __j1939_ecu_release+0x254/0x2e8 (P)
-   j1939_ecu_put+0x80/0xac
-   j1939_ac_recv+0x17c/0x5c0
-   j1939_can_recv+0x5a4/0x848
-   can_rcv_filter+0x1ec/0x760
-   can_receive+0x160/0x360
-   can_rcv+0x1c8/0x2c0
-
-Neither caller needs a reference that outlives the lock.
-j1939_ac_recv() only needs the NAME of the ECU mapped at an address, so
-add j1939_addr_to_name(), the counterpart of j1939_name_to_addr(), which
-copies it under the read lock. This also drops two atomic reference
-count updates per received frame. j1939_ac_fixup() unmaps the ECU, so
-do the lookup, unmap and put under the write lock.
-
-Remove the now unused j1939_ecu_get_by_addr(), j1939_ecu_get_by_name()
-and j1939_ecu_unmap(), and document the locking rule with
-lockdep_assert_held_write() in __j1939_ecu_release().
-
-The unlocked list_del() was pointed out by the sashiko AI review bot in
-its reviews of several j1939 patches on the linux-can list.
-
-Fixes: 9d71dd0c7009 ("can: add support of SAE J1939 protocol")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260803101503.21023-1-f3lix.dev@gmx.de
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Patrick Dahlke <me@patrickdahlke.com>
----
-Testing (arm64 QEMU, 4 vCPUs, KASAN + DEBUG_LIST + PROVE_LOCKING + kmemleak):
-- Unpatched linux-can main with the lockdep_assert_held_write() and an
-  mdelay(20) in j1939_ac_recv(): the assertion fires on every
-  claim/idle-claim cycle of the reproducer described above, from
-  j1939_ac_recv() in softirq context.
-- Patched, on linux-can/main (a7bfaba4823e) and on
-  linux-can-next-for-7.4-20261009: no lockdep, KASAN or DEBUG_LIST reports
-  while running the reproducer, address claims sent from two j1939
-  sockets sharing one NAME (exercising the j1939_ac_fixup() unmap path),
-  and the C reproducer of syzbot bug 489e907b2a026a6f5fa0 for 60s.
-  Function profiling confirmed ~1.1M j1939_addr_to_name() calls and
-  20-30 ECU releases per run.
-- Without an injected delay: KCSAN kernel (lockdep + DEBUG_LIST, booted
-  with kcsan.skip_watch=40 kcsan.udelay_interrupt=200, so watchpoint
-  stalls widen the window between the lookup and the put), running a
-  stress test that claims and idle-releases 96 addresses while three
-  CPUs send frames from and to them. Unpatched can-next with only the
-  lockdep_assert_held_write() added: the assertion fired 6 and 8 times
-  in two 180s runs (~5.5k ECU releases each), always from
-  j1939_ac_recv(). Patched: no hits in 180s (~5.8k ECU releases) and no
-  KCSAN reports in net/can/j1939/.
-- The J1939 kselftests posted to linux-can ("selftests: can: add J1939
-  socket and transport tests" v1) pass (35/35) on patched can-next.
-- allmodconfig W=1 build of net/can/ on arm64 and x86_64, sparse and
-  checkpatch --strict: no new warnings.
-
-Without KCSAN or an injected delay, I was not able to hit the race or
-observe actual list corruption; the race window is the few instructions
-between read_unlock_bh() and the final j1939_ecu_put().
----
- net/can/j1939/address-claim.c | 40 +++++++++++++++------------------
- net/can/j1939/bus.c           | 51 +++++++++++++++++++------------------------
- net/can/j1939/j1939-priv.h    |  4 +---
- 3 files changed, 41 insertions(+), 54 deletions(-)
-
-diff --git a/net/can/j1939/address-claim.c b/net/can/j1939/address-claim.c
-index ca4ad6cdd5cbfd323bbdf49ad8cf413cb39ad083..bcc9e7728557a39a0056b334a5b186ea96e1f75e 100644
---- a/net/can/j1939/address-claim.c
-+++ b/net/can/j1939/address-claim.c
-@@ -90,14 +90,20 @@ int j1939_ac_fixup(struct j1939_priv *priv, struct sk_buff *skb)
- 		/* return both when failure & when successful */
- 		if (ret < 0)
- 			return ret;
--		ecu = j1939_ecu_get_by_name(priv, skcb->addr.src_name);
--		if (!ecu)
--			return -ENODEV;
--
--		if (ecu->addr != skcb->addr.sa)
--			/* hold further traffic for ecu, remove from parent */
--			j1939_ecu_unmap(ecu);
--		j1939_ecu_put(ecu);
-+
-+		ret = -ENODEV;
-+		write_lock_bh(&priv->lock);
-+		ecu = j1939_ecu_get_by_name_locked(priv, skcb->addr.src_name);
-+		if (ecu) {
-+			if (ecu->addr != skcb->addr.sa)
-+				/* hold further traffic for ecu, remove from parent */
-+				j1939_ecu_unmap_locked(ecu);
-+			j1939_ecu_put(ecu);
-+			ret = 0;
-+		}
-+		write_unlock_bh(&priv->lock);
-+		if (ret)
-+			return ret;
- 	} else if (skcb->addr.src_name) {
- 		/* assign source address */
- 		addr = j1939_name_to_addr(priv, skcb->addr.src_name);
-@@ -247,24 +253,14 @@ static void j1939_ac_process(struct j1939_priv *priv, struct sk_buff *skb)
- void j1939_ac_recv(struct j1939_priv *priv, struct sk_buff *skb)
- {
- 	struct j1939_sk_buff_cb *skcb = j1939_skb_to_cb(skb);
--	struct j1939_ecu *ecu;
- 
- 	/* network mgmt */
--	if (skcb->addr.pgn == J1939_PGN_ADDRESS_CLAIMED) {
-+	if (skcb->addr.pgn == J1939_PGN_ADDRESS_CLAIMED)
- 		j1939_ac_process(priv, skb);
--	} else if (j1939_address_is_unicast(skcb->addr.sa)) {
-+	else
- 		/* assign source name */
--		ecu = j1939_ecu_get_by_addr(priv, skcb->addr.sa);
--		if (ecu) {
--			skcb->addr.src_name = ecu->name;
--			j1939_ecu_put(ecu);
--		}
--	}
-+		skcb->addr.src_name = j1939_addr_to_name(priv, skcb->addr.sa);
- 
- 	/* assign destination name */
--	ecu = j1939_ecu_get_by_addr(priv, skcb->addr.da);
--	if (ecu) {
--		skcb->addr.dst_name = ecu->name;
--		j1939_ecu_put(ecu);
--	}
-+	skcb->addr.dst_name = j1939_addr_to_name(priv, skcb->addr.da);
- }
-diff --git a/net/can/j1939/bus.c b/net/can/j1939/bus.c
-index cdc3c0a71937935eacfcfbf2f8350a7987ee6790..ec8ee0f980fb464fa9d1455fd4aa340e0aed4c69 100644
---- a/net/can/j1939/bus.c
-+++ b/net/can/j1939/bus.c
-@@ -19,6 +19,11 @@ static void __j1939_ecu_release(struct kref *kref)
- 	struct j1939_ecu *ecu = container_of(kref, struct j1939_ecu, kref);
- 	struct j1939_priv *priv = ecu->priv;
- 
-+	/* priv->ecus is protected by priv->lock, so the last reference
-+	 * must only be dropped with priv->lock held for writing.
-+	 */
-+	lockdep_assert_held_write(&priv->lock);
-+
- 	list_del(&ecu->list);
- 	netdev_put(priv->ndev, &ecu->priv_dev_tracker);
- 	kfree(ecu);
-@@ -89,13 +94,6 @@ void j1939_ecu_unmap_locked(struct j1939_ecu *ecu)
- 	j1939_ecu_put(ecu);
- }
- 
--void j1939_ecu_unmap(struct j1939_ecu *ecu)
--{
--	write_lock_bh(&ecu->priv->lock);
--	j1939_ecu_unmap_locked(ecu);
--	write_unlock_bh(&ecu->priv->lock);
--}
--
- void j1939_ecu_unmap_all(struct j1939_priv *priv)
- {
- 	int i;
-@@ -195,17 +193,6 @@ struct j1939_ecu *j1939_ecu_get_by_addr_locked(struct j1939_priv *priv, u8 addr)
- 	return ecu;
- }
- 
--struct j1939_ecu *j1939_ecu_get_by_addr(struct j1939_priv *priv, u8 addr)
--{
--	struct j1939_ecu *ecu;
--
--	read_lock_bh(&priv->lock);
--	ecu = j1939_ecu_get_by_addr_locked(priv, addr);
--	read_unlock_bh(&priv->lock);
--
--	return ecu;
--}
--
- /* get pointer to ecu without increasing ref counter */
- static struct j1939_ecu *j1939_ecu_find_by_name_locked(struct j1939_priv *priv,
- 						       name_t name)
-@@ -239,17 +226,6 @@ struct j1939_ecu *j1939_ecu_get_by_name_locked(struct j1939_priv *priv,
- 	return ecu;
- }
- 
--struct j1939_ecu *j1939_ecu_get_by_name(struct j1939_priv *priv, name_t name)
--{
--	struct j1939_ecu *ecu;
--
--	read_lock_bh(&priv->lock);
--	ecu = j1939_ecu_get_by_name_locked(priv, name);
--	read_unlock_bh(&priv->lock);
--
--	return ecu;
--}
--
- u8 j1939_name_to_addr(struct j1939_priv *priv, name_t name)
- {
- 	struct j1939_ecu *ecu;
-@@ -269,6 +245,23 @@ u8 j1939_name_to_addr(struct j1939_priv *priv, name_t name)
- 	return addr;
- }
- 
-+name_t j1939_addr_to_name(struct j1939_priv *priv, u8 addr)
-+{
-+	struct j1939_ecu *ecu;
-+	name_t name = 0;
-+
-+	if (!j1939_address_is_unicast(addr))
-+		return 0;
-+
-+	read_lock_bh(&priv->lock);
-+	ecu = j1939_ecu_find_by_addr_locked(priv, addr);
-+	if (ecu)
-+		name = ecu->name;
-+	read_unlock_bh(&priv->lock);
-+
-+	return name;
-+}
-+
- /* TX addr/name accounting
-  * Transport protocol needs to know if a SA is local or not
-  * These functions originate from userspace manipulating sockets,
-diff --git a/net/can/j1939/j1939-priv.h b/net/can/j1939/j1939-priv.h
-index cf26352d1d8ce6cba0ec1231ca9b321e898d71c3..40b3a61e6743f314e2fd24e5196a1dc387bee506 100644
---- a/net/can/j1939/j1939-priv.h
-+++ b/net/can/j1939/j1939-priv.h
-@@ -124,15 +124,13 @@ static inline bool j1939_pgn_is_pdu1(pgn_t pgn)
- 
- /* utility to correctly unmap an ECU */
- void j1939_ecu_unmap_locked(struct j1939_ecu *ecu);
--void j1939_ecu_unmap(struct j1939_ecu *ecu);
- 
- u8 j1939_name_to_addr(struct j1939_priv *priv, name_t name);
-+name_t j1939_addr_to_name(struct j1939_priv *priv, u8 addr);
- struct j1939_ecu *j1939_ecu_find_by_addr_locked(struct j1939_priv *priv,
- 						u8 addr);
--struct j1939_ecu *j1939_ecu_get_by_addr(struct j1939_priv *priv, u8 addr);
- struct j1939_ecu *j1939_ecu_get_by_addr_locked(struct j1939_priv *priv,
- 					       u8 addr);
--struct j1939_ecu *j1939_ecu_get_by_name(struct j1939_priv *priv, name_t name);
- struct j1939_ecu *j1939_ecu_get_by_name_locked(struct j1939_priv *priv,
- 					       name_t name);
- 
-
----
-base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
-change-id: 20261015-j1939-ecu-release-lock-f42e189cbea2
-
-Best regards,
+No obvious regression in dmesg or basic tests:
+Tested-by: Dominique Martinet <dominique.martinet@atmark-techno.com>
 -- 
-Patrick Dahlke <me@patrickdahlke.com>
-
-
+Dominique Martinet
