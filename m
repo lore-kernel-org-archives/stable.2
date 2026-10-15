@@ -1,241 +1,163 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03305565106
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 17:36:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3693F56260A;
+	Thu, 15 Oct 2026 17:36:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792085795; cv=none; b=dnt63TVMbwR21NgF/T1s/32P5qw4VA774eV3UYGGzvcPVtOyz3WFQnrEPH/0GWN1wTilc84It0a3lxQr9+z8cO+ANvn09URFsVAT3p83eIbkIc0jCtnnYoQwOgc1BLws58gYpSJB2fZPjs8G9rBGxbYtZT0+RnL2GUwd7Hp+Huo=
+	t=1792085798; cv=none; b=Eh84g0OK4bdkESAAfeQWGi6++AVGIchRrPe+r32fsev+c/nFMFmzaITNOtXmwcDspBC6QGfs9sSllAflwg9Wt8GjupDzmdKDNtYljNTCZZDbcsHA/eDLRFOF6ifn8Mf01xHYDXWyz8bTM8UbDsviTKtExkQcH1t0q/6Eyp2Eh0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792085795; c=relaxed/simple;
-	bh=XMZWNSALGx66DAXTjiCW6D0VHKFTsEvlhMkKHIV7N3U=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=nrEnIbDFANuLTYxo/KsL1rxxvcAT6NRba8tAoNaWp5hGi/DE6/rUuuMS5X2FnqlDM10w8b7k+JXKpO6ejbz19YFAWqnD96rUZGMldbTS8WbRONdIiTs775D2LhlX59jyjMk7/De/VzD4O/JU/QGGh2cB9XiVIp/pulclodzg9AM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O6hvOgH4; arc=none smtp.client-ip=209.85.210.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792085798; c=relaxed/simple;
+	bh=SsAX70hkztxr3lXUejP7fw9k5bXsDS+j8dp7p+FMWsM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ab83CNGN5v5Rkh69aQlsNzUGrAe5qXlfZ/8Q5FuFoMXcJXBDY+7GX5sTlv5U9ZimhyP7Yu7SOq3KduzwFlht3U3vCMyzH9N7gJUa+HIGda65QOVwfeH3N6oFbQQBKMbEDCqcaz+O1mas67cXa61soLy4d3IpDfj0CZq4Y5JF5ek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=N54WOdun; arc=none smtp.client-ip=115.124.30.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O6hvOgH4"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-88c72646f03so1082645b3a.2
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 10:36:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792085783; x=1792690583; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d2fubKBoLgQUTAWsAbRE7jSlw3VB6SYRsTIq0RJ/P+s=;
-        b=O6hvOgH4GGZIHrCjBiKeS7+J1M3QaS6yOILhKkWuGyqGySq3r/lcbhifdpYJvttcBo
-         TFSityp4LPDYF6FuclEzniIsZ25OtI/B3O9BWI1HzNyEJggn63TziOQtURSUVnuPCg0/
-         VTc7j0Rx+BhPOZIzgdXXJCZ+k0ZzvU178rrvaiTEZLk8vCynvXenmSXcdU2NhVtVcJlE
-         2w3+nx5gOmZiMuY9VY6Aq6Xi+wwmMBkyKCbltERWCYj3MraSNvXzZfpsFCNzTKNTOmKV
-         nsYp7qn1F38eu/EQOLHOQ87JVuoNj09ahzNUZeL6XpHb8zgrVSIarH04Jt7zn4twF2NQ
-         m1lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792085783; x=1792690583;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=d2fubKBoLgQUTAWsAbRE7jSlw3VB6SYRsTIq0RJ/P+s=;
-        b=DW1vsYuQWL5WlnsBJfTMDEEcz6i/ehcNF8aG4Mb8nIfpvv+gFq/ZZreKEc9xgJrMdL
-         JvgsxIqCqu3nopZr4+d+DF6BGaPVw9XCW2iKnCK2zivnUArcKtW+MyPa+dFYY95H71YN
-         ak+wyAHSVkJj4HesIJtRLW2ZbqT8HnIH2IIRwu5GOnSmdVOTclQtxpt0leJ8HKeboG5X
-         l9MEOLThs6Rnh5JefIhxqZwZm/WS57qdwElnCaTLXwGtsGqsH5zbZIayLfDjIiq/Xhg4
-         1zUXqTZFhAWTLT2KUITdTQty8aIO0L9SLtZMFbDUQJHbMbPyICZUNBJRg7vI+pE3U4sK
-         ijXA==
-X-Forwarded-Encrypted: i=1; AKwUvBwHCcf+lT1T80xkC8rRGWbPZPDLi6c23d6JpYE/L4SMdtfu2UDPbrNXF81TykzKuW2PLnhczqU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIoQ+ScT7C7M6C1GoUpLOOXnBjZ734+EH2ImXh1Nn2mRuAt+Zap
-	3zdh8tGd5Op+4lJwdY7yizQNmMgMKPtE5HCUwYf36qV6Rr3yNi32HrK3
-X-Gm-Gg: AYBFou0ZC+jcshqN6CGMQ5QaZrzTEV8FefUpoTViDT0zPWhnOvklT1XaJq3f3/Ncura
-	fiStNJSGx+NoQii32alj+9Yz8BNpSV8I2eREMng6/Ohb7HXE01HHq2Gs2KWyt3KdkRXUN9ueSTn
-	F2GwdZFgjbIgwtmSlgaWluNZ6WBKrCTjMl2d/1+h7hwN7RT93/vFs7i3ls/dVB7yshdwH9BorWP
-	wjE6DmsTt6PhtXsxSD/PnYTxtz8jgsQkpBNSuNbrpWAnzLdvmY4wSr/gu01njiEsmHjgQLwwmVD
-	BetayORmgm5wUdv4ATg/yNtuh7VhG4RIgdBgQSnYTgQ7uYufAN12VfoFxHK5XzQhFKsX9f1ypRw
-	THHAvjqqhpuAW7eUlgLhu0JzF56PEltLRd60ftSSXJMI2KSEsUnO8kF48nXEiNRuqUSRwkuBdej
-	dTOAgsc0ySFSbFwZ1MkVwUmV2ZW0MkvyiJ6IrNbyl2bPawpetL8KOmSkJAONg+wTUhGQ==
-X-Received: by 2002:a05:6a00:4fca:b0:87d:430:1437 with SMTP id d2e1a72fcca58-897c7ec3069mr17209710b3a.38.1792085782783;
-        Thu, 15 Oct 2026 10:36:22 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f5820b344sm1422b3a.53.2026.10.15.10.36.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 10:36:22 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com,
-	heming.zhao@suse.com,
-	boyu.mt@taobao.com
-Cc: ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH v2] ocfs2: stabilize the dentry name while tracing reads
-Date: Fri, 16 Oct 2026 01:36:16 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0088-v4-a9a0df898afb4fc65fa0@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="N54WOdun"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792085780; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=9YnrwI+/iPNmoh1SsSb82TY/9geUY5RwvCpBUzwgTd8=;
+	b=N54WOdunucmUbKqHgXyVo928Msf3sEV8E3iu1tvmwsRzEKUmrXGVBe/y0jTOsXZ/6PMFOQQbGR1UjYqcYZ8VlCbCkcVrvI4OQih4i8i5RBY7tfsjjVqRFFZ9yzDb4+bcECS5R2arpyDOoSzcGTcoVaxGuteLKtbLMzxDEsqub+E=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R531e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XCsJh-j_1792085778;
+Received: from 30.170.203.187(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XCsJh-j_1792085778 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 16 Oct 2026 01:36:19 +0800
+Message-ID: <006e3804-7e5e-4b8d-a299-3a47b8b643b3@linux.alibaba.com>
+Date: Fri, 16 Oct 2026 01:36:17 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] blk-crypto: fix missing smp_load_acquire() for
+ tfms_inited[]
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: axboe@kernel.dk, linux-block@vger.kernel.org,
+ linux-fscrypt@vger.kernel.org, hch@lst.de, dm-devel@lists.linux.dev,
+ mpatocka@redhat.com, sweettea-kernel@dorminy.me, satyat@google.com,
+ stable@vger.kernel.org
+References: <20261014071846.3666398-1-libaokun@linux.alibaba.com>
+ <20261014071846.3666398-2-libaokun@linux.alibaba.com>
+ <20261014161153.GC322435@quark>
+Content-Language: en-US
+From: Baokun Li <libaokun@linux.alibaba.com>
+In-Reply-To: <20261014161153.GC322435@quark>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-An open file pins its dentry, but not the external allocation backing
-an individual dentry name. ocfs2_file_read_iter() passes d_name.name to
-its trace event without holding d_lock or a name snapshot. The event's
-__string field needs those bytes for both strlen() sizing and the
-subsequent copy.
+Hi Eric,
 
-With the read event enabled, a read of an open long-named file can be
-preempted after evaluating the trace argument. A successful concurrent
-long-to-short rename of the same dentry can then reclaim that name,
-provided no other name snapshot retains it:
+Thank you for your feedback!
 
-  Reader                              Renamer
-  ocfs2_file_read_iter()
-    load old d_name.name
-    <preempted>
-                                      vfs_rename()
-                                        take_dentry_name_snapshot()
-                                        ocfs2_rename()
-                                          ocfs2_dentry_move()
-                                            d_move()/copy_name()
-                                        release_dentry_name_snapshot()
-                                      kfree_rcu() reclamation completes
-    trace callback calls strlen()
-      through the old name pointer
+On 2026/10/15 00:11, Eric Biggers wrote:
+> On Wed, Oct 14, 2026 at 03:18:46PM +0800, Baokun Li wrote:
+> [trim LLM-generated text]
+>
+>> diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
+>> index b5dbb092caea..31f76d117593 100644
+>> --- a/block/blk-crypto-fallback.c
+>> +++ b/block/blk-crypto-fallback.c
+>> @@ -488,15 +488,17 @@ static void blk_crypto_fallback_decrypt_endio(struct bio *bio)
+>>  bool blk_crypto_fallback_bio_prep(struct bio *bio)
+>>  {
+>>  	struct bio_crypt_ctx *bc = bio->bi_crypt_context;
+>> +	const struct blk_crypto_config *cfg = &bc->bc_key->crypto_cfg;
+>>  	struct bio_fallback_crypt_ctx *f_ctx;
+>>  
+>> -	if (WARN_ON_ONCE(!tfms_inited[bc->bc_key->crypto_cfg.crypto_mode])) {
+>> +	/* Pairs with the release in blk_crypto_fallback_start_using_mode(). */
+>> +	if (WARN_ON_ONCE(!smp_load_acquire(&tfms_inited[cfg->crypto_mode]))) {
+>>  		/* User didn't call blk_crypto_start_using_key() first */
+>>  		bio_io_error(bio);
+>>  		return false;
+>>  	}
+> No, anyone submitting encrypted I/O is required to ensure that
+> blk_crypto_start_using_key() was called first, in which case the
+> additional barrier here during I/O submission isn't needed.  If the
+> caller didn't ensure that, then it's a bug, and we WARN.  This patch is
+> inconsistent with that.
 
-The pointer load precedes the rename, and sizing follows reclamation,
-so strlen() reads freed name storage. The tracepoint's SRCU section
-protects its probes, and the event callback disables preemption only
-after the caller has loaded the name pointer.
+You're right that the flag can't be observed as false here: the index
+comes from bc->bc_key, so that load is address-dependent on the key
+pointer, and a submitter that reached the key through a published
+structure will in practice only ever see 'true'.  The WARN is fine.
 
-Take a dentry name snapshot before tracing and release it after the
-trace call. The snapshot copies inline names and pins external name
-storage, keeping both the string and its length stable while the event
-sizes and copies the name. This avoids holding d_lock across trace
-callbacks. Check whether the event is enabled before taking a snapshot
-to avoid adding snapshot work to reads when tracing is disabled.
+The barrier wasn't meant to make the flag read reliable, though -- it
+was for the loads *after* the if:
 
-KASAN report as below:
+  if (!tfms_inited[mode])          <- addr-dep on bc->bc_key, ordered
+          ...
+  blk_crypto_fallback_profile      <- no dependency on anything
+  blk_crypto_keyslots              <- no dependency on anything
+  slotp->tfms[mode]                <- no dependency on anything
 
-    BUG: KASAN: slab-use-after-free in strlen+0x85/0xa0
-    Read of size 1 at addr ffff88810a5b2b18 by task python3/496
+i.e. to make observing 'true' imply that those are initialized.  My
+subject and commit message claimed the opposite, which is what made the
+patch look inconsistent with the WARN next to it.  Sorry about that.
 
-    [CPU and host details omitted.]
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? strlen+0x85/0xa0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20e/0x420
-     ? strlen+0x85/0xa0
-     kasan_report+0xe0/0x110
-     ? strlen+0x85/0xa0
-     strlen+0x85/0xa0
-     trace_event_raw_event_ocfs2__file_ops+0xf0/0x480
-     ? __pfx_trace_event_raw_event_ocfs2__file_ops+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? pmbd_probe_hit_cookie+0xe7/0x1c0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
-     ocfs2_file_read_iter+0x6cd/0xb30
-     ? __pfx_ocfs2_file_read_iter+0x10/0x10
-     ? selinux_file_permission+0x11d/0x540
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? security_file_permission+0x26/0x80
-     vfs_read+0x7d2/0xc20
-     ? __pfx_vfs_read+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_do_sys_openat2+0x10/0x10
-     ksys_read+0x111/0x200
-     ? __pfx_ksys_read+0x10/0x10
-     ? irqentry_exit+0xbe/0x820
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? trace_hardirqs_on_prepare+0x11d/0x150
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    [User register dump omitted.]
-     </TASK>
+> I think this can be considered a bug report that the ordering of
+> fscrypt_find_mode_key() is too weak now, as it just uses
+> list_for_each_entry_rcu().  It looks like it should do
+> smp_acquire__after_ctrl_dep() after it finds the right entry in the
+> list.
 
-    Allocated by task 489:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_noprof+0x2de/0x780
-     __d_alloc+0x5fc/0x8c0
-     d_alloc_parallel+0x106/0x11d0
-     lookup_open+0x3ff/0x13e0
-     path_openat+0x95e/0x2020
-     do_file_open+0x21e/0x470
-     do_sys_openat2+0xf4/0x1b0
-     __x64_sys_openat+0x136/0x1e0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+That's what I was about to do for v3, but while looking for other
+callers that inherit a key without calling start_using_key()
+themselves, I found that dm-inlinecrypt has the same shape, so fixing
+fscrypt alone wouldn't cover it -- only the constructor calls
+start_using_key(), and the task submitting I/O reaches the key through
+md->map:
 
-    Freed by task 0:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     __rcu_free_sheaf_prepare+0x65/0x2a0
-     rcu_free_sheaf_nobarn+0x1d/0x50
-     rcu_core+0x6be/0x1ed0
-     handle_softirqs+0x1fa/0x8d0
-     __irq_exit_rcu+0x113/0x1e0
-     irq_exit_rcu+0xe/0x20
-     sysvec_apic_timer_interrupt+0x6c/0x80
-     asm_sysvec_apic_timer_interrupt+0x1a/0x20
+  dmsetup (ctr)                      I/O task
+  ---------------------------------- -------------------------------
+  blk_crypto_start_using_key()
+   fallback_start_using_mode()
+    init profile, keyslots, tfms[]
+    smp_store_release(tfms_inited[m])
+  rcu_assign_pointer(md->map, t)
+                                     srcu_dereference(md->map)
+                                      -> ti->private -> &ctx->key
+                                     inlinecrypt_map() -> bio_prep()
+                                       tfms_inited[m]  addr-dep, ok
+                                       profile/keyslots/tfms[]  not
 
-    The buggy address belongs to the object at ffff88810a5b2b00
-     which belongs to the cache kmalloc-rcl-192 of size 192
-    The buggy address is located 24 bytes inside of
-     freed 192-byte region [ffff88810a5b2b00, ffff88810a5b2bc0)
+dm's own grace periods would cover this, but all three are conditional:
 
-    [Page and shadow-memory dumps omitted.]
+  drivers/md/dm.c:2533       if (old_map) dm_sync_table(md);
+  drivers/md/dm.c:3015,3039  if (map) synchronize_srcu(&md->io_barrier);
+  drivers/md/dm-ioctl.c:1651 add_disk() only when type == DM_TYPE_NONE
 
-Fixes: 468eedde23d6 ("ocfs2: Remove mlog(0) from fs/ocfs2/file.c")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Assisted-by: LLM
+so e.g. this sequence has no happens-before:
 
----
-Changes in v2:
-- Replace d_lock around the tracepoint with a dentry name snapshot so trace
-  callbacks run without the caller holding the dentry lock.
-- Pass both the name and its length from the snapshot; keep the event
-  enabled check and release the snapshot after the trace call.
+  DM_DEV_CREATE
+  DM_TABLE_LOAD (linear)       add_disk(), md->type set, not resumed
+                                 -> a task opens the device here
+  DM_TABLE_CLEAR
+  DM_TABLE_LOAD (inlinecrypt)  ctr sets tfms_inited[]; no add_disk()
+  DM_DEV_SUSPEND (resume)      old_map == NULL, all three skipped
+                                 -> the already-open task does I/O
 
-Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0088-v3-d628f98bfcb6784a0bfb@gmail.com
+This needs a weakly ordered machine and a deliberate ioctl order, so
+it's not urgent.  Which would you prefer?
 
-diff --git a/fs/ocfs2/file.c b/fs/ocfs2/file.c
-index d6e977ba6565..fc357c227ad8 100644
---- a/fs/ocfs2/file.c
-+++ b/fs/ocfs2/file.c
-@@ -2542,11 +2542,17 @@ static ssize_t ocfs2_file_read_iter(struct kiocb *iocb,
- 	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
- 	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
- 
--	trace_ocfs2_file_read_iter(inode, filp, filp->f_path.dentry,
--			(unsigned long long)OCFS2_I(inode)->ip_blkno,
--			filp->f_path.dentry->d_name.len,
--			filp->f_path.dentry->d_name.name,
--			to->nr_segs);	/* GRRRRR */
-+	if (trace_ocfs2_file_read_iter_enabled()) {
-+		struct dentry *dentry = filp->f_path.dentry;
-+		struct name_snapshot name;
-+
-+		take_dentry_name_snapshot(&name, dentry);
-+		trace_ocfs2_file_read_iter(inode, filp, dentry,
-+					   OCFS2_I(inode)->ip_blkno,
-+					   name.name.len, name.name.name,
-+					   to->nr_segs); /* GRRRRR */
-+		release_dentry_name_snapshot(&name);
-+	}
- 
- 
- 	if (!inode) {
+  1. Leave it for now and fix only fscrypt_find_mode_key().
+
+  2. A separate smp_rmb() in inlinecrypt_map(), paired with the
+     rcu_assign_pointer(md->map) in __bind().  Keeps the cost on
+     dm-inlinecrypt only, but means a second site to get right.
+
+  3. Keep the barrier in blk_crypto_fallback_bio_prep() after all,
+     documented as ordering the loads after the check rather than the
+     flag itself.  One site covers both callers and any future one,
+     at the cost of blk-crypto no longer relying on the caller for
+     this part.
+
+
+Thanks,
+Baokun
+
