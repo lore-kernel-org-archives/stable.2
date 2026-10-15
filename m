@@ -1,225 +1,253 @@
-Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021078.outbound.protection.outlook.com [52.101.95.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F27033F8A6;
-	Thu, 15 Oct 2026 03:08:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792033685; cv=none; b=G1cBktL3hCsZzRVVSx0V9f6V77S8rS50ma8JEx6zodrlXWcKkK9GvVH8nyN+OISD0y9meyQuW9iXKf2LJeYWyBngANggZeG7uH15NcBSwWS2VKQcY95uUSMVka7giLAywxW5C052A0DCv/EZqmsUq8rG7e1E6CckaCh7QBRHMQ8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792033685; c=relaxed/simple;
-	bh=Gr8bvZjonjpuKPPLEESkDDRjyQuYoWcxa67/eUFrMGA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dXOgH46uAihOycJC6MsQw32Swjis2qCaaq9cW1xvGyigIzcbi3tP5hWUdYysOiUQVKOv6+dbaIpjSzixbvMSQ4wE2eIqtV0E6TAMLZMEy20JuZS8Aqc4fpH8X76sVwweltC5JuQIPNb5itqHKQJnSaACPVghURo7feXSK+3F8ck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=Ae6k0kcf; arc=none smtp.client-ip=115.124.30.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Ae6k0kcf"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792033678; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=X7/2qcsTlbXyBMa1huct+zwum1m1Lw9DoZkGyhEg03E=;
-	b=Ae6k0kcfUAan55LkwKeZOCdBd19p1d+HI1/ebYj06f+2JQ3JwXSRBnQNPZMjgXtEGXc+2KRVdU93Zgb/xQV7JODPkThiZU2wp6jH8RY43K2WEHpHXvJnu6FD6FIr3H634zbCdgUpXPewFuDpAS9QqD1KaeHAt2vmrkH/jitnVXg=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R331e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0XCqJIKb_1792033677;
-Received: from 30.221.144.234(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCqJIKb_1792033677 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 15 Oct 2026 11:07:58 +0800
-Message-ID: <99dbb221-394b-4431-b8c3-9a6350b7d006@linux.alibaba.com>
-Date: Thu, 15 Oct 2026 11:07:56 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583CD183CC3;
+	Thu, 15 Oct 2026 03:13:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.78
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792034036; cv=fail; b=AvV62y5I7pdr5GrTW4FV2oYrlj8KxiB0QpeUhmljADSxXeruq/UtGto/fEUUuiwkSpuiKapuKsGrIN2XLRxghUO4AsKuPbHa1p2kkYiHwbua0KR44Amw22OxBnA6xZnTOn3TK+cvrmr8nJVD88bXep/MwINRRTuli2k4KQLXSqM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792034036; c=relaxed/simple;
+	bh=EUiJKL4sXDSSjX3LgxYLVEhlKWjLpXqaoQsPsjtzfRs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=MNHFvTEqCQNsXRISI9kEC9teaK1txIeqNhxGBVe3ktxuar3Ni0pG49Uxwwp1EnnF1z0h9xEcH70N5Z3w9EMcNI9boNQVfda+AMWAynhax/c7k6vsGhkvdr3I9UHZi9sDAy1f3/EJJ2dMeOZEgk5J6iooagHqsaZr6UBXSKCo0Pg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.95.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oV2miEhzrRVlWWtzmz/KsgTE7ZPyPvFfj4nob53Ywc7zZIMGOVH/Kbpd3eKLNjgpEmH0Uah4hy4Bcjc+qMgOsswVjAwvOeZoTuA7pSPITurwfvl0GPj4pP3CNDGR9G6w5CUVroCpu7rUlvISZ00GQYNBN/HTz2xNpkTav9LvjzeNZF2gbUNYkHmUW8DbPmsp8oJTsgOvr9WvWogVCYLY3gpQzFObPQLIckGg1vEZaKYfahgMFLg6qkX1pkeDJTWl65b1qbtxUt+YoAV6zFFv30TcItkbWEm1yMOyEc+SWJer4KN+KIDS02HemDVHK1AnC/HYinnQzrbUGR8RUs9yZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=slrQzxZJL//Undy73aEAf+CLdYf5GsmWTELOlXRCQDA=;
+ b=PpH8YbhzZpc8lrTwPzmuyLMuzvoTzXtmezhBXMFys5AZWYmcK5BSHPpCe79kUjiMVx8uhYlX2HWpKo6ex35MV/+zznCqW2xIQb6UDeOTD/nv2tU82WW5+ErELB3P8kY0WIg2KoI63qnsh6m8Y611Bw1JZU3GG92J3LfkgZOLElMgXB1847nmVBfMdXa32ozt99cjqep08sFEoRGMPS38nZOQ+xFKGRMflxwvorG0NlixlN/xeoltEAFbkhVjR39fGpu3z326MCu+XRfr6rymSLtWCJ4zBy2YvOvYq/CwbcSJvmwB07M4G1sEml0CJSsiMMuXI8WWfSRChAcF74hmtw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from LO6P123MB6616.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:2b2::11)
+ by CWXP123MB2789.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:41::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 15 Oct
+ 2026 03:13:49 +0000
+Received: from LO6P123MB6616.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::3975:c5e7:bc1a:f383]) by LO6P123MB6616.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::3975:c5e7:bc1a:f383%6]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
+ 03:13:49 +0000
+Date: Wed, 14 Oct 2026 23:13:45 -0400
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: axboe@kernel.dk
+Cc: tom.leiming@gmail.com, hare@suse.de, dwagner@suse.de, 
+	frederic@kernel.org, tj@kernel.org, sean@ashe.io, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] blk-mq: dispatch kworker to housekeeping CPU when
+ hctx cpumask is empty
+Message-ID: <oedptybqueluvi7abnerr4zn4t7lnh7telsen75lvkzyp52nee@6jkbqf6gb33s>
+References: <20261015020225.422107-1-atomlin@atomlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261015020225.422107-1-atomlin@atomlin.com>
+X-ClientProxiedBy: BN9PR03CA0076.namprd03.prod.outlook.com
+ (2603:10b6:408:fc::21) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ocfs2: dlmfs: Hold l_lock through the unlock wakeup
-To: Cen Zhang <zzzccc427@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
-Cc: mark@fasheh.com, jlbec@evilplan.org, kurt.hackel@oracle.com,
- heming.zhao@suse.com, ocfs2-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-objects-candidate-0055-v5-5a07cf78ed1c5bd13e50@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-objects-candidate-0055-v5-5a07cf78ed1c5bd13e50@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LO6P123MB6616:EE_|CWXP123MB2789:EE_
+X-MS-Office365-Filtering-Correlation-Id: ab39b4a2-48f3-4fdf-e1c9-08df2a6a5500
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|6133799003|10067099003|22082099003|18002099003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	9ZWw2pAsJ8vltiRO3tlZhAWfJ0UQl8iEqdGnJMtVL3OH56T7AFumsdczcVHOrocGc8QRe2ScbRdFy8VRuZIEXBLVr9CbUlLmYPryFwd+TyjdUUqzEar8daWtzEltBsrXw320c0YiNBh4LruZEKQ/El9SCoLIZePzNa4PFu5eaIOA6PFXHLxJgmN5IQGWVHWrnOVjOlx5YqoLtcyYMVLUfNspkAJuw4XpjB/r6hX4zAL6dE3P2S7V9jAxET4g1KpmU03OTFltwREi1ndA5lp3atpBTYePdwm4AGhyoJIAZnRZb75dyVHpPJCyJiHgUC/PWeSk6g+7hY5d0HsqiyclkCsOSoS0VWYsabZW5guYvXXFc7dH1hVg8fbRx+b1muDYO1O6gq/94IWRqJhq8hYq5mT1evfivp4yeTBAPJWLyiLIDsdwDRO8ZnKOor2xpdzvB4uAxpAhLWQ+1AEXZY1udVnObKgmQdGpzbvYrl4K/jBKBQPhVcOMFbzkNxlOodA8eE75Rqk4YnfpYwOLXEO+erpsuPPZvFJw0IM1lNmM8XAoCsov7zdAiRam7KNCQv9wi4WzVyVOUgVjSEqwhjCsO9KATX/0awGd1g+ebO9cfF8YlC8gcrWX8C5ApWLcvYYj
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LO6P123MB6616.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(6133799003)(10067099003)(22082099003)(18002099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?clNBdGczOUxrUy93eEFiMkxzSzZTYzBmT2YrdlJoTXlxRTN3NnJUU1h4YVNO?=
+ =?utf-8?B?QUNMNkpZSUZyc2k4cm9iVEdhY1lXTHB0bzd2NG91T2x5M01NMkJRdzF4N0or?=
+ =?utf-8?B?SmZtOVA2ZHBEV2FOWTVubEt5TnB2bzluMElzOHJGQ2svdXNBcGRVQklaV0Vi?=
+ =?utf-8?B?ZDhmMDE2aWw2VkI3WTZJb0FzQVdMcjNSWERKN0ZpWkt1WEVha3pUU3hNNEhq?=
+ =?utf-8?B?OHk5T3RKWHU0U2YzdFdiTHU0dys1Y0lnQ2lKeEdxM3R3a0VaR25yZ2FqUTBJ?=
+ =?utf-8?B?d2g3NFlQSnVYVUVaV0h3SXVtT0dqeWxUdlB1Y0ZoZDloK3EzUWluQStyUERn?=
+ =?utf-8?B?bklyRkJUdnBvdE9ZTXpHc1ZpTDBxUkRXdkl0aHU5Y1g1c3ZzTVV1c3BMVnlw?=
+ =?utf-8?B?TEdiMUJhbytVQWhOc2oxVEhQZEQ4MFFLMDRQT0pYQm9tZDdIcVpHMmdNVVV0?=
+ =?utf-8?B?YWYzYmx6NmVUdVhKTnZRRk9LQ2JhTWdkQ3lncXMrd25tdGFyc0RYVUpFdGpL?=
+ =?utf-8?B?WEl0YjJYR2UwWVFpVlI1c2Y5M093UkFzenJvVCtQVURsU2tnWDNLT0g4ZjFj?=
+ =?utf-8?B?eGVjdUt4b3NNY2ltTG9zYXhKWjdOV29IYm4xSmFTZ24xRkoyNkRvR1JKUFN1?=
+ =?utf-8?B?RzRHQVJ3MVFwU09qRnV6cmc3UkJDbVR0YUlTVDcwemxzaFJrNE1zbGdxejY5?=
+ =?utf-8?B?aythSmxUbGFGUVAvNmxtWWFoV3ZzZVllM1RaYzhuN1IxSHhhdktEa2VsMW82?=
+ =?utf-8?B?bWNqbm1xTk1NTnVtdE8xMG8rVm0rdGR6Vkc0bkZmQWN2Z09NOGlnRWJ0T1cr?=
+ =?utf-8?B?VUNFWUI5YXFQRlc1TzVrT0t2YUl3L0hhckFsaDdHVTNTaDQ5ZFJhdVUrNmZr?=
+ =?utf-8?B?UzVERDA4bkJRN1VlYzI2NGlMTXg1aFFCRVpBMy9hYlN5OUwvUmJzc0FrSGEr?=
+ =?utf-8?B?VHl0WDR4UHB1Tk1WZzV0U3hSaWU1cE01dXVEeWJyV2NxaUpBelBRTmFtdjJ0?=
+ =?utf-8?B?RGZtdExGRkd1ZjRGMW1VNURJSnNWUzErSHQzcmxyZHpKeGRBVzJhL0ZoZEJr?=
+ =?utf-8?B?ZGk0SWVNVkV0bSs1cXVlZ0o1VGNLV2J4alg4WDk2aVBkQ2JWSzdpcFRvWWhp?=
+ =?utf-8?B?RGUzRXNnRVpNMEJkSEoyWVNNNVFjOFlCazhVTHlCUzh1ZmRhSi84Tll4VU00?=
+ =?utf-8?B?WEtpVDN3OTdyMk0ybkt0RnFPcGI3ZmU4SjJxV3JPbE1jTFJNdy9FUTNrZTl6?=
+ =?utf-8?B?bldHZFBWeWl0S0Nid3kyVnlqeWVOeWV5Q25mTVVaV1l2MlZOdjVtQlZmWGRB?=
+ =?utf-8?B?by9qZWZ2OTdPb3p0TC9KMThKWHZYRkhrbHlZR1RrWktVdStHT3BtNDA2SEk2?=
+ =?utf-8?B?WEh4NExhbm9DTy84UmZZd2drSHRWMUt2Z1ZtYUhqVkh4ODlIOVdxTzhlZmJZ?=
+ =?utf-8?B?aS84NGJoUjNxeUhBbmlDelA4WC9aTG9HQnNKdFY0SmpzUzI1Y2MrSkRkQkhG?=
+ =?utf-8?B?Y2hmTlpZMXNDTW16SkdHRXM0NE0zZklSTTdxU0VOQ0k1Ykh4ZGxvbk5RYUZB?=
+ =?utf-8?B?Y0ZrZjAwR1BRREhuaTNMaittS0Z1SFdoSm83eDM1elVhem5JWGlobmpYVU1X?=
+ =?utf-8?B?NHQ5MWVtUVg5NENMRVJYWkZsYm91TE51Y1c3WXViRE0wRE00Sm1UTmxSdlpV?=
+ =?utf-8?B?eTR0ZW5DSjlGKzUwRm9DcXlmMmV6WlNBYnJ5WVYrbWhMQ0xyVENjc0lkUEti?=
+ =?utf-8?B?eHovSWFSd1JzNkxZQWl3NnJQZmlwdFBTeFBSQUtFVDFYYi9FY016dU53eTQ3?=
+ =?utf-8?B?QnNHSGVNbjdHdWFBWmR1NWQzZjllK3h5WVB3VTRGUjF2SzA3QW1CZEpmK3Qv?=
+ =?utf-8?B?Q2lnMHNjY0lMbzd2UmVBdlNvS1VzeUFSY2FLZ2hmUVA5RU5iVjd1RWZKaVd6?=
+ =?utf-8?B?UmVCMGFsYmxJZ0kvTklqajJRTXBWYndoZHhOOW90U3JDb1gwSmJHN0Q4ak9T?=
+ =?utf-8?B?b2ZCNmc3WmhhSHc3NWMxcHFXT1NNVG53RGdzcCtzNGw1dmg1bDM4SmlHcFNt?=
+ =?utf-8?B?VjNic3BycFh0S01WUUZOck02TThaM2c4MjJHckhkT0tQNUZsZ3VsdXF4Qis1?=
+ =?utf-8?B?VmRrVkVJTkhETzNNV3dzYUxOSGhWNHgxc3A0UmVPeEx4R2RjTXJJRGlHOERQ?=
+ =?utf-8?B?R1VudEhYcjAvZVpsWTNsWlpuTjAxUE8zSHk2bXZJc0xxK2VmZjUvNHZWaGlh?=
+ =?utf-8?B?VENsK2MvdjZkZDZiZktaNyt5aVN6U05lWWlJUzRqZWFlOURuWXdEb1hSL1c2?=
+ =?utf-8?B?Wm1qNmx5dVFyTC9xZldwWkVHd0RjMk1JaFROaSs4OWZtcWovU05CZz09?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab39b4a2-48f3-4fdf-e1c9-08df2a6a5500
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 03:13:49.4358
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ntv4EQm+GZU+oA/iazTkGNd4wmOgL1nAJsAQwintnProAIeO2F/AOWDOnKb6iSJuJE5/RYE8TAOogLdtG76juA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP123MB2789
 
-+ akpm
-
-On 10/15/26 10:22 AM, Cen Zhang wrote:
-> The user_lock_res embedded in a DLMFS inode must remain alive until the
-> final unlock AST finishes accessing it. user_unlock_ast() clears
-> USER_LOCK_BUSY under l_lock, but releases that lock before calling
-> wake_up() on the embedded l_event. user_dlm_destroy_lock() waits only
-> for BUSY to clear, so it can return before the callback's last access.
+On Wed, Oct 14, 2026 at 10:02:25PM -0400, Aaron Tomlin wrote:
+> Commit a46c27026da1 ("blk-mq: don't schedule block kworker on isolated
+> CPUs") excluded isolated CPUs from hctx->cpumask to prevent worker
+> threads from executing block work on isolated CPUs. When all CPUs mapped
+> to a hardware queue are isolated (i.e. blk_mq_hctx_empty_cpumask(hctx)
+> evaluates to true), blk_mq_hctx_next_cpu() returns WORK_CPU_UNBOUND with
+> the intention of offloading execution.
 > 
-> With the native userspace stack, fs/dlm dispatches the unlock AST
-> asynchronously. Unlinking an attached lock with no remaining local
-> holders can therefore reach the following order while the parent domain
-> stays mounted:
+> However, kblockd_workqueue is allocated as a per-CPU workqueue
+> (WQ_PERCPU). When WORK_CPU_UNBOUND is queued on a per-CPU workqueue, the
+> workqueue core resolves the target CPU via raw_smp_processor_id().
+> Consequently, if a task executing on an isolated CPU submits I/O and
+> triggers an asynchronous queue dispatch with zero delay (e.g. upon
+> hardware queue congestion, tag/resource exhaustion returning
+> BLK_STS_RESOURCE, or plugging), &hctx->run_work is queued directly onto
+> the local isolated CPU's worker pool. This causes the local per-CPU
+> high-priority kworker (e.g. "kworker/6:1H-kblockd") to be scheduled on
+> the isolated CPU. In real-time environments, an active SCHED_FIFO workload
+> will starve this SCHED_NORMAL worker, causing hardware dispatch to stall,
+> in addition to introducing unwanted latency jitter on nohz_full cores,
+> thereby defeating the original objective of commit a46c27026da1.
 > 
->   Unlink and inode release          Native unlock AST
->   ------------------------          -----------------
->   submit final unlock
->   prepare_to_wait_event(): enqueue
->                                     clear BUSY under l_lock
->                                     release l_lock
->                                     delay before wake_up()
->   test BUSY: already clear
->   finish_wait(): remove waiter
->   return from the destroy wait
->   unlink and evict the child
->   RCU callback frees the inode
->                                     wake_up(&lockres->l_event)
+> Introduce blk_mq_hctx_unbound_cpu() to select an online housekeeping CPU
+> via housekeeping_any_cpu(HK_TYPE_TIMER) when executing on an isolated
+> CPU, and otherwise fall back to WORK_CPU_UNBOUND. Use this helper across
+> the unbound fallback paths in blk_mq_hctx_next_cpu().
 > 
-> The queued waiter can observe BUSY already cleared, leave the wait loop
-> and run finish_wait() without waiting for the AST's wake_up(). The
-> callback holds no inode reference, and keeping the parent domain alive
-> avoids disconnect draining the callback workqueue. The delayed wakeup
-> then accesses freed inode storage, causing a use-after-free in
-> waitqueue locking.
+> This ensures that:
+>     1.  When executing on an isolated CPU, deferred queue work is
+>         cleanly offloaded to an online housekeeping CPU across single-queue
+>         devices, hardware queues with empty cpumasks, and offline CPU
+>         fallback paths.
 > 
-> Keep l_lock held through wake_up(), as ocfs2_unlock_ast() already does.
-> user_check_wait_flag() takes the same lock, so teardown cannot observe
-> the cleared BUSY flag until the wakeup has finished. The callback and
-> its wrappers do not access the lock resource after this final unlock.
-> The waitqueue lock is released before wait_event() tests BUSY, so
-> extending the critical section does not invert their lock order.
+>     2.  The per-CPU high-priority kworker on the isolated CPU is not
+>         scheduled, avoiding priority inversion and latency jitter.
 > 
-> KASAN report as below:
+>     3.  When executing on a non-isolated CPU, WORK_CPU_UNBOUND is
+>         preserved, maintaining optimal local execution with zero CPU
+>         bouncing.
 > 
->     BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0x3d/0x60
->     Read of size 1 at addr ffff888117dc93c0 by task kworker/u17:0/871
-> 
->     CPU: 2 UID: 0 PID: 871 Comm: kworker/u17:0 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
->     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
->     Workqueue: dlm_callback dlm_callback_work
->     Call Trace:
->      <TASK>
->      dump_stack_lvl+0x93/0xd0
->      print_report+0xce/0x630
->      ? _raw_spin_lock_irqsave+0x3d/0x60
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __virt_addr_valid+0x20e/0x420
->      ? _raw_spin_lock_irqsave+0x3d/0x60
->      kasan_report+0xe0/0x110
->      ? _raw_spin_lock_irqsave+0x3d/0x60
->      ? _raw_spin_lock_irqsave+0x3d/0x60
->      __kasan_check_byte+0x36/0x50
->      lock_acquire+0x113/0x300
->      ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
->      ? pmbd_probe_hit_cookie+0xee/0x1c0
->      _raw_spin_lock_irqsave+0x3d/0x60
->      ? __wake_up_common_lock+0x27/0xb0
->      __wake_up_common_lock+0x27/0xb0
->      user_unlock_ast+0x21a/0x490
->      ? __pfx_user_unlock_ast+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? process_one_work+0x7c8/0x1b40
->      fsdlm_lock_ast_wrapper+0xf2/0x130
->      dlm_do_callback+0x2e9/0x6c0
->      ? __pfx_fsdlm_lock_ast_wrapper+0x10/0x10
->      process_one_work+0x9a8/0x1b40
->      ? __pfx_process_one_work+0x10/0x10
->      ? lock_acquire+0x190/0x300
->      ? lock_is_held_type+0x8f/0x100
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      worker_thread+0x65c/0xe40
->      ? __pfx_worker_thread+0x10/0x10
->      kthread+0x351/0x460
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __pfx_kthread+0x10/0x10
->      ret_from_fork+0x659/0x940
->      ? __pfx_ret_from_fork+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __switch_to+0x74f/0xf70
->      ? __pfx_kthread+0x10/0x10
->      ret_from_fork_asm+0x1a/0x30
->      </TASK>
-> 
->     Allocated by task 492:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      __kasan_slab_alloc+0x89/0x90
->      kmem_cache_alloc_lru_noprof+0x205/0x5c0
->      dlmfs_alloc_inode+0x2a/0x50
->      alloc_inode+0x69/0x230
->      new_inode+0x23/0x1a0
->      dlmfs_get_inode+0x47/0x2d0
->      dlmfs_create+0x18f/0x2f0
->      lookup_open+0x88f/0x13e0
->      path_openat+0x95e/0x2020
->      do_file_open+0x21e/0x470
->      do_sys_openat2+0xf4/0x1b0
->      __x64_sys_openat+0x136/0x1e0
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
->     Freed by task 0:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      kasan_save_free_info+0x3b/0x60
->      __kasan_slab_free+0x5f/0x80
->      kmem_cache_free+0x242/0x580
->      dlmfs_free_inode+0x25/0x60
->      i_callback+0x4b/0x80
->      rcu_core+0x6be/0x1ed0
->      handle_softirqs+0x1fa/0x8d0
->      __irq_exit_rcu+0x113/0x1e0
->      irq_exit_rcu+0xe/0x20
->      sysvec_apic_timer_interrupt+0x6c/0x80
->      asm_sysvec_apic_timer_interrupt+0x1a/0x20
-> 
->     Last potentially related work creation:
->      kasan_save_stack+0x33/0x60
->      kasan_record_aux_stack+0xa7/0xc0
->      __call_rcu_common.constprop.0+0x80/0x280
->      destroy_inode+0x131/0x1b0
->      evict+0x543/0x9f0
->      iput+0x680/0xb80
->      filename_unlinkat+0x36d/0x660
->      __x64_sys_unlinkat+0xb0/0x110
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
->     The buggy address belongs to the object at ffff888117dc92c0
->      which belongs to the cache dlmfs_inode_cache of size 1464
->     The buggy address is located 256 bytes inside of
->      freed 1464-byte region [ffff888117dc92c0, ffff888117dc9878)
-> 
-> [Physical-page and shadow-memory dumps omitted.]
-> 
-> Fixes: 8df08c89c668 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-> Cc: <stable@vger.kernel.org>
-> Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> Assisted-by: LLM
-> 
+> Fixes: a46c27026da1 ("blk-mq: don't schedule block kworker on isolated CPUs")
+> Cc: Ming Lei <ming.lei@redhat.com>
+> Cc: Jens Axboe <axboe@kernel.dk>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
 > ---
-> Changes in v2:
-> - Clarify the queued-waiter interleaving through finish_wait() before the
->   unlock AST wakeup.
-> - Correct Fixes to the original dlmfs introduction.
-> - Add Joseph Qi's Reviewed-by; keep the code change unchanged.
+> Changes since v1:
 > 
-> Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0055-v4-c1574edc9949e3a22edf@gmail.com
+>  - Introduce the blk_mq_hctx_unbound_cpu() helper to steer deferred work
+>    to an online housekeeping CPU only when executing on an isolated
+>    core, preserving WORK_CPU_UNBOUND and local cache locality for
+>    housekeeping cores
 > 
-> diff --git a/fs/ocfs2/dlmfs/userdlm.c b/fs/ocfs2/dlmfs/userdlm.c
-> index 617c92e7b925..60653db7b411 100644
-> --- a/fs/ocfs2/dlmfs/userdlm.c
-> +++ b/fs/ocfs2/dlmfs/userdlm.c
-> @@ -253,9 +253,9 @@ static void user_unlock_ast(struct ocfs2_dlm_lksb *lksb, int status)
->  
->  	lockres->l_flags &= ~USER_LOCK_BUSY;
->  out_noclear:
-> -	spin_unlock(&lockres->l_lock);
-> -
-> +	/* Complete the wakeup before a BUSY waiter can free lockres. */
->  	wake_up(&lockres->l_event);
-> +	spin_unlock(&lockres->l_lock);
+>  - Apply blk_mq_hctx_unbound_cpu() across all unbound fallback paths in
+>    blk_mq_hctx_next_cpu(), comprehensively covering single-queue devices
+>    (nr_hw_queues == 1), empty hardware queue cpumasks, and the offline
+>    CPU fallback path.
+> 
+>  - Elaborate in the commit log on the triggers for asynchronous queue
+>    dispatch (e.g. tag exhaustion, BLK_STS_RESOURCE backpressure, and
+>    plugging) and the SCHED_FIFO worker starvation hazard on isolated
+>    cores
+> 
+>  - Link to v1: https://lore.kernel.org/lkml/20261012012905.267920-1-atomlin@atomlin.com/
+> ---
+>  block/blk-mq.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/block/blk-mq.c b/block/blk-mq.c
+> index 025a799f35b9..df6103b91e60 100644
+> --- a/block/blk-mq.c
+> +++ b/block/blk-mq.c
+> @@ -2241,6 +2241,13 @@ static bool blk_mq_hctx_empty_cpumask(struct blk_mq_hw_ctx *hctx)
+>          return hctx->next_cpu >= nr_cpu_ids;
 >  }
 >  
+> +static inline int blk_mq_hctx_unbound_cpu(void)
+> +{
+> +	if (cpu_is_isolated(raw_smp_processor_id()))
+> +		return housekeeping_any_cpu(HK_TYPE_TIMER);
+> +	return WORK_CPU_UNBOUND;
+> +}
+> +
 >  /*
+>   * It'd be great if the workqueue API had a way to pass
+>   * in a mask and had some smarts for more clever placement.
+> @@ -2254,7 +2261,7 @@ static int blk_mq_hctx_next_cpu(struct blk_mq_hw_ctx *hctx)
+>  
+>  	/* Switch to unbound if no allowable CPUs in this hctx */
+>  	if (hctx->queue->nr_hw_queues == 1 || blk_mq_hctx_empty_cpumask(hctx))
+> -		return WORK_CPU_UNBOUND;
+> +		return blk_mq_hctx_unbound_cpu();
+>  
+>  	if (--hctx->next_cpu_batch <= 0) {
+>  select_cpu:
+> @@ -2281,7 +2288,7 @@ static int blk_mq_hctx_next_cpu(struct blk_mq_hw_ctx *hctx)
+>  		 */
+>  		hctx->next_cpu = next_cpu;
+>  		hctx->next_cpu_batch = 1;
+> -		return WORK_CPU_UNBOUND;
+> +		return blk_mq_hctx_unbound_cpu();
+>  	}
+>  
+>  	hctx->next_cpu = next_cpu;
+> -- 
+> 2.55.0
+> 
 
+Apologies.
+
+The proper approach is to query housekeeping_cpumask(HK_TYPE_TIMER)
+directly and select an online core via cpumask_any_and_distribute(). This
+avoids invoking smp_processor_id() altogether, and round-robins delayed
+work cleanly across available housekeeping cores. Furthermore, because CPU
+hotplug explicitly enforces that at least one housekeeping core must remain
+online on a running system, the intersection is guaranteed never to be
+empty:
+
+
+    static inline int blk_mq_hctx_unbound_cpu(void)
+    {
+        if (cpu_is_isolated(raw_smp_processor_id()))
+            return cpumask_any_and_distribute(housekeeping_cpumask(HK_TYPE_TIMER),
+                                              cpu_online_mask);
+        return WORK_CPU_UNBOUND;
+    }
+      
+
+Kind regards,
+-- 
+Aaron Tomlin
