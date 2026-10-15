@@ -1,130 +1,124 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B323451E432;
-	Thu, 15 Oct 2026 10:00:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3095948CD64;
+	Thu, 15 Oct 2026 10:05:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792058448; cv=none; b=W2WwlnOiXG6CRTvnhX1P8+4cNuDW1q02/04/uVON6iLXyUdnwHOLAIXgKLiVG0BKju2HpzPIGsO7t6rA+q+e3GyuK+3lpzeuUsoJITBRhVgzjolmbwDX1rjNn43S1lulH3pbLlkA51hTn4c/3NLYuqHs0WHH3ZoKrqjmtqAHHlo=
+	t=1792058746; cv=none; b=KXlNf7OzaNYfrwZAgmRHAqKXurHHdADaf2s7mpkSigX1MR7Qpux19qEw84/B38/nhJLoZcOv3XjomT9sZSAulrIFI6LOh3FwnSuiFb5lo9/Fdi+IhBe6TbkaouzreXN2Y9fpxmQfez9JS/uo9JQiEs1ji09EKOPsaskMASDwGTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792058448; c=relaxed/simple;
-	bh=QbIN93EEaUwasdfVFO+zHVjH1+qYXP1ZK+Wyo01XCjY=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=MvY5J+6BKGkYSTjuKpqUcSQqpPdUdXmV/htUUu+FM0qjWXh0c5k2KYMjogdnB+tvU/+1z2sNcZiTqrYnTLyvrWJm3JMUySTtmx4GOKRbhR33JZzGW2tkBLApofj8RrFmBdPC0XnhBINq0hPysV0GYQjvY4iosjMRLBSo5nZdzGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=NlbKmglz; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=HI4ElblI; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1792058746; c=relaxed/simple;
+	bh=knzTx/me3bvPcPv2wOCm15+VaykGUxquRNGyyfPcLo0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=faOVQ0eDnQDRgenR/adVJaTWUZhD9WdqCalniNx3dYsQhCjdPZ9JlosY4fybB4waJ8Us9vuiStyN9o15tLCyIhDs7z6hD6sdDFNlpbGfZWJ8K0woMY2oBze5qCbMxnTKDqYcNlAk2CZ9S7EQDaNg8j9WxHGYl6m9DSTiU8buQuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PMvC8hbT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="NlbKmglz";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="HI4ElblI"
-Date: Thu, 15 Oct 2026 10:00:35 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792058436;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yzL+mBaBQR2jziuCJZJ6qL7q3hEd/29DV2TOnBwV5uE=;
-	b=NlbKmglzr8ffqJ2ULtBXde4dVQ8adDnieOD29n2mByH6LnmDMfLPMKlNzL6kIROXI5r2lt
-	0vgzORebqDJ05x/Cr+/J5EyejbeydE+c53FRf0F2JNQWLG0XPZHZ3LgSHELRekMWmOb8qG
-	BTnUk+XUYxfFzFnpliHpwzICHYuIKZsUX4zc+AbitCfnQ1bpARfywhaxKdZuJxlbiXSqmh
-	yF0bEG6RHJ/7Uq897n2+fl4apxtCee3u1+ETK6ffi1cfDqKIL5QdY1+nP/Iv2IxQNnpZwF
-	I3Ks2qBNRCVmffepFynFAt40F0ZDcobQnCJlmqf1Y5EgaRTh9rpHh1L9KMeDig==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792058436;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yzL+mBaBQR2jziuCJZJ6qL7q3hEd/29DV2TOnBwV5uE=;
-	b=HI4ElblIUrlujpGhwWRHJMMViKPw/1IplcFKnqyZkj5wvo9CO078SH/BIRVdh3XKUEiblN
-	DsNDnaZ7CONNS7BA==
-From: "tip-bot2 for Karl Mehltretter" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/drivers] irqchip/jcore-aic: Fix lost IPIs on SMP
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
- Thomas Gleixner <tglx@kernel.org>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260928035408.25871-1-kmehltretter@gmail.com>
-References: <20260928035408.25871-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PMvC8hbT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF60A1F000C4;
+	Thu, 15 Oct 2026 10:05:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792058744;
+	bh=BmnveEK/Au4BHKu6rYCY9uow2IlDD6JSmyT+v9bH2+4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PMvC8hbTwx35EDF1mfYnZMdo12CxUa7ruvuP3Y82mmlRf6nW6YymuR6Tcy/Mb+npJ
+	 CHumy45pKLe7eTkZD4qaRuk/a2rhffK7JFuUmnfV8gv1xl4VZ4lXPKg2XxCXeTmAyw
+	 qtMzXlKyEOYuBJNBCxoLSZJZez86ilTsB+I2oVqH9ZbF9f9yhMSLgRcvr+xFSv387k
+	 VlmBWreq16FdrJWJUr1jcoJcJl7AXEbfPAR5Jxxp5VSPndhPOgWssiqOs/2LPbFMIY
+	 btqLsBM9oHjv2rBGf6IV4QQNKic5jGO+bJhgBxwt4ZQcyVt/jBPUiyvzCPP7QI5PAy
+	 i/ZzSYYuUFaKw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xHILG-00000003EfK-40ru;
+	Thu, 15 Oct 2026 10:05:43 +0000
+From: Marc Zyngier <maz@kernel.org>
+To: kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	kvm@vger.kernel.org
+Cc: Steffen Eiden <seiden@linux.ibm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	stable@vger.kernel.org
+Subject: [PATCH 2/7] KVM: arm64: Move OUTSIDE_GUEST_MODE publication past context being saved
+Date: Thu, 15 Oct 2026 11:05:34 +0100
+Message-ID: <20261015100539.1011760-3-maz@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261015100539.1011760-1-maz@kernel.org>
+References: <20261015100539.1011760-1-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179205843503.2666988.11091083191154009161.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, kvm@vger.kernel.org, seiden@linux.ibm.com, joey.gouly@arm.com, suzuki.poulose@arm.com, oupton@kernel.org, yuzenghui@huawei.com, fuad.tabba@linux.dev, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-The following commit has been merged into the irq/drivers branch of tip:
+OUTSIDE_GUEST_MODE indicates to the rest of KVM that the vcpu has
+exited. So far, this is set as soon as we return from the notional
+hypervisor (which with VHE is just a function call away).
 
-Commit-ID:     f556f008f704a8777c73fb3a4177dc57c0dbe769
-Gitweb:        https://git.kernel.org/tip/f556f008f704a8777c73fb3a4177dc57c0d=
-be769
-Author:        Karl Mehltretter <kmehltretter@gmail.com>
-AuthorDate:    Mon, 28 Sep 2026 05:54:08 +02:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Thu, 15 Oct 2026 11:59:22 +02:00
+However, code that uses OUTSIDE_GUEST_MODE as a synchronisation point
+relies on the vcpu state to have been written back to the in-memory
+structures. Clearly, this is not what is happening
 
-irqchip/jcore-aic: Fix lost IPIs on SMP
+Move the publication of OUTSIDE_GUEST_MODE to the point where the state
+is actually written, and give this write release semantics to ensure the
+correct ordering.
 
-Since commit bdf4e2ac295fe ("genirq: Allow per-cpu interrupt sharing for
-non-overlapping affinities"), handle_percpu_devid_irq() only runs an
-action whose affinity mask contains the current CPU. Only actions set up
-through the percpu_devid request functions have such a mask.
-
-handle_jcore_irq() passes every per-CPU interrupt to
-handle_percpu_devid_irq(). The J2 IPI is not a percpu_devid interrupt.
-j2_prepare_cpus() requests it with request_irq() and IRQF_PERCPU, so its
-action has no affinity mask and cpumask_test_cpu() reads through a NULL
-pointer. J2 has no MMU to catch this. The read returns whatever is at
-address 0, the action is not found, and IPIs are dropped as spurious
-("Spurious percpu IRQ20 on CPU1", printed once).
-
-Pass only percpu_devid interrupts (the PIT) to handle_percpu_devid_irq()
-and the other per-CPU interrupts to handle_percpu_irq() again, as before
-commit d7e3fd658248f ("irqchip/jcore-aic, clocksource/drivers/jcore: Fix
-jcore-pit interrupt request").
-
-Found with a two-CPU J2 model simulated from the J-Core RTL. Without
-this change the boot stalls with both CPUs idle shortly after
-"smp: Brought up 1 node, 2 CPUs". With it, the boot reaches userspace.
-
-Fixes: bdf4e2ac295fe ("genirq: Allow per-cpu interrupt sharing for non-overla=
-pping affinities")
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Assisted-by: LLM
-Tested-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Signed-off-by: Marc Zyngier <maz@kernel.org>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260928035408.25871-1-kmehltretter@gmail.com
 ---
- drivers/irqchip/irq-jcore-aic.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ arch/arm64/kvm/arm.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/irqchip/irq-jcore-aic.c b/drivers/irqchip/irq-jcore-aic.c
-index 94c05cf..b4fee02 100644
---- a/drivers/irqchip/irq-jcore-aic.c
-+++ b/drivers/irqchip/irq-jcore-aic.c
-@@ -37,8 +37,10 @@ static struct irq_chip jcore_aic;
-=20
- static void handle_jcore_irq(struct irq_desc *desc)
- {
--	if (irqd_is_per_cpu(irq_desc_get_irq_data(desc)))
-+	if (irq_is_percpu_devid(irq_desc_get_irq(desc)))
- 		handle_percpu_devid_irq(desc);
-+	else if (irqd_is_per_cpu(irq_desc_get_irq_data(desc)))
-+		handle_percpu_irq(desc);
- 	else
- 		handle_simple_irq(desc);
- }
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index 73706464d2653..8b46fafdd3494 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -1334,13 +1334,13 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+ 		smp_store_mb(vcpu->mode, IN_GUEST_MODE);
+ 
+ 		if (ret <= 0 || kvm_vcpu_exit_request(vcpu, &ret)) {
+-			vcpu->mode = OUTSIDE_GUEST_MODE;
+ 			isb(); /* Ensure work in x_flush_hwstate is committed */
+ 			if (kvm_vcpu_has_pmu(vcpu))
+ 				kvm_pmu_sync_hwstate(vcpu);
+ 			if (unlikely(!irqchip_in_kernel(vcpu->kvm)))
+ 				kvm_timer_sync_user(vcpu);
+ 			kvm_vgic_sync_hwstate(vcpu);
++			smp_store_release(&vcpu->mode, OUTSIDE_GUEST_MODE);
+ 			local_irq_enable();
+ 			preempt_enable();
+ 			continue;
+@@ -1356,7 +1356,6 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+ 
+ 		ret = kvm_arm_vcpu_enter_exit(vcpu);
+ 
+-		vcpu->mode = OUTSIDE_GUEST_MODE;
+ 		vcpu->stat.exits++;
+ 		/*
+ 		 * Back from guest
+@@ -1390,6 +1389,12 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+ 
+ 		kvm_arch_vcpu_ctxsync_fp(vcpu);
+ 
++		/*
++		 * All the state has been synchronised, let advertise
++		 * we're outside of the guest.
++		 */
++		smp_store_release(&vcpu->mode, OUTSIDE_GUEST_MODE);
++
+ 		/*
+ 		 * We must ensure that any pending interrupts are taken before
+ 		 * we exit guest timing so that timer ticks are accounted as
+-- 
+2.47.3
+
