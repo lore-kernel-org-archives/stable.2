@@ -1,120 +1,210 @@
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F14F4DD3C7;
-	Thu, 15 Oct 2026 11:55:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792065344; cv=pass; b=ehP4y+H2GyyLf0q8SeIv3GxEebZhGHGW/Znf2qTS3sxHG4714c6UOW1oAwMAt+wr7+lkAuf8wCJ/VN3B24zrB8gZV9FtZak2NYFuxwFgRxOZaFPHxq+DLrExrLNq89Jff8168aMMJ8r0EY6U2o7+IQjT7+ZGWUQE8UP3D3mAva0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792065344; c=relaxed/simple;
-	bh=vZ9uJcr+D1uX+jbJMZk9t6m4wV0GltbsDzD+BEsx7Kw=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=WVGrtGatL8uwSslbKmO1d6uretXsONum/7vHcaoyxk+NhQZYdMa/m6a9kDXl/KoBsi+AIyKpFCvSoHV6IG/gFqVBST1RKdOYqYndSOPCSb+OPkrY2coI5GeMU6f2yBpKrcb1Vf4eyCumQtrflmh2lTb2f15cSE5QWCVj+40wfzY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=S6549Zfr; arc=pass smtp.client-ip=165.173.180.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE14051992F;
+	Thu, 15 Oct 2026 12:02:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792065761; cv=none; b=g/zSq3cMit+yhw+npcMg3zKKu7597TyNtjRbi1jUXWoswQznjd8V9eLGLffT/ga5Tu6H7OdQgvOJ7Yl61OFFi3eTIFRgSTvaRvvHQZGHD/tRTdXDJOwe7KhJ8iEs5f27o0ye1MyCXEde/Iwx4CZwI2zeH2sc4nsQxTphQ3K2Xh0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792065761; c=relaxed/simple;
+	bh=4VYhtbbch1PucZRJi7zDbI0FaMg/6eh+VPE/GAoDWa8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cjtVKFwRUaSZ/lOudIx90aQRmmuebKDqE+CYFcbnQJEIMs/cTF7VUCC+Uz0tkCh/i6ZyJmroLFW48amMarm+0td0bIerA7TsGB5rncfphDi2rQ0LxkJjZ8HgVWOXGuaAiJvxSjnxzCRNn6bdshd6oJobhGhebVvsABIJtUp9pi4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=KZN+lQD3; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="S6549Zfr"
-ARC-Seal: i=1; a=rsa-sha256; t=1792065333; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=FZHZmRyh7kb5Qkqm5nfQrVb1rff9ca520ilJaQYGK8ylhd09YxFFqveml4hPXPqYMY16KnxZaQyhPBF2MbBvjZjgip/pvnXw/8viVRm+FcYAmp5In/NQVCBuybdDlsl8JfVK6OINlLUIunCSSk6gDKMMPL5GrQHbeceGhjiV5K8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1792065333; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=xEb5oCNmOAdVTUBDsHbqnDjppqSh5CCR9J0Pd4ST0DI=; 
-	b=lh66bEFcBLD98Mr/+76WCUuxapfNOmdCdKNdSCAgIXo1q4Zo1BMEgaPg6oQzNHWDZV5Rt213WW6Q7y0kNa412AVejwxkalQy4FwSRSM3oIyJbb/iO6FLHrld3GlDfmJXH4N3W1YA9k28C5CPtdfcYy8o2x7HC78L7Cy/1yJfAVo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792065333;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
-	bh=xEb5oCNmOAdVTUBDsHbqnDjppqSh5CCR9J0Pd4ST0DI=;
-	b=S6549ZfrD9fKTVeMvX6AEmhsROfLLcULzm/VEnaxJI6zB04+24QAMrDPg44kgUYb
-	qyUw5jfoq98b0hW6enFXIMMn87YjHFGN+/7EJxYlgLuC1o9fGTyc3ZZvfz3RuOk/wwL
-	RnB2OKg6wW0uTL0D2ZqPQZY23gpohu/qxCKivuCUUvmpAnXHrxC0gcOjfUk9IznX1Oa
-	Gmw9BXX/nexyaMCTYkzCkTiH5tvY6so7RGk+17uJK0A/n/FDj01CaTnrZPgwyK0xcjt
-	HvxMDAKv+Qbmz6f6UJKROEl/ZdIgiiOrqxoFeRRIMhzebbE7jHDdOpP2H8O8cETKBYh
-	jf+9rhEPVg==
-Received: by smtp.zohomail.com with SMTPS id 1792065331559294.33918562789336;
-	Thu, 15 Oct 2026 04:55:31 -0700 (PDT)
-Message-ID: <e82f18f8d1137a5916f9b47e05cd2572bf1bf911.camel@rong.moe>
-Subject: Re: [PATCH 3/3] thermal: intel: int340x: Evaluate _TMP exclusively
-From: Rong Zhang <i@rong.moe>
-To: Ali Ahmet =?gb2312?Q?Memi=810=946?= <aliamemis@disroot.org>, "Rafael J
- . Wysocki" <rafael@kernel.org>
-Cc: Len Brown <lenb@kernel.org>, Daniel Lezcano
- <daniel.lezcano@kernel.org>,  Zhang Rui <rui.zhang@intel.com>, Lukasz Luba
- <lukasz.luba@arm.com>, Armin Wolf <W_Armin@gmx.de>,  Hans de Goede
- <johannes.goede@oss.qualcomm.com>, Charis Stratakis
- <c.stratakis@proton.me>, 	linux-acpi@vger.kernel.org,
- linux-pm@vger.kernel.org, 	acpica-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org, 	stable@vger.kernel.org
-In-Reply-To: <20261014133013.94097-3-aliamemis@disroot.org>
-References: <20261014132703.93355-1-aliamemis@disroot.org>
-	 <20261014133013.94097-3-aliamemis@disroot.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Oct 2026 19:49:32 +0800
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="KZN+lQD3"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9kLvU531670;
+	Thu, 15 Oct 2026 12:02:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=locun8ff2u85xFcCJpcxGMt3fOvIahGuElM0G4kds
+	jE=; b=KZN+lQD3hjUCsic6eI8ee+0xqm8NVKZMCZ16vvnqYbBeMjhJ5Rys3IXbu
+	b8TnCAMxYFtgVfdt/M4HwnBY6/YpdVK01DPAyk/j4uTV1hlP6JRj4QdBbXKQmZL4
+	zGR3sO4L6TbRZOFR6x0oOEtoU0PL7Jyo5qWPbcjJOLk2Hv7CWCBiqFt7QaI8QRA3
+	+w0vdLGNHXqe9Bwt9P8AVNZxN9wn19M1sSINW92DsHuxnLQfOMFmdqEaZwvE0tal
+	mwze+F3G7pQKfzZZOhUR1oQxPdS+7fxfXP3YVhdRzdA3kmjkaGeA/NB2yMTpT6oZ
+	t25keoNVhmqCihWSq0xvPm0TRlcdw==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dv3sq1m-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 15 Oct 2026 12:02:20 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9ntdQ1891164;
+	Thu, 15 Oct 2026 12:02:19 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h9q2ysatk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 15 Oct 2026 12:02:19 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69FC2F7U49742278
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 15 Oct 2026 12:02:15 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 16B4420043;
+	Thu, 15 Oct 2026 12:02:15 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 596BE20040;
+	Thu, 15 Oct 2026 12:02:12 +0000 (GMT)
+Received: from Narayanas-MacBook-Pro.ibm.com (unknown [9.39.29.169])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 15 Oct 2026 12:02:12 +0000 (GMT)
+From: Narayana Murty N <nnmlinux@linux.ibm.com>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+        kvm@vger.kernel.org
+Cc: Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
+        Christophe Leroy <chleroy@kernel.org>,
+        Ritesh Harjani <ritesh.list@gmail.com>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>,
+        Alexey Kardashevskiy <aik@ozlabs.ru>, stable@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: [PATCH v1 1/1] KVM: PPC: Book3S: Protect TCE IOMMU table walks with RCU
+Date: Thu, 15 Oct 2026 17:31:37 +0530
+Message-ID: <20261015120137.28843-1-nnmlinux@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.56.2-10+b1 
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: 1WAN7T4O-doXYrz1-eOQ0s57d3CV7HFd
+X-Proofpoint-ORIG-GUID: elbUbtBM_G0zj52YCSSwR8rqL9TJHCIZ
+X-Authority-Analysis: v=2.4 cv=aqInmiZV c=1 sm=1 tr=0 ts=6ad0c0cc cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=h1-L7VZ7pQEXAjHVqXwA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA0NiBTYWx0ZWRfX7dyVA/CBAjJU
+ JQFrbAlG5OW48GOeSxVLiJVT4wOkx69OKJnkTz/z/NAq27URr33dL8/R9GxL7kN49gl01/dq5WM
+ Wp8NwaJTspVmtAFn0HKbpbHGCzN5RGg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA0NiBTYWx0ZWRfX0KetqF6ZPEvB
+ os8OU0yuAh0uLX4kDSeDU9TgqRuir1RL7mBXnr16htwDXh8jvqXWbG60jyXktKrsJ61MTIiX5JN
+ Ew7LyBPfap+ZD/EVwaTNOmAOE6ynZGtyhXjXjFjCLGSWMNSwVJCOr4nW3mdjGlC1J7EbEk0mfOq
+ PlKqdLgDPgn1mMcBuPOnhLDI5IMzHmfasTbDRMzWnTgYBpgWfAqVg6ecyYM5T53z72Xgaq6MUtD
+ N7b68oOBf9k1BmX8KLZ+qkiAVw6b5w+u6w1+XQm98Vuj0W8bq4h/k9B+zgTYKw9+pFW8Ou4sitt
+ QDb5/ITNUid6PLs/laG/Il4O9BJp4xDTkuoQakSp9tHKMz8eI9I6CYH4tvy3Iv/vOoJD0SXDZgl
+ Vowadk2x4IhsUgdZDcoIJf021yZrJAEgrLGg2CtvMkY13NrD4Yu6fNlk3rgC9V8gCU8T86HkVFb
+ xhaA+2CkVh9eK/aCEQg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 spamscore=0 malwarescore=0 suspectscore=0
+ bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610150046
 
-Hi Ali,
+Commit cad32d9d42e8 ("KVM: PPC: Book3s: Retire H_PUT_TCE/etc real mode
+handlers") moved the TCE hcalls from real mode to preemptible virtual
+mode.
 
-On Wed, 2026-10-14 at 16:30 +0300, Ali Ahmet Memi=C5=9F wrote:
-> On ThinkPad P1 Gen2 and P53, INT3403 _TMP switches the EC page selector
-> without taking the mutex the battery methods use, so it must not run
-> interleaved with them.
->=20
-> Evaluate _TMP with acpi_evaluate_integer_exclusive().
->=20
-> Fixes: d33e89d12295 ("thermal: core: Suspend thermal zones later and resu=
-me them earlier")
-> Reported-by: Charis Stratakis <c.stratakis@proton.me>
-> Closes: https://lore.kernel.org/all/37N_jFulf7n-Z55NfKfE71C_wVPxYvZ0xD_iR=
-Ug2fXu7TypDiF5PStQ6siSfVBih6fThg5WoPes8U5ZQpfVm_teMFcUGXFxz2DdMbfSWuws=3D@p=
-roton.me/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ali Ahmet Memi=C5=9F <aliamemis@disroot.org>
-> ---
->  .../thermal/intel/int340x_thermal/int340x_thermal_zone.c   | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.c=
- b/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.c
-> index 965700ee6962..de0a1fc7b817 100644
-> --- a/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.c
-> +++ b/drivers/thermal/intel/int340x_thermal/int340x_thermal_zone.c
-> @@ -18,7 +18,12 @@ static int int340x_thermal_get_zone_temp(struct therma=
-l_zone_device *zone,
->  	unsigned long long tmp;
->  	acpi_status status;
-> =20
-> -	status =3D acpi_evaluate_integer(d->adev->handle, "_TMP", NULL, &tmp);
-> +	/*
-> +	 * On some ThinkPads _TMP switches the EC page selector without
-> +	 * taking the mutex the battery methods use.
-> +	 */
-> +	status =3D acpi_evaluate_integer_exclusive(d->adev->handle, "_TMP", NUL=
-L,
-> +						 &tmp);
+The stt->iommu_tables list is RCU managed. Entries are added with
+list_add_rcu(), removed with list_del_rcu(), and released after an RCU
+grace period with call_rcu().
 
-Please merge it into the previous line.
+However, kvmppc_h_put_tce(), kvmppc_h_put_tce_indirect(), and
+kvmppc_h_stuff_tce() traverse iommu_tables using
+list_for_each_entry_lockless() without an RCU read-side critical
+section.
 
-With it resolved:
+A concurrent IOMMU table detach can therefore remove an entry while a
+TCE hcall is traversing or using it, without the traversal preventing
+the entry from being reclaimed.
 
-   Reviewed-by: Rong Zhang <i@rong.moe>
+Use list_for_each_entry_rcu() under rcu_read_lock() for these walks so
+that an entry removed concurrently is not reclaimed until the reader
+has completed.
 
-Thanks,
-Rong
+Fixes: cad32d9d42e8 ("KVM: PPC: Book3s: Retire H_PUT_TCE/etc real mode handlers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Narayana Murty N <nnmlinux@linux.ibm.com>
+---
+ arch/powerpc/kvm/book3s_64_vio.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
->  	if (ACPI_FAILURE(status))
->  		return -EIO;
-> =20
+diff --git a/arch/powerpc/kvm/book3s_64_vio.c b/arch/powerpc/kvm/book3s_64_vio.c
+index c5f3f5b29d89..d8625488c3c5 100644
+--- a/arch/powerpc/kvm/book3s_64_vio.c
++++ b/arch/powerpc/kvm/book3s_64_vio.c
+@@ -602,7 +602,8 @@ long kvmppc_h_put_tce(struct kvm_vcpu *vcpu, unsigned long liobn,
+ 
+ 	entry = ioba >> stt->page_shift;
+ 
+-	list_for_each_entry_lockless(stit, &stt->iommu_tables, next) {
++	rcu_read_lock();
++	list_for_each_entry_rcu(stit, &stt->iommu_tables, next) {
+ 		if (dir == DMA_NONE)
+ 			ret = kvmppc_tce_iommu_unmap(vcpu->kvm, stt,
+ 					stit->tbl, entry);
+@@ -613,9 +614,11 @@ long kvmppc_h_put_tce(struct kvm_vcpu *vcpu, unsigned long liobn,
+ 
+ 		if (ret != H_SUCCESS) {
+ 			kvmppc_clear_tce(vcpu->kvm->mm, stt, stit->tbl, entry);
++			rcu_read_unlock();
+ 			goto unlock_exit;
+ 		}
+ 	}
++	rcu_read_unlock();
+ 
+ 	kvmppc_tce_put(stt, entry, tce);
+ 
+@@ -697,7 +700,8 @@ long kvmppc_h_put_tce_indirect(struct kvm_vcpu *vcpu,
+ 			goto unlock_exit;
+ 		}
+ 
+-		list_for_each_entry_lockless(stit, &stt->iommu_tables, next) {
++		rcu_read_lock();
++		list_for_each_entry_rcu(stit, &stt->iommu_tables, next) {
+ 			ret = kvmppc_tce_iommu_map(vcpu->kvm, stt,
+ 					stit->tbl, entry + i, ua,
+ 					iommu_tce_direction(tce));
+@@ -705,9 +709,11 @@ long kvmppc_h_put_tce_indirect(struct kvm_vcpu *vcpu,
+ 			if (ret != H_SUCCESS) {
+ 				kvmppc_clear_tce(vcpu->kvm->mm, stt, stit->tbl,
+ 						 entry + i);
++				rcu_read_unlock();
+ 				goto unlock_exit;
+ 			}
+ 		}
++		rcu_read_unlock();
+ 
+ 		kvmppc_tce_put(stt, entry + i, tce);
+ 	}
+@@ -739,7 +745,8 @@ long kvmppc_h_stuff_tce(struct kvm_vcpu *vcpu,
+ 	if (tce_value & (TCE_PCI_WRITE | TCE_PCI_READ))
+ 		return H_PARAMETER;
+ 
+-	list_for_each_entry_lockless(stit, &stt->iommu_tables, next) {
++	rcu_read_lock();
++	list_for_each_entry_rcu(stit, &stt->iommu_tables, next) {
+ 		unsigned long entry = ioba >> stt->page_shift;
+ 
+ 		for (i = 0; i < npages; ++i) {
+@@ -749,13 +756,16 @@ long kvmppc_h_stuff_tce(struct kvm_vcpu *vcpu,
+ 			if (ret == H_SUCCESS)
+ 				continue;
+ 
+-			if (ret == H_TOO_HARD)
++			if (ret == H_TOO_HARD) {
++				rcu_read_unlock();
+ 				return ret;
++			}
+ 
+ 			WARN_ON_ONCE(1);
+ 			kvmppc_clear_tce(vcpu->kvm->mm, stt, stit->tbl, entry + i);
+ 		}
+ 	}
++	rcu_read_unlock();
+ 
+ 	for (i = 0; i < npages; ++i, ioba += (1ULL << stt->page_shift))
+ 		kvmppc_tce_put(stt, ioba >> stt->page_shift, tce_value);
+-- 
+2.54.0
+
