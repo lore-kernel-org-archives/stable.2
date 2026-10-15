@@ -1,59 +1,39 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F6E4AB3CC;
-	Thu, 15 Oct 2026 08:01:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17064AD7FB;
+	Thu, 15 Oct 2026 08:02:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792051301; cv=none; b=FK1yKFZ7IbuF2imBerdZ5W9EIwc6PVkl9aavwvahmMeVZSjfwPR4/GAvoX30RfJE0rLm2Bem13vb9PzY0bWdf4LcWyLmssXi+InSar6zPIl6/rd3iuzwO8kNKJNtqTB4hB0p3LAk9XQ4LAU1pxaWIJ8STJFOnb/l1A+LqXfwiF4=
+	t=1792051369; cv=none; b=j4y8iw2e8EsgALcaBNh25GaLmUz2U6gWLPFJK6NJCJBzY+trdfWQsy4gsQW6V8OmRH2F0/dMl6ubC9mmHx1PcYsPRphwXsD3PKtzZkX5y+c28/BLIOGPYsG08iIZIC8dCUvjaJARFvEb92/b9f1rZFiq7wblE1vQEwUDNEofspE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792051301; c=relaxed/simple;
-	bh=TMBAise+eet+ZBmb0cxVaSMYfYf4z593ofd0AGvPruk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZsXpXWRdS0J++ebTWNdQ3uGTA43jVr6ryNvW/EbVPvGBis0iF+lFZI/PvoMM9jaG1bgzXIrZ84zEAMfzso4QoP8KRF8g0zB8bWT2Lreja9QgYK3fKvCf1IKLwuLRnua7TNr6jzbXgzhQMaXJf6mXnmgW7ECQqWHHXH/JEGStUeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bYz4gy4y; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792051369; c=relaxed/simple;
+	bh=TbYg1VTiD1UEEO/d4dClCaNPHQwEu329pFow9Nnf4Uw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sVfXEnpoGEcTXqVbc5OBor9ExbohlqavYqe3Ug0Fr1v4CngsCjcIUu9vNSdPEFaXTn8fGQVCjooyDXZtNRxOIYWOFfIcC4fFTIYHU0F6iIfXMEB0o8y3I6kdu0H86EFA4MIXQDU1w+KVJYnnLWhonJRboXV5oKRC8k1yCB/lb9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=XoBL5jbx; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bYz4gy4y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792051300; x=1823587300;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=TMBAise+eet+ZBmb0cxVaSMYfYf4z593ofd0AGvPruk=;
-  b=bYz4gy4y7F4AWvYZANxsl+/9+y+YhUCJTVOkYEgnYZ36anNqD5tU1gbD
-   n3ARJTcvZVrqaRNHpmVbLmWzmYBNcYxq75tP7UVyuBiQLIYvwnWelZgco
-   Em/QyjM2+rO0YnG+4qZ7Ya4qHpfoyh19hECF+QZRmK9Njik7tAsQMDGtU
-   JNPwdf5prv1n1rfXLVwJmTyDEQY+CmOT/gtJMLsOiWakjUi/5wga3+SkQ
-   Y/W+CBFg/bTJjQI2whNKVTaFuaJJbKPr7QUmBLHa5P5tGVNFlwq7QLow2
-   rV9B26YjUBvS4edWZIvPHRlUVNFak4PK9W3x9rFBbDi7QG2YPGuuHjh3y
-   Q==;
-X-CSE-ConnectionGUID: NfiTUb7zSpiUK+1+SqhvFA==
-X-CSE-MsgGUID: Pwhx30+XRgilrpUkdcyBGg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="916096"
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="916096"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 01:01:39 -0700
-X-CSE-ConnectionGUID: gCHsrrWORraAVLo4TzRKtA==
-X-CSE-MsgGUID: H7au3/f+Sl65Wny6eb7b/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
-   d="scan'208";a="3465336"
-Received: from unknown (HELO WEBA2062.iind.intel.com) ([10.66.228.2])
-  by fmviesa011.fm.intel.com with ESMTP; 15 Oct 2026 01:01:37 -0700
-From: Ravindra <ravindra@intel.com>
-To: linux-bluetooth@vger.kernel.org
-Cc: kiran.k@intel.com,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="XoBL5jbx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=cq
+	/MdyqyAlLfkajn/GEbXJjDzR7rtOrjoZXmiCtnRaQ=; b=XoBL5jbxC2BXbzCUkG
+	Hj/BQr70JEe7QRYZvbttGMBMNc90iLawCeXIExFFzDvr/nK/hNpogRMs8HkI/Swb
+	hlVWwK6EXCj18RRGTHoIp5lTKL5h8j3yKm0msxnRcTYTuNWzzynRT4v7R6C+sQrd
+	hHTVSAR7y4Z8C0LX2bePFPZdM=
+Received: from colol4bi5.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3VxqSiNBqbM7YAA--.26764S2;
+	Thu, 15 Oct 2026 16:02:27 +0800 (CST)
+From: Binbin Deng <18983559317@163.com>
+To: cem@kernel.org,
+	djwong@kernel.org
+Cc: linux-xfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	luiz.dentz@gmail.com,
-	marcel@holtmann.org,
 	stable@vger.kernel.org,
-	chethan.tumkur.narayan@intel.com,
-	Ravindra <ravindra@intel.com>
-Subject: [PATCH v2] Bluetooth: btintel_pcie: Use blocking reset for FLR
-Date: Thu, 15 Oct 2026 13:34:30 +0530
-Message-ID: <20261015080430.3336201-1-ravindra@intel.com>
+	Binbin Deng <18983559317@163.com>
+Subject: [PATCH v1] xfs: set healthmon mount cookie before publishing it
+Date: Thu, 15 Oct 2026 16:02:25 +0800
+Message-ID: <20261015080225.45215-1-18983559317@163.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -62,66 +42,51 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3VxqSiNBqbM7YAA--.26764S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CF47urW5Zr1fZr45JFWDJwb_yoW8Ar18pF
+	ZxZ3s0kryvyry0vFsrJ3Wvyay7Jw4rCr1UKrn8Ww1fZw45JwnYvF9rKw4ag3W5ArZ2gF18
+	ZrWaqwn2qa98AaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UwF4iUUUUU=
+X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC4BMV+GrQiJP7bQAA3p
 
-Several paths request an FLR asynchronously, including S3/S4 resume,
-resume recovery, HCI reset, and hardware-error recovery. A queued reset
-may run before the PM callback releases the PCI device lock, causing
-pci_try_reset_function() to return -EAGAIN without attempting the FLR.
+xfs_ioc_health_monitor() allocates the healthmon object with kzalloc(), so
+mount_cookie starts as zero.  zero is also DETACHED_MOUNT_COOKIE, but
+xfs_healthmon_attach() publishes hm through mp->m_healthmon before storing
+the mount cookie.  A concurrent reporter can therefore acquire hm from
+xfs_healthmon_get(), see the detached cookie in xfs_healthmon_push(), and
+drop the event even though the monitor is being attached.
 
-Use pci_reset_function() so reset work waits for the device lock and
-performs the FLR once the PM callback releases it. If the reset fails,
-clear the recovery in-progress flag so a later reset request can try
-again.
+This is reachable by racing XFS_IOC_HEALTH_MONITOR with an operation
+that reports a health event, such as a filesystem shutdown.  Initialize
+the mount cookie before making hm visible through the RCU pointer so
+reporters always observe an attached monitor.
 
-Fixes: 9c36951474d8 ("Bluetooth: btintel_pcie: Refactor FLR to use device_reprobe()")
-Signed-off-by: Ravindra <ravindra@intel.com>
+Found during a static-analysis-assisted audit: candidate sites were
+surfaced by a Coccinelle rule, and the reader/writer paths were
+confirmed by LLM-assisted (GLM-5.3) code inspection.  The issue was
+not observed at runtime; it is identified by code inspection only.
+
+Fixes: a48373e7d35a ("xfs: start creating infrastructure for health monitoring")
+Cc: stable@vger.kernel.org
+Signed-off-by: Binbin Deng <18983559317@163.com>
 ---
- drivers/bluetooth/btintel_pcie.c | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
+ fs/xfs/xfs_healthmon.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
-index 3a555aa50c87..92b91f058fce 100644
---- a/drivers/bluetooth/btintel_pcie.c
-+++ b/drivers/bluetooth/btintel_pcie.c
-@@ -3745,13 +3745,10 @@ static int btintel_pcie_perform_flr(struct btintel_pcie_data *data)
- 	struct pci_dev *pdev = data->pdev;
- 	int err;
- 
--	/* pci_try_reset_function() avoids the device_lock ABBA against
--	 * btintel_pcie_remove(): .remove() runs with device_lock held and
--	 * then waits for this work via disable_work_sync(); the blocking
--	 * pci_reset_function() would deadlock by trying to re-acquire
--	 * device_lock here.
-+	/* Reset work runs asynchronously, so it can wait for the device lock
-+	 * held by a PM callback to be released.
- 	 */
--	err = pci_try_reset_function(pdev);
-+	err = pci_reset_function(pdev);
- 	if (err) {
- 		BT_ERR("Failed resetting the pcie device (%d)", err);
- 		return err;
-@@ -3817,6 +3814,7 @@ static void btintel_pcie_reset_work(struct work_struct *wk)
- 		enable_work(&data->hwexp_work);
- 		enable_work(&data->fwtrigger_work);
- 		enable_work(&data->mbox_work);
-+		clear_bit(BTINTEL_PCIE_RECOVERY_IN_PROGRESS, &data->flags);
+diff --git a/fs/xfs/xfs_healthmon.c b/fs/xfs/xfs_healthmon.c
+index 2bdd747f1ead..05d6f0494139 100644
+--- a/fs/xfs/xfs_healthmon.c
++++ b/fs/xfs/xfs_healthmon.c
+@@ -114,8 +114,8 @@ xfs_healthmon_attach(
  	}
  
- out:
-@@ -3841,10 +3839,9 @@ static void btintel_pcie_reset_work(struct work_struct *wk)
-  *     in-flight one (whose recovery will reinitialize the device
-  *     regardless of the dropped trigger's variant).
-  *
-- * The bit is cleared only by .remove() / re-probe via fresh devm
-- * allocation, which is the intended one-shot semantics: a reset
-- * tears down and re-probes 'data', so there is no "in-flight"
-- * reset to follow up after device_reprobe() succeeds.
-+ * A successful reset clears the bit through .remove() / re-probe via
-+ * fresh devm allocation. A failed FLR clears it in reset_work so a
-+ * later request can retry; there is no in-flight reset after failure.
-  */
- static void btintel_pcie_request_reset(struct btintel_pcie_data *data,
- 				       enum btintel_pcie_reset_type type)
+ 	refcount_inc(&hm->ref);
+-	rcu_assign_pointer(mp->m_healthmon, hm);
+ 	hm->mount_cookie = (uintptr_t)mp->m_super;
++	rcu_assign_pointer(mp->m_healthmon, hm);
+ 	spin_unlock(&xfs_healthmon_lock);
+ 
+ 	return 0;
 -- 
 2.43.0
 
