@@ -1,79 +1,78 @@
-Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A372509EE2
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 21:05:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2DC749C4CC
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 21:11:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792098347; cv=none; b=ZzeOGPx2zisRbJeTvQf3Nd7JaTFqWk1k94oBXf5G2QjDRwYrYJg91LQxBicGzcCHEXtf5yRCz24ZHK9ffMfZYO930CNT/UADmH4pyIBtEGdI7Oyz6eT5vDzI22eUWf5anhQdPXmS27uFwbcS5T1ZrrkpvGlX+E33vjs3ORbzA5U=
+	t=1792098700; cv=none; b=HkOiGgJ1vjMwFbjRa+QMX000kk+LGK3+dxj1hrl6qQGvmOgfg9zsKaa2U8pAiYIpgP7CBfv4647epgJGK/YZUPJ1sAvQhOuwJm0GP4sEceId2PvtjYQB3rIl8PTyLlGn9K6t3C2+DTEkS0Xd1XY8MhY9hDu9eFqClxy0F47W520=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792098347; c=relaxed/simple;
-	bh=aOCBkB1ohjW/2eEMaXRNHBXwAny3o8OCwYXHqgLf9H4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m1qPl7IcCcwLObOEjmMTqgB+gZCk2tHS4iKEYS/0Nwjb+eypSxR3Ane/WVyZsuJnEAvRq/ek8Bhz3lCvxk94TrDj8HLJvdneaxZvmUJXp63YZF6Kpn/dDDVZapI3QV2jcEbxiDrG4qPF3TjDwDY4alB3L4cYG0HEhbp69LwPDDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=EjIbK7Kj; arc=none smtp.client-ip=209.85.219.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1792098700; c=relaxed/simple;
+	bh=BpDy0Q+B3EJV+k+IAamdW+DmPn+p9LF1Y0jblVqAnRg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=to9q/v2pARV6b+yQ7p8Vy5SHYS3N43Hvw6Fct5ulaV2kmP5IKvAEJyVCNAE9QZKQeZfE+lwE3eUNLZ+tmjgKuJmWB5nowLtTDG7/9reE2v2ETHsawJWgkRviAsLzqsxr3LWPo+DIE+dfOosAhACske0LY4+pF2RtxHnPIGq//eE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=n/So3/n3; arc=none smtp.client-ip=209.85.219.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="EjIbK7Kj"
-Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-917a20e9efeso80522286d6.2
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 14:05:43 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="n/So3/n3"
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-917866225aaso78229176d6.1
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 14:11:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792098343; x=1792703143; darn=vger.kernel.org;
+        d=mojatatu.com; s=google; t=1792098692; x=1792703492; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ncaxmlrNNhxOdRmkKnio/byckek+qNzzNxHvBVY91N4=;
-        b=EjIbK7Kjpxf2YT3DyE7L4UfEkLVCRY0Qg6K3INUyj/eQFCirmHGP1SuYRpRjFdO/Dv
-         V4oAnjnMB1hTl0B4nQQEy9eyWm6o/0wjGFSKL+qVhuxAi2qKrBqPyMeoHBRqXTzROEbw
-         tg8vJ7elASquQJyzWDjT7jhXYBtVC5TXIScesmvn6CZ+QGdpLvElRhyLyiyg07MpBcps
-         hOq1CjzsIii3AjApiV+IfthHGfy8+TdUZ7ptYfmxKXvlm1YUaYKnU8N7sxHRmicMSyM3
-         onLZ66xe3y17rRcC4WA63lfz+gFBPkWfuxpmf8veFfZsppS7zkeneGDuwX5l+IPKaNqx
-         6nTg==
+        bh=vNsdGGmxBM/0rEd4hmp6LWXsKxPRAH6Q547gkcbLIac=;
+        b=n/So3/n3IFvEv6sW4pIGSj8LeUqo3s/ROJznrJjsr9toJnmY23QJB2YUJnH42AkQL3
+         wetiPa6+tALAkOUUWlEzIt9wvLP38xOffVUNDpI/wfNxUuDh7RjxnBK/EZttaIz6d48J
+         aPKCj0EejOn+jRqXC0inavTboA/CBZkAhqvQ8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792098343; x=1792703143;
+        d=1e100.net; s=20260707; t=1792098692; x=1792703492;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ncaxmlrNNhxOdRmkKnio/byckek+qNzzNxHvBVY91N4=;
-        b=SxTYqHWoyNROC6C6QEmWK8tmf7J12MvEOHfnmOMMIP5o01nshtQ5ekhF6DFKYreEqv
-         xoF87g73iWVq6GLVcjTUXus+KM3K6KJULU+gGa8rtOAmWcQFsU/JYR0MVaKe3w4xrzYq
-         xUtLmcXSIAWk60OHsqAB4wC8ghbt4uyKq/2OqoTL/Jnc4tl4enFzVEp5Wun43x5njKeq
-         FiDm1X+cHK8/+XSOkm/YejqTL24/pIe6zIO98oX8HPBJITEi9tp8sm7vj+CMxOr/tpnr
-         iCenmbdKUnBrst6BsjdR7qLXaKR4FyCsbSVHACGplHfC08wIMs01KOD8b9OdpNl8Ltdr
-         sOqA==
-X-Forwarded-Encrypted: i=1; AKwUvBywUpsOK0mzujyDtV6mUS/At+yoIPeNDb9kihc3OUEjku71AbDIR4Gr21ltb8wbwYDdN33qyZA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTOjyYOekpoKWo2zu5rWmXa8QuOyZ+0SOsl+RtJClaCqM/TD7e
-	oSOLLwCr9hO9la2Bj3ntxb3vkMVZNUitZnnJQ1D4dxrvGUoMJjnCYY6qkBzHscGvZ8M=
-X-Gm-Gg: AYBFou224BCZD2SU+mEuZYzfCmmh07ZGhMgagthkSxskoGkrvQXpVWtkijaQf1zJFig
-	y6GdtaVuAvqy+jrwcvZbdl45ALh6fiB3zt9WCgF/oHZoapHrFQyqIFZlNGrGaP0UZtBZAwTG7BY
-	HpfsSTVCsWu9VrFcJjs+R/O8Pq/98Wj5Bh70H0yZ+gR/groJZpxd1fQbpvs4CEt/Ifz7oH13h8Y
-	RE3IaiS2VJNiv7QZ1U0GUfX+IfSmKe+edq0pBvBaYj8JgqGm/a46MyiQCVH3hWod9StScZUQ60D
-	wIhwojbzoS+QfxPdOz0JYJPnuj4Yk9oJbrHQg1IlLP8a3uadX59N35yZ4Yaf5N+7TXycoo/c4/P
-	bV+9XEV7FdcVwbz8tqZQkXj+cMPyTavyZReO0aM56Dr0ckK+SWgwQUJjahU/WB+ZuPSdTVmky24
-	VA2extYk+vbWlxcTsKEVBJlqusI84fMuyYaNFV5EgUw/7LlT94qlGDmepBURItzZqD+UHProHjZ
-	s5WjW5oLZI6NkVzhPXlx2bL0f7Zoc+ORnfDqlzj90q0n8+FeFRes+AO/mGk
-X-Received: by 2002:a05:6214:4497:b0:917:edd4:d1d5 with SMTP id 6a1803df08f44-91b557bd604mr362771606d6.42.1792098342597;
-        Thu, 15 Oct 2026 14:05:42 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcbbb0d44sm5187326d6.47.2026.10.15.14.05.41
+        bh=vNsdGGmxBM/0rEd4hmp6LWXsKxPRAH6Q547gkcbLIac=;
+        b=GrCGXItA0kqSuBDgnCE0aDs5hCapZoKTYc+3JuZck+oUMKbqtVBVgcc/FxNbyI6vyh
+         Dqn1ZYJijjLlC1Bn+naIMDtJ8I8G/sUczahQUX0Fc/0Vv36jyFMAX5nBDl5htbiQsyxv
+         Lp5jlQVJVSx6c7TZuOmQ7vx6NpGhvDpfWZB94HOSppdd0lE2+RYInYdFB8Z37CFxBfkM
+         LsR8YTPSYhGNpNsqRixRPEekichrMi/Dd9qkdp4WHH7c0cp8A/Nf0U5LDxV0hXIzivL2
+         8ZJZgkvj2OEiqy8JHwMr9Yl8hy/Mu2GvsIM9xr2FEN/vGmLy1Tx7NZhrMGEZYmAGy1l2
+         q/3w==
+X-Forwarded-Encrypted: i=1; AKwUvBzavz6QtR56cgnWOcYpZtd1nKWSFHbG5eFhmf4q1OgVtwnA6NDBX0JjV+kM35wTAXZ9lsbx1Us=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL91gekOJk3OvEVljfkxQ6GwuVdlJoyshRbpf1w4hV7vOPkCKtj
+	fYktPXO33OcPGbNt8VZrb2v587Q9/t8SS/iJS2uVto7dfXM15GHxWOOnk1UtCPsSFQ==
+X-Gm-Gg: AYBFou02Q2vZEXCV12sHbfcycOayLHssm8QkeZUdAC8ABC1Ow0/kmSMsFyvDiHmVF6W
+	sMCvVO27uOSLThmFpC6fKYL0sDpoQc8WXAMRIGVIKUjVrJoetnLgvTjmIYhR9nPQ1EmK66lW+pl
+	TFWuMeEw1oz6pt3TQA2jJzA2r+PFyvx5Bu4XGIVSBZ/lsfa8WrxuwWyDf1NLKOCQj0kqdCfYr4p
+	mSMC7RvYK2o4g8dMl7ZBzGmotiFp1nUpij6pH0Gptuwm/gS+cMdseimtGjp3tli0AWSuPr9lcYg
+	5h6aSE94hbdIZf3xfRaipvnKhIb5WOBZR1t+yeT1Cu3B+9MHFA4T5MuwIztJidOFI9VRhMb6yiZ
+	Qrs0/lBJ28RY18SBb221dXFS9oGQDYFQt9EfPGdVWqTxLc7vCxrz8OlDSNjJhKixKaj4tktXMtr
+	e5YPgxEtU/M+H2WVaTdvQV+ma4e/XJoX1U9ewQzt88g09DhpsQbjv3vPhBkLgiRTWrIXWFLdyDJ
+	ISg3mq7aGfYk1rP3osiStBhbuOisq0x2coeQVcX9PAz
+X-Received: by 2002:a05:6214:5085:b0:912:517b:40e7 with SMTP id 6a1803df08f44-91b557ccb37mr349370616d6.46.1792098692267;
+        Thu, 15 Oct 2026 14:11:32 -0700 (PDT)
+Received: from mbili.waya ([64.203.83.2])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcb8b6865sm5673036d6.2.2026.10.15.14.11.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 14:05:41 -0700 (PDT)
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	akpm@linux-foundation.org,
-	vbabka@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	mgorman@techsingularity.net,
+        Thu, 15 Oct 2026 14:11:31 -0700 (PDT)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Victor Nogueira <victor@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Sashiko <sashiko-bot@kernel.org>,
+	bpf@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] mm/page_alloc: validate zonelist slots against concurrent rebuilds
-Date: Thu, 15 Oct 2026 17:05:39 -0400
-Message-ID: <20261015210539.3243563-1-gourry@gourry.net>
-X-Mailer: git-send-email 2.56.0
+Subject: [PATCH net v3] net/sched: clamp skb->queue_mapping before indexing the tx queue
+Date: Thu, 15 Oct 2026 17:11:27 -0400
+Message-Id: <QDISC-MD1X.v3.r0.20261015165943-1@mojatatu.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,72 +81,186 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Onlining the first block of a zone (e.g. via virtio-mem or a DIMM)
-rebuilds every node's zonelists in place. An allocation in flight can
-then be served from a zone it never asked for: a GFP_KERNEL allocation
-can get a page from ZONE_MOVABLE.
+This issue was caught by Sashiko (nipa). A producer-side path cap is
+already merged (ea4d4b5dddb5); this patch adds the matching consumer-side
+cap.
 
-The allocation succeeds, so the zonelist-retry logic never triggers,
-and an unmovable page in ZONE_MOVABLE breaks offline of that block.
+The issue:
+The tx queue is picked and capped in netdev_core_pick_tx(), before the
+__dev_xmit_skb() qdisc enqueue path. A tc BPF program running inside
+egress qdisc (not clsact) can then change __sk_buff->queue_mapping;
+that store is never re-checked. bpf_convert_ctx_access() bounds it only
+by NO_QUEUE_MAPPING, not by the device's queue count.
 
-Recheck each zone the loop visits against highest_zoneidx and the
-nodemask, using the zone pointer itself. This covers both cases and
-is a no-op without a concurrent rebuild.
+On dequeue, qdisc_restart() calls netdev_get_tx_queue(), which
+indexes dev->_tx[] with that value. netdev_get_tx_queue() guards it with
+just a DEBUG_NET_WARN_ON_ONCE, so sch_direct_xmit() takes the out-of-bounds
+txq->_xmit_lock and writes txq->xmit_lock_owner past the end of the
+allocation on non-lltx devices such as ifb. Drivers that index their rings
+from skb_get_queue_mapping() (ex: ifb) go out of range the same way.
 
-Reproduced with a kprobe harness holding a GFP_KERNEL|__GFP_THISNODE
-allocation across the online.
+The Fix:
+Cap the mapping at the consumer and write the capped value back, so both
+the qdisc's _tx[] lookup and any later driver read stay in range. The cap
+folds into the dequeue path instead of a separate walk over the returned
+list: dequeue_skb() caps the head, and each bulk helper caps the element it
+appends. netdev_cap_txqueue() already logs a ratelimited notice and selects
+queue 0. The single-packet case pays one extra compare against
+real_num_tx_queues.
 
-Fixes: c33d6c06f60f7 ("mm, page_alloc: avoid looking up the first zone in a zonelist twice")
+A bulk-dequeued list is transmitted under the single tx queue lock of the
+head skb, so every element must belong to that same queue. The fast bulk
+helper (TCQ_F_ONETXQUEUE, taken on BQL devices by the per-queue children
+of mq, mqprio, taprio and htb, and by any qdisc on a single-queue device
+such as the prio root in the reproducer) must therefore compare each
+capped follower against the head and requeue a mismatch, exactly as the
+slow helper already does; appending a follower that caps to a different
+queue would send it under the wrong _xmit_lock.
+
+Conditions to recreate the bug:
+Load a SCHED_CLS or SCHED_ACT program that stores __sk_buff->queue_mapping
+(a tc BPF action is enough), attach it to a transmit qdisc (for example a
+matchall filter on a prio root), and send a packet. With a 1-queue device a
+store of 1 indexes one past dev->_tx[]. Under KASAN with panic_on_warn=1
+the unfixed kernel faults with "BUG: KASAN: slab-out-of-bounds in
+sch_direct_xmit". Loading the program needs CAP_BPF/CAP_SYS_ADMIN, so the
+trigger is root.
+
+Fixes: 74e31ca850c1 ("bpf: add skb->queue_mapping write access from tc clsact")
+Reported-by: Sashiko (nipa) <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/netdev/179033713973.2160803.4914570693994398206@kernel.org/
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-9R8V.v2.20260924072708%40mojatatu.com
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-MD1X.v1.20261005193231%40mojatatu.com
+Link: https://lore.kernel.org/netdev/20261015125822.GH83879@horms.kernel.org/
 Cc: stable@vger.kernel.org
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Victor Nogueira <victor@mojatatu.com>
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 ---
- mm/page_alloc.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+v2 -> v3:
+- Considered Comments from Simon Horman (hunk counts did not match the
+  diff content; patch did not apply):
+  https://lore.kernel.org/netdev/20261015125822.GH83879@horms.kernel.org/
 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 6ed36ba4d055..a1254f2e1892 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -3782,6 +3782,19 @@ static inline unsigned int alloc_flags_cma(gfp_t gfp_mask)
- 	return ALLOC_DEFAULT;
- }
+v1 -> v2:
+- try_bulk_dequeue_skb(): the fast bulk helper (TCQ_F_ONETXQUEUE) capped
+  each follower but appended it without comparing it against the head, so
+  a mismatched follower was still sent under the head's txq lock. Compare
+  the capped follower with the head and requeue a mismatch to skb_bad_txq,
+  matching try_bulk_dequeue_skb_slow(). Reported by Sashiko (nipa).
+ net/sched/sch_generic.c | 49 ++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 44 insertions(+), 5 deletions(-)
+
+diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
+index 6f6a6f0d5eb0..6b548099b55d 100644
+--- a/net/sched/sch_generic.c
++++ b/net/sched/sch_generic.c
+@@ -96,9 +96,31 @@ static void qdisc_maybe_clear_missed(struct Qdisc *q,
  
-+/*
-+ * The zonelist can be rebuilt in place while it is walked, so the iterator's
-+ * filters may have passed a slot that now holds a different zone.
-+ * Recheck the zone itself before using it.
+ #define SKB_XOFF_MAGIC ((struct sk_buff *)1UL)
+ 
++/* A tc BPF program on a transmit qdisc can change __sk_buff->queue_mapping
++ * after the tx queue was picked. Re-cap it against the device and write it
++ * back, so a driver that re-reads skb_get_queue_mapping() stays in range.
 + */
-+static inline bool zonelist_zone_valid(struct zone *zone,
-+				       const struct alloc_context *ac)
++static u16 qdisc_cap_skb_tx_queue(struct net_device *dev, struct sk_buff *skb)
 +{
-+	if (zone_idx(zone) > ac->highest_zoneidx)
-+		return false;
-+	return !ac->nodemask || node_isset(zone_to_nid(zone), *ac->nodemask);
++	u16 queue = skb_get_queue_mapping(skb);
++	u16 capped;
++
++	capped = netdev_cap_txqueue(dev, queue);
++	if (unlikely(capped != queue))
++		skb_set_queue_mapping(skb, capped);
++
++	return capped;
 +}
 +
- /*
-  * get_page_from_freelist goes through the zonelist trying to allocate
-  * a page.
-@@ -3810,6 +3823,9 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
- 		struct page *page;
- 		unsigned long mark;
- 
-+		if (unlikely(!zonelist_zone_valid(zone, ac)))
-+			continue;
++static struct netdev_queue *skb_cap_tx_queue(struct net_device *dev,
++					     struct sk_buff *skb)
++{
++	return netdev_get_tx_queue(dev, qdisc_cap_skb_tx_queue(dev, skb));
++}
 +
- 		if (cpusets_enabled() &&
- 			(alloc_flags & ALLOC_CPUSET) &&
- 			!__cpuset_zone_allowed(zone, gfp_mask))
-@@ -5234,6 +5250,9 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
- 	for_next_zone_zonelist_nodemask(zone, z, ac.highest_zoneidx, ac.nodemask) {
- 		unsigned long mark;
+ static inline struct sk_buff *__skb_dequeue_bad_txq(struct Qdisc *q)
+ {
+-	const struct netdev_queue *txq = q->dev_queue;
++	const struct netdev_queue *txq;
+ 	spinlock_t *lock = NULL;
+ 	struct sk_buff *skb;
  
-+		if (unlikely(!zonelist_zone_valid(zone, &ac)))
-+			continue;
-+
- 		if (cpusets_enabled() && (alloc_flags & ALLOC_CPUSET) &&
- 		    !__cpuset_zone_allowed(zone, gfp)) {
- 			continue;
+@@ -110,7 +132,8 @@ static inline struct sk_buff *__skb_dequeue_bad_txq(struct Qdisc *q)
+ 	skb = skb_peek(&q->skb_bad_txq);
+ 	if (skb) {
+ 		/* check the reason of requeuing without tx lock first */
+-		txq = skb_get_tx_queue(txq->dev, skb);
++		/* re-cap: real_num_tx_queues may have shrunk */
++		txq = skb_cap_tx_queue(qdisc_dev(q), skb);
+ 		if (!netif_xmit_frozen_or_stopped(txq)) {
+ 			skb = __skb_dequeue(&q->skb_bad_txq);
+ 			if (qdisc_is_percpu_stats(q)) {
+@@ -208,6 +231,7 @@ static void try_bulk_dequeue_skb(struct Qdisc *q,
+ 				 int *packets, int budget)
+ {
+ 	int bytelimit = qdisc_avail_bulklimit(txq) - skb->len;
++	struct net_device *dev = qdisc_dev(q);
+ 	int cnt = 0;
+ 
+ 	while (bytelimit > 0) {
+@@ -216,6 +240,15 @@ static void try_bulk_dequeue_skb(struct Qdisc *q,
+ 		if (!nskb)
+ 			break;
+ 
++		/* Re-cap a mapping changed after pick; requeue a
++		 * follower that no longer matches the head, which owns
++		 * the _xmit_lock for the whole list.
++		 */
++		if (unlikely(qdisc_cap_skb_tx_queue(dev, nskb) !=
++			     skb_get_queue_mapping(skb))) {
++			qdisc_enqueue_skb_bad_txq(q, nskb);
++			break;
++		}
+ 		bytelimit -= nskb->len; /* covers GSO len */
+ 		skb->next = nskb;
+ 		skb = nskb;
+@@ -233,7 +266,7 @@ static void try_bulk_dequeue_skb_slow(struct Qdisc *q,
+ 				      struct sk_buff *skb,
+ 				      int *packets)
+ {
+-	int mapping = skb_get_queue_mapping(skb);
++	struct net_device *dev = qdisc_dev(q);
+ 	struct sk_buff *nskb;
+ 	int cnt = 0;
+ 
+@@ -241,7 +274,11 @@ static void try_bulk_dequeue_skb_slow(struct Qdisc *q,
+ 		nskb = q->dequeue(q);
+ 		if (!nskb)
+ 			break;
+-		if (unlikely(skb_get_queue_mapping(nskb) != mapping)) {
++		/* A tc BPF store may have changed the mapping after
++		 * pick; cap it and keep the list on one tx queue.
++		 */
++		if (unlikely(qdisc_cap_skb_tx_queue(dev, nskb) !=
++			     skb_get_queue_mapping(skb))) {
+ 			qdisc_enqueue_skb_bad_txq(q, nskb);
+ 			break;
+ 		}
+@@ -286,7 +323,7 @@ static struct sk_buff *dequeue_skb(struct Qdisc *q, bool *validate,
+ 		if (xfrm_offload(skb))
+ 			*validate = true;
+ 		/* check the reason of requeuing without tx lock first */
+-		txq = skb_get_tx_queue(txq->dev, skb);
++		txq = skb_cap_tx_queue(qdisc_dev(q), skb);
+ 		if (!netif_xmit_frozen_or_stopped(txq)) {
+ 			skb = __skb_dequeue(&q->gso_skb);
+ 			if (qdisc_is_percpu_stats(q)) {
+@@ -322,6 +359,8 @@ static struct sk_buff *dequeue_skb(struct Qdisc *q, bool *validate,
+ 	skb = q->dequeue(q);
+ 	if (skb) {
+ bulk:
++		/* cap the head; the bulk helpers cap every appended element */
++		qdisc_cap_skb_tx_queue(qdisc_dev(q), skb);
+ 		if (qdisc_may_bulk(q))
+ 			try_bulk_dequeue_skb(q, skb, txq, packets, budget);
+ 		else
 -- 
-2.56.0
+2.43.0
 
