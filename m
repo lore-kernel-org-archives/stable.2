@@ -1,53 +1,53 @@
-Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
+Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 972532D5932
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 14:45:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.218.115.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CC442D5932
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 14:45:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.34.181.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792075550; cv=none; b=eLN/W/d5nIgBxzuYj5xNAIv5T2c5XRt4uy/yK05+L/UM4z7xAk/POb5YQEXQ7SjH/xUYNkUur8QF4Y7XorIzHAsJHeWi0vE9ULDayLkYi7JXVb6dmFOjv8vPoi049FdiUAoa0kPQE9peQh0mvQ428Z/bI5dOdemMhu8cHP+DZc0=
+	t=1792075552; cv=none; b=AOCK2F4B0Z7/hSNvfOponxf/Qc4G6K8sXk+MSqsLjQ8B9J3QWadZhOBSMKWEL96nYGTgDOqSnFugravC7VPY7exxkuFzbM1N9E7ClcWZ3yy+pe/Keqn9ij3Wc3DHMCWThAdI79QEjsY1WaVirsGqweAOGUhGuY3ehSby+gxHJH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792075550; c=relaxed/simple;
-	bh=WXZiTwlIziC1omOj7jdwQE8zzogbpJNb1lBXEDWv9Gw=;
+	s=arc-20240116; t=1792075552; c=relaxed/simple;
+	bh=6IO/flmMg+yIG4kX9B1eWs1LzYGyN7v2mHbD0zCImig=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qqcAV9ZS/bpyZ1xoHf7H9berFFfiqv8hKscT1Nw54BXlbvFFsYKaC82Tc/VzU5rSTOzRr1WTwPWysUhYxHKlI2RBYHHfnDzVK+MurbyryeYEF9ktbEHHiXr4rC8a6+J+VZ96jeTJJWVOuBIToDBptdh02iZxZxhoVO46eEZfd5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=RK2JeQd2; arc=none smtp.client-ip=34.218.115.239
+	 MIME-Version:Content-Type; b=uuUQtfneq/B79pysHOvUzsD5jJTwVmZpANNJI8ivP13hPYeipEOGKt5QUyzJrHeDslWHa/qZ8Roo3lJ+dP7txDrlSK9T8paMGlTH18qNjKWjvM3c+VzcRRtTVX8PZedq1RoNzrjVE7GXiySEh3odaSNryS15OhSRi7oUqOOthfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=H8h4KCz+; arc=none smtp.client-ip=52.34.181.151
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="RK2JeQd2"
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="H8h4KCz+"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1792075549; x=1823611549;
+  t=1792075551; x=1823611551;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=T8axlsfso4k7syKxUcvyIg6Ym9y5kFkDYTWkZAR8ayk=;
-  b=RK2JeQd2nuB4wdxVOmlM+97DdrbbtYq1OQMWJlVu3QeUTfWoFRwSehi6
-   yEFSCPGMA+Td+INfJ5pSH1GU9xBPurXslmMJ6ZrKAV4rkcVGKsZIu8T0Q
-   6tjMAqYCt7z5hhU3xCLEC2yKcs2brwyra6s/XUhTjmFj7J+DAvFC6fTPX
-   3mju1XIkFqyD+eQFWRoQMT5zi/olJcHr/SYX6zfKozFm1lkJ3BGz6hffD
-   TAZec3eV7ZOCWEl1AySDDT3M8+9+rZBkgvQD3jeM21VtnHrZno5XzQIpq
-   2RWHqJFxdRzp5+hUMNi9KbpnVZ5Qj0GHFxlh/ChjgJ50eIJkNr78+0sPn
+  bh=cKx/t/+TAF4YjXU23LNleHFcUmfPDixkfS6sn57a3s0=;
+  b=H8h4KCz+++dodxhM2V0ZEMNWR+aCC4El10pxihp+JBkQFLJiBiaVLRae
+   KFWA/UFccaOG07XP6O3Rsnfjfsyb5BHhU8AXpHS/Y47goNc5R7CPPLyAk
+   +fcuZ5Jm1UCptA0XqQhMbTEGCBPQqKPPQalXkSD25S3FxDxJHtaWyw9Vt
+   uMUXhmFEZWVPYah02CUnqaZo2/u4/bEU9elJY61RbhioYneh6vExawigJ
+   gBg3kbkJiyQKDRBckyeg8WWDp3YIoEtyobjPYp1AzmleCclDvX8M+twR8
+   aQ0O0ZwyrB18RlvAWkJuXNoHm/pyLml1oGovVwcR3IUsRyagSsyQOWLRq
    Q==;
-X-CSE-ConnectionGUID: opeVRcGqQHGuOktxkplgOg==
-X-CSE-MsgGUID: aF+8dlOhT5+24Ki2k86dnw==
+X-CSE-ConnectionGUID: Q2rGLVgxSuutHEjcu3mgnA==
+X-CSE-MsgGUID: neHvo1RPTZ6dKD9HRCQEIw==
 X-IronPort-AV: E=Sophos;i="6.27,160,1787011200"; 
-   d="scan'208";a="31124997"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 14:45:46 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:18197]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.19.38:2525] with esmtp (Farcaster)
- id f94577a4-6cf0-4788-b26f-4e1b3530fd63; Thu, 15 Oct 2026 14:45:46 +0000 (UTC)
-X-Farcaster-Flow-ID: f94577a4-6cf0-4788-b26f-4e1b3530fd63
+   d="scan'208";a="31336690"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 14:45:47 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:1486]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.63.90:2525] with esmtp (Farcaster)
+ id d05f5ffc-4038-4a23-9a53-19cce5f690fb; Thu, 15 Oct 2026 14:45:46 +0000 (UTC)
+X-Farcaster-Flow-ID: d05f5ffc-4038-4a23-9a53-19cce5f690fb
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 15 Oct 2026 14:45:44 +0000
+ Thu, 15 Oct 2026 14:45:46 +0000
 Received: from dev-dsk-fparola-1b-85ea2014.eu-west-1.amazon.com
  (10.13.236.104) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Thu, 15 Oct 2026
- 14:45:43 +0000
+ 14:45:44 +0000
 From: Federico Parola <fparola@amazon.de>
 To: <stable@vger.kernel.org>
 CC: Mike Rapoport <rppt@kernel.org>, Pasha Tatashin
@@ -55,9 +55,9 @@ CC: Mike Rapoport <rppt@kernel.org>, Pasha Tatashin
  Graf" <graf@amazon.com>, Andrew Morton <akpm@linux-foundation.org>,
 	<kexec@lists.infradead.org>, <linux-mm@kvack.org>,
 	<nh-open-source@amazon.com>
-Subject: [PATCH 6.18.y 1/2] kho: free chunks using free_page() instead of kfree()
-Date: Thu, 15 Oct 2026 14:45:28 +0000
-Message-ID: <20261015144529.76911-2-fparola@amazon.de>
+Subject: [PATCH 6.18.y 2/2] kho: free phys_bits bitmaps using free_page() in __kho_abort()
+Date: Thu, 15 Oct 2026 14:45:29 +0000
+Message-ID: <20261015144529.76911-3-fparola@amazon.de>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261015144529.76911-1-fparola@amazon.de>
 References: <20261015144529.76911-1-fparola@amazon.de>
@@ -72,43 +72,45 @@ Content-Type: text/plain
 X-ClientProxiedBy: EX19D031UWA002.ant.amazon.com (10.13.139.96) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-From: Pratyush Yadav <pratyush@kernel.org>
+Commit fa759cd75bce ("kho: allocate metadata directly from the buddy
+allocator") switched the allocation of preserved memory bitmaps to
+get_zeroed_page(), but __kho_abort() still releases them with kfree().
+kfree() on a buddy page that is not a large kmalloc allocation hits the
+WARN_ON_ONCE() in free_large_kmalloc() and returns without freeing it,
+so every aborted finalization leaks all bitmap pages.
 
-[ Upstream commit b15515155af735a86e5bcd67ed739162f0de27f5 ]
+Free the bitmaps with free_page() instead.
 
-Before commit fa759cd75bce5 ("kho: allocate metadata directly from the
-buddy allocator"), the chunks were allocated from the slab allocator using
-kzalloc().  Those were rightly freed using kfree().
+This is a stable-only patch. Upstream fixed it as a side effect of
+commit 99cd2ffac697 ("kho: don't unpreserve memory during abort"), which
+removes the tracking teardown from __kho_abort() altogether. That change
+builds on commit 36f8f7ef7fd2 ("kho: add interfaces to unpreserve
+folios, page ranges, and vmalloc") and commit 70f9133096c8 ("kho: drop
+notifiers"). In 6.18.y, KHO users still preserve memory from the
+KEXEC_KHO_FINALIZE notifier and have no interface to unpreserve it, so
+the teardown on abort is the only way their preservations get dropped.
+Backporting that commit would make preservations outlive every abort,
+so keep the teardown and fix only the mismatched free.
 
-When the commit switched to using the buddy allocator directly, it missed
-updating kho_mem_ser_free() to use free_page() instead of kfree().
-
-Link: https://lkml.kernel.org/r/20251118182218.63044-1-pratyush@kernel.org
-Fixes: fa759cd75bce5 ("kho: allocate metadata directly from the buddy allocator")
-Signed-off-by: Pratyush Yadav <pratyush@kernel.org>
-Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com>
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Cc: Alexander Graf <graf@amazon.com>
-Cc: David Matlack <dmatlack@google.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: fa759cd75bce ("kho: allocate metadata directly from the buddy allocator")
 Signed-off-by: Federico Parola <fparola@amazon.de>
 ---
  kernel/kexec_handover.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/kernel/kexec_handover.c b/kernel/kexec_handover.c
-index ac9fa7727b5ff..9fe5d14f1ec54 100644
+index 9fe5d14f1ec54..9691f6bc2fba7 100644
 --- a/kernel/kexec_handover.c
 +++ b/kernel/kexec_handover.c
-@@ -365,7 +365,7 @@ static void kho_mem_ser_free(struct khoser_mem_chunk *first_chunk)
- 		struct khoser_mem_chunk *tmp = chunk;
+@@ -1054,7 +1054,7 @@ static int __kho_abort(void)
+ 		unsigned long phys;
  
- 		chunk = KHOSER_LOAD_PTR(chunk->hdr.next);
--		kfree(tmp);
-+		free_page((unsigned long)tmp);
- 	}
- }
+ 		xa_for_each(&physxa->phys_bits, phys, bits)
+-			kfree(bits);
++			free_page((unsigned long)bits);
  
+ 		xa_destroy(&physxa->phys_bits);
+ 		kfree(physxa);
 -- 
 2.47.3
 
