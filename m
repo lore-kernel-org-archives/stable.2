@@ -1,184 +1,199 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 292253C09F8
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 08:33:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F9A46D2D3;
+	Thu, 15 Oct 2026 08:34:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792053198; cv=none; b=LzWmbB/nvOKz77zc5rqP5jEdK4jDVj5xm3/1YZIAPG1o3imwMVyH6+GBcxrgImVmdHE6P8xdtv0TUqNrtF9yvUqRmVuphTJ+ZBDS7Qjmwu/XWac7N9TNQXMPbvECJSHgTMAHGOHkvjw9BgNPh79kmNArHrsApIgG1h+0AZesxqQ=
+	t=1792053248; cv=none; b=rVbyenrdGd1ndvmsTAlSGkdL8tKrwacNf5eWblCMDgH5irpGrQYJ73Req86WHhW4oiSKMcI8lk5CsXmPK53LB/VeAxQE/+tkrvC/Cg4mdIinvVqYxw3HlgpZsMrNJw72CkrqTt/zOkuaBLwoBjc4nC4Dtb68phFctByOlVU/XY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792053198; c=relaxed/simple;
-	bh=K/q5U+pGBe9FGuZYGOdKO4tB2k1MgK3HgbJ09Hl64sw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tRry6r/hh5/ankaSRkA6hKAotP6yJxz3eF8yvsDFOwkO7qv8ZuKPn2nr5yhQtyy2BM122Oin+iYpv0k+u9PTAVOcnd6YvUfY2wbtOV/GvSPAWXWdwq55klVhJRF0KYvpMAhLElMeZhPFONbaNeFATTZ1+Ty6wrZtk2teTLtEXIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R0R3Iu4b; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792053248; c=relaxed/simple;
+	bh=1lje05dHeTbxWp3eklRDl2JzKlfVPd+4rryEkd4m0DI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hfxk1mQ/OR/yA5w0/Sk47CF7IefX0PKFslMeDiUSHz4LnyyjbQG5/3u/aWIzXWIDG94tx0FoWzLWS6M0OsypxPoZs0pX+XdsNI24rkcvTzrSD+pPLH53LTJeEqGg5WUtTxsDWaslfYVhgn57DQDrnQ8UAm37Uju+tkI6VkMa31M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aaZgNvMA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R0R3Iu4b"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso14899105e9.3
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 01:33:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792053193; x=1792657993; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TYvKsnw/wo7FP7BSrciic/dcK/Yw81SsbNCEIrV3lTM=;
-        b=R0R3Iu4bBtfvEtONOwmPz5f8h1t+gko0nL2i3DBmDtCJ1KInpyiWvkpwbKVpntbTqT
-         W7zwSK61mn4vwlW73HQmhBG23MJE5vO9utJrx8kztus5O6rlSVqHkBT/XCeSWaM3uDkb
-         BSpxrfImbQAPQsS+KZ8aRc/ni3o1N2714XTlGc+yKjVefrl0TiyBXu/Q/QoZz3Ywm7XP
-         Izq7mp5eUQF0G7teHVRYo+bbfz9JxtD/h6QuKKP595kTf18ZEz7JaIE+X7v8xWR6v25m
-         A97Qx4lfTVXKQL2IeJYhC/h40+lEPr6e+2FKmv6hsa2c9LqJ9UcjRbouke5Z2zzfOKFh
-         Qi0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792053193; x=1792657993;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TYvKsnw/wo7FP7BSrciic/dcK/Yw81SsbNCEIrV3lTM=;
-        b=FZeGkdR00rx0R0PaG4sb5/f0hxIf/HqpmtGOFXyCC7x4O+lc+FIU16BsXXe/uz0iuT
-         /UlGHw7DEVJu4eQFT7yVoruQ0BVpb4fXvVLKJklvKjx/2TLuF5/WFgibEamGcoE9VHw3
-         AR25TUueWxz4Wqt9pnfNXzT8ldGdInGBpclqWJCgXRgRwECqr8GlLPP+Us7zdOCj5khj
-         uU+Tu1Kw7D/o3ZT5YWAPFs4szxj0TiWDaYkGJYERGKpwU1w27Uf5Kc+sJToVQmb3w10z
-         /pV+rL5kJN3gHtML1U78zKqA04wrBaw8le3Ny3XziSwynihJcFezOdcVJd+NYhWADg8U
-         RquQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxIyWBQunaqzm3AXiaIBioBm5GREHnKYxG7jAfR6UIszcDKeAjr9NAq8FBT08iPuoLf55V4asQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIU5n3u2+0m98KyW4/Zyp8SewmOb5zO7sUVKvfiPoxVzC+z5bsH
-	hBpzt+DC707Z0T6GQOEQ2BR1icyHxRg3D5drVFVJM+DlS+oNB0Xas20E
-X-Gm-Gg: AYBFou2apeIRgzQn8/e+Md/YU5qXAhyu2QYjFsSWrHOp9UDbWJ2U1tm2PYj1HETggO1
-	5IU9Mlq1xSC+VwZ6kCbn2gQkRdjTTzGzemXrxeJaZUIHw5u3hX3Ziu09TxJoeTgZ2ZxHezTz3FC
-	GavAbq8uI9BfnsB9AGTbaTmVr18pr2+qheXw2XGRocWHLKWwfYx/A+StDyjQ/imsnQGNYpXgwku
-	rn/KzCgvLJFAZTXbD9o7Ipfo2yznk4wCq6LS9Xov/llOuz7wUzZjggDBVI7AsuSTsXeuvN26PHu
-	H+ziOGis7Fu2Ta9Bq87ECrUR1za/jVOvF5Qyru897H43dHcg8p3qgHJMCnyFtcl/k0pW5ZE7HVP
-	cEFsH5YPN268nyb+8DG6AJ1NHntTHaB03JhmIRFYvYvU3G5fSXm9GjFnPLbKYRmXkb+ZDaKUp2f
-	V/H+UEt3QKcFrCyBT04dBPlHUQ7pup3Y4oa5vCZtIqlwrdsMT8znYpcvnpON7WZp/WLxmsH5b9s
-	YNrEMZsPA==
-X-Received: by 2002:a05:600c:6099:b0:4a0:1feb:de6a with SMTP id 5b1f17b1804b1-4a18e4e7a85mr348692075e9.30.1792053193202;
-        Thu, 15 Oct 2026 01:33:13 -0700 (PDT)
-Received: from foxbook (bez186.neoplus.adsl.tpnet.pl. [83.28.37.186])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc506asm17881280f8f.47.2026.10.15.01.33.11
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Thu, 15 Oct 2026 01:33:12 -0700 (PDT)
-Date: Thu, 15 Oct 2026 10:33:07 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Wen Xiong <wenxiong@linux.ibm.com>
-Cc: mathias.nyman@intel.com, gregkh@linuxfoundation.org,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, wenxiong@us.ibm.com, Brian King
- <brking@linux.vnet.ibm.com>, Samuel Mendoza-Jonas <sam@mendozajonas.com>,
- Joel Stanley <joel@jms.id.au>
-Subject: Re: [PATCH] xhci: Reset controller on xhci shutdown
-Message-ID: <20261015103307.3ba25345.michal.pecio@gmail.com>
-In-Reply-To: <64515dfd9a6cd8c3f5665e72a6bf6b81@linux.ibm.com>
-References: <20261001222527.11742-1-wenxiong@linux.ibm.com>
-	<20261002102931.3cb06009.michal.pecio@gmail.com>
-	<561d22493c3d078b26f547dd8f6f6f46@linux.ibm.com>
-	<20261002161828.365ff859.michal.pecio@gmail.com>
-	<55a53022d1c6f671a3ed549d8cf7cd1a@linux.ibm.com>
-	<20261006125546.10471489.michal.pecio@gmail.com>
-	<64515dfd9a6cd8c3f5665e72a6bf6b81@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aaZgNvMA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D8351F000C4;
+	Thu, 15 Oct 2026 08:34:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792053246;
+	bh=1y2O0PSZS5Bzt/8EZ2Y7b6A1XzbAJe0MR4Va/N0YUuU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aaZgNvMANpmUBSrs1hVX5dOBdZ5ubITsPMpzYC6ohqDfmcGNBK0HFP5IIu9enoq6P
+	 M90gmP2DGfFq7fJBhjZXldmj7fCOobTX9AHeFQzYBu4OsHOqAPJJq89m5d2JBMLE6d
+	 IX1ZzHm67oSWuDWCK9DW06xW9l7a/FAvXx9Q0KKpdbq+YUXOZRCJUzJGIofXanWSnG
+	 iZqjvsZlDyceUmFP40JWDI0N5xbgR0TDu1XDbh4oGorzXB8pv2C4VsUYL7MtPYDwtv
+	 9k/hkPAULu7KSk8UF8gOha7el2Ie8z8fXbCfvm6aqqNh3aAxRqU6ts/NigbqVxw8SM
+	 fCAorPY+owbwQ==
+Date: Thu, 15 Oct 2026 11:33:58 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Peter Xu <peterx@redhat.com>, Miaohe Lin <linmiaohe@huawei.com>,
+	Lokesh Gidra <lokeshgidra@google.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Kyle Zeng <kylebot@openai.com>, Lorenzo Stoakes <ljs@kernel.org>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/userfaultfd: only allocate anon_vma in CoW mappings
+Message-ID: <atCP9hqNdqsdE-y4@kernel.org>
+References: <20261014-copy_hugetlb_page_range-v1-1-5b68e03fe7fe@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014-copy_hugetlb_page_range-v1-1-5b68e03fe7fe@kernel.org>
 
-On Wed, 14 Oct 2026 15:32:22 -0500, Wen Xiong wrote:
-> On 2026-10-06 05:55, Michal Pecio wrote:
-> > Are you able to capture the original kernel's dmesg (through serial,
-> > netconsole, etc) and see if the same "Host halt failed" is there?
-> >   
-> Below is xhci messages after executing a kexec kernel. This is dmesg
-> for kexec kernel.
+On Wed, Oct 14, 2026 at 01:53:11PM +0200, David Hildenbrand (Arm) wrote:
+> find_vma_and_prepare_anon() can end up allocating an anon_vma in VMAs that
+> are not CoW mappings, which is wrong.
+> 
+> If we have a MAP_SHARED R/O file mapped, we lack VM_SHARED (but do have
+> VM_MAYSHARE) and lack VM_MAYWRITE.
+> 
+> While uffd later rejects such mappings (uffd registration requires
+> VM_MAYWRITE, see comment in validate_dst_vma) find_vma_and_prepare_anon()
+> still wrongly allocates an anon vma before it validates the vma.
+> 
+> This in turn later confuses copy_page_range()->vma_needs_copy() such
+> that we end up calling copy_hugetlb_page_range() with ranges that
+> actually do not contain *any* per-pagetable information that would
+> require copying, which is the basis for PMD-table sharing in the first
+> place.
+> 
+> copy_hugetlb_page_range() should not have to worry about shared
+> PMD tables at all: it doesn't make any sense to copy page tables that are
+> shared, as they can be fully recreated later. Ending up in the function
+> with shareable page tables is the real issue.
+> 
+> If a destination PMD table is shared in copy_hugetlb_page_range(), it
+> might get concurrently unshared as we are not holding relevant
+> locks, resulting in us using a page table that is no longer mapped and
+> possibly freed after calling:
+> 
+> 	dst_pte = huge_pte_alloc(dst, dst_vma, addr, sz);
+> 
+> To fix it, do not allocate an anon_vma in non-CoW mappings and add a
+> safety guard to copy_hugetlb_page_range(), making sure that we never
+> end up messing with shared PMD tables in there.
+> 
+> Before commit 867a43a34ff8a ("userfaultfd: use per-vma locks in userfaultfd
+> operations") we would always validate the VMA before allocating an
+> anon_vma, and consequently never wrongly allocate an anon_vma.
+> 
+> As uffd_lock_vma() is part of the same lookup machinery and
+> also contains a misleading VM_SHARED check, change that one as well
+> directly for consistency.
+> 
+> A follow-up cleanup will stop taking the hugetlb_vma_lock_read(src_vma)
+> lock in copy_hugetlb_page_range() entirely. Further, the usage of
+> VM_SHARED in userfaultfd code should be cleaned up later to focus on
+> CoW vs. non-CoW mappings.
+> 
+> Reported-by: Kyle Zeng <kylebot@openai.com>
+> Fixes: 867a43a34ff8a ("userfaultfd: use per-vma locks in userfaultfd operations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-OK, but I asked if you have means of capturing the old kernel's dmesg
-*before* the kexec kernel begins running, including any messages from
-xhci_shutdown() which may possibly be logged. This can only be done
-with a serial cable, the 'netconsole' module or similar tools.
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
-But maybe don't bother with it for now. Instead, try if this modified
-version of your patch works or not:
+> ---
+>  mm/hugetlb.c     | 24 ++++++++++++------------
+>  mm/userfaultfd.c |  5 ++---
+>  2 files changed, 14 insertions(+), 15 deletions(-)
+> 
+> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> index 63dc836061c99..60f9b209c8db1 100644
+> --- a/mm/hugetlb.c
+> +++ b/mm/hugetlb.c
+> @@ -4984,10 +4984,11 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
+>  		raw_write_seqcount_begin(&src->write_protect_seq);
+>  	} else {
+>  		/*
+> -		 * For shared mappings the vma lock must be held before
+> -		 * calling hugetlb_walk() in the src vma. Otherwise, the
+> -		 * returned ptep could go away if part of a shared pmd and
+> -		 * another thread calls huge_pmd_unshare.
+> +		 * Shared mappings only need copying when we could have
+> +		 * information stored in page tables (e.g., userfaultfd PTE
+> +		 * bits or markers), which is incompatible with PMD sharing.
+> +		 * Still take the hugetlb VMA lock for now to satisfy
+> +		 * hugetlb_walk()'s locking requirements.
+>  		 */
+>  		hugetlb_vma_lock_read(src_vma);
+>  	}
+> @@ -4995,6 +4996,13 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
+>  	last_addr_mask = hugetlb_mask_last_page(h);
+>  	for (addr = src_vma->vm_start; addr < src_vma->vm_end; addr += sz) {
+>  		spinlock_t *src_ptl, *dst_ptl;
+> +
+> +		if (WARN_ON_ONCE(want_pmd_share(src_vma, addr) ||
+> +				 want_pmd_share(dst_vma, addr))) {
+> +			ret = -EINVAL;
+> +			break;
+> +		}
+> +
+>  		src_pte = hugetlb_walk(src_vma, addr, sz);
+>  		if (!src_pte) {
+>  			addr |= last_addr_mask;
+> @@ -5006,14 +5014,6 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
+>  			break;
+>  		}
+>  
+> -#ifdef CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING
+> -		/* If the pagetables are shared, there is nothing to do */
+> -		if (ptdesc_pmd_is_shared(virt_to_ptdesc(dst_pte))) {
+> -			addr |= last_addr_mask;
+> -			continue;
+> -		}
+> -#endif
+> -
+>  		dst_ptl = huge_pte_lock(h, dst, dst_pte);
+>  		src_ptl = huge_pte_lockptr(h, src, src_pte);
+>  		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+> index 0e0fe9bfef239..82b56a58fc40d 100644
+> --- a/mm/userfaultfd.c
+> +++ b/mm/userfaultfd.c
+> @@ -115,8 +115,7 @@ struct vm_area_struct *find_vma_and_prepare_anon(struct mm_struct *mm,
+>  	vma = vma_lookup(mm, addr);
+>  	if (!vma)
+>  		vma = ERR_PTR(-ENOENT);
+> -	else if (!(vma->vm_flags & VM_SHARED) &&
+> -		 unlikely(anon_vma_prepare(vma)))
+> +	else if (vma_is_cow_mapping(vma) && unlikely(anon_vma_prepare(vma)))
+>  		vma = ERR_PTR(-ENOMEM);
+>  
+>  	return vma;
+> @@ -145,7 +144,7 @@ static struct vm_area_struct *uffd_lock_vma(struct mm_struct *mm,
+>  		 * We know we're going to need an anon rmap, so check that
+>  		 * early.
+>  		 */
+> -		if (!(vma->vm_flags & VM_SHARED) && unlikely(!vma_has_anon_rmap(vma)))
+> +		if (vma_is_cow_mapping(vma) && unlikely(!vma_has_anon_rmap(vma)))
+>  			vma_end_read(vma);
+>  		else
+>  			return vma;
+> 
+> ---
+> 
+> base-commit: 1d0b04a60516de48250b04227dcf483c6c09aab1
+> 
+> change-id: 20261014-copy_hugetlb_page_range-743d71a2980e
+> 
+> --
+> 
+> Cheers,
+> 
+> David
+> 
 
-diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-index 34f342d2c7d7..977b2b42bcfd 100644
---- a/drivers/usb/host/xhci.c
-+++ b/drivers/usb/host/xhci.c
-@@ -749,6 +749,7 @@ EXPORT_SYMBOL_GPL(xhci_stop);
- void xhci_shutdown(struct usb_hcd *hcd)
- {
- 	struct xhci_hcd *xhci = hcd_to_xhci(hcd);
-+	int err;
- 
- 	if (xhci->quirks & XHCI_SPURIOUS_REBOOT)
- 		usb_disable_xhci_ports(to_pci_dev(hcd->self.sysdev));
-@@ -765,7 +766,7 @@ void xhci_shutdown(struct usb_hcd *hcd)
- 	}
- 
- 	spin_lock_irq(&xhci->lock);
--	xhci_halt(xhci);
-+	err = xhci_halt(xhci);
- 
- 	/*
- 	 * Workaround for spurious wakeps at shutdown with HSW, and for boot
-@@ -780,6 +781,8 @@ void xhci_shutdown(struct usb_hcd *hcd)
- 	xhci_dbg_trace(xhci, trace_xhci_dbg_init,
- 			"xhci_shutdown completed - status = %x",
- 			readl(&xhci->op_regs->status));
-+	if (err)
-+		pci_reset_function_locked(to_pci_dev(hcd->self.sysdev));
- }
- EXPORT_SYMBOL_GPL(xhci_shutdown);
- 
----
-
-> [root@ltc-boston11 ~]# dmesg|grep xhci
-> [    1.085853] xhci_hcd 0005:01:00.0: xHCI Host Controller
-> [    1.085992] xhci_hcd 0005:01:00.0: new USB bus registered, assigned 
-> bus number 1
-> [    1.144472] xhci_hcd 0005:01:00.0: Host halt failed, -110
-> [    1.144518] xhci_hcd 0005:01:00.0: can't setup: -110
-> [    1.144571] xhci_hcd 0005:01:00.0: USB bus 1 deregistered
-> [    1.144778] xhci_hcd 0005:01:00.0: init 0005:01:00.0 fail, -110
-> [    1.144842] xhci_hcd 0005:01:00.0: probe with driver xhci_hcd failed 
-> with error -110
-
-What about 'dmesg |grep -i xhci' (and 'grep 0005:01:00.0')?
-
-You are likely getting errors from quirk_usb_handoff_xhci() as well.
-This reminds me of a similar issue reported earlier this year:
-
-https://lore.kernel.org/linux-usb/69fa1c3f-3ea9-42cb-a49a-7da39f72806e@molgen.mpg.de/
-
-> This is the reason why we can't see usb devices after a kexec kernel.
-
-No doubt about it.
-
-> > And if you enable dynamic debug before kexec,
-> > 
-> >   echo 'module xhci_hcd +p' >/proc/dynamic_debug/control
-> > 
-> > what's printed by the debug message at the end of xhci_shutdown()?
-> > 
-> > Do you also get errors from quirk_usb_handoff_xhci() by any chance?
-> >   
-> After executing a kexec kernel, is the control setting lost?
-> I didn't see much useful information in control after a kexec kernel.
-
-Yes, the kexec kernel starts with a clean dynamic debug state.
-
-> Probably we can resubmit the patch with mathias's suggestion.
-
-We could also try the approach in the test patch above, but doing it
-properly will require a few more changes. I haven't bothered before
-we know whether this helps or not.
-
-If it doesn't help, it will look like you have something (machine FW?)
-monkeying with the chip during kexec. Then we could try fixing some
-known bugs in quirk_usb_handoff_xhci(). Maybe this will be enough.
-
-Regards,
-Michal
+-- 
+Sincerely yours,
+Mike.
