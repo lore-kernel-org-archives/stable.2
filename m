@@ -1,35 +1,47 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F9149B1E8;
-	Thu, 15 Oct 2026 06:53:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4396A4A0EFE;
+	Thu, 15 Oct 2026 06:56:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792047220; cv=none; b=J5WWBvbpd2qMjobcaoapfmTXgGE6LiVbgb/MjU/dA9KvXUyxvpbEPxNa3M80y3zOzNCm7JZSKtzb7OdBxmP0lc09HUujaQ2LH4nFUhamB0uvHtNj3/kqrjFBlmPck4MWiNpIxNY+zm/2BR/QP+YIKXy4JizCnet5jo3hYBTBgf8=
+	t=1792047424; cv=none; b=TzImyGfGrRWmlpmO6kDoX2oYnIwnwrDJaDV2tI3XTvAi0hbwXQVAXGK8cm7kZCkuySiRyQM8wIx58E3kQV+6HA5ogd5KEKMn/rT3qT7AcFp6NZjkOoe4O2Hfihi60OkgdcLMlOareat2ian5PWtsw/E2QTocqtCVtTiu13rg/14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792047220; c=relaxed/simple;
-	bh=u0zZLgjvMUtGeW/0Bear4a8EU0D1B8F9V3SruXJ2gpc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BZWqjKmJGG8k2+L24ofsxlZIWfFHru6iyKhqs1CDTwvu+Sy8zuEZCU/pVc/MBHKT9Zdtxv2T4j46m1MdsXg7AmZ2+ImBZK6VXxdrurZKz2lG7grUHHA5q6B7R6zWC/QpffuS7xXqi4lxB3aOObShsOdABbWXpY0HVCg2ByZj9Y0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=ZoikVs21; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="ZoikVs21"
-Received: from localhost (gyproxy-mailtls3-entmail-gy2-virt38.gy.ntes [IPV6:2409:8d28:39:f54:403e:4083:f623:91af])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5120e68e6;
-	Thu, 15 Oct 2026 14:53:23 +0800 (GMT+08:00)
-From: guolingxing <guolingxing@tju.edu.cn>
-To: David Sterba <dsterba@suse.com>,
-	Chris Mason <mason@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>
-Cc: linux-btrfs@vger.kernel.org,
+	s=arc-20240116; t=1792047424; c=relaxed/simple;
+	bh=2NRnXUoTYhE6dctcceEuqKNJ1jVNwCq/koP+DN/ZEOQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZLt2zjqXab85CSDzPbv5ozsf0ncMmNIWvm9oiRCt8Sqp11aKwm8uUlKRntqRoFEWhKoMHc3wYP8XS+6g841Yq7rmN0Y6lilbrBLgLqKHiW+5V/iSCDeN154m36mInkyeoUGE/T+C3lacpa1wRfD6nEK0rfiGwsuAVigVgMM0woA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 95b8929ec86511f19a56ed5b684f684d-20261015
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:534f10fa-1ecd-4941-865d-d8977db57739,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:1a55f037f40013148ff75768c968bf37,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
+	:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
+	:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_ULS,TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 95b8929ec86511f19a56ed5b684f684d-20261015
+X-User: zhangheng@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zhangheng@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1125435934; Thu, 15 Oct 2026 14:56:45 +0800
+From: Zhang Heng <zhangheng@kylinos.cn>
+To: tiwai@suse.com
+Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	guolingxing <guolingxing@tju.edu.cn>,
+	Zhang Heng <zhangheng@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] btrfs: sysfs: restore NOFS context on early return in btrfs_sysfs_add_block_group_type()
-Date: Thu, 15 Oct 2026 06:53:19 +0000
-Message-Id: <20261015065319.3246988-1-guolingxing@tju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Subject: [PATCH] ALSA: hda/realtek: Fix quirk for HP Laptop 15-fc0xxx
+Date: Thu, 15 Oct 2026 14:56:40 +0800
+Message-Id: <20261015065640.377466-1-zhangheng@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,52 +49,64 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa13e56427f03a2kunmf9a1bd3266560
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDQh1LVh4dTExNHUJPQkgYTVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0tCQUMfSUNBSEJBHU5PQU9LSB5BT0tDSEEdTUlIQUJKGh
-	1ZV1kWGg8SFR0UWUFZT0tIVUpLSEpMTUNVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=ZoikVs210S/dlXHvN9NqlAIz9Aw9YB7ONCTVlziDxqcmKdfQtqFb7Id6F+OaOs48skYBXwXeTkP/wQJj6jCg3qwIHJUUfPEHRt34cHLMfsWZy3ZZllcrrca2mcWHZ7aFvo678nrCE4k4G0SUPZgWHzD/UTMg1hp/pAclVdNgpGA=; s=default; c=relaxed/relaxed; d=tju.edu.cn; v=1;
-	bh=rzY09oL3yGajClh+vhdmj/YIWUtz4T+eXn2BSYITCzg=;
-	h=date:mime-version:subject:message-id:from;
 
-btrfs_sysfs_add_block_group_type() sets up a NOFS context with
-memalloc_nofs_save() because kobject_add() performs GFP_KERNEL
-allocations deep in its call chain, and the function may be called
-while holding a transaction handle or a lock required for a
-transaction commit, where reclaim could deadlock.
+The HP Laptop 15-fc0xxx is based on an AMD platform where the digital
+microphone is provided by the snd-soc-acp6x-mach driver, not by the
+HDA codec. The ALC236_FIXUP_HP_DMIC quirk configures pin 0x12 as an
+internal DMIC, which is a misconfiguration for this machine: the pin
+is not wired to a codec DMIC and the setting has no effect on the
+actual microphone path (which works via ACP6x).
 
-Every other return path of this function calls memalloc_nofs_restore()
-except the early return taken when another thread has already created
-the kobject for the same raid index (this can happen when restriping).
-Taking that path leaves PF_MEMALLOC_NOFS set on the calling task, so
-all subsequent memory allocations performed by that task remain
-restricted to the NOFS scope, which may lead to unexpected allocation
-failures or deadlocks later on.
+Replace ALC236_FIXUP_HP_DMIC with
+ALC236_FIXUP_HP_MUTE_LED_MICMUTE_GPIO, the standard quirk used by the
+closely related HP Laptop 15-fd0xxx and other ALC236 HP machines. This
+removes the misleading DMIC pin config and adds proper mute LED and
+micmute LED support that was missing from the original quirk.
 
-Restore the NOFS context before returning from that path.
-
-Fixes: 49ea112da0e6 ("btrfs: do not create raid sysfs entries under any locks")
+Fixes: 720460722310 ("ALSA: hda/realtek: add quirk for HP Laptop 15-fc0xxx")
 Cc: stable@vger.kernel.org
-Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221233
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222044
+Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
 ---
- fs/btrfs/sysfs.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/hda/codecs/realtek/alc269.c | 10 +---------
+ 1 file changed, 1 insertion(+), 9 deletions(-)
 
-diff --git a/fs/btrfs/sysfs.c b/fs/btrfs/sysfs.c
-index 39cb01ee441a..71b1ec6c0643 100644
---- a/fs/btrfs/sysfs.c
-+++ b/fs/btrfs/sysfs.c
-@@ -1857,6 +1857,7 @@ void btrfs_sysfs_add_block_group_type(struct btrfs_block_group *cache)
- 	if (space_info->block_group_kobjs[index]) {
- 		spin_unlock(&space_info->lock);
- 		kobject_put(&rkobj->kobj);
-+		memalloc_nofs_restore(nofs_flag);
- 		return;
- 	} else {
- 		space_info->block_group_kobjs[index] = &rkobj->kobj;
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 92686e71dad1..1c2d88689988 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -4480,7 +4480,6 @@ enum {
+ 	ALC245_FIXUP_BASS_HP_DAC,
+ 	ALC245_FIXUP_ACER_MICMUTE_LED,
+ 	ALC245_FIXUP_CS35L41_I2C_2_MUTE_LED,
+-	ALC236_FIXUP_HP_DMIC,
+ 	ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO,
+ 	ALC256_FIXUP_HONOR_DRA_XX_SPEAKERS,
+ 	ALC256_FIXUP_HONOR_DRA_XX_HEADSET_MODE,
+@@ -7247,13 +7246,6 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC287_FIXUP_CS35L41_I2C_2,
+ 	},
+-	[ALC236_FIXUP_HP_DMIC] = {
+-		.type = HDA_FIXUP_PINS,
+-		.v.pins = (const struct hda_pintbl[]) {
+-			{ 0x12, 0x90a60160 }, /* use as internal mic */
+-			{ }
+-		},
+-	},
+ 	[ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO] = {
+ 		.type = HDA_FIXUP_PINS,
+ 		.v.pins = (const struct hda_pintbl[]) {
+@@ -7919,7 +7911,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x8da1, "HP 16 Clipper OmniBook X", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8da7, "HP 14 Enstrom OmniBook X", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8da8, "HP 16 Piston OmniBook X", ALC245_FIXUP_HP_ENVY_X360_15_FH0XXX),
+-	SND_PCI_QUIRK(0x103c, 0x8dc9, "HP Laptop 15-fc0xxx", ALC236_FIXUP_HP_DMIC),
++	SND_PCI_QUIRK(0x103c, 0x8dc9, "HP Laptop 15-fc0xxx", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_GPIO),
+ 	SND_PCI_QUIRK(0x103c, 0x8dd4, "HP EliteStudio 8 AIO", ALC274_FIXUP_HP_AIO_BIND_DACS),
+ 	SND_PCI_QUIRK(0x103c, 0x8dd7, "HP Laptop 15-fd0xxx", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_GPIO),
+ 	SND_PCI_QUIRK(0x103c, 0x8de8, "HP Gemtree", ALC245_FIXUP_TAS2781_SPI_2),
 -- 
-2.34.1
+2.25.1
 
