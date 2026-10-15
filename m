@@ -1,102 +1,157 @@
-Received: from out198-29.us.a.mail.aliyun.com (out198-29.us.a.mail.aliyun.com [47.90.198.29])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8394525A96;
-	Thu, 15 Oct 2026 12:40:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAFB4524B1C;
+	Thu, 15 Oct 2026 12:40:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792068009; cv=none; b=dLbYuR/Ps6+gaKSdncGqayOYutIBNza7Ngu7pXw5hurJ8DZ/4noEEmyWc+O4M1jnP1IT3rBHbafmSLmhr7eFuBPWTwPfuxScOwbcaiSf1l0EHnh+LG8AEETMjbiYPg7ZFKPxgr2rWcjSJh0MauJqF/4nT6uZzI2GcWAmQbBZcS0=
+	t=1792068043; cv=none; b=NbNJIDEPG/MmLW+nxmdFUhvO/H7gblvD3Q8U04ObB9r4QYnL+5pE5B9joZIfvt3kHcxRjOBlYNk1/nBZ/iIuX800b0bKVQsa2+SprYHx0xlIU1fRZN4XH8oyJIp+X401bvtmcBypcGoRXZ9dHHqjAOgFsnve2DXvx8KjqO8jaBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792068009; c=relaxed/simple;
-	bh=pZVExG4snKz3MfMYM2U0ZTXdnWpWL4PIR72QLsJfSZE=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 In-Reply-To:References:To:Cc; b=nRGRRoVcWp6mCcoI5T3Fs+qq0A91lWC1UimJ8uClwJ3ZGAEdy8cAb+cnieBnsIV86GfC5h+8ExhyzUlHWN+Ud6C4icFJEZVWziSrMhIGoqQwH3ZRcXuGxqDonI9xMajn78rLiKnwBC4BybQRgsDC9jfCaEvsILIDJSpz+5mNul8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=WjlelCqW; arc=none smtp.client-ip=47.90.198.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1792068043; c=relaxed/simple;
+	bh=Cevq8m4biap8mXnqmeOT5z3NEclaoSR37+Xq0JCgVJg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=boYOCKs8yWUIWidUjPY7q3UaN3gGUi3LWf1c6l1mleq5LupdULtw8Eko6iLOK5xaTPMdtGPCA0wxXphN4lNak7b0myJX+TyULV4ITz6vFMiJh1Slj64o2i9Ez2rWSRQrXeQXrlddrRKxjPj6n4oa8Mn7BtefYCP58X+3ErST0zE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DuB4upJW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="WjlelCqW"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1792067984; h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To;
-	bh=p7d52w5knl6aTU8FnTsiPgKYATWg6M9jCczahrtsNRA=;
-	b=WjlelCqWF23dZrf8YVfACyIM3PNIyJza/m7shayWDJ3bFzepkWm7bOAZa+FH90A1sN7wzLccvLFfBuhPFxZ447Gmd3Y+8yLqKLtQzDKv8zSCJp+8LRYcSV51bZNcJFAPRCk0gn4U+w/cIMnWfUktAbj8GNWP3wUIZz5OoJmFn1A=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07668576|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00357302-0.000210201-0.996217;FP=1006695008241323194|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033023018039;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=11;RT=11;SR=0;TI=SMTPD_---.jem-UDp_1792067983;
-Received: from 127.0.0.1(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jem-UDp_1792067983 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 15 Oct 2026 20:39:44 +0800
-From: Weibin Liu <liuwb@xiaopeng.com>
-Subject: [PATCH v2 0/2] mfd/spi: sprd: fix ADI transfer length handling
-Date: Thu, 15 Oct 2026 20:33:11 +0800
-Message-Id: <20261015-spi-sprd-adi-exactlen-v2-0-13203b6aef7e@xiaopeng.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DuB4upJW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EC341F000C4;
+	Thu, 15 Oct 2026 12:40:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792068042;
+	bh=4jYUWj1Z8lVtLtLhT03lBD4WoGFffEkFo9Ee1+0Henc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DuB4upJWt1qSCI+i7geWSb9+9TPb4HM2H1uDDt/DNXFkVyi1gl1Xv+4+gJCLfxwih
+	 hYpKqczX3TB1U5YgRg/C1t0r9JbvdlEY/MrL7Fne2jvEpSd3xA70Go3tciTrwSOxA1
+	 kalGW3Smei/DH/1n3KXifHX70SxiGk8amkResDIYdYc6dfowmbrZoP5nC9u+ZKVUh1
+	 JgtsD5vDBLRPpOyXk93xbiZ8lgCPl47/VpdgjNWpydcJi3fDveV1+HtAb+Nxo2Gwc5
+	 Mu3BK/RAGCUstfXTCynrIKpY1fT9HjTi3mi+0LwdwRVL7A+/rBFDlpOdCVOzohoIY4
+	 3o5dlaNfq5hNA==
+Date: Thu, 15 Oct 2026 13:40:38 +0100
+From: Lee Jones <lee@kernel.org>
+To: Danish Khateeb <danishkhateeb03@gmail.com>
+Cc: pavel@kernel.org, afd@ti.com, linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] leds: tca6507: Fix use-after-free on unbind
+Message-ID: <179198531901.839288.3981290104893464587@kernel.org>
+References: <20260926172115.543800-1-danishkhateeb03@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAjI0GoC/x2MywqAIBAAfyX23IIaCfUr0cHHVgthohGC9O9Jh
- znMYaZCpsSUYe4qJHo48xWaqL4Dd5iwE7JvDkooLYUcMUduJI/GM1Ix7j4p4KStHISzWjoDrY2
- JNi7/d1nf9wPDD/+WZwAAAA==
-X-Change-ID: 20261015-spi-sprd-adi-exactlen-96b130cb61ca
-In-Reply-To: <5e662ac5-efea-46dc-bd09-88a5a4841851@sirena.org.uk>
-References: <20261014-spi-sprd-adi-minlen-v1-1-77fee7e64259@xiaopeng.com>
- <5e662ac5-efea-46dc-bd09-88a5a4841851@sirena.org.uk>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>,
- Orson Zhai <orsonzhai@gmail.com>, Mark Brown <broonie@kernel.org>,
- Lee Jones <lee@kernel.org>
-Cc: Weibin Liu <liuwb@xiaopeng.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, linux-spi@vger.kernel.org,
- Chunyan Zhang <zhang.lyra@gmail.com>, mfd@lists.linux.dev,
- Guanglei Zhu <zhugl3@xiaopeng.com>
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260926172115.543800-1-danishkhateeb03@gmail.com>
+X-AI-Review-Draft: <20260926172115.543800-1-danishkhateeb03@gmail.com>
 
-Thanks for the review.
+On Sat, 26 Sep 2026, Danish Khateeb wrote:
 
-Both points are right. sprd_pmic_spi_read() passes a word count to
-spi_read(), not a byte length, so the v1 check would have broken the
-only in-tree user of this controller. The 4-byte minimum was also the
-wrong check: the driver only ever performs a 4-byte register read or
-an 8-byte register write, so any other length is a caller bug. Short
-transfers overrun the buffer, long ones are silently truncated.
+> Since the LEDs are registered with devm_led_classdev_register(), they
+> are unregistered only after tca6507_remove() has cancelled the work.
+> Unregistering an LED that is on turns it off, which queues the work
+> again from led_assign(), and the work then runs after devres has freed
+> the chip:
+>
+>   BUG: KASAN: slab-use-after-free in assign_work+0x414/0x5b0
+>   Read of size 8 at addr ffff888010d5c0c0 by task kworker/1:2/65
+>   ...
+>   Last potentially related work creation:
+>    ...
+>    queue_work_on+0xb6/0xc0
+>    led_assign+0x223/0x340 [leds_tca6507]
+>    led_classdev_unregister+0x26b/0x340
+>    release_nodes+0xb3/0x140
+>    devres_release_group+0x247/0x470
+>    i2c_device_remove+0xbf/0x1b0
+>
+> Set up the work with devm_work_autocancel() before the LEDs are
+> registered, so that devres cancels it after they are gone, and drop
+> tca6507_remove().
+>
+> Fixes: 1b5c2fa7081c ("leds: tca6507: Use devm_led_classdev_register() to simplify remove path")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+> ---
+>
+> Notes:
+>     Tested in QEMU on a next-20260925 KASAN kernel, with the driver built as
+>     a module and a test-only module that adds a fake I2C adapter and a
+>     software node for a TCA6507 with two LEDs. With the LEDs on, unbinding
+>     hits the report above (38 reports in 20 unbind/bind cycles), and so does
+>     unloading the driver in 2 of 3 runs. With this patch there are no
+>     reports in 20 cycles or 3 unloads, and the LEDs come back after each
+>     rebind. A W=1 build with GPIOLIB is clean.
+>
+>  drivers/leds/leds-tca6507.c | 19 +++++++++----------
+>  1 file changed, 9 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/leds/leds-tca6507.c b/drivers/leds/leds-tca6507.c
+> index 9afe2722986c..503a465a07f4 100644
+> --- a/drivers/leds/leds-tca6507.c
+> +++ b/drivers/leds/leds-tca6507.c
+> @@ -79,6 +79,7 @@
+>  #include <linux/gpio/driver.h>
+>  #include <linux/property.h>
+>  #include <linux/workqueue.h>
+> +#include <linux/devm-helpers.h>
 
-v2 splits the fix in two:
+Nit: Alphabetical.
 
-- patch 1: sprd_pmic_spi_read() passes sizeof(u32) instead of 1.
-  Nothing changes at runtime -- the buffer is 8 bytes on the stack
-  and the controller only touches the first u32.
+>
+>  /* LED select registers determine the source that drives LED outputs */
+>  #define TCA6507_LS_LED_OFF	0x0	/* Output HI-Z (off) */
+> @@ -735,9 +736,15 @@ static int tca6507_probe(struct i2c_client *client)
+>  		return -ENOMEM;
+>
+>  	tca->client = client;
+> -	INIT_WORK(&tca->work, tca6507_work);
+>  	spin_lock_init(&tca->lock);
+> -	i2c_set_clientdata(client, tca);
 
-- patch 2: the minimum-length check becomes an exact per-direction
-  check: reads must be sizeof(u32), writes 2 * sizeof(u32). This
-  also closes the 4..7 byte window v1 left open on the write path.
+Nice catch.
 
-On severity: this is hardening, not a live security bug. Nothing in
-a stock kernel reaches the out-of-bounds access, since spidev is not
-normally bound to the ADI controller. Both patches still carry
-Cc: stable.
+> +
+> +	/*
+> +	 * Unregistering the LEDs turns them off, which queues the work again,
+> +	 * so it must be cancelled after them: set this up before registering.
+> +	 */
 
-v1: https://lore.kernel.org/r/20261014-spi-sprd-adi-minlen-v1-1-77fee7e64259@xiaopeng.com
+Correct life-time ordering is expected.  This comment is superfluous.
 
-Changes in v2:
-- new patch passing a byte length to spi_read()
-- exact per-direction length checks instead of the 4-byte minimum
+> +	err = devm_work_autocancel(dev, &tca->work, tca6507_work);
+> +	if (err)
+> +		return err;
+>
+>  	for (i = 0; i < NUM_LEDS; i++) {
+>  		struct tca6507_led *l = tca->leds + i;
+> @@ -766,20 +773,12 @@ static int tca6507_probe(struct i2c_client *client)
+>  	return 0;
+>  }
+>
+> -static void tca6507_remove(struct i2c_client *client)
+> -{
+> -	struct tca6507_chip *tca = i2c_get_clientdata(client);
+> -
+> -	cancel_work_sync(&tca->work);
+> -}
+> -
+>  static struct i2c_driver tca6507_driver = {
+>  	.driver   = {
+>  		.name    = "leds-tca6507",
+>  		.of_match_table = of_match_ptr(of_tca6507_leds_match),
+>  	},
+>  	.probe    = tca6507_probe,
+> -	.remove   = tca6507_remove,
+>  	.id_table = tca6507_id,
+>  };
+>
+>
+> base-commit: 05b4738b0078f7d6f154f68068a11c8a0635e9df
+> -- 
+> 2.55.0
+>
 
-Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
----
-Weibin Liu (2):
-      mfd: sprd-sc27xx: pass byte length to spi_read()
-      spi: sprd-adi: enforce the exact transfer length
-
- drivers/mfd/sprd-sc27xx-spi.c |  2 +-
- drivers/spi/spi-sprd-adi.c    | 10 ++++++++++
- 2 files changed, 11 insertions(+), 1 deletion(-)
----
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-change-id: 20261015-spi-sprd-adi-exactlen-96b130cb61ca
-
-Best regards,
 -- 
-Weibin Liu <liuwb@xiaopeng.com>
-
+Lee Jones
