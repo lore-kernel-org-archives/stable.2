@@ -1,124 +1,198 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11021083.outbound.protection.outlook.com [40.107.74.83])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 469E53909A8
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 03:45:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792035931; cv=none; b=pSA20iCXkyaN08hDjpqdX7bTwNVzCJkE75ihwlAU+I6kre52xfjDICTfSCGNL0DBDqLB/JerBgAdZygPY8LS33dm8mwBB6UtUltONJqjtQBzPT0Au2lXIhBCNposlLDF8nEAL1aeuCoszWKUQltbJTkC2S8nlWrXlXB1UuXusbQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792035931; c=relaxed/simple;
-	bh=9tNs4dqxRFyP90eQFauIOedcWXZRofnOvwz8agHbVaU=;
-	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=BWLZiuZ/PIB2CbvORDsfkDX39xnGsOOu1PjG1HmzWJQZ7J453g8FgBHziwX6Ngioj6PkL7oA+F+RuhkwS/J4bcaHmlqOwQJbfxCSW3CycTDDgmPzGTlSGmzPSA3v2Z2azfWcPIlMxk7e9bJdEwv4Ppg5oZTNq2edD0C8E4i4W+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hPLD3TsP; arc=none smtp.client-ip=74.125.82.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D2D73EEAC1;
+	Thu, 15 Oct 2026 03:50:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.83
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792036240; cv=fail; b=t6b0drRWwBDM9TsqtYUVuOOpBTkknLRpYPXoQtoc7By9BTfDvbZgn9ofF1LcgugABTYQ8PYgMZP/k1eQSa5TUXjyeRBuM2jErOvACDcVdM5DPy1ppE+W5h4EEXzFtr4QOtc63Ns8pU2MdDAT5rh+8HbWOICG3DfxgJnkrlIZ7tE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792036240; c=relaxed/simple;
+	bh=EC+slqOBoTp2OAW8ReoOCjbRM8d34Qno6BF8/yxM+xc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=usVOUj55mn23TfvwDyRyGx7r8r1ll+s/TF0dwD75AfCo30g7qzSMNZI8MVCPeFxitpI7juwgWZEEYlC1KX4YR1I1lIiCiRZ4uyTB5p5grAppT+Ws6rJ4R1YptHTyAtFK6N/ndoIt6nRfH5w7x1uAUx5r8TwZrwetAu4PTqSy76c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=K+XHvg8m; arc=fail smtp.client-ip=40.107.74.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hPLD3TsP"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-35ef6b49813so875039eec.0
-        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 20:45:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792035929; x=1792640729; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ekxAbaTw9lcA/repE4rySfHgfzkYuU+ooIR190sGV+c=;
-        b=hPLD3TsPSGMnptvsYH4IuzPpO6zxpFiXTGuNM538iTOXrk6/earv2op6r2zGPbu4Z0
-         6HQXzaMnxQte1gGlLwGJsRP2UzyUMYcS19bd8qrDyexfQDHZz+aEriGRhV2UvOlJ90Z8
-         P6L8u7CPTKO20IPTXLviOxK6l2IVW0c/tlMZ4mD+jGyfz1dWe8MyWbYZ4qQ20LyC0+6s
-         5/7NyqFwCLlezfSgHwWJyzN3ysnSyQABQ84Muf5/Zm6slKw7/iaQrt7ba+3qzN5utG6u
-         MRuOtlJh6W8ydLW8jO6W4hMeXpUn7TX9rx1QbJ/hcOQeZprv+PMEn8PZU/ebh0n6YFK5
-         K1yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792035929; x=1792640729;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ekxAbaTw9lcA/repE4rySfHgfzkYuU+ooIR190sGV+c=;
-        b=aMxlu5nxMAxCSfVBVYrRyi58pISnP2wfboBA1Jn6NfQPkGVliO1FogOeCPGFRxbbtz
-         H9WOKZezCLfcLHnKe39qO0zkzfzO/jyB0qwIOK+9W4RHNi9goNBcZKvGaCyNR38mNahO
-         DGGf9p9ZcqCq5jAk8rxnv7x0jZub/aw63VA0fGF3FNJ4gGkgwhmazwETV2HZLk2iFi/n
-         Y/qY5i+5gTHuJMBaHUdtaoISKigLc5JpEKdEX/MjDYzaEsRjRKgqSMUtBBzxrdhuyKw8
-         OaNL/G8kGCCgflX+2O2OzKXlihc87/ElkZ9kPtF2HGbfJG1Rknh9d5AJeOSCuCRrxXqA
-         hV4A==
-X-Forwarded-Encrypted: i=1; AKwUvBzngh87uf4eNae2glOSo2/2SKJJ8O2c9mo84tH0to7DhAPN9wEIapa5ycPgXc9OaaYvhVG9+a8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLKrmph+2i3P/ZORp30YAyV3IYJWynipWXqLfJpjGgvklYKcIr5
-	Ib6my6xudgBe+TUxSLsjOMuR2vV1RR1oh67gZiEipBwGO5PVUt/b8D6iqERbrQ==
-X-Gm-Gg: AYBFou2lgka+6Bah87QYMgpkHPc4HGBriK0sBT/kqmSqaOA6qptDc0Iyen3XcwKCT8x
-	sGVrdY/wK9BUy/o3yYjtKxEImFkekAohU4PCCBTYY3DgtwcElQJdh6jcSzA8rLX+OCNpOiEYdho
-	TOl4btzw+8uVaDgaNvcP2+/guoWc85jEVkYAxA1+2XlVw/GB5/D6VLUM6/SMrRXeWpgQPY72mA1
-	cbmoA29hQP4lnmSvPoFzMk26be7Z0es0POmqtvXEkiSZfAc7MUUJRyO6V+LeAB8ZJCrCoHigv9Y
-	XymGYcVcIxPbsKrXqow1SoEPxDd82Dost/ogSOJPeGSvLO990gDkdBGgE7dC4YqQvKO3nEBcsM2
-	s5xFIMT1xwWdHjaBuF3vOJiFv7YSbE6EQaCgkhcV69M2CmFSq17nC8oco9+VRKvB/fEuQm/x4Fj
-	9c0pGFm1iNXNaKtr03Xv6avxadJkTwcF/LJCpvprnWPxJG77C9hIeUqsNe9W3Ky28Laoy1
-X-Received: by 2002:a05:7022:7e08:b0:144:fa58:95d8 with SMTP id a92af1059eb24-16a61a6ebb0mr33060504c88.27.1792035929111;
-        Wed, 14 Oct 2026 20:45:29 -0700 (PDT)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a5866477sm50853605c88.22.2026.10.14.20.45.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 20:45:28 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Amit Machhiwal <amachhiw@linux.ibm.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org
-Cc: Amit Machhiwal <amachhiw@linux.ibm.com>, Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Shrikanth Hegde <sshegde@linux.ibm.com>, Alexander Graf <agraf@suse.de>, Avi Kivity <avi@redhat.com>, kvm-ppc@vger.kernel.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, Gautam Menghani <gautam@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, R Nageswara Sastry <rnsastry@linux.ibm.com>, linux-hardening@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] KVM: PPC: Book3S HV: Disable preemption around host-side HPT lock users
-In-Reply-To: <20261014185215.71832-1-amachhiw@linux.ibm.com>
-Date: Thu, 15 Oct 2026 09:14:32 +0530
-Message-ID: <v773r5jz.ritesh.list@gmail.com>
-References: <20261014185215.71832-1-amachhiw@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="K+XHvg8m"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YjM4y/4DFoT21M7zgbkC1dEBdrFlF5SIj/sKoz8Hsk4dGPB+3WGwdt8tdTgIuliHO0aO/K0xeDlqaAHRNpx8M1rvGF4ko7lYjZ/sXinucLxK7MCfe0tuMapnFwTUZ6PrvDVTZCINAKG1uCFAI31eoTqG1QKrBl0ZCBn8dlm4rXMXPcLJPYSIyNsZ15n/VVaKVHnTAYtHNDVVAu+8HnnSMGP3WPAQ15IUPjmnWBqzcuIFkg2745WXIk4Hvv6xNY2kpzVPzg5oTrEkDCwIrbqZySecYoMkzu5fdGVkGZravE40KH2RJOG55GtWSx1EBKzh7pcXsgvCUj5M2I/rRAMLOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EXJ9uXtwFkirb/88zvAl7Thi0BW4JyB+iRWH79wjbTQ=;
+ b=UNr745mpJYgRgOkTfAlYaorp5B9q98Dwtdke2zQoawAO3FkaHuPKfuAb+pnvsJiGLD/zDyXGtr1BpJX0FU42YiLLE6XnR0qoJwoUERUNa7nHHotojE4CWVULTFPbxo0ZM11MtdXhn49o2Al+Z83loRAmMgnHdeI9SW4EwsxwCAr18g0we0ZavDXWYORL8qejKCulUD7lPmdZTXM4meYeKzKbxAEAACBolKa4kr7XyoBXPbVo6MXn+FtYeuiBLZW8mJtLkdQz+WxwK8cpwd71JSHKRMCtn3NJ2iLqJcPjFjUDRBYceOCYHbWmeQaTb6aTk5Heoyoq169eTanXbxRu/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EXJ9uXtwFkirb/88zvAl7Thi0BW4JyB+iRWH79wjbTQ=;
+ b=K+XHvg8mZwZ5E/OPM+C+g5F3QvAqIaLQ2X8Wn2ak883muoTX+rsd1VQrpI9r8arqJbjj/bp+LPhKW24dcN7+3L8yThNygcD9WSyWc07+Nkd7SmGIiqFQ3Lotu4rMPIheGZx3Q+ZBgEV2UW//ung6x/dz0/IpNwXAwJv3SG+RmYE=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by TY7P286MB7895.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:3a0::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Thu, 15 Oct
+ 2026 03:50:29 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0522.012; Thu, 15 Oct 2026
+ 03:50:29 +0000
+Date: Thu, 15 Oct 2026 12:50:28 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>
+Cc: Allen Hubbe <allenbh@gmail.com>, Frank Li <Frank.Li@kernel.org>, 
+	Logan Gunthorpe <logang@deltatee.com>, fuyuanli <fuyuanli0722@gmail.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Nicholas Bellinger <nab@linux-iscsi.org>, 
+	Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 06/15] NTB: ntb_transport: Avoid losing QP link-up
+ requests
+Message-ID: <c6zrmhs3d77424lgxbeul4237ovdrkskoapqutuaokjvuve4zz@6gh75sbdtt3b>
+References: <20260928152550.3354675-1-den@valinux.co.jp>
+ <20260928152550.3354675-7-den@valinux.co.jp>
+ <cf51aeee-d951-472a-acd1-183028da966e@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cf51aeee-d951-472a-acd1-183028da966e@intel.com>
+X-ClientProxiedBy: TY4P301CA0114.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:37e::12) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|TY7P286MB7895:EE_
+X-MS-Office365-Filtering-Correlation-Id: d6f249f8-1f5a-4e86-9f20-08df2a6f7441
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|1800799024|376014|10070799003|366016|6133799003|10067099003|22082099003|18002099003|4143699003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	SsEOyS1MXixe3OfJeES8OqR82Tx5ljGwQEPpzR2UnwxUENFG6ZMj2XssK44aiSdVjbRtga3Ygz1zqhdWQJGGtm4IIkVeQ/j28549YMWmTLUn5VETfdNOx844d9SYyn3S7jLMAB1bCrR6PsT/xYgrTS6FXoBUp9W6OYTPcqEz2PlJGvyorkB713rJchqSQq1JWY1jlI7wcFcHSPmOMe0dvOSdSXXUfkuQ9PBXrV+P0ck3LorHUpwv0cVxoiRx0TT4NkNvCWaoXtiwpjHmA1fyIQdc6nLRAiTSDElukJxxbvnyJWdR8mxMP0aA81uGZgeoGdwFsO0UHnFqdEU5FRpiPuCvLdpS+TOsk24s5M45KYUjNf8um/HThDLRIZY4cXTeCcg0wQ2mKEi3JRbpSRbJ046Pt60W17/r2dYziKZ43l4oDKSizrNLgNfPBtbM+/J6VzAeBbGJXHmREmv6ghxN2w9cxoAENNs8/WtnkF7KgkQi7Xc5nUi3pcPsj7+SNWcsc1PPKZnwXi4b/WerINlSjGjpS98KKKhjb2na4lT31kFNY1yt72T8m4q3kqSWSUQnxaDDxDqFHWDpZ7g9qsYDlwxwwj/A05bJ0zme2+4L9nR69L3RsUZedhey5l4ZFOKb
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(1800799024)(376014)(10070799003)(366016)(6133799003)(10067099003)(22082099003)(18002099003)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?72Ni8ae0x9XOuOwREer9hLHY5xTUKBV46gZvDT33bLLgpl5Ce4D2jZcEh8/h?=
+ =?us-ascii?Q?TsJvCxZXwAbVRd2uVZ88AoMuDZaI+4YgyD/X857tog95b1EIF9G5DvXCn6Ji?=
+ =?us-ascii?Q?4jKcKiY+2gzq7e5j66Gc4mX22VIWuudCkZGTJ1JJZr1OgpJrOsyRpzLcwyjk?=
+ =?us-ascii?Q?H+SPGhnh5nSvflQgZjg790LLeFwg5Ysm/FFLH3RcKZcdNekN2RoC0rwcMGdW?=
+ =?us-ascii?Q?4+5+Uj26z7XK9OuAyV39bWVM+UfH7cfDZRgaV/pRMuJnOgZZbr/yqYrKqpOP?=
+ =?us-ascii?Q?lEqITeMlqJAtffvosyo4RvZHj3sXf6ogO7pVwafCaoPJR0ra4mRBO0j1g68a?=
+ =?us-ascii?Q?JgmNRrApt/+xGSzg+EQHexuQ2KXmS22iA+e/CnSupHZ/pCAnjZ58vRytaXLy?=
+ =?us-ascii?Q?+dcMtHw6hafiLYH99u2HhlFWuvgmSnMsxaIm7FTs16LTUy9/wCZUcb91eZy+?=
+ =?us-ascii?Q?hVVifzQPsqblBSiKClzhYAoL2UrQVerjzjRuDmt0vusbM7n4NAAGsFtJMFaP?=
+ =?us-ascii?Q?7TVpx2tFQR9couZFwOptTr16Myk2BhE+2ZxVOr1tqBxMImpnD4R3JyLB6iH9?=
+ =?us-ascii?Q?Y5wsuQqzlYL0/pLEfDeTLzT5GdjGzRu3LmI85YjhQxmxonGQaqLB9AfXSg/b?=
+ =?us-ascii?Q?c5QzMI90AI2K48gxc3kLAQZcTZAtBkJLNOl8lABaksTutHsvgdI1csejQZOu?=
+ =?us-ascii?Q?mrOVSVrJsM4FRaPbP/pRgBOOODfF1o2vXiFUPP5qH6sjhhSkhgQq0+RNXD0C?=
+ =?us-ascii?Q?26BH0tRehU/kFEBrPRTfX3eSImKGIFk8n3ATHFvIId3+Kdvuvm0ZAk29IYQK?=
+ =?us-ascii?Q?dKdUJjv4s0tsYYX5Uf9mXfsQk4Dk1NB9jRiJu2uWG96TTCpc06xkfBDaN4/z?=
+ =?us-ascii?Q?dN1YcltVC3fYW7dcMy97Sor+ehpQtryuYzYo76Wx7D7TaRsb1uLONFA0QrST?=
+ =?us-ascii?Q?QOydxMSfOcnSm/QkNdxyLAuK7tr4abdXi054WOzRwf+43i1G6uR81ntMHalZ?=
+ =?us-ascii?Q?SU4eXi/ppi+fBF4LdrX2Or+SUNr6I3tYiPFndjrI0RzRDyUMRgPqI+WDk95W?=
+ =?us-ascii?Q?zVyPvJkGrPJSv/BMCNY7tMYdu8ze8nDr5Z0VTMUo1m8Z00fuyQcf51ZOtc+c?=
+ =?us-ascii?Q?SdIEDoOPnRLAMw7plyPh4vxlyDIXJggZqomtbN6aN4V4JJYyrZuRdrPy5sPC?=
+ =?us-ascii?Q?7Jn4Pke0qAUJPXqErFzJuJblc07HHZvJx1r7i7LFwf5UgBRewQTJHWe7iKyB?=
+ =?us-ascii?Q?7+s+JVCneIxd8w/pK1P2GoRKJCsRFjgR4PWpVwW6Wabjg3afkpUMbF1mhMo8?=
+ =?us-ascii?Q?HaOFaaF7M/i/qqkeqsoFd9OGmcc/tU58uuzxqCxaUi/H/kfQ885EQ0LkdaNU?=
+ =?us-ascii?Q?iJGAIsWRKmKaOp1YOrKefLGOmsAJ8PtYB0VpRWFVXqOOXYqOSWVmp53//rom?=
+ =?us-ascii?Q?SQdonksJ8NuvmWAnjWkGvStdOuEuVw9nv99kv7S6zNFIOBuyMsAw/a1L2rnT?=
+ =?us-ascii?Q?zb7L7yPQ+pNvwLn5bNcy001vqTonSyDalBAloM3i0DlgTxGWyX7YgfwO0Pht?=
+ =?us-ascii?Q?3oYoBLcawg2/sA+8OyXxMCMMNUUZayQjn3B9hibiUevkWcBVaKGObAnP1/QR?=
+ =?us-ascii?Q?K4GTQ58KTthnqxTJmOuZVfwyNx+lWWfx0VDN4fndiccHja3kBqjRQhBtd5fR?=
+ =?us-ascii?Q?l4DXQsb4mXXYc41PxHUYox9dEn6L5WDhY75gOshR0QNTBvg4QYM2wL04B5fk?=
+ =?us-ascii?Q?nn2pdmUXfSbQDFTQ8P7JAgmAf7nQmvyXyXGWnt5ZwO84SfYqOXgd?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6f249f8-1f5a-4e86-9f20-08df2a6f7441
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 03:50:29.0972
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AA1HgqGnQjvHFRlwIonaGzyiOiznFJPoBO6MIV8vUD/YBuk4AXHJAB7X2QkekrILcqo8tnQHJ6k5XKsZR1JmUA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY7P286MB7895
 
-Amit Machhiwal <amachhiw@linux.ibm.com> writes:
+On Fri, Oct 09, 2026 at 04:11:14PM -0700, Dave Jiang wrote:
+> 
+> 
+> On 9/28/26 8:25 AM, Koichiro Den wrote:
+> > ntb_netdev_open() can call ntb_transport_link_up() while the transport
+> > worker is completing setup on another CPU. Concurrent transport setup
+> > and a client link-up request can both read the other's flag as false and
+> > leave QP link work unqueued. The QP then stays down until another link
+> > event or client link-up request.
+> > 
+> > This is the store-buffering pattern described in
+> > tools/memory-model/Documentation/recipes.txt ("Store buffering").
+> > 
+> > Add a full barrier between the store and load on each side.
+> > 
+> > Fixes: fce8a7bb5b4b ("PCI-Express Non-Transparent Bridge Support")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > Link: https://lore.kernel.org/r/20260907144701.702E41F00A3A@smtp.kernel.org/
+> > Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> 
+> With Logan's comment addressed,
+> Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+> 
+> Maybe Jon can amend it on apply.
 
-> A previous change ("KVM: PPC: Book3S HV: Add preempt_disable() around
-> virtual-mode HPTE bit-lock users") at [1] added preempt_disable() around
-> guest vCPU HPT hcalls and page fault handlers executed in virtual mode.
-> This ensures vCPU threads cannot be preempted while holding
-> HPTE_V_HVLOCK or the reverse-map lock.
->
-> However, several host-side virtual-mode paths in book3s_64_mmu_hv.c also
-> acquire HPTE_V_HVLOCK and lock_rmap() in process context with preemption
-> enabled.  Specifically, kvm_unmap_rmapp() and kvm_age_rmapp() take both
-> locks during MMU notifier callbacks and memslot flushes, while
-> resize_hpt_rehash_hpte() acquires HPTE_V_HVLOCK during HPT resizing.  If
-> a host thread is preempted while holding either bit-lock, any guest vCPU
-> thread scheduled on the same CPU spinning for the same lock with
-> preemption disabled will never yield, resulting in a permanent CPU hang.
->
-> Fix this by disabling preemption across these host-side critical
-> sections.
->
-> For kvm_unmap_rmapp() and kvm_age_rmapp(), place preempt_disable()
-> before lock_rmap() so that both the rmap chain lock and the subsequent
-> HPTE_V_HVLOCK bit-lock are held under a single non-preemptible window.
-> To preserve the ABBA lock ordering between the two locks, re-enable
-> preemption after dropping the rmap lock on any retry or early-exit path
-> before spinning on cpu_relax(), allowing the lock holder to be
-> scheduled.
->
-> For kvm_htab_write(), the HPT migration restore path, replace the direct
-> calls to kvmppc_do_h_remove() with kvmppc_virtmode_do_h_remove(), a thin
-> wrapper that brackets kvmppc_do_h_remove() with preempt_disable() and
-> preempt_enable(), mirroring the existing kvmppc_virtmode_do_h_enter()
-> helper.
->
-> For resize_hpt_rehash_hpte(), place preempt_disable() before the
-> try_lock_hpte() spin loop and preempt_enable() after unlock_hpte() at
-> the function exit.
->
-> [1] https://git.kernel.org/powerpc/c/abbbe5ff83e7c9ed3a4d61b73011f1df7bf87907
->
-> Fixes: 6165d5dd99db ("KVM: PPC: Book3S HV: add virtual mode handlers for HPT hcalls and page faults")
-> Cc: stable@vger.kernel.org # v5.14+
-> Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
-> ---
-> Changes in this version:
-> - Separated host-side fixes in book3s_64_mmu_hv.c into a standalone patch
->   (guest-side paths were merged from v1 resend).
-> - Previous discussion: https://lore.kernel.org/all/20261007182116.12479-3-amachhiw@linux.ibm.com/
->
+Dave, thank you as always for your review.
 
-Thanks. Looks good to me. Please feel free to add:
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Jon, please let me know if you'd prefer me to resend the series with that
+amendment.
+
+Best regards,
+Koichiro Den
+
+> 
+> 
+> > ---
+> > Changes in v3:
+> >   - Drop the *_ONCE changes. client_ready is now atomic_t.
+> > 
+> > v2: https://lore.kernel.org/r/20260910040836.3792333-6-den@valinux.co.jp/
+> > 
+> >  drivers/ntb/ntb_transport.c | 9 +++++++++
+> >  1 file changed, 9 insertions(+)
+> > 
+> > diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
+> > index 51d9e9969065..d290e5869c21 100644
+> > --- a/drivers/ntb/ntb_transport.c
+> > +++ b/drivers/ntb/ntb_transport.c
+> > @@ -1101,6 +1101,12 @@ static void ntb_transport_link_work(struct work_struct *work)
+> >  	/* Publish the link only after every QP has been set up. */
+> >  	atomic_set_release(&nt->link_is_up, true);
+> >  
+> > +	/*
+> > +	 * Prevent both sides from missing each other's flag. Pairs with
+> > +	 * the barrier in ntb_transport_link_up().
+> > +	 */
+> > +	smp_mb();
+> > +
+> >  	for (i = 0; i < nt->qp_count; i++) {
+> >  		struct ntb_transport_qp *qp = &nt->qp_vec[i];
+> >  
+> > @@ -2400,6 +2406,9 @@ void ntb_transport_link_up(struct ntb_transport_qp *qp)
+> >  
+> >  	atomic_set(&qp->client_ready, true);
+> >  
+> > +	/* Pairs with the barrier in ntb_transport_link_work(). */
+> > +	smp_mb();
+> > +
+> >  	ntb_transport_schedule_qp_link(qp, 0);
+> >  }
+> >  EXPORT_SYMBOL_GPL(ntb_transport_link_up);
+> 
