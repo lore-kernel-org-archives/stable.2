@@ -1,77 +1,82 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EECA350298
-	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 16:58:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CECC542805
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 16:58:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792083511; cv=none; b=Zeks7jCZwTxjH074tU/1gTSXijTHvtmstEvwq+HIYSXBljX+Tjupqt7e+3xrd7XTzS5xO5U4pB1VvuJFD51FbKH6dDqJxH497Zwf4zwCTghyoT79mqh7BoAxIuHElW+Ixt8BGCllPYcrATWR55WWSqwww3/vru5SJeuDqjYdSNU=
+	t=1792083539; cv=none; b=ZahF7eoiwcy6lY5duZa4ndhu28yU0Z78c92ExBqfGZLUvtAuTmPELZ2CnBasiKYLX4O2BWaw8W6HuIOykBPXD57PWRYwdM6zXXwhxJflB2lQso2BUr3Tpj03W22w0gNgAq++EZGO5jsdJy+vGszEIpYZUQmC30CCgDViu45Nl3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792083511; c=relaxed/simple;
-	bh=ePhtOs88Q43lRENY8bKysVGSJOFLH6Ix3l4qabz8mKA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=M3DiRojZaW351aHY7Ozk0ajMXd4GHE9RYVJGfCtaSoLYa/RhzScLeTKlGWFU1XWJEyRM645EObKtFZFhiGUPZjncQcw2YRXFetbYwDgqMmnUP4PAgM5oqp+ZKx/kUCYHfMbfVNqzK612De2zycmHBRrVLwZ4lYHtcpwFRbiY2dk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pUPbZ9t7; arc=none smtp.client-ip=209.85.216.49
+	s=arc-20240116; t=1792083539; c=relaxed/simple;
+	bh=YzROl6vJA4Mn+TDlieovNm3NgImLMMW0O6JCegZ1Gp0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=kD2mkp1u2MfjwriL9AElXo8i1ERDuTlP2qFI457ILK2lhUIlIX6+7FfxqkKZdcWoVX34mlm8mYttLJ6r16tYruBJcGRTkHh5GoAcRIegNnE0840iAFbu9BwIjYnmNUXH1HWXvsIQsFu3HTpNJjKCiMi/+gA3+/uAdcB1Q386XJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=diWWaebh; arc=none smtp.client-ip=209.85.214.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pUPbZ9t7"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3acb512a7a0so315880a91.1
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 09:58:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="diWWaebh"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e86dce4510so28715515ad.3
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 09:58:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792083494; x=1792688294; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792083525; x=1792688325; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tvowUguha7kXmliduc5jiTqRimm07Y+qQJIE46iFsU0=;
-        b=pUPbZ9t7C88Sy5tbXV2FlVm5sitXqfYQj7an9mX4IEVwPzVeCsfsC/dBJWTk4l/Qy8
-         Q1nMiggnASOZ4E0Yc+1hfVswy+jE4P1YVlZzvK9oqWpIr6B6x/N435FApgScVG7jq3X4
-         IRYZ22Vgbsh8oYtMcC9KHtXjwpzvoUDV5mC3C/5Q8Pn1Mdyf6fY97RvXB3HoTmQCdmLa
-         Nlyi2nkJL0OfujHM2jEtd9xeKMeQ7+Mx15vW2Kuw/X9smB0Ymc+an3Tcjp4RqBQsUt/Q
-         0au3WfD5fsuDoFzvU66BHVjyZqcDnKxRwpnCKEPMtV1YYAvgKqAqOXnPJbYPjqR4vZVA
-         u18g==
+        bh=OXYHFaEiq6VlF6l7OPxNq/0HouFXap07l9nlhMKXwLY=;
+        b=diWWaebhxfhEERfAJr+quu41reH6pCHe01ZNFNabCLeaW/KSqwY6n1eWFwkYFAQAME
+         qFO6NlrDbnNRCpGRD/CJGB6ZwQ62FVwINiXap3pb7AWKsUH/2GO4fJJWM/5a3aaokgZM
+         fzNjQzAthhm0lnwCbC2xkukCeMibTMIwwZqB0ofx51d4M/uMKQLBb9phi+e36nyGS0QR
+         F3N2FkuPLom6bY8UfLekcJL6VJVdvrGzHzia+AVLpRMHFtyuWAiWdfxPUoEh+f32ix2Y
+         prymsErUoZTrhwM7hnaeDjgnxZL+NFsYOr+0/2oRxTBbf7BwEM0m+V/Y0hIdGzKYlUkx
+         3GvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792083494; x=1792688294;
+        d=1e100.net; s=20260707; t=1792083525; x=1792688325;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=tvowUguha7kXmliduc5jiTqRimm07Y+qQJIE46iFsU0=;
-        b=Imm+ckIHetuPXPeUt8ySVMvvCWKijrhAUyKzUa5dfTbQpLZ9LWeRl5I6/iWZRXQt5r
-         e0u5KsSa5dQ70G93XhpbikSpuCIL/bA5PPqJmi/PdZ23wV+mN0H5ij2W36Y0KJQ/sbQF
-         yMwyPHDlhMP1bXG6GojXi14YiKba1UpVw5kVAR0ypVzkPzYcrtVelo3I2bFmc0jGPyG6
-         cNzpc9zJwRcOHJ8PSHv6jOsOogQ4sdGiIfTwXHoD9SFJAPTfzPJ26HR5jI4S1nqU+Ffy
-         P9u/xqfCsmIDT9kp6+h/EJ4dHyQZXAgzh/ied9UYkhgqP0yLQJmyMUbMwcy5NdCScIVU
-         fFYg==
-X-Forwarded-Encrypted: i=1; AKwUvByWB+1c3aLUKlh1drBlMirEbv7UeJfAyubQgXMoxzkzqB1cS/clbB5ApU2RIMC5EmM3oWkNQwA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+vwEWuHbByUoZTBuhaBgDMkCV2iq4Whyv9rWYyo/m9HueyDs8
-	V9yX4UAwbYu88UMEn58AkLkZZVQf108GUr/p9sQpGZ8BxnkEplKfsoxz
-X-Gm-Gg: AYBFou0aY+smztcWFelynm+Mnp89XGM7ycDM49uE+niLKjqSqem3KTB7RAnoiGlxUOq
-	ofifw2ZAA6DmaeJSTpOuWxgO33ty3w7O2g2EPoGS15gqJZaKhrjdfA/CsO/ApFmFlhitrb0KPjE
-	oQCW+u/bCH8wo4GQKQg7+wCShEGaigpEgIMFxorZoJlJT+Oem4rap8aPsXuEbJhfTcshV+42eYN
-	pmY+v75COhKyDsHUepKVj/4OMOc027F5vki+u2tzfzDfW9J7pYFPkO/KGdwyHXSGLX13tsRh0cu
-	pfT1PEJGw0/NMiR8/kbizwNMObC6ocRY6GcBfWKKZkCKAzXPycKu0BShsuP9du4vQIe8UhR7I5p
-	LLzVEDRPMIeighyMvQAlZYKcvJwDLL9SCtIIu1k1zT93/pWg/I0ve4kiS3wVa3Lf9M0Yc6Hv9Aq
-	Js5pPMLfSOdzaQH0u5A3HXcOdAxoXLbSdKupROk4N/y/t3VYx1s7mGcn/4i/whV1O6Kw==
-X-Received: by 2002:a17:90b:538c:b0:3ac:80dc:f406 with SMTP id 98e67ed59e1d1-3ac80dd0135mr4837406a91.50.1792083494365;
-        Thu, 15 Oct 2026 09:58:14 -0700 (PDT)
+        bh=OXYHFaEiq6VlF6l7OPxNq/0HouFXap07l9nlhMKXwLY=;
+        b=HZeKJyDbCHcQsq5a6X3aUUhUSC059LuJHgVdWkDqrl7ryUC2UplQ81Y0YWYUxI1NKO
+         o5YLM2EejMqZpErjk0FCDu7Ovv2F+hFVFOINYnTvkPEwYC2WPLiy91/qznreXrv524h6
+         OJTKPE7JmQzVF+/vUaIjGIZCWXmBxltE6rw9r2bvrapwAthKzAqUrydL7IyD4PLgt8KL
+         5Ywe5+E28BCAouKjNqyclv8P8wG7vEBQL3ck47ATWoH9Si8EIkQvt1eCCFF2tVK84CY+
+         VscPo/NOKRkgFenZn3kSvwSTYhfN4I0KsfmjPuMjysBugNBCbkIGFc9uvYW3D4g/ZrfA
+         bHxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy9ACkxHw7uFvwfOvhky/iDO3McyHlE2KknjRu74OSwC0EP2uNntaokDFqE6p1q5eqoJkvr+io=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLoG1zEfa926JXQVu908uflyA2Rq0H7p8vGfhSuONLrdx8HXL9z
+	dzQwPjJzap/e/Kfy1PHfU75zqOBqd/pG9LlmLx1n34AZP4XvLL3p4DPN
+X-Gm-Gg: AYBFou07KTHl54aU24Ij0agqJYBoY35KcxcXxu0uTZkj6fT0RYHEfMB1RUJ/WxQ1oQh
+	dvwaMBR0fs83qpmixtHIhEvRj8NoC+txkH5tYI6+B8r9T9yejDS9B84IF8tTwMmtAWsNQrJzbzG
+	0q3LBTkUWCtDoC6Fjcjk6Cfl7qp3W5/C6LbfzDZTntoFSd9YkdvxDXOaxDsjagsSgRdgDfBpJMs
+	2+0M79ypyK8qyOoSs5u2qQRBz5/ZhpWoDUF8xs8exPMjvU/Ui2vW9V8MAElhQ3uO7c3ytEsPQ6l
+	rUhjgPli1JeKt9Ef2W+KYhmbVgfF5+ZZVfvQviQbKZA0G9vXIPUHLZdQAWl6ep+u+xHSW3dp7zV
+	53pOue9qZ4CpTktpwT0ujUdBhcfSDIL5GN+Zzn7H0X9pRrLXjcpA7288grqnEvR5tBZBYo0qVEZ
+	3RM2DTZKAFe9RzM3FUHPN5r8qk35kjt9oII+qta01mrOlsLXxy1nBwfPrpbe9rrTzHLQ==
+X-Received: by 2002:a17:903:19cf:b0:2dd:ad73:c989 with SMTP id d9443c01a7336-2e842bc7fa7mr166412235ad.33.1792083524573;
+        Thu, 15 Oct 2026 09:58:44 -0700 (PDT)
 Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd635c70393sm1558817a12.18.2026.10.15.09.58.09
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e1643sm87050475ad.70.2026.10.15.09.58.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 09:58:12 -0700 (PDT)
+        Thu, 15 Oct 2026 09:58:44 -0700 (PDT)
 From: Cen Zhang <zzzccc427@gmail.com>
 To: mark@fasheh.com,
 	jlbec@evilplan.org,
 	joseph.qi@linux.alibaba.com,
 	heming.zhao@suse.com,
-	boyu.mt@taobao.com
+	akpm@linux-foundation.org,
+	zzzccc427@gmail.com,
+	ericterminal@gmail.com,
+	christophe.jaillet@wanadoo.fr,
+	kees@kernel.org,
+	kmehltretter@gmail.com,
+	sunil.mushran@oracle.com
 Cc: ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] ocfs2: stabilize the dentry name while tracing reads
-Date: Fri, 16 Oct 2026 00:58:06 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0088-v3-d628f98bfcb6784a0bfb@gmail.com>
+	jjzuming@gmail.com
+Subject: [PATCH] ocfs2/cluster: Initialize heartbeat regions before publishing them
+Date: Fri, 16 Oct 2026 00:58:38 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0079-v5-f931a29339cadc0a2a70@gmail.com>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -82,151 +87,169 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-An open file pins its dentry, but not the external allocation backing
-an individual dentry name. ocfs2_file_read_iter() passes d_name.name to
-its trace event without holding d_lock or a name snapshot. The event's
-__string field needs those bytes for both strlen() sizing and the
-subsequent copy.
+A region on o2hb_all_regions must have an initialized config item and
+name. o2hb_heartbeat_group_make_item() currently links the zeroed region
+under o2hb_live_lock, drops the lock, and only then initializes hr_item.
+The lock therefore protects the list without protecting initialization
+from readers of the published item.
 
-With the read event enabled, a read of an open long-named file can be
-preempted after evaluating the trace argument. A successful concurrent
-long-to-short rename of the same dentry can then reclaim that name,
-provided no other name snapshot retains it:
+With global heartbeat enabled, a DLM_QUERY_REGION from the current
+joining node can pass the existing-domain and protocol checks while a
+configfs mkdir creates another region. The DLM locks are not taken by
+the constructor, and the network worker does not take the configfs
+subsystem mutex. The following ordering is possible:
 
-  Reader                              Renamer
-  ocfs2_file_read_iter()
-    load old d_name.name
-    <preempted>
-                                      vfs_rename()
-                                        take_dentry_name_snapshot()
-                                        ocfs2_rename()
-                                          ocfs2_dentry_move()
-                                            d_move()/copy_name()
-                                        release_dentry_name_snapshot()
-                                      kfree_rcu() reclamation completes
-    trace callback calls strlen()
-      through the old name pointer
+  Configfs mkdir                     O2net receive worker
+  --------------                     --------------------
+  Allocate reg
+  Lock o2hb_live_lock
+  Link into o2hb_all_regions
+  Unlock o2hb_live_lock
+                                     dlm_query_region_handler()
+                                       dlm_match_regions()
+                                         o2hb_get_all_regions()
+                                           Lock o2hb_live_lock
+                                           Copy 32 bytes from NULL name
+                                           Unlock o2hb_live_lock
+  config_item_init_type_name()
 
-The pointer load precedes the rename, and sizing follows reclamation,
-so strlen() reads freed name storage. The tracepoint's SRCU section
-protects its probes, and the event callback disables preemption only
-after the caller has loaded the name pointer.
+The query thus dereferences NULL. Initialize hr_item before linking the
+region so the existing list lock also orders name initialization before
+any reader. Reject a failed name allocation, since the initialization
+helper does not propagate that error.
 
-Hold d_lock from argument evaluation until the trace call returns,
-following the name tracing in ocfs2_find_local_alias(). This prevents
-rename from replacing the name while the event sizes and copies it.
-Check whether the event is enabled before taking the lock to avoid
-adding locking to reads when tracing is disabled.
+Use config_item_put() on initialized constructor failures to release the
+name and respect references retained by o2hb_region_pin(). Initialize
+the list heads, mutex and delayed works needed by o2hb_region_release()
+before any such put, and leave the list node self-linked after rollback.
+Keep the existing handler drain before removing a failed published item.
 
 KASAN report as below:
 
-    BUG: KASAN: slab-use-after-free in strlen+0x85/0xa0
-    Read of size 1 at addr ffff88810a5b2b18 by task python3/496
+    ==================================================================
+    BUG: KASAN: null-ptr-deref in o2hb_get_all_regions+0xbb/0x1f0
+    Read of size 32 at addr 0000000000000000 by task kworker/u16:1/14
 
-    [CPU and host details omitted.]
+    CPU: 2 UID: 0 PID: 14 Comm: kworker/u16:1 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    Workqueue: o2net o2net_rx_until_empty
     Call Trace:
      <TASK>
      dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? strlen+0x85/0xa0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20e/0x420
-     ? strlen+0x85/0xa0
      kasan_report+0xe0/0x110
-     ? strlen+0x85/0xa0
-     strlen+0x85/0xa0
-     trace_event_raw_event_ocfs2__file_ops+0xf0/0x480
-     ? __pfx_trace_event_raw_event_ocfs2__file_ops+0x10/0x10
+     ? o2hb_get_all_regions+0xbb/0x1f0
+     kasan_check_range+0x105/0x1b0
+     __asan_memcpy+0x23/0x60
+     o2hb_get_all_regions+0xbb/0x1f0
+     dlm_query_region_handler+0x4c2/0xc20
+     ? __pfx_dlm_query_region_handler+0x10/0x10
      ? srso_alias_return_thunk+0x5/0xfbef5
-     ? pmbd_probe_hit_cookie+0xe7/0x1c0
      ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
-     ocfs2_file_read_iter+0x6cd/0xb30
-     ? __pfx_ocfs2_file_read_iter+0x10/0x10
-     ? selinux_file_permission+0x11d/0x540
+     ? trace_hardirqs_on+0x18/0x160
      ? srso_alias_return_thunk+0x5/0xfbef5
-     ? security_file_permission+0x26/0x80
-     vfs_read+0x7d2/0xc20
-     ? __pfx_vfs_read+0x10/0x10
+     ? kvm_clock_get_cycles+0x31/0x60
      ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_do_sys_openat2+0x10/0x10
-     ksys_read+0x111/0x200
-     ? __pfx_ksys_read+0x10/0x10
-     ? irqentry_exit+0xbe/0x820
+     ? __pfx_dlm_query_region_handler+0x10/0x10
+     o2net_rx_until_empty+0x1a50/0x3200
+     ? reacquire_held_locks+0xdd/0x200
+     ? __pfx_o2net_rx_until_empty+0x10/0x10
+     ? lock_acquire+0x190/0x300
+     ? process_one_work+0x935/0x1b40
+     ? process_one_work+0x834/0x1b40
      ? srso_alias_return_thunk+0x5/0xfbef5
-     ? trace_hardirqs_on_prepare+0x11d/0x150
+     ? lock_release+0xc8/0x290
      ? srso_alias_return_thunk+0x5/0xfbef5
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    [User register dump omitted.]
+     process_one_work+0x9a8/0x1b40
+     ? __pfx_process_one_work+0x10/0x10
+     ? lock_acquire+0x190/0x300
+     ? lock_is_held_type+0x8f/0x100
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     worker_thread+0x65c/0xe40
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __kthread_parkme+0x177/0x220
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_worker_thread+0x10/0x10
+     kthread+0x351/0x460
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x659/0x940
+     ? __pfx_ret_from_fork+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __switch_to+0x74f/0xf70
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
      </TASK>
+    ==================================================================
 
-    Allocated by task 489:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_noprof+0x2de/0x780
-     __d_alloc+0x5fc/0x8c0
-     d_alloc_parallel+0x106/0x11d0
-     lookup_open+0x3ff/0x13e0
-     path_openat+0x95e/0x2020
-     do_file_open+0x21e/0x470
-     do_sys_openat2+0xf4/0x1b0
-     __x64_sys_openat+0x136/0x1e0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-    Freed by task 0:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     __rcu_free_sheaf_prepare+0x65/0x2a0
-     rcu_free_sheaf_nobarn+0x1d/0x50
-     rcu_core+0x6be/0x1ed0
-     handle_softirqs+0x1fa/0x8d0
-     __irq_exit_rcu+0x113/0x1e0
-     irq_exit_rcu+0xe/0x20
-     sysvec_apic_timer_interrupt+0x6c/0x80
-     asm_sysvec_apic_timer_interrupt+0x1a/0x20
-
-    The buggy address belongs to the object at ffff88810a5b2b00
-     which belongs to the cache kmalloc-rcl-192 of size 192
-    The buggy address is located 24 bytes inside of
-     freed 192-byte region [ffff88810a5b2b00, ffff88810a5b2bc0)
-
-    [Page and shadow-memory dumps omitted.]
-
-Fixes: 468eedde23d6 ("ocfs2: Remove mlog(0) from fs/ocfs2/file.c")
+Fixes: 536f0741f324 ("ocfs2/cluster: Track number of global heartbeat regions")
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 Assisted-by: LLM
 
 ---
-diff --git a/fs/ocfs2/file.c b/fs/ocfs2/file.c
-index d6e977ba6565..e2a42257f243 100644
---- a/fs/ocfs2/file.c
-+++ b/fs/ocfs2/file.c
-@@ -2542,11 +2542,17 @@ static ssize_t ocfs2_file_read_iter(struct kiocb *iocb,
- 	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
- 	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
+diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+index 8e6ead433228..9a4703bdc4e8 100644
+--- a/fs/ocfs2/cluster/heartbeat.c
++++ b/fs/ocfs2/cluster/heartbeat.c
+@@ -2140,6 +2140,18 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
+ 	}
+ 	reg->hr_node_num = O2NM_MAX_NODES;
  
--	trace_ocfs2_file_read_iter(inode, filp, filp->f_path.dentry,
--			(unsigned long long)OCFS2_I(inode)->ip_blkno,
--			filp->f_path.dentry->d_name.len,
--			filp->f_path.dentry->d_name.name,
--			to->nr_segs);	/* GRRRRR */
-+	if (trace_ocfs2_file_read_iter_enabled()) {
-+		struct dentry *dentry = filp->f_path.dentry;
-+
-+		spin_lock(&dentry->d_lock);
-+		trace_ocfs2_file_read_iter(inode, filp, dentry,
-+					   OCFS2_I(inode)->ip_blkno,
-+					   dentry->d_name.len,
-+					   dentry->d_name.name,
-+					   to->nr_segs); /* GRRRRR */
-+		spin_unlock(&dentry->d_lock);
++	INIT_LIST_HEAD(&reg->hr_all_item);
++	mutex_init(&reg->hr_arming_mutex);
++	reg->hr_stopping = true;
++	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
++	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
++	INIT_LIST_HEAD(&reg->hr_handler_list);
++	config_item_init_type_name(&reg->hr_item, name, &o2hb_region_type);
++	if (!config_item_name(&reg->hr_item)) {
++		ret = -ENOMEM;
++		goto put_item;
 +	}
++
+ 	spin_lock(&o2hb_live_lock);
+ 	reg->hr_region_num = 0;
+ 	if (o2hb_global_heartbeat_active()) {
+@@ -2148,26 +2160,19 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
+ 		if (reg->hr_region_num >= O2NM_MAX_REGIONS) {
+ 			spin_unlock(&o2hb_live_lock);
+ 			ret = -EFBIG;
+-			goto free;
++			goto put_item;
+ 		}
+ 		set_bit(reg->hr_region_num, o2hb_region_bitmap);
+ 	}
+ 	list_add_tail(&reg->hr_all_item, &o2hb_all_regions);
+ 	spin_unlock(&o2hb_live_lock);
  
- 
- 	if (!inode) {
+-	config_item_init_type_name(&reg->hr_item, name, &o2hb_region_type);
+-
+ 	/* this is the same way to generate msg key as dlm, for local heartbeat,
+ 	 * name is also the same, so make initial crc value different to avoid
+ 	 * message key conflict.
+ 	 */
+ 	reg->hr_key = crc32_le(reg->hr_region_num + O2NM_MAX_REGIONS,
+ 		name, strlen(name));
+-	mutex_init(&reg->hr_arming_mutex);
+-	reg->hr_stopping = true;
+-	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
+-	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
+-	INIT_LIST_HEAD(&reg->hr_handler_list);
+ 	ret = o2net_register_handler(O2HB_NEGO_TIMEOUT_MSG, reg->hr_key,
+ 			sizeof(struct o2hb_nego_msg),
+ 			o2hb_nego_timeout_handler,
+@@ -2190,10 +2195,13 @@ unregister_handler:
+ 	o2net_unregister_and_flush_handler_list(&reg->hr_handler_list);
+ remove_item:
+ 	spin_lock(&o2hb_live_lock);
+-	list_del(&reg->hr_all_item);
++	list_del_init(&reg->hr_all_item);
+ 	if (o2hb_global_heartbeat_active())
+ 		clear_bit(reg->hr_region_num, o2hb_region_bitmap);
+ 	spin_unlock(&o2hb_live_lock);
++put_item:
++	config_item_put(&reg->hr_item);
++	return ERR_PTR(ret);
+ free:
+ 	kfree(reg);
+ 	return ERR_PTR(ret);
