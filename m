@@ -1,144 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C4042F84F;
-	Thu, 15 Oct 2026 02:48:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D5235DA47
+	for <stable@vger.kernel.org>; Thu, 15 Oct 2026 02:49:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792032537; cv=none; b=IGtAB47PzLXrpXisIOjiWGHMmad2rN+uMur6d5pDAmTnt2xtFcaXGhCRXUMZYIH3XX1Zm4KqCz6EvA/zhp14G8qV908GOhytzuoWaZiEZewjKsQXy3hhEqiMlO1Q3ms/YAKeycxMHBSe5VV497zhtSIAePfQjDpjseWIplH45Bs=
+	t=1792032557; cv=none; b=FEpMiuGPRn5IHEVQ/HWhNqHWTLxCk/ipootqcORQ7cv0tEw8rCDknIUFy6ifaZHybn5+8sAUg28n3HQuD8A2xfvv2Gi2ex9JQ36sO1kwZKUbqpgjTL3GKuwCiluxIsrfEbKOz3YG5RPgdI3/jPczHHhrZeEYfXCzd5Sh9oh83aA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792032537; c=relaxed/simple;
-	bh=MHWIw5WohRGeS+nCMpsnchI4dcpYDb/lTWnUMAzmK1c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=F2M9q+T5aXYdhxRPCwboBNbVo5n9/5tjHjdZzDtmBvE7jwfDm+NNxxrqylP/jnfQaZte4iiHUMyaAuqgZ58QZUCTUBsevUq/yZGddRU00ikm9n/q6451wJcW2VLiznT88yl+CYk4RRUtfmK4rCAwKjfZ2CJregW/hNWB7l19BlA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wv9mXWl1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792032557; c=relaxed/simple;
+	bh=8V8yPSbMw8apmNIJjJAl4vBZi2BIixdWgWO4jufkzQQ=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=Y030kjc+cPA1MBvKa2o3Xoxfr06SksT8SMBH4V2+CjxcrIYBq8ISpVpK0lBh/Bf/RhYkXdZMovixsQp9O12e1iYh9nwVdwMPeWlsx6pgl0aOd4fA+dH8smQvV/ZkSJkdBN2SDllwbPOCKzTjqcXZzW+FrcJAWNtAi+vWvxoX06s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=glJ5AhqG; arc=none smtp.client-ip=209.85.221.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wv9mXWl1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8A411F000C4;
-	Thu, 15 Oct 2026 02:48:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792032536;
-	bh=46AFgzVmY97B2lLtRfutmz9zdCYQ1/ffN1AhtsIbhMA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Wv9mXWl1i4jT1pmOhcnIXDncu7VWS7vcZa4chM97Sqmi7vAhG86yAJbyIb8Eg6/DJ
-	 Ze8lTvigx5dweFj4uG+28gvEzbrru7GrOwt9ViUqCI4b/DSDQkqcqZdp5NmLRmU8Qd
-	 mVO6btWaAd75g8Fq7IKF5opwrYgSi864ThO+f1T3gekM0GIAfSYoMELyPvCEMIGzO3
-	 c971nKuEeBKsc7HAs79VDBI//op2m74EPBLJm6lOfj08PX83Hmobt+MBT0SgdHCkR9
-	 mZWRBhF+QUuYRv68nbkROtRIPQyZNXAVIJ/bYghMpDc0dKOYAFznN+/+E2Rxi4NuO7
-	 ltLSaZulGGAjQ==
-Message-ID: <1dff27c5-76d6-4137-956f-8e7164cf1c64@kernel.org>
-Date: Wed, 14 Oct 2026 21:48:51 -0500
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="glJ5AhqG"
+Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5e95b036302so1839885e0c.0
+        for <stable@vger.kernel.org>; Wed, 14 Oct 2026 19:49:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792032555; x=1792637355; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TnNQqUDr8SKFHy59cY2mWfkC4N5kb7edfWV3cIhUTxs=;
+        b=glJ5AhqGh96jVbRrQWgQeClc7pRzE23jGbJRnF4Bwl+ewd1CKnnyh7VCnwGEdFlhXS
+         CEK6PyRNRmGEEZ987M7cGLhD30NjpOVHR+6a9i2UCWlzhspbTi3HsCVo75CI6C5reIFB
+         QFKLQYbEbeKXkcvHFQAdvgbAuTsdDFWmjt24lQ+LHDxHFvUDR2ITdBK8cmEPU6VlO9SG
+         LHD+gWDySBsc+nCQwcOxrpuk0tKKXZMAgU3C6VHstg8aZx4V0kBrHJEWdgizT5+t4tSZ
+         J65DA0tG4seShv88H++0UPD0NphG6j1YWfkBplb1VQuJiO271PfYf21a6YMmd0hZ01DQ
+         LtHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792032555; x=1792637355;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TnNQqUDr8SKFHy59cY2mWfkC4N5kb7edfWV3cIhUTxs=;
+        b=rzzkbXsULmKecF+pmWkZ5IdmdZG0KxVQ0ak1DrDzAtv9Owc59S1MSxksPvIT5UzhGG
+         TUu3e9R/4rTJeRSkdTnaGWU3uP6cZ7RhVOSvUgHxXXgK4Dxd0bgRDMR1+GZteeVVYx5s
+         hFryXzjRWRGOYbmWnJJ+MCjSDEqkKvZwU6/0Xd8SHpqfIE9OQvba6StQtNVC3O9KQ6uF
+         ZS9r/SxRn2uzpmxBRTDopqU84RJyR1ICv8s/z53uWEM9x34IepXfeeXAJD0qNZl656NL
+         0DKHMk0vVCKuw2z2kcRcj+bgI8nk6Z9d1i8Rk98WpHRV111pVs+6laf/MI8Iku2VAOm/
+         afHA==
+X-Forwarded-Encrypted: i=1; AKwUvBwsIl6hixQUZXBAMHdQcANpFC7EkEeMXEzZaZAKefdM7eftMoc/GGjqGIaOd7xpZRDnwMTmLqs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJIqTgySbUZUE9GuklZbkosMjfyCqWEnLr/pW6pdbibsBq/+xJF
+	DqFRFdFIK0Iz68LhaEpBnVd74pGhhK/FbvXM0hrb/VuyBtFxFuknDY5n
+X-Gm-Gg: AYBFou1kyeNGYowRsWMadGoC7O2dpzuAtlM1FlBC/qgS/ahRLzs6WmABxGLXuFhu91C
+	qRiEdMAxeOW4f4zV7aXprt/4twIjugc3hR1X0x5LqOJ30wzUkGZb8HVw2B/WB/2Wfs9xElHHwWe
+	vHAgTmGtd711y98eLwqWML/fueBB6dhJZxRgq9yw20flRpNPq/cBCNWgnRk5MVwjAdemt3VesWb
+	wILkestemY43NQe3RYsr8Y+ZhYenxaPfJZFPa2j3qECPgHcoXcpWj0ebE67Jxduc7hGqQ95twiy
+	3hSKgeBoqszegkW+Oo+T1sdHj+bb/fc7PWDz7BiIEkPmhoOHKusaOkYsalLSJIkfgMZqhFWQux1
+	9+U04HuaTOIlUihbZYpnJJMi5FZBU6GLWOR5rfYW1jfExxTXnHZBHiYc9ESMG8uT2N8bp7wSxkd
+	PLP5cD/GmQt3GsO/dH+KUIhI+gDdTb8pveOpcLqxQ1Kn0Hc0n4+kxqZ7FVnW+LgDOJqPXsw2wKP
+	N3YYGL7019jmxHqzBKO92XctAMqSiSzjI6+FsXSytKbgi/s8Q+L5s6zIoe/YT7SYr2UNIiPukkq
+	SgiI0T39S/3euVFQOpCz9vxGBYNlwJJwgOYJOT4=
+X-Received: by 2002:a05:6122:d0b:b0:5d3:9cb7:f723 with SMTP id 71dfb90a1353d-5e91f45eeb1mr4583576e0c.5.1792032554895;
+        Wed, 14 Oct 2026 19:49:14 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5e91cab4a97sm12928147e0c.6.2026.10.14.19.49.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 19:49:14 -0700 (PDT)
+Date: Wed, 14 Oct 2026 22:49:13 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Boyan Liu <yymhvert@gmail.com>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ "David S . Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ co+98d7de09cd94fec5@bugs.sh, 
+ Boyan Liu <yymhvert@gmail.com>, 
+ stable@vger.kernel.org
+Message-ID: <willemdebruijn.kernel.2a345d6bd54c5@gmail.com>
+In-Reply-To: <20261010073015.7665-1-yymhvert@gmail.com>
+References: <20261010073015.7665-1-yymhvert@gmail.com>
+Subject: Re: [PATCH net] udp: Fix out-of-bounds read with unset mac header in
+ unexpected GSO path
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] PCI/PM: Restore BARs after powering up during
- enumeration
-To: Keng-Yu Lin <keng-yu.lin@hpe.com>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
- Matthew Ruffell <matthew.ruffell@canonical.com>, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, andy.liang@hpe.com,
- david.chang@hpe.com, s.collins@hpe.com, jenifer.golmitz@hpe.com,
- pravallika.kamma@hpe.com, zhen-dong.lai@hpe.com, zachary.pabor-ext@hpe.com,
- acelan.kao@canonical.com, michael.reed@canonical.com, desnesn@redhat.com,
- dlee@hpe.com
-References: <20261015020811.1132314-1-keng-yu.lin@hpe.com>
-Content-Language: en-US
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20261015020811.1132314-1-keng-yu.lin@hpe.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 7bit
 
+Boyan Liu wrote:
+> udp_queue_rcv_skb() and udpv6_queue_rcv_skb() re-segment an
+> unexpected GSO packet after restoring skb->data to the mac
+> header with __skb_push(skb, -skb_mac_offset(skb)), assuming
+> the mac header is valid.
+> 
+> SRv6 End.DT4/End.DT6 VRF decapsulation calls
+> skb_unset_mac_header(). iptunnel_pull_offloads() can leave an
+> inner UDP GSO type (SKB_GSO_UDP_L4 or SKB_GSO_FRAGLIST)
+> behind, so a socket that does not accept that GRO type runs
+> the unexpected GSO path with mac_header == 0xffff.
+> skb_mac_offset() then returns a large positive value, which
+> the unsigned __skb_push() argument turns into a huge length:
+> skb->data moves far outside the buffer and skb->len is
+> corrupted, so segmentation reads out of bounds:
+> 
+>     BUG: KASAN: slab-out-of-bounds in inet_gso_segment (net/ipv4/af_inet.c:1383)
+>     Read of size 1 at addr ffff88800da7ffff by task exploit/149
+>     Call Trace:
+>      inet_gso_segment (net/ipv4/af_inet.c:1383)
+>      skb_mac_gso_segment (net/core/gso.c:53)
+>      __skb_gso_segment (net/core/gso.c:124)
+>      udp_queue_rcv_skb (net/ipv4/udp.c:2476 net/ipv4/udp.c:2466)
+>      udp_unicast_rcv_skb (net/ipv4/udp.c:2620)
+>      ip_local_deliver (net/ipv4/ip_input.c:262)
+>      seg6_local_input_core (net/ipv6/seg6_local.c:1640)
+>      lwtunnel_input (net/core/lwtunnel.c:465)
+>      ipv6_rcv (net/ipv6/ip6_input.c:351)
+> 
+> __skb_gso_segment() resets the mac header to wherever
+> skb->data points, so the push target only needs to be a valid
+> header start. Fall back to the network header when the mac
+> header was never set.
 
+I wonder if the right fix here is to not call skb_unset_mac_header in
+the first place.
 
-On 10/14/26 21:08, Keng-Yu Lin wrote:
-> Commit 4d4c10f763d7 ("PCI: Explicitly put devices into D0 when
-> initializing") added pci_pm_power_up_and_verify_state() to pci_pm_init().
-> The helper ignores pci_power_up()'s return value indicating that BARs
-> need restoring. Its resume callers restore saved configuration
-> afterwards; pci_pm_init() does not.
-> 
-> D3hot-to-D0 may reset a device and lose its BARs (PCI PM 1.2, sec 5.4.1).
-> After enumeration powers it up, pci_enable_device() reads D0 and skips
-> the full power-up path. Previously, a device still in D3hot at enable
-> time took that path, including BAR restoration.
-> 
-> On AMD Venice SP7, two AMD xHCI controllers [1022:17d2] are in runtime
-> D3hot with No_Soft_Reset clear before kdump. Diagnostic reads on
-> v7.3-rc6-37 show the following for 0000:01:00.4 in the crash kernel:
-> 
->                                     PMCSR      BAR0
->    before the platform power call   0003       f4100004
->    after the platform power call    0003       f4100004
->    after native D0 power-up         0000       00000004
-> 
-> The upper BAR DWORD stays zero. pci_power_up() returns 1, but the BAR
-> address remains zero while dev->resource[0] still contains 0xf4100000.
-> Without BAR restoration, the crash kernel hangs during boot. The
-> last console output includes:
-> 
->    pci 0000:01:00.4: enabling device (0000 -> 0002)
-> 
-> Restoring both controllers' BARs gives matching readbacks and allows
-> kdump to save a vmcore and reboot. An AMD Turin xHCI [1022:1557] shows
-> the same BAR loss; restoring its BAR also allows kdump to complete.
-> 
-> Read the initial power state first. Otherwise, pci_power_up() may
-> request a BAR restore based on a cached PCI_UNKNOWN state, even
-> when the device is already in D0.
-> 
-> For devices already in D0, only synchronize the platform state so
-> that ACPI calls such as _REG still run. For other states, use
-> pci_set_full_power_state() to power up the device and restore BARs
-> when needed.
-> 
-> Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
-> Suggested-by: Rafael J. Wysocki <rafael@kernel.org>
-> Fixes: 4d4c10f763d7 ("PCI: Explicitly put devices into D0 when initializing")
-> Link: https://lore.kernel.org/r/CAJZ5v0ie2AvCbdv8-zkpYzHLcTwUPUj+=WWOQjDAPmSepSAQPg@mail.gmail.com/
+There are plenty of L3 device type with no L2 header. They still have
+a valid skb_mac_header.
+
+This fix may be papering over a tunnel doing something non-standard.
+
+> Fixes: cf329aa42b66 ("udp: cope with UDP GRO packet misdirection")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Keng-Yu Lin <keng-yu.lin@hpe.com>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>> ---
+> Reported-by: co+98d7de09cd94fec5@bugs.sh
+> Signed-off-by: Boyan Liu <yymhvert@gmail.com>
+> ---
+>  net/ipv4/udp.c | 5 ++++-
+>  net/ipv6/udp.c | 5 ++++-
+>  2 files changed, 8 insertions(+), 2 deletions(-)
 > 
-> Changes in v3:
-> - Use Rafael's sequence: sync only the platform state for devices
->    already in D0, and use pci_set_full_power_state() otherwise.
-> - The D0 path no longer runs the full helper's ASPM update.
+> diff --git a/net/ipv4/udp.c b/net/ipv4/udp.c
+> index bb8cfc62c..fe5a23f1c 100644
+> --- a/net/ipv4/udp.c
+> +++ b/net/ipv4/udp.c
+> @@ -2441,7 +2441,10 @@ static int udp_queue_rcv_skb(struct sock *sk, struct sk_buff *skb)
+>  		return udp_queue_rcv_one_skb(sk, skb);
+>  
+>  	BUILD_BUG_ON(sizeof(struct udp_skb_cb) > SKB_GSO_CB_OFFSET);
+> -	__skb_push(skb, -skb_mac_offset(skb));
+> +	if (skb_mac_header_was_set(skb))
+> +		__skb_push(skb, -skb_mac_offset(skb));
+> +	else
+> +		__skb_push(skb, -skb_network_offset(skb));
+>  	segs = udp_rcv_segment(sk, skb, true);
+>  	skb_list_walk_safe(segs, skb, next) {
+>  		__skb_pull(skb, skb_transport_offset(skb));
+> diff --git a/net/ipv6/udp.c b/net/ipv6/udp.c
+> index 93478d1ad..8db4e2869 100644
+> --- a/net/ipv6/udp.c
+> +++ b/net/ipv6/udp.c
+> @@ -895,7 +895,10 @@ static int udpv6_queue_rcv_skb(struct sock *sk, struct sk_buff *skb)
+>  	if (likely(!udp_unexpected_gso(sk, skb)))
+>  		return udpv6_queue_rcv_one_skb(sk, skb);
+>  
+> -	__skb_push(skb, -skb_mac_offset(skb));
+> +	if (skb_mac_header_was_set(skb))
+> +		__skb_push(skb, -skb_mac_offset(skb));
+> +	else
+> +		__skb_push(skb, -skb_network_offset(skb));
+>  	segs = udp_rcv_segment(sk, skb, false);
+>  	skb_list_walk_safe(segs, skb, next) {
+>  		__skb_pull(skb, skb_transport_offset(skb));
+> -- 
+> 2.43.0
 > 
-> Tested with diagnostic prints on AMD Venice SP7 and Turin. Normal
-> boots made no BAR writes from this path. The crash kernels restored
-> only the cleared xHCI BARs (two on Venice, one on Turin), with matching
-> readbacks. Both systems saved a vmcore and rebooted.
-> 
-> v2: https://lore.kernel.org/r/20261012104645.975190-1-keng-yu.lin@hpe.com/
-> 
->   drivers/pci/pci.c | 10 +++++++++-
->   1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index 8cc6a89130b5..895969fe4520 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -3255,7 +3255,15 @@ void pci_pm_init(struct pci_dev *dev)
->   	}
->   
->   poweron:
-> -	pci_pm_power_up_and_verify_state(dev);
-> +	pci_update_current_state(dev, PCI_UNKNOWN);
-> +	if (dev->current_state == PCI_D0) {
-> +		/* No need to do a full power-up, just sync-up the platform state. */
-> +		platform_pci_set_power_state(dev, PCI_D0);
-> +	} else {
-> +		/* Power up the device and restore BARs if necessary. */
-> +		pci_set_full_power_state(dev, false);
-> +	}
-> +	pci_update_current_state(dev, PCI_D0);
->   	pm_runtime_forbid(&dev->dev);
->   
->   	/*
-> 
-> base-commit: 7b63ef2d55f24519e7e9e5f4d15dbea03f126e40
+
 
