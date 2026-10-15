@@ -1,122 +1,97 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F30A1F938;
-	Thu, 15 Oct 2026 07:58:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F46747F79B;
+	Thu, 15 Oct 2026 08:01:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792051115; cv=none; b=kIUKj6XCjiY931iPjF/Xn59NsFxBFNmvw9EVCZrs5u7oXadVmyiqqQObcRuMnkHMtJQ1FDqAiFROOgzmYRYWHp9EbE1mS1pHQUCCmKFJ5NZUQb6+va3kBIIyGcqhI8q0nXoAb74aURNH+8fs4jniqUtkCF3vokqXVOEn/H0u4fE=
+	t=1792051298; cv=none; b=DrRWtHmcxCyd5ucYjXasuEpKUkAqoUpOi1dWx3VJpQu4KCJXcKivjXsBWL7KpaAHVDCFuxNv6sm25KNhwMt/NfS8doejdcZ6KcnlIPydSEBkcr1rD0F6ezME7tNFrXCNfymIwrtq1fM5/m8G8w3ddedyNBaDr+wK6x7fAocK6ow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792051115; c=relaxed/simple;
-	bh=+FihA+wh135Mh2QhaSZ7a9xrEpWCFEqF2iSOSQKyRVE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i0/na0OQN8UZl2bZ1F+YqixnCVWyKL/f4wGw7ps8UyM41ke2R1da3zFAL+ze847ibvpFZu4mymlCdJW6cNbiqct7LcoPT4+M9jxVVvKWctdC9QcjzFfe9irYw17x25FPmhzkcu/2yABDlosCEwNCtk6ppNJhlWRAhNjYxtQkKrs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=plOm3eYz; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1792051298; c=relaxed/simple;
+	bh=9HlY+Eghclz8LKK+TVIuzbxJB6VCUObil/5RKf7SCtI=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lE1fBJeqpEwCLgq3lfB7QGtrtDkgvf9yxvD09Si9X34o8QVGt9I3CAIGemnWrAOrmgVBU9Ye2eV5cwu/oJ/2vSQmZ+FJPwXWtVwT7dl0ttegkzoHnVPoUgrdrHmmqju7ZunCDhSqBLm+bOiuVsz8kr6EAUSIkLjY84muzTpL+Ds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=ysThyNSK; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="plOm3eYz"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=MuYxvdkpIR0KZVLJnlzEAlHcY1DAFQwL7TPwoqX0imc=; b=plOm3eYzfpQf+gcMrQmQumLKRe
-	eocpFjC2eX62dRMenfFtdWKOflcecV7HwMtCngSiof5GWj5913fVpj1SyS4eGCyO+iwT9AUpaR4CL
-	MlCmW1MH8PBy/32LxYw2M1+eatrA+x/Vy1h3qlV0t7C0rFQ4xLE3q+TH6sBlOOZl9Gkggz5uIwJpp
-	xMYEv+Pc82DrJHW5EGXADS2P6Bg0ljYTLSvnOU18Ap+Qme5NGy37wy5NFHQIpUIdRlI9ltjoRN+2d
-	oHEs4O9oYMsBdmhi7wWsjdPKoytC/xIr9MKoOtETTb8Mhh47jNVEhUlEx2vNme7h/ElPY8Wykh9RZ
-	ZXxnJNqA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xHGLy-0000000Bwf6-1pFu;
-	Thu, 15 Oct 2026 07:58:18 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 03E37302F8E; Thu, 15 Oct 2026 09:58:18 +0200 (CEST)
-Date: Thu, 15 Oct 2026 09:58:17 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
-	bpf@vger.kernel.org, regressions@lists.linux.dev,
-	Sasha Levin <sashal@kernel.org>,
-	Alexander Motin <alexander.motin@truenas.com>,
-	Ameer Hamza <ameer.hamza@truenas.com>,
-	"Caleb St. John" <caleb.stjohn@truenas.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] perf/core: track the perf mlock gift separately
-Message-ID: <20261015075817.GO2009045@noisy.programming.kicks-ass.net>
-References: <20261003-perf-locked-vm-fix-v1-1-d214dcaf0d76@kernel.org>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="ysThyNSK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1792051297; x=1823587297;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=9HlY+Eghclz8LKK+TVIuzbxJB6VCUObil/5RKf7SCtI=;
+  b=ysThyNSK6NVSmZjHtzrYbNcGucee1aH8cDSBhnGCDI4K8Hm77NCCqycj
+   ItgyT2kaQ/XVndL5YtOG3laggml73s2R+ZMAJ5Z69prF+Tiifw3oCvPfU
+   dLGxP9CQYMQAuOCQgO5Av66IB9h27WIU1iG6NTky8kk1OStLiphUCChqO
+   c+LJ+WD+18r7rBD1EqRvrTbZoeH4tX2QN31hYehe5mEadQ/yntdKUUJF8
+   RdKYogAARDbtdsxECC2llNxfqPP1meRj6gSPI711QZ3PF3ckYIUp8MwUI
+   RMDELvP+lnDvmP6B1va9ZmYs4N1Y6uzWczdxPI2vO3TylYTSoBHbuhL3P
+   w==;
+X-CSE-ConnectionGUID: /K0D+vSNS2Ol1fiinBjLmg==
+X-CSE-MsgGUID: ZQ/EFtswR3uU1l5NhzZTIA==
+X-IronPort-AV: E=Sophos;i="6.27,159,1787036400"; 
+   d="scan'208";a="75465529"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 15 Oct 2026 01:01:36 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Thu, 15 Oct 2026 01:01:35 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Thu, 15 Oct 2026 01:01:34 -0700
+Date: Thu, 15 Oct 2026 10:01:33 +0200
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Jiacheng Xu <stitch@zju.edu.cn>
+CC: <kuba@kernel.org>, <andrew+netdev@lunn.ch>, <davem@davemloft.net>,
+	<edumazet@google.com>, <pabeni@redhat.com>, <jiri@resnulli.us>,
+	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+Subject: Re: [PATCH net] netdevsim: avoid NULL dereference after failed probe
+Message-ID: <20261015080133.lv4rnnyuontntlkb@DEN-DL-M70577.microsemi.net>
+References: <20261012135941.78329-1-stitch@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20261003-perf-locked-vm-fix-v1-1-d214dcaf0d76@kernel.org>
+In-Reply-To: <20261012135941.78329-1-stitch@zju.edu.cn>
 
-On Sat, Oct 03, 2026 at 05:29:07PM +0100, Lorenzo Stoakes (ARM) wrote:
-> The locked_vm field in struct user_struct was originally introduced by
-> commit 789f90fcf6b0 ("perf_counter: per user mlock gift") to provide an
-> mlock-like budget for perf measured against mm->pinned_vm (since 2011).
-> 
-> perf grants each user a 'gift' of perf_event_mlock_kb * online CPUs of
-> buffer pages which is charged to user->locked_vm without any RLIMIT_MEMLOCK
-> check.
-> 
-> Only pages beyond the gift are checked against RLIMIT_MEMLOCK, per-mm, via
-> mm->pinned_vm, which makes it different from the standard mlock() check,
-> which is per-mm and made against RLIMIT_MEMLOCK.
-> 
-> However, since this was introduced, a number of other components have
-> utilised this field where a shared resource needed to be limited against
-> RLIMIT_MEMLOCK.
-> 
-> The other users are currently MSG_ZEROCOPY, io_uring, AF_XDP, iommufd,
-> s390 KVM zPCI and most recently, secretmem in commit 97d34aa65c29
-> ("mm/secretmem: properly account locked pages").
-> 
-> This field is shared between all of these, but because the gift is not
-> checked against RLIMIT_MEMLOCK, user->locked_vm alone can exceed it - 16
-> CPUs * 516 KiB is already more than the default 8 MiB - after which every
-> other user of the field fails unconditionally.
-> 
-> This was reported by a user who saw secretmem failing while running a
-> simultaneous perf record.
-> 
-> Resolve the issue by simply giving perf its own field separate from the
-> rest.
+Hi,
 
-So I'm a little confused by all this -- perf introduced this field,
-others jumped on and shit broke, so we fix perf instead of the others?
-
-> BPF used user->locked_vm up until commit 80ee81e0403c ("bpf: Eliminate
-> rlimit-based memory accounting infra for bpf maps") which landed in 5.11.
+> device_register() reports whether device registration succeeded, not
+> whether the matching driver's probe succeeded. If nsim_drv_probe()
+> fails, the driver core leaves the nsim_bus_dev registered while the probe
+> error path clears its driver data.
 > 
-> Thus also eliminate the now-defunct ifdef for CONFIG_BPF_SYSCALL for
-> user->locked_vm.
+> new_device_store() subsequently marks the nsim_bus_dev initialized. A
+> write to its new_port or del_port attribute therefore passes the init
+> check and calls nsim_drv_port_add() or nsim_drv_port_del() with no valid
+> nsim_dev. Both helpers pass the NULL driver data to priv_to_devlink(),
+> leading to a NULL pointer dereference.
 > 
-> This issue exists between all of the components which use user->locked_vm
-> and perf, however secretmem is the first user who has caused a report over
-> many years and has been backported, so target the fix at that.
+> This can be reproduced by creating a netdevsim device for which
+> nsim_drv_probe() fails and then writing to the new_port or del_port
+> attribute of the registered device.
 > 
-> Fixes: 97d34aa65c29 ("mm/secretmem: properly account locked pages")
-> Reported-by: Ameer Hamza <ameer.hamza@truenas.com>
-> Closes: https://lore.kernel.org/20261002175651.811343-1-ameer.hamza@truenas.com
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Serialize the driver data check and the port operation with the device
+> lock, and reject the operation with -ENODEV when no driver data is
+> present. This also prevents driver unbind from freeing nsim_dev between
+> the check and its use, and follows the locking used by sriov_numvfs.
 
-Anyway, patch seems straight forward enough; and you added comment to
-the fields, which I suppose does clarify things some.
+I agree with Hangbin that unregistering after a failed probe seems like a better
+solution, but since  you already explored that, lets not go there.
 
-I'll take it. Thanks!
+There might be another approach though. Did you explore nsim_driver.dev_groups?
+Adding nsim_bus_dev_new_port_attr/nsim_bus_dev_del_port_attr there might work,
+and the fix will be simpler. I cant claim to be an expert in this area, but it
+might be wort investigating.
+
+/Daniel
+
