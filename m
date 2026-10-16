@@ -1,143 +1,87 @@
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2931439F188
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 02:20:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 621BE3A785D;
+	Fri, 16 Oct 2026 02:20:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792117220; cv=none; b=dnG8bqtm9nJPcvgeNEWWIZAmZ/WOQavhHODbgesJ6raBr2QznWtBrNlLsfNRjJNGqsFlXVpvEALTizQQfS0fFay0KrLzC3zfQtWwDm1LkmJAreB1U5XlA4Lfm442HtKNZUM+dqMn6+pGXhL4OX3kp5Nb2CuVKDDI71a54H/z9FQ=
+	t=1792117222; cv=none; b=EDpzq1CKTrCgPvOlbXv9UqtEO3oP1ratWj5FIQg91P97sqezKU5h/aieVKMm9lD5UaSQGTNAkc3ksVs5E9uK5sV7xBCj7oCasXenaZUhFq5GB60sgOjNwrauCxdEcjYb/wu17a0FK8FjpUHb9/dyjtmhrPcKPVHfDRC7/NJsU10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792117220; c=relaxed/simple;
-	bh=xGfc8hkwQ1JzAZbx3cw8pks2pYJ+XRlDMgDsnChrvZ8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HA/bYTqf/vEnkQgzjSMc+uSNM9oWEjHgQbpQ475HexC3S7F/m6nXfPoC4ehxK1jMfWVCoUeD0eBJ3u6URqDg62QNRRG+Hr9mYvAF2INZ+sQjqTGOGU/HDx+XgUmnVzVSoMxhEVfcHcOp0MQ+x3zc/NWYzfkm8sA6GLMZrK6XG9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=AMxzgrU5; arc=none smtp.client-ip=74.125.82.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1792117222; c=relaxed/simple;
+	bh=aAkxculb6WK4een+nld2HVoM1WmI83TH7/WRDQHGBa0=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=oUjWXxJ0LMWK8uVkTc/6Cjb+rYsksIKO5BZZia3iF0d4QfhQSueyblIJZC+D6acvcKilwivCJ7UKylJYhPYxBhvfEcmBwfGqshDW7btNyjqNOPEkzFGg76F6hpdsthPA0kvROuyfQ0tO2q0klJMp4mejL/XZ5PrPv3utGFxhLqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=hf/APCPv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="AMxzgrU5"
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-15ea896ddc8so3900033c88.0
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 19:20:19 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="hf/APCPv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CA431F000C4;
+	Fri, 16 Oct 2026 02:20:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792117218; x=1792722018; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bIkNKmu4tNSbGV5T07Rx97zRUQ3kfDdV0Kwy8SxGUtQ=;
-        b=AMxzgrU5Um2cY/sdHPnv6OI9SVONYnMSqpBBKinHSCfhox+E/iZtlxxhozLbfziSmY
-         VazFM2+ZGmbhDsWoqdzfAbd6nH6AY3GDYNbvKFACuz9Y5OJfhfjnTaVtnP8eig9/pMp/
-         R/bI1Kh/Shw7ZMOdciMQ7SKN+5MzXleXuzsweSd2X6EEEJSj878iqVl6G1bue8yJH+X7
-         /5sKwUQhzvhJr2uWyUK00hsw0KEjBpVg2RrrWm9EptllrmnVJxMc7XTlK9w6beSoEHQi
-         1O2lkQGMTlzab1PmMTVnanfV7ORmTlP845sLOeN34HtdHyjByNwk3RjL4k7Vq7AHQLUA
-         OWJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792117218; x=1792722018;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bIkNKmu4tNSbGV5T07Rx97zRUQ3kfDdV0Kwy8SxGUtQ=;
-        b=dvrhcq1n/bgcknm2bBCtt+fEvDPMZVyr+DgeAQnq0miEuyAoSBH42f3RjoiQaE+qyy
-         vqQxGgmOxSgvM7bpG/NrqZa/BERsiWiHn5NEaNjHrbY64R1FVh8kwaUZLXHqOx/+Ivb7
-         XHBC0ilmyDXBYFNb7vhiggg/F7ZIdsMWfbgI4GiQNS5Mwrm1kN99ouW7H/Zp5qoqYkwL
-         Y31l8Q7X4GG7nNBNSJ8YpsUeMR0hj/XZhBu3si1OuR3ZWY7Xfnz05KG7XGcik08fhJIx
-         FKKjQg1IHk7rF6MS6l/VCSiHwNlbzDD1advkvmc0/e11LWoXRzMJxKb3455p1456LM8H
-         ESlQ==
-X-Gm-Message-State: AFq9FYKXGyEDh8k06bf5EjocLyZA0pkPa3PYr2BSQ4XV+8406flKCZqO
-	O+HZ/DuiQd4GEeeln4kjxIPhLMoOROnDmmhamlKOrh8+BodqTaJmGGCZNg6LBun6FiayY8Wegoe
-	1nnIN9HiXlg==
-X-Gm-Gg: AYBFou0q9xA+GnRe8jEPVXUT4dS2pnFM4gBE4QZYdUv+kKeR+0rCbR91kMqxAZCY9Cx
-	onZF/lmEM2AFQR5krNrlMf4ISWzn1pWQTKcuc9G/JgfSu35NWjh9ACTX2w51qg8gHstSNM/+hNz
-	2+lc+7Q4LVhSKLh5DDaZIl107n37aZQK8alfz8H5O9eQ2wZUMrIcVLJffP0VHCAYS6W/tiDlf4Z
-	or4L/YCQH80oj1l2piM7sUWhoTYE/n1s7SAj26DkQUzwQvZqxSKRVw1MKVlODIkpuE55deSLOaf
-	Gs6mvDol0qX/sJEWyjNim2c8cTRi8hkn9m2Q9DB+AB6UNy+MImajxEbRPtnK73hmomozfR17Rjo
-	N9Z0KBtkvqcxUnPaeCVGJRRV3vviX+27iS416Ptlt66Q9IYIRg1YuarhI0+a6OSmeLEWnxdkaOJ
-	OYpH7vpqkFRoLi4UML6qojfdq8c1O4+xGJJBdF8eSOyuWzgoqa4bOMVKrSUq6EbIixK6tWnDXPm
-	uhhzIE14vAE+zuAhU+ZdyLl+lBv+CqDxuMiXk+7TUtJnkc+R/7ho0uObFGa0jU6czJ0Lg==
-X-Received: by 2002:a05:701b:2403:b0:145:152:b547 with SMTP id a92af1059eb24-16a56ab0d40mr26503724c88.1.1792117218235;
-        Thu, 15 Oct 2026 19:20:18 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:d66:d0e8:dae3:3257])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831c5cb39esm1434734c88.22.2026.10.15.19.20.17
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 15 Oct 2026 19:20:17 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: andrii@kernel.org,
-	ast@kernel.org,
-	bpf@vger.kernel.org,
-	daniel@iogearbox.net,
-	eddyz87@gmail.com,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	john.fastabend@gmail.com,
-	jolsa@kernel.org,
-	linux-kernel@vger.kernel.org,
-	martin.lau@linux.dev,
-	memxor@gmail.com,
-	song@kernel.org,
-	yonghong.song@linux.dev
-Subject: [PATCH 6.6.y 2/2] bpf: abort verification if env->cur_state->loop_entry != NULL
-Date: Thu, 15 Oct 2026 22:20:11 -0400
-Message-ID: <20261016022011.16938-3-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261016022011.16938-1-artem@trailofbits.com>
-References: <20261016022011.16938-1-artem@trailofbits.com>
+	d=linux-foundation.org; s=korg; t=1792117220;
+	bh=lmL800MhDzqLz11aGRmfqIVYdCooWhPvfrmpDQYpZBo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hf/APCPvm4wO/kVP8/Srv8sXIFsas6E4gZK6pVCUvfbV5Y54ulJdT94YVhW90h8n+
+	 5ZkvXCiNDfMlGLRjyYGJsOkQz6sX3kKaSWEVFdw4tguDytc1qG7n48LiDQZOtrGvrI
+	 PbeVzE0va94hMd5hKv51ZgPiQbvr7cBuaGyEiFxk=
+Date: Thu, 15 Oct 2026 19:20:20 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Kyle Zeng <kylebot@openai.com>
+Cc: linux-mm@kvack.org, David Hildenbrand <david@kernel.org>, Lorenzo
+ Stoakes <ljs@kernel.org>, Rik van Riel <riel@surriel.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka
+ <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, Jann Horn
+ <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/page_vma_mapped: continue past nonmatching huge PMDs
+Message-Id: <20261015192020.5336a49bc516219e8254dfdf@linux-foundation.org>
+In-Reply-To: <20261016011549.61146-1-kylebot@openai.com>
+References: <20261016011549.61146-1-kylebot@openai.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Eduard Zingerman <eddyz87@gmail.com>
+On Thu, 15 Oct 2026 18:15:49 -0700 Kyle Zeng <kylebot@openai.com> wrote:
 
-[ Upstream commit f3c2d243a36ef23be07bc2bce7c6a5cb6e07d9e3 ]
+> A PTE-mapped large folio can straddle PMD boundaries after an unaligned
+> mremap().  If the first part is discarded and replaced with an unrelated
+> huge PMD, page_vma_mapped_walk() stops instead of looking for the rest
+> of the folio in subsequent PMDs.
+> 
+> This also affects migration entries.  A walk that stops at an unrelated
+> huge PMD can leave migration PTEs behind when migration or an anonymous
+> folio split restores the mappings.  Those entries do not hold mapping
+> references and can outlive the source folio.
+> 
+> Skip the current PMD rather than ending the walk on a flag or PFN
+> mismatch.  Do the same if the PMD became nonpresent before the locked
+> recheck.  Release the PMD lock, clear the per-PMD state and advance with
+> step_forward(), so the existing range limit controls termination.
+> This covers present, migration and device-private huge PMDs while
+> preserving the matching-PMD and split-to-PTE paths.
 
-In addition to warning abort verification with -EFAULT.
-If env->cur_state->loop_entry != NULL something is irrecoverably
-buggy.
+As always, when fixing a bug please describe the worst-case
+userspace-visible effects of the bug.
 
-Fixes: bbbc02b7445e ("bpf: copy_verifier_state() should copy 'loop_entry' field")
-Suggested-by: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Signed-off-by: Eduard Zingerman <eddyz87@gmail.com>
-Acked-by: Andrii Nakryiko <andrii@kernel.org>
-Link: https://lore.kernel.org/r/20250225003838.135319-1-eddyz87@gmail.com
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi,
+I asked $LLM and was told
 
-Please consider this backport of the corrective follow-up for
-CVE-2025-38060 to 6.6.y.
+: The worst credible effects are permanent application hangs, kernel
+: crashes, and potentially system-wide denial of service.  Stale
+: migration entries can refer to freed and reused physical pages, causing
+: page faults to access unrelated folio metadata.  Memory corruption is
+: possible but unproven; cross-process information disclosure has not
+: been established.
 
-The code changes are identical to upstream.
+But you have an LLM too!  So please never again send a bugfix without
+this info.
 
-The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
+Also please explain whether there's a reproducer and if so, at least
+describe it and confirm the before-and-after results.
 
-Build-tested only as part of a cumulative 6.6.y series on x86_64
-(allmodconfig, CONFIG_WERROR=y); no runtime testing.
+Thanks.
 
-Thanks,
-Artem Dinaburg
-
- kernel/bpf/verifier.c |    6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index c00113e691955a6c9c6caa56007ccf90ce9b87d8..37abde03f174ef5c0a47317d9b9d19eeaeb0ccd2 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -17562,8 +17562,10 @@ process_bpf_exit:
- 						return err;
- 					break;
- 				} else {
--					if (WARN_ON_ONCE(env->cur_state->loop_entry))
--						env->cur_state->loop_entry = NULL;
-+					if (WARN_ON_ONCE(env->cur_state->loop_entry)) {
-+						verbose(env, "verifier bug: env->cur_state->loop_entry != NULL\n");
-+						return -EFAULT;
-+					}
- 					do_print_state = true;
- 					continue;
- 				}
