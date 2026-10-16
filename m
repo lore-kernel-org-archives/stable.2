@@ -1,154 +1,76 @@
-Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 447AA4AA56C
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 13:08:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2864F47F2ED
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 13:10:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792156101; cv=none; b=sGzeFs9Xvf5K3TjNJXQeZkgXfaj/4IkyonMkrZ9NyR5f5sK+jpARN7F+E+O7B3GD43BzNlt46FRbcKYNq213vPHQ69i74+R+saYucwUeDy0YJNrUHItXEb30kghIDuCixH793DXDpvKTXzgjhxlj57pkqT6U8B0Phar4Yw0TQn0=
+	t=1792156211; cv=none; b=AhJI5uMvpC7gbaFT3vn99NznFeSZk3NlKFYnW4TYeaFgl7F1d049gSzcvU3XXHwbWbA5WgIS+42BDm8Wq+VJ4FQqaOXUsi1XpLyaLPW0P847agf3gSFb1aIXkBpLZ1c4St5IGzvdLAo0p1ym+piZWZ2bED6GW6H46CiBBgAoEgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792156101; c=relaxed/simple;
-	bh=Z9vuHvIs5djMkOSj7qyB+HFnspgEuOMY5kkZwLyT16k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uug+UlHVGm9slBdYDE18kLZbWLGnmfges7THvc/bHc94f6Jr9uzBlAnlJzqezXLOetCTZVUyyutZCXCh3VxeygIv4ExuP9D7zvhB17McXR64R2ffwqJNpyDulVVN/rJuoscu0+Ug/dbHZKKBSj07l9JYrVKQjaVw4mfu2uast/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mQ+kTy8S; arc=none smtp.client-ip=74.125.227.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792156211; c=relaxed/simple;
+	bh=FQ09vxMYGYd2ttuL80Iy/iCi50C6RG5783hdiIeKPfQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kwuGxJToORlyX5XGKlfNwPrHOYCd0jxYFsuFA69X1qcQM6xS6jvJc4bNpPPuL7vTegQoykOGdvnZsZXrxLWCoIoAVTnZ2vMJ1imiYNDdZRs5ZP6sX9FcWW+Qw7/PkTlQAF+3tw+RyEpkqPzG2xjgEfdkAKpBtT7Y0+ZlokJuT4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mhMldEGA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mQ+kTy8S"
-Received: by mail-pj2-f6.google.com with SMTP id 98e67ed59e1d1-3964e7720afso3405602a91.1
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 06:08:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792156100; x=1792760900; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m8EDc8rZac4RsFY8nAVqxYalOxuPA5SriPQpdHsNWSs=;
-        b=mQ+kTy8S9dNAksavMLkACgVHGhTePoX8YJcJTFHY1LeEQD0letI3IBBSbRZXPn5yHA
-         RZzUS8WltPxCOpLYFjdK5cE+NluuQefe4XPLeexGUkvztcKul3ByFKm7kBWYqiUAEji5
-         xGpzrrSYez4Lswj0dAcq/6vOKeFYvyjn6LpLDdh3JVMtb5FlwHrH/TJgZdyEXV6j8H/z
-         yrYL/PVbCWfhN2lCjATYSoRc6TbFzEixs/arvdylK9oHrilOyLeQwQEouqzklSn22mly
-         pJ7McIaRbfECCoTz73yqDaYQ3N93t5he+hBQBp0To0J5tw8Tx0zzXAbdfgR6MvNmxhMJ
-         jG0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792156100; x=1792760900;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m8EDc8rZac4RsFY8nAVqxYalOxuPA5SriPQpdHsNWSs=;
-        b=Fyj90mMWaMCEYUcPHlTShh909JO+bdSdYzQi8EynLXOs/49DEoD0GbqSzLISGc0hGR
-         MQ8a3VLY+phFcjMpFatXVxdoHQ5m3Pyrg9jqmKGbOO4x5YjabYVH4ffven4ayK+nF3XD
-         J0ln21MVdOgP06Fdw8lSYT575LbVIAfKFVmZyGflSabrvCV6nDZxUDw1UcasRZcozk0y
-         AOKIld6qvT915eIt4uHCj2GwY5sCYW6nJIOf9b3J+rUhDDhq4lF7Ja0AQVQmG5K4ixcq
-         2k0yya7VCeBVvp0TycmdwJ2Ud3twpuukgtTePR3B98M0jFwcCHWkEWAbaTxG+YsNwBVw
-         JZCw==
-X-Forwarded-Encrypted: i=1; AKwUvBySk2dtCrJNxHtcvBlHvuwbXRgcOgsOhBV/kamfUmNtHaoD5cznzGoEvXCj2zJuERqDlVzzvBc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJb+xumaRh2jVEdx+BwjtsA1XakdgDQzBZ8EbwwA2cJwHTO8eFk
-	6zXjg5x/wM1jCSAaK85w5Z46fz/4WL4Mf9kynhvgq6xkmkGYzSfZlUMiuV7WWdZLIzVbyb+/
-X-Gm-Gg: AYBFou0nHBFWGJOVB+qsK070LAg1cekHu4l0osxpUvc0S9H+k56Iv5WbR9qQbW8eIBF
-	36BFrnigQKqffFgusKSct5zznA+uB58zf12GC7k+YLSqHoGBn2GyDpZYICrvvxDLjK2JvZhxOSC
-	DIS0wkYDtH1J3GOpNWarIrnLLKGqK1hJgk3wvHU0NylwCCDRMg/nt9QgFYSalvmOgQ8bwvRcnjO
-	XiYZf3gQXfjZxBF0FaUJGL/x5EMVUZw163Tmi0D5X2P7C7x97pnuxC6MHg95ZOa2GTZ42dZxyKO
-	00Ly6Zq4ApRXOVRL2RuVyaiE3onjvLApLlUVbcPGaFr6DIA08VDf/zFoaSRlwQvYQmyOAH9LQfz
-	yoIHhIxYgSyCPDThodC+dae9tSRUzv68fu9U8Xfk2n/m0Oeq9P5237Vn/+GnceVYL0i48OAv9TK
-	ZDgnKH6t+JQmd8wHpiBXZVYkXOzeGvoBtiyB0I0UJ8210zToOmAgKTE75Qfi/JPAdf23Vo/NP1c
-	QS80RG4tjGY78oWrH/a
-X-Received: by 2002:a17:90b:258f:b0:3a6:dc51:cce9 with SMTP id 98e67ed59e1d1-3ab3a96634dmr18516390a91.57.1792156099489;
-        Fri, 16 Oct 2026 06:08:19 -0700 (PDT)
-Received: from AERO17.taila7786d.ts.net ([156.231.115.17])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc46ee274sm4190467a91.4.2026.10.16.06.08.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 06:08:18 -0700 (PDT)
-From: Pufan Jin <cyan2254650260@gmail.com>
-To: Mark Brown <broonie@kernel.org>,
-	Michal Simek <michal.simek@amd.com>
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-spi@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] spi: zynq-qspi: fix address buffer corruption and support 4-byte address
-Date: Fri, 16 Oct 2026 21:08:12 +0800
-Message-ID: <20261016130812.282624-1-cyan2254650260@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mhMldEGA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3DA81F000C8
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 13:10:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792156209;
+	bh=FQ09vxMYGYd2ttuL80Iy/iCi50C6RG5783hdiIeKPfQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=mhMldEGA7EhiUccr7UAZn5PK3OtVgO0G1hNm9D9L6Iv8ER6VbsDILFgWeskcZ9xon
+	 RvhUMJ5Th8FMhwsnGPE3Q9/MT6thD6suVT3G3C9Ws9QF7GV9KjGK7KVcghIpEmeeTK
+	 Q4YckOA4mn5lWRlQWAxj/ULQYZud4DdDM2f+hGLLlNaJMt6DGTDWj0tGqSIA4M07aS
+	 Sb8oyt2V28DFL1BCf0PsK5AvMmrFc8kYMM+L+RdduEmsxLaFmG8KQRORbrle3RWUcy
+	 +JilpFeaoIdLWqFz28ocSG70P3iGPQgDkX0NDLpydBLV6kzOXs7X1koFp/BN7/OhYd
+	 C3TG3okocaSdw==
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3a75f960be3so36000261fa.2
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 06:10:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByuVL6PdE4P87vFMJL2S6z40dvO5DsvcpPIuS6fUsis4pk1ODAGnB4TUXtjAmLFAnw0BgovsiY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcAQMih5mbh6of+39yeKKzZfdtvvegcCvCkPCcYgdn7WXPnz+V
+	wj3YBkdZGOy7v0jzkWGvo3ED20PqHA3pi4HZm1Gds7Ced0QQzs3x1K9H0arRD7NApcHrCDiPEba
+	Bsh9jzyeNji8ycSElsvIywCyhYasSF0M=
+X-Received: by 2002:ac2:4c56:0:b0:5be:494a:f966 with SMTP id
+ 2adb3069b0e04-5be494afb99mr795645e87.44.1792156208704; Fri, 16 Oct 2026
+ 06:10:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261014-gpio-shared-fwnode-lookup-v4-0-2253ad645fd6@oss.qualcomm.com>
+ <20261014-gpio-shared-fwnode-lookup-v4-1-2253ad645fd6@oss.qualcomm.com>
+In-Reply-To: <20261014-gpio-shared-fwnode-lookup-v4-1-2253ad645fd6@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 16 Oct 2026 15:09:56 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnNLryFVBvxwTrw0N9JoHorP0E_SUJcBEQz50i9QnRUuw@mail.gmail.com>
+X-Gm-Features: AclHuK9TuCFmvkGVc_qKE21bFcDzH5CIbWg6ZWuK5Fbj6e2kEGf1TDNPflTSDE4
+Message-ID: <CAD++jLnNLryFVBvxwTrw0N9JoHorP0E_SUJcBEQz50i9QnRUuw@mail.gmail.com>
+Subject: Re: [PATCH v4 1/4] gpio: shared: fix use-after-free bug when adding
+ shared proxies
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In zynq_qspi_exec_mem_op(), when transmitting address bytes, the driver
-iterates over op->addr.nbytes and populates xqspi->txbuf[i]. However,
-xqspi->txbuf is never re-assigned before populating the address, meaning
-it still points to (u8 *)&op->cmd.opcode from the command phase.
+On Wed, Oct 14, 2026 at 11:38=E2=80=AFAM Bartosz Golaszewski
+<bartosz.golaszewski@oss.qualcomm.com> wrote:
 
-This causes two severe issues:
-1. Memory corruption: Writing into xqspi->txbuf writes past the opcode
-   buffer on the stack (which was passed as const struct spi_mem_op *).
-   If opcode is zero, xqspi->txbuf is uninitialized.
-2. In zynq_qspi_supports_op(), operations with op->addr.nbytes > 3 are
-   rejected. When paired with SPI NOR flashes larger than 16MB (such as
-   Winbond W25Q256), spi_nor_spimem_check_read_pp_op() tests 4-byte address
-   support, which fails and causes spi_nor_select_read() to drop all read
-   capabilities, failing probe with -EINVAL (-22).
+> The GPIO lookup table can stay alive for longer than the kobject whose
+> name string's address we're assigning to lookup->dev_id. Fix a potential
+> UAF by duplicating the string.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: a060b8c511ab ("gpiolib: implement low-level, shared GPIO support")
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-The Zynq-7000 QSPI controller hardware in manual I/O mode natively supports
-transmitting 1 to 4 address bytes via its TXD FIFO registers
-(ZYNQ_QSPI_TXD_00_00_OFFSET).
+LGTM
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Fix this by introducing a local opaddr[4] buffer in zynq_qspi_exec_mem_op()
-and explicitly setting xqspi->txbuf = opaddr before populating address
-bytes. Also allow up to 4 address bytes in zynq_qspi_supports_op().
-
-Fixes: 67dca5e580f1 ("spi: spi-mem: Add support for Zynq QSPI controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
----
- drivers/spi/spi-zynq-qspi.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/spi/spi-zynq-qspi.c b/drivers/spi/spi-zynq-qspi.c
-index d762aaf45..bfcbcfe85 100644
---- a/drivers/spi/spi-zynq-qspi.c
-+++ b/drivers/spi/spi-zynq-qspi.c
-@@ -229,11 +229,10 @@ static bool zynq_qspi_supports_op(struct spi_mem *mem,
- 		return false;
- 
- 	/*
--	 * The number of address bytes should be equal to or less than 3 bytes.
-+	 * The number of address bytes should be equal to or less than 4 bytes.
- 	 */
--	if (op->addr.nbytes > 3)
-+	if (op->addr.nbytes > 4)
- 		return false;
--
- 	return true;
- }
- 
-@@ -526,6 +525,7 @@ static int zynq_qspi_exec_mem_op(struct spi_mem *mem,
- 				 const struct spi_mem_op *op)
- {
- 	struct zynq_qspi *xqspi = spi_controller_get_devdata(mem->spi->controller);
-+	u8 opaddr[4] __aligned(4);
- 	int err = 0, i;
- 	u8 *tmpbuf;
- 
-@@ -547,12 +547,13 @@ static int zynq_qspi_exec_mem_op(struct spi_mem *mem,
- 	}
- 
- 	if (op->addr.nbytes) {
--		for (i = 0; i < op->addr.nbytes; i++) {
--			xqspi->txbuf[i] = op->addr.val >>
-+		for (i = 0; i < op->addr.nbytes; i++)
-+			opaddr[i] = op->addr.val >>
- 					(8 * (op->addr.nbytes - i - 1));
--		}
- 
- 		reinit_completion(&xqspi->data_completion);
-+		xqspi->txbuf = opaddr;
-+
- 		xqspi->rxbuf = NULL;
- 		xqspi->tx_bytes = op->addr.nbytes;
- 		xqspi->rx_bytes = op->addr.nbytes;
--- 
-2.56.0
-
+Yours,
+Linus Walleij
