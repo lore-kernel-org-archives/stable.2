@@ -1,124 +1,158 @@
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D027231DDBB;
-	Fri, 16 Oct 2026 02:17:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792117048; cv=none; b=BMt0nPr4q17r1rFWjzmu+QXA6MvA6J57Ax5mq11I5V9AO6APSk1oOeCRtEfy9x00ooz1SF7B7MgGl2Mwk1JRFilomJrn99/CPj/Lclb7DVnvPuDbawL1lv8ey75Y78q90SKF5T4y+P9NK2MSkL7E/UfIxr9iO4PRwrM+yDpEd1Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792117048; c=relaxed/simple;
-	bh=PP2/HBaTIQEKH4BT4mVfyUdVg4wlhBM1JsmR0e8Qrg0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=NuiNnOObBoDdCNx1D9KpTyNo3bFgM6HFShHtKTwLqYLUb5tkGQ6qH0qJhyRZNFxT7Y8ofHHPY/YX+4LHngb2chnYoP3obqgGvbT2VuZm21b5L0nkQ/SRrwtM1LmUU6CE1r0iasmaDysjSPzzKOjFQoHyJSH4v9fBK8xFxXGlA0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=lVBzH/Rv; arc=none smtp.client-ip=54.92.39.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0205E397944
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 02:18:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792117085; cv=pass; b=Nc108ZuYDinLL5KLiyHXFwOlu43ejDofBDsl5fi0HB1rYwhunLUb79h6IzEEKOCGXnnhniPuAAzJiepwNR/y9VMD3sn2MbqOEif0TOLzPRbY9LOdKHknJUMsZb2aiRk0kYbvn7XrHBBrbr0Q4gwUf4uUQoSJtAKmlBI1qMaCH9A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792117085; c=relaxed/simple;
+	bh=WMoaHnDN0Y06ITTfRIbQrAFTUkyQpyCsDLwooGLQ7rk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Cx3DgluOGuMHawqjyuFuUh7bww1tM5A5EBmqZp6n99nWKOjRYPd3A4aems7xyE3vzLI6ouIMAWoSn2L/gRc+PEzTXt8Z46VmTIVAHOHBdjvhsU4A2kNDLW4qxZ1/KCRT+FMlxZOXiPLrOMAFxRcRrDANz4GYdYT4WVxDOFPygSc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CvYRNRUg; arc=pass smtp.client-ip=209.85.161.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="lVBzH/Rv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1792116605;
-	bh=RcfESTXtlh7JhFl3V3+0pi2boxbvO7WTuGpgouT5dmY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:To;
-	b=lVBzH/Rv01nBeEjZaeokwEjavHw8uhLl/RYS6VVdTAAypI4KA6f2PFGb92UD1u0LJ
-	 3BgsSt9aZ5j3RimXMmArMv1GBUq430avCZgcZbg/OT841+rKCWCxA2eD1v89wtSI2c
-	 ypEKqg9whtz1PieisYKFkfaSZQjSTBGEd4DeSPrk=
-X-QQ-mid: esmtpsz11t1792116600taa6274de
-X-QQ-Originating-IP: FOu4lvJ/1tq8CFGDIkECrleLSIK4D1p9EBUnqafmfH0=
-Received: from [10.10.7.69] ( [1.202.39.170])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 16 Oct 2026 10:09:50 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 1707299652216232524
-EX-QQ-RecipientCnt: 9
-From: ZhaoJinming <zhaojinming@uniontech.com>
-Subject: [PATCH 0/3] crypto: qce - fix CCM AAD buffer leak and the AEAD
- error paths
-Date: Fri, 16 Oct 2026 10:09:42 +0800
-Message-Id: <20261016-fix-qce-ccm-adata-leak-v1-0-f54a82af2de0@uniontech.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CvYRNRUg"
+Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6dde81a6820so2058997eaf.2
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 19:18:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792117083; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Ka6i8M8+b8ONRHVAl0QMyHdV8yr0qBfLWt/pP1EDjzKc41zbs2r6jL5tU3g+KIRkiz
+         NOsVi/szSP+5GNNWvNLDTWJJBHyWMCEOPou2BmXMADHPLJxj43IMX7pewvafjN+nbP1+
+         5WXUgdxC69RV+ZQ+Tezo1vk9NneCP6qawkXyN9hFfS4j9I2671yVwO5lCG1J1148zQQl
+         OM0Ar/a0i9FSiYT+HK9UaBqJ6wZ2Le7R1uQW3wU85MnAlNkdu1BKi+5yqQgpHoHRNkak
+         1Ry1EgDG4G3v7PueXUrObQNeJMqz6ipnhW2NvN3DGla2H+Ku0AA9wE1koJ9DafR2tr9Y
+         rgsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=I8J+MbQGeSC2E2cIQrbkQR0RrcGScgMLwxEU9E2XMPU=;
+        fh=kvUxI33MvvSwmaKhLNDN7occEsuQYRfQw7oV8aopsyo=;
+        b=UZxg/ba139hoT7u5P01uvTMjb/Z75wDVEFmzXZ3fFYJQGoy6BWvjLcI9T7h0OXBzRc
+         4Gvx3qrW5wFmLMG6U0La9+GNU6+UMvVJdYqEf2SWnLgCEpOag1WTbTpTe3A9f4ufCBOw
+         I2mZGV5nQ0IL9uwaFkqlwG1nb8vFWxoeRQh5KRUvJ9noPd/waDCzG4VCt/9iAMOzsM4Y
+         jKNWrH2iMJgsPRwQyvZVXNj0pO7pXgz6SoMRmnaoSeE/b9TkEYYa4NFRjWeeNjEGRJgY
+         EXkCwtNAYZNJ/g7L+f8WUaoiQFBU3bFUQeVytdRTlfRInpT6YiEhC6+Ulbl9jhoF/AgV
+         1iiw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792117083; x=1792721883; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=I8J+MbQGeSC2E2cIQrbkQR0RrcGScgMLwxEU9E2XMPU=;
+        b=CvYRNRUgqITnYdxa3GUa/JUT83QbbsI67Q2k+aDHB5dWQ8cO7uP3iJT17EDbEPoCt3
+         CPQ6loVrAkmwyyAjL8iD1WyX+un4uXGZVriDDPegn9Bp5DF81j7IGkMtSRBaxjnzM0Vr
+         A4cSZUZ1LQd5dQ6mQ+wFsyrkiZJlDn3yaxT1z9ZGPGS+XE7WfFs+E8Z4yO0v/xYXRAFt
+         hoIvX8p1jEPLpeM3mdWQcx4YTudzOB7FuFe8UmeUyaOsXz23zZkAKc5Bnn8C07VVCB7B
+         9GF3ePb5XYz+iKFqN+TGJVDp3IBOkWZYtfDYFgfYDpdWWs571mZfgyaJQPCyGd7RteRF
+         x7tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792117083; x=1792721883;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I8J+MbQGeSC2E2cIQrbkQR0RrcGScgMLwxEU9E2XMPU=;
+        b=s/7FkZpj/XqQsNv7uYb5W7fypWcRtp63zoR/7nmSdo9hfN6KOWhEE7nFFzhoHsxSmo
+         qkMbhHE2obt2F7HZ36PjdWZibLY8FJySQupMYMblaMhZnedQpADIsfMAtRTxQY0pCoMA
+         QY8SbS8eGlE/OoHNMmCLKVdaoHX1httoxQRT50prF3tE0nMuMhou+91cO2lDp6RkcOtB
+         /OyXcgHfFw+iuW7+mS9ZG5GdX6TUIynEYX6URegmnKqvFeSAXjaG2zfeJwUJvM0na/JU
+         tstZtzm0KAW2TagkJlc7JaJsKmD1A5Vxq6Wk0YYuDq6W3HXrBZ6TNE+E/UZk/LRa7wA6
+         ckrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxsd9NMW8CCzAKpUihFjBMdk7puj1wRXGc9qKrRChlxcngDwfuSN6Eg3iq03kBGvOv989dczpY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIW4XqiGd7VSKIizGBXrsFxMwWSdtY2th6VaskEtlPHlnCG2VWJ
+	1us3HdmuBcQPrPpy+zI+TBqBe4rsquw62SEpZOnI5kTP1J9mq8uQv5apxDwoh63ijIY54YWId/T
+	0vgsTsv/Io11r9PLNqbWpglK2trhbjKaqpUsN
+X-Gm-Gg: AYBFou1Ox2PXTuiLXxSvbfD7chEr766mamzZvpi3XncmsqXYlqEmdjR7IV2XvE2QfuN
+	n33y8hFv3OuP+saDRsIdCbCNnw3rD+ZE6jQ3sd8U4Ljr0mPvvY0Jb1b4huOwsJjDdDrEr4aMi0V
+	ZL0RdyQCGP5e5h+FgUh1kUm2ZHcMjgCNMh837WYTQKay73Zv+CB5Mm8vWEDzaWi5IoQC3U4Fudo
+	bgtYb5uNf+vtBA3zHpXWavFqTtEswVHEmopAVYfuwI5AwCqr6SaYC44w2JY9NLiNYJ2Yv1WioxC
+	7cj9QK0y36GAQnCGwQGJ5DoJwAaAbK6NF8VxoETLNPCpzDL4hlMjzV5Jrb1nxXFu6f/NKJOVPN0
+	6iVXO4pFIPkpF6HuHUkfPYalEeuwsPQ4NCt0zc0QAqIQljr5RjPT1iKQ=
+X-Received: by 2002:a4a:ee10:0:b0:6d8:4e2e:9978 with SMTP id
+ 006d021491bc7-6ef0f7afeb5mr15006342eaf.21.1792117082607; Thu, 15 Oct 2026
+ 19:18:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGeH0WoC/yXMSwrCQBCE4auEXtuQHl/gVcRFp1Oj7SOamRgCI
- Xd31OUHVf9MGcmR6VDNlDB69mdXIKuK7KLdGextMYU67KSWLUefuDew2YO11UH5Dr2xIK43Ufa
- hUaFyfiWU5S98PP2d380VNnxrtCwfpf0mdXoAAAA=
-X-Change-ID: 20261015-fix-qce-ccm-adata-leak-1ef34f172ba1
-To: Bartosz Golaszewski <brgl@kernel.org>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- "David S. Miller" <davem@davemloft.net>, 
- Thara Gopinath <thara.gopinath@linaro.org>
-Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, ZhaoJinming <zhaojinming@uniontech.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: OJ1IEQL1epI3V7ChnsxIRX+frX7lWubEPhMV2XLgHiv3WHib1xq+idEv
-	6ghaUiSTbIIVY/92TDj9iQsU+ZPO2xcP4GIGrCGfbnaT4Pv5r2+LV5gUtf/aAZH/zkavUuR
-	NaLiUUIAtm0dmHZWkxAwZgFUQ0uOAlcJpDR7+zL4LFWlrXoyHu/klKkjZe3p0fExthUPJHu
-	OGrsvcXo6Be3hzqgFVcHCxp/1peLITyNk5Ad97NES6Y5oDHOjicJWIWP+dfW7/E0GShKMa1
-	LOL+XpSFQ6wlavDdWI1fhUFo/eBjb3LQ0cKR2ke62cUV2+1Yow3ROsZ1w4WL3i2y5c57H0B
-	vXgztYmYbGbLduEAedeVCNfVKE8J0UuKm9UOTjyjFx8Ll6ErINALWnlOWN+LTF6lp+AOiFP
-	wDYXCcRIaP4+VVpIBnYSLg2lhIMN04ZW9BGkHrFQ8awmRoCXESM+pzO4F9O7cWSncL8LQ8D
-	jUC/yQ6cbP7OFruF4ZaD+sqoj4oi4hAl8f2x0JDJDpcM/zYyqXT3aEOy+9Ou/skZxwAu0Y2
-	1kvyaZ8926+ur6dv/WQNssar3Oq4WGdcf+REwECgOuNVwLZgk0nzrGBtg9jS4pWqUszs4mg
-	GbZ+UWC8Lj9egohk8A1OoaO1Cpsib2VPDeB14/Trk6NUzzvS3POEoieLrmWmH2Kev+UiduU
-	9U9DRhQmqFAzV692VgcO8qf7mk7oKUvp/yI5YHfptthU+Ia6w2SkWMoGC1oM1/ZKhYFNbaR
-	HyJiRsWZemHRb7lrysCLR5Hr/PAoGfn25IBydpwntoMpMyAisMJJ4S2w34ZClpdwGi+53GJ
-	5QSwQ4Sxlqsnd8p5lI8b0AYVwtgjwO1beesLq88UAl7hfuGq+PXtUroU2y/2XHcPL2Ozsfe
-	EifshbLbESkBwWy3dr6CJ/imeKaSux0CXj1A58JwVB9+COMaluZExawO59zuIqPP4VVBoMk
-	utnxTQDqCV5eqAd4uyV0Xr2t3MTHqgnrDyHHpVorYTJCOa2sxaZ/k1Ex6yS8j2NHAzXTZGj
-	pV8HbNpVuJZJufLeh+6tfk/Lg/fF2J2JC+oF3IHawM2AsB5XAfPvzfmngqhlkN+s2Wkft9S
-	A==
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+References: <20261015120654.241354-1-sono7ri@gmail.com>
+In-Reply-To: <20261015120654.241354-1-sono7ri@gmail.com>
+From: Ming Lei <tom.leiming@gmail.com>
+Date: Thu, 15 Oct 2026 21:17:51 -0500
+X-Gm-Features: AclHuK80oQQQEs0WnePVYvVi2mzpo5E302hrIEVEp9c_Zj1kKcbWADJ0Eg4LJ1s
+Message-ID: <CACVXFVP5KQ3=cxKsJJ1ktqVdGa281kZ88SVxPgW5C=Yws7a=-g@mail.gmail.com>
+Subject: Re: [PATCH] ublk: pin module while release work is pending
+To: sonotri <sono7ri@gmail.com>
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This series fixes a memory leak in the QCE AEAD driver together with two
-bugs in the error handling around it.
+On Thu, Oct 15, 2026 at 7:07=E2=80=AFAM sonotri <sono7ri@gmail.com> wrote:
+>
+> ublk_ch_release() takes a device reference and queues exit_work.  The VFS
+> module reference held through the file operations is dropped after
+> ->release() returns.  A queued work item does not acquire its own module
+> reference for the callback.
+>
+> Consequently, normal module removal can start while exit_work is pending =
+or
+> executing.  In addition to the worker callback itself, the final device p=
+ut
+> can invoke ublk_cdev_rel(), which is also module code.
+>
+> Take a module reference while ->release() is still covered by the file
+> operations reference and drop it only after the worker has completed its
+> final device put.  A rearming worker retains the same reference.
+>
+> Merely canceling exit_work during module exit is insufficient.  The worke=
+r
+> is the terminal path for the device reference taken by ublk_ch_release(),
+> so its cancellation would strand that reference and skip the associated
+> cleanup.
+>
+> Fixes: c5c5eb24ed61 ("ublk: avoid ublk_io_release() called after ublk cha=
+r dev is closed")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: sonotri <sono7ri@gmail.com>
+> ---
+>  drivers/block/ublk_drv.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
+> index 66eb55e71..71556c34a 100644
+> --- a/drivers/block/ublk_drv.c
+> +++ b/drivers/block/ublk_drv.c
+> @@ -2613,6 +2613,7 @@ static void ublk_ch_release_work_fn(struct work_str=
+uct *work)
+>
+>         /* put the reference grabbed in ublk_ch_release() */
+>         ublk_put_device(ub);
+> +       module_put(THIS_MODULE);
+>  }
+>
+>  static int ublk_ch_release(struct inode *inode, struct file *filp)
+> @@ -2625,6 +2626,8 @@ static int ublk_ch_release(struct inode *inode, str=
+uct file *filp)
+>          */
+>         ublk_get_device(ub);
+>
+> +       /* Keep the worker's callback and final device release code resid=
+ent. */
+> +       __module_get(THIS_MODULE);
+>         INIT_DELAYED_WORK(&ub->exit_work, ublk_ch_release_work_fn);
+>         schedule_delayed_work(&ub->exit_work, 0);
+>         return 0;
 
-qce_aead_ccm_prepare_buf_assoclen() allocates rctx->adata for every CCM
-request that carries associated data, but the buffer is never freed.
+Reviewed-by: Ming Lei <tom.leiming@gmail.com>
 
-While preparing that fix, two problems in the error path of
-qce_aead_async_req_handle() turned out to matter:
-
-  - It unmaps req->src although rctx->src_sg is the scatterlist that was
-    passed to dma_map_sg().  For CCM requests with associated data,
-    rctx->src_sg carries the AAD buffer, so its mapping is leaked, and
-    freeing rctx->adata there would free memory that is still DMA-mapped.
-
-  - A dma_map_sg() failure for the source scatterlist is not detected,
-    because the result is checked for a negative value while
-    dma_map_sg() returns 0 on failure.  The error path then unmaps a
-    scatterlist that was never mapped.
-
-Patch 1 unmaps the correct scatterlist, patch 2 adds the missing frees
-and patch 3 fixes the dma_map_sg() check.
-
-All three were reported as pre-existing in the Sashiko review of the QCE
-BAM locking series.  They touch the same function that was recently fixed
-by commit 7f2345f47dd1 ("crypto: qce - fix CCM AAD buffer
-underallocation").
-
-Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
----
-ZhaoJinming (3):
-      crypto: qce - unmap the correct scatterlist in the CCM error path
-      crypto: qce - fix memory leak of the CCM AAD buffer
-      crypto: qce - check dma_map_sg() result for the source scatterlist
-
- drivers/crypto/qce/aead.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
----
-base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
-change-id: 20261015-fix-qce-ccm-adata-leak-1ef34f172ba1
-
-Best regards,
---  
-ZhaoJinming <zhaojinming@uniontech.com>
-
+Thanks,
+Ming Lei
