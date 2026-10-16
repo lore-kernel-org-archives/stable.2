@@ -1,80 +1,53 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27FBF30E858
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 05:49:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADEDA1E260C;
+	Fri, 16 Oct 2026 05:52:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792129765; cv=none; b=fVlWIGBcZEWqlPOv9kdaTVN28sJmBZrwGpKSCy6KbMOV5jS6j77WuBke3oRgjZclvRg/FFcTwBd0dlAszKXO8zKAcZT3JNNw88oreEZrOETBj/NCLNWiUzsl15jA2C8liJ4xKd5WoX9iOuREkSf2TKHwa9cW3BFsrvEyPIuve0M=
+	t=1792129971; cv=none; b=jMZdSOJlIHmgmCIkCwsVBq7uNyAVH7lj2GmqsW2YVVDdmBVlYLDqOIpmuv1ErpvTPPr61J71YczVn3SYoda6VXM8JSI7PR5RVhlafCyttLJaLamb1UwKe/9pmQbmElLquzehH/AsaVUKjbLy3lry7MMcsEd+ZRzS8EiAnYy+wR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792129765; c=relaxed/simple;
-	bh=rCTBXZWsA+DFjYHLb8u5Oa7Bvqyi+ouM5tudHnnjwtA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r+i7YTKfMRwDWdOvSlDfbalr2BmSU4Ts/MrS4/0qOETXXMMtb94t4KwaAxO0KlB34N6bqseGMno1DFKUiCVhvgVqlBOIBIQObGuGZAS8685kWlMBhGuFF+Xcjtj9Vn1TGf88OFqPEwxUZIT5ubEsYVMPmBBYev5PX+5620rQUhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=d2XQTzi9; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1792129971; c=relaxed/simple;
+	bh=NADZTaYXyQNPpcWo5h/7WJa/jrNFw/QeJt5uX3c9SAU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=KQymGWcdKssF4+C4Xi3uw++aoSz9m0DFBXTFnKNJIKpSM5jyx+4hpsM0PgVRrrGONS5WQvQEM58Z7tZUOp126XqH0NuGwSn8It59QLOwneEau2tkaqWJnRy1QKMvMhm8elNrU836icL1B/vVjdpdk6kcUeEa40QFppN3Ry4gjQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=h8cyG2G3; arc=none smtp.client-ip=54.204.34.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="d2XQTzi9"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e915887d9dso24940065ad.1
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 22:49:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1792129762; x=1792734562; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z5sNEdkVrvo7sH9ZJvBOJJZb8XmvxfiMz5rU6UHY+Ek=;
-        b=d2XQTzi94gWL5bPrnej0TQLZ6cSFRh/+4KyRVkXIZpmehGuKz8TLkxYAApU8LFHGo9
-         04OkzblTr02VxpRoNrYBpB3T2KrcfTgCQqenwMklyuZwSCk2KoClphHhk6w/SN/2K5FJ
-         O5GN7D4mSX/z00OYGk8LIRM7Dt59P4JM7ifQBxOQUF6HcyEPFIM3ffQh0qlOq5pHH2Ri
-         RgUVkPkIgcy1oVlIIFuVSRvKzdYUDIeQXWSCtLZSlMjrbUT3AEMT3lLbMJ5YV5qJUJoL
-         iMUc+JVh8p1IsJWpZl3qqqv0TP7QJ6HV0RwGbYxdZjVwr7fAR2wKVjQOwALpDUxwy783
-         a8EA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792129762; x=1792734562;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z5sNEdkVrvo7sH9ZJvBOJJZb8XmvxfiMz5rU6UHY+Ek=;
-        b=nHWpfxzuhoilyEPGCYf2kt1BfL39i3FOQEJMr/PECe/uCaNYcEIn/qnq9udmePnP0E
-         6Rsfuas63PLua64GOs8ALaQL+/2m+UvdG6Qxr4PynQ7rBXMlq0OECeCmyNHzk/kXBf7f
-         AC3l8CaF2mnFrbTACy60VH7M6tvRie6HsZ9uK9BVOnRY0r3seUw+TnzXOvmNRvD7oTZZ
-         G7TDETqDPcbDJdjGmTVqKgk2cnT0TYyNYLOAD3V5rZlHvovKKHLOHDujdimnOgUh4BQX
-         Bu1Uy8u8fN335MINNxtQGLeKddspAzvG+3u/8P4A27q+EJUzK6h/nDUWJjgLkUMoM/U4
-         1WyA==
-X-Forwarded-Encrypted: i=1; AKwUvBxIEeIlVDZTTUOc8rs6ZlGMrKHX6ioBFRuyqOvXCYvnYBDGQ4x+UgcVcCIumrtnP1KMHMqnkNo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJR8edBnw77hwhnLFxze1IT8f8gqs53xUebZVY9MIJi/YZAgwPa
-	UiqqdWXN21gbvTIDfn3ivOBPzit4KnGxzZNM3MBICmOCB+bkFVwwJ1eW32Hx8xG2bCA=
-X-Gm-Gg: AYBFou0Ee3g33qn/4OkvU+mDl50655tCrMVziVAsxTYMrX0VioaAMNwORe6mOW0ES4G
-	oscdWs+b0wSl/0a+y1qH4V7BU8Z+lI5OWaLBBKYRHmdak37ADBw2lB8SSxxu12APrW2uwMu3ED5
-	Iy/HXgr+mvdhsSQIJkvF9LFkdYty+hY1BQIZ5+ca7L9Y8twxJ7F/FNHtsE1QkTNkoU7Vs7IMhTE
-	rHUL8Prej9PSDxVj8mgnyF4hnzIdwAu9Y6/LURe9ruB6UeNhncBbJhHyo4wlIQg0SoE4N1czBLv
-	LMY0MJY+epHbwUGOzopXVZVamXVV/AbFPBoZJ+MFKtuZa2wGtgwHjgdPkbKhYl29sZV9DRYtWsN
-	/zM1tpYqwaxRYN5YLprUVuBMFECYtnuEWSLqUImPNOg+bHDz/31h08+3BXGJubs9MjdTYWz7CSs
-	rEjGCEI18nCFamjPX2gk6jVCOGIuvdvKnwQGBdeYLyPHVGTlJbRxOTMpk0Uzzo6satZW0F/4qfI
-	ISqlCsvyvtdjYs2zM8=
-X-Received: by 2002:a17:903:1b4f:b0:2e9:7ff5:544c with SMTP id d9443c01a7336-2e97ff55897mr13235965ad.25.1792129762374;
-        Thu, 15 Oct 2026 22:49:22 -0700 (PDT)
-Received: from n232-176-004.byted.org ([36.110.163.99])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e804d7csm4697445ad.15.2026.10.15.22.49.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 22:49:21 -0700 (PDT)
-From: Muchun Song <songmuchun@bytedance.com>
-To: Dan Williams <djbw@kernel.org>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Joao Martins <joao.m.martins@oracle.com>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	stable@vger.kernel.org,
-	nvdimm@lists.linux.dev,
-	linux-cxl@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="h8cyG2G3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1792129924;
+	bh=04uaEat7Rr9Fh2I5vVv7mmMDg23ieCg9+MlV7gYX9Hk=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=h8cyG2G3v3vkRH9Y6L7nxZGaRVCGovRDobwT3LSscZtaM5IqDD56cWArZArXGMm06
+	 on5Vj2RXLpnbeVflJ7q64JmEN+bF6mgDq8qqsFREOZgTpaGMaoFjaXCxSDAwtmaJ0M
+	 ALIO9L3ZmVLXtOXG27YbK8wxGvu0W2J9/FPS01sg=
+X-QQ-mid: zesmtpip4t1792129900tca8e34c7
+X-QQ-Originating-IP: zPMoIHAwRxYqDbLfIG4E73d8/iPU3SU/e4u7IJwVImk=
+Received: from localhost.localdomain ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 16 Oct 2026 13:51:38 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 1068374382040432612
+EX-QQ-RecipientCnt: 9
+From: Wentao Guan <guanwentao@uniontech.com>
+To: kprateek.nayak@amd.com
+Cc: guanwentao@uniontech.com,
 	linux-kernel@vger.kernel.org,
-	Muchun Song <songmuchun@bytedance.com>
-Subject: [PATCH] dax/pmem: fix unaligned compound devmap initialization
-Date: Fri, 16 Oct 2026 13:49:14 +0800
-Message-ID: <20261016054914.2601510-1-songmuchun@bytedance.com>
-X-Mailer: git-send-email 2.54.0
+	linux-pm@vger.kernel.org,
+	ray.huang@amd.com,
+	ronforever@outlook.com,
+	scardracs@disroot.org,
+	stable@vger.kernel.org,
+	superm1@kernel.org
+Subject: Re: [PATCH v3] cpufreq/amd-pstate: Skip auto_sel write when it already matches the mode
+Date: Fri, 16 Oct 2026 13:51:36 +0800
+Message-Id: <20261016055136.286138-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260918090909.86544-1-guanwentao@uniontech.com>
+References: <20260918090909.86544-1-guanwentao@uniontech.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,60 +55,98 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: Mr5D3cXX4TfKS5Ud28CIOpDrNTNhokKRjd6UvOqkZ+Ff428Ur5wwXahD
+	hToEbrwevxIiOSSJg1fPuia5kp2IP2BDHKBxuNs8NggCI29lfjjfLr8P7jweomQEtVNNNwf
+	463wF4diL+bDCEB62lTHxPDcDDlgWyPYXKla/BOjpt58o72nzzbzvf3lQupKNlxy7/+KVxF
+	C7SNqYhh8gsnQfMezZX+iXWRh9oZHYzZoItUQz9iNqyqgQrjnpD+fm29IPwX7z452xYB6i2
+	/6iLdaTV2bO88WJ6thSZCWv/loSohxd0NHYFbG5uBKhf9CIgJ6o36ZeCY62TqjLySFQ4ETg
+	17JPLUUaPPUBXfE3/k7jIXpJmFNwcwgB4SOtNqRsScqzhebO66eRsnV3db3VT2V+3Q/bYD4
+	ztPmckKfdlJX/cNHIUBJGy+EjplXVx4PaPnX4vDw6xhFeVQffxFajeutiMq4q0F7txpBPlx
+	LGXVeZ8tVlRQg3DK/xD1/2hbkD6jDUvOiwiSi58bxHduz16Oyo1eehXibKt7RET/Pk7CM3H
+	Ez5uLytspRiDrLoSSoQqNtPh82McI2rSFIpdrlRajUWdSyoxR++EoKIZ+D6nZiTa/0IaTlO
+	wKHbBUGidiwImf1QqJznlk19/Hag9abX2m1ogxxvdiXdHu3yX+m39aIA0knyXBy+dTMWPva
+	FJ1O1uG58k6nNbaUDHSkz27TjU2nUgkYLmCAThg2Z/vI0x5twq+7fTHlIoF7slAONKAutwe
+	0cDuQIJ7yr9DvXq93e803LAU5PZ+FfEoavvaZ0tZ6Zmh24SYqXzlPun0/qE9XFTxHXaqXZZ
+	hGEuznr2fJePQ12Cv1Ljf3LKxEUd9wr5Fo+ks+sxY51Alk3eDbRuYPADa4thk+fhtzSJ9UZ
+	8j9c+ju0vL4HG2AeaEp7uZddDjI1WGEJSNgsCX8GD8TLOVnVYiV/bEPlAe6DwIsPXVTjYF2
+	PEoU6GaiYoTnaoNx2FD9z0D6+xYqgpi4DYs8oDEydoQR9pZPnVSE+Ml+hpCWQjysMi7oQiD
+	QDacGUEhZM9BiTF7rfHGV2QxL7c59MsX9BYo93/RTR8g7Vypb/V8yVRyxBZB6i334SQtzTW
+	b39dZPUEnMM
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-Static pmem Device DAX namespaces reserve space for namespace metadata
-before the user-visible data range, and may also include padding needed
-to satisfy the Device DAX alignment. __dax_pmem_probe() adjusts the
-dax_region range to start at the data range, but the dev_pagemap range
-still starts at the beginning of the namespace.
+Hi,
 
-That is not valid for compound devmap mappings whose memmap is stored in
-system RAM. Compound page initialization requires the start PFN to be
-naturally aligned to the compound page size, because the head and tail
-struct pages are initialized according to that geometry. If the pgmap
-starts before the aligned data range, memmap_init_zone_device() can build
-compound page metadata from an unaligned PFN.
+> Since commit 9dfd13f80c85 ("cpufreq/amd-pstate: Toggle auto_sel in active
+> mode on shared memory systems"), shmem_init_perf() programs
+> AUTONOMOUS_SELECTION_ENABLE unconditionally, including in active mode.
+> 
+> Platforms that exclusively support autonomous selection report this field
+> as an Integer of 1, as required by the ACPI specification, instead of as a
+> register descriptor.  cppc_get_reg_val() reads such a field back
+> successfully, but cppc_set_reg_val() rejects the write with -EOPNOTSUPP
+> because the entry is not an ACPI_TYPE_BUFFER.
+> 
+> shmem_init_perf() propagates that error, so every amd_pstate_epp_cpu_init()
+> fails, cpufreq_register_driver() ends up with an empty policy list and
+> returns -ENODEV, and amd-pstate refuses to load at all:
+> 
+>   amd_pstate: failed to set auto_sel, ret: -95
+>   amd_pstate: Failed to initialize CPU 0: -95
+>   ...
+>   amd_pstate: failed to register with return -19
+> 
+> Skip the write when the register already holds the value the requested mode
+> needs.  Active and guided mode are fixed on these platforms, which report
+> auto_sel as 1, while passive mode still fails to load on a platform that
+> cannot disable autonomous selection, exactly as it did before the
+> offending commit.
+> 
+> Fixes: 9dfd13f80c85 ("cpufreq/amd-pstate: Toggle auto_sel in active mode on shared memory systems")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+> Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+> Tested-by: LFRon <ronforever@outlook.com>
+> Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+> ---
+> changelog v3:
+> Include the K Prateek Nayak reviews to remove that ternary op base on current
+> condition now have.
+> 
+> v2 link:
+> https://lore.kernel.org/stable/c3eb86bd-70a6-4bb2-8eff-b2a3c0817514@amd.com/#R
+> changelog v2:
+> Accecpt and tested the K Prateek Nayak reviews.
+> v1 link:
+> https://lore.kernel.org/stable/20260918054808.48999-1-guanwentao@uniontech.com/#R
+> ---
+> ---
+> drivers/cpufreq/amd-pstate.c | 6 ++++--
+> 1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
+> index 80d99ba1902c9..2d1f5292d1738 100644
+> --- a/drivers/cpufreq/amd-pstate.c
+> +++ b/drivers/cpufreq/amd-pstate.c
+> @@ -532,8 +532,10 @@ static int shmem_init_perf(struct amd_cpudata *cpudata)
+>  		return 0;
+>  	}
+> 
+> -	ret = cppc_set_auto_sel(cpudata->cpu,
+> -			(cppc_state == AMD_PSTATE_PASSIVE) ? 0 : 1);
+> +	if ((cppc_state != AMD_PSTATE_PASSIVE) == auto_sel)
+> +		return 0;
+> +
+> +	ret = cppc_set_auto_sel(cpudata->cpu, !auto_sel);
+> 
+>  	if (ret)
+>  		pr_warn("failed to set auto_sel, ret: %d\n", ret);
+> --
+> 2.30.2
 
-The resulting struct page layout is inconsistent with the Device DAX
-mapping. A later mmap fault can then resolve the user-visible PFN through
-invalid compound page metadata and hit a kernel panic while inserting the
-DAX folio.
+Ping? Nearly a month passed, anything update?
 
-Fix this by advancing the pgmap start to the aligned Device DAX data
-range for non-altmap compound mappings. Leave base-page namespaces
-unchanged, and leave the altmap path unchanged because
-memmap_init_zone_device() already skips the altmap reservation itself.
-
-Fixes: 14606001efb4 ("device-dax: compound devmap support")
-Cc: <stable@vger.kernel.org>
-Reported-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Closes: https://lore.kernel.org/r/wlrkqqvg.ritesh.list@gmail.com
-Assisted-by: LLM
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
----
- drivers/dax/pmem.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/dax/pmem.c b/drivers/dax/pmem.c
-index bee93066a849..d3a9b85107b0 100644
---- a/drivers/dax/pmem.c
-+++ b/drivers/dax/pmem.c
-@@ -51,6 +51,13 @@ static struct dev_dax *__dax_pmem_probe(struct device *dev)
- 	/* adjust the dax_region range to the start of data */
- 	range = pgmap.range;
- 	range.start += offset;
-+	/*
-+	 * When the memmap is stored in RAM, exclude metadata and alignment
-+	 * padding from compound page initialization.  Otherwise, the pgmap
-+	 * may start before the naturally aligned Device DAX data range.
-+	 */
-+	if (!pgmap_altmap(&pgmap) && le32_to_cpu(pfn_sb->align) > PAGE_SIZE)
-+		pgmap.range.start = range.start;
- 	dax_region = alloc_dax_region(dev, region_id, &range,
- 			nd_region->target_node, le32_to_cpu(pfn_sb->align),
- 			IORESOURCE_DAX_STATIC);
-
-base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
--- 
-2.54.0
-
+BRs
+Wentao Guan
