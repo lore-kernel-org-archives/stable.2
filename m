@@ -1,149 +1,132 @@
-Received: from mta0.migadu.com (out-58.mta0.migadu.com [91.218.175.58])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F2B3AAF44
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 06:36:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.58
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C23FC3A901C;
+	Fri, 16 Oct 2026 06:37:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792132570; cv=none; b=bYKiJlYPgnMeHBiD+OCdjwmt6V+FyrKnsn0AoiIEmzdRLga79ZfvxMJGJJc76p5KZ1KKCd6W9G4JQJFQemL24lA8pFGvQycyNLXlB0Qal5BuawPMAgxJcMSIvd5EaPwU+n9RdDfbRUaHJCmxb2oSQz7QQHfJJDtpXwy+WqsgaUU=
+	t=1792132650; cv=none; b=VIkjtXoioepBr5XXTuxm+DPYXMTC9W9MYD0zViggEIqcgT1CQPA/lihvduE5A0IRGiDZYhUa9yMJVKqCxf8kZsNj6pugldJW2qO6ugtTU+JZaY/VzDvq9WDibhvIq6qZEPGcR8agU8aqqMI7KjLf//vdjcWhbTSMruiLnphmqr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792132570; c=relaxed/simple;
-	bh=FMULLhup5HxbZ62tpmVqhAwf9hbLzat0PudWDGHNiYM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=feC4OOhvBmH5OV9pYzYzs8vEfODHE7+I6K6cJOvEDIcTVjnDWa4QH15RmzVmOTyuwexnNpU3VnLGDr119ufBWUzaD6PcJZRPU6idRXvCgDdtu8rDxRCKmcxBbKYEAXvCBUpfQHjuZxsVmOWgma9HoxLjvGMiK07GhaNTzz/JmZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=CvbPcpll; arc=none smtp.client-ip=91.218.175.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	s=arc-20240116; t=1792132650; c=relaxed/simple;
+	bh=BnnYdFFWWwOCp+3d1u2NUGSicwuidY4Oh+2ora6rmm4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gI/ZIMwG1iOxKAdZOJkEMdHJVCkxgFUALtW2t4ok46ve/4hEr8IxhP2zx1Iy+dVyxD4N8U5wskrug7r9M8PsuUs8df5b26N/Hoy+0ruR38rlh1ENld4e5Z6EloEVbHLHEPPW6sGfp+v5OI8LwUWsbC7dU7ttn8CP6qbh7NipRrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V7uBH0ae; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="CvbPcpll"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=FMULLhup5HxbZ62tpmVqhAwf9hbLzat0PudWDGHNiYM=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792132562; v=1; x=1792737362;
- b=CvbPcpllizDVQslEA8T8vTrQgs8cllH0v/IsNZ0nz7+28DKWetcktDjvZtlNTL3hOkjBZ2q0
- cnrCAZ+6VUVL3FWAfimw0k+klqf77g8BIDI4FKrgFONSl/bWgYwJ2TXxLhbfFsiWq/5nTzPfA+N
- NieSNcYTtmZWELvcbrR1Y8ORl/eAzJmE/o4WAnYIlSQAZW5d/YNnUFWg+2m5RZgvZNjbAGBLluJ
- /mihl4GMVLTElxq1px7Ktd6JSGl4izmcwFrnrCxR959rlHfLcP/jCW61J6qqjcxFcUDXQU3NLXL
- /joC4Y0TaOMT9cuUcieStnsctKhtI/bKIJMmitZxdpL3g==
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a73d9cd8a502dbf2;
-	Fri, 16 Oct 2026 06:36:02 +0000
-X-Mizu-Trace-ID: a73d9cd8a502dbf2
-X-Migadu-Flow: FLOW_OUT
-From: Val Packett <val@packett.cool>
-To: Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: Val Packett <val@packett.cool>,
-	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-	Bhushan Shah <bhushan.shah@machinesoul.in>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Antoine Bernard <zalnir@proton.me>,
-	~postmarketos/upstreaming@lists.sr.ht,
-	phone-devel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH RESEND v2] ASoC: qcom: qdsp6: q6afe: fix clk vote response type mismatch
-Date: Fri, 16 Oct 2026 03:29:17 -0300
-Message-ID: <20261016063536.598610-1-val@packett.cool>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V7uBH0ae"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 666BFC2BCF5;
+	Fri, 16 Oct 2026 06:37:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792132650;
+	bh=BnnYdFFWWwOCp+3d1u2NUGSicwuidY4Oh+2ora6rmm4=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=V7uBH0ae19vKw9EKFz+V70/q5WnpRTNmyHOxkHICdNLXdMLdBDRelduklBv8Odu6z
+	 5j/FhvWG3tVkN3HlvyLOZUfpqqorYDGZ1jFjOaxKZgeA+7TcmVdUkNBwkSRE4BXVYf
+	 bNqi/Glma/UtL0xcqWXZFEh4QzyyO1Ae4vgKRLYNeD65T0JxV1qjOmZ8XopGYr+YDI
+	 oREvSV5zBpteWDvw+Y8+84yUcaFOvns/nEFWMybxCgX7D+7QHdlwz1a7EXJqHUVd17
+	 U1CCNxxtPXbbInfzEU/olEF2CyWXnuiCVwOTHMfOah3mFFgx0TzbuLuzj6PmkcLgRk
+	 N+Fei/NaKmmjw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 40568CCA462;
+	Fri, 16 Oct 2026 06:37:30 +0000 (UTC)
+From: George Neacsu via B4 Relay <devnull+geocausa.gmail.com@kernel.org>
+Date: Fri, 16 Oct 2026 07:37:30 +0100
+Subject: [PATCH] leds: flash: leds-qcom-flash: Release all V4L2 flash
+ devices
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-qcom-flash-v4l2-release-v1-1-0e92aa7c9327@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqAIBBA4avErBtQKaOuEi1EpxywPwciiO6et
+ PwW7z0glJkEhuqBTBcL71uBrivw0W0LIYdiMMpYrbTF0+8rzslJxKtJBjMlckLYB9X6vgvaNx2
+ U+sg08/2fx+l9Pwh7F4ppAAAA
+X-Change-ID: 20261016-qcom-flash-v4l2-release-9d05c97d1c47
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-leds@vger.kernel.org, stable@vger.kernel.org, 
+ George Neacsu <geocausa@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792132649; l=2721;
+ i=geocausa@gmail.com; s=20261015; h=from:subject:message-id;
+ bh=CI6yYCRJ7s3Nt//a396V+HzvBRozRkOc2yI+sV9seYA=;
+ b=DE117K+Hxmkt3xq1NNeUAoIn3zCf1lMjMnJNMAANQL01b7nbzwHXfl0Z11u4w79aYj/WJzgHn
+ vCp+h0y+s/wDodjhieEW2JemsODWQ23ZCIUI8Eb1lm2RN6QCKkuFsfv
+X-Developer-Key: i=geocausa@gmail.com; a=ed25519;
+ pk=KyQk/iWbxsikewDBh0SwlHI51RvAqahD3loqmRp9DVI=
+X-Endpoint-Received: by B4 Relay for geocausa@gmail.com/20261015 with
+ auth_id=1199
+X-Original-From: George Neacsu <geocausa@gmail.com>
+Reply-To: geocausa@gmail.com
 
-The response sent by the firmware when requesting a clock vote (opcode
-AFE_CMD_RSP_REMOTE_LPASS_CORE_HW_VOTE_REQUEST) does not actually have
-the same opcode + status payload as APR_BASIC_RSP_RESULT. Rather, it
-returns one single u32 which is the client_handle that must be used in
-future unvote requests for the same clock.
+From: George Neacsu <geocausa@gmail.com>
 
-As a result of this type confusion, the status returned by the callback
-to q6afe_vote_lpass_core_hw was actually an out-of-bounds read. It was
-only interpreted as success (0) most of the time due to luck, but there
-are some reports of random errors such as:
+The probe error path and qcom_flash_led_remove() walk the V4L2 flash
+array like this:
 
-[   20.961100] qcom-q6afe aprsvc:service:4:4: AFE failed to vote (3)
-[   20.961131] Failed to prepare clk 'core': -110
+	while (flash_data->v4l2_flash[flash_data->leds_count] && flash_data->leds_count)
+		v4l2_flash_release(flash_data->v4l2_flash[flash_data->leds_count--]);
 
-Fix by correctly interpreting the response as a single u32, and actually
-store it as the client_handle to ensure unvote would work correctly.
+leds_count is the number of registered LEDs, so the first test reads
+one entry past the last registered one. The array holds exactly one
+entry per LED child node, so after a full probe that read is out of
+bounds. The loop also stops before index 0. With a single LED nothing
+is released at all.
 
+The V4L2 flash sub-device then stays registered after the driver is
+unbound, still pointing at the driver's freed devm memory. On a Surface
+Pro 11 (X1E80100, PM8550 flash, IR LED linked to a sensor through
+flash-leds), unloading the module and then setting a flash control on
+the sub-device triggered UBSAN shift-out-of-bounds reports and a NULL
+pointer dereference in regmap_field_update_bits_base(), called from
+update_allowed_flash_current().
+
+Release the registered entries from leds_count - 1 down to 0.
+
+Fixes: 96a2e242a5dc ("leds: flash: Add driver to support flash LED module in QCOM PMICs")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/5976946.DvuYhMxLoT@antlia/
-Fixes: 55e07531d922 ("ASoC: q6dsp: q6afe: add lpass hw voting support")
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Signed-off-by: Val Packett <val@packett.cool>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: George Neacsu <geocausa@gmail.com>
 ---
+ drivers/leds/flash/leds-qcom-flash.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Previously part of a series:
-https://lore.kernel.org/all/20260506204142.659778-2-val@packett.cool/
-
-but it's actually independent and reviewed, let's try again with just this..
-
-Thanks,
-~val
-
----
- sound/soc/qcom/qdsp6/q6afe.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/qcom/qdsp6/q6afe.c b/sound/soc/qcom/qdsp6/q6afe.c
-index f0ff1350e9dd..9ac51c304ead 100644
---- a/sound/soc/qcom/qdsp6/q6afe.c
-+++ b/sound/soc/qcom/qdsp6/q6afe.c
-@@ -393,6 +393,7 @@ struct q6afe {
- 	struct q6core_svc_api_info ainfo;
- 	struct mutex lock;
- 	struct aprv2_ibasic_rsp_result_t result;
-+	uint32_t vote_result;
- 	wait_queue_head_t wait;
- 	struct list_head port_list;
- 	spinlock_t port_list_lock;
-@@ -1010,13 +1011,14 @@ static int q6afe_callback(struct apr_device *adev, const struct apr_resp_pkt *da
- 	const struct aprv2_ibasic_rsp_result_t *res;
- 	const struct apr_hdr *hdr = &data->hdr;
- 	struct q6afe_port *port;
-+	uint32_t *vote_res;
+diff --git a/drivers/leds/flash/leds-qcom-flash.c b/drivers/leds/flash/leds-qcom-flash.c
+index b03a683..c2fefee 100644
+--- a/drivers/leds/flash/leds-qcom-flash.c
++++ b/drivers/leds/flash/leds-qcom-flash.c
+@@ -953,8 +953,8 @@ static int qcom_flash_led_probe(struct platform_device *pdev)
  
- 	if (!data->payload_size)
- 		return 0;
- 
--	res = data->payload;
- 	switch (hdr->opcode) {
- 	case APR_BASIC_RSP_RESULT: {
-+		res = data->payload;
- 		if (res->status) {
- 			dev_err(afe->dev, "cmd = 0x%x returned error = 0x%x\n",
- 				res->opcode, res->status);
-@@ -1043,8 +1045,10 @@ static int q6afe_callback(struct apr_device *adev, const struct apr_resp_pkt *da
- 	}
- 		break;
- 	case AFE_CMD_RSP_REMOTE_LPASS_CORE_HW_VOTE_REQUEST:
-+		vote_res = data->payload;
- 		afe->result.opcode = hdr->opcode;
--		afe->result.status = res->status;
-+		afe->result.status = 0;
-+		afe->vote_result = *vote_res;
- 		wake_up(&afe->wait);
- 		break;
- 	default:
-@@ -1955,6 +1959,8 @@ int q6afe_vote_lpass_core_hw(struct device *dev, uint32_t hw_block_id,
- 			       AFE_CMD_RSP_REMOTE_LPASS_CORE_HW_VOTE_REQUEST);
- 	if (ret)
- 		dev_err(afe->dev, "AFE failed to vote (%d)\n", hw_block_id);
-+	else
-+		*client_handle = afe->vote_result;
- 
- 	return ret;
+ 	return regmap_field_write(flash_data->r_fields[REG_TORCH_CLAMP], flash_data->torch_clamp);
+ release:
+-	while (flash_data->v4l2_flash[flash_data->leds_count] && flash_data->leds_count)
+-		v4l2_flash_release(flash_data->v4l2_flash[flash_data->leds_count--]);
++	while (flash_data->leds_count)
++		v4l2_flash_release(flash_data->v4l2_flash[--flash_data->leds_count]);
+ 	return rc;
  }
+ 
+@@ -962,8 +962,8 @@ static void qcom_flash_led_remove(struct platform_device *pdev)
+ {
+ 	struct qcom_flash_data *flash_data = platform_get_drvdata(pdev);
+ 
+-	while (flash_data->v4l2_flash[flash_data->leds_count] && flash_data->leds_count)
+-		v4l2_flash_release(flash_data->v4l2_flash[flash_data->leds_count--]);
++	while (flash_data->leds_count)
++		v4l2_flash_release(flash_data->v4l2_flash[--flash_data->leds_count]);
+ 
+ 	mutex_destroy(&flash_data->lock);
+ }
+
+---
+base-commit: 62f482ff73bf3ae88b0c899115527752cf9cbf13
+change-id: 20261016-qcom-flash-v4l2-release-9d05c97d1c47
+
+Best regards,
 -- 
-2.55.0
+George Neacsu <geocausa@gmail.com>
+
 
