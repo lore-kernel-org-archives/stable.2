@@ -1,123 +1,127 @@
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 332675349C6;
-	Fri, 16 Oct 2026 16:23:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE1B51118B
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 16:27:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792167826; cv=none; b=HG7iBz8D2dxpXBsGNEgxZL7zsfuwqkOtD6eUL8aRavQhG1I31R8ZLvrmHCtblfPETJOMRSQJGiNfsoZHKQzOLPyg2bUY1P4hjoCYPENsJ9IWskFDvG/A65G4526v/WqZl+WPJgpeqHfBh0hmM9w1/9XWDsEZ2IIICQ76NuOYCUg=
+	t=1792168078; cv=none; b=QkvcCaO9DrzdsgTLJBwp01UPN9SA4noECut46bpUfqbBQXQCq1CV6+CT7qE0Gid91BSxvmcVxID1f9QWbgPvK3xCwJQFzlFm3UZrszLhnuHw5m/Q03MvALcw1V90GHGunYSYfYnnUMl8AKVOxkN5qMRZH0QG+s8bySjU059ORnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792167826; c=relaxed/simple;
-	bh=q6T4Dv2v/mXNrs3uQuUFpY0sF+PJOAwaKezFrrkwt9M=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=NWLAwXHGt2R4pXtgHUQZzwG8K63gUABQOQBk/RGZuL0ANsYjzOXGBJtUyKY+8kkQG04B98SNcMf7Y7TLCGKWgmZC3laZ0iExkkmwunI2UIwNJqssMHnKvsgmdqk6Vxb6jVosCqlgb0l9SzswpvE/TZ2p9gRuuwEiEwLt7IcqINA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=WEPhCVq7; arc=none smtp.client-ip=96.67.55.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	s=arc-20240116; t=1792168078; c=relaxed/simple;
+	bh=lTVs+lGesT+Gfa6wXY66cDp9GiFHypF9sIduHB1Sjp8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jc4Lo+0Ib3MtQ3jRcj6VRiQLXl2wYA1OUOSCLwimoLq12Y5VkWyYjPxVKN9RML87hzi9+oQLWnlaOhfYL82NIxg0/SkSP7c/f8lUjhwN+mqkVzWx79aDc0o7avXjG4+5eScmH/X+aN1dQGNcUJQi1GADzaEuDUk/e3uDwgGjMzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=m1L/BjUs; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Rt8ZuPVg; arc=none smtp.client-ip=103.168.172.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="WEPhCVq7"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References; bh=PctlGfnjnOkrY4m3yhTfahJhe981R8/UVToXJo783RI=; b=WE
-	PhCVq7Oo6d4nfXjLLjKaPYSJVQdKxUhUXREhIyrepDpOhSoCpKcRUMcO9htwCBev4HSTS0iXr7fEV
-	XebkoZTs05aUxw8oNrhpb5pZZMk0i2p+hfxZKnarDXKrqsnWCU+n79giGrLDB/Rdu3AALOSy3ayrL
-	Tl6HIyjrOVE1imjffl0ONmiGIU0eSZimzZYzKNuSVEo2FsDtpo04GN3diAlzssoyCDJBfCMPhwnVs
-	1lGKt5mZXoyJlmA7PRklJ5cpHwa0up0uipiXY/cE9dnVRFp5/G7wBIqZlkhO5Li+7BQShNnmqrwQf
-	heujZ5DjTacX2C74Jeh0WUQJMq6RHWOQ==;
-Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219] (helo=fangorn)
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xHki5-00000008odn-34kZ;
-	Fri, 16 Oct 2026 16:23:09 +0000
-Date: Fri, 16 Oct 2026 12:23:04 -0400
-From: Rik van Riel <riel@surriel.com>
-To: linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>, Vlastimil Babka
- <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- fvdl@google.com, Michal Hocko <mhocko@suse.com>, Brendan Jackman
- <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan
- <ziy@nvidia.com>, Kairui Song <kasong@tencent.com>, Qi Zheng
- <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- linux-mm@kvack.org, Baoquan He <baoquan.he@linux.dev>, David Hildenbrand
- <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Dev Jain
- <dev.jain@arm.com>, stable@vger.kernel.org
-Subject: [PATCH] mm/page_alloc: count guard pages as free again when their
- buddy merges
-Message-ID: <20261016122304.5b1eba8e@fangorn>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="m1L/BjUs";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Rt8ZuPVg"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.phl.internal (Postfix) with ESMTP id 419C3EC020C
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 12:27:56 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Fri, 16 Oct 2026 12:27:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1792168076; x=1792254476; bh=pun4GvrJQ3
+	Bvu7jvHXSNT7fMfZZxlz+130bhBZZWLRQ=; b=m1L/BjUsAyOF3Qvaz1jnjjCZk2
+	Z2DITXkig6BeccTu4Dlf/15QTIKfrgov7tJW8tpOcyrGfYAOIaEbUKzjbM8hdanw
+	1TtzGHsZqc6gHwPRHbMSLvYn2s9IqEvHzUSzIsy8SxkzZmxEw/HVyiJAOURCjDLv
+	WbdQQwjWIKQDC1VEPspDd/xxnoADVRTjbKKp4CQ4/otRTA5dDH8yIR8Q4N2LZR/v
+	LIqGHztiDF59cYeaV3VhKKYq8FiWxdc1vGDBfeN2VVp6EgNb/Y3k4jDXD43AwtoR
+	d+WQOOqammCtk9HFYByHFBuNdeOy1gNc92EUBPdMOfzWrXfXALop2lqsHbMA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792168076; x=1792254476; bh=pun4GvrJQ3Bvu7jvHXSNT7fMfZZxlz+130b
+	hBZZWLRQ=; b=Rt8ZuPVgC3KKkfLQek6KJE+bBcBYaLwqg0qgWyjF5/UXDIwLgxo
+	ZwDL4gxCBAo6L1GPAQqg+UyIt9E0ccKXFAGFu4aKKfivzYFzSA2WCvHr2OikdDi2
+	Es0ClkIAfOg3QIAoekkP+feFjW2I3952Q4luu2d1NC/CAGpz0RiRoheukwyJPIjj
+	VV80VXMla9VrmN3G05BLD2h6sSkkHwdo+WDncEB81qbb1Y+iM1+OY96vX975cvGy
+	ZzMbw5fhzhAIHOZ3XQABymvtv9Ha66j102Wo0vrBHZ+qu0PmYo4k6NqfHqqjXKM2
+	vuMLOEODiownXDJjqjRqafmF2QRl/Mp//Zw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792168076; d=kroah.com;
+	mf=PGdyZWdAa3JvYWguY29tPg==;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:g5ned47/Gmg2Rp5lZPolQtLjKZtRQ5PD6oH11f7i+8IVav4
+	v7vGOvpw1VifomqSJyarEevjU8uSAFzZjcG1YT0kKFrN54lLYlyFhr+xN1vUXRyQ
+	kdGSdZx6VWSjH1Ii07ags6pCtLHimNholJdLvSDAMK2tQwhzfyMRccuPP69CMjBE
+	1shhhZIvvail9/TMuwY5akB6BEHcj75d1U2xQVk9Trdy2XNIg31kFM1CTVR2yXMX
+	upfGMAXtSnynRayrfzHijzIqYPEVepFKiZvHi0vJXmO2hB79jfdq/goRLVY2Hnl5
+	q9Xv5Mb6hJNZKTp/Uk21FQxXZSUDDHYK4mM6gmA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:CuAKkxrIJo2NjdoexkFMIq44LPm4X6oS1ymjc2ogW2Y=:lTVs+lGesT+Gfa6wXY66cDp9GiFHypF9sIduHB1Sjp8=;
+X-ME-Sender: <xms:ilDSatNPHT26IoIcN7pqaOHKEdWiEzsqmJnt2-0fpYEpILJms7fgkA>
+    <xme:ilDSatdxpGVRJYdkK-NJjeKNfjY7MzCgDtKii71_IVUt9_h7VN_qMvJYF22BMqBl4
+    ImKJirYgShh4KVePWmgsNQWBdb33J9Vteow--8dN4LS3V02Jw>
+X-ME-Received: <xmr:ilDSau6VRQcrFtZPQDnESqGUPBvhNm4J8_Ancbhq0WfVtYA_y2h10GnE-ee4UobWpXNgwwB6u9wSbDw4N4zBBJ7mTrzclFf-mLcJpN-QU2Q>
+X-ME-Proxy-Cause: dmFkZTEf+6FkbPH2Eo8DuiCPeR/tum8ePzpWuPs2ZCySZ5ad7cVy6QAe4RnxZq5EM/8vbS
+    3hskwxukLV4ajHCAudDffbDNUgYdiSd+mSF5AqhE2gJMuCfI5MpYjPLwBRU/tn75iLh2Al
+    SPnHL56ERHYI11XoLcF+9WeOhlAcsfmzxKkrm6cqfIhxawGgwKnyLPFvV47Df+SNGIPU/n
+    nqw5hlId2uy8IlBJoNxGqKAFM4Cy57evZaOpALHZg1TRnehWI1mkGSOthoOQ2VoUirCpht
+    ahRsw0CRLZPflp/DnpYlgb/Nwi3fDZdKlVx01nXrUP2F/axSrDoDJB691XVw5xugLleGBk
+    znYSKLia7FwsmD94iNhEbQ4XJ9rWK0HNDXkFGY6UjDVNjq6ek55fjTDZwsq/RpS9bGzw5V
+    Mj8JwGB1q5yGAciOOTDZGWRpGiMuhKPuBWHc+2biL2d0ULDn/O5iEGqtglbjMEzBFQWt09
+    TT+O1Ib6gDtxzNXNejo8jETsG3wRWijhnt0ZWCyynTCxBfWK0R/2XRfeYORjPk4/L2hUf6
+    8cub7WimiFwetyTuZXnbq8xkhO/Ri/7vo0250PzgMV5Pcw4VQPHtnjP0oqQvH86x1CI/gk
+    qW0pOxB1dPfRRs4iux3vFGYC6AtNwx8UW3luK/JIwpAtlNdSVSJN4V9sNojw
+X-ME-Proxy: <xmx:ilDSavL3MwAWf9c4T75kC5ps4gheVWoy1h5zDaFJjzbN_srkgWg0Pg>
+    <xmx:ilDSaoVFfGZrsdLOVyU1tQNojJhxjkx8pGnXFbVj5vD6Yjq88GhHfg>
+    <xmx:ilDSarGfZdUERzoX6SDo4Kc71v1hCtzj58zpso5AO8bFr3Cie5OHvQ>
+    <xmx:ilDSan5DCH0en2w5VtVLBQQ-TVO4WJ2Qdw7_YzmiNKKAZZ5U_OIr6A>
+    <xmx:jFDSamztmz4cPUucxtte-xuA8oKgNej4EaHULpqarwLLokeMq_VLsURX>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 16 Oct 2026 12:27:54 -0400 (EDT)
+Date: Fri, 16 Oct 2026 18:27:58 +0200
+From: Greg KH <greg@kroah.com>
+To: Nicolai Buchwitz <nb@tipi-net.de>
+Cc: stable@vger.kernel.org, sashal@kernel.org, technoboy85@gmail.com,
+	hirofumi@mail.parknet.co.jp, brauner@kernel.org
+Subject: Re: Please backport FAT end-of-directory fix to 6.18 and 6.12
+Message-ID: <2026101626-tattling-mutation-26ee@gregkh>
+References: <96dbd7d103fa6df33b0bbd492e309bd7@tipi-net.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <96dbd7d103fa6df33b0bbd492e309bd7@tipi-net.de>
 
-With debug_guardpage_minorder set, expand() turns the unused halves of a
-split into guard pages, which page_del_and_expand() leaves out of the free
-counts. Freeing the allocated half credits only that half, and
-__free_one_page() then merges the guard buddy with clear_page_guard(),
-which no longer touches the counters.
+On Fri, Oct 16, 2026 at 02:25:02PM +0200, Nicolai Buchwitz wrote:
+> Hi,
+> 
+> Please consider backporting upstream commit
+> 
+> 6a2875517c778ac1111b6920e94cbab91cda8724
+> fat: stop reading directory entries past the end-of-directory marker
+> 
+> to 6.18.y and 6.12.y, and any other affected supported stable branches.
+> 
+> The fix prevents directory traversal from interpreting residual data
+> after the FAT end-of-directory marker as real directory entries,
+> resulting in bogus filenames and I/O errors.
+> 
+> This affects FAT16 CompactFlash media written by devices such as the
+> Psion Series 7/netBook running EPOC32.
 
-The merged block goes on a free list with the guard pages never counted,
-so NR_FREE_PAGES falls behind the free lists by every guard that merges.
-Before commit e0932b6c1f94 ("mm: page_alloc: consolidate free page
-accounting"), __set_page_guard() and __clear_page_guard() adjusted the
-counts themselves; that commit dropped both adjustments but kept the
-subtraction implicit in expand().
+It does not apply cleanly to 6.12.y so please provide a working version
+for there, and older kernels, if you wish to see it applied there.
 
-Count the guard pages under the merged block's migratetype when the
-buddy is cleared. account_freepages() skips an isolated block as it does
-for every other free page, and moving the block off the isolated list
-counts it then.
+thanks,
 
-Booting a 16GB VM with debug_pagealloc=on debug_guardpage_minorder=1,
-check the difference in free pages reported between /proc/vmstat
-and /proc/buddyinfo.
-
-At three points (idle, after a read and file-creation load, after
-a second load), check the difference between nr_free_pages and the
-buddyinfo numbers in the normal zone, as a number of pages:
-
-                idle   after load   after second load
-    unpatched   -130        79205               99121
-    patched      -16           45                   0
-
-The small remaining difference seems to be due to the numbers
-not being read at exactly the same time, and is also seen
-without guard pages.
-
-Fixes: e0932b6c1f94 ("mm: page_alloc: consolidate free page accounting")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Rik van Riel <riel@surriel.com>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
----
- mm/page_alloc.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 12fac9084c483..4658af97be010 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -988,10 +988,12 @@ static inline void __free_one_page(struct page *page,
- 		 * Our buddy is free or it is CONFIG_DEBUG_PAGEALLOC guard page,
- 		 * merge with it and move up one order.
- 		 */
--		if (page_is_guard(buddy))
-+		if (page_is_guard(buddy)) {
- 			clear_page_guard(zone, buddy, order);
--		else
-+			account_freepages(zone, 1 << order, migratetype);
-+		} else {
- 			__del_page_from_free_list(buddy, zone, order, buddy_mt);
-+		}
-
- 		if (unlikely(buddy_mt != migratetype)) {
- 			/*
-
+greg k-h
