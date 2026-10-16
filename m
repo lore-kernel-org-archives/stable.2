@@ -1,76 +1,75 @@
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B2F5394EBA
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 02:10:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8749A3932FF
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 02:10:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792116656; cv=none; b=AEqAlCHLXDRwCgN3CqCVfNYeqHleiTh6VAHUn749aV3psKPzcPRL3vE+RfublyMBP2GPyhrS8hGFNTsFSKAUmZYsZ/vNV/0jReXdkq/b4sAQFLxw5AZCyVlOv6AziW9S1J2Zc7W4YANdSGG4GlfwhBLKcstbLWSLmw7y4UjumeI=
+	t=1792116659; cv=none; b=n18EYyxtU9JOhmUInqgDLc7a0rV2GJWePUEOoafKtwlB8HiT7wyPs6KQHq5j4mmMcuMhO9kZiButVbktpV0TLRGxfF2dzpOj7pt0eALuiLAGv4QSJCAF5YRI4Dk7NqfgqvLnjCNheStxjbQeYs7Wx7oqLVAovfGqRKN9SWmohOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792116656; c=relaxed/simple;
-	bh=OpdjBYgaTWyOr126Ga4B3w/I1luszmhGmLKIvIHtxBY=;
+	s=arc-20240116; t=1792116659; c=relaxed/simple;
+	bh=KW7Gxhb9Rs7qDsVvu/Q6QOOYw2rabRWMk5SbCksXKzY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rD8JZ/etCEyTMs+4cy3XfxtRGPql+MgZY7YI8CGV61P+e4s9iqvrzQtr3EytrD8aOUjfxIVNiADxBLBQJMshKtKLo8XkcsIg7khoe1/JO3J52HiU/ypCUpAgSKWOl5DvPy5gXewTkiKvXxM8MV0xuL+CWpWc7LoleNTPYrxYVTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=cTg6gD4k; arc=none smtp.client-ip=74.125.82.177
+	 MIME-Version; b=r+1d6i5rtF271/oa1s0Qo3p3bLrBwsNTjPwuTYC8Ykjv8NffRrrM/tmmV9h8exXwxwtplexUuvzHYDaiwn9DdvOIWzYEAKtESWBOMvFNHPYfVV5MUWUsQ9pK52VzSEiHBkKUVSTO3lsNKL3fToqheG7IiWH51eJbqhzfGH7tLNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=eb1ZUjcB; arc=none smtp.client-ip=74.125.82.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="cTg6gD4k"
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-33fb4680717so1329097eec.1
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 19:10:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="eb1ZUjcB"
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3514b90bb89so4869426eec.1
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 19:10:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792116655; x=1792721455; darn=vger.kernel.org;
+        d=trailofbits.com; s=google; t=1792116653; x=1792721453; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vOyMu6hv8/hpYKWZjXm3BxqRnHG/BQ5MHKEieuUFu7c=;
-        b=cTg6gD4k6SbUAHktHcmfKyv0t1xyzs0yw1C6pM9vy/RU2YcN7KCJOuvoR4MVNIu9aP
-         5LvztFrztINpmphqhG2zjtzuU/Z1HqkyVbFYREJU6Fjf60snf3SyZfcep+iUgTli8iLn
-         lW2pp4ZqGsp9hq+zh/tAn/RKsnkkM/TEHoDL9TsSy3YyUPvEwhGVBlXUQQh0tUfNCeD4
-         2CcyKh7DjNPwKhsOJUkAhYUSOoKu9dEfA9p/SMRaYjHBYS+w25n0lea9OHCMGdwAJv2L
-         twNUKK9c+sgViKrHwiYW1Iz92le7z72xmh9czpZmy9iqc6AfzZonZ/c7SvSZ9la1HonZ
-         4P5w==
+        bh=cv7YGJljtETyHQvSebav9gk0BxMvhnrylSgDpKzc0l8=;
+        b=eb1ZUjcBOQpCvH6YlIrE4Nbd+BbLhike/naXXFfZYDLEKxkqwFtS7mHeONUl1mfOTy
+         ugys6CgeQL+rv5WEb4kkE8oD3TtRulRoHLHUtB6ev+uMIf8Yeu35/DUKcR1wxYTZ9c6X
+         qZb68keuuwpfyEsvjh13cRqiF7ZRC8FHvlyFp5AVKfyz66Vdf+eGY15GO18qJTJFx/VP
+         /q4nFquEjqM81gHRPw5v9jZn9HqFY+SXutmS//HY2mUjtdPsC5FBJJ3AH7oQFwGPVtSj
+         xdsV3yIVVEzMPPE5N0/MkE5mmqzIYyyZjWJzOxNAYBcU+HUWP0q11awxxTsxo82RNRoF
+         lt9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792116655; x=1792721455;
+        d=1e100.net; s=20260707; t=1792116653; x=1792721453;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vOyMu6hv8/hpYKWZjXm3BxqRnHG/BQ5MHKEieuUFu7c=;
-        b=qhlz+VR3DmS+Z3svC7fZJhaz+Le1rQ9cjHwGR8mDSCALWL6IxWol0gTQPoH0cNL9eO
-         HALKEVIhJLt+VqFfPRlprcAu+QXYCvaYzLB2BgIo8SzlFiNXF0buqUUScF172YjqpDhj
-         yzkin/2SbLkOPEyCh0D6cgFcp5xm8Iw0qdVgS0b0k0sv9J62JV2T5yj1MQC65ldh5gxi
-         A+TWjK/ihI/QQpKvYKf5i+V5E9bs64KnHRzu5pLX6Yu1nU7irgP2koSDWKgVdDwzd8Xv
-         11ceks6uJv7zoHqlx23PoBCtfSZmLOuodZKh5j9ShFqDL6y6KyysG03VnC4y8TTGJ3d9
-         nBsQ==
-X-Gm-Message-State: AFq9FYLcQxkHOlBWQbdZ6r65b6gx3fnkuAOR/eO3wIqW14ChvYTQgVrk
-	ZlUPS5ewMe2pB2EIy1FXLUjiwHljD69xoj4LwpE4qD96mNeda34WftRAiwF90mV2UDmR7BCxhug
-	T7U+tOxle6w==
-X-Gm-Gg: AYBFou1UeF8x/4+NA9wb3W94hNBJPhJxbWq1ZU0u/uQyZBuRLRB8qbe9LlUSV5znKHw
-	QDiLZNYUT4i7q2VjKvmPBVsG+9mJa+lzmHv9EXj66Fo5yBbJCMyU9fKGt2NYfn+GRtFdXSCwZi3
-	n4v76AaasYQ70L80fUGN9vxd6M09owIO3gjfphM12F+llf5qIUSBUQg2zXNLVLrf/6w5/ZSRk1A
-	XSBcIm1hjk5xlBdZKwO9x787ATg5BSiX9K52SOu3Apzi2ljgIW0HqNuJxgy24WXcicbA8coULcI
-	OoYAaVgy/73+SSagIqU35XF9jhtxv3k1ZwIUo+i8GkEEN2VhwJsOWDO4bOQIkjoXyHPcrklLowm
-	ZbWNCNpG8kqjsfmHpjzISFres+DxXkphZnK5FOYy19dH35twkKMz3v5JWCcTw6l52bjXyJA4Sai
-	y0mbYH/0vHisLRerS8BBnPLM2rITVd6TkNlmC70f8Q1u4jW+ypYregTzUIJOmr7jzOOsgWDOPpB
-	SXGxv/N2mQRy5OFedRWnhmHcxL0LcvJsgQLAtYy37GYFbN6/FUuiVSR7J21jq5veGCLC6qtic62
-	IR5y
-X-Received: by 2002:a05:7301:1987:b0:35d:f3cb:ede with SMTP id 5a478bee46e88-35df3cb100cmr14091442eec.5.1792116654532;
-        Thu, 15 Oct 2026 19:10:54 -0700 (PDT)
+        bh=cv7YGJljtETyHQvSebav9gk0BxMvhnrylSgDpKzc0l8=;
+        b=v/TaPSK9mCoGlqPBYfCDKtph1QWwKQQo1UEVhse4kO5zBL7JDYWNYBd7iKfwhufyjb
+         ueoq6KVH/XByNa11Ka3fxPPIg7VubK2zgsPZ1yCRvtcWI3582OhkwL1Ojq1F90TjdFgx
+         VExPvoHxolTJlAv5LrW+6X452sAot3RRmhJ8zB6Tn5EoHVPVY+yYaWVg2chWFGCUoe5o
+         XEL0tB9kZoM+T+3a7FIK5oZU6dx+nyrLOHTXVSCxih3uUmHcpKzQKlVtNOj6jQYIR0QC
+         nkQ/J+zgs0qOkm4J9PvYzMtqc8cksNGH/8pZ13cYsrB1qvwdQS6QhUJZ8bR6+EBDll4r
+         rELw==
+X-Gm-Message-State: AFq9FYITx1dptlPiVey1lmNnDev9hzlB9Dn603T54NudCRRymlSqGNYy
+	SaGPiYBqELlOA1z4AxMpnvw090wwBstBKdbzEQBJIdZ/g34p8VIuc6oQjYy7nDmsUXuSnEg71Z0
+	ykPjgcOGFDw==
+X-Gm-Gg: AYBFou2PG18hpeK5F6dZ6MPbLzA+BdRyuUvXagDuHZElVKlIrBJeCUdQcht75pMd9xg
+	Kv7vra08AcraFqzg8dd0zlphJhkasV4WGYEnRxy2bQvICssaRl0zG7zVAawwjMGxLeIya+qeui1
+	0EXMFa5Vi8+eo/Zpc3ouqf45OZrWdDkDA8KwDfH5p0INj6n7hj/w3GRXX+7OKuiBAnhhl50FWLA
+	e86am+5C1u7yLN5j+E6h3X9UyXO36xa0x7Mjav6YgAF/X/B5tYVXosauiT17/7lhzd+wVeiOZ/a
+	NWQFb8Lq5Cr0B4oMdWkEWFazynlNBSUjqWGo6sIJoDdPokNab35UhMHEQFE/VqWkNs91mGNi8d3
+	Ko7lh8bbcBWQMxEOrX5hocL3FjgzuQ1TTGwdGOqTkUpFyFoHNcBur95/5DIBdO1quOKPHj6Ew3V
+	9DcT6lzwLfrgQ7LYo1aXczv1eSlsruw0whLWdZru5RZFZQFPuNOQDA0PLYvH2RotQ0/xem07jZ0
+	+oI/kKTK63iR0XYo9LKoK9BpskSAYIkIGyG60q60jhYkmlCgltcfTUDq/HUN9D+MpRgvmk=
+X-Received: by 2002:a05:7301:6e9a:b0:358:dfed:d0fe with SMTP id 5a478bee46e88-358dfedd5fbmr22336352eec.5.1792116653426;
+        Thu, 15 Oct 2026 19:10:53 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:d66:d0e8:dae3:3257])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608308a87csm2638280eec.28.2026.10.15.19.10.53
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608308a87csm2638280eec.28.2026.10.15.19.10.52
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 15 Oct 2026 19:10:54 -0700 (PDT)
+        Thu, 15 Oct 2026 19:10:53 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
-Cc: linux-bluetooth@vger.kernel.org,
+Cc: halves@igalia.com,
+	linux-bluetooth@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	luiz.dentz@gmail.com,
 	luiz.von.dentz@intel.com,
-	marcel@holtmann.org,
-	ngocthang2710.1999@gmail.com
-Subject: [PATCH 6.6.y 2/2] Bluetooth: hci_core: Fix queuing tx_work after workqueue is drained
-Date: Thu, 15 Oct 2026 22:10:47 -0400
-Message-ID: <20261016021047.16461-3-artem@trailofbits.com>
+	marcel@holtmann.org
+Subject: [PATCH 6.6.y 1/2] Bluetooth: hci_sync: Set HCI_CMD_DRAIN_WORKQUEUE during device close
+Date: Thu, 15 Oct 2026 22:10:46 -0400
+Message-ID: <20261016021047.16461-2-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261016021047.16461-1-artem@trailofbits.com>
 References: <20261016021047.16461-1-artem@trailofbits.com>
@@ -82,41 +81,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: ThangNN99 <ngocthang2710.1999@gmail.com>
+From: Heitor Alves de Siqueira <halves@igalia.com>
 
-[ Upstream commit 6610c6fe4b8936c232048e6049bf77c70a6f759c ]
+[ Upstream commit 525daaea459fc215f432de1b8debbd9144bf97b0 ]
 
-hci_send_acl(), hci_send_sco() and hci_send_iso() queue hdev->tx_work
-unconditionally. They can run from the L2CAP/SCO/ISO socket send path
-while hci_dev_close_sync() is draining hdev->workqueue (HCIDEVDOWN
-racing with a socket write). Since that queue_work() is not chained
-work from the tx_work worker itself, __queue_work() sees the queue
-marked __WQ_DRAINING, warns "cannot queue %ps on wq %s", and drops
-the work:
+Since hci_dev_close_sync() can now be called during the reset path, we
+should also set HCI_CMD_DRAIN_WORKQUEUE. This avoids queuing timeouts
+while the hdev workqueue is being drained.
 
-  WARNING: CPU: 1 PID: 5985 at kernel/workqueue.c:2352 __queue_work
-  Call Trace:
-   queue_work_on
-   l2cap_chan_send
-   l2cap_sock_sendmsg
-   ...
-
-hci_dev_close_sync() already sets HCI_CMD_DRAIN_WORKQUEUE before
-draining, but only hci_cmd_work() and handle_cmd_cnt_and_timer()
-check it before queuing. Route the tx_work producers through the
-same guard via a shared hci_sched_tx() helper.
-
-Fixes: 525daaea459f ("Bluetooth: hci_sync: Set HCI_CMD_DRAIN_WORKQUEUE during device close")
-Reported-by: syzbot+b6919040d9958e2fc1ae@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=b6919040d9958e2fc1ae
-Signed-off-by: ThangNN99 <ngocthang2710.1999@gmail.com>
+Fixes: 877afadad2dc ("Bluetooth: When HCI work queue is drained, only queue chained work")
+Signed-off-by: Heitor Alves de Siqueira <halves@igalia.com>
 Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 Assisted-by: LLM
 Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
 ---
 Hi,
 
-Please consider this backport of the fix for CVE-2026-98297 to 6.6.y.
+Please consider this backport of the fix for CVE-2026-63974 to 6.6.y.
 
 The code changes are identical to upstream.
 
@@ -128,55 +109,39 @@ Build-tested only as part of a cumulative 6.6.y series on x86_64
 Thanks,
 Artem Dinaburg
 
- net/bluetooth/hci_core.c |   17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+ net/bluetooth/hci_sync.c |    8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
-index d4fac0987dd8e6e03aa756788c80dc78bc9d8a86..3dcd8dff594603fc989182319fb84df97cc1c709 100644
---- a/net/bluetooth/hci_core.c
-+++ b/net/bluetooth/hci_core.c
-@@ -3233,6 +3233,17 @@ static void hci_queue_acl(struct hci_chan *chan, struct sk_buff_head *queue,
- 	}
- }
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index 607667cc357558ffefa812e1cf001ca923fdbf78..0c96e048d8816016c44f8d1b90c99f4addda8ed8 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -5349,6 +5349,12 @@ int hci_dev_close_sync(struct hci_dev *hdev)
  
-+/* Queue hdev->tx_work, unless hdev->workqueue is being drained by
-+ * hci_dev_close_sync(), which would otherwise WARN and drop the work.
-+ */
-+static void hci_sched_tx(struct hci_dev *hdev)
-+{
-+	rcu_read_lock();
-+	if (!hci_dev_test_flag(hdev, HCI_CMD_DRAIN_WORKQUEUE))
-+		queue_work(hdev->workqueue, &hdev->tx_work);
-+	rcu_read_unlock();
-+}
+ 	bt_dev_dbg(hdev, "");
+ 
++	/* Set HCI_DRAIN_WORKQUEUE flag to prevent queuing work during
++	 * reset/close. See hci_cmd_work() and handle_cmd_cnt_and_timer().
++	 */
++	hci_dev_set_flag(hdev, HCI_CMD_DRAIN_WORKQUEUE);
++	synchronize_rcu();
 +
- void hci_send_acl(struct hci_chan *chan, struct sk_buff *skb, __u16 flags)
- {
- 	struct hci_dev *hdev = chan->conn->hdev;
-@@ -3241,7 +3252,7 @@ void hci_send_acl(struct hci_chan *chan, struct sk_buff *skb, __u16 flags)
+ 	cancel_delayed_work(&hdev->power_off);
+ 	cancel_delayed_work(&hdev->ncmd_timer);
+ 	cancel_delayed_work(&hdev->le_scan_disable);
+@@ -5367,6 +5373,7 @@ int hci_dev_close_sync(struct hci_dev *hdev)
  
- 	hci_queue_acl(chan, &chan->data_q, skb, flags);
+ 	if (!test_and_clear_bit(HCI_UP, &hdev->flags)) {
+ 		cancel_delayed_work_sync(&hdev->cmd_timer);
++		hci_dev_clear_flag(hdev, HCI_CMD_DRAIN_WORKQUEUE);
+ 		return err;
+ 	}
  
--	queue_work(hdev->workqueue, &hdev->tx_work);
-+	hci_sched_tx(hdev);
- }
+@@ -5467,6 +5474,7 @@ int hci_dev_close_sync(struct hci_dev *hdev)
+ 	/* Clear flags */
+ 	hdev->flags &= BIT(HCI_RAW);
+ 	hci_dev_clear_volatile_flags(hdev);
++	hci_dev_clear_flag(hdev, HCI_CMD_DRAIN_WORKQUEUE);
  
- /* Send SCO data */
-@@ -3262,7 +3273,7 @@ void hci_send_sco(struct hci_conn *conn, struct sk_buff *skb)
- 	hci_skb_pkt_type(skb) = HCI_SCODATA_PKT;
- 
- 	skb_queue_tail(&conn->data_q, skb);
--	queue_work(hdev->workqueue, &hdev->tx_work);
-+	hci_sched_tx(hdev);
- }
- 
- /* Send ISO data */
-@@ -3335,7 +3346,7 @@ void hci_send_iso(struct hci_conn *conn, struct sk_buff *skb)
- 
- 	hci_queue_iso(conn, &conn->data_q, skb);
- 
--	queue_work(hdev->workqueue, &hdev->tx_work);
-+	hci_sched_tx(hdev);
- }
- 
- /* ---- HCI TX task (outgoing data) ---- */
+ 	memset(hdev->eir, 0, sizeof(hdev->eir));
+ 	memset(hdev->dev_class, 0, sizeof(hdev->dev_class));
