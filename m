@@ -1,236 +1,145 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB3DA4CF48C;
-	Fri, 16 Oct 2026 21:31:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 924DE3D6CC6;
+	Fri, 16 Oct 2026 21:40:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792186284; cv=none; b=jBWP/pxomqGQILl0dxMllyTPorXCbaQfVy7abENUA3YrvK7f95PUqRwnmsqeK40CRYpbJR8SVTWnOqY8v7UbqSdKwjE4nyJ7X9QLtlezeTwTdFM+Du+u0FNA4M4KTX3ubaHUaAiK73rYS4ll5vlQ8bC+IF14hjtt73IW7KPza2k=
+	t=1792186846; cv=none; b=jqGzBn8NucCoeWxdAEPAjOy1EmKxTADIuqLb3b6LtU7sXrjIOWMXlCiKv85Uz7lZ/Xw33r0p4FuCfNHzxCp0+hxwEul7S69RnDgP1z0UAEHizaEjFLeoyvMN5kzxPsJpRWrvjO4xiF7eWj23UzY9q3zw7T42ZJsmGUsqU39lEko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792186284; c=relaxed/simple;
-	bh=tv1Xmifa3z2JYzB+wTFFeiSz+jO0/Ocbi0W99Nl3H8Q=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=M9oiR1Et92LP9Ke6NGQq5SBHCrnk4YJeelS0n2KMcNsTn9sJ261AAGT/2LX8ayu+4Em5pRUZElw9cD1HkoutYl9jLGoYGr4CaeqIFfQihaLAEYVji/EkHjQa/f+TgcUR7lquFMB+3+ldQ7cLZqRoni06kXQ8phAbe0ROspVHffg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ELUOrHbZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792186846; c=relaxed/simple;
+	bh=UALNbYGeVGfx7ycRj9DrABccg+2AAGjQiBS4Bf2xUEg=;
+	h=Date:To:From:Subject:Message-Id; b=M7NvFi6+9v9M0PZOliQuAo+Eyr8ZwXWnv+2XhYGfM0QeRE7OBPymi97NUyNihMtTK2VIBrcRAFmXfjpRmsIZeJFPszrm1gknUJnzK9uSB/Djyf1nTlLvVsEIJE0W75Zc3p4gWV0BMEKtG3/ATcGBA+JlbxtKmmOmYY7etupT7V8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ogvNFTaV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ELUOrHbZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB52D1F000C4;
-	Fri, 16 Oct 2026 21:31:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792186283;
-	bh=6xXCI1y+KIL4EzZd1UBU0Rx2a4JShmZFF+y9QS0NW0s=;
-	h=From:To:Cc:Subject:Date;
-	b=ELUOrHbZ/x6S19d8SFb6r93LmJRMj8w8VM7M0XrgbI5tqbBF8NAzMi7O6GsYQENqb
-	 vOxC/Ra8idG//RrWiFTSy3mTZosZ9ME6EwO7kRhKJi+pgN1P/e3G2WZ1EI7csRy6U2
-	 Ii/2uLoE4qTdNk4t16BUBvRXr0i3Fz8DZT/vIR0e6wYnToK51qtCAAcovCPhHjqMeU
-	 qRglTLYlT9UJ4yhJLXJ1yTtMsre4IAeUKLlIFR+su9q+TSg3NoJ9nBdT9jwfBjG5GT
-	 YeFA5WXgKj16/BhQ26sF+HC/a6XNFNWQe7jCCh4Nns/Y42zQXWsixmNVKj36zUK/qD
-	 VvXefLWmItnew==
-From: "Barry Song (Xiaomi)" <baohua@kernel.org>
-To: akpm@linux-foundation.org,
-	linux-mm@kvack.org
-Cc: ehab.ababneh@intel.com,
-	axelrasmussen@google.com,
-	baohua@kernel.org,
-	kasong@tencent.com,
-	lance.yang@linux.dev,
-	linux-kernel@vger.kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	weixugc@google.com,
-	yuanchu@google.com,
-	yuzhao@google.com,
-	baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com,
-	stable@vger.kernel.org
-Subject: [PATCH] mm/mglru: fix using folio_mark_accessed to replace folio_set_active
-Date: Sat, 17 Oct 2026 05:31:15 +0800
-Message-Id: <20261016213115.70515-1-baohua@kernel.org>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ogvNFTaV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5E491F000C4;
+	Fri, 16 Oct 2026 21:40:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792186845;
+	bh=YlF+da7io3pnpiqk+0YlDdLXJyJ+lmmFLONzro/9MD0=;
+	h=Date:To:From:Subject;
+	b=ogvNFTaVOxxdSkqrrNEZQm3GJNXmMyYnZvpPayRBUrQBOovkN/Ryxlt1ddYXgVXTC
+	 YgJh+52/3Ps7s/3CyzbrRGjh4YYF2Ti0brLgMF4gXTt5GJCvdfA8v3p0ovfV6WZOmJ
+	 PfPtqKk7PcY1f/twCFs9ekc4Ff3hrqx+gM4t4uss=
+Date: Fri, 16 Oct 2026 14:40:44 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,shakeel.butt@linux.dev,qi.zheng@linux.dev,mhocko@suse.com,ljs@kernel.org,kasong@tencent.com,hannes@cmpxchg.org,fvdl@google.com,dev.jain@arm.com,david@kernel.org,brendan.jackman@linux.dev,baoquan.he@linux.dev,riel@surriel.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-page_alloc-count-guard-pages-as-free-again-when-their-buddy-merges.patch added to mm-unstable branch
+Message-Id: <20261016214044.E5E491F000C4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Commit 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to
-replace folio_set_active") attempted to avoid over-protecting
-in-fault read-ahead file folios by placing them in the
-second-oldest generation rather than the young generations.
 
-However, it repurposes `PG_referenced` on in-fault read-ahead
-file folios for this purpose, potentially coupling their
-handling with that of regular file accesses through syscalls,
-which also use `PG_referenced`.
+The patch titled
+     Subject: mm/page_alloc: count guard pages as free again when their buddy merges
+has been added to the -mm mm-unstable branch.  Its filename is
+     mm-page_alloc-count-guard-pages-as-free-again-when-their-buddy-merges.patch
 
-This could regress some workloads, as reported by Kairui Song[1]
-and Ehab Ababneh[2]. Many thanks to both for reporting these
-issues!
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-page_alloc-count-guard-pages-as-free-again-when-their-buddy-merges.patch
 
-The long-term fix is Kairui's MGLRU-FG, but in the meantime,
-we also need a quick fix that can be backported to stable.
+This patch will later appear in the mm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-This patch reverts the original commit's abuse of `PG_referenced`
-while preserving its goal of avoiding over-protection of
-in-fault read-ahead file folios by adjusting only
-`lru_gen_folio_seq()`.
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-Specifically, in-fault read-ahead file folios with `PG_active`
-set but `PG_workingset` clear are placed in the second-oldest
-generation (the third-youngest generation). Activated file
-folios and refaulted workingset file folios remain in the
-youngest generations.
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-Kernel build tests in a memcg show that this approach not only
-preserves the original patch's benefits but also further
-improves performance.
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
-w/o fix:
+------------------------------------------------------
+From: Rik van Riel <riel@surriel.com>
+Subject: mm/page_alloc: count guard pages as free again when their buddy merges
+Date: Fri, 16 Oct 2026 12:23:04 -0400
 
-real    1m49.094s
-user    25m31.484s
-sys     3m40.959s
-pswpin: 662112
-pswpout: 2504415
-pgpgin: 4424336
-pgpgout: 10355273
-refault_file: 359626
-refault_anon: 670724
+With debug_guardpage_minorder set, expand() turns the unused halves of a
+split into guard pages, which page_del_and_expand() leaves out of the free
+counts.  Freeing the allocated half credits only that half, and
+__free_one_page() then merges the guard buddy with clear_page_guard(),
+which no longer touches the counters.
 
-w/ fix:
+The merged block goes on a free list with the guard pages never counted,
+so NR_FREE_PAGES falls behind the free lists by every guard that merges. 
+Before commit e0932b6c1f94 ("mm: page_alloc: consolidate free page
+accounting"), __set_page_guard() and __clear_page_guard() adjusted the
+counts themselves; that commit dropped both adjustments but kept the
+subtraction implicit in expand().
 
-real    1m48.913s
-user    25m31.639s
-sys     3m30.875s
-pswpin: 689815
-pswpout: 2689894
-pgpgin: 4422659
-pgpgout: 11043464
-refault_file: 326566
-refault_anon: 697138
+Count the guard pages under the merged block's migratetype when the buddy
+is cleared.  account_freepages() skips an isolated block as it does for
+every other free page, and moving the block off the isolated list counts
+it then.
 
-Revert original patch:
+Booting a 16GB VM with debug_pagealloc=on debug_guardpage_minorder=1,
+check the difference in free pages reported between /proc/vmstat and
+/proc/buddyinfo.
 
-real    1m50.044s
-user    25m37.137s
-sys     4m4.493s
-pswpin: 1349087
-pswpout: 4317933
-pgpgin: 7083597
-pgpgout: 17602735
-refault_file: 337676
-refault_anon: 1368542
+At three points (idle, after a read and file-creation load, after a second
+load), check the difference between nr_free_pages and the buddyinfo
+numbers in the normal zone, as a number of pages:
 
-[1] https://lore.kernel.org/linux-mm/20261003-mglru-fg-v3-0-cbd4546a5bd9@tencent.com/
-[2] https://lore.kernel.org/linux-mm/20260901180704.168106-1-ehab.ababneh@intel.com/
-Fixes: 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to replace folio_set_active")
+                idle   after load   after second load
+    unpatched   -130        79205               99121
+    patched      -16           45                   0
+
+The small remaining difference seems to be due to the numbers not being
+read at exactly the same time, and is also seen without guard pages.
+
+Link: https://lore.kernel.org/20261016122304.5b1eba8e@fangorn
+Fixes: e0932b6c1f94 ("mm: page_alloc: consolidate free page accounting")
+Signed-off-by: Rik van Riel <riel@surriel.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+Assisted-by: LLM
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Brendan Jackman <brendan.jackman@linux.dev>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Qi Zheng <qi.zheng@linux.dev>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Frank van der Linden <fvdl@google.com>
 Cc: <stable@vger.kernel.org>
-Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
 ---
- * An earlier discussion can be found here:
- https://lore.kernel.org/linux-mm/20261016084256.12955-1-baohua@kernel.org/
- Thanks for Kairui's comment on it.
 
- include/linux/mm_inline.h |  5 +++--
- mm/folio.c                | 16 +++-------------
- mm/vmscan.c               |  9 ++-------
- mm/workingset.c           | 10 ++++------
- 4 files changed, 12 insertions(+), 28 deletions(-)
+ mm/page_alloc.c |    6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
-index ab69b9930893..97f157aafd58 100644
---- a/include/linux/mm_inline.h
-+++ b/include/linux/mm_inline.h
-@@ -319,7 +319,8 @@ static inline unsigned long lru_gen_folio_seq(const struct lruvec *lruvec,
- 	 * |<---------------------------- MAX_NR_GENS ---------------------------->|
- 	 */
- 	if (folio_test_active(folio))
--		gen = MIN_NR_GENS - folio_test_workingset(folio);
-+		gen = MIN_NR_GENS - folio_test_workingset(folio) +
-+		      (type ? !folio_test_workingset(folio) : 0);
- 	else if (reclaiming)
- 		gen = MAX_NR_GENS;
- 	else if ((!folio_is_file_lru(folio) && !folio_test_swapcache(folio)) ||
-@@ -327,7 +328,7 @@ static inline unsigned long lru_gen_folio_seq(const struct lruvec *lruvec,
- 		  (folio_test_dirty(folio) || folio_test_writeback(folio))))
- 		gen = MIN_NR_GENS;
- 	else
--		gen = MAX_NR_GENS - (folio_test_workingset(folio) || folio_test_referenced(folio));
-+		gen = MAX_NR_GENS - folio_test_workingset(folio);
+--- a/mm/page_alloc.c~mm-page_alloc-count-guard-pages-as-free-again-when-their-buddy-merges
++++ a/mm/page_alloc.c
+@@ -971,10 +971,12 @@ static inline void __free_one_page(struc
+ 		 * Our buddy is free or it is CONFIG_DEBUG_PAGEALLOC guard page,
+ 		 * merge with it and move up one order.
+ 		 */
+-		if (page_is_guard(buddy))
++		if (page_is_guard(buddy)) {
+ 			clear_page_guard(zone, buddy, order);
+-		else
++			account_freepages(zone, 1 << order, migratetype);
++		} else {
+ 			__del_page_from_free_list(buddy, zone, order, buddy_mt);
++		}
  
- 	return max(READ_ONCE(lrugen->max_seq) - gen + 1, READ_ONCE(lrugen->min_seq[type]));
- }
-diff --git a/mm/folio.c b/mm/folio.c
-index 35e242b48870..2af724cecb31 100644
---- a/mm/folio.c
-+++ b/mm/folio.c
-@@ -474,20 +474,10 @@ void folio_add_lru(struct folio *folio)
- 			folio_test_unevictable(folio), folio);
- 	VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);
- 
--	/*
--	 * For refaulted workingset folios, set PG_active so they
--	 * can be added to active generations.
--	 * For prefaulted file folios, folio_mark_accessed() sets
--	 * PG_referenced so lru_gen_folio_seq() places them into
--	 * the second oldest generation.
--	 */
-+	/* see the comment in lru_gen_folio_seq() */
- 	if (lru_gen_enabled() && !folio_test_unevictable(folio) &&
--	    lru_gen_in_fault() && !(current->flags & PF_MEMALLOC)) {
--		if (folio_test_workingset(folio))
--			folio_set_active(folio);
--		else if (!folio_test_referenced(folio))
--			folio_mark_accessed(folio);
--	}
-+	    lru_gen_in_fault() && !(current->flags & PF_MEMALLOC))
-+		folio_set_active(folio);
- 
- 	folio_batch_add_and_move(folio, lru_add);
- }
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index daa7e37c2236..e82ba737c028 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -952,13 +952,8 @@ static bool lru_gen_set_refs(struct folio *folio, const vma_flags_t *vma_flags)
- 		return false;
- 	}
- 
--	/* Promote on second access */
--	if (folio_lru_refs(folio) > 1) {
--		folio_set_workingset(folio);
--		folio_set_lru_refs(folio, 0);
--	} else {
--		folio_mark_accessed(folio);
--	}
-+	folio_set_workingset(folio);
-+	folio_set_lru_refs(folio, 0);
- 	return true;
- }
- #else
-diff --git a/mm/workingset.c b/mm/workingset.c
-index 1504f91cdca5..10d4ce202cca 100644
---- a/mm/workingset.c
-+++ b/mm/workingset.c
-@@ -319,13 +319,11 @@ static void lru_gen_refault(struct folio *folio, void *shadow)
- 
- 	atomic_long_add(delta, &lrugen->refaulted[hist][type][tier]);
- 
-+	/* see folio_add_lru() where folio_set_active() will be called */
-+	if (lru_gen_in_fault())
-+		mod_lruvec_state(lruvec, WORKINGSET_ACTIVATE_BASE + type, delta);
-+
- 	if (workingset) {
--		/*
--		 * see folio_add_lru(), where folio_set_active() is
--		 * called for workingset folios
--		 */
--		if (lru_gen_in_fault())
--			mod_lruvec_state(lruvec, WORKINGSET_ACTIVATE_BASE + type, delta);
- 		folio_set_workingset(folio);
- 		mod_lruvec_state(lruvec, WORKINGSET_RESTORE_BASE + type, delta);
- 	} else
--- 
-2.34.1
+ 		if (unlikely(buddy_mt != migratetype)) {
+ 			/*
+_
+
+Patches currently in -mm which might be from riel@surriel.com are
+
+mm-page_alloc-count-guard-pages-as-free-again-when-their-buddy-merges.patch
 
