@@ -1,74 +1,80 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9EBB39449C
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 05:38:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27FBF30E858
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 05:49:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792129125; cv=none; b=YMzFuN4nUGx3vxUeAbdCeonAf1C5JaAkRg+CSZUZKZJKfnwnfZmtrW9k+BW3CM6u3j/R6EKZc8t74lei7X9cbOEJLT8XS0ACQELAGhxUwXXHKRZpQiEbRYH8bsKHKkJcaw/6XaqjUQeLcJa/YIG5DWYJ4Ewe3PI3u5PS8Si+IO4=
+	t=1792129765; cv=none; b=fVlWIGBcZEWqlPOv9kdaTVN28sJmBZrwGpKSCy6KbMOV5jS6j77WuBke3oRgjZclvRg/FFcTwBd0dlAszKXO8zKAcZT3JNNw88oreEZrOETBj/NCLNWiUzsl15jA2C8liJ4xKd5WoX9iOuREkSf2TKHwa9cW3BFsrvEyPIuve0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792129125; c=relaxed/simple;
-	bh=XA1td5RtXyr53ECVqINeTSELxJLO5VlbkDz1qkltoms=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jaaAbX8Kk3T0x3DcXyW3J4N89JBQS1SlUCr/u0Ce7s8YNAiDXLW6FxK+Z1IBr9yQgbdhpXzlDdo4Zq4NnIxpA4CQtsdJQQr0m0MChLjSVZSfS5lAMclxcR8TWUWER+RYBjkVRsRXEwrw+TPLYvYwpCBBtJaqT5MVxt/rLmQmOow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m9wC3PV7; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792129765; c=relaxed/simple;
+	bh=rCTBXZWsA+DFjYHLb8u5Oa7Bvqyi+ouM5tudHnnjwtA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r+i7YTKfMRwDWdOvSlDfbalr2BmSU4Ts/MrS4/0qOETXXMMtb94t4KwaAxO0KlB34N6bqseGMno1DFKUiCVhvgVqlBOIBIQObGuGZAS8685kWlMBhGuFF+Xcjtj9Vn1TGf88OFqPEwxUZIT5ubEsYVMPmBBYev5PX+5620rQUhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=d2XQTzi9; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m9wC3PV7"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a171b677d2so37680035e9.0
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 22:38:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="d2XQTzi9"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e915887d9dso24940065ad.1
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 22:49:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792129121; x=1792733921; darn=vger.kernel.org;
+        d=bytedance.com; s=google; t=1792129762; x=1792734562; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TOIiQ6a4LuFeFNpA463QSfXeTShKxZ66XyKQsJ4fw4s=;
-        b=m9wC3PV7XGX8JoHcO6Fb/rSPE/nxKaxOTssgwI0+SvUYKD7tLiN9shqpxg6gSlmA/u
-         AQCprENSA10LROwWRnJJQDqrCfO4Yx1LWfzPdFuzTeWN5pnVpVQ+fZ/d7S83RdXDZHXt
-         ckdzmxBV9Cfk31+QGQw0TvDSQ34/w8R5Fpr5Y71VrOHJX68L5iNkwcf8n0e07AyWvLoA
-         d6Di+htDoFkSUednTuT6w5AM/U/w4EcHpgLhIJ3FdXviHtV82l9TTuXqxjgJQLx6r3TC
-         2UDfFin2tMYb2QUKAkGgsv8B9zcex5HfMz5P+QahZIvKNJSvC2O5dz6FzeBp6OuKaH6v
-         zkGw==
+        bh=z5sNEdkVrvo7sH9ZJvBOJJZb8XmvxfiMz5rU6UHY+Ek=;
+        b=d2XQTzi94gWL5bPrnej0TQLZ6cSFRh/+4KyRVkXIZpmehGuKz8TLkxYAApU8LFHGo9
+         04OkzblTr02VxpRoNrYBpB3T2KrcfTgCQqenwMklyuZwSCk2KoClphHhk6w/SN/2K5FJ
+         O5GN7D4mSX/z00OYGk8LIRM7Dt59P4JM7ifQBxOQUF6HcyEPFIM3ffQh0qlOq5pHH2Ri
+         RgUVkPkIgcy1oVlIIFuVSRvKzdYUDIeQXWSCtLZSlMjrbUT3AEMT3lLbMJ5YV5qJUJoL
+         iMUc+JVh8p1IsJWpZl3qqqv0TP7QJ6HV0RwGbYxdZjVwr7fAR2wKVjQOwALpDUxwy783
+         a8EA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792129121; x=1792733921;
+        d=1e100.net; s=20260707; t=1792129762; x=1792734562;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TOIiQ6a4LuFeFNpA463QSfXeTShKxZ66XyKQsJ4fw4s=;
-        b=ht8EW6P1DVgVUkqRznGABGpxk5nm7JMvTD6bjMX8bXlEDZoGmMFoOUSgSHUtGRHmul
-         dqDTukA6XJ6LkTNaJxcqafLPWT2C9VDmzjfIMGY/EITOjy9sPPp90Qb9DR8USfX0A1L5
-         50CEoseF/mbeG+QQzyCbzD2szdHCkmIMQFgPJSTFlgh2rZEzGKV3CKV/Q8FS7FkBvnxD
-         j9rZNfVvfBHqe8Y8rArLcYWtDao+9auzw5uQVCpNuuoznT0gSJyHJ2jfdYDoU6NxXKn8
-         +JNDhwHXLZlbdukxEOeC+xmzaUG/6Nwk1ok3r1gqpt8pKoLPwUlj69x8A6AZsAH1hD5b
-         zE5A==
-X-Forwarded-Encrypted: i=1; AKwUvBz97FrjsiQNqFyIH6P4c9JTYvomW6ndZbRPtV/JfOfIP4F3b7C5c77xpvM/B8Lt56g1GR0OYmA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJHVpa84euocsSX9q+axSM478xdTXpS/9Z2Z5ESfApNcxH1fH5d
-	CfCOrez9ZAlR70vcDoyIP96VhBWlmRzKu4HnXALqthBYnl4KQ3p4mJ60
-X-Gm-Gg: AYBFou2MwMuY+jDanh9Z0QF2HNDjUZlt3C37NoVBkZLRpQuNNcT4OBErEVZMilx4w+H
-	zbql4l3WMIJsi+hMmd19e6YkLVHEa9YX5c9O977RfbbYx51LNYoxcfwUa0X/kscNBozA/vjkeQT
-	ZhsPbyx1sxAWnjmYnZvEZeXLHXSr3kDHPTJ2rFemHKw1sE8kd9wrfKBW0Kp8LsQms93NiGEz9ma
-	3X9FhicWYeQG541JP8fqyCkcpGWBZf8pTziuIgZZ6olYYxiDu0wnnDgc+ApobIAiOAD1KfFqQln
-	+Z9NpYC6Yh81jGUOLSDpS37I9Zh4s9jstaV/iPWboUOIaXk4OyXgO/Fv1/6oCVHMmvnF6SjN6kQ
-	/IdpVFD3kbqdOWP71aIHZqgelXG25htyzjywAmhsTYaqGkNp71ei1wv8zSn139KLCdDgbnHGEXl
-	7p2nYJhMvpcYQZ/iy0JFT76Mwls0r0dB9kBYYGEUtGbcBHDtkfxiFaZHJmU5fxBKOZ+LxS14Eo8
-	w0/pSUqD25m8RCVqE/K3+c4Sd5GCFDUaoj0WTwGeQA46Iz3YK6KoL/4MvI=
-X-Received: by 2002:a05:600c:8b70:b0:49f:e701:51c8 with SMTP id 5b1f17b1804b1-4a18e4a01acmr452496145e9.9.1792129120743;
-        Thu, 15 Oct 2026 22:38:40 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c10fe9d3sm98463075e9.13.2026.10.15.22.38.38
+        bh=z5sNEdkVrvo7sH9ZJvBOJJZb8XmvxfiMz5rU6UHY+Ek=;
+        b=nHWpfxzuhoilyEPGCYf2kt1BfL39i3FOQEJMr/PECe/uCaNYcEIn/qnq9udmePnP0E
+         6Rsfuas63PLua64GOs8ALaQL+/2m+UvdG6Qxr4PynQ7rBXMlq0OECeCmyNHzk/kXBf7f
+         AC3l8CaF2mnFrbTACy60VH7M6tvRie6HsZ9uK9BVOnRY0r3seUw+TnzXOvmNRvD7oTZZ
+         G7TDETqDPcbDJdjGmTVqKgk2cnT0TYyNYLOAD3V5rZlHvovKKHLOHDujdimnOgUh4BQX
+         Bu1Uy8u8fN335MINNxtQGLeKddspAzvG+3u/8P4A27q+EJUzK6h/nDUWJjgLkUMoM/U4
+         1WyA==
+X-Forwarded-Encrypted: i=1; AKwUvBxIEeIlVDZTTUOc8rs6ZlGMrKHX6ioBFRuyqOvXCYvnYBDGQ4x+UgcVcCIumrtnP1KMHMqnkNo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJR8edBnw77hwhnLFxze1IT8f8gqs53xUebZVY9MIJi/YZAgwPa
+	UiqqdWXN21gbvTIDfn3ivOBPzit4KnGxzZNM3MBICmOCB+bkFVwwJ1eW32Hx8xG2bCA=
+X-Gm-Gg: AYBFou0Ee3g33qn/4OkvU+mDl50655tCrMVziVAsxTYMrX0VioaAMNwORe6mOW0ES4G
+	oscdWs+b0wSl/0a+y1qH4V7BU8Z+lI5OWaLBBKYRHmdak37ADBw2lB8SSxxu12APrW2uwMu3ED5
+	Iy/HXgr+mvdhsSQIJkvF9LFkdYty+hY1BQIZ5+ca7L9Y8twxJ7F/FNHtsE1QkTNkoU7Vs7IMhTE
+	rHUL8Prej9PSDxVj8mgnyF4hnzIdwAu9Y6/LURe9ruB6UeNhncBbJhHyo4wlIQg0SoE4N1czBLv
+	LMY0MJY+epHbwUGOzopXVZVamXVV/AbFPBoZJ+MFKtuZa2wGtgwHjgdPkbKhYl29sZV9DRYtWsN
+	/zM1tpYqwaxRYN5YLprUVuBMFECYtnuEWSLqUImPNOg+bHDz/31h08+3BXGJubs9MjdTYWz7CSs
+	rEjGCEI18nCFamjPX2gk6jVCOGIuvdvKnwQGBdeYLyPHVGTlJbRxOTMpk0Uzzo6satZW0F/4qfI
+	ISqlCsvyvtdjYs2zM8=
+X-Received: by 2002:a17:903:1b4f:b0:2e9:7ff5:544c with SMTP id d9443c01a7336-2e97ff55897mr13235965ad.25.1792129762374;
+        Thu, 15 Oct 2026 22:49:22 -0700 (PDT)
+Received: from n232-176-004.byted.org ([36.110.163.99])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e804d7csm4697445ad.15.2026.10.15.22.49.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 22:38:38 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: rostedt@goodmis.org,
-	mhiramat@kernel.org
-Cc: mathieu.desnoyers@efficios.com,
-	linux-trace-kernel@vger.kernel.org,
+        Thu, 15 Oct 2026 22:49:21 -0700 (PDT)
+From: Muchun Song <songmuchun@bytedance.com>
+To: Dan Williams <djbw@kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Joao Martins <joao.m.martins@oracle.com>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	stable@vger.kernel.org,
+	nvdimm@lists.linux.dev,
+	linux-cxl@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] tracing: Hold trace_types_lock when updating modules in persistent instances
-Date: Fri, 16 Oct 2026 06:38:35 +0100
-Message-ID: <20261016053835.204353-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	Muchun Song <songmuchun@bytedance.com>
+Subject: [PATCH] dax/pmem: fix unaligned compound devmap initialization
+Date: Fri, 16 Oct 2026 13:49:14 +0800
+Message-ID: <20261016054914.2601510-1-songmuchun@bytedance.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,32 +83,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-trace_module_record() walks ftrace_trace_arrays from the module notifier
-without trace_types_lock. A concurrent rmdir of an instance removes it
-from the list and frees it under that lock, so a module load or unload
-can walk into a freed trace_array. The notifier also reads and updates
-tr->scratch and tr->module_delta while update_last_data() may be
-resetting them.
+Static pmem Device DAX namespaces reserve space for namespace metadata
+before the user-visible data range, and may also include padding needed
+to satisfy the Device DAX alignment. __dax_pmem_probe() adjusts the
+dax_region range to start at the data range, but the dev_pagemap range
+still starts at the beginning of the namespace.
 
-Fixes: 5f3719f697c3 ("tracing: Update modules to persistent instances when loaded")
-Cc: stable@vger.kernel.org
+That is not valid for compound devmap mappings whose memmap is stored in
+system RAM. Compound page initialization requires the start PFN to be
+naturally aligned to the compound page size, because the head and tail
+struct pages are initialized according to that geometry. If the pgmap
+starts before the aligned data range, memmap_init_zone_device() can build
+compound page metadata from an unaligned PFN.
+
+The resulting struct page layout is inconsistent with the Device DAX
+mapping. A later mmap fault can then resolve the user-visible PFN through
+invalid compound page metadata and hit a kernel panic while inserting the
+DAX folio.
+
+Fix this by advancing the pgmap start to the aligned Device DAX data
+range for non-altmap compound mappings. Leave base-page namespaces
+unchanged, and leave the altmap path unchanged because
+memmap_init_zone_device() already skips the altmap reservation itself.
+
+Fixes: 14606001efb4 ("device-dax: compound devmap support")
+Cc: <stable@vger.kernel.org>
+Reported-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Closes: https://lore.kernel.org/r/wlrkqqvg.ritesh.list@gmail.com
+Assisted-by: LLM
+Signed-off-by: Muchun Song <songmuchun@bytedance.com>
 ---
- kernel/trace/trace.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/dax/pmem.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index e4a490d3d08c..d3ffbed9c44b 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -9247,6 +9247,8 @@ static void trace_module_record(struct module *mod, bool add)
- 	struct trace_array *tr;
- 	unsigned long flags;
- 
-+	guard(mutex)(&trace_types_lock);
-+
- 	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
- 		flags = tr->flags & (TRACE_ARRAY_FL_BOOT | TRACE_ARRAY_FL_LAST_BOOT);
- 		/* Update any persistent trace array that has already been started */
+diff --git a/drivers/dax/pmem.c b/drivers/dax/pmem.c
+index bee93066a849..d3a9b85107b0 100644
+--- a/drivers/dax/pmem.c
++++ b/drivers/dax/pmem.c
+@@ -51,6 +51,13 @@ static struct dev_dax *__dax_pmem_probe(struct device *dev)
+ 	/* adjust the dax_region range to the start of data */
+ 	range = pgmap.range;
+ 	range.start += offset;
++	/*
++	 * When the memmap is stored in RAM, exclude metadata and alignment
++	 * padding from compound page initialization.  Otherwise, the pgmap
++	 * may start before the naturally aligned Device DAX data range.
++	 */
++	if (!pgmap_altmap(&pgmap) && le32_to_cpu(pfn_sb->align) > PAGE_SIZE)
++		pgmap.range.start = range.start;
+ 	dax_region = alloc_dax_region(dev, region_id, &range,
+ 			nd_region->target_node, le32_to_cpu(pfn_sb->align),
+ 			IORESOURCE_DAX_STATIC);
+
+base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
 -- 
-2.55.0
+2.54.0
 
