@@ -1,48 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E359552929;
-	Fri, 16 Oct 2026 17:11:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6223A563280
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 17:20:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792170709; cv=none; b=RJhm93aQORygUL0mU7C4A+f4L1c+dXFhX3DbLGguBxyfIIXRiAUtmzzVcLGTEXIK99P9fDmGGEsN7OMGottqY3v5FQIw7m03Ysh6dT9WvYuy3DBxjTnMZwTYFZASXKOa8M6pFrecLrPPrGan5TlGJwpcADrIw+vqHK1AR5J8N1w=
+	t=1792171204; cv=none; b=WTtvkoK3ZDO1eggOXen0W1/by2y5nv3VHnP1SUuAY1xmrRVx1ZGStaot5X7UZwyj1LzB+9Tw2bApXmWye12uBnPmW4E3QPU09aoKGSkzkmSeVmn5uMbx0vnizjIsZ4DVNCFOW+2B3wsINOOga+cRYSLPo4BmQUXHL/Ev8hDJhbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792170709; c=relaxed/simple;
-	bh=MO6cHy40gyiVcffzrki5YVyT2NG2/5V/sOPNZT5Gy1Y=;
+	s=arc-20240116; t=1792171204; c=relaxed/simple;
+	bh=cTHC0yfCpvz+ibcoG/JoiYW49Rvi7kVF4gEa7suZXJk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hnhfQm1G4E6BSAvSULr8m4hYBotcAdpJB/Vy1WyxpDn/gBoGXJAqfI2D+l6vRTB+43PzRGw/pUEvedN49vKFmyMFDNZjHYva9b/xRNW+O9c/7CiO6FBPkPsExDDsux9jtstPsageCNRhlQQJvgBsMgIJgW3NCkfV/UvJWVhQb6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CJ/h22TW; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=OetvTaQwM9U8AYDJRx8+sDDi5VkulWlfsVdqX2W6MhYOXJMNHG1yyspr+zj02q2028KY48Tu16anNFMU56YKZsV/+vdFYmtHG88jkwUtrUgojFDj2GZk/PtdicOjb64eiAH/2ZhauRCwfzPHtt7TL9u5+7G7phv8/o/cHCs0VCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UtKhGn0p; arc=none smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CJ/h22TW"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 660C31F000C4;
-	Fri, 16 Oct 2026 17:11:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792170707;
-	bh=haJF2KiPuN6dDSj74yCBDS4baMrbwUEyEPdmOlipTWw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CJ/h22TWaDvBhc+q+HqM4Os488jTUc665cB+TWFAstIAbigo6SJwrxSUakXlK6lMv
-	 DcwlJSK57tXy8zEeHrgNpRHc284HdsVAsGHFVdeJXIQvcpbvX9tIbjlXltGLtDkQdH
-	 btpGTguplUSRWUkM9K1KVXJvisxs7r+1I6S9vX9NaK9G8xLZs+EivbkzA7aqoyFUgS
-	 6Imzo5yHihOETv35YXRJQxVKL+rqjYJg/y8Iv45jrgGmSQ3MQoQ1zDSD+7tWDgYk6x
-	 CeM3EhDXlGkjPc0AESK9RNImm0GnGUIPpjQ/l341vBesE8adbR46KlY9LxS3o2FVBj
-	 7Dve4T6YrswSQ==
-Date: Fri, 16 Oct 2026 10:11:46 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Siddh Raman Pant <siddh.raman.pant@oracle.com>
-Cc: "sashal@kernel.org" <sashal@kernel.org>,
-	Mark Tinguely <mark.tinguely@oracle.com>,
-	"catherine.hoang@oracle.com" <catherine.hoang@oracle.com>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>,
-	"dchinner@redhat.com" <dchinner@redhat.com>,
-	"linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"chandan.babu@oracle.com" <chandan.babu@oracle.com>
-Subject: Re: [PATCH RESEND 6.6 v2 0/5] Backport of XFS umount hang fixes
-Message-ID: <20261016171146.GB107986@frogsfrogsfrogs>
-References: <cover.1791883285.git.siddh.raman.pant@oracle.com>
- <2026-10-14-1-daily-reply-0009-xfs-umount-hang-6-6-needs-ack@kernel.org>
- <20261015144723.GQ2705364@frogsfrogsfrogs>
- <6960f2e371138b8362922ecc0785a2945f70aa48.camel@oracle.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UtKhGn0p"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8520161fdb9so110098b3a.3
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 10:20:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792171203; x=1792776003; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uE2PjX0J6WzVcXk7jQ9SWzOLACgaklkDei11e3qQjvU=;
+        b=UtKhGn0p736k/u7NOG/qzvDIu3hFwX3efMbC4Uv98H+7aXkKMWwv/Jww0GHzxLcScw
+         u2hj9+kOlaZGf/hbX3ZdOLpE7sfYGRatsPlbFs7Z49t/QIpAAacjZAF7g7eFH1mqWh1C
+         UkkYW4LR5k8Ioufy/p6Z21BIJ6NjhXzC5LijFOM+cJ+KTq/88gvP6TI5rqkiH6sIdhOz
+         LmVexEQN5UG5xUUvpBKILkRezjIk/5HCu3aPdk4SfaiwNaGmK8uF8yqHbfpHWzTMgW/U
+         e9r2u4sBHnJ6SNc2ov7SUUP6yHTm+hk7w1Mcw7VXTgJ3DQG8neU2ToXljC8njWym1NbZ
+         BXCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792171203; x=1792776003;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uE2PjX0J6WzVcXk7jQ9SWzOLACgaklkDei11e3qQjvU=;
+        b=xVuVmgTnbyJNJOIFdsYwmZbueuFNO5Gv+VZ9ac5WSlDqMNCKwUdP501uLOokfnJJIG
+         2vlwkLE5j9KJypF8oVU1tjqATsWfV3LnsDvD84x18vlSQ0q9gNI3flevfhDQ1cZ3VjiQ
+         KWQMrEwUa+iulKVBgcmj+IKwS4KMIeAE9OQXOVLzPaq1o6BMFTH+3Em7fFHMbm3Cn6Hd
+         eeiE5h+zz2jwI4O85SjUov6MxdCsA2MtlJZDtVOcUMyXEVNzY9Z/hZflvkym1DpfxSpn
+         Npg4rVyvZjqrQbWQQfxyGBJNUfFE1Q3Q2dNi5f5PWqqnVRuILHkvSLaHKMnfdTueCbwE
+         FMkA==
+X-Gm-Message-State: AFq9FYK6VaNoqD0k4oALBIgpx0nO9Eaz0TguZVzJUWHZ5coNRrfmcJpX
+	Gyrn/n2XvNz0LGa8VWyIxlVxs3Z81Hcm0cqzbMlbztJNvHMX3CbhIECo1PsPwFqEVWqSQD9jfVH
+	NXg9b/w==
+X-Gm-Gg: AYBFou2YpeRxeiMcqrw+8QC/wqZvDuXDp5GHbx0d10JKDt8nN2NtVREYaknNnkIfMik
+	D6+wJCxUoSuLBzdjG8bLYao6+Uc2UfQusN74NbwgSinscgWjxt/lNJHtAYFkTRqbEP5nOItbFs1
+	CHZ9JR//u40F1ZfiAJSsHcpHuPz5Hu1Acpn28PUgxjNC4kjmNlytOEoxXrfyPm9VjwHIbaarC4p
+	EKVMGPKnoiPuUddyNFsraKqwCEDmvCh4WPAkQJEFi8uqLnAFT3+D8+VJTWq817tGtEEK5vZcmHA
+	1gHFmW4YUkTwHmT3u+vbYAZxGvMmnAdx9qUQnWNPebeyJALg7Sxw+RpJwtn+HJ92YDK4F4jXS++
+	05+UYVW9xLdf57CF3gbOUrnAtirVCh47S9vstqDwpTRtZSsxMu8ACXcn/1SB0A0qlZuDzWwMhFU
+	xeq7WirUvhyHjUHs4GQAxOXlqa06WMnHtqU9EhxAo/TNTO3FFz3+e/+HzzsLPMWMf4MYGNjRNGa
+	eNRHbGg+Z/beoBJidqDwqYiCmzF9jiKryRhcj10
+X-Received: by 2002:a05:6a00:ad89:b0:89e:37b0:d1bc with SMTP id d2e1a72fcca58-8a04cb17911mr192844b3a.28.1792171200516;
+        Fri, 16 Oct 2026 10:20:00 -0700 (PDT)
+Received: from google.com (248.182.125.34.bc.googleusercontent.com. [34.125.182.248])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f57268ff1sm1433387b3a.22.2026.10.16.10.18.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 10:19:12 -0700 (PDT)
+Date: Fri, 16 Oct 2026 17:18:49 +0000
+From: Eric Biggers <ebiggers@google.com>
+To: stable@vger.kernel.org
+Cc: stable-commits@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
+	Andreas Dilger <adilger.kernel@dilger.ca>,
+	linux-ext4@vger.kernel.org
+Subject: Re: Patch "ext4: switch to using the crc32c library" has been added
+ to the 6.12-stable tree
+Message-ID: <20261016171849.GA122880@google.com>
+References: <20261016171336.3983051-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,22 +78,25 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <6960f2e371138b8362922ecc0785a2945f70aa48.camel@oracle.com>
+In-Reply-To: <20261016171336.3983051-1-sashal@kernel.org>
 
-On Fri, Oct 16, 2026 at 12:55:18PM +0000, Siddh Raman Pant wrote:
-> On Thu, Oct 15 2026 at 20:17:23 +0530, Darrick J. Wong wrote:
-> > > I saw Darrick's ack on the 6.12 series. Still waiting for one on this.
-> > 
-> > This also looks good to me,
+[+Cc linux-ext4@vger.kernel.org]
+
+On Fri, Oct 16, 2026 at 01:13:35PM -0400, Sasha Levin wrote:
+> This is a note to let you know that I've just added the patch titled
 > 
-> Can you also take a look at 6.1 and 5.15?
+>     ext4: switch to using the crc32c library
+> 
+> to the 6.12-stable tree which can be found at:
+>     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+> 
+> The filename of the patch is:
+>      ext4-switch-to-using-the-crc32c-library.patch
+> and it can be found in the queue-6.12 subdirectory.
+> 
+> If you, or anyone else, feels it should not be added to the stable tree,
+> please let <stable@vger.kernel.org> know about it.
 
-Frankly, if you've run fstests on all those LTS kernels and no new
-problems have erupted, then go for it.
+Nack.  Missing prerequisite commits and didn't Cc the mailing list.
 
---D
-
-> Thanks,
-> Siddh
-
-
+- Eric
