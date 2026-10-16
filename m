@@ -1,227 +1,127 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 403E458E2D6
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 17:47:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792172849; cv=none; b=XwHwkv1nRzJqQ5PXD6uizzUGWmMjKiLgzVASBfiPSS2A84Oxeo7t9UdpPzCsFVH0Kk3bt/3QLTTJr2bZodgKnHIZymTYfdExpXvDGyCrGNGbeUzX6FQEoRo3jGwMKL22gLiNs/iACpXF/0PFFJUXmIYSStdFbGSpNVfLMCTMiS8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792172849; c=relaxed/simple;
-	bh=97wBu5DSvx9rNKNsfmvL4+FAQtdXKRZQZU6dewKD/Fs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lEb0DdGv+C6zxmZLnfQTsz7BAlJgkKELqiEvor/V7Uwg5SEuf+QMk6oqnfEu3+YSXlnnW8bVCvfgKKZKQMk781DWHzjbclE+FBWUqE+4z/FLpBmhhUFpLbqEYmx2mnwmIqqpqM0JbNNFboe0RCP/zZhQ7RX/13CInEMnm9Xwd6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hhbOPgMx; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3380498E3D
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 18:05:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792173956; cv=pass; b=P3xZSOyys1PXxeX1QG6mt/vEy5ata3TcDTWxjICxv8b/uFjqyfutXLAwmo/MsCtM0FmETU7EgTuNmhmvfqwxB/SOrJlIjXw6SGWAsUP3iqwiVDap/7xT2TpjvPXpmPBSX+RtaAkW47BCPBcFg0pMuBBuAiz3u1NZsJI8wuGNA0Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792173956; c=relaxed/simple;
+	bh=W9zaZCC2PUL05KATE9nrs0p2Ph152nxKDF1hPAKaLv4=;
+	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fLpltAkgBp30J6PHzhEkN/7dp+HdR3uz9wmTJxbhPJ2ksOCBiBjciW0SIJ6lzL//2Gi0KAwn5qKOKVwjr9HmptY2ZFv/allRrtkjIpLOgyRwB9L+57phtp9SW9U2ENUC3ucsM8oWWuKPQskjQRfpY2VqZ3y6mU3/XtPiXS2bk9E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr; spf=pass smtp.mailfrom=khu.ac.kr; dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b=fzLhOxyi; arc=pass smtp.client-ip=209.85.167.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=khu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hhbOPgMx"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-ca766c1c9ccso125431a12.0
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 10:47:26 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b="fzLhOxyi"
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5bcdae234ecso189347e87.3
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 11:05:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792173950; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IAPNjSMlPrd5IePmViEHl0ukLZaqnt4tXfwg6ORKUHwO1nD47tVwDPJD32TDZJMpiR
+         Rp+HdNfMlodVvJjO2O9uTWPfKzWXky++jLrJmVJHgHswxtKwihXDhP/RTTLikiDADUcq
+         1PNv+KmRqooUMXXoM8bO2pWzq1MslNLj25E5wv58S0D/H/49DLUWCvdWI5rKnZQ8Ka6n
+         udCFqKvMyzzG1wUU7fTFouhbYKzF2Gmm8/VTfo8b7+/dajtxr2he8X+2Ul8yb9wCBJLK
+         +8JVTaRFhTCezFnOt6M9QQjoX9j3E95HvxjZbWMNZJhJ/ay6D1+7XyibUAodiAp1w1PM
+         lFVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:references:in-reply-to:from
+         :mime-version:dkim-signature;
+        bh=W9zaZCC2PUL05KATE9nrs0p2Ph152nxKDF1hPAKaLv4=;
+        fh=XuRrnkFvyIgAtCuQDgkXSPb/jNA8/Ju1S328ikLeABI=;
+        b=BnofWvSaa2kksyME4TsPJGibfC/ildALrXveTAwj81PMPumQxGTlfXEsj5PwVfwf+d
+         iZ8EkIJKu/S4nfZ/C8yZSc7ZvwDC4QeqbC0wZhTFXTsnt+VCPOCtUBC7ypowBCFfandv
+         wO1jdwNZvF6uZhJLrslguYNnSKvk430FbL8gYZg3e2lxzjMVSL1FzhtJ+Tn+wUz5itoJ
+         05etH5u0+opRJTzyFXivUXiOdcrzISvqDp84xaTyRt90aGfuRDr+oBY3lBf7YmDymiWL
+         V+yllE93sEARSojdfTtGkJYVPVXVScbiakqXrjbZ4hPBqLpOVAOHrDbFBkOGp6Eoeyn2
+         9xpA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792172846; x=1792777646; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+        d=khu.ac.kr; s=google; t=1792173950; x=1792778750; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sKoJikkf8KNTjGtZcVhqWM6F5oLRE7WWybC2K+96Qrw=;
-        b=hhbOPgMxhZS7VrDRLmJFo+kPRJ4yM3NsdRIwzQ4YYdbfwNj2mHr/UUPsO1bo3E1zYc
-         KMLg/gCoUIhShTF1jf3V5z+JtD2QheHOba/OwrgnGbe7DScGAm/mkfTyAZLIfi52kz4D
-         Wwjht22FzWymYmMNnnTYdfG1ylLntJ1HeZC3soH1Kql7+u46sr8O+1zQTm1bnkx/Plqz
-         bEqNGRwy8bnCir1V6EkZKAFc0Ex6NaRvOBu/5mjTdT7Ssm/frNLbyJMNEG49xS7uv77X
-         HPB4qHIKrXTI6SA2BfQnnv64Gdzwnq99kJOFnUWTK7RwQpKP78wxTEm2UBCQc9P7GSMG
-         532A==
+        bh=W9zaZCC2PUL05KATE9nrs0p2Ph152nxKDF1hPAKaLv4=;
+        b=fzLhOxyiORVjmgoUa4qUBIKtwUGXAagoa/AqN42OkkSIBFACP9lg0PC3ev1/WJteQ0
+         NeZmJsP6Y8OGMtweyzoIeOib+fi+6d7hpCcRTDuxDvzjeHVjVqx7eTvJLmsB5fSNR3MH
+         eFEJf0SXeVkcaC8XUrPzgMCjd7zxK0YSvdtic=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792172846; x=1792777646;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=sKoJikkf8KNTjGtZcVhqWM6F5oLRE7WWybC2K+96Qrw=;
-        b=07bwQ0sKYN3WDsO2No4tbndIUoslKBje9pYh4dh0NUDz6vzJUX2OfhmMC/O9uf9KD9
-         WYDIHty3oVeek+QyRFLOp3RzNeddKkXnpQkjgtuTdTEfUHdPHoWQll0FmB9WRS2Ppf8f
-         BuHIUntkHnHmrYYZHv7tdgWLCjaemdyTABgtTmyEZaQlBZMcHWZw2VrRfdnrJMRGLFLM
-         a7j+tB8kN4AIz2uWOT8IHJPimkdHXUqN5tPqc1OhM8khOPHFXV65/X7DmnauZpBBA2/z
-         RFVjGclekBjd73ANWfk/iWVYKXSLKlZkFeAt58KVSRWb1j3kXBAhk/ucQ97Bwm9DASZj
-         gGmw==
-X-Forwarded-Encrypted: i=1; AKwUvByJ209TxyO6j5Y3qS5MKUpb5/H1qycMiRoGcZI0wTflOPjKoPk2Tu7Q5C+DeDVZ19Oeip0Lu84=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK0Kl5EXpJBVJ4vmRoQx/PJVQYnZyOyCq/on1RzYW7njyACcdE6
-	D0PVb4gdwOVpvqyfu/fZbB4wZ5cCY5491lbw4ZvmWng7CiRXN252ny4+
-X-Gm-Gg: AYBFou1wFA3cBluFPmyLTspZYmVbT6Ve0tJE07E/CHH+nh8fQlAl+8wY8YZGtEFIFQb
-	7KIq0olUS/4xl+Pet9BCLPrd4mLgkAO2c8p7aj1DMb1RIMUOtNrIheqz6GMDQcQcoUSzgqrCCFX
-	IssxK0VSYhYglxrEwGse9eOHHJpZdbT4Moo18L5KL2Zr5tDGMNTWE4e7tVd/h7hp1pwlAtDU51n
-	VTl3HUd7wvqlOtmznGIpEwT5cYuiAhRXu9mhZ4waf73iRoTF5zO+ltuxKEexKtB9dz93a0CZQVd
-	Cx5Zt129WoiepGxIbP1N+cxt00YHLKvjAZMoIcliM4YhogHciKb6ZvEqHi1ywTor1kPYHXS9Mdq
-	7BGqxGuDG3S1i+eABOUF8hzsG5MN77vFfvnJ12ToO90kylo33j+OPpWSQFdpxLuAkc3GZi5vWj2
-	egw+ePVsY3NvC6uTfyWvXALrMYyfpb4eqOrGLymCVlP4H//I22D/OBKEP7Jh/MMTUD4MouOy2/r
-	jHTR6HhyDhp5ckeSaptDFoRF/7DKDDvQM/ES9kIxXpxjPtijg==
-X-Received: by 2002:a17:90b:39a4:b0:3a7:a463:54c2 with SMTP id 98e67ed59e1d1-3acef1458ffmr468430a91.35.1792172846326;
-        Fri, 16 Oct 2026 10:47:26 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549c5621sm1555161a12.17.2026.10.16.10.47.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 10:47:25 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <e0d4d61b-6cc9-4395-91a4-d8c10c9aa1ab@roeck-us.net>
-Date: Fri, 16 Oct 2026 10:47:23 -0700
+        d=1e100.net; s=20260707; t=1792173950; x=1792778750;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=W9zaZCC2PUL05KATE9nrs0p2Ph152nxKDF1hPAKaLv4=;
+        b=SxIXrLwRndMMXAeiOCVmImIBqX5yNc/+Sk1NONzCX7CBpQbR7Bjxx0iR3ONxHrPr8p
+         UZZ3grkXYsDFdX1uPa4I+txQdWY8mHbfuSOCvgcbvC5nratsLcxWV56aFY/htuxD09aj
+         9mbHY6XsCzn150oOV95gSNwu7ToaELDu6RDTh8RndZW3rhZDcukfgCsQ+e4gtELWuYL7
+         n2TVAcbdV2ckSK1Rf/YQofJOY4WlrkPCF1+LOH5Qq3LJxjPODX7b9xkSswqssVPq11d9
+         84A9iWSI6hT4JRf+ezH4hLTc1z3kSwtOsVmkCn2fAjRURZBC5q8haMOg4ERj5m3T2/tv
+         nZnw==
+X-Forwarded-Encrypted: i=1; AKwUvBwo5B44/63Ak/fJ1Yno8sD0UEzGANZPkcNnS6UuNCdovpc1YyIbFu+TU6kzw7vOcG84RoBzMWw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJMWRiEYh2f+vh/r4y+8ZDMMttC95OrabulFquZPp0SXhq08x49
+	B326NdkAihN51CCns8C5IrEFEV0TAVRLWGHs6ke8/gHTahGUMrea1KjCynj3CcJNfAaMJNUVo+b
+	GbDZI4250plZof1BBUXdA7qgYkzL5CkhH7PwwlQnO7w==
+X-Gm-Gg: AYBFou1Zki2mMR9/Tqp9PFVhg3rRokNKTjptq4x1l3zO/73IfB0MfaGm4u7j6Olj25R
+	A5L9+pT559K5uHhMkLNi1P5SeZQ1lJcdZXIr+GUTJ4YoS07UpDk0tUDsZzpwYlzvP49SZ+TfYJG
+	FrtFzcrnnGiyG27klHlpPP9on/3HRN2jqSAhOInu9KccTA7nYZZN444ZaPdQ4ijQCyo0BNyp5hi
+	uxZJqtRu/cy/gH6FX8Y8Tg1rnfSdm7yi3/Ljfzrex9PAwYvUCPylXVVgPwgX7JhGKZfsBKAa6JE
+	rnUUN3bSMHNss9dIEjOveycjuDIsFYfVpZCo/4djYA397tfaWfTkyLmcMt+yZzvXWBEhkDznJTw
+	YadY7M710lrZHct8xesPhM3jiZw9Xv7y5XlrPX7anSMsg
+X-Received: by 2002:a05:6512:124a:b0:5bc:e472:12fb with SMTP id
+ 2adb3069b0e04-5be50a74cb0mr92020e87.63.1792173950529; Fri, 16 Oct 2026
+ 11:05:50 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Fri, 16 Oct 2026 11:05:49 -0700
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Fri, 16 Oct 2026 11:03:29 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] usb: xhci-pci: Add AMD 600 series to xhci-pci-prom21
-To: Mirko Jechow <mirko.jechow@gmx.de>,
- Mathias Nyman <mathias.nyman@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-kernel@vger.kernel.org, Stephen Horvath <linux@stevetech.au>,
- stable@vger.kernel.org, Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
- Jihong Min <hurryman2212@gmail.com>
-References: <20261004002731.49927-1-mirko.jechow@gmx.de>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261004002731.49927-1-mirko.jechow@gmx.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
+ Fri, 16 Oct 2026 11:03:19 -0700
+From: Kim Wooseok <5mghybrid@khu.ac.kr>
+In-Reply-To: <fd91ff33-d8a1-4ab0-83da-c15816c148cd@gmail.com>
+References: <20261010-rtl8xxxu-usb-dma-v1-0-e670d9c08fdf@khu.ac.kr>
+ <20261010-rtl8xxxu-usb-dma-v1-1-e670d9c08fdf@khu.ac.kr> <fd91ff33-d8a1-4ab0-83da-c15816c148cd@gmail.com>
+Date: Fri, 16 Oct 2026 11:05:49 -0700
+X-Gm-Features: AclHuK9ZwgypZrng-PnEqwREU_wxzMOVesmRvYGZ8m4Qdc2U_H8EMyixUe0zrSQ
+Message-ID: <CAH1Bc_w89ymu+E1Gx13M9JD7ZNmdQ3=y_zFwVvMkQMKk4m6NAA@mail.gmail.com>
+Subject: Re: [PATCH rtw-next] wifi: rtl8xxxu: isolate the USB register buffer
+ from CPU state
+To: Bitterblue Smith <rtl8821cerfe2@gmail.com>, linux-wireless@vger.kernel.org
+Cc: Jes Sorensen <Jes.Sorensen@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>, 
+	Kalle Valo <kvalo@kernel.org>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/3/26 17:27, Mirko Jechow wrote:
-> From: Stephen Horvath <linux@stevetech.au>
-> 
-> It seems the xhci-pci-prom21 module only has IDs for the 800 series
-> chipsets. However, the 600 series chipsets also have Promontory 21
-> chips, so we should add their IDs to the list as well.
-> 
-> I have tested this on my X670 board featuring DID `0x43f7`.
-> 
-> `1022:43f7` also appears on the PCI ID database
-> (https://pci-ids.ucw.cz/read/PC/1022/43f7).
-> Device IDs `0x43f9` (B665) & `0x43fa` (A620) were suggested by Shyam.
-> 
-> Also list the new IDs in Documentation/hwmon/prom21-xhci.rst.
-> 
-> Cc: stable@vger.kernel.org # 7.2.x
-> Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-> Cc: Jihong Min <hurryman2212@gmail.com>
-> Signed-off-by: Stephen Horvath <linux@stevetech.au>
-> Tested-by: Mirko Jechow <mirko.jechow@gmx.de>
-> [mirko.jechow@gmx.de: add new IDs to prom21-xhci.rst]
-> Signed-off-by: Mirko Jechow <mirko.jechow@gmx.de>
+Hi Bitterblue,
 
-Acked-by: Guenter Roeck <linux@roeck-us.net>
+> Perhaps it's a silly question, but doesn't this just move the problem
+> elsewhere? Or does kmalloc_obj() guarantee that nothing else will access
+> the memory near usb_buf?
 
-> ---
-> Changes in v3:
-> - List the new IDs on the PCI IDs line of Documentation/hwmon/prom21-xhci.rst
->    (requested by Jihong Min)
-> - Picked up from Stephen; v2 had no follow-up since 2026-08-23
-> - Link to v2: https://patch.msgid.link/20260820-xhci-pci-prom21-v2-1-638e5958fbbf@stevetech.au
-> ---
->   Documentation/hwmon/prom21-xhci.rst | 2 +-
->   drivers/usb/host/xhci-pci-prom21.c  | 3 +++
->   drivers/usb/host/xhci-pci.c         | 3 +++
->   drivers/usb/host/xhci-pci.h         | 3 +++
->   4 files changed, 10 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/hwmon/prom21-xhci.rst b/Documentation/hwmon/prom21-xhci.rst
-> index 7984fb187bd8a..6c0b6e7368921 100644
-> --- a/Documentation/hwmon/prom21-xhci.rst
-> +++ b/Documentation/hwmon/prom21-xhci.rst
-> @@ -9,7 +9,7 @@ Supported chips:
->   
->       Prefix: 'prom21_xhci'
->   
-> -    PCI IDs: 1022:43fc, 1022:43fd
-> +    PCI IDs: 1022:43f7, 1022:43f9, 1022:43fa, 1022:43fc, 1022:43fd
->   
->   Author:
->   
-> diff --git a/drivers/usb/host/xhci-pci-prom21.c b/drivers/usb/host/xhci-pci-prom21.c
-> index 6486f4a093455..5f088a47d79f3 100644
-> --- a/drivers/usb/host/xhci-pci-prom21.c
-> +++ b/drivers/usb/host/xhci-pci-prom21.c
-> @@ -111,6 +111,9 @@ static void prom21_xhci_remove(struct pci_dev *dev)
->   }
->   
->   static const struct pci_device_id pci_ids[] = {
-> +	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F7) },
-> +	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F9) },
-> +	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FA) },
->   	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FC) },
->   	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FD) },
->   	{ /* end: all zeroes */ }
-> diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
-> index a8889081ae824..b407676808fca 100644
-> --- a/drivers/usb/host/xhci-pci.c
-> +++ b/drivers/usb/host/xhci-pci.c
-> @@ -701,6 +701,9 @@ static const struct pci_device_id pci_ids_renesas[] = {
->   
->   /* handled by xhci-pci-prom21 if enabled */
->   static const struct pci_device_id pci_ids_prom21[] = {
-> +	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F7) },
-> +	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F9) },
-> +	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FA) },
->   	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FC) },
->   	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FD) },
->   	{ /* end: all zeroes */ }
-> diff --git a/drivers/usb/host/xhci-pci.h b/drivers/usb/host/xhci-pci.h
-> index 11f435f94322a..533efc7db8012 100644
-> --- a/drivers/usb/host/xhci-pci.h
-> +++ b/drivers/usb/host/xhci-pci.h
-> @@ -4,6 +4,9 @@
->   #ifndef XHCI_PCI_H
->   #define XHCI_PCI_H
->   
-> +#define PCI_DEVICE_ID_AMD_PROM21_XHCI_43F7	0x43f7
-> +#define PCI_DEVICE_ID_AMD_PROM21_XHCI_43F9	0x43f9
-> +#define PCI_DEVICE_ID_AMD_PROM21_XHCI_43FA	0x43fa
->   #define PCI_DEVICE_ID_AMD_PROM21_XHCI_43FC	0x43fc
->   #define PCI_DEVICE_ID_AMD_PROM21_XHCI_43FD	0x43fd
->   
-> 
-> base-commit: 639df5d23876a548b86fe6526bed8b97edf64d96
+With a separately allocated kmalloc buffer, the kernel ensures that
+CPU accesses to other objects do not corrupt the DMA data through
+cache-line sharing. It provides the required alignment or bounce
+buffering, and usb_control_msg() uses this DMA mapping path.
 
+The patch turns usb_buf from an embedded member into a standalone
+kmalloc buffer so that this guarantee applies to the buffer itself.
+
+> An allocation for every register access was not happening even before
+> this patch. I guess your LLM wrote this...
+
+I did not state that the previous code allocated a buffer on every
+register access. That sentence describes the allocation strategy for
+the newly separate buffer: allocate it once in probe and reuse it.
+
+If any part of the explanation is unclear, please point it out and I
+will clarify it. I don't think speculation about how the text was
+written is necessary.
+
+Wooseok
