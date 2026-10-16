@@ -1,172 +1,149 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B008274B53
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 03:28:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+Received: from mx1.zhaoxin.com (MX1.ZHAOXIN.COM [210.0.225.12])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DDA66223336;
+	Fri, 16 Oct 2026 03:45:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.0.225.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792121293; cv=none; b=Z7abyCnYbU79YiKEJSDtgC5gEoEpdg9dFB9xl2qS07Hqoo8e2/3/e2bJZIFLghy4njO8QsJz2dRWCFpFinl34mOzf62bDoKb9IoxsUcxKDJ9tPyUy7vTNNZMFWfx3/bzdu4KHY/WH7zI07+FrPmnXNPKEiP8QDiWdDVfGiMdKz8=
+	t=1792122316; cv=none; b=H0gWVWqBoT/gm8E8hpVPqVvMHdaseS5vPF3v705zgSGoPM/iZPQQ3DpG43bWHplmy0HEwvRPAl/jgLumpLw9V5B/BzLwue/W4HuKJH8cIzJpy1XIIiO+2Xy5Mos8ilaJVG0Uki3DQlCJcVCceUzcayTyTqY1ux1PWBr3EhVHbpY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792121293; c=relaxed/simple;
-	bh=XSSPdOCNAc5WWi5tUc5olPewciaW+9RyoAozlFhXOiM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IrWr3+JHZK/hSJmWEyhMMgbZWt9FqEJ640wFXIfFD59QTWsL7vDOtlC3x91ghY7sa74uj0iK1FF1tNYZxf/h+Syz3HXWfwe1pnm0VhsD7xXZmqtmQTBNcgONrlDed04LOYbWMtO3+0ZB3uK9AqndPloBwVKjtEt3//DCF/KDht0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f0JFIXSf; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f0JFIXSf"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e5378b281aso34262625ad.2
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 20:28:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792121291; x=1792726091; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=57IwzSravw3Iqow3SrotqKeFlKBEhaoHY1IKJqGvUEA=;
-        b=f0JFIXSfuzsPUJL1qjcRIc1Lr50f0NSEgnZYWbxu+P2x4vL6juoaQV2p33mYhpDxW3
-         i2iQBUyptC49for8BqemK7oft5sEdHcwwU/phFFaSpqpqfFXUcfyan/D5LgnJYegjdk/
-         yhlFHdKi4nRMDwDG7droc1l0TXTku8IYeSJSu/mKniDbB4bh8S1WTxD7vLWSoW68aHcJ
-         Y6YnfnW4g3ZuD9VLdObEleDgk1AM6akLdGesgw30amaRqwNPumwDiS7MZhyXa/q7Te2t
-         moRF5CwfrWHrIPVQy1dk2q5IOcMFKq1aFmqIB+mEG81HIs5VPSgoe/O8MVG41/wCVOqM
-         2i3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792121291; x=1792726091;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=57IwzSravw3Iqow3SrotqKeFlKBEhaoHY1IKJqGvUEA=;
-        b=jBNXqiCKJ6t/Su/TtReI4ZzdLiM2xdLS6yqiGOSlY2tIq2/qLEPPf5J6RNirILABPH
-         GvL8hdb9LjxbHomPFR8DRHLxOiVvw6B/EJhV7C49yyjOm5jjbOeEbXduAt3eZHyC4KZ5
-         Cdt4652WmkKhCYByrPdSkY5mrOmYBQn210mCu2pHUGsU85/RfnksQc9v+Bzrpa3eNkeo
-         kjUSYGbKCA2n8BHug++pAcnhyoDDTmUSgabfrVznVs3k1hyW4S5B6got7pkwbwDcT4Hz
-         6t64SwGtOy6WFA6LaQzufDG2RjdYgRPm++Hrr451ofpsQyKjJJ5udBPP2qSfFqoLzoD2
-         Iupw==
-X-Forwarded-Encrypted: i=1; AKwUvBz4Hkf88FnU1oR9aHE3zE0CdjgenAMkx+TsVCr6Q/+TwYEu7R9QbJjCFsfsZbxo2WZ5AGAVzfc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJZCmY5VKkS1mX/dbx19d+5h5uHEfYbgnjh1uYSOF/fszOOenk5
-	8SDoK0JPn4mubcSK1Zs3Q7cnzIXERmFoRGnvnTdrZidgP3B/7BXI1aah
-X-Gm-Gg: AYBFou3qoxQ8kZtnIMEX5PKvu28yQQLD95V9ClHjdxehpOOQA2prMUOSLZQpMMxOAVE
-	aK+lD1d6DDTFP7JZxN4wIqZ2t0W4jMwvTO+4G3fQEYcOZt0UJ72eBjdDj9IxBoXSXAcHYcNCM+f
-	0mSEAbr9pjtlnwl2NLJLpVdJT+hEYNVhv5szZ6gIJE32Q90KWV5PVQlB8zfq+9xvB3D98o+ZNL4
-	03iXg4GLhaQQNqT8VTFtmM2aedE/pE561O70Xke3OUmL7bsHnMCbHX5Bs9XytAwRoPWur9fRui0
-	zU4/Fx7bLccMAym5y4pTXAJ/p+LL6CHsad25TrpZU5EBqXCSDt9VhwoldTj/sjRjsmJZAWbyRlX
-	lJUE64mzHD+m6PvZMvG9oU/YSqGFdED7/zTE3HgOTAMb7TP7GNr5ZlejicdA9NN7dC9ZAPfYARH
-	kEfGegm9xH2gUvM2s8vRAe6kd5GbgV8N0DN9oymDTvik307N8h5qn5YwmfIBysZTO7QWNVA64eW
-	GdRakkPevlrFGI/S3hzYwo=
-X-Received: by 2002:a17:902:ce12:b0:2e2:aa17:477f with SMTP id d9443c01a7336-2e842f11b4bmr193459365ad.58.1792121291215;
-        Thu, 15 Oct 2026 20:28:11 -0700 (PDT)
-Received: from localhost.localdomain ([202.8.105.115])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e834ef9sm3672935ad.42.2026.10.15.20.28.05
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 15 Oct 2026 20:28:10 -0700 (PDT)
-From: Jemmy Wong <jemmywong512@gmail.com>
-To: mingo@redhat.com,
-	peterz@infradead.org,
-	tim.c.chen@linux.intel.com,
-	kprateek.nayak@amd.com,
-	yu.c.chen@intel.com
-Cc: chen.yu@linux.dev,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Jemmy Wong <jemmywong512@gmail.com>
-Subject: [PATCH v3] sched/cache: Avoid publishing partial LLC utilization
-Date: Fri, 16 Oct 2026 11:27:59 +0800
-Message-ID: <20261016032759.45279-1-jemmywong512@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	s=arc-20240116; t=1792122316; c=relaxed/simple;
+	bh=DTPI8cTkKJkMRR3tgCCU1MkTp3aWiFtYFgB2neHV2YU=;
+	h=From:Message-ID:Date:MIME-Version:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=UX4s53W42jAAYYp03CAe9FsTKRqzeEjmLjEx7LhhIeXvr1aOSZlz8UCmzsVhxdJxmqO+/6omuNMjxAJvc2XVLihg+RSisd5EiCY+I4n/GCHn+HysjjI/7pmRAx67nN3Uz3o2zDcEQvPrllHt6gXuRCAUcihQg1N01bvm31H2fEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com; spf=pass smtp.mailfrom=zhaoxin.com; arc=none smtp.client-ip=210.0.225.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zhaoxin.com
+Received: from zhaoxin.com (unknown [127.0.0.1])
+	by mx1.zhaoxin.com (MTA) with ESMTP id 4j5VwF1y1Xzb0pbD;
+	Fri, 16 Oct 2026 11:36:13 +0800 (CST)
+Received: from zhaoxin.com (unknown [10.28.140.201])
+	by mx1.zhaoxin.com (MTA) with ESMTP id 4j5VwC581Nzb0pbf;
+	Fri, 16 Oct 2026 11:36:11 +0800 (CST)
+Received: from [10.29.8.50] ([10.29.8.50] [10.29.8.50])
+	by zhaoxin.com (8.30) with ESMTP0264a61b2a04fa418478202609a85106
+	Fri, 16 Oct 2026 11:36:11 +0800
+X-Eyou-Smtpauth: weitaowang-oc@zhaoxin.com
+X-Eyou-EnvelopeSender: weitaowang-oc@zhaoxin.com
+X-Eyou-From: zhaoxinweitaowangoc <weitaowang-oc@zhaoxin.com>
+From: "=?UTF-8?B?V2VpdGFvV2FuZy1vYw==?=" <weitaowang-oc@zhaoxin.com>
+Message-ID: <316900d3-2ce8-4391-ad8f-556bb5540c2a@zhaoxin.com>
+Date: Fri, 16 Oct 2026 11:36:10 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: =?UTF-8?B?UmU6IFvmraTkuLrlpJbpg6jpgq7ku7Yg6LCo6Ziy6aOO6ZmpXSBSZTog?=
+ =?UTF-8?Q?=5BPATCH=5D_x86/apic/msi=3A_Fix_MSI_interrupt_affinity_configurat?=
+ =?UTF-8?Q?ion?=
+To: Thomas Gleixner <tglx@linutronix.de>, Koichiro Den <den@valinux.co.jp>
+Cc: mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+ x86@kernel.org, hpa@zytor.com, linux-kernel@vger.kernel.org,
+ WeitaoWang@zhaoxin.com, wwt8723@163.com, CobeChen@zhaoxin.com,
+ stable@vger.kernel.org
+References: <20260928164839.6381-1-WeitaoWang-oc@zhaoxin.com>
+ <6mg2eqdehsmb5fh6hf7icsha2547xfdfvulnycawiit2czhhmh@6bbmicaoz2zd>
+ <87jynid352.ffs@fw13>
+Content-Language: en-US
+In-Reply-To: <87jynid352.ffs@fw13>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Eyou-Sender: <weitaowang-oc@zhaoxin.com>
 
-update_sg_lb_stats() sums utilization over the CPUs in both
-sched_group_span(group) and env->cpus, but takes capacity from
-group->sgc->capacity for the whole group. record_sg_llc_stats()
-publishes both.
+On 10/16/26 06:12, Thomas Gleixner wrote:
+> On Wed, Sep 30 2026 at 01:29, Koichiro Den wrote:
+>> On Tue, Sep 29, 2026 at 12:48:39AM +0800, WeitaoWang-oc wrote:
+>>> commit b56ebe7c896d ("x86/apic/msi: Fix misconfigured non-maskable MSI
+>>> quirk") try to fix the issue of misconfigured non-maskable MSI quirk.
+>>> For non-maskable MSI interrupts, use the slow path to fix the MSI affinity
+>>> race. Maskable MSI interrupts use the direct path to update configuration
+>>> info. However, the current code logic is the opposite as only maskable
+>>> MSI interrupts will enable reservation mode.
+> 
+> Please read:
+> 
+>    https://docs.kernel.org/process/maintainer-tip.html#changelog
+> 
+> and restructure and reword the changelog accordingly. The above is
+> incomprehensible word salad.
 
-Rejecting an all-affinity-pinned source runqueue removes that CPU from
-env->cpus and retries group selection. The retry can publish the
-partial utilization with the full capacity.
+Hi Thomas,
 
-can_migrate_llc() then treats a busy preferred LLC as having spare
-capacity. More tasks can aggregate into it, migrations out can be
-blocked, and two busy LLCs may not fall back to generic balancing.
-This increases CPU contention and task latency. Found by inspection.
+Thank you for the suggestions. I realize the problem description in my
+previous patch needed to be more precise. Before posting v3, I have
+updated the change log as shown below. Could you please take a look?
+If this looks good to you, I will send out the next version.
 
-Skip publication on affinity retries using LBF_ALL_PINNED, retaining
-the first-pass snapshots and avoiding repeated cpumask checks. On the
-first pass, publish either shared LLC statistic only when env->cpus
-covers the whole group. Load balancing still uses the affinity-filtered
-statistics.
+From: Weitao Wang <WeitaoWang-oc@zhaoxin.com>
+Subject: [PATCH v3] x86/apic/msi: Fix MSI interrupt affinity configuration
 
-The same window exists during CPU hotplug. env->cpus drops a CPU at
-set_cpu_active(false), but the group span and sgc->capacity still
-include it until cpuset_cpu_inactive() rebuilds the domains. Keeping
-the previous snapshot avoids the mismatched publish. After the rebuild,
-the next periodic balance records both statistics again.
+The two step update sequence in msi_set_affinity() is required for MSI
+interrupts which cannot be migrated atomically, i.e. devices which do not
+provide MSI masking. The MSI message update writes address and data
+registers separately, so such a device can raise an interrupt in between,
+which results in a message built from half updated state: A stray
+interrupt on a stale vector and a possibly lost device interrupt.
 
-Suggested-by: K Prateek Nayak <kprateek.nayak@amd.com>
-Suggested-by: Tim Chen <tim.c.chen@linux.intel.com>
-Fixes: f025ef275388 ("sched/cache: Record per LLC utilization to guide cache aware scheduling decisions")
-Cc: stable@vger.kernel.org # 7.2.x
-Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
-Reviewed-by: Chen Yu <yu.c.chen@intel.com>
-Signed-off-by: Jemmy Wong <jemmywong512@gmail.com>
+The update sequence is selected by a per interrupt quirk flag, which is
+set for interrupts which cannot use reservation mode. Reservation mode is
+only enabled for maskable interrupts, i.e. devices which provide MSI-X or
+mask support, so the quirk flag is the inverse of the reservation mode
+bit.
 
+The removal of the quirk flag replaced the flag check with a reservation
+mode check, but dropped the negation of the removed condition:
+
+       - if (!irqd_msi_nomask_quirk(irqd) || ...)
+       + if (!irqd_can_reserve(irqd) || ...)
+
+As the quirk flag is the inverse of the reservation mode bit, the
+replacement inverted the condition and selects the wrong update path for
+every interrupt: Non-maskable interrupts take the direct update path
+again, which reopens the race, while maskable interrupts needlessly go
+through the two step update.
+
+Restore the original condition so that the direct update path is selected
+when reservation mode is enabled, which also matches the comment above the
+check: Direct update is possible when the MSI is maskable, which is the
+case when the reservation mode bit is set.
+
+Fixes: b56ebe7c896d ("x86/apic/msi: Fix misconfigured non-maskable MSI quirk")
+Signed-off-by: Weitao Wang <WeitaoWang-oc@zhaoxin.com>
+Reviewed-by: Koichiro Den <den@valinux.co.jp>
+Cc: <stable@vger.kernel.org> # v6.1+
 ---
+  Changes in v3:
+   - Rework the changelog as requested by Thomas:
+     https://lore.kernel.org/all/87jynid352.ffs@fw13/
 
-v2: https://lore.kernel.org/r/20261013084338.55100-1-jemmywong512@gmail.com/
-v1: https://lore.kernel.org/r/20261010113425.34829-1-jemmywong512@gmail.com/
+  Changes in v2:
+   - Change the Fixes tag to b56ebe7c896d ("x86/apic/msi: Fix misconfigured
+     Dnon-maskable MSI quirk")
+   - Update commit messages for clarity
 
-Changes since v2:
-- Clarify that LBF_ALL_PINNED identifies affinity redos here and that
-  retaining the recent first-pass snapshot avoids publishing partial
-  utilization against full capacity, as suggested by Chen Yu.
-- Add Cc: stable@vger.kernel.org # 7.2.x, as suggested by Tim.
-- Add Reviewed-by tags from Tim Chen and Chen Yu.
-- No functional changes.
+   - Link to v1: https://lore.kernel.org/all/20260928164839.6381-1-WeitaoWang-oc@zhaoxin.com/
+   - Link to v2: https://lore.kernel.org/all/20260930155213.4380-1-WeitaoWang-oc@zhaoxin.com/
 
-Changes since v1:
-- Skip publication on affinity retries using LBF_ALL_PINNED, retaining
-  first-pass snapshots and avoiding repeated cpumask checks, as suggested
-  by Prateek and Tim. Keep cpumask_subset() for partial group coverage
-  during CPU hotplug on the first pass.
-- Update the comment and commit message to explain the retry behavior.
-- Add Fixes and Suggested-by tags.
+    arch/x86/kernel/apic/msi.c | 2 +-
+    1 file changed, 1 insertion(+), 1 deletion(-)
 
- kernel/sched/fair.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+   diff --git a/arch/x86/kernel/apic/msi.c b/arch/x86/kernel/apic/msi.c
+   index 66bc5d3e79db..da5f44a80313 100644
+   --- a/arch/x86/kernel/apic/msi.c
+   +++ b/arch/x86/kernel/apic/msi.c
+   @@ -62,7 +62,7 @@ msi_set_affinity(struct irq_data *irqd, const struct cpumask *mask, bool force)
+          * - The interrupt is not yet started up
+          * - The new destination CPU is the same as the old destination CPU
+          */
+   -     if (!irqd_can_reserve(irqd) ||
+   +     if (irqd_can_reserve(irqd) ||
+             cfg->vector == old_cfg.vector ||
+             old_cfg.vector == MANAGED_IRQ_SHUTDOWN_VECTOR ||
+             !irqd_is_started(irqd) ||
+  --
+  2.32.0
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 57360f5cdde4..7df5b5d2dce1 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -12111,6 +12111,16 @@ static void record_sg_llc_stats(struct lb_env *env,
- 	if (env->sd->child != rcu_dereference_all(per_cpu(sd_llc, env->dst_cpu)))
- 		return;
-
-+	/*
-+	 * Here, LBF_ALL_PINNED is set only on affinity redos. Keep the recent
-+	 * first-pass snapshot, since env->cpus may now be incomplete.
-+	 * Hotplug can also leave env->cpus incomplete on the first pass;
-+	 * do not publish partial utilization against the full group capacity.
-+	 */
-+	if ((env->flags & LBF_ALL_PINNED) ||
-+	    !cpumask_subset(sched_group_span(group), env->cpus))
-+		return;
-+
- 	/*
- 	 * At this point we know this group spans a LLC domain.
- 	 * Record the statistic of this group in its corresponding
-
-base-commit: 2f2f7eeef8b0a1a9b9ca998231419873ccae8d4e
---
-2.25.1
+Thanks
+weitao
 
