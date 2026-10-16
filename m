@@ -1,130 +1,110 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C38A4AA00F
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 12:46:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 143E84A4836;
+	Fri, 16 Oct 2026 12:50:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792154782; cv=none; b=dsZaVFof+08cjziWdMCWrFGK4Grx4mlv4X0NFORf0PIlw/7M4RmkHBs1mf5u84fjtzFO0Kn6GMp20eshiXREuvTUdpPxOrTHI6/RjkUiFXJRIm92sEbQ2AO8Pis3fR7Mi9ZnCC8PTuc/bEuzIUBMHEOwZ4lq4Gb/tFV+t5p+YsQ=
+	t=1792155021; cv=none; b=HlyJN2p1KejBu8A2BmFR0rXM7AerQP5GXTklPq2l6tz2uKPokNgR5IJU+2yw5hCoTrAGFWdnasCXtzB9H8HyJYieCyQiUKlhVH+T0bM0iY3nSXTWDO86HF8SSJrt9kDQpBxGfHgsP6x+Q0wDe5hI9rcGMkIXkCMtKO99g4ZLpLc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792154782; c=relaxed/simple;
-	bh=V8vvEiOuQbTCyNnx2s4Py2QN+SBBIhE4P0oLXRNMnjg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FJ0OvlA1hIWgrWo0XFD7V+IG/J+cdmPk4JDvK4Rhe3Yn5PZeMTWDLfW9ScOImisDIUbSB2Er+U92pghijJt1dFbYeRRIzpOkh2iU/XzBltMb3G3PX2Ns868KxvQYCe2H5SG8vC++nB56FM7SeRRm8mZ2As1GqOmK/eKAjD77AJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bt3rmuA9; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792155021; c=relaxed/simple;
+	bh=qKqkBlzuhzGDRUMe/fpdt9YqLvt+//yIo/tc4unfU9s=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=untjnQoxdZ1w4GucWBrth/CNfInC7LCPnA91oHj8BvC04E+LGEOl+ehhb5lGiBIX/fsR+WJu6A4SFDmseiQNDPJghUEmnB7bL/r8f3NH6p+SftA2qB6deBLH2zWPxr+xp9c0lEgj5oxGmWPZxbeh9f7yDrq5Jq3646GE950vwAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=2/NjAVX9; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bt3rmuA9"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ab98332238so3766400a91.3
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 05:46:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792154779; x=1792759579; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2vp2w6ovy70f2VqzeJRvoANmmDfJOujsOCwhZHkqjIQ=;
-        b=bt3rmuA9/zx2E/FmZ6B9nX/YYYzM7HMSqNQjk6ow2GYSlo+8beKJfwmIL2KMHx2vF6
-         /hUxYqpwsG4ffdmRayuqeJ9sT9CrNwJVOlXqv8v4g9ohLpHE3lWSuPrV4iUVSxzt/e+A
-         INwJivS9wIQeTu2D+3SROrJKo902Z7Z7wQOdKG5WxGLW9zk0SLZcgOZjH1enB5w+0mJe
-         JBSVrT31qn+EHOVrCFnpnJUPu37bmNua96o45fa37i2DWrZ12A2NwYupwgyh3baHpzsz
-         c4TCq0PtnkSk5GutfK/K3EpbIPM1EKxz+ANtrfjCbOK8TxvBhBy648CPnmx3BEAB1oy7
-         6Psg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792154779; x=1792759579;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2vp2w6ovy70f2VqzeJRvoANmmDfJOujsOCwhZHkqjIQ=;
-        b=PY18LT5LsQ8otOhHSNJnhtsVF4g0STCt9TACznqTnkbVvy0DZHLAY3TeqjWOnHJhEw
-         ZwdIvSNtYmQhyXf8vSjk10VLBc74NOCv3vFG/eQhzWX2tiE/FEf7PbXR+5OwY/tkq6ej
-         kFJ3vMq0Yo33MwSukzDxpKnk0u6UZ6C5dvXCaSPPnmCWmtr+q+OeArVvnlotWZO7v4Wo
-         kxg5074HLV3hp1XU/JmyYeGwXOgeIEa2AZU4thC6GAiqicm5nbdWv5qtW9MPgzFNinrK
-         Nr5tRuBxMqisLvWURL/7gGi9AKJFYLBXvDyFJ7AREihcvhSqKkiw6cWDb7pWG+AC526+
-         Ijgg==
-X-Forwarded-Encrypted: i=1; AKwUvBzilFJMyO3rBTNsg6vvLL0IeUGdvN3Ae5iqu08niYCU5kRzkVRH3QsHcsBCZUxJN+L/8ymG6M4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIc+nt68koUHV9SxAuIQ6cOaw1HlPhNybLpca0t17MFsPkSlRNi
-	2Ng2WzyTQMqKsfwGI06+WkTBCNlr0+jDpOaexcjKB8qnbUv6rDHvsxgo
-X-Gm-Gg: AYBFou3z1aFpiocw+bte1F0BoC9NS4qhBVFH2PJDXIlBnwSNefUmv10ucMckDcdVFAf
-	in+PAWK2YP2tGwmsydN/jC0wSCE62bq7iblMpqu8J5EgsnHQNuP+N/deL3vw5AAQIXYTgIoFzaA
-	+qg78FBjo5tGa3BtfsfvKcTq3S3VpNd4jDQ46uAfgvRvkLV2AWR1ToVtJOCa8zSsoE1Auy2PFFH
-	hBIzz2kuTZ4IPc30eWgFVqpmBoXdu+u4fKYJGyIGi5Ts4ui2wPOT4y2mTaNRdo0pD6aZd4njrvS
-	a7Z9OgQH8Gn+VPR1Iq1/gMZNspxJPyNFIIl9F79VTD1KmG3Xdbs0YsV84fEAKwrLxN5yILB5hyQ
-	5S45QRtIwl1O8sK6a84BafQEpW5TMkTLm6N/Kuz3x+kEWRo+J4xS6PGXcQ1TRYKEjMlIxv0A8KG
-	gV0N9A2GwqRQNd6b1mGUpEK0TdRhDq+iQYCA6i4atA16n3cTtlLHHrLxjIKPFyWjj5cJoKRwUnQ
-	/i3cUdk4PXFsg==
-X-Received: by 2002:a17:90b:4b09:b0:39e:3713:c2e4 with SMTP id 98e67ed59e1d1-3ab3ac58076mr18715633a91.14.1792154779157;
-        Fri, 16 Oct 2026 05:46:19 -0700 (PDT)
-Received: from DESKTOP-NM9EKIA ([125.134.240.130])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac94627250sm9089769a91.8.2026.10.16.05.46.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 05:46:18 -0700 (PDT)
-From: Joonhoe Kim <26rote@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: brgl@kernel.org,
-	johan@kernel.org,
-	loic.poulain@oss.qualcomm.com,
-	linux-bluetooth@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: qca: check the device address on every setup
-Date: Fri, 16 Oct 2026 21:46:15 +0900
-Message-ID: <20261016124615.61-1-26rote@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="2/NjAVX9"
+Received: from omf03.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay04.hostedemail.com (Postfix) with ESMTP id 71DFC1A03F1;
+	Fri, 16 Oct 2026 12:50:08 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf03.hostedemail.com (Postfix) with ESMTPA id 456626000C;
+	Fri, 16 Oct 2026 12:50:06 +0000 (UTC)
+Date: Fri, 16 Oct 2026 08:50:04 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
+ mathieu.desnoyers@efficios.com, kernel-team@android.com,
+ linux-kernel@vger.kernel.org, maz@kernel.org, oupton@kernel.org,
+ kvmarm@lists.linux.dev, stable@vger.kernel.org, kernel test robot
+ <lkp@intel.com>
+Subject: Re: [PATCH v1] tracing/remotes: Fix TRACE_REMOTE build when
+ TRACING=n
+Message-ID: <20261015180004.2f7da6b9@gandalf.local.home>
+In-Reply-To: <20261015112814.332084-1-vdonnefort@google.com>
+References: <20261015112814.332084-1-vdonnefort@google.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 456626000C
+X-Stat-Signature: e5qr4q1ej99h7j4dzuw63ahkdrw36wzt
+X-Rspamd-Server: rspamout01
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19G+JyMcFu5/yHZATxzznAdFi8WUYXiNOk=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=9nmW7sQ0t25U+FgT2eKiTRK8REkWMAfVAFLVtrkPv/E=; b=2/NjAVX9tWfUGk67YzdKFIz5v94pyPF8ZICYhiJV1zcK1C3RGf1fLXacFTrRUuOfevXv6a0svEecxfLE7khhxrLAeNl4XuqjLG+lSGeaiGNBLeZHjUFSStr/oUveyl2qxDbWcu1un+GJ2Hd7xIaym1UI9yXKg/xIY7ian2TZpSI=
+X-HE-Tag: 1792155006-3091
+X-HE-Meta: U2FsdGVkX18mly2Uv4cUx2B1eIyDr9rJ+2Lxe5r4CR0HcwTwPmv3pvIqGd+mqRSbO7hMWuHUKINtnv1sfU+62+3uM6BgA1/I4prCMwSIr4DUrAniDktwTBNDQ7FYmTwcq4olH21Z9LRmRRgN1abxl/krqEqWIFCzVWYOk3W9PHROXuTPB3dEEA3ALC2Dg17PzTqqnjBSCveQZILiuTAXwyy7qSKXUn6422PPBYoPBpNiFelgNLzAnhNYin51BT5ut6bVzgvoBNYlTpdxUeGOXnWzeV8Rwru9o4GOpSSMZSx1uGM2Oo1x+8QO3dWhGey41hdskym1Rp0kiOUQXpaqAeORqLYih502qfSSiStK+WGvBMiuwCPCiym1fFsGZhkhqUkAu84Auob/HEKxG3KSVzElgMF/ISzK2yrRtv7k44od721KDEx1dtNI4GeMNChWxdt3YYGoo1I=
 
-qca_check_bdaddr() sets HCI_QUIRK_USE_BDADDR_PROPERTY when the
-controller reports the default address from its NVM file, so that the
-core programs the configured address again on every setup. The check
-is skipped once hdev->public_addr is set.
+On Thu, 15 Oct 2026 12:28:14 +0100
+Vincent Donnefort <vdonnefort@google.com> wrote:
 
-If the first setup runs on the ROM firmware because the rampatch and NVM
-files could not be loaded (driver built in, firmware not in the
-initramfs), the check is not reached. Once user space sets the address
-with MGMT_OP_SET_PUBLIC_ADDRESS, every later setup skips it, so the
-controller falls back to the default address on the next power on and
-bonded devices no longer connect. Seen with a WCN7850 on a Lenovo Legion
-Tab Y700 Gen 5.
+> TRACE_REMOTE relies on tracefs, eventfs and ring-buffer which are only
+> built and declared when TRACING is enabled. It is however possible for a
+> config to have FTRACE=y TRACING=n and TRACE_REMOTE=y.
+> 
+> To fix this configuration, have TRACE_REMOTE select TRACING directly,
+> just like other FTRACE options do and drop the TRACING dependency from
+> NVHE_EL2_TRACING to avoid a circular Kconfig dependency.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: ea908a2b79c8 ("tracing: Add a trace remote module for testing")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202610142301.GBepPVmS-lkp@intel.com/
+> Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 
-Check the address on every setup. Setting the quirk while
-hdev->public_addr is set does not make the controller unconfigured, as
-is_configured() only looks at it while no address is set.
+Acked-by: Steven Rostedt <rostedt@goodmis.org>
 
-Fixes: 32868e126c78 ("Bluetooth: qca: fix invalid device address check")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joonhoe Kim <26rote@gmail.com>
----
-Tested with the WCN7850 over UART: the configured address survives
-three power cycles, a bluetoothd restart and an rfkill block/unblock;
-without this patch the first power cycle reverts it. The NVMEM BD
-address series [1] changes the same branch; the two apply in either
-order.
+This can go through the arm64 tree.
 
-[1] https://lore.kernel.org/all/20261015-block-as-nvmem-v11-6-f890ac74f87d@oss.qualcomm.com/
+-- Steve
 
- drivers/bluetooth/btqca.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/drivers/bluetooth/btqca.c b/drivers/bluetooth/btqca.c
-index 22b08ab05b82..756a4a8d5631 100644
---- a/drivers/bluetooth/btqca.c
-+++ b/drivers/bluetooth/btqca.c
-@@ -686,9 +686,6 @@ static int qca_check_bdaddr(struct hci_dev *hdev, const struct qca_fw_config *co
- 	struct sk_buff *skb;
- 	int err;
- 
--	if (bacmp(&hdev->public_addr, BDADDR_ANY))
--		return 0;
--
- 	skb = __hci_cmd_sync(hdev, HCI_OP_READ_BD_ADDR, 0, NULL,
- 			     HCI_INIT_TIMEOUT);
- 	if (IS_ERR(skb)) {
--- 
-2.43.0
+> ---
+>  arch/arm64/kvm/Kconfig | 2 +-
+>  kernel/trace/Kconfig   | 1 +
+>  2 files changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/kvm/Kconfig b/arch/arm64/kvm/Kconfig
+> index 449154f9a485..e179b8ad79e8 100644
+> --- a/arch/arm64/kvm/Kconfig
+> +++ b/arch/arm64/kvm/Kconfig
+> @@ -74,7 +74,7 @@ if NVHE_EL2_DEBUG
+>  
+>  config NVHE_EL2_TRACING
+>  	bool
+> -	depends on TRACING && FTRACE
+> +	depends on FTRACE
+>  	select TRACE_REMOTE
+>  	default y
+>  
+> diff --git a/kernel/trace/Kconfig b/kernel/trace/Kconfig
+> index 0ab5916575a9..6587450cfcd1 100644
+> --- a/kernel/trace/Kconfig
+> +++ b/kernel/trace/Kconfig
+> @@ -1329,6 +1329,7 @@ source "kernel/trace/rv/Kconfig"
+>  
+>  config TRACE_REMOTE
+>  	bool
+> +	select TRACING
+>  
+>  config SIMPLE_RING_BUFFER
+>  	bool
+> 
+> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 
