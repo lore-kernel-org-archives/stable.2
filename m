@@ -1,33 +1,33 @@
-Received: from mta0.migadu.com (out-121.mta0.migadu.com [91.218.175.121])
+Received: from mta0.migadu.com (out-198.mta0.migadu.com [91.218.175.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EC783BA244
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 09:49:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.121
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F07C41D64E
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 09:52:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792144199; cv=none; b=RpSVAHJH31D7NUHWAuENvOzLo1TKU0Op2qCEGhwhKa//bjOFg9bpDPxdaaQBLa+MlROyFDKgZVYqGo896GA+qK10gXPdaAPtZhVjrk1nWWh8PJ/T6tvJQZQBPDJR0+7o3QyG3F7w1WYZpeYRhbx+OkqNd807X03fz15eRhhx1gk=
+	t=1792144346; cv=none; b=mrVM0IGyFsGz4eBMwPiK05jHzDalOw9HFn5TRe/jU1ur3r/DoGtB59Io573HqPaHPdzlPObba6rEKdD4taP/aAyFBhChvGXv6nU9hYWuDiFxdCXUSEjhCSRkBZLsaneU5qk2bOwpa9NO9rZimdXJGiPKdjVIzp5AzcVh2etkqUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792144199; c=relaxed/simple;
-	bh=W4HZiu6j/Fq+Mee4Nsti7eqNIF7myNqYt9HBvlfMVI8=;
+	s=arc-20240116; t=1792144346; c=relaxed/simple;
+	bh=cYDQAo4y4RUVTtwoUXBAS+2ASZSDHzhPf6jkQnpyU60=;
 	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=W5XD+TtPubGjkcNOO0p02qGOZsfUHi00wCcHRGVDkSKfZWPiTYCTRviVJm2qdh61iefhyTgEuRsOGBRGwdIqTb9piKdem3exIOllwuiYmrIkSBUoAAyS1AxbqWDKC5DDJQ2C6jSp4vnQzM6rVT0BobTVjJuRsQz49QqqU/mKdvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cP8evNw9; arc=none smtp.client-ip=91.218.175.121
+	 Message-Id:References:To; b=LR2U0GDnBNR0Jwzw6zsAfkeY7FabWB8QHzag7aEOuwQjbjbRGg4tBsoQeRr9RlDZPed/+Jf9nPBRf7e0JAwqn9l/B1SgyLuBnz1+I6VSK9HwdSqYzbdOKCNQPND3zFlDDYWmuEedVcLxEzKvre0yB6IZOQY4zq/srYIQifGNO3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xB1w8S3z; arc=none smtp.client-ip=91.218.175.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cP8evNw9"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xB1w8S3z"
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=W4HZiu6j/Fq+Mee4Nsti7eqNIF7myNqYt9HBvlfMVI8=;
+DKIM-Signature: a=rsa-sha256; bh=cYDQAo4y4RUVTtwoUXBAS+2ASZSDHzhPf6jkQnpyU60=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792144194; v=1; x=1792748994;
- b=cP8evNw9fEiqcVbs73gA+44NHIPMRHIyeMGW3C38L4FSGSudrXAt4RJMvXp0EQXO90oYRiSI
- xbHnooH2CtTT8XAF37T3cUkx5AbS0lDfrUvo4/MAa/eV5j4YnD4gKrlFHexDf/0U66HyWTvBiqc
- iRt17m0WsF6OQhU5k1CeAxgg=
+ t=1792144342; v=1; x=1792749142;
+ b=xB1w8S3zBSgF2SQ7hQW2j9zrs6T4Rn9vpXhT5nPI1tgerR4OAToFbei3+msLxVTpPkaJTCTe
+ iLeCfqpa9KihhS2EFrkV9JaPzMUsfpv5vkdntsCBTweJtnh3n9KEn6qUptxLwL447hv3Gfn4Bcs
+ mpvSb0+3iWXmexUxpMphehC0=
 X-Envelope-To: stable@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id c8ab28ede6a5f938;
-	Fri, 16 Oct 2026 09:49:54 +0000
-X-Mizu-Trace-ID: c8ab28ede6a5f938
+Received: by mta11.migadu.com with ESMTPS id be15a02e218a3bac;
+	Fri, 16 Oct 2026 09:52:22 +0000
+X-Mizu-Trace-ID: be15a02e218a3bac
 X-Migadu-Flow: FLOW_OUT
 Content-Type: text/plain;
 	charset=us-ascii
@@ -37,11 +37,11 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH 04/10] mm/hugetlb: unmap the page where the other VMA maps
- it
+Subject: Re: [PATCH 05/10] mm/hugetlb: don't clear the resv_map of a VMA whose
+ lock is held
 From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261015-urgent_fixes-v1-4-42796911043b@kernel.org>
-Date: Fri, 16 Oct 2026 17:49:37 +0800
+In-Reply-To: <20261015-urgent_fixes-v1-5-42796911043b@kernel.org>
+Date: Fri, 16 Oct 2026 17:52:04 +0800
 Cc: Andrew Morton <akpm@linux-foundation.org>,
  "Liam R. Howlett" <liam@infradead.org>,
  Lorenzo Stoakes <ljs@kernel.org>,
@@ -63,9 +63,9 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  Chris Mason <mason@kernel.org>,
  stable@vger.kernel.org
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <BAB2117B-1197-4D6C-953B-31F9C33BDD42@linux.dev>
+Message-Id: <92E58ED4-A09C-41CB-A3B8-12F6F834FD87@linux.dev>
 References: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
- <20261015-urgent_fixes-v1-4-42796911043b@kernel.org>
+ <20261015-urgent_fixes-v1-5-42796911043b@kernel.org>
 To: "David Hildenbrand (Arm)" <david@kernel.org>
 X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
@@ -76,110 +76,63 @@ wrote:
 >=20
 > From: Josef Bacik <josef@toxicpanda.com>
 >=20
-> If the owner of a MAP_PRIVATE hugetlb mapping fails to allocate a page
-> for CoW, unmap_ref_private() unmaps the old page from all other =
+> Since commit bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to =
 private
-> VMAs that have no reservation of their own.  It finds them by the =
-offset
-> in the file, but then zaps each of them at the address of the faulting
-> VMA.  Nothing says that another VMA maps the offset at that address: a
-> child can have moved its copy of the VMA with mremap(), and a second
-> mapping of the file is wherever mmap() has put it.
->=20
-> So __unmap_hugepage_range() walks the page tables of the other mm at =
-an
-> address outside of iter_vma, where i_mmap_rwsem of this file protects
-> nothing and where anything can be mapped, and the page stays mapped =
-where
-> it really is.
->=20
-> All of the following was seen on v7.3-rc6+ (g6c377d19d4a5) in KVM =
-guests,
-> as a user without any privilege.  It takes a pool of 2 MiB pages with =
-no
-> free page that is not reserved, so that the allocation fails: the user
-> can take or reserve what is free itself.
->=20
-> - The child moves its VMA away.  The page is never unmapped, the
->   mapcount stays 2, and the owner goes round retry_avoidcopy in
->   hugetlb_wp() until the child is gone or a page becomes free.  =
-SIGKILL
->   to the owner does not end it.  5 of 5 runs.
->=20
-> - The owner's mm has a second private mapping of the offset, made with
->   MAP_NORESERVE.  The owner zaps its own entry and reads zeroes where
->   its data was.  5 of 5 runs.
->=20
-> - The child moves its VMA away and maps a 1 GiB hugetlb page at the =
-old
->   address, so this one takes a pool with a 1 GiB page as well.
->   huge_pte_offset() for the 2 MiB size steps through the PUD
->   leaf, so the "PMD table" is the 1 GiB page itself and its "page =
-table
->   lock" is folio->private of that page, which holds 2.  Kernels with
->   lock debugging oops in __unmap_hugepage_range(), 7 of 7 runs.  =
-Others
->   spin on that word for ever with preemption disabled, 5 of 5 runs:
->=20
->     watchdog: BUG: soft lockup - CPU#0 stuck for 26s! [u_det3:130]
->     RIP: 0010:queued_spin_lock_slowpath+0x8a/0x290
->     RAX: 0000000000000002 RBX: ffffea0001000028
->     Call Trace:
->      __unmap_hugepage_range+0x154/0x6d0
->      unmap_hugepage_range+0xc1/0x140
->      hugetlb_wp+0x55c/0x700
->      hugetlb_fault+0x5f3/0x8f0
->=20
->   RCU stalls follow, and killing all tasks of the user changes =
-nothing.
->   Four such owners, whose children share a single 1 GiB page, took =
-down
->   the whole guest with its four CPUs, 2 of 2 runs: one reported soft
->   lockups on all four, the other gave no sign of life any more.
->=20
->   i_mmap_rwsem stays write locked.  With a MAP_PRIVATE mapping of a
->   hugetlbfs file that belongs to another user, and that the attacker
->   can only read, the next mmap() of that file by its owner sleeps
->   uninterruptibly in __mmap_region(), 4 of 4 runs.
->=20
-> Compute the address from the offset for each VMA.  The tree walk =
-returns
-> only VMAs that cover pgoff, and vm_start, vm_end and vm_pgoff of a =
-hugetlb
-> VMA are aligned to the huge page size, as pgoff is, so the whole range
-> lies inside iter_vma.  Its page tables can not go away there, since =
+> VMAs") the lock of a private hugetlb VMA that owns a reservation is =
 the
-> VMA is unlinked from the file under i_mmap_rwsem first.
+> rw_sema of its resv_map.  The hugetlb_vma_*lock*() helpers find it =
+through
+> vma->vm_private_data, anew for every lock and every unlock.
 >=20
-> With the right address the page is unmapped from all VMAs but the
-> owner's, so the retry in hugetlb_wp() finds a mapcount of 1 and reuses =
-the
-> page.
+> At the end of mremap() the old VMA has to let go of the resv_map, =
+which
+> now belongs to the new VMA: clear_vma_resv_huge_pages() stores NULL =
+into
+> vm_private_data.  mremap() holds mmap_lock for writing and has write
+> locked the VMA, which keeps away everybody who comes through the mm.  =
+It
+> does not keep away those who find the VMA through the file.  For hole
+> punch and truncation hugetlb_vmdelete_list() does
 >=20
-> A child that has moved its copy of the VMA now loses the page, and =
-gets
-> SIGBUS when it faults on a missing page of that VMA.  That is what the
-> comment above the function has always promised to those who do not own
-> the reservation, and what already happens to a child that has left the
-> VMA in place.
+> hugetlb_vma_trylock_write(vma); locks resv_map->rw_sema
+> unmap_hugepage_range(vma, ...);
+> vm_private_data =3D NULL
+> hugetlb_vma_unlock_write(vma); no resv_map: does nothing
 >=20
-> The address has been wrong from the start, and the second case needs
-> only mmap() and fork().  mremap() of hugetlb VMAs, which the other =
-cases
-> use, came with commit 550a7d60bd5e ("mm, hugepages: add mremap() =
-support
-> for hugepage backed vma") in v5.16.
+> and the rw_sema stays write locked for ever:
+>=20
+>  WARNING: lock held when returning to user space!
+>  mremap_punch/116 is leaving the kernel with locks still held!
+>  locks held by mremap_punch/116: 1, last CPU#1:
+>   #0: (&resv_map->rw_sema){+.+.}-{4:4}, at:
+>                                       hugetlb_vmdelete_list+0x46/0x160
+>=20
+> The next fault in the new VMA sleeps in hugetlb_vma_lock_read(),
+> uninterruptibly, and it holds its entry of =
+hugetlb_fault_mutex_table[].
+> That table is global, so a fault of any other process on a page that
+> hashes to the same entry sleeps uninterruptibly as well.
+>=20
+> All those who take the lock of a private VMA without taking the =
+mmap/vma
+> lock are affected: rmap walks. So hold i_mmap_rwsem around the =
+clearing
+> of the resv_map.
+>=20
+> No change of behaviour, other than that mremap() of a hugetlb VMA =
+takes
+> i_mmap_rwsem once more.
 >=20
 > Original fix generated by an LLM and sent in private by Josef.
 >=20
-> Fixes: 04f2cbe35699 ("hugetlb: guarantee that COW faults for a process =
-that called mmap(MAP_PRIVATE) on hugetlbfs will succeed")
+> Fixes: bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private =
+VMAs")
 > Reported-by: Chris Mason <mason@kernel.org>
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ david: switch to vma_filebacked_address, add VM_WARN_ON_ONCE, refine =
-comments]
 > Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> [ david: avoid local variable, move and refine comment, description =
+cleanups+simplifications ]
 > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
 Acked-by: Muchun Song <muchun.song@linux.dev>
