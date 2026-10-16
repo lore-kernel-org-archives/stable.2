@@ -1,205 +1,143 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F7AF4772B5
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 13:55:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792158961; cv=fail; b=jywbXwsWiBiJVZ+bzDc4sJt4CNibRBzNbtMonqGwaQ7RXMcgO88J/otoBFjx7VaI1eWCS/hqxf5TBFzmVUOO707UeNapvfvIjV/UiWfbISSAp2q/pYidMSR48TPviAh9wHYfFphY/O/JaFeISwyAnhamLIb+4g1I6nbM8BKcAuI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792158961; c=relaxed/simple;
-	bh=KpS41h4Lde7SPRJ7TA3aEGhf3PN+s1QSR2fwrDzTPHY=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Q9SbLU+gCVV7fMjk51KmpMft3/nG9wNzjcCFZ15KIuYRFlIqshy4SuM8cNtSN5qSZwSMxOctWEFymxE7JEqH+XB5JXV5D79Gex6j7SeNaxR5Dk/uf4PBpr8lnfooQBScTp3GA7BMAkhrc4kIWRKAZLRrM/v0a1mUjTK6pp3sj8o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RUYlO7iH; arc=fail smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 866343563E1;
+	Fri, 16 Oct 2026 14:01:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792159311; cv=none; b=D/AzTc6UyyqHOAa3I89OVTFQBr/VrqM7xXzi55HTYdHHdQfEZjq9704SqEHTN3mmsVblL4nB3tDEdiiOJOB6G6ypAmSoCf0SftA8ubeR7rr9upZOfHLgNmo+o2W5JXiIIBCz4S3xwfsG7PXs26QbTYP4/6afcQHsB1razO7POT4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792159311; c=relaxed/simple;
+	bh=BRLhYJq+FprxXKwR/7RZHZibWLPJXaCDdw64bUPUOX8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=H+QsN1TAzkHTncEfB2JjZ83rK+ew0lzx8Ae1E7X5SN8teGWV6NON9TdvMcFiNh4NQhg0jXWw0EyXRGfiLkVD57JHXRMLTzPetw7r7/L2MgW4a95uXjBQyNXfm3cUy0LJk+ozjldowoxhL+0EBf6tBMsMW+xUk2C+nPPFpj5pG2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=Pwy7vHAF reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RUYlO7iH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792158959; x=1823694959;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=KpS41h4Lde7SPRJ7TA3aEGhf3PN+s1QSR2fwrDzTPHY=;
-  b=RUYlO7iHypvWWmKDWGvNtpbFQbpADYW8Pjn6UJK6thGaxEAfr2DW81hh
-   ZWY4xiV/OpHU4veo6n9DBCO598g6McfsDAHk1LrMZIC30z4xPug1kj7jE
-   V38ciw+mWVSMOcOXlz/ltCF7YcpPEV9RtGWJIPGQxHkfW8a9oaab9LzGA
-   DmFvG6BIvJYeBxs3O5JiOGqb0obo8Zn0w/y2yNdUTyEK3+GJaKOym7hKi
-   +nUz9W8w3aR2Z5ihmkXoxz71AUwkK559YoZWFJhK4+BRhque6elieu95W
-   oy2tgJXQspZSqcd8fddVerP+dEDWSXnimvci4NyJguy3GLtI8QqzuhtnY
-   Q==;
-X-CSE-ConnectionGUID: aDDXfHOeRWqEQwhQ7gJLWQ==
-X-CSE-MsgGUID: B7AS/vW6QE+gFUNmq3zilA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="820924"
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="820924"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 06:55:58 -0700
-X-CSE-ConnectionGUID: i/kig+FQTfKi67XxcCbknw==
-X-CSE-MsgGUID: aSCYN1mjSdO3cn1pRmLDQQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="2308010"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 06:55:59 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 16 Oct 2026 06:55:57 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Fri, 16 Oct 2026 06:55:57 -0700
-Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.28) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 16 Oct 2026 06:55:57 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cd7VkDOVuGmm4W3Yk0Br6toKCrDIoy+OwCiu68tXACuGv5DRwutwEGVqsc+xrQiAZ4YquRNOq5jWye0/GeCBZbnOWM/ks9GSy/8tvZvhWfALdq6/8hWgjXt61lG/xSRCHHbkHkqrPIM6AZyBXMiAveUPNHqScE1+bcnc5igLc1B4zwqhwqMRKe4kEX4sTHmXr8a9dXaGEC5332bExahTb6/2eYvdPrPLgrOofNkoKFvO6KPSB8rxsAJtmNI19LOHiCdSBGRX9QD3cEBmIggLYkjSGuK/MOkeVS8s3jGcfBuJ6QPi55rRT9VKLznc9wPp2HG+s4C74Mn+z67RCd4gpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VeaYfcqger3UyMnwOlqg2me0ebY+3w8L+aXMvaegmVw=;
- b=YQJUL9ExtOT7/ebKviOuCedHG9t5O3pS3i0/VgfruomePmzTV9e92Wjmcr77NIUU1wHtsLhKg/sntaHLvYQJhZtk5LKr8Bjf573lb974ymutcLcoytr6lZBwozRcShPF74YlhQEdJ+5KBQBKW5v1r5Teatsrudww21E8LbFZJV4fg3GkMW8VE28hwc/R+fZ/RYvzHiUh918BxC9X7Rd8XtccYqn1QCkSF5vlDtpzeZ9XLb+pcWZG6lJWHQO1PjGTFbS7U5c1PKMi19aWU3pWJaTCr3zSFEGDEC9YDjR8aXhJzyLJtEhFGNHQRaOdlIyX1Em/Rv6kzTNCF0QHDxucpQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
- by PH3PPFE26A71A1E.namprd11.prod.outlook.com (2603:10b6:518:1::d58) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Fri, 16 Oct
- 2026 13:55:55 +0000
-Received: from CO1PR11MB4787.namprd11.prod.outlook.com
- ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
- ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 13:55:54 +0000
-Date: Fri, 16 Oct 2026 06:55:53 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-CC: <intel-xe@lists.freedesktop.org>, Christian =?iso-8859-1?Q?K=F6nig?=
-	<christian.koenig@amd.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	<stable@vger.kernel.org>, Matthew Auld <matthew.auld@intel.com>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>
-Subject: Re: [PATCH v4 1/4] drm/xe: Don't abort the shrinker walk on -EBUSY
-Message-ID: <atIs6ZAvUQMnU/aJ@gsse-cloud1.jf.intel.com>
-References: <20261016133523.3622-1-thomas.hellstrom@linux.intel.com>
- <20261016133523.3622-2-thomas.hellstrom@linux.intel.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261016133523.3622-2-thomas.hellstrom@linux.intel.com>
-X-ClientProxiedBy: MW4PR03CA0329.namprd03.prod.outlook.com
- (2603:10b6:303:dd::34) To CO1PR11MB4787.namprd11.prod.outlook.com
- (2603:10b6:303:95::23)
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="Pwy7vHAF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=5y99YE6n0O
+	W+1DNoYGe8C7yFHqiHZPPcb4G9giKUy7U=; b=Pwy7vHAFyrLogh80Ly6BNCcW3c
+	gf1PcKy5aiBcp2+v6oWXInjsGOA+bLhmQi33nHS6MEai8vIxu2E0xre0WfQdJfKg
+	C6FvRuR5dOBxKT9p0m4w3sx7WsXDUM7tLF1hxtwP9RVtJq08B9K06JV7IYniuEWn
+	Uw/NerVDaufeiaCQE=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.96])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkBGSv08LtJqAymrAA--.61730S2;
+	Fri, 16 Oct 2026 22:01:34 +0800 (CST)
+From: 25031212351@stu.xidian.edu.cn
+To: Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hans de Goede <hansg@kernel.org>,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] media: gspca: don't complete buffers before streaming has started
+Date: Fri, 16 Oct 2026 22:01:31 +0800
+Message-Id: <20261016140132.23712-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|PH3PPFE26A71A1E:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4f7db6af-dcf3-405b-bdc6-08df2b8d326d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|261009223027099003|10067099003|11063799006|4143699003|22082099003|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: IIX6Dz0OWOk95B+3n+KIfJPJERSwsE9akXOy9viRGiXmd3PnT3d8OhZWQFbUL2GTibfh9D+0mreucURaE4dG5C8ZX4qLDlsSZdd30C/W8t9KbGCfuvjZY5wuDfzBdPunFoxuLV54VQvlAcNd43v2eaQ60Ow+WHLTPWLw/b31ve44Cwgy/MFor7BoSXy9k+qGC+sEtZYnwkRnB5u3gRxPLS++U2jRXYZ6slWTIr89umd4IMrCrHwPm3IDJjv1Ph/QBj/Ii2832B6op1rnG/bEeGT049KVxZsKhDogqDrCJBfTmBA9Sn7wwwFwGGkI73g95WhDx3zaOVzrHSM3Egqhg9YfYCJd37TW3w8fd2ooUerRzc5w8uQ6Rl7AZyo/3xD6OkMPwRjHBkJS/xnfe0tWOydEyGUMNphZ1L/2JmaNM02SaeifznLQr1AnpIBqFMhKOcDRapqjo29UPdFOi/FBBhkqKwt6+Yp+fEhG4p2OQN6xmwCZs6WCT9bBicCsFicpcp9E99zF9DeeiMVMfMzCte3zwuu0Cgu6gYttvan0z1Y9PXRvIUbtUwRywNu0yGBPHzoXVBztAXDULfOJ0YQAsB/2YcjIyPgPZmqWyUoPVIIm7cHiekFT95jxCp9/HoZCvsS7oCXCns3TQmVg0kMCf7DxE7ieD/BrLwyjoHWouo4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB4787.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(261009223027099003)(10067099003)(11063799006)(4143699003)(22082099003)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?RB3QC1ZOrqr4BbOPDhBa4UZCZ6AZxZpRDv+nP9WhoV6F3zty8HPf8lQ39x?=
- =?iso-8859-1?Q?u2jZMGFQZl5U163K77w9rB4MJ8VUVdRfIW7xVXw819CZTOTJr7pltRWRTP?=
- =?iso-8859-1?Q?9BQWoLcd8Tkmornb0VILug2I8c2C+SiJ/YVk84j83BuFursGN9EGWrV6Mx?=
- =?iso-8859-1?Q?hKkkcroQEBF4gQRndEfq4OchIgJBx7JhN5ZZZoO0cAQOlWb0Ki5P83t4QI?=
- =?iso-8859-1?Q?4tVLY+3vmfrJo5FUUFPEAzzvmn7/rT75JK4U+54evA0akiq6cQEtdZF8ra?=
- =?iso-8859-1?Q?YlD7cpMSAgfIyth7n7NSQytBLgrMjMaW4rrv9tFowwPL7n4Nfr69qXaF2f?=
- =?iso-8859-1?Q?0WN8m0GoeEd3Ig2VPfoKotXquNbktOlByuTuqAutv6HOL3OohjokkrzJHt?=
- =?iso-8859-1?Q?ZMSud339vkvCjKWDkv85eCSJwDcazyzEUq0ixXNIXVZluBw8VnCZxbdysK?=
- =?iso-8859-1?Q?1brA74d8Pp4LxKkKBiaardrpik9PZpg5M4EeyehyheEYzD/hKuCIQQnWkE?=
- =?iso-8859-1?Q?4W8LVLZDg5LLHHV6zf7rf0gyCcltRcDmqhXlXILcjEg/lgK8jx1y4eS97u?=
- =?iso-8859-1?Q?FK1tUFFSt4y5RyI8ER902c8E3k2MZHxhPZSJ7U42sBmvpj30hjgfp3XodT?=
- =?iso-8859-1?Q?9z8Y69syFxQ/IWqQhhNEmqQPuBm2fpB2lqFRs/wgYQqL559tWF68eCC9KL?=
- =?iso-8859-1?Q?3c/WaEJpqv5LvkoC7hXxiHLLltk99beez+AIYA4DqvH1DfAklUL4mzJGWf?=
- =?iso-8859-1?Q?Ho7OpqGs6wO3dvIxnMyeBWULVV6XcfzlqxmsZdsKgHdcl2XerI4MBIV3T0?=
- =?iso-8859-1?Q?q4gKEwcLXQ9rqmyBEWETS6jT9QmMKDQ7AvMsRbmJXcv2C83qGACSQEFxzH?=
- =?iso-8859-1?Q?s9n/kEdyMy6IH34mxv+0Pjzo0By3kKyhjudR8Tcsif7IztwtmGE+RCm7U7?=
- =?iso-8859-1?Q?oGxyhv1g4WTtUncptvWQifez1tiBGhENhrb2nmyWog+0+JjW0ZjvgzkbVM?=
- =?iso-8859-1?Q?OubZPdWfEkCsOPp9qvhfG/Ft8D/pcjOJp2VEk73YYaUcYQYZxz/qXlWPJK?=
- =?iso-8859-1?Q?5WxvJD/QqFZjy/7FseBA9+NFeB0hdjIyCoZxJzbMKBJ/HgKkdaqj5+vlxX?=
- =?iso-8859-1?Q?bd9xsDk+egRnu+pGDeOFiC5cNhjHYWnm6t1ZyOgAleXE6dLMGUsf1z3Tht?=
- =?iso-8859-1?Q?xFuHmFqOUG37fUruMyVnWouHD/Ad0FjvnChjryOJQyJYBEY2RiWbVF/PtV?=
- =?iso-8859-1?Q?Zoq/yKRMsAxudbr4ojfeVoSsbVK1lyh2duw87TcgISYD1u/JSKBYHhgq4E?=
- =?iso-8859-1?Q?tmYzBhJC4Kq+FSgf4RzHtBeKnokThjnQI0jPNF6JsRsIYZFlFfsgawtG1G?=
- =?iso-8859-1?Q?hmMiCn+jqTPj6LycdECZb87y3cnlyRzA5wHC1NfFeMX6OcF57esLcWIdIV?=
- =?iso-8859-1?Q?wKxOB6UAuRBwGMWuvm/rWjHidlZ6bXxFyPWQ3ryugi8kqrfz6CRfTkwz5+?=
- =?iso-8859-1?Q?CLHhKKrUxOC0mIhdAztI4LVGZKRTeh5w5JgpnxHlYuQ42W0zzJ0Kn9bykH?=
- =?iso-8859-1?Q?yZv7WwcH10zOpozON64N4QW4SyFiMlFRc2rn0RAL/WFOerBcjBKSRwWyWD?=
- =?iso-8859-1?Q?uHlsQr1WbW3fXPlL77yQI3FFHn+pNACstY7VKpNu60y4exjLBfN5IpVOHS?=
- =?iso-8859-1?Q?AG0iRjXMtJVUOmVgfUlgWY/7W7ZWqjxJIfT+iUZ4oid3fSdtZH2gjvW2L3?=
- =?iso-8859-1?Q?Z42gyJ1rCSjT4jm+WaxL7C14+pcSU1jD5G5bO1sBEh8Y/sVkW84aswnaD/?=
- =?iso-8859-1?Q?U/1r5ICJ9Q=3D=3D?=
-X-Exchange-RoutingPolicyChecked: N/XeUQKJcP17uLGzthJ7pJv3uW015EewEdyxfDQWUDiA0usXDEIXRMV/EnzFcJe4lRyRFh2n0atMLJazjwhyb11PLfvw4TBO37tvOv9K6CYUkA2dl8/jV+HlzaJpfe4vN0Jk0TcvYMtgBas8+b3TSKUNeFcoLcrrT/J/xKp3psgB9ltttxGHZLCktioiGzyI/+kAnewtgBDr1c4Svdoklxt+Uj9vcLV19rn7fdpp9kwVR85qtYELMLkCK9CwE3IOMaoR/t1cKUo2tBXn07GK13C3fUKaT+KO3smq7wpiuvfJvvzFnwMxpooD9mNgtrQSXwvjIo14iCi5a2TM0HuTqw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f7db6af-dcf3-405b-bdc6-08df2b8d326d
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 13:55:54.8500
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: C/YG2rZlOncGfOHhc8QS9uA6nnWTrM6GIobWP1wAaUBWWsN3+00SOxNlHEG/MPXVlIM0tlbwX42g5G5FSf3UUg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPFE26A71A1E
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BbQMCkBGSv08LtJqAymrAA--.61730S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWFWktrWrKw1xKF15Ar4fKrg_yoW5Zw17pF
+	93KaySy398Jw4kuF47Ww13Ka4rGan7J34UKrWSgwn5Zws8AF9IvFyFyw48WFy7CrZrZrW8
+	tFn8K3s8Ca95taDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPF14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
+	1j6rxdM2vYz4IE04k24VAvwVAKI4IrM2vYz4IE4I80cI0F6IAvxc0EwIxC4wAS0I0E0xvY
+	zxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxV
+	WUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI
+	7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwAKzVCY07xG64k0F24lc7CjxVAaw2AFwI
+	0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG
+	67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MI
+	IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E
+	14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJV
+	W8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfU5Czt
+	UUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUID2rQ7FG19wABsH
 
-On Fri, Oct 16, 2026 at 03:35:20PM +0200, Thomas Hellström wrote:
-> xe_bo_shrink() returns -EBUSY for bos that can't currently be shrunk,
-> for example imported dma-bufs, bos whose vm is currently validating,
-> bos that are still busy after the wait timeout, or bos whose backup
-> fails. The shrinker LRU walk treats any negative return value as
-> fatal and aborts, which also skips the remaining shrinker passes.
-> 
-> As a result, a single such bo, like an imported dma-buf on the
-> XE_PL_TT LRU, prevents reclaim of all bos behind it on the LRU.
-> 
-> Skip bos for which xe_bo_shrink() returns -EBUSY and continue the
-> walk, like the TTM LRU walk does.
-> 
-> v4:
-> - Patch introduced.
-> 
-> Fixes: 00c8efc3180f ("drm/xe: Add a shrinker for xe bos")
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 
-I noticed this on as well.
+gspca enables the data transfers before it knows whether start_streaming()
+will succeed: gspca_init_transfer() sets gspca_dev->streaming before the
+URBs are submitted, so an URB that has already been submitted can complete
+and gspca_frame_add() can hand its buffer to videobuf2 while the remaining
+URBs are still being submitted.
 
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>`
+When one of those submissions fails, gspca_start_streaming() returns the
+buffers that are still queued to vb2 in QUEUED state, but the buffer that
+has already been completed is no longer on the driver's queue, and
+vb2_buffer_done() cannot take it back (it only accepts active buffers).
+vb2_start_streaming() then warns because the driver left a buffer on the
+done list although it failed to start:
 
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Cc: intel-xe@lists.freedesktop.org
-> Cc: <stable@vger.kernel.org> # v6.15+
-> Assisted-by: LLM
-> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> ---
->  drivers/gpu/drm/xe/xe_shrinker.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_shrinker.c b/drivers/gpu/drm/xe/xe_shrinker.c
-> index deb4378c1ec1..4e4da76936f4 100644
-> --- a/drivers/gpu/drm/xe/xe_shrinker.c
-> +++ b/drivers/gpu/drm/xe/xe_shrinker.c
-> @@ -113,6 +113,9 @@ static int __xe_shrinker_walk(struct xe_shrinker *shrinker,
->  				continue;
->  
->  			lret = xe_bo_shrink(ctx, ttm_bo, flags, scanned);
-> +			/* Like the TTM LRU walk, skip bos we can't shrink now. */
-> +			if (lret == -EBUSY)
-> +				continue;
->  			if (lret < 0) {
->  				ret = lret;
->  				goto out;
-> -- 
-> 2.56.0
-> 
+ ------------[ cut here ]------------
+ WARNING: drivers/media/common/videobuf2/videobuf2-core.c:1821 at vb2_start_streaming+0x312/0x680
+ ...
+ Call Trace:
+  <TASK>
+  vb2_core_streamon+0x285/0x470
+  __vb2_init_fileio+0xdc1/0x1120
+  __vb2_perform_fileio+0xa7a/0x15e0
+  vb2_fop_read+0x219/0x3e0
+  v4l2_read+0x1fc/0x320
+  vfs_read+0x1d9/0x980
+  ksys_read+0x111/0x210
+ ...
+ gspca_main: set alt 0 err -19
+ gspca_main: usb_submit_urb alt 1 err -2
+
+This was observed on a camera whose USB configuration was changed from
+userspace while a read() was starting the stream: the endpoint is removed,
+so usb_submit_urb() fails with -ENOENT, and the driver is unbound.
+
+Complete buffers only once streaming has really started, which is what
+vb2_is_streaming() reports, so that a failing start_streaming() always
+leaves the done list empty. Frames that arrive before that are dropped,
+just like frames that arrive when no buffer is queued; this costs at most
+one frame at the beginning of a stream.
+
+Fixes: 1f5965c4dfd7 ("media: gspca: convert to vb2")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/media/usb/gspca/gspca.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
+index 594d73e50b9f..ffaf77af9079 100644
+--- a/drivers/media/usb/gspca/gspca.c
++++ b/drivers/media/usb/gspca/gspca.c
+@@ -392,8 +392,15 @@ void gspca_frame_add(struct gspca_dev *gspca_dev,
+ 	spin_unlock_irqrestore(&gspca_dev->qlock, flags);
+ 
+ 	if (packet_type == FIRST_PACKET) {
+-		/* if there is no queued buffer, discard the whole frame */
+-		if (!buf) {
++		/*
++		 * If there is no queued buffer, discard the whole frame.
++		 * Frames are also discarded while streaming has not been
++		 * started successfully yet: the transfers can already be
++		 * running at that point, but buffers must not be handed to
++		 * vb2 as long as start_streaming() can still fail, since a
++		 * completed buffer cannot be taken back.
++		 */
++		if (!buf || !vb2_is_streaming(&gspca_dev->queue)) {
+ 			gspca_dev->last_packet_type = DISCARD_PACKET;
+ 			gspca_dev->sequence++;
+ 			return;
+-- 
+2.34.1
+
