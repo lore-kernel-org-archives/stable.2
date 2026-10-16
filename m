@@ -1,150 +1,107 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 659E24457BC;
-	Fri, 16 Oct 2026 08:45:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C57234D382
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 08:47:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792140322; cv=none; b=HG/8yDK9KUpujtegVYT2YFJZTGab3lojlPofRHGT8Hhr/kQcT9mocGpVyM29IQwZ65HXJp6SbH3yywl1qL4llcDevcVuERAgbd+ZCRakCUt4lm/V+kV/wv+b0JcqXOSq1QjNbV8cLckf+0MIGldLF8WTsY4s4JaNKJWQKpkRPqw=
+	t=1792140447; cv=none; b=BRtm4Rrxkk6QhgOjnzlCjsKwZuePjlAY/C9bSkshr1Se9CifxlTvjW60IicS9XVDl1YJ9cVriW3eFKPvV1gesd/8QYbnA3LsLiuQbsGCOQ8vIP8Roq8/NxrUO9reX7ulexmjm0WWTdcaCPFl7G6SkdJJNiK2H9yagMnb+GG7roU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792140322; c=relaxed/simple;
-	bh=ffG3ujLaCcGnakxUWK/0aVmPawFTumgtHBab/ATdO+I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h2jNyisnOTPkXujUtcP1cs5qJE/IE7rQQ3S0DWEe9URYAsLy1qCxTe0kbMgvdLMrQybcrHDFf6ddH5wIoHOr0BnzYZ0ynqEI1c5IF7aNYOcuzLlWxmCfAKjN6Pqxb4uCvyDLAy2iBJD+95sdRjtN5y4ORY/rda5aEVeDron+ANY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=BcSaD3hZ; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1792140447; c=relaxed/simple;
+	bh=lxJ9/R+nPocJAVyK7ncDpSazd9bCHXPMmaMpTjYhrIE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IhUKAeFbRzBFRiPG1qp9qFi5ajiPu5h3sS4++EJIPUmnfpE+LzLnae8JESLXEtJew3JBNT3w5cg15gABDhdP9mvuwSsv9j0cZDwcMerWkOe5D13ZEfsxpDZNwMkkz/T2w63JiZP3POfBFvV+JBV62o8v6ZLmGgM9SEM0u27pCSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=DSAwTYht; arc=none smtp.client-ip=209.85.219.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="BcSaD3hZ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=TVJANtvdJWf5QRMFuiNtti7YQ9uQJATM8AZIdiUsz1w=; b=BcSaD3hZmHXZ59Wga5DpwpUkr4
-	LoGfl7WBfWPy56GDNeo70qiTAG44UX+nnfNaEhdZzHS8PoW9imCixnmWPRqn823cVjJ/ppecFaeMB
-	33zRuBZ42/yKb9BjnIvOI3suDswdEGOWM/Qe8HkMNqmhK2ACijTScn11HxJooOPpGAPRtawNyhQUL
-	9KdDt/tSEPfkxEPaHNOVDcQycpFt0hUZSUigiSL6Aajxto23p0d6WbWSUWsc4lsxbwaop5zY2gF2j
-	12oaFxV0tqIGRCTpuj3xMyFy/iJ+ipWsNomcQ82JoJ6hDB9VreGNYVseSJzEwcx5oenRh4lQLd8zf
-	yvWEYaHQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xHdYs-00000001HK9-1diB;
-	Fri, 16 Oct 2026 08:45:10 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 0BB41300178; Fri, 16 Oct 2026 10:45:09 +0200 (CEST)
-Date: Fri, 16 Oct 2026 10:45:08 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Daehyeon Ko <4ncienth@gmail.com>
-Cc: mingo@redhat.com, acme@kernel.org, namhyung@kernel.org,
-	mark.rutland@arm.com, alexander.shishkin@linux.intel.com,
-	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com,
-	james.clark@linaro.org, elver@google.com,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] perf/core: Close owner-list publication race with
- remove-on-exec
-Message-ID: <20261016084508.GQ2009045@noisy.programming.kicks-ass.net>
-References: <20261015123416.795008-1-4ncienth@gmail.com>
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="DSAwTYht"
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-91b63bd2030so73863406d6.3
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 01:47:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1792140444; x=1792745244; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aBhmuSMaG4Pa2MSUzOSH5FgUKD63s+LESTxgG06O3FE=;
+        b=DSAwTYhtVkLiKZR4HzGQ8sEOxcdTU/lsY7UW7HzWEVpEdhi5EOa3LMZS6Hvcelez9o
+         Lh/lsKgs0V2yAZmLY8Wc+AlHObKi1JSurbcujZlMK3gZooHmCqgIdEy3PgAgH7gTmpaB
+         7fhEDrw7vChLbp/QnqyXhwwtp7Ce0ACC1lNJk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792140444; x=1792745244;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aBhmuSMaG4Pa2MSUzOSH5FgUKD63s+LESTxgG06O3FE=;
+        b=WO9LB8yWAsJ2sTr71W1ceOe6qOaQ6ixEeUBHvrihDGDLr4ikVAMm5o8/ygGBK1HTAH
+         FWY+qungPfTDxBFfeKhMQmUiDMGfP+d4GL04EUU+El9zo1s6x04EB/p+dmIlrAPQuahu
+         wniZdX3sMdiPLOxfwJAPnhpZbotKxc3kzTSEanTnXWkuMznyhrVFl7y9XpiFPHn8d2oU
+         9RoMJ7OroBcVRnYVVvRssAUrWxt+gHY+4jFLOU7rjK+4W8e44NX+n8qKwQr6+9N1LHCl
+         DhZA86JIbAR4tMFO8baHCL4tQ/fSge9D3YBbxXyZbzmwAsRSOrka78f0I3CMZS5py7uy
+         ItGg==
+X-Forwarded-Encrypted: i=1; AKwUvBz4LTVaHtQ9MCPCDVhE/J11XIxsxI1OvTWSCHopaxCnLawuZSEH4YyDuOqPyGJtMmss0grqaFQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYISjjiaRNVF5a7p74NL1SXfjLLLaQN5DpeGDGeFVXjpmQr0qiwn
+	75kptSrLIYETf9A3ua4ucKedTdxpnjheXv7sRo/eZqcsB9cZScnz5MBd78LpLN/xgCFchUnVCXY
+	xUMc=
+X-Gm-Gg: AYBFou1ETgefj+u144e8AqnkJCDfiXBu6cfyLKd0t0HiFMQWFQhhIG0QNh76L58wLwq
+	1gm82fTLeOBEdU+UiRlTeeNgXp+cXTenyCMdEezKyXpsyIh2uBVSa6pBtsRWVKW3tnsJ1P1TAoJ
+	hSEGgtis9hSR2nqa3vF9916pYSHZ5uTgksn055+SrW/wrmJE3HEv9kapZ7GRNSmv21yt/1KmGrV
+	d8SHi7bHVrPn9TYzyW3Bmdm8qhVjEHEF363vASGj+wMrNoEWnifWsLGOgpp2IfBMVoQTXx6+47H
+	p24NdqYlbIn2JWEiCgSeFlTT11bHlFWu+88gECLQn7XUFdRAVvXzZ8QBHSIEIZRhtYrSczHJ6rd
+	xKRvdxVI+xj55ZAJvkMdg5FQvuBY6Q52/tvkMLkeithEiJelK9edbbjV725lr5pMR8gUW4+dGmG
+	XKrw4uqSWtllhpjxwDYDchToooTc9ddasggqHH9ESIlcrb1Qt3s11nOSuJQevbQEOxS39ImhLrl
+	2kamxO/OtS0sl1eKkWDgQB5BZPAIAdcQvBNfFsPXkJT
+X-Received: by 2002:a05:6214:240d:b0:91b:9136:d303 with SMTP id 6a1803df08f44-91b9136d5c9mr213297676d6.10.1792140444130;
+        Fri, 16 Oct 2026 01:47:24 -0700 (PDT)
+Received: from mbili.waya ([64.203.83.2])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcb8c4adasm17863946d6.1.2026.10.16.01.47.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 01:47:23 -0700 (PDT)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Victor Nogueira <victor@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Patrick McHardy <kaber@trash.net>,
+	owen kwan <owen@verialabs.com>,
+	linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org,
+	sashiko-bot@kernel.org,
+	zdi-disclosures@trendmicro.com
+Subject: [PATCH net 0/2] net/sched: sch_teql: fix transmit-path regressions
+Date: Fri, 16 Oct 2026 04:47:17 -0400
+Message-Id: <QDISC-Y0BY.v1.r0.20261015184107@mojatatu.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015123416.795008-1-4ncienth@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 15, 2026 at 09:34:16PM +0900, Daehyeon Ko wrote:
-> perf_event_open() makes a user event visible in the target context before
-> adding owner_entry to the opener's perf_event_list.  For a remote task, it
-> also releases exec_update_lock before adding the list node.
-> 
-> A concurrent target exec can therefore process a remove_on_exec event in
-> this interval.  perf_remove_from_owner() sees the published non-NULL owner
-> and calls list_del_init() on the zero-allocated, but not initialized,
-> owner_entry.  DEBUG_LIST reports a NULL-link list corruption and can panic
-> the kernel.
-> 
-> If list corruption reporting is non-fatal, list_del_init() initializes the
-> node and clears the owner.  The open path then adds the ownerless event to
-> the opener's list.  Closing the returned file descriptor frees the event
-> while it remains linked, and the next owner-list insertion accesses the
-> freed object.
-> 
-> Initialize owner_entry when the event is allocated.  After taking the
-> opener's perf_event_mutex, add the node only if the exec side has not
-> cleared the owner.  The existing mutex then makes both orders safe: the
-> open side either publishes the list node before exec removes it, or skips
-> the late add after exec clears the owner.
-> 
-> An unprivileged remote-task reproducer triggered the NULL-link panic on an
-> unmodified hardened kernel.  With corruption reporting made non-fatal, the
-> same reproducer triggered a KASAN use-after-free in the next owner-list
-> insertion.  The patched hardened kernel completed 1,264,540 remote opens
-> during 60 seconds of concurrent exec without a list diagnostic or panic.
-> 
-> Fixes: 2e498d0a74e5 ("perf: Add support for event removal on exec")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-> ---
->  kernel/events/core.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/kernel/events/core.c b/kernel/events/core.c
-> index 7846d70be57f6c..5e191757a08ccc 100644
-> --- a/kernel/events/core.c
-> +++ b/kernel/events/core.c
-> @@ -13382,6 +13382,7 @@ perf_event_alloc(struct perf_event_attr *attr, int cpu,
->  	INIT_LIST_HEAD(&event->rb_entry);
->  	INIT_LIST_HEAD(&event->active_entry);
->  	INIT_LIST_HEAD(&event->addr_filters.list);
-> +	INIT_LIST_HEAD(&event->owner_entry);
->  	INIT_HLIST_NODE(&event->hlist_entry);
->  	INIT_LIST_HEAD(&event->pmu_list);
->  
-> @@ -14252,7 +14253,8 @@ SYSCALL_DEFINE5(perf_event_open,
->  	}
->  
->  	mutex_lock(&current->perf_event_mutex);
-> -	list_add_tail(&event->owner_entry, &current->perf_event_list);
-> +	if (event->owner)
-> +		list_add_tail(&event->owner_entry, &current->perf_event_list);
->  	mutex_unlock(&current->perf_event_mutex);
+Two independent sch_teql regressions on the transmit path.
 
+Patch 1 makes slaves_lock safe for the hard-IRQ-disabled netpoll path and
+for PREEMPT_RT by converting it to a raw spinlock taken with IRQs saved.
 
-So per the locking rules (in the comment above
-perf_event_ctx_lock_nested()), we can take perf_event_mutex inside
-exec_update_lock.
+Patch 2 fixes a use-after-free when a lower virtual device consumes an skb
+but returns NET_XMIT_DROP rather than NETDEV_TX_OK.
 
-Would not moving this list_add into that section also cure the problem
-and with less races?
+Jamal Hadi Salim (1):
+  net/sched: sch_teql: fix slaves_lock IRQ deadlock
 
-That is..
+owen kwan (1):
+  net/sched: sch_teql: fix use-after-free on lower qdisc drop
 
----
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index db7b76d6b68a..4e8508194ee8 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -14286,15 +14286,15 @@ SYSCALL_DEFINE5(perf_event_open,
- 
- 	mutex_unlock(&ctx->mutex);
- 
-+	mutex_lock(&current->perf_event_mutex);
-+	list_add_tail(&event->owner_entry, &current->perf_event_list);
-+	mutex_unlock(&current->perf_event_mutex);
-+
- 	if (task) {
- 		up_read(&task->signal->exec_update_lock);
- 		put_task_struct(task);
- 	}
- 
--	mutex_lock(&current->perf_event_mutex);
--	list_add_tail(&event->owner_entry, &current->perf_event_list);
--	mutex_unlock(&current->perf_event_mutex);
--
- 	/*
- 	 * File reference in group guarantees that group_leader has been
- 	 * kept alive until we place the new event on the sibling_list.
+ net/sched/sch_teql.c | 49 +++++++++++++++++++++++++++-----------------
+ 1 file changed, 30 insertions(+), 19 deletions(-)
+
+-- 
+2.43.0
