@@ -1,162 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9C12264A9;
-	Fri, 16 Oct 2026 13:08:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 447AA4AA56C
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 13:08:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792156086; cv=none; b=GCV+YPWI3KgYYEsPs7yUzOXD7ob+7CfJRHQrvpYcoiRbvDLMYS/PhEJ3bwQZbQpA47a2YHHseVWQJ9zoT0TGAc8slTdsGPOX8fBO5oerIAfDMqEELYuG6CsAPK6sRi1eucPptGq89/HOO5lS64KqbRwW3GRK5r73UTzs8WpJEnU=
+	t=1792156101; cv=none; b=sGzeFs9Xvf5K3TjNJXQeZkgXfaj/4IkyonMkrZ9NyR5f5sK+jpARN7F+E+O7B3GD43BzNlt46FRbcKYNq213vPHQ69i74+R+saYucwUeDy0YJNrUHItXEb30kghIDuCixH793DXDpvKTXzgjhxlj57pkqT6U8B0Phar4Yw0TQn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792156086; c=relaxed/simple;
-	bh=sYjJ0b0+DR9RbJ933aIA6Pe3CVrOOpnmRI/6zRSn1S0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=plYPoZjwGbTcKJmWCEJ5kGy2Tfa/ypB6YK0pyYH/j7Fpr8e5gMH+DYu/K9MfU6UZRyXLWx/AfZWMA55/OhBGLESlZRjIo9x5JH8CAz0fiHpbmJrSJgK3Y+1XMst4v83xOlair0aEQluzxQ7QJtrUR8ucExscy8nAZr5hKE23riI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HhO4bKNA; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792156101; c=relaxed/simple;
+	bh=Z9vuHvIs5djMkOSj7qyB+HFnspgEuOMY5kkZwLyT16k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uug+UlHVGm9slBdYDE18kLZbWLGnmfges7THvc/bHc94f6Jr9uzBlAnlJzqezXLOetCTZVUyyutZCXCh3VxeygIv4ExuP9D7zvhB17McXR64R2ffwqJNpyDulVVN/rJuoscu0+Ug/dbHZKKBSj07l9JYrVKQjaVw4mfu2uast/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mQ+kTy8S; arc=none smtp.client-ip=74.125.227.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HhO4bKNA"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 34044C2BCFA;
-	Fri, 16 Oct 2026 13:08:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792156086;
-	bh=sYjJ0b0+DR9RbJ933aIA6Pe3CVrOOpnmRI/6zRSn1S0=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=HhO4bKNAtFPxYuifk1wT8CFwwmNJKF3TpdRmqlQs3pImRAfB5c0cVImkaM4r9zft9
-	 FciZAqMoQdyMeVg47531TiKv+OLE2f5eeWa1eSBeww7++4Ahsfodr/WrG8IKS4jzXb
-	 lVzflBrwwk8N+qVNE1MdCGDfDUU/KhqAIgUq9HMjtRKAC5T79U9wcYM3AylNqbnpEX
-	 Y8iUvAPH53LbaqKszpdSI/1KePPZ73VnQ5yUHJDg4lpgSWKJi6Jq9gwT8XgCy0lpll
-	 VbwEnwbzSohkWJ/ercfh1taYKwtu1dWY/bkoAKAwiOMuy1TRvIxHOpC762Z8cMNa6R
-	 c+G9PKqlHG5SA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0EEDFCC6B38;
-	Fri, 16 Oct 2026 13:08:06 +0000 (UTC)
-From: Vincent Choiniere via B4 Relay <devnull+choiniere.vincent.hydroquebec.com@kernel.org>
-Date: Fri, 16 Oct 2026 09:08:06 -0400
-Subject: [PATCH net] ice: fix Tx hang dump using stale tx_buf[0].skb
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mQ+kTy8S"
+Received: by mail-pj2-f6.google.com with SMTP id 98e67ed59e1d1-3964e7720afso3405602a91.1
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 06:08:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792156100; x=1792760900; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=m8EDc8rZac4RsFY8nAVqxYalOxuPA5SriPQpdHsNWSs=;
+        b=mQ+kTy8S9dNAksavMLkACgVHGhTePoX8YJcJTFHY1LeEQD0letI3IBBSbRZXPn5yHA
+         RZzUS8WltPxCOpLYFjdK5cE+NluuQefe4XPLeexGUkvztcKul3ByFKm7kBWYqiUAEji5
+         xGpzrrSYez4Lswj0dAcq/6vOKeFYvyjn6LpLDdh3JVMtb5FlwHrH/TJgZdyEXV6j8H/z
+         yrYL/PVbCWfhN2lCjATYSoRc6TbFzEixs/arvdylK9oHrilOyLeQwQEouqzklSn22mly
+         pJ7McIaRbfECCoTz73yqDaYQ3N93t5he+hBQBp0To0J5tw8Tx0zzXAbdfgR6MvNmxhMJ
+         jG0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792156100; x=1792760900;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m8EDc8rZac4RsFY8nAVqxYalOxuPA5SriPQpdHsNWSs=;
+        b=Fyj90mMWaMCEYUcPHlTShh909JO+bdSdYzQi8EynLXOs/49DEoD0GbqSzLISGc0hGR
+         MQ8a3VLY+phFcjMpFatXVxdoHQ5m3Pyrg9jqmKGbOO4x5YjabYVH4ffven4ayK+nF3XD
+         J0ln21MVdOgP06Fdw8lSYT575LbVIAfKFVmZyGflSabrvCV6nDZxUDw1UcasRZcozk0y
+         AOKIld6qvT915eIt4uHCj2GwY5sCYW6nJIOf9b3J+rUhDDhq4lF7Ja0AQVQmG5K4ixcq
+         2k0yya7VCeBVvp0TycmdwJ2Ud3twpuukgtTePR3B98M0jFwcCHWkEWAbaTxG+YsNwBVw
+         JZCw==
+X-Forwarded-Encrypted: i=1; AKwUvBySk2dtCrJNxHtcvBlHvuwbXRgcOgsOhBV/kamfUmNtHaoD5cznzGoEvXCj2zJuERqDlVzzvBc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJb+xumaRh2jVEdx+BwjtsA1XakdgDQzBZ8EbwwA2cJwHTO8eFk
+	6zXjg5x/wM1jCSAaK85w5Z46fz/4WL4Mf9kynhvgq6xkmkGYzSfZlUMiuV7WWdZLIzVbyb+/
+X-Gm-Gg: AYBFou0nHBFWGJOVB+qsK070LAg1cekHu4l0osxpUvc0S9H+k56Iv5WbR9qQbW8eIBF
+	36BFrnigQKqffFgusKSct5zznA+uB58zf12GC7k+YLSqHoGBn2GyDpZYICrvvxDLjK2JvZhxOSC
+	DIS0wkYDtH1J3GOpNWarIrnLLKGqK1hJgk3wvHU0NylwCCDRMg/nt9QgFYSalvmOgQ8bwvRcnjO
+	XiYZf3gQXfjZxBF0FaUJGL/x5EMVUZw163Tmi0D5X2P7C7x97pnuxC6MHg95ZOa2GTZ42dZxyKO
+	00Ly6Zq4ApRXOVRL2RuVyaiE3onjvLApLlUVbcPGaFr6DIA08VDf/zFoaSRlwQvYQmyOAH9LQfz
+	yoIHhIxYgSyCPDThodC+dae9tSRUzv68fu9U8Xfk2n/m0Oeq9P5237Vn/+GnceVYL0i48OAv9TK
+	ZDgnKH6t+JQmd8wHpiBXZVYkXOzeGvoBtiyB0I0UJ8210zToOmAgKTE75Qfi/JPAdf23Vo/NP1c
+	QS80RG4tjGY78oWrH/a
+X-Received: by 2002:a17:90b:258f:b0:3a6:dc51:cce9 with SMTP id 98e67ed59e1d1-3ab3a96634dmr18516390a91.57.1792156099489;
+        Fri, 16 Oct 2026 06:08:19 -0700 (PDT)
+Received: from AERO17.taila7786d.ts.net ([156.231.115.17])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc46ee274sm4190467a91.4.2026.10.16.06.08.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 06:08:18 -0700 (PDT)
+From: Pufan Jin <cyan2254650260@gmail.com>
+To: Mark Brown <broonie@kernel.org>,
+	Michal Simek <michal.simek@amd.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-spi@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] spi: zynq-qspi: fix address buffer corruption and support 4-byte address
+Date: Fri, 16 Oct 2026 21:08:12 +0800
+Message-ID: <20261016130812.282624-1-cyan2254650260@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-ice-tx-hang-dump-v1-1-3df0f5979a51@hydroquebec.com>
-X-B4-Tracking: v=1; b=H4sIALUh0moC/yWMQQrCMBREr1Jm7YemhiBeRVzYZFq/YCxJWgqld
- zfV5ZvhvQ2ZSZlxbTYkLpr1EyuYUwP/fMSRoqEyurZzpjVO1FPKKscnYX5PQut6y2Av5+BQtSl
- x0PWXvCGy4P4f89y/6MsRw75/AVz2cXJ5AAAA
-X-Change-ID: 20261016-ice-tx-hang-dump-e46b4ed483d6
-To: Tony Nguyen <anthony.l.nguyen@intel.com>, 
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
- intel-wired-lan@lists.osuosl.org
-Cc: Aleksandr Loktionov <aleksandr.loktionov@intel.com>, 
- Michal Kubiak <michal.kubiak@intel.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- Vincent Choiniere <choiniere.vincent@hydroquebec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792156085; l=3665;
- i=choiniere.vincent@hydroquebec.com; s=20261016;
- h=from:subject:message-id;
- bh=kt4dx1VrvDe36KXprpuSVG48M5IH9Jew3kkpwsyl//I=;
- b=rpz6gaUYmlu/qQeArQzXjGbdt7hmwbh5F2PXicMHbyd04KAmR7m0AivdHwD8NF8xUWPxaCq66
- vusrlXo13J0B8Xt4KnPmLoDzQSufiqzXYtu2F+evb6a33g6/z8dzX7W
-X-Developer-Key: i=choiniere.vincent@hydroquebec.com; a=ed25519;
- pk=MctQE067DucsZOaNqb+sjY7aQ+urhztuURanagEW3+8=
-X-Endpoint-Received: by B4 Relay for
- choiniere.vincent@hydroquebec.com/20261016 with auth_id=1210
-X-Original-From: Vincent Choiniere <choiniere.vincent@hydroquebec.com>
-Reply-To: choiniere.vincent@hydroquebec.com
+Content-Transfer-Encoding: 8bit
 
-From: Vincent Choiniere <choiniere.vincent@hydroquebec.com>
+In zynq_qspi_exec_mem_op(), when transmitting address bytes, the driver
+iterates over op->addr.nbytes and populates xqspi->txbuf[i]. However,
+xqspi->txbuf is never re-assigned before populating the address, meaning
+it still points to (u8 *)&op->cmd.opcode from the command phase.
 
-ice_tx_hang_reporter_dump() always reads tx_ring->tx_buf[0].skb,
-regardless of next_to_clean. The Tx cleanup path frees the skb and
-marks the buffer empty without clearing the skb pointer, so slot 0 can
-hold a stale pointer. A NULL check alone does not cover this, and
-devlink_fmsg_dump_skb() can fault on the freed skb.
+This causes two severe issues:
+1. Memory corruption: Writing into xqspi->txbuf writes past the opcode
+   buffer on the stack (which was passed as const struct spi_mem_op *).
+   If opcode is zero, xqspi->txbuf is uninitialized.
+2. In zynq_qspi_supports_op(), operations with op->addr.nbytes > 3 are
+   rejected. When paired with SPI NOR flashes larger than 16MB (such as
+   Winbond W25Q256), spi_nor_spimem_check_read_pp_op() tests 4-byte address
+   support, which fails and causes spi_nor_select_read() to drop all read
+   capabilities, failing probe with -EINVAL (-22).
 
-Read tx_buf[next_to_clean] instead, use its skb only if the buffer type
-is ICE_TX_BUF_SKB, and skip the skb dump otherwise.
+The Zynq-7000 QSPI controller hardware in manual I/O mode natively supports
+transmitting 1 to 4 address bytes via its TXD FIFO registers
+(ZYNQ_QSPI_TXD_00_00_OFFSET).
 
-Observed on an E810 PF passed through to a KVM guest (Ubuntu 7.0.0-14,
-PREEMPT_RT, local scheduler patch): a delayed queue IRQ led to a Tx
-timeout and a page fault in devlink_fmsg_dump_skb():
+Fix this by introducing a local opaddr[4] buffer in zynq_qspi_exec_mem_op()
+and explicitly setting xqspi->txbuf = opaddr before populating address
+bytes. Also allow up to 4 address bytes in zynq_qspi_supports_op().
 
- BUG: unable to handle page fault for address: 0000000004cd0c11
- Workqueue: ice ice_service_task [ice]
- RIP: devlink_fmsg_dump_skb+0x2d8/0x5d0
- Call Trace:
-  ice_tx_hang_reporter_dump+0x1ce/0x210 [ice]
-  devlink_health_do_dump+0xcc/0x190
-  devlink_health_report+0x1d7/0x260
-  ice_report_tx_hang+0x7d/0xa0 [ice]
-
-With this change and auto_dump enabled, starving a queue IRQ thread
-reproduced the Tx timeout; the dump contained the test packet, no Oops
-occurred and the PF recovered.
-
-Fixes: 2a82874a3b7b ("ice: add Tx hang devlink health reporter")
-Link: https://lore.kernel.org/all/20260327072332.130320-1-aleksandr.loktionov@intel.com/
+Fixes: 67dca5e580f1 ("spi: spi-mem: Add support for Zynq QSPI controller")
 Cc: stable@vger.kernel.org
-Signed-off-by: Vincent Choiniere <choiniere.vincent@hydroquebec.com>
+Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
 ---
-This complements the NULL check in [1]. With only that check, a non-NULL
-but stale tx_buf[0].skb is still dereferenced by devlink_fmsg_dump_skb().
-I have only reproduced the crash on an Ubuntu 7.0.0-14 kernel with
-PREEMPT_RT and a local scheduler patch, and the skb lifetime against
-concurrent Tx cleanup still needs review. Feedback welcome.
+ drivers/spi/spi-zynq-qspi.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-In my case next_to_clean was 0xfc while the reporter read slot 0.
-Upstream v7.0, v7.2 and current net main (191aa4154) all read
-tx_buf[0].skb unconditionally. Before this change, recovery stayed
-stuck until reboot.
-
-[1] https://lore.kernel.org/all/20260327072332.130320-1-aleksandr.loktionov@intel.com/
----
- drivers/net/ethernet/intel/ice/devlink/health.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/ethernet/intel/ice/devlink/health.c b/drivers/net/ethernet/intel/ice/devlink/health.c
-index 8e9a8a817..059859c36 100644
---- a/drivers/net/ethernet/intel/ice/devlink/health.c
-+++ b/drivers/net/ethernet/intel/ice/devlink/health.c
-@@ -390,12 +390,15 @@ static int ice_tx_hang_reporter_dump(struct devlink_health_reporter *reporter,
- 				     struct netlink_ext_ack *extack)
+diff --git a/drivers/spi/spi-zynq-qspi.c b/drivers/spi/spi-zynq-qspi.c
+index d762aaf45..bfcbcfe85 100644
+--- a/drivers/spi/spi-zynq-qspi.c
++++ b/drivers/spi/spi-zynq-qspi.c
+@@ -229,11 +229,10 @@ static bool zynq_qspi_supports_op(struct spi_mem *mem,
+ 		return false;
+ 
+ 	/*
+-	 * The number of address bytes should be equal to or less than 3 bytes.
++	 * The number of address bytes should be equal to or less than 4 bytes.
+ 	 */
+-	if (op->addr.nbytes > 3)
++	if (op->addr.nbytes > 4)
+ 		return false;
+-
+ 	return true;
+ }
+ 
+@@ -526,6 +525,7 @@ static int zynq_qspi_exec_mem_op(struct spi_mem *mem,
+ 				 const struct spi_mem_op *op)
  {
- 	struct ice_tx_hang_event *event = priv_ctx;
--	struct sk_buff *skb;
-+	struct sk_buff *skb = NULL;
-+	struct ice_tx_buf *tx_buf;
+ 	struct zynq_qspi *xqspi = spi_controller_get_devdata(mem->spi->controller);
++	u8 opaddr[4] __aligned(4);
+ 	int err = 0, i;
+ 	u8 *tmpbuf;
  
- 	if (!event)
- 		return 0;
+@@ -547,12 +547,13 @@ static int zynq_qspi_exec_mem_op(struct spi_mem *mem,
+ 	}
  
--	skb = event->tx_ring->tx_buf->skb;
-+	tx_buf = &event->tx_ring->tx_buf[event->next_to_clean];
-+	if (tx_buf->type == ICE_TX_BUF_SKB)
-+		skb = tx_buf->skb;
- 	devlink_fmsg_obj_nest_start(fmsg);
- 	ICE_DEVLINK_FMSG_PUT_FIELD(fmsg, event, head);
- 	ICE_DEVLINK_FMSG_PUT_FIELD(fmsg, event, intr);
-@@ -409,7 +412,8 @@ static int ice_tx_hang_reporter_dump(struct devlink_health_reporter *reporter,
- 	ice_fmsg_put_ptr(fmsg, "skb-ptr", skb);
- 	devlink_fmsg_binary_pair_put(fmsg, "desc", event->tx_ring->desc,
- 				     event->tx_ring->count * sizeof(struct ice_tx_desc));
--	devlink_fmsg_dump_skb(fmsg, skb);
-+	if (skb)
-+		devlink_fmsg_dump_skb(fmsg, skb);
- 	devlink_fmsg_obj_nest_end(fmsg);
+ 	if (op->addr.nbytes) {
+-		for (i = 0; i < op->addr.nbytes; i++) {
+-			xqspi->txbuf[i] = op->addr.val >>
++		for (i = 0; i < op->addr.nbytes; i++)
++			opaddr[i] = op->addr.val >>
+ 					(8 * (op->addr.nbytes - i - 1));
+-		}
  
- 	return 0;
-
----
-base-commit: 191aa41548b2d2b6af534a6d5cf84a552435c74c
-change-id: 20261016-ice-tx-hang-dump-e46b4ed483d6
-
-Best regards,
---  
-Vincent Choiniere <choiniere.vincent@hydroquebec.com>
-
+ 		reinit_completion(&xqspi->data_completion);
++		xqspi->txbuf = opaddr;
++
+ 		xqspi->rxbuf = NULL;
+ 		xqspi->tx_bytes = op->addr.nbytes;
+ 		xqspi->rx_bytes = op->addr.nbytes;
+-- 
+2.56.0
 
