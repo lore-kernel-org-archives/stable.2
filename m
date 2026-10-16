@@ -1,147 +1,156 @@
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8749A3932FF
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 02:10:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2011F3939A9;
+	Fri, 16 Oct 2026 02:11:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792116659; cv=none; b=n18EYyxtU9JOhmUInqgDLc7a0rV2GJWePUEOoafKtwlB8HiT7wyPs6KQHq5j4mmMcuMhO9kZiButVbktpV0TLRGxfF2dzpOj7pt0eALuiLAGv4QSJCAF5YRI4Dk7NqfgqvLnjCNheStxjbQeYs7Wx7oqLVAovfGqRKN9SWmohOI=
+	t=1792116668; cv=none; b=rRBRgMvplTzkHI03+OoYIkCo3ClCY9053XmgsaOn8Rb04D4lJSx1jnE8O5fVkMxE8DkGwMuMc/7TX7KggYjXxGkTZ7WU4wDNB8GSjpV3Vih6P1Geqb5Q/gZbJd6W4xyXzUGMgJ+7VhHcfH16PuCyheciX0JVepWdHn0K5iKMcDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792116659; c=relaxed/simple;
-	bh=KW7Gxhb9Rs7qDsVvu/Q6QOOYw2rabRWMk5SbCksXKzY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r+1d6i5rtF271/oa1s0Qo3p3bLrBwsNTjPwuTYC8Ykjv8NffRrrM/tmmV9h8exXwxwtplexUuvzHYDaiwn9DdvOIWzYEAKtESWBOMvFNHPYfVV5MUWUsQ9pK52VzSEiHBkKUVSTO3lsNKL3fToqheG7IiWH51eJbqhzfGH7tLNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=eb1ZUjcB; arc=none smtp.client-ip=74.125.82.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1792116668; c=relaxed/simple;
+	bh=hl8pKbwVlYBx6OrPid0iwr1adSPzZWVHUwkOaviPQgk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=kIYDmCwshMhZUv6IEXcTUPXl/NUA4iMabDZOIyRfdtYr6UyZVw5ynrHyLdbk3Sz6jYO8S7BjqtoRZXqUv18HTLVKXDvu0J35ppC25zlvRodx2Yb35in4uxTLk+N1bIk5ksBSmFFq6M27ef0ZT9OkUM4biYeniJjrWKHbP9M2xYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=E32CjZ8r; arc=none smtp.client-ip=18.194.254.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="eb1ZUjcB"
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3514b90bb89so4869426eec.1
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 19:10:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792116653; x=1792721453; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cv7YGJljtETyHQvSebav9gk0BxMvhnrylSgDpKzc0l8=;
-        b=eb1ZUjcBOQpCvH6YlIrE4Nbd+BbLhike/naXXFfZYDLEKxkqwFtS7mHeONUl1mfOTy
-         ugys6CgeQL+rv5WEb4kkE8oD3TtRulRoHLHUtB6ev+uMIf8Yeu35/DUKcR1wxYTZ9c6X
-         qZb68keuuwpfyEsvjh13cRqiF7ZRC8FHvlyFp5AVKfyz66Vdf+eGY15GO18qJTJFx/VP
-         /q4nFquEjqM81gHRPw5v9jZn9HqFY+SXutmS//HY2mUjtdPsC5FBJJ3AH7oQFwGPVtSj
-         xdsV3yIVVEzMPPE5N0/MkE5mmqzIYyyZjWJzOxNAYBcU+HUWP0q11awxxTsxo82RNRoF
-         lt9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792116653; x=1792721453;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cv7YGJljtETyHQvSebav9gk0BxMvhnrylSgDpKzc0l8=;
-        b=v/TaPSK9mCoGlqPBYfCDKtph1QWwKQQo1UEVhse4kO5zBL7JDYWNYBd7iKfwhufyjb
-         ueoq6KVH/XByNa11Ka3fxPPIg7VubK2zgsPZ1yCRvtcWI3582OhkwL1Ojq1F90TjdFgx
-         VExPvoHxolTJlAv5LrW+6X452sAot3RRmhJ8zB6Tn5EoHVPVY+yYaWVg2chWFGCUoe5o
-         XEL0tB9kZoM+T+3a7FIK5oZU6dx+nyrLOHTXVSCxih3uUmHcpKzQKlVtNOj6jQYIR0QC
-         nkQ/J+zgs0qOkm4J9PvYzMtqc8cksNGH/8pZ13cYsrB1qvwdQS6QhUJZ8bR6+EBDll4r
-         rELw==
-X-Gm-Message-State: AFq9FYITx1dptlPiVey1lmNnDev9hzlB9Dn603T54NudCRRymlSqGNYy
-	SaGPiYBqELlOA1z4AxMpnvw090wwBstBKdbzEQBJIdZ/g34p8VIuc6oQjYy7nDmsUXuSnEg71Z0
-	ykPjgcOGFDw==
-X-Gm-Gg: AYBFou2PG18hpeK5F6dZ6MPbLzA+BdRyuUvXagDuHZElVKlIrBJeCUdQcht75pMd9xg
-	Kv7vra08AcraFqzg8dd0zlphJhkasV4WGYEnRxy2bQvICssaRl0zG7zVAawwjMGxLeIya+qeui1
-	0EXMFa5Vi8+eo/Zpc3ouqf45OZrWdDkDA8KwDfH5p0INj6n7hj/w3GRXX+7OKuiBAnhhl50FWLA
-	e86am+5C1u7yLN5j+E6h3X9UyXO36xa0x7Mjav6YgAF/X/B5tYVXosauiT17/7lhzd+wVeiOZ/a
-	NWQFb8Lq5Cr0B4oMdWkEWFazynlNBSUjqWGo6sIJoDdPokNab35UhMHEQFE/VqWkNs91mGNi8d3
-	Ko7lh8bbcBWQMxEOrX5hocL3FjgzuQ1TTGwdGOqTkUpFyFoHNcBur95/5DIBdO1quOKPHj6Ew3V
-	9DcT6lzwLfrgQ7LYo1aXczv1eSlsruw0whLWdZru5RZFZQFPuNOQDA0PLYvH2RotQ0/xem07jZ0
-	+oI/kKTK63iR0XYo9LKoK9BpskSAYIkIGyG60q60jhYkmlCgltcfTUDq/HUN9D+MpRgvmk=
-X-Received: by 2002:a05:7301:6e9a:b0:358:dfed:d0fe with SMTP id 5a478bee46e88-358dfedd5fbmr22336352eec.5.1792116653426;
-        Thu, 15 Oct 2026 19:10:53 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:d66:d0e8:dae3:3257])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608308a87csm2638280eec.28.2026.10.15.19.10.52
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 15 Oct 2026 19:10:53 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: halves@igalia.com,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	luiz.dentz@gmail.com,
-	luiz.von.dentz@intel.com,
-	marcel@holtmann.org
-Subject: [PATCH 6.6.y 1/2] Bluetooth: hci_sync: Set HCI_CMD_DRAIN_WORKQUEUE during device close
-Date: Thu, 15 Oct 2026 22:10:46 -0400
-Message-ID: <20261016021047.16461-2-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261016021047.16461-1-artem@trailofbits.com>
-References: <20261016021047.16461-1-artem@trailofbits.com>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="E32CjZ8r"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1792116613;
+	bh=8osGWg0ilv6J76JQLDUU7vDPE8TuX7X5EONtGKZSgfo=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To;
+	b=E32CjZ8rUpUoYox5gwdJGjMoCY3rfiOzK/2qexQmQyODOifnsB4e+bkX6DImz5Pmp
+	 ulPcYkURcMenqyR8pZqwNigcpIk5cVcFMGvQ4U2rWq9oLjr1TRZ0p+g4lZ4oKbkv9S
+	 AyHgpczE27AJLujqFImk2U+ASwzDzdLExi2/FZMU=
+X-QQ-mid: esmtpsz11t1792116608teb5753b9
+X-QQ-Originating-IP: fqo+3tqnzUYbhVA9m5C2DPTLYD5YFKe9t0LCHV7tYoI=
+Received: from [10.10.7.69] ( [1.202.39.170])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 16 Oct 2026 10:10:06 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 14748860426757089161
+EX-QQ-RecipientCnt: 9
+From: ZhaoJinming <zhaojinming@uniontech.com>
+Date: Fri, 16 Oct 2026 10:09:44 +0800
+Subject: [PATCH 2/3] crypto: qce - fix memory leak of the CCM AAD buffer
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-fix-qce-ccm-adata-leak-v1-2-f54a82af2de0@uniontech.com>
+References: <20261016-fix-qce-ccm-adata-leak-v1-0-f54a82af2de0@uniontech.com>
+In-Reply-To: <20261016-fix-qce-ccm-adata-leak-v1-0-f54a82af2de0@uniontech.com>
+To: Bartosz Golaszewski <brgl@kernel.org>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Thara Gopinath <thara.gopinath@linaro.org>
+Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, ZhaoJinming <zhaojinming@uniontech.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: Ngk7ShESHkQuzwvKvtmkDqfWZAnM6gpFmiELiunz53qJPTvd3eU+lvKY
+	V1StRKaE7ulnFwzSggndfzmwvGaTOfUjg39LOZm1iIovCg/GEjb9aAZp3SJubebkjswvhAY
+	erTVDGfV66JvW72LD6GcpDdIRPWhujlLtpJoGv0ZjxDnkR/zVzGEqtFSMh+kz0T3BEjYP0P
+	GlXTNqaVdRbqAZDsdjbcjnSCbOb27yILt14gv897b9Ue0I+pP4Lm8xy9p6bOCskFncKl6HF
+	0P3c4AX+oMAF+vsif6cfQ0YsJaOGlC3RTXkgaAag126K+l8mWJ2EGW41a1NlquheT7N/dnf
+	/gp49yCXMEfK19yQSl44KE5Y5FIRWdiSJVocPQ1f58dCUL6vssMrjQZzmLteIXBK2/+NMQx
+	+hEFXu4PCbI9CRcVYhG3uCvVnTCf7ckV4DBMYhJ1/5Duba5FEtWR4jN6iGqU6LP9KfggngY
+	peVYTIBOeg9TpysE9vqwv+Nau6WihQGvjrG6KEUR+IEeYbmL2LpkCd10DSKae2ghxD3zPEF
+	zyqmiCdmYbvKGXnkjMeVe01Vvj9U8qnIWTUKh9dUwHCidFytYQdv2qI8MSo/p+nw4SFRbGu
+	qvgKRxBtaJdmKsLQOFnZ90AD7oYPnyRYh4f7egJCehuJeTR3embs/hP6k+HTq/xcO4S7cWp
+	tRXiRYuEHW3bGFd3KmWDA6GT7nm8ofraPaK/Y4ZY9iozujQ1mOfTBiiKe21qG2WteZd5PHI
+	m9Hh8zndJ3AnGbwXaTKSzzjvpATsHctFyDUk2fXY4tUdx4vfOfpO52xf5hE6FJS88G0r+fE
+	8GQCvSf8UfgZLDHoC/iYTjYIw7OWdLVEOUL9Fbzrmce7L4BVxJuA2bJsmuA7+IuSQISDHLl
+	rR+67PmCCDNS3tzODPtdCOmLKvWZaOiko2Tcf5ZMKLI8oAl84vklgsnMCfc5/0uSLwpzTG5
+	ub71CNdKUl7U1LQOInrGAvLP9Bb/aiM/wBHgrW5TDF5wcH9QWAq5um7ZjcC1EbZz6StQUM5
+	41dpkO+mD0bSeQwTfoJPS+q8bxUu99CHMzg0Bob0DXfKwxpvRn
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-From: Heitor Alves de Siqueira <halves@igalia.com>
+qce_aead_ccm_prepare_buf_assoclen() allocates rctx->adata with kzalloc()
+for every CCM request that carries associated data, but the buffer is
+never freed: qce_aead_done() releases only the scatterlist tables, and
+none of the error paths release it either.  Every such request therefore
+leaks a small allocation.
 
-[ Upstream commit 525daaea459fc215f432de1b8debbd9144bf97b0 ]
+Free rctx->adata in the completion handler and on all error paths: the
+sg_copy_to_buffer() and sg_alloc_table() failures in
+qce_aead_ccm_prepare_buf_assoclen() (through the new err_free_adata
+label) and the error cleanup of qce_aead_async_req_handle().
 
-Since hci_dev_close_sync() can now be called during the reset path, we
-should also set HCI_CMD_DRAIN_WORKQUEUE. This avoids queuing timeouts
-while the hdev workqueue is being drained.
+The buffer is referenced by a scatterlist that is DMA-mapped, so it is
+freed only after dma_unmap_sg() has run.  The frees are guarded the same
+way as the surrounding sg_free_table() calls, so no path frees the
+buffer twice or frees a stale pointer.
 
-Fixes: 877afadad2dc ("Bluetooth: When HCI work queue is drained, only queue chained work")
-Signed-off-by: Heitor Alves de Siqueira <halves@igalia.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+Fixes: 9363efb4181c ("crypto: qce - Add support for AEAD algorithms")
+Cc: stable@vger.kernel.org
+Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
 ---
-Hi,
+ drivers/crypto/qce/aead.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-Please consider this backport of the fix for CVE-2026-63974 to 6.6.y.
-
-The code changes are identical to upstream.
-
-The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
-
-Build-tested only as part of a cumulative 6.6.y series on x86_64
-(allmodconfig, CONFIG_WERROR=y); no runtime testing.
-
-Thanks,
-Artem Dinaburg
-
- net/bluetooth/hci_sync.c |    8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index 607667cc357558ffefa812e1cf001ca923fdbf78..0c96e048d8816016c44f8d1b90c99f4addda8ed8 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -5349,6 +5349,12 @@ int hci_dev_close_sync(struct hci_dev *hdev)
+diff --git a/drivers/crypto/qce/aead.c b/drivers/crypto/qce/aead.c
+index f8e6054ff15d..5bf59cb9ae9a 100644
+--- a/drivers/crypto/qce/aead.c
++++ b/drivers/crypto/qce/aead.c
+@@ -53,6 +53,7 @@ static void qce_aead_done(void *data)
+ 			sg_free_table(&rctx->src_tbl);
+ 			if (diff_dst)
+ 				sg_free_table(&rctx->dst_tbl);
++			kfree(rctx->adata);
+ 		} else {
+ 			if (!(IS_DECRYPT(rctx->flags) && !diff_dst))
+ 				sg_free_table(&rctx->dst_tbl);
+@@ -220,8 +221,10 @@ qce_aead_ccm_prepare_buf_assoclen(struct aead_request *req)
+ 	/* Copy the associated data */
+ 	if (sg_copy_to_buffer(req->src, sg_nents_for_len(req->src, assoclen),
+ 			      rctx->adata + adata_header_len,
+-			      assoclen) != assoclen)
+-		return -EINVAL;
++			      assoclen) != assoclen) {
++		ret = -EINVAL;
++		goto err_free_adata;
++	}
  
- 	bt_dev_dbg(hdev, "");
+ 	/* Pad associated data to block size */
+ 	rctx->assoclen = ALIGN(assoclen + adata_header_len, 16);
+@@ -236,7 +239,7 @@ qce_aead_ccm_prepare_buf_assoclen(struct aead_request *req)
+ 	gfp = (req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP) ? GFP_KERNEL : GFP_ATOMIC;
+ 	ret = sg_alloc_table(&rctx->src_tbl, rctx->src_nents, gfp);
+ 	if (ret)
+-		return ret;
++		goto err_free_adata;
  
-+	/* Set HCI_DRAIN_WORKQUEUE flag to prevent queuing work during
-+	 * reset/close. See hci_cmd_work() and handle_cmd_cnt_and_timer().
-+	 */
-+	hci_dev_set_flag(hdev, HCI_CMD_DRAIN_WORKQUEUE);
-+	synchronize_rcu();
-+
- 	cancel_delayed_work(&hdev->power_off);
- 	cancel_delayed_work(&hdev->ncmd_timer);
- 	cancel_delayed_work(&hdev->le_scan_disable);
-@@ -5367,6 +5373,7 @@ int hci_dev_close_sync(struct hci_dev *hdev)
+ 	/* Associated Data */
+ 	sg_init_one(&rctx->adata_sg, rctx->adata, rctx->assoclen);
+@@ -288,6 +291,9 @@ qce_aead_ccm_prepare_buf_assoclen(struct aead_request *req)
+ 	return 0;
+ err_free:
+ 	sg_free_table(&rctx->src_tbl);
++err_free_adata:
++	kfree(rctx->adata);
++	rctx->adata = NULL;
+ 	return ret;
+ }
  
- 	if (!test_and_clear_bit(HCI_UP, &hdev->flags)) {
- 		cancel_delayed_work_sync(&hdev->cmd_timer);
-+		hci_dev_clear_flag(hdev, HCI_CMD_DRAIN_WORKQUEUE);
- 		return err;
+@@ -486,6 +492,7 @@ qce_aead_async_req_handle(struct crypto_async_request *async_req)
+ 		sg_free_table(&rctx->src_tbl);
+ 		if (diff_dst)
+ 			sg_free_table(&rctx->dst_tbl);
++		kfree(rctx->adata);
+ 	} else {
+ 		sg_free_table(&rctx->dst_tbl);
  	}
- 
-@@ -5467,6 +5474,7 @@ int hci_dev_close_sync(struct hci_dev *hdev)
- 	/* Clear flags */
- 	hdev->flags &= BIT(HCI_RAW);
- 	hci_dev_clear_volatile_flags(hdev);
-+	hci_dev_clear_flag(hdev, HCI_CMD_DRAIN_WORKQUEUE);
- 
- 	memset(hdev->eir, 0, sizeof(hdev->eir));
- 	memset(hdev->dev_class, 0, sizeof(hdev->dev_class));
+
+-- 
+2.50.1
+
