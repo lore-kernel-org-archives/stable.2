@@ -1,101 +1,146 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-249.mta0.migadu.com [91.218.175.249])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D51C41836E;
-	Fri, 16 Oct 2026 07:16:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FA4E41D208
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 07:17:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.249
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792134970; cv=none; b=m0KVs0upO/TiZj0UzoOa30P8BQSBg2g1IPDya2cfLt6IB9ui3t2EHY+EZ3mubt7DlqoWvgZjD9m5nKegYbYRCJux49XX/HrFoTtex3NGi6td41etP8XmWffuV8JFsHJNlRDNbHFkWTwH/cnILZK8qBwVKf/E+6D8hYkfmL1dpsg=
+	t=1792135036; cv=none; b=C4UxTeZladkDgrnfiIS6wp6popRBzK4AFtfL3GdNmNt/+/sAu9GEXz2E/8luOZeNfkmOIvby5dfiqcF1sAenyoOdDqpi3QV84Xhwu359NWz9IPA153lgcVvdYMKT6fEqAeuVguLt0/Kn+GMJDnFnoKh1ZbPoS3aWTH5R1QqJqYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792134970; c=relaxed/simple;
-	bh=reMh8EImUs0mPoq7Sn7CI9WwCw+gKKbPUySGUxJmUWA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DLReJ/ghHr2euUtx4nRTjOcz3TD3BFLEsE7tHmpfiW/F2PwYCScTjTPWoZmw/PFk/S867I7P09IMzFxnIOIxImTMd4e+BOD9GuGRE1ZmQYD4PB11nqv+2lS3tDBr7VvtIyPQs8CdppjyhYJUewLkXNiz9eKs8hA2U9XkDxr/iUI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 71d9c718c93111f19a56ed5b684f684d-20261016
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:adc9d3c2-c7d9-4237-8ddd-2956ea1e427c,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:c17ac3be8ee54d42ba4eb173530fc794,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898|915,TC:nil,Content:0|15|52
-	|99,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:
-	0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 71d9c718c93111f19a56ed5b684f684d-20261016
-X-User: lilinmao@kylinos.cn
-Received: from [192.168.1.101] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <lilinmao@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 2073871153; Fri, 16 Oct 2026 15:16:02 +0800
-Message-ID: <cf64cf73-aa31-4a78-82c4-a9a6c866d7cf@kylinos.cn>
-Date: Fri, 16 Oct 2026 15:15:55 +0800
+	s=arc-20240116; t=1792135036; c=relaxed/simple;
+	bh=fGHOWXbRTwGx7Yxv23lsiLlvnmkHusi5Yy0Lxv5YfdA=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=uZRai3DyrUi4Uw92JreYVIv/43MSKjfjVfLVDaALXc4kbhZMDyP7fgfD7yJuImqlmD64JUFHxLA96uwbY8V81ReVNz30nhE0GpHpFM5mHC01vWLTeuIchSLR3O+awrDRX+IK1AwUH5DcrIl3Fb/nSTRCERERNcauGgPCKkf76Oo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uDmM0CGp; arc=none smtp.client-ip=91.218.175.249
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uDmM0CGp"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=fGHOWXbRTwGx7Yxv23lsiLlvnmkHusi5Yy0Lxv5YfdA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792135032; v=1; x=1792739832;
+ b=uDmM0CGpVpoUfiHpJnARnrntdDQdeGzhLbYbIe+gvvE7Nj0TqOkNOe9fk9AjsZl+09VXbc3e
+ VIUFeVkqHNFMxOY/1NginI4otivraK4Ox3AVpkWeeFs0ng5vREno/QlMxJ7bxfI94yiJRblTyDq
+ /lYlwN2s5O7Vyaic3HDQczcA=
+X-Envelope-To: stable@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id b663a7f23a3f7381;
+	Fri, 16 Oct 2026 07:17:11 +0000
+X-Mizu-Trace-ID: b663a7f23a3f7381
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] r8152: Use BMSR to detect the link state
-To: Andrew Lunn <andrew@lunn.ch>, Hayes Wang <hayeswang@realtek.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Chih Kai Hsu <hsu.chih.kai@realtek.com>,
- nic_swsd <nic_swsd@realtek.com>, Birger Koblitz <mail@birger-koblitz.de>,
- Xiangqian Zhang <zhangxiangqian@kylinos.cn>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-References: <20261005105249.1281648-1-lilinmao@kylinos.cn>
- <fd3bff0e63304681b9e5f35f2f57e50e@realtek.com>
- <7a8d21bd-3484-4120-abd6-f7290f919b7d@lunn.ch>
- <2bd3886a-da6e-4703-bd7a-9baa32bfd2f4@kylinos.cn>
- <591ca604-b296-4469-94b5-957d9ba45ae4@lunn.ch>
- <16d9caec96e8449d88ac456e8512f08b@realtek.com>
- <06aaa778-ad49-4e30-b1c6-a7dc68718a21@lunn.ch>
-From: Linmao Li <lilinmao@kylinos.cn>
-In-Reply-To: <06aaa778-ad49-4e30-b1c6-a7dc68718a21@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH 02/10] mm/hugetlb: fix use-after-free of a new anon folio
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261015-urgent_fixes-v1-2-42796911043b@kernel.org>
+Date: Fri, 16 Oct 2026 15:16:54 +0800
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>,
+ Oscar Salvador <osalvador@suse.de>,
+ Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Adam Litke <agl@us.ibm.com>,
+ Mel Gorman <mel@csn.ul.ie>,
+ Rik van Riel <riel@surriel.com>,
+ Peter Xu <peterx@redhat.com>,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Josef Bacik <josef@toxicpanda.com>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <370ADC80-F15F-40FA-A71E-8D641D060138@linux.dev>
+References: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
+ <20261015-urgent_fixes-v1-2-42796911043b@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
 
-在 2026/10/15 0:10, Andrew Lunn 写道:
->>> For those devices which are broken, double read the BMSR.  The danger is,
->>> somebody who quickly unplugs and replugs the cable is not going to get the
->>> down notification. The dhcp client will not restart, so the old IP address will be
->>> used, for the next hour to day, and the network is broken.
->> Could this actually happen?
->> I think it would take several seconds for the link to go down and then come back up.
->> Wouldn't this issue occur only if the link transitions from up to down and back up before the driver processes the link-down event?
-> 802.3 thinks this can happen, otherwise why make it latch?
->
-> If i'm just going from port 7 to port 8 of my switch, it might happen.
->
-> Or i reconfigure my managed switch to change the port from one subnet
-> to another subnet. The RJ45 is not moved, it is just a configuration
-> change. The switch should do a down/up on its side to indicate
-> something has changed, and that needs to be reported to userspace so
-> dhcpcd gets a new IP address.
->
->         Andrew
-Hi Andrew,
 
-Agreed, my replug numbers do not rule out those cases.
+> On Oct 16, 2026, at 00:07, David Hildenbrand (Arm) <david@kernel.org> =
+wrote:
+>=20
+> From: Josef Bacik <josef@toxicpanda.com>
+>=20
+> For a fault in a private mapping with nothing in the page cache,
+> hugetlb_no_page() allocates a folio, locks it and maps it.  The folio =
+has
+> one reference, which belongs to the page table entry from then on.  =
+After
+> dropping the page table lock the function still sets the migratable =
+flag
+> of the folio and unlocks it.
+>=20
+> Whoever zaps the entry in between frees the folio.  The fault holds =
+the
+> fault mutex and the lock of the vma.  MADV_DONTNEED and the first =
+unmap of
+> a hole punch, hugetlb_vmdelete_list(), do not take the fault mutex, =
+and a
+> private vma only has a lock if it owns a reservation map: not with
+> MAP_NORESERVE, and not in the child after fork().
+>=20
+> Then the flag is set in, and folio_unlock() is called on, a folio that =
+is
+> free or has a new owner.  A surplus page goes back to the page =
+allocator
+> while it is locked:
+>=20
+>  BUG: Bad page state in process init  pfn:108e00
+>  flags: 0x200000000000059(locked|uptodate|dirty|head|node=3D0|zone=3D2)
+>  page dumped because: PAGE_FLAGS_CHECK_AT_FREE flag(s) set
+>=20
+> A page of the pool can be given to the next user, of any file, who =
+locks
+> it and loses the lock to the late folio_unlock():
+>=20
+>  kernel BUG at mm/filemap.c:1532!
+>   hugetlb_no_page+0x111b/0x23e0
+>   hugetlb_fault+0x3a9/0x14a0
+>=20
+> An unprivileged process is enough: threads that write to a MAP_PRIVATE =
+|
+> MAP_NORESERVE hugetlb mapping, threads that call MADV_DONTNEED on it, =
+and
+> one that takes the freed pages for another file.
+>=20
+> Until commit 3a47c54f09c4 ("hugetlbfs: revert use i_mmap_rwsem for =
+more
+> pmd sharing synchronization") the fault held i_mmap_rwsem for reading,
+> which everybody who zaps takes for writing.  The lock that commit
+> bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private VMAs") =
+gave
+> to private vmas closed the window again, but only for those with a
+> reservation map.
+>=20
+> Be done with the folio before the page table lock is dropped, as
+> hugetlb_wp() is with its copy.  The function already unlocks page =
+cache
+> folios under that lock.
+>=20
+> Original fix generated by an LLM and sent in private by Josef.
+>=20
+> Fixes: 3a47c54f09c4 ("hugetlbfs: revert use i_mmap_rwsem for more pmd =
+sharing synchronization")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> [ david: simplify+move comment ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Option a) addresses only the speed regression. It keeps the existing
-PLA_PHYSTATUS carrier detection and does not improve reporting of
-short link drops that recover before the link work runs.
+Acked-by: Muchun Song <muchun.song@linux.dev>
 
-I plan to post a) as v3 for net next week, keeping that scope
-explicit. Please let me know if you see a problem with this approach.
+Thanks.
 
-Thanks,
-Linmao
