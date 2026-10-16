@@ -1,121 +1,76 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AE4E199947
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 00:15:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792109732; cv=none; b=N1NzGw9yWrQ49b35Uu08pOvsEk9pnqSi287GT1CQf/pR4vaDqK+1fTdCLZLJhL3J0fnT/4+Di2kUBEF1cNOUxTA6Jltgmq/5+wwclNXWi4+HhRapi4qXxTNVc/rFzka+EI1Kp+qTTJNwYFMv10zZG+BZi8Uc3YIeVgQvBVVneEM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792109732; c=relaxed/simple;
-	bh=+Mg4GKIG7vBJxh3Spr6i8YJoCnvsDKGxlhwXDi5Dpfk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MVNw9wOduJBf9c+uVUfymnETAyXxfE+biQ1+H3wdD3JWi2m9jgwFB/nCEFlBh5b7njez+lO9IswKAHtmep1eSkZW+/QGk2Vd6FfNHxiJwGgTwFlDbrtuTQPNNccEv3V6ppJQESlKYFyym8rvsXV/VgA+2b0U/FDj20Hhfj6p+CA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=ytBAsO4R; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F611264612;
+	Fri, 16 Oct 2026 00:22:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792110136; cv=pass; b=QTHL2B9uRrn0G0wV2lK7Zv6/5ntrCQbr0ETFBzsIuU9jQpUNabpzkT1P50iC5yyogMuK2pjbTkXQqf/FByRg1mY7BVLEOcuQFcExBk/4O/t5RqePQK0f3mEY6q2xxp7Q1nDm2f7KLbqHi/jPTQ1Bm3q2AHLwNQuXvdswOTq545A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792110136; c=relaxed/simple;
+	bh=bP+KVYVAqjLheb6EGd540JgwAFSAWbX/yPhhJ8pICGw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=FGoJIFc9KNvlaVwEasiA3QFVDrUBs9dDLqy6UYMAuNAaL9yj6Wsm33fagwZw2lbXup1HPLgZ112dzrqOaSZmPS/u8MgSyyZnQQBaErF/sqhRD9qtJ3A14zsmd/+DiFocD2q4cX21tE0Ft1eA3tn6gQIfDyALSZNkGWcrKiLmQWU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv; spf=pass smtp.mailfrom=iav.lv; dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b=XHXnt2sz; arc=pass smtp.client-ip=136.143.169.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="ytBAsO4R"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3a4b3ac8fb7so2751709a91.0
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 17:15:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792109729; x=1792714529; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qG3Z5711Og3u/lGH7QsJENyYY+NO7dBeUmZ2sJ109RY=;
-        b=ytBAsO4Rqh3MCtIUTH1vkaCLST77OYPjH5rXiTDKSLeNk0Sj5V8k+RNYZqLv1J19HW
-         0+ke1tyhfudsq62JWLBXymWtzvm2ajDGptUMpByc37KaW9JTfp5ALG0TRt2HCsqOtoiZ
-         cwHXdo2HODd27/ZO3Y4pzjDWAW1sJGO7nzm9o5TsSusfLhu+IqQhuAoKDvzmL/WX3hBq
-         +vZzRSbv58Dwz5BzqO3YLCK8nLKCu4S+RNYrv0YmTOPByrtWO5cAde09fA1tdDl9OJ6T
-         eQWRFtSiWzi6conVXNpP1l/aqpZQisiFXpHKuNmFMqIaI3l7uKht/vhJzWJ0Hujh14Is
-         gCXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792109729; x=1792714529;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qG3Z5711Og3u/lGH7QsJENyYY+NO7dBeUmZ2sJ109RY=;
-        b=vUfb4ETIPLp1dbfcQ/d6jklsliKIvtvdRHM23mta4hVRYl+Lsi3hA94GYI7lalkTtI
-         RyxrD7eywPSLX8hyTXNLxpDUHu2x2peWIc+Z361lFqN8DHN7l8LyP3BRQUpXq2/Xhs9w
-         t+iTimeU9/zv6aXGoDY7yQzGraRYCksCcWXWZOLFIgyuAiKGflKnOvaTKQoDAOhybBLS
-         Qds/bddK+deiKQQKr5dAerzHgJ4XsjuZZa8ZdBw5YfXjJmYOiPnbOXochfwyeqD1iEqO
-         JaBdIRf2U4Wsn6gaJaJWwnQXvOUJTYqvG35dguHpDndtBei7cBwwZnOWJXZJ92/wDJgx
-         OM9w==
-X-Forwarded-Encrypted: i=1; AKwUvBwN3WCHzT5rwcFp9M04EvZDtaNTBBvMpRfOq6+sPstMQnRX/QLNrOtcduBjMMeEhzyCsoqlNfs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJOQLRBe1VkqdjEBgF/6KTIxd3Va106me6wff+aMYQvctNxQjiK
-	emvCxBjAnlAuzbmI1mrAWzJpPo/hlyg284y5cPttDb5lo0NKEPI2rAHTtPfZglwPGcg=
-X-Gm-Gg: AYBFou3Crxqy9Nd45/lVXYUYa6BjGomKT6bc/xXRMdW1lgbmnfB5h+lozLyDbRq0mv7
-	SCr44H+qkVInjPDJhYzq1rwWOJWDW0OJywzlMDFiklB9AwDr5DVeBMe0uKyJLsinpA2K2nUF9Kz
-	R1yJfxMJogYnxftn0wyyk0NeYHtTdt50u7uTO/pR6VH2unkT+9IDQTnW0NXppLtPcZAfFZ6f2kN
-	7PRiv2rz9FriaeGTmZx/8GQkfQVs03L11UK94d6q1iVP8C+fCpEkm+xZ0xFlVdqgXOzdk7R0Pdr
-	P5YFUr7s66scJMsGDfGZUAs0sGYf4fRKDdBFFXNlIIayCrpRepvt4kZEE5UXD2QPRKYnzTSWDYA
-	3oI0XGfcRS70QvtX/pvNb1b/OHb6K+yNoI7DmzOqRXrEoAZIWociMxzFaa47ns8uq8NyKebX1up
-	54PGm7uhbZxTBUZ2rhUOkL4o/+ljUl0lxwj135hYPLoaapOtdmvsbhL/XYkqAY6VfFAEp88VomB
-	RUrl8yJt2a9Pqpp
-X-Received: by 2002:a17:90a:1196:b0:3a8:a1f6:3b32 with SMTP id 98e67ed59e1d1-3ab423f7336mr10912239a91.38.1792109729218;
-        Thu, 15 Oct 2026 17:15:29 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc487cccdsm1311466a91.8.2026.10.15.17.15.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 17:15:28 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	"Martin K . Petersen" <mkp@kernel.org>
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Subject: Re: [PATCH v3 2/5] scsi: aic94xx: validate the EDB index in asd_get_response_tasklet()
-Date: Fri, 16 Oct 2026 09:14:53 +0900
-Message-ID: <20261016001453.232046-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <06bbaf40d9188e478c4b58eaaffb58139839d217.camel@HansenPartnership.com>
-References: <20261015091747.4184349-1-yhlee@isslab.korea.ac.kr> <20261015091747.4184349-3-yhlee@isslab.korea.ac.kr> <06bbaf40d9188e478c4b58eaaffb58139839d217.camel@HansenPartnership.com>
+	dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b="XHXnt2sz"
+ARC-Seal: i=1; a=rsa-sha256; t=1792110110; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=fraCKwKX0fzN5fIIcWea1PgSkWDBUI8OyAjCzt7eKbksO8lpjZJBQ6Ctzk0YsGQjaYpsF0pIgkDoEHjbF3G+xAtfSus19YCuhSmzJRBHpTPTmMf9vKivKk8X1XKENOgAc/1bku+z/Yq4t87A7ntjpCwHyPD8ThLT2jYXChmKunI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1792110110; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=q/KULuIQAtVhjOrq/I9pow3roLZGV4T+euRV0IgVIXA=; 
+	b=NT0LSbcnrdnwcnUdPKnGTczpqXGj2EoPl9sDZs774SGcdP6Aaicb+ZQ7cgpIWOHP56BaD2SPOOfcVvLU9Wd1Iu2cylCXP7ChBZ2aXVA5eJgMWbRa9FlAO65Ao+sHAUrJAOR+xoQYe6au1gKYr50oINwOrtc7rQq/JMgsZT2keII=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iav.lv;
+	spf=pass  smtp.mailfrom=iav@iav.lv;
+	dmarc=pass header.from=<iav@iav.lv>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792110110;
+	s=zoho; d=iav.lv; i=iav@iav.lv;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:In-Reply-To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=q/KULuIQAtVhjOrq/I9pow3roLZGV4T+euRV0IgVIXA=;
+	b=XHXnt2szDmIb1ZtOxhXdd6InOuBLO0IBNrPCTcyDXEtqhCSC5paP3qei6krP0kof
+	UIY4p0kGXAdMv30d6vkqoS8ZaZKr2vyJ4WgqoA7clpfuqHSUhLadjSwkXARn2U94K7V
+	IN8fl3X4veU40Fm7GAEj2F3QbFhI/lgUeeMZGYK8=
+Received: by smtp.zoho.eu with SMTPS id 1792110108025344.3056124488576;
+	Fri, 16 Oct 2026 02:21:48 +0200 (CEST)
+Date: Fri, 16 Oct 2026 03:21:44 +0300
+From: Igor Velkov <iav@iav.lv>
+To: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Cc: =?utf-8?q?Enrique_Hern=C3=A1ndez_Bello?= <ehbello@gmail.com>, shawn.lin@rock-chips.com, lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org, bhelgaas@google.com, robh@kernel.org, heiko@sntech.de, dlemoal@kernel.org, linux-pci@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Igor Velkov <iav@iav.lv>
+Subject: Re: [PATCH v2] PCI: rockchip: Skip the Tpvperl wait when power is already valid
+In-Reply-To: <179196286749.38040.5597453767131590054.b4-reply@b4>
+References: <20260911211559.207990-1-ehbello@gmail.com> <179196286749.38040.5597453767131590054.b4-reply@b4>
+Message-ID: <20261016-h64-pcie-resume-tpvperl@iav.lv>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-> have you actually tested this on real hardware?
+On Wed, 14 Oct 2026 12:57:47 +0530, Manivannan Sadhasivam wrote:
+> I do agree that the Tpvperl delay is *redundant* if the supplies are already
+> enabled by the bootloader. But I do not agree that it causes the Endpoint to not
+> respond.
 
-No -- the hardware is twenty years old and I couldn't get a board. I
-exercised the path by fault injection: built the function into a KUnit
-harness, fed it a status block with those three bits zero, and KASAN
-reported the read one entry before seq->edb_arr[] without the guard and
-nothing with it. That isn't evidence the sequencer does this, and I'm not
-presenting it as such.
+A data point from a Kobol Helios64 (RK3399, JMB585 on pcie0, ep-gpios as in
+the mainline DTS):
 
-> is there any evidence of the sequencer ever setting these three bits
-> to a zero value?
+- Enumeration at boot works with and without this patch.
+- Resume from s2idle fails in rockchip_pcie_resume_noirq. On plain v7.3-rc7
+  with the mainline DTB, 13 cycles pass and the 14th fails with "PCIe link
+  training gen1 timeout"; resume_noirq returns -110 and the board resets.
+  On an Armbian kernel with this patch (all supplies stay enabled across
+  suspend, so the wait is skipped on resume too) the first resume ends in a
+  synchronous external abort in rockchip_pcie_rd_conf from pci_power_up.
+- Plain v7.3-rc7 also hit an asynchronous SError during the bus scan at probe
+  in 1 of 4 boots.
 
-I can't show that it does. I looked for something authoritative -- an
-AIC-9410 done-list/status-block layout -- and there's no public Adaptec
-spec; the sequencer is an opaque request_firmware() blob, and the only
-in-tree description of this field is the commented-out size line just
-above the decode. What the tree does settle is the decode: the index is
-one-based, and the same seq->edb_arr[edb_id + edb_index] access is also
-reached from the empty-buffer path (escb_tasklet_complete ->
-asd_bytes_dmaed_tasklet), where edb < 0 is rejected before the access --
-aic94xx_scb.c:410, the 0xc0 "no buffer" case. The response path reaches
-the identical access with no such check. So it really turns on whether
-the sequencer can set those bits to zero on a response: if you know it
-can't, this is dead code like the second comparison and I'll drop it; if
-the field is as unbounded as it looks, this is the guard the driver
-already applies to the same array on its other producer.
+So on this board the resume failure does not depend on the Tpvperl wait.
 
-> Why the second comparison?  As you say the value could only be -1..6
-> and ASD_EDBS_PER_SCB is defined to 7.
-
-You're right, it's dead -- (resp_sb->flags & 0x70) >> 4 is 0..7, so
-edb_id is -1..6 and -1 is the only out-of-range value. I'll cut it to
-
-	if (edb_id < 0)
-
-here and in the aic94xx_tmf.c copy. (scb.c carries both halves; I can
-make them match whichever you prefer.)
+Igor
