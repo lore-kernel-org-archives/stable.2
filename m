@@ -1,199 +1,179 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011060.outbound.protection.outlook.com [40.107.208.60])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3305C4C151C;
-	Fri, 16 Oct 2026 13:25:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792157153; cv=none; b=sUoEfErgQnlDKwnZV18gNI7nEhiLij3YEMegSLoZrldfc3PoCTrAP6+oOYj7eprv0G9U1J2dXD+hsH0dP75wEfQ+Buj7L9LSL6VCOBiuQByCVOxyDMoTdmyGhVk6DacXf28V5vVpCSGNobqPxOLdxdd6KdL6fhmzhjEo6XkSLsQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792157153; c=relaxed/simple;
-	bh=o/Ckp1rrM6kHYZ25eu+4PLt+sP/3DzaXCIN1wStsUS4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QIyZb50IBa+eGTQyFgcQRcCH7LGUFyt7+nLQNNkxbdlPeg7s9oKnYkdwlYH3cVZh93KF292kjMLAsLbaiiyQ00kRlB40n7BeJvbnTt2xAgS6SN5M8C1oxJSQ6rD9/7gxcMIAoBKW1dWWlj2ekqCRdGIVhtK7baunGD8T29Ejub8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=cgW8WHP0; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3DA047986C;
+	Fri, 16 Oct 2026 13:25:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.60
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792157160; cv=fail; b=ZVLvwr95zYH9bqeJXEcus7XmbR4hlxCiKYDSm3EvRMJ1rED7ZnnECS3vPq/6DWPaw2F3rIo4jQ6qrj0PBjngbTFyslUIxde/tffIDiTXy6ayBPXL6E5V+2t4szg4twV6r4c0ecEgK30it8/1TagZVC12WU7POEq3CrYzGaPxLgU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792157160; c=relaxed/simple;
+	bh=GqJgisMWi2RKYYMfEVi0h1lDVgV2aFSxWCZg5m0tmxc=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pSTOihuchp76+5ftlWD8lBamsKWslq6VTUKdHCeQWdAnJepQtXBlUl9OnfJj0IgfvuC34+6ioFjqQUAOIFXE2+xtVK2zdhiYC6iBLVNyW2Qu+G2zNgtbGi+mjqvTkPUdWRUp7KDrYrBvjILhalvowPNN6WlskZhIoMSjqDMp1r8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DbvG5kvw; arc=fail smtp.client-ip=40.107.208.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="cgW8WHP0"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAEDEE3424962;
-	Fri, 16 Oct 2026 13:25:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=A1oGMJ
-	NudXu36XPK/yxV+yodSQqNeuzr6WgFF4E8wpw=; b=cgW8WHP0tcEwPbkwgMC0h+
-	MhSyL+6DoggdkX+LOnamLDX/LFTDPxdyEXLhsX6VZMNxf7BZbH+UT9R4peVbnWc8
-	vc8zWbd5AU9lREb+oY+gk0zAcSfm6mQO5l+iw8GOI9/r4cvNNkHpO4Nk4v4vUTKI
-	v+m738i/hqD3H+npVjse7ohz3vHu7fzoLfwXwvDSxFC/a/S2rNHo5Sva5rvKIqXM
-	YPTNx0xXQKioSmLTn/ce2Bg/v6Gu8N7QzB1NvMidwwIDqHEJApvUZjP+HPwLDGjm
-	WQ/zRAMv5USdK8mF74sl8K6vNQ9i4JDZ/RN0dYGHVg/S0gTQUG+c3v53l9HUYG7A
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwjevn4-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 16 Oct 2026 13:25:33 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69GAK3ro3580924;
-	Fri, 16 Oct 2026 13:25:32 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hawqww07j-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 16 Oct 2026 13:25:32 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69GDPS6e43647362
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 16 Oct 2026 13:25:28 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5FC7920043;
-	Fri, 16 Oct 2026 13:25:28 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 53C0220040;
-	Fri, 16 Oct 2026 13:25:25 +0000 (GMT)
-Received: from fedora (unknown [9.5.7.39])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri, 16 Oct 2026 13:25:25 +0000 (GMT)
-Date: Fri, 16 Oct 2026 19:03:44 +0530
-From: Amit Machhiwal <amachhiw@linux.ibm.com>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
-        Steven Rostedt <rostedt@goodmis.org>,
-        Masami Hiramatsu <mhiramat@kernel.org>,
-        linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-        Michal =?utf-8?B?U3VjaMOhbmVr?= <msuchanek@suse.de>,
-        Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Harsh Prateek Bora <harshpb@linux.ibm.com>,
-        linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-        kvm-ppc@vger.kernel.org, Mark-PK Tsai <mark-pk.tsai@mediatek.com>,
-        stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] ring-buffer: Do not check si_mem_available() during
- SYSTEM_BOOTING
-Message-ID: <20261016190235.cef361be-9e-amachhiw@linux.ibm.com>
-Mail-Followup-To: Vincent Donnefort <vdonnefort@google.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	Michal =?utf-8?B?U3VjaMOhbmVr?= <msuchanek@suse.de>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	Harsh Prateek Bora <harshpb@linux.ibm.com>, linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
-	kvm-ppc@vger.kernel.org, Mark-PK Tsai <mark-pk.tsai@mediatek.com>, stable@vger.kernel.org
-References: <20261009163557.88467-1-amachhiw@linux.ibm.com>
- <20261009163557.88467-3-amachhiw@linux.ibm.com>
- <as0NDyaXsfQnWPQ4@google.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DbvG5kvw"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ya2w2srduAIjcqNyizxjGaEbJhz9HR0zBBxPpiuWf6wSKx1/Q0lUzYoX0cKrGCuFZVcUU3yMwtGcOlorF6853FvoupmvcrqvV2JQqSR+/Cj/pI0kgOnTUNyiJCdT1ZlV0qfYdkXbMstbU+/8AnrcB8D0FAekoR34P7tCd7n1Imwcpgf9/l3KOzXrSCd3K+9xQ93NsbW2W4PH0Kirmu+7QeS69RZeAwhEW82VOYSZiDpf0eTzc7OYz2Qswa5WnhA5jzXp+85cTbL5JST5y+a3oeYbMSeaDVxD2YO3vDyF+B+XbOUVKs5Kw0t6hLtRIekaSPFVIeibL4bvx/kr0flSzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WFdJO1A88okii5rnjhgZ4CVsYxIlq0YUo1kDvnob/Jw=;
+ b=N/CReEsMTKbrGh24tmnytWpcb3fqsH6aiR+cn9AIsG742IZopGdHTyrgBO9eDgQ80u90aSVsTtyxxJE7iGQ8Q73o5GAkjrdT0Yq49lu1YIPA81+xF6X21yNgRiXFAsTIxTUu/veSW3jYMKO4Wd/VEZC1hI9AnWLg+/EADD9ZbJu51jEG5bGRuvhzFbzR+DRXY2kMjjezXU/bG8PORM1PR5c+SmbeNDDDP0skmXbs5euYiRIALipWyb8qh+fr6/qUXA7ke+8q4D9sqS2EHvJfqxsT/HDYC1KB8i0HiCSI1aPfg6YizkrG/LghivQM9pQoyNK6ayBp+Wk15S4z3vGRHw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WFdJO1A88okii5rnjhgZ4CVsYxIlq0YUo1kDvnob/Jw=;
+ b=DbvG5kvwQYu+9NrKzzpNRb3nrZLGOW0rxrVQ+9220ndwTFqmxRI53BOOoeZ7PKvJIsKsV+cfkc+lR15/uluMtPWVrL6L8Gb8/tnxGk3uaG79KJmLDGrzErX0ApdrrAfAw5u+FFM6vr0/d1y/80kgsKB77Co0u/62lP5PJJiZaiD0Ji9J2OIYP+9UWhYm1UAdNo80OxOYXo6WqMitAe0WnBs4aUTkP1xIGfXzOYc9Y2vyUTHAts2V4FeyEvkWrLLYwbOM6mIQCbZX0DO/KOFSeOFKVg0/6Yr0WdAr+64XnU08Q6FjFOl0MjvbedaQeQ1dfScV1fJAtvFLqWO7QQ05XQ==
+Received: from PH7P220CA0121.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:327::10)
+ by SAWPR12MB999140.namprd12.prod.outlook.com (2603:10b6:806:4e2::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.13; Fri, 16 Oct
+ 2026 13:25:50 +0000
+Received: from BY1PEPF000264B3.namprd02.prod.outlook.com
+ (2603:10b6:510:327:cafe::c) by PH7P220CA0121.outlook.office365.com
+ (2603:10b6:510:327::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Fri,
+ 16 Oct 2026 13:25:50 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BY1PEPF000264B3.mail.protection.outlook.com (10.167.242.120) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 13:25:50 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 16 Oct
+ 2026 06:25:22 -0700
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 16 Oct
+ 2026 06:25:21 -0700
+Received: from build-va-bionic-20260204.nvidia.com (10.127.8.12) by
+ mail.nvidia.com (10.129.68.7) with Microsoft SMTP Server id 15.2.2562.49 via
+ Frontend Transport; Fri, 16 Oct 2026 06:25:21 -0700
+From: Vishwaroop A <va@nvidia.com>
+To: Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter
+	<jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>
+CC: Sowjanya Komatineni <skomatineni@nvidia.com>, Laxman Dewangan
+	<ldewangan@nvidia.com>, Breno Leitao <leitao@debian.org>, Aaron Kling
+	<webgeek1234@gmail.com>, Carol Soto <csoto@nvidia.com>, Suresh Mangipudi
+	<smangipudi@nvidia.com>, Vishwaroop A <va@nvidia.com>,
+	<linux-tegra@vger.kernel.org>, <linux-spi@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: [PATCH 2/2] spi: tegra210-quad: Unmap DMA buffers on transfer timeout
+Date: Fri, 16 Oct 2026 13:25:20 +0000
+Message-ID: <20261016132520.3723412-3-va@nvidia.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20261016132520.3723412-1-va@nvidia.com>
+References: <20261016132520.3723412-1-va@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <as0NDyaXsfQnWPQ4@google.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDA1MiBTYWx0ZWRfX1B7DwnvE2ZEB
- ZRiQKFd017ZkLJ6lx/GN0Yv/cIpG1mfbEPXwKjRV6HaJ6J5OfuVVXY2YF6Qcbl0+jCpe1AAGd+2
- x2BcSvvOjBXzKhv5Wv8cqRDY+PUUtt8YMQrHC/Wk8tdqZ9FPabRSReZGVWxkeHlp1n3IGsExqKA
- lMXlhyBqOCyWW6GlJbnEXDVWD5Rmc1DCwCKyEdoeaUQWpk+EC7950uKr1uqRr/8Y1HZhrIaFPXj
- WNCX9XmloMkDNe3NJWx5pZI7Z3ICStyCShvrrQOMLwy1OuTJzToc9+VUmBJnjEGeVFXuWlzaLj3
- 2aNsA3FjUovGHJRmjb/jzipIQbwCWxS+QUWpPKZeItGavknOe0a4f3LwkgKgn8yIC5hXMLT89vZ
- 0CUp+yain6Hl+VX3kUh/iKs0sg66qTJkmsVaIZKNWOFAYF9QP22qD4uJCwOK4v4CD/QJ4IMxdjP
- YJvJnPPtW4Z7TgPssDA==
-X-Proofpoint-GUID: BI2cxKGAEKJYjpJtdhn7B-QEcpA1kyCp
-X-Proofpoint-ORIG-GUID: qYdT_-xCKwD220TGgWg54Kp8opywLsvm
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDA1MiBTYWx0ZWRfX8QDgacc7g/xQ
- R45WROGLPAbi8OaA0R2kULYl5urC62K2wuewINkM1+Rm44n0HIYLOVTtchd4A32Evje1KsgqdRU
- +wHkkM8pKRO1Ddbq93xCai2bVyWQeXQ=
-X-Authority-Analysis: v=2.4 cv=btHZl0ai c=1 sm=1 tr=0 ts=6ad225cd cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=dlV8YpW79Mn5UFwVz3cA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-16_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 phishscore=0 impostorscore=0 adultscore=0
- lowpriorityscore=0 priorityscore=1501 clxscore=1015 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610160052
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF000264B3:EE_|SAWPR12MB999140:EE_
+X-MS-Office365-Filtering-Correlation-Id: 28a5f86c-0f38-4f21-d7eb-08df2b88fece
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|376014|1800799024|10067099003|22082099003|18002099003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	n/3VlhlP5fxWBKCr4a4PRJEfVI637jKWuCfDjJbJ1yZ5kC2WUADMLqPQDc3PY+nWvrYFnQrz44H0pmvN4hZXxuoYjiTPwlEG7GtrHRmQ/tHPDtK8YfMgkuVHZI7tKCv0e62NDo9DSEDoCvEWsul2AhWGZFOsqQd++ayzOyfpZAAEBOMzC8vH+NMHrimZOBA4Heb6Sbp2UHZeSXfq9F1CEab7dRocKLf4vMQuzmZ9Ji8UYyutGIPKBYDJbrPm88bsFJzbSKdmvkTVccwiZ4uoVmT5ObsT7WdVKyA3rSSe5X3oPcwirqqtVvWX6rCmqBfDwxuipDTmTQv8UV4zkXBIFZDxBz5U8qocpJrz5W+t+IuzLKB7uAjcztChK4KmvRrBBpdfDyKog1O6i6gcMZ7zZ9s1Io4LlbTaUx2BYyXJo+MhH0Edsk7YMYqN1LEzDdBMfc/4flnmzxGkCWcjLLECqy33DScW8tyrC7RC8R7KitzryvOAcFlF/QVpm7ZR1qPZhonD7BFHNQq/ddcgYwVz6k6eESQL73ugg7CQ5KhPZF3eUNB/cCRRswQU/2zUqR7OBgwvOo8lQgpnF9SiOqEc/OtFBAgYydu8tJSRLD5nxwY4LlB2Niy66hx2oqb7WlG++Hagf7kM9iyk0Y6r3ANvInJ6uXVUodQVlE+Lo1mMM3RYboLLWkp0OuR7q/nfRmxwP5Ya0Oxaz5kNW1/tAcbdug==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(376014)(1800799024)(10067099003)(22082099003)(18002099003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	LbGpZqwL04+ZAV0R0rM4b8Ok4fn+itHNgpUaQ1HFz+uXKqR9L1n5efXt/4rzmusZ+Wjf19QAz3Z7ro8/I7IcYnsxbTqoZWGl1uYZqiu+cVAO4mhPn196lgeQfllSsFbVQPJOF2Nex+vDga+iJ+TBdiDmJvNCms5GrFdRMRE14wrc+kE1V7xCkW2F+I/p6ilsZ7smLI4PaCOlY5JuES2nM8Nxc8j2w7DQ7IqUVJXG68TzaEZzP9NAl2vWk/6iccaTSiDRtkwzY1C1U88StNFoGwOmDxYgJ/IEOhU3xyBpMfp+FyJnfRYtCPEibTUeR81uLQTUkLRzn0kyoL4mFmUPdrrGMRxQRpeheDpvvTkJiHt5z4CHbiq99JSEoyokrEmpfKiwBMFYdCjK05MbgyPE5orDwpyo/WKYcmlbkFC+mW/luhBLQvJMshLJFjMod/8a
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 13:25:50.0169
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28a5f86c-0f38-4f21-d7eb-08df2b88fece
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF000264B3.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999140
 
-Hi Vincent,
+tegra_qspi_start_dma_based_transfer() maps the client TX/RX buffers with
+dma_map_single() via tegra_qspi_dma_map_xfer(). The matching unmap only
+happens in handle_dma_based_xfer(), which runs from the interrupt bottom
+half.
 
-Thanks for reviewing this patch.
+When wait_for_completion_timeout() expires and tegra_qspi_handle_timeout()
+cannot establish that the hardware finished, it returns an error without
+the bottom half ever having run. Both transfer paths then abort the
+transfer with tegra_qspi_dma_stop(), reset the controller and clear
+curr_xfer, but never unmap the buffers. Every genuine transfer timeout
+therefore leaks the streaming DMA mappings for that chunk, which
+gradually exhausts the IOVA space on systems with an IOMMU in front of
+QSPI.
 
-On 2026/10/12 05:38 PM, Vincent Donnefort wrote:
-> On Fri, Oct 09, 2026 at 10:05:57PM +0530, Amit Machhiwal wrote:
-> > During early boot (early_trace_init() called from start_kernel()),
-> > tracing allocates initial ring buffers (temp_buffer, array_buffer, and
-> > snapshot_buffer) for CPU 0.
-> > 
-> > Before attempting page allocation, __rb_allocate_pages() performs a
-> > heuristic check using si_mem_available() to return early with -ENOMEM if
-> > memory appears insufficient.
-> > 
-> > However, on kernels built with CONFIG_DEFERRED_STRUCT_PAGE_INIT=y,
-> > defer_init() leaves only a single section per node (e.g.  16 MiB with 64
-> > KB pages) initialized up-front.  On kernels with large static binary
-> > footprints (such as debug configurations enabling PAGE_OWNER,
-> > DEBUG_PAGEALLOC, KFENCE, or SLUB_DEBUG), the static kernel image and
-> > early core initialisations (SLUB caches, vmalloc, static ftrace records)
-> > consume virtually all managed pages in this initial pool.
-> > 
-> > At T=0.000000, watermarks have not yet been established
-> > (totalreserve_pages = 0), so si_mem_available() returns the raw free
-> > page count (often 0-1 pages).  When the snapshot buffer or global trace
-> > buffer attempts to allocate 2 sub-pages, si_mem_available() returns <
-> > nr_pages and prematurely aborts with -ENOMEM.
-> > 
-> > This failure is false: if the page allocation were actually attempted
-> > via alloc_pages_node(), the page allocator would trigger
-> > deferred_grow_zone() on demand to initialise additional deferred memory
-> > sections.  Checking si_mem_available() before attempting the allocation
-> > short-circuits this on-demand growth.
-> > 
-> > Skip the si_mem_available() check when system_state == SYSTEM_BOOTING.
-> > Once the system transitions past early boot and page_alloc_init_late()
-> > initialises all deferred memory, si_mem_available() accurately reflects
-> > system-wide free memory and the check operates as intended for runtime
-> > allocations.
-> > 
-> > Fixes: 2a872fa4e9c8 ("ring-buffer: Check if memory is available before allocation")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Michal Suchánek <msuchanek@suse.de>
-> > Closes: https://lore.kernel.org/all/arYskzbiaNzBR9MD@kunlun.suse.cz/
-> > Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
-> > ---
-> >  kernel/trace/ring_buffer.c | 8 +++++++-
-> >  1 file changed, 7 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-> > index 04bb94c29f58..a9f82e2f8fad 100644
-> > --- a/kernel/trace/ring_buffer.c
-> > +++ b/kernel/trace/ring_buffer.c
-> > @@ -2452,9 +2452,15 @@ static int __rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
-> >  	 * memory. It may not be accurate. But we don't care, we just want
-> >  	 * to prevent doing any allocation when it is obvious that it is
-> >  	 * not going to succeed.
-> > +	 *
-> > +	 * Skip this check during early boot: with CONFIG_DEFERRED_STRUCT_PAGE_INIT,
-> > +	 * NR_FREE_PAGES only reflects the initial non-deferred pool at this
-> > +	 * stage. si_mem_available() returns a false negative while actual
-> > +	 * allocations succeed by growing the zone on demand via
-> > +	 * deferred_grow_zone().
-> 
-> As Sashiko pointed-out, if si_mem_available() is only ready after
-> page_alloc_init_late() when CONFIG_DEFERRED_STRUCT_PAGE_INIT, then checking for
-> system_state >= SYSTEM_FREEING_INITMEM might be more correct.
-> 
-> Also I wonder if we don't want to guard with CONFIG_DEFERRED_STRUCT_PAGE_INIT,
-> to keep the verification when CONFIG_DEFERRED_STRUCT_PAGE_INIT is unset.
+Unmap the transfer after stopping DMA on both timeout error paths. The
+unmap is placed after tegra_qspi_dma_stop() so the DMA engine is
+quiesced before the mappings go away.
 
-Both suggestions adopted in v2 — using system_state >= SYSTEM_FREEING_INITMEM
-and wrapping in #ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT.
+The recovery paths that do reach handle_dma_based_xfer() are unaffected:
+that function always returns IRQ_HANDLED, so tegra_qspi_handle_timeout()
+reports success and the caller's error path is not taken, leaving the
+existing single unmap in place.
 
-Thanks,
-Amit
+Fixes: 921fc1838fb0 ("spi: tegra210-quad: Add support for Tegra210 QSPI controller")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vishwaroop A <va@nvidia.com>
+---
+ drivers/spi/spi-tegra210-quad.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/spi/spi-tegra210-quad.c b/drivers/spi/spi-tegra210-quad.c
+index 4a5933d8112c..b77ad6990e7c 100644
+--- a/drivers/spi/spi-tegra210-quad.c
++++ b/drivers/spi/spi-tegra210-quad.c
+@@ -1488,10 +1488,12 @@ static int tegra_qspi_combined_seq_xfer(struct tegra_qspi *tqspi,
+ 					dev_err(tqspi->dev, "transfer timeout\n");
+ 
+ 					/* Abort transfer by resetting pio/dma bit */
+-					if (tqspi->is_curr_dma_xfer)
++					if (tqspi->is_curr_dma_xfer) {
+ 						tegra_qspi_dma_stop(tqspi);
+-					else
++						tegra_qspi_dma_unmap_xfer(tqspi, xfer);
++					} else {
+ 						tegra_qspi_pio_stop(tqspi);
++					}
+ 
+ 					/* Reset controller if timeout happens */
+ 					tegra_qspi_reset(tqspi);
+@@ -1605,8 +1607,10 @@ static int tegra_qspi_non_combined_seq_xfer(struct tegra_qspi *tqspi,
+ 				WARN_ON(1);
+ 				dev_err(tqspi->dev, "transfer timeout\n");
+ 
+-				if (tqspi->is_curr_dma_xfer)
++				if (tqspi->is_curr_dma_xfer) {
+ 					tegra_qspi_dma_stop(tqspi);
++					tegra_qspi_dma_unmap_xfer(tqspi, xfer);
++				}
+ 
+ 				tegra_qspi_handle_error(tqspi);
+ 				ret = -EIO;
+-- 
+2.17.1
+
