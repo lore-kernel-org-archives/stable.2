@@ -1,76 +1,234 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF7FA81724;
-	Fri, 16 Oct 2026 20:03:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC8F3D093F
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 20:33:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792181007; cv=none; b=trNV2F6gZPvbW8KNkf1Q8GEEJQ/lNP4BFQ25MQ1hCCdI/b3lfD9/4IIThqZzjJ6BgtGLKHXxlDPMIYQi5ac/9WsOwLgOrITiMXHyFXDSA2hcgkv1L3BLLKZLdsV4kjQaSG0hV81JfcguEy/Yyw9bOw3oeFia2Ble/FSZa8hOeUw=
+	t=1792182841; cv=none; b=i4UhRbVqVqZa/Jp6h6aUzsfTVXEZxXiAfLDHPidMyJg03RK7nhGF/E3QZ5F5i2PAHt257TdxVzmnu+Wllpmg2PeSAq3Fv1xQDnwknOIWwHzgG/E4NSUF8nuXteMIjtocs0KLTRUjNw6h6fWpJUt3imkCQYv1X+PjhYqDV6nrv/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792181007; c=relaxed/simple;
-	bh=OZPymKsVyE1AvKyV+4K2m6fwLjrZLCM4GyfeBHYmqS0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MEMU7OF6r2MQZwe+G6zGNNnJqLSWSC9J7si1zvnpt8lpo89Z9hLb4NaV6/ouX6L1E/VQzJK7ljTLQ5/WEN8gAnP+GDe25KiZ/TSC4CUGE3eYBH9lgAqtWow2cb8ZEAkPevcvLg8YELCkAuZ6HqE9ohTOTeceRlQMiDGEuP3z8tk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oX/h2VfM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792182841; c=relaxed/simple;
+	bh=TygfSJn+WeV+hLxkskAc8jlczuBtWjowP9G35H5kE6w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B7jjUAYeoszOkAX+ypAViY6XNfFkcMalpdqqNy6vrrRz+udh9LyjmFqL0PbA03K/+/mhfeIPqFkNosWlRXHBjYY1dE367cNVKht5Fo9FODAddv5Y2sWH1ULYy7NjWY3PqFsjPCpt1Qz5vmvAF78a/+fdFKPevcNcTEQCoSiacpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=nopr67qN; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oX/h2VfM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB90A1F000C4;
-	Fri, 16 Oct 2026 20:03:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792181005;
-	bh=qxqlcReFj8P55EZtLex+VC+MtBEl8JX0dg1/eHJsWiY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=oX/h2VfM7QQzz+A7tLd+PZ9lFuVPLqyFlcy2/5HvWSpVKIHbdxdb/ZySFJc31lLm3
-	 L0REnjaMUUdze7oAt4IaXOSEyWYvWyrFLVV8vd1jbDp+a9xUf72hom8+ZJ1Iayllql
-	 x7VaPZoG9SPzqlW5TRvr9E3HWa/qD6FqCIl5ADvwO0HprpccwZwJ+4SFBqbwhNKU8u
-	 bxchqcJuj0udqpnHPInYLhKoQli+378ga9zlJHfa2nOgv+RGy1bTw4L8TmmQvQ1ojV
-	 GkafiBiChnzsXxHE7f8EweYPYSCOz4HyUWqy6rpqmx4YK001AGyUF7+Ivgc3cH4uNm
-	 nCcN4QA3eJzew==
-Date: Fri, 16 Oct 2026 21:03:19 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Alison Schofield <alison.schofield@intel.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>, Dave Jiang <dave.jiang@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Ira Weiny <iweiny@kernel.org>, Li
- Ming <ming.li@zohomail.com>, Richard Cheng <icheng@nvidia.com>,
- linux-cxl@vger.kernel.org, Gaobin Huang <huanggaobin23@semi.ac.cn>,
- stable@vger.kernel.org
-Subject: Re: [PATCH 3/4] cxl/mbox: Treat unknown device return codes as
- errors
-Message-ID: <20261016210319.5a2a5809@jic23-hlaptop>
-In-Reply-To: <3ed8f5db3f21c937d8783f31ee6faca3703ba72a.1791949910.git.alison.schofield@intel.com>
-References: <cover.1791949910.git.alison.schofield@intel.com>
-	<3ed8f5db3f21c937d8783f31ee6faca3703ba72a.1791949910.git.alison.schofield@intel.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="nopr67qN"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6388EA158D;
+	Fri, 16 Oct 2026 22:33:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1792182831; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=6ap5KLR9XdVIrlJuIyyG4PwRTWPL0S9+QV4qm5uj+o8=;
+	b=nopr67qNBXfe7E4aar/kvXBad0SbMEdh7TM4eFhGEcn+kYivyBeNfyqIyiM29J4PZfNv01
+	zPcx+xY5agHMK6jEzmsQEuGsNGlH6eowPIMaRpsrerXlikrQFixlvCDb0bJ1zMb4d1s5JF
+	vbxTR57izfJgSGGCyMV6a4TV6pnQnyTDyD7cj8UXgrTDPldBOG1TwGSeRmyIErXnQQNsYC
+	onUaHBqNZ4fyQabn/ip7NeGeWH/XZUUZjYmfdrKqEiUWihwaei0ckWEZom8iRAg5FNziI/
+	Jqc6MDGGzRxG+9u0NvmPL03KE7WsaOWCM6hgL1qnsBcby7mk0mKAM55vyPqljQ==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: stable@vger.kernel.org
+Cc: Matteo Croce <technoboy85@gmail.com>,
+	Timothy Redaelli <tredaelli@redhat.com>,
+	OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>,
+	Matteo Croce <teknoraver@meta.com>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Nicolai Buchwitz <nb@tipi-net.de>
+Subject: [PATCH 6.12.y] fat: stop reading directory entries past the end-of-directory marker
+Date: Fri, 16 Oct 2026 22:33:33 +0200
+Message-ID: <20261016203333.2963536-1-nb@tipi-net.de>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, 13 Oct 2026 21:17:54 -0700
-Alison Schofield <alison.schofield@intel.com> wrote:
+From: Matteo Croce <technoboy85@gmail.com>
 
-> From: Gaobin Huang <huanggaobin23@semi.ac.cn>
-> 
-> cxl_mbox_cmd_rc2errno() and cxl_mbox_cmd_rc2str() use the device's 16-bit
-> return code to index cxl_mbox_cmd_rctable[]. A return code outside the
-> table's range causes an out-of-bounds read, potentially allowing a failed
-> command to be reported as successful.
-> 
-> Check the return code against the table size. Report unknown codes as
-> -ENXIO, the errno used for most device-reported errors, and describe them
-> as "unknown return code".
-> 
-> Found with a QEMU Type-3 device returning codes 001Fh and 0020h, which are defined in CXL 4.0 but not yet recognized by Linux [1].
-> 
-> [1] https://lore.kernel.org/linux-cxl/20260929060747.3550005-1-huanggaobin23@semi.ac.cn/
-> 
-> Fixes: 92fcc1abab09 ("cxl/mbox: Improve handling of mbox_cmd hw return codes")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gaobin Huang <huanggaobin23@semi.ac.cn>
-> Co-developed-by: Alison Schofield <alison.schofield@intel.com>
-> Signed-off-by: Alison Schofield <alison.schofield@intel.com>
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+commit 6a2875517c778ac1111b6920e94cbab91cda8724 upstream.
+
+The FAT specification[1] (FAT Directory Structure -> "DIR_Name[0]") states:
+
+    If DIR_Name[0] == 0x00, then the directory entry is free (same as for
+    0xE5), and there are no allocated directory entries after this one
+    (all of the DIR_Name[0] bytes in all of the entries after this one
+    are also set to 0).
+
+    The special 0 value, rather than the 0xE5 value, indicates to FAT
+    file system driver code that the rest of the entries in this
+    directory do not need to be examined because they are all free.
+
+Linux did not honour this. fat_get_entry() kept advancing past the 0x00
+terminator; if the trailing on-disk slots were not zero-filled (buggy
+formatters, read-only media written by other operating systems, on-disk
+corruption) the driver surfaced arbitrary bytes as real directory
+entries. On a typical affected image, `ls /mnt` returns ~150 bogus
+entries with random binary names, multi-gigabyte sizes, dates ranging
+from 1980 to 2106, and a flood of -EIO from stat().
+
+Earlier attempts (v1..v3, see [2][3][4]) added `de->name[0] == 0` guards
+at each call site. As Hirofumi pointed out on v3, those guards reject
+the entry but fat_get_entry() has already advanced *pos past it; the
+next readdir() resumes after the marker and walks straight back into
+the garbage. His suggestion was to centralise the check.
+
+This patch:
+
+  * Adds fat_get_entry_eod(), a small wrapper around fat_get_entry()
+    that returns -1 when name[0] == 0 and seeks *pos to dir->i_size.
+    Per spec every slot after the 0x00 marker is also zero, so jumping
+    to the end of the directory is correct: subsequent reads return -1
+    from fat_bmap() without re-fetching trailing zero slots, and
+    callers persisting *pos across invocations (notably readdir's
+    ctx->pos) keep reporting end-of-directory on re-entry.
+
+  * Converts the read/search paths to use the new wrapper:
+      fat_parse_long(), fat_search_long(), __fat_readdir(),
+      and fat_get_short_entry() -- the last covers
+      fat_get_dotdot_entry(), fat_dir_empty(), fat_subdirs(),
+      fat_scan(), and fat_scan_logstart() transitively.
+
+  * Leaves fat_add_entries() and __fat_remove_entries() on raw
+    fat_get_entry(): the write paths legitimately need to operate on
+    free/zero slots. fat_add_entries() additionally detects an
+    allocated entry past a 0x00 marker (the spec violation that
+    produces the garbage) and treats it as filesystem corruption:
+    fat_fs_error_ratelimit() is called -- which honours the configured
+    errors= mount option (panic / remount-ro / continue) -- and the
+    operation returns -EIO so we don't write fresh entries into an
+    already-corrupt directory.
+
+[1] https://download.microsoft.com/download/1/6/1/161ba512-40e2-4cc9-843a-923143f3456c/fatgen103.doc
+[2] https://lore.kernel.org/lkml/20181207013410.7050-1-mcroce@redhat.com/
+[3] https://lore.kernel.org/lkml/20181216231510.26854-1-mcroce@redhat.com/
+[4] https://lore.kernel.org/lkml/20190201001408.7453-1-mcroce@redhat.com/
+
+Reported-by: Timothy Redaelli <tredaelli@redhat.com>
+Suggested-by: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Signed-off-by: Matteo Croce <teknoraver@meta.com>
+Link: https://patch.msgid.link/20260616163346.32603-1-technoboy85@gmail.com
+Acked-by: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[nb: keep i_pos in fat_add_entries(), it is still used here because
+  the fat_add_new_entries() rework is not in this tree]
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+---
+ fs/fat/dir.c | 44 ++++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 40 insertions(+), 4 deletions(-)
+
+diff --git a/fs/fat/dir.c b/fs/fat/dir.c
+index acbec5bdd5210..ce6b87210e189 100644
+--- a/fs/fat/dir.c
++++ b/fs/fat/dir.c
+@@ -128,6 +128,31 @@ static inline int fat_get_entry(struct inode *dir, loff_t *pos,
+ 	return fat__get_entry(dir, pos, bh, de);
+ }
+ 
++/*
++ * Like fat_get_entry(), but honour the FAT end-of-directory marker:
++ * a dirent whose first name byte is NUL terminates iteration per the
++ * spec, which also guarantees that every following slot is zeroed.
++ * Skip straight to the end of the directory so the next call returns
++ * -1 from fat_bmap() without re-reading the trailing zero slots, and
++ * so callers that persist *pos across invocations (e.g. readdir's
++ * ctx->pos) keep reporting EOD.  Release *bh and set it to NULL to
++ * match fat_get_entry()'s contract that *bh is NULL on the -1 return.
++ */
++static int fat_get_entry_eod(struct inode *dir, loff_t *pos,
++			     struct buffer_head **bh,
++			     struct msdos_dir_entry **de)
++{
++	int err = fat_get_entry(dir, pos, bh, de);
++
++	if (err == 0 && (*de)->name[0] == 0) {
++		brelse(*bh);
++		*bh = NULL;
++		*pos = dir->i_size;
++		return -1;
++	}
++	return err;
++}
++
+ /*
+  * Convert Unicode 16 to UTF-8, translated Unicode, or ASCII.
+  * If uni_xlate is enabled and we can't get a 1:1 conversion, use a
+@@ -325,7 +350,7 @@ static int fat_parse_long(struct inode *dir, loff_t *pos,
+ 
+ 		if (ds->id & 0x40)
+ 			(*unicode)[offset + 13] = 0;
+-		if (fat_get_entry(dir, pos, bh, de) < 0)
++		if (fat_get_entry_eod(dir, pos, bh, de) < 0)
+ 			return PARSE_EOF;
+ 		if (slot == 0)
+ 			break;
+@@ -487,7 +512,7 @@ int fat_search_long(struct inode *inode, const unsigned char *name,
+ 
+ 	err = -ENOENT;
+ 	while (1) {
+-		if (fat_get_entry(inode, &cpos, &bh, &de) == -1)
++		if (fat_get_entry_eod(inode, &cpos, &bh, &de) == -1)
+ 			goto end_of_dir;
+ parse_record:
+ 		nr_slots = 0;
+@@ -599,7 +624,7 @@ static int __fat_readdir(struct inode *inode, struct file *file,
+ 
+ 	bh = NULL;
+ get_new:
+-	if (fat_get_entry(inode, &cpos, &bh, &de) == -1)
++	if (fat_get_entry_eod(inode, &cpos, &bh, &de) == -1)
+ 		goto end_of_dir;
+ parse_record:
+ 	nr_slots = 0;
+@@ -882,7 +907,7 @@ static int fat_get_short_entry(struct inode *dir, loff_t *pos,
+ 			       struct buffer_head **bh,
+ 			       struct msdos_dir_entry **de)
+ {
+-	while (fat_get_entry(dir, pos, bh, de) >= 0) {
++	while (fat_get_entry_eod(dir, pos, bh, de) >= 0) {
+ 		/* free entry or long name entry or volume label */
+ 		if (!IS_FREE((*de)->name) && !((*de)->attr & ATTR_VOLUME))
+ 			return 0;
+@@ -1299,6 +1324,7 @@ int fat_add_entries(struct inode *dir, void *slots, int nr_slots,
+ 	struct msdos_dir_entry *de;
+ 	int err, free_slots, i, nr_bhs;
+ 	loff_t pos, i_pos;
++	bool saw_eod;
+ 
+ 	sinfo->nr_slots = nr_slots;
+ 
+@@ -1307,12 +1333,15 @@ int fat_add_entries(struct inode *dir, void *slots, int nr_slots,
+ 	bh = prev = NULL;
+ 	pos = 0;
+ 	err = -ENOSPC;
++	saw_eod = false;
+ 	while (fat_get_entry(dir, &pos, &bh, &de) > -1) {
+ 		/* check the maximum size of directory */
+ 		if (pos >= FAT_MAX_DIR_SIZE)
+ 			goto error;
+ 
+ 		if (IS_FREE(de->name)) {
++			if (de->name[0] == 0)
++				saw_eod = true;
+ 			if (prev != bh) {
+ 				get_bh(bh);
+ 				bhs[nr_bhs] = prev = bh;
+@@ -1322,6 +1351,13 @@ int fat_add_entries(struct inode *dir, void *slots, int nr_slots,
+ 			if (free_slots == nr_slots)
+ 				goto found;
+ 		} else {
++			if (saw_eod) {
++				fat_fs_error_ratelimit(sb,
++					"allocated dir entry found after end-of-directory marker (i_pos %lld)",
++					MSDOS_I(dir)->i_pos);
++				err = -EIO;
++				goto error;
++			}
+ 			for (i = 0; i < nr_bhs; i++)
+ 				brelse(bhs[i]);
+ 			prev = NULL;
+-- 
+2.53.0
+
