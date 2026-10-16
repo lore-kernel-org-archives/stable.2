@@ -1,133 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 145EB466B75;
-	Fri, 16 Oct 2026 09:29:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27CAA443E4D;
+	Fri, 16 Oct 2026 09:30:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792142977; cv=none; b=lkixPmVarDVNSoILJdpN4cETw84Ooovel59u0EJtndjcp2dPxYU1L8dVFK+x8BLYz8XXLMEPGTl9VerLihuKnsMPNY5X0+44i8E2GJG/fGHKH8MZF47n0T7S3CAm7lS3i3V6Y7UZQvINyR3fhq5OFozfA3NZkKQovT79x0DA1zA=
+	t=1792143016; cv=none; b=DVQTcrfLzymHECwjTyhdNT66AKx3TVwYRCwlwkXdOwL2GcSt5csPf2L/hcPn7BBPiI+o9hMTCw951bxKYm9d5YiwDhwQYfMx8J2Nn7vtvkaPUdqXTeDkU6Lka4D5UaeSjVeMgdBWkOV6yqIUmWiDmJNRXID1UkVOb4O+hKI9ZHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792142977; c=relaxed/simple;
-	bh=Jq0wR6uioeZnYDwXSO4FapwcaGBTjsw23+YN7lrHGa8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=BJM39h3MzX4oPSs2cAf8SuHEaRWLhg1wMF/bvblE/76xyKaGH2Mtf2Hid9RkCUDJ2ht4XMXrPYtYANBU8WTizLQZqbWoJ7GivxypYCIfUOSoQJw8GArKm+ZNMQDN9LfPe7XyVb00QOPGP/gQ41ijLXPtHT3FnvrvkX32HqdF10M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hUkYBvm1; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792143016; c=relaxed/simple;
+	bh=58a1SVAwb6Pj+SSeSiRP5qR15p1liFYrokie5kI4VPs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=otBM5Tf0N214JZY/QYeqRrSQS8iIC6mn74jNLPgs7VwoohCWbR/jjlDNclvC7gNbz2Bia4bc3xlePwRmBhQyeRtgKe1gmSRh79ZsSQSV7FmnPA47cbokUDDBxrgvPclxBzX9GglAkyq4aT27UXhMddtL6dwepe7WSljzhpa/Llo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=rZwrePGy; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=gjcgG819; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hUkYBvm1"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 68E71C2BCF4;
-	Fri, 16 Oct 2026 09:29:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792142976;
-	bh=Jq0wR6uioeZnYDwXSO4FapwcaGBTjsw23+YN7lrHGa8=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=hUkYBvm1bwZuxnw4OnwX6UFELPiEksOUBi4Y6D6hijOqfReQ1uUh6veBiMfttWn23
-	 TJt8zUPiVAKAeBfyW7mmGUTUmm9D8LY5Cpd5t42NcuOiwO2QCByjMqGTAfEhDvFN9P
-	 kQ5nBTTA1fxesrWV+L6CURZFz3GGebhKJBfL+Z1UggBZ0rBZOugHDVSPRWn3ZuruD/
-	 yDKpR7bEncGGOQ7FoB9LtZ2wJQ21lhaqbUmCcNXnQYWHRtHxYjAsHkWBAlcBpmDDND
-	 5FyW9f5dnw1c48pbGcelH7Ll1IYS8QbJVt1ORt4Y2Ww1eAbvzhnz3HMnhC2gT1lle1
-	 yP2N8nWn2ZTUg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 52D27CCA462;
-	Fri, 16 Oct 2026 09:29:36 +0000 (UTC)
-From: Art O Cathain via B4 Relay <devnull+art.home.gmail.com@kernel.org>
-Date: Fri, 16 Oct 2026 11:29:30 +0200
-Subject: [PATCH] ASoC: amd: acp-config: force SoundWire probe on Dell 14S
- DS14265
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="rZwrePGy";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="gjcgG819"
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792143013;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=58a1SVAwb6Pj+SSeSiRP5qR15p1liFYrokie5kI4VPs=;
+	b=rZwrePGyswMD9tY34Kh0mBH8vg20fnmJgu4FZ0AlmMP+LDIELMiT/YadGuaKeULK9eutEr
+	k0tMCw9TEboVpc3H/B9ziUpZTzRSD5pp52NtRA87kv0/K7hz+5QhctjmR4UNl15TwvIFsX
+	dK2stsjsw3tPtESHj0oKb4/gUtuBAHclST9PVVCo184B6YZn8VsCqsbnraEYj0wuR2asyT
+	LY+fnDlMs4KEIQGnDOZgwc3CquwTP8AcVaE1TtG9kiv+4TzUWPPXlWFhnlAhGdue9xBz2t
+	lol/yISODlnKo6ts9ImsSfdOSUfFaOQ7kcqhpOke4rhdIbwgE4hHTnH5kq3Wnw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792143013;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=58a1SVAwb6Pj+SSeSiRP5qR15p1liFYrokie5kI4VPs=;
+	b=gjcgG819aKj3P1V1XBqVLm/IG9C4YmY9s5i0AQADRpK6m1PQOZP/IfXpIGD/cDkQrY7lak
+	GSlr3sN0WN0cWsBA==
+To: WeitaoWang-oc <weitaowang-oc@zhaoxin.com>, Koichiro Den <den@valinux.co.jp>
+Cc: mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+ x86@kernel.org, hpa@zytor.com, linux-kernel@vger.kernel.org,
+ WeitaoWang@zhaoxin.com, wwt8723@163.com, CobeChen@zhaoxin.com,
+ stable@vger.kernel.org
+Subject: Re: =?utf-8?B?W+atpOS4uuWklumDqOmCruS7tiDosKjpmLLpo47pmald?= Re:
+ [PATCH] x86/apic/msi: Fix MSI interrupt
+ affinity configuration
+In-Reply-To: <316900d3-2ce8-4391-ad8f-556bb5540c2a@zhaoxin.com>
+References: <20260928164839.6381-1-WeitaoWang-oc@zhaoxin.com>
+ <6mg2eqdehsmb5fh6hf7icsha2547xfdfvulnycawiit2czhhmh@6bbmicaoz2zd>
+ <87jynid352.ffs@fw13> <316900d3-2ce8-4391-ad8f-556bb5540c2a@zhaoxin.com>
+Date: Fri, 16 Oct 2026 11:30:12 +0200
+Message-ID: <87bj8uc7rv.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-dell-14s-acp-v1-1-89b40d95720c@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAHnu0WoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDA0Mz3ZTUnBxdQ5Ni3cTkAl0zMyMLY0ODlBRjU0sloJaCotS0zAqwcdG
- xtbUAVvD49F4AAAA=
-X-Change-ID: 20261016-dell-14s-acp-6628310dd359
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- patches@opensource.cirrus.com, stable@vger.kernel.org, 
- Art O Cathain <art.home@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792142975; l=2499;
- i=art.home@gmail.com; s=20261016; h=from:subject:message-id;
- bh=Uy4P/oTHFWMDG4MmVvevQSElgPkBookxrCgnp+ENKTM=;
- b=E5V4d2UVc/bWxFlyv36kMqhRjqtkQFlHnQ3pY+XQlBs7ky/RVQr/ebnngESqHg3/xJACmtXjG
- qKhWiV4jxJCD8be3VVMJ0M0Uq8vtOGRAWZYgBu6H9nqlW3QSRptloG7
-X-Developer-Key: i=art.home@gmail.com; a=ed25519;
- pk=gCdw1OQ+x92kQb5KLzhJL2+HO6kYhoAHJCwvVXVOLio=
-X-Endpoint-Received: by B4 Relay for art.home@gmail.com/20261016 with
- auth_id=1208
-X-Original-From: Art O Cathain <art.home@gmail.com>
-Reply-To: art.home@gmail.com
+Content-Type: text/plain
 
-From: Art O Cathain <art.home@gmail.com>
+On Fri, Oct 16 2026 at 11:36, WeitaoWang-oc wrote:
+> On 10/16/26 06:12, Thomas Gleixner wrote:
+>> On Wed, Sep 30 2026 at 01:29, Koichiro Den wrote:
+>>> On Tue, Sep 29, 2026 at 12:48:39AM +0800, WeitaoWang-oc wrote:
+>>>> commit b56ebe7c896d ("x86/apic/msi: Fix misconfigured non-maskable MSI
+>>>> quirk") try to fix the issue of misconfigured non-maskable MSI quirk.
+>>>> For non-maskable MSI interrupts, use the slow path to fix the MSI affinity
+>>>> race. Maskable MSI interrupts use the direct path to update configuration
+>>>> info. However, the current code logic is the opposite as only maskable
+>>>> MSI interrupts will enable reservation mode.
+> Thank you for the suggestions. I realize the problem description in my
+> previous patch needed to be more precise. Before posting v3, I have
+> updated the change log as shown below. Could you please take a look?
+> If this looks good to you, I will send out the next version.
 
-The BIOS on the Dell 14S DS14265 (ACP PCI revision 0x72) reports
-acp-audio-config-flag = FLAG_AMD_LEGACY_ONLY_DMIC. As a result
-snd_pci_ps returns early and the SoundWire links are never scanned,
-while the legacy snd_acp_pci driver probes the device, finds no
-matching machine driver ("No matching ASoC machine driver found") and
-no internal sound card is created. The CS42L45 headset codec on link 0
-and the two CS35L63 speaker amplifiers on link 1 never enumerate.
-
-Add a DMI entry for the model to the ACP70 ACPI flag override table so
-the firmware-provided flag is overridden and snd_pci_ps probes instead.
-Match on the product name rather than the board name, as the same
-symptom has been reported on several boards of this model (09PVND,
-0M0J65, 0C7F12).
-
-Tested on a DS14265 (board 09PVND, BIOS 1.5.3) with Debian's 7.2.6
-kernel, with and without this entry. With it, snd_pci_ps binds, both
-SoundWire links come up, the CS42L45 and both CS35L63 enumerate, the
-existing CS42L45 + 2x CS35L63 machine entry matches, the amplifiers
-load their firmware and calibration, and the amd-soundwire card plays
-through both the internal speakers and the headphone jack. Also
-build-tested on asoc-next with W=1.
-
-Developed with AI assistance. Claude read the ACP driver source,
-identified the BIOS flag as the cause and the override table as the
-fix, wrote the DMI entry and the out-of-tree test module, and drafted
-this changelog. All hardware testing was done by the submitter, who
-has reviewed the change, understands it and takes responsibility for
-it.
-
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Art O Cathain <art.home@gmail.com>
----
- sound/soc/amd/acp-config.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/sound/soc/amd/acp-config.c b/sound/soc/amd/acp-config.c
-index 30e01bc47ee0c2b28f369358cd3ea18897ff0c5c..2fb9789cac0ace8365b2c98c21f2ef1a18b6093f 100644
---- a/sound/soc/amd/acp-config.c
-+++ b/sound/soc/amd/acp-config.c
-@@ -98,6 +98,13 @@ static const struct dmi_system_id acp70_acpi_flag_override_table[] = {
- 			DMI_MATCH(DMI_BOARD_NAME, "8EA2"),
- 		},
- 	},
-+	{
-+		/* Dell 14S DS14265 */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Dell 14S DS14265"),
-+		},
-+	},
- 	{}
- };
- 
-
----
-base-commit: 0f8bc3b93b76d16682a4d4999f9559b1e18016f9
-change-id: 20261016-dell-14s-acp-6628310dd359
-
-Best regards,
--- 
-Art O Cathain <art.home@gmail.com>
-
+Looks good
 
