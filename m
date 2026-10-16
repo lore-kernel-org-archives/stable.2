@@ -1,173 +1,416 @@
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 306D13B83E0;
-	Fri, 16 Oct 2026 11:40:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB21337105A
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 11:43:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792150852; cv=pass; b=chtk8M5WU62CYfC9UlL7ebklyw/HSxkh4RsCBKcye0J4r3jV3WZeeyM9xiwzlDQsCVfb6dU8V7RnY4p/pMBV4f8uxbNEKpcH6xR9LKxf3MgY+caLEQ7nQNrc0Ge2413Au+jNWYGv8XDIYNWYtNzCBVMoSpU8DoJLmzfyxMn08yA=
+	t=1792151040; cv=pass; b=oe/1WEGFkeRg+ap7RYAStdJEeSzqqMg9v3S5A/gM4s5/Rb5E3jUW4QiDVfUCdtCKEZseyNnouhnEtsBPrmNb53QNy5vCjczi1LGtWvynJmhZ9MVB/DVZm3P5rpJlhRhnR1ULCXESuTP2JsUkNE0d0Pa42Ayez7G6MhMo9Nup+V0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792150852; c=relaxed/simple;
-	bh=xYWPp7YU6hM2jzcaUYObQXDD9gDbxG7J/UBgh0niR7A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pxSk9L89wywtBtWShRmvICUBYRw5mIY8/ZkH6V3UP/WjJD+ZYkEsGoIVfkAGCqJIOFWQBEs9vWxqbpCAP74HntYzc/F//XrtTycWXwDS7j3V5MAAxG8KCIZ46I+GI+exLnRYdotB5X1xTC5x6BRO1BjQqJ9NNeLW28herPacL2Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=XYBdsPxO; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=4C6e0ELd; arc=pass smtp.client-ip=85.215.255.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
+	s=arc-20240116; t=1792151040; c=relaxed/simple;
+	bh=ateyapjZ1+Cpplrl/O9ZlmzsqV17CoauWuDhejOISq4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uy2++Wys3+skHL/WC0pVWkOncftYFKjC70LQ22DqQN8OhUVQ5r4A6CWM0y5ZI5Db+o9IkUGekpUIxRdBRK/g3I+AMhXpD+/XKaMxga27ygGmEx7W+RVp4JprYev7e5EK966dZltw7KRwO2jDFxvsS7wo+fcFmCRKcPBOWpAZu7E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I/SVNt7p; arc=pass smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="XYBdsPxO";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="4C6e0ELd"
-ARC-Seal: i=1; a=rsa-sha256; t=1792150838; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=ReoSi2wgp3fXuma/xc+ZNc99IAvfdYV/7obAFn5pXqqtmq8oJ+at2X9FjLC29YNG/0
-    Xq1xQbqfrQOAd8NHX02tg7KCbvCcsHla+5rJcbzWSb7UyJmGFJ1+zxR/9ntPmAmHjzEC
-    8/F9pIyCm0kIABAarD0zKU0s7OmF0y/YJr0Tjzb+WbOleDRWzyS55LeCaWNReY0LcBaI
-    zZsQXuyRJyTnzYubojDHsYW5rk002FnsyoSNCMqNRNYM64Vgn2dJMwvOynRLn/5DybcT
-    8eXBBH01K1TxQRML0wcvQUuq4vFP4WitQfey7KO7HTy821ZhqN5pIBhb2O9+9u5jmW9B
-    5d+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792150838;
-    s=strato-dkim-0002; d=strato.com;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=rWpcSo/GofMHjp3LAOA3kGB2wxUg1Y5AlLEhmASUc4c=;
-    b=iO2mdZAYANfEj6BsOqXLZPrAR4JQL4NF45kKu8kyRzGpgzCCnxBgOTdxCp9LKz9sVG
-    NOf4vhxaq8UTK3Gb4ry1yz65fvby8a6MA5thY8a6W5CIXcs58qwo7eI6840fWrQlL0Dt
-    kt0U/BC6m+gaS7guWluylTlLiiaWuvAUJGq7BURLhs3zorfZ6sXpMvenCfS9KMSGfCG1
-    +h0/VM29jJcPcsqVKgnRvq/l5OxoBMAmSqefjIL/A4+B6d8FS8ObGFl/7lVmNDay2scm
-    /Ca7Fy/HNlo8VPWy+CyHVQK3Fl3Xdlc3e1uXNkDOsjm2tXWlDRs7TCeamtd2e/2Agynb
-    B9LA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792150838;
-    s=strato-dkim-0002; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=rWpcSo/GofMHjp3LAOA3kGB2wxUg1Y5AlLEhmASUc4c=;
-    b=XYBdsPxOIIYCVpriPx5ddqijZLLC8tiPMbuO2kMYXjsAnGkR2pTW9QImhybQXbanoU
-    Uf6zMRuEDckCRaBy/cwwE9c+rPEuNzBBMkPSkw5PqeCxsHIe8xU4tThHk12YUtZa87s/
-    oPISJ/t5PwUBTj6i++ub/PNwmSbZe54RG6TwvGTt4lZXdQLVj8xlJIX91Rb04cdgCJZi
-    2bZOGyfcydv8X/MTMsLp7KR/281FMfjx/mQ55CQ5YWNxmBk19khzrGzpAREnXTu0cAb2
-    e8KqjjKPGOtkhVKtUBIhZ7wso8ZE8nwwCUSwue0ATT7gfrpHgTSiJ9jdNe2IQIgHICH4
-    VI5g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792150838;
-    s=strato-dkim-0003; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=rWpcSo/GofMHjp3LAOA3kGB2wxUg1Y5AlLEhmASUc4c=;
-    b=4C6e0ELd7Ck1HmUnV6zPb2399hHaAGkbitDXuGOcpr9fVSuR5/g7Pn+03GKYgOFVxQ
-    z7+GPnEtdXQDQsaXYfDQ==
-X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
-Received: from [IPV6:2a00:6020:4a38:6810::989]
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Kfdf2a29GBecM5r
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Fri, 16 Oct 2026 13:40:38 +0200 (CEST)
-Message-ID: <a1b96d3d-ca61-4983-83bf-15090a455a70@hartkopp.net>
-Date: Fri, 16 Oct 2026 13:40:38 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I/SVNt7p"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c2e3846d1caso1018365366b.0
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 04:43:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792151037; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Vq4PCgWNKscPfgwz7CSsd5CjORxwAeAwrj2ccQUKu+YMZ8dqWko9mlFxzELQAHBPz0
+         MJkZkKTvWUD8aHPSo67s3OrK2/6zGBLcwjbnzes/1QvmEhUuPVGkPS50PmvLw2DW55ez
+         WS0eLHqtCkzWSP9WgNKYfO7iZHbUDHBhIgGG4msQ0Ayvpcz1z/AVGduYfeZfGbF8QFGw
+         slEx3e86+BBGKE5Nd91ss7RIfhL1Q78/sjKS0RLZQG1N9sGX/MfCdI7V7lhxNHu7mo+N
+         rLlgGapC67lM6wypvGNtzKzXIiaxQFd/GFcnGTj1aPgTTVCCKeCcPKJsYJkCixs5fV6D
+         ioRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=NKuM+jtVFLfZVcVKg6kbrg0atkxIvcUrEpQMeeRVJXQ=;
+        fh=0FmP7PO41NB9lR3UDqunXZRYve5OQTZgBuKE/PMa1Pc=;
+        b=ME3UDTwhnR/yC6i0rtcwnkJxUISDqblTXK+7/c9KY6MR8G+le3vJ01T410olbOACq3
+         reVNh82CF/vwlhWsRoaTzQ4f6CpI2DIpO7VV0THkSnmIRT0zpov9QXDYUDREs14ztN5v
+         Wd/YGUndvixaedwV9cw4TtQtNI+WFfFkyc45m8wnA9ZcVEQAsSoEDb7GaFdXxPwpRsA8
+         vfojR70pSskbJ7HU1n3GIa5GkPJxCVIS48rpJk+RJ0lFR59rnd2S1qiSEC3kzTU2icry
+         L7T1XMLMo1qeOv90IJEc8Hz0cUgZOe1bRHTxsY1MR9ptqYSbKvyiZTxiaIwjCwpMMYye
+         RXLg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792151037; x=1792755837; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NKuM+jtVFLfZVcVKg6kbrg0atkxIvcUrEpQMeeRVJXQ=;
+        b=I/SVNt7pr86tQOAOQgXPynlgsxsIiunTOaCJpVqF4L43B9x06fYYjmHDUqQztCkxdc
+         EtXuBsdmIQmGXkYNXcBRymIQIrlblW/fEWFEpINPqd2c9HE7fv7S8kKgWfn+fiNqSkxj
+         6kF8AXSb0y15/8ThoRpne3OQliL8e6EjZY39SAtDRc8nEW0H3aXsL0Oy5U006uhVHdWT
+         h2oCNklbsF7xsGFe9ivj/vE6z3njIXpg216IMEXzduoM9KOP6CKALzsXev6sGvhy2CHI
+         KIcODEU2J5Y4uEB61wEbvOTu+nR7gLDj1M0BwJkwyG8N4gIENUFomDnB2ATblFtHcV80
+         xNRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792151037; x=1792755837;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NKuM+jtVFLfZVcVKg6kbrg0atkxIvcUrEpQMeeRVJXQ=;
+        b=baOvv0xxG9S5beEdzkab0WJ9VIuwBngpQNMl7Kf2+BXRzGI+5kUY4sBH4x/xYPRP3+
+         LwjtxZ4jU22VYFsrClzEYdQ45bjEMykvHqhbm0vAqHctz2tIU1Ofr0IaDBo2cKe1dTZl
+         2qj3JvqGA4gfIta2HMr4twSz5PDUDxH4y5MkpowM01J84yNUu6NKJ4CDwcUn2Z5U0Noe
+         kQ5VPM71ZCUHoTLaLoanzIzNXZHZyvl69yuY0e2OkbrqzAxwyyLu75HrQjGIdTTcrfUz
+         i+CsFFDUT+w05qwMATkU69chXsLgBIRlhbqA070LNgUV6AF3MgMArrGwPbYtHs20HrpY
+         FMQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzBmShdepWp29nAyrireRy7T+EXc6xbJFmF3EBzsTvviyjQl+9ggEevdmns2SD1xlkR5cEEVDc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLK56XDHwRQjgmwE1aG+A7p5QibtB5cDe8g6HBdwnbJg52XOXoT
+	ZOQF9h2yfqBCVJcUsHqKBLGyNI0BZ1uv67Ac44/GiqibETbBYsFkIuB0HKyC5uXCIv778HpLUev
+	6V57TMi6zWrDL84XekPWDpu90SSb/8ek=
+X-Gm-Gg: AYBFou3r4ts5LxIYarF+vGwIO5kOoJQX4Oj3tHXIMmmYiaQC71uMMc+38MyJx5tCCqf
+	5spFlw94UCK27HKD5hmwqKKgtAtGj3NQZuAZuHh84a8dCCxLUdsPBATzXl2koi+q7gn5J54L0t4
+	y4WYZGVez3KHsxWJupALaHk79jg8QxfVqyhw9OfZnMesutiBwxLcjmy9HPJ7rVBE5X1fv6yLdym
+	DEz4jooQoUEd77RRgd53XSpPJJ52YS1kPLVAOn+m5u9UdeXDnirW6GWZQs/sfHHQoBGRs0P0I6W
+	QiATHnrdU97BatsuaMpLB4RUFBwN/k5jHHBz8JwyC4Wb+VJhCgUEIj+tcjrIpXtNuVm9Op3/OgH
+	bG0TV49bGtBO2
+X-Received: by 2002:a17:906:4790:b0:c25:5faf:b207 with SMTP id
+ a640c23a62f3a-c31a9a10e7fmr2051644866b.3.1792151036607; Fri, 16 Oct 2026
+ 04:43:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH can-next v2] can: proc: reset pkg_stats atomics
- individually
-To: Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: linux-can@vger.kernel.org, Runyu Xiao <runyu.xiao@seu.edu.cn>,
- stable@vger.kernel.org
-References: <20261016110905.422684-1-socketcan@hartkopp.net>
- <20261016-precious-industrious-muskrat-0c77e8-mkl@pengutronix.de>
-Content-Language: en-US
-From: Oliver Hartkopp <socketcan@hartkopp.net>
-In-Reply-To: <20261016-precious-industrious-muskrat-0c77e8-mkl@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20261016-mglru-fg-v4-0-2106750c0bfa@tencent.com> <20261016084256.12955-1-baohua@kernel.org>
+In-Reply-To: <20261016084256.12955-1-baohua@kernel.org>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Fri, 16 Oct 2026 19:43:19 +0800
+X-Gm-Features: AclHuK_vD7Q6cJy-PpEfQtWOtckePrdQvkfJvtJJCDIcYrRZMuAvFqbDO7Y_PeA
+Message-ID: <CAMgjq7AtuK22FsuqvGRLVZ2eWrp-N4qQ_MHoXsXDkVBprekdDA@mail.gmail.com>
+Subject: Re: [PATCH v4 00/17] mm/mglru: frequency guided promotion (MGLRU-FG)
+ and flag cleanup
+To: "Barry Song (Xiaomi)" <baohua@kernel.org>
+Cc: devnull+kasong.tencent.com@kernel.org, akpm@linux-foundation.org, 
+	axelrasmussen@google.com, baolin.wang@linux.alibaba.com, baoquan.he@linux.dev, 
+	cgroups@vger.kernel.org, chenridong@xiaomi.com, chrisl@kernel.org, 
+	damon@lists.linux.dev, david@kernel.org, dev.jain@arm.com, 
+	ehab.ababneh@intel.com, gourry@gourry.net, hannes@cmpxchg.org, 
+	hughd@google.com, kunwu.chan@gmail.com, lance.yang@linux.dev, 
+	liam@infradead.org, lianux.mm@gmail.com, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, liuxiang.277@bytedance.com, ljs@kernel.org, 
+	mhocko@kernel.org, muchun.song@linux.dev, nico.pache@linux.dev, 
+	nphamcs@gmail.com, qi.zheng@linux.dev, rientjes@google.com, 
+	roman.gushchin@linux.dev, ryan.roberts@arm.com, shakeel.butt@linux.dev, 
+	shikemeng@huaweicloud.com, sj@kernel.org, surenb@google.com, 
+	tz2294@columbia.edu, usama.arif@linux.dev, vbabka@kernel.org, 
+	vernon2gm@gmail.com, wangzicheng@honor.com, weixugc@google.com, 
+	willy@infradead.org, ying.huang@linux.alibaba.com, youngjun.park@lge.com, 
+	yuanchu@google.com, yuzhao@google.com, zhaozhengzhuo@uniontech.com, 
+	ziy@nvidia.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Oct 16, 2026 at 4:43=E2=80=AFPM Barry Song (Xiaomi) <baohua@kernel.=
+org> wrote:
+>
+> On Fri, Oct 16, 2026 at 2:15=E2=80=AFAM Kairui Song via B4 Relay <devnull=
++kasong.tencent.com@kernel.org> wrote:
+> [...]
+> >
+> > LevelDB Scan/Get
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > I also retested the LevelDB benchmark from the cache_ext paper [5].
+> > Interestingly, mainline MGLRU already beats CLRU on this one after a
+> > recent change in lru_gen_folio_seq that bumps new folios with refs =3D=
+=3D 1
+> > to the second-oldest generation as discussed. That change accidentally
+> > gave random reads a higher hotness level while making sequential reads
+> > much colder as described before [14]. However it's unreliable and
+> > incorrect because it depends on LRU drain timing, and hurts some worklo=
+ads
+> > as reported, or where the sequential part is actually hotter (any workl=
+oad
+> > involving hotter large file and many small cold files will be affected)
+> > which is reproduced below.
+> >
+> > This series improves it while covering ordinary workloads too and shoul=
+d
+> > fix regressions:
+> >
+> > LevelDB Scan / Get, Throughput Total:
+> > CLRU:         4708.3 ops/s
+> > MGLRU:        5026.9 ops/s (faster than CLRU, but hurts other workloads=
+)
+> > MGLRU After:  5179.2 ops/s (even better in all cases, and no regression=
+)
+> >
+> > The hot-sequential and cold-random workload can be easily reproduced wi=
+th
+> > SQLite and grep. SQLite continuously scans and looks up a small hot
+> > portion of a DB file, while grep iterates over a set of small files muc=
+h
+> > larger than RAM [6]:
+> >
+> >          SQLite scan & lookup time:       Grep iterate time:
+> > CLRU:                       14.51ms               13281.37ms
+> > MGLRU mainline:            567.05ms               13694.47ms
+> > MGLRU After this series:    10.58ms               12930.43ms
+> >
+>
+> Thanks, Kairui. I'll do a thorough review of the whole patchset over
+> the next two weeks.
+>
+> BTW, do you think we need a quick fix patch like the one below
+> for the above problem before this patchset, so that it can be
+> backported to stable? I assume your patchset is too large to
+> backport?
 
+Hi Barry,
 
-On 16.10.26 13:36, Marc Kleine-Budde wrote:
-> On 16.10.2026 13:09:05, Oliver Hartkopp wrote:
->> From: Runyu Xiao <runyu.xiao@seu.edu.cn>
->>
->> Commit 80b5f90158d1 ("can: statistics: use atomic access in hot path")
->> converted several members of struct can_pkg_stats to atomic_long_t and
->> updated the hot TX/RX and procfs read paths to use atomic_long_*()
->> helpers. However, can_init_stats() still clears the whole struct with
->> memset().
->>
->> can_init_stats() is reached from can_stat_update() in timer context and
->> also from the procfs reset path. Those paths can run while the TX/RX hot
->> paths are concurrently updating rx_frames, tx_frames, matches and their
->> *_delta counters. Hitting the whole-struct memset() in that window
->> performs plain writes to fields that otherwise follow an atomic_long_t
->> access contract, which can lose or mix live statistics updates.
->>
->> This issue was found by source-level API-misuse analysis looking for
->> whole-object resets left behind after atomic_long_t conversions, then
->> manually audited on Linux v6.18.21.
->>
->> Replace the whole-struct memset() with a helper that resets the
->> atomic_long_t counters via atomic_long_set() and clears the derived
->> scalar statistics explicitly. This preserves the existing reset
->> semantics for scalar fields while restoring atomic access discipline for
->> the live counters.
->>
->> Build-tested by compiling net/can/proc.o on x86_64 netdev/main.
->> Runtime-tested with a QEMU + vcan setup on Linux v6.18.21 by driving
->> concurrent traffic and reset_stats reads, which reproduced inconsistent
->> exported statistics before the fix.
->>
->> [Hartkopp] can_stat_update() also read the *_delta counters at the
->    ^^^^^^^^^^
-> 
-> As this is a regular vN+1 patch posted by you to the mailing list,
-> please don't add your [tag] here.
-> 
-> If you want, you can add a change log entry after the "---"
+Good question, I think we can patch it first.
 
-I would have done so, if I was the original author.
+> From f9683205d2ab6e3b185022d7d5af3496dfe5f35f Mon Sep 17 00:00:00 2001
+> From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+> Date: Fri, 16 Oct 2026 11:48:06 +0800
+> Subject: [PATCH] mm/mglru: fix using folio_mark_accessed to replace
+>  folio_set_active
+>
+> Commit 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to
+> replace folio_set_active") tried to avoid over-protecting
+> fault-around read-ahead file folios by placing them in the
+> second-oldest generation instead of the youngest generations.
+>
+> However, it abuses `PG_referenced` on read-ahead file folios
+> for this purpose, potentially coupling their handling with
+> normal syscall-based file accesses that also use
+> `PG_referenced`.
+>
+> This could regress some workloads, as reported by Kairui Song[1]
+> and Ehab Ababneh[2]. Many thanks to both for reporting these
+> issues!
+>
+> The long-term fix is Kairui's MGLRU-FG, but in the meantime,
+> we also need a quick fix that can be backported to stable.
+>
+> This patch reverts all of the original commit's behavior that
+> abuses `PG_referenced`, while preserving the semantics of
+> avoiding over-protection of fault-around read-ahead file
+> folios by adjusting only `lru_gen_folio_seq()`.
+> Specifically, fault-around read-ahead file folios with
+> `PG_active` set but `PG_workingset` clear are placed in the
+> second-oldest generation.
+> Activated file folios and refaulted workingset file folios
+> are still placed in the youngest generations.
+>
+> Build kernel cases in a memcg shows it not only perserve
+> the benefit of original patch, but also even improve
+> performance further.
+>
+> w/o fix:
+>
+> real    1m49.094s
+> user    25m31.484s
+> sys     3m40.959s
+> pswpin: 662112
+> pswpout: 2504415
+> pgpgin: 4424336
+> pgpgout: 10355273
+> refault_file: 359626
+> refault_anon: 670724
+>
+> w/ fix:
+>
+> real    1m48.913s
+> user    25m31.639s
+> sys     3m30.875s
+> pswpin: 689815
+> pswpout: 2689894
+> pgpgin: 4422659
+> pgpgout: 11043464
+> refault_file: 326566
+> refault_anon: 697138
+>
+> Revert original patch:
+>
+> real    1m50.044s
+> user    25m37.137s
+> sys     4m4.493s
+> pswpin: 1349087
+> pswpout: 4317933
+> pgpgin: 7083597
+> pgpgout: 17602735
+> refault_file: 337676
+> refault_anon: 1368542
+>
+> [1] https://lore.kernel.org/linux-mm/20261003-mglru-fg-v3-0-cbd4546a5bd9@=
+tencent.com/
+> [2] https://lore.kernel.org/linux-mm/20260901180704.168106-1-ehab.ababneh=
+@intel.com/
+> Fixes: 6cbdd9726fb5 ("mm/mglru: use folio_mark_accessed to replace folio_=
+set_active")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+> ---
+>  include/linux/mm_inline.h |  8 +++++---
+>  mm/folio.c                | 16 +++-------------
+>  mm/vmscan.c               |  9 ++-------
+>  mm/workingset.c           | 10 ++++------
+>  4 files changed, 14 insertions(+), 29 deletions(-)
+>
+> diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+> index ab69b9930893..7aaff4e06e80 100644
+> --- a/include/linux/mm_inline.h
+> +++ b/include/linux/mm_inline.h
+> @@ -311,7 +311,8 @@ static inline unsigned long lru_gen_folio_seq(const s=
+truct lruvec *lruvec,
+>          * | Accessed through page tables and  | Accessed through file de=
+scriptors |
+>          * | promoted by folio_update_gen()    | and protected by folio_i=
+nc_gen()  |
+>          * +-----------------------------------+-------------------------=
+----------+
+> -        * | PG_active (set while isolated)    |                         =
+          |
+> +        * | PG_active (set while isolated)    | PG_active (files|       =
+          |
+> +        * |                                   | fault-readahead)|       =
+          |
 
-But in this case I documented my personal contribution and also my S-o-b.
+This comment is not correct I think, faulting file folios are not
+access through fd, we may just better leave it uncommented.
 
-Otherwise this would not have been transparent to the reader.
+>          * +-----------------+-----------------+-----------------+-------=
+----------+
+>          * |  PG_workingset  |  PG_referenced  |  PG_workingset  |  LRU_R=
+EFS_FLAGS |
+>          * +-----------------------------------+-------------------------=
+----------+
+> @@ -319,7 +320,8 @@ static inline unsigned long lru_gen_folio_seq(const s=
+truct lruvec *lruvec,
+>          * |<---------------------------- MAX_NR_GENS -------------------=
+--------->|
+>          */
+>         if (folio_test_active(folio))
+> -               gen =3D MIN_NR_GENS - folio_test_workingset(folio);
+> +               gen =3D MIN_NR_GENS - folio_test_workingset(folio) +
+> +                     (type ? !folio_test_workingset(folio) : 0);
 
-Best regards,
-Oliver
+This looks a bit hard to follow. Does it mean that for active but
+non-workingset files, they are put into the third newest generation?
+It creates more divergence of file / anon but if it work for now, I'm
+fine with it.
 
-> 
-> Marc
-> 
->> beginning and cleared them with atomic_long_set() at the end. Increments
->> from the hot path in between were lost for both the current and the next
->> interval. Use atomic_long_xchg() to fetch and clear the *_delta counters
->> in one atomic step instead.
->>
->> Fixes: 80b5f90158d1 ("can: statistics: use atomic access in hot path")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
->> Acked-by: Oliver Hartkopp <socketcan@hartkopp.net>
->> Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
->> ---
-> 
-> Change log goes here.
-> 
-> FYI: you can use b4 to pick up patches from the ML:
-> 
-> | b4 prep -n proc-pkg_stats-atomics -F 20260512133937.21957-1-runyu.xiao@seu.edu.cn -f net-next/main
-> 
-> Add the change log to the cover letter as usual, b4 will merge cover
-> letter and patch for a "series" consisting of a single patch only.
-> 
-> regards,
-> Marc
-> 
+>         else if (reclaiming)
+>                 gen =3D MAX_NR_GENS;
+>         else if ((!folio_is_file_lru(folio) && !folio_test_swapcache(foli=
+o)) ||
+> @@ -327,7 +329,7 @@ static inline unsigned long lru_gen_folio_seq(const s=
+truct lruvec *lruvec,
+>                   (folio_test_dirty(folio) || folio_test_writeback(folio)=
+)))
+>                 gen =3D MIN_NR_GENS;
+>         else
+> -               gen =3D MAX_NR_GENS - (folio_test_workingset(folio) || fo=
+lio_test_referenced(folio));
+> +               gen =3D MAX_NR_GENS - folio_test_workingset(folio);
+
+This is a nice change, but meanwhile the LevelDB and cerain workload
+gain are gone too, we will again have a ~40% regression for similiar
+workloads, I just double checked it. But that's fine, though, it was
+never meant to be optimized that way, and the long-term fix can be
+done later.
+
+A quick test on another of my test machine using Tal's LevelDB test case:
+
+CLRU: 3098 ops/s
+MGLRU mainline: 3035 ops/s
+MGLRU-FG: 3233 ops/s
+MGLRU with this patch: 2194 ops/sec (should be same result with
+reverting 6cbdd9726fb5)
+
+>
+>         return max(READ_ONCE(lrugen->max_seq) - gen + 1, READ_ONCE(lrugen=
+->min_seq[type]));
+>  }
+> diff --git a/mm/folio.c b/mm/folio.c
+> index 35e242b48870..2af724cecb31 100644
+> --- a/mm/folio.c
+> +++ b/mm/folio.c
+> @@ -474,20 +474,10 @@ void folio_add_lru(struct folio *folio)
+>                         folio_test_unevictable(folio), folio);
+>         VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);
+>
+> -       /*
+> -        * For refaulted workingset folios, set PG_active so they
+> -        * can be added to active generations.
+> -        * For prefaulted file folios, folio_mark_accessed() sets
+> -        * PG_referenced so lru_gen_folio_seq() places them into
+> -        * the second oldest generation.
+> -        */
+> +       /* see the comment in lru_gen_folio_seq() */
+>         if (lru_gen_enabled() && !folio_test_unevictable(folio) &&
+> -           lru_gen_in_fault() && !(current->flags & PF_MEMALLOC)) {
+> -               if (folio_test_workingset(folio))
+> -                       folio_set_active(folio);
+> -               else if (!folio_test_referenced(folio))
+> -                       folio_mark_accessed(folio);
+> -       }
+> +           lru_gen_in_fault() && !(current->flags & PF_MEMALLOC))
+> +               folio_set_active(folio);
+>
+>         folio_batch_add_and_move(folio, lru_add);
+>  }
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index daa7e37c2236..e82ba737c028 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -952,13 +952,8 @@ static bool lru_gen_set_refs(struct folio *folio, co=
+nst vma_flags_t *vma_flags)
+>                 return false;
+>         }
+>
+> -       /* Promote on second access */
+> -       if (folio_lru_refs(folio) > 1) {
+> -               folio_set_workingset(folio);
+> -               folio_set_lru_refs(folio, 0);
+> -       } else {
+> -               folio_mark_accessed(folio);
+> -       }
+> +       folio_set_workingset(folio);
+> +       folio_set_lru_refs(folio, 0);
+>         return true;
+>  }
+>  #else
+> diff --git a/mm/workingset.c b/mm/workingset.c
+> index 1504f91cdca5..10d4ce202cca 100644
+> --- a/mm/workingset.c
+> +++ b/mm/workingset.c
+> @@ -319,13 +319,11 @@ static void lru_gen_refault(struct folio *folio, vo=
+id *shadow)
+>
+>         atomic_long_add(delta, &lrugen->refaulted[hist][type][tier]);
+>
+> +       /* see folio_add_lru() where folio_set_active() will be called */
+> +       if (lru_gen_in_fault())
+> +               mod_lruvec_state(lruvec, WORKINGSET_ACTIVATE_BASE + type,=
+ delta);
+> +
+>         if (workingset) {
+> -               /*
+> -                * see folio_add_lru(), where folio_set_active() is
+> -                * called for workingset folios
+> -                */
+> -               if (lru_gen_in_fault())
+> -                       mod_lruvec_state(lruvec, WORKINGSET_ACTIVATE_BASE=
+ + type, delta);
+>                 folio_set_workingset(folio);
+>                 mod_lruvec_state(lruvec, WORKINGSET_RESTORE_BASE + type, =
+delta);
+>         } else
 > --
-> Pengutronix e.K.                 | Marc Kleine-Budde          |
-> Embedded Linux                   | https://www.pengutronix.de |
-> Vertretung Nürnberg              | Phone: +49-5121-206917-129 |
-> Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+> 2.34.1
+>
 
+The rest most looks clean to me.
