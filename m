@@ -1,129 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6954D90B7;
-	Fri, 16 Oct 2026 15:24:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EEAEB4DEC09;
+	Fri, 16 Oct 2026 15:24:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792164250; cv=none; b=WUJk4MnjPPJNfEcDDO0pAz0t0p3Tvk36wb0l1H38fWZ5kst1ZJhVq6Rov3qRsFNTk0w1s2pC3tYDVB6VR2ev67gjYUm11i/uDVelezgNpV9w5l6U88aW4/BvoYmClOKXoJrtEwCfcamUMJna+VHp/sSZg8IrX41dsxW6TEXvaZY=
+	t=1792164289; cv=none; b=DnLReKPQJ6FLaUz8/y0Zz1feeB+3rCwXMI1rv0/r5RYS8R5+OL4nJJ7lEPB5NADVWajS/KasZERzXRWQfk1cGnFGhjyjKgLnV3C3o6pgZfJvgu8bKsO35GS/ITfARDUffBkgNdeTRv5mSqDVbTRjVd0r7YRqbqZgWLY/VjA1Zrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792164250; c=relaxed/simple;
-	bh=Bi0rmlr2VCh4BqFpxy+1NHKLg00aHu723jx9jbLOy7k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZaROnZ0uEcSHeAsTX/XBJIUXE7N+kJdO7cDEcbe4Keg4Excfmeyhk69aB2rd2TblIhbGrHokkiySLJc2WSI9EBBSjZ/tXr+r6h4y4zwqdqfwlBEA99r4kQJu+FiF3KAMhBMZ3r8e+H3DnbRoCp0LZ0V88bG5E51pX2sYAfR1ZD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i7RX/cHN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792164289; c=relaxed/simple;
+	bh=jFs9n1BfR3VD5lCN6ZXKIFXE0UT5pYthTn3LLB23l5Y=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=omdVqUpRR2lJugM9i75+yctgiPMUxvO38wI/6/yzB2Ezmdw0XgcEN7YX1XPBZKzpwjQkxodJQTEr7g0fboUtgBlZP72Fgh/MB26TgU2zn7nUZ79WWWVADyyH+XtsK861OPln+hmiHRtKEzAFE5XK1rBCJXlKcdVSdOBYYdRgAQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=LAzih0XY reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i7RX/cHN"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 522F21F000D1;
-	Fri, 16 Oct 2026 15:24:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792164240;
-	bh=vEyGGAOev4ZHb3gYLENJSmTq0EzpiKa82QT+HChfkKs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=i7RX/cHNlAiZGRqzqdZOXQJ+JUOkKpTFvV/L43Jme5qQSTWQGCDUQEPl0UTsLXtBp
-	 +U7K9rBwH21FmLr9ZrAJxWXU8PtxLu9UK9yzVgSdlcVqWpfq4vhHfABnocvO4+twwy
-	 aTxYTFirRRQ/UyQNRO1JlfQT8ERB/jMiSb0UwshgTBE7lqiwktZVi2MZvReRK266Ma
-	 IFf7iVJQGF8cc7xdt49BACZvRAF6aPvvhkIgi3DATJD3+NeE84KeElxsO+NKWDqk/Q
-	 M7XdNgCBG8UuOhw6l4L6xgQx8ZbiC3FqXkWt97AEFL8qewDNtdleivJu8Sw6cp7aVY
-	 0qM4+0quqFZAQ==
-Date: Fri, 16 Oct 2026 08:23:59 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: vienna-0FFH <viennaoffh@gmail.com>
-Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	syzbot+e7f24354da9f7915bc54@syzkaller.appspotmail.com
-Subject: Re: [PATCH] xfs: fix slab-use-after-free in xrep_newbt_free()
-Message-ID: <20261016152359.GA107986@frogsfrogsfrogs>
-References: <20261016085536.591-1-viennaoffh@gmail.com>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="LAzih0XY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=VHBUwNboFU
+	UJcwmvxksUrPdGG8z/KFswwUvlcxH/EIg=; b=LAzih0XYBkfAf7Z+HUt+Iqq/TX
+	4qLCAW5SjAXh16LJbMwFry/tBpPW06qkRzQ0YdIE+fsQbwj9D1tkYNP758jm+K1j
+	p2d0jlIF8hl62gfKE7kHbLflV1WpVrElpBL22jKuzx0wwMk2x3Oj5avrnz23C9Qg
+	+iQtVNEYv6gFyby8Q=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.96])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkDW2_6tQdJqjqqrAA--.19227S2;
+	Fri, 16 Oct 2026 23:24:30 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Ricardo Ribalda <ribalda@chromium.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	stable@vger.kernel.org,
+	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Subject: [PATCH] media: dvb-core: wait for a running frontend ioctl before device removal
+Date: Fri, 16 Oct 2026 23:24:28 +0800
+Message-Id: <20261016152428.10684-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016085536.591-1-viennaoffh@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BbQMCkDW2_6tQdJqjqqrAA--.19227S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJF4xAr43Ar43Gw4fXr4fXwb_yoW5KrW8pa
+	93CryYkFWDCw4Iywn0vw1UJF95Aw4fGFWUKryxW3WDXr1rCa92kFyvka4UWFnxArs2yrW2
+	vwn5XFy7CFZ8AF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9C14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r1j
+	6r4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
+	1j6rxdM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
+	Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJV
+	W8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI2
+	0VAGYxC7MxkF7I0En4kS14v26r1q6r43MxkIecxEwVAFwVW5WwCF04k20xvY0x0EwIxGrw
+	CFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE
+	14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
+	IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxK
+	x2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI
+	0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUsZ23UUUUU=
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUID2rSPdECvAAAsp
 
-On Fri, Oct 16, 2026 at 04:55:36PM +0800, vienna-0FFH wrote:
-> syzbot reported a slab-use-after-free read in xfs_defer_item_unpause()
-> while online repair was rebuilding a bmap btree:
-> 
->   BUG: KASAN: slab-use-after-free in xfs_defer_item_unpause+0x116/0x250
->   Read of size 4 at addr ffff8880132c127c by task syz.0.0/5327
->   Call Trace:
->    xfs_defer_item_unpause
->    xrep_newbt_free+0x3fe/0x5f0
->    xrep_bmap_build_new_fork+0x5a9/0x740
->    xrep_bmap
->    xrep_attempt
->    xfs_scrub_metadata
-> 
-> The buggy address belongs to the object at ffff8880132c1240,
-> which belongs to the cache xfs_defer_pending of size 64.
-> 
-> xrep_newbt_add_blocks() attaches a paused EFI to the repair transaction
-> for each space reservation so that the blocks are reclaimed if the
-> system goes down before the new btree is committed.  If a later
-> xrep_defer_finish() fails (e.g. metadata I/O errors while staging the
-> new btree), xfs_defer_finish_noroll() shuts the filesystem down and
-> xfs_defer_cancel_list() frees all pending deferred work items, which
-> includes the paused EFIs referenced by resv->autoreap.
-> 
-> The repair then unwinds through xrep_newbt_cancel() -> xrep_newbt_free().
-> That function notices the shutdown and jumps to the junkit label, which
-> calls xfs_alloc_commit_autoreap() for each leftover reservation.  That
-> unpauses the deferred item through the stale pointer, causing the
-> use-after-free.  The report confirms this: the object was allocated by
-> xfs_alloc_schedule_autoreap() from xrep_newbt_add_blocks(), and freed
-> by xfs_defer_cancel_list() from the failing xrep_defer_finish().
-> 
-> Beyond the use-after-free, unpausing the deferred item is pointless
-> once the filesystem has been shut down: the remaining deferred work
-> will be cancelled when the repair transaction is torn down, and any
-> EFI that was committed to the log before the failure is replayed by
-> log recovery on the next mount.
-> 
-> Fix this by only unpausing the autoreap when the filesystem is not shut
-> down.
-> 
-> Fixes: 6bb9ea8ecd2c ("xfs: log EFIs for all btree blocks being used to stage a btree")
-> Reported-by: syzbot+e7f24354da9f7915bc54@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=e7f24354da9f7915bc54
-> Cc: stable@vger.kernel.org
-> Signed-off-by: vienna-0FFH <viennaoffh@gmail.com>
-> ---
->  fs/xfs/scrub/newbt.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/xfs/scrub/newbt.c b/fs/xfs/scrub/newbt.c
-> index 584076b..83558fd 100644
-> --- a/fs/xfs/scrub/newbt.c
-> +++ b/fs/xfs/scrub/newbt.c
-> @@ -516,10 +516,15 @@ junkit:
->  	/*
->  	 * If we still have reservations attached to @newbt, cleanup must have
->  	 * failed and the filesystem is about to go down.  Clean up the incore
-> -	 * reservations and try to commit to freeing the space we used.
-> +	 * reservations.  If the filesystem is already shut down, leave the
-> +	 * autoreaps alone: a failed deferred finish has freed the pending
-> +	 * work items they point to, and nothing will ever finish deferred
-> +	 * work on a dead filesystem.  Any EFI that made it to the log is
-> +	 * replayed by log recovery.
->  	 */
->  	list_for_each_entry_safe(resv, n, &xnr->resv_list, list) {
-> -		xfs_alloc_commit_autoreap(sc->tp, &resv->autoreap);
-> +		if (!xfs_is_shutdown(sc->mp))
+dvb_frontend_stop() runs in the device removal path, when the
+frontend is unregistered.  An ioctl that is already running at that
+point holds fepriv->sem for its whole duration, but it checks ->exit
+only before it calls into the driver, so a driver callback can still
+be executing while the driver state is being freed.
 
-What if some other thread initiates the shutdown?
+Two cases were not synchronised at all:
 
---D
+  - when the frontend device node was opened read-only, no frontend
+    thread is started, so fepriv->thread is NULL and the function
+    returned immediately.  Unlike the other legacy statistics ioctls,
+    which return -EAGAIN, FE_READ_STATUS is allowed to run without the
+    thread, so its callback can be running when the removal path frees
+    the driver state;
 
-> +			xfs_alloc_commit_autoreap(sc->tp, &resv->autoreap);
->  		list_del(&resv->list);
->  		xfs_perag_put(resv->pag);
->  		kfree(resv);
-> -- 
-> 2.43.0
-> 
-> 
+  - when a thread exists, the thread takes fepriv->sem on its way out,
+    but that acquisition is interruptible.  If it is interrupted, the
+    sema_init() that followed discarded the hold of a running ioctl and
+    left the semaphore with a surplus count, which also allowed two
+    ioctls to call into the driver at the same time.
+
+A use-after-free read was observed on a Twinhan USB2.0 DVB-T receiver
+after the USB device had been disconnected, while the frontend device
+node was still open:
+
+  Read of size 8 at addr ffff8880068c8e90
+  vp7045_usb_op drivers/media/usb/dvb-usb/vp7045.c:61
+  vp7045_read_reg drivers/media/usb/dvb-usb/vp7045.c:86
+  vp7045_fe_read_status drivers/media/usb/dvb-usb/vp7045-fe.c:29
+  dvb_frontend_do_ioctl drivers/media/dvb-core/dvb_frontend.c:2101
+  dvb_usercopy drivers/media/dvb-core/dvbdev.c:996
+
+vp7045_usb_op() builds the receive control pipe from d->udev, but the
+dvb_usb_device holding it had already been freed by dvb_usb_exit().
+
+Wait for such an ioctl instead of re-initialising the semaphore,
+whether or not a frontend thread exists, so that the removal cannot
+proceed while a callback is using the driver state.  Ioctls that
+arrive later see ->exit and return -ENODEV before they reach the
+driver.
+
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/media/dvb-core/dvb_frontend.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
+index 0286da57f382..076e24ea8a4b 100644
+--- a/drivers/media/dvb-core/dvb_frontend.c
++++ b/drivers/media/dvb-core/dvb_frontend.c
+@@ -817,13 +817,21 @@ static void dvb_frontend_stop(struct dvb_frontend *fe)
+ 		fe->exit = DVB_FE_NORMAL_EXIT;
+ 	mb();
+ 
+-	if (!fepriv->thread)
+-		return;
+-
+-	kthread_stop(fepriv->thread);
++	if (fepriv->thread) {
++		kthread_stop(fepriv->thread);
++		fepriv->state = FESTATE_IDLE;
++	}
+ 
+-	sema_init(&fepriv->sem, 1);
+-	fepriv->state = FESTATE_IDLE;
++	/*
++	 * An ioctl holds fepriv->sem for its whole duration, but it checks
++	 * ->exit only before it calls into the driver.  One that started
++	 * before ->exit was set above can still be running inside the driver,
++	 * whose state is about to be removed, so wait for it here instead of
++	 * re-initialising the semaphore.  Ioctls that arrive from now on see
++	 * ->exit and return -ENODEV without reaching the driver.
++	 */
++	down(&fepriv->sem);
++	up(&fepriv->sem);
+ 
+ 	/* paranoia check in case a signal arrived */
+ 	if (fepriv->thread)
+-- 
+2.34.1
+
