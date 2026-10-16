@@ -1,131 +1,186 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB94631326A
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 02:32:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 953761FE47B
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 02:32:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792117926; cv=none; b=nDbPT02QuA10kqADEMf+7K6d+z5nnlOv2GyZq+XDpHQlCV3khgxK9WHci7wGx45ppqfPNIdNr2FOuffZ8/6p8k6HvH15DyMklIcLyKo3fKZtsf9ao+OX6700UZZtK5eP3B298PDmoO99W+ceVPkIkc2WMxAbc4M4eCy1h0X9rgs=
+	t=1792117951; cv=none; b=DURHw3X1cjzFp4A1zQ+tQC5/ovzPuBRhWm/JGpri+X8AB7bGb6IsV2G0+11pdDBuRN/HQWCQZzYwsHzvbR9NYn+tn92M9hh55DdN4W/ZYeKmirXbJfE7xIrBhhT3GTh5+l5nJAkgtgMAiuZvCqe/N2RA/Gc1XwNtVXqmmk7eMbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792117926; c=relaxed/simple;
-	bh=f3DORJrJpkP6ZRkP19t1XIOYLbgIcUWXGly+WSIdbaQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lT127mR70ip5iHf22vA4JjDWQZ6T5M9i58Qh+eFcy46prqabgd2dkTY9hz+biug6w5uemqJak5akiLD0Wjq1p+9yuUWPwwWW5xI7ClHwDdq/Qn6i73ovXJ7q8HXjrTVybbuxBNoYGrKf9JgdvKe6oTX46fGGEpgDe+rvwK3VUGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=Lb+yK4lq; arc=none smtp.client-ip=209.85.160.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	s=arc-20240116; t=1792117951; c=relaxed/simple;
+	bh=Jwbt4sna4q8SKqLdUWxKiDuVxC9GU3p1BMahIzU/F2A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cAv6LMZryVNWuLO1G3RNg3s4Ot9xO7LJaIH8dMfEoGMIBo4gB77izzOSbwqAbR1HIEGLQLWKL9LXG02iPO6o7vV4mWusgbMhurKHAkS0dyYqrrJMrANfGbslMsx9TXjKffLcB+hh7+0YZ3598Xy/RL9rBRluqTrTbKr6bs0hEPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=ihfPfg1D; arc=none smtp.client-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="Lb+yK4lq"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-53505bc6524so6805701cf.0
-        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 19:32:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="ihfPfg1D"
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-15ea896ddc8so3907544c88.0
+        for <stable@vger.kernel.org>; Thu, 15 Oct 2026 19:32:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1792117924; x=1792722724; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=myFazyiklnuqy8xHfQCBKX5TKL0fchWKCY5jJRzEhZ4=;
-        b=Lb+yK4lqkt2BfUfCOe7Bt8yvghRl9MUpErEBMAEYfXa1prT4eNcmwhHcy/WnNaPDQO
-         31DJne0gjcuj66Lit4Nol8wJDO8rnFNowtS4Spgwo40BY1lZKdo1R5Ls/kDGu16/fKU2
-         k24jLb6tQvVlbnbhmLrCYBWKLBcbRmFg1966I2EAhK8fKsdjGEfhQ/Qb+Juxj0wxSZB9
-         kO7ipFOUMgtn9A1pw/ad9moHelbQU0e1smRYinSMp3Tvyeny3pmltDV2KB3aVdwwb4oi
-         wm5zyQZ1YlX7FFT2bkQ1Gab+gFwDh3Z+lnvYS82ITjprwO+MflkNaueAtIJv1xJu7a4y
-         pMcQ==
+        d=trailofbits.com; s=google; t=1792117950; x=1792722750; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B9xTWWD9mfzJtMcAru9lP6tSUbC9S1bscJnItCWs39w=;
+        b=ihfPfg1DOeIlqGcgUwVDOXhrTBDxBBdUFyXNgVcKv0evpDlm0VwnnPBM3v9CkDpfDb
+         b0VFEVLcuo8frMM2nZBGRUu5vr1UQ/kqVZeyrNqND2cSy5Gpt4kxYbeDSmub2frUQTFk
+         21SHyDQ72+CZEMbzC/LLvmXKyBZe6vyXQK9Sq3sT69TiMa5VsA5hpLice1AmsvNzldAW
+         end3lw5NHaVorHfSVxIiltN1FKZi3nK4y8o8xuy30llVPjrpYJDwd+p0DRDH1+M3Th3/
+         JM5csGr4LgYDFNvMtt0lJFLpoWFTGLuUahfnje5Itq/8T8PVNHHt7sgirhb4BCMr2m71
+         Swpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792117924; x=1792722724;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=myFazyiklnuqy8xHfQCBKX5TKL0fchWKCY5jJRzEhZ4=;
-        b=tNoUsOKikGTXV3k5AVJXVfB6vSLBwH8Yg4mNoTPw0jbJyv3c0zj/agBK3YWMsBXdxj
-         Uh9+toP0O4P1zkDCHYVs44Sgaq9aHH16Gt4U4CZznlhI6f9pvn4nn72vb7hyqrsO3mYq
-         gbFw2UASMl5Pdxc7pd/b2qGIp8GuYo98X/U6FmhjpZt7xcxt8m3BvqEcISrLtsYNlpVh
-         Q+EpJyBLKZS9n+tWV+Z5nWurCtm8f9SW0XZF8tjZIdlTEB5Ms5uGb56NlJmR29Z6yiua
-         bDlbvOcs/HG3h1ykN/3mWiaBJt6oRhA2NM76JNwlY4Woo1aqbYi5n7gDW9FnffMcw2Na
-         +UBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwBnGV0xZDObINqP7ArnKeXzk/mqf+aqb/3KvaTJYGsgkGF+Y0c/Wzck0h/ohjiHJwkTFSfkLE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSqelsF2JLPZpIn3H7JBVxB3GYhJk4llOpn7qlhjHQMo56WUSH
-	cxk9sFMWF6ZI2lz4Lbj52iuiwuN3kyocsLNOFZ24olWF6FQKC2hkneuZgwSoPoFHDg==
-X-Gm-Gg: AYBFou2lrtUbpHhwdYV3VCjLqcFU1hmKFfUfV4BBkGjZ8FIHVXldXAnFVgwBOHJVZ6P
-	EcDAQ1GmAAO7Enh+jWIagBsRjcQ3inA7UseILhp1xsmRySMbsIEkwWpxF0UFXDObvEULhS/d9e0
-	PZy4+bhJrLSsa1DW4xuuH4fa9+MuKmiZlEZ+rZ6IEquHU08gO9WxZ/8UXTqG9ZMGrN/8yrJkxrW
-	hwNCzf4R+YRAbpRSZ0CAEUuA9PUn7SpTIYr4begf36uThlSQpLpu8kaSzRuucZEgQ25/pp7RZIa
-	XLwiL3Fj/PA7+kOD2Iwmxu7zLUXE6v6ihJpjF/hgMJAPlbwTpN1LRIfiwrez75/92Q7N2dHKrso
-	JsIHb0oV40xWy9uE5XyPlfgMByEMg1TV3xG05DC/rRrfB+2frXN44eRn4AiopCUj8p5C0Ed+Ekw
-	LrWB5RS1qt1a53DwfaTr+y0GcYvuLv3iKolT5wsKsYZp5r3a8R2osFkZu2vai7dYIlibZmfUzUK
-	qxJZ2bOOq4EXzek5Hk1
-X-Received: by 2002:a05:622a:1dcb:b0:535:fdd7:b490 with SMTP id d75a77b69052e-53626d2623dmr35175501cf.0.1792117923761;
-        Thu, 15 Oct 2026 19:32:03 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bce8918bdsm6778646d6.48.2026.10.15.19.32.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 19:32:01 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: slava@dubeyko.com
-Cc: glaubitz@physik.fu-berlin.de,
-	frank.li@vivo.com,
-	linux-fsdevel@vger.kernel.org,
+        d=1e100.net; s=20260707; t=1792117950; x=1792722750;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=B9xTWWD9mfzJtMcAru9lP6tSUbC9S1bscJnItCWs39w=;
+        b=XK0MmIDXGAMR/pdNdmsmi81rFGmtcX7XaujyWU2o6dVAWBHtrGPEe1snCUseL2EPpT
+         uyXyE5Cq2iS8LqLAljpvVBJf+aMnqOHdsYj0mxQC78E5oWks26lqL/7UfC+pUpz5x9ii
+         24Cq0kfoZjxyTRBynhe+C8LQOueohRaYS0BxmdR2xFv8hzmiVd3lTwhVxjhcORMDPuaU
+         2OXG8tllUTd7MH9ljelrq6AXqDcnhBX3YRvByc16TUKsBvwyOSrI1JKMVEV3/IFhXJNC
+         PWYHpZNZxBRDfLKboLDrDTWF4HAqTVC5YEVQXJWuPa6Q/IS1n38GkfQHcuvpZ51M8ng3
+         3bHw==
+X-Gm-Message-State: AFq9FYL50MfdYFhSqQe4IJFjlJs/AczQB8josfyBE/fB2bj9PyyK9NNm
+	q+mgbTVI8ao0iOQZC50LvyOMN4O3uUe3usgeCpUGUcL4G0VluVBnA/D7O6SXORxTeY+U7josdSw
+	1YW5nZbxxXQ==
+X-Gm-Gg: AYBFou3Y4mgtRcjjl45wuRYo7I45FZoQootiDj+8y18NqEW5W/4zj8NVTXS7pDTkouv
+	V2mcnQk79x5vjomsZIZ1undkItulMKjXln3D7jhhjkgSsOp9ez6BSfnQ3+UPAXrT6+HhQMxUsFe
+	n39vBezM0jOfteYMdRhQonOAsKHp5DRDJAY4HRHu/J26lNZ5kn2/n3/gUia4/v6jRCMBwjwIYx8
+	BvlBnxhHEOQvz5L6BoWY+CEjDHsgppKmR/6hrKsfDYDHnRXeA6r4YF7qAw2cmSphlRbo5nhiqq5
+	9kQy9araMoY1JUCSX/vo+wBeEq3EP7iDUAc198Fc794Sl9nw5ZC476g7WIrPPswZ8YiElLDVeRF
+	c9KQAndGtBtOar67raqoMGvFDufSaSPmWuLJRmF6FVflWmh5xSdvVZ/BsB5d7ik1nWWlK4g4SgN
+	yDu2OXB+QBf212Ek0kxF7JdVIGizI4jkNqOGBq7wEGP6VDgy/T7xOeVfbYvSu2Ur+vUT2KYWN+s
+	F0rXOUqFMknp7VHG0h/K75X4Ue3l9jg+oWkGw4CcJNZ43hw1naEGW1PWX24H3NGwPOsGw==
+X-Received: by 2002:a05:7022:171c:b0:14f:8e70:fad0 with SMTP id a92af1059eb24-16a6090d024mr26389777c88.33.1792117949507;
+        Thu, 15 Oct 2026 19:32:29 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:d66:d0e8:dae3:3257])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b6791sm2233692eec.6.2026.10.15.19.32.27
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 15 Oct 2026 19:32:28 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: andrii@kernel.org,
+	ast@kernel.org,
+	bpf@vger.kernel.org,
+	contact@arnaud-lcm.com,
+	daniel@iogearbox.net,
+	eddyz87@gmail.com,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	jolsa@kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] hfs: avoid reusing occupied CNIDs after deletion
-Date: Thu, 15 Oct 2026 22:31:25 -0400
-Message-ID: <20261016023125.2271361-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <45b692cfda51e3b10caa27ae51609edc34efb0d0.camel@dubeyko.com>
-References: <20261015110114.1649059-1-hengyul@cs.unc.edu> <45b692cfda51e3b10caa27ae51609edc34efb0d0.camel@dubeyko.com>
+	martin.lau@linux.dev,
+	memxor@gmail.com,
+	song@kernel.org,
+	yonghong.song@linux.dev
+Subject: [PATCH 6.6.y] bpf: Fix stackmap overflow check in __bpf_get_stackid()
+Date: Thu, 15 Oct 2026 22:32:25 -0400
+Message-ID: <20261016023225.19034-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Slava,
+From: Arnaud Lecomte <contact@arnaud-lcm.com>
 
-On Thu, Oct 15, 2026 at 12:58:14PM -0700, Viacheslav Dubeyko wrote:
-> (1) The goal of hfs_correct_next_unused_CNID() was to fix the volume
-> corruption issue. Have you run hfs.fsck tool to check that volume is
-> valid (not corrupted) after your fix?
+[ Upstream commit 23f852daa4bab4d579110e034e4d513f7d490846 ]
 
-Thanks for pointing this out. I have now run the additional checks on
-v7.3-rc6 with this patch, using fsck.hfs 540.1-Linux:
+Syzkaller reported a KASAN slab-out-of-bounds write in __bpf_get_stackid()
+when copying stack trace data. The issue occurs when the perf trace
+ contains more stack entries than the stack map bucket can hold,
+ leading to an out-of-bounds write in the bucket's data array.
 
-- All 14 normal-volume images from the original tests passed
-  fsck.hfs -fn after unmount. This includes the reproducer, CNID holes,
-  missing optional file threads, concurrent operations, and reordered
-  leaf node numbers. The checker did not modify the images.
+Fixes: ee2a098851bf ("bpf: Adjust BPF stack helper functions to accommodate skip > 0")
+Reported-by: syzbot+c9b724fbb41cf2538b7b@syzkaller.appspotmail.com
+Signed-off-by: Arnaud Lecomte <contact@arnaud-lcm.com>
+Signed-off-by: Andrii Nakryiko <andrii@kernel.org>
+Acked-by: Yonghong Song <yonghong.song@linux.dev>
+Acked-by: Song Liu <song@kernel.org>
+Link: https://lore.kernel.org/bpf/20251025192941.1500-1-contact@arnaud-lcm.com
 
-> (2) Have you run xfstests (especially, generic/736) with your fix?
-> Because, the patch had goal to fix the generic/736 failure:
+Closes: https://syzkaller.appspot.com/bug?extid=c9b724fbb41cf2538b7b
+Assisted-by: LLM
+[ Backport to 6.6.y: stack_map_calculate_max_depth() was introduced by
+  e17d62fedd10 ("bpf: Refactor stack map trace depth calculation into
+  helper function"), which is not in 6.6.y; open-code the same
+  computation in __bpf_get_stackid(). ]
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi,
 
-- On a freshly formatted 64 MiB HFS volume, I ran:
+Please consider this backport of the fix for CVE-2025-68378 to 6.6.y.
 
-    ./check -i 10 generic/736
+The only difference from upstream is that the
+stack_map_calculate_max_depth() helper, which 6.6.y lacks, is
+open-coded in __bpf_get_stackid().
 
-  All 10 iterations passed, including the filesystem checks after each
-  iteration, with FSCK_OPTIONS="-fn". A separate fsck.hfs -fn after
-  the run also passed. There was no "invalid MDB drNxtCNID" error.
-  The unpatched v7.3-rc6 kernel also passed these 10 iterations.
+The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
 
-- I repeated the minimal reproducer on a separate fresh volume. The
-  first creation of c failed with EEXIST without the patch and succeeded
-  with it. The surviving file's CNID and contents were unchanged, and
-  the patched volume passed fsck.hfs -fn after unmount.
-
-For completeness, I initially ran generic/736 on a 256 MiB HFS volume.
-The test body completed, but the final fsck reported:
-
-    Invalid map node linkage
-    (4, 2048)
-
-I reproduced the same failure on unpatched v7.3-rc6 with the same volume
-size and tools. The catalog had 6129 nodes, while its header map and
-single map node covered only 5984 nodes. I then used fresh 64 MiB volumes
-for the runs above; their filesystem checks passed without repair.
-
-No KASAN report or kernel BUG/WARNING was observed during these runs.
+Build-tested only as part of a cumulative 6.6.y series on x86_64
+(allmodconfig, CONFIG_WERROR=y); no runtime testing.
 
 Thanks,
-Hengyu
+Artem Dinaburg
+
+ kernel/bpf/stackmap.c |   20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
+
+diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
+--- a/kernel/bpf/stackmap.c
++++ b/kernel/bpf/stackmap.c
+@@ -216,7 +216,8 @@
+ 	struct bpf_stack_map *smap = container_of(map, struct bpf_stack_map, map);
+ 	struct stack_map_bucket *bucket, *new_bucket, *old_bucket;
+ 	u32 skip = flags & BPF_F_SKIP_FIELD_MASK;
+-	u32 hash, id, trace_nr, trace_len;
++	u32 hash, id, trace_nr, trace_len, max_depth;
++	u32 curr_sysctl_max_stack;
+ 	bool user = flags & BPF_F_USER_STACK;
+ 	u64 *ips;
+ 	bool hash_matches;
+@@ -225,7 +226,12 @@
+ 		/* skipping more than usable stack trace */
+ 		return -EFAULT;
+ 
+-	trace_nr = trace->nr - skip;
++	curr_sysctl_max_stack = READ_ONCE(sysctl_perf_event_max_stack);
++	max_depth = map->value_size / stack_map_data_size(map);
++	max_depth += skip;
++	if (max_depth > curr_sysctl_max_stack)
++		max_depth = curr_sysctl_max_stack;
++	trace_nr = min_t(u32, trace->nr - skip, max_depth - skip);
+ 	trace_len = trace_nr * sizeof(u64);
+ 	ips = trace->ip + skip;
+ 	hash = jhash2((u32 *)ips, trace_len / sizeof(u32), 0);
+@@ -354,15 +360,11 @@
+ 		return -EFAULT;
+ 
+ 	nr_kernel = count_kernel_ip(trace);
++	__u64 nr = trace->nr; /* save original */
+ 
+ 	if (kernel) {
+-		__u64 nr = trace->nr;
+-
+ 		trace->nr = nr_kernel;
+ 		ret = __bpf_get_stackid(map, trace, flags);
+-
+-		/* restore nr */
+-		trace->nr = nr;
+ 	} else { /* user */
+ 		u64 skip = flags & BPF_F_SKIP_FIELD_MASK;
+ 
+@@ -373,6 +375,10 @@
+ 		flags = (flags & ~BPF_F_SKIP_FIELD_MASK) | skip;
+ 		ret = __bpf_get_stackid(map, trace, flags);
+ 	}
++
++	/* restore nr */
++	trace->nr = nr;
++
+ 	return ret;
+ }
+ 
