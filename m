@@ -1,36 +1,36 @@
 Received: from gentwo.org (gentwo.org [62.72.0.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1862C563FAA
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 17:21:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EDA8563FA2
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 17:21:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.72.0.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792171315; cv=none; b=mJvXlL6L9SKNYgild0Qcsd4VUPK3j9+POWKpHn1JyAPwUPuHYKn+LEWQHWmJ2iZ9BP19kLzKkOPLQ8DJyTfvbuXPc5LfGpUrkncxQKpZn/C84KTUA3AIdBitt2pKME/a9XjA967BLvzbIpQQFa+z6zmtRC0/ZDSw/a9qZWOtyA0=
+	t=1792171317; cv=none; b=hn+lK6Oufq0UUcpPvNHarLtBXZW439BR7WdgtnIvjzrK3N/NA8zxdpRd81qdHWBGRcgF9St5Xjs391/WDxLRNEGi0F4jcklklQ799ZuMzPaI9HsoqlJtkY5qgEnC+9CKTK5lc+q+v0lc/oiCwd7oGmLCHSOHIbevY1hIyxattJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792171315; c=relaxed/simple;
+	s=arc-20240116; t=1792171317; c=relaxed/simple;
 	bh=zLf4n78l1h3bFu2neIcXuiZTO4IVRDeWTVRUwmBGKyI=;
-	h=To:Subject:References:In-Reply-To:Message-Id:Date:From; b=uUrQXcmG+EynmT6vMbVn0Vg4yfQ31AMLJ3F1VlNp239qz8ltAv51kQuPQIk2Xelq7SJ8rpZ+9V3tI8Rg6xpu2lo20yuR85vWjHwPIiam+tlLJO0teMvncV9AdjdyEI32jkpo2pD/kIC5usdLGRQLBB1w75n7q9uLoxVRvNTDyE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org; spf=pass smtp.mailfrom=gentwo.org; dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b=C54FsrnE; arc=none smtp.client-ip=62.72.0.81
+	h=To:Subject:References:In-Reply-To:Message-Id:Date:From; b=op9hYjyUq0Pg0WmLtsQRX/d33peSiwphNw8snwl+oC8d0hbfnZndOHPS2XBYg+plYPZMKIWQQIkK5xfBN21cMIq7+YTtCe0eHri7WPz55wWleq2qNVHr6n+BH0I2HWxcmLSiQMohbmxLkoLUFL7GP+QXAuRjw07+sjL1JJUob1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org; spf=pass smtp.mailfrom=gentwo.org; dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b=hJTa6aBi; arc=none smtp.client-ip=62.72.0.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b="C54FsrnE"
+	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b="hJTa6aBi"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
-	s=default; t=1792171313;
+	s=default; t=1792171316;
 	bh=zLf4n78l1h3bFu2neIcXuiZTO4IVRDeWTVRUwmBGKyI=;
 	h=To:Subject:References:In-Reply-To:Date:From:From;
-	b=C54FsrnE4mXhAwwlYZYyg+Kwmcb8KcOypcNrbe6esBhNGrhm89EYt1ybKV6yzgIe+
-	 ZZPTx5T+mwfxo9pYw+9IPERtfvpVzehesgQ1JKehLH3iT0SI1cW+6c3xA80TvzYqL4
-	 Hch3cJ/Ln8+scnbjsIDrhDpYk/FwLm92Vm1WN1s0=
+	b=hJTa6aBikuQScxtw26etS9yatsH40MJ3SJ8eo4lJ3Yllyq+4A46+VkepPxmjIq02k
+	 SQPNYEMuiEod/F5wsaqtDoHgzzaa6bEHRvuulnSctRG9DPlueXqFve3pNOxQSbyO7n
+	 YONH8ydqKtLbIS8YOgrLaYMddzL/tpZUs1Irk+k8=
 Received: by gentwo.org (Postfix, from userid 1006)
-	id 9DD2540B13; Fri, 16 Oct 2026 10:21:53 -0700 (PDT)
+	id 1D51A40B13; Fri, 16 Oct 2026 10:21:56 -0700 (PDT)
 To: stable@vger.kernel.org
-Subject: Re: Patch "slub, kasan: improve interaction of KASAN and slub_debug poisoning" has been added to the 6.6-stable tree
-References: <20261016172149.3999437-1-sashal@kernel.org>
-In-Reply-To: <20261016172149.3999437-1-sashal@kernel.org>
+Subject: Re: Patch "mm/slub: avoid zeroing outside-object freepointer for single free" has been added to the 6.6-stable tree
+References: <20261016172152.3999481-1-sashal@kernel.org>
+In-Reply-To: <20261016172152.3999481-1-sashal@kernel.org>
 X-Loop: christoph@linux.com
-Message-Id: <20261016172153.9DD2540B13@gentwo.org>
-Date: Fri, 16 Oct 2026 10:21:53 -0700 (PDT)
+Message-Id: <20261016172156.1D51A40B13@gentwo.org>
+Date: Fri, 16 Oct 2026 10:21:56 -0700 (PDT)
 From: Christopher <cllinux@gentwo.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
