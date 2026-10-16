@@ -1,107 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E6AC42378F;
-	Fri, 16 Oct 2026 08:14:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856E539DBF4;
+	Fri, 16 Oct 2026 08:19:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792138470; cv=none; b=kR/MRbqH9a2CKQhLAE4uus7deTmvGMB6qTwWXt5lX+I2vdRLprc/dMkw/nYj0HiOz1QnfcwxbfrrKTu/V5A30amYmATJmlzqQTqqxzDhmY+G94q//BdbFrs98iOPGDaTvdDpeFOu4CkUMkOJthmZNSSmbuwlxI0HZbduHzuf3MI=
+	t=1792138761; cv=none; b=SycxVb3HL4DrykYXtvv+JOdnrCmnPf46CNa5i64h4OQVPvq/IW6emEqlbBrGwIgdIwA52aI1NPF9bgEGbIplT2BkHhdeAINu8UUcgNxXfQu3PwY93dlTLnU9ecAZ8x/IvFYKJ7BOBtoKVjLrpaWoI+ZV6hlbMu7JitPfuTHpCuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792138470; c=relaxed/simple;
-	bh=TIwHNW4PKjIUENLKJlEq6MQ/g15eZ57FFIrXUXpNPNY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=IgYgoGg+3+wDk8uhHnOUWtTHjJGS8MHHg853HsKH1h2kDPF5fkBewNhqjpg8wrPbsM2/2ZSIrf1UKUZgH5mXMqPFremm8kDW/SgiQH98rwmLaI1j8OeaYb6VFLwzQmo5Jd4v0BEWft/v/jvLdcFVhYEh953AhEhUnqIuZqX/4ms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a2ENNNE9; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792138761; c=relaxed/simple;
+	bh=b6ijeQbZkhXZF0auksHQQ9XBIz+S33XRaGZjlyO4vGE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kJf5yjloLQJrpg8wnj5nbl61+xA0jB3lB16rWyZqnteyXdD8ZUh3+B6K1vYDl3XCz1MRvSOEeTmEAIV2uOJXWlUYu3afobkfGRvnA+s71xTOK56WgaBbJyfUycordRNitGgHBsGtKEcKTjGI2ne6QbLMsSYZG2pDNwS+ngp0kcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ev09OFLL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a2ENNNE9"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B700FC2BCF4;
-	Fri, 16 Oct 2026 08:14:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792138469;
-	bh=TIwHNW4PKjIUENLKJlEq6MQ/g15eZ57FFIrXUXpNPNY=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=a2ENNNE9zHptB0vZm6GiiH8pBP4NFrnCeacgqhgWFfZPYeyCjew3310uBW17aPoG9
-	 xPrv/hg3w4G4pZjAsb8TYIEX0kbqDcKmh24t8Crdxp9w2wDsZUv6oY00PFlHCB/oo+
-	 PEUrUNFswfEfX7YHZr3kAdvLZ02ZEeX2nq6Ko3J74vGeFBrbUANahNPdcq3XM6Myvi
-	 1mQnO3vR2pcjJ6+YAmtkSVK14kydPrgJ7CfuFkynS5TfGxybYQjQihhhbItbDRtfIU
-	 TW6KX96CUQ+ecI37eXfdybC+gTOMwcJqNG4Dsfl2kcHmtMOmczfSnPZpocBxLGmf+I
-	 hbz82jMoONHPg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 922C7CCA464;
-	Fri, 16 Oct 2026 08:14:29 +0000 (UTC)
-From: HuskerMinion via B4 Relay <devnull+mocker-mug-unwoven.duck.com@kernel.org>
-Subject: [PATCH 0/2] ASoC: mediatek: mt8183: Two AFE fixes
-Date: Fri, 16 Oct 2026 02:14:00 -0600
-Message-Id: <20261016-mt8183-afe-fixes-v1-0-f0db51e0c073@duck.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ev09OFLL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBB111F000C4;
+	Fri, 16 Oct 2026 08:19:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792138760;
+	bh=JN5TVC//3O1ip10wW+8mi89WV09HEjoNN46Wit82ehw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ev09OFLLtBq9nlj0KDPf9/IRstqtsFz6Ma9lLNEXCK2KFDc8mIwCsD6RkeuW1o9Pn
+	 L1tsgKuXM3Vc4nO+qGqC/yRqr/LgVTCxJ8JTrRCv80wO74W4u0WZCzTFCeNH/KCsuz
+	 Ej+tFS73V67Vigzz5INsrTgs/0GbW9IJRGhER7LjpjNaTh2qF/RErjWDwFIj3wZDMC
+	 4600l59QruiRbPJR1xEsyvCpDEgAM7wwLwfQe4XQB0nBqP0WDW7iIQLn9+kLdCx3NC
+	 DLUbbWC4bn4uBpjd8S1NyvsLr695f0/LN/geC7Ni3tVb2iTM2ZoRUzHk8W4YChP+e+
+	 7cDw+MENd6qTw==
+Date: Fri, 16 Oct 2026 09:19:13 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, linux-mm@kvack.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Daehyeon Ko <4ncienth@gmail.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/vma: avoid spurious write locks when mm->mm_lock_seq
+ overflows
+Message-ID: <atHa3-KlMPg6oy8v@gremlin>
+References: <20261015-fix-vma-lock-overflow-v1-1-01beb245d9da@kernel.org>
+ <f5548d05-5aec-42d0-b9d9-c14fb575dec9@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAMjc0WoC/yXM0QqCQBCF4VeRuW5gR7fQXiW60PVsjaDFjkUg+
- +5udflx+M9GhqQwOlcbJbzV9LEUyKGicO+XG1jHYqpdfRInR57XVtqG+wiO+oFx54HOS2ji6Kh
- kz4TfUKrL9W97DRPC+v2hnHfmLnv1dAAAAA==
-X-Change-ID: 20261015-mt8183-afe-fixes-94ee941c3fd0
-To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, HuskerMinion <mocker-mug-unwoven@duck.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792138468; l=1641;
- i=mocker-mug-unwoven@duck.com; s=20261016; h=from:subject:message-id;
- bh=TIwHNW4PKjIUENLKJlEq6MQ/g15eZ57FFIrXUXpNPNY=;
- b=0srufWCkTX4PIs/durVAuh0yWhA93Eqq1o4UAZfY1ZVUtyTvHkL7wVZY/k4qH8l0xfn9SYVb9
- NpxhO4RuS75DMgdhPCeNsf7obXTWW2LoPgWcmwSro8JxE2AezOxRG+u
-X-Developer-Key: i=mocker-mug-unwoven@duck.com; a=ed25519;
- pk=Q7l9BnP4XnFimCK28K+NVowcECqTaJNXicdBAInot0k=
-X-Endpoint-Received: by B4 Relay for mocker-mug-unwoven@duck.com/20261016
- with auth_id=1206
-X-Original-From: HuskerMinion <mocker-mug-unwoven@duck.com>
-Reply-To: mocker-mug-unwoven@duck.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f5548d05-5aec-42d0-b9d9-c14fb575dec9@gmail.com>
 
-These two fixes came up while bringing up mainline Linux on the Amazon
-Echo Show 8 (2nd gen), an MT8183 board.
+It seems likely that you're using AI to generate these review points. Please do
+say if you're doing that, thanks.
 
-Patch 1 is the important one. On this board the AFE never ran. Runtime
-resume enabled the audiosys clock gates while the regmap was still
-cache-only, so the gate writes were dropped. With the fix, playback and
-capture work on the device.
+Normally that'd be totally unwelcome, but both Sashiko + local AI missed these,
+and I have made mistakes here I need to fix, so this is actually useful...
 
-Patch 2 fixes a wrong register in the UL1_CH2 mixer. I found it while
-adding capture routes for the device's microphones. The Echo Show does
-not use I2S0, so that path is compile tested only.
+On Fri, Oct 16, 2026 at 09:41:28AM +0200, Jose A. Perez de Azpillaga wrote:
+> On 10/15/26 10:31 PM, Lorenzo Stoakes (ARM) wrote:
+> [snip]
+>
+> > The reset, performed in reset_vma_seqcounts(), only needs to WRITE_ONCE()
+> > the value. The stores follow the smp_wmb() in do_raw_write_seqcount_end(),
+> > so a reader observing a reset value also observes the VMA modifications
+> > made under the write lock.
+>
+> the writer side looks fine, but what orders it on the reader side?
+> raw_read_seqcount() is just an smp_load_acquire() since d0dd066a0fa2,
+> not the smp_rmb() the comment mentions, so the earlier
+> READ_ONCE(vma->vm_lock_seq) isn't ordered against the later vma reads.
+> couldn't a reader on arm64 see the reset 0 with the old odd
+> mm_lock_seq, pass the parity check and read stale vma fields? would
+> smp_load_acquire(&vma->vm_lock_seq) be enough?
 
-I do not know why MT8183 Chromebooks do not seem to hit this. I have no
-Chromebook to test on. My guess is that something else keeps the gates
-open there, but I have not confirmed it.
+Yup that's a mistake, will fix on respin.
 
-Patch 1 was tested on the device with a 6.18 based kernel. Both were
-then rebased onto for-next and build tested there.
+>
+> [snip]
+>
+> > Cc: stable@vger.kernel.org
+>
+> the parity check relies on e5e7fb278e59. before that, mm_lock_seq only
+> increments on unlock, so locked values can be odd or even. should this
+> be limited to 6.14+, with a note that older trees need a different fix?
+> a straight backport of the odd check would ignore write locks taken on
+> even cycles.
 
-Runtime suspend has the mirror problem. It goes cache-only before
-mt8183_afe_disable_clock(), so those gate writes are dropped as well
-and the gates stay open after the first use. I left that alone because
-I have not tested a change there. I can send a patch if you want it
-handled the same way.
+I have a plan for older kernels (just make the value 64 bit...)
 
----
-HuskerMinion (2):
-      ASoC: mediatek: mt8183: Leave cache-only mode before enabling clocks
-      ASoC: mediatek: mt8183: Fix UL1_CH2 I2S0_CH2 routing register
+>
+> [snip]
+>
+> > +	/*
+> > +	 * The VMA seqcount is always odd if locked. An even value can only be
+> > +	 * the zero stored by reset_vma_seqcounts(), never a write lock.
+> > +	 */
+>
+> vma_lock_init() now stores 0 too, so this isn't quite true, is it?
 
- sound/soc/mediatek/mt8183/mt8183-afe-pcm.c | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
----
-base-commit: 764db7a068919c9e3d4618731dd854df43070399
-change-id: 20261015-mt8183-afe-fixes-94ee941c3fd0
+Yes it is true, because as the commit message and I think even comments say, the
+VMA is not visible when detached, but it is visible when attached, at which
+point a write lock will have been acquired by definition, hence non-zero.
 
-Best regards,
---  
-HuskerMinion <mocker-mug-unwoven@duck.com>
+I guess I could add a point about attached here.
 
+>
+> [snip]
+>
+> > -static inline struct vm_area_struct *vma_start_read(struct mm_struct *mm,
+> > -						    struct vm_area_struct *vma)
+> > +static struct vm_area_struct *vma_start_read(struct mm_struct *mm,
+> > +					     struct vm_area_struct *vma)
+>
+> is dropping the inline intended?
 
+Yes. inline in C files is useless.
+
+>
+> [snip]
+>
+> > +EXPORT_SYMBOL(reset_vma_seqcounts);
+>
+> since it has to be exported for the inline mmap_write_unlock(), would a
+> __ prefix make sense, so nobody calls it outside vma_end_write_all()?
+
+Yup, that's fair, will update.
+
+>
+> I tested it on x86 in qemu with KASAN, lockdep and DEBUG_VM on top of
+> mm-unstable and saw no issues, but I'm hesitant about the points above.
+> happy to give a Tested-by on the next version :)
+
+Thanks!
+
+--
+Cheers, Lorenzo
