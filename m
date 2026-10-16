@@ -1,132 +1,195 @@
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91C6B3C343C
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 19:32:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792179177; cv=pass; b=pNf7yLT9f140beMf2FPlbRw9Doox1S33sWONW1CRoeS5NjMEN5S0dc9VCH/anwwY5y0aPmPdbyDFqWZtqV2J+ijWzI8CnVPllMXBNb+/9FKqwZq/MxMOfJnEpNaZsH48i0YPK5KoKJS1YkOLYHaxHPAQHwZGtrGG/CcwgmU32Ek=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792179177; c=relaxed/simple;
-	bh=MEjqqJ8STGAiw1ShutZb1MiaJfQSi8GqlcBV0l3Jhd8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=q9qrQIl4lXsPs4sCWiaS3Rm15XmF1fAZ20F+EaPQkG593fKBF5/nHgbqy2RsTzIciOAij8eXwRuEYS4P9mO6CrshgSVysUNDZ5+t6ipnIyzBeDfLnkwGCOhVnTntdFzW8MBbhqtKbLkZ4hEsylLXN0CElNtJ0a6ciq1ccxQKr6Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LQl5OsG9; arc=pass smtp.client-ip=209.85.160.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1084A39795B
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 19:46:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792179981; cv=none; b=Rqz6iLpl4vyT4aiw7Lsra49zTv+pUKPzGi23u4DUnG50fTyUNZeG4N3LejVDFRO/zJXVZhzC4rg/vl22380951E2gsrvsUmaQchd9ZHE91OIXFyQgVD/XZGp9vBPCNpanbnj7BOtyKdMGkWRNQG7TziGXRLV5vFmNmWXprkn10k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792179981; c=relaxed/simple;
+	bh=EVazFA0csJsZIo3f4B6QUACEMBA2ndyJfDDy8qymyLk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=d6smaND2Rmc7TkU+7kPkEHwMClB61wt267YPgI8/lU0MUnTIozxM6gOQPA00JDpguVdIMtM4KB0LqVVC4uoXcOAVTBBL02YE3+8nVKSSlOlw4vmoD5WUoJr1J6CY6Xlfjtn25yHN/LOD6fEkuOJU+8Z9VCL3vH9ZNeBQg5bHg44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CRp5wEGg; arc=none smtp.client-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LQl5OsG9"
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-5337fa12431so601cf.1
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 12:32:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792179173; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gj0vdsFVpTdfD9HTFzeTnJ+3NrToWV28LsP5YXNfdLaCaNIsLKLoc1o2d3hUdqNQ7K
-         m/ioFXvj0kGkCsbPZ6kn5N/MG38bhOott4mzx6boSw9gi2m4zZW+PhbZD9XgsAu5Ohxc
-         6AjOf7YTz8c6wyA1PCcy/QpcFIFkmacYQGH0EZSs5nHrcufjEkbCgkH7Jl57FK+tWgEN
-         DsoT0lNqGCwvn1LnvJII+Q5MxRHseEDKfS2ipJH037svYiuOwEjLFu2C0bldOPvLqdB4
-         rAi5SIxaSQ7TgM+KY1U9pJz21NHFjE/bZR6RasgF97SVhXI941WsNGgfcKorPHW/67Me
-         kJ5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MEjqqJ8STGAiw1ShutZb1MiaJfQSi8GqlcBV0l3Jhd8=;
-        fh=QHOdoZisBFWzKYGVtkO0iUASob687JsAepzceZyOlCM=;
-        b=ZOHbZTRhnzps0rXWdjoW3BY3LoQGUro/rqn/HiGiML3zFOq1K/rL2RnMVXrvO5F6Lp
-         LCVnKiEPXg9sigaE1sVJ7OFskHwtYdMhTSPf5zf7SF4cvhzvXIxYeyR4PCBFdKSFSDm9
-         Gg2ogZwRmNDxJqyQDb51OMSEWyAHyeAcWZEivmuUUJHnRq18m9R4GGFU6Gigaa8ZBr+a
-         oTFVQdP4wVKG8q+PW4f5YOa2vu/uLucE1W5zu+SlxbOIbb0OuS6uLEPY8unKwcU4nsvO
-         rK1G2+EL72IIeUnrwOtouw34NyQOvvxHNu7sYAd7EPoCmOhhJWtXO+csW/m81fnw2wUu
-         dbLg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CRp5wEGg"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-30b6dad2382so774835eec.0
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 12:46:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792179173; x=1792783973; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792179978; x=1792784778; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=MEjqqJ8STGAiw1ShutZb1MiaJfQSi8GqlcBV0l3Jhd8=;
-        b=LQl5OsG9PWIneV6xpRYFa1mAyNeLlWP0rTkUHj3//0xaDk8hz80SqYhbN5GjkVRqG6
-         q4nhdJf4fHfhYmCCUIgcruTovBcWT0z0RQuzCWOQGlM3ko5GHfs5xqM9Cz6YbKOA/wY0
-         EEDC3ilWd7X61FjmItfijY7g6K7/wJjZmZK0UTSK4qJucRt+hDSkpais/hLq0XSBm/8j
-         W5m2d452aabY87kbMwygBbA/dUvx72BgiJbsviOS+BGNb6kCM+cVADUda9ecxznKyLtu
-         j7EiNSltjk9SxxwvZP81IqnzrpXA0BIkwW/u3e1VAsKUMIBEwDYU2+ySE5vlu4c/Fwp+
-         Ah0w==
+        bh=RiRo02OA1IxHJkhQCnHi5URLw0bi6CvLtMWBM69Y8xM=;
+        b=CRp5wEGgJakPSigX9Y3ogxQymTOTvKjy0ti445e9jZigMGpHnm+PVRDTdoI4wW2y/q
+         tffh1S74qOGIrWNdpV+q2H3AbHNhuF6bceWw1k51pZLQPbkY8Xj0y+bBqiTBDNhBugNQ
+         XVFQ9V82xpmDKcKEbhSqzkqw62oeAKJ+7/PuVfT5D8CSk7L13Esp39Mu7SDRKVZL8QXy
+         NTCoa3MSHPPVpMiFjNOfwq07JmyJD3ZUKX0UY2Hg9pHAVyqNObSrT047gssrkxlPv2GX
+         bfpbqCMsEGhP/yyeWBpW14tyIMCW6AxIbe6K08QCECpxC+t/D/YOG38V8G60Hm1JKMgi
+         gUUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792179173; x=1792783973;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792179978; x=1792784778;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MEjqqJ8STGAiw1ShutZb1MiaJfQSi8GqlcBV0l3Jhd8=;
-        b=zHArVHvH1wKqQCJ3MbZiSiSv0oz/pqmKsm7uTajbfrff57HQ1/fZYfdLsfFJrFJtdM
-         2AtqtkW0EKNZqcD+FXjttaP5hTTp9hMthRGMfiNsnWIjvNRKWzw8aXFLm2sFV+h7Udz1
-         0INv2+ui1LtsS5M1Eqw3+OpeOhrf1Fu3Tn8g8Pvx/+8jmDidSSOt9pMydwjhUtZ8fbis
-         2yx0YleHxMqVAKwmZA/IwyHiRJA/ckHHzoOgodEkqioia5NrAbzvXMqQidRtzrXFSVyV
-         KqcS8f7/J5jmA7Qp2E8BTejpNw8MpH9YruMcN9o+2ujzFnAilJ6jgxoWb7ibQFUMmSoM
-         5A7A==
-X-Forwarded-Encrypted: i=1; AKwUvBzAay0acXScvewwSPrOc94moFkzjntSQSokfPY7rf8bg1r+tjG7gL3DtXgjpQ4vScL6yoXKoCQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRNbjXvRnMTeBualJqfVYy85d9W/9r0q0znABA5vB6lHKgpquV
-	7+wLn+9OQVBXlW+YV+E/DykDDXXlUgsvjIYFuQ69sKPzAf7trQB326q5JZucVdgWSMnzMRxkYew
-	pWE6t2TgGcOgEgbKsbl5m8kRaXBbTcL1mC6SZWEiq
-X-Gm-Gg: AYBFou17Ncqt8Si1O/flHUeSVNIMuwKk0i8H3uPiND+qVCYzgtf64zJAywaXGcZqmK1
-	0oPEAvAAEYEwyl64pAzQmT0arscyUwW5juadM2xkGQyFMhwA1j/9derx5eVYcn5fwwCc8S8jpry
-	UdpGSwly3abb5WYvSzadoFCe0TafumQyeqPbUsrykJkp6mJc2fLXTiEEcUqzrcYFe06Ji6Mk4c9
-	r/p00SoidvXTvDRE2JqzQLZ/2VMWjYqvyNeIuGJKLE9zFaltIZl1i60FwT6jveFzompe3bZVKfT
-	dWXnIGuacYXjU5b6kUPt23ZnTwo7S2hXXy3fTygXaylmXF1VWJbOxkw=
-X-Received: by 2002:a05:622a:488d:b0:531:475:4ce6 with SMTP id
- d75a77b69052e-536463584e4mr2454001cf.9.1792179172628; Fri, 16 Oct 2026
- 12:32:52 -0700 (PDT)
+        bh=RiRo02OA1IxHJkhQCnHi5URLw0bi6CvLtMWBM69Y8xM=;
+        b=biFTVJpKeXo9xaCAbGzlC53C98cbyo1v/+V0aZz0jF0CLcboHaTQVVmGCuaE/kldQZ
+         vervGxrLKq65M6SjKfAVnAaMoQDBCxzqA3Ht+UUxmA/TVBiuO10a1RNfXWofrCavdN/2
+         Ywhbup0wcQMHLO0VAhIatoUvSTNeiQkV5PjCOg8D8GKhk+9LP39k0oQ8SY5JXWnXTLaH
+         g/05p2n1Qn8pN/Dz04pd+GueGKkhNHSLW3Qo1HefsKBwg5pX57eDVI2eP3cjFtpQMzgI
+         LRcODWiDgdxX1gt7OHT6kfpMQk5rbXlVZ/C3cd7a6gzrKdtUqhg+Gn+iIGyip4fCOQCh
+         qNYA==
+X-Forwarded-Encrypted: i=1; AKwUvBzPxCT4u9as0pZOOO8Z85Xb75zu87vBLn0ZAXc/TmAklDCKKoEcylGKP7jjs+mhV37dWRqo0g4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJGumrUr4WZvju9WI3r06Xu75vGTORRlJXu9D8kNWCCiMNO4RnR
+	frwR2vtfoMg1DV533RiJYfkJj4KMS8mLADPl2wzfqi2l8tcKMEOWz/bm
+X-Gm-Gg: AYBFou3MUIuK1WZuJwyDKw2cJ4+U3aYmspgfTLzPcUJ5Vqd8LaFL7b4vFzHCACWXDbb
+	Kck9g9Ebq3yd+JzT3n2VH57iMLN9qMl9Lf/QOgcbL8ZE3C8D6LoHjPCsUPGIgr0vqe1Agxgy4Dm
+	YmlqEkavXyFf4a7i2S6iJxJlHCjY3H+lFknw9eAZM22qrM+I4X/RN5tDX3nyZOizDJGdf39crq6
+	rsh2cHIt7KKyAzcPYDeuRbv0yky0qtg8CWAbf56FAcP1WSywUifvd7waoh+emWwc6TJmYtfTZV5
+	3bsp0hd8IIWrih0ttdjlTCsSdoK47HWTGLEInFOqGOYdvNqstch7O4TeHMYGtWJOYCnzDYSeYf4
+	chPGRumNS2CC7fOvQ90TYrhHD90yHUV1VO3ow6m0SBQ03UkTQHmTomm5olgalBKubHqPKJ+4bXE
+	02X9+B7sZ/2g0dXpr98Scj1RmeuTcioBpVFdOtRmAoayR8h6fHq/xcJXkBh/GmsbEN
+X-Received: by 2002:a05:701b:2712:b0:151:ece6:b16b with SMTP id a92af1059eb24-18512c38159mr1013993c88.7.1792179977759;
+        Fri, 16 Oct 2026 12:46:17 -0700 (PDT)
+Received: from unix.. ([181.229.23.179])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b75be5esm11008321c88.16.2026.10.16.12.46.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 12:46:16 -0700 (PDT)
+From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-riscv@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Deepak Gupta <debug@rivosinc.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Shuah Khan <shuah@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	James Morse <james.morse@arm.com>,
+	Yury Khrustalev <yury.khrustalev@arm.com>,
+	Thiago Jung Bauermann <thiago.bauermann@linaro.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Zong Li <zong.li@sifive.com>,
+	Charlie Jenkins <thecharlesjenkins@gmail.com>,
+	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
+	Zishun Yi <vulab@iscas.ac.cn>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/4] arm64/gcs: release GCS on failed fork
+Date: Fri, 16 Oct 2026 16:46:00 -0300
+Message-ID: <2539f61f79a6053e2a33a1d1ae9df09013c04bd8.1792179433.git.ivanrwcm25@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1792179433.git.ivanrwcm25@gmail.com>
+References: <cover.1792179433.git.ivanrwcm25@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-2-yosry@kernel.org>
- <CALMp9eSoidVrzHqTrq09LB1SCwsf5DuwAcys_q7o0TyrKM1Ciw@mail.gmail.com> <CAO9r8zNcG=5SQK5QBC8QT2QR7K5AJtAOp16atDc5DYc0shD1Tg@mail.gmail.com>
-In-Reply-To: <CAO9r8zNcG=5SQK5QBC8QT2QR7K5AJtAOp16atDc5DYc0shD1Tg@mail.gmail.com>
-From: Jim Mattson <jmattson@google.com>
-Date: Fri, 16 Oct 2026 12:32:37 -0700
-X-Gm-Features: AclHuK-ZQp-6TfXpSbf_CVQg-2-T-7CMHpUhbyrETIPAQMotQvMXWEMbF3I55Hw
-Message-ID: <CALMp9eQCbU5onzrjnprFuP+AF01hpn27ioBs7Vtq1bOaWiFwvA@mail.gmail.com>
-Subject: Re: [PATCH v3 01/27] KVM: nSVM: Flush the TLB after forcefully
- leaving nested
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 8:19=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> wrot=
-e:
->
-> On Wed, Oct 14, 2026 at 8:02=E2=80=AFAM Jim Mattson <jmattson@google.com>=
- wrote:
-> >
-> > On Mon, Oct 12, 2026 at 4:36=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> =
-wrote:
-> > >
-> > > KVM flushes the TLB on nested VM-Enter and nested VM-Exit, but not wh=
-en
-> > > forcefully leaving nested. In this case, L2 TLB entries can leak into
-> > > L1. Flush the TLB after forcefully exiting L2, similar to nested
-> > > VM-Exits.
-> > >
-> > > Note that vmx_leave_nested() handles this correctly, as it reuses
-> > > nested_vmx_vmexit(), which handles the necessary TLB flushes on an L2=
- ->
-> > > L1 transition.
-> >
-> > Fixes: ???
->
-> I figured it was too old to be meaningful (i.e. we'll backport to all
-> active stable kernels anyway).
->
-> But I think it should be:
->
-> Fixes: c513f484c558 ("KVM: nSVM: leave guest mode when clearing EFER.SVME=
-")
+copy_thread() maps a GCS for a CLONE_VM child and can still return
+0. A later copy_process() failure then goes through
+bad_fork_cleanup_thread, which calls exit_thread(). The hole this
+series hits is clone3(CLONE_VM|CLONE_PIDFD) when put_user() of the
+pidfd fails after that mapping. arm64 did not implement
+exit_thread(). deactivate_mm() is what normally calls gcs_free(),
+and it does not run on this path. Each rejected clone leaves one
+GCS VMA in the parent's mm until the mm dies.
 
-I concur.
+Select HAVE_EXIT_THREAD and free the child's GCS from
+exit_thread(). gcs_free() already ignores a cleared base and a
+different mm, so the usual exit path (deactivate_mm() then this) is
+a no-op the second time. copy_thread_gcs() zeros the inherited
+tracking before a user-thread allocation, so an allocation error
+still skips exit_thread() with nothing to unmap.
+
+A kthread copies the caller's GCS fields via arch_dup_task_struct().
+kernel_thread() uses CLONE_VM, so during a failed copy_process()
+the child still shares the caller's mm and gcs_free()'s mm check
+does not save us. Clear the inherited tracking as part of kthread
+setup.
+
+Tested with CONFIG_ARM64_GCS on QEMU 11.1.2 -machine virt -cpu max.
+Sixteen clone3() calls with CLONE_VM|CLONE_PIDFD and an unwritable
+pidfd pointer leaked 16 GCS VMAs without the fix. With it, the VMA
+count was unchanged and call/return on the parent still used the
+original GCS. A successful clone3 child exit with the same flags
+runs deactivate_mm() and then exit_thread().
+
+Fixes: 506496bcbb42 ("arm64/gcs: Ensure that new threads have a GCS")
+Cc: stable@vger.kernel.org
+Cc: Mark Brown <broonie@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+---
+ arch/arm64/Kconfig          |  1 +
+ arch/arm64/kernel/process.c | 21 +++++++++++++++++++++
+ 2 files changed, 22 insertions(+)
+
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index cab741a695f5..c7fc79409f98 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -177,6 +177,7 @@ config ARM64
+ 	select HAVE_ARM_SMCCC
+ 	select HAVE_ASM_MODVERSIONS
+ 	select HAVE_EBPF_JIT
++	select HAVE_EXIT_THREAD
+ 	select HAVE_C_RECORDMCOUNT
+ 	select HAVE_CMPXCHG_DOUBLE
+ 	select HAVE_CMPXCHG_LOCAL
+diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
+index 581f80e9b9b7..eb5314b4b42b 100644
+--- a/arch/arm64/kernel/process.c
++++ b/arch/arm64/kernel/process.c
+@@ -341,6 +341,16 @@ void flush_thread(void)
+ 	flush_gcs();
+ }
+ 
++void exit_thread(struct task_struct *tsk)
++{
++	/*
++	 * copy_process() calls this after copy_thread() returns 0.
++	 * deactivate_mm() does not run on that failure path.
++	 * gcs_free() is a no-op once gcs_base is cleared.
++	 */
++	gcs_free(tsk);
++}
++
+ void arch_release_task_struct(struct task_struct *tsk)
+ {
+ 	fpsimd_release_task(tsk);
+@@ -503,6 +513,17 @@ int copy_thread(struct task_struct *p, const struct kernel_clone_args *args)
+ 
+ 		p->thread.cpu_context.x19 = (unsigned long)args->fn;
+ 		p->thread.cpu_context.x20 = (unsigned long)args->fn_arg;
++#ifdef CONFIG_ARM64_GCS
++		/*
++		 * kernel_thread() uses CLONE_VM, so a failed
++		 * copy_process() still shares the caller's mm.
++		 * Inherited GCS tracking would then look like a
++		 * child mapping to gcs_free().
++		 */
++		p->thread.gcs_base = 0;
++		p->thread.gcs_size = 0;
++		p->thread.gcspr_el0 = 0;
++#endif
+ 
+ 		if (system_supports_poe())
+ 			p->thread.por_el0 = POR_EL0_INIT;
+-- 
+2.43.0
+
