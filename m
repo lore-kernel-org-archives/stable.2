@@ -1,121 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D269A447237;
-	Fri, 16 Oct 2026 22:55:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCF0447237;
+	Fri, 16 Oct 2026 23:04:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.83.148.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792191341; cv=none; b=WPmzArc/hMVRXtPC6cmIHBvzUaroV+RIcQo1Hz5NsMJuqEKS4Z0PFBL+e0bNvRf0GuF1YLvzKMGYRfURBOd+D6xlJGdRp8bylBSi7RXEQz8E52H6u5TYpdfP5vo4SVTzIiH2rDh9FNg1WJ6agJ3chQP9JD/kZGlKeZ/SjVWVK10=
+	t=1792191848; cv=none; b=It5Dh/PxY6y0U4D6vlrzeCEIQC4jFkHMKZFuK62dxA+FEg/37/jTAB8o5UeK303vwVRI2gIBXyjajiY/fdvVor/Df3a2s2NKLtN3ChZ6Hv5e7aXhhoQ52gGUvtqDziAQ4m14YCdDKSExb/JTGKv6RlnHQoKcDU0lQmpx/h0pTcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792191341; c=relaxed/simple;
-	bh=WUe4HY0OVlgw7iQWm1lGNiuW3oIyFgu21q3Aoas0C+k=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=OpYOcm6haIx1WFe/bNvlOH3/tLBETmZmnPaRAE+hNnLaBwkrg4TkraPmXQm03HIGnjxulHeCZgKY0P95fjza30ZP4jT3RwM5wc8tv/xNxp72F4oJc+fOc4n8dFHIXdgiJ4+7dv72MI0KGcXA8LVFFcNw79ROcnWWvoD+cIkhB9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=drmmTrUJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792191848; c=relaxed/simple;
+	bh=4hzHIB0Y5JPlhprW+J1idLrj1nO22R2E8VcKkQJMrDE=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OiX26FuKaTqMQYEuYDf6LigNWh1B3uWzT0vAXa2bTiwxxxZwxH1QyY6luNScrgQwUOfnnLcsit/yiglLr8f5Q0RysZI1K7BpFP6+ixIQ59Gn0Xk1uCwihZ06DMjqRlS336umXHwQ/rBWeCKGzqjWnmq60h1vAhuZ6evsjbbBE7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=UJJyq1RO; arc=none smtp.client-ip=35.83.148.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="drmmTrUJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0D411F000C4;
-	Fri, 16 Oct 2026 22:55:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792191340;
-	bh=r+fjZAA8UGKYXICmEmHMmO2IajMcg2qwTMJzf+lYDvo=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=drmmTrUJ8iWi865TABSjtQJ9sJU0X1ucWOZmcbbFlVromL4oRSkfQnK+vqE2SGeHU
-	 ANYRmOXzK0XCc74VOaBQOj0uYXzU2MWSShhuzhgDcUNw3lobZ15xl0SPVG7K5OhHVh
-	 DOiS+M8n01gTzcOAo7DNt7Tm6P70gsnjwF/zdnPm1VMzTqcDBCneVdwYKPF6I7bZ/G
-	 9QHUCYt41VoxCuQABUNzjja3lz9arKIVLgLNd6AimShaLvDw4Due7NWo+Xoy8niIjL
-	 12McuF8dO36y2gwjxSja1Nt1AM8ih46v+w7JplqmyiGmb4HC89Q7YUukk8D51P6hWU
-	 4YdShyNew+6Zg==
-Date: Sat, 17 Oct 2026 00:54:33 +0200 (CEST)
-From: Imre Kaloz <kaloz@kernel.org>
-To: Harry Yoo <harry@kernel.org>
-cc: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
-    Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, 
-    Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
-    Roman Gushchin <roman.gushchin@linux.dev>, Jann Horn <jannh@google.com>, 
-    linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-    "Jose A . Perez de Azpillaga" <azpijr@gmail.com>
-Subject: Re: [PATCH v2] mm/slab: sample slab_state once in
- kmem_cache_destroy()
-In-Reply-To: <atDCYwNfKW3m6YXh@thinkstation>
-Message-ID: <ff8d44d0-d27f-2766-85e9-ce91b8e8e944@kernel.org>
-References: <20261014150844.8536-1-kaloz@kernel.org> <d966f16a-a2be-48c7-b31a-a2c7d3ef6d5c@kernel.org> <atDCYwNfKW3m6YXh@thinkstation>
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="UJJyq1RO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1792191846; x=1823727846;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=N+HMwtYomXTCU6APfdeFwp0AAr9WthCoGnVUMU/qw5o=;
+  b=UJJyq1ROJz09KPFHrW0RQQauGEK+FvBzv35nWYS9VCwagv/rvvR5C+rG
+   i/Fj26g20Qw2lxaavHItzh4LTDw2QMTPouV/Xd7cW3/kFw0Xc4h3KMaJK
+   CudiE7w0QoGrqo3Pp38xjNtWihduySQGPQGD8kUWI8Sf6IEm23kJQsKkH
+   jgWJ6xT87RaITQJ5l1e6vzZj3mTsZZTDRhHDOZ9qMSk0M7xMm2SBVraTB
+   7gqCBmDx6r5xHCzmu2gTmeCAPzbVSLGvWDdibPh2ixvLHuNK2fxyIplkl
+   dJrLx/wDqmYGmYK5Gr4SnuCy0mkZM3KWt0+EcTxEK2Prus4/HVDrt9Sri
+   A==;
+X-CSE-ConnectionGUID: F+PGbVPKT32QkFZLKUD5yA==
+X-CSE-MsgGUID: KLTRFuNBQQW9sgbw8K6hGA==
+X-IronPort-AV: E=Sophos;i="6.27,162,1787011200"; 
+   d="scan'208";a="31289766"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 23:04:05 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:26478]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.40.190:2525] with esmtp (Farcaster)
+ id 7051b923-aa5f-4e2a-8f20-94827baa4d21; Fri, 16 Oct 2026 23:04:05 +0000 (UTC)
+X-Farcaster-Flow-ID: 7051b923-aa5f-4e2a-8f20-94827baa4d21
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Fri, 16 Oct 2026 23:04:04 +0000
+Received: from dev-dsk-aarnahmd-2a-95203392.us-west-2.amazon.com
+ (172.19.38.251) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Fri, 16 Oct 2026
+ 23:04:04 +0000
+From: Aaron Ahmed <aarnahmd@amazon.com>
+To: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+	<mhiramat@kernel.org>
+CC: Mark Rutland <mark.rutland@arm.com>, Mathieu Desnoyers
+	<mathieu.desnoyers@efficios.com>, <linux-trace-kernel@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Gavin Inglis
+	<giinglis@amazon.com>
+Subject: [PATCH] ftrace: Initialize modname and offset in print_rec()
+Date: Fri, 16 Oct 2026 23:04:03 +0000
+Message-ID: <20261016230403.4916-1-aarnahmd@amazon.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWA002.ant.amazon.com (10.13.139.96) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Hi Harry,
+print_rec() leaves 'modname' and 'offset' uninitialized and
+kallsyms_lookup() only sets them on success. When the lookup fails like
+when a module is being loaded or unloaded, 'modname' holds a garbage
+value, passes the 'if (modname)' check, and is dereferenced by
+seq_printf().
 
-On Thu, 15 Oct 2026, Harry Yoo wrote:
+  Oops: general protection fault
+  RIP: 0010:string+0x48/0xe0
+  Call Trace:
+   vsnprintf+0x1f5/0x650
+   seq_printf+0x8e/0xb0
+   print_rec+0x6c/0xc0
+   t_show+0x4c/0x440
+   seq_read_iter+0x119/0x480
 
-> On Thu, Oct 15, 2026 at 09:21:43AM +0200, Vlastimil Babka (SUSE) wrote:
->> On 10/14/26 17:08, Imre Kaloz wrote:
->>> kmem_cache_release() tests slab_state >= FULL after kmem_cache_destroy()
->>> has dropped slab_mutex and unlinked the cache, and for a
->>> SLAB_TYPESAFE_BY_RCU cache after rcu_barrier(). If slab_late_init() runs
->>> before that test it sets slab_state to FULL but skips the unlinked cache,
->>> which never got a sysfs entry, so sysfs_slab_release() calls kobject_put()
->>> on a kobject that was never initialized:
->>>
->>>   WARNING: lib/kobject.c:734 at kobject_put+0x64/0x2c0, CPU#1: kworker/u8:3/55
->>>   kobject: '(null)' ((____ptrval____)): is not initialized, yet kobject_put() is being called.
->>>   refcount_t: underflow; use-after-free.
->>>   kobject_put+0x64/0x2c0
->>>   sysfs_slab_release+0xc/0x20
->>>   kmem_cache_destroy+0x104/0x1e0
->>>   bioset_exit+0x13c/0x1e0
->>>   disk_release+0x54/0x140
->>>   put_disk+0x18/0x40
->>>   floppy_async_init+0xbec/0xd10
->>>
->>> The release-time test has run outside slab_mutex since at least v4.4 for
->>> SLAB_TYPESAFE_BY_RCU caches, and since v6.0 for the others. Since v6.12
->>> the unlink-time test in kmem_cache_destroy() is a separate read of its
->>> own, also after mutex_unlock(), so the two can disagree. Both tests ask
->>
->> It would be useful to mention the commits here along with the versions. Also
->> this suggests 3 commits but there's only 2 in Fixes.
->
-> Agreed.
->
-> At second look I think we should improve the changelog a bit....
-> And the history of this race is really... messy.
->
-> I'll just rewrite this part a little bit with specific commits and
-> add Fixes: tags for each commit that introduced for re-introduced
-> the commit, along with some history so that people* can decide whether
-> they* should pick this up.
->
-> *who may maintain downstream stable Linux kernels
->
->>> the unlink-time test in kmem_cache_destroy() is a separate read of its
->>> own, also after mutex_unlock(), so the two can disagree.
->
-> This part is unnecessary because reading slab_state outside
-> slab_mutex is what we should fix. As long as it's read under
-> slab_mutex, reading it once or twice doesn't really matter.
->
-> (See full changelog at the end of this email)
->
->> I would guess the 6.0 change is not a crucial one?
->
-> Uh, I thought the Fixes: was 6.0 one, not 6.12 one :/
->
->> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
->
-> Thanks!
->
-> So... below is my suggestion. What do you think?
+This can be triggered by reading available_filter_functions while a
+module is being loaded or unloaded.
 
-<snip>
+Initialize both variables so a failed lookup skips the module name.
 
-Looks good to me, thanks for untangling all of that history.
+Fixes: b39181f7c690 ("ftrace: Add FTRACE_MCOUNT_MAX_OFFSET to avoid adding weak function")
+Cc: stable@vger.kernel.org
+Tested-by: Gavin Inglis <giinglis@amazon.com>
+Signed-off-by: Aaron Ahmed <aarnahmd@amazon.com>
+---
+Reproducer: https://gist.github.com/ginglis13/dd3f64426767cd48df55dfe5d26c2299
 
+ kernel/trace/ftrace.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Best,
-Imre
+diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+index 673a54fdf3929..164fbc07bce05 100644
+--- a/kernel/trace/ftrace.c
++++ b/kernel/trace/ftrace.c
+@@ -4426,9 +4426,9 @@ subsys_initcall(ftrace_check_for_weak_functions);
+ 
+ static int print_rec(struct seq_file *m, unsigned long ip)
+ {
+-	unsigned long offset;
++	unsigned long offset = 0;
+ 	char str[KSYM_SYMBOL_LEN];
+-	char *modname;
++	char *modname = NULL;
+ 	const char *ret;
+ 
+ 	ret = kallsyms_lookup(ip, NULL, &offset, &modname, str);
+
+base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
+-- 
+2.47.3
 
