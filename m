@@ -1,212 +1,229 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from out28-74.mail.aliyun.com (out28-74.mail.aliyun.com [115.124.28.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA379329E4B;
-	Fri, 16 Oct 2026 01:23:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792113809; cv=fail; b=Ei9EZg1o99OUlyaOBCGQRLd6s6tuUYR4Xt/yVRsW/07Qfpzpr41y/Cgs0SGl8wTwV6+4TxtOc8YYiUvRJwH0gl3oAnBsIEFRDog1RCIgQ0hqnvKc8xCDvcqC6V8/EmWeMFLt2OSiN12DE/bNJbONirhhRpSV9lkYpXgmX5OGIOs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792113809; c=relaxed/simple;
-	bh=5Sk+RoAED8h4phR8RzWADjgqNtQ0AD+PGpf+RPPiV5Y=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=YsM9+8FicAQi5MqEiAed5ZN27sF9vEZDaN+eQ88ID87oRoC/MgIhLE3E+YgBqJSXry3hMGyna1FFKIXFRCAv8SgQqMuOTmEpvMBdka9TYVZlp4R2+JjDOcL2Hn2oaBBekpq2e4Dn0McrRqIRJrOLAh8LOsH4QPbCikVHgvSof3Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PEOsldA8; arc=fail smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 525772253B0;
+	Fri, 16 Oct 2026 02:00:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.74
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792116049; cv=none; b=k3fspR1l/nK/KxoSUFk9Ipu4YTfCGW4Ftc4oFIX+uqhlD4WF0ZMGukCEV/IBnfuZkSXtQtSntYNTb5Q2LLozDI5BstjXETDVKW4h76gH0bPUI2fIAylJse7uKIN2pYwhatc1Z/aLgLy4JPaC7RdKU3d+vQym7Bv5Fq4H0WF45r4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792116049; c=relaxed/simple;
+	bh=hArVBtCRU/kLSKIowAlXZa5OjPzy2/gynG+cb3qky9I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tzAuN+w0ebqKWe3HUMSEhPoVf52vuhyD+bDsnSian8F8MmgCxECnN6vqf8cJYpOjqSyjrEKJbuzoaBdbtwZ4EsHFJl0V8OUK3Qjpr5TnwB2YWoaZtn7US+GWani8mr+UgKUAmBEwDOwE4hi13eRS3gvIYQuYl0BvdbaFUIyfMDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=TOJkkKsh; arc=none smtp.client-ip=115.124.28.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PEOsldA8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792113807; x=1823649807;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=5Sk+RoAED8h4phR8RzWADjgqNtQ0AD+PGpf+RPPiV5Y=;
-  b=PEOsldA8QzF0yRmMywl7NfpB2+MJy8MLtm1o58Q3AxV2ugkxwWxKSrit
-   SdRCI/O1YU2A6GhLbG2Y7DT8IY1lIkPfDiK8JcCJPXgC7oflOoIgHA8Kl
-   ckkCkupnYfr5Vm+FU9fiYy8YxCeECUlAzvueFtVhXS8XNq+2WiyrmtS//
-   4IycvWDnGByE1Uj35vMZkVTlSkQuuzPv222zUrQi/rz7x2bmbGPxg9Nuu
-   oF5RDrSXjHNrTUznCkusj+Bwj9Fl/DlWo1G5NV2W7JHAd+5rpFE0KmItU
-   4O+tDfhnSpJXypFk/VMzUrNBVnmJif48YNOnNO6UBXUpBIwYHFns8uQ1H
-   Q==;
-X-CSE-ConnectionGUID: sSnhTIXtQDuyPHEH7omyrA==
-X-CSE-MsgGUID: KfHjdY6CQki3i9HT++Itlg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="793750"
-X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="793750"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 18:23:26 -0700
-X-CSE-ConnectionGUID: N7Wo1aYITiaPwxuGEwapXw==
-X-CSE-MsgGUID: uaWc5LpLSyGepg2akUHzYw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,160,1787036400"; 
-   d="scan'208";a="1836141"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Oct 2026 18:23:26 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 15 Oct 2026 18:23:25 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Thu, 15 Oct 2026 18:23:25 -0700
-Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.71) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 15 Oct 2026 18:23:25 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mBVFNSm11dTV/uwIAKz3+4/Cav4zdc0CePu9cGUrsNqEv4VI8XaVvWkwcO8qAlORJgI5oWuxxjz0LvMw57S/cpCyDeImsA72v2Ib0+ad3WrwFcEK2+FLfsCYdM7y9sbcx+r/SVE+CrFGF8VbSrjCs0hnkCSNjd4gsV8dg6Rv+gUoEJ++QoxkmdKO9YGAeHvA9IsZ5mLP38UaxKQC95AharEwj7YAto8uSuRZHygSCj3n3s0ALpoozeFkgHAM3VUnvM5d67owLSPLqxLC2EdtZq6D0Wzwu36MG0MWv8+2uqGs/9/uF2yAngAoVfTZVT+uhUrsDA2KL5qY1LL6Lb+wVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PrpO0GEuM7LcZUYpVE6Hs4WxYLegrNMqaaDQDH1ETUI=;
- b=vHciLsQU8YyfKUATjfpOQsBYiqhGH0uuLq2gi6K6vudSKK7dTMnFJvt58sREoanadF6DpGf0G2ZpQekmIduWH9Gs0JgVSG2Du+kfV9qq4G4Mz7Cma4TER4iFe348WnmAkjDOtfBDS0myoVXfMPk2qlGugNVu3LsyVO4Ket1S8UzQOn3CQzXYcnqlU77eLny3Qtoi3yxQ9h5EEq42VLqXdTdWMK72A/xYK+R7IXdAYrOZVUjgCMRI7u2bNe0JqeDy+R3lSOQbmNGBXZI7II3XNabEZ6GRHoUV7m1tcGpe6svZewS6sis9LfQFJ1/GM/cpyrTS3fsDALSeg/w8DyKkzA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
- by PH3PPF2B89F77E0.namprd11.prod.outlook.com (2603:10b6:518:1::d11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
- 2026 01:23:15 +0000
-Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
- ([fe80::6fbf:c112:d0a8:f1a8]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
- ([fe80::6fbf:c112:d0a8:f1a8%5]) with mapi id 15.21.0522.013; Fri, 16 Oct 2026
- 01:23:15 +0000
-Date: Thu, 15 Oct 2026 18:23:11 -0700
-From: Alison Schofield <alison.schofield@intel.com>
-To: <jianyungao89@gmail.com>
-CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Jan Kara
-	<jack@suse.cz>, "Darrick J. Wong" <djwong@kernel.org>, Alexander Viro
-	<viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, "Dan
- Williams" <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, "Andrew
- Morton" <akpm@linux-foundation.org>, Shiyang Ruan <ruansy.fnst@fujitsu.com>,
-	"open list:FILESYSTEMS (VFS and infrastructure)"
-	<linux-fsdevel@vger.kernel.org>, "open list:FILESYSTEM DIRECT ACCESS (DAX)"
-	<nvdimm@lists.linux.dev>
-Subject: Re: [PATCH v3] dax: fix wrong error code returned from
- dax_dedupe_file_range_compare()
-Message-ID: <atF8f0Jdb8OMcE9I@aschofie-mobl2.lan>
-References: <20261015143426.17620-1-jianyungao89@gmail.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261015143426.17620-1-jianyungao89@gmail.com>
-X-ClientProxiedBy: MW4P220CA0021.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:303:115::26) To DS4PPF0BAC23327.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::9)
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="TOJkkKsh"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1792116038; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=8xHCseB7cd3CDn8Avktw7rEecUc/XA9e2G7G1JWOoSg=;
+	b=TOJkkKshofp8JtUJZFQSqzYNEmh07fJzW3B2aMNxnVmpM6p0hBZJR3IVLzhx5M8DrFzJazKrELqTbJhrm3Ny1CC3zaE4b0HifDOLFrFWUELD464/qTBOvbM/uzgcb4wSxIthrbxsBsTIkw89P50pP51KunCeydueYatdpGKdrCs=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0809943-0.0735853-0.84542;FP=13569761818907788723|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045220102;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jfodWnf_1792116036;
+Received: from localhost(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jfodWnf_1792116036 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 16 Oct 2026 10:00:37 +0800
+From: Weibin Liu <liuwb@xiaopeng.com>
+To: broonie@kernel.org
+Cc: thangaraj.s@microchip.com,
+	linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] spi: spi-pci1xxxx: quiesce DMA engines on transfer timeout
+Date: Fri, 16 Oct 2026 10:00:36 +0800
+Message-ID: <20261016020036.1333548-1-liuwb@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <a02880a9-f20f-45ad-b22b-c405fb7e74d0@sirena.org.uk>
+References: <a02880a9-f20f-45ad-b22b-c405fb7e74d0@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|PH3PPF2B89F77E0:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c09cd1e-7da1-4aa1-afd1-08df2b240d0f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|7416014|1800799024|376014|366016|10067099003|18002099003|22082099003|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info: qpYCW3glbK+o2JO3Ai+eBQZ93Y14xPZpuDq9/jCemPriFpl5iFO2ulHpO/8cF+6xhM9599Sp2vwA6NHBgiW6WtI4TDIGLZCGyMdXmgCtCGyenVc2QlnMzw4JOFPMGueWFESJLJismuewoxsXkFlTjejlf+88iZ/jT+VuFe1b7qk8K4a5CO7k1qFfSIiYEHRsuOQsv4uDxYbR/CGx+tgmHTS5gK4XrTGq/mGukISXvlCBRRDxFcx0h8vdhrwqXIcGuUjFkPA/q2wwMItHgp+kKf+AUjqvAgUZgP5bsRE9yfD3aiLwKuGvjO2tYCzjs5hrIJaP2cO38bYaHk/0jIEVFj0Wyu8mhWQq965SOagz07XmFsQQhouudLmAgWysWFobxhV4Mpe2bUIELpZLppHjCyb+BWGw5nrj81vIkNmz6n97+iwp9mOEXiyCYrendHIIc1TSRwmIIJ8tEDoMpopiwHEkr2LKXlsLoYG5J8tsv7N3liehhDO999w0VdL+FmcZ5TbzCyEumFDrVS6iMZVVmgLNYFl6JV2Rw0qrZbdI2GpXNDII1fUcp16OGgTXdTIstQZGi+5gu/dwRSZHeXikJ6gWg2y/olRz/foxCboJKlYRkC/AQ6JIuF5S/+0CMqvS
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(1800799024)(376014)(366016)(10067099003)(18002099003)(22082099003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?vK9Wo07y7EsHZAhg5OvaFY1+xGbLkawVfXkM2/raCi7z6tAo09r7QCWHUqop?=
- =?us-ascii?Q?/BNw5g3SxIX1+1ZN8Jfz6opgg03rKDKhO5e9BKvf1UObEV0Ce9exTu3iOpU6?=
- =?us-ascii?Q?R7deN7a4BHFC0pgFO2pC+H6Ym9dvfrPCjsMrOztwkTpTp+Vl20QI9H3KXkKk?=
- =?us-ascii?Q?DOzWabN8v4rnfS5i5Vw5LpDMgOIguWwYsu66gzPtNPA0ITKgdaUQ+hD1y4gv?=
- =?us-ascii?Q?JSvUDSje/KpaNeR2v0FZSpyFJ1EzEmOWhwBz0lOznefElFAgG7BsNNlgrMc+?=
- =?us-ascii?Q?htj1rlbNYG2kZeiX0oVThZjs6rRxt4WueMZuvGSkhZadgIUzejgEJJsxuUxe?=
- =?us-ascii?Q?nsYNCVXBzsA+9MyVCezal2j6nbMKbWkjhYZGEV2ooo+vOwUbVna/EXbcd8n0?=
- =?us-ascii?Q?ko5Vl1C78h5fprrhIn/XgB418lGN4gRMNS7ErHlO8PxSRxZI9b8bonNecQTy?=
- =?us-ascii?Q?V2AElsnkBt4L/Zop1wQjlPlPYzPuLw3J1RYYecBKKB83Y9PxOk+LvgbupbGo?=
- =?us-ascii?Q?C6CbvHNXtAQjFsfnsPNG23YrUSEptmiUvuc/HC4XQwehoYeaDgm2GyJuMZTt?=
- =?us-ascii?Q?i643BDeX4toMzcLliuzURic4sArQr/g7pJOu9r43J09EMy+us5PdEwJuu836?=
- =?us-ascii?Q?qsEYNAMP4Lo+yUSKk+hOlv7UH5xp7kw05XGHTANRDCBEsjzV6DnrbGGnIDwp?=
- =?us-ascii?Q?N1A7hvSzSpKJ0mRwCh8+q6qqgtseBNCAkBNbIYWJiyUQiJVxoBaX6slvxmIl?=
- =?us-ascii?Q?q/Qf9Gy6BOJC8SfG5RLas1FdZ7d6BeoSYPsmCKklK4/nn4c2A7x44LX/qOJ5?=
- =?us-ascii?Q?NXDFpswb4uOfsk1fzN3IuDWC96s5taIHaCzIKxcLGII4nwwifIaZd4IIZypR?=
- =?us-ascii?Q?+xce4WylVxRjYqTuxlqWqkYJzFDl9jeLKk3/YQMZfgO4NiEaH/akv/rnh3aq?=
- =?us-ascii?Q?Mvno4uojYO0T8kqaVHy8Y6BaC/80VHMcd4n+GljxkZeLIRLUi0G3iAjUmT3j?=
- =?us-ascii?Q?jlNp/V+F8oiTxKEMMZRQPH2DOulTeoH6yAy2tgUMtdlzdgt7sJ1frLH3IZFc?=
- =?us-ascii?Q?wnWJ7SWxikFm7JkanZI3ZFrhkA7sSvXmg83RfZDvUN8EaiMEeqjRnZoHbA1A?=
- =?us-ascii?Q?Dab9lnn6fdFaYo3u0yT/CMWTMdt2/1ZF552di+Z6v8uGHVoS+McJg3GUiVpS?=
- =?us-ascii?Q?GxnBXC6QjkUgixVVSuAv7rxXRznr1VKV3reXa0FoJ4/KNofQKMSiGy+l7iUQ?=
- =?us-ascii?Q?0fHaGPz64fUaSGU8cqzmUh6klWuasnN/GnGa4KvrulnK7SWd8srk6lMFXM5h?=
- =?us-ascii?Q?eW5y28yfuJTC6nZLIWeLQUYhLZSGzYsagszf8DB5yYGCejXUvvZ3GFUlPlOw?=
- =?us-ascii?Q?dBixek5xHvtFDGaPlLwLQGkneXlOJIyanVNXtewSR9hC2UIWBvtzP0R6NPL5?=
- =?us-ascii?Q?MTV69sxTP1zhAmCSucO7hufi0i2uuPcfb3kQxSy1wi0hlqsZ8G64MWIp5+wu?=
- =?us-ascii?Q?gSfBsGba7FFBqlgiiptJHxcOv7MZIUnKcGnLlIu+bno//xP3zzONwZ67lf+p?=
- =?us-ascii?Q?24H7bB0Pm3HHcCkctk50t+ev+pA//QEXRnH95yc8Pg12pU9hAIKh/LobLG3R?=
- =?us-ascii?Q?/jlAMXFQcvAXO1LmJ9TuybslUssIMO0weXHALDNs9IR1qRCp0HUOOW8dreVe?=
- =?us-ascii?Q?KBLBn5Yea8qzV6wYeEFevwrOTMFzY1lwJtA9MJEduqV3ME0VrcSZwzaTVHxs?=
- =?us-ascii?Q?QaHZKtzxiAL+Puwb2PpPivUUyGaRtAY=3D?=
-X-Exchange-RoutingPolicyChecked: hx3uizeOTSbuqN/fQeu4xvp9ipitUdM/5J/bb+4UhV6eRgqx89zxSKCdtp86pXswy/GxtWHy8AqxsWWyFBkab472qcn293PvFZmLyW/9Ox3JC4N+2c33iZo2UIsD5u/F+8zpRXIkY0HR1ynvmG7lQ0HfxH07MqrF2irEjHqEcgu0aYSCgEmjwFwKkB+TSZ93Yl3ZHiPcdPDEkL55sNFqTuZzDnUSeZzQ16T5eSEGuOSZHvYtgNRxIH7Ns8KY8bqHA+2FVZdjrHq9/vUG6FGl5gOl6CCYZKJG2h10b9D4J6yfHfgf/5NiF61D3aaiO50AyNRj0XjIJ4sWIEfjCfaRiw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c09cd1e-7da1-4aa1-afd1-08df2b240d0f
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 01:23:14.9940
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: onZlDFw3RH+WrZw09kLrxRu7/hg1Zm24K6cSgeecRjIffIEsNhKP/g4UYDd7E1eFC2BigAeXXOXBHbrMD/75DEEo8vOBkfn4JibOCIB2Wo4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPF2B89F77E0
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 15, 2026 at 10:34:25PM +0800, jianyungao89@gmail.com wrote:
-> From: Jianyun Gao <jianyungao89@gmail.com>
-> 
-> When dax_range_compare_iter() returns a negative error code (e.g. -EIO),
-> dax_dedupe_file_range_compare() incorrectly returns 'ret' which holds the
-> positive return value from iomap_iter() indicating more iterations remain.
-> This positive value leaks to the caller, where vfs_dedupe_file_range()
-> interprets it as success (bytes_deduped = len), causing userspace to
-> incorrectly believe deduplication completed.
-> 
-> Return 'status' instead to propagate the actual error code.
+If a DMA-mapped transfer times out waiting for DMA_TERM and neither DMA
+abort interrupt arrived, pci1xxxx_spi_transfer_with_dma() returns
+through the error label while both DMA engines are still enabled, the
+done/abort interrupt status is still armed and the transfer state
+(p->xfer, p->tx_sgl, p->rx_sgl) is still registered.
 
-Hi Jianyun,
+The ISRs keep firing afterwards: they reprogram the DMA engines from
+p->tx_sgl / p->rx_sgl and signal completion through p->xfer and
+p->spi_xfer_done, all of which the SPI core is free to unmap or reuse
+once transfer_one() has returned, which is a use-after-free. A late
+done interrupt can also start the next transfer queued behind the
+failed one.
 
-I looked at merging this today but the Sashiko response stopped me.
+Stop both DMA engines, drain the pending done/abort interrupt status
+and synchronize the DMA IRQs before dropping the in-progress state and
+the transfer pointers, and re-enable the engines afterwards so that
+subsequent transfers keep working. The engines are only turned back on
+once both were confirmed to have stopped: re-enabling an engine that
+failed to stop would cancel the pending stop request and let it keep
+running into buffers the SPI core is about to unmap or free, which is
+exactly the window this patch closes. An engine that failed to stop is
+left disabled, as the abort paths already do.
 
-I do see you addressed Sashiko in v1, ignored Sashiko in v2.
-If this v3 Sashiko complaint is one you've already addressed, please
-reply saying so. Thanks!
+The DMA interrupt status and mask registers are shared between the two
+SPI instances, so the cleanup drains only this instance's done/abort
+status bits instead of masking the interrupt lines, which would also
+suppress the peer instance's completion interrupts.
 
--- Alison
+Also make the DMA ISRs ignore interrupts while no transfer is in
+progress so that a stray MSI after the cleanup can no longer act on
+the cleared state.
 
-> 
-> Fixes: 0e79e3736d54 ("fsdax: dedupe: iter two files at the same time")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
-> Reviewed-by: Jan Kara <jack@suse.cz>
-> Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
-> ---
-> Changes in v3:
-> - Fix the Fixes tag to point to the commit that actually introduced
->   the bug (0e79e3736d54), not the one that renamed the variable
-> - Add Reviewed-by from Darrick J. Wong
-> 
-> Link: https://lore.kernel.org/lkml/20261012144925.6728-1-jianyungao89@gmail.com/ # v2
->  fs/dax.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/dax.c b/fs/dax.c
-> index 6ba50142eeb2..1f6a4fbb97bd 100644
-> --- a/fs/dax.c
-> +++ b/fs/dax.c
-> @@ -2261,7 +2261,7 @@ int dax_dedupe_file_range_compare(struct inode *src, loff_t srcoff,
->  		status = dax_range_compare_iter(&src_iter, &dst_iter,
->  				min(src_iter.len, dst_iter.len), same);
->  		if (status < 0)
-> -			return ret;
-> +			return status;
->  		src_iter.status = dst_iter.status = status;
->  	}
->  	return ret;
-> -- 
-> 2.34.1
-> 
-> 
+No PCI1XXXX hardware was available for testing and QEMU has no model
+of this PCIe part, so the timeout path was exercised with a userspace
+replica of the timeout branch and the DMA ISRs, with the register and
+interrupt accesses mocked: on the unfixed code both a wedged engine
+that clears after the timeout and a late done interrupt touch the
+freed transfer state, while with this fix applied neither does and an
+engine that failed to stop is left disabled.  The module was also
+loaded and unloaded in a QEMU x86_64 guest running a kernel with this
+fix applied.
+
+Fixes: 9538edeb72c9 ("spi: mchp-pci1xxxx: DMA support for copying data to and from SPI Buf")
+Cc: stable@vger.kernel.org # 6.8+
+Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
+---
+Changes in v2:
+
+- Keep the engines disabled when the stop poll fails instead of
+  re-enabling them unconditionally: re-enabling an engine that failed
+  to stop would cancel the pending stop request and reopen the window
+  this patch closes.  The engines are now only turned back on once
+  both were confirmed to have stopped, which matches the abort paths,
+  where a failed stop returns -ECANCELED and the engines are left
+  disabled.
+
+- Extend the commit message with why the interrupt lines are not
+  masked during the cleanup (the status and mask registers are shared
+  with the peer SPI instance on this part) and with a testing note.
+
+ drivers/spi/spi-pci1xxxx.c | 71 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 71 insertions(+)
+
+diff --git a/drivers/spi/spi-pci1xxxx.c b/drivers/spi/spi-pci1xxxx.c
+index af6ed78493e3..c50e6841de52 100644
+--- a/drivers/spi/spi-pci1xxxx.c
++++ b/drivers/spi/spi-pci1xxxx.c
+@@ -542,6 +542,8 @@ static int pci1xxxx_spi_transfer_with_dma(struct spi_controller *spi_ctlr,
+ 	struct pci1xxxx_spi_internal *p = spi_controller_get_devdata(spi_ctlr);
+ 	struct pci1xxxx_spi *par = p->parent;
+ 	dma_addr_t tx_dma_addr = 0;
++	unsigned long flags;
++	bool engines_stopped;
+ 	int ret = 0;
+ 	u32 regval;
+ 
+@@ -618,12 +620,72 @@ static int pci1xxxx_spi_transfer_with_dma(struct spi_controller *spi_ctlr,
+ 			p->dma_aborted_wr = false;
+ 			ret = -ECANCELED;
+ 		}
++
++		/*
++		 * A timed out transfer leaves the DMA engines running and
++		 * the done/abort interrupt status armed with p->xfer,
++		 * p->tx_sgl and p->rx_sgl still registered.  Stop the
++		 * engines, drain the pending status and synchronize the
++		 * IRQs before dropping the transfer state, otherwise a
++		 * late interrupt makes the ISRs reprogram the engines
++		 * from or signal completion through memory which the SPI
++		 * core is about to unmap or free.
++		 */
++		writel(SPI_DMA_ENGINE_DIS,
++		       par->dma_offset_bar + SPI_DMA_GLOBAL_WR_ENGINE_EN);
++		writel(SPI_DMA_ENGINE_DIS,
++		       par->dma_offset_bar + SPI_DMA_GLOBAL_RD_ENGINE_EN);
++		engines_stopped =
++			!(readl_poll_timeout(par->dma_offset_bar +
++					     SPI_DMA_GLOBAL_WR_ENGINE_EN,
++					     regval, regval == 0x0, 0,
++					     USEC_PER_MSEC) ||
++			  readl_poll_timeout(par->dma_offset_bar +
++					     SPI_DMA_GLOBAL_RD_ENGINE_EN,
++					     regval, regval == 0x0, 0,
++					     USEC_PER_MSEC));
++		if (!engines_stopped)
++			dev_warn(&par->dev->dev,
++				 "SPI DMA engines failed to stop\n");
++
++		spin_lock_irqsave(&par->dma_wr_reg_lock, flags);
++		writel((SPI_DMA_DONE_INT_MASK(p->hw_inst) |
++			SPI_DMA_ABORT_INT_MASK(p->hw_inst)),
++		       par->dma_offset_bar + SPI_DMA_INTR_WR_CLR);
++		spin_unlock_irqrestore(&par->dma_wr_reg_lock, flags);
++		spin_lock_irqsave(&par->dma_rd_reg_lock, flags);
++		writel((SPI_DMA_DONE_INT_MASK(p->hw_inst) |
++			SPI_DMA_ABORT_INT_MASK(p->hw_inst)),
++		       par->dma_offset_bar + SPI_DMA_INTR_RD_CLR);
++		spin_unlock_irqrestore(&par->dma_rd_reg_lock, flags);
++
++		p->spi_xfer_in_progress = false;
++		synchronize_irq(p->irq[1]);
++		synchronize_irq(p->irq[2]);
++
++		/*
++		 * Turn the engines back on only once both are confirmed
++		 * to have stopped: re-enabling an engine that failed to
++		 * stop would cancel the pending stop request and let it
++		 * run into buffers the SPI core is about to unmap or
++		 * free.  An engine that failed to stop is left disabled,
++		 * as the abort paths already do.
++		 */
++		if (engines_stopped) {
++			writel(SPI_DMA_ENGINE_EN,
++			       par->dma_offset_bar + SPI_DMA_GLOBAL_WR_ENGINE_EN);
++			writel(SPI_DMA_ENGINE_EN,
++			       par->dma_offset_bar + SPI_DMA_GLOBAL_RD_ENGINE_EN);
++		}
+ 		goto error;
+ 	}
+ 	ret = 0;
+ 
+ error:
+ 	p->spi_xfer_in_progress = false;
++	p->xfer = NULL;
++	p->tx_sgl = NULL;
++	p->rx_sgl = NULL;
+ 
+ 	return ret;
+ }
+@@ -695,6 +757,9 @@ static irqreturn_t pci1xxxx_spi_isr_dma_rd(int irq, void *dev)
+ 	unsigned long flags;
+ 	u32 regval;
+ 
++	if (!p->spi_xfer_in_progress)
++		return IRQ_NONE;
++
+ 	/* Clear the DMA RD INT and start spi xfer*/
+ 	regval = readl(p->parent->dma_offset_bar + SPI_DMA_INTR_RD_STS);
+ 	if (regval) {
+@@ -723,6 +788,9 @@ static irqreturn_t pci1xxxx_spi_isr_dma_wr(int irq, void *dev)
+ 	unsigned long flags;
+ 	u32 regval;
+ 
++	if (!p->spi_xfer_in_progress)
++		return IRQ_NONE;
++
+ 	/* Clear the DMA WR INT */
+ 	regval = readl(p->parent->dma_offset_bar + SPI_DMA_INTR_WR_STS);
+ 	if (regval) {
+@@ -755,6 +823,9 @@ static irqreturn_t pci1xxxx_spi_isr_dma(int irq, void *dev)
+ 	irqreturn_t spi_int_fired = IRQ_NONE;
+ 	u32 regval;
+ 
++	if (!p->spi_xfer_in_progress)
++		return IRQ_NONE;
++
+ 	/* Clear the SPI GO_BIT Interrupt */
+ 	regval = readl(p->parent->reg_base + SPI_MST_EVENT_REG_OFFSET(p->hw_inst));
+ 	if (regval & SPI_INTR) {
+-- 
+2.50.1
+
