@@ -1,79 +1,40 @@
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 547204F0538
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 16:15:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D671C50C29D;
+	Fri, 16 Oct 2026 16:19:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792167340; cv=none; b=HVR8Bp2mIMOOtl9y8FvAzpjxqWNG8nilxnfFw3cc8wkkb2ORLJS93EqNEVfOMfYLejPeeInDT6lMYPvpKTv7xps//06Zb2aVNNkT5Tg1KXmfs3ic2WY9uEJu4BJZjx8sz4by7lor09Qn1OPE+p++BeFv5d30UXcMiPOHq8+5jKw=
+	t=1792167591; cv=none; b=QQJ0SguTuA1itw+8ZBwiCDCqTv6x9Bxl/AxAbabmpuwzpmQSVEEkU8myNTTXEgULE2g/Xw5IAXWFPegnFZfxuB+u4yvlchcquO52IxKRlH+udaCMAIXEXXcERJI7/JP8qso1WQAroNg1Zr0ApU2uAWZjAlqCQKr+VXJYRMMbHeI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792167340; c=relaxed/simple;
-	bh=xIVIqXqeXMZHo7WcZNa0at4HEMt/ghEEI2/pB73QgfM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WRFbLJKH7XQKYAZehWE2lkkyO+bYEnBVH0DVRC+29wQ0hi/rYW27UTxF5PMZn5QP184OdV52z/YqW6MFldihJkTa1lkHO/SPsw3Ngny+RpXMk84ZS1EfFvt1ihuJ7//u7SD8+96jEnepeZvo2Ua143XO0dXFTfeKKikJLr7HLN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lsl3HZL5; arc=none smtp.client-ip=74.125.82.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792167591; c=relaxed/simple;
+	bh=ENFZgHtxdvF4pI9iefiApJtXu8xO78IX1WmmevgYHZc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qmhFt+cl4dFxIVSNJli6bf6uUBH/KN+3dHT/Tgf2ciIOHE/Z59mSRcVuBZ4a3L/1/y3/PdzbGkPxLoKjjQQm6shzBlE61Wa+2ZhNSyi8cCayF1Za6LZKpiZsOn3pBHoh7OgdeNUysLOcN7Zlr+YxcZFPk9CZiw3BTOhuJvcaERY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=UKTdQzBT reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lsl3HZL5"
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3282db206d3so111557eec.0
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 09:15:32 -0700 (PDT)
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="UKTdQzBT"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792167331; x=1792772131; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0j3Ic2XiSkpUSuqw2KaX3WIQgC+OMSs64+mNG8M5Cqo=;
-        b=Lsl3HZL5YK0LSZmUzq1zw3VlfyHBIGrEgAOcgnFbfs0hujm4w+kRDvadrx2hhQqZmQ
-         x6RWxnxFEv41QN2lRV2zNE3O78V4CvuiOVajY743ISwR7Ydc4gUCq0tzFghhtkoHFl2v
-         AloOlXqciMEDV+wM1bDraznk8md/o8QcNs10jLXXVgQr6hCEer7HKnpsfeiG1EmqaoYd
-         tqnYWk4zJ4mJTImpkaasSgzEz4wPjCOC92dafzv4XyFwyVfw/3VBgcosH9QV3YAwpx/5
-         ur/O3X4+L3+cF6AqBDKtGKG+EPrhaqGGRAfsy04/ceVffDr7i6XSvHUmW3GTCeefZtD5
-         HIAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792167331; x=1792772131;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0j3Ic2XiSkpUSuqw2KaX3WIQgC+OMSs64+mNG8M5Cqo=;
-        b=omtUtVJgWrYx9HDpmPB83czqst5IX3c1LGb4lkDWcpogZm3t7/F2iQmj20Cc9c8mOK
-         TQEnJ7cGVGlqEgGJ5eKWWt4xSKqliHXrbnc6FStvL5vkXTqEM0XrTB5eB6Xt+nT4Kb/i
-         m4TgshvbgxCeqUbRug3IyDsz75TT2ozGJol/0CM4zw13JTyl60L/uq35OOBs7Tharc/i
-         ZkaxV1KpqLMnX6JHZfPmf8czoWs3rHSmR46h8eOuod9gtzZ7MDev1Uq640Cjaxc3DVCu
-         KxrT+J49bV2byRy9JehXOyqMILaXqsWvBXdwAx2bOnmnImiQ1HWPUMJ+Kfz9NcMIDG+p
-         Kn1w==
-X-Forwarded-Encrypted: i=1; AKwUvBwRrx78ceirBIOVYcUqDfjMOfna0dsF9CQkK4seVINbIc70CXlWhiampuYncd4MRgO+B5FcZvA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLeXOGs+eQKMG4vaa3wlYPGDY1lqdM6XY8osWQ18gVXMgghbYVT
-	vOPMy2WLgWu2TqfkuVn+vOw3kDW5tSEu193xQBBB3esU6SecYBPWVA3it1eRVGIf
-X-Gm-Gg: AYBFou3wG/qysM+Khd4r+QWAJuxKXKipPx+eSx8C269vYeda7EVD65RH6CA3lhWQ1Qo
-	aCMGUiNVANIQhbn/EYbEk2wt0hssUUh1k+1qfeHwVFpijfTI02gV0ROsoD5PPRMiAqxIfUuYOtj
-	26qxId8Q7cqxiNeu2WoI9fm4ZSofinPj//XZEH/9yMFDov7WdhqGYokmkOGr5VcNUxRkhrWj3vY
-	hRW115CMmpAgEmh0SDbpv6T3FxfBMUiZf0szCI8a2axJQUN0q39rsuqWlILbJFVpeldh6E3j8DV
-	SqMhobsgpQU/S2KAUmFzPhVgItQEPFxAeI6RFKxcJQJqjGkZ/EyNR0g+T6dq5X1P2gaDennEDyu
-	Kz5kR7bjp9AYOMRlKoezEKfMJe02HWYbKjVIM1iU+SGH55CCCnWdpzvjFdyif3hekO8wtN3fwS8
-	s9wRFxeiWFh4rLvEZgKH8q9Ek8nOKDH4zLb/ZmaJLnkn1464Z7uQoT5kJLEUkeHX3iJD15GcPS
-X-Received: by 2002:a05:7301:a02:b0:360:8596:657d with SMTP id 5a478bee46e88-361a3128fdamr255027eec.32.1792167331133;
-        Fri, 16 Oct 2026 09:15:31 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac5:d45a:16dc::247:b8])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082a7b33bsm15192394eec.24.2026.10.16.09.15.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 09:15:30 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Allison Henderson <achender@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	rds-devel@oss.oracle.com,
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=3SI2PYB4A4
+	I6Xf6xw/bHHDGscaxuo07tsHr29BUxlDg=; b=UKTdQzBTSoxeovbnd7wka+ES1Q
+	aTENkin+kyTYL/zxpqM0MLMRQJjsM7X22TC6/fW8k3PQLFhvyCW1QvbE55gWYkt6
+	DsJ2aiB7ZC5ZkJVmMXw92ymxzFH5aDrDhB8+dzeZ4qdzMdXUaLbAvkvRF9Osfb2n
+	jQB15rftgZlrroQ9I=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.96])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkC2uv2TTtJqAPOrAA--.62184S2;
+	Sat, 17 Oct 2026 00:19:33 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	syzbot+c3741bb338b5c6d6a4aa@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] net/rds: ib: don't enable IRQs in rds_ib_conn_free()
-Date: Fri, 16 Oct 2026 23:15:25 +0700
-Message-ID: <20261016161525.146537-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	stable@vger.kernel.org,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] wifi: rtw88: usb: drop RX frames received before the device is started
+Date: Sat, 17 Oct 2026 00:19:31 +0800
+Message-Id: <20261016161931.18495-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,61 +42,102 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BbQMCkC2uv2TTtJqAPOrAA--.62184S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWF4UGF4UuF1xWw45Kry8Zrb_yoW5Zw4DpF
+	WrJayYkF93GF1jvF1fWF1xJFyrZws7AryxuFWrKa48ZFn8XF1SkFyFgFW2vryDAFWkAFy3
+	CF1DtryUGan8CrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvSb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Jr0_Gr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
+	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx
+	0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY
+	1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+	wI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+	v20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43
+	ZEXa7IU59TmPUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUID2rSPdEJEgABsN
 
-__rds_conn_create() calls trans->conn_free() with rds_conn_lock held
-and IRQs disabled when it loses the race to insert a connection.
-rds_ib_conn_free() takes the device list lock with spin_lock_irq() and
-releases it with spin_unlock_irq(), so IRQs are turned on while
-rds_conn_lock is still held:
+rtw_usb_probe() submits the bulk-in RX URBs at the end of probe, right
+after rtw_register_hw(). A device can already have data queued on that
+endpoint, so rtw_usb_read_port_complete() runs and queues the frame on
+rtwusb->rx_queue before any interface has been brought up. Submitting
+the URBs late does not close that window: the frame can arrive as soon
+as they are submitted, which is still before the device is started.
 
-  raw_local_irq_restore() called with IRQs enabled
-  WARNING: kernel/locking/irqflag-debug.c:10 at warn_bogus_irq_restore+0xc/0x20
-   _raw_spin_unlock_irqrestore+0x67/0x80
-   __rds_conn_create+0x1de5/0x2290
-   rds_conn_create_outgoing+0x43/0x60
-   rds_sendmsg+0xfca/0x20e0
-   __sys_sendto+0x408/0x5a0
+rtw_usb_rx_handler() hands every non-C2H frame to mac80211 without
+checking whether the device is running, so ieee80211_rx_irqsafe() runs
+while local->started is still false. mac80211 treats that as a driver
+bug and warns in ieee80211_rx_list():
 
-It needs an RDS socket bound to an address on an RDMA device (e.g. rxe)
-and two concurrent sendto() calls to the same new destination.
+  WARNING: net/mac80211/rx.c:5601 at ieee80211_rx_list
+   Call Trace:
+    <IRQ>
+    ieee80211_rx_napi
+    ieee80211_rx
+    ieee80211_handle_queued_frames
+    <TASK>
+    rtw_usb_rx_resubmit
+    rtw_usb_setup_rx
+    rtw_usb_probe
 
-The TCP and loopback ->conn_free() callbacks already use irqsave, so
-do the same here.
+The frame is dropped by mac80211 anyway, and because the URB is
+resubmitted from its completion handler, every further frame repeats the
+warning, which floods the log until an interface is actually started.
 
-Fixes: 745cbccac3fe ("RDS: Rewrite connection cleanup, fixing oops on rmmod")
-Reported-by: syzbot+c3741bb338b5c6d6a4aa@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=c3741bb338b5c6d6a4aa
+rtw_ops_tx() already drops frames outside of start/stop by checking
+RTW_FLAG_RUNNING, which mirrors local->started: it is set at the end of
+rtw_core_start() and cleared at the beginning of rtw_core_stop(). Use
+the same check in the RX path and free the frame while the device is not
+running. This also covers the opposite ordering, where a frame that is
+still queued in rtwusb->rx_queue is handed over after the device has
+been stopped again.
+
+C2H packets are left untouched: they go to the firmware event queue
+handled by rtw_fw_c2h_cmd_rx_irqsafe() and are never passed to mac80211.
+
+Fixes: a82dfd33d123 ("wifi: rtw88: Add common USB chip support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
- net/rds/ib_cm.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/net/wireless/realtek/rtw88/usb.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/net/rds/ib_cm.c b/net/rds/ib_cm.c
-index 6e3110a04ae6..5c717120eab5 100644
---- a/net/rds/ib_cm.c
-+++ b/net/rds/ib_cm.c
-@@ -1271,6 +1271,7 @@ void rds_ib_conn_free(void *arg)
- {
- 	struct rds_ib_connection *ic = arg;
- 	spinlock_t	*lock_ptr;
-+	unsigned long flags;
+diff --git a/drivers/net/wireless/realtek/rtw88/usb.c b/drivers/net/wireless/realtek/rtw88/usb.c
+index 64e1c3420e0a..12fb669015d1 100644
+--- a/drivers/net/wireless/realtek/rtw88/usb.c
++++ b/drivers/net/wireless/realtek/rtw88/usb.c
+@@ -664,7 +664,7 @@ static void rtw_usb_rx_handler(struct work_struct *work)
  
- 	rdsdebug("ic %p\n", ic);
+ 			if (pkt_stat.is_c2h) {
+ 				rtw_fw_c2h_cmd_rx_irqsafe(rtwdev, pkt_offset, skb);
+-			} else {
++			} else if (test_bit(RTW_FLAG_RUNNING, rtwdev->flags)) {
+ 				skb_pull(skb, pkt_offset);
+ 				rtw_update_rx_freq_for_invalid(rtwdev, skb,
+ 							       &rx_status,
+@@ -672,6 +672,14 @@ static void rtw_usb_rx_handler(struct work_struct *work)
+ 				rtw_rx_stats(rtwdev, pkt_stat.vif, skb);
+ 				memcpy(skb->cb, &rx_status, sizeof(rx_status));
+ 				ieee80211_rx_irqsafe(rtwdev->hw, skb);
++			} else {
++				/*
++				 * RX URBs are submitted at the end of probe,
++				 * so frames can arrive before the device has
++				 * been started. mac80211 does not accept
++				 * frames in that state, so drop them here.
++				 */
++				dev_kfree_skb_any(skb);
+ 			}
  
-@@ -1281,9 +1282,10 @@ void rds_ib_conn_free(void *arg)
- 	 */
- 	lock_ptr = ic->rds_ibdev ? &ic->rds_ibdev->spinlock : &ib_nodev_conns_lock;
- 
--	spin_lock_irq(lock_ptr);
-+	/* May be called with IRQs already disabled (see __rds_conn_create()) */
-+	spin_lock_irqsave(lock_ptr, flags);
- 	list_del(&ic->ib_node);
--	spin_unlock_irq(lock_ptr);
-+	spin_unlock_irqrestore(lock_ptr, flags);
- 
- 	rds_ib_recv_free_caches(ic);
- 
+ skip_packet:
 -- 
-2.43.0
+2.34.1
 
