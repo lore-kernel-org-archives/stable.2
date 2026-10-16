@@ -1,149 +1,136 @@
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047FB48DB45
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 18:48:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792176483; cv=none; b=GgoVTBTx/AwrKhaTHujqH1AydzhSkl7X8z8ZxweKn95AFEvEbu7VtT2O4BSNQZskw6A/MA0IFCDp/xfxzRdDv3309TS8znKu3JsIHVOzhxlTI7vy4IRnUE2KwlU5OXVIHBsJybylvfHj0sRFbwMeNgcelCDPtFYDD3AbcE8hq+w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792176483; c=relaxed/simple;
-	bh=/mlGGUmh4imtXySY7AXdz4KuC8XMU5x8T9TuD7xZIic=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tV0C7+RfxEYdsM6/v9062+jY4QQ3vTi8OGz9aSd80lGXcpe0NKPJwzAC9JIkOltLpVciyysVpugW8E4egVPWYX+aZZDQU4Mg4fHE+Z1BA19OpGW/o+rOSp3f6WTEbKC5K3scpuqJxhlLdjskPmJgR+cx5I7uS1mRFcS727LD/go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=U/cDlfZZ; arc=none smtp.client-ip=74.125.82.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38331494267
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 19:10:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792177833; cv=pass; b=PO9+WANNrjBHjeLCDWayM0EKyJ8g3iwcgsqkqx6/kJLKdnxQ9YF00COfS0xdcCLKe8l9KyuMUTCAqRaNYwhb4H+AQmGxBxDj5vbufl35NX0mlBv7RdqrRhvTRrBKqjHcftqHUAnIo8JSHPeaE2Plmok/36CYTm6K01H0gwfackU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792177833; c=relaxed/simple;
+	bh=YRuIJ7ABSAjb+0Jp3iDXWI9Qs8U7wYfJJywbYqc2tYc=;
+	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=U9Zrelee5dX4BC2lcWvYrkEC4CcTwV2kLInIpqRLfIDeS6BMKWypDniXgw66HuzbJVHHk0+vyw437qv9nLmsRq7G18AkbVseamehD0E/rGcEES817rvGOa42djWwCcoeOqLuWGBB+EAVI+PytITBjRKSt9Mhbf1QcIAlnaYloak=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=harin.net; spf=pass smtp.mailfrom=harin.net; dkim=pass (2048-bit key) header.d=harin.net header.i=me@harin.net header.b=VaNHusTi; arc=pass smtp.client-ip=165.173.180.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=harin.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=harin.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="U/cDlfZZ"
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-35c76e9614aso240657eec.0
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 11:48:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792176481; x=1792781281; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=s7HjfQVA5Ug4OqWpNl1Z5zod/bI4WrApAYRfZdU17cg=;
-        b=U/cDlfZZcXsv84cy5ctJHrDSAaBCJFigmr7NBBo+tmYyo5xtvW3VMSAS4CHNjYawVm
-         kDWZKPsqkyXXwgAd9WDxr7PhB/zsymSp+gIwWIqEB6IpJ4UVy9p4YASucP6/ieTYACm5
-         nMH4zxt5lKtbU86Ea4FYREhu7193K/VSpASkbpmLOIX+RnyLFgUkaaQ+IwLJuhUcK2gW
-         dPqmRIyvp4zClnN3Jbn3W2NY9oHa9J0HNmjZlFLN+TjAkaRXnLRek2YVfAxPRpj1CRZg
-         pvMzcJE0BrmnSprOiWzsZjLK1d9XwGV3ed1lcMXIQpbaNpbU9TGI8ByFNXaOkcenNy7e
-         gPkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792176481; x=1792781281;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=s7HjfQVA5Ug4OqWpNl1Z5zod/bI4WrApAYRfZdU17cg=;
-        b=Wh0D+Ao904vU9UNeu0RTScO0CCcC8jx0PvxlhkJv3d56cyi6rFCBI3aXAK+D37EhiH
-         /zXVtStpVsaH/iMdTNvTefSvm88MhXegYurET1GUvpYynbzbblCZVI5dgysqi5syqdLm
-         HQv/zejvvQQp0aYUZC6VvhAO/R3pbOO/aLvBreYl9MhU1NZHpEo+ch7qy0oBVqNjExOs
-         FNPWuVxrIlTUAF0MuzKpptb7fJ5zHcNiVKd4YZmTPhWExQKnthdVCBKvTcL8491nr5n8
-         46wQmiWYJXt+VX5qDAD40zRQ7Bvo2DS8aemYDTH/RdQ61WGsZB8V/EAhg755+zbVVS+4
-         0m4A==
-X-Gm-Message-State: AFq9FYLq8njm6jhZwQlQc+gtWzjinCsWnb92AiJo5+AID3c2Kku5ey2N
-	fDqBSiYtPhQSpwZX4xgab+dgxjwbXUb+nYqCy7Q9EIKiFj7ShWmvOxef1qzMuMt3ZxHyfU1kYjP
-	6wgr/1D5ggA==
-X-Gm-Gg: AYBFou2K/B3fHYI0E0CAQLyyj/P9EzP/94egetCJh5zUgJ991wv/a//4b8TPA8jBh0x
-	cW4DS9cOPq5YmN19EVr8ptD8htHNpnM49lknqWFD1WGfMpxLkawSFsmQFY29bNYkLDDcGNN2CRf
-	DzlfXDEstDXnw7fPwvh7WihRgyfx/u08MaTAPICUcqpPHzSyoa30VdRG+ydUh12seKFKUzG9ytf
-	5OZPeYZUniIdCxw9XSjOT1qS9wKXvFPIuIqR2mh5ipRF2r+SlZQR8C82Tjpc/tvLnRkIV3qGeGc
-	7drtWTVqeNnzIGKO1vFOKyM5f60jmMS5ETV6SOg+NliCkoVlG6eUBVCK3Tg/lbvXyxKfSodSQTd
-	IqppuXcSCmaaJw+3qh6XO2cgEN6y4tY9SGE8/yje2bizr1cVHI/rbee9TI6hgai9NKD4tfEsh8z
-	e9G9FM1rf14u038Wu0s5VFxVfp95W081mH3IaepwvohMqhH2nWqJBZVACC41tqRN48Cu295UJPC
-	GBmQTuj2FgXgblruq4SX3+msCC72DvKSWciwDVN8yF1ksLzSaoAjMJolK/M7CchnUkVzlA=
-X-Received: by 2002:a05:7301:380a:b0:35a:ca1e:4d82 with SMTP id 5a478bee46e88-361a1c50083mr999407eec.20.1792176480952;
-        Fri, 16 Oct 2026 11:48:00 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:85ee:eb9a:5637:424d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082784ec8sm8004502eec.22.2026.10.16.11.47.59
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 16 Oct 2026 11:48:00 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: axboe@kernel.dk,
-	kbusch@kernel.org,
-	kch@nvidia.com,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.6.y 2/2] blk-mq: reinsert cached request to the list
-Date: Fri, 16 Oct 2026 14:47:53 -0400
-Message-ID: <20261016184753.27189-3-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261016184753.27189-1-artem@trailofbits.com>
-References: <20261016184753.27189-1-artem@trailofbits.com>
+	dkim=pass (2048-bit key) header.d=harin.net header.i=me@harin.net header.b="VaNHusTi"
+ARC-Seal: i=1; a=rsa-sha256; t=1792177823; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=c5LD9eOT5qQKk0Bqdbj5jh0oMmndXxK6F5nTRnUhB8HAxTg7i64updREBHB6ONkmgMnGsGS5G+1FlrYrdAG5sN8c3bpD+5EAhU9ZzSpPbasfCFEpf/EVPknRa4gX1a+ELVCY+Z0DVqJ5VnQomAmQkCY3RwTfyP2c0fIoD/z1nQU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792177823; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=+VPkHJ00/ZjzLiauT1BBnwcp+TNa5dMCt9O24IznZVI=; 
+	b=iJ5PVjgKAVvNpg7YcrLeedvD9NBc2so3v1SgXkK8LDH0S+oGzzzBw9i6dn5c+Y1q8y7IqiI4zWtp+k7CQ3e5NgiCZMVVcMvQOsUIW6S2HxT0DW998/Dk3xvy8piVFZFIg7UId7hBtA+k91vrqLUGnV/Ee+cRfqTDJrJvRk4yGME=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=harin.net;
+	spf=pass  smtp.mailfrom=me@harin.net;
+	dmarc=pass header.from=<me@harin.net>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792177823;
+	s=zmail; d=harin.net; i=me@harin.net;
+	h=Message-ID:Date:Date:MIME-Version:To:To:Cc:Cc:From:From:Subject:Subject:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=+VPkHJ00/ZjzLiauT1BBnwcp+TNa5dMCt9O24IznZVI=;
+	b=VaNHusTiKsXuieBmk4IG22DForoelLKDSbr4n3cbDyq5fzMviDwLOKZq450aPElp
+	QTfMUW1hYyqfXIxreg/u64wH0B9sMhZeX1IBqtSucMxhnspAJ9k2+1MMBI5VrGTOGUM
+	oaUyS1OMZrtaGzsnfI2S3Pmb1pcmEElV0apqwxEGf87XqzILXzhcVMrLjcWqgTX9Jj4
+	SlFp6FOfk+UpRlgXraSo/l4tFNjJjRrU5zRaTLdt0/AFIQP7AEiJW7hz/3CtgCsLWWh
+	XmYGLxs9XJdFeGzG04qTJNdmQWizQrd51a88oBJ/sty08XnYvjXk0CTSFgqf6zmiRcU
+	Qh844eoD7w==
+Received: by smtp.zohomail.com with SMTPS id 1792177821338110.5468354298498;
+	Fri, 16 Oct 2026 12:10:21 -0700 (PDT)
+Message-ID: <e5b53e3f-02ac-4afc-9fa1-823ddb80875e@harin.net>
+Date: Sat, 17 Oct 2026 04:10:18 +0900
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
+Cc: Takashi Iwai <tiwai@suse.de>, Harin Lee <me@harin.net>
+From: Harin Lee <me@harin.net>
+Subject: ALSA: ctxfi: Regarding recent stable backports
+Autocrypt: addr=me@harin.net; keydata=
+ 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
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-From: Keith Busch <kbusch@kernel.org>
+I noticed that some patches from my original ctxfi patch series are
+being pulled into the 6.6.y, 6.12.y, 6.18.y stable branches as
+dependencies of the error-handling patch (277c6960d4dd).
 
-[ Upstream commit b051bb6bf0a231117036aa607cadf55be8e63910 ]
+For 6.18.y, since these changes have already been merged, could you
+also include Takashi's follow-up workaround and my subsequent cleanup
+patches? Without these patches, some devices may have no sound.
 
-A previous commit removed an optimization out of caution for a scenario
-that turns out not to be real: all the "queue_exit" goto's are safe to
-reinsert the request into the cached_rq's plug list as they are either
-from a non-blocking path, or a successful merge that already holds the
-queue reference. This optimization is most needed for small sequential
-workloads that successfully merge into larger requests.
+75dc1980cf48 ("ALSA: ctxfi: Don't enumerate SPDIF1 at DAIO initialization")
+c6cd83cceec5 ("ALSA: ctxfi: Rename SPDIFI1 to SPDIFI_BAY")
+07b116b44e52 ("ALSA: ctxfi: Use correct DAIO type for da_desc")
 
-Fixes: dc278e9bf2b9 ("blk-mq: pop cached request if it is usable")
-Suggested-by: Ming Lei <tom.leiming@gmail.com>
-Suggested-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
-Link: https://patch.msgid.link/20260526153531.2365935-1-kbusch@meta.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Assisted-by: LLM
-[ Backport to 6.6.y: Reinsert with rq_list_add() on each of the three
-  target preparation or merge exits; the target has a single cached_rq
-  list and no shared queue_exit label. ]
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi,
+The relevant part of atc_get_resources() for 6.18.y should look like:
 
-Please consider this backport of the corrective follow-up for
-CVE-2026-64017 to 6.6.y.
+...
+for (i = 0; i < NUM_DAIOTYP; i++) {
+	if ((i == MIC && !cap.dedicated_mic) ||
+		(i == SPDIFIO && atc->model == CTSB073X) ||
+		(i == SPDIFI_BAY && atc->model != CTSB073X))
+		continue;
 
-The backport reinserts the cached request at each of the three older
-preparation or merge exits. See the bracketed backport note above.
+	da_desc.type = i;
+	da_desc.output = i < LINEIM;
+...
 
-The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
+For 6.12.y and 6.6.y, could you drop the following pending backport
+from the stable queues? It is adding new functionality from my
+original patch series, which was not present in these stable branches.
+I don't think this change is good for backporting to older stable
+kernels.
 
-Build-tested as part of a cumulative 6.6.y series on x86_64
-(allmodconfig, CONFIG_WERROR=y).
+a2dbaeb5c61e ("ALSA: ctxfi: Refactor resource alloc for sparse mappings")
 
 Thanks,
-Artem Dinaburg
-
- block/blk-mq.c |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index 1ad77737b27d3233489b4d9f690c9e6ab77d2130..e3fb9222c5ee00c1fa2105e1194d5f9eba831092 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -3024,16 +3024,16 @@ void blk_mq_submit_bio(struct bio *bio)
- 		if (unlikely(bio_may_exceed_limits(bio, &q->limits))) {
- 			bio = __bio_split_to_limits(bio, &q->limits, &nr_segs);
- 			if (!bio) {
--				blk_mq_free_request(rq);
-+				rq_list_add(&plug->cached_rq, rq);
- 				return;
- 			}
- 		}
- 		if (!bio_integrity_prep(bio)) {
--			blk_mq_free_request(rq);
-+			rq_list_add(&plug->cached_rq, rq);
- 			return;
- 		}
- 		if (blk_mq_attempt_bio_merge(q, bio, nr_segs)) {
--			blk_mq_free_request(rq);
-+			rq_list_add(&plug->cached_rq, rq);
- 			return;
- 		}
- 		rq_qos_throttle(rq->q, bio);
+Harin Lee
