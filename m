@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 909284A8A35;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD484A5C42;
 	Fri, 16 Oct 2026 14:31:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792161100; cv=none; b=puQnDUnqL3CUP3U+1kS1w9ct8ia1zhILKPhN/q65yN5DrUku9KcegTl5Ru2K0q1JUSHRE3/FmDKmC5XztUByN3Q8ydonHr1+mbQ/11Ylt16XVf5/9zZ6/vAjMgxthYm4dE/tPxQdmuoUOlvEll/NceTXjXIKp+mgnH4CxzpqgHQ=
+	t=1792161100; cv=none; b=G79tXOg7adTbL5gtZDrEl0dzqY01ogJVvdShEx2qyLCwETpUum92OI2B7xl4M126hFPu88CL3HsEiCRMe/6Wpb8GZ5QNzafWRQJogagZLSRfnHNBDXrNONjrLBqS36uSbkA0OTjmLkE1dG9MIy2QWcGIb+zVp/vskoVOvTmbc6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792161100; c=relaxed/simple;
-	bh=s149q5lWcbJ2oheIIA43o1i++6KRYq8IoWAv2epDeNE=;
+	bh=fKZz8eDcPaYBOhyFt8zTVVi1XEGsCga5c41nAyFcjFE=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=f8XSpLvnBBbK2QCUZ9xfN2dMIwl+rt0weUwWB19F7wY+ya7QbRPviHFVraXgo2SQ8dPC7UqDbg5HdLQYkSp56UC48KWkEXtIBOx5k3wC4nfj4MPDrybLeQ3HEjTqvRQEKGbVv/Z1etQIaletXrTGuLxQ28RHF8G6JpjDq7e8Tjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zs9kuQR4; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=IW6E7gXOL1TTBK5NE1vQS4zVTDtRky0GH6yyJpPSOA1l8l7Ah8uVI7oFi8fln+SLMpetKswW8ZLOBPIyACLUahhmxqi9bTZHjhe5mWMSAOb7t9foAzbN+pCHz2FsqvMRaQE2R/FA85QRBAGYLGfWEvNjcj7cM9DktTif4q5GGEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BzWHB/tU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zs9kuQR4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 760191F000CE;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BzWHB/tU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 175DD1F000CB;
 	Fri, 16 Oct 2026 14:31:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792161098;
-	bh=NgGg2N1RGi/J1xseMXqE0YNV7H/R1hrK7DhCiwyg0ww=;
+	bh=6zHPOiiZft8qbX6TerRzYwd6JL5qMOEUciSET/TTF3w=;
 	h=Date:From:To:Cc:Subject:References;
-	b=Zs9kuQR4EtlL0vmEmhDvF+Qk38vv3w+FlaDJSKD6R0is1ubV3Ynhrvp6x1Ai7l5QZ
-	 QO67GEgiuoBvXObGZt4AMhyV050PiLQv8EqdQpXR9DtIft0k076Owgf6PCmE3uCcS8
-	 1LYbbOKRwtgoet6r91S9xetlyL4scsyWH5Quk48SwZdIihgfxKb1v138+M5NGTD8H8
-	 xuSIkBczDtd3CLSzWIq3MG1OQdBspbjlR9Z14ceLFOJVDFJ8/pjs6HRfOntj/DRR7C
-	 NUWsjgAgxObuSHxb74KeY9jGyipbKgw9Ey4uR2tICqDwaWgjHvohRw8T1EOQRp7q35
-	 uN95eZ1yfiVVA==
+	b=BzWHB/tUZEOMPtUgd77oFPJRZqhzFKqIwV74NXNkzkjT0tw7aX9NrfvWrwBM8aWMa
+	 2SYXkGj47kyMWwh7fRycRjlMboVq5ZvzHTKHDQT6s7TRPltyXiZ5YT6kOoBvp8y8B+
+	 sfr8w6yLGDIvE+gnG7tR7PE8tJ4fIhXzhxDVrMAKg64PjF7PEzKQKaiP0bFqt/VNww
+	 z5t/Xfo2fkxVjLchKVlQiTyoJcAU92vk3DaetnlF7m911m7pzhnWizaIdxARJ46jRf
+	 Wj1yYZOTr7pBXJ/vtAIrOj6VpF8FO6BV86EOAhmgJ8bqspmav3qSsfniDibp6/FH6n
+	 FDBqTqkQBy5mg==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
 	(envelope-from <rostedt@kernel.org>)
-	id 1xHiy9-00000000Xpv-36mc;
+	id 1xHiy9-00000000Xon-1Ukd;
 	Fri, 16 Oct 2026 10:31:37 -0400
-Message-ID: <20261016143137.562970476@kernel.org>
+Message-ID: <20261016143137.182901087@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 16 Oct 2026 10:31:32 -0400
+Date: Fri, 16 Oct 2026 10:31:30 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -42,7 +42,7 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  stable@vger.kernel.org,
  sashiko-bot@kernel.org,
  Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Subject: [for-next][PATCH 17/18] tracing: Fix 64-bit and signed histogram fields on 32-bit kernels
+Subject: [for-next][PATCH 15/18] tracing: Unregister field variable histograms when the command fails
 References: <20261016143115.392980228@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -54,53 +54,89 @@ Content-Type: text/plain; charset=UTF-8
 
 From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-DEFINE_HIST_FIELD_FN() reads a trace event field and widens it to the u64
-the histogram uses as a key or a value:
+An action that names a field on another event needs that field as a
+variable, so create_field_var_hist() registers a second hist trigger on
+that event to provide it, and records it in
+target_hist_data->field_var_hists[].
 
-	type *addr = (type *)(event + hist_field->field->offset);
+If a later part of the same command fails, create_actions() returns an
+error and event_hist_trigger_parse() jumps to out_free. The write fails
+with -EINVAL and sched_switch gets no trigger, but:
 
-	return (u64)(unsigned long)*addr;
+  # echo 'hist:keys=pid:ts0=common_timestamp.usecs' >> \
+      events/sched/sched_waking/trigger
+  # echo 'my_synth u64 lat; int a; int b' >> synthetic_events
+  # echo 'hist:keys=next_pid:wakeup_lat=common_timestamp.usecs-$ts0:\
+      onmatch(sched.sched_waking).my_synth($wakeup_lat,prio,nosuchfld)'\
+      >> events/sched/sched_switch/trigger
+  # cat events/sched/sched_waking/trigger
+  hist:keys=pid:vals=hitcount:ts0=common_timestamp.usecs:sort=hitcount:size=2048:clock=global [active]
+  hist:keys=pid:vals=hitcount:synthetic_prio=prio:sort=hitcount:size=2048 [active]
 
-unsigned long is 32 bits on a 32-bit kernel, so the intermediate cast
-discards the upper half of a 64-bit field, and widens a signed field by
-zero extension from 32 bits rather than sign extension from its own
-width. Five of the eight instantiations are wrong there: s64, u64, s32,
-s16 and s8.
+The second histogram is the one created for 'prio'. It is still active and
+still counting.
 
-The cast came in with commit 79e577cbce4c ("tracing: Support string type
-key properly"), which also added hist_field_dynstring() and
-hist_field_pstring(). Those convert a char * to u64 and do warn without
-an unsigned long in between on 32-bit. DEFINE_HIST_FIELD_FN() converts an
-integer and never a pointer, so it gains nothing from the cast and only
-loses information.
+out_free reaches destroy_field_var_hists(), which frees the
+field_var_hists[] entries, but never unregister_field_var_hists(), which is
+what removes the triggers and runs only from event_hist_trigger_free(). The
+entry is freed and the trigger is left with nothing tracking it.
 
-Drop the intermediate cast and let the usual arithmetic conversions widen
-*addr according to its own type. unsigned long is 64 bits on LP64, so the
-two forms are identical there and 64-bit kernels are unaffected.
+Unregister the field variable histograms in out_free as well, and record
+each one as soon as its trigger is registered rather than after the lookup
+that follows it, so no exit can leave a registered trigger untracked. The
+entry then belongs to field_var_hists[] and is released by
+destroy_field_var_hists(), so freeing it on that exit would be a double
+free.
 
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260917015532.103081-1-donggeunyoo.kernel@gmail.com
-Fixes: 79e577cbce4c ("tracing: Support string type key properly")
+Link: https://patch.msgid.link/20260914104036.1768529-1-donggeunyoo.kernel@gmail.com
+Fixes: 02205a6752f2 ("tracing: Add support for 'field variables'")
 Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/all/20260914054614.82A9B1F000FF@smtp.kernel.org/
+Closes: https://lore.kernel.org/all/20260913204302.DB2551F000FF@smtp.kernel.org/
 Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Assisted-by: Claude:claude-fable-5
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_events_hist.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ kernel/trace/trace_events_hist.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index c150e1130a5f..7d3bb7da4dd1 100644
+index fdd097abb0d6..972804709b14 100644
 --- a/kernel/trace/trace_events_hist.c
 +++ b/kernel/trace/trace_events_hist.c
-@@ -466,7 +466,7 @@ static u64 hist_field_unary_minus(struct hist_field *hist_field,
- {									\
- 	type *addr = (type *)(event + hist_field->field->offset);	\
- 									\
--	return (u64)(unsigned long)*addr;				\
-+	return (u64)*addr;						\
+@@ -3137,20 +3137,18 @@ create_field_var_hist(struct hist_trigger_data *target_hist_data,
+ 
+ 	kfree(cmd);
+ 
++	n = target_hist_data->n_field_var_hists;
++	target_hist_data->field_var_hists[n] = var_hist;
++	target_hist_data->n_field_var_hists++;
++
+ 	/* If we can't find the variable, something went wrong */
+ 	event_var = find_synthetic_field_var(target_hist_data, subsys_name,
+ 					     event_name, field_name);
+ 	if (IS_ERR_OR_NULL(event_var)) {
+-		kfree(var_hist->cmd);
+-		kfree(var_hist);
+ 		hist_err(tr, HIST_ERR_SYNTH_VAR_NOT_FOUND, errpos(field_name));
+ 		return ERR_PTR(-EINVAL);
+ 	}
+ 
+-	n = target_hist_data->n_field_var_hists;
+-	target_hist_data->field_var_hists[n] = var_hist;
+-	target_hist_data->n_field_var_hists++;
+-
+ 	return event_var;
  }
  
- DEFINE_HIST_FIELD_FN(s64);
+@@ -6983,6 +6981,8 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
+ 
+ 	trigger_data_free(trigger_data);
+ 
++	unregister_field_var_hists(hist_data);
++
+ 	destroy_hist_data(hist_data);
+ 	goto out;
+ }
 -- 
 2.53.0
