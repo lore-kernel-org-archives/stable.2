@@ -1,143 +1,182 @@
-Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011026.outbound.protection.outlook.com [40.107.208.26])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560E045C709
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 09:05:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141558; cv=none; b=Nhvs2Zf9fUxPcHahzj01VgRAWm8hk68wYX4V+QaVJBFsAztI2KnZLa79WRGg0O2xtSnFoPjY6LyWHcb+yylXsAqR0fLl99q7NCede5sfRB1Nh8wbQYN0OWW6VTNaWQK/U/5KE9LhubjAcK//yJw14f3ExpLgjofpXh0eqrUsMVA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141558; c=relaxed/simple;
-	bh=vBIXkU5a0czakfaG5UvhQYLDQmtPpOHhwRqC+37to5w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bn0iZ4kbjyBlthjXpetyEQ8omqkXlL6NXn4JeNxY+eoekl4xZuOQcXwlJGsbgI4j58c4leZsGw0MHxI+xQesGt83Mb8SCVBS9n44KfPSU9jBz0bmQyyXrl0WP/EPJY9rZtqzJW5yMWhYiuYLUVPiXXSPa/llf7tBqgd8J9K1Kd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R/ma36wG; arc=none smtp.client-ip=74.125.227.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C833645D5D9;
+	Fri, 16 Oct 2026 09:06:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.26
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792141566; cv=fail; b=U6yJfvRxN/Rgv2azMQp4vwGIO8VZCiw4g5KO5OBNZ/MdhE6QwkaoSTokxdo0yN85RQ0iZnfOcMFxzthaBHBh328ikEVrEdMN9lqMzoROxj0Nzkr7B2Az3i+LH0gs8W1/JNw0VMfeEKjo0ts1JN2Tyo173d4A3moOhM0wAaHESLs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792141566; c=relaxed/simple;
+	bh=dO7C3o/PxHqNppk0YvOz6T8Yw44d93jRPgR9y5T6YjY=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=WwRn4zWOEbqo8l3NwsltXHRxlgS/+sRmUwdpNyIymQzWSW9JhKcMwmXEFjMMibwJkZ4siTbYvNSjjKyUcMoSp15KIKVp0hSHHLMaMyp4tJ9iLrrSxSm38YSVVXl669Qh8WiJ70v5sO7yurpUjv07UhC0KLZam+SQcHGIWWxa5Ok=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=LkbxKakY; arc=fail smtp.client-ip=40.107.208.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R/ma36wG"
-Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-39569e136f9so1845546a91.0
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 02:05:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792141557; x=1792746357; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yIua1GyF5CyLs9zVRRQ2YP0+xQy31M4iXC7gh2QlT8o=;
-        b=R/ma36wG/IHRU2eoU0KCWSBoMR66p9M6DTdmOOjFlc/4eMkm5OzKOY0h56NXsULWRY
-         IgsALiiGVxAVMLQL7HCOIv+AbktrciTx4F3MkyaXiPIi637hKWySRrD+hEdtTuDPpzcT
-         PUbRvbJw6xC7unByrBbLZoCGZry+bWJ5MeodvfScKLm8GObt1ltBDiBNGDO8OoEAzuDG
-         S2VwVqWIrI8ptNhYehpvTZE/CfJeP1bBSZe+yQgtlQDOdAcTUW2g9wk+BDZhuTmtASqC
-         Qyqop8R0nbuEjwJfiJiPmjuLZQeOT0z+ljTYOrc8er4X2LhLtpK1s4QNct00ji8/iJEN
-         iAXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792141557; x=1792746357;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yIua1GyF5CyLs9zVRRQ2YP0+xQy31M4iXC7gh2QlT8o=;
-        b=w8V7JLuhthboNbAwlZvC7Jq9fkcbmxjVjVRzbpHv4ogDy08xRUx4y3X0g8tRZIu1oU
-         mUlXakFOEFTwQipJ4fRa7ERiUO5KEs9YvSNke6BWhY3njdjG/PH8ho7G6VYMq5aawjDR
-         JxDnheMiHpjrOaVNwKJPCeloPkmc5h+H/9gDBbt2/xRwTq3RTH+BK2qGoZgqYDX6VIGP
-         IIC5GKYuL5ufmzFBTo9ozghQZEgXt1qt67cuoMOaLNjwy3cnhubtxGd14HHWjnX7rIov
-         1RMAobuKvXaFVKmU+Vd48xO96dugqTUYnRsYPn6z7nVseDWgUEvl6fQx3pz7nwFkl987
-         qfPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwxwi/8ELqaqeYdXvWzHgogbsT7LwdBXPrT0hfjUcuYj/UBJbpOVf8nDP3BPKY5b+aBifmYb7g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJzZ9RM+ZzSdbnBJeG15GeEAYhon53uGXH1VNm6EQPOOdJoAPIJ
-	H3VQcfHm3zgBtVthKmeVTrZxa+HFepFPLCNXwFuf+drPm84/e+aCU7nm
-X-Gm-Gg: AYBFou1PDxx5B+7N+8cZT2oT3ETuQPWIUaG1sf2fnb7bqFCqhanS0MSn9eu+SON+Ktd
-	jQqJVWWUHdrQVbqt4AUUnzLK6Zk0lAaEgCoK+TCkbDl3G6YdoGW0+a61DYLVZicYssE82FrmtNR
-	oUy9ZeaLN9RlhZX+R/15EMo9NBMlBLLJ1oyg0pEAvBnndDHVehvvXdlJjkvuz0j7Wa1lZF16fiP
-	JexIhnyaeO2VnD/NHKit5d07Erz5PQ5eehcBaeeYLlomDVPY+ZWjdpOitDeFZdvyuiCFasiNRtx
-	AUZwHMztI3DOxeMIcKmoGc4xILgs7up6gRwlSmhAeVk8I8+fPX5yWA+2mDBbQFx8qWXZruSayjL
-	4wbAPdFdwXwY/gcvUxjIMGcabwIONTQxQzxRUR3g3kvlPtFQN+hpPKtuyUoA48500J7pOIn0eqF
-	xlqn4I6PKoEIyRWd3J+yFT+aYVNs2140PeL6KwCq1j2lAQonH/YfqHybajnheMeM8TQbK0EB6IM
-	XPA5sGyf1M7WpWxqU8=
-X-Received: by 2002:a17:90b:2d0b:b0:3ab:36c4:b4ff with SMTP id 98e67ed59e1d1-3ab3a747069mr19095398a91.24.1792141556494;
-        Fri, 16 Oct 2026 02:05:56 -0700 (PDT)
-Received: from LAPTOP-QJLDGQ2L.localdomain ([112.224.225.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd0aa3c24sm1310370a91.4.2026.10.16.02.05.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 02:05:55 -0700 (PDT)
-From: Boyan Liu <yymhvert@gmail.com>
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	co+98d7de09cd94fec5@bugs.sh
-Subject: Re: [PATCH net] udp: Fix out-of-bounds read with unset mac header in unexpected GSO path
-Date: Fri, 16 Oct 2026 17:05:25 +0800
-Message-ID: <20261016090526.2497-1-yymhvert@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <willemdebruijn.kernel.2a345d6bd54c5@gmail.com>
-References: <willemdebruijn.kernel.2a345d6bd54c5@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="LkbxKakY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XPmoS/71hk8zhAP3HMA0pJIQ9FGIDC2UrMAPGrNYy2F4iIfkcD6USnCzK++elX1Psc5xFD6Y62rbh8czr5DMO5QwoLWrssi1OT0Zfgb/5ei/IefxDPzV/p19419tusZNCR9mAPZp7kOb0DrtgYBcHH9x6bZRGyrxa5fb2gPh0OQ+QpcQA+w3QTxTciS5x42kIFNL9K6Zt9TVPtoosgMRmKcOsGigeRQfNBLjVrJjsLTQw3Cefbsj+LY4w6ZCXHwo6EV385cEU+b3VteWE6OrI5sxHUN+6LxhMAKDlol4saFCx7CvnayfgNDkRnQyGZunSVUmCo9NSNOjEaM0Mtb2pw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xH9QT2wLxpjrZ+fXorE/43hMEbFrgH1iLOYDUqRFM8g=;
+ b=spPc8y8NKCOtExMMLP9Y9eQr0SNT8PZhMI78NFfIYs8zYB9tglV1+bjvYkF1WOk1bgRsB2F9j246X3DNCLOZjPmdU0S2YHv/CttAkHr7Cxd7OuABgLgoT++s4n+sH1OVrFIj8G99kwvz78OwVZ7JPgul5lD6P1KS2BdWg4RNE5MCs9r9rsXDXyiZvHmc3m4NgAS9TbkpxzfGKcwuuuhs5fVgu6LbI8Q/HM/8lXlsf8wvnsojGR+8ey94Vbm+L8CfgswYpeH5Wk71/HYYuY8EgdSO8XDreyfigi6NOe/mW6JXeq4xS4SwhjWOGRK/kztooVrbYxalI2To5BTSfdK3Lg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xH9QT2wLxpjrZ+fXorE/43hMEbFrgH1iLOYDUqRFM8g=;
+ b=LkbxKakY4p7JikpIL2R0GQOdMXeNETp3kQhPLmPN61rHAwSDsmjRwQiQqvmjBEPV4apqJPSiE6GzLqpUStbd+9d7+IhhgaaPlZ10ATZe32FSkX0TE4L89bX1aK4XaAHD/dhQvjJgKMueI43lcOAXPLdvDbnC7ii9m/b923wTkHk=
+Received: from BN9PR03CA0725.namprd03.prod.outlook.com (2603:10b6:408:110::10)
+ by MN0PR12MB5763.namprd12.prod.outlook.com (2603:10b6:208:376::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Fri, 16 Oct
+ 2026 09:06:01 +0000
+Received: from BN3PEPF00022BC8.namprd05.prod.outlook.com
+ (2603:10b6:408:110:cafe::a6) by BN9PR03CA0725.outlook.office365.com
+ (2603:10b6:408:110::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Fri, 16
+ Oct 2026 09:06:00 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF00022BC8.mail.protection.outlook.com (10.167.248.214) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 09:05:59 +0000
+Received: from danielhuang-HP-EliteBook-845-14-inch-G10-Notebook-PC.amd.com
+ (10.180.168.240) by satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.53; Fri, 16 Oct 2026 04:05:50 -0500
+From: Daniel Huang <danielhu@amd.com>
+To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>
+CC: <christian.koenig@amd.com>, <alex.sierra@amd.com>, <Philip.Yang@amd.com>,
+	<amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Daniel Huang
+	<danielhu@amd.com>
+Subject: [PATCH v2 0/2] drm/amdkfd: bound SVM mappings by the GPU address limits
+Date: Sat, 17 Oct 2026 01:05:44 +0800
+Message-ID: <20261016170546.88570-1-danielhu@amd.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC8:EE_|MN0PR12MB5763:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc5a6590-5bec-4061-8a1f-08df2b64b271
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|376014|82310400026|23010399003|261009223027099003|5023799004|56012099006|11063799006|6133799003|10067099003|18002099003|13003099007|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	+F9Y98BkHLV9qNjiCWiKRxHuU26tvb6bHB4xDe2b6gtRxve3iY35/ADcK/jd+Gyw611nJwRK6kb0rh0+qFk7HpxpvRp7QB7uPVwIRnVg0wnjmlyN0MW8rgpUHFNf7LDArqPVy1EisWubY8077YCVSyXKug18/nrsqZajGEmsGsn3gUELHtsSEzDmEUfDzNU4KjqJs+MfXRdCIwaRvwHk0y4LQkod8LbeBSFErHajHtlvna0KnnoiU8DINFyOW5QKZSQb8qZcH96NH4CDpc5epLQmOjRcjjX1wYQvajAT/wwSfwGlk8ymeCNIvuWRr3GJrST3OTgYlV2+Gz1p06ddqXogacnjDL7dubirwvgOO0rvyfcKfPML69Mm9aIz/0dllcqR5z5Dmd3WEpVmDWWlnqCf/VkJ3enTK9wCli1s4qWl6nZfDzC3ZqErptRXTQyhbiFRJIAysJBmsiyLr8UsllkGipc4Jgl924pVGiU7Fzv6ovS+c9LIwQuM1i4rNLqxLR3rsjS3woFVX+F4j8I3JOKxibDYsR08VtNs8ZLBY5SzrMevJzw5THKeINKY+lmEH4fy4Qcz2/uI41DayOFB4ZYzIXNr0V9FBicWKqk9XwWaBO7RlfCjbYtA4B4JXlsfjgE51IVNxmVNamlA5n+OTg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(23010399003)(261009223027099003)(5023799004)(56012099006)(11063799006)(6133799003)(10067099003)(18002099003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	5fm+s1qoX7faRjmTmgLBIUOMgQsb7cU6JXzirD+KixPdzprBlPolI42pHNw/FYiM90QoLdTmtDfn8uZm8WI+QBYRjXUONSLZVfO4CD4i9NBP+GsT6HYLM2ukaT+9YaPLFOzWcA5ebVfUTQzOhdBRAObLOVPtrwiQrVLLzIZVJ9SjflfvaxPOIXquyYibM0cT5o3tSJS4HqrwRI3Xl6gzzbsH6i0Wn4VhW12AorynvEVTi22FkQuuFGBNEV7QOTUsxs5f7vzdscbbRi0zklh77FR//n15FRu/8ap6Yb8DMyPOIb+WDdh1d3VbBsDiijKKsXPTaPtxtpbySerVpz4aAuvH+nSwvWvwn/Wm2qY5Tmke8uxcRu5d3kPm6ij/TD5ZzVF7xY35GAzpidUaOHSMaG/H+qKkkp6K88cMAyiTvKxZqKhQnNXd3RD+LlRWs7e8
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 09:05:59.9975
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc5a6590-5bec-4061-8a1f-08df2b64b271
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BC8.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5763
 
-Hi Willem,
+KFD SVM maps memory in GPUVM at the same virtual address used by the
+CPU, but no code bounds that address against what the GPU can actually
+represent. kfd_ioctl_svm() validates only page alignment and a non-zero
+size, and svm_range_map_to_gpu() passes the PFNs straight to
+amdgpu_vm_update_range(). The BO mapping path, by contrast, validates
+through amdgpu_vm_verify_parameters().
 
-On Thu, Oct 15, 2026 at 10:49 AM, Willem de Bruijn wrote:
-> I wonder if the right fix here is to not call skb_unset_mac_header in
-> the first place.
->
-> There are plenty of L3 device type with no L2 header. They still have
-> a valid skb_mac_header.
->
-> This fix may be papering over a tunnel doing something non-standard.
+Patch 1 is the crash reported in [1]: with an explicit amdgpu.vm_size
+override the GPUVM can be smaller than the CPU address range, and the
+page-table walker indexes past the root page-table entries. It disables
+SVM when the GPUVM cannot cover AMDGPU_GMC_HOLE_START.
 
-You're right, and after digging into it I agree the seg6local side is
-the real offender.
+Patch 2 addresses a gap in that check, found by the Sashiko AI review
+bot [3]. The comparison is against the GPU's own address hole, so on a
+system whose CPU address space is larger than the GPU's it succeeds and
+SVM stays enabled, while individual addresses can still fall outside the
+GPUVM. Every current GMC generation uses a 4-level, 48-bit GPUVM except
+one gfx12 variant, so a 5-level paging CPU reaches this whenever
+userspace passes an mmap hint above DEFAULT_MAP_WINDOW.
 
-I checked every skb_unset_mac_header() call site in the tree. There
-are exactly two: net/ipv6/seg6_local.c (end_dt_vrf_rcv) and
-net/core/filter.c (BPF egress, unrelated to the rx path). Every other
-receive path delivers packets with a valid mac header: NIC drivers set
-it in eth_type_trans(), and L3 tunnels without an L2 header (ipip,
-sit, gre, tun, loopback) reset it to the network header after
-decapsulation. seg6local is the only producer that lets a packet
-continue up the stack with mac_header unset, which is also the state
-skb_mac_header() warns about with DEBUG_NET_WARN_ON_ONCE().
+Patch 2 validates each range against the limits of the GPU it is mapped
+on instead, covering the mapping, unmapping and fault recovery paths.
+Using TASK_SIZE_MAX for the patch 1 check was considered and rejected:
+it would disable SVM on every 5-level paging host for every 4-level
+GPU, including the gfx9 datacenter parts.
 
-One complication: the unset in end_dt_vrf_rcv() is not gratuitous.
-vrf_l3_rcv() -> vrf_add_mac_header_if_unset() relies on it to
-synthesize a fake Ethernet header when a sniffer (e.g. tcpdump) is
-attached to the VRF device. Dropping the unset entirely would change
-what sniffers see on VRF devices.
+Patch 2 alone would also prevent the crash in [1], by rejecting the
+mapping rather than by refusing to advertise SVM. Both are included
+because without patch 1 the topology still reports
+HSA_CAP_SVMAPI_SUPPORTED, so userspace sees runtime failures instead of
+a clear signal that the device cannot do SVM. If only one is wanted,
+dropping either is straightforward.
 
-So instead of removing it, I restore a valid mac header once the VRF
-rx handler returns:
+Changes since v1 [2]:
+- Moved the warning from amdgpu_amdkfd_device_init() to
+  kfd_update_svm_support_properties(). pgmap.type is only assigned in
+  kgd2kfd_init_zone_device(), which runs in late init, after
+  amdgpu_amdkfd_device_init(). Testing the capability at the old site
+  therefore never fired for dGPUs, and amdgpu_reset.c calls the two in
+  the opposite order, making the behaviour path dependent.
+- Scoped the warning to devices that would otherwise have advertised
+  SVM, so GMC v6/v7/v8 no longer warn, and made it dev_warn_once() since
+  the surrounding loop can match several topology nodes per adev.
+- Guarded the new code with CONFIG_HSA_AMD_SVM. kfd_topology.o builds
+  unconditionally while kfd_svm.o does not, so the reference to the new
+  helper breaks a CONFIG_HSA_AMD_SVM=n build without it.
+- Fixed the [1] reference, which was a placeholder in v1.
+- Added patch 2.
 
-        if (!skb_mac_header_was_set(skb))
-                skb_reset_mac_header(skb);
+[1] https://lore.kernel.org/amd-gfx/da43b0e3-5bd9-4aa1-86d3-b733f3bad108@amd.com/
+[2] https://lore.kernel.org/amd-gfx/20261016145129.69645-1-danielhu@amd.com/
+[3] https://sashiko.dev/#/patchset/20261016145129.69645-1-danielhu%40amd.com
 
-The sniffer rebuild happens inside the handler while the header is
-still unset, so tap behavior is unchanged; when no rebuild happened,
-the packet now carries the same mac header state as any packet
-received on an L3 device.
+Per Documentation/process/generated-content.rst: an AI coding assistant
+was used throughout this series, as recorded by the Assisted-by tags. It
+diagnosed the fault path ordering that determines where patch 1 emits
+its warning, designed kfd_svm_range_fits_gpu() and its call sites in
+patch 2, and drafted both changelogs and this cover letter. I reviewed
+and tested the result and take responsibility for it.
 
-Tested under QEMU with the original reproducer:
-- unpatched kernel: KASAN slab-out-of-bounds in inet_gso_segment,
-  same stack as the original report;
-- patched kernel: no crash, the re-segmented datagrams are delivered
-  intact, and the unexpected GSO path is confirmed taken;
-- with a sniffer attached to the VRF device, the fake Ethernet header
-  presented to the tap is identical before and after the patch.
+Patch 1 is tested on a Radeon 780M as described in its notes. Patch 2 is
+compile-tested only; I do not have a 5-level paging host with a 4-level
+GPU to exercise the out-of-range path directly, so review of the bounds
+arithmetic in kfd_svm_range_fits_gpu() would be welcome.
 
-I'll send this as v2 with the fix moved to seg6_local.c. If you'd
-rather drop the skb_unset_mac_header() altogether and accept the
-sniffer behavior change, I'm happy to do that instead.
+Daniel Huang (2):
+  drm/amdkfd: disable SVM when the GPUVM cannot cover CPU addresses
+  drm/amdkfd: validate SVM ranges against the target GPU address limits
 
-Thanks,
-Boyan
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c      | 42 +++++++++++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h      | 45 ++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 14 ++++++-
+ 3 files changed, 98 insertions(+), 3 deletions(-)
+
+
+base-commit: fe9f3ed36c83dcc24b4ca3e8913edd6e33a89150
+-- 
+2.53.0
+
