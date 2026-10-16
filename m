@@ -1,124 +1,97 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mta0.migadu.com (out-229.mta0.migadu.com [91.218.175.229])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD113E40E3
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 09:53:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792144396; cv=pass; b=Ey9r3M4xaZiAFbmlgtj7yaX0P1Vm4cNLnayL7jo9xCvxn+WVohiPxA6nXSDzkkvGdkeL5O1r0do4Gks6wka3dtGcsjulHra0+SwOO5rDPPpK6awIQ9b08qWZEMWC/yrYLuPYvroAbYIz4zM3T+1KD+hvbmAicbyaVXJIyQ3T5H8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792144396; c=relaxed/simple;
-	bh=xqN3pfb0UkR3DIFYcIuV6kM3FHfjO1La5ULm2s3cbLs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kfttKUBrd0MYcq5x3aWMIvXfjg5Bp1CFC1Dc5cZ3PFqyYPZ1MDgy87HH/cvzFIAv+MBT/m586+Luj5DX/FSDJUCQEa4lxORvmD/YxrBaVYeptCyUoXIP2CIS8onTEMHuLTQpv/Q167dF0wqn6ecHUzCjS6fpErYg18RLLMyGjgA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jDLdGiMx; arc=pass smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A3DA392811
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 09:53:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.229
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792144421; cv=none; b=dY4Q8gG7VwCQjW72SOFKo3W8lowJG5vlzokucPMN4iZ5sLidkFimO327btHYYyROn34IQ5Sw7d3ItWgbNQWN1gHpNj1ELxBXw7Oe8tAvKsbjEr1Fxn/Zpz+iZJmpjS5mXmSSjRdepDDIOYDrDOU+bRKmokbl2pQFLMw8Or4i3ms=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792144421; c=relaxed/simple;
+	bh=AdcwzOjotHxE19RLxZFm3OWWctumeLKS1NSG9llBa2k=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=RANcrFMWchEqQ7x9GEZI/PBgWbwqp6pTHRKic1It0IF8I4uJ5AxKtOUnLBNypNXoB31K9p+MYBri/Ok1d0ULPJg7mybrYKpfr8jI5kacLbRp2eo09FcCcG/JcAJnEyofUfMpiLO09elpZJ4jxqwn3jzQwPspnGRXHlwkQ10dw7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=h9ug+C9q; arc=none smtp.client-ip=91.218.175.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jDLdGiMx"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48df54150dfso1002805f8f.0
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 02:53:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792144394; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Df0FUmNHdbtLo0vAXHs9OfBfbrByK/VCX+Q865ofyCmCwltOLN5fK8+lLAmafWpQZB
-         CgxKR0LQ2DMEnKkhNrLunwXuIIkdd05AScBw9q9CBDA+lASIqxt6ZJ+KoiNHKitkPE19
-         QQB3Iq35D3NBhswmyEByAz1NvFEsfcq+BhQq45axwCA1vElwTZ4JhtfzZ1T7es6OZSsC
-         hT4Cp41fF/IjjEzh25miUDVbjQUx8GaUgnBxOc4Knfm26bDeDkbTeiCI8/yEfBzj6j43
-         /ROFu81cmdRepF2loTCiSTZ9rSgXkA9D09M9rGQrmIWsGTz9Nv5aS1pz3v/C3w6uCePj
-         ieiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=xqN3pfb0UkR3DIFYcIuV6kM3FHfjO1La5ULm2s3cbLs=;
-        fh=fUDR5z7KTKm8QA4IT/vaVgXPyqdvJMFpE2HQiPN3b7U=;
-        b=gcdsCsWOoEXtJlzbO0OursjTQ81IEQaQOlpoz9aeha69pQEEvpMnaOFb+Y0KZoEfL6
-         C3BJNBKsQjoUZmZq/9Uoc7G7Y0IFl9kKFygoeeljc2S9srEmfhNyrvEIQ4NcT+NFEGvo
-         rVo8z2zaZTO5xJD1IKbIp3A/aEN1bwFs8nnsg2HOfxzDBrhqO3j4539gdB5Uukl7CS7/
-         i+Z4nUFVoH2qjGr1/3GkOc9uP6saf5eHjkl5AEu8+yBLpGwteJ4RFBU8D/3KJzTNo8mY
-         Eeso3AaR6DpziA21oq5qZDd2GJyPzt1Dbga1JYjUOOkIiu+amVHnS6HciEbC7ZoAPah7
-         tuWw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792144394; x=1792749194; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xqN3pfb0UkR3DIFYcIuV6kM3FHfjO1La5ULm2s3cbLs=;
-        b=jDLdGiMxcaIIYMRGh+/GvHB/GA2RtVlZ9FADMtj0vAbP1wEoVOK7yf3/RVrUvrDISp
-         VX0yHYOzbdKZcvVJsyuWYoY4XZAv0gvp7jTfkw/ugOH9FabPwKKShjq+4zlue1ycatq9
-         gRDJmIn2wGsrvvmrHrTaEoNjNB0Pkpt53izXaa2uy9tMrAyFIqxJgFT/jJfeTLyDdlaJ
-         4DdblAtnRZRcaEarLArRz0AsacuUKRHccW8hBc9PDkygzNlKcBfTX2UPx9I1CLVKBpFK
-         otx1NuO8dCubfeszmS42aeEKkZi2lRAw1PGcVypZUVBjrf3huKHaNd+mXA9wZ0zYANM6
-         ESsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792144394; x=1792749194;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xqN3pfb0UkR3DIFYcIuV6kM3FHfjO1La5ULm2s3cbLs=;
-        b=zvSzOErPKDDPqgf2qd3WkHSMN9V2rYRBV579QvIUzqNpcnfLEJWskb2ALNEErpcyiV
-         ZaO3AVSqkcQaSkbe1/Gco3HTyWsTcm4bwAmNsN1/eUCm8QTS4drzPQeuaUDbgzUMQqHI
-         pdstB+5wKGBzBNrK1l6g2VMZD3Md0XHkEddbkngo29Ub5mPhX/h61mcgPaqccHqCgvfO
-         wNMcZmKIToXcKquiZqwo3Dl8D9qpeLEt20vj9lg+hdo2JrmXKm2+I/RqbDYvXXGcQ76q
-         WKeHYLkRpNc4tWGXb4eNug0gkLarGFVIMnT4d9GrTkTGpBl7D/rOR+r7xy8oloPtEhuj
-         Mkzw==
-X-Forwarded-Encrypted: i=1; AKwUvBy30wlV+B0wOgiEShNRLbJ7KNK5A2tZI/w9nv4/KtVtyKdJO3whRwX/Fl+UaiolAtuk63/C8kE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLaYUojWieyEaVQZlmNDaJodFRC2rRYs6FJ1jrMaLNznpzjR48M
-	lujjw29oGVcjzSpjLXYwh1MpoOKzkv64CaCFjopcpMK788kL9LEbz3UYp325Sh23ZP7K15CUMEO
-	jyee66pXYwceRhlZg/1rZVngdMDIXl904F6frQvQO
-X-Gm-Gg: AYBFou2a0x9UPKtB9022whZ5nP1K7LM9a+ftB4DG8lpfw26xAMuH/NnULZBgCvhTdTT
-	RaPGG4yNRux+KrHrt8rsmogslgJie13C9Va5bETR523Q7Q9Aoxp5eKG5JVz17+jG/kFS/FJPhNR
-	z4Uc7bl8pWjU+RhzjKWGEQFkv6x5F/v/EhPV5r2PCHLU0cXY8UZyZfK/b14d5VBr1+dL2ZKAxg2
-	MNSQexheGikYk3oW8vA/Bc+Oc6o+OxeWAjee3vy9WIG/yhBoHPuMB2UWuxredF1kCdTz5+zokAD
-	aySA2rkKQqE3h5MgjRaYMj1wohfwmirPDK3rUM/5RtkOzaY5vdOhym+NL1vXNX/XBIFKP24PLc6
-	qFLVZe4aW6iaWaUWSfjS3GHLeFDcQ++As4aXGyGqnx0NiXR4dYrk1
-X-Received: by 2002:adf:e64c:0:b0:485:8ee5:5ffa with SMTP id
- ffacd0b85a97d-48dba9de8f4mr35213414f8f.38.1792144393256; Fri, 16 Oct 2026
- 02:53:13 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="h9ug+C9q"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=AdcwzOjotHxE19RLxZFm3OWWctumeLKS1NSG9llBa2k=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792144418; v=1; x=1792749218;
+ b=h9ug+C9qaUfR5JSkmmWi910MYY9+pSkIEish8X2qfNLh6R2Wpgx182XL9Jp8qySJu7Dk48Ch
+ 9CPHaTAhJGKYSz+2PW6exFcFghXyfp80Su2BrTbdLACymOvtbiqVoIgL53WiWJE29O5+hztCC8Y
+ W45eoDfaDMlSpb8PJdC1hp4w=
+X-Envelope-To: stable@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 2c46a001e07853f7;
+	Fri, 16 Oct 2026 09:53:38 +0000
+X-Mizu-Trace-ID: 2c46a001e07853f7
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261009140946.008206689@linuxfoundation.org> <20261011111313.27648-1-ojeda@kernel.org>
- <2026101124-rethink-craftily-cb25@gregkh> <CANiq72ndhLush3bugar1YGPnsein8min1k3_NucBxzFwCWe9Ug@mail.gmail.com>
- <2026101103-fling-stipulate-084f@gregkh> <CANiq72kjJ__OnsTjmsuQZH8+U-cRDCNnRpSuHU3PwYYT07Xf0Q@mail.gmail.com>
-In-Reply-To: <CANiq72kjJ__OnsTjmsuQZH8+U-cRDCNnRpSuHU3PwYYT07Xf0Q@mail.gmail.com>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Fri, 16 Oct 2026 11:53:00 +0200
-X-Gm-Features: AclHuK-KZrzl8buAxw5--JIrQ3Q2GlG4ZFRpXT7mWgEiCKlqaDvBAHdKaEgr_aM
-Message-ID: <CAH5fLgjjPmL-hiQ7R5zFG9BwWbxm6j+GnahoC11AiNxM7iyGJQ@mail.gmail.com>
-Subject: Re: [PATCH 7.2 000/428] 7.2.10-rc1 review
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Greg KH <gregkh@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>, achill@achill.org, 
-	akpm@linux-foundation.org, broonie@kernel.org, conor@kernel.org, 
-	f.fainelli@gmail.com, hargar@microsoft.com, jonathanh@nvidia.com, 
-	linux-kernel@vger.kernel.org, linux@roeck-us.net, 
-	lkft-triage@lists.linaro.org, patches@kernelci.org, patches@lists.linux.dev, 
-	pavel@nabladev.com, rwarsow@gmx.de, shuah@kernel.org, sr@sladewatkins.com, 
-	stable@vger.kernel.org, sudipm.mukherjee@gmail.com, 
-	torvalds@linux-foundation.org, =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
-	Todd Kjos <tkjos@android.com>, Christian Brauner <christian@brauner.io>, 
-	Carlos Llamas <cmllamas@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH 10/10] mm/mremap: fix calling fixup_hugetlb_reservations()
+ on the wrong VMA
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261015-urgent_fixes-v1-10-42796911043b@kernel.org>
+Date: Fri, 16 Oct 2026 17:53:20 +0800
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>,
+ Oscar Salvador <osalvador@suse.de>,
+ Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Adam Litke <agl@us.ibm.com>,
+ Mel Gorman <mel@csn.ul.ie>,
+ Rik van Riel <riel@surriel.com>,
+ Peter Xu <peterx@redhat.com>,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Josef Bacik <josef@toxicpanda.com>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
 Content-Transfer-Encoding: quoted-printable
+Message-Id: <73BE5C1E-5F2E-4F1D-BC8A-24CC8E9F9D34@linux.dev>
+References: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
+ <20261015-urgent_fixes-v1-10-42796911043b@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-On Sun, Oct 11, 2026 at 6:39=E2=80=AFPM Miguel Ojeda
-<miguel.ojeda.sandonis@gmail.com> wrote:
->
-> On Sun, Oct 11, 2026 at 4:17=E2=80=AFPM Greg KH <gregkh@linuxfoundation.o=
-rg> wrote:
-> >
-> > If that works, can you, or someone else, send an updated version of tha=
-t
-> > commit for the next round of stable releases as I dropped it for this
-> > one.
->
-> Done (I didn't add vger).
->
-> Alice: please double-check, thanks!
 
-Thanks Miguel
+
+> On Oct 16, 2026, at 00:07, David Hildenbrand (Arm) <david@kernel.org> =
+wrote:
+>=20
+> In case we fail to move the page tables, for example, because we fail
+> to allocate a page table, we actually keep the old VMA.
+>=20
+> Calling fixup_hugetlb_reservations() on the old VMA is wrong. Fix it
+> by just calling it on the VMA that will be removed.
+>=20
+> The user-visible impact is that the VMA loses its reservations, =
+meaning
+> that the existing reservations get stranded (leaked) and new hugetlb =
+folios
+> that are getting allocated in the VMA cannot make use of the
+> reservations, failing these allocations.
+>=20
+> Fixes: b714ccb02a76 ("mm/mremap: complete refactor of move_vma()")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+Acked-by: Muchun Song <muchun.song@linux.dev>
+
+Thanks.
+
