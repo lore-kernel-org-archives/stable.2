@@ -1,75 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DAE94A8FD1;
-	Fri, 16 Oct 2026 15:08:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8644CEE4D
+	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 15:13:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792163302; cv=none; b=WWmbkZbnTHpHBP2SMrUChl1P85GvsWFZH1bSXWLSVQb+h3IEsNXS7NPbkvrND66hzuaNm5QckDES8AGjHGfSilygfn+u3dmnHiptDZKqxv6pkEQ3h2pRl104aRZRhcFwGr3MEY5i9tUBOfxd1qGVhdvjbHmxsPQGIKwN+oB3jxg=
+	t=1792163636; cv=none; b=SqjGHXHhMwli8nMvG9Yb0RgtPc3pJ3c2CMUUUTHEbvfK6EbbXQzn+GMmKn+AZ+9ZV9D0mj7guuQ4wnR7yxRwPQclTwdvv985XFzkzClgv5miGRCQ92rCc+MDpVzxPwclSjbYxAuC079Vm2Ow4D8BUVL95bMhlUmBczWT5uAkeW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792163302; c=relaxed/simple;
-	bh=GvvOyamDNwcAhPTr6UHXuLJz0G870Qo8uj/3PgPHTBk=;
+	s=arc-20240116; t=1792163636; c=relaxed/simple;
+	bh=SZW8P8HaP/6LFI6azkqEpyOh628pL3diXyOw+JET4z4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Fkd8jF49BWANOCKeYoglt8ufR0HFotN1ef2AgCR4kQEMKlmXfz+SnoXRulv9ZdUoYD1nkgh6QHX7OzLeYV3JALuRYn71qklSnIVj2SM5sIC1rQxnOj5i8sZQrMFtlwETQo6u/DbFBVLetsPg/Jp226M4zp36tc4UTz65a9wtL2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hr/VjZWY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=aozDA8SeZVjhQzOSVBEskSvCWTvJQrJfieOse9y8hX49BIiizLf9fmlIbf3p8KPPcCTWwgqEPv/fhnenfnvtrc9bNpG4CFKGSsjDAITdwQQuZvWdwdsTQZaCaRys3j+aoR0BWHY9u4eKmKYfOwIulo84A+LKpGR/xwnO5EVVix4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g9GxdE3A; arc=none smtp.client-ip=209.85.160.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hr/VjZWY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BFF11F000C4;
-	Fri, 16 Oct 2026 15:08:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792163301;
-	bh=6qEhMqsggKfNooDymEP6wz/N7ygWxzGYI7MjV/a3tBc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hr/VjZWYyQDV6KP9I4IiJ1QG0a2Wmoe3MlFFqwKvZiPu0B1f/6j0FAtNc4GPFQ4tz
-	 cgCuopfpNf7ZepzkAfPOtki4ENMjqwpwznmc6nXnkFmqp9+UIpxtGhB+q9uAfGt/2V
-	 jIvQjAPe/unGMb2ZNrjqHkokPoINkYGrbkHe4N6l4BYpUOI+oTChyFUQib/DhB8HYy
-	 xmLMrilZ2P5OHneZOG6X2Mv4nRt57Ap0seiSys+Gmib9d5+p0NMvTVN9PMZPnoXeB4
-	 NbfPhyaLFDCBxjYbzu/6/o7SniuDOp3UeEEzXJpvbYK1arOXqLYxT9Br1kbYCMUOdN
-	 Vr9E9UcvgQsog==
-From: Chuck Lever <cel@kernel.org>
-To: Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>,
-	Tom Talpey <tom@talpey.com>,
-	Jiwoong Wi <dwdnlzj@gmail.com>
-Cc: linux-nfs@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g9GxdE3A"
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-53512cd2f85so34391cf.1
+        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 08:13:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792163633; x=1792768433; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zv8TTKfbeUYEMQDxnGPnn21N4WT11tkkmWwxYn+nfTY=;
+        b=g9GxdE3AnRDhHpq2JtaRCYRYwahCYQkCA3QXNcwF6kEOwQwcumkcGMnpeA2Czi7GYt
+         ETmS/mozBP4P4/Ab4vFaC6b59nN3r8zrMKTCFUqKas/EJW2cuEGnkbc20aDwDis9GX09
+         ZHKjjGJ8PgEp19cBdweQ0ZRUrhYPHa4RqU/e06otogoNHOWW28dIN8ijmK8qQcyRQae1
+         3B8z1LBOPz4o8Po4vE8Kj5N68X9E7pIK4xbokGliEiS1fNVtLJwo77ZF1bbRAdlef1EI
+         w9LX4FgF8ZgZPtthQCbt6nGwxbzbjJd2ihG6+tG5sQuQte60/Bc7GtOJ3m5YGO+ZVM/8
+         pN0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792163633; x=1792768433;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zv8TTKfbeUYEMQDxnGPnn21N4WT11tkkmWwxYn+nfTY=;
+        b=e19jNmQxxX/784Rh3Z87dmHfyhwG2ojcQXQtoFcXf5rXSbBd7Qbo5J6siy8AvOxZQh
+         LrD7u7QLtvUAilTakiXuIa9Kk+vt8oC3ZQQD/LVRrLbNTPwdE1OSaIhGdD72Xu94LdMi
+         GGUBw+se0Flh733Ui5g4nRuFsBgBx9BRkiI7HOpZVkxuUtsVkfK8nkmDewiF3/DIPg8J
+         17yUD4CLAUIVwshP0EfmE5wagpzmF16mfjPLu0cAPhALZVqKXBC1oGEITdn8vPbZfhik
+         mgVeAgtfWX+/cYAbmjnt95+TDxwK7mqAdozgXbuhDEojYxjursBT8w58njGlmLgvYknU
+         0xKg==
+X-Forwarded-Encrypted: i=1; AKwUvBwU/IH63mxN93nmEAJOOSuUL+NN5eeb5TkWfYOSrwUIY7GmG1rRy1IfM+KqJVkxJBaRxba7QMs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJNgFc6yMdwBJecjF+Ngx23xMr1cQYHaABiU+/J28wDcUcZzJYu
+	cZytDIq3Hd+BoJRe36J0lmsUgVpBCN8pUK6LwozhP0Xo9B205/bkWCkJ
+X-Gm-Gg: AYBFou07nDapcbvYkXeY3meY2/qYdGIHqGnDYNvdpj9rQNS7smGQ1EiaCGkFSSfxJkE
+	07E+JvuWnyfKDW19D9zlQpvdRg8DNCoJfLdyJ6sYczw05sCmgN/xTFiarzpJiHhXH15Lz8MR+8u
+	urpsMwzi3Zq8cMv0ppUKOl54wV4I63cFdy1EfWItIg1UogT1AlhG4A8K9/soSwt1yxw6S3h1Fdz
+	1o2Q4w/vjOSkK1z88FoVTpNJ8f1uQg66L3AhDfuxMPBoYZrL6bEgN4pKzeiz8tbyiFflAp+bV9w
+	qfPGBUxnaCQYU1flwifs6mFUE0UmpULqwvggKpE92xUd/KAtu6ZA8pMgVNDPwea0MXXnDSbMl5/
+	+fJ6BuBs/0XRhvpnnb5q+1VibX7r61sthWFYxgxOY+GoFRC89PIjqQcxoNu7vFhK7VbVg/IisOA
+	cZ/+9mIYG4LauE9A3zIpaxN20Y3qFOV0REx942bY8bklCd2KZIYvMwz7pXanDXRWE=
+X-Received: by 2002:a05:622a:260b:b0:535:8567:662 with SMTP id d75a77b69052e-5359fe116d0mr371801881cf.62.1792163633191;
+        Fri, 16 Oct 2026 08:13:53 -0700 (PDT)
+Received: from beelink ([187.15.139.183])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5362aa59b03sm24674041cf.27.2026.10.16.08.13.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 08:13:52 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: jikos@kernel.org,
+	bentiss@kernel.org
+Cc: dmitry.torokhov@gmail.com,
+	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	bobtobabz@gmail.com
-Subject: Re: [PATCH] svcrdma: account for inline bytes in Read chunk page budget
-Date: Fri, 16 Oct 2026 11:08:17 -0400
-Message-ID: <179216322004.3259068.2699387517465524714.b4-ty@b4>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261015135832.67889-1-dwdnlzj@gmail.com>
-References: <20261015135832.67889-1-dwdnlzj@gmail.com>
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: [PATCH v6 0/2] HID: multitouch: fix use-after-free of haptic data on delayed input release
+Date: Fri, 16 Oct 2026 12:13:40 -0300
+Message-ID: <20261016151343.3120300-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261016135516.2957381-1-qwe.aldo@gmail.com>
+References: <20261016135516.2957381-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Thu, 15 Oct 2026 22:58:32 +0900, Jiwoong Wi wrote:
-> The Read-list check limits Read bytes to the request page budget. With
-> multiple data item Read chunks, svc_rdma_read_multiple_chunks() copies
-> the inline RPC body into those same pages. The reconstructed message
-> can overflow the budget even when its Read bytes alone fit.
-> 
-> A short final Read segment escapes the existing page-overrun check
-> because that check runs only if len remains nonzero. The inflated
-> rc_page_count then makes svc_rdma_clear_rqst_pages() write past
-> rc_pages, followed by an out-of-bounds read during cleanup.
-> 
-> [...]
+v6 fixes issues found by Sashiko on v5.
 
-Applied to nfsd-testing, thanks!
+Patch 1 is unchanged -- reorders try_module_get()/get_device() before
+input_ff_create().
 
-[1/1] svcrdma: account for inline bytes in Read chunk page budget
-      commit: 4e84914d70a0194e18bba6d814cfe71b340aadc8
+Patch 2 keeps the devm_add_action() design.  Changes since v5:
+  - module_put moved to hid_haptic_destroy so the module stays loaded
+    until the FF subsystem is done with the callback; a second
+    __module_get covers hid_haptic_devm_release itself
+  - guard against double-init (return 0 when haptic->wq is set)
+  - NULL haptic->hdev and haptic->input_dev after put in devm_release
+  - restore dev->flush/event after input_ff_destroy on devm_add_action
+    failure
+
+v5: https://lore.kernel.org/linux-input/20261016135516.2957381-1-qwe.aldo@gmail.com/
+v4: https://lore.kernel.org/linux-input/20261009103333.2476105-1-qwe.aldo@gmail.com/
+v1: https://lore.kernel.org/linux-input/20261009031207.3233206-1-qwe.aldo@gmail.com/
+
+Aldo Ariel Panzardo (2):
+  HID: haptic: reorder try_module_get/get_device before input_ff_create
+  HID: multitouch: fix use-after-free of haptic data on delayed input
+    release
+
+ drivers/hid/hid-haptic.c | 93 ++++++++++++++++++++++++++++++++++------
+ 1 file changed, 80 insertions(+), 13 deletions(-)
 
 --
-Chuck Lever
-
+2.53.0
