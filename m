@@ -1,102 +1,102 @@
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6546348488D
-	for <stable@vger.kernel.org>; Fri, 16 Oct 2026 13:30:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792157401; cv=pass; b=os5goclVHXDa2U9q9rPdYJB29/ZNuzqGrG6XejYrOL+aeESDtIspQ182UNndyvuAiwmtkpgGDULZwrDB0f4N/BiQyW4q10hatIRDLbcTknfer8dDFBvH1cZOWJuBgCfCYcGhDd+1a89iBan6okn8Od7RYKs93eQuLVSMX4DT0ag=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792157401; c=relaxed/simple;
-	bh=ghSQBNQLHFKFmZCfz5WoBGUzvoX8ZbfSdQ88iO2t5e4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lzRwDVPWk/k3SDExCoMcgpCI4PgX1rx1l4HBYtsTY4g+xbnOWknrjs/rdCp9OvFfBRF1iM8WFVbmfNTkkNo//4Y+Jz4wpt6S64YYBPUEpRQN0thpL9lOLL2FN6Vrf02RI6s4/sVMBQe8AeDTyTbUI917m7jEDsjgSBn6iGFqgHI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu; spf=pass smtp.mailfrom=szeredi.hu; dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b=aCWMum+C; arc=pass smtp.client-ip=209.85.160.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C90284D09F3;
+	Fri, 16 Oct 2026 13:32:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792157566; cv=none; b=mnu5CjaF4uNeQuZHe+cXkyZ+i0fNu5Kd+zJkyRGOmoAIRU4eH14BpjC6qnOxYLwAXAFZq5Qwdh5qISaw1AEJoZJLqPnv4W1gc1vqa1NF5HdBo0JWKYOr1ZUbRRnwVVrx50KrlAE3J6raSqEWckYsT7k6CNgapdA8FMMCNl8RFbo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792157566; c=relaxed/simple;
+	bh=QKHd2xRjjFAOzLy7ke4Z/dj35NJ4a5Rb7JDcr24KGuI=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type; b=RtXZUP0VuONOOapMcpmst5tppnWU7ro6PpEw5Ud2itG9oKUGU1hLG8V63pQs7iMw3Cx+blYryYtYXnhjl9RjeTn8vvXnIyNgjKkFU68qTMqopWL9//4qvhaNvVuVk3voM979JLWEO+Pmmlzhss9uYH/xYkZtd9imuoFfyl9RCJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CrM+YTd+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.b="aCWMum+C"
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-534e6545939so21710601cf.3
-        for <stable@vger.kernel.org>; Fri, 16 Oct 2026 06:30:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792157399; cv=none;
-        d=google.com; s=arc-20260327;
-        b=olslBRndh67ag+Z4Lgl1BB+O0GDTwNzu+rlOyZirOGuSRyyFO1hqjuhThSiNuNt9UT
-         nkmf/DZ0RZEfC3SuqtKakyCJjUPO9DUPk0p851teY99rOawXrWXg60zZd0njrodfSQYa
-         y9pXOzptbB3o7jTaGRKZIrROhIQryydqOh2cQrcBWXOQ5jQVkIrnoYHIoseq9CQRpVkA
-         t5c5Yg8lcixxsH2KS/FufGdO8OJyOw7AZ1Aa9EjyeSLDxC3VytKEHotlUfjoGOUM4yCW
-         nPpT4vxH8XaIzkxuHAE/Rr1qVSSHHcWd+dFK37/QbfKazeX3bl4KL12AAX03p1Phr4Ym
-         nFgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ghSQBNQLHFKFmZCfz5WoBGUzvoX8ZbfSdQ88iO2t5e4=;
-        fh=UYtfz4xs+y7ayWo3LNB4XlDHcKod5iSSEnps054xfvw=;
-        b=sQO5vKoqN/j9DtWvEPWESBW4rft0rpEO889YFHKlwvEx0YP9oNllZtbWEYI4cPC1UZ
-         fvtX3kpv/2xFPqACLqGEhh+EYXlcbMihP5IsrJOMp+MBI3Ji8EhDNVBUKy/2z6XQldZb
-         3HyhS96CJAAjCyJHnoOSv1sciEv6VbCcikRf4jB3uQUbyiOCl7068AmfcMsQBfD3+S3q
-         Y/P3Vf9Sxz0f63ULNfl4+uQapDQZqovtehfwfWzuMSKxryLp8TUyUg6ZkleWG8EUAeZ0
-         knsnGg39G9zqHEX7yEy/9O2ew8laV/AjrNp+BxK5CYUGgkM5r2+KB52ptcrgjE42pvun
-         i++A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1792157399; x=1792762199; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ghSQBNQLHFKFmZCfz5WoBGUzvoX8ZbfSdQ88iO2t5e4=;
-        b=aCWMum+Cdo2XuvTLAhUKiMVrIO2b1nqDzL7pZFYRR74ssQyLwwQvaBxZtGH5vyB1eg
-         ycZICwSeSFsa4qdDVJ449YvodCCxU0IfujjZpvaZNJI1Rep1HsXnqjFwCvrPvCn2SV37
-         JDiM8S61RG/TG1s48exO0jKkY8cbtHSRN86RY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792157399; x=1792762199;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ghSQBNQLHFKFmZCfz5WoBGUzvoX8ZbfSdQ88iO2t5e4=;
-        b=Ex34fTz3XGCh6oD81wGXDWufOEdqs8Z0pWii8IzlRyTJYDQsy6se+tnBOwryIX33uL
-         60+3aMqb8TjDloE1gplFz4jOYUAuJK2VBkJzi+AV51nU0rs6P6nzqs8SF2MDbuGW7bOm
-         aI5Y/ML2ui5ZqlcgGp+vtJW2/TzTZLlSF3cJQX+SbkIHU+ioE8VzHB8pyC7HqrEAYLBH
-         6uglZ2BNDTn9EOpjojjL0+laOSjymkfwtN4tFMLJL8s2ps3bHu6ACI4QaIxUkVFHDGhW
-         vhaJhUVs2H31MzbeKU0Q2lH43SrvRRuACoC7h4/Xm4U6U7GaFy2SdoV22xP7lXyHgdL7
-         Z9KQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzlQmoLDbUvpkKOdcvW4YNktkBReUVW1jKb9RCbR6BMF7tFwmdBn2zXFt0uwgcIbZtx1TFRgFM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKYj+7NTWvzOfNS0VwaVAl3yM6X4DszO+l6gDh8mzeiZ6n378K/
-	0aYqDDwHrj/sh4TwtH0aadPA90AV2vzNIzsY/FmMav0j4Z9Ti3MKMzMspPHkLseEEIGxn0yDa2D
-	jJe3LKpKKxJG8Yaxr1ozIdKpJdPhhNgOi/MqOFtM2B6CAZxPYWQOo
-X-Gm-Gg: AYBFou2t11RnwCsczF1fJbtxHlgGE+Z/WTt8woS6KH88BvJPWpl+sNHK55KUYRMc4i4
-	UgTdvu1w6F2FleaOW7gFsWVxCcsN1wOmhef4WyoleW+6yA2iNEzBAs46PyBCyXiWXyDm/RCZbIF
-	KIdeK8eCLC1tNPIsmMLyQkLMuUwSAEz59NGoBf1NA785VkMA0+/DshnhDjQQvqQ0Tpa3eMVMovf
-	kv/CwkgAS1r2vYNS+xPPT7QNjLsRaBqul8sIoiRE5j4NKQGzkxnf07SrZcgC7/DOVE+diBY4oae
-	P5W733sZu1dgm8iFtR6px9qVeCv7WOnO/Ej/d9GZneHy0QvOiZmOn5npvBzrO+7jDhr1O/dL0wI
-	uBkiKIqy1
-X-Received: by 2002:a05:620a:84c8:b0:93e:48fc:aa88 with SMTP id
- af79cd13be357-93ebd24d0b6mr3718433185a.44.1792157399220; Fri, 16 Oct 2026
- 06:29:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CrM+YTd+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA9C41F000C8;
+	Fri, 16 Oct 2026 13:32:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792157565;
+	bh=Sdv4jEo2GAMTX8hgC+kyloM7VR0ZThCwD4MNi5yQbxU=;
+	h=Date:From:To:Cc:Subject:References;
+	b=CrM+YTd+x+32FkgISyNzZ9t/0RAharXE/zhmOmAAKo6xMtiDZfxvnRom/OSW7XOU6
+	 XG3jyE1BwXhXIqMWIMrefTUyWOihM/hCbcttS8FsDsgMnq4RdTtodzCqnagioOlwU5
+	 DhmzDhE+2uO+iISYUCp4bJOKyj5OFApjJCiv+PaaYO5XT13vNbVqZ+aZ1H0FY5Los7
+	 TLrkydeAdqNxgdlPibd7XyJsDFZ3qOpuVInEZuPRZyYTZDFeVLiU5mIR67hvRBbSSo
+	 aMPQHUkIrzRqH3sO1Lccor67+pXuFffbr1xxu+PoQaxeu5JAOyBQA4Zjx4ByjqPKT/
+	 1wLNOr1FaYzpA==
+Received: from rostedt by gandalf with local (Exim 4.100.1)
+	(envelope-from <rostedt@kernel.org>)
+	id 1xHi3B-00000000WV0-077Z;
+	Fri, 16 Oct 2026 09:32:45 -0400
+Message-ID: <20261016133244.831560323@kernel.org>
+User-Agent: quilt/0.69
+Date: Fri, 16 Oct 2026 09:32:20 -0400
+From: Steven Rostedt <rostedt@kernel.org>
+To: linux-kernel@vger.kernel.org
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ stable@vger.kernel.org,
+ Taeyang Lee <0wn@theori.io>
+Subject: [for-linus][PATCH 2/3] tracing: Keep the predicate limit separate from program capacity
+References: <20261016133218.800011513@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013090447.1180121-1-nicoyip.dev@gmail.com>
-In-Reply-To: <20261013090447.1180121-1-nicoyip.dev@gmail.com>
-From: Miklos Szeredi <miklos@szeredi.hu>
-Date: Fri, 16 Oct 2026 15:29:47 +0200
-X-Gm-Features: AclHuK-Q2nn0oOoNYqpQrR-8kWZpjdvKCpaqHxulvcgHMV-HyAEfr1ZNOIxPAaI
-Message-ID: <CAJfpegupo+nAz_ELWYPezK5QsSEQ4-iuiXWrsme+yHvXrj0t0w@mail.gmail.com>
-Subject: Re: [PATCH] fuse: fix copy_file_range reply handling race
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: fuse-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 
-On Tue, 13 Oct 2026 at 11:04, Chengfeng Ye <nicoyip.dev@gmail.com> wrote:
+From: Taeyang Lee <0wn@theori.io>
 
-> Use args.opcode for both -ENOSYS handling and output buffer selection.
-> It records the opcode actually sent and is updated on fallback, keeping
-> each reply tied to its request regardless of concurrent flag updates.
+predicate_parse() adds two to nr_preds to reserve the terminal TRUE
+and FALSE entries. It also uses that increased value as the limit for
+parsed predicates. If the initial count is smaller than the number
+actually parsed, the program can fill the allocation and subsequent
+accesses can go past its end.
 
-Applied, thanks.
+Keep nr_preds as the predicate limit and use a separate value for the
+allocation size. This leaves space for both terminal entries and a
+zeroed entry when parsing stops at the limit.
 
-Miklos
+Cc: stable@vger.kernel.org
+Fixes: 39f7c41c908b ("tracing/filters: Enable filtering a cpumask field by another cpumask")
+Link: https://patch.msgid.link/atELCd1XjKVhrkFL@Taeyangs-MacBook-Pro.local
+Signed-off-by: Taeyang Lee <0wn@theori.io>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+---
+ kernel/trace/trace_events_filter.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
+index 2b46ca536045..781416ba6bdf 100644
+--- a/kernel/trace/trace_events_filter.c
++++ b/kernel/trace/trace_events_filter.c
+@@ -482,18 +482,17 @@ predicate_parse(const char *str, int nr_parens, int nr_preds,
+ 	int len;
+ 	int N = 0;
+ 	int i;
+-
+-	nr_preds += 2; /* For TRUE and FALSE */
++	int nr_preds_alloc = nr_preds + 2; /* For TRUE and FALSE */
+ 
+ 	op_stack = kmalloc_objs(*op_stack, nr_parens);
+ 	if (!op_stack)
+ 		return ERR_PTR(-ENOMEM);
+-	prog_stack = kzalloc_objs(*prog_stack, nr_preds);
++	prog_stack = kzalloc_objs(*prog_stack, nr_preds_alloc);
+ 	if (!prog_stack) {
+ 		parse_error(pe, -ENOMEM, 0);
+ 		goto out_free;
+ 	}
+-	inverts = kmalloc_array(nr_preds, sizeof(*inverts), GFP_KERNEL);
++	inverts = kmalloc_array(nr_preds_alloc, sizeof(*inverts), GFP_KERNEL);
+ 	if (!inverts) {
+ 		parse_error(pe, -ENOMEM, 0);
+ 		goto out_free;
+-- 
+2.53.0
